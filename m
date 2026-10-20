@@ -2,135 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F94606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 20:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364E8606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 21:10:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cnE+5kp2;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Gxd/dxSO
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=BfAVtqaq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 160C410F7D9;
-	Tue, 20 Oct 2026 20:48:57 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59F2110F7DB
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:48:26 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69KGtkdF2278767
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:48:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=QK2V0ULW7LP
- 9ugrR40QAJ25MXENJhXs4M1ySCOtIhX0=; b=cnE+5kp2GlB9jWYZjlh4paoeraF
- j4etdh//n0v3cMi6jQx+qLrLTaERvglpUBh/mIkpKbcHPXtGSktQ+7kuZInamF0t
- lWBpA47PNfV3QuGrQBr6Cr/HADzXd+GcrCQlki54n9bEGjCz9wV3sLFGjbNJ10VI
- JLBbk5IpsFZw6k3trXQcAhrJUvJvMuQBwqYCWbBSVFUtnuBjitXmClDemyoVXpXz
- jB2sdjG5+vh0z47cDoqV0tq4+hd0kFTkmPn3lLWIdb1wygbOlBzpkpiFm8POxpbu
- ccLUpVe9UaBBRDOW5MHdGjCHxBv0bljs+Z7yt2YVsTCAeeac8GlYd2En0fw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h2a3wm-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:48:25 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-39512608fb1so159628a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:48:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9634910E08A;
+	Tue, 20 Oct 2026 21:10:38 +0000 (UTC)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1951A10E08A
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 21:10:33 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-c2a4e013a44so503490266b.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 14:10:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792529305; x=1793134105;
+ d=linuxfoundation.org; s=google; t=1792530631; x=1793135431;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=QK2V0ULW7LP9ugrR40QAJ25MXENJhXs4M1ySCOtIhX0=;
- b=Gxd/dxSOaL8Bca2NApHOUYhDDRCCvRljiUn8/OPWNq/vqElr1LuNiZCmuHeNYhNkTy
- +ogvPtUFkwP+vjHPhJdsbVddgRmuM+Hr5AK1fjgHG6WzKO5eEpPqNkmEklBcTbR6pDph
- q3jedrKcjm8FYnTvfgF6kB17M4qQbvYI+cMUEvDVkrSGS95Le5PlweE2m3IsiJQnwZxb
- fuEnislR62uuV466882g1h+RAjXti7R7RLrBYvXAm3GvYWoYaONBR/wCTaIP03omXjED
- N9J/+EPoCY2nEnaREUjo6T1CVNuLYxP5hr0vxH6cTies6U0NnTMWQBxda4+E2R5cUW5O
- 7wmg==
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=8u8VU+962WndPKMDAHe6mqFpSZn6rgF+uoU28f5/v/U=;
+ b=BfAVtqaqyAZRpKPsBUQmAEzpaqLIpcVtCS6husHUmnqUjuQLrcj+x+SUn8MY3oZ9mc
+ m1wjPRHpTOczpYQGLueewwFaYb/wj1ogh4cai2nUy4XPZdLz7mKuNx+qtCzJcez6VRVD
+ 42NLlK2KSnjUIOk4kRKybsZdQl6rPSVZOFTq0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792529305; x=1793134105;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=QK2V0ULW7LP9ugrR40QAJ25MXENJhXs4M1ySCOtIhX0=;
- b=WUFlbBGJW2KUI4OaRoWCnbuhH8FNiWtUI4KRHm9rjouuuXPCZ5vhvWJmnKmu+HZgdm
- uWJTWezF125KvveAfqZ8DV/a86b4CqcsLlINq+OUlQxCvaZAFSjwdjyj7zFnFelK40H5
- MFGYA3NHxXxd9w2KdCs72h+hcqeokQyyHu92cMDvp05KR1PO8kFxjL2wWzORt9zLIL6y
- A7pWgn/teAJ4WEFVzxMcyqJPOQWIlZJVBrbkANBznHrVyQ12E+lxTC5ucNfXPVLyxmmH
- Ezaw2HUmBmzk9HR1FDPdqp2QpBVtQBm51ux8fdZDSflLWi1uTIOoXfekXgMqVgV3XSGL
- NuXQ==
-X-Gm-Message-State: AFq9FYLlifcSIF8DhdczT3iKvBokZwDMO73e4ShTjeLmdHQrGz0NdzUz
- pi9s0mFdTEWxKcyTJx1G7wLfm0v65pr4dISNczvMTt7ARZd4cF693kQlJwo1HRtpSXC+fhqPZA6
- YhbS8Uqv8iwrmjk6uJALC9YkO6re9ZGkRC/ZbNmM7URAxY8WWtM/wb/XJR9p9MuA3oEDbMnT+mi
- 0i0EA=
-X-Gm-Gg: AYBFou3hyW2QrGNNXjZ5whN6s5i9wApQvZ6fZyjeLZwt9sGBtoEA3/p8Ms8DtF7f1Fs
- HZjdgxzIlW/0oCupF1huyQHZxStK6F67c/L6cZESXz0CbDDZAsLiZB26rBNrFd6S1GJJna9Y5EP
- 0GiekX0vh5hu1/LOxry49IW3s+bMl2bV5OmuThPMk2ChHmAIfhvOPSZCE2/wS6Hkj73wjrRDyi3
- vW2/dh5t7HMIkVNyYu8a01P3wTOqCs3vw2HtJOQQYYuI7tYerX7Q0slwXCkWKFbA1w7zUDtC/1I
- 29tvoQEN4oTAhZWfhE2qR5zVlJAt/k8pN1fztQWN2jZxFy9fSytWSg955LqvoHcwzcIcTBh2kNv
- DhhfCkIFxD2KpjXvNYSx5CGUM5CJjl3PrEKYiD7UZkyC6jeEU
-X-Received: by 2002:a17:90b:17c5:b0:3ac:adce:60be with SMTP id
- 98e67ed59e1d1-3ad86f44ed6mr69633a91.21.1792529305165; 
- Tue, 20 Oct 2026 13:48:25 -0700 (PDT)
-X-Received: by 2002:a17:90b:17c5:b0:3ac:adce:60be with SMTP id
- 98e67ed59e1d1-3ad86f44ed6mr69611a91.21.1792529304739; 
- Tue, 20 Oct 2026 13:48:24 -0700 (PDT)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
- [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ad80303302sm1045860a91.11.2026.10.20.13.48.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2026 13:48:24 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Alexander Koskovich <akoskovich@pm.me>,
- Jie Zhang <jie.zhang@oss.qualcomm.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 12/12] drm/msm/adreno: Remove temporary __maybe_unused
-Date: Tue, 20 Oct 2026 13:46:26 -0700
-Message-ID: <20261020204728.28844-13-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
-References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
+ d=1e100.net; s=20260707; t=1792530631; x=1793135431;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=8u8VU+962WndPKMDAHe6mqFpSZn6rgF+uoU28f5/v/U=;
+ b=Xs8HDTqFf8PK9N41msGzpIm/Akouj2Skr1CiK3RrSGs5hgeI5eFkUxjk/N1OZqgr4P
+ X74fAO/Q8Jm2yGDHEfgnfpwbshUT1QkLPZ80AaFZlwZDfK6VxJnX3VpIMPAuNq6vpgn7
+ EQrT8IBPCjwrTaS/0mM+H6kkD3oFvuEAvTjAfzJmSQhts6DnbTmwj363UWSTis/I+JoH
+ u7ctr0e+N/jqvc84Jva8faHokXqm3ATQqJlusZUxZcGAuNvou/CIBF2wB0Oi+zP2nI0o
+ 25BpPt/Q5HyfkRZw4/xuAWsU7K2SGb2mRVKqUcdqvAP39oNRjDQoauE68nvQe79z3PNL
+ +a2Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByFPP19Fznk0R47j8BdfaB3oJmVOrKCCIOawmXnnSPdGwqxZRYRCrK8AZrUzxRRZjWp31xz4wRFtOk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLlsitWSaX8yDqOVliohXykDQTT+ZMXBMo5rFcOTiuHMfS2qftK
+ I6UOfJKp2OpK/lyyNgak1T/0QGNHHa5lE29COqkqkdyyZGa7V5PGmZkyQBM8IF7MAa9t+rwpmDV
+ Iml/EkWdLlQ==
+X-Gm-Gg: AYBFou3DnbaY1w0wzaq1LyxfMBTXzGVl46IN8H7lQnwXyygh9/CAGm1vV9i7EfVDpz4
+ TgX1sN02wEe9mO9vkntaGEuMt7fgwSyH30Gl6DViSSoo6Qbko80ZShqWWmmT+QQkx+mZIiVl/L8
+ ABt1rUzae51XXbN7YztitGXnPW2wsVEoJCshna3AvNgPscBE/4pyfH3xnENOV2aL4YpSVt9y7wi
+ hGUdMzXo6TPL+hZHcGs2STQ1rK00NAoSU+he4TTeSyO44uCeQr9Lo24ZcfxjHhqamMdiW+CbXZM
+ BqbsTBZpedR87wGeYZA2Uu0ZU21xKyBQVr1UmAuFqmLeP0GbtNz2O4NThamMycgcTmmS9kkmGfZ
+ +gUOQF0GBN1BgZo9fciHq2hz/p3sPM+aHiyuKSlpSv7LVZqeg1qbjJfcZ46inPu6FCJFzGMJtoq
+ ACHTaJdAqpB2tnPIAzGw9Z0o3+vrpSdSt8kG7z9X1fOQ4VeEg7jB+yOz/XxteFSR9Ww6V++ITN8
+ kmnSgrqHYARyK8u6+RLPABXyIRa1px1MCJ2lBKkX8tIeTM=
+X-Received: by 2002:a17:907:7208:b0:c2e:6a4f:a88b with SMTP id
+ a640c23a62f3a-c4678ff7fe7mr30977466b.0.1792530631157; 
+ Tue, 20 Oct 2026 14:10:31 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com.
+ [209.85.208.44]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c4678fa97f0sm13087666b.38.2026.10.20.14.10.29
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Oct 2026 14:10:30 -0700 (PDT)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-6b1dae0febeso4632627a12.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 14:10:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw3JQDyYl56Ab9zwYptvZO8ZgQp0bPUiiN+B5KLTZviZ+/L+ulJHxsg6vyRECeviXiDmq5QFWnz7D4=@lists.freedesktop.org
+X-Received: by 2002:a17:907:a089:b0:c3f:7270:1093 with SMTP id
+ a640c23a62f3a-c467975217fmr26146266b.26.1792530629511; Tue, 20 Oct 2026
+ 14:10:29 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 2XxLs2uWdbQNOMEo3IKwicGrivZnGWFX
-X-Proofpoint-ORIG-GUID: 2XxLs2uWdbQNOMEo3IKwicGrivZnGWFX
-X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad7d399 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=SI4bJWXHUBEfUJKjJlYA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX/5xP0QSgonCd
- subXupqOgcdmR8Y0ShHf+SxD02AaTB63w0yMt65YdWJvc+E1AlqJ3Nos3brSwEUDn0QWgM7G+Qo
- +63LNTVOhwnonFvf14dCLyXFu1sFwoM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfXwQku5zW1ARSl
- AVEdVGsVGyUPDJZ2Vs9gMwUAfQz1RUlSRMTlUDZkMW3SN09Nw0TM9wYrAhmIKhC4ZxpZbQDv2I2
- vQC+Ud0+njxkImlimFsAjPMxd07uD1zgEUW4Wtd3juFZQwzkyi2veGLR/9GysaF73SZPKw16IXF
- GtZxTxVGuWe3HVwb+dWnkx4vd3GsAYU9zCWHVklz1oEd/oA4AIjuL/4vi3dARVjYwyVItE/bCqY
- xVakMbKSqA0EFVxmUYC08U6iqugQkHw2IEmO01qYZ1631YLk7JAUStaQmE7uq/Ntk/L+V4RjlYa
- q9DPr8GR9gHrvOQ+kmzEO779is2srT/0nrKkZqXpe+pfT2GryTuCWPRhd75752faqsla9YIo7xt
- ORdmTYFmu9sAf8grvOB1uLe6byxh+zAypSGr7T5TGE8jOII9t1Z28QBmj45KJuPyvvbkPKoQUxJ
- 13nw0lJ9GlOlLwfHn6Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_03,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200082
+References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com>
+ <20261018152358-mutt-send-email-mst@kernel.org>
+ <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
+ <20261018174250-mutt-send-email-mst@kernel.org>
+ <376ef9d0-b03f-4f85-aee5-46cf20eb00ae@gmail.com>
+ <20261020021924-mutt-send-email-mst@kernel.org>
+ <CAHk-=wjxtzD1TXZr5iWu0p1+Hu0YZP7jbNSwFkp7AJYmhzhVCA@mail.gmail.com>
+ <CAHk-=wipGHx_1Uztmu773yuTM2ka1fq996UmNoJpvKS0gqEdMg@mail.gmail.com>
+ <atdqUYdIOqmiqqTt@gmail.com>
+ <CAHk-=whrUi2M+whqwS8yfqZ=W9ts6NPOzxzGfBOwOfCC3ooeMA@mail.gmail.com>
+In-Reply-To: <CAHk-=whrUi2M+whqwS8yfqZ=W9ts6NPOzxzGfBOwOfCC3ooeMA@mail.gmail.com>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Tue, 20 Oct 2026 11:10:10 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wjFBSH9M2GYKRnd-jrMGaa-gPBoGhuscJAu4n1hGsuX7g@mail.gmail.com>
+X-Gm-Features: AclHuK_6KLe4MdJBM16CPxiFHqLhafyIe7uBjQxeCZuvD1ajy5NbBw09RuGahAk
+Message-ID: <CAHk-=wjFBSH9M2GYKRnd-jrMGaa-gPBoGhuscJAu4n1hGsuX7g@mail.gmail.com>
+Subject: Re: Removing __get_user / __put_user for good
+To: Ingo Molnar <mingo@kernel.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Borislav Petkov <bp@alien8.de>,
+ Tom Lendacky <thomas.lendacky@amd.com>, 
+ Joerg Roedel <joerg.roedel@amd.com>, "Nikunj A. Dadhania" <nikunj@amd.com>, 
+ intel-gfx <intel-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "the arch/x86 maintainers" <x86@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,34 +110,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Now that is unneeded.
+On Tue, 20 Oct 2026 at 08:14, Linus Torvalds
+<torvalds@linuxfoundation.org> wrote:
+>
+> On Tue, 20 Oct 2026 at 03:19, Ingo Molnar <mingo@kernel.org> wrote:
+> >
+> > ( BTW., there's a new dependency introduced by this series,
+> >   if an architecture gets rid of __get_user(), then it must
+> >   define arch_get_kernel_nofault(), otherwise it will gain
+> >   new uses of __get_user()/__put_user() via the generic implementations
+> >   of __get_kernel_nofault() and __put_kernel_nofault(). No big deal
+> >   I suppose. )
+>
+> Yeah. It didn't actually look too bad to just remove __get_user and
+> __put_user in general, but I ran out of motivation.
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/adreno_gpu.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Bah. I'm using claude as a fancy coccinelle script, and ended up doing
+the ObviouslyCorrect(tm) safe cases.
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index ed83dd927b54..3ef3ac2d86f9 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -170,7 +170,7 @@ struct adreno_protect {
- };
- 
- #define DECLARE_ADRENO_PROTECT(name, __count_max)	\
--static const struct adreno_protect name __maybe_unused = {		\
-+static const struct adreno_protect name = {		\
- 	.regs = name ## _regs,				\
- 	.count = ARRAY_SIZE(name ## _regs),		\
- 	.count_max = __count_max,			\
--- 
-2.56.0
+And it all really does look obviously correct, but ...
 
+Anyway, the branch has been partially rebased to add the acked-by from
+Michael, and now has a number of those "obvious" patches for alpha,
+hexagon, 32-bit arm and powerpc.
+
+I think I have - once again - run out of motivation to go further.
+There are still various __get_user and __put_user calls around, but
+they are starting to get rare, and I've run out of cases that look
+obvious.
+
+For example, I looked at the sparc32 signal cases, and decided
+somebody else needs to do that part. It just looks too messy, and I
+can't find it in myself to care. Same goes for m68k, loongarch, parisc
+and mips. I just ran out of steam.
+
+But I think this *did* get rid of the bulk of the noise elsewhere, so
+now it's hopefully a case of "a motivated architecture maintainer has
+a few cases to look at".
+
+                 Linus
