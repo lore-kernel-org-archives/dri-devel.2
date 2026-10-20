@@ -2,99 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4E7606A322
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 05:59:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C834606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 06:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K3r6I8vf
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cA9c0bxV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1901410EB7B;
-	Tue, 20 Oct 2026 05:59:23 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F4410E9F4
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 05:59:17 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5bcb6faf862so2604922e87.2
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 22:59:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792475955; cv=none;
- d=google.com; s=arc-20260327;
- b=d0NhHfEDu/5L/Mc+EhVy6zS+hKTrP7gUuo4luxBEex3/LCazMo2JK23qj9bNmX/sh/
- ZFQN7xD1Wa5kreHU2V84wHgUZE8Ackh2Q//Lebv2WUwMKiIuDIJafSAr4/nuBZyLaqnQ
- 30R7EzQVPsgFCWn+nVRNj2x6YLyQJAGiUCeXIhDtWEXwgkhulmWjJudlUTZFTVC3wOZl
- rZovL6qAlPIxFXDiOda5awVPR517xeiT4MhuwzwKTbKbSx7tQ3HDA3l4nTA/08a/K/yJ
- Nm9Di6+ojjMtwtHJ+ggoPTb8SoaRVQ+nPugL+LtAPkMjLoCuurOzbjv0XQ5gkTN2cQDk
- 80Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=aCg8fph/1fJDI6h7fkyNcd2zVqelb2p7EHJpKPHyiUA=;
- fh=vElwR1hR9dGb+znyY3IVfjutZrm9sYjzUrVdXdg2gTk=;
- b=c3DdBc9Fe2RgPgvwXx/t8hKNHm24zOd6bTPOtqsfMyM40exwsoaMLzw0AKTSWRSwOv
- u2a4KYiZHGyzKcgiiNVa90kIFzuzuDwRNsRJHTQJ7Wg/tVMIPSo4QTnTCR4NDHlzOtbf
- Bcd9kxZjtApVCGpz+l7E+Q0geL0v0Y2DQcikunvgiJMXmL8Y8CtGXEaazccgmvBPPHDF
- 67qTnv8BVK/LIS2t02S1Ojk5TTULnE+GD8iQv498ZXS5U6vVFECJ0EesM2gS4VLG5wsE
- B1+CTRxIo/DtURZ3q6D2KHZ7UjbGPmV5yol3Oscz1hUvOgMjMhgtSZ+9xB/vowCn4eoj
- 1ckg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792475955; x=1793080755; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=aCg8fph/1fJDI6h7fkyNcd2zVqelb2p7EHJpKPHyiUA=;
- b=K3r6I8vfrU49eLROtE7s2eVt5Jcx96xeBrxUpnyhBXfVcMKYplv6IuAl9VgyTTZ8pR
- hAPZ8bSzAF+RiVU3xE9eYLyrLTnttOmRH7Dsw9hCL52v+IcqbMqZL6N5Z40F1rpgRez/
- Ew4gCbyiyG9tGr2nS0NxtF03fyEXeVLRD6U14YSybSBDT9zfgw7odhWO5vd1uqRS3BCB
- gaPYzEN8d3K4JTmSiIv843BfejPPJ2sUMHRq0p0x4RIRHg/iKCKyfnz2g/keWRBop7H+
- /nwNe0reI+pO6v7hmG2PyyHzoOoQ5MJtrOGFgWaJv4PHFJ5yfv16DY8510S9TDLxbhye
- g1OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792475955; x=1793080755;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=aCg8fph/1fJDI6h7fkyNcd2zVqelb2p7EHJpKPHyiUA=;
- b=LAxz8u+NF0uu9c24oVkA0KaKWjE233S8BzXY7mZ0E4wU8fXJCPOnJx5AnNvGlbrbWh
- fWofRpxuWvfzQsU8omcS9AynpGb35OUekfxGCBVIRP0vdPhJ6OC6XuTYdmpXhxIsPt7r
- ZWSn/LYx6TumW2yXG8Y57Zt05oONo79QKTYmfbZsqM/5ubAewygie1OA0eYr6nOvpxha
- EIGbbrLoWeI6theO19FWfk8Dbgy3/mUL9A8RPIeK24Xfx09+jAe3F9+36UWZvyvBaWGZ
- MjcX2/MWhT051xLGtvEGWFlvHgdOF2YOs1J0ilM2WG31jDtR7a8U/jwIgMlRZO3SUMBL
- 8WRQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxariH/a7zBYfjSqGkFkHke0Q8dKre33hkKBL/y54Fuv91ozEL31bPJWayR+4XK7YE2F+IW5H6qXx8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKNVQtjUx6IMJjNrNR4fkz7EH2kMaPbisgpJavxBUjskQ5z73SU
- 067TkifwNpsKYzqLUmB1NiE6H+ECQNpxY0QnBi4pW3bvxjjwdiSAbl5HxrlQRAx6lkPMYcSUWod
- Fw480UUOBE51OlNmSMsMlCTmxw7wgPA4TUf0O
-X-Gm-Gg: AYBFou1Dl3lNna50LElglP+KZ2rCiHzJoM/bhzocKHrU57UTI9/7e2l0vhfwBNkEDns
- mu63fdToQkiO7HGZouEcjPI2hajY6msHOXlbZOrFQqL1rQvTfLYp0RlBEkSrg9xn7O+RN0VU3E6
- ITBkYkUnLFP8Cc707yC0qdFSmuDpKMRF4U4regHeRAYCC9vDNRxh+07LDCRuJxx8jzIRQFkVLJL
- 7EZ3Tnx66Yef+QDDOBG4KH+DA2EzTFSnLbhPb3S9CPJqCT+mppHaayo1vrKFqJTKZT8sU66dsh7
- +l/qc1wSzh7CEeQNfj8Qc1LuC/ToilAgHPQ8Tq5np1rBEl0ge7LxuNkHQ8xnmvsL+KoYhJg9dvp
- rOAEpFm/sctOoqzV1jI+cEPPPBPYvNb2qYx5px3+hEB4=
-X-Received: by 2002:a05:6512:401c:b0:5bc:f6b4:96c1 with SMTP id
- 2adb3069b0e04-5be50a09735mr3339214e87.9.1792475954919; Mon, 19 Oct 2026
- 22:59:14 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A60110F22D;
+	Tue, 20 Oct 2026 06:02:10 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011047.outbound.protection.outlook.com [52.101.62.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A0F110E9F4;
+ Tue, 20 Oct 2026 06:02:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AbOd1Uo8JK8wC5S7vNbDq91TbusX7ywHh9KYv7MxOLd6uJLw4yhtfptkOTJNoo7t8Zd16B21Geu/mKsMkDwV+TJCfawht7mWQisa1ntUIwdqPyIl40PUHO0M0axK/TmnSZ2n12F4jl1evY7dhZkWr3JrdPJIXJk95od4Z/1Q5WwKXM7QG/J7PIwc6Rb8+BVwZdTJjAORWelx6N8ZWmgTtA8oCr8qgBBw6H7Ed8PIz+aThZj0IWatJcAlPljd4zQ3y8TLZ+m10fh7sReGbXOKnLMSvliUtn4pf4f5X6m84Fm6dShMnsLLyfrjC4A1284HhC/D7fIo26Rra+TTjb/z2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6tDidC1DpfRqWj1P5mCU2nkS12lHH1u9edoZ1JeF+zs=;
+ b=CpHpmNeRMa8bZCcyXGxQZvyq4VzbMAiRQUHqCfbWpuMaqSXNY89H5tLJJ5Y01z5Oxdkx+U2zbYy0OT1RV1hy0bKdvVT4+stAodXd1AuUIVTBbAbL+YkTgs9s+PzPlBzFjFWBRXu0LBwOAA7XKFK6Mit0iE0Z7QwGK0SIjxfnLhGzhvQHoh30mWbfr+msxCUhIbnv5ObezFfndm7ks34gi9Pbty/u7EvVoSa7zorTMM64vrdmLuqmweEdUUH1+MG8YP3cCYWAnhTY4f9anPMtcchCtu3Gwhk/VgC985BClzfMrv/yob+xkQgvrnkNcSj3xznl/sp4N+5MraMya/wc+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6tDidC1DpfRqWj1P5mCU2nkS12lHH1u9edoZ1JeF+zs=;
+ b=cA9c0bxV2OGmvE3Hl1XAbentWlB5gcZXYNlJlnA12R/Jr04ROTe8SmyyZYf5TNpvrMmuQePGk0JC859dYnmdsm7VdnxK6dcj8y//veE3BbDGKCEGkvEddttOLqm3p2bf5K3VH6vjvMYS0yGLYvUCEx4+eR4snh81+OhiiuZE2KY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
+ by LV2PR12MB5773.namprd12.prod.outlook.com (2603:10b6:408:17b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 06:01:30 +0000
+Received: from DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
+ ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 06:01:30 +0000
+Message-ID: <6cd8a223-51cc-4dd6-a8d2-ee2f8b1de998@amd.com>
+Date: Tue, 20 Oct 2026 11:31:22 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] gpu/buddy: restore two-pass clear/dirty guard for
+ range-biased allocation
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ Anand.Raghavendra@amd.com
+References: <20261009100546.1103622-1-arunpravin.paneerselvam@amd.com>
+ <3e16b7d9-b1d6-4d6c-8f58-f6716fff71a6@amd.com>
+ <343cf7b2-6241-4e3c-8b37-2f0ea75c6723@intel.com>
+ <471cd64f-6dd1-4f8a-b446-94423d9d1439@amd.com>
+Content-Language: en-US
+In-Reply-To: <471cd64f-6dd1-4f8a-b446-94423d9d1439@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0095.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d4::16) To DM4PR12MB5039.namprd12.prod.outlook.com
+ (2603:10b6:5:38a::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261018-tegra-drm-yvu420-v2-0-512889103ab4@gmail.com>
- <20261018-tegra-drm-yvu420-v2-1-512889103ab4@gmail.com>
- <HmrilxC8QwiAQGw2IQ1Ztw@nvidia.com>
-In-Reply-To: <HmrilxC8QwiAQGw2IQ1Ztw@nvidia.com>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Tue, 20 Oct 2026 00:59:03 -0500
-X-Gm-Features: AclHuK-m8XMWtAb64cQPzzqZx3KIZG_Ohxl4ldySrzNI4kuCiiZ69ozwRbh1oCQ
-Message-ID: <CALHNRZ9pTTLTpsKCi7oETcjpxNbZmQxfnC+pvEx4Wezv1_zchw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/tegra: Support swapping chroma planes
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
- dri-devel@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|LV2PR12MB5773:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d925305-d349-4a9f-cc29-08df2e6f9601
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: M/YJ1LA5QnPDQMXet7fbgtf41MitqTSZfMSILHFP0VuGONr23JdI+kLWV7hrfdIZqulitbvUT3uytH9JHsdjCLcyg4KMe8aMe43d/Zwywn5uAXoGcwCZxpmPAlZQbgBXAiTQlktT2gp60LQQ/5qwKPMlVKIoYcrx7+M66vcvvrxmNKFdV2tgR06KwgQXCDEI3Fmlrqs+xfhQ/9zdkiijaItUbwaIfeYQsx/JQjwovdUVMLD8wnRpZjZLY8DI+4i1BtnuA87jISRj2CKjH7wSve9OlrEt3V3K/Zjf25CAbdA5GW/9qWywcLFvDqJ/I54Y9IBRpMNshzbsQEzUgAQRv6W/euZsrdcTxlWcbL/k+NbATdjxhtRjhiELvK30bR1xbLw5GwuDi6c0e3LZhAaUOBnmjyaj9M9eyICkrdRE2ZaNa0zZ5vyzOKSe2RELvqOqqYgXxMWLyoHjC5jwdHHLgYTyOn3u0Cf+H248d/4W4hdmplYFGU5ozIDROhyGkFlfYHkJ+vvx6beQ0ovfwimNd3aD7JBwEX63bg3bn11JX69pLxVE1t9VjFMXg4g1cWARjV4eYAi1KC5+0zRMDwnbO3DsJIWeGl6VNhXzt5hDNLk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGJkVVpmV0F5RVpRdnZJRk96NmhXSnQwczYrb0tsb1VsZzNnU1VHMXFqdnRy?=
+ =?utf-8?B?MlQ1aER6VHpUMkFtaU1oY0pCUDNSWWIzTnNqRG16S2Zudm4rVmg4WENSUTB3?=
+ =?utf-8?B?MnliQ3JoRTRZeTV3UzE5NHdrV3M1eDZjMHZUMTZEMmRHc01VQmlTdStwNy9I?=
+ =?utf-8?B?N3JwRUMxSGRLaEFFeENPZThaUTQrd3lWQUNFL0NsdmpiN0Zwa1lycmVnaGZB?=
+ =?utf-8?B?L0NmSXlkalVnUjRXQ0g3NW1uWFZmNnViejJLUmJjQ1VWaC9JMm1nSUV6bVBz?=
+ =?utf-8?B?UHgybEJkVnkzQnhiRURiQk4wZnZ2LzlYMG5SWVBkWjFFcHpwVGJNeis4UWZ2?=
+ =?utf-8?B?c2tNVTRnUDcrRGxIdUJRSklvRHJZS2d0eVY5NG1VeXFES21YT0VuMGI2V2xo?=
+ =?utf-8?B?SlJHTjhXaTNnT29ScjZsdHRmTzliWXVEQktJak1zRUIySzlvQXk4cE5NZ1Zv?=
+ =?utf-8?B?TzBYdGtrS3BkQXhhWW0ybTkxbGxjaTZFaHVaR04ycy9yTTMvMHJYZmIzSlVZ?=
+ =?utf-8?B?S2xibndTUm8wSVlaUGc4RUdTVHRsaGxiaFFuT2hlTUVidlFLdkpvNTh4NFRK?=
+ =?utf-8?B?VDJGUlV2WkNoZVBKQ25rSk4rdFlzRmg4TzQ5cU11QncvMkw1RXBTMTBPS1Y1?=
+ =?utf-8?B?dk5BRmR0dVJLRnQ5VnA5YlZLN3RwYWw4cE9uSGwwWkhvYjI4TVY2RHNlWXcw?=
+ =?utf-8?B?aUpGR1A2YVRVN20xcWorRVdMRStOVWgrR2dXTE8xaW9KV2pQQlZvcDh0ZHZR?=
+ =?utf-8?B?TnBHWStDUFNhbVR1RDNST1dObUdDY2V1MWo0U0crUW9vVlp4c0U4SHBwTmxj?=
+ =?utf-8?B?d1VHSWQ0L3g0WnpUWFpXUUdHMmc3SVNyWDJKWHhWdlVqU3hFVktvTkZtaWRB?=
+ =?utf-8?B?VDF4MzRVQzFNbmhobzd1b2tmQ2lBNlhZeDB2cE5lWGhnTHZicVdTd2F6b3BX?=
+ =?utf-8?B?cnFwNFRwVFo3VDA1UlFWNkVCVzUrNG1YVmM2Y2UwNkFnSXg1djhiYUZ6djJL?=
+ =?utf-8?B?WGZHSFdWWFRxOWNSTGxlQ3VweXBidTdVTDhsS1NsbnB3S0xJMERscXBES09Z?=
+ =?utf-8?B?K0ZMTmhkQ2RGZURzMVdscStnUG05bzBMUit3RVVNMEJZaFhBWGZENWZDYU1j?=
+ =?utf-8?B?cyt4RkVNUmIvTktLVVBBNXp4ZlM0ZUwyWmFwajRNRjZKcDFVaVpuclFVdWcx?=
+ =?utf-8?B?YklWN0ExcFhpb0ZvdWhqaGdKL3dYeHhpazBDYk9ZZUtWeEVrMVJMQ1ZheVEy?=
+ =?utf-8?B?bHJzdTFDUEdHWTZGVFJQQ2o1V2xwSnlkQW5XSlhiNm9USkxHdEx1QzRqdGpR?=
+ =?utf-8?B?d212UHl3QlJVWlNVR2RGa3hyU0I1UUFndEl3bVNsdGV4N3Y4MG9mK25TRnUw?=
+ =?utf-8?B?VzhPSktLU2ZpS1E0eS9GUC9BNFVhYUZPcklVNlJVTFdWTTVCek56VjVWZTNs?=
+ =?utf-8?B?L1BkM2NnUWY5ZHFzWGMzVTVJZStoUmFJLzlkMUxtZ3M2YUJYS3Z2M0pLaHAx?=
+ =?utf-8?B?cytQd3F3N21RbzJWUlF0WFh3WlhxTHJKOWthdEsyU094SndYeWpqY1hyV3dn?=
+ =?utf-8?B?L1hDTDQ3aDVsMFJnMUxHSmxsdjNxMGhNbGd4eSt5T2oxU0NFd21hY2xxakFu?=
+ =?utf-8?B?ZkxrR0RRZGJ0ZVIvNDdwNGIrNmkzU29lRjlKd3FZK0h0WDladG43NkF4S01X?=
+ =?utf-8?B?UmlPQU9DZG1rZW43VlJ1TEQ2T0NIOXVRRm1mREtLWjczdXZpeWxDQVQremJJ?=
+ =?utf-8?B?RW5FSnJWK3pWc1JxWWJDMnhNaUVXcGFNYlRQK1dQUVlEbk9sTytROFNwSm5o?=
+ =?utf-8?B?di9nbnZNT0FFN1czWWNEKzFnOFBITHdGbS9ORmFieEJubE55eE4xVFhUclNa?=
+ =?utf-8?B?TGY2VmxoRFNPQVQzUjk0SFR4ZGxkSGt5b05Zb1U0dCsweHYwdFRPNUtwalJN?=
+ =?utf-8?B?RkZYd05hbkx0UjU0QjBCOVBZcjlOblBDaGd1ZlhuWDVQcGZkNzhWTEd2cmUr?=
+ =?utf-8?B?aURIUXJ3TEJTT3ZEbThodmYyYndSN3BlNDRlczNPcjJJTUhzbWFLOUNQZFJj?=
+ =?utf-8?B?WEpPb3hud003SGsvbGg3RytvdDRWVVZOdzI1Wk1HK0dHQ015c0U0U3pxSHl4?=
+ =?utf-8?B?aDFhTUZLNnJsblNZSUpvc3AwYklQR0hXZkZKMnFMa1FrUjR5a01tTHBTQkph?=
+ =?utf-8?B?RHRtbzllalNsNnRaRzc3L0YzSldWWHhuMjJkRitRNzBaWEZtK3BEaUNYcTBv?=
+ =?utf-8?B?MFd4WUtOcEJqYXZPRktwKzQ1cmVOTTlPbFZKQ0hvOEY1Y3R1OFBaQWhzUEdR?=
+ =?utf-8?B?OTJ3ckMrMnM1cXBDajFYeHkyK3pDeEo2V2ZhdWVpalVUbDdTSHF1dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d925305-d349-4a9f-cc29-08df2e6f9601
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 06:01:30.4048 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eCObKZDkcDiEmNxoowhhmsqinu9uEeFxH8s4oaP9FwvsFsADchZkxBLuwIhGWtfIq0CaUo18kbAJhX+lNMEawg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5773
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,200 +135,317 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 20, 2026 at 12:08=E2=80=AFAM Mikko Perttunen <mperttunen@nvidia=
-.com> wrote:
->
-> On Monday, October 19, 2026 7:03=E2=80=AFAM Aaron Kling via B4 Relay wrot=
-e:
-> > From: Aaron Kling <webgeek1234@gmail.com>
-> >
-> > The Tegra display controller supports some yuv types, but not their
-> > chroma swapped variants. For example, yuv420 is supported but yvu420 is
-> > not. This can be efficiently worked around by just passing the hardware
-> > said chroma planes backwards. Add a flag to the plane state struct and
-> > handling to both tegradc and nvdisplay paths.
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> >  drivers/gpu/drm/tegra/dc.c    |  6 +++++-
-> >  drivers/gpu/drm/tegra/hub.c   | 14 +++++++++-----
-> >  drivers/gpu/drm/tegra/plane.c |  5 ++++-
-> >  drivers/gpu/drm/tegra/plane.h |  3 ++-
-> >  4 files changed, 20 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-> > index b0bfa946e6979..39c2e920d76a6 100644
-> > --- a/drivers/gpu/drm/tegra/dc.c
-> > +++ b/drivers/gpu/drm/tegra/dc.c
-> > @@ -740,7 +740,8 @@ static int tegra_plane_atomic_check(struct drm_plan=
-e *plane,
-> >
-> >       err =3D tegra_plane_format(new_plane_state->fb->format->format,
-> >                                &plane_state->format,
-> > -                              &plane_state->swap);
-> > +                              &plane_state->swap,
-> > +                              &plane_state->swap_uv);
-> >       if (err < 0)
-> >               return err;
-> >
-> > @@ -872,6 +873,9 @@ static void tegra_plane_atomic_update(struct drm_pl=
-ane *plane,
-> >                       window.stride[i] =3D fb->pitches[i];
-> >       }
-> >
-> > +     if (tegra_plane_state->swap_uv)
-> > +             swap(window.base[1], window.base[2]);
-> > +
-> >       tegra_dc_setup_window(p, &window);
-> >  }
-> >
-> > diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
-> > index 448f49f3a7d7e..6427155ac4fdf 100644
-> > --- a/drivers/gpu/drm/tegra/hub.c
-> > +++ b/drivers/gpu/drm/tegra/hub.c
-> > @@ -440,7 +440,8 @@ static int tegra_shared_plane_atomic_check(struct d=
-rm_plane *plane,
-> >
-> >       err =3D tegra_plane_format(new_plane_state->fb->format->format,
-> >                                &plane_state->format,
-> > -                              &plane_state->swap);
-> > +                              &plane_state->swap,
-> > +                              &plane_state->swap_uv);
-> >       if (err < 0)
-> >               return err;
-> >
-> > @@ -664,24 +665,27 @@ static void tegra_shared_plane_atomic_update(stru=
-ct drm_plane *plane,
-> >       tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE);
-> >
-> >       if (yuv && planes > 1) {
-> > -             base =3D tegra_plane_state->iova[1] + fb->offsets[1];
-> > +             uint8_t u =3D tegra_plane_state->swap_uv ? 2 : 1;
-> > +             uint8_t v =3D tegra_plane_state->swap_uv ? 1 : 2;
-> > +
-> > +             base =3D tegra_plane_state->iova[u] + fb->offsets[u];
-> >               base |=3D addr_flag;
-> >
-> >               tegra_plane_writel(p, upper_32_bits(base), DC_WINBUF_STAR=
-T_ADDR_HI_U);
-> >               tegra_plane_writel(p, lower_32_bits(base), DC_WINBUF_STAR=
-T_ADDR_U);
-> >
-> >               if (planes > 2) {
-> > -                     base =3D tegra_plane_state->iova[2] + fb->offsets=
-[2];
-> > +                     base =3D tegra_plane_state->iova[v] + fb->offsets=
-[v];
-> >                       base |=3D addr_flag;
-> >
-> >                       tegra_plane_writel(p, upper_32_bits(base), DC_WIN=
-BUF_START_ADDR_HI_V);
-> >                       tegra_plane_writel(p, lower_32_bits(base), DC_WIN=
-BUF_START_ADDR_V);
-> >               }
-> >
-> > -             value =3D PITCH_U(fb->pitches[1]);
-> > +             value =3D PITCH_U(fb->pitches[u]);
-> >
-> >               if (planes > 2)
-> > -                     value |=3D PITCH_V(fb->pitches[2]);
-> > +                     value |=3D PITCH_V(fb->pitches[v]);
-> >
-> >               tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE_UV);
-> >       } else {
->
-> I noticed DC_WIN_PRECOMP_WGRP_PARAMS has a SWAP_UV bit. This is already
-> defined in dc.h. So we can use that for the hub.c implementation instead
-> of manually swapping.
+Hi Matthew,
 
-Oh. I figured there had to be something like that in one of the
-generations, but my grep-fu failed me. Even more embarrassing that I
-ended up using the exact same name. I will update and verify this and
-send a new revision.
+I have sent the v5.
+Could you please review patch 1, as it needs immediate attention due to 
+the DAL CI IGT test failure and should be pushed to the internal branch 
+ASAP.
+The review of Patch 2 can follow later when you have time.
 
-> Otherwise everything looks good to me. We could also enable the swap_uv
-> logic for other UV formats.
+Thanks,
+Arun.
 
-Eh, other than asking for the entire patch to be rewritten over the
-last two revisions, it looks good. :P And alright, I'll plumb yvu422
-and yvu444 in the new revision as well. However, I don't have test
-cases for those.
+On 10/19/2026 10:20 AM, Arunpravin Paneer Selvam wrote:
+>
+>
+> On 10/13/2026 8:36 PM, Matthew Auld wrote:
+>> Hey,
+>>
+>> Yes, going to go through it now. Did you already look over the 
+>> Sashiko reports:
+>> https://sashiko.dev/#/patchset/20261009100546.1103622-1-arunpravin.paneerselvam%40amd.com 
+>>
+>>
+>> Are they all false positive? I wanted to hold off reviewing if you 
+>> were going to re-spin.
+> I am preparing a patch to address the issues reported by Sashiko.
+>>
+>> Also, on the "bugs" tab in Sashiko there was one open buddy issue, 
+>> which I sent a fix for:
+>> https://lore.kernel.org/intel-xe/20261006110706.1636971-2-matthew.auld@intel.com/ 
+>>
+>>
+>> Please take a look at that.
+> Sure. I will also take a look at the buddy fix you sent.
+>
+> Thanks,
+> Arun.
+>>
+>> On 13/10/2026 15:31, Arunpravin Paneer Selvam wrote:
+>>> Hi Matthew,
+>>> Could you please review the v4.
+>>>
+>>> Thanks,
+>>> Arun.
+>>>
+>>> On 10/9/2026 3:35 PM, Arunpravin Paneer Selvam wrote:
+>>>> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>>>>
+>>>> Range-restricted allocations (the visible-VRAM aperture) skip
+>>>> dirty_steer_window() and reach __alloc_range_bias() with no 
+>>>> clear/dirty
+>>>> eligibility guard, so a dirty allocation freely splits clear 
+>>>> extents (and
+>>>> vice versa), interleaving the two classes until no large same-class 
+>>>> run
+>>>> survives and a 4K scanout pin fails with -ENOSPC. Use a two-pass range
+>>>> search instead: block_incompatible() rejects opposite-class blocks 
+>>>> in the
+>>>> strict pass and relaxes only when the strict pass returns -ENOSPC, 
+>>>> so a
+>>>> request still succeeds when only opposite-class space remains. A KUnit
+>>>> regression test covers the interleaving pattern and fails without the
+>>>> guard.
+>>>>
+>>>> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with 
+>>>> decoupled dirty tracker")
+>>>> Assisted-by: LLM
+>>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>>> <Arunpravin.PaneerSelvam@amd.com>
+>>>> ---
+>>>>   drivers/gpu/buddy.c                | 71 
+>>>> ++++++++++++++----------------
+>>>>   drivers/gpu/tests/gpu_buddy_test.c | 65 +++++++++++++++++++++++++++
+>>>>   2 files changed, 99 insertions(+), 37 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+>>>> index 2f2aaadafe35..6566bad4fef1 100644
+>>>> --- a/drivers/gpu/buddy.c
+>>>> +++ b/drivers/gpu/buddy.c
+>>>> @@ -1240,11 +1240,19 @@ static void __gpu_buddy_undo_splits(struct 
+>>>> gpu_buddy *mm,
+>>>>       }
+>>>>   }
+>>>> +static bool block_incompatible(struct gpu_buddy_block *block, 
+>>>> unsigned int flags)
+>>>> +{
+>>>> +    bool needs_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
+>>>> +
+>>>> +    return needs_clear != gpu_buddy_block_is_clear(block);
+>>>> +}
+>>>> +
+>>>>   static struct gpu_buddy_block *
+>>>>   __alloc_range_bias(struct gpu_buddy *mm,
+>>>>              u64 start, u64 end,
+>>>>              unsigned int order,
+>>>> -           unsigned long flags)
+>>>> +           unsigned long flags,
+>>>> +           bool fallback)
+>>>>   {
+>>>>       u64 req_size = mm->chunk_size << order;
+>>>>       struct gpu_buddy_block *block;
+>>>> @@ -1258,9 +1266,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>>        * This range-constrained search hands back the 
+>>>> highest/right-most
+>>>>        * address that satisfies the request: the roots are seeded 
+>>>> high-to-low
+>>>>        * and the right (higher-address) child is descended first, 
+>>>> making
+>>>> -     * top-down the default placement here. A non-top-down clear 
+>>>> request is
+>>>> -     * the only exception, where the descent is biased towards 
+>>>> clear or
+>>>> -     * clear-containing subtrees to satisfy the clear preference.
+>>>> +     * top-down the default placement here.
+>>>>        */
+>>>>       for (i = mm->n_roots - 1; i >= 0; --i)
+>>>>           list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+>>>> @@ -1298,6 +1304,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>>                   continue;
+>>>>           }
+>>>> +        if (!fallback && block_incompatible(block, flags))
+>>>> +            continue;
+>>>> +
+>>>>           if (contains(start, end, block_start, block_end) &&
+>>>>               order == gpu_buddy_block_order(block)) {
+>>>>               /*
+>>>> @@ -1315,38 +1324,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>>                   goto err_undo;
+>>>>           }
+>>>> -        /*
+>>>> -         * Top-down is a strict address-placement policy, so when 
+>>>> it is
+>>>> -         * requested we ignore clear steering and simply descend the
+>>>> -         * right (higher-address) child first. Only a non-top-down 
+>>>> clear
+>>>> -         * request biases the descent towards clear/has_clear 
+>>>> subtrees.
+>>>> -         */
+>>>> -        if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
+>>>> -            !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
+>>>> -            struct gpu_buddy_block *prefer;
+>>>> -
+>>>> -            if (gpu_buddy_block_is_clear(block->right))
+>>>> -                prefer = block->right;
+>>>> -            else if (gpu_buddy_block_is_clear(block->left))
+>>>> -                prefer = block->left;
+>>>> -            else if (block->right->has_clear)
+>>>> -                prefer = block->right;
+>>>> -            else if (block->left->has_clear)
+>>>> -                prefer = block->left;
+>>>> -            else
+>>>> -                prefer = block->right;
+>>>> -
+>>>> -            if (prefer == block->right) {
+>>>> -                list_add(&block->left->tmp_link, &dfs);
+>>>> -                list_add(&block->right->tmp_link, &dfs);
+>>>> -            } else {
+>>>> -                list_add(&block->right->tmp_link, &dfs);
+>>>> -                list_add(&block->left->tmp_link, &dfs);
+>>>> -            }
+>>>> -        } else {
+>>>> -            list_add(&block->left->tmp_link, &dfs);
+>>>> -            list_add(&block->right->tmp_link, &dfs);
+>>>> -        }
+>>>> +        list_add(&block->left->tmp_link, &dfs);
+>>>> +        list_add(&block->right->tmp_link, &dfs);
+>>>>       } while (1);
+>>>>       return ERR_PTR(-ENOSPC);
+>>>> @@ -1361,6 +1340,24 @@ __alloc_range_bias(struct gpu_buddy *mm,
+>>>>       return ERR_PTR(err);
+>>>>   }
+>>>> +static struct gpu_buddy_block *
+>>>> +__gpu_buddy_alloc_range_bias(struct gpu_buddy *mm,
+>>>> +                 u64 start, u64 end,
+>>>> +                 unsigned int order,
+>>>> +                 unsigned long flags)
+>>>> +{
+>>>> +    struct gpu_buddy_block *block;
+>>>> +    bool fallback = false;
+>>>> +
+>>>> +    block = __alloc_range_bias(mm, start, end, order,
+>>>> +                   flags, fallback);
+>>>> +    if (IS_ERR(block))
+>>>> +        return __alloc_range_bias(mm, start, end, order,
+>>>> +                      flags, !fallback);
+>>>> +
+>>>> +    return block;
+>>>> +}
+>>>> +
+>>>>   /* Return the highest-address free block of at least @order. */
+>>>>   static struct gpu_buddy_block *
+>>>>   get_maxblock(struct gpu_buddy *mm,
+>>>> @@ -1924,7 +1921,7 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>>>       if (flags & GPU_BUDDY_RANGE_ALLOCATION) {
+>>>>           /* Allocate traversing within the range */
+>>>> -        block = __alloc_range_bias(mm, start, end, order, flags);
+>>>> +        block = __gpu_buddy_alloc_range_bias(mm, start, end, 
+>>>> order, flags);
+>>>>           if (!IS_ERR(block) || !steered)
+>>>>               return block;
+>>>> diff --git a/drivers/gpu/tests/gpu_buddy_test.c 
+>>>> b/drivers/gpu/tests/ gpu_buddy_test.c
+>>>> index b75d32ca6ca0..3eaa261571bf 100644
+>>>> --- a/drivers/gpu/tests/gpu_buddy_test.c
+>>>> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+>>>> @@ -1597,6 +1597,70 @@ static int gpu_buddy_suite_init(struct 
+>>>> kunit_suite *suite)
+>>>>       return 0;
+>>>>   }
+>>>> +static void gpu_test_buddy_alloc_range_clear_guard(struct kunit 
+>>>> *test)
+>>>> +{
+>>>> +    const unsigned long chunk = SZ_1M, mm_size = SZ_4M;
+>>>> +    struct gpu_buddy_block *block;
+>>>> +    LIST_HEAD(high_clear_a);
+>>>> +    LIST_HEAD(high_clear_b);
+>>>> +    LIST_HEAD(low_dirty);
+>>>> +    struct gpu_buddy mm;
+>>>> +    LIST_HEAD(barrier);
+>>>> +    LIST_HEAD(result);
+>>>> +
+>>>> +    KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, chunk),
+>>>> +                   "buddy_init failed\n");
+>>>> +
+>>>> +    /*
+>>>> +     * Lay out a 4 MiB aperture as three regions:
+>>>> +     *
+>>>> +     *   [0,  1M)   dirty free
+>>>> +     *   [1M, 2M)   allocated  (barrier, keeps the two halves un- 
+>>>> mergeable)
+>>>> +     *   [2M, 4M)   clear free (one naturally aligned 2 MiB extent)
+>>>> +     *
+>>>> +     * A dirty (non-clear) range allocation must take the low 
+>>>> dirty block
+>>>> +     * and leave the large clear extent intact. Without the guard the
+>>>> +     * top-down search cuts the higher clear extent instead and 
+>>>> returns a
+>>>> +     * clear block -- the interleaving that fragments the aperture 
+>>>> and
+>>>> +     * ultimately fails a large same-class scanout allocation.
+>>>> +     */
+>>>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>>>> +                   gpu_buddy_alloc_blocks(&mm, 0, chunk, chunk, 
+>>>> chunk,
+>>>> +                              &low_dirty, 
+>>>> GPU_BUDDY_RANGE_ALLOCATION),
+>>>> +                   "alloc [0, 1M) failed\n");
+>>>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>>>> +                   gpu_buddy_alloc_blocks(&mm, chunk, 2 * chunk, 
+>>>> chunk, chunk,
+>>>> +                              &barrier, GPU_BUDDY_RANGE_ALLOCATION),
+>>>> +                   "alloc [1M, 2M) failed\n");
+>>>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>>>> +                   gpu_buddy_alloc_blocks(&mm, 2 * chunk, 3 * 
+>>>> chunk, chunk, chunk,
+>>>> +                              &high_clear_a, 
+>>>> GPU_BUDDY_RANGE_ALLOCATION),
+>>>> +                   "alloc [2M, 3M) failed\n");
+>>>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>>>> +                   gpu_buddy_alloc_blocks(&mm, 3 * chunk, 4 * 
+>>>> chunk, chunk, chunk,
+>>>> +                              &high_clear_b, 
+>>>> GPU_BUDDY_RANGE_ALLOCATION),
+>>>> +                   "alloc [3M, 4M) failed\n");
+>>>> +
+>>>> +    /* [2M, 4M) coalesces into one aligned clear extent; [0, 1M) 
+>>>> stays dirty. */
+>>>> +    gpu_buddy_free_list(&mm, &low_dirty, 0);
+>>>> +    gpu_buddy_free_list(&mm, &high_clear_a, GPU_BUDDY_CLEARED);
+>>>> +    gpu_buddy_free_list(&mm, &high_clear_b, GPU_BUDDY_CLEARED);
+>>>> +
+>>>> +    KUNIT_ASSERT_FALSE_MSG(test,
+>>>> +                   gpu_buddy_alloc_blocks(&mm, 0, mm_size, chunk, 
+>>>> chunk,
+>>>> +                              &result, GPU_BUDDY_RANGE_ALLOCATION),
+>>>> +                   "dirty range alloc failed\n");
+>>>> +
+>>>> +    block = list_first_entry(&result, struct gpu_buddy_block, link);
+>>>> +    KUNIT_EXPECT_FALSE_MSG(test, gpu_buddy_block_is_clear(block),
+>>>> +                   "dirty range alloc cut the clear extent 
+>>>> (offset=%llx)\n",
+>>>> +                   gpu_buddy_block_offset(block));
+>>>> +
+>>>> +    gpu_buddy_free_list(&mm, &result, 0);
+>>>> +    gpu_buddy_free_list(&mm, &barrier, 0);
+>>>> +    gpu_buddy_fini(&mm);
+>>>> +}
+>>>> +
+>>>>   static struct kunit_case gpu_buddy_tests[] = {
+>>>>       KUNIT_CASE(gpu_test_buddy_alloc_limit),
+>>>>       KUNIT_CASE(gpu_test_buddy_alloc_optimistic),
+>>>> @@ -1606,6 +1670,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+>>>>       KUNIT_CASE(gpu_test_buddy_alloc_clear),
+>>>>       KUNIT_CASE(gpu_test_buddy_alloc_range),
+>>>>       KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+>>>> +    KUNIT_CASE(gpu_test_buddy_alloc_range_clear_guard),
+>>>> KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
+>>>> KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
+>>>>       KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+>>>>
+>>>> base-commit: f146c6086b792cb2c6b3ce5106f0cce62e408df8
+>>>
+>>
+>
 
-Aaron
-
-> Cheers
-> Mikko
->
-> > diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plan=
-e.c
-> > index 2148b0c59815c..757bc552809fe 100644
-> > --- a/drivers/gpu/drm/tegra/plane.c
-> > +++ b/drivers/gpu/drm/tegra/plane.c
-> > @@ -59,6 +59,7 @@ tegra_plane_atomic_duplicate_state(struct drm_plane *=
-plane)
-> >       copy->tiling =3D state->tiling;
-> >       copy->format =3D state->format;
-> >       copy->swap =3D state->swap;
-> > +     copy->swap_uv =3D state->swap_uv;
-> >       copy->reflect_x =3D state->reflect_x;
-> >       copy->reflect_y =3D state->reflect_y;
-> >       copy->opaque =3D state->opaque;
-> > @@ -319,11 +320,13 @@ int tegra_plane_state_add(struct tegra_plane *pla=
-ne,
-> >       return 0;
-> >  }
-> >
-> > -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap)
-> > +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_=
-uv)
-> >  {
-> >       /* assume no swapping of fetched data */
-> >       if (swap)
-> >               *swap =3D BYTE_SWAP_NOSWAP;
-> > +     if (swap_uv)
-> > +             *swap_uv =3D false;
-> >
-> >       switch (fourcc) {
-> >       case DRM_FORMAT_ARGB4444:
-> > diff --git a/drivers/gpu/drm/tegra/plane.h b/drivers/gpu/drm/tegra/plan=
-e.h
-> > index e33a581e6490e..dba5f1b254e98 100644
-> > --- a/drivers/gpu/drm/tegra/plane.h
-> > +++ b/drivers/gpu/drm/tegra/plane.h
-> > @@ -49,6 +49,7 @@ struct tegra_plane_state {
-> >       struct tegra_bo_tiling tiling;
-> >       u32 format;
-> >       u32 swap;
-> > +     bool swap_uv;
-> >
-> >       bool reflect_x;
-> >       bool reflect_y;
-> > @@ -88,7 +89,7 @@ void tegra_plane_cleanup_fb(struct drm_plane *plane,
-> >  int tegra_plane_state_add(struct tegra_plane *plane,
-> >                         struct drm_plane_state *state);
-> >
-> > -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap);
-> > +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_=
-uv);
-> >  bool tegra_plane_format_is_indexed(unsigned int format);
-> >  bool tegra_plane_format_is_yuv(unsigned int format, unsigned int *plan=
-es, unsigned int *bpc);
-> >  int tegra_plane_setup_legacy_state(struct tegra_plane *tegra,
-> >
-> > --
-> > 2.54.0
-> >
-> >
-> >
->
->
->
->
