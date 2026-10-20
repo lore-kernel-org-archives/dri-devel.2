@@ -2,63 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5866C606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 03:14:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FAC0606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 03:25:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=L0GRG5h6
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tBdUvLwd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9B6810F1C8;
-	Tue, 20 Oct 2026 03:14:45 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Tue, 20 Oct 2026 03:14:38 UTC
-Received: from mail-m17227.xmail.ntesmail.com (mail-m17227.xmail.ntesmail.com
- [45.195.17.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E831010F1E5
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 03:14:38 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 51a4ceebc;
- Tue, 20 Oct 2026 11:09:33 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dave Jones <s.dave.jones@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 5/6] drm/rockchip: analogix_dp: Add support for RK3568
-Date: Tue, 20 Oct 2026 11:09:15 +0800
-Message-Id: <20261020030916.3223833-6-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261020030916.3223833-1-damon.ding@rock-chips.com>
-References: <20261020030916.3223833-1-damon.ding@rock-chips.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4803910E4BF;
+	Tue, 20 Oct 2026 03:25:05 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D341910E4BF
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 03:24:59 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-48afcfc4bf5so2273442f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 20:24:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792466698; x=1793071498; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=bTIhfRXQ9A4fWivlb9V7+Dkt1Ju5gj489YBq7QLLDIc=;
+ b=tBdUvLwdlrN/HlrhpIDVl6izHpRwTI4jbzV7d55zjrh5QNBevTa9XKAksMQ3pDRuh8
+ JktxPQA07bNxvD6o0YdIGdWM7MMvYpdM4JRVuVUYpFJORnEo7AzshODpo+FOFoTtBdRa
+ bntMICY1lMQZNU0VwgfrewEvJ8uQJnBnuN2679SRWQ/acZ/kJXbtgtsCjiLq0xjlSnPB
+ Gpx+5jhuDiXXCJyoNVua2UsZVDVLO/YPwIuXucxmsr8umAA3nBaPoUnsfe7WSXdF5UKK
+ cD/+5Tz0kslWZ5FfzuiubuU1xhLVcA7A2WgAMngTXyeEHTqmBNwoMyGUigB/JVYphCEt
+ sxEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792466698; x=1793071498;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=bTIhfRXQ9A4fWivlb9V7+Dkt1Ju5gj489YBq7QLLDIc=;
+ b=KlvxFDCJ7qXTql8azk0jz8y0RDe9LT67uXLDMtNPPBa+lR2XfpTUPuP5a38Jz4yklZ
+ PSAjcBbIeP3JDqlX/LMcLdp+PawrGPJuhfu2XPhoTMdXafgivw+uiHVbCx7bzlH61Rk/
+ i8nw3xPVjfCUL/zioLjOlfjMAXrxt1QMKzJZ/pziIYAZzAJNrJJvSmOkJyXP9lcenO9W
+ qlk4Lz+K0/ThlRgQmJZyNzISE01Cxzl7//fF7qEGBbybXGzHCSXF7N/IlxWqc2Bs/W41
+ OtfRvwb1XG/sn4kWxg3k3DdSMOjdJ+6X7t4t0qtnD4ACNzjO1PNBrxRNWAkF3SwXvIc+
+ HyxQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByCrnQuPH143I3nhebGHF6fq83xWNBDh3Baj7yKlu0RG1ckVTbOksT9wMAgGPwW0WAuqNFkVMhazGE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKLWk5vjRLsoXsuEav0Gk8sjXpatsuCNKbZd/TbxVRBzLdWfEll
+ lcQV0tFyojz83dsyg85p6iSJJyRDx56vqqhpxLC/PI9hUhAgmR+zLQOp
+X-Gm-Gg: AYBFou1F2KJ9Z9XD58iD6Z2/chlJIHuliTlLFSPREpGRlVDJHNd2IJ1Pml620+4SBj+
+ 5omwXypxK6L03jowNR9qkZ0MVmFBRxU9H2XfTvDdnf20syzNBG/b06aHcC0+YsocFt09+mbPvfO
+ GUVjMdTHPn6I0e/b3ApYHfLY0YR56EhnwrMeOvZ7x5v1p7EcNM80hUVY46xZV6hu2LmYz4XLa42
+ 5dJDR07nEyjBoska91f6E49g6CHpNiYYeshZx48M9FrLAPOYjPl+z30l5TCyVFXR1d61f15PNzr
+ OHff6mF2w0oNVPRWFRdECmmoziZPlIaE+QGblZwIFal6B8ghYE4RDE1qzH70GY1Qw/qm1ULxs1B
+ sPo9pT0LgSjiE83qT1SwSrPt0FGnTbRV7IN8yDGwWkfsPgWrKUJQV60Qrk3TLN//awoJ6EHtYlr
+ xhp4G2HzSaT9fP1Goch8Mnx85H1Dn4YwsFjnrFcAOCELBbT8YG7m74ziFgRlI1rcFwEqWThuHe+
+ rCmQAni+CNrs1DAXVuwRSV4wawWGB5D+hUnSyAQHO+Mcjr++wK49znuWY7+X17ri8nBD9ybvM8M
+ Yr4I05KVR3FoEv/mYGmIT5FBBdtMl2luEoPLlRL8yNsNZUr0y0/fSo72yebxN3H1Qsj+6hU29Oo
+ =
+X-Received: by 2002:a05:6000:2583:b0:487:490:8391 with SMTP id
+ ffacd0b85a97d-48e07bb58aamr21758837f8f.16.1792466697879; 
+ Mon, 19 Oct 2026 20:24:57 -0700 (PDT)
+Received: from unknown748F3CBA5068
+ (dynamic-2a02-3100-9c92-6501-cda9-90cd-4e49-75d9.310.pool.telefonica.de.
+ [2a02:3100:9c92:6501:cda9:90cd:4e49:75d9])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e1d818d61sm2909579f8f.31.2026.10.19.20.24.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Oct 2026 20:24:57 -0700 (PDT)
+Date: Tue, 20 Oct 2026 05:24:54 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ linux-media@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Tomasz Stanislawski <t.stanislaws@samsung.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] media: synchronize CPU access to imported DMA-BUFs
+Message-ID: <atbbdKshkbmbMZMk@gmail.com>
+References: <cover.1792392288.git.kmehltretter@gmail.com>
+ <20261019124433.GU595565@killaraus.ideasonboard.com>
+ <b9f5ee4d-987f-44c2-a1fc-2570f4500803@amd.com>
+ <20261019150116.GA3705@killaraus.ideasonboard.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa15749229303a8kunmfd20f05334c78f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTkpJVkwaTx9JGhlOQ0tJT1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=L0GRG5h6UBqPdZoOzncwl9bjfmfKLEpR1+D+v0ATg2rRCRzOYAsoMajwTwPFcDze9GhuUM8Cfm3eVmf/8jkO0WdlJTL/KbOZVUkRxJZVN7GHDvUcSnacoAgcs6xPEvd6+70VvHa7gY1RKFmKhEJhy9fZyT+2nED3ieHLyNipHs0=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=PIme3hcZlC53RfvT2IEjzq2swieDeYbsRW7Jr3b/EnY=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019150116.GA3705@killaraus.ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,94 +99,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The RK3568 eDP controller does not require any GRF configurations,
-so make the "rockchip,grf" property optional.  Also enable the
-optional avdd-0v9 and avdd-1v8 supplies which power the eDP PHY.
+Hi Laurent,
 
-Add the "rockchip,rk3568-edp" compatible along with its chip data;
-the register base in the chip data is used to match the platform
-device memory resource.
+On Mon, Oct 19, 2026 at 06:01:16PM +0100, Laurent Pinchart wrote:
+> 
+> This patch series introduces a big penalty in the common case where a
+> userspace application consumes the frame with the CPU. There should be
+> no cache invalidation in that case.
+> 
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+I measured this on my Pi 500+. The cost appears when the DMA-BUF has a
+V3D attachment that stays mapped but idle. I compared patch 1 alone with
+patches 1-4 on the same v7.3-rc4 base at 640x480 YUYV. For the DMA-BUF
+runs, userspace read every frame between DMA_BUF_IOCTL_SYNC READ calls.
 
----
+Median process CPU time (us/frame), five 1800-frame runs:
 
-Changes in v2:
-- Fail the probe when the chip data requires GRF configurations while
-  the "rockchip,grf" property is missing.(Sashiko)
----
- .../gpu/drm/rockchip/analogix_dp-rockchip.c   | 24 ++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+                                      patch 1      patches 1-4
+  DMA-BUF, no DRM import              129.2        130.6
+  DMA-BUF, idle V3D map               130.0        153.1
+  MMAP                                126.5        125.4
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index ccdd4b9ecdb8..38c78360842f 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -320,12 +320,17 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 	struct device *dev = dp->dev;
- 	struct device_node *np = dev->of_node;
- 	struct clk *clk;
-+	int ret;
- 
--	dp->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
-+	dp->grf = syscon_regmap_lookup_by_phandle_optional(np, "rockchip,grf");
- 	if (IS_ERR(dp->grf))
- 		return dev_err_probe(dev, PTR_ERR(dp->grf),
- 				     "failed to get rockchip,grf property\n");
- 
-+	if (!dp->grf && (dp->data->lcdc_sel.valid || dp->data->edp_mode.valid))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "missing the required rockchip,grf property\n");
-+
- 	dp->grfclk = devm_clk_get_optional(dev, "grf");
- 	if (IS_ERR(dp->grfclk))
- 		return dev_err_probe(dev, PTR_ERR(dp->grfclk),
-@@ -351,6 +356,14 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 		return dev_err_probe(dev, PTR_ERR(dp->apbrst),
- 				     "failed to get apb reset control\n");
- 
-+	ret = devm_regulator_get_enable_optional(dev, "avdd-0v9");
-+	if (ret && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-0v9\n");
-+
-+	ret = devm_regulator_get_enable_optional(dev, "avdd-1v8");
-+	if (ret && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-1v8\n");
-+
- 	return 0;
- }
- 
-@@ -530,6 +543,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
- 
-+static const struct rockchip_dp_chip_data rk3568_edp[] = {
-+	{
-+		.chip_type = RK3568_EDP,
-+		.reg = 0xfe0c0000,
-+	},
-+	{ /* sentinel */ }
-+};
-+
- static const struct rockchip_dp_chip_data rk3576_edp[] = {
- 	{
- 		.chip_type = RK3576_EDP,
-@@ -555,6 +576,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3568-edp", .data = &rk3568_edp },
- 	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
--- 
-2.34.1
+The no-import and MMAP ranges overlapped. The V3D-mapped ranges did not.
+Pi 400 reproduced the mapped cost with vivid (+8.7%) and UVC (+7.5%).
+
+The task-clock profile covered only the patched mapped path:
+
+  Operation                              Sample share
+  DQBUF producer END|WRITE clean         26%
+  userspace START|READ invalidation      13%
+  userspace END|READ clean               8%
+
+I tried a CMA experiment that kept the DMA-BUF callbacks but skipped the
+read-only END|READ attachment sync. The skip variant saved a median 12.3
+us/frame (8.0%) across three alternating same-boot pairs. With private
+DMA-BUFs, the full-sync and skip variants both passed 64 byte-checked
+V3D read and overwrite cycles after END|READ.
+
+That experiment still performs END|WRITE and START|READ. In a negative
+control without END|WRITE, all eight V3D reads returned stale data.
+
+Patch 1 is independent, so I can send it separately. 
+
+For patches 2-4: How should vb2 avoid the END|WRITE/START|READ
+round trip when userspace consumes the frame with the CPU, while still
+publishing the frame if the next consumer is a device?
+
+Thanks,
+Karl
 
