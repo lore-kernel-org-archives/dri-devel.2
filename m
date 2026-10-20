@@ -2,99 +2,147 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD581606A332
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06B6606A321
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:28:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a8hUwQ/3
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WT/u5oY4;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=izFb2Dy/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA7510F3B8;
-	Tue, 20 Oct 2026 08:26:35 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F19F510F3A9
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:25:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 547E760DB3;
- Tue, 20 Oct 2026 08:25:49 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1792484749;
- b=nJeN0lRc1Eg5772KNbgjGjVYEh9HEBFqLq59sK5f4sRruMTiSJUUyf7+CqFrIM5CjhCg
- nTgxrQwO++E1wncvAYzwOb1J3EuOLkI2bUk7n3C1C5xiRMM/3FUOBlFgaQqFXn6ltDRFR
- isJZ7kbm+p4D2n4FheQNwcmD73Z7DyaQrjlk7FEw1oksqnUxKbcGFSXqBln8MXJet5VFE
- fOGhN1OW2gxuhjrqTmE/aCaiugLt+pFMkH5fMlYLMcLXbZwwLV545FedG2un0nxTfMBkT
- fJC58WC390rayFCWMkB/zO20ZVuN2R0oOP+ymj6T1i7WBdMLFBvOjW4i04rqAfR9KQQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1792484749;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
- X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=S9o/MkU5MLlh8zpGuisq23yMQuzKyDuunYnnESbkWk8=;
- b=UFtTEjII4n9nRA6jUKoOZ6K+Bjxf9SHOSHE2sdpHVhjlLuGdgKHNkQyO8UTrZV7Y07Id
- EpnzqpnwkfAHswGNxVvvlnACpjqwhCxrc0/ldFGsNX5KJucE26RwrbVh0j2clJ0WBGkj6
- wVB3tf18K0nbr/A2PNII5HoyD91bx2zJnkV5Ivd9O/vCzg3Xln+bTdWm+ucibrCpF6oLN
- eSI9Ow1TiFBi2GOFrIIu3w4kgPvr16ri302Swfo1X4GzTmhRdHTBBVPEBdTlYmhV1ZVPa
- B/g5CiQeQYW2rQ/qBeqq+5A/MXy9jExruOcRVY9XPSFFrDVNiSiJHT1ng4Cvi9rOGrA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 71DA51F000CB;
- Tue, 20 Oct 2026 08:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792484749;
- bh=S9o/MkU5MLlh8zpGuisq23yMQuzKyDuunYnnESbkWk8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=a8hUwQ/3kvgHdj/FAqwBQZpGKP+Y2KlVwlfAmjzGb4xYFwvaL3z5aTnnbOHs60fYh
- 1Oku0iE/h8RvmnC0GkgnAeZVG5NdOmwCQ3MgtzDn2A4N93Nv0O2jikSAHO3Nh6k7Jk
- nXo+E2Iqy1vL0VIP8evJwLDFaZTpkKoJvK1JZkLuaGeL2VHJ2C2g/99m/nukNAYaaS
- 0rniQZ4MbtxKsES4HxODv6OpQWKQDMQa5h4YXlyhVrXmCpkP3fuqqbsnZtaMroiP2g
- TnvVUt1sECRTq+OYgWGWiKrB2uc1+fSM8/O5WlxFDEizk5Xabzbppzacmqdtn6H5iv
- XMEZBHDJon5yA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id C15F7430E1;
- Tue, 20 Oct 2026 08:25:45 +0000 (UTC)
-From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 20 Oct 2026 16:25:22 +0800
-Subject: [PATCH v4 05/11] drm/tyr: add user and MCU VM specifications
+	by gabe.freedesktop.org (Postfix) with ESMTP id 611B310F394;
+	Tue, 20 Oct 2026 08:28:15 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A9C810F394
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:28:03 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69K8ChQ1186498
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:28:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ rvYWJFWcgvZUYKe8TM7FfKWltCT1YcCtXDDqW7fUltc=; b=WT/u5oY4quedgaYW
+ sNkGzWJBXrGFl58suco6iOTM/CvDjTLebyfUUMjQd3LPvnBUhFAJU66cgBrgsg2X
+ JZZyIFO5K9HmA/krlRozcBrmZn/r6kqRh68dgE7YbYLVsQHHWey4l3RpljtWcll1
+ U0Dh55ii337z4yqu93Td6M7ZFJshHFAXtOG6Th5fW7lLD5dNppk9rbsjkcKPfc0+
+ GZmSE6hXCG5PM/wYBchkExPQff+fwu4YRWYLX7MAB1Oob4lNGJrwz8sWglNKDR5l
+ G81za669iwQOjSBwQkhTvGESG6Uz+qxUIRa7HHe4lrr3t9+1e9jl3gD/CnMauaag
+ oT9xdA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5nsmdj-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:28:02 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93e58614290so45881185a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 01:28:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792484882; x=1793089682;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rvYWJFWcgvZUYKe8TM7FfKWltCT1YcCtXDDqW7fUltc=;
+ b=izFb2Dy/tJHQZ6Lbzs/8uRcgRCA2EW8yinO33+utfFb9LG9yXkXdTVyijvqKPhvzpr
+ iJ/oulc9k9PhLVJEX4+m5RDs/OsQ6WPjur/8y1ENM7DpcG5fbsiyFN30Pc/imtoiWno+
+ 36om3Sq3YzAIUvor58fMfE16NsJ6ndGmUhJwtxV0w0hlE7om030V5U8MkC9XyzAHWBID
+ 7U6A9bJaS5NpzKwfC6OZPs2Wr3urQ7TV4rXpspDv0xHc9i0fHx5N4hImJkghA/nxgJ3U
+ qPigdZ4fDRdo7/fuTd2afR6cHe7T4rgsxX3WRv2rpSTrW3n+K31nN+ceFyLj9o5MMzBL
+ JauQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792484882; x=1793089682;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rvYWJFWcgvZUYKe8TM7FfKWltCT1YcCtXDDqW7fUltc=;
+ b=dFg0MdievIR8e8d5jLCw59zAp6xC/IpcLSzFjaVKBxL6RkdHc3+GBacA0VgIemFGvH
+ Y6UD6XUKBR2rGJ296XGR0O0AhtWx/PGIRKQRu9HZ5NkkDMvo6FD+zGoV2UGpEC4MGZqF
+ L9oPqZKlpmEn/4/rZmcHwL592XEmQDrSxtga+Je2c5ggfg83BAT9Eov3tl6ZpVsMarXi
+ 9UZxtn3dQHAwASGS7KMnibfFeNNZwE2LEUfJlvgmgpcx4JaMPuP+S5IX//xJL3imAJ/0
+ FF/n/ER+BrxJ7our79Qs/wiIcv1/maXcJjK8KuqtgauK1e/YKZrrTkvOvQZSG8ONwADj
+ 6zkg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw2Sdw3L4zsgkVEh6s/TjIA9IyhWRn6PTdKYOhWEcmRMr1UHZGNAITdNu3s/vYlqyUYbn5lRN2Xqzk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ/j0aHFrJ5stB2hPq+xhNP/o/Jkdr7YmezpoXOH/zA09Uw8sPr
+ 8tXvO770lNYOFqaOiecUGa1X2IZUo0XY2EJkc7rmD5XxN0WdYuNiLl2/c2IR6gTF+pND3WoRtrH
+ ek2T30ScBsX4YZqz6pIwQYw7WVkL3FmvUqQQPTHagp0dpYOnuY719ue4YPLF7R1iDHrW/YDg=
+X-Gm-Gg: AYBFou1033fV1FpQOlOL8DqYtOC1Wv/gx01OWfWbhrgAiqKZ7qEZUDfyVo7BgJj466O
+ EDnrq5uZKKEm2q3LFQQqRbz/VcGKD/+amANj7OYgKW/nDkpcH+AXjbFPTm4nWW4iSduI1Yemqnm
+ kr7yrLdqlaMlE7EK6cqb6wULZZ0vqlkiDEyFWc7wxrm2nc2xkq70vfCuEquoVqQaD17CB1slLwV
+ 2n8UYRdu6jM4zbUiydm4uxhLuZ0EYzO7AJPNEdZaSTV+X2dh7gNAsZfvGyIu3Svp3wDX0aLQBse
+ jCvfaV6Xa9fK0FbWID0msH+jXbbmIx64maLSBr4hsWTFKYjV9uao79JC1FwoqWghxx3hQUx0XGk
+ kO+SNBYaMlmWlKlrxbkMxLQ==
+X-Received: by 2002:a05:620a:c55:b0:939:9205:4d78 with SMTP id
+ af79cd13be357-93f29d39ad8mr1871583685a.3.1792484881686; 
+ Tue, 20 Oct 2026 01:28:01 -0700 (PDT)
+X-Received: by 2002:a05:620a:c55:b0:939:9205:4d78 with SMTP id
+ af79cd13be357-93f29d39ad8mr1871579585a.3.1792484881209; 
+ Tue, 20 Oct 2026 01:28:01 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c4091eb165bsm451124266b.71.2026.10.20.01.27.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Oct 2026 01:27:59 -0700 (PDT)
+Message-ID: <3bb9a390-3b5e-4321-a25f-77e4f5c88f9a@oss.qualcomm.com>
+Date: Tue, 20 Oct 2026 10:27:54 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
+To: Xilin Wu <sophon@radxa.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
+ dragon@radxa.com, Daniele Briguglio <hello@superkali.me>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+ <20261009-q8b-dts-v2-4-eda11e5dea8b@radxa.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261009-q8b-dts-v2-4-eda11e5dea8b@radxa.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-tyr-ioctls-v4-5-704de77da223@kylinos.cn>
-References: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
-In-Reply-To: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
- linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
- driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
- linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484721; l=10916;
- i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=gawdIs2Kzz9vZPukoRHj/fYocc/+sO8wHCAj1TnXMuM=;
- b=Zx5EcSvfglMc5/HaRNW6CmEyR2MmmATQ17snoxtfZ45mZGkmbpHVd5zonQgBKvBvMZ1f3NINT
- gnudFHAm1BxCWAaASksCXzNChPK0ojJySI9L2n0T0i6OaecbNMgAxsR
-X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
-X-Original-From: Ke Sun <sunke@kylinos.cn>
+X-Proofpoint-GUID: Nu1KAw1pByS3u36oEoqCA3YMiMeGWBcw
+X-Authority-Analysis: v=2.4 cv=DZOCOftW c=1 sm=1 tr=0 ts=6ad72612 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=u2Fyij-s7XdpVA4p1MkA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: Nu1KAw1pByS3u36oEoqCA3YMiMeGWBcw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzMyBTYWx0ZWRfX6pAgIyQ2iL+0
+ oVkOcugyJ8Kcnxs0J2oNqAn/t2WTnYr75GmrwXa3KVq3DCjjea0Cq5ZJ/ob09dgCtO1Q5ewqRBv
+ KPvNtlB5BwkmsicC9FsDKiEVON+RWm0u9I0uAThcU8P96js+CyhtcZpKSWMoSECk6yEWbl53uSE
+ ro8r8W5CMAyATkImCloCnuyCdz+WUdY1JQQz6UsSmhCn8tTkV69jWurmmy4EE/ejqYjFrAC/YPR
+ /Le05BES/bu06o7Ruvn0T1Ghbl3eVtxCYeijAnnzaRrMN0+llabZ5LLZFGX14fH2jgLUhM2hwAV
+ n1Fs/W35mmL/5NhBEZsguj0bsqNWQzRO4mkWJJmQI82sq8+fFiG3pXjhk0wsVcxlsOD+cwAEsYv
+ a959S1eMq/b0rlLFMhHEK6pHhyV8ujHwb6ftL6LM5twadSIanRJCSidmlKC4vwtqOmd4gWI/KJX
+ fii4rMjkblkYJI8yhGQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAzMyBTYWx0ZWRfX2/GiMV34KZdX
+ H2LGmZ2VLujEWTwrc0HfiZm7TGU+rKUu1cyp5mK3F5HHxcnwzhKDvKVnAixuv1WyC9sGk2s0Rzr
+ qXyNzUTOKBpfdFNgYiWWpIP0c5w6NaU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,329 +153,147 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sunke@kylinos.cn
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Alvin Sun <alvin.sun@linux.dev>
+On 10/9/26 9:55 AM, Xilin Wu wrote:
+> Add initial device tree support for the Radxa Dragon Q8B,
+> a single-board computer based on the Qualcomm Snapdragon 8cx Gen 3
+> SC8280XP platform.
 
-The MCU and user VMs need different VA layouts. Give each a dedicated
-constructor: new_for_fw() builds the kernel-only 4G layout, while
-new_for_user() splits the address space by task_size or a user-provided
-size, rejecting oversized requests rather than clamping. The resulting
-user range is what VM_CREATE reports back as user_va_range.
+[...]
 
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- drivers/gpu/drm/tyr/fw.rs |  19 +++---
- drivers/gpu/drm/tyr/vm.rs | 159 +++++++++++++++++++++++++++++++++++++++++-----
- 2 files changed, 153 insertions(+), 25 deletions(-)
+> +	pmic-glink {
+> +		compatible = "qcom,sc8280xp-pmic-glink", "qcom,pmic-glink";
+> +
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		orientation-gpios = <&tlmm 166 GPIO_ACTIVE_HIGH>,
+> +					<&tlmm 49 GPIO_ACTIVE_HIGH>;
 
-diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-index aea151ff1f934..81e8103368bc2 100644
---- a/drivers/gpu/drm/tyr/fw.rs
-+++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -51,7 +51,6 @@
-         KernelBoVaAlloc, //
-     },
-     gpu::GpuInfo,
--
-     mmu::Mmu,
-     regs::{
-         gpu_control::{
-@@ -219,10 +218,10 @@ pub(crate) fn new(
-         mmu: ArcBorrow<'_, Mmu<'drm>>,
-         gpu_info: &GpuInfo,
-     ) -> Result<Firmware<'drm>> {
--        let vm = Vm::new(dev, ddev, mmu, gpu_info)?;
-+        let vm = Vm::new_for_fw(dev, ddev, mmu, gpu_info)?;
-         vm.activate()?;
- 
--        let result = (|| {
-+        let sections = (|| -> Result<KVec<Section<'drm>>> {
-             let (fw, parsed_sections) = Self::load(dev, ddev, gpu_info)?;
-             let mut sections = KVec::new();
-             for parsed in parsed_sections {
-@@ -252,18 +251,18 @@ pub(crate) fn new(
-                 sections.push(Section { data, mem }, GFP_KERNEL)?;
-             }
- 
--            Ok(Firmware {
--                iomem,
--                vm: vm.clone(),
--                sections,
--            })
-+            Ok(sections)
-         })();
- 
--        if result.is_err() {
-+        if sections.is_err() {
-             vm.kill();
-         }
- 
--        result
-+        Ok(Firmware {
-+            iomem,
-+            vm,
-+            sections: sections?,
-+        })
-     }
- 
-     pub(crate) fn boot(&self) -> Result {
-diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-index 6935e4db667b9..adbf8edcd5c6f 100644
---- a/drivers/gpu/drm/tyr/vm.rs
-+++ b/drivers/gpu/drm/tyr/vm.rs
-@@ -8,6 +8,7 @@
- //! mapped into hardware address space (AS) slots for GPU execution.
- 
- use core::marker::PhantomData;
-+use core::num::NonZeroU64;
- use core::ops::Range;
- 
- use kernel::{
-@@ -44,6 +45,8 @@
-     new_mutex,
-     prelude::*,
-     sizes::{
-+        LargeSizeConstants,
-+        SizeConstants,
-         SZ_1G,
-         SZ_2M,
-         SZ_4K, //
-@@ -159,6 +162,92 @@ fn try_from(value: u32) -> Result<Self, Self::Error> {
-     }
- }
- 
-+/// User VA size request for a user VM.
-+pub(crate) enum UserVaRequest {
-+    /// Split based on `task_size()` and the GPU VA range.
-+    Auto,
-+    /// Caller-specified size; construction guarantees `> 0`.
-+    Fixed(NonZeroU64),
-+}
-+
-+impl UserVaRequest {
-+    /// UAPI boundary normalization: `0` -> [`Auto`](Self::Auto).
-+    #[expect(dead_code)]
-+    pub(crate) fn from_uapi(v: u64) -> Self {
-+        match NonZeroU64::new(v) {
-+            Some(size) => Self::Fixed(size),
-+            None => Self::Auto,
-+        }
-+    }
-+}
-+
-+/// Final user/kernel VA layout for a VM.
-+pub(crate) struct VmLayout {
-+    /// Full GPU VA range covered by this VM.
-+    pub(crate) full: Range<u64>,
-+    /// User-accessible VA range. Empty for MCU VMs.
-+    pub(crate) user: Range<u64>,
-+}
-+
-+impl VmLayout {
-+    /// Kernel VA range, reserved for future kernel object allocation.
-+    #[expect(dead_code)]
-+    pub(crate) fn kernel(&self) -> Range<u64> {
-+        self.user.end..self.full.end
-+    }
-+
-+    /// Compute a user/kernel split for a user VM from the full GPU VA range and
-+    /// a user request.
-+    pub(crate) fn compute(full: Range<u64>, req: UserVaRequest) -> Result<Self> {
-+        // Minimum VA space reserved for kernel objects (heaps, ring buffers, ...).
-+        const MIN_KERNEL_VA: u64 = u64::SZ_256M;
-+
-+        if full.end <= MIN_KERNEL_VA {
-+            return Err(EINVAL);
-+        }
-+
-+        let user_max = full.end - MIN_KERNEL_VA;
-+
-+        let user_end = match req {
-+            UserVaRequest::Fixed(v) => {
-+                let user_size = v.get();
-+                if user_size > user_max {
-+                    return Err(EINVAL);
-+                }
-+                user_size
-+            }
-+            UserVaRequest::Auto => {
-+                let task_size = current!().mm().map(|mm| mm.task_size());
-+                let candidate = match task_size {
-+                    // `task_size()` returns usize; widen to u64 for the comparison.
-+                    Some(t) if (t as u64) < full.end => t as u64,
-+                    None | Some(_) => {
-+                        // If the range exceeds 4G, split it in two so CPU and
-+                        // GPU share the same addresses (SVM).
-+                        if full.end > u64::SZ_4G {
-+                            full.end / 2
-+                        } else {
-+                            user_max
-+                        }
-+                    }
-+                };
-+                candidate.min(user_max)
-+            }
-+        };
-+
-+        let delta = full.end - user_end;
-+        // Pick a kernel VA range that's a power of two, to have a clear split.
-+        let kernel_va_range = 1u64 << delta.ilog2();
-+        let kernel_va_start = full.end - kernel_va_range;
-+        let full_start = full.start;
-+
-+        Ok(Self {
-+            full,
-+            user: full_start..kernel_va_start,
-+        })
-+    }
-+}
-+
- /// Arguments for a virtual memory map operation.
- struct VmMapArgs<'drm> {
-     /// Access permissions and caching behavior for the mapping.
-@@ -334,26 +423,64 @@ pub(crate) struct Vm<'drm> {
-     /// Non-core part of the GPUVM. Can be used for stuff that doesn't modify the
-     /// internal mapping tree, like GpuVm::obtain()
-     gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
--    /// VA range for this VM.
--    va_range: Range<u64>,
-+    /// VA layout for this VM.
-+    pub(crate) layout: VmLayout,
- }
- 
- impl<'drm> Vm<'drm> {
--    /// Creates a new GPU virtual address space.
-+    /// Creates the MCU/firmware VM.
-     ///
--    /// The VM is initialized with a page table configured according to the GPU's
--    /// address translation capabilities and registered with the GPUVM framework.
--    pub(crate) fn new(
-+    /// The MCU VM is entirely kernel-managed: it has no user-accessible range.
-+    pub(crate) fn new_for_fw(
-+        dev: &'drm Device<Bound>,
-+        ddev: &TyrDrmDevice,
-+        mmu: ArcBorrow<'_, Mmu<'drm>>,
-+        gpu_info: &GpuInfo,
-+    ) -> Result<Arc<Vm<'drm>>> {
-+        // As in panthor: the CSF MCU is a Cortex-M7 and can only address 4G.
-+        let layout = VmLayout {
-+            full: 0..u64::SZ_4G,
-+            user: 0..0u64,
-+        };
-+        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
-+    }
-+
-+    /// Creates a user VM, splitting the GPU VA range per `user_va`.
-+    #[expect(dead_code)]
-+    pub(crate) fn new_for_user(
-         dev: &'drm Device<Bound>,
-         ddev: &TyrDrmDevice,
-         mmu: ArcBorrow<'_, Mmu<'drm>>,
-         gpu_info: &GpuInfo,
-+        user_va: UserVaRequest,
-+    ) -> Result<Arc<Vm<'drm>>> {
-+        let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
-+        let va_bits = mmu_features.va_bits().get();
-+        let range = 0..(1u64 << va_bits);
-+
-+        let layout = VmLayout::compute(range.clone(), user_va).inspect_err(|_| {
-+            dev_dbg!(
-+                dev,
-+                "Failed to split GPU VA range {:#x}..{:#x} into user and kernel regions\n",
-+                range.start,
-+                range.end
-+            );
-+        })?;
-+        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
-+    }
-+
-+    /// Initializes a VM with the given layout.
-+    fn new_internal(
-+        dev: &'drm Device<Bound>,
-+        ddev: &TyrDrmDevice,
-+        mmu: ArcBorrow<'_, Mmu<'drm>>,
-+        gpu_info: &GpuInfo,
-+        layout: VmLayout,
-     ) -> Result<Arc<Vm<'drm>>> {
-         let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
-         let va_bits = mmu_features.va_bits().get();
-         let pa_bits = mmu_features.pa_bits().get();
- 
--        let range = 0..(1u64 << va_bits);
-         let reserve_range = 0..0u64;
- 
-         // dummy_obj is used to initialize the GPUVM tree.
-@@ -365,7 +492,7 @@ pub(crate) fn new(
-             c"Tyr::GpuVm",
-             ddev,
-             &*dummy_obj,
--            range.clone(),
-+            layout.full.clone(),
-             reserve_range,
-             GpuVmData::<'drm> {
-                 _phantom: PhantomData::<&()>,
-@@ -385,7 +512,7 @@ pub(crate) fn new(
-                 mmu: mmu.into(),
-                 gpuvm,
-                 gpuvm_unique <- new_mutex!(gpuvm_unique),
--                va_range: range,
-+                layout,
-             }),
-             GFP_KERNEL,
-         )?;
-@@ -416,10 +543,12 @@ fn deactivate(&self) -> Result {
- 
-     /// Kills the VM by deactivating it and unmapping all regions.
-     pub(crate) fn kill(&self) {
--        // TODO: Turn the VM into a state where it can't be used.
-         let _ = self.deactivate();
-         let _ = self
--            .unmap_range(self.va_range.start, self.va_range.end - self.va_range.start)
-+            .unmap_range(
-+                self.layout.full.start,
-+                self.layout.full.end - self.layout.full.start,
-+            )
-             .inspect_err(|e| {
-                 dev_err!(self.dev, "Failed to unmap range during deactivate: {:?}", e);
-             });
-@@ -556,14 +685,14 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
- 
-         let end = va.checked_add(size).ok_or(EINVAL)?;
- 
--        if va < self.va_range.start || end > self.va_range.end {
-+        if va < self.layout.full.start || end > self.layout.full.end {
-             dev_err!(
-                 self.dev,
-                 "Unmap range {:#x}..{:#x} exceeds VM range {:#x}..{:#x}",
-                 va,
-                 end,
--                self.va_range.start,
--                self.va_range.end
-+                self.layout.full.start,
-+                self.layout.full.end
-             );
-             return Err(EINVAL);
-         }
-@@ -573,7 +702,7 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
-             region: va..end,
-         };
- 
--        let full_vm = va == self.va_range.start && end == self.va_range.end;
-+        let full_vm = va == self.layout.full.start && end == self.layout.full.end;
- 
-         let mut resources = VmOpResources {
-             preallocated_gpuvas: if full_vm {
-
--- 
-2.43.0
+Please align the '<'s
 
 
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +				port@0 {
+
+Please add a \n before the subnode
+
+[...]
+
+> +	vcc_5v_s: regulator-vcc-5v-s {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "vcc_5v_s";
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +
+> +		gpio = <&tlmm 159 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +		startup-delay-us = <250000>;
+> +		off-on-delay-us = <150000>;
+> +
+> +		pinctrl-0 = <&vcc_5v_s_reg_en>;
+> +		pinctrl-names = "default";
+> +
+> +		/* CH7218A needs to be powered on for HPD logic to work */
+> +		regulator-always-on;
+
+Does the power supply reference at the connector node not handle this?
+
+[...]
+
+> +&gpu_zap_shader {
+> +	/* Reuse firmware from x13s as the SoC is unfused */
+> +	firmware-name = "qcom/sc8280xp/LENOVO/21BX/qcdxkmsuc8280.mbn";
+> +};
+
+Other than the signature, the zap firmware is wholly generic.. I wonder
+if we can just add a symlink in l-f to get a generic path..
+
+WDYT +Dmitry?
+
+[...]
+
+> +/* M-key Gen3 x4 */
+> +&pcie2a {
+> +	/* Place ECAM and BAR space above 4 GiB to accommodate large BARs. */
+> +	reg = <0x0 0x01c20000 0x0 0x3000>,
+> +	      <0x0 0x3c000000 0x0 0xf1d>,
+> +	      <0x0 0x3c000f20 0x0 0xa8>,
+> +	      <0x0 0x3c001000 0x0 0x1000>,
+> +	      <0x5 0x00000000 0x0 0x10000000>, /* ECAM config */
+> +	      <0x0 0x01c23000 0x0 0x1000>;
+> +
+> +	ranges = /* IO (1 MiB) */
+> +		 <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
+> +		 /* 32-bit non-prefetchable memory (256 MiB) */
+> +		 <0x02000000 0x0 0x40000000 0x5 0x10000000 0x0 0x10000000>,
+> +		 /* 64-bit non-prefetchable memory (3.5 GiB) */
+> +		 <0x03000000 0x5 0x20000000 0x5 0x20000000 0x0 0xe0000000>;
+
+Please drop this change on the board side, this is SoC-specific.
+Likewise for the other ports.
+
+[...]
+
+> +&pmk8280_pon_pwrkey {
+> +	status = "okay";
+> +};
+
+I am confused why this isn't enabled by deafult but that's of course
+not your fault
+
+[...]
+
+
+> +&sdc2 {
+> +	pinctrl-0 = <&sdc2_default_state>;
+> +	pinctrl-1 = <&sdc2_sleep_state>;
+> +	pinctrl-names = "default", "sleep";
+> +
+> +	full-pwr-cycle;
+
+Hm, is that something that comes from the controller itself? Should
+we advertise it on other SoCs too?
+
+[...]
+
+> +
+> +	vmmc-supply = <&vreg_l9c>;
+> +	vqmmc-supply = <&vreg_l6c>;
+> +
+> +	cd-gpios = <&tlmm 131 GPIO_ACTIVE_LOW>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&sound {
+> +	compatible = "qcom,sc8280xp-sndcard";
+> +	model = "SC8280XP-Radxa-Dragon-Q8B";
+> +
+> +	audio-routing =
+> +		"IN1_HPHL", "HPHL_OUT",
+
+Please don't break the line here, start right after the '='
+
+[...]
+
+> +	usb0_sbu_default: usb0-sbu-state {
+> +		oe-n-pins {
+> +			pins = "gpio101";
+> +			function = "gpio";
+> +			bias-disable;
+> +			drive-strength = <16>;
+> +			output-high;
+
+Drop the forced output state from both SBU pin states
+
+Konrad
