@@ -2,41 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3500D606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 23:14:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9953606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 23:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UahLLjMY
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Kno9fHup
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 904C910F826;
-	Tue, 20 Oct 2026 23:14:07 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 763C810E90C
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 23:14:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 69AC660416;
- Tue, 20 Oct 2026 23:14:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E4BF1F000C9;
- Tue, 20 Oct 2026 23:14:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792538040;
- bh=MN73Yo4Pep8IIHGh2rCAda1Kkp9Tg0aLb2e3Wuajzqg=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=UahLLjMYG7CKU9CHBAMd9Y5rCEzJiXkuUxeJT8WGxJezXrCCtJpjIVIRjFVBIaQWy
- eDKA6ZCBEmWJnAXR2ZJgYwEw/vOx7SnKzKDJ2FJpaDEMAREvOJB7wvc2Fr349U9JEP
- XPXOFbO0XazlbcyfakRhnFjdZEzPx5Z0NI3USjfwwBhkhbslP8RMTa/QznPn2OB0Zq
- ljbjr3JnSnpusR6XdMXfJ40IdAPtkMn+8ySfkk9fOgrf/avI1yM5quqinkPJtQI/AJ
- ZAFn2VrdIxlpfKtRrRli/EawJEJ9GTyFcI9EN+hxZcarcw15zS6C64D3DqY1FrdhUJ
- 3Cp99xP6H2CbQ==
-Message-ID: <sashiko-outbox-179596@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/12] drm/msm/a8xx: devcoredump state capture support
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261020204728.28844-10-robin.clark@oss.qualcomm.com>
-References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
- <20261020204728.28844-10-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 23:13:59 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CFB310E90C;
+	Tue, 20 Oct 2026 23:15:11 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1106010E90C
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 23:15:05 +0000 (UTC)
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+ id 4F94720B7168; Tue, 20 Oct 2026 16:14:57 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4F94720B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1792538097;
+ bh=hvQVewhMSAlhuh+ust0vKV5XD3W7ZG3+7mumrB3Mc5M=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Kno9fHupBudut+323i6gtmmYXVPzWK3Ksbi9n50Fua9KzzZDPtLDNlRDbKecQ9Ig1
+ FIgreebHBailCcNs6LJtd8tIf67sEaW4QO10YHEFjF/4IDbLLQaHNuXnrkkartbNxk
+ AA4n8nPmOPmBTdja1QkSFYXycS2sRIG5YtXMoUWs=
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Dexuan Cui <decui@microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-hyperv@vger.kernel.org,
+ Lanfeng Wei <xlfylawarthur@gmail.com>,
+ Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Subject: [PATCH] drm/hyperv: add cursor plane support
+Date: Tue, 20 Oct 2026 19:14:51 -0400
+Message-ID: <20261020231451.1813472-1-hamzamahfooz@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,510 +49,654 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] drm/msm/a8xx: wrong GX power check and early GX read in a8xx_gpu_s=
-tate_get()
-- [High] drm/msm/a8xx: off-by-one slice ID and ignored error in gen8_snapsh=
-ot_mempool()
-- [Medium] drm/msm/a8xx: unrestored DBGC config after gen8_debugbus_interna=
-l_read_setup()
-- [Medium] drm/msm/a8xx: hardcoded context 0 in gen8_snapshot_dbgahb_regs()=
- SP_READ_SEL
-- [Medium] drm/msm/a8xx: broken host aperture setup in legacy AHB snapshot =
-helpers
-- [Low] drm/msm/a8xx: 32-bit GENMASK(63, 44) overflow in CD_WRITE() and CD_=
-READ()
---
+The Hyper-V synthetic video device lets the guest set the image and the
+position of the mouse pointer, which RDP clients like the VM Connection
+window then draw on their own, wherever their local mouse is. The driver
+only used this to hide the pointer so far, leaving the cursor to be
+drawn into the framebuffer, where it lags behind the mouse.
 
-commit 2b161a7f68dabf614abb5d253ffd0443bf998e9b
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
+Add a cursor plane that hands its image to the host instead. As the
+clients draw the pointer at their mouse position, the hotspot needs to
+be known, so set DRIVER_CURSOR_HOTSPOT.
 
-drm/msm/a8xx: devcoredump state capture support
+The host takes ARGB8888 images of up to 96x96 pixels, stored bottom-up
+and sent in parts of at most 8 KiB. Fully transparent columns and rows
+at the right and bottom, like the padding of a cursor buffer of the
+maximum size, are left out to keep the messages small. RDP clients use
+straight alpha for pointer images, so only advertise the "Coverage"
+pixel blend mode.
 
-This commit adds devcoredump GPU state capture and crashdumper support for
-Adreno A8xx (Gen8) GPUs, along with snapshot section helpers in
-adreno_snapshot.h.
+The host shows a small dot for a pointer marked invisible, so a hidden
+cursor is sent as a single, almost transparent pixel instead, like
+hv_drm_hide_hw_ptr() did, which this replaces. An image without any
+visible pixel is sent likewise, as clients may draw it as an opaque box
+otherwise.
 
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c b/drivers/gpu/dr=
-m/msm/adreno/a8xx_gpu_state.c
-> new file mode 100644
-> index 0000000000000..e4eb2f335a890
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
-> @@ -0,0 +1,1253 @@
+Clients connecting to the VM show a default pointer until they are sent
+one, so keep a copy of the cursor and send it again when the host
+reports a feature change as a client connects, and when the CRTC gets
+enabled.
 
-[ ... ]
+NOTE: The predominant client (i.e. VMConnect) draws translucent pixels
+as opaque ones blended onto black, this is a limitation of the client.
 
-> +static void gen8_legacy_snapshot_registers(struct msm_gpu *gpu,
-> +					   struct adreno_gpu_state *state,
-> +					   const struct gen8_reg_list *regs,
-> +					   u32 slice_id)
-> +{
-> +	int count;
-> +
-> +	/* Figure out how many registers we are going to dump */
-> +	count =3D adreno_snapshot_regs_count(regs->regs);
-> +
-> +	snapshot_sect (state, MVC_V3, 4 * count, {
-> +		.ctxt_id =3D 0,
-> +		.cluster_id =3D CLUSTER_NONE,
-> +		.pipe_id =3D PIPE_NONE,
-> +		.location_id =3D UINT_MAX,
-> +		.sp_id =3D UINT_MAX,
-> +		.usptp_id =3D UINT_MAX,
-> +		.slice_id =3D HEADER_SLICE_ID(regs->slice_region, slice_id),
-> +	}) {
-> +		unsigned long flags;
-> +
-> +		if (regs->sel)
-> +			gpu_write(gpu, regs->sel->host_reg, regs->sel->val);
-> +
-> +		if (regs->slice_region)
-> +			a8xx_aperture_acquire_slice(gpu, PIPE_NONE, slice_id, false, &flags);
-> +
-> +		/* Make sure the previous writes are posted before reading */
-> +		mb();
-> +
-> +		for (const u32 *ptr =3D regs->regs; ptr[0] !=3D UINT_MAX; ptr +=3D 2) {
-> +			snapshot_mvc_regs_v3_subheader(&sect, ptr);
-> +
-> +			for (int k =3D ptr[0]; k <=3D ptr[1]; k++) {
-> +				snapshot_sect_u32(&sect, reg_read(gpu, k));
-> +			}
-> +		}
-> +
-> +		if (regs->slice_region)
-> +			a8xx_aperture_release(gpu, flags);
-> +	}
-> +}
+Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+---
+ drivers/gpu/drm/hyperv/hyperv_drm.h         |  37 +++-
+ drivers/gpu/drm/hyperv/hyperv_drm_drv.c     |  13 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 170 +++++++++++++++-
+ drivers/gpu/drm/hyperv/hyperv_drm_proto.c   | 211 ++++++++++++++++----
+ 4 files changed, 381 insertions(+), 50 deletions(-)
 
-[ ... ]
+diff --git a/drivers/gpu/drm/hyperv/hyperv_drm.h b/drivers/gpu/drm/hyperv/hyperv_drm.h
+index f4262a37af36..df03185a2e19 100644
+--- a/drivers/gpu/drm/hyperv/hyperv_drm.h
++++ b/drivers/gpu/drm/hyperv/hyperv_drm.h
+@@ -13,10 +13,38 @@
+ 
+ #define VMBUS_MAX_PACKET_SIZE 0x4000
+ 
++#define SYNTHVID_CURSOR_MAX_X 96
++#define SYNTHVID_CURSOR_MAX_Y 96
++#define SYNTHVID_CURSOR_ARGB_PIXEL_SIZE 4
++#define SYNTHVID_CURSOR_MAX_SIZE (SYNTHVID_CURSOR_MAX_X * \
++	SYNTHVID_CURSOR_MAX_Y * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE)
++
++/*
++ * Copy of the cursor last handed to the host, so that it can be sent again
++ * when needed, e.g. after a VM Connection window was opened.
++ */
++struct hv_drm_cursor {
++	/* Serializes pointer messages and protects the fields below */
++	struct mutex lock;
++	/* The host may not have the cached shape, e.g. after a failed send */
++	bool shape_stale;
++	u32 width;
++	u32 height;
++	u32 hot_x;
++	u32 hot_y;
++	s32 x;
++	s32 y;
++	/* ARGB8888, rows of width pixels, stored bottom-up as the host wants */
++	u8 image[SYNTHVID_CURSOR_MAX_SIZE];
++	/* Scratch space for building pointer shape messages */
++	u8 msg_buf[VMBUS_MAX_PACKET_SIZE];
++};
++
+ struct hv_drm_device {
+ 	/* drm */
+ 	struct drm_device dev;
+ 	struct drm_plane plane;
++	struct drm_plane cursor_plane;
+ 	struct drm_crtc crtc;
+ 	struct drm_encoder encoder;
+ 	struct drm_connector connector;
+@@ -40,6 +68,9 @@ struct hv_drm_device {
+ 	u8 init_buf[VMBUS_MAX_PACKET_SIZE];
+ 	u8 recv_buf[VMBUS_MAX_PACKET_SIZE];
+ 
++	struct hv_drm_cursor *cursor;
++	struct work_struct cursor_work;
++
+ 	struct hv_device *hdev;
+ };
+ 
+@@ -52,8 +83,12 @@ int hv_drm_mode_config_init(struct hv_drm_device *hv);
+ int hv_drm_update_vram_location(struct hv_device *hdev, phys_addr_t vram_pp);
+ int hv_drm_update_situation(struct hv_device *hdev, u8 active, u32 bpp,
+ 			    u32 w, u32 h, u32 pitch);
+-int hv_drm_hide_hw_ptr(struct hv_device *hdev);
++int hv_drm_cursor_init(struct hv_drm_device *hv);
++void hv_drm_cursor_set_hidden(struct hv_drm_cursor *cursor);
++void hv_drm_update_cursor(struct hv_drm_device *hv, bool shape);
++void hv_drm_restore_cursor(struct hv_drm_device *hv);
+ int hv_drm_update_dirt(struct hv_device *hdev, struct drm_rect *rect);
+ int hv_drm_connect_vsp(struct hv_device *hdev);
++void hv_drm_disconnect_vsp(struct hv_device *hdev);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+index 031206a5b3d7..21e5fcc3eb68 100644
+--- a/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
++++ b/drivers/gpu/drm/hyperv/hyperv_drm_drv.c
+@@ -26,7 +26,8 @@
+ DEFINE_DRM_GEM_FOPS(hv_drm_fops);
+ 
+ static struct drm_driver hv_drm_driver = {
+-	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
++	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC |
++			   DRIVER_CURSOR_HOTSPOT,
+ 
+ 	.name		 = DRIVER_NAME,
+ 	.desc		 = DRIVER_DESC,
+@@ -119,6 +120,10 @@ static int hv_drm_vmbus_probe(struct hv_device *hdev,
+ 	hv_set_drvdata(hdev, hv);
+ 	hv->hdev = hdev;
+ 
++	ret = hv_drm_cursor_init(hv);
++	if (ret)
++		goto err_hv_set_drv_data;
++
+ 	ret = hv_drm_connect_vsp(hdev);
+ 	if (ret) {
+ 		drm_err(dev, "Failed to connect to vmbus.\n");
+@@ -162,7 +167,7 @@ static int hv_drm_vmbus_probe(struct hv_device *hdev,
+ 	iounmap(hv->vram);
+ 	vmbus_free_mmio(hv->mem->start, hv->fb_size);
+ err_vmbus_close:
+-	vmbus_close(hdev->channel);
++	hv_drm_disconnect_vsp(hdev);
+ err_hv_set_drv_data:
+ 	hv_set_drvdata(hdev, NULL);
+ 	return ret;
+@@ -176,7 +181,7 @@ static void hv_drm_vmbus_remove(struct hv_device *hdev)
+ 	vmbus_set_skip_unload(false);
+ 	drm_dev_unplug(dev);
+ 	drm_atomic_helper_shutdown(dev);
+-	vmbus_close(hdev->channel);
++	hv_drm_disconnect_vsp(hdev);
+ 	hv_set_drvdata(hdev, NULL);
+ 
+ 	iounmap(hv->vram);
+@@ -197,7 +202,7 @@ static int hv_drm_vmbus_suspend(struct hv_device *hdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	vmbus_close(hdev->channel);
++	hv_drm_disconnect_vsp(hdev);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+index da399cb951a5..c9d02311afb5 100644
+--- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
++++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+@@ -6,6 +6,7 @@
+ #include <linux/hyperv.h>
+ 
+ #include <drm/drm_atomic.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_drv.h>
+@@ -110,7 +111,7 @@ static void hv_drm_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+ 	struct drm_plane_state *plane_state = plane->state;
+ 	struct drm_crtc_state *crtc_state = crtc->state;
+ 
+-	hv_drm_hide_hw_ptr(hv->hdev);
++	hv_drm_restore_cursor(hv);
+ 	hv_drm_update_situation(hv->hdev, 1,  hv->screen_depth,
+ 				crtc_state->mode.hdisplay,
+ 				crtc_state->mode.vdisplay,
+@@ -241,6 +242,152 @@ static const struct drm_plane_funcs hv_drm_plane_funcs = {
+ 	DRM_PANIC_PLANE_FUNCS,
+ };
+ 
++static const u32 hv_drm_cursor_formats[] = {
++	DRM_FORMAT_ARGB8888,
++};
++
++static int hv_drm_cursor_atomic_check(struct drm_plane *plane,
++				      struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_crtc *crtc = plane_state->crtc;
++	struct drm_crtc_state *crtc_state = NULL;
++	int ret;
++
++	if (crtc)
++		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++
++	ret = drm_atomic_helper_check_plane_state(plane_state, crtc_state,
++						  DRM_PLANE_NO_SCALING,
++						  DRM_PLANE_NO_SCALING,
++						  true, true);
++	if (ret)
++		return ret;
++
++	if (!plane_state->fb)
++		return 0;
++
++	if (!plane_state->crtc_w || plane_state->crtc_w > SYNTHVID_CURSOR_MAX_X ||
++	    !plane_state->crtc_h || plane_state->crtc_h > SYNTHVID_CURSOR_MAX_Y) {
++		drm_dbg_atomic(plane->dev, "Invalid cursor size %ux%u\n",
++			       plane_state->crtc_w, plane_state->crtc_h);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++/*
++ * Copy the cursor image to the cache, bottom-up as the host wants it. Fully
++ * transparent columns and rows at the right and bottom, like the padding of
++ * a cursor buffer of the maximum size, are left out.
++ */
++static void hv_drm_cursor_load(struct hv_drm_cursor *cursor,
++			       const struct drm_plane_state *state,
++			       const struct iosys_map *map)
++{
++	size_t pitch = state->fb->pitches[0];
++	size_t offset = (state->src_y >> 16) * pitch + (state->src_x >> 16) *
++		SYNTHVID_CURSOR_ARGB_PIXEL_SIZE;
++	u32 hot_x = clamp_t(s32, state->hotspot_x, 0, state->crtc_w - 1);
++	u32 hot_y = clamp_t(s32, state->hotspot_y, 0, state->crtc_h - 1);
++	u32 width = 0, height = 0;
++	u32 x, y;
++
++	for (y = 0; y < state->crtc_h; y++) {
++		for (x = state->crtc_w; x; x--) {
++			if (iosys_map_rd(map,
++					 (offset + y * pitch + x *
++					  SYNTHVID_CURSOR_ARGB_PIXEL_SIZE - 1),
++					 u8))
++				break;
++		}
++
++		if (x) {
++			width = max(width, x);
++			height = y + 1;
++		}
++	}
++
++	if (!width) {
++		hv_drm_cursor_set_hidden(cursor);
++		return;
++	}
++
++	/* Keep the hotspot within the image */
++	width = max(width, hot_x + 1);
++	height = max(height, hot_y + 1);
++
++	for (y = 0; y < height; y++)
++		iosys_map_memcpy_from((cursor->image + (height - 1 - y) *
++				       width * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE),
++				      map, offset + y * pitch,
++				      width * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE);
++
++	cursor->width = width;
++	cursor->height = height;
++	cursor->hot_x = hot_x;
++	cursor->hot_y = hot_y;
++}
++
++static void hv_drm_cursor_hide(struct hv_drm_device *hv)
++{
++	struct hv_drm_cursor *cursor = hv->cursor;
++
++	scoped_guard(mutex, &cursor->lock) {
++		hv_drm_cursor_set_hidden(cursor);
++		hv_drm_update_cursor(hv, true);
++	}
++}
++
++static void hv_drm_cursor_atomic_update(struct drm_plane *plane,
++					struct drm_atomic_commit *state)
++{
++	struct hv_drm_device *hv = to_hv_drm(plane->dev);
++	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
++	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(new_state);
++	struct hv_drm_cursor *cursor = hv->cursor;
++	bool shape;
++
++	if (!new_state->visible) {
++		if (old_state->visible)
++			hv_drm_cursor_hide(hv);
++		return;
++	}
++
++	shape = !old_state->visible || old_state->fb != new_state->fb ||
++		old_state->src_x != new_state->src_x ||
++		old_state->src_y != new_state->src_y ||
++		old_state->src_w != new_state->src_w ||
++		old_state->src_h != new_state->src_h ||
++		old_state->hotspot_x != new_state->hotspot_x ||
++		old_state->hotspot_y != new_state->hotspot_y;
++
++	scoped_guard(mutex, &cursor->lock) {
++		if (shape)
++			hv_drm_cursor_load(cursor, new_state,
++					   &shadow_plane_state->data[0]);
++
++		cursor->x = new_state->crtc_x;
++		cursor->y = new_state->crtc_y;
++		hv_drm_update_cursor(hv, shape);
++	}
++}
++
++static void hv_drm_cursor_atomic_disable(struct drm_plane *plane,
++					 struct drm_atomic_commit *state)
++{
++	hv_drm_cursor_hide(to_hv_drm(plane->dev));
++}
++
++static const struct drm_plane_helper_funcs hv_drm_cursor_helper_funcs = {
++	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
++	.atomic_check = hv_drm_cursor_atomic_check,
++	.atomic_update = hv_drm_cursor_atomic_update,
++	.atomic_disable = hv_drm_cursor_atomic_disable,
++};
++
+ static const struct drm_encoder_funcs hv_drm_simple_encoder_funcs_cleanup = {
+ 	.destroy = drm_encoder_cleanup,
+ };
+@@ -250,6 +397,7 @@ static inline int hv_drm_pipe_init(struct hv_drm_device *hv)
+ 	struct drm_device *dev = &hv->dev;
+ 	struct drm_encoder *encoder = &hv->encoder;
+ 	struct drm_plane *plane = &hv->plane;
++	struct drm_plane *cursor = &hv->cursor_plane;
+ 	struct drm_crtc *crtc = &hv->crtc;
+ 	struct drm_connector *connector = &hv->connector;
+ 	int ret;
+@@ -264,7 +412,23 @@ static inline int hv_drm_pipe_init(struct hv_drm_device *hv)
+ 	drm_plane_helper_add(plane, &hv_drm_plane_helper_funcs);
+ 	drm_plane_enable_fb_damage_clips(plane);
+ 
+-	ret = drm_crtc_init_with_planes(dev, crtc, plane, NULL,
++	ret = drm_universal_plane_init(dev, cursor, 0,
++				       &hv_drm_plane_funcs,
++				       hv_drm_cursor_formats,
++				       ARRAY_SIZE(hv_drm_cursor_formats),
++				       hv_drm_modifiers,
++				       DRM_PLANE_TYPE_CURSOR, NULL);
++	if (ret)
++		return ret;
++	drm_plane_helper_add(cursor, &hv_drm_cursor_helper_funcs);
++
++	/* The cursor image reaches the host's clients with straight alpha */
++	ret = drm_plane_create_blend_mode_property(cursor,
++						   BIT(DRM_MODE_BLEND_COVERAGE));
++	if (ret)
++		return ret;
++
++	ret = drm_crtc_init_with_planes(dev, crtc, plane, cursor,
+ 					&hv_drm_crtc_funcs, NULL);
+ 	if (ret)
+ 		return ret;
+@@ -320,6 +484,8 @@ int hv_drm_mode_config_init(struct hv_drm_device *hv)
+ 	dev->mode_config.min_height = 0;
+ 	dev->mode_config.max_width = hv->screen_width_max;
+ 	dev->mode_config.max_height = hv->screen_height_max;
++	dev->mode_config.cursor_width = SYNTHVID_CURSOR_MAX_X;
++	dev->mode_config.cursor_height = SYNTHVID_CURSOR_MAX_Y;
+ 
+ 	dev->mode_config.preferred_depth = hv->screen_depth;
+ 	dev->mode_config.prefer_shadow = 0;
+diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+index 8ddd34833941..0f3e64fc73ac 100644
+--- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
++++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/hyperv.h>
+ 
++#include <drm/drm_managed.h>
+ #include <drm/drm_print.h>
+ 
+ #include "hyperv_drm.h"
+@@ -111,12 +112,9 @@ struct synthvid_pointer_position {
+ 	s32 image_y;
+ } __packed;
+ 
+-#define SYNTHVID_CURSOR_MAX_X 96
+-#define SYNTHVID_CURSOR_MAX_Y 96
+-#define SYNTHVID_CURSOR_ARGB_PIXEL_SIZE 4
+-#define SYNTHVID_CURSOR_MAX_SIZE (SYNTHVID_CURSOR_MAX_X * \
+-	SYNTHVID_CURSOR_MAX_Y * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE)
+ #define SYNTHVID_CURSOR_COMPLETE (-1)
++/* Most pixel data the host accepts in one pointer shape message */
++#define SYNTHVID_CURSOR_MAX_PAYLOAD 8192
+ 
+ struct synthvid_pointer_shape {
+ 	u8 part_idx;
+@@ -286,47 +284,163 @@ int hv_drm_update_situation(struct hv_device *hdev, u8 active, u32 bpp,
+ }
+ 
+ /*
+- * Hyper-V supports a hardware cursor feature. It's not used by Linux VM,
+- * but the Hyper-V host still draws a point as an extra mouse pointer,
+- * which is unwanted, especially when Xorg is running.
+- *
+- * Hide the unwanted pointer, by setting msg.ptr_pos.is_visible = 1 and setting
+- * the msg.ptr_shape.data. Note: setting msg.ptr_pos.is_visible to 0 doesn't
+- * work in tests.
+- *
+- * The hv_drm_hide_hw_ptr() is also called in the handler of the
+- * SYNTHVID_FEATURE_CHANGE event, otherwise the host still draws an extra
+- * unwanted mouse pointer after the VM Connection window is closed and reopened.
++ * The host always shows a mouse pointer: the one set with the pointer shape
++ * and position messages, or else a small dot, which is also what it shows
++ * for a pointer marked invisible. A hidden cursor is therefore a single,
++ * almost transparent pixel.
+  */
+-int hv_drm_hide_hw_ptr(struct hv_device *hdev)
++static const u8 hv_drm_cursor_hidden_pixel[SYNTHVID_CURSOR_ARGB_PIXEL_SIZE] = {
++	0x00, 0x01, 0x01, 0x01
++};
++
++void hv_drm_cursor_set_hidden(struct hv_drm_cursor *cursor)
+ {
+-	struct synthvid_msg msg;
++	memcpy(cursor->image, hv_drm_cursor_hidden_pixel,
++	       sizeof(hv_drm_cursor_hidden_pixel));
++	cursor->width = 1;
++	cursor->height = 1;
++	cursor->hot_x = 0;
++	cursor->hot_y = 0;
++	cursor->x = 0;
++	cursor->y = 0;
++}
+ 
+-	memset(&msg, 0, sizeof(struct synthvid_msg));
+-	msg.vid_hdr.type = SYNTHVID_POINTER_POSITION;
+-	msg.vid_hdr.size = sizeof(struct synthvid_msg_hdr) +
++/*
++ * Pointer shapes too large for one message are sent in parts numbered from
++ * 0, with SYNTHVID_CURSOR_COMPLETE marking the last part. A shape that fits
++ * in one message is sent as a lone SYNTHVID_CURSOR_COMPLETE part.
++ */
++static int hv_drm_send_ptr_shape(struct hv_drm_device *hv, u32 width,
++				 u32 height, u32 hot_x, u32 hot_y,
++				 const u8 *image)
++{
++	const size_t data_offset = offsetof(struct synthvid_msg,
++					    ptr_shape.data);
++	size_t size = width * height * SYNTHVID_CURSOR_ARGB_PIXEL_SIZE;
++	u8 *buf = hv->cursor->msg_buf;
++	struct synthvid_msg *msg;
++	size_t offset = 0;
++	u8 part = 0;
++	size_t len;
++	int ret;
++
++	BUILD_BUG_ON((offsetof(struct synthvid_msg, ptr_shape.data) +
++		     SYNTHVID_CURSOR_MAX_PAYLOAD) >
++		     sizeof_field(struct hv_drm_cursor, msg_buf));
++
++	msg = (struct synthvid_msg *)buf;
++
++	do {
++		len = min(size - offset, SYNTHVID_CURSOR_MAX_PAYLOAD);
++
++		memset(buf, 0, data_offset);
++		msg->vid_hdr.type = SYNTHVID_POINTER_SHAPE;
++		msg->vid_hdr.size = sizeof(struct synthvid_msg_hdr) +
++			offsetof(struct synthvid_pointer_shape, data) + len;
++		if (offset + len < size)
++			msg->ptr_shape.part_idx = part++;
++		else
++			msg->ptr_shape.part_idx = SYNTHVID_CURSOR_COMPLETE;
++		msg->ptr_shape.is_argb = 1;
++		msg->ptr_shape.width = width;
++		msg->ptr_shape.height = height;
++		msg->ptr_shape.hot_x = hot_x;
++		msg->ptr_shape.hot_y = hot_y;
++		memcpy(buf + data_offset, image + offset, len);
++
++		ret = hv_drm_sendpacket(hv->hdev, msg);
++		if (ret)
++			return ret;
++
++		offset += len;
++	} while (offset < size);
++
++	return 0;
++}
++
++static int hv_drm_send_ptr_position(struct hv_drm_device *hv, s32 x, s32 y)
++{
++	struct synthvid_msg *msg = (struct synthvid_msg *)hv->cursor->msg_buf;
++
++	memset(msg, 0, sizeof(struct synthvid_msg));
++	msg->vid_hdr.type = SYNTHVID_POINTER_POSITION;
++	msg->vid_hdr.size = sizeof(struct synthvid_msg_hdr) +
+ 		sizeof(struct synthvid_pointer_position);
+-	msg.ptr_pos.is_visible = 1;
+-	msg.ptr_pos.video_output = 0;
+-	msg.ptr_pos.image_x = 0;
+-	msg.ptr_pos.image_y = 0;
+-	hv_drm_sendpacket(hdev, &msg);
++	msg->ptr_pos.is_visible = 1;
++	msg->ptr_pos.video_output = 0;
++	msg->ptr_pos.image_x = x;
++	msg->ptr_pos.image_y = y;
+ 
+-	memset(&msg, 0, sizeof(struct synthvid_msg));
+-	msg.vid_hdr.type = SYNTHVID_POINTER_SHAPE;
+-	msg.vid_hdr.size = sizeof(struct synthvid_msg_hdr) +
+-		sizeof(struct synthvid_pointer_shape);
+-	msg.ptr_shape.part_idx = SYNTHVID_CURSOR_COMPLETE;
+-	msg.ptr_shape.is_argb = 1;
+-	msg.ptr_shape.width = 1;
+-	msg.ptr_shape.height = 1;
+-	msg.ptr_shape.hot_x = 0;
+-	msg.ptr_shape.hot_y = 0;
+-	msg.ptr_shape.data[0] = 0;
+-	msg.ptr_shape.data[1] = 1;
+-	msg.ptr_shape.data[2] = 1;
+-	msg.ptr_shape.data[3] = 1;
+-	hv_drm_sendpacket(hdev, &msg);
++	return hv_drm_sendpacket(hv->hdev, msg);
++}
++
++/*
++ * Send the cached cursor to the host: the shape if @shape is set or the host
++ * may lack it, then the position. The position goes last as the host applies
++ * the hotspot of its current shape to it.
++ */
++void hv_drm_update_cursor(struct hv_drm_device *hv, bool shape)
++{
++	struct hv_drm_cursor *cursor = hv->cursor;
++	int ret = 0;
++
++	lockdep_assert_held(&cursor->lock);
++
++	if (shape || cursor->shape_stale) {
++		/*
++		 * The host may still be waiting for the rest of a multi-part
++		 * shape, and rejects new shapes until it gets a final part.
++		 * A one pixel shape completes any such shape, and is a valid
++		 * shape of its own otherwise.
++		 */
++		if (cursor->shape_stale)
++			ret = hv_drm_send_ptr_shape(hv, 1, 1, 0, 0,
++						    hv_drm_cursor_hidden_pixel);
++		if (!ret)
++			ret = hv_drm_send_ptr_shape(hv, cursor->width,
++						    cursor->height,
++						    cursor->hot_x,
++						    cursor->hot_y,
++						    cursor->image);
++		cursor->shape_stale = ret;
++	}
++
++	hv_drm_send_ptr_position(hv, cursor->x, cursor->y);
++}
++
++void hv_drm_restore_cursor(struct hv_drm_device *hv)
++{
++	scoped_guard(mutex, &hv->cursor->lock)
++		hv_drm_update_cursor(hv, true);
++}
++
++static void hv_drm_restore_cursor_work(struct work_struct *work)
++{
++	struct hv_drm_device *hv = container_of(work, struct hv_drm_device,
++						cursor_work);
++
++	hv_drm_restore_cursor(hv);
++}
++
++int hv_drm_cursor_init(struct hv_drm_device *hv)
++{
++	struct hv_drm_cursor *cursor;
++	int ret;
++
++	cursor = drmm_kzalloc(&hv->dev, sizeof(*cursor), GFP_KERNEL);
++	if (!cursor)
++		return -ENOMEM;
++
++	ret = drmm_mutex_init(&hv->dev, &cursor->lock);
++	if (ret)
++		return ret;
++
++	hv_drm_cursor_set_hidden(cursor);
++	cursor->shape_stale = true;
++	hv->cursor = cursor;
++
++	INIT_WORK(&hv->cursor_work, hv_drm_restore_cursor_work);
++	disable_work(&hv->cursor_work);
+ 
+ 	return 0;
+ }
+@@ -474,7 +588,7 @@ static void hv_drm_receive_sub(struct hv_device *hdev, u32 bytes_recvd)
+ 		}
+ 		hv->dirt_needed = msg->feature_chg.is_dirt_needed;
+ 		if (hv->dirt_needed)
+-			hv_drm_hide_hw_ptr(hv->hdev);
++			schedule_work(&hv->cursor_work);
+ 		return;
+ 	default:
+ 		return;
+@@ -538,9 +652,11 @@ int hv_drm_connect_vsp(struct hv_device *hdev)
+ 	struct drm_device *dev = &hv->dev;
+ 	int ret;
+ 
++	enable_work(&hv->cursor_work);
+ 	ret = vmbus_open(hdev->channel, VMBUS_RING_BUFSIZE, VMBUS_RING_BUFSIZE,
+ 			 NULL, 0, hv_drm_receive, hdev);
+ 	if (ret) {
++		disable_work_sync(&hv->cursor_work);
+ 		drm_err(dev, "Unable to open vmbus channel\n");
+ 		return ret;
+ 	}
+@@ -574,6 +690,15 @@ int hv_drm_connect_vsp(struct hv_device *hdev)
+ 	return 0;
+ 
+ error:
+-	vmbus_close(hdev->channel);
++	hv_drm_disconnect_vsp(hdev);
+ 	return ret;
+ }
++
++void hv_drm_disconnect_vsp(struct hv_device *hdev)
++{
++	struct hv_drm_device *hv = hv_get_drvdata(hdev);
++
++	/* Stop the work before vmbus_close() frees the ring buffers */
++	disable_work_sync(&hv->cursor_work);
++	vmbus_close(hdev->channel);
++}
+-- 
+2.56.0
 
-> +static bool gen8_snapshot_mempool(struct msm_gpu *gpu,
-> +				  struct adreno_gpu_state *state,
-> +				  struct adreno_crashdumper *dumper)
-> +{
-> +	const struct gen8_snapshot_block_list *b =3D block_list(gpu);
-> +	u32 slice_mask =3D to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
-> +	u32 first_slice =3D ffs(slice_mask);
-> +
-> +	for (int i =3D 0; i < b->mempool_index_registers_len; i++) {
-> +		const struct gen8_cp_indexed_reg *cp_indexed_reg =3D
-> +			&b->mempool_index_registers[i];
-> +		unsigned long flags;
-> +		u32 j;
-> +
-> +		FOR_EACH_SLICE (j, cp_indexed_reg->slice_region, slice_mask) {
-> +
-> +			/* TODO: Remove hardcoded values */
-> +			/* Set CP_CHICKEN_DBG[StabilizeMVC] to stabilize it while dumping */
-> +			a8xx_aperture_acquire_slice(gpu, cp_indexed_reg->pipe_id, first_slice=
-, false, &flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			a8xx_aperture_acquire_slice(gpu, cp_indexed_reg->pipe_id, j, true, &f=
-lags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			gen8_snapshot_indexed_registers(gpu, state, dumper,
-> +				cp_indexed_reg->addr,
-> +				cp_indexed_reg->data, 0,
-> +				cp_indexed_reg->size,
-> +				cp_indexed_reg->pipe_id,
-> +				HEADER_SLICE_ID(cp_indexed_reg->slice_region, j));
-> +
-> +			/* Reset CP_CHICKEN_DBG[StabilizeMVC] once we are done */
-> +			a8xx_aperture_acquire_slice(gpu, cp_indexed_reg->pipe_id, first_slice=
-, false, &flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), 0);
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			a8xx_aperture_acquire_slice(gpu, cp_indexed_reg->pipe_id, j, true, &f=
-lags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), 0);
-> +			a8xx_aperture_release(gpu, flags);
-> +		}
-> +	}
-> +
-> +	/* Clear aperture register */
-> +	a8xx_aperture_clear(gpu);
-> +
-> +	return true;
-> +}
-
-[Severity: High]
-In drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c, when a8xx_gpu_state_get()
-calls gen8_snapshot_mempool(), first_slice is computed as ffs(slice_mask).
-Because ffs() returns a 1-based bit index (unlike a8xx_get_first_slice() in
-drivers/gpu/drm/msm/adreno/a8xx_gpu.c, which uses ffs(a6xx_gpu->slice_mask)=
- -
-1), passing first_slice to a8xx_aperture_acquire_slice() before modifying
-REG_A8XX_CP_CHICKEN_DBG_PIPE programs an off-by-one slice ID. On a 1-slice
-GPU such as Milos (where slice_mask is 0x1) or when slice ffs(slice_mask) is
-fused off in slice_mask, this selects a non-existent or harvested slice.
-
-In addition, for UNSLICE entries in b->mempool_index_registers, FOR_EACH_SL=
-ICE
-sets j =3D 0 regardless of slice_mask, and gen8_snapshot_mempool() still
-programs the aperture for slice j =3D 0 with use_slice =3D true to modify
-REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE even if slice 0 is fused off.
-
-Finally, gen8_snapshot_mempool() ignores the return value of
-gen8_snapshot_indexed_registers() and always returns true. If the crashdump=
-er
-times out during mempool capture, a8xx_gpu_state_get() will not bail out via
-goto out and will continue issuing register accesses.
-
-Should first_slice be ffs(slice_mask) - 1, should
-REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE only be accessed when
-cp_indexed_reg->slice_region =3D=3D SLICE, and should gen8_snapshot_mempool=
-()
-propagate failures from gen8_snapshot_indexed_registers()?
-
-> +static void gen8_legacy_snapshot_mvc(struct msm_gpu *gpu,
-> +				     struct adreno_gpu_state *state,
-> +				     const struct gen8_cluster_registers *cluster,
-> +				     u32 slice_id)
-> +{
-> +	int count;
-> +
-> +	/* Figure out how many registers we are going to dump */
-> +	count =3D adreno_snapshot_regs_count(cluster->regs);
-> +
-> +	snapshot_sect (state, MVC_V3, 4 * count, {
-> +		.ctxt_id =3D (cluster->context_id =3D=3D STATE_FORCE_CTXT_1) ? 1 : 0,
-> +		.cluster_id =3D cluster->cluster_id,
-> +		.pipe_id =3D cluster->pipe_id,
-> +		.location_id =3D UINT_MAX,
-> +		.sp_id =3D UINT_MAX,
-> +		.usptp_id =3D UINT_MAX,
-> +		.slice_id =3D HEADER_SLICE_ID(cluster->slice_region, slice_id),
-> +	}) {
-> +		unsigned long flags;
-> +
-> +		/*
-> +		 * Set the AHB control for the Host to read from the
-> +		 * cluster/context for this iteration.
-> +		 */
-> +		a8xx_aperture_acquire_slice(gpu, cluster->pipe_id, slice_id, true, &fl=
-ags);
-> +
-> +		if (cluster->sel)
-> +			gpu_write(gpu, cluster->sel->host_reg, cluster->sel->val);
-> +
-> +		/* Make sure the previous writes are posted before reading */
-> +		mb();
-> +
-> +		for (const u32 *ptr =3D cluster->regs; ptr[0] !=3D UINT_MAX; ptr +=3D =
-2) {
-> +			snapshot_mvc_regs_v3_subheader(&sect, ptr);
-> +
-> +			for (int k =3D ptr[0]; k <=3D ptr[1]; k++) {
-> +				snapshot_sect_u32(&sect, reg_read(gpu, k));
-> +			}
-> +		}
-> +
-> +		a8xx_aperture_release(gpu, flags);
-> +	}
-> +}
-
-[Severity: Medium]
-Does the host aperture programming in gen8_legacy_snapshot_mvc() and
-gen8_legacy_snapshot_registers() in
-drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c match what the hardware expects
-when dumping registers over AHB (for b->pre_crashdumper_regs and when dumper
-is NULL, such as during an SMMU stall fault)?
-
-1. In gen8_legacy_snapshot_mvc(), calling a8xx_aperture_acquire_slice() only
-programs PIPEID, SLICEID, and USESLICEID in REG_A8XX_CP_APERTURE_CNTL_HOST,
-leaving CLUSTERID and CONTEXTID3D as 0 (whereas the crashdumper path in
-gen8_snapshot_mvc_regs() writes cluster->cluster_id and cluster->context_id
-via GEN8_CP_APERTURE_REG_VAL()). All cluster and context-banked MVC registe=
-rs
-read on the CPU fallback path will therefore read cluster 0 and context 0.
-
-2. In gen8_legacy_snapshot_registers():
-
-		if (regs->sel)
-			gpu_write(gpu, regs->sel->host_reg, regs->sel->val);
-
-		if (regs->slice_region)
-			a8xx_aperture_acquire_slice(gpu, PIPE_NONE, slice_id, false, &flags);
-
-regs->sel->host_reg is written before acquiring the aperture lock or setting
-the slice, a8xx_aperture_acquire_slice() is called with use_slice =3D false
-instead of true for SLICE regions (omitting
-A8XX_CP_APERTURE_CNTL_HOST_USESLICEID), and when a subsequent region has
-regs->slice_region =3D=3D UNSLICE, the aperture is not cleared or updated, =
-leaving
-the previous slice selected.
-
-3. Because a8xx_aperture_release() only drops a6xx_gpu->aperture_lock witho=
-ut
-clearing REG_A8XX_CP_APERTURE_CNTL_HOST, and the out: path in
-a8xx_gpu_state_get() does not call a8xx_aperture_clear(gpu), a CPU-fallback
-state capture during a non-reset SMMU stall fault leaves
-REG_A8XX_CP_APERTURE_CNTL_HOST and a6xx_gpu->cached_aperture dirty for
-subsequent host register accesses.
-
-[ ... ]
-
-> +static void gen8_legacy_snapshot_cluster_dbgahb(
-> +	struct msm_gpu *gpu, struct adreno_gpu_state *state,
-> +	const struct gen8_sptp_cluster_registers *cluster,
-> +	u32 sp, u32 usptp, u32 slice_id)
-> +{
-> +	int count;
-> +
-> +	/* Figure out how many registers we are going to dump */
-> +	count =3D adreno_snapshot_regs_count(cluster->regs);
-> +
-> +	snapshot_sect (state, MVC_V3, 4 * count, {
-> +		.ctxt_id =3D cluster->context_id,
-> +		.cluster_id =3D cluster->cluster_id,
-> +		.pipe_id =3D cluster->pipe_id,
-> +		.location_id =3D cluster->location_id,
-> +		.sp_id =3D sp,
-> +		.usptp_id =3D usptp,
-> +		.slice_id =3D HEADER_SLICE_ID(cluster->slice_region, slice_id),
-> +	}) {
-> +		u32 read_sel =3D GEN8_SP_READ_SEL_VAL(
-> +			0, slice_id, cluster->location_id, cluster->pipe_id,
-> +			cluster->statetype, usptp, sp);
-> +
-> +		gpu_write(gpu, REG_A7XX_SP_READ_SEL, read_sel);
-
-[ ... ]
-
-> +static bool gen8_snapshot_dbgahb_regs(struct msm_gpu *gpu,
-> +				      struct adreno_gpu_state *state,
-> +				      struct adreno_crashdumper *dumper)
-> +{
-
-[ ... ]
-
-> +					/* Build the crash script */
-> +					struct cd_script p =3D CD_INIT(dumper);
-> +
-> +					u32 read_sel =3D GEN8_SP_READ_SEL_VAL(
-> +						0, slice_id, cluster->location_id,
-> +						cluster->pipe_id, cluster->statetype,
-> +						usptp, sp);
-> +
-> +					/* Program the aperture */
-> +					CD_WRITE(&p, REG_A7XX_SP_READ_SEL, read_sel);
-
-[Severity: Medium]
-In drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c, both
-gen8_legacy_snapshot_cluster_dbgahb() and gen8_snapshot_dbgahb_regs() record
-.ctxt_id =3D cluster->context_id in the MVC_V3 section header, but pass a
-hardcoded 0 instead of cluster->context_id as the first argument (_contexti=
-d)
-to GEN8_SP_READ_SEL_VAL() when programming REG_A7XX_SP_READ_SEL.
-
-For multi-context SPTP cluster entries in the A8xx snapshot tables (where
-cluster->context_id ranges from 0 to 15), won't this repeatedly dump contex=
-t 0
-for every context section?
-
-[ ... ]
-
-> +static void gen8_debugbus_internal_read_setup(struct msm_gpu *gpu)
-> +{
-> +	/* Clear the DBGC logic/events */
-> +	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_CNTLM, 0x70000000);
-> +
-> +	/* Enable the internal buffer mode and program to tail mode */
-> +	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_OPL, 0x28000000);
-> +
-> +	/* Program the logic unit 0 to high when the side data is 1 */
-> +	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_0, 0x0000000c);
-> +	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_0, 0x000000f0);
-> +
-> +	/* Enable the DBGC logic/events */
-> +	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_CNTLM, 0x07000000);
-> +}
-
-[ ... ]
-
-> +static void gen8_snapshot_cx_dbgc_debugbus_block(
-> +	struct msm_gpu *gpu, uint32_t block_id, size_t count,
-> +	struct adreno_snapshot_sect *sect)
-> +{
-> +	/* This block requires an out of order access due to a HW limitation.
-> +	 * (QCTDD12240539)
-> +	 */
-> +	if (block_id =3D=3D DEBUGBUS_CX_GC_US_I_0) {
-> +		static u32 data[GEN8_DEBUGBUS_BLOCK_SIZE * 2];
-> +		gen8_debugbus_internal_read_setup(gpu);
-> +		for (int i =3D 0; i < GEN8_DEBUGBUS_BLOCK_IDX_1; i++)
-> +			gen8_cx_gc_us_i_0_debugbus_read(gpu, block_id, i, &data[i * 2]);
-> +		for (int i =3D GEN8_DEBUGBUS_BLOCK_IDX_2; i < GEN8_DEBUGBUS_BLOCK_SIZE=
-; i++)
-> +			gen8_cx_gc_us_i_0_debugbus_read(gpu, block_id, i, &data[i * 2]);
-> +		for (int i =3D GEN8_DEBUGBUS_BLOCK_IDX_1; i < GEN8_DEBUGBUS_BLOCK_IDX_=
-2; i++)
-> +			gen8_cx_gc_us_i_0_debugbus_read(gpu, block_id, i, &data[i * 2]);
-> +		snapshot_sect_arr(sect, data);
-> +	} else {
-> +		for (int i =3D 0; i < count; i++) {
-> +			u32 data[2];
-> +			gen8_cx_debug_bus_read(gpu, block_id, i, data);
-> +			snapshot_sect_arr(sect, data);
-> +		}
-> +	}
-> +}
-
-[Severity: Medium]
-In drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c, gen8_get_debugbus() programs
-the initial debugbus configuration into REG_A6XX_DBGC_CFG_DBGBUS_CNTLT,
-REG_A6XX_DBGC_CFG_DBGBUS_CNTLM, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_0..3,
-REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_0..1, and REG_A6XX_DBGC_CFG_DBGBUS_MASKL_0..3
-before iterating through b->debugbus_blocks[] and b->gbif_debugbus_blocks[].
-
-When gen8_snapshot_cx_dbgc_debugbus_block() encounters DEBUGBUS_CX_GC_US_I_0
-(at index 2 of b->debugbus_blocks[] in the A8xx snapshot tables), it calls
-gen8_debugbus_internal_read_setup(), which overwrites
-REG_A6XX_DBGC_CFG_DBGBUS_CNTLM, REG_A6XX_DBGC_CFG_DBGBUS_OPL,
-REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_0, and REG_A6XX_DBGC_CFG_DBGBUS_MASKL_0 for
-internal buffer mode.
-
-Because those registers are not restored after reading DEBUGBUS_CX_GC_US_I_=
-0,
-won't all subsequent blocks in b->debugbus_blocks[] and
-b->gbif_debugbus_blocks[] be read with the internal buffer mode configurati=
-on
-still active?
-
-[ ... ]
-
-> +struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu)
-> +{
-> +	const struct gen8_snapshot_block_list *b =3D block_list(gpu);
-> +	struct adreno_crashdumper _dumper =3D { 0 }, *dumper =3D NULL;
-> +	struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-> +	struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
-> +	struct adreno_gpu_state *state;
-> +	// TODO need to get status from SMMU on some gen8..
-> +	bool stalled =3D !!(gpu_read(gpu, REG_A8XX_RBBM_MISC_STATUS) &
-> +			A8XX_RBBM_MISC_STATUS_SMMU_STALLED_ON_FAULT);
-> +
-> +	if (!b)
-> +		return NULL;
-> +
-> +	state =3D kzalloc_obj(*state);
-> +	if (!state)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	INIT_LIST_HEAD(&state->objs);
-> +
-> +	/* Get the generic state from the adreno core */
-> +	adreno_gpu_state_get(gpu, &state->base);
-> +
-> +	adreno_snapshot_registers_v2(gpu, state, b->gmu_cx_unsliced_regs);
-> +
-> +	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.log, SNAPSHOT_GMU_MEM_LOG);
-> +	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.hfi, SNAPSHOT_GMU_MEM_HFI);
-> +	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.debug, SNAPSHOT_GMU_MEM_DEBU=
-G);
-> +
-> +	a8xx_snapshot_gmu_hfi_history(gpu, state);
-> +
-> +	/* If GX isn't on the rest of the data isn't going to be accessible */
-> +	if (!a6xx_gmu_gx_is_on(adreno_gpu))
-> +		return &state->base;
-
-[Severity: High]
-Can this cause unclocked or unpowered register accesses in
-a8xx_gpu_state_get() in drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c when st=
-ate
-capture is triggered via debugfs or fault/hang recovery while GX (or GMU MX=
- on
-A850) is powered off?
-
-First, at the top of a8xx_gpu_state_get(), REG_A8XX_RBBM_MISC_STATUS is read
-before checking whether GX is powered on, even though stalled is only used
-after the GX power check.
-
-Second, the GX power check calls a6xx_gmu_gx_is_on(adreno_gpu) instead of
-adreno_gpu->funcs->gx_is_on(adreno_gpu) (which points to a8xx_gmu_gx_is_on(=
-)).
-In drivers/gpu/drm/msm/adreno/a6xx_gmu.c:
-
-bool a8xx_gmu_gx_is_on(struct adreno_gpu *adreno_gpu)
-{
-...
-	if (adreno_is_a850_family(adreno_gpu)) {
-		val =3D a6xx_cx_misc_read(a6xx_gpu, REG_A8XX_CX_MISC_GFX_PWR_CLK_STATUS);
-
-		return !(val &
-			(A8XX_CX_MISC_GFX_PWR_CLK_STATUS_GX_GDSC_POWER_OFF |
-			 A8XX_CX_MISC_GFX_PWR_CLK_STATUS_GX_CLK_OFF));
-	}
-
-	val =3D gmu_read(gmu, REG_A8XX_GMU_PWR_CLK_STATUS);
-
-	return !(val &
-		(A8XX_GMU_PWR_CLK_STATUS_GX_HM_GDSC_POWER_OFF |
-		 A8XX_GMU_PWR_CLK_STATUS_GX_HM_CLK_OFF));
-}
-
-Calling a6xx_gmu_gx_is_on() reads REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS (an
-A6xx/A7xx register that is not valid on A8xx and accesses GMU MMIO even when
-GMU MX is off on A850) and checks the wrong bits, allowing
-a8xx_gpu_state_get() to proceed with GX register accesses when GX is powered
-off.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_snapshot.h b/drivers/gpu/d=
-rm/msm/adreno/adreno_snapshot.h
-> index f9956e0bc1d5f..e8ff102a628b7 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
-
-[ ... ]
-
-> +static inline void CD_WRITE(struct cd_script *p, u32 reg, u32 val)
-> +{
-> +	*(p->in++) =3D val;
-> +	*(p->in++) =3D FIELD_PREP(GENMASK(63, 44), reg) | BIT(21) | BIT(0);
-> +	__cd_check_overflow(p);
-> +}
-> +
-> +static inline void CD_READ(struct cd_script *p, u32 reg, u32 dwords)
-> +{
-> +	*(p->in++) =3D p->out;
-> +	*(p->in++) =3D FIELD_PREP(GENMASK(63, 44), reg) | dwords;
-> +	p->out +=3D sizeof(u32) * dwords;
-> +	__cd_check_overflow(p);
-> +}
-
-[Severity: Low]
-In drivers/gpu/drm/msm/adreno/adreno_snapshot.h, CD_WRITE() and CD_READ() u=
-se
-GENMASK(63, 44) to build a 64-bit value for u64 *in. On 32-bit architectures
-(such as 32-bit ARM builds with CONFIG_DRM_MSM and CONFIG_DRM_MSM_GPU_STATE
-enabled), GENMASK() uses unsigned long (32-bit), which overflows the shift
-count and triggers a BUILD_BUG_ON_MSG() failure in FIELD_PREP(). Should the=
-se
-use GENMASK_ULL(63, 44) instead?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020204728.2884=
-4-1-robin.clark@oss.qualcomm.com?part=3D9
