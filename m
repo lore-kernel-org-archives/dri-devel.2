@@ -2,127 +2,139 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D30606C20E
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 14:16:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C83606A32D
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 14:20:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dFq3AiwW
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XRrgZtb9;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hOeOixJY;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XRrgZtb9;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hOeOixJY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7A110F243;
-	Tue, 20 Oct 2026 14:15:56 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010053.outbound.protection.outlook.com [52.101.201.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F356E10F32A
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 14:15:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QSr09M7SO0pyp2onnvFQJV7hw7LegJ13MFiJcWqB4cHfJTBpOYBCcYLFUvj2OrpSVvEWzov7glTxVeIsAtXEX4C3PKQvxCPpwD/UmROyBmfLX0HmlmBCbSgEhBpxQRQ+FLcpU9t5UuDnWTlru7IF1Gs5uUaLgFdRNnpVrrDHGVQx97U2f9AQz4XuWfUV+nQTpqXlVxlaF4jf0QoEbIdOBbCVh31DaHPHwTnEisHYcT5GDsolpJimUmUrHQ5wH3P6vWlpcI9stTiDKbQsTJe0KBRrP2eiGECV13ihUQ9RNfQN7keAKDUO/GH8e+MhuprKqKrE00EN9tH+BlWzWRiHgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1Grl+442tVBj2zWWfCC/7XqCpgD8fo8OS8qWEbvBQgo=;
- b=gzqoHm3XIRP7YIzl94IJ9UFBlkbBAyRhhHKBmgdtm6U12xGWOEK4fpN456mc5qVrn8xFWBpSpOGkrsT/o8J+ReZsex92yHYWvgwKONcje4c9z0z+Yi1RLxjNOI7Ts83Lj0CBHsLr4kOkuPdLfQD+gNeuom3MMCdo6RcpLiGpIgMEVcBamyJ+3lwUn+oK8ZG/+J7GeC8f29wJ7Mdqk6DZ7nAvEWJGwhlFm8aOZ422VPnm9+mK4sC3kbEf3vvBthMiM6T8GplcFGr97POPoaoAu60G9ng+RtdFg5BLSxD6dyuwrENZG8q9oI/DMo/AWL5F2Y0Cx44RHM89fhqPK/4k+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Grl+442tVBj2zWWfCC/7XqCpgD8fo8OS8qWEbvBQgo=;
- b=dFq3AiwWD2G1EFflfWRVgemvol67s7m8jjWWK85phcemDFFEoppxB/0umTaDSZgjU/Gc8DX2IfHjmmfiSyb/va35d/fggsKYVDW5nMA0bTUuyrB7TX+49FNxkRlamSr6Epb2n70xedC32LtJVRuRWVyJPe+Emoj6MvVvVemBPlQYd/GKVW64JQk6OSlB20r55fw+OKoqIeA57ck2mLrkTb+uGfNTYf5F7QK9UyJBPRwH8LflVzy3VZRO5wtAA6iTiw1qOpI1jk1TUVSTfUEY9x1cV4WbhLhaSkrnC6kQJZxYkXt1F4YkDmFSVOUmrR91DqnV4zZ7XCxSkTAN2QMvCQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by CY1PR12MB9583.namprd12.prod.outlook.com
- (2603:10b6:930:fe::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 14:15:41 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 14:15:41 +0000
-Date: Tue, 20 Oct 2026 11:15:40 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Jean-Philippe Brucker <jpb@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, kvm@vger.kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org
-Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
-Message-ID: <20261020141540.GB3008132@nvidia.com>
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-16-ryan.roberts@arm.com>
- <20261015164102.GC13920@nvidia.com>
- <CABCqBse_aZL-EH0us2uA5X10q6E4WP02MoHTYf+M9ezRZr26WQ@mail.gmail.com>
- <20261016144202.GG13920@nvidia.com>
- <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <375868af-d0bd-4278-83e6-f8429df130e9@arm.com>
-X-ClientProxiedBy: BL1PR13CA0023.namprd13.prod.outlook.com
- (2603:10b6:208:256::28) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4DE10E5AA;
+	Tue, 20 Oct 2026 14:20:24 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53C7D10E5AA
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 14:20:12 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B77B91F7BF;
+ Tue, 20 Oct 2026 14:20:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792506010; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SmACJ5ImeA4jhsWaSnzEwpEiAY21R9/zUYMOxhaTCq8=;
+ b=XRrgZtb9byCiA7gg9YsBW8YDREYicc870ibHP/Yn+nAX0RL7RilZvZs7EQcwqALYvofrxC
+ 6qLnKx2aRBDL00rYxi5FGIS1im1TiPoCd4I2apRSq0wS1D63xE/k9FYBdITGxGlnCGo6xb
+ U1qd2aDnU4Dwx9xk6hzOUScPySwFVJE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792506010;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SmACJ5ImeA4jhsWaSnzEwpEiAY21R9/zUYMOxhaTCq8=;
+ b=hOeOixJYNInJ4c82kb2caxt1dSgPvdVzw1xJKGQYwlIiPApLHTYqpx/pbqJg11HZBII6Ft
+ PPpLF6h7TbL89ZAw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=XRrgZtb9;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=hOeOixJY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792506010; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SmACJ5ImeA4jhsWaSnzEwpEiAY21R9/zUYMOxhaTCq8=;
+ b=XRrgZtb9byCiA7gg9YsBW8YDREYicc870ibHP/Yn+nAX0RL7RilZvZs7EQcwqALYvofrxC
+ 6qLnKx2aRBDL00rYxi5FGIS1im1TiPoCd4I2apRSq0wS1D63xE/k9FYBdITGxGlnCGo6xb
+ U1qd2aDnU4Dwx9xk6hzOUScPySwFVJE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792506010;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SmACJ5ImeA4jhsWaSnzEwpEiAY21R9/zUYMOxhaTCq8=;
+ b=hOeOixJYNInJ4c82kb2caxt1dSgPvdVzw1xJKGQYwlIiPApLHTYqpx/pbqJg11HZBII6Ft
+ PPpLF6h7TbL89ZAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 62EB1136C6;
+ Tue, 20 Oct 2026 14:20:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id D46CBpp412pvNQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 14:20:10 +0000
+Message-ID: <83bd672d-69d8-4362-beb2-9dc1fb64fa72@suse.de>
+Date: Tue, 20 Oct 2026 16:20:09 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CY1PR12MB9583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69e80da7-28cd-4f62-b2b5-08df2eb49f8b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|7416014|366016|6133799003|22082099003|18002099003|4143699003|5023799004|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 4Nt8u2cbK+o6nWThaHKXJuGX9KrXU2VLuuGZXpMoleT4i3VjKxil+dHrTUQKD/hwTKgGmozBTib50a82CR5fN3XNE23HryxVsIifk+J7KgjzgOqqglIKgwMs0KmcMGpIlMkAoV/h6RhNWC1TTQr9S8kTh9cD9oRaaTfZezZR4xUQf3/g5K+LUt7/OsS4Z6b+z3e3KTRgCGMNJ/E4hovU5jYMlZSJxtPn5xO5eCjTiwQwcEspjeYHFD/XmkajzlvEH4qI8P7Ckdc4s7Eg1va1aeewkv74sSHffH3mfPGieLCKo4KCDT2wek3oRRkHW9hsTtaGtJb5PZ/7kUUhHRbVDXSVKpEDB3svtWsQ+U5NJuS/3vOFVkRRI4OAOWwFnJyRGWYIpfgS0huOPtFtsKTf/PMnnU3QN4ivVtMvmEhnzV4+JT6qcp+exh2vNEC8zcRdkQryVFpwHhk0diwjqAMDQEGzx2luj6VIwWXU2pFYWTgHYVm2e7VYtb3ROFwXRqzHeZAVicBuF+fwiXCr0LiJ0c95YNB0wTDp28ErHSCmwfbOgNzsXzKhH6rpYQPJTWpjD3f7hxtq+p84lOO/Jbys0Imp+J1PQb4yy8QnK9yUbDq5qz+i8ckyOHW6UlbtWGIskd9IaV3CSDP5haGqtpttYfnxqbbjJAF3/aCql8wAmjk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(6133799003)(22082099003)(18002099003)(4143699003)(5023799004)(11063799006)(10067099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?aq5cgkkCcscL0cw72xNQ5KIz3KgvbqwEGmvCbcKlqDKFuAfyKsVNkYApO6zq?=
- =?us-ascii?Q?VJchVlc3qM7WaxUXzer0IU9sSRUZ0Jhc0nRc0HbSyY2Mk1Jz4NnpruEWkRq0?=
- =?us-ascii?Q?vSyu8dSmSAa9Ctfcfuw/GjAHe2wH67riE0pRl0qx8P/v2OqUB5Q3LLLaDi9t?=
- =?us-ascii?Q?bJ2x6NEVRPz5kIXRrOxXudyyfsI3nv/hC3k4nJxtLBU1LMFOOzo/InX7FdSE?=
- =?us-ascii?Q?+HcZ9Dwn8zYZrR6TEOdi9l8DPa5JLzpC1KgqUtUZeKbGlPTsLzSajZKmOfP6?=
- =?us-ascii?Q?Mqa77OpBuLMa6xHxSENL9MLC6oFaHa/0qOqOyes5ihBmot6HVDDEKQ+gcORl?=
- =?us-ascii?Q?26fCKwuS2HJ0qPXpPO7PgC7/9QFbtqKkMYSxY1drVRvLM0QnSbPhkz05R+hk?=
- =?us-ascii?Q?dLSFlZY0tSav4aNPhVfYhbZgLjAjQFO/Lbr17kvBXDu5P1+IWo1hJlP+xf5G?=
- =?us-ascii?Q?+63qDdpOBcTETZIUh7gwDs5kq1y5yQxsTLgl+aGeXYYWyjvjcZ/h3YPUmQjS?=
- =?us-ascii?Q?mRJTDlI6+CKn8rbqTI/sTk8djUKpNXujDjqDC0gknAYFbbMO+Sh+zk5wvqZ0?=
- =?us-ascii?Q?s0tXk73E6ompsQYFMd+e/zr2Kzb4DiJAeqdZUVDpLXRJaH3au5G+WZ6t5bXC?=
- =?us-ascii?Q?rITz8cXvhFPPRPeEHux6aOVFJCVvfelN1vOq7eHkRLMXe6oSFoipEisIs3le?=
- =?us-ascii?Q?jE1XUker14IygqF5gDdMasQAAYxnhL9ihBWXzRH9nkXADNCWpSpO6smZ8ZP4?=
- =?us-ascii?Q?JdsIqYRsEcjfNIFqf2xCAjFdJgj70BxfZQFzUVOGM/z3bzz2uJjYKpjt4obC?=
- =?us-ascii?Q?WFPkG1ZTC1CtJo7LwGX8LIyMZGjVOKseaD+rueclEMazNVto6HVQ1zee/14v?=
- =?us-ascii?Q?ilu0+7vVeQsGbdS+yz4Nh2l7LFiDYt60lCAa72lC3xy2l6M3cnjJ1B3uiwBZ?=
- =?us-ascii?Q?11LxoQxKtiX247fOEZd7OpHMWqAgysWSLkkXFDYkTdnsFogs6nhD0NCLLwTg?=
- =?us-ascii?Q?0LJSjj9GgMDGDl+cb5bsBIZXDk66bpS+WbF3dBcTjX25zHtPwJgYkZ1dH8zN?=
- =?us-ascii?Q?SCr9jh50Di3BtTLJA3vy9elGDq/q9ZyETud+8qPoa9ryZdc2zFPVMncR0Rv3?=
- =?us-ascii?Q?xEoMCd7PEZbQ8epo8zcNJOeDXfimPdWiLWtm5GqeKpPna4wVYtpsWbpqNXeT?=
- =?us-ascii?Q?7UySdXNo8kjmUVRCOkniatWewDXWibnpIObkzSNSxerz+Eq3wRMjVeHTORjH?=
- =?us-ascii?Q?QmxUfyNdyePpgM2KtvE+igKxJcb1NOi7JcCw/SgMoBh+HWYcTo688Z0NnIyi?=
- =?us-ascii?Q?yw4xPMBdieRM9KQIVz+46fj2oJkaDHT3dkDRlpzfOTh1I0zENQA9aRQEMYHV?=
- =?us-ascii?Q?P7xHRDtkMoEhHa2b0v2HxGNTWfi15K1JYdSX3/4K1mp8RP9mt+BYfgFJR6ae?=
- =?us-ascii?Q?KPsIyEqOjjbOBeJiMS0InFFnjOubNrPeMjAptzAjnUGvMJGDu45rKeirliHw?=
- =?us-ascii?Q?iwj50y4gGPOO7WGR+dEbgMoUW6aKNuP76bCJNJQyVGOH3tEpn/o1F61s7eN2?=
- =?us-ascii?Q?byZ7JmEooUF6znvssMHpJj+biZHrdpCq8A7q6djRJ9ZVGGhCcT2cU/Ojjisd?=
- =?us-ascii?Q?Iw+LlU/HFQ2ft4iIWhyxqm7kut1TcQroq0MOapKAsFxqcZ8p+ib7pj8hQh7N?=
- =?us-ascii?Q?JxI675dCPUAjfQoNQ42EokMr7x4S0QM/rNzv4W7Hd3IJySxa?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69e80da7-28cd-4f62-b2b5-08df2eb49f8b
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 14:15:41.6548 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bs8WEqf6cya3k34FoXK1TQLK0hDME/Bt3xtKwYK243gytr3DtdlbB1yjiBEPEPlF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9583
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/3] fbcon: fix rotated font buffer handling on font
+ change
+To: Yao Yiqi <yyaqia@gmail.com>, deller@gmx.de, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com
+References: <20261019094331.1128871-1-yyaqia@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261019094331.1128871-1-yyaqia@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spam-Score: -4.50
+X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
+ MIME_TRACE(0.00)[0:+];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FREEMAIL_TO(0.00)[gmail.com,gmx.de,ffwll.ch];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_SEVEN(0.00)[7]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:dkim,
+ imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: B77B91F7BF
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,64 +146,62 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 20, 2026 at 11:41:57AM +0100, Ryan Roberts wrote:
-> On 16/10/2026 15:42, Jason Gunthorpe wrote:
-> > On Fri, Oct 16, 2026 at 03:22:00PM +0100, Jean-Philippe Brucker wrote:
-> >> On Thu, 15 Oct 2026 at 17:41, Jason Gunthorpe <jgg@nvidia.com> wrote:
-> >>> I think I said this last time, please don't use vfio mdev for
-> >>> anything. There is nothing mediated about this.
-> >>
-> >> We don't multiplex a device between guests, but the host driver must
-> >> control part of the device registers while the remainder is assigned to
-> >> a guest. The host configures accelerator access, stage-2 translation,
-> >> handles CPUHP and context save/restore. So we can't bind the device to
-> >> vfio-platform.
-> > 
-> > That's fine, you can make a proper vfio-cla driver.
-> 
-> Hi Jason,
+Hi,
+
+for the series:
+
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+although I cannot claim to understand fbcon code in its entirety.
+
+Best regards
+Thomas
+
+
+Am 19.10.26 um 11:43 schrieb Yao Yiqi:
+> Fix out-of-bounds reads of the rotated font buffer when the console
+> font changes on a rotated console (fbcon=rotate:N). KDFONTOP installs
+> the new geometry and vc_resize() redraws before par->rotated.buf is
+> updated, so the old buffer is indexed with the new cell size.
 >
-> Thanks for taking a look at this! I've been chewing on this comment and trying
-> to educate myself deeper on the subject. I have a proposal...
-> 
-> Currently we create a struct device per CLA device instance. But multiple CLA
-> device instances cooperate within a domain and the domain is the "unit of
-> isolation"; 
+> Patch 1 keys the rotated font cache on the font geometry. Patch 2
+> rebuilds it on font changes, saving and restoring the whole cache if
+> the change fails. Patch 3 retries a failed allocation.
+>
+> Changes since v4: save, clear and restore the entire par->rotated
+> state instead of only the buffer; restoring just the buffer left the
+> cache key describing the rejected font, which could make a later
+> switch skip the rebuild and index the smaller buffer with the larger
+> font's geometry (found by the Sashiko review).
+>
+> v4: https://lore.kernel.org/all/20261019090206.1094958-1-yyaqia@gmail.com/
+> v1: https://lore.kernel.org/all/20261014085102.497789-1-yaoyiqi3@huawei.com/
+>
+> Yao Yiqi (3):
+>    fbcon: Include font geometry in the rotated font cache
+>    fbcon: Rebuild rotated font buffer on font change
+>    fbcon: Retry rotated font allocation after failure
+>
+>   drivers/video/fbdev/core/fbcon.c        | 46 ++++++++++++++++++++++++++
+>   drivers/video/fbdev/core/fbcon.h        | 19 ++++++----
+>   drivers/video/fbdev/core/fbcon_rotate.c | 10 ++++++-
+>   3 files changed, 68 insertions(+), 7 deletions(-)
+>
 
-Well that's weird and a bit confusing.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-> we can't have some CLAs from a domain assigned to a VM, while others
-> from the same domain are used by the host. Therefore it didn't feel like the
-> correct model to unbind one of these devices from the native driver and rebind
-> it to a cla-vfio driver. mdev seemed to solve this problem nicely for us.
-> 
-> But looking into it in more detail, I guess something like this might be a bit
-> more standard:
-> 
->  - Split the existing CLA driver into three components:
->     - cla-core: Hardware discovery, domain configuration, struct device
->       registration and CPU hotplug
->     - cla-native driver: Provides the user space accelerator interfaces
->     - cla-vfio driver: Enables domains to be assigned to virtual machines
->  - Each domain has a struct device (created by the core)
->     - An individual CLA is not represented by a struct device
->  - Either cla-native or cla-vfio can then bind to a domain device
->     - cla-native exposes a char device per domain, per accelerator class
->     - cla-vfio
-> 
-> For VFIO, I guess we could use one VFIO region per CLA, which would allow the
-> VMM to construct a device tree. But it would need to additionally determine
-> which CPU each CLA is bound to; perhaps that's a sysfs interface that cla-core
-> could expose?
 
-I don't know alot about your CLA, but this sounds reasonable. There
-may be uses with containers to have the split exposed like this too.
-
-Jason
