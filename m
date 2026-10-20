@@ -2,154 +2,144 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2D7606A322
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 10:47:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC532606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:04:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=FWKqAYDJ
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LZCVchYP;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UbP7T0A5;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LZCVchYP;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UbP7T0A5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E60A10EA04;
-	Tue, 20 Oct 2026 10:46:59 +0000 (UTC)
-X-Greylist: delayed 481 seconds by postgrey-1.36 at gabe;
- Tue, 20 Oct 2026 10:46:52 UTC
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE8B10EA04
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 10:46:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1792493210; x=1793098010; i=markus.elfring@web.de;
- bh=xxhdn2OVUJtF2HEE/DiJItd1DbzLWHnmnzj0M802xSc=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
- Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=FWKqAYDJ6W+PfwjXFX9ztG+/5M74jGHiAWkmdQOeFiuLySi3mvMWuQvA6/NeLG+Z
- 4W6xFDg6bkrl/i6P/9kvQgriR1mBjM9KAFPoALx+2RXk3YM1dwQj96v8Odfovko77
- K6WV61fyefZuSdZDXbZ+s+9woFjj9KnEEZSxPPBNVAFX9uQvzzgusm8TG9KIl4sPq
- +7Ups0KsRl3jeHeVCnaaVhSq1PeXiss09sIfI18xbCx93uCRk3s05ZEekrLldeq83
- IwosUdWBdnvtuMmTYe2lC9pm4Q6tvIzoOUk5r5Cv/R/zYaT6kN4xL7cy179rqKUXm
- hVsdHmEK8CWlwAx5Gw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N5CQh-1wZqhE44Ob-011DnT; Tue, 20
- Oct 2026 12:32:54 +0200
-Message-ID: <312bd510-03ca-402c-aba7-d1c60188f926@web.de>
-Date: Tue, 20 Oct 2026 12:32:38 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AAF810E53C;
+	Tue, 20 Oct 2026 11:04:37 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AFE410E53C
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 11:04:26 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 49FEC21C99;
+ Tue, 20 Oct 2026 11:04:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792494264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
+ b=LZCVchYPxngjyrTdwP7dDyGwjGeRlfwz6xzaWNSZtF8y3Qgf12SIhyh9Y6Nd0wcT7He1aK
+ YWofyhmxglbBVNhGLztczgk2ut0LSAYokiSZEVTLZunTZ4Jh8IVD6VEwHTFDIw5kayF9gZ
+ vwrWwtjorhJFX/VTys9hwrEgQyblgzQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792494264;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
+ b=UbP7T0A54+niJcsOuJ4B/+AeErov5GjTeJBZVnwBx1FlP4R5goEFKis3ur6UZEwIpgqvEs
+ JSlX8AaT2FdapVAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792494264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
+ b=LZCVchYPxngjyrTdwP7dDyGwjGeRlfwz6xzaWNSZtF8y3Qgf12SIhyh9Y6Nd0wcT7He1aK
+ YWofyhmxglbBVNhGLztczgk2ut0LSAYokiSZEVTLZunTZ4Jh8IVD6VEwHTFDIw5kayF9gZ
+ vwrWwtjorhJFX/VTys9hwrEgQyblgzQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792494264;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
+ b=UbP7T0A54+niJcsOuJ4B/+AeErov5GjTeJBZVnwBx1FlP4R5goEFKis3ur6UZEwIpgqvEs
+ JSlX8AaT2FdapVAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 90833136CC;
+ Tue, 20 Oct 2026 11:04:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id dCK0ErdK12o2ZQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:04:23 +0000
+Message-ID: <9834b569-935c-484b-befb-b913acead9c1@suse.de>
+Date: Tue, 20 Oct 2026 13:04:22 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
+Subject: Re: [PATCH v5 07/13] drm/client: splash: add a device tree image
+ source
+To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Nishanth Menon <nm@ti.com>,
- Rob Herring <robh@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Tero Kristo <kristo@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Vignesh Raghavendra <vigneshr@ti.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, LiangCheng Wang <zaq14760@gmail.com>
-References: <20261019213726.4145532-11-devarsht@ti.com>
-Subject: Re: [PATCH v3 10/14] drm/solomon: ssd16xx: Expose session management
- as plane properties
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20261019213726.4145532-11-devarsht@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:AAJarhhkiBAz2y4aW+ppvNMAXpTP4N19qIpvKPnuVgBlNGYQOEH
- 4vxBCVgmwIR4tF5K665MQ4Lqf/GG0wTGeraUFqyRh5NveRun+RODho46Hc9TlPB4uH9dU6L
- 2hgWjFO8mUPhg7FhFoD3rEWitidBEQn6rpLZZH+MJj2xqh3G1XyyfZd3pzWQqeSUpfY5bTL
- X9YYt5W9w45IOSv5E9O6A==
-UI-OutboundReport: notjunk:1;M01:P0:LTqw6dkj5dQ=;m1/t4jkIl4zEx1EKTm0WuHma84Y
- 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
- iKCqYt9XYUgEa1H+aLmnWtUwrm8S7ZBInCCcdk=
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Francesco Valla <francesco@valla.it>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261013093243.505776-1-maximpedraza@gmail.com>
+ <20261013093243.505776-8-maximpedraza@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261013093243.505776-8-maximpedraza@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.79 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; TAGGED_RCPT(0.00)[dt];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[25];
+ FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
+X-Spam-Score: -2.79
+X-Spam-Level: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,39 +151,312 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-9.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=E2=80=A6
-> +++ b/drivers/gpu/drm/solomon/ssd16xx.c
-=E2=80=A6
-> @@ -1619,6 +1725,8 @@ static void ssd16xx_plane_atomic_update(struct drm=
-_plane *plane,
->  	drm_dbg(&device->drm, "plane_atomic_update: calling fb_dirty rect=3D(%=
-d,%d)-(%d,%d)\n",
->  		rect.x1, rect.y1, rect.x2, rect.y2);
-> =20
-> +	mutex_lock(&device->lock);
-> +
-=E2=80=A6
-@@ -1693,6 +1800,8 @@ static void ssd16xx_plane_atomic_update(struct drm_p=
-lane *plane,
->  		device->border_waveform_pending =3D true;
->  	}
-> =20
-> +	mutex_unlock(&device->lock);
-> +
->  	pm_runtime_mark_last_busy(device->drm.dev);
-=E2=80=A6
+Hi
 
-How do you think about to apply scoped lock guards?
-https://elixir.bootlin.com/linux/v7.3/source/include/linux/cleanup.h#L332-=
-L335
+Am 13.10.26 um 11:32 schrieb Màxim Pedraza Padilla:
+> Embedded products often share one kernel image and one board support
+> package across several models that differ in branding. The splash
+> client can show the firmware's BGRT image or a BMP loaded as firmware,
+> but a device tree system has no BGRT, and a BMP loaded as firmware is
+> either built into the kernel, which means one kernel per logo, or read
+> from a filesystem that is not there yet when the display comes up. With
+> U-Boot's Falcon mode the SPL starts the kernel directly, and the device
+> tree is the only thing that reaches it.
+>
+> Add a source that takes the image from a "boot-logo" node under /chosen.
+> The BMP either sits in the node itself, in an "image" property that dtc
+> fills in with /incbin/, or in a reserved memory region the bootloader
+> loaded it into, named by "memory-region". Exactly one of the two must be
+> present; a node with both or neither is ignored with a warning.
+>
+> The image in the node is used where it is: the device tree stays in
+> memory, so there is nothing to copy or release. The region is mapped
+> like the BGRT image, and the BMP header is checked against its size.
+>
+> A node is only there if someone put it there for that board, so the
+> device tree goes first, then the BGRT, then the BMP loaded as firmware.
+> The boolean that chose between the latter two becomes an enum naming
+> the one source in use.
+>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+> ---
+>   drivers/gpu/drm/clients/Kconfig      |  15 +++
+>   drivers/gpu/drm/clients/drm_splash.c | 166 ++++++++++++++++++++++++---
+>   2 files changed, 165 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
+> index cbe271c3a23f..aef3781cc110 100644
+> --- a/drivers/gpu/drm/clients/Kconfig
+> +++ b/drivers/gpu/drm/clients/Kconfig
+> @@ -108,6 +108,21 @@ config DRM_CLIENT_SPLASH_BACKGROUND_COLOR
+>   	  The color can be overridden through the drm_client_lib.splash_color
+>   	  kernel command line parameter.
+>   
+> +config DRM_CLIENT_SPLASH_SRC_DT
+> +	bool "Device tree as splash source"
+> +	depends on DRM_CLIENT_SPLASH
+> +	depends on OF
+> +	select DRM_CLIENT_SPLASH_BMP_SUPPORT
+> +	help
+> +	  Use a BMP image described by a "boot-logo" node under /chosen in
+> +	  the device tree, either carried in the node itself or placed by the
+> +	  bootloader in a reserved memory region. This lets one kernel image
+> +	  show a different logo on each board or product, chosen by the
+> +	  device tree it boots with.
+> +
+> +	  When present, the device tree image is preferred over the other
+> +	  sources.
+> +
+>   config DRM_CLIENT_SPLASH_SRC_BGRT
+>   	bool "EFI BGRT as splash source"
+>   	depends on DRM_CLIENT_SPLASH
+> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
+> index a7d627954158..50842922a7f8 100644
+> --- a/drivers/gpu/drm/clients/drm_splash.c
+> +++ b/drivers/gpu/drm/clients/drm_splash.c
+> @@ -9,9 +9,12 @@
+>   #include <linux/efi-bgrt.h>
+>   #include <linux/firmware.h>
+>   #include <linux/init.h>
+> +#include <linux/io.h>
+>   #include <linux/iosys-map.h>
+>   #include <linux/kthread.h>
+>   #include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_reserved_mem.h>
+>   #include <linux/overflow.h>
+>   #include <linux/types.h>
+>   #include <linux/unaligned.h>
+> @@ -71,6 +74,14 @@ struct bmp_dib_header {
+>   	__le32 colors_important;
+>   } __packed;
+>   
+> +/* Where the image comes from, in order of preference */
+> +enum drm_splash_source {
+> +	DRM_SPLASH_SRC_NONE,
+> +	DRM_SPLASH_SRC_DT,
+> +	DRM_SPLASH_SRC_BGRT,
+> +	DRM_SPLASH_SRC_BMP,
+> +};
 
-Regards,
-Markus
+The logic behind this enum deserves a separate patch, I think.
+
+Best regards
+Thomas
+
+> +
+>   struct drm_splash_scanout {
+>   	int id;
+>   	/* Modesets scanning this buffer out, by position in the list */
+> @@ -110,7 +121,7 @@ struct drm_splash {
+>   	bool render_done;
+>   	void *map_data;
+>   
+> -	bool use_bgrt;
+> +	enum drm_splash_source src;
+>   };
+>   
+>   static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
+> @@ -212,6 +223,114 @@ static int drm_splash_fw_request_bmp(struct drm_splash *splash)
+>   }
+>   #endif // CONFIG_DRM_CLIENT_SPLASH_SRC_BMP
+>   
+> +#if IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_DT)
+> +#define DRM_SPLASH_DT_COMPATIBLE "boot-logo"
+> +
+> +/*
+> + * The boot logo node, if the device tree has a usable one. Only a child of
+> + * /chosen is considered, not anything compatible anywhere in the tree: the
+> + * image is configuration handed over by the firmware, not a device.
+> + */
+> +static struct device_node *drm_splash_dt_node(struct drm_splash *splash)
+> +{
+> +	struct drm_client_dev *client = &splash->client;
+> +	struct device_node *np;
+> +	bool image, region;
+> +
+> +	np = of_get_compatible_child(of_chosen, DRM_SPLASH_DT_COMPATIBLE);
+> +	if (!np)
+> +		return NULL;
+> +
+> +	if (!of_device_is_available(np))
+> +		goto out_put;
+> +
+> +	image = of_property_present(np, "image");
+> +	region = of_property_present(np, "memory-region");
+> +	if (image == region) {
+> +		drm_warn(client->dev,
+> +			 "splash: %pOF needs exactly one of image or memory-region",
+> +			 np);
+> +		goto out_put;
+> +	}
+> +
+> +	return np;
+> +
+> +out_put:
+> +	of_node_put(np);
+> +	return NULL;
+> +}
+> +
+> +static bool drm_splash_dt_available(struct drm_splash *splash)
+> +{
+> +	struct device_node *np = drm_splash_dt_node(splash);
+> +
+> +	of_node_put(np);
+> +
+> +	return np;
+> +}
+> +
+> +static int drm_splash_dt_load(struct drm_splash *splash, const u8 **data,
+> +			      size_t *size)
+> +{
+> +	struct drm_client_dev *client = &splash->client;
+> +	struct device_node *np;
+> +	struct resource res;
+> +	const void *prop;
+> +	int len, ret = 0;
+> +
+> +	np = drm_splash_dt_node(splash);
+> +	if (!np)
+> +		return -ENOENT;
+> +
+> +	/*
+> +	 * An image in the node is used in place: the device tree stays in
+> +	 * memory for as long as the system runs, so there is nothing to copy
+> +	 * and nothing to release.
+> +	 */
+> +	prop = of_get_property(np, "image", &len);
+> +	if (prop) {
+> +		*data = prop;
+> +		*size = len;
+> +		goto out_put;
+> +	}
+> +
+> +	/* Otherwise the bootloader loaded it into a reserved region */
+> +	ret = of_reserved_mem_region_to_resource(np, 0, &res);
+> +	if (ret) {
+> +		drm_warn(client->dev, "splash: %pOF: no usable memory-region: %d",
+> +			 np, ret);
+> +		goto out_put;
+> +	}
+> +
+> +	splash->map_data = memremap(res.start, resource_size(&res),
+> +				    MEMREMAP_WB);
+> +	if (!splash->map_data) {
+> +		drm_warn(client->dev, "splash: failed to map %pR", &res);
+> +		ret = -ENOMEM;
+> +		goto out_put;
+> +	}
+> +
+> +	/* The BMP header, checked against this size, says how much is image */
+> +	*data = splash->map_data;
+> +	*size = resource_size(&res);
+> +
+> +out_put:
+> +	of_node_put(np);
+> +	return ret;
+> +}
+> +#else
+> +static bool drm_splash_dt_available(struct drm_splash *splash)
+> +{
+> +	return false;
+> +}
+> +
+> +static int drm_splash_dt_load(struct drm_splash *splash,
+> +			      const u8 **data, size_t *size)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +#endif // CONFIG_DRM_CLIENT_SPLASH_SRC_DT
+> +
+>   static bool drm_splash_bgrt_available(struct drm_splash *splash)
+>   {
+>   	struct drm_client_dev *client = &splash->client;
+> @@ -489,7 +608,7 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+>   		return -EINVAL;
+>   	}
+>   
+> -	if (splash->use_bgrt) {
+> +	if (splash->src == DRM_SPLASH_SRC_BGRT) {
+>   		x_pad = efi_bgrt_image_offset_x();
+>   		y_pad = efi_bgrt_image_offset_y();
+>   
+> @@ -582,19 +701,34 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+>   static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
+>   				 size_t *img_data_len)
+>   {
+> -	int ret = 0;
+> -
+> -	if (splash->use_bgrt) {
+> -		ret = drm_splash_bgrt_load(splash, img_data, img_data_len);
+> -		if (ret)
+> -			splash->use_bgrt = false;
+> +	switch (splash->src) {
+> +	case DRM_SPLASH_SRC_DT:
+> +		return drm_splash_dt_load(splash, img_data, img_data_len);
+> +	case DRM_SPLASH_SRC_BGRT:
+> +		return drm_splash_bgrt_load(splash, img_data, img_data_len);
+> +	case DRM_SPLASH_SRC_BMP:
+> +		return drm_splash_fw_load(splash, img_data, img_data_len);
+> +	default:
+> +		return -ENOENT;
+>   	}
+> +}
+>   
+> -	/* BGRT failed to load */
+> -	if (!splash->use_bgrt)
+> -		ret = drm_splash_fw_load(splash, img_data, img_data_len);
+> -
+> -	return ret;
+> +/*
+> + * Pick the one source the image will come from. A device tree node is only
+> + * there if someone put it there for this board, so it goes first; the BGRT
+> + * is whatever the firmware shows, and the BMP loaded as firmware is the
+> + * fallback. With none of them, only the background colour is drawn.
+> + */
+> +static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
+> +{
+> +	if (drm_splash_dt_available(splash))
+> +		return DRM_SPLASH_SRC_DT;
+> +	if (drm_splash_bgrt_available(splash))
+> +		return DRM_SPLASH_SRC_BGRT;
+> +	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP))
+> +		return DRM_SPLASH_SRC_BMP;
+> +
+> +	return DRM_SPLASH_SRC_NONE;
+>   }
+>   
+>   static void drm_splash_image_cleanup(struct drm_splash *splash)
+> @@ -909,10 +1043,10 @@ static int drm_splash_client_hotplug(struct drm_client_dev *client)
+>   	get_task_struct(thread);
+>   	splash->thread = thread;
+>   
+> -	splash->use_bgrt = drm_splash_bgrt_available(splash);
+> +	splash->src = drm_splash_pick_source(splash);
+>   
+> -	/* If no other image has been loaded, try to load a BMP as firmware */
+> -	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP) && !splash->use_bgrt) {
+> +	/* The BMP loaded as firmware is the only source that arrives later */
+> +	if (splash->src == DRM_SPLASH_SRC_BMP) {
+>   		WRITE_ONCE(splash->fw_pending, true);
+>   		ret = drm_splash_fw_request_bmp(splash);
+>   		splash->fw_requested = !ret;
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
