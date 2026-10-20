@@ -2,43 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEED606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:01:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2853606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:02:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4v7Ui3x
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=tiOtnJhK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FE2110F339;
-	Tue, 20 Oct 2026 08:01:54 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E120810F339
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:01:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4B4A1601F9;
- Tue, 20 Oct 2026 08:01:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D211B1F000C4;
- Tue, 20 Oct 2026 08:01:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792483307;
- bh=QUWQjmpTnWBmgs7H4cGoanizBeMWtf0ZIuBran+UyIo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=V4v7Ui3xQJchk44e5Pk0TxBC+lIJFgrE7ckgqb22qzpto4jg9K2vwTluzCJZgOgRA
- g21tfUlrLBAXTkG4zPhuVRt/HNScAtQ7h7fCLg8X/nd3Q6AP+hO9P0q66zFwIb3VG9
- UTppeSrY322GEHySv5veHFM/eUiTM6XaoVp2JsRhJU056whO4cunFVlGy+2ft/HSCM
- dTHdtj7+/rJOc5K5l7aaIdJ6eY2vsb/kIVce83aTwVRdDAvKHcDqe2He0hYI4XDduY
- AsjF9SRLZv5EinARplYJZn2qfwWLZ7YUdG9E6gXiC2DsBMO9aqXWkWs1dB/KIjFRMK
- tEur9q0gFd/pQ==
-Message-ID: <sashiko-outbox-178468@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/qxl: validate relocation destination offsets
-To: "Zhou Qiuyue" <n0ps1edzz@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <179240154188.24976.18308245375219473922@gmail.com>
-References: <6acafc03.6b76d992.279a8.b343@mx.google.com>
- <sashiko-outbox-166994@kernel.org>
- <179240154188.24976.18308245375219473922@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27E7910F344;
+	Tue, 20 Oct 2026 08:02:07 +0000 (UTC)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01C3D10F34C
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:02:00 +0000 (UTC)
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-4a16dc2323cso25341515e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 01:02:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1792483319; x=1793088119;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=a5szgawaqFYahDoR6WgawlMOYcIGKmjMs7XIVNwb/WA=;
+ b=tiOtnJhKIU1ydo9DUPrqweTfVEBzhNNJQybBMmv/XiIrVM4u2A7S1XzUEI0sw6LIO6
+ PRAdGRsXLC1RPWyEQRqHGbfXilCM3bN1FFsw5LxbDiUYjApTrmqVwQuRBmvQ2QUULC8c
+ 2vZhmVjGcaxzsXGch17S7vdCc12w777luYI7DCtqpcxkFzktJnOvm3HGqvSfRD1xma1e
+ 8c0kWkdHEG4Wmkbe2eTI8PWXEo9Waj6K23njserLDLVy9jawsw0aHV9c4kOxnJBx5YFp
+ MEPr8XHZ2Nq8E4q5xEptcLuAl+tascVXPrPTaeNFViTrDuXw/6XHj6e+K2DyNGjNQ8mG
+ 0LkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792483319; x=1793088119;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=a5szgawaqFYahDoR6WgawlMOYcIGKmjMs7XIVNwb/WA=;
+ b=EQHe944WQPlXCR8JKUZs6uje7p/W2iwfp3vKPRI9Wr9ROsfxTXEiIUTd/4c6GvT4fN
+ Gmn429gHJm7V7mXhqXUU3r3KW9YEe1kq5J+4VDwcmOKFfYWSRqmy6qk7dybPIEbQde7n
+ izzyKJlMcb0oCgR8YgvEUXEGgJ6J1hafK3Y1wbbyUUb3a9pCwQF/LkX1cqb330jqRbKe
+ Zc6cyVQ9gCM0VmzDDlwpDWEv1VgCfXtzUq7vz2iYZc7bL/lOPCRYfiGFCRPbPooQ+KQZ
+ 1lvz3+N3V1O9R3m7Hj+PKN645wrRJ/Jrgn+KNFY8Vc5dCTtfPCcs0sUN9eKrdpNK4Aie
+ 8X5A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByfqgtqTYpuM0OC8yHB1Qppn+vVLQ4RYAg1M+8KObND9ts8SJiLwSjTLLJlzA0Xcc9l8IEE0Pwqbqk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI0h1olLQLWOWElge875wuu6PfFFeCm5JsrKdxzCwIJt5eefY4H
+ ga3m+/hJTlOYyTLsDcL+q3FAkRpcFvltpDxa/UYRQ6mapzXRfr41ccdFj8aV0+2ElSJVEm7eQlz
+ +Y68p1Rtp9+Dn17K9Kg==
+X-Received: from wmcu7.prod.google.com ([2002:a7b:c047:0:b0:4a1:f37f:7f0b])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:638e:b0:4a1:e6ad:baa3 with SMTP id
+ 5b1f17b1804b1-4a1e6adbbe4mr113338955e9.15.1792483319125; 
+ Tue, 20 Oct 2026 01:01:59 -0700 (PDT)
 Date: Tue, 20 Oct 2026 08:01:46 +0000
+In-Reply-To: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
+X-Archived-By: <archiver.kernel.org>
+Mime-Version: 1.0
+References: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261020080147.1743459-1-aliceryhl@google.com>
+Subject: Re: [PATCH 0/7] rust: io: add read-only and write-only views and
+ registers
+From: Alice Ryhl <aliceryhl@google.com>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ "=?utf-8?q?Krzysztof_Wilczy=C5=84ski?=" <kwilczynski@kernel.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, driver-core@lists.linux.dev, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,232 +88,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] drm/qxl: double PAGE_SIZE scaling in qxl_bo_kmap_atomic_page()=
- fallback
-- [High] drm/qxl: natural alignment check in qxl_process_single_command() b=
-reaks UAPI
-- [High] drm/qxl: integer wrap and missing command bounds check for dst_han=
-dle =3D=3D 0
---
+On Thu, Oct 15, 2026 at 04:19:40PM -0300, Daniel Almeida wrote:
+> This series adds read-only and write-only I/O views, and the #[ro]
+> and #[wo] attributes to register!. An access in the wrong direction
+> then does not compile.
 
-commit ac35098698450b791455e5afa6c8c8c17114609f
-Author: Zhou Qiuyue <n0ps1edzz@gmail.com>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-drm/qxl: validate relocation destination offsets
-
-This commit widens relocation destination offset types and validates
-the destination offset and alignment against the destination buffer
-object size in qxl_process_single_command().
-
-> diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_io=
-ctl.c
-> index 591b026ceff9c..9a031bb3f9b0c 100644
-> --- a/drivers/gpu/drm/qxl/qxl_ioctl.c
-> +++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
-
-[ ... ]
-
-> @@ -231,6 +232,26 @@ static int qxl_process_single_command(struct qxl_dev=
-ice *qdev,
->  			reloc_info[i].dst_offset =3D reloc.dst_offset + release->release_offs=
-et;
->  		}
-> =20
-> +		/*
-> +		 * The relocation is applied with a plain write into the memory
-> +		 * window of the destination object, so the user supplied offset
-> +		 * must be validated against the object size.  Otherwise userspace
-> +		 * can write anywhere in the mapping window set up by
-> +		 * qxl_bo_kmap_atomic_page(), i.e. outside of the object.  The
-> +		 * offset must also be aligned to the access size so the write
-> +		 * cannot straddle a page boundary inside the window.
-> +		 */
-> +		reloc_size =3D (reloc.reloc_type =3D=3D QXL_RELOC_TYPE_BO) ?
-> +			     sizeof(uint64_t) : sizeof(uint32_t);
-> +		if (!IS_ALIGNED(reloc_info[i].dst_offset, reloc_size) ||
-> +		    reloc_info[i].dst_offset > reloc_info[i].dst_bo->tbo.base.size ||
-> +		    reloc_size > reloc_info[i].dst_bo->tbo.base.size -
-> +				 reloc_info[i].dst_offset) {
-> +			DRM_DEBUG("reloc dst offset out of bounds\n");
-> +			ret =3D -EINVAL;
-> +			goto out_free_bos;
-> +		}
-
-[Severity: High]
-Won't requiring dst_offset to be aligned to reloc_size (8 or 4 bytes) in
-qxl_process_single_command() reject valid QXL draw commands from userspace
-with -EINVAL?
-
-In drivers/gpu/drm/qxl/qxl_dev.h, the QXL protocol structures are defined
-under #pragma pack(push, 1):
-
-drivers/gpu/drm/qxl/qxl_dev.h:
-    struct qxl_drawable {
-            union qxl_release_info release_info;
-            uint32_t surface_id;
-            uint8_t effect;
-            uint8_t type;
-            uint8_t self_bitmap;
-            struct qxl_rect self_bitmap_area;
-            struct qxl_rect bbox;
-            struct qxl_clip clip;
-            uint32_t mm_time;
-            int32_t surfaces_dest[3];
-            struct qxl_rect surfaces_rects[3];
-            union {
-                    struct qxl_fill fill;
-                    struct qxl_opaque opaque;
-                    struct qxl_copy copy;
-                    ...
-
-Because of the three uint8_t fields (effect, type, self_bitmap), subsequent
-relocated fields inside struct qxl_drawable sit at unaligned byte offsets,
-such as clip.data (offset 51), surfaces_dest[0..2] (offsets 63, 67, 71), and
-union u fields like u.copy.src_bitmap (offset 123).
-
-Similarly, when relocating into another buffer object (reloc.dst_handle !=
-=3D 0),
-struct qxl_data_chunk places prev_chunk and next_chunk (8-byte QXLPHYSICAL
-fields) at offsets 4 and 12:
-
-drivers/gpu/drm/qxl/qxl_dev.h:
-    struct qxl_data_chunk {
-            uint32_t data_size;
-            QXLPHYSICAL prev_chunk;
-            QXLPHYSICAL next_chunk;
-            uint8_t data[];
-    };
-
-and struct qxl_image places u.surface_image.surface_id at offset 18.
-
-To prevent a relocation write from straddling a page boundary inside the
-single page mapped by qxl_bo_kmap_atomic_page(), should this check that the
-offset within the page does not cross PAGE_SIZE (for example,
-offset_in_page(reloc_info[i].dst_offset) > PAGE_SIZE - reloc_size) rather
-than requiring natural alignment via IS_ALIGNED()?
-
-[Severity: High]
-Also in qxl_process_single_command(), when reloc.dst_handle =3D=3D 0, can
-reloc.dst_offset + release->release_offset wrap around or write outside the
-command's slot in cmd_bo?
-
-In qxl_alloc_release_reserved(), cmd_bo is a PAGE_SIZE buffer object shared
-across multiple 256-byte release slots at release->release_offset, with
-union qxl_release_info stored at the start of each slot:
-
-drivers/gpu/drm/qxl/qxl_release.c:qxl_alloc_release_reserved() {
-    ...
-    bo =3D qxl_bo_ref(qdev->current_release_bo[cur_idx]);
-
-    (*release)->release_bo =3D bo;
-    (*release)->release_offset =3D qdev->current_release_bo_offset[cur_idx]=
- * release_size_per_bo[cur_idx];
-    qdev->current_release_bo_offset[cur_idx]++;
-    ...
-}
-
-When release->release_offset > 0, adding a large user-supplied
-reloc.dst_offset can wrap around in uint64_t to a small offset before the
-bounds check. Furthermore, checking only against cmd_bo->tbo.base.size
-(PAGE_SIZE) instead of the command's range
-[sizeof(union qxl_release_info), sizeof(union qxl_release_info) + cmd->comm=
-and_size)
-allows a relocation to overwrite the union qxl_release_info header or
-adjacent release slots sharing cmd_bo.
-
-> =20
->  		/* reserve and validate the reloc dst bo */
->  		if (reloc.reloc_type =3D=3D QXL_RELOC_TYPE_BO || reloc.src_handle) {
->  			ret =3D qxlhw_handle_to_bo(file_priv, reloc.src_handle, release,
-> diff --git a/drivers/gpu/drm/qxl/qxl_object.c b/drivers/gpu/drm/qxl/qxl_o=
-bject.c
-> index 313f6c30cac85..0df48141c2db7 100644
-> --- a/drivers/gpu/drm/qxl/qxl_object.c
-> +++ b/drivers/gpu/drm/qxl/qxl_object.c
-> @@ -204,7 +204,7 @@ int qxl_bo_pin_and_vmap(struct qxl_bo *bo, struct ios=
-ys_map *map)
->  }
-> =20
->  void *qxl_bo_kmap_atomic_page(struct qxl_device *qdev,
-> -			      struct qxl_bo *bo, int page_offset)
-> +			      struct qxl_bo *bo, unsigned long page_offset)
->  {
->  	unsigned long offset;
->  	void *rptr;
-
-[Severity: Critical]
-When dst_bo is backed by TTM_PL_SYSTEM (such as a multi-page dumb BO created
-via DRM_IOCTL_MODE_CREATE_DUMB with QXL_GEM_DOMAIN_CPU), can a relocation
-with dst_offset >=3D PAGE_SIZE still write out of bounds in the fallback pa=
-th
-of qxl_bo_kmap_atomic_page()?
-
-In apply_reloc() and apply_surf_reloc(), the caller passes a byte offset
-masked with PAGE_MASK and does not check the return value for NULL:
-
-drivers/gpu/drm/qxl/qxl_ioctl.c:apply_reloc() {
-    ...
-    reloc_page =3D qxl_bo_kmap_atomic_page(qdev, info->dst_bo, info->dst_of=
-fset & PAGE_MASK);
-    *(uint64_t *)(reloc_page + (info->dst_offset & ~PAGE_MASK)) =3D qxl_bo_=
-physical_address(qdev,
-                                                                           =
-       info->src_bo,
-                                                                           =
-       info->src_offset);
-    ...
-}
-
-In qxl_bo_kmap_atomic_page(), the io_mapping_map_atomic_wc() path treats
-page_offset as a byte offset, but the fallback path multiplies page_offset =
-by
-PAGE_SIZE a second time:
-
-drivers/gpu/drm/qxl/qxl_object.c:qxl_bo_kmap_atomic_page() {
-    ...
-    offset =3D bo->tbo.resource->start << PAGE_SHIFT;
-    return io_mapping_map_atomic_wc(map, offset + page_offset);
-fallback:
-    if (bo->kptr) {
-            rptr =3D bo->kptr + (page_offset * PAGE_SIZE);
-            return rptr;
-    }
-
-    ret =3D qxl_bo_vmap_locked(bo, &bo_map);
-    if (ret)
-            return NULL;
-    rptr =3D bo_map.vaddr; /* TODO: Use mapping abstraction properly */
-
-    rptr +=3D page_offset * PAGE_SIZE;
-    return rptr;
-}
-
-If dst_offset >=3D PAGE_SIZE (while still within dst_bo->tbo.base.size, pas=
-sing
-the new bounds check), doesn't page_offset * PAGE_SIZE advance rptr far past
-the end of the buffer object (or return NULL if qxl_bo_vmap_locked() fails)?
-
-[ ... ]
-
-> --=20
-
-=E2=80=94
-=F0=9F=A4=96 Generated by Sashiko =E2=80=94 Linux Kernel Patch Review
-https://sashiko.dev
-=E2=80=94
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179240154188.24976.=
-18308245375219473922@gmail.com?part=3D1
+I heard a suggestion that it'd be better to drop the Io from these trait
+names so they are just Readable and Writable, because not all
+implementations do IO (i.e. if it's SysMem it's arguably not IO). Not
+super important to me, though.
