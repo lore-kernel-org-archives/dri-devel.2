@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A816960A3810
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 06:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC6E606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 06:38:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qOEMvf2J
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mZgjq80Y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 120EC10F280;
-	Tue, 20 Oct 2026 06:38:34 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9272C10F278
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 06:38:27 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-48b042c0759so1808476f8f.2
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 23:38:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20C7510F27F;
+	Tue, 20 Oct 2026 06:38:37 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8181A10F27F
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 06:38:30 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-48e0d885929so2135468f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 23:38:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792478306; x=1793083106; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792478309; x=1793083109; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=54nP+hVnBR38qJFAJ37FPqemtxXLBnXTchrtQmC7INs=;
- b=qOEMvf2JiecqQwcZEWirXzw9wfEFJwDpOBVwvQMILm4NT4XOTl1CVfgbrb2VYqwufL
- MeGW53ylFAJz1GfH+5fcyyxSWYQaj+NIYqDPTsGPh9mXagcEXzJPk5073070YYyxdrJk
- iMpBeO7JbsjXOXEQzF98BIv7e+6OTbqxwpjmgw29XW0KLlK76cFORG0L6QJ+mtMj0eAi
- DWlJFplLtjeswvFVZ4i9BK4Xw9ETMHhRvj+pj/IIGBBytN1U4YfqPOtmSsSw0Qvnnko5
- BXIjdkB8OdsY+730y/xD/9H4lAVX3XlL7zaQPJ5QHvMaJ9m4zZv+tf0aokvCMcoFhjZy
- VHEg==
+ bh=u9+toBtEEPVpz6hTN7Pcfhr9T4/drBZovt9bfqsgE5Q=;
+ b=mZgjq80YRdJr3ZwaLg8qPnesPxtiEz2tBPnvOA9Jy+E9/byEDlUTNBl6s6dFvQLkR7
+ Vqi9/YCL/j6izupKF1HBBc2+rQexyuxlDTbsv/4VEWAbzTNJEtqUfJ5m17hBcBbYpzCo
+ OWCHsvdBqeJ5izYfcAyLGpZvr3iAwzzvcVPtG6wpFR+JAAoY3xvfVXqCoow8EZBXjjvn
+ MBHtDxJNZbI74tuFPuL/0D2vJX0KkZOWwo8Db49yKXh+HaDyGX3aTAep5tygCNeCiL20
+ uGOnz+f5oJadQD6ZGjjT+jeCYZdkleA5rkoT+rb3tLQelvucRV0s7B1DjUgPPJBRIp9K
+ +SNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792478306; x=1793083106;
+ d=1e100.net; s=20260707; t=1792478309; x=1793083109;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=54nP+hVnBR38qJFAJ37FPqemtxXLBnXTchrtQmC7INs=;
- b=L5bYHBy2qtCpWm7e6ilMZd/HmtsjSVfdCV4D/0Sn+mXHBEaEa5jpXVohLHtq6Tpkcw
- E06iE4m5g4JJQ46LNlzElKxQhyrjsgOkDqEInZFfYMxeDSOqDjRsHg8mPsajg4vGlcqp
- 8h+bnYTOyZzAoqgvp7Xlr+P+dehVxl5ZBm1n7KqqHsrWUAGUAxYmrMe3QAlJvIiLrh/v
- IBlWjARncqbeuoHX65VDpVrMBUVWkEtf2hNzNd3PsVvo+acqsF9jMxUC+mNNUoagljXu
- 8ALBE4DTNGrraMY/jl+1osiz3fWIgObR0pKyPL1dHuxSmrBqZQw+4DEHeVI48Y/pRKPB
- 0IuQ==
+ bh=u9+toBtEEPVpz6hTN7Pcfhr9T4/drBZovt9bfqsgE5Q=;
+ b=xjmLZm+4ZjixUIt/FqEBo95IyUGWNQRcbvAGZJkOXXWNfA7ER+UGW/G3jXWrWNPaIe
+ N5J/CrGoSac2LbUo1OsVPI2vTow4GHMJ7v39rfjLhqhp0G/XjUEg4AFASWqX/TiXpHxx
+ WcZL8ULzJfb6sBrhbSX6teowudb4XbkXDxD6mrZemn9aBlc34f5tSSpGwR6wCXMDYsJx
+ 5R49IIlNQxWJMRSyGz8DDJ5dsLO0792Np1vYQBlMoWigTXrC01c2/GXufiwDOgAfrGAR
+ yojfnoocoXnXFtDu/+4F3Ytg11AziBnYpR0G5jnZ3bXlsbTHctJNPbwi0JgZJYLwIFIa
+ uAdg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxf2IFhG3LZMOTC7aoOCX9ZR7B6iGmv2zM0eNNhnV35S9Z+ijbDijMK+yKtcwyL6konQMdzGFEFoiM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKpDR2TE4UcRED077gPJ+zv0Zh15CEkn/octG44s6lYMc+gpTFA
- p30Ft7jotJtGN4qFa6jqssBp7Q9QMhL3WEnv9Pnoi89JRiL1W7v2YrRi
-X-Gm-Gg: AYBFou3r5SWJ50clZSV5QnXgAel4RPiLm9FeBykA+7Lxp/SkRzvTlOnTXOPBG1AJuWi
- fHiIJs2otiErK2yVdGwfUWAvcXx7gR2Pa2khU0sZn7Zth4zNzO3BrAP6dc6ob0JE4bVpYmh4Bl/
- zS++pzU4oSTyTw/JQ9GJWhP9E1Kfj1fgrxWCfyBqsnLjbYop3spzL5ps/VYxqqrK3k7bMTF5myt
- 6AptkbpxSNMEv4wAkSP2v4KrZX4TO6BwU17NkXqpGDPHY6uxu5ktZSOaIj/31Av2xPKS9tXZ1d9
- JplrfS8RkLiqL/amIYZUO5Gbg9mWu6JwgRUxqZ55jXCzLguJJmGiy1HBgDQkmgB6q80smm3Hvxv
- qoNRXqinsT9OThyXySGq/9dxRdX6y0VqhGwBU7vIJFOgciKQ28w75ra6PfOVFPadE3ucayyaLjQ
- nFtmvouvZYmUsWw0DqAix6TUlSm/w1xZ9yJcv5tMvq9/fqcobThBPXaSNOzNl02QvcztcLGoJRS
- uA2YQCW4ZLPy4GruLNPq0KJv8G2EZfaXXTTwyTIXfbLUZRClAn3uVuODl0opO36L8Dg6S+aFBPe
- u7cUZzejgUT8KANRRVSdYkITTUVZAZu8z+A1ElAoqhuV2RZow1ryMtw8bwSwd+uixFWNHTkJCxu
- /7glzWGh6tNaN
-X-Received: by 2002:a05:6000:1e4f:b0:48e:412:3829 with SMTP id
- ffacd0b85a97d-48e07fb2b18mr14486670f8f.15.1792478305848; 
- Mon, 19 Oct 2026 23:38:25 -0700 (PDT)
+ AKwUvBw11ey7dJP+dtjxBdtPFYXS+HENN3iPi9T1R5oeHpr0neBJwOj9HRjeAdmuI/4YDiFSZi5uxCPSGmE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLfi4OJ8Qo7UJRTjfYoBuI82FXYzXbYutbm5d1eL1G5UV7BLbN9
+ QZTER7RjIAPwnl1wZvvxJu1yEWIRk5r2qZy5MTfopYhMS+zUZw9qZq6vZ4Ne4bwK
+X-Gm-Gg: AYBFou2YKQPrKbv09kzCgmYJn/64cTW/uk2x2JP4WaVleLVHJdoI1f1ltPn6qFLAoAY
+ 4R5ukoL1X8LU4+udeiW9ig9XVDL4T17njN7bClRH3lUDlibcHQlCiibRj6vJ0nvjHkI1fudyKSW
+ XfYuLcB9EcRYwQOjk9dxjfee6cCNmlf9WT1EX1r6actP6ts1zeoboFQseTFfy6qA5CSUCKuK8WK
+ bh70dFgU44hZLUSlqp/qlSvj6LlQn8TyDU0R8FOWfFEDWB9g7HapF0ZL7eXPMw4+btRMAemP8r2
+ 0j4JYhEENwLf/BBzuUynMDPg3qJXfG5l85Dzovjq5VQS2XX8WEKTE/9AIhfesynpJzfssM9b2+e
+ BhVV5MEBb3dL/RPZ6AW9aOj5NMfppo8GN32jSTTBTZy6lFLRlSeBwx470Z+o7Vu5dhwmnqoj2Np
+ Y2FoQ6jXXfmil8WJvOR3igWo0fJbQm+iRMtq3PL2HyB/cVlHM1yvIeOxxDgAIS49LPy1pn1rP1K
+ zlooXO7ARPz4t/q+etj8L9Z56/GNK4mSyU0I2YeaFX8G/pWCD7lrX7nnyEXn8DxbEEMaZbLokML
+ bAt0dQuQqmFxzfzn4WNxk8IRxwBt6rmUl4r7ss/E3uIZhB5c8ibi/1KIY9NJpPsZMk3abvcjgD3
+ JXA==
+X-Received: by 2002:a05:6000:400f:b0:48e:d88:55e5 with SMTP id
+ ffacd0b85a97d-48e0d885ae8mr18682745f8f.6.1792478308630; 
+ Mon, 19 Oct 2026 23:38:28 -0700 (PDT)
 Received: from localhost.localdomain
  (dynamic-2a02-3100-9c92-6501-2169-eb9c-7ad3-f5db.310.pool.telefonica.de.
  [2a02:3100:9c92:6501:2169:eb9c:7ad3:f5db])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e1d820714sm3916393f8f.35.2026.10.19.23.38.23
+ ffacd0b85a97d-48e1d820714sm3916393f8f.35.2026.10.19.23.38.27
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 19 Oct 2026 23:38:25 -0700 (PDT)
+ Mon, 19 Oct 2026 23:38:28 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Jason Gunthorpe <jgg@nvidia.com>,
 	Alistair Popple <apopple@nvidia.com>
@@ -78,9 +78,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
  dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: [RFC PATCH 2/6] iommufd: Publish successful PAL mappings under resv
-Date: Tue, 20 Oct 2026 08:37:41 +0200
-Message-Id: <10fbbfdbf3a19fff48e504bcf5ec3a74f11bfd7c.1792477872.git.kmehltretter@gmail.com>
+Subject: [RFC PATCH 3/6] iommufd: Clear the PAL list before dropping resv
+Date: Tue, 20 Oct 2026 08:37:42 +0200
+Message-Id: <65a7be483aa5e374e0afd4d72cbafab0fd07a4a3.1792477872.git.kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <cover.1792477872.git.kmehltretter@gmail.com>
 References: <cover.1792477872.git.kmehltretter@gmail.com>
@@ -106,56 +106,37 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-iopt_map_dmabuf() stores the PAL map result in exp_phys before checking
-for errors and publishes the attachment after dropping resv. The
-attachment is already linked to the DMA-buf. An invalidation after the
-unlock can therefore pass a NULL attachment to dma_buf_pal_unmap_phys().
-On map failure, the non-NULL error pointer also looks like a live mapping
-to iopt_dmabuf_revoked().
+iopt_release_pages() frees the PAL physical list while holding resv but
+leaves exp_phys pointing to it. Between the reservation unlock and
+dma_buf_detach(), an invalidation can see that pointer and unmap the same
+list again.
 
-Keep the map result local until it succeeds. Publish the attachment and
-physical list together before dropping resv, leaving exp_phys NULL on
-failure.
+Clear exp_phys before dropping resv so a later invalidation sees that
+there is no live PAL mapping.
 
+Link: https://lore.kernel.org/r/20261016194022.62065-1-kmehltretter@gmail.com/
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/iommu/iommufd/pages.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/iommu/iommufd/pages.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-index 0b32c65af..9e9bc6a1c 100644
+index 9e9bc6a1c..76d8803d6 100644
 --- a/drivers/iommu/iommufd/pages.c
 +++ b/drivers/iommu/iommufd/pages.c
-@@ -1491,6 +1491,7 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
- {
- 	struct dma_buf_mapping_match pal_match[] = { DMA_BUF_IMAPPING_PAL() };
- 	struct dma_buf_attachment *attach;
-+	struct dma_buf_phys_list *phys;
- 	int rc;
+@@ -1674,9 +1674,11 @@ void iopt_release_pages(struct kref *kref)
+ 		struct dma_buf *dmabuf = pages->dmabuf.attach->dmabuf;
  
- 	attach = dma_buf_mapping_attach(dmabuf, pal_match,
-@@ -1513,16 +1514,16 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
- 	if (rc)
- 		goto err_detach;
+ 		dma_resv_lock(dmabuf->resv, NULL);
+-		if (pages->dmabuf.exp_phys)
++		if (pages->dmabuf.exp_phys) {
+ 			dma_buf_pal_unmap_phys(pages->dmabuf.attach,
+ 					       pages->dmabuf.exp_phys);
++			pages->dmabuf.exp_phys = NULL;
++		}
+ 		dma_resv_unlock(dmabuf->resv);
  
--	pages->dmabuf.exp_phys = dma_buf_pal_map_phys(attach);
--	if (IS_ERR(pages->dmabuf.exp_phys)) {
--		rc = PTR_ERR(pages->dmabuf.exp_phys);
-+	phys = dma_buf_pal_map_phys(attach);
-+	if (IS_ERR(phys)) {
-+		rc = PTR_ERR(phys);
- 		goto err_unpin;
- 	}
- 
--	dma_resv_unlock(dmabuf->resv);
--
- 	/* On success iopt_release_pages() will detach and put the dmabuf. */
- 	pages->dmabuf.attach = attach;
-+	pages->dmabuf.exp_phys = phys;
-+	dma_resv_unlock(dmabuf->resv);
- 	return 0;
- 
- err_unpin:
+ 		dma_buf_unpin(pages->dmabuf.attach);
 -- 
 2.39.5 (Apple Git-154)
 
