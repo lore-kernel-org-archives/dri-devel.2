@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69417606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 15:41:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642DF606A325
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 15:42:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=L3JQTjiO
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=oSuOnz/O
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87E2010EC36;
-	Tue, 20 Oct 2026 15:41:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FE9710F6A2;
+	Tue, 20 Oct 2026 15:41:56 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C88A10F6A2;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F303010F6AC;
  Tue, 20 Oct 2026 15:41:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=/KrU18TxoMz8vUQyvvcbQgGQ57lrSkeZ5V2+nueE+zk=; b=L3JQTjiOiBRopRCTQp8xnlvqWV
- f6/bBGiK7cewGG8XNhp9emqf1mAOb/7PmgMJgLmXI+C+ZGP36Qch1TY01uTqQpp+UD14AVNPbnYO4
- sV/SdTc73rA8MB5GBJkkQrTXpCztb2GiKDdiP2rFfeJ+KdO+hXGwhiypyKKIQqgxrbq0oeMcNIvm9
- KJOAVv1i281cqtwkVPjoOFNOkZ+BqlFbgJa6ptkTAY2fqUwfKRdNbpvBdHSKsUNwjB6IiWuNJ8X6J
- ZvNj6U8jn5056+PJbvhy2RJKzZBZlOTqdnM8SeHRmsORbdOoI9t8NKs9AM6HQVloDBOgcDLQN1op/
- LwiV60bA==;
+ bh=kJ9lSTAM9wjORVxlqlLv7eIa1m/lenaWHPp4UX0hMMg=; b=oSuOnz/O9LRYmAg5memfcztyB0
+ qoH9HE1z+jRX2eEahTxJAvoNjbOklOZ8PzPUO0Cnk5CJdWqcLHZIvUqDQd40R8+JLR4eAtrSNmEOA
+ ffGtgm9RNaVBtV5+E1jYL3SAmXEb2uRhlcFn0Rl9pkqwY/oy1CMcwbUUfS2LSRo8fl1UnlhV+TQJh
+ f+ffjNGbdcvufPqzzS+RlvxX/+ICxfryLfpfckrJFZkoRbp5Q1dNI4u+LnUurr14e5WGs9Fjt4RwP
+ faEh283gzXumvlHmTs2Cj3KmjMLRYgQKpIXhziqNHU7fDqf/suD54wnjlaVXe5IM6HKJ5I0n3tXMx
+ J5+TrQGA==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xJBxx-004ie7-6h; Tue, 20 Oct 2026 17:41:29 +0200
+ id 1xJBxx-004ieN-UC; Tue, 20 Oct 2026 17:41:30 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
@@ -34,10 +34,10 @@ Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v2 5/8] drm/sched: Remove useless log message on memory
- exhaustion
-Date: Tue, 20 Oct 2026 16:41:20 +0100
-Message-ID: <20261020154123.33631-6-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v2 6/8] drm/sched: Ignore stopped entity attempt to change its
+ run-queue
+Date: Tue, 20 Oct 2026 16:41:21 +0100
+Message-ID: <20261020154123.33631-7-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261020154123.33631-1-tvrtko.ursulin@igalia.com>
 References: <20261020154123.33631-1-tvrtko.ursulin@igalia.com>
@@ -64,10 +64,13 @@ X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If scheduler initialization has failed due failure to allocate a handful
-of bytes for the run-queue backing data structure, there will be plenty of
-loud messages in the kernel log. We can safely remove the one
-drm_sched_init() logs.
+Jobs submitted to a stopped entity do not go anywhere due how they are
+handled in drm_sched_rq_add_entity() so there is no point to allow them
+to change their run-queue. We can simply bail out early which makes
+entity->stopped a clearer boundary than it currently is.
+
+This is completely safe because it is always guaranteed entity->rq is
+valid if drm_sched_entity_init() succeeded.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
@@ -75,21 +78,42 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/scheduler/sched_entity.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index d86738611b1e..85a49e219837 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -1164,7 +1164,6 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
- Out_check_own:
- 	if (sched->own_submit_wq)
- 		destroy_workqueue(sched->submit_wq);
--	dev_err(sched->dev, "%s: Failed to setup GPU scheduler--out of memory\n", __func__);
- 	return -ENOMEM;
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 95bb79b3d003..3ca671af02ed 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -584,13 +584,16 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 		return;
+ 
+ 	spin_lock(&entity->lock);
++
++	/* Cannot submit to stopped entity anyway so bail out early. */
++	if (entity->stopped)
++		goto out;
++
+ 	fence = entity->last_scheduled;
+ 
+ 	/* stay on the same engine if the previous job hasn't finished */
+-	if (fence && !dma_fence_is_signaled(fence)) {
+-		spin_unlock(&entity->lock);
+-		return;
+-	}
++	if (fence && !dma_fence_is_signaled(fence))
++		goto out;
+ 
+ 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+ 	rq = sched ? sched->sched_rq[entity->rq_priority] : NULL;
+@@ -602,6 +605,7 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 	if (entity->num_sched_list == 1)
+ 		entity->sched_list = NULL;
+ 
++out:
+ 	spin_unlock(&entity->lock);
  }
- EXPORT_SYMBOL(drm_sched_init);
+ 
 -- 
 2.56.0
 
