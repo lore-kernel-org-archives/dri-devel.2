@@ -2,155 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35028606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 09:14:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FabIPXEb;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qz5T1yBj;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FabIPXEb;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qz5T1yBj
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831FB606A328
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 09:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5721810F419;
-	Tue, 20 Oct 2026 09:14:11 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC3F10F419
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 09:13:59 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B8EE91F44E;
- Tue, 20 Oct 2026 09:13:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792487637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=RQmY0M9tjegDMEezsQ5hlFkCwb+QHN9rMXnNEMTbaII=;
- b=FabIPXEbdQj8PnsJLgzWdOf0WlEkKJ31RrCT4zjm8/5VkwE1fDv9WOtYbaxqB1TqxZ3vry
- RjRYv+jx0Zo6P6GqGNjq/Kj1H/GNol08e6Wl/FbloYUJayPGz3HC9Z+EOQ3EHBZc33F2CI
- IDqAktxOkzYlACENhzTuztADxpMNaOA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792487637;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=RQmY0M9tjegDMEezsQ5hlFkCwb+QHN9rMXnNEMTbaII=;
- b=qz5T1yBjGy5qGXamBQRVTNpt+TV9+BJ51Dqbcj8/GhO2kTgQNcw6X8xHiwAn0iLcc7lbld
- W5qJSMBDztjCC6DA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FabIPXEb;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=qz5T1yBj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792487637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=RQmY0M9tjegDMEezsQ5hlFkCwb+QHN9rMXnNEMTbaII=;
- b=FabIPXEbdQj8PnsJLgzWdOf0WlEkKJ31RrCT4zjm8/5VkwE1fDv9WOtYbaxqB1TqxZ3vry
- RjRYv+jx0Zo6P6GqGNjq/Kj1H/GNol08e6Wl/FbloYUJayPGz3HC9Z+EOQ3EHBZc33F2CI
- IDqAktxOkzYlACENhzTuztADxpMNaOA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792487637;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=RQmY0M9tjegDMEezsQ5hlFkCwb+QHN9rMXnNEMTbaII=;
- b=qz5T1yBjGy5qGXamBQRVTNpt+TV9+BJ51Dqbcj8/GhO2kTgQNcw6X8xHiwAn0iLcc7lbld
- W5qJSMBDztjCC6DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 12F0D136C6;
- Tue, 20 Oct 2026 09:13:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +OANMNQw12rebAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 09:13:56 +0000
-Message-ID: <1d3aecdb-2537-4f08-a4d2-22c81ebaca03@suse.de>
-Date: Tue, 20 Oct 2026 11:13:56 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF7A310F42B;
+	Tue, 20 Oct 2026 09:15:16 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1F6610F41E
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 09:15:14 +0000 (UTC)
+X-QQ-mid: zesmtpip4t1792487651td50b66ae
+X-QQ-Originating-IP: PBOfxz++v/LvFipXH7mVzfeUBqvezzb47+j5WyN5cAw=
+Received: from [127.0.0.1] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 20 Oct 2026 17:14:07 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13061347834158941364
+EX-QQ-RecipientCnt: 31
+Message-ID: <3935A48BAE8900B9+821b9e6f-e494-4af5-a79c-f418cfe2157e@radxa.com>
+Date: Tue, 20 Oct 2026 17:14:05 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/13] efi: bgrt: add accessors for the boot graphics
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261013093243.505776-1-maximpedraza@gmail.com>
- <20261013093243.505776-3-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261013093243.505776-3-maximpedraza@gmail.com>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
+ dragon@radxa.com, Daniele Briguglio <hello@superkali.me>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+ <20261009-q8b-dts-v2-4-eda11e5dea8b@radxa.com>
+ <ec5ae206-beda-42d5-b152-91c457218374@oss.qualcomm.com>
+From: Xilin Wu <sophon@radxa.com>
+Organization: Radxa Computer (Shenzhen) Co., Ltd
+In-Reply-To: <ec5ae206-beda-42d5-b152-91c457218374@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: B8EE91F44E
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.00 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCPT_COUNT_TWELVE(0.00)[25];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[dt];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:dkim, suse.com:url,
- intel.com:email, imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Score: -3.00
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: N80S9118e2YFBN69V7WMnABHdv69jDs1t1hmtB2E69T2YGGv2BpsmWya
+ R1N/Pyp7/IvlHyxt7HrvVQNgsgtDeim5iP6weNna7OWQw7Qrukqr561LpvG7rpd3qvnMP6B
+ nGKEoKiAFlfscPxDZs+4Dt1WoMiY31gAXQCNpJiMtQw9LRCdpN9wtuotNCb/qLC1kmKPdd0
+ l7+Dg8/LyVLP8tlWQMC4GcFYH/QyvcsWkXidfKlo7RBtpORTdaf/FfejnUrc+6Jz93dr3yy
+ bflB7O3h9oJ+z0Zg7HLmLC2U/TBbtefWZYy8f1XdOX9x7wXlpYLYOX0d3woiGZ1ZlFFJmod
+ 73c+pUNsglnit1sRH+zrH7c3mLI2hcLWJSiqu8Uy4jBEuUMGDLtJcRAsYzTHnIaoaQ1XZCY
+ wFhWcggIzsLouddkrM2uu+pMlR0+5j2a+cbebqbKljNcBUWw2rW/TmCiBdeddZM+HLVydYf
+ Z1FH06Fetu1HxFOPLWdgMMcNX2VBtqqVG9hhzVN8x97gci8K++PAkxwGsokTHV7i7+WCafc
+ 11KhJ2Fl+P729Kii+BtCOjLiJ87PLEDZU9iZxPG6POx4ORQP7Rif7w9tuP4fYvHwl/fPxkG
+ 3SFKi0z8Zxpgbfs7VuCr440KuLFITI2T6jYkzNG2XvAdn/+HoLQ2nWzQA6OG2keByMCGOYM
+ 9KzoHmErXNwn+Sjniiqb2uDZ4Cw1ObsB+7+PqII1JualaKbym5FFcwNifDmEnfYZSd8JNZG
+ Q85zqE9LBoCYLnb14RtLKYsjAiLppN1/exi9DRWUh93Tda3jgJNjfnIAuW3Flh+icP3lGee
+ YaCF2rKvJ+MVRpHbbnsudKZaag9cVCb9+Q7HmoNW3zO7TetiwCHC2davyO5xlHZ6zwZoTAt
+ bvtxXMdLSLuOyVaBdKO0TsgF1IiWSeNrFv9Kp7Otp4USwq7q6Yd4B5ohW4q0vbSMBfQsPSb
+ 2mNbeoXo5uLpU/7ip6PxZulk+/IWLJNiUpEERAgaqqMgNKg7HXlV37DyYulq0SmzlNOVTck
+ s3BNZf5Nkl5/TKgGUH9mL/S7lgv/XWtHmEm7//a+y0Tu01NpCdPfLQ5tOzudAlt1CUMxX9N
+ atsvESTO2MEN8DNBdmc7BUDFI7Ymmkyp0uOz02WOmRr3WIjgeE3fCAXBKmGHtsRAqC6d/MT
+ O0QcUuKRiPJByVM=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,198 +83,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sophon@radxa.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-2.9 required=3.0 tests=BAYES_00,FORGED_MUA_MOZILLA,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On 10/20/2026 4:28 PM, Konrad Dybcio wrote:
+> On 10/9/26 9:55 AM, Xilin Wu wrote:
+>> Add initial device tree support for the Radxa Dragon Q8B,
+>> a single-board computer based on the Qualcomm Snapdragon 8cx Gen 3
+>> SC8280XP platform.
+> 
+> [...]
+> 
+>> +	hdmi-connector {
+>> +		compatible = "hdmi-connector";
+>> +		type = "a";
+> 
+> No i2c bus and hpd?
+> 
+> Konrad
 
-
-Am 13.10.26 um 11:32 schrieb Màxim Pedraza Padilla:
-> The DRM splash client shows the boot graphics the firmware left behind,
-> and needs the image address and size, its offsets and the status bits.
-> Reading them from bgrt_tab and bgrt_image_size works with drm_client_lib
-> built in, but it can be a module, and neither is exported:
->
->    ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt_tab' undefined!
->    ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt_image_size' undefined!
->
-> Rather than export the data, add an accessor for each of them, exported
-> GPL only, with stubs in efi-bgrt.h for CONFIG_ACPI_BGRT=n so that users
-> need no #ifdef of their own. The variables stay global for
-> drivers/acpi/bgrt.c, and are only written by efi_bgrt_init(): mark them
-> __ro_after_init.
->
-> Reported-by: Mario Limonciello <mario.limonciello@amd.com>
-> Closes: https://lore.kernel.org/dri-devel/5d7067de-97b7-4232-9cf6-e4b978696482@amd.com/
-> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->   drivers/firmware/efi/efi-bgrt.c | 74 ++++++++++++++++++++++++++++++++-
->   include/linux/efi-bgrt.h        | 39 ++++++++++++++++-
->   2 files changed, 110 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/firmware/efi/efi-bgrt.c b/drivers/firmware/efi/efi-bgrt.c
-> index 1da451582812..01425c4d2e70 100644
-> --- a/drivers/firmware/efi/efi-bgrt.c
-> +++ b/drivers/firmware/efi/efi-bgrt.c
-> @@ -16,8 +16,8 @@
->   #include <linux/efi.h>
->   #include <linux/efi-bgrt.h>
->   
-> -struct acpi_table_bgrt bgrt_tab;
-> -size_t bgrt_image_size;
-> +struct acpi_table_bgrt bgrt_tab __ro_after_init;
-> +size_t bgrt_image_size __ro_after_init;
->   
->   struct bmp_header {
->   	u16 id;
-> @@ -89,3 +89,73 @@ void __init efi_bgrt_init(struct acpi_table_header *table)
->   out:
->   	memset(bgrt, 0, sizeof(bgrt_tab));
->   }
-> +
-> +/**
-> + * efi_bgrt_has_image() - Whether the firmware left a boot graphic
-> + *
-> + * Return: true if the BGRT points at a BMP image, which efi_bgrt_init()
-> + * checked and reserved.
-> + */
-> +bool efi_bgrt_has_image(void)
-> +{
-> +	return bgrt_tab.image_address != 0;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_has_image);
-> +
-> +/**
-> + * efi_bgrt_image_address() - Physical address of the boot graphic
-> + *
-> + * Return: the address of the BMP image, or 0 if there is none.
-> + */
-> +phys_addr_t efi_bgrt_image_address(void)
-> +{
-> +	return bgrt_tab.image_address;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_image_address);
-> +
-> +/**
-> + * efi_bgrt_image_size() - Size of the boot graphic
-> + *
-> + * Return: the size of the BMP image, as its header gives it, or 0 if there
-> + * is none.
-> + */
-> +size_t efi_bgrt_image_size(void)
-> +{
-> +	return bgrt_image_size;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_image_size);
-> +
-> +/**
-> + * efi_bgrt_status() - Status field of the BGRT
-> + *
-> + * Return: the status byte. Bit 0 tells whether the image is still on
-> + * screen and, since ACPI 6.2, bits 1-2 how far it has to be turned to show
-> + * upright (ACPI_BGRT_ORIENTATION_OFFSET).
-> + */
-> +u8 efi_bgrt_status(void)
-> +{
-> +	return bgrt_tab.status;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_status);
-> +
-> +/**
-> + * efi_bgrt_image_offset_x() - Horizontal position of the boot graphic
-> + *
-> + * Return: the X offset, in pixels, at which the firmware drew the image.
-> + */
-> +u32 efi_bgrt_image_offset_x(void)
-> +{
-> +	return bgrt_tab.image_offset_x;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_image_offset_x);
-> +
-> +/**
-> + * efi_bgrt_image_offset_y() - Vertical position of the boot graphic
-> + *
-> + * Return: the Y offset, in pixels, at which the firmware drew the image.
-> + */
-> +u32 efi_bgrt_image_offset_y(void)
-> +{
-> +	return bgrt_tab.image_offset_y;
-> +}
-> +EXPORT_SYMBOL_GPL(efi_bgrt_image_offset_y);
-> diff --git a/include/linux/efi-bgrt.h b/include/linux/efi-bgrt.h
-> index e6cd51005633..1c287e5fd388 100644
-> --- a/include/linux/efi-bgrt.h
-> +++ b/include/linux/efi-bgrt.h
-> @@ -9,7 +9,14 @@
->   void efi_bgrt_init(struct acpi_table_header *table);
->   int __init acpi_parse_bgrt(struct acpi_table_header *table);
->   
-> -/* The BGRT data itself; only valid if bgrt_image != NULL. */
-> +bool efi_bgrt_has_image(void);
-> +phys_addr_t efi_bgrt_image_address(void);
-> +size_t efi_bgrt_image_size(void);
-> +u8 efi_bgrt_status(void);
-> +u32 efi_bgrt_image_offset_x(void);
-> +u32 efi_bgrt_image_offset_y(void);
-> +
-> +/* The BGRT data itself; only valid if efi_bgrt_has_image(). */
->   extern size_t bgrt_image_size;
->   extern struct acpi_table_bgrt bgrt_tab;
->   
-> @@ -21,6 +28,36 @@ static inline int __init acpi_parse_bgrt(struct acpi_table_header *table)
->   	return 0;
->   }
->   
-> +static inline bool efi_bgrt_has_image(void)
-> +{
-> +	return false;
-> +}
-> +
-> +static inline phys_addr_t efi_bgrt_image_address(void)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline size_t efi_bgrt_image_size(void)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline u8 efi_bgrt_status(void)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline u32 efi_bgrt_image_offset_x(void)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline u32 efi_bgrt_image_offset_y(void)
-> +{
-> +	return 0;
-> +}
-> +
->   #endif /* !CONFIG_ACPI_BGRT */
->   
->   #endif /* _LINUX_EFI_BGRT_H */
+The i2c bus is directly connected to the CH7218A bridge. HPD is 
+configured using the TLMM edp_hot function on GPIO_2.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+Best regards,
+Xilin Wu <sophon@radxa.com>
