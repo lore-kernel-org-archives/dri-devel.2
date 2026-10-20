@@ -2,85 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BC6606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 20:48:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A74606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 20:48:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GDd7Wezt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OVVeAiHL
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WwUKLnKN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dV0lMv7i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 738A910E27D;
-	Tue, 20 Oct 2026 20:48:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65A8B10E5D2;
+	Tue, 20 Oct 2026 20:48:11 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFACE10E94C
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:47:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D28F210F7C0
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:47:56 +0000 (UTC)
 Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69KGtl012278771
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:47:54 GMT
+ 69KGtkim2278761
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:47:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=Q5GkNVNRfPw
- 2zEKJCJZ4tInEwatTood77UzHJkknqQ0=; b=GDd7WeztKU3UZnBIFRu1ZuACveS
- 4ewjnJv4KN+MFiQZysoLK/tX+PmITOMIx12VKCVPliRitgjuBjvViqGXkhXOOFgx
- Kx937NgaOYnMNf33EYVoceR0CvipZ6xXdQJ+u7wbok937Aq7VzCpIxsZ7wpF6ytI
- +zTGbVX/WtEOqWoHjCGIFtYRYE1nxNMNCJebfVxRw9dl/VBENlcUgmm+kczqsEnK
- V7RvZ8YR+dcNxLcUT7fR2WK9DXdX7IxuTTuaXp+dgRwOWIYUmN88mb1al9LxVCCS
- Dm36ze9r9PyFUb5G9Gx6uH9e9QoOYguzjL63WaKlNB+yQ9HX1jfA2MaHXbg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h2a3tf-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=2h2stUViSIN
+ xP5B7dXQjREMT+lAKurPPQoFmUpl9jSw=; b=WwUKLnKNOn8wKVLRNQZsNCxIPpA
+ a9W0Ab0JzUbeaylgYMX9g1dhnGA53wG10T+OmyeeMsJrVEjn+ylwD2xKFaPzuFx4
+ 9+TCzmZPzvYfoPCSOavfLNBYRTfzT33O4B676xiXXXvkxbXS+jKJC4ko+wNaktqO
+ RvyXpwnw+0A9keCVH+LUIXKZH3AXOQoJBjPfOhZ3ce1xwUT36mjTonNXpPkdzETh
+ G0G1N2T9wOpXc5lRp7QdBpq036kWmG1EQicGyVqpbpDQ4ILAJ0m8WnDCpO+C6tHw
+ KvRl9dSc8CjYU6VMoIXN1aGe/blQ80x7eWa5GPnm5gdER/0Os8MC4DcjyJQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h2a3tr-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:47:54 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2e818ca61bfso114885ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:47:54 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:47:56 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-3a8ae5154e7so140536a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:47:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792529274; x=1793134074;
+ d=oss.qualcomm.com; s=google; t=1792529276; x=1793134076;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Q5GkNVNRfPw2zEKJCJZ4tInEwatTood77UzHJkknqQ0=;
- b=OVVeAiHLxTrSpe8wdE3wF7SBKTwsSGSgtNrXRL0Yq97YZxmCKpxrs2Dt2PtBhlaDSc
- Ll94lDB2gozhGEQaXZyNTrG5bjYvt0nOGeAtoFoYaZWHEGsx6vLvl6eJVJAYJ52si9Lh
- DiwluyixsrsOb984EPRghtk50n02rHelR133Gp/dyhM70wr1OSJpQeupLJqm7NbahcHv
- F/89D/Q0vw7zZFeFTg79f4t3OpZ3ziOuFFLttn642aezYchKVhnNA2X492+rdhtiZrrl
- mqXQfz8cWGobbCuA5f/T57bLdGe0jw3V8TDtchWFeh8knB4aKrWZi/HVHm+h9rKCONEy
- vIMw==
+ bh=2h2stUViSINxP5B7dXQjREMT+lAKurPPQoFmUpl9jSw=;
+ b=dV0lMv7izo3S1QngrkEoG+5OHIUZq8iGdUndqSXO3kqjOFx11gp7XFNATSslHJkMUn
+ PdcTHn+6qxUnhaVSnMVmZqgzPXsLna+nCmS1sam/d0IxOrJc0jhrCtixPopqDywcAeZn
+ UtASLlbmc9gtEsFUOEv0A49/yF4pDIoRlCD+9vuvuM1+5xJZ8z261ikKlglmZaSzaLm5
+ 9pbq7s+6V7LyzdA9kv67JqhVxMvpog9cW3BrqWmpYXcpbRkyb/iQSYvx1ZJ+eU6yaWe6
+ CjmTgSGZTvemB38Dua3aeUE/0rq8mszmfenRsP0GF2MhUNeVsKXl5spAcFOwGwPpGwfs
+ gV9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792529274; x=1793134074;
+ d=1e100.net; s=20260707; t=1792529276; x=1793134076;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Q5GkNVNRfPw2zEKJCJZ4tInEwatTood77UzHJkknqQ0=;
- b=jVmnVN2cFVBE+dCho8GMCk2TEIoShVwRGYV1MOljpA3kplHovVUJi0DHQPQ+cKwAHY
- 3VK+W4eiz37LdtoTa5Ouat5YWauV1zm8suQLRJ/bWpGZ3tWiBK7CDfjpr2b72/VSca3J
- ZgFjcHkSp1a/g22Lq0hfcHxihlKXZL1CQsGuI3ER3jdgUYynxc0cZXSWo42+3pgs05lw
- dgJflRyI5AevL5jiC1ZcvZX0CxDoJ8xyUx72S2rnWoCl8HUS2DpqFUx0ONzHH7IybeW1
- hYeto3EO+tBxdKkcNXbvNipmACCEgT3a9RmbDP5mYlhivrBm8q9YmZZ14c8sfBOoUxo6
- emKw==
-X-Gm-Message-State: AFq9FYKbeasNHCOo0jlKmL7vgM4chm8DjlqcfgppBiqtd681VDu6leJ0
- iT92hB+aEhLajoAd5hdj2TBQ+Zmx+i2/jhtvP106ffLctvnTWynrsaOePvMociK0JAAy71df8o2
- t0/buMUMgiZ2Be3YAg+zc65Sh/hqxLCnLO+aUNjEO8pSQEDTsOxFcJ7D0ZgCSCvoOpM+J3Is5dv
- RRe7s=
-X-Gm-Gg: AYBFou2ZboWqm7fUuilTE4VlGLVhprRH/UmO2QCyo2LiaswQraGh39KOXLzWQYsU9ra
- 9ACH5kp62U4KVGcE6d7WbHG/nJVPTUPjedrRadg6RMNA3LVZkq/e3/vFFuf9/o4wRbuvJ6bxt2f
- qGEUzB15YhjIXO3+WKnq4+uawXx0th3WPnByPKsqmK+D/LfAjnbJOBMIy23cGx5KclCufjLKoyP
- UgsY2GKnCnRcszVmsY0uiuaq1h0Y+RTel82ioG26b3l2O5/ugWZUQNdRFN0woz6BYhnx+HvflB2
- Yts14r78SRHPKG+dMr7smvoJSTqzNlRb4DQIpIhINBlfLJ6V9kW7C7oEn/2SjID8ANFTOZAaHXB
- 66N35qUAZYrWCGZY9eeU66Rs3M/4W7JF8+7HJfBG6shJqqJn6Ow==
-X-Received: by 2002:a17:90b:2683:b0:3aa:ff61:9504 with SMTP id
- 98e67ed59e1d1-3ad86d1d122mr98470a91.20.1792529273659; 
- Tue, 20 Oct 2026 13:47:53 -0700 (PDT)
-X-Received: by 2002:a17:90b:2683:b0:3aa:ff61:9504 with SMTP id
- 98e67ed59e1d1-3ad86d1d122mr98424a91.20.1792529272304; 
- Tue, 20 Oct 2026 13:47:52 -0700 (PDT)
+ bh=2h2stUViSINxP5B7dXQjREMT+lAKurPPQoFmUpl9jSw=;
+ b=iLrzxeZLnOz6prZGl8n7kqZ3QWBm1PGWkEvQ443M5ZpK1wzKpREYICwDrzeQk5x4Qa
+ M/vfJCZ4s4YC9bnj+vQnZyMBRk8Q3bMl8vThz1/KDCjMpq+969EI+9I3kkEj+SVZYClf
+ ZoO9PSjIMb0UJL2bYCeex+cxak/T5o9rUIABtbA35oixanypkvPnR9keHwRRlDpRZkgs
+ Df70v/q7G/OOtlazBEzdr1Kcj9v14RYGwqJHhe9Zj/BptQZ9a27acdZT72SSmRtwL4rN
+ MWrltu+Kh8nfJpDcZMKRhO8JVQK6Cxhv7EH7sdy9lshj7rPo1k89oJZR8nQc72d3hYPt
+ G9zA==
+X-Gm-Message-State: AFq9FYLLSFtvfJB7FdWL72daFJSygR4Rn3H5kbVPQ+UeucH8TO7vSPLO
+ N/pdQDtqeZCERRHXNiBEwFuIuZMJDDRZ9aVXSMowvkWgq0/SDVmVLbUkVtAQCzJi7NcYm5oB1BA
+ Of/6NfgTcOqXRvZVPTL8uATEndMOyCQcxZqU9szD7cuGXQApRIwV51Vw4AWijcvbpgmUUkaLqIO
+ Q/954=
+X-Gm-Gg: AYBFou1kvNyi+XbOsQmFqMKlTkB76dHBiXrq+fiAXdOOyZtZNUrPFVh6i+aZAfQjqXl
+ e/xhilaBg9utAtunHYa7nx8NCxyRAzL81CacYXjskvE+z27lreQmP+Keh4n0c0iEhFbAqPznyJ8
+ iszhTjpLhCz2SG1Uh2AJtfMgt1m+tvBu40lBlMSfRCwZh/lS9L4aEgiLjNgb6LxDPCRIVVsR4oL
+ PwISL4pvGt95j7uBPF2xp8ZpIs1K+1CuGeqE4uLM+sbxqJfJPt5r9NT21iFCk+FNuGUsEGaBIC+
+ GVwWvaHf7sh86zNfQnZmxI03cH+KZf5xg1TamhXkllLwxA6n7AIXxJgLHocUt90glZv8RSYzGa6
+ Y+oononjDHr8143oIpFHrOG/e1uQ8OpM2GOxVxN8Sjs3M6ZKL
+X-Received: by 2002:a17:90b:3b4c:b0:3ac:9463:83e6 with SMTP id
+ 98e67ed59e1d1-3ad86cd5f36mr107548a91.10.1792529275496; 
+ Tue, 20 Oct 2026 13:47:55 -0700 (PDT)
+X-Received: by 2002:a17:90b:3b4c:b0:3ac:9463:83e6 with SMTP id
+ 98e67ed59e1d1-3ad86cd5f36mr107525a91.10.1792529275060; 
+ Tue, 20 Oct 2026 13:47:55 -0700 (PDT)
 Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
  [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ad8035c42fsm1003438a91.17.2026.10.20.13.47.50
+ 98e67ed59e1d1-3ad8021d29bsm1052180a91.4.2026.10.20.13.47.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2026 13:47:51 -0700 (PDT)
+ Tue, 20 Oct 2026 13:47:54 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -96,33 +96,33 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 04/12] drm/msm/a8xx: Allow nonctx reglist to include GMU regs
-Date: Tue, 20 Oct 2026 13:46:18 -0700
-Message-ID: <20261020204728.28844-5-robin.clark@oss.qualcomm.com>
+Subject: [PATCH 06/12] drm/msm/adreno: Fix PROTECT span length
+Date: Tue, 20 Oct 2026 13:46:20 -0700
+Message-ID: <20261020204728.28844-7-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
 References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: YZJMY2nHEqyo6j1gGTA3-c7FhxTWq93r
-X-Proofpoint-ORIG-GUID: YZJMY2nHEqyo6j1gGTA3-c7FhxTWq93r
-X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad7d37a cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+X-Proofpoint-GUID: 6noJpkkt0iy9J3HLJfpVdRCuTpIsY_tk
+X-Proofpoint-ORIG-GUID: 6noJpkkt0iy9J3HLJfpVdRCuTpIsY_tk
+X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad7d37c cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=cg0wMmP-TNBUvudz7-YA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX2wdqo2e7YLTq
- djP0ZDuwe4KlkVaX0BGD+8Ikka5OMqRw6kq4CuJTh8gPKLr+D9uqZcMO9ScrJ1yf/8JXBV/BiSq
- VuRyaNdlKATj4jRB5WEFqmEiT3w/hGM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX38kgQiNL38ZP
- 1o1b9l/ZCFJZJ5ObFVL4SmTWDkH0mvPoNu7ItmSiL7zVAONYFrflUhGse9mHwWPIS/FM50pVUjD
- 4u3dlo8FHVsMbBfC3ke9UHb8ECRyD1/ChVeSUC0mM2C726S+Q9uzmzj/X5By2j+59atZUYs2Q9K
- bNInH1idMu5u1b3llO8Jo0E5DUlOOjDS/ryuZ6EJF2s+xEhuWPYsX+Y439SSGtBmLzFZGOkeUKg
- OL4TF0x5PVA/nhQfXlJpysu3xQ/R/b5A8Jyt3V82bMNg7S2B6G3P2PHq58QTZ8ji85InlAGbdLh
- 5Uga/6XfFWYewJ33Lo8spLqnxVUCj6CmtHDv6dTQqCCOy/paZ1Z9/AeFl8cbGcVNVScTVrqvTRc
- 0zm8qu4E+gi8g/U7MTDm3426JUA2zFiqom0e0kkAANAbM/EWoaxPFRtY1Ek2MHLHrUcfeNSyjlP
- d8D4nx48GapcluQeNOA==
+ a=MJDCpJTP__1aPQla-tsA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX+PsBb0suHs5I
+ 5lUciuzkvzklZJrh4Ltz2zHHvw+adAM4Ga1Ly6KwQiPmjx6QClLBoJd7QcTzcpTyI9KEOsbq4ag
+ kc86femXaegQV7IpFMgcJFFj1+oqrHo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfXzCfLcm37ChYf
+ Hn0gLbXX3D10i/N3IJLgCuTqUqvtYILi3XvzOWH2t9f5LNkmP7wQJXKBOOqVXuxnBRqOrexY78m
+ eZTk5gsV+Kup3mpMXDlkQyBcvO1/CWfae+Mb6xvDOobtbJdp2P5YEbrot7tSX6hUDw+iFiTOM1g
+ 43m4MUWbG14s1STDKdg8OhCelt8PwneHxCRru8cEliE8KpsjjW1B+tv3Hc1VTqZz8BpHSwnzabF
+ sFv6upUBl8RpZvAP1bhwr35aJfsycIb9InRy16AypIOC1RETX8E8PVyc9NJK147TEiPNWDv3U8I
+ hFPGxcuL0hIMt4b+V7cFjTIb5SzZ3lBeGqPAmLDIwPxQGteLXihdZZvNSxz37qVXFrlQnkDesBz
+ BTY4fqssI5cLAEK5yQzJ/DYuZSuu7y2QlirCjhXt2+Mh4kcb4dpdLTX5xsmNNsrk3UN4ev+WWDs
+ YfiQJ6s1jW7iJLaNg1g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-20_03,2026-10-19_02,2025-10-01_01
@@ -150,40 +150,35 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From hw PoV, it's all part of the GPU.  But from dt perspective it is
-it's own device with a separate io space.  So we need to detect this and
-direct writes to the correct place.
+Don't let the length bleed into b31.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index 72c84f73157a..3e22ef788f2d 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -376,6 +376,7 @@ static void a8xx_set_ubwc_config(struct msm_gpu *gpu)
- static void a8xx_nonctxt_config(struct msm_gpu *gpu, u32 *gmem_protect)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a6xx_gmu *gmu = &to_a6xx_gpu(adreno_gpu)->gmu;
- 	const struct a6xx_info *info = adreno_gpu->info->a6xx;
- 	const struct adreno_reglist_pipe *regs = info->nonctxt_reglist;
- 	unsigned int pipe_id, i;
-@@ -395,7 +396,11 @@ static void a8xx_nonctxt_config(struct msm_gpu *gpu, u32 *gmem_protect)
- 			if (regs[i].offset == REG_A8XX_RB_GC_GMEM_PROTECT)
- 				*gmem_protect = regs[i].value;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index d60cbfaa0d8e..5e1f35c83d63 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -244,7 +244,7 @@ struct a7xx_cp_smmu_info {
+  */
+ #define A6XX_PROTECT_NORDWR(_reg, _len) \
+ 	((1 << 31) | \
+-	(((_len) & 0x3FFF) << 18) | ((_reg) & 0x3FFFF))
++	(((_len) & 0x1FFF) << 18) | ((_reg) & 0x3FFFF))
  
--			gpu_write(gpu, regs[i].offset, regs[i].value);
-+			if ((regs[i].offset << 2) >= gmu->mmio_offset) {
-+				gmu_write(gmu, regs[i].offset, regs[i].value);
-+			} else {
-+				gpu_write(gpu, regs[i].offset, regs[i].value);
-+			}
- 		}
+ /*
+  * Same as above, but allow reads over the range. For areas of mixed use (such
+@@ -252,7 +252,7 @@ struct a7xx_cp_smmu_info {
+  * single register
+  */
+ #define A6XX_PROTECT_RDONLY(_reg, _len) \
+-	((((_len) & 0x3FFF) << 18) | ((_reg) & 0x3FFFF))
++	((((_len) & 0x1FFF) << 18) | ((_reg) & 0x3FFFF))
  
- 		a8xx_aperture_release(gpu, flags);
+ extern const struct adreno_gpu_funcs a6xx_gpu_funcs;
+ extern const struct adreno_gpu_funcs a6xx_gmuwrapper_funcs;
 -- 
 2.56.0
 
