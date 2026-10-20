@@ -2,48 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A52E606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 23:21:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005CF606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 23:31:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=S7pM44aL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeiR2Hy4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86DCE10E0F0;
-	Tue, 20 Oct 2026 23:21:50 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id EEFC410E0F0
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 23:21:44 +0000 (UTC)
-Received: by linux.microsoft.com (Postfix, from userid 1216)
- id 3A3C420B7168; Tue, 20 Oct 2026 16:21:37 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3A3C420B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1792538497;
- bh=wxAh+Ne1jASQiYLIaGgyMvhKyKgjJ2FMW5Pt3awzq1Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=S7pM44aLB3gZK2JI34fkHNHluJMXfyOhL4k1popVUMJN10/rYmyemLKkba6xsKjuz
- pBDky1QGicbwDIQGKuSA5Wp5k72iQDcIJBnV4TbGA3EfrLgHKjG01Y+JUSSIc88Soc
- Mzv3rX0/KWisgbPOceaPU0c5LbFWOJIyz6uGAFfY=
-Date: Tue, 20 Oct 2026 19:21:37 -0400
-From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Lanfeng Wei <xlfylawarthur@gmail.com>, airlied@gmail.com,
- decui@microsoft.com, dri-devel@lists.freedesktop.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- longli@microsoft.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, regressions@lists.linux.dev, simona@ffwll.ch,
- ssengar@linux.microsoft.com, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-Message-ID: <atf3gfQlW+46PzRG@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
- <20261019154121.6257-1-xlfylawarthur@gmail.com>
- <8e91baa4-1ca5-43b8-bb04-9b5e3630bc2b@suse.de>
- <atZjtSlZAocUWYBS@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
- <3a4c4a4d-6ab4-42b6-8ae6-7ca0730b8069@suse.de>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3a4c4a4d-6ab4-42b6-8ae6-7ca0730b8069@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41E7A10EC2C;
+	Tue, 20 Oct 2026 23:31:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C171B10EC2C
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 23:31:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E74B160098;
+ Tue, 20 Oct 2026 23:31:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D691F000CA;
+ Tue, 20 Oct 2026 23:31:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792539064;
+ bh=WyTydnEI7HaZcYU8Jg8Dgk33OVrWs9PmKRbuXg17Oyw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EeiR2Hy4d4o/s/Rjqykrd8x8aJE3gcmxa3ZvBSN2zlwBCU+KaCsM+YvSB3xEQzBW3
+ wkYsmSZH44UltBNiPI4Dk0iBdyrlkdDSLr+nfww91a/0SyhqPj6ej6xeSICEEMAme4
+ rsESQJFAmJqwzlj9fCEOjH9Avb0BtpQtZtAPqlRt+U+7iyx70sxHt/ATgSyZL8DZJC
+ i4JWEl7TADOlI585o4hJcbtfn1oN2Q71nEEK5Qs3BidT+EBT9T6EogIRn3N/z4+m/w
+ 5veoUoyL+Jl+zj9tAg5jLGI3VZJ1cNr/VpbTysy72iQi50Oi3NAt//EkN5KI8nZXkK
+ iBL9gs3W4Aeaw==
+Message-ID: <sashiko-outbox-179604@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 7/7] arm64: dts: imx8dxl-evk: add lcdif overlay
+To: Frank.Li@oss.nxp.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261020-dxl_lcdif-v3-7-adc944659e14@nxp.com>
+References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
+ <20261020-dxl_lcdif-v3-7-adc944659e14@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 23:31:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,132 +49,184 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Tue, Oct 20, 2026 at 01:48:58PM +0200, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 19.10.26 um 20:38 schrieb Hamza Mahfooz:
-> > On Mon, Oct 19, 2026 at 06:03:55PM +0200, Thomas Zimmermann wrote:
-> > > Hi
-> > > 
-> > > Am 19.10.26 um 17:40 schrieb Lanfeng Wei:
-> > > > Hi Thomas,
-> > > > 
-> > > > > Yeah, what's the cause of it? Switching off features does not fix any
-> > > > > bugs or improve the status quo.
-> > > > You are right that the module parameter is only a workaround for users
-> > > > affected; it does not fix the underlying scheduling problem.
-> > > > 
-> > > > The cause is that the synthetic vblank timer is used to pace completion
-> > > > of atomic updates triggered by dirtyfb, in addition to providing
-> > > > synthetic vblank events. In Xorg's software-cursor path, pointer motion
-> > > > damages the primary framebuffer and the damage is instantly submitted
-> > > > via DRM_IOCTL_MODE_DIRTYFB. The Hyper-V dirtyfb path performs a
-> > > > synchronous atomic commit, and with the vblank timer enabled that commit
-> > > > can wait for the next simulated vblank. Under continuous pointer motion,
-> > > > these commits dominate the update path and delay normal client updates,
-> > > > resulting in sever frame-rate drops.
-> > > > 
-> > > > This particular regression results from the combination of the blocking
-> > > > dirtyfb path, synthetic vblank pacing, and the absence of a Linux DRM
-> > > > cursor plane in Hyper-V. While the Hyper-V video protocol does have a
-> > > > hardware-cursor command path, the upstream hyperv_drm driver currently
-> > > > exposes only a primary plane. Cursor plane support was deferred during
-> > > > the initial upstreaming [1]. Without a cursor plane, Xorg has to fall
-> > > > back to software cursor-rendering path and it competes with periodic
-> > > > graphical updates on the primary plane.
-> > > > 
-> > > > So the proper long-term fix could be adding cursor plane support in the
-> > > > Hyper-V DRM driver, which may take some time. Providing that the stated
-> > > > purpose of the offending commit is to rate-limit display updates, while
-> > > > its current implementation regresses the existing software-cursor path,
-> > > > I think adding a switch or reverting the commit until the requested
-> > > > features in the driver is ready, is a reasonable short-term fix.
-> > > The problem is that module parameters are impossible to remove in practice.
-> > > Once in place, someone always depends on it. They also increase the number
-> > > of states to test.  Avoiding them is usually a good idea. Especially as
-> > > workarounds for bug or regressions.
-> > > 
-> > > 
-> > > I'm not familiar with the Hyper-V protocol, so I have a question. Why is it
-> > > hard to implement cursors? From the link at [1], I assume that cursor
-> > > support was left out because the simple-kms pipeline did not support cursor
-> > > planes. This has long been resolved: the simple-kms pipeline is gone and
-> > > hyperv_drm runs on the regular DRM framework.  Unless there's anything
-> > > special with the Hyper-V protocol, cursor-plane support should be do-able in
-> > > a single patch. [^1]
-> > > 
-> > I actually have been working on cursor plane support for hyperv-drm.
-> > I'll post a patch soon.
-> 
-> Awesome! Even if it doesn't fix the reported bug, it is still an improvement
-> for everyone.
-> 
-> To fix the bug, you *might* have to implement atomic_async_update. [1]  It
-> allows legacy cursor updates to jump ahead of the commits and change the
-> cursor without vblank synchronization. It's a little-used feature and
-> semi-deprecated, but maybe necessary in case.  (Make it a separate patch,
-> I'd say.)  There's existing support in other drivers to see how it works.
-> 
-> [1] https://elixir.bootlin.com/linux/v7.3/source/include/drm/drm_modeset_helper_vtables.h#L1406
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] arm64: dts: imx8dxl-evk: invalid and ignored bus-width in adma_lcd=
+if endpoint
+- [Medium] arm64: dts: imx8dxl-evk: incomplete audio disabling in lcdif ove=
+rlay
+--
 
-From my testing it seems that the cursor plane support on it's own is
-sufficient to deal with the reported issue. So, I'll hold off on this
-for now.
+commit 99ed2360e1f19a7e9e6652f9b6385f7a7a06174f
+Author: Frank Li <Frank.Li@nxp.com>
 
-Hamza
+arm64: dts: imx8dxl-evk: add lcdif overlay
 
-> Best regards
-> Thomas
-> 
-> > 
-> > Hamza
-> > 
-> > > Best regards
-> > > Thomas
-> > > 
-> > > [^1] See https://elixir.bootlin.com/linux/v7.2.11/source/drivers/gpu/drm/ast/ast_cursor.c
-> > > for an example of how this looks. Most of it is hardware-related, but hyperv
-> > > would likely be similar in concept.
-> > > 
-> > > > > We had another fix for a problem with vblank timers:
-> > > > > 
-> > > > > https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
-> > > > > 
-> > > > > Did you validate that this fix is unrelated?
-> > > > Yes I tested that fix and confirmed that it is irrelevant. It solves
-> > > > issues with excessively long frame durations, however this problem is
-> > > > found in normal frame updates (in my case 60Hz / 16.7 ms per frame, way
-> > > > below INT_MAX).
-> > > > 
-> > > > Best regards,
-> > > > 
-> > > > Lanfeng Wei
-> > > > 
-> > > > [1] https://lore.kernel.org/dri-devel/20200622110623.113546-1-drawat.floss@gmail.com/
-> > > -- 
-> > > --
-> > > Thomas Zimmermann
-> > > Graphics Driver Developer
-> > > SUSE Software Solutions Germany GmbH
-> > > Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-> > > GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-> > > 
-> > > 
-> 
-> -- 
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-> 
+This commit adds a device tree overlay to support the waiken,101wx001-wct L=
+CD
+panel on the i.MX8DXL EVK board, configuring the LCDIF controller pins and
+disabling conflicting peripherals.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001.dts=
+o b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001.dtso
+> new file mode 100644
+> index 0000000000000..39abf9b3884ea
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001.dtso
+> @@ -0,0 +1,119 @@
+
+[ ... ]
+
+> +&acm {
+> +	status =3D "disabled";
+> +};
+> +
+> +&adma_lcdif {
+> +	pinctrl-0 =3D <&pinctrl_lcdif>, <&lcd_0_fun>, <&lcd_1_fun>, <&lcd_2_fun=
+>, <&lcd_3_fun>;
+> +	pinctrl-names =3D "default";
+> +	status =3D "okay";
+> +
+> +	port {
+> +		lcdif_out: endpoint {
+> +			bus-width =3D <18>;
+> +			remote-endpoint =3D <&panel_in>;
+> +		};
+> +	};
+> +};
+
+[Severity: High]
+Is bus-width =3D <18> in lcdif_out valid for the fsl,lcdif binding or handl=
+ed
+by the mxsfb driver?
+
+In Documentation/devicetree/bindings/display/fsl,lcdif.yaml, the port
+property references /schemas/graph.yaml#/properties/port directly without
+video-interfaces.yaml:
+
+  port:
+    $ref: /schemas/graph.yaml#/properties/port
+    description: The LCDIF output port
+
+Because /schemas/graph.yaml#/properties/port enforces additionalProperties:
+false on endpoint nodes, adding bus-width =3D <18> causes dtbs_check schema
+validation to fail on imx8dxl-evk-lcdif-101wx001.dtb.
+
+In addition, neither mxsfb, drm_panel_bridge, nor panel-simple parses
+bus-width from the endpoint node. When mxsfb_crtc_atomic_enable() calls
+mxsfb_set_formats() in drivers/gpu/drm/mxsfb/mxsfb_kms.c, the hardware bus
+width is selected from bridge_state->input_bus_cfg.format:
+
+	switch (bus_format) {
+	case MEDIA_BUS_FMT_RGB565_1X16:
+		ctrl |=3D CTRL_BUS_WIDTH_16;
+		break;
+	case MEDIA_BUS_FMT_RGB666_1X18:
+		ctrl |=3D CTRL_BUS_WIDTH_18;
+		break;
+	case MEDIA_BUS_FMT_RGB888_1X24:
+		ctrl |=3D CTRL_BUS_WIDTH_24;
+		break;
+
+Since waiken_101wx001_panel in drivers/gpu/drm/panel/panel-simple.c sets
+bus_format to MEDIA_BUS_FMT_RGB888_1X24:
+
+static const struct panel_desc waiken_101wx001_panel =3D {
+	...
+	.bus_format =3D MEDIA_BUS_FMT_RGB888_1X24,
+	.connector_type =3D DRM_MODE_CONNECTOR_DPI,
+	.bus_flags =3D DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE,
+};
+
+mxsfb_set_formats() will program CTRL_BUS_WIDTH_24 instead of
+CTRL_BUS_WIDTH_18 even though only 18 data lines (D00..D17) are wired in
+pinctrl_lcdif, dropping the upper 6 bits of each pixel.
+
+[ ... ]
+
+> +&sai0 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&sai1 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&wm8960_1 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&wm8960_2 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&wm8960_3 {
+> +	status =3D "disabled";
+> +};
+
+[Severity: Medium]
+Should this overlay also disable the remaining audio nodes in
+arch/arm64/boot/dts/freescale/imx8dxl-evk.dts and
+arch/arm64/boot/dts/freescale/imx8-ss-audio.dtsi that depend on &acm, &sai0,
+&sai1, and &wm8960_1..&wm8960_3?
+
+Because of_link_to_phandle() in drivers/of/property.c does not create
+fw_devlink links to suppliers with status =3D "disabled", the enabled consu=
+mer
+devices still attempt to probe when this overlay is applied:
+
+1. The audio LPCG nodes in arch/arm64/boot/dts/freescale/imx8-ss-audio.dtsi
+(spdif0_lpcg, sai0_lpcg, sai1_lpcg, sai2_lpcg, sai3_lpcg, mclkout0_lpcg,
+mclkout1_lpcg, and mqs0_lpcg) remain enabled and reference disabled &acm. In
+drivers/clk/imx/clk-imx8qxp-lpcg.c, imx8qxp_lpcg_clk_probe() ->
+imx_lpcg_parse_clks_from_dt() fails with -ENODEV:
+
+	ret =3D of_clk_parent_fill(np, parent_names, count);
+	if (ret !=3D count) {
+		dev_err(&pdev->dev, "failed to get clock parent names\n");
+		return count;
+	}
+
+2. &asrc0, &sai2, and &sai3 remain enabled in
+arch/arm64/boot/dts/freescale/imx8dxl-evk.dts and fail clock acquisition in
+fsl_asrc_probe() and fsl_sai_probe() because their parent clocks in &acm,
+sai2_lpcg, and sai3_lpcg are unavailable.
+
+3. The four sound card nodes in arch/arm64/boot/dts/freescale/imx8dxl-evk.d=
+ts
+(sound-bt-sco, sound-wm8960-1, sound-wm8960-2, and sound-wm8960-3) remain
+enabled while referencing the disabled &sai0, &sai1, and &wm8960_1..&wm8960=
+_3
+nodes:
+
+	sound-bt-sco {
+		compatible =3D "simple-audio-card";
+		...
+		btcpu: simple-audio-card,cpu {
+			sound-dai =3D <&sai0>;
+		...
+	};
+
+	sound-wm8960-1 {
+		compatible =3D "fsl,imx-audio-wm8960";
+		model =3D "wm8960-audio";
+		audio-cpu =3D <&sai1>;
+		audio-codec =3D <&wm8960_1>;
+		audio-asrc =3D <&asrc0>;
+
+causing simple_probe(), fsl_asoc_card_probe(), and graph_probe() to defer
+probe indefinitely on boot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020-dxl_lcdif-=
+v3-0-adc944659e14@nxp.com?part=3D7
