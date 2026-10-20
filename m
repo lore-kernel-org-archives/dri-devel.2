@@ -2,134 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41F5606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B79B0606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:48:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=actdtqiT
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=PcvDx0Dq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4802B10F3F3;
-	Tue, 20 Oct 2026 11:43:40 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010062.outbound.protection.outlook.com
- [40.93.198.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4C9A10F3F3;
- Tue, 20 Oct 2026 11:43:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=roabGKCxbrIC89qlfp5+HTVi1mDUstmDjrEHM4E89gUW1Uq87czTBzimQQI/bdaJ6Uiu6TMnQ/MQi+sxXQo3LkQ3e5z5C+3L+aVkL3ctQBzCZKBmGTXrwx/TU9II5s1RNaNkX5/uHfN8bw0Oj/OAW2aFO6+eMNpnPJ8IcblPQS5jvpbrUP7Z6YDWntof8T4jy/jO5FL+tr5Z3W1OzRRbCdSRkFLgzwXL/3f70pbda3OrK4UxWBmpDEKvNk44/deT88GJCprE/hFk8X4WN2KdueK6qv6r3bDg+Oa+kSVboBCPRaUUqb1qqAVe91IE4AYRl00qduYgymf3BhKLtHFqqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lwZpjP4sN9Z4WLBpIqoGyYYkKT7FrXM2qtdyxxBgkd4=;
- b=Aey6hxtj6SZqwHattOMyTjFNJPtLYz8jFKDdi3lXvzByG+VPweFQ3voe0bVjRh6qZSC7g63qrpZJWlgSe1+kVT4T/XidoFxWV98E6OuzU2bLNSos47UecDhbA3cqyGpnWs1Yxlu26qjLqiuzEG+bJVlXEeXEaw8HQsaeD4KOD+XKykPNFgUrFakzT0vqPtERRkt1sb05ZZP1Ki1YbQVXR74IOZLckZxFR+ZJQ98W7dhWfjTlpIOyLccQ2/mTRV2u7oqeMGJdwsHtwRZ6A4QOEdkUEMSOMZC6MfQm2FrF2IpOpuazOtxFU32zVivXTC0evD800bdqn1rTUaEXi3QGxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lwZpjP4sN9Z4WLBpIqoGyYYkKT7FrXM2qtdyxxBgkd4=;
- b=actdtqiT3Ks4C7tybSyWsUjVs6d460ZLxFR4kBb1fj67vsYuUCMtrXC8e0Vl7nG26/fUYXodmAvLodKvBk/gKVs4RVA2HPPImJ6deC7UP0qq0aVurNb4F+auj6FjR9ir9gM0YbnZ4X4p2h4/PRvajx6UPOS9cMMuWz1blF4K3Uahi/BwzbvPrzQLGdzVW4M9kWdcvjZPs4t87WK7bKp+qZ2xQSp5TXbpisG6o/ddok7y/mGIEsusJYfmVSVZ5pwizmYeEXXmPJpuNrgImQfG8dSn60WEjgjku3cQPuH/wHbD+Jk0BOncVu/2MJRKu6aZJRvd+xQxJW2iLvmGKZTKGg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- CH3PR12MB8725.namprd12.prod.outlook.com (2603:10b6:610:170::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 11:43:29 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
- 11:43:28 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 20 Oct 2026 20:43:24 +0900
-Message-Id: <DM9N0K8QZL1N.2QUORY1WPJXMU@nvidia.com>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v5 02/14] gpu: nova-core: gsp: cmdq: simplify framing
- error description
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261020-cmdq-rpc-v5-0-dceeb8f360ec@nvidia.com>
- <20261020-cmdq-rpc-v5-2-dceeb8f360ec@nvidia.com>
-In-Reply-To: <20261020-cmdq-rpc-v5-2-dceeb8f360ec@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0057.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b5::20) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F74010F4F6;
+	Tue, 20 Oct 2026 11:48:02 +0000 (UTC)
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Tue, 20 Oct 2026 11:47:55 UTC
+Received: from mail-m118230.xmail.ntesmail.com
+ (mail-m118230.xmail.ntesmail.com [115.236.118.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF7E10F4F6
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 11:47:55 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 51b70239a;
+ Tue, 20 Oct 2026 19:42:46 +0800 (GMT+08:00)
+Message-ID: <0a3dc505-43d2-471b-bd7c-222860544081@rock-chips.com>
+Date: Tue, 20 Oct 2026 19:42:45 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|CH3PR12MB8725:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50fc9f6b-7ad4-486b-d1df-08df2e9f5bcd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|10070799003|1800799024|366016|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: rbFTBMf/YmZ//0lfjxu+vuguxPB5ClCJYxj0h7lsAJDGcMzxdkDTMqRrlTHJ38pCnUfrdfSu9GNhrb8Vyrh5U9Gk2rULGSmPrKw3BqdtghtYMRL9XNzhf/Rt5drQ8gnomJDN9+wESyHSBlQwihokRHayYKc4rDN62Q5ikx7yDK1br5q9Smhbb6aNPy0SK0yx5YTUD1cpcQYICIGKiiSjZL+EEUjKhQTtmlbM94wQHcmgBtvvJxvSjeXxAuqlSwKOikrkgIhlIPRgi5UPqZMMfIdS7I+eEzuuL/yD5Gq0lPHEXI1pVu3usWBFbEpch1d8gX2QBX9aO4GaFsYO2pACnsElTRkqNVWZqBOOUv83CBpE/oWmsfJ1ZYl75oHNQs8MmjsVvIzrgkaQekmRSF+2L7jPZYtcyxnyN0Fhu/gV7SQDUoxFm9M+q9uwntZkzssBE+De27myurpY0OtXKv4I1RVH59um7OPamZJqENdmnUcH5Wer4gkwvm3eYVFiE0EB/bmNh590J7epkKTcvI0xFKDVFYwwD9vi4fsocGZqmzd9U2Pu2uz3tLV6biPQg1mUd9yMixY+MPFZr+c16jril6dAyocu5W9b85FaQvQt+wSSxM7n/8y2CLtPEcLF/PHDdWnep9cOeszaHRJdfoavNoMvHpUTf6NJENcCO5kYbgw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzBCcDQ3MFJHcEZxenV3SDdGRU0vTlZkckZXNUw3RzR0N2xQb2lVNkIwSWZ3?=
- =?utf-8?B?ZlRwWTRha0hscGwyTS9QQ2dKdTFVMk5XcUtURHBNWFk0UzZ5aE4yYUk4Mldv?=
- =?utf-8?B?TXo5YnNLUFgweVMxVWhndUkvMjh4Tm40QjVRSVVHampkd0JnUWFUQ2pHNnhm?=
- =?utf-8?B?YW9Rb2NjREhXL215UUhOK0dhWjRiSXZra1c5V2kvQXFUeHRVS05SZFpGZHcx?=
- =?utf-8?B?RHorTVVKYTlOTVZXMmtaMTlWSkRsZ0s0L1JTUVNLdXFMaGlzTVlyZlB3bzEw?=
- =?utf-8?B?Vk5iQ2NGWEdzVWk0b3E1S2h6MXY2VU5BUDZZUjROdHRnOEZCSmhScG9kci8v?=
- =?utf-8?B?NXhBQVlxMy9CMnVKZUc3Q0VENURrTEFoMWJFYURPTkFRcWVQZ3lFeWdJd2Rs?=
- =?utf-8?B?WGJiSHhNS3ZjZFlMdlY1VUFUcGo3YjBUZm9pNmhQMGp6Wk1DMCt1QmEyOGFK?=
- =?utf-8?B?MGQyN2Z0MWxrSjNuWWlpRHZ6OFRka2krQzhNVitIU0xlajlWVVFBMnRJUmo4?=
- =?utf-8?B?dURlMGZMMEh1T244NlBRRUxxalh1V0I4bTBKTDV2MTFVeENEanc3UisrK3g2?=
- =?utf-8?B?SU5GT1diTHUzUHZaL1VPRE5MZERNYWxkOWVkQmxESlZrWmNmU2Q1cm1zS2R1?=
- =?utf-8?B?MlJGSmtRZlNFQnBnTEhYQUtpUEhyZDZrdWVQbVhXQ2dyRFB4OHRZbnk3ZWJC?=
- =?utf-8?B?bnN5QUxUWVhSWUtoOStYZnJWNlVMd1FYU0laYU1FTk1ZV0ZuVFRCajJwUTN6?=
- =?utf-8?B?R3Q1djZ2WHZOMjNSN1JLV3NFYlEzcjMrVWJWQkljVmNLUGNKek5JcjlSTld2?=
- =?utf-8?B?TjVjVlRvTlNzYUduSC9IbWdheTNEbjMzNmgxTEJUcjhXRnFGL3hFbWs1RU1X?=
- =?utf-8?B?a1RqZ2M4RkE0ODNuZ0c0QTNJemZOYUN2RFhvMVVxYU5HYmJFZlRXVFlrR1NL?=
- =?utf-8?B?RVhscU1nT3hVcTRpcXNQNStOZjFyR3hVZnFZbzF5RTZkckpoa215SkozRTI4?=
- =?utf-8?B?cTE2VHVLd2ltQUZwV0QwMElCeWRwWGY1aEVPelIwVUZlS2dTUGlNeU9RWUI4?=
- =?utf-8?B?ZTlKZSt0YVdrTkpnczZEeWhWK01hbnJCRXhFUmovRTU0ZUNPNjNzNGh5WjRC?=
- =?utf-8?B?SWY2dklVcEFhemV4a1FOUU5vZkxhVTY4Wmh0dUx5L1hUWklYbys0bUV5ZmJY?=
- =?utf-8?B?alBoVGF1OS82MkpScFBGaWx2alJKMTZ2RnE1bHY1UU9Vc1Jzd1I2MVQ0bVNI?=
- =?utf-8?B?Ymt6WjBISVlvRHpVNmxHMkFMUjRtTGtrMHBPYUt4WWc0dk9FL3NrUVRtL29D?=
- =?utf-8?B?dEpnRUthWDVCN2FOSEF6elR3eGxRMzJKbUI2SHQvZUN4cThSaGFYc0R1bHAv?=
- =?utf-8?B?bkVkNFJuQzBjQTNlbXRaMlN2QVVKNTVHZVllNHo4SFJPMVNDV0FMcTVHajJa?=
- =?utf-8?B?N3pCY3NPMEoxdXJGSXRlSzJtdk9sQjlxYWh3b2RreThmb3l1blBTbHU3ZmdC?=
- =?utf-8?B?Sk9ZSWhBV0xWVzc2KzExa3p2bTZwZXpRd0lIY3R6dkhNaWVhSDhlRkhZN0tL?=
- =?utf-8?B?M2JQWmh2Y29MeUNNb2w4a2tUdmhqanNMUFlGWEVpUlhMZ0JvdlhxZ0ErbmRi?=
- =?utf-8?B?S0NrcHczRnNpamF1WEl3MjVvdEpwTFJXb2NWZW1QVmovblhNTEE2LzkwK2lE?=
- =?utf-8?B?bmZON3Q1MWR5WnNhek1DYS90c01qeHZJbWdYemRxazhpeHY3ZjdFaUxrUExp?=
- =?utf-8?B?ZU5lKzFtSVFnSjBMNVdVeFd6MDEvMFU1VmFWRDIreHA0MzBiSWJDYVB6a21B?=
- =?utf-8?B?Rmp5VTVHd2x2MEFoQ0hmdjdaQkhyRWpHT2dVZ2tWZzUwZ0hMdEV4dWlQM1k1?=
- =?utf-8?B?Q0E5dWhrS0ExZlZ2TmtKVGFUQ2hTNUk3RERZSyt0azVxRVBNUFhzWll3RjFC?=
- =?utf-8?B?dVlZUDdaYjVWR1QrWGp1Nmw4dXg5d0RydTY2QTYrNDZJSXZIc1RUMGdjb1gy?=
- =?utf-8?B?UTBtaTFZbW8vbzBqMDNoKzg1alVMcUlvZGVJWGdZTk1kY0FCNWZJQ3RmUlFH?=
- =?utf-8?B?Y1pUSzNKdi9IM3ovUFpjUlltcTFlWnJMOWxJR2RZalRhU0l3dVpkMEVDQmtL?=
- =?utf-8?B?NkYzTjI1b0t6QTcxak9OeGFqb0UwUTlYOFVpVUU2WkxSZ3l4RE5OMzlQd0lZ?=
- =?utf-8?B?NjRYbHZ6MzlYUUJaeEFwUmphU21SV0tRT0ZWeitTcmVBRjQ0V1QzSkwyeG1H?=
- =?utf-8?B?bkdNSlNpLzJIYmIyaTY0L3A3YXZsbHlwQUl5STZVcHBQNE5STk00UUdaTFQ2?=
- =?utf-8?B?ZzNaaytDaWNNK1oyWGdoeUR2OWhZK3ozaElLNXo4R3o1TkFkellZQ2pqQ0Rp?=
- =?utf-8?Q?JEaxa9eDSxTAdQXv3TFuErWYE3dKFiNh6jMfV18m/LB6s?=
-X-MS-Exchange-AntiSpam-MessageData-1: npHLDs9m6/fQUw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50fc9f6b-7ad4-486b-d1df-08df2e9f5bcd
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:43:28.5727 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eRzfigqtTsy5fbkXUsBigqcHQNmFJ0xua9nQn4yqU11tLA3+JQFzKTMOQDsodxR07jL0iEhrySXA2SmiqSTetA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8725
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 11/14] drm/bridge: analogix_dp: Use bridge->next_bridge
+ instead of plat_data field
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, kernel test robot <lkp@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org
+References: <20261019085836.3065008-12-damon.ding@rock-chips.com>
+ <202610201309.w3JSXlP5-lkp@intel.com> <3789853.R56niFO833@diego>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <3789853.R56niFO833@diego>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1591f009e03a8kunmb99823d738c545
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUhXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZShkaVktIQh9IGUsaSRgZTVYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0JMVUhJTE
+ 1CVU9VSEtLSlkG
+DKIM-Signature: a=rsa-sha256;
+ b=PcvDx0DqHkOKPqjTQ+WfmUYCXD9mwvhFrc7mSaBffIry2c4fUYbdXMX59bNKWZBcDiTaCQ/YNMiQcmhD7Zsd1KQbLmtLq7Ltd9XK3HumvYifhWq4A4Ftt4y/jY42N+ztDwlpKKLycWUI8mg322eGJ0P3DLzIVv1imnkclT3bR5E=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=0fP5WnkQ/jEXyj1gQYTYNTXqYm8pVqxjqPzKb7O0M40=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,18 +73,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue Oct 20, 2026 at 7:08 PM JST, Alexandre Courbot wrote:
-> Use simpler and more precise language to explain the conditions in which
-> `EIO` is returned.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+Hi Heiko,
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+On 10/20/2026 6:38 PM, Heiko Stübner wrote:
+> Am Dienstag, 20. Oktober 2026, 07:36:21 Mitteleuropäische Sommerzeit schrieb kernel test robot:
+>> Hi Damon,
+>>
+>> kernel test robot noticed the following build errors:
+>>
+>> [auto build test ERROR on drm-misc/drm-misc-next]
+>> [also build test ERROR on drm/drm-next next-20261019]
+>> [cannot apply to daeinki-drm-exynos/exynos-drm-next linus/master v7.3]
+>> [If your patch is applied to the wrong git tree, kindly drop us a note.
+>> And when submitting patch, we suggest to use '--base' as documented in
+>> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>>
+>> url:    https://github.com/intel-lab-lkp/linux/commits/Damon-Ding/drm-bridge-analogix_dp-Return-bitmask-from-analogix_dp_get_irq_type/20261019-165823
+>> base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+>> patch link:    https://lore.kernel.org/r/20261019085836.3065008-12-damon.ding%40rock-chips.com
+>> patch subject: [PATCH v4 11/14] drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data field
+>> config: nios2-randconfig-1000-20261020 (https://download.01.org/0day-ci/archive/20261020/202610201309.w3JSXlP5-lkp@intel.com/config)
+>> compiler: nios2-linux-gcc (GCC) 11.5.0
+>> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261020/202610201309.w3JSXlP5-lkp@intel.com/reproduce)
+>>
+>> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+>> the same patch/commit), kindly add following tags
+>> | Reported-by: kernel test robot <lkp@intel.com>
+>> | Closes: https://lore.kernel.org/oe-kbuild-all/202610201309.w3JSXlP5-lkp@intel.com/
+>>
+>> All errors (new ones prefixed by >>):
+>>
+>>     nios2-linux-ld: drivers/gpu/drm/bridge/analogix/analogix_dp_core.o: in function `analogix_dp_aux_done_probing':
+>>>> drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:1669:(.text+0xb80): undefined reference to `devm_drm_of_display_mode_bridge'
+>>>> drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:1669:(.text+0xb80): relocation truncated to fit: R_NIOS2_CALL26 against `devm_drm_of_display_mode_bridge'
+> 
+> I guess the Rockchip kconfig for the Analogix-DP also needs a
+> 
+> 	select DRM_OF_DISPLAY_MODE_BRIDGE
+> 
+> similar to exynos and imx.
+> 
+
+Will fix in v5. Also refine patches 9-13 as suggested by sashiko.
+
+Best regards,
+Damon
+
