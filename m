@@ -2,97 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80EB606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:53:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 863A6606A31D
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:53:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eO5F6/d3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PNhAbmy9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE3810FCDE;
-	Wed, 21 Oct 2026 08:53:01 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F1510EBC8
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 11:16:07 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-354ba08cfd1so5645264eec.1
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 04:16:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09B5610FCDF;
+	Wed, 21 Oct 2026 08:53:02 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34C5110E0FB
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:57:30 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4a1d75f2f11so20653265e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 01:57:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792494966; x=1793099766; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1792486648; x=1793091448; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=BKNUIkvvRElNLCz/nkWKn3YDTekvBpvFpeCv+ciRNW0=;
- b=eO5F6/d3J2O05raS6vTXoKeg+No/EzKDrotLkjAeq3W8EseWrK1RXcQrKvBiYDbO21
- n1LH719Vsf+Vk+ugGsV44lNWGjd7TbHi0/GI3/IOtMXRLi45d375xzF3vUwpgeqem/aB
- 81lDuVTz3zy7276vjMbOonYfAZF2rjaXRr7AaaFkFJJ7jP7+6hKCO2rLbrlR/T7m351x
- l+ODz9O+Y7VyU4nNnQQPGaKH0VDMZO82BHI8LG/WOhI6fGpJzmgE5A0pb6PqRoTViWoX
- 35CtDFFRAthQuAawJqGIvYhkYdEKkUkDg+zWt0yczLTc5c2iLxcQRzen1TcE7Hgt8+xr
- WeWQ==
+ bh=yRgxxPfGJY8DFWCh/QAVbioiWlq3zShp/hCewrsxoHY=;
+ b=PNhAbmy9JOP1ThAYMcxwz2pHFGoel9MyLDiNJ+vsbZViFBiccHxPktw7A9oEwvOOuv
+ lR6cjfkQZVJnpbpvIe1APmchRppNqL7AtrXkEsZRUJPuDbg88xJNWV1cF8HSjIs5Ls1I
+ KQ6yQ4s2CTD3iXXU5pAgvYzFCezf3v8N5eNI354wZz9dGyF5R8GWonPeDUDE3L2pWKJ6
+ NzCTC22a/JHcvNRj0a2PnbtBPdpCMWAk75/AuIHcp6tnoXlNqf33t79nKt15kJCLb8Cj
+ njZuHfX8OZ9c2ZEwhRJH2Kdj+OsaaoHuvpZKlYhjRAhNbgMCDCsITyk968cL0zVhiJW0
+ ImMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792494966; x=1793099766;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20260707; t=1792486648; x=1793091448;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=BKNUIkvvRElNLCz/nkWKn3YDTekvBpvFpeCv+ciRNW0=;
- b=0ARgWTGMxOYFrJeKCDWOp7G7mKEG/4IYw/PYFaxoZXixYtlnbDoX7h3j5TmRH1jmRp
- CnpOnVK1sAkEz3W25vFFAPRAUmEy5HpNugwygzf9CQUvWjukJSMEbHcMiunRGGYEwl5C
- iruXCHmO77TV7ZKN5ohNpWr17ekTeeoPGTU54VDtBDNFC00b8VL7zMjFGu3ezgf3JMF6
- zJKzNnhCWKMf0WGP1h/xcrRSYVsA7CN9qjJNyMwUUHIaUzvY15uQwkMANSzKhfzfzfhA
- wcpWKoVK7GGQvxuoDtmQRgV5uNENt9Fqnb4PeIALOvA9Q4/fqLR61uYl5wmYv0zm50O7
- lIrA==
+ bh=yRgxxPfGJY8DFWCh/QAVbioiWlq3zShp/hCewrsxoHY=;
+ b=jme7hZo0zOHhMWxv8nRosSN9BAUzEKhbviR0oRAnvJuA1I8G/vJWC3bQpsv804Mf8v
+ WTBrm64hZJtCYQWgnO875TtMAlVr3pIfNrjgD+wb1I5O55o1Hq7ed5DMAcwWqB6VCyHz
+ wD6AKGbHr90ZVpRTVkq+EI13g0zp/4Jye0nF3jPq7CDmyEu84/SLy4eCxysWXZ2F5DvF
+ S+E9tNlhWzn5u7xpiAz/YGAet5XnoFkxYo2zQeZuSj6rD2pkBFE7t3TlVMyT2ESPBYS+
+ QXDEw3DwcqrE8SfCa1ivuOQGUm2OcsDohJ5WMHov8QrOBsnTZ4yaKQg6qLC7fK8hid6C
+ pjOw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwBLmzVyntycIfP7R+LJuVRps2VvQ9yYD2WtfwTacYKc6HySQRnjG1dGe6ZP/6syJHKnAg/xAwq3Jk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJe/BKMKR5Y/BWQVQ6/A9s9hIR0kM6qCojyB2gt9USd87a3ehyv
- 1m77gbu2UYtGPmJw1sWEe4wOOA9/YBZZvX4D7htXLvgnBwGE4np4TzWs
-X-Gm-Gg: AYBFou1AjJN8NGAh9patp4QDdpKKx6FjscFcTtTrGTAHLUkQqrSZh7Zl7KBhTjBBKvQ
- Bvo8mvdjWq8V3T9DLXlfjyQmakeDjJNkNyn5YpPX8DYyhyLYuEperYPnwaOmdUKMIFx4szUsmGI
- dKwxQAANSHxv6oAzbslUNARXZtBa6MSUnZYNCO9QN2J5z8HvNXC0smdZlzc1qvBEzTQZ+qsIDN9
- JNPUG7D5nvbjpRuWnkmdUDwHLA73JjibsfBWMecbjI63mgb5jhOrSvRyFZ8JVViwEKria1MmGld
- w/xkySQxE6qBlEIGTkRrUpblgClttUusZwwur+uHOv/d1XfxxILTIf5VW3/DYkZsYPWuTUfnN10
- ho07Ub7+CJuEogEdBAeg8Ulr4osnoXwJh1iur1ZY/jK0HB4vtfvwrgIiJ6P7AGWgJ6yDgpMFctH
- szzVaBtam93CWEhtMEW99SgaHD6Ym3dZ5scIMIlB89MqbVEsldx6YQG07G0oh2p/3/qQXsUu5SO
- 0gq
-X-Received: by 2002:a05:693c:42ca:b0:35b:91da:7cb with SMTP id
- 5a478bee46e88-361a284198emr14197128eec.35.1792494966059; 
- Tue, 20 Oct 2026 04:16:06 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36081fa5a6esm41461147eec.16.2026.10.20.04.15.59
+ AKwUvBwrp4j8rxDQJxZrPldiIJvzCm4gK/l187M1Z91XtG/qo8gyiym6jy9x9YMAnz+GRLDG0V4htBvxi/o=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJtljK7G1n6yUYhZd6B4jUId5/VrazClozzsFrMkq2PwI61ak4H
+ J+CR5yT8IqNctq4dKVtbOaBl5jdwxveZV0FIUhCVqwSp5LZkSsmSIJLf
+X-Gm-Gg: AYBFou3uaufg69LqRIck25y1F3MixOO776JkKKEkla9UVUJ56trGXYd20W5VopqGCOb
+ ShqyYFa7SjREAy+MMSerq7HCJoKldwmiaywFNxPh3vEjyQgbmcv5yflaUTFJltTgTOAGhhpHuzT
+ 51yp+HTZO/ZMJTixIOzTRgctmBC5csY8alFdK+JHUvpmoTvWdp5x7U8fyBZevK5uNzIn0N+/u+9
+ TQLl9U48f4Gc4Ec/ezYgvbQGC3ODGrGx41RoaFe6Q7pDN/qexpnbbAw3urJcXGJrwmZx6rHBddb
+ 9Wl7sb7xsjURJBR2vT3iiMm8m5VeB7RvhoykJ+dUSnwXf8uNIqmKQgNPVcwb/WDZvh1bbFgIEFc
+ ewOjdoSPxqiFx3gKdfz0BGcOwr2i9ljZNUoG+L5PrVRitof7cc8Sx6j+Syptfy1F62GH6tE7BON
+ RvpchV+lb4DlD36fl96F4PwZqw8AuPsCTC842nBIDb/8tJmlGET6Xhx7m0zZdTVzP4+FLf+TyJb
+ CEI14fR
+X-Received: by 2002:a05:600c:8883:b0:4a1:80d8:aed0 with SMTP id
+ 5b1f17b1804b1-4a1d75fe793mr166287925e9.15.1792486648186; 
+ Tue, 20 Oct 2026 01:57:28 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.74.55])
+ by smtp.googlemail.com with ESMTPSA id
+ 5b1f17b1804b1-4a1f2e8daffsm57580335e9.4.2026.10.20.01.57.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2026 04:16:05 -0700 (PDT)
-Date: Tue, 20 Oct 2026 08:15:57 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 
- Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 2/3] drm/bridge: simple-bridge: Support
- data-enable-active endpoint property
-Message-ID: <u3zistwpxmtjstw6lqh2qfvr3mrj5ozflxfnrln2qqitjnj6lw@5ea5j3zmonw7>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-2-ef6a3a780472@toradex.com>
- <atZ0jECm5BDeROSI@SMW015318>
+ Tue, 20 Oct 2026 01:57:27 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Clark <rob.clark@oss.qualcomm.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+Subject: Re: [PATCH 3/3] drm/msm/a8xx: Enable CLX feature on Adreno X2-85
+Date: Tue, 20 Oct 2026 10:57:18 +0200
+Message-ID: <179248663855.32151.9955864156939592299@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CACSVV00x091i7BKW+bj0RUnkd4rOrHXbhZ4zF6SuTU1NAqsFTA@mail.gmail.com>
+References: <CACSVV00x091i7BKW+bj0RUnkd4rOrHXbhZ4zF6SuTU1NAqsFTA@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atZ0jECm5BDeROSI@SMW015318>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Oct 2026 08:51:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,36 +97,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 02:50:36PM -0500, Frank Li wrote:
-> On Mon, Oct 19, 2026 at 07:17:15AM -0300, Leonardo Costa wrote:
-> > From: Leonardo Costa <leonardo.costa@toradex.com>
-> >
-> > Some simple bridges, such as a resistor ladder DAC, may include a
-> > data-enable input that must be driven at a specific polarity.
-> >
-> > Read the data-enable-active property from the input endpoint and fill
-> > the bridge's input bus flags accordingly, so the upstream encoder drives
-> > DE with the required polarity. The property is applied only if the
-> > bridge doesn't provide its own timings struct.
-> >
-> > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > ---
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+I guess this should be investigated further. Yoga Slim 7x Gen 11, no modules,
+firmware built in, so the GMU comes up at 0.6 s.
 
-Hi Frank,
+It's rpmhpd. Before its sync_state, rpmhpd_aggregate_corner() pushes every
+vote to the highest corner. The gxclkctl probe does a runtime resume/suspend
+of its GFX and GMXC domains at 0.18 s (qcom_cc_probe -> pm_runtime -> genpd
+-> rpmhpd_power_on), and from that point both rails are stuck at max until
+rpmhpd syncs, which is at 2.8 s here. The GMU then does its CLX DCVS
+calibration on a rail that won't move.
 
-Sashiko's comment regarding atomic_check was a false positive, but I
-wasn't too sure about the one regarding devm_kzalloc. It seemed to make
-sense to me, but I'm not too familiar with this subsystem yet. Do you
-think this was also a false positive?
+The GMU log buffer (fw v5.2.38) agrees: the calibration trace of the bad
+boot matches the first good one step for step up to the ninth level. There
+it stops, and the firmware puts HFI_F2H_MSG_ERROR 0x007306c7
+"ResMgrCalibrateDcvsLvl" on the debug queue. The GX_BW_PERF_VOTE timeout is
+simply the next message we send.
 
-Best regards,
-Leonardo
+With gfx and gmxc taken out of the clamp (hack below) the first GPU init at
+0.6 s just works, CLX tables included. Three boots so far.
+
+The wedged GMU after a failed attempt is a different story. Retries after
+rpmhpd's sync_state still die with "GMU firmware initialization timed out"
+until gpucc's sync_state (fw_devlink timeout, 13 s) collapses CX. That's
+what the gpu_cc_cx_gdsc/NO_STAY_ON thing in my earlier mail was about: the
+recovery, not the cause.
+
+The RSC side is not it. On A8xx the GMU firmware loads the RSC sequencer
+code and TCS slots on its own; preloading them before the first boot made
+no difference.
+
+Abel's CRD failing even with msm loaded at 90 s doesn't match this, unless
+something keeps gfx.lvl high on the CRD after sync_state. Could be a second
+problem.
+
+--- a/drivers/pmdomain/qcom/rpmhpd.c
++++ b/drivers/pmdomain/qcom/rpmhpd.c
+@@ -1009,7 +1009,7 @@ static int rpmhpd_aggregate_corner(struct rpmhpd *pd, unsigned int corner)
+-	if (pd->state_synced) {
++	if (pd->state_synced || pd == &gfx || pd == &gmxc) {
+ 		to_active_sleep(pd, corner, &this_active_corner, &this_sleep_corner);
+ 	} else {
+ 		/* Clamp to highest corner if sync_state hasn't happened */
+
+Oleg
