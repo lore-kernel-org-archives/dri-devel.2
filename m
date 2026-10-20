@@ -2,65 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC4A606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 19 Oct 2026 23:46:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3675D606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 00:56:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TqLUt9K2
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aKIs/za3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36C4910EB4A;
-	Mon, 19 Oct 2026 23:46:27 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B39E10EB74
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 23:46:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1792453569; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Pm8RCnbSmW42Zm4mUc39fL8ACyz3UOg9Y49HC0FdyqaTld3VMQBsYHQNgyYFJio8UiJ+tdU8jr8ujad5PYYc2oL39/AqpDWLa7P5ZRdP0P33p350XTXPI2bUhv8FbIwQWZLme4ZVUyYAMi5n9wgkSAy03qOhZ3W495CCim7XVMc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1792453569;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=onuj2J6Sp1nzMr+n0/d2KIqzuI4vHkm2dSFnJgrZrn0=; 
- b=UCWdiYMt9ie/kifUQ1PSVr3qLwdMnxKUyNBT7/hUaGlkKI5ajJTZNwPdUVr6GyP8XdxRgLFln8oGqmD3oFeu0EBNsGd2JTlUTloff5x8CMYHVCL3uMh24h+JhDSBR1XSAPKzj5x7teVO3afsSrZwO0gVonTwqd5wm00vjQSb/UM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792453569; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=onuj2J6Sp1nzMr+n0/d2KIqzuI4vHkm2dSFnJgrZrn0=;
- b=TqLUt9K2fqcHxAbZkMh+UgfJVlD3MR4NaDZuoROmNvkdM1kGH4NTpLSITY8jBgzr
- GZ75sDSegBP+dpOfpGGk2BYDMJl1sAVzPzynrJF1gKXFggsRJkQFpmnxpLBsBNyC+Fn
- iVvTxLdtXXHxbJEHsBNihgXNRRRpVC5/aW5PF5IY=
-Received: by smtp.zohomail.com with SMTPS id 1792453568024484.06943358185936; 
- Mon, 19 Oct 2026 16:46:08 -0700 (PDT)
-Date: Mon, 19 Oct 2026 16:46:07 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 2/2] drm/tyr: allow userspace buffers to be mismatched
-Message-ID: <atarvxFKYYuHhXGQ@um790>
-References: <20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com>
- <20261016-b4-dev_query_fixes-v3-2-f8071cda3515@collabora.com>
- <atXOd-EeFkdA-trn@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE7910E547;
+	Tue, 20 Oct 2026 00:56:30 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010012.outbound.protection.outlook.com
+ [52.101.193.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0862410E547;
+ Tue, 20 Oct 2026 00:56:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Njinc+Qe1pyzYzZwPzeOLRuBCau8T4Iq5ozNKPZiPp+zFcDmC5PQMr/hQj5ePEDUGkn8NIxe94wDFZQvHGSm6x4g7h3Nry1zVeag5d8Nd31Fbb0SEN/zkg0SDfigYUPkYdIzZw67qY/BMvmOflURk9RIE7B/q3zEe5uxPmLCTvSpbpuN31Ix6twk+D46zmHSp8KCmzr4kbIc13bWcm+kHhRYSvEDtFcrRKiQX1b8MEoLLIm1mQCSBtjtzkrPzXhLcRKZjIu9wfNfBSI/QOmABYJ7zpp2R/FhBfvkUYAMxZix8JLMiqx6hbH7tiBN9/CZdUWNnvY+iieZrFY+3vAhFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ks3H+BfqauUJgSMfx1dbWi1lY0a0zd4ETyLBecCRhOc=;
+ b=MXDBBMSzBxS2z0KHtKQzaAPWzeBKMsVosGVE7KXIuaV/TxU8wBeH5RueG/lXxw2Ni4hGTRO/VzZbZWk7Lq7UmJU33Lv+sAKFc+Zfl0oA0P1HHAv4M0gS9O/ETSzJIz7rHAFN/vCtc7tVn+s2okW9scw/2hqMKwT8nfdHTtOFebg4OuvMGZGk3lBzwxP3BfFDmTzjfLa0vW6wTE3qVvxifxmyDU4km9pOps5nkYirthjgd5ZGuHgI59kTqws2z4KJRW8aQdXpW26DrSo1zjz9SVrZU6jLXR1Yp1OuG6aEI6tyvY5TH1LUwEdybIQYXTUWZNhhQ+KsO5tWw+C3pKoKFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ks3H+BfqauUJgSMfx1dbWi1lY0a0zd4ETyLBecCRhOc=;
+ b=aKIs/za3fucguUZmUlE9VviNMH+jYUrFc3fhyvWk0+j3wK0qLkylYTavi7hzPrwBzTLZ8y6iDNJY0mD0Ux7Jsw5EtIaEyBDYB0EovxjrfmVgNxSYqoexN9rWRvOOAuUH0j3jO6lXewtenIINS/KquMC9/6E09GOj6QjIP3IXWMaPoYworZx9R0UqIPWzeqeX450G4zC3B8PTZCBFIijZisycUZPQFoALWfB5kQxDz7juFNWs+vmTP133Q9BflUXrUWqFWauW9LmKPcYm1QSFLrYYHB2roUw+eKD0npbzXs8XB/q6Xo0Uxwi3cYotJgUAvw2ydKTi3ujQX4KHKhIfDg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ BN7PPF862C85B20.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6d7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 00:56:18 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 00:56:18 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 20 Oct 2026 09:56:14 +0900
+Message-Id: <DM9991XFZM69.2G13TB49VYPJU@nvidia.com>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH] gpu: nova-core: replace unsafe pointer cast with
+ pin-init self-reference
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261019133647.1279779-1-gary@kernel.org>
+In-Reply-To: <20261019133647.1279779-1-gary@kernel.org>
+X-ClientProxiedBy: TY4PR01CA0026.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bf::12) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atXOd-EeFkdA-trn@google.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/292.448.41
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BN7PPF862C85B20:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0cae5d6-7a5f-4b9c-6622-08df2e44f309
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|10070799003|7416014|23010399003|1800799024|11063799006|56012099006|10067099003|11062099010|22082099003|18002099003|7136999003;
+X-Microsoft-Antispam-Message-Info: +wfclkAt6eWBsl1ukS30aqGRTTbXpDrqGeHI5kpaOtG0MBvMzuzkhXwFs/tALtnLrlmL0mYBR8uoW63LbKd3axHbmfflDwfop+nloLob0anj/3RFm0itkn9Jag8TnPhbhVRz1iJbYZ8ZJh+VCIy7G+IdDGO09aDrhnp6AwUcbgUAZyU3l4/2Akcnm47DsyFoZMGxVmjf87/vcwOiHFQct25qr9bRBWPmFG7ng8PyPaQw8GVMiISGYmvP3prjvDofgvUCwkXl3XrpdH5fPDKQPsXQG9U1xJbEndZuBTVtEHo00NxI8J5kP1iy8H/xnxWq9TaNUwXVnW06YcnNYNf3l650Uu5NUGQVAMR6w7FdP63xNll1DILcxKaPFw2NCQS7UB5Lhfnez7DJNYJNt6KHueN7Qi66vEl/iSbZZI1P4QRc17esCux1yrGMyJeT2+nLTdUr/zB3d2AEF6v5E3/pA2rt+62O7U85rvG2oomxLbLmDh6U5YbuOa1e4xW/7LBcb5+rz59y3ZaNPCCrZb6Te8f1571eARG+lbWjCNek8vTOnldFKDUteVdV4+6bCkQ5RQukAtFhJVQhiyomTHdhBKnGrlXA34U8MpVj2r4+eIIZ4FJ/3cxWETfXkFNH5nOu32z7m+lrqJMcI628R6AwHVB2M1gheYRyXPKhTvjUQ24=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(10070799003)(7416014)(23010399003)(1800799024)(11063799006)(56012099006)(10067099003)(11062099010)(22082099003)(18002099003)(7136999003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWVhUmdLck1wOEtYVGJPUEM4cFRWamhnSWpRZS9EdHRHZzlJZWY3SWJqYXFV?=
+ =?utf-8?B?TGp0aFZEd2sranplWmhqd2ZqMklnWnRJNmxPMW1WNlhMSmRiUDIwMEJKVmkw?=
+ =?utf-8?B?QW1HbU40TEdlSXpZVWpsdEFqaDBjbExKaG1FT0x1NytlQ2t1ZENHRVFablJa?=
+ =?utf-8?B?WjlOaCtpMlkwOHVkaG5iSWUwNGQ1empOTjBaNUZxRU5SVGx0NWRqQUxnTW1x?=
+ =?utf-8?B?UCtGTkRiQVY1NTRCTkhMS2Nrc0JzYWhHVzJua3dzWTNma090U3FBcDJQUlgw?=
+ =?utf-8?B?enB1RUppNm9QeDBvWlJPVGZxNTlnNkoyZi8yVXZGQ1ZLSE5xN29VSzdlQ29F?=
+ =?utf-8?B?aXZmRGlnUDJ2bGFoemxjTmE0UVFNSXZPejg3dEdVZDJrVGJTUG9rM09sOXBp?=
+ =?utf-8?B?TkVtV2NRWGVGZ3JlMllUbFNjYXV3bkVQMEcybmEycTQweisxYVVIdmNFaSsr?=
+ =?utf-8?B?TXliS1dsNitwcFlwOS9wOFhlR1lldmZrMXlNaGFPckpTdTNPa05kNFUrL1Vk?=
+ =?utf-8?B?ZGsybG5OZE9HdWFmY291QnhSZGE2VkRSVm5kdFJyRnEvd2w5MjJ6T0hYQTlQ?=
+ =?utf-8?B?aW5OZTNQYXNUYzJCT2Z2WmhrTXhsQkFKV2dmdVpWUXUyM3I3WWd6UnJNMEND?=
+ =?utf-8?B?d2ZFbzQwYUJ2MjVzK2VLRzR0ZnRRTmhlcmZYK0RBK2JCRjlCT0Z0M0xMTG1l?=
+ =?utf-8?B?T0c2cVB4M2QybnRlUHBKOU1xV2FjQ0ZKb0tjcUcweHh6Y2thTHdnc0lpY2pB?=
+ =?utf-8?B?amtVMXk1QkFMaVVHeXdKalIxcHlUb1pIMEtLZTRCUGpUb2tBRFBvUFdCV05w?=
+ =?utf-8?B?cEZBWDFGK2YxMVlHYnVScWRiZHhHOW1PYVBCbkNTeUVoVlRDMFVKbTl4c1ZN?=
+ =?utf-8?B?N1B3QXVCWGhOTnZDcmtkcytqRFJLbGFFZWFCbW8wTW9PVXJuaEtDZE1lL1NT?=
+ =?utf-8?B?a0Fja3haVHN2bjBqS0FZclFTYmZQeTV2VFBzTUVQc3NCYVVIaDNuUDVrdkxi?=
+ =?utf-8?B?UWZPa0lGYm5LVnN4dEdXTXRrV2YxZUhoYlg0eU01MFRhLzE1cGtFbnlWQnZx?=
+ =?utf-8?B?akhVVm92RzJoU3NOVlBFekhvN05DR3FCWDloWnZFeDJyclNqelhYQWFSSkdS?=
+ =?utf-8?B?bEFnakhjamtoUzhTK0ZnUDRXblJpb0QvNmw2WU4vM1E2TGN3MXBFeGZHcDRs?=
+ =?utf-8?B?WS9kV1NlSnExaXkvNnRYVTRhZHVJaTB1a0FEbnpCdHpoeDRRQi9LanNUZDB3?=
+ =?utf-8?B?Mlk0UWRTVWI5NitxV0ZuVko1d0VSZVRYKy8wK05wM2Q4Vlloa2FlUEJEM0c0?=
+ =?utf-8?B?dFZldzZPZ25yUEFEb2QrdCtUTUJzSUtWY1F4K3d0bC9Pam14RXh4bU5QQkNh?=
+ =?utf-8?B?dnJpaVI5VWVwY0M4UWJCWmlTMmJyUTZSdDYvNlZPNTRjcm5mZnoxSmFkVUkw?=
+ =?utf-8?B?YzNseXQ0YXB4amNDVkl4ZmFMSGRHU2ZVcGdMZ0dIVHJLbFRpRWFRclREbXVY?=
+ =?utf-8?B?Rk9zWSs4UnNkdUhFRFhuaXVlcUJHeEpFbmU3ejZzRWZ0Uk5BV1pZNUFjVnMr?=
+ =?utf-8?B?ME5EbTVNRGc5RlB2R2RzRE5LYmRwUDZTU2Nqb3E4VldsOGMwZVl3aGwyVHlH?=
+ =?utf-8?B?S1JGZDBjM2hHWGtxakh0ZjZyckkxc2pYQTdPbzJCcnJzV0hGUHFINEZxUDhL?=
+ =?utf-8?B?dWg4eDREMFBQbG9KK3kzOHpDNGtsMDFVelo1NDBqdVNrUUZUK3QyZkhsTi9X?=
+ =?utf-8?B?RmNBRldTc3VmaE80SVZmN2lPQ3FTa2V5SXVmZ3A3cEpqRkxlb284d2FrYkRv?=
+ =?utf-8?B?TEVuQ0xFN2dOS3F0SlhZbGMwUitmZlVzSEh2RlFJWWxDZ1dpVm40QTRxbEQr?=
+ =?utf-8?B?N1lFejBobEhLTnJIbXdhR1JaaHlLaVpnWDIwdTVQdU0zZWIyTytOSDZ4MmJu?=
+ =?utf-8?B?VU5CYkRSQVc2T2lsSkJ0eHZTcUU4Vk9pMllWSk9ZeThSRUNQa0EzM3hoekVH?=
+ =?utf-8?B?UjZOMzV5dDR3SkxZZHZDTzlHQVBKemRjSHJXb0d6T1IzbCtqMVhqckdFbjA4?=
+ =?utf-8?B?akdxVG5HaldNSkxCV2s4SGNLTXFpeG82aGpZdElYdmNJTGpYYm00akRDY3c3?=
+ =?utf-8?B?bCt6bVl4L2hMZU9EdDhiVUVNYUYybm45L3RhWEM3bVpKMHZDSVhqZGMyaXlF?=
+ =?utf-8?B?R0NkaGI0MmxiS1BObk8rRlJ2bmdsU2lqSFpseThBOHdNaS83QzZzM2NoVERL?=
+ =?utf-8?B?ZlpuUjNYQ0NCS2VTQThWcFZxUEp2OEVnVGNXczEwMWN2eTdqWHRGbFpLR2sy?=
+ =?utf-8?B?K1FrbG9jckZ3c3RJSTUwdXg4L3gvdlNjSG9UOUh3WWVGMGd0bnMyQmVkaHlK?=
+ =?utf-8?Q?k0xRXdkr/YGYs7tLqgFWnSlqf+HjszDjiYOXCyLiB4k+F?=
+X-MS-Exchange-AntiSpam-MessageData-1: cMbVweEGtezIRw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0cae5d6-7a5f-4b9c-6622-08df2e44f309
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 00:56:18.1871 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JfmoLfC9qv99eRzXArXKP7ilRdymjS8ftAfzsDygS3fKGZ/iMX3Bj5bdRHLtOcmeb6CJlTJPzKFM2soVK6tjoA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF862C85B20
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,81 +137,33 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 08:01:59AM +0000, Alice Ryhl wrote:
-> On Fri, Oct 16, 2026 at 01:44:21PM -0700, Deborah Brouwer wrote:
-> > Allow userspace to provide a buffer that is smaller or larger than the
-> > object that the kernel expects to write into it.
-> > 
-> > Set a minimum buffer size to match those in PANTHOR_UOBJ_MIN_SIZE. If
-> > userspace provides at least the minimum buffer size, then simply write
-> > until the buffer is full.
-> > 
-> > If userspace provides a larger buffer than necessary, then zero out the
-> > remaining buffer.
-> > 
-> > This ensures UAPI compatibility with Panthor.
-> > 
-> > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> > ---
-> >  drivers/gpu/drm/tyr/file.rs | 47 +++++++++++++++++++++++++++++++++++++--------
-> >  1 file changed, 39 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-> > index 9f60a90d4948..a153aa453ed1 100644
-> > --- a/drivers/gpu/drm/tyr/file.rs
-> > +++ b/drivers/gpu/drm/tyr/file.rs
-> > @@ -1,11 +1,18 @@
-> >  // SPDX-License-Identifier: GPL-2.0 or MIT
-> >  
-> > +use core::mem::{
-> > +    offset_of,
-> > +    size_of_val, //
-> > +};
-> 
-> size_of_val is present in kernel::prelude::* and does not need explicit
-> import.
+On Mon Oct 19, 2026 at 10:36 PM JST, Gary Guo wrote:
+> From: Gary Guo <gary@garyguo.net>
+>
+> Nova core's driver data makes use of a few unsafe self-references for
+> device resources. Replace them with pin-init's self reference feature
+> instead.
+>
+> `auxiliary::Registration` is only allowed to capture a single lifetime, b=
+ut
+> it needs to capture `&'gpu Gpu<'bar>`. However, we cannot use coercion he=
+re
+> as `Gpu` is invariant over `'bar`. As we know that `'bar` outlives `'gpu`=
+,
+> use pin-init's existential lifetime to erase the `'bar` lifetime in
+> `NovaCoreApi`.
+>
+> Swap bar1 and bar0's drop order to make pin-init happy.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
 
-Ack, will fix in next version.
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 
-> 
-> > +    transmute::AsBytes,
-> 
-> Usie the trait from zerocopy instead.
-
-If this other series making zerocopy available to Tyr gets merged,
-then I could rebase this series on it and switch over to IntoBytes:
-
-https://lore.kernel.org/rust-for-linux/20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com/T/#m9a9a24e0cf1ae10451e3fc84955873b405d0da0b
-
-> 
-> > +    let mut writer = UserSlice::new(UserPtr::from_addr(usr_dst as usize), size).writer();
-> 
-> On 32-bit this will truncate upper bits. I guess that probably matches
-> what Panthor does. Is it what we want?
-
-Yes, that's what Panthor does; it uses the "u64_to_user_ptr()" macro to do
-this deliberately.
-
-Since UserPtr only accepts a usize argument, I have to cast in Tyr,
-but instead, what do you think if I added another method to UserPtr
-to accept a u64 address and cast it to usize just like in the C macro.
-Something like:
-
-    /// Create a `UserPtr` from a u64 userspace address.
-    ///
-    /// Deliberately truncate upper bits for 32-bit systems.
-    #[doc(alias = "u64_to_user_ptr")]
-    #[inline]
-    pub fn from_u64(addr: u64) -> Self {
-        Self::from_addr(addr as usize)
-    }
-
-> 
-> Alice
