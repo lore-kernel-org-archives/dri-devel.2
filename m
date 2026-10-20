@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76972606A33E
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:26:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2BB060A261B
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:26:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbINRPiW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YD9ZRw1e
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 066CD10F3CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2033D10F3AD;
 	Tue, 20 Oct 2026 08:25:58 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D13A10F3A1
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA2B10F39F
  for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:25:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3D5C343E58;
- Tue, 20 Oct 2026 08:25:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B65AC60DA4;
+ Tue, 20 Oct 2026 08:25:47 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1792484748;
- b=QQ0CEUHSVT0A6fnnSDsep7+A/v69VbvPnV3joARpB5GY2eW0py9boq82qzSbbGAl+/SN
- RxCWGId29C45QUHTKTaGclaSNsx42uVGF7MiXltInVHv1jMoMJhNvLRmUIdlmmMPPD+q9
- Qzi0Y7nqZhBBWSkSN+6UyzAFTXHhf5kfG7NyIhl+uWad7T18yM8WQ8yGrZqjSnuzFKi0W
- Uxr0sNJyrFZl9kIk8HN533Ht7PBY9nQ65NZBpbv+6PGDhtcWKzVZj+dYn8CTuZJsSCw7e
- JsSOce+BReOuJsS2fqCrg+Yrk2hKDHpVxwKKa2vgUjlkEul6RTKm9l62PSPImtCc7Aw==
+ t=1792484747;
+ b=hTIJtvSRH2k49nX6d+50Tro4sahNt4ZbWf/U/WUggzaqM6eD/WrJbIqTsr9vKGA5gB86
+ JMnRj8E4zDXskzRIBAOVR4xCZwv6m9g8PtGEkkXRwxU8kmfwmNr2NSKjctk3K0dk+bSfb
+ oneP7KxJACLm0g2tujFga0BY8sdiX/WlNSyAASor+bJh8nORDjrWH0H1RKCFIb33y8lV9
+ JBwLS6blfUWhhq7Zqn3u1+wPrsmsB6f1/pWZeX8thokE3l3gK6UBFANVhdwCT4+tmwJlH
+ 3luiq/l+dwRnv63qjV0P5QRgIffiSqoTHU5R69iuK32Hxu9F8eCos9JDYup6XYTrA7w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1792484748;
+ c=relaxed/relaxed; t=1792484747;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
  X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To;
- bh=eN4JBX5Yi3bsMUckUX9jCNXAb+0k7j4yV01QcPouoZA=;
- b=fDy7plA0OASev705iOhSQQv470CpsFQndgDsoXBgUqk2vrbM3Kse0LmqE0q+2YEQ7uQH
- 7rBds3jbk1KfkDleuMgp5uU3C23EkFSmu7KGl4vNjLVrx9mUrwPhAKc46vrDjPCoSHM+b
- jXRqdcFLAUMCUwBHxO7eXUp1rBOFS4fu0+2FmdSHvrkYtIVnpRMaCaJ8+x1lVQNrbHm01
- +VRjmHF86wTikYRazg22Nrn2zSPuTU3wTPIY8GZeYHjWMFEZ+JqAXQV9O8qsEn+XYZghy
- O3vB1/5VXE2Dq12aPm8upRt9nwY5F0XpVZHq5LoY9lzACb+L8VrvXBOGNANkREBb2+Q==
+ bh=jPxyRVxUkD8Td+9QwNyvaWaSg+CRoePkY9b5UHxne8c=;
+ b=dKatv3KDTnujupP71/V0C99ssfgpTxF3JbVdauQpPBOCNMxRkSp3Pbt3qBjeQm6yvvGT
+ lHA3j7u3ANXBzZR4KX9t/jPpTBV+1ag/fZMDTclTVoTlUQbIyLKn9ue4BzPMhJ2/LReja
+ olOBfiToR31xqTE5AEaDWKlPLfyT5vcpynDqJLZyo5hg7EevYW7FxAd8l7+Xn0Ei6Qn1Z
+ PQS25D7kLu7OtYWuEXT+dECQHOITTR0GsexOx+ogm2GwefJWLK4IZ/w/nIkHPSB09gUlr
+ sza3PUaBUO98XoeZ/sN4a7mqDEFg7DY7RQlKpKUpj/Uml9tkVWn6r7Zz2LTPkUuF0HA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 7190B1F000CA;
- Tue, 20 Oct 2026 08:25:47 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 4562E1F000C7;
+ Tue, 20 Oct 2026 08:25:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792484748;
- bh=eN4JBX5Yi3bsMUckUX9jCNXAb+0k7j4yV01QcPouoZA=;
+ s=k20260515; t=1792484747;
+ bh=jPxyRVxUkD8Td+9QwNyvaWaSg+CRoePkY9b5UHxne8c=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=LbINRPiWNRT4+LzE3Xuy0a0LNe87uvyK1l/Ed/MmFZK80+il9Ia7twW6DTG+OIYy0
- Xv6Ut1vv4wySM3ZGOSDyX0wQpLBzrWIQ5VLRdRZwojqGiZ4pmA0DESOHobOSly2ZlE
- 34X0yZMUV8gkFUpiaUWWg9G8eWh0v4vWsX+WwJM3aaEenLHrjNx6/kHasmRylqQ+t3
- VxqiuFceSOdnsl5bIeVyc0B3cLd8M3fDFSpflCvQ402tWdUzBX6tiacb78dnBcFhhU
- jC8Mvu6y5NrYssQIH7NEq0QYBUd4HoVQTG+Ew/mT2XZN9U+xo8XgCC/BTYzU+gh1HQ
- g/YBI+eDanH8w==
+ b=YD9ZRw1edhudz76MTNsrjlEf4hfWQ7z+8WgT/xIwtiZ1qTEz8z5rMMEmhE7vVzxcy
+ rQcNJd8kE9JVl+3MUoQJHpZXi8W7RkRL43FRMc+QRp35wvYeQuQfrqQe9EwMc37AJn
+ Mb2wmSa49WKkaY5OY01Cw5Y0F0QI+URCdsQLbIrADAkrKb5agEVOpjD+87zqtUIN/F
+ 6yieJWhW8QwcVg6IG3CCP2oDVugkrQXKr/wBX7lf5pjfopRhRv+WYPgJXCN7Nm3RY/
+ wJrChpQCxPs+mgXTuTrU0Kg3ZljzjCGlyk+fJT1VSX/zzKTU8BL6Xl4fyye/NMU2Ri
+ pQ8AeWx1pYJlA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id C7FAF430E7;
+ by lkml.kernel.org (Postfix) with ESMTP id AF794430D7;
  Tue, 20 Oct 2026 08:25:45 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 20 Oct 2026 16:25:23 +0800
-Subject: [PATCH v4 06/11] drm/tyr: add BO creation and lookup helpers
+Date: Tue, 20 Oct 2026 16:25:20 +0800
+Subject: [PATCH v4 03/11] rust: sync: arc: relax `ForeignOwnable` for `Arc<T>`
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-tyr-ioctls-v4-6-704de77da223@kylinos.cn>
+Message-Id: <20261020-tyr-ioctls-v4-3-704de77da223@kylinos.cn>
 References: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
 In-Reply-To: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -86,11 +86,11 @@ Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
  driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
  linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484721; l=2048;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484721; l=1389;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=NWIPbx+eohkv3FNLcTsYqaXCTEHpzUO212X/sd33Vuo=;
- b=3ajd9tKpWFuQQjti0zd8w3s07U2VeQ8WgEY97UG0waNHuy7WkKZ2mqeaEaCdFJ4AX3To52G4t
- 3p42+nfl4aICwEEhmKAqKCBpVcMI9C/JJ1KK3WdWi9Vnx2G06rTvChT
+ bh=E65clxOu/qjNbqNDrRBBfaWHB/W/gvw7JStoVkgnAT4=;
+ b=9OwCtSZSA8ESXlncgmFEdWkXp304HK2DH1QRwr3SpIWHFMg8uWBiTUZC5Hf5v+z/VV9+TF7dw
+ 4om5xcnMwqkBO3IoqCJ1E6WR15C8MP4tWxyhVdQb1+sbDG3gpEGztpT
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
@@ -117,73 +117,42 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Alvin Sun <alvin.sun@linux.dev>
 
-Add helpers for the BO ioctls: new_object() creates a GEM object with
-the size aligned up to PAGE_SIZE, and lookup_handle() resolves a handle
-for a DRM file.
+Drop the `'static` bound so that refcounted values borrowing from a
+driver registration scope can be foreign-owned by the XArray
+abstraction.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Gary Guo <gary@garyguo.net>
 ---
- drivers/gpu/drm/tyr/gem.rs | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
+ rust/kernel/sync/arc.rs | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 3bf3787f5c3fd..0e0989a48678f 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -9,8 +9,10 @@
- use kernel::{
-     drm::gem::{
-         self,
--        shmem, //
-+        shmem,
-+        BaseObject, //
-     },
-+    page::PAGE_SIZE,
-     prelude::*,
-     sync::{
-         aref::ARef,
-@@ -23,6 +25,7 @@
-         TyrDrmDevice,
-         TyrDrmDriver, //
-     },
-+    file::TyrDrmFile,
-     vm::{
-         Vm,
-         VmMapFlags, //
-@@ -53,6 +56,32 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
- /// Type alias for Tyr GEM buffer objects.
- pub(crate) type Bo = gem::shmem::Object<BoData>;
+diff --git a/rust/kernel/sync/arc.rs b/rust/kernel/sync/arc.rs
+index 8ae0fe6f19ec0..9b582a815f888 100644
+--- a/rust/kernel/sync/arc.rs
++++ b/rust/kernel/sync/arc.rs
+@@ -363,11 +363,17 @@ pub fn into_unique_or_drop(this: Self) -> Option<Pin<UniqueArc<T>>> {
  
-+/// Create a new GEM buffer object.
-+#[expect(dead_code)]
-+pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result<ARef<Bo>> {
-+    if size == 0 {
-+        return Err(EINVAL);
-+    }
-+
-+    let aligned_size = size.checked_next_multiple_of(PAGE_SIZE).ok_or(EINVAL)?;
-+
-+    Bo::new(
-+        ddev,
-+        aligned_size,
-+        shmem::ObjectConfig {
-+            map_wc: true,
-+            parent_resv_obj: None,
-+        },
-+        BoCreateArgs { flags },
-+    )
-+}
-+
-+/// Look up a GEM object by handle for a DRM file.
-+#[expect(dead_code)]
-+pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> Result<ARef<Bo>> {
-+    Bo::lookup_handle(file, handle)
-+}
-+
- /// Creates a dummy GEM object to serve as the root of a GPUVM.
- pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> Result<ARef<Bo>> {
-     let bo = Bo::new(
+ // SAFETY: The pointer returned by `into_foreign` was originally allocated as an
+ // `KBox<ArcInner<T>>`, so that type is what determines the alignment.
+-unsafe impl<T: 'static> ForeignOwnable for Arc<T> {
++unsafe impl<T> ForeignOwnable for Arc<T> {
+     const FOREIGN_ALIGN: usize = <KBox<ArcInner<T>> as ForeignOwnable>::FOREIGN_ALIGN;
+ 
+-    type Borrowed<'a> = ArcBorrow<'a, T>;
+-    type BorrowedMut<'a> = Self::Borrowed<'a>;
++    type Borrowed<'a>
++        = ArcBorrow<'a, T>
++    where
++        T: 'a;
++    type BorrowedMut<'a>
++        = Self::Borrowed<'a>
++    where
++        T: 'a;
+ 
+     fn into_foreign(self) -> *mut c_void {
+         ManuallyDrop::new(self).ptr.as_ptr().cast()
 
 -- 
 2.43.0
