@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672BD60A380F
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:26:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B7D60A261D
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:26:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FOoPCDk9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDQ4lOB4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 904C810F380;
-	Tue, 20 Oct 2026 08:26:02 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8B3310F3AE
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:25:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AAAC10F3BF;
+	Tue, 20 Oct 2026 08:26:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C38310F380
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:25:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 646B260DA8;
+ by sea.source.kernel.org (Postfix) with ESMTP id C8024447AA;
  Tue, 20 Oct 2026 08:25:50 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1792484750;
- b=vFR9lBezz2eRygNB6k2yIKrBNOXBIOQl3bmVaUL0QcnmAQLHKZ5RHoeBzKmIoN3EM7WD
- U7jTRpGdhTgHK2yvqN2CrK2NuN0ZFSgMWf5GKFKiKXwFctxG4XJsJ99iVUV7HEbnunErD
- m4VAPNj0nE5D+nZMpyqAAd1idNG9FF6lRKdmutKP7ple54IpKUcO/37yz4ChoYAkTuHg1
- /apoouVx2+a1xx00rDaVO2AFJ1Z0KrgQYtj4Kql1a2Iw1Ex2IGWSSkCyXXmzxIqeSeMVM
- 5Va2kTVJ5mfVwIfaRJ8HmhXO80UUeoLaZsUA7ZUJydElbav24VU+uKJXotdRKIhUjkw==
+ b=RSuHTXSzWN0sQcP5o9TJj14ZeCGDKdl7WxeKqR9nT360e2n1X26qla3qblAWVkTfnjBF
+ AyrFjUNZrZF4CcRcHaXQ/ygUwgN5UEz7tLL4b39IQcq5MEKdbheF4cZGYBKVhdMazWn2M
+ zXDZrMvyaArLMHnyAuyDBKMugqfMUiDnGRDUGCFRZYRDPIfkjrM9Uh8JMsGn+U9UXGj6g
+ JX3+0MsEUoW23JPzBf7uL0sG1kv6c2B/iwqDIg1zeQa9u9He/Ev2Yvm1gls1PWg2MDl7i
+ 3NCIUbkLglebXwr6s5Wrqc2/SM5HhCvjTpUpp3Z4XvhpVlQFH8fpXIHtpAoXMMs6CGg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1792484750;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
  X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To;
- bh=XH3G2A7GvTP/8THrs95qFRMJKqXgEWRG0Nu2DxafnUo=;
- b=Tayb36gh8myaj+EGWsbkQBdtX9Le36csgTtOgxVh9jC8vLazetu+SlcwVqG9odP+p3GO
- EyGwsHPTW7wQuuP9esd64EvTvog+EZrIYU2Yg2f3zymEkj1X43E2F/XPQLQNwZIR2k+Y6
- x52x8uwDgspsETS+kie6odixGseXMlphGu22uCEyM9v0NbX97vv2HXIWlPokGdNloLPjl
- /pgKP75etxltccPQMemHkaQ0mzfdk3NTump4UOk4oevrJ1q8AfS6azvfQ8AWFsYA3VGcX
- qT3UNHtS9p1mv3zeuC823Ci+1ydMZA9+PLmeQstIMovJTmX0z0NZkYEZJAK8HXiKyRA==
+ bh=eipZCh/aZVOWGyKk+tem6Pf9Se2oB9+JhA06IxGI1NU=;
+ b=j4ireNCZnalx+Ak3deDrHdFV+ASseu5Mh6oIHNGMec9lhXL3dST04NWuQ9b4+bpmaoAw
+ Q3HH7R0iURJ6LmsQhEOVMQW8YmrCJRL+IkX1pHEbgSUF3gHQ5xnGVIQZb1zNL5An2XDus
+ +0WjcNEXRofRtmUyCknwG4lV162oSZSFgVex1lfmvtX6NRqCUk2EnrC3s0Ih8GRVCeklw
+ 9ePyVy9N+5lbq6adkV0rFXOUuRzJuDJX0Z8Q96KnS8zXXOqWnaHESk1huCyX4aBnlmIJi
+ aSE8/OK0ZSu7Qo8nfMcDBtch3KYsWKBSQ0t7iNFnorci4dMmiIulZPYMlMkRq1+LQXQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 454001F000C6;
- Tue, 20 Oct 2026 08:25:46 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 7DE641F000C7;
+ Tue, 20 Oct 2026 08:25:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1792484750;
- bh=XH3G2A7GvTP/8THrs95qFRMJKqXgEWRG0Nu2DxafnUo=;
+ bh=eipZCh/aZVOWGyKk+tem6Pf9Se2oB9+JhA06IxGI1NU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=FOoPCDk9PzDegt6Ndt3/T661sc0aPvg+kg0CDgIGE0akL6hmy9hiozw2sF3tlnUk7
- js3SKixbeKTvTfNMSOtqT/Zyvfpjqp/6LgRM/LkmzA9sA++W9niSL0sWy7HZypceHH
- dPrkw7eAaDNCGY7pJw+VMswkN413HPB2QTGCbHl/mP7fx0C9AdPxWmCyfRQQzYrAdU
- XadcvH2Z/qj9r0WgTC5LPsYk8bZwWEktSES58tKxNb28NdXfB07zoMNn0zUop4vIJ+
- s/MXWAYeg6K0Eyq/3HgjFT7IixTGRmqcZG2l8ajUutvW31+Nu4AJdjgyhcFjzfuAJo
- 9KZhlP08kAQzA==
+ b=aDQ4lOB4hjajqMG4r0KB58/c2bd0ffmQDsBuKIcBqqrz2a3xB2QsxjlRmz85Fifiu
+ tmYj1B8WBaseUZIn14EJW2vmDqXunJifI53uwj2Exk+t2s9SjxuWTq6mo9O9DPuZQV
+ BW58tEU00WZfkNWgghHwevjnZ1AJPaYfwFwSWIOiS4JO1Z+V2xfLHhl9CheUZgSLzC
+ /OLqQ7QeEnOmQkoUT7hBapXMmKXTLG4t1yUoT2lgu4llEIFrIjHr1mB7cg9mh1SmTv
+ XTcCBYZitlrjBT9sTcNdvIx5QXiFbCv/bxIhepprdPFpunMKE/gv7tY2tvcDQamSHG
+ fevkbnEBxxbwg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id A81C4430D3;
+ by lkml.kernel.org (Postfix) with ESMTP id DF14F430F4;
  Tue, 20 Oct 2026 08:25:45 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 20 Oct 2026 16:25:19 +0800
-Subject: [PATCH v4 02/11] rust: mm: add `task_size` helper
+Date: Tue, 20 Oct 2026 16:25:26 +0800
+Subject: [PATCH v4 09/11] rust: device: expose the device DMA attribute
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-tyr-ioctls-v4-2-704de77da223@kylinos.cn>
+Message-Id: <20261020-tyr-ioctls-v4-9-704de77da223@kylinos.cn>
 References: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
 In-Reply-To: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -86,11 +86,11 @@ Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
  driver-core@lists.linux.dev, Ke Sun <sunke@kylinos.cn>, 
  linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484721; l=951;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792484721; l=1995;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=JO+2MVB8/0ZEX96oFL0eP1mAOKrIibNCaD5F9FcB8NY=;
- b=QjR4/KrceM/lUJAWh1u5Li3pbdAeeC6usQbh1gPSp0AqYQSUbTxeaip2u8SiAsBDhfe3eTckS
- EzCvxT85ecCDWUZf9o/aQBSCiml2dioBcP5kuQUiKmf8Qu37HyuvpSh
+ bh=mEXxKt/y8TdcnvMGSXY8Zt74eqKKEsHMFWEDUBLN0a0=;
+ b=rGNNKJ6DXMUQnJb0hmAg2jlqt22qnLX6QZ7JwuDJy+nw0lj1DqU61HmQ1QPLBKyQQAh3msXN9
+ aWB1Ggq6SgIAzjWPDh4emO2EBENlEk9L3pzTJn9O96ZOU46+bf8S+dh
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
@@ -115,35 +115,59 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Alvin Sun <alvin.sun@linux.dev>
+From: Sami Tolvanen <samitolvanen@google.com>
 
-Expose the task's address space size. It is used by the Tyr driver
-for splitting a VM's GPU address space into user and kernel regions.
+A driver may need to know whether its device is DMA-coherent, but
+rust/kernel exposes no accessor for the attribute today.
 
+Add a transparent DmaAttr wrapper around device_get_dma_attr(), so all
+three attribute values (unset, non-coherent, coherent) are covered, and
+an is_coherent() accessor for the boolean case.
+
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+[ Replace dma_coherent() with a DmaAttr wrapper covering all three
+  attribute values. - Alvin ]
+Co-developed-by: Alvin Sun <alvin.sun@linux.dev>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- rust/kernel/mm.rs | 7 +++++++
- 1 file changed, 7 insertions(+)
+ rust/kernel/device.rs | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/rust/kernel/mm.rs b/rust/kernel/mm.rs
-index 4764d7b68f2a7..d2dfbb7d43972 100644
---- a/rust/kernel/mm.rs
-+++ b/rust/kernel/mm.rs
-@@ -149,6 +149,13 @@ pub fn mmget_not_zero(&self) -> Option<ARef<MmWithUser>> {
-             None
-         }
+diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
+index 2291d85b6849e..d5bbebdf620df 100644
+--- a/rust/kernel/device.rs
++++ b/rust/kernel/device.rs
+@@ -260,6 +260,30 @@ pub unsafe fn drvdata_borrow<T>(&self) -> Pin<&T> {
      }
-+
-+    /// The size of the process virtual address space.
-+    #[inline]
-+    pub fn task_size(&self) -> usize {
-+        // SAFETY: `self.as_raw()` is a valid pointer to an `mm_struct` per the type invariants.
-+        unsafe { (*self.as_raw()).__bindgen_anon_1.task_size }
-+    }
  }
  
- // These methods require `mm_users` to be non-zero.
++/// The DMA attribute of a device, as reported by firmware. A transparent
++/// wrapper around the kernel's `enum dev_dma_attr`, covering all its states.
++#[repr(transparent)]
++pub struct DmaAttr(bindings::dev_dma_attr);
++
++impl DmaAttr {
++    /// This wraps `device_get_dma_attr()` and only returns `true` for the
++    /// `DEV_DMA_COHERENT` attribute; no attribute or `DEV_DMA_NON_COHERENT` is non-coherent.
++    #[inline]
++    pub fn is_coherent(&self) -> bool {
++        self.0 == bindings::dev_dma_attr_DEV_DMA_COHERENT
++    }
++}
++
++impl Device<Bound> {
++    /// Returns the DMA attribute of the device as reported by firmware.
++    #[inline]
++    pub fn dma_attr(&self) -> DmaAttr {
++        // SAFETY: By the type invariants, `self.as_raw()` is a valid pointer
++        // to a `struct device`.
++        unsafe { DmaAttr(bindings::device_get_dma_attr(self.as_raw())) }
++    }
++}
++
+ impl<Ctx: DeviceContext> Device<Ctx> {
+     /// Obtain the raw `struct device *`.
+     pub(crate) fn as_raw(&self) -> *mut bindings::device {
 
 -- 
 2.43.0
