@@ -2,42 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1B3606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 15:02:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F2D606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 15:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JUyPMXQ8
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qbsEPwkD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A758C10EC15;
-	Tue, 20 Oct 2026 15:02:27 +0000 (UTC)
-Received: from mta0.migadu.com (out-103.mta0.migadu.com [91.218.175.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 073C010EBFE
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 15:02:20 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=yOvWzCOAzttP2EAepfF+N2EBOK8OOCcBUIwHH7Y9d90=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792508539; v=1; x=1793113339;
- b=JUyPMXQ8FpEDW25IWvG8eVlzu0z6R1tkvjVZ5+9gF+/tl8ZuEw4twHlAE2dphmhlCNOVeMSx
- PC86pUsL7tg0TvqLvKjuwIKFHnW5AFe7SOsBhdpBwa7zj+cmCHT1CapFyiT4v+U6REHv0q3grJd
- SzgBG8iskrrA6dA5vw9rbKAQ=
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 38fd257b22a290d5;
- Tue, 20 Oct 2026 14:56:14 +0000
-X-Mizu-Trace-ID: 38fd257b22a290d5
-X-Migadu-Flow: FLOW_OUT
-From: Alvin Sun <alvin.sun@linux.dev>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>,
- Daniel Almeida <daniel.almeida@collabora.com>
-Cc: rust-for-linux@vger.kernel.org,
-    dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v3 04/11] drm/tyr: add per-file VM pool
-In-Reply-To: <as7IqjINtIURG4yi@um790>
-Date: Tue, 20 Oct 2026 22:55:08 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AE6D10F654;
+	Tue, 20 Oct 2026 15:06:48 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6781B10F66A
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 15:06:42 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BACB516F8;
+ Tue, 20 Oct 2026 08:06:38 -0700 (PDT)
+Received: from [10.0.137.15] (XHFQ2J9959-5.cambridge.arm.com [10.0.137.15])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 023503F7B4;
+ Tue, 20 Oct 2026 08:06:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1792508801; bh=B2p95+bauGKjmtB2lfd2lV6Dt4OS4tWv6hQlDp4Cj+Y=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=qbsEPwkDD7Lc4yU5KuGZCTmflk83ca1uakWmyzyB5V+G5xona4bnVrrf8HUO7SfBD
+ hWcREG5/ibmRlF3zEEC0SajKDIYlVtmTByzKmcih5lFG3FO5cxnsZcCqcNRrejVtTV
+ ofgzQDwH+CmP1BeWW8uCRXFv9mqJ7hmrpsqrKaQ8=
+Message-ID: <c367caf3-d462-42ea-b482-bf9c51c47a63@arm.com>
+Date: Tue, 20 Oct 2026 16:06:37 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Message-ID: <5c0856e1dd1ecb48.1792508174@smtp.migadu.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 12/15] vfio: Support VFIO devices that access the
+ CPU MMU
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Alex Williamson <alex@shazbot.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20261015142552.4128028-1-ryan.roberts@arm.com>
+ <20261015142552.4128028-13-ryan.roberts@arm.com>
+ <20261015164421.GD13920@nvidia.com>
+ <95e0f9bd-0203-4c7a-9d09-622593bb3d4c@arm.com>
+ <20261020140944.GA3008132@nvidia.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261020140944.GA3008132@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,25 +64,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Deborah, Daniel,
+On 20/10/2026 15:09, Jason Gunthorpe wrote:
+> On Tue, Oct 20, 2026 at 12:51:26PM +0100, Ryan Roberts wrote:
+>>> However.. you still have to affirm which single mm is the mm that the
+>>> device is going to be doing DMA against. The process the opens the fd
+>>> should not be forced to be the mm that it gets linked to.
+>>
+>> What is the mm representing here? Ultimately we want to install the KVM
+>> instance's stage2 pgtables and (pinned) VMID. We currently get that via the
+>> bound KVM instance (which looks like it still works using the cdev interface?)
+>>
+>> The guest will then install the stage1 pgtables and (pinned) ASID associated
+>> with the relevant (guest) mm_struct.
+>>
+>> Do we _need_ an mm association in the host?
+> 
+> Ah.. I see, I didn't quite follow that. OK.. Ah everyone else doing
+> this is using iommufd with a viommu to establish their connection
+> between device an KVM. eg Jacob Pan's series. That's a probably a
+> better idea to stay aligned with the common path. Though your reasons
+> are a little different..
 
-On Tue, Oct 13, 2026 at 05:11:22PM -0700, Deborah Brouwer wrote:
-> Interesting, I see what you mean because it would give the caller control
-> over the vm and managing its tear down. And it would be nice to separate
-> the creation of the vm from inserting it into the pool. I implemented this
-> myself and that's fine if you want to go with adding a custom VmAddError
-> or something like that.
+Just to check, you're referring to [1]?
 
-The v4 series is out with the pool reworked using Daniel's AddError
-approach, and the rest of your comments addressed.
+I was under the impression that I could open the VFIO device through the cdev
+interface, then bind it to the KVM instance via KVM_DEV_VFIO_FILE_ADD... Why do
+I need an iommufd at all?
 
-v4 series: https://lore.kernel.org/r/20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn
+[1]
+https://lore.kernel.org/all/20260925190742.1575380-1-jacob.pan@linux.microsoft.com/#t
 
-Best regards,
-Alvin
+Thanks,
+Ryan
+
+> 
+> If you manage to get pinned VMID out of KVM then we can implement SMMU
+> BTM as well!
+> 
+> Jason
+
