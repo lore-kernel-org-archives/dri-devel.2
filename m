@@ -2,78 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB33606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 05:38:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EED606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 05:56:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MOvPBZGY
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pHLGKsmN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EED610F232;
-	Tue, 20 Oct 2026 05:38:03 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54D0310F213
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 05:37:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792474677; x=1824010677;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=CgbzEe28G1zTrLdrNfJYfgWctwC1jg4tju9+nzpN6Co=;
- b=MOvPBZGYccieztwg8Ojp2EGbyhD3P2Sfs87x99Lx/vCPdgulwXXVYFoZ
- NeT9IkJmdD5CKVlKxK6k253T/JCvs9VDg4PXPMD4ZTcphRWHoRRuepBTS
- aubyhAiAjtBZTo2wNc+vGjKlDbmXJsErj8eAITYEElXYMb0wzKs8NYUBU
- cJdMaM5l7RbJggwxMHsEB2emvZvNhCKjY4b3p5//Y08OFTBmSHAjSsnzu
- eLnrhp3Yw/gh1Dt45OiNIW9BR25h4zoLvXbygvCPYRKU7ME8OHqkW6XPT
- +g/2rIMvuail9ZS+9Lsc/0A1wmxL/2kWEwUtb3zzmMEuryYaLOtI7Tn2f A==;
-X-CSE-ConnectionGUID: JsgqN3gnRFyAqBL2AuR8BA==
-X-CSE-MsgGUID: HEgpSTaCTpuLRXRDWe7B8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1059037"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1059037"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Oct 2026 22:37:57 -0700
-X-CSE-ConnectionGUID: LV6bCR60Sxa6Yc/YIXoDCg==
-X-CSE-MsgGUID: WFK0iYt7RvyviF8oI28nAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2691338"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 19 Oct 2026 22:37:50 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xJ2Xh-00000000Mxi-3lzb;
- Tue, 20 Oct 2026 05:37:45 +0000
-Date: Tue, 20 Oct 2026 13:37:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: Damon Ding <damon.ding@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Heiko Stuebner <heiko@sntech.de>
-Cc: oe-kbuild-all@lists.linux.dev,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Damon Ding <damon.ding@rock-chips.com>
-Subject: Re: [PATCH v4 11/14] drm/bridge: analogix_dp: Use
- bridge->next_bridge instead of plat_data field
-Message-ID: <202610201323.RdqouIbq-lkp@intel.com>
-References: <20261019085836.3065008-12-damon.ding@rock-chips.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB1B10F215;
+	Tue, 20 Oct 2026 05:56:08 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012027.outbound.protection.outlook.com [52.101.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77A5410E21D;
+ Tue, 20 Oct 2026 05:56:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tNmWLG3WpZwL2nsVZ3zvhY53hjqkYIbC09EPa0K2AvYJ8TA5DbkTU0yYFVR8oVxLkro3uk4/Wy621tUMLWAvjH/1rjcxIvqsvSHkuS6hWSLejGkgWdz34tMMxFTYuowXZnZ2hWuBLcWfiIviVXYPe7xkWFSjfEqG7lnAaZz52KvPip0Z2+l7+OYguHV3bcz1Ugg3FIrJoY9sQPGMoO9Zg5fPvvio+GBETPIoq6gPWpV9geuGanGL7QQ3P2ja1cphRZCSJWelvHoOSh9Hg5BJ0QmTT271Ccs5timAY2A/5b1vT1mLlg1qNl0pl+vAEb9yhgQSui+mNovXBYmMXmZRdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l+dTEkvYxQoUPsoELoA5p/0PD9Ul1/Nn4+CfGLTbV3k=;
+ b=sT3msqwUF4m5VYS7XNgDhDI1/fEvSNjgTJckOnaYJol8p/ljVXgvaliFZFzZBdS/B7CkRNouVtAB62ypjESvlkV4q/jkz/jTpXL9qcio9H7QsxWXwyERvmEnOL0rV8P1X26+G1u3mmkiSZ4wmjJ1gV7LqwWwYpN7mEMNqFUF+RT3xzRSTuUTu9Q1RpBGZ4huXjZgbGToMzYMCzIKP3/KR4WFT7CGkb358yePqiEStuO7MeOpBszIAHwuEQU3FxO89PvRVDTNvkd9HAbyPs7MYFYathOP1kD1/LXIpC/blIAl4a+P57hWZieAqtJ904vu+woRpBIKacGF/boxXOgy7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l+dTEkvYxQoUPsoELoA5p/0PD9Ul1/Nn4+CfGLTbV3k=;
+ b=pHLGKsmNmpbNX9wSFZFbZJXNPcXVM1z4172wv/Xu1LgwOibNxfQMcZ3tulEi8syI0f4aWFnnU8aoW+/XZUJIrsOWVav0dqakP13b/6tz8E8mkUYXq4sPvXAyyTZJ6YR144Zz3Mt8B7jBq+wNbupJcNpC7xyzPgwmbNUKlV4LW84=
+Received: from CH0PR03CA0403.namprd03.prod.outlook.com (2603:10b6:610:11b::13)
+ by SJ5PPFD5E8DE351.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::9a4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Tue, 20 Oct
+ 2026 05:55:55 +0000
+Received: from DS8PEPF000000E1.namprd05.prod.outlook.com
+ (2603:10b6:610:11b:cafe::a4) by CH0PR03CA0403.outlook.office365.com
+ (2603:10b6:610:11b::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Tue,
+ 20 Oct 2026 05:55:54 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS8PEPF000000E1.mail.protection.outlook.com (10.167.23.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 20 Oct 2026 05:55:54 +0000
+Received: from rtg-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Tue, 20 Oct 2026 00:55:51 -0500
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+To: <matthew.auld@intel.com>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
+ <Anand.Raghavendra@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v5 1/2] gpu/buddy: restore two-pass clear/dirty guard for
+ range-biased allocation
+Date: Tue, 20 Oct 2026 11:25:36 +0530
+Message-ID: <20261020055537.1640552-1-arunpravin.paneerselvam@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019085836.3065008-12-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS8PEPF000000E1:EE_|SJ5PPFD5E8DE351:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea3ae078-98f6-4134-a7e8-08df2e6ecde7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|56012099006|260925021911599003|260925021311599003|11063799006|260925022911599003|261009223027099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: zFn8kUI07rLZH4wVeAihyCTWDye+Ppy5uAOQN3zAiAoPTJdXNDNHmQUxQzxOfqEkTO5HBup+wKShlnG0kjz9b5Jesef+cst3hCaP6rTbe2vXZ2Ys8wZIiImCRIYEd7odcmArz7JnL4o23g1MT5Ybx1NomfPZ0A6vBMiB12T3gP5EIN2koNS//Z5p9B6bFVSjQqXxKTPHbGmVZGd8HuBytVZIvksyFx/rmii9kixLEdMW8nEeVDsnyzpmtiP8TBbF5Vmblw0RjISUsdHy3aHFajGwAZgPc+1V0iOeEOZngrigyi4rxdPgs+rakjZfe24lZgPqCqL9lfa6uWaun2zsHyS8ZMMTuDQXgLyD/CuVNw+kTSACQ6fZNE8Im4Wcq2m2ZX/l60QjzJ3m0cCJd1lR4g78RylOIhIj8M8P2pwpFprS7IyXrRAGHKFflv/nuWqcq+CaD0YPKln+GWq3x9rqRNU9X5Udb6VVDUQUZgwAGSXWkbSFXCRfBLikocHnZ0OaNYkHD+7aR6Ae0Qme2/94t/5AMFu25BDeD8W82d29fE0f3Ip1knl4RIrra5lOH0lijw5RPLshyF14g/zKe1WYMN6/dlE2MBskUCg6miiym2KhZ2HFmlpwVVhl9QkEgy92NLopP43Fw/wR7Bw8i1iEKHnBl0Yy5PgiWVpmUcMIyQFGlNN63rU1c/DWqatMjIj8G5dXk/lDSTHySVnyzZEBBA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(56012099006)(260925021911599003)(260925021311599003)(11063799006)(260925022911599003)(261009223027099003)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: t8gloe20QITyv8aEeK7yYQn2Zf7Rx0gu8CX+IxtUMtBAY8Jm3Phyew9rkuGYZS4HZ3eI9bpWd6eJoPKWPk51whpP+HAb5y+A3Nw1l3m2jd76NOLRPomf4qiHSYdIx8lDFv6/rGKD6n6rlXh81aUX4YzrVCTVx21YgwTBboYhEwI42GS70l9fZeF802yLWS1Ldh7Cm2imFk1YG0cKzu+Q7yApIlFIp/JIbZNmI7P0HXjL64ikZxbDv+cLQzNxww+nJkhe7C9SxiSSmWSnR/76ScypjY8MJiO8E7o9W1b/0hPpTgolpapfVsHOFGmlzvK2RDyG3RFXKDkTLSWPn2IxsT3t7/RBOEnyowAV4wu7qaDWTdOIqh1g1C9IL7xZOaQLriCIKCWp8ZZ3zxQ6ht7NEIcvQKPUL/gHwFoc0UpA1lfQY9pi8m+BxX3ORXqx1TKg
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 05:55:54.4908 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea3ae078-98f6-4134-a7e8-08df2e6ecde7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS8PEPF000000E1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFD5E8DE351
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,41 +107,243 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Damon,
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-kernel test robot noticed the following build errors:
+Range-restricted allocations (the visible-VRAM aperture) skip
+dirty_steer_window() and reach __alloc_range_bias() with no clear/dirty
+eligibility guard, so a dirty allocation freely splits clear extents (and
+vice versa), interleaving the two classes until no large same-class run
+survives and a 4K scanout pin fails with -ENOSPC. Use a two-pass range
+search instead: block_incompatible() rejects opposite-class blocks in the
+strict pass and relaxes only when the strict pass returns -ENOSPC, so a
+request still succeeds when only opposite-class space remains. A KUnit
+regression test covers the interleaving pattern and fails without the
+guard.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next]
-[cannot apply to daeinki-drm-exynos/exynos-drm-next linus/master v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with decoupled dirty tracker")
+Assisted-by: LLM
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/buddy.c                | 71 ++++++++++++++----------------
+ drivers/gpu/tests/gpu_buddy_test.c | 65 +++++++++++++++++++++++++++
+ 2 files changed, 99 insertions(+), 37 deletions(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Damon-Ding/drm-bridge-analogix_dp-Return-bitmask-from-analogix_dp_get_irq_type/20261019-165823
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261019085836.3065008-12-damon.ding%40rock-chips.com
-patch subject: [PATCH v4 11/14] drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data field
-config: parisc-randconfig-1001-20261020 (https://download.01.org/0day-ci/archive/20261020/202610201323.RdqouIbq-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 13.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261020/202610201323.RdqouIbq-lkp@intel.com/reproduce)
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index 503f7d5934e4..91935c71c525 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -1240,11 +1240,19 @@ static void __gpu_buddy_undo_splits(struct gpu_buddy *mm,
+ 	}
+ }
+ 
++static bool block_incompatible(struct gpu_buddy_block *block, unsigned int flags)
++{
++	bool needs_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
++
++	return needs_clear != gpu_buddy_block_is_clear(block);
++}
++
+ static struct gpu_buddy_block *
+ __alloc_range_bias(struct gpu_buddy *mm,
+ 		   u64 start, u64 end,
+ 		   unsigned int order,
+-		   unsigned long flags)
++		   unsigned long flags,
++		   bool fallback)
+ {
+ 	u64 req_size = mm->chunk_size << order;
+ 	struct gpu_buddy_block *block;
+@@ -1258,9 +1266,7 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 	 * This range-constrained search hands back the highest/right-most
+ 	 * address that satisfies the request: the roots are seeded high-to-low
+ 	 * and the right (higher-address) child is descended first, making
+-	 * top-down the default placement here. A non-top-down clear request is
+-	 * the only exception, where the descent is biased towards clear or
+-	 * clear-containing subtrees to satisfy the clear preference.
++	 * top-down the default placement here.
+ 	 */
+ 	for (i = mm->n_roots - 1; i >= 0; --i)
+ 		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+@@ -1298,6 +1304,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 				continue;
+ 		}
+ 
++		if (!fallback && block_incompatible(block, flags))
++			continue;
++
+ 		if (contains(start, end, block_start, block_end) &&
+ 		    order == gpu_buddy_block_order(block)) {
+ 			/*
+@@ -1315,38 +1324,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 				goto err_undo;
+ 		}
+ 
+-		/*
+-		 * Top-down is a strict address-placement policy, so when it is
+-		 * requested we ignore clear steering and simply descend the
+-		 * right (higher-address) child first. Only a non-top-down clear
+-		 * request biases the descent towards clear/has_clear subtrees.
+-		 */
+-		if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
+-		    !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
+-			struct gpu_buddy_block *prefer;
+-
+-			if (gpu_buddy_block_is_clear(block->right))
+-				prefer = block->right;
+-			else if (gpu_buddy_block_is_clear(block->left))
+-				prefer = block->left;
+-			else if (block->right->has_clear)
+-				prefer = block->right;
+-			else if (block->left->has_clear)
+-				prefer = block->left;
+-			else
+-				prefer = block->right;
+-
+-			if (prefer == block->right) {
+-				list_add(&block->left->tmp_link, &dfs);
+-				list_add(&block->right->tmp_link, &dfs);
+-			} else {
+-				list_add(&block->right->tmp_link, &dfs);
+-				list_add(&block->left->tmp_link, &dfs);
+-			}
+-		} else {
+-			list_add(&block->left->tmp_link, &dfs);
+-			list_add(&block->right->tmp_link, &dfs);
+-		}
++		list_add(&block->left->tmp_link, &dfs);
++		list_add(&block->right->tmp_link, &dfs);
+ 	} while (1);
+ 
+ 	return ERR_PTR(-ENOSPC);
+@@ -1361,6 +1340,24 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 	return ERR_PTR(err);
+ }
+ 
++static struct gpu_buddy_block *
++__gpu_buddy_alloc_range_bias(struct gpu_buddy *mm,
++			     u64 start, u64 end,
++			     unsigned int order,
++			     unsigned long flags)
++{
++	struct gpu_buddy_block *block;
++	bool fallback = false;
++
++	block = __alloc_range_bias(mm, start, end, order,
++				   flags, fallback);
++	if (IS_ERR(block))
++		return __alloc_range_bias(mm, start, end, order,
++					  flags, !fallback);
++
++	return block;
++}
++
+ /* Return the highest-address free block of at least @order. */
+ static struct gpu_buddy_block *
+ get_maxblock(struct gpu_buddy *mm,
+@@ -1924,7 +1921,7 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 
+ 	if (flags & GPU_BUDDY_RANGE_ALLOCATION) {
+ 		/* Allocate traversing within the range */
+-		block = __alloc_range_bias(mm, start, end, order, flags);
++		block = __gpu_buddy_alloc_range_bias(mm, start, end, order, flags);
+ 		if (!IS_ERR(block) || !steered)
+ 			return block;
+ 
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index b75d32ca6ca0..3eaa261571bf 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -1597,6 +1597,70 @@ static int gpu_buddy_suite_init(struct kunit_suite *suite)
+ 	return 0;
+ }
+ 
++static void gpu_test_buddy_alloc_range_clear_guard(struct kunit *test)
++{
++	const unsigned long chunk = SZ_1M, mm_size = SZ_4M;
++	struct gpu_buddy_block *block;
++	LIST_HEAD(high_clear_a);
++	LIST_HEAD(high_clear_b);
++	LIST_HEAD(low_dirty);
++	struct gpu_buddy mm;
++	LIST_HEAD(barrier);
++	LIST_HEAD(result);
++
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, chunk),
++			       "buddy_init failed\n");
++
++	/*
++	 * Lay out a 4 MiB aperture as three regions:
++	 *
++	 *   [0,  1M)   dirty free
++	 *   [1M, 2M)   allocated  (barrier, keeps the two halves un-mergeable)
++	 *   [2M, 4M)   clear free (one naturally aligned 2 MiB extent)
++	 *
++	 * A dirty (non-clear) range allocation must take the low dirty block
++	 * and leave the large clear extent intact. Without the guard the
++	 * top-down search cuts the higher clear extent instead and returns a
++	 * clear block -- the interleaving that fragments the aperture and
++	 * ultimately fails a large same-class scanout allocation.
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 0, chunk, chunk, chunk,
++						      &low_dirty, GPU_BUDDY_RANGE_ALLOCATION),
++			       "alloc [0, 1M) failed\n");
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, chunk, 2 * chunk, chunk, chunk,
++						      &barrier, GPU_BUDDY_RANGE_ALLOCATION),
++			       "alloc [1M, 2M) failed\n");
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 2 * chunk, 3 * chunk, chunk, chunk,
++						      &high_clear_a, GPU_BUDDY_RANGE_ALLOCATION),
++			       "alloc [2M, 3M) failed\n");
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 3 * chunk, 4 * chunk, chunk, chunk,
++						      &high_clear_b, GPU_BUDDY_RANGE_ALLOCATION),
++			       "alloc [3M, 4M) failed\n");
++
++	/* [2M, 4M) coalesces into one aligned clear extent; [0, 1M) stays dirty. */
++	gpu_buddy_free_list(&mm, &low_dirty, 0);
++	gpu_buddy_free_list(&mm, &high_clear_a, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &high_clear_b, GPU_BUDDY_CLEARED);
++
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 0, mm_size, chunk, chunk,
++						      &result, GPU_BUDDY_RANGE_ALLOCATION),
++			       "dirty range alloc failed\n");
++
++	block = list_first_entry(&result, struct gpu_buddy_block, link);
++	KUNIT_EXPECT_FALSE_MSG(test, gpu_buddy_block_is_clear(block),
++			       "dirty range alloc cut the clear extent (offset=%llx)\n",
++			       gpu_buddy_block_offset(block));
++
++	gpu_buddy_free_list(&mm, &result, 0);
++	gpu_buddy_free_list(&mm, &barrier, 0);
++	gpu_buddy_fini(&mm);
++}
++
+ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_limit),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_optimistic),
+@@ -1606,6 +1670,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_clear),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
++	KUNIT_CASE(gpu_test_buddy_alloc_range_clear_guard),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610201323.RdqouIbq-lkp@intel.com/
+base-commit: 2313367894b1f0b9713622c96a36e4098c4bd549
+-- 
+2.43.0
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
->> ERROR: modpost: drivers/gpu/drm/bridge/analogix/analogix_dp.ko: symbol 'devm_drm_of_display_mode_bridge' undefined!
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
