@@ -2,43 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AB5606A31C
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:27:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E727606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:29:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBiXY6q/
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ldbNPAVz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31CB310EF22;
-	Tue, 20 Oct 2026 11:26:55 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 719AF10ED2D;
- Tue, 20 Oct 2026 11:26:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1842140247;
- Tue, 20 Oct 2026 11:26:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28581F000C5;
- Tue, 20 Oct 2026 11:26:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792495604;
- bh=pknGrJ+5O/kK6eTDXc/Tvyy7hpUUaNAmdo2s5fK0kY0=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=VBiXY6q/pY3oqh+/ffWLQneR74IB01dbwGeLSq2VDSZ71AGu+Og2CHRo3pboploTj
- +loL66Qk7hF5PW3O/eTrBJ5PhiyqoYuyqOlIjJFF/B5gqpZD3n4nlEV4tFFREuNFUt
- CZDOWeKSqBmDOzglnm7CziqlaaF0+hEkxAbM2PYQz8uRzZ4EVNpvOeipTUq1tbGr4G
- ZHIvqhq74UValWvSQsCi9aFo7OodBzuKwhQO8G8io3qwGqykJbos8tQi8sGdZSz+0+
- qpwXl3n4qYqsjTacxbBa5S85lKy/w+6UIaQGAZ00jrMdWz4EkuGf/yThFxHWT2chtl
- nBN9YsuMnwOmA==
-Message-ID: <sashiko-outbox-178894@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/i915/dp: clear and restore MSTM_CTRL around MST
- DPMS off/on
-To: "Xiao Lu" <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261020110418.1272170-1-xiaolu.xie@intel.com>
-References: <20261020021714.62573-1-xiaolu.xie@intel.com>
- <20261020110418.1272170-1-xiaolu.xie@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 11:26:43 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69B2E10ED2D;
+	Tue, 20 Oct 2026 11:29:15 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B507910ED2D
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 11:29:09 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 04FE21596;
+ Tue, 20 Oct 2026 04:29:06 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 55BE03F7B4;
+ Tue, 20 Oct 2026 04:29:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1792495749; bh=lPExewzubDO61zAC5f5szD4RLVzqEIiHTrrWFFbXWiU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ldbNPAVz3IGbNhuOHCkg9AxOAasSipoy6B5lGBDzvn/l+iQ+xrMGjWe9+CJcsFl11
+ 6SP4SsUPLz31dVdUWoNT+EX1DN80XrhHO69Qp0pChRZFwxSOXLiZHUB06wU7fItPn9
+ 6t/Ojv9c6iy2iP/FPyS1UkbN/qZvM71rUcPMepAk=
+Message-ID: <be6cd787-8502-4499-ad62-597c1b9b7702@arm.com>
+Date: Tue, 20 Oct 2026 12:28:54 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/11] iommu: Let 32-bit ARM drivers opt into a DMA API
+ default domain
+To: Mikko Perttunen <mperttunen@nvidia.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>,
+ Thierry Reding <thierry.reding@kernel.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Krishna Reddy <vdumpa@nvidia.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
+References: <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
+ <20261016-b4-arm32-iommu-dma-cookie-v2-7-b06842a01938@nvidia.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261016-b4-arm32-iommu-dma-cookie-v2-7-b06842a01938@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,386 +66,141 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/i915/dp: drm_dp_mst_topology_mgr_pause() breaks hotplug with 0=
- streams
-- [High] drm/dp_mst: drm_dp_mst_topology_mgr_pause() breaks probe work and =
-edid reads
-- [Medium] drm/dp_mst: suspend and resume conflict with paused state in DP_=
-MSTM_CTRL
---
-
-commit b145319fb5344bbbdb4ae3ece1a54e6f33404fe1
-Author: Xiao Lu <xiaolu.xie@intel.com>
-
-drm/i915/dp: clear and restore MSTM_CTRL around MST DPMS off/on
-
-This commit adds helpers to the DP MST topology manager to pause and
-unpause MST mode in DP_MSTM_CTRL around powering the branch device down
-to D3 on last stream disable and back up to D0 on first stream enable,
-while tracking the paused state to avoid tearing down the topology during
-connector detection and reprobing after unpausing.
-
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
-drm/display/drm_dp_mst_topology.c
-> index b7fce0bf8acc5..371cf88a2d1cf 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-
-[ ... ]
-
-> @@ -3759,6 +3762,104 @@ void drm_dp_mst_topology_queue_probe(struct drm_d=
-p_mst_topology_mgr *mgr)
->  }
->  EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
-> =20
-> +/**
-> + * drm_dp_mst_topology_mgr_pause() - disable the MST mode of the branch =
-device
-> + * @mgr: manager to pause
-> + *
-> + * Disable the MST mode of the branch device, while keeping the MST topo=
-logy
-> + * in the SW state. This is meant to be called when all the MST streams =
-are
-> + * disabled and the branch device is about to be powered down.
-> + *
-> + * The branch device may not send UP messages while it is powered down, =
-so
-> + * after the MST mode is enabled again by drm_dp_mst_topology_mgr_unpaus=
-e(),
-> + * the topology must be re-probed.
-> + */
-> +void drm_dp_mst_topology_mgr_pause(struct drm_dp_mst_topology_mgr *mgr)
-> +{
-> +	mutex_lock(&mgr->lock);
+On 16/10/2026 7:46 am, Mikko Perttunen wrote:
+> iommu_get_default_domain_type() unconditionally forces IDENTITY on
+> 32-bit ARM as ARM_DMA_USE_IOMMU installs its own UNMANAGED domain on top
+> of whatever the group already had. Now that the ARM DMA API state is an
+> ordinary domain cookie, IOMMU drivers can ask for a real
+> IOMMU_DOMAIN_DMA default domain instead. Drop the override so that
+> ->def_domain_type is honoured, and let a driver-requested DMA domain
+> through the !CONFIG_IOMMU_DMA guard when ARM_DMA_USE_IOMMU can back it.
+> 
+> IOMMU_DOMAIN_DMA stays strictly opt-in on 32-bit ARM and is never the
+> fallback to avoid unexpected changes, as drivers today return 0 from
+> ->def_domain_type while expecting the legacy behaviour.
+> 
+> Behaviour is therefore unchanged for every existing 32-bit ARM IOMMU
+> driver:
+> 
+> - exynos-iommu, omap-iommu, rockchip-iommu, msm_iommu, ipmmu-vmsa,
+>    mtk_iommu*, sun50i-iommu and qcom_iommu have no ->def_domain_type,
+>    so iommu_get_def_domain_type() returns the unchanged cur_type of 0,
+>    which is forced to IDENTITY as before.
+> - arm-smmu returns IDENTITY for legacy bindings and 0 otherwise, which
+>    ends up in the same place.
+> - tegra-smmu returns IDENTITY explicitly, and keeps doing so until a
+>    later patch.
+> 
+> Also move the static_assert on the two DMA API implementations being
+> mutually exclusive to drivers/iommu/dma-iommu.h, next to the
+> declarations that depend on it.
+> 
+> Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> ---
+>   drivers/iommu/dma-iommu.h |  3 +++
+>   drivers/iommu/iommu.c     | 20 +++++---------------
+>   2 files changed, 8 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/iommu/dma-iommu.h b/drivers/iommu/dma-iommu.h
+> index 71b23cb698c0..24fa4165450f 100644
+> --- a/drivers/iommu/dma-iommu.h
+> +++ b/drivers/iommu/dma-iommu.h
+> @@ -12,6 +12,9 @@
+>    * IOMMU_DOMAIN_DMA default domains. Only one provider can be compiled in at a
+>    * time.
+>    */
+> +static_assert(!(IS_ENABLED(CONFIG_IOMMU_DMA) &&
+> +		IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)));
 > +
-> +	if (!mgr->mst_state || !mgr->mst_primary || mgr->paused)
-> +		goto out_unlock;
-> +
-> +	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
-> +				   DP_UPSTREAM_IS_SRC) =3D=3D 0)
-> +		mgr->paused =3D true;
-> +
-> +out_unlock:
-> +	mutex_unlock(&mgr->lock);
-> +}
-> +EXPORT_SYMBOL(drm_dp_mst_topology_mgr_pause);
 
-[Severity: High]
-Can clearing DP_MST_EN in drm_dp_mst_topology_mgr_pause() cause sideband
-timeouts and wipe connector modes when mgr->work or EDID reads run while
-paused?
+Don't the first couple of patches already make this redundant, since 
+such a build would now fail anyway due to multiple definitions of 
+iommu_setup_dma_ops() etc.?
 
-Unlike drm_dp_mst_topology_mgr_suspend(), drm_dp_mst_topology_mgr_pause()
-does not flush mgr->work (drm_dp_mst_link_probe_work()) or
-mgr->up_req_work, and drm_dp_mst_link_probe_work() only checks
-mgr->mst_primary without checking mgr->paused:
+>   #if defined(CONFIG_ARM_DMA_USE_IOMMU)
+>   
+>   #include <asm/dma-iommu.h>
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index 5fbb76d44a1e..0d812c4b9f08 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -1884,18 +1884,6 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
+>   
+>   	lockdep_assert_held(&group->mutex);
+>   
+> -	/*
+> -	 * ARM32 drivers supporting CONFIG_ARM_DMA_USE_IOMMU can declare an
+> -	 * identity_domain and it will automatically become their default
+> -	 * domain. Later on ARM_DMA_USE_IOMMU will install its UNMANAGED domain.
+> -	 * Override the selection to IDENTITY.
+> -	 */
+> -	if (IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)) {
+> -		static_assert(!(IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU) &&
+> -				IS_ENABLED(CONFIG_IOMMU_DMA)));
+> -		driver_type = IOMMU_DOMAIN_IDENTITY;
+> -	}
+> -
+>   	for_each_group_device(group, gdev) {
+>   		driver_type = iommu_get_def_domain_type(group, gdev->dev,
+>   							driver_type);
+> @@ -1913,11 +1901,13 @@ static int iommu_get_default_domain_type(struct iommu_group *group,
+>   
+>   	/*
+>   	 * If the common dma ops are not selected in kconfig then we cannot use
+> -	 * IOMMU_DOMAIN_DMA at all. Force IDENTITY if nothing else has been
+> -	 * selected.
+> +	 * IOMMU_DOMAIN_DMA at all, unless this is ARM32 and the driver asked
+> +	 * for it explicitly, where CONFIG_ARM_DMA_USE_IOMMU provides the
+> +	 * implementation. Force IDENTITY if nothing else has been selected.
+>   	 */
+>   	if (!IS_ENABLED(CONFIG_IOMMU_DMA)) {
+> -		if (WARN_ON(driver_type == IOMMU_DOMAIN_DMA))
+> +		if (WARN_ON(driver_type == IOMMU_DOMAIN_DMA &&
+> +			    !IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)))
 
-drivers/gpu/drm/display/drm_dp_mst_topology.c:drm_dp_mst_link_probe_work() {
-	mutex_lock(&mgr->lock);
-	clear_payload_id_table =3D !mgr->payload_id_table_cleared;
-	mgr->payload_id_table_cleared =3D true;
+This ends up looking a bit odd, and not clear that it's still more or 
+less the same special-case workaround seemingly being removed in the 
+hunk above.
 
-	mstb =3D mgr->mst_primary;
-	if (mstb) {
-		ret =3D drm_dp_mst_topology_try_get_mstb(mstb);
-		if (!ret)
-			mstb =3D NULL;
-	}
-	mutex_unlock(&mgr->lock);
-}
+At this point I'd rather push any remaining identity special cases into 
+the relevant drivers, however I'm somewhat more confident that there may 
+not actually need to be any:
 
-Because mst_stream_pre_enable() queues mgr->work asynchronously via
-intel_mst_reprobe_topology() -> drm_dp_mst_topology_queue_probe(), if the
-stream is disabled before mgr->work finishes, DP_MST_EN is cleared
-underneath drm_dp_mst_link_probe_work(). In-flight sideband messages then
-time out in drm_dp_mst_wait_tx_reply(), which can leave
-mstb->link_address_sent or port PBN state incomplete or unlink ports in
-drm_dp_mst_handle_link_address_port().
+- exynos-iommu, omap-iommu, rockchip-iommu, msm_iommu: AFAICS these all 
+only ever have a single client device, so the per-group implicit domain 
+should be equivalent to the per-device explicit one, so they should not 
+be impacted by switching (provided the "throw away the ARM domain" idiom 
+in some of their client drivers becomes non-destructive as mentioned)
 
-Similarly, while mgr->paused is true during DPMS off, if userspace or
-hotplug handling probes a connected physical MST port (port_num < 8, where
-port->cached_edid is NULL):
+- mtk_iommu, sun50i-iommu, qcom_iommu, arm_smmu: While Kconfig might 
+allow building them, I'm not sure we really support the first 3 on 
+32-bit at all, but again since these all have no special CONFIG_ARM 
+group handling anyway then either they must work out as above or they're 
+already broken, and thus at most the change might un-break them.
 
-  drm_helper_probe_single_connector_modes()
-    -> mst_connector_get_modes()
-      -> mst_connector_get_ddc_modes()
-        -> drm_dp_mst_edid_read()
-          -> drm_edid_read_ddc(connector, &port->aux.ddc)
-            -> drm_dp_mst_i2c_xfer()
+- mtk_iommu_v1 and ipmmu-vmsa probably wouldn't care given that they end 
+up attaching to their own shared domain anyway - they just can't wait to 
+be able to use a proper singleton group to rip all that out :D
 
-this sends DP_REMOTE_I2C_READ sideband requests while DP_MST_EN is 0 and
-the branch device is in D3. Each attempt stalls for 4000 ms in
-drm_dp_mst_wait_tx_reply() while holding mode_config.mutex and returns
-NULL, causing mst_connector_get_ddc_modes() to pass NULL to
-intel_connector_update_modes() and wipe the connector's EDID and native
-modes.
+The main reason for forcing identity was to meet the expectations of the 
+existing ARM DMA ops setup, but if we're now touching the ARM code to 
+properly tie that in to the IOMMU flow, then I think we can just do the 
+right thing.
 
-> +
-> +/**
-> + * drm_dp_mst_topology_mgr_unpause() - re-enable the MST mode of the bra=
-nch device
-> + * @mgr: manager to unpause
-> + *
-> + * Re-enable the MST mode of the branch device disabled by
-> + * drm_dp_mst_topology_mgr_pause(). Does nothing if the manager isn't pa=
-used.
-> + *
-> + * Returns %true if the manager was paused. In this case the MST topology
-> + * should be re-probed with drm_dp_mst_topology_queue_probe(), once the =
-link
-> + * parameters to the branch device are set up.
-> + */
-> +bool drm_dp_mst_topology_mgr_unpause(struct drm_dp_mst_topology_mgr *mgr)
-> +{
-> +	bool was_paused =3D false;
-> +
-> +	mutex_lock(&mgr->lock);
-> +
-> +	if (!mgr->paused)
-> +		goto out_unlock;
-> +
-> +	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
-> +				   DP_MST_EN | DP_UP_REQ_EN |
-> +				   DP_UPSTREAM_IS_SRC) =3D=3D 0) {
-> +		mgr->paused =3D false;
-> +		was_paused =3D true;
-> +	}
-> +
-> +out_unlock:
-> +	mutex_unlock(&mgr->lock);
-> +
-> +	return was_paused;
-> +}
-> +EXPORT_SYMBOL(drm_dp_mst_topology_mgr_unpause);
-> +
-> +/**
-> + * drm_dp_mst_topology_mgr_verify_ctrl() - verify the MST mode of the br=
-anch device
-> + * @mgr: manager to verify
-> + *
-> + * Verify that the MST mode enabled in the branch device matches the man=
-ager's
-> + * state. A long HPD pulse could've reset the branch device's MST mode, =
-which
-> + * requires tearing down and recreating the MST topology.
-> + *
-> + * Returns %true if the branch device's MST mode matches the manager's s=
-tate,
-> + * %false otherwise.
-> + */
-> +bool drm_dp_mst_topology_mgr_verify_ctrl(struct drm_dp_mst_topology_mgr =
-*mgr)
-> +{
-> +	u8 expected, val =3D 0;
-> +	int ret;
-> +
-> +	mutex_lock(&mgr->lock);
-> +
-> +	expected =3D mgr->paused ? DP_UPSTREAM_IS_SRC :
-> +		   DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC;
-> +
-> +	ret =3D drm_dp_dpcd_read_byte(mgr->aux, DP_MSTM_CTRL, &val);
-> +
-> +	mutex_unlock(&mgr->lock);
-> +
-> +	if (ret < 0 || val !=3D expected) {
-> +		drm_dbg_kms(mgr->dev,
-> +			    "%s: MSTM_CTRL mismatch (ret=3D%d, ctrl=3D0x%02x, expected=3D0x%0=
-2x)\n",
-> +			    mgr->aux->name, ret, val, expected);
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +EXPORT_SYMBOL(drm_dp_mst_topology_mgr_verify_ctrl);
-> +
->  /**
->   * drm_dp_mst_topology_mgr_suspend() - suspend the MST manager
->   * @mgr: manager to suspend
-> @@ -3828,6 +3929,8 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_ms=
-t_topology_mgr *mgr,
->  		goto out_fail;
->  	}
-> =20
-> +	mgr->paused =3D false;
-> +
->  	/* Some hubs forget their guids after they resume */
->  	ret =3D drm_dp_dpcd_read_data(mgr->aux, DP_GUID, buf, sizeof(buf));
->  	if (ret < 0) {
+Thanks,
+Robin.
 
-[Severity: Medium]
-How do drm_dp_mst_topology_mgr_suspend() and
-drm_dp_mst_topology_mgr_resume() interact with mgr->paused and the D3/D0
-power state transitions during system suspend and resume?
+>   			return -1;
+>   		if (!driver_type)
+>   			driver_type = IOMMU_DOMAIN_IDENTITY;
+> 
 
-During system suspend in __intel_display_driver_pm_suspend():
-
-  drm_atomic_helper_suspend()
-    -> intel_ddi_post_disable_dp()
-      -> drm_dp_mst_topology_mgr_pause()
-      -> intel_dp_set_power(intel_dp, DP_SET_POWER_D3)
-  intel_dp_mst_suspend()
-    -> drm_dp_mst_topology_mgr_suspend()
-
-drm_dp_mst_topology_mgr_suspend() unconditionally writes
-DP_MST_EN | DP_UPSTREAM_IS_SRC to DP_MSTM_CTRL after
-intel_ddi_post_disable_dp() has already paused the manager and put the
-branch device into D3, re-enabling DP_MST_EN in D3 and leaving
-DP_MSTM_CTRL out of sync with mgr->paused =3D=3D true.
-
-Then during system resume in intel_display_driver_pm_resume(),
-intel_dp_mst_resume() -> drm_dp_mst_topology_mgr_resume() runs before
-__intel_display_driver_resume() commits the restored modeset state.
-drm_dp_mst_topology_mgr_resume() writes
-DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC to DP_MSTM_CTRL, sets
-mgr->paused =3D false, and runs mgr->work while the sink is still in D3
-prior to intel_dp_set_power(intel_dp, DP_SET_POWER_D0) and link training.
-
-When __intel_display_driver_resume() subsequently calls
-mst_stream_pre_enable(), drm_dp_mst_topology_mgr_unpause() sees
-mgr->paused =3D=3D false and returns was_paused =3D false, skipping both the
-post-D0 DP_MSTM_CTRL write and the forced post-link-training reprobe in
-intel_mst_reprobe_topology(). And if all MST streams were in DPMS off
-before suspend, __intel_display_driver_resume() enables no streams,
-leaving the branch device in D3 with DP_MST_EN set and
-mgr->paused =3D=3D false.
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
-915/display/intel_ddi.c
-> index a46ab5d3d70fc..9d918f968617a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -3163,6 +3163,8 @@ static void intel_ddi_post_disable_dp(struct intel_=
-atomic_state *state,
->  	 * Power down sink before disabling the port, otherwise we end
->  	 * up getting interrupts from the sink on detecting link loss.
->  	 */
-> +	if (is_mst)
-> +		drm_dp_mst_topology_mgr_pause(&intel_dp->mst.mgr);
->  	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
-> =20
->  	if (DISPLAY_VER(display) >=3D 12) {
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
-m/i915/display/intel_dp_mst.c
-> index 7023619aaaba9..2e3a2424d0e5a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -1232,9 +1232,11 @@ static void intel_mst_set_probed_link_params(struc=
-t intel_dp *intel_dp,
->  }
-> =20
->  static void intel_mst_reprobe_topology(struct intel_dp *intel_dp,
-> -				       const struct intel_crtc_state *crtc_state)
-> +				       const struct intel_crtc_state *crtc_state,
-> +				       bool force)
->  {
-> -	if (intel_mst_probed_link_params_valid(intel_dp,
-> +	if (!force &&
-> +	    intel_mst_probed_link_params_valid(intel_dp,
->  					       crtc_state->port_clock, crtc_state->lane_count))
->  		return;
-> =20
-> @@ -1259,6 +1261,7 @@ static void mst_stream_pre_enable(struct intel_atom=
-ic_state *state,
->  		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst.mgr=
-);
->  	int ret;
->  	bool first_mst_stream;
-> +	bool was_paused =3D false;
-> =20
->  	/* MST encoders are bound to a crtc, not to a connector,
->  	 * force the mapping here for get_hw_state.
-> @@ -1270,8 +1273,10 @@ static void mst_stream_pre_enable(struct intel_ato=
-mic_state *state,
->  	drm_WARN_ON(display->drm, DISPLAY_VER(display) >=3D 12 && first_mst_str=
-eam &&
->  		    !intel_dp_mst_is_master_trans(pipe_config));
-> =20
-> -	if (first_mst_stream)
-> +	if (first_mst_stream) {
->  		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
-> +		was_paused =3D drm_dp_mst_topology_mgr_unpause(&intel_dp->mst.mgr);
-> +	}
-> =20
->  	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, t=
-rue);
-> =20
-> @@ -1281,7 +1286,11 @@ static void mst_stream_pre_enable(struct intel_ato=
-mic_state *state,
->  		primary_encoder->pre_enable(state, primary_encoder,
->  					    pipe_config, NULL);
-> =20
-> -		intel_mst_reprobe_topology(intel_dp, pipe_config);
-> +		/*
-> +		 * The branch device may not have sent UP messages while it
-> +		 * was powered down, re-probe the topology to sync it.
-> +		 */
-> +		intel_mst_reprobe_topology(intel_dp, pipe_config, was_paused);
->  	}
-
-[Severity: High]
-Does pausing the MST topology manager on last stream disable break
-downstream monitor hotplug detection whenever zero MST streams are active?
-
-When the last active MST stream is disabled (for example, when the user
-unplugs the last monitor from an MST hub or dock, or disables all outputs
-in userspace), mst_stream_post_disable() calls
-primary_encoder->post_disable() -> intel_ddi_post_disable_dp(), which
-calls drm_dp_mst_topology_mgr_pause(&intel_dp->mst.mgr) (clearing
-DP_MST_EN and DP_UP_REQ_EN in DP_MSTM_CTRL) and puts the sink into D3.
-
-If a monitor is later plugged into the MST hub while zero streams are
-active:
-
-1. Because DP_MST_EN and DP_UP_REQ_EN are cleared and the branch device is
-   in D3, the branch device cannot send DP_CONNECTION_STATUS_NOTIFY UP
-   requests.
-
-2. If a short HPD pulse occurs, intel_dp_check_mst_status() ->
-   drm_dp_mst_hpd_irq_handle_event() sees no DP_UP_REQ_MSG_RDY in ESI.
-
-3. If a long HPD pulse or manual connector probe runs intel_dp_detect(),
-   intel_dp_mst_verify_dpcd_state() ->
-   drm_dp_mst_topology_mgr_verify_ctrl() sees
-   DP_MSTM_CTRL =3D=3D DP_UPSTREAM_IS_SRC matching mgr->paused =3D=3D true =
-and
-   returns true, and intel_dp_mst_configure() ->
-   drm_dp_mst_topology_mgr_set_mst(mgr, true) returns early because
-   mgr->mst_state is already true.
-
-4. On MST connector detection via mst_connector_detect_ctx() ->
-   drm_dp_mst_detect_port(), port->ddps remains 0 for any port that was
-   disconnected.
-
-Because mst_stream_pre_enable() is the only caller of
-drm_dp_mst_topology_mgr_unpause() and intel_mst_reprobe_topology(), and
-userspace cannot commit a modeset when all MST connectors are disconnected
-(or on any newly plugged port whose port->ddps is still 0), how can the
-topology manager ever be unpaused and reprobed to detect the plugged-in
-monitor without physically unplugging and replugging the MST hub itself?
-
-> =20
->  	ret =3D drm_dp_add_payload_part1(&intel_dp->mst.mgr, mst_state,
-
-[ ... ]
-
->
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020110418.1272=
-170-1-xiaolu.xie@intel.com?part=3D1
