@@ -2,45 +2,144 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0457E606A320
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 10:27:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832F5606A323
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 10:28:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+LBB7Lk
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=hXS4GAtK;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Mb6ZslLm;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=N9xJhYiO;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LvjLPjt6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ED5F10F483;
-	Tue, 20 Oct 2026 10:27:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 700CB10F483;
- Tue, 20 Oct 2026 10:27:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 308524400F;
- Tue, 20 Oct 2026 10:27:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42B21F000C7;
- Tue, 20 Oct 2026 10:27:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792492039;
- bh=3chU6oP5fGM8h96OrIheQ+HBD3rk0HtVL/oaoy0nLhU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c+LBB7LkJ2SOe1mcIUOf1o+KVWTJr3GIMjgUZYPKFkE5PAfjzSowsarcv45/U+M1K
- hdCPqP2NmmBlWQDqQOz/bStRVN37dKKHVvFro2JrfxTenPUeEPCaalIrxh3ngvVv7p
- Euss8VAv2ClGtc1K/F+MHSmVXpcUfkL7ZeNI1izIkY8tg0/sozc/W4cafK6uNcAX4m
- aMsxe49VpmNR0KqqXgsJBrrFH+WmyC135K57ip/z7oF6G+pPNU8y5PxHAIlTPcHIQ0
- SLC0S4UA/68fNR7DVxAvDUpwqv99XZgOwEI7aByHVak4eq5m7tKVElMYHgIhb9Dfw8
- EIn5gfIGeR/Tg==
-Message-ID: <sashiko-outbox-178830@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 3/3] dma-fence: Support unload for
- ops->get_XXX_name()
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-trace-kernel@vger.kernel.org, media-ci@linuxtv.org, ojeda@kernel.org,
- gary@garyguo.net
-In-Reply-To: <20261020100034.759183-5-phasta@kernel.org>
-References: <20261020100034.759183-2-phasta@kernel.org>
- <20261020100034.759183-5-phasta@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 10:27:18 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6EB310F4CC;
+	Tue, 20 Oct 2026 10:28:18 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A797E10F4B7
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 10:28:07 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F40911F7B9;
+ Tue, 20 Oct 2026 10:28:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792492086; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4mAto2tAg3ekY+l0CP32+yY10IkM5CaLzzTTpdKNGQw=;
+ b=hXS4GAtKZ7QpiDfTJLzzgtGGdEAlDIoUDvix1NoV5CnQrNbGEBgzLnALgoWhayPfz8XuNP
+ VsmJ4EhiAHYc895iCL+FyrgqO8OPVqzOGkLcX4UdctI2F9l/HFQgseK89Q3DaV611oWrAH
+ qC/PEId3+t4BkVXcEQT6PEeXu+URTxU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792492086;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4mAto2tAg3ekY+l0CP32+yY10IkM5CaLzzTTpdKNGQw=;
+ b=Mb6ZslLmc+ULpjmajLbFgCxytXTp5S89rF1Oa4Ds9UxcpXKTyVvYLfyL/dzF+Q/fil1VMW
+ 9tjAN83ovkUq1pCw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792492085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4mAto2tAg3ekY+l0CP32+yY10IkM5CaLzzTTpdKNGQw=;
+ b=N9xJhYiO8YsChnY2Tv0Abz9hFmpTkg7Emo+p9Okk0PirEzBo3wXdlVf8IciZAghGHZfLrM
+ GOuK+rW7HJDIQ0xOKb9Cj+4Qn8yjxKrAVs4mYATRRga5dFSgrlxBqVzB+wICaZa139IWwv
+ mBSRgo8/TFhkgWeMVccDWtvZdP206ZQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792492085;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4mAto2tAg3ekY+l0CP32+yY10IkM5CaLzzTTpdKNGQw=;
+ b=LvjLPjt6xK0mLPUI/pNM87xp8NyP6qZjLbUGYyKphqjm9GCV9Nco68NkEihUCE5I8xU4J/
+ 5jrblggk7nN5W6Aw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4484D136CC;
+ Tue, 20 Oct 2026 10:28:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 5XoENzNC12o7PwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 10:28:04 +0000
+Message-ID: <fafa7327-e624-49f2-98b2-83fd602a0ad7@suse.de>
+Date: Tue, 20 Oct 2026 12:28:03 +0200
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 03/13] drm: client: add splash client
+To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: Francesco Valla <francesco@valla.it>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261013093243.505776-1-maximpedraza@gmail.com>
+ <20261013093243.505776-4-maximpedraza@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261013093243.505776-4-maximpedraza@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.79
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.79 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; TAGGED_RCPT(0.00)[dt];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[25];
+ FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ valla.it:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,418 +150,1377 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [Critical] dma-fence: use-after-free on extern_lock in dma_fence_driver_n=
-ame()
-- [High] dma-fence: uninitialized locals in dma_fence_describe() when signa=
-led
-- [High] dma-fence: recursive spinlock deadlock via trace_dma_fence_destroy=
-()
-- [High] drm/i915: rq->lock ABBA deadlock in i915_request_show()
-- [Low] dma-fence: stack VLAs in dma_fence and i915 fence name callers
-- [Low] dma-fence: leftover rcu_read_lock() and outdated kernel-doc in name=
- helpers
---
+Hi
 
-commit 9ca3a4e9e4ca7aa50b6bddada4c64fc3ed8e2861
-Author: Philipp Stanner <phasta@kernel.org>
-
-dma-fence: Support unload for ops->get_XXX_name()
-
-This commit replaces the RCU-protected return values of
-dma_fence_driver_name() and dma_fence_timeline_name() with callers
-passing destination buffers that are populated under the fence lock.
-
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index e4350bce9cf9b..d473d4ea601a7 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -555,23 +555,22 @@ void dma_fence_release(struct kref *kref)
->  	struct dma_fence *fence =3D
->  		container_of(kref, struct dma_fence, refcount);
->  	const struct dma_fence_ops *ops =3D fence->ops;
-> +	const unsigned short len =3D 64;
-> +	char timeline[len];
-> +	char driver[len];
-
-[Severity: Low]
-In C11/gnu11, a const-qualified variable is not an integer constant
-expression, so does declaring timeline[len] and driver[len] create stack
-VLAs that trigger compiler warnings (and build failures with CONFIG_WERROR
-or CONFIG_DRM_I915_WERROR) under -Wvla-larger-than=3D1 in
-scripts/Makefile.warn?
-
-The same pattern appears in dma_fence_describe(), intel_gt_watchdog_work(),
-i915_request_show(), and timer_i915_sw_fence_wake(). Also, in
-dma_fence_release(), these buffers were moved out of the unlikely error
-block to the top of the function.
-
-> =20
-> -	rcu_read_lock();
->  	trace_dma_fence_destroy(fence);
-
-[ ... ]
-
-> @@ -1017,23 +1015,20 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
->   */
->  void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
->  {
-> -	const char __rcu *timeline =3D (const char __rcu *)"";
-> -	const char __rcu *driver =3D (const char __rcu *)"";
-> -	const char *signaled =3D "";
-> -
-> -	rcu_read_lock();
-> +	const unsigned short len =3D 64;
-> +	char timeline[len];
-> +	char driver[len];
-> +	char *signaled;
-> =20
->  	if (!dma_fence_is_signaled(fence)) {
-> -		timeline =3D dma_fence_timeline_name(fence);
-> -		driver =3D dma_fence_driver_name(fence);
-> +		dma_fence_timeline_name(fence, timeline, len);
-> +		dma_fence_driver_name(fence, driver, len);
->  		signaled =3D "un";
->  	}
-> =20
->  	seq_printf(seq, "%llu:%llu %s %s %ssignalled\n",
->  		   fence->context, fence->seqno, timeline, driver,
->  		   signaled);
-> -
-> -	rcu_read_unlock();
->  }
->  EXPORT_SYMBOL(dma_fence_describe);
-
-[Severity: High]
-What happens in dma_fence_describe() when dma_fence_is_signaled(fence)
-returns true?
-
-Previously, timeline, driver, and signaled were initialized to "" at
-declaration. Now they are only assigned inside the
-if (!dma_fence_is_signaled(fence)) block. When the fence is already
-signaled, won't seq_printf() dereference the uninitialized stack pointer
-signaled and read the uninitialized stack arrays timeline and driver?
-
-Also, if the fence signals concurrently right after
-!dma_fence_is_signaled(fence) evaluates to true,
-dma_fence_timeline_name() and dma_fence_driver_name() will populate
-"signaled-timeline" and "detached-driver" while signaled is set to "un".
-
-> @@ -1129,20 +1124,22 @@ EXPORT_SYMBOL(dma_fence_init64);
->   * memory potentially accessed by the &dma_fence.ops functions, is forbi=
-dden
->   * after the fence has been signalled. Drivers are allowed to free that =
-data,
->   * and some do.
-> - *
-> - * To allow safe access drivers are mandated to guarantee a RCU grace pe=
-riod
-> - * between signalling the fence and freeing said data.
-> - *
-> - * As such access to the driver name is only valid inside a RCU locked s=
-ection.
-> - * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block =
-guarded
-> - * by the &rcu_read_lock and &rcu_read_unlock pair.
->   */
-> -const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
-> +void dma_fence_driver_name(struct dma_fence *fence, char *s, unsigned sh=
-ort len)
->  {
-> +	unsigned long flags;
-> +	const char *tmp;
-> +
-> +	dma_fence_lock_irqsave(fence, flags);
-> +
->  	if (!dma_fence_test_signaled_flag(fence))
-> -		return (const char __rcu *)fence->ops->get_driver_name(fence);
-> +		tmp =3D fence->ops->get_driver_name(fence);
->  	else
-> -		return (const char __rcu *)"detached-driver";
-> +		tmp =3D "detached-driver";
-> +
-> +	strscpy(s, tmp, len);
-> +
-> +	dma_fence_unlock_irqrestore(fence, flags);
->  }
->  EXPORT_SYMBOL(dma_fence_driver_name);
-> =20
-> @@ -1158,19 +1155,21 @@ EXPORT_SYMBOL(dma_fence_driver_name);
->   * memory potentially accessed by the &dma_fence.ops functions, is forbi=
-dden
->   * after the fence has been signalled. Drivers are allowed to free that =
-data,
->   * and some do.
-> - *
-> - * To allow safe access drivers are mandated to guarantee a RCU grace pe=
-riod
-> - * between signalling the fence and freeing said data.
-> - *
-> - * As such access to the driver name is only valid inside a RCU locked s=
-ection.
-> - * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block =
-guarded
-> - * by the &rcu_read_lock and &rcu_read_unlock pair.
->   */
-> -const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
-> +void dma_fence_timeline_name(struct dma_fence *fence, char *s, unsigned =
-short len)
->  {
-> +	unsigned long flags;
-> +	const char *tmp;
-> +
-> +	dma_fence_lock_irqsave(fence, flags);
-> +
->  	if (!dma_fence_test_signaled_flag(fence))
-> -		return (const char __rcu *)fence->ops->get_timeline_name(fence);
-> +		tmp =3D fence->ops->get_timeline_name(fence);
->  	else
-> -		return (const char __rcu *)"signaled-timeline";
-> +		tmp =3D "signaled-timeline";
-> +
-> +	strscpy(s, tmp, len);
-> +
-> +	dma_fence_unlock_irqrestore(fence, flags);
->  }
->  EXPORT_SYMBOL(dma_fence_timeline_name);
-
-[Severity: Critical]
-Is it safe for dma_fence_driver_name() and dma_fence_timeline_name() to
-unconditionally acquire dma_fence_lock_irqsave(fence, flags) before
-checking if the fence is already signaled?
-
-As noted in the kernel-doc comment above these functions, external memory
-not embedded in struct dma_fence (including fence->extern_lock) must not
-be accessed after the fence has signaled because drivers are allowed to
-free the structure containing the lock once the fence is signaled:
-
-  drivers/gpu/drm/panthor/panthor_sched.c:group_free_queue()
-    dma_fence_put(queue->fence_ctx.last_fence);
-    kfree(queue); /* frees queue->fence_ctx.lock */
-
-  drivers/gpu/drm/msm/msm_fence.c:msm_fence_context_free()
-    kfree(fctx); /* frees fctx->spinlock */
-
-  drivers/gpu/drm/xe/xe_hw_fence.c:xe_hw_fence_irq_finish()
-    synchronize_rcu(); /* before freeing irq containing irq->lock */
-
-If a signaled fence is still held (for example in a sync_file) after the
-driver frees the structure containing fence->extern_lock, and userspace
-calls SYNC_IOC_FILE_INFO -> sync_fill_fence_info() ->
-dma_fence_timeline_name(), won't dma_fence_lock_irqsave() dereference and
-modify the freed spinlock?
-
-[Severity: High]
-Can acquiring dma_fence_lock_irqsave() inside dma_fence_driver_name() and
-dma_fence_timeline_name() also cause a recursive spinlock deadlock when
-trace_dma_fence_destroy is enabled?
-
-In dma_fence_release(), trace_dma_fence_destroy(fence) is invoked when the
-refcount drops to zero, which calls dma_fence_driver_name() and
-dma_fence_timeline_name() in TP_fast_assign():
-
-  dma_fence_put(fence)
-    -> dma_fence_release()
-      -> trace_dma_fence_destroy(fence)
-        -> dma_fence_driver_name()
-          -> dma_fence_lock_irqsave(fence, flags)
-
-However, several paths in the kernel call dma_fence_put() while already
-holding the fence's spinlock:
-
-1. dma_fence_signal_timestamp_locked() holds dma_fence_spinlock(fence)
-   while invoking callbacks such as dma_fence_chain_cb(), which calls
-   dma_fence_put(f).
-
-2. Drivers with shared external fence locks call dma_fence_put() while
-   holding that lock, such as virtio_gpu_fence_event_process() (holding
-   drv->lock), nouveau_fence_signal() (holding fctx->lock), and
-   hw_fence_irq_run_cb() (holding irq->lock).
-
-If the last reference is dropped on any of these paths while the
-dma_fence_destroy tracepoint is active, won't dma_fence_lock_irqsave()
-deadlock trying to acquire the already-held lock on the same CPU?
-
-[Severity: Low]
-Also, should the kernel-doc comments for dma_fence_driver_name() and
-dma_fence_timeline_name() in drivers/dma-buf/dma-fence.c be updated to
-document the new @s and @len parameters and void return, as well as the
-get_driver_name and get_timeline_name comments in struct dma_fence_ops in
-include/linux/dma-fence.h (which still state that the returned string is
-RCU protected) and the leftover rcu_read_lock() wrappers around
-trace_dma_fence_wait_start() and trace_dma_fence_wait_end() in
-dma_fence_wait_timeout()?
-
-> diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
-> index 2166bbdf7e4a4..0f08713b3b5e2 100644
-> --- a/drivers/dma-buf/sync_file.c
-> +++ b/drivers/dma-buf/sync_file.c
-
-[ ... ]
-
-> @@ -268,19 +269,11 @@ static long sync_file_ioctl_merge(struct sync_file =
-*sync_file,
->  static int sync_fill_fence_info(struct dma_fence *fence,
->  				 struct sync_fence_info *info)
->  {
-> -	const char __rcu *timeline;
-> -	const char __rcu *driver;
-> +	dma_fence_timeline_name(fence, info->obj_name, sizeof(info->obj_name));
-> +	dma_fence_driver_name(fence, info->driver_name, sizeof(info->driver_nam=
-e));
-> =20
->  	rcu_read_lock();
-> =20
-> -	driver =3D dma_fence_driver_name(fence);
-> -	timeline =3D dma_fence_timeline_name(fence);
-> -
-> -	strscpy(info->obj_name, rcu_dereference(timeline),
-> -		sizeof(info->obj_name));
-> -	strscpy(info->driver_name, rcu_dereference(driver),
-> -		sizeof(info->driver_name));
-> -
->  	info->status =3D dma_fence_get_status(fence);
->  	info->timestamp_ns =3D
->  		dma_fence_is_signaled(fence) ?
-
-[Severity: Low]
-In sync_fill_fence_info(), now that dma_fence_timeline_name() and
-dma_fence_driver_name() have been moved outside the RCU critical section,
-is the remaining rcu_read_lock() / rcu_read_unlock() pair around
-dma_fence_get_status() and dma_fence_is_signaled() still needed?
-
-> diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i=
-915_request.c
-> index f66f8efc70629..ce9aff50c0885 100644
-> --- a/drivers/gpu/drm/i915/i915_request.c
-> +++ b/drivers/gpu/drm/i915/i915_request.c
-> @@ -2183,7 +2183,8 @@ void i915_request_show(struct drm_printer *m,
->  		       const char *prefix,
->  		       int indent)
->  {
-> -	const char __rcu *timeline;
-> +	const unsigned short len =3D 64;
-> +	char timeline[len];
->  	char buf[80] =3D "";
->  	int x =3D 0;
-> =20
-> @@ -2219,8 +2220,7 @@ void i915_request_show(struct drm_printer *m,
-> =20
->  	x =3D print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
-> =20
-> -	rcu_read_lock();
-> -	timeline =3D dma_fence_timeline_name((struct dma_fence *)&rq->fence);
-> +	dma_fence_timeline_name((struct dma_fence *)&rq->fence, timeline, len);
->  	drm_printf(m, "%s%.*s%c %llx:%lld%s%s %s @ %dms: %s\n",
->  		   prefix, indent, "                ",
->  		   queue_status(rq),
-> @@ -2229,8 +2229,7 @@ void i915_request_show(struct drm_printer *m,
->  		   fence_status(rq),
->  		   buf,
->  		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
-> -		   rcu_dereference(timeline));
-> -	rcu_read_unlock();
-> +		   timeline);
->  }
-> =20
->  static bool engine_match_ring(struct intel_engine_cs *engine, struct i91=
-5_request *rq)
-
-[Severity: High]
-Does calling dma_fence_timeline_name() in i915_request_show() introduce a
-lock ordering inversion between rq->lock and sched_engine->lock (or
-ce->guc_state.lock)?
-
-Each i915_request initializes rq->fence with &rq->lock. During request
-signaling in i915_request_retire() and signal_irq_work(), rq->lock is held
-while invoking fence callbacks:
-
-  i915_request_retire() / signal_irq_work() [holds rq->lock]
-    -> dma_fence_signal_locked(&rq->fence)
-      -> dma_i915_sw_fence_wake()
-        -> submit_notify()
-          -> execlists_submit_request() [acquires sched_engine->lock]
-          -> guc_submit_request() [acquires ce->guc_state.lock]
-
-However, i915_request_show() is called while holding sched_engine->lock or
-ce->guc_state.lock in paths such as:
-
-  intel_execlists_show_requests() / intel_execlists_dump_active_requests() =
-[holds sched_engine->lock]
-    -> i915_request_show()
-      -> dma_fence_timeline_name() [acquires rq->lock]
-
-  intel_guc_dump_active_requests() [holds ce->guc_state.lock]
-    -> intel_engine_dump_active_requests()
-      -> engine_dump_request()
-        -> i915_request_show()
-          -> dma_fence_timeline_name() [acquires rq->lock]
-
-Can this cause an AB-BA deadlock when engine state is dumped concurrently
-with request retirement or breadcrumb signaling?
-
-[ ... ]
-
-> diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_=
-fence.h
-> index 5b10a9e06fb4e..f3b929b98cf42 100644
-> --- a/include/trace/events/dma_fence.h
-> +++ b/include/trace/events/dma_fence.h
-> @@ -9,6 +9,8 @@
-> =20
->  struct dma_fence;
-> =20
-> +#define FENCE_NAME_LEN 64
-> +
->  DECLARE_EVENT_CLASS(dma_fence,
-> =20
->  	TP_PROTO(struct dma_fence *fence),
-> @@ -16,21 +18,21 @@ DECLARE_EVENT_CLASS(dma_fence,
->  	TP_ARGS(fence),
-> =20
->  	TP_STRUCT__entry(
-> -		__string(driver, dma_fence_driver_name(fence))
-> -		__string(timeline, dma_fence_timeline_name(fence))
-> +		__array(char, driver, FENCE_NAME_LEN)
-> +		__array(char, timeline, FENCE_NAME_LEN)
->  		__field(unsigned int, context)
->  		__field(unsigned int, seqno)
->  	),
-> =20
->  	TP_fast_assign(
-> -		__assign_str(driver);
-> -		__assign_str(timeline);
-> +		dma_fence_driver_name(fence, __entry->driver, FENCE_NAME_LEN);
-> +		dma_fence_timeline_name(fence, __entry->timeline, FENCE_NAME_LEN);
->  		__entry->context =3D fence->context;
->  		__entry->seqno =3D fence->seqno;
->  	),
-
-[Severity: High]
-As noted above in dma_fence_driver_name(), calling dma_fence_driver_name()
-and dma_fence_timeline_name() inside TP_fast_assign() acquires the fence
-spinlock during trace_dma_fence_destroy(fence), which can deadlock when
-dma_fence_put() is called under the fence lock.
-
-> =20
->  	TP_printk("driver=3D%s timeline=3D%s context=3D%u seqno=3D%u",
-> -		  __get_str(driver), __get_str(timeline), __entry->context,
-> +		  __entry->driver, __entry->timeline, __entry->context,
->  		  __entry->seqno)
->  );
+Am 13.10.26 um 11:32 schrieb Màxim Pedraza Padilla:
+> From: Francesco Valla <francesco@valla.it>
 >
+> Add a DRM client that draws a simple splash, with possibility to show:
+>
+>    - the logo provided by EFI BGRT;
+>    - a static BMP image (loaded as firmware);
+>    - a colored background.
+>
+> The client is not meant to replace a full-featured bootsplash, but
+> rather to remove some complexity (and hopefully boot time) on small
+> embedded platforms or on systems with a limited scope (e.g: recovery
+> or manufacturing images).
+>
+> The background color can be set either at build time from a dedicated
+> config option or at runtime through the drm_client_lib.splash_color
+> command line parameter. Any color in RGB888 format can be used.
+>
+> If enabled, the static BMP image is loaded using the kernel firmware
+> infrastructure; a valid BMP image with 24bpp color and no compression
+> is expected. The name of the image can be set through the
+> drm_client_lib.splash_bmp kernel command line parameter, with the
+> default being 'drm_splash.bmp'.
+>
+> Just like the existing DRM clients, the splash can be enabled from the
+> kernel command line using drm_client_lib.active=splash.
+>
+> Signed-off-by: Francesco Valla <francesco@valla.it>
+> [Màxim: fix the render thread never exiting when the BMP firmware is
+>   missing, a lost wake-up, and stopping a thread that had exited, never
+>   existed or failed to start; fix buffers going to the wrong modesets
+>   and tiled groups in drm_splash_init_client(), and take modeset_mutex
+>   there; don't keep an ERR_PTR as a buffer; unmap the image only once;
+>   fix use-after-frees on unbind and in the firmware callback; check the
+>   BMP size without overflowing; indent the Kconfig entry with tabs;
+>   clear the modesets' framebuffers when the scanouts are freed, and
+>   don't restore without any; free the scanouts when setting up fails;
+>   release a firmware that lands after the render thread is done; read
+>   the BGRT through the efi_bgrt_*() accessors; drop "static inline"
+>   from the .c file]
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020100034.7591=
-83-2-phasta@kernel.org?part=3D3
+This lengthy comment should be a list of per-revision changes, like this:
+
+v5:
+- exit when firmware BMP is missing
+- foo
+- bla
+
+and so on. We keep these in the commit message right before the tags.
+
+
+> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+> ---
+>   drivers/gpu/drm/clients/Kconfig               |   63 +-
+>   drivers/gpu/drm/clients/Makefile              |    1 +
+>   drivers/gpu/drm/clients/drm_client_internal.h |    9 +
+>   drivers/gpu/drm/clients/drm_client_setup.c    |    8 +
+>   drivers/gpu/drm/clients/drm_splash.c          | 1031 +++++++++++++++++
+>   5 files changed, 1111 insertions(+), 1 deletion(-)
+>   create mode 100644 drivers/gpu/drm/clients/drm_splash.c
+>
+> diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
+> index 8d8bc37ec9f2..cbe271c3a23f 100644
+> --- a/drivers/gpu/drm/clients/Kconfig
+> +++ b/drivers/gpu/drm/clients/Kconfig
+> @@ -12,6 +12,7 @@ config DRM_CLIENT_LIB
+>   config DRM_CLIENT_SELECTION
+>   	tristate
+>   	depends on DRM
+> +	select DRM_CLIENT_LIB if DRM_CLIENT_SPLASH
+>   	select DRM_CLIENT_LIB if DRM_CLIENT_LOG
+
+Alphabetic order please
+
+>   	select DRM_CLIENT_LIB if DRM_FBDEV_EMULATION
+>   	help
+> @@ -85,10 +86,63 @@ config DRM_CLIENT_LOG
+>   	  If you only need logs, but no terminal, or if you prefer userspace
+>   	  terminal, say "Y".
+>   
+> +config DRM_CLIENT_SPLASH
+> +	bool "Display graphic splash"
+> +	depends on DRM_CLIENT_SELECTION
+> +	select DRM_CLIENT
+> +	select DRM_CLIENT_SETUP
+> +	select DRM_DRAW
+> +	help
+> +	  This enables a splash drm client, able to display either a plain
+> +	  color or a static image until the userspace is ready to take over.
+> +	  The splash will be displayed on all screens available at boot, if
+> +	  any, or on the ones part of the first hotplug event.
+> +
+> +config DRM_CLIENT_SPLASH_BACKGROUND_COLOR
+> +	hex "Splash background color"
+> +	depends on DRM_CLIENT_SPLASH
+> +	default 0x000000
+> +	help
+> +	  The default splash background color, in RGB888 format.
+> +
+> +	  The color can be overridden through the drm_client_lib.splash_color
+> +	  kernel command line parameter.
+
+No extra module parameters please.
+
+> +
+> +config DRM_CLIENT_SPLASH_SRC_BGRT
+> +	bool "EFI BGRT as splash source"
+> +	depends on DRM_CLIENT_SPLASH
+> +	depends on ACPI_BGRT
+> +	select DRM_CLIENT_SPLASH_BMP_SUPPORT
+> +	help
+> +	  Use the BGRT image provided by the EFI bootloader. If the image is
+> +	  smaller than the display(s), it will be centered and the color
+> +	  specified through the DRM_CLIENT_SPLASH_BACKGROUND_COLOR config
+> +	  option will be used as background.
+> +
+> +config DRM_CLIENT_SPLASH_SRC_BMP
+> +	bool "BMP image as splash source"
+> +	depends on DRM_CLIENT_SPLASH
+> +	select DRM_CLIENT_SPLASH_BMP_SUPPORT
+> +	select FW_LOADER
+> +	help
+> +	  Use a BMP (bitmap) image as splash. If the image is smaller than the
+> +	  display(s), it will be centered and the color specified through the
+> +	  DRM_CLIENT_SPLASH_BACKGROUND_COLOR config option will be used as
+> +	  background.
+> +
+> +	  The image will be loaded using the firmware loading facility the
+> +	  kernel provides; it shall use 24 bits per pixel and shall not be
+> +	  compressed. The name of the file can be set through the
+> +	  drm_client_lib.splash_bmp command line parameter, with the default
+> +	  being 'drm_splash.bmp'.
+> +
+> +config DRM_CLIENT_SPLASH_BMP_SUPPORT
+> +	bool
+> +
+>   choice
+>   	prompt "Default DRM Client"
+>   	depends on DRM_CLIENT_SELECTION
+> -	depends on DRM_FBDEV_EMULATION || DRM_CLIENT_LOG
+> +	depends on DRM_FBDEV_EMULATION || DRM_CLIENT_LOG || DRM_CLIENT_SPLASH
+>   	default DRM_CLIENT_DEFAULT_FBDEV
+>   	help
+>   	  Selects the default drm client.
+> @@ -111,6 +165,12 @@ config DRM_CLIENT_DEFAULT_LOG
+>   	  screen, but doesn't implement a full terminal. For that you will need
+>   	  a userspace terminal using drm/kms.
+>   
+> +config DRM_CLIENT_DEFAULT_SPLASH
+> +	bool "splash"
+> +	depends on DRM_CLIENT_SPLASH
+> +	help
+> +	  Use splash as default drm client.
+> +
+>   endchoice
+>   
+>   config DRM_CLIENT_DEFAULT
+> @@ -118,6 +178,7 @@ config DRM_CLIENT_DEFAULT
+>   	depends on DRM_CLIENT
+>   	default "fbdev" if DRM_CLIENT_DEFAULT_FBDEV
+>   	default "log" if DRM_CLIENT_DEFAULT_LOG
+> +	default "splash" if DRM_CLIENT_DEFAULT_SPLASH
+>   	default ""
+>   
+>   endmenu
+> diff --git a/drivers/gpu/drm/clients/Makefile b/drivers/gpu/drm/clients/Makefile
+> index 1304ff358509..b43b1e86fe8e 100644
+> --- a/drivers/gpu/drm/clients/Makefile
+> +++ b/drivers/gpu/drm/clients/Makefile
+> @@ -6,4 +6,5 @@ drm_client_lib-y := drm_client_setup.o
+>   drm_client_lib-$(CONFIG_DRM_CLIENT_LOG) += drm_log.o
+>   drm_client_lib-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fbdev_client.o \
+>   						drm_fbdev_helper.o
+> +drm_client_lib-$(CONFIG_DRM_CLIENT_SPLASH) += drm_splash.o
+>   obj-$(CONFIG_DRM_CLIENT_LIB) += drm_client_lib.o
+> diff --git a/drivers/gpu/drm/clients/drm_client_internal.h b/drivers/gpu/drm/clients/drm_client_internal.h
+> index 6dc078bf6503..48ee0c1c2529 100644
+> --- a/drivers/gpu/drm/clients/drm_client_internal.h
+> +++ b/drivers/gpu/drm/clients/drm_client_internal.h
+> @@ -22,4 +22,13 @@ void drm_log_register(struct drm_device *dev);
+>   static inline void drm_log_register(struct drm_device *dev) {}
+>   #endif
+>   
+> +#ifdef CONFIG_DRM_CLIENT_SPLASH
+> +void drm_splash_register(struct drm_device *dev,
+> +			 const struct drm_format_info *format);
+
+FYI you can use up to 100 characters per line.
+
+> +#else
+> +static inline void drm_splash_register(struct drm_device *dev,
+> +				       const struct drm_format_info *format)
+> +{}
+> +#endif
+> +
+>   #endif
+> diff --git a/drivers/gpu/drm/clients/drm_client_setup.c b/drivers/gpu/drm/clients/drm_client_setup.c
+> index 515aceac22b1..c19498938ee3 100644
+> --- a/drivers/gpu/drm/clients/drm_client_setup.c
+> +++ b/drivers/gpu/drm/clients/drm_client_setup.c
+> @@ -56,6 +56,14 @@ void drm_client_setup(struct drm_device *dev, const struct drm_format_info *form
+>   		return;
+>   	}
+>   #endif
+> +
+> +#ifdef CONFIG_DRM_CLIENT_SPLASH
+> +	if (!strcmp(drm_client_default, "splash")) {
+> +		drm_splash_register(dev, format);
+> +		return;
+> +	}
+> +#endif
+> +
+>   	if (strcmp(drm_client_default, ""))
+>   		drm_warn(dev, "Unknown DRM client %s\n", drm_client_default);
+>   }
+> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
+> new file mode 100644
+> index 000000000000..a7d627954158
+> --- /dev/null
+> +++ b/drivers/gpu/drm/clients/drm_splash.c
+> @@ -0,0 +1,1031 @@
+> +// SPDX-License-Identifier: GPL-2.0 or MIT
+> +/*
+> + * Copyright (c) 2025-2026 Francesco Valla <francesco@valla.it>
+> + */
+> +
+> +#include <linux/atomic.h>
+> +#include <linux/completion.h>
+> +#include <linux/device.h>
+> +#include <linux/efi-bgrt.h>
+> +#include <linux/firmware.h>
+> +#include <linux/init.h>
+> +#include <linux/iosys-map.h>
+> +#include <linux/kthread.h>
+> +#include <linux/module.h>
+> +#include <linux/overflow.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+> +
+> +#include <acpi/actbl1.h>
+> +
+> +#include <drm/drm_client.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_fourcc.h>
+> +#include <drm/drm_framebuffer.h>
+> +#include <drm/drm_plane.h>
+> +#include <drm/drm_print.h>
+> +
+> +#include "drm_client_internal.h"
+> +#include "drm_draw_internal.h"
+> +#include "drm_internal.h"
+> +
+> +/**
+> + * DOC: overview
+> + *
+> + * This is a simple graphic bootsplash, able to display either a plain color or
+> + * a static image.
+> + */
+> +
+> +static unsigned int splash_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
+> +module_param(splash_color, uint, 0400);
+> +MODULE_PARM_DESC(splash_color, "Splash background color (RGB888)");
+
+As I said, no module parameter for colors.  The color is something that 
+the SoC firmware vendor would know at build-time. There is no reason for 
+the user to modify this at runtime.
+
+
+> +
+> +#if IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP)
+> +#define DEFAULT_SPLASH_BMP "drm_splash.bmp"
+> +static char *splash_bmp = DEFAULT_SPLASH_BMP;
+> +module_param(splash_bmp, charp, 0400);
+> +MODULE_PARM_DESC(splash_bmp, "Name of splash image (default: \"" DEFAULT_SPLASH_BMP "\")");
+> +#endif // CONFIG_DRM_CLIENT_SPLASH_SRC_BMP
+
+How could we find out about the bmp's file name? I assume it is just a 
+file in the initfs, which we have to know about?
+
+In any case, this should again not be module parameter. Please make it 
+build-time configurable via Kconfig. This is another setting that users 
+have no reason to override.
+
+
+> +
+> +#define BMP_FILE_MAGIC_ID 0x4d42
+> +
+> +/* BMP header structures copied from drivers/video/fbdev/efifb.c */
+> +struct bmp_file_header {
+> +	__le16 id;
+> +	__le32 file_size;
+> +	__le32 reserved;
+> +	__le32 bitmap_offset;
+> +} __packed;
+> +
+> +struct bmp_dib_header {
+> +	__le32 dib_header_size;
+> +	__le32 width;
+> +	__le32 height;
+> +	__le16 planes;
+> +	__le16 bpp;
+> +	__le32 compression;
+> +	__le32 bitmap_size;
+> +	__le32 horz_resolution;
+> +	__le32 vert_resolution;
+> +	__le32 colors_used;
+> +	__le32 colors_important;
+> +} __packed;
+
+These types are already in efifb.c can we move them into a header file.  
+include/video/bmp.h should work.
+
+> +
+> +struct drm_splash_scanout {
+> +	int id;
+> +	/* Modesets scanning this buffer out, by position in the list */
+> +	u32 modesets;
+> +	u32 format;
+> +	unsigned int width;
+> +	unsigned int height;
+> +	struct drm_client_buffer *buffer;
+> +	bool bg_drawn;
+> +	bool img_drawn;
+> +};
+> +
+> +struct drm_splash {
+> +	struct drm_client_dev client;
+> +	u32 preferred_format;
+> +	struct device dev;
+> +
+> +	struct task_struct *thread;
+> +	atomic_t pending;
+> +	/* A firmware request is in flight, so an image may still arrive */
+> +	bool fw_pending;
+> +	/* A request was made, and fw_done tells when its callback is over */
+> +	bool fw_requested;
+> +	struct completion fw_done;
+> +
+> +	/* Serialises hotplug events: the first one sets the modesets up */
+> +	struct mutex hotplug_lock;
+> +	bool initialized;
+> +
+> +	u32 n_scanout;
+> +	struct drm_splash_scanout *scanout;
+> +
+> +	/* Hands fw over from the firmware callback to the render thread */
+> +	spinlock_t fw_lock;
+> +	const struct firmware *fw;
+> +	/* The render thread is gone: a late firmware is released, not kept */
+> +	bool render_done;
+> +	void *map_data;
+> +
+> +	bool use_bgrt;
+> +};
+> +
+> +static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
+> +{
+> +	return container_of_const(client, struct drm_splash, client);
+> +}
+> +
+> +static struct drm_splash_scanout *
+> +get_scanout_from_tile_group(struct drm_splash *splash, int id)
+> +{
+> +	int j;
+> +
+> +	for (j = 0; j < splash->n_scanout; j++)
+> +		if (splash->scanout[j].id == id)
+> +			return &splash->scanout[j];
+> +
+> +	return NULL;
+> +}
+> +
+> +static void drm_splash_wake_render_thread(struct drm_splash *splash)
+> +{
+> +	wake_up_process(splash->thread);
+> +}
+> +
+> +#if IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP)
+> +static int drm_splash_fw_load(struct drm_splash *splash, const u8 **data,
+> +			      size_t *size)
+> +{
+> +	const struct firmware *fw;
+> +
+> +	scoped_guard(spinlock, &splash->fw_lock)
+> +		fw = splash->fw;
+> +
+> +	if (!fw)
+> +		return -ENOENT;
+> +
+> +	*data = fw->data;
+> +	*size = fw->size;
+
+Why does this work?
+
+We no longer hold a lock on fw. If a concurrent thread calls 
+release_firmware() on splash->fw, data and size might become invalid.
+
+
+> +
+> +	return 0;
+> +}
+> +
+> +static void drm_splash_fw_callback(const struct firmware *fw, void *context)
+> +{
+> +	struct drm_splash *splash = context;
+> +	struct drm_client_dev *client = &splash->client;
+> +
+> +	if (!fw || !fw->data) {
+> +		drm_err(client->dev, "splash: no firmware");
+> +		release_firmware(fw);
+> +		fw = NULL;
+> +	}
+> +
+> +	scoped_guard(spinlock, &splash->fw_lock) {
+> +		if (!splash->render_done) {
+> +			splash->fw = fw;
+> +			fw = NULL;
+> +		}
+> +	}
+> +	/* Nobody is left to draw it */
+> +	release_firmware(fw);
+> +
+> +	/*
+> +	 * Whether it came or not, nothing else is coming: the thread must be
+> +	 * told either way, or it waits for good. Release, so that a thread
+> +	 * that sees the flag clear also sees the firmware stored above.
+> +	 */
+> +	smp_store_release(&splash->fw_pending, false);
+> +
+> +	/* Wake the render thread */
+> +	drm_dbg(client->dev, "splash: firmware request done, wake up drawing thread");
+> +	atomic_set(&splash->pending, 1);
+> +	drm_splash_wake_render_thread(splash);
+> +
+> +	/* Last: once this is seen, unregister may free the splash */
+> +	complete(&splash->fw_done);
+> +}
+> +
+> +static int drm_splash_fw_request_bmp(struct drm_splash *splash)
+> +{
+> +	struct drm_client_dev *client = &splash->client;
+> +
+> +	drm_info(client->dev, "splash: request %s as firmware", splash_bmp);
+
+drm_dbg() here. drm_info() is log spam.
+
+
+> +
+> +	return request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
+> +				       splash_bmp, client->dev->dev, GFP_KERNEL,
+> +				       splash, drm_splash_fw_callback);
+> +}
+> +#else
+> +static int drm_splash_fw_load(struct drm_splash *splash, const u8 **data,
+> +			      size_t *size)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +static int drm_splash_fw_request_bmp(struct drm_splash *splash)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +#endif // CONFIG_DRM_CLIENT_SPLASH_SRC_BMP
+> +
+> +static bool drm_splash_bgrt_available(struct drm_splash *splash)
+> +{
+> +	struct drm_client_dev *client = &splash->client;
+> +
+> +	if (!IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BGRT))
+> +		return false;
+> +
+> +	if (!efi_bgrt_has_image()) {
+> +		drm_info(client->dev, "splash: no BGRT found");
+
+if anything, drm_dbg().
+
+> +		return false;
+> +	}
+> +
+> +	if (efi_bgrt_status() & ACPI_BGRT_ORIENTATION_OFFSET) {
+> +		drm_info(client->dev, "splash: BGRT rotation bits set, skipping");
+
+Same here with drm_dbg()
+
+> +		return false;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+> +static int drm_splash_bgrt_load(struct drm_splash *splash, const u8 **data,
+> +				size_t *size)
+> +{
+> +	struct drm_client_dev *client = &splash->client;
+> +	phys_addr_t addr = efi_bgrt_image_address();
+> +	size_t len = efi_bgrt_image_size();
+> +
+> +	if (!drm_splash_bgrt_available(splash))
+> +		return -ENOENT;
+> +
+> +	drm_dbg(client->dev, "splash: BGRT image is at %pa, size=%zX",
+> +		&addr, len);
+> +
+> +	splash->map_data = memremap(addr, len, MEMREMAP_WB);
+> +	if (!splash->map_data) {
+> +		drm_warn(client->dev, "splash: failed to map BGRT image memory");
+> +		return -ENOMEM;
+> +	}
+> +
+> +	*data = splash->map_data;
+> +	*size = len;
+> +
+> +	return 0;
+> +}
+> +
+> +static u32 drm_splash_find_usable_format(struct drm_plane *plane,
+> +					 u32 preferred_format)
+> +{
+> +	int i;
+
+format_count is an unsigned int. i should lik
+
+> +
+> +	/* Check if the preferred format can be used */
+> +	for (i = 0; i < plane->format_count; i++)
+> +		if (plane->format_types[i] == preferred_format)
+> +			return preferred_format;
+> +
+> +	/* Otherwise, find the first format that can be converted from XRGB8888 */
+> +	for (i = 0; i < plane->format_count; i++)
+> +		if (drm_draw_can_convert_from_xrgb8888(plane->format_types[i]))
+> +			return plane->format_types[i];
+> +
+> +	return DRM_FORMAT_INVALID;
+> +}
+> +
+> +static void drm_splash_fill(struct iosys_map *map, unsigned int dst_pitch,
+> +			    unsigned int height, unsigned int width,
+> +			    u32 px_width, u32 color)
+
+Values like px_width are deprecated because they don't work in the 
+general case.  Rather pass the format as drm_format_into and do the 
+px_width lookup within the drm_splash_fill().
+
+> +{
+> +	switch (px_width) {
+> +	case 2:
+> +		drm_draw_fill16(map, dst_pitch, height, width, color);
+> +		break;
+> +	case 3:
+> +		drm_draw_fill24(map, dst_pitch, height, width, color);
+> +		break;
+> +	case 4:
+> +		drm_draw_fill32(map, dst_pitch, height, width, color);
+> +		break;
+> +	default:
+> +		WARN_ONCE(1, "Can't fill with pixel width %d", px_width);
+> +	}
+> +}
+> +
+> +static int drm_splash_fill_solid_color(struct drm_client_buffer *buffer,
+> +				       u32 color)
+> +{
+> +	struct drm_client_dev *client = buffer->client;
+> +	struct drm_framebuffer *fb = buffer->fb;
+> +	struct drm_rect r = DRM_RECT_INIT(0, 0, fb->width, fb->height);
+> +	u32 px_width = fb->format->cpp[0];
+> +	struct iosys_map map;
+> +	int ret;
+> +
+> +	ret = drm_client_buffer_vmap_local(buffer, &map);
+> +	if (ret) {
+> +		drm_err(client->dev, "splash: cannot vmap buffer: %d", ret);
+> +		return ret;
+> +	}
+> +
+> +	drm_splash_fill(&map, fb->pitches[0], drm_rect_height(&r),
+> +			drm_rect_width(&r), px_width, color);
+> +
+> +	drm_client_buffer_vunmap_local(buffer);
+> +
+> +	return drm_client_buffer_flush(buffer, &r);
+> +}
+> +
+> +#if IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_BMP_SUPPORT)
+> +static void drm_splash_blit_pix16(struct iosys_map *map, unsigned int dpitch,
+> +				  unsigned int x_pad, unsigned int y_pad,
+> +				  const u8 *sbuf8, unsigned int spitch,
+> +				  unsigned int width, unsigned int height,
+> +				  bool invert_y, u32 format)
+> +{
+> +	unsigned int x, y, src_offset, dst_offset;
+> +	u32 scolor, dcolor, wr_off;
+> +
+> +	for (y = 0; y < height; y++) {
+> +		src_offset = (invert_y ? (height - y - 1) : y) * spitch;
+> +		dst_offset = (y_pad + y) * dpitch;
+> +
+> +		for (x = 0; x < width; x++) {
+> +			scolor = *(const u32 *)(&sbuf8[src_offset + 3 * x]);
+
+Please build scolor from the individual entries in the color table. This 
+type casting is fragile. It also only works on little endian with 
+unaligned loads AFAIU.
+
+Here and below.
+
+> +			dcolor = drm_draw_color_from_xrgb8888(scolor, format);
+> +			wr_off = dst_offset + (x_pad + x) * sizeof(u16);
+> +
+> +			iosys_map_wr(map, wr_off, u16, dcolor);
+> +		}
+> +	}
+> +}
+> +
+> +static void drm_splash_blit_pix24(struct iosys_map *map, unsigned int dpitch,
+> +				  unsigned int x_pad, unsigned int y_pad,
+> +				  const u8 *sbuf8, unsigned int spitch,
+> +				  unsigned int width, unsigned int height,
+> +				  bool invert_y, u32 format)
+> +{
+> +	unsigned int x, y, src_offset, dst_offset;
+> +	u32 scolor, dcolor, wr_off;
+> +
+> +	for (y = 0; y < height; y++) {
+> +		src_offset = (invert_y ? (height - y - 1) : y) * spitch;
+> +		dst_offset = (y_pad + y) * dpitch;
+> +
+> +		for (x = 0; x < width; x++) {
+> +			scolor = *(const u32 *)(&sbuf8[src_offset + 3 * x]);
+> +			dcolor = drm_draw_color_from_xrgb8888(scolor, format);
+> +			wr_off = dst_offset + (x_pad + x) * 3;
+> +
+> +			iosys_map_wr(map, wr_off, u8, (dcolor & 0x000000FF) >> 0);
+> +			iosys_map_wr(map, wr_off + 1, u8, (dcolor & 0x0000FF00) >> 8);
+> +			iosys_map_wr(map, wr_off + 2, u8, (dcolor & 0x00FF0000) >> 16);
+> +		}
+> +	}
+> +}
+> +
+> +static void drm_splash_blit_pix32(struct iosys_map *map, unsigned int dpitch,
+> +				  unsigned int x_pad, unsigned int y_pad,
+> +				  const u8 *sbuf8, unsigned int spitch,
+> +				  unsigned int width, unsigned int height,
+> +				  bool invert_y, u32 format)
+> +{
+> +	unsigned int x, y, src_offset, dst_offset;
+> +	u32 scolor, dcolor, wr_off;
+> +
+> +	for (y = 0; y < height; y++) {
+> +		src_offset = (invert_y ? (height - y - 1) : y) * spitch;
+> +		dst_offset = (y_pad + y) * dpitch;
+> +
+> +		for (x = 0; x < width; x++) {
+> +			scolor = *(const u32 *)(&sbuf8[src_offset + 3 * x]);
+> +			dcolor = drm_draw_color_from_xrgb8888(scolor, format);
+> +			wr_off = dst_offset + (x_pad + x) * sizeof(u32);
+> +
+> +			iosys_map_wr(map, wr_off, u32, dcolor);
+> +		}
+> +	}
+> +}
+> +
+> +static void drm_splash_blit_rgb888(struct iosys_map *map, unsigned int dpitch,
+> +				   unsigned int x_pad, unsigned int y_pad,
+> +				   const u8 *sbuf8, unsigned int spitch,
+> +				   unsigned int width, unsigned int height,
+> +				   bool invert_y)
+> +{
+> +	unsigned int y, src_offset, dst_offset;
+> +
+> +	for (y = 0; y < height; y++) {
+> +		src_offset = (invert_y ? (height - y - 1) : y) * spitch;
+> +		dst_offset = (y_pad + y) * dpitch + x_pad * 3;
+> +
+> +		iosys_map_memcpy_to(map, dst_offset, &sbuf8[src_offset], width * 3);
+> +	}
+> +}
+> +
+> +static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+> +				     struct drm_splash_scanout *scanout,
+> +				     const u8 *data, size_t data_len)
+> +
+> +{
+> +	struct drm_client_buffer *buffer = scanout->buffer;
+> +	struct drm_client_dev *client = buffer->client;
+> +	struct drm_framebuffer *fb = buffer->fb;
+> +	u32 px_width = fb->format->cpp[0];
+> +	const struct bmp_file_header *file_header;
+> +	const struct bmp_dib_header *dib_header;
+> +	u32 dib_header_size;
+> +	u16 bmp_id, bmp_bpp, bmp_planes;
+> +	u32 bmp_compression, bmp_pitch;
+> +	s32 bmp_width, bmp_height;
+> +	bool bmp_invert_y;
+> +	u32 bitmap_offset;
+> +	size_t row_len, pixels_len, end;
+> +	unsigned int x_pad, y_pad;
+> +	const u8 *image_data;
+> +	struct iosys_map map;
+> +	struct drm_rect r;
+> +	int ret;
+> +
+> +	if (data_len < (sizeof(*file_header) + sizeof(*dib_header))) {
+> +		drm_err(client->dev, "splash: BMP file too short");
+> +		return -EINVAL;
+> +	}
+> +
+> +	file_header = (const struct bmp_file_header *)data;
+> +
+> +	bmp_id = get_unaligned_le16(&file_header->id);
+> +	if (bmp_id != BMP_FILE_MAGIC_ID) {
+> +		drm_err(client->dev, "splash: invalid BMP magic 0x%04X", bmp_id);
+> +		return -EINVAL;
+> +	}
+> +
+> +	bitmap_offset = get_unaligned_le32(&file_header->bitmap_offset);
+> +
+> +	dib_header = (const struct bmp_dib_header *)(data + sizeof(*file_header));
+> +
+> +	dib_header_size = get_unaligned_le32(&dib_header->dib_header_size);
+> +
+> +	bmp_width = (s32)get_unaligned_le32(&dib_header->width);
+> +	bmp_height = (s32)get_unaligned_le32(&dib_header->height);
+
+Why not make these variables unsigned?
+
+
+> +	bmp_planes = get_unaligned_le16(&dib_header->planes);
+> +	bmp_bpp = get_unaligned_le16(&dib_header->bpp);
+> +	bmp_compression = get_unaligned_le32(&dib_header->compression);
+> +
+> +	/* Restrict supported format to uncompressed, 24bit RGB888 */
+> +	if (dib_header_size != 40 || bmp_width <= 0 || bmp_height == 0 ||
+> +	    bmp_height == S32_MIN || bmp_planes != 1 ||
+> +	    bmp_compression != 0 || bmp_bpp != 24) {
+> +		drm_err(client->dev, "splash: invalid BMP format");
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* A positive height means bottom-to-top scan direction */
+> +	bmp_invert_y = (bmp_height > 0);
+> +	bmp_height = abs(bmp_height);
+
+That's the answer to my question above, i guess?   But what about bmp_width?
+
+> +
+> +	/*
+> +	 * Every field comes from the image, which the firmware or the device
+> +	 * tree supplied, so check the arithmetic before trusting the result:
+> +	 * rows are padded to four bytes, and the pixels must end within the
+> +	 * data.
+> +	 */
+> +	if (check_mul_overflow((size_t)bmp_width, (size_t)3, &row_len) ||
+> +	    check_add_overflow(row_len, (size_t)3, &row_len) ||
+> +	    check_mul_overflow(row_len & ~(size_t)3, (size_t)bmp_height,
+> +			       &pixels_len) ||
+> +	    check_add_overflow((size_t)bitmap_offset, pixels_len, &end) ||
+> +	    end > data_len) {
+> +		drm_err(client->dev, "splash: invalid BMP size");
+> +		return -EINVAL;
+> +	}
+> +	bmp_pitch = row_len & ~(size_t)3;
+> +
+> +	if (bmp_width > scanout->width || bmp_height > scanout->height) {
+> +		drm_err(client->dev, "splash: BMP image is too big for the screen");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (splash->use_bgrt) {
+> +		x_pad = efi_bgrt_image_offset_x();
+> +		y_pad = efi_bgrt_image_offset_y();
+> +
+> +		if ((x_pad + bmp_width) > scanout->width ||
+> +		    (y_pad + bmp_height) > scanout->height) {
+> +			drm_err(client->dev, "splash: BGRT image would overflow");
+> +			return -EINVAL;
+> +		}
+> +
+> +#ifdef CONFIG_X86
+> +		/*
+> +		 * BGRT sanity check, taken from efifb.c:
+> +		 *
+> +		 * On x86 some firmwares use a low non native resolution for
+
+'Some firmware on x86 uses a non-native resolution for'
+
+> +		 * the display when they have shown some text messages. While
+
+'the display if it has shown some text messages.'
+
+
+> +		 * keeping the bgrt filled with info for the native resolution.
+> +		 * If the bgrt image intended for the native resolution still
+> +		 * fits, it will be displayed very close to the right edge of
+> +		 * the display looking quite bad.
+> +		 */
+> +
+> +		if (x_pad != (scanout->width - bmp_width) / 2) {
+> +			drm_err(client->dev, "splash: BGRT sanity check failed");
+> +			return -EINVAL;
+> +		}
+> +#endif
+> +	} else {
+> +		/* Center X and Y */
+> +		x_pad = (scanout->width - bmp_width) / 2;
+> +		y_pad = (scanout->height - bmp_height) / 2;
+> +	}
+> +
+> +	image_data = data + bitmap_offset;
+> +
+> +	ret = drm_client_buffer_vmap_local(buffer, &map);
+> +	if (ret) {
+> +		drm_err(client->dev, "splash: cannot vmap buffer: %d", ret);
+> +		return ret;
+> +	}
+> +
+> +	r = DRM_RECT_INIT(x_pad, y_pad, bmp_width, bmp_height);
+> +
+> +	/* In case the target format is RGB888, source data can be copied to
+> +	 * the video buffer line by line, avoiding some overhead.
+> +	 */
+
+The entire if-else block below should be a function drm_splash_blit(). 
+Please also see my comment on using px_width.
+
+> +	if (scanout->format == DRM_FORMAT_RGB888) {
+> +		drm_splash_blit_rgb888(&map, fb->pitches[0], x_pad, y_pad,
+> +				       image_data, bmp_pitch, bmp_width,
+> +				       bmp_height, bmp_invert_y);
+> +	} else {
+> +		switch (px_width) {
+> +		case 2:
+> +			drm_splash_blit_pix16(&map, fb->pitches[0], x_pad,
+> +					      y_pad, image_data, bmp_pitch,
+> +					      bmp_width, bmp_height,
+> +					      bmp_invert_y, scanout->format);
+> +			break;
+> +		case 3:
+> +			drm_splash_blit_pix24(&map, fb->pitches[0], x_pad,
+> +					      y_pad, image_data, bmp_pitch,
+> +					      bmp_width, bmp_height,
+> +					      bmp_invert_y, scanout->format);
+> +			break;
+> +		case 4:
+> +			drm_splash_blit_pix32(&map, fb->pitches[0], x_pad,
+> +					      y_pad, image_data, bmp_pitch,
+> +					      bmp_width, bmp_height,
+> +					      bmp_invert_y, scanout->format);
+> +			break;
+> +		default:
+> +			drm_warn_once(client->dev,
+> +				      "splash: can't blit with pixel width %d",
+> +				      px_width);
+> +		}
+> +	}
+> +
+> +	drm_client_buffer_vunmap_local(buffer);
+> +
+> +	return drm_client_buffer_flush(buffer, &r);
+> +}
+> +#else
+> +static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+> +				     struct drm_splash_scanout *scanout,
+> +				     const u8 *data, size_t data_len)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +#endif
+> +
+> +static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
+> +				 size_t *img_data_len)
+> +{
+> +	int ret = 0;
+> +
+> +	if (splash->use_bgrt) {
+> +		ret = drm_splash_bgrt_load(splash, img_data, img_data_len);
+> +		if (ret)
+> +			splash->use_bgrt = false;
+> +	}
+> +
+> +	/* BGRT failed to load */
+> +	if (!splash->use_bgrt)
+> +		ret = drm_splash_fw_load(splash, img_data, img_data_len);
+> +
+> +	return ret;
+> +}
+> +
+> +static void drm_splash_image_cleanup(struct drm_splash *splash)
+> +{
+> +	const struct firmware *fw = NULL;
+> +
+> +	/* Called after drawing and again at unregister: unmap only once */
+> +	memunmap(splash->map_data);
+> +	splash->map_data = NULL;
+> +
+> +	scoped_guard(spinlock, &splash->fw_lock) {
+> +		fw = splash->fw;
+> +		splash->fw = NULL;
+> +	}
+> +
+> +	release_firmware(fw);
+> +}
+> +
+> +static int drm_splash_render_thread(void *data)
+> +{
+> +	struct drm_splash *splash = data;
+> +	struct drm_client_dev *client = &splash->client;
+> +
+> +	while (!kthread_should_stop()) {
+> +		unsigned int draw_count = 0;
+> +		const u8 *img_data = NULL;
+> +		size_t img_data_len = 0;
+> +		bool img_loaded, last;
+> +		int i, ret;
+> +
+> +		drm_dbg(client->dev, "splash: run render thread...");
+> +
+> +		/*
+> +		 * Whether this is the last pass has to be known before looking
+> +		 * for the image: if the firmware lands while this pass runs,
+> +		 * another pass has to pick it up.
+> +		 */
+> +		last = !smp_load_acquire(&splash->fw_pending);
+> +
+> +		ret = drm_splash_image_load(splash, &img_data, &img_data_len);
+> +		img_loaded = (ret == 0);
+> +
+> +		for (i = 0; i < splash->n_scanout; i++) {
+> +			struct drm_splash_scanout *scanout = &splash->scanout[i];
+> +
+> +			if (!scanout->buffer) {
+> +				drm_err(client->dev,
+> +					"splash: no buffer for scanout %d", i);
+> +				continue;
+> +			}
+> +
+> +			if (!scanout->bg_drawn) {
+> +				drm_dbg(client->dev, "draw background for scanout %d", i);
+> +				u32 color = drm_draw_color_from_xrgb8888(splash_color,
+> +									 scanout->format);
+> +				drm_splash_fill_solid_color(scanout->buffer, color);
+> +				scanout->bg_drawn = true;
+> +			}
+> +
+> +			if (img_loaded && !scanout->img_drawn) {
+> +				drm_dbg(client->dev, "draw image for scanout %d", i);
+> +				/* Ignore the return value, since the solid
+> +				 * color has already been drawn to screen.
+> +				 */
+> +				ret = drm_splash_bmp_to_scanout(splash, scanout,
+> +								img_data,
+> +								img_data_len);
+> +				scanout->img_drawn = (ret == 0);
+> +			}
+> +
+> +			draw_count++;
+> +		}
+> +
+> +		if (img_loaded)
+> +			drm_splash_image_cleanup(splash);
+> +
+> +		if (draw_count > 0) {
+> +			ret = drm_client_modeset_commit(client);
+> +			/* If commit returns EBUSY, another master showed up.
+> +			 * This means that the splash is no more required.
+> +			 */
+> +			if (ret == -EBUSY) {
+> +				drm_info(client->dev, "splash: not master anymore, exiting");
+> +				break;
+> +			}
+> +		}
+> +
+> +		/* Done, or nothing could have arrived since the image was sought */
+> +		if (img_loaded || last)
+> +			break;
+> +
+> +		/*
+> +		 * Wait for the firmware callback. The state is set before
+> +		 * looking at the flag, so that a wake up in between is not
+> +		 * lost, and the wait is idle rather than uninterruptible, as
+> +		 * nothing guarantees how long it lasts.
+> +		 */
+> +		set_current_state(TASK_IDLE);
+> +		if (atomic_xchg(&splash->pending, 0) || kthread_should_stop() ||
+> +		    !READ_ONCE(splash->fw_pending)) {
+> +			__set_current_state(TASK_RUNNING);
+> +			continue;
+> +		}
+> +
+> +		schedule();
+> +	}
+> +
+> +	/*
+> +	 * Nothing is drawn from here on, for instance after another master
+> +	 * took over: drop the image, and have a firmware that lands later
+> +	 * released by its callback.
+> +	 */
+> +	scoped_guard(spinlock, &splash->fw_lock)
+> +		splash->render_done = true;
+> +	drm_splash_image_cleanup(splash);
+> +
+> +	return 0;
+> +}
+> +
+> +static int drm_splash_init_client(struct drm_splash *splash)
+> +{
+> +	struct drm_client_dev *client = &splash->client;
+> +	struct drm_mode_set *modeset;
+> +	unsigned int fb_count = 0;
+> +	unsigned int i, k;
+> +
+> +	if (drm_client_modeset_probe(client, 0, 0))
+> +		return -EIO;
+> +
+> +	mutex_lock(&client->modeset_mutex);
+> +
+> +	/*
+> +	 * Collect one scanout per usable modeset, or per tile group. Each
+> +	 * scanout records the modesets it feeds by their position in the
+> +	 * list, so that the second pass below can find them again whatever
+> +	 * was skipped in between.
+> +	 */
+> +	i = 0;
+> +	drm_client_for_each_modeset(modeset, client) {
+> +		struct drm_splash_scanout *tmp;
+> +		struct drm_splash_scanout *scanout;
+> +		unsigned int idx = i++;
+> +		u32 format;
+> +		int id = -1;
+> +
+> +		if (WARN_ON_ONCE(idx >= 32))
+> +			break;
+> +
+> +		/* Skip modesets without a mode */
+> +		if (!modeset->mode)
+> +			continue;
+> +
+> +		if (modeset->connectors[0]->has_tile) {
+> +			struct drm_splash_scanout *tiled;
+> +			int new_id = modeset->connectors[0]->tile_group->id;
+> +
+> +			/*
+> +			 * Tiled modesets contribute to a single framebuffer:
+> +			 * the first column adds rows, the first row adds
+> +			 * columns.
+> +			 */
+> +			tiled = get_scanout_from_tile_group(splash, new_id);
+> +			if (tiled) {
+> +				if (!modeset->x)
+> +					tiled->height += modeset->mode->vdisplay;
+> +				if (!modeset->y)
+> +					tiled->width += modeset->mode->hdisplay;
+> +				tiled->modesets |= BIT(idx);
+> +				continue;
+> +			}
+> +
+> +			/* New tile group, save its ID for later */
+> +			id = new_id;
+> +		}
+> +
+> +		format = drm_splash_find_usable_format(modeset->crtc->primary,
+> +						       splash->preferred_format);
+> +		if (format == DRM_FORMAT_INVALID) {
+> +			drm_warn(client->dev,
+> +				 "splash: can't find a usable format for modeset");
+> +			continue;
+> +		}
+> +
+> +		tmp = krealloc(splash->scanout,
+> +			       (splash->n_scanout + 1) * sizeof(*splash->scanout),
+> +			       GFP_KERNEL);
+> +		if (!tmp) {
+> +			drm_warn(client->dev,
+> +				 "splash: can't reallocate the scanout array");
+> +			break;
+> +		}
+> +
+> +		splash->scanout = tmp;
+> +		scanout = &splash->scanout[splash->n_scanout];
+> +		splash->n_scanout++;
+> +
+> +		memset(scanout, 0, sizeof(*scanout));
+> +		scanout->id = id;
+> +		scanout->modesets = BIT(idx);
+> +		scanout->format = format;
+> +		scanout->width = modeset->mode->hdisplay;
+> +		scanout->height = modeset->mode->vdisplay;
+> +	}
+> +
+> +	/* Now that the sizes are known, allocate one buffer per scanout */
+> +	for (k = 0; k < splash->n_scanout; k++) {
+> +		struct drm_splash_scanout *scanout = &splash->scanout[k];
+> +		struct drm_client_buffer *buffer;
+> +
+> +		buffer = drm_client_buffer_create_dumb(client, scanout->width,
+> +						       scanout->height,
+> +						       scanout->format);
+> +		if (IS_ERR(buffer)) {
+> +			drm_warn(client->dev,
+> +				 "splash: can't create dumb buffer %d %d %p4cc",
+> +				 scanout->width, scanout->height, &scanout->format);
+> +			continue;
+> +		}
+> +
+> +		drm_info(client->dev, "splash: created dumb buffer %d %d %p4cc",
+> +			 scanout->width, scanout->height, &scanout->format);
+
+Another one of these drm_info() calls. drm_dbg() at best.
+
+> +
+> +		scanout->buffer = buffer;
+> +		fb_count++;
+> +	}
+> +
+> +	/* And point every modeset at the buffer of its scanout */
+> +	i = 0;
+> +	drm_client_for_each_modeset(modeset, client) {
+> +		unsigned int idx = i++;
+> +
+> +		if (idx >= 32)
+> +			break;
+> +
+> +		for (k = 0; k < splash->n_scanout; k++) {
+> +			struct drm_splash_scanout *scanout = &splash->scanout[k];
+> +
+> +			if (scanout->buffer && (scanout->modesets & BIT(idx))) {
+> +				modeset->fb = scanout->buffer->fb;
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +	mutex_unlock(&client->modeset_mutex);
+> +
+> +	return (fb_count == 0) ? -ENODEV : 0;
+> +}
+> +
+> +static void drm_splash_free_scanout(struct drm_client_dev *client)
+> +{
+> +	struct drm_splash *splash = client_to_drm_splash(client);
+> +	struct drm_mode_set *modeset;
+> +	int i;
+> +
+> +	/* The modesets must not point at the framebuffers freed below */
+> +	mutex_lock(&client->modeset_mutex);
+> +	drm_client_for_each_modeset(modeset, client)
+> +		modeset->fb = NULL;
+> +	mutex_unlock(&client->modeset_mutex);
+> +
+> +	if (splash->n_scanout) {
+> +		for (i = 0; i < splash->n_scanout; i++)
+> +			drm_client_buffer_delete(splash->scanout[i].buffer);
+> +
+> +		splash->n_scanout = 0;
+> +		kfree(splash->scanout);
+> +		splash->scanout = NULL;
+> +	}
+> +}
+> +
+> +static int drm_splash_client_hotplug(struct drm_client_dev *client)
+> +{
+> +	struct drm_splash *splash = client_to_drm_splash(client);
+> +	struct task_struct *thread;
+> +	int ret = 0;
+> +
+> +	guard(mutex)(&splash->hotplug_lock);
+> +
+> +	/* The modesets that get a splash are defined at first hotplug event */
+> +	if (splash->initialized)
+> +		return 0;
+
+The client receives a hotplug whenever the attached display changes. 
+Returning here would likely break anything after the initial one.
+
+Best is to kill the rendering thread, rebuild the list of modesets and 
+reinit.
+
+
+> +
+> +	ret = drm_splash_init_client(splash);
+> +	if (ret) {
+> +		/* It may have set up scanouts before failing to get buffers */
+> +		drm_splash_free_scanout(client);
+> +		if (ret == -ENODEV) {
+> +			drm_info(client->dev, "splash: no modeset found");
+> +			return 0;
+> +		}
+> +		drm_err(client->dev,
+> +			"splash: failed to init client: %d", ret);
+> +		return ret;
+> +	}
+> +
+> +	/* Create the render thread, waken later */
+> +	thread = kthread_create(drm_splash_render_thread, splash,
+> +				"drm_splash_%s", client->dev->unique);
+> +	if (IS_ERR(thread)) {
+> +		ret = PTR_ERR(thread);
+> +		drm_err(client->dev,
+> +			"splash: failed to create render thread: %d", ret);
+> +		drm_splash_free_scanout(client);
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * The thread exits on its own once the splash is up, so hold on to
+> +	 * it: kthread_stop() at unregister must not find it gone.
+> +	 */
+> +	get_task_struct(thread);
+> +	splash->thread = thread;
+> +
+> +	splash->use_bgrt = drm_splash_bgrt_available(splash);
+> +
+> +	/* If no other image has been loaded, try to load a BMP as firmware */
+> +	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP) && !splash->use_bgrt) {
+> +		WRITE_ONCE(splash->fw_pending, true);
+> +		ret = drm_splash_fw_request_bmp(splash);
+> +		splash->fw_requested = !ret;
+> +		if (ret) {
+> +			drm_err(client->dev,
+> +				"splash: failed to kick image load: %d", ret);
+> +			kthread_stop_put(splash->thread);
+> +			splash->thread = NULL;
+> +			drm_splash_free_scanout(client);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	/* Wake the render thread to show initial contents */
+> +	drm_splash_wake_render_thread(splash);
+
+Why does it use a rendering threat?  Wouldn't it be much easier to 
+schedule a worker?  You can also try to put it on the power-efficient 
+work queue.
+
+
+> +
+> +	splash->initialized = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int drm_splash_client_restore(struct drm_client_dev *client, bool force)
+> +{
+> +	struct drm_splash *splash = client_to_drm_splash(client);
+> +	int ret;
+> +
+> +	/* No buffers, so nothing to put back: the modesets have no fb */
+> +	if (!splash->n_scanout)
+> +		return -ENODEV;
+
+I don't think this is right. (?) If there's no fb, the restore should 
+disable the display. Just run the commit below.
+
+
+> +
+> +	if (force)
+> +		ret = drm_client_modeset_commit_locked(client);
+> +	else
+> +		ret = drm_client_modeset_commit(client);
+> +
+> +	return ret;
+> +}
+> +
+> +static void drm_splash_client_unregister(struct drm_client_dev *client)
+> +{
+> +	struct drm_splash *splash = client_to_drm_splash(client);
+> +
+> +	/*
+> +	 * A firmware request cannot be cancelled, and its callback uses the
+> +	 * splash and wakes the thread: let it finish first. It is usually over
+> +	 * already; at worst this waits for the firmware fallback timeout.
+> +	 */
+> +	if (splash->fw_requested)
+> +		wait_for_completion(&splash->fw_done);
+> +
+> +	/* No thread if no output was usable at the first hotplug */
+> +	if (splash->thread)
+> +		kthread_stop_put(splash->thread);
+> +	drm_splash_free_scanout(client);
+> +	drm_splash_image_cleanup(splash);
+> +
+> +	/* Last: it ends up in drm_splash_client_free(), which frees splash */
+> +	drm_client_release(client);
+> +}
+> +
+> +static void drm_splash_client_free(struct drm_client_dev *client)
+> +{
+> +	struct drm_splash *splash = client_to_drm_splash(client);
+> +	struct drm_device *dev = client->dev;
+> +
+> +	mutex_destroy(&splash->hotplug_lock);
+
+This line belongs into drm_splash_client_unregister(). The free callback 
+is only for free-ing the client instance.
+> +	kfree(splash);
+> +
+> +	drm_dbg(dev, "Unregistered with drm splash");
+
+'free', not 'unregister'
+
+Best regards
+Thomas
+
+
+> +}
+> +
+> +static const struct drm_client_funcs drm_splash_client_funcs = {
+> +	.owner		= THIS_MODULE,
+> +	.hotplug	= drm_splash_client_hotplug,
+> +	.restore	= drm_splash_client_restore,
+> +	.unregister	= drm_splash_client_unregister,
+> +	.free		= drm_splash_client_free,
+> +};
+> +
+> +/**
+> + * drm_splash_register() - Register a drm device to drm_splash
+> + * @dev: the drm device to register.
+> + * @format: drm device preferred format.
+> + */
+> +void drm_splash_register(struct drm_device *dev,
+> +			 const struct drm_format_info *format)
+> +{
+> +	struct drm_splash *splash;
+> +
+> +	splash = kzalloc_obj(*splash);
+> +	if (!splash)
+> +		goto err_warn;
+> +
+> +	mutex_init(&splash->hotplug_lock);
+> +	spin_lock_init(&splash->fw_lock);
+> +	init_completion(&splash->fw_done);
+> +
+> +	if (format && format->num_planes == 1)
+> +		splash->preferred_format = format->format;
+> +	else
+> +		splash->preferred_format = DRM_FORMAT_RGB888;
+> +
+> +	if (drm_client_init(dev, &splash->client, "drm_splash",
+> +			    &drm_splash_client_funcs))
+> +		goto err_free;
+> +
+> +	drm_client_register(&splash->client);
+> +	drm_dbg(dev, "Registered with drm splash");
+> +
+> +	return;
+> +
+> +err_free:
+> +	kfree(splash);
+> +err_warn:
+> +	drm_warn(dev, "Failed to register with drm splash");
+> +}
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
