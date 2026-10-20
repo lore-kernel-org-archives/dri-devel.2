@@ -2,79 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9468E606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:34:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0449F606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:34:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uqUE+pgo
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F0uSOzXq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D7910E9EF;
-	Tue, 20 Oct 2026 08:34:04 +0000 (UTC)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72D7C10E9EF
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:33:57 +0000 (UTC)
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-495689bfcc8so19560535e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 01:33:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792485235; x=1793090035;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=iTKxLK7MUSiAzkn1IgcQvxPJWtCNPLN0//THVXyyz5c=;
- b=uqUE+pgoGy330xOUBazLT+meumeauo6M44cxCQQrkAOp7ufNPYyhsJEScXg5yvTxip
- SN3qr9527UR5dCsYQtoARxxZXiDg7Hp0frHBPCBgb95ME9ZiAeHpHTdsrYiWYYi+H9Eh
- 29p+ulH2twmXo1wr6FMi/6/IlHqLqE0RZd0PmBJSRAwerCqoNTDcrHq2RBjQAOVinMkq
- bEAjGepOj9Ty09bNeTEpd5BZxB/v5xgI7JNkwhDPuWxqAl8cwNNMH6H6IUn49CFlhyW3
- 684E21FDkjJNZZU4/gY/b+V+wDyNkBRWe+oO4iOJ2UV3mjO9v6DjgE9dI6AXBAM7PKzw
- izHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792485235; x=1793090035;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=iTKxLK7MUSiAzkn1IgcQvxPJWtCNPLN0//THVXyyz5c=;
- b=spENdqaRjxvKpFsG7DcTP6XPGDF/OTvNl9frNk3cwnnWIS1ntwriMA50inWO/7G6aW
- eXPRmXwvim1BwpK5LME4OVyNcuZcU3lWaTOpBE9XtAza/dHUVxIYgm3XAM6eB+qovoRI
- JvVcdixNI7SQWlUG5zIzOz5ghICpWMnYWE76+UfzccJXZhIl2rRIcznn4x+uE4PQ7amC
- RhctR0AUA7aUQMce9rordArkYDkoHToKQY+BgUnEnXcAn1v4z2W/PL2qhXHg0hLKbqHT
- 5H6NUfuT03rHriGHXrSZV+CBP+QidSDMoloV2Y8ehf8XYYErJpD6lS1ZQRgB3HrZN746
- 2SnA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByQx6b+gbjT43YNdpihKQOsQ3Ucz6ugWMYE1rjhO0d2kSGCOkEtDHw/i5UFu9oJgyE8nKriWJNW3kA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIM+/JRv2HmlrdD/Ib2J2tHZh44FD84AiW2ta5Yc/BK7GpOFhKa
- JuyCaB46Y5ar79s8QyljVSXUITOXpy26dz5S/hl/kPJhZIOSAuflw352+dcl8D4Fovo4HXrJeXi
- 9yuFRcINn03Q+egXlTg==
-X-Received: from wmbb17.prod.google.com ([2002:a05:600c:5891:b0:4a1:e474:4216])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4e11:b0:49f:e701:51c8 with SMTP id
- 5b1f17b1804b1-4a1d75f24b4mr207613465e9.9.1792485235001; 
- Tue, 20 Oct 2026 01:33:55 -0700 (PDT)
-Date: Tue, 20 Oct 2026 08:33:53 +0000
-In-Reply-To: <atarvxFKYYuHhXGQ@um790>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6699810F3CC;
+	Tue, 20 Oct 2026 08:34:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBFF110EB9B
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:34:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E3F0360D7E;
+ Tue, 20 Oct 2026 08:34:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC79B1F000C4;
+ Tue, 20 Oct 2026 08:34:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792485265;
+ bh=VMFqxM453yLwBXSbcRLMTntPAgtjcAyPnxyGhanIJOQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=F0uSOzXqFAoOHDVJSsaHQ5ir1S8o99DRmrazLP6YHC7SDbkmUtJ5y/168C2X06p/i
+ nzMbd29t2E07Lsyc2maZDbwOG0d+L3tr74ddYjqTV3GeXof9FITQ9ycQBbGoAmtY/Y
+ A891IhY0p7egb56CJ5SJSHUWJX9RJkwnOPRxsS7XUxaSN4OhQP8AA83kqtzXBApRik
+ mI+L9CgLCFcD8h31nrF/m1rgO3QCchzQt6c7DO722cTDpQAp99iFgf6k3DmOjx4mPJ
+ 34+oL1kSeaOAFUz/kMCFZExcR8wvgtWMEa6R6NkGKG6L2Y/RDskzOzg6sA3uwfnA2C
+ 48Qdrfs1AlECQ==
+Date: Tue, 20 Oct 2026 10:34:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Devarsh Thakkar <devarsht@ti.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Nishanth Menon <nm@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+ dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, LiangCheng Wang <zaq14760@gmail.com>
+Subject: Re: [PATCH v3 02/14] dt-bindings: display: Add Solomon SSD16xx
+ e-paper controller
+Message-ID: <20261020-futuristic-awesome-dinosaur-b61d9b@quoll>
+References: <20261019213726.4145532-1-devarsht@ti.com>
+ <20261019213726.4145532-3-devarsht@ti.com>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-References: <20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com>
- <20261016-b4-dev_query_fixes-v3-2-f8071cda3515@collabora.com>
- <atXOd-EeFkdA-trn@google.com> <atarvxFKYYuHhXGQ@um790>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020083353.1821078-1-aliceryhl@google.com>
-Subject: Re: [PATCH v3 2/2] drm/tyr: allow userspace buffers to be mismatched
-From: Alice Ryhl <aliceryhl@google.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019213726.4145532-3-devarsht@ti.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,55 +61,48 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,
-	USER_IN_DEF_DKIM_WL autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 04:46:07PM -0700, Deborah Brouwer wrote:
-> On Mon, Oct 19, 2026 at 08:01:59AM +0000, Alice Ryhl wrote:
-> > > +    transmute::AsBytes,
-> > 
-> > Usie the trait from zerocopy instead.
+On Tue, Oct 20, 2026 at 03:07:14AM +0530, Devarsh Thakkar wrote:
+> Add device tree binding for the Solomon Systech SSD16xx family of e-Paper
+> display controllers (SSD1683 [1], SSD1673 [3], SSD1680 [4], SSD1681 [5]).
 > 
-> If this other series making zerocopy available to Tyr gets merged,
-> then I could rebase this series on it and switch over to IntoBytes:
+> The binding covers the 4-wire SPI interface with required GPIO pins for
+> reset (active-low), busy status (active-high), and data/command selection.
+> The spi-max-frequency is capped at 20 MHz per the SSD1683 datasheet [1]
+> which is also the maximum supported frequency amongst the family.
 > 
-> https://lore.kernel.org/rust-for-linux/20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com/T/#m9a9a24e0cf1ae10451e3fc84955873b405d0da0b
+> An optional rotation property (as defined by panel-common, in degrees
+> counter clockwise) allows static display orientation to be configured from
+> device tree.
+> 
+> The data/command selection GPIO pin is also kept as optional since various
+> SSD16XX controllers such as SSD1683 [1] support 3-wire mode too with
+> data/command selection bit transmitted as first bit before sending the data
+> sequence.
+> 
+> The first supported compatible is for Gooddisplay GDEY042T81 [2] which is
+> 4.2", 400x300 resolution black/white e-paper display using SSD1683
+> controller.
+> 
+> Links:
+> [1] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
+> [2] : https://files.seeedstudio.com/wiki/Other_Display/42-epaper/GDEY042T81.pdf
+> [3] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
+> [4] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
+> [5] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
+> 
+> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+> ---
+> Changes in v3:
 
-Rebasing this series on top of that one makes sense to me (you can also
-already send v4 based on it and note the dependency in the cover letter).
-Note that set_uobj will need T: IntoBytes + Immutable and can call
-writer.write_slice_partial(src_obj.as_bytes(), 0)? unless write_truncated()
-is also updated to use zerocopy.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> > > +    let mut writer = UserSlice::new(UserPtr::from_addr(usr_dst as usize), size).writer();
-> > 
-> > On 32-bit this will truncate upper bits. I guess that probably matches
-> > what Panthor does. Is it what we want?
-> 
-> Yes, that's what Panthor does; it uses the "u64_to_user_ptr()" macro to do
-> this deliberately.
-> 
-> Since UserPtr only accepts a usize argument, I have to cast in Tyr,
-> but instead, what do you think if I added another method to UserPtr
-> to accept a u64 address and cast it to usize just like in the C macro.
-> Something like:
-> 
->     /// Create a `UserPtr` from a u64 userspace address.
->     ///
->     /// Deliberately truncate upper bits for 32-bit systems.
->     #[doc(alias = "u64_to_user_ptr")]
->     #[inline]
->     pub fn from_u64(addr: u64) -> Self {
->         Self::from_addr(addr as usize)
->     }
+Best regards,
+Krzysztof
 
-Adding UserPtr::from_u64() like that sounds good to me! That keeps UserSlice
-construction infallible (matching u64_to_user_ptr(), including when the slice
-length is 0), and we can also use it to replace the existing `as usize` casts
-in drivers/android/binder/thread.rs.
-
-Alice
