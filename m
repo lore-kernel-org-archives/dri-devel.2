@@ -2,88 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6217C606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:52:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D06C606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:53:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LpgTKIzs
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BdQUFQsL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D96410FCCC;
-	Wed, 21 Oct 2026 08:52:09 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A202210E03D
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:17:49 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-49d05d51553so2720405e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 01:17:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76A9110FCCE;
+	Wed, 21 Oct 2026 08:53:01 +0000 (UTC)
+Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3092910ED68
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:10:05 +0000 (UTC)
+Received: by mail-pj2-f0.google.com with SMTP id
+ 98e67ed59e1d1-3a476ee8669so900171a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 06:10:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792570668; x=1793175468; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=dJyr2tsSRejcmBK3MBzVGDDB5htK2NHRSw/F+Hou+2A=;
- b=LpgTKIzsVmdTntC7/fwZs2wqkbCF4wEjk+Ef2BaV7/8FRw+MU4v1UPkjpLe0Iac4vU
- znEEAyOQMxqJfVayyrqUypxyZETc0GVjcmPA9RbznSLQWqwEhCvyQY0UUFJgJ6fUaWp7
- YRDltwlVNYDLb+bGLa08fuVZEkJGXwRVfiQrQaM52+h1N9MBTFM3gxnbgK/86Jjr5Zge
- dHWi3P/76HVc8eR5S185/KpT11fQkk0x/RLlP9mLnT1AUpn4NgrupWoKMBqi8PaKwuyG
- Jv19yI5twqKnYQSe0xdvtBOXW6ewbeyJRHDYECtV1MCu86q7EgVOYcdB3pwcPZ0+QNfv
- gS6Q==
+ d=gmail.com; s=20251104; t=1792501805; x=1793106605; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rli4VgxJjcOffz1T4VqacG0mFNteJvCejK8yAgJ1Be4=;
+ b=BdQUFQsLi9LqtF0Qi4Vm3pgi0M8Ujt1LBg1y2kpprj7xrBQYm2ZykI3jnQkXV3IeBM
+ ykz1B17YGWRajx3rTX0Rf79R29+1q9b8xaLmlHqoL4oWd2Ot4PxJ0ShLdbm+2Vg2NvJH
+ NqXUqyirqFcxGjbeBuJEvG1xfQlkn4I2LtsfM+EO+dBrC9GsmP6zcsnkhFXw9Mt2O1ME
+ iHRetdp8d/E74ra1heZD7lP4i0rbW/1ndFsQgf8EFXIIZ6FKQewW/GDPZEOzm83JykdA
+ mGIjft9E29KDwvHzagEigA0JXGN0ZrzuTfdYZeqTop9/aML39EmHduT4U34OXSmYEUwt
+ O56Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792570668; x=1793175468;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=dJyr2tsSRejcmBK3MBzVGDDB5htK2NHRSw/F+Hou+2A=;
- b=en1eAadffSgYKhg54mjQr6mkSRhLSOnC+1je9ReIY1FzPd7iuxMR0LQWRxmSZwiGHA
- i1ThcOFDcIk2+QI/9A0kc9VCrYKl2Z2heEg7MKWwqA1UCDHcPBBQtFXVRGrL2eG7JMLq
- ekMQS8Yq31PzsVWk4uRSuCSla/HSYf+59vrNu1rVmRrh4ADmJ6tEJRT8a/FiEEIQQkv2
- bFiD3raFaANRscocKaIMgist/r9k58OQ089j1ypNLcorje1AxTQ/EGU9DEGYA75i59Rc
- HMb8n/OQ+fSskG34P2rQXklUlYuAayBnLoNe9ySYF+FtgBG5p/YhifzcFqvaG9w/eWPB
- ypcA==
+ d=1e100.net; s=20260707; t=1792501805; x=1793106605;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=rli4VgxJjcOffz1T4VqacG0mFNteJvCejK8yAgJ1Be4=;
+ b=lCQ9THZl9nAMjYSOo4H32gVQavYMUHDaJ2ha+RGW8NwY0TvlPy+AbONE1WB9E0KwvC
+ RnzWh8l4ns2X2CSc9Y4HoZj9YcwgLNXoSRyXTkVxq9UkPGij3khpJHVOk6moY5MCiIYB
+ 3VNIQGkEikR1eA45NsOemdpF3FQFpOnSTabtzk26xMKxTEkanbH4zfOE5IB+xQmJiRCE
+ APzEl5exINzqIT8Ot9CZzr+YFNqVq1Sdz7t3T7DyrzS8tJ9tM12cvYk6eU0y5m5e81CW
+ BBB0nUQS9IHgmzDBIOZH1mM/fDFC/AFpabf8ygDBRw7moChY6cfiJoL6I9iorna+2JmN
+ VDsw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx7wtA5vVMgMspiMVIeyh94peh8BtvSDlbxcIeZXLNfPsXXUNyCzBtAjtlgo+kZqWLIRfXWo39sw28=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJcks9rnPaIcWhWX8HEniHvFUmksVGlRqtZnBsYLWCcaxPJZEEE
- SKh2ujE5fgloxrzVa9NbjaxBKXKC7sklqC5eajNR8qK+yPIQxNp5KjM8
-X-Gm-Gg: AYBFou1R5xNmRXZ54JcJw5VothuZbnyx8xOEN/dyIyv9hU5ZHYRHe/yRHrI360X/ArU
- jOySehAHSgIJB/zGcGrpKUJlbEzlTJzzmd4hT5/IgKgLmGhGTSvBpyERd2WE2lASfy+8+joop8K
- Yecbg3rRKGGxDgpNlLMzKAAL05Pf2cshTtl8A/UshFYPsdCKxe04laf+H/EdD8x1LozTLwcGDDI
- BqCGRL6o+Btatvp7tEeZzRLO/ltJ984nyFmBVPpdcHRKRxBnSpCTkI9/dnPEZNa290CEBinRglw
- Ns4o6CnLiUIlERPO4Wlfse8XOO7XBsNAdOkahbga/VM4tQhuEk3vwpK+ut9DFkuCgygVc4jF/Ll
- 6YoR3LZ6EqxtXYqEM2cqIH5s5l7B/FjqGmP+gtd0zzcSJTk6V7fEJCfpNuvmBkifGy5d7U3mc0h
- l1CBaQMPg8gv+KfUjDxH9TE9Smsm4jv9Iq6rlnjEn2S84qMfMvrDVZeQk4iscHlA7Xxl9q6oFCl
- CiOimkDmQtN7X0wNQgSjhswU8wn2T92hCoM+4ko+o+2uIz46xeS7NMOj8HhiuYS4A==
-X-Received: by 2002:a05:600c:c8c:b0:4a1:e489:f8a1 with SMTP id
- 5b1f17b1804b1-4a1fd89d90cmr22391725e9.2.1792570667667; 
- Wed, 21 Oct 2026 01:17:47 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.75.12])
- by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-48e25828c98sm3848877f8f.28.2026.10.21.01.17.46
+ AKwUvBxHqQ3KaxsThU9R5fHFRGeehOxjJs5MBXGpXjHEgES5L+waRUCprDrcyF+Yak+CDsfaCmZsr7rwN3k=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI2F4SsHmU00P4YE6c3pEVMVBaqhHiXqu23A+UMDBWqc9IB+1i1
+ 9ryyUXVIoyD1K02L76iFwgqjF9pldjLhEkbZnkE0Y9GnYh25CMAnFnKr
+X-Gm-Gg: AYBFou2qNYfv6ROzvN7TeYqE4CkuLJR7o9gc6lxnKoLtxvXbtV4NawIV59kAg/1su3i
+ y1Vb2wEr0jVRRErbADMCOVrAuiw2lu9TcnGD7T8oMfTSI2fLp0ZAe/r0H28guWy1+g7a+3htglx
+ YhWWZevruFbefXW4i/umO7yHX/9kIDHQkqDpztE1H/y9B/Abv2cGIpPcjCAmmUbS00/GhJXLgAb
+ FgoyNpVKVSGJYi5SGTO9NuCiqcikku+rdbxTI6cCjkbkLkA9cgrmkhsZW4+O1oQyoSaTzZKbO03
+ Z3cEnjvawp32YTR+nCdi7iA6rWCIs8TKbrn8yx3n6LKXJbyVaTPZGWjYU9G5ZmCZm/GbjcYs/F8
+ J2ylOdn4ZhnIYkpLxpe537Qh33xgc2dxzM2HVc6HnRc0m6ftVqpR4PJGsRb805srILDuWxsg6aw
+ wd1HM+ovayxHf88EbE7Nzw2BOKTrabTl9Fw2N3EhIeBQ5ahW/cieUpkR4=
+X-Received: by 2002:a17:90a:d010:b0:3aa:ff61:9504 with SMTP id
+ 98e67ed59e1d1-3acef134b64mr9027170a91.20.1792501804482; 
+ Tue, 20 Oct 2026 06:10:04 -0700 (PDT)
+Received: from Linux-PC ([2a09:bac1:1980:20::1d3:a8])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3acd3cc73c7sm10131496a91.4.2026.10.20.06.09.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Oct 2026 01:17:47 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <rob.clark@oss.qualcomm.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Bjorn Andersson <andersson@kernel.org>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-Subject: Re: [PATCH 3/3] drm/msm/a8xx: Enable CLX feature on Adreno X2-85
-Date: Wed, 21 Oct 2026 10:17:37 +0200
-Message-ID: <179257065767.2798.872990041874023890@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <e4e2b8d6-46e7-4f59-994e-39f3d09d334d@oss.qualcomm.com>
-References: <e4e2b8d6-46e7-4f59-994e-39f3d09d334d@oss.qualcomm.com>
+ Tue, 20 Oct 2026 06:10:03 -0700 (PDT)
+From: tianshi12127 <tianshi12127@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-kernel@vger.kernel.org, Lu Chen <tianshi12127@gmail.com>
+Subject: [PATCH v3 0/3] drm/panel: Add Smartisan TD4362 panel support
+Date: Tue, 20 Oct 2026 21:09:31 +0800
+Message-ID: <20261020130934.2289011-1-tianshi12127@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261017083531.766557-1-tianshi12127@gmail.com>
+References: <20261017083531.766557-1-tianshi12127@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Oct 2026 08:51:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,24 +90,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Sent: https://lore.kernel.org/r/20261021080517.2161-1-okerixx@gmail.com
+From: Lu Chen <tianshi12127@gmail.com>
 
-Narrowed it down meanwhile, with the clamp corner selectable on the
-command line: gmxc pinned at max is harmless. gfx pinned at level 11
-(0x1c4, the top of the perf table), 12 or 13 fails every time, level 10
-and below boots fine. So it isn't "the rail can't follow", it's the gfx
-rail sitting at or above the highest level in the table while the
-firmware calibrates. CLX being a current limiter, a limit entry would be
-my guess, but that's firmware territory.
+This series adds support for the Smartisan TD4362, a 1080x2242
+command mode DSI panel found in the Smartisan R1 (trident)
+smartphone.
 
-If the CRD still fails after sync_state, gfx.lvl being held at the top
-level by something else would be the first thing I'd check there.
+The initialization and power sequences were converted from the
+downstream device tree with linux-mdss-dsi-panel-driver-generator,
+and the driver was tested on a Smartisan R1 (trident).
 
-Oleg
+Patch 1 adds the "smartisan" vendor prefix, patch 2 documents the
+panel binding, and patch 3 adds the DRM panel driver itself.
+
+Changes in v2:
+- rename lab-supply/ibb-supply to vsp-supply/vsn-supply (per review)
+
+Changes in v3:
+- drop <linux/mod_devicetable.h>, drm_mipi_dsi.h already provides
+  of_device_id (per Uwe)
+- carry review tags from Krzysztof and Conor
+
+Lu Chen (3):
+  dt-bindings: vendor-prefixes: add smartisan
+  dt-bindings: display: panel: add Smartisan TD4362
+  drm/panel: add driver for Smartisan TD4362
+
+ .../display/panel/smartisan,td4362.yaml       |  75 +++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../gpu/drm/panel/panel-smartisan-td4362.c    | 262 ++++++++++++++++++
+ 5 files changed, 353 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
+
+-- 
+2.56.0
+
