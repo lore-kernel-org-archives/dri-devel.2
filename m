@@ -2,59 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27794606A31D
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:06:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B83606A319
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:07:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RNuGExE9
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nU7JS+lo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1F010E5A5;
-	Tue, 20 Oct 2026 11:06:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB2F10E5A5;
- Tue, 20 Oct 2026 11:06:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792494397; x=1824030397;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1Qg9c8mXE64iSpKQbw4PGrJmPMZXcY2RNoFrm8Ieczk=;
- b=RNuGExE9JCOe0NJ0DrCq1XcPnhjwNvtok0FNRcgHr17uhmKgDUG4wuQB
- 6iuuTmxlKzEKT/zayUjRR61OTfRvptvlPTyZi6MqMZe2Dd/m31fOOLFuF
- Vfca9GOEJb6H0LNUjgiW0pjmuz2MdwJvLJ1aA7gvdYAQhAYJYFUEQLoCB
- PMrA/XO2gN+rko7Mce4bGM04rbOCy9x4qaGk+z/Nt9SAl8UVe9hMCQRfP
- EOW6zzkPfLkwABq6nwf4FdLZnI/cPbZ7ezxhqJ8uJOerf8AfJWRyaxmor
- y6MEEqmwA3DCDiRUZ1wgpewh6D3MqH+xjTUBI1EmpyHIg1OVcza6O+okl g==;
-X-CSE-ConnectionGUID: BQhl0wqlS6SYWYrgpVzFXA==
-X-CSE-MsgGUID: JNAPTxZ5SbyueKg4C/Gclg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1297877"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1297877"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2026 04:06:36 -0700
-X-CSE-ConnectionGUID: PrPB4yRcR7+55/apBMXdHA==
-X-CSE-MsgGUID: i5rzIgSORk2FiEXw/Ml79A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3202192"
-Received: from xiaolu.sh.intel.com ([10.239.146.103])
- by fmviesa006.fm.intel.com with ESMTP; 20 Oct 2026 04:06:33 -0700
-From: Xiao Lu <xiaolu.xie@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
- imre.deak@intel.com, Xiao Lu <xiaolu.xie@intel.com>,
- Marco Nenciarini <mnencia@kcore.it>
-Subject: [PATCH v3] drm/i915/dp: clear and restore MSTM_CTRL around MST DPMS
- off/on
-Date: Tue, 20 Oct 2026 19:04:18 +0800
-Message-ID: <20261020110418.1272170-1-xiaolu.xie@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261020021714.62573-1-xiaolu.xie@intel.com>
-References: <20261020021714.62573-1-xiaolu.xie@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20FA110E4E0;
+	Tue, 20 Oct 2026 11:07:35 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011071.outbound.protection.outlook.com
+ [40.93.194.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61E2710E772
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 11:07:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IvQuYpsBZR9IMnWNgi0bdcmEs3GBPB+cf28FC+OCpFgCw52hbBJyKvFRXdhIz9cw/1ocoi3zKt6DOA5xCvb1spAbfpnjBmfCkVj1vgKjhvcVnBShvk/UgCgAWY7T+SA8ag+ZTgrqQKr6AElkBSWvsIsQ51PZ7GrA4t93xvxkn2i3j/6tGgwH3dAbvgUwE6J1iRWLE00wie5XlbHMscofJPbi6DVwBydnX8RrWu1EDlWUyj/WJnNBuwesYdojMh7cLj+b/TP33gCasCuejnHInw1ZR0ets+IZ04IHHEMw4ecG6oWH5k5MQQ0dllKAmZ/zrmIZWsxD+XthG66Hu+Aphg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NfpTenJLV11C8zLTg+eSOxW3ZLFCC14tUi1cENXKY+k=;
+ b=xDAE9Lywfz/xMMG4YLii/20yuUKbT0b5TqkYYhjkdMnHlsjnuriIzh9/kuZaPo6mveNBxScnOBahDRdKL/HCYTG2Go/TmKwe/VRcTQUuah4aZKjT/hzjkvanKEmZmqSGkzEvVJfdoqmYT69Qkx2qYoEWxdhnPIIrA50T4Ifu7EpEeb/mIwSE4sUedOznKcefzatmBNOg4c3FbK5RP8803u5mS3GzmuZdGG60+q/5LItKLiGXA9co+JbWPzUCA+JtH1BpwplWAL//iTLZ/m7KweVCNLbJKJ5hkUjLuNqPpHneO5yddATZ0yrOJkXA1zJF3Gpv9rTMZI2mGRH9Q1gIEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NfpTenJLV11C8zLTg+eSOxW3ZLFCC14tUi1cENXKY+k=;
+ b=nU7JS+lokXGg73K0+kdyiP/HinriDsNOGNZZdb4YpM85jxcRmQVeLVgkr3sjyobCqZqpf+Lh54GJei0HBDnuCt7mXEXq55ox46ALCnLFz6up/5cYjeVukIw2FvzKQitUN3eosLUnIa/N1bvb212gXf/PnXsuw2GgQyp/lMYymns=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB6750.namprd12.prod.outlook.com (2603:10b6:806:257::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 11:05:22 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 11:05:16 +0000
+Message-ID: <9f7b3443-4b95-4bc5-affc-0e7616a4bb75@amd.com>
+Date: Tue, 20 Oct 2026 13:05:05 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm: Don't BUG when a CRTC fence signals during a name
+ lookup
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org,
+ redducc <sushmit718@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261019161731.2341-1-sushmit718@gmail.com>
+ <30a31088a0386d5f5d53e74632ea9a63566dccde.camel@mailbox.org>
+ <4dabaef5-25ad-480d-96f6-5feb26a64e42@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <4dabaef5-25ad-480d-96f6-5feb26a64e42@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0184.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6750:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b4fe8a4-9a87-46c0-d2c6-08df2e9a0598
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|7416014|4143699003|11063799006|56012099006|261009220027099003|261009221727099003|261009223027099003|261009221227099003|261009223327099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: VIb2saeUVwn+iToKO3WH4kSOQNPNNwO4i8aUn9XqvFWcI8mKcQlRCx4ywPDQiMmwpLf1nfcTMhEn5PYuLNi+TfBwrTC94cBoUuiTFqaMGJjMHcj7XwIXWLYuTNrFQ/qb8X1thGIgV1oOiz6KsyWZcCIWIgsmi3ZLpb3K8qoZ7GdizaqeRu2bi4Jdpbud3AqFKY8enbOOiRIr8lv4FPGF1w84FWwV3OElv6ncYIH159+lZXaGkS4ZtJGAu+4AMl4PqRa5B7sbrmHgXg10++Ou7eNMXqDGiWI80IV+c/Ul/AuCIIbqgfWsA2Q4Q9K4fLrizNECqKThBA1RLhJKQYV0HJBQkdOgy2PYbOBZZkm3J1QdqJn7t8QHbueahCBPzN+TiWlnevXd9/zGAMofBUd4yx17WgubC6nBYd94EELDGN18GOm7Wo0vOeLH/A2U5DynH03iqY3cFOWi97E29/EpGRpu8/Tw/4x+P2WyGJoGCvx2CNOyQdFP7e6o6MHzUh2gD3+TATXkk17pJeb+fyEZgeEV9dgv1Hh2AbLkW0j4ct4euB/Taa30XP6W3rL0t/R6WMMfJLeIfAnbOT8Dt16m5F3Eup671meYee6+9Z4M88tWotyp+XBbsjd1CRUX+UdcoH4GerFTkrM5nqaOv5sX6v4Sr2edOwCeLECQyioFy6s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(4143699003)(11063799006)(56012099006)(261009220027099003)(261009221727099003)(261009223027099003)(261009221227099003)(261009223327099003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnBHcTRFajVFSU03N1g2UTA0UkxjdEljWG1LMjFGR3REZXB3YUUxTk5OOGVt?=
+ =?utf-8?B?eDM3MEplbGlma1R4djkxaThEdjF5ZWNPRHA5UGlZa2tFTTcxZzdMWXVrZUVz?=
+ =?utf-8?B?cTFROGZDdnJzT1NUWUVBRkVKUkN4TU5MK202WkV6L0YzRTc4K2piRWxZWjRi?=
+ =?utf-8?B?T2tIbUpOdHJZVUdlbmlCN1IwS0JaVFBNL252MG16eTcvcFRmcUtjSVVmdDVD?=
+ =?utf-8?B?dEZ6NytEaEM0ekczWFM5cHdZWnlYRXlueVRtWmZuMXhVNWh6ODE1ZjNqUWVt?=
+ =?utf-8?B?RHF3K2FyQm1nMndTaVNoYmtnUnBIcndTWDEzdDNHbHREQ1FnZEE0SWJ5b05P?=
+ =?utf-8?B?TjJhWGFDOTRaVkE0cEJxbnlFTEF5NXNyWDVWMGx1dUlzWWRuMmcwMTUrc09y?=
+ =?utf-8?B?YUZZb1hPcXc4V3M1T0cwak9KQ3BMNnBKOWY5akQ1R0FIdWFhcmRIYjVnbkpL?=
+ =?utf-8?B?cjY2eVNRMWRJR0VkUGFkWVpIYjNXODR1ZXI5ZFFuaDlpMzBLUUZEbFp6NTN0?=
+ =?utf-8?B?bTJWWXdzSlpvRkZ5bTZuNGNnM2FUcUo0aGZWeUFVSmpFOFU5OWZSdnZYUDJp?=
+ =?utf-8?B?R1V4SWdETVE3dFJuMVFlV1IrR0pNNXEveXFNcHR0NW1iUWg0WE5tRGc4NEVz?=
+ =?utf-8?B?ZlJYWElJZzBnSVN4cUpGb043NDJlRzRnc3BYMThDTGdvRlVad1Z5WUtham03?=
+ =?utf-8?B?UnVPZzRwaklHY0hITGMvNmxZRXJnaHVIMnBsUXJhNUxJY2RoNUU1dHlKUkZE?=
+ =?utf-8?B?SHJ2UENJZ25yWXMxelhUYmNlT0hGQkN0bXp5eWFYS2N6cEFLcDlwbk02SFRN?=
+ =?utf-8?B?NlFyTyttbHNMQUtuNVFKSTQzSGk3bkNTTTY2bEMwcHdaVnppK0djQUdMaGJS?=
+ =?utf-8?B?UWhaVnJ2VG5RcGx6QkJIa3BRTE00bEk2bjY5bzZ4aGJRc1NicWQ1dnMvVHEx?=
+ =?utf-8?B?cXNML1lIc0lsSTBRd2NEOTJSYXh6RkNNU2k0L1RhV0doY0lSZ2R3TWUvMWxN?=
+ =?utf-8?B?YWR1emRuaEp4Sjh2SGkyN3lnZHVCa3E1SC9mSlZXV1FjVWErTTBVdlRNTi9M?=
+ =?utf-8?B?bGlZM2dqWjJwNXlaSThYVUdmY2hKcnNSVnZYUkhJZFZhKzY2ZWtyTXkreStD?=
+ =?utf-8?B?QUNROURLbHFxcVFvVFF4c3l1cFpkcUNOakFkb2F1ZEozYXZwdUpRV09GOW5u?=
+ =?utf-8?B?VFhMUXRrNkxNb2gzd1ZqOE96N3hWNlJqcStRWVVwNTRWYU9VYktrUkVrUTFC?=
+ =?utf-8?B?VjExRkk0OUVFN3pLTGpiVDdKTVJCV1YrZGtpamRRSFdaeUo4dmpQWDJKYlhm?=
+ =?utf-8?B?R1lCMW1kS3JCUk5IWi9kMXppb1FncXpmTzlTQ0owRTAwWjBxUXEvVmtQcVRV?=
+ =?utf-8?B?MUUrbEpzaHJiQnNZOUIrTC9QaXNzbThKVTdWYVVhS1ZiZ211VE92Y1F4cEVO?=
+ =?utf-8?B?ZmNFTzkxWTVZMW9HRi9IYzFKYTQyTXI1VmtYUzFueGN1VWJ1R3hMRXpiMDZk?=
+ =?utf-8?B?ZnZmTlpCM2pDajUxUmZQKzZ3dmpFYWNlK2hiRENiWkIvT0VGRVZ2OGIrUSto?=
+ =?utf-8?B?M1FmaUcrWXlkVTc2bStSTExmRG1YclRwTkhBZWpPT0M4NVdiN3Zpb0RhYW5Q?=
+ =?utf-8?B?ZUhleXVIYjdCMzNualpKam9NeU5PeXJpRkcwWTRTRnF0aWRjcDQxQXRvZ0pz?=
+ =?utf-8?B?emUxNTAxQXJ3eERXa3VLTGo2MFVTUzljVGhndjQwVUlWdTg2YjcxTnJrUWEy?=
+ =?utf-8?B?ejZmNGdJRHF2dkV4NlhkanlCOXlXVWdzVTk3OEQ3UjlZY0NsUy9KVEhZKzRr?=
+ =?utf-8?B?MkExelczV3BVWmZwYmh4QncwV0Y0dGtwTm1WNmd4SFBxdUVUUndEZjl1UU13?=
+ =?utf-8?B?UzA4ek9sSHc0OVd6SExvbnNaa1VZOFkzVVF5aVFJeEdzTGhjdHU4SFo2bENO?=
+ =?utf-8?B?WGY4STErcXk2aWcxZ2pQaGF0b3k4a2RXMCtML0o4U3BIeWdjaHQ1TjV2NTdV?=
+ =?utf-8?B?dXhKQTJuak9DUUZvYUpUMWxWSnJ1cXNBQTVQNXp2ZGZkcjhLU0JMeU1VS1VQ?=
+ =?utf-8?B?eXRJR1hJZmo3T25WQ1d3R09UNUpuUjZVcjdIT1lJTldrUEorZlljWXJTV2tI?=
+ =?utf-8?B?Z1pzRHFJeXFQOHNHa1RueVo5bjJjbHFpNVlQMWJza3MyaVRZUCtDYUxXZ2ZD?=
+ =?utf-8?B?VjZPZzBoc1hBZHVFdlFSZTVBTm9DNnF1eVg2VkpRNE5uVzJ1MDdZYjh6dkIz?=
+ =?utf-8?B?Ky9yVzFxMmJpM00rQ2Mwc1FEYm5yWUxmbFZzZCs0WXV3ZGVuWUFWL2NJUVdv?=
+ =?utf-8?Q?8sYnUDpEUS+lb2RyzE?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b4fe8a4-9a87-46c0-d2c6-08df2e9a0598
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:05:16.6441 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SmBz6FcE8uHU/lpxYYSapM/wMJM8EiVWgZzYzIt8QgnyHpmRKIOSbTR0ZoYeSHkI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6750
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,331 +137,91 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When the last MST stream is disabled, i915 sends SET_POWER D3 to the
-MST trunk while MSTM_CTRL (DPCD 0x111) still has MST mode enabled.
-On re-enable, POWER_UP_PHY is sent before MSTM_CTRL is restored, so
-the hub may process the PHY power-up in an inconsistent state and
-fail to retrain its downstream links.
+On 10/20/26 08:57, Tvrtko Ursulin wrote:
+> 
+> On 20/10/2026 07:53, Philipp Stanner wrote:
+>> On Mon, 2026-10-19 at 16:17 +0000, redducc wrote:
+>>> dma_fence_signal_timestamp_locked() clears fence->ops on signalling when
+>>> the ops have neither a release nor a wait callback, which is the case
+>>> for drm_crtc_fence_ops.
+>>>
+>>> dma_fence_driver_name() and dma_fence_timeline_name() load fence->ops,
+>>> check the signalled bit and then call into the ops. If the fence
+>>> signals between that check and the call, fence_to_crtc() rereads
+>>> fence->ops, finds NULL and hits the BUG_ON(). This takes down any
+>>> caller of SYNC_IOC_FILE_INFO on a CRTC out-fence, such as Android's
+>>> surfaceflinger, which hit it on a Snapdragon 8+ Gen 1 phone (msm).
+>>>
+>>> The CRTC behind the fence outlives it, so reading the name after the
+>>> ops were cleared is fine. Only warn when the fence carries foreign ops.
+>>
+>> @Christian:
+>> We have now seen several bugs like these, which is one of the reasons
+>> why I believe that RCU is the wrong solution for dma_fence.
+>>
+>> I present another rework RFC soonish.
+>>
+>>>
+>>> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
+>>> Assisted-by: LLM
+>>> Signed-off-by: redducc <sushmit718@gmail.com>
+>>
+>> Reviewed-by: Philipp Stanner <phasta@kernel.org>
+> 
+> Hm this looked familiar so I looked around. There was an earlier fix for the same from Andre with msg-id 20260721-linux-drm_crtc_fix2-v3-2-afa8c71506e6@linaro.org which seems to have fallen through the cracks.
 
-Fix this by disabling the MST mode before sending D3 on the last
-stream disable and re-enabling it after writing D0 and before sending
-POWER_UP_PHY on the first stream enable, so the hub is back in MST mode
-when it processes the PHY power-up and retrains its downstream links.
+Yeah I was also wondering why that patch was never pushed.
 
-Do this in the MST topology manager, which owns MSTM_CTRL, by adding
-drm_dp_mst_topology_mgr_pause() and drm_dp_mst_topology_mgr_unpause().
-Pausing clears MST_EN and UP_REQ_EN, but keeps UPSTREAM_IS_SRC set. The
-paused state is tracked in the manager and checked by the new
-drm_dp_mst_topology_mgr_verify_ctrl(), used by
-intel_dp_mst_verify_dpcd_state(). Otherwise a connector detection
-during DPMS off, for instance after a runtime resume, would see
-MSTM_CTRL as reset and tear down the MST topology. A real reset still
-changes the register value to something else than expected and so it's
-still detected. The state change and the register access are done under
-the manager's lock, so verifying the state can't race with pausing or
-unpausing.
+I will take another look at this.
 
-A downstream sink can get plugged or unplugged while the MST mode is
-paused and the branch device is powered down. The source doesn't know
-about this, since the branch device may not send an UP message in this
-state, so the SW topology can get out of sync with the actual one.
-Re-probe the topology after unpausing, even if the link parameters
-haven't changed, to resync it. Unlike tearing down and recreating the
-topology, this keeps the connectors of the unchanged ports, and applies
-the changes of the others the same way as when they are signalled by an
-UP message.
+Regards,
+Christian.
 
-v2: Write UPSTREAM_IS_SRC instead of 0 and accept it in
-    intel_dp_mst_verify_dpcd_state(), to avoid removing the topology
-    on a connector detection during DPMS off. (Marco)
-v3: Move all the MSTM_CTRL accesses to the topology manager. (Jani)
-    Track the paused state in the manager instead of using the number
-    of active MST streams, to avoid racing with
-    mst_stream_pre_enable().
-    Re-probe the topology after unpausing.
-
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Marco Nenciarini <mnencia@kcore.it>
-Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
----
-Hi Jani,
-
-Thanks for the review. v3 moves all the DP_MSTM_CTRL accesses into the
-topology manager (pause/unpause/verify_ctrl), i915 doesn't touch the
-register anymore.
-
-Is this what you had in mind, or would you rather not disable the MST
-mode during DPMS off at all?
-
-v2 was tested by Marco, v3 is not tested on HW yet.
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 103 ++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_ddi.c      |   2 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |  29 ++---
- include/drm/display/drm_dp_mst_helper.h       |  11 ++
- 4 files changed, 132 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 7ce9e2127..8dbf9dcc8 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3684,6 +3684,8 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
- 		if (ret < 0)
- 			goto out_unlock;
- 
-+		mgr->paused = false;
-+
- 		/* Write reset payload */
- 		drm_dp_dpcd_clear_payload(mgr->aux);
- 
-@@ -3697,6 +3699,7 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
- 		/* this can fail if the device is gone */
- 		drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL, 0);
- 		ret = 0;
-+		mgr->paused = false;
- 		mgr->payload_id_table_cleared = false;
- 
- 		mgr->reset_rx_state = true;
-@@ -3753,6 +3756,104 @@ void drm_dp_mst_topology_queue_probe(struct drm_dp_mst_topology_mgr *mgr)
- }
- EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
- 
-+/**
-+ * drm_dp_mst_topology_mgr_pause() - disable the MST mode of the branch device
-+ * @mgr: manager to pause
-+ *
-+ * Disable the MST mode of the branch device, while keeping the MST topology
-+ * in the SW state. This is meant to be called when all the MST streams are
-+ * disabled and the branch device is about to be powered down.
-+ *
-+ * The branch device may not send UP messages while it is powered down, so
-+ * after the MST mode is enabled again by drm_dp_mst_topology_mgr_unpause(),
-+ * the topology must be re-probed.
-+ */
-+void drm_dp_mst_topology_mgr_pause(struct drm_dp_mst_topology_mgr *mgr)
-+{
-+	mutex_lock(&mgr->lock);
-+
-+	if (!mgr->mst_state || !mgr->mst_primary || mgr->paused)
-+		goto out_unlock;
-+
-+	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
-+				   DP_UPSTREAM_IS_SRC) == 0)
-+		mgr->paused = true;
-+
-+out_unlock:
-+	mutex_unlock(&mgr->lock);
-+}
-+EXPORT_SYMBOL(drm_dp_mst_topology_mgr_pause);
-+
-+/**
-+ * drm_dp_mst_topology_mgr_unpause() - re-enable the MST mode of the branch device
-+ * @mgr: manager to unpause
-+ *
-+ * Re-enable the MST mode of the branch device disabled by
-+ * drm_dp_mst_topology_mgr_pause(). Does nothing if the manager isn't paused.
-+ *
-+ * Returns %true if the manager was paused. In this case the MST topology
-+ * should be re-probed with drm_dp_mst_topology_queue_probe(), once the link
-+ * parameters to the branch device are set up.
-+ */
-+bool drm_dp_mst_topology_mgr_unpause(struct drm_dp_mst_topology_mgr *mgr)
-+{
-+	bool was_paused = false;
-+
-+	mutex_lock(&mgr->lock);
-+
-+	if (!mgr->paused)
-+		goto out_unlock;
-+
-+	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
-+				   DP_MST_EN | DP_UP_REQ_EN |
-+				   DP_UPSTREAM_IS_SRC) == 0) {
-+		mgr->paused = false;
-+		was_paused = true;
-+	}
-+
-+out_unlock:
-+	mutex_unlock(&mgr->lock);
-+
-+	return was_paused;
-+}
-+EXPORT_SYMBOL(drm_dp_mst_topology_mgr_unpause);
-+
-+/**
-+ * drm_dp_mst_topology_mgr_verify_ctrl() - verify the MST mode of the branch device
-+ * @mgr: manager to verify
-+ *
-+ * Verify that the MST mode enabled in the branch device matches the manager's
-+ * state. A long HPD pulse could've reset the branch device's MST mode, which
-+ * requires tearing down and recreating the MST topology.
-+ *
-+ * Returns %true if the branch device's MST mode matches the manager's state,
-+ * %false otherwise.
-+ */
-+bool drm_dp_mst_topology_mgr_verify_ctrl(struct drm_dp_mst_topology_mgr *mgr)
-+{
-+	u8 expected, val = 0;
-+	int ret;
-+
-+	mutex_lock(&mgr->lock);
-+
-+	expected = mgr->paused ? DP_UPSTREAM_IS_SRC :
-+		   DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC;
-+
-+	ret = drm_dp_dpcd_read_byte(mgr->aux, DP_MSTM_CTRL, &val);
-+
-+	mutex_unlock(&mgr->lock);
-+
-+	if (ret < 0 || val != expected) {
-+		drm_dbg_kms(mgr->dev,
-+			    "%s: MSTM_CTRL mismatch (ret=%d, ctrl=0x%02x, expected=0x%02x)\n",
-+			    mgr->aux->name, ret, val, expected);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+EXPORT_SYMBOL(drm_dp_mst_topology_mgr_verify_ctrl);
-+
- /**
-  * drm_dp_mst_topology_mgr_suspend() - suspend the MST manager
-  * @mgr: manager to suspend
-@@ -3822,6 +3923,8 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
- 		goto out_fail;
- 	}
- 
-+	mgr->paused = false;
-+
- 	/* Some hubs forget their guids after they resume */
- 	ret = drm_dp_dpcd_read_data(mgr->aux, DP_GUID, buf, sizeof(buf));
- 	if (ret < 0) {
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index a46ab5d3d..9d918f968 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3163,6 +3163,8 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
- 	 * Power down sink before disabling the port, otherwise we end
- 	 * up getting interrupts from the sink on detecting link loss.
- 	 */
-+	if (is_mst)
-+		drm_dp_mst_topology_mgr_pause(&intel_dp->mst.mgr);
- 	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
- 
- 	if (DISPLAY_VER(display) >= 12) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 7023619aa..2e3a2424d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1232,9 +1232,11 @@ static void intel_mst_set_probed_link_params(struct intel_dp *intel_dp,
- }
- 
- static void intel_mst_reprobe_topology(struct intel_dp *intel_dp,
--				       const struct intel_crtc_state *crtc_state)
-+				       const struct intel_crtc_state *crtc_state,
-+				       bool force)
- {
--	if (intel_mst_probed_link_params_valid(intel_dp,
-+	if (!force &&
-+	    intel_mst_probed_link_params_valid(intel_dp,
- 					       crtc_state->port_clock, crtc_state->lane_count))
- 		return;
- 
-@@ -1259,6 +1261,7 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
- 		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst.mgr);
- 	int ret;
- 	bool first_mst_stream;
-+	bool was_paused = false;
- 
- 	/* MST encoders are bound to a crtc, not to a connector,
- 	 * force the mapping here for get_hw_state.
-@@ -1270,8 +1273,10 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
- 	drm_WARN_ON(display->drm, DISPLAY_VER(display) >= 12 && first_mst_stream &&
- 		    !intel_dp_mst_is_master_trans(pipe_config));
- 
--	if (first_mst_stream)
-+	if (first_mst_stream) {
- 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
-+		was_paused = drm_dp_mst_topology_mgr_unpause(&intel_dp->mst.mgr);
-+	}
- 
- 	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, true);
- 
-@@ -1281,7 +1286,11 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
- 		primary_encoder->pre_enable(state, primary_encoder,
- 					    pipe_config, NULL);
- 
--		intel_mst_reprobe_topology(intel_dp, pipe_config);
-+		/*
-+		 * The branch device may not have sent UP messages while it
-+		 * was powered down, re-probe the topology to sync it.
-+		 */
-+		intel_mst_reprobe_topology(intel_dp, pipe_config, was_paused);
- 	}
- 
- 	ret = drm_dp_add_payload_part1(&intel_dp->mst.mgr, mst_state,
-@@ -2246,21 +2255,15 @@ bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp)
- 	struct intel_connector *connector = intel_dp->attached_connector;
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 	struct intel_encoder *encoder = &dig_port->base;
--	int ret;
--	u8 val;
- 
- 	if (!intel_dp->is_mst)
- 		return true;
- 
--	ret = drm_dp_dpcd_read_byte(intel_dp->mst.mgr.aux, DP_MSTM_CTRL, &val);
--
--	/* Adjust the expected register value for SST + SideBand. */
--	if (ret < 0 || val != (DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC)) {
-+	if (!drm_dp_mst_topology_mgr_verify_ctrl(&intel_dp->mst.mgr)) {
- 		drm_dbg_kms(display->drm,
--			    "[CONNECTOR:%d:%s][ENCODER:%d:%s] MST mode got reset, removing topology (ret=%d, ctrl=0x%02x)\n",
-+			    "[CONNECTOR:%d:%s][ENCODER:%d:%s] MST mode got reset, removing topology\n",
- 			    connector->base.base.id, connector->base.name,
--			    encoder->base.base.id, encoder->base.name,
--			    ret, val);
-+			    encoder->base.base.id, encoder->base.name);
- 
- 		return false;
- 	}
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index 27658bfb5..19cf896d6 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -700,6 +700,13 @@ struct drm_dp_mst_topology_mgr {
- 	 */
- 	bool mst_state : 1;
- 
-+	/**
-+	 * @paused: Whether the MST mode of the branch device is disabled by
-+	 * drm_dp_mst_topology_mgr_pause(), while @mst_state is still set.
-+	 * Protected by @lock.
-+	 */
-+	bool paused : 1;
-+
- 	/**
- 	 * @payload_id_table_cleared: Whether or not we've cleared the payload
- 	 * ID table for @mst_primary. Protected by @lock.
-@@ -900,6 +907,10 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
- 
- void drm_dp_mst_topology_queue_probe(struct drm_dp_mst_topology_mgr *mgr);
- 
-+void drm_dp_mst_topology_mgr_pause(struct drm_dp_mst_topology_mgr *mgr);
-+bool drm_dp_mst_topology_mgr_unpause(struct drm_dp_mst_topology_mgr *mgr);
-+bool drm_dp_mst_topology_mgr_verify_ctrl(struct drm_dp_mst_topology_mgr *mgr);
-+
- void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr);
- int __must_check
- drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
--- 
-2.43.0
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+>>
+>>
+>> The Signed tag btw. states that you have the legal right to push this
+>> code upstream, and that you agree with the kernel's licensing. It's
+>> uncommon to use with pseudonyms and lessens your personal accumulation
+>> of prestige ;)
+>>
+>>
+>> Philipp
+>>
+>>> ---
+>>>   drivers/gpu/drm/drm_crtc.c | 8 +++++++-
+>>>   1 file changed, 7 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+>>> index 63ead8ba6756..1dbd0e9db536 100644
+>>> --- a/drivers/gpu/drm/drm_crtc.c
+>>> +++ b/drivers/gpu/drm/drm_crtc.c
+>>> @@ -158,7 +158,13 @@ static const struct dma_fence_ops drm_crtc_fence_ops;
+>>>     static struct drm_crtc *fence_to_crtc(struct dma_fence *fence)
+>>>   {
+>>> -    BUG_ON(rcu_access_pointer(fence->ops) != &drm_crtc_fence_ops);
+>>> +    const struct dma_fence_ops *ops = rcu_access_pointer(fence->ops);
+>>> +
+>>> +    /*
+>>> +     * Signalling clears ops, and can race with a name lookup that already
+>>> +     * picked our callbacks, so only a foreign ops pointer is a bug.
+>>> +     */
+>>> +    WARN_ON_ONCE(ops && ops != &drm_crtc_fence_ops);
+>>>       return container_of(fence->extern_lock, struct drm_crtc, fence_lock);
+>>>   }
+>>>  
+>>> base-commit: 6a56f4f29711dd2da49f03a5b99ce53779e638d7
+> 
 
