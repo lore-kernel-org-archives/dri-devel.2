@@ -2,84 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDBB606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 13:40:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F28606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 13:42:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Bs3GVAoI;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DFHhjtDf;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Bs3GVAoI;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DFHhjtDf
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wqRQ7YyY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yKMERiCP;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wqRQ7YyY;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yKMERiCP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8FDE10E571;
-	Tue, 20 Oct 2026 13:40:20 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7EDB10EBB0
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:40:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE84910E8C2;
+	Tue, 20 Oct 2026 13:42:06 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEBCB10EBE9
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:41:54 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 51D0E1F7C5;
- Tue, 20 Oct 2026 13:40:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6D0BA21C7E;
+ Tue, 20 Oct 2026 13:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792503608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1792503713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2rJiFkEwztOHBj9bGtXbaKsfFdbQI6n8/ImmaAc/iaA=;
- b=Bs3GVAoI1QkdHrivPT15WYc6an69lcyWDsxHSOS4hl4k+LMwIlcKw2P+JIh82pyfUsOee9
- uSNqJKOgOV+fvxtpPi42OUXuBgq5ig43n+XhMY5neVGcvS722R100XYVjCH9PZZG5BRWlO
- xgrI6BbLBEDDQxXhW1CaW3MqaHL25Ec=
+ bh=iIGSpT+DMjV0bOfHYSlc894VGwfH3ePM/D5/b71RvRU=;
+ b=wqRQ7YyYJv2u4ddMtwBL18nfqXGz1fllaQX6JS+1gJwluslRjOGwFmVAIxwd1q1W8Qa6jL
+ uIyjqKzZqwMolIiu5/cuCDlxAPjZzl6Z/5Q3mnT3igO9QRRTMZ7nQA0t+4H2LYPBDQEpIV
+ LBDo5/BvYlUtFnfFdydcy/XgHOqoM30=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792503608;
+ s=susede2_ed25519; t=1792503713;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2rJiFkEwztOHBj9bGtXbaKsfFdbQI6n8/ImmaAc/iaA=;
- b=DFHhjtDfk6oV2hF75R0alnf9SGPwrZ5X1e42FDCQXICva3s6pvNVobd+SxSn/hUSUQrbdf
- 0ziNGy7RWkAG3cAg==
-Authentication-Results: smtp-out2.suse.de;
+ bh=iIGSpT+DMjV0bOfHYSlc894VGwfH3ePM/D5/b71RvRU=;
+ b=yKMERiCPBzPb+X10R9fgMWnTZq5Au2G3BMqn3f5++yXTUrB6JCKWr1PJkJCmZ5dKTRn2lB
+ DlMGrqHmwSlhGSCw==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792503608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1792503713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2rJiFkEwztOHBj9bGtXbaKsfFdbQI6n8/ImmaAc/iaA=;
- b=Bs3GVAoI1QkdHrivPT15WYc6an69lcyWDsxHSOS4hl4k+LMwIlcKw2P+JIh82pyfUsOee9
- uSNqJKOgOV+fvxtpPi42OUXuBgq5ig43n+XhMY5neVGcvS722R100XYVjCH9PZZG5BRWlO
- xgrI6BbLBEDDQxXhW1CaW3MqaHL25Ec=
+ bh=iIGSpT+DMjV0bOfHYSlc894VGwfH3ePM/D5/b71RvRU=;
+ b=wqRQ7YyYJv2u4ddMtwBL18nfqXGz1fllaQX6JS+1gJwluslRjOGwFmVAIxwd1q1W8Qa6jL
+ uIyjqKzZqwMolIiu5/cuCDlxAPjZzl6Z/5Q3mnT3igO9QRRTMZ7nQA0t+4H2LYPBDQEpIV
+ LBDo5/BvYlUtFnfFdydcy/XgHOqoM30=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792503608;
+ s=susede2_ed25519; t=1792503713;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=2rJiFkEwztOHBj9bGtXbaKsfFdbQI6n8/ImmaAc/iaA=;
- b=DFHhjtDfk6oV2hF75R0alnf9SGPwrZ5X1e42FDCQXICva3s6pvNVobd+SxSn/hUSUQrbdf
- 0ziNGy7RWkAG3cAg==
+ bh=iIGSpT+DMjV0bOfHYSlc894VGwfH3ePM/D5/b71RvRU=;
+ b=yKMERiCPBzPb+X10R9fgMWnTZq5Au2G3BMqn3f5++yXTUrB6JCKWr1PJkJCmZ5dKTRn2lB
+ DlMGrqHmwSlhGSCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0EDAA136C6;
- Tue, 20 Oct 2026 13:40:07 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E91E136C6;
+ Tue, 20 Oct 2026 13:41:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xn+ULzdv12rJCwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 13:40:07 +0000
-Message-ID: <7f99345d-385c-4f65-94e9-d55889eaa39d@suse.de>
-Date: Tue, 20 Oct 2026 15:40:07 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Y8NrL6Bv12p8DQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 13:41:52 +0000
+Message-ID: <45915d78-b253-4c50-a8d4-5b3d11ca3381@suse.de>
+Date: Tue, 20 Oct 2026 15:41:52 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/75] drm/panel: Add atomic_create_state support
+Subject: Re: [PATCH 07/75] drm/ast: Switch to
+ drm_atomic_helper_connector_create_state
 To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Dave Airlie <airlied@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-1-586c9c026823@kernel.org>
+ <20261014-drm-no-more-connector-reset-v1-7-586c9c026823@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -106,25 +108,26 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-1-586c9c026823@kernel.org>
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-7-586c9c026823@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.29 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_FIVE(0.00)[5]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- suse.de:email]
 X-Spam-Score: -4.29
 X-Spam-Level: 
+X-Spamd-Result: default: False [-4.29 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[7];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,51 +150,75 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 
 Am 14.10.26 um 19:26 schrieb Maxime Ripard:
-> The panel bridge attach hook calls the connector's reset function to
-> initialize the connector state when the device is already registered.
+> The ast connector implementation uses the deprecated
+> drm_atomic_helper_connector_reset() as its reset hook.
 >
-> Now that connectors are being migrated from the reset hook to
-> atomic_create_state, prefer it over reset and fall back to the reset
-> hook if atomic_create_state is not implemented.
+> Switch to drm_atomic_helper_connector_create_state() instead.
 >
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
-With the sashiko comment addressed
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
 > ---
->   drivers/gpu/drm/drm_panel.c | 12 +++++++++++-
->   1 file changed, 11 insertions(+), 1 deletion(-)
+> Cc: Dave Airlie <airlied@redhat.com>
+> Cc: Jocelyn Falempe <jfalempe@redhat.com>
+> ---
+>   drivers/gpu/drm/ast/ast_dp501.c  | 2 +-
+>   drivers/gpu/drm/ast/ast_sil164.c | 2 +-
+>   drivers/gpu/drm/ast/ast_vga.c    | 2 +-
+>   3 files changed, 3 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> index c00529bfb706..c9f49e18890a 100644
-> --- a/drivers/gpu/drm/drm_panel.c
-> +++ b/drivers/gpu/drm/drm_panel.c
-> @@ -102,12 +102,22 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
->   	drm_panel_bridge_set_orientation(connector, bridge);
+> diff --git a/drivers/gpu/drm/ast/ast_dp501.c b/drivers/gpu/drm/ast/ast_dp501.c
+> index 6d6ccfad1415..9380c3d54e97 100644
+> --- a/drivers/gpu/drm/ast/ast_dp501.c
+> +++ b/drivers/gpu/drm/ast/ast_dp501.c
+> @@ -544,11 +544,11 @@ static const struct drm_connector_helper_funcs ast_dp501_connector_helper_funcs
+>   	.get_modes = ast_dp501_connector_helper_get_modes,
+>   	.detect_ctx = ast_dp501_connector_helper_detect_ctx,
+>   };
 >   
->   	drm_connector_attach_encoder(connector, encoder);
+>   static const struct drm_connector_funcs ast_dp501_connector_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>   	.fill_modes = drm_helper_probe_single_connector_modes,
+>   	.destroy = drm_connector_cleanup,
+>   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>   };
+> diff --git a/drivers/gpu/drm/ast/ast_sil164.c b/drivers/gpu/drm/ast/ast_sil164.c
+> index be01254dd48a..b84d9b254d88 100644
+> --- a/drivers/gpu/drm/ast/ast_sil164.c
+> +++ b/drivers/gpu/drm/ast/ast_sil164.c
+> @@ -64,11 +64,11 @@ static const struct drm_connector_helper_funcs ast_sil164_connector_helper_funcs
+>   	.get_modes = ast_sil164_connector_helper_get_modes,
+>   	.detect_ctx = ast_sil164_connector_helper_detect_ctx,
+>   };
 >   
->   	if (bridge->dev->registered) {
-> -		if (connector->funcs->reset)
-> +		if (connector->funcs->atomic_create_state) {
-> +			struct drm_connector_state *conn_state;
-> +
-> +			conn_state = connector->funcs->atomic_create_state(connector);
-> +			if (IS_ERR(conn_state))
-> +				return PTR_ERR(conn_state);
-> +
-> +			connector->state = conn_state;
-> +		} else if (connector->funcs->reset) {
->   			connector->funcs->reset(connector);
-> +		}
-> +
->   		drm_connector_register(connector);
->   	}
+>   static const struct drm_connector_funcs ast_sil164_connector_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>   	.fill_modes = drm_helper_probe_single_connector_modes,
+>   	.destroy = drm_connector_cleanup,
+>   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>   };
+> diff --git a/drivers/gpu/drm/ast/ast_vga.c b/drivers/gpu/drm/ast/ast_vga.c
+> index abe0fff8485c..56a4524f5a8a 100644
+> --- a/drivers/gpu/drm/ast/ast_vga.c
+> +++ b/drivers/gpu/drm/ast/ast_vga.c
+> @@ -64,11 +64,11 @@ static const struct drm_connector_helper_funcs ast_vga_connector_helper_funcs =
+>   	.get_modes = ast_vga_connector_helper_get_modes,
+>   	.detect_ctx = ast_vga_connector_helper_detect_ctx,
+>   };
 >   
->   	return 0;
->   }
+>   static const struct drm_connector_funcs ast_vga_connector_funcs = {
+> -	.reset = drm_atomic_helper_connector_reset,
+> +	.atomic_create_state = drm_atomic_helper_connector_create_state,
+>   	.fill_modes = drm_helper_probe_single_connector_modes,
+>   	.destroy = drm_connector_cleanup,
+>   	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>   };
 >
 
 -- 
