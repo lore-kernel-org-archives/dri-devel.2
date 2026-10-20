@@ -2,87 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A84606A326
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 13:52:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E614E606C1AF
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 13:52:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rKcAt84H;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kOMc+azt;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gC7QoEjW;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IYF6Uff6
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=T0exh0Zt;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=du7JTfU0;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=T0exh0Zt;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=du7JTfU0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16AC410E810;
-	Tue, 20 Oct 2026 13:52:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6410E10EA11;
+	Tue, 20 Oct 2026 13:52:42 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 695A610E810
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:52:14 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CB2710EA11
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:52:30 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D0C5D21DEB;
- Tue, 20 Oct 2026 13:52:12 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2EDAF21E69;
+ Tue, 20 Oct 2026 13:52:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792504333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1792504348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=DYsPDr+8W1W3hpXVCc6wnXtc6Hn3U2gncgEqJQeJ04c=;
- b=rKcAt84HuFB3tkrZ0NMYa+UNCgNhjCWsOF0KVD1i8YlbDNyugmCQa+f24vu0bUMLL52c1K
- bFBCb7BGEt4h1iyN/o24H39pypLBJchggHTV9JlYO+5IrYOQ2zXArLsLxEBmKN5eI7ZIEn
- ohh8z1knfF+ceqLuL78P6/OSg/eN5Bs=
+ bh=/CvXV4Kp/VAaZdBAJDI5WfxMbJ+zo4P08zs7AXSL8Q0=;
+ b=T0exh0ZttoyM1i6MtIRATPyWjaPSSqggKtnHFkabslCtztK1Q0kkFzVAnEN7hyfQLLMfrv
+ fJyRQbpfvbRyfniabgDtAKsRi41cBeoXNydpKFmvT2+qaE2a7ThZ15AkUcYr3306WP1GsO
+ g2bKLPfwZNklj+80RboS4ooTR3iNERs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792504333;
+ s=susede2_ed25519; t=1792504348;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=DYsPDr+8W1W3hpXVCc6wnXtc6Hn3U2gncgEqJQeJ04c=;
- b=kOMc+aztpCU0QVD9w9XpsyoKW4+7Bj+1VtebdIwOMfOm4QlA0JAYo1beAmK44rG88PVQwz
- QPVUiLp47CEcntBA==
+ bh=/CvXV4Kp/VAaZdBAJDI5WfxMbJ+zo4P08zs7AXSL8Q0=;
+ b=du7JTfU0CAcIJwUNQeb4Sio+fyZd4NF0bMFGYIuZUScjywVp6JTrCP2jQiobNTAGkDTffS
+ iqrFm0ywpnuIcKBw==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=gC7QoEjW;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=IYF6Uff6
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792504332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1792504348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=DYsPDr+8W1W3hpXVCc6wnXtc6Hn3U2gncgEqJQeJ04c=;
- b=gC7QoEjW2pU4MJrAjjx26X1RXWNOv5SKso5sJ7W5djUwveacarEJ8nRKqJtN/dH1ET4cyH
- NB4oF8wGADMlRZqHaBUkNCsfXCeDVaq1epHsWU88FetZU8cvcjsKgkWtt/FA/2SF2gb5uX
- wttxOLcH/OKRP+rjHYDVrmqRl1xPrOQ=
+ bh=/CvXV4Kp/VAaZdBAJDI5WfxMbJ+zo4P08zs7AXSL8Q0=;
+ b=T0exh0ZttoyM1i6MtIRATPyWjaPSSqggKtnHFkabslCtztK1Q0kkFzVAnEN7hyfQLLMfrv
+ fJyRQbpfvbRyfniabgDtAKsRi41cBeoXNydpKFmvT2+qaE2a7ThZ15AkUcYr3306WP1GsO
+ g2bKLPfwZNklj+80RboS4ooTR3iNERs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792504332;
+ s=susede2_ed25519; t=1792504348;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=DYsPDr+8W1W3hpXVCc6wnXtc6Hn3U2gncgEqJQeJ04c=;
- b=IYF6Uff6qf4ZD+9FlBV0fY/VU6sEJCsTt0oGmDXxWI8fW2/XiCXseFPtQ304R+uxEyNJZ2
- w3wtg6CyF6WA56BQ==
+ bh=/CvXV4Kp/VAaZdBAJDI5WfxMbJ+zo4P08zs7AXSL8Q0=;
+ b=du7JTfU0CAcIJwUNQeb4Sio+fyZd4NF0bMFGYIuZUScjywVp6JTrCP2jQiobNTAGkDTffS
+ iqrFm0ywpnuIcKBw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 87CE6136C6;
- Tue, 20 Oct 2026 13:52:12 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DEA55136C6;
+ Tue, 20 Oct 2026 13:52:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6rdtDQxy12piGAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 13:52:12 +0000
-Message-ID: <336dc906-4fdf-4a0e-a7d6-53b7d3084886@suse.de>
-Date: Tue, 20 Oct 2026 15:52:11 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KknzIxty12qDGAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 13:52:27 +0000
+Message-ID: <cc013769-e009-4029-b3c4-8281e75e65d6@suse.de>
+Date: Tue, 20 Oct 2026 15:52:27 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 46/75] drm/tiny: pixpaper: Switch to
+Subject: Re: [PATCH 47/75] drm/tiny: repaper: Switch to
  drm_atomic_helper_connector_create_state
 To: Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, LiangCheng Wang <zaq14760@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Alex Lanzano <lanzano.alex@gmail.com>
 References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-46-586c9c026823@kernel.org>
+ <20261014-drm-no-more-connector-reset-v1-47-586c9c026823@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -109,37 +107,28 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-46-586c9c026823@kernel.org>
+In-Reply-To: <20261014-drm-no-more-connector-reset-v1-47-586c9c026823@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: D0C5D21DEB
-X-Rspamd-Action: no action
+X-Spam-Score: -2.79
 X-Spam-Level: 
-X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+X-Spamd-Result: default: False [-2.79 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[];
- URIBL_BLOCKED(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,gmail.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_FIVE(0.00)[6];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ XM_UA_NO_VERSION(0.01)[]; RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; TAGGED_RCPT(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:email, suse.de:dkim, suse.com:url]
-X-Spam-Score: -4.50
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.com:url]; 
+ TO_DN_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCPT_COUNT_FIVE(0.00)[6];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,gmail.com];
+ MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ suse.de:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,7 +151,7 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 
 Am 14.10.26 um 19:27 schrieb Maxime Ripard:
-> The tiny: pixpaper connector implementation uses the deprecated
+> The tiny: repaper connector implementation uses the deprecated
 > drm_atomic_helper_connector_reset() as its reset hook.
 >
 > Switch to drm_atomic_helper_connector_create_state() instead.
@@ -172,21 +161,21 @@ Am 14.10.26 um 19:27 schrieb Maxime Ripard:
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
 > ---
-> Cc: LiangCheng Wang <zaq14760@gmail.com>
+> Cc: Alex Lanzano <lanzano.alex@gmail.com>
 > ---
->   drivers/gpu/drm/tiny/pixpaper.c | 2 +-
+>   drivers/gpu/drm/tiny/repaper.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/tiny/pixpaper.c b/drivers/gpu/drm/tiny/pixpaper.c
-> index b69e7c30607e..331656b1989b 100644
-> --- a/drivers/gpu/drm/tiny/pixpaper.c
-> +++ b/drivers/gpu/drm/tiny/pixpaper.c
-> @@ -989,11 +989,11 @@ static const struct drm_crtc_helper_funcs pixpaper_crtc_helper_funcs = {
->   static const struct drm_encoder_funcs pixpaper_encoder_funcs = {
->   	.destroy = drm_encoder_cleanup,
+> diff --git a/drivers/gpu/drm/tiny/repaper.c b/drivers/gpu/drm/tiny/repaper.c
+> index 82c99d86656f..08daee20f584 100644
+> --- a/drivers/gpu/drm/tiny/repaper.c
+> +++ b/drivers/gpu/drm/tiny/repaper.c
+> @@ -924,11 +924,11 @@ static int repaper_connector_get_modes(struct drm_connector *connector)
+>   static const struct drm_connector_helper_funcs repaper_connector_hfuncs = {
+>   	.get_modes = repaper_connector_get_modes,
 >   };
 >   
->   static const struct drm_connector_funcs pixpaper_connector_funcs = {
+>   static const struct drm_connector_funcs repaper_connector_funcs = {
 > -	.reset = drm_atomic_helper_connector_reset,
 > +	.atomic_create_state = drm_atomic_helper_connector_create_state,
 >   	.fill_modes = drm_helper_probe_single_connector_modes,
