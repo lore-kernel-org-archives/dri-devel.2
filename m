@@ -2,71 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1994606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 01:33:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201D9606A320
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 01:45:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=gTxNTfGS
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=3VIuew7M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA6E10E1B6;
-	Tue, 20 Oct 2026 01:33:27 +0000 (UTC)
-X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
- Tue, 20 Oct 2026 01:33:19 UTC
-Received: from mail-m82198.xmail.ntesmail.com (mail-m82198.xmail.ntesmail.com
- [156.224.82.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF79310E1B6;
- Tue, 20 Oct 2026 01:33:19 +0000 (UTC)
-Received: from [127.0.0.1] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 51a0a3a65;
- Tue, 20 Oct 2026 09:28:12 +0800 (GMT+08:00)
-Message-ID: <14852d51-eac2-4933-b786-948fbf0f0706@rock-chips.com>
-Date: Tue, 20 Oct 2026 09:28:00 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CCEF10F18A;
+	Tue, 20 Oct 2026 01:44:54 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012019.outbound.protection.outlook.com [52.101.43.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83E0D10F18A;
+ Tue, 20 Oct 2026 01:44:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gBmAIbFCSBbh1moZRXUBUx/BaHdY1ZAD0pzA2h/w01WKD3VlJpdyk8zWQJFSrrwZBNT2E/7o6PuI1KMuvVWK9U2E9pA3GckAhwjG1RUTjLXQftl4UCxMzhEGG2fSEoO1GEmbkCP45GY6ArcrXzkLd58ONNufaFst7YX/WMbMYA63xicKrN82lxYNS9egwikhqfCSfFS4K9QREGTXUaRgQXyHzpWWCW1H8wO2FGlj0bfWq8UstcZzM0Y7jwIQ9zGKIzIRzfZh7aBRtMzncjitKhfwAgg3vZ4RHUnAs0Tjr/RH96MoaBcrRH++lozuDttETYUt4/jawKg1Gv47VNOjEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jxR7QkM+F1ut3huwzVdFwsygd+bBoGeQj92mWweTnw0=;
+ b=T90+VLDToVf3UxQSeccuTgbDKbDLObGcQh72UnjPbfuawm5oQUDYhRj816FI87VPbUgQ1Fe4Sf/hrhV8RI9pA4ubqMzAIkjxnuDevKxBlOUx4zHWQ4cojtNGSl/yfut+j2N+NCtG2evMPsX6HGqZUlLS0Wha3RCw6niwWPFLm17Aro1IYjqZ3j/pSIvOshucWqQEygadjRj7sJTqQQZ4yzw0dF3gUi7CPNcKmWxvE+ic2Xz3wcEbk8sSTTD9KUiOGXBbj2rO7vhFC3TBmSBM6NNlTHgtZR672cvZ7bTcu0CFzhkWh8gsIgJC/Z0fsekG+Q6yzY5LFo1yttWNhn4O/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jxR7QkM+F1ut3huwzVdFwsygd+bBoGeQj92mWweTnw0=;
+ b=3VIuew7MKdchKgZR30ySgMCUDSMFrc/4ZlzskqrLREt7JkdF/8881hQQeBR44ycdG1M9G/3YUrw73Kfs/7C1LS3R1FXJJMAPqB3WzTfu4Ot2u0ZiNkBwPfdjvExvfh1gWZk46/oi1UbnI1CQrFfz8qRvQa1Et7mXBqwdZs13aD4=
+Received: from DS1P221CA0018.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:242::13) by
+ CY8PR12MB8067.namprd12.prod.outlook.com (2603:10b6:930:74::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.19; Tue, 20 Oct 2026 01:44:45 +0000
+Received: from DM2PEPF00003FC9.namprd04.prod.outlook.com
+ (2603:10b6:8:242:cafe::6c) by DS1P221CA0018.outlook.office365.com
+ (2603:10b6:8:242::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Tue,
+ 20 Oct 2026 01:44:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM2PEPF00003FC9.mail.protection.outlook.com (10.167.23.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Tue, 20 Oct 2026 01:44:44 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
+ 2026 20:44:41 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Mon, 19 Oct 2026 20:44:31 -0500
+Subject: [PATCH 1/2] PCI: Preserve the initial bus number in pci_dev
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 7/9] drm: writeback: don't destroy the shared writeback
- properties
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- John Harrison <John.Harrison@igalia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Mihail Atanassov <mihail.atanassov@arm.com>, Eric Anholt <eric@anholt.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Brian Starkey <brian.starkey@arm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org
-References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
- <20261019-wb-drop-encoder-v7-7-d4288a26eb54@oss.qualcomm.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261019-wb-drop-encoder-v7-7-d4288a26eb54@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa156ec57c703a7kunm0a3e7447726d61
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSh9NVhlIHU9NH04dTUIaSlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=gTxNTfGSyaOOvMaGprXiXKZMOe++RQG0eP8q8U6hl3BtnG/aJfNYC74BwlxSIxLdaFPlnHalBnhZGuY6Ue0lc0Ck3vqRpTOL4qYXs/nsN7K86RyI6Pv7njesYRTmlHDOOwRXHIpWHfU72cr6PQxTfS2gZwn6HUgfyhdaSamIS/A=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=bWBcv8C01IwfRuVPSoLR1DOPENxFQuQLLISriS4I3Bo=;
- h=date:mime-version:subject:message-id:from;
+Message-ID: <20261019-vfct-regression-v1-1-5a63ddd378dd@amd.com>
+References: <20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com>
+In-Reply-To: <20261019-vfct-regression-v1-0-5a63ddd378dd@amd.com>
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>
+X-Mailer: b4 0.15.1
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC9:EE_|CY8PR12MB8067:EE_
+X-MS-Office365-Filtering-Correlation-Id: a72a26cc-019e-4a28-40f0-08df2e4bb7aa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: y5Qhg/f8NBSI4KaQXNUKhVysIJZYOpFaqCZKVUtmHJzTq9A1UydWIFdEYmR7y/TPjWfMU2tNoImrC13nZSmMEAc1NgPWhL6i7GQlHTMjkc7oHnXrh+POpU4PpH523xrlnvjOlLJGmTohQUHSM+AWBLrlW15tTC4d8OZVa1q9FqSDMLt2QfKQKEluvTxbxpfcxafWC32dRbTsXrScZEs3GOePd3Lpchem1GgnATxbbTtzy6mZqndGo3dxKhzw3YKc3CdH8eCOBf4ycaL5T+PePCTJye7eDDq9fZqdvQy/FmG2SedH7mjE8WcaU8kHQ8bTWdz/gJ0NFSas2gamTsasYeVSAhgGiEfyfJYzUY5m5ooRcTqfbsI7LyaiG9u7YK0bwqh3H/C3vWWtbBmjcj+w2s9ChJTtmFElA7KyRfsL6tgnlQlPiwyDW3j3TTfucaAn3ZrqLiHZB8Ewn8iJESZ9PL75MqiDQVGFeXhpX+SXaIxr+e4WfSlfz4DcTibPTsTTHqzXj7iiWqg3cpyOCYnhDL6pLZJWaHWTpCcnQ346KClyluTWxrSUN6BfC21WBUyOpwSzDycmW9naFjk8rcWexW8QfoZZM9Hb0FFfi59fdveQ4kZzaL4Ap817rLPmzg8vSw22IQaUIBf2Pex5JDxeT2mu0SWknsZ3cqzkV1GlqANE/Pm4lZ8BWQRhS8O2y/xJcOUOsNNDmAg8SqfZszACIw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 3gEWoy8oNjsC0ymWX0iSdb5tNNcxq8l4JPcc6YO5t7HTCXxjbL8SEY5t8sltQuAROHfhpjFARVb6a/+7aPBtKkg4RuS9SVPQvd53I2Wm4cjgorIIRBkRoOrkSt/8kbGrGSSeM7gBiMgbfZGaq90xU3D5kh6vjvdY5J/ZhSJwPKP4Z/ouZmTamE653eE+YRi5C2XYmrQNPhnhjAwXJpGmyQ+Of1+gNqJ1UYHPisfZolFWXfgHljIcZ1ywmhHle9+lAwPACHf+MOQGvj6uFr5eaqf7ynmgNtosAG+Nr7res/FvsRK5LAcS2giwvIN91kxTbMQxN9stip9WRG1DODVsP+igjcOGR5sIxWcdh+MQw6AINqJwhIy1JRdWbagU2XuFznpT9N+somS7Ho3s89z0x66u5VM95HaiFjjwAksOrcLys/3uQ0B73BJGar+1fUYv
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 01:44:44.7873 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a72a26cc-019e-4a28-40f0-08df2e4bb7aa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM2PEPF00003FC9.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8067
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,126 +108,49 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Dmitry,
+PCI bus numbers can be reassigned after device discovery, for example
+during resource reallocation. Preserve the number seen at allocation
+time so drivers can match devices using firmware-visible bus numbers.
 
-On 10/19/2026 9:12 PM, Dmitry Baryshkov wrote:
-> The writeback properties are created once per device and attached to
-> every writeback connector. Nevertheless, a failing
-> __drm_writeback_connector_init() destroys all three of them. If an
-> earlier writeback connector has already been registered (komeda and
-> rcar-du create one per CRTC), it is left holding stale property
-> pointers. The drmm cleanup action likewise destroys them as soon as the
-> first connector goes away.
-> 
-> Leave the properties alone. They are on the device's property list, so
-> drm_mode_config_cleanup() destroys them together with all other
-> properties.
-> 
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/pci/probe.c | 1 +
+ include/linux/pci.h | 1 +
+ 2 files changed, 2 insertions(+)
 
-If a user attaches a private property to a connector, are they 
-responsible for calling put on that property during cleanup? 
-In that case, can drmm* functions be used to clean up these 
-properties? Thank you.
-
-
-> Fixes: 2f3f4a73631b ("drm: writeback: Add missing cleanup in case of initialization failure")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/drm_writeback.c | 34 ++++++----------------------------
->  1 file changed, 6 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> index 89c36f1414ce..2f6a7b50336c 100644
-> --- a/drivers/gpu/drm/drm_writeback.c
-> +++ b/drivers/gpu/drm/drm_writeback.c
-> @@ -148,22 +148,6 @@ static int create_writeback_properties(struct drm_device *dev)
->  	return 0;
->  }
->  
-> -static void delete_writeback_properties(struct drm_device *dev)
-> -{
-> -	if (dev->mode_config.writeback_pixel_formats_property) {
-> -		drm_property_destroy(dev, dev->mode_config.writeback_pixel_formats_property);
-> -		dev->mode_config.writeback_pixel_formats_property = NULL;
-> -	}
-> -	if (dev->mode_config.writeback_out_fence_ptr_property) {
-> -		drm_property_destroy(dev, dev->mode_config.writeback_out_fence_ptr_property);
-> -		dev->mode_config.writeback_out_fence_ptr_property = NULL;
-> -	}
-> -	if (dev->mode_config.writeback_fb_id_property) {
-> -		drm_property_destroy(dev, dev->mode_config.writeback_fb_id_property);
-> -		dev->mode_config.writeback_fb_id_property = NULL;
-> -	}
-> -}
-> -
->  /**
->   * __drm_writeback_connector_init - Initialize a writeback connector
->   *
-> @@ -198,20 +182,18 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
->  	int ret = create_writeback_properties(dev);
->  
->  	if (ret != 0)
-> -		goto failed_properties;
-> +		return ret;
->  
->  	connector->interlace_allowed = 0;
->  
->  	ret = drm_connector_attach_encoder(connector, enc);
->  	if (ret)
-> -		goto failed_properties;
-> +		return ret;
->  
->  	blob = drm_property_create_blob(dev, n_formats * sizeof(*formats),
->  					formats);
-> -	if (IS_ERR(blob)) {
-> -		ret = PTR_ERR(blob);
-> -		goto failed_properties;
-> -	}
-> +	if (IS_ERR(blob))
-> +		return PTR_ERR(blob);
->  
->  	INIT_LIST_HEAD(&wb_connector->job_queue);
->  	spin_lock_init(&wb_connector->job_lock);
-> @@ -234,9 +216,6 @@ static int __drm_writeback_connector_init(struct drm_device *dev,
->  	wb_connector->pixel_formats_blob_ptr = blob;
->  
->  	return 0;
-> -failed_properties:
-> -	delete_writeback_properties(dev);
-> -	return ret;
->  }
->  
->  /**
-> @@ -295,8 +274,8 @@ EXPORT_SYMBOL(drm_writeback_connector_init);
->   * @dev: DRM device
->   * @data: Pointer to the writeback connector to clean up
->   *
-> - * This will decrement the reference counter of blobs and destroy properties. It
-> - * will also clean the remaining jobs in this writeback connector. Caution: This helper will not
-> + * This will decrement the reference counter of blobs. It will also clean the
-> + * remaining jobs in this writeback connector. Caution: This helper will not
->   * clean up the attached encoder and the drm_connector.
->   */
->  static void drm_writeback_connector_cleanup(struct drm_device *dev,
-> @@ -306,7 +285,6 @@ static void drm_writeback_connector_cleanup(struct drm_device *dev,
->  	struct drm_writeback_job *pos, *n;
->  	struct drm_writeback_connector *wb_connector = data;
->  
-> -	delete_writeback_properties(dev);
->  	drm_property_blob_put(wb_connector->pixel_formats_blob_ptr);
->  
->  	spin_lock_irqsave(&wb_connector->job_lock, flags);
-> 
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 27008e2ea5afc..580b288d5c64f 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -2508,6 +2508,7 @@ struct pci_dev *pci_alloc_dev(struct pci_bus *bus)
+ 	INIT_LIST_HEAD(&dev->bus_list);
+ 	dev->dev.type = &pci_dev_type;
+ 	dev->bus = pci_bus_get(bus);
++	dev->initial_bus_number = bus->number;
+ 	dev->driver_exclusive_resource = (struct resource) {
+ 		.name = "PCI Exclusive",
+ 		.start = 0,
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 5ffcf5ce8c966..dae68b28ce051 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -363,6 +363,7 @@ struct pci_dev {
+ 	struct pci_slot	*slot;		/* Physical slot this device is in */
+ 
+ 	unsigned int	devfn;		/* Encoded device & function index */
++	u8		initial_bus_number;	/* Bus number when device was discovered */
+ 	unsigned short	vendor;
+ 	unsigned short	device;
+ 	unsigned short	subsystem_vendor;
 
 -- 
-Best, 
-Chaoyi
+2.43.0
+
