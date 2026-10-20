@@ -2,30 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DF3606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 16:19:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AEF060A261E
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 16:47:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B1C310E186;
-	Tue, 20 Oct 2026 16:19:17 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 565DF10E186
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 16:19:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99F3510E29B;
+	Tue, 20 Oct 2026 16:47:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61FC010E181
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 16:47:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C774441360;
- Tue, 20 Oct 2026 16:19:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9006D1F000C5;
- Tue, 20 Oct 2026 16:19:15 +0000 (UTC)
-Message-ID: <sashiko-outbox-179337@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 8/8] drm/sched: Untangle the scheduler list mess
-To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261020154123.33631-9-tvrtko.ursulin@igalia.com>
-References: <20261020154123.33631-1-tvrtko.ursulin@igalia.com>
- <20261020154123.33631-9-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 20 Oct 2026 16:18:45 +0000
+ by tor.source.kernel.org (Postfix) with ESMTP id 32C0A60052;
+ Tue, 20 Oct 2026 16:47:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE311F000CA;
+ Tue, 20 Oct 2026 16:47:22 +0000 (UTC)
+Date: Tue, 20 Oct 2026 11:46:51 -0500
+From: Rob Herring <robh@kernel.org>
+To: =?iso-8859-1?Q?M=E0xim?= Pedraza Padilla <maximpedraza@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Francesco Valla <francesco@valla.it>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-efi@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 06/13] dt-bindings: display: add a boot logo node
+ under /chosen
+Message-ID: <20261020164651.GA4017884-robh@kernel.org>
+References: <20261013093243.505776-1-maximpedraza@gmail.com>
+ <20261013093243.505776-7-maximpedraza@gmail.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261013093243.505776-7-maximpedraza@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,276 +57,226 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/sched: NULL entity->rq dereference via drm_sched_entity_select=
-_rq()
-- [High] drm/sched: invalid flex-array embedding and layout in drm_sched_en=
-tity
-- [Medium] drm/sched: drm_sched_entity_set_priority() leaves rq_priority st=
-ale
---
-
-commit ea4d5caf1dfadd7f3c593ae875d3ce707b5c11f4
-Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-drm/sched: Untangle the scheduler list mess
-
-This commit reworks drm_sched_entity so that it owns a copy of its
-scheduler list via a flexible array member (with a built-in single
-scheduler slot), and updates rocket and amdgpu to provide trailing storage
-for multi-scheduler entities.
-
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index 4bc4f9c8ee403..e29ec5755280d 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -511,18 +511,21 @@ void rocket_job_fini(struct rocket_core *core)
->  int rocket_job_open(struct rocket_file_priv *rocket_priv)
->  {
->  	struct rocket_device *rdev =3D rocket_priv->rdev;
-> -	struct drm_gpu_scheduler **scheds =3D kmalloc_objs(*scheds,
-> -							 rdev->num_cores);
-> +	unsigned int num_cores =3D rdev->num_cores;
->  	unsigned int core;
->  	int ret;
-> =20
-> -	for (core =3D 0; core < rdev->num_cores; core++)
-> -		scheds[core] =3D &rdev->cores[core].sched;
-> +	if (WARN_ON_ONCE(num_cores > ARRAY_SIZE(rocket_priv->sched_list)))
-> +		return -EINVAL;
+On Tue, Oct 13, 2026 at 11:32:36AM +0200, Màxim Pedraza Padilla wrote:
+> Products built on the same board often differ only in branding. On UEFI
+> systems the firmware hands the operating system its boot logo through
+> the ACPI BGRT; a device tree system has no such table, so today the logo
+> is built into the kernel, and each product needs its own kernel image.
+> With U-Boot's Falcon mode the device tree is the only thing that reaches
+> the kernel, so it is also the only place the logo can come from.
+> 
+> Add a "boot-logo" node under /chosen. The node lives there because a
+> logo is configuration handed over by firmware rather than a description
+> of the hardware, as simple-framebuffer nodes already are.
+> 
+> The image is a BMP with 24 bits per pixel and no compression, the
+> format of the BGRT image, so that one file serves the firmware splash,
+> a BMP loaded as firmware and this node alike. It is carried either in
+> an "image" property, which dtc fills in from the file with /incbin/, or
+> in a reserved memory region the bootloader loaded it into, named by
+> "memory-region". Exactly one of the two must be present.
+> 
+> "logo-position" takes -1 on an axis to mean centre on that axis, which
+> is the only way to say it when the device tree does not know the image
+> size, and "logo-offset" is added afterwards. "rotation" counts degrees
+> counter clockwise, as for panels, and turns the image rather than the
+> screen, so position and offset stay in screen pixels. The optional
+> "background-color" goes with the image, since a logo designed for one
+> background looks wrong on another.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+> ---
+>  .../bindings/display/boot-logo.yaml           | 151 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  2 files changed, 152 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/boot-logo.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/boot-logo.yaml b/Documentation/devicetree/bindings/display/boot-logo.yaml
+> new file mode 100644
+> index 000000000000..bf4121f24f1b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/boot-logo.yaml
+> @@ -0,0 +1,151 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/boot-logo.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	for (core =3D 0; core < num_cores; core++)
-> +		rocket_priv->sched_list[core] =3D &rdev->cores[core].sched;
-> =20
-> -	ret =3D drm_sched_entity_init(&rocket_priv->sched_entity,
-> -				    DRM_SCHED_PRIORITY_NORMAL,
-> -				    scheds,
-> -				    rdev->num_cores, NULL);
-> +	ret =3D __drm_sched_entity_init(&rocket_priv->sched_entity,
-> +				      DRM_SCHED_PRIORITY_NORMAL,
-> +				      rocket_priv->sched_list,
-> +				      ARRAY_SIZE(rocket_priv->sched_list),
-> +				      num_cores, NULL);
-
-[Severity: High]
-Because struct drm_sched_entity already includes one pointer slot in its
-union (__sched__ and sched_list[]), rocket_priv->sched_list[0] is located
-at &rocket_priv->sched_entity.sched_list[1] rather than at index 0.
-
-When rocket_job_open() populates rocket_priv->sched_list[] and passes it
-to __drm_sched_entity_init() -> drm_sched_entity_modify_sched(), memmove()
-copies num_cores pointers from &sched_entity.sched_list[1] down into
-&sched_entity.sched_list[0], shifting the entries in rocket_priv->sched_list
-and leaving the two arrays out of sync.
-
-More broadly, adding DECLARE_FLEX_ARRAY(struct drm_gpu_scheduler *,
-sched_list) to struct drm_sched_entity makes it a structure with a
-flexible array member, which C99/C11 and GCC 14+
-(-Wflex-array-member-not-at-end) disallow from being embedded in the
-middle of structs or in arrays. However, struct drm_sched_entity is
-embedded in DECLARE_DRM_SCHED_ENTITY_WITH_STORAGE itself, in the middle of
-struct amdgpu_ctx_entity (before fences[]), struct
-amdgpu_ttm_buffer_entity, and struct amdgpu_vm, as well as in arrays across
-several DRM drivers (such as amdgpu_mman::move_entities[],
-etnaviv_file_private::sched_entity[], panfrost_jm_ctx::slot_entity[], and
-v3d_file_priv::sched_entity[]).
-
-Additionally, when drm_sched_entity_modify_sched() writes more than one
-element to entity->sched_list, the write crosses the sub-object boundary
-of struct drm_sched_entity into the adjacent listname array, which can
-trip FORTIFY_SOURCE or UBSAN bounds checks.
-
-Could DECLARE_DRM_SCHED_ENTITY_WITH_STORAGE use TRAILING_OVERLAP() (or a
-different storage representation that avoids a flexible array member in
-struct drm_sched_entity) so that struct drm_sched_entity can still be
-safely embedded in structs and arrays, and listname[0] aliases
-sched_list[0]?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
-cheduler/sched_entity.c
-> index 79ea20838328d..d4956c6de6ed1 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-
-[ ... ]
-
-> @@ -159,17 +165,20 @@ int drm_sched_entity_init(struct drm_sched_entity *=
-entity,
->  	entity->priority =3D priority;
->  	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
->  			      DRM_SCHED_PRIORITY_KERNEL : priority;
-> -	entity->rq =3D sched_list[0]->sched_rq[entity->rq_priority];
-> =20
->  	spin_lock_init(&entity->lock);
->  	spsc_queue_init(&entity->job_queue);
-> =20
-> +	entity->max_sched_list =3D max_sched_list;
-> +	drm_sched_entity_modify_sched(entity, sched_list, num_sched_list);
-> +	drm_sched_entity_select_rq(entity);
-
-[Severity: High]
-What happens if all schedulers in sched_list have sched->ready =3D=3D false
-when __drm_sched_entity_init() or drm_sched_entity_select_rq() runs (for
-example in amdgpu when a ring fails IB ring tests during init/reset/resume
-while ring->sched.sched_rq remains allocated)?
-
-Previously, drm_sched_entity_init() unconditionally set:
-
-	entity->rq =3D sched_list[0]->sched_rq[entity->rq_priority];
-
-and for single-scheduler entities (num_sched_list =3D=3D 1), entity->sched_=
-list
-was set to NULL so drm_sched_entity_select_rq() returned early without
-clearing entity->rq.
-
-With this change, __drm_sched_entity_init() leaves entity->rq as NULL from
-memset() and calls drm_sched_entity_select_rq():
-
-	sched =3D drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
-	rq =3D sched ? sched->sched_rq[entity->rq_priority] : NULL;
-	if (rq !=3D entity->rq) {
-		drm_sched_rq_remove_entity(entity->rq, entity);
-		entity->rq =3D rq;
-	}
-
-Because drm_sched_pick_best() skips any scheduler where !sched->ready, it
-returns NULL when no scheduler is ready. __drm_sched_entity_init() then
-succeeds (returning 0) with entity->rq =3D=3D NULL, and
-drm_sched_entity_select_rq() can also overwrite an existing non-NULL
-entity->rq with NULL.
-
-Won't subsequent calls to drm_sched_entity_destroy() ->
-drm_sched_entity_flush():
-
-	sched =3D entity->rq->sched;
-
-or drm_sched_job_arm():
-
-	drm_sched_entity_select_rq(entity);
-	sched =3D entity->rq->sched;
-
-or amdgpu_ctx_fini_entity() -> amdgpu_xcp_release_sched() trigger a NULL
-pointer dereference on entity->rq?
-
-[ ... ]
-
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index 76637e21284ac..38b50a84a8210 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -121,22 +121,11 @@ struct drm_sched_entity {
->  	struct drm_sched_entity_stats	*stats;
-> =20
->  	/**
-> -	 * @sched_list:
-> +	 * @max_sched_list:
->  	 *
-> -	 * A list of schedulers (struct drm_gpu_scheduler).  Jobs from this ent=
-ity can
-> -	 * be scheduled on any scheduler on this list.
-> -	 *
-> -	 * This can be modified by calling drm_sched_entity_modify_sched().
-> -	 * Locking is entirely up to the driver, see the above function for more
-> -	 * details.
-> -	 *
-> -	 * This will be set to NULL if &num_sched_list equals 1 and @rq has been
-> -	 * set already.
-> -	 *
-> -	 * FIXME: This means priority changes through
-> -	 * drm_sched_entity_set_priority() will be lost henceforth in this case.
-> +	 * Maximum number of drm_gpu_schedulers in the @sched_list.
->  	 */
-> -	struct drm_gpu_scheduler        **sched_list;
-> +	unsigned int                    max_sched_list;
-
-[Severity: Medium]
-Does drm_sched_entity_set_priority() actually switch run-queues when
-per-priority run-queues (such as DRM_SCHED_POLICY_FIFO or
-DRM_SCHED_POLICY_RR) are used?
-
-In drivers/gpu/drm/scheduler/sched_entity.c, __drm_sched_entity_init()
-initializes both priority fields:
-
-	entity->priority =3D priority;
-	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
-			      DRM_SCHED_PRIORITY_KERNEL : priority;
-
-However, drm_sched_entity_set_priority() only updates entity->priority:
-
-void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
-				   enum drm_sched_priority priority)
-{
-	spin_lock(&entity->lock);
-	entity->priority =3D priority;
-	spin_unlock(&entity->lock);
-}
-
-When drm_sched_entity_select_rq() later selects a run-queue, it indexes
-sched->sched_rq using entity->rq_priority:
-
-	sched =3D drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
-	rq =3D sched ? sched->sched_rq[entity->rq_priority] : NULL;
-
-Since entity->rq_priority is never updated by
-drm_sched_entity_set_priority(), won't the entity remain on its original
-priority's run-queue when drm_sched_policy is not DRM_SCHED_POLICY_FAIR?
-
-[ ... ]
-
-> @@ -245,8 +234,38 @@ struct drm_sched_entity {
->  	 */
->  	struct rb_node			rb_tree_node;
-> =20
-> +	union {
-> +		/**
-> +		 * @__sched__:
-> +		 *
-> +		 * Built-in storage for callers who only need a single slot.
-> +		 *
-> +		 * MUST NOT be accessed.
-> +		 */
-> +		struct drm_gpu_scheduler 	*__sched__;
+> +title: Boot logo supplied by the device tree
 > +
-> +		/**
-> +		 * @sched_list:
-> +		 *
-> +		 * Flexible array of schedulers this entity can pick from, with
-> +		 * the driver reponsibility to size the array correctly at
-> +		 * declaration and initialization time, and populate the array
-> +		 * via drm_sched_entity_init() and/or
-> +		 * drm_sched_entity_modify_sched().
-> +		 *
-> +		 * It can be modified by calling
-> +		 * drm_sched_entity_modify_sched().
-> +		 */
-> +		DECLARE_FLEX_ARRAY(struct drm_gpu_scheduler *, sched_list);
-> +	};
->  };
-> =20
-> +#define DECLARE_DRM_SCHED_ENTITY_WITH_STORAGE(name, listname, max_scheds=
-) \
-> +struct { \
-> +	struct drm_sched_entity (name); \
-> +	struct drm_gpu_scheduler *(listname)[(max_scheds)]; \
-> +}
+> +maintainers:
+> +  - Francesco Valla <francesco@valla.it>
+> +  - Màxim Pedraza Padilla <maximpedraza@gmail.com>
+> +
+> +description: |
+> +  An image for the operating system to show on the display while it boots,
+> +  handed over by the firmware together with where and how to show it.
+> +
+> +  Products built on the same board often differ only in branding. Carrying
+> +  the logo in the device tree lets a single kernel image serve all of them,
+> +  each booting with its own device tree, and it works where the device tree
+> +  is the only thing that reaches the kernel, as with U-Boot's Falcon mode.
+> +  It plays the part the ACPI BGRT plays on UEFI systems.
+> +
+> +  Since a logo is configuration rather than a description of the hardware,
+> +  the node lives under /chosen, next to the other things firmware hands to
+> +  the operating system.
+> +
+> +  The image is a BMP file with a 40 byte BITMAPINFOHEADER, 24 bits per pixel
+> +  and no compression, the format of the BGRT image. It is carried either in
+> +  the node itself or in a reserved memory region the bootloader loaded it
+> +  into, never both.
+> +
+> +properties:
+> +  $nodename:
+> +    const: logo
+> +
+> +  compatible:
+> +    const: boot-logo
+> +
+> +  image:
 
-[ ... ]
+A bit too generic for me. How about logo-image for consistency.
 
->|}
+> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+> +    description:
+> +      The BMP file itself, byte for byte, which dtc can fill in from the file
+> +      with /incbin/. The device tree stays in memory for as long as the
+> +      system runs, so this is meant for small images; larger ones belong in
+> +      a reserved memory region.
+> +
+> +  memory-region:
+> +    maxItems: 1
+> +    description: |
+> +      Reserved memory region the bootloader loaded the BMP file into, starting
+> +      at the beginning of the region. The BMP header says how much of the
+> +      region is image.
+> +
+> +      This keeps the image out of the device tree, so that it can be changed
+> +      without rebuilding the device tree, for instance by loading it from a
+> +      partition of its own that userspace can update.
+> +
+> +      Memory keeps its contents across a reset, and may even across a short
+> +      power cycle, and the operating system cannot tell a stale image from a
+> +      fresh one. A bootloader that loads no image into the region therefore
+> +      disables the node (status = "disabled") or removes it.
+> +
+> +  logo-position:
+> +    $ref: /schemas/types.yaml#/definitions/int32-array
+> +    description:
+> +      X and Y coordinates, in screen pixels, of the top left corner of the
+> +      image once it has been rotated. A value of -1 on an axis centres the
+> +      image on that axis instead, which is the only way to say it when the
+> +      device tree does not know the image size, as with a memory region.
+> +      Defaults to centring on both axes.
+> +    items:
+> +      - description: X coordinate, or -1 to centre horizontally
+> +        minimum: -1
+> +        maximum: 65535
+> +      - description: Y coordinate, or -1 to centre vertically
+> +        minimum: -1
+> +        maximum: 65535
+> +
+> +  logo-offset:
+> +    $ref: /schemas/types.yaml#/definitions/int32-array
+> +    description:
+> +      X and Y displacement, in screen pixels, applied after the image has been
+> +      placed. Mostly useful together with a centred axis, to land the image
+> +      somewhere other than the middle of a panel whose visible area is not
+> +      the middle of the mode.
+> +    items:
+> +      - description: X displacement
+> +        minimum: -65535
+> +        maximum: 65535
+> +      - description: Y displacement
+> +        minimum: -65535
+> +        maximum: 65535
+> +
+> +  rotation:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Rotation applied to the image before it is shown, in degrees counter
+> +      clockwise, as for the rotation property of panels. It turns the image
+> +      and not the screen, so a quarter turn swaps how much room the image
+> +      takes up, but logo-position and logo-offset stay in screen pixels
+> +      either way.
+> +    enum: [0, 90, 180, 270]
+> +    default: 0
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020154123.3363=
-1-1-tvrtko.ursulin@igalia.com?part=3D8
+This property is already defined in panel-common.yaml, so you need a ref 
+to it. You probably don't want everything from there, so just 'rotation: 
+true' here. Though keeping the description here is probably worthwhile.
+
+> +
+> +  background-color:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Colour of the rest of the screen, as 0xRRGGBB. When absent, the
+> +      operating system uses its own default.
+> +    maximum: 0xffffff
+> +
+> +required:
+> +  - compatible
+> +
+> +# The image lives either in the node or in a reserved memory region,
+> +# never both and never neither.
+> +oneOf:
+> +  - required:
+> +      - image
+> +  - required:
+> +      - memory-region
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    // A 2x1 image, red and blue, centred and 120 pixels below the middle
+> +    / {
+> +        compatible = "foo";
+> +        model = "foo";
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        chosen {
+> +            logo {
+> +                compatible = "boot-logo";
+> +                /* Normally: image = /incbin/("logo.bmp"); */
+> +                image = /bits/ 8 <0x42 0x4d 0x3e 0x00 0x00 0x00 0x00 0x00
+> +                                  0x00 0x00 0x36 0x00 0x00 0x00 0x28 0x00
+> +                                  0x00 0x00 0x02 0x00 0x00 0x00 0x01 0x00
+> +                                  0x00 0x00 0x01 0x00 0x18 0x00 0x00 0x00
+> +                                  0x00 0x00 0x08 0x00 0x00 0x00 0x13 0x0b
+> +                                  0x00 0x00 0x13 0x0b 0x00 0x00 0x00 0x00
+> +                                  0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+> +                                  0xff 0xff 0x00 0x00 0x00 0x00>;
+> +                logo-position = <(-1) (-1)>;
+> +                logo-offset = <0 120>;
+> +                background-color = <0x1e1e28>;
+> +            };
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 321ecb9f5b5b..0d1decaedde0 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -9174,6 +9174,7 @@ M:	Màxim Pedraza Padilla <maximpedraza@gmail.com>
+>  L:	dri-devel@lists.freedesktop.org
+>  S:	Maintained
+>  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> +F:	Documentation/devicetree/bindings/display/boot-logo.yaml
+>  F:	drivers/gpu/drm/clients/drm_splash.c
+>  
+>  DRM TTM SUBSYSTEM
+> -- 
+> 2.39.5
+> 
