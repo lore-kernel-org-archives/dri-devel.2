@@ -2,92 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84840606B549
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 03:09:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09146606A330
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 03:10:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eHllukLX
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ejSv5eT7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB00210EB5F;
-	Tue, 20 Oct 2026 03:09:46 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D333810EB5F
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 03:09:38 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-48c5358fc28so2291019f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 19 Oct 2026 20:09:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792465777; x=1793070577; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=eRFeOO3Kki8hDmAHeTRG/02QqZyLShI99Jw754kjQWE=;
- b=eHllukLX6RlIjlHpB4+CHlKZMwZJEFzPrRcEv11CEuN8MAcmJJUQvQSyS9uHYKtq3l
- iIYRorkJDFN0C/VtiL+fVxV+O7EUCS7O3FyIEaKJrXxxHKMEqduUTQCZ2p57A7JEYUlu
- xuJbXuA+W6YWZK0EqN6fwnm5JDTxIqcuiZmlERGYEhNAqU881l3bRUVNH7iJN+VQvAzy
- DCuDYMqooBEXks6GrWHh3F/slS6LMwaV5eIe1ybnWqZ/VMOTweLzbqWxGmOgIBnbgeib
- BASJ/Fzc0ZwSR40Us5EHr0vVXweDy90Rvz5vXiL2JMN5ouMR+aiKL62JzxM7e8a6ldqT
- Qg5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792465777; x=1793070577;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=eRFeOO3Kki8hDmAHeTRG/02QqZyLShI99Jw754kjQWE=;
- b=gk1PyXCmAoPLrEATQ7bxLOKeh/CskjdH9MRCdlqmY7frD0COepDN2L0AZyBKTiPonH
- AUV9aYzJVkvTyPanFI1ZqCbaDSXDucj7A3jm6+LkTVKtvKmZentB3YYOzhGcn3BoyvVn
- SO42ED5WMWbVu+eYI4kUgcEs5X+Folva9w0bB6WoysGngm10ai3ZcITgH1EgcwC50jlf
- 7nYlCWXbpJoJuTN76kkYfezQ0+R3HHrSnQNtuG2Lm2UA6UDIV2KMbqRKqUgXBMvPZgVS
- x/NT95EN66MqmUW3a+yi8Lqpdzyuc57NHffWn98qUevuHFk1I6znxOuZG+mUfETx4ME6
- 8Ugw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzgjXkspKUZDDHVXu48lFqqOFOW9foPYixdONEoDuwewuiLpA/2UxhXnHbS6I3HF7BhbqWehQT7f7E=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLZJfP+B02N0pnEuwVs1FUBaUl281W60CFCeZhzmaqzF3L00jfS
- /cbkDiRWM0s9uFv294zhjTeYzvbsb1mvbGp01VX7P+IQBBFIlChnIfOs
-X-Gm-Gg: AYBFou10ILBhDJPp1cQRBkr0NxEnPj8ueOKCeFd9vcrgF4gU9jVgi1F7aT8Tmig0y0z
- tE+staVXJCtEN+523haQGZmNbZbDfBm062wOrBJJi5YFbzYSLW+18T9b/JMgyg8os/fy1T7kvIf
- BEu3zonsT+7TW+DGVBfK4Q8H7FFEjOX2gVPhzqBlRypBZGw0nhWOwhpxS1JDmm2rs4xVjESlk8S
- K2G9g0ZJbn7ZfB78+QlJFOvrUy4/BsHvoV9mc3n2fm2NkCBCj4BwWHlgXKg2XAYxdk+eq+yN28U
- uszGbspOiQwM+82eEMqCYxhYF2vtHhSb9pFABIINeeAKSOWmCcpY1RjqFxWubsFrIzSyEXxLBSl
- KPxo3aOJM04xfLjtMI2jbPcgz6i2sefoyurFGnJ/+wbpigkiBO/9tex+kHZapTC8cEh42/DPorM
- AccLvcpxg6p4SgTR00W+a0gikkI93KPCmPSGGHT90AiT9PrUyb6n80/9gzi/r3Munb1WPPkhjY8
- LE3VpPAW/Mc5omAtNdcNGyAJF1YBhAbRhF+PpCWnK0IzthObXHA9xjMXB12p9pLAukUXXgrhqKU
- EDdEG7PKPcD3fkLQUmayjMrgckpTt6wOb7kguGK92hN7oQqBn2iBlpWYXd3BvmVawtbcHCHIUIE
- =
-X-Received: by 2002:a05:6000:22c4:b0:48d:ffce:6cef with SMTP id
- ffacd0b85a97d-48e079200b5mr21966256f8f.0.1792465777063; 
- Mon, 19 Oct 2026 20:09:37 -0700 (PDT)
-Received: from unknown748F3CBA5068
- (dynamic-2a02-3100-9c92-6501-cda9-90cd-4e49-75d9.310.pool.telefonica.de.
- [2a02:3100:9c92:6501:cda9:90cd:4e49:75d9])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e1d817d75sm3304578f8f.25.2026.10.19.20.09.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2026 20:09:36 -0700 (PDT)
-Date: Tue, 20 Oct 2026 05:09:29 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- linux-media@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Tomasz Stanislawski <t.stanislaws@samsung.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] media: synchronize CPU access to imported DMA-BUFs
-Message-ID: <atba0NA5lyG-326_@gmail.com>
-References: <cover.1792392288.git.kmehltretter@gmail.com>
- <20261019124433.GU595565@killaraus.ideasonboard.com>
- <b9f5ee4d-987f-44c2-a1fc-2570f4500803@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50FAC10F1C6;
+	Tue, 20 Oct 2026 03:10:25 +0000 (UTC)
+Received: from mail-m932.xmail.ntesmail.com (mail-m932.xmail.ntesmail.com
+ [103.126.93.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB03B10E55D
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 03:09:29 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 51a4cee65;
+ Tue, 20 Oct 2026 11:09:25 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dave Jones <s.dave.jones@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v3 0/6] Add eDP support for RK3568
+Date: Tue, 20 Oct 2026 11:09:10 +0800
+Message-Id: <20261020030916.3223833-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b9f5ee4d-987f-44c2-a1fc-2570f4500803@amd.com>
+X-HM-Tid: 0aa15749028c03a8kunmfd20f05334c72b
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHh8aVksaTRlKTEsaTE8dHlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=ejSv5eT7K0+24gI8HbGP05HopX6koZdp+6lHCq0dDME2HQCRxnv9QB5FmRNP2hIjezD8oVsbDOrRGzT4gNj5j6MI2uKSOExLWPjL1Ie3b+8U3ARCtv1AzVSIQc0mnv+kwxxfMstgCL5uzVWb11nYY3Co41IV/QaKnbVLwQNt+4I=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=dt0N3ix0wAIYmAU9lbiuaFzpuHythTIbWJzQ9DvOTyA=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,36 +66,109 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Christian,
+PATCH 1 is to document the "rockchip,rk3568-edp" compatible in the
+        Rockchip Analogix DP binding.
+PATCH 2 is to add the binding for the RK3568 eDP PHY with NaNeng IP block.
+PATCH 3 is to add the RK3568 support for the Analogix DP bridge driver.
+PATCH 4 is to add the driver for the Rockchip eDP Transmitter PHY with
+        NaNeng IP block.
+PATCH 5 is to add the RK3568 support for the Rockchip Analogix DP driver.
+PATCH 6 is to add the eDP controller and eDP PHY nodes for the RK3568
+        SoCs.
 
-On Mon, Oct 19, 2026 at 04:48:13PM +0100, Christian König wrote:
-> 
-> What the drivers do more likely is that they use the vmap interface to access the DMA-buf with the CPU inside the kernel. Correct?
-> 
+Tested on RK3568 EVB1 baord with LG eDP panel LP079QX1-SP0V.
 
-Yes. UVC and the tested vivid vb2-vmalloc path write the imported
-DMA-BUF through a kernel vmap. Userspace mmaps the DMA-BUF and brackets
-each read with DMA_BUF_IOCTL_SYNC.
+&edp {
+  avdd-0v9-supply = <&vdda0v9_image>;
+  avdd-1v8-supply = <&vcca1v8_image>;
+  force-hpd;
+  status = "okay";
 
-> In this case dma_buf_begin_cpu_access() and dma_buf_end_cpu_access() should be called to properly frame that access.
-> 
-> That seems to be added in patch #2, but I absolutely can't judge if that is correct or not since at the same time you speak about userptr access and the code really looks a bit like spaghetti. 
+  aux-bus {
+    panel {
+      compatible = "edp-panel";
+      backlight = <&backlight>;
+      power-supply = <&vcc3v3_lcd0_n>;
+      no-hpd;
 
+      port {
+        panel_in_edp: endpoint {
+          remote-endpoint = <&edp_out_panel>;
+        };
+      };
+    };
+  };
+};
 
-USERPTR is not part of the CPU-access bracketing. The cover letter
-mentions it only as a regression test.
+&edp_in {
+  edp_in_vp0: endpoint {
+    remote-endpoint = <&vp0_out_edp>;
+  };
+};
 
-An earlier version changed q->dma_dir to DMA_BIDIRECTIONAL and made
-read-only output USERPTR fail PREPARE_BUF with EFAULT. Patch 2 leaves
-q->dma_dir unchanged and passes DMA_BIDIRECTIONAL only to
-attach_dmabuf() for imported DMA-BUFs.
+&edp_out {
+  edp_out_panel: endpoint {
+    remote-endpoint = <&panel_in_edp>;
+  };
+};
 
-Thanks,
-Karl
+&edp_phy {
+  status = "okay";
+};
+
+&vp0 {
+  vp0_out_edp: endpoint@ROCKCHIP_VOP2_EP_EDP0 {
+    reg = <ROCKCHIP_VOP2_EP_EDP0>;
+    remote-endpoint = <&edp_in_vp0>;
+  };
+};
+
+Damon Ding (6):
+  dt-bindings: display: rockchip: analogix-dp: Add support for RK3568
+  dt-bindings: phy: Add rockchip,rk3568-edp-phy
+  drm/bridge: analogix_dp: Add support for RK3568
+  phy: rockchip: Add support for Naneng eDP phy
+  drm/rockchip: analogix_dp: Add support for RK3568
+  arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
+
+ .../rockchip/rockchip,analogix-dp.yaml        |  25 +-
+ .../bindings/phy/rockchip,rk3568-edp-phy.yaml |  59 +++
+ .../devicetree/bindings/soc/rockchip/grf.yaml |  15 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi |  41 ++
+ .../drm/bridge/analogix/analogix_dp_core.c    |   1 +
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   |  24 +-
+ drivers/phy/rockchip/Kconfig                  |  10 +
+ drivers/phy/rockchip/Makefile                 |   1 +
+ .../phy/rockchip/phy-rockchip-naneng-edp.c    | 453 ++++++++++++++++++
+ include/drm/bridge/analogix_dp.h              |   2 +
+ 10 files changed, 629 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml
+ create mode 100644 drivers/phy/rockchip/phy-rockchip-naneng-edp.c
+
+---
+
+Changes in v2:
+- Apply the lane-dependent TX configurations in set_lanes() instead of
+  set_rate(), and store the lane count for set_voltages(), since the
+  Analogix DP core issues separate phy_configure() calls and the lane
+  count is only valid in the set_lanes/set_voltages calls.(Sashiko)
+- Initialize val to zero in rockchip_edp_phy_enabled() to avoid using
+  an uninitialized variable when regmap_read() fails.(Sashiko)
+- Fail the probe when the chip data requires GRF configurations while
+  the "rockchip,grf" property is missing.(Sashiko)
+- Rebase onto latest drm-misc-next tree.
+
+Changes in v3:
+- Restore the PHY related changes which were missing in v2 for
+  unexpected reasons.
+
+-- 
+2.34.1
+
