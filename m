@@ -2,65 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16084606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:15:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4851F606A320
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 07:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Z1CUrt7q
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=g6Sgm0ye
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F33F10E9E0;
-	Tue, 20 Oct 2026 07:15:10 +0000 (UTC)
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD9A810E9E0
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 07:15:03 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4j83Zq1xB7zMlTn;
- Tue, 20 Oct 2026 09:14:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1792480499; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8qJ+236X35WWHedIHQYsh13JEKsfxvWm1C4JdQxQx1U=;
- b=Z1CUrt7q7MwvZ8dUbjjJzSwLqgG0+MMdavDVSHGKCKLvOh5GUmMfZlyDzmSqV0wOoagcoG
- PZ7dNAeE4UyjEWI5TeT8dNAJ8vac4qiHjmFqyHPQ6+B7U3ixLrqSfB7lgolXGBuBHdH5in
- 8cxsxKpi04ouY1bGxNt/BMKIH8EMtGSyhPg+9qlPPFGlV/at7u0IdGU4labAE2CynqjFZb
- zqAD+Ez7JQFT0u8RRGgpTDNqB/5HRVX0BBynqO9Eiiu04EifRF56PTzzdXGJkgQyt8jMgG
- kyseEMOvFLEYgMmSm/Vf8mfV4p2sWl3i1OuG6wWLudj71D/mM73EEt6BVfCfQQ==
-Message-ID: <d54ba24b0a4748b5c00052d4542460ea014aa50d.camel@mailbox.org>
-Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
- during device unbind
-From: Philipp Stanner <phasta@mailbox.org>
-To: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, Philipp Stanner
- <phasta@kernel.org>, Danilo Krummrich	 <dakr@kernel.org>, Sean Paul
- <seanpaul@chromium.org>, Gustavo Padovan	 <gustavo.padovan@collabora.co.uk>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin	
- <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
- Yescas <jyescas@google.com>, kernel-team@android.com, Simona Vetter
- <simona.vetter@ffwll.ch>, 	stable@vger.kernel.org
-Date: Tue, 20 Oct 2026 09:14:52 +0200
-In-Reply-To: <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
- <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC44D10E518;
+	Tue, 20 Oct 2026 07:25:28 +0000 (UTC)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0A8F10E518
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 07:25:21 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-c43fbcb4393so260381866b.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 00:25:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google; t=1792481120; x=1793085920;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=1ICODlrliKO72oBKprpY8FPw4rnE8nvSDKvjlXw6yOI=;
+ b=g6Sgm0ye4trFB+I6YyKOwUqPo0i3am05hbaX2Mt36muaiMbq3uEXgAdxvr+xpTaGH0
+ N0MhKNweRCWENuS4Pq3We/TMW/DrIomKbl+sPqkh0lwmoOcA3MIvbbLuypyULSecMTbd
+ zAutY1twofbR6qEuJLEL1ReudSG4+qlh8minw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792481120; x=1793085920;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=1ICODlrliKO72oBKprpY8FPw4rnE8nvSDKvjlXw6yOI=;
+ b=JUtFaCoxOJFGpjyMoBibwPOWT/VKOPJa9ujTbrb+mbOU/RAmGzHqp7zC1BKC6cfkVX
+ t6XmCg0zoD/EQwlMCVMNdilF5cWXYzjuL1XaDbDsxwzkHI9rmjDOg/qZ7hgwUSI/qRDb
+ iIo8CbQmM/Kk4VlUiPL9bSYOJHRIWNF6ohic+0jCIncm7WZHsx0AIca8Bpl6g7ghmVNY
+ iaENFV/ZnApP5si/shtmbxP1A8cULvPdb89Sp9rqAyOIkzuF52gwNO23zZafH1npPVDf
+ 7p4CzoC4pjk3bF/6ZTVaTR2SZUcEVa3XsKIjxZFPs/Yo080TTGwbKxlNhmgPab0IqpQ2
+ oPfA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx3ffDV3xwpccxs3Zvnsd5gH+fzzqb0SRHe2YRsB60rBmVGHJlMcvPyeKr33V9AakRWMIPn0ouq4Fo=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJHS+jMo/BnKb4c/m95+YxxCggr81btpPlGKR1dbCF49nm6LUIn
+ 72nTcNorA8C7mGBLRasz5tiL7z08WulPhDDqSVWwSudBYvqYxRd8ITAkM0+ut+0MQ30HhCVTn/Q
+ TFog6OF8=
+X-Gm-Gg: AYBFou0rrPyeNJ/hOWfjWGX0qV8abzdH2ppAT49LkE8kpHrNz8U1JqLRvhsefyFbkQZ
+ Tc3ACDT1KZQfim95T/2IHHdTqaQETDKwWpfgbFAoDsvRFsmCZkQRN8uILwikyAtCtLXtgYOOtvA
+ aNmXlUrMOwRfw4z6nJ0bJNbGobP+o6uGmSmDls3CJtZLYOdtMQLLdPqvIspWTIjU4cfjRpoEsY2
+ 2V6hUwawEd0OmTzDTq4BTBYMquv5Nn9XODqKM3EgpM0Ri609YTqABcHeHvlC0Np1IVSd3dNFszf
+ AVxMxIyQK7sbeNmOwjAsdRvF48ucR2QOxKrDVHA6vHxYT4Kh9rndF3h2mCj9358ybIDv8iwHDvT
+ pvYKdW+/zg0UJp6F+gGu8yfnqhh2kp9vlfVC0t/3NPFwnGx148w3fatsMJLhyLqS+xKSnlZCyBb
+ HsghjyBgEMZcXpuYWVDJjiG1d0Knt/rqavYFGbZj2wF9BnQsGz8btI+KxJVJ4J9gYR+HIlESTEL
+ 3nhssT8HrSTyEM13QhW2EgAO8Lwoiiyd2oaUbBHW99HDAM=
+X-Received: by 2002:a17:907:da1:b0:c35:babe:ab44 with SMTP id
+ a640c23a62f3a-c4196ea755emr730828766b.0.1792481120150; 
+ Tue, 20 Oct 2026 00:25:20 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com.
+ [209.85.218.51]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c4090dd125csm446955766b.26.2026.10.20.00.25.19
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Oct 2026 00:25:19 -0700 (PDT)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-c3f04e0e65fso398350466b.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 00:25:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw30N0GmfKWx274OCFBywZAowm94D6oPVMekBJshOJMTxbEFoep7IjmHnk+R+5jPOO6Gn/94LoYPo4=@lists.freedesktop.org
+X-Received: by 2002:a17:907:7b85:b0:c21:1b58:fa96 with SMTP id
+ a640c23a62f3a-c419a93bd77mr690281066b.3.1792481118954; Tue, 20 Oct 2026
+ 00:25:18 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 4b68047e6459096626d
-X-MBO-RS-META: naagxkni7kndisi999ybz1cz134p1967
+References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com>
+ <20261018152358-mutt-send-email-mst@kernel.org>
+ <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
+ <20261018174250-mutt-send-email-mst@kernel.org>
+ <376ef9d0-b03f-4f85-aee5-46cf20eb00ae@gmail.com>
+ <20261020021924-mutt-send-email-mst@kernel.org>
+ <CAHk-=wjxtzD1TXZr5iWu0p1+Hu0YZP7jbNSwFkp7AJYmhzhVCA@mail.gmail.com>
+In-Reply-To: <CAHk-=wjxtzD1TXZr5iWu0p1+Hu0YZP7jbNSwFkp7AJYmhzhVCA@mail.gmail.com>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Mon, 19 Oct 2026 21:25:02 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wipGHx_1Uztmu773yuTM2ka1fq996UmNoJpvKS0gqEdMg@mail.gmail.com>
+X-Gm-Features: AclHuK-DiS_yQskPQtrIxFePRnCPfAaQiG7PgS-hs7L4pApU1PxreYBmB2NoFO4
+Message-ID: <CAHk-=wipGHx_1Uztmu773yuTM2ka1fq996UmNoJpvKS0gqEdMg@mail.gmail.com>
+Subject: Removing __get_user / __put_user for good
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Borislav Petkov <bp@alien8.de>,
+ Tom Lendacky <thomas.lendacky@amd.com>, 
+ Joerg Roedel <joerg.roedel@amd.com>, "Nikunj A. Dadhania" <nikunj@amd.com>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "the arch/x86 maintainers" <x86@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,86 +105,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 2026-07-21 at 09:21 +0100, Andr=C3=A9 Draszik wrote:
->=20
+Bah. I made this branch of mine public because I wanted Michael
+Tsirkin to check the vhost part.
 
-[=E2=80=A6]
+But honestly, the i915 side and the coco/SEV patches are the much more
+interesting ones.
 
->=20
->=20
-> ---
-> v3:
-> - Philipp: update kerneldoc, add Fixes:
->=20
-> v2: new patch
-> ---
-> =C2=A0drivers/gpu/drm/drm_crtc.c | 15 ++++++++++++---
-> =C2=A01 file changed, 12 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> index 63ead8ba6756..e8e80c936852 100644
-> --- a/drivers/gpu/drm/drm_crtc.c
-> +++ b/drivers/gpu/drm/drm_crtc.c
-> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
-> =C2=A0 * drm_crtc_cleanup - Clean up the core crtc usage
-> =C2=A0 * @crtc: CRTC to cleanup
-> =C2=A0 *
-> - * This function cleans up @crtc and removes it from the DRM mode settin=
-g
-> - * core. Note that the function does *not* free the crtc structure itsel=
-f,
-> - * this is the responsibility of the caller.
-> + * This function cleans up @crtc and removes it from the DRM mode settin=
-g core,
-> + * after first waiting an RCU grace period to ensure @crtc->dev can safe=
-ly be
-> + * dereferenced by our dma_fence_ops.
-> + *
-> + * Note that the function does *not* free the crtc structure itself, thi=
-s is the
-> + * responsibility of the caller.
-> =C2=A0 */
-> =C2=A0void drm_crtc_cleanup(struct drm_crtc *crtc)
-> =C2=A0{
-> =C2=A0	struct drm_device *dev =3D crtc->dev;
-> =C2=A0
-> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
-> +	 * the fence is signaled. This is necessary because our dma_fence_ops
-> +	 * dereference crtc->dev.
-> +	 */
-> +	synchronize_rcu();
-> +
-> =C2=A0	/* Note that the crtc_list is considered to be static; should we
-> =C2=A0	 * remove the drm_crtc at runtime we would have to decrement all
-> =C2=A0	 * the indices on the drm_crtc after us in the crtc_list.
+So this brings in some new victims^Hpeople for that git branch to comment on.
 
+It's all in
 
-Seems we forgot [1] this patch. Sorry about that.
+  git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+uaccess-cleanup
 
-This fix also looks fine to me (for now) since it's what the dma_fence
-contract currently demands.
+I haven't dared actually boot it yet.
 
-I'm a bit nervous about a synchronize_rcu() being in every cleanup
-path, but I suspect it's the most reasonable thing to do now.
+                    Linus
 
-Let's wait a day or two to see if anyone has fundamental objections.
-Could someone with some CRTC knowledge give it an R-b? Otherwise I'd
-push it this week.
-
-
-Regards,
-Philipp
-
-
-[1]=C2=A0https://lore.kernel.org/dri-devel/73fc12734386c9bebc9cf6d3cea4c5f8=
-e125255e.camel@mailbox.org/T/#thttps://lore.kernel.org/dri-devel/73fc127343=
-86c9bebc9cf6d3cea4c5f8e125255e.camel@mailbox.org/T/#t
+On Mon, 19 Oct 2026 at 20:51, Linus Torvalds
+<torvalds@linuxfoundation.org> wrote:
+>
+> I have a whole branch that removes __get_user() and __put_user() entirely.
+>
+> Somebody should check that I did it right. But I didn't want to do the
+> pagefault_disable() around the vringh_notify() part, so it's not quite
+> the same as yours.
+>
+> Let me just push it out. I was going to let it simmer, but your email
+> made me go "I should just let more people look at it".
+>
+> Mind taking a look at the 'uaccess-cleanups' branch?
+>
+> It builds for me. That's all the testing it has gotten so far. Blush.
+>
+>                    Linus
