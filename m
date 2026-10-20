@@ -2,82 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510C1606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:52:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1F4606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:52:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b=rWr1luxS
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jz4qkjqS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C48210FCB0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4771A10FCAF;
 	Wed, 21 Oct 2026 08:51:53 +0000 (UTC)
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 039DF10F841
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 00:08:29 +0000 (UTC)
-Received: by mail-ot1-f54.google.com with SMTP id
- 46e09a7af769-843cf077f10so250519a34.1
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 17:08:29 -0700 (PDT)
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89B9910F11D
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:10:28 +0000 (UTC)
+Received: by mail-pj2-f2.google.com with SMTP id
+ 98e67ed59e1d1-3ad6011ecebso324911a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 06:10:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=utexas.edu; s=google; t=1792541309; x=1793146109; darn=lists.freedesktop.org;
- h=mime-version:content-transfer-encoding:content-type:cc:date:subject
- :to:from:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=q76fPd6I+9oLgbQ4WW7J9EoxVAQOgPqIoUvr4JNR1bA=;
- b=rWr1luxSe3DcgeqpSsB0Cb7L/tbdPtJBZ6dQAOdgqFzk/oW0EVd+vh8ogEayngTKUc
- tFJoStVYoeR/y3M6g0sqUBfsMNrYneilupHxqLIJe5VAlv7xIp2PvIchSwl/hPyffxhv
- 0X5iiqpZU6pCPyPTnGg0ZqdTXNZjNAE5/N1gpiy90gpDC5AwsL1VXE101xp/es+O5vW4
- N/kBBP5wvqJSTSmWYCQFGsFBAGHSme2F/qiIgAjH94BtrLIPm9ghhI/RysWXhVjtzzNn
- 3KRYP3vTczGmCTBkDMmlO06Io+6Gq7vRjlJLuW2EFCnamLKzzhLufA0O3dPp9T4hEfHe
- 9xdg==
+ d=gmail.com; s=20251104; t=1792501828; x=1793106628; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=UMXtQLb7sV43jXsaXOJM86dQ9CSAx4ee+JilsAAN6V8=;
+ b=Jz4qkjqS3sD4CYlChfnnc7IGW5Ye+sYMLcL84wkNxa4K40qF1yf8E7hsgtoUQ+Yv2/
+ +A+NZHsc94rTs1JD8c3RMXSb3rnyn+wHl0Hwgg+qBarKiydaHHsy8/02zK7ajBEXiGBt
+ 4xmt8Uai5pHKKMgKVVtR0Jhz00UahZSohOQZVSKzPbZBLWpN+HM4Ml/qD63XTQlOObio
+ dFRx/6smHLNDIYC5Pv3MGSrCcGIERsqd7q4qIl1hS3p1QWPiU43sCar+AQMbQv5XDpHJ
+ tLytzQ+0SrdNbktGaJTNjTyRG6Y65r7KWZpo3rOcXg51L+90cdbl7mGXq4LYWRr5bdiM
+ LJ4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792541309; x=1793146109;
- h=mime-version:content-transfer-encoding:content-type:cc:date:subject
- :to:from:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=q76fPd6I+9oLgbQ4WW7J9EoxVAQOgPqIoUvr4JNR1bA=;
- b=pogj1pDi4xRusbrNoU7ufsV6WAL1qa7scH9hJ+HNes/Lt1r0wuGCGQM+a0a02n+s8E
- xDvXyF3fhTtEOSCpgMvKu+H91yK1CfwNALdMHNLU5ttehWxCmAqOuL8SbVYbuvt+F8b7
- OuQCf6x/+TrnEwey8TVJfBXDNFy01Fs7eCbeBpJYZFaw3eBnsdtO3earTst+DWvHYgml
- Jf7rr6vhMLssO596heYFeAOUSCji2u5eWCdzwFum7Fo3HXBlrQ1iVQcGqHDe2FwTqS82
- rxpnt42RU84Lvrra/sqcyt6BYHOCcP/zfz6S4kemJotYiWEyuz8qezfwgbP0oe9lltf1
- GxqA==
+ d=1e100.net; s=20260707; t=1792501828; x=1793106628;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=UMXtQLb7sV43jXsaXOJM86dQ9CSAx4ee+JilsAAN6V8=;
+ b=yjKNvmk5aNqYhox+WUQNuH73vOXl+ZRxHsYrj15k+ky/86uwk2PmJqIDhglMnEqibU
+ DS/8AVyP2oN2t0l7jNHzYD5XvodglBmVrqehErJuEcfdjxf5xUaG0BNKad4dwJAz/QxX
+ lxIAUjTvXFl0ZX2pGWH+xiZv3P5e+zB3sd9VDzlwZ5VDt9/wkcCalqkiT7JU9itoRtlx
+ K1Zh90Kv0hAAwxrZOwM52nMSxGF8cc9ZMun/+ybg5VYGh/uuxQv+twbZIubIa3zSYmx+
+ 1KH9/ZQ1fZjRZZbPrMfQu8vwm5hsupQIkF2LgHXLktcnglwEFZeKqc12BV8ZE9+mFTxT
+ Nrzw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByKQwqfy5ZdH1jzxcHsGf8lN28FFDZ7BtfvIV6iGbvpuOuyCAAIFQWPEBPpqjnUPAGVDOC1gGLJSac=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIOZHYlNQp32bhTL3POQvFQhxjqIxmNlmCJjm3z5a+SUNvXetzS
- wTYZRYccifa2DhgqVFeA1lXzqgrtM0baIr+k/w2dDcKm3hcZMlBIjVvD8ks+Egc6z7c=
-X-Gm-Gg: AYBFou0vfqgVBpMfvCB0dNsQ+mbu7sMYJBfY5QSHsMlhVa9aI339+4BBXEyqcRfYS7r
- C6fiZnP7/fkLB+hcOD2GVTiObHA9XwVaRoPUaWj96ZbUkJfDESmNHIJ3cABmws6scPdzcoH6GjN
- J07qxdAqBTaKKHU8LoH4BD6bo/f4D6JepeoB6UnxJ1xSLgiTmc7sQ89P56UQXneRCCEe3BUH+6z
- +wN4HPwYQJGnm+vP86qdFGxlIYfiNInIsrVPauLyq593p3cnn6IMao7klGZ5f5+8E2+/ZTlG55L
- GB6DQmZkC7DLKg2b80y+0gj6xfs0fr/w3AJVFLtRyqxj37YGp5DsAcSiVae+Vfw9I8DFnYXDNjN
- 7uWLpMHr4+9uN688xOn8XBiaPKfMxEQLUBHXI/fhbBAOngGRyxSanxCctIT3BvjISk1I7Ae5bXL
- h5Z3cFNYm7fgBm8txXmtNzXZG7I/CKrM09m2JrY3JiCcyA9XYmxDdfGeCVaNUlq2kU/qZfJjKLH
- V2IDASMyCLhrLDs8LYhhUvV2oQXjYGh3kVfFPoGyqEA7vlnLtOWtLYcLItnfjV5E8aBK0Xlci7o
- SwHaJ5PppKeRsYWG+bl1xSc9nM9v8oJUpTVhDxzrNf1HuJTiOf+3gA3WkqPQBr/gVr/Srkw83Y8
- A4dSTIlXmysHwWcGEuk4X8+w03oqh10udASfLFdq2DoOXcZYDWRXJUA2QLCIJwoEXbQU4lZLfnl
- qTw3vqY1NhJV2R4ru8Cw==
-X-Received: by 2002:a05:6830:4425:b0:81c:37e2:2012 with SMTP id
- 46e09a7af769-84d07f09896mr256325a34.15.1792541308869; 
- Tue, 20 Oct 2026 17:08:28 -0700 (PDT)
-Received: from
- 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa
- ([173.174.112.101]) by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-84cbd7d4431sm955195a34.19.2026.10.20.17.08.27
+ AKwUvBwW6I13VTcIetn/jRnFOOfALe0X+jaU07OnKu9pt7YyghDiRiqoks3uuYIUJ4ikplGbjn4wppRyO2s=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJTrc0q7F4W4JFD/ddfsl9m7wyVCuUEw6c6bl/uwh0jmiBQ/JDJ
+ PUN5BdflCchj8qLhjUypcvlIBlEQegsMy10zxy9Q2y6m4xdNIlIrawsi
+X-Gm-Gg: AYBFou1Tjf6mXjKma26hgx9HIBtwPjVW4TjC18zqneWTCxv8i1anAAmYGVzz1zU5p7G
+ iVAGZd1OB751uBJd30b5v3EFziJmfYRg8+9l03F5BWy2BuNb3UWNWH9wFQGdK5XFb07xayOSY8p
+ XI8XK3cOVgE94xwGdB05UxqZX6LQhz2DvQ7uIgamfLClXPHyOywzDlCF1gIkNnTLRBgDQ7BDZjB
+ qn02qdyAQrKJKAEUARmK1lwP9GVMfE4yyVquxD80m6cU2xosmOaq4sExb7h09LM4a1lxY+NBbXp
+ RCsgLQceMBwiuxBg5+wm6D04wmo/J8FqXqX63xhZ9qpOGil7FCfFFuP31fiyoQZ3IGStqb2BV69
+ SbH/i5AOVAn/ntECBlwgcJEb0WRfHYsQqN3Keg21zXgSjjFcZ05TW/KfElEDMfmElw7cYHrKAWy
+ pcn3x4vvwwJOeuIOBPmfUSwqNwhmzzB76kY9QA9KgTZnLmaaTIqgXIgeM=
+X-Received: by 2002:a17:90a:d00b:b0:3ab:f38:2b41 with SMTP id
+ 98e67ed59e1d1-3acef29e6ccmr8123502a91.39.1792501827888; 
+ Tue, 20 Oct 2026 06:10:27 -0700 (PDT)
+Received: from Linux-PC ([2a09:bac1:1980:20::1d3:a8])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3acd3cc73c7sm10131496a91.4.2026.10.20.06.10.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2026 17:08:28 -0700 (PDT)
-Message-ID: <6ad8027c.7f7fe2b9.10c6e4.4073@mx.google.com>
-From: karim.sabar@utexas.edu
-To: Matthew Brost <matthew.brost@intel.com>,
- Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH] drm/xe: Use kvmalloc for the VMA ops page-table update array
-Date: Tue, 20 Oct 2026 19:08:27 -0500
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Karim Sabar <karim.sabar@utexas.edu>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+ Tue, 20 Oct 2026 06:10:27 -0700 (PDT)
+From: tianshi12127 <tianshi12127@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-kernel@vger.kernel.org, Lu Chen <tianshi12127@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 2/3] dt-bindings: display: panel: add Smartisan TD4362
+Date: Tue, 20 Oct 2026 21:09:33 +0800
+Message-ID: <20261020130934.2289011-3-tianshi12127@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261020130934.2289011-1-tianshi12127@gmail.com>
+References: <20261017083531.766557-1-tianshi12127@gmail.com>
+ <20261020130934.2289011-1-tianshi12127@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Oct 2026 08:51:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,97 +93,108 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Karim Sabar <karim.sabar@utexas.edu>
+From: Lu Chen <tianshi12127@gmail.com>
 
-Big games die after every s2idle resume on flat-CCS iGPUs. The exec
-ioctl keeps returning -ENOMEM even with 11-16 GB of RAM free.
+Document the Smartisan TD4362, a 1080x2242 command mode panel
+found in the Smartisan R1 (trident) smartphone.
 
-On suspend xe_bo_evict_all_user() evicts every user BO in XE_PL_TT on
-these parts. On resume the first exec rebinds every VMA in one go and
-xe_vma_ops_alloc() kmallocs one 384-byte op per VMA as a single array.
-Final Fantasy VII Rebirth has about 33,500 VMAs which means a 12.9 MB
-array. It's over the 4 MB KMALLOC_MAX_SIZE and can never succeed.
-__GFP_NOWARN keeps it out of dmesg.
-
-Data from a Panther Lake handheld (SteamOS kernel 7.2.7), kretprobes
-after resume:
-  xe_vma_ops_alloc  -ENOMEM on 63 of 63 attempts
-  xe_vm_rebind      -ENOMEM on 63 of 63 attempts
-  BO validate, TTM populate, PT prepare  never failed
-
-The array is only used by the CPU and doesn't need to be contiguous.
-This switches it to kvmalloc and kvfree.
-
-With the same change applied as a module on that kernel, the game
-survives every sleep I tried with zero ENOMEM. The biggest array was
-30,753 ops (11.8 MB).
-
-drm-xe-next already does this through commit 0e33330f1238 ("drm/xe: Add
-struct xe_pt_job_ops"), but that's part of a big series that won't go
-to stable.
-
-I tracked this down and tested it on my own device. I used an AI
-assistant to help with the debugging, i.e the kprobe tracing and
-reading through the xe code. I ran every test, picked the fix and
-reviewed the change myself.
-
-What I couldn't do: this is build-tested on drm-xe-fixes but only
-run-tested on the SteamOS 7.2.7 kernel through an equivalent module,
-not on a mainline kernel.
-
-Fixes: 2e524668c440 ("drm/xe: Add xe_vm_pgtable_update_op to xe_vma_ops")
-Cc: stable@vger.kernel.org # v6.11+
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Karim Sabar <karim.sabar@utexas.edu>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Lu Chen <tianshi12127@gmail.com>
 ---
-Downstream SteamOS report with the same data: https://github.com/ValveSoftwar=
-e/SteamOS/issues/2962
----
- drivers/gpu/drm/xe/xe_vm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../display/panel/smartisan,td4362.yaml       | 75 +++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
 
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 99e42bd29..5caef443b 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -703,9 +703,9 @@ static int xe_vma_ops_alloc(struct xe_vma_ops *vops, bool=
- array_of_binds)
- 			continue;
-=20
- 		vops->pt_update_ops[i].ops =3D
--			kmalloc_objs(*vops->pt_update_ops[i].ops,
--				     vops->pt_update_ops[i].num_ops,
--				     GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
-+			kvmalloc_objs(*vops->pt_update_ops[i].ops,
-+				      vops->pt_update_ops[i].num_ops,
-+				      GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
- 		if (!vops->pt_update_ops[i].ops)
- 			return array_of_binds ? -ENOBUFS : -ENOMEM;
- 	}
-@@ -742,7 +742,7 @@ static void xe_vma_ops_fini(struct xe_vma_ops *vops)
- 	xe_vma_svm_prefetch_ops_fini(vops);
-=20
- 	for (i =3D 0; i < XE_MAX_TILES_PER_DEVICE; ++i)
--		kfree(vops->pt_update_ops[i].ops);
-+		kvfree(vops->pt_update_ops[i].ops);
- }
-=20
- static void xe_vma_ops_incr_pt_update_ops(struct xe_vma_ops *vops, u8 tile_m=
-ask, int inc_val)
-
----
-base-commit: d2ce8fcd778ee6d92748c92d23a56d4416c29d86
-change-id: 20261020-xe-kvmalloc-vma-ops-2637ebf81cfd
-
-Best regards,
--- =20
-Karim Sabar <karim.sabar@utexas.edu>
+diff --git a/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+new file mode 100644
+index 000000000000..d9a18cbe635a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/smartisan,td4362.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Smartisan TD4362 MIPI-DSI panel
++
++maintainers:
++  - Lu Chen <tianshi12127@gmail.com>
++
++description:
++  The Smartisan TD4362 is a 1080x2242 command mode panel found in the
++  Smartisan R1 (trident) smartphone.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: smartisan,td4362
++
++  reg:
++    maxItems: 1
++
++  vddio-supply:
++    description: I/O voltage rail
++
++  vsp-supply:
++    description: Positive source voltage rail
++
++  vsn-supply:
++    description: Negative source voltage rail
++
++  reset-gpios:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - vddio-supply
++  - vsp-supply
++  - vsn-supply
++  - reset-gpios
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "smartisan,td4362";
++            reg = <0>;
++            vddio-supply = <&vreg_l14a_1p88>;
++            vsp-supply = <&lab>;
++            vsn-supply = <&ibb>;
++            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
++            backlight = <&backlight>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
++        };
++    };
++
++...
+-- 
+2.56.0
 
