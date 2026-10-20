@@ -2,139 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C83606A32D
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 14:20:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329A9606A321
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 14:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XRrgZtb9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hOeOixJY;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=XRrgZtb9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hOeOixJY
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jqBMztqU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4DE10E5AA;
-	Tue, 20 Oct 2026 14:20:24 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53C7D10E5AA
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 14:20:12 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B77B91F7BF;
- Tue, 20 Oct 2026 14:20:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792506010; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=SmACJ5ImeA4jhsWaSnzEwpEiAY21R9/zUYMOxhaTCq8=;
- b=XRrgZtb9byCiA7gg9YsBW8YDREYicc870ibHP/Yn+nAX0RL7RilZvZs7EQcwqALYvofrxC
- 6qLnKx2aRBDL00rYxi5FGIS1im1TiPoCd4I2apRSq0wS1D63xE/k9FYBdITGxGlnCGo6xb
- U1qd2aDnU4Dwx9xk6hzOUScPySwFVJE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792506010;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=SmACJ5ImeA4jhsWaSnzEwpEiAY21R9/zUYMOxhaTCq8=;
- b=hOeOixJYNInJ4c82kb2caxt1dSgPvdVzw1xJKGQYwlIiPApLHTYqpx/pbqJg11HZBII6Ft
- PPpLF6h7TbL89ZAw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=XRrgZtb9;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=hOeOixJY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792506010; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=SmACJ5ImeA4jhsWaSnzEwpEiAY21R9/zUYMOxhaTCq8=;
- b=XRrgZtb9byCiA7gg9YsBW8YDREYicc870ibHP/Yn+nAX0RL7RilZvZs7EQcwqALYvofrxC
- 6qLnKx2aRBDL00rYxi5FGIS1im1TiPoCd4I2apRSq0wS1D63xE/k9FYBdITGxGlnCGo6xb
- U1qd2aDnU4Dwx9xk6hzOUScPySwFVJE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792506010;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=SmACJ5ImeA4jhsWaSnzEwpEiAY21R9/zUYMOxhaTCq8=;
- b=hOeOixJYNInJ4c82kb2caxt1dSgPvdVzw1xJKGQYwlIiPApLHTYqpx/pbqJg11HZBII6Ft
- PPpLF6h7TbL89ZAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 62EB1136C6;
- Tue, 20 Oct 2026 14:20:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id D46CBpp412pvNQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 14:20:10 +0000
-Message-ID: <83bd672d-69d8-4362-beb2-9dc1fb64fa72@suse.de>
-Date: Tue, 20 Oct 2026 16:20:09 +0200
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/3] fbcon: fix rotated font buffer handling on font
- change
-To: Yao Yiqi <yyaqia@gmail.com>, deller@gmx.de, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com
-References: <20261019094331.1128871-1-yyaqia@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261019094331.1128871-1-yyaqia@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spam-Score: -4.50
-X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- MIME_TRACE(0.00)[0:+];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_TO(0.00)[gmail.com,gmx.de,ffwll.ch];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- DKIM_TRACE(0.00)[suse.de:+]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_SEVEN(0.00)[7]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:dkim,
- imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: B77B91F7BF
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA2910EBEA;
+	Tue, 20 Oct 2026 14:22:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E10110EBEA
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 14:22:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C2EC8600AA;
+ Tue, 20 Oct 2026 14:22:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558561F000C4;
+ Tue, 20 Oct 2026 14:22:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792506144;
+ bh=JVQ9fYos69/aUfYoeeKqK/oWRcay5wbskmZLmgBK3kk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jqBMztqUpzj0KtaK8Wu0xcP5YcmY3/nnp8CYXynpkKpC2G3VKTvcK6ut6t94wdJQx
+ lCSj1VG2171CBYFAp2Z8k48jBDH4SHKBzyTvqGGHicLiYf8c7VdGy5/14lpu/ghsJO
+ J9JdQFDqJ51MBgifdTbw2n09CcHw93VsLoNgRK6EpddgmZxEgx0t7mY7h9M6QY+TBx
+ KqLO0YHGHnIpyV8oQK74Jr/55TkZrfhdg5oTvfPJaPVp7Zt8VlXRTnEUL1s2FVqXEl
+ h/bQJxfWTszA4aJxNQcq5RPiZgc1GAuxoL1ZBdH3g0CcuTjEQJKBhNaKROQYc8xcaJ
+ TXRpwTI1/xK2Q==
+Message-ID: <sashiko-outbox-179119@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/vc4: hdmi: write SCDC TMDS_Bit_Clock_Ratio before
+ the TMDS clock starts
+To: "Lucas Tanure" <lucas.tanure@neat.no>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261020134941.631907-1-lucas.tanure@neat.no>
+References: <20261020134941.631907-1-lucas.tanure@neat.no>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 14:22:23 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,63 +48,238 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi,
-
-for the series:
-
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-although I cannot claim to understand fbcon code in its entirety.
-
-Best regards
-Thomas
-
-
-Am 19.10.26 um 11:43 schrieb Yao Yiqi:
-> Fix out-of-bounds reads of the rotated font buffer when the console
-> font changes on a rotated console (fbcon=rotate:N). KDFONTOP installs
-> the new geometry and vc_resize() redraws before par->rotated.buf is
-> updated, so the old buffer is indexed with the new cell size.
->
-> Patch 1 keys the rotated font cache on the font geometry. Patch 2
-> rebuilds it on font changes, saving and restoring the whole cache if
-> the change fails. Patch 3 retries a failed allocation.
->
-> Changes since v4: save, clear and restore the entire par->rotated
-> state instead of only the buffer; restoring just the buffer left the
-> cache key describing the rejected font, which could make a later
-> switch skip the rebuild and index the smaller buffer with the larger
-> font's geometry (found by the Sashiko review).
->
-> v4: https://lore.kernel.org/all/20261019090206.1094958-1-yyaqia@gmail.com/
-> v1: https://lore.kernel.org/all/20261014085102.497789-1-yaoyiqi3@huawei.com/
->
-> Yao Yiqi (3):
->    fbcon: Include font geometry in the rotated font cache
->    fbcon: Rebuild rotated font buffer on font change
->    fbcon: Retry rotated font allocation after failure
->
->   drivers/video/fbdev/core/fbcon.c        | 46 ++++++++++++++++++++++++++
->   drivers/video/fbdev/core/fbcon.h        | 19 ++++++----
->   drivers/video/fbdev/core/fbcon_rotate.c | 10 ++++++-
->   3 files changed, 68 insertions(+), 7 deletions(-)
->
-
--- 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/vc4: hdmi: SCDC bits updated while TMDS clock runs on BCM2712
+- [Medium] drm/vc4: hdmi: split SCDC and scrambler enable across crtc callb=
+acks
+- [Medium] drm/vc4: hdmi: race with scrambling_work when disabling scrambli=
+ng in powerdown
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
+commit 5be38e4d64847031b3ada407365354ff41c9b9d0
+Author: Lucas Tanure <lucas.tanure@neat.no>
 
+drm/vc4: hdmi: write SCDC TMDS_Bit_Clock_Ratio before the TMDS clock starts
+
+This commit moves the SCDC high TMDS clock ratio and scrambling configurati=
+on
+into vc4_hdmi_encoder_pre_crtc_configure() before PHY initialization, and
+moves vc4_hdmi_disable_scrambling() into
+vc4_hdmi_encoder_post_crtc_powerdown() after phy_disable().
+
+Link: https://github.com/raspberrypi/linux/issues/7693
+
+> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdm=
+i.c
+> index 3a90dbb61f4ea..11b9811bb97cf 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> @@ -812,9 +812,6 @@ static void vc4_hdmi_enable_scrambling(struct drm_enc=
+oder *encoder)
+>  	if (!drm_dev_enter(drm, &idx))
+>  		return;
+> =20
+> -	drm_scdc_set_high_tmds_clock_ratio(connector, true);
+> -	drm_scdc_set_scrambling(connector, true);
+> -
+>  	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
+>  	HDMI_WRITE(HDMI_SCRAMBLER_CTL, HDMI_READ(HDMI_SCRAMBLER_CTL) |
+>  		   VC5_HDMI_SCRAMBLER_CTL_ENABLE);
+> @@ -919,8 +916,6 @@ static void vc4_hdmi_encoder_post_crtc_disable(struct=
+ drm_encoder *encoder,
+>  		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
+>  	}
+> =20
+> -	vc4_hdmi_disable_scrambling(encoder);
+> -
+>  	drm_dev_exit(idx);
+> =20
+>  out:
+> @@ -948,6 +943,8 @@ static void vc4_hdmi_encoder_post_crtc_powerdown(stru=
+ct drm_encoder *encoder,
+>  	if (vc4_hdmi->variant->phy_disable)
+>  		vc4_hdmi->variant->phy_disable(vc4_hdmi);
+> =20
+> +	vc4_hdmi_disable_scrambling(encoder);
+> +
+
+[Severity: High]
+Does moving vc4_hdmi_disable_scrambling() after variant->phy_disable()
+actually stop the TMDS clock before clearing the SCDC bits on BCM2712?
+
+While bcm2711_hdmi0_variant sets .phy_disable to vc5_hdmi_phy_disable() (wh=
+ich
+calls vc5_hdmi_reset_phy()), bcm2712_hdmi0_variant and bcm2712_hdmi1_variant
+set .phy_disable to vc6_hdmi_phy_disable(), which is an empty stub:
+
+drivers/gpu/drm/vc4/vc4_hdmi_phy.c:
+void vc6_hdmi_phy_disable(struct vc4_hdmi *vc4_hdmi)
+{
+}
+
+Because clk_disable_unprepare() and pm_runtime_put() have not executed yet =
+in
+vc4_hdmi_encoder_post_crtc_powerdown(), vc4_hdmi_disable_scrambling() still
+clears SCDC_SCRAMBLING_ENABLE and SCDC_TMDS_BIT_CLOCK_RATIO_BY_40 while the
+BCM2712 PHY PLL and TX clock lane (VC6_HDMI_TX_PHY_HDMI_POWERUP_CTL_TX_CK_P=
+WRUP)
+are powered up and outputting the TMDS clock.
+
+Furthermore, during a mode switch (for example from 1080p60 to 3840x2160@60)
+or a hotplug link reset via vc4_hdmi_connector_detect_ctx() ->
+vc4_hdmi_handle_hotplug() -> vc4_hdmi_reset_link() ->
+drm_atomic_helper_reset_crtc(), runtime PM may not synchronously suspend and
+reset the hardware between drm_atomic_helper_commit_modeset_disables() and
+drm_atomic_helper_commit_modeset_enables() (for instance when pm_runtime_pu=
+t()
+is asynchronous, when CEC holds a runtime PM reference via
+vc4_hdmi_cec_enable(), or when vc4_hdmi_connector_detect_ctx() holds a runt=
+ime
+PM reference across vc4_hdmi_handle_hotplug()). Since vc6_hdmi_phy_disable()
+did not call vc6_hdmi_reset_phy(), won't the previous mode's TMDS clock sti=
+ll
+be running when vc4_hdmi_encoder_pre_crtc_configure() writes the SCDC
+registers and waits 1-2 ms before vc6_hdmi_phy_init() finally calls
+vc6_hdmi_reset_phy()?
+
+[Severity: Medium]
+Can deferring vc4_hdmi_disable_scrambling() to
+vc4_hdmi_encoder_post_crtc_powerdown() race with vc4_hdmi->scrambling_work =
+and
+leave SCDC scrambling enabled after teardown?
+
+During vc4_crtc_atomic_disable() -> vc4_crtc_disable(),
+vc4_hdmi_encoder_post_crtc_disable() stops HDMI output and drops
+vc4_hdmi->mutex, followed by vc4_crtc_pixelvalve_reset(),
+vc4_hvs_stop_channel(), and variant->phy_disable(). Throughout this teardown
+sequence, vc4_hdmi->scrambling_work remains armed while the link and PHY are
+shut down, causing the sink to drop SCDC_SCRAMBLING_STATUS to 0.
+
+If scrambling_work fires during this window and vc4_hdmi_scrambling_wq()
+starts executing on system_percpu_wq before vc4_hdmi_disable_scrambling() is
+called, delayed_work_pending(&vc4_hdmi->scrambling_work) will return false =
+in
+vc4_hdmi_disable_scrambling():
+
+drivers/gpu/drm/vc4/vc4_hdmi.c:vc4_hdmi_disable_scrambling() {
+	...
+	if (delayed_work_pending(&vc4_hdmi->scrambling_work))
+		cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
+	...
+}
+
+Because vc4_hdmi_scrambling_wq() neither acquires vc4_hdmi->mutex nor checks
+vc4_hdmi->scdc_enabled:
+
+drivers/gpu/drm/vc4/vc4_hdmi.c:vc4_hdmi_scrambling_wq() {
+	...
+	if (drm_scdc_get_scrambling_status(connector))
+		return;
+
+	drm_scdc_set_high_tmds_clock_ratio(connector, true);
+	drm_scdc_set_scrambling(connector, true);
+
+	queue_delayed_work(system_percpu_wq, &vc4_hdmi->scrambling_work,
+			   msecs_to_jiffies(SCRAMBLING_POLLING_DELAY_MS));
+}
+
+won't the in-flight worker observe drm_scdc_get_scrambling_status(connector)
+returning false, write SCDC_TMDS_BIT_CLOCK_RATIO_BY_40 and
+SCDC_SCRAMBLING_ENABLE back to true on the sink, and re-queue scrambling_wo=
+rk
+every second after vc4_hdmi_disable_scrambling() has finished?
+
+>  	clk_disable_unprepare(vc4_hdmi->pixel_bvb_clock);
+>  	clk_disable_unprepare(vc4_hdmi->pixel_clock);
+> =20
+> @@ -1555,6 +1552,13 @@ static void vc4_hdmi_encoder_pre_crtc_configure(st=
+ruct drm_encoder *encoder,
+>  		goto err_disable_pixel_clock;
+>  	}
+> =20
+> +	if (vc4_hdmi_supports_scrambling(vc4_hdmi) &&
+> +	    vc4_hdmi_mode_needs_scrambling(mode, vc4_hdmi->output_bpc, vc4_hdmi=
+->output_format)) {
+> +		drm_scdc_set_high_tmds_clock_ratio(connector, true);
+> +		drm_scdc_set_scrambling(connector, true);
+> +		usleep_range(1000, 2000);
+> +	}
+> +
+
+[Severity: Medium]
+Is it intentional to enable SCDC scrambling in the sink here in
+vc4_hdmi_encoder_pre_crtc_configure(), while leaving the source scrambler
+enable (VC5_HDMI_SCRAMBLER_CTL_ENABLE) and vc4_hdmi->scdc_enabled =3D true =
+at
+the end of vc4_hdmi_encoder_post_crtc_enable()?
+
+During vc4_atomic_commit_tail() -> drm_atomic_helper_commit_modeset_enables=
+()
+-> vc4_crtc_atomic_enable() for a mode above 340 MHz, after
+vc4_hdmi_encoder_pre_crtc_configure() sets SCDC_SCRAMBLING_ENABLE in the si=
+nk,
+the driver runs phy_init(), set_timings(), enables the PixelValve, and then=
+ in
+vc4_hdmi_encoder_post_crtc_enable() enables video output, waits for
+VC4_HDMI_SCHEDULER_CONTROL_HDMI_ACTIVE, enables packet RAM, transmits
+InfoFrames via drm_atomic_helper_connector_hdmi_update_infoframes(), and ca=
+lls
+vc4_hdmi_recenter_fifo() before finally calling vc4_hdmi_enable_scrambling(=
+):
+
+drivers/gpu/drm/vc4/vc4_hdmi.c:vc4_hdmi_encoder_post_crtc_enable() {
+	...
+	if (display->is_hdmi) {
+		...
+		HDMI_WRITE(HDMI_RAM_PACKET_CONFIG,
+			   VC4_HDMI_RAM_PACKET_ENABLE);
+
+		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
+		vc4_hdmi->packet_ram_enabled =3D true;
+
+		drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
+	}
+
+	vc4_hdmi_recenter_fifo(vc4_hdmi);
+	vc4_hdmi_enable_scrambling(encoder);
+}
+
+During that window, the sink's descrambler is enabled while the source is
+transmitting unscrambled TMDS control periods, video data, and initial
+InfoFrames.
+
+In addition, because vc4_hdmi->mutex is dropped between
+vc4_hdmi_encoder_pre_crtc_configure() and vc4_hdmi_encoder_post_crtc_enable=
+(),
+if vc4_hdmi_enable_scrambling() returns early (for example if a concurrent
+vc4_hdmi_connector_detect_ctx() -> vc4_hdmi_handle_hotplug() ->
+drm_atomic_helper_connector_hdmi_hotplug() updates connector->display_info =
+so
+vc4_hdmi_supports_scrambling() returns false, or if drm_dev_enter() fails),
+vc4_hdmi->scdc_enabled will remain false while the sink's SCDC bits are left
+enabled, causing vc4_hdmi_disable_scrambling() to skip clearing them on
+disable.
+
+Also, drm_scdc_set_high_tmds_clock_ratio() in
+drivers/gpu/drm/display/drm_scdc_helper.c already calls usleep_range(1000,
+2000) before returning, so is the additional usleep_range(1000, 2000) here
+needed?
+
+>  	if (vc4_hdmi->variant->phy_init)
+>  		vc4_hdmi->variant->phy_init(vc4_hdmi, conn_state);
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020134941.6319=
+07-1-lucas.tanure@neat.no?part=3D1
