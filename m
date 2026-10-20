@@ -2,64 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E53E606A324
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:01:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85BD606A31B
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 08:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=MdWyIn4V
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RZYxqvsp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D10A610EB78;
-	Tue, 20 Oct 2026 08:01:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F9FD10F35B;
+	Tue, 20 Oct 2026 08:01:23 +0000 (UTC)
 Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
  [209.85.128.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F41A010F344
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:01:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9B210F356
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 08:01:17 +0000 (UTC)
 Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4a1e3efca9aso22719145e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 01:01:09 -0700 (PDT)
+ 5b1f17b1804b1-4a0228f4a1bso17000995e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 01:01:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792483268; x=1793088068;
+ d=google.com; s=20251104; t=1792483276; x=1793088076;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=BEQrrvHcs9KsE+y3M9FCOBwSyvA+LmAr++le07P3KGA=;
- b=MdWyIn4VCv4bPwKkLc3GV9XdM8eoE4yfH1XwHzNhbi1+Ui6fSNdGZu2D7nDpwGeQeG
- Tb5jUxJZywgCp/mWLVHKz1Mqmy2TwbM9PpYaxDBUr3Jl6B13R4kc9QIWAmRgET0lx1Mo
- FtO3aaCa3oWzxrD4tged18dGeIbMgwQaxnwJl7+BZWUIh55tUvp0rtzLiKFFc51U5bUR
- FE0O+w7l9PqR7ThnQWOtySsdq7yXBrnH+9AnxVKxVItsEukvWDZeGLs7xeU7apQ6Uw8V
- rPykZ7l1RYIXUvEMSWweDlEiNIZyTOxkleagZ9HXkqIY82K9BmrNkypzo1HgnuDnBTTp
- Dc4A==
+ :content-type; bh=xQxfbDvKliDHyezjEs6HEpfyze+JfozKdYi4BuTrbb0=;
+ b=RZYxqvspwJ+Uquhnd7Shvw4RIX7CfAhlpJf4Qdou0KxCawU2oTbImsJ2NsddEV4PS2
+ OlzXvZ+9oS/fJYB4Xn/EW36vei+qQ1eaN97x2qO1Yf0L9vcr2wtky3YGlAbtQat4pqZe
+ gQUf6xkGOZuxKAic/u3iYFEzlDYLgvc9dF+5qwmevzUWDCxIQkhsglFz31uQG2v9DfON
+ j7Wm78EIKo4UXAVZWyneErpj7FzktmxpfMOQozQxjMcb4pKxMPjOdx+UX/e/kQMOI4gC
+ 6MzQ9JorGPVfDBmm0JMEgL3wYy78pMRIuEUJTXK+DWktcdtyvM8clQoUFLZggQDjiEDi
+ ckfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792483268; x=1793088068;
+ d=1e100.net; s=20260707; t=1792483276; x=1793088076;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=BEQrrvHcs9KsE+y3M9FCOBwSyvA+LmAr++le07P3KGA=;
- b=fbhEKBBVGbYEFEQ0fTklkga3N6aMexIyzXPUeP2aDe/F1tvjiGP/IhOoB+Qcl1h4gC
- sk0mZ3nne8j5HtH5zt3sStDiAEPyh2s/cSUmCPOXB145hF2Fh/sCsKpj6gstZjyoRwso
- cGiHNDJuOYzVWKrvY5X+a4zzjfdVoWyIpd9Iu1cSRu7MmVe6RUe75g4d+fNVt3z44DA1
- JSsXCtVWPwI4CUviHPRiXus40g3WnJ8cCWw7ZzenZ4WRxilGotz68ZxgpDC1IAR201zo
- iZgUaReJ8faW9ZqUouiUjNHU8+QowoFkmO9rZGmFJqFF7Qt5UqWbEzFcl540bPVi0zUi
- S3QA==
+ bh=xQxfbDvKliDHyezjEs6HEpfyze+JfozKdYi4BuTrbb0=;
+ b=Y23Z32cAO19MMB+7rgYwK6FFtIMFRkb6Cn/Eea1o3H/cyiH0slUWxOd1cirBXWacxt
+ KyPl2JP7H0TymOFp5cWqFZCNIdO9S8hfXOFeOmBAs/tgIXBX48DWRZ31S1APjHnOSoUz
+ 5ZyiExYEfabBw+2NZY2CkW0H7d/AW6dtW8f2V48R1vODMh9XG6V/nAyeVmzv9ol+U/At
+ kIRy0GJprRnmU9oY8Wadb9GqrYgTCFzZCF43Tcd7qfuFc6Sr4wxnrXezlnBZZI1ZQqhw
+ sS3Gqe4j/dZDIn4r32uQxMcVCKKZSAeTtq6oECBlbFKhXph7kml12RRcPbfzhtQfcqOC
+ J69A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzaTn1gEn94TF0leq07ev/Jd97t/rQve9uRn8HgchimCX1xtXoyQ8W5CFF8hy1T01skd6q4EyFMPPg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJCtESpteRJb3YOI3qDYS/YCvMwQ/T2Jo9TJgODCB9ENVGBad7p
- CCIBaPrino0Bav91e6nWYw8NubtkB8McrM5/2I1dpYIBC0GzrbrMCwhLrh++L8TnfXvog8W/2z8
- aXopFA138fqlmfn3y7Q==
-X-Received: from wmbid21.prod.google.com
- ([2002:a05:600c:a195:b0:4a1:b4c0:10d8])
+ AKwUvByV9W8+yBcoY33V1hHNfuNgA3Z6nMzEoL1sFPjRfHtp+Jp+KnCCn6zaqWAiDEZE+UgzajYDco5Ur2s=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIxZxjpYKuxe0QBdc/2rV6k3Wq+6gqD3/4xlZJqpcTmrK6T5irQ
+ wv+VCry1uN3gYEd/3IKF+J2D0PtT93tEYcSR5cBCOXPjeYv1aIZjqcU0CfGvmLpB2DXCvX21L/c
+ dczDKvahRrL4PjFHwyw==
+X-Received: from wmlv13.prod.google.com ([2002:a05:600c:214d:b0:4a1:93c6:a7ad])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:81c9:b0:4a1:ac66:6ac6 with SMTP id
- 5b1f17b1804b1-4a1d7612994mr191651635e9.26.1792483267890; 
- Tue, 20 Oct 2026 01:01:07 -0700 (PDT)
-Date: Tue, 20 Oct 2026 08:01:06 +0000
-In-Reply-To: <20261019-b4-gpu_info_intobytes-v4-1-0bc04df46549@collabora.com>
+ 2002:a05:600d:82c5:b0:4a1:e575:33dd with SMTP id
+ 5b1f17b1804b1-4a1e57533efmr134049685e9.18.1792483269703; 
+ Tue, 20 Oct 2026 01:01:09 -0700 (PDT)
+Date: Tue, 20 Oct 2026 08:01:08 +0000
+In-Reply-To: <20261019-b4-gpu_info_intobytes-v4-2-0bc04df46549@collabora.com>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com>
- <20261019-b4-gpu_info_intobytes-v4-1-0bc04df46549@collabora.com>
+ <20261019-b4-gpu_info_intobytes-v4-2-0bc04df46549@collabora.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261020080106.1742330-1-aliceryhl@google.com>
-Subject: Re: [PATCH v4 1/2] rust/Makefile: add zerocopy and zerocopy_derive
+Message-ID: <20261020080108.1742496-1-aliceryhl@google.com>
+Subject: Re: [PATCH v4 2/2] drm/tyr: safely write GpuInfo to userspace
 From: Alice Ryhl <aliceryhl@google.com>
 To: Deborah Brouwer <deborah.brouwer@collabora.com>
 Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -93,52 +92,39 @@ X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 04:25:59PM -0700, Deborah Brouwer wrote:
-> Make the zerocopy and zerocopy_derive crates available for use when
-> building the bindings and uapi crates and their tests.
-> 
-> This will be used by the Tyr driver that needs the traits IntoBytes and
-> Immutable to safely copy the struct byte-for-byte to userspace.
-> 
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> ---
->  rust/Makefile | 24 ++++++++++++++++++------
->  1 file changed, 18 insertions(+), 6 deletions(-)
-
-`scripts/generate_rust_analyzer.py` also needs to pass `zerocopy` and
-`zerocopy_derive` in the `deps` lists of `bindings` and `uapi` (similar
-to commit 3c847e17225a ("rust: add `pin-init` as a dependency to
-`bindings` and `uapi`")).
-
-Without that update, `make rust-analyzer` generates a `rust-project.json`
-where `bindings` and `uapi` only depend on `core`, `ffi`, and `pin_init`,
-so `rust-analyzer` fails to resolve `zerocopy_derive::most_traits` in
-`uapi` and does not see the derived traits on `drm_panthor_gpu_info` in
-`tyr`.
-
-With `scripts/generate_rust_analyzer.py` updated as well, a subject
-prefix like `rust: add zerocopy and zerocopy_derive to bindings and uapi`
-might fit better too.
-
-> diff --git a/rust/Makefile b/rust/Makefile
-> index da1a7409d984..f59815fac293 100644
-> --- a/rust/Makefile
-> +++ b/rust/Makefile
-> @@ -361,12 +361,18 @@ rusttestlib-kernel: $(src)/kernel/lib.rs rusttestlib-bindings rusttestlib-uapi \
->      $(obj)/bindings.o rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
->  	+$(call if_changed,rustc_test_library)
+On Mon, Oct 19, 2026 at 04:26:00PM -0700, Deborah Brouwer wrote:
+> diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
+> index e1b04a0c5159..4808bcbcc3b9 100644
+> --- a/drivers/gpu/drm/tyr/gpu.rs
+> +++ b/drivers/gpu/drm/tyr/gpu.rs
+> @@ -28,6 +27,8 @@
+>      }, //
+>  };
 >  
-> -rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_init
-> -rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
-> +rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_init \
-> +	--extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
-> +	--extern zerocopy_derive=$(objtree)/$(obj)/test/$(libzerocopy_derive_name)
-> +rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init \
-> +	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
->  	+$(call if_changed,rustc_test_library)
+> +use zerocopy_derive::Immutable;
+> +
+>  /// Struct containing information that can be queried by userspace. This is read from
+>  /// the GPU's registers.
+>  ///
+> @@ -35,7 +36,7 @@
+>  ///
+>  /// - The layout of this struct is identical to the C `struct drm_panthor_gpu_info`.
+>  #[repr(transparent)]
+> -#[derive(Clone, Copy)]
+> +#[derive(Clone, Copy, IntoBytes, Immutable)]
+>  pub(crate) struct GpuInfo(pub(crate) uapi::drm_panthor_gpu_info);
 
-Nit: non-recipe continuation lines in `rust/Makefile` use 4 spaces for
-indentation rather than tabs (same for `rusttestlib-uapi`,
-`$(obj)/bindings.o`, and `$(obj)/uapi.o` below).
+Two tiny optional nits since you'll need a v5 for patch 1:
+
+* `use zerocopy_derive::Immutable;` can be placed above `use crate::{`
+  with the external crate imports.
+* Now that `unsafe impl AsBytes for GpuInfo {}` is removed, nothing
+  relies on `GpuInfo`'s `# Invariants` doc section anymore, so that
+  comment block can be dropped too.
+
+Otherwise this looks good to me. Feel free to keep my R-b on v5 with or
+without those tweaks:
+
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
 Alice
