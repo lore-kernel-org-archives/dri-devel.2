@@ -2,144 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC532606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:04:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27794606A31D
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LZCVchYP;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UbP7T0A5;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LZCVchYP;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UbP7T0A5
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RNuGExE9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AAF810E53C;
-	Tue, 20 Oct 2026 11:04:37 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AFE410E53C
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 11:04:26 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 49FEC21C99;
- Tue, 20 Oct 2026 11:04:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792494264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
- b=LZCVchYPxngjyrTdwP7dDyGwjGeRlfwz6xzaWNSZtF8y3Qgf12SIhyh9Y6Nd0wcT7He1aK
- YWofyhmxglbBVNhGLztczgk2ut0LSAYokiSZEVTLZunTZ4Jh8IVD6VEwHTFDIw5kayF9gZ
- vwrWwtjorhJFX/VTys9hwrEgQyblgzQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792494264;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
- b=UbP7T0A54+niJcsOuJ4B/+AeErov5GjTeJBZVnwBx1FlP4R5goEFKis3ur6UZEwIpgqvEs
- JSlX8AaT2FdapVAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792494264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
- b=LZCVchYPxngjyrTdwP7dDyGwjGeRlfwz6xzaWNSZtF8y3Qgf12SIhyh9Y6Nd0wcT7He1aK
- YWofyhmxglbBVNhGLztczgk2ut0LSAYokiSZEVTLZunTZ4Jh8IVD6VEwHTFDIw5kayF9gZ
- vwrWwtjorhJFX/VTys9hwrEgQyblgzQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792494264;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wpVq8HTF6kp3l3+P+HlqkQvEgOT+i0h0AfpydZ4MNoA=;
- b=UbP7T0A54+niJcsOuJ4B/+AeErov5GjTeJBZVnwBx1FlP4R5goEFKis3ur6UZEwIpgqvEs
- JSlX8AaT2FdapVAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 90833136CC;
- Tue, 20 Oct 2026 11:04:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id dCK0ErdK12o2ZQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:04:23 +0000
-Message-ID: <9834b569-935c-484b-befb-b913acead9c1@suse.de>
-Date: Tue, 20 Oct 2026 13:04:22 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F1F010E5A5;
+	Tue, 20 Oct 2026 11:06:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EB2F10E5A5;
+ Tue, 20 Oct 2026 11:06:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792494397; x=1824030397;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=1Qg9c8mXE64iSpKQbw4PGrJmPMZXcY2RNoFrm8Ieczk=;
+ b=RNuGExE9JCOe0NJ0DrCq1XcPnhjwNvtok0FNRcgHr17uhmKgDUG4wuQB
+ 6iuuTmxlKzEKT/zayUjRR61OTfRvptvlPTyZi6MqMZe2Dd/m31fOOLFuF
+ Vfca9GOEJb6H0LNUjgiW0pjmuz2MdwJvLJ1aA7gvdYAQhAYJYFUEQLoCB
+ PMrA/XO2gN+rko7Mce4bGM04rbOCy9x4qaGk+z/Nt9SAl8UVe9hMCQRfP
+ EOW6zzkPfLkwABq6nwf4FdLZnI/cPbZ7ezxhqJ8uJOerf8AfJWRyaxmor
+ y6MEEqmwA3DCDiRUZ1wgpewh6D3MqH+xjTUBI1EmpyHIg1OVcza6O+okl g==;
+X-CSE-ConnectionGUID: BQhl0wqlS6SYWYrgpVzFXA==
+X-CSE-MsgGUID: JNAPTxZ5SbyueKg4C/Gclg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1297877"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1297877"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2026 04:06:36 -0700
+X-CSE-ConnectionGUID: PrPB4yRcR7+55/apBMXdHA==
+X-CSE-MsgGUID: i5rzIgSORk2FiEXw/Ml79A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3202192"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+ by fmviesa006.fm.intel.com with ESMTP; 20 Oct 2026 04:06:33 -0700
+From: Xiao Lu <xiaolu.xie@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, ville.syrjala@linux.intel.com,
+ imre.deak@intel.com, Xiao Lu <xiaolu.xie@intel.com>,
+ Marco Nenciarini <mnencia@kcore.it>
+Subject: [PATCH v3] drm/i915/dp: clear and restore MSTM_CTRL around MST DPMS
+ off/on
+Date: Tue, 20 Oct 2026 19:04:18 +0800
+Message-ID: <20261020110418.1272170-1-xiaolu.xie@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261020021714.62573-1-xiaolu.xie@intel.com>
+References: <20261020021714.62573-1-xiaolu.xie@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/13] drm/client: splash: add a device tree image
- source
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261013093243.505776-1-maximpedraza@gmail.com>
- <20261013093243.505776-8-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261013093243.505776-8-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.79 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; TAGGED_RCPT(0.00)[dt];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[25];
- FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Score: -2.79
-X-Spam-Level: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,312 +66,331 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
+When the last MST stream is disabled, i915 sends SET_POWER D3 to the
+MST trunk while MSTM_CTRL (DPCD 0x111) still has MST mode enabled.
+On re-enable, POWER_UP_PHY is sent before MSTM_CTRL is restored, so
+the hub may process the PHY power-up in an inconsistent state and
+fail to retrain its downstream links.
 
-Am 13.10.26 um 11:32 schrieb Màxim Pedraza Padilla:
-> Embedded products often share one kernel image and one board support
-> package across several models that differ in branding. The splash
-> client can show the firmware's BGRT image or a BMP loaded as firmware,
-> but a device tree system has no BGRT, and a BMP loaded as firmware is
-> either built into the kernel, which means one kernel per logo, or read
-> from a filesystem that is not there yet when the display comes up. With
-> U-Boot's Falcon mode the SPL starts the kernel directly, and the device
-> tree is the only thing that reaches it.
->
-> Add a source that takes the image from a "boot-logo" node under /chosen.
-> The BMP either sits in the node itself, in an "image" property that dtc
-> fills in with /incbin/, or in a reserved memory region the bootloader
-> loaded it into, named by "memory-region". Exactly one of the two must be
-> present; a node with both or neither is ignored with a warning.
->
-> The image in the node is used where it is: the device tree stays in
-> memory, so there is nothing to copy or release. The region is mapped
-> like the BGRT image, and the BMP header is checked against its size.
->
-> A node is only there if someone put it there for that board, so the
-> device tree goes first, then the BGRT, then the BMP loaded as firmware.
-> The boolean that chose between the latter two becomes an enum naming
-> the one source in use.
->
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
-> ---
->   drivers/gpu/drm/clients/Kconfig      |  15 +++
->   drivers/gpu/drm/clients/drm_splash.c | 166 ++++++++++++++++++++++++---
->   2 files changed, 165 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
-> index cbe271c3a23f..aef3781cc110 100644
-> --- a/drivers/gpu/drm/clients/Kconfig
-> +++ b/drivers/gpu/drm/clients/Kconfig
-> @@ -108,6 +108,21 @@ config DRM_CLIENT_SPLASH_BACKGROUND_COLOR
->   	  The color can be overridden through the drm_client_lib.splash_color
->   	  kernel command line parameter.
->   
-> +config DRM_CLIENT_SPLASH_SRC_DT
-> +	bool "Device tree as splash source"
-> +	depends on DRM_CLIENT_SPLASH
-> +	depends on OF
-> +	select DRM_CLIENT_SPLASH_BMP_SUPPORT
-> +	help
-> +	  Use a BMP image described by a "boot-logo" node under /chosen in
-> +	  the device tree, either carried in the node itself or placed by the
-> +	  bootloader in a reserved memory region. This lets one kernel image
-> +	  show a different logo on each board or product, chosen by the
-> +	  device tree it boots with.
-> +
-> +	  When present, the device tree image is preferred over the other
-> +	  sources.
-> +
->   config DRM_CLIENT_SPLASH_SRC_BGRT
->   	bool "EFI BGRT as splash source"
->   	depends on DRM_CLIENT_SPLASH
-> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-> index a7d627954158..50842922a7f8 100644
-> --- a/drivers/gpu/drm/clients/drm_splash.c
-> +++ b/drivers/gpu/drm/clients/drm_splash.c
-> @@ -9,9 +9,12 @@
->   #include <linux/efi-bgrt.h>
->   #include <linux/firmware.h>
->   #include <linux/init.h>
-> +#include <linux/io.h>
->   #include <linux/iosys-map.h>
->   #include <linux/kthread.h>
->   #include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_reserved_mem.h>
->   #include <linux/overflow.h>
->   #include <linux/types.h>
->   #include <linux/unaligned.h>
-> @@ -71,6 +74,14 @@ struct bmp_dib_header {
->   	__le32 colors_important;
->   } __packed;
->   
-> +/* Where the image comes from, in order of preference */
-> +enum drm_splash_source {
-> +	DRM_SPLASH_SRC_NONE,
-> +	DRM_SPLASH_SRC_DT,
-> +	DRM_SPLASH_SRC_BGRT,
-> +	DRM_SPLASH_SRC_BMP,
-> +};
+Fix this by disabling the MST mode before sending D3 on the last
+stream disable and re-enabling it after writing D0 and before sending
+POWER_UP_PHY on the first stream enable, so the hub is back in MST mode
+when it processes the PHY power-up and retrains its downstream links.
 
-The logic behind this enum deserves a separate patch, I think.
+Do this in the MST topology manager, which owns MSTM_CTRL, by adding
+drm_dp_mst_topology_mgr_pause() and drm_dp_mst_topology_mgr_unpause().
+Pausing clears MST_EN and UP_REQ_EN, but keeps UPSTREAM_IS_SRC set. The
+paused state is tracked in the manager and checked by the new
+drm_dp_mst_topology_mgr_verify_ctrl(), used by
+intel_dp_mst_verify_dpcd_state(). Otherwise a connector detection
+during DPMS off, for instance after a runtime resume, would see
+MSTM_CTRL as reset and tear down the MST topology. A real reset still
+changes the register value to something else than expected and so it's
+still detected. The state change and the register access are done under
+the manager's lock, so verifying the state can't race with pausing or
+unpausing.
 
-Best regards
-Thomas
+A downstream sink can get plugged or unplugged while the MST mode is
+paused and the branch device is powered down. The source doesn't know
+about this, since the branch device may not send an UP message in this
+state, so the SW topology can get out of sync with the actual one.
+Re-probe the topology after unpausing, even if the link parameters
+haven't changed, to resync it. Unlike tearing down and recreating the
+topology, this keeps the connectors of the unchanged ports, and applies
+the changes of the others the same way as when they are signalled by an
+UP message.
 
-> +
->   struct drm_splash_scanout {
->   	int id;
->   	/* Modesets scanning this buffer out, by position in the list */
-> @@ -110,7 +121,7 @@ struct drm_splash {
->   	bool render_done;
->   	void *map_data;
->   
-> -	bool use_bgrt;
-> +	enum drm_splash_source src;
->   };
->   
->   static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
-> @@ -212,6 +223,114 @@ static int drm_splash_fw_request_bmp(struct drm_splash *splash)
->   }
->   #endif // CONFIG_DRM_CLIENT_SPLASH_SRC_BMP
->   
-> +#if IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_DT)
-> +#define DRM_SPLASH_DT_COMPATIBLE "boot-logo"
-> +
-> +/*
-> + * The boot logo node, if the device tree has a usable one. Only a child of
-> + * /chosen is considered, not anything compatible anywhere in the tree: the
-> + * image is configuration handed over by the firmware, not a device.
-> + */
-> +static struct device_node *drm_splash_dt_node(struct drm_splash *splash)
-> +{
-> +	struct drm_client_dev *client = &splash->client;
-> +	struct device_node *np;
-> +	bool image, region;
-> +
-> +	np = of_get_compatible_child(of_chosen, DRM_SPLASH_DT_COMPATIBLE);
-> +	if (!np)
-> +		return NULL;
-> +
-> +	if (!of_device_is_available(np))
-> +		goto out_put;
-> +
-> +	image = of_property_present(np, "image");
-> +	region = of_property_present(np, "memory-region");
-> +	if (image == region) {
-> +		drm_warn(client->dev,
-> +			 "splash: %pOF needs exactly one of image or memory-region",
-> +			 np);
-> +		goto out_put;
-> +	}
-> +
-> +	return np;
-> +
-> +out_put:
-> +	of_node_put(np);
-> +	return NULL;
-> +}
-> +
-> +static bool drm_splash_dt_available(struct drm_splash *splash)
-> +{
-> +	struct device_node *np = drm_splash_dt_node(splash);
-> +
-> +	of_node_put(np);
-> +
-> +	return np;
-> +}
-> +
-> +static int drm_splash_dt_load(struct drm_splash *splash, const u8 **data,
-> +			      size_t *size)
-> +{
-> +	struct drm_client_dev *client = &splash->client;
-> +	struct device_node *np;
-> +	struct resource res;
-> +	const void *prop;
-> +	int len, ret = 0;
-> +
-> +	np = drm_splash_dt_node(splash);
-> +	if (!np)
-> +		return -ENOENT;
-> +
-> +	/*
-> +	 * An image in the node is used in place: the device tree stays in
-> +	 * memory for as long as the system runs, so there is nothing to copy
-> +	 * and nothing to release.
-> +	 */
-> +	prop = of_get_property(np, "image", &len);
-> +	if (prop) {
-> +		*data = prop;
-> +		*size = len;
-> +		goto out_put;
-> +	}
-> +
-> +	/* Otherwise the bootloader loaded it into a reserved region */
-> +	ret = of_reserved_mem_region_to_resource(np, 0, &res);
-> +	if (ret) {
-> +		drm_warn(client->dev, "splash: %pOF: no usable memory-region: %d",
-> +			 np, ret);
-> +		goto out_put;
-> +	}
-> +
-> +	splash->map_data = memremap(res.start, resource_size(&res),
-> +				    MEMREMAP_WB);
-> +	if (!splash->map_data) {
-> +		drm_warn(client->dev, "splash: failed to map %pR", &res);
-> +		ret = -ENOMEM;
-> +		goto out_put;
-> +	}
-> +
-> +	/* The BMP header, checked against this size, says how much is image */
-> +	*data = splash->map_data;
-> +	*size = resource_size(&res);
-> +
-> +out_put:
-> +	of_node_put(np);
-> +	return ret;
-> +}
-> +#else
-> +static bool drm_splash_dt_available(struct drm_splash *splash)
-> +{
-> +	return false;
-> +}
-> +
-> +static int drm_splash_dt_load(struct drm_splash *splash,
-> +			      const u8 **data, size_t *size)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +#endif // CONFIG_DRM_CLIENT_SPLASH_SRC_DT
-> +
->   static bool drm_splash_bgrt_available(struct drm_splash *splash)
->   {
->   	struct drm_client_dev *client = &splash->client;
-> @@ -489,7 +608,7 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
->   		return -EINVAL;
->   	}
->   
-> -	if (splash->use_bgrt) {
-> +	if (splash->src == DRM_SPLASH_SRC_BGRT) {
->   		x_pad = efi_bgrt_image_offset_x();
->   		y_pad = efi_bgrt_image_offset_y();
->   
-> @@ -582,19 +701,34 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
->   static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
->   				 size_t *img_data_len)
->   {
-> -	int ret = 0;
-> -
-> -	if (splash->use_bgrt) {
-> -		ret = drm_splash_bgrt_load(splash, img_data, img_data_len);
-> -		if (ret)
-> -			splash->use_bgrt = false;
-> +	switch (splash->src) {
-> +	case DRM_SPLASH_SRC_DT:
-> +		return drm_splash_dt_load(splash, img_data, img_data_len);
-> +	case DRM_SPLASH_SRC_BGRT:
-> +		return drm_splash_bgrt_load(splash, img_data, img_data_len);
-> +	case DRM_SPLASH_SRC_BMP:
-> +		return drm_splash_fw_load(splash, img_data, img_data_len);
-> +	default:
-> +		return -ENOENT;
->   	}
-> +}
->   
-> -	/* BGRT failed to load */
-> -	if (!splash->use_bgrt)
-> -		ret = drm_splash_fw_load(splash, img_data, img_data_len);
-> -
-> -	return ret;
-> +/*
-> + * Pick the one source the image will come from. A device tree node is only
-> + * there if someone put it there for this board, so it goes first; the BGRT
-> + * is whatever the firmware shows, and the BMP loaded as firmware is the
-> + * fallback. With none of them, only the background colour is drawn.
-> + */
-> +static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
-> +{
-> +	if (drm_splash_dt_available(splash))
-> +		return DRM_SPLASH_SRC_DT;
-> +	if (drm_splash_bgrt_available(splash))
-> +		return DRM_SPLASH_SRC_BGRT;
-> +	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP))
-> +		return DRM_SPLASH_SRC_BMP;
-> +
-> +	return DRM_SPLASH_SRC_NONE;
->   }
->   
->   static void drm_splash_image_cleanup(struct drm_splash *splash)
-> @@ -909,10 +1043,10 @@ static int drm_splash_client_hotplug(struct drm_client_dev *client)
->   	get_task_struct(thread);
->   	splash->thread = thread;
->   
-> -	splash->use_bgrt = drm_splash_bgrt_available(splash);
-> +	splash->src = drm_splash_pick_source(splash);
->   
-> -	/* If no other image has been loaded, try to load a BMP as firmware */
-> -	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP) && !splash->use_bgrt) {
-> +	/* The BMP loaded as firmware is the only source that arrives later */
-> +	if (splash->src == DRM_SPLASH_SRC_BMP) {
->   		WRITE_ONCE(splash->fw_pending, true);
->   		ret = drm_splash_fw_request_bmp(splash);
->   		splash->fw_requested = !ret;
+v2: Write UPSTREAM_IS_SRC instead of 0 and accept it in
+    intel_dp_mst_verify_dpcd_state(), to avoid removing the topology
+    on a connector detection during DPMS off. (Marco)
+v3: Move all the MSTM_CTRL accesses to the topology manager. (Jani)
+    Track the paused state in the manager instead of using the number
+    of active MST streams, to avoid racing with
+    mst_stream_pre_enable().
+    Re-probe the topology after unpausing.
 
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Marco Nenciarini <mnencia@kcore.it>
+Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
+---
+Hi Jani,
+
+Thanks for the review. v3 moves all the DP_MSTM_CTRL accesses into the
+topology manager (pause/unpause/verify_ctrl), i915 doesn't touch the
+register anymore.
+
+Is this what you had in mind, or would you rather not disable the MST
+mode during DPMS off at all?
+
+v2 was tested by Marco, v3 is not tested on HW yet.
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 103 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   2 +
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  29 ++---
+ include/drm/display/drm_dp_mst_helper.h       |  11 ++
+ 4 files changed, 132 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 7ce9e2127..8dbf9dcc8 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -3684,6 +3684,8 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
+ 		if (ret < 0)
+ 			goto out_unlock;
+ 
++		mgr->paused = false;
++
+ 		/* Write reset payload */
+ 		drm_dp_dpcd_clear_payload(mgr->aux);
+ 
+@@ -3697,6 +3699,7 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
+ 		/* this can fail if the device is gone */
+ 		drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL, 0);
+ 		ret = 0;
++		mgr->paused = false;
+ 		mgr->payload_id_table_cleared = false;
+ 
+ 		mgr->reset_rx_state = true;
+@@ -3753,6 +3756,104 @@ void drm_dp_mst_topology_queue_probe(struct drm_dp_mst_topology_mgr *mgr)
+ }
+ EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
+ 
++/**
++ * drm_dp_mst_topology_mgr_pause() - disable the MST mode of the branch device
++ * @mgr: manager to pause
++ *
++ * Disable the MST mode of the branch device, while keeping the MST topology
++ * in the SW state. This is meant to be called when all the MST streams are
++ * disabled and the branch device is about to be powered down.
++ *
++ * The branch device may not send UP messages while it is powered down, so
++ * after the MST mode is enabled again by drm_dp_mst_topology_mgr_unpause(),
++ * the topology must be re-probed.
++ */
++void drm_dp_mst_topology_mgr_pause(struct drm_dp_mst_topology_mgr *mgr)
++{
++	mutex_lock(&mgr->lock);
++
++	if (!mgr->mst_state || !mgr->mst_primary || mgr->paused)
++		goto out_unlock;
++
++	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
++				   DP_UPSTREAM_IS_SRC) == 0)
++		mgr->paused = true;
++
++out_unlock:
++	mutex_unlock(&mgr->lock);
++}
++EXPORT_SYMBOL(drm_dp_mst_topology_mgr_pause);
++
++/**
++ * drm_dp_mst_topology_mgr_unpause() - re-enable the MST mode of the branch device
++ * @mgr: manager to unpause
++ *
++ * Re-enable the MST mode of the branch device disabled by
++ * drm_dp_mst_topology_mgr_pause(). Does nothing if the manager isn't paused.
++ *
++ * Returns %true if the manager was paused. In this case the MST topology
++ * should be re-probed with drm_dp_mst_topology_queue_probe(), once the link
++ * parameters to the branch device are set up.
++ */
++bool drm_dp_mst_topology_mgr_unpause(struct drm_dp_mst_topology_mgr *mgr)
++{
++	bool was_paused = false;
++
++	mutex_lock(&mgr->lock);
++
++	if (!mgr->paused)
++		goto out_unlock;
++
++	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
++				   DP_MST_EN | DP_UP_REQ_EN |
++				   DP_UPSTREAM_IS_SRC) == 0) {
++		mgr->paused = false;
++		was_paused = true;
++	}
++
++out_unlock:
++	mutex_unlock(&mgr->lock);
++
++	return was_paused;
++}
++EXPORT_SYMBOL(drm_dp_mst_topology_mgr_unpause);
++
++/**
++ * drm_dp_mst_topology_mgr_verify_ctrl() - verify the MST mode of the branch device
++ * @mgr: manager to verify
++ *
++ * Verify that the MST mode enabled in the branch device matches the manager's
++ * state. A long HPD pulse could've reset the branch device's MST mode, which
++ * requires tearing down and recreating the MST topology.
++ *
++ * Returns %true if the branch device's MST mode matches the manager's state,
++ * %false otherwise.
++ */
++bool drm_dp_mst_topology_mgr_verify_ctrl(struct drm_dp_mst_topology_mgr *mgr)
++{
++	u8 expected, val = 0;
++	int ret;
++
++	mutex_lock(&mgr->lock);
++
++	expected = mgr->paused ? DP_UPSTREAM_IS_SRC :
++		   DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC;
++
++	ret = drm_dp_dpcd_read_byte(mgr->aux, DP_MSTM_CTRL, &val);
++
++	mutex_unlock(&mgr->lock);
++
++	if (ret < 0 || val != expected) {
++		drm_dbg_kms(mgr->dev,
++			    "%s: MSTM_CTRL mismatch (ret=%d, ctrl=0x%02x, expected=0x%02x)\n",
++			    mgr->aux->name, ret, val, expected);
++		return false;
++	}
++
++	return true;
++}
++EXPORT_SYMBOL(drm_dp_mst_topology_mgr_verify_ctrl);
++
+ /**
+  * drm_dp_mst_topology_mgr_suspend() - suspend the MST manager
+  * @mgr: manager to suspend
+@@ -3822,6 +3923,8 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
+ 		goto out_fail;
+ 	}
+ 
++	mgr->paused = false;
++
+ 	/* Some hubs forget their guids after they resume */
+ 	ret = drm_dp_dpcd_read_data(mgr->aux, DP_GUID, buf, sizeof(buf));
+ 	if (ret < 0) {
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index a46ab5d3d..9d918f968 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3163,6 +3163,8 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
+ 	 * Power down sink before disabling the port, otherwise we end
+ 	 * up getting interrupts from the sink on detecting link loss.
+ 	 */
++	if (is_mst)
++		drm_dp_mst_topology_mgr_pause(&intel_dp->mst.mgr);
+ 	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
+ 
+ 	if (DISPLAY_VER(display) >= 12) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 7023619aa..2e3a2424d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1232,9 +1232,11 @@ static void intel_mst_set_probed_link_params(struct intel_dp *intel_dp,
+ }
+ 
+ static void intel_mst_reprobe_topology(struct intel_dp *intel_dp,
+-				       const struct intel_crtc_state *crtc_state)
++				       const struct intel_crtc_state *crtc_state,
++				       bool force)
+ {
+-	if (intel_mst_probed_link_params_valid(intel_dp,
++	if (!force &&
++	    intel_mst_probed_link_params_valid(intel_dp,
+ 					       crtc_state->port_clock, crtc_state->lane_count))
+ 		return;
+ 
+@@ -1259,6 +1261,7 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
+ 		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst.mgr);
+ 	int ret;
+ 	bool first_mst_stream;
++	bool was_paused = false;
+ 
+ 	/* MST encoders are bound to a crtc, not to a connector,
+ 	 * force the mapping here for get_hw_state.
+@@ -1270,8 +1273,10 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
+ 	drm_WARN_ON(display->drm, DISPLAY_VER(display) >= 12 && first_mst_stream &&
+ 		    !intel_dp_mst_is_master_trans(pipe_config));
+ 
+-	if (first_mst_stream)
++	if (first_mst_stream) {
+ 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
++		was_paused = drm_dp_mst_topology_mgr_unpause(&intel_dp->mst.mgr);
++	}
+ 
+ 	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, true);
+ 
+@@ -1281,7 +1286,11 @@ static void mst_stream_pre_enable(struct intel_atomic_state *state,
+ 		primary_encoder->pre_enable(state, primary_encoder,
+ 					    pipe_config, NULL);
+ 
+-		intel_mst_reprobe_topology(intel_dp, pipe_config);
++		/*
++		 * The branch device may not have sent UP messages while it
++		 * was powered down, re-probe the topology to sync it.
++		 */
++		intel_mst_reprobe_topology(intel_dp, pipe_config, was_paused);
+ 	}
+ 
+ 	ret = drm_dp_add_payload_part1(&intel_dp->mst.mgr, mst_state,
+@@ -2246,21 +2255,15 @@ bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp)
+ 	struct intel_connector *connector = intel_dp->attached_connector;
+ 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+ 	struct intel_encoder *encoder = &dig_port->base;
+-	int ret;
+-	u8 val;
+ 
+ 	if (!intel_dp->is_mst)
+ 		return true;
+ 
+-	ret = drm_dp_dpcd_read_byte(intel_dp->mst.mgr.aux, DP_MSTM_CTRL, &val);
+-
+-	/* Adjust the expected register value for SST + SideBand. */
+-	if (ret < 0 || val != (DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC)) {
++	if (!drm_dp_mst_topology_mgr_verify_ctrl(&intel_dp->mst.mgr)) {
+ 		drm_dbg_kms(display->drm,
+-			    "[CONNECTOR:%d:%s][ENCODER:%d:%s] MST mode got reset, removing topology (ret=%d, ctrl=0x%02x)\n",
++			    "[CONNECTOR:%d:%s][ENCODER:%d:%s] MST mode got reset, removing topology\n",
+ 			    connector->base.base.id, connector->base.name,
+-			    encoder->base.base.id, encoder->base.name,
+-			    ret, val);
++			    encoder->base.base.id, encoder->base.name);
+ 
+ 		return false;
+ 	}
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index 27658bfb5..19cf896d6 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -700,6 +700,13 @@ struct drm_dp_mst_topology_mgr {
+ 	 */
+ 	bool mst_state : 1;
+ 
++	/**
++	 * @paused: Whether the MST mode of the branch device is disabled by
++	 * drm_dp_mst_topology_mgr_pause(), while @mst_state is still set.
++	 * Protected by @lock.
++	 */
++	bool paused : 1;
++
+ 	/**
+ 	 * @payload_id_table_cleared: Whether or not we've cleared the payload
+ 	 * ID table for @mst_primary. Protected by @lock.
+@@ -900,6 +907,10 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
+ 
+ void drm_dp_mst_topology_queue_probe(struct drm_dp_mst_topology_mgr *mgr);
+ 
++void drm_dp_mst_topology_mgr_pause(struct drm_dp_mst_topology_mgr *mgr);
++bool drm_dp_mst_topology_mgr_unpause(struct drm_dp_mst_topology_mgr *mgr);
++bool drm_dp_mst_topology_mgr_verify_ctrl(struct drm_dp_mst_topology_mgr *mgr);
++
+ void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr);
+ int __must_check
+ drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr,
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+2.43.0
 
