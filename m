@@ -2,85 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEC4606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 20:48:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FD0606A31B
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 20:48:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ClBg9iNX;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XJaMvSPB
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TP/Tcg0M;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XOHRjJ4m
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D17CB10F7CE;
-	Tue, 20 Oct 2026 20:48:42 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1CDB10F7E4
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:48:26 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 486B210F7D5;
+	Tue, 20 Oct 2026 20:48:46 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 038C210F7CE
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:48:24 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69KJI0pr1508696
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:48:25 GMT
+ 69KI7Lm23460875
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:48:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=7RsaArbuiuP
- ytLoRLed3VREMvlql5azvY36KVQkP5yI=; b=ClBg9iNXohuNBvTBWh6DXxyhFNE
- 3FMd5IKNsv9OansFpEQS6E6wdLejH3uJCIj3QZKMxWSd8GDldoewZ2NUuBV/1//K
- FUPVg7RBUWgbbolDHtvMybJFa1XICp8raoH5moTmnSI6OhanqYgpfQkoqXQjV6wb
- 4m12lmkcMOswzsBEwk5emEp/mab5M5PUo4RJitY7rzWHMbCNrioXC7kZOwE6eKJa
- kMOJWnQUOndPMQB2+Xk0w+1NhNtgyuLWgWTUj5hA5/D8ExV4bTrPB0Q+mc3ArHHv
- dOBIYj9RrgAFTgsnqq5NvJG86fKjjMhyWzYB0mCDATz3IfgGbDoFa6pV7/Q==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heeb989hs-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=ySnzyoue3jU
+ waOOY4x1jZdKGhBBGg5HVH0Fr0fB17Lk=; b=TP/Tcg0MqzjGEZpTcnFRu2RUhMC
+ 2/qGQ4n9LCPSDw2RUD12l9pLCZuj9GgMZFk3jVzV1wgRgE1kfL5c+4FYOd9RHY3I
+ nPoO+XoqSyXOyyf2wAe7jZ71K/hu/Jg+/dER8nRkAWXEMnhptA8AOTOG1sbdBIW2
+ 2Gz3QqClP5WbJHA1uzWwyISU92iVxuvjvzV7b8c8PCuphWt+sZyoc++A1IIow+oy
+ 8Z+rs89VHo7oD/9JFtkLuSoMTy2QMAnNACAd6r+iq+USFWIfnVTCpS8EbX8ikGVc
+ p9SGY56rQtgSMjxejnmuSIIuBwtQrqXvqpJsk3LUcPFX6ZnEd5+g35Ludjw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda4rhcg-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:48:25 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2df375fb9b2so35116085ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:48:25 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:48:24 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-3ac450b74b0so152333a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:48:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oss.qualcomm.com; s=google; t=1792529304; x=1793134104;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=7RsaArbuiuPytLoRLed3VREMvlql5azvY36KVQkP5yI=;
- b=XJaMvSPB/FjVml6D3CRMn3HeiM9hMfcUvpR5lZP/5Gz2ooGU22x7+cJJ+G+rmuhl87
- Qt84LOlPdF9TuYC4D6JFV/mgMb0bIqCWc/o2rBTFGcIK0l55X+yDSdSc8wpaI48d9jwt
- 5TvFHrtk3cjVV0GAje+F42nmiepQmZeguRiDglmdB7gbY53Hds7XRL0RBUBbtU9gKXgv
- BIxFWYSKq+LT0a+wE/6BCfmyq/hTCIshiFe5ArwKuLuSf5TpFVhgzOQIcCZHZ08K3zdy
- AvLayAJa9k6xmbaRVr1/9pd1UFWeXEr4Pi6i1q7SMXjFs/40lKkJ19pzTK+pojpgGk7Y
- pRaw==
+ bh=ySnzyoue3jUwaOOY4x1jZdKGhBBGg5HVH0Fr0fB17Lk=;
+ b=XOHRjJ4meLAfYwaFqAbu63yx9VrvLiDW4CEKPqjnjhH+TuJd1yorURshhnIqFyyacN
+ CisulkDBUPUFhmJAygV/xI2mH/aXdBU5w2RO2PFQif3Effxy3jhUnrUItzORFr49VIwC
+ Kg1Fgh92008NQ9m+b+xeOImTc+GlsLAwqncat4OAknCZcqT16Q4V1I+SVCkt3vcg2kSG
+ 8l6vKXiX6QR+97hR2pEUbRai1G2kiiY1jbI2BfZPVZbT6aX6+WtFahdkEmkgKyvHMZtX
+ 8BnYt51PPQlsoX3Sd6NiDmOLI8zYCKiOSM9E7r3R/p0FDlGkpdWDV2AbuupC6nzjlmDp
+ ZWPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20260707; t=1792529304; x=1793134104;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=7RsaArbuiuPytLoRLed3VREMvlql5azvY36KVQkP5yI=;
- b=c60Ov0X4i/l2xITn9OP5ggu2dgrSF1q6lFedljeIx6xHq57MI2475/Gzc72/4+rL+E
- VxSEV1TqMQwRskuo7BjyAm0He9oqLv97V59I8xRX+IVa9hAE1CVvquUSCVUhRqGom5+L
- iCE1IasdTwTFet64YBs7dBrx+s24hGJ6mMfnrMJ2az9SYI95MBeou0Z24rM5KVxR3ulg
- 5GmT1evvmk5s2znYuI5Ni9pVRkMF8IF4sAME5eICaQTbQVAREph+2em3yWsY1zd8FcCE
- jzG5mmrslEfm3uHeUsUpuSyle1WDCYEkmbGef7TDUYMYJXNTSABb0HXaNnoVHlc0X8v+
- OzFg==
-X-Gm-Message-State: AFq9FYI0pB2gUl10kO0KWqiJWApSLDgmZFLJam5pJQY1CmkjO80LqISq
- qylkzYUZ+Y526yKQX6FamVpP9fmLCUMudyLsIm3DIAwUf/unbLS7FwSW8xmKiOW6AmOUsEpOFN+
- 1pMsCRFQJYxAgdHn+frChHE7WL+kWdqrRQjNz+CUmdkSadseKBDnjPenujvGj3wYPLEY8OKu1FO
- GlJXo=
-X-Gm-Gg: AYBFou2vZ5iYNryjB4mYK1YY1vXpEoNahrxigF+ERWyfLRyVRab22zGuMDDabmsS+DU
- Rrxv/30JlA9jZXifak64hG5zvEtbEyIcEiYxfSsmHr1NF7IwqKN7P1ZI3XHh6l/BP1iGBUTknTQ
- knOTqTJF2Gf+M2OGr1udUyAjvhKVqgxA8nBSvBIEJYp9ZCSCmufInMKxCYmzStksET/NqLq1DQo
- prX9XJqfa1zJraRpPm9Mk8Af6VKPzn6hbRzEgP2g7jvM/smNjcMACxTfboZ8ZzCeXuItLZ4i0hy
- WKrfeYjwQ9Ztbh63zXt/CDUohJVPnbsEgPLsloj1G/vcUfpcP3oPNvVNu1eWO2DcZM51IMG9ZUN
- aLxSiu2A9+k1vePNPSe8KHpAip1ZTDTl0AdY7mIXnfIq3QHrqrQ==
-X-Received: by 2002:a17:90b:37cf:b0:3ab:c674:d83c with SMTP id
- 98e67ed59e1d1-3ad86ed34a8mr74472a91.27.1792529304085; 
- Tue, 20 Oct 2026 13:48:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:37cf:b0:3ab:c674:d83c with SMTP id
- 98e67ed59e1d1-3ad86ed34a8mr74443a91.27.1792529303510; 
- Tue, 20 Oct 2026 13:48:23 -0700 (PDT)
+ bh=ySnzyoue3jUwaOOY4x1jZdKGhBBGg5HVH0Fr0fB17Lk=;
+ b=z0tC2QEttkV1ifkE0K00BIn7D764VTAileBY33wt6Cy1VFapN94aU6eUpkiUIauzq7
+ y2WgysfFRbnJPQe4CxIy5kLA8bjiDOmu24jdqlmuqkMbaHuTwSVPDEeAabQy4oZkEQlO
+ e9JglSqCxHuudGM/UkisubVS2DS6YwhZ4gYFOdbY0GGuo/g85RHuj53Nsk7SoX+tSRYh
+ ij6J1X3wLxHxTTUVeuASU98orMwprX4Gu4qUo0x7piNHDniF3HUgOI5tMkw+A14X6eDU
+ KXrLvFWyXJkLsJ2s9C7Ku9DcFI4TYUr/+oA49z28YJOuTpHLL9cZi/kXWFJQBQqcueIt
+ CwZg==
+X-Gm-Message-State: AFq9FYLTBWkI6POzI/nwdjAeBFfwh8TdHH5CixlIr5vX81peYR6CnHC2
+ FclOQQP4p8W+SVCzRmR1stQ06gNcB6eomPbBgZXQorb1cq/lICsgpyeA/FSkbxNpoasj5yYD4Lc
+ y/A/vDjDVmd0r4CtngJC4FdbA25booGdJzJDQuU5mHP2otSJGKuJlfA6vTMIwYdWzWXPgyFsqLt
+ iqM5o=
+X-Gm-Gg: AYBFou0bLyRTZpd8OspEgnMFPGBLDR8OBxECeRB8A+Nhfi+8M4v1QnkRyMaeBDQzT0p
+ cX+KorQK3WwoFCPdK/X2if3/nAhbAkpZm4N3KK1pbvTYVeRIiIYeQ1XOFaYOF6+rfuhYNAeCLy4
+ EH66oP7RfYANderkUWjEF7XWZX30wJ9Sbxn5uysoYaLHcffXCp6OfrhVpNnBaK2+SaI2teiWl4U
+ KeptNEjVt+wk+/bfO5gSiYzoSV1+OXKmF1ePAsy/qGmSdBDH5gmEyempY90HI8UI6UmEWudRlgi
+ c53o1xXq8QelIB82go2siqQhqJNrWO+Eudya6xAG9srumizCSBwtRKyvuryGqKT8AMVXDWAr4zs
+ tcCnrTYUUnjY+kgJgE/DCQNeji+w2qhUQAifl1u5LoCZzcSPvyw==
+X-Received: by 2002:a17:90b:5249:b0:3ab:e588:c278 with SMTP id
+ 98e67ed59e1d1-3ad86c79ee8mr122990a91.17.1792529301634; 
+ Tue, 20 Oct 2026 13:48:21 -0700 (PDT)
+X-Received: by 2002:a17:90b:5249:b0:3ab:e588:c278 with SMTP id
+ 98e67ed59e1d1-3ad86c79ee8mr122901a91.17.1792529298757; 
+ Tue, 20 Oct 2026 13:48:18 -0700 (PDT)
 Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
  [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ad85f38df2sm225228a91.2.2026.10.20.13.48.22
+ 41be03b00d2f7-cd6a871e4cbsm116737a12.23.2026.10.20.13.48.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2026 13:48:23 -0700 (PDT)
+ Tue, 20 Oct 2026 13:48:18 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -88,49 +88,50 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Jie Zhang <jie.zhang@oss.qualcomm.com>,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 11/12] drm/msm/a8xx: Switch to generated protect regs
-Date: Tue, 20 Oct 2026 13:46:25 -0700
-Message-ID: <20261020204728.28844-12-robin.clark@oss.qualcomm.com>
+Subject: [PATCH 09/12] drm/msm/a8xx: devcoredump state capture support
+Date: Tue, 20 Oct 2026 13:46:23 -0700
+Message-ID: <20261020204728.28844-10-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
 References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfXzGKmUbMEKZGI
- GKyzwL2ZcL4oMKanQT3PdMOOylhvRuyvtqkOisQS+1I8ePQBZRQ0/7hag9ii3b1GorN/1rfUMFq
- NA+esE+VorHJ0yYCYnrYMWBEJwlx2o4=
-X-Proofpoint-GUID: 4ZbRJS3kT3VMXcj2IaBh7BNHdJKe868s
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX2yaYYeh/m2qx
- dRWjhoByNeHgRwwL9acBFsD0ZwnpfomtdD2kQyJ6EcJprEvYp24GXUwWWjlMc9RDh4Ft2h2CCTX
- v+WjIKwIApkjJOGylMKoBdyLbJ5y2ZshYYtOGirCDvESO03iRmDzx8CswxgnsVlURzqGIF01gXg
- u0dEt6WU/tszZWAfAkAf+DOOXWF+/HOqzsHj7ZVsGOEbr9N1+qlPGwWfGMCNhHvrSDEjTeJXjk3
- IfFWYgPvoH7aCsjDI9M30yQcaAsp/Ov8WVYDLOalORxgBQ4ert2nZZ17eWzPsXvKPhVIy+s4duL
- sdA1Oq5Bw7Yph6t3AAf2EbTQTXKA0Aj/m2J7q92QEH+n8To223HUZiQMUUeaYvWpyjpQQhfTbYE
- tp5miJ9w4rYfsE6r5v4VjGvP5TZjxKbDnvWbpeRqAnCokorrShCWc22pgzyop6/Zlp8HyyM3hpv
- i5E0JAppfKTG8es2D4Q==
-X-Authority-Analysis: v=2.4 cv=R42WitRX c=1 sm=1 tr=0 ts=6ad7d399 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+X-Proofpoint-ORIG-GUID: 54-T-WOZwvqA7kca25bz_thYmvpnH-sQ
+X-Proofpoint-GUID: 54-T-WOZwvqA7kca25bz_thYmvpnH-sQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX+8qioAc/fLUH
+ xpUvuLI2CIlQdxZH5HA+5+PKj4kEOCJDATTJhoaD23in/SXmOs/C0lj/gl2SsqQaF5o7aauyLFN
+ EMIip23JsnT5Ktrjz9k6oAF2FnjKoYg=
+X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6ad7d398 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=JcQOObtfp6PrThPhMQoA:9 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: 4ZbRJS3kT3VMXcj2IaBh7BNHdJKe868s
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=D6P3_QGOvc8CW5cv6QMA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA4MiBTYWx0ZWRfX/dUvTzXC2WSN
+ aeB7RRI0lsJlVkM+dP1fmtFlrGA91WIQE/IypV1qHTC2RJTJc07VWmtgaBiiW5BELL/ktTOXYK3
+ f1N+ePVRA4eLE0rDpyKBlfUDyDv5kmY+owpaFQQR6+7GaF8PWF7VEWBNsqdAs3E6Vtv9wb/rfes
+ Y4YgdTE0RwqXHeeXZN6PovyVxtxn5LNiTwi+fjyVOcul4b2vuOKItQ3OGjIo9gK7kuFG4mPl8bd
+ W4ieI/acjmFRf1pWs0k4uLRXQ4/qV7qN3HCvKMwg+S1un/8ASD/2LBNL+rCeBcyPV+wes3IcRLv
+ 8HygmXVGPD7qvAZynhPoKACGZMtt2O/8SLW5arD9kOpstcXB0H5BD9PMJMlnzwi+S5v/XQu428H
+ hcR86/uz5XyTYyPCYSBovnx4oVcBKT6JyA2D8Bw3E7F/dLMfUuHWksENmZdmo3i1jv9CcA4CjeU
+ xZkGkzpKJGGAA2XIC0Q==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-20_03,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
- malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200082
+ malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200082
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,409 +151,1604 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-These also fix some perfcntr SEL regs which were mistakenly blocked
-since we previously just copied the protect tables from downstream kgsl
-(and only sometimes remembered to fix these).
+This attempts to make it easier to compare to kgsl, the downstream
+driver, to make it easier to spot bugs or missing things.  Such as
+re-using function names, etc.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+Co-developed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 301 +---------------------
- 1 file changed, 13 insertions(+), 288 deletions(-)
+ drivers/gpu/drm/msm/Makefile                 |    4 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c        |    7 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h        |    5 +
+ drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c  | 1253 ++++++++++++++++++
+ drivers/gpu/drm/msm/adreno/adreno_snapshot.h |  205 +++
+ 5 files changed, 1473 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-index bc79013165c1..5f5f71d86df9 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-@@ -18,58 +18,6 @@
- #include "catalog/adreno_milos.h"
- #include "catalog/adreno_pakala.h"
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index 1e246616f83f..b5d64ee7eb74 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -31,7 +31,9 @@ adreno-y := \
  
--static const u32 a830_protect_regs[] = {
--	A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
--	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
--	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
--	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
--	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
--	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
--	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
--	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
--	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
--	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
--	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
--	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
--	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
--	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
--	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
--	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
--	A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
--	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
--	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
--	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
--	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
--	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
--	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
--	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
--	A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
--	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
--	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
--	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
--	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
--	A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
--	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
--	A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
--	A6XX_PROTECT_RDONLY(0x27880, 0x0381),
--	A6XX_PROTECT_NORDWR(0x27882, 0x0001),
--	A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
--};
--DECLARE_ADRENO_PROTECT(a830_protect, 64);
--
- static const u32 a830_pwrup_reglist_regs[] = {
- 	REG_A6XX_UCHE_MODE_CNTL,
- 	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
-@@ -241,63 +189,6 @@ static const struct adreno_reglist_pipe a830_dyn_pwrup_reglist_regs[] = {
- };
- DECLARE_ADRENO_REGLIST_PIPE_LIST(a830_dyn_pwrup_reglist);
+ adreno-$(CONFIG_DEBUG_FS) += adreno/a5xx_debugfs.o \
  
--static const u32 x285_protect_regs[] = {
--	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
--	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
--	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
--	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
--	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
--	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
--	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
--	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
--	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
--	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
--	A6XX_PROTECT_NORDWR(0x0082c, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
--	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
--	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
--	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
--	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
--	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
--	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
--	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
--	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
--	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
--	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
--	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
--	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
--	A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
--	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
--	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
--	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
--	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
--	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
--	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
--	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
--	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
--	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
--	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
--	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
--	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
--	A6XX_PROTECT_NORDWR(0x27882, 0x000a),
--	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
--};
--
--DECLARE_ADRENO_PROTECT(x285_protect, 15);
--
- static const struct adreno_reglist_pipe x285_dyn_pwrup_reglist_regs[] = {
- 	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
- 	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-@@ -336,57 +227,6 @@ static const struct adreno_reglist_pipe x285_dyn_pwrup_reglist_regs[] = {
- };
- DECLARE_ADRENO_REGLIST_PIPE_LIST(x285_dyn_pwrup_reglist);
+-adreno-$(CONFIG_DRM_MSM_GPU_STATE)	+= adreno/a6xx_gpu_state.o
++adreno-$(CONFIG_DRM_MSM_GPU_STATE) += \
++	adreno/a6xx_gpu_state.o \
++	adreno/a8xx_gpu_state.o \
  
--static const u32 a810_protect_regs[] = {
--	A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
--	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
--	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
--	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
--	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
--	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
--	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
--	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
--	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
--	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
--	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
--	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
--	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
--	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
--	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
--	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
--	A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
--	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
--	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
--	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
--	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
--	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
--	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
--	A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
--	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
--	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
--	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
--	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
--	A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
--	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
--	A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
--	A6XX_PROTECT_RDONLY(0x27880, 0x0381),
--	A6XX_PROTECT_NORDWR(0x27882, 0x0001),
--	A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
--};
--DECLARE_ADRENO_PROTECT(a810_protect, 64);
--
- static const uint32_t a810_pwrup_reglist_regs[] = {
- 	REG_A6XX_UCHE_MODE_CNTL,
- 	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
-@@ -626,64 +466,6 @@ struct a6xx_hfi_limits_tbl x285_limits_tbl[] = {
- };
- DECLARE_ADRENO_LIMITS_TABLE(x285_limits);
+ msm-display-$(CONFIG_DRM_MSM_HDMI) += \
+ 	hdmi/hdmi.o \
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 09d76cdf059f..74064eba98c7 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -2946,9 +2946,16 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
+ 		.active_ring = a6xx_active_ring,
+ 		.irq = a8xx_irq,
+ 		.destroy = a6xx_destroy,
++#if defined(CONFIG_DRM_MSM_GPU_STATE)
++		.show = a8xx_show,
++#endif
+ 		.gpu_busy = a8xx_gpu_busy,
+ 		.gpu_get_freq = a6xx_gmu_get_freq,
+ 		.gpu_set_freq = a6xx_gpu_set_freq,
++#if defined(CONFIG_DRM_MSM_GPU_STATE)
++		.gpu_state_get = a8xx_gpu_state_get,
++		.gpu_state_put = a8xx_gpu_state_put,
++#endif
+ 		.create_vm = a6xx_create_vm,
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 5e1f35c83d63..07198e8bbff2 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -370,4 +370,9 @@ void a8xx_preempt_irq(struct msm_gpu *gpu);
+ bool a8xx_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
+ void a8xx_perfcntr_flush(struct msm_gpu *gpu);
+ void a8xx_recover(struct msm_gpu *gpu);
++void a8xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
++		struct drm_printer *p);
++struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu);
++int a8xx_gpu_state_put(struct msm_gpu_state *state);
++
+ #endif /* __A6XX_GPU_H__ */
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
+new file mode 100644
+index 000000000000..e4eb2f335a89
+--- /dev/null
++++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
+@@ -0,0 +1,1253 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#include "msm_gem.h"
++#include "a6xx_gpu.h"
++#include "a6xx_gmu.h"
++#include "adreno_snapshot.h"
++#include "adreno_gen8_snapshot.h"
++
++#define NUM_SLICES(gpu)  (hweight32((gpu)->slice_mask))
++
++static inline int next_slice(int slice, u32 slice_mask)
++{
++	for (; slice < fls(slice_mask); slice++)
++		if (BIT(slice) & slice_mask)
++			return slice;
++
++	return slice;
++}
++
++#define NEXT_SLICE(_slice, _region, _slice_mask) \
++	((_region == UNSLICE) ? fls(_slice_mask) : next_slice(_slice, _slice_mask))
++
++#define FIRST_SLICE(_region, _slice_mask) \
++	((_region == UNSLICE) ? 0 : NEXT_SLICE(0, _region, _slice_mask))
++
++#define FOR_EACH_SLICE(_slice, _region, _slice_mask) \
++	for (_slice = FIRST_SLICE(_region, _slice_mask); \
++	     _slice < fls(_slice_mask); \
++	     _slice = NEXT_SLICE(++(_slice), _region, _slice_mask))
++
++/* Use SLICE_ID to access the region (0 for unsliced) */
++#define SLICE_ID(region, j) ((region == SLICE) ? j : 0)
++
++/*
++ * Use HEADER_SLICE_ID to specify the slice in the section header (UINT_MAX for unsliced).
++ * This allows snapshot parsers to differentiate between slice ID 0 and unsliced regions.
++ */
++#define HEADER_SLICE_ID(region, j) ((region == SLICE) ? j : UINT_MAX)
++
++#define GEN8_CP_APERTURE_REG_VAL(_sliceid, _pipe, _cluster, _context) (	\
++		A8XX_CP_APERTURE_CNTL_HOST_USESLICEID |			\
++		A8XX_CP_APERTURE_CNTL_HOST_SLICEID(_sliceid) |		\
++		A8XX_CP_APERTURE_CNTL_HOST_PIPEID(_pipe) |		\
++		A8XX_CP_APERTURE_CNTL_HOST_CLUSTERID(_cluster) |	\
++		A8XX_CP_APERTURE_CNTL_HOST_CONTEXTID3D(_context) |	\
++		0)
++
++#define GEN8_SP_READ_SEL_VAL(_contextid, _sliceid, _location, _pipe, _statetype, _usptp, _sptp) ( \
++		A7XX_SP_READ_SEL_CONTEXT(_contextid) |			\
++		A7XX_SP_READ_SEL_SLICE(_sliceid) |			\
++		A7XX_SP_READ_SEL_LOCATION(_location) |			\
++		A7XX_SP_READ_SEL_PIPE(_pipe) |				\
++		A7XX_SP_READ_SEL_STATETYPE(_statetype) |		\
++		A7XX_SP_READ_SEL_USPTP(_usptp) |			\
++		A7XX_SP_READ_SEL_SPTP(_sptp) |				\
++		0)
++
++/*
++ * Allocate 4MB for the crashdumper scratch region - 2MB for the script and
++ * the rest for the data.
++ *
++ * Note gen8_snapshot_indexed_registers() is worst case, needing separate
++ * CD_WRITE + CD_READ per reg, 0xa000 times (so script is ~1.2MB)
++ *
++ * TODO we could perhaps be clever and fill in the out addrs in a 2nd pass
++ * to accomodate invocations that need larger script and smaller data, like
++ * indexed regs.
++ */
++#define A8XX_CD_SIZE        SZ_4M
++#define A8XX_CD_DATA_OFFSET (2 * SZ_1M)
++#define A8XX_CD_DATA_SIZE   (A8XX_CD_SIZE - A8XX_CD_DATA_OFFSET)
++
++static int a8xx_crashdumper_init(struct msm_gpu *gpu,
++				 struct adreno_crashdumper *dumper)
++{
++	dumper->ptr = msm_gem_kernel_new(gpu->dev,
++		A8XX_CD_SIZE, MSM_BO_WC, gpu->vm,
++		&dumper->bo, &dumper->iova);
++
++	if (!IS_ERR(dumper->ptr)) {
++		msm_gem_object_set_name(dumper->bo, "crashdump");
++		dumper->data_offset = A8XX_CD_DATA_OFFSET;
++	}
++
++	return PTR_ERR_OR_ZERO(dumper->ptr);
++}
++
++static inline int __cd_run(struct msm_gpu *gpu, struct adreno_crashdumper *dumper)
++{
++	u32 val;
++	int ret;
++
++	if (IS_ERR_OR_NULL(dumper->ptr))
++		return -EINVAL;
++
++	/* Make sure all pending memory writes are posted */
++	wmb();
++
++	gpu_write64(gpu, REG_A8XX_CP_CRASH_DUMP_SCRIPT_BASE, dumper->iova);
++
++	gpu_write(gpu, REG_A8XX_CP_CRASH_DUMP_CNTL, 1);
++
++	/* NOTE: kgsl uses 500ms timeout */
++	ret = gpu_poll_timeout(gpu, REG_A8XX_CP_CRASH_DUMP_STATUS, val,
++			       val & 0x02, 100, 100000);
++
++	gpu_write(gpu, REG_A8XX_CP_CRASH_DUMP_CNTL, 0);
++
++	drm_WARN_ONCE(gpu->dev, ret, "crashdumper timed out: status=%08x (%d)\n", val, ret);
++
++	return ret;
++}
++
++static inline bool __cd_check_overflow(struct cd_script *p)
++{
++	if (WARN_ON_ONCE(p->in > (u64 *)(p->dumper->ptr + A8XX_CD_DATA_OFFSET)))
++		return false;
++	if (WARN_ON_ONCE(p->out > p->dumper->iova + A8XX_CD_SIZE))
++		return false;
++	return true;
++}
++
++static const struct gen8_snapshot_block_list *
++block_list(struct msm_gpu *gpu)
++{
++	return to_adreno_gpu(gpu)->info->snapshot_block_list;
++}
++
++/* The GMU is ioremapped separately, matching how it is described in dt.
++ * However the snapshot tables generated from hw spec do not take into
++ * account dt, and consider it as yet another sub-block of the GPU.  This
++ * helper helps to bridge the worlds.
++ */
++static uint32_t reg_read(struct msm_gpu *gpu, uint32_t reg)
++{
++	struct a6xx_gmu *gmu = &to_a6xx_gpu(to_adreno_gpu(gpu))->gmu;
++	if ((reg << 2) >= gmu->mmio_offset)
++		return gmu_read(gmu, reg);
++	return gpu_read(gpu, reg);
++}
++
++static void adreno_snapshot_registers_v2(struct msm_gpu *gpu,
++					 struct adreno_gpu_state *state,
++					 const u32 *ptr)
++{
++	int k, count;
++
++	/* Figure out how many registers we are going to dump */
++	count = adreno_snapshot_regs_count(ptr);
++
++	snapshot_sect (state, REGS_V2, 4 * count, {}) {
++		for (; ptr[0] != UINT_MAX; ptr += 2) {
++			u32 cnt = REG_COUNT(ptr);
++
++			if (cnt == 1) {
++				snapshot_sect_u32(&sect, BIT(31) | ptr[0]);
++			} else {
++				snapshot_sect_u32(&sect, ptr[0]);
++				snapshot_sect_u32(&sect, cnt);
++			}
++
++			for (k = ptr[0]; k <= ptr[1]; k++) {
++				snapshot_sect_u32(&sect, reg_read(gpu, k));
++			}
++		}
++	}
++}
++
++static void snapshot_mvc_regs_v3_subheader(struct adreno_snapshot_sect *sect, const u32 *ptr)
++{
++	/*
++	 * Note this might look like adreno_snapshot_registers_v2(),
++	 * but looks are deceiving.  The meaning of b31 is inverted
++	 * and the 2nd dword is end-offset instead of count.
++	 */
++	if (REG_COUNT(ptr) == 1) {
++		snapshot_sect_u32(sect, ptr[0]);
++	} else {
++		snapshot_sect_u32(sect, BIT(31) | ptr[0]);
++		snapshot_sect_u32(sect, ptr[1]);
++	}
++}
++
++static void gen8_legacy_snapshot_registers(struct msm_gpu *gpu,
++					   struct adreno_gpu_state *state,
++					   const struct gen8_reg_list *regs,
++					   u32 slice_id)
++{
++	int count;
++
++	/* Figure out how many registers we are going to dump */
++	count = adreno_snapshot_regs_count(regs->regs);
++
++	snapshot_sect (state, MVC_V3, 4 * count, {
++		.ctxt_id = 0,
++		.cluster_id = CLUSTER_NONE,
++		.pipe_id = PIPE_NONE,
++		.location_id = UINT_MAX,
++		.sp_id = UINT_MAX,
++		.usptp_id = UINT_MAX,
++		.slice_id = HEADER_SLICE_ID(regs->slice_region, slice_id),
++	}) {
++		unsigned long flags;
++
++		if (regs->sel)
++			gpu_write(gpu, regs->sel->host_reg, regs->sel->val);
++
++		if (regs->slice_region)
++			a8xx_aperture_acquire_slice(gpu, PIPE_NONE, slice_id, false, &flags);
++
++		/* Make sure the previous writes are posted before reading */
++		mb();
++
++		for (const u32 *ptr = regs->regs; ptr[0] != UINT_MAX; ptr += 2) {
++			snapshot_mvc_regs_v3_subheader(&sect, ptr);
++
++			for (int k = ptr[0]; k <= ptr[1]; k++) {
++				snapshot_sect_u32(&sect, reg_read(gpu, k));
++			}
++		}
++
++		if (regs->slice_region)
++			a8xx_aperture_release(gpu, flags);
++	}
++}
++
++static bool gen8_reglist_snapshot(struct msm_gpu *gpu, struct adreno_gpu_state *state,
++				  struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	u32 slice_mask = to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
++
++	if (!dumper) {
++		for (u32 i = 0; i < b->num_reg_list; i++) {
++			const struct gen8_reg_list *regs = &b->reg_list[i];
++			u32 j;
++
++			FOR_EACH_SLICE (j, regs->slice_region, slice_mask) {
++				u32 slice_id = SLICE_ID(regs->slice_region, j);
++				gen8_legacy_snapshot_registers(gpu, state, regs, slice_id);
++			}
++
++			/*
++			 * The downstream reglist contains registers in other memory regions
++			 * (cx_misc/cx_mem and cx_dbgc) and we need to plumb through their
++			 * offsets and map them to read them on the CPU. For now only read the
++			 * first two regions.
++			 */
++			if (i == 1)
++				break;
++		}
++		return true;
++	}
++
++	for (u32 i = 0; i < b->num_reg_list; i++) {
++		const struct gen8_reg_list *regs = &b->reg_list[i];
++		u32 j;
++
++		FOR_EACH_SLICE (j, regs->slice_region, slice_mask) {
++			u32 slice_id = SLICE_ID(regs->slice_region, j);
++			struct cd_script p = CD_INIT(dumper);
++
++			CD_WRITE(&p, REG_A8XX_CP_APERTURE_CNTL_CD,
++				 GEN8_CP_APERTURE_REG_VAL(j, 0, 0, 0));
++
++			/* Program the SEL_CNTL_CD register appropriately */
++			if (regs->sel)
++				CD_WRITE(&p, regs->sel->cd_reg, regs->sel->val);
++
++			for (const u32 *ptr = regs->regs; ptr[0] != UINT_MAX; ptr += 2) {
++				u32 count = REG_COUNT(ptr);
++
++				CD_READ(&p, ptr[0], count);
++			}
++
++			/* Marker for end of script */
++			CD_FINISH(&p);
++
++			/* Try to run the crash dumper and bail if it times out */
++			if (CD_RUN(&p, gpu))
++				return false;
++
++			u32 count = adreno_snapshot_regs_count(regs->regs);
++			snapshot_sect (state, MVC_V3, 4 * count, {
++				.ctxt_id = 0,
++				.cluster_id = CLUSTER_NONE,
++				.pipe_id = PIPE_NONE,
++				.location_id = UINT_MAX,
++				.sp_id = UINT_MAX,
++				.usptp_id = UINT_MAX,
++				.slice_id = HEADER_SLICE_ID(regs->slice_region, slice_id),
++			}) {
++				const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++
++				for (const u32 *ptr = regs->regs; ptr[0] != UINT_MAX; ptr += 2) {
++					u32 count = REG_COUNT(ptr);
++
++					snapshot_mvc_regs_v3_subheader(&sect, ptr);
++					snapshot_sect_data(&sect, src, count * sizeof(u32));
++
++					src += count;
++				}
++			}
++		}
++	}
++
++	return true;
++}
++
++static bool gen8_snapshot_indexed_registers(
++	struct msm_gpu *gpu, struct adreno_gpu_state *state, struct adreno_crashdumper *dumper,
++	u32 index, u32 data, u32 start, u32 count, u32 pipe_id, u32 slice_id)
++{
++	struct adreno_snapshot_indexed_regs_v2 hdr = {
++		.index_reg = index,
++		.data_reg = data,
++		.count = count,
++		.start = start,
++		.pipe_id = pipe_id,
++		.slice_id = slice_id,
++	};
++	u32 s = (slice_id == UINT_MAX) ? 0 : slice_id;
++
++	if (!dumper) {
++		snapshot_sect (state, INDEXED_REGS_V2, count * sizeof(u32), hdr) {
++			unsigned long flags;
++
++			a8xx_aperture_acquire_slice(gpu, pipe_id, s, true, &flags);
++
++			for (int i = 0; i < count; i++) {
++				/* Write the address register */
++				gpu_write(gpu, index, start + i);
++
++				/* Make sure the write finishes */
++				wmb();
++
++				snapshot_sect_u32(&sect, reg_read(gpu, data));
++
++				/* Make sure the read finishes */
++				rmb();
++			}
++
++			a8xx_aperture_release(gpu, flags);
++		}
++
++		return true;
++	}
++
++	struct cd_script p = CD_INIT(dumper);
++
++	CD_WRITE(&p, REG_A8XX_CP_APERTURE_CNTL_CD,
++		 GEN8_CP_APERTURE_REG_VAL(s, pipe_id, 0, 0));
++
++	for (int i = 0; i < count; i++) {
++		/* Write the address register */
++		CD_WRITE(&p, index, start + i);
++		CD_READ(&p, data, 1);
++	}
++
++	/* Marker for end of script */
++	CD_FINISH(&p);
++
++	/* Try to run the crash dumper and bail if it times out */
++	if (CD_RUN(&p, gpu))
++		return false;
++
++	snapshot_sect (state, INDEXED_REGS_V2, count * sizeof(u32), hdr) {
++		const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++		snapshot_sect_data(&sect, src, count * sizeof(u32));
++	}
++
++	return true;
++}
++
++static bool gen8_snapshot_cp_indexed_regs(struct msm_gpu *gpu,
++					  struct adreno_gpu_state *state,
++					  struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++
++	for (int i = 0; i < b->index_registers_len; i++) {
++		bool ret = gen8_snapshot_indexed_registers(gpu, state, dumper,
++			b->index_registers[i].addr,
++			b->index_registers[i].data, 0,
++			b->index_registers[i].size,
++			b->index_registers[i].pipe_id, UINT_MAX);
++		if (!ret)
++			return false;
++	}
++
++	return true;
++}
++
++static bool gen8_snapshot_mempool(struct msm_gpu *gpu,
++				  struct adreno_gpu_state *state,
++				  struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	u32 slice_mask = to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
++	u32 first_slice = ffs(slice_mask);
++
++	for (int i = 0; i < b->mempool_index_registers_len; i++) {
++		const struct gen8_cp_indexed_reg *cp_indexed_reg =
++			&b->mempool_index_registers[i];
++		unsigned long flags;
++		u32 j;
++
++		FOR_EACH_SLICE (j, cp_indexed_reg->slice_region, slice_mask) {
++
++			/* TODO: Remove hardcoded values */
++			/* Set CP_CHICKEN_DBG[StabilizeMVC] to stabilize it while dumping */
++			a8xx_aperture_acquire_slice(gpu, cp_indexed_reg->pipe_id, first_slice, false, &flags);
++			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
++			a8xx_aperture_release(gpu, flags);
++
++			a8xx_aperture_acquire_slice(gpu, cp_indexed_reg->pipe_id, j, true, &flags);
++			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
++			a8xx_aperture_release(gpu, flags);
++
++			gen8_snapshot_indexed_registers(gpu, state, dumper,
++				cp_indexed_reg->addr,
++				cp_indexed_reg->data, 0,
++				cp_indexed_reg->size,
++				cp_indexed_reg->pipe_id,
++				HEADER_SLICE_ID(cp_indexed_reg->slice_region, j));
++
++			/* Reset CP_CHICKEN_DBG[StabilizeMVC] once we are done */
++			a8xx_aperture_acquire_slice(gpu, cp_indexed_reg->pipe_id, first_slice, false, &flags);
++			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), 0);
++			a8xx_aperture_release(gpu, flags);
++
++			a8xx_aperture_acquire_slice(gpu, cp_indexed_reg->pipe_id, j, true, &flags);
++			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), 0);
++			a8xx_aperture_release(gpu, flags);
++		}
++	}
++
++	/* Clear aperture register */
++	a8xx_aperture_clear(gpu);
++
++	return true;
++}
++
++static void gen8_legacy_snapshot_mvc(struct msm_gpu *gpu,
++				     struct adreno_gpu_state *state,
++				     const struct gen8_cluster_registers *cluster,
++				     u32 slice_id)
++{
++	int count;
++
++	/* Figure out how many registers we are going to dump */
++	count = adreno_snapshot_regs_count(cluster->regs);
++
++	snapshot_sect (state, MVC_V3, 4 * count, {
++		.ctxt_id = (cluster->context_id == STATE_FORCE_CTXT_1) ? 1 : 0,
++		.cluster_id = cluster->cluster_id,
++		.pipe_id = cluster->pipe_id,
++		.location_id = UINT_MAX,
++		.sp_id = UINT_MAX,
++		.usptp_id = UINT_MAX,
++		.slice_id = HEADER_SLICE_ID(cluster->slice_region, slice_id),
++	}) {
++		unsigned long flags;
++
++		/*
++		 * Set the AHB control for the Host to read from the
++		 * cluster/context for this iteration.
++		 */
++		a8xx_aperture_acquire_slice(gpu, cluster->pipe_id, slice_id, true, &flags);
++
++		if (cluster->sel)
++			gpu_write(gpu, cluster->sel->host_reg, cluster->sel->val);
++
++		/* Make sure the previous writes are posted before reading */
++		mb();
++
++		for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++			snapshot_mvc_regs_v3_subheader(&sect, ptr);
++
++			for (int k = ptr[0]; k <= ptr[1]; k++) {
++				snapshot_sect_u32(&sect, reg_read(gpu, k));
++			}
++		}
++
++		a8xx_aperture_release(gpu, flags);
++	}
++}
++
++static bool gen8_snapshot_mvc_regs(
++	struct msm_gpu *gpu, struct adreno_gpu_state *state, struct adreno_crashdumper *dumper,
++	const struct gen8_cluster_registers *clusters, size_t num_cluster)
++{
++	u32 slice_mask = to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
++
++	if (!dumper) {
++		for (int i = 0; i < num_cluster; i++) {
++			const struct gen8_cluster_registers *cluster = &clusters[i];
++			u32 j;
++
++			FOR_EACH_SLICE (j, cluster->slice_region, slice_mask) {
++				u32 slice_id = SLICE_ID(cluster->slice_region, j);
++				gen8_legacy_snapshot_mvc(gpu, state, cluster, slice_id);
++			}
++		}
++		return true;
++	}
++
++	for (int i = 0; i < num_cluster; i++) {
++		const struct gen8_cluster_registers *cluster = &clusters[i];
++		u32 j;
++
++		FOR_EACH_SLICE (j, cluster->slice_region, slice_mask) {
++			u32 slice_id = SLICE_ID(cluster->slice_region, j);
++			struct cd_script p = CD_INIT(dumper);
++
++			CD_WRITE(&p, REG_A8XX_CP_APERTURE_CNTL_CD,
++				 GEN8_CP_APERTURE_REG_VAL(j, cluster->pipe_id,
++							  cluster->cluster_id,
++							  cluster->context_id));
++
++			if (cluster->sel)
++				CD_WRITE(&p, cluster->sel->cd_reg, cluster->sel->val);
++
++			for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++				CD_READ(&p, ptr[0], REG_COUNT(ptr));
++			}
++
++			/* Marker for end of script */
++			CD_FINISH(&p);
++
++			/* Try to run the crash dumper and bail if it times out */
++			if (CD_RUN(&p, gpu))
++				return false;
++
++			u32 count = adreno_snapshot_regs_count(cluster->regs);
++
++			snapshot_sect (state, MVC_V3, 4 * count, {
++				.ctxt_id = (cluster->context_id == STATE_FORCE_CTXT_1) ? 1 : 0,
++				.cluster_id = cluster->cluster_id,
++				.pipe_id = cluster->pipe_id,
++				.location_id = UINT_MAX,
++				.sp_id = UINT_MAX,
++				.usptp_id = UINT_MAX,
++				.slice_id = HEADER_SLICE_ID(cluster->slice_region, slice_id),
++			}) {
++				const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++
++				for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++					u32 count = REG_COUNT(ptr);
++
++					snapshot_mvc_regs_v3_subheader(&sect, ptr);
++					snapshot_sect_data(&sect, src, count * sizeof(u32));
++
++					src += count;
++				}
++			}
++		}
++	}
++	return true;
++}
++
++static u32 gen8_read_dbgahb(struct msm_gpu *gpu, u32 regbase, u32 reg)
++{
++	return gpu_read(gpu, REG_A7XX_SP_AHB_READ_APERTURE + reg - regbase);
++}
++
++static void gen8_legacy_snapshot_cluster_dbgahb(
++	struct msm_gpu *gpu, struct adreno_gpu_state *state,
++	const struct gen8_sptp_cluster_registers *cluster,
++	u32 sp, u32 usptp, u32 slice_id)
++{
++	int count;
++
++	/* Figure out how many registers we are going to dump */
++	count = adreno_snapshot_regs_count(cluster->regs);
++
++	snapshot_sect (state, MVC_V3, 4 * count, {
++		.ctxt_id = cluster->context_id,
++		.cluster_id = cluster->cluster_id,
++		.pipe_id = cluster->pipe_id,
++		.location_id = cluster->location_id,
++		.sp_id = sp,
++		.usptp_id = usptp,
++		.slice_id = HEADER_SLICE_ID(cluster->slice_region, slice_id),
++	}) {
++		u32 read_sel = GEN8_SP_READ_SEL_VAL(
++			0, slice_id, cluster->location_id, cluster->pipe_id,
++			cluster->statetype, usptp, sp);
++
++		gpu_write(gpu, REG_A7XX_SP_READ_SEL, read_sel);
++
++		/*
++		 * An explicit barrier is needed so that reads do not happen before
++		 * the register write.
++		 */
++		mb();
++
++		for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++			snapshot_mvc_regs_v3_subheader(&sect, ptr);
++
++			for (int k = ptr[0]; k <= ptr[1]; k++) {
++				u32 val = gen8_read_dbgahb(gpu, cluster->regbase, k);
++				snapshot_sect_u32(&sect, val);
++			}
++		}
++	}
++}
++
++static bool gen8_snapshot_dbgahb_regs(struct msm_gpu *gpu,
++				      struct adreno_gpu_state *state,
++				      struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	u32 slice_mask = to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
++
++	if (!dumper) {
++		for (int i = 0; i < b->num_sptp_clusters; i++) {
++			const struct gen8_sptp_cluster_registers *cluster =
++				&b->sptp_clusters[i];
++
++			for (u32 sp = 0; sp < cluster->num_sps; sp++) {
++				for (u32 usptp = 0; usptp < cluster->num_usptps; usptp++) {
++					u32 j;
++
++					FOR_EACH_SLICE (j, cluster->slice_region, slice_mask) {
++						u32 slice_id = SLICE_ID(cluster->slice_region, j);
++
++						gen8_legacy_snapshot_cluster_dbgahb(
++							gpu, state, cluster,
++							sp, usptp, slice_id);
++					}
++				}
++			}
++		}
++
++		return true;
++	}
++
++	for (int i = 0; i < b->num_sptp_clusters; i++) {
++		const struct gen8_sptp_cluster_registers *cluster =
++			&b->sptp_clusters[i];
++
++		for (u32 sp = 0; sp < cluster->num_sps; sp++) {
++			for (u32 usptp = 0; usptp < cluster->num_usptps; usptp++) {
++				u32 j;
++
++				FOR_EACH_SLICE (j, cluster->slice_region, slice_mask) {
++					u32 slice_id = SLICE_ID(cluster->slice_region, j);
++
++					/* Build the crash script */
++					struct cd_script p = CD_INIT(dumper);
++
++					u32 read_sel = GEN8_SP_READ_SEL_VAL(
++						0, slice_id, cluster->location_id,
++						cluster->pipe_id, cluster->statetype,
++						usptp, sp);
++
++					/* Program the aperture */
++					CD_WRITE(&p, REG_A7XX_SP_READ_SEL, read_sel);
++
++					for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++						u32 count = REG_COUNT(ptr);
++						u32 reg = REG_A7XX_SP_AHB_READ_APERTURE + ptr[0] - cluster->regbase;
++
++						CD_READ(&p, reg, count);
++					}
++
++					/* Marker for end of script */
++					CD_FINISH(&p);
++
++					/* Try to run the crash dumper and bail if it times out */
++					if (CD_RUN(&p, gpu))
++						return false;
++
++					u32 count = adreno_snapshot_regs_count(cluster->regs);
++					snapshot_sect (state, MVC_V3, 4 * count, {
++						.ctxt_id = cluster->context_id,
++						.cluster_id = cluster->cluster_id,
++						.pipe_id = cluster->pipe_id,
++						.location_id = cluster->location_id,
++						.sp_id = sp,
++						.usptp_id = usptp,
++						.slice_id = HEADER_SLICE_ID(cluster->slice_region, slice_id),
++					}) {
++						const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++
++						for (const u32 *ptr = cluster->regs; ptr[0] != UINT_MAX; ptr += 2) {
++							u32 count = REG_COUNT(ptr);
++
++							snapshot_mvc_regs_v3_subheader(&sect, ptr);
++							snapshot_sect_data(&sect, src, count * sizeof(u32));
++
++							src += count;
++						}
++					}
++				}
++			}
++		}
++	}
++
++	return true;
++}
++
++static void gen8_legacy_snapshot_shader(struct msm_gpu *gpu, struct adreno_gpu_state *state,
++					const struct gen8_shader_block *block,
++					u32 sp, u32 ctxt, u32 slice_id)
++{
++	snapshot_sect (state, SHADER_V3, block->size * sizeof(u32), {
++		.type = block->statetype,
++		.slice_id = HEADER_SLICE_ID(block->slice_region, slice_id),
++		.sp_index = sp,
++		.usptp = block->usptp_id,
++		.pipe_id = block->pipeid,
++		.location = block->location,
++		.ctxt_id = ctxt,
++		.size = block->size,
++	}) {
++		u32 read_sel = GEN8_SP_READ_SEL_VAL(
++			ctxt, slice_id, block->location, block->pipeid,
++			block->statetype, block->usptp_id, sp);
++
++		gpu_write(gpu, REG_A7XX_SP_READ_SEL, read_sel);
++
++		/*
++		 * An explicit barrier is needed so that reads do not happen before
++		 * the register write.
++		 */
++		mb();
++
++		for (int i = 0; i < block->size; i++) {
++			u32 val = gpu_read(gpu, REG_A7XX_SP_AHB_READ_APERTURE + i);
++			snapshot_sect_u32(&sect, val);
++		}
++	}
++}
++
++static bool gen8_snapshot_shader(struct msm_gpu *gpu,
++				 struct adreno_gpu_state *state,
++				 struct adreno_crashdumper *dumper)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	u32 slice_mask = to_a6xx_gpu(to_adreno_gpu(gpu))->slice_mask;
++
++	if (!dumper) {
++		for (int i = 0; i < b->num_shader_blocks; i++) {
++			const struct gen8_shader_block *block = &b->shader_blocks[i];
++			u32 j;
++
++			FOR_EACH_SLICE (j, block->slice_region, slice_mask) {
++				u32 slice_id = SLICE_ID(block->slice_region, j);
++
++				for (u32 sp = 0; sp < block->num_sps; sp++) {
++					for (u32 ctxt = 0; ctxt < block->num_ctx; ctxt++) {
++						gen8_legacy_snapshot_shader(
++							gpu, state, block, sp, ctxt, slice_id);
++					}
++				}
++			}
++		}
++
++		return true;
++	}
++
++	for (int i = 0; i < b->num_shader_blocks; i++) {
++		const struct gen8_shader_block *block = &b->shader_blocks[i];
++		u32 j;
++
++		FOR_EACH_SLICE (j, block->slice_region, slice_mask) {
++			u32 slice_id = SLICE_ID(block->slice_region, j);
++
++			for (u32 sp = 0; sp < block->num_sps; sp++) {
++				for (u32 ctxt = 0; ctxt < block->num_ctx; ctxt++) {
++					/* Build the crash script */
++					struct cd_script p = CD_INIT(dumper);
++
++					u32 read_sel = GEN8_SP_READ_SEL_VAL(
++						ctxt, slice_id, block->location, block->pipeid,
++						block->statetype, block->usptp_id, sp);
++
++					/* Program the aperture */
++					CD_WRITE(&p, REG_A7XX_SP_READ_SEL, read_sel);
++
++					/* Read all the data in one chunk */
++					CD_READ(&p, REG_A7XX_SP_AHB_READ_APERTURE, block->size);
++
++					/* Marker for end of script */
++					CD_FINISH(&p);
++
++					/* Try to run the crash dumper and bail if it times out */
++					if (CD_RUN(&p, gpu))
++						return false;
++
++					snapshot_sect (state, SHADER_V3, block->size * sizeof(u32), {
++						.type = block->statetype,
++						.slice_id = HEADER_SLICE_ID(block->slice_region, slice_id),
++						.sp_index = sp,
++						.usptp = block->usptp_id,
++						.pipe_id = block->pipeid,
++						.location = block->location,
++						.ctxt_id = ctxt,
++						.size = block->size,
++					}) {
++						const u32 *src = dumper->ptr + A8XX_CD_DATA_OFFSET;
++						snapshot_sect_data(&sect, src, block->size * sizeof(u32));
++					}
++				}
++			}
++		}
++	}
++
++	return true;
++}
++
++static void a8xx_snapshot_gmu_bo(struct adreno_gpu_state *state,
++				 struct a6xx_gmu_bo *bo,
++				 unsigned type)
++{
++	snapshot_sect (state, GMU_MEMORY, bo->size, {
++		.type = type,
++		.gmuaddr = bo->iova,
++	}) {
++		snapshot_sect_data(&sect, bo->virt, bo->size);
++	}
++}
++
++static void a8xx_snapshot_gpu_bo(struct adreno_gpu_state *state,
++				 struct drm_gem_object *bo,
++				 uint64_t iova)
++{
++	if (!bo)
++		return;
++
++	snapshot_sect (state, GPU_OBJECT_V2, bo->size, {
++		.type = SNAPSHOT_GPU_OBJECT_GLOBAL,
++		.gpuaddr = iova,
++		.size = bo->size / 4,  /* dwords */
++	}) {
++		void *ptr = msm_gem_get_vaddr(bo);
++		snapshot_sect_data(&sect, ptr, bo->size);
++		msm_gem_put_vaddr(bo);
++	}
++}
++
++static void a8xx_snapshot_gmu_hfi_history(struct msm_gpu *gpu,
++					  struct adreno_gpu_state *state)
++{
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
++	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
++	unsigned i, j;
++
++	BUILD_BUG_ON(ARRAY_SIZE(gmu->queues) != ARRAY_SIZE(state->hfi_queue_history));
++
++	for (i = 0; i < ARRAY_SIZE(gmu->queues); i++) {
++		struct a6xx_hfi_queue *queue = &gmu->queues[i];
++		for (j = 0; j < HFI_HISTORY_SZ; j++) {
++			unsigned idx = (j + queue->history_idx) % HFI_HISTORY_SZ;
++			state->hfi_queue_history[i][j] = queue->history[idx];
++		}
++	}
++}
++
++#define GEN8_DEBUGBUS_BLOCK_SIZE 0x100
++
++#define GEN8_DEBUGBUS_BLOCK_IDX_1 128
++#define GEN8_DEBUGBUS_BLOCK_IDX_2 192
++
++static void gen8_cx_dbgc_debugbus_select(struct msm_gpu *gpu, u32 block_id, u32 index)
++{
++	u32 reg;
++
++	reg = A7XX_DBGC_CFG_DBGBUS_SEL_D_PING_INDEX(index) |
++		A7XX_DBGC_CFG_DBGBUS_SEL_D_PING_BLK_SEL(block_id);
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_A, reg);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_B, reg);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_C, reg);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_SEL_D, reg);
++
++	/* Wait 1 us to make sure the data is flowing */
++	udelay(1);
++}
++
++static void gen8_debugbus_internal_read_setup(struct msm_gpu *gpu)
++{
++	/* Clear the DBGC logic/events */
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_CNTLM, 0x70000000);
++
++	/* Enable the internal buffer mode and program to tail mode */
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_OPL, 0x28000000);
++
++	/* Program the logic unit 0 to high when the side data is 1 */
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_0, 0x0000000c);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_0, 0x000000f0);
++
++	/* Enable the DBGC logic/events */
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_CNTLM, 0x07000000);
++}
++
++static void gen8_cx_gc_us_i_0_debugbus_read(
++	struct msm_gpu *gpu, u32 block_id, u32 index, u32 data[2])
++{
++	gen8_cx_dbgc_debugbus_select(gpu, block_id, index);
++
++	/*
++	 * Select lower 32 bits of internal buffer data for internal mux[1:0]
++	 * DBGC_CFG_DBGBUS_IDX.internalIndex0 = 24 (0x18)
++	 * DBGC_CFG_DBGBUS_IDX.internalIndex1 = 25 (0x19)
++	 */
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IDX, 0x00001918);
++	udelay(1);
++
++	data[0] = gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_TRACE_BUF3);
++
++	/*
++	 * Select upper 32 bits of internal buffer data for internal mux[1:0]
++	 * DBGC_CFG_DBGBUS_IDX.internalIndex0 = 26 (0x1a)
++	 * DBGC_CFG_DBGBUS_IDX.internalIndex1 = 27 (0x1b)
++	 */
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IDX, 0x00001a1b);
++	udelay(1);
++
++	data[1] = gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_TRACE_BUF3);
++}
++
++/* gen8_cx_dbgc_debug_bus_read() - Read data from trace bus */
++static void gen8_cx_debug_bus_read(
++	struct msm_gpu *gpu, u32 block_id, u32 index, u32 data[2])
++{
++	gen8_cx_dbgc_debugbus_select(gpu, block_id, index);
++
++	data[0] = gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_TRACE_BUF2);
++	data[1] = gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_TRACE_BUF1);
++}
++
++static void gen8_snapshot_cx_dbgc_debugbus_block(
++	struct msm_gpu *gpu, uint32_t block_id, size_t count,
++	struct adreno_snapshot_sect *sect)
++{
++	/* This block requires an out of order access due to a HW limitation.
++	 * (QCTDD12240539)
++	 */
++	if (block_id == DEBUGBUS_CX_GC_US_I_0) {
++		static u32 data[GEN8_DEBUGBUS_BLOCK_SIZE * 2];
++		gen8_debugbus_internal_read_setup(gpu);
++		for (int i = 0; i < GEN8_DEBUGBUS_BLOCK_IDX_1; i++)
++			gen8_cx_gc_us_i_0_debugbus_read(gpu, block_id, i, &data[i * 2]);
++		for (int i = GEN8_DEBUGBUS_BLOCK_IDX_2; i < GEN8_DEBUGBUS_BLOCK_SIZE; i++)
++			gen8_cx_gc_us_i_0_debugbus_read(gpu, block_id, i, &data[i * 2]);
++		for (int i = GEN8_DEBUGBUS_BLOCK_IDX_1; i < GEN8_DEBUGBUS_BLOCK_IDX_2; i++)
++			gen8_cx_gc_us_i_0_debugbus_read(gpu, block_id, i, &data[i * 2]);
++		snapshot_sect_arr(sect, data);
++	} else {
++		for (int i = 0; i < count; i++) {
++			u32 data[2];
++			gen8_cx_debug_bus_read(gpu, block_id, i, data);
++			snapshot_sect_arr(sect, data);
++		}
++	}
++}
++
++static void gen8_dbgc_side_debug_bus_read(struct msm_gpu *gpu,
++	u32 block_id, u32 index, struct adreno_snapshot_sect *sect)
++{
++	u32 reg, side_data;
++
++	gen8_cx_dbgc_debugbus_select(gpu, block_id, index);
++
++	reg = gpu_read(gpu, REG_A6XX_DBGC_CFG_DBGBUS_OVER);
++	side_data = FIELD_GET(GENMASK(27, 24), reg);
++
++	snapshot_sect_u32(sect, side_data);
++}
++
++static void gen8_snapshot_dbgc_side_debugbus_block(
++	struct msm_gpu *gpu, uint32_t block_id, size_t count,
++	struct adreno_snapshot_sect *sect)
++{
++	for (int i = 0; i < count; i++)
++		gen8_dbgc_side_debug_bus_read(gpu, block_id, i, sect);
++}
++
++static void gen8_get_debugbus(struct msm_gpu *gpu, struct adreno_gpu_state *state)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++
++	/* Set up the GX debug bus */
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_CNTLT,
++		A6XX_DBGC_CFG_DBGBUS_CNTLT_SEGT(0xf));
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_CNTLM,
++		A6XX_DBGC_CFG_DBGBUS_CNTLM_ENABLE(0xf));
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_0, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_1, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_2, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_IVTL_3, 0);
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_0, 0x76543210);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_BYTEL_1, 0xFEDCBA98);
++
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_0, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_1, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_2, 0);
++	gpu_write(gpu, REG_A6XX_DBGC_CFG_DBGBUS_MASKL_3, 0);
++
++	/* Read the blocks: */
++
++	for (int i = 0; i < b->debugbus_blocks_len; i++) {
++		size_t count = GEN8_DEBUGBUS_BLOCK_SIZE;
++		uint32_t block_id = b->debugbus_blocks[i];
++
++		snapshot_sect (state, DEBUGBUS, 4 * 2 * count, {
++			/* debugbus section hdr: */
++			.id = block_id,
++			.count = count * 2,
++		}) {
++			gen8_snapshot_cx_dbgc_debugbus_block(gpu, block_id, count, &sect);
++		}
++
++		snapshot_sect (state, SIDE_DEBUGBUS, 4 * count, {
++			/* side_debugbus section hdr: */
++			.id = block_id,
++			.size = count,
++			.valid_data = 0x4,
++		}) {
++			gen8_snapshot_dbgc_side_debugbus_block(gpu, block_id, count, &sect);
++		}
++	}
++
++	for (int i = 0; i < b->gbif_debugbus_blocks_len; i++) {
++		size_t count = GEN8_DEBUGBUS_BLOCK_SIZE;
++		uint32_t block_id = b->gbif_debugbus_blocks[i];
++
++		snapshot_sect (state, DEBUGBUS, 4 * 2 * count, {
++			/* debugbus section hdr: */
++			.id = block_id,
++			.count = count * 2,
++		}) {
++			gen8_snapshot_cx_dbgc_debugbus_block(gpu, block_id, count, &sect);
++		}
++
++		snapshot_sect (state, SIDE_DEBUGBUS, 4 * count, {
++			/* side_debugbus section hdr: */
++			.id = block_id,
++			.size = count,
++			.valid_data = 0x4,
++		}) {
++			gen8_snapshot_dbgc_side_debugbus_block(gpu, block_id, count, &sect);
++		}
++	}
++}
++
++struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu)
++{
++	const struct gen8_snapshot_block_list *b = block_list(gpu);
++	struct adreno_crashdumper _dumper = { 0 }, *dumper = NULL;
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
++	struct adreno_gpu_state *state;
++	// TODO need to get status from SMMU on some gen8..
++	bool stalled = !!(gpu_read(gpu, REG_A8XX_RBBM_MISC_STATUS) &
++			A8XX_RBBM_MISC_STATUS_SMMU_STALLED_ON_FAULT);
++
++	if (!b)
++		return NULL;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
++
++	INIT_LIST_HEAD(&state->objs);
++
++	/* Get the generic state from the adreno core */
++	adreno_gpu_state_get(gpu, &state->base);
++
++	adreno_snapshot_registers_v2(gpu, state, b->gmu_cx_unsliced_regs);
++
++	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.log, SNAPSHOT_GMU_MEM_LOG);
++	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.hfi, SNAPSHOT_GMU_MEM_HFI);
++	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.debug, SNAPSHOT_GMU_MEM_DEBUG);
++
++	a8xx_snapshot_gmu_hfi_history(gpu, state);
++
++	/* If GX isn't on the rest of the data isn't going to be accessible */
++	if (!a6xx_gmu_gx_is_on(adreno_gpu))
++		return &state->base;
++
++	snapshot_sect (state, DEBUG, 4, {
++		.type = SNAPSHOT_DEBUG_SLICE_MASK,
++		.size = 1,
++	}) {
++		snapshot_sect_u32(&sect, a6xx_gpu->slice_mask);
++	}
++
++	gen8_get_debugbus(gpu, state);
++
++	/*
++	 * Try to initialize the crashdumper, if we are not dumping state
++	 * with the SMMU stalled.  The crashdumper needs memory access to
++	 * write out GPU state, so we need to skip this when the SMMU is
++	 * stalled in response to an iova fault
++	 */
++	if (!stalled && !gpu->needs_hw_init &&
++	    !a8xx_crashdumper_init(gpu, &_dumper)) {
++		dumper = &_dumper;
++	}
++
++	/* Clear aperture register */
++	a8xx_aperture_clear(gpu);
++
++	/*
++	 * Assert the isStatic bit before triggering snapshot.
++	 * BIT(0): GPU activity during snapshot dump
++	 * BIT(1): GPU UNSLICE activity during snapshot dump
++	 * Similarly, BIT(4) for slice-0, BIT(5) for slice-1 and so on.
++	 */
++	gpu_write(gpu, REG_A8XX_RBBM_SNAPSHOT_STATUS, BIT(0) | BIT(1) |
++			FIELD_PREP(GENMASK(7, 4), a6xx_gpu->slice_mask));
++
++	/* Dump the registers which get affected by crash dumper trigger */
++	for (int i = 0; i < b->num_pre_crashdumper_regs; i++) {
++		const struct gen8_reg_list *regs = &b->pre_crashdumper_regs[i];
++		u32 j;
++
++		FOR_EACH_SLICE (j, regs->slice_region, a6xx_gpu->slice_mask) {
++			u32 slice_id = SLICE_ID(regs->slice_region, j);
++			gen8_legacy_snapshot_registers(gpu, state, regs, slice_id);
++		}
++	}
++
++	/*
++	 * If crashdumper timed out while dumping this section skip everything
++	 * since even AHB acceses to the GPU might cause NoC errors.
++	 */
++	if (!gen8_reglist_snapshot(gpu, state, dumper))
++		goto out;
++
++	/* CP indexed regs data */
++	if (!gen8_snapshot_cp_indexed_regs(gpu, state, dumper))
++		goto out;
++
++	/* Mempool debug data */
++	if (!gen8_snapshot_mempool(gpu, state, dumper))
++		goto out;
++
++	/*
++	 * CP MVC register section
++	 * If crashdumper timed out while dumping any section below skip everything
++	 * since even AHB acceses to the GPU might cause NoC errors.
++	 */
++	if (!gen8_snapshot_mvc_regs(gpu, state, dumper, b->cp_clusters, b->num_cp_clusters))
++		goto out;
++
++	/* MVC register section */
++	if (!gen8_snapshot_mvc_regs(gpu, state, dumper, b->clusters, b->num_clusters))
++		goto out;
++
++	/* registers dumped through DBG AHB */
++	if (!gen8_snapshot_dbgahb_regs(gpu, state, dumper))
++		goto out;
++
++	/* Shader memory */
++	if (!gen8_snapshot_shader(gpu, state, dumper))
++		goto out;
++
++	/*
++	 * Capture preempt records after cp_clusters, to make this easier
++	 * to decode (ie. so we already know CP_CONTEXT_SWITCH_SMMU_INFO and
++	 * CP_CONTEXT_SWITCH_PRIV_NON_SECURE_RESTORE_ADDR) when crashdec sees
++	 * the logged GPU objs)
++	 */
++	for (unsigned i = 0; i < gpu->nr_rings; i++) {
++		a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_bo[i],
++				     a6xx_gpu->preempt_iova[i]);
++		a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_smmu_bo[i],
++				     a6xx_gpu->preempt_smmu_iova[i]);
++	}
++
++out:
++	gpu_write(gpu, REG_A8XX_RBBM_SNAPSHOT_STATUS, 0x0);
++
++	if (dumper)
++		msm_gem_kernel_put(dumper->bo, gpu->vm);
++
++	state->gpu_initialized = !gpu->needs_hw_init;
++
++	return  &state->base;
++}
++
++static void a8xx_gpu_state_destroy(struct kref *kref)
++{
++	struct adreno_state_memobj *obj, *tmp;
++	struct msm_gpu_state *state = container_of(kref,
++			struct msm_gpu_state, ref);
++	struct adreno_gpu_state *adreno_state = container_of(state,
++			struct adreno_gpu_state, base);
++
++	list_for_each_entry_safe (obj, tmp, &adreno_state->objs, node) {
++		list_del(&obj->node);
++		kvfree(obj->ptr);
++		kfree(obj);
++	}
++
++	adreno_gpu_state_destroy(state);
++	kfree(adreno_state);
++}
++
++int a8xx_gpu_state_put(struct msm_gpu_state *state)
++{
++	if (IS_ERR_OR_NULL(state))
++		return 1;
++
++	return kref_put(&state->ref, a8xx_gpu_state_destroy);
++}
++
++void a8xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
++		struct drm_printer *p)
++{
++	struct adreno_gpu_state *adreno_state = container_of(state,
++			struct adreno_gpu_state, base);
++	struct adreno_state_memobj *obj;
++
++	if (IS_ERR_OR_NULL(state))
++		return;
++
++	drm_printf(p, "gpu-initialized: %d\n", adreno_state->gpu_initialized);
++
++	adreno_show(gpu, state, p);
++
++	drm_puts(p, "gmu-hfi:\n");
++	for (int i = 0; i < ARRAY_SIZE(adreno_state->hfi_queue_history); i++) {
++		drm_printf(p, "    queue-history[%u]:", i);
++		for (int j = 0; j < HFI_HISTORY_SZ; j++) {
++			drm_printf(p, " %d", adreno_state->hfi_queue_history[i][j]);
++		}
++		drm_printf(p, "\n");
++	}
++
++	/*
++	 * Parsing note: do not assume each snapshot obj is only a single
++	 * section, assume sub-allocation.
++	 */
++	drm_puts(p, "snapshot:\n");
++	list_for_each_entry (obj, &adreno_state->objs, node) {
++		drm_printf(p, "    size: %zu\n", obj->size);
++		adreno_show_object(p, &obj->ptr, obj->size, &obj->encoded);
++	}
++}
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_snapshot.h b/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
+index f9956e0bc1d5..e8ff102a628b 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_snapshot.h
+@@ -7,6 +7,8 @@
  
--static const u32 a840_protect_regs[] = {
--	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
--	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
--	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
--	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
--	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
--	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
--	A6XX_PROTECT_RDONLY(0x00759, 0x001b),
--	A6XX_PROTECT_NORDWR(0x00775, 0x000a),
--	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
--	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
--	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
--	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
--	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
--	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
--	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
--	A6XX_PROTECT_NORDWR(0x00c07, 0x0008),
--	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
--	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
--	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
--	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
--	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
--	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
--	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
--	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
--	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
--	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
--	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
--	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
--	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
--	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
--	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
--	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
--	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
--	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
--	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
--	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
--	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
--	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
--	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
--	A6XX_PROTECT_NORDWR(0x27882, 0x0009),
--	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
--};
--DECLARE_ADRENO_PROTECT(a840_protect, 15);
--
- static const struct adreno_reglist a840_gbif[] = {
- 	{ REG_A6XX_GBIF_QSB_SIDE0, 0x00071e20 },
- 	{ REG_A6XX_GBIF_QSB_SIDE1, 0x00071e20 },
-@@ -956,67 +738,6 @@ struct a6xx_hfi_limits_tbl a840_limits_tbl[] = {
- };
- DECLARE_ADRENO_LIMITS_TABLE(a840_limits);
+ #include <linux/types.h>
  
--static const u32 a850_protect_regs[] = {
--	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
--	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
--	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
--	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
--	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
--	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
--	A6XX_PROTECT_RDONLY(0x00759, 0x001b),
--	A6XX_PROTECT_NORDWR(0x00775, 0x000a),
--	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
--	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
--	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
--	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
--	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
--	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
--	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
--	A6XX_PROTECT_NORDWR(0x00c07, 0x0008),
--	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
--	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00df5, 0x0003),
--	A6XX_PROTECT_RDONLY(0x00df9, 0x0007),
--	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
--	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
--	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
--	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
--	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
--	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
--	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
--	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
--	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
--	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
--	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
--	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
--	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
--	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
--	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
--	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
--	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
--	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
--	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
--	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1ac00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1cc00, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
--	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
--	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
--	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
--	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
--	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
--	A6XX_PROTECT_NORDWR(0x27882, 0x0035),
--	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
--};
--DECLARE_ADRENO_PROTECT(a850_protect, 15);
--
- static const u32 a850_pwrup_reglist_regs[] = {
- 	REG_A8XX_RB_CMP_NC_MODE_CNTL,
- 	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
-@@ -1215,7 +936,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			  ADRENO_QUIRK_IFPC,
- 		.funcs = &a8xx_gpu_funcs,
- 		.a6xx = &(const struct a6xx_info) {
--			.protect = &a830_protect,
-+			.protect = &pakala_protect,
- 			.nonctxt_reglist = pakala_nonctxt_regs,
- 			.pwrup_reglist = &a830_pwrup_reglist,
- 			.dyn_pwrup_reglist = &a830_dyn_pwrup_reglist,
-@@ -1260,7 +981,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			  ADRENO_QUIRK_SOFTFUSE,
- 		.funcs = &a8xx_gpu_funcs,
- 		.a6xx = &(const struct a6xx_info) {
--			.protect = &x285_protect,
-+			.protect = &glymur_protect,
- 			.nonctxt_reglist = glymur_nonctxt_regs,
- 			.pwrup_reglist = &a840_pwrup_reglist,
- 			.dyn_pwrup_reglist = &x285_dyn_pwrup_reglist,
-@@ -1305,7 +1026,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			  ADRENO_QUIRK_IFPC,
- 		.funcs = &a8xx_gpu_funcs,
- 		.a6xx = &(const struct a6xx_info) {
--			.protect = &a840_protect,
-+			.protect = &pakala_protect,
- 			.nonctxt_reglist = kaanapali_nonctxt_regs,
- 			.pwrup_reglist = &a840_pwrup_reglist,
- 			.dyn_pwrup_reglist = &a840_dyn_pwrup_reglist,
-@@ -1351,7 +1072,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 		.funcs = &a8xx_gpu_funcs,
- 		.zapfw = "gen80300_zap.mbn",
- 		.a6xx = &(const struct a6xx_info) {
--			.protect = &a810_protect,
-+			.protect = &milos_protect,
- 			.nonctxt_reglist = milos_nonctxt_regs,
- 			.pwrup_reglist = &a810_pwrup_reglist,
- 			.dyn_pwrup_reglist = &a810_dyn_pwrup_reglist,
-@@ -1394,7 +1115,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			  ADRENO_QUIRK_SOFTFUSE,
- 		.funcs = &a8xx_gpu_funcs,
- 		.a6xx = &(const struct a6xx_info) {
--			.protect = &x285_protect,
-+			.protect = &glymur_protect,
- 			.nonctxt_reglist = glymur_nonctxt_regs,
- 			.pwrup_reglist = &a840_pwrup_reglist,
- 			.dyn_pwrup_reglist = &x285_dyn_pwrup_reglist,
-@@ -1437,7 +1158,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			  ADRENO_QUIRK_IFPC,
- 		.funcs = &a8xx_gpu_funcs,
- 		.a6xx = &(const struct a6xx_info) {
--			.protect = &a850_protect,
-+			.protect = &maili_protect,
- 			.nonctxt_reglist = maili_nonctxt_regs,
- 			.pwrup_reglist = &a850_pwrup_reglist,
- 			.dyn_pwrup_reglist = &a850_dyn_pwrup_reglist,
-@@ -1481,7 +1202,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 			  ADRENO_QUIRK_IFPC,
- 		.funcs = &a8xx_gpu_funcs,
- 		.a6xx = &(const struct a6xx_info) {
--			.protect = &a850_protect,
-+			.protect = &hawi_protect,
- 			.nonctxt_reglist = hawi_nonctxt_regs,
- 			.pwrup_reglist = &a850_pwrup_reglist,
- 			.dyn_pwrup_reglist = &a850_dyn_pwrup_reglist,
-@@ -1516,6 +1237,10 @@ DECLARE_ADRENO_GPULIST(a8xx);
++#include "msm_gpu.h"
++
+ /* Snapshot header */
  
- static inline __always_unused void __build_asserts(void)
- {
--	BUILD_BUG_ON(a810_protect.count > a810_protect.count_max);
--	BUILD_BUG_ON(a830_protect.count > a830_protect.count_max);
-+	BUILD_BUG_ON(glymur_protect.count > glymur_protect.count_max);
-+	BUILD_BUG_ON(hawi_protect.count > hawi_protect.count_max);
-+	BUILD_BUG_ON(kaanapali_protect.count > kaanapali_protect.count_max);
-+	BUILD_BUG_ON(maili_protect.count > maili_protect.count_max);
-+	BUILD_BUG_ON(milos_protect.count > milos_protect.count_max);
-+	BUILD_BUG_ON(pakala_protect.count > pakala_protect.count_max);
- }
+ /* High word is static, low word is snapshot version ID */
+@@ -150,6 +152,7 @@ struct adreno_snapshot_gmu_mem {
+ 	uint64_t gmuaddr;
+ 	uint64_t gpuaddr;
+ } __packed;
++#define STRUCT_GMU_MEMORY adreno_snapshot_gmu_mem
+ 
+ /* Register sub-section header */
+ struct adreno_snapshot_regs {
+@@ -172,6 +175,7 @@ struct adreno_snapshot_indexed_regs_v2 {
+ 	u32 pipe_id;	/* Id of pipe, BV, Br etc */
+ 	u32 slice_id;	/* Slice ID to be dumped */
+ } __packed;
++#define STRUCT_INDEXED_REGS_V2 adreno_snapshot_indexed_regs_v2
+ 
+ /* MVC register sub-section header */
+ struct adreno_snapshot_mvc_regs {
+@@ -195,6 +199,7 @@ struct adreno_snapshot_mvc_regs_v3 {
+ 	u32 sp_id;
+ 	u32 usptp_id;
+ } __packed;
++#define STRUCT_MVC_V3 adreno_snapshot_mvc_regs_v3
+ 
+ /* Debug data sub-section header */
+ 
+@@ -222,17 +227,20 @@ struct adreno_snapshot_debug {
+ 	int type;    /* Type identifier for the attached tata */
+ 	int size;   /* Size of the section in dwords */
+ } __packed;
++#define STRUCT_DEBUG adreno_snapshot_debug
+ 
+ struct adreno_snapshot_debugbus {
+ 	int id;	   /* Debug bus ID */
+ 	int count; /* Number of dwords in the dump */
+ } __packed;
++#define STRUCT_DEBUGBUS adreno_snapshot_debugbus
+ 
+ struct adreno_snapshot_side_debugbus {
+ 	int id;   /* Debug bus ID */
+ 	int size; /* Number of dwords in the dump */
+ 	int valid_data;  /* Mask of valid bits of the side debugbus */
+ } __packed;
++#define STRUCT_SIDE_DEBUGBUS adreno_snapshot_side_debugbus
+ 
+ struct adreno_snapshot_shader {
+ 	int type;  /* SP/TP statetype */
+@@ -259,6 +267,7 @@ struct adreno_snapshot_shader_v3 {
+ 	u32 ctxt_id; /* Context ID */
+ 	u32 size;  /* Number of dwords in the dump */
+ } __packed;
++#define STRUCT_SHADER_V3 adreno_snapshot_shader_v3
+ 
+ #define TRACE_BUF_NUM_SIG 4
+ 
+@@ -302,6 +311,7 @@ struct adreno_snapshot_gpu_object_v2 {
+ 	__u64 ptbase;  /* Base for the pagetable the GPU address is valid in */
+ 	__u64 size;    /* Size of the object (in dwords) */
+ } __packed;
++#define STRUCT_GPU_OBJECT_V2 adreno_snapshot_gpu_object_v2
+ 
+ struct adreno_snapshot_eventlog {
+ 	/** @type: Type of the event log buffer */
+@@ -319,3 +329,198 @@ struct adreno_snapshot_gmu_version {
+ 	u32 value;
+ } __packed;
+ 
++struct adreno_snapshot_empty_header { u8 dummy; };
++#define STRUCT_REGS_V2 adreno_snapshot_debugbus
++
++#define REG_COUNT(_ptr) ((_ptr[1] - _ptr[0]) + 1)
++
++static int adreno_snapshot_regs_count(const u32 *ptr)
++{
++	unsigned int count = 0;
++	unsigned int group_count;
++
++	for ( ; ptr[0] != UINT_MAX; ptr += 2) {
++		group_count = REG_COUNT(ptr);
++		if (group_count == 1)
++			count += group_count + 1;
++		else
++			count += group_count + 2;
++	}
++	return count;
++}
++
++struct adreno_gpu_state {
++	struct msm_gpu_state base;
++
++	s32 hfi_queue_history[HFI_MAX_QUEUES][HFI_HISTORY_SZ];
++
++	/* list of struct adreno_state_memobj */
++	struct list_head objs;
++
++	bool gpu_initialized;
++};
++
++struct adreno_state_memobj {
++	struct list_head node;
++	void *ptr;	/* replaced by ascii85 encoded string in adreno_show_object() */
++	bool encoded;
++	size_t size;
++};
++
++/**
++ * A on-stack helper to build snapshot sections setting the size field when the
++ * helper goes out of scope, to simplify constructing snapshot sections, but
++ * without resorting to the callback approach that kgsl uses.
++ */
++struct adreno_snapshot_sect {
++	struct adreno_state_memobj *obj;
++	void *cur, *end;
++};
++
++static void __snapshot_sect_fini(struct adreno_snapshot_sect *s)
++{
++	struct adreno_snapshot_section_header *hdr = (void *)s->obj->ptr;
++	hdr->size = s->obj->size = ((u8 *)s->cur - (u8 *)s->obj->ptr);
++}
++
++static struct adreno_snapshot_sect
++__snapshot_sect_init(struct adreno_gpu_state *state, uint16_t id, size_t extra_sz,
++		     void *sect_hdr, size_t sect_hdr_sz, const char *func, int line)
++{
++	/* A few section types have no section header: */
++	switch (id) {
++	case ADRENO_SNAPSHOT_SECTION_REGS_V2:
++		sect_hdr_sz = 0;
++	default:
++		break;
++	}
++
++	pr_debug("%s:%d: snapshot_sect(id=%04x, extra_sz=%zu, sect_hdr_sz=%zu)\n",
++		 func, line, id, extra_sz, sect_hdr_sz);
++
++	size_t sz = sizeof(struct adreno_snapshot_section_header) + sect_hdr_sz + extra_sz;
++	struct adreno_state_memobj *obj = kzalloc_obj(*obj);
++	void *ptr = kvzalloc(sz, GFP_KERNEL);
++
++	if (!obj || !ptr) {
++		kfree(obj);
++		kvfree(ptr);
++		return (struct adreno_snapshot_sect){};
++	}
++
++	obj->ptr = ptr;
++
++	list_add_tail(&obj->node, &state->objs);
++
++	/* Common snapshot section header: */
++	struct adreno_snapshot_section_header *hdr = ptr;
++	hdr->magic = SNAPSHOT_SECTION_MAGIC;
++	hdr->id = id;
++	/* size filled out in __snapshot_sect_fini() */
++	ptr += sizeof(*hdr);
++
++	/* Section type header: */
++	memcpy(ptr, sect_hdr, sect_hdr_sz);
++	ptr += sect_hdr_sz;
++
++	return (struct adreno_snapshot_sect) {
++		.obj = obj,
++		.cur = ptr,
++		.end = ptr + extra_sz,
++	};
++}
++
++static void
++snapshot_sect_data(struct adreno_snapshot_sect *s, const void *data, size_t sz)
++{
++	/* overflow check: */
++	if (WARN_ON_ONCE(s->cur + sz > s->end))
++		return;
++
++	memcpy(s->cur, data, sz);
++	s->cur += sz;
++}
++
++#define snapshot_sect_arr(_s, _d) snapshot_sect_data(_s, _d, sizeof(_d))
++
++static void
++snapshot_sect_u32(struct adreno_snapshot_sect *s, u32 val)
++{
++	snapshot_sect_data(s, &val, sizeof(val));
++}
++
++#define __snapshot_sect(_label, _state, _id, _extra_sz, ...)		\
++	for (struct adreno_snapshot_sect sect = ({			\
++		struct STRUCT_ ## _id sect_hdr = __VA_ARGS__;		\
++		__snapshot_sect_init(_state, ADRENO_SNAPSHOT_SECTION_ ## _id,	\
++				     _extra_sz, &sect_hdr, 		\
++				     sizeof(sect_hdr), 			\
++				     __func__, __LINE__); });		\
++	     sect.obj; ({ goto _label; }))				\
++		if (false) {						\
++_label:									\
++			__snapshot_sect_fini(&sect); 			\
++			break;						\
++		} else
++
++#define snapshot_sect(_id, _extra_sz, ...) \
++	__snapshot_sect(__UNIQUE_ID(label), _id, _extra_sz, __VA_ARGS__)
++
++struct adreno_crashdumper {
++	void *ptr;
++	size_t data_offset;
++	struct drm_gem_object *bo;
++	u64 iova;
++};
++
++/**
++ * On-stack object to represent a single crashdumper invocation, tracking
++ * in/out ptrs and checking for overflow.
++ */
++struct cd_script {
++	struct adreno_crashdumper *dumper;
++	u64 *in;
++	u64 out;
++};
++
++/* These should be implemented by the gen specific backend: */
++static inline int __cd_run(struct msm_gpu *gpu, struct adreno_crashdumper *dumper);
++static inline bool __cd_check_overflow(struct cd_script *p);
++
++static inline struct cd_script CD_INIT(struct adreno_crashdumper *dumper)
++{
++	return (struct cd_script) {
++		.dumper = dumper,
++		.in = dumper->ptr,
++		.out = dumper->iova + dumper->data_offset,
++	};
++}
++
++static inline void CD_WRITE(struct cd_script *p, u32 reg, u32 val)
++{
++	*(p->in++) = val;
++	*(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | BIT(21) | BIT(0);
++	__cd_check_overflow(p);
++}
++
++static inline void CD_READ(struct cd_script *p, u32 reg, u32 dwords)
++{
++	*(p->in++) = p->out;
++	*(p->in++) = FIELD_PREP(GENMASK(63, 44), reg) | dwords;
++	p->out += sizeof(u32) * dwords;
++	__cd_check_overflow(p);
++}
++
++static void CD_FINISH(struct cd_script *p)
++{
++	*(p->in++) = 0;
++	*(p->in++) = 0;
++	__cd_check_overflow(p);
++}
++
++static int CD_RUN(struct cd_script *p, struct msm_gpu *gpu)
++{
++	if (!__cd_check_overflow(p))
++		return -ENOSPC;
++	return __cd_run(gpu, p->dumper);
++}
 -- 
 2.56.0
 
