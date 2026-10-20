@@ -2,157 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC829606A319
-	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2AB5606A31C
+	for <dri-devel@archiver.kernel.org>; Tue, 20 Oct 2026 11:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=hefTJ58l;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hGMedScA;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pjUX1hjV;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=eI7m6fyF
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBiXY6q/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D26F10ECB6;
-	Tue, 20 Oct 2026 11:26:15 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE37710ED2D
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 11:26:03 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EA9FD1F7B6;
- Tue, 20 Oct 2026 11:26:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792495562; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3Bh/yigK0wnqf2PiEoDr8Kp6MfaSzg09nKtrR09P/QY=;
- b=hefTJ58lVAjj0wg1BVr3Cyed0Mc5nxOeR+NWICINitGNes9vym623Fvy8B/Dytc01dU560
- +cCuCQvdgA2FF3TUBMJ4at9hwObzRXlem0eZ1rLze0H2YDkOUqMuF0VGbQIBu/4vMr8nMB
- rlWHFzCAZZ3PyvY1GCwclJSCZWBpdE4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792495562;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3Bh/yigK0wnqf2PiEoDr8Kp6MfaSzg09nKtrR09P/QY=;
- b=hGMedScAhlC0EZW2VKC0V/Mxd10ogjWSidRurlPo4nh+Xh38ntd6v+KjPlmaGu2o4m5iMY
- +vFVj59d0KWGiWAQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pjUX1hjV;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=eI7m6fyF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792495561; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3Bh/yigK0wnqf2PiEoDr8Kp6MfaSzg09nKtrR09P/QY=;
- b=pjUX1hjV6BsXOyHI3eUEbBRDxt/hu28xMaECE3Fgn125+uiH/12hs7Zcl1kQQ+2dvmnbLR
- Yt/kq9+Xh4+H2EhH+eDLUvYwHlqQI3FIlCzus3YqkAwQIHADnWH3MtNrJqw9lT0HkANgdR
- OtxEDnK7OCT/zWiMXgoIjfH23SYeZu0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792495561;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3Bh/yigK0wnqf2PiEoDr8Kp6MfaSzg09nKtrR09P/QY=;
- b=eI7m6fyFB6C6WHfVrE8mPCPj0lz1HPjTJ80NdVASqw5+h0L+slbPNYHRwM8UuXMqfN65T/
- eEddlnjS0DET+XBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 37980136C6;
- Tue, 20 Oct 2026 11:26:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6qvGNshP12qwewAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 20 Oct 2026 11:26:01 +0000
-Message-ID: <45b55f94-0cd2-425b-b985-ba3958502b06@suse.de>
-Date: Tue, 20 Oct 2026 13:26:00 +0200
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/13] drm/client: splash: prefer what the command line
- asks for
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261013093243.505776-1-maximpedraza@gmail.com>
- <20261013093243.505776-13-maximpedraza@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261013093243.505776-13-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: EA9FD1F7B6
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.00 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[suse.com:url,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCPT_COUNT_TWELVE(0.00)[25];
- FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,lwn.net];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[dt];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:dkim]
-X-Spam-Score: -3.00
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31CB310EF22;
+	Tue, 20 Oct 2026 11:26:55 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 719AF10ED2D;
+ Tue, 20 Oct 2026 11:26:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1842140247;
+ Tue, 20 Oct 2026 11:26:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28581F000C5;
+ Tue, 20 Oct 2026 11:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792495604;
+ bh=pknGrJ+5O/kK6eTDXc/Tvyy7hpUUaNAmdo2s5fK0kY0=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=VBiXY6q/pY3oqh+/ffWLQneR74IB01dbwGeLSq2VDSZ71AGu+Og2CHRo3pboploTj
+ +loL66Qk7hF5PW3O/eTrBJ5PhiyqoYuyqOlIjJFF/B5gqpZD3n4nlEV4tFFREuNFUt
+ CZDOWeKSqBmDOzglnm7CziqlaaF0+hEkxAbM2PYQz8uRzZ4EVNpvOeipTUq1tbGr4G
+ ZHIvqhq74UValWvSQsCi9aFo7OodBzuKwhQO8G8io3qwGqykJbos8tQi8sGdZSz+0+
+ qpwXl3n4qYqsjTacxbBa5S85lKy/w+6UIaQGAZ00jrMdWz4EkuGf/yThFxHWT2chtl
+ nBN9YsuMnwOmA==
+Message-ID: <sashiko-outbox-178894@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/i915/dp: clear and restore MSTM_CTRL around MST
+ DPMS off/on
+To: "Xiao Lu" <xiaolu.xie@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261020110418.1272170-1-xiaolu.xie@intel.com>
+References: <20261020021714.62573-1-xiaolu.xie@intel.com>
+ <20261020110418.1272170-1-xiaolu.xie@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 20 Oct 2026 11:26:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,374 +49,386 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-
-
-Am 13.10.26 um 11:32 schrieb Màxim Pedraza Padilla:
-> A logo or a colour given on the kernel command line was asked for this
-> very boot: a bootloader that picks the product variant from an EEPROM
-> and passes it along, a developer, or a production line that turns the
-> screen red when a test fails. The device tree, the BGRT and the kernel's
-> defaults describe what the board or the build normally wants. Let the
-> command line win, as console= wins over stdout-path.
-
-Please see my earlier comments on module parameters.
-
->
-> Each parameter wins for what it says, and only when it is given, so
-> none has a default of its own:
->
-> - drm_client_lib.splash_bmp names a BMP to load as firmware, preferred
->    over the device tree and the BGRT. Without it the order is unchanged:
->    device tree, BGRT, then "drm_splash.bmp" loaded as firmware. An empty
->    value counts as not given. A file that is named but missing gives no
->    image rather than falling back, since it is what was asked for.
->
-> - drm_client_lib.splash_bmp=none asks for no image at all: only the
->    background is drawn, whatever the other sources have.
->
-> - drm_client_lib.splash_pos=X,Y, splash_offset=DX,DY and
->    splash_rotation=0|90|180|270 place and turn the image with the same
->    meaning as the device tree properties, whatever the image's source.
->    A BMP loaded as firmware has no other way to be placed or turned, and
->    for the others they let a placement be tried without rebuilding a
->    device tree. Positions take both values or are ignored with a
->    warning. When they place a BGRT image, it is placed in screen pixels
->    like any other, and neither the table offsets nor the efifb sanity
->    check apply.
->
-> - drm_client_lib.splash_color sets the background whatever the image.
->    Without it the colour comes from the source that supplied the image,
->    a device tree node's "background-color", and otherwise from
->    CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR. A device tree colour is not
->    used around an image named on the command line: it belongs to another
->    image.
->
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
-> ---
->   drivers/gpu/drm/clients/Kconfig      |  20 ++--
->   drivers/gpu/drm/clients/drm_splash.c | 171 +++++++++++++++++++++------
->   2 files changed, 142 insertions(+), 49 deletions(-)
->
-> diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
-> index f471019bab87..2a374bea370b 100644
-> --- a/drivers/gpu/drm/clients/Kconfig
-> +++ b/drivers/gpu/drm/clients/Kconfig
-> @@ -105,11 +105,9 @@ config DRM_CLIENT_SPLASH_BACKGROUND_COLOR
->   	help
->   	  The default splash background color, in RGB888 format.
->   
-> -	  The background color comes from the same place as the image. A
-> -	  device tree image can carry its own, and the drm_client_lib.splash_color
-> -	  kernel command line parameter sets it for a BMP loaded as firmware,
-> -	  or for the whole screen when there is no image. This color is used
-> -	  otherwise, and always with the BGRT image, which carries none.
-> +	  The drm_client_lib.splash_color kernel command line parameter, when
-> +	  given, is used whatever the image. Otherwise a device tree image can
-> +	  carry its own color, and this one is used for everything else.
->   
->   config DRM_CLIENT_SPLASH_SRC_DT
->   	bool "Device tree as splash source"
-> @@ -123,8 +121,9 @@ config DRM_CLIENT_SPLASH_SRC_DT
->   	  show a different logo on each board or product, chosen by the
->   	  device tree it boots with.
->   
-> -	  When present, the device tree image is preferred over the other
-> -	  sources.
-> +	  When present, the device tree image is preferred over the BGRT and
-> +	  over the default BMP loaded as firmware. A BMP named on the kernel
-> +	  command line is preferred over it.
->   
->   config DRM_CLIENT_SPLASH_SRC_BGRT
->   	bool "EFI BGRT as splash source"
-> @@ -150,9 +149,10 @@ config DRM_CLIENT_SPLASH_SRC_BMP
->   
->   	  The image will be loaded using the firmware loading facility the
->   	  kernel provides; it shall use 24 bits per pixel and shall not be
-> -	  compressed. The name of the file can be set through the
-> -	  drm_client_lib.splash_bmp command line parameter, with the default
-> -	  being 'drm_splash.bmp'.
-> +	  compressed. A file named through the drm_client_lib.splash_bmp
-> +	  command line parameter is preferred over any other image source;
-> +	  otherwise 'drm_splash.bmp' is used when neither the device tree nor
-> +	  the BGRT provides an image.
->   
->   config DRM_CLIENT_SPLASH_BMP_SUPPORT
->   	bool
-> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-> index 4c30de7c5c16..46faae025ec2 100644
-> --- a/drivers/gpu/drm/clients/drm_splash.c
-> +++ b/drivers/gpu/drm/clients/drm_splash.c
-> @@ -40,18 +40,90 @@
->    * a static image.
->    */
->   
-> -static unsigned int splash_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
-> -module_param(splash_color, uint, 0400);
-> +/*
-> + * What is given on the command line wins over the device tree and the
-> + * firmware tables, and each parameter only for what it says. Neither has a
-> + * value of its own until it is given: -1 and NULL mean "not given".
-> + */
-> +static int splash_color = -1;
-> +module_param(splash_color, int, 0400);
->   MODULE_PARM_DESC(splash_color,
-> -		 "Background color (RGB888) around the BMP loaded as firmware, or of the whole screen with no image");
-> +		 "Background color as 0xRRGGBB, preferred over any other");
-> +
-> +static int splash_pos[2];
-> +static unsigned int splash_pos_n;
-> +module_param_array(splash_pos, int, &splash_pos_n, 0400);
-> +MODULE_PARM_DESC(splash_pos,
-> +		 "Image position as X,Y in screen pixels, -1 centres that axis");
-> +
-> +static int splash_offset[2];
-> +static unsigned int splash_offset_n;
-> +module_param_array(splash_offset, int, &splash_offset_n, 0400);
-> +MODULE_PARM_DESC(splash_offset,
-> +		 "Displacement as DX,DY in screen pixels, added after placing");
-> +
-> +static int splash_rotation = -1;
-> +module_param(splash_rotation, int, 0400);
-> +MODULE_PARM_DESC(splash_rotation,
-> +		 "Image rotation in degrees counter clockwise: 0, 90, 180 or 270");
->   
->   #if IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP)
->   #define DEFAULT_SPLASH_BMP "drm_splash.bmp"
-> -static char *splash_bmp = DEFAULT_SPLASH_BMP;
-> +static char *splash_bmp;
->   module_param(splash_bmp, charp, 0400);
-> -MODULE_PARM_DESC(splash_bmp, "Name of splash image (default: \"" DEFAULT_SPLASH_BMP "\")");
-> +MODULE_PARM_DESC(splash_bmp,
-> +		 "BMP to load as firmware, preferred over any other image");
-> +
-> +/* Given on the command line, and not empty */
-> +static bool drm_splash_bmp_given(void)
-> +{
-> +	return splash_bmp && *splash_bmp;
-> +}
-> +
-> +/* "none" asks for no image at all, whatever the other sources have */
-> +static bool drm_splash_bmp_none(void)
-> +{
-> +	return drm_splash_bmp_given() && !strcmp(splash_bmp, "none");
-> +}
-> +
-> +static const char *drm_splash_bmp_name(void)
-> +{
-> +	return drm_splash_bmp_given() ? splash_bmp : DEFAULT_SPLASH_BMP;
-> +}
-> +#else
-> +static bool drm_splash_bmp_given(void)
-> +{
-> +	return false;
-> +}
-> +
-> +static bool drm_splash_bmp_none(void)
-> +{
-> +	return false;
-> +}
->   #endif // CONFIG_DRM_CLIENT_SPLASH_SRC_BMP
->   
-> +/* Degrees counter clockwise, as for panels, and as DRM counts them */
-> +static bool drm_splash_rotation_from_degrees(u32 degrees,
-> +					     unsigned int *rotation)
-> +{
-> +	switch (degrees) {
-> +	case 0:
-> +		*rotation = DRM_MODE_ROTATE_0;
-> +		return true;
-> +	case 90:
-> +		*rotation = DRM_MODE_ROTATE_90;
-> +		return true;
-> +	case 180:
-> +		*rotation = DRM_MODE_ROTATE_180;
-> +		return true;
-> +	case 270:
-> +		*rotation = DRM_MODE_ROTATE_270;
-> +		return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->   #define BMP_FILE_MAGIC_ID 0x4d42
->   
->   /* BMP header structures copied from drivers/video/fbdev/efifb.c */
-> @@ -134,6 +206,8 @@ struct drm_splash {
->   	s32 off_x, off_y;
->   	/* One of DRM_MODE_ROTATE_*: turns the image, not the screen */
->   	unsigned int rotation;
-> +	/* Placed from the command line, in screen pixels, whatever the source */
-> +	bool place_cmdline;
->   	/* RGB888, from the same place as the image */
->   	u32 bg_color;
->   };
-> @@ -218,10 +292,11 @@ static int drm_splash_fw_request_bmp(struct drm_splash *splash)
->   {
->   	struct drm_client_dev *client = &splash->client;
->   
-> -	drm_info(client->dev, "splash: request %s as firmware", splash_bmp);
-> +	drm_info(client->dev, "splash: request %s as firmware",
-> +		 drm_splash_bmp_name());
->   
->   	return request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
-> -				       splash_bmp, client->dev->dev, GFP_KERNEL,
-> +				       drm_splash_bmp_name(), client->dev->dev, GFP_KERNEL,
->   				       splash, drm_splash_fw_callback);
->   }
->   #else
-> @@ -280,11 +355,9 @@ static void drm_splash_dt_props(struct drm_splash *splash,
->   {
->   	u32 val[2];
->   
-> -	/* The colour travels with the image, or it is the kernel's default */
-> +	/* The colour travels with the image */
->   	if (!of_property_read_u32(np, "background-color", &val[0]))
->   		splash->bg_color = val[0] & 0xffffff;
-> -	else
-> -		splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
->   
->   	if (!of_property_read_u32_array(np, "logo-position", val, 2)) {
->   		splash->pos_x = (s32)val[0];
-> @@ -296,27 +369,10 @@ static void drm_splash_dt_props(struct drm_splash *splash,
->   		splash->off_y = (s32)val[1];
->   	}
->   
-> -	/* Degrees counter clockwise, as for panels, and as DRM counts them */
-> -	if (!of_property_read_u32(np, "rotation", &val[0])) {
-> -		switch (val[0]) {
-> -		case 0:
-> -			splash->rotation = DRM_MODE_ROTATE_0;
-> -			break;
-> -		case 90:
-> -			splash->rotation = DRM_MODE_ROTATE_90;
-> -			break;
-> -		case 180:
-> -			splash->rotation = DRM_MODE_ROTATE_180;
-> -			break;
-> -		case 270:
-> -			splash->rotation = DRM_MODE_ROTATE_270;
-> -			break;
-> -		default:
-> -			drm_warn(splash->client.dev,
-> -				 "splash: %pOF: unsupported rotation %u",
-> -				 np, val[0]);
-> -		}
-> -	}
-> +	if (!of_property_read_u32(np, "rotation", &val[0]) &&
-> +	    !drm_splash_rotation_from_degrees(val[0], &splash->rotation))
-> +		drm_warn(splash->client.dev,
-> +			 "splash: %pOF: unsupported rotation %u", np, val[0]);
->   }
->   
->   static int drm_splash_dt_load(struct drm_splash *splash, const u8 **data,
-> @@ -702,7 +758,7 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
->   		return -EINVAL;
->   	}
->   
-> -	if (splash->src == DRM_SPLASH_SRC_BGRT) {
-> +	if (splash->src == DRM_SPLASH_SRC_BGRT && !splash->place_cmdline) {
->   		/*
->   		 * The BGRT offsets place the upright image on the upright
->   		 * screen, which for a panel mounted turned is not the frame
-> @@ -827,10 +883,53 @@ static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
->    * is whatever the firmware shows, and the BMP loaded as firmware is the
->    * fallback. With none of them, only the background colour is drawn.
->    */
-> +/*
-> + * What the command line gives wins whatever the image and its source, each
-> + * parameter for what it says. Positions come in pairs: half of one is
-> + * ignored rather than guessed.
-> + */
-> +static void drm_splash_cmdline_overrides(struct drm_splash *splash)
-> +{
-> +	struct drm_device *dev = splash->client.dev;
-> +
-> +	if (splash_color >= 0)
-> +		splash->bg_color = splash_color & 0xffffff;
-> +
-> +	if (splash_pos_n == 2) {
-> +		splash->pos_x = splash_pos[0];
-> +		splash->pos_y = splash_pos[1];
-> +		splash->place_cmdline = true;
-> +	} else if (splash_pos_n) {
-> +		drm_warn(dev, "splash: splash_pos needs X,Y, ignored");
-> +	}
-> +
-> +	if (splash_offset_n == 2) {
-> +		splash->off_x = splash_offset[0];
-> +		splash->off_y = splash_offset[1];
-> +		splash->place_cmdline = true;
-> +	} else if (splash_offset_n) {
-> +		drm_warn(dev, "splash: splash_offset needs DX,DY, ignored");
-> +	}
-> +
-> +	if (splash_rotation >= 0 &&
-> +	    !drm_splash_rotation_from_degrees(splash_rotation, &splash->rotation))
-> +		drm_warn(dev, "splash: unsupported splash_rotation %d, ignored",
-> +			 splash_rotation);
-> +}
-> +
->   static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
->   {
->   	struct device_node *np;
->   
-> +	/* Unless the source says otherwise, the kernel's default colour */
-> +	splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
-> +
-> +	/* A BMP named on the command line was asked for this very boot */
-> +	if (drm_splash_bmp_none())
-> +		return DRM_SPLASH_SRC_NONE;
-> +	if (drm_splash_bmp_given())
-> +		return DRM_SPLASH_SRC_BMP;
-> +
->   	np = drm_splash_dt_node(splash);
->   	if (np) {
->   		drm_splash_dt_props(splash, np);
-> @@ -838,18 +937,11 @@ static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
->   		return DRM_SPLASH_SRC_DT;
->   	}
->   
-> -	/* The BGRT carries no colour: firmware splashes sit on black */
->   	if (drm_splash_bgrt_available(splash)) {
-> -		splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
->   		splash->rotation = drm_splash_bgrt_rotation();
->   		return DRM_SPLASH_SRC_BGRT;
->   	}
->   
-> -	/*
-> -	 * The BMP loaded as firmware is named on the command line, and so is
-> -	 * its colour, which also covers the screen when there is no image.
-> -	 */
-> -	splash->bg_color = splash_color & 0xffffff;
->   	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP))
->   		return DRM_SPLASH_SRC_BMP;
->   
-> @@ -1169,6 +1261,7 @@ static int drm_splash_client_hotplug(struct drm_client_dev *client)
->   	splash->thread = thread;
->   
->   	splash->src = drm_splash_pick_source(splash);
-> +	drm_splash_cmdline_overrides(splash);
->   
->   	/* The BMP loaded as firmware is the only source that arrives later */
->   	if (splash->src == DRM_SPLASH_SRC_BMP) {
-
--- 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/i915/dp: drm_dp_mst_topology_mgr_pause() breaks hotplug with 0=
+ streams
+- [High] drm/dp_mst: drm_dp_mst_topology_mgr_pause() breaks probe work and =
+edid reads
+- [Medium] drm/dp_mst: suspend and resume conflict with paused state in DP_=
+MSTM_CTRL
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
+commit b145319fb5344bbbdb4ae3ece1a54e6f33404fe1
+Author: Xiao Lu <xiaolu.xie@intel.com>
 
+drm/i915/dp: clear and restore MSTM_CTRL around MST DPMS off/on
+
+This commit adds helpers to the DP MST topology manager to pause and
+unpause MST mode in DP_MSTM_CTRL around powering the branch device down
+to D3 on last stream disable and back up to D0 on first stream enable,
+while tracking the paused state to avoid tearing down the topology during
+connector detection and reprobing after unpausing.
+
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
+drm/display/drm_dp_mst_topology.c
+> index b7fce0bf8acc5..371cf88a2d1cf 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+
+[ ... ]
+
+> @@ -3759,6 +3762,104 @@ void drm_dp_mst_topology_queue_probe(struct drm_d=
+p_mst_topology_mgr *mgr)
+>  }
+>  EXPORT_SYMBOL(drm_dp_mst_topology_queue_probe);
+> =20
+> +/**
+> + * drm_dp_mst_topology_mgr_pause() - disable the MST mode of the branch =
+device
+> + * @mgr: manager to pause
+> + *
+> + * Disable the MST mode of the branch device, while keeping the MST topo=
+logy
+> + * in the SW state. This is meant to be called when all the MST streams =
+are
+> + * disabled and the branch device is about to be powered down.
+> + *
+> + * The branch device may not send UP messages while it is powered down, =
+so
+> + * after the MST mode is enabled again by drm_dp_mst_topology_mgr_unpaus=
+e(),
+> + * the topology must be re-probed.
+> + */
+> +void drm_dp_mst_topology_mgr_pause(struct drm_dp_mst_topology_mgr *mgr)
+> +{
+> +	mutex_lock(&mgr->lock);
+> +
+> +	if (!mgr->mst_state || !mgr->mst_primary || mgr->paused)
+> +		goto out_unlock;
+> +
+> +	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
+> +				   DP_UPSTREAM_IS_SRC) =3D=3D 0)
+> +		mgr->paused =3D true;
+> +
+> +out_unlock:
+> +	mutex_unlock(&mgr->lock);
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_topology_mgr_pause);
+
+[Severity: High]
+Can clearing DP_MST_EN in drm_dp_mst_topology_mgr_pause() cause sideband
+timeouts and wipe connector modes when mgr->work or EDID reads run while
+paused?
+
+Unlike drm_dp_mst_topology_mgr_suspend(), drm_dp_mst_topology_mgr_pause()
+does not flush mgr->work (drm_dp_mst_link_probe_work()) or
+mgr->up_req_work, and drm_dp_mst_link_probe_work() only checks
+mgr->mst_primary without checking mgr->paused:
+
+drivers/gpu/drm/display/drm_dp_mst_topology.c:drm_dp_mst_link_probe_work() {
+	mutex_lock(&mgr->lock);
+	clear_payload_id_table =3D !mgr->payload_id_table_cleared;
+	mgr->payload_id_table_cleared =3D true;
+
+	mstb =3D mgr->mst_primary;
+	if (mstb) {
+		ret =3D drm_dp_mst_topology_try_get_mstb(mstb);
+		if (!ret)
+			mstb =3D NULL;
+	}
+	mutex_unlock(&mgr->lock);
+}
+
+Because mst_stream_pre_enable() queues mgr->work asynchronously via
+intel_mst_reprobe_topology() -> drm_dp_mst_topology_queue_probe(), if the
+stream is disabled before mgr->work finishes, DP_MST_EN is cleared
+underneath drm_dp_mst_link_probe_work(). In-flight sideband messages then
+time out in drm_dp_mst_wait_tx_reply(), which can leave
+mstb->link_address_sent or port PBN state incomplete or unlink ports in
+drm_dp_mst_handle_link_address_port().
+
+Similarly, while mgr->paused is true during DPMS off, if userspace or
+hotplug handling probes a connected physical MST port (port_num < 8, where
+port->cached_edid is NULL):
+
+  drm_helper_probe_single_connector_modes()
+    -> mst_connector_get_modes()
+      -> mst_connector_get_ddc_modes()
+        -> drm_dp_mst_edid_read()
+          -> drm_edid_read_ddc(connector, &port->aux.ddc)
+            -> drm_dp_mst_i2c_xfer()
+
+this sends DP_REMOTE_I2C_READ sideband requests while DP_MST_EN is 0 and
+the branch device is in D3. Each attempt stalls for 4000 ms in
+drm_dp_mst_wait_tx_reply() while holding mode_config.mutex and returns
+NULL, causing mst_connector_get_ddc_modes() to pass NULL to
+intel_connector_update_modes() and wipe the connector's EDID and native
+modes.
+
+> +
+> +/**
+> + * drm_dp_mst_topology_mgr_unpause() - re-enable the MST mode of the bra=
+nch device
+> + * @mgr: manager to unpause
+> + *
+> + * Re-enable the MST mode of the branch device disabled by
+> + * drm_dp_mst_topology_mgr_pause(). Does nothing if the manager isn't pa=
+used.
+> + *
+> + * Returns %true if the manager was paused. In this case the MST topology
+> + * should be re-probed with drm_dp_mst_topology_queue_probe(), once the =
+link
+> + * parameters to the branch device are set up.
+> + */
+> +bool drm_dp_mst_topology_mgr_unpause(struct drm_dp_mst_topology_mgr *mgr)
+> +{
+> +	bool was_paused =3D false;
+> +
+> +	mutex_lock(&mgr->lock);
+> +
+> +	if (!mgr->paused)
+> +		goto out_unlock;
+> +
+> +	if (drm_dp_dpcd_write_byte(mgr->aux, DP_MSTM_CTRL,
+> +				   DP_MST_EN | DP_UP_REQ_EN |
+> +				   DP_UPSTREAM_IS_SRC) =3D=3D 0) {
+> +		mgr->paused =3D false;
+> +		was_paused =3D true;
+> +	}
+> +
+> +out_unlock:
+> +	mutex_unlock(&mgr->lock);
+> +
+> +	return was_paused;
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_topology_mgr_unpause);
+> +
+> +/**
+> + * drm_dp_mst_topology_mgr_verify_ctrl() - verify the MST mode of the br=
+anch device
+> + * @mgr: manager to verify
+> + *
+> + * Verify that the MST mode enabled in the branch device matches the man=
+ager's
+> + * state. A long HPD pulse could've reset the branch device's MST mode, =
+which
+> + * requires tearing down and recreating the MST topology.
+> + *
+> + * Returns %true if the branch device's MST mode matches the manager's s=
+tate,
+> + * %false otherwise.
+> + */
+> +bool drm_dp_mst_topology_mgr_verify_ctrl(struct drm_dp_mst_topology_mgr =
+*mgr)
+> +{
+> +	u8 expected, val =3D 0;
+> +	int ret;
+> +
+> +	mutex_lock(&mgr->lock);
+> +
+> +	expected =3D mgr->paused ? DP_UPSTREAM_IS_SRC :
+> +		   DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC;
+> +
+> +	ret =3D drm_dp_dpcd_read_byte(mgr->aux, DP_MSTM_CTRL, &val);
+> +
+> +	mutex_unlock(&mgr->lock);
+> +
+> +	if (ret < 0 || val !=3D expected) {
+> +		drm_dbg_kms(mgr->dev,
+> +			    "%s: MSTM_CTRL mismatch (ret=3D%d, ctrl=3D0x%02x, expected=3D0x%0=
+2x)\n",
+> +			    mgr->aux->name, ret, val, expected);
+> +		return false;
+> +	}
+> +
+> +	return true;
+> +}
+> +EXPORT_SYMBOL(drm_dp_mst_topology_mgr_verify_ctrl);
+> +
+>  /**
+>   * drm_dp_mst_topology_mgr_suspend() - suspend the MST manager
+>   * @mgr: manager to suspend
+> @@ -3828,6 +3929,8 @@ int drm_dp_mst_topology_mgr_resume(struct drm_dp_ms=
+t_topology_mgr *mgr,
+>  		goto out_fail;
+>  	}
+> =20
+> +	mgr->paused =3D false;
+> +
+>  	/* Some hubs forget their guids after they resume */
+>  	ret =3D drm_dp_dpcd_read_data(mgr->aux, DP_GUID, buf, sizeof(buf));
+>  	if (ret < 0) {
+
+[Severity: Medium]
+How do drm_dp_mst_topology_mgr_suspend() and
+drm_dp_mst_topology_mgr_resume() interact with mgr->paused and the D3/D0
+power state transitions during system suspend and resume?
+
+During system suspend in __intel_display_driver_pm_suspend():
+
+  drm_atomic_helper_suspend()
+    -> intel_ddi_post_disable_dp()
+      -> drm_dp_mst_topology_mgr_pause()
+      -> intel_dp_set_power(intel_dp, DP_SET_POWER_D3)
+  intel_dp_mst_suspend()
+    -> drm_dp_mst_topology_mgr_suspend()
+
+drm_dp_mst_topology_mgr_suspend() unconditionally writes
+DP_MST_EN | DP_UPSTREAM_IS_SRC to DP_MSTM_CTRL after
+intel_ddi_post_disable_dp() has already paused the manager and put the
+branch device into D3, re-enabling DP_MST_EN in D3 and leaving
+DP_MSTM_CTRL out of sync with mgr->paused =3D=3D true.
+
+Then during system resume in intel_display_driver_pm_resume(),
+intel_dp_mst_resume() -> drm_dp_mst_topology_mgr_resume() runs before
+__intel_display_driver_resume() commits the restored modeset state.
+drm_dp_mst_topology_mgr_resume() writes
+DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC to DP_MSTM_CTRL, sets
+mgr->paused =3D false, and runs mgr->work while the sink is still in D3
+prior to intel_dp_set_power(intel_dp, DP_SET_POWER_D0) and link training.
+
+When __intel_display_driver_resume() subsequently calls
+mst_stream_pre_enable(), drm_dp_mst_topology_mgr_unpause() sees
+mgr->paused =3D=3D false and returns was_paused =3D false, skipping both the
+post-D0 DP_MSTM_CTRL write and the forced post-link-training reprobe in
+intel_mst_reprobe_topology(). And if all MST streams were in DPMS off
+before suspend, __intel_display_driver_resume() enables no streams,
+leaving the branch device in D3 with DP_MST_EN set and
+mgr->paused =3D=3D false.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
+915/display/intel_ddi.c
+> index a46ab5d3d70fc..9d918f968617a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -3163,6 +3163,8 @@ static void intel_ddi_post_disable_dp(struct intel_=
+atomic_state *state,
+>  	 * Power down sink before disabling the port, otherwise we end
+>  	 * up getting interrupts from the sink on detecting link loss.
+>  	 */
+> +	if (is_mst)
+> +		drm_dp_mst_topology_mgr_pause(&intel_dp->mst.mgr);
+>  	intel_dp_set_power(intel_dp, DP_SET_POWER_D3);
+> =20
+>  	if (DISPLAY_VER(display) >=3D 12) {
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
+m/i915/display/intel_dp_mst.c
+> index 7023619aaaba9..2e3a2424d0e5a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -1232,9 +1232,11 @@ static void intel_mst_set_probed_link_params(struc=
+t intel_dp *intel_dp,
+>  }
+> =20
+>  static void intel_mst_reprobe_topology(struct intel_dp *intel_dp,
+> -				       const struct intel_crtc_state *crtc_state)
+> +				       const struct intel_crtc_state *crtc_state,
+> +				       bool force)
+>  {
+> -	if (intel_mst_probed_link_params_valid(intel_dp,
+> +	if (!force &&
+> +	    intel_mst_probed_link_params_valid(intel_dp,
+>  					       crtc_state->port_clock, crtc_state->lane_count))
+>  		return;
+> =20
+> @@ -1259,6 +1261,7 @@ static void mst_stream_pre_enable(struct intel_atom=
+ic_state *state,
+>  		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst.mgr=
+);
+>  	int ret;
+>  	bool first_mst_stream;
+> +	bool was_paused =3D false;
+> =20
+>  	/* MST encoders are bound to a crtc, not to a connector,
+>  	 * force the mapping here for get_hw_state.
+> @@ -1270,8 +1273,10 @@ static void mst_stream_pre_enable(struct intel_ato=
+mic_state *state,
+>  	drm_WARN_ON(display->drm, DISPLAY_VER(display) >=3D 12 && first_mst_str=
+eam &&
+>  		    !intel_dp_mst_is_master_trans(pipe_config));
+> =20
+> -	if (first_mst_stream)
+> +	if (first_mst_stream) {
+>  		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
+> +		was_paused =3D drm_dp_mst_topology_mgr_unpause(&intel_dp->mst.mgr);
+> +	}
+> =20
+>  	drm_dp_send_power_updown_phy(&intel_dp->mst.mgr, connector->mst.port, t=
+rue);
+> =20
+> @@ -1281,7 +1286,11 @@ static void mst_stream_pre_enable(struct intel_ato=
+mic_state *state,
+>  		primary_encoder->pre_enable(state, primary_encoder,
+>  					    pipe_config, NULL);
+> =20
+> -		intel_mst_reprobe_topology(intel_dp, pipe_config);
+> +		/*
+> +		 * The branch device may not have sent UP messages while it
+> +		 * was powered down, re-probe the topology to sync it.
+> +		 */
+> +		intel_mst_reprobe_topology(intel_dp, pipe_config, was_paused);
+>  	}
+
+[Severity: High]
+Does pausing the MST topology manager on last stream disable break
+downstream monitor hotplug detection whenever zero MST streams are active?
+
+When the last active MST stream is disabled (for example, when the user
+unplugs the last monitor from an MST hub or dock, or disables all outputs
+in userspace), mst_stream_post_disable() calls
+primary_encoder->post_disable() -> intel_ddi_post_disable_dp(), which
+calls drm_dp_mst_topology_mgr_pause(&intel_dp->mst.mgr) (clearing
+DP_MST_EN and DP_UP_REQ_EN in DP_MSTM_CTRL) and puts the sink into D3.
+
+If a monitor is later plugged into the MST hub while zero streams are
+active:
+
+1. Because DP_MST_EN and DP_UP_REQ_EN are cleared and the branch device is
+   in D3, the branch device cannot send DP_CONNECTION_STATUS_NOTIFY UP
+   requests.
+
+2. If a short HPD pulse occurs, intel_dp_check_mst_status() ->
+   drm_dp_mst_hpd_irq_handle_event() sees no DP_UP_REQ_MSG_RDY in ESI.
+
+3. If a long HPD pulse or manual connector probe runs intel_dp_detect(),
+   intel_dp_mst_verify_dpcd_state() ->
+   drm_dp_mst_topology_mgr_verify_ctrl() sees
+   DP_MSTM_CTRL =3D=3D DP_UPSTREAM_IS_SRC matching mgr->paused =3D=3D true =
+and
+   returns true, and intel_dp_mst_configure() ->
+   drm_dp_mst_topology_mgr_set_mst(mgr, true) returns early because
+   mgr->mst_state is already true.
+
+4. On MST connector detection via mst_connector_detect_ctx() ->
+   drm_dp_mst_detect_port(), port->ddps remains 0 for any port that was
+   disconnected.
+
+Because mst_stream_pre_enable() is the only caller of
+drm_dp_mst_topology_mgr_unpause() and intel_mst_reprobe_topology(), and
+userspace cannot commit a modeset when all MST connectors are disconnected
+(or on any newly plugged port whose port->ddps is still 0), how can the
+topology manager ever be unpaused and reprobed to detect the plugged-in
+monitor without physically unplugging and replugging the MST hub itself?
+
+> =20
+>  	ret =3D drm_dp_add_payload_part1(&intel_dp->mst.mgr, mst_state,
+
+[ ... ]
+
+>
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261020110418.1272=
+170-1-xiaolu.xie@intel.com?part=3D1
