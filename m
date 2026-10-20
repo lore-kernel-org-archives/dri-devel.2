@@ -2,117 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A22B4606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:52:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7B8606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:52:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=LIVE.CN header.i=@LIVE.CN header.a=rsa-sha256 header.s=selector1 header.b=GNQWAnUr
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pVss2pJq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59D1F10FCB8;
-	Wed, 21 Oct 2026 08:51:53 +0000 (UTC)
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazolkn19010078.outbound.protection.outlook.com [52.103.66.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E7410E181
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 16:51:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MuwRdqJwlnvyhe1NAFGqQbAeuotjOnqlOGUtyDxXBAYdOxkskly79uFXc2P7/TqwJ8zruzUpn6XHNvg4aKJXYbFzLDpr7MlzKm3fTRy8tKj7pGJO57BszPkfrxZLauunCobG9jtz61YKePeu+tLZFo1YkNO8MhQQJDbzU8JFmJnGJeUI+tAW4iZnX++ZccyXYeyW5CAQdPkwzNgKbNSMBiMtxUAWBBUo/vMmnA1DdyIEJt/YPBaTJUW5n/xPLGWogEsz7DcE+tGdQqnS9jruZqmowCWQuVpGrotwbFn1KsxA4JqQX7D6BDnHG57HAM/MtwyEC8c3BiuTUh9MExTFKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aUpl0FSU+oNCfbkH3dQal1e6omOdr0d786VCJLhxzzk=;
- b=Wt48+XOCpKech2qJHb6DO0o0vVOWVohgxtyKy5niTpJ0FO3S0Zv2iF7QW+DoWrVx7YIwcK242qaF3H1RTMsgQ/dA+slBhumQoQNVZBfKLicKUqyA9hpbiZ9gZjZixfSnUZqKGQAC7fmujzUQvhPFZqFdPBQIdk0JUpyKMww78E4i91AKd0MvXox5JOcYEe0S9wN+jvY5M53zvj44ouPdiP8iMNELYw8yYx1i3xAF2aTqI0g6PnUWE7wgqjEmbft9EeRMVfIsFGN0ie0gd5lSNDo4HkmWUxoCJbhVtZ0OLv+jG289CLDpBjPuTvvdgvJfcKQkAptVMxvkHdFV+DWwRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=LIVE.CN; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aUpl0FSU+oNCfbkH3dQal1e6omOdr0d786VCJLhxzzk=;
- b=GNQWAnUrBNoQj4q7T/+rXnh07Iwcqy8vgh+wce7rQ8+ocGFjAnl1BCy/5UtQ8nbgi9F9DmTZNWyrXm2MsbpbzPaF5aDfmtLELZcZ9DMrRSQubgmk30+lYhFt9YudjErDNhMvoGNZjxY1PVUr4e5qQL/Md4vCyZfUbEOYumnwvQLWUnYs6WmhJhowc5mmyTJ84kDYJotivElh6jEJj7OROPEyj2SRqlFMB6EQ0fJoTlSQjfBrpxP8genx6bkOuZmpPuOqaI1ueBN6zf6IBwu7uNRlMA58emF4qtL+gOg+6QalYyahXbTl8nhUhyW9aQm0amHd2KCxJPsqCgVYyO953g==
-Received: from TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:30e::5)
- by TYCP301MB0748.JPNP301.PROD.OUTLOOK.COM (2603:1096:400:438::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Tue, 20 Oct
- 2026 16:51:38 +0000
-Received: from TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM
- ([fe80::2834:779c:2a80:9f60]) by TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM
- ([fe80::2834:779c:2a80:9f60%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 16:51:38 +0000
-From: Tingjie Zhong <catme0w@live.cn>
-To: Helge Deller <deller@gmx.de>
-Cc: Albin Babu Varghese <albinbabuvarghese20@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fbdev: bitblit: Fix glyph clipping when fbcon pans
-Date: Tue, 20 Oct 2026 10:51:24 -0600
-Message-ID: <OS9P301MB15353A271601CB8E1541CC33F6672@OS9P301MB1535.JPNP301.PROD.OUTLOOK.COM>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF88B10FCC5;
+	Wed, 21 Oct 2026 08:51:57 +0000 (UTC)
+Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A14210E268
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:10:38 +0000 (UTC)
+Received: by mail-pj2-f0.google.com with SMTP id
+ 98e67ed59e1d1-3a476ee8669so900560a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 06:10:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792501838; x=1793106638; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=aVloLkPfmcmAFlVr0SVmoPwIgVisTJ/BPkXzuoo4z+Q=;
+ b=pVss2pJqZK+p12YGxfvWFoX9C28fUrqSit5Ns2SWkoi0iZQ3WF5DzntRPKHb3EtkyF
+ ykTYsYnxXPKGTD/YngAULJag4RK8b11txvf7Dq1NVb9AXDH4dBRTkd3QK4ZW4pbN1CjO
+ 0hbOGERvP6o6WTdH6vieBwEKaAxI2ZBoFU0D3aDe5a3TBiMPRJHuJRc5/TdhoOCZrfXL
+ r9GXa3OSQu/qJ358DuC0e1on1hNeU6I/6hUZGf3NN17W23+yI9AiZxdsB8TQrOVVmJvk
+ e4UnWaDh+HSauhQ3a2geYvEBlaUVi5P+oLEqbllE10r/NRM2HcsO0EpHQkqDv6aMtBow
+ L1BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792501838; x=1793106638;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=aVloLkPfmcmAFlVr0SVmoPwIgVisTJ/BPkXzuoo4z+Q=;
+ b=xPvfkqmultEuR1GR5MZuxyiZEf/9lMG0o7YcVdegvepgfSjxYpivL4Dop41nasR2aU
+ Q8Ol2THW04d9AeJc7LLdnbkTB9j7RD1y5frqdAL3YsZUG3d0aCJ12L+Up0zJGEXHnl8C
+ yTB4hss+2/RNysOg/r1CpC8wPBmwt3YKgzx9z2Tg3uk3/7w+tRIMUWOc+pvnDpCL6+uL
+ kgVh/u9kpJtzINrY3jGYJVmq5JinjVRsDKcZycSFixJbFiYWk0rhXCDIkYcOBIwIvU2I
+ /QJKn0tKdYvxcfbbAKFq1IW73zFldXceq35sEN90Ur13ZQ2LcMnQNzABV7lWszt3WMea
+ qE0Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwHLXizt8lC7KlMz79j1ug+sJHFba3GF0KN4X8fIW73kikxgR7RsxX9BMNwYHyg+nhXI3xLW4uNPvY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLHIEYk5LlMm1gKFvWp/znINqqmn6wPJ5iDk8Lw52fd+pcGiygc
+ 0ALYklisb2MLEcpVZ85RDGs4zWuVKt7pKGc636XLNhLOIFmM4W6KonEC
+X-Gm-Gg: AYBFou2RJQFJVXaBJpmQ4M0uZAUtmAa6gu8drrmgZkBDL2aNb7PWE2Ln/i6OTeVXEWf
+ QxDlxytfE6DlggP3s0GBPKl/3Bp1CoqoEHygAmbLjZYGSOH++Ti0A48DrkYAosALeZ8xT5Qyos2
+ 7pH7MFUYQGcF1I1BUDIOx53/Fp2A7pRNxJWQGpRIbC6CJMzv5idsnJALGCq0peSetWivva9gRN9
+ MxtS6DQ01md9R52rLH+XggIw7Z3ZChdsXC04W/FXRurQfE94ssLtZJAGzAO3fP8i+DF1d9rGvp5
+ k8VMrNG+6ECZPEdIqySxmu618aeFWT0uO0q5gDdkLLY9k4Meww70pXSXKWXX29ix3PGwv1UeSAt
+ fh10IxlEp4DE3jx2Tx12/XTy5qnTyZ3ABGaaf5QTomjS0DQcjTc2BWOdIqBv2JdzBVKoWr7vTmk
+ AaMzxs1r1ul/UdlJk/gAw7EMnAdrMfOeHx0GwO1WSa1ePAZeZ4dExzeR0=
+X-Received: by 2002:a17:90b:570b:b0:3a4:fe48:d410 with SMTP id
+ 98e67ed59e1d1-3acef29edffmr9320116a91.30.1792501837978; 
+ Tue, 20 Oct 2026 06:10:37 -0700 (PDT)
+Received: from Linux-PC ([2a09:bac1:1980:20::1d3:a8])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3acd3cc73c7sm10131496a91.4.2026.10.20.06.10.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Oct 2026 06:10:37 -0700 (PDT)
+From: tianshi12127 <tianshi12127@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-kernel@vger.kernel.org, Lu Chen <tianshi12127@gmail.com>
+Subject: [PATCH v3 3/3] drm/panel: add driver for Smartisan TD4362
+Date: Tue, 20 Oct 2026 21:09:34 +0800
+Message-ID: <20261020130934.2289011-4-tianshi12127@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <01b697bc-a15c-4790-b0f0-a22c44d5873d@gmx.de>
-References: <01b697bc-a15c-4790-b0f0-a22c44d5873d@gmx.de>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MW4PR04CA0297.namprd04.prod.outlook.com
- (2603:10b6:303:89::32) To OS9P301MB1535.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:604:402::13)
-X-Microsoft-Original-Message-ID: <20261020165124.90028-1-catme0w@live.cn>
+In-Reply-To: <20261020130934.2289011-1-tianshi12127@gmail.com>
+References: <20261017083531.766557-1-tianshi12127@gmail.com>
+ <20261020130934.2289011-1-tianshi12127@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYYP301MB1525:EE_|TYCP301MB0748:EE_
-X-MS-Office365-Filtering-Correlation-Id: a197478e-3181-4064-cffc-08df2eca6706
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|25010399006|260925184616899003|8060799015|19110799012|25031999004|15080799012|37011999003|23021999003|24021099003|8022599003|5072599009|1602099012|10035399007|3071699003|440099028|4302099013|3412199025;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Kgm7q3pcig6iF4k1XRBpQbj48FUFKC94KYA/RPvvbzmpP+bTZslbhMC+1AHY?=
- =?us-ascii?Q?gCZnDrInUXrB1BUjpadv0U63/QFMHeW4W7SBcwuRxSfv8KF4PQyWNdYsWURR?=
- =?us-ascii?Q?hIGimeg5RrV12mzGzO9cAiyTSmw+8ZLZWgoAMpt3lwRuPqQmDH/rZQ/18buL?=
- =?us-ascii?Q?zXlmfn7m8HMYk4P0FIrKEThwPSF8RH/ZBoPh7YH/tfZf/1a1hTbja/Ons5si?=
- =?us-ascii?Q?fo88MghERf0I8EAg/sNva8HstoBNxIXCnmFGuVxq2uqvlOWJFyI1vZKNQz4m?=
- =?us-ascii?Q?qvfOiVAUxxDF7VypiSN21c8UEQ5ayjp2yKbFjnaTW5R+lbZkQ4I6Wc0tLGXT?=
- =?us-ascii?Q?uYDnnPK6xHWDDw2/MR0SVZgKUl25emQaojvMaYh2jwn4Ry3dl5fKqPukOug6?=
- =?us-ascii?Q?r0Vw6YxpIb3O4HnWB8ickrzZqD+ptgHtY/nPmiX98FuLe6bndmHs38LSeu1c?=
- =?us-ascii?Q?AUUPfJdIDCUM8h4zdLKxmvmmFXjrpct7WWEbZi1EQriRx+RytQSQOH9tQT+T?=
- =?us-ascii?Q?dXwwt1RvEQlc4+y9yTrJbJ16xlxqlROreB4Msvw2ZCLn38LTm3s+hM33l/Cr?=
- =?us-ascii?Q?5uw7z+7vS2L7vwkYbre0f2v4suGJ8COX7hgAJDOcn/ftdgACAhHZQWaUSprq?=
- =?us-ascii?Q?RUe4r2tdXF+/CbwgeB4RRJfjOT/2mPDn+iFZCCxZHkNNjViXZa4q4PqcQGfU?=
- =?us-ascii?Q?8BcfLfkXsAm9QG7LBXAHqsHabE/1/AOUzrpGjROtosAN4MnRbuHFnhf6Pk7A?=
- =?us-ascii?Q?f/tZmsVgxIJHQRvw46nfI53KMcSHbrmkTduZFqwCdjTWlx+OVHD7aTtL68tf?=
- =?us-ascii?Q?W7RwwRRFo3bah3lXJVRwY555HLMgTCyc8u2IOSPrq/gpTwskn9va6suX4k7e?=
- =?us-ascii?Q?75ZpdQiJfKmsHYSdMrJwoKH1NoBTQT5A+54oMkuuBOxZrqwiKXPZlSrCFb5Q?=
- =?us-ascii?Q?dMI7D2yUiPV5l0gQjvc7j3cUI3pPPazGi9KMPg4fGLZ2xtKdj7WfSs/VNmGc?=
- =?us-ascii?Q?37NNjKRQNOZu31+untVxlpoUHuTlJaR+fc/tbVqvVIRZb94=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?r3yZFCwKucsgDULyaLJ9Tf+h5YvUyOXEyL+QfTmhWjfEPAS5sVrDmEIXynYI?=
- =?us-ascii?Q?gJ5CIDOD1nOHDIPEz8Fk2LAcQnJTO2r2aqZW96GtolZ4+Qlv2dtCzyvfROP0?=
- =?us-ascii?Q?X1bzR98cemPbgcPXpa9pVY2/XelwpcnhduQXjwrIRWAipM7Oz0UD3c+j3SRi?=
- =?us-ascii?Q?0+j8UUDouta4e2Wj4U+SF0ZhQ/4ptBmEq4P84jPPdMGYmtSjAgFGg5DM4o2s?=
- =?us-ascii?Q?akMsjQ2itdwlHPmj2BUhermEqqY4ORgzbnrZCrKFrOHlLYLEdnQKAW5MOxwk?=
- =?us-ascii?Q?rboW5L26apXLKsmKJ4lKZ7MyxMqBXIQ6ZFlL+v6FS6+510+HgXZ8PPfolBHv?=
- =?us-ascii?Q?5lUXqEeP8BQuOQ/2d/mYTp9mgTp/4NlTO0zjdbt/3z1Wiaja5UJycPkfdCus?=
- =?us-ascii?Q?1gm5lJ3nh9Z6fcgImdqW3q/3SQHaw17Ajgy43dC1fs/EI7Pu6XE4xMdT02SY?=
- =?us-ascii?Q?xXto/kc4xLA713Ckq6ZNguCYdgc+ZEU0Ow04Ch8KjyIRLdSBP1IjDeDaPAuP?=
- =?us-ascii?Q?0Hfl+StgxHRqF5n7f0ZFTah0u17PxNBjo//2YcsN3WArFW8vBYWu4bk0lJHO?=
- =?us-ascii?Q?8cuUwXIgi4jbL7dtFTWqk6zjfupfBOgHXBUXtl0qXb8cvQTE3L3DafUj4v3G?=
- =?us-ascii?Q?kRiLigq5Qr0Ksj0KWnZuv6J6JebhlieqjcrunUKKt1O7ifqe0jBjDi1bQN+p?=
- =?us-ascii?Q?brhZ8AXc7Kr9Q8cJ9zCYbaCh+bJwf8qbl+Bc+EA9MNe9PaoPB9kYr1c2FK0k?=
- =?us-ascii?Q?EXth3ALoyqkj2zzbrWGxkE1mXC35vtnsrh/916pJxrb1DP9P5bf93VXCOzZz?=
- =?us-ascii?Q?9KyEmYISKTqg9F5U2uBPWNAu+rD6BjTHtr5pUv6PjGfHucH/chHFWlyJU3g1?=
- =?us-ascii?Q?xzKybK+S1L0wAc6n1iX4VXBnDWBbT22vvldGK6QLjloxnGN2KPC4/i6nkvtl?=
- =?us-ascii?Q?ZRw6jO72xwPn8F1uCnPBYU8DUcnqYOe8Oe/ksYtNJGLRK8wk5VFfh6lv2KTA?=
- =?us-ascii?Q?fK2n/VP0EsFCAuh6GRoIfpcPLJvZjE2pcRPFgLWAsHwr8k3rUNFP0JPpxTyS?=
- =?us-ascii?Q?HU0x6kBTGOow6Hxm6SlfQT2KESIJcoIxuG27QGN3ov4fyzOvpWsKbwY8cZbw?=
- =?us-ascii?Q?Dm2z8qFmKJG4iWzPoQ97vhznpFxVpOwPwXXBvAUeWXzXMir12kSRx9d0gKfO?=
- =?us-ascii?Q?75N4S0+OeiE+Y2E0v6kvhV4VsXhO6Gn1gweDE0rLLg+kZX/SYETMQQz1IvHn?=
- =?us-ascii?Q?sdJowSs/uDPaCYYk/a7uAZT3GGR5AiLKsWErI44bjGVnrzrnXMAV5DZSZ855?=
- =?us-ascii?Q?na8vQE3lbfKs5ermKWg1k58cwW7w94YkrTs8wLDCcmZve52Wlcp90VlH91NY?=
- =?us-ascii?Q?mDcxBd4Z1M+0sUX3MuKhjd6htLBf1vmYXE1Iwzua6Cz25zk8M4M2fTTfZExo?=
- =?us-ascii?Q?jgNEdzhJRqE=3D?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-a91ca.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: a197478e-3181-4064-cffc-08df2eca6706
-X-MS-Exchange-CrossTenant-AuthSource: OS9P301MB1535.JPNP301.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 16:51:38.3518 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCP301MB0748
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 21 Oct 2026 08:51:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -125,24 +91,336 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Helge Deller wrote:
-> CatMe0w, I'd like to take your patch, but as Greg already pointed out,
-> I can't take anonymous contributions.
-[...]
-> Can you please sign off again with your real name?
+From: Lu Chen <tianshi12127@gmail.com>
 
-Hi Helge,
+Add support for the Smartisan TD4362 1080x2242 command mode DSI
+panel found in the Smartisan R1 (trident) smartphone.
 
-Sure. I have sent v2, signed off with my real name and with the tags
-from Thomas added:
-https://lore.kernel.org/linux-fbdev/TYYP301MB1525C5CFBFCE755C7F31426FF6672@TYYP301MB1525.JPNP301.PROD.OUTLOOK.COM/
+The initialization and power sequences were generated from the
+downstream device tree with linux-mdss-dsi-panel-driver-generator.
 
-Thanks,
-Tingjie
+Tested on a Smartisan R1 (trident).
+
+Signed-off-by: Lu Chen <tianshi12127@gmail.com>
+---
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../gpu/drm/panel/panel-smartisan-td4362.c    | 262 ++++++++++++++++++
+ 3 files changed, 276 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-smartisan-td4362.c
+
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index b30d7781745c..0b413152267f 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -1124,6 +1124,19 @@ config DRM_PANEL_SITRONIX_ST7789V
+ 	  Say Y here if you want to enable support for the Sitronix
+ 	  ST7789V controller for 240x320 LCD panels
+ 
++config DRM_PANEL_SMARTISAN_TD4362
++	tristate "Smartisan TD4362 DSI panel"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	help
++	  Say Y here if you want to enable support for the Smartisan TD4362
++	  1080x2242 command mode panel found in the Smartisan R1 (trident)
++	  smartphone. The panel is driven over four MIPI DSI lanes in
++	  command mode.
++
++	  If unsure, say N.
++
+ config DRM_PANEL_SONY_ACX565AKM
+ 	tristate "Sony ACX565AKM panel"
+ 	depends on GPIOLIB && OF && SPI
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index 4532f79021ea..bc4fad310554 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -112,6 +112,7 @@ obj-$(CONFIG_DRM_PANEL_SHARP_LS060T1SX01) += panel-sharp-ls060t1sx01.o
+ obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7701) += panel-sitronix-st7701.o
+ obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7703) += panel-sitronix-st7703.o
+ obj-$(CONFIG_DRM_PANEL_SITRONIX_ST7789V) += panel-sitronix-st7789v.o
++obj-$(CONFIG_DRM_PANEL_SMARTISAN_TD4362) += panel-smartisan-td4362.o
+ obj-$(CONFIG_DRM_PANEL_SUMMIT) += panel-summit.o
+ obj-$(CONFIG_DRM_PANEL_SYNAPTICS_R63353) += panel-synaptics-r63353.o
+ obj-$(CONFIG_DRM_PANEL_SYNAPTICS_TDDI) += panel-synaptics-tddi.o
+diff --git a/drivers/gpu/drm/panel/panel-smartisan-td4362.c b/drivers/gpu/drm/panel/panel-smartisan-td4362.c
+new file mode 100644
+index 000000000000..b3905aee1528
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-smartisan-td4362.c
+@@ -0,0 +1,262 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) 2026 Lu Chen <tianshi12127@gmail.com>
++// Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
++//   Copyright (c) 2013, The Linux Foundation. All rights reserved.
++
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/regulator/consumer.h>
++
++#include <video/mipi_display.h>
++
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++
++struct smartisan_td4362 {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	struct regulator_bulk_data *supplies;
++	struct gpio_desc *reset_gpio;
++};
++
++static const struct regulator_bulk_data smartisan_td4362_supplies[] = {
++	{ .supply = "vddio" },
++	{ .supply = "vsp" },
++	{ .supply = "vsn" },
++};
++
++static inline struct smartisan_td4362 *to_smartisan_td4362(struct drm_panel *panel)
++{
++	return container_of(panel, struct smartisan_td4362, panel);
++}
++
++static void smartisan_td4362_reset(struct smartisan_td4362 *ctx)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 10100);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(10000, 10100);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 10100);
++}
++
++static int smartisan_td4362_on(struct smartisan_td4362 *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
++				     0xff);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
++				     0x24);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x82);
++	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
++	mipi_dsi_dcs_set_column_address_multi(&dsi_ctx, 0x0000, 0x0437);
++	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 0x08c1);
++	mipi_dsi_dcs_set_tear_scanline_multi(&dsi_ctx, 0x07fa);
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 80);
++
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x04);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9,
++					 0x9b, 0x51, 0x07, 0xe6, 0x00, 0x10,
++					 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xba,
++					 0xbb, 0x2f, 0x1d, 0xbe, 0x00, 0x10,
++					 0x04);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce,
++					 0x5d, 0x40, 0x60, 0x78, 0x87, 0x94,
++					 0x9e, 0xab, 0xb8, 0xc4, 0xcd, 0xd6,
++					 0xde, 0xe5, 0xec, 0xf3, 0xfd, 0xff,
++					 0x04, 0x28, 0x04, 0x04, 0x42, 0x00,
++					 0x69, 0x5a, 0x40, 0x01, 0xf4, 0x00,
++					 0x00, 0x04, 0xfa, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca,
++					 0x1d, 0xfc, 0xfc, 0xfc, 0x00, 0x07,
++					 0x07, 0x00, 0x00, 0x00, 0xeb, 0xe7,
++					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++					 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0x64);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x03);
++
++	return dsi_ctx.accum_err;
++}
++
++static int smartisan_td4362_off(struct smartisan_td4362 *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 16000, 17000);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 64);
++
++	return dsi_ctx.accum_err;
++}
++
++static int smartisan_td4362_prepare(struct drm_panel *panel)
++{
++	struct smartisan_td4362 *ctx = to_smartisan_td4362(panel);
++	struct device *dev = &ctx->dsi->dev;
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(smartisan_td4362_supplies),
++				    ctx->supplies);
++	if (ret < 0) {
++		dev_err(dev, "Failed to enable regulators: %d\n", ret);
++		return ret;
++	}
++
++	msleep(100);
++
++	smartisan_td4362_reset(ctx);
++
++	ret = smartisan_td4362_on(ctx);
++	if (ret < 0) {
++		dev_err(dev, "Failed to initialize panel: %d\n", ret);
++		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++		regulator_bulk_disable(ARRAY_SIZE(smartisan_td4362_supplies),
++				       ctx->supplies);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int smartisan_td4362_unprepare(struct drm_panel *panel)
++{
++	struct smartisan_td4362 *ctx = to_smartisan_td4362(panel);
++	struct device *dev = &ctx->dsi->dev;
++	int ret;
++
++	ret = smartisan_td4362_off(ctx);
++	if (ret < 0)
++		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	regulator_bulk_disable(ARRAY_SIZE(smartisan_td4362_supplies),
++			       ctx->supplies);
++
++	return 0;
++}
++
++static const struct drm_display_mode smartisan_td4362_mode = {
++	.clock = (1080 + 44 + 2 + 60) * (2242 + 8 + 2 + 100) * 60 / 1000,
++	.hdisplay = 1080,
++	.hsync_start = 1080 + 44,
++	.hsync_end = 1080 + 44 + 2,
++	.htotal = 1080 + 44 + 2 + 60,
++	.vdisplay = 2242,
++	.vsync_start = 2242 + 8,
++	.vsync_end = 2242 + 8 + 2,
++	.vtotal = 2242 + 8 + 2 + 100,
++	.width_mm = 64,
++	.height_mm = 117,
++	.type = DRM_MODE_TYPE_DRIVER,
++};
++
++static int smartisan_td4362_get_modes(struct drm_panel *panel,
++				      struct drm_connector *connector)
++{
++	return drm_connector_helper_get_modes_fixed(connector,
++						    &smartisan_td4362_mode);
++}
++
++static const struct drm_panel_funcs smartisan_td4362_panel_funcs = {
++	.prepare = smartisan_td4362_prepare,
++	.unprepare = smartisan_td4362_unprepare,
++	.get_modes = smartisan_td4362_get_modes,
++};
++
++static int smartisan_td4362_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct smartisan_td4362 *ctx;
++	int ret;
++
++	ctx = devm_drm_panel_alloc(dev, struct smartisan_td4362, panel,
++				   &smartisan_td4362_panel_funcs,
++				   DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	ret = devm_regulator_bulk_get_const(dev,
++					    ARRAY_SIZE(smartisan_td4362_supplies),
++					    smartisan_td4362_supplies,
++					    &ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset-gpios\n");
++
++	ctx->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	dsi->lanes = 4;
++	dsi->format = MIPI_DSI_FMT_RGB888;
++	dsi->mode_flags = MIPI_DSI_CLOCK_NON_CONTINUOUS;
++
++	ctx->panel.prepare_prev_first = true;
++
++	ret = drm_panel_of_backlight(&ctx->panel);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to get backlight\n");
++
++	drm_panel_add(&ctx->panel);
++
++	ret = mipi_dsi_attach(dsi);
++	if (ret < 0) {
++		drm_panel_remove(&ctx->panel);
++		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
++	}
++
++	return 0;
++}
++
++static void smartisan_td4362_remove(struct mipi_dsi_device *dsi)
++{
++	struct smartisan_td4362 *ctx = mipi_dsi_get_drvdata(dsi);
++	int ret;
++
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
++
++	drm_panel_remove(&ctx->panel);
++}
++
++static const struct of_device_id smartisan_td4362_of_match[] = {
++	{ .compatible = "smartisan,td4362" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, smartisan_td4362_of_match);
++
++static struct mipi_dsi_driver smartisan_td4362_driver = {
++	.probe = smartisan_td4362_probe,
++	.remove = smartisan_td4362_remove,
++	.driver = {
++		.name = "panel-smartisan-td4362",
++		.of_match_table = smartisan_td4362_of_match,
++	},
++};
++module_mipi_dsi_driver(smartisan_td4362_driver);
++
++MODULE_AUTHOR("Lu Chen <tianshi12127@gmail.com>");
++MODULE_DESCRIPTION("DRM driver for Smartisan TD4362 1080p command mode DSI panel");
++MODULE_LICENSE("GPL");
+-- 
+2.56.0
+
