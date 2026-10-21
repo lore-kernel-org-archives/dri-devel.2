@@ -2,126 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D0D606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 13:46:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3EA606A31B
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 13:49:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=X4lNH/p3
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tqLLXGd3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5B6610FE47;
-	Wed, 21 Oct 2026 13:46:12 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010042.outbound.protection.outlook.com [52.101.61.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFFA810FE25;
- Wed, 21 Oct 2026 13:46:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B75510E029;
+	Wed, 21 Oct 2026 13:49:49 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010027.outbound.protection.outlook.com
+ [52.101.193.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07C8810E029
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 13:49:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rDtTJy6HCiWv//abXMryjYXkqi/4zQkXmXf+1Lu6Yf1Cdmaky0iOtrP5qoPP1n34x8Q3Nwf3QBu5o/My9k3Og8MLRcl2ALTJW12HXLXGCv1jkxfE8o3h4AOm4LKbEG0jNJVsMPL1SETJN9tTxIZIBbqFM5zMwjjcVvSzH1HHXNq26BZNeI7PJYzYe8c/Y91yKdwpH9iOiG9Xy+xo1S7q2uv+IIMIFJllhhuVWb6U+gHI0X5MhaOjZpLcTF1uhS5pnQdWQzC36fZVMA8REIps6uPkFJOygyeM1ADV3F/td97wNM9/NXMk6Y2VLpnZf9RfhtKa/+dSIBs+BAb9/Z/9sw==
+ b=lo6ZAWOpT1+DHL1w+iqEdA4Frp//7uCthUoNb1hEdoDGR8foQe+vRFsRHfEvX/0TwtUWSOQj4PxqKN8lUOXo6bDrzuhvhevAwbf9KYfqqfVVQ7UBc/VzlKvK7PWCi2TmgAp0plVTHdsD+8dhQtvwhJdmI4nSyBbkR8jUFuarHfvat4etvLNL2UEwoIWLzrgZ87C2VHSdGe6pgQ2RhXERuZunUHUcQ23UQ4e77p/wna4u2aAXrzun+pP3AUC2G3tC7IF4HgIUWgrRgDV9FToBVyuM3zifQOTG2j+/v9L7heTuEU2RJgUsCbVXqq5okCwa0D+dzllG/cyE71NsQe84QQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8U64NH/EqDaio/C/tlAAqANeCqnX9CYjy4QNsL9tI5I=;
- b=r4gDjDQA11K1anMBaj10BKM96yt7qBmU3+qFsBLQ53ksTpfZRPwakBafQ0gl2N+liaot6MY/k/crhD2aTdI3TGFtQ8yB3c65S9jdNcdUVi5s9qGpykzr+5aNfdSm/pdHe4F4vbPNRt05Zwo7Pl+LlUYNNKEzhcGY+NxHNRwSjFSYdm0+jMBT5WsB/uG+eMQtW1UCEDPoBPUI55nup+d3JQVQNBVxGluPpH86uqgr9ggkgJRXw9ob7Xvjbdyg+iOrqxUCKkpvuuPtcCTXepIeizs6+YXCgSYbcSMOX9S015CXDbmLz0mjkHWqy3jtqUarFbNMYQa/c7Za/QCYNVH5oA==
+ bh=YbqoSSx3b76bEgGfa7XZSXnoCpxhF2wiDG/SvxtbXyA=;
+ b=mzW0bRK2Mu5kC369+Bmic/LminfI7iJW0FAOdp11fM2XBKlixq5oV4AF0mJHhnQOyKQC1/OHMTa4Ia0Nd+5Aq6RU5LFz2iC1DQv5YbaSuA1B2Rv7eO08Vir0I83AvIWjsF29p5hW8LjyfF7U0rpzCPctEPGtovrL5EQ6lmGaWNi8TfNAzTazMhPzuMjn7aoaNeUc1EDHSmJbg52gU2adrfRU5gs4SyYceCHbOQ4cXbukhAcN5FUjexno5yPFLmcFhRcvwXdx1+b98OdoKfI8cTQStTti+0LwDQeBMffnCWrNtJTtdxOzbGxW0rM662Rwg6KlSNbImL/SiAoYGX61Jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8U64NH/EqDaio/C/tlAAqANeCqnX9CYjy4QNsL9tI5I=;
- b=X4lNH/p3RTN8AR4+4gUWIzJgS3pPmguB6MngrjBrL1rm66H8ZLzXcr8JaD2BoaFFDYTWDZk+gqMlnNgGhSRzZZwFQNb7qESBRJ+2JJ2GftyplVbeq3tGsLs6hvyuCXXVSuRNJYmJoJY1Y//y47YR8Jw4FZ+g9yoi7XyUhmzN3lM=
+ bh=YbqoSSx3b76bEgGfa7XZSXnoCpxhF2wiDG/SvxtbXyA=;
+ b=tqLLXGd3z8352hpkjjkFF0zdU7ZTrpgqMN86vD4JHZ0tfOvaaTuq9ON1XsiQ0YUOtp3IjBKexFvCcZbXarHQoFopOBTPgVZ0CA1nU7BCarfsnvLPTl5Egf9i4qZkrxcTsZDKi6JHZDLoYSPi8onshDzs7P7C+d2r72rMehhYhKU=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by CY8PR12MB8337.namprd12.prod.outlook.com (2603:10b6:930:7d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Wed, 21 Oct
- 2026 13:45:10 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 13:45:09 +0000
-Message-ID: <0c0fc620-ed55-4baa-aec8-09aea55e294d@amd.com>
-Date: Wed, 21 Oct 2026 19:15:02 +0530
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH8PR12MB6844.namprd12.prod.outlook.com (2603:10b6:510:1cb::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 13:47:33 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 13:47:33 +0000
+Message-ID: <ae7ae97d-cac9-451d-a0d4-bd52d0f063d4@amd.com>
+Date: Wed, 21 Oct 2026 15:47:28 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] gpu/buddy: restore two-pass clear/dirty guard for
- range-biased allocation
-To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- Anand.Raghavendra@amd.com
-References: <20261021121813.1820345-1-arunpravin.paneerselvam@amd.com>
- <78a6d58b-4fa2-4325-a4c3-3cd732c15288@intel.com>
+Subject: Re: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit
+ properly
+To: Philipp Stanner <phasta@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, Arnd Bergmann <arnd@arndb.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org
+References: <20261021095512.1345191-2-phasta@kernel.org>
+ <20261021095512.1345191-4-phasta@kernel.org>
 Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <78a6d58b-4fa2-4325-a4c3-3cd732c15288@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0219.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f3::17) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261021095512.1345191-4-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0032.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c7::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|CY8PR12MB8337:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5707f749-9a54-47fe-92c0-08df2f798610
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6844:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07598ab4-1cb3-4471-dd0a-08df2f79db55
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|18002099003|22082099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: ccp4TP/y52JjF8jAWelMgrQR9PaT+K9BMj77gaFR1Wn4UIlqKpn+0e7EbWOcdWuXCUoGgYuxu4PN91Hp3aSiyKhpPSy/SOcdo0VYNU9313waT/4Bp+6BxIlO0v9f3PhrXucRR2yuPPt5ksuRMjGeewGKKblxwh7ajEf+gIFqTU04hAyEbcK/VaKG4jrCyeSA+AZdc4KhxZYBaOk+vkbxJ5YIEdJ00hEiyi0Dq7jbqnh71FEfMh/hqMPaxlVRJZCAfRxV/i2Qza19cJW/fCdAoUuHOO4bhJdSrD8RzfCKfNlizmJYudyg/AKFqIvnYATFbnQSxtiUWC9hv56DIglCyJCe46sGr1twpMaZlH271w46EhE7wXJjuFLO3Ufg0v6nFdd2u8wVBI+L9qOE3jQxStRYlPY0UkDoaNaA3iZVsjRhg+5KzRUQbbJ47vwq0TF4IdpBHYIQf+dlI+A31k4IP1i16H0Bj4XPZjnKyez9u7YvNF+Anj0LQWpdEyAlP9k84vlE7fnkH5+BbNjY+UM2ZUq24a9ErIZL2n3EstfLrQiOx0GkdIArKJcAzwOYz66XmZn2QC9i9/lL8PcaLW9gSQoeUJOGac7hBAbeyQc9JT1ksuP280eh1/lYNGUSAQNZ0Tho6Ox7RZZy9XtBHaJcU2wKR9lwSLoMyNSDYiXUzCU=
+ ARA:13230040|1800799024|366016|23010399003|7416014|376014|11063799006|261009223027099003|56012099006|4143699003|22082099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: CSSOJnrHmTB2fpruXz22XsMfW3nt+CZnQLExjGJhOOK2A+V8X9OMsI9ryJYDAFUCD6VTr4JJYiCvXRvQnZv5CloZlQbQDewfUCHYN5EPBdG7t7KadB5fDjulu8Lu3IVjqBhU+RN50VoKSbitlHgJb0ON+dABvkl/eKisk4AooSChncwDCZ3uXzgFe1Tuze4fwjQ/Bu18Api894Srl/bB665pF1IAV4L++WwApUHifVRUkyqE7HkYnRXzhMy7ZM0CT0Gb++z+INWngR58/andchgAYGNDeS8bA0JMi9I6lOGdQokAaVQBAp+z7OnlHB/6vzWHDiOEffbr9oeG9eiTEp6Y/BIgv0Al3G2mxA+oFnieDjYLefUH3kzZolkMRxQ8JtpugQQb6+5SofP81Se4/k0WT7Y9Jd6irfZSoYYgBKEpZ77Gy5eeSRRO5tuw825KPo/r1QKwbrw5f54ZDNl048D8i9Dxm7GnLJ8dCTGG68iOiLcb7KielupNdipmpFCYuUe4GNoqHPVHEyhVzaSLSCXksGAyZjdj1W9u7Ig1vF6mlCn/Mehw7LSM5K7szWP6bgyjMYwnwQGRAqIUHRZhDGcn/mtEsgD2hmXWxKFeNcjB8wrRbQzkJWqdhPARc8xVuC2nWtnPecXlgoZADIIPDa8T6n9TxV9iGj0Dr/gbNe8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(56012099006);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(11063799006)(261009223027099003)(56012099006)(4143699003)(22082099003)(18002099003)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U1NzTDNLTk01OVF2S2RiSFBQS3FMNjUxQThKR29VVUhXSW1xKy9uNzMvbHRD?=
- =?utf-8?B?aTdFV3dBamE2NlBPZWVxaGh1REluMzcxaTV5SFpLaDBESzlOWUlVUDlSVm9m?=
- =?utf-8?B?cnpDdEs3YlBLRGttcTdlbFV6TGdLV2QvUkxxYklZR3NiUXlNQkhIUkFiMGxY?=
- =?utf-8?B?Z0JnL2tyME1Kb2JMMWtZL0hraWFra2FCTUpSdGp3MXBtbERrK25RZm9OT2dW?=
- =?utf-8?B?eWsyZHBralI2dnA2UzMyNHhIUk55VnR6WGc2aE8yTzFvWENpRFR2MXhkV1Ir?=
- =?utf-8?B?azBJOGRGSU1RdGZBK2tIRmxIdmJHRjhpL1lOME9kYmt4TUJUeTFGblJXYVcz?=
- =?utf-8?B?NXdJRVhQUmdGRG9WbU40NU1hRVBDUkxuUVV3WVlTeGZLRjlJOHNFUUgvWlNE?=
- =?utf-8?B?Wmp0RlJoTFVGUDFJSW83d0laZm5xTmxjZUJHRFdCRE9kc3NmRVZ2Q29MYXRp?=
- =?utf-8?B?UEthaHA1TCtsQlpSVE1nV1VtQ2dpT01hVEQwbFdDUFhuNGN3OHU1aVQ0TnE1?=
- =?utf-8?B?eENKYUlZZ292cktPbDl1cGNWMnVhZDlOUXgxbkoyajMvYjUvYTNZK293ZVht?=
- =?utf-8?B?SHFkVTFCbE9hYnVNbzVma2loTFMwMHpjZDY2QTJrZnpVeHFkbS84eEtWS05k?=
- =?utf-8?B?dzFJSCtBU01aZXBva2VWVU5lekhUb2Z5VHZNYTJWTzMwREJ4MjVHNmN3aHFt?=
- =?utf-8?B?OWVXNFF0L2JFTm9HV0lMaUdKTDBNVjYzYTdDN1Fma0ZrQTE2L2tGQlZBNzNY?=
- =?utf-8?B?MnRQMnFYRGZjOEsrMGNpdGpZdzdlOTkyRVRCcnZFZjlwWTBjWXRzakhpL3dy?=
- =?utf-8?B?cTV2R0kwaVh2VUFYZ3BuRytWSThoS1hDd2YwdW5SVnEvYkd0aEdveGovSW1i?=
- =?utf-8?B?c0R0dTh0NnlvSmEwTTJKMUNJL1Vkblp0ZCsyUTRyQmlsdTFQTGZXV1BPaExn?=
- =?utf-8?B?SzNuNC9VMUdHMDV4dWpnYmhDV2k2dEwwK0ZCc3pBMXlEWkRNL3lYVjg3TEdY?=
- =?utf-8?B?Yk5kVG00ZzBiV1E4Y0hwVWFnWmhOMUx2R2VNbTd0QzIrdW1SWGExZmV1R2pD?=
- =?utf-8?B?MjB3bUFUUVBucDFMK1A2WTF1OVNVaDErb29ZVjJ0TzVlUlZjL1c1MmFkamY0?=
- =?utf-8?B?ZHA5ZDQvNXpzdVRtbkpYMksvSWNXWXFRSW1hdWp3dXROeklySk1tNlBHUnM0?=
- =?utf-8?B?QXJ2MmRZcWJjaXdQeXQ5M1FrdVQxK2FjWUE5dEp3MEh6SkVwRjNtUTJFRkZG?=
- =?utf-8?B?T2V2OC9ITnFacmVGVHFaRm9Vc1FJWVIzekt5eml0RDFmZDc3U3RqaDNtcG1M?=
- =?utf-8?B?SlhBd1VzNXpPNnBXSUFCcnN0MlFzcXVNY0gvaGpaNHBOME5nNWlJa1NRSHV4?=
- =?utf-8?B?V3FFOVFmQ3hUVVZPRE9aWi9vZ1hqREZBSEI1ei9mK1JsS1lQOVNuL3VFdTQr?=
- =?utf-8?B?bmx0RUtJKzBYWGxlRkg2Ym1qa0plS0pMT2RsbUlndUFkL3ZYK1BEMFlVdVFq?=
- =?utf-8?B?NzVFOWFQRjQ3cUdteTJXOTIvNEpXdHV1UmxBWTdXL1JEOTdIbnhkMExhV2lT?=
- =?utf-8?B?YmgzTkRhS1pqZTNqU3FrUzczcG4vMEs5eEJ4MVNJaXo5UkV5TnhNKy9xeml1?=
- =?utf-8?B?MjJ3NXpZU1NGaWgySnByem1uNSsxeEpYbHV0d2Fzb3FyYk9lUGh6MUx0TXEv?=
- =?utf-8?B?R0RhaDNuVWJIb045bk5mcUQ3TnlFOCtVcjVIT3d5MkFMYUFNa0dTMXk3RUpt?=
- =?utf-8?B?TkpuYU1HQkJ0TzJFMWpsd2ltMlU5RVBmTWtObHlNOE5USFl2bmg2SFh1alhn?=
- =?utf-8?B?U0oxSXFxeXJqdUVLS0t2OEIvRlhEVEhuZkxmcDUwVVpxMFpkOEp0ZU1KNkFH?=
- =?utf-8?B?dkFUMDV5N0JXNjAvVU5FV0diK3lCWm54T0c4RnNzN3hORUN0ak44NU5LT1lP?=
- =?utf-8?B?TWZrQnZMMDZWOXhUVndDOUwxaGNIdGpLNGoyejJlN2FkYUVtN21GWllsQk1X?=
- =?utf-8?B?MENFUGdxQnJ2YlhjbXRtMlF0ZXRZVUZiN1ptVWdEY2crcTdhTXI5L0w1TGF0?=
- =?utf-8?B?Vi9GZkJHS0xXMXJtS1hMbGVpNmk3K3VzOEdLNW82ZWgrSFFadEt5b3kxWE1j?=
- =?utf-8?B?MUV4c3RIRm81YWdYeXE1NHoxbGhPNlFTK09tbU81TkE4NXVjVG5ZSTgxTSsy?=
- =?utf-8?B?YkE1Z1MyUjV0RFJjbzcyOUVPWW9MK3g3ZHlTQ1AwblNaN0tYdjdvNFVPbFpY?=
- =?utf-8?B?UGdKNk53bG50cW1wOUdMdGFjeDJvczlObVdnUyt1bGpMTW9uZS9QUjY0RTJ0?=
- =?utf-8?Q?sGAvuabwnlVtP8MTbV?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cS9yRXNFZlVFeENJU3lVZCtKZ09GUGc3UFVOcGhwT2tSVm9NUjlQYkl4dE9v?=
+ =?utf-8?B?MjFjMnNtUWw4eWl4eDE4dGxXRDZKUGpqWnJpSm9Od0NhMnRlWWU2OW1EcXVR?=
+ =?utf-8?B?aVVYZTl0M3Z0UGRDT1pJc2U1RHFpWk5OUWNSYnNoVnVGSFNnWEJ3VXVYWERC?=
+ =?utf-8?B?ZEZWUkNSRDUxSEpNZkxwdzBtQUtqT05FbFdQUFNWVzAvbXR6cVR6S1ZSekdx?=
+ =?utf-8?B?OUZCRmRZb3dWcTlvUlB5SDViVG5Sc09hZHI3N2h4cEhZemphbkRuaTJqV3ly?=
+ =?utf-8?B?ZUhoZEFzSzdOb3A4dDNzU25DVDk3SjlGeldTR2FVRHBaaE5WSGMyUlJMZ1pu?=
+ =?utf-8?B?S3diV3BqdDdIQmdEaklCb2NxcEozdjRldnYwV0VuZ2I0RVpLM0czU05hNUVp?=
+ =?utf-8?B?RGxKeTZwRllZZmZnYzhZa0lzVFJ4RlpDQ1NiMk1JelIvdm9pQUNOMnFMZWJo?=
+ =?utf-8?B?VkZ0WlNTRmpKK0Rzekg5cHJrb2NYZWQxak1lR2tucCtoWUJ5Vm9wM2FMVUti?=
+ =?utf-8?B?bENJZThtVStBM3FDSnJUYktSbEJvaTRDVi8xcVhoS3BKNnVNeThFYkgyUXI5?=
+ =?utf-8?B?WGo0d0NDVWo2aFllVkVBNnVzaE03VXFFWS9DOVQwZU9US1NoeUFGclJMNGQ5?=
+ =?utf-8?B?TDhsY2tvMEd4WFErZ0VrdEhwaHNSQkJyNXdkczhuQy9xZDl1V3NmYXdGbVVq?=
+ =?utf-8?B?NTEvdTdyS0prRnVUcE5DV3Y0cU5xYjdmZWVEbWkwUkxJY2l3TzVhUWhScjNE?=
+ =?utf-8?B?VE5ZMmZtY2xRSzNhM2pYWkcrTkhrQnNjQldzN3FQNWRpQjB5dnNITlovSE5j?=
+ =?utf-8?B?SXlQa3Q1WUJXOGpUOUJDYytzenU3UC9tQlU2YkdEc2QrWWl5TWhyUFpsbkY0?=
+ =?utf-8?B?cWFycE1CNkVmT1pyd0ptYVhwTkdLK1J2dStyM1dFV3Z2c1MrOGpQTnUyZndT?=
+ =?utf-8?B?M0FFdmpPc3lMbllLWnVEclp5REZvRCtxdUlyREpXQ1VteHBYbkZwQUc1T2tZ?=
+ =?utf-8?B?VXh6cFNkbmROakdQVGZIQ1FIM29ONTRkWGJNRDgrVE5ucFViTUtpMjVNNTdn?=
+ =?utf-8?B?aVhnYmpFRWl6dXB0ZTI1aGMvWmVpZHdiWk9mN3RIRklwVHVPTG1yUWVWRCtK?=
+ =?utf-8?B?dENRNU1jc2tDRHVSWm8ydHB6eDNwRVAzLy9NWmhPNWJ2V1JIUGptZDhPOUNp?=
+ =?utf-8?B?V0gwdWl6Uk5xcWpnS2dDdzFzeFZ5WGs3TkNmWkZENC9MU0xPeG9NOUhHL2NL?=
+ =?utf-8?B?dUtiOEJKblppd1ZOYUVndWVxMWhsUmxQRnhINW9rZGZtcWI3R1RQRVB1Nms1?=
+ =?utf-8?B?K2JKMzRkbFZjUll2dUZKeTY4VmtIQ0FUSEFsZEZCVFpHU25YVExmWlJOdXFB?=
+ =?utf-8?B?cDJHSGdjTlM2ajNGMHZIcFgwZGltRnBFZDRkQjF2ZU9YNFBqWU8zdjMyUklJ?=
+ =?utf-8?B?WHNmS094bG9jZHFoVmNmaUtJS21SR0RFOThWdFBCdG9uYngwTkFJcFc0cE1D?=
+ =?utf-8?B?V1M1Q3c0NUNvQzFYK05jVkh5eVpBV0k2bUR5ZmZvWm4wOWxUaGhQdEFvOG1u?=
+ =?utf-8?B?a3JFVkcwdGE1M0N3MjhIMlQxaHhSUGpnYVRzMWs2TlFpeGNhNmozcmZlR1c4?=
+ =?utf-8?B?dVdNZEpSN3gxYXNUK213UFBXeXBBdnBLMzZmdGhjMmxHL1BaaTdNWVlFN1dG?=
+ =?utf-8?B?VXh0bHJwcURmdFR3OHk4U3Zkc0o5NEl5MXQvV1NFUW1IMzNobjBHeU9tUXNa?=
+ =?utf-8?B?T3NCY2FVOHBuY2UzQnh6RlIxUXhXbnhqbHlJb3d1ejhIeFZXV2hiNkZQTmZ0?=
+ =?utf-8?B?Mng4YUpPTnlDR2lPVU4xUnhXUDJnZFVWVUR4Q29lMVlwQ2tuV1RIQ0FZM0hP?=
+ =?utf-8?B?T3pEejhpUVFqNnZyYnpsNUtMSVZsQzIzZHJQMkc3eHVzNEJqd3FqVWFOWklE?=
+ =?utf-8?B?cDl5WnRwYStnd0ZwTlRObTl5QU1yUVVZM3JyWGdLRkI4NEtMWDh0N0RDSUli?=
+ =?utf-8?B?cjgyQ1lEc0NxS2hjTWZTVGdCcWRlTFEyWllaRWg4b1Bab2xid3RoSWI3ekFn?=
+ =?utf-8?B?cDBJeVpwRlRwNjlJakgrdG9QYzd0bW1FMGlpYXFsNnBLT1h6YVBOSS8xdXYv?=
+ =?utf-8?B?UjIvRElzMHIrZ2hIK3VoQUtQeDVyenVzdjRQZkw2VjY2cDZDeUlXYXBNd3hr?=
+ =?utf-8?B?SHdaaldGRzJjdjcrMFYxdHFOMXVUNHVCaDMyZ1hiRkpwMzRNaXhzQkhzWnAr?=
+ =?utf-8?B?aTlqZE01VDVuOVk3VFFPMWVJdWlUaVlnTktZdUN2U1psS3lkZWZHRzJ1RXcx?=
+ =?utf-8?Q?KovdJKr5h8+6MjRivu?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5707f749-9a54-47fe-92c0-08df2f798610
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07598ab4-1cb3-4471-dd0a-08df2f79db55
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 13:45:09.7881 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 13:47:33.0416 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9imlv2WaX+lJXHZiY34J8/sqpzOxz6a+Rt8teIoRhX1NaTdnGQdUv/9R7lm1CSirkpvOxW9ZQbySMpSCn9WOkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8337
+X-MS-Exchange-CrossTenant-UserPrincipalName: iw+DxQIM+Vsb60DOUW9xCPvsPqMRQL+deI/vS7ShuW/NcLVl2FLuX0Xiz2ywCVYJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6844
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,59 +137,88 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On 10/21/26 11:55, Philipp Stanner wrote:
+> dma_fence_is_signaled() can return true *while* the fence is still
+> signaling. This is fragile and has been involved in at least two bugs:
+> 
+> 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+> 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
+> 
+> The signaled-bit is set under lock-protection but read without it.
+> Adding the lock has been rejected on the grounds of the lock-acquisition
+> shooting down cache lines of parties that merely want to check whether
+> the fence is already signaled.
+> 
+> Make sure the bit can only become visible as 1 once the callbacks have
+> ran. To achieve this, read the bit with test_bit_acquire() and set it
+> with set_bit_release().
 
+That has been suggested and rejected before.
 
-On 10/21/2026 6:19 PM, Matthew Auld wrote:
-> On 21/10/2026 13:18, Arunpravin Paneer Selvam wrote:
->> From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->>
->> Range-restricted allocations (the visible-VRAM aperture) skip
->> dirty_steer_window() and reach __alloc_range_bias() with no clear/dirty
->> eligibility guard, so a dirty allocation freely splits clear extents 
->> (and
->> vice versa), interleaving the two classes until no large same-class run
->> survives and a 4K scanout pin fails with -ENOSPC. Use a two-pass range
->> search instead: block_incompatible() rejects opposite-class blocks in 
->> the
->> strict pass and relaxes only when the strict pass returns -ENOSPC, so a
->> request still succeeds when only opposite-class space remains. A KUnit
->> regression test covers the interleaving pattern and fails without the
->> guard.
->>
->> v2: the strict pass can split a block and then reject both children, so
->>      a split no longer implies a compatible block exists. Sashiko 
->> reported
->>      the resulting leaked splits; fix as suggested by Matthew:
->>   - Push the parent back on the DFS stack after each split and merge it
->>     back with unsplit_block() if both children are still free.
->>   - Make block_incompatible() judge free blocks only (split nodes keep a
->>     stale clear bit) and take the requested order, so mixed blocks that
->>     can hold a compatible block are descended instead of skipped.
->>   - Extend the KUnit test with a coalesced mixed block and a check that
->>     a rejected split is merged back.
->>
->> Fixes: 1ad5e807f716 ("gpu/buddy: replace dual-tree/force_merge with 
->> decoupled dirty tracker")
->> Assisted-by: LLM
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->
-> Are you just going to push this one by itself?
-Yes, I am planning to push this one separately. Patch 2 can follow later 
-after review.
+Background is that the signaling bit must be visible before the callbacks are run or things like dma_fence_default_wait() (as an example) just break.
 
-Thanks,
-Arun.
+Regards,
+Christian.
+
+> 
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> ---
+>  drivers/dma-buf/dma-fence.c | 11 +++++++++--
+>  include/linux/dma-fence.h   |  6 +++++-
+>  2 files changed, 14 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index bd58688b81a7..07d499fa35ac 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -359,8 +359,7 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>  
+>  	dma_fence_assert_held(fence);
+>  
+> -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+> -				      &fence->flags)))
+> +	if (unlikely(dma_fence_test_signaled_flag(fence)))
+>  		return;
+>  
+>  	trace_dma_fence_signaled(fence);
+> @@ -384,6 +383,14 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>  		INIT_LIST_HEAD(&cur->node);
+>  		cur->func(fence, cur);
+>  	}
+> +
+> +	/*
+> +	 * This orders the signaled-state with the test_bit_acquire() in
+> +	 * dma_fence_test_signaled_flag(). This ensures that functions like
+> +	 * dma_fence_is_signaled() can only ever return true once signaling is
+> +	 * completed (i.e., after the callbacks above ran).
+> +	 */
+> +	set_bit_release(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+>  }
+>  EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
+>  
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index dd07d128adc3..61522027af41 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -496,7 +496,11 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
+>  static inline bool
+>  dma_fence_test_signaled_flag(struct dma_fence *fence)
+>  {
+> -	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+> +	/*
+> +	 * The counterpart of this ordered operation can be found in
+> +	 * dma_fence_signal_timestamp_locked().
+> +	 */
+> +	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+>  }
+>  
+>  /**
 
