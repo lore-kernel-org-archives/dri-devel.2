@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A386606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 03:00:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853D4606A31B
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 03:00:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OlTQcsBg
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XsKDCpqd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A36210F89C;
-	Wed, 21 Oct 2026 03:00:37 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012052.outbound.protection.outlook.com [52.101.43.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8066A10F892;
- Wed, 21 Oct 2026 03:00:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDDB610F89B;
+	Wed, 21 Oct 2026 03:00:39 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012008.outbound.protection.outlook.com [40.107.209.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1050310F892;
+ Wed, 21 Oct 2026 03:00:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HwPb24kPTtdWmDidxqhepbLb02XF37yptdj9lSN8optEsblig0ScpJHnE5oj81OZt7ER3FOXaZUScfHHsbdMN1o9pn+EFgx/w5jbw9bqzExqqrFMU8bpjWjhsXL1syFdPgiLugfsPLZTbQ7RIqo6hAq7FC5l7pmhmt6p126pRJDU5SkctbxMyKMP4MquAqfBuyZAZwt6bV6l7v92wq8IvhaAKOlQ3yC9rY+HlVwmqPAkQFw2lnkVJVEd0+wL6hNlDfQSqhA69/FhDKOZ9/j3mxoCfJfzC1IaK5deEvH1uN5MEiHgGp4pvRHpqGuAXIeL2p15Q+lzgr0f80JW85W7zA==
+ b=K6uP92NZT1gM/5Q/V/u0Rvu5Z2bfKfOK+rTaHiStOX15IUUK+WiVXePmPVc5uZIrQ0jaaqZpWlkrvmh7LPj1jnedYwjGAW/tLqnkYR0iP/GeRnteRzFEO7KNxADJyM1jvQoYGwmORflxAIfizZdr6L36lE5T4dnkk8xBeC0EFtCa4z+vVPgn5IcdLTtDBuN/tECgML/cG8bWh7EH2Cs4buqny4BmWPYY0xLP3PT10Im3m0mgAKpJeR9FPaIhfnGBBAWpfT3dW5EVNlTODzH4Ra6lqk9mBnx1EJOiNteskFjnA1BXzX61QQCLDPrPIs7c4fjir53MjUrxMdpTA/WDHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CiNNzPGddkDDWtD+8YKZY14pr2ksAlVPshXp6zMUCz0=;
- b=R9XzMwrhrwG5iCS7puB5JA/54qRKKIkNHH2FZE+Bbr0BJA+oxzsYe5g0OLPONxrIck8V1YRgtAhhthNGkbnQ9owKfkjtWT5qGVtj55A41BvrqK63ciiBqrRYxOeh8cuWqPQr5M+YhUpJKVUUumFFZz+s2UfHVOOgyD2HccLdQ59iLASp4owzElYJUXk7jiJ8DImyMqJZOfMJxfsfvUdBKV5GiKZQiM0PSLXntKfDcS6huv9PxAH2cTWnd4SvOdCwUP6834ri2sOCQUfv/SfkqBOWVNqYwDj43Pfyu4JcIaDDcPvLOBU1zTJBjiUu1Uj6UiVMLirz4NaJJch4mLQmIg==
+ bh=68zuo3uANqiHLRM+xxsycgbu7h7kAbmzPTHlAb8gesA=;
+ b=mKKJFA+fEzyDp/0//NJHUVdccQU4Dts1o6IRG4DIvXbHRI25usDSoht0wiUx7g/ACfAwN2dgoNxI7icEh+4qJlNowdq/igxVV3lavhsVSNCd7FrwghzfZz9jKvldGwSRLoLwE4iwnMKwy5068HpZc+A54SoKMsVNH5+uopznW+zaFyNWx4aDr3piD4tHVBMQz+wI9QHR6b2l33evh8wq9S9vdpqhuXe64Rnp67+pn0xsbbLEUuvU76JxTG9Gtx1Rq7q//byyTDWOQ0kx47keJie2R7nqBY2yrBwI8egy1uhZJQU1iUBkDSri0M1TBw0UcRJaeSagiE1l/xMaNuwdSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CiNNzPGddkDDWtD+8YKZY14pr2ksAlVPshXp6zMUCz0=;
- b=OlTQcsBg+R5dGYISMI/1bQcmXHCwu+W4uYz58yKzxpL+Xx5uNjUGTkZqHkAjrWTtMxjTxDP5NmDt8OZwn19yrcXCW75MZSYDpCrQv6U1qtmOD7yyrs8g9CLE3MxBBK/gDBLfkWydu0Yg6SJC1ApyXhwQBK3k7yTDcjQ8qoqWUE4=
-Received: from SJ0PR03CA0281.namprd03.prod.outlook.com (2603:10b6:a03:39e::16)
- by CH3PR12MB8187.namprd12.prod.outlook.com (2603:10b6:610:125::5)
+ bh=68zuo3uANqiHLRM+xxsycgbu7h7kAbmzPTHlAb8gesA=;
+ b=XsKDCpqdxm1gcVdMwOKfQXqBthn5KQV4KitSrIZMCDv7UtX4YmGJwla37eph4/W79uQRvqhRKpu05Qp2xutZ9bkZACfHGJpi7xrIFIJEnBvVD937fLNv92nx4JPq3n782o7+4Hvlfy1hexTIDMf6rx0WUSOae3tmv9NKYrQbkF8=
+Received: from BY3PR03CA0004.namprd03.prod.outlook.com (2603:10b6:a03:39a::9)
+ by IA1PR12MB6627.namprd12.prod.outlook.com (2603:10b6:208:3a1::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 03:00:14 +0000
-Received: from SJ5PEPF000001D2.namprd05.prod.outlook.com
- (2603:10b6:a03:39e:cafe::89) by SJ0PR03CA0281.outlook.office365.com
- (2603:10b6:a03:39e::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 03:00:28 +0000
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:a03:39a:cafe::80) by BY3PR03CA0004.outlook.office365.com
+ (2603:10b6:a03:39a::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
- 21 Oct 2026 03:00:11 +0000
+ 21 Oct 2026 03:00:27 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com;
  dkim=none (message not signed)
@@ -46,13 +46,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001D2.mail.protection.outlook.com (10.167.242.54) with Microsoft
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 03:00:11 +0000
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 03:00:27 +0000
 Received: from hr-amd.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
- 2026 22:00:06 -0500
+ 2026 22:00:21 -0500
 From: Huang Rui <ray.huang@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Philip Yang
  <Philip.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Felix
@@ -67,10 +67,10 @@ CC: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>, "Jenny
  Huang" <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>, Yiru Ma
  <yiru.ma@amd.com>, Huang Rui <ray.huang@amd.com>, Honglei Huang
  <honghuan@amd.com>
-Subject: [PATCH v10 09/22] drm/amdgpu: add SVM notifier invalidate callback
- and checkpoint
-Date: Wed, 21 Oct 2026 10:58:48 +0800
-Message-ID: <20261021025915.2433837-10-ray.huang@amd.com>
+Subject: [PATCH v10 12/22] drm/amdgpu: integrate SVM into build system and VM
+ fault path
+Date: Wed, 21 Oct 2026 10:58:51 +0800
+Message-ID: <20261021025915.2433837-13-ray.huang@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261021025915.2433837-1-ray.huang@amd.com>
 References: <20261021025915.2433837-1-ray.huang@amd.com>
@@ -82,29 +82,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|CH3PR12MB8187:EE_
-X-MS-Office365-Filtering-Correlation-Id: abc244d9-673f-4498-e6aa-08df2f1f6c6f
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|IA1PR12MB6627:EE_
+X-MS-Office365-Filtering-Correlation-Id: 808e40fb-96f8-4e94-4b1d-08df2f1f75e0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|921020|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 2PGNcVG4gKDqmj8qxTDS5f+/uOVH2N/UG9Q3I/N21aBY26rB0E5362UB8dE3ROShcOaIvk7sltK5NUaRMElTiQ+8yoiD8nHPpD8rtjtwMheF4zyy/h2LcHKvLKAklaQLzTQs8kwr2csN+Zw5q1R00iVqTABlNwC5A/ypPeszrtxShfZfXWaR5ZhOI9/eRJ0R7p3tUK2Hn14zVk7tFmb3Uy3yS3jpw/kNId5qB9bkEyofVQv/nOLOMTOta3kgXs8ZZXOxztbgLxMHYXcPTKVlZXsOmLscRLOPGM+zdhuXyPJK1IalRe78081DLe2U5G1vud1LcZtDuxCfsqDdvWnaMuLKwMfcQqkvZDdKhfBkWy0lHq+h5W5NSc5wvy5xVMEfYnzgfHekUpyREto4NQ+zK2H+iA3foMRY6Gex1nDSpvjtoQUftjEzDVVuskhFPlKkQGR3zfzgtolwDo7H5wUVMR8gVpj7NMNs1PDftmzGqXLwrjoBxi25ugZgh94IqcS5jAFI8Rygl2uuhykF11B8SOoApXSMZSKBPoSX0ZSTMLlJDMLQh1xk6jMwZhkQw0+0vR+I6fE7fyY3EHY75Yeqhy0Xm/RPHIAJnmQtQpg5e2mRsRXaJ4PJohpfmUKp7+5JaF+ie37pD0Nw29I53VyG51THbghO9Jg1tZJwMeHi4vxOkVu2UJpNKaRHx8fKrF2wS2WiHTeavwsshxj2QOfXsL/317yuELG/ovulQzwmNKrzWryoNppsJotQsQgZn2R0
+ ARA:13230040|82310400026|23010399003|376014|36860700016|1800799024|22082099003|18002099003|10067099003|11063799006|261009221227099003|921020|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 9sYaqL26E5WP79dWVELvfQ2k7GBSyWr0sFYQQ+eJ8ZOFuPJHVRlQIlVKHbayovGbwCh2P0Jw2mmdoMqkN1/1TXIwLO5TDTnkpxw/WEdsPw0OH8UW/iDrxp56MGb0kWUWt6FdEePU9cE6q608pfc8BIfOOEfGZwdc+3VbhLtGMzLwQrFf4VzZ8rKWiVt+da5AqloN5Ehuf5Kfa4eXNCKwFuOISs18IpJWIY1rverE6q5EdxypSO6l45ayX4TDKCZqzLm6BxYagZ4VZxvPeNZdVx7pNW54jyp2vTbVmpIIc4UcOxcwM8PWmEcAnYZi0u69H7MwgrfU/4yJdutsXk/3viMGez/Z6mUvhSK0YLYjwOH4/EqgJAtqOnw4VE4uSxw9vM0/YyHC/A1c8jyMdGpNPYLDYgvd8BcUGoNVG+tEzA0eROoVfNanJ1tbzrWh9NGr1Cc+gsxuwqjH9+Ofa7MsuQBjgmExpN3hcP9bqgc0x+s6KFhg6XMYz9UgR4Htb1WVvvoTQfBoH6359de6YQcd/5bbzBlwSNDNSjLQoBLSG5fxxrqLjMPEBSq11W24i1qZYMgo3KFAr3EQHJmKmpebR06NPySBOIUI9ITzRsJllZf4Xn77w3L+VufBN4Kw2PTKj+q0uz34mO6+Idxi0c7miomvkaYMSN6HxRMVhCkQje1+rZqFTD4xubfjQ22gzsFLIHs8TB/IUvs6edlMhBM7WMXNYHuss+zv+0tyt+ioEgIuNMj1hYfp4pLZK21XwnWM
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(921020)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(36860700016)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(261009221227099003)(921020)(261009223027099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 3m659dn7gHUDG0YDrrx6ELhOTPauayRGiJrX3bBELbkTaWiGQ3kXegQkxop0bRyAE7fzWdZGa1hh6fYdKT82K1xb07xIeJgYFv+KORiFzCrzEVKBjlNghXlDVVnHxVdvAg72aQ+itMcwgfW4lgZ/N+CxIC/aTFr4VX+pzarEOjY4kmnHHiWERqg4gYaUoPTrAY3S6h3AvAMdYT5Mi2wDHzF2N6F2uG8i6AwNUsQ91e8s6zOdkP4Jckv+pwskxOA+GGcFEdRaLpRwMBbFCuU8tGcY4yXak2+zS4OwqU63wNDxw/RYXlnwYWNh6GrAwmHcH7ekc2a2TAeoaT1Y/ONwW53w+CH62W0D2bMEKeqBA4F+YG+6YhLhCc5o4mSZaw0St8OvqDUTvQIus82YqfTMLDxMr6y/DR3Ko1p/3KE1XL7jViSriaKT1zaahSk2Np8D
+X-MS-Exchange-AntiSpam-MessageData-0: w990lErip0P+xJvSH7JM5tpaCOnTnGZliGPEvkpX5FSWZOQ4AIIOQkiyIc0ta+NKDEu6b2JYcRpKa5mJ8dgj1N/apD6YYwTx7AvMTmrDB/VEaZvxzzQnAvYe9L//7JYR2HADaO1WlsULaxIcNPsOl0XvoB8hWErVXHT2oxOLENDNFo5mQ1k8z5n0dLTqvTNHchAhTelNml79AUYdaWdeAutEN5fHmiaokYRq0VT6x9RVDybQqkVk92Ze4F377lewjZjMSUt+FG7T0cysBhABagl5R5O6j8pTL+2HqNxXjOAjSNecRzLLvwGMDy4ACUu2h2R2Yw/mtPI9PFXM5bvGfLYtM/TzDrPVxjvFzfVC3EDJwhvb0NnGsZW7P/7kjlrSDWq9Rzck73+C+mngEOIqzrslfl/HkhEZEKzMSZRUeRj9mzYax5CNzjTZHdoZlh31
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:00:11.8983 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: abc244d9-673f-4498-e6aa-08df2f1f6c6f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:00:27.7304 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 808e40fb-96f8-4e94-4b1d-08df2f1f75e0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D6.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8187
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6627
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,124 +119,177 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 From: Honglei Huang <honghuan@amd.com>
 
-Add invalidate_ranges callback and checkpoint timestamp:
-- amdgpu_svm_capture_checkpoint_ts: capture interrupt handler write
-  pointer timestamp for stale retry fault filtering
-- amdgpu_svm_range_invalidate: invalidate_ranges callback dispatching
-  per range notifier begin/end with TLB flush batching, checkpoint
-  timestamp capture on MMU_NOTIFY_UNMAP events
+Wire up the SVM subsystem:
+
+Kconfig:
+- CONFIG_DRM_AMDGPU_SVM option, depends on DEVICE_PRIVATE, selects
+  DRM_GPUSVM, HMM_MIRROR, MMU_NOTIFIER, default n
+
+Makefile:
+- Build amdgpu_svm.o, amdgpu_svm_attr.o, amdgpu_svm_fault.o,
+  amdgpu_svm_range.o when CONFIG_DRM_AMDGPU_SVM=y
+- KBUILD_EXTRA_SYMBOLS for drm Module.symvers
+
+amdgpu_drv.c:
+- Register DRM_IOCTL_DEF_DRV in ioctl table
+
+amdgpu_vm.c:
+- Initialize vm->svm = NULL in amdgpu_vm_init
+- Call amdgpu_svm_init in amdgpu_vm_make_compute
+- Call amdgpu_svm_close + amdgpu_svm_fini in amdgpu_vm_fini
+- Route GPU page faults through amdgpu_svm_handle_fault when SVM
+  context exists, without falling back to svm_range_restore_pages
 
 Suggested-by: Christian König <christian.koenig@amd.com>
 Suggested-by: Huang Rui <ray.huang@amd.com>
 Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c | 71 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h |  6 ++
- 2 files changed, 77 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/Kconfig      | 10 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/Makefile     |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  4 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 23 +++++++++++++++++++++--
+ 4 files changed, 38 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-index b907f516cdbe6..62c78c3ce6762 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-@@ -730,3 +730,74 @@ void amdgpu_svm_range_unqueue(struct amdgpu_svm *svm,
- 	if (put)
- 		drm_gpusvm_range_put(&range->base);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+index 12e4a41bf1f04..68f519b3479db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Kconfig
++++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+@@ -81,6 +81,16 @@ config DRM_AMDGPU_USERPTR
+ 	  This option selects CONFIG_HMM and CONFIG_HMM_MIRROR if it
+ 	  isn't already selected to enabled full userptr support.
+ 
++config DRM_AMDGPU_SVM
++	bool "Enable AMDGPU SVM support (experimental)"
++	depends on DRM_AMDGPU
++	depends on DEVICE_PRIVATE
++	select DRM_GPUSVM
++	select HMM_MIRROR
++	select MMU_NOTIFIER
++	help
++	  Experimental SVM support based on DRM GPUSVM.
 +
-+/**
-+ * amdgpu_svm_capture_checkpoint_ts() - Record the IH ring write pointer time
-+ * @svm: The SVM context.
-+ *
-+ * Capture the timestamp of the most recent interrupt handler write pointer
-+ * into @svm->checkpoint_ts. Retry faults whose timestamp predates this
-+ * checkpoint are stale and are dropped by the fault handler.
-+ */
-+void amdgpu_svm_capture_checkpoint_ts(struct amdgpu_svm *svm)
-+{
-+	struct amdgpu_device *adev = svm->adev;
-+	struct amdgpu_ih_ring *ih;
-+	uint32_t checkpoint_wptr;
+ config DRM_AMD_ISP
+ 	bool "Enable AMD Image Signal Processor IP support"
+ 	depends on DRM_AMDGPU && ACPI
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 7b08814a24da4..96fd2b195c295 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -326,6 +326,10 @@ amdgpu-$(CONFIG_VGA_SWITCHEROO) += amdgpu_atpx_handler.o
+ amdgpu-$(CONFIG_ACPI) += amdgpu_acpi.o
+ amdgpu-$(CONFIG_HMM_MIRROR) += amdgpu_hmm.o
+ 
++# svm support
++amdgpu-$(CONFIG_DRM_AMDGPU_SVM) += amdgpu_svm.o amdgpu_svm_attr.o \
++	amdgpu_svm_fault.o amdgpu_svm_range.o
 +
-+	if (!adev->irq.retry_cam_enabled && adev->irq.ih1.ring_size) {
-+		ih = &adev->irq.ih1;
-+		checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
-+		if (ih->rptr != checkpoint_wptr) {
-+			WRITE_ONCE(svm->checkpoint_ts,
-+				   amdgpu_ih_decode_iv_ts(adev, ih,
-+							  checkpoint_wptr, -1));
-+			return;
-+		}
-+	}
+ include $(FULL_AMD_PATH)/pm/Makefile
+ 
+ amdgpu-y += $(AMD_POWERPLAY_FILES)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 9c5e93cd3ee64..2a03d5cd78e85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -50,6 +50,7 @@
+ #include "amdgpu_ras.h"
+ #include "amdgpu_reset.h"
+ #include "amdgpu_sched.h"
++#include "amdgpu_svm.h"
+ #include "amdgpu_xgmi.h"
+ #include "amdgpu_userq.h"
+ #include "amdgpu_userq_fence.h"
+@@ -3121,7 +3122,8 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+-	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW)
++	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_SVM, amdgpu_gem_svm_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ };
+ 
+ static const struct drm_driver amdgpu_kms_driver = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 4fb22195607a5..77f1794eb5011 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -44,6 +44,7 @@
+ #include "amdgpu_xgmi.h"
+ #include "amdgpu_dma_buf.h"
+ #include "amdgpu_res_cursor.h"
++#include "amdgpu_svm.h"
+ #include "kfd_svm.h"
+ 
+ /**
+@@ -2672,6 +2673,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	int r, i;
+ 
+ 	vm->va = RB_ROOT_CACHED;
++	vm->svm = NULL;
+ 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++)
+ 		vm->reserved_vmid[i] = NULL;
+ 
+@@ -2816,6 +2818,10 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 	vm->is_compute_context = true;
+ 	vm->need_tlb_fence = true;
+ 
++	r = amdgpu_svm_init(adev, vm);
++	if (r)
++		goto unreserve_bo;
 +
-+	ih = &adev->irq.ih_soft;
-+	checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
-+	if (ih->rptr != checkpoint_wptr)
-+		WRITE_ONCE(svm->checkpoint_ts,
-+			   amdgpu_ih_decode_iv_ts(adev, ih,
-+						  checkpoint_wptr, -1));
-+}
+ unreserve_bo:
+ 	amdgpu_bo_unreserve(vm->root.bo);
+ 	return r;
+@@ -2888,6 +2894,9 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ 	unsigned long flags;
+ 	int i;
+ 
++	amdgpu_svm_close(vm);
++	amdgpu_svm_fini(vm);
 +
-+/**
-+ * amdgpu_svm_range_invalidate() - MMU notifier invalidate_ranges callback
-+ * @svm: The SVM context.
-+ * @notifier: The GPU SVM notifier covering the invalidated ranges.
-+ * @mmu_range: The MMU notifier range describing the event.
-+ * @first: First GPU SVM range in the affected interval.
-+ * @adj_start: Adjusted start address of the affected interval.
-+ * @adj_end: Adjusted end address of the affected interval.
-+ *
-+ * Dispatch the two phase notifier handling across every range in
-+ * [@adj_start, @adj_end): run the begin phase for all ranges, then
-+ * the end phase. On an unmap event, also capture a checkpoint timestamp
-+ * so stale retry faults can be filtered.
-+ */
-+void amdgpu_svm_range_invalidate(struct amdgpu_svm *svm,
-+				 struct drm_gpusvm_notifier *notifier,
-+				 const struct mmu_notifier_range *mmu_range,
-+				 struct drm_gpusvm_range *first,
-+				 uint64_t adj_start, uint64_t adj_end)
-+{
-+	struct drm_gpusvm_range *r;
-+	bool needs_flush = false;
+ 	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+ 
+ 	root = amdgpu_bo_ref(vm->root.bo);
+@@ -3127,6 +3136,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ {
+ 	struct amdgpu_vm_update_params params;
+ 	bool is_compute_context = false;
++	bool use_amdgpu_svm = false;
+ 	uint64_t *dst, flags[AMDGPU_VM_MAX_LEVEL];
+ 	struct amdgpu_vm *vm;
+ 	struct drm_exec exec;
+@@ -3146,6 +3156,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 	}
+ 
+ 	is_compute_context = vm->is_compute_context;
++	use_amdgpu_svm = !!vm->svm;
+ 
+ 	if (is_compute_context) {
+ 		/* Release the root PD lock since svm_range_restore_pages
+@@ -3155,8 +3166,16 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+ 		 */
+ 		drm_exec_fini(&exec);
+ 
+-		if (!svm_range_restore_pages(adev, pasid, vmid,
+-					     node_id, addr >> PAGE_SHIFT, ts, write_fault))
++		if (use_amdgpu_svm)
++			r = amdgpu_svm_handle_fault(adev, pasid,
++						    addr >> PAGE_SHIFT, ts,
++						    write_fault);
++		else
++			r = svm_range_restore_pages(adev, pasid, vmid, node_id,
++						    addr >> PAGE_SHIFT, ts,
++						    write_fault);
 +
-+	if (mmu_range->event == MMU_NOTIFY_UNMAP)
-+		amdgpu_svm_capture_checkpoint_ts(svm);
-+
-+	r = first;
-+	drm_gpusvm_for_each_range(r, notifier, adj_start, adj_end)
-+		needs_flush |= amdgpu_svm_range_notifier_event_begin(svm, r,
-+								     mmu_range);
-+	if (needs_flush)
-+		amdgpu_svm_flush_tlb(svm);
-+
-+	r = first;
-+	drm_gpusvm_for_each_range(r, notifier, adj_start, adj_end)
-+		amdgpu_svm_range_notifier_event_end(svm, r, mmu_range);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h
-index f423be277a85a..5e49d774711ce 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h
-@@ -175,6 +175,12 @@ amdgpu_svm_range_find_or_insert(struct amdgpu_svm *svm, unsigned long addr,
- int amdgpu_svm_range_get_pages(struct amdgpu_svm *svm,
- 			       struct drm_gpusvm_range *range,
- 			       struct drm_gpusvm_ctx *ctx);
-+void amdgpu_svm_capture_checkpoint_ts(struct amdgpu_svm *svm);
-+void amdgpu_svm_range_invalidate(struct amdgpu_svm *svm,
-+				 struct drm_gpusvm_notifier *notifier,
-+				 const struct mmu_notifier_range *mmu_range,
-+				 struct drm_gpusvm_range *first,
-+				 uint64_t adj_start, uint64_t adj_end);
- bool amdgpu_svm_range_notifier_event_begin(struct amdgpu_svm *svm,
- 					   struct drm_gpusvm_range *range,
- 					   const struct mmu_notifier_range *mmu_range);
++		if (!r)
+ 			return true;
+ 
+ 		/* Re-acquire the VM lock, could be that the VM was freed in between. */
 -- 
 2.53.0
 
