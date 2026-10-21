@@ -2,42 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF59606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:06:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D4B2606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:08:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFIkzoy/
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=d+wZ1XqP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66AE510FCED;
-	Wed, 21 Oct 2026 10:06:21 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33E5A10FCED
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 10:06:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 453C8601F0;
- Wed, 21 Oct 2026 10:06:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C94721F000C9;
- Wed, 21 Oct 2026 10:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792577173;
- bh=hL3cU4j17+J60L1OX1Uci5aEkpKYjvCbizFZmZ7PQMw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JFIkzoy/3j8/hBDzJH7Ls4ni6KClwNK0NU47NwCiTiiyEfkVqNyn+hn3oeYmOhbGY
- pMcDHuS3lxDRrAZrEshI5AVW/YxxkFvu2BiiqwvyBKIct6i4xKYJO9+zAunARlctq9
- 5seq8TXtIvZ54myBddu8RrOvi0bOXvc/ITd1W5864DG2sD7hlFDcrlIItpBwEkBYpZ
- m7BxW36u/XKuL+E0dDRpRnl4OURioTuEIpQ+QqNKmgzqNS9NAIno9QIyaWuYYRHGjo
- vKgiCoJuwvy9CpHf5REOvpUizyJ1eLF2Dvy7Ib+3wZlEV/+A3oXc2cmKn63e2WCWGS
- Ki0QSR2Gh3CIA==
-Message-ID: <sashiko-outbox-180085@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261021095512.1345191-3-phasta@kernel.org>
-References: <20261021095512.1345191-2-phasta@kernel.org>
- <20261021095512.1345191-3-phasta@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 10:06:12 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3C6A10FD36;
+	Wed, 21 Oct 2026 10:07:58 +0000 (UTC)
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7422810E232;
+ Wed, 21 Oct 2026 10:07:52 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69LA6Tge2674780; Wed, 21 Oct 2026 11:07:43 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=j
+ Xm9xLCKcJdiijo1krCekhMqSFULWJOFFkyzDCZrNCU=; b=d+wZ1XqPcKObbQryY
+ z/iuJx1UuQDZZu8Z0uplwSu3oFkFKB6AKtx8pKEhbgkXHoEpRGSPWp7V2ltcyShV
+ oDTEpzBiI88IlPj44YU3tWSZRCbNE1BdB0wqkfqJjf8P0p0bG4SG4tBxRD2dfh6B
+ xD/qZNbd5EFOvsUDe0CE9A80rKUNYZPuayMFUyejh9cZSNP/UGQrLrKfRmUqVSJZ
+ GCm5gBMgnVud2h8HZ8wwTpSLLxv3PMAebMJLqY5zzAL8DyM+VDce5AdA9iBe8dGH
+ Q4ZIgUkJrCW3FSIH2Orn1qpNdlnU+0leHAzYc7RJjg/g0Cw0Ejp5z3CJHivpPI0/
+ g1hMw==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hdvkahcfb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 21 Oct 2026 11:07:43 +0100 (BST)
+Received: from [127.0.1.1] (172.25.128.158) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 21 Oct
+ 2026 11:07:40 +0100
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alexandru Dadu <alexandru.dadu@imgtec.com>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+In-Reply-To: <20261009-b4-improve-logging-of-unknown-freelist-ids-v2-1-5e6c3f63370e@imgtec.com>
+References: <20261009-b4-improve-logging-of-unknown-freelist-ids-v2-1-5e6c3f63370e@imgtec.com>
+Subject: Re: [PATCH v2] drm/imagination: Improve logging of unknown
+ freelist IDs
+Message-ID: <179257726029.217387.271775620928362253.b4-ty@imgtec.com>
+Date: Wed, 21 Oct 2026 15:37:40 +0530
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
+X-Proofpoint-GUID: lW888u5C85wJ0PvoSeXjr4cJV74dWny0
+X-Proofpoint-ORIG-GUID: lW888u5C85wJ0PvoSeXjr4cJV74dWny0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX9X4j6TUK5GTe
+ V591XMq0jChzTl+gzhsqpBzVdcPty+J3/hSg0Pr5FkhqLpQ7hhWRLGyxNHOUM3W6ADMm2jVrvhX
+ Ofc/gM8O4npFKNrWQfJtX9WEUaUaB8YLZVl3c8M4XFtJAFpYGNqbI0kWufN/xFc05dmynFECnlQ
+ M7gIHQUtnIi0bUdLGEkB2Tv2hdB0cyHk6vwalZOk2MTwF2UZwNp6e/2Q+caL8Hq17+/A0cevGSv
+ TBEearyqp0O/p6aqrDqxpXPD7PXIso+ot9n5BgSwqOfNMVuYAYByZc7Fq32ekzs7UWmbBfmM430
+ tT0i6HjvgSNv4p0cTL0QJbwNUKARqQ4prccTL6cmxcbg34ARSrzoVPgJWLlmOLw2YcbhvaSFQa4
+ HTI6AeMdW5aW3hG5Zvz/j6vOxENFe10+D02kwPnW3YtlymqCOfWdW7fuwnwgMbEVzTA4jdI1Pzx
+ 12qzgk6nU5D4MILC3hA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX5r646lanVyG8
+ 1XDa3gCk6Rfw3kJRYGg+FJwN3Ny6uM7GkSRjBtk7tnV16ARNM7c/xqvoSQE4t93Y2Mw6h1fDJVa
+ 98O43SId0PCC7F4PilwdJcBB+qOS5+o=
+X-Authority-Analysis: v=2.4 cv=eO+GH3p1 c=1 sm=1 tr=0 ts=6ad88eef cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=x1VBDH5lXswA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=wyhv_oTX6gE_ehOD5bEA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,162 +84,31 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] bitops: set_bit_release() lacks release barrier and uses kcsan=
-_wmb()
-- [Medium] bitops: set_bit_release() undefined on archs without instrumente=
-d-atomic.h
---
+On Fri, 09 Oct 2026 14:04:35 +0300, Alexandru Dadu wrote:
+> Log freelist IDs not recognised by the driver when processing freelist
+> grow or reconstruction requests from the firmware.
+> 
+> In the freelist grow request path, remove a WARN_ON() which is not
+> particularly useful since it is known where the request came from.
+> 
+> 
+> [...]
 
-commit e20f77caba7042f428258dbb5808e1ad22ab5a60
-Author: Philipp Stanner <phasta@kernel.org>
+Applied to drm-misc-next, thanks!
 
-asm-generic/bitops: Add set_bit_release()
+[1/1] drm/imagination: Improve logging of unknown freelist IDs
+      commit: f4fbf95c82ea6c3673bd5de38931f02474a38e51
 
-This commit adds set_bit_release() to
-include/asm-generic/bitops/instrumented-atomic.h to provide a bit-setting
-primitive with release ordering that pairs with test_bit_acquire().
+Best regards,
+-- 
+Brajesh Gupta <brajesh.gupta@imgtec.com>
 
-> diff --git a/include/asm-generic/bitops/instrumented-atomic.h b/include/a=
-sm-generic/bitops/instrumented-atomic.h
-> index c010d54275e4a..fb2d1472fd4d5 100644
-> --- a/include/asm-generic/bitops/instrumented-atomic.h
-> +++ b/include/asm-generic/bitops/instrumented-atomic.h
-> @@ -72,6 +72,20 @@ static __always_inline bool test_and_set_bit(long nr, =
-volatile unsigned long *ad
->  	return arch_test_and_set_bit(nr, addr);
->  }
-> =20
-> +/**
-> + * set_bit_release - Set a bit with release ordering
-> + * @nr: Bit to set
-> + * @addr: Address to start counting from
-> + *
-> + * This is an atomic ordered operation (implied write memory barrier).
-> + */
-> +static __always_inline void set_bit_release(long nr, volatile unsigned l=
-ong *addr)
 
-[Severity: Medium]
-Will defining set_bit_release() only in
-include/asm-generic/bitops/instrumented-atomic.h break the build when gener=
-ic
-kernel code calls set_bit_release() on architectures that do not include th=
-is
-header?
-
-Several architectures define their own atomic bitops directly in
-arch/*/include/asm/bitops.h without including
-include/asm-generic/bitops/instrumented-atomic.h or
-include/asm-generic/bitops/atomic.h, including 32-bit arm, mips, alpha, m68=
-k,
-parisc, sparc, hexagon, openrisc, and sh:
-
-arch/arm/include/asm/bitops.h:
-    #define set_bit(nr,p)			ATOMIC_BITOP(set_bit,nr,p)
-    #define clear_bit(nr,p)			ATOMIC_BITOP(clear_bit,nr,p)
-    #define change_bit(nr,p)		ATOMIC_BITOP(change_bit,nr,p)
-
-arch/mips/include/asm/bitops.h:
-    static inline void set_bit(unsigned long nr, volatile unsigned long *ad=
-dr)
-
-Unlike clear_bit_unlock() (provided via include/asm-generic/bitops/lock.h a=
-nd
-architecture-specific definitions) or test_bit_acquire() (wired through
-include/linux/bitops.h and include/asm-generic/bitops/non-atomic.h),
-set_bit_release() has no definition or fallback on those architectures.
-
-> +{
-> +	kcsan_wmb();
-> +	instrument_atomic_write(addr + BIT_WORD(nr), sizeof(long));
-> +	arch_set_bit(nr, addr);
-> +}
-
-[Severity: Critical]
-Does set_bit_release() in include/asm-generic/bitops/instrumented-atomic.h
-actually provide release memory ordering when a caller publishes state to a
-concurrent reader using test_bit_acquire()?
-
-First, arch_set_bit() is a relaxed (unordered) atomic operation. In
-include/asm-generic/bitops/atomic.h (used by arm64, loongarch, arc, csky,
-s390, and others), arch_set_bit() calls raw_atomic_long_or(), which is
-unordered and has no release barrier:
-
-include/asm-generic/bitops/atomic.h:
-    static __always_inline void
-    arch_set_bit(unsigned int nr, volatile unsigned long *p)
-    {
-    	p +=3D BIT_WORD(nr);
-    	raw_atomic_long_or(BIT_MASK(nr), (atomic_long_t *)p);
-    }
-
-Architecture-specific implementations of arch_set_bit() in
-arch/powerpc/include/asm/bitops.h and arch/riscv/include/asm/bitops.h are
-likewise relaxed. By contrast, release-ordered bitops in
-include/asm-generic/bitops/lock.h use a release-ordered atomic operation:
-
-include/asm-generic/bitops/lock.h:
-    static __always_inline void
-    arch_clear_bit_unlock(unsigned int nr, volatile unsigned long *addr)
-    {
-    	addr +=3D BIT_WORD(nr);
-    	raw_atomic_long_fetch_andnot_release(BIT_MASK(nr), (atomic_long_t *)ad=
-dr);
-    }
-
-Second, kcsan_wmb() in include/linux/kcsan-checks.h is only a sanitizer
-annotation that compiles to a no-op when weak memory modeling is disabled a=
-nd
-never emits a hardware memory barrier:
-
-include/linux/kcsan-checks.h:
-    #define kcsan_wmb()	do { } while (0)
-    #define kcsan_rmb()	do { } while (0)
-    #define kcsan_release()	do { } while (0)
-
-Third, both kcsan_wmb() and the function comment ("implied write memory
-barrier") model a write memory barrier rather than a release operation. In
-kernel/kcsan/core.c, wmb only orders prior writes, whereas release orders b=
-oth
-prior reads and prior writes:
-
-kernel/kcsan/core.c:
-    DEFINE_MEMORY_BARRIER(mb, true);
-    DEFINE_MEMORY_BARRIER(wmb, sa->type & (KCSAN_ACCESS_WRITE | KCSAN_ACCES=
-S_COMPOUND));
-    DEFINE_MEMORY_BARRIER(rmb, !(sa->type & KCSAN_ACCESS_WRITE) || (sa->typ=
-e & KCSAN_ACCESS_COMPOUND));
-    DEFINE_MEMORY_BARRIER(release, true);
-
-Because there is no hardware or compiler release barrier here, can the
-compiler and processor on weakly-ordered architectures reorder prior memory
-reads and writes after arch_set_bit(), causing data races when paired with
-test_bit_acquire()? Should this follow clear_bit_unlock() in
-include/asm-generic/bitops/instrumented-lock.h by using kcsan_release() and=
- a
-release-ordered arch_set_bit_release() helper?
-
-include/asm-generic/bitops/instrumented-lock.h:
-    static inline void clear_bit_unlock(long nr, volatile unsigned long *ad=
-dr)
-    {
-    	kcsan_release();
-    	instrument_atomic_write(addr + BIT_WORD(nr), sizeof(long));
-    	arch_clear_bit_unlock(nr, addr);
-    }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021095512.1345=
-191-2-phasta@kernel.org?part=3D1
