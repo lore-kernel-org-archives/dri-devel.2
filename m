@@ -2,94 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52745606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:44:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E099606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:44:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YFeyapOX;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZmK9rUkz
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hpOfuolR;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DTh65+cb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF3C110E030;
-	Wed, 21 Oct 2026 08:44:00 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6E2410E030
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:43:49 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8F110E2C6;
+	Wed, 21 Oct 2026 08:44:29 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A50210E2C6
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:44:18 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69L5j0KY756332
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:43:49 GMT
+ 69L7cdNA502632
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:44:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- sIzv+OVRF10962nsg6GhGljzRZ3rl013V2T6GKgjf4Y=; b=YFeyapOXeANzacnB
- szxZleI6tSL08EA4Qqe6SA4H9Qdi9M3gPWiGhCerNVfs8RWmEBq6lbjmPxXbdgpG
- YSAHIYgWfJHpP36f6PsJ1rbbx6/5Ssjz0ms8xIoZXbau1+/wo42WyuoT3OjrjWP9
- 9VpHnKbciMtFeGqM+2RACKtv4BO9jmVnVSdjhkFxcuaRf1QS0ZfTM2gjg+TNYI+Q
- SYFzOqqjZiLgMNMrTVj4GNLEDcnw+zD3fkJDnHTRuV4aAliTWXP8lcJEcZhTq7xJ
- yoBxyidb8SyRylC6Rv36g9SyrJyv6u+ja6894uQFNCT0djALRqrDzv9uzRq62aNx
- zjUxUA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda4txyr-1
+ 7zeTZgUgaTV5J5UofPRCsdZt2a3+CBBlIX0V3IuvJFI=; b=hpOfuolR0+jKVMpo
+ 33QmtwARAa+o9NzRh5dyf6IyBefKjPOMZI1lAepMKOlVF9J0ePEmagdaUja7zH2t
+ ISBiFiYMRGti7H+dW7oAYM/zYjPE0IKzN/3M5fYAwVhxOnmAcaRNI+luwPePzVHE
+ yFYHtBos0Vl5GNjs5z2EslrvwCfVn571NuB78rxe8Fs3CH3iofKDzq72CXBPWoA6
+ qAgdVjlPtenDeTuaCRcjbyhYznntgOahi/faGirsK7e4L+yUS6e3jysAFOYhNqBM
+ AmrC2VZeims1+NqF2j+yCkz0ZV8rTbioXB9TOFiY92d4Dc/ywx8yTkNP9wz6Y/+O
+ VK1pWg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hedajk09w-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:43:49 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-9179ef12a03so2794056d6.1
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 01:43:49 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:44:17 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93edac5877bso15246585a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 01:44:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792572228; x=1793177028;
+ d=oss.qualcomm.com; s=google; t=1792572256; x=1793177056;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=sIzv+OVRF10962nsg6GhGljzRZ3rl013V2T6GKgjf4Y=;
- b=ZmK9rUkzzSUxSK8XhRcxE0gU/e5cUEUofczconzKvobXS+eMU7YIAnziKjuJTKUET+
- cEBF+MYYfLpgVsLvwGzAsfSr7CIyarvHMQD6U1Dx3tV/3+DQUWwm4NSa2QyW8sDgROZn
- F99DfNdgKIyN9JT9HKPCIHAAeTYQA8EC6g2O2i49wGNxv9cxwzTlsVLiz9WgwA46c36/
- ECZS4mytDlws7HOtznNU1AAtZdanIipjdwCQqqcHNAyvbrxiUvsooTlq2mpM2Z87M8af
- 5TYCsejXKq6xjXafO4NRRsYp7jj7ADMFrqKHwCKS1LtftoJo1RNucoXhiJ9MgfFnVb2E
- FTHg==
+ :content-type; bh=7zeTZgUgaTV5J5UofPRCsdZt2a3+CBBlIX0V3IuvJFI=;
+ b=DTh65+cbX0JiqXBRon8MVg4KqVcvBfL+5qZzxJ9ISb3fkVPW0xzQwm2uDkqoPs7np7
+ 5Kh5VJVHjl9YuLknekoQWBKIPYaSISIEnYMLjHO2G33HjdHgPBkpn6ytj6rIlyDyqWK9
+ fCSJ3q7LXivccSCkz18fEjex8ytComkScR1PZ285wJG8Ewh96muC44ncPEXJAS52Ilkz
+ El09Ux5bPOAr9LdVnU0jEXGfu18sgKnq3cbVUL4+Mkxz+0ya5TVAyq26lXVX3/vDQFD2
+ sBOBZHZgx39avsLyLDUrV4/1anVRhuVhqh0kv9+ibmtEtqufdGtJ7WhPNtVrnUXQux0V
+ DAgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792572228; x=1793177028;
+ d=1e100.net; s=20260707; t=1792572256; x=1793177056;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=sIzv+OVRF10962nsg6GhGljzRZ3rl013V2T6GKgjf4Y=;
- b=Awjm4kTmAK+FeZKWr5kzCkfWj+FvmOHb/mKMUqqyjmyiSN1XNkPhv1n0b+p6ScXYAk
- iUGEm8dPN48uV9I7t88J48r4KrgrPINViWjsY0hCcHV8E8gzBGelxoPURiRf2qdFY0Ft
- pLAKWG+aDnf4hNDs6bjE6ehzem4840cfHJ9g9P9TmiXdJpJfX5Tpg0SMGH+OWQT8Uhg/
- 5x/mgghqo9Uzsjp/+V+9x+H76vndLlMmlXSlptsleTMEfdjcnpxNZs1Sx6RCshcZvGoJ
- Cl4DatqJoG7R0+YIYzY9+JTKb6Wn334h3VRLRNhVDIcU8jhgPc6Hnv4fQTXgNkgGVSbK
- pKCA==
+ bh=7zeTZgUgaTV5J5UofPRCsdZt2a3+CBBlIX0V3IuvJFI=;
+ b=CpxWYSpC+TKiEALVs4TRZXyfCe5uyCJ7QgboHsbqnapMbByn7fdvkwwwq89iMTJkI9
+ wc0jOSu92ZEsh1KrpqQ3j26WDg6TOuD27EOrw0bgDiT/XEISa9NjQcXXMKdelH5arVQT
+ /4s0Qrqf+AH9d4iVE+T3byH4BTHw/1tUkADjvfl2OgrAE5CYfWY99gzGR5IJ0QdLvJtz
+ m6J+csCbm90Ie7GL3thGKct0WWFLne80IeALgo8o3Oui83zKi8HGZb2Ic/pQGnCYvox9
+ o8FmN8FxhiID9hRyJFZGt0W6U+lTlbNXZu6k9EP9vmB/JBLRvNn/Q+ooYMvfva3XTeX6
+ AuTw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxsitaqt5P8/dpKoSg8teGCzNJAulaEA5j8POJRpUwdqBDobSKYiPq/l0RAQAGMFTLixzi40uRgb9c=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIR40xvc7jLA07e5vI5Gc+WxgZuFOXK+lAncN7LD857PL9z1Btr
- 3D7KIu7mI/MMeNxP6WX6jYwxkvGc9YLv+VK5Q1ZLbkaN/XLSckt3IMwwZIfkij32qkyYFhYBWST
- kONfgFfA8ijNxQZF494INsE2SYefLqogwxls3Y7R6Tjz8XlGdcHWx/Zu/4wgx61pdeyvF11E=
-X-Gm-Gg: AYBFou21fWE+8gmJX6+Uab7NEU7umJz5xTxG82IcWpN4k1bdiC+R+Ss6ZtRmRl4xiGq
- hPJ7ynfE6ja+LJBsKn7d3lV+bxqlB7q+NTIUB6+qBihw2LJxUwsbZbyjYP5Wtrte10Bfwf2L/bZ
- bq+gNqZm9JFoJt8QsqE8tLRbcZlggmeUzQ2ZUn33ZKFY2Hj3J5gmkXhG4GNXdh9aaVssbaMUY28
- bZ2zH9mHXA3bnoQ+mqNjbjV/F5dmbUztZJuDbQMeFx7a8PQIDN8FO5pZinlLsl0bNk2cig++92T
- XLMtQd8v6Z5WwqbHMF73/G+YaLl4aml6RrWZSuWD8Hw0QqxDSXm2vob6xNrAA9bHF/N0zmqfQkn
- weLFpEC4ymXkJ7m+zPSeEbw==
-X-Received: by 2002:a05:622a:a884:b0:531:2663:2cd with SMTP id
- d75a77b69052e-536a75ce176mr415931cf.1.1792572228221; 
- Wed, 21 Oct 2026 01:43:48 -0700 (PDT)
-X-Received: by 2002:a05:622a:a884:b0:531:2663:2cd with SMTP id
- d75a77b69052e-536a75ce176mr415691cf.1.1792572227794; 
- Wed, 21 Oct 2026 01:43:47 -0700 (PDT)
+ AKwUvBwEU/ZY58R+h9lmyWy+D1WFflJvYwJOzEaY9RC7SGhVsgtQnyq+74S6MkGJVuP3c19fUNuldQ0Wx8A=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJPuEYiM/I/rxTVVWcP2bJcWRb9jJRqdf6gI8q1of8kzaIz+0e6
+ xIYyn1uBQrPknoYFAKPiZcftZ2MgOWlF+jpCMQ49VHv7EyC2kZUDjfty01UKLsN1KkAtPEHZO6O
+ qam8R7G43TzMCtIpXtC4LIvUML1CusIVoa6KtdGbnn/i5RB2yo8qPVCQFDCcqg61AAEOpph4=
+X-Gm-Gg: AYBFou2f8OgBppiDbWv48PVxDhcGWa57aFwoMOoz2ARpeQJ2p91JITROCpPPuNnuc1A
+ NwNFrk4M8Sz6c6bU2Cts+JWT7Q2iph6NCWiblOK9k/fCu6b3Wm5nrsn9gvqNAHGO3L/Xyc+t1Vz
+ QW72mtC6H6FfieMsvcSdOjhCK1XwbA6+iuO25ATyxD0L+4fWZndSRY1dvjzUdb7Z2CcRpwuuGPl
+ y1gEsJ1wgDMyAGKTCrR77Tdguxop74u9Eq5/GNLc9LuCdt3VQ915wvANAWDTkkTG7Wv7RWfERuD
+ p1vgxTgNmUxpoCq9/EbrLEOR62I5Es3Zlu/8PjWjFeXP2v7brNnQiBSW7vnbSA33MsKtoI0dTo0
+ R64vL01U87p8SBZZMI3zm8g==
+X-Received: by 2002:a05:620a:800c:b0:93e:5a3f:ac13 with SMTP id
+ af79cd13be357-93f57dbbb66mr348786885a.0.1792572256572; 
+ Wed, 21 Oct 2026 01:44:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:800c:b0:93e:5a3f:ac13 with SMTP id
+ af79cd13be357-93f57dbbb66mr348782285a.0.1792572255968; 
+ Wed, 21 Oct 2026 01:44:15 -0700 (PDT)
 Received: from [192.168.226.26] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c467900686dsm52393866b.74.2026.10.21.01.43.45
+ 4fb4d7f45d1cf-6b4030dafe2sm602667a12.12.2026.10.21.01.44.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Oct 2026 01:43:46 -0700 (PDT)
-Message-ID: <72009e19-fe51-4340-9378-46eedd71f151@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 10:43:44 +0200
+ Wed, 21 Oct 2026 01:44:15 -0700 (PDT)
+Message-ID: <6659599c-68f3-454c-b461-1947afa29ced@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 10:44:12 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/12] drm/msm/a8xx: Switch to generated nonctx regs
+Subject: Re: [PATCH 11/12] drm/msm/a8xx: Switch to generated protect regs
 To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Alexander Koskovich <akoskovich@pm.me>,
@@ -103,40 +103,39 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  open list <linux-kernel@vger.kernel.org>
 References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
- <20261020204728.28844-11-robin.clark@oss.qualcomm.com>
+ <20261020204728.28844-12-robin.clark@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261020204728.28844-11-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20261020204728.28844-12-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: zZ_E9JRk9lX8SzfZXt3AsqevqdVuVBym
-X-Proofpoint-GUID: zZ_E9JRk9lX8SzfZXt3AsqevqdVuVBym
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfXx6QYSl3AhpMk
- z0J1zruAd+pE0Oe32z70ihjeJHKv9Rw+VBSRv1BcCePYsfaUX5cIyFoGemHMDj3dunW7i63zXU8
- KZZqaGEhAbo9YsKMW5LCvk3T1FGXt1o=
-X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6ad87b45 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfX/ybJtN5/Dfwy
+ yv41jI0QbgH7lW7ScdAleM/LZPnmQcQ0AUxDLaMDK0a2YEch6M71EfskoD2qoYHeQ/2CgaXOw5S
+ 8J+iMRuZtksZtIh75U37UhJkjkRdZvdt2GZ5JPf5MnfqM8hbX+7QDUYa9ftmZhkk11LYUBMchHm
+ QFstp4MTDNL26zyXYOm7/J4rgxLbY4ax03w2emRrrgMPokZNnaULDhq6UHzRcp9+zCN7T88ndu8
+ Qn/1PbmY4IV+4E9/IOci5cyptO3eMTlEz9KS+sgbHz/AkKhfTBSRaoTgDKwjO6FfeRikQ1oSvYd
+ +KW7p1Zcfto9SklGbmwWYPXvaYk+O7jMmRw4MwjeVKbB3KjrqHACc4AIwFM6KMwuSB8eewkTA5j
+ 9NbpHFmgO7XB7GHg910Hde8azoDszJB2ZI7ye1DUGCJ9ysrEZe2S3E4PB27cIWkPMo8irRvsFUH
+ l7mI+grxN1jXEJImg6w==
+X-Proofpoint-GUID: vRzu-zwZ2asRJMyLO-7aX57oQwlB9lb-
+X-Proofpoint-ORIG-GUID: vRzu-zwZ2asRJMyLO-7aX57oQwlB9lb-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfXzLzF7kgNfzWG
+ bah88zkbQ77X+ttuWrv08DmgG2hxaJDA0aeWG56I1TeYCkSEC1yAiLvWEXqMiUrrEfGRsKGfwUa
+ ov9h3LHtwtns/oc2Jj7crCmv0fMHjiQ=
+X-Authority-Analysis: v=2.4 cv=HrTjiETS c=1 sm=1 tr=0 ts=6ad87b61 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=Uo0wf__DB8OGiezfqlwA:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfXwyMkGH7dj261
- 392SzUJIbMNXlOCyL+Actlznw3Hjoc9i7JcQ553be986Ta64qkgmiAtUB3rAfSBufXeq9+iKQYa
- w9xUPp1E8MWwkOer7UK1x/9HRFAn587A4QFad9p4P5tgE/ZccqrOSqdNd30WZnNGvGmzf3kub+T
- 3sxsBcp8jIivbdTG2WwbPkjTXJRcmy5RP4N5BX2o7WZedMR6by7P1I6AJ9fFa4pyEvVDrFrFWrh
- LsyVt8Vp3qjccSfVpHPcOArVRkLQVFPHskly/Dof9+UbdeiY26NsLX3wpB+6TLdQozEk1AVrf0N
- 6dnbhhGlmlBSIxflDFYcINj+6rJSreBmWbauPc5W/AImQYOUIPt9P1RhcV+2Iu/NPYnPp3MLUw0
- JxMfvo1+YD1wCToJLZZNrUeJjygSgRlRNJq3LYucYSuE1w2C3SC96L4Eyrw/0Xf3Y/E0uGlsi7J
- 5/5C4xCHMX4oloUhTGg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=Uo0wf__DB8OGiezfqlwA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=PEH46H7Ffwr30OY-TuGO:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210034
+ phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210034
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,9 +156,9 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 10/20/26 10:46 PM, Rob Clark wrote:
-> The generated headers contain the current (at time of generation) hw
-> recommended values.  Using these directly makes it easier to stay up
-> to date.
+> These also fix some perfcntr SEL regs which were mistakenly blocked
+> since we previously just copied the protect tables from downstream kgsl
+> (and only sometimes remembered to fix these).
 > 
 > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 > ---
