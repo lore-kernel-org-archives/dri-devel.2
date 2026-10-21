@@ -2,53 +2,151 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA76606A31B
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:53:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD38606A323
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 13:08:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=eGyaChAT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LlwgX1B9;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Y9UaeZgA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C29810FDEB;
-	Wed, 21 Oct 2026 12:53:16 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B6C010FDEB
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:53:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=PJxCsxLoda1k5+V93PXZRa0ldkZinddq3/bu/rJA/QQ=; b=eGyaChATJanuex/qC600cTJ6o2
- 3djck552UC0g9N00jXVCmahRo6POfhFza5a+S1RXMOwn1jPUXZ2GS2GQ5VMl8DGvxs2yb8kbaTX9W
- 8X0q/ll77Tb9hHQBx2PSvJBQi7w0fwy3UzSe4jqdqw8tnmRG1kWVNkKIpY7JYyarIsaRYhl0hyIkI
- P3YoTTVbmImcIYrHyL2U3AWd31IILhsGhxVNkdHToRPj2r2VXJl/NOqM9Oc/mU5SFMcXAbtAAyh5x
- RMMge2pIS4sOdT8GKHmknzBB/E37nB37qYl0SYT2r9Y4jUGeWm5p8ALLqnnhS3vJiDjXWBwCRUwnQ
- ZZPU+bEA==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xJVoU-005dtM-Dj; Wed, 21 Oct 2026 14:53:02 +0200
-Message-ID: <bd59f9aa-b0d3-474f-8c95-f3763e320638@igalia.com>
-Date: Wed, 21 Oct 2026 13:53:01 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4B5810E246;
+	Wed, 21 Oct 2026 13:08:04 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF55710E246
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 13:07:53 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69LCjvpZ630026
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 13:07:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=uHps6C48bjErWLWTA2jyVj+V
+ /HCuKfjWf7ze/6BLmro=; b=LlwgX1B9QPTmQmXJZC3FEVbGiGYzEgnKeg2Kv2j2
+ x73Z6bydNkiDaDZz7Rkt36TgSMxA0Tcon7A/Qkx9jgOD1Gr1bX7uiFUeqxlYvU6m
+ OBRVwUscuRRKuGqCYTHFdWJ6YCGGMfYt2upE8FItNlJmVASCW61RC9znVFkT611h
+ tqRBVbVLIFrFdZgtmkD0Zrpc15+/D0sDRrbJ517N8TSD0K8NaN0Wn7VtvRpn7Q3f
+ sgmJ2BUqwy1GDryKVySzuOW+wr9/z4nWf8gLxYeHV9EiBoR/oOkdP8pvQHlcJ7xT
+ YSeiW3AYBYrq/mrwwj7o8LrXnjMRdplYPaRd1j9irawV2Q==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heh5r33nv-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 13:07:51 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-35c5aef2a74so3276163eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 06:07:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792588071; x=1793192871;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=uHps6C48bjErWLWTA2jyVj+V/HCuKfjWf7ze/6BLmro=;
+ b=Y9UaeZgA8ldha9JVK/fxgDvnt7vlstIXZrW8DCPzY98XkYt9jU4OTd6/S9t8wM//YR
+ 54shS3nUNpzmPtSyGbFY0xwcQqiem9QHIGzPEbniqeCiK0Zr3fXhFAK4ugg2mbtjUv+J
+ mhHGep9QYss3tH7e7XgLyFYY1GR5k3Dm8/1YHQ7DpI2hqta5jR/gnwj1XInruA14EO2X
+ O6g2Qtxs1CwYsoT4YbCAaxTIFV0vLLylN1qUCUA2PifJld7psdu0oKcWFCJSC85FHtvR
+ JU4umoZ6O8NE/erK9iytAjGp1AZR+RUc1SnOpB9De52BBNDpKNlVdBqZAgJq34UnXLNe
+ q9ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792588071; x=1793192871;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=uHps6C48bjErWLWTA2jyVj+V/HCuKfjWf7ze/6BLmro=;
+ b=kT/Bf09tUDnsyk7HpXWqVdI8MUf2eg5Tgjzbg9lMqy8HWbbTfSJNmXsW8w+JLEfjlq
+ tUXz9mp0+PP+7hUYSeCXtluLlAzFwiw9ZP8WClDIHhuVpJvujvOxowsOfq+5/J8oM9dL
+ Y7W0caAfKTT4awgQse3UombZVWQIK6OKOR8Ivma8cTUX3w3Xq1LQRvo/m/Jrv0mVCa9a
+ DWl5+eNgu4ZLP6UGjTkCCaJs4kFBjUaewKxoUud3r0lNuwawDljkGPJA8aM5+IcFpv3r
+ KbC++Suok1NDL74YOeI4EwRbgTe9qodTxyC5bSwpz4uMjZ2rZYAFZtXG3twX9HPkPqGR
+ y+gA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxlazm6758zZyRaLINXNRdf9rk7dHZ7BWw8nO7rm5ZTka4HOE0VnCnw8J18xlKgKQyGG2kOMasx6rw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLF6zdANbUCzSK3KijxiW+aiydnI1g90D5oinpoLWJUPEsIKthw
+ gSiV99oUW/0jj9NPXV/L61teuAIhaH+4qJFAT/374uJy3Mq3YGE1NTWpMF3e5MojZYZpZ/H/711
+ AJiibqeP3j3Ucq7xtGrbz2zXfwsoLkD1Kev9J029B+j4dLu+ScB1XcqOH9AJbd2dhXxmqCcA=
+X-Gm-Gg: AYBFou1STHT2c5M3ITFh58rdFQi2E1rLeq6c788X8bRkuJEq6ss3cBcpvv408fVUlOy
+ 1KbcTSGmcVaPeQroLn9zHNtkezM0PyEHTOT0O7k4gnae1QK3YtrWlNVlcKBRk0tL2TLbRm+VYHB
+ OTNPK4NsMw5p7hDIZmRUg+KXproSRR9dOf005I27C+q36c3nzW5jWyUUU0QJzGNEvTol2iOkrw2
+ NLnbGjAGT88ZHQUCYDT0bRFnlQXz2I+vyIfS6dEdLxUpQmqojOQuEWcFYVrUEFuH+GvrdW/eO40
+ UxIb2gicJsRiiG7O3jix0m9j40tMTEJsoVSOvNS8fFNrspw9i5JmUSyIupj1QL6Afv8zIyZ6H+V
+ S71woXfjEa+Bn5kGoqhtFDIQFZA==
+X-Received: by 2002:a05:7022:7e04:b0:15c:705f:b981 with SMTP id
+ a92af1059eb24-190a67fb474mr2783339c88.32.1792588070419; 
+ Wed, 21 Oct 2026 06:07:50 -0700 (PDT)
+X-Received: by 2002:a05:7022:7e04:b0:15c:705f:b981 with SMTP id
+ a92af1059eb24-190a67fb474mr2783235c88.32.1792588069115; 
+ Wed, 21 Oct 2026 06:07:49 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1903bf5d0a1sm6052461c88.14.2026.10.21.06.07.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Oct 2026 06:07:48 -0700 (PDT)
+Date: Wed, 21 Oct 2026 18:37:35 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH 0/8] Migrate PAS clients to qcom_mdt_pas_load() and
+ qcom_pas_prepare_and_auth_reset()
+Message-ID: <20261021130735.h7t2c7txqdfohrs6@hu-mojha-hyd.qualcomm.com>
+References: <20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com>
+ <ce3f58f7-f500-49f8-89cd-611d8e1ac6ac@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v6.1 2/3] workqueue: Add support for real-time workers
-To: Tejun Heo <tj@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
- Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Breno Leitao <leitao@debian.org>
-References: <20261001160711.59888-3-tvrtko.ursulin@igalia.com>
- <20261001184848.61776-1-tvrtko.ursulin@igalia.com>
- <3a139a32135c149f51bac4f2bd58ad56@kernel.org>
- <9bb46cf4-7982-463b-8289-06bbc319bba9@igalia.com>
- <cb60b6a0f8f35957d64c9abf240c2dbd@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <cb60b6a0f8f35957d64c9abf240c2dbd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ce3f58f7-f500-49f8-89cd-611d8e1ac6ac@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=aI5lOr9m c=1 sm=1 tr=0 ts=6ad8b928 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=wXrbNP8IbqZU6GI7zsQA:9 a=CjuIK1q_8ugA:10 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: Efr32FmpZa1QFrPUSsmEugPQe6xbntEv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1MiBTYWx0ZWRfXxNjODkN3EHc8
+ qQrF44bY1Y1d7nTpFqZDoZEMtOfbKjQdC0viy2s4zS1COiGr4xvWJjq83ARVx/m/OqnTaLDGcR2
+ aJTmaRFw8xB64F2MQd5DEJ+XE5SqeYbOOuH4bzTrl67A/q1DQilzU4cL/hem39Bfe6aU2eBwutS
+ pG5ki7FABDCPL3uonDE/4HuABVH+WTbO7ShDkXxC1EVUqGZqG/903mI+elvu0rlTe3pBxpWCrNF
+ 04dA5aP3bVJuHTmrAIK5PoKmaJIz3i4JmW8b1PhzD3fU9bF0PySD18WF2w6UMKO/7chxiSDsqLM
+ gSVsRtFFp8Z6yIdkXczT4nBJSdyAM9LOFSruI80AuAXl4o+OWhtJ/Zo9Yq/kUw4dj/gA6u4SEnU
+ 1VnOpy1F1QF6QaTy5pICnH9Jxd3GukuJxQahdastuK0XvHJ5hFd+RfUPMbo/weA05ojzPH4YFIm
+ 3C2N0gRe6T72/85DeWw==
+X-Proofpoint-GUID: Efr32FmpZa1QFrPUSsmEugPQe6xbntEv
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1MiBTYWx0ZWRfX/FIYVEQFUu0B
+ r5c5paeAlT1OT5X/dFsJZaKsHjYTEswfqxM0rDIlIoCd66tHlP+KxOc+oPtBjt8jno0VyHrx8Ie
+ bHjkG/4t7hkIX95Bjl+JDn9JGOkHZlM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210052
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,148 +158,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-On 20/10/2026 00:40, Tejun Heo wrote:
-> Hello, Tvrtko.
+On Wed, Oct 21, 2026 at 01:32:13PM +0200, Konrad Dybcio wrote:
+> On 9/25/26 5:57 PM, Mukesh Ojha wrote:
+> > In preparation to remove qcom_mdt_load() and qcom_pas_auth_and_reset()
+> > public function, migrate every user to the new PAS context-aware API
+> > qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset().
+> > 
+> > This series migrates every remaining caller of the deprecated APIs
+> > (qcom_wcnss, adreno zap shader, iris, venus, IPA, ath12k) and then
+> > removes qcom_mdt_load() and qcom_pas_auth_and_reset() entirely.
+> > 
+> > This series is based on top of although no dependency as such.
+> >   firmware: qcom: pas: Make MDT buffer retention explicit
 > 
-> On Mon, Oct 19, 2026 at 11:02:08AM +0100, Tvrtko Ursulin wrote:
->>> apply_workqueue_attrs() is unrestricted, so a caller can hand a WQ_RT wq the
->>> attrs from alloc_workqueue_attrs() and turn it into a normal non-strict wq
->>> while the flag stays set. Maybe apply_wqattrs_prepare() should force prio
->>> and affinity for WQ_RT instead of restricting only the sysfs side?
->>
->> I am not entirely sure about this one. It could be done in
->> apply_wqattrs_prepare(), but it would end up redundant on the sysfs
->> path. Because currently there are two paths:
-> ...
->> Am I missing something?
+> LLM has the following comments:
 > 
-> The missing one is apply_workqueue_attrs() called directly with attrs from
-> alloc_workqueue_attrs(), which is what padata_setup_cpumasks() does for
-> its own wq. Forcing prio and affinity in apply_wqattrs_prepare() covers
-> all the paths in one place. Being redundant on the sysfs path is fine.
+>  1. Metadata buffer (ctx->ptr) is leaked, and overwritten on
+> reload, because qcom_pas_metadata_release() is never called
+> (patches 1-6)
+>  2. devm_qcom_pas_context_alloc() is called from repeatable runtime
+> paths, so contexts accumulate until unbind (patches 2, 3, 4, 6)
+>  3. use_tzmem is never set, so the shmbridge prepare step never
+> runs on SCM and the commit messages are inaccurate; TEE gets
+> a real mem_phys/mem_size change
+>  4. Not bisectable: patch 4 relies on the NULL mem_region
+> handling that only arrives in patch 7
+>  5. Patches 3 and 4 don't apply to this tree; iris
+> iris_detect_firmware() still needs mem_virt after the load;
+> the base of the series is not stated
+>  6. Patch 7: NULL mem_region now means "map internally", which
+> weakens the -EINVAL sanity check
+>  7. Patch 6: redundant second ioremap_wc() on top of ath12k's
+> persistent memremap()
+>  8. Patch 6: ctx is set under one scm_auth_enabled check and
+> used under another, which is fragile
+>  9. Patch 2: the context now carries the full region size instead of
+> the MDT size, which matters if use_tzmem gets enabled
+> 10. Patch 3: stale qcom_mdt_load() comments remain in
+> iris_firmware.c
+> 11. Patch 8: no issues found
 
-I've implemented something, but perhaps to check we are on the same page 
-before I send the whole series out, the crux of a solution is a patch 
-preceding this one (so new patch in series) with the important bit being 
-this:
+Thanks.  Will address them along with Sasiko's one.
 
-+static void
-+sanitize_workqueue_attrs(struct workqueue_struct *wq,
-+                        struct workqueue_attrs *attrs)
-+{
-+       if (wq->flags & WQ_HIGHPRI)
-+               attrs->nice = HIGHPRI_NICE_LEVEL;
-+
-+       if (wq->flags & __WQ_ORDERED)
-+               attrs->ordered = true;
-+}
-+
-  /* allocate the attrs and pwqs for later installation */
-  static struct apply_wqattrs_ctx *
-  apply_wqattrs_prepare(struct workqueue_struct *wq,
-@@ -5735,6 +5746,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
-          * every possible CPU and never falls back, so it has no default.
-          */
-         copy_workqueue_attrs(new_attrs, attrs);
-+       sanitize_workqueue_attrs(wq, new_attrs);
-         wqattrs_actualize_cpumask(new_attrs, unbound_cpumask);
-         cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
-         if (!(wq->flags & WQ_PERCPU)) {
-@@ -5757,6 +5769,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
-
-         /* save the user configured attrs and sanitize it. */
-         copy_workqueue_attrs(new_attrs, attrs);
-+       sanitize_workqueue_attrs(wq, new_attrs);
-         cpumask_and(new_attrs->cpumask, new_attrs->cpumask, 
-cpu_possible_mask);
-         cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
-         ctx->attrs = new_attrs;
-@@ -5919,24 +5932,6 @@ static void unbound_wq_update_pwq(struct 
-workqueue_struct *wq, int cpu)
-
-alloc_wq_std_attrs() is completely gone and alloc_and_link_pwqs() calls 
-standard alloc_workqueue_attrs() instead.
-
-Slight annoyance is I have to call it twice in apply_wqattrs_prepare().
-
-Could you please confirm (or deny :)) this is what you had in mind?
-
->>> alloc_ordered_workqueue() with WQ_RT passes this and ends up with a single
->>> pool spanning all CPUs because ordered wqs use dfl_pwq everywhere, while the
->>> doc and sysfs say strict per-CPU. Should __WQ_ORDERED be rejected too? The
->>> nested ifs can also be a single condition.
->>
->> Not sure - Tejun what is your guidance here? Is this purely an
->> implementation challenge because conceptually it should work, no?
-> 
-> Yeah, the priority part would work. It's just that an ordered wq has a
-> single pwq for all CPUs, so the per-CPU affinity can't apply. Let's reject
-> __WQ_ORDERED for now and allow it when there's a user.
-
-Done.
-
->> P.S. The nested ifs could be a single condition but I wanted to mimic
->> the existing style so it looks nicer:
-> ...
->> I can change if desired.
-> 
-> Your call. A single condition would read fine too.
-
-I've collapsed into one. I guess fewer WARN_ON_ONCE the better..
-
->>> The three stores check WQ_RT and return -EINVAL while nice goes read-only
->>> through is_visible below. Can all four go through
->>> wq_sysfs_unbound_group_visible() returning 0444 for WQ_RT? That drops the
->>> three store checks.
-> ...
->> Could do that if it would be acceptable for root to be still able to
->> write to them - Tejun?
-> 
-> Root can't write to them. sysfs sets KERNFS_ROOT_EXTRA_OPEN_PERM_CHECK, so
-> kernfs_fop_open() fails a write open of a file without a write bit even
-> with CAP_DAC_OVERRIDE. Can you make nice, affinity_scope and
-> affinity_strict read-only through is_visible? cpumask can stay writable
-> as narrowing where the RT workers run doesn't break anything.
-
-Done.
-
->>> Can we keep printing nice for non-RT pools? prio=120 is the internal
->>> encoding, sysfs and the pool dumps print nice, and the example output in
->>> workqueue.rst would go stale. prog['RT_PRIORITY'] would match the rest of
->>> the file too.
->>
->> We probably could if we wanted to. Tejun?
->>
->> Complication would be having to hardcode some priority conversion
->> helpers into the script.
-> 
-> Yeah, let's keep nice. It's just prio - DEFAULT_PRIO and hardcoding 120 in
-> the script is fine.
-
-Done as well.
-
->>> One more thing which isn't in the diff. The rescuer of a WQ_RT |
->>> WQ_MEM_RECLAIM wq, which is what panthor-drm-rt is, still runs at nice -20,
->>> so under memory pressure the RT wq's work items run as CFS. Should
->>> rescuer_thread() use sched_set_fifo_low() for WQ_RT?
->>
->> I did not think we should care much about latency when under severe
->> memory pressure. It should be enough to guarantee forward progress and
->> the latency restores back to normal once memory pressure stabilises.
-> 
-> Agreed.
-
-Ack, thank you.
-
-Regards,
-
-Tvrtko
-
+-- 
+-Mukesh Ojha
