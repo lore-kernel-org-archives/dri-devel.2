@@ -2,49 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802D860A2633
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31A0606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:38:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=axJgGfbr
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SYG2cZxs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECFAF10FDDE;
-	Wed, 21 Oct 2026 12:36:24 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4F28810E277
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:36:18 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6D37B16F8
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 05:36:14 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 6B4E03F7B4
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 05:36:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792586177; bh=0t/Q0yTxODM+mPUftQ20tbgXD+Z/KwAOPeAWsm/c8KU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=axJgGfbrhXfbj9ws03RUulACt+4GyElk2zAjCLuYAzzLRoksGH2i+U3Q2na0YKj7y
- 1XGyrXxm1u+3G9QRByY2PF4NANZYaW04fol/iHX32m2rYyHFyb9nnb2HG6hlhys/Uh
- 8hMSJSqkZGZjz+ZrkrUq1zs8g0/I4zBodGrzJ8p4=
-Date: Wed, 21 Oct 2026 13:36:15 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kory Maincent <kory.maincent@bootlin.com>
-Subject: Re: [PATCH] drm/arm/hdlcd: Attach the output bridge directly
-Message-ID: <atixv0zNjHNNs3AS@e142607>
-References: <CGME20261020130022eucas1p2564adcaa74eea27cb4b88164b385b184@eucas1p2.samsung.com>
- <20261020130009.2017776-1-m.szyprowski@samsung.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE6A10E277;
+	Wed, 21 Oct 2026 12:38:07 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012037.outbound.protection.outlook.com
+ [40.93.195.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CA7510E277;
+ Wed, 21 Oct 2026 12:38:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N+jIabRo9IBmPpa6GQEvyVPgcev1iNN6m/qP2GK9bjlknzwYOEx+a90JxM3aA8sn88I8W3GmPDCPz4nZkGy5xmHpRWkTYj12CjHFy+wcsvQfdgRospekeHbXQe/enjsKGDxab6hS5xww4a1LHGCJ+nUYnkfFrcbuegulDphUJuMShsjdyuOm+pdKQjI8u3AsgbOYv1get6xqgcgTkX1zgoE21Upmq5ee62DHJDMdpY130BYlYs75mpVbxYBKvlD6Aa9T2y1TT/ZtS1ICRsTKfGU3bKGaxdcD5o8vKM7EOGo449nWJrPCZKhB8SViK21ujjuOvRf40RTeiDbllUeoIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rLmR31TwGAGIB+ED9SdwI1Xj2pGQpvsK70ZtcwQDrdM=;
+ b=Du13MqD+ibQ5jTR6aMuchXRWJiON6gCXlt+Pn5Sp0wtPMUQYghxvmJbC13PcTbhqVMunbkRyx1621kmDtMDPZaDTaoI2V83s0vfgPZ4I3P3sc4xkeE/mcCTOck0ks0gy3P6lzpw4SzvPsnbCGZGfnW+ERrbvJggZH/8deZdTUXiHztBESXBnzz+Fhgkpkep7bH/C0KGwTUVf6iYpfUcmWGYRZHgjSEOizmgi3iO4uoqcCFtMR31vTla0AsHjxNFOrMd7iqO502U+EmL2i4M8vn5/74jhrp6w0wrbNJtHKeioFjmUVl5YH/k3ECBEYcytVAH3WBzKEJHHsTC7tXMqLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rLmR31TwGAGIB+ED9SdwI1Xj2pGQpvsK70ZtcwQDrdM=;
+ b=SYG2cZxsykqKJs3VlEAYb3/q6YXyPHSTbgGiWMKqzpzaCZBgFYSg/x56dsOtsVwNEu1/5mVgPsiJrMlGXfi948Rh0tMTEMT7Nbohr5nsnABsm7MQMQhpzhviNBLUWpQf22HPrjARXGw13mJvi/aTpulGJtRG+ZKxRjlcjxl8oKZO2vISW0gjyOXw34G4z3SoBgYlo6+has9uRwObJ+MQDT8vB6k009bzMWbJkxJj+OOU/6d/qh0kexwd4H7JtXo/IciuFYVFF3WRpQsiLfTiml3Del32+ifrD9JqNoT0Ddu56/kr6QPrQlpzP6NAXI/19Zobc1zDCRqUEcpGSBjcWg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by CYYPR12MB8938.namprd12.prod.outlook.com
+ (2603:10b6:930:c7::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 12:37:57 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 12:37:56 +0000
+Date: Wed, 21 Oct 2026 09:37:55 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Alistair Popple <apopple@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Dongwon Kim <dongwon.kim@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>,
+ Leon Romanovsky <leonro@nvidia.com>, linaro-mm-sig@lists.linaro.org,
+ linux-media@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>
+Subject: Re: [PATCH RFC 01/26] dma-buf: Introduce DMA-buf mapping types
+Message-ID: <20261021123755.GL3008132@nvidia.com>
+References: <1-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <b5d1bc79fae01fd9b511e06ed796130314ff841b.camel@linux.intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261020130009.2017776-1-m.szyprowski@samsung.com>
+In-Reply-To: <b5d1bc79fae01fd9b511e06ed796130314ff841b.camel@linux.intel.com>
+X-ClientProxiedBy: BN9PR03CA0875.namprd03.prod.outlook.com
+ (2603:10b6:408:13c::10) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CYYPR12MB8938:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd9db92e-631c-4cc0-dbd4-08df2f70223e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|376014|1800799024|366016|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|6133799003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: qE5hd4LAamLnc//ITUTbqvZTB4jGNC/infEWP8KkTyG0T2/RssO0VTz0ohEFo8885IBahfWkWm7TNSpH8eyEwr0d4pXoGlezN05FAI1k6p3V3U6y1/xlId2tbWcS1fWUetKEiyyYfTgNUMXk7Erb91SqapktKyNAr+x9GC/m1xsm+s4D/3Ry9W3mN8eGK2EyaznFUXWp63zo5YYEtosySsma+mSwKx/5mfKptOgtUNd8YybTcO8YLf7iqO6gwlLNZUW/DecA+TzpgNCD9KxYOq84/2BEiqb6xw8ihJx5/0/ICTUTsdbWqvteZujLtGuqECLMzmFPpXijEHna4ckpV/WtNVhrI+3/IRJvw6SCRNLP3q67rlFyQS5qAK3QSMUL+oDbBA4FG9AHs2rk9Gp1suZ4Hug+jTTTAqFSNH1r6JKHtjcFIzo7ZF+QOP/58zhUTOaqkuT4DlZlWiELJpVKi+a2d8JUJiUO+WxrZh3Vi6w4NzuoqCV/9/YjCexFlcH2ll9Zk5z6lTJgXpAT2+k8QP3X+E+SkW7SvBjYJ+4OffH86sqGQmtIUe8Rv5i55WJOi3jt6q0CsKiIBY/A2nS6xhjvYLSX5KBXoTOWwKCmIjFPu7Q6Sa7toMPZ2a5Aw7AfYOLgnzukIR5/fVRMTzdGaGRa6yLQl3ZneJdGLrUfbd0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(6133799003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?djFYUmpSM0p0TUpqTG00Wmx3MzFFaGVvZHRGV0RLK2VtWFV3SHBuaTFWRmxu?=
+ =?utf-8?B?eXAzREdhZDM2bWYzS0VSdXdudzljaFpxWjhFYjRJUXN6MnF0MWtlUGpzd25h?=
+ =?utf-8?B?cENlRWxwUDh1ang3NTJyZ1UzRE9DSnc0OWhLMVNYUFhaeUNKbS9iWGkxYWdY?=
+ =?utf-8?B?TEZlbjkrOHNkck0zaFNvRjNEZWxZQWlMdTZNMyszaDFpcmNuaWlRWSt0cUEy?=
+ =?utf-8?B?cVhKejhpZVYxUEN0UDhlczB2R1JFTmVaMXVHVnZKN3F6dkJTanJ2ZTNqYjFx?=
+ =?utf-8?B?RGdNTGgvaE5rUWVtS1RaWlpadWlIOXBiVzFObTJ3ZlFlTnc4U0lGekJmY2xJ?=
+ =?utf-8?B?a0d6UHcyRk95UDZpaVg3eTdBK1N3ckJ2V0Z4ZjJsZitwY1AxNFhna2xxWERo?=
+ =?utf-8?B?SEpGVXk3akQvZ0VzblVHMVJYV0d1SEZqZWNqSi9EdVlQb1Y4dWdkdkN1SzBE?=
+ =?utf-8?B?ZlBSNWFQUmk0Zkw5RCtGcWU0ZXkzMmdjZTVnUnBmWldqUDl3ekd6KzlaL3Q5?=
+ =?utf-8?B?MkVJby94T21MMXlCTitUc3dPeU83K0JLNDViK0NHcElGazdmRWZQZjg0NitO?=
+ =?utf-8?B?MUlvKzVnWExmbTh6cmFkbTRLU3hiRDJtUHVVSVBNa01UbHVXaTU1VFFVOWNM?=
+ =?utf-8?B?YjdzcllCTzVkYW5KbGJZaDJLSU16WmVJZk5iZEMwQ1pFdXlaMCs5WjFwa1JW?=
+ =?utf-8?B?Tnh6MkF0OUJYaUFRbmk0THNCM0EzdFNaRms3aDBGSTJOYmhjSEU2eENmV2Jt?=
+ =?utf-8?B?MHp3dm4zb0M5eGlFSUpROXA4ZEJIR05BZktiN2dkK0pweDJ5NWgxZENwbUR6?=
+ =?utf-8?B?T1dDckhuVENMbHR6NkNWUGl3dHMrNWhEOW5neHY4VDloTGJTY0pUOHdpRitI?=
+ =?utf-8?B?dUZJbUJVZmlhY0lFZi8zOUxNdnJ4Ym9LN3JpbzJkN1J4eGIzSHllUjNIaS9p?=
+ =?utf-8?B?TndhbElqbVRTV0pFdFZLRXJCQ3E4cVZIYVJVQ25YbFVXU0E4cVI2ajZzWk5w?=
+ =?utf-8?B?cEpVUk9BQ2wveDlnd0F0OU91VTYrTnFCQitmU2hOWDJERVB0aVEyVHB4T05S?=
+ =?utf-8?B?dkVYUVo5Qi9pTkZLd3Z4L1QrZUdrODlCRmtDT3NacUhFcHcvbnhVUisyMlJR?=
+ =?utf-8?B?UWtRR3Y4Tm9EbFJQMTFCOTkxRUxrdDNJemRBVi9oL0wvMHpTbS9wcnJhenZZ?=
+ =?utf-8?B?MUpiNFBxOWxMbjIyVk5hdEpsV05NLzdCSUZtMkFBLzJmeGgxK3IySlFGci82?=
+ =?utf-8?B?OEMzL3VKRnZyWEhvZmpXQUtrV1Jtamo1eGdGNURkUVFmNnd3SEorOVhHQjNt?=
+ =?utf-8?B?a1JCVUg5WlNZbXRULzg2eldtM2lYRFlLK2dsYzFuM2puSHdHelFqK3laVHBL?=
+ =?utf-8?B?SnlNNG5KWkFnNE13SGpoZTN0dkNwczhWRHVsbkY3ZzZWSndFK3RMZ2cvbGVx?=
+ =?utf-8?B?T1VEa0FTKzBwRWp5K1g2d1pBWG9veUppZmF5YXdVYVIxNFJDL2NnR2Y5QS9y?=
+ =?utf-8?B?UkpkTE1KdWtIVDYvY3hkUzcvamxIQ2pOM0RxMW1EV0tPbzBEamlyUkVSVXN2?=
+ =?utf-8?B?Q28wWVBVZ2lncW91cnNpbjFmWkp4SHR2WmFrakwxdjV5dkI0Ry9nbnpWYUc3?=
+ =?utf-8?B?dDFBOFZzSDYxVkZLeWs3OWVDVGk1N21KZGQ3TkFXeGtVNnZQKzM3YmxLYVhh?=
+ =?utf-8?B?aUhVellPMXYvcHBESUdhaXFPL0IydGZwVExEcHhNNmlYcjJvMWZZalYzbjRh?=
+ =?utf-8?B?ZTcrSGtOUTdFTTBpejY0R3luNnl6NWtkM0h2dGdpdWJiQWVoTWQzWUx1RENv?=
+ =?utf-8?B?ZTRhZWpoYnNoZlVkZkg4M2x1cWlnUmZjUFFYNjFSbERsYlh4TFh5MDEyaTJJ?=
+ =?utf-8?B?OGlzcVQ5ZUUrM040c0UvdHJVUlk5bjZlUDBpaFJkVlNuQkpocElhakJyTHE0?=
+ =?utf-8?B?cVpnQzhkN014K1NxSEROaTliamlBcCtVOWZCMmZiUUw2RUVoNGhmRGVzdHov?=
+ =?utf-8?B?QlJXU3lKNXprUWZuL1RxUkVkbVd4eUhaTWRLN2ZBSTd4RlRYYTlzWjB0VG9X?=
+ =?utf-8?B?cGF6M2R6MXJrSUJmWmZUNytMN3p5WkNIVmJlOFd4ZTlQS2hRcGJMc3NsL3RD?=
+ =?utf-8?B?MndhUG5KbVlGQVAzbDVlZlVaTkxHVy9GUFk2MUxXNXFsTWxIUnE1L2dZd3BT?=
+ =?utf-8?B?NENUM1NMM2ZPYnpoV1VwQnJsNCtjY1NQNzlrSzQrZkxYSTY0RmpkSWpmWG5D?=
+ =?utf-8?B?ckU0dU5JT25hNzZZM0FiT0huSVRBdjQ3Q3ZrTHpxUzZuT0xaMUQzV0UxUTZl?=
+ =?utf-8?Q?az9VwA2DceWyHY4oXM?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd9db92e-631c-4cc0-dbd4-08df2f70223e
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 12:37:56.8368 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YPKKgJHFrR0Y2mGV4z0XbcQGoCYGXcCydGvy9EKJBeGwSMPA8lOtPT5YU3VP3GhF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8938
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,255 +139,98 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 20, 2026 at 03:00:07PM +0200, Marek Szyprowski wrote:
-> Since commit d700fd0ff100 ("drm/bridge: tda998x: Remove component
-> support") the TDA998x driver no longer registers itself as a component,
-> so the HDLCD component master never gets bound and the display stays
-> dead on Juno board.
-
-I've missed that tda998x is no longer doing component. I think I had
-an earlier fix for malidp as there was interest to use it with bridges
-other than TDA998x, but I've thought the driver for the bridge is now
-frozen.
-
+On Wed, Oct 21, 2026 at 08:24:40AM +0200, Thomas Hellström wrote:
+> > struct dma_buf_mapping_exp_ops
+> >    Base type for the per-mapping type exporter provided functions.
+> > This
+> >    would be the map/unmap callbacks. Each mapping type can provide
+> > its own
+> >    functions for map/unmap type operations with optimal type
+> > signatures.
 > 
-> Drop the component framework and get the output bridge with
-> devm_drm_of_get_bridge() at probe time, deferring until it becomes
-> available. Create the encoder in the HDLCD driver, attach the bridge
-> with DRM_BRIDGE_ATTACH_NO_CONNECTOR and use drm_bridge_connector for
-> the connector, like tilcdc does since the TDA998x component support
-> removal.
-> 
-> This also makes HDLCD work with any DRM bridge, not only TDA998x.
-> 
-> As a side effect, interlaced modes are no longer exposed on the HDMI
-> connector. The connector created by TDA998x itself always allowed them,
-> while drm_bridge_connector only allows them when all bridges in the
-> chain set interlace_allowed, which TDA998x does not. HDLCD has no
-> interlaced scanout support, so these modes were not usable anyway.
-> 
-> Fixes: d700fd0ff100 ("drm/bridge: tda998x: Remove component support")
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Does it make sense to try to land this patch first, plus a conversion
+> of pcie_p2p so we could agree on what the contract should look like?
 
-Thanks for the fix!
+I think it would be good to focus on this patch as the main 'crux' of
+the series. The API contract is the main agreement. I'm relucant to
+merge code that has no users, so it woudl be ebtter to go up to at
+least through SGT.
+ 
+> s/mapping/interconnect/? My gut feeling is that "interconnect" best
+> describes what's typically going on, but "mapping" perhaps better
+> describes all cases.
 
+My intention was to cover more than just the phyiscal transport. We do
+really want to get away from scatterlist, so having PCIe map with
+scatterlist and PCIe map with <something else> still ends up with two
+mapping types in the system.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+This is why I choose the name over interconnect.
 
-Best regards,
-Liviu
+> Location of common protocols which typically carry cross-subsystem
+> dependencies?
+> drivers/dma-buf/mapping_types? drivers/dma-buf/interconnects?
 
-> ---
-> This patch has been developed with LLM assistance, but the results has
-> been tested on the real Juno R1 board (juno-r1-scmi.dtb) with HDMI
-> monitor.
+I'd encourage people to design more like PCI where the actual
+*interconnect* has its own home and there is just some minor call outs
+from dmabuf to help the matching logic.
+
+> As discussed previously: 
+> Agree on theoretically possible matches at attach time, Match at
+> mapping time and guarantee the match is valid until
+> invalidate_mappings().
+
+I was thinking about this some more, and I'm less sure now.
+
+If I think about mlx5, in a multi-path PCIe configuration, it can move
+the translation around within a single PCIe path, but it cannot move
+it to another path without creating disruption for the
+application. This is a HW limitation in how the internal routing
+works..
+
+I strongly suspect this will be the norm for any hardware that doesn't
+rely on decorated page tables to select the IO path..
+
+So, while I agree we should support hardware that can fully change the
+path on each and every map, we also need to suport hardware that must
+pin the path during attach.
+
+Probably this points to needing a 'pin' operation for the mapping
+selection after attach.
+
+> > +/*
+> > + * Match items are generated by the importer using the
+> > DMA_BUF_IMAPPING_*() and
+> > + * the exporter using the DMA_BUF_EMAPPING_*() functions. Each
+> > mapping type
+> > + * defines its own signature with its own data to make the match and
+> > attachment.
+> > + */
+> > +struct dma_buf_mapping_match {
+> > +	const struct dma_buf_mapping_type *type;
+> > +	const struct dma_buf_mapping_exp_ops *exp_ops;
+> > +	union {
+> > +		/* Each mapping_type has unique match parameters
+> > here */
+> > +	};
 > 
-> Bst regards
-> Marek Szyprowski, PhD
-> Samsung R&D Institute Poland
-> ---
->  drivers/gpu/drm/arm/Kconfig     |  4 +-
->  drivers/gpu/drm/arm/hdlcd_drv.c | 85 +++++++++++++++------------------
->  drivers/gpu/drm/arm/hdlcd_drv.h |  1 +
->  3 files changed, 42 insertions(+), 48 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/arm/Kconfig b/drivers/gpu/drm/arm/Kconfig
-> index ed3ed617c688..6dcc063aa503 100644
-> --- a/drivers/gpu/drm/arm/Kconfig
-> +++ b/drivers/gpu/drm/arm/Kconfig
-> @@ -9,7 +9,9 @@ config DRM_HDLCD
->  	select DRM_CLIENT_SELECTION
->  	select DRM_KMS_HELPER
->  	select DRM_GEM_DMA_HELPER
-> -	select DRM_BRIDGE # for TDA998x
-> +	select DRM_BRIDGE
-> +	select DRM_BRIDGE_CONNECTOR
-> +	select DRM_DISPLAY_HELPER
->  	help
->  	  Choose this option if you have an ARM High Definition Colour LCD
->  	  controller.
-> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
-> index 81d45f2dd6a7..340b1bb38bf9 100644
-> --- a/drivers/gpu/drm/arm/hdlcd_drv.c
-> +++ b/drivers/gpu/drm/arm/hdlcd_drv.c
-> @@ -13,17 +13,17 @@
->  #include <linux/module.h>
->  #include <linux/spinlock.h>
->  #include <linux/clk.h>
-> -#include <linux/component.h>
->  #include <linux/console.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/list.h>
-> -#include <linux/of_graph.h>
->  #include <linux/of_reserved_mem.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  
->  #include <drm/clients/drm_client_setup.h>
->  #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_bridge.h>
-> +#include <drm/drm_bridge_connector.h>
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_debugfs.h>
->  #include <drm/drm_drv.h>
-> @@ -238,12 +238,43 @@ static const struct drm_driver hdlcd_driver = {
->  	.minor = 0,
->  };
->  
-> -static int hdlcd_drm_bind(struct device *dev)
-> +static int hdlcd_attach_bridge(struct drm_device *drm, struct drm_bridge *bridge)
->  {
-> +	struct hdlcd_drm_private *hdlcd = drm_to_hdlcd_priv(drm);
-> +	struct drm_connector *connector;
-> +	int ret;
-> +
-> +	ret = drmm_encoder_init(drm, &hdlcd->encoder, NULL,
-> +				DRM_MODE_ENCODER_NONE, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	hdlcd->encoder.possible_crtcs = drm_crtc_mask(&hdlcd->crtc);
-> +
-> +	ret = drm_bridge_attach(&hdlcd->encoder, bridge, NULL,
-> +				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-> +	if (ret)
-> +		return ret;
-> +
-> +	connector = drm_bridge_connector_init(drm, &hdlcd->encoder);
-> +
-> +	return PTR_ERR_OR_ZERO(connector);
-> +}
-> +
-> +static int hdlcd_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
->  	struct drm_device *drm;
->  	struct hdlcd_drm_private *hdlcd;
-> +	struct drm_bridge *bridge;
->  	int ret;
->  
-> +	/* there is only one output port inside each device, find its bridge */
-> +	bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
-> +	if (IS_ERR(bridge))
-> +		return dev_err_probe(dev, PTR_ERR(bridge),
-> +				     "failed to find output bridge\n");
-> +
->  	hdlcd = devm_drm_dev_alloc(dev, &hdlcd_driver, typeof(*hdlcd), base);
->  	if (IS_ERR(hdlcd))
->  		return PTR_ERR(hdlcd);
-> @@ -260,12 +291,9 @@ static int hdlcd_drm_bind(struct device *dev)
->  	if (ret)
->  		goto err_free;
->  
-> -	/* Set the CRTC's port so that the encoder component can find it */
-> -	hdlcd->crtc.port = of_graph_get_port_by_id(dev->of_node, 0);
-> -
-> -	ret = component_bind_all(dev, drm);
-> +	ret = hdlcd_attach_bridge(drm, bridge);
->  	if (ret) {
-> -		DRM_ERROR("Failed to bind all components\n");
-> +		DRM_ERROR("failed to attach bridge\n");
->  		goto err_unload;
->  	}
->  
-> @@ -311,10 +339,7 @@ static int hdlcd_drm_bind(struct device *dev)
->  	pm_runtime_disable(drm->dev);
->  err_pm_active:
->  	drm_atomic_helper_shutdown(drm);
-> -	component_unbind_all(dev, drm);
->  err_unload:
-> -	of_node_put(hdlcd->crtc.port);
-> -	hdlcd->crtc.port = NULL;
->  	hdlcd_irq_uninstall(hdlcd);
->  	of_reserved_mem_device_release(drm->dev);
->  err_free:
-> @@ -322,16 +347,14 @@ static int hdlcd_drm_bind(struct device *dev)
->  	return ret;
->  }
->  
-> -static void hdlcd_drm_unbind(struct device *dev)
-> +static void hdlcd_remove(struct platform_device *pdev)
->  {
-> +	struct device *dev = &pdev->dev;
->  	struct drm_device *drm = dev_get_drvdata(dev);
->  	struct hdlcd_drm_private *hdlcd = drm_to_hdlcd_priv(drm);
->  
->  	drm_dev_unregister(drm);
->  	drm_kms_helper_poll_fini(drm);
-> -	component_unbind_all(dev, drm);
-> -	of_node_put(hdlcd->crtc.port);
-> -	hdlcd->crtc.port = NULL;
->  	pm_runtime_get_sync(dev);
->  	drm_atomic_helper_shutdown(drm);
->  	hdlcd_irq_uninstall(hdlcd);
-> @@ -342,38 +365,6 @@ static void hdlcd_drm_unbind(struct device *dev)
->  	dev_set_drvdata(dev, NULL);
->  }
->  
-> -static const struct component_master_ops hdlcd_master_ops = {
-> -	.bind		= hdlcd_drm_bind,
-> -	.unbind		= hdlcd_drm_unbind,
-> -};
-> -
-> -static int compare_dev(struct device *dev, void *data)
-> -{
-> -	return dev->of_node == data;
-> -}
-> -
-> -static int hdlcd_probe(struct platform_device *pdev)
-> -{
-> -	struct device_node *port;
-> -	struct component_match *match = NULL;
-> -
-> -	/* there is only one output port inside each device, find it */
-> -	port = of_graph_get_remote_node(pdev->dev.of_node, 0, 0);
-> -	if (!port)
-> -		return -ENODEV;
-> -
-> -	drm_of_component_match_add(&pdev->dev, &match, compare_dev, port);
-> -	of_node_put(port);
-> -
-> -	return component_master_add_with_match(&pdev->dev, &hdlcd_master_ops,
-> -					       match);
-> -}
-> -
-> -static void hdlcd_remove(struct platform_device *pdev)
-> -{
-> -	component_master_del(&pdev->dev, &hdlcd_master_ops);
-> -}
-> -
->  static void hdlcd_shutdown(struct platform_device *pdev)
->  {
->  	drm_atomic_helper_shutdown(platform_get_drvdata(pdev));
-> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.h b/drivers/gpu/drm/arm/hdlcd_drv.h
-> index f1c1da2ac2db..6fb48727e54e 100644
-> --- a/drivers/gpu/drm/arm/hdlcd_drv.h
-> +++ b/drivers/gpu/drm/arm/hdlcd_drv.h
-> @@ -11,6 +11,7 @@ struct hdlcd_drm_private {
->  	void __iomem			*mmio;
->  	struct clk			*clk;
->  	struct drm_crtc			crtc;
-> +	struct drm_encoder		encoder;
->  	struct drm_plane		*plane;
->  	unsigned int			irq;
->  #ifdef CONFIG_DEBUG_FS
-> -- 
-> 2.43.0
-> 
+> Do we really need to add all global mapping types here? Then we'd need
+> something for driver-private mapping types as well.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+IIRC it is fixed size up front like this because of how the
+structure's memory is managed in this design..
+
+If you want a driver private thing then I'd add a 'u64
+driver_private[2]' to the union and the driver can cast over it.
+
+But this is the kernel, if you want to add an xe_mapping_type, then
+just add it. I don't know we need to do driver private things.
+
+Jason
