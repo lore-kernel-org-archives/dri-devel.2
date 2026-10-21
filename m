@@ -2,140 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C78606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 17:44:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1591C606A31B
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 17:59:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gR8dQDXv;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fV8YTEs5
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=nV8NGEa9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB5110E35F;
-	Wed, 21 Oct 2026 17:44:41 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7F1C10E353
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 17:42:33 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69LFTofe141134
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 17:42:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=KN+PgTF350Bf5Q08x7ilqI8W
- /r74ND/C/koqFQV5cX4=; b=gR8dQDXvW6Egwe+DwHNnTIKewLTe2ebFyOreWuTt
- rCDnG26YKc65toONtrrne0r+HBq2kkeEabnxnxFE0XK6HN4HioijCvS3iK74SIhl
- YysrV+4UcoY0GeGUvWcLHU8rJiWj7ON9asLO1T67AJ2wLEcX8v+jj0mqZWRfT/UD
- NFNc9Cev2ZIdWZGb2xd6s/AYam2ZODJdKG1x6sjGCIOQkXIdJMwnCjSY3a64CIYJ
- sembuh7p7snPwPKouv4Lq2zLCEA+Bs99/NgTtFPqOGV2OJ7s/u55H9GuieKallEm
- BpO1rTlSqXkdvSDEVBLXAPRSzrIeky2INjhy+6d0755fPQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hex589823-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 17:42:33 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-934956beec8so220105485a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 10:42:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792604552; x=1793209352;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=KN+PgTF350Bf5Q08x7ilqI8W/r74ND/C/koqFQV5cX4=;
- b=fV8YTEs5wMJ7RhE3KAQBGkjbqw1FbyJ7pcth/HGogvF25zXlv9wwWJyi/mO6fYH2Be
- BQKRq4aTKAgMsRpm7kfZLJGoulH/jBZE2UbsXpZx6hO/NSZBY7/BtAA6DREKYX9rnJmD
- 9xWhaHCXwd8Pc/Y6XOki/xEU5bYRfJ5wSPynWYFmcxfDd3Nvy3b6YUnqw/A2S9q2GB05
- 0ZipZarVIHGK1dGJoaA5t7ybB3UnOI/UwZ7fp/V8kzmSGnhCb563WRaQFwFKy3uWdn8T
- 2HQRamhRM1ViqRW+tz8x1u+HsUS3KqxkcuJMW9auF3UwZh0pGKt9iMmuz+ywvQFW+h3l
- 61FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792604552; x=1793209352;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=KN+PgTF350Bf5Q08x7ilqI8W/r74ND/C/koqFQV5cX4=;
- b=BVW+nrbs9fBpdjADx8YggsHDjRvPA6e/RaHcFeKskK8IUmhwsctGVjQAOi73Nv4cyQ
- gigrdFvDXcpC6IA7VdjijAfxgMmPSnAcqvnsj6VG3bX1FhElcFujV8is+iSfS6js7rJg
- sOdfYgJHBrjcXT92wJB96nsG3lYp6a6LJrXBG+F5RvA2Brd2VpLYVHiKa0W2QWW3bcAn
- jRR6jaTH6EhUA7ijucW5JebNrV7mu+NbFOVsjWxzohG5Co9gkDN/pXpxgDFJTRynikhV
- r+XyweO6UPkrEfR7G5hZJG53wdgNJwmkvQ+OXbOugaWOxr1riO10u8XAehoGQf/CnkKk
- obZA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwrpYceJ+b/TG9IwqPdSxlMZ97kWT8QEwEzOk/MVAx9nbD/JaC7E9l+q/J7x1tNVGK82GIA9cEg9TQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKElOzEjeZ610DcXls38X7G7fE2dxGAuqpETS4B1ClzbU1Np5PJ
- aBjH8HcigUb77rt4S7/qcpMEWALJIh+MP4iJ6obQkYNWjkP9AqNwzSxGPikJrhIHtQpooGP3MuV
- 91CP6X34LwF66KBV1I6f3Mj6kWJV3Vsx9ZiypASRjt8ufA48BZSKIKDnpmJ9zuxViVE7Xt4M=
-X-Gm-Gg: AYBFou12x8SZdOpahcSJ6bU5blp37J+4xc6OITAnXf2hXGNYA0cZE0HdEd0NznMuP55
- bKYcYJpnDnDw7NOBg9XL0q6xhq1I27R5OK+g6N2UleNYe9tER0xcSJmXPdoh5LAgUIaDKrfJHr6
- WEjZ142+95QR+iGwHpN6VBEFL8g8Q+/QnbbAumKl82p2/8KgrV+qw+H9ayvFomWFTge3rVN8jFS
- NgGDv8dL01kaKK7UEimLars4qIU7ZMiTDKSC6xUibnI8pX4wtWogGxEaTLnUCPKYSSgrbcHIEIN
- qn8Op7nDLRTBCJlT+KbiyWbul5VEEipe53rdD51QwBca4SexW4jBrdUT/jCwJynGaPuklLkyWge
- snV6/IZhj0EjtU/2i3/LRkeKDieDwW7bUz5rXxGMyjJDRcDwDcyE1b2YBLtyiCbbgAjpWGIEwCz
- 1iSL3oOkG6U9oH
-X-Received: by 2002:a05:620a:4493:b0:93e:d364:c9fc with SMTP id
- af79cd13be357-93f57e5e30emr518394885a.5.1792604552207; 
- Wed, 21 Oct 2026 10:42:32 -0700 (PDT)
-X-Received: by 2002:a05:620a:4493:b0:93e:d364:c9fc with SMTP id
- af79cd13be357-93f57e5e30emr518389585a.5.1792604551742; 
- Wed, 21 Oct 2026 10:42:31 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfa4962a59sm231037e87.4.2026.10.21.10.42.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Oct 2026 10:42:28 -0700 (PDT)
-Date: Wed, 21 Oct 2026 20:42:26 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Fabricio Akio <fabricioakio@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Paul Sajna <sajattack@postmarketos.org>
-Subject: Re: [PATCH v2 2/3] drm/msm/a5xx: Hold a CPU latency request while
- the GPU is powered
-Message-ID: <54itft4rw53zcxoyx5vhxz3zfenxgooorp6lo44vbsdayrq4yi@3f4btdyicop6>
-References: <20261019-a5xx-gpu-pm-v2-0-457aafbb28da@gmail.com>
- <20261019-a5xx-gpu-pm-v2-2-457aafbb28da@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72EA110E0C7;
+	Wed, 21 Oct 2026 17:59:09 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 952E210E0C7
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 17:59:03 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id DDEF88FD;
+ Wed, 21 Oct 2026 19:56:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1792605414;
+ bh=CeGx70QYH+Vgr/XX91xzxQaYe29xYTykgTq8ekxCnbg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=nV8NGEa9DlItx0C5J8Wp+vK0ruYpHgQBz6kAry81+VG+fw+7Qb5YNJSYCq8+cdpkO
+ 3rPaJHB/MCKouHvKdNaJibWs2kylG8d1cEee+DaLYnbuzxBIIXxzxqmS5DEAhI9Cco
+ 7zVF+t5HCbpcwSKFuHv1tGzvzqOBO1YfN1EnQAk8=
+Date: Wed, 21 Oct 2026 20:59:00 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomasz Figa <tfiga@chromium.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, linux-media@vger.kernel.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Tomasz Stanislawski <t.stanislaws@samsung.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] media: videobuf2: add opt-in DMA-BUF CPU access
+Message-ID: <20261021175900.GG15441@killaraus.ideasonboard.com>
+References: <cover.1792392288.git.kmehltretter@gmail.com>
+ <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
+ <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261019-a5xx-gpu-pm-v2-2-457aafbb28da@gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA3MCBTYWx0ZWRfX8DDtJvXV0/Hb
- q6wAvtwQd9Z4KDTVh4K2Kp16euZuUvE+JG6VUK4fyAr50QkkuOUHd19rk4Lab9J+/jDUyQE79lL
- r13dImGetJxn0UThOSuyDAVnNhfa6PY=
-X-Proofpoint-GUID: aNBAQBjUFiM1eCcWBnnxUstBoy8vV8Pl
-X-Proofpoint-ORIG-GUID: aNBAQBjUFiM1eCcWBnnxUstBoy8vV8Pl
-X-Authority-Analysis: v=2.4 cv=Ku7YSmWN c=1 sm=1 tr=0 ts=6ad8f989 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pGLkceISAAAA:8
- a=j5_2AGnEbwvZtjme2gsA:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA3MCBTYWx0ZWRfXyEY232t8hINy
- 7/feZYi8GOL+3am0RB8Kj8aWuSGSYhjsjqSdIUZo5i7DJNuCHo4dQgV3dUZVM/kS0p42vvmovuq
- SFxR/LGYMiZ8FTcDr31RG/Egs8r83pjsdQEOL9VwXYbtgTZtpzWnhTdRHazCrFmFjlStTL5/+5V
- HzW6xXdN5VIgqFh6cLl1KTzlwFJvardG5yJUznpBKCF52ombBPEsaO9PausjT0gagh4hd06Yqr1
- cOC6m6RY1Tc60QzsnMKKHw/SdYprwUN9AeLHN425RERrbsQ4Swyy9bMlhTBLlwq+QDJriTNm60N
- 6WdPR323jAoVmdljMyOadOrjCUJC8OZCJAkcavNJ1qLsVeGxSD6qGklNTgoAMbPFTa1XkO1AHC+
- qS9sHNuTmo0iwJykO4CgvlZxlYZWgq0QSiYLPrbZJEcMPXi8oNdKNXBRuHMmUUkHPTASSnloVeu
- IWH456U9y/XCRHHmJ9w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 malwarescore=0 adultscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210070
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,49 +59,329 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 11:05:09PM -0300, Fabricio Akio wrote:
-> On SDM630 the GPU was observed to stop executing while the SoC is in
-> system-level power collapse, and to continue once the SoC wakes. Its
-> interrupts have no wakeup route through the MPM, so it cannot wake the
-> SoC itself. A submission overlapping such a state would stall until a
-> CPU wakes, and a stall longer than the hang detector's threshold makes
-> the driver recover the GPU, which can lose a frame.
-
-Do you have any extra patches that you are running with? I don't think
-that currently Linux can hit system power collapse with the GPU still
-running.
-
-On SDM630 the GPU is running from the CX, but we don't vote on it (yet).
-With the CPUs awake we keep a vote on CX. With the cores going to the
-deep sleep, the CX might drop below the required leven, causing GPU to
-die.
-
-> Qualcomm's downstream driver holds a CPU latency request while the GPU
-> is active, qcom,pm-qos-active-latency, which keeps the CPU idle
-> governors out of cluster and system-level power collapse. Do the same:
-
-Could you please check what actually stops in your setup (CX corner, the
-BIMC vote, XO)? I think the proper fix is for the GPU to vote its real
-rail, scaled per OPP, in both RPM sets, rather than keeping the CPUs out
-of their idle states. I'll have it as a part of the CPR series, but it
-needs a bit more of the cleanup and polishing.
-
-> take the request when the GPU resumes and drop it when it suspends, so
-> those states remain available once the GPU has gone idle, and on
-> destroy, which unbind reaches even when suspending the GPU failed. The
-> limit is a per-GPU catalog value, downstream's for each SoC: 424 us
-> for the A508 in SDM630, and 518 us for the A509 in SDM636 and the A512
-> in SDM660.
+On Thu, Oct 22, 2026 at 01:20:45AM +0900, Tomasz Figa wrote:
+> On Mon, Oct 19, 2026 at 4:14 PM Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> >
+> > Drivers must bracket CPU access to imported DMA-BUFs with
+> > dma_buf_begin_cpu_access() and dma_buf_end_cpu_access().
+> >
+> > Add a queue flag to do so from buf_prepare() through buf_finish(). Use
+> > read access for output and write access for capture. Map imports
+> > bidirectionally because CPU and device access directions are opposite.
+> > Pass the mapping direction to attach_dmabuf() so USERPTR and MMAP keep
+> > the queue's normal direction.
 > 
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+> This isn't right. For the regular vb2 mem ops (dma-sg, dma-contig), a
+> buffer in the prepared state is expected to be ready for hardware
+> usage, meaning only the hardware can access it until the buffer is
+> finished. The vmalloc ops are special in a way that CPU is the
+> "hardware".
+> 
+> > Keep this opt-in because some vb2-vmalloc drivers pass buffers to
+> > hardware. End access in process context because DMA-BUF callbacks may
+> > sleep.
+> 
+> That is at least unexpected, but also probably wrong (I haven't
+> checked all the drivers) - the vmalloc mem ops are expected to be used
+> by drivers that only access the buffer contents from the CPU.
+> 
+> Putting all the above together, what I think we need is:
+>  1) prepare/finish ops in vb2_vmalloc_memops to invoke the
+> dma_buf_begin/end_cpu_access() API if the buffer is backed by a
+> DMA-buf,
+>  2) some vb2 API for drivers using the regular (dma-) memops to invoke
+> the dma_buf_begin/end_cpu_access() API for them when they need to
+> perform some CPU accesses to the buffers - typically they would do
+> that in their vb2_ops::buf_prepare/finish callbacks, but definitelly
+> must not after the buffer is already prepared.
+> 
+> It sounds like this series focuses on uvcvideo and vivid, which likely
+> means that 1) alone would be enough to fix the original problem. WDYT?
+
+I think the dma-buf API doesn't give us what we need. Cleaning the CPU
+cache through end_cpu_access() when the producer is done writting to the
+buffer is right in some use cases, but not in all of them. It assumes
+that the next consumer will access the data through DMA, which isn't
+always the case. What I think we need is to track the state of the
+cache(s) in the dma_buf, and perform cache management operations
+accordingly when needed. In the uvcvideo -> display use case for
+instance, the dma_buf should track that the CPU cache is dirty when
+finishing CPU access, and should be cleaned on the display side before
+performing the DMA. In a use case where the producer would DMA to the
+buffer, cache management would be skipped as the dma_buf would see that
+the cache is not dirty.
+
+> > Assisted-by: LLM
+> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> > ---
+> >  .../media/common/videobuf2/videobuf2-core.c   | 83 ++++++++++++++++++-
+> >  .../common/videobuf2/videobuf2-dma-contig.c   |  5 +-
+> >  .../media/common/videobuf2/videobuf2-dma-sg.c |  5 +-
+> >  .../common/videobuf2/videobuf2-vmalloc.c      |  5 +-
+> >  include/media/videobuf2-core.h                | 12 ++-
+> >  5 files changed, 101 insertions(+), 9 deletions(-)
+> >
+> > diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+> > index 460eaf4e82f78..d2a78cd0a86bb 100644
+> > --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> > +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> > @@ -371,6 +371,65 @@ static void __vb2_buf_mem_finish(struct vb2_buffer *vb)
+> >                 call_void_memop(vb, finish, vb->planes[plane].mem_priv);
+> >  }
+> >
+> > +/* Output buffers are read by the driver; capture buffers are written. */
+> > +static enum dma_data_direction vb2_cpu_access_dir(const struct vb2_queue *q)
+> > +{
+> > +       return q->is_output ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
+> > +}
+> > +
+> > +static bool __vb2_dmabuf_is_duplicate(const struct vb2_buffer *vb,
+> > +                                     unsigned int plane)
+> > +{
+> > +       unsigned int i;
+> > +
+> > +       for (i = 0; i < plane; i++)
+> > +               if (vb->planes[i].dbuf == vb->planes[plane].dbuf)
+> > +                       return true;
+> > +
+> > +       return false;
+> > +}
+> > +
+> > +static void __vb2_buf_end_cpu_access(struct vb2_buffer *vb,
+> > +                                    unsigned int num_planes)
+> > +{
+> > +       struct vb2_queue *q = vb->vb2_queue;
+> > +       enum dma_data_direction dir = vb2_cpu_access_dir(q);
+> > +       unsigned int plane;
+> > +
+> > +       for (plane = 0; plane < num_planes; plane++) {
+> > +               int ret;
+> > +
+> > +               if (__vb2_dmabuf_is_duplicate(vb, plane))
+> > +                       continue;
+> > +
+> > +               ret = dma_buf_end_cpu_access(vb->planes[plane].dbuf, dir);
+> > +               if (ret)
+> > +                       pr_warn_ratelimited("[%s] failed to end CPU access to dmabuf plane %u: %d\n",
+> > +                                           q->name, plane, ret);
+> > +       }
+> > +}
+> > +
+> > +static int __vb2_buf_begin_cpu_access(struct vb2_buffer *vb)
+> > +{
+> > +       struct vb2_queue *q = vb->vb2_queue;
+> > +       enum dma_data_direction dir = vb2_cpu_access_dir(q);
+> > +       unsigned int plane;
+> > +       int ret;
+> > +
+> > +       for (plane = 0; plane < vb->num_planes; plane++) {
+> > +               if (__vb2_dmabuf_is_duplicate(vb, plane))
+> > +                       continue;
+> > +
+> > +               ret = dma_buf_begin_cpu_access(vb->planes[plane].dbuf, dir);
+> > +               if (ret) {
+> > +                       __vb2_buf_end_cpu_access(vb, plane);
+> > +                       return ret;
+> > +               }
+> > +       }
+> > +
+> > +       return 0;
+> > +}
+> > +
+> >  /*
+> >   * __setup_offsets() - setup unique offsets ("cookies") for every plane in
+> >   * the buffer.
+> > @@ -1423,6 +1482,9 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
+> >         }
+> >
+> >         if (reacquired) {
+> > +               enum dma_data_direction attach_dir = q->uses_cpu_access ?
+> > +                       DMA_BIDIRECTIONAL : q->dma_dir;
+> > +
+> >                 if (vb->planes[0].mem_priv) {
+> >                         vb->copied_timestamp = 0;
+> >                         call_void_vb_qop(vb, buf_cleanup, vb);
+> > @@ -1453,7 +1515,8 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
+> >                                                   vb,
+> >                                                   q->alloc_devs[plane] ? : q->dev,
+> >                                                   planes[plane].dbuf,
+> > -                                                 planes[plane].length);
+> > +                                                 planes[plane].length,
+> > +                                                 attach_dir);
+> >                         if (IS_ERR(mem_priv)) {
+> >                                 dprintk(q, 1, "failed to attach dmabuf\n");
+> >                                 ret = PTR_ERR(mem_priv);
+> > @@ -1504,9 +1567,21 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
+> >                 }
+> >         }
+> >
+> > +       if (q->uses_cpu_access) {
+> > +               ret = __vb2_buf_begin_cpu_access(vb);
+> > +               if (ret) {
+> > +                       dprintk(q, 1, "failed to begin CPU access to dmabuf: %d\n",
+> > +                               ret);
+> > +                       call_void_vb_qop(vb, buf_cleanup, vb);
+> > +                       goto err_put_vb2_buf;
+> > +               }
+> > +       }
+> > +
+> >         ret = call_vb_qop(vb, buf_prepare, vb);
+> >         if (ret) {
+> >                 dprintk(q, 1, "buffer preparation failed\n");
+> > +               if (q->uses_cpu_access)
+> > +                       __vb2_buf_end_cpu_access(vb, vb->num_planes);
+> >                 call_void_vb_qop(vb, buf_cleanup, vb);
+> >                 goto err_put_vb2_buf;
+> >         }
+> > @@ -1756,6 +1831,8 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int c
+> >
+> >                 __vb2_buf_mem_finish(vb);
+> >                 call_void_vb_qop(vb, buf_finish, vb);
+> > +               if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
+> > +                       __vb2_buf_end_cpu_access(vb, vb->num_planes);
+> >                 vb->prepared = 0;
+> >         }
+> >
+> > @@ -2160,6 +2237,8 @@ int vb2_core_dqbuf(struct vb2_queue *q, unsigned int *pindex, void *pb,
+> >         }
+> >
+> >         call_void_vb_qop(vb, buf_finish, vb);
+> > +       if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
+> > +               __vb2_buf_end_cpu_access(vb, vb->num_planes);
+> >         vb->prepared = 0;
+> >
+> >         if (pindex)
+> > @@ -2296,6 +2375,8 @@ static void __vb2_queue_cancel(struct vb2_queue *q)
+> >
+> >                 if (vb->prepared) {
+> >                         call_void_vb_qop(vb, buf_finish, vb);
+> > +                       if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
+> > +                               __vb2_buf_end_cpu_access(vb, vb->num_planes);
+> >                         vb->prepared = 0;
+> >                 }
+> >                 __vb2_dqbuf(vb);
+> > diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+> > index 9ce6284cd5f26..68c146c043fb1 100644
+> > --- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+> > +++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+> > @@ -768,7 +768,8 @@ static void vb2_dc_detach_dmabuf(void *mem_priv)
+> >  }
+> >
+> >  static void *vb2_dc_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
+> > -                                 struct dma_buf *dbuf, unsigned long size)
+> > +                                 struct dma_buf *dbuf, unsigned long size,
+> > +                                 enum dma_data_direction dma_dir)
+> >  {
+> >         struct vb2_dc_buf *buf;
+> >         struct dma_buf_attachment *dba;
+> > @@ -794,7 +795,7 @@ static void *vb2_dc_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
+> >                 return dba;
+> >         }
+> >
+> > -       buf->dma_dir = vb->vb2_queue->dma_dir;
+> > +       buf->dma_dir = dma_dir;
+> >         buf->size = size;
+> >         buf->db_attach = dba;
+> >
+> > diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+> > index b1d0695cda260..ab03f9d31391a 100644
+> > --- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+> > +++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+> > @@ -616,7 +616,8 @@ static void vb2_dma_sg_detach_dmabuf(void *mem_priv)
+> >  }
+> >
+> >  static void *vb2_dma_sg_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
+> > -                                     struct dma_buf *dbuf, unsigned long size)
+> > +                                     struct dma_buf *dbuf, unsigned long size,
+> > +                                     enum dma_data_direction dma_dir)
+> >  {
+> >         struct vb2_dma_sg_buf *buf;
+> >         struct dma_buf_attachment *dba;
+> > @@ -640,7 +641,7 @@ static void *vb2_dma_sg_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
+> >                 return dba;
+> >         }
+> >
+> > -       buf->dma_dir = vb->vb2_queue->dma_dir;
+> > +       buf->dma_dir = dma_dir;
+> >         buf->size = size;
+> >         buf->db_attach = dba;
+> >         buf->vb = vb;
+> > diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+> > index 63f023696f3ee..c38faa0188bc9 100644
+> > --- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+> > +++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+> > @@ -402,7 +402,8 @@ static void vb2_vmalloc_detach_dmabuf(void *mem_priv)
+> >  static void *vb2_vmalloc_attach_dmabuf(struct vb2_buffer *vb,
+> >                                        struct device *dev,
+> >                                        struct dma_buf *dbuf,
+> > -                                      unsigned long size)
+> > +                                      unsigned long size,
+> > +                                      enum dma_data_direction dma_dir)
+> >  {
+> >         struct vb2_vmalloc_buf *buf;
+> >
+> > @@ -414,7 +415,7 @@ static void *vb2_vmalloc_attach_dmabuf(struct vb2_buffer *vb,
+> >                 return ERR_PTR(-ENOMEM);
+> >
+> >         buf->dbuf = dbuf;
+> > -       buf->dma_dir = vb->vb2_queue->dma_dir;
+> > +       buf->dma_dir = dma_dir;
+> >         buf->size = size;
+> >
+> >         return buf;
+> > diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+> > index 4b4f4c15c53a7..8dfe22fa4423c 100644
+> > --- a/include/media/videobuf2-core.h
+> > +++ b/include/media/videobuf2-core.h
+> > @@ -78,7 +78,8 @@ struct vb2_buffer;
+> >   *             to the userspace, also optional.
+> >   * @attach_dmabuf: attach a shared &struct dma_buf for a hardware operation;
+> >   *                used for DMABUF memory types; dev is the alloc device
+> > - *                dbuf is the shared dma_buf; returns ERR_PTR() on failure;
+> > + *                dbuf is the shared dma_buf; dma_dir is the DMA mapping
+> > + *                direction; returns ERR_PTR() on failure;
+> >   *                allocator private per-buffer structure on success;
+> >   *                this needs to be used for further accesses to the buffer.
+> >   * @detach_dmabuf: inform the exporter of the buffer that the current DMABUF
+> > @@ -136,7 +137,8 @@ struct vb2_mem_ops {
+> >         void            *(*attach_dmabuf)(struct vb2_buffer *vb,
+> >                                           struct device *dev,
+> >                                           struct dma_buf *dbuf,
+> > -                                         unsigned long size);
+> > +                                         unsigned long size,
+> > +                                         enum dma_data_direction dma_dir);
+> >         void            (*detach_dmabuf)(void *buf_priv);
+> >         int             (*map_dmabuf)(void *buf_priv);
+> >         void            (*unmap_dmabuf)(void *buf_priv);
+> > @@ -510,6 +512,11 @@ struct vb2_buf_ops {
+> >   *             ->finish().
+> >   * @non_coherent_mem: when set queue will attempt to allocate buffers using
+> >   *             non-coherent memory.
+> > + * @uses_cpu_access: the driver transfers buffer data with the CPU instead of
+> > + *             DMA. For imported dma-bufs, videobuf2 brackets the interval from
+> > + *             buf_prepare through buf_finish with dma_buf_begin_cpu_access()
+> > + *             and dma_buf_end_cpu_access(). Imported attachments use
+> > + *             bidirectional DMA mappings.
+> >   * @lock:      pointer to a mutex that protects the &struct vb2_queue. The
+> >   *             driver must set this to a mutex to let the v4l2 core serialize
+> >   *             the queuing ioctls. This lock is used when waiting for a new
+> > @@ -614,6 +621,7 @@ struct vb2_queue {
+> >         unsigned int                    uses_requests:1;
+> >         unsigned int                    allow_cache_hints:1;
+> >         unsigned int                    non_coherent_mem:1;
+> > +       unsigned int                    uses_cpu_access:1;
+> >
+> >         struct mutex                    *lock;
+> >         void                            *owner;
 
 -- 
-With best wishes
-Dmitry
+Regards,
+
+Laurent Pinchart
