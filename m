@@ -2,97 +2,141 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DAD606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 17:39:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4420C606A322
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 17:43:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=H/yf0Ewu
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=b5UJc61l;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LeYKXAtF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C114110E295;
-	Wed, 21 Oct 2026 17:39:40 +0000 (UTC)
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
- [74.125.224.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB9410E295
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 17:39:35 +0000 (UTC)
-Received: by mail-yx1-f44.google.com with SMTP id
- 956f58d0204a3-677dbe051d4so850573d50.0
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 10:39:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792604370; cv=none;
- d=google.com; s=arc-20260327;
- b=d/msXqs9MdnG35Gffo5E5TMfN8HLWUNKNDeYTgyPr7XiJciwpfk31rz1IKLPbEvSS3
- RIgzQkPZChT4VDybs2kFufRxWuu1riwAV96GnZPEFtEJJKAtBabVx6nbc2OsHtKPWWUN
- KcDq7SZTWAfSK1wO2LL8TDHxjYq/p4JcsLo7Ik0AOSEPfrpzBcNrk6hEyAj/2WoWBD7q
- +DQBl4feJsrdbQ86hjltnPeWYxuui8y1KEyjN7+fa0enLh0exVgEjFBNRSims0AfAMct
- /F7KSNKuFbv/ehF164mt8JcHN6voJE3gFOypBXL8EqSBdniMZ3Rg61E108KJChMuV0Cm
- JUEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=2rJv6/RSKgnnA72uLjrrV1LhR17fP7wpK9EwaJW8j9w=;
- fh=a6H00ADDYtNGmfzmt8TS+xUVJbq2RpY1SAPOJwdzpTQ=;
- b=psiFxfYsOVm1voBcwFSuR7yI/WhOiHAR1MoFUWcosEO8tcaBCH2to86HVWfJhYmnOo
- wHrB6Y0jqn1gN1AeMSzw3JogF4cbx6z/nvyBMhXAPXVH4uEoajO1lk91ovT5J9UybxfX
- pqyYfxmafUH8937wJsj3qGTlRsarregFC3/h8752LmIg7oLFyiNcPthiWw9hgrzyc4pZ
- Qtjy2Y+d04JUKiWNvAejY26kCTwQBVxoStwHsbLt30inIJrrD9k/nkr/zilqVRE8mxtZ
- LXW0EOQoFQtiQzhr+p3p8/c7jTDZAjy2GvjaJc3IX/WdpHkk0kqx9S+kXRbqCdtMiddx
- ukjQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5D4910E37E;
+	Wed, 21 Oct 2026 17:43:05 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8472510E394
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 17:42:54 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69LFU9jG682672
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 17:42:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=J6uuKNtXeb4uetwD4PZfD6Mt
+ JhK9RufAjFZJblRiWyQ=; b=b5UJc61lKCk10wRlwwdluLhM8Oh0cHeTXdtRbdLw
+ de5nxnODD42+dQF+Npftyjw2cbnPLTVyDsg7LVJ0Jw6V/mXEzm3UiTLnfgSu80mb
+ i4yR57yXplDSr3fsm+VRFL6DsXDodLxYNIpQhHGgA4w2XT3cWH74iG4tQtke32rD
+ Xl4zXJ/BJWLdxqM2iOQLUNlkhHHRMDvY/7WDZJnOL5RRMLsV08v5/zQJi75TXgFC
+ 1/tapy//63912OrCpVEYL08LMFAA5FsJjnfCXwtYuX9uWZjze5j3Jl92Mv4qwIOK
+ S7OspoUnFSdLOgAnXKZPmMOC0AlPx91HLrx0DgxglQlyEQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hex7vs66c-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 17:42:52 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93e92aad34aso217153085a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 10:42:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792604370; x=1793209170; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=oss.qualcomm.com; s=google; t=1792604572; x=1793209372;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=2rJv6/RSKgnnA72uLjrrV1LhR17fP7wpK9EwaJW8j9w=;
- b=H/yf0Ewu1nBhdNuP0gE6uIRYWVmPadtCzWBG2RBxvtzuDsXkNO4nPBD2DI3soP++6/
- G/YTXidkEigSd7ffxQ9y/u7OSY5hXzyuUSc9JtcXNtCFRQtG4XUuOKXrRqD4lea7SC6n
- gpek7Nxj4FXnZiDDfSxxwP/JaAiqgXg6mRfRUosWLwrFqq8neUPsKgNsX8anfdolfQiD
- GHT76KLceH5G1DGnCJ8/oz9pp/xXa4Rrj8TnHhfxKDb6vhZ+cOCOaZ+ueC1aFu5L7rRP
- luUbHci0JJTkNF6fsRI1Le0kfK7oWn7W1ABQgrjJNfXIyzYEIXo/kxt1lJeD2o+EpUAk
- hHjg==
+ bh=J6uuKNtXeb4uetwD4PZfD6MtJhK9RufAjFZJblRiWyQ=;
+ b=LeYKXAtFtR11J51uSGhSt6tkQ030UoWE6DwuCD2ElunKxngEvYfxxojyciGgfTe+dT
+ NY76PnjB71yH2QXfL6/JQlBC6OFK7u12Fi0XXjZDrcVm3EIq8mhfaTAY0voCoQ0ckryh
+ gYHNm25gKDo8KVflS7tJHqUoZIlTmQjM+OKNWPxEgFSSG6Rtu/jDJ46iuTREfEX7uRlF
+ II8/amQrdCmIT7UcYGmFOjfA3AKfyG1uT1NWoIkS4xbAZOzRa9xvY83tMROzI7DxPwD+
+ uqCcM2bpSKj2lVHz6MN3RDcPL8cOJDwF/nonb5wJPEl8/+YwyIRTv9GU757aPI82jKnR
+ bQGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792604370; x=1793209170;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20260707; t=1792604572; x=1793209372;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=2rJv6/RSKgnnA72uLjrrV1LhR17fP7wpK9EwaJW8j9w=;
- b=fVLguWblsytD/gJFcH2ai5Ep9L8X2S3os73Bv3vSdogsvQeXNhFCA1gfoKXEeOSQ5p
- Xm2LkqHhMVaCQD0bO5wVxW6j3V6TZeLBreaJRYBtS8UAismgCTGuHNXFoV6xy7tmjifk
- cLczaDB0Lxdfj7CxNmA2vEimf5W53RiLtWCX+XvFOj8PGvThdzYyeQ7oUNOxPiXYfzDz
- t0ndYV30fRxLgp/PI9Adu24YN+Z32tzFphSoIlJ3RAQwO0mXDCbFJmFKJD/DwbNOi+gd
- 7OHR2gJkpzFGQjLs99vDM1vfXEHevlGyx2Aw0XRcU67DNxmYdA9Zsdqz8PFSdOfTt+kY
- R5rw==
+ bh=J6uuKNtXeb4uetwD4PZfD6MtJhK9RufAjFZJblRiWyQ=;
+ b=a+H511xGeNCm8MSbmrM5XP0h4Di0T9i5ddEAhq/TQc5Rjn3uOTxpMeCWmw2HOM6KGS
+ PDgLSP3iruP42DsGBEI7ZRFYERGa3WscFYItk5FM9Vw+nTo+3iedTJ9MvqYErIfGezjA
+ pvug+61lAfcGBsej9uyb1hJLFMqO8V5TQDz60RxNi7ntbgCIEz8bvjNPUvpyDE3UdIs8
+ kBKk+Hr1IjHh4UwlTLjSOss3uFAnFrcohA3GzXRkO7ztJF9zlrZSXMjnbYpg5ULNyGY0
+ cV/HdZ9eJD4N5xPqLr0MNOugrNl6nlE53knMz3Ou+rS1Dx+P7W1dvcm0/71Bb+THa+b0
+ a8jA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy+UX+zxLrgdVDTs832qs59DwirG2pcjrVCS/phs2LQhzcJtTxwt5OpfJKObRT24KsLJ6N3q9LZLhE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKIR1/4oJdxVWDusBzyCWNnMPNKmOQeGP8UDPTMi+EO5pd/Y2xi
- zSmTWhuI3+KDsvGn2PDzGhXQWljm2jHb/DWIdhrYop9bsyJk+ZAkgDOQQp5ShgJu4rz/x3tZrkT
- aVetiiXaV3uJ483EbCNwZQ40r0J1uzMs=
-X-Gm-Gg: AYBFou3DP04foBBmBbEx/s7OdRRRnpVXB4qOmGKMWmBJ4BM55z8KqTLbKMVvkZhgx29
- jdQybEuOD+3ZIooQpB/iqe4o9lHdZReqFxMKIJ6m/CbPTBtkrdhiArOcAQBUAGtXkNLQ3maz9s5
- SlQ/Wh9P9dnxub7JoR+uSQIfIcYKbEhRbKsZuffcaQ6JltdfXqPLtBZt3oAxkdGbPB/BBjqkgwC
- 6flCQDighX4wOg98RIvq4Olc6fOMGT8TQP4QBQeSIzW0L/CcbRLi57AhmVkRvmFryK1Av/OCCQS
- PLVd5UD/+3hBqdwCQlmYIGWeft0xW78V3TyASeCdvBf/l9uhTDGeEEamj66cLLph+A4aBCoxYqk
- /Ao1ALFiTae067E/cWJyjloIscz1JoGRz1uzGYw==
-X-Received: by 2002:a05:690c:8d06:b0:8b0:afb6:c85f with SMTP id
- 00721157ae682-8b13410a95bmr8684597b3.110.1792604370533; Wed, 21 Oct 2026
- 10:39:30 -0700 (PDT)
+ AKwUvBx2fMpjpWG1VhP5aBap79mYBccTEvowOJdvgE/6EUI5PkfoXdUt6pgmnFJLgQ9n98UNNzvgC0w4VU0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKgOI+SmTSvluF3ZQrmx1lfWjg+zCSHl8lFxJnZTfXcMIedL+Vm
+ 3NDfZVG57Y1CwYnwXBc33AWLvKoZFTbaPfWlPaiB2k91SDaKUkmb9e7Zc2jx76+gfThn9MPNHKh
+ XsTRdjehUTPjeALwn+jWpBB/+kw6BtKglFppryI/sJXANuymWTP6Pa+G95DbA+GSptGCfVj4=
+X-Gm-Gg: AYBFou2tQVY7kWxHN/94PLr7AWegRGcxD2ofLE7Ep/rv7Y1CDH979Mdn1RGA8nvxhuh
+ /I7fv0iHb3sbKJbiXynoqwmoLqRm0BNnVMJG0v0P2IjXXS33XMun+j7Wd5mQjTv70pzLvPs7Lfe
+ 7KwTuH4iju96iCdg2n0KleTZ5wYOQsEwR/ElHWpdH73Xn0tR+1Wrooiu78T1YiKYnMAWY/aWPV2
+ O+jjksXPtx2Oq8kWNQnAVsH7LxCBi65WK03UgG8PGSDgYLeIa8/05tUh0nfeeFVB42VQtS4JvCx
+ ysPdY9KJrJRVLD7v9PHQQdFZhGh9yJyeZgvti+G3iCb2rLrB6k1X8CaYFKZFoOnkg0LsK3H0BFr
+ AGapvqsTZSY2EVoXeR2XEUM+r+KgiWObU1tcLwPYf2lrfwrpyXNFYn38i8c7J6++fF0ugPkOsQ6
+ MOu5CFLY54+j0/
+X-Received: by 2002:a05:620a:690d:b0:93b:d79a:c463 with SMTP id
+ af79cd13be357-93f57f5ec48mr547612685a.59.1792604572207; 
+ Wed, 21 Oct 2026 10:42:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:690d:b0:93b:d79a:c463 with SMTP id
+ af79cd13be357-93f57f5ec48mr547607985a.59.1792604571628; 
+ Wed, 21 Oct 2026 10:42:51 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ac4f4df0c9sm1729191fa.4.2026.10.21.10.42.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Oct 2026 10:42:50 -0700 (PDT)
+Date: Wed, 21 Oct 2026 20:42:48 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Fabricio Akio <fabricioakio@gmail.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Paul Sajna <sajattack@postmarketos.org>
+Subject: Re: [PATCH v2 3/3] drm/msm/a5xx: Use the downstream GPU idle timeout
+ on A508, A509 and A512
+Message-ID: <s5qnjxh7sj4rtzwg46oeeukeg3exjxjxnlp53c7ldyi7edpau2@sf6wt5xdw2q5>
+References: <20261019-a5xx-gpu-pm-v2-0-457aafbb28da@gmail.com>
+ <20261019-a5xx-gpu-pm-v2-3-457aafbb28da@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org>
- <20261014-drm-no-more-connector-reset-v1-34-586c9c026823@kernel.org>
-In-Reply-To: <20261014-drm-no-more-connector-reset-v1-34-586c9c026823@kernel.org>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Wed, 21 Oct 2026 19:39:00 +0200
-X-Gm-Features: AclHuK81ClEGv7S_JNvSxAhXsbDt82Hl2nQ5l7j5JalMuSvYJrGIxf8dSn6HH8Q
-Message-ID: <CABdCQ=MThu45g_O6H+NoXh9r1ncvU=SHoHDVQyJA9VLO=e0sWg@mail.gmail.com>
-Subject: Re: [PATCH 34/75] drm/sitronix: st7920: Switch to
- drm_atomic_helper_connector_create_state
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-a5xx-gpu-pm-v2-3-457aafbb28da@gmail.com>
+X-Proofpoint-ORIG-GUID: -NEawIzt0lrVNlFRnMe1JvAFWsr-untU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA3MCBTYWx0ZWRfXz33H4f7kAPyO
+ cT6ZnsX1LvMfR4H3llQoboTbklFFHqZgU9RCr881+fqvGR248qWCn6B3nxA5rpn9CNL/6imiVgg
+ zoL5YL29+KaCgiziF+8BLzrAJL3r5N4=
+X-Proofpoint-GUID: -NEawIzt0lrVNlFRnMe1JvAFWsr-untU
+X-Authority-Analysis: v=2.4 cv=e4uT2qp/ c=1 sm=1 tr=0 ts=6ad8f99c cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ajoyPTHG4wiO7EjX:21 a=xqWC_Br6kY4A:10
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=OQN141zOAAAA:20 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=VJCrZHs55krGogs9KgYA:9
+ a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA3MCBTYWx0ZWRfX51kGRQZU49gI
+ anNrWzUeNEthHl1FMVujUBW+O3IxPaJ63EKWn9eoZPORLTSa/fvn6gw1FSdSNLt0bVca4v7DymJ
+ Xz8bw6+Lf0qkkwmitibQR+qVE9vNTI8XhS/6nMjI9myJYEPiIaX2tFN+TgkKQrWOwNd/V4JeV0N
+ iaEUnJvPktQjPfVCcIUlMZSeKgs4wjkE0pTLh0Lxb5W1lhWGP2tCFywkloinJgXFk+Qb4d69jWs
+ Twvp4GlqniXi7NevHHtALMKrsFAmF4kPYOnjcFZAcKEY/1/D3IbaY3uznVEaYwVCLvw+N5KMkIx
+ 0aRDcKNzlRdMaeHkzgXe7+MTSRHdJ77m8ysVRrIj1kYP/x3p8OXgtHCpWJB0u/gnXEU4H4pKhUE
+ 5yB+wT7lH+hgL7c/jnpV+0BOUTW1tm/URfqlKrwTSHkYW3KKGsYV/2VVHeUKBZhhuqEMTnqJadD
+ WYzkXl6ppcHsdeEJDEQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210070
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,59 +148,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Maxime,
-
-The ST7920 driver changes look correct to me.
-
-Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
-
-El mi=C3=A9, 14 oct 2026 a las 19:29, Maxime Ripard (<mripard@kernel.org>) =
-escribi=C3=B3:
->
-> The sitronix: st7920 connector implementation uses the deprecated
-> drm_atomic_helper_connector_reset() as its reset hook.
->
-> Switch to drm_atomic_helper_connector_create_state() instead.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+On Mon, Oct 19, 2026 at 11:05:10PM -0300, Fabricio Akio wrote:
+> The A508, A509 and A512 took the 250 ms runtime-PM autosuspend delay
+> of the A530, raised there because quickly cycling that GPU's power
+> hung the system. Qualcomm's downstream driver powers these GPUs down
+> after 80 ms idle, qcom,idle-timeout, on SDM630, SDM636 and SDM660
+> alike.
+> 
+> Use 80 ms for these three, so the GPU powers down, and releases its
+> CPU latency request, sooner after its last work.
+> 
+> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 > ---
-> Cc: Iker Pedrosa <ikerpedrosam@gmail.com>
+> The value is downstream's idle timeout for these SoCs:
+> https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm630-gpu.dtsi#L71
+> https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm660-gpu.dtsi#L73
+> SDM636 includes sdm660.dtsi:
+> https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/arch/arm/boot/dts/qcom/sdm636.dtsi#L13
+> Downstream reads it at probe, restarts the idle timer when the last
+> work completes, and slumbers the GPU when it fires, dropping its CPU
+> latency request:
+> https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/adreno.c#L901
+> https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/kgsl_pwrctrl.c#L2981
+> https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/kgsl_pwrctrl.c#L2467
+> https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/kgsl_pwrctrl.c#L2753
+> 
+> Tested on an A508 with the previous patch: 1381 GPU power cycles at
+> gaps from 50 ms to 3 s without a fault. The A509 and A512 values are
+> downstream's for SDM636 and SDM660; tested on an A508 only.
 > ---
->  drivers/gpu/drm/sitronix/st7920.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/sitronix/st7920.c b/drivers/gpu/drm/sitronix=
-/st7920.c
-> index 9887ed746ceb..0b838ddd13fe 100644
-> --- a/drivers/gpu/drm/sitronix/st7920.c
-> +++ b/drivers/gpu/drm/sitronix/st7920.c
-> @@ -651,11 +651,11 @@ static int st7920_connector_get_modes(struct drm_co=
-nnector *connector)
->  static const struct drm_connector_helper_funcs st7920_connector_helper_f=
-uncs =3D {
->         .get_modes =3D st7920_connector_get_modes,
->  };
->
->  static const struct drm_connector_funcs st7920_connector_funcs =3D {
-> -       .reset =3D drm_atomic_helper_connector_reset,
-> +       .atomic_create_state =3D drm_atomic_helper_connector_create_state=
-,
->         .fill_modes =3D drm_helper_probe_single_connector_modes,
->         .destroy =3D drm_connector_cleanup,
->         .atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate=
-_state,
->         .atomic_destroy_state =3D drm_atomic_helper_connector_destroy_sta=
-te,
->  };
->
-> --
-> 2.55.0
->
+>  drivers/gpu/drm/msm/adreno/a5xx_catalog.c | 18 +++---------------
+>  1 file changed, 3 insertions(+), 15 deletions(-)
+> 
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+-- 
+With best wishes
+Dmitry
