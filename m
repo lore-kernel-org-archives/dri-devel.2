@@ -2,52 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E08606A32D
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:04:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D755606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:04:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PJFcJm9x
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BVk35sNo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF56410FD3A;
-	Wed, 21 Oct 2026 10:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99AAD10FD41;
+	Wed, 21 Oct 2026 10:04:35 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB1FC10FD3B;
- Wed, 21 Oct 2026 10:04:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03B9110F9C0;
+ Wed, 21 Oct 2026 10:04:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792577054; x=1824113054;
+ t=1792577058; x=1824113058;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=XFLiTB4clPi1HCjwYHWWN7r4MRbNaogqnQGqDxw/Ejo=;
- b=PJFcJm9xi5SjHjsW8QpzfVtsleAKralYv6nqOT6oyIsVqhbAJ/+vniX1
- HlxwnaZ8evNUIXweU2enRfd1TqHzArE4SW32tkYe43RKXAlsXcUYxfniU
- o+FmvBY7oym/PSQYnZQAp5hlDSE4qUfPuEMp2kZIT9d633Bp83iE/rzAM
- JTwBG6pbhO81BAtYWuvqQwao/Sp98Z7aGCn1/tQkML+egcLgCi9oqNip+
- F50u85q6dJ0h9hoczi3c0RmEKGi9EJYZ5NvjIV2Yt+KSEBgHTKF03L0UO
- 9UlIzcNADzGXFaWD2FLrgLY8OwmrWLxFuVa/+3THyYnyM0ipBbbOpIMOL A==;
-X-CSE-ConnectionGUID: MPfF6sZUSfCyshxDH9tJpQ==
-X-CSE-MsgGUID: CcD8/aplRGufBvoIvZ71Gg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1290325"
+ bh=TeDHIUi6SwchsWtnYYAUs68mf84iOLspx7frKvdfz1M=;
+ b=BVk35sNoVY8a0v4Jqn55/JICVtSr6oXOO8LnyhjPAgaNStGvSP5OAZZR
+ kmbtqJyXX6SDrqKbvGBfx3GX4IDNRwA4HZh974sbQeW0bJr5d0gZ/I/zF
+ M8FvIBT+NzPaLsFE1liMOz9atI4jiv8KnuqZITH5mqcWebOa1lpzEcwsY
+ jx7nsR+1GaEM+JvvFSLdHy3w5QUhTzNUbd3JQTlVYPpisPwIf90cwvK63
+ GgSTqy1wEzgdS0hS0xBu6GMODlileFvTH9j+tBkWIQWWHiQvrHREy/SXW
+ HA4AbbD2rD+p64wZlXfm55NtqWtZLcZHjTtlknpdA7y7cXIE2u41Ycbou w==;
+X-CSE-ConnectionGUID: ncDFrzvDSauN3MztG5zv0w==
+X-CSE-MsgGUID: xUlOoLkhTwOtRmg6Wk+Cag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1290331"
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1290325"
+   d="scan'208";a="1290331"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 03:04:14 -0700
-X-CSE-ConnectionGUID: rcpXECXGTZ6ZAklko/z5ww==
-X-CSE-MsgGUID: c+BJ344QSJKbLpBq8A8T4A==
+ 21 Oct 2026 03:04:18 -0700
+X-CSE-ConnectionGUID: ueKd+D6ZRpGht9i97jM4EQ==
+X-CSE-MsgGUID: xTjXPiF+Sgm5rIKEhaEXjg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3382158"
+   d="scan'208";a="3382170"
 Received: from varungup-desk.iind.intel.com ([10.190.238.71])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 03:04:11 -0700
+ 21 Oct 2026 03:04:16 -0700
 From: Arvind Yadav <arvind.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
  thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com
-Subject: [RFC v3 15/17] drm/xe/guc: Skip timeout recovery on a wedged device
-Date: Wed, 21 Oct 2026 15:33:16 +0530
-Message-ID: <20261021100322.1014449-16-arvind.yadav@intel.com>
+Subject: [RFC v3 17/17] drm/xe: Block BO VM access when device I/O is
+ unavailable
+Date: Wed, 21 Oct 2026 15:33:18 +0530
+Message-ID: <20261021100322.1014449-18-arvind.yadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021100322.1014449-1-arvind.yadav@intel.com>
 References: <20261021100322.1014449-1-arvind.yadav@intel.com>
@@ -74,51 +75,65 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A scheduler timeout can still run after the device has been declared
-wedged. guc_submit_hint_wedged() only returns true for the no-reset
-debug mode, so other wedge modes can continue into GuC timeout recovery.
+xe_bo_vm_access() may acquire a runtime PM reference and access a BO
+during PCI error recovery, after a permanent wedge or during device
+unplug.
 
-The killed-queue case already preserves an existing wedge. Extend the
-same check to non-killed queues, where guc_submit_hint_wedged() returns
-false outside the no-reset debug mode.
+Use xe_device_io_get() to protect against unplug, PCI error recovery and
+permanent wedging. Keep the device I/O gate held until the runtime
+PM reference has been released.
 
-If the device is already wedged, use the existing wedged cleanup path
-and avoid further hardware recovery. This also avoids the
-kernel-submitted job timeout warning seen after wedge isolation.
+Return -EIO for a permanent wedge, -ECANCELED during PCI error recovery
+and -ENODEV after device unplug.
 
-The timeout was observed as:
-[ 8939.200065] xe 0000:03:00.0: [drm] Tile0: GT0: Kernel-submitted job timed out
-[ 8939.200066] WARNING: xe_guc_submit.c:1683 at guc_exec_queue_timedout_job+0x1160/0x2550
+v2:
+ - Replace the runtime-PM scoped guard with explicit get/put calls
+   to avoid mixing scope-based and goto-based cleanup. (Sashiko)
+ - Replace the private VRAM SRCU lock with the common device I/O gate.
+ - Preserve -EIO for BO access after a permanent wedge.
+
+v3:
+ - Combine unplug and blocked-device protection through the common DRM
+   device SRCU helper.
+ - Return -ENODEV after unplug and -ECANCELED during PCI recovery, while
+   preserving -EIO for a permanent wedge.
 
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Assisted-by: LLM
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Suggested-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_guc_submit.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_bo.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
-index aa948581576e..bf3d16a72357 100644
---- a/drivers/gpu/drm/xe/xe_guc_submit.c
-+++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-@@ -1668,10 +1668,9 @@ guc_exec_queue_timedout_job(struct drm_sched_job *drm_job)
- 	 * Killed queues must not newly wedge the device, but preserve an
- 	 * already-wedged state to avoid warning on teardown timeouts.
- 	 */
--	if (!exec_queue_killed(q))
-+	wedged = xe_device_wedged(xe);
-+	if (!wedged && !exec_queue_killed(q))
- 		wedged = guc_submit_hint_wedged(exec_queue_to_guc(q));
--	else
--		wedged = xe_device_wedged(xe);
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 2b3c000b7f94..ff8a7f582b86 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -2330,9 +2330,18 @@ static int xe_bo_vm_access(struct vm_area_struct *vma, unsigned long addr,
+ 	struct ttm_buffer_object *ttm_bo = vma->vm_private_data;
+ 	struct xe_bo *bo = ttm_to_xe_bo(ttm_bo);
+ 	struct xe_device *xe = xe_bo_device(bo);
++	int idx, ret;
  
- 	/*
- 	 * Only tag as GPU hang if this is the original timeout, not a
+-	guard(xe_pm_runtime)(xe);
+-	return ttm_bo_vm_access(vma, addr, buf, len, write);
++	ret = xe_device_io_get(xe, &idx);
++	if (ret)
++		return ret == -ECANCELED && xe_device_wedged(xe) ? -EIO : ret;
++
++	xe_pm_runtime_get(xe);
++	ret = ttm_bo_vm_access(vma, addr, buf, len, write);
++	xe_pm_runtime_put(xe);
++
++	xe_device_io_put(idx);
++	return ret;
+ }
+ 
+ /**
 -- 
 2.43.0
 
