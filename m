@@ -2,72 +2,151 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D39606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8E1606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 11:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=UqdNR6iB
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UlTyuTus;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fL/QeNbt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF8A10E074;
-	Wed, 21 Oct 2026 10:59:44 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C13110E074
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 10:59:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=EZGF2Rn+xGpbkoHxpw4caWn7Qkf8XmHK8YqDyB0mmTQ=; b=UqdNR6iB/jS77K5xbQgQaKcaWB
- Sd/o22Tu7Mq3aby2MbVTBu+CdNeNQDp9JN/2PQxYo47nLH4pSHokorFEvba6Ev0Lr4L9iLaN+MlGY
- ms7eR1EeDlXW1d9LQLQhv8Q5l3iAFGuQhvJAXVslYVrds11sd5sX5+6gCDtvmB/BILU5Lhg8yIoBa
- KtKuuJxAOwPV3FF87mhIhQWdHXHkvUXrCpN/bA3C+x9uvi7DnXmP0+9WPXAlY6SNh0oCpAD1V+axv
- nldKu67wyKribnYGbtuchdp7zQWD9qbYu+1fwdYLup44BJmiRNMl7bc3lGn6DrTIof4xZpIYMWVG9
- RHapZFbw==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xJU2h-005YEC-6C; Wed, 21 Oct 2026 12:59:35 +0200
-Message-ID: <3748ac1a-3afe-4293-8c20-48fcc4cf5f94@igalia.com>
-Date: Wed, 21 Oct 2026 07:59:31 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id D98A110FD75;
+	Wed, 21 Oct 2026 11:16:41 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 285A710FD7C
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 11:16:30 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69LA6R0n282269
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 11:16:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ fkPmOzv3OgvoRDjNIIWJpFQ5aARxfWx4gdCqfd4sloY=; b=UlTyuTuspJTbmMcH
+ TbrdWoyGP9Fc4ksN8AP603nQ5JSMitl6SGjKkcJL6A1xjJ+RvA5CB4Buzq0FYP6P
+ zO/EhRjitSuLTpqfPj/KiOqAZUouh1jnh2a29eP0ZMWFBaAfUiKryACuZmjToJdE
+ 2+FB8XRZmYUKQupgsJ4TenV8dLAldxr+Mj5TQc+aMatuvNZfCsWHVqAXWRAbxUrq
+ 1tyUC1rpg33NVSZeVbqngcKuycHB99rNqcs/FMRbujq5Lpmiwi7frL/ChtxIHlwz
+ rZqPFNvYjnNBGfgNjsk2MeOWjCeJ55jUug1EkcHLLTRg1rh+JJLh+EjZb4kh2q7J
+ fztWUA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heh5r2qjf-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 11:16:28 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-3ac77c3ff6aso951755a91.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 04:16:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792581388; x=1793186188;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=fkPmOzv3OgvoRDjNIIWJpFQ5aARxfWx4gdCqfd4sloY=;
+ b=fL/QeNbtao7Nh1o1KaCjxYqPzaF8+zcL19Q8l9lVC7GU2e8F1AVq6JFHE3EpoQ5OjO
+ pKXn1qsN9R+JM6QE6X4BN8EXO6wD3aypx+eHMlpnfOEPVhgWeSjNTKmrT0yWX8N9sAJi
+ pgf1Olvjmf3U2Pu0NumOEOKfa3UhUQUE7XTQMwPsuUjxqvWqp2bGQijaQMngrCosCV78
+ LHbFx5h5Tp4zCAE1l2hTbIRc7HGp1S3fqn4eQrTd2i76R9aoBGn2eZhsTUce65k9F+B/
+ QPa+Q1gk/Tpe6CfTcCD2CJMaFnlNLKvNJHdS7muc5WwyfuVhHVVOyD96/E1I9pqk/Kc4
+ ETDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792581388; x=1793186188;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=fkPmOzv3OgvoRDjNIIWJpFQ5aARxfWx4gdCqfd4sloY=;
+ b=rro4EJDwzgl81DUD2Aq3BWTdQFcR+vsYWcAPVc8RdJFqnLBFO44wwQLEU2YlPlxbIT
+ wb2/6EBRo2YQ6UceRgxXzj/SZvd6jPHucyVVnAZZW3hZHeQ/xnaoaLK9PvnnQ0ZgN1WP
+ 6GRQdtDsQitaUOCH96b56iW8VgKMfiV6yQjck8mXydYxEjxZ6OmUpj+zg6S2PLaWrPpK
+ YB1bhMJpbKXmq/WTAahDuvzLVtI3rMDATuVtLyxk+olSe9lDk5oDU/0QYma1sp99WxRI
+ RiBw6jP7CyW3Ina2ga8qQbT5KvpHpp5TLN1R+AgzInH9UeacEqho64JiEQXBuncGlTCK
+ cGCA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByjB9aAvYK3CsK+blc4pEi/GlfBULN/T7vbdFU62gEBj8PzETUQXpfaZWDZomqcAFGHvy8UnA7fR1k=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKVnrZxxgbA3q0hpkCQIAGHr2Ah+m/1cpQcONtXuVWNsQNnnlKw
+ iUz3rs4e2C0Iwn6Eg7eRkrrl703n8NTZuwNrn8FXVgZ+n9/ImZg6jCxCtLSpB/6o2pNQP2QNTEY
+ r34/x8iZrAizukGn7RilgdYGZE2PnAj9NiEXk/KOBVAd3wZ4+/YRkdmRe9RMZUGYwLEoc8sg=
+X-Gm-Gg: AYBFou0QiO2J2zGTpnwJ8B6RinPC5yjxJ7Tsw+Xzevse6V9SWcgHkuxebpld6NleIw4
+ EcUcXSi4JUep3PMeuUkCvN1Fd1jXs11vPK9JmlBZQOP5cfrM1WWD3GUy5p21DKaOwh9oZJ9CJjb
+ fY9z02G3GtyEqfvQ3aJEGgMUaRvWY1TEqTcdjKhVqwryU920cSbNiXR3NIzbU9qX/nCjsfV556j
+ R9S1Xm0witEd0FJFIuFOJKr+RhPD4ylsrFc7CVpeF0ZXsoyMDOkUuwKju0uaDqpIIviOPkR5QdT
+ T9Akr6fCW50Oiqmy/zA6ojJjLR6lopkAjvcCub2S6+IQv7JSUAx2F00rkPd2d93KhgTFc7it76c
+ em8+/+l5yPwLWQn0p3t4gxcpIOzjc
+X-Received: by 2002:a17:90b:55cd:b0:3ac:929d:ba5c with SMTP id
+ 98e67ed59e1d1-3ad86f49b66mr1399593a91.45.1792581387581; 
+ Wed, 21 Oct 2026 04:16:27 -0700 (PDT)
+X-Received: by 2002:a17:90b:55cd:b0:3ac:929d:ba5c with SMTP id
+ 98e67ed59e1d1-3ad86f49b66mr1399567a91.45.1792581387068; 
+ Wed, 21 Oct 2026 04:16:27 -0700 (PDT)
+Received: from [10.204.78.119] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ad80912f26sm3948228a91.1.2026.10.21.04.16.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Oct 2026 04:16:26 -0700 (PDT)
+Message-ID: <425ddb41-cfd7-4032-8666-0193ab6b5819@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 16:46:17 +0530
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] drm/sched: Disallow initializing entities with
- un-initialized schedulers
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org
-References: <20261020154123.33631-1-tvrtko.ursulin@igalia.com>
- <20261020154123.33631-3-tvrtko.ursulin@igalia.com>
- <sashiko-outbox-179327@kernel.org>
- <c32a1931-c0de-4d63-a8c8-2189c35137dc@igalia.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <c32a1931-c0de-4d63-a8c8-2189c35137dc@igalia.com>
+Subject: Re: [PATCH v2 02/13] dt-bindings: display: msm: Document the Nord
+ DiplayPort controller
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>
+References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-2-a2ab9af954d2@oss.qualcomm.com>
+ <20261013-tangible-wakeful-swift-a38f8f@quoll>
+ <20261013-honored-bear-of-cleaning-bd8108@quoll>
+Content-Language: en-GB
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+In-Reply-To: <20261013-honored-bear-of-cleaning-bd8108@quoll>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=aI5lOr9m c=1 sm=1 tr=0 ts=6ad89f0c cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=D6Kic2Gw2dsiznywmRUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: cg3sXSbse2_ouURqtpKfZIM9_nk1vPBh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0NCBTYWx0ZWRfX7zHj9IlGcuBl
+ pd+vEW/wEzxc9TlXA6g1GPc1l87lwqWfRyNM+/rwidCCZUoeu8G9ig/YXetq6EUjn+QakK0ZXKW
+ 4qZ7HXPzbEx3gFYeRnptZMaEkOGtrHX9xAqB2Ez7AfFoysXQ3K54pHbx4g/wABaxzn5XoHUSxlV
+ HXAlk37f4j276g22y1YXnYfz5JB0KRgKm46kEbA60vgfx7K1AqtDApmJNMEplUtE6iuEMlIZLEX
+ go4+PazZNrwrTfiFeiqoQ4CiANcsDdyPMNIOi9Plwpbl+PpzBnXI8WujoQNkdwhMZirhl861xZA
+ rDw2REsMIXZ0Lr6wSBmcQAOZltrOZDYB3sWVZrqsFyHPaQ7muRSptIfQGEIdZjfwbpuCUPtm6Ar
+ Y4MpzoeW9/9FbZAI7bVqBPj1Uu6pLE2BLKufASSBLORajXQ3fWNWwS/rfoBotDNw9ToUVt1Prnx
+ bGBH6kWPKH3vp6HSsdQ==
+X-Proofpoint-GUID: cg3sXSbse2_ouURqtpKfZIM9_nk1vPBh
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0NCBTYWx0ZWRfX7jl1XZvkj6N5
+ szrKpKw4BoyRgmpmQ+VVYcY7hDwHo/a+ak5Yee3l1jBVMe0fylbqtgrBKtHR6VmBWETpjG5D0SX
+ SFiyYAqFUiPl0TtmjH9RKUFtmyzaAE0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210044
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,141 +158,45 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Tvrtko,
 
-On 21/10/26 05:08, Tvrtko Ursulin wrote:
-> 
-> On 20/10/2026 17:02, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 1 potential 
->> issue(s) to consider:
->> - [High] drm/sched: drm_sched_entity_init() breaks v3d_open() on V3D 3.3
->> -- 
->>
->> commit 607520d70e20fa56f0a8fa9eade2db9f019b764f
->> Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>
->> drm/sched: Disallow initializing entities with un-initialized schedulers
->>
->> This patch updates drm_sched_entity_init() to reject schedulers whose
->> run-queues have not been initialized, returning -EINVAL instead of 
->> logging
->> a warning and continuing.
->>
->>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/ 
->>> drm/scheduler/sched_entity.c
->>> index e12709b7bd0c3..95bb79b3d003a 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>> @@ -119,9 +119,16 @@ int drm_sched_entity_init(struct 
->>> drm_sched_entity *entity,
->>>                 unsigned int num_sched_list,
->>>                 atomic_t *guilty)
->>>   {
->>> -    if (!entity || !sched_list || !num_sched_list || !sched_list[0])
->>> +    unsigned int i;
->>> +
->>> +    if (!entity || !sched_list || !num_sched_list)
->>>           return -EINVAL;
->>> +    for (i = 0; i < num_sched_list; i++) {
->>> +        if (!sched_list[i] || !sched_list[i]->sched_rq)
->>> +            return -EINVAL;
->>> +    }
->>
->> [Severity: High]
->> Does returning -EINVAL here when !sched_list[i]->sched_rq break
->> v3d_open() on V3D 3.3 hardware (V3D_GEN_33)?
->>
->> During probe, v3d_sched_init() in drivers/gpu/drm/v3d/v3d_sched.c only
->> initializes the V3D_CSD and V3D_CACHE_CLEAN schedulers when
->> v3d_has_csd(v3d) is true:
->>
->> drivers/gpu/drm/v3d/v3d_sched.c:v3d_sched_init() {
->>     ...
->>     if (v3d_has_csd(v3d)) {
->>         ret = v3d_queue_sched_init(v3d, &v3d_csd_sched_ops, V3D_CSD,
->>                        "v3d_csd");
->>         if (ret)
->>             goto fail;
->>
->>         ret = v3d_queue_sched_init(v3d, &v3d_cache_clean_sched_ops,
->>                        V3D_CACHE_CLEAN, "v3d_cache_clean");
->>         if (ret)
->>             goto fail;
->>     }
->>     ...
->> }
->>
->> On V3D 3.3 platforms where !v3d_has_csd(v3d), those two schedulers are
->> never initialized via drm_sched_init(), leaving their sched_rq pointers
->> NULL.
->>
->> However, when userspace opens the DRM device node, v3d_open() in
->> drivers/gpu/drm/v3d/v3d_drv.c unconditionally loops over all
->> V3D_MAX_QUEUES queues and fails if drm_sched_entity_init() returns an
->> error:
->>
->> drivers/gpu/drm/v3d/v3d_drv.c:v3d_open() {
->>     ...
->>     for (i = 0; i < V3D_MAX_QUEUES; i++) {
->>         v3d_priv->stats[i] = v3d_stats_alloc();
->>         if (!v3d_priv->stats[i]) {
->>             ret = -ENOMEM;
->>             goto err_stats;
->>         }
->>
->>         sched = &v3d->queue[i].sched;
->>         ret = drm_sched_entity_init(&v3d_priv->sched_entity[i],
->>                         DRM_SCHED_PRIORITY_NORMAL, &sched,
->>                         1, NULL);
->>         if (ret)
->>             goto err_sched;
->>     }
->>     ...
->> }
->>
->> Previously, drm_sched_entity_init() logged a warning via pr_warn() and
->> returned 0, allowing v3d_open() to succeed. With this change, won't
->> every v3d_open() call on V3D 3.3 fail with -EINVAL?
-> 
-> Oh well, guess I overestimated the general public sensitivity to weird 
-> error messages.
-> 
-> Given the submit side is guarded with the same v3d_has_csd() as the 
-> scheduler init, so those entities are not reachable after open, I think 
-> I can just add a patch which adds the same skip condition in the 
-> v3d_open() loop.
-> 
-> Maira - does that sound like it would work?
-
-I wouldn't worry a lot about this error. I'm planning to remove V3D 3.3
-support in 7.5 [1]. Anyway, don't worry, most likely nobody uses V3D 3.3
-with the v3d driver. If it doesn't break V3D 4.2 and V3D 7.1 (which have 
-CSD), I'm okay with the changes.
-
-[1] 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7ffcc4fffb45ee98e7a9683e109050246dc194af 
-
-
-Best regards,
-- Maíra
-
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->>
->> [ ... ]
->>
+On 10/13/2026 2:18 PM, Krzysztof Kozlowski wrote:
+> On Tue, Oct 13, 2026 at 09:44:15AM +0200, Krzysztof Kozlowski wrote:
+>> On Mon, Oct 12, 2026 at 07:02:12PM +0530, Nabige Aala wrote:
+>>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 >>>
+>>> Nord uses MDSS 12.1 with two independent DP controller instances,
+>>> each exposing two DP cores at new IO offsets. None of the existing
+>>> compatibles match this layout, so add qcom,nord-dp.
+>>>
+>>> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+>> Do I understand correctly:
+>> Device is fully compatible with qcom,sa8775p-dp, but a simple to fix
+>> driver limitation is preventing compatibility?
 >>
-> 
+>> If so, let's fix the driver - just add more addresses to the
+>> msm_dp_desc_sa8775p array?
+> Or it does not matter, because top-level MDSS anyway cannot use
+> compatibility?
 
+For MDSS0, the DP register offsets are same to those used on SA8775P. 
+However, the MDSS1 DP register offsets differ from SA8775P, and Nord 
+also utilizes a different MDSS instance. Because of these differences, 
+we introduced a separate compatible string for Nord.
+
+Are you suggesting that Nord should reuse the "msm_dp_desc_sa8775p"?  
+This would also pollute the sa8775p's desc table.
+
+ From your perspective, what would be the preferred approach here?
+
+>
+> Best regards,
+> Krzysztof
