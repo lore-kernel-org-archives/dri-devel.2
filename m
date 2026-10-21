@@ -2,42 +2,109 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40574606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 11:51:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44C5606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 11:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JizsqHyG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlJf5Sm0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B287610FDA7;
-	Wed, 21 Oct 2026 11:51:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7EB10FDCA;
+	Wed, 21 Oct 2026 11:53:35 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE05110FDA7
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 11:51:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C09810E04D;
+ Wed, 21 Oct 2026 11:53:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BC08760AB6;
- Wed, 21 Oct 2026 11:51:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0441F000C4;
- Wed, 21 Oct 2026 11:51:03 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8A48F60142;
+ Wed, 21 Oct 2026 11:53:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569431F000C4;
+ Wed, 21 Oct 2026 11:53:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792583463;
- bh=/GLi/Y19ebO5Wqeo9afSVmfNL5Rer6QdLvPXY5m8LPQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JizsqHyGBd32BQgyL30RQoXUc30n0syWQj/LkIUk7yegB7K7fnt4IqzSdvh5lGL4d
- 09/fLgarnQuC3W4a3ahO997DZfeaowy5284RSS5eXlCytgtL8nlSUv5zsPsJnHSnm8
- BV+t7nYuHNm9Uu9aLQQoUnEHCXKKnMqi0+X8s27imQAavpS+OSqGSGkDqhslVF2qzg
- XttWWX7mHzbljRj4zRpf26dXqoLY66xrA4vhXYRx8Rr2M9/XLy5/NC6UEQ1gZyEHZu
- E8i7iiRzV0XOmrNj1kMAWJPhamGo9uQCxTD/mXJXcaU+4g5Xd3IdJnGvSjVkKZPKjq
- dWIp1MER1DRSA==
-Message-ID: <sashiko-outbox-180189@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/radeon/vce1: enable the VCE trap interrupt
-To: "Matheus Tagliari" <mptagliari@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261021114122.94008-3-mptagliari@gmail.com>
-References: <20261021114122.94008-1-mptagliari@gmail.com>
- <20261021114122.94008-3-mptagliari@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 11:51:02 +0000
+ s=k20260515; t=1792583607;
+ bh=jdd3bJ+yNAjfZcHwgMNPA9q+vTcn5By3FrVNym33ods=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=FlJf5Sm0BhjhwPXy9OrGDtK8DK5nsqmh9sSfl25F9w8b9SXiiAhvAohb2cX9zWBVo
+ 4jgtReFAkqMr/TmP6iyE1WhLLmtvh1A8ocRBg9u+qWdEKedCHTft+PGNceSlXKO38C
+ tBI45DYgnXwSA+WYO49agoTHkYmfzeGTr6admgsyiNFArbdQvuffOehnPgg/KqS7Y8
+ yzqJRup3012rrc9ppyd/g6qrVddBfO11UGIzAtycWnQ2w7oIHBYDM18pbM+3cAihJ+
+ iqehmM/w7buP3S4jDQQ1A02UU58mIOXg7b7xrM0hibmzMbzcZNSxdS/XVL12wScoh2
+ Dsn+FwC16X6kA==
+Message-ID: <565fd4c2-2d5a-4c2a-9ed1-c7bcb17efc9d@kernel.org>
+Date: Wed, 21 Oct 2026 13:53:17 +0200
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/13] dt-bindings: display: msm: Document the Nord
+ DiplayPort controller
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Ritesh Kumar
+ <ritesh.kumar@oss.qualcomm.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>
+References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-2-a2ab9af954d2@oss.qualcomm.com>
+ <20261013-tangible-wakeful-swift-a38f8f@quoll>
+ <20261013-honored-bear-of-cleaning-bd8108@quoll>
+ <425ddb41-cfd7-4032-8666-0193ab6b5819@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <425ddb41-cfd7-4032-8666-0193ab6b5819@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,103 +115,47 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/radeon: vce_v1_0_start() writes VCE1 VCE_SYS_INT_EN offset on =
-VCE2
---
+On 21/10/2026 13:16, Nabige Aala wrote:
+> 
+> On 10/13/2026 2:18 PM, Krzysztof Kozlowski wrote:
+>> On Tue, Oct 13, 2026 at 09:44:15AM +0200, Krzysztof Kozlowski wrote:
+>>> On Mon, Oct 12, 2026 at 07:02:12PM +0530, Nabige Aala wrote:
+>>>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>>>>
+>>>> Nord uses MDSS 12.1 with two independent DP controller instances,
+>>>> each exposing two DP cores at new IO offsets. None of the existing
+>>>> compatibles match this layout, so add qcom,nord-dp.
+>>>>
+>>>> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>>>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+>>> Do I understand correctly:
+>>> Device is fully compatible with qcom,sa8775p-dp, but a simple to fix
+>>> driver limitation is preventing compatibility?
+>>>
+>>> If so, let's fix the driver - just add more addresses to the
+>>> msm_dp_desc_sa8775p array?
+>> Or it does not matter, because top-level MDSS anyway cannot use
+>> compatibility?
+> 
+> For MDSS0, the DP register offsets are same to those used on SA8775P. 
+> However, the MDSS1 DP register offsets differ from SA8775P, and Nord 
+> also utilizes a different MDSS instance. Because of these differences, 
+> we introduced a separate compatible string for Nord.
+> 
+> Are you suggesting that Nord should reuse the "msm_dp_desc_sa8775p"?  
+> This would also pollute the sa8775p's desc table.
 
-commit 081ec1fcedbbac29c36bb9a81a87f74e67af09fd
-Author: Matheus Tagliari <mptagliari@gmail.com>
+What are the differences? Only registers, so no pollution. You just need
+them to match IDs.
 
-drm/radeon/vce1: enable the VCE trap interrupt
-
-This commit defines VCE_SYS_INT_EN and VCE_SYS_INT_TRAP_INTERRUPT_EN in
-sid.h and enables the trap interrupt at the end of vce_v1_0_start() so VCE
-fences are processed by the interrupt handler.
-
-> diff --git a/drivers/gpu/drm/radeon/sid.h b/drivers/gpu/drm/radeon/sid.h
-> index f9267b026f8de..ba322de844b3b 100644
-> --- a/drivers/gpu/drm/radeon/sid.h
-> +++ b/drivers/gpu/drm/radeon/sid.h
-> @@ -1878,6 +1878,8 @@
->  #define	DMA_PACKET_NOP					  0xf
-> =20
->  #define VCE_STATUS					0x20004
-> +#define VCE_SYS_INT_EN					0x20d00
-> +#define		VCE_SYS_INT_TRAP_INTERRUPT_EN		(1 << 3)
->  #define VCE_VCPU_CNTL					0x20014
->  #define		VCE_CLK_EN				(1 << 0)
->  #define VCE_VCPU_CACHE_OFFSET0				0x20024
-> diff --git a/drivers/gpu/drm/radeon/vce_v1_0.c b/drivers/gpu/drm/radeon/v=
-ce_v1_0.c
-> index bdfbcf14b8640..0866e7fb0b0ef 100644
-> --- a/drivers/gpu/drm/radeon/vce_v1_0.c
-> +++ b/drivers/gpu/drm/radeon/vce_v1_0.c
-> @@ -350,6 +350,10 @@ int vce_v1_0_start(struct radeon_device *rdev)
->  		return r;
->  	}
-> =20
-> +	/* enable the trap interrupt so that VCE fences are processed */
-> +	WREG32_P(VCE_SYS_INT_EN, VCE_SYS_INT_TRAP_INTERRUPT_EN,
-> +		 ~VCE_SYS_INT_TRAP_INTERRUPT_EN);
-
-[Severity: High]
-Does writing VCE_SYS_INT_EN unconditionally in vce_v1_0_start() access the
-wrong MMIO register offset on CIK (VCE 2.0) hardware?
-
-In drm/radeon, VCE 2.0 reuses vce_v1_0_init() and vce_v1_0_start() during
-startup, resume, and dynamic powergating transitions:
-
-drivers/gpu/drm/radeon/cik.c:cik_vce_resume() {
-	...
-	r =3D vce_v1_0_init(rdev);
-}
-
-drivers/gpu/drm/radeon/kv_dpm.c:kv_dpm_powergate_vce() {
-	...
-		if (pi->caps_vce_pg) {
-			kv_notify_message_to_smu(rdev, PPSMC_MSG_VCEPowerON);
-			vce_v2_0_resume(rdev);
-			vce_v1_0_start(rdev);
-		}
-}
-
-Because drivers/gpu/drm/radeon/vce_v1_0.c includes sid.h, VCE_SYS_INT_EN
-evaluates to the VCE 1.0 byte offset 0x20d00 here. On VCE 2.0, however,
-VCE_SYS_INT_EN is at byte offset 0x21300 in drivers/gpu/drm/radeon/cikd.h
-(where offset 0x20d00 falls within the VCE 2.0 UENC register range), and
-VCE 2.0 already enables VCE_SYS_INT_TRAP_INTERRUPT_EN at 0x21300 inside
-vce_v2_0_resume() in drivers/gpu/drm/radeon/vce_v2_0.c:
-
-drivers/gpu/drm/radeon/vce_v2_0.c:vce_v2_0_resume() {
-	...
-	WREG32_P(VCE_LMI_CTRL2, 0x0, ~0x100);
-
-	WREG32_P(VCE_SYS_INT_EN, VCE_SYS_INT_TRAP_INTERRUPT_EN,
-		 ~VCE_SYS_INT_TRAP_INTERRUPT_EN);
-
-	vce_v2_0_init_cg(rdev);
-}
-
-Should this register write be placed in vce_v1_0_resume() (matching
-vce_v2_0_resume()), or guarded so it is only executed on VCE 1.0 hardware?
-
-> +
->  	return 0;
->  }
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021114122.9400=
-8-1-mptagliari@gmail.com?part=3D2
+Best regards,
+Krzysztof
