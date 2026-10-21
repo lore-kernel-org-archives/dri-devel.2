@@ -2,77 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B074606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:53:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFD6606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YbW8622A
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=X+gN1MV/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0B5310FCE1;
-	Wed, 21 Oct 2026 08:53:02 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3228610E9C5
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 13:24:29 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2e915887d9dso17713835ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 06:24:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792502669; x=1793107469; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=98Oxvm3jikEXsJUM/zp3eKNHFF44g7Q5zCxMHJr/tPw=;
- b=YbW8622AwHfRyPFmsvkv0GJZ5zAv4/J/5zhD0kFeb0N8qQ8gm5iz09yDccGwouOlQ4
- LFrfgifFOrWLdRG59Bh4cs4z/hAJyZp025cQamREzXt6Pwn83iKjVuykkgXtSQlkImrB
- pCCG5q6Bz+iYHwrfo5JiwIQ4PnqTDgoWOMR49iJOVcD73PFM8PBnof2t3+ZnLnL1VT0q
- U62EVGK+9bazfmCxZ8qbax8RURGoSmbIJtvfb3nbyRyFAH4hEBYEmN8PCcrgNMzviofN
- bNrE9mNQ4t9Bt3XN7C6vgjvBBbT/RKLw4efAPOR18aIGC1W8GPzdLyVMgeG2OiXyOMqi
- XVTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792502669; x=1793107469;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=98Oxvm3jikEXsJUM/zp3eKNHFF44g7Q5zCxMHJr/tPw=;
- b=VkDtQX7pLmoHRDMyvYFsiOvMevJyN/bdsY1JmUzUcqDjiyiEPHn7hy86M9Doj7GmCw
- xtmiA9nMEGwoyNTy1Y3NQHixk+c53E4bDuMxjVjoVRbqutJNKulfBrQYhX9Cd/qnqvOc
- lP2UyiftqRYyn+H2YSspoBWceNyjA0DwEusx3OCjLaEQ9f4bkiW8EmUdEkvMMdFfU6X6
- er0oC5a+L8PAEbkf2A9BFyWz3PAOTYSD95VyZqCpMolOrnUz8hM/aZCKjAK7v4orMT/7
- q4vPfJp41Oy6qP1nvWhY+MG3XfQGscKLt2XGaphUqgE/I80alYBN66ab0EaljKnssxm/
- huhQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxTH8Wf3jztXq8lV0kjpk+6/h//UHcY8T+dWQixS/jqkdk/Gx48RUZc+RUHcRSihM2A3++bKByU+NQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJTZMbiUgvMOYM/dmo/PR8GX7TvsvC4Gsjj4P67fofdbPjjPFYS
- L+XvoK3XtzmUrP6CkbE6Fnfx/zv+vkjHvm6M5c/A6L9sNb0QDFAT3z+j
-X-Gm-Gg: AYBFou377KjamG2QZFqJZaMMtSkU9NTQ85af1bQvJoKU6zRsa51srnJS4P5Ncg80OK9
- NmxWWsa4FCyEb0SxWE27zllp7n0YxaE4Mw5vIE06JDq6uiVs7DGgZc8Vhy3XFqdaet4AffqMvKb
- +7953OWPJeo1nVowFRGVhvgP6v2awu1ES9Onpe3jZWfAzmZOztttMu6NfpFaKYlV4KHm31Yd9wK
- yD99+OMP5+Vm/bGuo6nZaqTteAj9dlMTu04vXwJvzf4n+rnXN7uO+Xmc3qwOMCoyfP0SMb4mTAL
- U+lY7z9EzwtFGJecz8o04ld/QTfx7freME06LtVuHZBNTM023xyGmcCKzPLEO66VteEas7nN0Rk
- RhIOmPA4mlEyBXJLduelrfu4guojj0SAINyONAencIU6Uq2Rx6b4WVzKjIV4Ngdq0K8LHxbZnO4
- uY00naTkjXAXbg0j92cSGjWioOyH3V6jaZmQ8aI+0MM0OrMkXb8YMIfgHGBEYsFxHiIP/K4pzPV
- i0uyOGiZ9WakfRUTlLlYg8f
-X-Received: by 2002:a17:903:3585:b0:2e2:e0f8:e57c with SMTP id
- d9443c01a7336-2e9a6d2b9a8mr88276605ad.70.1792502668600; 
- Tue, 20 Oct 2026 06:24:28 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ea1fd8a55asm7010935ad.29.2026.10.20.06.24.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Oct 2026 06:24:27 -0700 (PDT)
-From: joonhoekim <26rote@gmail.com>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: Joonhoe Kim <26rote@gmail.com>, Arpit Saini <arpit.saini@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH] drm/msm/dsi: fix AHB clock staying enabled across suspend
-Date: Tue, 20 Oct 2026 22:24:14 +0900
-Message-ID: <20261020132424.983-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <179241542813.315541.11037007061803544238@mail.ustc.edu.cn>
-References: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
- <20261016125036.1069-1-26rote@gmail.com>
- <179241542813.315541.11037007061803544238@mail.ustc.edu.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15E6310FCD7;
+	Wed, 21 Oct 2026 08:53:41 +0000 (UTC)
+Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com
+ [203.205.221.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC72010E248
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 03:26:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1792553176; bh=G+Ehm9l8Xv95Bx6oKmHAdogDlKOh7ugIKpG8hkUh+Qg=;
+ h=From:To:Cc:Subject:Date;
+ b=X+gN1MV/62tdQSIKs5RCr+dGrVb3dKBUUwzcOI7ZNWR0srYEDNTPBNiQWlelf2d1Q
+ cXD8K4ENETT/Wq01CkmqWvfWRCy+IJto8FIlvwqQRxZSeiDxX705dxzi12UD+e0KmX
+ VY0UBYWmHLv9OCGlZg2Wxf12Dgrt3lU/gRRqn87c=
+Received: from Liujunyuan.. ([218.106.117.235])
+ by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+ id 68994661; Wed, 21 Oct 2026 11:26:09 +0800
+X-QQ-mid: xmsmtpt1792553169tykol0mr5
+Message-ID: <tencent_FFC8FA1142CEF600BDEBE1EDF4EC27C39005@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJ9jpRfuEWKcN4czwvt/COfC8g6UlvEKtVZGfio2W3eSYLdQ3Tey
+ 7eZgUuFSxQFyO0YtRWNaRFpGuyTjn7Z28BQ8Ot6nxwuWp1mtWSlS0MM75YoungkdChUSqXZvt5WD
+ UuBsXAQbebrZW5ubeFUfcFIaQGTjf9HUBQI6d9O44Ae+BaSnNXsmuX2ccwrBvWntQrNljnexPucH
+ +sxMbPDou9fstgEPiStjVR+6hIsarEP9ytp8MRZnPYMSMCJJK+zHgBzIx3fo5z6ByTO/Kx7JrA9r
+ tZi70WkGWP/q/wXM3OslVFY5c9hXRxgl/NogrjsRGO4AtmhQu4teoY3QQWSUnqUqfBQaByUsDOnf
+ mwFw2zLAh3SwuBGpz4tTkKvZVgMFcrC2znmHNqpVgJA4xMCaaXGLexavxDhKV/AsFwV6SkJLaCYc
+ QDl2IxCPMp0HnRt/t7oHjwbVZJO2RISYJzIUSH3T4UwBy2DoRW1ReSVra1cI6Njh+8W1F1X4Wa1Z
+ p7jVYv02yUnQoDIg71PWBgSvj3JOKjqGtMKvDdMXPnfwFR4EMwIXaLaYYGN4ul1X0SmKllkLu+BX
+ DSaGhodP43SH7hhJWakIvISpv5WMMye5fHOBKKA76+aDGA9uuRtvnrJbQwvIcvFq+6dDx9TNkxAe
+ aWvdVyojZRI/FCtgtL9ueI+ZKMX1eOKJ6O763LA4BW/YgFeMalG9uPgc1Z9+V8OhbDoaKtw5Dbwe
+ Ub/5AKiYonVw4CpRYUIRJ7EXMyLK89PqBwJcgcZZLdB8Tug130nWUq5Eihc33xPERXjGCsGcSmEm
+ uzJ9JwUIwOVOWQ+vovL50Neio/lssWy2NeAgznIPSaXwzRIZtGVmCbTs+jysGcDh7SdHflBHGRJL
+ 1oHVBJfoHTC1MbJIAhz/y0//VBDYYgVYuOYAFBcb0KmIrrkgmESqv+WenHsyIJOVGkpcH9/OckWw
+ yvzCORre0xWewHkuOyOWq+m7CKaRF1W9i2sUrDSiOgjbUVp79v82hD/6bC01QMQYzDGDYjNgi4lv
+ biPnp9ukldQhrdlHPZ0aVCkzinkr6nlL5U30Qh57E1dW4PTgru
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: LiuJunyuan <2058432396@qq.com>
+To: andy@kernel.org
+Cc: gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, LiuJunyuan <2058432396@qq.com>
+Subject: [PATCH] staging: fbtft: use scnprintf for fixed-size text buffers
+Date: Wed, 21 Oct 2026 11:22:08 +0800
+X-OQ-MSGID: <20261021032208.12827-1-2058432396@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -88,50 +64,42 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Joonhoe Kim <26rote@gmail.com>
+Replace sprintf() with scnprintf() when formatting the framebuffer
+description strings into fixed-size buffers.
 
-On Mon, Oct 19, 2026 at 09:10:28PM +0800, Qianhui Xu wrote:
-> Question: with your runtime-callback variant, does dispcc end up suspended
-> after DPMS off, and does the panel still come back on DPMS on?
+Signed-off-by: LiuJunyuan <2058432396@qq.com>
+---
+ drivers/staging/fbtft/fbtft-core.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Yes to both, on SM8850 with v7.3-rc4. With the display off and the
-system awake:
+diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
+index 7925d974de80..f7751b972a52 100644
+--- a/drivers/staging/fbtft/fbtft-core.c
++++ b/drivers/staging/fbtft/fbtft-core.c
+@@ -785,10 +785,12 @@ int fbtft_register_framebuffer(struct fb_info *fb_info)
+ 	fbtft_sysfs_init(par);
+ 
+ 	if (par->txbuf.buf && par->txbuf.len >= 1024)
+-		sprintf(text1, ", %zu KiB buffer memory", par->txbuf.len >> 10);
++		scnprintf(text1, sizeof(text1), ", %zu KiB buffer memory",
++			  par->txbuf.len >> 10);
+ 	if (spi)
+-		sprintf(text2, ", spi%d.%d at %d MHz", spi->controller->bus_num,
+-			spi_get_chipselect(spi, 0), spi->max_speed_hz / 1000000);
++		scnprintf(text2, sizeof(text2), ", spi%d.%d at %d MHz",
++			  spi->controller->bus_num, spi_get_chipselect(spi, 0),
++			  spi->max_speed_hz / 1000000);
+ 	fb_dbg(fb_info,
+ 	       "%s frame buffer, %dx%d, %d KiB video memory%s, fps=%lu%s\n",
+ 	       fb_info->fix.id, fb_info->var.xres, fb_info->var.yres,
+-- 
+2.43.0
 
-  current code and Arpit's patch: disp_cc_mdss_ahb_clk prepared twice,
-                                  dispcc runtime active, MMCX on
-  prepare only in the PHY runtime callbacks: prepare count 0,
-                                  dispcc runtime suspended, MMCX off
-
-The panel came back on every one of 30 DPMS off/on cycles with that
-variant. I repeated it today with the same variant on v7.3-rc4,
-blanking both outputs from the compositor, with nothing on
-DisplayPort and with four different sinks (a 4K TV and monitors at
-5120x2160, 2560x1600 and 1920x2400):
-
-  nothing on DP: DPU, both DSI and their PHYs, the DP controller, MDSS
-                 and dispcc all runtime suspended,
-                 disp_cc_mdss_ahb_clk enable=0 prepare=0
-  sink on DP:    DPU, DSI and PHYs suspended, but the DP controller,
-                 MDSS and dispcc stay runtime active,
-                 disp_cc_mdss_ahb_clk enable=2 prepare=2
-
-So here the remaining dispcc reference comes from the DP side while a
-sink is connected, and the display controller does not keep the MDP
-clock when blanked. This tree carries my DP patch that holds one
-runtime PM reference per plugged sink, so the DP part may differ from
-mainline.
-
-Arpit, thanks for confirming it is prepare=1 with enable=0 on your
-board during s2idle; that matches what I see. I could not measure a
-difference from it in s2idle (CX collapse counts were the same in all
-three cases), only in the display-off, system-awake case above.
-
-Thanks,
-Joonhoe Kim
