@@ -2,33 +2,33 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4DA606A327
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:05:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB4E606A324
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:05:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3at8DuL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGpBd8No
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C401310F99B;
-	Wed, 21 Oct 2026 12:05:42 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 805F510F99B;
- Wed, 21 Oct 2026 12:05:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52FE710F9CA;
+	Wed, 21 Oct 2026 12:05:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D087610F9CA;
+ Wed, 21 Oct 2026 12:05:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D328C6021E;
+ by sea.source.kernel.org (Postfix) with ESMTP id 7584D40F4D;
+ Wed, 21 Oct 2026 12:05:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389261F000CC;
  Wed, 21 Oct 2026 12:05:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271DC1F000C6;
- Wed, 21 Oct 2026 12:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792584335;
- bh=ze9st+CWG9+vAvDSNFCM7xaKkAlJJhDjRG5Nao1FAl8=;
+ s=k20260515; t=1792584345;
+ bh=lGoVj4Mpg7wY1tcmzcgHoP/Jxqw0xclPQNOED92gT+w=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=B3at8DuLrC5l/J796GuQjjPsFztYOpPguy7HUZ4WBb4pYI26lpU059vat7wNYEOG/
- 9XUhhPzyU0cg8CAigzvgV1aGJ8GatwbNdnldd7+RNiA69dP8lgMMnINqjRLnHloIYo
- UAX3bOkI1jM1KMcgG2XI/te1m8/Yu9n1dAP249cTGbcfBkNayRBBrGPhpchGHhDMc3
- qdPv82y89AXhbJi+oKs6nzAFn+cl/d/83iOwrysb+a+TH3yYcomXJ4hVixhMZ8/yRw
- uU28D2O1zKiNZfVB6zJ/QTGZA79DkscMNvScM5JCX7dsE4p4v+tZNiMPJmOjudpFN1
- EJ7c/aDoHtrSw==
-Message-ID: <b2cf0c52-4c31-4b17-b341-029b82ddbd7f@kernel.org>
-Date: Wed, 21 Oct 2026 14:05:17 +0200
+ b=WGpBd8No1L3NW8cgKmFv2abaJ4sKKsQKhkEaR+UdDCW6lWt4yAjqWF39G8cG4XDMW
+ rw+kOHxZAOAclT2jlV5iy8F74SLvQWF+Xau5AlQ76GVetV9wtQC2ZeR8Ffqi8Jn5UU
+ 2p+/uS68oWgMxIB/XUwY4jXP5Ny9DyE5MdVed9PeU1WpI1zaE+pIJ3i/491Y74vjM2
+ Cs27b2gaK5CdBhFPSqXc9Cpucc+IrNyEGHKgvWsC3dYfOLv8yxvPqpmkj2vQVMMzoJ
+ VhZdAQXskoHdRKxNdd7TamDDGE8mj+sc89fiKkMSoidRQXPL+OvT3XLgt1YauUOd2K
+ jopUWhDfYn+Nw==
+Message-ID: <64603812-672f-43ba-9c5b-783d666d0ac0@kernel.org>
+Date: Wed, 21 Oct 2026 14:05:35 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
@@ -113,10 +113,11 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
@@ -125,30 +126,16 @@ On 15/10/2026 09:38, Jayant Shekhar wrote:
 > through host-visible display registers. The MSM DRM backend therefore needs
 > to build its KMS objects from the firmware capabilities and device-tree
 > display graph.
+> 
+> Complete DCP KMS registration, including power and IOMMU integration,
+> capability handling, display-graph parsing, and creation of DRM planes,
+> CRTCs, encoders, bridges, and connectors.
+> 
+> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> Assisted-by: LLM
 
 
-...
-
-> +
-> +		remote_np = of_graph_get_remote_port_parent(ep_np);
-> +		of_node_put(ep_np);
-> +		if (!remote_np)
-> +			continue;
-> +
-> +		if (!of_device_is_available(remote_np)) {
-> +			of_node_put(remote_np);
-> +			continue;
-> +		}
-> +
-> +		if (of_node_name_prefix(remote_np, "dsi")) {
-
-Where did you document the ABI?
-
-> +			if (dsi_idx >= ARRAY_SIZE(dpu_kms->dsi_bridge)) {
-> +				dev_err(dev->dev, "too many DSI outputs\n");
-> +				ret = -E2BIG;
-> +				goto out;
-> +			}
+Your tag is the last one.
 
 Best regards,
 Krzysztof
