@@ -2,44 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F26606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:24:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4690606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:24:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kf7Uw51I
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=brqUSAKe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 104DA10E093;
-	Wed, 21 Oct 2026 08:23:55 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68EBD10E093
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:23:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 080064028E;
- Wed, 21 Oct 2026 08:23:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927801F000C9;
- Wed, 21 Oct 2026 08:23:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792571027;
- bh=azmhn9m0ALCnnrCrGcJllYYe6RXLKcys5fGtxWrpVQY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kf7Uw51IYWkNzwnwYI1ggdSLOOC9akztpiQ2CgoO7fq6ggUyQrG9Pa5pNofKfGYy4
- jjI3qTsH+T5NeTRAGZmmRQYPXmJ7SRsd1DcJ3JK6vXfgPUm3pg7rXjSSN70s5YEGQq
- qaMym2GaduFHfIbUpFquvLiiK/Sk06jdw9fGj+sszuBDm6a0C1bTHx7PaEeOoFZ2BD
- O+h+7o2vu8I5VwgFp3lHCAwimiO/thi2TmHajdwqJCXETexW53l/LWN4E8eH0cBVeg
- R+siiYx0kO8qRfBS4u6H06S92CIZHJ9Ety9qq4iQkTdfVQXSEJDBdI8sV9JwcWkt35
- tF0PbzMyw3RcQ==
-Message-ID: <sashiko-outbox-179959@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
- DSI to HDMI driver
-To: mohit.dsor@oss.qualcomm.com
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261021-lt9611c-v7-v18-2-4978b94896f1@oss.qualcomm.com>
-References: <20261021-lt9611c-v7-v18-0-4978b94896f1@oss.qualcomm.com>
- <20261021-lt9611c-v7-v18-2-4978b94896f1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 08:23:47 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A10910E1FB;
+	Wed, 21 Oct 2026 08:24:17 +0000 (UTC)
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010052.outbound.protection.outlook.com [52.101.84.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAE4B10E1FB
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:24:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YbRGoFgez0Gcun1m33/x4L/G83OdYEA2pRkCpgQfxCbtWNQYJqnjyHaJfoYP0YMXryk35V3ukTATfxP4ryEQPunUbKuxbQVwY4e/HK5B89bWmB6+prILZzfN0dNAjSbxFYC+cCUEkU6fwS5zpyD9hEFpCelFWAWjygrTrSKmhsFbFjYLwuh6ux1wQqb/bH/Cm3qUc69ubyq4iKpWN7FFPA6Omjbj76bFMzjTEiuuRo48JmoUD6wFsXkUEg0W5MUdN8kQVu6VUuJK7ZjIVERNdcIE6aHJi/GPTXYhjJLFqmW5DxZ7uROjh7WlP9JNyiJuax8O//9Yktw7DImtBogZYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nHHG3qrzACfsyC5dlg+rX/Kf5fRZbghL3MQvRvx8BJM=;
+ b=QnwykF+ur9PGnrGHWIM4VZVQTtgkPJRmQ+im+YOsm5RG+/y0Q6GJlF9EzoZ4iia3rZFYzL/2Sk+v6ZxuvwHxZ+46/u8ypdx2pjeYmzhakGxTr/1/G/541Tc/tmzLFX7n+LHtkwbsIg49w3zvIqySFFWQ7Uc6I6CKspHAhmx/t2Q86OfgFfgjkMRBaumMqsHBkuqeLXoUS2VzxxDCzdbeFtYhKIbMSl+qVbCl4DKoOeVKd1hv81hTlAc6Z5r2qnBOcXlWrCnz1nEUPDnEBvIDXs8T95uYIi6QBoztwGXlHDLPqBvgFMMtVTlUIUgqvKZTd3DCvIJIEDe/6UB2dOWHhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nHHG3qrzACfsyC5dlg+rX/Kf5fRZbghL3MQvRvx8BJM=;
+ b=brqUSAKeLQLDTUhA9souXC0AMJFJIbYYBFpU9UfJrHUTEje+5ppHo0szdRWEy6b0BFs+KFyNtYjcIzAkm+pConIPsaMEufso1SoBY522PQVi4vE+sMp6mxldI1l/aUSPZuMllk1RskUHbwOwAZg4sXDRgcbW3U3msD/G4Fv7VI/w0FYOIWsXiiuDpDHEwuqbVZKj1aHKpVGLhqaMI/Y7YxpDOUhWOzXG6Lt/qZtjOA+7nbrjXvKm55stMPrP0ynGvCC5rYmmb7Sfb8y/KmbqsZwSk6VgLJdx3b6Oi8uJ10G21MbtEOoI54UCb8WknM5S/cP8ytRSm88DeICHqFu3OA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by VI2PR04MB10906.eurprd04.prod.outlook.com (2603:10a6:800:277::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 08:24:04 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 08:24:04 +0000
+Date: Wed, 21 Oct 2026 16:25:40 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Frank.Li@oss.nxp.com
+Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 3/7] drm/panel: simple: Add Waiken WKS101WX001-WCT
+ panel support
+Message-ID: <ath3BGt9qmS-amTo@raspi>
+References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
+ <20261020-dxl_lcdif-v3-3-adc944659e14@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020-dxl_lcdif-v3-3-adc944659e14@nxp.com>
+X-ClientProxiedBy: SI1PR02CA0044.apcprd02.prod.outlook.com
+ (2603:1096:4:1f6::6) To MI9PR04MB350878.eurprd04.prod.outlook.com
+ (2603:10a6:290:c0::7)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|VI2PR04MB10906:EE_
+X-MS-Office365-Filtering-Correlation-Id: 62f1170b-3a9f-41a8-326f-08df2f4cab36
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|19092799006|23010399003|1800799024|261009223027099003|10067099003|56012099006|6133799003|22082099003|18002099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: YNZ7yVbZeIJ/uIcvPjetvdh6M0O0JMbzaSzXcBfWeevt2Lspv0ztFyRTskfXN8FREpwehuU8gf8iyF36SSFz37DFSQa5L0JDwIxoq71jwbLhzQbq04vWzPlXWKFKQblSjgwfibcanq02LdaU9wYRuucsUeib97iklA6Cts6CpOrmZnMsRr+MDuIsVi8QavbizrRmNIJJC/+ixFotyvNJnl3RvIdzuTFuQog6j6SkaLtNgYignGjQY0Z6IO3zIG9JnY1csFvgfrvZ1rZWVdIg3cCCs/eFewlVMOKhgK6ZuCnBScq0KwfiSxYCiz6B701wy9vhMClGLrPgK5mucEDYxCWydZpuc1khEJuN1vfop2hXFhL9FD03knevuL5IUoL3vgGvfa3ADS5y/fdtlCTLNIkA/4xluwaKllyQKHEg/br9UEhmu7ulhX0NUo4/S4VZIqqflAVihyiqBJMLodKCvcPDt9aPZ2a/p9Phtblz2sF83N0WI3aiGmJ9D21iSENDUljzMebICqIeGJHB+Sc42GPD13hYw+NHisbEjEOoW0LhGqHbnNwSdX01ulwnXUU9ccwK8oNNLCO1ndUkEw6AfcoV06KA9EdutfVAr1ln/YjciyqAjRlYvX7zGc86zhbT2CaLJnfDPraMJwXyfr7yncft2t0DrIePDEXd2cR4GXE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MI9PR04MB350878.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(19092799006)(23010399003)(1800799024)(261009223027099003)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?bV00cBVOUjLMIoxsCBHOL0Ihr97sxoivHhabr6OJSrRmENCdNmR/cgj1iNKf?=
+ =?us-ascii?Q?J5d4IU+FPI9J9yG/InxkztThGy56P+tJS7N4sWlOLh9I3NbayoSM+vTDSu2Z?=
+ =?us-ascii?Q?mudPXnJgDGL9h9WGz7LbVrztQWycPXFKozHYRGJ8sDGSzwnnhg4wywPxPE3c?=
+ =?us-ascii?Q?h+so3H4UOgYtJBTUxTOhPr2lF3xbfvswqRyxn+aHnf+UvasYHLvQAdoZSB4Q?=
+ =?us-ascii?Q?G7SthxJOaaI3CB/Y0AwX803CJRK5C7ivGmP8rFBDMhgDCuYmk0hm9IC050sC?=
+ =?us-ascii?Q?d/ljpqRLKRludom4t+xKGFYYDyvwkOjWfUiZzse35YyMtpU2BvV7+7uaEziW?=
+ =?us-ascii?Q?UuBAYyu3vj8WjSe9xbYFlIJBfw0IyzGqev9qaDSnnsYAO0TUGFVtlVgAZmdD?=
+ =?us-ascii?Q?hSxpJBPPvrw4ndcygmRqE4xkPVeZUlRMjObADVSDPJXKnMMoPeXAEYx+eQCW?=
+ =?us-ascii?Q?9Zr40SQ87d6F+X4DvNe9XC9NKYcWO1XsvA66ZOUv37zJunJ5am8t5kcDImsi?=
+ =?us-ascii?Q?Zaxn5VGJOIiDGhX7icykeCvwUeqLZLBi4RPD+tNew05TjqW9miDCUYuaQK1j?=
+ =?us-ascii?Q?QRI1GP/UEE7u96nS5b64btyoAnCuzfmMGfZDxIWbiKUrfsfJ0HMEviHBAcBm?=
+ =?us-ascii?Q?uD92UiWgk1NIGL+k6Y5prnkUhllBF1skHT9W3ERBQSlgNtz56MlSlwiMfJme?=
+ =?us-ascii?Q?gxCCwXgjP17qIqXDj4iqXfVJwa7vUg0kHbS+cmToT61Zp76EIiTzof3wuqv0?=
+ =?us-ascii?Q?9Re1JCAFOBWPMqiJhs5AIXmiExdeY7XDCX3vk47jGlrNdTVDPGPkpHzwbfj/?=
+ =?us-ascii?Q?o8tgasvs2P7eOBeap0g9W+K5KcZmdFYZeZqQrWCpVlSNsASsDS75OFtjupDA?=
+ =?us-ascii?Q?DIBpu04zKM4xB8gosihoMbz3wtKQZrvE8aZJJ6JcprSNhXJSUZ/CcFeXrJSn?=
+ =?us-ascii?Q?nxchxSpcNO8goR759jZEvEnGcFsCJiJyuK/zANBphKsNzPK8lzmTE7EUevHM?=
+ =?us-ascii?Q?K5P1p5GkjqtSbfRB5w3KZdn3HMj6q3Ae4UqfSNGi2XqY1pAEajUA4ZBFXKMX?=
+ =?us-ascii?Q?sIn6canAaYatkRauPwKU7T4GYX3kCscdgPfVdIZvMS4Midtchr54Xgv/x6UO?=
+ =?us-ascii?Q?pqfMn55667tFvX9sGujHN+scGsP5gpvYd9IEZ09HtgJXk06hBsDpnIJ4El5X?=
+ =?us-ascii?Q?0UEipPhRLTu+T/SXfkCAUPQ/4nOZPH35UVzRzrHE2yYEBtvIBRql6Qx4VZJp?=
+ =?us-ascii?Q?DoB74fwTz5iBSMw8093l5O/TcM+G/3icmXbGMWWxALlgRetXyCE3twgioUFt?=
+ =?us-ascii?Q?sptsuMKU+eZSJMNu43X5SvwuM5E/hMh/FwmiaXM7rk+mZ8KV5TAxqwyby0xB?=
+ =?us-ascii?Q?pu5cs1gfej1LngNmnlJ+2LwKgkezFp2X+Qv28+YOI4aww6hzGmLD6aDtrUQq?=
+ =?us-ascii?Q?dhCuIeGGLUbDZjQmkBF+s+VNKj7UE+NBNeRUb0bjz02iGzxmQbjF5JTi0xnu?=
+ =?us-ascii?Q?Npd4YgHR6/wSFmBRkrjqZYg0cwvNjrv76JRIHNnPeGqvjLmB+ruiqlAs2TBD?=
+ =?us-ascii?Q?fm0aWZlMvqmWI7c6QgkUT85iV2bpNDavpE2jAmwChhzRFi51BmLOOhXQT1K/?=
+ =?us-ascii?Q?1Lcq14wTkuyroVHe53676SV3rvEFzTy7kKpz61HUihtu6xfx9mwle/n8krQH?=
+ =?us-ascii?Q?sQHX0np79Yz5mnMW7H18S48zf3abEENz/lDuqMsemBaxKBIRWaC20T0OfcND?=
+ =?us-ascii?Q?zFG3rAmNOg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62f1170b-3a9f-41a8-326f-08df2f4cab36
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 08:24:04.7084 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MQzrw4PR6h6LRHV7x/t9r8yGCwpak1pC34UnTPvX5T4Xq75IuIGZjD+bejFPssWjPvrVFtgwP3iX/wBgAaXK9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10906
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,294 +133,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Medium] drm/bridge: lt9611c: negative errno stored in fw_version corrupt=
-s firmware_show()
-- [Medium] drm/bridge: lt9611c: unlocked reset and power control in PM call=
-backs
-- [Low] drm/bridge: lt9611c: unused function warnings when CONFIG_PM_SLEEP=
-=3Dn
-- [Low] drm/bridge: lt9611c: missing MODULE_DEVICE_TABLE() for lt9611c_id
-- [Low] drm/bridge: lt9611c: unlocked reset of hdmi_connected after bridge =
-attach
---
+On Tue, Oct 20, 2026 at 04:12:53PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Add support for the Waiken WKS101WX001-WCT, an industrial-grade 10.1-inch
+> IPS TFT LCD panel with a capacitive touchscreen.
+> 
+> Although the module advertises LVDS support, enabling LVDS operation
+> requires hardware modification, including the removal of several on-board
+> resistors. As there are currently no known users of the LVDS configuration,
+> only the default interface mode is supported.
+> 
+> If LVDS support is needed in the future, a dedicated driver can be
+> introduced to handle switching between LVDS and LDB modes.
 
-commit 990744b0d700fbd77a4343ac0bdea653a817a6ce
-Author: Sunyun Yang <syyang@lontium.com>
+s/LDB/DPI/ ?
 
-drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> change in v3
+> - add wct surfix and change to use MEDIA_BUS_FMT_RGB888_1X24
+> - Add information about lvds support plan.
+> 
+> change in v2
+> - update height to 135 from 136 (sashiko)
+> ---
+>  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+> index d7dbd7442919b..f2a1668087de7 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -5252,6 +5252,34 @@ static const struct panel_desc vl050_8048nt_c01 = {
+>  	.bus_flags = DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE,
+>  };
+>  
+> +static const struct drm_display_mode waiken_101wx001_mode = {
 
-This commit adds a DRM bridge driver for the Lontium LT9611C, LT9611EX, and
-LT9611UXD MIPI DSI to HDMI bridge chips. It supports EDID reading, HPD
-detection, HDMI audio over I2S, dual-DSI mode, and firmware upgrades via
-sysfs.
+To align with the compatible string:
+s/101wx001/101wx001_WCT/
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
-ridge/lontium-lt9611c.c
-> new file mode 100644
-> index 0000000000000..8fc86c0732122
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> @@ -0,0 +1,1361 @@
-
-[ ... ]
-
-> +static ssize_t firmware_store(struct device *dev, struct device_attribut=
-e *attr,
-> +				      const char *buf, size_t len)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	if (!lt9611c)
-> +		return -ENODEV;
-> +
-> +	dev_warn(dev, "starting firmware upgrade =E2=80=94 display will be disr=
-upted\n");
-> +
-> +	ret =3D lt9611c_firmware_upgrade(lt9611c);
-> +	if (ret < 0) {
-> +		dev_err(dev, "upgrade failure\n");
-> +		return ret;
-> +	}
-> +
-> +	lt9611c_lock(lt9611c);
-> +	WRITE_ONCE(lt9611c->fw_version, lt9611c_read_version(lt9611c));
-> +	lt9611c_unlock(lt9611c);
-> +
-> +	if (READ_ONCE(lt9611c->fw_version) < 0)
-> +		dev_warn(dev, "upgrade succeeded but failed to read new fw version\n");
-> +	else
-> +		dev_info(dev, "firmware upgrade succeeded, version: 0x%04x\n",
-> +			 READ_ONCE(lt9611c->fw_version));
-> +
-> +	return len;
-> +}
-> +
-> +static ssize_t firmware_show(struct device *dev, struct device_attribute=
- *attr, char *buf)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +
-> +	if (!lt9611c)
-> +		return -ENODEV;
-> +
-> +	return sysfs_emit(buf, "0x%04x\n", READ_ONCE(lt9611c->fw_version));
-> +}
-
-[Severity: Medium]
-In drivers/gpu/drm/bridge/lontium-lt9611c.c, what happens in firmware_show()
-if reading the version fails after a firmware upgrade in firmware_store()?
-
-When regmap_write() or regmap_bulk_read() fails inside lt9611c_read_version=
-(),
-it returns a negative errno that firmware_store() writes directly into
-lt9611c->fw_version via WRITE_ONCE().
-
-Subsequent reads of the sysfs firmware attribute will then format that
-negative errno with "0x%04x" in firmware_show(), emitting a sign-extended
-32-bit hex error code (such as 0xfffffffb) to userspace instead of a 16-bit
-firmware version or an error return.
-
-Should firmware_store() only update lt9611c->fw_version when
-lt9611c_read_version() succeeds, or should firmware_show() check for a
-negative lt9611c->fw_version before formatting it?
-
-[ ... ]
-
-> +static int lt9611c_probe(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +	drm_bridge_add(&lt9611c->bridge);
-> +
-> +	/* Attach primary DSI */
-> +	dsi =3D lt9611c_attach_dsi(lt9611c, dsi0_node);
-> +	if (IS_ERR(dsi)) {
-> +		ret =3D PTR_ERR(dsi);
-> +		goto err_remove_bridge;
-> +	}
-> +
-> +	/* Attach secondary DSI, if specified */
-> +	if (dsi1_node) {
-> +		dsi =3D lt9611c_attach_dsi(lt9611c, dsi1_node);
-> +		if (IS_ERR(dsi)) {
-> +			ret =3D PTR_ERR(dsi);
-> +			goto err_remove_bridge;
-> +		}
-> +	}
-> +
-> +	lt9611c->hdmi_connected =3D false;
-> +	enable_irq(client->irq);
-
-[Severity: Low]
-In lt9611c_probe() in drivers/gpu/drm/bridge/lontium-lt9611c.c, can setting
-lt9611c->hdmi_connected =3D false here race with lt9611c_bridge_detect()?
-
-Once drm_bridge_add() and lt9611c_attach_dsi() have been called, the DSI ho=
-st
-can bind the DRM device and run initial connector detection, which invokes
-lt9611c_bridge_detect() and updates lt9611c->hdmi_connected under
-lt9611c->mcu_lock:
-
-	guard(mutex)(&lt9611c->mcu_lock);
-
-	ret =3D lt9611c_read_write_flow(lt9611c, &cmd, &rsp);
-	if (ret)
-		dev_err(dev, "failed to read HPD status (err=3D%d)\n", ret);
-	else
-		connected =3D (hpd_status =3D=3D 0x02);
-
-	lt9611c->hdmi_connected =3D connected;
-
-Writing lt9611c->hdmi_connected =3D false in lt9611c_probe() without holding
-lt9611c->mcu_lock after the bridge is attached can clobber the detected sta=
-te
-(and lt9611c is already zero-initialized by devm_drm_bridge_alloc()). Could
-this assignment be dropped or moved before drm_bridge_add()?
-
-[ ... ]
-
-> +static int lt9611c_bridge_suspend(struct device *dev)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	disable_irq(lt9611c->client->irq);
-> +	cancel_work_sync(&lt9611c->work);
-> +
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> +
-> +	ret =3D regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->=
-supplies);
-> +	if (ret) {
-> +		dev_err(lt9611c->dev, "regulator bulk disable failed.\n");
-> +		gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> +		msleep(400);
-> +		enable_irq(lt9611c->client->irq);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int lt9611c_bridge_resume(struct device *dev)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(lt9611c->supplies), lt9611c->s=
-upplies);
-> +	if (ret) {
-> +		dev_err(lt9611c->dev, "regulator bulk enable failed.\n");
-> +		return ret;
-> +	}
-> +	lt9611c_reset(lt9611c);
-> +	enable_irq(lt9611c->client->irq);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-In drivers/gpu/drm/bridge/lontium-lt9611c.c, should lt9611c_bridge_suspend()
-and lt9611c_bridge_resume() hold lt9611c->mcu_lock while asserting reset_gp=
-io,
-toggling the regulators, and running lt9611c_reset()?
-
-During system suspend and resume, disable_irq() and cancel_work_sync() only
-stop the HPD interrupt and lt9611c->work. Because fw_devlink relaxes
-bidirectional OF-graph links and there is no PM device link ordering this I=
-2C
-client against the DRM master device or audio codec, bridge callbacks such =
-as
-lt9611c_bridge_detect(), lt9611c_bridge_edid_read(),
-lt9611c_bridge_atomic_enable(), or lt9611c_hdmi_audio_prepare() can run
-concurrently.
-
-Those callbacks serialize hardware access with lt9611c->mcu_lock, whereas
-lt9611c_bridge_suspend() and lt9611c_bridge_resume() assert reset_gpio,
-disable/enable the vcc and vdd supplies, and run the 400ms reset sequence
-without acquiring lt9611c->mcu_lock, which could reset or power down the ch=
-ip
-mid-transaction in lt9611c_read_write_flow().
-
-> +
-> +static const struct dev_pm_ops lt9611c_bridge_pm_ops =3D {
-> +	SET_SYSTEM_SLEEP_PM_OPS(lt9611c_bridge_suspend,
-> +				lt9611c_bridge_resume)
+> +	.clock = 71100,
+> +	.hdisplay = 1280,
+> +	.hsync_start = 1280 + 70,
+> +	.hsync_end = 1280 + 70 + 10,
+> +	.htotal = 1280 + 70 + 10 + 80,
+> +	.vdisplay = 800,
+> +	.vsync_start = 800 + 10,
+> +	.vsync_end = 800 + 10 + 3,
+> +	.vtotal = 800 + 10 + 3 + 10,
+> +	.width_mm = 217,
+> +	.height_mm = 135,
+> +	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
 > +};
 > +
-> +static const struct i2c_device_id lt9611c_id[] =3D {
-> +	{ .name =3D "lt9611c",   .driver_data =3D (kernel_ulong_t)&lt9611c_chip=
-_data[CHIP_LT9611C]   },
-> +	{ .name =3D "lt9611ex",  .driver_data =3D (kernel_ulong_t)&lt9611c_chip=
-_data[CHIP_LT9611EX]  },
-> +	{ .name =3D "lt9611uxd", .driver_data =3D (kernel_ulong_t)&lt9611c_chip=
-_data[CHIP_LT9611UXD] },
-> +	{ /* sentinel */ }
-> +};
+> +static const struct panel_desc waiken_101wx001_panel = {
 
-[Severity: Low]
-In drivers/gpu/drm/bridge/lontium-lt9611c.c, is MODULE_DEVICE_TABLE(i2c,
-lt9611c_id) missing after lt9611c_id?
+Ditto.
 
-Without MODULE_DEVICE_TABLE(i2c, lt9611c_id), building the driver as a modu=
-le
-(CONFIG_DRM_LONTIUM_LT9611C=3Dm) omits the i2c:lt9611c, i2c:lt9611ex, and
-i2c:lt9611uxd modalias entries from modules.alias, preventing automatic mod=
-ule
-loading when devices are instantiated via I2C device IDs.
-
-> +
-> +static const struct of_device_id lt9611c_match_table[] =3D {
-> +	{ .compatible =3D "lontium,lt9611c",   .data =3D &lt9611c_chip_data[CHI=
-P_LT9611C]   },
-> +	{ .compatible =3D "lontium,lt9611ex",  .data =3D &lt9611c_chip_data[CHI=
-P_LT9611EX]  },
-> +	{ .compatible =3D "lontium,lt9611uxd", .data =3D &lt9611c_chip_data[CHI=
-P_LT9611UXD] },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, lt9611c_match_table);
-> +
-> +static struct i2c_driver lt9611c_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "lt9611c",
-> +		.of_match_table =3D lt9611c_match_table,
-> +		.pm =3D &lt9611c_bridge_pm_ops,
-> +		.dev_groups =3D lt9611c_attr_groups,
-> +	},
-
-[Severity: Low]
-In drivers/gpu/drm/bridge/lontium-lt9611c.c, will building with
-CONFIG_PM_SLEEP=3Dn trigger unused-function warnings for
-lt9611c_bridge_suspend() and lt9611c_bridge_resume()?
-
-SET_SYSTEM_SLEEP_PM_OPS() expands to nothing when CONFIG_PM_SLEEP is disabl=
-ed,
-leaving both static functions unreferenced without __maybe_unused annotatio=
-ns.
-
-Could this use DEFINE_SIMPLE_DEV_PM_OPS(lt9611c_bridge_pm_ops,
-lt9611c_bridge_suspend, lt9611c_bridge_resume) (or SYSTEM_SLEEP_PM_OPS())
-along with pm_sleep_ptr(&lt9611c_bridge_pm_ops) on .pm so the compiler can
-dead-code eliminate the callbacks and dev_pm_ops structure when
-CONFIG_PM_SLEEP=3Dn?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-lt9611c-v7=
--v18-0-4978b94896f1@oss.qualcomm.com?part=3D2
+-- 
+Regards,
+Liu Ying
