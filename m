@@ -2,129 +2,111 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123A0606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:07:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCFB606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:08:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=qKieBi+y
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vq786MKU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 863BF10E057;
-	Wed, 21 Oct 2026 12:06:58 +0000 (UTC)
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022122.outbound.protection.outlook.com [52.101.101.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 662F410E057
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:06:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nrT1CrkipHC82ZiyHIJf6fIr4XXrgPdeYDScehNlPBqtUMyUGHkwl5GquZL5gKbHGf+p677Lvcq43THlYtx0zzpuS7TbIxq+eMLSGmCDUkxoxTdCfV1c940tMv5lAOKUfLjUZjv8/RsgjU8UEUSVfE0d0HtQ23baXJGfb9zam/vtqdkp3jVI0ZRSh/qtE5t+1qzEwQnBSYvXLA6bv8zLSkHGJ1SbAsOXj9eOavnKutc3hKC+ETqWFwb+BlTRAKgyYtWrQcRg+1KCK/VSlHR8445ThXUN67ZFWZn/iBx3IlQsRcxi5dd8SlVhnOQ6iqHPUiESWW5MZnJg/Xph7wwFNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sA041WDa2vqolKp4czatEpxiyQONE5RmxjDRt0fEGRI=;
- b=UKLejd2vYHf48j5MB//6bIFAUyClfBzy71Yl+m9dX/8HTsWABwS0C1N/0nKmrlHE0zwPaX4yGUwA7Fk9g7DAZk9RW6WOEb7fYO8LBVF9zIglbixLuHX2dRS8RJgybaU/o3jdtHwXpA8Hcn27xpsn93xaMCXIYlQ7xjLTcawi2mQKcJZdp0DqKpBZlIGwUBPYsdnWDYSZmp7pzFCK2GUS8kN0nPBkrkkDT30Kd5v9e6r4OjWmU7zV/8cOu7Et1S1chD+MVduu1/anolmFgzh4aZQzKqIZ36W3FOa7PXKYMuOTJR/DrfQ4nMjfaJnFTfym+LyhvvzXfPyJY1cu7lnydQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sA041WDa2vqolKp4czatEpxiyQONE5RmxjDRt0fEGRI=;
- b=qKieBi+yanImw3SBgkyKS+fgbliTE2UWf0jPeZ+YWYv1/kqBw261IFwJYL2UMFAKyb5ccyaG/291oLVDCD2S0v88VeKdUFIIV0Tc4MFe5qcH6YdGltkRYpjyCedgtPl0Yj4dY1AAJPavjUz8cCwg8KcUgdyx6t6EOCrQPC4gtf0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO0P265MB6773.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2fc::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 12:06:48 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 12:06:48 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 13:06:47 +0100
-Message-Id: <DMAI50AJ10UC.16G4TCC3VAM0J@garyguo.net>
-Subject: Re: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
-From: "Gary Guo" <gary@garyguo.net>
-To: "Philipp Stanner" <phasta@kernel.org>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Yury Norov" <yury.norov@gmail.com>, "Rasmus
- Villemoes" <linux@rasmusvillemoes.dk>, "Arnd Bergmann" <arnd@arndb.de>,
- "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Paul E . McKenney"
- <paulmck@kernel.org>
-Cc: <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-arch@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261021095512.1345191-2-phasta@kernel.org>
- <20261021095512.1345191-3-phasta@kernel.org>
-In-Reply-To: <20261021095512.1345191-3-phasta@kernel.org>
-X-ClientProxiedBy: LO6P123CA0024.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:313::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6848110F9BA;
+	Wed, 21 Oct 2026 12:08:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77B8210F9BA;
+ Wed, 21 Oct 2026 12:08:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 94FF760098;
+ Wed, 21 Oct 2026 12:08:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54DA1F000C4;
+ Wed, 21 Oct 2026 12:08:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792584504;
+ bh=qc9sPLphgZ7QSWhmy8R5+v9PeXT7acWu+WtEs/0esaA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=Vq786MKURiKZ5k195eYF07FNPCGCfvd89jSJNH3in6w/tygog5IdgOCbphRK47a3y
+ nq2r9wBK0Q5wGA9WS1mjHSDRLwvgtpSEWxAAc57z5qasBi5mYcqrKvmcyHNQHtXGDy
+ 54RDsqbsH2SNzl9Z3sK1tE7/bn2D7m+k6K9J431YSbro75H1sAW0+ddHJuGQNp0CGD
+ tPogXKa63owmZOjUakOpW6tF1pOBFTOqaZ768yZMN8bHDheXTILfT7W6K6pnnsbSpw
+ nQcnqt1YSzybetkJc+PFQ+o8MmKAFtLg3jC6IslmNI0Ly8f7PDgJvRI8Nhnve6KEdF
+ Hh60LjJjFnmBg==
+Message-ID: <95d92a33-df2e-48b4-a2ff-89b00a61aa89@kernel.org>
+Date: Wed, 21 Oct 2026 14:08:13 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB6773:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b38d357-c7aa-4f3e-22d2-08df2f6bc874
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|10070799003|376014|7416014|921020|56012099006|261009221227099003|4143699003|5023799004|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: SoOdpoJFlcJ8fP1GbOJ8AX6dloqNK0nqCzwUjs4A1Ym7fOS07GJK9SfLfGUq5HQA7HB3NxOnh986l3GayGOygI1T+ldd1aX0S2gYR9fsq5urz7Pltb9qm4k35KLsdQWgs80guhTwJMPDMJq8Q//+hzq92e4hnQI4e2B6t1yC84SlWyD0Du+ZMN1weOT4tiaTLiNw4TM4N/k01wohguqjTPNd1RdwI1wFi/isGO9qaLqlynoPUCwQw9z91Hx6Vxr0jjpAkie2FIv7Fbkx9NBeBEC96aQKxyT7HA59aP4Z1nUbSuWOiXrhSZH8Za0+0eD4//JXa/1Lzvm/kF4Ptvg51ti+n6SpUKLNN15m/MJWMhogmZ5P8fnLwOXEr/6IJfkUQLm1HBd/W7xSbjEnSOBvVF+zG1khJb48pnv8vDrlwvjA+G/++lB2XKJdKcwRYzNVX06M5sSHMD2uqXxlyH8IlOxiPmRaokeieB/VFW8bs1dgHuqP3LQ5t5k4kCOoOpKvfVVpFl+WVekex11h9Y79iMA+l/4xnuwlXFoY8vMVjqfcWY0mgs3+tV5TNiR6JKaJdZfElISMUwpvdYZ1LNFzQGC8DPATn2pEZdlWSDvZ37XNMAV2UNZrzn6i+H45Q8EX+qJ2q629S3/USUwCoUoCrfZo1zrH1PhVJbBv7I7giHQ1hZbR5th02NnfaLMt0YNK0up0MtEsWUzsFYdX7+OVsQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(10070799003)(376014)(7416014)(921020)(56012099006)(261009221227099003)(4143699003)(5023799004)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEQyNlBSZHAwN3F2VldGSStFcW1vVy81V0FpSlpEYWd5RlovVGt1UnZrWTdt?=
- =?utf-8?B?K1J5d2h0TndIaU1JcFNXaHp3bERhTFFJMWFyZkVqb3BqVncwWUM2UkFkRXhW?=
- =?utf-8?B?b0ZVVU1OYStINjBWWWg0aHp6U2M1a0pYUjdwSnVoRUhmenE5b3hjclBKTGNy?=
- =?utf-8?B?WW1CZFVBcUFTTHMzQ0I0b0VzY0xQZFhXNGpMOThOc1AybTdVU3FBdUx4K2xU?=
- =?utf-8?B?Vzlza05FYm9qdWZKZnBYcW56UytPZTRYLzRFRmRDblgvK2FPdkRvV3dLZXht?=
- =?utf-8?B?RUREWnJNYUo4ZmVuNWd1Y0kxRGthVEZRTmQrdGMrL1RabjZnbWxLbU9pSEtx?=
- =?utf-8?B?cEI4L2ZYOFJsNWNLU1ZNNVdrbnBhaXBpSEJ4YlpkSWdlQTVNbG5Xdkx3anhm?=
- =?utf-8?B?UkdybnNnWk1ac0kwM0U3bitNTk1TRXdpaTJTRUlqVXk1QkoxdktOcDRHeHFZ?=
- =?utf-8?B?N2Y2RTkrOUdLblRpTnFRQWFkU1hiZnQyeDBaZDNQZWY3a3pWcHUvZVBHRmpE?=
- =?utf-8?B?WlN1cGtXcC9oVkVEcGNJaXA2MGtnay9uM0dIdWd5cmczemZsM0o3ZUFKOGxN?=
- =?utf-8?B?N01Hb0F0b2RrSDZ3UUgwRWNWSXlHSm5pcGdNRkRKUlJyMTVVYnduY1lYaWlF?=
- =?utf-8?B?L0o3cG5YZXJ2aUVMajUrU0kyMXIxWm9XbHF5TFVkSWVPdGFONDlSblNMb3Bt?=
- =?utf-8?B?RytDL2FhdWtnOW1EcWdTZFV6cXVGaXlRS0FGOFVjeHZtQ2ExMWx6TTJqZlRI?=
- =?utf-8?B?SDM0N1R1N3ZtK0hYZ0QxSFk5V1NWbnBTeVRPS2h3aDhkekRsZTBNMTNBQnlZ?=
- =?utf-8?B?czJyeXIrVEErRVVBUTNXVGZBU0hTK3RuTGd4ZTVVeTNsMHp1UStIQ2lmVmRH?=
- =?utf-8?B?U1M1U2pvOUJJcm5mZ05aaGZnNUg2UUpPUHpQd1FCaWY3VU02dGtNQkxMOXBL?=
- =?utf-8?B?NS80cnplQWF2Y0JPZXcrM0lqWGVCQlVNRTQzaGRkbVBhbFVVcmJsa0N0ak53?=
- =?utf-8?B?SlU1UWQ0T2FVcG9XcGs0ZFdLUW9uYklpeVNSZUJzMUJxd3lFQXFnU3FseTJN?=
- =?utf-8?B?VGhCMnlPMVVERkZXb2l5S3lPaHg3QnFEeGJFTElIRWlLWk9BVm1CUTQ5cnB3?=
- =?utf-8?B?YUd2bWlIVjB4S1d5eFpCT294NXl5T2lzNkVaRzg2QzltWTFqZVIxTGVkOTNv?=
- =?utf-8?B?VjlBNTJIam91YzhheitubzhrQ1U0bUxFOGlnakVCSWI4T2VlMDNpSDhVR1ZG?=
- =?utf-8?B?dUJFY1NRaDIvajRkVU5oV2pEMDd0VlFEbkQ1dnhmZDNEUVg0bjVFNFQyNkdW?=
- =?utf-8?B?NkJVa0dEZ2ZkZC9Ic2JQeGthb2d0N1ZpZXVFWGpFM3ZZT1dmM0tJTTRCekZn?=
- =?utf-8?B?dGZrY1RVOXdlZnZRUDdTaFFYMnRTRnZOR2Q1VHIrRklBcWVXZXhDWUx0aGt1?=
- =?utf-8?B?L1VaTHk3SGc3L1NSclBaYXNDRWZzcm4xbmhWOXZ6TGRwb003cmtQWFFHdmdr?=
- =?utf-8?B?TXpxSmIyeWNBS0YyaytxN29NRnN5Q0J4SVNQRUxwV0tyd0R4ekFMbDdmbUNE?=
- =?utf-8?B?TjBHb2ZpS0RuaDZyb2QxSU5wVENhWUdTOFZkdm4xTysrcmpQU1RtSUJoTWRX?=
- =?utf-8?B?NjF3OUlKOStFS2NnMnZUUllwWDYrNm9VSHoyZTZKTjJhSEJ6cHIyQkRuN1A3?=
- =?utf-8?B?SU9ITGhlNDY3QVNDYmJ3aDJoL1J5eXM3RXZmcEdXMXlxeW53Z0kvSHZLTjdU?=
- =?utf-8?B?ZVJuQ05LYithVXl1MXc2L05QMTlFNTZYeDBOUjNPZ2hpTkRDK3NzYnZsaEJF?=
- =?utf-8?B?eERwSVFuWjJKekc1TFNENFU0MTVEdFVjT3BEUityN28vS2VqNzZha2JMQmdw?=
- =?utf-8?B?aTNwaDkrY1Roa0xlekc0SzFuUFRUOVVSaFdFWUtpM2VnVGtkM2RkdFV5R25J?=
- =?utf-8?B?Uk9wNTE3Skpqd2tGMGxKcHB3clo1QmxjWkZPbmI2eU04RDZucTQyaDUraHZ0?=
- =?utf-8?B?cXdHS05qVis0VDVvZmRpQzhaWEZ4SDB3L3JYZjE4WG5DMnRVZTkrNGsvTlBh?=
- =?utf-8?B?MytYaVFZdmdvUVJoS3J5NlQrMzM3c09IbExyZC9qYmYyaHU4aVFyQlE2MHFM?=
- =?utf-8?B?UkVrLzRzeW5nSjUyaHJiZGRRbVMvMG8vajViRjVpRmlWeGRMbUxwNlBCMVJ3?=
- =?utf-8?B?TmpYSGw5MkN6UEc2NlJtdW5kbDg0STdaNUM1bUxJM1dLOHVobFo0Q09KY1pZ?=
- =?utf-8?B?K21hTmhkTU4rMWRUakVuaDBOREJtMGFHSFdpejZmZkxnVFlNMkhyOExUamdM?=
- =?utf-8?B?eStzZVkxUWYzZ0NtbDVkNnA0WU5vOUlwRUZLaUVPcnZ3QXJhU0YrZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b38d357-c7aa-4f3e-22d2-08df2f6bc874
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 12:06:48.2245 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fsUgfz2Bmr+viVpUOaq+F3Vc1tcfKyWjr8D80z/4HjunP4JI8KMYTcoRRwt4+qXoer9oNEE9R4mUs3OFA/HlRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6773
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/13] dt-bindings: display: msm: Document the Nord
+ DiplayPort controller
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, Ritesh Kumar
+ <ritesh.kumar@oss.qualcomm.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>
+References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-2-a2ab9af954d2@oss.qualcomm.com>
+ <20261013-tangible-wakeful-swift-a38f8f@quoll>
+ <20261013-honored-bear-of-cleaning-bd8108@quoll>
+ <425ddb41-cfd7-4032-8666-0193ab6b5819@oss.qualcomm.com>
+ <565fd4c2-2d5a-4c2a-9ed1-c7bcb17efc9d@kernel.org>
+ <dd18e6d5-cb7b-407f-8e7a-2c6fd00359cb@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <dd18e6d5-cb7b-407f-8e7a-2c6fd00359cb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,80 +118,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed Oct 21, 2026 at 10:55 AM BST, Philipp Stanner wrote:
-> The kernel already has test_bit_acquire(). A set_bit_release(), however,
-> was missing so far. It can be expected to be useful for parties that
-> need release ordering, but not the stricter full ordering of the other
-> bit-setting functions.
->
-> Add set_bit_release().
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
->  include/asm-generic/bitops/instrumented-atomic.h | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
->
-> diff --git a/include/asm-generic/bitops/instrumented-atomic.h b/include/a=
-sm-generic/bitops/instrumented-atomic.h
-> index c010d54275e4..fb2d1472fd4d 100644
-> --- a/include/asm-generic/bitops/instrumented-atomic.h
-> +++ b/include/asm-generic/bitops/instrumented-atomic.h
-> @@ -72,6 +72,20 @@ static __always_inline bool test_and_set_bit(long nr, =
-volatile unsigned long *ad
->  	return arch_test_and_set_bit(nr, addr);
->  }
-> =20
-> +/**
-> + * set_bit_release - Set a bit with release ordering
-> + * @nr: Bit to set
-> + * @addr: Address to start counting from
-> + *
-> + * This is an atomic ordered operation (implied write memory barrier).
-> + */
-> +static __always_inline void set_bit_release(long nr, volatile unsigned l=
-ong *addr)
-> +{
-> +	kcsan_wmb();
-> +	instrument_atomic_write(addr + BIT_WORD(nr), sizeof(long));
-> +	arch_set_bit(nr, addr);
+On 21/10/2026 14:00, Nabige Aala wrote:
+> 
+> On 10/21/2026 5:23 PM, Krzysztof Kozlowski wrote:
+>> On 21/10/2026 13:16, Nabige Aala wrote:
+>>> On 10/13/2026 2:18 PM, Krzysztof Kozlowski wrote:
+>>>> On Tue, Oct 13, 2026 at 09:44:15AM +0200, Krzysztof Kozlowski wrote:
+>>>>> On Mon, Oct 12, 2026 at 07:02:12PM +0530, Nabige Aala wrote:
+>>>>>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>>>>>>
+>>>>>> Nord uses MDSS 12.1 with two independent DP controller instances,
+>>>>>> each exposing two DP cores at new IO offsets. None of the existing
+>>>>>> compatibles match this layout, so add qcom,nord-dp.
+>>>>>>
+>>>>>> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+>>>>>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+>>>>> Do I understand correctly:
+>>>>> Device is fully compatible with qcom,sa8775p-dp, but a simple to fix
+>>>>> driver limitation is preventing compatibility?
+>>>>>
+>>>>> If so, let's fix the driver - just add more addresses to the
+>>>>> msm_dp_desc_sa8775p array?
+>>>> Or it does not matter, because top-level MDSS anyway cannot use
+>>>> compatibility?
+>>> For MDSS0, the DP register offsets are same to those used on SA8775P.
+>>> However, the MDSS1 DP register offsets differ from SA8775P, and Nord
+>>> also utilizes a different MDSS instance. Because of these differences,
+>>> we introduced a separate compatible string for Nord.
+>>>
+>>> Are you suggesting that Nord should reuse the "msm_dp_desc_sa8775p"?
+>>> This would also pollute the sa8775p's desc table.
+>> What are the differences? Only registers, so no pollution. You just need
+>> them to match IDs.
+> 
+> Yes, only registers are changed.
+> 
+> Okay, I'll update the SA8775P descriptor table to also support Nord and 
+> drop the "qcom,nord-dp" compatible string change.
 
-This is just wrong. There's no code here that gives you the release semanti=
-cs.
+Well, I am not insisting - see my last question - this just has to be
+addressed.
 
-kcsan_wmb() is just an annotation and does nothing. wmb is also not release
-semantics as it does not order LOAD->STORE.
-
-Given that set_bit is a relaxed RMW atomic, you can implement set_bit_relea=
-se
-with just
-
-    smp_mb__before_atomic();
-    set_bit(nr, addr);
-
-Which should be correct, but is too strong on some architectures (like RISC=
--V),
-becuase it will produce a full MB instead. So we can either add release bar=
-riers
-(hint: I really like it), or we can add arch_set_bit_release and implement =
-it
-per arch; on RISC-V for example it can then be translated to amoor.rl (whic=
-h is
-not being produced by any existing bit ops).c
-
-Best,
-Gary
-
-> +}
-> +
->  /**
->   * test_and_clear_bit - Clear a bit and return its old value
->   * @nr: Bit to clear
-
-
+Best regards,
+Krzysztof
