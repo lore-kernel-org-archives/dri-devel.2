@@ -2,138 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841E8606A325
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:30:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802D860A2633
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:36:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mBGKp5kA
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=axJgGfbr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0148D10E028;
-	Wed, 21 Oct 2026 12:30:19 +0000 (UTC)
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012042.outbound.protection.outlook.com [40.107.209.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8DC10E028
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:30:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=voq+4SSKGnKnIEtFZ0bvl0Ynk9FN6hwJggjCt5U7d+dHwi08oPwlV1Ej9hIpmzjP59E8QHGZRTvQEJmXiiO453qHcrptJJ2ED6Z2OZvdz0Ad9X1yPFVF5ieK15wRB5V1He7xJmG1GxKVF/LlPpD/XjbZfNFdWgM6lW3OFVxdmoDTAbnHz1+r65tDUdqp6PAEuicV41C1V3IPWiUvJK/I0CVWYmLHMSg3mE4l3f1t1A9FqBuJ90MjVfIzGkIRu9077Einyo9IoxX+SuQ2C7GhHvj3lvfsUm1kaOJ/sy3IM1ixz5Bk2WK0IpS7IfduKQnzTtNG1BPZhB9dUdNXw+zlYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VEWRu2YORSRHCBA0zKhhVZJJpxuYIQQdQ9z2QtwB5U0=;
- b=aIuYo62TncLjGJgVXReNPfuv3i3pSdgSR+szCpFqZRZcoUqvKHnkMr5tG3qfOLxbzAsFTLuAp6fJayxf5CAJVaP0tPwwumoQUnesqSB+52xMtn+PhtEVsI4w8uOwiIG0fNP/eEXsko5lDygGBvAcw2KQCQJQ0HlSQPP3wMAKgqXYjvCa6dx2CaFxzYoKG39b+hBWdgNcEZv3/IJ1z6N2tD3D8KPI2lnrkZyapnRDLYfzG2ygs+P0DLJ2C7z5UEL+jSBu6c2/CNbJFshdE0pG85cGZJVgIf5E4Hgsnruwgm07LA6lAcCSIfBEnNS53ZPxoRCRbKTNX5wwroPl/2LY/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VEWRu2YORSRHCBA0zKhhVZJJpxuYIQQdQ9z2QtwB5U0=;
- b=mBGKp5kABZ3KRClXpSJD/CD33OSdXf/SUOVF1I8o8LrvH7/3CqW5vpAdiFwqdP48Y8VNIZ4ecwR6FE06iIHhDw6Uf3HB9m5bz8WIJ/sWa4zXRRIs/ImrJ6SUYJaJnu9nwZT9iyDCmkbEvPeQl2o0O1Rz19Unlg78wZ0o9VtLOT4IU9bTW3qP5Y5/WBRD6MdFwz1dNAkYgWq3WI2nZhQOyxQmxV7XJs+PY1Pf4g/vT7+izi05nSA9JOdFEeG9ookmrtRIxuY8cnKCEf7Lyyvw5i3UUoDvSnPsJsi/ZlwytdYhhUIfepAVlA+VHQQZHeIElH230ujkEeb2QVdfPETNyQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DS0PR12MB7557.namprd12.prod.outlook.com (2603:10b6:8:130::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 12:30:05 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 12:30:05 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 21:30:02 +0900
-Message-Id: <DMAIMT058878.328POTUHV1SK3@nvidia.com>
-Subject: Re: [PATCH v4 1/7] rust: alloc: add Vec::try_push_init and
- Vec::push_init
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Content-Transfer-Encoding: quoted-printable
-References: <20261016-b4-nvkv-v4-0-e8b92b91aa5b@nvidia.com>
- <20261016-b4-nvkv-v4-1-e8b92b91aa5b@nvidia.com>
-In-Reply-To: <20261016-b4-nvkv-v4-1-e8b92b91aa5b@nvidia.com>
-X-ClientProxiedBy: TYCP301CA0056.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:384::18) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECFAF10FDDE;
+	Wed, 21 Oct 2026 12:36:24 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4F28810E277
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:36:18 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6D37B16F8
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 05:36:14 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 6B4E03F7B4
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 05:36:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1792586177; bh=0t/Q0yTxODM+mPUftQ20tbgXD+Z/KwAOPeAWsm/c8KU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=axJgGfbrhXfbj9ws03RUulACt+4GyElk2zAjCLuYAzzLRoksGH2i+U3Q2na0YKj7y
+ 1XGyrXxm1u+3G9QRByY2PF4NANZYaW04fol/iHX32m2rYyHFyb9nnb2HG6hlhys/Uh
+ 8hMSJSqkZGZjz+ZrkrUq1zs8g0/I4zBodGrzJ8p4=
+Date: Wed, 21 Oct 2026 13:36:15 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kory Maincent <kory.maincent@bootlin.com>
+Subject: Re: [PATCH] drm/arm/hdlcd: Attach the output bridge directly
+Message-ID: <atixv0zNjHNNs3AS@e142607>
+References: <CGME20261020130022eucas1p2564adcaa74eea27cb4b88164b385b184@eucas1p2.samsung.com>
+ <20261020130009.2017776-1-m.szyprowski@samsung.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS0PR12MB7557:EE_
-X-MS-Office365-Filtering-Correlation-Id: a85ea011-0802-4f64-1621-08df2f6f0923
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|10070799003|23010399003|1800799024|10067099003|56012099006|22082099003|18002099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: TiezXLUOquQ3jUIXixrXoAt0lgdCUvPpaMj10Q73e4aLVyOFRrBO4oQs3RWf9zSYUmSpUK+hGHySDTy/s2zCKeGHg17h57JsLU+QCUbuRyNYe+PHdkoN+HqYh/eNMqRbBIBi59UIQa7vkI+HTRzadSK8meEwh9RS0DX1Ps4BxmgAX8HiN9eAKR/CvTiL2I3UJY6X6qZHNkyP4j/UmiBuMyyefIk7PjKx6BA62oIovtn+LDXi9XsgXZEmAqir9aptrH8ZlLna3gPMGcGqpS5qAOtVp7lltM7TSvp6ExSODMjTMpoGl6fqFOUj3W6p92ocCam4VUGHxn4BtUGPnQgJWS9BjWxvw069tJ0kYuVnZ5t2EHc7Tz+JP9cvvrZ5qNm5LvKVilMdA4Y4HCnL3ZNx01FT4HB5UaFmpMPEjJ6K9LcvZWJEo4EJHeXPx9HRbDQD57pchzY0Gjm0bLujjxxna10JwZ84tG57I1f6uwdeJqaTn3hGHhQhguosXgw0OF6rGRggCoBXbdeBeLaVJzeoVxGsXljUdlJaa9YSugPTB4Aam2cc8ftZs9OVjJlVADGq3r0ocxM8Jt9srXC1+f4A0gl8tFrxLlFqGpnJad60G9g6hKS7scY9zDr/oXGuIBLvt5cB62S98w7SvkrrMunZV2hNYl4gzY1YfsEfov4Z5Sc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(10070799003)(23010399003)(1800799024)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGc1c1h0dXNiZ0NrZk9la3BCRUt6cUVJM0loR0tybVhCN05qTTFBbnROLys2?=
- =?utf-8?B?cmFGYWhXVkZCbEJaVzE5N3h4a2J5aXlhamppTnhVVEt0d243UGJ4OG8xSFdn?=
- =?utf-8?B?bFRZNWpSbURzZC9QT21YNlI0R21mVFdQb1VsT1c5dUdPcEhyK2dqb3orSGZv?=
- =?utf-8?B?VSt0Q29HUkdCVHhnQXQyRFlZUnlSMkZ2T1dvOFEzQ3ZIZVZQb3BoK0IxcEVR?=
- =?utf-8?B?QUo1TExSRDB5SEN6WDRzNDJnUXpsblRMQUNsbnBkdHhaSFFWMSs2cGlVQnIv?=
- =?utf-8?B?Zzdlb0NLWUhjVjFKTFdmYy8yVGRzRnRPbmhwVWxjcys5N0tRK3RYWG5wSTFk?=
- =?utf-8?B?MTIzclkxeWxVZE5kaFhETytlNnR6YjdwNGpxN1ErTnB6S1dlSS9NMVA4VEYv?=
- =?utf-8?B?bE5ZakNNZDY4N3AxeFNiZWNscEIzWk95MU5OemxFemVVRThVU1YyTGpoZ09i?=
- =?utf-8?B?RzYremNRQ3FNWlNtWTUrQ2RIdnhpK1llci8rM3V2dklBcTJtbGVxckpTWCt1?=
- =?utf-8?B?V2cxaVpqcW5GZlpoMjcvRXFZVWhWWmRSYm1UUVpsZXBSOUtXOVRKNDNiUE40?=
- =?utf-8?B?R3BRL295WnkvclBadWRtQkd6eE9TREZvZHlFdlVlb0c0Nkgwc3luekZxTk81?=
- =?utf-8?B?YTZaZDhMZUxKSzVaa0xTWmg3OEFwZWxuTGl4cWlGR0VjRmxwL0Z1enVBbUtK?=
- =?utf-8?B?UmRsUW9XSlRYNS9pUUNrejBtWFJ3MUx3YVptcnFmUTZmSVZ6Z1hRR0p0a25w?=
- =?utf-8?B?K1NiYkhONmxXWnRaaVJPVDl4WVdIdStCVmVLYnNMSzUxRWx3QTZsVFYrQ25a?=
- =?utf-8?B?TURBWk4yWVpvay9tZTl5WGRFWi9JY0ZuQW4va2dZT3lLR0ZCWlprRkhkbDJj?=
- =?utf-8?B?blBVcnpabVZqYklzVUprZFB6YXJ2TStoVENTMllhdGFINXFTWTU4VmRRdHJG?=
- =?utf-8?B?SFBYOVRjRVNoTS9hOUZRVHZqNVZqRFpBcWNuTXZNQXZSUXVWT3E2VEU1b3J3?=
- =?utf-8?B?bldteGZpYjYxWm5HOFpZMVBZVzZBeGZnQThHMXdvK3pabTc0QjZ2WVZ0TVhB?=
- =?utf-8?B?eS94anhhV1pFVVlIK0VwdFFQa1hud2NoNGE2bjVmOEVPTnJqNWJCVWJqcm9D?=
- =?utf-8?B?OWJOMWx3V21lclYzSS9FODBCdnpUelBlS0cyN09EZGZ6RXBZU1FRTGJzRmVv?=
- =?utf-8?B?Z0ZvK01xY2NjYzdUMVNzK0pTWEUweG52cUducGkwaEFSN0wzNTdodW91UkFo?=
- =?utf-8?B?MGpDSHl0ZWZlNi9FTGt0WDRLUVBzbFdKNHIrT2IrQ3hSQzRhdnUrK1lLV3dh?=
- =?utf-8?B?bEVXdHBPTWZTMzBTMmNWbnlXa3ZGc1VuUDFIcW8rcGthS2dxWmpRK3hFMTl4?=
- =?utf-8?B?T09xNXRtZmtKdFZPeGRUR0ExQ0xLRkdieW1NbW1USmVFdWduUGR2Tm4wa0ZW?=
- =?utf-8?B?UXVIWEFNbmh0QllzclFWUnRuSmlpOGlYa1EvMXM3RDBMU25jZGVxdk5jVU95?=
- =?utf-8?B?YmU1RjIrOWk3b1BnL0pROURjQlRXb1VvR0duUEdlZkU5UGxNM2NJVlcyYVJl?=
- =?utf-8?B?WWxzYlNYbTVuSHQrWExrbm03TnhkSEdIMDNadStCZDMvb0E2cXdUb0V3dWNo?=
- =?utf-8?B?SXFJd1VvMS81QlE0K3FyTW9QbnduTk8xUHpEdEVsekVQY1M4LzBNbWJMNHNN?=
- =?utf-8?B?MEpSYXBMTXRMbnk4ejhwYkxzZ1RTQTB2dUIyTWhBZmQzZ01ZVDdYenc0QUhN?=
- =?utf-8?B?YStGVXpxZWNGc1VpWE0zRjhCeDNPRVpvVjJsQ3lQdStIMSsxUnRTQ1JHcG43?=
- =?utf-8?B?TDhnZHloQUlQWnZ5UWdNOU5Md1pyOXlYRERKSytRVzVSQWx3ZlF2eFI5dFJk?=
- =?utf-8?B?MENRQS9vL1A1cm13S2V3M2pUVFc1eXluZk5aajdoT2h0czBUVGcxd20vdmVv?=
- =?utf-8?B?dnpVWElNWSswbE5qeUlLZHRqdkNxUU1KNngyOEc5SWErWUpDbjM5YXRJRXJU?=
- =?utf-8?B?eWx4akFNTXZ3TWo1WG1SZ3dmZE5HY0FLT2tiMzdwZmFBMEVrY29DeHJtSmxP?=
- =?utf-8?B?LzREWGpUWTRiLzFYTFdQTk9rN3VFeVVGWXVrTHlxTHBWRlNHMEJBL0VpQktQ?=
- =?utf-8?B?NUZFZU4xOGVCUGg2K09Md09ZRTJNL2k5eWFzNFhIcXladXdaWk5ncU5lbDk0?=
- =?utf-8?B?dFdTT0J0MWdIWFZZUEVYMk1QSUc4ZklTV1ZLUzdTb2JIdDhFemlyWjVILzZY?=
- =?utf-8?B?Umh3S0xHZitMZGE3MjFRZWEvUm9iZytQc3llVEJnRlhRd3VabjNlUWN0ZHow?=
- =?utf-8?B?YkZWU0dTVFA0bmRnaEhPWTlaNDh0eWhlcFl6eS9MQ2VUbXhId1lUTzc5OG5Z?=
- =?utf-8?Q?iVPIQZcJB9L0Wk9yHL8QKzwtYKUocFg7sdj4C7eIy9iC8?=
-X-MS-Exchange-AntiSpam-MessageData-1: pUiJPlAv1JhkFg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a85ea011-0802-4f64-1621-08df2f6f0923
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 12:30:05.2367 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nwIdAA1bHNseWHikjhzEGdd6tMDNE66ANxE5TJqlCFWYDPmjtpJ7JHDE8RULA79DFb3HXrOO+NSg8l8utUvjmA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7557
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020130009.2017776-1-m.szyprowski@samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,23 +56,255 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Oct 16, 2026 at 10:53 AM JST, Eliot Courtney wrote:
-> Add `Vec::try_push_init` for fallible initializers (`impl Init<T, E>`)
-> and a new sum error type `TryPushInitError<I, E>` that it returns. If
-> allocation fails, it hands back the original initializer. A `From` impl
-> for `Error` lets callers decay the `TryPushInitError<I, E>` to a regular
-> Error if they want.
->
-> Add `Vec::push_init` which is the init-infallible version of
-> `try_push_init`.
->
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+On Tue, Oct 20, 2026 at 03:00:07PM +0200, Marek Szyprowski wrote:
+> Since commit d700fd0ff100 ("drm/bridge: tda998x: Remove component
+> support") the TDA998x driver no longer registers itself as a component,
+> so the HDLCD component master never gets bound and the display stays
+> dead on Juno board.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+I've missed that tda998x is no longer doing component. I think I had
+an earlier fix for malidp as there was interest to use it with bridges
+other than TDA998x, but I've thought the driver for the bridge is now
+frozen.
+
+> 
+> Drop the component framework and get the output bridge with
+> devm_drm_of_get_bridge() at probe time, deferring until it becomes
+> available. Create the encoder in the HDLCD driver, attach the bridge
+> with DRM_BRIDGE_ATTACH_NO_CONNECTOR and use drm_bridge_connector for
+> the connector, like tilcdc does since the TDA998x component support
+> removal.
+> 
+> This also makes HDLCD work with any DRM bridge, not only TDA998x.
+> 
+> As a side effect, interlaced modes are no longer exposed on the HDMI
+> connector. The connector created by TDA998x itself always allowed them,
+> while drm_bridge_connector only allows them when all bridges in the
+> chain set interlace_allowed, which TDA998x does not. HDLCD has no
+> interlaced scanout support, so these modes were not usable anyway.
+> 
+> Fixes: d700fd0ff100 ("drm/bridge: tda998x: Remove component support")
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+
+Thanks for the fix!
+
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+> ---
+> This patch has been developed with LLM assistance, but the results has
+> been tested on the real Juno R1 board (juno-r1-scmi.dtb) with HDMI
+> monitor.
+> 
+> Bst regards
+> Marek Szyprowski, PhD
+> Samsung R&D Institute Poland
+> ---
+>  drivers/gpu/drm/arm/Kconfig     |  4 +-
+>  drivers/gpu/drm/arm/hdlcd_drv.c | 85 +++++++++++++++------------------
+>  drivers/gpu/drm/arm/hdlcd_drv.h |  1 +
+>  3 files changed, 42 insertions(+), 48 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/arm/Kconfig b/drivers/gpu/drm/arm/Kconfig
+> index ed3ed617c688..6dcc063aa503 100644
+> --- a/drivers/gpu/drm/arm/Kconfig
+> +++ b/drivers/gpu/drm/arm/Kconfig
+> @@ -9,7 +9,9 @@ config DRM_HDLCD
+>  	select DRM_CLIENT_SELECTION
+>  	select DRM_KMS_HELPER
+>  	select DRM_GEM_DMA_HELPER
+> -	select DRM_BRIDGE # for TDA998x
+> +	select DRM_BRIDGE
+> +	select DRM_BRIDGE_CONNECTOR
+> +	select DRM_DISPLAY_HELPER
+>  	help
+>  	  Choose this option if you have an ARM High Definition Colour LCD
+>  	  controller.
+> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.c b/drivers/gpu/drm/arm/hdlcd_drv.c
+> index 81d45f2dd6a7..340b1bb38bf9 100644
+> --- a/drivers/gpu/drm/arm/hdlcd_drv.c
+> +++ b/drivers/gpu/drm/arm/hdlcd_drv.c
+> @@ -13,17 +13,17 @@
+>  #include <linux/module.h>
+>  #include <linux/spinlock.h>
+>  #include <linux/clk.h>
+> -#include <linux/component.h>
+>  #include <linux/console.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/list.h>
+> -#include <linux/of_graph.h>
+>  #include <linux/of_reserved_mem.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+>  
+>  #include <drm/clients/drm_client_setup.h>
+>  #include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_bridge.h>
+> +#include <drm/drm_bridge_connector.h>
+>  #include <drm/drm_crtc.h>
+>  #include <drm/drm_debugfs.h>
+>  #include <drm/drm_drv.h>
+> @@ -238,12 +238,43 @@ static const struct drm_driver hdlcd_driver = {
+>  	.minor = 0,
+>  };
+>  
+> -static int hdlcd_drm_bind(struct device *dev)
+> +static int hdlcd_attach_bridge(struct drm_device *drm, struct drm_bridge *bridge)
+>  {
+> +	struct hdlcd_drm_private *hdlcd = drm_to_hdlcd_priv(drm);
+> +	struct drm_connector *connector;
+> +	int ret;
+> +
+> +	ret = drmm_encoder_init(drm, &hdlcd->encoder, NULL,
+> +				DRM_MODE_ENCODER_NONE, NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	hdlcd->encoder.possible_crtcs = drm_crtc_mask(&hdlcd->crtc);
+> +
+> +	ret = drm_bridge_attach(&hdlcd->encoder, bridge, NULL,
+> +				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+> +	if (ret)
+> +		return ret;
+> +
+> +	connector = drm_bridge_connector_init(drm, &hdlcd->encoder);
+> +
+> +	return PTR_ERR_OR_ZERO(connector);
+> +}
+> +
+> +static int hdlcd_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+>  	struct drm_device *drm;
+>  	struct hdlcd_drm_private *hdlcd;
+> +	struct drm_bridge *bridge;
+>  	int ret;
+>  
+> +	/* there is only one output port inside each device, find its bridge */
+> +	bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
+> +	if (IS_ERR(bridge))
+> +		return dev_err_probe(dev, PTR_ERR(bridge),
+> +				     "failed to find output bridge\n");
+> +
+>  	hdlcd = devm_drm_dev_alloc(dev, &hdlcd_driver, typeof(*hdlcd), base);
+>  	if (IS_ERR(hdlcd))
+>  		return PTR_ERR(hdlcd);
+> @@ -260,12 +291,9 @@ static int hdlcd_drm_bind(struct device *dev)
+>  	if (ret)
+>  		goto err_free;
+>  
+> -	/* Set the CRTC's port so that the encoder component can find it */
+> -	hdlcd->crtc.port = of_graph_get_port_by_id(dev->of_node, 0);
+> -
+> -	ret = component_bind_all(dev, drm);
+> +	ret = hdlcd_attach_bridge(drm, bridge);
+>  	if (ret) {
+> -		DRM_ERROR("Failed to bind all components\n");
+> +		DRM_ERROR("failed to attach bridge\n");
+>  		goto err_unload;
+>  	}
+>  
+> @@ -311,10 +339,7 @@ static int hdlcd_drm_bind(struct device *dev)
+>  	pm_runtime_disable(drm->dev);
+>  err_pm_active:
+>  	drm_atomic_helper_shutdown(drm);
+> -	component_unbind_all(dev, drm);
+>  err_unload:
+> -	of_node_put(hdlcd->crtc.port);
+> -	hdlcd->crtc.port = NULL;
+>  	hdlcd_irq_uninstall(hdlcd);
+>  	of_reserved_mem_device_release(drm->dev);
+>  err_free:
+> @@ -322,16 +347,14 @@ static int hdlcd_drm_bind(struct device *dev)
+>  	return ret;
+>  }
+>  
+> -static void hdlcd_drm_unbind(struct device *dev)
+> +static void hdlcd_remove(struct platform_device *pdev)
+>  {
+> +	struct device *dev = &pdev->dev;
+>  	struct drm_device *drm = dev_get_drvdata(dev);
+>  	struct hdlcd_drm_private *hdlcd = drm_to_hdlcd_priv(drm);
+>  
+>  	drm_dev_unregister(drm);
+>  	drm_kms_helper_poll_fini(drm);
+> -	component_unbind_all(dev, drm);
+> -	of_node_put(hdlcd->crtc.port);
+> -	hdlcd->crtc.port = NULL;
+>  	pm_runtime_get_sync(dev);
+>  	drm_atomic_helper_shutdown(drm);
+>  	hdlcd_irq_uninstall(hdlcd);
+> @@ -342,38 +365,6 @@ static void hdlcd_drm_unbind(struct device *dev)
+>  	dev_set_drvdata(dev, NULL);
+>  }
+>  
+> -static const struct component_master_ops hdlcd_master_ops = {
+> -	.bind		= hdlcd_drm_bind,
+> -	.unbind		= hdlcd_drm_unbind,
+> -};
+> -
+> -static int compare_dev(struct device *dev, void *data)
+> -{
+> -	return dev->of_node == data;
+> -}
+> -
+> -static int hdlcd_probe(struct platform_device *pdev)
+> -{
+> -	struct device_node *port;
+> -	struct component_match *match = NULL;
+> -
+> -	/* there is only one output port inside each device, find it */
+> -	port = of_graph_get_remote_node(pdev->dev.of_node, 0, 0);
+> -	if (!port)
+> -		return -ENODEV;
+> -
+> -	drm_of_component_match_add(&pdev->dev, &match, compare_dev, port);
+> -	of_node_put(port);
+> -
+> -	return component_master_add_with_match(&pdev->dev, &hdlcd_master_ops,
+> -					       match);
+> -}
+> -
+> -static void hdlcd_remove(struct platform_device *pdev)
+> -{
+> -	component_master_del(&pdev->dev, &hdlcd_master_ops);
+> -}
+> -
+>  static void hdlcd_shutdown(struct platform_device *pdev)
+>  {
+>  	drm_atomic_helper_shutdown(platform_get_drvdata(pdev));
+> diff --git a/drivers/gpu/drm/arm/hdlcd_drv.h b/drivers/gpu/drm/arm/hdlcd_drv.h
+> index f1c1da2ac2db..6fb48727e54e 100644
+> --- a/drivers/gpu/drm/arm/hdlcd_drv.h
+> +++ b/drivers/gpu/drm/arm/hdlcd_drv.h
+> @@ -11,6 +11,7 @@ struct hdlcd_drm_private {
+>  	void __iomem			*mmio;
+>  	struct clk			*clk;
+>  	struct drm_crtc			crtc;
+> +	struct drm_encoder		encoder;
+>  	struct drm_plane		*plane;
+>  	unsigned int			irq;
+>  #ifdef CONFIG_DEBUG_FS
+> -- 
+> 2.43.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
