@@ -2,44 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B11606A331
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 17:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38FF606A31B
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 17:35:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUPmwUNa
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ifngP9rJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF23510E239;
-	Wed, 21 Oct 2026 17:24:43 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C4D510E239;
- Wed, 21 Oct 2026 17:24:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3E827437F4;
- Wed, 21 Oct 2026 17:24:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4741F000C1;
- Wed, 21 Oct 2026 17:24:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792603478;
- bh=SzfufQJH9HNqkZrhTRrdx4IYMPk4N1COdm2E1FRvks8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BUPmwUNaTCErJlB7ts523bk+g+PCK5eTS6hzZpFpx2F02uVC445UGjy99EA0ud44c
- w52a1k2Io/hjzjD0ClHr0J5tyRxe3zgIDzNaZ47/BoOGfophNyUwCq9khVj1s9h7da
- YlYx7Jzdkb5tyiILobSt0vdOA1v2ft3PmU4uyWnPRmnbyspVjhGUu1g52LGY3YE1nF
- zAkmWj0hUv73TYZbN5ZSXDCdNZyE4ds9rbzi1jHMSm/RA9gPkshzeICgrDu8JCRsvp
- 9lps74H1SBOty46NBM0zbTJdzS9vM1Cz/4dNICC6zXQcogBrEbcLgGw3m99hwRDRVZ
- xbt4yEN8MTZyQ==
-Message-ID: <sashiko-outbox-180522@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] gpu/tests/buddy: Add range-bias pruning and
- free-order tracking tests
-To: "Sanjay Yadav" <sanjay.kumar.yadav@intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-In-Reply-To: <acd1a30cc29c3d6efc14723cb90434d0e378ea0a.1792599420.git.sanjay.kumar.yadav@intel.com>
-References: <cover.1792599420.git.sanjay.kumar.yadav@intel.com>
- <acd1a30cc29c3d6efc14723cb90434d0e378ea0a.1792599420.git.sanjay.kumar.yadav@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 17:24:37 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B8410E34D;
+	Wed, 21 Oct 2026 17:35:33 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A239B10E151;
+ Wed, 21 Oct 2026 17:35:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BcwI5I+1DA72QGNTlW92vRyOR1RvK/N8j/tOabijx2dyyrmMsa+F9Oiwdeidq+3UtB732JDQUTxvuDP/+We1NCa2GNGKgv6qc+Hc00rWIKpDMKlgpRxC+5Jmxl5SNzTMMTXM2tC/qsskuyX8cQkIMqr0j3gdDynMJDV0zeiOnLJLmchi8UsozcQ4MUlJYkL22kgcNselpNyQe9XhEhn092w6ePI6iAaU1WtZefw0LARg4Ki0R5R2gZ66JGf6ELn4FqmOTzW0OU6xqATAc16w5BwexgxkxlwCxYZAEe6E/dE74X/Dm7rCRIDSs2ZnvcapnkvJAZXRxmLiKldudUcBfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2Z488Sh4A9SYm4YB1mGXF7lVFgAWJkcmy8f6Z5SmIDs=;
+ b=w3TNIF3KbHUpIo5/FOnJ7biEKOvq7bW45dsjdsWMaEJx6i1i5wkBSlgUZDevy/IPELLsm718BG4gyOZL9h68dJgGum0sQtGNH4+SdQAzndCPvEbYOvmvYvHP8aDel+wglqYDyM718TAWuYZ6HE39eG7nfkclc93wIR8tfxXyKTHklXH0+DQOL7vAV2oPu4ZIyoqB28tABnh/mg2G3BvFR+qLh2wnPGEz4EOUWeMKOsWJfj8mBCIc1mMtg/yZbAkgohmRwOLbzheVm1Is0U9G1JUlSWlfrb0PPph+rlAW39HqaTR3CqmS1682dLy7CvJcyTGdVz63vOlEur1cI5uIHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2Z488Sh4A9SYm4YB1mGXF7lVFgAWJkcmy8f6Z5SmIDs=;
+ b=ifngP9rJA6La9PCBRcIq8JdijQrRiPqZPS3wckr5NmkwI6yTeUtIzChiHPcSQkc0RVR2RMeqEB76J2WO7hjoqFD4bE5pe3CeSGGjdTxxeYjFG/sOo1inT45qJPDZ1NwHFRgAsCgKirR0IOwjOdUpfqlKJvz7wafQkMfUUF06dAE=
+Received: from BY3PR04CA0012.namprd04.prod.outlook.com (2603:10b6:a03:217::17)
+ by MN2PR12MB4111.namprd12.prod.outlook.com (2603:10b6:208:1de::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 17:35:06 +0000
+Received: from BY1PEPF000264B3.namprd02.prod.outlook.com
+ (2603:10b6:a03:217:cafe::6d) by BY3PR04CA0012.outlook.office365.com
+ (2603:10b6:a03:217::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Wed,
+ 21 Oct 2026 17:35:06 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF000264B3.mail.protection.outlook.com (10.167.242.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 17:35:05 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
+ 2026 12:35:02 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Wed, 21 Oct 2026 12:35:02 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-next-fixes-7.4
+Date: Wed, 21 Oct 2026 13:34:50 -0400
+Message-ID: <20261021173450.2959689-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B3:EE_|MN2PR12MB4111:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee2ed50a-acc1-4647-9d94-08df2f99a53b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|13003099007|261021123027099003|261009223027099003|56012099006|11063799006|10067099003|18002099003|6133799003|261021121427099003|3023799007;
+X-Microsoft-Antispam-Message-Info: aH7fB0Bv3WmQ1t2DPTElC7VVP3yloArXPvGDtjq6bmbR2bpAR4wFwSMRB6vtyTc3tHneWvnIPVo6wwTWRsXwAY6+/KobSqurhT4moW3nndxYBFPk5qt8XdTdRCXDzbGRznqCcD143u9eEegDzhcZHSLiy4dFtYSfzcw/ZTbRdGv0otVf0JZDvAT2wXdI2itd2+IPOwSNOSbq7dHTPCouEKVEX/8capTfY1umb7eM7P0QdNSu7eNpeN86r9wdzFpERmMrYLMGoF/IxCbz2HhLWQPAd5fw8doj/PYg5CmKxBgy09pCe59EglGXjMesV58DUlVLvrMIZ/Kr9JR6NJIqWgaE41a7L9tGO+mI6X0oPhe4KYL4NrFrQ0FxEhYcEX63SM6n7V8TmJ3WIc3Dut0iFN0/1PIfuJ8tsQJrzz+vDNlu5qFTXSjFBvR/bk8xleCdrLRtyWs0KbX6PXc6ua2e21gkXQ1kVU7OBFolx2L8tvEubPagUPKg0EYOmDCKZIh2qO64kyTwFhZrtRa94D3Rb39aoqE3s4H4PkL394gtnOLtZRpCWk/xj8MQU1x1hS1AFjlTeRiq0jkgZP7Ztl8Dsg8j3+rQF13rLABKDbc/G2E0Qfu3YKIZ2CubHi/fk35dXeDcJCv1aXnk7dbHVwmmVA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(13003099007)(261021123027099003)(261009223027099003)(56012099006)(11063799006)(10067099003)(18002099003)(6133799003)(261021121427099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: uS5gNmjHcAZK5KiTJySjRpF4S0HxoRK9wvANdgEmqegxEcj4mIGu9+xSqCy8C8hPudlrWIyfRGHLsqLPzf1YpwJFzO/RrrRP/GIful1PH/bXWdlaMHOWGGrYKtuWdnDYhEGrkGPTxK309Z90iKLZkLnQC1IgSaN3ptQVyRQVd7T5bCRz5xDFp70wu9cMt5aTdP/OImKr77XMuqRRc8x3FPFsqf8xtEPFZVWd7OzgvUKABwVOb90Ln/i7846JaI9PIDzpJX5/j6plf2bUDOQQNg6YQ9rCX1ghh7idph8N7j0U0ySdX84CxQmcsCyOOvHi/bZln+e51OSV/NywqL9LSnaG4Vc8YlXidKMnYCID1QOrfItfRR1x/cmwQoadJeKwFbqsEleHKEo8fGYo1kanDw0XCBVHSRtdW4Q98Mti6l22UnajRjIRiigIy5KH1gpt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 17:35:05.7265 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee2ed50a-acc1-4647-9d94-08df2f99a53b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF000264B3.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4111
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,90 +103,164 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] gpu/tests/buddy: 64-bit division in gpu_test_buddy_range_bias_pruni=
-ng()
---
+Hi Dave, Simona,
 
-commit c218b91af95d861d31913d5c9b3ba0681e319523
-Author: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
+Fixes for 7.4.
 
-gpu/tests/buddy: Add range-bias pruning and free-order tracking tests
+The following changes since commit a56b45995b1e6b9ee671485b1fe68b0c7f754a67:
 
-This commit adds KUnit tests in drivers/gpu/tests/gpu_buddy_test.c to verify
-range-bias subtree pruning and subtree_max_free_order tracking across block
-allocation, splitting, coalescing, and trimming operations.
+  Merge tag 'drm-rust-next-2026-10-11' of https://gitlab.freedesktop.org/drm/rust/kernel into drm-next (2026-10-13 18:01:37 +1000)
 
-> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_b=
-uddy_test.c
-> index b75d32ca6ca0a..4c7e823d57892 100644
-> --- a/drivers/gpu/tests/gpu_buddy_test.c
-> +++ b/drivers/gpu/tests/gpu_buddy_test.c
-> @@ -1586,6 +1586,311 @@ static void gpu_test_buddy_addr_to_block(struct k=
-unit *test)
->  	gpu_buddy_fini(&mm);
->  }
-> =20
-[ ... ]
-> +static void gpu_test_buddy_range_bias_pruning(struct kunit *test)
-> +{
-> +	const u64 mm_size =3D SZ_512M, range_end =3D SZ_128M, chunk =3D SZ_4K;
-> +	const unsigned int nr =3D range_end / chunk, window =3D 1024;
-> +	const u64 holes[] =3D { 0, range_end / 2 + 3 * chunk };
-> +	struct gpu_buddy_block *block, *hidden;
-> +	u64 first_ns =3D 0, last_ns =3D 0;
-> +	unsigned int i, misplaced =3D 0;
-> +	LIST_HEAD(allocated);
-> +	struct gpu_buddy mm;
-> +	LIST_HEAD(tmp);
-> +	int err;
-[ ... ]
-> +	for (i =3D 0; i < nr; i++) {
-> +		ktime_t start =3D ktime_get();
-> +		u64 elapsed;
-> +
-> +		err =3D gpu_buddy_alloc_blocks(&mm, 0, range_end, chunk, chunk,
-> +					     &allocated, GPU_BUDDY_RANGE_ALLOCATION);
-> +		elapsed =3D ktime_to_ns(ktime_sub(ktime_get(), start));
-> +		KUNIT_ASSERT_EQ_MSG(test, err, 0, "range alloc %u failed\n", i);
-> +
-> +		if (i < window)
-> +			first_ns +=3D elapsed;
-> +		else if (i >=3D nr - window)
-> +			last_ns +=3D elapsed;
-> +
-> +		block =3D list_last_entry(&allocated, struct gpu_buddy_block, link);
-> +		if (gpu_buddy_block_offset(block) !=3D range_end - (u64)(i + 1) * chun=
-k)
-> +			misplaced++;
-> +	}
-> +
-> +	kunit_info(test, "first %u range allocs: %llu us, last %u: %llu us\n",
-> +		   window, first_ns / NSEC_PER_USEC, window, last_ns / NSEC_PER_USEC);
+are available in the Git repository at:
 
-[Severity: Low]
-In gpu_test_buddy_range_bias_pruning() in drivers/gpu/tests/gpu_buddy_test.=
-c,
-first_ns and last_ns are u64 variables that accumulate runtime nanosecond
-durations. On 32-bit architectures with CONFIG_GPU_BUDDY_KUNIT_TEST enabled,
-won't dividing them directly with the / operator by NSEC_PER_USEC emit calls
-to __udivdi3 or __aeabi_uldivmod and cause a link failure?
+  https://gitlab.freedesktop.org/drm/amdgpu/kernel.git tags/amd-drm-next-fixes-7.4-2026-10-21
 
-Should this use div_u64() (or ktime_to_us()) instead?
+for you to fetch changes up to 9131cc85d0dedd8ba4cae60dbe5985d081551f30:
 
-[ ... ]
+  drm/amdkfd: correct vram_available calculation (2026-10-20 12:10:23 -0400)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1792599420.gi=
-t.sanjay.kumar.yadav@intel.com?part=3D2
+----------------------------------------------------------------
+amd-drm-next-fixes-7.4-2026-10-21:
+
+amdgpu:
+- UALink fixes
+- Runtime PM fixes
+- GPUVM fixes
+- Mac fixes
+- HDMI fixes
+- DP MST fix
+- Userptr fix
+- SMU fixes
+- DSC fix
+
+amdkfd:
+- SVM fixes
+- Fix doorbell allocation race
+- GC 12.1 fix
+- GPU reset fix
+- Buffer accounting fixes
+
+----------------------------------------------------------------
+Asad Kamal (5):
+      drm/amd/pm: Update smu_v15_0_8 PMFW headers
+      drm/amd/pm: Add set_npm_limit function
+      drm/amd/pm: Add NPM metrics reads and SetNpmLimit
+      drm/amd/pm: Add store npm limit function
+      drm/amd/pm: Notify node unload during driver unload
+
+Daniel Phillips (1):
+      amdkfd: Fix memory availability double accounting of kfd pinned objects
+
+Elena Sakhnovitch (1):
+      drm/amdgpu/gmc9: add extra type-2 TLB flush for gfx942/gfx950
+
+Harish Kasiviswanathan (1):
+      drm/amdkfd: fix NULL deref in SDMA HQD debugfs dump on GC 12.1
+
+Henry Martin (1):
+      drm/amdkfd: fix doorbell allocation race creating duplicate allocations
+
+Horatio Zhang (1):
+      drm/amdgpu: skip the PASID TLB fence for the UALink NPA VM
+
+Ilya Bakoulin (2):
+      drm/amd/display: Fix HDMI FRL FFE compliance test
+      drm/amd/display: Adjust HDMI FRL LT timeout
+
+Jesse Zhang (4):
+      drm/amdgpu: wake the GPU for INFO queries that access the hardware
+      drm/amdgpu: fix the error path in amdgpu_vm_pt_alloc()
+      drm/amdgpu: reject ANONONLY userptrs that span multiple VMAs
+      drm/amdkfd: don't drop an SVM CWSR reference that was never taken
+
+John Fisher (1):
+      drm/amdgpu: wait for pending page table updates before switching a VM to CPU updates
+
+Keita Morisaki (1):
+      drm/amd/display: Fix swap in median3() for DSC rate control
+
+Kenneth Feng (1):
+      drm/amd/pm:restate all customized OD features on every table upload for smu 13.0.0/smu 14.0.2
+
+Kevin Wang (1):
+      drm/amd/pm: reapply umd profile state after recovery
+
+Luigi Lauro (1):
+      drm/amdgpu: require _PR3 for BOCO
+
+Maciej Kucharek (3):
+      drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
+      drm/amdgpu: reset CIK ASIC on Apple boards with VRAM at 0
+      drm/amdgpu: reset VI ASIC on Apple boards with VRAM at 0
+
+Mario Limonciello (1):
+      drm/amd/display: don't WARN when removing an unallocated MST payload
+
+Philip Yang (3):
+      drm/amdkfd: Fix svm_bo use after free in svm_range_clone
+      drm/amdgpu: Reject UALink source-identification address mode
+      drm/amdgpu: Enable remote TLB shootdown
+
+William Palacek (1):
+      drm/amdkfd: wait for a GPU reset before freeing a BO
+
+Zhen Han (1):
+      drm/amdkfd: correct vram_available calculation
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |  19 +++
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c   |  44 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  87 ++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  12 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  14 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |  28 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  33 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c         |  21 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c          |  12 +-
+ drivers/gpu/drm/amd/amdgpu/cik.c                   |  10 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  18 ++-
+ drivers/gpu/drm/amd/amdgpu/si.c                    |  10 ++
+ drivers/gpu/drm/amd/amdgpu/vi.c                    |  10 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  33 +++--
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   9 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c          |  23 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |   4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |   4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |  23 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  15 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h     |   4 +-
+ .../gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c   |   2 +-
+ .../amd/display/dc/link/hwss/link_hwss_hpo_frl.c   |   3 +
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |   2 +
+ .../amd/display/dc/link/protocols/link_hdmi_frl.c  | 129 +++++++++++++-----
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     |   3 +
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                | 103 ++++++++++++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  33 ++++-
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |   2 +
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |  33 ++++-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          | 101 ++++++++++++--
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   8 ++
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_pmfw.h    |  12 +-
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_ppsmc.h   |   5 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |   4 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h       |   1 +
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  35 ++---
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  32 ++---
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  38 +++---
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c   | 151 ++++++++++++++++++++-
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h   |   4 +
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  26 ++++
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h             |   2 +
+ 47 files changed, 950 insertions(+), 234 deletions(-)
