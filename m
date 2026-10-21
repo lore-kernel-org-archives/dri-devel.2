@@ -2,46 +2,122 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C88606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:43:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7403C606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:44:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LBtTFIqt
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kOzwgi2h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B05D010E2A6;
-	Wed, 21 Oct 2026 12:43:45 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0783610E2A6
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:43:39 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6B36916F8;
- Wed, 21 Oct 2026 05:43:35 -0700 (PDT)
-Received: from [10.57.58.237] (unknown [10.57.58.237])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 93D1C3F7B4;
- Wed, 21 Oct 2026 05:43:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792586618; bh=cjAvjns15MXV2cIQJYlP4P40G/iW76jQ0gfloKZ0dew=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=LBtTFIqtLzouGPYCiZEW+rOhdH5yj+hOeNzs50f1FZtljJbiJvPIpC7uzEsy9LucK
- YpTTQB8ccJ95sCH9XF79WC5GFH6QEyT2r7lbrS+1p3/zPF9PNNSWJC6l2W9IEssqF3
- VNbU3btxd+6vKDqf7q25ao/DRUNvwqpMfqFYlYKw=
-Message-ID: <cea31016-bffe-4d15-8fd2-1131b1e63aaa@arm.com>
-Date: Wed, 21 Oct 2026 13:43:34 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA0BD10E2F3;
+	Wed, 21 Oct 2026 12:44:04 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010006.outbound.protection.outlook.com [52.101.201.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C96B810E2ED
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:43:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KQVCiQszeXDkxJcB0Z9BoSdf+ceV8jqKC/bhtQU4hfEZfSN/T+iIZS+FzlH8hZ9p/IUvOLep6+2kl+5CAw0RHp3ukl7eq2vXNMs1PpNMUrqHAn6lVFM974zfY5rNu+aUJkrxWp4QPot57gjQzeMYwuR7e1AbTxYNHNxW2Qx8hpOjqRA7Mp3jwOHqrol21j2RXMcT7oA/YQsHehFv3tEcRTRXzadS8cIlRs9FFir7hEePR0FE/6NNaO1R5yqfI6OIqat167VuGcddLDLEYs4DG7cNhN8Qmo4rEKZPrIz4X6DPyg8Ys7AiDcrvuKXfOPbvmb//juTGG1NaBFcQUclUhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8xa7G3we/aVBM15Evrl8f/UwX4OFEnm9+SULdNQmrFo=;
+ b=Zfp+BDBXw28+Ptq2oVZtYSh9mwV1PhPNCffvG17pZqe7f2Q+SYZ6FgmyNvj1KoszHBUaNt6W7pcPP3ut9IJvGt22ooq/slrcpPu2VY4H7OyUwrLiSZsZvoINTHu4xRkyutbytlMvEdTTUzX0nCbx3W3M/lAanuwR5s6bxB+75hWv76AevtDQR0A3cuuBqpeiOymJcse9Z9YWf1VdbdY/OSnXHvXu/Bgj1lABbAztyDCYLKoMOixoxYhpdyxcVLq298/PHV69TdXHBqB4h5N0ZmQgeWpfmWS624o/RZyxY5pty/R+yyOY3WbPKFQ6Z67wVYVwPQUXRge7CrNjSRX+yg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8xa7G3we/aVBM15Evrl8f/UwX4OFEnm9+SULdNQmrFo=;
+ b=kOzwgi2hkxoCKuU2vEiXNBWhT1XxBJasKlaCHT35SKnZw2AEqLxoJ92cmBKjJKjQwdOQYTD5Cxr0ctIHXeURmdXTfF3R9ac53PcrcUo5rbxmcRi10l4J3eYhBmfo33ok2637nAhUBwlMcYuxjAtCcxqYRE7/FUROylBGycFT+4c=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BL1PR12MB5921.namprd12.prod.outlook.com (2603:10b6:208:398::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
+ 2026 12:43:56 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 12:43:56 +0000
+Message-ID: <33b0fe8f-f9c5-4726-b38c-835b5dabc441@amd.com>
+Date: Wed, 21 Oct 2026 14:43:53 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm: Log recovery method with wedged event
+To: Raag Jadav <raag.jadav@intel.com>, dri-devel@lists.freedesktop.org
+Cc: riana.tauro@intel.com, mallesh.koujalagi@intel.com,
+ matthew.brost@intel.com, rodrigo.vivi@intel.com, andrealmeid@igalia.com
+References: <20261021024726.250487-1-raag.jadav@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261021024726.250487-1-raag.jadav@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0119.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a8::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] drm/panfrost: GPU fault cascade ends in kernel memory
- corruption on Mali-G52 (RK3566)
-To: Joel Winarske <joel.winarske@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, =?UTF-8?Q?Adri=C3=A1n_Larumbe?=
- <adrian.larumbe@collabora.com>
-Cc: Joel Winarske <joel.winarske@linux.com>, dri-devel@lists.freedesktop.org
-References: <20261020152450.2901040-1-joel.winarske@linux.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261020152450.2901040-1-joel.winarske@linux.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL1PR12MB5921:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7469574b-8dbe-4eee-81c7-08df2f70f8bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|11063799006|261009223027099003|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: nswehpYbiBLDmjHBYqXWc/V1NBMcAv6uinwqxuPB+xN+SzWZOS5HbZnk9gfZtTEQbf3vrlpaOFWT7ThI6ifkB9rKkMLc2ZiudkmgQeQFcrgJLjHjKktW3O7FxAJRNaKkoHXn0JgYhaRqDVVf+gDdW1Um96OBNSruIU0vSejcCChtWgYvis3o6E04FULa71KntBRMOgND+fUerEmtOh74TxCmGnf7nh1yElYFMhs78obYJikBY26Uv7+JzDIJ1r9tuifsc92SrOUiTz1qjd7cGmQ+EYxM1CE1dpd2ocIeV65VxEc8bOK95rWu13rR7u64zc2wHe3/6cclRlIk9JWzzq5/r+2y8sGsq23hmBCIhggN7vPJtEKKrLccKp73ln2ShP2685UicZlg4gJv6z4bel++OF+bVR2/sWCBE6xajcfCSEZ7AY4NeXjVi5btr5+HYtGPBUsnMjmujfZDyu1q8tSI28StN3C+oPCJISMGVER3jqg+vJDLP1dcwx81oTJM+tjgbgge2NvYcEfv7ssd0/aACBvxmy5nyMw2YEc8A8wGaoemikHo+h8wv2B1pWps7eBRKxCcC8cPp7Zpr7iVDRo9m2+ve+WXzoJaCntpBcwwQjzi3fs5xDeuL3NOgL5DqmLGIMUhRbjBFv9LZ6xVd32klw8eE8q+wI1itPYXGCw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(11063799006)(261009223027099003)(10067099003)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3VUSlZ1eE0zOXRuRXkvSFkvWkxmREM2OTZldmtXSFNseGFjUlN3VSthT0w5?=
+ =?utf-8?B?Rm96cDB4SnQyK2JtdjAvTUtKdUY0b0Exam5MRjVXQ3hYc3MyYlpBQzFCOVl2?=
+ =?utf-8?B?OER2cTd2TlRFelNCVVYxK2F3bmJuT2VRRXM5cFFWNkVEWVRPYVU2YjFIZDVW?=
+ =?utf-8?B?ZVdpM3QrU0Q0aXZqM3AzelBaODZoOGJZSUhwZ3dubUluUENRN1BFOCtkd01U?=
+ =?utf-8?B?SE9XSHZhcHBEWTI3L2RQSUh4b1RKcWNYQy9jNHRzaFhFVWxOUGVCcWtSeGV4?=
+ =?utf-8?B?U29mejBVc1RiTm5sclVyVzZySms2cWl3MGVJV0hpekZjd3l4U2JKY3M4aStY?=
+ =?utf-8?B?ZXg1di9QK0xPcUg2ejdLRWkvM2VPVkorUEhKRTY0WGx4cHNDZHR2RVN3YS84?=
+ =?utf-8?B?NjlOcWlHY3VXb3VEWkY2dzdkc3Bsc0NyR0YrWkpnY3JTM05wenZ4bWF1NGMy?=
+ =?utf-8?B?WTNTMEtMVm9KNnM0RzI4OVE2VEJzMlpKNzNtUlZGS0FRZVBqOGJHcWlUdHo2?=
+ =?utf-8?B?cEsrZVJHMWtqazFTZ0lFb2dEd2xJRG5kdFVhL0FEcWpuVU4xcDFvL1M1WVdz?=
+ =?utf-8?B?a3BUL0JTVC96NWE3OGdXYllrelIyaVBkNEE3ZXZNbndjMVpjRkJJaGRHWmJE?=
+ =?utf-8?B?Yi9zNHU2UjlxWjZaN1JKZC81LzJWRy9pY1Y5TS9aZ2lwdWFvdlhTeEJKOTNN?=
+ =?utf-8?B?NW9HWENaVE9paUF4NGZvYnRBeWcxRURpT2R2ZWVQclA2NEh6N3VQU0VxSDFm?=
+ =?utf-8?B?cmN0T3JDYlo0b0xYcSsrSmtZb3QwdXF5RHdKTXVoNDhEWGtZRThxRHhXNVNN?=
+ =?utf-8?B?aWlIeDdFM0dGOURTcnRHUU9MYzZDMjZybmozOTRiUXJibnFPV2tvYWpxVHdq?=
+ =?utf-8?B?blBubjZUNDdzWHY4bnFMZTVrcnlRK05PdG1va0RzaWpjdzVvZGU0SUVUMlls?=
+ =?utf-8?B?TC9zWU1IcGFjNzFWQk5RZTQ5SXN4eS83RkIvY1hVaDliNGdscTNnZXhFWGw3?=
+ =?utf-8?B?bUdxSjhXendURDBPQ3NVTlZmYmVnY2YxaEQ5cnpkTTF5Ukh5M1VDbHZwcTVu?=
+ =?utf-8?B?bFZrNnVwaGlKSmN4Mzd6QzR2Qm45MGpmQVpvNDJEeFJuMEM0YnRmdEs5a3lk?=
+ =?utf-8?B?SjR2TmttenZhSk8vVVN5WlFGMXQrUjJ3WWlkVHhiYWthZ0tpTkNsVFc4clRq?=
+ =?utf-8?B?QjMxQUFCcWRNZHBYNnFsYTBmNklWeWRRcDkwd0VhVWJMU1pjSXAyMFB5NGdv?=
+ =?utf-8?B?WWdLSnFNWHRIUVZXVHd1N3JQMXJ3WkdWRW5NUXBjcjhZSjFRdnVZTGt1L05s?=
+ =?utf-8?B?NTllL3BDZWVUUGtENDM2L2NyRG5FSFdRS21lTk43MWo5ZFdWbXlWYmVvaEVR?=
+ =?utf-8?B?ZlFSSGZ5b0g5dnUwSkJxM0hweUQ2MVFIbmVKRjMwSWtkL1dxcUMxa0xVQkFF?=
+ =?utf-8?B?Y0pKbTlOZVY5ZlFmYnlWcldRNlY1eUtxdUh3TUlEb2R4TVJUbVVyazlsaTF6?=
+ =?utf-8?B?TlRMcWVRT3ZRL3hnTkFkZi9IdDNZQ1VwZHA4TTJEM1NTUlZHTFM2VWhsZDZE?=
+ =?utf-8?B?dEFNb2RTSDNaNUZGOW9oTzl2ZnFZVGVnakVRUnlnVjd1MEZGRXN1ZE1BSlk0?=
+ =?utf-8?B?a3gySU9HOXlvWEdaUUx2L2NabHFleTJoUWQvdm15d3UrY0NWcnJlRXkwU2Rn?=
+ =?utf-8?B?bkVVdWJVd1BiMmF5dE92eFZDR3IzQ1BwQXQrRXZoOEdnZThoVXpoOHl6bFhQ?=
+ =?utf-8?B?N2NFUVoyMHdmMnZmK2RmdHV4L3NKc2JiZ0p2U3hOZ2tybGt6Y1RiZURudDRw?=
+ =?utf-8?B?NEJQbnJ2VTE5U2hLbFBGaWp6ZHEvR3NoS1g3bFllM0U1NmhvenN5YnZERS9l?=
+ =?utf-8?B?ZCtTOXkyclorQklwVWJ5RThZZGZYVDlaTEhvamVoZFZFQ0puMmJNanpOTUVr?=
+ =?utf-8?B?VDBUZmVQaVVvKytxTUFtYUp0S3AzajNmdlpRZ21QTlM3ZGQwSER0d2Rvb1Ir?=
+ =?utf-8?B?RVdsM0hJRElraTZySkhOZ0hUNHgzTERpT2huTDBXT3YzcXVJazRNODRXS3ph?=
+ =?utf-8?B?dnVrSDh0Nno3eTJUVC9ESXliOG0vSWhhL21vb1puejZSdFhlYXdGOU5sVlVW?=
+ =?utf-8?B?Z0ZkZE5ha1B4K04wVXIvZ2lnaUkyWm85OVR1b1dwclJBanRkNjJsZTE0Zzhh?=
+ =?utf-8?B?eW0wV2VMZ3o0dzlsSlJSQnNvZ2dxWDIyMVlQdVRNUmxLYzNTaWpLVE05em9K?=
+ =?utf-8?B?VHl0eDcwdDNhaE9SQkQ1cEVGcS8ybW9LY3FPTTRaUzZGelVOd3c1Zm1kczkz?=
+ =?utf-8?Q?Z33vs2nXwSxLuUVcsJ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7469574b-8dbe-4eee-81c7-08df2f70f8bd
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 12:43:56.7701 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2M2B6dbf4Hdv6db2y6AjQmPtcEdZbxaJpQ057fr6FD53z1jDNevng92qx6fWdoY6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5921
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,151 +129,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
-
-On 20/10/2026 16:24, Joel Winarske wrote:
-> Hi,
+On 10/21/26 04:47, Raag Jadav wrote:
+> Currently, drm_dev_wedged_event() logs a basic message of device being
+> wedged, but doesn't print the recovery method used by the caller. Log it
+> for easier bug report analysis.
 > 
-> On a Mali-G52 (Rockchip RK3566), a run of job timeouts and soft-stop
-> failures ends with the kernel taking paging requests at corrupt
-> addresses, and an oops on the next fork(). The machine does not panic:
-> it keeps running and keeps routing packets, but every process that
-> clones a VMA dies, so it is unusable and needs a power cycle.
+> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+> ---
+> v2: Distinguish between recovery and no recovery cases (Christian, Rodrigo)
+> v3: Retain drm_info() (Christian)
+> ---
+>  drivers/gpu/drm/drm_drv.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> I have ruled out the obvious candidate before writing -- details below
-> -- so I am fairly sure this is not the 2019 per-slot reset race.
-> Happy to be told otherwise.
-> 
-> The sequence
-> ============
-> 
-> Captured over netconsole, because everything on the box stops before it
-> can write to disk:
-> 
->   panfrost fde60000.gpu: Soft-stop failed
->   panfrost fde60000.gpu: Soft-stop failed
->   panfrost fde60000.gpu: gpu sched timeout, js=1, config=0x7300,
->                          status=0x8, head=0xd73cf480, tail=0xd73cecc0,
->                          sched_job=00000000317fe955
->   panfrost fde60000.gpu: Unhandled Page fault in AS0 at VA 0x000000001E0C2900
->             raw fault status: 0x664003C2
->             decoded fault status: SLAVE FAULT
->             exception type 0xC2: TRANSLATION_FAULT_2
->             access type 0x3: WRITE
->             source id 0x6640
->   panfrost fde60000.gpu: js fault, js=0, status=DATA_INVALID_FAULT,
->                          head=0xd496dfc0, tail=0xd496dfc0
->   Unable to handle kernel paging request at virtual address 3f87ae4e3f41d124
->   Unable to handle kernel paging request at virtual address ffff3a2c0129b997
->   Internal error: Oops: 0000000096000004 [#1] SMP
->     EC = 0x25: DABT (current EL), FSC = 0x04: level 0 translation fault
->   CPU: 0 PID: 1 Comm: systemd Tainted: G        W  O
->        6.1.84-10-rk2410-nocsf #10
-
-This is a vendor kernel... Generally we try not to spend much time on
-bug reports from a vendor kernel because we don't know what changes
-might have been made. I note you claim there isn't much difference
-(checking the panfrost code), but we don't even know whether this is a
-panfrost issue or if something else in the kernel is broken.
-
->   Hardware name: Radxa ZERO 3 (DT)
->   pc : anon_vma_interval_tree_insert+0x90/0xb4
->   Call trace:
->     anon_vma_interval_tree_insert+0x90/0xb4
->     anon_vma_clone+0x110/0x144
->     anon_vma_fork+0x30/0x134
->     dup_mmap+0x2c4/0x4bc
->     copy_process+0xa84/0x1314
->     kernel_clone+0xb0/0x288
->     __do_sys_clone+0x68/0x9c
->     __arm64_sys_clone+0x20/0x28
-> 
-
-[...]
-
-> What I do not have
-> ==================
-> 
-> - A mainline reproduction. It is a vendor kernel, though as above its
->   panfrost is upstream's to nine API-signature lines, so "vendor
->   kernel" is not by itself the explanation. If reproducing on mainline
->   is the precondition for looking at this, say so and I will see what
->   I can arrange.
-
-It would be a very good start to see if this happens with mainline.
-Ideally test with the newly released v7.3 so we can see if there are any
-recent fixes.
-
-Obviously one outcome might be that a bug fix needs to be backported to
-a stable branch - but if we know mainline doesn't reproduce then "git
-bisect" can be used to track down the fix. Or if it does reproduce then
-obviously we want to fix it upstream.
-
-> - A minimal reproducer. The trigger is a full application rendering a
->   large scene.
-
-The most useful thing is a reliable reproducer - if you can produce a
-minimal reproducer then others can help out with testing, but I wouldn't
-spend much time on that at this point. But see below.
-
-> - A devcoredump: the driver logs "failed to allocate devcoredump file"
->   at exactly the moment one would be most useful.
-
-devcoredump is unlikely to help. There's a small possibility of
-identifying why the soft-stop failed - but the far more interesting
-thing is why the kernel faults afterwards occurred. And most likely they
-have the same root cause.
-
->   panfrost_core_dump(job) is called from panfrost_job_timedout()
->   immediately before the reset, so that may deserve its own look.
-> - Determinism. Five runs in an identical environment gave one cascade
->   and four clean runs.
-
-If you can make the test reliably show the issue then debugging would be
-much easier - otherwise you'll have to run the test multiple times and
-hope that e.g. 20 runs without issue isn't just fluke but actually
-points to the issue being fixed.
-
-> Environment
-> ===========
-> 
->   Mali-G52 r1 MC1 on Rockchip RK3566
->   mali-g52 id 0x7402 major 0x1 minor 0x0
->   [drm] Initialized panfrost 1.2.0 20180908 for fde60000.gpu on minor 1
->   features: 00000000,00000cf7  issues: 00000000,00000400
->   kernel 6.1.84-10-rk2410-nocsf #10 (Rockchip BSP), aarch64
->   taint G W O -- out-of-tree panel_mipi_dbi, gpio_backlight
-> 
-> Userspace is panvk (Mesa 26.3.0-devel), which needs
-> PAN_I_WANT_A_BROKEN_VULKAN_DRIVER=1. A separate userspace problem on
-> the same hardware is filed as mesa/mesa#16595; this report is only
-> about the kernel turning a GPU fault into memory corruption, which no
-> userspace submission should be able to do.
-
-User space shouldn't be able to break the kernel - so that's fine. We
-can debug the kernel issues. Although clearly if you want a reliable
-driver for user space you should be wary of that
-PAN_I_WANT_A_BROKEN_VULKAN_DRIVER flag.
-
-Finally I'd appreciate it if you limit the use of AI to write your
-emails. Panfrost recently merged an AI policy for Mesa[1], and this part
-is particularly relevant:
-
-> We also do not want AI-generated issue reports and other project communication.
-> This is because reports like that tend to be overly verbose and often
-> confusing to read. We prefer a short report written by a human over a wall of
-> text written by a machine. We can always ask for more details when needed.
-
-[1]
-https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/docs/drivers/panfrost.rst?ref_type=heads#ai-policy
-
-Thanks,
-Steve
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index cb53baa70995..43125d655f64 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -598,8 +598,8 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+>  		/* Caller is unsure about recovery, do the best we can at this point. */
+>  		snprintf(event_string, sizeof(event_string), "%s", "WEDGED=unknown");
+>  
+> -	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+> -		 "but no recovery needed" : "needs recovery");
+> +	drm_info(dev, "device wedged with method %#lx, %s\n", method,
+> +		 method == DRM_WEDGE_RECOVERY_NONE ? "no recovery needed" : "needs recovery");
+>  
+>  	if (info && (info->comm[0] != '\0') && (info->pid >= 0)) {
+>  		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
 
