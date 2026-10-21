@@ -2,52 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34677606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:04:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C735606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:04:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YYSJGW5s
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IfCFOFUn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C1DE10FD32;
-	Wed, 21 Oct 2026 10:04:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63BE410FD2D;
+	Wed, 21 Oct 2026 10:04:01 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 501BD10F9D3;
- Wed, 21 Oct 2026 10:03:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB7D10F9CB;
+ Wed, 21 Oct 2026 10:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792577025; x=1824113025;
+ t=1792577030; x=1824113030;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7v2LyiAubmziCUNn8BdIP/1A3IR+kCHal4ikR50WDNU=;
- b=YYSJGW5s2Xfr9kSrG+oahMKW+kWFM3e82VZEL9NqG3sYkiF4I1b4sybd
- Kv3zo5qFRqQCRRKwgktTvNy/4Ew5M/FY84a+VUM+7jBpivSfStVaJXKcT
- qh+24gP/xBgSlVRZoVBSM8dPR7Gqv2DkdEB1548ONOrerNo0pPtkos8+A
- oDQ4BIABLMJn0ov6Unvcq/OybysCcu+35RpJ9nMmbR9+qFK3ghXuW01Hu
- gdDqjo821fUndDPCrXavFQBySSQan7WoZhiNpmeyzd58m5u9sY/8sBXLk
- yqZTJjS5e7VWj1sLAf4DMvl9e9ibQ8wkDBNeRWR7cJUvtT2RFC5ve/m+7 g==;
-X-CSE-ConnectionGUID: S7kmmQSORT6nUUWS4lA9Zw==
-X-CSE-MsgGUID: o8bSeEIqRJienYMr1eSeLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1290257"
+ bh=nNYnK9TmWe3eKF2G4m+/PHYfaQo4qfggQ3+lVROfb8U=;
+ b=IfCFOFUnub/A2v7X5LebQcSDTO2y9KU0Ki0qa6h38X2AFrf52EwBzixN
+ rBlArn24a8w2JxNIxq0+JQXCz4GXrdzZ/qgi/+CG4AYEEmFmvHc10HFAD
+ 9oKsBmWOuaq+PZLbS8vWk6hL/EWBFSZDLbIr5vMtcwYWVUbbMn871JZJQ
+ RgbGASMPyPnoRDfWVASZuC9nh8ubpX4d7UZVRFjgIUFnPQGoJI+JGM5kK
+ vv5hjClMtyZK6kPROYGRCw1bIAargW5N2n+Pkna22goSiW7kwYMlRbDEe
+ ICzAYCO2ssJT1p74dvCRSmZsyupfAV54UY5mGxQforT90lhg1EBlVQH2Z g==;
+X-CSE-ConnectionGUID: qgnl3BI8ThGEKTL2hJaLjQ==
+X-CSE-MsgGUID: PSkUQNtXQuGN9IvRABdCww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1290273"
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1290257"
+   d="scan'208";a="1290273"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 03:03:45 -0700
-X-CSE-ConnectionGUID: p/8zc1I+S1CVD89ve17S5g==
-X-CSE-MsgGUID: IefHea6aTBaXKJ3RxN2MgA==
+ 21 Oct 2026 03:03:49 -0700
+X-CSE-ConnectionGUID: /iBdf7wDRmy38j9PT0n5Sw==
+X-CSE-MsgGUID: WyXoyxwKQNq948M1fWu57A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3382027"
+   d="scan'208";a="3382065"
 Received: from varungup-desk.iind.intel.com ([10.190.238.71])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 03:03:42 -0700
+ 21 Oct 2026 03:03:47 -0700
 From: Arvind Yadav <arvind.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
  thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com
-Subject: [RFC v3 02/17] drm/xe: Separate AER reset state from device wedging
-Date: Wed, 21 Oct 2026 15:33:03 +0530
-Message-ID: <20261021100322.1014449-3-arvind.yadav@intel.com>
+Subject: [RFC v3 04/17] drm/xe: Keep software waits outside the device I/O gate
+Date: Wed, 21 Oct 2026 15:33:05 +0530
+Message-ID: <20261021100322.1014449-5-arvind.yadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021100322.1014449-1-arvind.yadav@intel.com>
 References: <20261021100322.1014449-1-arvind.yadav@intel.com>
@@ -74,28 +74,17 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-PCI error recovery currently uses xe->wedged.flag to block driver
-access. This mixes a temporary AER reset with a permanent device wedge.
+xe_drm_ioctl() holds the device I/O gate across the whole ioctl.
+Software waits can wait for a fence that userspace has not submitted.
+Signalling GT fences cannot end these waits, so device I/O draining
+can hang during reset or wedge isolation.
 
-If the device wedges during AER recovery, the wedge is not seen as the
-first transition. The AER resume callback may then clear the flag and
-make the permanently wedged device appear usable again.
+Release the outer gate before syncobj waits, syncobj transfers and
+Xe user-fence waits. Protect each Xe user-fence memory read with the
+gate, but release it before sleeping.
 
-Keep the old device blocked while slot reset removes it, and block the
-new device until the AER resume callback.
-
-The old AER path took a runtime PM reference to balance
-xe_device_wedged_fini(), which drops one when wedged.flag is set. AER no
-longer sets that flag, so keeping the Xe-owned reference would leak it.
-pcie_do_recovery() holds a PCI-core runtime PM reference across the
-error_detected, slot_reset and resume callbacks.
-
-v2:
- - Return -ECANCELED for GuC sends blocked by AER recovery,
-   keeping -ENOTRECOVERABLE for permanent wedges. This matches
-   the existing cancellation path. (Sashiko)
- - Keep GuC CT cancellation retryable during AER recovery
- - Use one helper for GuC CT cancellation errors
+Wake Xe user-fence waiters when PCI recovery starts, the device wedges
+or the device is unplugged, so they can observe the blocked state.
 
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -104,325 +93,133 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Assisted-by: LLM
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_bo.c            |  2 +-
- drivers/gpu/drm/xe/xe_device.c        |  4 ++--
- drivers/gpu/drm/xe/xe_device.h        | 12 ++++++++++++
- drivers/gpu/drm/xe/xe_guc_ct.c        | 17 ++++++++++++-----
- drivers/gpu/drm/xe/xe_guc_pc.c        | 10 +++++-----
- drivers/gpu/drm/xe/xe_guc_rc.c        |  4 ++--
- drivers/gpu/drm/xe/xe_guc_submit.c    |  8 ++++++--
- drivers/gpu/drm/xe/xe_guc_tlb_inval.c |  8 +++++++-
- drivers/gpu/drm/xe/xe_pci_error.c     | 18 +++++-------------
- drivers/gpu/drm/xe/xe_sriov_pf.c      |  2 +-
- 10 files changed, 53 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/xe/xe_device.c          | 28 +++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_pci_error.c       |  1 +
+ drivers/gpu/drm/xe/xe_wait_user_fence.c | 12 ++++++++---
+ 3 files changed, 38 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 1b74331b15ec..5e1f2002953a 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -2203,7 +2203,7 @@ static vm_fault_t xe_bo_cpu_fault(struct vm_fault *vmf)
- 	int err = 0;
- 	int idx;
- 
--	if (xe_device_wedged(xe) || !drm_dev_enter(&xe->drm, &idx))
-+	if (xe_device_io_blocked(xe) || !drm_dev_enter(&xe->drm, &idx))
- 		return ttm_bo_vm_dummy_page(vmf, vmf->vma->vm_page_prot);
- 
- 	ret = xe_bo_cpu_fault_fastpath(vmf, xe, bo, needs_rpm);
 diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index db0b883322ef..504957dd175d 100644
+index 807cb0e98314..9112462bda6d 100644
 --- a/drivers/gpu/drm/xe/xe_device.c
 +++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -238,7 +238,7 @@ static long xe_drm_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 	struct xe_device *xe = to_xe_device(file_priv->minor->dev);
- 	long ret;
+@@ -232,6 +232,19 @@ static const struct drm_ioctl_desc xe_ioctls[] = {
+ 			  DRM_RENDER_ALLOW),
+ };
  
--	if (xe_device_wedged(xe))
-+	if (xe_device_io_blocked(xe))
- 		return -ECANCELED;
- 
- 	ACQUIRE(xe_pm_runtime_ioctl, pm)(xe);
-@@ -256,7 +256,7 @@ static long xe_drm_compat_ioctl(struct file *file, unsigned int cmd, unsigned lo
- 	struct xe_device *xe = to_xe_device(file_priv->minor->dev);
- 	long ret;
- 
--	if (xe_device_wedged(xe))
-+	if (xe_device_io_blocked(xe))
- 		return -ECANCELED;
- 
- 	ACQUIRE(xe_pm_runtime_ioctl, pm)(xe);
-diff --git a/drivers/gpu/drm/xe/xe_device.h b/drivers/gpu/drm/xe/xe_device.h
-index 83d6dafab53c..e3c8ba9597b4 100644
---- a/drivers/gpu/drm/xe/xe_device.h
-+++ b/drivers/gpu/drm/xe/xe_device.h
-@@ -212,6 +212,18 @@ static inline bool xe_device_wedged(struct xe_device *xe)
- 	return atomic_read(&xe->wedged.flag);
- }
- 
-+/*
-+ * Return true when device access must be blocked either permanently because
-+ * the device is wedged or temporarily while PCI error recovery is running.
-+ *
-+ * Do not use this helper for one-way wedged-device decisions such as DMA
-+ * isolation, IRQ resume suppression or recovery-method reporting.
-+ */
-+static inline bool xe_device_io_blocked(struct xe_device *xe)
++static bool xe_drm_ioctl_is_wait(unsigned int cmd)
 +{
-+	return xe_device_wedged(xe) || xe_device_is_in_reset(xe);
++	switch (DRM_IOCTL_NR(cmd)) {
++	case DRM_IOCTL_NR(DRM_IOCTL_SYNCOBJ_WAIT):
++	case DRM_IOCTL_NR(DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT):
++	case DRM_IOCTL_NR(DRM_IOCTL_SYNCOBJ_TRANSFER):
++	case DRM_IOCTL_NR(DRM_IOCTL_XE_WAIT_USER_FENCE):
++		return true;
++	default:
++		return false;
++	}
 +}
 +
- #ifdef CONFIG_DRM_XE_DEBUG_PAGE_SIZE
- static inline bool xe_debug_page_size_supported(struct xe_device *xe)
+ static long xe_drm_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
  {
-diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
-index e9fc55917fa3..be0136c0e9e7 100644
---- a/drivers/gpu/drm/xe/xe_guc_ct.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ct.c
-@@ -1146,6 +1146,13 @@ static int h2g_write(struct xe_guc_ct *ct, const u32 *action, u32 len,
- 	return 0;
+ 	struct drm_file *file_priv = file->private_data;
+@@ -243,6 +256,12 @@ static long xe_drm_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	if (ret)
+ 		return ret;
+ 
++	/* These waits must not hold up device I/O draining. */
++	if (xe_drm_ioctl_is_wait(cmd)) {
++		xe_device_io_put(io_idx);
++		return drm_ioctl(file, cmd, arg);
++	}
++
+ 	scoped_cond_guard(xe_pm_runtime_ioctl,
+ 			  ret = ACQUIRE_ERR(xe_pm_runtime_ioctl, &scope),
+ 			  xe) {
+@@ -265,6 +284,12 @@ static long xe_drm_compat_ioctl(struct file *file, unsigned int cmd, unsigned lo
+ 	if (ret)
+ 		return ret;
+ 
++	/* These waits must not hold up device I/O draining. */
++	if (xe_drm_ioctl_is_wait(cmd)) {
++		xe_device_io_put(io_idx);
++		return drm_compat_ioctl(file, cmd, arg);
++	}
++
+ 	scoped_cond_guard(xe_pm_runtime_ioctl,
+ 			  ret = ACQUIRE_ERR(xe_pm_runtime_ioctl, &scope),
+ 			  xe) {
+@@ -1142,6 +1167,8 @@ void xe_device_remove(struct xe_device *xe)
+ 
+ 	drm_dev_unplug(&xe->drm);
+ 
++	wake_up_all(&xe->ufence_wq);
++
+ 	xe_bo_pci_dev_remove_all(xe);
  }
  
-+static int guc_ct_cancel_errno(struct xe_guc_ct *ct)
-+{
-+	/* AER is temporary. Only a permanent wedge is terminal. */
-+	return xe_device_wedged(ct_to_xe(ct)) ?
-+		-ENOTRECOVERABLE : -ECANCELED;
-+}
-+
- static int __guc_ct_send_locked(struct xe_guc_ct *ct, const u32 *action,
- 				u32 len, u32 g2h_len, u32 num_g2h,
- 				struct g2h_fence *g2h_fence, bool defer_flush)
-@@ -1161,8 +1168,8 @@ static int __guc_ct_send_locked(struct xe_guc_ct *ct, const u32 *action,
- 	xe_gt_assert(gt, g2h_len || !num_g2h);
- 	lockdep_assert_held(&ct->lock);
+@@ -1441,6 +1468,7 @@ void xe_device_declare_wedged(struct xe_device *xe)
+ 	if (!atomic_xchg(&xe->wedged.flag, 1)) {
+ 		xe->needs_flr_on_fini = true;
+ 		xe_pm_runtime_get_noresume(xe);
++		wake_up_all(&xe->ufence_wq);
  
--	if (xe_device_wedged(ct_to_xe(ct))) {
--		ret = -ENOTRECOVERABLE;
-+	if (xe_device_io_blocked(ct_to_xe(ct))) {
-+		ret = guc_ct_cancel_errno(ct);
- 		goto out;
- 	}
- 
-@@ -1590,7 +1597,7 @@ static int guc_ct_send_recv(struct xe_guc_ct *ct, const u32 *action, u32 len,
- 	if (g2h_fence.fail) {
- 		if (g2h_fence.cancel) {
- 			xe_gt_dbg(gt, "H2G request %#x canceled!\n", action[0]);
--			ret = xe_device_wedged(ct_to_xe(ct)) ? -ENOTRECOVERABLE : -ECANCELED;
-+			ret = guc_ct_cancel_errno(ct);
- 			goto unlock;
- 		}
- 		xe_gt_err(gt, "H2G request %#x failed: error %#x hint %#x\n",
-@@ -1935,8 +1942,8 @@ static int g2h_read(struct xe_guc_ct *ct, u32 *msg, bool fast_path)
- 	lockdep_assert_held(&ct->fast_lock);
- 
- 	/* Keep in sync with g2h_err_is_fatal() */
--	if (xe_device_wedged(xe))
--		return -ENOTRECOVERABLE;
-+	if (xe_device_io_blocked(xe))
-+		return guc_ct_cancel_errno(ct);
- 
- 	if (ct->state == XE_GUC_CT_STATE_DISABLED)
- 		return -ENODEV;
-diff --git a/drivers/gpu/drm/xe/xe_guc_pc.c b/drivers/gpu/drm/xe/xe_guc_pc.c
-index e0105222a2c7..a731ae8d66b0 100644
---- a/drivers/gpu/drm/xe/xe_guc_pc.c
-+++ b/drivers/gpu/drm/xe/xe_guc_pc.c
-@@ -188,7 +188,7 @@ static int pc_action_reset(struct xe_guc_pc *pc)
- 	int ret;
- 
- 	ret = xe_guc_ct_send(ct, action, ARRAY_SIZE(action), 0, 0);
--	if (ret && !(xe_device_wedged(pc_to_xe(pc)) && ret == -ECANCELED))
-+	if (ret && !(xe_device_io_blocked(pc_to_xe(pc)) && ret == -ECANCELED))
- 		xe_gt_err(pc_to_gt(pc), "GuC PC reset failed: %pe\n",
- 			  ERR_PTR(ret));
- 
-@@ -212,7 +212,7 @@ static int pc_action_query_task_state(struct xe_guc_pc *pc)
- 
- 	/* Blocking here to ensure the results are ready before reading them */
- 	ret = xe_guc_ct_send_block(ct, action, ARRAY_SIZE(action));
--	if (ret && !(xe_device_wedged(pc_to_xe(pc)) && ret == -ECANCELED))
-+	if (ret && !(xe_device_io_blocked(pc_to_xe(pc)) && ret == -ECANCELED))
- 		xe_gt_err(pc_to_gt(pc), "GuC PC query task state failed: %pe\n",
- 			  ERR_PTR(ret));
- 
-@@ -235,7 +235,7 @@ static int pc_action_set_param(struct xe_guc_pc *pc, u8 id, u32 value)
- 		return -EAGAIN;
- 
- 	ret = xe_guc_ct_send(ct, action, ARRAY_SIZE(action), 0, 0);
--	if (ret && !(xe_device_wedged(pc_to_xe(pc)) && ret == -ECANCELED))
-+	if (ret && !(xe_device_io_blocked(pc_to_xe(pc)) && ret == -ECANCELED))
- 		xe_gt_err(pc_to_gt(pc), "GuC PC set param[%u]=%u failed: %pe\n",
- 			  id, value, ERR_PTR(ret));
- 
-@@ -257,7 +257,7 @@ static int pc_action_unset_param(struct xe_guc_pc *pc, u8 id)
- 		return -EAGAIN;
- 
- 	ret = xe_guc_ct_send(ct, action, ARRAY_SIZE(action), 0, 0);
--	if (ret && !(xe_device_wedged(pc_to_xe(pc)) && ret == -ECANCELED))
-+	if (ret && !(xe_device_io_blocked(pc_to_xe(pc)) && ret == -ECANCELED))
- 		xe_gt_err(pc_to_gt(pc), "GuC PC unset param failed: %pe",
- 			  ERR_PTR(ret));
- 
-@@ -1357,7 +1357,7 @@ static void xe_guc_pc_fini_hw(void *arg)
- 	struct xe_guc_pc *pc = arg;
- 	struct xe_device *xe = pc_to_xe(pc);
- 
--	if (xe_device_wedged(xe))
-+	if (xe_device_io_blocked(xe))
- 		return;
- 
- 	xe_guc_pc_stop(pc);
-diff --git a/drivers/gpu/drm/xe/xe_guc_rc.c b/drivers/gpu/drm/xe/xe_guc_rc.c
-index 99fa127b261f..eb5ec443f7ee 100644
---- a/drivers/gpu/drm/xe/xe_guc_rc.c
-+++ b/drivers/gpu/drm/xe/xe_guc_rc.c
-@@ -40,7 +40,7 @@ static int guc_action_setup_gucrc(struct xe_guc *guc, u32 control)
- 	int ret;
- 
- 	ret = xe_guc_ct_send(&guc->ct, action, ARRAY_SIZE(action), 0, 0);
--	if (ret && !(xe_device_wedged(guc_to_xe(guc)) && ret == -ECANCELED))
-+	if (ret && !(xe_device_io_blocked(guc_to_xe(guc)) && ret == -ECANCELED))
- 		xe_gt_err(guc_to_gt(guc),
- 			  "GuC RC setup %s(%u) failed (%pe)\n",
- 			   control == GUCRC_HOST_CONTROL ? "HOST_CONTROL" :
-@@ -73,7 +73,7 @@ static void xe_guc_rc_fini_hw(void *arg)
- 	struct xe_device *xe = guc_to_xe(guc);
- 	struct xe_gt *gt = guc_to_gt(guc);
- 
--	if (xe_device_wedged(xe))
-+	if (xe_device_io_blocked(xe))
- 		return;
- 
- 	CLASS(xe_force_wake, fw_ref)(gt_to_fw(gt), XE_FW_GT);
-diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
-index bc39cea08ecc..49417620dad3 100644
---- a/drivers/gpu/drm/xe/xe_guc_submit.c
-+++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-@@ -2556,7 +2556,7 @@ static int guc_exec_queue_wait_suspend_done(struct xe_exec_queue *q, bool blocki
- 						       WAIT_COND, HZ * 5);
- 	}
- 
--	if (!blocking && vf_recovery(guc) && !xe_device_wedged(xe))
-+	if (!blocking && vf_recovery(guc) && !xe_device_io_blocked(xe))
- 		return -EAGAIN;
- 
- 	if (!ret)
-@@ -2816,7 +2816,11 @@ int xe_guc_submit_reset_prepare(struct xe_guc *guc)
- 
- void xe_guc_submit_reset_wait(struct xe_guc *guc)
- {
--	wait_event(guc->ct.wq, xe_device_wedged(guc_to_xe(guc)) ||
-+	/*
-+	 * AER sets in_reset before declaring the GT wedged, which wakes this
-+	 * waitqueue.
-+	 */
-+	wait_event(guc->ct.wq, xe_device_io_blocked(guc_to_xe(guc)) ||
- 		   !xe_guc_read_stopped(guc));
- }
- 
-diff --git a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c b/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-index 111fef781b2a..8daa9c968f4f 100644
---- a/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-+++ b/drivers/gpu/drm/xe/xe_guc_tlb_inval.c
-@@ -34,6 +34,9 @@ static int send_tlb_inval(struct xe_guc *guc, const u32 *action, int len)
- 
- 	xe_gt_assert(gt, action[1]);	/* Seqno */
- 
-+	if (xe_device_io_blocked(guc_to_xe(guc)))
-+		return -ECANCELED;
-+
- 	xe_gt_stats_incr(gt, XE_GT_STATS_ID_TLB_INVAL, 1);
- 	return xe_guc_ct_send(&guc->ct, action, len,
- 			      G2H_LEN_DW_TLB_INVALIDATE, 1);
-@@ -69,6 +72,9 @@ static int send_tlb_inval_ggtt(struct xe_tlb_inval *tlb_inval, u32 seqno)
- 	 * signals waiters.
- 	 */
- 
-+	if (xe_device_io_blocked(xe))
-+		return -ECANCELED;
-+
- 	if (xe_guc_ct_enabled(&guc->ct) && guc->submission_state.enabled) {
- 		u32 action[] = {
- 			XE_GUC_ACTION_TLB_INVALIDATION,
-@@ -77,7 +83,7 @@ static int send_tlb_inval_ggtt(struct xe_tlb_inval *tlb_inval, u32 seqno)
- 		};
- 
- 		return send_tlb_inval(guc, action, ARRAY_SIZE(action));
--	} else if (xe_device_uc_enabled(xe) && !xe_device_wedged(xe)) {
-+	} else if (xe_device_uc_enabled(xe)) {
- 		struct xe_mmio *mmio = &gt->mmio;
- 
- 		if (IS_SRIOV_VF(xe))
+ 		xe_log_err_fatal(xe, WEDGED, -EIO, "Device declared wedged!\n");
+ 		xe_err_once(xe, "IOCTLs and executions are now blocked!\n"
 diff --git a/drivers/gpu/drm/xe/xe_pci_error.c b/drivers/gpu/drm/xe/xe_pci_error.c
-index 79ce0c671549..4b09e74af92e 100644
+index 3e06f504f1b3..3dfcef03850e 100644
 --- a/drivers/gpu/drm/xe/xe_pci_error.c
 +++ b/drivers/gpu/drm/xe/xe_pci_error.c
-@@ -9,7 +9,6 @@
- #include "xe_gt.h"
- #include "xe_log.h"
- #include "xe_pci.h"
--#include "xe_pm.h"
- #include "xe_printk.h"
- #include "xe_ras.h"
- #include "xe_survivability_mode.h"
-@@ -20,14 +19,7 @@ static void prepare_device_for_reset(struct pci_dev *pdev)
- 	struct xe_gt *gt;
- 	u8 id;
+@@ -21,6 +21,7 @@ static void prepare_device_for_reset(struct pci_dev *pdev)
  
--	/*
--	 * Wedge the device to prevent userspace access but do not send the uevent.
--	 * xe_device_wedged_fini() releases runtime pm if wedged flag is set, so acquire a runtime
--	 * pm reference to avoid underflow.
--	 */
--	if (!atomic_xchg(&xe->wedged.flag, 1))
--		xe_pm_runtime_get_noresume(xe);
--
-+	/* Block device access until PCI error recovery completes. */
+ 	/* Block device access until PCI error recovery completes. */
  	xe_device_set_in_reset(xe);
++	wake_up_all(&xe->ufence_wq);
  
  	for_each_gt(gt, xe, id)
-@@ -116,7 +108,6 @@ static pci_ers_result_t xe_pci_error_slot_reset(struct pci_dev *pdev)
- 	 * TODO: optimize by re-initializing only the hardware state and re-creating
- 	 * kernel BOs.
- 	 */
--	xe_device_clear_in_reset(xe);
- 	pdev->driver->remove(pdev);
- 	devres_release_group(&pdev->dev, xe->devres_group);
+ 		xe_gt_declare_wedged(gt);
+diff --git a/drivers/gpu/drm/xe/xe_wait_user_fence.c b/drivers/gpu/drm/xe/xe_wait_user_fence.c
+index e241f3ec3547..b5239c002368 100644
+--- a/drivers/gpu/drm/xe/xe_wait_user_fence.c
++++ b/drivers/gpu/drm/xe/xe_wait_user_fence.c
+@@ -14,13 +14,19 @@
+ #include "xe_macros.h"
+ #include "xe_exec_queue.h"
  
-@@ -125,8 +116,8 @@ static pci_ers_result_t xe_pci_error_slot_reset(struct pci_dev *pdev)
- 
- 	xe = pdev_to_xe_device(pdev);
- 
--	/* Wedge the device to prevent I/O operations till the resume callback */
--	atomic_set(&xe->wedged.flag, 1);
-+	/* Block the new instance until the resume callback. */
-+	xe_device_set_in_reset(xe);
- 
- 	return PCI_ERS_RESULT_RECOVERED;
- }
-@@ -137,7 +128,8 @@ static void xe_pci_error_resume(struct pci_dev *pdev)
- 
- 	xe_info(xe, "PCI error: resume\n");
- 
--	atomic_set(&xe->wedged.flag, 0);
-+	/* Resume I/O operations. */
-+	xe_device_clear_in_reset(xe);
- }
- 
- const struct pci_error_handlers xe_pci_error_handlers = {
-diff --git a/drivers/gpu/drm/xe/xe_sriov_pf.c b/drivers/gpu/drm/xe/xe_sriov_pf.c
-index 33bd754d138f..568b7ed7c380 100644
---- a/drivers/gpu/drm/xe/xe_sriov_pf.c
-+++ b/drivers/gpu/drm/xe/xe_sriov_pf.c
-@@ -157,7 +157,7 @@ int xe_sriov_pf_wait_ready(struct xe_device *xe)
- 	unsigned int id;
+-static int do_compare(u64 addr, u64 value, u64 mask, u16 op)
++static int do_compare(struct xe_device *xe, u64 addr, u64 value, u64 mask, u16 op)
+ {
+ 	u64 rvalue;
++	int io_idx;
  	int err;
+ 	bool passed;
  
--	if (xe_device_wedged(xe))
-+	if (xe_device_io_blocked(xe))
- 		return -ECANCELED;
++	err = xe_device_io_get(xe, &io_idx);
++	if (err)
++		return err;
++
+ 	err = copy_from_user(&rvalue, u64_to_user_ptr(addr), sizeof(rvalue));
++	xe_device_io_put(io_idx);
+ 	if (err)
+ 		return -EFAULT;
  
- 	for_each_gt(gt, xe, id) {
+@@ -136,7 +142,7 @@ int xe_wait_user_fence_ioctl(struct drm_device *dev, void *data,
+ 
+ 	add_wait_queue(&xe->ufence_wq, &w_wait);
+ 	for (;;) {
+-		err = do_compare(addr, args->value, args->mask, args->op);
++		err = do_compare(xe, addr, args->value, args->mask, args->op);
+ 		if (err <= 0)
+ 			break;
+ 
+@@ -155,7 +161,7 @@ int xe_wait_user_fence_ioctl(struct drm_device *dev, void *data,
+ 
+ 		if (!timeout) {
+ 			LNL_FLUSH_WORKQUEUE(xe->ordered_wq);
+-			err = do_compare(addr, args->value, args->mask,
++			err = do_compare(xe, addr, args->value, args->mask,
+ 					 args->op);
+ 			if (err <= 0) {
+ 				drm_dbg(&xe->drm, "LNL_FLUSH_WORKQUEUE resolved ufence timeout\n");
 -- 
 2.43.0
 
