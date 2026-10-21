@@ -2,92 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB79606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:51:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA76606A31B
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:53:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MQ5Ob1n2
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=eGyaChAT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FEA710E2F2;
-	Wed, 21 Oct 2026 12:51:03 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39FC210E2F2;
- Wed, 21 Oct 2026 12:50:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792587057; x=1824123057;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=WWQtMBqwY1wXwgGt/8O0q5XVEUz4N1YMluFAvd7LfV8=;
- b=MQ5Ob1n2euSFhZwMpi1EY1/8JLh6tzSksuUKBk19HYxBIPuoNdM/7tzW
- aDUlEABtSXF2EWni+E9NnLLbDaVXRuqvkHy82MyspdgRJUoMRl5giFZZP
- wfJ+qKdJT/cW49bJXYZMzsGhVS4ptc6iFuadSzttRtTXpF8PyAh7SaWiD
- qs6+sxG7xqQphSXBtq3fD6YenZSPFfIdZGV1PkttWOSHYVhM4n7BlHIgE
- rG0o7+W/k1FRrG5xJKHFF64BNscw5S/PAVbz91NJ6PB3/2BSbbQMi0G1q
- CmDWTudw+qWfyKxwoVC5ZuKaB3UqgrzFXpTZSiZlAqBvrBGwaHC1v4yXS Q==;
-X-CSE-ConnectionGUID: X8146e5OR1eUvvoiaw27hA==
-X-CSE-MsgGUID: IBmesnzHTL6Xb5UGEDeLfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1326151"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1326151"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 05:50:56 -0700
-X-CSE-ConnectionGUID: o5MvohiTQiC0bky5KI6pbw==
-X-CSE-MsgGUID: 9Qqiu8yVRrqEuKQdreYR1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3184418"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.75])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 05:50:40 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
- Nikolas Joshua Britton <nbritton@exabit.io>,
- Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>,
- Alexey Fomenko <alexey.fomenko@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Rob Herring <robh@kernel.org>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
- David Airlie <airlied@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-m68k@lists.linux-m68k.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Cc: Bradley Morgan <brads@mainlining.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v4 3/7] PCI: Honor alignment overrides
-Date: Wed, 21 Oct 2026 15:49:48 +0300
-Message-ID: <20261021124956.4250-4-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
-References: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C29810FDEB;
+	Wed, 21 Oct 2026 12:53:16 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B6C010FDEB
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:53:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=PJxCsxLoda1k5+V93PXZRa0ldkZinddq3/bu/rJA/QQ=; b=eGyaChATJanuex/qC600cTJ6o2
+ 3djck552UC0g9N00jXVCmahRo6POfhFza5a+S1RXMOwn1jPUXZ2GS2GQ5VMl8DGvxs2yb8kbaTX9W
+ 8X0q/ll77Tb9hHQBx2PSvJBQi7w0fwy3UzSe4jqdqw8tnmRG1kWVNkKIpY7JYyarIsaRYhl0hyIkI
+ P3YoTTVbmImcIYrHyL2U3AWd31IILhsGhxVNkdHToRPj2r2VXJl/NOqM9Oc/mU5SFMcXAbtAAyh5x
+ RMMge2pIS4sOdT8GKHmknzBB/E37nB37qYl0SYT2r9Y4jUGeWm5p8ALLqnnhS3vJiDjXWBwCRUwnQ
+ ZZPU+bEA==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xJVoU-005dtM-Dj; Wed, 21 Oct 2026 14:53:02 +0200
+Message-ID: <bd59f9aa-b0d3-474f-8c95-f3763e320638@igalia.com>
+Date: Wed, 21 Oct 2026 13:53:01 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v6.1 2/3] workqueue: Add support for real-time workers
+To: Tejun Heo <tj@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
+ Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Breno Leitao <leitao@debian.org>
+References: <20261001160711.59888-3-tvrtko.ursulin@igalia.com>
+ <20261001184848.61776-1-tvrtko.ursulin@igalia.com>
+ <3a139a32135c149f51bac4f2bd58ad56@kernel.org>
+ <9bb46cf4-7982-463b-8289-06bbc319bba9@igalia.com>
+ <cb60b6a0f8f35957d64c9abf240c2dbd@kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <cb60b6a0f8f35957d64c9abf240c2dbd@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,481 +60,148 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-pci=resource_alignment argument can override the default alignment for
-the resource. The remainder code introduced in the commit 9036bd0efcb6
-("PCI: Align head space better") can move remainder space (non-aligning
-part of the size) before the aligning left edge which results in
-violating the requested alignment.
 
-Introduce struct pci_resreq_data to hold device and user-given alignment
-to be able to honor it in pci_align_resource(). When user-given alignment
-is found, any remainder movement is skipped.
+On 20/10/2026 00:40, Tejun Heo wrote:
+> Hello, Tvrtko.
+> 
+> On Mon, Oct 19, 2026 at 11:02:08AM +0100, Tvrtko Ursulin wrote:
+>>> apply_workqueue_attrs() is unrestricted, so a caller can hand a WQ_RT wq the
+>>> attrs from alloc_workqueue_attrs() and turn it into a normal non-strict wq
+>>> while the flag stays set. Maybe apply_wqattrs_prepare() should force prio
+>>> and affinity for WQ_RT instead of restricting only the sysfs side?
+>>
+>> I am not entirely sure about this one. It could be done in
+>> apply_wqattrs_prepare(), but it would end up redundant on the sysfs
+>> path. Because currently there are two paths:
+> ...
+>> Am I missing something?
+> 
+> The missing one is apply_workqueue_attrs() called directly with attrs from
+> alloc_workqueue_attrs(), which is what padata_setup_cpumasks() does for
+> its own wq. Forcing prio and affinity in apply_wqattrs_prepare() covers
+> all the paths in one place. Being redundant on the sysfs path is fine.
 
-This also makes pci_specified_resource_alignment() always return a
-valid 'resize' value so that callers can simply rely on its value.
+I've implemented something, but perhaps to check we are on the same page 
+before I send the whole series out, the crux of a solution is a patch 
+preceding this one (so new patch in series) with the important bit being 
+this:
 
-Fixes: 9036bd0efcb6 ("PCI: Align head space better")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/linux-pci/20260923133202.07DF61F000FF@smtp.kernel.org/
-Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
-
-IMO, PPC rigging the user alignment override to enforce arch specific
-min alignment is mixing things wrongly. It would be more appropriate
-to do arch alignment overrides by overriding pci_resource_alignment().
-
-Jani Nikula <jani.nikula@intel.com> did ack this with a condition that
-there is a proper review done by somebody else so I've not yet included
-his tag.
-
----
- arch/alpha/kernel/pci.c          |  3 ++-
- arch/arm/kernel/bios32.c         |  5 +++--
- arch/m68k/kernel/pcibios.c       |  4 ++--
- arch/mips/pci/pci-generic.c      |  5 +++--
- arch/mips/pci/pci-legacy.c       |  5 +++--
- arch/parisc/kernel/pci.c         |  5 +++--
- arch/powerpc/kernel/pci-common.c |  5 +++--
- arch/sh/drivers/pci/pci.c        |  5 +++--
- arch/x86/pci/i386.c              |  5 +++--
- arch/xtensa/kernel/pci.c         |  5 +++--
- drivers/char/agp/intel-gtt.c     |  5 ++++-
- drivers/gpu/drm/i915/i915_gmch.c |  5 +++--
- drivers/pci/pci.c                |  7 +++++--
- drivers/pci/setup-res.c          | 19 +++++++++++++------
- include/linux/pci.h              | 32 ++++++++++++++++++++++++++++++--
- 15 files changed, 83 insertions(+), 32 deletions(-)
-
-diff --git a/arch/alpha/kernel/pci.c b/arch/alpha/kernel/pci.c
-index 11df411b1d18..c5d725a9781f 100644
---- a/arch/alpha/kernel/pci.c
-+++ b/arch/alpha/kernel/pci.c
-@@ -128,7 +128,8 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		       const struct resource *empty_res,
- 		       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	struct pci_controller *hose = dev->sysdata;
- 	unsigned long alignto;
- 	resource_size_t start = res->start;
-diff --git a/arch/arm/kernel/bios32.c b/arch/arm/kernel/bios32.c
-index ac0e890510da..3e61826f07fb 100644
---- a/arch/arm/kernel/bios32.c
-+++ b/arch/arm/kernel/bios32.c
-@@ -564,7 +564,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 	struct pci_host_bridge *host_bridge;
- 
-@@ -578,7 +579,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				start, size, align);
- 
- 	if (res->flags & IORESOURCE_MEM)
--		return pci_align_resource(dev, res, empty_res, size, align);
-+		return pci_align_resource(rr, res, empty_res, size, align);
- 
- 	return start;
- }
-diff --git a/arch/m68k/kernel/pcibios.c b/arch/m68k/kernel/pcibios.c
-index 7a9e60df79c5..3024408412bc 100644
---- a/arch/m68k/kernel/pcibios.c
-+++ b/arch/m68k/kernel/pcibios.c
-@@ -31,14 +31,14 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
- 	resource_size_t start = res->start;
- 
- 	if ((res->flags & IORESOURCE_IO) && (start & 0x300))
- 		start = (start + 0x3ff) & ~0x3ff;
- 
- 	if (res->flags & IORESOURCE_MEM)
--		return pci_align_resource(dev, res, empty_res, size, align);
-+		return pci_align_resource(rr, res, empty_res, size, align);
- 
- 	return start;
- }
-diff --git a/arch/mips/pci/pci-generic.c b/arch/mips/pci/pci-generic.c
-index c2e23d0c1d77..7f3ecb91b85b 100644
---- a/arch/mips/pci/pci-generic.c
-+++ b/arch/mips/pci/pci-generic.c
-@@ -25,7 +25,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       const struct resource *empty_res,
- 				       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 	struct pci_host_bridge *host_bridge;
- 
-@@ -39,7 +40,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				start, size, align);
- 
- 	if (res->flags & IORESOURCE_MEM)
--		return pci_align_resource(dev, res, empty_res, size, align);
-+		return pci_align_resource(rr, res, empty_res, size, align);
- 
- 	return start;
- }
-diff --git a/arch/mips/pci/pci-legacy.c b/arch/mips/pci/pci-legacy.c
-index dae6dafdd6e0..82d4b01db64e 100644
---- a/arch/mips/pci/pci-legacy.c
-+++ b/arch/mips/pci/pci-legacy.c
-@@ -55,7 +55,8 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		       const struct resource *empty_res,
- 		       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	struct pci_controller *hose = dev->sysdata;
- 	resource_size_t start = res->start;
- 
-@@ -70,7 +71,7 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 
- 		/* Make sure we start at our min on all hoses */
- 		if (start < PCIBIOS_MIN_MEM + hose->mem_resource->start)
-diff --git a/arch/parisc/kernel/pci.c b/arch/parisc/kernel/pci.c
-index 96950fe9c2b7..36a3a439f609 100644
---- a/arch/parisc/kernel/pci.c
-+++ b/arch/parisc/kernel/pci.c
-@@ -193,7 +193,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t alignment)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t align, start = res->start;
- 
- 	pci_dbg(dev, "%pR: pcibios_align_resource(%lx, 0x%llx, 0x%llx)\n",
-@@ -205,7 +206,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 	if (align > alignment)
- 		start = ALIGN(start, align);
- 	else
--		start = pci_align_resource(dev, res, empty_res, size, alignment);
-+		start = pci_align_resource(rr, res, empty_res, size, alignment);
- 
- 	return start;
- }
-diff --git a/arch/powerpc/kernel/pci-common.c b/arch/powerpc/kernel/pci-common.c
-index 4fc52c21fe5d..23594759cfe2 100644
---- a/arch/powerpc/kernel/pci-common.c
-+++ b/arch/powerpc/kernel/pci-common.c
-@@ -1131,7 +1131,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 
- 	if (res->flags & IORESOURCE_IO) {
-@@ -1140,7 +1141,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 	}
- 
- 	return start;
-diff --git a/arch/sh/drivers/pci/pci.c b/arch/sh/drivers/pci/pci.c
-index 878a27a1acfb..279f2770ff4b 100644
---- a/arch/sh/drivers/pci/pci.c
-+++ b/arch/sh/drivers/pci/pci.c
-@@ -172,7 +172,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       resource_size_t size,
- 				       resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	struct pci_channel *hose = dev->sysdata;
- 	resource_size_t start = res->start;
- 
-@@ -186,7 +187,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 	}
- 
- 	return start;
-diff --git a/arch/x86/pci/i386.c b/arch/x86/pci/i386.c
-index e2de26b82940..4178ae4380c2 100644
---- a/arch/x86/pci/i386.c
-+++ b/arch/x86/pci/i386.c
-@@ -156,7 +156,8 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		       const struct resource *empty_res,
- 		       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 
- 	if (res->flags & IORESOURCE_IO) {
-@@ -165,7 +166,7 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 
- 		/* The low 1MB range is reserved for ISA cards */
- 		if (start < BIOS_END)
-diff --git a/arch/xtensa/kernel/pci.c b/arch/xtensa/kernel/pci.c
-index 305031551136..4e8ad4a3c9fe 100644
---- a/arch/xtensa/kernel/pci.c
-+++ b/arch/xtensa/kernel/pci.c
-@@ -42,7 +42,8 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		       const struct resource *empty_res,
- 		       resource_size_t size, resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t start = res->start;
- 
- 	if (res->flags & IORESOURCE_IO) {
-@@ -55,7 +56,7 @@ pcibios_align_resource(void *data, const struct resource *res,
- 		if (start & 0x300)
- 			start = (start + 0x3ff) & ~0x3ff;
- 	} else if (res->flags & IORESOURCE_MEM) {
--		start = pci_align_resource(dev, res, empty_res, size, align);
-+		start = pci_align_resource(rr, res, empty_res, size, align);
- 	}
- 
- 	return start;
-diff --git a/drivers/char/agp/intel-gtt.c b/drivers/char/agp/intel-gtt.c
-index bcc26785175d..2214347906a6 100644
---- a/drivers/char/agp/intel-gtt.c
-+++ b/drivers/char/agp/intel-gtt.c
-@@ -1038,10 +1038,13 @@ static struct agp_memory *intel_fake_agp_alloc_by_type(size_t pg_count,
- 
- static int intel_alloc_chipset_flush_resource(void)
- {
-+	struct pci_resreq_data rr;
- 	int ret;
-+
-+	pci_init_pci_resreq_data(&rr, intel_private.bridge_dev);
- 	ret = pci_bus_alloc_resource(intel_private.bridge_dev->bus, &intel_private.ifp_resource, PAGE_SIZE,
- 				     PAGE_SIZE, PCIBIOS_MIN_MEM, 0,
--				     pcibios_align_resource, intel_private.bridge_dev);
-+				     pcibios_align_resource, &rr);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/i915/i915_gmch.c b/drivers/gpu/drm/i915/i915_gmch.c
-index b0ef6ef577a3..d35097bebc0f 100644
---- a/drivers/gpu/drm/i915/i915_gmch.c
-+++ b/drivers/gpu/drm/i915/i915_gmch.c
-@@ -38,6 +38,7 @@ static int mchbar_reg(struct drm_i915_private *i915)
- static int
- intel_alloc_mchbar_resource(struct drm_i915_private *i915)
- {
-+	struct pci_resreq_data rr;
- 	u32 temp_lo, temp_hi = 0;
- 	u64 mchbar_addr;
- 	int ret;
-@@ -55,12 +56,12 @@ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
- 	/* Get some space for it */
- 	i915->gmch.mch_res.name = "i915 MCHBAR";
- 	i915->gmch.mch_res.flags = IORESOURCE_MEM;
-+	pci_init_pci_resreq_data(&rr, i915->gmch.pdev);
- 	ret = pci_bus_alloc_resource(i915->gmch.pdev->bus,
- 				     &i915->gmch.mch_res,
- 				     MCHBAR_SIZE, MCHBAR_SIZE,
- 				     PCIBIOS_MIN_MEM,
--				     0, pcibios_align_resource,
--				     i915->gmch.pdev);
-+				     0, pcibios_align_resource, &rr);
- 	if (ret) {
- 		drm_dbg(&i915->drm, "failed bus alloc: %d\n", ret);
- 		i915->gmch.mch_res.start = 0;
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index b2879a6be5f8..499ccb13c2c4 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -6444,14 +6444,16 @@ static DEFINE_SPINLOCK(resource_alignment_lock);
-  * RETURNS: Resource alignment if it is specified.
-  *          Zero if it is not specified.
-  */
--static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
--							bool *resize)
-+resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
-+						 bool *resize)
- {
- 	int align_order, count;
- 	resource_size_t align = pcibios_default_alignment();
- 	const char *p;
- 	int ret;
- 
-+	*resize = false;
-+
- 	spin_lock(&resource_alignment_lock);
- 	p = resource_alignment_param;
- 	if (!p || !*p)
-@@ -6497,6 +6499,7 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
- 	spin_unlock(&resource_alignment_lock);
- 	return align;
- }
-+EXPORT_SYMBOL_GPL(pci_specified_resource_alignment);
- 
- static void pci_request_resource_alignment(struct pci_dev *dev, int bar,
- 					   resource_size_t align, bool resize)
-diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
-index 376f09630a4a..441a62807719 100644
---- a/drivers/pci/setup-res.c
-+++ b/drivers/pci/setup-res.c
-@@ -265,17 +265,21 @@ resource_size_t pci_resource_alignment(const struct pci_dev *dev,
-  * before res->start if there's enough free space there. This enables
-  * tighter packing for resources.
-  */
--resource_size_t pci_align_resource(struct pci_dev *dev,
-+resource_size_t pci_align_resource(struct pci_resreq_data *rr,
- 				   const struct resource *res,
- 				   const struct resource *empty_res,
- 				   resource_size_t size,
- 				   resource_size_t align)
- {
-+	struct pci_dev *dev = rr->dev;
- 	resource_size_t remainder, start_addr;
- 
- 	if (!(res->flags & IORESOURCE_MEM))
- 		return res->start;
- 
-+	if (rr->user_align)
-+		return res->start;
-+
- 	if (IS_ALIGNED(size, align))
- 		return res->start;
- 
-@@ -306,18 +310,21 @@ resource_size_t __weak pcibios_align_resource(void *data,
- 					      resource_size_t size,
- 					      resource_size_t align)
- {
--	struct pci_dev *dev = data;
-+	struct pci_resreq_data *rr = data;
- 
--	return pci_align_resource(dev, res, empty_res, size, align);
-+	return pci_align_resource(rr, res, empty_res, size, align);
- }
- 
- static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
- 		int resno, resource_size_t size, resource_size_t align)
- {
- 	struct resource *res = pci_resource_n(dev, resno);
-+	struct pci_resreq_data rr;
- 	resource_size_t min;
- 	int ret;
- 
-+	pci_init_pci_resreq_data(&rr, dev);
-+
- 	min = (res->flags & IORESOURCE_IO) ? PCIBIOS_MIN_IO : PCIBIOS_MIN_MEM;
- 
- 	/*
-@@ -329,7 +336,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
- 	 */
- 	ret = pci_bus_alloc_resource(bus, res, size, align, min,
- 				     IORESOURCE_PREFETCH | IORESOURCE_MEM_64,
--				     pcibios_align_resource, dev);
-+				     pcibios_align_resource, &rr);
- 	if (ret == 0)
- 		return 0;
- 
-@@ -341,7 +348,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
- 	     (IORESOURCE_PREFETCH | IORESOURCE_MEM_64)) {
- 		ret = pci_bus_alloc_resource(bus, res, size, align, min,
- 					     IORESOURCE_PREFETCH,
--					     pcibios_align_resource, dev);
-+					     pcibios_align_resource, &rr);
- 		if (ret == 0)
- 			return 0;
- 	}
-@@ -354,7 +361,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
- 	 */
- 	if (res->flags & (IORESOURCE_PREFETCH | IORESOURCE_MEM_64))
- 		ret = pci_bus_alloc_resource(bus, res, size, align, min, 0,
--					     pcibios_align_resource, dev);
-+					     pcibios_align_resource, &rr);
- 
- 	return ret;
- }
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index d31a8d107b1e..ea7d75871269 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1217,12 +1217,40 @@ int __must_check pcibios_enable_device(struct pci_dev *, int mask);
- /* Architecture-specific versions may override this (weak) */
- char *pcibios_setup(char *str);
- 
--/* Used only when drivers/pci/setup.c is used */
-+/* Resource assignment request handling */
-+/**
-+ * struct pci_resreq_data - Data passed to pcibios_align_resource()
-+ * @dev: PCI device
-+ * @user_align: User provided alignment override (pci=resource_alignment param)
-+ */
-+struct pci_resreq_data {
-+	struct pci_dev *dev;
-+	resource_size_t user_align;
-+};
-+
-+resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
-+						 bool *resize);
-+/*
-+ * TODO: Improve PCI resource assignment interface so that callers outside PCI
-+ * core do not need to know about this detail.
-+ */
-+static inline void pci_init_pci_resreq_data(struct pci_resreq_data *rr,
-+					    struct pci_dev *dev)
++static void
++sanitize_workqueue_attrs(struct workqueue_struct *wq,
++                        struct workqueue_attrs *attrs)
 +{
-+	bool user_aligned;
++       if (wq->flags & WQ_HIGHPRI)
++               attrs->nice = HIGHPRI_NICE_LEVEL;
 +
-+	memset(rr, 0, sizeof(*rr));
-+	rr->dev = dev;
-+	rr->user_align = pci_specified_resource_alignment(dev, &user_aligned);
-+	if (!user_aligned)
-+		rr->user_align = 0;
++       if (wq->flags & __WQ_ORDERED)
++               attrs->ordered = true;
 +}
 +
- resource_size_t pcibios_align_resource(void *data, const struct resource *res,
- 				       const struct resource *empty_res,
- 				       resource_size_t size,
- 				       resource_size_t align);
--resource_size_t pci_align_resource(struct pci_dev *dev,
-+resource_size_t pci_align_resource(struct pci_resreq_data *rr,
- 				   const struct resource *res,
- 				   const struct resource *empty_res,
- 				   resource_size_t size,
--- 
-2.47.3
+  /* allocate the attrs and pwqs for later installation */
+  static struct apply_wqattrs_ctx *
+  apply_wqattrs_prepare(struct workqueue_struct *wq,
+@@ -5735,6 +5746,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
+          * every possible CPU and never falls back, so it has no default.
+          */
+         copy_workqueue_attrs(new_attrs, attrs);
++       sanitize_workqueue_attrs(wq, new_attrs);
+         wqattrs_actualize_cpumask(new_attrs, unbound_cpumask);
+         cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
+         if (!(wq->flags & WQ_PERCPU)) {
+@@ -5757,6 +5769,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
+
+         /* save the user configured attrs and sanitize it. */
+         copy_workqueue_attrs(new_attrs, attrs);
++       sanitize_workqueue_attrs(wq, new_attrs);
+         cpumask_and(new_attrs->cpumask, new_attrs->cpumask, 
+cpu_possible_mask);
+         cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
+         ctx->attrs = new_attrs;
+@@ -5919,24 +5932,6 @@ static void unbound_wq_update_pwq(struct 
+workqueue_struct *wq, int cpu)
+
+alloc_wq_std_attrs() is completely gone and alloc_and_link_pwqs() calls 
+standard alloc_workqueue_attrs() instead.
+
+Slight annoyance is I have to call it twice in apply_wqattrs_prepare().
+
+Could you please confirm (or deny :)) this is what you had in mind?
+
+>>> alloc_ordered_workqueue() with WQ_RT passes this and ends up with a single
+>>> pool spanning all CPUs because ordered wqs use dfl_pwq everywhere, while the
+>>> doc and sysfs say strict per-CPU. Should __WQ_ORDERED be rejected too? The
+>>> nested ifs can also be a single condition.
+>>
+>> Not sure - Tejun what is your guidance here? Is this purely an
+>> implementation challenge because conceptually it should work, no?
+> 
+> Yeah, the priority part would work. It's just that an ordered wq has a
+> single pwq for all CPUs, so the per-CPU affinity can't apply. Let's reject
+> __WQ_ORDERED for now and allow it when there's a user.
+
+Done.
+
+>> P.S. The nested ifs could be a single condition but I wanted to mimic
+>> the existing style so it looks nicer:
+> ...
+>> I can change if desired.
+> 
+> Your call. A single condition would read fine too.
+
+I've collapsed into one. I guess fewer WARN_ON_ONCE the better..
+
+>>> The three stores check WQ_RT and return -EINVAL while nice goes read-only
+>>> through is_visible below. Can all four go through
+>>> wq_sysfs_unbound_group_visible() returning 0444 for WQ_RT? That drops the
+>>> three store checks.
+> ...
+>> Could do that if it would be acceptable for root to be still able to
+>> write to them - Tejun?
+> 
+> Root can't write to them. sysfs sets KERNFS_ROOT_EXTRA_OPEN_PERM_CHECK, so
+> kernfs_fop_open() fails a write open of a file without a write bit even
+> with CAP_DAC_OVERRIDE. Can you make nice, affinity_scope and
+> affinity_strict read-only through is_visible? cpumask can stay writable
+> as narrowing where the RT workers run doesn't break anything.
+
+Done.
+
+>>> Can we keep printing nice for non-RT pools? prio=120 is the internal
+>>> encoding, sysfs and the pool dumps print nice, and the example output in
+>>> workqueue.rst would go stale. prog['RT_PRIORITY'] would match the rest of
+>>> the file too.
+>>
+>> We probably could if we wanted to. Tejun?
+>>
+>> Complication would be having to hardcode some priority conversion
+>> helpers into the script.
+> 
+> Yeah, let's keep nice. It's just prio - DEFAULT_PRIO and hardcoding 120 in
+> the script is fine.
+
+Done as well.
+
+>>> One more thing which isn't in the diff. The rescuer of a WQ_RT |
+>>> WQ_MEM_RECLAIM wq, which is what panthor-drm-rt is, still runs at nice -20,
+>>> so under memory pressure the RT wq's work items run as CFS. Should
+>>> rescuer_thread() use sched_set_fifo_low() for WQ_RT?
+>>
+>> I did not think we should care much about latency when under severe
+>> memory pressure. It should be enough to guarantee forward progress and
+>> the latency restores back to normal once memory pressure stabilises.
+> 
+> Agreed.
+
+Ack, thank you.
+
+Regards,
+
+Tvrtko
 
