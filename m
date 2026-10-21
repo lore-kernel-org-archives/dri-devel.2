@@ -2,141 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF26606A32E
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:41:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0819606A31B
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:41:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=OlAPnpR7
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y7z9xyDa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 668E411242F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B69B112437;
 	Thu, 22 Oct 2026 09:41:16 +0000 (UTC)
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11021132.outbound.protection.outlook.com
- [40.107.130.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F38110E39B
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 20:44:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kbvxNEN+8HG8a3RmCLk8l9w21VTqVlMXwbyGkGR3g3Yyx1Omvj8ctZ1kTVSjhQ+CjpqwpSZuOEb9YrJSKBBWK66f7N1yOnfQE7V8U+bd4CYN24djUmDIYmjk4c3qYPdjb6CuZcGRMugll5p05d1eF9ROGsYd7OfbxyASvK6b3DLIPCFVhWRWd71o2rqkOuXpQNiKdbeWN+r3D2thtb6NFSjWcz/C/TrflXqGkmD7mzrZDln37rsM7DCg9aq7uxi804/kADFcsGckNiKzvqpyi9ZWYU2b67i0P6veqzUmguzcqwb0R+sSPsEgQ6qKiy/xSdFZahfnJz4WMly6H9l/lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vKSQp6kUHtIJuf0/fU0LJ4rpNWIJBe9h7Kn6Ik78Hcc=;
- b=lFy0Z2cRLie8gh2paWm7e6nufXNoNft4mo58sVpRosSMbMv/gKz6cQ3VYSwbZleRgWXtYdBl7oocM7bfCXL0CNVB1UYc6NH9qjeyGWkrjG4PyulhpSv+MfFwS8Flxn6xlHtZFmnFASryo/kYxDiQ1ql1JpKHYEocg7RjIOtw6rSXbhXSyomZaev98XZJJITGe+7dW7N2/OS1AnN0nhhL6CFZ94U7K8E7hGd4eE9ZSpHdn3OwBpvK3/Veaskh2eZoQlQCNLpvj0Kt+oHF3NP+Pv8UAA6LCz0oF18kA9u+Dw3Hv3M8s1a4Z/H7agWFqDsGEXPZtsnjRCyhuC8Svwrz1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vKSQp6kUHtIJuf0/fU0LJ4rpNWIJBe9h7Kn6Ik78Hcc=;
- b=OlAPnpR7i0/eEmnKPJZz+GGGKPPOV/oEK1iKWEmWPMPxcQg3Vk4TyGzmaEiKRlJSXepb/0Q/y3lh1O23LFAXlxpJjFk5HKbzjDmpDFgcLGT37F9lVkcui6Fc4VzHAblf1uThM0ooMP91t91H8UBh6DIHg6BgImAphIWLCa/coB/Bb/0XZAM1eGhIiOPfi6yWBXL1/AKhqtyGpXuHwoU4lic2Mf5XcZLGE2ot31z+Ctoziy05GzeYxtbhjE8toI3RT4oHVQoIl5c8iSOsJDcb3xohh9ucP7RsKfs6u6UefinoA9BWrKU/1wb/P+wCSCvdtIFSqMV1Dr2VlIKLXRnI1Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20) by DBBPR08MB5964.eurprd08.prod.outlook.com
- (2603:10a6:10:20c::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 20:44:54 +0000
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 20:44:54 +0000
-Message-ID: <7b4b5d25-d955-45d7-aeab-eedce9f40bd1@virtuozzo.com>
-Date: Wed, 21 Oct 2026 22:44:51 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] mm/huge_memory: recheck a special PMD under the
- lock in copy_huge_pmd()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org
-References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
- <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-1-85eaec8417f6@virtuozzo.com>
- <5800bc6e-7671-41eb-bb09-7fbc8f2d085c@kernel.org>
- <03a10e8e-f14e-4612-9c23-70f94137a29e@virtuozzo.com>
- <973fd409-64b7-4c62-82e1-c75c784b80f7@kernel.org>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <973fd409-64b7-4c62-82e1-c75c784b80f7@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P195CA0021.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d6::9) To PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4526110E1D9
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 21:37:24 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-48e10a70540so723183f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 14:37:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792618642; x=1793223442; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=l+wW5y3oLkACw7iMTJygQDIUG0x1gkmsDhwfnY1QE0Q=;
+ b=Y7z9xyDahCO5SnmM8owmTB2l9WChoz1sSyN90nWZ5H/qkHVFkgWzrJgQckqsf7eVxT
+ o2BTQISeFJCPQaIX6FLRUwVvg9C+kp2Afyla1atiygp0cGN/MBhAy9iMLcmwthdRy7WH
+ CeBKC/Ju3RuxYlPevDJk3wKajnVLvmeJhdKRn4rpHO0FR/6z3GNqCscMWsEVfpEVt0Jb
+ fRI8OhdeDzjgXqINp+LVBuZmwbmoFuOSflEiTv5ETLMATwAKtUVMCyADPOC40EQevBvE
+ /MzjMRRAxrgLZHL2HiJ8Grq7SY1Lg0Sc2sJpP1t+qlHUODeP7dtKAui9y8jUxrtKyvET
+ Ln+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792618642; x=1793223442;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=l+wW5y3oLkACw7iMTJygQDIUG0x1gkmsDhwfnY1QE0Q=;
+ b=wI2drlajsNmRhO/S9DPVZdLx+Ua1WFKPREsQEaBDmhaoOEQbOI4dIlebJvOuZ2EimC
+ d/lwPE+1XPaAyV1XErAiLVDCnzk36IhB/UIqy8auSqQTOXuJmpRetLONlGfdUhyOqD7i
+ YsfI+vH/n9y2jGjas7GqQ0DVMmUeLdOYald/dOa+Z1LsdO7ZUI6wkachuO34Pjpc2aiO
+ CnzLuqUpZ9Au/XEGVFwdTKR5rgRORnqalPvPd+wcyLTygaUPZl3bPcfFaNZhderH8xtl
+ fKZVAVxBTeNkGEKhNq/cwM2hOJDcnFm8UYGDnBM9Q02dKvmwKkvvkb1yURnNVggmVKt0
+ tsJQ==
+X-Gm-Message-State: AFq9FYJV8s46io9IyVS5/wktR5oxPMe9mm1PgW4N7dbAJTIW1XnQoAGX
+ R/mJfG6FPsf7+heZg5FCo/6vgNHlP387CcCebwkzN3EmxG/ISPo5tXbgBMkcA+FhU0W89A==
+X-Gm-Gg: AYBFou394w4hnyRwpmwcdle+nISIXgn8E32KtuCFWf1CYtzCupgHIdHSMzWrvywihZR
+ TU8T7iEB8hFAu8xkN/J+Mv0V2p5a7O14o6iLhyXEpJHSBwyP/bPsdudQ/L4ZoZm/XiNpPk6LqiT
+ ffS+xdeUbQkabUMOUukq+3GkVmpcd8fT6AoWjbJrX4fbYEA0/wOeZ6+xZ9c5Vt0zJrW7ZjmgWld
+ TW4M4XUP1Ypop6ptTZIU1rPDYZDB1oOqfo0f0JSv7QkmOh4lQ7LJ2ZF2Hu3EWiSbo5k6Gg1Bgbb
+ RayoT3liypBUMElSKvGl/q4RNMArVqk6XIz392Uj8tF/vPz7YJEd+E/bxeAAMcg/dkoZjpqv3OU
+ 7IX2PY3kz32pdL70V3STUhv/IHiPwGaA0A4rBVxVn5jLzT7Bau+9UogxSPm+HxlN5MfhBkwrwHq
+ ZEGvVgvGlOnVOcDG6HGAVgDceh4JHbhkZiers8nrhirAMrNoKhQNc5whT+lVvfiXOg65Qt+7Ntb
+ sAX+MHOi8+xneQL7evQ7SDY87Ueid0K5/gcsvF0rKkgSVDjUn6asria3Cr8McQ2AcMILUlMGhDW
+ AxdZErllR1w+7AWT9vb5zHbRZnPVdl862qZtFw9BxjHhZhdLdrB6iA==
+X-Received: by 2002:a05:6000:480b:b0:48e:261b:a49d with SMTP id
+ ffacd0b85a97d-48e2649da02mr7021255f8f.15.1792618642414; 
+ Wed, 21 Oct 2026 14:37:22 -0700 (PDT)
+Received: from localhost.localdomain ([159.26.120.41])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e25833b9asm8435172f8f.33.2026.10.21.14.37.21
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Oct 2026 14:37:21 -0700 (PDT)
+From: ukrainer8 <kolomiiec@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH v3] drm/radeon: retry UVD v1 init on failure after resume
+Date: Thu, 22 Oct 2026 00:36:35 +0300
+Message-ID: <20261021213635.235393-1-kolomiiec@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|DBBPR08MB5964:EE_
-X-MS-Office365-Filtering-Correlation-Id: a70e5904-5641-4de9-998c-08df2fb428fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|23010399003|1800799024|921020|261009223027099003|56012099006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 9LSHIL37mWnf9zZATmMuw+PLBIBLEzBQNolC8fkfOrVUCk3bdS3pXsFfOU7bSIzB7Qt91BG1pwswZ+6d7F5omJDHwM/0sAhv86C+moc7Y1mKCtrk2RzL4kD01Ft4lCRnH93+123Bh5TfFtg9V4Y0cogVZi4xc8ap/eC9BsnyKksp2sfZ5/uQ4KQygvt58wctt9qJNknW3W5QpjHLVzyNTeovnK3dSTnxUgjBZHRcVgOTAImlHwWlRG88gPiQ1SB5Dm/UQY98M9DGEPIww7y7Fb1voHyHvTqUMF3/dTaQjVz5W26HFiLsSj0rfT27oLV3dM7Q6D6MkZSWN9/CsfnpLOZZhZRsWtptjRdwkEu41tnf71X2j4QQZ0/wbPbjaDictFdUzxCyoq2w1R5MZEypCOX3yW3a6ASTGgF6V4pLWprJ/45qjyLZJktrKme4GpWpR9I9SmTprZ+AJg4HZOFHD5iHQgOYj9lTIx/IgIPE5nzQTF0CYFjLxMNxsY8hwaOXGJUD+koPhionGVYM8ZW1qOZO/F14NvpaQJU5mUnqD6s0ZzFamdcu6TrSHFrYzaEMvSvKfobr7IJSz/Fr2U+ah0YDDCQ2NCbBwIGyyTiPwH3HvbsyoHDCsDCcKVppaLaxtgTmnZ1TY7ojgqA/3UgHOCa+vOEoShMl5eDnsx2a1LA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PA6PR08MB10708.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(921020)(261009223027099003)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZWxFdElpNUc3UVc4cURWeURhaUdpejA2TXp4ZTZ5S0dTN1BOQ0lWRWFiU1Nh?=
- =?utf-8?B?ZU40NzZ2ZjFNT1Y1eXFwL1JndzlkbzFma2gwVVdLQnl5ZWRQVTloWHBmT1Rl?=
- =?utf-8?B?L2lKbFJ0NkdtSFpaS3ZmellHU1E4N2gvRmdIYkNpaVRLWk1ndlMraUF4SXdo?=
- =?utf-8?B?Rzc0TVR6eWVpYWo3RUdab2ZXbFhJelR5QVdLVjlVZzFsY2FaL0x0MXpZOHlB?=
- =?utf-8?B?SUhCQXBwTElkNURBQmpNNXRaT21pSmVHYS92bVhGTXN6eUJ1VDdZd2t6eDU3?=
- =?utf-8?B?ZnpjSjJSYjBGTjdsS09oRkcyd2EyaDNRWDZMcUV5N2NZNHlHY0dYL2ZCYjhP?=
- =?utf-8?B?SFFqQ3FJK3BMN2o2cmRMMm4reWxEcnY2bjVmQnVPdXM0K1hNSm5KbStTeHhn?=
- =?utf-8?B?R0FPUkZzdmdZRzNuTmdRakN2cllGR1lKdDlqSVNWRU92eUtrcjQxM0YwWmVa?=
- =?utf-8?B?TnVaMk5BanlQZzY0LzloNFlpZVRCU1gzR1dSVFRXK2lmakJRSW5IN2piUFJO?=
- =?utf-8?B?aURBZ2NvZEk3dUVGRDlud0xUOXV2YWxEcmprV21VcStDN053cmpwUDNCTE4w?=
- =?utf-8?B?Q240TGwxZDMvVWwxb0FzbTZOL3lJanpVaHc2UkZUQ3d4Z3JEU0ZpL2MveEl2?=
- =?utf-8?B?dDhlSG5CNXR6cHZtbG91VVl1M2pudXBKd3RscXRVc2JsdXo3Z2J0TnBleDVp?=
- =?utf-8?B?VmRuT081TDQwbHhMVnJEZ0ZjbkcrWDVCSVA1YTgyWUlwZ2Jjem03elRFNG96?=
- =?utf-8?B?TGJaZ2cvcnZyMzVnUlptTFhpY0hkRFArakgrZExWd2RnU1VWRlN6TXZVS3R3?=
- =?utf-8?B?UzNXaHlhbHg1cm03MGkzdWtTZE5YK0hnZHpQUEcwdzhKb0RkYVc0MmNXSVI4?=
- =?utf-8?B?VlhJTXpnbDNNeittUXpIK0NkdVovaVZxOVh0S0daVGFtNlVjbXltcUpHMTF0?=
- =?utf-8?B?OW92UVlUakRUR1BtM09ucHcwUGpVL1J3aXpUdUdDOWxHK2plL05GaXk1cmMx?=
- =?utf-8?B?ZTFZTndPVmhUdEQwZ2EvVXVWTkhXNk1DeFl6S0RSdGZaaVF0S0FCYkhVOEdX?=
- =?utf-8?B?YzEvM2FZRy8wKzlXNWFPU29yeXJuWjBSZTdHM3MreWZ3blo0Uk5BLzBUa1JJ?=
- =?utf-8?B?VFZJVG45b3VyaUpiZXRlSFZJdndxTkx5OWprcCtvUkFUd0ZqaVFXSEhMU1Q0?=
- =?utf-8?B?cnljcHRldzcxajA4ZkJxemdYM2JsTkdZaDdCdllaQXZKVWdYMVlvOGxmaWtw?=
- =?utf-8?B?L0swSXJpeTExQWZmcmljKzF6OEFJUGY3S2ZTVGJ3NGJVR1Jib2hzcmFCcC9x?=
- =?utf-8?B?b1E1enV0cENaZUNNOGplSkV1ODF0b0JGMUZYQjVnNTJ6bVNYUEJkN0s4QkE0?=
- =?utf-8?B?d1FaTHNHVjdRcUxOQ2UzU1Fhd0JxVTRqSzYxNExudElGUUdzRDBnMFlONVN4?=
- =?utf-8?B?bW9CMDJQd0dMWStTQnBmTmtmQUFkQXV5UktGYmpvMnZEZnkxaUNVOUJUeWhm?=
- =?utf-8?B?SnU4Vi9ZTEcrK25kS1B5Sm9tV2FqSlNDTXo2S1RjU3ErRk5Zdms0SmxLOFdr?=
- =?utf-8?B?am0xQ0RNUjV1USsxQXd6bkZMQ2FxMzBHQWJDNWFDT1d6ZmloRlBkaG9HaGc2?=
- =?utf-8?B?YTZXS0ZlVW1Oa1dNOENTV203eHcwbWJOc1BkZVBYRmoxRis5akluTWJpWFor?=
- =?utf-8?B?d2ZLeXNoRjVZWFIra3ZpR3crOXlYa3RRQ2NGWFBpUUJjKzUrS2kvbEZFcE1C?=
- =?utf-8?B?RVliZ1k2Ui9WU3plNmUrTmhsR1hUeTVRYjNrZTVBSC9FcmNRVWpQRG9EeXo4?=
- =?utf-8?B?NTh1ZHNnQnFVYkM1clVpV0d6T2trV2dVd2JmQlBTY25MTG52YTU0ZGlKWWF1?=
- =?utf-8?B?YkFJUDBSL2crMmZwa3hxUkt4bkxKaU5JekVOZHczNGRrU3dvN3ZPd29QaXpx?=
- =?utf-8?B?NmVQbnYvZTRTR0JKTW5CVm5NK3FjT3FhN3N2eHV3SlpMY1U4VEtuc3RmMzhP?=
- =?utf-8?B?SE5xR0ZVdmk0eTA4R25FN1VqZWJCcTVXdEZUZXlNUE4xdGlpQjkvVEJCRjZm?=
- =?utf-8?B?aXkyRjQrVHM0eE93SmF3M3lWNWtCaHJHZGRsMnNvWElsOWxTUTEvaDgvbTdm?=
- =?utf-8?B?TEZJUUxmUkFuN2NnSVJEZkVDRFU2ejRyeStPd0hhVVN2OXF2Vk5TRVF0bkpi?=
- =?utf-8?B?R2Fmb1ZUdEhyVmtnUE5mSHdmWnhVQytmMTBsblZmd2hsVzFKYmFKaTAvelFr?=
- =?utf-8?B?KzlaZGNyMUdPQnp5eENYbm5iVXVOaExvb2g0SkY2K29LNlRXZ0tjYlFTMEdj?=
- =?utf-8?B?cVEvTjZreFlCUGhSMHl5d2Zqbmtha3dOWlZKclI0R2x1elpUOTZ5Zz09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a70e5904-5641-4de9-998c-08df2fb428fe
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 20:44:53.9813 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eh6VxmK8vngJyhi9bYGHBRwrGzJmvRoJxMAmiR+fPRlMSQex+aFJPzwZtCiu5720ht7439IzAUyAxHO6xTmx3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB5964
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 22 Oct 2026 09:41:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -149,27 +80,124 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/21/26 10:37, David Hildenbrand (Arm) wrote:
+On Evergreen/Redwood (and likely other UVD v1/v2 hardware), resume from
+suspend intermittently fails the UVD ring test:
 
-<snip>> We should likely do exactly what we do in the PTE path: copy PMDs that reference
-> file folios. See copy_present_ptes().
+    radeon 0000:01:00.0: [drm] *ERROR* radeon: ring 5 test failed (0xCAFEDEAD)
+    radeon 0000:01:00.0: failed initializing UVD (-22).
 
-Done in v4: copy_huge_pmd() now decides under the PTL with
-vm_normal_page_pmd() and copies file THPs like copy_present_ptes():
+Cold boot always succeeds; resume succeeds only in about half of the cycles
+(42 measured suspend/resume cycles on a Radeon HD 5650M: OK counts per
+6-cycle run were 2, 3, 5, 6, 1, 5, 3). Once the ring test fails, UVD stays
+dead for the rest of the session and hardware video decode silently falls
+back to CPU.
 
-https://lore.kernel.org/all/20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com/
+The resume path runs the same full asic startup as cold boot
+(evergreen_resume() -> evergreen_startup()), so the difference is the
+hardware state at entry, not a skipped call. Field data shows the first
+ring instance after resume is dead functionally, not by timeout: the ring
+test fails fast and deterministically, and only a full stop+init cycle
+revives the engine.
 
-Thank you for the review!
+Retry the init sequence instead of giving up: on failure of clock setup,
+VCPU start or the ring test, fully stop UVD, let it settle for 20 ms and
+try again (up to 3 attempts). uvd_v1_0_stop() runs only when clock setup
+succeeded - MMIO writes to an unclocked UVD block can cause a PCI bus
+master abort and hard-hang the system. Each retry logs the failing step
+and the attempt number, which also makes future reports of this failure
+mode self-diagnosing.
 
+On the same machine the patched driver went 6/6 OK across repeated test
+runs, with the retry catching exactly the failures the stock driver used
+to declare fatal.
 
-Best regards,
---  
-Konstantin Khorenko
+v3: dropped the warm-up cycle and the widened poll window per Sashiko AI
+review and our own measurements (neither prevented first-attempt
+failures); kept the guarded retry loop.
 
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1867
+Link: https://bugs.launchpad.net/bugs/1865130
+Tested-by: ukrainer8 <kolomiiec@gmail.com>   # Radeon HD 5650M, kernel 7.0.0
+Signed-off-by: ukrainer8 <kolomiiec@gmail.com>
+---
+v1 -> v2: guard uvd_v1_0_stop() behind successful clock setup (Sashiko AI
+review: MMIO on an unclocked block can hard-hang the system).
+v2 -> v3: dropped the silent warm-up cycle and the 2000 ms poll window.
+Our measurements agree with the review: the wider window changed nothing
+(first attempt fails fast, not by timeout) and the warm-up did not prevent
+first-attempt failures (5/6 cycles) - the retry loop already does
+stop+settle+retry. What remains is the minimal guarded retry.
+ drivers/gpu/drm/radeon/uvd_v1_0.c | 40 ++++++++++++++++++++++++++--------------
+--- a/drivers/gpu/drm/radeon/uvd_v1_0.c
++++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
+@@ -158,24 +158,48 @@
+ {
+ 	struct radeon_ring *ring = &rdev->ring[R600_RING_TYPE_UVD_INDEX];
+ 	uint32_t tmp;
+-	int r;
++	int r, retry, clk_err;
+ 
+-	/* raise clocks while booting up the VCPU */
+-	if (rdev->family < CHIP_RV740)
+-		radeon_set_uvd_clocks(rdev, 10000, 10000);
+-	else
+-		radeon_set_uvd_clocks(rdev, 53300, 40000);
++	/* after resume the first ring test can race with the hardware; retry */
++	for (retry = 0; retry < 3; retry++) {
++		/* raise clocks while booting up the VCPU */
++		if (rdev->family < CHIP_RV740)
++			clk_err = radeon_set_uvd_clocks(rdev, 10000, 10000);
++		else
++			clk_err = radeon_set_uvd_clocks(rdev, 53300, 40000);
++		r = clk_err;
++		if (r)
++			drm_warn(&rdev->ddev, "radeon: raising UVD clocks failed (%d), attempt %d\n",
++				 r, retry + 1);
+ 
+-	r = uvd_v1_0_start(rdev);
+-	if (r)
+-		goto done;
++		if (!r) {
++			r = uvd_v1_0_start(rdev);
++			if (r)
++				drm_warn(&rdev->ddev, "radeon: starting UVD failed (%d), attempt %d\n",
++					 r, retry + 1);
++		}
+ 
+-	ring->ready = true;
+-	r = radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
+-	if (r) {
+-		ring->ready = false;
+-		goto done;
++		if (!r) {
++			ring->ready = true;
++			r = radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
++			if (r) {
++				ring->ready = false;
++				drm_warn(&rdev->ddev, "radeon: UVD ring test failed (%d), attempt %d\n",
++					 r, retry + 1);
++			}
++		}
++
++		if (!r)
++			break;
++
++		/* MMIO is only safe when the block is actually clocked */
++		if (!clk_err)
++			uvd_v1_0_stop(rdev);
++		if (retry < 2)
++			mdelay(20);
+ 	}
++	if (r)
++		goto done;
+ 
+ 	r = radeon_ring_lock(rdev, ring, 10);
+ 	if (r) {
