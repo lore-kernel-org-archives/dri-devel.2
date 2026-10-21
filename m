@@ -2,88 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB9D60A2604
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 15:43:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BC9606A324
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 15:43:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TOq1Vcvp
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LCGWlvF9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 489AB10E2C1;
-	Wed, 21 Oct 2026 15:43:16 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0326510E347
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 15:43:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1792597389;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bWkWUhRxPDvXoa6KMlal8YtHGvJibFgZ+pmIbzWzfpI=;
- b=TOq1VcvpsFXrpYM/IimoqKgD38GgGPWdxW9L/SS5X5TlUl5ERkSYMFBRPGrJDlKOmbCXZz
- fE7Yqe566sLUUlj9Uro0PZ1R4Pdxv7v2Xl5RvL7z2hsXEFKxVa4IyOnKeDl3tqdVnG7RSA
- jOHmElKIQQcsoFRYLgrDBYdvFlQz/xI=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-274-jFNxnYdKMlaImvgI6R0zEg-1; Wed,
- 21 Oct 2026 11:43:03 -0400
-X-MC-Unique: jFNxnYdKMlaImvgI6R0zEg-1
-X-Mimecast-MFC-AGG-ID: jFNxnYdKMlaImvgI6R0zEg_1792597379
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 3BCC718007FE; Wed, 21 Oct 2026 15:42:58 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb
- (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 2202E18005AD; Wed, 21 Oct 2026 15:42:49 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 21 Oct 2026 17:42:22 +0200
-Subject: [PATCH RFC v2 1/8] memcg: Add MEMCG_DMABUF accounting infrastructure
+	by gabe.freedesktop.org (Postfix) with ESMTP id E623410E330;
+	Wed, 21 Oct 2026 15:43:22 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011030.outbound.protection.outlook.com [52.101.52.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4C4010E33A;
+ Wed, 21 Oct 2026 15:43:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vk0ruR9pbwmf9AwhfekCBOe5CS4zzFlZ68H0yW0f3v0yZ/teVEYYO6qRafh3eDM01AAWpuxY5jVcEfnW7oJVN0bgSa2lFtX6RE0uB/6T+fbMh/zEz2ipkmTC4WqwIVf2DSgSrmD/cHB8alzOdLHRc3LQdEtxTXsQVKDQvNldSx1pP4yfeAKYUn1m2woDTybfz1NW48d/yz+3wM0sxNpm39YIo661HwUlCw89hcUMqzYX4oMmc3oLZYGBfnyEY7Vjv3dEY4Vi0/Zn2qCyCs20NQwXvklIKN9r5pBUQXXVnT9UPb16Z0s+IwJSnHfoUvGrUfFRoSQAyGuMTfDtyCu1/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/MkPbd3JzMqw5i7RESQrUwKg04RwCgzifrhmeY08/5o=;
+ b=dJOtNrbT6QKkEa7hQbyPmx/zOFOfBv8J0EIWNuX1GPVXxRSDf0Nc7RUZjLeV9gOhIA4y+sSpKC0IrgzOUfgSmE7C1ZSCg8XoYNcoOFGdDmE4SyCnLy379rzXHqRdaSmDfVLe9Cm0LCDHRLG5G1mYRgpSRmUzLx7ugUhoC4Q3+4xUIC0lsThIhLu0NC9nWzw+HlJ95QuE/ZiL/ITP3xhEtlqcdd+8OBOmxYi61Ti+To5EI0xtql4xK+T03nxFQea8tJt6a2NjIoGHDmUUfxOJ8L0ZUMLO+O3Va+FIptLVfkVaVqBCxE9P4BSJUXc7FDt+yOEzw5Juq6bEm8H0ZA3QWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/MkPbd3JzMqw5i7RESQrUwKg04RwCgzifrhmeY08/5o=;
+ b=LCGWlvF9h2nAUedRuFl284b2KfugusnkJIY2/2J5URjtksYsiXlfoYdwRAAl6zz8j1pELx5kA88hRzv9yInYVDzy9xjvGVaZugq3/sv8JrxtJng1igG/aC4saz8TwMSvPldjvfM3FgxTWUDKvudPsEFrht4KFYfXMTqir7EGCJA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by SJ2PR12MB8035.namprd12.prod.outlook.com
+ (2603:10b6:a03:4d3::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 15:43:13 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 15:43:12 +0000
+Message-ID: <b44fb51c-11f7-4332-8ac6-d260f6904dfc@amd.com>
+Date: Wed, 21 Oct 2026 11:43:10 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/1] drm/amdkfd: Do not use internal implementation of
+ tolower()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20261021084639.251366-1-andriy.shevchenko@linux.intel.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20261021084639.251366-1-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0009.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d1::21) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20261021-v2_20230123_tjmercier_google_com-v2-1-ef6ee2dd8c5c@redhat.com>
-References: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
-In-Reply-To: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Albert Esteve <aesteve@redhat.com>, mripard@kernel.org, echanude@redhat.com
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792597359; l=8161;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=uQH7UhskNWoMAVf3cHwhudyW2OlVTtHrF31AhHpWtUI=;
- b=nsHRl/ZgVbi4E0QPaytAAh7L9X39h8F5H46BFOjlKcT/OoYIbi+O9KCY/PcAh1aGuaUi8pmr9
- wKtBuHz9OvPDC1QNK62PhlWdcIGbE5BuOq8HpfQc47zUtc4UjR1IJc9
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: Xk6McKillkQdmCjt7CKS-BBzaEfa0TVpHFdA0j_TpV8_1792597379
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|SJ2PR12MB8035:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47682c6e-427d-4e20-6079-08df2f8a03b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 97XHISzoqS0Tbb9LjkDo76ivDu3aKOPmSkJng4GdYmsuslHw/nVxq3blSCXH20j72bU2zAmiqL84BicJ9+OK4e9y+hl1uxfo7+FaEtjODwYpXfiK8PIYd63vAvq5YcpQLWpsUP2vwOdjqEzViw3Vgse/IYF8eFNlnEKgyUQZ5IOmCX4pQDEU6XjVZ3PyiYY4BqeheX4/U3iMsHiNcwlwEZe0dygUO1Kaj/7ESkyJw05DQQ8TJn9WInzDkj9PaFllylAKycwF4kg0wnFBgmCxxzMIqv9iSCgamNUaxDjb8qdr3uG94N+sB57Uy38UooP1ACkHEOSHLVnNFu8FFLsKOJNfmJtS7wcv7bCmI6aQEJ6t+lnQz9XSDOkuPtyKhQiNyBizoXxXrD8q0OlaQfKzcdI8gml3DP7RejXDUKIF9xMSOmW/NrgOUEfk17ZYYrhD/DAj2O8myCsy68b5ZE4c9zp0x0kjiw+n+rdeFYSY2ssFJwuPy15SA8Nq70Zzm9HwTu43a9MIAYSGhor22OGV9KMd5tGwDIefB5HiUhwNnKledOVYNUSIhdEGHYC6Lm7HULMXTbzUuPeIGugZH2gJHn93HSFudAGf9gUToxKNxIzOvZMD+sMi5D7osjaXksDlOLIAg/rrzb7259E5Y+j5KxzEId8NLMLmNQXDAxzcDfs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEdVelJiUDRleTFjUWNqWjRQbGkxaHNoZ1k4QndkQ05heEpHcGw0Z2IzSXNJ?=
+ =?utf-8?B?OXM0amRHa2RLbTFCQ08zM3N4T0FqczBxaENTR21CVjV6MUVUSE1aK3MzTG9h?=
+ =?utf-8?B?bWdpR2ZFSGxUVzNMQ1ZXeUk1ZFFkdFM2WVEzNEtVYll1dnloRjFDQ3A3MmJ4?=
+ =?utf-8?B?aDFwc0sxc1JrT3N1NmpscVlPaWs4VUlvdjRvVzEvOHJueWdQWDFsZDYzeTNa?=
+ =?utf-8?B?M1F5WXlIaUxXQmpUWmxlRDkxYm9vcUE1d1ZWOFBpZFF1ZFdnQzgydmpJYzU4?=
+ =?utf-8?B?dHZ2OGlOaXJLd0lIMEZLK0JraXByM1M5bWNLbFNWWDlySjI3ZXVBajVrWmxC?=
+ =?utf-8?B?T2NiM0xVczdOQmM2ZkxhMFpNRXNGSEJqZ255NTY4bVg0SUg2Y0RMT2VaWHY3?=
+ =?utf-8?B?WXBuYUhCZVc2Nk5CYWIzTkwxU0xSRi9oR0ZxMmREcEo4dTR0anZ4RzlhSmxW?=
+ =?utf-8?B?NGhCYmhQdTRuNkxrTmRjbTVkV2lhTzZlckZKL2xxdkV4NG9CeXNOWHBSOUEr?=
+ =?utf-8?B?NWhVWWlNSitoRjJyRFR5cUp4M3V0L2w4YXJITDZNQWlHVzl1V0Q3ZG1jZnBr?=
+ =?utf-8?B?WlhxeFJCa3BCQXZrL3ZJTEUwYjZURS96ajNQQTRrMHhsSkl0M2dtNnJUbm1T?=
+ =?utf-8?B?R0thK0NqQ3VxRkhwYnJNOGZNbWNvMmpjRFV4aWpNNG5la3NUYlFBUEF6V3Qx?=
+ =?utf-8?B?akJ6QVdtTVU3WXNDR1NDWkdnQ1p6RnJpYk96U0FUN1JGdW4yZEszekZvUTlQ?=
+ =?utf-8?B?dkV3UXQwamtvZzlPclM5d0F4YlR5dmFvb3gyQUpwQWdTeTdHcUFPUXU4QzU2?=
+ =?utf-8?B?MkNyN2ZxdkVxa0Z0YldDeG9NRUswYjZNSUU3bDdndFM1bUM4ejZGdFZrZDM5?=
+ =?utf-8?B?RzVEWitoNU40OU5sRzNpMWpLWXFHVUpUd0gyNXBZbzRzV092Z3Q4RW9nempG?=
+ =?utf-8?B?OXlIcXk0WmtJQ2ZoUzBGQklJUlRlUGcyR3Bqc1RWUERCSEYwcktGTWNzVjlV?=
+ =?utf-8?B?RDljSmlxRWtjdUxQSTZYSnpsSnJHMTVNYzRzMmxLeU53bHpiY2NKQnhBRXNU?=
+ =?utf-8?B?cng5eVdYTDRxLy9VZExXTUJ2UzJwQTk0MjdacXdMallRRDNOa1NjUDljakR5?=
+ =?utf-8?B?VlY3djNQek1JU210UFV0WVZDYis3OEJ6dXRzNlI0VHplOHdPdWcxMy9TQkJZ?=
+ =?utf-8?B?YjZtVzRXb2J3WTdJUDAzN3hIZS9rZWhzZzY0TGt0MytUSWR5c1RWREpPL1Y0?=
+ =?utf-8?B?SWxPT29sSWtCZ3NzTWtEZWg2WkJSc2FRZDdrbjB1dTRJelc4VitraFBoLzU1?=
+ =?utf-8?B?a1E1Q1MwSUhKUktRdm9PMDhrSnNyYWlvdmNjYlVlWWh0eXFHU0d6MUltc0ds?=
+ =?utf-8?B?amZXUExaa3VUSjFBdWVMcStmRWY0Q1dJZXlvOGdiRnRQQnlEMlZodUVKMFM2?=
+ =?utf-8?B?M3p0cDQyREVyMG9Xbjk3Q1pEQU9jaDhnM0ZobGdNUmNYbTJQa0lJbFBvaW9l?=
+ =?utf-8?B?VkJSKzVVdDcza3kyMWdSWHV5RVZSbmJ3ME1PME9TWHNVY21YWlJYSWZaYlF3?=
+ =?utf-8?B?Rkk3eXI0REl0UXhMSjR1c2xSOVk0MTNkamQ3bWRtQ2FHZG9oQ3Fpd24rODNt?=
+ =?utf-8?B?YUR3YSszQTF1OGx4T0RKTDVMR3ZENG9NNDhPYSswR09nbzlRODJmSUphR0pi?=
+ =?utf-8?B?d1Zsdm9CU3BHbUxTRTY2WStTeHI5dk5JdEFYK0QwTHdrZTk4UUVVK0ZMQnlv?=
+ =?utf-8?B?U2E5VWlmK01RUW5Jc09HbU1uMUdMZGIrSEJhdEtkMWN6M283K2hWYjUwQTdk?=
+ =?utf-8?B?azRLbWZLM2F3bHUwd3VLd0M3NklUdEFrNUJ2ZVVlMGJ0VURLWUdBcnVFOVNk?=
+ =?utf-8?B?M3dpUy9ySGt4aHRuSkJiblRuVXcxUG56bGZyMjN5SWtrSzV6WFd0ZFoxenNJ?=
+ =?utf-8?B?Lzg5VXMvem5qdlFLR2lYR3lSajRCcmt5UGZ3a01ZakdUUVdLM2p4eFVWTlBT?=
+ =?utf-8?B?Q3ZjU3RwSGZ2M1ZlUWdtSmZBSzM4ODJTUmpaWFR2SW1UdG4vTlluangzajNl?=
+ =?utf-8?B?engvMWJWOGNUSS9aaG0yZU5lQjRsUTlTbXhsdXp5aUZYNUI0S3lma2ovSjhB?=
+ =?utf-8?B?emFTVElOM3V5am9BbGhWVE5sejlaMWw2aG1tZGJudklLL2dmL1c5bTUyVUQv?=
+ =?utf-8?B?RnhBOWFJMDFpS3ZmbTJzWWRFNVArK2pHK1VEMjJua01wNUs1QUhURDYra2Qw?=
+ =?utf-8?B?Vjd1RWNYcTF1NmV1S1FxVHJsMjNBc2MxR2F3a2pzUDB6MklkNENveUxEUlBm?=
+ =?utf-8?B?Vnh6SDVoQ3A5SlYwaFUrdW9xa1hrOGptZDJIWDlYWWFnd3NZdnJSUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47682c6e-427d-4e20-6079-08df2f8a03b6
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:43:12.5528 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tv5csV8tmmgoLCbBq1j3sDoKdr9Y9Cno0KMsQxQlrWSTWJtrTU7zBoEhgn4ZNM6EqQJ+QH4mkyI0p35mTfb0DA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8035
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,268 +132,45 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: "T.J. Mercier" <tjmercier@google.com>
+On 2026-10-21 04:46, Andy Shevchenko wrote:
+> ctype.h provides tolower() macro specifically for the cases
+> that might be architecture-optimised. Using __tolower(),
+> which is internal implementation, needs a good justification,
+> as this driver is the only user of that and there is no evidence
+> it's required.
+>
+> Note, currently it's no difference as the macro always defined
+> to the internal implementation, but it might change in the future.
+>
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Introduce a MEMCG_DMABUF stat counter and helpers for charging,
-and uncharging dma-buf memory against a memory cgroup:
+Thanks. I'm applying the patch to amd-staging-drm-next.
 
-The charge is tracked on struct dma_buf via a new memcg pointer. The
-page count is derived internally from PAGE_ALIGN(dmabuf->size), and
-the memcg reference is stored into (or cleared from) dmabuf->memcg by
-the helpers themselves, removing the need for callers to manage those
-details. The release path in dma_buf_release() is reduced to a single
-mem_cgroup_uncharge_dmabuf() call.
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
-This decouples accounting from the backing page allocator, avoiding the
-need for every exporter to pass __GFP_ACCOUNT and enabling cross-cgroup
-charge transfer, which is impractical with page-level accounting.
 
-Remove __GFP_ACCOUNT from system-heap page allocations (added by
-commit 3c227be90659 ("dma-buf: system_heap: account for system heap
-allocation in memcg")) to avoid double counting once callers adopt
-this path.
-
-The next patch wires up the charging policy in the dma-heap ioctl.
-
-Signed-off-by: T.J. Mercier <tjmercier@google.com>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- Documentation/admin-guide/cgroup-v2.rst |  4 +++
- drivers/dma-buf/dma-buf.c               |  3 ++
- drivers/dma-buf/heaps/system_heap.c     |  2 --
- include/linux/dma-buf.h                 |  4 +++
- include/linux/memcontrol.h              | 20 ++++++++++++
- mm/memcontrol.c                         | 54 +++++++++++++++++++++++++++++++++
- 6 files changed, 85 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 86a2a0099178..a3265a4a953e 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -1662,6 +1662,10 @@ The following nested keys are defined.
- 		Amount of memory used for storing in-kernel data
- 		structures.
- 
-+	  dmabuf (npn)
-+		Amount of memory used for exported DMA buffers allocated by the cgroup.
-+		Stays with the allocating cgroup regardless of how the buffer is shared.
-+
- 	  workingset_refault_anon
- 		Number of refaults of previously evicted anonymous pages.
- 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 4c9add51f9ef..f31f49ebd0af 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -14,6 +14,7 @@
- #include <linux/fs.h>
- #include <linux/slab.h>
- #include <linux/dma-buf.h>
-+#include <linux/memcontrol.h>
- #include <linux/dma-fence.h>
- #include <linux/dma-fence-unwrap.h>
- #include <linux/anon_inodes.h>
-@@ -180,6 +181,8 @@ static void dma_buf_release(struct dentry *dentry)
- 	 */
- 	BUG_ON(dmabuf->cb_in.active || dmabuf->cb_out.active);
- 
-+	mem_cgroup_uncharge_dmabuf(dmabuf);
-+
- 	dmabuf->ops->release(dmabuf);
- 
- 	if (dmabuf->resv == (struct dma_resv *)&dmabuf[1])
-diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-index c8959eadc71d..0a99ac0183a8 100644
---- a/drivers/dma-buf/heaps/system_heap.c
-+++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -388,8 +388,6 @@ static struct page *alloc_largest_available(unsigned long size,
- 		if (max_order < orders[i])
- 			continue;
- 		flags = order_flags[i];
--		if (mem_accounting)
--			flags |= __GFP_ACCOUNT;
- 		page = alloc_pages(flags, orders[i]);
- 		if (!page)
- 			continue;
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d15b2b31d3c9..23ec0ff23fba 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -27,6 +27,7 @@
- struct device;
- struct dma_buf;
- struct dma_buf_attachment;
-+struct mem_cgroup;
- 
- /**
-  * struct dma_buf_ops - operations possible on struct dma_buf
-@@ -429,6 +430,9 @@ struct dma_buf {
- 
- 		__poll_t active;
- 	} cb_in, cb_out;
-+
-+	/** @memcg: the cgroup to which this buffer is currently attributed */
-+	struct mem_cgroup *memcg;
- };
- 
- /**
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 7d1c0ce189a8..aa08fbb0c26c 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -10,6 +10,9 @@
- 
- #ifndef _LINUX_MEMCONTROL_H
- #define _LINUX_MEMCONTROL_H
-+
-+struct dma_buf;
-+
- #include <linux/cgroup.h>
- #include <linux/vm_event_item.h>
- #include <linux/hardirq.h>
-@@ -40,6 +43,7 @@ enum memcg_stat_item {
- 	MEMCG_ZSWAP_B,
- 	MEMCG_ZSWAPPED,
- 	MEMCG_ZSWAP_INCOMP,
-+	MEMCG_DMABUF,
- 	MEMCG_NR_STAT,
- };
- 
-@@ -667,6 +671,9 @@ int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp);
- int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned short id,
- 				   struct mm_struct *mm, gfp_t gfp);
- 
-+bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
-+			      gfp_t gfp_mask);
-+
- void __mem_cgroup_uncharge(struct folio *folio);
- 
- /**
-@@ -682,6 +689,8 @@ static inline void mem_cgroup_uncharge(struct folio *folio)
- 	__mem_cgroup_uncharge(folio);
- }
- 
-+void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf);
-+
- void __mem_cgroup_uncharge_folios(struct folio_batch *folios);
- static inline void mem_cgroup_uncharge_folios(struct folio_batch *folios)
- {
-@@ -1167,10 +1176,21 @@ static inline int mem_cgroup_swapin_charge_folio(struct folio *folio,
- 	return 0;
- }
- 
-+static inline bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf,
-+					    struct mem_cgroup *memcg,
-+					    gfp_t gfp_mask)
-+{
-+	return true;
-+}
-+
- static inline void mem_cgroup_uncharge(struct folio *folio)
- {
- }
- 
-+static inline void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf)
-+{
-+}
-+
- static inline void mem_cgroup_uncharge_folios(struct folio_batch *folios)
- {
- }
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 856a7d07586c..e94222237d31 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -69,6 +69,7 @@
- #include <net/ip.h>
- #include "slab.h"
- #include "memcontrol-v1.h"
-+#include <linux/dma-buf.h>
- 
- #include <linux/uaccess.h>
- 
-@@ -442,6 +443,7 @@ static const unsigned int memcg_stat_items[] = {
- 	MEMCG_ZSWAP_B,
- 	MEMCG_ZSWAPPED,
- 	MEMCG_ZSWAP_INCOMP,
-+	MEMCG_DMABUF,
- };
- 
- #define NR_MEMCG_NODE_STAT_ITEMS ARRAY_SIZE(memcg_node_stat_items)
-@@ -1625,6 +1627,7 @@ static const struct memory_stat memory_stats[] = {
- #ifdef CONFIG_HUGETLB_PAGE
- 	{ "hugetlb",			NR_HUGETLB			},
- #endif
-+	{ "dmabuf",			MEMCG_DMABUF			},
- 
- 	/* The memory events */
- 	{ "workingset_refault_anon",	WORKINGSET_REFAULT_ANON		},
-@@ -5658,6 +5661,57 @@ void mem_cgroup_flush_workqueue(void)
- 	flush_workqueue(memcg_wq);
- }
- 
-+/**
-+ * mem_cgroup_charge_dmabuf - charge a dma-buf to a memcg
-+ * @dmabuf: buffer to charge
-+ * @memcg: memcg to charge; caller must hold a reference
-+ * @gfp_mask: reclaim mode
-+ *
-+ * Charges the memory backing @dmabuf to @memcg and, on success, stores
-+ * @memcg in @dmabuf->memcg (transferring the caller's reference).
-+ * Returns %true on success, %false if the charge would exceed the limit.
-+ * On failure the caller retains its reference to @memcg.
-+ */
-+bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
-+			      gfp_t gfp_mask)
-+{
-+	unsigned int nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-+
-+	if (mem_cgroup_disabled())
-+		return true;
-+
-+	if (try_charge(memcg, gfp_mask, nr_pages))
-+		return false;
-+
-+	mod_memcg_state(memcg, MEMCG_DMABUF, nr_pages);
-+	dmabuf->memcg = memcg;
-+	return true;
-+}
-+
-+/**
-+ * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
-+ * @dmabuf: buffer to uncharge
-+ *
-+ * Reverses a successful mem_cgroup_charge_dmabuf(). Drops the memcg
-+ * reference stored in @dmabuf->memcg and clears the pointer.
-+ * Safe to call when @dmabuf->memcg is %NULL.
-+ */
-+void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf)
-+{
-+	unsigned int nr_pages;
-+	struct mem_cgroup *memcg = dmabuf->memcg;
-+
-+	if (!memcg)
-+		return;
-+
-+	nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-+	mod_memcg_state(memcg, MEMCG_DMABUF, -nr_pages);
-+	if (!mem_cgroup_is_root(memcg))
-+		refill_stock(memcg, nr_pages);
-+	mem_cgroup_put(memcg);
-+	dmabuf->memcg = NULL;
-+}
-+
- static int __init cgroup_memory(char *s)
- {
- 	char *token;
-
--- 
-2.55.0
-
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index 35b3abe57b80..1ef4d26a0ac6 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -2091,7 +2091,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+>   	 * needed for the topology
+>   	 */
+>   	for (i = 0; i < KFD_TOPOLOGY_PUBLIC_NAME_SIZE-1; i++) {
+> -		dev->node_props.name[i] = __tolower(asic_name[i]);
+> +		dev->node_props.name[i] = tolower(asic_name[i]);
+>   		if (asic_name[i] == '\0')
+>   			break;
+>   	}
