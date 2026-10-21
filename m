@@ -2,53 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E83606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:04:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2226D606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:04:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g+QxOL+u
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lD9vfE1f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDC7610FD3D;
-	Wed, 21 Oct 2026 10:04:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81FF210FD4B;
+	Wed, 21 Oct 2026 10:04:14 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCD6710FD2D;
- Wed, 21 Oct 2026 10:03:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05C8410F9CB;
+ Wed, 21 Oct 2026 10:04:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792577036; x=1824113036;
+ t=1792577045; x=1824113045;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/knIfiMjLaGfibHLqNAXPobTBZtECfzhW860bNULUjo=;
- b=g+QxOL+udOxp4y/5WY1HGusdjCKTntt4FphPjHHpOalz482X+ikhqIEu
- 1Az9BmSLh1bXK2PQbg+bIH7kz0YJ1IlKoUlG1sXRct+w8/yHrPGY2crWJ
- inETLnkLXk5iqwApO4XrFGpB2j5+TaQu3xHheXMuZBqYghlbEmOISInEj
- nbqQDL7YNiwGbDg7GjEmEy/Ffzb7siufF3VXpPkbR6eS5LhHp7HcpiAg/
- MgQKY6OE4hTyTY6oMiD9dgrBjOQtbB5qBAEFD7FJmUjiJZl1L0kI29LRN
- 6n7cgCSHJ64XVS38aOYOiioAY9hCWoHKcEhBifGnsx8wpb7pZiZ87awrq g==;
-X-CSE-ConnectionGUID: 1OPaaV4lS2m8ks/vlM29pg==
-X-CSE-MsgGUID: r2V2Gf0TR/SXY+D4cpFAFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1290291"
+ bh=WF3jG7iusbsk5uFIobgDvu+KcwjvG5L1s1qeIcvIJIM=;
+ b=lD9vfE1fByjw1BO2bufB18yB89H8MxJATWdoNfdkpuum3Cka9yukf+Z8
+ Tv34XQsFmmPFyEWM3AZXfxhi/yUTzyyblhYxMSbF+CpNqQFbnlM7MsUbz
+ JYuFSvi+fDJhGvqPkF0BIYwTk8PpRRaK0JEBZNQoVCxG/VG0XRSiyE06N
+ UE4TEqi5/eGd2VY3Afyl5l10MCk/yVpzIRSLioEiIUgg5oaN4/XYL65ie
+ IGejo1a7JdCXZtPfRLNm6urragVTg6oEppEnLXVUfHCUXDuNahzbiQFOg
+ YPxzPtShbL7NpNYuYJW1TNt/3NVQYZOoJFUMyP92iULGWi/ZlHGpZqSpp g==;
+X-CSE-ConnectionGUID: TWBiXB57RBiX6Jl5Ewj+pw==
+X-CSE-MsgGUID: 248OGsbLRLOUEP16WWxLlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1290311"
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1290291"
+   d="scan'208";a="1290311"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 03:03:56 -0700
-X-CSE-ConnectionGUID: jilK+7BjQG+lIAKFOdFkYg==
-X-CSE-MsgGUID: MS3YvztsQXW4w7iQcNVmUQ==
+ 21 Oct 2026 03:04:05 -0700
+X-CSE-ConnectionGUID: pcqClIVPSNGCxxxEHmkNwQ==
+X-CSE-MsgGUID: fM15UDjsRH6DRSc7R1pCJQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3382087"
+   d="scan'208";a="3382114"
 Received: from varungup-desk.iind.intel.com ([10.190.238.71])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 03:03:53 -0700
+ 21 Oct 2026 03:04:00 -0700
 From: Arvind Yadav <arvind.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
  thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com
-Subject: [RFC v3 07/17] drm/xe/ggtt: Stop GGTT removal MMIO during wedge and
- AER
-Date: Wed, 21 Oct 2026 15:33:08 +0530
-Message-ID: <20261021100322.1014449-8-arvind.yadav@intel.com>
+Subject: [RFC v3 10/17] drm/xe: Reuse one dummy page per BO after wedge
+Date: Wed, 21 Oct 2026 15:33:11 +0530
+Message-ID: <20261021100322.1014449-11-arvind.yadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021100322.1014449-1-arvind.yadav@intel.com>
 References: <20261021100322.1014449-1-arvind.yadav@intel.com>
@@ -75,21 +74,27 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-GGTT node removal can clear entries and invalidate TLBs after wedge
-isolation or after AER disables the PCI device.
+ttm_bo_vm_dummy_page() allocates a page and a managed cleanup action on
+every call. These allocations remain until the DRM device is released,
+so repeated fallback faults can retain many pages.
 
-Check the wedge state inside drm_dev_enter()/drm_dev_exit() so isolation
-can drain hardware cleanup admitted before the wedge. Software node
-removal and drm_mm bookkeeping still run when hardware access is skipped.
+Keep one zeroed dummy page in each Xe BO and reuse it when device I/O is
+blocked or the device is unplugged. Use cmpxchg() to handle concurrent
+faults and free the page when the BO is destroyed.
 
-For AER, take the old GGTT offline under ggtt->lock before draining
-readers and disabling PCI. Node removal checks the online state under
-the same lock, so later removals skip hardware access. Re-probe creates
-a new online GGTT and preserves cleanup on the recovered instance.
+A per-BO page also prevents writable mappings from different BOs from
+sharing data.
+
+Map only the faulting address and return the insertion result directly.
+Other addresses fault on demand and reuse the same dummy page.
+This avoids walking a potentially large VMA during a single fault.
+
+v2:
+ - Drop whole-VMA prefaulting and map only the faulting address to avoid
+   long fault-handler runtimes on large mappings. (Sashiko)
 
 v3:
- - Take the old GGTT offline before AER drains readers and disables PCI.
- - Preserve GGTT cleanup on the recovered instance.
+ - Map the dummy RAM page with normal WB protection. (Sashiko)
 
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
@@ -98,144 +103,97 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Assisted-by: LLM
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_ggtt.c      | 43 ++++++++++++++++++++++++++++---
- drivers/gpu/drm/xe/xe_ggtt.h      |  1 +
- drivers/gpu/drm/xe/xe_pci_error.c |  8 ++++++
- 3 files changed, 48 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/xe_bo.c       | 33 +++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/xe/xe_bo_types.h |  4 ++++
+ 2 files changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
-index 773777afc68a..6fec8a90e4cf 100644
---- a/drivers/gpu/drm/xe/xe_ggtt.c
-+++ b/drivers/gpu/drm/xe/xe_ggtt.c
-@@ -20,6 +20,7 @@
- #include "regs/xe_regs.h"
- #include "xe_assert.h"
- #include "xe_bo.h"
-+#include "xe_device.h"
- #include "xe_gt.h"
- #include "xe_gt_printk.h"
- #include "xe_gt_types.h"
-@@ -370,12 +371,25 @@ int xe_ggtt_init_kunit(struct xe_ggtt *ggtt, u32 start, u32 size)
- }
- EXPORT_SYMBOL_IF_KUNIT(xe_ggtt_init_kunit);
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 8fef7fa99ac4..6efcf3f5dda8 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -1994,6 +1994,9 @@ static void xe_ttm_bo_destroy(struct ttm_buffer_object *ttm_bo)
+ 		list_del(&bo->vram_userfault_link);
+ 	mutex_unlock(&xe->mem_access.vram_userfault.lock);
  
-+/**
-+ * xe_ggtt_offline - Stop hardware access from GGTT node removal
-+ * @ggtt: the &xe_ggtt to take offline
-+ *
-+ * Node removal keeps clearing entries and invalidating TLBs while the GGTT
-+ * is online. Take it offline before disabling PCI access, and drain the DRM
-+ * device SRCU afterwards so users already admitted finish first.
-+ */
-+void xe_ggtt_offline(struct xe_ggtt *ggtt)
-+{
-+	guard(mutex)(&ggtt->lock);
-+	ggtt->flags &= ~XE_GGTT_FLAGS_ONLINE;
-+}
++	if (bo->wedged_dummy_page)
++		__free_page(bo->wedged_dummy_page);
 +
- static void dev_fini_ggtt(void *arg)
- {
- 	struct xe_ggtt *ggtt = arg;
- 
--	scoped_guard(mutex, &ggtt->lock)
--		ggtt->flags &= ~XE_GGTT_FLAGS_ONLINE;
-+	xe_ggtt_offline(ggtt);
- 	drain_workqueue(ggtt->wq);
+ 	kfree(bo);
  }
  
-@@ -475,13 +489,13 @@ static void ggtt_node_fini(struct xe_ggtt_node *node)
- 	kfree(node);
+@@ -2189,6 +2192,32 @@ static vm_fault_t xe_bo_cpu_fault_fastpath(struct vm_fault *vmf, struct xe_devic
+ 	return ret;
  }
  
--static void ggtt_node_remove(struct xe_ggtt_node *node)
-+static void __ggtt_node_remove(struct xe_ggtt_node *node, bool clear_hw)
- {
- 	struct xe_ggtt *ggtt = node->ggtt;
- 	bool bound;
- 
- 	mutex_lock(&ggtt->lock);
--	bound = ggtt->flags & XE_GGTT_FLAGS_ONLINE;
-+	bound = clear_hw && (ggtt->flags & XE_GGTT_FLAGS_ONLINE);
- 	if (bound)
- 		xe_ggtt_clear(ggtt, xe_ggtt_node_addr(node), xe_ggtt_node_size(node));
- 	drm_mm_remove_node(&node->base);
-@@ -496,6 +510,27 @@ static void ggtt_node_remove(struct xe_ggtt_node *node)
- 	ggtt_node_fini(node);
- }
- 
-+static void ggtt_node_remove(struct xe_ggtt_node *node)
++static vm_fault_t xe_bo_vm_dummy_page(struct vm_fault *vmf, struct xe_bo *bo)
 +{
-+	struct xe_device *xe = tile_to_xe(node->ggtt->tile);
-+	int idx;
++	struct vm_area_struct *vma = vmf->vma;
++	struct page *page, *old;
++	pgprot_t prot = vm_get_page_prot(vma->vm_flags);
++	unsigned long pfn;
 +
-+	/*
-+	 * GGTT updates write page table entries through the BAR and request a
-+	 * TLB invalidation. Skip them after unplug, where the BAR is gone.
-+	 * Keep them during PCI error recovery so a recovered device does not
-+	 * inherit stale GGTT entries.
-+	 */
-+	if (!drm_dev_enter(&xe->drm, &idx)) {
-+		__ggtt_node_remove(node, false);
-+		return;
++	page = READ_ONCE(bo->wedged_dummy_page);
++	if (!page) {
++		page = alloc_page(GFP_KERNEL | __GFP_ZERO);
++		if (!page)
++			return VM_FAULT_OOM;
++
++		old = cmpxchg(&bo->wedged_dummy_page, NULL, page);
++		if (old) {
++			__free_page(page);
++			page = old;
++		}
 +	}
 +
-+	__ggtt_node_remove(node, !xe_device_wedged(xe));
++	pfn = page_to_pfn(page);
 +
-+	drm_dev_exit(idx);
++	/* Map other addresses on demand instead of walking the whole VMA. */
++	return vmf_insert_pfn_prot(vma, vmf->address, pfn, prot);
 +}
 +
- static void ggtt_node_remove_work_func(struct work_struct *work)
+ static vm_fault_t xe_bo_cpu_fault(struct vm_fault *vmf)
  {
- 	struct xe_ggtt_node *node = container_of(work, typeof(*node),
-diff --git a/drivers/gpu/drm/xe/xe_ggtt.h b/drivers/gpu/drm/xe/xe_ggtt.h
-index c864cc975a69..48db1a8fc58d 100644
---- a/drivers/gpu/drm/xe/xe_ggtt.h
-+++ b/drivers/gpu/drm/xe/xe_ggtt.h
-@@ -17,6 +17,7 @@ struct xe_ggtt *xe_ggtt_alloc(struct xe_tile *tile);
- int xe_ggtt_init_early(struct xe_ggtt *ggtt);
- int xe_ggtt_init_kunit(struct xe_ggtt *ggtt, u32 reserved, u32 size);
- int xe_ggtt_init(struct xe_ggtt *ggtt);
-+void xe_ggtt_offline(struct xe_ggtt *ggtt);
+ 	struct ttm_buffer_object *tbo = vmf->vma->vm_private_data;
+@@ -2204,7 +2233,7 @@ static vm_fault_t xe_bo_cpu_fault(struct vm_fault *vmf)
+ 	int io_idx;
  
- void xe_ggtt_shift_nodes(struct xe_ggtt *ggtt, u64 new_base);
- u64 xe_ggtt_start(struct xe_ggtt *ggtt);
-diff --git a/drivers/gpu/drm/xe/xe_pci_error.c b/drivers/gpu/drm/xe/xe_pci_error.c
-index 3dfcef03850e..6606e2457503 100644
---- a/drivers/gpu/drm/xe/xe_pci_error.c
-+++ b/drivers/gpu/drm/xe/xe_pci_error.c
-@@ -6,17 +6,20 @@
- #include <linux/pci.h>
+ 	if (xe_device_io_get(xe, &io_idx))
+-		return ttm_bo_vm_dummy_page(vmf, vmf->vma->vm_page_prot);
++		return xe_bo_vm_dummy_page(vmf, bo);
  
- #include "xe_device.h"
-+#include "xe_ggtt.h"
- #include "xe_gt.h"
- #include "xe_log.h"
- #include "xe_pci.h"
- #include "xe_printk.h"
- #include "xe_ras.h"
- #include "xe_survivability_mode.h"
-+#include "xe_tile.h"
+ 	ret = xe_bo_cpu_fault_fastpath(vmf, xe, bo, needs_rpm);
+ 	if (ret != VM_FAULT_RETRY)
+@@ -2494,6 +2523,8 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
+ 			return bo;
+ 	}
  
- static void prepare_device_for_reset(struct pci_dev *pdev)
- {
- 	struct xe_device *xe = pdev_to_xe_device(pdev);
- 	struct xe_gt *gt;
-+	struct xe_tile *tile;
- 	u8 id;
- 
- 	/* Block device access until PCI error recovery completes. */
-@@ -26,6 +29,11 @@ static void prepare_device_for_reset(struct pci_dev *pdev)
- 	for_each_gt(gt, xe, id)
- 		xe_gt_declare_wedged(gt);
- 
-+	/* Stop GGTT removal MMIO before draining users and disabling PCI. */
-+	for_each_tile(tile, xe, id)
-+		if (tile->mem.ggtt)
-+			xe_ggtt_offline(tile->mem.ggtt);
++	bo->wedged_dummy_page = NULL;
 +
- 	/*
- 	 * GT wedging signals pending fences. Existing hardware users can now
- 	 * finish without blocking reset.
+ 	bo->ccs_cleared = false;
+ 	bo->tile = tile;
+ 	bo->flags = flags;
+diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
+index 8ec4a01a0092..80aeb4e31fe9 100644
+--- a/drivers/gpu/drm/xe/xe_bo_types.h
++++ b/drivers/gpu/drm/xe/xe_bo_types.h
+@@ -21,6 +21,7 @@ struct xe_device;
+ struct xe_mem_pool_node;
+ struct xe_vm;
+ struct xe_exec_queue;
++struct page;
+ 
+ #define XE_BO_MAX_PLACEMENTS	3
+ 
+@@ -112,6 +113,9 @@ struct xe_bo {
+ 	/** @vram_userfault_link: Link into @mem_access.vram_userfault.list */
+ 	struct list_head vram_userfault_link;
+ 
++	/** @wedged_dummy_page: Zeroed page used for faults after device wedge */
++	struct page *wedged_dummy_page;
++
+ 	/**
+ 	 * @min_align: minimum alignment needed for this BO if different
+ 	 * from default
 -- 
 2.43.0
 
