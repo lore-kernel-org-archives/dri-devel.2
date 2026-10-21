@@ -2,125 +2,133 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0060E606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 06:47:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34713606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 06:57:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Mxtk439V
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TlHPY42K
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EB4010E2A2;
-	Wed, 21 Oct 2026 06:47:07 +0000 (UTC)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012001.outbound.protection.outlook.com [52.101.43.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D7B710E0CC;
- Wed, 21 Oct 2026 06:47:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F09410F9AA;
+	Wed, 21 Oct 2026 06:57:12 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010061.outbound.protection.outlook.com [52.101.46.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF7B10E2D8;
+ Wed, 21 Oct 2026 06:57:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jNi6FBU9704il65VsuOGcsRHT7z874/g+C/fRzQa0/JzJ87qpVLTg/KYB4DDQFh5I1Mw5QQbl8NimIavc3PTYPjLaA2TRAAbThpTLxtFIuWrBmOmzGr4vayar+Vas9Q/78rSxNtcYWkyPTfmYGk4AEsWIJKPdxYFoj63zHMc4CN8cbz8mMBDPTVcWzajPEk2Dop131qkxUWM96rzAIT3BjYWoGVdK3a0SnVwFlTXjepudRJkPFb+Pn77EgoV+Np5e+MrDMUJhVDhs4xU29o+/EWLpDF1ExjYyMmknoBSIg+O6ZqDqDasT9edd9/ieB9EIBhCD19+yWRJqpCsP64ecw==
+ b=Yz7zWVVvUTAIM1w+G4SVGR+MgiqD/XXV9g05vgQlJyOMBG65FLxspvaDkzc7hlxpFXgESBVhdg7YdyggBlqn0KWZV/ukemog6/PdxYgcyIY+yEqNXVWflmcvdJ+iCE/V27tdvAVHawfrBMu/ndaBBPfIVfCmzHDPnv5BPZDnsM+Jw8av3xHp1N2L4iEIpTUV4q7MZ5OErm5gAzQo1v5MG3yuIKWgHljWlNpRhev7f3DmsPkq7p+/4UqsDlx+YE4RZuCPIvIztVVkNjQCp8BnK5anG/VC3SEg+HAVfE3zs8tG6bUOwbIQPn9qDo18OvYbV2f95n2fx+76gBE8icakXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FJcKHEcNcnoDoxmtp0cQdBiB9Im2emgCuy8VL+5ww50=;
- b=Wa+xyCYnd8s04SbvYaTbe195s4KFOQ0Ek98adlNmXUvQRAqqu0vjIqJeViBdCnxLa1akporElNhTmRTMhaeOhb9XIpbOCdAm/ZbACGFV8Lvpgx/OniKqXtjqH76jLMiaF1h+M/wL5iK2j1CT4bE21xqv+iMcp2nf30IpuhQglq0NO/vGchM7GoD43sBAdPZv+nj9l+io5vdubFj5UkV+uui2mxcNR6iN4d6YU/7n1s8Zh7A9rZ3sxgEELDVnSd6ZV6eXN3LPfKJp6jcxi7EcO2xZd3rQ9laD+AbB+tZniluBa9hwmQSufL/ZLWKLNkwrHWIY3HI/BmrOLAzZdFCh8A==
+ bh=W4G75slcCaTGHQ/UyeziB6AkH8vMyBGRPdmILosqiis=;
+ b=Fz7gzV//CFPFXGDbta8sx+cYKG1EFjEuQyUE6l87aLSjfIVZ9bmbf+nAGeq9WIv2hXLE0kI46uTJlmGr12jFSQyGOVLjlXhLrkMhhG8qAG4evTAR/Zk616++28D0KvSRCWTqb/Fw2sK++hkPLE8ONaJq0wdFLRvdi/QMgIPSLAE5kwkJVSK4UwRj/vBBP3gy4WhpWTK++8Fd7U8EKI3Ok/pBikep6QLgRnbM2K/qQ+rIKPFIl27RzU1XozSOA7eNlK9Zq23SrSpXGGfBy2gHKQgF1yNCFsE9AEabdE+Y1C5k9+5/wtmDN1cDWb5HHmxoZCwpPchAU09MrOdvRCc+Gg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FJcKHEcNcnoDoxmtp0cQdBiB9Im2emgCuy8VL+5ww50=;
- b=Mxtk439VhtpjkmMllkIk8UIJ/Xf/SMgLeXiQamaUMsUx58PcdtuOiImHM7E7E6/AcJyg1/XosFbvRUHscAlG5Z/hvfKugPt2SLz7E0zs4st6BvFH4fsBnAyi3OldGy3rO/5By11791VthGAEs3zMUSU1LFDjzACwAGuSb+VMRA0=
+ bh=W4G75slcCaTGHQ/UyeziB6AkH8vMyBGRPdmILosqiis=;
+ b=TlHPY42K9Tv+vMhvJLCa00zTWw85+tJau7Dk8XVqpX/c08HCtQAn0VUANiB50iz2DlWlrhz/jRnzYlu4luA8/Unb/0UV/r8ZBhgMkHAgvEi40tL0MfLo68iDT/fTtCZ8q9a4hUKNzP7h1P7d3ofjmSYOKwIJhQ6NSBaYf4T95z5PqYCJfrPUQO+WUjcqYg7z8x6zog5FwcHB7F/jXg4WgAsHNlLAc5vtAzsIajif1uXu1ksBmot1nXlu+ZgrQr+cYb0yPne56qmuGduMyVRIg6GTeeOJcv60TdrYY6XuW3LMsWIuu6ZK86+DUrWeJnjYy0xpfYzjzUqSfFJdAZRDCQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by DS6PR12MB934327.namprd12.prod.outlook.com (2603:10b6:8:4c5::6) with
- Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
+ by LV1PR12MB392019.namprd12.prod.outlook.com (2603:10b6:408:514::5)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 06:46:58 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%4]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 06:46:58 +0000
-Message-ID: <eb837a59-b682-423f-93a7-f83de4e38d4c@amd.com>
-Date: Wed, 21 Oct 2026 12:16:51 +0530
+ 2026 06:57:03 +0000
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0522.016; Wed, 21 Oct 2026
+ 06:57:03 +0000
+Message-ID: <cc42cbd1-2030-4fbb-94f6-5e92cba2431e@nvidia.com>
+Date: Wed, 21 Oct 2026 17:56:53 +1100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] gpu/buddy: restore two-pass clear/dirty guard for
- range-biased allocation
-To: Matthew Auld <matthew.auld@intel.com>, sashiko-reviews@lists.linux.dev,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-References: <20261020055537.1640552-1-arunpravin.paneerselvam@amd.com>
- <sashiko-outbox-178464@kernel.org>
- <30e81db2-a56a-464b-93ea-c74aa161fdde@intel.com>
+Subject: Re: [PATCH v16 05/12] mm/hmm: migrate collection in HMM pagewalk -
+ pte level
+To: mpenttil@redhat.com, linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
+References: <20261021060506.2377545-1-mpenttil@redhat.com>
+ <20261021060506.2377545-6-mpenttil@redhat.com>
 Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <30e81db2-a56a-464b-93ea-c74aa161fdde@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Balbir Singh <balbirs@nvidia.com>
+In-Reply-To: <20261021060506.2377545-6-mpenttil@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0154.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ac::15) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
+X-ClientProxiedBy: MEWPR01CA0192.ausprd01.prod.outlook.com
+ (2603:10c6:220:1e9::17) To CH3PR12MB9730.namprd12.prod.outlook.com
+ (2603:10b6:610:253::9)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|DS6PR12MB934327:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98e7f3a3-cfc0-4da0-fefa-08df2f3f1a82
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|LV1PR12MB392019:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04faa0a8-74f6-42d7-40c0-08df2f4082e3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|6133799003|22082099003|18002099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: YLvsKPFuxa8sJeKv/9QUhitePXcjgb/GclgZdZJeLi+zkCkATLA/rbkr1GOZcT8TcCR+d4nf3Fmfj4o/PUneH3ZYXknKQpL1VaqyDl6xB+zWdk/PTKKZPmdz1mXqajhjSgZP5y80jMsB3CCobzJDKQgQ/IEH5gq8DuKGIqM7Q2SO4JqCSCX7C79hJvV6LvtJpfzdWAU5kql/2gkkXfq6I2YDMwODGP21HYijuphkMF6EGW6Vho5/IWMlHGVFLi6v7/0i2tFVa7DINUwRd6DgOK04hyBInCUBuJBptLnMA+R2veGt6Qdz7gOEe8d3gco0mnPjwdtZzE8h7Pgadl54rfG7GYtbqrSRB4nErcR55S3W+ESspRbb7H40wlC79kl8oTUFlO8993JDBZR3Z49Iov3fM2ePT7a0OPZGQ8lQjeyHYF0GBa1HbRlLjxOHRhhf8VxW/8Wsi65pDVNvByVBLA5ChChAr8RFKSwQKnuL165c6ZWwlkOTF6l2Do1obtgE29cdLDwX3R8tyleFO7MzffqNrY4PSnL5pAVrLzwVpnufT7kRsflVjz7o8l4CGk2+4UBNDmZYIVVKp0fYYF747jHDdykJ90aGK5+Q9vBTFPbH3oLYQ8Xho2jHlDciScc9x8uOUofA+GymHWBv/aILpiXatvBEV4gQsdbDhsFUTX8=
+ ARA:13230040|23010399003|1800799024|376014|7416014|366016|10067099003|22082099003|18002099003|4143699003|11063799006|261009223027099003|261009221227099003|56012099006;
+X-Microsoft-Antispam-Message-Info: E9mf07tjZM1Lj2BYPGcDFSup9DoRTOiVoPLurhvPi6UKGsGYbGz4BY6R6vhZxBXTlxA58u/pKu69HY3XNUTAT5MOE42u8oxU6TIcmjMeQ+K/wOdYwj9m8rLguYiNGc/Dn6rTbHs4FgQCf6b1PJDlhMVKGD8W51nttVJm1+57J1S5FSOUGUx0qgo2gqL/KaNuEgmUect/fcEnX8zTXnuP7SxyD8qHubIGGZsyOCnhiZNsLC7GkLyRBHmSvQzib+H/rRuMv151ZKWYS1zKdvFQCya2jV8u9BPKwW44kPom9xrTfeQM17rM3rg1YAW8N8aKAnphXbUfx40Ck52H8n0jobRrEj7Iy6r0T+Uy2jlOoN/dZKCZT/YTulmXMLrJKz15g9em88RqIawdBZ4HApSP7ElQRqHqCagB0cOpLxa7ILjRtRpcsBc/0JxiEKuOgvkBfGh8XoLX+AaOviVOjRHPhX3180ZTuceZ/YD/0o2RHtFBJY/3gOXHRsL+byAR/2wc1eb88M+EK6Qcesipt9uLafMpfHAtGzDMd7GD5+jV3hWb/tXfSrzt1hHiJjGgXu0gqETUqf/+5fFIJAwUsmLu11bcBA1zMMVpknvmCq2J2fsKx3gT775BGwZmvATqmCMvMG62dLKxssG/qehCqM36VmajkEOr6BnvYH/vyf5yl7g=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);
+ IPV:NLI; SFV:NSPM; H:CH3PR12MB9730.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(261009223027099003)(261009221227099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFhQKzBoUEhlZzI3SUdnUWFyQkdZVlpOb21RcE9kK3FVaGFwV014MlVJbkFB?=
- =?utf-8?B?STlBdi9WN0ZWRTBNUkVCWjJmbEpRLysvMFphMVhIQ2puZ0RYR1kvVHA1dWdS?=
- =?utf-8?B?QTZXQ2tiRk0raUdGbElZK2lCbWFvUmNKSGxNOTJSR3Y2OWVXMitodDl1MzE1?=
- =?utf-8?B?Vko0Ty9WU1NTR2JkU3BDS25FRzVHQ3FleEk2MU1RVUFLZmpJUjM2eWdkZmZt?=
- =?utf-8?B?M3VoVlFwVTZHSVFycFJGK01JeTFOQjRQeUNBSkh3TlB0ZTBWaFkwQkF3Skp3?=
- =?utf-8?B?MVZkVWdOTGV3ai91RVVVZXV1V1ZSKy9JL003RlMrQk11c0twOFJXYWc5ZjNs?=
- =?utf-8?B?Mi95UmZrTmdKdDU3cWNiMmhabVRtTDg0cFo3YTZxdmNDSkk3aDRUc0NYZEZz?=
- =?utf-8?B?Sm14aTNRQ3BTaDE2eDRic05SQk5KL0RvdVdFVTNiQ3VDOExmaXIxY0M2eGZU?=
- =?utf-8?B?UVdEV081ajNQa1lzTDFvSHgrZHlHQWEwdFVkY3UrL05HMFZWRGttc0JMOW5s?=
- =?utf-8?B?elRPa29oNmtFVlUzbFhZVHhkY3ZzOUdMb3AyOHNkdGFSS0NOU0s5Z1FkK0Ix?=
- =?utf-8?B?UHNXWmc2VWFvTlptTFM3NVVUQVJ1aVpPbWhqZnJrVSs0Qkd5QkUxOWdpNGZY?=
- =?utf-8?B?R2I2OFpUeXZheVdWdjd0SHhPcVR6U21WZ0gybnFLSHprRTdtU3dPUURqVW5B?=
- =?utf-8?B?N3lUZEpjYktwdVMyK0JtTFhwWkhWNVM3NGp5dUdIdXRlMG9CU3lINUtvZTNm?=
- =?utf-8?B?UFhUVmVyRGhkSFdrckl2TDV2QXZ5dlI3dVl1OVpvNWZTM2svaVphTVplTU81?=
- =?utf-8?B?M1NTWVFNTWlCOFNuZlk0ZEJVZzdjVkdBdWIxTkMwR1FWZUFST0MreHQ1Y0J0?=
- =?utf-8?B?UzVpMWwyRGNvVGI5MDZ2NWRpVitQdjVKUmpEeVFUN3EvUmJqZEhYa2VLSFhs?=
- =?utf-8?B?R2RyVVJQaGdvNDU2b2xzKzlDbE9DV2M2VFNDYmY2Si9VbUhOdEltQXVHU0Y5?=
- =?utf-8?B?TEVOT3JnY3hFUXhoMkNFSythcnpxVDUwekt2TVVOUHZUTlJGeHduZ3BHQTlm?=
- =?utf-8?B?TlI0VU1Uek84QWdsRlo5ZEl2Zm4wam9IMWVZTGRWRDBNVDdRMnpwTUtMTFJ0?=
- =?utf-8?B?dS9KRnhDZWdLajd1YWJRLys2V0RKQUVHLzNqTFBwQXVpbjJ4eWVCd1VmQk16?=
- =?utf-8?B?eXlGQ0VOcjVQNDV2aHFCNDdOK0xkalIrZUpHQ1dJMlBHa1gydndCbmcrT1ZE?=
- =?utf-8?B?ME5IdGl6MDBEVFlPMzdIV1JGbVkzdk41bjYzZ3Z1WXl2b3hTaUhhMFhZaFZY?=
- =?utf-8?B?S1FyZG5Ba0FBSXR1UkxnT0J2N3ZhVmRDSHpESUxWTEZMdDVYM3NsTUJWZmdv?=
- =?utf-8?B?dVJETmtOTk5tcStRdFd1WGttNHdmY1lWM2djVGp0Y3pvWGZ2b3F3WHdtZUJt?=
- =?utf-8?B?Uk01QmZla0hYMFcySkNZUzlMZE9JbHFhTlM5M2FHUkV1bnhBaSswS29vdUZQ?=
- =?utf-8?B?WVd5VGJWUGJRdzNUOEg2eExnYmRsOVU2R3NrTkhNeGg4K2RSTEZtMlFYdnh5?=
- =?utf-8?B?S3NQYzJWRE1lZkJuVUpyNTVBT1BlczQ4YTNJRllNQjgrY1I3cDRJSU10K0FN?=
- =?utf-8?B?OHBLTXdzbFY4aS94T2xhMTBZWGdzWDVZRjBvd3ZEQTM2RG5BSWNpYlJweTFO?=
- =?utf-8?B?R2JBb1o4eEJXR296Yjk4TnRDbmlpWTQrRGtUQXlJWTFQMDBFdWN6Ym1FL3pa?=
- =?utf-8?B?d1hpLzRPSnhqNEI5U2lEU0Z5eFFqaThnNXBSclI3TTBQejlxazJhNW1WVGRn?=
- =?utf-8?B?ejJNVlIzUGJ2QlVMemdqeHZiRG85UThFVmdUR3BQS1hiVDJoRkFVd3kvVzNt?=
- =?utf-8?B?RXZvb0VHMGlHSkpXQUpzMHBMWmFJOWx0S1hpNEFJN2E2TVNWRmF3TDdkWWFZ?=
- =?utf-8?B?RXZBTTJERmxvZ0FWc3gzLzkzNTFaMEF1UlQ2L0dFSHk3Y1A1Y0VVWStNYnVD?=
- =?utf-8?B?Tm41S0FIa1ZXY3NOTXZtVFdYK1lUbXNUNE1yRFJyT3lWZ2NrMnZ6c05odjlU?=
- =?utf-8?B?bG5tOFlKc212eVpyMjhpQ3h4NkhlS1BFZUdRVkdSSlRGYWRJbWFYbUxYZ0Zx?=
- =?utf-8?B?YWJham9JbVVsakMvbkVCSkhMWkduTWZhSDc4MTJqUDVYb2t4aHlob21PMlJD?=
- =?utf-8?B?by9QWHRkakJ0ejVRZC9uZVJJNEJmRWdwSHJ6dkJoR3pnZFhCZkxGYjJ5M0V1?=
- =?utf-8?B?TGhNckdRQm5UU0c1cUN4WnprRXdsME5JWFRTQ2IvVXpEUjI0OWpqZk41cXRV?=
- =?utf-8?B?a2VvL3NkQjZhYVZtNVoyME5DREJyNWw3NXM4T2xWMitaazJZakRwQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98e7f3a3-cfc0-4da0-fefa-08df2f3f1a82
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2JjcnNxQVo5OVROK1NkQjZHM0Q0U2tDY3Btd2UwZmV0TUFibWl3MndZSlhQ?=
+ =?utf-8?B?NDRVc0pQNnl1Y1M3bm95WDIwbkpvS2VucGM0UzVadVRsWDZUMVFpbzZvaTdT?=
+ =?utf-8?B?VXE3Y1J1NlpnMnpqbGM1Z2dFTExRZTY0U0M4cFFnZGs4dnl2TXlCUmM2aWNV?=
+ =?utf-8?B?WGxtbzBNVTIrWW1sMWh6OEVtSXNLRGltcmQxb1RDWUhJVjBBVlpUQUFOcGJr?=
+ =?utf-8?B?bkcwS2hsd05TNGgvais2OFZ2Z0dLcEtjNk5Ld3VrWmdtZWxJWlFGdDNVMU5p?=
+ =?utf-8?B?R2ErN1NieDkxVFZOOXdDSTRabzdTQkNpaWp0S0lUNy9KTERrTDh4WE9yQmh1?=
+ =?utf-8?B?blEzZU9nUnhFeUxucVFsV3FrMmhHcHpFREhTWENoc0RHWEx0QnBwMjZUeUIz?=
+ =?utf-8?B?TDJDNFpGWlRiWTVZK1F2Wjh3enVHaHdvRFpLMXRsOWQwaU5YcmhBeW1xVGha?=
+ =?utf-8?B?Rm9wMlBKckY3WFlBT2QwOXh6Yko2TnlYUk9Pem50UFBsN0V0dFNwVzRjMXBw?=
+ =?utf-8?B?d1NOcWRHRmpaNSt4RlovelpLZG5UaHBWekxsK1JVY1ZKTkFLNHBBTWxwT01v?=
+ =?utf-8?B?NGMvYXM4NmJVQ0lrTUNOTmF0Qmk0ckdlbzNqcDdXK29LSlI1czB0eFpVOERZ?=
+ =?utf-8?B?MkRnTG9LbjFIZVlpdUJ0YnpXM0lrSXk2OVB2SmFvMVUxQmNoeWlIeDBkSGpk?=
+ =?utf-8?B?TlVGV0Rvd1hHTkhSTFFWZFN1SjI2Q3I3WkFEVWU3R3MyMy9xbFlRendUbnNn?=
+ =?utf-8?B?dktMTDNaMXpxVWdmVjd3SFdNZkhXT0lSRS94SVNtdzZaanVDcXNWbVJ2TU9o?=
+ =?utf-8?B?UjV4K2tDSXNYOEFLWUtZVy9salI4bnpELzFYZmFpbXdDODRkMEtIdjJBK1ZI?=
+ =?utf-8?B?NkZROVNKbmRlNHB6Vmt3K3ZrVS9qVm9NaWpabzZzYkJJU0xSOTNSZXVlTFNv?=
+ =?utf-8?B?NUVyZjVWRldNTkcwTVRRSlJQcXRFOWN4dDQvNnFMay9OMXB5bnFJcGlOUDZE?=
+ =?utf-8?B?WFROamhHWnc3UXJtNEw5L1pQVU5VUXd4L28waTl1cUM2NG8rczZsUmRwR2t4?=
+ =?utf-8?B?U0oyeGxGUm5CbThtUngvYVA3b2lVR0N3bXowR1p5RkZFTFd4S0xjVHFjSFB2?=
+ =?utf-8?B?L3ZVYXNiNk5hRCtvZ1pLcjJ3NXZtOEppWjRzc2JueXNMQ0NqNVlXeGZheE41?=
+ =?utf-8?B?T1pDRS9zU0YweHNTUUNab3FLTEtubUVnUGdUY0ZCL3ZtcG00Vlh0aEg2M08w?=
+ =?utf-8?B?S2Ntc3dVM2dpZDZna3Z2NU5kekJqcEM3ajJkcm5nSlllT0JhNEVpeUtqQzEr?=
+ =?utf-8?B?eHluaUhkblJxV0JOcVBvV0Qwb2dsV0VqN0xBdC9Hd3dSSWhwNFB2NExtcktH?=
+ =?utf-8?B?dWFIVVR5NGx1QW1vYytOQUMyY2hDN3hPc2F1cWJKaWFJeTBCeXcxV0F0ald3?=
+ =?utf-8?B?U0F3Ujh2REdhK1NGV0d5VU5DR0NhZ3V4SDErT2JkaFU1RGtJSEZONzJqUHdF?=
+ =?utf-8?B?Sm9RUisxbzg2clAxUXZycTlZcDVka3Npd3VNdjk4V3FuNUZrMUxUcUFvclJm?=
+ =?utf-8?B?OFRGeGY3RmU3R3JoeDdXOEJJa3JlbGJBOHlYeE1CZGhFUkRLTDVocmtTNHlC?=
+ =?utf-8?B?QWFBUllYeHVUVk5DRnpwSlJ5ZWJmV1dIT083bDB1Nm9OeWlNNE9RTERnaWgv?=
+ =?utf-8?B?NzErSXB4TkxncjhuUWNidjF1ZHpJK3MycHZ1TnNSK2p0UStxVzUvSnBHQXdx?=
+ =?utf-8?B?R1lHM1pVUVNIKzZZWC9XRXRKQ29RYnc4ekF6eWN4L254a3FwSHRLRGdmL0JM?=
+ =?utf-8?B?ckJqbWVDYUdqZ3k3K2hhblo3OEhCc3U1cE1Tc2ZwYU5XQTFmUkNScFdyZ2ox?=
+ =?utf-8?B?WXYzVk1VNHYvZ0l6L3hheDlCM2luL0JJOExiMFJIRDJhcm1NeHpVNWM3c2ZP?=
+ =?utf-8?B?K2VJM0tLZGxta3FqaGdpT05RaHVVWXJNWTdPVjRaNXNPQnFJYkltYlBzQis1?=
+ =?utf-8?B?WGFNb2dWdWxPTHlSZ000MWEybHhrdFRUYi85Z2hqNzQ4Q0lRMDdKWmdjVWU4?=
+ =?utf-8?B?YUNzWERIZzAvTnMwOEYwRDhOWkpkK2pzQkp2elZWQVBPejNYSXBLZ3E5YUF2?=
+ =?utf-8?B?eW9UbU5SMG84STVaTmZkZDBObnB4eEpoRXA0Rkp2VHBhMlc1QVB3VFFzWk15?=
+ =?utf-8?B?WVV4VE9DQWsrbzJseWx3QWE2bkFKd1dLNGFLMFAwaHlqV3NQSHdtbG1nZ0RR?=
+ =?utf-8?B?a29MMTAyVGQ2RVJ3SnFYMjdUS2Z2SWxub3N0K05YSGZVaFl6REtpZXVGRUM3?=
+ =?utf-8?B?TDNYbjI3YzdjaXEwNGdmdmdqa1RTWU1KUU41M1RmME1PaFV5VW9xdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04faa0a8-74f6-42d7-40c0-08df2f4082e3
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:46:58.5331 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:57:03.1194 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SWKcdlF971V3l55ELGKqnaKoRPN6/yQH9UM83dQuOP9TNA8wfcr1eW8e0XSGIqolBoavapIjCWFbjw3cweMiHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB934327
+X-MS-Exchange-CrossTenant-UserPrincipalName: UGI+eU5PdJ4Y9LeyW9QnDJlhvgEDdq/FyM9Qb+ZXsIc0BCYKT5h5yqVPm9kSPzD50AH+1X/0ScngVEF6d7t5MA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB392019
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,214 +140,355 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On 10/21/26 5:04 PM, mpenttil@redhat.com wrote:
+> From: Mika Penttilä <mpenttil@redhat.com>
+> 
+> Implement the needed hmm_vma_handle_migrate_prepare() function
+> which is mostly carried over from migrate_device.c's
+> migrate_vma_collect_pmd() function.
+> 
+> Also implement the migrate_vma_split_folio(), for splitting
+> pte mapped large folios. It is also mostly from migrate_device.c,
+> with care taken to reference folio before relasing page table
+> lock.
 
+Typo - releasing
 
-On 10/20/2026 3:22 PM, Matthew Auld wrote:
-> On 20/10/2026 09:00, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 1 potential 
->> issue(s) to consider:
->> - [High] gpu/buddy: block_incompatible() mishandles split and mixed 
->> blocks in __alloc_range_bias()
->> -- 
->>
->> commit 6dff7f0e6dce9c68ecb98f2d911199843d2b4401
->> Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->>
->> gpu/buddy: restore two-pass clear/dirty guard for range-biased 
->> allocation
->>
->> This commit introduces a two-pass search in 
->> __gpu_buddy_alloc_range_bias()
->> using block_incompatible() in the strict pass to prevent 
->> range-restricted
->> allocations from splitting opposite-class (clear vs. dirty) blocks 
->> unless
->> no matching blocks exist in the range.
->>
->>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->>> index 503f7d5934e4b..91935c71c5255 100644
->>> --- a/drivers/gpu/buddy.c
->>> +++ b/drivers/gpu/buddy.c
->>> @@ -1240,11 +1240,19 @@ static void __gpu_buddy_undo_splits(struct 
->>> gpu_buddy *mm,
->>>       }
->>>   }
->>>   +static bool block_incompatible(struct gpu_buddy_block *block, 
->>> unsigned int flags)
->>> +{
->>> +    bool needs_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
->>> +
->>> +    return needs_clear != gpu_buddy_block_is_clear(block);
->>> +}
->>> +
->>>   static struct gpu_buddy_block *
->>>   __alloc_range_bias(struct gpu_buddy *mm,
->>>              u64 start, u64 end,
->>>              unsigned int order,
->>> -           unsigned long flags)
->>> +           unsigned long flags,
->>> +           bool fallback)
->>>   {
->>
->> [ ... ]
->>
->>> @@ -1298,6 +1304,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
->>>                   continue;
->>>           }
->>>   +        if (!fallback && block_incompatible(block, flags))
->>> +            continue;
->>> +
->>>           if (contains(start, end, block_start, block_end) &&
->>>               order == gpu_buddy_block_order(block)) {
->>>               /*
->>> @@ -1315,38 +1324,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
->>>                   goto err_undo;
->>>           }
->>>   -        /*
->>> -         * Top-down is a strict address-placement policy, so when 
->>> it is
->>> -         * requested we ignore clear steering and simply descend the
->>> -         * right (higher-address) child first. Only a non-top-down 
->>> clear
->>> -         * request biases the descent towards clear/has_clear 
->>> subtrees.
->>> -         */
->>> -        if ((flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
->>> -            !(flags & GPU_BUDDY_TOPDOWN_ALLOCATION)) {
->>> -            struct gpu_buddy_block *prefer;
->>> -
->>> -            if (gpu_buddy_block_is_clear(block->right))
->>> -                prefer = block->right;
->>> -            else if (gpu_buddy_block_is_clear(block->left))
->>> -                prefer = block->left;
->>> -            else if (block->right->has_clear)
->>> -                prefer = block->right;
->>> -            else if (block->left->has_clear)
->>> -                prefer = block->left;
->>> -            else
->>> -                prefer = block->right;
->>> -
->>> -            if (prefer == block->right) {
->>> -                list_add(&block->left->tmp_link, &dfs);
->>> -                list_add(&block->right->tmp_link, &dfs);
->>> -            } else {
->>> -                list_add(&block->right->tmp_link, &dfs);
->>> -                list_add(&block->left->tmp_link, &dfs);
->>> -            }
->>> -        } else {
->>> -            list_add(&block->left->tmp_link, &dfs);
->>> -            list_add(&block->right->tmp_link, &dfs);
->>> -        }
->>> +        list_add(&block->left->tmp_link, &dfs);
->>> +        list_add(&block->right->tmp_link, &dfs);
->>>       } while (1);
->>
->> [Severity: High]
->> Does calling block_incompatible() on every visited node in
->> __alloc_range_bias() before checking whether the block is split or mixed
->> mishandle internal GPU_BUDDY_SPLIT nodes and coalesced 
->> GPU_BLOCK_MIXED free
->> blocks?
->>
->> First, when mark_split() transitions a block to GPU_BUDDY_SPLIT, it 
->> leaves
->> the previous GPU_BUDDY_HEADER_CLEAR bit intact on the internal node:
->>
->> drivers/gpu/buddy.c:mark_split() {
->>     block->header &= ~GPU_BUDDY_HEADER_STATE;
->>     block->header |= GPU_BUDDY_SPLIT;
->>     ...
->> }
->>
->> Because gpu_buddy_init() initializes roots as dirty, any root or 
->> ancestor
->> split while dirty keeps gpu_buddy_block_is_clear(block) == false 
->> while any
->> descendant remains allocated. Conversely, a clear block that is split 
->> and
->> later has a descendant freed as dirty keeps 
->> gpu_buddy_block_is_clear(block)
->> == true on the split ancestor.
->>
->> When __gpu_buddy_alloc_range_bias() runs the first pass (fallback = 
->> false),
->> __alloc_range_bias() evaluates block_incompatible(block, flags) on those
->> GPU_BUDDY_SPLIT ancestors and skips the entire subtree without 
->> descending
->> into its children. If no other root satisfies the request, the first 
->> pass
->> returns -ENOSPC and __gpu_buddy_alloc_range_bias() falls back to the 
->> second
->> pass (fallback = true), where block_incompatible() is disabled and the
->> clear/has_clear child-ordering preference has been removed, causing the
->> search to split the highest-address extent regardless of class.
->>
->> Second, __gpu_buddy_free() coalesces adjacent clear and dirty free 
->> buddies
->> into a single GPU_BUDDY_FREE block with state GPU_BLOCK_MIXED, which has
->> gpu_buddy_block_is_clear(block) == false and block->has_clear == true:
->>
->> 1. For clear range allocations (flags & GPU_BUDDY_CLEAR_ALLOCATION), 
->> Pass 1
->>     sees gpu_buddy_block_is_clear(block) == false on a 
->> GPU_BLOCK_MIXED block
->>     and skips it via block_incompatible() without splitting it to 
->> reach the
->>     clear sub-blocks inside. Pass 2 then splits the mixed block 
->> without clear
->>     child-steering and unconditionally visits block->right first, 
->> returning a
->>     dirty block whenever the clear half is in block->left.
->>
->> 2. For dirty range allocations (!(flags & GPU_BUDDY_CLEAR_ALLOCATION)),
->>     block_incompatible() returns false on a higher-order GPU_BLOCK_MIXED
->>     block because gpu_buddy_block_is_clear(block) is false. Pass 1 
->> then calls
->>     split_block(mm, block), which reclassifies block->left and 
->> block->right
->>     via mark_free(). If the child overlapping [start, end) is clear 
->> while the
->>     dirty child lies outside [start, end), Pass 1 rejects the clear 
->> child via
->>     block_incompatible() and skips the other child without calling
->>     __gpu_buddy_undo_splits().
->>
->> Wouldn't leaving that split GPU_BLOCK_MIXED block unmerged keep both
->> children in GPU_BUDDY_FREE state, preventing ancestor coalescing on 
->> teardown
->> and triggering 
->> gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i])) while
->> leaking the split child gpu_buddy_block structures in gpu_buddy_fini()?
->
-> Analysis looks correct to me. We assume if you get as far as doing an 
-> actual split, then that must mean there is something in there which is 
-> compatible, either you find it with some number of splits or one of 
-> the split calls hits an error, which takes care to undo the splits. 
-> But now with that compat check, this breaks, since we don't know ahead 
-> of time if it will find something which is also compat. Arun, thoughts?
-Agreed, Matthew, and thanks for the pointer. The split-then-reject case 
-does leak because the compatibility check breaks the assumption that a 
-split will always find a suitable block.
-I followed your approach: after split_block(), the parent is pushed back 
-onto the DFS stack, and unsplit_block() merges it back when both 
-children are still free. I also narrowed block_incompatible() to check 
-only free blocks.
-I extended gpu_test_buddy_alloc_range_clear_guard to cover this case. 
-The test fails without the fix and passes with it. I will send the v6.
+> 
+> With HMM pagewalk based migration, the idea is that
+> hmm_vma_handle_*() are responsible for faulting,
+> and the pfn collecting part. hmm_vma_handle_migrate_prepare*()
+> do the migration decisions (with HMM_PFN_MIGRATE), possibly split
+> folios, and insert migration ptes/pmds.
+> 
+> HMM pagewalk based migration is enabled in later commit, for now
+> now hmm_select_migrate() returns 0.
+> 
+
+now now -> now
+
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Jason Gunthorpe <jgg@nvidia.com>
+> Cc: Leon Romanovsky <leonro@nvidia.com>
+> Cc: Alistair Popple <apopple@nvidia.com>
+> Cc: Balbir Singh <balbirs@nvidia.com>
+> Cc: Zi Yan <ziy@nvidia.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Suggested-by: Alistair Popple <apopple@nvidia.com>
+> Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
+> ---
+>  mm/hmm.c | 263 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 262 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/hmm.c b/mm/hmm.c
+> index 119e70dbca56..0ce947d0e572 100644
+> --- a/mm/hmm.c
+> +++ b/mm/hmm.c
+> @@ -491,6 +491,63 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
+>  #endif  /* CONFIG_ARCH_HAS_PMD_SOFTLEAVES */
+>  
+>  #ifdef CONFIG_DEVICE_MIGRATION
+> +/**
+> + * migrate_vma_split_folio() - Helper function to split a THP folio
+> + * @folio: the folio to split
+> + * @fault_page: struct page associated with the fault if any
+> + * @hmm_vma_walk: walk in progress
+> + * @ptep: pte_t * for unmap and unlock ptl
+> + *
+> + * Returns 0 on success
+
+and drops the pte_lock associated with the pte
+
+> + */
+> +static int migrate_vma_split_folio(struct folio *folio,
+> +				   struct page *fault_page,
+> +				   struct hmm_vma_walk *hmm_vma_walk,
+> +				   pte_t *ptep)
+> +{
+> +	int ret;
+> +	struct folio *fault_folio = fault_page ? page_folio(fault_page) : NULL;
+> +	struct folio *new_fault_folio = NULL;
+> +
+> +	if (folio != fault_folio)
+> +		folio_get(folio);
+> +
+> +	pte_unmap_unlock(ptep, hmm_vma_walk->ptl);
+> +	hmm_vma_walk->ptelocked = false;
+> +
+> +	if (folio != fault_folio)
+> +		folio_lock(folio);
+> +
+
+Could you add a comment on why the get and lock is split into separate steps
+with the pte lock dropped in between
+
+> +	ret = split_folio(folio);
+> +	if (ret) {
+> +		if (folio != fault_folio) {
+> +			folio_unlock(folio);
+> +			folio_put(folio);
+> +		}
+> +		return ret;
+> +	}
+> +
+> +	new_fault_folio = fault_page ? page_folio(fault_page) : NULL;
+> +
+> +	/*
+> +	 * Ensure the lock is held on the correct
+> +	 * folio after the split
+> +	 */
+> +	if (!new_fault_folio) {
+> +		folio_unlock(folio);
+> +		folio_put(folio);
+> +	} else if (folio != new_fault_folio) {
+> +		if (new_fault_folio != fault_folio) {
+> +			folio_get(new_fault_folio);
+> +			folio_lock(new_fault_folio);
+> +		}
+> +		folio_unlock(folio);
+> +		folio_put(folio);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int hmm_vma_handle_migrate_prepare_pmd(const struct mm_walk *walk,
+>  					      pmd_t *pmdp,
+>  					      unsigned long start,
+> @@ -501,6 +558,11 @@ static int hmm_vma_handle_migrate_prepare_pmd(const struct mm_walk *walk,
+>  	return 0;
+>  }
+>  
+> +/*
+> + * Install migration entries if migration requested, either from fault
+> + * or migrate paths.
+> + *
+> + */
+>  static int hmm_vma_handle_migrate_prepare(const struct mm_walk *walk,
+>  					  pmd_t *pmdp,
+>  					  pte_t *ptep,
+> @@ -508,8 +570,207 @@ static int hmm_vma_handle_migrate_prepare(const struct mm_walk *walk,
+>  					  unsigned long *hmm_pfn,
+>  					  bool *unmapped)
+>  {
+> -	// TODO: implement migration entry insertion
+> +	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+> +	struct hmm_range *range = hmm_vma_walk->range;
+> +	struct migrate_vma *migrate = range->migrate;
+> +	struct mm_struct *mm = walk->vma->vm_mm;
+> +	struct folio *fault_folio = NULL;
+> +	enum migrate_vma_info minfo;
+> +	struct dev_pagemap *pgmap;
+> +	bool anon_exclusive;
+> +	struct folio *folio;
+> +	unsigned long pfn;
+> +	struct page *page;
+> +	softleaf_t entry;
+> +	pte_t pte, swp_pte;
+> +	bool writable = false;
+> +
+> +	// Do we want to migrate at all?
+> +	minfo = hmm_select_migrate(range);
+> +	if (!minfo)
+> +		return 0;
+> +
+> +	WARN_ON_ONCE(!migrate);
+> +	HMM_ASSERT_PTE_LOCKED(hmm_vma_walk, true);
+> +
+> +	fault_folio = migrate->fault_page ?
+> +		page_folio(migrate->fault_page) : NULL;
+> +
+> +	pte = ptep_get(ptep);
+> +
+> +	if (pte_none(pte)) {
+> +		if (vma_is_anonymous(walk->vma)) {
+> +			*hmm_pfn &= HMM_PFN_INOUT_FLAGS;
+> +			*hmm_pfn |= HMM_PFN_MIGRATE;
+> +			goto out;
+> +		}
+> +	}
+> +
+> +	if (!(hmm_pfn[0] & HMM_PFN_VALID))
+> +		goto out;
+> +
+
+We use *hmm_pfn and then hmm_pfn[0], could we be consistent. Based on this I
+assuming that there is just one entry in hmm_pfn?
+
+> +	if (!pte_present(pte)) {
+> +		/*
+> +		 * Only care about unaddressable device page special
+> +		 * page table entry. Other special swap entries are not
+> +		 * migratable, and we ignore regular swapped page.
+> +		 */
+> +		entry = softleaf_from_pte(pte);
+> +		if (!softleaf_is_device_private(entry))
+> +			goto out;
+> +
+> +		if (!(minfo & MIGRATE_VMA_SELECT_DEVICE_PRIVATE))
+> +			goto out;
+> +
+> +		page = softleaf_to_page(entry);
+> +		folio = page_folio(page);
+> +		if (folio->pgmap->owner != migrate->pgmap_owner)
+> +			goto out;
+> +
+> +		if (folio_test_large(folio)) {
+> +			int ret;
+> +
+> +			ret = migrate_vma_split_folio(folio,
+> +						      migrate->fault_page,
+> +						      hmm_vma_walk,
+> +						      ptep);
+> +			if (ret)
+> +				goto out_error;
+> +			return -EAGAIN;
+> +		}
+> +
+> +		pfn = page_to_pfn(page);
+> +		if (softleaf_is_device_private_write(entry))
+> +			writable = true;
+> +	} else {
+> +		pfn = pte_pfn(pte);
+> +		if (is_zero_pfn(pfn) &&
+> +		    (minfo & MIGRATE_VMA_SELECT_SYSTEM)) {
+> +			*hmm_pfn = HMM_PFN_MIGRATE;
+> +			goto out;
+> +		}
+> +		page = vm_normal_page(walk->vma, addr, pte);
+> +		if (page && !is_zone_device_page(page) &&
+> +		    !(minfo & MIGRATE_VMA_SELECT_SYSTEM)) {
+> +			goto out;
+> +		} else if (page && is_device_coherent_page(page)) {
+> +			pgmap = page_pgmap(page);
+> +
+> +			if (!(minfo &
+> +			      MIGRATE_VMA_SELECT_DEVICE_COHERENT) ||
+> +			    pgmap->owner != migrate->pgmap_owner)
+> +				goto out;
+> +		}
+> +
+> +		folio = page ? page_folio(page) : NULL;
+> +		if (folio && folio_test_large(folio)) {
+> +			int ret;
+> +
+> +			ret = migrate_vma_split_folio(folio,
+> +						      migrate->fault_page,
+> +						      hmm_vma_walk,
+> +						      ptep);
+> +			if (ret)
+> +				goto out_error;
+> +			return -EAGAIN;
+> +		}
+> +
+> +		writable = pte_write(pte);
+> +	}
+> +
+> +	if (!page || !page->mapping)
+> +		goto out;
+> +
+> +	/*
+> +	 * By getting a reference on the folio we pin it and that blocks
+> +	 * any kind of migration. Side effect is that it "freezes" the
+> +	 * pte.
+> +	 *
+> +	 * We drop this reference after isolating the folio from the lru
+> +	 * for non device folio (device folio are not on the lru and thus
+> +	 * can't be dropped from it).
+> +	 */
+> +	folio = page_folio(page);
+> +	folio_get(folio);
+> +
+> +	/*
+> +	 * We rely on folio_trylock() to avoid deadlock between
+> +	 * concurrent migrations where each is waiting on the others
+> +	 * folio lock. If we can't immediately lock the folio we fail this
+> +	 * migration as it is only best effort anyway.
+> +	 *
+> +	 * If we can lock the folio it's safe to set up a migration entry
+> +	 * now. In the common case where the folio is mapped once in a
+> +	 * single process setting up the migration entry now is an
+> +	 * optimisation to avoid walking the rmap later with
+> +	 * try_to_migrate().
+> +	 */
+> +
+> +	if (fault_folio == folio || folio_trylock(folio)) {
+> +		anon_exclusive = folio_test_anon(folio) &&
+> +			PageAnonExclusive(page);
+> +
+> +		if (pte_present(pte))
+> +			flush_cache_page(walk->vma, addr, pfn);
+> +
+> +		if (anon_exclusive) {
+> +			pte = ptep_clear_flush(walk->vma, addr, ptep);
+> +
+> +			if (folio_try_share_anon_rmap_pte(folio, page)) {
+> +				set_pte_at(mm, addr, ptep, pte);
+> +				if (fault_folio != folio)
+> +					folio_unlock(folio);
+> +				folio_put(folio);
+> +				goto out;
+> +			}
+> +		} else {
+> +			pte = ptep_get_and_clear(mm, addr, ptep);
+> +		}
+> +
+> +		if (pte_present(pte) && pte_dirty(pte))
+> +			folio_mark_dirty(folio);
+> +
+> +		/* Setup special migration page table entry */
+> +		if (writable)
+> +			entry = make_writable_migration_entry(pfn);
+> +		else if (anon_exclusive)
+> +			entry = make_readable_exclusive_migration_entry(pfn);
+> +		else
+> +			entry = make_readable_migration_entry(pfn);
+> +
+> +		if (pte_present(pte)) {
+> +			if (pte_young(pte))
+> +				entry = make_migration_entry_young(entry);
+> +			if (pte_dirty(pte))
+> +				entry = make_migration_entry_dirty(entry);
+> +		}
+> +
+> +		swp_pte = swp_entry_to_pte(entry);
+> +		if (pte_present(pte)) {
+> +			if (pte_soft_dirty(pte))
+> +				swp_pte = pte_swp_mksoft_dirty(swp_pte);
+> +			if (pte_uffd(pte))
+> +				swp_pte = pte_swp_mkuffd(swp_pte);
+> +		} else {
+> +			if (pte_swp_soft_dirty(pte))
+> +				swp_pte = pte_swp_mksoft_dirty(swp_pte);
+> +			if (pte_swp_uffd(pte))
+> +				swp_pte = pte_swp_mkuffd(swp_pte);
+> +		}
+> +
+> +		set_pte_at(mm, addr, ptep, swp_pte);
+> +		folio_remove_rmap_pte(folio, page, walk->vma);
+> +		folio_put(folio);
+> +		*hmm_pfn |= HMM_PFN_MIGRATE;
+> +		if (pte_present(pte))
+> +			*unmapped = true;
+> +	} else {
+> +		folio_put(folio);
+> +	}
+> +out:
+>  	return 0;
+> +out_error:
+> +	return -EFAULT;
+>  }
+>  
+>  #else
 
 Thanks,
-Arun.
->
->>
->> [ ... ]
->>
->
+Balbir
 
