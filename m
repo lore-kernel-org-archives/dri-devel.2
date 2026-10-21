@@ -2,109 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16972606A31D
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 11:44:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40574606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 11:51:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=O0pXyXik
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JizsqHyG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BD1E10FD99;
-	Wed, 21 Oct 2026 11:44:34 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCB7310FD99
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 11:44:27 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-48b060ec084so491159f8f.0
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 04:44:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792583066; cv=none;
- d=google.com; s=arc-20260327;
- b=VvESuMIB+Thcve97kcJpbMOeSAhVpYN79XrGz1jsP+V84fF/SkKxI3msJXnGiD5RL4
- Fxk2y1zCuJSaplaiRCiTnHOpyWMRogMOyUv6A5AGQP0WBAdheZNqekBpDBjFHaNH1Tuo
- Oz9VBtA5oJqzcGuzRTZWyi7tZt7deXrV5vLj7QHnN+7M4ocnsceMBRftsX+4cruvjVzl
- MifIiCb9pLXbBsB5wjCqRfQk39tjahzUhkFIJ4Rmm3VWGvD4tedmeNc8GwKrnlq2ntVa
- yMqLAbMpPU0tQfu4gchhTocd5ke/Vn4otG+7jK5gVKrZfEEo+AQaojNI7IA9MhZXgc/j
- rCvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ZZYr3eBHIRZzy2m2KZECWH5MwINu9our1XGNLE3fKJc=;
- fh=wbj4FPix1iKUDsRXrMuP6t1l/34cmNIyArvkqgjh+UY=;
- b=imgCkDk+m/MZ/bluvvmqkgtuBDLCJfWViVRzmgmDTRi65m6tolp8+vjD4Ig6GhlEHU
- a/RbnG4nIykN4seWMLOKs620HD5UWo3KWokIuG8Low8wwEmS25LyuTPhrdOZmXvOraHu
- wDzeBMiN+LQ7oOlqhNM1lvPCcT0e82d8bKzZ4PWlMtmYAmbxFHFj9PC3UvuzWWNCPpA+
- nuQgVwNOxlqM+DWUOTuydKy8xhYH8eioT36wE1BLfF3ALWn+5pHTGe0t6HrY1b/Suaeh
- A6DhfUpOMqpElAuY/XJ6MeIFjh7HR2mynAHHLE8KRNHTK6ySzkIt4k4u50H6kngufn8P
- zEEw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792583066; x=1793187866;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ZZYr3eBHIRZzy2m2KZECWH5MwINu9our1XGNLE3fKJc=;
- b=O0pXyXik8kAc1jOQioS7HyOpnBFuwPvJ4EhK54wdtZ3JeeJ9f8+z0UNp5sz9D+ur+m
- D8WLBKT5tg1EV8J6B5JPV2gsl2oZ7SrIBjmiBWSSD5UhDdEXk1b4GsqTIyJB3wkAMWdN
- dIVaxqKzrpey/jQBKA7EE+oXfwp9nXF1gOAOiS2jP4ZYxzrpk/wX/1mbcbSGiQvlgF09
- 10ljxUWZiE5P2CnGfiq4tVBgS87InthjJV0zKhGD8RkUeKnMIL42/n7KCifGR3rgTIxP
- nWlbPplFQeJBLd4LvUJ07BSO11n3VCR91948qZFa4Rs50/q0MgA+dsQBMiRCMQXgJQGL
- LlKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792583066; x=1793187866;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZZYr3eBHIRZzy2m2KZECWH5MwINu9our1XGNLE3fKJc=;
- b=z1Ke7zGf3ok2wUyOctDh2eqttRFZ71XQf1PyAFBKSxDNF70c/Ojewsk1+1fwjL+BIo
- xh0oankPBa+vDcHEIn725ld60tWG95V90rtiRT/A1eHzwKEPg+HSAk10eTBF/3SWE9Sv
- sPi1j8erK9cTXu3Kw/HaCTrJ3vHUG5EGIPgr0RnbUz0lDPXMaJ9IJRCV3EAgt209gTbs
- cSSfOvbvraRHieYzr/X72rvxv2VbKrar+vSBpbeqic2OdMJJCZ+uVYSSFsn+3QFybZb4
- oZg338GjDH0pHjZDSXgbAvuRecKCE9P27hpZFAG3AfS5YJ33ezPR5IAlG1+8/iqVe/hq
- 9wgQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvByM87PHdZhRTOAlOf2OvTFcWkjqYjG+bbXjInx3d9wS5JYi/6UZ1ekgqq5iDQVzU/8Wk+TBq9kyu78=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLiB+iL8XieFl9nUnyj8RysiktiVH3aQcFuCdNi+MbuUHeC/O/d
- MO6yUIFEVyHIkJxFy7nwJePh4S/1gwtOTGn9S9ScdaZ52xkO6LtIP45kGjmKemFz4Z/CMi1dlW7
- rtzh4DnCNr6otERmT0/Gw3mhncGtrEGyJBqwBAvEj
-X-Gm-Gg: AYBFou1/BMFICTSo4OUjbXjW+33F2kI5lNGOZf1kS0pNG7sDOtU2MemXhMlPRZlAjLJ
- O3WcVs2aN0vBuKeZ6DhkRJ1fM+1h8QMhIrvjgoOGFtHXniK3f3Gphk4fnEL7VOponlr13cCqUiX
- yze2DwA2045U/kxr94fcwdUFU+QxhHYzuGWW/Zl7nZ2i5H9sSnOPMdQCz6l9haq9oAYPIjjf1Hk
- ZHpB+n84Y+p2C6BOV5nOGSN235gS0JaZNOo/2zGIm3otGaSGwx5SmUbKujtRgUM3xwmGVDQBIAj
- 2XZ8YafTk6ArTp9gBKpP4iKNOV49sGDbqucKSIiEZ4Dj28lDg5i+gSreI9ZK5Y19b9JPwlhHbIa
- 1lFI4QDfltpKvyOH+qj1iMpSpO8vDzt/fGUl2NPSyMN32wJHlIYSa/qarw+Sj6RHfIOLNjvnNkd
- IAkZ/RIl6SjhmQZpxzu7UeM6sU/pVhSjtxFeTSCAB30ckpaw==
-X-Received: by 2002:a05:6000:4a0f:b0:48b:e50:7159 with SMTP id
- ffacd0b85a97d-48e264adfafmr3173042f8f.30.1792583065670; Wed, 21 Oct 2026
- 04:44:25 -0700 (PDT)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261020-b4-gpu_info_intobytes-v5-0-3e0c7c93223c@collabora.com>
- <20261020-b4-gpu_info_intobytes-v5-1-3e0c7c93223c@collabora.com>
- <athToIRyTjSB_jVg@google.com>
- <CANiq72nP1cXVOQp0xciGfBhZZfEfNP5hx8c+1ZPhXwrr=EOUGA@mail.gmail.com>
-In-Reply-To: <CANiq72nP1cXVOQp0xciGfBhZZfEfNP5hx8c+1ZPhXwrr=EOUGA@mail.gmail.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Wed, 21 Oct 2026 13:44:12 +0200
-X-Gm-Features: AclHuK8jFkj1SdL-sn9s7gZYVhHgWgNf9M81gFX7u1yfFc_Pok1tIoSVJ9rDId8
-Message-ID: <CAH5fLggAuPdmwOFiOMMRUCP+yLPjmdjYGGfBxZJ=7+bkGODJmQ@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] rust: add zerocopy to bindings and uapi
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Deborah Brouwer <deborah.brouwer@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jesung Yang <y.j3ms.n@gmail.com>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B287610FDA7;
+	Wed, 21 Oct 2026 11:51:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE05110FDA7
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 11:51:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BC08760AB6;
+ Wed, 21 Oct 2026 11:51:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0441F000C4;
+ Wed, 21 Oct 2026 11:51:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792583463;
+ bh=/GLi/Y19ebO5Wqeo9afSVmfNL5Rer6QdLvPXY5m8LPQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JizsqHyGBd32BQgyL30RQoXUc30n0syWQj/LkIUk7yegB7K7fnt4IqzSdvh5lGL4d
+ 09/fLgarnQuC3W4a3ahO997DZfeaowy5284RSS5eXlCytgtL8nlSUv5zsPsJnHSnm8
+ BV+t7nYuHNm9Uu9aLQQoUnEHCXKKnMqi0+X8s27imQAavpS+OSqGSGkDqhslVF2qzg
+ XttWWX7mHzbljRj4zRpf26dXqoLY66xrA4vhXYRx8Rr2M9/XLy5/NC6UEQ1gZyEHZu
+ E8i7iiRzV0XOmrNj1kMAWJPhamGo9uQCxTD/mXJXcaU+4g5Xd3IdJnGvSjVkKZPKjq
+ dWIp1MER1DRSA==
+Message-ID: <sashiko-outbox-180189@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/radeon/vce1: enable the VCE trap interrupt
+To: "Matheus Tagliari" <mptagliari@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261021114122.94008-3-mptagliari@gmail.com>
+References: <20261021114122.94008-1-mptagliari@gmail.com>
+ <20261021114122.94008-3-mptagliari@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 11:51:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,27 +48,103 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Wed, Oct 21, 2026 at 1:37=E2=80=AFPM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/radeon: vce_v1_0_start() writes VCE1 VCE_SYS_INT_EN offset on =
+VCE2
+--
+
+commit 081ec1fcedbbac29c36bb9a81a87f74e67af09fd
+Author: Matheus Tagliari <mptagliari@gmail.com>
+
+drm/radeon/vce1: enable the VCE trap interrupt
+
+This commit defines VCE_SYS_INT_EN and VCE_SYS_INT_TRAP_INTERRUPT_EN in
+sid.h and enables the trap interrupt at the end of vce_v1_0_start() so VCE
+fences are processed by the interrupt handler.
+
+> diff --git a/drivers/gpu/drm/radeon/sid.h b/drivers/gpu/drm/radeon/sid.h
+> index f9267b026f8de..ba322de844b3b 100644
+> --- a/drivers/gpu/drm/radeon/sid.h
+> +++ b/drivers/gpu/drm/radeon/sid.h
+> @@ -1878,6 +1878,8 @@
+>  #define	DMA_PACKET_NOP					  0xf
+> =20
+>  #define VCE_STATUS					0x20004
+> +#define VCE_SYS_INT_EN					0x20d00
+> +#define		VCE_SYS_INT_TRAP_INTERRUPT_EN		(1 << 3)
+>  #define VCE_VCPU_CNTL					0x20014
+>  #define		VCE_CLK_EN				(1 << 0)
+>  #define VCE_VCPU_CACHE_OFFSET0				0x20024
+> diff --git a/drivers/gpu/drm/radeon/vce_v1_0.c b/drivers/gpu/drm/radeon/v=
+ce_v1_0.c
+> index bdfbcf14b8640..0866e7fb0b0ef 100644
+> --- a/drivers/gpu/drm/radeon/vce_v1_0.c
+> +++ b/drivers/gpu/drm/radeon/vce_v1_0.c
+> @@ -350,6 +350,10 @@ int vce_v1_0_start(struct radeon_device *rdev)
+>  		return r;
+>  	}
+> =20
+> +	/* enable the trap interrupt so that VCE fences are processed */
+> +	WREG32_P(VCE_SYS_INT_EN, VCE_SYS_INT_TRAP_INTERRUPT_EN,
+> +		 ~VCE_SYS_INT_TRAP_INTERRUPT_EN);
+
+[Severity: High]
+Does writing VCE_SYS_INT_EN unconditionally in vce_v1_0_start() access the
+wrong MMIO register offset on CIK (VCE 2.0) hardware?
+
+In drm/radeon, VCE 2.0 reuses vce_v1_0_init() and vce_v1_0_start() during
+startup, resume, and dynamic powergating transitions:
+
+drivers/gpu/drm/radeon/cik.c:cik_vce_resume() {
+	...
+	r =3D vce_v1_0_init(rdev);
+}
+
+drivers/gpu/drm/radeon/kv_dpm.c:kv_dpm_powergate_vce() {
+	...
+		if (pi->caps_vce_pg) {
+			kv_notify_message_to_smu(rdev, PPSMC_MSG_VCEPowerON);
+			vce_v2_0_resume(rdev);
+			vce_v1_0_start(rdev);
+		}
+}
+
+Because drivers/gpu/drm/radeon/vce_v1_0.c includes sid.h, VCE_SYS_INT_EN
+evaluates to the VCE 1.0 byte offset 0x20d00 here. On VCE 2.0, however,
+VCE_SYS_INT_EN is at byte offset 0x21300 in drivers/gpu/drm/radeon/cikd.h
+(where offset 0x20d00 falls within the VCE 2.0 UENC register range), and
+VCE 2.0 already enables VCE_SYS_INT_TRAP_INTERRUPT_EN at 0x21300 inside
+vce_v2_0_resume() in drivers/gpu/drm/radeon/vce_v2_0.c:
+
+drivers/gpu/drm/radeon/vce_v2_0.c:vce_v2_0_resume() {
+	...
+	WREG32_P(VCE_LMI_CTRL2, 0x0, ~0x100);
+
+	WREG32_P(VCE_SYS_INT_EN, VCE_SYS_INT_TRAP_INTERRUPT_EN,
+		 ~VCE_SYS_INT_TRAP_INTERRUPT_EN);
+
+	vce_v2_0_init_cg(rdev);
+}
+
+Should this register write be placed in vce_v1_0_resume() (matching
+vce_v2_0_resume()), or guarded so it is only executed on VCE 1.0 hardware?
+
+> +
+>  	return 0;
+>  }
 >
-> On Wed, Oct 21, 2026 at 7:54=E2=80=AFAM Alice Ryhl <aliceryhl@google.com>=
- wrote:
-> >
-> > Miguel, is this something we can take through drm-rust-next? Or perhaps
-> > you want to take both through rust-next? Let me know what you prefer.
->
-> Both sounds reasonable, so whatever it is easier -- do you think there
-> will be lots of movement in the Tyr side?
 
-If we're able to land JobQueue soon, then yes, otherwise no. But I
-think we've aligned on how to get it merged at LPC, so probably yes.
-
-Alice
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021114122.9400=
+8-1-mptagliari@gmail.com?part=3D2
