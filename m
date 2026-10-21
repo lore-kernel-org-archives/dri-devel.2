@@ -2,141 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7639F606A337
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:39:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BC360A6F6E
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:40:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IBP1AgCN;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JP6EoukA
+	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=SpSiW7s+;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=P1CdkiA9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB12410EC5F;
-	Wed, 21 Oct 2026 08:39:07 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC0910FC97
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:38:56 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69L7EAPC365904
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:38:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 10q99WjpupYyXoAqEGbsDSnGwWdgp3LWUj2x80wFg9g=; b=IBP1AgCNXnfxKQWs
- U/gF6I4kttmVJBgP+n+m+w1mQh1SNWfkVPYDMewQm13NgtuORAjhg0dJtMxpqUXE
- TuKwpKXCL1WE7G0F8Oeb+JZMNvrfs6zex1hf8PtQKWdBJmth2HzTbu2AqD2E8WNg
- 79MaS4yUU1GPhHx5gQBZA1tj5tzs40i2f6ps8KE/R4rbPgvGkggDy4n4nM3bOf6u
- D2BdEpDYiuail7KwS2VxG0yIIT8WsEn5NVRTDyWnZfvJ6oNheQcfRhxxqkgSO7yC
- n258RB16rRgVP6BZ0+Uzwrn4b7QOYu0g9HPXbgaELdP2kyD7PW66/58dcuwG7rIV
- abvBcA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hegs02532-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:38:55 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-536540909e5so1525571cf.2
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 01:38:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792571934; x=1793176734;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=10q99WjpupYyXoAqEGbsDSnGwWdgp3LWUj2x80wFg9g=;
- b=JP6EoukAX/XdrnDMT4KfZhNXLZUgQfruvU2zKJDJuGFHrSFaoA6NELww7q/LNXpkwy
- 4jUY/8T6Czp+iBHjbyp2BjdTOIjZb6eO5oxAhbhO5rF/bzMl1UxRzkeyiuXTdbL75Xav
- UMhr3bUlLByCavNAxCCHWLVSEE+pd2faFozzHbNuJPBlyhlntLtIQ4cYKb4HMURItMjJ
- rUC05maqv3WzkCmr4t/pVGGAqdP1fctYOK8+Yv0+nk3xhbGBbCTcLv8TnkVeUORgjEOn
- J4MXAkUIJiGJnUXVj8fjTA1jQU1cUyAwpdegfwsGC6tR5hTcq21Vse24kAesD7Dq+uzu
- X4mQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792571934; x=1793176734;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=10q99WjpupYyXoAqEGbsDSnGwWdgp3LWUj2x80wFg9g=;
- b=ubBl/r/jC6f7c10WiT5GxdWQgilKeGYf120iYKUjk0Ikt5MEt/Q8ac+OCrcJjp7Ncm
- 9Id0gwKYOag7y/7Fp2uzLYOmyLWHVjL9I2REuAszAyMxRHyoRAazQoY+3qHnPrFbvC7X
- cRDrgbjJhDBVMTMfJyj8uTwq68FlucLgpQyA2FpX1i2Xra7zmTd1EdO6+l8pWP1Db3hv
- zZke57xfWfp3ko/fb936ZWwsU+KTQq7jrt2A+p2LZp+Zmy34vfhveDqzvT/KhBJuH+uW
- DFDi78exjrC8LvM9y4lEbeE9h+xJ5HVxd7Ce2Q8vFeBaZZ5QIOea/4o5DrZGEhX3qJAK
- P/EA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByWhWGg2Vy92CekD5yJ8PLhg80ABoynwgwsbURFitQSwlTxfoZRqjr0JxgzCbGHt1Lx4FDX3tegL0Y=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIfkZs9vKVJO7qm68XGOKc8eGstIHZyKBLq/MhZlDMf655YjquD
- z92onbfOxHksbDUGk8pAR5rysJ4XnKInvgqWdzupvc5M/cVn0odpY6yUg/ygRfvp/zeUvNl83hy
- 88kfIzX5bmrPgkrQcF+5BTZFvSDVIYVRqi+4vHYMcyEmUtouTFyOz6Ol0d0mgLLXGauzNy5U=
-X-Gm-Gg: AYBFou3261hFKBAfZn7Q5iI6FoPgu9sTfTrDmUECtFKXxdcjDB+TrQf3xUrpOiKhs2X
- OwHeKIzgbcYQDf6TIwj/YV2SAXPUEkcDidBSX5S34M5PdMzBz+3c30PRQIbTujsZ4tnVKVFwSK/
- NPvR7BX5e7P/TYLWUt5Kj3ySfJoahSkIbR9sEdYLVoWJ1EmAPRwJPOBNmOpeeL6IuQFtKMMn6v6
- 7Nm/FU5eJfixvOhLNRv47wku/bDIgkwJ/SfBZ4nwt3S1f5wddcGCgfrdnMIz9VRPO94+qTdRrDr
- YSc7xaK6RgMkdx5ZV3vu3BO9FySglQ2wDVZEKHwOix/IZ0/RQld2AD1IiYSJG18N3fY3g2KfhL9
- e7qKrO/fxWg12DrQB87PXUw==
-X-Received: by 2002:a05:620a:172b:b0:939:8bc:8826 with SMTP id
- af79cd13be357-93f57e897a9mr338660585a.2.1792571934496; 
- Wed, 21 Oct 2026 01:38:54 -0700 (PDT)
-X-Received: by 2002:a05:620a:172b:b0:939:8bc:8826 with SMTP id
- af79cd13be357-93f57e897a9mr338657585a.2.1792571934003; 
- Wed, 21 Oct 2026 01:38:54 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4678f77729sm54778566b.25.2026.10.21.01.38.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Oct 2026 01:38:53 -0700 (PDT)
-Message-ID: <c90eb47d-0eac-46af-9806-8404f5053e38@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 10:38:50 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6003A10FAEC;
+	Wed, 21 Oct 2026 08:40:12 +0000 (UTC)
+Received: from fout-a1-smtp.messagingengine.com
+ (fout-a1-smtp.messagingengine.com [103.168.172.144])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A5C610FAEC
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:40:01 +0000 (UTC)
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+ by mailfout.phl.internal (Postfix) with ESMTP id 4CF08EC022F
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 04:40:00 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-12.internal (MEProxy); Wed, 21 Oct 2026 04:40:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:from:from:in-reply-to
+ :message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
+ t=1792572000; x=1792658400; bh=ZRUeWVeHt3KCRBuFS0NAoBYETxLevSo2
+ XjNeGZqmbtA=; b=SpSiW7s+Nn7tcFzU8ApWsri6ykt+yKJU2IJ11tSa/+ULYhAm
+ Y5wuNjiq+A5bWC5M+YJDkx+CcV6v088ty27LniFhPU9pvF7gJidnIOeD17jNF6ex
+ uCgDncXKzLSS2gHbu3pEpfuMBEhnarsoVukT4F/m0mwNlJd8qyhiaovMJ2kYCdlI
+ l94VmO8JmUpEk59zqvTW1SVfvQIVJJsqrBHnxx2K8hUVtGba+MwSNgZWksYuxCEa
+ ji8siuWUQW6mtO/I/jAHlKMiKa58no9FscnJZyXDCy0Ok4Ho9ElbGiIQNhj6hjm+
+ ZuTfBNeBFl3AIdWba7Y28vFwCh4j7dibeJ1dWA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; t=1792572000; x=1792658400; bh=ZRUeWVeHt3KCRBuFS0NAoBYETxLe
+ vSo2XjNeGZqmbtA=; b=P1CdkiA9KGQuE9gesSdZIHAFUiDG/61ceBsQ0opr4uVi
+ G52b0OwP8ivtfXqCCb57Sp7aZMfXSYOfVJSfqdG+Qxc/AmeqJJ/AEbT8yVgS7h9v
+ b7XeGjBgnESbCt595MTdX9V7jjJs0NhZZNtt2n9WQzopNot+btMxu8IdbOh623yF
+ oimQ10jjEDN4V7Uli+rfOf2LWluYn7OZKUuoTmw9/Vles7AUdK6nNmybcRWVQVP7
+ KiqD2WVmHejzjwoI0oYd7kpC+eImoDSpbd/XeCk/knVj5FcLtaLJKpJaaa3dEKHE
+ rMZy4wr/PBGy7s9NjONyjYDrUiNVge6kTqICiywa7w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+ repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+ action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792572000; d=invisiblethingslab.com;
+ mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
+ s=fm2:rsa-sha256:X3h2FOhLtNcIXYQgyTflfU4O8X1PTq0DVtOACEG5VRU5ihc
+ PVUqnvZMq61OpXX1Sdk7L+3b7iOI+E7wSv0EdA8iA+BihjnqFjPoeHpxay7Hvmlb
+ cpCh3lBY9F0kXAXbbkD86GjekG62WkTRnxRC4O5+7NpSxwL3f0YR/EjriANZTscs
+ h8GohhH6Qvufnq9Ptb98pPz36KatO3P90R7MgIJpGWoSp5HwZPz7CsGCU3nXwlLd
+ RhA94KKFrY3sVrX6imtv0M41yQrmG/rI2/Xvt3WkHbL04I9nKfOcwmXdod+knfDn
+ NhQhwzm7zY5UWyNswAkLI0WkV7XEnNYVRj02pAQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+ repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+ action=mi-m=1; hc=10;
+ hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+ from,message-id,mime-version,subject,to;
+Message-Instance: m=1;
+ h=sha256:9XIRFcxfocIE7TTVobmGHzvCjgMsTJ70TPYynJ4ynA8=:mQpFvnuWRf6RbeXO/lVQ3BUGGu0Nam8GMc33D7LIjIM=;
+X-ME-Sender: <xms:X3rYanRpIsL5XFyp98M2QZ7J9GR-cTyskl-z8zuaEpsw8gBh_zclHw>
+ <xme:X3rYag8vxyS5rq64pIuRTswT7k21qH2K-37-Ldx4C-Xb8teN-_EaSdOw_6PNuCUqt
+ mHY4I4iFclUYsVgeAYJd7_je5ue14P88rmbNgmnBK9tMLjQot_E>
+X-ME-Received: <xmr:X3rYaoZFZYqO7qRps79mqO-sSB-tfLhds5jPtQg7AuPUj7uQh9uF9uer6898qX1vAbvVAeKU_HQ5KZM3IhzQ2udPaXdeFoCuo3bKBfem6EMICRroQebWz3XA8mz11A>
+X-ME-Proxy-Cause: dmFkZTGQ99FzaVuFTcvMdK/ygBNkRoPov9AfgImip9FZDA/maXGAfMDJmGK8CAXzpiT/v/
+ 6eSXOenWvT9pkl6/ECj5SYWG+7ulldBorjx2rxo5QgDzY5TFFln7KzFQOe2r+BInkFtah5
+ lXwZrDGmtZlTphqhH3hkG8JCQ9e1Zj5KCBMd82t+JjBKm297UYGmJHlXDicWsY0O+mUCjX
+ wBdfh5nJowniELGh1LYyawBXXlPkdvXsLmgOZjf52NEHmw63iZeiRd7otZZjTrBnx1UJpt
+ 2Khf1IgTOPArXIlvxTSUhdE9+G8iG1/NDCOzU602U8lg9kR2yn/YlHD2QaNB7FN+ZxDnZB
+ 3JrTVir4YpDM52ovWN9A7bgrFsQ2KF28DzUrD/e9wI7UOX7D2AR6egtR8cHaDZEPMBFPwc
+ m1BiwjA3SmdNcP1LWBtbmhQqYXRT/cJh+lQo360yNhfVcaOJFkMAMw5tv/ojvc2GIvYhhp
+ +wjrdaW4Xqb2wLe+LwTjLpU+2OB7P2ukWYF4uNJWux1m88t50dcGBGPW1BijNy8L+NibqA
+ fjwlVRgWGREryBH1q+r3ioUNt/x9r36AOyADq7lLFpn2RN8irqFfaXpwEn4PQOQdwJt+Gy
+ cuXsL/OmqEHNdFYFJi20QxPfSrSmO5vSEvoGOH5SR7M/v/gXg+v1DH8oaykQ
+X-ME-Proxy: <xmx:X3rYahqElZfDGGf2n8k9vHJKnJ0qz9Orore7_YdQQi6fY7yw0tyyGA>
+ <xmx:X3rYasTenipPpFc-EdSwvZIETSe8qJm3jDdG3ds8xvKGOhfPv2vU4w>
+ <xmx:X3rYalrEXS36eZ09bgP36d1jGNOuHfI2Jh_rMLEYTuWQNVe2vseMRw>
+ <xmx:X3rYam2RGG518CBgXgcxq3uutWgLPfs7m8-ucqOSy5XJGvMF0QdCkA>
+ <xmx:YHrYahFsmM0DAG6FnHKtSsaD1V-ctWmyP-5PPdMN1vr3V8BicGXP3TG8>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 04:39:57 -0400 (EDT)
+From: Val Packett <val@invisiblethingslab.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>
+Cc: Val Packett <val@invisiblethingslab.com>, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] udmabuf: Improve list length limit handling
+Date: Wed, 21 Oct 2026 05:39:10 -0300
+Message-ID: <20261021083933.1983894-1-val@invisiblethingslab.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/12] drm/msm/a8xx: Allow nonctx reglist to include GMU
- regs
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Alexander Koskovich <akoskovich@pm.me>,
- Jie Zhang <jie.zhang@oss.qualcomm.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
- <20261020204728.28844-5-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261020204728.28844-5-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=S/NMU4sP c=1 sm=1 tr=0 ts=6ad87a1f cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=FxG1VXWaU6FXrht2Wa8A:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfX4b3JXZ3Os1On
- cROsaMf01mS6+7Sv/esGsEgtLZlMx226OiizFUgMcJ45OKo93tXI8zsQWrb4sms9QNvwejr0d/E
- KMyQFR0pbSWRBj+MjZ3uDyCTNnGUghcdFpH2kzWwiqDseiFLt+zU2RM/U6zIXpV5Jxlb8MySGGq
- dCId3YSzOqIyQNxvwuEhR35IebXLbaJGJWWIMUl/u7/3Ad2x13hgxCm5haBDQP0lqyyw9pXGhII
- iNKHBURecZiIx+JYCX/pWZlrC5rryLaPrw43lfH5mypkSg8kO9yAPuqpSGTQ1sQOZyhKQoKr1y4
- 85UuM/xLOu9GYW6ZNccDETC1G1HsN0ruEpnh47J8DKyX5nkD4GDVDtk291qT61At23rQGgELOi4
- f3edgDJVCpomkyNZKMgDiomZr9VxD657xKUBIayKL8f6KZpU7HPAvizqeSSAYS4OXQax64wU95z
- x4fd8fSK/t623/EC+cw==
-X-Proofpoint-ORIG-GUID: pRG75k6XjJ4Sr7VjqcQAFHdofhtwEeD0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfXxIxGs7WUgain
- 0hxmOCVEi5ZU7aHNOz4YFg5lzo1OVk8ymbw10qAHdf3hCZU3M3YUdzcXrLU80UFCRtV6Kw5QuoW
- 5itGRXrAyxDfHJBRiTWidJwlZAzzZ6A=
-X-Proofpoint-GUID: pRG75k6XjJ4Sr7VjqcQAFHdofhtwEeD0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210034
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,22 +111,28 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/20/26 10:46 PM, Rob Clark wrote:
-> From hw PoV, it's all part of the GPU.  But from dt perspective it is
-> it's own device with a separate io space.  So we need to detect this and
-> direct writes to the correct place.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+v2: Set a reasonable size, and fix size overflow check (Christian)
+    I've put the check into a separate patch that's Cc'ed to stable
+    and has a Fixes tag since it has been an issue since the size
+    has been allowed to be changed via tunables and the condition
+    has been reachable like that, independent of me changing the
+    default value..
+v1: https://lore.kernel.org/all/20261006005053.2245156-1-val@invisiblethingslab.com/
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Val Packett (2):
+  udmabuf: Fix list length overflow check
+  udmabuf: Increase the default list length limit
 
-Konrad
+ drivers/dma-buf/udmabuf.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+-- 
+2.55.0
+
