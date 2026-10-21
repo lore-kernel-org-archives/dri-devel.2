@@ -2,76 +2,119 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243D7606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 20:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2852C606A328
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 20:17:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=k2XrJv+J
+	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=atp5/hIL;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Bwf4dz12
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 711F710E03C;
-	Wed, 21 Oct 2026 20:11:42 +0000 (UTC)
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 641D410E03C;
- Wed, 21 Oct 2026 20:11:30 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4971340E029C; 
- Wed, 21 Oct 2026 20:11:28 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id tE1uR1tM0KkD; Wed, 21 Oct 2026 20:11:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1792613485; bh=vQk51gmPv+LBlBEbVBQXQRvGpjkGw4cKMh26T2Gdvvo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=k2XrJv+JTvqMvl2DTYYFZL4ga1deL0puF8VQie06yUPSeXb+Mxp9On9Fy8v4WlVb5
- UkKUtJxm6Md8A7mNC63GLXQcEGTlqiMMWMxRV7cICbRSXerxgtzCJwwtLuPdj3HkFW
- OVcXCEnVNdT8mOhCRkmyHEsvlMrcjoK0L6Q4tnUBoUvDhDDrp/3rqFDKzqkhCKUkm4
- UO1HyrEbqkUfqGZdcnEPSqDMu991Df3uN5d1MADQpH3Uy7aCK0PGQwnFD740dpAWdc
- hbkPdHiTgwxCF1/aFnsy2ko5SBZsU8ZOgV843zzkFxi8Ovp8WqmofiWI1bhfjeXOKm
- aYsGDPF/p3pf3BLRGiPJegHz3EJ5Zudl70gl9akq1+uCyDbznt+LCgCAcKOgjH2CNZ
- 1jaQYg71Ffij6FfSarO+CYzFU96HJt3JyBvY+3794bvy09tG0Y2Be8j0bGKl8BipYG
- RGKnpjLPOJIyAKDOz/u/Hy0Prfx/rt9AixtNtb27ZgYa76UbPC4ZW3359vSA9LzGjc
- ccNYWdlJtKo84fPy3g4U2ZMjFzlh044CK/QeUyjDc83DXwkL89vVYzCS2kpcSw5Lx8
- 6/i9iVtTgQ4xegP42VAEp2X8eItLyZQh0jL2hze69Xpt473Ft50E+mCuW1r9lIAIsn
- SXtwAHNQaKzpCZ+W/RrJN15c=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 8594640E00DC;
- Wed, 21 Oct 2026 20:11:09 +0000 (UTC)
-Date: Wed, 21 Oct 2026 13:11:06 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Ingo Molnar <mingo@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tom Lendacky <thomas.lendacky@amd.com>,
- Joerg Roedel <joerg.roedel@amd.com>, "Nikunj A. Dadhania" <nikunj@amd.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- the arch/x86 maintainers <x86@kernel.org>
-Subject: Re: Removing __get_user / __put_user for good
-Message-ID: <20261021201106.GCatkcWhRWnARw6bfH@fat_crate.local>
-References: <CAHk-=wjxtzD1TXZr5iWu0p1+Hu0YZP7jbNSwFkp7AJYmhzhVCA@mail.gmail.com>
- <CAHk-=wipGHx_1Uztmu773yuTM2ka1fq996UmNoJpvKS0gqEdMg@mail.gmail.com>
- <atdqUYdIOqmiqqTt@gmail.com>
- <CAHk-=whrUi2M+whqwS8yfqZ=W9ts6NPOzxzGfBOwOfCC3ooeMA@mail.gmail.com>
- <CAHk-=wjFBSH9M2GYKRnd-jrMGaa-gPBoGhuscJAu4n1hGsuX7g@mail.gmail.com>
- <CAHk-=wj51-syPoqMBLnxMeLnsbCMDMXfKzKZCtOHhwWEk5DeRw@mail.gmail.com>
- <20261021025403.GAatgpS1rcSTOTs8sS@fat_crate.local>
- <CAHk-=wgDm1nHurWJLESiLeYr0_0yv_F7W8YbvrmMEfbhxM1e_g@mail.gmail.com>
- <20261021184317.GBatkHxUL2xqH9EUkY@fat_crate.local>
- <CAHk-=wjs-DWseqMLciovdLmhcs5xhksPGOZRCoXK_sr8tmEiKw@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E72A1121F0;
+	Wed, 21 Oct 2026 20:17:12 +0000 (UTC)
+Received: from fhigh-a3-smtp.messagingengine.com
+ (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C6FD1121F0
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 20:17:01 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 13A0B14000F2
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 16:17:00 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Wed, 21 Oct 2026 16:17:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm2; t=1792613819; x=1792700219; bh=WsOu/rRUjY
+ L7OCikxdUqQkdguWvT2iaNfaZpeKUs+qo=; b=atp5/hILPS7RjOeTpIcMO/fh1r
+ spzLdAb4T9cgeaiF+HSxAoT9TVTX80macpFUl49eZ1zGQgRQaaZZ1q+18DFYRaoa
+ y/5BFmzCLHSPNHP+0ZENhAEkIlY3JCCYimL8yib5c0FNiK/6gyEyvij5g0Tdc1lb
+ Kdl4KUG5KyDS5AsL4Tfkz8qFNJkWlsZL/2SgupMtUFSeAgSHpSmUMuPhApXdMDNu
+ uXRtZ2fyZLyZBHq2zL9yzwTsJWxGaIJX9vbg4CabpYqtSuDAmj/XXhfUCbv+NtrR
+ iRX+8BV120sfMNGvQmUEPzfI9lIsqVsSSsQm24oT5LkRdvnLzbhqaL+vN/wA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792613819; x=
+ 1792700219; bh=WsOu/rRUjYL7OCikxdUqQkdguWvT2iaNfaZpeKUs+qo=; b=B
+ wf4dz12Mv+nHxgpgq5usKeX7+n1aC5jdk6ftFenJLJxzd4/WxnSj5gR7K6FiPWZM
+ rg2PL8Wvr/yMaIAL0a8cVWwpErdrCrUR2o8Vt1tFakqMjqpVceiworGkhccX61WQ
+ kJKkmXoH0povlrDtxN4wEIFg/vtz+ZIq714RaJjqxDv9jKd4PHeVZb3uwmpb29Jv
+ XxMKBiLuIBI91qQ7Y8PqvOm9JjlqG3DTh7gbxaWNZ2E4OOiWcLdJBTyc+fgkkYH0
+ lxiwmKEViPuXUkyflhTQx+/lCvQaILi0l4FV+4biOrap1MIXrtUd5xls1F2v1RiP
+ LVC2rMVJ9OutP7iwozQow==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+ repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+ action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792613819; d=invisiblethingslab.com;
+ mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
+ s=fm2:rsa-sha256:Bx0J8/JdJOZ4I2Wp1/Al54Kj0gV8O4Y5tsjz7tqFp0Nf0no
+ zPBPkTxcr7dNwtw8ahBoEhMz779nKwcultS7bji5NrYMDE3nzXxWUOJ87tLpweJt
+ ASWDTRjaEhUe1noEhRbDMcOvkrQ+pkVyELRr3RV3XzfCy9O3I8sM8g2b8zSfoQHT
+ 2F9XZiVlvC8/ibzp+uTvRQEl5JvV/4083o6ta5Y7pFEi8DCobtaNB9pioTGfWKqy
+ mwaAu1Zn+SbdcXpxwCqx2qKulISd7dmXadd+VrL2GZcEvOc6GiFk/XhGGzgcdD/c
+ dgtFMUqsHT5sht/cfxREsVGtYNl/P7Dq+Q0wVzw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+ repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+ action=mi-m=1; hc=15;
+ hn=autocrypt,cc,content-language,content-transfer-encoding,
+ content-type,date,feedback-id,from,in-reply-to,message-id,
+ mime-version,references,subject,to,user-agent;
+Message-Instance: m=1;
+ h=sha256:o5K+uoy2p3l+rotmqQ/lqLog1mD1ccTslh81foHS7SA=:XQ6PYviYeH6meLP/28q9IYylvU0BkycclHGqpiogBlI=;
+X-ME-Sender: <xms:ux3Zardsg0Lmvr9uoNcj9PcvvACU9BeUbyg5t3mfyIFUv71d342reA>
+ <xme:ux3ZagSvvt4TBAfY_GPH-oRbUq6Jd4_FXijHbIIjNlkg7Ne02H7PqSWEtkO4XPyOQ
+ V0AZNlcK2NQ4MvxJO9NuFx-2ExYOv7jtS3ifbLJu1hhUG7MrzRx>
+X-ME-Received: <xmr:ux3Zaqvaqos80rBkdWZn-2rFXQCXLOecqFLjEuGM1xCAY-RFT16rbcej5OtjppBmipsp-19JByaebM53lCwBRhhVWCa7Fu3jSQ>
+X-ME-Proxy-Cause: dmFkZTF5+fcfy/Oo5Le9I+Kjc3hGsGqRVtTBvtalw9ldQrZqqDF7kj28w0isq6NWkXIq78
+ bnL/tBTa9p8XouAsJCZEPacqdUuiQHvxkGXGoODmdc7SuUBv6enBUYuu6AMstMsnQdRDLu
+ HfVHmZElus2f0sABEVTnCvOWeiBL0FP4rKKqyj9i81HnyAxUWglZ6uxANNdU+bv9XHuBCk
+ mEigObqboa9yoo9hYGU2J9bGlxKpiQwp2C0RjwbLlOSMCkc5F9QXvlKfT16RuGyV4zqxSo
+ Hi/odAbWpKwBZtJkUm7dptQPsR12CDTWnofHtUvT7t0y5Dlr0X8sH+U+vhNJYtmusUmoAH
+ Tu9fZDy2TQVHoSl5Z/NIa+jg+DvjZrloWWFXJHsnon3XOeUF8s7NbsxMnBdPbTNhDSQEB7
+ zKi+Wq74T/qCn7uoQL+vCw9w9srbhX6Y6mnIWbnqMGGwrgHgGnSGluhnhlZBrX3oZqng/w
+ MijAYp1axMDt1P3JcCHuvhj9tLcHohL+UysFvhVed074/EUS4Z5Dd9lV0YZY9576cGXlmK
+ 5kJjU6R2yOhBc+nsiV9sYkTvOUdsq8G2xhPB9FsWDvKDNUWue9XqwHglyGCnJfbTvVvXZM
+ +mp4Ofob1vR+eGlkAbOkY/JSgD7CBPb7dro38E67Ram2gWNkDi3klIqZWFAQ
+X-ME-Proxy: <xmx:ux3ZapfawUxz73R2n_YRTOJMP_jvbze2m3g3Xbciftk9ShjKXn6uSg>
+ <xmx:ux3ZasZKYHY-MN8s23tolDr-8ktT9clQRZgcbifzN2UfWeyo8Fuuow>
+ <xmx:ux3Zaja4bW2GE2fTz1n1lNL6OqqO0YTnaoBa-ubZQaXQ7HuN-0dUBA>
+ <xmx:ux3ZapJDw1OE9bJirGPrnDNcq9M8Bma6VmxBRRE4A7Z2IEdV2QdkYA>
+ <xmx:ux3ZasswRekrGH_gOF085VCwg4JwBJBJ0QE5V7jcAuUCFq-YS5A0ayCM>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 16:16:57 -0400 (EDT)
+Message-ID: <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
+Date: Wed, 21 Oct 2026 17:16:54 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wjs-DWseqMLciovdLmhcs5xhksPGOZRCoXK_sr8tmEiKw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20261021093533.1990028-1-val@invisiblethingslab.com>
+ <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
+Content-Language: en-US
+From: Val Packett <val@invisiblethingslab.com>
+Autocrypt: addr=val@invisiblethingslab.com; keydata=
+ xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
+ jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
+ NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
+ OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
+ Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
+ pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
+ nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
+ dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
+ d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
+ aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
+ /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
+ UDOwAqdfvuF3w8QMPw==
+In-Reply-To: <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,31 +126,35 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Oct 21, 2026 at 08:55:39AM -1000, Linus Torvalds wrote:
-> I think I need to upgrade my laptop eventually. It's a perfectly fine
-> laptop, but it's from 2019. I'm sure there are more powerful ones out
-> there that are still lightweight.
 
-Yeah, I love a laptop because it is nice and silent but no matter how big it
-is, allmodconfig is still faaat and takes foreva. So I've scripted all my
-builds to go to test machines and the laptop is simply collecting results or
-booting those kernel binaries in VMs and so on.
+On 10/21/26 10:43 AM, Christian König wrote:
+> [..]
+>> The buffer lifecycle coordination we need this for applies to KVM as well
+>> and it generally doesn't make sense to have this as a provider-specific
+>> thing since it's not related to the provider in any way, it's just
+>> something we want from dmabufs in general.
+> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
+>
+> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
+>
+> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
 
-That's how I follow the merge order of when we send you tip branches and I go
-and merge and build each one to check for build errors one last time and see
-what merge conflicts will appear.
+Well, we already need it with both udmabuf and gntdev-dmabuf..
 
-And I can't do that on a laptop. It just takes too long.
+Involving the exporter sounds really annoying when it's not something 
+exporter dependent really.. What if the policy is just "only one eventfd 
+ever" i.e. the first call of the ioctl succeeds but later calls on the 
+same dmabuf return an error? That should remove the concern about one 
+user messing with another's events (and avoid the concurrent replacement 
+issue sashiko-bot warned about)..
 
--- 
-Regards/Gruss,
-    Boris.
+Thanks,
+~val
 
-https://people.kernel.org/tglx/notes-about-netiquette
