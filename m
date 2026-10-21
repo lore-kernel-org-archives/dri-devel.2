@@ -2,62 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E246B606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 15:23:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94A9606A33F
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 15:43:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GqA/BoLu
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RU61zTPD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47AEE10FEA4;
-	Wed, 21 Oct 2026 15:23:27 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BEA310FE84;
- Wed, 21 Oct 2026 15:23:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1502560A75;
- Wed, 21 Oct 2026 15:23:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 543BC1F000C1;
- Wed, 21 Oct 2026 15:23:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792596198;
- bh=V30cgqlYiazT3mM/KWPmWvP8wxvw0Cr0QOzQ+8DpRQQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GqA/BoLugvtzUIeBAfbHmL/50sJD8FKXE2/m6C2JWtsbGmGDyA7LVNZIG96iSTxR1
- raPuWa/kKYLKEuf3bNDYnGCTsSn4Goy9Ek0asTJKuG8Y2P/rI3cC26VW4YirvF+uxk
- HbsSV/ePrcOLFwyocN65/qZGrEFuHv2gr60q05xwPee71vu1EDBDBhVrkCug+cZPOz
- vMm703zEVZ9DNu/emUEhFHosgndVoG9j67A5bWHNLLYZ7nzAiXhR+TJZU5EEpn0l9S
- 1pBkfLjPPwUgwW64zw5YwtcT3EbREu1ZENgNUVXAufIgtnjLkQqoleJh/FQ66gAkA/
- yDOmsnbdg8WZg==
-Date: Wed, 21 Oct 2026 17:23:12 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Borislav Petkov <bp@alien8.de>, Tom Lendacky <thomas.lendacky@amd.com>,
- Joerg Roedel <joerg.roedel@amd.com>, "Nikunj A. Dadhania" <nikunj@amd.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- the arch/x86 maintainers <x86@kernel.org>
-Subject: Re: Removing __get_user / __put_user for good
-Message-ID: <atjY4HV-OksEf0mf@gmail.com>
-References: <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
- <20261018174250-mutt-send-email-mst@kernel.org>
- <376ef9d0-b03f-4f85-aee5-46cf20eb00ae@gmail.com>
- <20261020021924-mutt-send-email-mst@kernel.org>
- <CAHk-=wjxtzD1TXZr5iWu0p1+Hu0YZP7jbNSwFkp7AJYmhzhVCA@mail.gmail.com>
- <CAHk-=wipGHx_1Uztmu773yuTM2ka1fq996UmNoJpvKS0gqEdMg@mail.gmail.com>
- <atdqUYdIOqmiqqTt@gmail.com>
- <CAHk-=whrUi2M+whqwS8yfqZ=W9ts6NPOzxzGfBOwOfCC3ooeMA@mail.gmail.com>
- <CAHk-=wjFBSH9M2GYKRnd-jrMGaa-gPBoGhuscJAu4n1hGsuX7g@mail.gmail.com>
- <CAHk-=wj51-syPoqMBLnxMeLnsbCMDMXfKzKZCtOHhwWEk5DeRw@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3223310E187;
+	Wed, 21 Oct 2026 15:43:05 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2BB510E187
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 15:42:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1792597378;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Zq0meheIWFxmeUOFFDG2C2Iy+OUkZpOHMmtcorZaUXs=;
+ b=RU61zTPDJEkBlDkw44FKUfHRuKMrB2ILdzxIelgp0wvSNY8UZxhMmT+lKvv+OxTDz0P0mk
+ 6HMYjIslyBacAkdKckGfGay1fRUhxDQ+8tH1AMfPnzkNmuY69OZORv1ZQ1FK3XVM/kfkI+
+ yQlQqVZnDnwHjdwSNpoyS1O8Nh+mUeU=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-646-EmzSbsWyOMaIy7nlffsu5w-1; Wed,
+ 21 Oct 2026 15:42:55 +0000
+X-MC-Unique: EmzSbsWyOMaIy7nlffsu5w-1
+X-Mimecast-MFC-AGG-ID: EmzSbsWyOMaIy7nlffsu5w_1792597371
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 9A3731955F40; Wed, 21 Oct 2026 15:42:49 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb
+ (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 4760518002B1; Wed, 21 Oct 2026 15:42:39 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH RFC v2 0/8] memcg: dma-buf cgroup accounting and charge
+ transfer
+Date: Wed, 21 Oct 2026 17:42:21 +0200
+Message-Id: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wj51-syPoqMBLnxMeLnsbCMDMXfKzKZCtOHhwWEk5DeRw@mail.gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQrCMBSEr1Le2kjy0saflSB4ALdSQk1f2ohtJ
+ ClBKb27oR7A3cx8MN8MkYKjCMdihkDJRefHXHBTgOmbsSPm2twBOSpe8T1LqHOWXKDU02OgYBw
+ F3XnfPUkbPzBbltbYu1CV5JBvXoGse6+KG1wvZ6jz2Ls4+fBZtUms6GcQ+N+QBONMSVQ7LoxUB
+ 3EK1PbNtM0Q6mVZvsLwuMfWAAAA
+X-Change-ID: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Albert Esteve <aesteve@redhat.com>, mripard@kernel.org, echanude@redhat.com
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792597359; l=5394;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=MS4zwLlyVCfwhsSvb1IeSKwj4iG/Qm98gmNYNJOwbsM=;
+ b=agyIVdfvg7HqBQCD4OxEOrWUHQwfY+kfAKV8I5NR48qkBfOIAqjk9GzNSjeD7lsMVDMJTFUqg
+ g2gQ3mohTjRADVTwZUpCc8K+uUr31IpGojhy7WEy0K4qRkTd2hYgodF
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: kFbW9evCKyOJFQveJ9URmUAd-DENX_k2Ii4xJ_HlT50_1792597371
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,28 +98,121 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+This series adds memory cgroup accounting for dma-buf allocations,
+building on T.J. Mercier's earlier series [1] and incorporating
+feedback from the v1 and LPC discussions.
 
-* Linus Torvalds <torvalds@linuxfoundation.org> wrote:
+Patch 1 introduces the MEMCG_DMABUF stat and charge/uncharge helpers.
+Rather than charging at the page level via __GFP_ACCOUNT (which would
+require every dma-buf exporter to implement charging, and makes
+cross-cgroup transfer impractical without access to backing pages),
+we track charges externally on struct dma_buf via a MEMCG_DMABUF stat
+counter and route all accounting through a single path, removing the
+__GFP_ACCOUNT flag from system-heap allocations to avoid double
+counting.
 
-> On Tue, 20 Oct 2026 at 11:10, Linus Torvalds
-> <torvalds@linuxfoundation.org> wrote:
-> >
-> > And it all really does look obviously correct, but ...
-> 
-> I think I'm just gping to merge this. I don't love all the changes,
-> but I love __get_user and __put_user less.
+Patch 2 adds a charge_fd field to DMA_HEAP_IOCTL_ALLOC, accepting
+either a pidfd or a cgroupfd to identify the target cgroup at
+allocation time. If the target cgroup cannot accommodate the charge,
+the allocation returns -ENOMEM.
 
-Good riddance in any case, and for the x86 bits:
+Patches 3-4 add LSM hooks for the two charge_fd flavours:
+security_dma_buf_charge_task() gates the pidfd path (target
+identified by task credentials) and security_dma_buf_charge_cgroup()
+gates the cgroupfd path (target identified by cgroup directory label).
 
-	Acked-by: Ingo Molnar <mingo@kernel.org>
+Patches 5-6 implement the SELinux side under a dma_buf object class
+with charge_task and charge_cgroup permissions. For charge_cgroup,
+the target SID is derived from the cgroup directory's SELinux label.
 
-Thanks,
+Patch 7 adds DMA_BUF_IOCTL_XFER_CHARGE, a general ioctl on any
+dma-buf fd to transfer charges (or charge) post-allocation. This
+covers the double-hop allocator case (SurfaceFlinger -> gralloc) and
+works for buffers from any exporter (DRM, V4L2, etc.). If the
+receiving cgroup lacks capacity for the charge, the ioctl returns
+-ENOMEM and the original charge is preserved.
 
-	Ingo
+Patch 8 adds selftests.
+
+Known limitations:
+
+- Single-owner model: a dma-buf carries one memcg charge regardless
+  of how many processes share it.
+- Only memcg accounting. CMA heaps would additionally need dmem
+  controller integration.
+- Charging CMA-backed heaps to memcg charges unreclaimable memory:
+  when a cgroup hits its limit, try_charge_memcg() may trigger a
+  reclaim pass that cannot free CMA pages. A future version could
+  move charging into per-heap callbacks.
+- If a transfer of an uncharged buffer fails, the buffer remains
+  uncharged. The allocator (userspace) is expected to handle this
+  (e.g., retry, free, ...).
+- The LSM hook is intentionally narrow. Broader cgroup access controls
+  could be a separate effort.
+
+[1] https://lore.kernel.org/cgroups/20230109213809.418135-1-tjmercier@google.com/
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Changes in v2:
+- Move charge_pid_fd to charge_fd, accepting cgroupfd in addition
+  to pidfd per Christian König.
+- New DMA_BUF_IOCTL_XFER_CHARGE ioctl for post-allocation charge
+  transfer on any dma-buf, not just dma-heap buffers per Christian König
+  and T.J. Mercier.
+- Moved __GFP_ACCOUNT removal to patch 1 per Barry Song.
+- dma-buf charge/uncharge helpers take struct dma_buf * directly
+  to avoid the need for caller to manage size calculations.
+- Added test_xfer_charge_cgroupfd_self to dmabuf-heap selftests.
+- Added LSM and SELinux hooks for cgroupfd-based charging.
+- Rebased to v7.3-rc7.
+- Link to v1: https://lore.kernel.org/r/20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com
+
+---
+Albert Esteve (7):
+      dma-heap: charge dma-buf memory via explicit memcg
+      security: dma-buf: Add dma_buf_charge_task LSM hook
+      security: dma-buf: Add dma_buf_charge_cgroup LSM hook
+      selinux: Restrict cross-cgroup dma-buf charging
+      selinux: Restrict dma-buf direct cgroup charging
+      dma-buf: transfer memcg charges via DMA_BUF_IOCTL_XFER_CHARGE
+      selftests/dmabuf-heaps: Add dma-buf memcg accounting tests
+
+T.J. Mercier (1):
+      memcg: Add MEMCG_DMABUF accounting infrastructure
+
+ Documentation/admin-guide/cgroup-v2.rst            |   5 +
+ drivers/dma-buf/dma-buf.c                          |  80 ++++++++
+ drivers/dma-buf/dma-heap.c                         |  72 ++++++-
+ drivers/dma-buf/heaps/system_heap.c                |   2 -
+ include/linux/dma-buf.h                            |   4 +
+ include/linux/lsm_hook_defs.h                      |   2 +
+ include/linux/memcontrol.h                         |  29 +++
+ include/linux/security.h                           |  14 ++
+ include/uapi/linux/dma-buf.h                       |  26 +++
+ include/uapi/linux/dma-heap.h                      |   7 +
+ mm/memcontrol.c                                    |  94 +++++++++
+ security/security.c                                |  32 +++
+ security/selinux/hooks.c                           |  40 ++++
+ security/selinux/include/classmap.h                |   1 +
+ tools/testing/selftests/cgroup/Makefile            |   2 +-
+ tools/testing/selftests/cgroup/test_memcontrol.c   | 145 +++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/config        |   1 +
+ tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 222 ++++++++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/vmtest.sh     | 205 +++++++++++++++++++
+ 19 files changed, 974 insertions(+), 9 deletions(-)
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+
+Best regards,
+-- 
+Albert Esteve <aesteve@redhat.com>
+
