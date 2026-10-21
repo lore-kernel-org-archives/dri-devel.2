@@ -2,52 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2226D606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:04:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104DC606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 10:04:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lD9vfE1f
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BxQABdCK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81FF210FD4B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF21210FD4E;
 	Wed, 21 Oct 2026 10:04:14 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05C8410F9CB;
- Wed, 21 Oct 2026 10:04:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8F8C10F9CB;
+ Wed, 21 Oct 2026 10:03:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792577045; x=1824113045;
+ t=1792577038; x=1824113038;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=WF3jG7iusbsk5uFIobgDvu+KcwjvG5L1s1qeIcvIJIM=;
- b=lD9vfE1fByjw1BO2bufB18yB89H8MxJATWdoNfdkpuum3Cka9yukf+Z8
- Tv34XQsFmmPFyEWM3AZXfxhi/yUTzyyblhYxMSbF+CpNqQFbnlM7MsUbz
- JYuFSvi+fDJhGvqPkF0BIYwTk8PpRRaK0JEBZNQoVCxG/VG0XRSiyE06N
- UE4TEqi5/eGd2VY3Afyl5l10MCk/yVpzIRSLioEiIUgg5oaN4/XYL65ie
- IGejo1a7JdCXZtPfRLNm6urragVTg6oEppEnLXVUfHCUXDuNahzbiQFOg
- YPxzPtShbL7NpNYuYJW1TNt/3NVQYZOoJFUMyP92iULGWi/ZlHGpZqSpp g==;
-X-CSE-ConnectionGUID: TWBiXB57RBiX6Jl5Ewj+pw==
-X-CSE-MsgGUID: 248OGsbLRLOUEP16WWxLlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1290311"
+ bh=dhZMWtrjVy5Gy0jAW5Exa/cIUx/U1SS3jlHFaRwgLAo=;
+ b=BxQABdCKgf70cRmTT7M1BG2RY2zjwBUAuBSThFfUq3LHkFxOmQtFG+5g
+ FF4Ca1Ejy75bvdx4QhZP8OU4jFvbe8EE9P5JiN03T74bdHKP/ypRS9qvv
+ ODREbSCY0Ww9QEhOFTGEqAY8UGN4Riu4FGkvK3CsDm9ELZ5VrZZjqtO7S
+ Y1pZktCdNK1sRXAILyB4QqVluLIyY8xTEx4zmbJ/DanTaJVr/l0G5mVua
+ l8FYq02cJN91yF+cYmbqRdoM3WGjtOqfwRmqULldpNNEU7nT2k/2BQ5ku
+ H+WXGAKzLrYvVJiK5gSMC3T4R3gc0q3seDLeYyAWFvUGlv6zejhrcGyzm w==;
+X-CSE-ConnectionGUID: TwbKrPNvRwm/yhxIfA2giw==
+X-CSE-MsgGUID: LivjCH5pRmW6I2iSNuWW4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1290298"
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1290311"
+   d="scan'208";a="1290298"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 03:04:05 -0700
-X-CSE-ConnectionGUID: pcqClIVPSNGCxxxEHmkNwQ==
-X-CSE-MsgGUID: fM15UDjsRH6DRSc7R1pCJQ==
+ 21 Oct 2026 03:03:58 -0700
+X-CSE-ConnectionGUID: CvLf59lARQuMBKwg5VhYhA==
+X-CSE-MsgGUID: 8m1sI3GZRsGDlkU0pbW/iA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3382114"
+   d="scan'208";a="3382097"
 Received: from varungup-desk.iind.intel.com ([10.190.238.71])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 03:04:00 -0700
+ 21 Oct 2026 03:03:55 -0700
 From: Arvind Yadav <arvind.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: matthew.brost@intel.com, himal.prasad.ghimiray@intel.com,
  thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com
-Subject: [RFC v3 10/17] drm/xe: Reuse one dummy page per BO after wedge
-Date: Wed, 21 Oct 2026 15:33:11 +0530
-Message-ID: <20261021100322.1014449-11-arvind.yadav@intel.com>
+Subject: [RFC v3 08/17] drm/xe: Skip VM close hardware access when device I/O
+ is blocked
+Date: Wed, 21 Oct 2026 15:33:09 +0530
+Message-ID: <20261021100322.1014449-9-arvind.yadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261021100322.1014449-1-arvind.yadav@intel.com>
 References: <20261021100322.1014449-1-arvind.yadav@intel.com>
@@ -74,126 +75,72 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-ttm_bo_vm_dummy_page() allocates a page and a managed cleanup action on
-every call. These allocations remain until the DRM device is released,
-so repeated fallback faults can retain many pages.
+xe_vm_close() uses drm_dev_enter(), which only checks unplug. After a
+permanent wedge, VM close can still write page tables in VRAM and request
+TLB invalidation.
 
-Keep one zeroed dummy page in each Xe BO and reuse it when device I/O is
-blocked or the device is unplugged. Use cmpxchg() to handle concurrent
-faults and free the page when the BO is destroyed.
+Use xe_device_io_get() around page-table clearing and TLB invalidation.
+Skip these operations when device I/O is blocked or unplugged, while
+still closing the VM and running software cleanup.
 
-A per-BO page also prevents writable mappings from different BOs from
-sharing data.
-
-Map only the faulting address and return the insertion result directly.
-Other addresses fault on demand and reuse the same dummy page.
-This avoids walking a potentially large VMA during a single fault.
-
-v2:
- - Drop whole-VMA prefaulting and map only the faulting address to avoid
-   long fault-handler runtimes on large mappings. (Sashiko)
-
-v3:
- - Map the dummy RAM page with normal WB protection. (Sashiko)
+Take the gate after the pending-bind fence wait. Isolation waits for
+hardware cleanup admitted before the block, without including that
+fence wait in this function's gate.
 
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Assisted-by: LLM
+Suggested-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_bo.c       | 33 +++++++++++++++++++++++++++++++-
- drivers/gpu/drm/xe/xe_bo_types.h |  4 ++++
- 2 files changed, 36 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_vm.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 8fef7fa99ac4..6efcf3f5dda8 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -1994,6 +1994,9 @@ static void xe_ttm_bo_destroy(struct ttm_buffer_object *ttm_bo)
- 		list_del(&bo->vram_userfault_link);
- 	mutex_unlock(&xe->mem_access.vram_userfault.lock);
- 
-+	if (bo->wedged_dummy_page)
-+		__free_page(bo->wedged_dummy_page);
-+
- 	kfree(bo);
- }
- 
-@@ -2189,6 +2192,32 @@ static vm_fault_t xe_bo_cpu_fault_fastpath(struct vm_fault *vmf, struct xe_devic
- 	return ret;
- }
- 
-+static vm_fault_t xe_bo_vm_dummy_page(struct vm_fault *vmf, struct xe_bo *bo)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
-+	struct page *page, *old;
-+	pgprot_t prot = vm_get_page_prot(vma->vm_flags);
-+	unsigned long pfn;
-+
-+	page = READ_ONCE(bo->wedged_dummy_page);
-+	if (!page) {
-+		page = alloc_page(GFP_KERNEL | __GFP_ZERO);
-+		if (!page)
-+			return VM_FAULT_OOM;
-+
-+		old = cmpxchg(&bo->wedged_dummy_page, NULL, page);
-+		if (old) {
-+			__free_page(page);
-+			page = old;
-+		}
-+	}
-+
-+	pfn = page_to_pfn(page);
-+
-+	/* Map other addresses on demand instead of walking the whole VMA. */
-+	return vmf_insert_pfn_prot(vma, vmf->address, pfn, prot);
-+}
-+
- static vm_fault_t xe_bo_cpu_fault(struct vm_fault *vmf)
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 645c5e906224..0a8dfe23cc20 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -1932,11 +1932,8 @@ struct xe_vm *xe_vm_create(struct xe_device *xe, u32 flags, struct xe_file *xef)
+ static void xe_vm_close(struct xe_vm *vm)
  {
- 	struct ttm_buffer_object *tbo = vmf->vma->vm_private_data;
-@@ -2204,7 +2233,7 @@ static vm_fault_t xe_bo_cpu_fault(struct vm_fault *vmf)
- 	int io_idx;
+ 	struct xe_device *xe = vm->xe;
+-	bool bound;
+ 	int idx;
  
- 	if (xe_device_io_get(xe, &io_idx))
--		return ttm_bo_vm_dummy_page(vmf, vmf->vma->vm_page_prot);
-+		return xe_bo_vm_dummy_page(vmf, bo);
+-	bound = drm_dev_enter(&xe->drm, &idx);
+-
+ 	down_write(&vm->lock);
+ 	xe_vm_lock(vm, false);
  
- 	ret = xe_bo_cpu_fault_fastpath(vmf, xe, bo, needs_rpm);
- 	if (ret != VM_FAULT_RETRY)
-@@ -2494,6 +2523,8 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 			return bo;
+@@ -1955,13 +1952,15 @@ static void xe_vm_close(struct xe_vm *vm)
+ 				      DMA_RESV_USAGE_BOOKKEEP,
+ 				      false, MAX_SCHEDULE_TIMEOUT);
+ 
+-		if (bound) {
++		if (!xe_device_io_get(xe, &idx)) {
+ 			for_each_tile(tile, xe, id)
+ 				if (vm->pt_root[id])
+ 					xe_pt_clear(xe, vm->pt_root[id]);
+ 
+ 			for_each_gt(gt, xe, id)
+ 				xe_tlb_inval_vm(&gt->tlb_inval, vm);
++
++			xe_device_io_put(idx);
+ 		}
  	}
  
-+	bo->wedged_dummy_page = NULL;
-+
- 	bo->ccs_cleared = false;
- 	bo->tile = tile;
- 	bo->flags = flags;
-diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
-index 8ec4a01a0092..80aeb4e31fe9 100644
---- a/drivers/gpu/drm/xe/xe_bo_types.h
-+++ b/drivers/gpu/drm/xe/xe_bo_types.h
-@@ -21,6 +21,7 @@ struct xe_device;
- struct xe_mem_pool_node;
- struct xe_vm;
- struct xe_exec_queue;
-+struct page;
+@@ -1970,9 +1969,6 @@ static void xe_vm_close(struct xe_vm *vm)
  
- #define XE_BO_MAX_PLACEMENTS	3
+ 	xe_vm_unlock(vm);
+ 	up_write(&vm->lock);
+-
+-	if (bound)
+-		drm_dev_exit(idx);
+ }
  
-@@ -112,6 +113,9 @@ struct xe_bo {
- 	/** @vram_userfault_link: Link into @mem_access.vram_userfault.list */
- 	struct list_head vram_userfault_link;
- 
-+	/** @wedged_dummy_page: Zeroed page used for faults after device wedge */
-+	struct page *wedged_dummy_page;
-+
- 	/**
- 	 * @min_align: minimum alignment needed for this BO if different
- 	 * from default
+ void xe_vm_close_and_put(struct xe_vm *vm)
 -- 
 2.43.0
 
