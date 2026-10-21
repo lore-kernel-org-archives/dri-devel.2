@@ -2,111 +2,139 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCFB606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:08:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04804606A32A
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:13:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vq786MKU
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=punrYVcr;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TLAZXjyZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6848110F9BA;
-	Wed, 21 Oct 2026 12:08:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77B8210F9BA;
- Wed, 21 Oct 2026 12:08:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 94FF760098;
- Wed, 21 Oct 2026 12:08:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54DA1F000C4;
- Wed, 21 Oct 2026 12:08:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792584504;
- bh=qc9sPLphgZ7QSWhmy8R5+v9PeXT7acWu+WtEs/0esaA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Vq786MKURiKZ5k195eYF07FNPCGCfvd89jSJNH3in6w/tygog5IdgOCbphRK47a3y
- nq2r9wBK0Q5wGA9WS1mjHSDRLwvgtpSEWxAAc57z5qasBi5mYcqrKvmcyHNQHtXGDy
- 54RDsqbsH2SNzl9Z3sK1tE7/bn2D7m+k6K9J431YSbro75H1sAW0+ddHJuGQNp0CGD
- tPogXKa63owmZOjUakOpW6tF1pOBFTOqaZ768yZMN8bHDheXTILfT7W6K6pnnsbSpw
- nQcnqt1YSzybetkJc+PFQ+o8MmKAFtLg3jC6IslmNI0Ly8f7PDgJvRI8Nhnve6KEdF
- Hh60LjJjFnmBg==
-Message-ID: <95d92a33-df2e-48b4-a2ff-89b00a61aa89@kernel.org>
-Date: Wed, 21 Oct 2026 14:08:13 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6162610FA95;
+	Wed, 21 Oct 2026 12:13:11 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBD2110E269
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:12:59 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69LBg49m325099
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:12:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ aXcvh625bjwiF0YJvjLteYVFkzEmw/+Lbr5Sgxf40Ag=; b=punrYVcrXe+hI5F+
+ u73h3hYEP5tY0mkcm9+Z0emKtuJvzIxuDJeTjVSpSaN3AofayUURPQYCABs0LwqZ
+ GvZjU1wXn/tAABVsInW1QCpwEoJCkh9hCgi7pKhACAVsj/S0Ppf3EFvZzWt/gUhK
+ V1gX7copJ93B1cH89r9gFJFbO82qaomtkHtHKlcGc+BVweLEmFWyMyVV6mO9BWN2
+ rE2g9zFeXzcjshkcA0XNqjwlDNUE56wU8A07F/Wm16Nt0AiORY5NhdPpQwb8pv0J
+ 1jSf4tgtFjsVKtIqUhgg3ZaJBVnVSQ+TwLpMdOpHAQaG8Lh7SMmxuNtS+7l5/hl2
+ eocV2A==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9v3uw4-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:12:58 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93edac5877bso20570085a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 05:12:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792584778; x=1793189578;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=aXcvh625bjwiF0YJvjLteYVFkzEmw/+Lbr5Sgxf40Ag=;
+ b=TLAZXjyZuZOa7ZESBSiWxypgwqWjSA6RrzY0I1WYpO8PAkGNpkgmiKM82b6D40WB50
+ FUxOThsP9gMP7pXhQJCNsKioZ67UQl8HIQ7fE4PU6wAJnQbhu3n61pYX7hV6dYtyqyOs
+ /VH62ayEqgsDMlR7du4TTTGAbxwMv3wsXjxfFqunl43Rx6N6Z29ZBuLwB8xjNKXzTf6O
+ hKj2s14Jg/5IBMGjuAKMezxLD8iStlQIq3DEO7ZXjZrmj5P++/zwOcprsXVPpqfmhWyP
+ vJrmYC+QiR0De9IN//l9vsLW3GMleJgwB+ldjuJ/upTV/Ykg0w2QOwqgqrq3XMZohDza
+ h3Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792584778; x=1793189578;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=aXcvh625bjwiF0YJvjLteYVFkzEmw/+Lbr5Sgxf40Ag=;
+ b=fz4i5p+cKPa+IzWolxGLZNC/UsiV7/pQrFzpyNmJTjwUboX/mRTxJcmQzNyD001Nrk
+ hOES33OdHQXbuk5f7bgUwYnDrAaqDwyuGDAvr5E5cIBjsXkO16ESFkK3ykFBJ6aUzGkt
+ /Ez9dlM5feuYKkshiWQ0ZIjplQb7e3AEELM8rJV/0kLgMK5XY/HwotkqIKpeTF/iP99q
+ rtEaz6eKn1QnYKv8uUGtQAH2/GF0eqvV2+zFNmoA/Dzo7gFfxb2/bqNIS0xr2uBAvrJJ
+ 1dBMdz6uKQkqGCK5cTML4jrysZbeihP9FwCW++MVMVzRtdlRbp21W70fFyUkDHAxO701
+ /Q1A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByLPjUGhRtzkGA8tlMrq0R73dfNlgGPjJUxXZRmoJxtIy47Z9dBZp4OmwthuAVcb65o2SvJwsQ5Wbg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIjvPMJBBAOeUqQq0eT5tN2X+CLgIASdU3jHvKg+W/0KnFI8zlm
+ os8s4vFcQGVzZP4sVXJDSvaI2ccQVYMCyedILSb6KXr82Qlh1zo/qKSx4ApDvwzK/4YLmkRX8uy
+ cvITPovFJmgM2mWOdiDHdgHqhY1x+zQXSZLR/aXCtY46rC9n4LqjxXmMh/HJObCHtO1BeHMw=
+X-Gm-Gg: AYBFou1oNM3bSnx8fdb/j1O2bh0l3s8ileCcjRPizuWRpiA8wLh7OgBeQBcLVyjAprY
+ LStxfGUEebL5gA9ncplW0TjrodHIZBxkCX3bs7SA7nxI99uc0FPf52AsrYJUrY6WoP2uq/xrbYu
+ c8q0x98aeIhSLN6I165QRYZL2CPVHtqFhliJnPHVi5vnrW3UvGaFUhQXRhGZcfIEW3MXUGL5OHL
+ SpQV+SSJSgSgdU/IDI69N1wGpqcepX/jDayOXbEDNleZcNY4uGUSdKh6I6zcE5EAxRjiZ2c25b3
+ JFuJLQzRi+iQq+2kRL724QFnxFI+3wjRYdqtqfFM+IPRhkHOj+8Nh/R/MQzqm6XYYA3Vnd+nX8c
+ ZNmPMfQuxsmXIBEsUEGakrw==
+X-Received: by 2002:a05:620a:800c:b0:93e:5a3f:ac13 with SMTP id
+ af79cd13be357-93f57dbbb66mr435410485a.0.1792584777694; 
+ Wed, 21 Oct 2026 05:12:57 -0700 (PDT)
+X-Received: by 2002:a05:620a:800c:b0:93e:5a3f:ac13 with SMTP id
+ af79cd13be357-93f57dbbb66mr435406285a.0.1792584777265; 
+ Wed, 21 Oct 2026 05:12:57 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6b402f2be12sm819079a12.2.2026.10.21.05.12.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Oct 2026 05:12:56 -0700 (PDT)
+Message-ID: <70c9b4de-6403-46ba-a125-9e792d4f63c8@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 14:12:52 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/13] dt-bindings: display: msm: Document the Nord
- DiplayPort controller
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+Subject: Re: [PATCH] drm/msm/adreno: Leave the GPU RSC awake for system
+ poweroff
+To: Michael Burch <me@michaelburch.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Shawn Guo <shengchao.guo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Ritesh Kumar
- <ritesh.kumar@oss.qualcomm.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>
-References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-2-a2ab9af954d2@oss.qualcomm.com>
- <20261013-tangible-wakeful-swift-a38f8f@quoll>
- <20261013-honored-bear-of-cleaning-bd8108@quoll>
- <425ddb41-cfd7-4032-8666-0193ab6b5819@oss.qualcomm.com>
- <565fd4c2-2d5a-4c2a-9ed1-c7bcb17efc9d@kernel.org>
- <dd18e6d5-cb7b-407f-8e7a-2c6fd00359cb@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Shivam Rawat <shivrawa@qti.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261003193518.13811-1-me@michaelburch.net>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <dd18e6d5-cb7b-407f-8e7a-2c6fd00359cb@oss.qualcomm.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261003193518.13811-1-me@michaelburch.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfX2OM2E/eiqDcQ
+ K7lu0oILC/dpx0mLMYOULuyDgx5VWeQ9yzlxIHdKTpeC6FVqfCcTQqUgL49JBgpJL962uSRKppM
+ Ica7HFats3voM/YW2O96RVrtCJnybJA=
+X-Proofpoint-ORIG-GUID: njdN5K2ivNljJVNAPvmGnb7_urSevvTb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfX3yxA61n24aD1
+ CzxjJmFIWb0xSo+f3720GcdiDMlBLA1VjIpQjJrJCKod06YPXJm1NJnekbcnnNov0r2HdvBo1Wp
+ yMREIGuiHG0qKv2pZFAH/cNZElVzxOacEstg4rAe21tuFvcYu8WWzOmcdfCiqBl2wT1TjedkD6x
+ e0oJ/DmEQV0i4rc4XzltzHi+JQVMpltIHL38tTvt3MXKOjyu597clchqp1om/7N4XvPjHbEu3or
+ XOrZEYyLI/Q9oFvbN3vo+z4Q+IcguHWTwZFw7OcapyXO1rUJqyy7hAuluNMvdnuh/kEpRZ8Irey
+ AOU+KrqLFLFqCYMRXuzGqxpNKgQwGKWaxE/F6zL7vfDDAj6rPfe+CKXKPqdX7BG4OGVc1Ra5LaS
+ ZLP4hU6jRpRB6HOLIVZUTqXClUXRuSzmDGuttd2HSiLwk4udRwxcsckwo0QaHUTr069ljYfAiTV
+ ogChEiyTIigATiicUIw==
+X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6ad8ac4a cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=OZ7Xlw-yAAAA:8 a=jfroN63_7_ZKNpzpi8AA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=qwMvOfr3u-Fs83Rmfh-C:22
+X-Proofpoint-GUID: njdN5K2ivNljJVNAPvmGnb7_urSevvTb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210048
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,54 +146,32 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 21/10/2026 14:00, Nabige Aala wrote:
+On 10/3/26 9:35 PM, Michael Burch wrote:
+> On X1E80100 (Dell XPS 13 9345), commit d9108bfdb746 ("drm/msm/a6xx: Fix
+> stale rpmh votes after suspend") appears to turn poweroff into a reboot.
+> It seems to happen when the GPU RSC/PDC is asleep at system off, i.e.
+> when the GPU was idle before shutdown. Keeping the GPU awake until
+> shutdown avoids it.
 > 
-> On 10/21/2026 5:23 PM, Krzysztof Kozlowski wrote:
->> On 21/10/2026 13:16, Nabige Aala wrote:
->>> On 10/13/2026 2:18 PM, Krzysztof Kozlowski wrote:
->>>> On Tue, Oct 13, 2026 at 09:44:15AM +0200, Krzysztof Kozlowski wrote:
->>>>> On Mon, Oct 12, 2026 at 07:02:12PM +0530, Nabige Aala wrote:
->>>>>> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->>>>>>
->>>>>> Nord uses MDSS 12.1 with two independent DP controller instances,
->>>>>> each exposing two DP cores at new IO offsets. None of the existing
->>>>>> compatibles match this layout, so add qcom,nord-dp.
->>>>>>
->>>>>> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->>>>>> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
->>>>> Do I understand correctly:
->>>>> Device is fully compatible with qcom,sa8775p-dp, but a simple to fix
->>>>> driver limitation is preventing compatibility?
->>>>>
->>>>> If so, let's fix the driver - just add more addresses to the
->>>>> msm_dp_desc_sa8775p array?
->>>> Or it does not matter, because top-level MDSS anyway cannot use
->>>> compatibility?
->>> For MDSS0, the DP register offsets are same to those used on SA8775P.
->>> However, the MDSS1 DP register offsets differ from SA8775P, and Nord
->>> also utilizes a different MDSS instance. Because of these differences,
->>> we introduced a separate compatible string for Nord.
->>>
->>> Are you suggesting that Nord should reuse the "msm_dp_desc_sa8775p"?
->>> This would also pollute the sa8775p's desc table.
->> What are the differences? Only registers, so no pollution. You just need
->> them to match IDs.
+> Resume the GPU in adreno_shutdown() and skip the RSC sleep in the final
+> stop. Suspend and runtime suspend are unchanged.
 > 
-> Yes, only registers are changed.
+> Tested on X1E80100 only: poweroff and reboot on AC and battery, and
+> deep suspend still drops the GPU votes.
 > 
-> Okay, I'll update the SA8775P descriptor table to also support Nord and 
-> drop the "qcom,nord-dp" compatible string change.
+> Fixes: d9108bfdb746 ("drm/msm/a6xx: Fix stale rpmh votes after suspend")
+> Signed-off-by: Michael Burch <me@michaelburch.net>
+> ---
 
-Well, I am not insisting - see my last question - this just has to be
-addressed.
+This is odd - did you test it precisely with and without this patch
+and no other changes?
 
-Best regards,
-Krzysztof
+Konrad
