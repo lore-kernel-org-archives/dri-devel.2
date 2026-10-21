@@ -2,53 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E463606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 17:16:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C135606A31B
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 17:16:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g07WVQAo
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kAUHiTUB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 082FE10FEE9;
-	Wed, 21 Oct 2026 17:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C71210FF20;
+	Wed, 21 Oct 2026 17:16:26 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DEBB10E368;
- Wed, 21 Oct 2026 17:16:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D0C810E352;
+ Wed, 21 Oct 2026 17:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792602977; x=1824138977;
+ t=1792602975; x=1824138975;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Zm8EvW57Q8xaDWRt3CYaX4xnF7Fdmgz2CtbjsusYwqk=;
- b=g07WVQAoehuvd7+FmgYwSsf+Ny9KMFHiNTK+QaeA8eJMyHNxIWuXNCOn
- NeLV7+yMjMWe3A6UM/BGxVs7BOQAKAMFwrJ67jjsgFpJ/QaM9hiU+UBkP
- 4y6MOFRd2C3tayo5LJIhzBQTiW+B7UivnYPvrLTrYNSoK628caEf2HFPr
- T9nNiW6MYeQxz5w7YWBSuTrGMyQ1YPvRU9kFBtGwl9utcPOZgOwbkTbeL
- J9du7RrrsDxl9Qg08NOtnVzb+4R/ST2GlanznnXqG1lf8TrfVKdGR+LNg
- e+zpXcFfrk1XNvJ49nxKDOE+w8AklJQJ3JVteHcvk3vslz+//vZZ6uJbD Q==;
-X-CSE-ConnectionGUID: Elzn6Z/lSjmusAJfiByeuw==
-X-CSE-MsgGUID: uWkcleaGQyGZld0CJJX7rg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1336375"
+ bh=+gmKAgiByhS2dF/IoLFBCIo1Krc1cUo7Cb+YHBixsrg=;
+ b=kAUHiTUB5MGXMmGAP9/jfiVO00L3/g3rC38vc/TVcTj4Ym+QYOIY5sR3
+ b5GKcSJYLyDslu7Q+kL3Jm/DTqnFuzZhhmDUZGFPDR6q+iD6Tgt5MXBHK
+ pmR9d1oWgCJj3yxUohaMBz8MyWamDlUbDQA1/46TRA4OFyCrC3/rnokjY
+ x4ISrasf9VVI+F4Q7//kSSRjACGQrtkQRAFOXWdLRdwa51o+lyXn7W5bD
+ LKMVXi2tKRYrVnCA9CkhrzQrswmrRUiA/rS1oaCJZng9kEJw8+FD64iC8
+ w7gA+s5hGd91rlnO9RZZjMM/YdPud5Nzso9Xg/276G0Zy5BO1Jti/VYd5 Q==;
+X-CSE-ConnectionGUID: XJvULYtmRsiFfGD/g34WjA==
+X-CSE-MsgGUID: oXGXp64ARqKh2Gh/QqWh0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1336369"
 X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1336375"
+   d="scan'208";a="1336369"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 10:16:16 -0700
-X-CSE-ConnectionGUID: N7NmsOMIQMSYyz01ut6ioA==
-X-CSE-MsgGUID: I7GNfC+dQV+Y1lfqBVbM6w==
+ 21 Oct 2026 10:16:14 -0700
+X-CSE-ConnectionGUID: FMZurlhHTnmtvqgljQiWPA==
+X-CSE-MsgGUID: a0oWCJGCQ1qWzjDTQ/6Zzw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3152345"
+   d="scan'208";a="3152340"
 Received: from yadavs-z690i-a-ultra-plus.iind.intel.com ([10.190.216.90])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2026 10:16:14 -0700
+ 21 Oct 2026 10:16:12 -0700
 From: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>,
  Arun Pravin <arunpravin.paneerselvam@amd.com>,
  Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v2 2/2] gpu/tests/buddy: Add range-bias pruning and free-order
- tracking tests
-Date: Wed, 21 Oct 2026 22:39:48 +0530
-Message-ID: <acd1a30cc29c3d6efc14723cb90434d0e378ea0a.1792599420.git.sanjay.kumar.yadav@intel.com>
+Subject: [PATCH v2 1/2] gpu/buddy: Prune exhausted subtrees in range-biased
+ allocation
+Date: Wed, 21 Oct 2026 22:39:47 +0530
+Message-ID: <8b4527041a7dab03f1fb0d05b59bc9a117b76828.1792599420.git.sanjay.kumar.yadav@intel.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1792599420.git.sanjay.kumar.yadav@intel.com>
 References: <cover.1792599420.git.sanjay.kumar.yadav@intel.com>
@@ -69,27 +69,28 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-gpu_test_buddy_range_bias_pruning fills a 128 MiB range of a 512 MiB
-manager with 4K range allocations. It checks top-down placement, that
-the exhausted range advertises GPU_BUDDY_NO_FREE_ORDER, -ENOSPC inside
-the range while space outside stays usable, and that freed holes are
-found again. To check pruning itself, it hides the only free block
-behind an ancestor that advertises no free space and expects -ENOSPC;
-without pruning the search would return that block. Allocation time is
-reported but not asserted.
+__alloc_range_bias() walks the buddy tree depth-first, higher address
+first, and descends every SPLIT block even when nothing below it is
+free. Range allocations are placed top-down, so they pack below the
+range end and each new one walks every block already allocated there:
+O(N) per allocation and O(N^2) for N allocations, under the allocator
+lock.
 
-gpu_test_buddy_free_order_tracking covers root creation, split,
-allocation, partial and full coalescing (4K vs 64K), rollback of a
-partially satisfied request, gpu_buddy_block_trim() with and without an
-explicit start, exact-range, clear and top-down allocations, and
-teardown.
+Track in each block the largest order of any FREE block in its subtree
+(GPU_BUDDY_NO_FREE_ORDER if none), update it whenever a block changes
+state, and skip subtrees that cannot satisfy the requested order.
+gpu_buddy_block_trim() detaches the block while re-allocating inside
+it, so recompute from the parent once it is reattached.
 
-Both use a helper that checks every block's subtree_max_free_order
-against its state and its children.
+Skipped subtrees contain no FREE block of the requested order or
+larger, so the old walk could neither split nor return anything there.
+The remaining blocks are visited in the same order, so the selected
+block and placement are unchanged.
 
 Cc: Matthew Auld <matthew.auld@intel.com>
 Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
@@ -97,333 +98,120 @@ Cc: Joel Fernandes <joelagnelf@nvidia.com>
 Assisted-by: LLM
 Signed-off-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
 ---
- drivers/gpu/tests/gpu_buddy_test.c | 307 +++++++++++++++++++++++++++++
- 1 file changed, 307 insertions(+)
+ drivers/gpu/buddy.c       | 31 +++++++++++++++++++++++++++++++
+ include/linux/gpu_buddy.h |  7 +++++++
+ 2 files changed, 38 insertions(+)
 
-diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
-index 2c6f1da1a6d1..dfe4ac9b5bad 100644
---- a/drivers/gpu/tests/gpu_buddy_test.c
-+++ b/drivers/gpu/tests/gpu_buddy_test.c
-@@ -1595,6 +1595,311 @@ static void gpu_test_buddy_addr_to_block(struct kunit *test)
- 	gpu_buddy_fini(&mm);
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index 28cff97d57dc..b77d7f621290 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -602,6 +602,7 @@ static struct gpu_buddy_block *gpu_block_alloc(struct gpu_buddy *mm,
+ 	block->header = offset;
+ 	block->header |= order;
+ 	block->parent = parent;
++	block->subtree_max_free_order = GPU_BUDDY_NO_FREE_ORDER;
+ 
+ 	RB_CLEAR_NODE(&block->rb);
+ 
+@@ -717,6 +718,27 @@ static void rbtree_remove(struct gpu_buddy *mm,
+ 	RB_CLEAR_NODE(&block->rb);
  }
  
-+static bool gpu_test_block_is_split(struct gpu_buddy_block *block)
++static void update_subtree_max_free_order(struct gpu_buddy_block *block)
 +{
-+	return (block->header & GPU_BUDDY_HEADER_STATE) == GPU_BUDDY_SPLIT;
-+}
++	while (block) {
++		s8 max_free;
 +
-+static void gpu_test_check_free_order(struct kunit *test, struct gpu_buddy *mm)
-+{
-+	struct gpu_buddy_block *block, *bad = NULL;
-+	unsigned int nr_bad = 0;
-+	s8 expected, bad_expected = 0;
-+	LIST_HEAD(dfs);
-+	unsigned int i;
-+
-+	for (i = 0; i < mm->n_roots; i++)
-+		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
-+
-+	while ((block = list_first_entry_or_null(&dfs, struct gpu_buddy_block,
-+						 tmp_link))) {
-+		list_del(&block->tmp_link);
-+
-+		if (gpu_buddy_block_is_free(block)) {
-+			expected = gpu_buddy_block_order(block);
-+		} else if (gpu_test_block_is_split(block)) {
-+			expected = max(block->left->subtree_max_free_order,
++		if (gpu_buddy_block_is_free(block))
++			max_free = gpu_buddy_block_order(block);
++		else if (gpu_buddy_block_is_split(block))
++			max_free = max(block->left->subtree_max_free_order,
 +				       block->right->subtree_max_free_order);
-+			list_add(&block->right->tmp_link, &dfs);
-+			list_add(&block->left->tmp_link, &dfs);
-+		} else {
-+			expected = GPU_BUDDY_NO_FREE_ORDER;
-+		}
++		else
++			max_free = GPU_BUDDY_NO_FREE_ORDER;
 +
-+		if (block->subtree_max_free_order != expected && !nr_bad++) {
-+			bad = block;
-+			bad_expected = expected;
-+		}
++		if (block->subtree_max_free_order == max_free)
++			break;
++
++		block->subtree_max_free_order = max_free;
++		block = block->parent;
 +	}
-+
-+	KUNIT_EXPECT_EQ_MSG(test, nr_bad, 0U,
-+			    "first stale block: offset=%#llx order=%u stored=%d expected=%d",
-+			    bad ? gpu_buddy_block_offset(bad) : 0,
-+			    bad ? gpu_buddy_block_order(bad) : 0,
-+			    bad ? bad->subtree_max_free_order : 0, bad_expected);
 +}
 +
-+static struct gpu_buddy_block *
-+gpu_test_find_block(struct gpu_buddy *mm, u64 offset, unsigned int order)
-+{
-+	struct gpu_buddy_block *block;
-+	unsigned int i;
+ static void mark_allocated(struct gpu_buddy *mm,
+ 			   struct gpu_buddy_block *block)
+ {
+@@ -729,6 +751,7 @@ static void mark_allocated(struct gpu_buddy *mm,
+ 	mm->used_scoreboard[gpu_buddy_block_order(block)]++;
+ 
+ 	rbtree_remove(mm, block);
++	update_subtree_max_free_order(block);
+ }
+ 
+ static void __mark_free(struct gpu_buddy *mm,
+@@ -750,6 +773,7 @@ static void __mark_free(struct gpu_buddy *mm,
+ 	mm->free_scoreboard[gpu_buddy_block_order(block)]++;
+ 
+ 	rbtree_insert(mm, block);
++	update_subtree_max_free_order(block);
+ }
+ 
+ static void mark_free(struct gpu_buddy *mm,
+@@ -772,6 +796,7 @@ static void mark_split(struct gpu_buddy *mm,
+ 	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
+ 
+ 	rbtree_remove(mm, block);
++	update_subtree_max_free_order(block);
+ }
+ 
+ static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
+@@ -869,6 +894,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+ 
+ 	size = round_down(size, chunk_size);
+ 
++	BUILD_BUG_ON(GPU_BUDDY_MAX_ORDER > S8_MAX);
 +
-+	for (i = 0; i < mm->n_roots; i++) {
-+		u64 start;
-+
-+		block = mm->roots[i];
-+		start = gpu_buddy_block_offset(block);
-+		if (offset < start || offset >= start + gpu_buddy_block_size(mm, block))
+ 	mm->size = size;
+ 	mm->avail = size;
+ 	mm->chunk_size = chunk_size;
+@@ -1280,6 +1307,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 		if (gpu_buddy_block_order(block) < order)
+ 			continue;
+ 
++		if (block->subtree_max_free_order < (int)order)
 +			continue;
 +
-+		while (gpu_buddy_block_order(block) > order) {
-+			if (!gpu_test_block_is_split(block))
-+				return NULL;
-+			block = offset < gpu_buddy_block_offset(block->right) ?
-+				block->left : block->right;
-+		}
-+		return block;
-+	}
-+
-+	return NULL;
-+}
-+
-+static struct gpu_buddy_block *
-+gpu_test_take_block(struct list_head *blocks, u64 offset)
-+{
-+	struct gpu_buddy_block *block;
-+
-+	list_for_each_entry(block, blocks, link) {
-+		if (gpu_buddy_block_offset(block) == offset) {
-+			list_del(&block->link);
-+			return block;
-+		}
-+	}
-+
-+	return NULL;
-+}
-+
-+static void gpu_test_buddy_range_bias_pruning(struct kunit *test)
-+{
-+	const u64 mm_size = SZ_512M, range_end = SZ_128M, chunk = SZ_4K;
-+	const unsigned int nr = range_end / chunk, window = 1024;
-+	const u64 holes[] = { 0, range_end / 2 + 3 * chunk };
-+	struct gpu_buddy_block *block, *hidden;
-+	u64 first_ns = 0, last_ns = 0;
-+	unsigned int i, misplaced = 0;
-+	LIST_HEAD(allocated);
-+	struct gpu_buddy mm;
-+	LIST_HEAD(tmp);
-+	int err;
-+
-+	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, chunk),
-+			       "buddy_init failed\n");
-+	KUNIT_ASSERT_EQ(test, mm.n_roots, 1U);
-+
+ 		block_start = gpu_buddy_block_offset(block);
+ 		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
+ 
+@@ -1881,6 +1911,7 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+ 	}
+ 
+ 	block->parent = parent;
++	update_subtree_max_free_order(parent);
+ 	return err;
+ }
+ EXPORT_SYMBOL(gpu_buddy_block_trim);
+diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+index ddc4eca84175..8037f5a0feb1 100644
+--- a/include/linux/gpu_buddy.h
++++ b/include/linux/gpu_buddy.h
+@@ -141,8 +141,15 @@ struct gpu_buddy_block {
+ 	unsigned int subtree_max_alignment;
+ 	struct list_head tmp_link;
+ 	bool has_clear;
 +	/*
-+	 * Small-BAR pattern: order-0 allocations confined to a low prefix of a
-+	 * larger manager. Top-down placement packs them right below range_end,
-+	 * so without pruning every allocation walks all previously allocated
-+	 * blocks and the total cost is quadratic.
++	 * Largest order of any FREE block in this block's buddy subtree, or
++	 * GPU_BUDDY_NO_FREE_ORDER if none. Protected by the driver lock.
 +	 */
-+	for (i = 0; i < nr; i++) {
-+		ktime_t start = ktime_get();
-+		u64 elapsed;
-+
-+		err = gpu_buddy_alloc_blocks(&mm, 0, range_end, chunk, chunk,
-+					     &allocated, GPU_BUDDY_RANGE_ALLOCATION);
-+		elapsed = ktime_to_ns(ktime_sub(ktime_get(), start));
-+		KUNIT_ASSERT_EQ_MSG(test, err, 0, "range alloc %u failed\n", i);
-+
-+		if (i < window)
-+			first_ns += elapsed;
-+		else if (i >= nr - window)
-+			last_ns += elapsed;
-+
-+		block = list_last_entry(&allocated, struct gpu_buddy_block, link);
-+		if (gpu_buddy_block_offset(block) != range_end - (u64)(i + 1) * chunk)
-+			misplaced++;
-+	}
-+
-+	kunit_info(test, "first %u range allocs: %llu us, last %u: %llu us\n",
-+		   window, first_ns / NSEC_PER_USEC, window, last_ns / NSEC_PER_USEC);
-+
-+	/* Top-down placement inside the range is unchanged */
-+	KUNIT_EXPECT_EQ(test, misplaced, 0U);
-+
-+	/* The exhausted range advertises no free space, so it is pruned */
-+	block = gpu_test_find_block(&mm, 0, ilog2(range_end / chunk));
-+	KUNIT_ASSERT_NOT_NULL(test, block);
-+	KUNIT_EXPECT_EQ(test, block->subtree_max_free_order, GPU_BUDDY_NO_FREE_ORDER);
-+	gpu_test_check_free_order(test, &mm);
-+
-+	KUNIT_EXPECT_EQ(test, gpu_buddy_alloc_blocks(&mm, 0, range_end, chunk, chunk,
-+						     &tmp, GPU_BUDDY_RANGE_ALLOCATION),
-+			-ENOSPC);
-+
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size, chunk, chunk,
-+							&tmp, 0));
-+	block = list_first_entry(&tmp, struct gpu_buddy_block, link);
-+	KUNIT_EXPECT_GE(test, gpu_buddy_block_offset(block), range_end);
-+	gpu_buddy_free_list(&mm, &tmp, 0);
-+
-+	/* A single hole, including the very last one in walk order, is found */
-+	for (i = 0; i < ARRAY_SIZE(holes); i++) {
-+		block = gpu_test_take_block(&allocated, holes[i]);
-+		KUNIT_ASSERT_NOT_NULL(test, block);
-+		gpu_buddy_free_block(&mm, block);
-+		gpu_test_check_free_order(test, &mm);
-+
-+		KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, 0, range_end,
-+								chunk, chunk, &allocated,
-+								GPU_BUDDY_RANGE_ALLOCATION));
-+		block = list_last_entry(&allocated, struct gpu_buddy_block, link);
-+		KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block), holes[i]);
-+	}
-+
-+	/*
-+	 * Deterministic pruning check: hide the only free block in the range
-+	 * behind an ancestor that advertises no free space. Without pruning the
-+	 * search would walk into that subtree and return the block.
-+	 */
-+	block = gpu_test_take_block(&allocated, holes[1]);
-+	KUNIT_ASSERT_NOT_NULL(test, block);
-+	gpu_buddy_free_block(&mm, block);
-+	hidden = gpu_test_find_block(&mm, holes[1], 4);
-+	KUNIT_ASSERT_NOT_NULL(test, hidden);
-+	KUNIT_ASSERT_EQ(test, hidden->subtree_max_free_order, (s8)0);
-+
-+	hidden->subtree_max_free_order = GPU_BUDDY_NO_FREE_ORDER;
-+	err = gpu_buddy_alloc_blocks(&mm, 0, range_end, chunk, chunk, &tmp,
-+				     GPU_BUDDY_RANGE_ALLOCATION);
-+	hidden->subtree_max_free_order = 0;
-+	KUNIT_EXPECT_EQ(test, err, -ENOSPC);
-+	gpu_buddy_free_list(&mm, &tmp, 0);
-+	gpu_test_check_free_order(test, &mm);
-+
-+	gpu_buddy_free_list(&mm, &allocated, 0);
-+	gpu_test_check_free_order(test, &mm);
-+	KUNIT_EXPECT_EQ(test, mm.roots[0]->subtree_max_free_order, (s8)mm.max_order);
-+
-+	gpu_buddy_fini(&mm);
-+}
-+
-+static void gpu_test_buddy_free_order_tracking(struct kunit *test)
-+{
-+	const u64 chunk = SZ_4K;
-+	struct gpu_buddy_block *block;
-+	LIST_HEAD(allocated);
-+	struct gpu_buddy mm;
-+	u64 start, avail;
-+	LIST_HEAD(big);
-+	unsigned int i;
-+
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, SZ_8M + SZ_2M + SZ_64K, chunk));
-+	KUNIT_EXPECT_EQ(test, mm.n_roots, 3U);
-+	for (i = 0; i < mm.n_roots; i++)
-+		KUNIT_EXPECT_EQ(test, mm.roots[i]->subtree_max_free_order,
-+				(s8)gpu_buddy_block_order(mm.roots[i]));
-+	gpu_test_check_free_order(test, &mm);
-+	gpu_buddy_fini(&mm);
-+
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, SZ_16M, chunk));
-+	KUNIT_ASSERT_EQ(test, mm.n_roots, 1U);
-+	for (i = 0; i < SZ_4M / chunk; i++)
-+		KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, 0, SZ_4M, chunk, chunk,
-+								&allocated,
-+								GPU_BUDDY_RANGE_ALLOCATION));
-+	gpu_test_check_free_order(test, &mm);
-+
-+	/* Partial coalescing up to order 3 must not satisfy a 64K request */
-+	for (i = 0; i < SZ_64K / chunk - 1; i++) {
-+		block = gpu_test_take_block(&allocated, SZ_1M + i * chunk);
-+		KUNIT_ASSERT_NOT_NULL(test, block);
-+		gpu_buddy_free_block(&mm, block);
-+	}
-+	gpu_test_check_free_order(test, &mm);
-+
-+	/* A partially satisfied request is rolled back on -ENOSPC */
-+	avail = mm.avail;
-+	KUNIT_EXPECT_EQ(test, gpu_buddy_alloc_blocks(&mm, 0, SZ_4M, SZ_128K, chunk, &big,
-+						     GPU_BUDDY_RANGE_ALLOCATION),
-+			-ENOSPC);
-+	KUNIT_EXPECT_EQ(test, mm.avail, avail);
-+	KUNIT_EXPECT_TRUE(test, list_empty(&big));
-+	gpu_test_check_free_order(test, &mm);
-+
-+	KUNIT_EXPECT_EQ(test, gpu_buddy_alloc_blocks(&mm, 0, SZ_4M, SZ_64K, SZ_64K, &big,
-+						     GPU_BUDDY_RANGE_ALLOCATION),
-+			-ENOSPC);
-+	gpu_test_check_free_order(test, &mm);
-+
-+	/* SPLIT -> FREE: the last buddy coalesces the window into a 64K block */
-+	block = gpu_test_take_block(&allocated, SZ_1M + SZ_64K - chunk);
-+	KUNIT_ASSERT_NOT_NULL(test, block);
-+	gpu_buddy_free_block(&mm, block);
-+	gpu_test_check_free_order(test, &mm);
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, 0, SZ_4M, SZ_64K, SZ_64K, &big,
-+							GPU_BUDDY_RANGE_ALLOCATION));
-+	block = list_last_entry(&big, struct gpu_buddy_block, link);
-+	KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block), (u64)SZ_1M);
-+	KUNIT_EXPECT_EQ(test, gpu_buddy_block_size(&mm, block), (u64)SZ_64K);
-+	gpu_test_check_free_order(test, &mm);
-+
-+	/* Trim with an explicit start re-allocates inside the detached block */
-+	start = SZ_1M + SZ_16K;
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_block_trim(&mm, &start, SZ_16K, &big));
-+	KUNIT_ASSERT_TRUE(test, list_is_singular(&big));
-+	block = list_first_entry(&big, struct gpu_buddy_block, link);
-+	KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block), start);
-+	KUNIT_EXPECT_EQ(test, gpu_buddy_block_size(&mm, block), (u64)SZ_16K);
-+	gpu_test_check_free_order(test, &mm);
-+
-+	/* Exact-range allocation */
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, SZ_8M, SZ_8M + SZ_256K,
-+							SZ_256K, chunk, &big, 0));
-+	gpu_test_check_free_order(test, &mm);
-+
-+	/* Cleared frees, clear range allocation and top-down allocation */
-+	gpu_buddy_free_list(&mm, &big, GPU_BUDDY_CLEARED);
-+	gpu_test_check_free_order(test, &mm);
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, SZ_4M, SZ_16M, SZ_128K, chunk,
-+							&big,
-+							GPU_BUDDY_RANGE_ALLOCATION |
-+							GPU_BUDDY_CLEAR_ALLOCATION));
-+	gpu_test_check_free_order(test, &mm);
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, 0, SZ_16M, SZ_1M, chunk, &big,
-+							GPU_BUDDY_TOPDOWN_ALLOCATION));
-+	gpu_test_check_free_order(test, &mm);
-+
-+	gpu_buddy_free_list(&mm, &big, 0);
-+	gpu_buddy_free_list(&mm, &allocated, 0);
-+	gpu_test_check_free_order(test, &mm);
-+	KUNIT_EXPECT_EQ(test, mm.roots[0]->subtree_max_free_order, (s8)mm.max_order);
-+	gpu_buddy_fini(&mm);
-+
-+	/*
-+	 * Contiguous non-power-of-two allocations are trimmed, which re-allocates
-+	 * inside a temporarily detached block. Ancestors must still be updated.
-+	 */
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, SZ_32K, chunk));
-+	KUNIT_ASSERT_EQ(test, mm.n_roots, 1U);
-+	for (i = 0; i < 2; i++) {
-+		KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, 0, SZ_32K,
-+								SZ_8K + SZ_4K, chunk,
-+								&allocated,
-+								GPU_BUDDY_CONTIGUOUS_ALLOCATION));
-+		gpu_test_check_free_order(test, &mm);
-+	}
-+	KUNIT_EXPECT_EQ(test, mm.roots[0]->subtree_max_free_order, (s8)0);
-+	KUNIT_EXPECT_EQ(test, gpu_buddy_alloc_blocks(&mm, 0, SZ_32K, SZ_8K, SZ_8K, &big,
-+						     GPU_BUDDY_RANGE_ALLOCATION),
-+			-ENOSPC);
-+
-+	gpu_buddy_free_list(&mm, &allocated, 0);
-+	gpu_test_check_free_order(test, &mm);
-+	gpu_buddy_fini(&mm);
-+}
-+
- static int gpu_buddy_suite_init(struct kunit_suite *suite)
- {
- 	while (!random_seed)
-@@ -1621,6 +1926,8 @@ static struct kunit_case gpu_buddy_tests[] = {
- 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
- 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
- 	KUNIT_CASE(gpu_test_buddy_addr_to_block),
-+	KUNIT_CASE(gpu_test_buddy_range_bias_pruning),
-+	KUNIT_CASE(gpu_test_buddy_free_order_tracking),
- 	{}
++	s8 subtree_max_free_order;
  };
+ 
++#define GPU_BUDDY_NO_FREE_ORDER (-1)
++
+ /* Order-zero must be at least SZ_4K */
+ #define GPU_BUDDY_MAX_ORDER (63 - 12)
  
 -- 
 2.52.0
