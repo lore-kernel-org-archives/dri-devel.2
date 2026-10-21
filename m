@@ -2,48 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A54E606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 00:07:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3713606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 00:07:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=lQde1zTu
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Kk64iPFI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6413610E1C3;
-	Wed, 21 Oct 2026 00:07:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 668BF10E320;
+	Wed, 21 Oct 2026 00:07:05 +0000 (UTC)
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A175C10E1C3
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 00:06:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1792541210; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C9F10E320
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 00:06:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792541208; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=KLwsshecwBIRiNUzvkmJZWS79qPETJGW3p7jZLP1MVUMHFBLsEzuundAiVP0YzMisaun0VHALpjSELxNJ3F0LZ/xr/E7DeeIozdyVAC6OUYr0lr22vR5Q1vnyn93PiPgCSZVTNe8o56ZXg1kW9td+NSd1Hfhz5Sqc0a7h/Cb2K8=
+ b=mDNRmGcFsBoI+QahUVD4rH0GuzFzvfICeQmo8INaC4tWeyisd3SMPm8rCrvjQ29WK0ZCXzoXzxwn4+NRcyIwTMShSNwdlNn7xORA6vyEwUjr7Cgka3IcJ0o4hSsX+VgkBXWVSaAaL5jAlDiigdpbTGplfm5c+eORxYjr3kHTBBs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1792541210;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=yKA+rjO6S2yRbNZMtjsewu159Akak1qQqcaEuzo5K58=; 
- b=hrFK28teCbN2oRro6CYfmvayNOhSwHbgRQAZ/e0PmvT0y3IPd+ZSnoYo5LBvIz3q53vXkHQW2zxvisidrGZ/G5OobO/XGKuji75LTZbmu6/cIGX7BhRgtGuUKUnqDcr05ph1GJmrh1qL8fktrySwI8rbq/f1KvTc5uv8JXfQ75A=
+ s=zohoarc; t=1792541208;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=; 
+ b=OhrWFmGHgLm3q+r73Q31S1Zl6V9ZSbriMBZgpZ2ughJgskXJs6VprkNDxjXjJ7aigMW/AJEBvUDeejvoNjw3OYEXK3QQpVRam+Du2v6wZ9dEaeq9skxaGXnh6tMwM9TRzVCr14aRThdxaFwJQxgS/avnOnRxZ/8c3khk7Ez3wL0=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792541210; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792541208; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=yKA+rjO6S2yRbNZMtjsewu159Akak1qQqcaEuzo5K58=;
- b=lQde1zTuHBY1gsZZb4ZWAawXFOBL7sVIk378pR7XUSMj7M29kQiw7KI6gJw2AMHe
- zkQqPe/JK8FKY/OKM9lCtVUWpHkZy7ycS4XyCdSdjnYL+R+2lHKEaBS7mrandheg5IN
- Mu085UYJdDmvU6alVm3oNqwS3nBoZTCxI666rkzQ=
-Received: by smtp.zohomail.com with SMTPS id 1792541208950353.81731289226013; 
- Tue, 20 Oct 2026 17:06:48 -0700 (PDT)
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=;
+ b=Kk64iPFI+la3xEnrUdP/iMSv4DN3klAcgpqq6/2/+TlCJtHMPHebO7xQSru3T9yo
+ nl8kptpnWtNeFYSQ42Gx7vcAMKQ+9NvwhTWYAtvnKWa70X3raaYLKMt5iNb/uNmMpRe
+ YuXUUJch71o9EA/Omge/4HBzngexmCiudXsqgvoY=
+Received: by smtp.zohomail.com with SMTPS id 1792541206606520.137903256707;
+ Tue, 20 Oct 2026 17:06:46 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Tue, 20 Oct 2026 17:06:46 -0700
-Subject: [PATCH v4 2/3] rust: uaccess: add method to get UserPtr from u64
+Subject: [PATCH v4 0/3] drm/tyr: allow mismatched buffers for dev_query
+Date: Tue, 20 Oct 2026 17:06:44 -0700
+Message-Id: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-b4-dev_query_fixes-v4-2-df66b4c98bc6@collabora.com>
-References: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
-In-Reply-To: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QS27DIBAG4KtYrEs1DA8Hr3qPqrJ4jBOkJCTYs
+ WpFuXtxsmhURd0g/cB8MHNlI5VEI+uaKys0pzHlYw3qrWFh545b4inWzBDQCBCKe8Ujzf35QmX
+ ph/RNI1cEzgMqtMqxWngqdD+odZ9fNe/SOOWy3N+Yxbr7LzcLDtwiKCkAvGrxI+T93vlc3HvIB
+ 7aSMz4z+iWDlSFJJqIGDcG/YuQzY14ysjLDBloRopNa6L/M7dFxofOlTm96tP07vK5ZdbAoV31
+ 7uvTpOOS6TNkv9TYPGJUe0EodNt2s1wF6NxKv+CFNXSOVbZ0CiUZ5sIp8NMJvfKu1MDpqQ220M
+ ci2/uT2A7QKKhTPAQAA
+X-Change-ID: 20261014-b4-dev_query_fixes-4e0ab024294a
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
  Gary Guo <gary@garyguo.net>, 
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
@@ -59,13 +64,13 @@ Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1403;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1980;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=WNaLWF3sjYdXQjRj645udU5OHS/SnUHc+mDrPyN+V1M=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFk3mES/Rm15pjdFQOJ60F1vvlUZHzxd1dbOvb3Trrl+n
- VRwVvnujlIWBjEuBlkxRZaz9kY94lXvjXTn/2+GmcPKBDKEgYtTACbido2R4d/PzHsHZ7FEPFiV
- sEvh6xSVK9vuz03qM7F0W8lvzDpfoYqR4W69fdvnpSvSlvlXvlo0ebH+4VOl7+Y4HJ8oYsItfy3
- pMDsA
+ bh=3mXYYH2Wyp7iMdOVfIyLyhIL3ZJckx+Ml8KpZV29isc=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFk3mERfTo/dHbnGdP7B+5tdf7y8z2Q7r3NNVohomLxKw
+ L7vwlmtHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEwkrp2RYe2anoJHPh9UcrpM
+ 2DZM9Xf2iJdcd+ubcoQBr0TXDYfLKQy/2ew6i2Pr2/6c5l5am/vvUkpFyrqEtlf9DAsfrtqvfjq
+ XGwA=
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -86,43 +91,50 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Currently a UserPtr can be created from a usize integer representing a
-userspace address. To create a UserPtr from a u64 integer, the u64 must
-be cast to usize. On 32-bit systems, this cast will discard the upper 32
-bits of the address.
-
-Provide a new method to create a UserPtr from a u64 integer. This avoids
-the caller having to cast before creating a UserPtr and also clarifies
-that the truncation is intended. This is equivalent to the C-side
-macro u64_to_user_ptr() that provides typechecking and casting to a __user
-pointer.
+Panthor UAPI for DRM_IOCTL_PANTHOR_DEV_QUERY allows userspace to provide
+a smaller or larger buffer than the kernel needs. Revise Tyr's
+implementation to match the expected UAPI behaviour.
 
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
- rust/kernel/uaccess.rs | 9 +++++++++
- 1 file changed, 9 insertions(+)
+This series depends on:
+[PATCH v5 0/2] drm/tyr: safely write GpuInfo to userspace 
+https://lore.kernel.org/rust-for-linux/20261020-b4-gpu_info_intobytes-v5-0-3e0c7c93223c@collabora.com
 
-diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
-index 8e18285ec44b..a6fd1af155b3 100644
---- a/rust/kernel/uaccess.rs
-+++ b/rust/kernel/uaccess.rs
-@@ -31,6 +31,15 @@ pub fn from_addr(addr: usize) -> Self {
-         Self(addr as *mut c_void)
-     }
- 
-+    /// Create a `UserPtr` from a u64 userspace address.
-+    ///
-+    /// Deliberately truncate upper bits for 32-bit systems.
-+    #[doc(alias = "u64_to_user_ptr")]
-+    #[inline]
-+    pub fn from_u64(addr: u64) -> Self {
-+        Self::from_addr(addr as usize)
-+    }
-+
-     /// Create a `UserPtr` from a pointer representing the userspace address.
-     #[inline]
-     pub fn from_ptr(addr: *mut c_void) -> Self {
+Changes in v4:
+- add new UserPtr method to accept u64 address
+- replace write_truncated() with write_slice_partial()
+- replace AsBytes with IntoBytes + Immutable in set_uobj
+- replace u32_as_usize with usize::from_safe_cast
+- remove redundant import size_of_val
+- Link to v3: https://lore.kernel.org/r/20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com
 
+Changes in v3:
+- replace "as" cast with lossless u32_as_usize()
+- Link to v2: https://lore.kernel.org/r/20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com
+
+Changes in v2:
+- Added #[inline] to UserSliceWriter::clear()
+- Link to v1: https://lore.kernel.org/r/20261014-b4-dev_query_fixes-v1-0-92043100b472@collabora.com
+
+---
+Deborah Brouwer (3):
+      rust: uaccess: add UserSliceWriter::clear()
+      rust: uaccess: add method to get UserPtr from u64
+      drm/tyr: allow userspace buffers to be mismatched
+
+ drivers/gpu/drm/tyr/file.rs | 49 +++++++++++++++++++++++++++++++++++++--------
+ rust/helpers/uaccess.c      |  6 ++++++
+ rust/kernel/uaccess.rs      | 33 ++++++++++++++++++++++++++++++
+ 3 files changed, 80 insertions(+), 8 deletions(-)
+---
+base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
+change-id: 20261014-b4-dev_query_fixes-4e0ab024294a
+prerequisite-change-id: 20260923-b4-gpu_info_intobytes-c2d45f2935c8:v5
+prerequisite-patch-id: 0ff3c9871f563680d2888d489cc155cc52788048
+prerequisite-patch-id: ecf0aed0bd7e4f8d3bc1bbaabb02976fc8d5fa4d
+
+Best regards,
 -- 
-2.56.0
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
