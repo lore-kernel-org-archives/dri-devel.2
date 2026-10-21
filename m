@@ -2,74 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E315606A31B
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB79606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:51:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=c/2LEONi
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MQ5Ob1n2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A57B10E120;
-	Wed, 21 Oct 2026 12:49:50 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACBB310E120;
- Wed, 21 Oct 2026 12:49:44 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j8pyX5smMzKnB7;
- Wed, 21 Oct 2026 14:49:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1792586980; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=lfnYZLKIiZVXPHMfsSfYR3WNLa/4FyJKqBCOhOsvSoQ=;
- b=c/2LEONi60z6Kz54vZJJL3DkDd/VneNflB8WzwpZzMxF+lm6XWQWwFGN7Y9x7XCdU62lFq
- iieAL/UWCA9ebw+oXGyYtmBpdvyA4Gw3vMDGCC/nQY9qnEr3dGExjjp2LZ8mhSh1xGaZqu
- y1wCAH/47Ojer+whhr1G2oEQpBaiYTgE7pSreffhKRRTikTLs1j1ohn+nN06XZWJLPbQhr
- kZYCPz2D/pUTCXipUsz2RpX6QZAgJo5tfixMCt8Ta7/7HFsH1hlibyOLYt730jj4/eCqWl
- 1GHHpOfDqk7QgH6BMY4+HBMIrDBvkGGBc6Si5etuCYbWXMONtw4p+1VsRkVtFw==
-Message-ID: <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
-Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
- <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Date: Wed, 21 Oct 2026 14:49:34 +0200
-In-Reply-To: <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
-References: <20261020100034.759183-2-phasta@kernel.org>
- <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
- <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
- <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
- <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
- <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FEA710E2F2;
+	Wed, 21 Oct 2026 12:51:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39FC210E2F2;
+ Wed, 21 Oct 2026 12:50:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792587057; x=1824123057;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=WWQtMBqwY1wXwgGt/8O0q5XVEUz4N1YMluFAvd7LfV8=;
+ b=MQ5Ob1n2euSFhZwMpi1EY1/8JLh6tzSksuUKBk19HYxBIPuoNdM/7tzW
+ aDUlEABtSXF2EWni+E9NnLLbDaVXRuqvkHy82MyspdgRJUoMRl5giFZZP
+ wfJ+qKdJT/cW49bJXYZMzsGhVS4ptc6iFuadSzttRtTXpF8PyAh7SaWiD
+ qs6+sxG7xqQphSXBtq3fD6YenZSPFfIdZGV1PkttWOSHYVhM4n7BlHIgE
+ rG0o7+W/k1FRrG5xJKHFF64BNscw5S/PAVbz91NJ6PB3/2BSbbQMi0G1q
+ CmDWTudw+qWfyKxwoVC5ZuKaB3UqgrzFXpTZSiZlAqBvrBGwaHC1v4yXS Q==;
+X-CSE-ConnectionGUID: X8146e5OR1eUvvoiaw27hA==
+X-CSE-MsgGUID: IBmesnzHTL6Xb5UGEDeLfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1326151"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1326151"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2026 05:50:56 -0700
+X-CSE-ConnectionGUID: o5MvohiTQiC0bky5KI6pbw==
+X-CSE-MsgGUID: 9Qqiu8yVRrqEuKQdreYR1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3184418"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.75])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2026 05:50:40 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+ Nikolas Joshua Britton <nbritton@exabit.io>,
+ Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>,
+ Alexey Fomenko <alexey.fomenko@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Rob Herring <robh@kernel.org>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ David Airlie <airlied@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-m68k@lists.linux-m68k.org,
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: Bradley Morgan <brads@mainlining.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v4 3/7] PCI: Honor alignment overrides
+Date: Wed, 21 Oct 2026 15:49:48 +0300
+Message-ID: <20261021124956.4250-4-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
+References: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 3bmg6dk9gyqm43c5y7c8ggghkg156yj5
-X-MBO-RS-ID: 29c0397ed4351857f79
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,256 +98,482 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 2026-10-21 at 13:53 +0200, Christian K=C3=B6nig wrote:
-> On 10/20/26 17:36, Philipp Stanner wrote:
-> ...
-> > > > > First of all that prevents concurrent execution of the callbacks
-> > > > > which for a lot of use cases is a must have.
-> > > >=20
-> > > > Currently only set_deadline() can execute in parallel.
-> > >=20
-> > > Especially the is_signaling() callback is executed in parallel by ton=
-s of use cases.
-> >=20
-> > ops->signaled() you mean.
-> >=20
-> > Anyways, only one will succeed at having the fence marked as signaled
-> > anyways, and then all other callers of dma_fence_is_signaled() will be
-> > guarded by the fastpath bit-check (which btw is also broken; but we
-> > want to address that in a different patch. For now my series proposes
-> > keeping the fastpath).
->=20
-> What should be broken here? As far as I know the signaling path works per=
-fectly fine.
->=20
-> What we have problems with is the lifetime of things.
+pci=resource_alignment argument can override the default alignment for
+the resource. The remainder code introduced in the commit 9036bd0efcb6
+("PCI: Align head space better") can move remainder space (non-aligning
+part of the size) before the aligning left edge which results in
+violating the requested alignment.
 
-The signaled bit is set under lock-protection, fully ordered. Reading
-is just racing. See my other patch series, I linked two bugs that could
-have been avoided if it were ordered.
+Introduce struct pci_resreq_data to hold device and user-given alignment
+to be able to honor it in pci_align_resource(). When user-given alignment
+is found, any remainder movement is skipped.
 
-Anyways, I was just answering your point. These functions' parallelism
-is unchanged.
+This also makes pci_specified_resource_alignment() always return a
+valid 'resize' value so that callers can simply rely on its value.
 
+Fixes: 9036bd0efcb6 ("PCI: Align head space better")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/linux-pci/20260923133202.07DF61F000FF@smtp.kernel.org/
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
 
-> > > >=20
+IMO, PPC rigging the user alignment override to enforce arch specific
+min alignment is mixing things wrongly. It would be more appropriate
+to do arch alignment overrides by overriding pci_resource_alignment().
 
-[=E2=80=A6]
+Jani Nikula <jani.nikula@intel.com> did ack this with a condition that
+there is a proper review done by somebody else so I've not yet included
+his tag.
 
-> >=20
-> > Nope, I want to protect shared data, which is the signaled-state. Which
-> > is currently a race-condition worked around with RCU (and sometimes
-> > with manually doing the right thing (locking!)) [1], stemming from the
-> > fact that the fence's spinlock is not used consistently.
->=20
-> The fence spinlock is consistently used for protecting the fence
-> signaling, in other words it always happens with the spinlock held,
-> same for adding callbacks.
->=20
-> The only thing which happens without the spinlock held is the fast
-> path checking of the signaled and enable_signaling bits and as far as
-> I can see that is ok as well.
+---
+ arch/alpha/kernel/pci.c          |  3 ++-
+ arch/arm/kernel/bios32.c         |  5 +++--
+ arch/m68k/kernel/pcibios.c       |  4 ++--
+ arch/mips/pci/pci-generic.c      |  5 +++--
+ arch/mips/pci/pci-legacy.c       |  5 +++--
+ arch/parisc/kernel/pci.c         |  5 +++--
+ arch/powerpc/kernel/pci-common.c |  5 +++--
+ arch/sh/drivers/pci/pci.c        |  5 +++--
+ arch/x86/pci/i386.c              |  5 +++--
+ arch/xtensa/kernel/pci.c         |  5 +++--
+ drivers/char/agp/intel-gtt.c     |  5 ++++-
+ drivers/gpu/drm/i915/i915_gmch.c |  5 +++--
+ drivers/pci/pci.c                |  7 +++++--
+ drivers/pci/setup-res.c          | 19 +++++++++++++------
+ include/linux/pci.h              | 32 ++++++++++++++++++++++++++++++--
+ 15 files changed, 83 insertions(+), 32 deletions(-)
 
-No, it isn't. It makes the API fragile.
+diff --git a/arch/alpha/kernel/pci.c b/arch/alpha/kernel/pci.c
+index 11df411b1d18..c5d725a9781f 100644
+--- a/arch/alpha/kernel/pci.c
++++ b/arch/alpha/kernel/pci.c
+@@ -128,7 +128,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	struct pci_controller *hose = dev->sysdata;
+ 	unsigned long alignto;
+ 	resource_size_t start = res->start;
+diff --git a/arch/arm/kernel/bios32.c b/arch/arm/kernel/bios32.c
+index ac0e890510da..3e61826f07fb 100644
+--- a/arch/arm/kernel/bios32.c
++++ b/arch/arm/kernel/bios32.c
+@@ -564,7 +564,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 	struct pci_host_bridge *host_bridge;
+ 
+@@ -578,7 +579,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				start, size, align);
+ 
+ 	if (res->flags & IORESOURCE_MEM)
+-		return pci_align_resource(dev, res, empty_res, size, align);
++		return pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 	return start;
+ }
+diff --git a/arch/m68k/kernel/pcibios.c b/arch/m68k/kernel/pcibios.c
+index 7a9e60df79c5..3024408412bc 100644
+--- a/arch/m68k/kernel/pcibios.c
++++ b/arch/m68k/kernel/pcibios.c
+@@ -31,14 +31,14 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
+ 	resource_size_t start = res->start;
+ 
+ 	if ((res->flags & IORESOURCE_IO) && (start & 0x300))
+ 		start = (start + 0x3ff) & ~0x3ff;
+ 
+ 	if (res->flags & IORESOURCE_MEM)
+-		return pci_align_resource(dev, res, empty_res, size, align);
++		return pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 	return start;
+ }
+diff --git a/arch/mips/pci/pci-generic.c b/arch/mips/pci/pci-generic.c
+index c2e23d0c1d77..7f3ecb91b85b 100644
+--- a/arch/mips/pci/pci-generic.c
++++ b/arch/mips/pci/pci-generic.c
+@@ -25,7 +25,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       const struct resource *empty_res,
+ 				       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 	struct pci_host_bridge *host_bridge;
+ 
+@@ -39,7 +40,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				start, size, align);
+ 
+ 	if (res->flags & IORESOURCE_MEM)
+-		return pci_align_resource(dev, res, empty_res, size, align);
++		return pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 	return start;
+ }
+diff --git a/arch/mips/pci/pci-legacy.c b/arch/mips/pci/pci-legacy.c
+index dae6dafdd6e0..82d4b01db64e 100644
+--- a/arch/mips/pci/pci-legacy.c
++++ b/arch/mips/pci/pci-legacy.c
+@@ -55,7 +55,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	struct pci_controller *hose = dev->sysdata;
+ 	resource_size_t start = res->start;
+ 
+@@ -70,7 +71,7 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 		/* Make sure we start at our min on all hoses */
+ 		if (start < PCIBIOS_MIN_MEM + hose->mem_resource->start)
+diff --git a/arch/parisc/kernel/pci.c b/arch/parisc/kernel/pci.c
+index 96950fe9c2b7..36a3a439f609 100644
+--- a/arch/parisc/kernel/pci.c
++++ b/arch/parisc/kernel/pci.c
+@@ -193,7 +193,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t alignment)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t align, start = res->start;
+ 
+ 	pci_dbg(dev, "%pR: pcibios_align_resource(%lx, 0x%llx, 0x%llx)\n",
+@@ -205,7 +206,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 	if (align > alignment)
+ 		start = ALIGN(start, align);
+ 	else
+-		start = pci_align_resource(dev, res, empty_res, size, alignment);
++		start = pci_align_resource(rr, res, empty_res, size, alignment);
+ 
+ 	return start;
+ }
+diff --git a/arch/powerpc/kernel/pci-common.c b/arch/powerpc/kernel/pci-common.c
+index 4fc52c21fe5d..23594759cfe2 100644
+--- a/arch/powerpc/kernel/pci-common.c
++++ b/arch/powerpc/kernel/pci-common.c
+@@ -1131,7 +1131,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 
+ 	if (res->flags & IORESOURCE_IO) {
+@@ -1140,7 +1141,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 	}
+ 
+ 	return start;
+diff --git a/arch/sh/drivers/pci/pci.c b/arch/sh/drivers/pci/pci.c
+index 878a27a1acfb..279f2770ff4b 100644
+--- a/arch/sh/drivers/pci/pci.c
++++ b/arch/sh/drivers/pci/pci.c
+@@ -172,7 +172,8 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       resource_size_t size,
+ 				       resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	struct pci_channel *hose = dev->sysdata;
+ 	resource_size_t start = res->start;
+ 
+@@ -186,7 +187,7 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 	}
+ 
+ 	return start;
+diff --git a/arch/x86/pci/i386.c b/arch/x86/pci/i386.c
+index e2de26b82940..4178ae4380c2 100644
+--- a/arch/x86/pci/i386.c
++++ b/arch/x86/pci/i386.c
+@@ -156,7 +156,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 
+ 	if (res->flags & IORESOURCE_IO) {
+@@ -165,7 +166,7 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 
+ 		/* The low 1MB range is reserved for ISA cards */
+ 		if (start < BIOS_END)
+diff --git a/arch/xtensa/kernel/pci.c b/arch/xtensa/kernel/pci.c
+index 305031551136..4e8ad4a3c9fe 100644
+--- a/arch/xtensa/kernel/pci.c
++++ b/arch/xtensa/kernel/pci.c
+@@ -42,7 +42,8 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		       const struct resource *empty_res,
+ 		       resource_size_t size, resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t start = res->start;
+ 
+ 	if (res->flags & IORESOURCE_IO) {
+@@ -55,7 +56,7 @@ pcibios_align_resource(void *data, const struct resource *res,
+ 		if (start & 0x300)
+ 			start = (start + 0x3ff) & ~0x3ff;
+ 	} else if (res->flags & IORESOURCE_MEM) {
+-		start = pci_align_resource(dev, res, empty_res, size, align);
++		start = pci_align_resource(rr, res, empty_res, size, align);
+ 	}
+ 
+ 	return start;
+diff --git a/drivers/char/agp/intel-gtt.c b/drivers/char/agp/intel-gtt.c
+index bcc26785175d..2214347906a6 100644
+--- a/drivers/char/agp/intel-gtt.c
++++ b/drivers/char/agp/intel-gtt.c
+@@ -1038,10 +1038,13 @@ static struct agp_memory *intel_fake_agp_alloc_by_type(size_t pg_count,
+ 
+ static int intel_alloc_chipset_flush_resource(void)
+ {
++	struct pci_resreq_data rr;
+ 	int ret;
++
++	pci_init_pci_resreq_data(&rr, intel_private.bridge_dev);
+ 	ret = pci_bus_alloc_resource(intel_private.bridge_dev->bus, &intel_private.ifp_resource, PAGE_SIZE,
+ 				     PAGE_SIZE, PCIBIOS_MIN_MEM, 0,
+-				     pcibios_align_resource, intel_private.bridge_dev);
++				     pcibios_align_resource, &rr);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/i915/i915_gmch.c b/drivers/gpu/drm/i915/i915_gmch.c
+index b0ef6ef577a3..d35097bebc0f 100644
+--- a/drivers/gpu/drm/i915/i915_gmch.c
++++ b/drivers/gpu/drm/i915/i915_gmch.c
+@@ -38,6 +38,7 @@ static int mchbar_reg(struct drm_i915_private *i915)
+ static int
+ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
+ {
++	struct pci_resreq_data rr;
+ 	u32 temp_lo, temp_hi = 0;
+ 	u64 mchbar_addr;
+ 	int ret;
+@@ -55,12 +56,12 @@ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
+ 	/* Get some space for it */
+ 	i915->gmch.mch_res.name = "i915 MCHBAR";
+ 	i915->gmch.mch_res.flags = IORESOURCE_MEM;
++	pci_init_pci_resreq_data(&rr, i915->gmch.pdev);
+ 	ret = pci_bus_alloc_resource(i915->gmch.pdev->bus,
+ 				     &i915->gmch.mch_res,
+ 				     MCHBAR_SIZE, MCHBAR_SIZE,
+ 				     PCIBIOS_MIN_MEM,
+-				     0, pcibios_align_resource,
+-				     i915->gmch.pdev);
++				     0, pcibios_align_resource, &rr);
+ 	if (ret) {
+ 		drm_dbg(&i915->drm, "failed bus alloc: %d\n", ret);
+ 		i915->gmch.mch_res.start = 0;
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f8..499ccb13c2c4 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -6444,14 +6444,16 @@ static DEFINE_SPINLOCK(resource_alignment_lock);
+  * RETURNS: Resource alignment if it is specified.
+  *          Zero if it is not specified.
+  */
+-static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+-							bool *resize)
++resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
++						 bool *resize)
+ {
+ 	int align_order, count;
+ 	resource_size_t align = pcibios_default_alignment();
+ 	const char *p;
+ 	int ret;
+ 
++	*resize = false;
++
+ 	spin_lock(&resource_alignment_lock);
+ 	p = resource_alignment_param;
+ 	if (!p || !*p)
+@@ -6497,6 +6499,7 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+ 	spin_unlock(&resource_alignment_lock);
+ 	return align;
+ }
++EXPORT_SYMBOL_GPL(pci_specified_resource_alignment);
+ 
+ static void pci_request_resource_alignment(struct pci_dev *dev, int bar,
+ 					   resource_size_t align, bool resize)
+diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
+index 376f09630a4a..441a62807719 100644
+--- a/drivers/pci/setup-res.c
++++ b/drivers/pci/setup-res.c
+@@ -265,17 +265,21 @@ resource_size_t pci_resource_alignment(const struct pci_dev *dev,
+  * before res->start if there's enough free space there. This enables
+  * tighter packing for resources.
+  */
+-resource_size_t pci_align_resource(struct pci_dev *dev,
++resource_size_t pci_align_resource(struct pci_resreq_data *rr,
+ 				   const struct resource *res,
+ 				   const struct resource *empty_res,
+ 				   resource_size_t size,
+ 				   resource_size_t align)
+ {
++	struct pci_dev *dev = rr->dev;
+ 	resource_size_t remainder, start_addr;
+ 
+ 	if (!(res->flags & IORESOURCE_MEM))
+ 		return res->start;
+ 
++	if (rr->user_align)
++		return res->start;
++
+ 	if (IS_ALIGNED(size, align))
+ 		return res->start;
+ 
+@@ -306,18 +310,21 @@ resource_size_t __weak pcibios_align_resource(void *data,
+ 					      resource_size_t size,
+ 					      resource_size_t align)
+ {
+-	struct pci_dev *dev = data;
++	struct pci_resreq_data *rr = data;
+ 
+-	return pci_align_resource(dev, res, empty_res, size, align);
++	return pci_align_resource(rr, res, empty_res, size, align);
+ }
+ 
+ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 		int resno, resource_size_t size, resource_size_t align)
+ {
+ 	struct resource *res = pci_resource_n(dev, resno);
++	struct pci_resreq_data rr;
+ 	resource_size_t min;
+ 	int ret;
+ 
++	pci_init_pci_resreq_data(&rr, dev);
++
+ 	min = (res->flags & IORESOURCE_IO) ? PCIBIOS_MIN_IO : PCIBIOS_MIN_MEM;
+ 
+ 	/*
+@@ -329,7 +336,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 	 */
+ 	ret = pci_bus_alloc_resource(bus, res, size, align, min,
+ 				     IORESOURCE_PREFETCH | IORESOURCE_MEM_64,
+-				     pcibios_align_resource, dev);
++				     pcibios_align_resource, &rr);
+ 	if (ret == 0)
+ 		return 0;
+ 
+@@ -341,7 +348,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 	     (IORESOURCE_PREFETCH | IORESOURCE_MEM_64)) {
+ 		ret = pci_bus_alloc_resource(bus, res, size, align, min,
+ 					     IORESOURCE_PREFETCH,
+-					     pcibios_align_resource, dev);
++					     pcibios_align_resource, &rr);
+ 		if (ret == 0)
+ 			return 0;
+ 	}
+@@ -354,7 +361,7 @@ static int __pci_assign_resource(struct pci_bus *bus, struct pci_dev *dev,
+ 	 */
+ 	if (res->flags & (IORESOURCE_PREFETCH | IORESOURCE_MEM_64))
+ 		ret = pci_bus_alloc_resource(bus, res, size, align, min, 0,
+-					     pcibios_align_resource, dev);
++					     pcibios_align_resource, &rr);
+ 
+ 	return ret;
+ }
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index d31a8d107b1e..ea7d75871269 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1217,12 +1217,40 @@ int __must_check pcibios_enable_device(struct pci_dev *, int mask);
+ /* Architecture-specific versions may override this (weak) */
+ char *pcibios_setup(char *str);
+ 
+-/* Used only when drivers/pci/setup.c is used */
++/* Resource assignment request handling */
++/**
++ * struct pci_resreq_data - Data passed to pcibios_align_resource()
++ * @dev: PCI device
++ * @user_align: User provided alignment override (pci=resource_alignment param)
++ */
++struct pci_resreq_data {
++	struct pci_dev *dev;
++	resource_size_t user_align;
++};
++
++resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
++						 bool *resize);
++/*
++ * TODO: Improve PCI resource assignment interface so that callers outside PCI
++ * core do not need to know about this detail.
++ */
++static inline void pci_init_pci_resreq_data(struct pci_resreq_data *rr,
++					    struct pci_dev *dev)
++{
++	bool user_aligned;
++
++	memset(rr, 0, sizeof(*rr));
++	rr->dev = dev;
++	rr->user_align = pci_specified_resource_alignment(dev, &user_aligned);
++	if (!user_aligned)
++		rr->user_align = 0;
++}
++
+ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+ 				       const struct resource *empty_res,
+ 				       resource_size_t size,
+ 				       resource_size_t align);
+-resource_size_t pci_align_resource(struct pci_dev *dev,
++resource_size_t pci_align_resource(struct pci_resreq_data *rr,
+ 				   const struct resource *res,
+ 				   const struct resource *empty_res,
+ 				   resource_size_t size,
+-- 
+2.47.3
 
-	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
-	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
-
-There are certainly more related bugs around.
-
-Also think of the various ordering issues between signaled-bit and ops
-pointer that you and I observed.
-
-> The problem here is not about the state of the fence, but if the
-> callbacks are still executed or not. And that is not a good task for
-> a lock, instead what is usually used for that is a barrier and that
-> is exactly what RCU provides.
-
-Locks are for mutual exclusion. Which is what you want here: you want
-to exclude someone from signaling the fence while you are working on
-it.
-
-Tell me one thing:
-If locking is the wrong approach, then how come it was added to
-literally all callbacks except for set_deadline()? Seems to me that it
-must have solved some issues.
-
-
->=20
-> > > > > Then as I pointed out before the second problem is that this agai=
-n
-> > > > > makes the existing lock inversion between the signaling by pollin=
-g
-> > > > > and signaling by interrupts even worse than it already is.
-> > > >=20
-> > > > We asked for examples in our last discussions, and the only one eve=
-r
-> > > > presented was the list-access requiring the fctx-lock in
-> > > > nouveau_fence_no_signaling(). Nouveau is often not a good example.
-> > > >=20
-> > > > Can you provide examples in the kernel where deadlock would occur?
-> > >=20
-> > > Just exercise the simple example of a driver supporting both pull and=
- interrupt:
-> > >=20
-> > > Interrupt: Handler takes lock protecting a linked list, finds fence
-> > > and signals it.
-> > >=20
-> > > Polling: is_signaled is called with fence lock held, can't take list
-> > > lock and so needs to work around that somehow.
-> >=20
-> > signaled() neither needs a list lock nor any other lock.
->=20
-> I don't think we should decide that inside the framework, this is up
-> to the implementation of the dma_fence backend.
->=20
-> By taking the lock for the callbacks we just move the complexity of
-> handling from the framework into the dma_fence_ops implementations,
-> and that is something I would *really* like to avoid.
-
-Of course the framework needs to specify exactly what the callbacks are
-about and what the driver should do in them. That's btw why many expect
-Rust to result in often better driver design, because by the type
-system you can define how your API can and cannot be used.
-
-> > It needs to read a sequence number from somewhere, so a u64. And then
-> > it returns true or false to the fence_backend.
-> >=20
-> > The u64 can easily be an atomic. Also ioremaped reads should work
-> > locklessly.
-> >=20
-> > No need for any lock.
->=20
-> It is perfectly possible that you need to take whatever lock you want
-> to cleanup things. E.g. spinlock for list removal, common lock with
-> the interrupt handler etc....
-
-That's like saying it's perfectly possible that someone will want to
-allocate memory in a callback. Yet we say No, you cannot do that.
-
->=20
-> That's also why I said that the whole approach with the signaling and
-> enable_signaling callback returning a boolean is broken.
->=20
-> Instead what we should do is to forward the requests to the dma_fence
-> implementation. And that dma_fence implementation calls
-> dma_fence_signaled() as necessary.
-
-dma_fence_signal() you mean?
-
-I don't get your point. What you wish to happen is already the case:
-
-dma_fence_is_signaled(struct dma_fence *fence)
-{
-	const struct dma_fence_ops *ops;
-
-	if (dma_fence_test_signaled_flag(fence))
-		return true;
-
-	rcu_read_lock();
-	ops =3D rcu_dereference(fence->ops);
-	if (ops && ops->signaled && ops->signaled(fence)) {
-		rcu_read_unlock();
-		dma_fence_signal(fence);
-
-
-
-> > >=20
-> >=20
-> > Where does such a driver-lock need to be held while operating on a
-> > fence, opening the deadlock-path?
->=20
-> In the interrupt handler.
-
-I don't see that either. In the interrupt you will want to do:
-
-driver_lock();
-seqno =3D get_seqno();
-driver_unlock();
-
-signal_fences_up_to(seqno);
-
->=20
-> > Note that, as I pointed out many times, all callbacks are already
-> > called under lock-protection. Especially enable_signaling(), and
-> > is_signaled() must be lock-resistant, proven by
-> > dma_fence_is_signaled_locked() existing.
->=20
-> Yes, but we clearly want to get away from that.
->=20
-> See the calling order in the interrupt signaling path is driver ->
-> framework.
->=20
-> While in the is_signaled/enable_signaling/set_deadline path it is
-> framework -> driver.
->=20
-> The dma_fence framework solved this issue by using a shared external
-> driver provided lock, and that lock is then taken before calling into
-> the backend operations. But we want to get away from that and use an
-> inline lock in each dma_fence.
->=20
-> So the only two possibilities I can see is to either call the backend
-> without holding locks or force the backend operations to use a
-> lockless approach for their internal handling.
-
-Right now, we do both: call callbacks with a lock *and* force all API
-users to do the RCU dance.
-
-So we have the worst of both worlds.
-
->=20
-> > Regardless, what I propose would only make a potential difference for
-> > *new* users, with inline-lock, who can then cleanly design to avoid
-> > locking problems.
->=20
-> Yeah, but I'm desperately trying to avoid the complexity of using a
-> lockless approach in the driver implementation.
->=20
-> Just take a look at amdgpu_fence.c and how complex the RCU handling
-> there becomes because of this issue here.
-
-AFAICS amdgpu only uses ops->enable_signaling(), and there it does
-exactly what I would have expected: register a timer who will see the
-fence gets signaled.
-
-As I said, no reason to do list accesses like nouveau. That's just the
-driver being misdesigned.
-
-Interestingly btw amdgpu's ops->release() does a call_rcu() to free the
-fence.
-
-You do agree with me that our API being usable like this:
-
-dma_fence_signal(f, err);
-dma_fence_put(f);
-
-would be robust and desirable, don't you?
-
->=20
-
-[=E2=80=A6]
-
->=20
-> And I still think that this is the simpler and especially more defensive =
-approach.
->=20
-> The dma_fence framework should not leak it's internal lock anywhere exter=
-nally and that includes calls into the backend operations.
->=20
-
-Calling a callback while holding a lock is not leaking the lock. It's
-sometimes necessary. All fence callbacks are being called under lock
-protection, for the same reason as I propose here: prevent the fence's
-state from changing while they execute.
-
-
-P.
