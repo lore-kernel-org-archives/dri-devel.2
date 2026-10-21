@@ -2,103 +2,109 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E206D606A31F
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 03:01:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB20606A322
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 03:02:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=E0BCTeY4
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sdpqodU0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4863E10F8B7;
-	Wed, 21 Oct 2026 03:01:24 +0000 (UTC)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDB7710F8B1
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 03:01:05 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-c441e267930so21497066b.1
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:01:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google; t=1792551664; x=1793156464;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=6vPeyJTMHdyRvdIHSAi9aE4sr1TloBvZFIlu5+rPWzU=;
- b=E0BCTeY4enWCnvEgvrdocP60YqywCNIoH5f4z3sfJR5f3wvlRf+pGxNYqg1DDToyUx
- go3HljoDtD5sLyE6TmqXSTljDpQavLRaLNulnnstPSieyvsTm0z0f8ioxyarDQOpsfBD
- gWmns6MLI3YqIVJSQWDh5rv4HCPK6go7RsUjk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792551664; x=1793156464;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=6vPeyJTMHdyRvdIHSAi9aE4sr1TloBvZFIlu5+rPWzU=;
- b=ZTu4KiSTL/gIgxriI7S77i7kri1YLkfBTh4j5vIg/ZkvBDfKTgTymcxRJi6xQ3r6+3
- n56srjdP50t8oWpxg1mk7lg8Z6G0wqAV0zl6cNzESSgC5hQ0h2y2tZu30eOG/k+hk8X6
- 48XvLtxSoyAaS0EsRvJ7a7Z+/Mi8sgWGJICUeOgTRnVAEaZ8uEqANol6JeCmReV694TV
- 3tVSJMYn/sKWr9SNiBPBoVk8+gabcPOlDboJTSrmQaZhdbmWPZmLCKle+es70qX4gyAU
- 65rkg9PEiydPalN5kdLO8yR4YKEmEEZSqNsdoOXJbPAQisfTl4xS/4KMv1PZhfwaOPnM
- PA4g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzivsPQstpaoUHssAm4SSdAP9nsDK5i474z6MDBELEDzxpuMYhx301jd4nQr9Aw74XdoLO0cDwNjCQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJQ/gnIE+dDXh+4qn2Vep3m3/xj8WSY8rw1fW2g3fEoAOEHomnM
- KkV1axDkA1MWwPbJhdudBz0k/T5GXhh3/ztzBbrD0lugwAsmrqk+rRNl0n5hYYWFVJDys/vw7aq
- xQAguYVRj8g==
-X-Gm-Gg: AYBFou3keVfMXofH0xZyghEFXWv1Q6y6kvVsCRN3xr1yjbcr3x4uRL2cQ/sOIdoKIwQ
- oYrKCVz5HvSlZSsIMtDv2T7adKHlHcka9RbmgEs5j33AHnptCmlZghkbDeuMIc88V406RZ8F92w
- s2/iMZqJS1EnO76LRBTyI6uHSPEkDIJUztDK0QjVsteQc8G2EN+sl3oFxBn5bcKLqciog6APBBX
- gRHMKAIsZqjlLW1nqphar3jJbzSzLjcpgF4TAtFqm3RQLTMSC/+gCRrdFkngo7BJN0GwMKxoREx
- foYpQ+Ebda8cg+ZY6PcNQtiG2roZuC/3TCd80TJNebPmhUQHBJhy/weQg5hB6et6add+/DFuRm2
- 0ppWrjGt+eCVF6AFQCOXEPg0uykGzrO9eeFry6Pb158I9OrKoIzWYA23kEk4TW2+J30Hpt4rogN
- IUz1izPskEGPlEFCNEWygYveTbKQZt/xMTQx6NmfKx4khnNTMEkptOzTP7+6TqnVeqpNa9kThWp
- v5FMhmXWNcjMEpS9HuiNUEEfpDnZQz6/+jZbSIHA/+bG5I=
-X-Received: by 2002:a17:907:86a7:b0:c26:1648:a06a with SMTP id
- a640c23a62f3a-c4679684c8bmr58478766b.37.1792551664168; 
- Tue, 20 Oct 2026 20:01:04 -0700 (PDT)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com.
- [209.85.218.50]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b4031104f2sm315814a12.16.2026.10.20.20.01.02
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Oct 2026 20:01:03 -0700 (PDT)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c45551fa84eso23491066b.3
- for <dri-devel@lists.freedesktop.org>; Tue, 20 Oct 2026 20:01:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBy23HVDB/yG2eabKfjT3ynNQnY3a5H8UFlsiA2yX+AOVHxBNS9t2OmmkBbWWbE/3QT4r6YTIzr2Yks=@lists.freedesktop.org
-X-Received: by 2002:a17:907:3e96:b0:c41:6de7:7dde with SMTP id
- a640c23a62f3a-c46791027bcmr73264866b.4.1792551662590; Tue, 20 Oct 2026
- 20:01:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6DB10F8B4;
+	Wed, 21 Oct 2026 03:02:27 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010046.outbound.protection.outlook.com
+ [40.93.198.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB70B10F8B4;
+ Wed, 21 Oct 2026 03:02:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Tr1RvX5Huuj9SwMJvCWqX34SeOkhY+gqec7QtMEEgLWC7C+r/lUvam+mN9zDGYqCMQ9ADpZERk73dmPo2uo+yT6xNFltthJ9jaRiligDkql6PAh0Xc6UdF1mqnFbYeEImmMbYvLp1dk9bGmBZtLs2CeCFE6n3EUyb5bFky1cKnbHv5Er7jE3YUddOyn0dZG/BemAA0xp6sNRUexiw73bJpwWRldqvTurC41uDy5mUgFFJ+aeQDIhylcoKxbLfzS6qnGaV5PUb1lSHKMTpLLU1Pbr9dRHT2Dq50kRXsNldtI0qYfLklDuC16auWLti6TNawXzEA+BDyVc8mRpGt/BJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3Ja9jgfi3sF4A6a/doWXmko3UZMc6yvJK1K+E5i2HsM=;
+ b=JyfSOoQMtb9oVpB+GvtjEjSSEbQUFqcLFzC0y/t6Q063S3qPtWweP2PGUO3UvCcmZpbZsUj6nydeVLcuLi6IlmVEAO1r+Gk2rti/QvTqfp65dfGHPuPsPlqy9Jq8507a0jmDaD3kdCwR7dtS3eKwcWHZX5VACuUcVvByoldvEuipC8pRGN14orQnDCBgdomBQVddRX7eHghuoIsAECvsQr8Obqw7/ukuUA/kV0Mf12Ua075pF3vrE4v0NoXMEcwErEHl6QuIyL7/SsqUuHY+4d1MnNCt/7iwyqH/JSgBGoApmfoEiuw3l6LbMMth1IFPlWG9ScKmMPUSblYMdMJJsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3Ja9jgfi3sF4A6a/doWXmko3UZMc6yvJK1K+E5i2HsM=;
+ b=sdpqodU0+vd+bxyN55xtkHechTpj2aYsKZ8G78AbzKg3a3OIaWcPc/pzEn28R24GPggnmpJfHbWN2DDGpqAo39lA7giey6pl6lfBWjomY2AnrC16/uAVFkcLD/um7wesQWz/cMwoMYoGTEbNZ1tY5Sa6yUVg+DTKnZTvtm3WOhk=
+Received: from PH0PR07CA0010.namprd07.prod.outlook.com (2603:10b6:510:5::15)
+ by DS4PR12MB9745.namprd12.prod.outlook.com (2603:10b6:8:2a9::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 03:02:16 +0000
+Received: from SJ5PEPF000001D0.namprd05.prod.outlook.com
+ (2603:10b6:510:5:cafe::4c) by PH0PR07CA0010.outlook.office365.com
+ (2603:10b6:510:5::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
+ 21 Oct 2026 03:02:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001D0.mail.protection.outlook.com (10.167.242.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 03:02:15 +0000
+Received: from hr-amd.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
+ 2026 22:01:00 -0500
+From: Huang Rui <ray.huang@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Felix
+ Kuehling" <felix.kuehling@amd.com>, Simona Vetter <simona@ffwll.ch>, "Matthew
+ Brost" <matthew.brost@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>, "Jenny
+ Liu" <Jenny-Jing.Liu@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
+ "Honglei
+ Huang" <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>, Yiru Ma
+ <yiru.ma@amd.com>, Huang Rui <ray.huang@amd.com>
+Subject: [PATCH v10 20/22] drm/amdgpu: hook up ZONE_DEVICE registration in
+ device init and reset
+Date: Wed, 21 Oct 2026 10:58:59 +0800
+Message-ID: <20261021025915.2433837-21-ray.huang@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261021025915.2433837-1-ray.huang@amd.com>
+References: <20261021025915.2433837-1-ray.huang@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
- <20261018174250-mutt-send-email-mst@kernel.org>
- <376ef9d0-b03f-4f85-aee5-46cf20eb00ae@gmail.com>
- <20261020021924-mutt-send-email-mst@kernel.org>
- <CAHk-=wjxtzD1TXZr5iWu0p1+Hu0YZP7jbNSwFkp7AJYmhzhVCA@mail.gmail.com>
- <CAHk-=wipGHx_1Uztmu773yuTM2ka1fq996UmNoJpvKS0gqEdMg@mail.gmail.com>
- <atdqUYdIOqmiqqTt@gmail.com>
- <CAHk-=whrUi2M+whqwS8yfqZ=W9ts6NPOzxzGfBOwOfCC3ooeMA@mail.gmail.com>
- <CAHk-=wjFBSH9M2GYKRnd-jrMGaa-gPBoGhuscJAu4n1hGsuX7g@mail.gmail.com>
- <CAHk-=wj51-syPoqMBLnxMeLnsbCMDMXfKzKZCtOHhwWEk5DeRw@mail.gmail.com>
- <20261021025403.GAatgpS1rcSTOTs8sS@fat_crate.local>
-In-Reply-To: <20261021025403.GAatgpS1rcSTOTs8sS@fat_crate.local>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Tue, 20 Oct 2026 17:00:46 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wgDm1nHurWJLESiLeYr0_0yv_F7W8YbvrmMEfbhxM1e_g@mail.gmail.com>
-X-Gm-Features: AclHuK9HmsJiPNq2pQeGfp6RqCtErZ0oevbHZB1cNI1n3cwuB4Oa9aipnTwjAUU
-Message-ID: <CAHk-=wgDm1nHurWJLESiLeYr0_0yv_F7W8YbvrmMEfbhxM1e_g@mail.gmail.com>
-Subject: Re: Removing __get_user / __put_user for good
-To: Borislav Petkov <bp@alien8.de>
-Cc: Ingo Molnar <mingo@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Tom Lendacky <thomas.lendacky@amd.com>, 
- Joerg Roedel <joerg.roedel@amd.com>, "Nikunj A. Dadhania" <nikunj@amd.com>, 
- intel-gfx <intel-gfx@lists.freedesktop.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>,
- "the arch/x86 maintainers" <x86@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D0:EE_|DS4PR12MB9745:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8aa10c3-4648-417e-66ed-08df2f1fb662
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|921020|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 8D8Am2yEZ3syH0ft+zGsz0caMip3cCqhwe3YW8V987RITzJvUvdFe+zFOKu0NBe5WwkIkJdmOPbbUYRhVVMOM8LALZikdcWbBDNLgJ8qNP0cFXXXKPaJDj6HOtvxNA1V3CopRYDkh1vCBLKJu1vTQa7+NtBiQNvG2MiVumwIGn/vwmHIr1k9mHHaQB4LzpnhJGWHAk8u3lh13ixXSwfBwWE4H78IF+1FbQRL7LAm8TfFdNlWYYrOxHW+xfqOZIVFS7xaQnNSmubBNnQFrJrmki9XdUTGonhE/z5mPr1S3RI8aC64Z4mfdA2GyJnh2h/BN0XDDSzBWYUzmLUHcdoChXDl0ld5Pzv4BrzokXflJzRaFCeLNZwVFPJNG8T8vziOKlJQtP9cYqYketynLEDVqEfzXN2DqBDxClgoF00krHElpqkFGZcHDgUGbJIqFHr57t5t0fqhG1D4Yj7JK50r2NmW8rNsubH3QVd1RUC0O9opypJIcUNsAc8muouNEeNZSis463Mu3YAYEJ5+YEIMXjiBMkyeOtMYwXYLcCEQqTI9WZC+xayoidavFmvYD7jRPy/d8f5UpYIJVWc0B4i3QnX6vcMaiKygwn/pxT8+cnBZXK+XY9zJeK9ccjf8dECBXp7TdSePXmuHYiaaKH8UOg4M99H6NltBeqsi68oN1r+LQW5TLp8gYpTWdoOqn5wj5p4FZv7iFaaB8fw53u5o2OlQTb1+u4Vvjm2ax8EgsFxgjGo0Fuk6egKfAfH+tMNx
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(921020)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: qtYiQfhmSgteGgROe3l09vjOIDAyC/kSxQ8PpmglQazdIyWiAqnWvBsEeeUmaucXuiYD2fyvrasZu3qpQaX6ew5S3bxjOnW4DkC6DotXSG7kM/9YlrUgwGRSjuUGis/XxacEbbLIHBdorU411SP4LCTZ8I0mAlGq/DnfK1Pnfj55bqtZ8eYFoaibjSdXxJcv7jlOf49z1TK/8ZkwxMaJ6PNRMC9C+Xq/mPm4JcXa/QsDL+MuOHypg8xAOPuzo5RhOJKR8hRTKsJX3ZI+xNXQ0msU05YqgzHsBP3mpTfsMj1bFoaN/DcvP9NkQu7eDPYLzt7cVs0b0oDnpI+HpkM5Ddr7m7xdnuCmVwf7wmfrp4NWPjN1q0hPBQ3MeSbEAoeEogIDyQLXG2bJf38v1aZlQ+sOMSgvcjHUSmpIUTSI8bwRiphxJNoKT4TJqEoBecFj
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:02:15.9599 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8aa10c3-4648-417e-66ed-08df2f1fb662
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9745
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,29 +116,68 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 20 Oct 2026 at 16:54, Borislav Petkov <bp@alien8.de> wrote:
->
-> My SEV-SNP guest boots with it and we'll run more extensive tests soon to make
-> sure nothing falls out.
+From: Junhua Shen <Junhua.Shen@amd.com>
 
-I don't know that code at all, but from my reading it will only
-trigger in fairly unusual cases ("rep movs/ins/outs" that need
-emulation).
+Call amdgpu_svm_migration_init() in the device initialization and
+XGMI reset-restore paths to register the GPU's VRAM as a ZONE_DEVICE
+region before KFD initialization.
 
-But the replacement code *should* do what __get_user/__put_user did
-before, just with a local helper, so unlike the i915 case it shouldn't
-actually change any semantics.
+This activates the drm_pagemap migration infrastructure.
 
-Famous last words... It's the largest of the patches (well, I'm
-ignoring the ones that just do multiple accesses to the same signal
-frame - they may be more lines, but it's just the same thing repeated
-over and over again).
+Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 ++
+ 2 files changed, 4 insertions(+)
 
-             Linus
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 44091ac12fa9c..ef3a5f844444a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -80,6 +80,7 @@
+ #include "amdgpu_reset.h"
+ #include "amdgpu_virt.h"
+ #include "amdgpu_dev_coredump.h"
++#include "amdgpu_migrate.h"
+ 
+ #include <linux/suspend.h>
+ #include <drm/task_barrier.h>
+@@ -4181,6 +4182,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 
+ 	/* Don't init kfd if whole hive need to be reset during init */
+ 	if (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
++		amdgpu_svm_migration_init(adev);
+ 		kgd2kfd_init_zone_device(adev);
+ 		kfd_update_svm_support_properties(adev);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+index c8016fa55a92f..571dd062547ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+@@ -26,6 +26,7 @@
+ #include "sienna_cichlid.h"
+ #include "smu_v13_0_10.h"
+ #include "soc_v1_0.h"
++#include "amdgpu_migrate.h"
+ 
+ static int amdgpu_reset_xgmi_reset_on_init_suspend(struct amdgpu_device *adev)
+ {
+@@ -88,6 +89,7 @@ static int amdgpu_reset_xgmi_reset_on_init_restore_hwctxt(
+ 		return r;
+ 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
+ 		if (!tmp_adev->kfd.init_complete) {
++			amdgpu_svm_migration_init(tmp_adev);
+ 			kgd2kfd_init_zone_device(tmp_adev);
+ 			amdgpu_amdkfd_device_init(tmp_adev);
+ 			amdgpu_amdkfd_drm_client_create(tmp_adev);
+-- 
+2.53.0
+
