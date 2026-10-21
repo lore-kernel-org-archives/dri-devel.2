@@ -2,38 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B9B606A332
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 14:56:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD55606A320
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 14:56:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=cCa2zPu0
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=n8ExSwXv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D73D10E11D;
-	Wed, 21 Oct 2026 14:56:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A90310E24D;
+	Wed, 21 Oct 2026 14:56:19 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5772010E11D
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 14:56:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A1210E10E
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 14:56:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=gZTrJbSsY6vrVjei/XrH6MCcYUmn2GWIequpUm2Wt/g=; b=cCa2zPu0EDDkp34pbfnc35b0Sg
- 667Y8fMFynst4WW3TY7YZv8gvpLR6QZAH+sQSwhwdpXnB83pbeL9sQBIQeOGoI7Pqjmzn6O8wIQpq
- 00Eh3BYIPp5HUTQAGvwQMGQshri5VsfTIK6l2MH0JRwN9uE7IdgxWQ5v8VzXEPKK0/RK0xT/FpNjL
- ydZgboRbiee83fPXPq4KuBZc0U/KWEMCQwhL7G7rstrzcEpc7SVeuGVX0/E0vnKKxDnoofcKpgnQZ
- fsbC0NZ7y/sPh0qeBZ68NuX7LZwQln1d1FdPWk2jSOIBf/XSJpUmaOlhRv+wiFw56AM6e83RtZTSX
- WqBPanbg==;
+ bh=kfnDxCQ1IImtBOQdrk0BB+dlXrbFTbM9NH9uFng7ZsE=; b=n8ExSwXvKDof5cuQf00b9HA+dx
+ hcn8lz+93+esPpV7AKh06WgsAN3r+Jw8aRtL16mSfRZ+z+nmU4I4eY1mCBO7qZ0PaLgpaqil/YCfg
+ X02lQuwAQ0VqGan+1jmJ6HbcQxgy3fpy2ai+0I+j+/X8jG+GQLZe2UmaU8oKwWyp+chL2c6jak167
+ WSHOUMz0CTCHNMQrnBeHb7cefUZ4SOOoafJQyMbgIKJPzcTzHz/oc6AtjLA8aqGICUZyTo8/QWWE6
+ wI3cxZvVfdq5D39LRaA8EYxp+0vCpz3m787dYZAys/qkhO/z+MWD2aHQeeYU+GCmEjvO2BHCqM0wr
+ RYCfRdGg==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xJXjc-005jXv-F1; Wed, 21 Oct 2026 16:56:08 +0200
+ id 1xJXjZ-005jXv-G8; Wed, 21 Oct 2026 16:56:05 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Wed, 21 Oct 2026 11:55:32 -0300
-Subject: [PATCH 3/3] drm/v3d: Add TFU constant colour support for V3D 7.x
+Date: Wed, 21 Oct 2026 11:55:31 -0300
+Subject: [PATCH 2/3] drm/v3d: Only program TFU coefficients when used on
+ V3D 7.x
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261021-v3d-tfu-ccol-v1-3-4c99240cca28@igalia.com>
+Message-Id: <20261021-v3d-tfu-ccol-v1-2-4c99240cca28@igalia.com>
 References: <20261021-v3d-tfu-ccol-v1-0-4c99240cca28@igalia.com>
 In-Reply-To: <20261021-v3d-tfu-ccol-v1-0-4c99240cca28@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
@@ -42,15 +43,15 @@ To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4042; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=WCclP4Gfu8XzTFERJkdpY0T1XxxC4+zEWf9ED1VhWxQ=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq2NJ8TF6ugbJKo9ZzRT4H9lLbTHPCckYkGrf+2
- EWv7M0NTIuJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCatjSfAAKCRA/8w6Kdoj6
- qkZfB/95r8u/gNMmYqCmQgbpE5X+F2eVYlehCO229L3O+RGflw17ZsYqvWUCYYd/dOs5exhrbVd
- HxcX9y1jREL84ExjseXVtxMTX3oD9eAMPwCO0iN68bg6WS8/7n3gVB0t4q2GS4TI0VKqp7YFSq3
- 54vVRYIWJqrJGHW8ZFGjyuTEOkD6CpeCCPYQGqwyXiN9Uk/3/CDeWigU48hs4XN65QcmA54/8WU
- M9+My6mB5UFWNUn2TUveYgAAq3eSclTuGHRaQ9Jk7RwmMsQEx+6svbyVGUsWutuC0ut5stzXmWs
- XxDjWowVVq9javgPdUGn3K+V2HpfhURX2ILtz1e2J8Fe75HZ
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3774; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=Ci5feCu+4gtY7GAz6UMawDspIgW8tP28CBnfs4TDNVM=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq2NJ83+PwhYCpwRYbm40R3x1Ai+CMDqpgXXOYU
+ z8H4VMRUMmJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCatjSfAAKCRA/8w6Kdoj6
+ quKeB/4ncFZehbERmKUstqpaff13ckn2Qk6ThsCPE3m13ojUKYLgLW+pPXOxYT2fz62Yi0BfCWG
+ +vMVjdN6lIlNLcmTS8Js35dZ/1hWLLt4Wc2xbKReICZG1+uynEKr2pnWRkfv/nJw/dajzN3LJFb
+ yDPSMKH4lNmdw4/y08xWlBonps/L54j983YJSccalyMIkz17D+GIuFPlso8k4SUujvbBdjzZJ+N
+ TV3ikPtDHncsJ8NT5tEgm1MrZZ39w62T4M4n8+lF1Y9nt5LJOU1t9CW6Bi+4CAxA8Nbrb5m7Gey
+ UtckPNitnJGnhwX4LaFmd9hYYFFu3yaKDzh4rgPR0us8nJ9m
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,105 +72,92 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The V3D 7.x TFU can fill its output with a constant colour, read from the
-CCOL0-3 registers when ICFG.IFORMAT selects constant colour. This allows
-the userspace to offload buffer fills to the TFU.
+On V3D 7.x, the YUV coefficient registers are written for every TFU job,
+although the hardware only uses them when the field YVCS_RGBP of the
+register ICFG informs that there are user-provided coefficients. Skip the
+writes otherwise, matching V3D 4.x, where COEF1-3 are only written when
+COEF0.USECOEF is set.
 
-Add ccol[4] to the v71 part of drm_v3d_submit_tfu and write to the CCOL0-3
-registers when submitting a TFU job. To allow userspace to detect the
-support, add a new V3D parameter: DRM_V3D_PARAM_SUPPORTS_TFU_CCOL.
+To improve the readeability of the code, create a V3D_TFU_COEFX macro to
+iterate between the registers COEF 0-3. Also, while here, fix a typo in
+the IOC register comment.
 
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/v3d/v3d_drv.c   |  3 +++
- drivers/gpu/drm/v3d/v3d_regs.h  | 11 +++++++++++
- drivers/gpu/drm/v3d/v3d_sched.c |  6 ++++++
- include/uapi/drm/v3d_drm.h      |  5 +++++
- 4 files changed, 25 insertions(+)
+ drivers/gpu/drm/v3d/v3d_regs.h  |  8 +++++++-
+ drivers/gpu/drm/v3d/v3d_sched.c | 24 +++++++++++++++++-------
+ 2 files changed, 24 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-index 8d914dbc3315..b790be8a7fac 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.c
-+++ b/drivers/gpu/drm/v3d/v3d_drv.c
-@@ -129,6 +129,9 @@ static int v3d_get_param_ioctl(struct drm_device *dev, void *data,
- 		for (enum v3d_queue q = 0; q < V3D_MAX_QUEUES; q++)
- 			args->value += atomic_read(&v3d_priv->stats[q]->reset_counter);
- 		return 0;
-+	case DRM_V3D_PARAM_SUPPORTS_TFU_CCOL:
-+		args->value = (v3d->ver >= V3D_GEN_71);
-+		return 0;
- 	default:
- 		drm_dbg(dev, "Unknown parameter %d\n", args->param);
- 		return -EINVAL;
 diff --git a/drivers/gpu/drm/v3d/v3d_regs.h b/drivers/gpu/drm/v3d/v3d_regs.h
-index e09d6c6e188c..8cba47839bf0 100644
+index c1870265eaee..e09d6c6e188c 100644
 --- a/drivers/gpu/drm/v3d/v3d_regs.h
 +++ b/drivers/gpu/drm/v3d/v3d_regs.h
 @@ -120,6 +120,10 @@
  #define V3D_TFU_ICFG(ver) ((ver >= 71) ? 0x00708 : 0x00408)
  /* Interrupt when the conversion is complete. */
  # define V3D_TFU_ICFG_IOC                              BIT(0)
-+/* V3D 7.x IFORMAT field */
-+# define V3D_V7_TFU_ICFG_IFORMAT_MASK                  V3D_MASK(25, 23)
-+# define V3D_V7_TFU_ICFG_IFORMAT_SHIFT                 23
-+# define V3D_V7_TFU_ICFG_IFORMAT_CONSTANT_COLOUR       2
- /* V3D 7.x YVCS_RGBP field */
- # define V3D_V7_TFU_ICFG_YVCS_RGBP_MASK                V3D_MASK(15, 13)
- # define V3D_V7_TFU_ICFG_YVCS_RGBP_SHIFT               13
-@@ -152,6 +156,13 @@
- /* TFU YUV Coefficient 0-3 */
- #define V3D_TFU_COEFX(ver, x)                          (V3D_TFU_COEF0(ver) + 4 * (x))
++/* V3D 7.x YVCS_RGBP field */
++# define V3D_V7_TFU_ICFG_YVCS_RGBP_MASK                V3D_MASK(15, 13)
++# define V3D_V7_TFU_ICFG_YVCS_RGBP_SHIFT               13
++# define V3D_V7_TFU_ICFG_YVCS_RGBP_USER_INPUT          2
  
-+/* V3D 7.x IFC Constant Colour registers (V3D 7.1+ only) */
-+#define V3D_TFU_CCOL0                                  0x00738
-+#define V3D_TFU_CCOL1                                  0x0073c
-+#define V3D_TFU_CCOL2                                  0x00740
-+#define V3D_TFU_CCOL3                                  0x00744
-+#define V3D_TFU_CCOLX(x)                               (V3D_TFU_CCOL0 + 4 * (x))
-+
+ /* Input Image Address */
+ #define V3D_TFU_IIA(ver) ((ver >= 71) ? 0x0070c : 0x0040c)
+@@ -129,7 +133,7 @@
+ #define V3D_TFU_IIS(ver) ((ver >= 71) ? 0x00714 : 0x00414)
+ /* Input Image U-Plane Address */
+ #define V3D_TFU_IUA(ver) ((ver >= 71) ? 0x00718 : 0x00418)
+-/* Image output config (VD 7.x only) */
++/* Image output config (V3D 7.x only) */
+ #define V3D_V7_TFU_IOC                                 0x0071c
+ /* Output Image Address */
+ #define V3D_TFU_IOA(ver) ((ver >= 71) ? 0x00720 : 0x0041c)
+@@ -145,6 +149,8 @@
+ #define V3D_TFU_COEF2(ver) ((ver >= 71) ? 0x00730 : 0x0042c)
+ /* TFU YUV Coefficient 3 */
+ #define V3D_TFU_COEF3(ver) ((ver >= 71) ? 0x00734 : 0x00430)
++/* TFU YUV Coefficient 0-3 */
++#define V3D_TFU_COEFX(ver, x)                          (V3D_TFU_COEF0(ver) + 4 * (x))
+ 
  /* V3D 4.x only */
  #define V3D_TFU_CRC                                    0x00434
- 
 diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 9d18d2e67148..43fb97de64dd 100644
+index 1924e3440dc9..9d18d2e67148 100644
 --- a/drivers/gpu/drm/v3d/v3d_sched.c
 +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -312,6 +312,12 @@ v3d_tfu_job_run(struct drm_sched_job *sched_job)
- 	if (v3d->ver >= V3D_GEN_71) {
- 		V3D_WRITE(V3D_V7_TFU_IOC, job->args.v71.ioc);
- 
-+		if (V3D_GET_FIELD(job->args.icfg, V3D_V7_TFU_ICFG_IFORMAT) ==
-+		    V3D_V7_TFU_ICFG_IFORMAT_CONSTANT_COLOUR) {
+@@ -307,15 +307,25 @@ v3d_tfu_job_run(struct drm_sched_job *sched_job)
+ 	V3D_WRITE(V3D_TFU_ICA(v3d->ver), job->args.ica);
+ 	V3D_WRITE(V3D_TFU_IUA(v3d->ver), job->args.iua);
+ 	V3D_WRITE(V3D_TFU_IOA(v3d->ver), job->args.ioa);
+-	if (v3d->ver >= V3D_GEN_71)
+-		V3D_WRITE(V3D_V7_TFU_IOC, job->args.v71.ioc);
+ 	V3D_WRITE(V3D_TFU_IOS(v3d->ver), job->args.ios);
+-	V3D_WRITE(V3D_TFU_COEF0(v3d->ver), job->args.coef[0]);
+-	if (v3d->ver >= V3D_GEN_71 || (job->args.coef[0] & V3D_TFU_COEF0_USECOEF)) {
+-		V3D_WRITE(V3D_TFU_COEF1(v3d->ver), job->args.coef[1]);
+-		V3D_WRITE(V3D_TFU_COEF2(v3d->ver), job->args.coef[2]);
+-		V3D_WRITE(V3D_TFU_COEF3(v3d->ver), job->args.coef[3]);
++
++	if (v3d->ver >= V3D_GEN_71) {
++		V3D_WRITE(V3D_V7_TFU_IOC, job->args.v71.ioc);
++
++		if (V3D_GET_FIELD(job->args.icfg, V3D_V7_TFU_ICFG_YVCS_RGBP) ==
++		    V3D_V7_TFU_ICFG_YVCS_RGBP_USER_INPUT) {
 +			for (int i = 0; i < 4; i++)
-+				V3D_WRITE(V3D_TFU_CCOLX(i), job->args.v71.ccol[i]);
++				V3D_WRITE(V3D_TFU_COEFX(v3d->ver, i), job->args.coef[i]);
 +		}
++	} else {
++		V3D_WRITE(V3D_TFU_COEF0(v3d->ver), job->args.coef[0]);
 +
- 		if (V3D_GET_FIELD(job->args.icfg, V3D_V7_TFU_ICFG_YVCS_RGBP) ==
- 		    V3D_V7_TFU_ICFG_YVCS_RGBP_USER_INPUT) {
- 			for (int i = 0; i < 4; i++)
-diff --git a/include/uapi/drm/v3d_drm.h b/include/uapi/drm/v3d_drm.h
-index d9b01f4c3a04..2750a6fbb6b8 100644
---- a/include/uapi/drm/v3d_drm.h
-+++ b/include/uapi/drm/v3d_drm.h
-@@ -296,6 +296,7 @@ enum drm_v3d_param {
- 	DRM_V3D_PARAM_SUPPORTS_SUPER_PAGES,
- 	DRM_V3D_PARAM_GLOBAL_RESET_COUNTER,
- 	DRM_V3D_PARAM_CONTEXT_RESET_COUNTER,
-+	DRM_V3D_PARAM_SUPPORTS_TFU_CCOL,
- };
++		if (job->args.coef[0] & V3D_TFU_COEF0_USECOEF) {
++			for (int i = 1; i < 4; i++)
++				V3D_WRITE(V3D_TFU_COEFX(v3d->ver, i), job->args.coef[i]);
++		}
+ 	}
++
+ 	/* ICFG kicks off the job. */
+ 	V3D_WRITE(V3D_TFU_ICFG(v3d->ver), job->args.icfg | V3D_TFU_ICFG_IOC);
  
- struct drm_v3d_get_param {
-@@ -342,6 +343,10 @@ struct drm_v3d_submit_tfu {
- 
- 	struct {
- 		__u32 ioc;
-+
-+		/* Constant Colour Data */
-+		__u32 ccol[4];
-+
- 		__u32 pad;
- 	} v71;
- };
 
 -- 
 2.56.0
