@@ -2,122 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7403C606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:44:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453A9606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 12:46:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kOzwgi2h
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK2+0BQ9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA0BD10E2F3;
-	Wed, 21 Oct 2026 12:44:04 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010006.outbound.protection.outlook.com [52.101.201.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C96B810E2ED
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 12:43:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KQVCiQszeXDkxJcB0Z9BoSdf+ceV8jqKC/bhtQU4hfEZfSN/T+iIZS+FzlH8hZ9p/IUvOLep6+2kl+5CAw0RHp3ukl7eq2vXNMs1PpNMUrqHAn6lVFM974zfY5rNu+aUJkrxWp4QPot57gjQzeMYwuR7e1AbTxYNHNxW2Qx8hpOjqRA7Mp3jwOHqrol21j2RXMcT7oA/YQsHehFv3tEcRTRXzadS8cIlRs9FFir7hEePR0FE/6NNaO1R5yqfI6OIqat167VuGcddLDLEYs4DG7cNhN8Qmo4rEKZPrIz4X6DPyg8Ys7AiDcrvuKXfOPbvmb//juTGG1NaBFcQUclUhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8xa7G3we/aVBM15Evrl8f/UwX4OFEnm9+SULdNQmrFo=;
- b=Zfp+BDBXw28+Ptq2oVZtYSh9mwV1PhPNCffvG17pZqe7f2Q+SYZ6FgmyNvj1KoszHBUaNt6W7pcPP3ut9IJvGt22ooq/slrcpPu2VY4H7OyUwrLiSZsZvoINTHu4xRkyutbytlMvEdTTUzX0nCbx3W3M/lAanuwR5s6bxB+75hWv76AevtDQR0A3cuuBqpeiOymJcse9Z9YWf1VdbdY/OSnXHvXu/Bgj1lABbAztyDCYLKoMOixoxYhpdyxcVLq298/PHV69TdXHBqB4h5N0ZmQgeWpfmWS624o/RZyxY5pty/R+yyOY3WbPKFQ6Z67wVYVwPQUXRge7CrNjSRX+yg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8xa7G3we/aVBM15Evrl8f/UwX4OFEnm9+SULdNQmrFo=;
- b=kOzwgi2hkxoCKuU2vEiXNBWhT1XxBJasKlaCHT35SKnZw2AEqLxoJ92cmBKjJKjQwdOQYTD5Cxr0ctIHXeURmdXTfF3R9ac53PcrcUo5rbxmcRi10l4J3eYhBmfo33ok2637nAhUBwlMcYuxjAtCcxqYRE7/FUROylBGycFT+4c=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BL1PR12MB5921.namprd12.prod.outlook.com (2603:10b6:208:398::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
- 2026 12:43:56 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 12:43:56 +0000
-Message-ID: <33b0fe8f-f9c5-4726-b38c-835b5dabc441@amd.com>
-Date: Wed, 21 Oct 2026 14:43:53 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm: Log recovery method with wedged event
-To: Raag Jadav <raag.jadav@intel.com>, dri-devel@lists.freedesktop.org
-Cc: riana.tauro@intel.com, mallesh.koujalagi@intel.com,
- matthew.brost@intel.com, rodrigo.vivi@intel.com, andrealmeid@igalia.com
-References: <20261021024726.250487-1-raag.jadav@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261021024726.250487-1-raag.jadav@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0119.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL1PR12MB5921:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7469574b-8dbe-4eee-81c7-08df2f70f8bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|11063799006|261009223027099003|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: nswehpYbiBLDmjHBYqXWc/V1NBMcAv6uinwqxuPB+xN+SzWZOS5HbZnk9gfZtTEQbf3vrlpaOFWT7ThI6ifkB9rKkMLc2ZiudkmgQeQFcrgJLjHjKktW3O7FxAJRNaKkoHXn0JgYhaRqDVVf+gDdW1Um96OBNSruIU0vSejcCChtWgYvis3o6E04FULa71KntBRMOgND+fUerEmtOh74TxCmGnf7nh1yElYFMhs78obYJikBY26Uv7+JzDIJ1r9tuifsc92SrOUiTz1qjd7cGmQ+EYxM1CE1dpd2ocIeV65VxEc8bOK95rWu13rR7u64zc2wHe3/6cclRlIk9JWzzq5/r+2y8sGsq23hmBCIhggN7vPJtEKKrLccKp73ln2ShP2685UicZlg4gJv6z4bel++OF+bVR2/sWCBE6xajcfCSEZ7AY4NeXjVi5btr5+HYtGPBUsnMjmujfZDyu1q8tSI28StN3C+oPCJISMGVER3jqg+vJDLP1dcwx81oTJM+tjgbgge2NvYcEfv7ssd0/aACBvxmy5nyMw2YEc8A8wGaoemikHo+h8wv2B1pWps7eBRKxCcC8cPp7Zpr7iVDRo9m2+ve+WXzoJaCntpBcwwQjzi3fs5xDeuL3NOgL5DqmLGIMUhRbjBFv9LZ6xVd32klw8eE8q+wI1itPYXGCw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(11063799006)(261009223027099003)(10067099003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3VUSlZ1eE0zOXRuRXkvSFkvWkxmREM2OTZldmtXSFNseGFjUlN3VSthT0w5?=
- =?utf-8?B?Rm96cDB4SnQyK2JtdjAvTUtKdUY0b0Exam5MRjVXQ3hYc3MyYlpBQzFCOVl2?=
- =?utf-8?B?OER2cTd2TlRFelNCVVYxK2F3bmJuT2VRRXM5cFFWNkVEWVRPYVU2YjFIZDVW?=
- =?utf-8?B?ZVdpM3QrU0Q0aXZqM3AzelBaODZoOGJZSUhwZ3dubUluUENRN1BFOCtkd01U?=
- =?utf-8?B?SE9XSHZhcHBEWTI3L2RQSUh4b1RKcWNYQy9jNHRzaFhFVWxOUGVCcWtSeGV4?=
- =?utf-8?B?U29mejBVc1RiTm5sclVyVzZySms2cWl3MGVJV0hpekZjd3l4U2JKY3M4aStY?=
- =?utf-8?B?ZXg1di9QK0xPcUg2ejdLRWkvM2VPVkorUEhKRTY0WGx4cHNDZHR2RVN3YS84?=
- =?utf-8?B?NjlOcWlHY3VXb3VEWkY2dzdkc3Bsc0NyR0YrWkpnY3JTM05wenZ4bWF1NGMy?=
- =?utf-8?B?WTNTMEtMVm9KNnM0RzI4OVE2VEJzMlpKNzNtUlZGS0FRZVBqOGJHcWlUdHo2?=
- =?utf-8?B?cEsrZVJHMWtqazFTZ0lFb2dEd2xJRG5kdFVhL0FEcWpuVU4xcDFvL1M1WVdz?=
- =?utf-8?B?a3BUL0JTVC96NWE3OGdXYllrelIyaVBkNEE3ZXZNbndjMVpjRkJJaGRHWmJE?=
- =?utf-8?B?Yi9zNHU2UjlxWjZaN1JKZC81LzJWRy9pY1Y5TS9aZ2lwdWFvdlhTeEJKOTNN?=
- =?utf-8?B?NW9HWENaVE9paUF4NGZvYnRBeWcxRURpT2R2ZWVQclA2NEh6N3VQU0VxSDFm?=
- =?utf-8?B?cmN0T3JDYlo0b0xYcSsrSmtZb3QwdXF5RHdKTXVoNDhEWGtZRThxRHhXNVNN?=
- =?utf-8?B?aWlIeDdFM0dGOURTcnRHUU9MYzZDMjZybmozOTRiUXJibnFPV2tvYWpxVHdq?=
- =?utf-8?B?blBubjZUNDdzWHY4bnFMZTVrcnlRK05PdG1va0RzaWpjdzVvZGU0SUVUMlls?=
- =?utf-8?B?TC9zWU1IcGFjNzFWQk5RZTQ5SXN4eS83RkIvY1hVaDliNGdscTNnZXhFWGw3?=
- =?utf-8?B?bUdxSjhXendURDBPQ3NVTlZmYmVnY2YxaEQ5cnpkTTF5Ukh5M1VDbHZwcTVu?=
- =?utf-8?B?bFZrNnVwaGlKSmN4Mzd6QzR2Qm45MGpmQVpvNDJEeFJuMEM0YnRmdEs5a3lk?=
- =?utf-8?B?SjR2TmttenZhSk8vVVN5WlFGMXQrUjJ3WWlkVHhiYWthZ0tpTkNsVFc4clRq?=
- =?utf-8?B?QjMxQUFCcWRNZHBYNnFsYTBmNklWeWRRcDkwd0VhVWJMU1pjSXAyMFB5NGdv?=
- =?utf-8?B?WWdLSnFNWHRIUVZXVHd1N3JQMXJ3WkdWRW5NUXBjcjhZSjFRdnVZTGt1L05s?=
- =?utf-8?B?NTllL3BDZWVUUGtENDM2L2NyRG5FSFdRS21lTk43MWo5ZFdWbXlWYmVvaEVR?=
- =?utf-8?B?ZlFSSGZ5b0g5dnUwSkJxM0hweUQ2MVFIbmVKRjMwSWtkL1dxcUMxa0xVQkFF?=
- =?utf-8?B?Y0pKbTlOZVY5ZlFmYnlWcldRNlY1eUtxdUh3TUlEb2R4TVJUbVVyazlsaTF6?=
- =?utf-8?B?TlRMcWVRT3ZRL3hnTkFkZi9IdDNZQ1VwZHA4TTJEM1NTUlZHTFM2VWhsZDZE?=
- =?utf-8?B?dEFNb2RTSDNaNUZGOW9oTzl2ZnFZVGVnakVRUnlnVjd1MEZGRXN1ZE1BSlk0?=
- =?utf-8?B?a3gySU9HOXlvWEdaUUx2L2NabHFleTJoUWQvdm15d3UrY0NWcnJlRXkwU2Rn?=
- =?utf-8?B?bkVVdWJVd1BiMmF5dE92eFZDR3IzQ1BwQXQrRXZoOEdnZThoVXpoOHl6bFhQ?=
- =?utf-8?B?N2NFUVoyMHdmMnZmK2RmdHV4L3NKc2JiZ0p2U3hOZ2tybGt6Y1RiZURudDRw?=
- =?utf-8?B?NEJQbnJ2VTE5U2hLbFBGaWp6ZHEvR3NoS1g3bFllM0U1NmhvenN5YnZERS9l?=
- =?utf-8?B?ZCtTOXkyclorQklwVWJ5RThZZGZYVDlaTEhvamVoZFZFQ0puMmJNanpOTUVr?=
- =?utf-8?B?VDBUZmVQaVVvKytxTUFtYUp0S3AzajNmdlpRZ21QTlM3ZGQwSER0d2Rvb1Ir?=
- =?utf-8?B?RVdsM0hJRElraTZySkhOZ0hUNHgzTERpT2huTDBXT3YzcXVJazRNODRXS3ph?=
- =?utf-8?B?dnVrSDh0Nno3eTJUVC9ESXliOG0vSWhhL21vb1puejZSdFhlYXdGOU5sVlVW?=
- =?utf-8?B?Z0ZkZE5ha1B4K04wVXIvZ2lnaUkyWm85OVR1b1dwclJBanRkNjJsZTE0Zzhh?=
- =?utf-8?B?eW0wV2VMZ3o0dzlsSlJSQnNvZ2dxWDIyMVlQdVRNUmxLYzNTaWpLVE05em9K?=
- =?utf-8?B?VHl0eDcwdDNhaE9SQkQ1cEVGcS8ybW9LY3FPTTRaUzZGelVOd3c1Zm1kczkz?=
- =?utf-8?Q?Z33vs2nXwSxLuUVcsJ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7469574b-8dbe-4eee-81c7-08df2f70f8bd
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 12:43:56.7701 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2M2B6dbf4Hdv6db2y6AjQmPtcEdZbxaJpQ057fr6FD53z1jDNevng92qx6fWdoY6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5921
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DC3A10E2ED;
+	Wed, 21 Oct 2026 12:46:44 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C20810E29A;
+ Wed, 21 Oct 2026 12:46:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 424F443954;
+ Wed, 21 Oct 2026 12:46:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEB091F000CD;
+ Wed, 21 Oct 2026 12:46:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792586798;
+ bh=DSHGh9biCR4Z2aelLqBDwVZs/0FUQY9Qjl4/z4+adCY=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=oK2+0BQ9dhixcbCHRQn8jc4Kq1CAVRTyjsy6IOaROreywmIgGC9sMGCeD1epEKNin
+ 6JpAChW9dXVbnrOT5ID1NQqlKqklCqOG6vGcM5PudrE4bkYT+wym1Sn6euVRM9TEcK
+ 2vH54Ft5xFYZXrS3QLdtW727hapzOOyewrF1ogWJYLl8+XZL0qeeTBvCiCJVUw3L1F
+ IjTKNjwPlrvdksROtvyCk/OlkIH0TGIBG15yHgZewmDLCvjkmlL0ZP1LpQNT37IAy1
+ V5rrnd20LD0yi5e757EX/VASRFWK2i0pSS8o57m+2naWcp3YzbRMg6Z79K5colC4D4
+ +evTWUS3gFa5A==
+Message-ID: <sashiko-outbox-180272@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/2] gpu/buddy: add range-restricted contiguous
+ allocation fallback
+To: "Arunpravin Paneer Selvam" <arunpravin.paneerselvam@amd.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261021121813.1820345-2-arunpravin.paneerselvam@amd.com>
+References: <20261021121813.1820345-1-arunpravin.paneerselvam@amd.com>
+ <20261021121813.1820345-2-arunpravin.paneerselvam@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 12:46:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,44 +50,303 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 10/21/26 04:47, Raag Jadav wrote:
-> Currently, drm_dev_wedged_event() logs a basic message of device being
-> wedged, but doesn't print the recovery method used by the caller. Log it
-> for easier bug report analysis.
-> 
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] gpu/buddy: spurious -ENOSPC in __alloc_contig_try_harder() for r=
+ange allocs
+--
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+commit 14acba1e552d60bba9eee2e544118f0040222647
+Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-> ---
-> v2: Distinguish between recovery and no recovery cases (Christian, Rodrigo)
-> v3: Retain drm_info() (Christian)
-> ---
->  drivers/gpu/drm/drm_drv.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index cb53baa70995..43125d655f64 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -598,8 +598,8 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
->  		/* Caller is unsure about recovery, do the best we can at this point. */
->  		snprintf(event_string, sizeof(event_string), "%s", "WEDGED=unknown");
->  
-> -	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
-> -		 "but no recovery needed" : "needs recovery");
-> +	drm_info(dev, "device wedged with method %#lx, %s\n", method,
-> +		 method == DRM_WEDGE_RECOVERY_NONE ? "no recovery needed" : "needs recovery");
->  
->  	if (info && (info->comm[0] != '\0') && (info->pid >= 0)) {
->  		snprintf(pid_string, sizeof(pid_string), "PID=%u", info->pid);
+gpu/buddy: add range-restricted contiguous allocation fallback
 
+This commit extends __alloc_contig_try_harder() with a [range_start,
+range_end) window and routes range-restricted contiguous allocations through
+it when no single naturally aligned power-of-two block is available. It also
+adds KUnit tests covering fragmented range-restricted contiguous allocation=
+s.
+
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 8eb5835d6944c..693176ee3daf9 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -1723,43 +1723,32 @@ static int __gpu_buddy_alloc_range(struct gpu_bud=
+dy *mm,
+>  			     blocks, total_allocated_on_err);
+>  }
+> =20
+> -static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
+> -					u64 unaligned_offset,
+> -					u64 size,
+> -					u64 min_block_size,
+> -					unsigned long flags,
+> -					struct list_head *blocks)
+> -{
+> -	u64 aligned_offset =3D round_down(unaligned_offset, min_block_size);
+> -
+> -	return __gpu_buddy_alloc_range(mm, aligned_offset, size, flags,
+> -				       NULL, blocks);
+> -}
+> -
+>  static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+> +				     u64 range_start, u64 range_end,
+>  				     u64 size,
+>  				     u64 min_block_size,
+>  				     unsigned long flags,
+>  				     struct list_head *blocks)
+>  {
+> -	u64 rhs_offset, lhs_offset, filled;
+> +	u64 rhs_offset, lhs_offset, filled, aligned;
+>  	struct gpu_buddy_block *block;
+> +	unsigned int min_order, order;
+>  	struct rb_root *root;
+>  	struct rb_node *iter;
+>  	unsigned long pages;
+> -	unsigned int order;
+>  	u64 modify_size;
+>  	int err;
+> =20
+> +	min_order =3D ilog2(min_block_size) - ilog2(mm->chunk_size);
+> +
+>  	modify_size =3D rounddown_pow_of_two(size);
+>  	pages =3D modify_size >> ilog2(mm->chunk_size);
+>  	order =3D fls(pages) - 1;
+> -	if (order =3D=3D 0)
+> -		return -ENOSPC;
+> =20
+> +retry_order:
+>  	root =3D &mm->free_tree[order];
+>  	if (RB_EMPTY_ROOT(root))
+> -		return -ENOSPC;
+> +		goto next_order;
+> =20
+>  	iter =3D rb_last(root);
+>  	while (iter) {
+> @@ -1767,25 +1756,48 @@ static int __alloc_contig_try_harder(struct gpu_b=
+uddy *mm,
+> =20
+>  		rhs_offset =3D gpu_buddy_block_offset(block);
+> =20
+> +		if (rhs_offset >=3D range_end) {
+> +			iter =3D rb_prev(iter);
+> +			continue;
+> +		}
+> +		if (rhs_offset < range_start)
+> +			break;
+> +
+>  		/* Allocate blocks traversing RHS */
+>  		err =3D  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+>  					       flags, &filled, blocks);
+>  		if (err && err !=3D -ENOSPC)
+>  			return err;
+> -		if (!err && IS_ALIGNED(rhs_offset, min_block_size))
+> +
+> +		if (!err)
+> +			filled =3D size;
+> +
+> +		/* Clamp a full or partial fill that crosses range_end. */
+> +		if (rhs_offset + filled > range_end) {
+> +			gpu_buddy_free_list_internal(mm, blocks);
+> +			filled =3D range_end - rhs_offset;
+> +			err =3D -ENOSPC;
+> +		}
+> +
+> +		if (!err && IS_ALIGNED(rhs_offset, min_block_size) &&
+> +		    rhs_offset >=3D range_start)
+>  			return 0;
+> +
+>  		if (!err) {
+>  			/* Allocate the unaligned RHS offset using round_down */
+>  			gpu_buddy_free_list_internal(mm, blocks);
+> -			err =3D __alloc_contig_aligned_retry(mm, rhs_offset,
+> -							   size,
+> -							   min_block_size,
+> -							   flags, blocks);
+> -			if (!err)
+> -				return 0;
+> -			if (err !=3D -ENOSPC) {
+> -				gpu_buddy_free_list_internal(mm, blocks);
+> -				return err;
+> +
+> +			aligned =3D round_down(rhs_offset, min_block_size);
+> +			if (aligned >=3D range_start &&
+> +			    aligned + size <=3D range_end) {
+> +				err =3D __gpu_buddy_alloc_range(mm, aligned, size,
+> +							      flags, NULL, blocks);
+> +				if (!err)
+> +					return 0;
+> +				if (err !=3D -ENOSPC) {
+> +					gpu_buddy_free_list_internal(mm, blocks);
+> +					return err;
+> +				}
+>  			}
+>  			goto next;
+>  		}
+> @@ -1797,21 +1809,73 @@ static int __alloc_contig_try_harder(struct gpu_b=
+uddy *mm,
+> =20
+>  		/* Allocate the unaligned LHS offset using round_down */
+>  		gpu_buddy_free_list_internal(mm, blocks);
+> -		err =3D __alloc_contig_aligned_retry(mm, lhs_offset,
+> -						   size,
+> -						   min_block_size,
+> -						   flags, blocks);
+> -		if (!err)
+> -			return 0;
+> -		if (err !=3D -ENOSPC) {
+> -			gpu_buddy_free_list_internal(mm, blocks);
+> -			return err;
+> +
+> +		aligned =3D round_down(lhs_offset, min_block_size);
+> +		if (aligned >=3D range_start && aligned + size <=3D range_end) {
+> +			err =3D __gpu_buddy_alloc_range(mm, aligned, size,
+> +						      flags, NULL, blocks);
+> +			if (!err)
+> +				return 0;
+> +			if (err !=3D -ENOSPC) {
+> +				gpu_buddy_free_list_internal(mm, blocks);
+> +				return err;
+> +			}
+>  		}
+>  next:
+>  		gpu_buddy_free_list_internal(mm, blocks);
+>  		iter =3D rb_prev(iter);
+>  	}
+> =20
+> +next_order:
+> +	if (order > min_order) {
+> +		order--;
+> +		goto retry_order;
+> +	}
+> +
+> +	/* A non-range request would already have used a larger free block. */
+> +	if (!(flags & GPU_BUDDY_RANGE_ALLOCATION))
+> +		return -ENOSPC;
+> +
+> +	/*
+> +	 * Last resort: the span may sit inside a larger coalesced free block
+> +	 * that the anchored search above never visits. Walk the higher-order
+> +	 * free trees (bounded by the number of free blocks, not by the window
+> +	 * size) and carve the highest aligned span that fits inside each block
+> +	 * overlapping the window.
+> +	 */
+> +	for (order =3D fls(modify_size >> ilog2(mm->chunk_size));
+> +	     order <=3D mm->max_order; order++) {
+> +		for (iter =3D rb_last(&mm->free_tree[order]); iter;
+> +		     iter =3D rb_prev(iter)) {
+> +			u64 low, high;
+> +
+> +			block =3D rbtree_get_free_block(iter);
+> +			low =3D max(gpu_buddy_block_offset(block), range_start);
+> +			high =3D min(gpu_buddy_block_offset(block) +
+> +				   gpu_buddy_block_size(mm, block), range_end);
+> +
+> +			if (gpu_buddy_block_offset(block) >=3D range_end)
+> +				continue;
+> +			if (gpu_buddy_block_offset(block) +
+> +			    gpu_buddy_block_size(mm, block) <=3D range_start)
+> +				break;
+> +			if (high < low + size)
+> +				continue;
+> +
+> +			aligned =3D round_down(high - size, min_block_size);
+> +			if (aligned < low)
+> +				continue;
+> +
+> +			err =3D __gpu_buddy_alloc_range(mm, aligned, size, flags,
+> +						      NULL, blocks);
+> +			if (!err)
+> +				return 0;
+> +			gpu_buddy_free_list_internal(mm, blocks);
+> +			if (err !=3D -ENOSPC)
+> +				return err;
+> +		}
+> +	}
+> +
+>  	return -ENOSPC;
+>  }
+
+[Severity: Medium]
+Can __alloc_contig_try_harder() in drivers/gpu/buddy.c still return a
+spurious -ENOSPC when gpu_buddy_alloc_blocks() falls back to it for a
+range-restricted or min_block_size-aligned contiguous allocation, if the
+valid contiguous span straddles a higher-order block boundary, a block
+starting below range_start, or a trailing block smaller than min_block_size?
+
+In the first pass, the anchored search starts at
+order =3D fls(pages) - 1, breaks out of the free_tree walk as soon as
+rhs_offset < range_start:
+
+		if (rhs_offset < range_start)
+			break;
+
+and stops descending at min_order:
+
+	if (order > min_order) {
+		order--;
+		goto retry_order;
+	}
+
+In the second pass, the higher-order free_tree walk clips each individual
+free block to [range_start, range_end) via [low, high) and requires the
+entire request to fit inside that single block's clipped window:
+
+			if (high < low + size)
+				continue;
+
+			aligned =3D round_down(high - size, min_block_size);
+			if (aligned < low)
+				continue;
+
+Because the second pass only tests placements contained within a single
+higher-order block and never stitches across adjacent free blocks, it looks
+like valid contiguous placements are missed in three cases:
+
+1. A span straddling two higher-order blocks. For example, with chunk_size
+of 4K, if [16K, 32K) is free at order 2 and [32K, 64K) is free at order 3, a
+request for size =3D 12K, min_block_size =3D 4K in [24K, 40K) finds free_tr=
+ee[1]
+and free_tree[0] empty in the first pass. The second pass clips [16K, 32K)
+to [24K, 32K) (8K < 12K) and [32K, 64K) to [32K, 40K) (8K < 12K), skipping
+both and returning -ENOSPC even though the entire [24K, 40K) window is free.
+
+2. A span straddling a block that starts below range_start and an adjacent
+higher-order block. With the same free blocks [16K, 32K) at order 2 and
+[32K, 64K) at order 3, a request for size =3D 20K, min_block_size =3D 4K in
+[20K, 44K) starts at order 2, sees rhs_offset =3D 16K < range_start (20K), =
+and
+breaks without probing from range_start. The second pass clips [32K, 64K) to
+[32K, 44K) (12K < 20K) and skips it, returning -ENOSPC when [20K, 44K) is
+completely free.
+
+3. A span straddling a higher-order block and a trailing free block with
+order < min_order. Since min_block_size constrains the start alignment of
+the contiguous span rather than the size of trailing blocks stitched into
+it, if [0, 16K) is free at order 2 and [16K, 20K) is free at order 0, a
+request for size =3D 12K, min_block_size =3D 8K (min_order =3D 1) in [8K, 2=
+4K)
+stops descending at min_order =3D 1 without visiting [16K, 20K) at order 0,
+and the second pass skips [0, 16K) because [8K, 16K) is only 8K (< 12K),
+missing the valid 8K-aligned placement at [8K, 20K).
+
+Should the anchored search instead start from mm->max_order down to order 0,
+and clamp blocks that start below range_start (with rhs_offset + block_size=
+ >
+range_start) to start probing at range_start?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021121813.1820=
+345-1-arunpravin.paneerselvam@amd.com?part=3D2
