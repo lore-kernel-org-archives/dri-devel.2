@@ -2,125 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BC9606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 15:43:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A3460A3814
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 15:43:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LCGWlvF9
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TY+b+1w1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E623410E330;
-	Wed, 21 Oct 2026 15:43:22 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011030.outbound.protection.outlook.com [52.101.52.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4C4010E33A;
- Wed, 21 Oct 2026 15:43:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vk0ruR9pbwmf9AwhfekCBOe5CS4zzFlZ68H0yW0f3v0yZ/teVEYYO6qRafh3eDM01AAWpuxY5jVcEfnW7oJVN0bgSa2lFtX6RE0uB/6T+fbMh/zEz2ipkmTC4WqwIVf2DSgSrmD/cHB8alzOdLHRc3LQdEtxTXsQVKDQvNldSx1pP4yfeAKYUn1m2woDTybfz1NW48d/yz+3wM0sxNpm39YIo661HwUlCw89hcUMqzYX4oMmc3oLZYGBfnyEY7Vjv3dEY4Vi0/Zn2qCyCs20NQwXvklIKN9r5pBUQXXVnT9UPb16Z0s+IwJSnHfoUvGrUfFRoSQAyGuMTfDtyCu1/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/MkPbd3JzMqw5i7RESQrUwKg04RwCgzifrhmeY08/5o=;
- b=dJOtNrbT6QKkEa7hQbyPmx/zOFOfBv8J0EIWNuX1GPVXxRSDf0Nc7RUZjLeV9gOhIA4y+sSpKC0IrgzOUfgSmE7C1ZSCg8XoYNcoOFGdDmE4SyCnLy379rzXHqRdaSmDfVLe9Cm0LCDHRLG5G1mYRgpSRmUzLx7ugUhoC4Q3+4xUIC0lsThIhLu0NC9nWzw+HlJ95QuE/ZiL/ITP3xhEtlqcdd+8OBOmxYi61Ti+To5EI0xtql4xK+T03nxFQea8tJt6a2NjIoGHDmUUfxOJ8L0ZUMLO+O3Va+FIptLVfkVaVqBCxE9P4BSJUXc7FDt+yOEzw5Juq6bEm8H0ZA3QWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/MkPbd3JzMqw5i7RESQrUwKg04RwCgzifrhmeY08/5o=;
- b=LCGWlvF9h2nAUedRuFl284b2KfugusnkJIY2/2J5URjtksYsiXlfoYdwRAAl6zz8j1pELx5kA88hRzv9yInYVDzy9xjvGVaZugq3/sv8JrxtJng1igG/aC4saz8TwMSvPldjvfM3FgxTWUDKvudPsEFrht4KFYfXMTqir7EGCJA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by SJ2PR12MB8035.namprd12.prod.outlook.com
- (2603:10b6:a03:4d3::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 15:43:13 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 15:43:12 +0000
-Message-ID: <b44fb51c-11f7-4332-8ac6-d260f6904dfc@amd.com>
-Date: Wed, 21 Oct 2026 11:43:10 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/1] drm/amdkfd: Do not use internal implementation of
- tolower()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20261021084639.251366-1-andriy.shevchenko@linux.intel.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20261021084639.251366-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0009.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d1::21) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 673EA10FE70;
+	Wed, 21 Oct 2026 15:43:27 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29EEC10E347
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 15:43:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1792597396;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=PGvKxLtVkj8aET1gCZB9vB9TUPm0s+OVrj/WLz6eC1s=;
+ b=TY+b+1w15AxwsHLOt6fkOA7Pzx+l5n4ysSCVimHBVfRVlNiwXVpO2JaIYSTTRPcow62/1T
+ swP4VvXHeAsfOEAr46LLbweCuALEf6+uj5Ow1j9zQPJx+93bmuAU29kqvvG7M1AAazIBx+
+ eN7XuieOMmSBn16503f0xT5XvOJzWdw=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-385-bQW6sU6oM1ecRjRIWtI3tQ-1; Wed,
+ 21 Oct 2026 15:43:11 +0000
+X-MC-Unique: bQW6sU6oM1ecRjRIWtI3tQ-1
+X-Mimecast-MFC-AGG-ID: bQW6sU6oM1ecRjRIWtI3tQ_1792597387
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 6B1F11955F6F; Wed, 21 Oct 2026 15:43:06 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb
+ (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B8DFF18002B1; Wed, 21 Oct 2026 15:42:58 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Date: Wed, 21 Oct 2026 17:42:23 +0200
+Subject: [PATCH RFC v2 2/8] dma-heap: charge dma-buf memory via explicit memcg
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|SJ2PR12MB8035:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47682c6e-427d-4e20-6079-08df2f8a03b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 97XHISzoqS0Tbb9LjkDo76ivDu3aKOPmSkJng4GdYmsuslHw/nVxq3blSCXH20j72bU2zAmiqL84BicJ9+OK4e9y+hl1uxfo7+FaEtjODwYpXfiK8PIYd63vAvq5YcpQLWpsUP2vwOdjqEzViw3Vgse/IYF8eFNlnEKgyUQZ5IOmCX4pQDEU6XjVZ3PyiYY4BqeheX4/U3iMsHiNcwlwEZe0dygUO1Kaj/7ESkyJw05DQQ8TJn9WInzDkj9PaFllylAKycwF4kg0wnFBgmCxxzMIqv9iSCgamNUaxDjb8qdr3uG94N+sB57Uy38UooP1ACkHEOSHLVnNFu8FFLsKOJNfmJtS7wcv7bCmI6aQEJ6t+lnQz9XSDOkuPtyKhQiNyBizoXxXrD8q0OlaQfKzcdI8gml3DP7RejXDUKIF9xMSOmW/NrgOUEfk17ZYYrhD/DAj2O8myCsy68b5ZE4c9zp0x0kjiw+n+rdeFYSY2ssFJwuPy15SA8Nq70Zzm9HwTu43a9MIAYSGhor22OGV9KMd5tGwDIefB5HiUhwNnKledOVYNUSIhdEGHYC6Lm7HULMXTbzUuPeIGugZH2gJHn93HSFudAGf9gUToxKNxIzOvZMD+sMi5D7osjaXksDlOLIAg/rrzb7259E5Y+j5KxzEId8NLMLmNQXDAxzcDfs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEdVelJiUDRleTFjUWNqWjRQbGkxaHNoZ1k4QndkQ05heEpHcGw0Z2IzSXNJ?=
- =?utf-8?B?OXM0amRHa2RLbTFCQ08zM3N4T0FqczBxaENTR21CVjV6MUVUSE1aK3MzTG9h?=
- =?utf-8?B?bWdpR2ZFSGxUVzNMQ1ZXeUk1ZFFkdFM2WVEzNEtVYll1dnloRjFDQ3A3MmJ4?=
- =?utf-8?B?aDFwc0sxc1JrT3N1NmpscVlPaWs4VUlvdjRvVzEvOHJueWdQWDFsZDYzeTNa?=
- =?utf-8?B?M1F5WXlIaUxXQmpUWmxlRDkxYm9vcUE1d1ZWOFBpZFF1ZFdnQzgydmpJYzU4?=
- =?utf-8?B?dHZ2OGlOaXJLd0lIMEZLK0JraXByM1M5bWNLbFNWWDlySjI3ZXVBajVrWmxC?=
- =?utf-8?B?T2NiM0xVczdOQmM2ZkxhMFpNRXNGSEJqZ255NTY4bVg0SUg2Y0RMT2VaWHY3?=
- =?utf-8?B?WXBuYUhCZVc2Nk5CYWIzTkwxU0xSRi9oR0ZxMmREcEo4dTR0anZ4RzlhSmxW?=
- =?utf-8?B?NGhCYmhQdTRuNkxrTmRjbTVkV2lhTzZlckZKL2xxdkV4NG9CeXNOWHBSOUEr?=
- =?utf-8?B?NWhVWWlNSitoRjJyRFR5cUp4M3V0L2w4YXJITDZNQWlHVzl1V0Q3ZG1jZnBr?=
- =?utf-8?B?WlhxeFJCa3BCQXZrL3ZJTEUwYjZURS96ajNQQTRrMHhsSkl0M2dtNnJUbm1T?=
- =?utf-8?B?R0thK0NqQ3VxRkhwYnJNOGZNbWNvMmpjRFV4aWpNNG5la3NUYlFBUEF6V3Qx?=
- =?utf-8?B?akJ6QVdtTVU3WXNDR1NDWkdnQ1p6RnJpYk96U0FUN1JGdW4yZEszekZvUTlQ?=
- =?utf-8?B?dkV3UXQwamtvZzlPclM5d0F4YlR5dmFvb3gyQUpwQWdTeTdHcUFPUXU4QzU2?=
- =?utf-8?B?MkNyN2ZxdkVxa0Z0YldDeG9NRUswYjZNSUU3bDdndFM1bUM4ejZGdFZrZDM5?=
- =?utf-8?B?RzVEWitoNU40OU5sRzNpMWpLWXFHVUpUd0gyNXBZbzRzV092Z3Q4RW9nempG?=
- =?utf-8?B?OXlIcXk0WmtJQ2ZoUzBGQklJUlRlUGcyR3Bqc1RWUERCSEYwcktGTWNzVjlV?=
- =?utf-8?B?RDljSmlxRWtjdUxQSTZYSnpsSnJHMTVNYzRzMmxLeU53bHpiY2NKQnhBRXNU?=
- =?utf-8?B?cng5eVdYTDRxLy9VZExXTUJ2UzJwQTk0MjdacXdMallRRDNOa1NjUDljakR5?=
- =?utf-8?B?VlY3djNQek1JU210UFV0WVZDYis3OEJ6dXRzNlI0VHplOHdPdWcxMy9TQkJZ?=
- =?utf-8?B?YjZtVzRXb2J3WTdJUDAzN3hIZS9rZWhzZzY0TGt0MytUSWR5c1RWREpPL1Y0?=
- =?utf-8?B?SWxPT29sSWtCZ3NzTWtEZWg2WkJSc2FRZDdrbjB1dTRJelc4VitraFBoLzU1?=
- =?utf-8?B?a1E1Q1MwSUhKUktRdm9PMDhrSnNyYWlvdmNjYlVlWWh0eXFHU0d6MUltc0ds?=
- =?utf-8?B?amZXUExaa3VUSjFBdWVMcStmRWY0Q1dJZXlvOGdiRnRQQnlEMlZodUVKMFM2?=
- =?utf-8?B?M3p0cDQyREVyMG9Xbjk3Q1pEQU9jaDhnM0ZobGdNUmNYbTJQa0lJbFBvaW9l?=
- =?utf-8?B?VkJSKzVVdDcza3kyMWdSWHV5RVZSbmJ3ME1PME9TWHNVY21YWlJYSWZaYlF3?=
- =?utf-8?B?Rkk3eXI0REl0UXhMSjR1c2xSOVk0MTNkamQ3bWRtQ2FHZG9oQ3Fpd24rODNt?=
- =?utf-8?B?YUR3YSszQTF1OGx4T0RKTDVMR3ZENG9NNDhPYSswR09nbzlRODJmSUphR0pi?=
- =?utf-8?B?d1Zsdm9CU3BHbUxTRTY2WStTeHI5dk5JdEFYK0QwTHdrZTk4UUVVK0ZMQnlv?=
- =?utf-8?B?U2E5VWlmK01RUW5Jc09HbU1uMUdMZGIrSEJhdEtkMWN6M283K2hWYjUwQTdk?=
- =?utf-8?B?azRLbWZLM2F3bHUwd3VLd0M3NklUdEFrNUJ2ZVVlMGJ0VURLWUdBcnVFOVNk?=
- =?utf-8?B?M3dpUy9ySGt4aHRuSkJiblRuVXcxUG56bGZyMjN5SWtrSzV6WFd0ZFoxenNJ?=
- =?utf-8?B?Lzg5VXMvem5qdlFLR2lYR3lSajRCcmt5UGZ3a01ZakdUUVdLM2p4eFVWTlBT?=
- =?utf-8?B?Q3ZjU3RwSGZ2M1ZlUWdtSmZBSzM4ODJTUmpaWFR2SW1UdG4vTlluangzajNl?=
- =?utf-8?B?engvMWJWOGNUSS9aaG0yZU5lQjRsUTlTbXhsdXp5aUZYNUI0S3lma2ovSjhB?=
- =?utf-8?B?emFTVElOM3V5am9BbGhWVE5sejlaMWw2aG1tZGJudklLL2dmL1c5bTUyVUQv?=
- =?utf-8?B?RnhBOWFJMDFpS3ZmbTJzWWRFNVArK2pHK1VEMjJua01wNUs1QUhURDYra2Qw?=
- =?utf-8?B?Vjd1RWNYcTF1NmV1S1FxVHJsMjNBc2MxR2F3a2pzUDB6MklkNENveUxEUlBm?=
- =?utf-8?B?Vnh6SDVoQ3A5SlYwaFUrdW9xa1hrOGptZDJIWDlYWWFnd3NZdnJSUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47682c6e-427d-4e20-6079-08df2f8a03b6
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:43:12.5528 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tv5csV8tmmgoLCbBq1j3sDoKdr9Y9Cno0KMsQxQlrWSTWJtrTU7zBoEhgn4ZNM6EqQJ+QH4mkyI0p35mTfb0DA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8035
+Message-Id: <20261021-v2_20230123_tjmercier_google_com-v2-2-ef6ee2dd8c5c@redhat.com>
+References: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
+In-Reply-To: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Albert Esteve <aesteve@redhat.com>, mripard@kernel.org, echanude@redhat.com
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792597359; l=7192;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=pji/4sq7BscjELUksmBSA71bWOhvozaMRbSph78T9cQ=;
+ b=Isdo/bRMmwngdlwtW8H3L+1rYgtwEY7gCEZPRlMy/eV+nPd/KFWzKnKRx2Oor82bt0qG6Ijpg
+ l/zwH9kDfobCRGZtlStUwCFYOit2gLeFZK57CEEvUUod+4QEjeq+xXW
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: ThX1xhBmHdXSytnLfk2FfAsQYwzv_NkxNZOK0kWCHFw_1792597387
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,45 +95,217 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-10-21 04:46, Andy Shevchenko wrote:
-> ctype.h provides tolower() macro specifically for the cases
-> that might be architecture-optimised. Using __tolower(),
-> which is internal implementation, needs a good justification,
-> as this driver is the only user of that and there is no evidence
-> it's required.
->
-> Note, currently it's no difference as the macro always defined
-> to the internal implementation, but it might change in the future.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+On embedded platforms a central process often allocates dma-buf
+memory on behalf of client applications. Without a way to
+attribute the charge to the requesting client's cgroup, the
+cost lands on the allocator, making per-cgroup memory limits
+ineffective for the actual consumers.
 
-Thanks. I'm applying the patch to amd-staging-drm-next.
+Add charge_fd to struct dma_heap_allocation_data. When set to
+a valid pidfd or cgroupfd, DMA_HEAP_IOCTL_ALLOC resolves the target
+task's or cgroup's memcg and charges the buffer there via
+mem_cgroup_charge_dmabuf() inside dma_heap_ioctl_allocate().
+Without charge_fd, and with the mem_accounting module parameter enabled,
+the buffer is charged to the allocator's own cgroup.
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Usage examples:
 
+  1. Central allocator charging to a client at allocation time.
+     The allocator knows the client's PID (e.g., from binder's
+     sender_pid) and uses pidfd to attribute the charge:
 
-> ---
->   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> index 35b3abe57b80..1ef4d26a0ac6 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-> @@ -2091,7 +2091,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
->   	 * needed for the topology
->   	 */
->   	for (i = 0; i < KFD_TOPOLOGY_PUBLIC_NAME_SIZE-1; i++) {
-> -		dev->node_props.name[i] = __tolower(asic_name[i]);
-> +		dev->node_props.name[i] = tolower(asic_name[i]);
->   		if (asic_name[i] == '\0')
->   			break;
->   	}
+       pid_t client_pid = txn->sender_pid;
+       int pidfd = pidfd_open(client_pid, 0);
+
+       struct dma_heap_allocation_data alloc = {
+           .len         = buffer_size,
+           .fd_flags    = O_RDWR | O_CLOEXEC,
+           .charge_fd   = pidfd,
+       };
+       ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc);
+       close(pidfd);
+       /* alloc.fd is now charged to client's cgroup */
+
+  2. Default allocation (no pidfd, mem_accounting=1).
+     When charge_fd is not set and the mem_accounting module
+     parameter is enabled, the buffer is charged to the allocator's
+     own cgroup:
+
+       struct dma_heap_allocation_data alloc = {
+           .len      = buffer_size,
+           .fd_flags = O_RDWR | O_CLOEXEC,
+       };
+       ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc);
+       /* charged to current process's cgroup */
+
+Current limitations:
+
+ - Single-owner model: a dma-buf carries one memcg charge regardless of
+   how many processes share it. Means only the first owner (and exporter)
+   of the shared buffer bears the charge.
+ - Only memcg accounting supported. While this makes sense for system
+   heap buffers, other heaps (e.g., CMA heaps) will require selectively
+   charging also for the dmem controller.
+ - Charging CMA-backed heaps to memcg charges unreclaimable memory:
+   when a cgroup hits its limit, try_charge_memcg() may trigger a
+   reclaim pass that cannot free CMA pages. This is consistent with
+   other unreclaimable memcg charges. A refinement for the next version
+   could move charging into per-heap callbacks and skip the futile
+   reclaim.
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+ Documentation/admin-guide/cgroup-v2.rst |  5 +--
+ drivers/dma-buf/dma-heap.c              | 54 +++++++++++++++++++++++++++++++--
+ include/uapi/linux/dma-heap.h           |  7 +++++
+ 3 files changed, 62 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+index a3265a4a953e..66ddba678784 100644
+--- a/Documentation/admin-guide/cgroup-v2.rst
++++ b/Documentation/admin-guide/cgroup-v2.rst
+@@ -1663,8 +1663,9 @@ The following nested keys are defined.
+ 		structures.
+ 
+ 	  dmabuf (npn)
+-		Amount of memory used for exported DMA buffers allocated by the cgroup.
+-		Stays with the allocating cgroup regardless of how the buffer is shared.
++		Amount of memory used for exported DMA buffers allocated by or on
++		behalf of the cgroup. Stays with the allocating cgroup regardless
++		of how the buffer is shared.
+ 
+ 	  workingset_refault_anon
+ 		Number of refaults of previously evicted anonymous pages.
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+index 8a6c2b6e0cc6..be77a4c168ab 100644
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -7,14 +7,18 @@
+  */
+ 
+ #include <linux/cdev.h>
++#include <linux/cgroup.h>
+ #include <linux/device.h>
+ #include <linux/dma-buf.h>
+ #include <linux/dma-heap.h>
++#include <linux/memcontrol.h>
++#include <linux/sched/mm.h>
+ #include <linux/err.h>
+ #include <linux/export.h>
+ #include <linux/list.h>
+ #include <linux/minmax.h>
+ #include <linux/nospec.h>
++#include <linux/pidfd.h>
+ #include <linux/syscalls.h>
+ #include <linux/uaccess.h>
+ #include <linux/xarray.h>
+@@ -75,9 +79,14 @@ static int dma_heap_open(struct inode *inode, struct file *file)
+ 
+ static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ {
++	struct cgroup *cgrp;
++	struct cgroup_subsys_state *css;
+ 	struct dma_heap_allocation_data *heap_allocation = data;
+ 	struct dma_heap *heap = file->private_data;
+ 	struct dma_buf *dmabuf;
++	struct mem_cgroup *memcg = NULL;
++	struct task_struct *task;
++	unsigned int pidfd_flags;
+ 	int fd;
+ 	size_t len;
+ 
+@@ -90,15 +99,56 @@ static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+ 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
+ 		return ERR_PTR(-EINVAL);
+ 
++	if (heap_allocation->charge_fd) {
++		cgrp = cgroup_get_from_fd(heap_allocation->charge_fd);
++		if (!IS_ERR(cgrp)) {
++			/* charge_fd is a cgroupfd */
++			rcu_read_lock();
++			css = cgroup_css(cgrp, &memory_cgrp_subsys);
++			if (!css || !css_tryget_online(css)) {
++				rcu_read_unlock();
++				cgroup_put(cgrp);
++				return ERR_PTR(-ENOENT);
++			}
++
++			memcg = mem_cgroup_from_css(css);
++			rcu_read_unlock();
++			cgroup_put(cgrp);
++		} else {
++			/* charge_fd is a pidfd  */
++			task = pidfd_get_task(heap_allocation->charge_fd, &pidfd_flags);
++			if (IS_ERR(task))
++				return ERR_CAST(task);
++
++			memcg = get_mem_cgroup_from_mm(task->mm);
++			put_task_struct(task);
++		}
++	}
++
+ 	len = PAGE_ALIGN(heap_allocation->len);
+-	if (!len)
++	if (!len) {
++		mem_cgroup_put(memcg);
+ 		return ERR_PTR(-EINVAL);
++	}
+ 
+ 	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
+ 				     heap_allocation->heap_flags);
+ 
+-	if (IS_ERR(dmabuf))
++	if (IS_ERR(dmabuf)) {
++		mem_cgroup_put(memcg);
+ 		return dmabuf;
++	}
++
++	if (!memcg && mem_accounting)
++		memcg = get_mem_cgroup_from_mm(current->mm);
++
++	if (memcg) {
++		if (!mem_cgroup_charge_dmabuf(dmabuf, memcg, GFP_KERNEL)) {
++			mem_cgroup_put(memcg);
++			dma_buf_put(dmabuf);
++			return ERR_PTR(-ENOMEM);
++		}
++	}
+ 
+ 	fd = get_unused_fd_flags(heap_allocation->fd_flags);
+ 	if (fd < 0) {
+diff --git a/include/uapi/linux/dma-heap.h b/include/uapi/linux/dma-heap.h
+index a4cf716a49fa..bfcd1c25bc7e 100644
+--- a/include/uapi/linux/dma-heap.h
++++ b/include/uapi/linux/dma-heap.h
+@@ -29,6 +29,11 @@
+  *			handle to the allocated dma-buf
+  * @fd_flags:		file descriptor flags used when allocating
+  * @heap_flags:		flags passed to heap
++ * @charge_fd:		optional pidfd or cgroupfd whose cgroup should be
++ *			charged for this allocation; 0 means charge the calling
++ *			process's cgroup when the mem_accounting module parameter
++ *			is enabled, or skip charging otherwise
++ * @__padding:		reserved, must be zero
+  *
+  * Provided by userspace as an argument to the ioctl
+  */
+@@ -37,6 +42,8 @@ struct dma_heap_allocation_data {
+ 	__u32 fd;
+ 	__u32 fd_flags;
+ 	__u64 heap_flags;
++	__u32 charge_fd;
++	__u32 __padding;
+ };
+ 
+ #define DMA_HEAP_IOC_MAGIC		'H'
+
+-- 
+2.55.0
+
