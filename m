@@ -2,140 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E099606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:44:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D45E606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 08:45:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hpOfuolR;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DTh65+cb
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fq6kfxwp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8F110E2C6;
-	Wed, 21 Oct 2026 08:44:29 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A50210E2C6
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:44:18 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69L7cdNA502632
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:44:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7zeTZgUgaTV5J5UofPRCsdZt2a3+CBBlIX0V3IuvJFI=; b=hpOfuolR0+jKVMpo
- 33QmtwARAa+o9NzRh5dyf6IyBefKjPOMZI1lAepMKOlVF9J0ePEmagdaUja7zH2t
- ISBiFiYMRGti7H+dW7oAYM/zYjPE0IKzN/3M5fYAwVhxOnmAcaRNI+luwPePzVHE
- yFYHtBos0Vl5GNjs5z2EslrvwCfVn571NuB78rxe8Fs3CH3iofKDzq72CXBPWoA6
- qAgdVjlPtenDeTuaCRcjbyhYznntgOahi/faGirsK7e4L+yUS6e3jysAFOYhNqBM
- AmrC2VZeims1+NqF2j+yCkz0ZV8rTbioXB9TOFiY92d4Dc/ywx8yTkNP9wz6Y/+O
- VK1pWg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hedajk09w-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:44:17 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93edac5877bso15246585a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 01:44:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792572256; x=1793177056;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7zeTZgUgaTV5J5UofPRCsdZt2a3+CBBlIX0V3IuvJFI=;
- b=DTh65+cbX0JiqXBRon8MVg4KqVcvBfL+5qZzxJ9ISb3fkVPW0xzQwm2uDkqoPs7np7
- 5Kh5VJVHjl9YuLknekoQWBKIPYaSISIEnYMLjHO2G33HjdHgPBkpn6ytj6rIlyDyqWK9
- fCSJ3q7LXivccSCkz18fEjex8ytComkScR1PZ285wJG8Ewh96muC44ncPEXJAS52Ilkz
- El09Ux5bPOAr9LdVnU0jEXGfu18sgKnq3cbVUL4+Mkxz+0ya5TVAyq26lXVX3/vDQFD2
- sBOBZHZgx39avsLyLDUrV4/1anVRhuVhqh0kv9+ibmtEtqufdGtJ7WhPNtVrnUXQux0V
- DAgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792572256; x=1793177056;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7zeTZgUgaTV5J5UofPRCsdZt2a3+CBBlIX0V3IuvJFI=;
- b=CpxWYSpC+TKiEALVs4TRZXyfCe5uyCJ7QgboHsbqnapMbByn7fdvkwwwq89iMTJkI9
- wc0jOSu92ZEsh1KrpqQ3j26WDg6TOuD27EOrw0bgDiT/XEISa9NjQcXXMKdelH5arVQT
- /4s0Qrqf+AH9d4iVE+T3byH4BTHw/1tUkADjvfl2OgrAE5CYfWY99gzGR5IJ0QdLvJtz
- m6J+csCbm90Ie7GL3thGKct0WWFLne80IeALgo8o3Oui83zKi8HGZb2Ic/pQGnCYvox9
- o8FmN8FxhiID9hRyJFZGt0W6U+lTlbNXZu6k9EP9vmB/JBLRvNn/Q+ooYMvfva3XTeX6
- AuTw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwEU/ZY58R+h9lmyWy+D1WFflJvYwJOzEaY9RC7SGhVsgtQnyq+74S6MkGJVuP3c19fUNuldQ0Wx8A=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJPuEYiM/I/rxTVVWcP2bJcWRb9jJRqdf6gI8q1of8kzaIz+0e6
- xIYyn1uBQrPknoYFAKPiZcftZ2MgOWlF+jpCMQ49VHv7EyC2kZUDjfty01UKLsN1KkAtPEHZO6O
- qam8R7G43TzMCtIpXtC4LIvUML1CusIVoa6KtdGbnn/i5RB2yo8qPVCQFDCcqg61AAEOpph4=
-X-Gm-Gg: AYBFou2f8OgBppiDbWv48PVxDhcGWa57aFwoMOoz2ARpeQJ2p91JITROCpPPuNnuc1A
- NwNFrk4M8Sz6c6bU2Cts+JWT7Q2iph6NCWiblOK9k/fCu6b3Wm5nrsn9gvqNAHGO3L/Xyc+t1Vz
- QW72mtC6H6FfieMsvcSdOjhCK1XwbA6+iuO25ATyxD0L+4fWZndSRY1dvjzUdb7Z2CcRpwuuGPl
- y1gEsJ1wgDMyAGKTCrR77Tdguxop74u9Eq5/GNLc9LuCdt3VQ915wvANAWDTkkTG7Wv7RWfERuD
- p1vgxTgNmUxpoCq9/EbrLEOR62I5Es3Zlu/8PjWjFeXP2v7brNnQiBSW7vnbSA33MsKtoI0dTo0
- R64vL01U87p8SBZZMI3zm8g==
-X-Received: by 2002:a05:620a:800c:b0:93e:5a3f:ac13 with SMTP id
- af79cd13be357-93f57dbbb66mr348786885a.0.1792572256572; 
- Wed, 21 Oct 2026 01:44:16 -0700 (PDT)
-X-Received: by 2002:a05:620a:800c:b0:93e:5a3f:ac13 with SMTP id
- af79cd13be357-93f57dbbb66mr348782285a.0.1792572255968; 
- Wed, 21 Oct 2026 01:44:15 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b4030dafe2sm602667a12.12.2026.10.21.01.44.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Oct 2026 01:44:15 -0700 (PDT)
-Message-ID: <6659599c-68f3-454c-b461-1947afa29ced@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 10:44:12 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3DF10E266;
+	Wed, 21 Oct 2026 08:44:54 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBAF510E266
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 08:44:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1792572286;
+ bh=fYxOwjQv5dtVvmyu01w7Ou5Z1hdzbvQOEdZ2sXgi+ow=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=fq6kfxwpSaRJzytwbRPqgmuwsvKUt+bY0HHHBNExk9ZeouSbQKwnR4aPKeUrcPlOG
+ LtZ+SSNIqWcUFmox8STCbLPsFtiCXGnIkZ3nnqZwrcMthD+bXfGMc0egZC2qw1HumE
+ AiTDZHDnTRXL60KUAx2jOKyVVGmELc1bDWqUt417lnb3zMbhVUj8Qy9wt6fC2TgRP+
+ AtNaEyj1xBR48APlaIS8PPZV4Yu4KJY7jfcz0IltT1jFgfAIsU4jDjFKsCuXqLI7oA
+ 25pSDapnkofhvxzOei2MGQgpRZf0jeqSseAI9bPZsHLiXPwNaqk1Lmj8UwGzsivG8L
+ OznEEa+XP1dug==
+Received: from fedora-21.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id F262217E0411;
+ Wed, 21 Oct 2026 10:44:45 +0200 (CEST)
+Date: Wed, 21 Oct 2026 10:44:37 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Ketil Johnsen <ketil.johnsen@arm.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 09/12] drm/panthor: Create kernel BO from existing GEM
+Message-ID: <20261021104437.31382be7@fedora-21.home>
+In-Reply-To: <20261012125940.3291951-10-ketil.johnsen@arm.com>
+References: <20261012125940.3291951-1-ketil.johnsen@arm.com>
+ <20261012125940.3291951-10-ketil.johnsen@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/12] drm/msm/a8xx: Switch to generated protect regs
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Alexander Koskovich <akoskovich@pm.me>,
- Jie Zhang <jie.zhang@oss.qualcomm.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
- <20261020204728.28844-12-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261020204728.28844-12-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfX/ybJtN5/Dfwy
- yv41jI0QbgH7lW7ScdAleM/LZPnmQcQ0AUxDLaMDK0a2YEch6M71EfskoD2qoYHeQ/2CgaXOw5S
- 8J+iMRuZtksZtIh75U37UhJkjkRdZvdt2GZ5JPf5MnfqM8hbX+7QDUYa9ftmZhkk11LYUBMchHm
- QFstp4MTDNL26zyXYOm7/J4rgxLbY4ax03w2emRrrgMPokZNnaULDhq6UHzRcp9+zCN7T88ndu8
- Qn/1PbmY4IV+4E9/IOci5cyptO3eMTlEz9KS+sgbHz/AkKhfTBSRaoTgDKwjO6FfeRikQ1oSvYd
- +KW7p1Zcfto9SklGbmwWYPXvaYk+O7jMmRw4MwjeVKbB3KjrqHACc4AIwFM6KMwuSB8eewkTA5j
- 9NbpHFmgO7XB7GHg910Hde8azoDszJB2ZI7ye1DUGCJ9ysrEZe2S3E4PB27cIWkPMo8irRvsFUH
- l7mI+grxN1jXEJImg6w==
-X-Proofpoint-GUID: vRzu-zwZ2asRJMyLO-7aX57oQwlB9lb-
-X-Proofpoint-ORIG-GUID: vRzu-zwZ2asRJMyLO-7aX57oQwlB9lb-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfXzLzF7kgNfzWG
- bah88zkbQ77X+ttuWrv08DmgG2hxaJDA0aeWG56I1TeYCkSEC1yAiLvWEXqMiUrrEfGRsKGfwUa
- ov9h3LHtwtns/oc2Jj7crCmv0fMHjiQ=
-X-Authority-Analysis: v=2.4 cv=HrTjiETS c=1 sm=1 tr=0 ts=6ad87b61 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=Uo0wf__DB8OGiezfqlwA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210034
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,22 +61,235 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/20/26 10:46 PM, Rob Clark wrote:
-> These also fix some perfcntr SEL regs which were mistakenly blocked
-> since we previously just copied the protect tables from downstream kgsl
-> (and only sometimes remembered to fix these).
+On Mon, 12 Oct 2026 14:59:37 +0200
+Ketil Johnsen <ketil.johnsen@arm.com> wrote:
+
+> From: Boris Brezillon <boris.brezillon@collabora.com>
 > 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> Refactors/splits existing panthor_kernel_bo_create().
+> Adds panthor_kernel_bo_create_from_gem() so we can create kernel BOs
+> from imported protected memory in future change.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> 
 > ---
+> 
+> v4:
+> - First version of this change as a separate commit
+> ---
+>  drivers/gpu/drm/panthor/panthor_gem.c | 94 ++++++++++++++++++---------
+>  drivers/gpu/drm/panthor/panthor_gem.h |  7 ++
+>  2 files changed, 71 insertions(+), 30 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index 2e39a32fcd673..f1939b4aafed1 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -1033,7 +1033,6 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+>  		bo->base.resv = bo->exclusive_vm_root_gem->resv;
+>  	}
+>  
+> -	panthor_gem_debugfs_add_usage_flags(bo, usage_flags);
+>  	panthor_gem_debugfs_bo_add(bo);
+>  	return bo;
+>  
+> @@ -1260,7 +1259,9 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
+>  	panthor_kernel_bo_vunmap(bo);
+>  
+>  	drm_WARN_ON(bo->obj->dev,
+> -		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem != panthor_vm_root_gem(vm));
+> +		    to_panthor_bo(bo->obj)->exclusive_vm_root_gem &&
+> +			    (to_panthor_bo(bo->obj)->exclusive_vm_root_gem !=
+> +			     panthor_vm_root_gem(vm)));
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Let's create local vars so this can all fit on a single line.
 
-Konrad
+>  	panthor_vm_unmap_range(vm, bo->va_node.start, bo->va_node.size);
+>  	panthor_vm_free_va(vm, &bo->va_node);
+>  	if (vm == panthor_fw_vm(ptdev))
+> @@ -1271,46 +1272,33 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
+>  }
+>  
+>  /**
+> - * panthor_kernel_bo_create() - Create and map a GEM object to a VM
+> + * panthor_kernel_bo_create_from_gem() - Create kernel BO from existing GEM object
+>   * @ptdev: Device.
+>   * @vm: VM to map the GEM to.
+> - * @size: Size of the buffer object.
+> - * @bo_flags: Combination of drm_panthor_bo_flags flags.
+> + * @bo: BO to use for our kernel BO.
+>   * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
+>   * that are related to map operations).
+>   * @gpu_va: GPU address assigned when mapping to the VM.
+>   * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
+>   * automatically allocated.
+> - * @name: Descriptive label of the BO's contents
+> + * @vm_map_size: Size of the BO to map to the VM.
+>   *
+>   * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
+>   */
+>  struct panthor_kernel_bo *
+> -panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+> -			 size_t size, u32 bo_flags, u32 vm_map_flags,
+> -			 u64 gpu_va, const char *name)
+> +panthor_kernel_bo_create_from_gem(struct panthor_device *ptdev,
+> +				  struct panthor_vm *vm,
+> +				  struct panthor_gem_object *bo,
+> +				  u32 vm_map_flags, u64 gpu_va, u32 vm_map_size)
+>  {
+>  	struct panthor_kernel_bo *kbo;
+> -	struct panthor_gem_object *bo;
+> -	u32 debug_flags = PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL;
+>  	int ret;
+>  
+> -	if (drm_WARN_ON(&ptdev->base, !vm))
+> -		return ERR_PTR(-EINVAL);
+> -
+>  	kbo = kzalloc_obj(*kbo);
+>  	if (!kbo)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	if (vm == panthor_fw_vm(ptdev))
+> -		debug_flags |= PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED;
+> -
+> -	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, debug_flags);
+> -	if (IS_ERR(bo)) {
+> -		ret = PTR_ERR(bo);
+> -		goto err_free_kbo;
+> -	}
+> -
+> +	drm_gem_object_get(&bo->base);
+>  	kbo->obj = &bo->base;
+>  
+>  	if (vm == panthor_fw_vm(ptdev)) {
+> @@ -1319,24 +1307,27 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+>  			goto err_put_obj;
+>  	}
+>  
+> -	panthor_gem_kernel_bo_set_label(kbo, name);
+> -
+>  	/* The system and GPU MMU page size might differ, which becomes a
+>  	 * problem for FW sections that need to be mapped at explicit address
+>  	 * since our PAGE_SIZE alignment might cover a VA range that's
+>  	 * expected to be used for another section.
+>  	 * Make sure we never map more than we need.
+>  	 */
+> -	size = ALIGN(size, panthor_vm_page_size(vm));
+> -	ret = panthor_vm_alloc_va(vm, gpu_va, size, &kbo->va_node);
+> +	vm_map_size = ALIGN(vm_map_size, panthor_vm_page_size(vm));
+> +	ret = panthor_vm_alloc_va(vm, gpu_va, vm_map_size, &kbo->va_node);
+>  	if (ret)
+>  		goto err_unpin;
+>  
+> -	ret = panthor_vm_map_bo_range(vm, bo, 0, size, kbo->va_node.start, vm_map_flags);
+> +	ret = panthor_vm_map_bo_range(vm, bo, 0, vm_map_size,
+> +				      kbo->va_node.start, vm_map_flags);
+>  	if (ret)
+>  		goto err_free_va;
+>  
+>  	kbo->vm = panthor_vm_get(vm);
+> +	if (vm == panthor_fw_vm(ptdev))
+> +		panthor_gem_debugfs_add_usage_flags(
+> +			bo, PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED);
+
+
+	if (vm == panthor_fw_vm(ptdev)) {
+		panthor_gem_debugfs_add_usage_flags(bo,
+						    PANTHOR_DEBUGFS_GEM_USAGE_FLAG_FW_MAPPED);
+	}
+
+> +
+>  	return kbo;
+>  
+>  err_free_va:
+> @@ -1348,12 +1339,55 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+>  
+>  err_put_obj:
+>  	drm_gem_object_put(&bo->base);
+> -
+> -err_free_kbo:
+>  	kfree(kbo);
+>  	return ERR_PTR(ret);
+>  }
+>  
+> +/**
+> + * panthor_kernel_bo_create() - Create and map a GEM object to a VM
+> + * @ptdev: Device.
+> + * @vm: VM to map the GEM to.
+> + * @size: Size of the buffer object.
+> + * @bo_flags: Combination of drm_panthor_bo_flags flags.
+> + * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
+> + * that are related to map operations).
+> + * @gpu_va: GPU address assigned when mapping to the VM.
+> + * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
+> + * automatically allocated.
+> + * @name: Descriptive label of the BO's contents
+> + *
+> + * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
+> + */
+> +struct panthor_kernel_bo *
+> +panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+> +			 size_t size, u32 bo_flags, u32 vm_map_flags,
+> +			 u64 gpu_va, const char *name)
+> +{
+> +	struct panthor_kernel_bo *kbo;
+> +	struct panthor_gem_object *bo;
+> +
+> +	if (drm_WARN_ON(&ptdev->base, !vm))
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	bo = panthor_gem_create(&ptdev->base, size, bo_flags, vm, 0);
+> +	if (IS_ERR(bo))
+> +		return ERR_CAST(bo);
+> +
+> +	kbo = panthor_kernel_bo_create_from_gem(ptdev, vm, bo, vm_map_flags,
+> +						gpu_va, size);
+> +	if (!IS_ERR(kbo)) {
+> +		panthor_gem_debugfs_add_usage_flags(
+> +			bo, PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL);
+
+		panthor_gem_debugfs_add_usage_flags(bo,
+						    PANTHOR_DEBUGFS_GEM_USAGE_FLAG_KERNEL);
+
+> +		panthor_gem_kernel_bo_set_label(kbo, name);
+> +	}
+> +
+> +	/* panthor_kernel_bo_create_from_gem() acquires a GEM ref if the import
+> +	 * succeeds, so we can release it unconditionally here.
+> +	 */
+> +	drm_gem_object_put(&bo->base);
+> +	return kbo;
+> +}
+> +
+>  /**
+>   * panthor_dummy_bo_create() - Create a Panthor BO meant to back sparse bindings.
+>   * @ptdev: Device.
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
+> index 4da3f59693ce4..03dd3927b5d16 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.h
+> @@ -318,6 +318,13 @@ panthor_kernel_bo_vunmap(struct panthor_kernel_bo *bo)
+>  	}
+>  }
+>  
+> +struct panthor_kernel_bo *
+> +panthor_kernel_bo_create_from_gem(struct panthor_device *ptdev,
+> +				  struct panthor_vm *vm,
+> +				  struct panthor_gem_object *bo,
+> +				  u32 vm_map_flags, u64 gpu_va,
+> +				  u32 vm_map_size);
+> +
+>  struct panthor_kernel_bo *
+>  panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+>  			 size_t size, u32 bo_flags, u32 vm_map_flags,
+
