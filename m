@@ -2,98 +2,164 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D3E606A54D
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 16:21:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C903606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 16:37:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=gfCjdNpk
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b5jL2pyc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C9EC10E1FD;
-	Wed, 21 Oct 2026 16:21:18 +0000 (UTC)
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17BAD10E1FD
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 16:21:11 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-6afafc89b48so1154775a12.2
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 09:21:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1792599669; x=1793204469;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=yD9IAYb20XpV4c8q/FjxNnZgM/Snf2zMfMM29REONjA=;
- b=gfCjdNpk3fSgWFaZeE6r6TcobhZxN5D5yRJpJ6HGzDs5cqEl462iWy3uXmhcMO+NCg
- juJefzbUVbjEVGSMOitNUA//24W2Km2lDUmb3arOx1oy7O6Yegbo3Su45HwAyAHCEe3x
- KU8jn5LeA9L64ks7JMTRVx2hMsEtUWOm4nN+8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792599669; x=1793204469;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=yD9IAYb20XpV4c8q/FjxNnZgM/Snf2zMfMM29REONjA=;
- b=Umt5eumHRIPxFsi2W8nXRfgkCJtTYn4Rt1ys7MhV3x3suHndXO5otSl0rPWs09IfxE
- 84/TDB36FnuQdV3p28tMPtDQ6Vbv+KrlcQKFEp4J46b6ojO8dPSj6ISsE4VAz8lGHrE7
- dzDWYZRTDByjH+zfEZJZMLf7bV2UEEfuhYQkw5hab4xnbx9W4KzpxDG0X0jyqMcUYSQd
- vftTKSa01xhd5ZUef/bylXSfVH6V+LT57+Ztl5RX+lf26HCYkkAyX+HaeukkCfIqJtYy
- 7+8Omzhnu2d+qZ+Q9uvkw4yBYODU4hqQ7h6HEAuDkDaeOv2+5hsf460AkxI3V9GQRdhO
- +4EQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzjC91iSDwnPJJinatmHmhrYcBWwaAiTPm4rl8bCd/6jadcTRTkZl1DadSaqppvkz6ijLxqBOKBjvA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI5Jadq7o3d9PueV4pr2azQdcylFDSGckOfta/UePu7I/o8WXGw
- eZFTQ/gonMdgquEPsTfX/aynMRrurWXEYdF63ezMaTu34qPlB1ekSdXQI/3f80gIwTrBpEkQWEZ
- P1Qwh0yB3R8Y=
-X-Gm-Gg: AYBFou2YmTGBYPZdeSj5+oLrB2ki9GfrNQF3CVFJOEkuW3rLjOF/k2k9GjuSR7SQA6H
- msykhS7OkQFuUPhiqETiHE30mxF82dqxPC+UVn7qDas0ZlIS+vpoIQOOaEz00/erluPuOFuwJmU
- QdIYKhbm+Om2atpln62k+xllSjG2KeZvNB9BQThcaGwj/IDSF2J62pIa/MpIZP5Xfsg8PLhMTYF
- uY518y3dgofIRYjXFL9IPxHxH9zKA6dJUQWn/EaEx+xvg2Wilwkyn5NuTpAqQboSzejvJj9pQNq
- jXra5OH3esoEpZn8ZyoErpg8MyC2h7YegXOdNw/lnhyRyCkp8pGn5c2JcbqH9CGPmjzBzCsRa+i
- xvPPEVsPoWXTi9XIOL+aTLo8YEPxSE+cZJS/vU0hDLvtfs1cbbm2Zu0Iff+6PQzUOOmt9OZ6d4w
- E2R0WM8ePMKQAm0cerFY3bQV4FQaWcW7jOpukOAIfYC6EgUou1FfrrqNIvjXQq7znq3ICBFafMt
- NdZiRnXKdAlXKfgsrishUlPaA0VOkgUu2x7nizcnmFrlyYjpHhIaATAFDw9k7w+fXhj0cVnLVQV
- Xe7TPXvuL1Fb8gw=
-X-Received: by 2002:a17:907:72c2:b0:c2e:7fe7:288e with SMTP id
- a640c23a62f3a-c4679792b95mr220880966b.32.1792599669101; 
- Wed, 21 Oct 2026 09:21:09 -0700 (PDT)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com.
- [209.85.208.54]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c468a55d865sm18712966b.35.2026.10.21.09.21.04
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Oct 2026 09:21:04 -0700 (PDT)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-6b1aa36fc0eso16204a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 09:21:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBx+wJeJ+dPFkbqjt9jD9ERqnQjHaBM8n0RNYtt98ays1OVbd1lpcaRp+9AhlqzkoR9AdH9SuH5Eu4I=@lists.freedesktop.org
-X-Received: by 2002:a05:6402:2044:b0:6b1:c6fc:aba0 with SMTP id
- 4fb4d7f45d1cf-6b3e9be7ba4mr120012a12.7.1792599663258; Wed, 21 Oct 2026
- 09:21:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AECD810FF1A;
+	Wed, 21 Oct 2026 16:36:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAC8110FF20;
+ Wed, 21 Oct 2026 16:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1792600614; x=1824136614;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=cs8fgOpY+KxSmCybG3FeeRKSprnNVJOpz2ds2xBWgio=;
+ b=b5jL2pycaipyFO2i4TEzry7Frk1kLx+7K39ip6qLO8lYx2Mrkyzbc+rX
+ H6AVIlwWf6KvYn1Cwmvi8urfj7qScQkxZrFv+up0yM1K3ez43iIpt61I6
+ 0Uh7RNUNLFCiVcX7H8pdrZo4xn59JWUx9moW8p9JeCr7yLDhi8xyb1Bfa
+ Druu2PY+qCVec/fSoioFWVAQbmjqoCggGRHiU6DM0a0cuvAAD2t5oZYR1
+ RvOTKbXBAWTZEAp5JUNo9F2w3ok00l2LkWlDyQqI3rJmWDrY0teu9XYMl
+ AndSNcFyzvZpi/QsyNCHTDzHjnKMDtQBWEOQmVMppeGaJwb0Tl9XS4Alk w==;
+X-CSE-ConnectionGUID: P+rENxLvRo6AiH2dykC9pQ==
+X-CSE-MsgGUID: UlTTiBGMQQK7RQKpRFc5PA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1346394"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1346394"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2026 09:36:53 -0700
+X-CSE-ConnectionGUID: rDVFee26RDaQUzPOlHmDqg==
+X-CSE-MsgGUID: awAjXLMxQIqNsvRuVb1txw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3246072"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Oct 2026 09:36:52 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 09:36:52 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 21 Oct 2026 09:36:52 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.4) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 09:36:51 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EmQ3yRcqWfOZ6irzr2ZToULsrwPDK71+HH+9F+LHsoL2LJqh815j6PI9y0C96FV9KFZafeFsRM3FRGPqxiejQUTcMX0SRwceMl2/W8ws7sjQXSGg/cJ+ZHCe8LhbplHhBgQnBAzqB21IP+oWnE/EGXH4WT4SDXRmREPN6K5f2WWGaHsX54jBkZpI6h+rVmJhKUpGTyUR/qxg8OyjpRXwesr7RZChR3Gs+2RBa4g2PPjfvQwbuF1bY5zz2iQynQRLeeLFNxVPoLz0EkV/52zkhe4i8SM2NfmwuHRVUtyPNxrXMhcG3bAwoUFjcwdIqwVnYmJuh8saTlMLmH3UAZ+qNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nt8qS9f5ikWmFof2wO6/Zh9sd65rcDkRt/JDxHiyQbI=;
+ b=T9jLHASK1mLxZ0i4iLxQ6oIo8s60i7nz0JPDxOmwWuoTlOTtQaVKrf28w3UJxcop48nF5ZjpYu1PQPvLrta667Z2jlkbsJ1yEoKq2DAEZL4UqrmngnVIjzZJASLX1sZLM5ydlb4bQEZw/ujB/oSZNx4kU/6wq3DT3oh/Su/BAvQkhcb0nvAa34mZwwRKPh5Mg0HHY2MrTS7ZXRA1a8PaaMvde8oZJocQX3SGjwZl/zoD57zOkCXFwMvw6Btn0Sc84tmquRIOnM44aN5fXTLqavSLwE+wk1tTsCeK8oFPoTsv2AP4Hhqcjt7UdvuN9Qv1Aath7N/S0hfvcH4I8FZVbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0SPRMB0020.namprd11.prod.outlook.com (2603:10b6:208:433::21)
+ by CH3PR11MB525758.namprd11.prod.outlook.com (2603:10b6:610:34d::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
+ 2026 16:36:19 +0000
+Received: from IA0SPRMB0020.namprd11.prod.outlook.com
+ ([fe80::289d:f5ff:d1f4:a9ec]) by IA0SPRMB0020.namprd11.prod.outlook.com
+ ([fe80::289d:f5ff:d1f4:a9ec%4]) with mapi id 15.21.0522.017; Wed, 21 Oct 2026
+ 16:36:18 +0000
+Date: Wed, 21 Oct 2026 12:36:12 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, Chris Wilson
+ <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>, "Joonas
+ Lahtinen" <joonas.lahtinen@linux.intel.com>, Andi Shyti
+ <andi.shyti@intel.com>
+CC: Linus Torvalds <torvalds@linuxfoundation.org>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, "Tvrtko
+ Ursulin" <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Borislav Petkov <bp@alien8.de>, Tom Lendacky
+ <thomas.lendacky@amd.com>, Joerg Roedel <joerg.roedel@amd.com>, "Nikunj A.
+ Dadhania" <nikunj@amd.com>, intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, the arch/x86 maintainers
+ <x86@kernel.org>
+Subject: Re: Removing __get_user / __put_user for good
+Message-ID: <atjp_I_dCfw0tW0W@intel.com>
+References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com>
+ <20261018152358-mutt-send-email-mst@kernel.org>
+ <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
+ <20261018174250-mutt-send-email-mst@kernel.org>
+ <376ef9d0-b03f-4f85-aee5-46cf20eb00ae@gmail.com>
+ <20261020021924-mutt-send-email-mst@kernel.org>
+ <CAHk-=wjxtzD1TXZr5iWu0p1+Hu0YZP7jbNSwFkp7AJYmhzhVCA@mail.gmail.com>
+ <CAHk-=wipGHx_1Uztmu773yuTM2ka1fq996UmNoJpvKS0gqEdMg@mail.gmail.com>
+ <664c8f8c979a76be18b3e6538a15d3c4235fb8ac@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <664c8f8c979a76be18b3e6538a15d3c4235fb8ac@intel.com>
+X-ClientProxiedBy: SJ0PR05CA0161.namprd05.prod.outlook.com
+ (2603:10b6:a03:339::16) To IA0SPRMB0020.namprd11.prod.outlook.com
+ (2603:10b6:208:433::21)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <cover.1792392288.git.kmehltretter@gmail.com>
- <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
-In-Reply-To: <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
-From: Tomasz Figa <tfiga@chromium.org>
-Date: Thu, 22 Oct 2026 01:20:45 +0900
-X-Gmail-Original-Message-ID: <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
-X-Gm-Features: AclHuK80vv_q-GEvbu8sLJBBH0IyziGztPYcS_R9pzpbS5seFO7FReBA3oE07cA
-Message-ID: <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
-Subject: Re: [PATCH 2/4] media: videobuf2: add opt-in DMA-BUF CPU access
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: linux-media@vger.kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Tomasz Stanislawski <t.stanislaws@samsung.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0SPRMB0020:EE_|CH3PR11MB525758:EE_
+X-MS-Office365-Filtering-Correlation-Id: b18c7d26-cb07-4009-2474-08df2f916e8f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|376014|7416014|366016|56012099006|4143699003|11063799006|261009223027099003|18002099003|10067099003|22082099003;
+X-Microsoft-Antispam-Message-Info: /uCYOBsKYdm5AS7ikuHJKiKqLiTEIkBzvLrRVP49Xm8QrI9tsER2J4A900Q+z3PFOIZ44MCDN9OfYPPI7Qmk2p4sUxm0bIllYuTNr0nkwQiPojeaClNvHCMKomikna/ofSw1lSpg54fdmqKrJFd6ubGyh3zqcNsNaAfEKRsWy9HjMxHk3j/gKedG+BGsilMKKRrTO6P8LEeC5rlSiEWYqWHCMpe+n5CsYeG7LJhbt/odz0rNNHf+4p0N0LZ/kzKukjaRJeEibJCOfO8lIuaQzBGYDEqxMoflZMBxEhvqsRQx0DrfNoHrMwPm4shWf6F5WbzsbH//fAMrJFEXiRnspxghykz+jUS7fOQ50hTopTV6Eiy/yEdN+6wGUCiCeUMP+Z111BjaVOtP/gILd7YnPM2DrVJvLQVshoQVTq+HlPW5GK31BMkct8G8xK+Gl2ODgpC8pPDQUGFvevg4K+WkFiQ717sjvd0DFrzOuoyaTu91L3v+nF1d7vvQTDiTrWeMlwBRMvOggbQZNlTx3UwBU9iNt9ybN1YryRr4XQZH/Vdee4RCiT9J4WnFvbm7IxqEB55eCY6JYOQwQI/Uv+BjVNkufEw291mImRfznvcZmZ8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0SPRMB0020.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(56012099006)(4143699003)(11063799006)(261009223027099003)(18002099003)(10067099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ATpx9C+aNoqYYTNkDuPwZq5wB5cbK2I6xRzs7OMvyo8rq4ywEg7y/U5I9wL8?=
+ =?us-ascii?Q?WZHXaCMpYHCdeajnrQqbgL/KcHhwvxncOJGayJ9zfKEnXAB46YeiYU/2oFyU?=
+ =?us-ascii?Q?G0Lw/yUKxtVQ8aQ5keQxA2LuLXQ9eEcLT/M/hma3Poqt58GIMeBB36Um9Oc+?=
+ =?us-ascii?Q?PS2VW8KVCtfmWNtrbzSt7zMPXeLxrlHyZfeiK/8yw5p3AAV3cJdpBwa2a4dD?=
+ =?us-ascii?Q?cLN0ulWWfrqKEZ9bvO3Btl6RrYCKoVJw5I8rVfFhGcNVewh8OS/StAff32wQ?=
+ =?us-ascii?Q?iYk4C0JCQhVMt4/hCJFY3QBxNx+W5WAfmryczyAutjGO0PM7PdQbNX2ozCGT?=
+ =?us-ascii?Q?z1XbI0KIyxdk/sWCByao26KJwWz5WRmYWhWun891K6ZRTSvPn6RB/2y6EOJb?=
+ =?us-ascii?Q?BakZ19zTAnojyEDPTf6XDLGQ7Ipa4Lh6uNyWYjh2wRYfLMcCKT3oy52LO5vd?=
+ =?us-ascii?Q?bdU/dJ8jC+sz/XwK/uZP1qRJ0YyxjLA7Jhlx4P/oTzeqGD+QCl+BbJGJdqm6?=
+ =?us-ascii?Q?cpIPwGCns4MlcFjfRXwXGyJ5FyHtteI9v777B3KM75il0We4PqbAo9IKX79A?=
+ =?us-ascii?Q?uIX88JBtUMy3Ya8zMFQYWA+fYerUCfXgr1DsKYUYC4Grx8cfKceFfJwD+Kr5?=
+ =?us-ascii?Q?x6oaBSPHsbh13aruxo93KI85Fxl3fIGbLA0+Un1YLV2c7LIlg8N8vvB4PB+S?=
+ =?us-ascii?Q?hRDM3K3GxU35JnLou2T0Z2aC5AWm8WIiu1ys1rzs0Tx/GRQzCvjY5PtBYBEV?=
+ =?us-ascii?Q?XTQLpzjQ11hBfzF/3tvzrVPmnxUYCOWF2E5P9RBnwGBi9p7+KhjaIBySm8c6?=
+ =?us-ascii?Q?Q28JvtddX7CAynSdoAKQLE/Irm0fW01hV+hUhZyJeUI8wPSm42eM3fEXx2R3?=
+ =?us-ascii?Q?k5TgV4RNYw4CzKpOS1MCc31rw0ZKPREKfclM7SMhb851NxTdRm6ZVoE++Pxx?=
+ =?us-ascii?Q?5BjImZ1GOnT89EWrBS1IjAj91yVb1JsoixEGA02Ktu4iZ87sU8t+rMps6b8W?=
+ =?us-ascii?Q?xTvo3QnoESMptdNqwB06HSikcpJSDKfSm/L+dyLDudFHW2K/XRvlp+jGvv4v?=
+ =?us-ascii?Q?bA3X85331UJkeaiyLvsIYow/+ayeAS/UkXU4HD8r4bkXPTBQjX2FtBmOOdwD?=
+ =?us-ascii?Q?CSPkfG4rB3ew1xkK57ndA1UFo/nrNFhE3KMq80A4lid4FlM0sgztphhMKdkP?=
+ =?us-ascii?Q?RKfZYF5+yvzCvYVHw7/m1kR7hNdr28XDZQRlMjUJXKBB3UXhEWoGwFXn6ZUc?=
+ =?us-ascii?Q?8RuWdvKPi5wvVyRFT25saVGoalNbDtIGZ5Vgcvro0TNmWCUX0Mu8yw98Cn9W?=
+ =?us-ascii?Q?yI37KxpHi/OZBn9m9SqmoNnvIdHcGyXOz8CSsOdHWqUxi3gXx592Bak9pzQw?=
+ =?us-ascii?Q?PqUjZVxv8LBVmkAfhiaFKVCG4VdJfwe57OztbxWo5Eq0WhsiIiAjDgDok4mT?=
+ =?us-ascii?Q?7K5PBhfd20Xl7U3prnpyGIg9T8CdWigKg2YwJJaPhuTNEMOJgw8X/6mxEE4I?=
+ =?us-ascii?Q?kGq7DCet4843IQKb48JNw8Etz5/pVQUur6wdSde9Kit/ohA2GsKM3I/f1wng?=
+ =?us-ascii?Q?rSXt/2f1AxOK78wIXBi4rBZH6ptNmF+G9U7H6z+tYyOLQiTbPBZh7yha9Kd9?=
+ =?us-ascii?Q?xrnwuj7MjRJ1j0HZo84N2cCrz/R20osv+abHImYjr7XnDAyauOM03hB+Cchc?=
+ =?us-ascii?Q?iaonAyK+20S/AemzZKVv/JuMbB2D1mkrQnBBV67xZNiBQtmObJ3+wZDCyb9/?=
+ =?us-ascii?Q?gBiPuFGb4Q=3D=3D?=
+X-Exchange-RoutingPolicyChecked: DUW94P4lYrzkWz6pMi1kumVmuAkLqFxY6s0yv7FY/rMY88eRLplJCooGxg6nskeIGdLKqNNpLlheNFi2Kz0C/nRBHd3qHyko/pXfbZBAFpuHpOultoqdTrZx1hEL+r1HjL/eO6hstn7RuVM7EWlAvkqjl8K+R8KN720fzEqZbQAjE5BG9dn8N2bHD1qBVyMOkJGR2HjJK3A+9z3+9qOm75EiTfLN2UgXJyathg54I5s7xFuIsEXU7mXGvndrh3Ym/n4tf9f90eOzylYIRBfj1PfhbFSZvfRClS9fmfThG5MHh46VoOGGkZype+s8EXRHq4GHrbBeT701bs5Ujuoh6Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b18c7d26-cb07-4009-2474-08df2f916e8f
+X-MS-Exchange-CrossTenant-AuthSource: IA0SPRMB0020.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 16:36:18.4026 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f+wr9B1XSS/e8/TzSQ6GnsTEehVxsmV133nY1k23WovJmMRtgsDkZMIJLific+HgD8/3kudQ59q9CNgkllSspA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB525758
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,361 +171,58 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 19, 2026 at 4:14=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
-l.com> wrote:
->
-> Drivers must bracket CPU access to imported DMA-BUFs with
-> dma_buf_begin_cpu_access() and dma_buf_end_cpu_access().
->
-> Add a queue flag to do so from buf_prepare() through buf_finish(). Use
-> read access for output and write access for capture. Map imports
-> bidirectionally because CPU and device access directions are opposite.
-> Pass the mapping direction to attach_dmabuf() so USERPTR and MMAP keep
-> the queue's normal direction.
+On Tue, Oct 20, 2026 at 12:33:58PM +0300, Jani Nikula wrote:
+> On Mon, 19 Oct 2026, Linus Torvalds <torvalds@linuxfoundation.org> wrote:
+> > Bah. I made this branch of mine public because I wanted Michael
+> > Tsirkin to check the vhost part.
+> >
+> > But honestly, the i915 side and the coco/SEV patches are the much more
+> > interesting ones.
+> >
+> > So this brings in some new victims^Hpeople for that git branch to comment on.
+> >
+> > It's all in
+> >
+> >   git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> > uaccess-cleanup
+> >
+> > I haven't dared actually boot it yet.
+> 
+> I rebased it on top of our development branch and sent it to i915
+> CI. Let's see if it blows up. ;)
 
-This isn't right. For the regular vb2 mem ops (dma-sg, dma-contig), a
-buffer in the prepared state is expected to be ready for hardware
-usage, meaning only the hardware can access it until the buffer is
-finished. The vmalloc ops are special in a way that CPU is the
-"hardware".
+The new commit 'drm/i915/gem: Don't fault on presumed_offset write-back' [1]
 
->
-> Keep this opt-in because some vb2-vmalloc drivers pass buffers to
-> hardware. End access in process context because DMA-BUF callbacks may
-> sleep.
+reverts commit '97a37c919f62 ("drm/i915/gem: Ignore readonly failures when
+updating relocs")'
 
-That is at least unexpected, but also probably wrong (I haven't
-checked all the drivers) - the vmalloc mem ops are expected to be used
-by drivers that only access the buffer contents from the CPU.
+And this blows up exec_reloc concurrent tests that uses
+mprotect(reloc, sz, PROT_READ); [2]
 
-Putting all the above together, what I think we need is:
- 1) prepare/finish ops in vb2_vmalloc_memops to invoke the
-dma_buf_begin/end_cpu_access() API if the buffer is backed by a
-DMA-buf,
- 2) some vb2 API for drivers using the regular (dma-) memops to invoke
-the dma_buf_begin/end_cpu_access() API for them when they need to
-perform some CPU accesses to the buffers - typically they would do
-that in their vb2_ops::buf_prepare/finish callbacks, but definitelly
-must not after the buffer is already prepared.
+I'm not sure if this is a real use case though...
 
-It sounds like this series focuses on uvcvideo and vivid, which likely
-means that 1) alone would be enough to fix the original problem. WDYT?
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Andi Shyti <andi.shyti@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 
-Best,
-Tomasz
+Folks, can you please help here?
 
->
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  .../media/common/videobuf2/videobuf2-core.c   | 83 ++++++++++++++++++-
->  .../common/videobuf2/videobuf2-dma-contig.c   |  5 +-
->  .../media/common/videobuf2/videobuf2-dma-sg.c |  5 +-
->  .../common/videobuf2/videobuf2-vmalloc.c      |  5 +-
->  include/media/videobuf2-core.h                | 12 ++-
->  5 files changed, 101 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/me=
-dia/common/videobuf2/videobuf2-core.c
-> index 460eaf4e82f78..d2a78cd0a86bb 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-core.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
-> @@ -371,6 +371,65 @@ static void __vb2_buf_mem_finish(struct vb2_buffer *=
-vb)
->                 call_void_memop(vb, finish, vb->planes[plane].mem_priv);
->  }
->
-> +/* Output buffers are read by the driver; capture buffers are written. *=
-/
-> +static enum dma_data_direction vb2_cpu_access_dir(const struct vb2_queue=
- *q)
-> +{
-> +       return q->is_output ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
-> +}
-> +
-> +static bool __vb2_dmabuf_is_duplicate(const struct vb2_buffer *vb,
-> +                                     unsigned int plane)
-> +{
-> +       unsigned int i;
-> +
-> +       for (i =3D 0; i < plane; i++)
-> +               if (vb->planes[i].dbuf =3D=3D vb->planes[plane].dbuf)
-> +                       return true;
-> +
-> +       return false;
-> +}
-> +
-> +static void __vb2_buf_end_cpu_access(struct vb2_buffer *vb,
-> +                                    unsigned int num_planes)
-> +{
-> +       struct vb2_queue *q =3D vb->vb2_queue;
-> +       enum dma_data_direction dir =3D vb2_cpu_access_dir(q);
-> +       unsigned int plane;
-> +
-> +       for (plane =3D 0; plane < num_planes; plane++) {
-> +               int ret;
-> +
-> +               if (__vb2_dmabuf_is_duplicate(vb, plane))
-> +                       continue;
-> +
-> +               ret =3D dma_buf_end_cpu_access(vb->planes[plane].dbuf, di=
-r);
-> +               if (ret)
-> +                       pr_warn_ratelimited("[%s] failed to end CPU acces=
-s to dmabuf plane %u: %d\n",
-> +                                           q->name, plane, ret);
-> +       }
-> +}
-> +
-> +static int __vb2_buf_begin_cpu_access(struct vb2_buffer *vb)
-> +{
-> +       struct vb2_queue *q =3D vb->vb2_queue;
-> +       enum dma_data_direction dir =3D vb2_cpu_access_dir(q);
-> +       unsigned int plane;
-> +       int ret;
-> +
-> +       for (plane =3D 0; plane < vb->num_planes; plane++) {
-> +               if (__vb2_dmabuf_is_duplicate(vb, plane))
-> +                       continue;
-> +
-> +               ret =3D dma_buf_begin_cpu_access(vb->planes[plane].dbuf, =
-dir);
-> +               if (ret) {
-> +                       __vb2_buf_end_cpu_access(vb, plane);
-> +                       return ret;
-> +               }
-> +       }
-> +
-> +       return 0;
-> +}
-> +
->  /*
->   * __setup_offsets() - setup unique offsets ("cookies") for every plane =
-in
->   * the buffer.
-> @@ -1423,6 +1482,9 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
->         }
->
->         if (reacquired) {
-> +               enum dma_data_direction attach_dir =3D q->uses_cpu_access=
- ?
-> +                       DMA_BIDIRECTIONAL : q->dma_dir;
-> +
->                 if (vb->planes[0].mem_priv) {
->                         vb->copied_timestamp =3D 0;
->                         call_void_vb_qop(vb, buf_cleanup, vb);
-> @@ -1453,7 +1515,8 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
->                                                   vb,
->                                                   q->alloc_devs[plane] ? =
-: q->dev,
->                                                   planes[plane].dbuf,
-> -                                                 planes[plane].length);
-> +                                                 planes[plane].length,
-> +                                                 attach_dir);
->                         if (IS_ERR(mem_priv)) {
->                                 dprintk(q, 1, "failed to attach dmabuf\n"=
-);
->                                 ret =3D PTR_ERR(mem_priv);
-> @@ -1504,9 +1567,21 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
->                 }
->         }
->
-> +       if (q->uses_cpu_access) {
-> +               ret =3D __vb2_buf_begin_cpu_access(vb);
-> +               if (ret) {
-> +                       dprintk(q, 1, "failed to begin CPU access to dmab=
-uf: %d\n",
-> +                               ret);
-> +                       call_void_vb_qop(vb, buf_cleanup, vb);
-> +                       goto err_put_vb2_buf;
-> +               }
-> +       }
-> +
->         ret =3D call_vb_qop(vb, buf_prepare, vb);
->         if (ret) {
->                 dprintk(q, 1, "buffer preparation failed\n");
-> +               if (q->uses_cpu_access)
-> +                       __vb2_buf_end_cpu_access(vb, vb->num_planes);
->                 call_void_vb_qop(vb, buf_cleanup, vb);
->                 goto err_put_vb2_buf;
->         }
-> @@ -1756,6 +1831,8 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsig=
-ned int start, unsigned int c
->
->                 __vb2_buf_mem_finish(vb);
->                 call_void_vb_qop(vb, buf_finish, vb);
-> +               if (q->memory =3D=3D VB2_MEMORY_DMABUF && q->uses_cpu_acc=
-ess)
-> +                       __vb2_buf_end_cpu_access(vb, vb->num_planes);
->                 vb->prepared =3D 0;
->         }
->
-> @@ -2160,6 +2237,8 @@ int vb2_core_dqbuf(struct vb2_queue *q, unsigned in=
-t *pindex, void *pb,
->         }
->
->         call_void_vb_qop(vb, buf_finish, vb);
-> +       if (q->memory =3D=3D VB2_MEMORY_DMABUF && q->uses_cpu_access)
-> +               __vb2_buf_end_cpu_access(vb, vb->num_planes);
->         vb->prepared =3D 0;
->
->         if (pindex)
-> @@ -2296,6 +2375,8 @@ static void __vb2_queue_cancel(struct vb2_queue *q)
->
->                 if (vb->prepared) {
->                         call_void_vb_qop(vb, buf_finish, vb);
-> +                       if (q->memory =3D=3D VB2_MEMORY_DMABUF && q->uses=
-_cpu_access)
-> +                               __vb2_buf_end_cpu_access(vb, vb->num_plan=
-es);
->                         vb->prepared =3D 0;
->                 }
->                 __vb2_dqbuf(vb);
-> diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/driv=
-ers/media/common/videobuf2/videobuf2-dma-contig.c
-> index 9ce6284cd5f26..68c146c043fb1 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-> @@ -768,7 +768,8 @@ static void vb2_dc_detach_dmabuf(void *mem_priv)
->  }
->
->  static void *vb2_dc_attach_dmabuf(struct vb2_buffer *vb, struct device *=
-dev,
-> -                                 struct dma_buf *dbuf, unsigned long siz=
-e)
-> +                                 struct dma_buf *dbuf, unsigned long siz=
-e,
-> +                                 enum dma_data_direction dma_dir)
->  {
->         struct vb2_dc_buf *buf;
->         struct dma_buf_attachment *dba;
-> @@ -794,7 +795,7 @@ static void *vb2_dc_attach_dmabuf(struct vb2_buffer *=
-vb, struct device *dev,
->                 return dba;
->         }
->
-> -       buf->dma_dir =3D vb->vb2_queue->dma_dir;
-> +       buf->dma_dir =3D dma_dir;
->         buf->size =3D size;
->         buf->db_attach =3D dba;
->
-> diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/=
-media/common/videobuf2/videobuf2-dma-sg.c
-> index b1d0695cda260..ab03f9d31391a 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-> @@ -616,7 +616,8 @@ static void vb2_dma_sg_detach_dmabuf(void *mem_priv)
->  }
->
->  static void *vb2_dma_sg_attach_dmabuf(struct vb2_buffer *vb, struct devi=
-ce *dev,
-> -                                     struct dma_buf *dbuf, unsigned long=
- size)
-> +                                     struct dma_buf *dbuf, unsigned long=
- size,
-> +                                     enum dma_data_direction dma_dir)
->  {
->         struct vb2_dma_sg_buf *buf;
->         struct dma_buf_attachment *dba;
-> @@ -640,7 +641,7 @@ static void *vb2_dma_sg_attach_dmabuf(struct vb2_buff=
-er *vb, struct device *dev,
->                 return dba;
->         }
->
-> -       buf->dma_dir =3D vb->vb2_queue->dma_dir;
-> +       buf->dma_dir =3D dma_dir;
->         buf->size =3D size;
->         buf->db_attach =3D dba;
->         buf->vb =3D vb;
-> diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers=
-/media/common/videobuf2/videobuf2-vmalloc.c
-> index 63f023696f3ee..c38faa0188bc9 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-> @@ -402,7 +402,8 @@ static void vb2_vmalloc_detach_dmabuf(void *mem_priv)
->  static void *vb2_vmalloc_attach_dmabuf(struct vb2_buffer *vb,
->                                        struct device *dev,
->                                        struct dma_buf *dbuf,
-> -                                      unsigned long size)
-> +                                      unsigned long size,
-> +                                      enum dma_data_direction dma_dir)
->  {
->         struct vb2_vmalloc_buf *buf;
->
-> @@ -414,7 +415,7 @@ static void *vb2_vmalloc_attach_dmabuf(struct vb2_buf=
-fer *vb,
->                 return ERR_PTR(-ENOMEM);
->
->         buf->dbuf =3D dbuf;
-> -       buf->dma_dir =3D vb->vb2_queue->dma_dir;
-> +       buf->dma_dir =3D dma_dir;
->         buf->size =3D size;
->
->         return buf;
-> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-cor=
-e.h
-> index 4b4f4c15c53a7..8dfe22fa4423c 100644
-> --- a/include/media/videobuf2-core.h
-> +++ b/include/media/videobuf2-core.h
-> @@ -78,7 +78,8 @@ struct vb2_buffer;
->   *             to the userspace, also optional.
->   * @attach_dmabuf: attach a shared &struct dma_buf for a hardware operat=
-ion;
->   *                used for DMABUF memory types; dev is the alloc device
-> - *                dbuf is the shared dma_buf; returns ERR_PTR() on failu=
-re;
-> + *                dbuf is the shared dma_buf; dma_dir is the DMA mapping
-> + *                direction; returns ERR_PTR() on failure;
->   *                allocator private per-buffer structure on success;
->   *                this needs to be used for further accesses to the buff=
-er.
->   * @detach_dmabuf: inform the exporter of the buffer that the current DM=
-ABUF
-> @@ -136,7 +137,8 @@ struct vb2_mem_ops {
->         void            *(*attach_dmabuf)(struct vb2_buffer *vb,
->                                           struct device *dev,
->                                           struct dma_buf *dbuf,
-> -                                         unsigned long size);
-> +                                         unsigned long size,
-> +                                         enum dma_data_direction dma_dir=
-);
->         void            (*detach_dmabuf)(void *buf_priv);
->         int             (*map_dmabuf)(void *buf_priv);
->         void            (*unmap_dmabuf)(void *buf_priv);
-> @@ -510,6 +512,11 @@ struct vb2_buf_ops {
->   *             ->finish().
->   * @non_coherent_mem: when set queue will attempt to allocate buffers us=
-ing
->   *             non-coherent memory.
-> + * @uses_cpu_access: the driver transfers buffer data with the CPU inste=
-ad of
-> + *             DMA. For imported dma-bufs, videobuf2 brackets the interv=
-al from
-> + *             buf_prepare through buf_finish with dma_buf_begin_cpu_acc=
-ess()
-> + *             and dma_buf_end_cpu_access(). Imported attachments use
-> + *             bidirectional DMA mappings.
->   * @lock:      pointer to a mutex that protects the &struct vb2_queue. T=
-he
->   *             driver must set this to a mutex to let the v4l2 core seri=
-alize
->   *             the queuing ioctls. This lock is used when waiting for a =
-new
-> @@ -614,6 +621,7 @@ struct vb2_queue {
->         unsigned int                    uses_requests:1;
->         unsigned int                    allow_cache_hints:1;
->         unsigned int                    non_coherent_mem:1;
-> +       unsigned int                    uses_cpu_access:1;
->
->         struct mutex                    *lock;
->         void                            *owner;
-> --
-> 2.47.3
->
+[1] - https://github.com/torvalds/linux/commit/03c19e449ac6e12a88ea4866331f2404668e22cc
+[2] - https://patchwork.freedesktop.org/series/176471/
+
+> 
+> 
+> BR,
+> Jani.
+> 
+> 
+> -- 
+> Jani Nikula, Intel
