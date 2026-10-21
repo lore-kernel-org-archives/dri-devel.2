@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC0A2606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 18:23:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1716606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 18:33:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=QOXE3p3Q
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=hecidf4Z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAE8C10E047;
-	Wed, 21 Oct 2026 18:23:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2894310E31A;
+	Wed, 21 Oct 2026 18:33:25 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C45010E047;
- Wed, 21 Oct 2026 18:23:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B33BF10E31A;
+ Wed, 21 Oct 2026 18:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=k+mGq79QMKjrSkSLMADnpcKSaAXj7e9cJf4qURAwo/M=; b=QOXE3p3QA5L0H+77bQ3KoiWi1C
- dxNtqz8H2MBSfebJ0xfyMZ5/4VvO42ldY0OHK/L5dAlPXLq4mH5uJrht2a58ZKalFGMcxMU38jhhI
- ARRh9Lm9BXgd3Dxckb1H98yF+oqJpLGpNYITUlOAsJMAp+gbJhT1ZFJuVTOb5dDFwJ3hMWbzvhJww
- 2IDx0rE0C9n6Em/FqPknxm/wF+xH0rAWGVGL753LiqGls2TvKA4D94WS8fKHkkEzggEhdG6xSJ3mS
- tkxdBGCec8Uv/a0Y6+7c3T2aGH6i+CysDQjaQFFafb/ZBZw8N3lO7ZjJhn3Nz2/cE7JsFsYtr8XTp
- WPGom9lQ==;
+ bh=7jgKOdLsgvQJKNOMTOZC41PaMPlEkcHgH9vTY2CQXdA=; b=hecidf4Zvb6KucUY3eq3X/XKXX
+ sHiU+xXRkJcm0AGH6IlWOq91HFwHhsoEOBDkTQFSiTTnDI9i7wO3W3kuosxkigS7b+sCmtuB1xYYc
+ QEboIVXsdwfdykMy8gmZUsfQ6mfPKMNla5dzFD1BWYjItwjq5qmQI1w/ZPRB9/sTWbyGTXGRn0EUo
+ w6vOVGaGWgbA3gAs536+s5tdhNJb1tL9Z8R8/3esSMCNnAEnts1955hUcxOlMbmZ8ehRQ3Jv6sIzw
+ XPkv2Nlpjxw0XMaA4eh69jlzryylEtuziFBxvFfU2SbSokBAM1U8hUf6NEBL9eIO6N6dcT9lXER70
+ xRE8vtSA==;
 Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
  helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xJaxo-005tpt-KC; Wed, 21 Oct 2026 20:23:00 +0200
-Message-ID: <d792066e-c857-4e80-8587-44a58ab75815@Igalia.com>
-Date: Wed, 21 Oct 2026 11:22:48 -0700
+ id 1xJb7V-005uGb-MW; Wed, 21 Oct 2026 20:33:01 +0200
+Message-ID: <0328d182-0a13-45f9-9ae7-317453b7eec0@Igalia.com>
+Date: Wed, 21 Oct 2026 11:32:53 -0700
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 8/9] drm: writeback: clean up writeback connectors in
- drm_connector_cleanup()
+Subject: Re: [PATCH v7 9/9] drm: writeback: drop the drmm writeback cleanup
+ action
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -57,10 +57,10 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
 References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
- <20261019-wb-drop-encoder-v7-8-d4288a26eb54@oss.qualcomm.com>
+ <20261019-wb-drop-encoder-v7-9-d4288a26eb54@oss.qualcomm.com>
 Content-Language: en-GB
 From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20261019-wb-drop-encoder-v7-8-d4288a26eb54@oss.qualcomm.com>
+In-Reply-To: <20261019-wb-drop-encoder-v7-9-d4288a26eb54@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,132 +83,76 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 10/19/26 06:12, Dmitry Baryshkov wrote:
-> Only drmm_writeback_connector_init() registers
-> drm_writeback_connector_cleanup(). Connectors set up with
-> drm_writeback_connector_init() (amdgpu, komeda, malidp, rcar-du, vc4)
-> never drop the formats blob or free the jobs still on the queue, leaking
-> them together with their framebuffer and fence references.
+> drmm_connector_init() already registers drm_connector_cleanup() as a
+> managed action, and that now cleans up the writeback state too. The
+> extra action registered by drmm_writeback_connector_init() just does the
+> same work a little earlier, leaving drm_connector_cleanup() nothing to
+> do. Drop it.
 >
-> Call drm_writeback_connector_cleanup() from drm_connector_cleanup() for
-> writeback connectors, the same way the HDMI audio and SCDC state is torn
-> down there, so it runs for both kinds of initialization. The drmm action
-> now just wraps it. Clearing the blob pointer makes the second invocation
-> a no-op and also covers drm_connector_cleanup() being called after a
-> failed __drm_writeback_connector_init().
->
-> Fixes: 935774cd71fe ("drm: Add writeback connector type")
 > Assisted-by: LLM
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: John Harrison <John.Harrison@Igalia.com>
+
 > ---
->   drivers/gpu/drm/drm_connector.c     |  3 +++
->   drivers/gpu/drm/drm_crtc_internal.h |  3 +++
->   drivers/gpu/drm/drm_writeback.c     | 30 +++++++++++++++++++++++-------
->   3 files changed, 29 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/drm_writeback.c | 25 ++++---------------------
+>   1 file changed, 4 insertions(+), 21 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 893716a9e489..1c2bef5e0636 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -929,6 +929,9 @@ void drm_connector_cleanup(struct drm_connector *connector)
->   	if (connector->hdmi.scdc_work_initialized)
->   		cancel_delayed_work_sync(&connector->hdmi.scdc_work);
->   
-> +	if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-> +		drm_writeback_connector_cleanup(connector);
-> +
-Could this be done via a new connector->funcs->cleanup() vfunc or 
-something? Set that inside the writeback init path and it is guaranteed 
-to then only be called for objects that explicitly requested it. That 
-would be more robust and would keep sashiko happy. It would also keep a 
-writeback connector specific declaration out of the crtc_internal header.
-
-John.
-
->   	platform_device_unregister(connector->hdmi_audio.codec_pdev);
->   
->   	if (connector->privacy_screen) {
-> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-> index 3492787c3697..f60216adcd31 100644
-> --- a/drivers/gpu/drm/drm_crtc_internal.h
-> +++ b/drivers/gpu/drm/drm_crtc_internal.h
-> @@ -329,4 +329,7 @@ static inline void drm_panic_unregister(struct drm_device *dev) {}
->   static inline void drm_panic_init(void) {}
->   #endif
->   
-> +/* drm_writeback.c */
-> +void drm_writeback_connector_cleanup(struct drm_connector *connector);
-> +
->   #endif /* __DRM_CRTC_INTERNAL_H__ */
 > diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
-> index 2f6a7b50336c..272012a70efe 100644
+> index 272012a70efe..0c5d2fbe7a7c 100644
 > --- a/drivers/gpu/drm/drm_writeback.c
 > +++ b/drivers/gpu/drm/drm_writeback.c
-> @@ -21,6 +21,8 @@
+> @@ -16,7 +16,6 @@
+>   #include <drm/drm_device.h>
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_framebuffer.h>
+> -#include <drm/drm_managed.h>
+>   #include <drm/drm_modeset_helper_vtables.h>
 >   #include <drm/drm_property.h>
 >   #include <drm/drm_writeback.h>
->   
-> +#include "drm_crtc_internal.h"
-> +
->   /**
->    * DOC: overview
->    *
-> @@ -271,21 +273,27 @@ EXPORT_SYMBOL(drm_writeback_connector_init);
->   
->   /**
->    * drm_writeback_connector_cleanup - Cleanup the writeback connector
-> - * @dev: DRM device
-> - * @data: Pointer to the writeback connector to clean up
-> + * @connector: Writeback connector to clean up
->    *
->    * This will decrement the reference counter of blobs. It will also clean the
->    * remaining jobs in this writeback connector. Caution: This helper will not
->    * clean up the attached encoder and the drm_connector.
-> + *
-> + * Called from drm_connector_cleanup() for all writeback connectors.
->    */
-> -static void drm_writeback_connector_cleanup(struct drm_device *dev,
-> -					    void *data)
-> +void drm_writeback_connector_cleanup(struct drm_connector *connector)
->   {
-> -	unsigned long flags;
-> +	struct drm_writeback_connector *wb_connector =
-> +		drm_connector_to_writeback(connector);
->   	struct drm_writeback_job *pos, *n;
-> -	struct drm_writeback_connector *wb_connector = data;
-> +	unsigned long flags;
-> +
-> +	/* __drm_writeback_connector_init() has failed */
-> +	if (!wb_connector->pixel_formats_blob_ptr)
-> +		return;
->   
->   	drm_property_blob_put(wb_connector->pixel_formats_blob_ptr);
-> +	wb_connector->pixel_formats_blob_ptr = NULL;
->   
->   	spin_lock_irqsave(&wb_connector->job_lock, flags);
->   	list_for_each_entry_safe(pos, n, &wb_connector->job_queue, list_entry) {
-> @@ -295,6 +303,14 @@ static void drm_writeback_connector_cleanup(struct drm_device *dev,
+> @@ -303,14 +302,6 @@ void drm_writeback_connector_cleanup(struct drm_connector *connector)
 >   	spin_unlock_irqrestore(&wb_connector->job_lock, flags);
 >   }
 >   
-> +static void drm_writeback_connector_cleanup_action(struct drm_device *dev,
-> +						   void *data)
-> +{
-> +	struct drm_writeback_connector *wb_connector = data;
-> +
-> +	drm_writeback_connector_cleanup(&wb_connector->base);
-> +}
-> +
+> -static void drm_writeback_connector_cleanup_action(struct drm_device *dev,
+> -						   void *data)
+> -{
+> -	struct drm_writeback_connector *wb_connector = data;
+> -
+> -	drm_writeback_connector_cleanup(&wb_connector->base);
+> -}
+> -
 >   /**
 >    * drmm_writeback_connector_init - Initialize a writeback connector
 >    *
-> @@ -333,7 +349,7 @@ int drmm_writeback_connector_init(struct drm_device *dev,
+> @@ -321,7 +312,8 @@ static void drm_writeback_connector_cleanup_action(struct drm_device *dev,
+>    * @formats: Array of supported pixel formats for the writeback engine
+>    * @n_formats: Length of the formats array
+>    *
+> - * This function initialize a writeback connector and register its cleanup.
+> + * This function initializes a writeback connector. Cleanup is automatically
+> + * handled with a call to drm_connector_cleanup() in a DRM-managed action.
+>    *
+>    * This function creates the writeback-connector-specific properties if they
+>    * have not been already created, initializes the connector as
+> @@ -344,17 +336,8 @@ int drmm_writeback_connector_init(struct drm_device *dev,
 >   	if (ret)
 >   		return ret;
 >   
-> -	ret = drmm_add_action_or_reset(dev, drm_writeback_connector_cleanup,
-> +	ret = drmm_add_action_or_reset(dev, drm_writeback_connector_cleanup_action,
->   				       wb_connector);
->   	if (ret)
->   		return ret;
+> -	ret = __drm_writeback_connector_init(dev, wb_connector, enc, formats,
+> -					     n_formats);
+> -	if (ret)
+> -		return ret;
+> -
+> -	ret = drmm_add_action_or_reset(dev, drm_writeback_connector_cleanup_action,
+> -				       wb_connector);
+> -	if (ret)
+> -		return ret;
+> -
+> -	return 0;
+> +	return __drm_writeback_connector_init(dev, wb_connector, enc, formats,
+> +					      n_formats);
+>   }
+>   EXPORT_SYMBOL(drmm_writeback_connector_init);
+>   
 >
 
