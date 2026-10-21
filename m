@@ -2,53 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3713606A319
-	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 00:07:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A26606A319
+	for <dri-devel@archiver.kernel.org>; Wed, 21 Oct 2026 00:07:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Kk64iPFI
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=PxwNPOQ9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 668BF10E320;
-	Wed, 21 Oct 2026 00:07:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8F610E390;
+	Wed, 21 Oct 2026 00:07:06 +0000 (UTC)
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7C9F10E320
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 00:06:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1792541208; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30CFF10E2A5
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 00:06:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1792541210; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=mDNRmGcFsBoI+QahUVD4rH0GuzFzvfICeQmo8INaC4tWeyisd3SMPm8rCrvjQ29WK0ZCXzoXzxwn4+NRcyIwTMShSNwdlNn7xORA6vyEwUjr7Cgka3IcJ0o4hSsX+VgkBXWVSaAaL5jAlDiigdpbTGplfm5c+eORxYjr3kHTBBs=
+ b=G+3U0M//Gf6SjnFjXackPZD+hwSfuehH2KmsRUyiCh92lzVjIK5Xj/x0Nk/pusKBaPQ7gZEz4eja1vzJejHvav/EZ2etAoIU1hqYCWNz+rYk0q2DhzoOaGH6nIaHB6Z/k8gXTvqGHK4ovMx3CfOanrx8Hu1UNVg63IJtZCN+eVw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1792541208;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=; 
- b=OhrWFmGHgLm3q+r73Q31S1Zl6V9ZSbriMBZgpZ2ughJgskXJs6VprkNDxjXjJ7aigMW/AJEBvUDeejvoNjw3OYEXK3QQpVRam+Du2v6wZ9dEaeq9skxaGXnh6tMwM9TRzVCr14aRThdxaFwJQxgS/avnOnRxZ/8c3khk7Ez3wL0=
+ s=zohoarc; t=1792541210;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=2lDEC0DuiMPcWNbSfDdjSTczo+Sc4lF7TDFSyMLbmz4=; 
+ b=nAGiUTpdpdXzQpD80nr2YG89xBCptD0Y8Nd2g56JyhKKDRZrRmGDA5G1h5iD7B09ehfaBx7jmxEmqE0Gbii5gBY7fc87TMKR+k3hMq+t6jIBpKXi4Qj2nm4g/aUKEA1n54U2g0vuyXF82Q/0ZTH6ubzsa+dBxjW2g0YhwPqyFvI=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792541208; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792541210; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=;
- b=Kk64iPFI+la3xEnrUdP/iMSv4DN3klAcgpqq6/2/+TlCJtHMPHebO7xQSru3T9yo
- nl8kptpnWtNeFYSQ42Gx7vcAMKQ+9NvwhTWYAtvnKWa70X3raaYLKMt5iNb/uNmMpRe
- YuXUUJch71o9EA/Omge/4HBzngexmCiudXsqgvoY=
-Received: by smtp.zohomail.com with SMTPS id 1792541206606520.137903256707;
- Tue, 20 Oct 2026 17:06:46 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=2lDEC0DuiMPcWNbSfDdjSTczo+Sc4lF7TDFSyMLbmz4=;
+ b=PxwNPOQ9hDOm3OBvHhHVu/ywj4V0vRnFCSs++tasDkr7UCS8B3EGOq4QzxrXrnPq
+ m06cSk0Z1B/qBNBLVT5O1msEderWI5pf0yFBRpEPx8lBB5DFyKqlcOdgYV1ZjIMAn/l
+ QkCc/tZs9aOgvkzEQBxo9yf1Pl0PXf0HrqKMC8l0=
+Received: by smtp.zohomail.com with SMTPS id 1792541208022378.16433192325917; 
+ Tue, 20 Oct 2026 17:06:48 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Subject: [PATCH v4 0/3] drm/tyr: allow mismatched buffers for dev_query
-Date: Tue, 20 Oct 2026 17:06:44 -0700
-Message-Id: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
+Date: Tue, 20 Oct 2026 17:06:45 -0700
+Subject: [PATCH v4 1/3] rust: uaccess: add UserSliceWriter::clear()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QS27DIBAG4KtYrEs1DA8Hr3qPqrJ4jBOkJCTYs
- WpFuXtxsmhURd0g/cB8MHNlI5VEI+uaKys0pzHlYw3qrWFh545b4inWzBDQCBCKe8Ujzf35QmX
- ph/RNI1cEzgMqtMqxWngqdD+odZ9fNe/SOOWy3N+Yxbr7LzcLDtwiKCkAvGrxI+T93vlc3HvIB
- 7aSMz4z+iWDlSFJJqIGDcG/YuQzY14ysjLDBloRopNa6L/M7dFxofOlTm96tP07vK5ZdbAoV31
- 7uvTpOOS6TNkv9TYPGJUe0EodNt2s1wF6NxKv+CFNXSOVbZ0CiUZ5sIp8NMJvfKu1MDpqQ220M
- ci2/uT2A7QKKhTPAQAA
-X-Change-ID: 20261014-b4-dev_query_fixes-4e0ab024294a
+Message-Id: <20261020-b4-dev_query_fixes-v4-1-df66b4c98bc6@collabora.com>
+References: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
+In-Reply-To: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
  Gary Guo <gary@garyguo.net>, 
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
@@ -64,13 +59,13 @@ Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
  Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1980;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2481;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=3mXYYH2Wyp7iMdOVfIyLyhIL3ZJckx+Ml8KpZV29isc=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFk3mERfTo/dHbnGdP7B+5tdf7y8z2Q7r3NNVohomLxKw
- L7vwlmtHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEwkrp2RYe2anoJHPh9UcrpM
- 2DZM9Xf2iJdcd+ubcoQBr0TXDYfLKQy/2ew6i2Pr2/6c5l5am/vvUkpFyrqEtlf9DAsfrtqvfjq
- XGwA=
+ bh=BifXMQ3wf5nytHVx4Vm26QkPbWTrCBV8j2ShsC9B2/4=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFk3mES3aNlFc1y+0Hzz79LKz/JqV7/t5no6yVrl69sNL
+ dcXTqk27yhlYRDjYpAVU2Q5a2/UI1713kh3/v9mmDmsTCBDGLg4BWAiE7czMjS8aLv2tct3ysQ1
+ Emn3FqzeJ+Yao1Cyo0XN5nBGGPfDu+wM/+On/Dj7PShmoWfhblklT8lnpeZl/j4v+7nN17/f+dr
+ iJwcA
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,50 +86,76 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Panthor UAPI for DRM_IOCTL_PANTHOR_DEV_QUERY allows userspace to provide
-a smaller or larger buffer than the kernel needs. Revise Tyr's
-implementation to match the expected UAPI behaviour.
+Add a method to zero the remaining bytes in a UserSliceWriter.
 
+If userspace provides a buffer that is larger than necessary, provide
+a method to zero out the remaining UserSliceWriter buffer. This avoids
+userspace consuming potentially uninitialized memory and/or mistaking it
+for data intentionally provided by the kernel.
+
+Use the #[inline] annotation to make this clear() method available for
+inlining outside of the kernel crate.
+
+Since clear_user() is architecturally defined and may be a macro or inline
+function, add a rust helper to make clear_user() callable from rust.
+
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
-This series depends on:
-[PATCH v5 0/2] drm/tyr: safely write GpuInfo to userspace 
-https://lore.kernel.org/rust-for-linux/20261020-b4-gpu_info_intobytes-v5-0-3e0c7c93223c@collabora.com
+ rust/helpers/uaccess.c |  6 ++++++
+ rust/kernel/uaccess.rs | 24 ++++++++++++++++++++++++
+ 2 files changed, 30 insertions(+)
 
-Changes in v4:
-- add new UserPtr method to accept u64 address
-- replace write_truncated() with write_slice_partial()
-- replace AsBytes with IntoBytes + Immutable in set_uobj
-- replace u32_as_usize with usize::from_safe_cast
-- remove redundant import size_of_val
-- Link to v3: https://lore.kernel.org/r/20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com
+diff --git a/rust/helpers/uaccess.c b/rust/helpers/uaccess.c
+index 6e59cc9c665c..e799d9ac9804 100644
+--- a/rust/helpers/uaccess.c
++++ b/rust/helpers/uaccess.c
+@@ -27,3 +27,9 @@ unsigned long rust_helper__copy_to_user(void __user *to, const void *from, unsig
+ 	return _inline_copy_to_user(to, from, n);
+ }
+ #endif
++
++__rust_helper unsigned long
++rust_helper_clear_user(void __user *to, unsigned long n)
++{
++	return clear_user(to, n);
++}
+diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
+index f1aecda7a90c..8e18285ec44b 100644
+--- a/rust/kernel/uaccess.rs
++++ b/rust/kernel/uaccess.rs
+@@ -638,6 +638,30 @@ pub fn write<T: AsBytes>(&mut self, value: &T) -> Result {
+     pub fn write_truncated<T: AsBytes>(&mut self, value: &T) -> Result<usize> {
+         self.write_slice_partial(value.as_bytes(), 0)
+     }
++
++    /// Zeros remaining bytes in the userspace buffer.
++    ///
++    /// Fails with [`EFAULT`] if the userspace memory cannot be cleared.
++    #[inline]
++    pub fn clear(&mut self) -> Result {
++        let len = self.length;
++
++        if len == 0 {
++            return Ok(());
++        }
++        // SAFETY: `clear_user` checks the userspace address and range and handles
++        // faults when accessing userspace memory
++        let res = unsafe { bindings::clear_user(self.ptr.as_mut_ptr(), len) };
++
++        if res != 0 {
++            return Err(EFAULT);
++        }
++
++        self.ptr = self.ptr.wrapping_byte_add(len);
++        self.length = 0;
++
++        Ok(())
++    }
+ }
+ 
+ /// Reads a nul-terminated string into `dst` and returns the length.
 
-Changes in v3:
-- replace "as" cast with lossless u32_as_usize()
-- Link to v2: https://lore.kernel.org/r/20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com
-
-Changes in v2:
-- Added #[inline] to UserSliceWriter::clear()
-- Link to v1: https://lore.kernel.org/r/20261014-b4-dev_query_fixes-v1-0-92043100b472@collabora.com
-
----
-Deborah Brouwer (3):
-      rust: uaccess: add UserSliceWriter::clear()
-      rust: uaccess: add method to get UserPtr from u64
-      drm/tyr: allow userspace buffers to be mismatched
-
- drivers/gpu/drm/tyr/file.rs | 49 +++++++++++++++++++++++++++++++++++++--------
- rust/helpers/uaccess.c      |  6 ++++++
- rust/kernel/uaccess.rs      | 33 ++++++++++++++++++++++++++++++
- 3 files changed, 80 insertions(+), 8 deletions(-)
----
-base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
-change-id: 20261014-b4-dev_query_fixes-4e0ab024294a
-prerequisite-change-id: 20260923-b4-gpu_info_intobytes-c2d45f2935c8:v5
-prerequisite-patch-id: 0ff3c9871f563680d2888d489cc155cc52788048
-prerequisite-patch-id: ecf0aed0bd7e4f8d3bc1bbaabb02976fc8d5fa4d
-
-Best regards,
 -- 
-Deborah Brouwer <deborah.brouwer@collabora.com>
+2.56.0
 
