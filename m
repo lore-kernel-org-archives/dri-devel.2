@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9FB606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 14:26:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735BD606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 14:26:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LoXqAE8m
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DrjuBK2Y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96C701126BC;
-	Thu, 22 Oct 2026 14:26:30 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF7FD11269C
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 14:26:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE3D91126A2;
+	Thu, 22 Oct 2026 14:26:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 327CD1126A0
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 14:26:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6524E433FB;
- Thu, 22 Oct 2026 14:26:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159AB1F000C1;
- Thu, 22 Oct 2026 14:26:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5BA63601F1
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 14:26:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDB371F000C1;
+ Thu, 22 Oct 2026 14:26:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792679184;
- bh=8h8OXWqqtzOcuHWP8HSyVX5O+/mE3tXrALm3cLcMPOs=;
+ s=k20260515; t=1792679190;
+ bh=NbedwgQ9Y8r2XlmzMuya5d2Ciw3kznJv7fqnDm0CFUk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LoXqAE8masGGNwano1UoePt8lyOHA8dr1s5YceEcbLKjGE16pgXRZFLP3MPk0E3gR
- teHDDPoh9fhny3iPx22hbkV1nNkyGwOytyt9wbi97YnbWgpRMUx0oeQ3A/XzchYlDi
- xzv8ygdJNgvac0Ld1No+yufHu0CPD1shQYSgn5tuTXvRmflHOJzqjAwcscouK8EJL9
- NcsnM5dktvdUOjCEBUyHZhdikyyXSoYNptpXA9ULpI5z0HO2VN6Jsfs4rH9W3UscBs
- HgvCjCr2ypi9+owOGcm9qWd/hn0dmK3lNBpwhMUGpzbUbKSecphMy4zx5qY0AMsfZv
- MDl2DyZ5FpQvQ==
-Message-ID: <sashiko-outbox-181631@kernel.org>
+ b=DrjuBK2YlMuWzm0qrWVlQW+Z5dw7K29lsBE+aQqxSpZOS1YpHdmetXJ7G/TV7xAZb
+ vvvQSrDalLIa/6hd+ECoiMSVWadIp2tf7L51rNUMfZJd0OqDbieZnkUXlIQlbnUoPt
+ /GfvcOA6YwH+ol1tDjfmP7C2TqZQTD9dfzMn6dbcN5f+U1mcWuoAPG9kOOIcHPcT6r
+ /7s2bReM2JlulXB4lEy1/RaJRiX8VsEL1/MYT35KofXhZHr+qBvpQW155+pfS3D9oW
+ JfuFER25y++8rYp83O3HE6sugDXftQ4jAeSy44npn9IFm5CjwQM12bOcfpGLqlP59L
+ oLFeKpcPFMnMg==
+Message-ID: <sashiko-outbox-181632@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH] clk: qcom: dispcc-sm8750: reset the MDSS blocks at
- probe when the bootloader left them running
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>
-Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261022140811.469417-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261022140811.469417-1-xiaqinghuan@mail.ustc.edu.cn>
+Subject: Re: [PATCH v6 11/15] drm/atomic: Allow filling a commit with
+ pristine object states
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261022-drm-reset-state-flag-v6-11-f36d640b7e76@kernel.org>
+References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
+ <20261022-drm-reset-state-flag-v6-11-f36d640b7e76@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 14:26:23 +0000
+Date: Thu, 22 Oct 2026 14:26:29 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,213 +53,294 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] clk: qcom: dispcc-sm8750: unconditional MDSS reset in disp_cc_sm87=
-50_probe()
-- [Medium] clk: qcom: BCR resets in disp_cc_sm8750_probe() do not reset loc=
-ked PLLs
-- [Medium] clk: qcom: dispcc-sm8750: undocumented compatible in disp_cc_sm8=
-750_probe()
-- [Medium] clk: qcom: dispcc-sm8750: raw BCR regmap_write() without mask or=
- readback
+- [High] drm/atomic: broken lease handling in drm_atomic_commit_fill_with_d=
+efaults()
+- [Medium] drm/atomic: missing color_mgmt_changed in drm_atomic_commit_fill=
+_with_defaults()
 --
 
-commit 996de5a901e9074e1f51bf1b7638e333551726e6
-Author: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+commit 5d2d0c35315849450f4b89a700b8964027903618
+Author: Maxime Ripard <mripard@kernel.org>
 
-clk: qcom: dispcc-sm8750: reset the MDSS blocks at probe when the bootloade=
-r left them running
+drm/atomic: Allow filling a commit with pristine object states
 
-This commit adds a board-specific reset sequence in disp_cc_sm8750_probe()
-for "lenovo,elden" that asserts and deasserts three display block resets
-with a 50 ms delay before configuring the display PLLs.
+This commit introduces drm_atomic_commit_fill_with_defaults() to populate an
+atomic commit with freshly created default states for CRTCs, planes,
+connectors, and color operations using their atomic_create_state() hooks.
 
-> diff --git a/drivers/clk/qcom/dispcc-sm8750.c b/drivers/clk/qcom/dispcc-s=
-m8750.c
-> index 3205ce5c1ad9e..f38ba86b4fd54 100644
-> --- a/drivers/clk/qcom/dispcc-sm8750.c
-> +++ b/drivers/clk/qcom/dispcc-sm8750.c
-
-[ ... ]
-
-> @@ -1932,6 +1934,39 @@ static int disp_cc_sm8750_probe(struct platform_de=
-vice *pdev)
->  		goto err_put_rpm;
->  	}
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 7a77051096c91..c3c38695814fc 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -1649,6 +1649,148 @@ bool drm_atomic_implements_create_state(struct dr=
+m_device *dev)
+>  }
+>  EXPORT_SYMBOL(drm_atomic_implements_create_state);
 > =20
-> +	/*
-> +	 * Some bootloaders hand over with the display block still fully
-> +	 * active: dispcc PLLs locked and MDSS core / core_int2 / RSCC out of
-> +	 * reset. Probing on top of that live state makes the command-mode
-> +	 * panel fail to initialise (command DMA timeout, panel init -EIO).
-> +	 *
-> +	 * Assert the three block resets and release them before the PLLs are
-> +	 * configured, so the block starts from a known-zero state.
-> +	 *
-> +	 * Limited to Lenovo Elden for now: it is the only board where this
-> +	 * handover behaviour was observed and the fix verified.
-> +	 */
-> +	if (of_machine_is_compatible("lenovo,elden")) {
-
-[Severity: Medium]
-Is it valid to match against "lenovo,elden" in disp_cc_sm8750_probe() in
-drivers/clk/qcom/dispcc-sm8750.c when that compatible string is not
-documented in the device tree bindings?
-
-In Documentation/devicetree/bindings/arm/qcom.yaml, the documented board
-compatibles for qcom,sm8750 are:
-
-      - items:
-          - enum:
-              - qcom,sm8750-mtp
-              - qcom,sm8750-qrd
-          - const: qcom,sm8750
-
-Since active bootloader display handover can occur on other qcom,sm8750
-boards as well, should this handover state be handled in the display driver
-or described via documented bindings rather than hardcoding an undocumented
-board compatible in the SoC clock driver?
-
-> +		static const u16 elden_bcrs[] =3D {
-> +			DISP_CC_MDSS_CORE_BCR,
-> +			DISP_CC_MDSS_CORE_INT2_BCR,
-> +			DISP_CC_MDSS_RSCC_BCR,
-> +		};
-> +		unsigned int reg;
-> +		int i;
+[ ... ]
+> +int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
+> +					 struct drm_atomic_commit *commit)
+> +{
+> +	struct drm_device *dev =3D commit->dev;
+> +	struct drm_mode_config *config =3D &dev->mode_config;
+> +	struct drm_crtc *crtc;
+> +	struct drm_plane *plane;
+> +	struct drm_connector *connector;
+> +	struct drm_connector_list_iter conn_iter;
+> +	struct drm_colorop *colorop;
+> +	int ret;
 > +
-> +		for (i =3D 0; i < ARRAY_SIZE(elden_bcrs); i++) {
-> +			reg =3D disp_cc_sm8750_resets[elden_bcrs[i]].reg;
-> +			regmap_write(regmap, reg, 0x1);
-> +		}
-> +		/* Hold for one full ~30 Hz frame before releasing. */
-> +		msleep(50);
-> +		for (i =3D ARRAY_SIZE(elden_bcrs) - 1; i >=3D 0; i--) {
-> +			reg =3D disp_cc_sm8750_resets[elden_bcrs[i]].reg;
-> +			regmap_write(regmap, reg, 0x0);
-> +		}
-
-[Severity: Medium]
-Should disp_cc_sm8750_probe() in drivers/clk/qcom/dispcc-sm8750.c use raw
-regmap_write() calls on the full 32-bit reset registers without a bitmask
-or readback?
-
-In drivers/clk/qcom/reset.c, qcom_reset_set_assert() updates only the
-target reset bit and reads back the register to flush posted writes across
-the interconnect:
-
-    rst =3D to_qcom_reset_controller(rcdev);
-    map =3D &rst->reset_map[id];
-    mask =3D map->bitmask ? map->bitmask : BIT(map->bit);
-
-    regmap_update_bits(rst->regmap, map->reg, mask, assert ? mask : 0);
-
-    /* Read back the register to ensure write completion, ignore the value =
-*/
-    regmap_read(rst->regmap, map->reg, &mask);
-
-Could overwriting the entire register with 0x1 and 0x0 via regmap_write()
-clobber other bits in those registers, and allow posted writes to remain
-buffered when the msleep(50) delay begins?
-
+> +	drm_WARN_ON(dev, !commit->acquire_ctx);
+> +
+> +	/*
+> +	 * Private objects are ignored because none have userspace
+> +	 * properties we might want to reset. atomic_check
+> +	 * implementations will derive or infer their private obj state
+> +	 * from the state that will end up being committed anyway.
+> +	 */
+> +	drm_for_each_colorop(colorop, dev) {
+> +		struct drm_colorop_state *colorop_state;
+> +
+> +		if (!drm_lease_held(file_priv, colorop->plane->base.id))
+> +			continue;
+> +
+> +		ret =3D drm_modeset_lock(&colorop->plane->mutex, commit->acquire_ctx);
+> +		if (ret)
+> +			return ret;
+> +
+> +		colorop_state =3D drm_atomic_helper_colorop_create_state(colorop);
+> +		if (IS_ERR(colorop_state))
+> +			return PTR_ERR(colorop_state);
+> +
+> +		drm_atomic_commit_set_colorop_state(commit, colorop, colorop_state);
+> +	}
+> +
+> +	drm_for_each_plane(plane, dev) {
+> +		struct drm_plane_state *plane_state;
+> +
+> +		if (!drm_lease_held(file_priv, plane->base.id))
+> +			continue;
+> +
+> +		ret =3D drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
+> +		if (ret)
+> +			return ret;
+> +
+> +		plane_state =3D plane->funcs->atomic_create_state(plane);
+> +		if (IS_ERR(plane_state))
+> +			return PTR_ERR(plane_state);
+> +
+> +		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
+> +	}
+> +
+> +	drm_for_each_crtc(crtc, dev) {
+> +		struct drm_crtc_state *crtc_state;
+> +
+> +		if (!drm_lease_held(file_priv, crtc->base.id))
+> +			continue;
+> +
+> +		ret =3D drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
+> +		if (ret)
+> +			return ret;
+> +
+> +		crtc_state =3D crtc->funcs->atomic_create_state(crtc);
+> +		if (IS_ERR(crtc_state))
+> +			return PTR_ERR(crtc_state);
+> +
+> +		drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
 > +	}
 
-[Severity: High]
-Can unconditionally resetting DISP_CC_MDSS_CORE_BCR,
-DISP_CC_MDSS_CORE_INT2_BCR, and DISP_CC_MDSS_RSCC_BCR in
-disp_cc_sm8750_probe() in drivers/clk/qcom/dispcc-sm8750.c cause
-regressions during boot and driver probe?
+[Severity: Medium]
+When drm_atomic_commit_fill_with_defaults() replaces the colorop, plane, and
+CRTC states with newly created default states, both
+crtc_state->color_mgmt_changed and plane_state->color_mgmt_changed are
+initialized to false, with crtc_state->{degamma_lut,ctm,gamma_lut} and
+plane_state->color_pipeline set to NULL and colorop_state set to defaults.
 
-disp_cc_sm8750_probe() is the clock, reset, and power domain provider,
-whereas the consumer driver in drivers/gpu/drm/msm/msm_mdss.c already
-handles resetting the display block during msm_mdss_init() via
-msm_mdss_reset():
+In drivers/gpu/drm/drm_atomic_uapi.c, drm_atomic_crtc_set_property(),
+drm_atomic_plane_set_property(), drm_atomic_set_colorop_for_plane(), and
+drm_atomic_colorop_set_property() only set color_mgmt_changed when a proper=
+ty
+write changes the value already stored in the new state:
 
-static int msm_mdss_reset(struct device *dev)
-{
-    struct reset_control *reset;
-
-    reset =3D reset_control_get_optional_exclusive(dev, NULL);
-    ...
-    reset_control_assert(reset);
-    msleep(20);
-    reset_control_deassert(reset);
-    reset_control_put(reset);
-
-    return 0;
+drivers/gpu/drm/drm_atomic_uapi.c:drm_atomic_crtc_set_property() {
+	...
+	ret =3D drm_property_replace_blob_from_id(dev,
+				&state->degamma_lut,
+				val,
+				elem_size * lut_size, -1, elem_size,
+				&replaced);
+	state->color_mgmt_changed |=3D replaced;
+	...
 }
 
-Running this reset inside disp_cc_sm8750_probe() happens before the drm/msm
-driver probes and calls aperture_remove_all_conflicting_devices() in
-drivers/gpu/drm/msm/msm_kms.c. If a bootloader framebuffer (such as
-simpledrm or efifb) is active, or if drm/msm is disabled, modular, or
-deferred, asserting these resets in disp_cc_sm8750_probe() will tear down
-active display scanout and ongoing dma traffic.
+drivers/gpu/drm/drm_atomic_uapi.c:drm_atomic_set_colorop_for_plane() {
+	...
+	/* Color pipeline didn't change */
+	if (plane_state->color_pipeline =3D=3D colorop)
+		return false;
+	...
+}
 
-In addition, this reset loop executes before qcom_cc_really_probe()
-initializes mdss_gdsc and mdss_int2_gdsc via gdsc_init() in
-drivers/clk/qcom/gdsc.c and before qcom_cc_clk_regs_configure() enables
-disp_cc_sm8750_critical_cbcrs (DISP_CC_SLEEP_CLK, DISP_CC_XO_CLK,
-DISP_CC_MDSS_RSCC_AHB_CLK, and DISP_CC_MDSS_RSCC_VSYNC_CLK), without
-verifying that mdss_gdsc and mdss_int2_gdsc are powered on.
+Neither drm_atomic_check_only() nor drm_atomic_helper_check_modeset() and
+drm_atomic_helper_check_planes() compares old_state against new_state to set
+color_mgmt_changed.
 
-Would it be safer to handle the reset requirements in msm_mdss_reset() in
-drivers/gpu/drm/msm/msm_mdss.c and the device tree reset properties rather
-than in disp_cc_sm8750_probe()?
+If crtc->state previously had a non-NULL degamma_lut, ctm, or gamma_lut (or
+plane->state and colorop->state had an active color pipeline or non-default
+colorop settings), and a reset commit either omits those properties to leave
+them at defaults or explicitly sets them to 0 / default (which matches the
+already-pristine new_state), won't color_mgmt_changed remain false on both
+crtc_state and plane_state?
+
+When a reset commit keeps the same mode and routing on an active CRTC so
+drm_atomic_crtc_needs_modeset() is false, drivers that gate color updates on
+color_mgmt_changed || drm_atomic_crtc_needs_modeset() (such as amdgpu_dm,
+i915, msm/dpu1, tidss, and rockchip vop2) will skip reprogramming hardware
+LUTs, CTMs, and colorops. In addition, drivers that gate hardware LUT or CTM
+updates strictly on crtc_state->color_mgmt_changed (such as
+mtk_crtc_atomic_flush(), vc4_hvs_atomic_flush(), omap_crtc_atomic_flush(),
+malidp_atomic_commit_update_gamma(), malidp_atomic_commit_update_coloradj(),
+d71_improc_update(), and armada_drm_crtc_atomic_begin()) will skip resetting
+hardware color management even across a full modeset.
+
+Should drm_atomic_commit_fill_with_defaults() compare the pristine states
+against crtc->state, plane->state, and colorop->state and set
+color_mgmt_changed accordingly?
 
 > +
->  	clk_taycan_elu_pll_configure(&disp_cc_pll0, regmap, &disp_cc_pll0_confi=
-g);
->  	clk_taycan_elu_pll_configure(&disp_cc_pll1, regmap, &disp_cc_pll1_confi=
-g);
->  	clk_pongo_elu_pll_configure(&disp_cc_pll2, regmap, &disp_cc_pll2_config=
-);
+> +	drm_connector_list_iter_begin(dev, &conn_iter);
+> +	drm_for_each_connector_iter(connector, &conn_iter) {
+> +		struct drm_connector_state *connector_state;
+> +
+> +		if (!drm_lease_held(file_priv, connector->base.id))
+> +			continue;
+> +
+> +		ret =3D drm_modeset_lock(&config->connection_mutex, commit->acquire_ct=
+x);
+> +		if (ret) {
+> +			drm_connector_list_iter_end(&conn_iter);
+> +			return ret;
+> +		}
+> +
+> +		/*
+> +		 * drm_atomic_implements_create_state() already checked
+> +		 * this, but connectors can be hotplugged between that
+> +		 * lockless check and the iteration here.
+> +		 */
+> +		if (!connector->funcs->atomic_create_state) {
+> +			drm_connector_list_iter_end(&conn_iter);
+> +			return -EOPNOTSUPP;
+> +		}
+> +
+> +		connector_state =3D connector->funcs->atomic_create_state(connector);
+> +		if (IS_ERR(connector_state)) {
+> +			drm_connector_list_iter_end(&conn_iter);
+> +			ret =3D PTR_ERR(connector_state);
+> +			return ret;
+> +		}
+> +
+> +		ret =3D drm_atomic_commit_set_connector_state(commit, connector, conne=
+ctor_state);
+> +		if (ret) {
+> +			connector->funcs->atomic_destroy_state(connector, connector_state);
+> +			drm_connector_list_iter_end(&conn_iter);
+> +			return ret;
+> +		}
+> +	}
+> +	drm_connector_list_iter_end(&conn_iter);
 
-[Severity: Medium]
-Does asserting elden_bcrs[] in disp_cc_sm8750_probe() in
-drivers/clk/qcom/dispcc-sm8750.c actually allow
-clk_taycan_elu_pll_configure() and clk_pongo_elu_pll_configure() to
-reprogram locked PLLs as described in the comment and commit message?
+[Severity: High]
+Can this per-object lease filtering cause NULL pointer dereferences and bro=
+ken
+atomic state when a lease is used or revoked?
 
-The comment states:
+First, drm_atomic_commit_fill_with_defaults() calls drm_lease_held() in four
+separate loops (for colorops, planes, CRTCs, and connectors), taking and
+releasing dev->mode_config.idr_mutex on each call. Concurrent lease revocat=
+ion
+via drm_mode_revoke_lease_ioctl() or drm_lease_revoke() only acquires
+dev->mode_config.idr_mutex (without any drm_modeset_lock) and clears
+master->leases. If a lease is revoked after the plane loop adds a leased pl=
+ane
+(with old_plane_state->crtc !=3D NULL and pristine new_plane_state->crtc =
+=3D=3D
+NULL) but before the CRTC loop checks old_plane_state->crtc, that CRTC is
+skipped and never added to the commit. During drm_atomic_commit(),
+drm_atomic_helper_plane_changed() hits WARN_ON(!crtc_state),
+drm_atomic_plane_check() and drm_atomic_helper_check_plane_state() succeed
+because new_plane_state->fb is NULL, and drm_atomic_helper_setup_commit() ->
+crtc_or_fake_commit() dereferences a NULL new_crtc_state:
 
-    Assert the three block resets and release them before the PLLs are
-    configured, so the block starts from a known-zero state.
+drivers/gpu/drm/drm_atomic_helper.c:crtc_or_fake_commit() {
+	if (crtc) {
+		struct drm_crtc_state *new_crtc_state;
 
-However, DISP_CC_MDSS_CORE_BCR, DISP_CC_MDSS_CORE_INT2_BCR, and
-DISP_CC_MDSS_RSCC_BCR only reset the downstream display sub-blocks and do
-not reset or unlock disp_cc_pll0, disp_cc_pll1, or disp_cc_pll2.
+		new_crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc);
 
-When the bootloader leaves those PLLs locked,
-clk_taycan_elu_pll_configure() (which maps to clk_lucid_evo_pll_configure()
-in drivers/clk/qcom/clk-alpha-pll.c) still returns early without
-programming the PLL:
+		return new_crtc_state->commit;
+	}
+	...
+}
 
-    if (trion_pll_is_enabled(pll, regmap)) {
-        pr_debug("Lucid Evo PLL is already enabled, skipping configuration\=
-n");
-        return;
-    }
+Second, drm_mode_create_lease_ioctl() -> fill_object_idr() -> validate_leas=
+e()
+does not verify that leased planes or connectors are not currently bound to=
+ an
+unleased CRTC, nor does drm_lease_held() prevent the lessor (where
+master->lessor =3D=3D NULL) from configuring cross-lease routing. Unlike
+drm_atomic_get_plane_state() and drm_atomic_get_connector_state(), which pu=
+ll
+old_state->crtc into the commit via drm_atomic_get_crtc_state(),
+drm_atomic_commit_fill_with_defaults() resets leased planes and connectors =
+to
+crtc =3D NULL while skipping unleased CRTCs. If old_connector_state->crtc i=
+s not
+in the commit, update_connector_routing() dereferences a NULL crtc_state:
 
-And clk_pongo_elu_pll_configure() in drivers/clk/qcom/clk-alpha-pll.c does
-the same:
+drivers/gpu/drm/drm_atomic_helper.c:update_connector_routing() {
+	...
+	if (old_connector_state->crtc !=3D new_connector_state->crtc) {
+		if (old_connector_state->crtc) {
+			crtc_state =3D drm_atomic_get_new_crtc_state(state, old_connector_state-=
+>crtc);
+			crtc_state->connectors_changed =3D true;
+		}
+	...
+}
 
-    if (trion_pll_is_enabled(pll, regmap))
-        return;
+Similarly, if old_plane_state->crtc is not in the commit,
+crtc_or_fake_commit() dereferences a NULL new_crtc_state.
 
-Also, disp_cc_sm8750_probe() does not check whether the display blocks or
-PLLs were left running by the bootloader before asserting the resets and
-sleeping for 50 ms. Should the code and comment be updated to reflect that
-the block resets do not reset the PLLs and check whether the hardware is
-actually active?
+Third, when universal_planes is enabled, a lease on a CRTC does not have to
+include every plane (such as overlay or cursor planes) or cloned connector
+currently active on that CRTC. Resetting the leased CRTC to a pristine state
+(enable =3D false, plane_mask =3D 0, connector_mask =3D 0) while skipping t=
+he
+unleased plane or connector causes drm_atomic_helper_check_modeset() ->
+drm_atomic_add_affected_planes() to duplicate the unleased plane's active
+state (with crtc =3D leased_crtc and fb !=3D NULL). That causes
+drm_atomic_helper_check_plane_state() to fail with -EINVAL if the CRTC rema=
+ins
+disabled, or leaves new_crtc_state->plane_mask missing the unleased plane if
+the CRTC is re-enabled in the same commit. Meanwhile,
+drm_atomic_add_affected_connectors() inspects new_crtc_state->connector_mask
+(which is 0), failing to pull in the unleased connector and leaving
+connector->state->crtc and best_encoder dangling on the reset CRTC.
+
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_atomic_commit_fill_with_defaults);
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022140811.4694=
-17-1-xiaqinghuan@mail.ustc.edu.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-drm-reset-=
+state-flag-v6-0-f36d640b7e76@kernel.org?part=3D11
