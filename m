@@ -2,53 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F0E606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16CC606A31A
 	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:36:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nj+HjLJ/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B7Q87Gsr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADC6E1125C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C502A1125C3;
 	Thu, 22 Oct 2026 12:36:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D35881125C1
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:36:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7B791125BD
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:36:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 57F7160DCA;
- Thu, 22 Oct 2026 12:36:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616F81F000C2;
- Thu, 22 Oct 2026 12:36:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 95F2E4033A;
+ Thu, 22 Oct 2026 12:36:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B2C1F000C1;
+ Thu, 22 Oct 2026 12:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792672584;
- bh=XOjykYAdgYsccRJhzsi09Ey317QqV7GbK9J3mGe2MLQ=;
+ s=k20260515; t=1792672563;
+ bh=dbaIHLcuRbf1r7XswiUJ2Hr/t7xo3JLQ7W99G9BTu7o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=nj+HjLJ/zIdVg/fTVp0CCCaJaOsywhpwNeFGq4rbI8ZThxHeKHrdiZ1ZY8BCWc60K
- 5nKqbnmRlknkO47AYuKc3jcUmXgZ6AotP8wJUG3nd4QDIUN4C7XelseoMGVRn3sl6T
- SL2l4PlbGtXVXOAvOGT+TL1LrgE9sFtZVo0uPyBLz7F7QfdTJ7QPCd+Pz7k4qWlIAY
- ppqNqAxS2Cy4iVjRvpAS+HC3j+DTK8MwaPkC3QCrsR4Bk3hXjuYIi1fS08kgXPjVE6
- sZpaVWcG2duaqwMjfeiabFfqioUp7ChQ8JHVgqkotQzuzkBbFFz/JKb/oVKU8OHa5E
- H8T5PulTsDd2Q==
+ b=B7Q87GsrhNW3p2nk04Ll/8qdVTLxJ46lk3c5xxlDpe+wzmei2qKdnXGdhB0uiolat
+ dYAl5rCPSg7jDWYgDvAB5vz/PcosrAF/yxY5w6ymlz6AKzb5IbWmm2uHuIIX0meKo1
+ ebHS2mdJ8bgLus/ZJntcEzwBq41NeJSOxP/q9gTt3auLyw/MtLbbRDJRdshTnze0Wd
+ djnrgnHqi5s/7ofpLJqP42UAGOGcO/LWXRrgGWeAUhVqypfAlHO7u9tHYmOWbDYCX2
+ D3Nl2o9KX79Y9Y03lD+DjNds4VNE0mt/1trznUi14U1UmcSI9bLnmJkHMf1VTHVMVf
+ 3H8ba6m7a/JIQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 14:31:43 +0200
-Subject: [PATCH v2 44/59] drm/bridge: synopsys: dw-hdmi: Convert to
- atomic_create_state
+Date: Thu, 22 Oct 2026 14:31:37 +0200
+Subject: [PATCH v2 38/59] drm/tiny: sharp: Switch to
+ drm_atomic_helper_connector_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-no-more-connector-reset-v2-44-0b7e4e85b1e8@kernel.org>
+Message-Id: <20261022-drm-no-more-connector-reset-v2-38-0b7e4e85b1e8@kernel.org>
 References: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 In-Reply-To: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ Alex Lanzano <lanzano.alex@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1287; i=mripard@kernel.org;
- h=from:subject:message-id; bh=/JvqtQtKv594a2+n+48TjG0+d6rHCtxSIbeZwzC4wpg=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mBY8f3JbIWvzngebula+rpsnF7Kg+v+L19I55wpnf
- w5zid22pWMqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBMRKiRseHwpYWOO65YHb7v
- 9+TqVeddvk0s0d/vqoQ9rm80S/3h+Y6PX1a34Gb+Pd6ajdmcRjmscxgbfl5/Z7Zz76sO99Xzwv4
- aZNita93q03x3TYdxo+F83cDFa6SkfLZybV4Yrhczyb3t4ozHAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1148; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=aa6IrZpHRTuvFTS2chWcIBQW1uO7UQc6yLUVp5CXv2E=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mOZpyBZ3ci51EjjIZh+kYaI178RXeZV+txVW2w57M
+ h3tZ6nvmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABNxfMpYK8XZN1VfX+1C796b
+ MQqeu72e9vuxHk+VZJlXWcS2vfe7Gts2p+KGv71eFp7LfWo/LedhbLjrHBbfN+vuO53c2Hdc1Xt
+ UGTIZBTk6rdYsuS2XYHlTnn3hp8ptmyxu1abrzNNnlb72FQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,39 +70,31 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The dw-hdmi driver calls drm_atomic_helper_connector_reset() during
-connector creation to allocate an initial connector state needed by
-drm_connector_attach_max_bpc_property(). However, the driver only
-needs to allocate a pristine state, which is exactly what
-atomic_create_state provides.
+The tiny: sharp connector implementation uses the deprecated
+drm_atomic_helper_connector_reset() as its reset hook.
 
-Convert to drm_atomic_helper_connector_create_state() with proper
-error handling.
+Switch to drm_atomic_helper_connector_create_state() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Cc: Alex Lanzano <lanzano.alex@gmail.com>
+---
+ drivers/gpu/drm/tiny/sharp-memory.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 917cf764c9c5..5f11707c67b5 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2606,5 +2606,13 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
- 	 * connector to have a state.
- 	 */
--	drm_atomic_helper_connector_reset(connector);
-+	if (!connector->state) {
-+		struct drm_connector_state *conn_state;
-+
-+		conn_state = drm_atomic_helper_connector_create_state(connector);
-+		if (IS_ERR(conn_state))
-+			return PTR_ERR(conn_state);
-+
-+		connector->state = conn_state;
-+	}
+diff --git a/drivers/gpu/drm/tiny/sharp-memory.c b/drivers/gpu/drm/tiny/sharp-memory.c
+index 434e73bd25a5..b948e44544d6 100644
+--- a/drivers/gpu/drm/tiny/sharp-memory.c
++++ b/drivers/gpu/drm/tiny/sharp-memory.c
+@@ -370,7 +370,7 @@ static const struct drm_connector_helper_funcs sharp_memory_connector_hfuncs = {
  
- 	drm_connector_attach_max_bpc_property(connector, 8, 16);
+ static const struct drm_connector_funcs sharp_memory_connector_funcs = {
+-	.reset = drm_atomic_helper_connector_reset,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+ 	.destroy = drm_connector_cleanup,
++	.atomic_create_state = drm_atomic_helper_connector_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
 
 -- 
 2.55.0
