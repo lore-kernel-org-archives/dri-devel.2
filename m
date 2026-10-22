@@ -2,82 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B9D606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 08:03:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C541606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 08:03:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TWRhUV3P
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=V89C8aNc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6871F10E2C8;
-	Thu, 22 Oct 2026 08:03:32 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD6B10E23D
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 08:03:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1792656205;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=W6J737TEl9B2egnW0p7z/YAbbC3wSedR9eDcIGXJuFs=;
- b=TWRhUV3PzJOupBLdaSvA87D/kDy3IyAb1pf0zSBAsRoBczAaBv8GD9LGgAKotLOUZNK4wV
- Tg8r1YvRL17aeqwGk/C9EEFq6Faai0fv4V68s8FmBLbanM+/6yy4bwaHx2shLjVMrKjiHS
- CtReXn2yikdYJhNlXhR3JqSEPAZQLHU=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-36-fjuJkBmsPGi3YG2PD_MEmQ-1; Thu, 22 Oct 2026 04:03:23 -0400
-X-MC-Unique: fjuJkBmsPGi3YG2PD_MEmQ-1
-X-Mimecast-MFC-AGG-ID: fjuJkBmsPGi3YG2PD_MEmQ_1792656203
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4a027f2e364so11477305e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 01:03:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792656202; x=1793261002;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=W6J737TEl9B2egnW0p7z/YAbbC3wSedR9eDcIGXJuFs=;
- b=b1i4OAKkbETi8LkGuCKhS5N8eGnR27mGB1mtf37hjfpQKwj8/QM2aEBxjjWICHM1lu
- bknbxIx3URzQZ/6oba+fflU6QDqtap8cNEVHzvveYHK+1lPIfqWJFLbBF9qLcQgP/D0e
- yhs4PT6PSrUxWorm5zCvMHVHpVwGxpC0sYPiKqxMP2EL7m8aRi6pltY3zArixCaSGkdJ
- MJAsmRcPA6G/BourSGqHBJoRHrOvmDQJtqoZEGVdTdfI0QMDNTZZ8oKo9RfG7kZqP7uO
- ucI8/w8bPQvPL/vJOUmPxdfi5u44GDI0OxPqIH4BRL7dVxtV3euwPjbrprF7w+KZcW7i
- v1YQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvByyk7te0RqxmIyExnBHFV7Cy/l/VH12kfUTNni2xuQULbKpLdxVDWLVFjcQYL06zVEk36CiNQc9q/o=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKAukrGXHKBXpNCok7P48r7vfwzAgigfHb+z0QqpaWsXx787b9F
- 1rc7eIQLIeoo1ud9so+xhO+39BGxhRMiZoJshM6eN6AF/JvI3vRjDzYYrsUZVeh9Pm/cML7viLd
- vzPic7EuZ4Kgh8tnbIfwKq8M1RksfSGRvHrEp26yLqLQmK6JxbWuqRnG7l+XJNSuScV828fP+bg
- wnd7MkEEuhYG0Y13mP9yZbOZvx8QDpZXl3fyXy7MGMCO+F
-X-Gm-Gg: AYBFou3zlLXA7j7LW/I6oqVIp9aGvPC+SPr2JrjNQLD5K53UARYskuCDC6Dr5YqpOH1
- GH1WWUvkGsguxLvdGxVQkT3LYbI+4x41dbXSHvsrs6eBEb35dbX1W30UKcRVVfd+rtpzmgdyIVC
- eJxIysYm8rww95hUoZn91Yqjme+8EFY2hTEBFkjk40JqJDVMJx4GtpopjU
-X-Received: by 2002:a05:600c:3155:b0:4a2:803:a3c4 with SMTP id
- 5b1f17b1804b1-4a20803a77emr19050505e9.13.1792656202198; 
- Thu, 22 Oct 2026 01:03:22 -0700 (PDT)
-X-Received: by 2002:a05:600c:3155:b0:4a2:803:a3c4 with SMTP id
- 5b1f17b1804b1-4a20803a77emr19049855e9.13.1792656201601; Thu, 22 Oct 2026
- 01:03:21 -0700 (PDT)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20260721223244.1102276-1-matthew.brost@intel.com>
-In-Reply-To: <20260721223244.1102276-1-matthew.brost@intel.com>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Thu, 22 Oct 2026 10:03:09 +0200
-X-Gm-Features: AclHuK9lDSJzIh1F3yl4aopdz0Eiem3shCKhqffOA1TaZenWgjeQE26eptsBHE4
-Message-ID: <CAASaF6z3gEFD41XiNA_dLruNc7QCjJvZr=yABKm_WMP8rpKquA@mail.gmail.com>
-Subject: Re: [PATCH] drm/pagemap: Guard HPAGE_PMD_ORDER use with
- CONFIG_ARCH_ENABLE_THP_MIGRATION
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel test robot <lkp@intel.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: yQ5SBQcn35QlSthYjoX8uZCYTkCBPSvfsiVY7bjL0ps_1792656203
-X-Mimecast-Originator: redhat.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7B7E10E3FC;
+	Thu, 22 Oct 2026 08:03:37 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5F6910E3FC
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 08:03:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
+ From:Subject:Message-ID:From:Reply-To;
+ bh=INuDZfQLSGGX4SjuADx37jtG3bQYUiFimPOWaTFB1b8=; b=V89C8aNcqKYHKuPuw+BubPoiIH
+ EUsXCPuM+zIMeYn7h7w9it8uHOy0o88AhKETjaxS4USQyeb9J3UW6/z8dSi0MURl8xhxUxnSKguJV
+ vzVuhCwVD8OISr7LCllNxbmSu0pHMvugXqhuqLqp+Tr14H9qT6yZO3uMowFB7LuOZYKdSqzyyDUzJ
+ gHmd2It6fbRGqvmwKCL9j3L1ieoQfD+Yu+fo9sPN4k+rE9W8DZvwGRQE1R4UjUEiJLH5RTjin0n89
+ flkfNQzn/6X7d7ita4Ok8Xp97/7VxehyufoFC+4w26gNxEE4Bx7bmZ2b/KBcijj/o1WqSDRLlJdHF
+ OyMBzKIg==;
+Received: from [192.168.12.229] by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xJnll-006Snu-6e; Thu, 22 Oct 2026 10:03:25 +0200
+Message-ID: <c3ff98f07b9ea2c3332526b2a7afcc843ecef53f.camel@igalia.com>
+Subject: Re: [PATCH 0/3] drm/v3d: Add TFU constant colour support for V3D 7.x
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+Date: Thu, 22 Oct 2026 10:03:25 +0200
+In-Reply-To: <20261021-v3d-tfu-ccol-v1-0-4c99240cca28@igalia.com>
+References: <20261021-v3d-tfu-ccol-v1-0-4c99240cca28@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,106 +51,71 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Jul 22, 2026 at 12:32=E2=80=AFAM Matthew Brost <matthew.brost@intel=
-.com> wrote:
->
-> HPAGE_PMD_SHIFT expands to BUILD_BUG() when CONFIG_PGTABLE_HAS_HUGE_LEAVE=
-S
-> is not set, causing a compile error when both CONFIG_TRANSPARENT_HUGEPAGE
-> and CONFIG_HUGETLB_PAGE are disabled:
->
->  drivers/gpu/drm/drm_pagemap.c:480:12: error: call to '__compiletime_asse=
-rt_458'
->  declared with 'error' attribute: BUILD_BUG failed
->    480 |                         order =3D HPAGE_PMD_ORDER;
->        |                                 ^
->  include/linux/huge_mm.h:117:26: note: expanded from macro 'HPAGE_PMD_ORD=
-ER'
->    117 | #define HPAGE_PMD_ORDER (HPAGE_PMD_SHIFT-PAGE_SHIFT)
->        |                          ^
->  include/linux/huge_mm.h:113:28: note: expanded from macro 'HPAGE_PMD_SHI=
-FT'
->    113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
->
-> Define DRM_PAGEMAP_PMD_ORDER, which maps to HPAGE_PMD_ORDER when
-> CONFIG_ARCH_ENABLE_THP_MIGRATION is enabled and to -1 otherwise.
->
-> This is safe because all code paths that use DRM_PAGEMAP_PMD_ORDER are
-> reachable only when CONFIG_ARCH_ENABLE_THP_MIGRATION is enabled.
->
-> Fixes: 139ab31aea8a ("drm/pagemap: Correct cpages calculation for migrate=
-_vma_setup")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/r/202607201914.LpAGsbXs-lkp@intel.com/
-> Cc: Jan Stancek <jstancek@redhat.com>
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+
+El mi=C3=A9, 21-10-2026 a las 11:55 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> The V3D 7.x TFU can fill its output with a constant colour, which
+> lets
+> userspace offload buffer fills to the TFU. However, so far, the
+> kernel
+> didn't expose this hardware capability.
+>=20
+> Expand the UAPI to obtain constant colour data from the userspace and
+> configure the CCOL0-3 registers.
+>=20
+> The series contains three patches:=20
+>=20
+> =C2=A0 1. Patch 1 implements validation of the v71 fields of the TFU
+> submit
+> =C2=A0=C2=A0=C2=A0=C2=A0 ioctl.
+>=20
+> =C2=A0 2. Patch 2 only writes the TFU coefficient registers on V3D 7.x
+> when
+> =C2=A0=C2=A0=C2=A0=C2=A0 ICFG.YVCS_RGBP selects user-provided coefficient=
+s. This avoids
+> =C2=A0=C2=A0=C2=A0=C2=A0 writing to COEF0-3 when it's not needed.
+>=20
+> =C2=A0 3. Patch 3 adds the CCOL0-3 registers and ccol[4] to
+> drm_v3d_submit_tfu.
+> =C2=A0=C2=A0=C2=A0=C2=A0 It also adds DRM_V3D_PARAM_SUPPORTS_TFU_CCOL for=
+ userspace to
+> detect
+> =C2=A0=C2=A0=C2=A0=C2=A0 support.
+>=20
+> The Mesa counterpart of this feature is available in [1].
+>=20
+> [1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/45487
+>=20
+> Best regards,
+> - Ma=C3=ADra
+>=20
 > ---
->  drivers/gpu/drm/drm_pagemap.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.=
-c
-> index 15c78eca180b..951cd92c930c 100644
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
-> @@ -12,6 +12,12 @@
->  #include <drm/drm_pagemap_util.h>
->  #include <drm/drm_print.h>
->
-> +#if IS_ENABLED(CONFIG_ARCH_ENABLE_THP_MIGRATION)
-
-Now that d547b1001755 ("mm: rename ARCH_ENABLE_THP_MIGRATION to
-ARCH_HAS_PMD_SOFTLEAVES")
-landed in Linus' tree, would you consider applying this again using
-the new config name?
-
-Thanks,
-Jan
-
-> +#define DRM_PAGEMAP_PMD_ORDER  HPAGE_PMD_ORDER
-> +#else
-> +#define DRM_PAGEMAP_PMD_ORDER  (-1)
-> +#endif
-> +
->  /**
->   * DOC: Overview
->   *
-> @@ -579,7 +585,7 @@ static int drm_pagemap_cpages(unsigned long *migrate_=
-pfn, unsigned long npages)
->                         order =3D folio_order(folio);
->                         cpages +=3D NR_PAGES(order);
->                 } else if (migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
-> -                       order =3D HPAGE_PMD_ORDER;
-> +                       order =3D DRM_PAGEMAP_PMD_ORDER;
->                         cpages +=3D NR_PAGES(order);
->                 }
->
-> @@ -765,10 +771,11 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagema=
-p_devmem *devmem_allocation,
->
->                 if (migrate.src[i] & MIGRATE_PFN_COMPOUND) {
->                         drm_WARN_ONCE(dpagemap->drm, src_page &&
-> -                                     folio_order(page_folio(src_page)) !=
-=3D HPAGE_PMD_ORDER,
-> +                                     folio_order(page_folio(src_page)) !=
-=3D
-> +                                     DRM_PAGEMAP_PMD_ORDER,
->                                       "Unexpected folio order\n");
->
-> -                       order =3D HPAGE_PMD_ORDER;
-> +                       order =3D DRM_PAGEMAP_PMD_ORDER;
->                         migrate.dst[i] |=3D MIGRATE_PFN_COMPOUND;
->
->                         for (j =3D 1; j < NR_PAGES(order) && i + j < npag=
-es; j++)
-> --
-> 2.34.1
->
+> Ma=C3=ADra Canal (3):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Validate the v71 fields of the TF=
+U submit ioctl
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Only program TFU coefficients whe=
+n used on V3D 7.x
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Add TFU constant colour support f=
+or V3D 7.x
+>=20
+> =C2=A0drivers/gpu/drm/v3d/v3d_drv.c=C2=A0=C2=A0=C2=A0 |=C2=A0 3 +++
+> =C2=A0drivers/gpu/drm/v3d/v3d_regs.h=C2=A0=C2=A0 | 19 ++++++++++++++++++-
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c=C2=A0 | 30 +++++++++++++++++++++++-=
+------
+> =C2=A0drivers/gpu/drm/v3d/v3d_submit.c |=C2=A0 9 +++++++++
+> =C2=A0include/uapi/drm/v3d_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 5 +++++
+> =C2=A05 files changed, 58 insertions(+), 8 deletions(-)
+> ---
+> base-commit: b3de601e57d983e4a42e27d499516041c11c2bde
+> change-id: 20261015-v3d-tfu-ccol-18d9632751bd
+>=20
+>=20
 
