@@ -2,133 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DC2606A31B
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:28:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D017B606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:29:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=B4AbYG7l;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R7aD1N4Q
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUxOJBde
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1448510E35B;
-	Thu, 22 Oct 2026 09:27:57 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADB2D10E35B
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:27:45 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69M70FSo2516174
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:27:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- IyT7fwjUNFNu0NAAjlLz6JQgqyL2WtB5iiNKLluFvCs=; b=B4AbYG7lnrJgKWKL
- CUUYVPrPmNE4FBjdYSgr9aq+iBuZDvy0sDenENjOSKXWEHNqUOTtzs/L5Kn8y8O2
- WDkiTOtDdWKHHJD1s7FW6G06M9uKLGfYIrRk1nq+FlDKuyYbPhHz3Zkeg0gy0wRI
- 0Um5szZwsNEGdxQuxJL+y4uCzkL7NC7NnyJ9TmOOPvXDwUK2ptMsWa/fa7D5Q5KN
- XYjiGFhjpemCyYc7Nzg9OVI5lWPHOmjzqcIAUqgisYdithFBlUZlc3MyrZKPV8D/
- LZTQjjpvqxQvCO6pYOHfZC5JNdYQ93scOC00E2rnDwa2EwF8Fnh8zBJ761i6c2PN
- AcaE6g==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93a9pw2-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:27:45 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-cd634ac49baso333392a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:27:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792661264; x=1793266064;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=IyT7fwjUNFNu0NAAjlLz6JQgqyL2WtB5iiNKLluFvCs=;
- b=R7aD1N4QoiD4DUD09dwTpBjpXfak9NIbLGjGmvNC3DS9oTlf3saANeKo0RbvXR4Eng
- /3nal8DTczPleq4/Uabyv7MUPCSnfQJ8qbN5/tBSR+xIB10RnzggwmBwtxDFD7TRcQ8Y
- xo0E0YkEkWJGx4PlAPT2fNbeH/eBXn6yYgXTSpOeGr9jDpWwfeeWM85dxCXJQyJMoPhI
- IXC+4ktl0at9PqDWWyu2EDvVt1EfW/jyPdaovoDCSSiY+l9CsMBmqx6yKdgBNAbJVd1R
- DzOAkPL3l8aKUEUOhzUt3IJZXaO5NG0miJW9GrpXrcJ9MdQANv+a1+X8WgsIKVIi5CbC
- 1t/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792661265; x=1793266065;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IyT7fwjUNFNu0NAAjlLz6JQgqyL2WtB5iiNKLluFvCs=;
- b=2fqEdOJc7TOG65t7iSHtMcJe6yDzWQKSQlvJzBFo0PyS3LCired0yu7YWapKDW7UX+
- inFqb9R0hTWFKqO2kXPEeGX9bAwiCJtb68kVzBH83E1a/XYyPEoAYOaOBvoR9lbGgqSP
- 0782wCvZin//dq8ADKa8oxgW3LPmNaWg0WX/iRLX7CKfiolUcOmfESNMpoFSHdnPLbX5
- qCoMfK8vMi/Tyu6uGnl3FzAt4NM0OoreYaKpqv+d7S1+KiN8+Oi2kcDdraUIKO8vZ1sa
- ze1ZmaJte504ITjdkY2f7kg1STukQ/5xMr3m/EQS1q0g91Uxb7IKVAZzO1pMRR2Bv4Mo
- R/0w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz3jzBGkO7AeM85qd8Rx54NF3pwms12WSMoqSz53WCm5lpooQGqXf4noXegd2rd4U+U20UowCH42nw=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJBjWRXI6iuHjR3BOgTcGZe6psdYVntOel0aR7YW4k5wPYdPtMK
- Zm1Ix6lzdYdRI1lMygAMeqTNecnLZAd4JuKhj46L46dzYnzSyz5HDwfLTsQMmEq9GoSl+r1rZgR
- jHqD9ckEnUFpyIAzw02oifWZSrx4XEc/+lExOXLbqmCy6P0IH3DyRYHdZFZWvgdszgt1O/zM=
-X-Gm-Gg: AYBFou1auQDaW7rz31P0BoC3qHlyb7jFdVvdLTrKYcD2wiQM9q0+YhjUbgAB19Cg8ZY
- KerkOwY0+N+rfKZn1AbQqrJlLXZizd0eiSjpTNa38Z9dL56ldLurOuerW/3nde3vvpbWuyCIt7c
- G5TI8nv3v6sdb87ULoDDNWG9lMk01vd4CvMVuBUgNqi/xLSzSz5YtLZftsPTaRZKg4BjE6U1g0x
- 6A9z3k7c2stpVd0BvHl09xtgQGcz8o96kmTBlO8cFL4TCx2i2y8C/FFfJOqoFhJK69LYw5555lO
- 6YuP7xKb75S8bJOi7dtpTsFlFTPysTpNRyN8B8NNNO8d1fgprVIVBFGVUXjIWL6EJCFRF7w1WFX
- 0FrMuzQLkiBChFQnMDMAcHfrlhDxtIZjx5Q==
-X-Received: by 2002:a05:6a21:7317:b0:3e2:3de2:5947 with SMTP id
- adf61e73a8af0-3e2a09dde1fmr1349110637.16.1792661264462; 
- Thu, 22 Oct 2026 02:27:44 -0700 (PDT)
-X-Received: by 2002:a05:6a21:7317:b0:3e2:3de2:5947 with SMTP id
- adf61e73a8af0-3e2a09dde1fmr1349092637.16.1792661263974; 
- Thu, 22 Oct 2026 02:27:43 -0700 (PDT)
-Received: from [10.219.56.252] ([202.46.23.19])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cd6b84831d3sm976688a12.10.2026.10.22.02.27.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Oct 2026 02:27:43 -0700 (PDT)
-Message-ID: <28a4a452-340c-4ac6-afba-5cd39b370ceb@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 14:57:38 +0530
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: qcom: Remove FastRPC compute CB9 entries
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- ekansh.gupta@oss.qualcomm.com, linux-kernel@vger.kernel.org,
- quic_chennak@quicinc.com, dri-devel@lists.freedesktop.org, arnd@arndb.de
-References: <20261016052042.3755352-1-abhinav.parihar@oss.qualcomm.com>
- <b0763841-cfe9-4355-b900-ae43d93dedf6@oss.qualcomm.com>
-Content-Language: en-US
-From: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
-In-Reply-To: <b0763841-cfe9-4355-b900-ae43d93dedf6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=JudkP84C c=1 sm=1 tr=0 ts=6ad9d711 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=OuD0wRZ8gfjUqNd7lbQA:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: w4aa5nh0UU6sDWrbiI8kY-u5ESpYieS_
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNyBTYWx0ZWRfX5CjlG0ct8BTa
- c9pMshOXiFz4NYM4AQSrenoTuoMfmn7UoZ2+y3mMpcLeB0HumxJat61V3Hy5H4GcYEGNqz3CyzS
- +/Kdzl3rcOJ6jwhLszpmmEfqUWv0T/Q=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNyBTYWx0ZWRfX2a12LREyPccm
- hpq08+jt0TowoRublTHYjypEBliMdrayoOdcreOKbN11+1GsXBwMGeFCwjaw91p8ACwxFFqzKKP
- kaIi+971qSrUaaTvDI9mWfNcEM5zpB5o5mbq/IkI6OdX4SUBIDXlGJx/IMOyAByEZLfYQAwVF1i
- harZ1nc4iiNFvoVwilQw3gDw7lO9mCBxaj/9QQPYFikM5Q9iXoOJd6cnrjk3Bh5AioOR+Btx/8B
- vdDaqoOfQ83D1KnzP1qOtCfOGfb8T3vJV6FEFhD5+UVp9Ug3W2vtiIbDoQhkfOPmYpzCTY6GbMp
- qKhIeHJgYnkNQKOctp82UKfy9GX4AQLyRdxdPF2cC4Sy8zcqvmQS7lszOdBQMi4kRBIzrzEx7IE
- aj7p6/fadz6dmF6sZNWKjnJqnbRHh1ZLRpMOLeuB9BCcet4h/6B3Bxgt+xKE6hgz4kMzAGXzEhO
- IgaDJGARh4V22nK/q5w==
-X-Proofpoint-GUID: w4aa5nh0UU6sDWrbiI8kY-u5ESpYieS_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610220037
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B5A8112423;
+	Thu, 22 Oct 2026 09:29:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1451123AE
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:29:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C6E4460211;
+ Thu, 22 Oct 2026 09:29:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2F61F000C1;
+ Thu, 22 Oct 2026 09:29:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792661341;
+ bh=kf/tVn41aQnC//tdWisCyNaSLmTOMbhRKHzhwCJ27Tg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=aUxOJBde9mvWwTNxG9NJNpZp6JCzHdUTY7Mj488NBEAXpgP/Qq4GOHDf+b3vyl7os
+ iq8qXY044edvclHZycASQn8o/j24QvD+Fxhy+2Iu0J8fRaNfok2khlg7ZdHT3CL449
+ ja+DDl5tNdZkMe43SxnenzWfbqCbuWa2kR1x+ekZxa8OHuAlx6NBMz+86OBGBUZqLw
+ wjo/rwiz0bvZr6vP4EWeuRQy3tke1jn/dNh9OFdWLNKtLlyMiZz1IQLDYisfuzk514
+ Fdcw9qj4sEIWp8pomzPNzn+9FhSYFLARCHX4JmorEFbeRUsHDSVU/XxynSVNTDyq17
+ fQ//O7oPifNHg==
+Message-ID: <sashiko-outbox-181262@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] misc: fastrpc: fix init ordering race in rpmsg
+ probe
+To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261022-fastrpc-probe-fixes-v2-2-a6b3f6f62571@oss.qualcomm.com>
+References: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
+ <20261022-fastrpc-probe-fixes-v2-2-a6b3f6f62571@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 09:29:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,33 +49,402 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] misc: fastrpc: race on ADSP duplicate sessions in fastrpc_rpmsg_pr=
+obe()
+- [High] misc: fastrpc: dangling drvdata on error paths in fastrpc_rpmsg_pr=
+obe()
+--
 
-On 10/16/2026 2:15 PM, Konrad Dybcio wrote:
-> On 10/16/26 7:20 AM, Abhinav Parihar wrote:
->> Context bank 9 is reserved for secure use cases and must not be exposed
->> as a FastRPC compute context bank for non-secure offloading.
-> The lack of a platform name in the commit message and a split over that
-> suggests this is a universal truth for all Qualcomm platforms, yet the
-> patch only limits this to some of those who currently define a cb@9.
->
-> Please make it more clear which one is intended.
-Ack, patch v2 will have patch series including removal from all 
-platforms having cb@9
->> Remove the compute-cb@9 nodes from the Lemans and Monaco device trees to
->> prevent clients from selecting a secure context bank for normal FastRPC
->> workloads.
->>
->> Secure use case support is not currently implemented upstream.
-> Ordering this sentence before the previous paragraph would make the
-> commit message read more naturally
->
-> Konrad
-Ack
+commit ea9ec3521b0228bbc7931e61d1e5ec984d8cfeaf
+Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+
+misc: fastrpc: fix init ordering race in rpmsg probe
+
+This patch moves channel context initialization and
+fastrpc_cb_devices_create() ahead of fastrpc_device_register() in
+fastrpc_rpmsg_probe() so the context is initialized before device nodes are
+exposed to userspace. It also updates the probe error path to clean up
+compute-cb devices and drop the channel context reference.
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index f280bff2edf05..fc09cd27af4b8 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+
+[ ... ]
+
+> @@ -2605,6 +2619,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device=
+ *rpdev)
+>  	data->poll_mode_supported =3D soc_data->poll_mode_supported ||
+>  		of_machine_get_match(fastrpc_poll_supported_machines);
+> =20
+> +	kref_init(&data->refcount);
+> +	atomic_set(&data->ctx_seq, 0);
+> +
+> +	rdev->dma_mask =3D &data->dma_mask;
+> +	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
+> +	INIT_LIST_HEAD(&data->users);
+> +	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
+> +	spin_lock_init(&data->lock);
+> +	idr_init(&data->ctx_idr);
+> +	data->domain_id =3D domain_id;
+> +	data->rpdev =3D rpdev;
+> +	dev_set_drvdata(&rpdev->dev, data);
+> +
+> +	err =3D fastrpc_cb_devices_create(rpdev);
+> +	if (err)
+> +		goto err_free_data;
+> +
+>  	switch (domain_id) {
+>  	case ADSP_DOMAIN_ID:
+>  	case MDSP_DOMAIN_ID:
+> @@ -2613,7 +2644,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
+*rpdev)
+>  		data->unsigned_support =3D false;
+>  		err =3D fastrpc_device_register(rdev, data, secure_dsp, domain);
+>  		if (err)
+> -			goto err_free_data;
+> +			goto err_depopulate;
+>  		break;
+>  	case CDSP_DOMAIN_ID:
+>  	case GDSP_DOMAIN_ID:
+> @@ -2621,7 +2652,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
+*rpdev)
+>  		/* Create both device nodes so that we can allow both Signed and Unsig=
+ned PD */
+>  		err =3D fastrpc_device_register(rdev, data, true, domain);
+>  		if (err)
+> -			goto err_free_data;
+> +			goto err_depopulate;
+> =20
+>  		err =3D fastrpc_device_register(rdev, data, false, domain);
+>  		if (err)
+> @@ -2629,30 +2660,12 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
+e *rpdev)
+>  		break;
+>  	default:
+>  		err =3D -EINVAL;
+> -		goto err_free_data;
+> +		goto err_depopulate;
+>  	}
+> =20
+> -	kref_init(&data->refcount);
+> -	atomic_set(&data->ctx_seq, 0);
+> -
+> -	rdev->dma_mask =3D &data->dma_mask;
+> -	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
+> -	INIT_LIST_HEAD(&data->users);
+> -	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
+> -	spin_lock_init(&data->lock);
+> -	idr_init(&data->ctx_idr);
+> -	data->domain_id =3D domain_id;
+> -	data->rpdev =3D rpdev;
+> -	dev_set_drvdata(&rpdev->dev, data);
+> -
+> -	err =3D fastrpc_cb_devices_create(rpdev);
+> -	if (err)
+> -		goto err_deregister_fdev;
+> -
+>  	if (data->domain_id =3D=3D ADSP_DOMAIN_ID && data->sesscount > 0) {
+>  		struct fastrpc_session_ctx *last_sess;
+>  		struct fastrpc_session_ctx *dup_sess;
+> -		unsigned long flags;
+> =20
+>  		spin_lock_irqsave(&data->lock, flags);
+>  		last_sess =3D &data->session[data->sesscount - 1];
+
+[Severity: High]
+Since fastrpc_cb_devices_create() now populates data->session[] before
+fastrpc_device_register() exposes the ADSP device node via misc_register(),
+can userspace open the device before this ADSP session duplication block
+runs?
+
+If a concurrent fastrpc_device_open() -> fastrpc_session_alloc() runs in
+that window, it marks the last CB session in-use:
+
+drivers/misc/fastrpc.c:fastrpc_session_alloc() {
+	spin_lock_irqsave(&cctx->lock, flags);
+	for (i =3D 0; i < cctx->sesscount; i++) {
+		if (!cctx->session[i].used && cctx->session[i].valid) {
+			cctx->session[i].used =3D true;
+			session =3D &cctx->session[i];
+			...
+			break;
+		}
+	}
+	spin_unlock_irqrestore(&cctx->lock, flags);
+}
+
+When fastrpc_rpmsg_probe() then copies last_sess into the
+FASTRPC_DUP_SESSIONS slots with memcpy(dup_sess, last_sess,
+sizeof(*dup_sess)), dup_sess->used =3D true is copied into all 4 duplicate
+session entries. Because no fastrpc_user owns those duplicated entries,
+fastrpc_session_free() will only clear last_sess->used, leaving the 4
+duplicated ADSP sessions permanently marked used =3D true and unavailable f=
+or
+the lifetime of the channel.
+
+Should the ADSP session duplication block also be moved before
+fastrpc_device_register()?
+
+> @@ -2673,23 +2686,27 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
+e *rpdev)
+>  	if (data->secure_fdevice)
+>  		misc_deregister(&data->secure_fdevice->miscdev);
+> =20
+> +err_depopulate:
+> +	/*
+> +	 * A registered device node may already have been opened, so a user
+> +	 * can hold a cctx reference. Drop only our reference instead of
+> +	 * freeing the context directly.
+> +	 */
+> +	spin_lock_irqsave(&data->lock, flags);
+> +	data->rpdev =3D NULL;
+> +	list_for_each_entry(user, &data->users, user)
+> +		fastrpc_notify_users(user);
+> +	spin_unlock_irqrestore(&data->lock, flags);
+> +
+> +	fastrpc_cb_devices_destroy(rpdev);
+> +	fastrpc_channel_ctx_put(data);
+> +	return err;
+> +
+>  err_free_data:
+>  	kfree(data);
+>  	return err;
+>  }
+
+[Severity: High]
+In rpmsg_dev_probe(), the endpoint is created with fastrpc_rpmsg_callback()
+before fastrpc_rpmsg_probe() is called, and is only destroyed after
+fastrpc_rpmsg_probe() returns:
+
+drivers/rpmsg/rpmsg_core.c:rpmsg_dev_probe() {
+	...
+	ept =3D rpmsg_create_ept(rpdev, rpdrv->callback, NULL, chinfo);
+	...
+	err =3D rpdrv->probe(rpdev);
+	if (err) {
+		dev_err(dev, "%s: failed: %d\n", __func__, err);
+		goto destroy_ept;
+	}
+}
+
+With dev_set_drvdata(&rpdev->dev, data) and rdev->dma_mask =3D &data->dma_m=
+ask
+moved ahead of fastrpc_cb_devices_create() and fastrpc_device_register(),
+both err_depopulate and err_free_data can free data while rpdev->dev
+driver_data and rdev->dma_mask still point to it.
+
+If an incoming glink interrupt runs fastrpc_rpmsg_callback() before
+rpmsg_dev_probe() destroys the endpoint, won't dev_get_drvdata(&rpdev->dev)
+return the freed data pointer, bypass the !cctx check, and dereference
+&cctx->lock and &cctx->ctx_idr after free? Also, in the err_free_data path,
+should idr_destroy(&data->ctx_idr) be called before kfree(data)?
+
+>[ ... ]
+=E5=9C=A8=E8=BF=9B=E8=A1=8C=E6=9C=80=E7=BB=88=E8=BE=93=E5=87=BA=E5=89=8D=EF=
+=BC=8C=E6=A3=80=E6=9F=A5=E7=BB=93=E5=B0=BE=E7=A9=BA=E8=A1=8C=E3=80=82
+
+Let's remove the trailing `[ ... ]` and commentary note from the output. Ev=
+erything is clean and ready. End of thought.commit ea9ec3521b0228bbc7931e61=
+d1e5ec984d8cfeaf
+Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+
+misc: fastrpc: fix init ordering race in rpmsg probe
+
+This patch moves channel context initialization and
+fastrpc_cb_devices_create() ahead of fastrpc_device_register() in
+fastrpc_rpmsg_probe() so the context is initialized before device nodes are
+exposed to userspace. It also updates the probe error path to clean up
+compute-cb devices and drop the channel context reference.
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index f280bff2edf05..fc09cd27af4b8 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+
+[ ... ]
+
+> @@ -2605,6 +2619,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device=
+ *rpdev)
+>  	data->poll_mode_supported =3D soc_data->poll_mode_supported ||
+>  		of_machine_get_match(fastrpc_poll_supported_machines);
+> =20
+> +	kref_init(&data->refcount);
+> +	atomic_set(&data->ctx_seq, 0);
+> +
+> +	rdev->dma_mask =3D &data->dma_mask;
+> +	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
+> +	INIT_LIST_HEAD(&data->users);
+> +	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
+> +	spin_lock_init(&data->lock);
+> +	idr_init(&data->ctx_idr);
+> +	data->domain_id =3D domain_id;
+> +	data->rpdev =3D rpdev;
+> +	dev_set_drvdata(&rpdev->dev, data);
+> +
+> +	err =3D fastrpc_cb_devices_create(rpdev);
+> +	if (err)
+> +		goto err_free_data;
+> +
+>  	switch (domain_id) {
+>  	case ADSP_DOMAIN_ID:
+>  	case MDSP_DOMAIN_ID:
+> @@ -2613,7 +2644,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
+*rpdev)
+>  		data->unsigned_support =3D false;
+>  		err =3D fastrpc_device_register(rdev, data, secure_dsp, domain);
+>  		if (err)
+> -			goto err_free_data;
+> +			goto err_depopulate;
+>  		break;
+>  	case CDSP_DOMAIN_ID:
+>  	case GDSP_DOMAIN_ID:
+> @@ -2621,7 +2652,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
+*rpdev)
+>  		/* Create both device nodes so that we can allow both Signed and Unsig=
+ned PD */
+>  		err =3D fastrpc_device_register(rdev, data, true, domain);
+>  		if (err)
+> -			goto err_free_data;
+> +			goto err_depopulate;
+> =20
+>  		err =3D fastrpc_device_register(rdev, data, false, domain);
+>  		if (err)
+> @@ -2629,30 +2660,12 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
+e *rpdev)
+>  		break;
+>  	default:
+>  		err =3D -EINVAL;
+> -		goto err_free_data;
+> +		goto err_depopulate;
+>  	}
+> =20
+> -	kref_init(&data->refcount);
+> -	atomic_set(&data->ctx_seq, 0);
+> -
+> -	rdev->dma_mask =3D &data->dma_mask;
+> -	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
+> -	INIT_LIST_HEAD(&data->users);
+> -	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
+> -	spin_lock_init(&data->lock);
+> -	idr_init(&data->ctx_idr);
+> -	data->domain_id =3D domain_id;
+> -	data->rpdev =3D rpdev;
+> -	dev_set_drvdata(&rpdev->dev, data);
+> -
+> -	err =3D fastrpc_cb_devices_create(rpdev);
+> -	if (err)
+> -		goto err_deregister_fdev;
+> -
+>  	if (data->domain_id =3D=3D ADSP_DOMAIN_ID && data->sesscount > 0) {
+>  		struct fastrpc_session_ctx *last_sess;
+>  		struct fastrpc_session_ctx *dup_sess;
+> -		unsigned long flags;
+> =20
+>  		spin_lock_irqsave(&data->lock, flags);
+>  		last_sess =3D &data->session[data->sesscount - 1];
+
+[Severity: High]
+Since fastrpc_cb_devices_create() now populates data->session[] before
+fastrpc_device_register() exposes the ADSP device node via misc_register(),
+can userspace open the device before this ADSP session duplication block
+runs?
+
+If a concurrent fastrpc_device_open() -> fastrpc_session_alloc() runs in
+that window, it marks the last CB session in-use:
+
+drivers/misc/fastrpc.c:fastrpc_session_alloc() {
+	spin_lock_irqsave(&cctx->lock, flags);
+	for (i =3D 0; i < cctx->sesscount; i++) {
+		if (!cctx->session[i].used && cctx->session[i].valid) {
+			cctx->session[i].used =3D true;
+			session =3D &cctx->session[i];
+			...
+			break;
+		}
+	}
+	spin_unlock_irqrestore(&cctx->lock, flags);
+}
+
+When fastrpc_rpmsg_probe() then copies last_sess into the
+FASTRPC_DUP_SESSIONS slots with memcpy(dup_sess, last_sess,
+sizeof(*dup_sess)), dup_sess->used =3D true is copied into all 4 duplicate
+session entries. Because no fastrpc_user owns those duplicated entries,
+fastrpc_session_free() will only clear last_sess->used, leaving the 4
+duplicated ADSP sessions permanently marked used =3D true and unavailable f=
+or
+the lifetime of the channel.
+
+Should the ADSP session duplication block also be moved before
+fastrpc_device_register()?
+
+> @@ -2673,23 +2686,27 @@ static int fastrpc_rpmsg_probe(struct rpmsg_devic=
+e *rpdev)
+>  	if (data->secure_fdevice)
+>  		misc_deregister(&data->secure_fdevice->miscdev);
+> =20
+> +err_depopulate:
+> +	/*
+> +	 * A registered device node may already have been opened, so a user
+> +	 * can hold a cctx reference. Drop only our reference instead of
+> +	 * freeing the context directly.
+> +	 */
+> +	spin_lock_irqsave(&data->lock, flags);
+> +	data->rpdev =3D NULL;
+> +	list_for_each_entry(user, &data->users, user)
+> +		fastrpc_notify_users(user);
+> +	spin_unlock_irqrestore(&data->lock, flags);
+> +
+> +	fastrpc_cb_devices_destroy(rpdev);
+> +	fastrpc_channel_ctx_put(data);
+> +	return err;
+> +
+>  err_free_data:
+>  	kfree(data);
+>  	return err;
+>  }
+
+[Severity: High]
+In rpmsg_dev_probe(), the endpoint is created with fastrpc_rpmsg_callback()
+before fastrpc_rpmsg_probe() is called, and is only destroyed after
+fastrpc_rpmsg_probe() returns:
+
+drivers/rpmsg/rpmsg_core.c:rpmsg_dev_probe() {
+	...
+	ept =3D rpmsg_create_ept(rpdev, rpdrv->callback, NULL, chinfo);
+	...
+	err =3D rpdrv->probe(rpdev);
+	if (err) {
+		dev_err(dev, "%s: failed: %d\n", __func__, err);
+		goto destroy_ept;
+	}
+}
+
+With dev_set_drvdata(&rpdev->dev, data) and rdev->dma_mask =3D &data->dma_m=
+ask
+moved ahead of fastrpc_cb_devices_create() and fastrpc_device_register(),
+both err_depopulate and err_free_data can free data while rpdev->dev
+driver_data and rdev->dma_mask still point to it.
+
+If an incoming glink interrupt runs fastrpc_rpmsg_callback() before
+rpmsg_dev_probe() destroys the endpoint, won't dev_get_drvdata(&rpdev->dev)
+return the freed data pointer, bypass the !cctx check, and dereference
+&cctx->lock and &cctx->ctx_idr after free? Also, in the err_free_data path,
+should idr_destroy(&data->ctx_idr) be called before kfree(data)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-fastrpc-pr=
+obe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com?part=3D2
