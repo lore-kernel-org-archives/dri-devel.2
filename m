@@ -2,44 +2,141 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78EC606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:27:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3370C606A31B
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNdEAGo5
+	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=zkjJTfkA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 140A310E576;
-	Fri, 23 Oct 2026 07:27:53 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B10D10E576
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:27:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5107660252;
- Fri, 23 Oct 2026 07:27:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4D1A1F031E2;
- Fri, 23 Oct 2026 07:27:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792740466;
- bh=Fsn5fcCLJL4J5YSgosoLT98bUyV1U1KOay8uVikHbUU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DNdEAGo5uH1HZd79+tHz57jDdv7x83qxETjru6MyJPIJeV5rJ7L2adPA7xhZpVQt4
- L1O4oW27ikBgxUYzzKHPdbFgXEem7UIpY61JTI5PEMk82kG3oPuMsZzWfHt/zYYT5q
- SNbB8U8YwXGsHe31pmipdhd2qYszjP3TUjqKTJupf5BmzmILVumgZG2oFsc8CQn0Sx
- HDTLrOg6p8UTJNbQ4Ah5sMxou6sehNWuEApikSwr6si/doOrCMhDMslpgGh/9wSS01
- QWf+lJrriL51R7ryMNLPcnbFFRdEnCZ61/OJNpvU0Zzjp4HIGIFVXK6G3e2LmqLKN2
- T0bBxOshfTYtA==
-Message-ID: <sashiko-outbox-182411@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/16] accel/thames: Create a context per client on
- device open
-To: "Tomeu Vizoso" <tomeu.vizoso@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261023-thames-v3-6-3ab40aa17157@tomeuvizoso.net>
-References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
- <20261023-thames-v3-6-3ab40aa17157@tomeuvizoso.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 07:27:45 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64EC710E5A2;
+	Fri, 23 Oct 2026 07:28:18 +0000 (UTC)
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11021117.outbound.protection.outlook.com
+ [40.107.130.117])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 213C710E408
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 10:44:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Zv7aae5LENvPcEjaGYLW8o6Gaf9uaF+b4Bnro0X6CLlyQRIKx2lUP0MbUbDWdJYc3TSiw4rZQOlzBs5xcAyEo7+X7I6AJDMYw6RUVWz3Sjl9moupVtjGsy2a3drHQg2uFrdSGOrVvnyQUbdL0sMbqYqTQhTQ+hllSfZpcXE5rT5MUbXGDey85hyW/4DL1YZ7J1q/ocWuPWC3Q0d3tQ24urw+tHMUP6YnF85uJIzepICL6GwPBm6qXE/9R9exiaUdVQpTYIezqak0NqviL37/FJ6zbGC4v50YOiFkR2fS+ZkzPEodrezCl2tWH/C2yjDPQ3CGcJA0bZ4BstuyyZ7LMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/H9i0/KxS03TPL9mZSA7OjhCtF4RVQmDgrKmsDMoVbA=;
+ b=duk9rs2ZygJzOR/0TynV7RrKCVGlXGXB6cCCdoes+4dv+cOZ45ICtx9yefeEzFFemmb4QQ5RhwBSDOYQea2LC7apCK6zIPZwubvwMUAFoEgVadr62edg+hPEEb4mJkS4sLeCiafBFflG/sMr2/6QtxZGsOWiYcDaTnUMYcikCe3aC5HrNJjlMS5u3IcwIWM8X4s8cu8JxF92NRC/FhId+KG6dXAZ9x6T8zh/NeURajGjfzuFaPk49bNzprY/XBSPpZyPRYxhDdUZtMJuOo1pIIoS1E4wH2pgUplC7b0l2xpyT+GU6lGWXB5unsZfBtHfkzJ+6yX6P+wZuLv3rYQarA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
+ header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/H9i0/KxS03TPL9mZSA7OjhCtF4RVQmDgrKmsDMoVbA=;
+ b=zkjJTfkATwtHx9y/HdMX6fkeH3G3XDWDURl/3pg463QAcCgtfAgNdb3KEkWiVYZiVDPUvqOBlEFO6TeXWo3FTpGwYX9DAkV7saO48bwl0KcLdizsflHE2VgwgDo0nwB6KXDd9xIqcN9N45CXi94Kjffi1K7puanSedfD0+Qe7uW1LTJigpEPjlHpxIVVprAke4VeScqStMpVOjCrCCsCEi1DjDK+1hKDglQIj5OkTkeRRpw6wvI7C2CsaT/Ro7gByIK6X+N7jdARHuv6wmwgN1aiWf/Yl25Ee2VAQFv/i/aEOLv/mynGapInnUWlOuEsEffIqoKhrfCt10ikzKEXIQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=virtuozzo.com;
+Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
+ (2603:10a6:102:3c7::20) by PR3PR08MB5722.eurprd08.prod.outlook.com
+ (2603:10a6:102:8f::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
+ 2026 10:44:42 +0000
+Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
+ ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
+ ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 10:44:42 +0000
+Message-ID: <71101695-339d-4f8f-b9d8-dfadf7dbd0ed@virtuozzo.com>
+Date: Thu, 22 Oct 2026 12:44:40 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] mm/rmap: duplicate a PMD mapping as one in
+ folio_dup_file_rmap_pmd()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>, Alex Williamson <alex@shazbot.org>,
+ kvm@vger.kernel.org, =?UTF-8?Q?Lo=C3=AFc_Molinari?=
+ <loic.molinari@collabora.com>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
+References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
+ <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-1-66f00b7a564c@virtuozzo.com>
+ <atnEFyGRYGGf9shA@gremlin>
+Content-Language: en-US, ru, sr
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+In-Reply-To: <atnEFyGRYGGf9shA@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4PR10CA0010.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5dc::7) To PA6PR08MB10708.eurprd08.prod.outlook.com
+ (2603:10a6:102:3c7::20)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|PR3PR08MB5722:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52c1a9fe-e817-4e6c-b34b-08df30297af1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|7416014|376014|1800799024|6133799003|22082099003|18002099003|5023799004|56012099006|4143699003|261021121427099003|261009223027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: b65GT7JpOIhauj1iDxG9MscqpG4tRFgjaKiN4g8INQmWciY+ct0ssmTiZ8GA8mxPe9ke8iRR5ZTS4Rba4i/rC5gKK5dhlEGyp4i2u7qrIvQwcvlMjYzCIOf45cLeYL6U/TuZ2Jt5cOVGhWk2LgUort4wpgY9VtGh1B9JBaPRW28yEasLFK/qbfjcea5uEtVMj3QFc7EP2VVKglVijHIXuVl9N78Md+ykXdyWsPp5lZQ//oGGyeefu5ycj/T9rNw707ni18SFd0CMksj3Hhr6WBTJeYfN0V8TxxfmLr4mH6n7AmwAXHePIFGURHpK6mjLtpgob7Whv5yhQ1QOq5tYg8yH9mo5fXFkHLLzKT5tPjrZLqCuD6joQS5yR1W8B1AyF3jJiBLRMtws0xW08xhOCu5EDvM9lyARZkF3Xn8ZPadIAgpno4votOC718A6jLzcBrkndzg+StIUS1tXbXLWIzOkZFVLaWDBTR4o6QGna/naR7br3QGZ+OlMvrr/M+PIGWPmPFMRHZMqZxtFyuW0im+gO+Ziep8x5jVf26hmhmLBJeguaGtO26X4DPSG2+HKZg+6uyasyb0xN3IPbV3IIIPkss30ifcTdp0kGkwg0qrI5+ot9GYjLzj2b0mMpY+1qlz1LJWDayLz0cwDqgRO3bFx3ICnmcwAfqZoLBmuDFc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PA6PR08MB10708.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(5023799004)(56012099006)(4143699003)(261021121427099003)(261009223027099003)(10067099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXBrZWFBL3lCY3Y3N1pIYlF0cEo3V1hYc2Q5dFQwbUowOThlRFZrRkREZVRG?=
+ =?utf-8?B?RkM2ZlN0ZTJzZzFONHMxTlVXaVdsNW4rNU03cHJyaHowc1BkVkExL29ZVTRK?=
+ =?utf-8?B?SXEzQk0zOHZjMWZibTExbW94UDlKY1JsOFFURndVRnNOdE9vczlFckdGcHpY?=
+ =?utf-8?B?ZE8zbXhqVjZwSCtaMjcwak1ZVUhNZnBpQUpxRFNpL2lYQTgvOXkxSHpsTlll?=
+ =?utf-8?B?YWlNY0h4WVBQbXo2cGlQMVI4c1l6cmhmUWJ4UDc3bWhuQlNyUm44dmdLS1cr?=
+ =?utf-8?B?aUVyS1RyK2g3ajlocUxqMVhoTmlldVJ1bER0VGwwRnd6V2tnVjJESUVxYzJ3?=
+ =?utf-8?B?Unk5aklxaFgrUEhKSlFzNDdJUi9ITVBHYWxtK1hwOTBCTnlLQTR3dzV0dTJN?=
+ =?utf-8?B?WkRHNW1mZlprSDRGaFZlczAvWWFqd2Y0K3U2b3BGckRqREdqUFNrdHp3WWJT?=
+ =?utf-8?B?M0p3bnJwSmFFeW15aXdCejVGVDhmaDBsRTJDa2luNUJTNUI1anBKQUpjQjNW?=
+ =?utf-8?B?S3ZMSW9wME1neGpYYnkrRldjRnJBaUE4aTBVQ3pGNGFPUHlCNGFTL0pCRkR0?=
+ =?utf-8?B?cDV1L1BOOWE4VktwTnI1dkx6dUtwSTZ6NEhPUzdjL2NpazNjanhqbHp6NmQ2?=
+ =?utf-8?B?WmJ4Z1hSL3EycjZJNDdsb0lDclFuUU84ZlBYRnZhSWtiSThxUTZVL3g3NHli?=
+ =?utf-8?B?UU1UWkVubVNPZHQ2VlNCbFVRRFR5cUg5M3dNbndXN0drMU1wVXJkWmVyR05s?=
+ =?utf-8?B?SFBDZEpXNnJIOW9IdlQrcTJLYS9kY1U5dHlXbTNYUDlGQ3ZnVVlNcXdYTFdu?=
+ =?utf-8?B?V05YcXdnSzZpcmg5VFJsRGFQUC8zRS96ZWx2cmhFc2hzQjh0eDBiRmkzZjVO?=
+ =?utf-8?B?KzFyalJKUDZWS3ViL2srRjlUNG5lNUU2ai94YTFOcityZGdZck5CRDBiRTlr?=
+ =?utf-8?B?ZGNvWnJDM0N2NnVnMnRVYkhCb2E1b3QyTUdCQjlOWFljTHVWVkxrZGxlZDZu?=
+ =?utf-8?B?cnBuRVFmOHRyWm43V2JTQm5tdzcySlR3TkdQRXFEZXRsdXhtWDdhWG1NOC9n?=
+ =?utf-8?B?ZHZiVDJPT1BYck9GVkZGWWtzV3NCQUtCdUhVbmpUaDM3MTgvUHVyLzlSUkdO?=
+ =?utf-8?B?WnNpUXZDRFZWUm5wOWhBdUJPUmpNTDAyYjFScnM1TUpzaDg1UXQwUmRyMG5n?=
+ =?utf-8?B?YkJZTDJiUUVXM3pPZW1menpnK3RCT1piTG0xSXlyWjVDallxQU51NVkrSEtX?=
+ =?utf-8?B?TC9TVmN5eVBvRDZzb0d4RDlKbnNTQXA5aXNNZFVYK3NJSUNIVFFkbFJvalVI?=
+ =?utf-8?B?RmtRdmNweUsyM2NrUndwcGNyN1lnTzFCL3lOMER6Zk1TNE5vT3lTWklGcFFK?=
+ =?utf-8?B?bVhrWTZ6dGYrclpldThlWXAxRUpYUmlsVFJKSkxXeXpybXpiNHRPNDR0VnFO?=
+ =?utf-8?B?bThjZDUwMm5MU3h0VFBhUEdPM2dSV1k2NzRPZ1BidEFkbGc3VjJ3S1BLd1By?=
+ =?utf-8?B?Vm82bHZMZVZNRG0rQUNIalB0ZEtZUEhhVW5RbDFwVEpVUkpONWk5aFJPcWQz?=
+ =?utf-8?B?cy80MDVHNFViSzRPTWNXRGYzVnlVaUwzWTlPdm92V1J1L2VLZUs5K1N5M3Bt?=
+ =?utf-8?B?ZkZ6YVdhTUdZQTJZakNuNW1kL1IyYzE0ekVrTG13WVN3NThOWFJZVE45dFJR?=
+ =?utf-8?B?Wk5nUlJEcklUalpmbUh1ZW9LY21qTGlpN0NlbnczNTBYUTlXNjlwR3ZBTGJh?=
+ =?utf-8?B?WkJtQXR4OVY1L2pIajlkK2dmc2JTUEdHK0loajJadzdtRVd6VUJISzZYbU1t?=
+ =?utf-8?B?TVAxNXUyWjBsa3Z2NlY3YlZGM2dvY29XVlNkc1cvcXhXNEVVdzB1eUNNbVI2?=
+ =?utf-8?B?S1VHTll3Q080bytHdjdDbzlrTGd0QUxFWlp6bVF0WFVzNTk0YS9yY2RGWUlZ?=
+ =?utf-8?B?Y1FjRVlXTEUvTEZLTlY0ak9PWmIyUDBEbExEKzFpbEQvck5ENUlTeTRnWmQ2?=
+ =?utf-8?B?TFloTE5SSFMwS0pidGY4Nzc3YVhyNUtpeGR4aFhEUFA0NTVXSTN1am5xTUNy?=
+ =?utf-8?B?bWozbkI5K2dONHVsdHBRR0xtSFBNS0tXNmFmV2VDV09NY1VjdU5UbHhneWhs?=
+ =?utf-8?B?dTFQYXZXeUZJZVBsYU9VVzhpVzkwMzU0c3UxMzdzRXBabmdNWXQxUXBadGlL?=
+ =?utf-8?B?aGozZW84QUdiQUEyQkhrRkErbStZQlR1NC9qZlBwcW5nVjNvb0thZWdZbnJT?=
+ =?utf-8?B?di9DQU5zVmRHaDN0dkprZzcza1poRW85NlJFZUJ1Qi9zYXBBVTU0SURvN096?=
+ =?utf-8?B?Wkdkd2wzOVpMTFkyNVU4NmtrelFjcm1GbTlCaCtydVV5d2pyT1VzZz09?=
+X-OriginatorOrg: virtuozzo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52c1a9fe-e817-4e6c-b34b-08df30297af1
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 10:44:42.5871 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XmzK/r82wdRxVlLxN+MFiC/2g6Mc0FcAwdzIEKMrHvjtk1LWlqTWTgUE5XqrmMlxwyyJn3p6HdyPrjoipTpUHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5722
+X-Mailman-Approved-At: Fri, 23 Oct 2026 07:28:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,181 +147,47 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] accel/thames: mapping overlap in thames_context_alloc_user_pages()=
- on >4K pages
-- [Medium] accel/thames: select IOMMU_IO_PGTABLE_LPAE without Kconfig depen=
-dencies
+On 10/22/26 10:07, Lorenzo Stoakes (ARM) wrote:
+>> Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
+
+> Was this a mistake in d8ef5e311d7b, or actually intentional for whatever reason?
+> If the latter this shouldn't be a fixes.
+
+commit d8ef5e311d7bfde54b60ab45026f206eff31b2d2
+
+    mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()
+
+...
++static inline void folio_dup_file_rmap_ptes(struct folio *folio,
++               struct page *page, int nr_pages)
++{
++       __folio_dup_file_rmap(folio, page, nr_pages, RMAP_LEVEL_PTE);
++}
+
+...
++static inline void folio_dup_file_rmap_pmd(struct folio *folio,
++               struct page *page)
++{
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++       __folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, RMAP_LEVEL_PTE);
++#else
++       WARN_ON_ONCE(true);
++#endif
++}
+
+Both functions were introduced in a single commit, i think it's a simple copy-paste issue.
+
+The helper never had a caller, so nobody could hit it. If you prefer, I
+can drop the Fixes tag and only mention d8ef5e311d7b in the changelog, as
+there is nothing to backport.
+
 --
-
-commit aad1ae439ba5b7b0cdec19071014a9f8abea740d
-Author: Tomeu Vizoso <tomeu.vizoso@gmail.com>
-
-accel/thames: Create a context per client on device open
-
-This commit creates a per-client context on device open and manages an
-ARM_64_LPAE_S1 page table for each context using IOMMU_IO_PGTABLE_LPAE. It
-allocates cyclic ASIDs, maps the core windows and per-context user stack and
-save area pages, and populates the IPC context table entries.
-
-> diff --git a/drivers/accel/thames/Kconfig b/drivers/accel/thames/Kconfig
-> index c621002d8efaa..9362b92740751 100644
-> --- a/drivers/accel/thames/Kconfig
-> +++ b/drivers/accel/thames/Kconfig
-> @@ -6,6 +6,7 @@ config DRM_ACCEL_THAMES
->  	depends on TI_K3_DSP_REMOTEPROC
->  	depends on REMOTEPROC
->  	depends on MAILBOX
-> +	select IOMMU_IO_PGTABLE_LPAE
-
-[Severity: Medium]
-Can selecting IOMMU_IO_PGTABLE_LPAE here without its dependencies cause
-unmet direct dependency warnings and build failures?
-
-In drivers/iommu/Kconfig, IOMMU_IO_PGTABLE_LPAE is inside an if IOMMU_SUPPO=
-RT
-block (which depends on MMU) and has:
-
-config IOMMU_IO_PGTABLE_LPAE
-	bool "ARMv7/v8 Long Descriptor Format"
-	select IOMMU_IO_PGTABLE
-	depends on ARM || ARM64 || COMPILE_TEST
-	depends on !GENERIC_ATOMIC64	# for cmpxchg64()
-
-Because TI_K3_DSP_REMOTEPROC depends on ARCH_K3 || COMPILE_TEST,
-DRM_ACCEL_THAMES can be enabled when IOMMU_SUPPORT is disabled, or under
-COMPILE_TEST on architectures with GENERIC_ATOMIC64=3Dy or MMU=3Dn.
-
-When IOMMU_SUPPORT=3Dn, drivers/iommu/iommu-pages.o is not built, causing
-undefined references to iommu_alloc_pages_node_sz() and iommu_free_pages() =
-in
-drivers/iommu/io-pgtable-arm.c, and GENERIC_ATOMIC64=3Dy fails to compile d=
-ue
-to cmpxchg64_relaxed().
-
-Should DRM_ACCEL_THAMES also depend on MMU and !GENERIC_ATOMIC64, and select
-IOMMU_SUPPORT (similar to DRM_PANTHOR and DRM_PANFROST)?
-
->  	help
->  	  Choose this option if you have a Texas Instruments J722S and want to
->  	  use its C7x DSP cores as compute accelerators.
-> diff --git a/drivers/accel/thames/thames_gem.c b/drivers/accel/thames/tha=
-mes_gem.c
-> new file mode 100644
-> index 0000000000000..b98e0fe203b08
-> --- /dev/null
-> +++ b/drivers/accel/thames/thames_gem.c
-
-[ ... ]
-
-> +static struct drm_gem_dma_object *thames_gem_create(struct drm_device *d=
-dev, size_t size)
-> +{
-> +	struct device *dev =3D drm_dev_dma_dev(ddev);
-> +	struct thames_gem_object *bo;
-> +	struct drm_gem_object *obj;
-> +	size_t offset =3D 0;
-> +	int ret;
-> +
-> +	size =3D PAGE_ALIGN(size);
-> +
-> +	bo =3D kzalloc_obj(*bo, GFP_KERNEL);
-> +	if (!bo)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	obj =3D &bo->base.base;
-> +	obj->funcs =3D &thames_gem_funcs;
-> +	bo->base.map_noncoherent =3D true;
-> +
-> +	ret =3D drm_gem_object_init(ddev, obj, size);
-
-[ ... ]
-
-> +static struct drm_gem_dma_object *thames_context_alloc_user_pages(struct=
- thames_file_priv *priv,
-> +								  u64 dsp_va, size_t size)
-> +{
-> +	int prot =3D IOMMU_READ | IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_CACHE;
-> +	struct drm_gem_dma_object *dma_obj;
-> +	int ret;
-> +
-> +	dma_obj =3D thames_gem_create(&priv->tdev->ddev, size);
-> +	if (IS_ERR(dma_obj))
-> +		return dma_obj;
-> +
-> +	ret =3D thames_context_map(priv, dsp_va, prot, dma_obj->dma_addr, dma_o=
-bj->base.size);
-> +	if (ret) {
-> +		drm_gem_object_put(&dma_obj->base);
-> +		return ERR_PTR(ret);
-> +	}
-> +
-> +	return dma_obj;
-> +}
-> +
-> +static int thames_context_map_user_pages(struct thames_file_priv *priv)
-> +{
-> +	struct drm_gem_dma_object *dma_obj;
-> +
-> +	dma_obj =3D thames_context_alloc_user_pages(priv, THAMES_USER_STACK_BAS=
-E,
-> +						  THAMES_USER_STACK_SIZE);
-> +	if (IS_ERR(dma_obj))
-> +		return PTR_ERR(dma_obj);
-> +	priv->user_stack =3D dma_obj;
-> +
-> +	dma_obj =3D thames_context_alloc_user_pages(priv, THAMES_USER_SAVE_AREA=
-_BASE,
-> +						  THAMES_USER_SAVE_AREA_SIZE);
-> +	if (IS_ERR(dma_obj))
-> +		return PTR_ERR(dma_obj);
-> +	priv->save_area =3D dma_obj;
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-What happens on arm64 kernels configured with 16 KiB or 64 KiB pages when
-thames_open() calls thames_context_create() -> thames_context_map_user_page=
-s()?
-
-In drivers/accel/thames/thames_abi.h, the user region addresses are fixed at
-4 KiB granularity:
-
-#define THAMES_USER_REGION_BASE		0x10000000000ull
-#define THAMES_USER_REGION_SIZE		0x200000ull
-#define THAMES_USER_SAVE_AREA_BASE	(THAMES_USER_REGION_BASE + 0x2000ull)
-#define THAMES_USER_SAVE_AREA_SIZE	0x2000ull
-#define THAMES_USER_STACK_BASE		(THAMES_USER_REGION_BASE + 0x5000ull)
-#define THAMES_USER_STACK_SIZE		0x1000ull
-
-In thames_gem_create(), size is rounded up to the host PAGE_SIZE via
-PAGE_ALIGN(size) and stored in dma_obj->base.size. Then
-thames_context_alloc_user_pages() maps dma_obj->base.size bytes into the DSP
-page table rather than the requested size.
-
-When PAGE_SIZE is 16 KiB (0x4000) or 64 KiB (0x10000),
-thames_context_map_user_pages() first maps user_stack starting at
-THAMES_USER_REGION_BASE + 0x5000, and then maps save_area for PAGE_SIZE byt=
-es
-starting at THAMES_USER_REGION_BASE + 0x2000 (covering at least +0x2000 to
-+0x6000).
-
-Won't the save_area mapping cover the guard page at +0x4000 and collide with
-the already-mapped user_stack PTEs at +0x5000, triggering a WARN_ON in
-arm_lpae_init_pte() and failing context creation with -EEXIST?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-thames-v3-=
-0-3ab40aa17157@tomeuvizoso.net?part=3D6
+Cheers, Konstantin
