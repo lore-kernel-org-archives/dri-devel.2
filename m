@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499BC606A31B
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:38:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EBA606A33D
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:42:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilKJeme/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fot5chN1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAEF211265E;
-	Thu, 22 Oct 2026 13:38:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83B751125DC;
+	Thu, 22 Oct 2026 13:42:00 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED98C112624;
- Thu, 22 Oct 2026 13:38:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E70331125DC
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:41:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B58CE417F7;
- Thu, 22 Oct 2026 13:38:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535AE1F000C1;
- Thu, 22 Oct 2026 13:38:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9C3EA416EE;
+ Thu, 22 Oct 2026 13:41:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E34E1F000C1;
+ Thu, 22 Oct 2026 13:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792676325;
- bh=ULYZ/55QiRddvfDhSSFtUGP38N9/fKV9BspCQGFIXXY=;
+ s=k20260515; t=1792676513;
+ bh=rhL1r81qt/J+n11F3Lr+ZU1b0+/pO8cTtjyKspANkt0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ilKJeme/HkOCKSlSoyh0+0sFTsIhd0temS8j1xbMB9yw9gFqB4SKz27idnxkALOWj
- Y6W9a4l1Qz//YiB4jKEiK5Rb97nxmRu7G6DR/b0EA5C3TN/p9PjALEPAfnreVP0vyf
- DnzR3ubExHV8met34jnepcdCRVJCM1TuX2G1hgS0ShBd8JMEsHiEbEg/uH19f21+Eq
- QDiC8b4s+EPMsCIrq1tXzD1FfuwHefifCDPtg8ZAy3MSPAX5SloC3r9AQc/RlhaZsm
- erm2j/FwJtSQyWWKeGNLxazVt4hpSj0FVNufGG8u8R4S1mMzZB/LKwUIiN3OxlP4M5
- 1+NFtnLXCc9sg==
-Message-ID: <sashiko-outbox-181556@kernel.org>
+ b=fot5chN1OHuyeOb8+EAbp2FFPFK77tyv6CPzPAMFGzk9xfYAEP6M5I1+N8EdW0iUq
+ uoH/uGAGJbCqycLhHNxDI0/Ee4Ssw/zyznwRBDaZyb4kzDf0KgHQ0s7IbSUaVHxJvx
+ Io2xwABjdA2tC7w3WfKR3MykKeMZJRYWV4ZofsI7IVmJVGzku9JBRzw9o6SJEs1UvY
+ bO+v0xR7TRyCm20Syy2dNxRTAkHK9eomu0HxqFHfq9lToswEdHDfb/NZ1f7CVSAvNo
+ uHvejaimOj9G1tUfFy4a8dbLUIBSToM6YUF0+rY33m6QonuanFLgtd3CQd7nZ1HdTT
+ 8Z5i0eYNLB3/A==
+Message-ID: <sashiko-outbox-181560@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/9] drm/bridge: pass extra events to the HPD callback
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20261022-hpd-irq-events-v6-4-337ea3ddaa62@oss.qualcomm.com>
-References: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
- <20261022-hpd-irq-events-v6-4-337ea3ddaa62@oss.qualcomm.com>
+Subject: Re: [PATCH v4 5/7] drm/tegra: rgb: Parameterize configuration based
+ on bus flags
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261022132259.240717-6-clamor95@gmail.com>
+References: <20261022132259.240717-1-clamor95@gmail.com>
+ <20261022132259.240717-6-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 13:38:44 +0000
+Date: Thu, 22 Oct 2026 13:41:52 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,67 +62,132 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] drm/bridge: misplaced hdmi5_bridge_hpd_notify() hunk breaks bisecta=
-bility
+- [High] drm/tegra: unlocked bridge state access in tegra_rgb_encoder_enabl=
+e()
 --
 
-commit c6cd0e6e9f3efd88f40aba30dc7463e072351c53
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+commit 743a0ce150c28976e990ee80b4eaf7239b83fcc3
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-drm/bridge: pass extra events to the HPD callback
+drm/tegra: rgb: Parameterize configuration based on bus flags
 
-This commit adds drm_bridge_hpd_notify_extra() and updates the HPD callback
-signature registered via drm_bridge_hpd_enable() to pass extra sink events
-such as DisplayPort IRQ_HPD to underlying drivers.
+This commit updates tegra_rgb_encoder_enable() to configure pixel clock
+polarity, display enable polarity, and data alignment in the Tegra display
+controller registers using bus flags retrieved from the attached bridge sta=
+te.
+
+> diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
+> index b6d09a8d8e5ea..da9e37fe36689 100644
+> --- a/drivers/gpu/drm/tegra/rgb.c
+> +++ b/drivers/gpu/drm/tegra/rgb.c
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi5.c b/drivers/gpu/drm/omapdr=
-m/dss/hdmi5.c
-> index c542ba6ce7d32..a21f9355594cc 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/hdmi5.c
-> +++ b/drivers/gpu/drm/omapdrm/dss/hdmi5.c
-> @@ -427,7 +427,8 @@ static void hdmi5_bridge_disable(struct drm_bridge *b=
-ridge,
-> =20
->  static void hdmi5_bridge_hpd_notify(struct drm_bridge *bridge,
->  				    struct drm_connector *connector,
-> -				    enum drm_connector_status status)
-> +				    enum drm_connector_status status,
-> +				    enum drm_connector_dp_event event)
->  {
->  	struct omap_hdmi *hdmi =3D drm_bridge_to_hdmi(bridge);
-> =20
+> @@ -104,14 +105,24 @@ static void tegra_rgb_encoder_enable(struct drm_enc=
+oder *encoder)
+>  	struct drm_display_mode *mode =3D &encoder->crtc->state->adjusted_mode;
+>  	struct tegra_output *output =3D encoder_to_output(encoder);
+>  	struct tegra_rgb *rgb =3D to_rgb(output);
+> -	u32 value;
+> +	struct drm_bridge_state *bridge_state;
+> +	u32 bus_flags, value;
+> +
+> +	/* Get but flags from the bridge state. */
+> +	bridge_state =3D drm_bridge_get_current_state(output->bridge);
+> +	if (bridge_state)
+> +		bus_flags =3D bridge_state->input_bus_cfg.flags;
+> +	else
+> +		bus_flags =3D DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
+> +			    DRM_BUS_FLAG_DE_HIGH |
+> +			    DRM_BUS_FLAG_DATA_MSB_TO_LSB;
 
-[Severity: Low]
-In drivers/gpu/drm/omapdrm/dss/hdmi5.c, hdmi5_bridge_hpd_notify() is assign=
-ed
-to struct drm_bridge_funcs.hpd_notify rather than registered via
-drm_bridge_hpd_enable():
+[Severity: High]
+Does calling drm_bridge_get_current_state(output->bridge) from
+tegra_rgb_encoder_enable() in drivers/gpu/drm/tegra/rgb.c access the bridge
+state without holding output->bridge->base.lock?
 
-static const struct drm_bridge_funcs hdmi5_bridge_funcs =3D {
+Looking at drm_bridge_get_current_state(), it asserts that bridge->base.lock
+is held before reading bridge->base.state:
+
+include/drm/drm_bridge.h:drm_bridge_get_current_state() {
+	if (!bridge)
+		return NULL;
+
+	drm_modeset_lock_assert_held(&bridge->base.lock);
+
+	if (!bridge->base.state)
+		return NULL;
+
+	return drm_priv_to_bridge_state(bridge->base.state);
+}
+
+There appear to be two paths where output->bridge->base.lock is not held wh=
+en
+tegra_rgb_encoder_enable() runs:
+
+1. Non-blocking atomic modeset commits (DRM_IOCTL_MODE_ATOMIC with
+DRM_MODE_ATOMIC_NONBLOCK | DRM_MODE_ATOMIC_ALLOW_MODESET):
+tegra_drm_mode_config_funcs.atomic_commit uses drm_atomic_helper_commit() in
+drivers/gpu/drm/drm_atomic_helper.c, which swaps state via
+drm_atomic_helper_swap_state() and schedules state->commit_work onto
+system_dfl_wq, after which drm_mode_atomic_ioctl() in
+drivers/gpu/drm/drm_atomic_uapi.c immediately drops all acquired modeset
+locks:
+
+drivers/gpu/drm/drm_atomic_helper.c:drm_atomic_helper_commit() {
 	...
-	.hpd_notify =3D hdmi5_bridge_hpd_notify,
-	.edid_read =3D hdmi5_bridge_edid_read,
-};
+	drm_atomic_commit_get(state);
+	if (nonblock)
+		queue_work(system_dfl_wq, &state->commit_work);
+	else
+		commit_tail(state, false);
+	...
+}
 
-The hpd_notify callback signature in struct drm_bridge_funcs (in
-include/drm/drm_bridge.h) and the other in-tree implementations (including
-hdmi4_bridge_hpd_notify() in drivers/gpu/drm/omapdrm/dss/hdmi4.c) were
-updated in parent commit 9cf55ff0f96b ("drm/bridge: pass down IRQ_HPD to the
-drivers").
+drivers/gpu/drm/drm_atomic_uapi.c:drm_mode_atomic_ioctl() {
+	...
+	drm_modeset_drop_locks(&ctx);
+	drm_modeset_acquire_fini(&ctx);
+	...
+}
 
-Because the hdmi5_bridge_hpd_notify() update landed in this patch instead,
-building the kernel at commit 9cf55ff0f96b with CONFIG_DRM_OMAP and
-CONFIG_OMAP5_DSS_HDMI enabled fails with an incompatible function pointer t=
-ype
-error when initializing hdmi5_bridge_funcs.hpd_notify.
+When the system_dfl_wq worker executes
+commit_tail() -> tegra_atomic_commit_tail() ->
+drm_atomic_helper_commit_modeset_enables() ->
+drm_atomic_helper_commit_encoder_bridge_enable() ->
+tegra_rgb_encoder_enable(), no drm_modeset_lock is held by the worker threa=
+d.
 
-Should this hunk be moved into commit 9cf55ff0f96b ("drm/bridge: pass down
-IRQ_HPD to the drivers") to preserve bisectability?
+2. Bridges without .atomic_duplicate_state during synchronous modeset commi=
+ts:
+drm_bridge_attach() always initializes bridge->base.lock via
+drm_atomic_private_obj_init(), but drm_atomic_add_encoder_bridges() skips
+acquiring bridge->base.lock when the bridge does not implement
+.atomic_duplicate_state:
+
+drivers/gpu/drm/drm_atomic.c:drm_atomic_add_encoder_bridges() {
+	...
+	drm_for_each_bridge_in_chain(encoder, bridge) {
+		/* Skip bridges that don't implement the atomic state hooks. */
+		if (!bridge->funcs->atomic_duplicate_state)
+			continue;
+
+		bridge_state =3D drm_atomic_get_bridge_state(state, bridge);
+	...
+}
+
+In both cases, calling drm_bridge_get_current_state(output->bridge) trigger=
+s a
+lockdep warning on drm_modeset_lock_assert_held(&bridge->base.lock) under
+CONFIG_PROVE_LOCKING and reads output->bridge->base.state without holding
+bridge->base.lock.
+
+Should tegra_rgb_encoder_helper_funcs implement .atomic_enable() instead of
+.enable() and look up the bridge state from the atomic state via
+drm_atomic_get_new_bridge_state(state, output->bridge)?
 
 [ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-hpd-irq-ev=
-ents-v6-0-337ea3ddaa62@oss.qualcomm.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022132259.2407=
+17-1-clamor95@gmail.com?part=3D5
