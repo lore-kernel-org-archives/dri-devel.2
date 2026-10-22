@@ -2,97 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93DA606A319
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:09:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F091960A2611
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:10:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=awUZGDvU;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JIYlqAcY
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=b3ErXA3N;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aTxLKsmI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C21610E32E;
-	Thu, 22 Oct 2026 09:09:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B262112441;
+	Thu, 22 Oct 2026 09:09:50 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94D98112410
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:34 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 190D1112422
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:39 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69M6xv371560116
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:34 GMT
+ 69M6xrFg2171944
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- I1otG1lzuT2TL603n+ZyA3mzLoyhPcar5mVP11oCq/4=; b=awUZGDvUo381zakE
- 6IlU2NFPZS8CF4z1toImlJP1v4c1Us3D8S8tMGlDHsaLjViCgF5tKaRlScW2sGNR
- nzmedS4PMfnjR80vijvCqrG+GaG9VAtgMPp61NXNNJ+RGPWnoUrwzavCYwRD9Fqi
- Xu94BxbDRb0fejtCJuA7qXSkwI800z1MI2kh4i77allNd8iPzTyOwc1uN4mPJvyG
- HyzsOwQKdSGYfdPjTtbmSVQJ9M5NPr42HxJ+UdPWqwgtVfKifdlqH+nVZWQnYBBJ
- eGs2OR9c60sSgnLWeeuN0rZli8aJruEX5nBv+Y6TGTDLvc39pLaVUWJWwRKTO1A6
- EIc1wA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93ahn4v-1
+ HjfWDRPzYl5PNTaWP9ttZL/Fu+3IQzVkWXRGbtuepsA=; b=b3ErXA3NK6BbgHoJ
+ Xrfe5LF1YuKsQFI+mcFcBuqsTWz/ou9wj9dooSaVafC7BpmvW4I9DFPa9Uw3a9f4
+ JxVWJvH9ss44Y5Zemv7KvroirpVXgx/eZ51LbiETmz/ejYQ7pX1GCyj4xikIw32k
+ 32s1r3XTUO+D0CR5iJK3jrJAYb/hxdPAMsOA1eYTZfS6juehv0NIySdmJwy4fudR
+ I1SSRqc+TWc4TnOHwKkFm2IZAZ5Zl+ydlo4k8N5m6KvD5E8JVoQb2oJJMit7pSYA
+ iGqXY13Py0+iZgzEQD2wKJ0LjhugBOmwKK6L/mUlqAVSShJHduUVqZJ1cRarOG3M
+ KxFuhw==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93ahm09-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:33 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-3692c5b061bso896452eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:09:33 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:38 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id
+ a92af1059eb24-151ba226e1bso2936416c88.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:09:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792660173; x=1793264973;
+ d=oss.qualcomm.com; s=google; t=1792660178; x=1793264978;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=I1otG1lzuT2TL603n+ZyA3mzLoyhPcar5mVP11oCq/4=;
- b=JIYlqAcYYRx1Xo7pYIcrHeGMt0tkqPky3xOjM3uttYRwe9XeT8wVtBugb4mx0T7nsK
- QQQFQ+YHTkgKbs21ML+RM5llsMkLT12CGpeK0yRdyjeWNytUn3KmVzUhgKGrcRXLGi2j
- P+lK2IlvQka8TZKixdqM119rrdnsOwR7PmK7IXsvATenzWOn2bTA4aEcekZOKT2IMqoT
- FBkiDn4n9Z6ao1ofw9qytqP8zs+Dn5x7mMjJpCXXJw+70l/DVZrblHo/DhT+i6AGz2Kq
- e/ZO1fHCZabFHieD1CHRBkE5PmvdXrayhWQT7kywiduwnDPe0Fi8eDq/ExYLm/pScdKD
- RfHA==
+ bh=HjfWDRPzYl5PNTaWP9ttZL/Fu+3IQzVkWXRGbtuepsA=;
+ b=aTxLKsmIUkK2evZBFcNc8ZflXc2b4ZPcZB9pJEGDqVehGqr5ZeFMwftlWFq3M8V7Mr
+ gxlq0xC8iWqJljMRjGZMAUAqTgi6TLAATMLncAjHNhUGWCI6HJBXbGQTl4VNonGaR1+n
+ Awpmp6ZmHAjPllK79DitpN1H0HAfOyBW+021zTwN0DPJaqrqikt2iTjZYy97xvps/j1m
+ nXuySsDNc4X6rnUBtnJLu3SYchsY9JkuPgqnMfpnwm7P7BEVkSk3qvvyqqiAEwBsfihG
+ lESXqBJfRtbyZQE/0hptJBQoH9OF5VW/uoag8V7ceSzPiCcFeH/MMAAaIhDtJWRtpvm0
+ H01w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792660173; x=1793264973;
+ d=1e100.net; s=20260707; t=1792660178; x=1793264978;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=I1otG1lzuT2TL603n+ZyA3mzLoyhPcar5mVP11oCq/4=;
- b=gincQphQRBixImO49EsFBUhkCW6Zuj84d4uwEub2d9Hra502EhpHujv6UDjAXQ9pWF
- eqQM+2UDjuXWv376VGEbkdjbjdVOqvSazNAay8xyfPczJbTCd8KxQ/53y3vGSJ4wSG6o
- 2ta4ga0maDFmsbqFPbtfPVRNT482SnhkNoKTpwUou06dX9tIy1Ha5zEmSPTnoYfnDKZq
- f4Xda6T15P1W+g9Pv64lkHYSTf0SPRdI2l+LtewSbnoPZWwPo8G1uQGNBqAFmZhBO9oF
- 8pdGrckOlHwSsY48gCi7GkJzgziX6XoEXDkNREtUR+pkxZj51Mk9Zyk7sE9lRInO2zh4
- Y78Q==
+ bh=HjfWDRPzYl5PNTaWP9ttZL/Fu+3IQzVkWXRGbtuepsA=;
+ b=BStHw0Za3r7i7MLLG5pjRvkjqVs8mjLyh+ZW7JSp/t+T3sxcKFTAcFNKPL6+0RL7f6
+ SqTLC68cX7bGDln9Lr7gIp+ndp8/0wr666hHOX3DudL2QvRrcG4enyV2Wl/q+1q+zbFl
+ jugC+kLbCDFux1GmPdTwURWPJzkXgfVU8Ul3dYEriz8DKOF1gJH5P5KSqaDdnY5f7hcj
+ tSlYCfOPRpGvnNGDbN1ir3dvb+mEzbQCXsK2guLmXQmBcpKijG8DZH7bwmKdiKaVWR67
+ 36dCECKw4J7mBApXhtpEs0EK+fl76qtSYzrrx6EM1DVUsws0wZOLse0ILFuG7+tkeH9n
+ EGhg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzGrlSKd3kEHlZM6tIwSnmu8Eq9fLDIfpbitg1xC3M0m//u51snq8MwOs5/olWlIu4t3puivGontZM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLRjBYKmk/W5C4lRLG8hBUOEq8oSe13mrsnYJw837kYFQn/ccVO
- h/GZQK/7LIKGjyNB2mNskfSnkv1ySLdR00GZJTwIgZYaHrLypp712TXmh4YxBUolbOgRYYCWpyz
- kQ16YAzCfPEF6o3/H+XPPNJ6mvTAdj6yMSrP3byvq7mFt4SB0bzDa13Fd+Z/QVCJp4sic/NM=
-X-Gm-Gg: AYBFou3I5SOtDJwqeo5V55yl7NGtSnn99gH4GWYvgWv1rjtJRLUS5R4fxDYegB8Oyek
- TpI1U/Vf2PnXIwoUHmPpDtPYLGoV4N4bJ2fBFecf05pZfnLP+W6W4t6YD581rWSakPIBAMb1Q1p
- 7+rKAE5ppIyEwoxc5Pqt22UUELIOibNpEsIibWmllcfluuOpoAWj93nc82UdHDVjTwuNpMb78e0
- sjQpNC0xpc9vXb1i+eX8cKcs/Zf4IduR05+JGzjhl/IGnYjOb6hcFSFOjUZcKG/UtHewAGQ47Mu
- 42VWUF/jjOfbQ+iRwVm8BvNLAWotLolye/411sv6GUpovSCezFk4j5aqPN/MW4XS17KXI20vh9K
- zxRbzn0uaJLNPzgu565LF8y0ZkDrcA1D5
-X-Received: by 2002:a05:7022:3f09:b0:18b:bce0:a227 with SMTP id
- a92af1059eb24-190a6adcd36mr6565158c88.15.1792660173235; 
- Thu, 22 Oct 2026 02:09:33 -0700 (PDT)
-X-Received: by 2002:a05:7022:3f09:b0:18b:bce0:a227 with SMTP id
- a92af1059eb24-190a6adcd36mr6565116c88.15.1792660172672; 
- Thu, 22 Oct 2026 02:09:32 -0700 (PDT)
+ AKwUvByLPv9d+QgQjqMTE4q7fGjzm0kicfBrVue09vpqSDEaIp67vFBVGbjJRmAwyQhQkmpNkhpqWZeMInY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLH/2uaZOt7/+KigJ3Kz35ptPcREAZ1xEbk50hUdF2akiahXiWV
+ 3SpHUzf+NNPuE4qKuXJTiDC9/F4FrOGsyVD1OdrmqSK/F5dtVez5gkck5hKfCzEPxIXRDrzoBvc
+ gpguEKosC5ihs40lzj++Kb0gQuNRtsjTmvJklHPVLZpSrUnQoc1FMvh+RPfCdqebaDERJ9BcCLo
+ P2UUA=
+X-Gm-Gg: AYBFou0S6RCWFQA8w+C+1JzkBE2pk88qBHUikqvxVHzsoH32PG5EuWYHUNnVHw6jlAD
+ 1K0H6C073s69zefDOHtemzsY8lCpmfQMg8OPRxIJ7b+i5qGoJPYMji60H3dFJZWae/AVunmRrap
+ y8st+5MY7K2eSWvWNJhUSDvNgYEVxrfjSaZnbT7dVB14PShcMRL/GnqkVEHWKtO7MSNOltsFtku
+ Vc7KhVXphMuFsJijaEcuddRANYPlrLv+HZ/IB6QpGdhL3g943YXUMTLUUS+kTlNRAXGNksSHiE+
+ 2Qi09LoHU8nZ/Ew68+ABXA036MINFIXYJeVX43ppZ7syoiAXmhufp6I2IZdMa1QvYwtoHqQ4vMz
+ MdrYnYBwGoVnuXKYCxijQ/+HtAXppwLdA
+X-Received: by 2002:a05:7022:691:b0:149:d501:b990 with SMTP id
+ a92af1059eb24-190a599a59fmr8274762c88.25.1792660177701; 
+ Thu, 22 Oct 2026 02:09:37 -0700 (PDT)
+X-Received: by 2002:a05:7022:691:b0:149:d501:b990 with SMTP id
+ a92af1059eb24-190a599a59fmr8274735c88.25.1792660177165; 
+ Thu, 22 Oct 2026 02:09:37 -0700 (PDT)
 Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1903a180b9esm20475694c88.4.2026.10.22.02.09.28
+ a92af1059eb24-1903a180b9esm20475694c88.4.2026.10.22.02.09.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 02:09:32 -0700 (PDT)
+ Thu, 22 Oct 2026 02:09:36 -0700 (PDT)
 From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 14:38:47 +0530
-Subject: [PATCH v2 1/2] misc: fastrpc: fix NULL rpdev dereference when
- session alloc fails
+Date: Thu, 22 Oct 2026 14:38:48 +0530
+Subject: [PATCH v2 2/2] misc: fastrpc: fix init ordering race in rpmsg
+ probe
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-fastrpc-probe-fixes-v2-1-a6b3f6f62571@oss.qualcomm.com>
+Message-Id: <20261022-fastrpc-probe-fixes-v2-2-a6b3f6f62571@oss.qualcomm.com>
 References: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
 In-Reply-To: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
@@ -106,40 +106,41 @@ Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
  linux-kernel@vger.kernel.org,
  Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792660163; l=2456;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792660163; l=7445;
  i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=gXjATeM4mZmReR8r0Cip4k+l0pcgcK7OC7jL7Usz15g=;
- b=8iJBr+ATdJCU8iVTzYlUb94TGIBcH2KOuljI0XoPmBRr5XGtpiQDEOswWN590/Yv2vamfMEy3
- TbUqejlm+2lDL+f2YkKmWMu7HVv5HlkgMxM3BKl9mdpWAdKCNExxSM6
+ bh=zUgEbnWLsDTknLyFxpzFJGnr20DIE7GXMRNqYKnIzjk=;
+ b=rmpt0ZUKSJ5j1Ux8PcHksq0tkZILGFGnayKQum0+doGDcNPo84jXam4cm0VCiRZunLLFhVusl
+ zEbfz+cg7LjDJUs7v9wtC9r9xYt6P8EdcjFRNLoXFHUlcz49rC15cb0
 X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
  pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX20rSi5ez7uXG
- B5NE+rs8A3AKtC+WbZTMzqcnqIYF157yIHSPIy7bPI9658SMA7/FUotjhV+OAPclzGYZX/D8m5L
- b3HeT/TnoB6KaX3Rjt8UIw4EWBawGLBrDdwA4pHvV5TOP0D0flX6zzSP25qiBhUoZTGzNHK6kWj
- V7UHCe9EqYJzQhAqSQth4rk1P7+gMxU//RgYz9vwI3r4xoa5M6dSFDdu5ame07daNkNnfac2pol
- EeDJHXcRGaacVOoHwF6GZQPvglQnjcCXiJzo11K1UV/XGbUDbdmtO96eGeCnheB299Ja6r5cluq
- 2puKyjToeg9sbp93uL4nU43zkqw8MByilfysmfnfj1GbzYROD1UlbdLW2t93dxzOY3+NZkElTVp
- LqnbZUrDseSUNueX7A9rPWymC/EXcuYSGm3y88RpFBMFQ4xdX3zvE980fkF5XACimzaXOo+IA29
- 8rIv6gPpGh7LEVq6BPQ==
-X-Proofpoint-GUID: exjNoPQ_nibUJp4v8d-LL2EvvCqoK9ig
-X-Authority-Analysis: v=2.4 cv=feg4WEQF c=1 sm=1 tr=0 ts=6ad9d2ce cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-GUID: g3ZSAtYbtw5LCZ_La06wMl0YdgVVVKL6
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX58sFC3kN1EM+
+ Vae4cKabtLPLQ/rlVrey5bxeGIp7uDS6H3svSxrx1KnAIflh/8QYVAvHZENwzqbU6zmLsNM+1JO
+ YF+hZVcrEl5mAvFcBOZOooZSiJb7zCc=
+X-Proofpoint-ORIG-GUID: g3ZSAtYbtw5LCZ_La06wMl0YdgVVVKL6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfXyz3DV33PoYsG
+ JZyhXlD2CT3oOqBKRhdCeLThNi6SfaTZQHintBvvLpBXKWbddcdLRLWKjP07A54nqY8Ohgvyhme
+ 4ZveGfHmL/HfowTHN9f9W3GikXLgBiZl/uUHmkN25blkAZLQMdiAasRTdz/2AnhDDgavKEy46IO
+ MkUXpYTQx4GWW1lgZNs1wQmQgjG3NUCT9HWfnrkMCPnhDc3Si6x7no1s0jSBegxnVfo6hitJOt6
+ 6KrXTna8S0SPYt3FXsdX3GuXGBNfG5svSp5yTCVkFPORfsKAW3q6mhHo8YdyBTz/va2e86GWUQq
+ jHaZVcWe9L/h5HDbQTHTgMhY+Kgt5XbJlj1lklrxuA+3bER29GaJxkcnV73kI9tVUyalozSy+d3
+ lyr49BJeR1czFYZegab42EU9BFpWWriM3PiDHSRiCm3o53k6+3NBP85Dj3AcPUPTetKVyGgJ5jm
+ dzS03vMLFZ1r/wWh5zg==
+X-Authority-Analysis: v=2.4 cv=dOszC+Zb c=1 sm=1 tr=0 ts=6ad9d2d2 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=HPkHAgnwbDoOiCnvmVMA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: exjNoPQ_nibUJp4v8d-LL2EvvCqoK9ig
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfXxC/dSOamUFWU
- HrXE6xe1NAQYqV195uh6SfB/wiUE+AZy+5UwDkaKKigNQ0bC4Jklo9T3z0q869nXBDru/MN3wxY
- VxKkEBitkwKLvKGbuTmFvEXhjAbD4yg=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=RafEaDNIwz_KoXd2q0MA:9 a=QEXdDO2ut3YA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 suspectscore=0
- spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220036
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
+ suspectscore=0 spamscore=0 adultscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610220036
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,67 +160,214 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When a fastrpc client process dies abnormally without closing its file
-descriptor, fastrpc_device_release() is never called and the compute-cb
-session slot is never freed. The abnormal client death on the DSP side
-triggers a glink channel teardown which propagates up through the rpmsg
-bus and calls fastrpc_rpmsg_remove().
+fastrpc_device_register() calls misc_register() which makes the device
+node visible to userspace. However, kref_init(), spin_lock_init(),
+INIT_LIST_HEAD(), dev_set_drvdata() and fastrpc_cb_devices_create()
+were all called after the switch/misc_register block, leaving a window
+where userspace can open the device and call fastrpc_device_open() on
+a partially initialised channel context.
 
-fastrpc_rpmsg_remove() nulls cctx->rpdev before calling
-misc_deregister(). If a concurrent open() enters fastrpc_device_open()
-in this window and fastrpc_session_alloc() returns NULL (sessions
-exhausted by the leaked slot), the error path dereferences
-cctx->rpdev->dev causing a NULL pointer dereference:
+On a concurrent open(), fastrpc_channel_ctx_get() calls kref_get() on
+a kzalloc-zeroed, never kref_init()'d refcount of 0, triggering:
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-  pc : fastrpc_device_open+0x1b8/0x258 [fastrpc]
+  refcount_t: addition on 0; use-after-free.
   Call trace:
-   fastrpc_device_open+0x1b8/0x258 [fastrpc] (P)
+   refcount_warn_saturate+0x120/0x148 (P)
+   fastrpc_device_open+0x204/0x258 [fastrpc]
    misc_open+0xd8/0x1a0
 
-Fix by moving misc_deregister() before rpdev = NULL. misc_open() and
-misc_deregister() both take misc_mtx, so misc_deregister() will either
-block until fastrpc_device_open() completes or prevent new opens from
-entering it entirely.
+Additionally, fastrpc_cb_devices_create() not having run means
+sesscount is still 0, so fastrpc_session_alloc() returns NULL and
+fastrpc_device_open() hits the error path which calls
+fastrpc_channel_ctx_put() on the already-bogus refcount. This
+triggers the free callback, kfree()-ing the channel context. A
+subsequent IRQ-path fastrpc_rpmsg_callback() then dereferences the
+freed spinlock:
 
-Fixes: 7c11df42d0c7 ("misc: fastrpc: Fix device_open when no session is available")
+  Unable to handle kernel paging request at virtual address ffffcd5841510ca0
+  Internal error: Oops: 0000000096000047 [#1] SMP
+  Call trace:
+   queued_spin_lock_slowpath+0x414/0x5e0 (P)
+   _raw_spin_lock_irqsave+0x74/0x90
+   fastrpc_rpmsg_callback+0x4c/0xf0 [fastrpc]
+   qcom_glink_native_rx+0x6c4/0xf10
+   qcom_glink_smem_intr+0x1c/0x38 [qcom_glink_smem]
+  Kernel panic - not syncing: Oops: Fatal exception in interrupt
+
+Fix by moving all channel context initialisation (kref_init,
+spin_lock_init, INIT_LIST_HEAD, idr_init, dev_set_drvdata) and
+fastrpc_cb_devices_create() before fastrpc_device_register(), ensuring
+the struct is fully ready before the device node is visible to
+userspace.
+
+Add err_depopulate label in the error path since
+fastrpc_cb_devices_create() now runs before misc_register(); a
+fastrpc_device_register() failure must call fastrpc_cb_devices_destroy()
+to clean up the compute-cb children.
+
+On CDSP/GDSP the secure node is registered before the non-secure one, so
+an application may already have opened the first node and hold a channel
+context reference when the second registration fails. Freeing the
+context with kfree() there would leave that user with a dangling
+pointer. Handle it like fastrpc_rpmsg_remove(): after the nodes are
+deregistered, clear rpdev, wake pending invocations with -EPIPE and drop
+only the probe reference with fastrpc_channel_ctx_put(), so the last
+holder frees the context. Move fastrpc_notify_users() above probe so it
+can be used there.
+
+Fixes: 3abe3ab3cdab ("misc: fastrpc: add secure domain support")
 Cc: stable@vger.kernel.org
-Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 ---
- drivers/misc/fastrpc.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/misc/fastrpc.c | 83 ++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 50 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 5dd1990d3e2a..f280bff2edf0 100644
+index f280bff2edf0..fc09cd27af4b 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
-@@ -2697,6 +2697,12 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 	struct fastrpc_user *user;
- 	unsigned long flags;
+@@ -2548,6 +2548,18 @@ static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
+ 				  cctx->vmperms, cctx->vmcount);
+ }
  
-+	if (cctx->fdevice)
-+		misc_deregister(&cctx->fdevice->miscdev);
++static void fastrpc_notify_users(struct fastrpc_user *user)
++{
++	struct fastrpc_invoke_ctx *ctx;
 +
-+	if (cctx->secure_fdevice)
-+		misc_deregister(&cctx->secure_fdevice->miscdev);
++	spin_lock(&user->lock);
++	list_for_each_entry(ctx, &user->pending, node) {
++		ctx->retval = -EPIPE;
++		complete(&ctx->work);
++	}
++	spin_unlock(&user->lock);
++}
 +
- 	/* No invocations past this point */
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	cctx->rpdev = NULL;
-@@ -2704,12 +2710,6 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 		fastrpc_notify_users(user);
- 	spin_unlock_irqrestore(&cctx->lock, flags);
+ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ {
+ 	struct device *rdev = &rpdev->dev;
+@@ -2557,6 +2569,8 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 	bool secure_dsp;
+ 	unsigned int vmids[FASTRPC_MAX_VMIDS];
+ 	const struct fastrpc_soc_data *soc_data;
++	struct fastrpc_user *user;
++	unsigned long flags;
  
--	if (cctx->fdevice)
--		misc_deregister(&cctx->fdevice->miscdev);
--
--	if (cctx->secure_fdevice)
--		misc_deregister(&cctx->secure_fdevice->miscdev);
--
- 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
- 		list_del(&buf->node);
+ 	soc_data = device_get_match_data(rdev);
  
+@@ -2605,6 +2619,23 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 	data->poll_mode_supported = soc_data->poll_mode_supported ||
+ 		of_machine_get_match(fastrpc_poll_supported_machines);
+ 
++	kref_init(&data->refcount);
++	atomic_set(&data->ctx_seq, 0);
++
++	rdev->dma_mask = &data->dma_mask;
++	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
++	INIT_LIST_HEAD(&data->users);
++	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
++	spin_lock_init(&data->lock);
++	idr_init(&data->ctx_idr);
++	data->domain_id = domain_id;
++	data->rpdev = rpdev;
++	dev_set_drvdata(&rpdev->dev, data);
++
++	err = fastrpc_cb_devices_create(rpdev);
++	if (err)
++		goto err_free_data;
++
+ 	switch (domain_id) {
+ 	case ADSP_DOMAIN_ID:
+ 	case MDSP_DOMAIN_ID:
+@@ -2613,7 +2644,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		data->unsigned_support = false;
+ 		err = fastrpc_device_register(rdev, data, secure_dsp, domain);
+ 		if (err)
+-			goto err_free_data;
++			goto err_depopulate;
+ 		break;
+ 	case CDSP_DOMAIN_ID:
+ 	case GDSP_DOMAIN_ID:
+@@ -2621,7 +2652,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		/* Create both device nodes so that we can allow both Signed and Unsigned PD */
+ 		err = fastrpc_device_register(rdev, data, true, domain);
+ 		if (err)
+-			goto err_free_data;
++			goto err_depopulate;
+ 
+ 		err = fastrpc_device_register(rdev, data, false, domain);
+ 		if (err)
+@@ -2629,30 +2660,12 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		break;
+ 	default:
+ 		err = -EINVAL;
+-		goto err_free_data;
++		goto err_depopulate;
+ 	}
+ 
+-	kref_init(&data->refcount);
+-	atomic_set(&data->ctx_seq, 0);
+-
+-	rdev->dma_mask = &data->dma_mask;
+-	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
+-	INIT_LIST_HEAD(&data->users);
+-	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
+-	spin_lock_init(&data->lock);
+-	idr_init(&data->ctx_idr);
+-	data->domain_id = domain_id;
+-	data->rpdev = rpdev;
+-	dev_set_drvdata(&rpdev->dev, data);
+-
+-	err = fastrpc_cb_devices_create(rpdev);
+-	if (err)
+-		goto err_deregister_fdev;
+-
+ 	if (data->domain_id == ADSP_DOMAIN_ID && data->sesscount > 0) {
+ 		struct fastrpc_session_ctx *last_sess;
+ 		struct fastrpc_session_ctx *dup_sess;
+-		unsigned long flags;
+ 
+ 		spin_lock_irqsave(&data->lock, flags);
+ 		last_sess = &data->session[data->sesscount - 1];
+@@ -2673,23 +2686,27 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 	if (data->secure_fdevice)
+ 		misc_deregister(&data->secure_fdevice->miscdev);
+ 
++err_depopulate:
++	/*
++	 * A registered device node may already have been opened, so a user
++	 * can hold a cctx reference. Drop only our reference instead of
++	 * freeing the context directly.
++	 */
++	spin_lock_irqsave(&data->lock, flags);
++	data->rpdev = NULL;
++	list_for_each_entry(user, &data->users, user)
++		fastrpc_notify_users(user);
++	spin_unlock_irqrestore(&data->lock, flags);
++
++	fastrpc_cb_devices_destroy(rpdev);
++	fastrpc_channel_ctx_put(data);
++	return err;
++
+ err_free_data:
+ 	kfree(data);
+ 	return err;
+ }
+ 
+-static void fastrpc_notify_users(struct fastrpc_user *user)
+-{
+-	struct fastrpc_invoke_ctx *ctx;
+-
+-	spin_lock(&user->lock);
+-	list_for_each_entry(ctx, &user->pending, node) {
+-		ctx->retval = -EPIPE;
+-		complete(&ctx->work);
+-	}
+-	spin_unlock(&user->lock);
+-}
+-
+ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ {
+ 	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(&rpdev->dev);
 
 -- 
 2.34.1
