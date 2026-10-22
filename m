@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D53606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BE4606A31D
 	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:34:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ch6dB87H
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDBKcFvH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1A4112597;
-	Thu, 22 Oct 2026 12:34:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EA0F112598;
+	Thu, 22 Oct 2026 12:34:37 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E05EB1125A3
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:34:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10E261125A4
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:34:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6383360210;
- Thu, 22 Oct 2026 12:34:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946D51F000C4;
- Thu, 22 Oct 2026 12:34:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 79CEE60200;
+ Thu, 22 Oct 2026 12:34:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75F11F000C3;
+ Thu, 22 Oct 2026 12:34:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792672467;
- bh=lnF3aOs0mBCKLFSfviEvGmuocNk325HmzRlGQ5ON3Bc=;
+ s=k20260515; t=1792672456;
+ bh=i35Qm+qMMyurhBoKLlGURfbkNeXYO7YQcls/ZdewMAA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ch6dB87HgnzKGux0RJsiFBItZI8r6VUdToQWzU/oO7JoByGH2gyp0Qpih0yIrU7wK
- c5ghBUCeosXhuTaEDtCgQVkV/xA3iibfsgdYYtMIPS20H9pXpx0M+xf+lnHNqfDEue
- rNFsEzN+X5XRm2H/mLnjsJEZWLKgiLwRZmCcv3MAvOaMRUtmbKtbvk0zK5p9HYh5Le
- 82P5eLKFeyjOu3Ho/c8NXSX1Nj8g/hR+oC3MIlJ+iP12Y13kyu2t3CpNF5sgv/YJyn
- LL2xRTvcAlwgkVnGi1N95Ju83L3V2RRhbKWFIcZWAE9HJhAtb10nt3lxOgf1OV8yva
- 5dFXpjKkAXfWA==
+ b=SDBKcFvHrkO7MkRXGz669eaxnyVwUUKZyss6fUExk7R5fCDWmb+qqmchy/6JqygMS
+ 2uKaUmdS1M77MQ/3gtZrcW/rFYFmA2x6okuUvx4q21BfzuJpn45YWYpmLAQJDG/ai4
+ f51tZbWuv+LrSWPAeRI48ktgyBxVEgeMg/PD0y2Ju2z3t5TwoyfRjELbQh2Ba7ABBR
+ 8oav/bgyo0W2O6qxne86j6PPmyLadyKP8u0lJv/5Qx1de/5vN0t3fs9gyadoeNut6q
+ 5cBkNfMDQV3nTAFruGJWoEM9pNlPcpKQzd05AJ9ogiBIV3sOIemZvHC+GY4vW6BDKu
+ apGzxfqwA1FaQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 14:31:10 +0200
-Subject: [PATCH v2 11/59] drm/bridge: nxp-ptn3460: Switch to
+Date: Thu, 22 Oct 2026 14:31:07 +0200
+Subject: [PATCH v2 08/59] drm/bridge: analogix-anx6345: Switch to
  drm_atomic_helper_connector_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-no-more-connector-reset-v2-11-0b7e4e85b1e8@kernel.org>
+Message-Id: <20261022-drm-no-more-connector-reset-v2-8-0b7e4e85b1e8@kernel.org>
 References: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 In-Reply-To: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -43,12 +43,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1022; i=mripard@kernel.org;
- h=from:subject:message-id; bh=MLfpm48fDksmyi+j7h6LECLJz7aW0y74STSdWjaE958=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mCZp98nsKbr4sL9zg/BttsZfIqu/915PsTnww0hj/
- r2qhzMUOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEUngY692vhe7NaNc+561a
- sTTbXvHvksWsD2s2727qEg6psj+9yEds3crz174JP3naspFXYIt0JWN98kU3vqhFmfl6iu+qnE/
- MTrvqzDppw/Ek7ot6O/jWxSecEBU729ZQFOM1W0Rs/4uA1/wA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1101; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=iUJnLivR/qesp1K52yMGXmVxSDwm0/09r/ESAXOB1GU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mCZe71GdcWZ1S1ZUhpy40/8fm29/11x4/8q9rAcHJ
+ 81hYvC+2jGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmsjCYseEhy7o9657e1lvf
+ Fxm6fOaS29s+LVQOeXPy8e6E9soJPauWGcSImZe4fzx2/LbfnNkn5f0Z63PNt+7ZInm2fdp2/tt
+ y3/L2TDfZ2JGv2GYadfiQ/aTXCSEbym8n+b/csVZvwdz1t7wV8wE=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,23 +69,23 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The bridge: nxp-ptn3460 connector implementation uses the deprecated
+The bridge: analogix-anx6345 connector implementation uses the deprecated
 drm_atomic_helper_connector_reset() as its reset hook.
 
 Switch to drm_atomic_helper_connector_create_state() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/nxp-ptn3460.c | 2 +-
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/nxp-ptn3460.c b/drivers/gpu/drm/bridge/nxp-ptn3460.c
-index f9eff8bfceb7..be6a06130ba9 100644
---- a/drivers/gpu/drm/bridge/nxp-ptn3460.c
-+++ b/drivers/gpu/drm/bridge/nxp-ptn3460.c
-@@ -211,5 +211,5 @@ static const struct drm_connector_funcs ptn3460_connector_funcs = {
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+index 407834a03b63..0cff9ff0265a 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+@@ -484,5 +484,5 @@ static const struct drm_connector_funcs anx6345_connector_funcs = {
  	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.destroy = drm_connector_cleanup,
+ 	.destroy = anx6345_connector_destroy,
 -	.reset = drm_atomic_helper_connector_reset,
 +	.atomic_create_state = drm_atomic_helper_connector_create_state,
  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
