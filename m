@@ -2,52 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1987E606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:34:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF98606A31B
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:34:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3W3W0Up
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YCty/8im
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61D6F11259D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0C121125A6;
 	Thu, 22 Oct 2026 12:34:15 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 034D811259F
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:34:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F452112590;
+ Thu, 22 Oct 2026 12:34:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E102143473;
- Thu, 22 Oct 2026 12:34:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5601F000C2;
- Thu, 22 Oct 2026 12:34:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B286660200;
+ Thu, 22 Oct 2026 12:34:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14981F000C2;
+ Thu, 22 Oct 2026 12:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792672441;
- bh=nvyuP1r+MO3tgTobCWeGBNNCwqJtP6MqZeknh7Nbd0w=;
+ s=k20260515; t=1792672445;
+ bh=9ogwlBrpLxDPajZrvnwywUMbAgdpoJgJp0rNjgX9xsc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Y3W3W0Upmv+pymo44sRhmCWGXRgpNSak9V2TF508lqFgdX0un/EHygtwmlF3dTyFb
- wFbeP82rK6lPPirZYGVUUH24ytA6n7/3xqXBCue5XKLdREtGkJYSBAwdcawLvFrC6l
- hVSGKd4pmGwAC9iX+UE2e9PFzE62P/Zhvp8QBPgY205pi6ruL4ya+ab+8JGDRTHPyh
- kXcMOSxVZqCnXbaxuTk27/vlq2+B8aMDZAqf1dHkcKusnSepLtp5RWwO3u2H+uQ0hK
- B3k3191RqkWdcts+JIZckmlunM+bpQTpai0PTDmLO7nAd9dqVy4hydaRj0IyalcYeD
- S20gOC1YSWwPQ==
+ b=YCty/8imktKW/tJ0wWJW8YyRLYJDO5HjX2GU8bc75w3FkyYV3Uef1C5MEIrc3bII+
+ ScHzwGuKyKEjTam1YnFmndLeO8fagz6XrQXbk79MTqs29q8HjF/s8n2bFigD40L7tO
+ nz50CtRX/9IQ/ImVHjO/VUIWQXkhTncnxnjWDhyWzHOzzspQqY3c4WCAtvSz8trcf7
+ QDGnRbVpTOJ5jFUbVwDMHsDc0MiLQ8oH/tgL7NJo5kKaZQpqq+lok3scF+vmjZzjsK
+ bLTryhIYt1f087XvEBFrGuxHaTf/+eCUKrzinOQD3+ydDm/fgI4I2MbJ/hEdMGwkl/
+ 6Lj7ftTQNVwgg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 14:31:03 +0200
-Subject: [PATCH v2 04/59] drm/panel: Add atomic_create_state support
+Date: Thu, 22 Oct 2026 14:31:04 +0200
+Subject: [PATCH v2 05/59] drm/amdgpu: vkms: Switch to
+ drm_atomic_helper_connector_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-no-more-connector-reset-v2-4-0b7e4e85b1e8@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261022-drm-no-more-connector-reset-v2-5-0b7e4e85b1e8@kernel.org>
 References: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 In-Reply-To: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1339; i=mripard@kernel.org;
- h=from:subject:message-id; bh=NvzNnPjO15immcT2DKl3ccisgpqNp3HuH0EQBGBlLnw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mPq3OfidyGeo7PK/YHPueHvFuepJ95dP0ow9KHwtw
- W3JhVDfjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR9b8Ya8UNc9LdkxQ1vj6U
- WiiVJvfoX3XHk3Sxb97HP8yy+N6qOy1calPjDIn3HC25nrmHum0+MDZcDY/6KbzQXt9XiK/I5oj
- lu+iM699W7WGx18mP8av7vMi4vPTV7QnuR9/O/do5w8xuw2MA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1174; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=C3A2KXrhKWnaGWQAOhBNY0R+SHtfrEw+fVf5cVYEOYM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mPpX7f+kMj+1WzT+zaWCWW/8PhY1a1xlvr310Kul8
+ yNf7w/w6ZjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATSa9nbLhX5Nx77FBKzqG2
+ 722rvZ9MUnD+qLn5+ccm+7XsU5ias0yL+Nb9DX+xZdsEwS5n6/WxsowNV7MVimbu+V+y64e06vz
+ IOaF2MmIzlp3k257ax3BWxuJhEO+T033xJybYLFWRTZ57k28XAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -64,47 +67,36 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The panel bridge attach hook calls the connector's reset function to
-initialize the connector state when the device is already registered.
+The amdgpu: vkms connector implementation uses the deprecated
+drm_atomic_helper_connector_reset() as its reset hook.
 
-Now that connectors are being migrated from the reset hook to
-atomic_create_state, prefer it over reset and fall back to the reset
-hook if atomic_create_state is not implemented.
+Switch to drm_atomic_helper_connector_create_state() instead.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_panel.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index c00529bfb706..313053c123d1 100644
---- a/drivers/gpu/drm/drm_panel.c
-+++ b/drivers/gpu/drm/drm_panel.c
-@@ -105,6 +105,18 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
- 
- 	if (bridge->dev->registered) {
--		if (connector->funcs->reset)
-+		if (connector->funcs->atomic_create_state) {
-+			struct drm_connector_state *conn_state;
-+
-+			conn_state = connector->funcs->atomic_create_state(connector);
-+			if (IS_ERR(conn_state)) {
-+				drm_connector_cleanup(connector);
-+				return PTR_ERR(conn_state);
-+			}
-+
-+			connector->state = conn_state;
-+		} else if (connector->funcs->reset) {
- 			connector->funcs->reset(connector);
-+		}
-+
- 		drm_connector_register(connector);
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 5c5fdbec93c2..5c7e2172a372 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -87,5 +87,5 @@ static const struct drm_connector_funcs amdgpu_vkms_connector_funcs = {
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+ 	.destroy = drm_connector_cleanup,
+-	.reset = drm_atomic_helper_connector_reset,
++	.atomic_create_state = drm_atomic_helper_connector_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
 
 -- 
 2.55.0
