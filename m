@@ -2,35 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764ED606A319
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 06:06:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F90606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 06:06:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h+JE/cat
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ckzr4USQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45F4C112345;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94B3111234B;
 	Thu, 22 Oct 2026 06:06:47 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD8410E397;
- Thu, 22 Oct 2026 06:06:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F81C10E19E;
+ Thu, 22 Oct 2026 06:06:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5BF46439AF;
- Thu, 22 Oct 2026 06:06:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD481F000C1;
- Thu, 22 Oct 2026 06:06:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CF5EF41AD7;
+ Thu, 22 Oct 2026 06:06:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C31B1F000C1;
+ Thu, 22 Oct 2026 06:06:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792649199;
- bh=KYOBgX/+yo2riUFpd1xn1ySK9zxSUz3LCiU8ZmGTV+8=;
+ s=k20260515; t=1792649195;
+ bh=Bu3FYvdlSrhvOhlM4Mt347mn54yT2j4t/Kl7aBUly8g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=h+JE/catl2s783LDDSEBow012Vfz68t17sLqDrqMdq5VV35+ZTa2JkCOxY5BS22LV
- QQkXHEeN0vdSiW1Vxu21MKurK+NXkHpiqcTZ+AKLu990fBi/Pde0WQXfh8Z31imE3L
- cA5AH9zDWkeb7dqPvBwbUUY0FtPw9u1I/Iuxz7H5UCYiND7zJgZrANci+bApoXFQrr
- 7nbhKSucI+UzODJhDGqT0KASgzORhZ7BySpOs4e3ECf4gPqwu/VoGLELvJji8gJv30
- PmaqbGJFMMSx8i+R/n7J+xqeL4zD8UkFEClwEdSToc6pxHM5FRg3C84GyJ5LGTzvsH
- D3A9YB87BUWEw==
-Message-ID: <sashiko-outbox-181054@kernel.org>
+ b=ckzr4USQQRTl+xZ9HzXymiivfu2eDBOMv3ZtqpdHzUdcGZ+fTB892Hj/YmaiLh1la
+ iVYgGgzdd+TWgY7P7NUhbSKqRhAvthelJf0rD3jmzIvspF2NsSt3brTtaj/5dS5C6p
+ LohyY+05RbWzuzwEey+5e7DQEycxwRedis/S747pXeR08TxZIVo7swd+Eq8CabJJpc
+ D+YAiD4+L9AzMBAhGPHtAvwpZwrzKNbQIsbEePCCHR9j1uqRcrvFWIoWNX22E41ce0
+ w2JaY29a0uVl4jnJLHM2voXZVhOaZXiQxTdenNWBOwWOjCd7aY51GXutS8VlBMqH5p
+ eo4qrMLhj0WSA==
+Message-ID: <sashiko-outbox-181052@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 06/12] mm/hmm: migrate collection in HMM pagewalk -
- pmd level
+Subject: Re: [PATCH v16 04/12] mm/hmm: do the plumbing for HMM to
+ participate in migration
 To: mpenttil@redhat.com, linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, "David
  Hildenbrand" <david@kernel.org>, "Jason Gunthorpe" <jgg@nvidia.com>, "Leon
@@ -43,12 +43,12 @@ Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, "David
  Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>, "Michal
  Hocko" <mhocko@suse.com>, "Lyude Paul" <lyude@redhat.com>, "Danilo
  Krummrich" <dakr@kernel.org>
-In-Reply-To: <20261021060506.2377545-7-mpenttil@redhat.com>
+In-Reply-To: <20261021060506.2377545-5-mpenttil@redhat.com>
 References: <20261021060506.2377545-1-mpenttil@redhat.com>
- <20261021060506.2377545-7-mpenttil@redhat.com>
+ <20261021060506.2377545-5-mpenttil@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 06:06:37 +0000
+Date: Thu, 22 Oct 2026 06:06:34 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,275 +69,398 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] mm/hmm: stale hmm_pfns left across PMD split re-walk in hmm_vma_wa=
-lk_pmd()
-- [Medium] mm/hmm: hmm_vma_handle_migrate_prepare_pmd() clobbers valid PFNs=
- on skip
+- [High] mm/hmm: broken migration entries in hmm_vma_handle_pte() and hmm_v=
+ma_walk_pmd()
+- [High] mm/hmm: broken state and rollback in hmm_vma_walk_pmd() on retry a=
+fter -EAGAIN
+- [Medium] mm/hmm: hmm_vma_walk_pmd() aborts PMD walk and clobbers PFNs on =
+split failure
 --
 
-commit 19d71de5ba9a8df49f896d9047f6e5016503f7dc
+commit 25901a209351c6985ba22f8dfc40a2db03ec4bdf
 Author: Mika Penttil=C3=A4 <mpenttil@redhat.com>
 
-mm/hmm: migrate collection in HMM pagewalk - pmd level
+mm/hmm: do the plumbing for HMM to participate in migration
 
-This commit implements hmm_vma_handle_migrate_prepare_pmd() and integrates =
-it
-into hmm_vma_walk_pmd() to prepare PMD-level THP and device-private entries
-for migration or split them for PTE re-walking.
+This commit adds page table locking state and migration preparation plumbing
+to hmm_range_fault() and its pagewalk callbacks in mm/hmm.c so that PTE and
+PMD locks are held across entry handling and migration collection and dropp=
+ed
+before faulting.
 
 > diff --git a/mm/hmm.c b/mm/hmm.c
-> index 0ce947d0e5727..5891efee3e182 100644
+> index 4e9542aedc253..119e70dbca56f 100644
 > --- a/mm/hmm.c
 > +++ b/mm/hmm.c
 
 [ ... ]
 
-> @@ -548,14 +536,145 @@ static int migrate_vma_split_folio(struct folio *f=
-olio,
->  	return 0;
->  }
+> @@ -305,14 +360,25 @@ static int hmm_vma_handle_pte(struct mm_walk *walk,=
+ unsigned long addr,
+>  			goto fault;
 > =20
-> +/**
-> + * migrate_vma_split_folio() - drop the pte lock and split a THP folio
-> + * @folio: the folio to split
-> + * @fault_page: struct page associated with the fault if any
-> + * @hmm_vma_walk: walk in progress
-> + * @ptep: pte_t * for unmap and unlock ptl
-> + *
-> + * Returns 0 on success
-> + */
-> +static int migrate_vma_split_folio(struct folio *folio,
-> +				   struct page *fault_page,
-> +				   struct hmm_vma_walk *hmm_vma_walk,
-> +				   pte_t *ptep)
-> +{
-> +	struct folio *fault_folio =3D fault_page ? page_folio(fault_page) : NUL=
-L;
-> +
-> +	if (folio !=3D fault_folio)
-> +		folio_get(folio);
-> +
-> +	pte_unmap_unlock(ptep, hmm_vma_walk->ptl);
-> +	hmm_vma_walk->ptelocked =3D false;
-> +
-> +	if (folio !=3D fault_folio)
-> +		folio_lock(folio);
-> +
-> +	return __migrate_vma_split_folio(folio, fault_page);
-> +}
-> +
->  static int hmm_vma_handle_migrate_prepare_pmd(const struct mm_walk *walk,
->  					      pmd_t *pmdp,
->  					      unsigned long start,
->  					      unsigned long end,
->  					      unsigned long *hmm_pfn)
->  {
+>  		if (softleaf_is_migration(entry)) {
+> -			pte_unmap(ptep);
+> -			hmm_vma_walk->last =3D addr;
+> -			migration_entry_wait(walk->mm, pmdp, addr);
+> -			return -EBUSY;
+> +			if (!hmm_select_migrate(range)) {
+> +				HMM_ASSERT_UNLOCKED(hmm_vma_walk);
+> +				pte_unmap(ptep);
+> +				hmm_vma_walk->last =3D addr;
+> +				migration_entry_wait(walk->mm, pmdp, addr);
+> +				return -EBUSY;
+> +			}
+> +			return 0;
+>  		}
+
+[Severity: High]
+In include/linux/hmm.h, the input request flags share the same bit positions
+as the output flags (HMM_PFN_REQ_FAULT =3D=3D HMM_PFN_VALID,
+HMM_PFN_REQ_WRITE =3D=3D HMM_PFN_WRITE, HMM_PFN_REQ_MIGRATE =3D=3D HMM_PFN_=
+MIGRATE),
+and callers using range->default_flags with range->pfn_flags_mask =3D=3D 0 =
+are
+not required to initialize range->hmm_pfns[] on input.
+
+In hmm_vma_handle_pte(), the !pte_present(pte) path evaluates
+required_fault =3D hmm_pte_need_fault(hmm_vma_walk, pfn_req_flags, 0) first:
+
+	required_fault =3D
+		hmm_pte_need_fault(hmm_vma_walk, pfn_req_flags, 0);
+	if (!required_fault)
+		goto out;
+
+Because of that check, if (softleaf_is_migration(entry)) is only reached wh=
+en
+required_fault !=3D 0 (HMM_PFN_REQ_FAULT was requested). When
+hmm_select_migrate(range) is non-zero, returning 0 directly here skips both
+migration_entry_wait() (which would require unlocking hmm_vma_walk->ptl fir=
+st)
+and the out: label that masks *hmm_pfn to HMM_PFN_INOUT_FLAGS:
+
+out:
+	*hmm_pfn =3D (*hmm_pfn & HMM_PFN_INOUT_FLAGS) | new_pfn_flags;
+	return 0;
+
+Won't returning 0 directly on a concurrent migration entry leave stale input
+flags or uninitialized bits (such as HMM_PFN_REQ_FAULT / HMM_PFN_VALID and
+HMM_PFN_REQ_MIGRATE / HMM_PFN_MIGRATE) in *hmm_pfn, pass a migration PTE in=
+to
+hmm_vma_handle_migrate_prepare(), and allow hmm_range_fault() to succeed
+without waiting for the migration entry to resolve despite HMM_PFN_REQ_FAUL=
+T?
+
+Conversely, when HMM_PFN_REQ_FAULT is not set (such as the default in
+migrate_vma_setup()), if (!required_fault) goto out runs before checking
+softleaf_is_migration(entry). If a retry re-walks a migration PTE that was
+already installed by this walk, won't jumping to out: clear *hmm_pfn (and
+trigger rollback in the later patch "mm/hmm: implement rollback for device
+page migration in HMM pagewalk") while leaving the migration PTE in the page
+table?
 
 [ ... ]
 
-> +	folio_get(folio);
-> +
-> +	if (folio !=3D fault_folio && unlikely(!folio_trylock(folio))) {
-> +		folio_put(folio);
-> +		hmm_pfns_fill(start, end, hmm_vma_walk, HMM_PFN_ERROR);
-> +		return 0;
-> +	}
-> +
-> +	if (thp_migration_supported() &&
-> +	    (migrate->flags & MIGRATE_VMA_SELECT_COMPOUND) &&
-> +	    (IS_ALIGNED(start, HPAGE_PMD_SIZE) &&
-> +	     IS_ALIGNED(end, HPAGE_PMD_SIZE))) {
-> +		struct page_vma_mapped_walk pvmw =3D {
-> +			.ptl =3D hmm_vma_walk->ptl,
-> +			.address =3D start,
-> +			.pmd =3D pmdp,
-> +			.vma =3D walk->vma,
-> +		};
-> +
-> +		hmm_pfn[0] |=3D HMM_PFN_MIGRATE | HMM_PFN_COMPOUND;
-> +
-> +		r =3D set_pmd_migration_entry(&pvmw, folio_page(folio, 0));
-> +		if (r) {
-> +			hmm_pfn[0] &=3D ~(HMM_PFN_MIGRATE | HMM_PFN_COMPOUND);
-> +			goto split;	/* fall back to splitting the pmd */
-> +		}
-> +		for (i =3D 1, start +=3D PAGE_SIZE; start < end; start +=3D PAGE_SIZE,=
- i++)
-> +			hmm_pfn[i] &=3D HMM_PFN_INOUT_FLAGS;
-> +
-> +	} else {
-> +		goto split;		/* fall back to splitting the pmd */
-> +	}
-> +
-> +out:
-> +	return r;
-> +
-> +split:
-> +	spin_unlock(hmm_vma_walk->ptl);
+> @@ -468,46 +593,116 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+>  {
+>  	struct hmm_vma_walk *hmm_vma_walk =3D walk->private;
+>  	struct hmm_range *range =3D hmm_vma_walk->range;
+> -	unsigned long *hmm_pfns =3D
+> -		&range->hmm_pfns[(start - range->start) >> PAGE_SHIFT];
+>  	unsigned long npages =3D (end - start) >> PAGE_SHIFT;
+> +	struct mm_struct *mm =3D walk->vma->vm_mm;
+> +	unsigned long *hmm_pfns, *hmm_pfns_start;
+> +	enum migrate_vma_info minfo;
+>  	unsigned long addr =3D start;
+> +	bool unmapped =3D false;
+> +	unsigned long i;
+>  	pte_t *ptep;
+>  	pmd_t pmd;
+> +	int r =3D 0;
+> =20
+> +	minfo =3D hmm_select_migrate(range);
+> +	hmm_pfns_start =3D &range->hmm_pfns[(start - range->start) >> PAGE_SHIF=
+T];
+>  again:
+> -	pmd =3D pmdp_get_lockless(pmdp);
+> -	if (pmd_none(pmd))
+> -		return hmm_vma_walk_hole(start, end, -1, walk);
+> +	hmm_pfns =3D &range->hmm_pfns[(addr - range->start) >> PAGE_SHIFT];
+> +	hmm_vma_walk->ptelocked =3D false;
 > +	hmm_vma_walk->pmdlocked =3D false;
 > +
-> +	/*
-> +	 * folio_get() above took an extra reference. For the fault folio the
-> +	 * caller still holds a reference and the lock, which is the
-> +	 * precondition of __migrate_vma_split_folio(), so drop the extra one.
-> +	 */
-> +	if (folio =3D=3D fault_folio)
-> +		folio_put(folio);
+> +	if (minfo) {
+> +		hmm_vma_walk->ptl =3D pmd_lock(mm, pmdp);
+> +		hmm_vma_walk->pmdlocked =3D true;
+> +		pmd =3D pmdp_get(pmdp);
+> +	} else
+> +		pmd =3D pmdp_get_lockless(pmdp);
 > +
-> +	r =3D __migrate_vma_split_folio(folio, migrate->fault_page);
-> +	if (r)
-> +		return -EFAULT;
+> +	if (pmd_none(pmd)) {
+> +		r =3D hmm_vma_walk_hole(start, end, -1, walk);
 > +
-> +	hmm_vma_walk->last =3D start;
-> +	return -EBUSY;
->  }
-
-[Severity: High]
-Can returning -EBUSY from the split path in
-hmm_vma_handle_migrate_prepare_pmd() leave stale pre-split PMD entries in
-range->hmm_pfns[] across the re-walk?
-
-When migration is enabled (in the later commit "mm: enable device page
-migration from HMM pagewalk"), hmm_vma_walk_pmd() first calls
-hmm_vma_handle_pmd() or hmm_vma_handle_absent_pmd() before calling
-hmm_vma_handle_migrate_prepare_pmd():
-
-mm/hmm.c:hmm_vma_walk_pmd()
-  hmm_vma_handle_pmd() / hmm_vma_handle_absent_pmd()
-    for (i =3D 0; addr < end; addr +=3D PAGE_SIZE, i++, pfn++) {
-        hmm_pfns[i] &=3D HMM_PFN_INOUT_FLAGS;
-        hmm_pfns[i] |=3D pfn | cpu_flags;
-    }
-  hmm_vma_handle_migrate_prepare_pmd()
-
-This populates hmm_pfns_start[0..npages-1] with the pre-split PMD PFNs,
-HMM_PFN_VALID, HMM_PFN_WRITE, and hmm_pfn_flags_order(PMD_SHIFT - PAGE_SHIF=
-T).
-
-When hmm_vma_handle_migrate_prepare_pmd() then takes the split path (for
-example, when MIGRATE_VMA_SELECT_COMPOUND is not set, [start, end) is small=
-er
-than HPAGE_PMD_SIZE, or set_pmd_migration_entry() fails), it drops
-hmm_vma_walk->ptl, splits the folio via __migrate_vma_split_folio() (which
-also unlocks the folio when folio !=3D fault_folio), sets
-hmm_vma_walk->last =3D start, and returns -EBUSY without clearing
-hmm_pfns_start[0..npages-1].
-
-This breaks the hmm_range_fault_locked() expectation that range->hmm_pfns[]
-entries at or after hmm_vma_walk.last have not been overwritten with output
-flags when -EBUSY is returned.
-
-On the subsequent PTE re-walk of [start, end), if any split page is
-concurrently turned into a migration entry while the page table and folio
-locks were dropped (with HMM_PFN_REQ_FAULT set), hmm_vma_handle_pte() retur=
-ns
-0 without updating *hmm_pfn:
-
-mm/hmm.c:hmm_vma_handle_pte()
-  if (softleaf_is_migration(entry)) {
-      if (!hmm_select_migrate(range)) {
-          ...
-          return -EBUSY;
-      }
-      return 0;
-  }
-
-and hmm_vma_handle_migrate_prepare() sees !pte_present(pte) and
-!softleaf_is_device_private(entry) and also returns 0 without updating
-*hmm_pfn (similarly, if the PMD became a PMD migration entry,
-hmm_vma_walk_pmd() returns 0 without clearing hmm_pfns_start). The later
-commit "mm/hmm: implement rollback for device page migration in HMM pagewal=
-k"
-only rolls back entries that have both HMM_PFN_VALID and HMM_PFN_MIGRATE se=
-t,
-so these pre-split entries (which lack HMM_PFN_MIGRATE) remain in
-range->hmm_pfns[], allowing callers that map non-migrated HMM PFNs in place
-(such as nouveau_dmem_migrate_fault()) to map a stale 2MB host range into t=
-he
-device MMU.
-
-Furthermore, if a caller sets range->pfn_flags_mask, overwriting
-hmm_pfns_start[0..npages-1] with HMM_PFN_VALID (which shares its bit positi=
-on
-with HMM_PFN_REQ_FAULT) and HMM_PFN_WRITE (which shares its bit position wi=
-th
-HMM_PFN_REQ_WRITE) before the split clobbers the per-page request flags for
-the PTE re-walk.
-
-> @@ -958,6 +1077,17 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
->  			hmm_vma_walk->pmdlocked =3D false;
->  		}
-> =20
-> +		/*
-> +		 * hmm_vma_handle_migrate_prepare_pmd() splits the huge pmd in
-> +		 * place when needed and returns -EBUSY to re-walk the range as
-> +		 * PTEs; any other error means the split failed.
-> +		 */
-> +		if (r =3D=3D -EBUSY)
-> +			return -EBUSY;
-> +		if (r) {
-> +			/* Split not successful, skip */
-> +			return hmm_pfns_fill(start, end, hmm_vma_walk, HMM_PFN_ERROR);
+> +		if (hmm_vma_walk->pmdlocked) {
+> +			spin_unlock(hmm_vma_walk->ptl);
+> +			hmm_vma_walk->pmdlocked =3D false;
 > +		}
->  		return r;
+> +		return r;
+> +	}
+> =20
+>  	if (thp_migration_supported() && pmd_is_migration_entry(pmd)) {
+> -		if (hmm_range_need_fault(hmm_vma_walk, hmm_pfns, npages, 0)) {
+> -			hmm_vma_walk->last =3D addr;
+> -			pmd_migration_entry_wait(walk->mm, pmdp);
+> -			return -EBUSY;
+> +		if (!minfo) {
+> +			if (hmm_range_need_fault(hmm_vma_walk, hmm_pfns_start, npages, 0)) {
+> +				hmm_vma_walk->last =3D addr;
+> +				pmd_migration_entry_wait(walk->mm, pmdp);
+> +				return -EBUSY;
+> +			}
+> +			for (i =3D 0; start < end; start +=3D PAGE_SIZE, i++)
+> +				hmm_pfns_start[i] &=3D HMM_PFN_INOUT_FLAGS;
+> +		}
+> +
+> +		if (hmm_vma_walk->pmdlocked) {
+> +			spin_unlock(hmm_vma_walk->ptl);
+> +			hmm_vma_walk->pmdlocked =3D false;
+>  		}
+> -		return hmm_pfns_fill(start, end, range, 0);
+> +
+> +		return 0;
 >  	}
 
-[Severity: Medium]
-Should the folio_trylock() failure path in
-hmm_vma_handle_migrate_prepare_pmd() and the split failure path here in
-hmm_vma_walk_pmd() preserve the valid PFNs in range->hmm_pfns[] instead of
-overwriting them with HMM_PFN_ERROR?
+[Severity: High]
+Similarly, in hmm_vma_walk_pmd(), when thp_migration_supported() &&
+pmd_is_migration_entry(pmd) is true and minfo !=3D 0, both the
+hmm_range_need_fault() check and the loop masking hmm_pfns_start[] to
+HMM_PFN_INOUT_FLAGS are skipped by if (!minfo).
 
-Before hmm_vma_handle_migrate_prepare_pmd() is called, hmm_vma_handle_pmd()
-(or hmm_vma_handle_absent_pmd()) has already populated
-hmm_pfns_start[0..npages-1] with the valid PFNs (HMM_PFN_VALID without
-HMM_PFN_MIGRATE).
+When a concurrent PMD migration entry is encountered during a migration wal=
+k,
+doesn't skipping that block leave hmm_pfns_start[0..npages - 1] unmasked and
+uninitialized, and also fail to unlock hmm_vma_walk->ptl and wait in
+pmd_migration_entry_wait() when a fault was requested? Neither this path nor
+the PTE migration entry path in hmm_vma_handle_pte() appears to be updated =
+in
+the subsequent patches in the series.
 
-However, in two best-effort migration skip cases, those valid PFNs are
-clobbered with HMM_PFN_ERROR:
+> -	if (!pmd_present(pmd))
+> -		return hmm_vma_handle_absent_pmd(walk, start, end, hmm_pfns,
+> -						 pmd);
+> +	if (pmd_trans_huge(pmd) || !pmd_present(pmd)) {
+> +		if (!pmd_present(pmd)) {
+> +			r =3D hmm_vma_handle_absent_pmd(walk, start, end, hmm_pfns_start,
+> +						      pmd);
+> +			// If not migrating we are done
+> +			if (r || !minfo) {
+> +				if (hmm_vma_walk->pmdlocked) {
+> +					spin_unlock(hmm_vma_walk->ptl);
+> +					hmm_vma_walk->pmdlocked =3D false;
+> +				}
+> +				return r;
+> +			}
+> +		}
+> =20
+> -	if (pmd_trans_huge(pmd)) {
+> -		/*
+> -		 * No need to take pmd_lock here, even if some other thread
+> -		 * is splitting the huge pmd we will get that event through
+> -		 * mmu_notifier callback.
+> -		 *
+> -		 * So just read pmd value and check again it's a transparent
+> -		 * huge or device mapping one and compute corresponding pfn
+> -		 * values.
+> -		 */
+> -		pmd =3D pmdp_get_lockless(pmdp);
+> -		if (!pmd_trans_huge(pmd))
+> -			goto again;
+> +		if (pmd_trans_huge(pmd)) {
+> +			/*
+> +			 * No need to take pmd_lock here if not migrating,
+> +			 * even if some other thread is splitting the huge
+> +			 * pmd we will get that event through mmu_notifier callback.
+> +			 *
+> +			 * So just read pmd value and check again it's a transparent
+> +			 * huge or device mapping one and compute corresponding pfn
+> +			 * values.
+> +			 */
+> +
+> +			if (!minfo) {
+> +				pmd =3D pmdp_get_lockless(pmdp);
+> +				if (!pmd_trans_huge(pmd))
+> +					goto again;
+> +			}
+> =20
+> -		return hmm_vma_handle_pmd(walk, addr, end, hmm_pfns, pmd);
+> +			r =3D hmm_vma_handle_pmd(walk, start, end, hmm_pfns_start, pmd);
+> +
+> +			// If not migrating we are done
+> +			if (r || !minfo) {
+> +				if (hmm_vma_walk->pmdlocked) {
+> +					spin_unlock(hmm_vma_walk->ptl);
+> +					hmm_vma_walk->pmdlocked =3D false;
+> +				}
+> +				return r;
+> +			}
+> +		}
+> +
+> +		r =3D hmm_vma_handle_migrate_prepare_pmd(walk, pmdp, start, end, hmm_p=
+fns_start);
+> +
+> +		if (hmm_vma_walk->pmdlocked) {
+> +			spin_unlock(hmm_vma_walk->ptl);
+> +			hmm_vma_walk->pmdlocked =3D false;
+> +		}
+> +
+> +		return r;
+> +	}
+> +
+> +	if (hmm_vma_walk->pmdlocked) {
+> +		spin_unlock(hmm_vma_walk->ptl);
+> +		hmm_vma_walk->pmdlocked =3D false;
+>  	}
+> =20
+>  	/*
+> @@ -517,24 +712,64 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+>  	 * recover.
+>  	 */
+>  	if (pmd_bad(pmd)) {
+> -		if (hmm_range_need_fault(hmm_vma_walk, hmm_pfns, npages, 0))
+> +		if (hmm_range_need_fault(hmm_vma_walk, hmm_pfns_start, npages, 0))
+>  			return -EFAULT;
+> -		return hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
+> +		return hmm_pfns_fill(start, end, hmm_vma_walk, HMM_PFN_ERROR);
+>  	}
+> =20
+> -	ptep =3D pte_offset_map(pmdp, addr);
+> -	if (!ptep)
+> +	if (minfo) {
+> +		ptep =3D pte_offset_map_lock(mm, pmdp, addr, &hmm_vma_walk->ptl);
+> +		if (ptep)
+> +			hmm_vma_walk->ptelocked =3D true;
+> +	} else {
+> +		ptep =3D pte_offset_map(pmdp, addr);
+> +	}
+> +	if (!ptep) {
+> +		addr =3D start;
+>  		goto again;
+> +	}
+> +
+>  	for (; addr < end; addr +=3D PAGE_SIZE, ptep++, hmm_pfns++) {
+> -		int r;
+> =20
+>  		r =3D hmm_vma_handle_pte(walk, addr, end, pmdp, ptep, hmm_pfns);
+>  		if (r) {
+> -			/* hmm_vma_handle_pte() did pte_unmap() */
+> +			/* hmm_vma_handle_pte() did pte_unmap() / pte_unmap_unlock */
+> +			if (unmapped)
+> +				flush_tlb_range(walk->vma, start, addr);
+>  			return r;
+>  		}
+> +
+> +		r =3D hmm_vma_handle_migrate_prepare(walk, pmdp, ptep, addr, hmm_pfns,=
+ &unmapped);
+> +		if (r =3D=3D -EAGAIN) {
+> +			HMM_ASSERT_UNLOCKED(hmm_vma_walk);
+> +			if (unmapped) {
+> +				flush_tlb_range(walk->vma, start, addr);
+> +				unmapped =3D false;
+> +			}
+> +			goto again;
+> +		}
 
-1. In hmm_vma_handle_migrate_prepare_pmd(), when folio_trylock(folio) fails
-   while holding hmm_vma_walk->ptl, it calls
-   hmm_pfns_fill(start, end, hmm_vma_walk, HMM_PFN_ERROR) even though the P=
-MD
-   lock was never dropped and the mapping is still valid.
+[Severity: High]
+When hmm_vma_handle_migrate_prepare() (populated in the later patch "mm/hmm:
+migrate collection in HMM pagewalk - pte level") encounters a PTE-mapped la=
+rge
+folio at addr > start after order-0 pages in [start, addr) have already been
+collected, migrate_vma_split_folio() drops the PTE lock and returns -EAGAIN,
+jumping to again: with addr > start.
 
-2. When compound migration is not selected or [start, end) is smaller than
-   HPAGE_PMD_SIZE (such as single-page faults in nouveau_dmem_migrate_fault=
-()
-   in the later commit "drm/nouveau/svm: add support for migrate on fault"),
-   hmm_vma_handle_migrate_prepare_pmd() jumps to split and calls
-   __migrate_vma_split_folio(). If split_folio() fails (for example, when t=
+Even with the later patch "mm/hmm: implement rollback for device page
+migration in HMM pagewalk", can jumping back to again: with addr > start le=
+ave
+stale collected state in [start, addr) or leak folio locks and references?
+
+1. If pte_offset_map_lock() returns null (!ptep) at addr > start because the
+   PTE table disappeared while the PTE lock was dropped, the rollback patch
+   calls hmm_vma_handle_migrate_prepare_rollback(walk->private, addr, end,
+   hmm_pfns) on the unwalked tail [addr, end) instead of rolling back the
+   already-collected prefix [start, addr) at hmm_pfns_start before resetting
+   addr =3D start.
+
+2. If the PTE page table was removed or replaced while the PTE lock was
+   dropped in migrate_vma_split_folio() (or after !ptep jumps to again:), t=
 he
-   THP is pinned or has extra references), it returns -EFAULT and
-   hmm_vma_walk_pmd() overwrites the range with HMM_PFN_ERROR.
+   PMD-level paths at again: do not roll back [start, addr) when
+   pmd_is_migration_entry(pmd) is true (which returns 0 with [start, addr)
+   still marked HMM_PFN_VALID | HMM_PFN_MIGRATE and addr still marked
+   HMM_PFN_VALID from hmm_vma_handle_pte()), or when hmm_vma_walk_hole(),
+   hmm_vma_handle_absent_pmd(), hmm_vma_handle_pmd(), or pmd_bad() returns
+   HMM_FAULT_PENDING or -EFAULT. Likewise, if the PTE table was replaced by=
+ a
+   new PTE table while the lock was dropped, again: resumes at addr > start
+   without rolling back or re-walking [start, addr).
 
-By contrast, the other non-migrating exits in
-hmm_vma_handle_migrate_prepare_pmd() (goto out) and folio_trylock() failure
-at the PTE level in hmm_vma_handle_migrate_prepare():
+> +		if (r) {
+> +			/* A non -EAGAIN error here means migrate_vma_split_folio()
+> +			 * already dropped the PTE lock and cleared ptelocked.
+> +			 */
+> +			HMM_ASSERT_UNLOCKED(hmm_vma_walk);
+> +			if (unmapped)
+> +				flush_tlb_range(walk->vma, start, addr);
+> +			hmm_pfns_fill(addr, end, hmm_vma_walk, HMM_PFN_ERROR);
+> +			return 0;
+> +		}
 
-mm/hmm.c:hmm_vma_handle_migrate_prepare()
-	if (fault_folio =3D=3D folio || folio_trylock(folio)) {
-		...
-	} else {
-		folio_put(folio);
-	}
-out:
-	return 0;
+[Severity: Medium]
+When hmm_vma_handle_migrate_prepare() returns a non-EAGAIN error in the lat=
+er
+patch "mm/hmm: migrate collection in HMM pagewalk - pte level" because
+migrate_vma_split_folio() failed to split a PTE-mapped large folio, why does
+hmm_vma_walk_pmd() fill [addr, end) with HMM_PFN_ERROR and return 0?
 
-leave range->hmm_pfns[] with the valid PFNs and without HMM_PFN_MIGRATE.
-Because migrate_hmm_range_setup() only collects entries with HMM_PFN_MIGRATE
-set, leaving the valid PFNs intact still skips migration while allowing
-callers such as nouveau_dmem_migrate_fault() to map the present THP in place
-instead of treating it as an error and falling back to a redundant page tab=
-le
-walk and GPU PFNMAP ioctl.
+First, hmm_vma_handle_pte() has already recorded the valid PFN and
+HMM_PFN_VALID in *hmm_pfns for addr. Overwriting addr with HMM_PFN_ERROR me=
+ans
+callers such as nouveau_dmem_migrate_fault() (in "drm/nouveau/svm: add supp=
+ort
+for migrate on fault") that fall back to mapping present CPU pages in place
+when migration does not happen cannot use the PFN, unlike folio_trylock() or
+folio_try_share_anon_rmap_pte() failures which preserve the valid PFN witho=
+ut
+HMM_PFN_MIGRATE.
 
-Could both skip paths return 0 without calling hmm_pfns_fill(...,
-HMM_PFN_ERROR)?
+Second, returning 0 immediately aborts the loop for the rest of the PMD ran=
+ge
+[addr + PAGE_SIZE, end), skipping both faulting (hmm_vma_handle_pte()) and
+migration collection (hmm_vma_handle_migrate_prepare()) for all remaining P=
+TEs
+in that PMD and returning 0 from hmm_range_fault() with HMM_PFN_ERROR entri=
+es
+even when HMM_PFN_REQ_FAULT was requested.
+
+>  	}
+> -	pte_unmap(ptep - 1);
+> +
+> +	if (unmapped)
+> +		flush_tlb_range(walk->vma, start, addr);
+> +
+> +	if (hmm_vma_walk->ptelocked) {
+> +		pte_unmap_unlock(ptep - 1, hmm_vma_walk->ptl);
+> +		hmm_vma_walk->ptelocked =3D false;
+> +	} else {
+> +		pte_unmap(ptep - 1);
+> +	}
+> +
+>  	return 0;
+>  }
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021060506.2377=
-545-1-mpenttil@redhat.com?part=3D6
+545-1-mpenttil@redhat.com?part=3D4
