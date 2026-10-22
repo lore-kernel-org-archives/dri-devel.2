@@ -2,45 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C418A606A319
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:35:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC8F606A31D
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:35:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoylnmEN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpUVWD8T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 334E6112665;
-	Thu, 22 Oct 2026 13:35:30 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30DDC11265E;
- Thu, 22 Oct 2026 13:35:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5879112668;
+	Thu, 22 Oct 2026 13:35:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE58F112667;
+ Thu, 22 Oct 2026 13:35:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DD13843F44;
- Thu, 22 Oct 2026 13:35:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532D61F000C7;
- Thu, 22 Oct 2026 13:35:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 24DEF60A6F;
+ Thu, 22 Oct 2026 13:35:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1011F000C1;
+ Thu, 22 Oct 2026 13:35:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792676122;
- bh=PlLBVTPI7eZpeRaDmVkEiCpkiEZhzAXhcueo3GF4oYY=;
+ s=k20260515; t=1792676133;
+ bh=8msTlnzVM9G6d7FDjt5gVAJzZzx4wSTr7tyRKNMn/As=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VoylnmEN3jSLZ2B+1hKBAGmav+2Aoy4D7B1edUtItSmEaNhplhLoiX/maHXguwL13
- wJFbnanOSM2eoKenoXausGL9ftaW1z8WuARShfCOPIfYjaZ/K4f6mP688LL8saW279
- DPA2nHhStBHFmNDO/hfjSh/h1j/bkn/+BsgoxC5QGEF4WMdTA0JcLFC/b1K/tuEkWW
- VZ9M0S1MyAUFI947CY2Cy1ntjH0+3zcrbBMmsWICmTAEIYWZ/DMOEf5fs30W/k6Grd
- VjQ1dMyjKglEdy4yWhVgoNzEED1AhLmI+uLc4egKxWMQBbMQYPnpET4SINQz5++dhQ
- 07tvdvpsdBwUA==
-Message-ID: <sashiko-outbox-181548@kernel.org>
+ b=MpUVWD8TCtRQF6PSOlcjRgt46ubid+GXo6rs7JQfPTDNf7+cd99vWlXHplSOnwcL1
+ Tc9nOsltAFnuZfLQQBF/5FC8WjXT/6h04GLlEl2T3z6tknuR2mniSF0IMr0rUPu0XD
+ DM8RA8g2cP0jdbFTX7S5eMu1x4XnVMkuJA2lgjSe2DZSaZHwHJVKKVhMdBclGUrrz3
+ HPS9Fv0IzP2M15ccHBivPno6VeVbfTxicLA+lG7M2vJXdiKr7y14xiRCvE9TniViv4
+ N/dIuPnY5tvZWvtPsf0/BAOSccGdfB18CawjKHYQiNz1jHs6OyL5kH4p5GDMrar/r2
+ C4ad3lMclnNQg==
+Message-ID: <sashiko-outbox-181549@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 7/9] drm/msm: dp: handle the IRQ_HPD events reported
- by USB-C
+Subject: Re: [PATCH v6 3/9] drm/bridge: pass down IRQ_HPD to the drivers
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20261022-hpd-irq-events-v6-7-337ea3ddaa62@oss.qualcomm.com>
+In-Reply-To: <20261022-hpd-irq-events-v6-3-337ea3ddaa62@oss.qualcomm.com>
 References: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
- <20261022-hpd-irq-events-v6-7-337ea3ddaa62@oss.qualcomm.com>
+ <20261022-hpd-irq-events-v6-3-337ea3ddaa62@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 13:35:21 +0000
+Date: Thu, 22 Oct 2026 13:35:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,64 +62,76 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/msm/dp: missing closing brace in msm_dp_bridge_hpd_notify()
+- [Low] drm/omap: unupdated hpd_notify() signature in hdmi5_bridge_hpd_noti=
+fy()
 --
 
-commit 42034f570d120654d6aa4e06b9c582eb06cb2f5f
+commit 9cf55ff0f96b440ba05665e3db9e82c5372fd640
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/msm: dp: handle the IRQ_HPD events reported by USB-C
+drm/bridge: pass down IRQ_HPD to the drivers
 
-This commit updates msm_dp_bridge_hpd_notify() to handle out-of-band
-DRM_CONNECTOR_DP_IRQ_HPD events in addition to ISR_IRQ_HPD_PULSE_COUNT
-link status pulses.
+This commit adds an enum drm_connector_dp_event parameter to the
+drm_bridge_funcs.hpd_notify callback and updates its callers and bridge
+implementations so DisplayPort bridges can handle IRQ_HPD events.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index ce919a26fba28..6a8b3b8e1fe7f 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1566,11 +1566,13 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *=
-bridge,
->  		if (hpd_link_status =3D=3D ISR_HPD_REPLUG_COUNT) {
->  			msm_dp_hpd_unplug_handle(dp);
->  			msm_dp_hpd_plug_handle(dp);
-> -		} else if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT) {
-> -			msm_dp_irq_hpd_handle(dp);
->  		} else {
->  			msm_dp_hpd_plug_handle(dp);
->  		}
-> +
-> +		if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT ||
-> +		    event =3D=3D DRM_CONNECTOR_DP_IRQ_HPD) {
-> +			msm_dp_irq_hpd_handle(dp);
->  	} else {
->  		msm_dp_hpd_unplug_handle(dp);
->  	}
+[ ... ]
 
-[Severity: High]
-Is a closing brace missing for the new if statement in
-msm_dp_bridge_hpd_notify() in drivers/gpu/drm/msm/dp/dp_display.c?
+> diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdr=
+m/dss/hdmi4.c
+> index bd6c4d2dcdc86..72972a6fe989b 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> @@ -429,7 +429,8 @@ static void hdmi4_bridge_disable(struct drm_bridge *b=
+ridge,
+> =20
+>  static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
+>  				    struct drm_connector *connector,
+> -				    enum drm_connector_status status)
+> +				    enum drm_connector_status status,
+> +				    enum drm_connector_dp_event event)
+>  {
+>  	struct omap_hdmi *hdmi =3D drm_bridge_to_hdmi(bridge);
+> =20
+> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+> index 1981d24a700d2..6382ef5f1ea28 100644
+> --- a/include/drm/drm_bridge.h
+> +++ b/include/drm/drm_bridge.h
+> @@ -509,7 +509,8 @@ struct drm_bridge_funcs {
+>  	 */
+>  	void (*hpd_notify)(struct drm_bridge *bridge,
+>  			   struct drm_connector *connector,
+> -			   enum drm_connector_status status);
+> +			   enum drm_connector_status status,
+> +			   enum drm_connector_dp_event event);
+> =20
+>  	/**
+>  	 * @hpd_enable:
 
-The check for ISR_IRQ_HPD_PULSE_COUNT or DRM_CONNECTOR_DP_IRQ_HPD opens a
-block with a brace before calling msm_dp_irq_hpd_handle(dp), but does not
-close it before the following else branch:
+[Severity: Low]
+While hdmi4_bridge_hpd_notify() in drivers/gpu/drm/omapdrm/dss/hdmi4.c is
+updated here, it looks like hdmi5_bridge_hpd_notify() in
+drivers/gpu/drm/omapdrm/dss/hdmi5.c still has the old 3-argument signature:
 
-	if (status =3D=3D connector_status_connected) {
-		...
-		if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT ||
-		    event =3D=3D DRM_CONNECTOR_DP_IRQ_HPD) {
-			msm_dp_irq_hpd_handle(dp);
-	} else {
-		msm_dp_hpd_unplug_handle(dp);
-	}
+static void hdmi5_bridge_hpd_notify(struct drm_bridge *bridge,
+				    struct drm_connector *connector,
+				    enum drm_connector_status status)
+{
+	struct omap_hdmi *hdmi =3D drm_bridge_to_hdmi(bridge);
 
-Because the block is not closed, the else branch pairs with the inner
-if statement instead of the outer status =3D=3D connector_status_connected =
-check,
-and the function body of msm_dp_bridge_hpd_notify() remains unclosed at the
-end of the file, causing a build failure.
+	hdmi_audio_hpd_notify(hdmi, status);
+}
+...
+static const struct drm_bridge_funcs hdmi5_bridge_funcs =3D {
+	...
+	.hpd_notify =3D hdmi5_bridge_hpd_notify,
+	.edid_read =3D hdmi5_bridge_edid_read,
+};
+
+Should hdmi5_bridge_hpd_notify() also be updated to accept enum
+drm_connector_dp_event event so that builds with CONFIG_OMAP5_DSS_HDMI
+enabled do not fail with an incompatible function pointer type error?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-hpd-irq-ev=
-ents-v6-0-337ea3ddaa62@oss.qualcomm.com?part=3D7
+ents-v6-0-337ea3ddaa62@oss.qualcomm.com?part=3D3
