@@ -2,54 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9DB606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F30606A31A
 	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:35:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7r9f0XE
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLq86mP7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CBBE1125B1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A581D1125B7;
 	Thu, 22 Oct 2026 12:35:39 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2ED51125B1
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:35:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4797D1125B4
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:35:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4731860200;
- Thu, 22 Oct 2026 12:35:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5BB1F000C2;
- Thu, 22 Oct 2026 12:35:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BECF260A6F;
+ Thu, 22 Oct 2026 12:35:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F406E1F000C2;
+ Thu, 22 Oct 2026 12:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792672524;
- bh=B9MFHKqg/8FY8eG4hBaIhbEeB+qcBkdHLw0UuZFE4G0=;
+ s=k20260515; t=1792672527;
+ bh=vghrKHlQFbAAOAUv1DMHtTAn3Nmha2HRQ2ORF69ARvc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=U7r9f0XEU9Cv7GRY/re9MpGtscQEyHarFEBA0AB0p0AoVlffjB54TamtICY9qYec5
- kAU17CIFpk423UqhRteZ2g3HtzEIZENhVegDrRxVb5SAWsiL/dakT3dgDOvAty2ghA
- DlYxXSPJ7s4IXCZU22SBB+EPBdcpdp8mAB4stfEtp8/3yztZqjRegGyjda9csCm4Q6
- cQUUNN3q3tI9wyAd8xjBr7/HIHGJiCJQ9TW1S4Clu/M4bFDef8jxltb10uCKSfWS4j
- tXnwtq7bouklKQxo7EBPu0r7LTtsbVlKoBd8yIqutrG6YbvMxaStulbksDLs1J9pCc
- Z82spkocyExpw==
+ b=RLq86mP7U+EIyr36ojM9BH/kx0i0+hkHt5NguPy9SbmtAI40pXw1MeKgsBa7bpKRG
+ 8JzDNtCAUflQUIqhUZUZitgduPRCmPmvGN/SmdvSnPW2AueLdye49HVl4gKWKmg1Do
+ OQuQ/TJeG83+BVHaDyYbYKFpLYDG6V8i4tgPf6zRcJG1tqzaXV20DIf5fiqDqM+uad
+ kUqyTfpEHwcp4YnAZbu43QXb5xb3ZbZ3ytuurC7heTRyV+/cBWxyxzHAtIEFbTaa/n
+ olmtRyBma7YeNaURr6kNm19rUxL6UPUb2gWGRNXQ/+k8M4u0SZJVUb7PrKzGgYDm21
+ 77yyjPchMEuQg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 14:31:26 +0200
-Subject: [PATCH v2 27/59] drm/sitronix: st7920: Switch to
+Date: Thu, 22 Oct 2026 14:31:27 +0200
+Subject: [PATCH v2 28/59] drm/sti: Switch to
  drm_atomic_helper_connector_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-no-more-connector-reset-v2-27-0b7e4e85b1e8@kernel.org>
+Message-Id: <20261022-drm-no-more-connector-reset-v2-28-0b7e4e85b1e8@kernel.org>
 References: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 In-Reply-To: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Iker Pedrosa <ikerpedrosam@gmail.com>
+ Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1189; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ug6S3pKuSyA9fXGUF/JW+Pn6xL4cKhVOQQDb3iH0iPM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mGbaKbYFP9p9i9d+v/zNCFWHvmdbbLUaas5+MApyN
- mR6JlPWMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZic5Gx4StL10+bF2L9E6ts
- 1wjv9T0c09Cr/f3Ps/4pzwxqZ1afqX/058+tVTenSVreYr52dmrWD8b69K6eh2nb3pRmW0ecSH/
- 26vnVY4t7w1+I/HrMm7uN++qKQ75XnA67xVQxLZo6y9NSUvYEAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2366; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=18xz9q2NfLDnv8i+NkgGxtusLNL4nVJqF63xDtJac/o=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mGYe7n4o7GK/9PPqy20buuWMiwQZplpklXXN7Oc8k
+ ugXoJbZMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZyTYixYd1Htw3tfjPPCed2
+ VgdlNy9/saBJStYyoLnpvMLXV8ZhwjcnnZry7NTlJZ4JK7vWvDGfz9hw7/t+PgGFzTfO3L1jFnT
+ T5fLqAr6iRY43pFIneW0RVkl0UPkhe+3ltLLFav+kNlz6NfkMAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,32 +71,54 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The sitronix: st7920 connector implementation uses the deprecated
+The sti connector implementation uses the deprecated
 drm_atomic_helper_connector_reset() as its reset hook.
 
 Switch to drm_atomic_helper_connector_create_state() instead.
 
-Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Iker Pedrosa <ikerpedrosam@gmail.com>
+Cc: Alain Volmat <alain.volmat@foss.st.com>
+Cc: Raphael Gallais-Pou <rgallaispou@gmail.com>
 ---
- drivers/gpu/drm/sitronix/st7920.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/sti/sti_dvo.c  | 2 +-
+ drivers/gpu/drm/sti/sti_hda.c  | 2 +-
+ drivers/gpu/drm/sti/sti_hdmi.c | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/sitronix/st7920.c b/drivers/gpu/drm/sitronix/st7920.c
-index 9887ed746ceb..2f2c808e783b 100644
---- a/drivers/gpu/drm/sitronix/st7920.c
-+++ b/drivers/gpu/drm/sitronix/st7920.c
-@@ -654,7 +654,7 @@ static const struct drm_connector_helper_funcs st7920_connector_helper_funcs = {
- 
- static const struct drm_connector_funcs st7920_connector_funcs = {
--	.reset = drm_atomic_helper_connector_reset,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
+diff --git a/drivers/gpu/drm/sti/sti_dvo.c b/drivers/gpu/drm/sti/sti_dvo.c
+index cdb19b75f5e1..18c337ffa161 100644
+--- a/drivers/gpu/drm/sti/sti_dvo.c
++++ b/drivers/gpu/drm/sti/sti_dvo.c
+@@ -421,5 +421,5 @@ static const struct drm_connector_funcs sti_dvo_connector_funcs = {
+ 	.detect = sti_dvo_connector_detect,
  	.destroy = drm_connector_cleanup,
+-	.reset = drm_atomic_helper_connector_reset,
 +	.atomic_create_state = drm_atomic_helper_connector_create_state,
  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+diff --git a/drivers/gpu/drm/sti/sti_hda.c b/drivers/gpu/drm/sti/sti_hda.c
+index b4def2b25cec..204738807c86 100644
+--- a/drivers/gpu/drm/sti/sti_hda.c
++++ b/drivers/gpu/drm/sti/sti_hda.c
+@@ -664,5 +664,5 @@ static const struct drm_connector_funcs sti_hda_connector_funcs = {
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+ 	.destroy = drm_connector_cleanup,
+-	.reset = drm_atomic_helper_connector_reset,
++	.atomic_create_state = drm_atomic_helper_connector_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+index 7ba9e0b7ba6c..9a810a89e6c0 100644
+--- a/drivers/gpu/drm/sti/sti_hdmi.c
++++ b/drivers/gpu/drm/sti/sti_hdmi.c
+@@ -1147,5 +1147,5 @@ static const struct drm_connector_funcs sti_hdmi_connector_funcs = {
+ 	.detect = sti_hdmi_connector_detect,
+ 	.destroy = drm_connector_cleanup,
+-	.reset = drm_atomic_helper_connector_reset,
++	.atomic_create_state = drm_atomic_helper_connector_create_state,
+ 	.atomic_set_property = sti_hdmi_connector_set_property,
+ 	.atomic_get_property = sti_hdmi_connector_get_property,
 
 -- 
 2.55.0
