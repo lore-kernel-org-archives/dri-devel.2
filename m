@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC8F606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:35:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499BC606A31B
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:38:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpUVWD8T
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilKJeme/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5879112668;
-	Thu, 22 Oct 2026 13:35:40 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE58F112667;
- Thu, 22 Oct 2026 13:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAEF211265E;
+	Thu, 22 Oct 2026 13:38:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED98C112624;
+ Thu, 22 Oct 2026 13:38:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 24DEF60A6F;
- Thu, 22 Oct 2026 13:35:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1011F000C1;
- Thu, 22 Oct 2026 13:35:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B58CE417F7;
+ Thu, 22 Oct 2026 13:38:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535AE1F000C1;
+ Thu, 22 Oct 2026 13:38:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792676133;
- bh=8msTlnzVM9G6d7FDjt5gVAJzZzx4wSTr7tyRKNMn/As=;
+ s=k20260515; t=1792676325;
+ bh=ULYZ/55QiRddvfDhSSFtUGP38N9/fKV9BspCQGFIXXY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MpUVWD8TCtRQF6PSOlcjRgt46ubid+GXo6rs7JQfPTDNf7+cd99vWlXHplSOnwcL1
- Tc9nOsltAFnuZfLQQBF/5FC8WjXT/6h04GLlEl2T3z6tknuR2mniSF0IMr0rUPu0XD
- DM8RA8g2cP0jdbFTX7S5eMu1x4XnVMkuJA2lgjSe2DZSaZHwHJVKKVhMdBclGUrrz3
- HPS9Fv0IzP2M15ccHBivPno6VeVbfTxicLA+lG7M2vJXdiKr7y14xiRCvE9TniViv4
- N/dIuPnY5tvZWvtPsf0/BAOSccGdfB18CawjKHYQiNz1jHs6OyL5kH4p5GDMrar/r2
- C4ad3lMclnNQg==
-Message-ID: <sashiko-outbox-181549@kernel.org>
+ b=ilKJeme/HkOCKSlSoyh0+0sFTsIhd0temS8j1xbMB9yw9gFqB4SKz27idnxkALOWj
+ Y6W9a4l1Qz//YiB4jKEiK5Rb97nxmRu7G6DR/b0EA5C3TN/p9PjALEPAfnreVP0vyf
+ DnzR3ubExHV8met34jnepcdCRVJCM1TuX2G1hgS0ShBd8JMEsHiEbEg/uH19f21+Eq
+ QDiC8b4s+EPMsCIrq1tXzD1FfuwHefifCDPtg8ZAy3MSPAX5SloC3r9AQc/RlhaZsm
+ erm2j/FwJtSQyWWKeGNLxazVt4hpSj0FVNufGG8u8R4S1mMzZB/LKwUIiN3OxlP4M5
+ 1+NFtnLXCc9sg==
+Message-ID: <sashiko-outbox-181556@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/9] drm/bridge: pass down IRQ_HPD to the drivers
+Subject: Re: [PATCH v6 4/9] drm/bridge: pass extra events to the HPD callback
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20261022-hpd-irq-events-v6-3-337ea3ddaa62@oss.qualcomm.com>
+In-Reply-To: <20261022-hpd-irq-events-v6-4-337ea3ddaa62@oss.qualcomm.com>
 References: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
- <20261022-hpd-irq-events-v6-3-337ea3ddaa62@oss.qualcomm.com>
+ <20261022-hpd-irq-events-v6-4-337ea3ddaa62@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 13:35:32 +0000
+Date: Thu, 22 Oct 2026 13:38:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,30 +62,30 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] drm/omap: unupdated hpd_notify() signature in hdmi5_bridge_hpd_noti=
-fy()
+- [Low] drm/bridge: misplaced hdmi5_bridge_hpd_notify() hunk breaks bisecta=
+bility
 --
 
-commit 9cf55ff0f96b440ba05665e3db9e82c5372fd640
+commit c6cd0e6e9f3efd88f40aba30dc7463e072351c53
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/bridge: pass down IRQ_HPD to the drivers
+drm/bridge: pass extra events to the HPD callback
 
-This commit adds an enum drm_connector_dp_event parameter to the
-drm_bridge_funcs.hpd_notify callback and updates its callers and bridge
-implementations so DisplayPort bridges can handle IRQ_HPD events.
+This commit adds drm_bridge_hpd_notify_extra() and updates the HPD callback
+signature registered via drm_bridge_hpd_enable() to pass extra sink events
+such as DisplayPort IRQ_HPD to underlying drivers.
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdr=
-m/dss/hdmi4.c
-> index bd6c4d2dcdc86..72972a6fe989b 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-> +++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-> @@ -429,7 +429,8 @@ static void hdmi4_bridge_disable(struct drm_bridge *b=
+> diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi5.c b/drivers/gpu/drm/omapdr=
+m/dss/hdmi5.c
+> index c542ba6ce7d32..a21f9355594cc 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/hdmi5.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/hdmi5.c
+> @@ -427,7 +427,8 @@ static void hdmi5_bridge_disable(struct drm_bridge *b=
 ridge,
 > =20
->  static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
+>  static void hdmi5_bridge_hpd_notify(struct drm_bridge *bridge,
 >  				    struct drm_connector *connector,
 > -				    enum drm_connector_status status)
 > +				    enum drm_connector_status status,
@@ -93,45 +93,36 @@ ridge,
 >  {
 >  	struct omap_hdmi *hdmi =3D drm_bridge_to_hdmi(bridge);
 > =20
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index 1981d24a700d2..6382ef5f1ea28 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -509,7 +509,8 @@ struct drm_bridge_funcs {
->  	 */
->  	void (*hpd_notify)(struct drm_bridge *bridge,
->  			   struct drm_connector *connector,
-> -			   enum drm_connector_status status);
-> +			   enum drm_connector_status status,
-> +			   enum drm_connector_dp_event event);
-> =20
->  	/**
->  	 * @hpd_enable:
 
 [Severity: Low]
-While hdmi4_bridge_hpd_notify() in drivers/gpu/drm/omapdrm/dss/hdmi4.c is
-updated here, it looks like hdmi5_bridge_hpd_notify() in
-drivers/gpu/drm/omapdrm/dss/hdmi5.c still has the old 3-argument signature:
+In drivers/gpu/drm/omapdrm/dss/hdmi5.c, hdmi5_bridge_hpd_notify() is assign=
+ed
+to struct drm_bridge_funcs.hpd_notify rather than registered via
+drm_bridge_hpd_enable():
 
-static void hdmi5_bridge_hpd_notify(struct drm_bridge *bridge,
-				    struct drm_connector *connector,
-				    enum drm_connector_status status)
-{
-	struct omap_hdmi *hdmi =3D drm_bridge_to_hdmi(bridge);
-
-	hdmi_audio_hpd_notify(hdmi, status);
-}
-...
 static const struct drm_bridge_funcs hdmi5_bridge_funcs =3D {
 	...
 	.hpd_notify =3D hdmi5_bridge_hpd_notify,
 	.edid_read =3D hdmi5_bridge_edid_read,
 };
 
-Should hdmi5_bridge_hpd_notify() also be updated to accept enum
-drm_connector_dp_event event so that builds with CONFIG_OMAP5_DSS_HDMI
-enabled do not fail with an incompatible function pointer type error?
+The hpd_notify callback signature in struct drm_bridge_funcs (in
+include/drm/drm_bridge.h) and the other in-tree implementations (including
+hdmi4_bridge_hpd_notify() in drivers/gpu/drm/omapdrm/dss/hdmi4.c) were
+updated in parent commit 9cf55ff0f96b ("drm/bridge: pass down IRQ_HPD to the
+drivers").
+
+Because the hdmi5_bridge_hpd_notify() update landed in this patch instead,
+building the kernel at commit 9cf55ff0f96b with CONFIG_DRM_OMAP and
+CONFIG_OMAP5_DSS_HDMI enabled fails with an incompatible function pointer t=
+ype
+error when initializing hdmi5_bridge_funcs.hpd_notify.
+
+Should this hunk be moved into commit 9cf55ff0f96b ("drm/bridge: pass down
+IRQ_HPD to the drivers") to preserve bisectability?
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-hpd-irq-ev=
-ents-v6-0-337ea3ddaa62@oss.qualcomm.com?part=3D3
+ents-v6-0-337ea3ddaa62@oss.qualcomm.com?part=3D4
