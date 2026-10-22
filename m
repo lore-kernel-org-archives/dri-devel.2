@@ -2,35 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33940606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 15:44:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8857606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 15:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3i4qVmA
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Prysm9Or
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A0B6112778;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A138311276D;
 	Thu, 22 Oct 2026 15:44:29 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05BAE112750
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 15:44:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06033112759
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 15:44:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C37A043D42;
- Thu, 22 Oct 2026 15:44:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8E31F031E1;
- Thu, 22 Oct 2026 15:44:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E10F340582;
+ Thu, 22 Oct 2026 15:44:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023BF1F031E2;
+ Thu, 22 Oct 2026 15:44:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792683859;
- bh=FQNoDGzEIRA1SKlEsB0k8OEtsPm86udTUByyB+9XNMk=;
+ s=k20260515; t=1792683862;
+ bh=ozJPu6PuFiBw8wNtJS3YSSh7biusWXg0zaL2eC86BNE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=D3i4qVmAKJMU1NOTSbYoqzcCWpAmDrHWsUE0/fqlfQIbyHJve9e5H7Qa7wFAr9Ixp
- seu/Q5PVFm93fPjSZZ3NOUZYEmmLyQEZjOKaBfWl8M3RH4gWw0gxd/EG5QGKuxSyHI
- NVfsh2ce2tEoFgxZQDPHJufxQLgXbpSo5z/4V4frVQ+aGcVYBoOp0bZU1WkLkHA/Ha
- LYcZaJg9Hcwmst8WGDnnCniWa9DIOB7cN5QutcAtmJe9PSxllVmVdAPSyRr7V09wax
- adC2VeJ+ceHt9D/uo0DZb42BKeR7xQxAscUKcC8jicNx2hfSIadNfp9fYiAu6Ibb8U
- 9sjFTcmGonjug==
-Message-ID: <sashiko-outbox-181720@kernel.org>
+ b=Prysm9OrP1mDl89rTMgWgqvYlKXUNbl8HxNyfyNvKsdAYw0He6eps4UGF9HklFCwa
+ YQd3uOhGW4bteX46E1QOZqIybMUImGs6yAe/DwhxZ2evZn/bP/o37xFaagIYLLptyZ
+ t01buezxrVDq/lB5krh+ba7qgOwjnk5oORWlrAWhGNWENKXrcw3MYpe+F83WehuoCG
+ ftSbG1ygt5e5eibG/Xzh96+sc9E8UGe6vJm7GDpqzOQW+4AV58QtENhFuBB4rxttN4
+ o8UT79YwVgADfq265as1Y/VwJ5Nql8+JVHtgupszuOZS+h9GUtmDGrbNN3u/ZCGZV+
+ JP8yCFkELIitw==
+Message-ID: <sashiko-outbox-181722@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 4/8] security: dma-buf: Add dma_buf_charge_cgroup
- LSM hook
+Subject: Re: [PATCH RFC v2 6/8] selinux: Restrict dma-buf direct cgroup
+ charging
 To: "Albert Esteve" <aesteve@redhat.com>, "Tejun Heo" <tj@kernel.org>,
  "Johannes Weiner" <hannes@cmpxchg.org>,
  =?utf-8?b?TWljaGFsIEtvdXRuw70=?= <mkoutny@suse.com>, "Jonathan
@@ -52,12 +52,12 @@ To: "Albert Esteve" <aesteve@redhat.com>, "Tejun Heo" <tj@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
  linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
  mripard@kernel.org, echanude@redhat.com, media-ci@linuxtv.org
-In-Reply-To: <20261021-v2_20230123_tjmercier_google_com-v2-4-ef6ee2dd8c5c@redhat.com>
+In-Reply-To: <20261021-v2_20230123_tjmercier_google_com-v2-6-ef6ee2dd8c5c@redhat.com>
 References: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
- <20261021-v2_20230123_tjmercier_google_com-v2-4-ef6ee2dd8c5c@redhat.com>
+ <20261021-v2_20230123_tjmercier_google_com-v2-6-ef6ee2dd8c5c@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 15:44:17 +0000
+Date: Thu, 22 Oct 2026 15:44:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,139 +78,214 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] dma-buf: heaps: build failure in dma_heap_ioctl_allocate() when =
-CONFIG_MEMCG=3Dn
-- [Medium] dma-heap: missing __padding zero check in dma_heap_ioctl_allocat=
-e()
+- [High] selinux: selinux_dma_buf_charge_cgroup() bypasses check for genfsc=
+on cgroups
+- [Medium] selinux: stale xattr length in selinux_dma_buf_charge_cgroup() o=
+n race
+- [Low] selinux: build failure in selinux_dma_buf_charge_cgroup() if !CONFI=
+G_CGROUPS
 --
 
-commit c7d9f1c9769a263b2541e4535f61a1da114ca74b
+commit 8979483cce99c621c0be48bae510af01c958c235
 Author: Albert Esteve <aesteve@redhat.com>
 
-security: dma-buf: Add dma_buf_charge_cgroup LSM hook
+selinux: Restrict dma-buf direct cgroup charging
 
-This patch adds the security_dma_buf_charge_cgroup() LSM hook and calls it
-in dma_heap_ioctl_allocate() when charge_fd refers to a cgroupfd. When
-CONFIG_SECURITY is disabled, the hook compiles to a no-op inline returning =
-0.
+This commit implements the selinux_dma_buf_charge_cgroup() hook and adds the
+charge_cgroup permission to the dma_buf security class to control cross-cgr=
+oup
+dma-buf charging. It derives the target security identifier from the
+security.selinux extended attribute on the cgroup kernfs node and checks
+access via avc_has_perm().
 
-> diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-> index c315739178867..e06131f4655d8 100644
-> --- a/drivers/dma-buf/dma-heap.c
-> +++ b/drivers/dma-buf/dma-heap.c
-> @@ -115,7 +115,13 @@ static struct dma_buf *dma_heap_ioctl_allocate(struc=
-t file *file, void *data)
+> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> index 8f39d91eabc97..8de5e16951dec 100644
+> --- a/security/selinux/hooks.c
+> +++ b/security/selinux/hooks.c
+> @@ -2210,6 +2210,38 @@ static int selinux_dma_buf_charge_task(const struc=
+t cred *from, const struct cre
+>  			    SECCLASS_DMA_BUF, DMA_BUF__CHARGE_TASK, NULL);
+>  }
 > =20
->  			memcg =3D mem_cgroup_from_css(css);
->  			rcu_read_unlock();
+> +static int selinux_dma_buf_charge_cgroup(const struct cred *cred, struct=
+ cgroup *cgrp)
+> +{
+> +	u32 cgrp_sid, clen;
+> +	int rc;
+> +	char *context;
 > +
-> +			ret =3D security_dma_buf_charge_cgroup(current_cred(), cgrp);
->  			cgroup_put(cgrp);
-> +			if (ret) {
-> +				mem_cgroup_put(memcg);
-> +				return ERR_PTR(ret);
-> +			}
+> +	rc =3D kernfs_xattr_get(cgrp->kn, XATTR_NAME_SELINUX, NULL, 0);
 
-[Severity: Medium]
-Will drivers/dma-buf/dma-heap.c fail to build when CONFIG_DMABUF_HEAPS=3Dy =
-and
-CONFIG_MEMCG=3Dn (or CONFIG_CGROUPS=3Dn)?
+[Severity: Low]
+Will this fail to build when CONFIG_SECURITY_SELINUX is enabled and
+CONFIG_CGROUPS is disabled?
 
-In drivers/dma-buf/Kconfig, DMABUF_HEAPS only selects DMA_SHARED_BUFFER and
-does not depend on CONFIG_MEMCG or CONFIG_CGROUPS:
+In security/selinux/hooks.c, selinux_dma_buf_charge_cgroup() is compiled
+unconditionally and dereferences cgrp->kn. However, the full definition of
+struct cgroup in include/linux/cgroup-defs.h is guarded by CONFIG_CGROUPS:
 
-    menuconfig DMABUF_HEAPS
-    	bool "DMA-BUF Userland Memory Heaps"
-    	select DMA_SHARED_BUFFER
+include/linux/cgroup-defs.h:
+#ifdef CONFIG_CGROUPS
 
-In dma_heap_ioctl_allocate(), the cgroupfd path introduced earlier in this
-series ("dma-heap: charge dma-buf memory via explicit memcg") and updated
-here unconditionally references cgroup_get_from_fd(), cgroup_css(),
-memory_cgrp_subsys, css_tryget_online(), and cgroup_put():
+struct cgroup;
 
-		cgrp =3D cgroup_get_from_fd(heap_allocation->charge_fd);
-		if (!IS_ERR(cgrp)) {
-			/* charge_fd is a cgroupfd */
-			rcu_read_lock();
-			css =3D cgroup_css(cgrp, &memory_cgrp_subsys);
-			if (!css || !css_tryget_online(css)) {
-				rcu_read_unlock();
-				cgroup_put(cgrp);
-				return ERR_PTR(-ENOENT);
+When CONFIG_CGROUPS is disabled, include/linux/cgroup.h only forward-declar=
+es
+struct cgroup as an incomplete type:
+
+include/linux/cgroup.h:
+#else /* !CONFIG_CGROUPS */
+
+struct cgroup_subsys_state;
+struct cgroup;
+
+Since CONFIG_SECURITY_SELINUX does not depend on CONFIG_CGROUPS, dereferenc=
+ing
+cgrp->kn without a CONFIG_CGROUPS guard will reference an incomplete type.
+
+> +	if (rc =3D=3D -ENODATA)
+> +		return 0;
+
+[Severity: High]
+Does returning 0 on -ENODATA in selinux_dma_buf_charge_cgroup() bypass the
+permission check for all cgroups that use default genfscon labeling (such as
+cgroup_t)?
+
+When a process calls dma_heap_ioctl_allocate() or dma_buf_xfer_charge() ->
+security_dma_buf_charge_cgroup() -> selinux_dma_buf_charge_cgroup(), this c=
+ode
+queries XATTR_NAME_SELINUX directly on cgrp->kn.
+
+However, cgroup and cgroup2 filesystems are configured with SE_SBGENFS |
+SE_SBGENFS_XATTR. When a cgroup inode is initialized in
+security/selinux/hooks.c:inode_doinit_with_dentry(), its default label from
+genfscon (for example, cgroup_t) is resolved via selinux_genfs_get_sid() and
+passed as def_sid to inode_doinit_use_xattr():
+
+security/selinux/hooks.c:inode_doinit_with_dentry() {
+    ...
+			rc =3D selinux_genfs_get_sid(dentry, sclass,
+						   sbsec->flags, &sid);
+			if (rc) {
+				dput(dentry);
+				goto out;
 			}
 
-In include/linux/cgroup_subsys.h, SUBSYS(memory) (which declares
-memory_cgrp_subsys in include/linux/cgroup.h) is only emitted when
-CONFIG_MEMCG is enabled:
+			if ((sbsec->flags & SE_SBGENFS_XATTR) &&
+			    (inode->i_opflags & IOP_XATTR)) {
+				rc =3D inode_doinit_use_xattr(inode, dentry,
+							    sid, &sid);
+    ...
+}
 
-    #if IS_ENABLED(CONFIG_MEMCG)
-    SUBSYS(memory)
-    #endif
+In security/selinux/hooks.c:inode_doinit_use_xattr(), when no explicit
+security.selinux xattr has been set on the kernfs node, getxattr returns
+-ENODATA and the inode falls back to def_sid in memory without writing
+XATTR_NAME_SELINUX to cgrp->kn:
 
-Additionally, in include/linux/cgroup.h, cgroup_get_from_fd(),
-css_tryget_online(), cgroup_css(), and cgroup_put() are only declared inside
-#ifdef CONFIG_CGROUPS and have no stubs when CONFIG_CGROUPS=3Dn, unlike the
-helpers in include/linux/memcontrol.h.
+security/selinux/hooks.c:inode_doinit_use_xattr() {
+    ...
+	if (rc < 0) {
+		kfree(context);
+		if (rc !=3D -ENODATA) {
+			pr_warn("SELinux: %s:  getxattr returned %d for dev=3D%s ino=3D%llu\n",
+				__func__, -rc, inode->i_sb->s_id, inode->i_ino);
+			return rc;
+		}
+		*sid =3D def_sid;
+		return 0;
+	}
+    ...
+}
 
-Should the cgroupfd resolution block in dma_heap_ioctl_allocate() be guarded
-with #ifdef CONFIG_MEMCG?
+Similarly, selinux_kernfs_init_security() sees -ENODATA on the parent node =
+and
+returns 0 without setting XATTR_NAME_SELINUX on child cgroup nodes so that
+they also fall back to genfscon.
 
->  		} else {
->  			/* charge_fd is a pidfd  */
->  			task =3D pidfd_get_task(heap_allocation->charge_fd, &pidfd_flags);
+As a result, unless a cgroup directory has been explicitly relabeled via
+setxattr(), kernfs_xattr_get(cgrp->kn, XATTR_NAME_SELINUX, NULL, 0) returns
+-ENODATA and selinux_dma_buf_charge_cgroup() returns 0 without calling
+avc_has_perm(), leaving default-labeled cgroup_t cgroups unrestricted.
+
+> +	else if (rc < 0)
+> +		return rc;
+> +
+> +	clen =3D (u32)rc;
+> +	context =3D kmalloc(clen, GFP_KERNEL);
+> +	if (!context)
+> +		return -ENOMEM;
+> +
+> +	rc =3D kernfs_xattr_get(cgrp->kn, XATTR_NAME_SELINUX, context, clen);
+> +	if (rc < 0) {
+> +		kfree(context);
+> +		return rc;
+> +	}
+> +
+> +	rc =3D security_context_to_sid(context, clen, &cgrp_sid, GFP_KERNEL);
 
 [Severity: Medium]
-Also in dma_heap_ioctl_allocate(), should non-zero values in
-heap_allocation->__padding be rejected with ERR_PTR(-EINVAL)?
+Could passing clen instead of rc to security_context_to_sid() read
+uninitialized heap memory if the security.selinux xattr is concurrently
+shortened via setxattr()?
 
-Earlier in this series ("dma-heap: charge dma-buf memory via explicit
-memcg"), struct dma_heap_allocation_data in include/uapi/linux/dma-heap.h w=
-as
-extended with charge_fd and __padding:
+In selinux_dma_buf_charge_cgroup(), context is allocated with
+kmalloc(clen, GFP_KERNEL) using the length from the first kernfs_xattr_get()
+call. In fs/xattr.c:simple_xattr_get(), the lookup is only protected by a
+local rcu read lock per call:
 
-     * @__padding:		reserved, must be zero
-     *
-     * Provided by userspace as an argument to the ioctl
-     */
-    struct dma_heap_allocation_data {
-    	__u64 len;
-    	__u32 fd;
-    	__u32 fd_flags;
-    	__u64 heap_flags;
-    	__u32 charge_fd;
-    	__u32 __padding;
-    };
+fs/xattr.c:simple_xattr_get() {
+    ...
+	guard(rcu)();
+	xattr =3D rhashtable_lookup(ht, &key, simple_xattr_params);
+	if (xattr) {
+		ret =3D xattr->size;
+		if (buffer) {
+			if (size < xattr->size)
+				ret =3D -ERANGE;
+			else
+				memcpy(buffer, xattr->value, xattr->size);
+		}
+	}
+	return ret;
+}
 
-When a userspace process issues ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc)
-with a 32-byte struct dma_heap_allocation_data where alloc.__padding !=3D 0,
-dma_heap_ioctl() copies all 32 bytes into kdata and calls
-dma_heap_ioctl_allocate(file, kdata). However, dma_heap_ioctl_allocate() on=
-ly
-checks fd, fd_flags, and heap_flags before processing charge_fd:
+If a concurrent setxattr() replaces security.selinux on the cgroup with a
+shorter, non-nul-terminated context string between the two kernfs_xattr_get=
+()
+calls, the second kernfs_xattr_get() copies only the new rc bytes into cont=
+ext
+and returns rc < clen, leaving context[rc .. clen - 1] uninitialized.
 
-	if (heap_allocation->fd)
-		return ERR_PTR(-EINVAL);
+Passing the stale clen to security_context_to_sid() then causes
+security/selinux/ss/services.c:security_context_to_sid_core() to copy all c=
+len
+bytes and place the terminator at index clen:
 
-	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
-		return ERR_PTR(-EINVAL);
+security/selinux/ss/services.c:security_context_to_sid_core() {
+    ...
+	/* Copy the string to allow changes and ensure a NUL terminator */
+	scontext2 =3D kmemdup_nul(scontext, scontext_len, gfp_flags);
+	if (!scontext2)
+		return -ENOMEM;
+    ...
+}
 
-	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
-		return ERR_PTR(-EINVAL);
+Should security_context_to_sid() be passed rc from the second
+kernfs_xattr_get() call instead of clen?
 
-Because dma_heap_ioctl() zeroes trailing bytes when ksize > in_size:
-
-	if (ksize > in_size)
-		memset(kdata + in_size, 0, ksize - in_size);
-
-legacy 24-byte ioctl callers already have __padding zeroed, whereas 32-byte
-callers can currently pass arbitrary non-zero values in __padding without
-receiving -EINVAL, preventing __padding from being safely repurposed in the
-future.
+> +	kfree(context);
+> +	if (rc)
+> +		return rc;
+> +
+> +	return avc_has_perm(cred_sid(cred), cgrp_sid,
+> +			    SECCLASS_DMA_BUF, DMA_BUF__CHARGE_CGROUP, NULL);
+> +}
 
 [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261021-v2_2023012=
-3_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com?part=3D4
+3_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com?part=3D6
