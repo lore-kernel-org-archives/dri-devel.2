@@ -2,42 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CA2606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 16:47:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF40606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 16:56:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcUlmrYz
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BOtqLAlB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 632F610E42E;
-	Thu, 22 Oct 2026 16:47:28 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A07510E42E
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 16:47:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 957C4112817;
+	Thu, 22 Oct 2026 16:56:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00105112817;
+ Thu, 22 Oct 2026 16:56:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 86E0042A34;
- Thu, 22 Oct 2026 16:47:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179391F01825;
- Thu, 22 Oct 2026 16:47:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 14F9B60098;
+ Thu, 22 Oct 2026 16:56:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7F51F01825;
+ Thu, 22 Oct 2026 16:56:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792687641;
- bh=vbOJigGe+ZyCcLUM2u5fbhq5ZhA5n8CDCfZA8F7woPM=;
+ s=k20260515; t=1792688185;
+ bh=WJ9WUTOc9SYEePPpKga6UwFnHTJYMMeuehwBKvhyagg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XcUlmrYzYWNiMABCDmUbjW4nTR63gd9KNfU7ftnaFyVgXppgo4lue9MRcpon52g0H
- PlbPUfnF3jnPsBI7377gOAsTa899EetpTH+yb7Bzn0TxKu9pk9YonRtjgpUfSrGnt+
- stPT1mVdo3dM+6nBFslGvayKRV3YwJW6Bzkef5T4QgWY2oznnh0aplYygdXkQe2Y8R
- YSMzGNTyrdXOBpkAFmbGmTzde+DhCTdDV5K9ta1iOL3a8DegJkUXSHhdZxJQcQuL1r
- 2WnZ/DfITrUo8d/hqThHfnWJnuew8qdMqz1l3HeXTPYQmVaVUt+Ah5bnXx7cnj6EWy
- kEGI9AmNcaGDA==
-Message-ID: <sashiko-outbox-181828@kernel.org>
+ b=BOtqLAlBwTFPYw5dA+M7uEzWFIrnpeSTTriWx8XEvLUOvLAvs6HRJxdur+/HowMVN
+ 5JYyMiOTfrmgmNAteU5ZTx3GAtAZYaxsZkdQMdWXoRSnw+HJAUCeBWdWjtFPUDjaNb
+ bp0lp30rBFNVdmppZx5xs2484BiE/RNMZZ/KuOSeZyIvFVmeaKBfXdj/JEjsBfCJXI
+ yPO5zfDQ+yvidti53GmOJZKn+mh0EodfMqIxW5SBzFstemOgiNTxUJiUO/edCfO7VO
+ bH3JX+ZUnl9ljkOCnwASm2UJAa8TSjER1SEdcXWJONCCfaASbH1Sib4O/8ZUuD3EC4
+ ukT56n/wXndQA==
+Message-ID: <sashiko-outbox-181834@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] rust: DmaFence: Don't drop on signal
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, ojeda@kernel.org,
- gary@garyguo.net
-In-Reply-To: <20261022162701.2297062-3-phasta@kernel.org>
-References: <20261022162701.2297062-3-phasta@kernel.org>
+Subject: Re: [PATCH v4 1/8] drm: Move sink link rates reading helpers out of
+ i915
+To: "Kory Maincent" <kory.maincent@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261022-feat_link_cap-v4-1-a4f3f6e8cad9@bootlin.com>
+References: <20261022-feat_link_cap-v4-0-a4f3f6e8cad9@bootlin.com>
+ <20261022-feat_link_cap-v4-1-a4f3f6e8cad9@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 16:47:20 +0000
+Date: Thu, 22 Oct 2026 16:56:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,120 +62,181 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] rust: dma_fence: premature unsignaled fence count decrement in sig=
-nal()
+- [Medium] drm/i915/dp: HBR2 quirk in intel_edp_set_sink_rates() skips fall=
+back
 --
 
-commit d89d19611f93fbf6fde4c15619608d55fb454178
-Author: Philipp Stanner <phasta@kernel.org>
+commit 0b240b52afdb3eb8ae0e254bde919dbb5abd0487
+Author: Kory Maincent <kory.maincent@bootlin.com>
 
-rust: DmaFence: Don't drop on signal
+drm: Move sink link rates reading helpers out of i915
 
-This commit changes DriverFence::signal() to take &self instead of consuming
-self by value so that signaling a fence in atomic context does not
-immediately drop it, and moves the nr_of_unsignaled_fences decrement inside
-the unsignaled check.
+This commit moves the DisplayPort and eDP sink link rate reading helpers out
+of the i915 driver into generic display helpers in drm_dp_helper.c, while
+keeping the Intel-specific rate limit quirk handling in intel_dp.c.
 
-> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
-ence.rs
-> index a1d851656562d..3022bdb5f7c3e 100644
-> --- a/rust/kernel/dma_buf/dma_fence.rs
-> +++ b/rust/kernel/dma_buf/dma_fence.rs
-> @@ -805,7 +805,7 @@ pub fn as_fence(&self) -> &Fence {
->      }
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 0cd5e6b5034cf..087afcea5395f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+
+[ ... ]
+
+> @@ -4722,60 +4619,35 @@ static void
+>  intel_edp_set_sink_rates(struct intel_dp *intel_dp)
+>  {
+>  	struct intel_display *display =3D to_intel_display(intel_dp);
+> +	int num_sink_rates;
 > =20
->      /// Signal the fence. This will invoke all registered callbacks.
-> -    pub fn signal(self, res: Result) {
-> +    pub fn signal(&self, res: Result) {
->          let fence =3D self.as_fence().lock();
+> -	intel_dp->num_sink_rates =3D 0;
+> +	num_sink_rates =3D drm_dp_read_edp_sink_rates(&intel_dp->aux,
+> +						    intel_dp->edp_dpcd[0],
+> +						    intel_dp->sink_rates);
+> +	if (num_sink_rates < 0)
+> +		num_sink_rates =3D 0;
 > =20
->          // SAFETY: `fence` is valid because `self` is valid. The lock mu=
-st be
-> @@ -816,14 +816,15 @@ pub fn signal(self, res: Result) {
->                  // must not have been signaled yet, which we check direc=
-tly above.
->                  unsafe { bindings::dma_fence_set_error(fence.as_raw(), e=
-rr.to_errno()) };
->              }
-> +
-> +            // SAFETY: `self.data` is valid because `self` is valid.
-> +            let fctx =3D unsafe { self.data.as_ref().fctx };
-> +            let _ =3D fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
-> +
->              // SAFETY: `fence` is valid because `self` is valid. The loc=
-k must
->              // be held, which we acquired above.
->              unsafe { bindings::dma_fence_signal_locked(fence.as_raw()) };
->          }
+> -	if (intel_dp->edp_dpcd[0] >=3D DP_EDP_14) {
+> -		__le16 sink_rates[DP_MAX_SUPPORTED_RATES];
+> -		int ret;
+> -		int i;
 > -
-> -        // SAFETY: `self.data` is valid because `self` is valid.
-> -        let fctx =3D unsafe { self.data.as_ref().fctx };
-> -        let _ =3D fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
->      }
+> -		ret =3D drm_dp_dpcd_read_data(&intel_dp->aux,
+> -					    DP_SUPPORTED_LINK_RATES,
+> -					    sink_rates, sizeof(sink_rates));
+> -		if (ret < 0) {
+> -			drm_dbg_kms(display->drm,
+> -				    "Unable to read eDP supported link rates, using default rates\n"=
+);
+> -			memset(sink_rates, 0, sizeof(sink_rates));
+> -		}
+> -
+> -		for (i =3D 0; i < ARRAY_SIZE(sink_rates); i++) {
+> -			int rate;
+> -
+> -			/* Value read multiplied by 200kHz gives the per-lane
+> -			 * link rate in kHz. The source rates are, however,
+> -			 * stored in terms of LS_Clk kHz. The full conversion
+> -			 * back to symbols is
+> -			 * (val * 200kHz)*(8/10 ch. encoding)*(1/8 bit to Byte)
+> -			 */
+> -			rate =3D le16_to_cpu(sink_rates[i]) * 200 / 10;
+> -
+> -			if (rate =3D=3D 0)
+> -				break;
+> -
+> -			/*
+> -			 * Some platforms cannot reliably drive HBR3 rates due to PHY limitat=
+ions,
+> -			 * even if the sink advertises support. Reject any sink rates above H=
+BR2 on
+> -			 * the known machines for stable output.
+> -			 */
+> -			if (rate > 540000 &&
+> -			    intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
+> -				break;
+> -
+> -			intel_dp->sink_rates[i] =3D rate;
+> -		}
+> -		intel_dp->num_sink_rates =3D i;
+> -	}
+> +	intel_dp->num_sink_rates =3D num_sink_rates;
+> =20
+>  	/*
+>  	 * Use DP_LINK_RATE_SET if DP_SUPPORTED_LINK_RATES are available,
+>  	 * default to DP_MAX_LINK_RATE and DP_LINK_BW_SET otherwise.
+>  	 */
+> -	if (intel_dp->num_sink_rates)
+> +	if (num_sink_rates)
+>  		intel_dp->use_rate_select =3D true;
+>  	else
+>  		intel_dp_set_sink_rates(intel_dp);
+> =20
+> +	/*
+> +	 * Some platforms cannot reliably drive HBR3 rates due to PHY limitatio=
+ns,
+> +	 * even if the sink advertises support. Reject any sink rates above HBR=
+2 on
+> +	 * the known machines for stable output.
+> +	 */
+> +	if (intel_dp->num_sink_rates && intel_has_quirk(display, QUIRK_EDP_LIMI=
+T_RATE_HBR2))
+> +		intel_dp->num_sink_rates =3D intel_dp_rate_limit_len(intel_dp->sink_ra=
+tes,
+> +								   intel_dp->num_sink_rates,
+> +								   540000);
+> +
+>  	intel_edp_set_data_override_rates(intel_dp);
 >  }
 
-[Severity: High]
-Can decrementing fctx.nr_of_unsignaled_fences in DriverFence::signal() befo=
-re
-DriverFence::drop() runs lead to a use-after-free of FenceContext?
+[Severity: Medium]
+In drivers/gpu/drm/i915/display/intel_dp.c, does moving the hbr2 rate limit
+check in intel_edp_set_sink_rates() after the num_sink_rates check skip the
+fallback to intel_dp_set_sink_rates() when all rates read by
+drm_dp_read_edp_sink_rates() exceed 540000 kHz?
 
-Previously, DriverFence::signal(self, res) consumed self by value, so
-decrementing nr_of_unsignaled_fences was immediately followed by
-DriverFence::drop(), which queues the drop_driver_fence_data() callback via
-call_rcu():
+Previously, intel_edp_set_sink_rates() rejected rates above 540000 kHz insi=
+de
+the loop before checking if intel_dp->num_sink_rates was non-zero:
 
-rust/kernel/dma_buf/dma_fence.rs:DriverFence::drop() {
-    ...
-    unsafe { bindings::call_rcu(rcu_head_ptr, Some(drop_driver_fence_data::=
-<T>)) };
-}
+    if (rate > 540000 &&
+        intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
+            break;
 
-In FenceContext::drop(), the check on nr_of_unsignaled_fences and the
-subsequent rcu_barrier() rely on all associated DriverFence instances having
-already been dropped and having queued their call_rcu() callbacks:
+If all advertised rates in that table exceeded 540000 kHz,
+intel_dp->num_sink_rates remained 0, intel_dp->use_rate_select stayed false,
+and execution fell back to intel_dp_set_sink_rates() where max_dprx_rate()
+capped the maximum link rate to 540000 kHz.
 
-rust/kernel/dma_buf/dma_fence.rs:FenceContext::drop() {
-    if self.nr_of_unsignaled_fences.load(Relaxed) !=3D 0 {
-        panic!("Forgotten fences in FenceContext.");
+With this change, drm_dp_read_edp_sink_rates() returns the unfiltered count,
+so num_sink_rates is non-zero, intel_dp->use_rate_select is set to true, and
+intel_dp_set_sink_rates() is skipped. When intel_dp_rate_limit_len() then
+filters out the rates above 540000 kHz, intel_dp->num_sink_rates becomes 0
+while intel_dp->use_rate_select remains true.
+
+During connector initialization via intel_dp_init_connector() ->
+intel_edp_init_connector() -> intel_edp_init_dpcd() ->
+intel_edp_set_sink_rates(), the subsequent call to
+intel_dp_set_common_link_params() -> intel_dp_get_common_rates() will then
+hit both warnings and force common_rates[0] =3D 162000:
+
+drivers/gpu/drm/i915/display/intel_dp.c:intel_dp_get_common_rates() {
+    drm_WARN_ON(display->drm,
+                !intel_dp->num_source_rates || !intel_dp->num_sink_rates);
+
+    *num_common_rates =3D intersect_rates(intel_dp->source_rates,
+                                        intel_dp->num_source_rates,
+                                        intel_dp->sink_rates,
+                                        intel_dp->num_sink_rates,
+                                        common_rates);
+
+    /* Paranoia, there should always be something in common. */
+    if (drm_WARN_ON(display->drm, *num_common_rates =3D=3D 0)) {
+            common_rates[0] =3D 162000;
+            *num_common_rates =3D 1;
     }
-    ...
-    rcu_barrier();
 }
 
-With DriverFence::signal(&self, res) no longer consuming self,
-fctx.nr_of_unsignaled_fences is decremented before DriverFence::drop() runs
-and before bindings::dma_fence_signal_locked() is called.
+And during modeset link computation via intel_dp_compute_rate() ->
+intel_dp_rate_select(), because intel_dp->use_rate_select is true while
+intel_dp->num_sink_rates is 0, intel_dp_rate_select() will fail to find the
+rate, warn, and return index 0:
 
-If a DriverFence is signaled via DriverFence::signal() and then leaked with
-core::mem::forget(), or held as a foreign pointer via
-ForeignOwnable::into_foreign() and signaled via DriverFenceBorrow::signal(),
-nr_of_unsignaled_fences can reach 0 before DriverFence::drop() has queued
-call_rcu().
+drivers/gpu/drm/i915/display/intel_dp.c:intel_dp_rate_select() {
+    int i =3D intel_dp_rate_index(intel_dp->sink_rates,
+                                intel_dp->num_sink_rates, rate);
 
-When FenceContext::drop() then runs:
+    if (drm_WARN_ON(display->drm, i < 0))
+            i =3D 0;
 
-1. The nr_of_unsignaled_fences check passes even though DriverFence::drop()
-   has not run.
-2. rcu_barrier() only waits for already-queued call_rcu() callbacks, so it
-   can return without waiting for a grace period after
-   dma_fence_signal_locked(), or before a foreign-owned DriverFence is later
-   reclaimed via DriverFence::from_foreign() and dropped.
-3. For a foreign-owned DriverFence, decrementing nr_of_unsignaled_fences wi=
-th
-   Relaxed ordering before dma_fence_signal_locked() also allows
-   FenceContext::drop() to free fctx.driver_name and fctx.timeline_name whi=
-le
-   dma_fence_signal_locked() (via trace_dma_fence_signaled()) or concurrent
-   readers in dma_fence_driver_name() and dma_fence_timeline_name() are sti=
-ll
-   accessing the FenceContext through FenceContext::get_driver_name() and
-   FenceContext::get_timeline_name().
+    return i;
+}
 
-Should nr_of_unsignaled_fences only be decremented in DriverFence::drop() (=
-or
-tracked until drop) so that FenceContext::drop() cannot complete before all
-DriverFence instances have queued their call_rcu() callbacks?
+Should intel_dp_rate_limit_len() be applied to num_sink_rates before checki=
+ng
+if (num_sink_rates), and applied again if it falls back to
+intel_dp_set_sink_rates()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022162701.2297=
-062-3-phasta@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-feat_link_=
+cap-v4-0-a4f3f6e8cad9@bootlin.com?part=3D1
