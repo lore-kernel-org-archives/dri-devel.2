@@ -2,94 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4740606A334
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:07:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B779C606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:08:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M586mBLx;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MDti5DVA
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=R4vyjIq2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kWwXi/J7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 195B310E24A;
-	Thu, 22 Oct 2026 09:07:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D03C10E2E7;
+	Thu, 22 Oct 2026 09:07:59 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEF1210E2E7
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:07:33 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A14D10E2E7
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:07:48 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69M70KHa2174683
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:07:33 GMT
+ 69M704K34110612
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:07:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- T9mZuQQYoWWsPIv3lgJNtkF+nm2oQ1HULJ9PRpgeEvM=; b=M586mBLx+FD4X+tG
- R2Mk1TD2JkV2EZL8yi89fwMORGIse03JH2vFQSH9fImFtbxrK1C4QJDwi8c7EW7z
- HkKrxUS/8pFuTFkbNYrBO7PTzp1TJFJqN85FeTZVtkLBr8r4OCyAwIPSz6sahtEm
- KK5qXqiGl5dE0Voj0KEydZ5cVu/D+FUa8o2toyysfRgvw7Ma8HpH7q4oQYFQoRxC
- zR7m4j/DMD+wGONv4fxhG7KJlDpnG08roqKcj4ZDhUZiMWCHbtmGxf966hYrUGwl
- pQ/S8ITwYeRR/1CzVPPPk5LtucaHCebknQr2I2QgKLKapzQx6ACNEnR8GggRm8mu
- lduQGg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93ahkq9-1
+ 0qu+A/DrU84k7oCYC9haIMhGuasFxzNnyZOIHQ+S7Jg=; b=R4vyjIq2Cag29CA8
+ G4x6yXFU9bVRvJaCxHAHKK21/QDksBa4W3iQwfghy4OArd1fa5BAEKpgNFuMm811
+ s4ZDQkT9Q+pzZ5EJSN8yqQQ+aC3d5umK7YrCL5VNf15qEOzj5NmSjjiM+BomNkXm
+ KFdAQEJYZie7sRvpKs04i++qDNl2H4HS6U1+yiJINSiBApcfSR2BKKFJ9Rbs7neA
+ eylqhMXVkzVtV638K/yOFEVmjZuju2tCXHN8SNpAzbITz0TmuM9KM5P4uXCuBsxl
+ Nafotz2yQ980oZBjQYHLbTvGak4/gGUS3eNhz01F1IGcQcndKt7skDzR/su9U7UP
+ nQzhTQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93ahmv8-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:07:33 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93cac495d99so30389285a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:07:33 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:07:47 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-93edac5877bso48456585a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:07:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792660052; x=1793264852;
+ d=oss.qualcomm.com; s=google; t=1792660066; x=1793264866;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=T9mZuQQYoWWsPIv3lgJNtkF+nm2oQ1HULJ9PRpgeEvM=;
- b=MDti5DVABo0xq43qCYQhxFl3YirjjBQynjXrFBsm2ExwZSgcIVSzgQe6qoVJOzrbPB
- nirI2m6VN5R1JWGO/xJCBGs9vLaIt7TxPbFjiv9GikRI2Lg6Wv79G75IGAK7gg0png+1
- kWEUgeaPBDE0WJu9Vs+uVCpWUrdfxh2i3Rb1owRmh/90YgkLm4hVpM9+9IUtHbxWgcB9
- PTmqhlstuX6TwBoYqi9X24HYFpKvkMWw0VmkFfR7fY98ooJa5o/lnegF+ty30dgsaTCi
- fJjNUx4e8+t/0mVa6rDu26Z7LWUc+Bf1DC6W0ZrIH+c/NZgOdzf0zXvINGmZ7pEOCY87
- SsLg==
+ :content-type; bh=0qu+A/DrU84k7oCYC9haIMhGuasFxzNnyZOIHQ+S7Jg=;
+ b=kWwXi/J7FZLXbkdpAwFpdgJwgdbmbxB9pktf9TmnoyI66oq4L4twrPrC5AbxCEPktc
+ yMun9zr7xEIARQ/k7AZjP41tJ2J6vatC/OkjQPb0rCao8x6MdThAooXZlp3zNRkpKgRZ
+ JKwa39URxbzGDF8BCcP94z5CEC9pGvz8e+Tr7HKNsOUmVmGQYcxIMgk5aebFHnMFFfZd
+ 3IMGf0mMCylW1EZOGhTg3851yUIQnq7SozeG1X9b36hjnz+namu41WtkRKt9ILFsSsE4
+ lhr94CyR+c8Qhr1vpsYflDNn8DKwJq033+3CbjtZps4UvQysWFOd1dfOz5LM2xLw5C45
+ a/wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792660052; x=1793264852;
+ d=1e100.net; s=20260707; t=1792660066; x=1793264866;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=T9mZuQQYoWWsPIv3lgJNtkF+nm2oQ1HULJ9PRpgeEvM=;
- b=v40Fl6TeMnB1ZuazZ+29ewlaUnArqf1REE8vEOUJz6W8ZEtlSfDS0En3QYTGG6XIko
- Z5q8VJumxsaP2y7ysJbEAeWY+r8UrdU9RH9vLA8/PDi7Z95+WfeIclGA1os/Vv9f6q/M
- jAT5U4basjOLkal5qeSlIZkT8FM3KEJgv6vm1oQQDIt1d9WfhdYO532+tYDuaJAmeaW2
- amfoSrTxn+Cz3CdZbYgsFmzNti9mNwcl2FSnFdWm/bBRBSkNMtHqKWHXgTelZae/pMvw
- 5iXeGnli5IEvu0PbSThcZE0MGMQwyuoZ5xBgxhzbV8ExK6yTfMYtPP2IRiXdXtHjk+nA
- WvTQ==
+ bh=0qu+A/DrU84k7oCYC9haIMhGuasFxzNnyZOIHQ+S7Jg=;
+ b=QGVMqco+3yzc+5o/XPTFMWsDUaFl52XYSo9fW4hrllqD1nP8orSFkKehr0sDSs969c
+ /JZz0jKQXSRKCAQGyWXJr9TvtMn9W+nUOCqWEUsXCFJpk02jPQ61wVhFspf5u2K6wyVK
+ rW5EwsZ+Tsid3ZiElVSrn5OGoyp5Nqp18pqSGzPe2ZYrIhR1961mmfoRyQQJP4tM/Anv
+ n8GCfGyzWxarsM1YtHbEqyuI5rLO2qNgkxZm/w+WPmdQvjD9enDu0K+DoPg4G2lVvj/J
+ 4qwg2Jm9rwysnRIbRACSG9XJTYE2JRkeGCiOkYpp+hUmVN96uHQe98kEYxUtUa8b8ThZ
+ QS5A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx3xT6jOgV3aIUaiABlw/95NHuEzUoSmk+FP+Kg23RdsO52KTrZrgTpxqLei4s/RKmWuPvKiKKqGqk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJJBfrH3XiQ6Q2bl583bb84A74nBV6ZqOtKDNWppJNK9uFXgbKQ
- cGvpMpomXbgdLNVJo2EQCtcN5R14yYFYQTl7yslTjOBqcJ/bYVw8s14Pk8gUBbdT6gg0tnyboSd
- dU7mi0iLsseKB+a/PXdN+MKlFxn6Pf63UcqBe8GMAVMXhg3SDu4gVk7iXC4jMr5FVkLCIPIY=
-X-Gm-Gg: AYBFou3hlcD1f/hWEb5v5ne//usBxuJSmjm2NANQdXwdRSxPTuNO0ZHWj0nI+AjzNIU
- RN0rMxFsISydj5xIK7Gxx1vkNTVVx/vCaOLl1wzWcDL0uNnUgOMca8ITerw3oU1NbveTtb9ujup
- Pft0d4sKQNde4jAKNzwFoXWRlf4jeZk7THcRbPjs6ToxMw4ip790FTgYa0S3E2JbnEh0pJdaqR0
- JI7e8Ra1C0cotdp8XGC2uTRDt8EiWaO9R9LfU/OcXuILSJUNiFBvrvJS5cuhIh5e+q9MUWLcPTe
- FRQ8nEEHdApsJjMBGIajkcMk8nnFeT1dzJDIrgIs8f46hAttRFmKzYCx68Ag93g86zdNM45Zlou
- lGPfGK2gTNUsoRk0yRp02GA==
-X-Received: by 2002:a05:620a:450e:b0:93c:c96c:a5b4 with SMTP id
- af79cd13be357-93f57faf861mr1017575085a.4.1792660052313; 
- Thu, 22 Oct 2026 02:07:32 -0700 (PDT)
-X-Received: by 2002:a05:620a:450e:b0:93c:c96c:a5b4 with SMTP id
- af79cd13be357-93f57faf861mr1017570185a.4.1792660051883; 
- Thu, 22 Oct 2026 02:07:31 -0700 (PDT)
+ AKwUvBx3wMZtZ3EsIKa+TC31Y9BMzPx51oEY3L7Mbd9IgHv9yinYrw0HbuMVgZA/p8l+V3Tgnyp/Z40+hTQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKlqb/dgowRBSFePyXADoKdumzu/nmffTVMPWVypLB9vWRx08Oz
+ O+x3Kck073FFYkSqONzQsQMfeTSURsYwccaDmcDVCiFby9GgWVezHcQ5iUp0T1KJSYf8dIwB8Ho
+ tMnIxKSyylbiJ40jdzPYr64f/Y5vhLG1Eas2dDgNvAoJbLaki2estYC9HmtNGJtkMPZWJUrI=
+X-Gm-Gg: AYBFou0N5cqPIUPYkPVOKZJldrmjraJSB7fv5Cyv5wq03nl0Vf1Kya7n0mZ0i/lS//6
+ YSPStzW3Xtz/7T2AHZffBSMMKknkKqIsLuW3GaOONG5VTqWfUdjQ/ggzNJhGd//hAiSimD9G1F2
+ CdK51UVKgC2Rgm0x4w1ClCCKOe66Hdje5IpsN9368l7cBbiP/b6iEHjuxdaLEuXTKo59/ijcsbE
+ KDJe4dozweiUcInneyc65velEK8XruSorNFo8wEzpkCbYGnHd+Rmm9rqjt+s1PD2/rNKYvNgrz5
+ Gru5sqBdXWb9zPniLyW03jsdNw6kzY652mzaFNRRzHGJPDSR7ALvDgZ/4iWIxr340eRm4vSCgNF
+ xmfjCgd7Yv5MZGh6vAYM9Sw==
+X-Received: by 2002:a05:620a:6084:b0:93f:1fc5:f07b with SMTP id
+ af79cd13be357-93f57eedc95mr955688585a.2.1792660066445; 
+ Thu, 22 Oct 2026 02:07:46 -0700 (PDT)
+X-Received: by 2002:a05:620a:6084:b0:93f:1fc5:f07b with SMTP id
+ af79cd13be357-93f57eedc95mr955683985a.2.1792660065814; 
+ Thu, 22 Oct 2026 02:07:45 -0700 (PDT)
 Received: from [192.168.226.26] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c468a55ffb2sm81973866b.38.2026.10.22.02.07.27
+ a640c23a62f3a-c468a4ffcf7sm85290266b.24.2026.10.22.02.07.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 Oct 2026 02:07:31 -0700 (PDT)
-Message-ID: <aa18ce17-4169-4f3e-8e25-c088c69db0c5@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 11:07:27 +0200
+ Thu, 22 Oct 2026 02:07:45 -0700 (PDT)
+Message-ID: <8cc2f172-0df4-4494-bc1e-3124cd25afca@oss.qualcomm.com>
+Date: Thu, 22 Oct 2026 11:07:39 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/5] arm64: dts: qcom: add device tree for SDM845-HDK
+Subject: Re: [PATCH v5 5/5] arm64: dts: qcom: sdm845-hdk: add display card
+ overlay
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
@@ -108,40 +109,39 @@ Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org
 References: <20261019-sdm845-hdk-v5-0-4aa7e22cd0ed@oss.qualcomm.com>
- <20261019-sdm845-hdk-v5-4-4aa7e22cd0ed@oss.qualcomm.com>
+ <20261019-sdm845-hdk-v5-5-4aa7e22cd0ed@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261019-sdm845-hdk-v5-4-4aa7e22cd0ed@oss.qualcomm.com>
+In-Reply-To: <20261019-sdm845-hdk-v5-5-4aa7e22cd0ed@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: pikI1W6PJGRWZ2JPAfaYCXuOoyC7u6__
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX9lTyjEcXs41m
- 80S8mdAmy7Sw2B0hNjS0X10fDoGb/Fmf8BSoKLlz1AdIEhQ1VSf3pXBEyd04YeMo9KFJCw9U1yr
- Qcj0kzh6X9gBNe2cJH0D/UOahUy0kMs=
-X-Proofpoint-ORIG-GUID: pikI1W6PJGRWZ2JPAfaYCXuOoyC7u6__
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX7wmhtCpZVgNB
- 9oOvmWObkR9yhGwSCIT7u7M/uHiAZLEaGKdy2n2A0/f1LVmtnAl+nI2GexIb84GJ4P8Rl9t489I
- wtV9xv6JnqJrdDaPjxFYlcb1YcAvAXKr7R4XChN0rCOuYPQ2moYENk5dXxRx8wT7dUrd7c2x61w
- sj8lb1DwlxyXh7gvwO3Dl5j+T2mYo/KoGPd071/xHjvrF3lO4TXSlxkB8Qw2raAVAeo8MxeQyGo
- 96SbRXj9DESlyyOmugKKNb3Dlm5poDHJ4K1n0Ude04XlcrdYQTWx2hUFw492TJkwaT35hVNc1Tp
- 9FMFsTWxPulDJKdIiLjU1ffeGwtDi/T4jQuaWJEsQyFxy8VVbkU2VfnjRc9OuVTWD2MPOAL2iyQ
- XhuPQCUH7x69AaOa9HPExFjxULIYFOb0FubLu8kf9iHMQMwmlePdmO72Oghy83vMnniPNjvVTr5
- 4Qp3RrqjPRRTQ4DYuYQ==
-X-Authority-Analysis: v=2.4 cv=dOszC+Zb c=1 sm=1 tr=0 ts=6ad9d255 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX2Ww2wWD6XQjq
+ 9AKnUZx5ouwkp5Mm/Z4s2nc88opzy1sybpjCBUNLg4xOl55xnLYtGYxpQwbkLSVaDitqbBWbzp2
+ Jhc/Maa03mzea12ZGCkyxPwdPxyBWClBmcCL9D7IO00mwl4SYiz8dyutnoAEMKJ8TvC9bqDRqKF
+ a1F9/FSTnprYXSaRU4zLTkTLBFrURZmRKW8c3z2WftPZYeZXkbIIarEpdiPZ64aM7dsZcwyAIrR
+ 7sC8ibQoJeaywJjlSF3WJJKJ+pQKUf7jD5vcNvUvZD1IkMkA18QvjVfhG4EE+/jN6FXjMpERnAs
+ TImKvkKMIhqa8Ouh1Ca09kNMMFbx4/TaBkHKhxxG/DcXltPj5uvWFgRaV/7ByGOVDctQCabVgj2
+ ACzWmcp4P0csoeDCDbqWsdLVjOXuwa4hmcOWT7bdO3wVSojBztrfBzYboy70u7VFsU1RHIUs7iX
+ VN3akCmYSM7XI4x9VFQ==
+X-Authority-Analysis: v=2.4 cv=H7FOUOYi c=1 sm=1 tr=0 ts=6ad9d263 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=YDUdIes_syoG-XcJBr4A:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=amIBzKCq339hV6VJ64AA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: 5Qu0JwOWihw2pKy7-D4Bsl7PxCl_G6Qz
+X-Proofpoint-GUID: 5Qu0JwOWihw2pKy7-D4Bsl7PxCl_G6Qz
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX97IELQ7eKMfX
+ D8vqyiVGfl0jvhIkJcSto26loa+O8RMCiUxBxQLVJT4s5m/XG0+6r+X4YTfjFwlG9I2rNnJ6yHr
+ XTo/xB754TeweiGs95M6r3wjAtShvMU=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
- suspectscore=0 spamscore=0 adultscore=0 phishscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610220036
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ phishscore=0 adultscore=0 spamscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220036
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,24 +162,15 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 10/19/26 11:18 AM, Dmitry Baryshkov wrote:
-> Add device tree for the Qualcomm / Lantronix SDM845 HDK. It is the
-> development platform using the modem-less (SDA845) SoC, optional onboard
-> DSI panel and a rich set of connectors.
+> The SDM845 HDK can be fitted with the display card, carrying a Truly
+> NT36850 WQHD dual-DSI panel. Here it is powered by the PMI8998 LAB/IBB
+> and WLED, and it is mutually exclusive with the on-board LT9611 HDMI
+> bridge.
 > 
-> Working:
-> - HDMI display
-> - uSD, UFS, USB
-> - DSPs, WiFi, BT
-> - Buttons, LEDs
+> The configuration follows the vendor kernel, with the bias rails at the
+> 5.5 V default of the LCD mode.
 > 
-> Not working or not tested:
-> - DisplayPort - TCPM not supported for this PMIC
-> - WiGig - requires power sequencing driver, doesn't work with the
->   current in-kernel driver
-> - Audio
-> - FingerPrint
-> - USIM
-> 
+> Assisted-by: LLM
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
 
