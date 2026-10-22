@@ -2,103 +2,108 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470B8606A319
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 15:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E792606A326
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 16:03:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YSsMAZsL
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ojk+Cy3+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8188112784;
-	Thu, 22 Oct 2026 15:58:36 +0000 (UTC)
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011066.outbound.protection.outlook.com [52.101.62.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52610112784
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 15:58:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NSXAP4TM1NASw3DjBQPbfhBT85ox/tH0jHk8RbSh3m0JoorrHkhIOuq5Fe73ZxuDoLetveYk1Ku0NWnvkvxRKPP86byp4ObNo6/+IAefxxEeJsvDhL0l8598TNL7FCsa4FtkvAxnpokahfYgWMaB/zcHxfWeWJ1G0SofNsKwXeKo5eoRcT9P6AwsYKqqMzR/sJtkDbWQeb5XNkvjc5Uxwnt6pGvajrJQkRu10NkNaicpnHHlGJBfVHLwRRquGUruchCgqgANI9fmfV6+DDpimYLRo+Ab4aFcdr4NuvrMn7Rc/jFJH0ATWMfDkiHiS/TrNVC3gBQvRnaLIv3x5xRfVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q+iRucOpyzVZYqLOhtf2lLfuMQTWP6HMT9jJ94Hp2dQ=;
- b=upye9aE45WkTgw5iNfMPoqdXIzZNrfsS8xPquI9X0TFHGg0iiyWdqdNDlK18utMdXvbJDFU2q1h7wiCgTvTOZLFtUY7if4JyNeI3xx89DtxM3vHe/FLfoF+V75/KdoFRzpKiDqDkTgzN1N5YtYpCGdGO+BYTw56s7xAdf/KDC3mSnqmU2BRJjJkkWjSp5LifsEePDdzO1/pIbl7dRrhj5g8Cp17hHj8bizgOnMlE0JHWmUiJb5SJ+3j9L2X1agbXzoTiOoX7UHS4NxDaUdeS2dk3JvTgBzzEmm0lzhccyyp2+ZObfbPoG8jbRTDpopQj7qcroQJmToNDKQKKUo/3sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q+iRucOpyzVZYqLOhtf2lLfuMQTWP6HMT9jJ94Hp2dQ=;
- b=YSsMAZsL9O1Yp5CsBAj8zD1cGe6YLSM8JVmip7o1j1uCl8tY5/Pi2kCCN+16ddl5e66auyWlFhmZnZhnD+yUFm+60jVxS4eh2fOiq6JNQIVGWECNOPKZkD6TwTeePiOFnTLzwaU/QhY/WvciZ4bAjISs+VX0gyCixBq67XnxA0U=
-Received: from PH7P223CA0002.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::28)
- by DS5PR12MB575708.namprd12.prod.outlook.com (2603:10b6:8:47c::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
- 2026 15:58:14 +0000
-Received: from CY8PEPF00000059.namprd21.prod.outlook.com
- (2603:10b6:510:338:cafe::51) by PH7P223CA0002.outlook.office365.com
- (2603:10b6:510:338::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
- 22 Oct 2026 15:58:14 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY8PEPF00000059.mail.protection.outlook.com (10.167.247.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.0 via Frontend Transport; Thu, 22 Oct 2026 15:58:14 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
- 2026 10:58:13 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
- 2026 10:58:13 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 22 Oct 2026 10:58:12 -0500
-From: Max Zhen <max.zhen@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>, <lizhi.hou@amd.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <karol.wachowski@linux.intel.com>
-CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>, Umio Yasuno <coelacanth_dream@protonmail.com>
-Subject: [PATCH V1 1/5] accel/amdxdna: Use compatible fdinfo engine key
-Date: Thu, 22 Oct 2026 08:57:53 -0700
-Message-ID: <20261022155753.232976-1-max.zhen@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BE8310E20C;
+	Thu, 22 Oct 2026 16:02:55 +0000 (UTC)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBACD112792
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 16:02:49 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-35ef6b49813so2664523eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:02:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792684969; cv=none;
+ d=google.com; s=arc-20260327;
+ b=dqHkVg90mG2sM0PBDEd3r9m4AeFFWMRPuOmD1zzpCg7mZaImxU1w+q7XohAMjt8OaU
+ 5CMB7mzZwMEnSKCwCLgeI7P/q25CwL4NcXCqeQel0XP36+XNV6OXnLwqgJ07Po2iTntb
+ UaguW7McmqZccjampK6RyqPctweJa01SsxTf1x6R/Q2s32ipEEo6Tik0zta2ZYn0JR48
+ nrFSGWW8B006DKXr27mAj78t0FfV9tfoeQk2s8MLS47g1VgI9Dk3qIa6+W81VWWFkiOd
+ cIBc2X0cs4+mcdU6rtte2eKFBDakkFYG9tLFz1USaR781s0xq48EDRI24Vpnf4zKQCPS
+ djYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=eA58oXbcrSiAmB1z3oyxKF4Toj+uE3Ix/LWp9TBh2Do=;
+ fh=E3gjEKAlBg269vMztXN3hmKrlaU5zqvoAwCOU3Uu9Eo=;
+ b=CasQbWLe69t00Q2x2kPb/pnWmZ5qqMROiGQK6cDL+UgkIaAYzUI5GpGtffa2do09HB
+ 6ZhJ/LjJbIdkshLvuiPQeYsVOzlPnz4dfnuUP3k/zhT7h3cKbPqR1b+I0M+d5ZDjq/GT
+ Yb/LNTtEU1RM/75qKueFaDhKZI2hTHv01brk8aTADwxnGgb6PDE8VS0gI03MQH7APPIk
+ nyjB7+uPwpeUWnbN/pX+Z7m9djInjfuOTVYEM+9fW2V8S3x3LoXC9tKnfvlrw6pYPhXb
+ pGXav5o4krycjIP7iDRCqwfOLt4OGLx2tl5JZZVtLZIN3kb3D/qkXQat6Nvo1VZvVfzw
+ zSgg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1792684969; x=1793289769;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=eA58oXbcrSiAmB1z3oyxKF4Toj+uE3Ix/LWp9TBh2Do=;
+ b=ojk+Cy3+H5HKY6XmQZctfh+jHS+kTtaMeEr181h8CVdazcRW5aK3rpdBLUge6qaN69
+ ipO7iQS4t1tcMTY9MSG/9hncXPdou6XQ2SCFXTNKY18gltqy9sq9vNhkg8DrFdbw2EyG
+ iUnzrlS9qt31EC/PFH2PAKR1lnXTn93VK/NRdEPHwQtuVEAQwYZlGjGNU9JMzHZa3qU/
+ KVUs4+RV1tgWt7TLbL+pNTmPK8mgaw443PdE0Y+YDuey0FQVxSMrgByoyNd1vQkYO6Ab
+ +Zw/DqvRSkpsIfgfiQwcpA/r05ZVRCl30qQX6zJYh0TuR45GZOrRoaTM4UU9P8GPQtNS
+ D2rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792684969; x=1793289769;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=eA58oXbcrSiAmB1z3oyxKF4Toj+uE3Ix/LWp9TBh2Do=;
+ b=okmMPKDot2mNtlkgbtV8RfnToPt0XFq4kccgqRywMma+7KXtIv2aMqxJXrV1Dph70V
+ 4K7Av+G+C71hswPa1BbBnGEcy3csfDPKKKcYW6JtJhH+tGGk+a8RrlRrwWx3sJsthDPH
+ nR8IFdf9JdlJ3wXaOk2GSkvHMgh0qmVM80YbXczsjgwuuG7gneLN13Q6rcQtbnAACbpS
+ ndMKSbqLPY8CvvSbCBKC9rTQRRDz51E3yuZNZmTwAUt2LoGbRpNVCkZitckqo6wvNQqW
+ Cb3oQyEKeNh9hD9df642yPz3xh6y5MsOUKTV53Ry3Fw6vhInck1IXZDj6d491xtUNtOw
+ Ellw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz7x7i4Iv231eP5mLMWcl9xbmLJEwTpcslflcrbEcNCcR6flDbSG9CnA3rqLw7Jp4tETYbUHvtIneU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIEL5osy8oAyrLfvnX/Ncvl+pYCWcQgEmM4+DAQTzYt+awPVvTE
+ bqDTkDB26rFBWR5DB/PE0AHXE9TVIdExdURHUSIkaMbwpIdfkgjhM0anEr+VzM/tWnxk+czPLND
+ SLfqRWON8WoCbUKZKkeJWgZ6kzH0Rpo/Djq1vyPxU
+X-Gm-Gg: AYBFou2fq8+Nt0crslN4V38fME88vAra2YlHQLh/VJTFL7aG8ge9prXXBWJPQRmQ+jb
+ UgaO1AbGhe0Dlt6h132ith1DQOVianPRZO6xwvX19xwf2iMQdFPsegTEHiGDxFNJocg0XyVc0fk
+ TB8NciEAnrfzez94y9+Vfv/w9yDyx4GATsYo/C6hqNzEEnTS/3UEU3F+DWCW8UxGryE9UBGmBP7
+ R9cqFY9UGfUkajNeNiCm7JJPEnKsjvOr6JfzQeLGssOdk7HYcWmV241/i8PLgG/JDTu02YOccHt
+ vvSurbGlUlCQlX5VRwFTxKAwEsse0KFgndQMrctV6SbRBCfLzZPUQHHMBzTZA43OP7EE9g3iuwD
+ n2gaXBGlEy9Csi5HXPN6f8w6Nk9+wR7AGjCs/xbT+XGYFbmF5Sy5HVfProKIKOhSTUA==
+X-Received: by 2002:a05:701b:291b:b0:160:6a5b:7edf with SMTP id
+ a92af1059eb24-190a728a5a9mr5870744c88.44.1792684967579; Thu, 22 Oct 2026
+ 09:02:47 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PEPF00000059:EE_|DS5PR12MB575708:EE_
-X-MS-Office365-Filtering-Correlation-Id: 200b4cd7-f255-4913-e158-08df305547a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|261009223027099003|261021123027099003|261021121427099003|10067099003|56012099006|3023799007|6133799003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: 83KqkgozhXnvMKxUVefjZPdq8lfikgjNg5KEcFO1PryiPapH3Kz66btd8JQ+kIXOEFCgHoq1M9aS6Qm5z1zHdMqUuOSDoVCEzoTj7rKYLhzkC1gOofsgM7RXOPI8fbzrcf3sCQjWswPOzPbbL3KFVFvH6pghYmTTotXnldvMY39ECh01vATqmESJwCJcbmgCMJ1hUz5BjZS1DPv4FbXSHvRZu/i7DERAdM/GKNFSHsYUomeC8c5uLYkALKm4QBnsuzUpmxLu2YktR1YZnjvijkj9qIOHUTWUhRdPjoe95+kNdpoFSJEh78TaXKc9MStUXOi79Pu59xhkmPxa92JlhZKAOtFLPj4bj8dLUI4fYEORNF+HOMv05yde44pSxGHWebkH4kacfF3u/NQG01cXFXTQXJivaqkeD2TMUXF0kioOn0cbDrggBjOJz/UOnuVsyhq5DNKSgFJQooKr0y0OJJJPGlsnRaDGRE1hhZhOMVn1GAIcU41XjvHJPFHzDpSNCy0+fwIAikLQogTRT6IrNhAEtxxqh9d4FhhKgzPh3PD+gsVi+Snwt8HsQNt2BTR+ZLrkNhj0bUWGW9zlIVit22TKJlns6g3eNNrxV+8gPWU0L6PaZz4bH7GqqS47k2DdhF9ub18wI/e5Z553Uj+3SuBDatXoinCIu6MX2mLicIzUdtH+4br9XMfBWW+m5yYFNLltwiw6lwegitUvT++HzA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(261009223027099003)(261021123027099003)(261021121427099003)(10067099003)(56012099006)(3023799007)(6133799003)(18002099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: fM/o4jP9Nm7WvDWP2BXutQ5c3IZT8INpSRt37+Qt95ztS3qogemUSyyQwzhry1yQSWH3LoC0joEiAXXidlnI5DgV6KptN9PgDvEcNCwlCzJju1h59inx/awPosVgNUEEteyiP/5QApU+y3g8DScMl3a5yWo7Ad9iekIaccmpREeoPkdPautsoYIQQ6uldOHNb/7+NFZXRjyNfTpx3cEd1rnlvMvBShIUZE7gyA3RwwDxtpHyvgPk//yKN1tgb9Xg2/7iRuf6KG4CR9Z5lvaHZlkzcbr+Q+lgf2yv3t1lwrbEhalM+kIpMSCPEDNj0UQ3giX8g3G2ynQ0Mgu20ChHdKtY6e7a7uixKExDjm+rMrWuhnjC5+5SJZRiA9E5BvdgrrebGstpEk2y0z3+z0Wse7Ydw+Ghgr4XDDLdCQWALpgnOJwF5+IjIFPcKbUPXScD
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 15:58:14.1219 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 200b4cd7-f255-4913-e158-08df305547a1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY8PEPF00000059.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PR12MB575708
+References: <20261013205223.2396822-1-arnd@kernel.org>
+ <6c18da11310ced4a7c85ac7862c3f5c67b39891a@intel.com>
+ <3486e0b1-d188-47a9-9de6-7ee5c2cfd097@app.fastmail.com>
+ <90fe0000d611f080164a1fd7f228cd533a2e927d@intel.com>
+In-Reply-To: <90fe0000d611f080164a1fd7f228cd533a2e927d@intel.com>
+From: Alexander Potapenko <glider@google.com>
+Date: Thu, 22 Oct 2026 18:02:10 +0200
+X-Gm-Features: AclHuK8K26Lbju3qBt07ubYqFLozHzTFn-VahHrb67MbQWwOYgc-zANXgi2WEOU
+Message-ID: <CAG_fn=WbwZKeaprUu2q640ffLfxOSsGAjGE3CcC8fm7yeJ77AQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/edid: reduce update_display_info() stack usage
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Arnd Bergmann <arnd@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Dave Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Chenyu Chen <chen-yu.chen@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, kasan-dev@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,58 +115,92 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The released out-of-tree amdxdna driver uses amdxdna_accel_driver as the
-drm-engine key string, which is consumed by several applications.
+On Thu, Oct 22, 2026 at 1:37=E2=80=AFPM Jani Nikula <jani.nikula@intel.com>=
+ wrote:
+>
+> On Mon, 19 Oct 2026, "Arnd Bergmann" <arnd@arndb.de> wrote:
+> > On Mon, Oct 19, 2026, at 15:28, Jani Nikula wrote:
+> >> On Tue, 13 Oct 2026, Arnd Bergmann <arnd@kernel.org> wrote:
+> >>> From: Arnd Bergmann <arnd@arndb.de>
+> >>>
+> >>> The drm_parse_cea_ext() calls into nine individual parser functions
+> >>> based on the data format. If all of those get inlined and KASAN_STACK
+> >>> is enabled, this can explode the combined stack usage beyond a
+> >>> reasonable amount:
+> >>>
+> >>> drivers/gpu/drm/drm_edid.c: In function 'update_display_info':
+> >>> drivers/gpu/drm/drm_edid.c:7040:1: error: the frame size of 1888 byte=
+s is larger than 1536 bytes [-Werror=3Dframe-larger-than=3D]
+> >>>  7040 | }
+> >>>       | ^
+> >>>
+> >>> Mark all of the individual parser functions as noinline_for_stack
+> >>> to avoid this and keep their stack frames separate. This reduces
+> >>> the stack usage for update_display_info/drm_parse_cea_ext to
+> >>> a more manageable 744 bytes, while each parser only adds at most
+> >>> 200 bytes on top.
+> >>
+> >> Is there really no way to tell the compiler to not do silly things in =
+a
+> >> more generic way?
+> >
+> > The problem is really the sanitizers here, which turn off the
+> > optimizations that gcc relies on for its normal behavior and
+> > which cause additional register pressure for the inserted function
+> > calls.
+>
+> Cc: a bunch of KASAN folks.
+>
+> I think it's really silly and ugly to have to sprinkle
+> noinline_for_stack all over the place in pretty normal code [1]. The
+> stack usage for each individual function is fairly small.
+>
 
-Use the same key string in the upstream driver to maintain compatibility
-with the out-of-tree driver.
 
-Reported-by: Umio Yasuno <coelacanth_dream@protonmail.com>
-Closes: https://github.com/amd/xdna-driver/issues/1754
-Fixes: 489a8539ca6f ("accel/amdxdna: Expose NPU device busy time via DRM fdinfo")
-Signed-off-by: Max Zhen <max.zhen@amd.com>
----
- Documentation/accel/amdxdna/amdnpu.rst  | 2 +-
- drivers/accel/amdxdna/amdxdna_pci_drv.c | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+Together with my LLM friend, I did some digging to see whether this
+can be handled on the compiler side instead. Summary of what we found
+(x86_64 defconfig + KASAN_STACK,
+GCC 15.2 and Clang 21, -fstack-usage on every object):
+1. The immediate cause here is that GCC's inliner has no idea what the
+   frame will cost under KASAN. Its stack estimate for a callee only
+   sums the raw sizes of address-taken locals, so it never includes
+   the ASan redzones and never sees the register spills that
+   instrumentation causes. For all nine parsers in drm_parse_cea_ext()
+   the estimate is literally 0 bytes, which short-circuits the
+   -fconserve-stack limits, and since each parser has a single caller,
+   -finline-functions-called-once inlines them regardless of size.
+2. A generic knob therefore exists: passing
+   -fno-inline-functions-called-once under CONFIG_KASAN_STACK with GCC
+   brings update_display_info() from 704 to 344 bytes here without
+   touching the source (drm_parse_cea_ext stays a separate 368-byte
+   frame). Kernel-wide on that config it removes 22 of the 103 frames
+   above 1024 bytes and introduces 6 new ones, for +1.2% text.
+3. The GCC estimate itself is also fixable (make account_stack_vars()
+   add the redzones it is going to allocate anyway, ~30 lines in
+   cfgexpand.cc). That reduces total KASAN stack usage by ~7% for
+   +0.35% text and fixes this particular case on its own (704 -> 368),
+   so it is probably worth upstreaming. But it is a correctness fix, not a
+   cure: it doesn't change the number of frames above 1024/2048 at all.
+4. The reason is that the big frames under KASAN are overwhelmingly
+   functions that already have 0.5-1.5KB of genuine locals without
+   KASAN (97 of the 103 above 1024 bytes); KASAN then multiplies them
+   by 1.5x (median) to 2.3x (p90) through redzones and spills. No
+   inlining heuristic can undo that, and this is inherent in how the
+   stack instrumentation works. So for KASAN_STACK builds we think
+   FRAME_WARN simply has to be higher than for regular builds. For
+   what it's worth, Clang does worse on the same config
+   (149 frames above 1024 vs. 103 for GCC, 1176 bytes for
+   update_display_info), which is why KASAN_STACK is already off by
+   default there.
 
-diff --git a/Documentation/accel/amdxdna/amdnpu.rst b/Documentation/accel/amdxdna/amdnpu.rst
-index d72af1b51ccf..b0cc481c73ae 100644
---- a/Documentation/accel/amdxdna/amdnpu.rst
-+++ b/Documentation/accel/amdxdna/amdnpu.rst
-@@ -289,7 +289,7 @@ Example of the output showing the implemented key value pairs:
-         drm-driver:	amdxdna_accel_driver
-         drm-client-id:	3219
-         drm-pdev:	0000:c5:00.1
--        drm-engine-npu: 14003870 ns
-+        drm-engine-amdxdna_accel_driver:        14003870 ns
-         amdxdna_accel_driver-heap-alloc:	60 KiB
-         amdxdna_accel_driver-internal-alloc:	67588 KiB
-         amdxdna_accel_driver-external-alloc:	0
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-index edf807c93144..f233eb70a295 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-@@ -284,9 +284,9 @@ static void amdxdna_show_fdinfo(struct drm_printer *p, struct drm_file *filp)
- {
- 	struct amdxdna_client *client = filp->driver_priv;
- 	size_t heap_usage, external_usage, internal_usage;
--	char *drv_name = filp->minor->dev->driver->name;
-+	char *drv_name = "amdxdna_accel_driver";
- 
--	drm_printf(p, "drm-engine-npu:\t%llu ns\n",
-+	drm_printf(p, "drm-engine-%s:\t%llu ns\n", drv_name,
- 		   amdxdna_io_stats_busy_time_ns(client));
- 
- 	mutex_lock(&client->mm_lock);
--- 
-2.34.1
-
+Arnd, one thing I could not do is reproduce the 1888 bytes: with
+linux-next's drm_edid.c the worst we get is 704 on x86_64, 752 on
+arm64 and 1264 on arm64 with PROFILE_ALL_BRANCHES. Could you share
+the .config and GCC version?
