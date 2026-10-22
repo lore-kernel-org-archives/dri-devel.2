@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841CE60A3802
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A047F60A3811
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:54:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwppmPUL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6p6sHnY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC436112670;
-	Thu, 22 Oct 2026 13:53:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29A25112673;
+	Thu, 22 Oct 2026 13:54:00 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03772112667
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:53:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ABB7112667
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:53:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DF5BA40664;
- Thu, 22 Oct 2026 13:53:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 512701F000C4;
- Thu, 22 Oct 2026 13:53:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E750A43400;
+ Thu, 22 Oct 2026 13:53:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DCAA1F000C4;
+ Thu, 22 Oct 2026 13:53:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792677225;
- bh=MnMXvzusoeoF9/Av5Lg+FeAyi2kBZMpvF5JpP2g3l24=;
+ s=k20260515; t=1792677232;
+ bh=fBR/d2kDO7ofonwugntYIl0PHaKrMZ/PUvdO3M4g6VM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ZwppmPULWq+QDxGcbSIIw3Jfs0p3VyNrtZz/mP+hK74A6w0fEBz3SWcsI5BjzK2Ss
- hdXYDvrJLfXBnjfmVY8tRJZj6/rE7pbm2ltLUAjKGH8ENapvqTDHMwCHp9xbi85aog
- jVqcglNVivCa3wxvHIkOEdW6g2MBOB6rZmhANyYDa11BV524exfdVPCFgvi2eUq3c4
- i1uTyOUXvY8QmLd3UPgpxDZo3WbpmDsfyEZmlVBPAlhp0Kj31rHmwlw6hMPloxXkz8
- YJNZP46gBV8KzINISlYziaAbY+eMDTJLyt1r7MbHfR6UAJoyYqnLyRWFoLNYjZJD7q
- n/QjIiA14kPYA==
+ b=b6p6sHnYP2Fg1CCpUzai8MwAl7Tq9u/BQ6uB1FVfp+1kYKz3q9X36QrPHmjUUU5zz
+ y7GIgI0zOQk5JU2mvnKneY31AIOuN6pP/+XJXiKRRZbPR/a/Z5D3oQdv99oLJemBTB
+ fAicE0aA1+GX8dRUMMubLxaoDsZ8y46Nf1rDFJIAQz3kku6POhTNoXYsMhQlh+15IQ
+ p1RwcaOUdAdUtUOpNSAve5zSCCrDwpsAognFuTMrk12bmevNpL5fHSdMIiIaAyWmO3
+ ltv6SJthTYuAewmOFmP9Wf0RMkoWN3cKzjHuNCD7VEG6+hWJKuVX3CurRAJ9ElUune
+ rNAYP9vnnbohw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 15:53:09 +0200
-Subject: [PATCH v6 08/15] drm/atomic: Create function to insert private obj
- state into a commit
+Date: Thu, 22 Oct 2026 15:53:11 +0200
+Subject: [PATCH v6 10/15] drm/atomic: Add
+ drm_atomic_implements_create_state() helper
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-reset-state-flag-v6-8-f36d640b7e76@kernel.org>
+Message-Id: <20261022-drm-reset-state-flag-v6-10-f36d640b7e76@kernel.org>
 References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 In-Reply-To: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3320; i=mripard@kernel.org;
- h=from:subject:message-id; bh=bz8WgYdyyKFKUw0Z8N3MeqXXAFbvhUkQzTihY9/0wRE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RN0O8OQLBXZzvj0lFOqxS/2ce+TkmZdaFvoJ/Vv+S
- Sldq/JPx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIqDpjw5ady5t6Xz5/rnLU
- 4LbTscJY9mnHzvlppJjVbU1ou3X4zd0C/r3rnFQXL7nia5TlEngij7HhfUN97x32sqyMLb66Ggm
- 8jDcebyxfJn3iwxZTxYB9s8SP1vWf0bWJdS6+LXm1cN/15fkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3340; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=eNy3jfcG0T74BgjzpyssXa+LxgGLkHAW2kof6DzNhSc=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RN152C64dwu26Kw9t3COl66BkLz8231zlMQeuR8P2
+ zrp8uLejqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR3ScZGxof2HmEiqq0qryY
+ PcOERUQ+8eaMqBu+LT6+sRfO391un12a9rY98FhANttfTkuxV3ctGRvWna2bm9JqPcNgnYPuy8O
+ pV20XJk7r5Fm6WjdM5pyC9rXPX/SSq57rHF2VKOTncUtodSYA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,100 +81,94 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_get_private_obj_state() allocates a new private object
-state by duplicating the current one and inserts it into the atomic
-commit as a single operation.
+The atomic reset path will need to create pristine default states from
+scratch for every plane, CRTC, and connector. This requires all of them
+to implement the atomic_create_state hook.
 
-However, a later change will need to insert a private object state
-into a commit without going through the full allocation and
-duplication path in drm_atomic_get_private_obj_state().
+Introduce a drm_atomic_implements_create_state() helper that iterates
+over all planes, CRTCs, and connectors and returns whether they all
+provide the hook. Color operations are excluded since they always use
+drm_atomic_helper_colorop_create_state() directly.
 
-Extract the state insertion logic, including the array reallocation,
-into a new static drm_atomic_commit_set_private_obj_state() helper,
-and convert drm_atomic_get_private_obj_state() to use it.
+This will be used both as a precondition before filling a commit with
+default states, and to report the device capability to userspace.
 
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 53 +++++++++++++++++++++++++++++---------------
- 1 file changed, 35 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 49 ++++++++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_atomic.h     |  2 ++
+ 2 files changed, 51 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 807b575ecc54..513e91ad2fdc 100644
+index 81591173265d..7a77051096c9 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1096,4 +1096,33 @@ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- EXPORT_SYMBOL(drm_atomic_private_obj_fini);
+@@ -1601,4 +1601,53 @@ drm_atomic_get_new_bridge_state(const struct drm_atomic_commit *state,
+ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
  
-+static int drm_atomic_commit_set_private_obj_state(struct drm_atomic_commit *commit,
-+						   struct drm_private_obj *obj,
-+						   struct drm_private_state *obj_state)
++/**
++ * drm_atomic_implements_create_state - check if a device supports creating pristine states
++ * @dev: DRM device
++ *
++ * Check whether every plane, CRTC, and connector in @dev implements the
++ * &drm_plane_funcs.atomic_create_state, &drm_crtc_funcs.atomic_create_state,
++ * and &drm_connector_funcs.atomic_create_state hooks respectively. These hooks
++ * are required to create default states from scratch rather than duplicating
++ * the current state.
++ *
++ * Color operations are not checked because they always use
++ * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
++ *
++ * Returns:
++ * True if all objects implement atomic_create_state, false otherwise.
++ */
++bool drm_atomic_implements_create_state(struct drm_device *dev)
 +{
-+	struct __drm_private_objs_state *arr;
-+	int index, num_objs;
++	struct drm_connector_list_iter conn_iter;
++	struct drm_connector *connector;
++	struct drm_plane *plane;
++	struct drm_crtc *crtc;
 +
-+	drm_modeset_lock_assert_held(&obj->lock);
++	/*
++	 * colorops don't have an atomic_create_state hook but
++	 * drm_atomic_helper_colorop_create_state()
++	 */
 +
-+	num_objs = commit->num_private_objs + 1;
-+	arr = krealloc_array(commit->private_objs, num_objs,
-+			     sizeof(*commit->private_objs), GFP_KERNEL | __GFP_ZERO);
-+	if (!arr)
-+		return -ENOMEM;
++	drm_for_each_plane(plane, dev)
++		if (!plane->funcs->atomic_create_state)
++			return false;
 +
-+	commit->private_objs = arr;
-+	index = commit->num_private_objs;
++	drm_for_each_crtc(crtc, dev)
++		if (!crtc->funcs->atomic_create_state)
++			return false;
 +
-+	commit->private_objs[index].state_to_destroy = obj_state;
-+	commit->private_objs[index].old_state = obj->state;
-+	commit->private_objs[index].new_state = obj_state;
-+	commit->private_objs[index].ptr = obj;
-+	obj_state->state = commit;
++	drm_connector_list_iter_begin(dev, &conn_iter);
++	drm_for_each_connector_iter(connector, &conn_iter) {
++		if (!connector->funcs->atomic_create_state) {
++			drm_connector_list_iter_end(&conn_iter);
++			return false;
++		}
++	}
++	drm_connector_list_iter_end(&conn_iter);
 +
-+	commit->num_private_objs = num_objs;
-+
-+	return 0;
++	return true;
 +}
++EXPORT_SYMBOL(drm_atomic_implements_create_state);
 +
  /**
-  * drm_atomic_get_private_obj_state - get private object state
-@@ -1112,6 +1141,5 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 				 struct drm_private_obj *obj)
- {
--	int index, num_objs, ret;
--	struct __drm_private_objs_state *arr;
-+	int ret;
- 	struct drm_private_state *obj_state;
+  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 3ae35b09c0cf..72c3d420f40c 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -703,4 +703,6 @@ drm_atomic_commit_alloc(struct drm_device *dev);
+ void drm_atomic_commit_clear(struct drm_atomic_commit *state);
  
-@@ -1127,24 +1155,13 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 		return ERR_PTR(ret);
- 
--	num_objs = state->num_private_objs + 1;
--	arr = krealloc_array(state->private_objs, num_objs,
--			     sizeof(*state->private_objs), GFP_KERNEL | __GFP_ZERO);
--	if (!arr)
--		return ERR_PTR(-ENOMEM);
--
--	state->private_objs = arr;
--	index = state->num_private_objs;
--
- 	obj_state = obj->funcs->atomic_duplicate_state(obj);
- 	if (!obj_state)
- 		return ERR_PTR(-ENOMEM);
- 
--	state->private_objs[index].state_to_destroy = obj_state;
--	state->private_objs[index].old_state = obj->state;
--	state->private_objs[index].new_state = obj_state;
--	state->private_objs[index].ptr = obj;
--	obj_state->state = state;
--
--	state->num_private_objs = num_objs;
-+	ret = drm_atomic_commit_set_private_obj_state(state, obj, obj_state);
-+	if (ret) {
-+		obj->funcs->atomic_destroy_state(obj, obj_state);
-+		return ERR_PTR(ret);
-+	}
- 
- 	drm_dbg_atomic(state->dev,
++bool drm_atomic_implements_create_state(struct drm_device *dev);
++
+ /**
+  * drm_atomic_commit_get - acquire a reference to the atomic state
 
 -- 
 2.55.0
