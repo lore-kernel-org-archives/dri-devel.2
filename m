@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F88E606A31F
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:34:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992B1606A31B
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:35:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQtI05PL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmQFDqHU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6165F1125A9;
-	Thu, 22 Oct 2026 12:34:50 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04D151125A7
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD0A21125AA;
+	Thu, 22 Oct 2026 12:34:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB51E1125A7
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:34:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E076A4149F;
- Thu, 22 Oct 2026 12:34:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4931F1F000C1;
- Thu, 22 Oct 2026 12:34:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3C9D660200;
+ Thu, 22 Oct 2026 12:34:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8EC1F000C1;
+ Thu, 22 Oct 2026 12:34:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792672477;
- bh=MaZpJx+Qe/72/3oMNa6zHNkc2W0kYMQAgnH7D8dXdck=;
+ s=k20260515; t=1792672484;
+ bh=V9JdUToXpwcJKdq6BiiMTbXmUQ3RR1TQStfOk7P4s88=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=XQtI05PLwkDTvQm+b5ZXv+W4RQH6ofzBNmimwh5SYVF6aI8aOOd44i8xBUhfRXWVd
- J2iCVGd36ppyWVVZcjXQNL4dFWgEkmaC0i0p69aIJcTENftJ+oAX99ya4YlB3jeGEk
- P9v9Jg/1chjnqVwLjW8dW0Tm5sqs9faXpKevOICikv6xYAhNcoOcKNTkbEtSSgbG1A
- 76x5Yj0RyU6MusZKWpJ8v0e6mheHbB3q/DTqO5XMZ/RmmTEE3wfi+NkKbGXMiCgA0a
- rfLnnrmW1qjBtWZl/ZT4I+HySVsx4Vn39rKnyfuK7IVV/fZ8yqC9D6VpWoff/BnQs/
- OmDVm6An0BvAw==
+ b=HmQFDqHUw4Em0r5cb50AHFyb1fZgQIUnjrv+9C2/JiZvg1rnQ4r00YgS/SR0G+0Nf
+ XjDxcgiTu6JFWo6gr/h3bvNmJCe6zSfCiwDAg4bhDF8F7frIBdioe2IvUdrRCET8cl
+ 3bsEyO+1/swe57cyIevtazYqohkSOaACyGOLQsfbu6Q1KmnRLCwnq5oHrMzkKk/pFr
+ OXAQ+3/wOx1aabwemKRegeyIARhKd1C6xBOcFuwMgLhjwZ5m8J7UxNrSeeZHwpy88/
+ OLZFzqHMTKY6cDRruYRWTf1Wq4BeWvKO2o7F/eE/CZxIlz81H8PslZ14omjgMAjUOJ
+ WIOn80loPHpmQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 14:31:13 +0200
-Subject: [PATCH v2 14/59] drm/bridge: tc358767: Switch to
+Date: Thu, 22 Oct 2026 14:31:15 +0200
+Subject: [PATCH v2 16/59] drm/bridge: ti-tfp410: Switch to
  drm_atomic_helper_connector_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-no-more-connector-reset-v2-14-0b7e4e85b1e8@kernel.org>
+Message-Id: <20261022-drm-no-more-connector-reset-v2-16-0b7e4e85b1e8@kernel.org>
 References: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 In-Reply-To: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -43,12 +43,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1001; i=mripard@kernel.org;
- h=from:subject:message-id; bh=aU9tnOdAllgNbAZMQbuOGMrrYY65gktz9LK7WwgSGzk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mCbfNbnn8HHZjqWVh50uLf1pJ7nn+aLMq+xGoXs23
- M0Td7vG0TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmkmzC2PBgv1hS90zmjo0+
- fwKuJm93nCguq7/uBotX4dZzmh1fq+wuaL06/W2BbrvWzE9ZO9oWXGFs6HWZW3rmyZYdq1dwCE/
- Sq1hjOuVpg+q0uXZZf0vbfugnq5icYD3hcVjxq8aGYhZ7WVZXAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1005; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=gKAl+iCAfHdOmiMnFl3H4aWeEYJ1PamXE9t9RAZ2f3c=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mKaItglkLlv7JUhI9uuz1UJVod8EZwirHpCdm6m8+
+ 9U+C92ZHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAi2zcz1lk8qg5gYfsQoK38
+ rYa/N8teh6FuZtbvoIqJu/40nLZpK/91oWPOIrk3G+W7FqiUK3H7Mtbptd+Ybiv7s3mT9+/FnmE
+ 7rl5+qrH8tb77D3bOFPWw1cYqfIE+4syxs+O/HyxVjc84/xUA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,27 +69,27 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The bridge: tc358767 connector implementation uses the deprecated
+The bridge: ti-tfp410 connector implementation uses the deprecated
 drm_atomic_helper_connector_reset() as its reset hook.
 
 Switch to drm_atomic_helper_connector_create_state() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/tc358767.c | 2 +-
+ drivers/gpu/drm/bridge/ti-tfp410.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
-index 51f4baa62a53..5ea6d3726bee 100644
---- a/drivers/gpu/drm/bridge/tc358767.c
-+++ b/drivers/gpu/drm/bridge/tc358767.c
-@@ -1797,5 +1797,5 @@ static const struct drm_connector_funcs tc_connector_funcs = {
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.destroy = drm_connector_cleanup,
--	.reset = drm_atomic_helper_connector_reset,
-+	.atomic_create_state = drm_atomic_helper_connector_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
+index 629ff7095e87..64a3d64e1f7b 100644
+--- a/drivers/gpu/drm/bridge/ti-tfp410.c
++++ b/drivers/gpu/drm/bridge/ti-tfp410.c
+@@ -96,5 +96,5 @@ static const struct drm_connector_funcs tfp410_con_funcs = {
+ 	.fill_modes		= drm_helper_probe_single_connector_modes,
+ 	.destroy		= drm_connector_cleanup,
+-	.reset			= drm_atomic_helper_connector_reset,
++	.atomic_create_state	= drm_atomic_helper_connector_create_state,
+ 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
 
 -- 
 2.55.0
