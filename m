@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F658606A328
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 17:37:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AF6606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 17:37:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ZHE1iv6+
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VSkIJ4pV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC41F10E452;
-	Thu, 22 Oct 2026 17:37:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E8E7112854;
+	Thu, 22 Oct 2026 17:37:28 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A43C810E488;
- Thu, 22 Oct 2026 17:37:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC6DC10E452;
+ Thu, 22 Oct 2026 17:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=8JSqAGlt0f3wOvllMx73sE13e50x7C1+PEgZMnI3THA=; b=
- ZHE1iv6+ApKTge+NjmfRtoRFzWEKV23eVCHxtO7l6dpzZ3uS/yAI8r2DSrBgojj5zOsNa6WCW8eOT
- LvodROi9w81DPrdJoxVn9c0J1DXLPcd/DgjPVirUReKe6S8lRDXTbPVf1X1EcNe9fGz3hjdlwAGt8
- GxinroP0+IVW41wfbFykpmw1JW+KyVbbIJLp5XI8JRxos3q6lTuHewTx1gIST9XZ6HINr31HeSBTD
- 8n4gJ3n5NMT94Va2rGcbJ0soI4WJHaX+0vHI9UfFDv+W9mqnPLp9GBnnVQGVRRvBs4ceX/TO3toAS
- 7N+7KL13fWvywHxQD2Z8ztUhhMxHiJlpqw==;
+ Cc:To:From:From:Reply-To; bh=VuOF9IF+st0KOU68En0/qYK7S5CSIkMh9BXiGMzbD10=; b=
+ VSkIJ4pVp7wz2/DlkHtTd74J3ZFx8+t9Buf9Krs+UGRQ553XdrNpYwUQHcK6x7LscM8/feoNadmSo
+ nN92aIcvgKIMnJaoXwwevuXqoslY7nqGq/jXxVCQ/k6LAvMcWj5gXBEgmVVw0CX/691+Zeg6DP31X
+ Xs5tuSZ4V+zeAzz9jXEoz7ehj8/bbJjOJ9SQVQA1A6m6U0b7kcaqaAVwaDN6Qojl4Vi90RRThFxNI
+ wxvi4zGZoHv2g0GArJAkHQ8RTU3tfL55n4/+UmEeywGZUgRNiepgbYqXxRBZcRS8Xw931W+NjVZWn
+ mIYN5J7/rUnZaVHC+lO+7XsJ5+3rwX7LJw==;
 Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
  helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xJwiz-0071Z2-HR; Thu, 22 Oct 2026 19:37:09 +0200
+ id 1xJwj1-0071Z2-9P; Thu, 22 Oct 2026 19:37:11 +0200
 From: John Harrison <John.Harrison@Igalia.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	kernel-dev@igalia.com
-Subject: [PATCH 2/3] drm/amd/display: Fix use-after-free in
- dm_test_hpd_rx_offload_work_msg_rdy
-Date: Thu, 22 Oct 2026 10:36:54 -0700
-Message-ID: <20261022173655.2318987-3-John.Harrison@Igalia.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: [PATCH 3/3] drm/amd/display: Update colorop pipeline tests for new
+ fixed matrix op
+Date: Thu, 22 Oct 2026 10:36:55 -0700
+Message-ID: <20261022173655.2318987-4-John.Harrison@Igalia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261022173655.2318987-1-John.Harrison@Igalia.com>
 References: <20261022173655.2318987-1-John.Harrison@Igalia.com>
@@ -53,51 +53,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The test runs a worker thread and verifies that it did something.
-However, the worker frees up the object that the 'did something' check
-inspects.
+A bunch of tests verify that the pipeline created by the driver
+matches an expected pipeline hard coded into the test. The below patch
+added a new op into the driver's pipeline but did not update the tests
+to match. So add it in.
 
-The check is actually looking at a bool inside a different object (the
-work queue) but using the work item object to get there. So just save
-a pointer to the queue object and use that in the test.
-
+Fixes: 6d103ad11583 ("drm/amd/display: Add fixed matrix colorop to color pipeline")
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
 Signed-off-by: John Harrison <John.Harrison@Igalia.com>
 ---
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c  | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c  | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index 6e599657dac1..ee96ddb9669c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -2363,6 +2363,7 @@ static void dm_test_hpd_rx_offload_work_in_reset(struct kunit *test)
-  */
- static void dm_test_hpd_rx_offload_work_msg_rdy(struct kunit *test)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
+index 90cc5592ef5d..00f1d5b33b1f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c
+@@ -192,6 +192,7 @@ static void dm_expect_colorop_pipeline(struct kunit *test, struct drm_device *dr
+ static void dm_test_initialize_default_pipeline(struct kunit *test)
  {
-+	struct hpd_rx_irq_offload_work_queue *offload_wq;
- 	struct hpd_rx_irq_offload_work *offload_work;
- 	struct amdgpu_dm_connector *aconn;
- 	struct link_service *link_srv;
-@@ -2384,9 +2385,14 @@ static void dm_test_hpd_rx_offload_work_msg_rdy(struct kunit *test)
- 	offload_work->offload_wq->is_handling_mst_msg_rdy_event = true;
- 	offload_work->data.bytes.device_service_irq.bits.UP_REQ_MSG_RDY = 1;
- 
-+	/* NB: offload_work is freed by dm_handle_hpd_rx_offload_work so need to
-+	 * save a pointer to the wq to do the final KUNIT_EXPECT. This is safe
-+	 * because the wq is actually a kunit_alloc and is not freed along with
-+	 * the offload_work object. */
-+	offload_wq = offload_work->offload_wq;
- 	dm_handle_hpd_rx_offload_work(&offload_work->work);
- 
--	KUNIT_EXPECT_FALSE(test, offload_work->offload_wq->is_handling_mst_msg_rdy_event);
-+	KUNIT_EXPECT_FALSE(test, offload_wq->is_handling_mst_msg_rdy_event);
- }
- 
- /**
+ 	static const enum drm_colorop_type expected[] = {
++		DRM_COLOROP_FIXED_MATRIX,
+ 		DRM_COLOROP_1D_CURVE,	/* degam TF */
+ 		DRM_COLOROP_MULTIPLIER,
+ 		DRM_COLOROP_CTM_3X4,
+@@ -257,6 +258,7 @@ static void dm_test_initialize_default_pipeline_caps(struct kunit *test,
+ static void dm_test_initialize_default_pipeline_dpp_3d_lut(struct kunit *test)
+ {
+ 	static const enum drm_colorop_type expected[] = {
++		DRM_COLOROP_FIXED_MATRIX,
+ 		DRM_COLOROP_1D_CURVE,
+ 		DRM_COLOROP_MULTIPLIER,
+ 		DRM_COLOROP_CTM_3X4,
+@@ -278,6 +280,7 @@ static void dm_test_initialize_default_pipeline_dpp_3d_lut(struct kunit *test)
+ static void dm_test_initialize_default_pipeline_mpc_preblend(struct kunit *test)
+ {
+ 	static const enum drm_colorop_type expected[] = {
++		DRM_COLOROP_FIXED_MATRIX,
+ 		DRM_COLOROP_1D_CURVE,
+ 		DRM_COLOROP_MULTIPLIER,
+ 		DRM_COLOROP_CTM_3X4,
+@@ -299,6 +302,7 @@ static void dm_test_initialize_default_pipeline_mpc_preblend(struct kunit *test)
+ static void dm_test_initialize_default_pipeline_no_3d_lut(struct kunit *test)
+ {
+ 	static const enum drm_colorop_type expected[] = {
++		DRM_COLOROP_FIXED_MATRIX,
+ 		DRM_COLOROP_1D_CURVE,
+ 		DRM_COLOROP_MULTIPLIER,
+ 		DRM_COLOROP_CTM_3X4,
 -- 
 2.43.0
 
