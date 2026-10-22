@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632FB60A260E
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:39:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC40606A32C
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:39:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=G458+ILf
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=H4izDL57
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F6D5112427;
-	Thu, 22 Oct 2026 09:38:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40F98112428;
+	Thu, 22 Oct 2026 09:39:00 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD3FF112428
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A48DE112427
  for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:38:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=TWnMy8uZ+sD20xxvxp1MeSa9/cNwBwCrrG8h/uldN2A=; b=
- G458+ILflcOl5Bo8WaP3DFLX0dFpi+q7xDOHEoBav5BfCytPKG4K8BIqHrVuqWxdK3mStJIefXC/v
- eUMICROOlJPJO2Q3KTGSTynEhLYMSqaxwoftA1tPzxdtwzAlW9L0582qiFH10UoGtVK8yAfqJ/w7i
- fCejxhmBl7Auacz6UZkOFdIVQoiPhAGy5J1gKZetc8CUIioQvPXeUygnH2FnItEmcC9Xui+ioyR1D
- csSgu9Zb6BDqN5pCMEEib66J7CDysF5U89fyIwqUQCyj7LNvpEENByjQaSdYsKx/RB9fIqNt9qmob
- h2YMxmHWbEUqYhsQShEo+i4f5h3Y4KT7yw==;
+ Cc:To:From:From:Reply-To; bh=OWPsKdHOesUph1DVnQaZQMDjdp6tZdx8drucLPbYHgQ=; b=
+ H4izDL57w4YC8AGpnVokwKwhtrEVsaCurQ6PDg3ZM2MeLB9qF9wE3pmuVzjucCvSreKVb1GNIm1wx
+ tf4h+JULA7SmaRYKoVGfx6PU89ZCjUwwsqt2bHEr4IJk94G3Osav3Ysxj2OKsyAnSfpxxHuRLOsbk
+ bke/ltoiYlvPl630uPr0KP6OJbhoU8ed88UtZULjc293x0vSrUACfukOHR0nW7Vrgj8wHCGq5OkA2
+ iQ18Q9kF97wNkjzFVRyZhRVIXPM1Fgq5/5AKl7azMiloLMPabL5OiKXwR13OXac7KLmqhou1ekjPz
+ MTn10bs18LwlkYrEoHDnh6ge+7l/N7Etzw==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xJpG7-006erg-OO; Thu, 22 Oct 2026 11:38:51 +0200
+ id 1xJpG7-006erY-10; Thu, 22 Oct 2026 11:38:51 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
@@ -33,10 +33,10 @@ Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
  Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
  Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
  Steven Price <steven.price@arm.com>, Tejun Heo <tj@kernel.org>
-Subject: [PATCH v7 2/4] workqueue: Separate sysfs mutable vs immutable wq
- attribute sanitizing
-Date: Thu, 22 Oct 2026 10:38:46 +0100
-Message-ID: <20261022093848.5727-3-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v7 1/4] workqueue: Simplify unbound sysfs attribute
+ registration
+Date: Thu, 22 Oct 2026 10:38:45 +0100
+Message-ID: <20261022093848.5727-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
 References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
@@ -62,13 +62,9 @@ X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In preparation for adding more sanitization steps split the current ones
-into ones which are immutable and the ones which can be modified from
-sysfs.
-
-Point being that the mutable steps must only run on the initial workqueue
-creation, while the immutable properties need to be sanitized every time
-attributes are applied.
+Instead of manually registering each attribute we can put them in an
+attribute group with a visibility check and device core will handle the
+rest, which simplifies the registration and error unwind.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Boris Brezillon <boris.brezillon@collabora.com>
@@ -79,100 +75,198 @@ Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Steven Price <steven.price@arm.com>
 Cc: Tejun Heo <tj@kernel.org>
 ---
- kernel/workqueue.c | 49 ++++++++++++++++++++++++++++------------------
- 1 file changed, 30 insertions(+), 19 deletions(-)
+v2:
+ * Fix accidental rename of affinity_scope.
+
+v3:
+ * SYSFS_GROUP_INVISIBLE should not be used for un-named groups.
+---
+ kernel/workqueue.c | 98 ++++++++++++++++++++++++----------------------
+ 1 file changed, 52 insertions(+), 46 deletions(-)
 
 diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index d8cf546d853f..c634b20f1874 100644
+index 41754f4126a6..d8cf546d853f 100644
 --- a/kernel/workqueue.c
 +++ b/kernel/workqueue.c
-@@ -5706,6 +5706,32 @@ static void apply_wqattrs_cleanup(struct apply_wqattrs_ctx *ctx)
- 	}
- }
+@@ -7599,8 +7599,8 @@ static const struct attribute_group wq_sysfs_group = {
+ };
+ __ATTRIBUTE_GROUPS(wq_sysfs);
  
-+/* Sanitize attributes not modifiable via sysfs. */
-+static void
-+sanitize_immutable_workqueue_attrs(struct workqueue_struct *wq,
-+				   struct workqueue_attrs *attrs)
-+{
-+	if (wq->flags & __WQ_ORDERED)
-+		attrs->ordered = true;
-+}
-+
-+/* Sanitize attributes modifiable via sysfs. */
-+static void
-+sanitize_mutable_workqueue_attrs(struct workqueue_struct *wq,
-+				 struct workqueue_attrs *attrs)
-+{
-+	if (wq->flags & WQ_HIGHPRI)
-+		attrs->nice = HIGHPRI_NICE_LEVEL;
-+}
-+
-+static void
-+sanitize_workqueue_attrs(struct workqueue_struct *wq,
-+				 struct workqueue_attrs *attrs)
-+{
-+	sanitize_immutable_workqueue_attrs(wq, attrs);
-+	sanitize_mutable_workqueue_attrs(wq, attrs);
-+}
-+
- /* allocate the attrs and pwqs for later installation */
- static struct apply_wqattrs_ctx *
- apply_wqattrs_prepare(struct workqueue_struct *wq,
-@@ -5735,6 +5761,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
- 	 * every possible CPU and never falls back, so it has no default.
- 	 */
- 	copy_workqueue_attrs(new_attrs, attrs);
-+	sanitize_immutable_workqueue_attrs(wq, new_attrs);
- 	wqattrs_actualize_cpumask(new_attrs, unbound_cpumask);
- 	cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
- 	if (!(wq->flags & WQ_PERCPU)) {
-@@ -5757,6 +5784,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
- 
- 	/* save the user configured attrs and sanitize it. */
- 	copy_workqueue_attrs(new_attrs, attrs);
-+	sanitize_immutable_workqueue_attrs(wq, new_attrs);
- 	cpumask_and(new_attrs->cpumask, new_attrs->cpumask, cpu_possible_mask);
- 	cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
- 	ctx->attrs = new_attrs;
-@@ -5919,24 +5947,6 @@ static void unbound_wq_update_pwq(struct workqueue_struct *wq, int cpu)
- 	put_pwq_unlocked(old_pwq);
- }
- 
--/* the attrs @wq asked for, as spelled by its flags */
--static struct workqueue_attrs *alloc_wq_std_attrs(struct workqueue_struct *wq)
--{
--	struct workqueue_attrs *attrs;
--
--	attrs = alloc_workqueue_attrs();
--	if (!attrs)
--		return NULL;
--
--	if (wq->flags & WQ_HIGHPRI)
--		attrs->nice = HIGHPRI_NICE_LEVEL;
--
--	if (wq->flags & __WQ_ORDERED)
--		attrs->ordered = true;
--
--	return attrs;
--}
--
- static int alloc_and_link_pwqs(struct workqueue_struct *wq)
+-static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
+-			    char *buf)
++static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
++			 char *buf)
  {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	int written;
+@@ -7627,8 +7627,8 @@ static struct workqueue_attrs *wq_sysfs_prep_attrs(struct workqueue_struct *wq)
+ 	return attrs;
+ }
+ 
+-static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+-			     const char *buf, size_t count)
++static ssize_t nice_store(struct device *dev, struct device_attribute *attr,
++			  const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
  	struct workqueue_attrs *attrs;
-@@ -5948,10 +5958,11 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
- 	if (!wq->cpu_pwq)
- 		goto enomem;
+@@ -7652,8 +7652,8 @@ static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+ 	return ret ?: count;
+ }
  
--	attrs = alloc_wq_std_attrs(wq);
-+	attrs = alloc_workqueue_attrs();
- 	if (!attrs)
- 		goto enomem;
+-static ssize_t wq_cpumask_show(struct device *dev,
+-			       struct device_attribute *attr, char *buf)
++static ssize_t unbound_cpumask_show(struct device *dev,
++				    struct device_attribute *attr, char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	int written;
+@@ -7665,9 +7665,9 @@ static ssize_t wq_cpumask_show(struct device *dev,
+ 	return written;
+ }
  
-+	sanitize_workqueue_attrs(wq, attrs);
- 	ret = apply_workqueue_attrs_locked(wq, attrs);
- 	free_workqueue_attrs(attrs);
- 	if (ret)
+-static ssize_t wq_cpumask_store(struct device *dev,
+-				struct device_attribute *attr,
+-				const char *buf, size_t count)
++static ssize_t unbound_cpumask_store(struct device *dev,
++				     struct device_attribute *attr,
++				     const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7689,8 +7689,8 @@ static ssize_t wq_cpumask_store(struct device *dev,
+ 	return ret ?: count;
+ }
+ 
+-static ssize_t wq_affn_scope_show(struct device *dev,
+-				  struct device_attribute *attr, char *buf)
++static ssize_t affinity_scope_show(struct device *dev,
++				   struct device_attribute *attr, char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	int written;
+@@ -7708,9 +7708,9 @@ static ssize_t wq_affn_scope_show(struct device *dev,
+ 	return written;
+ }
+ 
+-static ssize_t wq_affn_scope_store(struct device *dev,
+-				   struct device_attribute *attr,
+-				   const char *buf, size_t count)
++static ssize_t affinity_scope_store(struct device *dev,
++				    struct device_attribute *attr,
++				    const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7731,8 +7731,8 @@ static ssize_t wq_affn_scope_store(struct device *dev,
+ 	return ret ?: count;
+ }
+ 
+-static ssize_t wq_affinity_strict_show(struct device *dev,
+-				       struct device_attribute *attr, char *buf)
++static ssize_t affinity_strict_show(struct device *dev,
++				    struct device_attribute *attr, char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 
+@@ -7740,9 +7740,9 @@ static ssize_t wq_affinity_strict_show(struct device *dev,
+ 			 wq->attrs->affn_strict);
+ }
+ 
+-static ssize_t wq_affinity_strict_store(struct device *dev,
+-					struct device_attribute *attr,
+-					const char *buf, size_t count)
++static ssize_t affinity_strict_store(struct device *dev,
++				     struct device_attribute *attr,
++				     const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7762,14 +7762,40 @@ static ssize_t wq_affinity_strict_store(struct device *dev,
+ 	return ret ?: count;
+ }
+ 
+-static struct device_attribute wq_sysfs_unbound_attrs[] = {
+-	__ATTR(nice, 0644, wq_nice_show, wq_nice_store),
+-	__ATTR(cpumask, 0644, wq_cpumask_show, wq_cpumask_store),
+-	__ATTR(affinity_scope, 0644, wq_affn_scope_show, wq_affn_scope_store),
+-	__ATTR(affinity_strict, 0644, wq_affinity_strict_show, wq_affinity_strict_store),
+-	__ATTR_NULL,
++static DEVICE_ATTR_RW(nice);
++static DEVICE_ATTR_RW(affinity_scope);
++static DEVICE_ATTR_RW(affinity_strict);
++/* Avoid naming clash with the other cpumask */
++static struct device_attribute dev_attr_unbound_cpumask =
++	__ATTR(cpumask, 0644, unbound_cpumask_show, unbound_cpumask_store);
++
++static struct attribute *wq_sysfs_unbound_attrs[] = {
++	&dev_attr_nice.attr,
++	&dev_attr_unbound_cpumask.attr,
++	&dev_attr_affinity_scope.attr,
++	&dev_attr_affinity_strict.attr,
++	NULL,
+ };
+ 
++static umode_t wq_sysfs_unbound_group_visible(struct kobject *kobj,
++					      struct attribute *attr, int n)
++{
++	struct device *dev = kobj_to_dev(kobj);
++	struct workqueue_struct *wq = dev_to_wq(dev);
++
++	if (!(wq->flags & WQ_UNBOUND))
++		return 0;
++
++	return attr->mode;
++}
++
++static const struct attribute_group wq_sysfs_unbound_group = {
++	.is_visible = wq_sysfs_unbound_group_visible,
++	.attrs = wq_sysfs_unbound_attrs,
++};
++
++__ATTRIBUTE_GROUPS(wq_sysfs_unbound);
++
+ static const struct bus_type wq_subsys = {
+ 	.name				= "workqueue",
+ 	.dev_groups			= wq_sysfs_groups,
+@@ -7907,14 +7933,9 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+ 	wq_dev->wq = wq;
+ 	wq_dev->dev.bus = &wq_subsys;
+ 	wq_dev->dev.release = wq_device_release;
++	wq_dev->dev.groups = wq_sysfs_unbound_groups;
+ 	dev_set_name(&wq_dev->dev, "%s", wq->name);
+ 
+-	/*
+-	 * attrs are created separately.  Suppress uevent until
+-	 * everything is ready.
+-	 */
+-	dev_set_uevent_suppress(&wq_dev->dev, true);
+-
+ 	ret = device_register(&wq_dev->dev);
+ 	if (ret) {
+ 		put_device(&wq_dev->dev);
+@@ -7922,21 +7943,6 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+ 		return ret;
+ 	}
+ 
+-	if (wq->flags & WQ_UNBOUND) {
+-		struct device_attribute *attr;
+-
+-		for (attr = wq_sysfs_unbound_attrs; attr->attr.name; attr++) {
+-			ret = device_create_file(&wq_dev->dev, attr);
+-			if (ret) {
+-				device_unregister(&wq_dev->dev);
+-				wq->wq_dev = NULL;
+-				return ret;
+-			}
+-		}
+-	}
+-
+-	dev_set_uevent_suppress(&wq_dev->dev, false);
+-	kobject_uevent(&wq_dev->dev.kobj, KOBJ_ADD);
+ 	return 0;
+ }
+ 
 -- 
 2.56.0
 
