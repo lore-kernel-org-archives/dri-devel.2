@@ -2,59 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD87606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92A8606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:28:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=QJiqP6gQ
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iJNAonnn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97AC01129D5;
-	Fri, 23 Oct 2026 07:28:19 +0000 (UTC)
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8B7A7112654
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 14:08:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE361129DC;
+	Fri, 23 Oct 2026 07:28:24 +0000 (UTC)
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com
+ [209.85.217.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD99B112524
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 11:48:20 +0000 (UTC)
+Received: by mail-vs1-f44.google.com with SMTP id
+ ada2fe7eead31-77bf892b496so598308137.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 04:48:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-ID:MIME-Version:Content-Transfer-Encoding; bh=/6YGebWgHG
- PWMyBtJuZLEzuWWT6Sl+na3jZ5wK/Q9Gc=; b=QJiqP6gQTgjJKSdLMuHpl9ylZQ
- RiCVSNG73OYs/zsz6CKC2Q0B3vlVlEeEBpITmu72b5Ve7uq/lqWHHqapbRqBOfC1
- g/Sec9EzLiHwjBfn6Wrm9xFIBPyDcD7P6OEgFTtQdVdFGsQHbR/D9p2jHM/9jzN5
- 03qOaaOz1l3t4itn8=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.229.107])
- by mailimap2024 (Coremail) with SMTP id 3pYKCgDXWj_LGNpqZUstAA--.273S2;
- Thu, 22 Oct 2026 22:08:11 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org
-Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>
-Subject: [RFC PATCH] clk: qcom: dispcc-sm8750: reset the MDSS blocks at probe
- when the bootloader left them running
-Date: Thu, 22 Oct 2026 22:08:10 +0800
-Message-ID: <20261022140811.469417-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
+ d=gmail.com; s=20251104; t=1792669700; x=1793274500; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=cG+5kIyh0kWAXD1Yf0rWfPRytbtZEq2h4IvreLdn/S4=;
+ b=iJNAonnnzXgm40q8uQj4Ij/lO7pqaigYIXUWgD2UT1/S+86wnyZjf9bwL6AD67qm2P
+ px8iOu/diRKkKzdySlXWnTEL8S1m7prGOX0wb2NPuVbq1J7VV1kYExf/yncl5pxW0Z2A
+ TvLEAjEmemF7p/eSyRR7P67xK9BN1TQ6nxv6AeFRCIdGLx6GaVXZRV/PuyHzoSazf2eV
+ GxFmU6apg9puxZjS3Ih3PyNHSqUorVTzr1Yq8ILNYCFwYj9zzBsUO0qqvX/rs9wNs2d4
+ Y7+5jcTyCZfvE8XJiHxRWC4C4sb/AESWoky40vylUYmBP3lTzsAb0oFmUO6mhHo/l9ms
+ 5UBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792669700; x=1793274500;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=cG+5kIyh0kWAXD1Yf0rWfPRytbtZEq2h4IvreLdn/S4=;
+ b=G5ODoFHIT7JAdB1Efs2r9uTCa5uDuJKJ2w6L10FCfv2zBWU6ifJz+8wUC5m8s5bcGi
+ cIl3qDn3Bi/pjZWcfXRFj8kvvzyXXgeRv1aqeiiQWKiNVhoX7q6QbOYZz7KbdSwtEMiF
+ mpGpliFD16qOQ3k4SZoWOhetQ14bZWvP+5JnFHoKcW5neV37+ClgPh9+Raj8aOBl0LJ1
+ TeYxrZKQtbEjjr/TX+uy/L+uo1s8iW2F3fyUc5N3VINO0kvhZEjbG4shOayPttrcVk09
+ krjq2bJJ6sVnvvRNREjRhejQOEl0vmxKEcP7nMfCILaUKeleWty7+y9WwkYpEi7ETenF
+ gV0Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy/FmkjbZlGK0Z3HAyClxj/PFsHMKU7VXg7zBuWI3P0aGqCFUp7z9xaNv09AZoVa38+StkHhlj2xzg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI/NCr31drAuJWFGgINN3aJc00+vfTTe9QIlxTwfxl2+aicYUDa
+ jlpAXScUlqdTgrV5j2LVLsr5CmTrDMQ/yS6iqHHcRshp8jBK9lpuZvmI
+X-Gm-Gg: AYBFou3/iAHzveSU1MD2QZuHeUGYA7GJARaVPeISvCv8dnSFPurcIUZ3ABuFhbflJVi
+ ME1RNmF3mXBrz3jLUbCAtpMbcwAYGuxewSNRaJDcLGkhG60yGLibPDT6uZUkt9ruybYGPjO3Xxy
+ sVfZq17fK+0OKNjl9Cby5tP5PET/ODkakksLScDH7W7u9AO1er8i7X2kU2yhImOq7xS7y/oNvzZ
+ ZoaBnT2RD7zqHAHK3L9sXIn91FDxnnywxJv2HqeVUiM9k6zXf8AMWvU0xOgWKL2hSv3FlIQ2b+Y
+ +0n3BUifUk2ApfEGmNGLK1YmU9PrCr24l31JbuwsWEpV+TkJXiSxeen+3A/Io5TEgMo7r4IT2P5
+ F4FqLL2QQGAxDcrVHdqfkgaupsz89cUYT5dVsR43awAbAozhXvpRxg6uU1Q71B7cjEIdZI7QD68
+ 91MV9vhRcCHHPYDPQEUD7roDWjAe26HeygpAzymfuWLuoMnECQuXG26Eqlfp1RKz76Wtu2/8R/t
+ P8dBeRzVIojJbkZl1crUMf+Q819vjZOh9F1VKkzinDs97RWFW78sCAXPEMuUzgMHVNDszE=
+X-Received: by 2002:a67:e711:0:b0:7a1:fa0f:1106 with SMTP id
+ ada2fe7eead31-7cc927ffae5mr1735239137.36.1792669699746; 
+ Thu, 22 Oct 2026 04:48:19 -0700 (PDT)
+Received: from localhost.localdomain ([177.155.254.104])
+ by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-990d117c005sm6177793241.9.2026.10.22.04.48.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Oct 2026 04:48:19 -0700 (PDT)
+From: Matheus Tagliari <mptagliari@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: Matheus Tagliari <mptagliari@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/2] drm/radeon/vce1: enable the VCE trap interrupt
+Date: Thu, 22 Oct 2026 08:47:47 -0300
+Message-ID: <20261022114754.865669-3-mptagliari@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261022114754.865669-1-mptagliari@gmail.com>
+References: <20261022114754.865669-1-mptagliari@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: 3pYKCgDXWj_LGNpqZUstAA--.273S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZr4xJF1kXw15Xr48Zr17Awb_yoWrtF1DpF
- sFyF45Kr4kCFyfXFy3Aa1Du3WrJ34ktFy5try3G347AwnxJFn3AFZ2y3sIkFWDtrs7JF1j
- qFW7KFWkCF1vqFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l
- 42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
- WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
- I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r
- 4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
- 6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07bYYLPUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREIB2rZEtVwHAAQsX
 X-Mailman-Approved-At: Fri, 23 Oct 2026 07:28:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,122 +88,87 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Lenovo Legion Y700 Gen4 (SM8750, "lenovo,elden") the bootloader hands
-over with the display block fully active: the dispcc PLLs are locked and
-MDSS core / core_int2 / RSCC are out of reset.  The kernel's mdss_reset()
-and clk_*_pll_configure() then run on top of that live state and the
-command-mode panel fails to initialise:
+vce_v2_0 sets VCE_SYS_INT_TRAP_INTERRUPT_EN in VCE_SYS_INT_EN so that
+the VCE_CMD_TRAP emitted after each fence raises an interrupt.  The
+VCE1 code, used by SI and Trinity/Richland, never does, and amdgpu's
+vce_v1_0 does (mmVCE_SYS_INT_EN, 0x8340, i.e. byte offset 0x20d00 on
+SI).  VCE fences are therefore never processed from the interrupt
+handler and are only noticed when a fence wait times out.
 
-  msm_dsi ae94000.dsi: command DMA timeout: status=0x2200200
-  msm_dsi ae94000.dsi: bonded command DMA failed: master=-110 peer=-110
-  panel-novatek-nt36536: Failed to initialize panel: -5
+Enable the trap interrupt at the end of vce_v1_0_start().  CIK also
+goes through vce_v1_0_start() (via vce_v1_0_init() and kv_dpm), but has
+VCE_SYS_INT_EN at a different offset and already enables it in
+vce_v2_0_resume(), so only do it for VCE1, i.e. before CHIP_BONAIRE.
 
-The result is a cold boot with backlight only and no /dev/dri/card0.
+Observed on a Radeon HD 8870M (Cape Verde, 1002:6821) with VCE firmware
+50.0.1, Mesa 25.0.7 radeonsi and ffmpeg h264_vaapi on Debian 6.12.113:
 
-Asseting the three dispcc block resets and releasing them before the PLLs
-are programmed makes the block start from a known-zero state, after which
-the same panel initialises reliably.
+ - Stock driver: the encode hangs after a few dozen frames ("ring 0
+   stalled", "ring 3 stalled", "GPU lockup"), and the reset does not
+   recover ("failed VCE resume (-22)", "ring 0 test failed").
+ - With the hardware ring semaphores of the VCE ring disabled as a
+   workaround, the hang is gone but encoding runs at 3.9 fps
+   (~256 ms per frame), consistent with fences being noticed only by
+   timeouts.
+ - With this series: 640x360 for 1800 frames, 1280x720 for 900 frames
+   and 1920x1080 for 600 frames, all in real time with no decode
+   errors, and 191 fps at 720p / 91 fps at 1080p unthrottled.  Four
+   runtime suspend/resume cycles with an encode in between also
+   worked.  No lockup, reset, WARNING or error in the kernel log, with
+   DPM and runtime PM enabled.
 
-Measured on the same device, downstream 7.2 payload, alternating real
-power-on cold boots (fastboot boot of two images that differ only in this
-hunk and the DSI PHY change mentioned below):
+Trinity/Richland takes the same path and is covered by the previous
+patch, but I have no such hardware to test.  CIK is not affected.
 
-  without the reset:  5 of 9 cold boots failed (command DMA timeout)
-  with the reset:    15 of 15 cold boots OK (two variants, see below)
-
-As an RFC I have gated it to lenovo,elden because I cannot tell whether
-other boards that hand over with a live display would benefit or would be
-broken by resetting the block.  Two questions:
-
-1. Is a per-board workaround in dispcc probe the right place, or should
-   this be expressed as a DT property (e.g. qcom,reset-mdss-at-probe) or
-   be handled unconditionally in the dispcc driver / in mdss?
-2. LinuxLoader solves the same problem on the bootloader side under the
-   name "DisableDisplayHW".  Would you rather see the reset done by
-   mdss_reset()/DPU before the PLLs are configured, so that it also helps
-   other bootloaders that leave the block running?
-
-Separately, and relevant to Dmitry's "drm/msm/dsi/phy: power up the digital
-top before starting the 7nm PLL" series: on the same board the missing
-DIGTOP_PWRDN_B handling produces exactly the reported
-
-  DSI PLL(0) lock failed, status=0x00000000
-
-four times per boot (the PHY PLL is enabled by the clock framework from
-of_clk_set_defaults() before the PHY is touched).  With DIGTOP_PWRDN_B set
-and cleared together with PLL_SHUTDOWNB that message disappears from every
-boot I measured (10 out of 10), but it does not change the command DMA
-behaviour above: an image with only that change still failed 3 of 4 cold
-boots with the PLL reported locked.  So the two are independent, and the
-DIGTOP change looks correct on its own.
-
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Fixes: a918efab631a ("drm/radeon: add VCE 1.0 support v4")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matheus Tagliari <mptagliari@gmail.com>
 ---
- drivers/clk/qcom/dispcc-sm8750.c | 35 ++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ drivers/gpu/drm/radeon/sid.h      | 2 ++
+ drivers/gpu/drm/radeon/vce_v1_0.c | 9 +++++++++
+ 2 files changed, 11 insertions(+)
 
-diff --git a/drivers/clk/qcom/dispcc-sm8750.c b/drivers/clk/qcom/dispcc-sm8750.c
-index e1d9534..c2a1705 100644
---- a/drivers/clk/qcom/dispcc-sm8750.c
-+++ b/drivers/clk/qcom/dispcc-sm8750.c
-@@ -5,9 +5,11 @@
-  */
+diff --git a/drivers/gpu/drm/radeon/sid.h b/drivers/gpu/drm/radeon/sid.h
+index f9267b026..ba322de84 100644
+--- a/drivers/gpu/drm/radeon/sid.h
++++ b/drivers/gpu/drm/radeon/sid.h
+@@ -1878,6 +1878,8 @@
+ #define	DMA_PACKET_NOP					  0xf
  
- #include <linux/clk-provider.h>
-+#include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/pm_runtime.h>
-@@ -1919,6 +1921,39 @@ static int disp_cc_sm8750_probe(struct platform_device *pdev)
- 		goto err_put_rpm;
+ #define VCE_STATUS					0x20004
++#define VCE_SYS_INT_EN					0x20d00
++#define		VCE_SYS_INT_TRAP_INTERRUPT_EN		(1 << 3)
+ #define VCE_VCPU_CNTL					0x20014
+ #define		VCE_CLK_EN				(1 << 0)
+ #define VCE_VCPU_CACHE_OFFSET0				0x20024
+diff --git a/drivers/gpu/drm/radeon/vce_v1_0.c b/drivers/gpu/drm/radeon/vce_v1_0.c
+index bdfbcf14b..09fc1572a 100644
+--- a/drivers/gpu/drm/radeon/vce_v1_0.c
++++ b/drivers/gpu/drm/radeon/vce_v1_0.c
+@@ -350,6 +350,15 @@ int vce_v1_0_start(struct radeon_device *rdev)
+ 		return r;
  	}
  
 +	/*
-+	 * Some bootloaders hand over with the display block still fully
-+	 * active: dispcc PLLs locked and MDSS core / core_int2 / RSCC out of
-+	 * reset. Probing on top of that live state makes the command-mode
-+	 * panel fail to initialise (command DMA timeout, panel init -EIO).
-+	 *
-+	 * Assert the three block resets and release them before the PLLs are
-+	 * configured, so the block starts from a known-zero state.
-+	 *
-+	 * Limited to Lenovo Elden for now: it is the only board where this
-+	 * handover behaviour was observed and the fix verified.
++	 * Enable the trap interrupt so that VCE fences are processed.
++	 * CIK also gets here but has VCE_SYS_INT_EN elsewhere and enables
++	 * it in vce_v2_0_resume().
 +	 */
-+	if (of_machine_is_compatible("lenovo,elden")) {
-+		static const u16 elden_bcrs[] = {
-+			DISP_CC_MDSS_CORE_BCR,
-+			DISP_CC_MDSS_CORE_INT2_BCR,
-+			DISP_CC_MDSS_RSCC_BCR,
-+		};
-+		unsigned int reg;
-+		int i;
++	if (rdev->family < CHIP_BONAIRE)
++		WREG32_P(VCE_SYS_INT_EN, VCE_SYS_INT_TRAP_INTERRUPT_EN,
++			 ~VCE_SYS_INT_TRAP_INTERRUPT_EN);
 +
-+		for (i = 0; i < ARRAY_SIZE(elden_bcrs); i++) {
-+			reg = disp_cc_sm8750_resets[elden_bcrs[i]].reg;
-+			regmap_write(regmap, reg, 0x1);
-+		}
-+		/* Hold for one full ~30 Hz frame before releasing. */
-+		msleep(50);
-+		for (i = ARRAY_SIZE(elden_bcrs) - 1; i >= 0; i--) {
-+			reg = disp_cc_sm8750_resets[elden_bcrs[i]].reg;
-+			regmap_write(regmap, reg, 0x0);
-+		}
-+	}
-+
- 	clk_taycan_elu_pll_configure(&disp_cc_pll0, regmap, &disp_cc_pll0_config);
- 	clk_taycan_elu_pll_configure(&disp_cc_pll1, regmap, &disp_cc_pll1_config);
- 	clk_pongo_elu_pll_configure(&disp_cc_pll2, regmap, &disp_cc_pll2_config);
+ 	return 0;
+ }
+ 
+-- 
+2.47.3
 
