@@ -2,140 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3370C606A31B
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:28:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E157606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:28:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=zkjJTfkA
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UvkrjmIo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64EC710E5A2;
-	Fri, 23 Oct 2026 07:28:18 +0000 (UTC)
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11021117.outbound.protection.outlook.com
- [40.107.130.117])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 213C710E408
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 10:44:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zv7aae5LENvPcEjaGYLW8o6Gaf9uaF+b4Bnro0X6CLlyQRIKx2lUP0MbUbDWdJYc3TSiw4rZQOlzBs5xcAyEo7+X7I6AJDMYw6RUVWz3Sjl9moupVtjGsy2a3drHQg2uFrdSGOrVvnyQUbdL0sMbqYqTQhTQ+hllSfZpcXE5rT5MUbXGDey85hyW/4DL1YZ7J1q/ocWuPWC3Q0d3tQ24urw+tHMUP6YnF85uJIzepICL6GwPBm6qXE/9R9exiaUdVQpTYIezqak0NqviL37/FJ6zbGC4v50YOiFkR2fS+ZkzPEodrezCl2tWH/C2yjDPQ3CGcJA0bZ4BstuyyZ7LMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/H9i0/KxS03TPL9mZSA7OjhCtF4RVQmDgrKmsDMoVbA=;
- b=duk9rs2ZygJzOR/0TynV7RrKCVGlXGXB6cCCdoes+4dv+cOZ45ICtx9yefeEzFFemmb4QQ5RhwBSDOYQea2LC7apCK6zIPZwubvwMUAFoEgVadr62edg+hPEEb4mJkS4sLeCiafBFflG/sMr2/6QtxZGsOWiYcDaTnUMYcikCe3aC5HrNJjlMS5u3IcwIWM8X4s8cu8JxF92NRC/FhId+KG6dXAZ9x6T8zh/NeURajGjfzuFaPk49bNzprY/XBSPpZyPRYxhDdUZtMJuOo1pIIoS1E4wH2pgUplC7b0l2xpyT+GU6lGWXB5unsZfBtHfkzJ+6yX6P+wZuLv3rYQarA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/H9i0/KxS03TPL9mZSA7OjhCtF4RVQmDgrKmsDMoVbA=;
- b=zkjJTfkATwtHx9y/HdMX6fkeH3G3XDWDURl/3pg463QAcCgtfAgNdb3KEkWiVYZiVDPUvqOBlEFO6TeXWo3FTpGwYX9DAkV7saO48bwl0KcLdizsflHE2VgwgDo0nwB6KXDd9xIqcN9N45CXi94Kjffi1K7puanSedfD0+Qe7uW1LTJigpEPjlHpxIVVprAke4VeScqStMpVOjCrCCsCEi1DjDK+1hKDglQIj5OkTkeRRpw6wvI7C2CsaT/Ro7gByIK6X+N7jdARHuv6wmwgN1aiWf/Yl25Ee2VAQFv/i/aEOLv/mynGapInnUWlOuEsEffIqoKhrfCt10ikzKEXIQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20) by PR3PR08MB5722.eurprd08.prod.outlook.com
- (2603:10a6:102:8f::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
- 2026 10:44:42 +0000
-Received: from PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a]) by PA6PR08MB10708.eurprd08.prod.outlook.com
- ([fe80::1999:c6db:dc55:494a%5]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 10:44:42 +0000
-Message-ID: <71101695-339d-4f8f-b9d8-dfadf7dbd0ed@virtuozzo.com>
-Date: Thu, 22 Oct 2026 12:44:40 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] mm/rmap: duplicate a PMD mapping as one in
- folio_dup_file_rmap_pmd()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>, Alex Williamson <alex@shazbot.org>,
- kvm@vger.kernel.org, =?UTF-8?Q?Lo=C3=AFc_Molinari?=
- <loic.molinari@collabora.com>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
- <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-1-66f00b7a564c@virtuozzo.com>
- <atnEFyGRYGGf9shA@gremlin>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <atnEFyGRYGGf9shA@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4PR10CA0010.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:5dc::7) To PA6PR08MB10708.eurprd08.prod.outlook.com
- (2603:10a6:102:3c7::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6280D1129CE;
+	Fri, 23 Oct 2026 07:28:19 +0000 (UTC)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A09A5112522
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 11:48:18 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-5eac01ff101so675855e0c.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 04:48:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792669696; x=1793274496; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=BzvnC7BX4lHpgCzhnJO5oI/EjW4Sy80MjAmOtqEc83U=;
+ b=UvkrjmIoi8TdGtD9zp35rtjT/Qz4DcSsNBRHaYC2ikaIBpJXrBYSKp0b1GKJIyJXZG
+ XNJs1iQA7vO83tdft7HckuPy9WLIsxyk0wMNwMfjuajmWVDxhKjP4Kt/I8I/L89G1DEq
+ F4F2X6Z5qqT1bv2Ejk9iwPwiG0En2nvDbuY068VRH0bLBvjT8z+4y7R6DlItn6vaSXLD
+ 7KltdZIX6Om3xPRjFpxdqly4DDUeByrhsDiuVm0GkfSgG0AXZNZcZZ5sctipeHb2ocA4
+ XREtBlNLEkW3GxTI3d6LWpitqsQ2RdVr0RHIgBkb5zIAPycVF6uMnvoqDdiF3/Balh2Q
+ yJ+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792669696; x=1793274496;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=BzvnC7BX4lHpgCzhnJO5oI/EjW4Sy80MjAmOtqEc83U=;
+ b=PQq0F58N9iPP72ZNLM/1YXCxHPoCGSN+qG2ouXm7mH6idwdze85Gk5SWFLTw8FEz/h
+ FtvTYuqVylT4RqCzSBqgT1/I41PZEc3bOcdDZsQie91JI3suR+j+YWDHf3J5ODURpGlW
+ jN7XgGdF9BqBXTxDQ2jgMbdmfOPtk0ZhIdPVgAc7X1j1u3VvnoSXjKu0L/sIgyZ76eU8
+ auArvxlSh2jEcOKhxylcqsacJN9N94b8x94f6H9mzhmLRrV2gKCznrG+bZC6jKEAn+As
+ cSFfjDJGW7WtLlRAVl8zxb2xPV78HWaczr5RrBlmFBlBYdkuvsPnB8J+kPOkGCeNQAFx
+ L9Xg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzoDmILElQHLr2sby2kM9gMET/UFf2NbquZgomDfE/dqshtDspTa4KGVcbxljrA0balbqFyOUXDVAY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKSLldAhX17CsgFsnGN05K04sqRxxL8mmn01w/3PCGIGUIH180E
+ FO8eJSVeuBE9uGi8W7UefkHbqCVL70Cv9fc4FMqD4OVEUE5/7LGevx+0
+X-Gm-Gg: AYBFou16/zL2+wwJww0yRMdaWSX5c2XoPXqZ/GFzxRN8KU717yhgacEoLLbn1b+l01m
+ s/sKrGVUUTsONsesb/1beH7ZuqmIk0x5V1sQQ6LDkuygq5Gj1ayTcXlBHEAy4QX6Qg1y5s0oR0i
+ JSpGuQwH/+oTWFozFIjgB477BFizujBFCsV4aZwjfgNXPbWL0gwn307p6LEjMg4DwqIH/3e2e4p
+ lSrSLYic+VXFvqATdC5yNr7zlOg8/GfPR+h/x41t2nNYS9R7/4uEnq39qKuHLEhZW69DqNR7ryC
+ rS4A+Ko46BHO70FdNjjDaaFWxXUu8/fhGwScOlZ/fIod+E7+Ad4drFa7JfRPwX12g3qXznulwc8
+ IGlARAn8UPGaSpQn4TWCIKCIpu7e3+iSOAvrrPjHPkoPG5KDi1HKSHGoDiIGLhIOziuDLzw5PFH
+ jyd6A60h+mkrwGSSs2Ctf1GA/TceVjXWEOiwPCwp8uH0L2oTzuF1kUb0sGB9D1rCSsu/Ji9ZoFe
+ ou1St6lMQ3kzbDl443GbKol96TPxZ4YHiChwDfBH1WD5Alc0GnpGCWsjZBow2aTfn6Ihic=
+X-Received: by 2002:a05:6102:4498:b0:7cc:2712:cafb with SMTP id
+ ada2fe7eead31-7cc926ac31fmr1668407137.15.1792669696418; 
+ Thu, 22 Oct 2026 04:48:16 -0700 (PDT)
+Received: from localhost.localdomain ([177.155.254.104])
+ by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-990d117c005sm6177793241.9.2026.10.22.04.48.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Oct 2026 04:48:16 -0700 (PDT)
+From: Matheus Tagliari <mptagliari@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: Matheus Tagliari <mptagliari@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] drm/radeon: process the VCE interrupt on SI and Trinity
+Date: Thu, 22 Oct 2026 08:47:46 -0300
+Message-ID: <20261022114754.865669-2-mptagliari@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261022114754.865669-1-mptagliari@gmail.com>
+References: <20261022114754.865669-1-mptagliari@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR08MB10708:EE_|PR3PR08MB5722:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52c1a9fe-e817-4e6c-b34b-08df30297af1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|7416014|376014|1800799024|6133799003|22082099003|18002099003|5023799004|56012099006|4143699003|261021121427099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: b65GT7JpOIhauj1iDxG9MscqpG4tRFgjaKiN4g8INQmWciY+ct0ssmTiZ8GA8mxPe9ke8iRR5ZTS4Rba4i/rC5gKK5dhlEGyp4i2u7qrIvQwcvlMjYzCIOf45cLeYL6U/TuZ2Jt5cOVGhWk2LgUort4wpgY9VtGh1B9JBaPRW28yEasLFK/qbfjcea5uEtVMj3QFc7EP2VVKglVijHIXuVl9N78Md+ykXdyWsPp5lZQ//oGGyeefu5ycj/T9rNw707ni18SFd0CMksj3Hhr6WBTJeYfN0V8TxxfmLr4mH6n7AmwAXHePIFGURHpK6mjLtpgob7Whv5yhQ1QOq5tYg8yH9mo5fXFkHLLzKT5tPjrZLqCuD6joQS5yR1W8B1AyF3jJiBLRMtws0xW08xhOCu5EDvM9lyARZkF3Xn8ZPadIAgpno4votOC718A6jLzcBrkndzg+StIUS1tXbXLWIzOkZFVLaWDBTR4o6QGna/naR7br3QGZ+OlMvrr/M+PIGWPmPFMRHZMqZxtFyuW0im+gO+Ziep8x5jVf26hmhmLBJeguaGtO26X4DPSG2+HKZg+6uyasyb0xN3IPbV3IIIPkss30ifcTdp0kGkwg0qrI5+ot9GYjLzj2b0mMpY+1qlz1LJWDayLz0cwDqgRO3bFx3ICnmcwAfqZoLBmuDFc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PA6PR08MB10708.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(5023799004)(56012099006)(4143699003)(261021121427099003)(261009223027099003)(10067099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXBrZWFBL3lCY3Y3N1pIYlF0cEo3V1hYc2Q5dFQwbUowOThlRFZrRkREZVRG?=
- =?utf-8?B?RkM2ZlN0ZTJzZzFONHMxTlVXaVdsNW4rNU03cHJyaHowc1BkVkExL29ZVTRK?=
- =?utf-8?B?SXEzQk0zOHZjMWZibTExbW94UDlKY1JsOFFURndVRnNOdE9vczlFckdGcHpY?=
- =?utf-8?B?ZE8zbXhqVjZwSCtaMjcwak1ZVUhNZnBpQUpxRFNpL2lYQTgvOXkxSHpsTlll?=
- =?utf-8?B?YWlNY0h4WVBQbXo2cGlQMVI4c1l6cmhmUWJ4UDc3bWhuQlNyUm44dmdLS1cr?=
- =?utf-8?B?aUVyS1RyK2g3ajlocUxqMVhoTmlldVJ1bER0VGwwRnd6V2tnVjJESUVxYzJ3?=
- =?utf-8?B?Unk5aklxaFgrUEhKSlFzNDdJUi9ITVBHYWxtK1hwOTBCTnlLQTR3dzV0dTJN?=
- =?utf-8?B?WkRHNW1mZlprSDRGaFZlczAvWWFqd2Y0K3U2b3BGckRqREdqUFNrdHp3WWJT?=
- =?utf-8?B?M0p3bnJwSmFFeW15aXdCejVGVDhmaDBsRTJDa2luNUJTNUI1anBKQUpjQjNW?=
- =?utf-8?B?S3ZMSW9wME1neGpYYnkrRldjRnJBaUE4aTBVQ3pGNGFPUHlCNGFTL0pCRkR0?=
- =?utf-8?B?cDV1L1BOOWE4VktwTnI1dkx6dUtwSTZ6NEhPUzdjL2NpazNjanhqbHp6NmQ2?=
- =?utf-8?B?WmJ4Z1hSL3EycjZJNDdsb0lDclFuUU84ZlBYRnZhSWtiSThxUTZVL3g3NHli?=
- =?utf-8?B?UU1UWkVubVNPZHQ2VlNCbFVRRFR5cUg5M3dNbndXN0drMU1wVXJkWmVyR05s?=
- =?utf-8?B?SFBDZEpXNnJIOW9IdlQrcTJLYS9kY1U5dHlXbTNYUDlGQ3ZnVVlNcXdYTFdu?=
- =?utf-8?B?V05YcXdnSzZpcmg5VFJsRGFQUC8zRS96ZWx2cmhFc2hzQjh0eDBiRmkzZjVO?=
- =?utf-8?B?KzFyalJKUDZWS3ViL2srRjlUNG5lNUU2ai94YTFOcityZGdZck5CRDBiRTlr?=
- =?utf-8?B?ZGNvWnJDM0N2NnVnMnRVYkhCb2E1b3QyTUdCQjlOWFljTHVWVkxrZGxlZDZu?=
- =?utf-8?B?cnBuRVFmOHRyWm43V2JTQm5tdzcySlR3TkdQRXFEZXRsdXhtWDdhWG1NOC9n?=
- =?utf-8?B?ZHZiVDJPT1BYck9GVkZGWWtzV3NCQUtCdUhVbmpUaDM3MTgvUHVyLzlSUkdO?=
- =?utf-8?B?WnNpUXZDRFZWUm5wOWhBdUJPUmpNTDAyYjFScnM1TUpzaDg1UXQwUmRyMG5n?=
- =?utf-8?B?YkJZTDJiUUVXM3pPZW1menpnK3RCT1piTG0xSXlyWjVDallxQU51NVkrSEtX?=
- =?utf-8?B?TC9TVmN5eVBvRDZzb0d4RDlKbnNTQXA5aXNNZFVYK3NJSUNIVFFkbFJvalVI?=
- =?utf-8?B?RmtRdmNweUsyM2NrUndwcGNyN1lnTzFCL3lOMER6Zk1TNE5vT3lTWklGcFFK?=
- =?utf-8?B?bVhrWTZ6dGYrclpldThlWXAxRUpYUmlsVFJKSkxXeXpybXpiNHRPNDR0VnFO?=
- =?utf-8?B?bThjZDUwMm5MU3h0VFBhUEdPM2dSV1k2NzRPZ1BidEFkbGc3VjJ3S1BLd1By?=
- =?utf-8?B?Vm82bHZMZVZNRG0rQUNIalB0ZEtZUEhhVW5RbDFwVEpVUkpONWk5aFJPcWQz?=
- =?utf-8?B?cy80MDVHNFViSzRPTWNXRGYzVnlVaUwzWTlPdm92V1J1L2VLZUs5K1N5M3Bt?=
- =?utf-8?B?ZkZ6YVdhTUdZQTJZakNuNW1kL1IyYzE0ekVrTG13WVN3NThOWFJZVE45dFJR?=
- =?utf-8?B?Wk5nUlJEcklUalpmbUh1ZW9LY21qTGlpN0NlbnczNTBYUTlXNjlwR3ZBTGJh?=
- =?utf-8?B?WkJtQXR4OVY1L2pIajlkK2dmc2JTUEdHK0loajJadzdtRVd6VUJISzZYbU1t?=
- =?utf-8?B?TVAxNXUyWjBsa3Z2NlY3YlZGM2dvY29XVlNkc1cvcXhXNEVVdzB1eUNNbVI2?=
- =?utf-8?B?S1VHTll3Q080bytHdjdDbzlrTGd0QUxFWlp6bVF0WFVzNTk0YS9yY2RGWUlZ?=
- =?utf-8?B?Y1FjRVlXTEUvTEZLTlY0ak9PWmIyUDBEbExEKzFpbEQvck5ENUlTeTRnWmQ2?=
- =?utf-8?B?TFloTE5SSFMwS0pidGY4Nzc3YVhyNUtpeGR4aFhEUFA0NTVXSTN1am5xTUNy?=
- =?utf-8?B?bWozbkI5K2dONHVsdHBRR0xtSFBNS0tXNmFmV2VDV09NY1VjdU5UbHhneWhs?=
- =?utf-8?B?dTFQYXZXeUZJZVBsYU9VVzhpVzkwMzU0c3UxMzdzRXBabmdNWXQxUXBadGlL?=
- =?utf-8?B?aGozZW84QUdiQUEyQkhrRkErbStZQlR1NC9qZlBwcW5nVjNvb0thZWdZbnJT?=
- =?utf-8?B?di9DQU5zVmRHaDN0dkprZzcza1poRW85NlJFZUJ1Qi9zYXBBVTU0SURvN096?=
- =?utf-8?B?Wkdkd2wzOVpMTFkyNVU4NmtrelFjcm1GbTlCaCtydVV5d2pyT1VzZz09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52c1a9fe-e817-4e6c-b34b-08df30297af1
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR08MB10708.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 10:44:42.5871 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XmzK/r82wdRxVlLxN+MFiC/2g6Mc0FcAwdzIEKMrHvjtk1LWlqTWTgUE5XqrmMlxwyyJn3p6HdyPrjoipTpUHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5722
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 23 Oct 2026 07:28:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -148,46 +88,86 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/22/26 10:07, Lorenzo Stoakes (ARM) wrote:
->> Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
+radeon_vce_fence_emit() ends every VCE fence with VCE_CMD_TRAP, which
+raises the VCE trap interrupt (IH src_id 167).  cik_irq_process()
+handles it by calling radeon_fence_process() for the matching VCE ring,
+but si_irq_process() and evergreen_irq_process(), which serve the other
+ASICs with VCE1 (SI and Trinity/Richland), have no case for it.
 
-> Was this a mistake in d8ef5e311d7b, or actually intentional for whatever reason?
-> If the latter this shouldn't be a fixes.
+Add the same handling.  The trap interrupt is not enabled on these
+ASICs yet, so this does not change behaviour on its own; the next patch
+enables it.
 
-commit d8ef5e311d7bfde54b60ab45026f206eff31b2d2
+The SI part was tested together with the next patch.  The Trinity part
+mirrors the CIK and SI code and has not been tested on Trinity/Richland
+hardware.
 
-    mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()
+Fixes: a918efab631a ("drm/radeon: add VCE 1.0 support v4")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matheus Tagliari <mptagliari@gmail.com>
+---
+ drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
+ drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
+ 2 files changed, 28 insertions(+)
 
-...
-+static inline void folio_dup_file_rmap_ptes(struct folio *folio,
-+               struct page *page, int nr_pages)
-+{
-+       __folio_dup_file_rmap(folio, page, nr_pages, RMAP_LEVEL_PTE);
-+}
+diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
+index 3cbc6eedb..eb94916c8 100644
+--- a/drivers/gpu/drm/radeon/evergreen.c
++++ b/drivers/gpu/drm/radeon/evergreen.c
+@@ -4847,6 +4847,20 @@ int evergreen_irq_process(struct radeon_device *rdev)
+ 			drm_dbg(ddev, "IH: UVD int: 0x%08x\n", src_data);
+ 			radeon_fence_process(rdev, R600_RING_TYPE_UVD_INDEX);
+ 			break;
++		case 167: /* VCE */
++			drm_dbg(ddev, "IH: VCE int: 0x%08x\n", src_data);
++			switch (src_data) {
++			case 0:
++				radeon_fence_process(rdev, TN_RING_TYPE_VCE1_INDEX);
++				break;
++			case 1:
++				radeon_fence_process(rdev, TN_RING_TYPE_VCE2_INDEX);
++				break;
++			default:
++				drm_err(ddev, "Unhandled interrupt: %d %d\n", src_id, src_data);
++				break;
++			}
++			break;
+ 		case 146:
+ 		case 147:
+ 			addr = RREG32(VM_CONTEXT1_PROTECTION_FAULT_ADDR);
+diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+index 4681ff286..af3c4026d 100644
+--- a/drivers/gpu/drm/radeon/si.c
++++ b/drivers/gpu/drm/radeon/si.c
+@@ -6347,6 +6347,20 @@ int si_irq_process(struct radeon_device *rdev)
+ 			DRM_DEBUG("IH: UVD int: 0x%08x\n", src_data);
+ 			radeon_fence_process(rdev, R600_RING_TYPE_UVD_INDEX);
+ 			break;
++		case 167: /* VCE */
++			DRM_DEBUG("IH: VCE int: 0x%08x\n", src_data);
++			switch (src_data) {
++			case 0:
++				radeon_fence_process(rdev, TN_RING_TYPE_VCE1_INDEX);
++				break;
++			case 1:
++				radeon_fence_process(rdev, TN_RING_TYPE_VCE2_INDEX);
++				break;
++			default:
++				DRM_ERROR("Unhandled interrupt: %d %d\n", src_id, src_data);
++				break;
++			}
++			break;
+ 		case 146:
+ 		case 147:
+ 			addr = RREG32(VM_CONTEXT1_PROTECTION_FAULT_ADDR);
+-- 
+2.47.3
 
-...
-+static inline void folio_dup_file_rmap_pmd(struct folio *folio,
-+               struct page *page)
-+{
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+       __folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, RMAP_LEVEL_PTE);
-+#else
-+       WARN_ON_ONCE(true);
-+#endif
-+}
-
-Both functions were introduced in a single commit, i think it's a simple copy-paste issue.
-
-The helper never had a caller, so nobody could hit it. If you prefer, I
-can drop the Fixes tag and only mention d8ef5e311d7b in the changelog, as
-there is nothing to backport.
-
---
-Cheers, Konstantin
