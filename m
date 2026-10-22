@@ -2,86 +2,181 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EDA606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:24:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E54160A260C
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:28:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ooeSK5v5
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aXLFJO3a;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AHdZg9Tr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C81EA11261C;
-	Thu, 22 Oct 2026 13:23:57 +0000 (UTC)
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79AFD11261C
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:23:47 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id
- 4fb4d7f45d1cf-6b3dd83e779so3219479a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 06:23:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E3EA112640;
+	Thu, 22 Oct 2026 13:28:25 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC5C11261E
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:28:13 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69MA0Xv33923220
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:28:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=NjKssOS5UH1EpHAkVpfFza
+ 2/uTDAmbwdRnncm193YRo=; b=aXLFJO3agnQGUNjgecN3woAVJc1RiIfW/Mx+aL
+ zCh+zJi7xBBM81JUTKmtNB1nDm3O6QccgFY7MF+Dvzqu+lJHGJC1jAG8lmS2A9JW
+ bj95n7+g3uRPAYkI9H9nikq4mVBh7mjA9t3Exqy9sezREmKfrW3t1QPm44f6/qLm
+ pJua+piHirI+cFUe8ahOmcBKHoP3UMYydLVDoPCzhcXbfe1X+MNGjQWbjwae8F8v
+ ZH7tqChgjw3ppyInw1xRMPQ6vhsw/apU0InG28+PjYZS8Yk8LcjCKh9/qa4nuMnR
+ ymtLMTxO0ElBvDe4k0y+sTcAy7GukQSUqHKcYQgbZnH+j9rQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bkqm4-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:28:12 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93f32050e72so6364385a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 06:28:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792675426; x=1793280226; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=1B+px64c1MKu5KCBHRGWLd8KLh+jyRvqQIQFUlGlXkM=;
- b=ooeSK5v5tr4EmkZBEnPcsB+ljk53qC4Puxqzh3POladaLABD+8C0G0OuJmKn1DhRkp
- ny3W4b5tWrQKMaMEi59iWpc2GDtmYeLfVaorBSspVT7GfQDzuQDjU7MSJ8ObQPnKut1V
- hVnIgB+cd5IyIhvGXBc/GPHeIRFcVhHMW1nA0bDOPaly0TcWg2GX/tCywGawF5h4nxsT
- eeBMABksBGdWWvroIu8sPnSuE51lE6Ft1OLr/tYnxQ7wd9jCDs39IrzqGreA5vAQ91DQ
- LZd3Rzb/lkaNsj86MtMYRjoVdb/iApUKFn89mJgtz7wF+GOyXpzkyc6LitUqlceOeLvM
- yKZA==
+ d=oss.qualcomm.com; s=google; t=1792675692; x=1793280492;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=NjKssOS5UH1EpHAkVpfFza2/uTDAmbwdRnncm193YRo=;
+ b=AHdZg9TrHhoyQGWkVJ+Zm8iN8BRanzwoQhide91LpeoUipVrDlUlmzWcaMlKXZntN+
+ 8phYHtNzsw0Zbcncr0eVIx5oyrOi4IkQEZhcfIb1FqL/ZBopicEu4ubKaHbEcEtePkYq
+ TZjQclQb07/miqc6eecjQ8l29BrURq0CZQMIWuSneC+LXBispQuTw5xxo6FN3gUncbuA
+ VowkrT32s08T1e5ZHbCwyxvAYMuE2/vHDXZ6XMXRc1KT6f1oPH3+aqHIN52T7ccwKMHN
+ foW3S+zJRTFSaOAcrgg2oUeIVyM7ebpaeUZ+1gpXixdDuQBFGFSdLp2hvNJX24IubMmw
+ /7GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792675426; x=1793280226;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=1B+px64c1MKu5KCBHRGWLd8KLh+jyRvqQIQFUlGlXkM=;
- b=OEgLocgcGPlTCAXROM1Ad8SF0sxWVUJmAWQtBXbXqOc6n5Tuam+VZAdMsUtcN/rAcS
- Hntz8RsW6muBLLJBDSChV8CRhES7bMzO50sIalsO9DofuLzdipuQFUaZyWKjzu1l3qNu
- csSnX1N8Areh4qolKjrWXbkLMf+ffZg95JC5IMgChQP/iwcWaSFo8cZvBqiNcOkz5loW
- WLh3urzxRct/qQUBkWwyOMK98NeDLM+9t404bijLQM4/7/o8m94McfAUM3FXGdjzFSka
- rptw8HZon910zcyZl+u54mdlvenfav9f3zvEHejQNgODphCAjmlq3Lhc0jUIOI5T48rw
- OmHg==
-X-Gm-Message-State: AFq9FYIiDhk1Yxikd1lg+OBsoPMlUsKVoRUbnmXOi8U7OYNO73ZKaReS
- ibl6mcS6bfVO6Q6iN07ykKDO5Kg0TRzG1ShBnOTLD8mDy/Og4TfBG/Zt
-X-Gm-Gg: AYBFou16Bv/MXUWsXrYkd68aKi05bWLxi8uJJ/fD5CTnmwlFYK6DB3hP0JGYiLGHpNo
- 6nmDScSD8JCTthQkZvJp+iIQFn1Vif/KIhZCl1xnZeXW+mooCagTUjcVt2BxRNnb1g6V1T9CfxC
- usykqiYkDddG+EWtV2VwcSTIr3fL1Hrrh+beRNtHRmt/CKIc75jl4p5EWcAWWUG9bWhB3C4fKWv
- RxpeD2VVf96s3gmdhl0WOlIdWZerXVPEZaD3skbMMmHtXwUle3OBhK/Cr+/ynDgjFuftHpp8ytS
- W5Bp++C+jFkMjN/s4pxWkd7q/pjFZI9+HBJAsnltQenxxyOKQYUBvMgQiNEBIvRhi/KHPXfLnIK
- ox6fk0S4aAKQENKHr9M8QtdoD+A2eXOjPpTbHRy4n8OaTPFuhoa0rXLzPznlywhzq5velxMU36X
- q3wU0ogcg2JhIY0Mkig3e7Db+wPypQVLhTfZ5YonMdC5eS37TCaOFpZeLedIcctiTJzoaRYnGGV
- adeP1x8aQtNiOZzfQbm1LD9VpnEprfW/FxvtWJEc7d4pglFggmMUUb1c/ZI5H9hhC0oPeQLrex7
- pHgVosI=
-X-Received: by 2002:a05:6402:4020:b0:6aa:7ff:4ebf with SMTP id
- 4fb4d7f45d1cf-6b408e9d75fmr4917726a12.15.1792675425583; 
- Thu, 22 Oct 2026 06:23:45 -0700 (PDT)
-Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b40313074esm1818061a12.27.2026.10.22.06.23.43
+ d=1e100.net; s=20260707; t=1792675692; x=1793280492;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=NjKssOS5UH1EpHAkVpfFza2/uTDAmbwdRnncm193YRo=;
+ b=sEBKWmRJ5T9YTTgmlKOnz+R9dimDdtakk/Wb9qD9jFMWYdNcA+aH+N6BQxG+6T8yYN
+ ThrL/tlH7b3ckcrbCqSCtBBJLzMt+sEYd2wNqWsBzaVXzdGH7RyTLkP5XLKXcGvNkk/F
+ jLAKO9oYEdmZb/U3fbCsUx7Ka4WnrLbK4x+l57o/hZS3YyQ307pd7T88NaIUoXVciROH
+ lr5Eb0K+uFUnRf71rMMMK5IJ8jpZBYDiKbNcCo0BOKtVtBc15dXIIugHGF7GX9hGLJEl
+ oA1Wq/5V8WoLMJ3qafoD7VFjxo2MAPuwExYSDmF/IF7d26jK9t94vDeAfRtng1zk4cWp
+ wh0w==
+X-Gm-Message-State: AFq9FYLhgZ20LT2/F8TQuoSv+klT36vHYpDCgSbveuqCUrg47QtpghaE
+ 2hO0Exs46I5k41VxmHXf4xIbUHdOQEwJyCxBzjR88AZ5no+7y/5uMa/cmK24IvtNu7nNfxj9qRY
+ 52WAoMPhyTO302ONwamiplLHFgXaKkRT+YRSu8PoRJDX3G8M2IZ9lK80NpJmENiVEeVz2ZwE=
+X-Gm-Gg: AYBFou2lRPfD3W0Wg659rT+nBRQX7ZbaCeE+g0lE5pibAMKlyHrZFN3y+kgIpbXWcT/
+ F3sMxWCZAdIGWBVHNVFxnMXJOSkPeX0Ff4tM9RTmJ0fxsk4Fr+nkgRbpSW7rGGYW97sV+2cILkz
+ 2fRxTOMl9aRoFgzSqH0vNb4LATpSlDMFqneMHL4pvOLQWNGL7+ksMyol7jp/UNqKtr5+rVSRBVN
+ zBnJBVIOecBxdDSzup64eTmFnapI/YEBZQ+V/+CYmLREV/5ttFCGiko6CD1x2N/t44zIC3R6rp/
+ 69LmIvayKvpYNI5+mNW+OvDYBhIt2OZipTBWIkIhr55dt2FT4eUH1hyB5dYR3Tqht60sUO796FW
+ INWOyLaYQSOUWRZ1dx27ekCPt9sSdmejKoSA/qgEZxHLUHIJdl8BII/T8ls+7ozWXy3H14mC3dQ
+ 9Bi1cyyFpNCSt3
+X-Received: by 2002:a05:620a:838e:b0:93f:35a7:cd4 with SMTP id
+ af79cd13be357-93f57f8dd09mr1043823685a.67.1792675691526; 
+ Thu, 22 Oct 2026 06:28:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:838e:b0:93f:35a7:cd4 with SMTP id
+ af79cd13be357-93f57f8dd09mr1043816785a.67.1792675690859; 
+ Thu, 22 Oct 2026 06:28:10 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ac4f6683edsm8762201fa.22.2026.10.22.06.28.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 06:23:44 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: [PATCH v4 7/7] drm/tegra: Add support for 8-bit CPU interface
-Date: Thu, 22 Oct 2026 16:22:59 +0300
-Message-ID: <20261022132259.240717-8-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022132259.240717-1-clamor95@gmail.com>
-References: <20261022132259.240717-1-clamor95@gmail.com>
+ Thu, 22 Oct 2026 06:28:09 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v6 0/9] drm: handle IRQ_HPD events correctly
+Date: Thu, 22 Oct 2026 16:27:55 +0300
+Message-Id: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFsP2moC/3XPwW7DIAwG4FepOI/KGALNTnuPaYdAzMK0Ji2kq
+ FWVdx/pNLVamoulX7I/21eWKAZK7HVzZZFySGHoS9AvG+a6pv8kHtqSGQJqUELx7tDyEI+cMvV
+ j4mTQOjC6qbxgZegQyYfzDXz/+M3pZL/IjbMyd3QhjUO83DZmMff94fo/ngUHLhorvHDeosW3I
+ aXt8dR8u2G/35bC5h0ZHxSEhYJFUYDeExqqqV5R5KMiFoqcFdWi9Qpa79ZuUXdFw26hqKJIsBq
+ tlJXamRWluiv1k4+qongvWgKowZlnt0zT9AOVL/0P3QEAAA==
+X-Change-ID: 20260414-hpd-irq-events-e72bc076a5f1
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6101;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=wd7X3ygmQ//zp6nuLlLwGvPWEOvYg8cJNzxOVLDEF14=;
+ b=kA0DAAoBizyKPgIpKNUByyZiAGraD17IXihmLxbEsLPpyrTIzdcTunXkv6HcA9yHJFD0eOSPy
+ YkBMwQAAQoAHRYhBExwhJVcsmNW8LiVf4s8ij4CKSjVBQJq2g9eAAoJEIs8ij4CKSjVMQAH/ifo
+ LhD6DCv1Yxl/5bv7RrJi2g1XgUsc3Xrlp8zT7eKMKnrok48qY+fY06zbCSHWf+E3AS9R1B/F8b+
+ JdYv6svg1/vl1NC0ZWPIESK4CUAzqg5yDD7+1ZysXcMhP55HAQHwTZCChjcgP5UQnX0RJUybKK5
+ Uul4U1htEvtQlK7IJU9otxtUJzUARmaFwcKivGuTjnO/Olk0SmRKRhA9pcZpH8EJy36lsnIVQMS
+ 9apCfu+zi2wh1sBMKFO1HmxrZYg0KKQTmS7MAI+CJGaCo7KCK0zY9TdBlHuAf/MuJZBxpyRXTr1
+ eEEAxAdkTq5oKd2NvBaLkiNRtm3uvdH7KlRDUHQ=
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1MyBTYWx0ZWRfX3DDsCFW8S/OI
+ vMbMf/yz42b8bk0x6kGM5jXK05yGrGN+WYGJsm4U1AtDDFv4pwsCHdUpfvsA0OxJLYvGrQY0Wi3
+ YRGdjioe6oLOkHJNKQCJhcZOQtzBJnF/+lR+c68V5Jkys0Lrz1VbvSabnvHIlldPU38L9FhTLJm
+ Q/Kv0LXbdXFDRWDF/8JTnllOvR1jooxQKuO7EZuCb2BKEljlVuIgRtD4l5Tk71NTPpN6viHdmaX
+ kMMRQzPUTuZn7jwxWcXiRoh2AY21LyClEfcJC3sTyJLYZ8tjomUu7WrPCXlPzbN6DiqFgszl3Ne
+ gmfHj5MYoSwwVx7PYmcVxVopLk1VjCTj973MVlv/iFhU5ZzOltR5e/+UQqEAVX9pp92QS26pr0F
+ EQzxMHNu5EHu+xQc37hlKVUtLOQz+A==
+X-Proofpoint-GUID: z-3Lvw7wqQkvYW8VnSj3T5kjzqjSOKWA
+X-Proofpoint-ORIG-GUID: z-3Lvw7wqQkvYW8VnSj3T5kjzqjSOKWA
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1MyBTYWx0ZWRfX7cSeSz9JFtsg
+ 4N0VKyiuTe4SUfAphjz8jfvhT2vALInBEjKwvCeK/D9hQBj8x4H/OSZwxxSOyencQ8vp+3j9lQq
+ JtNceoiuIJRTq8nw7I9v+gGxas7OWE0=
+X-Authority-Analysis: v=2.4 cv=CMy/zhrD c=1 sm=1 tr=0 ts=6ada0f6c cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=ag1SF4gXAAAA:8 a=KKAkSRfTAAAA:8 a=P1BnusSwAAAA:8 a=P-IC7800AAAA:8
+ a=GFqr32JmAAAA:8 a=IpJZQVW2AAAA:8 a=mK_AVkanAAAA:8 a=tVI0ZWmoAAAA:8
+ a=s8YR1HE3AAAA:8 a=e5mUnYsNAAAA:8 a=JfrnYn6hAAAA:8 a=eKQTCwoLd85be8zhlTQA:9
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=FO4_E8m0qiDe52t0p3_H:22
+ a=Yupwre4RP9_Eg_Bd0iYG:22 a=cvBusfyB2V15izCimMoJ:22 a=D0XLA9XvdZm18NrgonBM:22
+ a=d3PnA9EDa4IxuAV0gXij:22 a=f02Ha7HRcztGgdyUxOxW:22 a=IawgGOuG5U0WyFbmm1f5:22
+ a=3gWm3jAn84ENXaBijsEo:22 a=-BPWgnxRz2uhmvdm1NTO:22 a=jGH_LyMDp9YhSvY-UuyI:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 bulkscore=0 phishscore=0
+ spamscore=0 suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610220053
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,686 +188,142 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
-that closely resembles the MIPI DBI Type B protocol and is referred to as
-'8-bit CPU'. Each display controller provides two such interfaces, which
-can be used to send MIPI DCS commands to initialize and control the panel
-while image data is transmitted via 16/18/24-line RGB.
+Both DisplayPort and HDMI standards define a way for the Sink / display
+to notify the Source / host about some kinds of events. In case of HDMI
+it's as simple as singnalling changes to the EDID. In case of
+DisplayPort it's more complicated and requires actual checking of the
+DPCD registers.
 
-The '8-bit CPU', although being the DC interface, is modeled using a
-bridge framework for flexibility and convenience. This implementation does
-not change the existing codebase besides registering an interface and can
-be enabled/disabled without losing other Tegra DRM functionality.
+Currently USB-C drivers don't have a way to deliver the IRQ_HPD
+notifications, leading to missing MST notifications. Provide necessary
+plumbing to let IRQ_HPD events be passed to the DisplayPort drivers.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Note: the Yoga C630 UCSI driver and Acer Aspire1 EC driver are not yet
+enabled to send the IRQ_HPD events. Both of them would need some more
+reverse engineering to find out how the event is being reported by the
+EC.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/tegra/Kconfig  |   7 +
- drivers/gpu/drm/tegra/Makefile |   3 +
- drivers/gpu/drm/tegra/dbi.c    | 536 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tegra/dc.c     |  29 ++
- drivers/gpu/drm/tegra/dc.h     |   1 +
- drivers/gpu/drm/tegra/trace.c  |   3 +
- 6 files changed, 579 insertions(+)
- create mode 100644 drivers/gpu/drm/tegra/dbi.c
+Changes in v6:
+- Corrected indentation of args after the function rename (Chaoyi Chen)
+- Reordered / rehashed patches to be more logical (Chaoyi Chen)
+- Fixed build error in the OMAPDSS HDMI driver (Sashiko)
+- Fixed IRQ_HPD vs PLUG interaction in drm/msm/dp (Sashiko)
+- Link to v5: https://patch.msgid.link/20260920-hpd-irq-events-v5-0-ff1de0090c72@oss.qualcomm.com
 
-diff --git a/drivers/gpu/drm/tegra/Kconfig b/drivers/gpu/drm/tegra/Kconfig
-index 8a3b16aac5d68..ce3a424398713 100644
---- a/drivers/gpu/drm/tegra/Kconfig
-+++ b/drivers/gpu/drm/tegra/Kconfig
-@@ -30,6 +30,13 @@ config DRM_TEGRA
- 
- if DRM_TEGRA
- 
-+config DRM_TEGRA_DBI
-+	tristate "Enable MIPI DBI type B communication protocol for Tegra 20/30"
-+	help
-+	  Tegra20 and Tegra30 feature 8 bit CPU driver panel control
-+	  protocol (similar to MIPI DBI Type B). This option allows use
-+	  it to set up and control compatible panel.
-+
- config DRM_TEGRA_DEBUG
- 	bool "NVIDIA Tegra DRM debug support"
- 	help
-diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makefile
-index e399b40d64a1d..d67e53248a082 100644
---- a/drivers/gpu/drm/tegra/Makefile
-+++ b/drivers/gpu/drm/tegra/Makefile
-@@ -33,3 +33,6 @@ tegra-drm-y += trace.o
- tegra-drm-$(CONFIG_DRM_FBDEV_EMULATION) += fbdev.o
- 
- obj-$(CONFIG_DRM_TEGRA) += tegra-drm.o
-+
-+obj-$(CONFIG_DRM_TEGRA_DBI) += tegra-dbi.o
-+tegra-dbi-y := dbi.o
-diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
-new file mode 100644
-index 0000000000000..7bd90d32053f2
---- /dev/null
-+++ b/drivers/gpu/drm/tegra/dbi.c
-@@ -0,0 +1,536 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/kernel.h>
-+#include <linux/media-bus-format.h>
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/property.h>
-+#include <linux/platform_device.h>
-+
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_mipi_dbi.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_panel.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include "dc.h"
-+
-+#define TEGRA_DBI_COMMAND			0
-+#define TEGRA_DBI_DATA				1
-+#define TEGRA_DBI_DATA_PINS_MAX			8
-+#define TEGRA_DBI_INTERFACE_MAX			2
-+
-+struct tegra_dbi_output {
-+	struct drm_panel *panel;
-+	struct drm_bridge *bridge;
-+};
-+
-+struct tegra_dbi_priv {
-+	struct mipi_dbi dbi;		/* must be first */
-+	struct device *dev;
-+	struct tegra_dc *dc;
-+
-+	struct drm_bridge bridge;
-+	struct tegra_dbi_output output;
-+
-+	const struct tegra_dbi_interface *index;
-+
-+	u32 bus_width;
-+	u32 idx;
-+	bool active;
-+};
-+
-+struct reg_entry {
-+	u32 offset;
-+	u32 value;
-+};
-+
-+/*
-+ * This is used to backup and restore COM pin state during
-+ * tegra_dbi_atomic_enable/disable.
-+ */
-+static struct reg_entry com_pin_output[] = {
-+	{ DC_COM_PIN_OUTPUT_ENABLE(0),   0 },
-+	{ DC_COM_PIN_OUTPUT_ENABLE(1),   0 },
-+	{ DC_COM_PIN_OUTPUT_ENABLE(2),   0 },
-+	{ DC_COM_PIN_OUTPUT_ENABLE(3),   0 },
-+	{ DC_COM_PIN_OUTPUT_POLARITY(0), 0 },
-+	{ DC_COM_PIN_OUTPUT_POLARITY(1), 0 },
-+	{ DC_COM_PIN_OUTPUT_POLARITY(2), 0 },
-+	{ DC_COM_PIN_OUTPUT_POLARITY(3), 0 },
-+	{ DC_COM_PIN_OUTPUT_DATA(0),     0 },
-+	{ DC_COM_PIN_OUTPUT_DATA(1),     0 },
-+	{ DC_COM_PIN_OUTPUT_DATA(2),     0 },
-+	{ DC_COM_PIN_OUTPUT_DATA(3),     0 },
-+	{ DC_COM_PIN_OUTPUT_SELECT(0),   0 },
-+	{ DC_COM_PIN_OUTPUT_SELECT(1),   0 },
-+	{ DC_COM_PIN_OUTPUT_SELECT(2),   0 },
-+	{ DC_COM_PIN_OUTPUT_SELECT(3),   0 },
-+	{ DC_COM_PIN_OUTPUT_SELECT(4),   0 },
-+	{ DC_COM_PIN_OUTPUT_SELECT(5),   0 },
-+	{ DC_COM_PIN_OUTPUT_SELECT(6),   0 },
-+};
-+
-+struct pin {
-+	u32 reg;
-+	u32 pos;
-+};
-+
-+struct tegra_dbi_interface {
-+	struct pin dc;
-+	struct pin rw;
-+	struct pin cs;
-+	struct pin data[TEGRA_DBI_DATA_PINS_MAX];
-+};
-+
-+static const struct tegra_dbi_interface tegra_dbi_idx[TEGRA_DBI_INTERFACE_MAX] = {
-+	/*
-+	 * Nvidia Primary 8-bit CPU interface configuration:
-+	 * DC = LCD_DC0/LDC; RW = LCD_PCLK/LSC0; CS = LCD_CS0_N/LCSN
-+	 *	DATA = LD0 - LD7
-+	 */
-+	{
-+		.dc = { DC_COM_PIN_OUTPUT_DATA(3), 6 },
-+		.rw = { DC_COM_PIN_OUTPUT_DATA(1), 24 },
-+		.cs = { DC_COM_PIN_OUTPUT_DATA(3), 4 },
-+		.data = {
-+			{ DC_COM_PIN_OUTPUT_DATA(0), 0 },
-+			{ DC_COM_PIN_OUTPUT_DATA(0), 2 },
-+			{ DC_COM_PIN_OUTPUT_DATA(0), 4 },
-+			{ DC_COM_PIN_OUTPUT_DATA(0), 6 },
-+			{ DC_COM_PIN_OUTPUT_DATA(0), 8 },
-+			{ DC_COM_PIN_OUTPUT_DATA(0), 10 },
-+			{ DC_COM_PIN_OUTPUT_DATA(0), 12 },
-+			{ DC_COM_PIN_OUTPUT_DATA(0), 14 },
-+		},
-+	},
-+	/*
-+	 * Nvidia Secondary 8-bit CPU interface configuration:
-+	 * DC = LCD_DC1/LVP0; RW = LCD_WR_N/LSC1; CS = LCD_CS1_N/LM0
-+	 *	DATA0 = LCD_D18/LHP1	DATA4 = LCD_PWR0/LPW0
-+	 *	DATA1 = LCD_M1/LM1	DATA5 = LCD_PWR2/LPW2
-+	 *	DATA2 = LCD_D22/LDI	DATA6 = LCD_D20/LVP1
-+	 *	DATA3 = LCD_D23/LPP	DATA7 = LCD_D21/LHP0
-+	 */
-+	{
-+		.dc = { DC_COM_PIN_OUTPUT_DATA(2), 8 },
-+		.rw = { DC_COM_PIN_OUTPUT_DATA(1), 26 },
-+		.cs = { DC_COM_PIN_OUTPUT_DATA(3), 16 },
-+		.data = {
-+			{ DC_COM_PIN_OUTPUT_DATA(2), 2 },
-+			{ DC_COM_PIN_OUTPUT_DATA(2), 18 },
-+			{ DC_COM_PIN_OUTPUT_DATA(2), 20 },
-+			{ DC_COM_PIN_OUTPUT_DATA(2), 22 },
-+			{ DC_COM_PIN_OUTPUT_DATA(1), 16 },
-+			{ DC_COM_PIN_OUTPUT_DATA(1), 20 },
-+			{ DC_COM_PIN_OUTPUT_DATA(2), 10 },
-+			{ DC_COM_PIN_OUTPUT_DATA(2), 0 },
-+		},
-+	},
-+};
-+
-+static inline struct tegra_dbi_priv *mipi_dbi_to_tegra_dbi(struct mipi_dbi *dbi)
-+{
-+	return container_of(dbi, struct tegra_dbi_priv, dbi);
-+}
-+
-+static inline struct tegra_dbi_priv *bridge_to_tegra_dbi(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct tegra_dbi_priv, bridge);
-+}
-+
-+static void tegra_dbi_pin_set(struct tegra_dc *dc, const struct pin *pin, int value)
-+{
-+	u32 val;
-+
-+	val = tegra_dc_readl(dc, pin->reg);
-+	val |= BIT(pin->pos + 1); /* unmask is 1 bit above position */
-+	if (value)
-+		val |= BIT(pin->pos);
-+	else
-+		val &= ~BIT(pin->pos);
-+	tegra_dc_writel(dc, val, pin->reg);
-+}
-+
-+static void tegra_dbi_write(struct tegra_dbi_priv *priv, u8 type, u8 value)
-+{
-+	struct tegra_dc *dc = priv->dc;
-+	const struct tegra_dbi_interface *idx = priv->index;
-+
-+	tegra_dbi_pin_set(dc, &idx->dc, type);
-+
-+	tegra_dbi_pin_set(dc, &idx->cs, 0);
-+	tegra_dbi_pin_set(dc, &idx->rw, 0);
-+
-+	for (int i = 0; i < TEGRA_DBI_DATA_PINS_MAX; i++)
-+		tegra_dbi_pin_set(dc, &idx->data[i], BIT(i) & value);
-+
-+	tegra_dbi_pin_set(dc, &idx->cs, 1);
-+	tegra_dbi_pin_set(dc, &idx->rw, 1);
-+
-+	udelay(10);
-+}
-+
-+static int tegra_dbi_dbi_command(struct mipi_dbi *dbi, u8 *cmd, u8 *param, size_t num)
-+{
-+	struct tegra_dbi_priv *priv = mipi_dbi_to_tegra_dbi(dbi);
-+	u8 command = *cmd;
-+
-+	/* Blocks all commands when interface is not active */
-+	if (!priv->active)
-+		return -ENODEV;
-+
-+	tegra_dbi_write(priv, TEGRA_DBI_COMMAND, command);
-+
-+	for (int i = 0; i < num; i++)
-+		tegra_dbi_write(priv, TEGRA_DBI_DATA, param[i]);
-+
-+	return 0;
-+}
-+
-+static void tegra_dbi_init_primary_interface(struct tegra_dbi_priv *priv)
-+{
-+	struct tegra_dc *dc = priv->dc;
-+	u32 value;
-+
-+	/* Set LCSN and LDC to output enable */
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_ENABLE(3));
-+	value &= ~(BIT(4) | BIT(6));
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_ENABLE(3));
-+
-+	/* Set LSC0/LCSN/LDC output polarity HIGH */
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_POLARITY(1));
-+	value &= ~BIT(24);
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_POLARITY(1));
-+
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_POLARITY(3));
-+	value &= ~(BIT(4) | BIT(6));
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_POLARITY(3));
-+
-+	/* Select output for pins LD0 - LD7 */
-+	tegra_dc_writel(dc, 0x11111111, DC_COM_PIN_OUTPUT_SELECT(0));
-+
-+	/* Select output for pins LSC0/LCSN/LDC */
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(3));
-+	value &= ~0x70000;
-+	value |= BIT(16);
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(3));
-+
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
-+	value &= ~0x7700;
-+	value |= BIT(12) | BIT(8);
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
-+}
-+
-+static void tegra_dbi_init_secondary_interface(struct tegra_dbi_priv *priv)
-+{
-+	struct tegra_dc *dc = priv->dc;
-+	u32 value;
-+
-+	/* Set LPP/LDI to output enable */
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_ENABLE(2));
-+	value &= ~(BIT(20) | BIT(22));
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_ENABLE(2));
-+
-+	/* Select output for pins LSC1/LPW2/LPW0 */
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(3));
-+	value &= ~0x700707;
-+	value |= BIT(20) | BIT(8) | BIT(0);
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(3));
-+
-+	/* Select output for pins LVP1/LVP0/LHP1/LHP0 */
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(4));
-+	value &= ~0x770077;
-+	value |= BIT(20) | BIT(16) | BIT(4) | BIT(0);
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(4));
-+
-+	/* Select output for pins LPP/LDI/LM1/LM0 */
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(5));
-+	value &= ~0x7777;
-+	value |= BIT(12) | BIT(8) | BIT(4) | BIT(0);
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(5));
-+}
-+
-+static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
-+				    struct drm_atomic_commit *state)
-+{
-+	struct tegra_dbi_priv *priv = bridge_to_tegra_dbi(bridge);
-+	struct tegra_dc *dc = priv->dc;
-+	u32 value;
-+
-+	value = tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
-+	value &= ~DISP_CTRL_MODE_MASK;
-+	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
-+
-+	/* Disable all options except cursor if enabled */
-+	value = tegra_dc_readl(dc, DC_DISP_DISP_WIN_OPTIONS);
-+	value &= CURSOR_ENABLE;
-+	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
-+
-+	tegra_dc_commit(dc);
-+
-+	tegra_dc_writel(dc, V_PULSE1_ENABLE, DC_DISP_DISP_SIGNAL_OPTIONS0);
-+	tegra_dc_writel(dc, PULSE_POLARITY_LOW, DC_DISP_V_PULSE1_CONTROL);
-+
-+	tegra_dc_writel(dc, PULSE_END(1), DC_DISP_V_PULSE1_POSITION_A);
-+	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_B);
-+	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE1_POSITION_C);
-+
-+	value = 1 << FRAME_INIT_SEQ_CYCLES_SHIFT |
-+		DC_SIGNAL_VPULSE1 << INIT_SEQ_DC_SIGNAL_SHIFT |
-+		INIT_SEQUENCE_MODE_PLCD | SEND_INIT_SEQUENCE;
-+	tegra_dc_writel(dc, value, DC_DISP_INIT_SEQ_CONTROL);
-+
-+	/* Generic sequence for DBI command panels */
-+	tegra_dc_writel(dc, 0x2c, DC_DISP_SPI_INIT_SEQ_DATA_A);
-+	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_B);
-+	tegra_dc_writel(dc, 0x0, DC_DISP_SPI_INIT_SEQ_DATA_C);
-+	tegra_dc_writel(dc, 0x5000, DC_DISP_SPI_INIT_SEQ_DATA_D);
-+
-+	value = SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
-+		SC0_V_QUALIFIER(SC_V_QUALIFIER_VACTIVE) |
-+		SC0_H_QUALIFIER(SC_H_QUALIFIER_HACTIVE);
-+	tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
-+
-+	value = tegra_dc_readl(dc, DC_DISP_DISP_COLOR_CONTROL);
-+	value &= ~BASE_COLOR_SIZE_MASK;
-+
-+	switch (priv->bus_width) {
-+	case 16:
-+		value |= BASE_COLOR_SIZE_565;
-+		break;
-+	case 18:
-+		value |= BASE_COLOR_SIZE_666;
-+		break;
-+	case 24:
-+	default:
-+		value |= BASE_COLOR_SIZE_888;
-+		break;
-+	}
-+
-+	tegra_dc_writel(dc, value, DC_DISP_DISP_COLOR_CONTROL);
-+
-+	/*
-+	 * Backup registers before unshadowing since actual register values
-+	 * may differ and their state backed up now is the correct one.
-+	 */
-+	for (int i = 0; i < ARRAY_SIZE(com_pin_output); i++)
-+		com_pin_output[i].value = tegra_dc_readl(dc, com_pin_output[i].offset);
-+
-+	/* Unshadow to set up command and data pins */
-+	tegra_dc_writel(dc, WRITE_MUX, DC_CMD_STATE_ACCESS);
-+
-+	if (priv->idx)
-+		tegra_dbi_init_secondary_interface(priv);
-+	else
-+		tegra_dbi_init_primary_interface(priv);
-+
-+	priv->active = true;
-+
-+	if (priv->output.panel)
-+		drm_panel_enable(priv->output.panel);
-+
-+	tegra_dbi_pin_set(dc, &priv->index->cs, 0);
-+
-+	priv->active = false;
-+
-+	for (int i = 0; i <  ARRAY_SIZE(com_pin_output); i++)
-+		tegra_dc_writel(dc, com_pin_output[i].value, com_pin_output[i].offset);
-+
-+	/* Set LDC pin to V Pulse 1 */
-+	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
-+	value |= LDC_OUTPUT_SELECT_V_PULSE1;
-+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
-+
-+	value = tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
-+	value &= ~DISP_CTRL_MODE_MASK;
-+	value |= DISP_CTRL_MODE_C_DISPLAY;
-+	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
-+
-+	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
-+}
-+
-+static void tegra_dbi_atomic_disable(struct drm_bridge *bridge,
-+				     struct drm_atomic_commit *state)
-+{
-+	struct tegra_dbi_priv *priv = bridge_to_tegra_dbi(bridge);
-+	struct tegra_dc *dc = priv->dc;
-+
-+	for (int i = 0; i < ARRAY_SIZE(com_pin_output); i++)
-+		com_pin_output[i].value = tegra_dc_readl(dc, com_pin_output[i].offset);
-+
-+	tegra_dc_writel(dc, WRITE_MUX, DC_CMD_STATE_ACCESS);
-+
-+	if (priv->idx)
-+		tegra_dbi_init_secondary_interface(priv);
-+	else
-+		tegra_dbi_init_primary_interface(priv);
-+
-+	priv->active = true;
-+
-+	if (priv->output.panel)
-+		drm_panel_disable(priv->output.panel);
-+
-+	priv->active = false;
-+
-+	for (int i = 0; i <  ARRAY_SIZE(com_pin_output); i++)
-+		tegra_dc_writel(dc, com_pin_output[i].value, com_pin_output[i].offset);
-+
-+	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
-+}
-+
-+static int tegra_dbi_atomic_check(struct drm_bridge *bridge,
-+				  struct drm_bridge_state *bridge_state,
-+				  struct drm_crtc_state *crtc_state,
-+				  struct drm_connector_state *conn_state)
-+{
-+	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+
-+	/* Set safe default bus flags if panel does not specify them */
-+	if (!bridge_state->input_bus_cfg.flags)
-+		bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
-+
-+	/* Default to positive sync */
-+	if (!(adjusted_mode->flags &
-+	      (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NHSYNC)))
-+		adjusted_mode->flags |= DRM_MODE_FLAG_PHSYNC;
-+
-+	if (!(adjusted_mode->flags &
-+	      (DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC)))
-+		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
-+
-+	return 0;
-+}
-+
-+static int tegra_dbi_attach(struct drm_bridge *bridge,
-+			    struct drm_encoder *encoder,
-+			    enum drm_bridge_attach_flags flags)
-+{
-+	struct tegra_dbi_priv *priv = bridge_to_tegra_dbi(bridge);
-+	struct device *dev = priv->dev;
-+
-+	priv->dc = dev_get_drvdata(dev->parent);
-+	if (!priv->dc)
-+		return -ENODEV;
-+
-+	return drm_bridge_attach(bridge->encoder, priv->output.bridge, bridge,
-+				 flags);
-+}
-+
-+static enum drm_mode_status tegra_dbi_mode_valid(struct drm_bridge *bridge,
-+						 const struct drm_display_info *info,
-+						 const struct drm_display_mode *mode)
-+{
-+	if (mode->hdisplay > 800)
-+		return MODE_H_ILLEGAL;
-+
-+	if (mode->vdisplay > 800)
-+		return MODE_V_ILLEGAL;
-+
-+	return MODE_OK;
-+}
-+
-+static const struct drm_bridge_funcs tegra_dbi_funcs = {
-+	.attach = tegra_dbi_attach,
-+	.mode_valid = tegra_dbi_mode_valid,
-+
-+	.atomic_enable = tegra_dbi_atomic_enable,
-+	.atomic_disable = tegra_dbi_atomic_disable,
-+	.atomic_check = tegra_dbi_atomic_check,
-+
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+};
-+
-+static const struct drm_bridge_timings default_tegra_dbi_timings = {
-+	.input_bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+			   DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE |
-+			   DRM_BUS_FLAG_DE_HIGH,
-+};
-+
-+static int tegra_dbi_probe(struct platform_device *pdev)
-+{
-+	struct tegra_dbi_priv *priv;
-+	struct device *dev = &pdev->dev;
-+	struct device_node *np = dev->of_node;
-+	struct drm_bridge *bridge;
-+	struct drm_panel *panel;
-+	struct device_node *ep;
-+	int ret;
-+
-+	priv = devm_drm_bridge_alloc(dev, struct tegra_dbi_priv, bridge,
-+				     &tegra_dbi_funcs);
-+	if (IS_ERR(priv))
-+		return PTR_ERR(priv);
-+
-+	priv->dev = dev;
-+
-+	/* Default to primaty */
-+	device_property_read_u32(dev, "nvidia,index", &priv->idx);
-+	if (priv->idx)
-+		priv->index = &tegra_dbi_idx[1];
-+	else
-+		priv->index = &tegra_dbi_idx[0];
-+
-+	/* Initialize MIPI DBI interface */
-+	mutex_init(&priv->dbi.cmdlock);
-+	priv->dbi.command = tegra_dbi_dbi_command;
-+
-+	ret = devm_of_platform_populate(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to probe children\n");
-+
-+	ret = drm_of_find_panel_or_bridge(np, 1, 0, &panel, &bridge);
-+	if (ret)
-+		return ret;
-+
-+	if (panel) {
-+		bridge = devm_drm_panel_bridge_add_typed(dev, panel,
-+							 DRM_MODE_CONNECTOR_DPI);
-+		if (IS_ERR(bridge))
-+			return PTR_ERR(bridge);
-+	}
-+
-+	priv->output.bridge = bridge;
-+	priv->output.panel = panel;
-+
-+	/* get input ep (port0/endpoint0) */
-+	ret = -EINVAL;
-+	ep = of_graph_get_endpoint_by_regs(np, 0, 0);
-+	if (ep) {
-+		ret = of_property_read_u32(ep, "bus-width", &priv->bus_width);
-+		of_node_put(ep);
-+	}
-+
-+	if (ret)
-+		priv->bus_width = 24;
-+
-+	priv->bridge.of_node = np;
-+	priv->bridge.timings = &default_tegra_dbi_timings;
-+
-+	ret = devm_drm_bridge_add(dev, &priv->bridge);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add bridge\n");
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	return 0;
-+}
-+
-+static struct platform_driver tegra_dbi_driver = {
-+	.driver.name = "tegra-dbi",
-+	.probe = tegra_dbi_probe,
-+};
-+module_platform_driver(tegra_dbi_driver);
-+
-+MODULE_ALIAS("platform:tegra-dbi");
-+MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-+MODULE_DESCRIPTION("Nvidia Tegra20/30 MIPI-DBI Type B driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-index 5c67928bcabfa..8f12d30cd2d8b 100644
---- a/drivers/gpu/drm/tegra/dc.c
-+++ b/drivers/gpu/drm/tegra/dc.c
-@@ -223,6 +223,7 @@ void tegra_dc_commit(struct tegra_dc *dc)
- 	tegra_dc_writel(dc, GENERAL_ACT_REQ << 8, DC_CMD_STATE_CONTROL);
- 	tegra_dc_writel(dc, GENERAL_ACT_REQ, DC_CMD_STATE_CONTROL);
- }
-+EXPORT_SYMBOL_GPL(tegra_dc_commit);
- 
- static inline u32 compute_dda_inc(unsigned int in, unsigned int out, bool v,
- 				  unsigned int bpp)
-@@ -3279,9 +3280,15 @@ static int tegra_dc_init_opp_table(struct tegra_dc *dc)
- 	return 0;
- }
- 
-+static void tegra_dc_release_dbi_pdev(void *pdev)
-+{
-+	platform_device_unregister(pdev);
-+}
-+
- static int tegra_dc_probe(struct platform_device *pdev)
- {
- 	u64 dma_mask = dma_get_mask(pdev->dev.parent);
-+	struct device_node *dbi_np;
- 	struct tegra_dc *dc;
- 	int err;
- 
-@@ -3382,6 +3389,28 @@ static int tegra_dc_probe(struct platform_device *pdev)
- 		}
- 	}
- 
-+	dbi_np = of_get_available_child_by_name(pdev->dev.of_node, "dbi");
-+	if (dbi_np) {
-+		struct platform_device_info dbi_info = {
-+			.parent = &pdev->dev,
-+			.name = "tegra-dbi",
-+			.id = PLATFORM_DEVID_AUTO,
-+			.fwnode = of_fwnode_handle(dbi_np),
-+			.of_node_reused = true,
-+		};
-+
-+		dc->dbi = platform_device_register_full(&dbi_info);
-+		of_node_put(dbi_np);
-+		if (IS_ERR(dc->dbi))
-+			return dev_err_probe(&pdev->dev, PTR_ERR(dc->dbi),
-+					     "Failed to create DBI device\n");
-+
-+		err = devm_add_action_or_reset(&pdev->dev, tegra_dc_release_dbi_pdev,
-+					       dc->dbi);
-+		if (err)
-+			return err;
-+	}
-+
- 	err = tegra_dc_rgb_probe(dc);
- 	if (err < 0 && err != -ENODEV)
- 		return dev_err_probe(&pdev->dev, err,
-diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
-index 7005df32f485f..27dbee57f8f72 100644
---- a/drivers/gpu/drm/tegra/dc.h
-+++ b/drivers/gpu/drm/tegra/dc.h
-@@ -95,6 +95,7 @@ struct tegra_dc {
- 
- 	struct tegra_output *rgb;
- 	struct tegra_pmc *pmc;
-+	struct platform_device *dbi;
- 
- 	struct tegra_dc_stats stats;
- 	struct list_head list;
-diff --git a/drivers/gpu/drm/tegra/trace.c b/drivers/gpu/drm/tegra/trace.c
-index 006f65c72a344..3aeb3825e2100 100644
---- a/drivers/gpu/drm/tegra/trace.c
-+++ b/drivers/gpu/drm/tegra/trace.c
-@@ -1,2 +1,5 @@
- #define CREATE_TRACE_POINTS
- #include "trace.h"
-+
-+EXPORT_TRACEPOINT_SYMBOL_GPL(dc_readl);
-+EXPORT_TRACEPOINT_SYMBOL_GPL(dc_writel);
--- 
-2.53.0
+Changes in v5:
+- Renamed drm_connector_status_extra to drm_connector_dp_event (Maxime)
+- Link to v4: https://patch.msgid.link/20260608-hpd-irq-events-v4-0-30b62b335487@oss.qualcomm.com
+
+Changes in v4:
+- Renamed drm_connector_oob_hotplug_event() to
+  drm_connector_dp_oob_status() (Maxime)
+- Reworked commit messages, explaining what it is about (Bjorn)
+- Rearranged commits, making them a bit more logical.
+- Link to v3: https://patch.msgid.link/20260421-hpd-irq-events-v3-0-44d2bf40dfc2@oss.qualcomm.com
+
+Changes in v3:
+- Fixed build error if aux bridges are disabled (Intel GFX CI)
+- Link to v2: https://patch.msgid.link/20260420-hpd-irq-events-v2-0-402ffe27e9e9@oss.qualcomm.com
+
+Changes in v2:
+- Change irq_hpd arg to be an enum, possibly desribing other uses (Toni)
+- Account for that, chaning the API accordingly (with_irq -> extra,
+  etc.)
+- Wire up AUX bridge notifications
+- Link to v1: https://patch.msgid.link/20260416-hpd-irq-events-v1-0-1ab1f1cfb2b2@oss.qualcomm.com
+
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Tvrtko Ursulin <tursulin@ursulin.net>
+To: Francesco Dolcini <francesco@dolcini.it>
+To: Kevin Hilman <khilman@baylibre.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: Sean Paul <sean@poorly.run>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
+
+---
+Dmitry Baryshkov (9):
+      drm/connector: report out-of-band IRQ_HPD events
+      drm/connector: pass down IRQ_HPD to the drivers
+      drm/bridge: pass down IRQ_HPD to the drivers
+      drm/bridge: pass extra events to the HPD callback
+      drm/bridge: aux-hpd: let drivers pass IRQ_HPD events
+      drm/msm/dp: don't take extra references on multiple plug events
+      drm/msm: dp: handle the IRQ_HPD events reported by USB-C
+      soc: qcom: pmic-glink-altmode: pass down HPD_IRQ events
+      usb: typec: ucsi: huawei-gaokun: pass down HPD_IRQ events
+
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c        | 11 +++++----
+ drivers/gpu/drm/bridge/chrontel-ch7033.c       |  3 ++-
+ drivers/gpu/drm/bridge/lontium-lt8912b.c       |  3 ++-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |  3 ++-
+ drivers/gpu/drm/bridge/ti-tfp410.c             |  3 ++-
+ drivers/gpu/drm/display/drm_bridge_connector.c | 22 ++++++++++--------
+ drivers/gpu/drm/drm_bridge.c                   | 20 ++++++++++-------
+ drivers/gpu/drm/drm_connector.c                | 22 ++++++++++--------
+ drivers/gpu/drm/i915/display/intel_dp.c        |  3 ++-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c     |  3 ++-
+ drivers/gpu/drm/msm/dp/dp_display.c            | 12 +++++++---
+ drivers/gpu/drm/msm/dp/dp_drm.h                |  3 ++-
+ drivers/gpu/drm/omapdrm/dss/hdmi4.c            |  3 ++-
+ drivers/gpu/drm/omapdrm/dss/hdmi5.c            |  3 ++-
+ drivers/soc/qcom/pmic_glink_altmode.c          |  6 ++++-
+ drivers/usb/typec/altmodes/displayport.c       | 25 +++++++++++++--------
+ drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c    | 11 +++++----
+ include/drm/bridge/aux-bridge.h                | 13 +++++++++--
+ include/drm/drm_bridge.h                       | 31 +++++++++++++++++++++-----
+ include/drm/drm_connector.h                    | 24 +++++++++++++++++---
+ 20 files changed, 158 insertions(+), 66 deletions(-)
+---
+base-commit: 725953d4da85cfb97a4c309fad6346b72f8529e7
+change-id: 20260414-hpd-irq-events-e72bc076a5f1
+
+Best regards,
+--  
+With best wishes
+Dmitry
 
