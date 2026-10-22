@@ -2,90 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5141360A6F66
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 15:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3CB2606ACC2
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 15:12:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nl678f8l
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oIQ0Kx6W
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9DE110E436;
-	Thu, 22 Oct 2026 15:11:54 +0000 (UTC)
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com
- [209.85.217.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A4CD10E436
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 15:11:49 +0000 (UTC)
-Received: by mail-vs1-f48.google.com with SMTP id
- ada2fe7eead31-7ba2ee12f65so48892137.0
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 08:11:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792681907; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4871D1126FD;
+	Thu, 22 Oct 2026 15:12:35 +0000 (UTC)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com
+ [209.85.217.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF7B71126FD
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 15:12:28 +0000 (UTC)
+Received: by mail-vs1-f42.google.com with SMTP id
+ ada2fe7eead31-7be536cd40dso88431137.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 08:12:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792681947; cv=none;
  d=google.com; s=arc-20260327;
- b=K5PXrotnloFHFqG/9nDB6j3k44wzcZwjSL3sIVkFkYzcRUBQ+OYuONb3JU62JXY0mK
- crNmBBR64noFH96z1w9ZDy85cb92x97aaBTafnD34luy2nYYbWjYnbYLKhP/CHk/s+mi
- YvOdn7jcrb2nWYtYa5abDFcjTJIRubcsBK2r0W/u6YCBeN7HUlme/3BJJ8JYf9mfP7bH
- ObsXgbU8XrmNKwryGxKIoFAhJOhn0zMbR0Q0w+IUimrCUQ7nu9r2L+k7tAQByylcK5Fj
- 1SXuMBv05eHnKryYBgQwcsPDwMhvDldqE/P8obE6c4do9iFD245xKpHZkS6okyyCBrXa
- vgKA==
+ b=nWPlZJ9gXEfUvaXsDJC6FeVYbXsdGot2r+BTd2+dVxAOgaZqwX07lYcN9IVJz316Zu
+ Qi0IdYaiuInAdYKjEUcAgUmJ27Xz/Y2eXthkM0Ve8oUFKVlSwGdF1868+qAfWuJVVxjv
+ lIaEBp3wT/fN58l9SH8Gj+/hoUgzgNLnTSdBkF3EIn60TqxmqeHRgP4kYqAaIbeSvY9Y
+ UIhpnXD7PtAJNZe8sKtCbbNiuHCI2eQdBlfDK91N+zW/Hiee3DQWoGHMs/AlzulZ6lGg
+ TKjpHGkdwoFmFoKuux/KlG18UdRQ3d0gEiCyQ5ALLpmpMXFRlW+J+5YTWO42hJuedG9y
+ uukA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=SK3wcTo8ANbAcMYXsYRl6Bwim5w4FiPpz6gTn24jMqY=;
- fh=364li90SDhaCaTLShJ3wjT55IJzRm3YW1Ywc1Oe54vI=;
- b=K4tF+rhdMDUcpnCcJ6qGHQ1uOoxxKfB5cwaeMcr3qEx8/VWeeui8ZElCfWq3cY4SZ1
- TD97s031bpcmDfBq/N0nrBAYc6GFfUi7D/yKaTjQsUB0pG+1gajfgwn5Trt5/sxoOdJH
- /vuFSIxNXXkCwTj9UVeFu679dWmANx4abnL9hqwU7iEI2e2kfHO95JIQsRmoye8rs/v3
- q/O2E5G/grpB1SSMhIXFTd6jw+CqU8LJlOTNrhk1x79RK7wDsA0I7llnMtaIoSVM8CW3
- U+V3h68cs1wfB3m7LLLw5shOx58tNfSoyYIPfgjg0dnhqRhU8oCBABjNu8VlWJ/DpTui
- 6eYg==; darn=lists.freedesktop.org
+ bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
+ fh=gdziFZfmIqrK9SYLCYLZhc5rN/KrkSx7aM3rde2PWag=;
+ b=SIeTHqXUTcTNt7WPhu2zwxGneY8yqy+N071Yw+PUkq6HkItiPnCC4ia12CEFmtZ1TT
+ b6y62zRuk2Cup+2zhi3J32qZjCtNha7PU9AltBfcl4CqyMIhXjc0UrL2ztAp71MNLuOy
+ u+5eGmzw6wWzy0kL93D+/V/HybdCUisqfNu7P4jzmG8VruDcXKjfwY9AAQIudpEzvj4C
+ nNxUtATot52K0ixuFbQSyGI7YbrmS/8oGhSfVKDExDXSL2RrtswElsmgGxNFT1ZBWcHd
+ 9bOA1jjn3F5qqQX0kcCqSP+FKHhEg+R4G2xQkFio9TaDJJf/QrpVDTnfpgKpMivn3DCg
+ Yd0A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792681907; x=1793286707; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792681947; x=1793286747; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=SK3wcTo8ANbAcMYXsYRl6Bwim5w4FiPpz6gTn24jMqY=;
- b=nl678f8lAmSeXeAJzsrjadBLBu0yflAENqVNZ3Tf16EinC8Fez9hivcTjc98c8TONB
- 1YYrq6C+mXcQUSILABnfMy9CRErEOAmlAu0AlELMJTqJ6y35b19WvivTRojuEwuhR6dl
- xskkIOQybh3oZtzRhdByoh7sQ2JjSFzAyvqyCA35cHFUH5KdSDNoASg5cHC2YU6jYGt4
- KXT7rudfEPHhRQNH7WdR+GTYRjcjpKt+Je8cTeHaF21gAGTXr1sqcZLcQ0VPZiu2WXVk
- /YxXRkMN/SNX+yAqafJEIqa6T/Lmh4kAC1Vf8cJdGlxKO/5+RBDg4nOfXzOrr8d0ecxs
- QvAA==
+ bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
+ b=oIQ0Kx6Ww9JQDbgSoplZnTB+9DZaWUpvswWWNY1guUySuMN/EVzlLl4MLF8dGMCvxr
+ iFHSkdK3D7VH2KDl+Abb89TZPjLOVZ4ssk5SnyabAeTGI/+tNGsxUTFk35GHtV59I+KS
+ SNBXb0zlNDhezeLEBZnFBtRa61+VqXDlnSI2og/Gs3Eg4DGT21uCZ6xQeHROCNPiTiMM
+ V+JixLGhea/BHKS4H+ihUL6L3EaTTiCSXHOnWMxYz3ScDDe18S84yLf9dmJ/HR0MPI20
+ v2kD3DEdyG22b+cgXxD/OSv/TyKJ2aSObg3E6FCB65DnCE5diD4PabJneiF0ISJ4fnUv
+ GkhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792681907; x=1793286707;
+ d=1e100.net; s=20260707; t=1792681947; x=1793286747;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=SK3wcTo8ANbAcMYXsYRl6Bwim5w4FiPpz6gTn24jMqY=;
- b=CLUJRD7N6yL0LXs2QIKuKrbppKHZsdcl+G/uUwxssBxsvDxoKovshg4rbiahtVMQl9
- eIKLCTHf1k4PQHcSpKVcZNRyvRdDHakAu8c5Y3FOenTk8dGEIYMk1bYS9ILp5GihvHhn
- TqaVO9s35NV4QEtLdsI+Bzviql/9qJhwhPznuq2x+aYweyAkHh/GfaIk5VGeqLE+KFnI
- QKIO4+GW4Lidg/1fwC5XC6P/sYEjq2Z5/5HG5VkKxSF/TPDzQ7Pk7czcoZEY9liZ36kv
- 3LaI62h+wb34JjeEaPxuMjny1ipl05F47Ti+RMgOMs64N++tjFJhSINBT25REFQ0fwyP
- zH5Q==
-X-Gm-Message-State: AFq9FYIpVtxns4b9SXqL1omykW3vb7ncdB+DIeuSy549/9dXDZRfCUBz
- zm+iw7gUZp3Ea/+J24JyG4OZPHV3f+MxlgP/tQXOpiYBhnyKT1zCDZY7u4kxYrYOcccjqhlHOAi
- 8xyblHQkosYxUfUs5kw11CxSj8w3SIsw=
-X-Gm-Gg: AYBFou0nt3h7qoxeHw7KZlePh8KA8a5K9WEJyzLtcB7SpnBcZVNMfIKBLQL+IHLMDvT
- 1r98Fib1wfNm7aJBmdMKC/amcOCxsJKhtQvzgbvGOB7b2jbhFGv9PATH/Pbd9aBtRUf/iY07H/r
- J9UFi35+f12JXTnKF2cbE1AkFrKe3Oz95PQ/dwXd20g72VRlg4HXJpAoTFgjRF1ok3qusCSpVB4
- L2G1i+N1IWMnBE+vz80sSWQx0jy+PdA8WkYQYIB8dxGKzEk6Zl3LO/eWmrcxLaDVsRdGtVNYARB
- ihMRukVLGizznmS1qXUb2AzfSk8udxipISo4ZMYrGGhLVuRT31bZQ3wQ9JIXIQuhjfg1r80uoai
- x79bJk8FXozI5Dk2AxchIlPqfQagU67lGBR0oWDSswq753+6vx+4xXok4hOmhfNeZNBKMsdiPul
- y6Zkq6Csv4jZYaKvvELiy3DiM=
-X-Received: by 2002:a05:6102:5489:b0:7c3:91f5:26d4 with SMTP id
- ada2fe7eead31-7cc9265d495mr1850321137.3.1792681906703; Thu, 22 Oct 2026
- 08:11:46 -0700 (PDT)
+ bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
+ b=UQDRwqDGfSvIlgqJe/eaD9z2XmKe7adMQxorAtJxb92TuR8FjnWpkrrKV6xapW1U4c
+ mE9WFP6omxB6LeAAzCcEyadVtMSzdFeO9FMK3YYXIVB8AoI9SvHhTXDHgLJflwnX9Nyr
+ XrcZodKq2zolP23H2HQrD73CX/i6wHMo/3tNopKLcrbTYZdKr5Sp5Wh7rC8OFs7FrqOe
+ 8kzqkPGBYpi5rBNQdj6g2z0lsvgjVCocsrf94tkJrsq7Hl7B7aM8YzWKUXdCihuwrlMZ
+ C5S/pOAYBT1fU9XcxolqAcJELujMR76iHjZ3cDXRJlMb/jWFlFeW3kiJikbCD1lKLeji
+ bfOw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwdcZ4jRpcc7i7nVzZzQO/69xi50hQAZWv0OrQjhVGdammAlgj+K7oFbL/6dAiJGwj/7FeOZDWvo+s=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLpgE3PKdx+MfM0fv/6PK85Ly4rZLH/lqowVc9nj4jectNXbbjB
+ byN4COLaJaZ/8nP2Vk9kEg3oZmVOtggUS/ibfJJOY1bIWtd0f/uSj3+hrdNSMFckf7f+V/nVmMz
+ 91Vvu9O1mRCEo03v9KxBbxtWIDNT2lqY=
+X-Gm-Gg: AYBFou0n/yRvfpZtB6PF/9S3U5tXWNir6sF2xca5j1WS2r5lFLfkt+f2xr63pmERiOp
+ oKQjYaQLkWKc+C+yGjVkViaWti14I2Wh7G70Q1GuPa/tyAIiF3Lrz+FSgyGqqYgfeIfolrE+oU6
+ 3szF0H8bOtKCqLdRDoZtdz2/+mWn60db5olDke+z3UYQudo34Lh0SScB3fpUmKvkWGTBWULbY4f
+ eppJ18THfEAcr6P0+nnJ/+4oI6f0GWE3ug/GJXN5y8VHJwv9OMxezjmuYj/+kf9/NB5avxpVmyn
+ rulMZ8r8/2tqiyDbd5X//A1RXz7i22Vf9UlW0mg/dSOWKCV/kpHgCkCzrg7xjXZPwxw7wwokP6d
+ LuDiezJWd/DP1jUpnjcH1yW5yZrBdXpxl4e/uBAOf2Np+xa2BzvNCnKjm47BkwzuJcjWCDPnXYL
+ OfRrN1N5WQi41yEc7WaL2R2aMIEWz3f4z8XCC5LZAxuZSJ
+X-Received: by 2002:a05:6122:5219:10b0:5ea:cc1d:173e with SMTP id
+ 71dfb90a1353d-5eaebc1422dmr1548043e0c.1.1792681946761; Thu, 22 Oct 2026
+ 08:12:26 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261019144916.108589-1-kolomiiec@gmail.com>
-In-Reply-To: <20261019144916.108589-1-kolomiiec@gmail.com>
+References: <20261022114754.865669-1-mptagliari@gmail.com>
+In-Reply-To: <20261022114754.865669-1-mptagliari@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 22 Oct 2026 11:11:34 -0400
-X-Gm-Features: AclHuK-zvBTm7jsDu3nnmVOqA5wHXWSKBKs1SJReTwkCyAa-onvyKZKFT90oyjs
-Message-ID: <CADnq5_N3bnL6oMbikTRVtDzZAPGwd-ptZ5ph2Sr6wPykShwm4A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/radeon: retry UVD v1 init on failure after resume
-To: ukrainer8 <kolomiiec@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
+Date: Thu, 22 Oct 2026 11:12:12 -0400
+X-Gm-Features: AclHuK_pmpA8FYbBRpXzvreBUaKMzQ3M_QgHr4Byziz9NDrFFS95zIqKnggaqPY
+Message-ID: <CADnq5_Mvjyi+a_2zhSg0cmNUm7nKCK3kD8_0+mcFYeZzbQ-d2A@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] drm/radeon: fix VCE1 encoding on SI by handling
+ the VCE interrupt
+To: Matheus Tagliari <mptagliari@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -102,180 +110,76 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 20, 2026 at 3:46=E2=80=AFAM ukrainer8 <kolomiiec@gmail.com> wro=
-te:
+On Thu, Oct 22, 2026 at 9:21=E2=80=AFAM Matheus Tagliari <mptagliari@gmail.=
+com> wrote:
 >
-> On Evergreen/Redwood (and likely other UVD v1/v2 hardware), resume from
-> suspend intermittently fails the UVD ring test:
+> Hardware H.264 encoding with the VCE block on SI GPUs (radeon driver)
+> hangs the GPU after a few dozen frames.  I hit it with the KDE Plasma
+> RDP server, which encodes through VAAPI, and reproduced it with a
+> plain "ffmpeg -vaapi_device ... -c:v h264_vaapi" test on a Radeon HD
+> 8870M (Cape Verde).
 >
->     radeon 0000:01:00.0: [drm] *ERROR* radeon: ring 5 test failed (0xCAFE=
-DEAD)
->     radeon 0000:01:00.0: failed initializing UVD (-22).
+> The VCE1 code never enables the VCE trap interrupt and the SI (and
+> Trinity) interrupt handlers do not process it, unlike the CIK code and
+> amdgpu.  Patch 1 adds the handlers, patch 2 enables the interrupt.
 >
-> Cold boot always succeeds; resume succeeds only in about half of the cycl=
-es
-> (42 measured suspend/resume cycles on a Radeon HD 5650M: OK counts per
-> 6-cycle run were 2, 3, 5, 6, 1, 5, 3). Once the ring test fails, UVD stay=
-s
-> dead for the rest of the session and hardware video decode silently falls
-> back to CPU.
+> Results on Debian 6.12.113 (see patch 2 for numbers): hang before,
+> none after, and 34 fps instead of ~4 fps for the workaround that avoids
+> the hang.  The KDE RDP server (KRDP) itself, driven by a local FreeRDP
+> client, now encodes on the VCE ring for several minutes (about 40
+> fences per second on ring 6 in the radeon_fence_emit tracepoint) with a
+> clean kernel log.
 >
-> The resume path runs the same full asic startup as cold boot
-> (evergreen_resume() -> evergreen_startup()), so the difference is the
-> hardware state at entry, not a skipped call. Field data shows the first
-> ring instance after resume is dead functionally, not by timeout: the ring
-> test fails fast and deterministically, and only a full stop+init cycle
-> revives the engine.
+> Two caveats:
 >
-> Fix this the way the Windows driver effectively does it: silently cycle
-> the engine once (clocks up, start, stop, 20 ms settle) before testing,
-> then run the init sequence in a retry loop - on failure of clock setup,
-> VCPU start or the ring test, fully stop UVD, let it settle for 20 ms and
-> try again (up to 3 attempts). Each retry logs the failing step and the
-> attempt number, which also makes future reports of this failure mode
-> self-diagnosing. The ring-test polling window is widened from 100 ms to
-> 2000 ms as spare capacity; the early-exit poll keeps healthy hardware on
-> the fast path.
+>  - I have not worked out why the missing interrupt turns into ring
+>    lockups instead of only added latency.  What I know is that the
+>    hang needs the VCE ring to wait on a hardware semaphore (disabling
+>    only the waiting side, or both sides, of radeon_vce_semaphore_emit()
+>    avoids it) and that handling the interrupt makes it go away with
+>    the semaphores left enabled.  If someone knows why, I would be glad
+>    to improve the commit message.
+>  - The Trinity/Richland change has not been tested on that hardware.
 >
-> On the same machine the patched driver went 6/6 OK across repeated test
-> runs, with the warm-up absorbing the dead first instance and zero error
-> lines in dmesg.
+> The series was developed and tested on Debian's 6.12.113 with the
+> radeon module built out of tree.  It applies cleanly on drm-next
+> (fad06cf), where drivers/gpu/drm/radeon builds without warnings (W=3D1,
+> allmodconfig) both after patch 1 and with the whole series.
 >
-> v2: guard uvd_v1_0_stop() behind successful clock setup, per Sashiko AI
-> review - MMIO writes to an unclocked UVD block can cause a PCI bus master
-> abort and hard-hang the system.
+> v1: https://lore.kernel.org/r/20261021114122.94008-1-mptagliari@gmail.com
 >
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1867
-> Link: https://bugs.launchpad.net/bugs/1865130
-> Tested-by: ukrainer8 <kolomiiec@gmail.com>   # Radeon HD 5650M, kernel 7.=
-0.0
-> Signed-off-by: ukrainer8 <kolomiiec@gmail.com>
+> Changes in v2:
+>  - Patch 2: only enable VCE_SYS_INT_EN for VCE1 (family < CHIP_BONAIRE).
+>    vce_v1_0_start() is also reached on CIK (vce_v1_0_init() from cik.c,
+>    kv_dpm), where the register is at a different offset and is already
+>    enabled by vce_v2_0_resume(); v1 would have written the VCE1 offset
+>    there.  Thanks to the automated review of v1 for pointing this out.
+>  - Patch 1: unchanged.
+>
+> Matheus Tagliari (2):
+>   drm/radeon: process the VCE interrupt on SI and Trinity
+>   drm/radeon/vce1: enable the VCE trap interrupt
 
-We'll see how this goes.  If anyone reports any issues, we can revert it.
+Series is:
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 and applied.
 
-> ---
-> v1 -> v2: keep the clock-setup result in a separate variable and only
-> call uvd_v1_0_stop() when clocks were actually raised (Sashiko AI review)=
-.
-> Also folded in the silent warm-up cycle and the wider ring-test window
-> validated in field testing since v1.
->  drivers/gpu/drm/radeon/uvd_v1_0.c | 57 ++++++++++++++++++++++++++-------=
-------
-> --- a/drivers/gpu/drm/radeon/uvd_v1_0.c
-> +++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
-> @@ -158,24 +158,58 @@
->  {
->         struct radeon_ring *ring =3D &rdev->ring[R600_RING_TYPE_UVD_INDEX=
-];
->         uint32_t tmp;
-> -       int r;
-> +       int r, retry, clk_err;
+Alex
+
 >
-> -       /* raise clocks while booting up the VCPU */
-> +       /* warm-up: silently cycle the engine once (like the Windows driv=
-er),
-> +        * the first ring instance after resume is dead functionally */
->         if (rdev->family < CHIP_RV740)
->                 radeon_set_uvd_clocks(rdev, 10000, 10000);
->         else
->                 radeon_set_uvd_clocks(rdev, 53300, 40000);
-> +       uvd_v1_0_start(rdev);
-> +       uvd_v1_0_stop(rdev);
-> +       mdelay(20);
+>  drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
+>  drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
+>  drivers/gpu/drm/radeon/sid.h       |  2 ++
+>  drivers/gpu/drm/radeon/vce_v1_0.c  |  9 +++++++++
+>  4 files changed, 39 insertions(+)
 >
-> -       r =3D uvd_v1_0_start(rdev);
-> -       if (r)
-> -               goto done;
-> +       /* after resume the first ring test can race with the hardware; r=
-etry */
-> +       for (retry =3D 0; retry < 3; retry++) {
-> +               /* raise clocks while booting up the VCPU */
-> +               if (rdev->family < CHIP_RV740)
-> +                       clk_err =3D radeon_set_uvd_clocks(rdev, 10000, 10=
-000);
-> +               else
-> +                       clk_err =3D radeon_set_uvd_clocks(rdev, 53300, 40=
-000);
-> +               r =3D clk_err;
-> +               if (r)
-> +                       drm_warn(&rdev->ddev, "radeon: raising UVD clocks=
- failed (%d), attempt %d\n",
-> +                                r, retry + 1);
-> +
-> +               if (!r) {
-> +                       r =3D uvd_v1_0_start(rdev);
-> +                       if (r)
-> +                               drm_warn(&rdev->ddev, "radeon: starting U=
-VD failed (%d), attempt %d\n",
-> +                                        r, retry + 1);
-> +               }
 >
-> -       ring->ready =3D true;
-> -       r =3D radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
-> -       if (r) {
-> -               ring->ready =3D false;
-> -               goto done;
-> +               if (!r) {
-> +                       ring->ready =3D true;
-> +                       r =3D radeon_ring_test(rdev, R600_RING_TYPE_UVD_I=
-NDEX, ring);
-> +                       if (r) {
-> +                               ring->ready =3D false;
-> +                               drm_warn(&rdev->ddev, "radeon: UVD ring t=
-est failed (%d), attempt %d\n",
-> +                                        r, retry + 1);
-> +                       }
-> +               }
-> +
-> +               if (!r)
-> +                       break;
-> +
-> +               /* MMIO is only safe when the block is actually clocked *=
-/
-> +               if (!clk_err)
-> +                       uvd_v1_0_stop(rdev);
-> +               if (retry < 2)
-> +                       mdelay(20);
->         }
-> +       if (r)
-> +               goto done;
+> base-commit: fad06cfaf385787b9ffa2f73f049d42dbe1de57f
+> --
+> 2.47.3
 >
->         r =3D radeon_ring_lock(rdev, ring, 10);
->         if (r) {
-> @@ -421,7 +455,8 @@
->  int uvd_v1_0_ring_test(struct radeon_device *rdev, struct radeon_ring *r=
-ing)
->  {
->         uint32_t tmp =3D 0;
-> -       unsigned i;
-> +       /* after resume the ring buffer controller needs ~1.5-2s to settl=
-e */
-> +       unsigned i, timeout =3D 2000000;
->         int r;
->
->         WREG32(UVD_CONTEXT_ID, 0xCAFEDEAD);
-> @@ -434,14 +469,14 @@
->         radeon_ring_write(ring, PACKET0(UVD_CONTEXT_ID, 0));
->         radeon_ring_write(ring, 0xDEADBEEF);
->         radeon_ring_unlock_commit(rdev, ring, false);
-> -       for (i =3D 0; i < rdev->usec_timeout; i++) {
-> +       for (i =3D 0; i < timeout; i++) {
->                 tmp =3D RREG32(UVD_CONTEXT_ID);
->                 if (tmp =3D=3D 0xDEADBEEF)
->                         break;
->                 udelay(1);
->         }
->
-> -       if (i < rdev->usec_timeout) {
-> +       if (i < timeout) {
->                 drm_info(&rdev->ddev, "ring test on %d succeeded in %d us=
-ecs\n",
->                          ring->idx, i);
->         } else {
