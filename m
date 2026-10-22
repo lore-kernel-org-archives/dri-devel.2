@@ -2,37 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9549606A328
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 17:37:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830F5606A32F
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 17:37:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=CHYDng88
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=OXTrGs+P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0471F11283C;
-	Thu, 22 Oct 2026 17:37:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0CA710E488;
+	Thu, 22 Oct 2026 17:37:18 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B9B710E452;
- Thu, 22 Oct 2026 17:37:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 745B710E46E;
+ Thu, 22 Oct 2026 17:37:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=VSxXMiM3GPIicYlnkb31Yy9RNt3E/wFvuoT1oTRYRpk=; b=
- CHYDng88iJnz1QPo+Y515zoGZFDUmQVvemrY4tXLhXft0T6WfLB3aaHGe/hZKWy3H1wEK8K+r+k0G
- Ld/qQrcETVTVbfiBYG+E4tEs25Al+nnJdPrxCPj+UbF6u9AlgGV4SaxiZrpEIRlcQ0w9APpucrXnG
- fFIqaxayDM3N48peFz3gpBEinm/Y4LH2+t0l1eYFnM31xnMvZ9ILJETlk+tvfTEts0hxHPw8JeZtF
- O8bl7HgAthvpkMa2tsmo1ecNsz74DDn2ZaiRMcqJ1GoRnOU3WqF9Hrrpmwz9coLIMzALd+66pYk6m
- 5PTPeL9V+PcBA1oN5D/tthF7qn2DtW6QkQ==;
+ Cc:To:From:From:Reply-To; bh=qamfClWRYrhIHnH1n7xYSLqdEQ7se1uV1kfI6/268pQ=; b=
+ OXTrGs+PmHKLXrkx2QWYggpTmu5qOKSbsLL5jbaPXvpRTRe+cCRcBT50MfHOSJrBD3f2For8xGIlq
+ 9E7JTL6WHF47/252tTRVn83ovCAW1WnN9ZytxvQl/AMZl+BVA+UzKpUqVeXLuZCFiCHdLb3GrzX7P
+ HTiWe75uO72tb6E2vomHUSisRo/YDB/lFZiA1vfLAhJN7YbJsBEQCAeonoTkqUAG07/Hq1lDMp6dv
+ 2eHvPGgUZqJVA/vMXc3YK9KbERnyJ31jPOhN3S7nP+NbqF0CJGehkKxjs1dEH+aAB4erA0RwEgt3r
+ yRFNExmwRJR6eRq33pM0DNqvskMtKIEHKw==;
 Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
  helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xJwiw-0071Z2-Ft; Thu, 22 Oct 2026 19:37:06 +0200
+ id 1xJwiy-0071Z2-6s; Thu, 22 Oct 2026 19:37:08 +0200
 From: John Harrison <John.Harrison@Igalia.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	kernel-dev@igalia.com
-Subject: [PATCH 0/3] drm/amd/display: Fix assorted test failures
-Date: Thu, 22 Oct 2026 10:36:52 -0700
-Message-ID: <20261022173655.2318987-1-John.Harrison@Igalia.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH 1/3] drm/amd/display: Fix some memory lifetime issues in KUnit
+ tests
+Date: Thu, 22 Oct 2026 10:36:53 -0700
+Message-ID: <20261022173655.2318987-2-John.Harrison@Igalia.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022173655.2318987-1-John.Harrison@Igalia.com>
+References: <20261022173655.2318987-1-John.Harrison@Igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -55,35 +58,59 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Running the KUNIT tests with KASAN enabled hits a bunch of
-use-after-free errors. Also, the colorop tests were failing due to the
-pipeline having been extended. So, fix those up.
-
-Note that the following tests are still failing for me. They are
-EXPECTATION failures though, rather than memory splats. So, the test
-run does at least complete now.
-  dm_test_crtc_reset_state_replaces_existing
-  dm_test_detect_hides_secondary_tile
-  dm_test_fs_caps_dp_msa_not_allowed
-  dm_test_update_plane_color_mgmt_colorop_shaper
-  dm_test_update_plane_color_mgmt_colorop_3dlut
-  dm_test_update_plane_color_mgmt_colorop_blend
+When running the KUnit tests with memory debugging enabled, a bunch of
+use-after-free errors are hit. Fix them by using the appropriate alloc
+manager (which might be none - write back connectors and DP MST ports
+both have their own lifetime management).
 
 Signed-off-by: John Harrison <John.Harrison@Igalia.com>
+CC: Alex Hung <alex.hung@amd.com>
+CC: Harry Wentland <harry.wentland@amd.com>
+---
+ .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c  | 2 +-
+ .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c  | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-John Harrison (3):
-  drm/amd/display: Fix some memory lifetime issues in KUnit tests
-  drm/amd/display: Fix use-after-free in
-    dm_test_hpd_rx_offload_work_msg_rdy
-  drm/amd/display: Update colorop pipeline tests for new fixed matrix op
-
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_colorop_test.c  | 4 ++++
- .../display/amdgpu_dm/tests/amdgpu_dm_connector_test.c    | 2 +-
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c  | 8 +++++++-
- .../display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c    | 2 +-
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c   | 2 +-
- 5 files changed, 14 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 5fdf8ce023b9..aa72934e1fea 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -9702,7 +9702,7 @@ dm_test_conn_init_ctx_alloc(struct kunit *test, enum signal_type signal)
+ 	ctx->adev->mode_info.num_crtc = 1;
+ 	dm_test_create_mode_props(test, ctx->adev);
+ 
+-	pdev = kunit_kzalloc(test, sizeof(*pdev), GFP_KERNEL);
++	pdev = drmm_kzalloc(ctx->drm, sizeof(*pdev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, pdev);
+ 	device_initialize(&pdev->dev);
+ 	pdev->dev.parent = dev;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+index eafa3e6733a6..5dc6cd880169 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
+@@ -3833,7 +3833,7 @@ dm_mst_test_alloc_dsc_link_ctx(struct kunit *test, int total_avail_slots)
+ 	link_srv = kunit_kzalloc(test, sizeof(*link_srv), GFP_KERNEL);
+ 	res_pool = kunit_kzalloc(test, sizeof(*res_pool), GFP_KERNEL);
+ 	sink = kunit_kzalloc(test, sizeof(*sink), GFP_KERNEL);
+-	port = kunit_kzalloc(test, sizeof(*port), GFP_KERNEL);
++	port = kzalloc(sizeof(*port), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, link_srv);
+ 	KUNIT_ASSERT_NOT_NULL(test, res_pool);
+ 	KUNIT_ASSERT_NOT_NULL(test, sink);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+index 4bc033fdfa97..f3b64a66cf28 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+@@ -500,7 +500,7 @@ static void dm_test_wb_connector_init_success(struct kunit *test)
+ 	dc->links[0] = link;
+ 	dm->dc = dc;
+ 
+-	wbcon = kunit_kzalloc(test, sizeof(*wbcon), GFP_KERNEL);
++	wbcon = kzalloc_obj(*wbcon);
+ 	KUNIT_ASSERT_NOT_NULL(test, wbcon);
+ 
+ 	ret = amdgpu_dm_wb_connector_init(dm, wbcon, 0);
 -- 
 2.43.0
 
