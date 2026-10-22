@@ -2,125 +2,109 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF0E606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:26:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1739E606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oWkkhing
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3UvU8sc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E103D10E1A0;
-	Thu, 22 Oct 2026 12:26:47 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011058.outbound.protection.outlook.com [52.101.52.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA48510E1A0
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:26:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jCyrJwn9xZPVbY3BhKOV4zbHZfogu86Kq6sOnf9RTvco1DYYy7ypftOIffE187VG9DZZfWTObj2xYubb2UVjhoswQ5lwiucTww+K53D5vTYaRZ7B0oES4NOgKZ+JjJIysDEsRXr73/F5Za6H87Anbz5s/kLkowzG8Em2CRhd/C4r2oDYFTGD8eZP1DZBH06ZtRl0ArfZOmnymHglvHFv2uJBi/65Kkv8LsxR+8pEOeiv7a0mdZDdQbvtxku2DuJ5alEDID9kZYEqB97mqHgD9+F4csm8pqcz+BuKSf+MNBbbQ/bDrxSkKKdxhPeZHgwXyFSp6RHNaks1wSgALhWH0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zOefd6k+NFCbfCkfEo1k7OaGQiDwLvUPzLygZtT/7cs=;
- b=W79sAQm2b0Ki0ojQnb6nV4iyiPY1cSNkUROS+bFb9ZnkgQ7Srn+1pMzJ0JKiQBH7xFusoVbjMc7CEslLT28o1gVhHfQc8si/AH/sacN6Spmc/LsgIvltQvixK+FpsYOMCpfEKrNt3fmQ//dT15zVVCOAdJEOpTzhvPDwY/t2+O7Xf6DrINWeHkKXX6V8AW5/02Hg+XtD3PEl6wn7g5M9KHtHE8CH2luMb+yiwjc2S/zHHHWgIe0xJiVHPgawKNCkq1WoWSq++sTnN1LAuJMBnUZOIJktjM6R+5VCLw/TunZXZvy5AHxJHf8pcJkVt0wRdLCxVByKt7hTDuYFJRL0bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zOefd6k+NFCbfCkfEo1k7OaGQiDwLvUPzLygZtT/7cs=;
- b=oWkkhingT8ySPltDZP1mj6RbcJk2FDzw+VOjeJzA9vllTinr6KSx/mUyoW7gkn03WSFepCmKT5rAMl08jjl+NXbi9p1nE0wE0K8tReDGvpBF4tC8OLwLj76+v9DoKdrQuWofgl8l/3EUdkvexaWrPI2SEjcP45qj+rJ8UErRZjs=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV2PR12MB332773.namprd12.prod.outlook.com (2603:10b6:408:3b4::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
- 2026 12:26:38 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 12:26:38 +0000
-Message-ID: <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
-Date: Thu, 22 Oct 2026 14:26:34 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
-To: Val Packett <val@invisiblethingslab.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20261021093533.1990028-1-val@invisiblethingslab.com>
- <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
- <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN0PR08CA0017.namprd08.prod.outlook.com
- (2603:10b6:408:142::24) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 269C1112580;
+	Thu, 22 Oct 2026 12:33:55 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E80F112584;
+ Thu, 22 Oct 2026 12:33:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 70695436C8;
+ Thu, 22 Oct 2026 12:33:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C249B1F000C1;
+ Thu, 22 Oct 2026 12:33:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792672427;
+ bh=es0EBw+s01NCevX6p6GYQJTMMjVuoGTr4HClcof2aRA=;
+ h=From:Subject:Date:To:Cc;
+ b=S3UvU8sc13/k33yf8QZiv/7uF2MDwHf3xjNmGLC6O7vJJqa2EsTAvFV6VERueVqaX
+ KbJPhoKrsFGl0ozfSDGXqa/gvOSS47YMM8XFNCrI44pNEZqvSNDfaJWIyqXRfn1iyP
+ tOXWqsMQVlaIgETZvAZJmOinxNRJlL4GE+oet56i8vHfhlkUHk0bd2SyDS2jBSh6vQ
+ h1EerhG6CTWwTrFq7c9M0Pcy70XfUkLqNu7c6RB5n6ex1Z+WhXV46ZeNTqwY6EKQ25
+ ZQoQGxFmpJQxsd+P2bJHSXfMBR7cW/PYZfU71VG4HWp9/17BpXUCK4vttjJEgpKJrv
+ 5+yeyF/+Gh3Dg==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v2 00/59] drm/connector: Convert all drivers to
+ atomic_create_state and remove reset
+Date: Thu, 22 Oct 2026 14:30:59 +0200
+Message-Id: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV2PR12MB332773:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7376ce5-ab9d-4478-ee3f-08df3037b7e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|56012099006|11063799006|4143699003|261021121427099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: /bOFNHgbC7iJH5Um5N8oNN/+JLJIUnM7+CmH7C68EDn34OgtN0LmSLRcjeefMoVZZJdMPjVC2E64gBzILgNGlogfihJmo0F33oRHF/giixPzbbqA2uVNUXJismFFy3XkJ/jDglgxKy73syaw2+bjKVSojfxDUixDUg4oSUCGSphbvz7yewGlKzqrJuJPJqzZJRl18jDDMVqYz2zreh6Qll16he921g5+pX/4ti3lalUetioYidcaOXYisb8a26/A/orohD03Z1fxEyYV3QKo/fRfEzceKJWzv1+nn6FacH0maLwMBMzbvyilEqCO0SXk3mMcnUQq9EiJ4l9zbbgiPZwiEvZhcShm3vlM+dTyD04XBC1JfE17tOlif3z0cN9ydFMOEV/99MLACuqBdKks0YcFHecObI9bkhUKC0AdbNRoYupD4U3rPSHF9TT3Q2cRpNRCgY0Us6AH0YlPX5PTnO+3icYdgLNDlt3XFQbu5B63Z3lr6otF4DfxGpR42RW7VydHbJWCC9vJvXG5FGm7gx9GEHqTalLYiFYow6KjDCAPuSdgVcj1/rX/hvWQY8WSmJ6/bm6Wgx3m/LbuEjwygmOojhAloQMxqtdvnUGQ4jkjSdrdlMX6nxHvplrxwV1ShgdxTc+wcmQwj76bWDLWKL05KZzk+xh0bVo/laKs0Zs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(4143699003)(261021121427099003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWRFbnc1R0JuSXl2SlFHWXF4N2pRSEczMGNDd1RQaTRaWStkNlFhZ2ZCcHIv?=
- =?utf-8?B?UXNFaHlzdEtKUE11UExwUnBSVENPMlNOc0JXYzFyQ3owUS9sdUQyWW5WaHBS?=
- =?utf-8?B?T0xuL0ZoeWV5d0ttK0RaRTRmZmU5WGJFVGZZM3BlNXpvdHVGYWxBd3Z6RHQy?=
- =?utf-8?B?VVRtR2psMHVTb2puWFg4TmF6TGhpOGs2WnlWckMrenpheGFsMjV1SXpmVytk?=
- =?utf-8?B?cFdQbHIrRWRIbGZLRXZVbDl4RjNiYlpKdFJuSDJyNUFnelRDOGIxS1d0Vmk5?=
- =?utf-8?B?aWoydGxVaEtwSlVUVUlmNklNbU90azAwUTBFL2ZvRGtLRnhvaTZGdG5CYy80?=
- =?utf-8?B?OWVsay9adjB3a2NsUUJKZ09ZRGNxTEkvN29ybFRXSkZCR29hK2RFeWwvSk9i?=
- =?utf-8?B?VERJSmVFMVIyT3NBRGRwVHMxRVFER1ZWb2dOTzFhWHV4clEreENORXVvV0pM?=
- =?utf-8?B?NnllQlY5YVFCOHkvUE9xc1Q4UVQ1TXBOWWZ2VFQrUUlaK1hhb0hkRXpHZW5u?=
- =?utf-8?B?VFZtSTk2SXF4aHBqOEozMkErd3pjYkU3c1pUbzZuYUdvTEJiRjYwQzlhS0Ja?=
- =?utf-8?B?WDZNdGlhMXVKYWUyN0tweGJ0b0pPa2xIYlFEQkg0a0VQK2RCL3pCWGhXYzNE?=
- =?utf-8?B?TUdULys5RU5BdEJuT0s5ckNXVUgxc2RtYUU3STdsL0J6dy9QTXNqcjRsbkhw?=
- =?utf-8?B?elkyaGpnUEtRLzQ1c3JvLzNIZWg0ai82ZTdEUXUxQWtYYmE0UDBwbnorNGht?=
- =?utf-8?B?WHk4SWdlTkJZbVUrV0VNMTRJYVVvdlJWVktWeEpmQ3BDVFVad3BsN0l6Um16?=
- =?utf-8?B?WUpocS9UTmd0QlVMeml6UTVNRzZQY0E3eW91MTFvRXIvU2ZOamp5KzhHMTBY?=
- =?utf-8?B?dU9ybEwwbzBXQVN1Vmh1SklRWHFZb2srcGw0clQ1YmRKdkRMb3FPcWpoTEVr?=
- =?utf-8?B?MEtZUE01bmFyTFcwRjhhaVFlWHIwMlluZGRxRmhxcWo2SnRFOVlNdnZocStI?=
- =?utf-8?B?Z3g3ZWVEUDFMUlV1U3pUTnFvbVhIdVhOc3Niem9sQWxiMU4vbHg4eHlKY24x?=
- =?utf-8?B?a3Z6YVdkZTZNbW1Kam1rMUN5VFJpa3hOREFLVVZvMFo4djVUcnJNV2Z0SURY?=
- =?utf-8?B?T203MWRvWnhyLzEvNVJOeEVtdjVwSC9NOGVET1JFKzZ6RXY3VmJQUmFvVVVG?=
- =?utf-8?B?bFQ3ejBYK0s3TEo5Ukg4bmdiYWdJYzJHZkxqd3J0amxQK3R2ZnlyTnVXTi9O?=
- =?utf-8?B?cnlzSUFlRzIycVNudVExZTFJK0Z6cmNLRS9CWngzcTNEdStNWkJSSFNGcHF1?=
- =?utf-8?B?cUhBSzR0LzNrYWJycTRtZnYwU0orUlV4NjZKaWRjUUxzVXZSYUR6S2NhUTdQ?=
- =?utf-8?B?bTVCN3M0aDliM0RmK0NZNHJtM1pTLzlRQUNoMnlYaWo0ZWFoK2RMWWR2U2Zt?=
- =?utf-8?B?bzcrcUI3bXNFR3RycG5SUTk1U2ZjelB6NWMwbGRkclE5SVVDcXg3K3J0UW5R?=
- =?utf-8?B?T0NrM296Mjdmd3ZBNm05dTNyK29hY2o1RXk3U2NQZGN1SFFRM3lSd2xZdVVD?=
- =?utf-8?B?dnFkdGxaZzRCRWFKMERpUW51ZGxIcGVNeDBmWUJCMzNtbGtBaWJGUGFEZmQx?=
- =?utf-8?B?NnRWSjM3UE4xTjV2L3ltRWNjMmFaODl2aUJGVWRsL1pDbFg3RTYxQkRmK01i?=
- =?utf-8?B?RWlyWmJBMmRiU09NUTl0Tndudm9jVHpmaDVVeEx1aDBva1lvbUdPWDJLRHNM?=
- =?utf-8?B?R01lR0U4RURmQzlNcU1jdElDenJ5Q0cyRHN2SFc4N3VDUTVQamNOREVSUXA3?=
- =?utf-8?B?WnVpaUg2R2xOYzNSNm5RUjN2eW04T1FCb3JoVTQzbzdEc0UwWE9meDUrcGtF?=
- =?utf-8?B?enN2N1Z5bGNUZjlsWnpUaFhlVHRleXFIaEcvMjIyRldpMHd5QnNxWlIzNm1n?=
- =?utf-8?B?d2lSdDl3STV0TExKSjN1a1Z2VnUzVWhFMnBBMTFlVUtJWVpMLzMxMW9vUW5B?=
- =?utf-8?B?SjU1ZFUrOUpkMDBsNTNWckRTamRXd2tzcFRGNjZXTlY2UTUrakp2YTZhajVa?=
- =?utf-8?B?bnc2d1lGYXRmdVJFQnE5M3NOUjRZeDBZc0lwRkpGbUZjTXgxMVZSN2ZHUXp5?=
- =?utf-8?B?M1Y0NDgxelBYczJpZEdFdnZqbzZYSHpVcHIzV3NHdXpDWTRUT085VE9mOHov?=
- =?utf-8?B?Z3FSbEo3SHRsU09aeU0ycTFZSStaSUs1MXBHc1JuSFhrQ245VXpjVnV6NmMv?=
- =?utf-8?B?RlB6eWVON3IwTGhCNDJVS1R1b1RSUlpyTVJGUmkxNnZyaHhUSDJQYUI0eVBu?=
- =?utf-8?Q?nKuaGYj/r5jzZsAgUF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7376ce5-ab9d-4478-ee3f-08df3037b7e7
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 12:26:37.9700 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dsn8brhv/zbhh1IzzmziwOw6Arxdebij8BosNbrQ0hbe2ip5kp0LaxKQFKvyD9QB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB332773
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Oyw6CMBBFf4XM2jFt5VVX/odxAWWURml1WomG8
+ O8W2Lu8k3vPnAkCsaUAx2wCptEG610KapeB6Rt3I7RdyqCEKkUlNHY8oPM4eCY03jky0TMyBYq
+ YF0Qy7ypTKgOJ8GS62s9KP1+2zPR6pydxO0LbhAUzDDYeMy2vhSKta5W3sPR7GxL8u8qNch0sH
+ lLI/K/HKFFgUZdGm1Sv1eF0J3b02Hu+wWWe5x/N8Hdo9wAAAA==
+X-Change-ID: 20260709-drm-no-more-connector-reset-45ee14d7c62c
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Ruben Wauters <rubenru09@aol.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>, 
+ Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>, 
+ Russell King <linux@armlinux.org.uk>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Inki Dae <inki.dae@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org, 
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>, 
+ Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Yongbang Shi <shiyongbang@huawei.com>, 
+ Paul Kocialkowski <paulk@sys-base.io>, Huacai Chen <chenhuacai@kernel.org>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>, 
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Xi Ruoyao <xry111@xry111.site>, Gerd Hoffmann <kraxel@redhat.com>, 
+ spice-devel@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ linux-renesas-soc@vger.kernel.org, 
+ Marcus Folkesson <marcus.folkesson@gmail.com>, 
+ Iker Pedrosa <ikerpedrosam@gmail.com>, 
+ Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org, 
+ Alexey Brodkin <abrodkin@synopsys.com>, Hans de Goede <hansg@kernel.org>, 
+ LiangCheng Wang <zaq14760@gmail.com>, Alex Lanzano <lanzano.alex@gmail.com>, 
+ Sean Paul <sean@poorly.run>, Chia-I Wu <olvaffe@gmail.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Melissa Wen <melissa.srw@gmail.com>, 
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-amlogic@lists.infradead.org, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>, 
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11112; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=l8HHxUF3ppkOWkHs/T+vPFIyXJxDYh41p1hKBDhkwOM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mHrFm95UZ4hNsDky/UeeVf6r7FOOW/TK/tl9b71/x
+ a/25817HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiMy4xNjz+MKfvS8IPz4Pv
+ 7sXOO3X6TJiz2vrd3oaau3kPeJ+JrzO3E06I6HV5cZGNhTNZfAb7fsb6rHTnrCXTJzyey3v359X
+ WDMVpC+71/xRwmp6k4HY30jBg55GC3SpL7Bqkd32e7+CR4h8DAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,41 +116,198 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/21/26 22:16, Val Packett wrote:
-> 
-> On 10/21/26 10:43 AM, Christian König wrote:
->> [..]
->>> The buffer lifecycle coordination we need this for applies to KVM as well
->>> and it generally doesn't make sense to have this as a provider-specific
->>> thing since it's not related to the provider in any way, it's just
->>> something we want from dmabufs in general.
->> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
->>
->> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
->>
->> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
-> 
-> Well, we already need it with both udmabuf and gntdev-dmabuf..
-> 
-> Involving the exporter sounds really annoying when it's not something exporter dependent really.. What if the policy is just "only one eventfd ever" i.e. the first call of the ioctl succeeds but later calls on the same dmabuf return an error?
+This is a follow-up to the plane and CRTC reset removal series, and
+part of a larger effort to remove the reset hook from all KMS objects.
 
-No, exactly that is what I'm trying to avoid.
+The connector reset hook is overloaded: it is called both at probe
+time to create the initial software state and during suspend/resume to
+reset hardware and software state. These two roles have different
+requirements, and the reset hook is not fallible, making error
+handling difficult for the initial state allocation path.
 
-Nobody except the original creater should be able to insert an eventfd here.
+While reset has the semantics to reset both the software and hardware
+state, the vast majority of implementations and all the helpers only
+reset the software state, making them equivalent to
+atomic_create_state in practice. The atomic_create_state hook makes
+this explicit: it only allocates and initializes a pristine state
+without any side effect, and returns the state pointer or an ERR_PTR
+on failure.
 
-Regards,
-Christian.
+This series converts all connector drivers tree-wide from the reset hook
+to atomic_create_state, then removes the reset hook from struct
+drm_connector_funcs entirely. The conversions were done using a
+combination of Coccinelle semantic patches, mechanical one-line
+replacements and manual adjustments.
 
-> That should remove the concern about one user messing with another's events (and avoid the concurrent replacement issue sashiko-bot warned about)..
-> 
-> Thanks,
-> ~val
-> 
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v2:
+- Change the parameter order of __drm_atomic_helper_connector_hdmi_state_init
+- Fixed state argument casing for drm_atomic_helper_connector_tv_margins_state_init
+  and drm_atomic_helper_connector_tv_state_init
+- Put atomic_create_state before atomic_duplicate_state
+- Fix state allocation for MST and WB connectors
+- Link to v1:
+  https://lore.kernel.org/r/20261014-drm-no-more-connector-reset-v1-0-586c9c026823@kernel.org
+
+---
+Maxime Ripard (59):
+      drm/hdmi: Change __drm_atomic_helper_connector_hdmi_state_init parameter order
+      drm/atomic-state-helper: Rename connector_tv_margins_reset to state_init
+      drm/atomic-state-helper: Rename connector_tv_reset to state_init
+      drm/panel: Add atomic_create_state support
+      drm/amdgpu: vkms: Switch to drm_atomic_helper_connector_create_state
+      drm/aspeed: Switch to drm_atomic_helper_connector_create_state
+      drm/ast: Switch to drm_atomic_helper_connector_create_state
+      drm/bridge: analogix-anx6345: Switch to drm_atomic_helper_connector_create_state
+      drm/bridge: analogix-anx78xx: Switch to drm_atomic_helper_connector_create_state
+      drm/bridge: chrontel-ch7033: Switch to drm_atomic_helper_connector_create_state
+      drm/bridge: nxp-ptn3460: Switch to drm_atomic_helper_connector_create_state
+      drm/panel: Switch to drm_atomic_helper_connector_create_state
+      drm/bridge: synopsys: dw-hdmi: Switch to drm_atomic_helper_connector_create_state
+      drm/bridge: tc358767: Switch to drm_atomic_helper_connector_create_state
+      drm/bridge: tda998x: Switch to drm_atomic_helper_connector_create_state
+      drm/bridge: ti-tfp410: Switch to drm_atomic_helper_connector_create_state
+      drm/exynos: Switch to drm_atomic_helper_connector_create_state
+      drm/fsl-dcu: Switch to drm_atomic_helper_connector_create_state
+      drm/hisilicon: hibmc: Switch to drm_atomic_helper_connector_create_state
+      drm/logicvc: Switch to drm_atomic_helper_connector_create_state
+      drm/loongson: Switch to drm_atomic_helper_connector_create_state
+      drm/mgag200: Switch to drm_atomic_helper_connector_create_state
+      drm/mipi-dbi: Switch to drm_atomic_helper_connector_create_state
+      drm/qxl: Switch to drm_atomic_helper_connector_create_state
+      drm/renesas: shmobile: Switch to drm_atomic_helper_connector_create_state
+      drm/sitronix: st7571: Switch to drm_atomic_helper_connector_create_state
+      drm/sitronix: st7920: Switch to drm_atomic_helper_connector_create_state
+      drm/sti: Switch to drm_atomic_helper_connector_create_state
+      drm/sun4i: Switch to drm_atomic_helper_connector_create_state
+      drm/tegra: Switch to drm_atomic_helper_connector_create_state
+      drm/tests: Switch to drm_atomic_helper_connector_create_state
+      drm/tiny: arcpgu: Switch to drm_atomic_helper_connector_create_state
+      drm/tiny: bochs: Switch to drm_atomic_helper_connector_create_state
+      drm/tiny: cirrus: Switch to drm_atomic_helper_connector_create_state
+      drm/tiny: gm12u320: Switch to drm_atomic_helper_connector_create_state
+      drm/tiny: pixpaper: Switch to drm_atomic_helper_connector_create_state
+      drm/tiny: repaper: Switch to drm_atomic_helper_connector_create_state
+      drm/tiny: sharp: Switch to drm_atomic_helper_connector_create_state
+      drm/udl: Switch to drm_atomic_helper_connector_create_state
+      drm/vboxvideo: Switch to drm_atomic_helper_connector_create_state
+      drm/virtio: Switch to drm_atomic_helper_connector_create_state
+      drm/vkms: Switch to drm_atomic_helper_connector_create_state
+      drm/xen: Switch to drm_atomic_helper_connector_create_state
+      drm/bridge: synopsys: dw-hdmi: Convert to atomic_create_state
+      drm/meson: Convert to atomic_create_state
+      drm/gud: Convert to atomic_create_state
+      drm/sun4i: hdmi: Convert to atomic_create_state
+      drm/sun4i: tv: Convert to atomic_create_state
+      drm/tests: hdmi: Convert to atomic_create_state
+      drm/vc4: hdmi: Convert to atomic_create_state
+      drm/vc4: vec: Convert to atomic_create_state
+      drm/connector: Remove drm_atomic_helper_connector_reset()
+      drm/amdgpu: dm: Convert to atomic_create_state
+      drm/ast: Convert to atomic_create_state
+      drm/i915: Convert to atomic_create_state
+      drm/nouveau: Convert to atomic_create_state
+      drm/tegra: Convert to atomic_create_state
+      drm/connector: Remove __drm_atomic_helper_connector_reset()
+      drm/connector: Remove reset
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 32 ++++----
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |  3 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 11 ++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   | 17 +++-
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 90 ++++++++++++++--------
+ drivers/gpu/drm/aspeed/aspeed_gfx_out.c            |  2 +-
+ drivers/gpu/drm/ast/ast_dp.c                       | 18 ++---
+ drivers/gpu/drm/ast/ast_dp501.c                    |  2 +-
+ drivers/gpu/drm/ast/ast_sil164.c                   |  2 +-
+ drivers/gpu/drm/ast/ast_vga.c                      |  2 +-
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  2 +-
+ drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c |  2 +-
+ drivers/gpu/drm/bridge/chrontel-ch7033.c           |  2 +-
+ drivers/gpu/drm/bridge/nxp-ptn3460.c               |  2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          | 12 ++-
+ drivers/gpu/drm/bridge/tc358767.c                  |  2 +-
+ drivers/gpu/drm/bridge/tda998x_drv.c               |  2 +-
+ drivers/gpu/drm/bridge/ti-tfp410.c                 |  2 +-
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  4 +-
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  9 +--
+ drivers/gpu/drm/drm_atomic_state_helper.c          | 67 ++++------------
+ drivers/gpu/drm/drm_connector.c                    |  8 --
+ drivers/gpu/drm/drm_mode_config.c                  |  4 +-
+ drivers/gpu/drm/drm_panel.c                        | 16 +++-
+ drivers/gpu/drm/exynos/exynos_drm_dpi.c            |  2 +-
+ drivers/gpu/drm/exynos/exynos_drm_vidi.c           |  2 +-
+ drivers/gpu/drm/exynos/exynos_hdmi.c               |  2 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          |  2 +-
+ drivers/gpu/drm/gud/gud_connector.c                | 20 +++--
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c     |  2 +-
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_connector.c     |  6 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.c          |  6 +-
+ drivers/gpu/drm/logicvc/logicvc_interface.c        |  2 +-
+ drivers/gpu/drm/loongson/lsdc_output_7a1000.c      |  2 +-
+ drivers/gpu/drm/loongson/lsdc_output_7a2000.c      |  4 +-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c         | 12 ++-
+ drivers/gpu/drm/mgag200/mgag200_vga.c              |  2 +-
+ drivers/gpu/drm/mgag200/mgag200_vga_bmc.c          |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c            | 11 ++-
+ drivers/gpu/drm/nouveau/nouveau_connector.c        | 27 ++++---
+ drivers/gpu/drm/nouveau/nouveau_connector.h        |  3 +-
+ drivers/gpu/drm/qxl/qxl_display.c                  |  2 +-
+ drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c  |  2 +-
+ drivers/gpu/drm/sitronix/st7571.c                  |  2 +-
+ drivers/gpu/drm/sitronix/st7920.c                  |  2 +-
+ drivers/gpu/drm/sti/sti_dvo.c                      |  2 +-
+ drivers/gpu/drm/sti/sti_hda.c                      |  2 +-
+ drivers/gpu/drm/sti/sti_hdmi.c                     |  2 +-
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             | 17 +++-
+ drivers/gpu/drm/sun4i/sun4i_lvds.c                 |  2 +-
+ drivers/gpu/drm/sun4i/sun4i_rgb.c                  |  2 +-
+ drivers/gpu/drm/sun4i/sun4i_tv.c                   | 16 +++-
+ drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             |  2 +-
+ drivers/gpu/drm/tegra/dsi.c                        | 17 ++--
+ drivers/gpu/drm/tegra/hdmi.c                       |  2 +-
+ drivers/gpu/drm/tegra/sor.c                        | 13 ++--
+ drivers/gpu/drm/tests/drm_atomic_commit_test.c     |  2 +-
+ drivers/gpu/drm/tests/drm_atomic_test.c            |  2 +-
+ drivers/gpu/drm/tests/drm_connector_test.c         |  4 +-
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 17 +++-
+ drivers/gpu/drm/tests/drm_probe_helper_test.c      |  2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                      |  2 +-
+ drivers/gpu/drm/tiny/bochs.c                       |  2 +-
+ drivers/gpu/drm/tiny/cirrus-qemu.c                 |  2 +-
+ drivers/gpu/drm/tiny/gm12u320.c                    |  2 +-
+ drivers/gpu/drm/tiny/pixpaper.c                    |  2 +-
+ drivers/gpu/drm/tiny/repaper.c                     |  2 +-
+ drivers/gpu/drm/tiny/sharp-memory.c                |  2 +-
+ drivers/gpu/drm/udl/udl_modeset.c                  |  2 +-
+ drivers/gpu/drm/vboxvideo/vbox_mode.c              |  2 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     | 31 ++++++--
+ drivers/gpu/drm/vc4/vc4_vec.c                      | 16 +++-
+ drivers/gpu/drm/virtio/virtgpu_display.c           |  2 +-
+ drivers/gpu/drm/vkms/vkms_connector.c              |  2 +-
+ drivers/gpu/drm/vkms/vkms_writeback.c              |  2 +-
+ drivers/gpu/drm/xen/xen_drm_front_conn.c           |  2 +-
+ include/drm/display/drm_hdmi_state_helper.h        |  4 +-
+ include/drm/drm_atomic_state_helper.h              |  9 +--
+ include/drm/drm_connector.h                        | 12 ---
+ include/drm/drm_mipi_dbi.h                         |  2 +-
+ 82 files changed, 360 insertions(+), 276 deletions(-)
+---
+base-commit: 91f52e99824b0beebb48cad51bbda81437af8664
+change-id: 20260709-drm-no-more-connector-reset-45ee14d7c62c
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
