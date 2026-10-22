@@ -2,45 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C367606A33D
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:42:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8001560A3821
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:43:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xkx1gM5d
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=M45Vj9qt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F66B112641;
-	Thu, 22 Oct 2026 13:42:06 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 880CC112619;
- Thu, 22 Oct 2026 13:41:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CB9D860018;
- Thu, 22 Oct 2026 13:41:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 191431F000C2;
- Thu, 22 Oct 2026 13:41:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792676514;
- bh=byINeMt3A+PO89GiAsGNR3UuXwrnKL5MmsK2RAyTqss=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xkx1gM5duvKz40/m53Ukc1GNlUzzoFwrOxlH6ts1Bqoq+jPI9Sm6Z/Q2bOPj5SVlB
- UD6DWvw6ZraJho+Y69Pk1iCQCzCcXYAHr+Mvjr6C3o5Uoh2bEzjM8Z38vFRZrZceSX
- iHvzKgtjT3QaG1npKKrPXNDBk9rc30szzMTAhdM1nAcBBiLKEHaKGl+PK6hhXKzIhE
- t0pkRIBlvLjzOjXr0szzj4Ks/aYRZqbvSW+FKzuXymb7D9/zkZFYy2PMwATGxQ0u/G
- EqhrIVw7gce1nlXhhzI1gRjeDQurjAt1QgqnmQbpoLWGUh5smbhDa9VhwHYW14IdGp
- lQF4MqKbo51dA==
-Message-ID: <sashiko-outbox-181561@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 9/9] usb: typec: ucsi: huawei-gaokun: pass down
- HPD_IRQ events
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20261022-hpd-irq-events-v6-9-337ea3ddaa62@oss.qualcomm.com>
-References: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
- <20261022-hpd-irq-events-v6-9-337ea3ddaa62@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 13:41:53 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF37111264F;
+	Thu, 22 Oct 2026 13:42:59 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBF97112619
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=vx0nMNG6T5j4HqQLG8MZdguAtMzm7uQavru9EgavMgs=; b=M45Vj9qtwNG0KO3wWdkPWdFTtk
+ Z07zbODElbzNzCBi4uOGBoYXXO/cg4+wKyMELwTowRIFHgnmz1nsK2V3sdibUAQGZl2qN/+sVVBnH
+ 8E9/82Nw3JNNKPYIgjKLLABaa0xtDFvUDGV/h2jvCBquVFsF7M7jBgNcT04tRUQpd4+rxfjC9m3l2
+ 0+gdEXYSQhZpv/Vh/0Jvl6IYELbDvUZVpLtP/0leNxw9OwH/uoQQ3UEGculfW881Nrnj3b90Dpx0u
+ 48U0cwxuKd0kyxlGt7Of2t0uKRaOQzVb+BzYo4fH1Nzrs+Pcmj+YsFHld5o9NF1kPdOrpii1CBzAu
+ BoISuuhg==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xJt4E-006qVR-Mi; Thu, 22 Oct 2026 15:42:50 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Date: Thu, 22 Oct 2026 10:42:45 -0300
+Subject: [PATCH] drm/panthor: Replace panthor_mmu_as_fault_mask() with a macro
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261022-panthor-as-mask-v1-1-6aba7ad8cb9f@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQpAQBCA4VfRnE3ZkV28ihw2BpMs7UhK3t3m+
+ B3+/wHlKKzQZg9EvkRlDwkmz2BYfJgZZUwGKsiagggPH85lj+gVN68rGmpsXTeVKZ2DVB2RJ7n
+ /Y9e/7wf3Blk9YQAAAA==
+X-Change-ID: 20261022-panthor-as-mask-129688951377
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3612; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=hlKxKLR4LqnKYVErvY5HZCNJ6QP7XtQXbhBuY0V8y5o=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq2hLYrIO12Uph9ppaWONTYUGy57nYj7/Hwc0w4
+ kunOZv9NkCJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCatoS2AAKCRA/8w6Kdoj6
+ qkTxCACajulZFp0AaffpxHzo4a9oLiOA2Sh6+mNg1W+8R8nAgu/bF5LuSFT9+6mRn5JU5b5ruAX
+ H/vtYfFAsOumrsb4bDm2EZpwPROk41HGoRLGoraaSVSSWZPtfKyP3j6On2iqoDk5AWL+E2XTPpE
+ QKjrJx3xh/kh51ulr4m7dXc6YhUdg1/YqR0AYJRMaS87C/tt0uUiXvvvYz+OLA0tskic4RrnFlm
+ hK5fcqvx5GWCOvDkDiF+/EZLon7kj5r4Xc4nL2OVQrfaOv0eraO/Qupbo3QMiW3lYi+CZpRYJpw
+ ZMyDc3SslsI8IaMvc0iorBldwkuH9/B2ec18EASG7JbBCu66
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,145 +65,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/msm/dp: missing closing brace in msm_dp_bridge_hpd_notify()
-- [High] drm/msm/dp: msm_dp_hpd_plug_handle() skips HPD high processing aft=
-er detect
---
+panthor_mmu_as_fault_mask() ignores its ptdev argument and only returns
+the per-AS fault bit, which is fixed in the MMU interrupt registers.
+Replace it with the macro MMU_INT_AS_FAULT(), which is defined next to
+the other MMU register definitions.
 
-commit 42034f570d120654d6aa4e06b9c582eb06cb2f5f
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+No functional change.
 
-drm/msm: dp: handle the IRQ_HPD events reported by USB-C
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/panthor/panthor_mmu.c      | 17 +++++------------
+ drivers/gpu/drm/panthor/panthor_mmu_regs.h |  1 +
+ 2 files changed, 6 insertions(+), 12 deletions(-)
 
-This commit updates msm_dp_bridge_hpd_notify() in the msm DisplayPort driver
-to handle DRM_CONNECTOR_DP_IRQ_HPD events reported via out-of-band
-notifications.
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index d4b968ab094e..1109959dadc6 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -596,18 +596,12 @@ static u64 pack_region_range(struct panthor_device *ptdev, u64 *region_start, u6
+ 	return region_width | *region_start;
+ }
+ 
+-static u32 panthor_mmu_as_fault_mask(struct panthor_device *ptdev, u32 as)
+-{
+-	return BIT(as);
+-}
+-
+ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+ 				 u64 transtab, u64 transcfg, u64 memattr)
+ {
+ 	struct panthor_mmu *mmu = ptdev->mmu;
+ 
+-	panthor_irq_enable_events(&ptdev->mmu->irq,
+-				  panthor_mmu_as_fault_mask(ptdev, as_nr));
++	panthor_irq_enable_events(&ptdev->mmu->irq, MMU_INT_AS_FAULT(as_nr));
+ 
+ 	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
+ 	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
+@@ -625,8 +619,7 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
+ 
+ 	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
+ 
+-	panthor_irq_disable_events(&ptdev->mmu->irq,
+-				   panthor_mmu_as_fault_mask(ptdev, as_nr));
++	panthor_irq_disable_events(&ptdev->mmu->irq, MMU_INT_AS_FAULT(as_nr));
+ 
+ 	/* Flush+invalidate RW caches, invalidate RO ones. */
+ 	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
+@@ -745,7 +738,7 @@ int panthor_vm_active(struct panthor_vm *vm)
+ 		/* Unhandled pagefault on this AS, the MMU was disabled. We need to
+ 		 * re-enable the MMU after clearing+unmasking the AS interrupts.
+ 		 */
+-		if (ptdev->mmu->as.faulty_mask & panthor_mmu_as_fault_mask(ptdev, as))
++		if (ptdev->mmu->as.faulty_mask & MMU_INT_AS_FAULT(as))
+ 			goto out_enable_as;
+ 
+ 		goto out_make_active;
+@@ -800,7 +793,7 @@ int panthor_vm_active(struct panthor_vm *vm)
+ 	/* Unhandled pagefault on this AS, clear the fault and enable the AS,
+ 	 * which re-enables interrupts.
+ 	 */
+-	fault_mask = panthor_mmu_as_fault_mask(ptdev, as);
++	fault_mask = MMU_INT_AS_FAULT(as);
+ 	if (ptdev->mmu->as.faulty_mask & fault_mask) {
+ 		gpu_write(ptdev->mmu->irq.iomem, INT_CLEAR, fault_mask);
+ 		ptdev->mmu->as.faulty_mask &= ~fault_mask;
+@@ -1864,7 +1857,7 @@ static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
+ 	status = panthor_mmu_fault_mask(ptdev, status);
+ 	while (status) {
+ 		u32 as = ffs(status | (status >> 16)) - 1;
+-		u32 mask = panthor_mmu_as_fault_mask(ptdev, as);
++		u32 mask = MMU_INT_AS_FAULT(as);
+ 		u64 addr;
+ 		u32 fault_status;
+ 		u32 exception_type;
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+index 4e32ab931949..1ec7f5ef2b19 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu_regs.h
++++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+@@ -7,6 +7,7 @@
+ /* MMU regs */
+ 
+ #define MMU_INT_BASE					0x2000
++#define   MMU_INT_AS_FAULT(as)				BIT(as)
+ 
+ /* AS_COMMAND register commands */
+ 
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index ce919a26fba28..6a8b3b8e1fe7f 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1566,11 +1566,13 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *=
-bridge,
->  		if (hpd_link_status =3D=3D ISR_HPD_REPLUG_COUNT) {
->  			msm_dp_hpd_unplug_handle(dp);
->  			msm_dp_hpd_plug_handle(dp);
-> -		} else if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT) {
-> -			msm_dp_irq_hpd_handle(dp);
->  		} else {
->  			msm_dp_hpd_plug_handle(dp);
->  		}
-> +
-> +		if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT ||
-> +		    event =3D=3D DRM_CONNECTOR_DP_IRQ_HPD) {
-> +			msm_dp_irq_hpd_handle(dp);
->  	} else {
->  		msm_dp_hpd_unplug_handle(dp);
->  	}
+---
+base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
+change-id: 20261022-panthor-as-mask-129688951377
 
-[Severity: High]
-Is there a missing closing brace for the inner if statement in
-msm_dp_bridge_hpd_notify() in drivers/gpu/drm/msm/dp/dp_display.c?
-
-The opening brace after checking ISR_IRQ_HPD_PULSE_COUNT and
-DRM_CONNECTOR_DP_IRQ_HPD is never closed before the else branch:
-
-	if (status =3D=3D connector_status_connected) {
-		...
-		if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT ||
-		    event =3D=3D DRM_CONNECTOR_DP_IRQ_HPD) {
-			msm_dp_irq_hpd_handle(dp);
-	} else {
-		msm_dp_hpd_unplug_handle(dp);
-	}
-
-This leaves the outer if block unclosed, causing a build failure at the end
-of drivers/gpu/drm/msm/dp/dp_display.c as well as pairing the
-msm_dp_hpd_unplug_handle(dp) else branch with the inner check instead of
-status =3D=3D connector_status_connected.
-
-
-commit 1182d7f2f2e876c63dd6756de1f85227702b93b4
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-drm/msm/dp: don't take extra references on multiple plug events
-
-This commit adds an early return in msm_dp_hpd_plug_handle() when
-dp->plugged is already set so sequential plug events do not take extra
-runtime power management references.
-
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index fa8942922b533..ce919a26fba28 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -412,6 +412,9 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_displ=
-ay_private *dp)
-> =20
->  	guard(mutex)(&dp->plugged_lock);
-> =20
-> +	if (dp->plugged)
-> +		return 0;
-> +
->  	ret =3D pm_runtime_resume_and_get(&pdev->dev);
->  	if (ret) {
->  		DRM_ERROR("failed to pm_runtime_resume\n");
-
-[Severity: High]
-Will returning early when dp->plugged is true in msm_dp_hpd_plug_handle()
-cause msm_dp_display_process_hpd_high() to be skipped after connector
-detection?
-
-During connector probing in
-drivers/gpu/drm/display/drm_bridge_connector.c:drm_bridge_connector_detect_=
-ctx(),
-detect->funcs->detect() is called before drm_bridge_connector_hpd_notify():
-
-	if (detect) {
-		status =3D detect->funcs->detect(detect, connector);
-		...
-		drm_bridge_connector_hpd_notify(connector, status,
-						DRM_CONNECTOR_NO_EXTRA_STATUS);
-	}
-
-When detect->funcs->detect() runs msm_dp_bridge_detect() in
-drivers/gpu/drm/msm/dp/dp_display.c, it reads the receiver capabilities and
-sets priv->plugged =3D true without calling msm_dp_display_process_hpd_high=
-():
-
-	ret =3D drm_dp_read_desc(priv->aux, &desc, drm_dp_is_branch(dpcd));
-	if (ret) {
-		DRM_DEBUG_DP("failed to read desc\n");
-		priv->plugged =3D false;
-		goto end;
-	}
-
-	status =3D connector_status_connected;
-	priv->plugged =3D true;
-
-When drm_bridge_connector_hpd_notify() -> msm_dp_bridge_hpd_notify() ->
-msm_dp_hpd_plug_handle() then runs (or when a subsequent plug notification
-arrives), dp->plugged is already true, so msm_dp_hpd_plug_handle() returns 0
-immediately without calling msm_dp_display_process_hpd_high().
-
-Without msm_dp_display_process_hpd_high(), drm_edid_connector_update() is
-not called, dp->panel link parameters remain uninitialized, and
-dp->link->sink_count stays 0, causing link preparation to fail with
--ENOTCONN.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-hpd-irq-ev=
-ents-v6-0-337ea3ddaa62@oss.qualcomm.com?part=3D9
