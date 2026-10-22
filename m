@@ -2,100 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3CB2606ACC2
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 15:12:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68931606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 15:30:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oIQ0Kx6W
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=E0f7Iqo/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4871D1126FD;
-	Thu, 22 Oct 2026 15:12:35 +0000 (UTC)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com
- [209.85.217.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF7B71126FD
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 15:12:28 +0000 (UTC)
-Received: by mail-vs1-f42.google.com with SMTP id
- ada2fe7eead31-7be536cd40dso88431137.3
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 08:12:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792681947; cv=none;
- d=google.com; s=arc-20260327;
- b=nWPlZJ9gXEfUvaXsDJC6FeVYbXsdGot2r+BTd2+dVxAOgaZqwX07lYcN9IVJz316Zu
- Qi0IdYaiuInAdYKjEUcAgUmJ27Xz/Y2eXthkM0Ve8oUFKVlSwGdF1868+qAfWuJVVxjv
- lIaEBp3wT/fN58l9SH8Gj+/hoUgzgNLnTSdBkF3EIn60TqxmqeHRgP4kYqAaIbeSvY9Y
- UIhpnXD7PtAJNZe8sKtCbbNiuHCI2eQdBlfDK91N+zW/Hiee3DQWoGHMs/AlzulZ6lGg
- TKjpHGkdwoFmFoKuux/KlG18UdRQ3d0gEiCyQ5ALLpmpMXFRlW+J+5YTWO42hJuedG9y
- uukA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
- fh=gdziFZfmIqrK9SYLCYLZhc5rN/KrkSx7aM3rde2PWag=;
- b=SIeTHqXUTcTNt7WPhu2zwxGneY8yqy+N071Yw+PUkq6HkItiPnCC4ia12CEFmtZ1TT
- b6y62zRuk2Cup+2zhi3J32qZjCtNha7PU9AltBfcl4CqyMIhXjc0UrL2ztAp71MNLuOy
- u+5eGmzw6wWzy0kL93D+/V/HybdCUisqfNu7P4jzmG8VruDcXKjfwY9AAQIudpEzvj4C
- nNxUtATot52K0ixuFbQSyGI7YbrmS/8oGhSfVKDExDXSL2RrtswElsmgGxNFT1ZBWcHd
- 9bOA1jjn3F5qqQX0kcCqSP+FKHhEg+R4G2xQkFio9TaDJJf/QrpVDTnfpgKpMivn3DCg
- Yd0A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792681947; x=1793286747; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
- b=oIQ0Kx6Ww9JQDbgSoplZnTB+9DZaWUpvswWWNY1guUySuMN/EVzlLl4MLF8dGMCvxr
- iFHSkdK3D7VH2KDl+Abb89TZPjLOVZ4ssk5SnyabAeTGI/+tNGsxUTFk35GHtV59I+KS
- SNBXb0zlNDhezeLEBZnFBtRa61+VqXDlnSI2og/Gs3Eg4DGT21uCZ6xQeHROCNPiTiMM
- V+JixLGhea/BHKS4H+ihUL6L3EaTTiCSXHOnWMxYz3ScDDe18S84yLf9dmJ/HR0MPI20
- v2kD3DEdyG22b+cgXxD/OSv/TyKJ2aSObg3E6FCB65DnCE5diD4PabJneiF0ISJ4fnUv
- GkhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792681947; x=1793286747;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Y6tRRI63BHu6BkuvJZ93X8sv4xfpLog4Vlfs+glJY/A=;
- b=UQDRwqDGfSvIlgqJe/eaD9z2XmKe7adMQxorAtJxb92TuR8FjnWpkrrKV6xapW1U4c
- mE9WFP6omxB6LeAAzCcEyadVtMSzdFeO9FMK3YYXIVB8AoI9SvHhTXDHgLJflwnX9Nyr
- XrcZodKq2zolP23H2HQrD73CX/i6wHMo/3tNopKLcrbTYZdKr5Sp5Wh7rC8OFs7FrqOe
- 8kzqkPGBYpi5rBNQdj6g2z0lsvgjVCocsrf94tkJrsq7Hl7B7aM8YzWKUXdCihuwrlMZ
- C5S/pOAYBT1fU9XcxolqAcJELujMR76iHjZ3cDXRJlMb/jWFlFeW3kiJikbCD1lKLeji
- bfOw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwdcZ4jRpcc7i7nVzZzQO/69xi50hQAZWv0OrQjhVGdammAlgj+K7oFbL/6dAiJGwj/7FeOZDWvo+s=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLpgE3PKdx+MfM0fv/6PK85Ly4rZLH/lqowVc9nj4jectNXbbjB
- byN4COLaJaZ/8nP2Vk9kEg3oZmVOtggUS/ibfJJOY1bIWtd0f/uSj3+hrdNSMFckf7f+V/nVmMz
- 91Vvu9O1mRCEo03v9KxBbxtWIDNT2lqY=
-X-Gm-Gg: AYBFou0n/yRvfpZtB6PF/9S3U5tXWNir6sF2xca5j1WS2r5lFLfkt+f2xr63pmERiOp
- oKQjYaQLkWKc+C+yGjVkViaWti14I2Wh7G70Q1GuPa/tyAIiF3Lrz+FSgyGqqYgfeIfolrE+oU6
- 3szF0H8bOtKCqLdRDoZtdz2/+mWn60db5olDke+z3UYQudo34Lh0SScB3fpUmKvkWGTBWULbY4f
- eppJ18THfEAcr6P0+nnJ/+4oI6f0GWE3ug/GJXN5y8VHJwv9OMxezjmuYj/+kf9/NB5avxpVmyn
- rulMZ8r8/2tqiyDbd5X//A1RXz7i22Vf9UlW0mg/dSOWKCV/kpHgCkCzrg7xjXZPwxw7wwokP6d
- LuDiezJWd/DP1jUpnjcH1yW5yZrBdXpxl4e/uBAOf2Np+xa2BzvNCnKjm47BkwzuJcjWCDPnXYL
- OfRrN1N5WQi41yEc7WaL2R2aMIEWz3f4z8XCC5LZAxuZSJ
-X-Received: by 2002:a05:6122:5219:10b0:5ea:cc1d:173e with SMTP id
- 71dfb90a1353d-5eaebc1422dmr1548043e0c.1.1792681946761; Thu, 22 Oct 2026
- 08:12:26 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C59B1112710;
+	Thu, 22 Oct 2026 15:30:31 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6194F11273A;
+ Thu, 22 Oct 2026 15:30:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=SYWwh2VRytE5FRj1bzQwo6n4zw1NVdUhiGY7gh4Fghk=; b=E0f7Iqo/V4v+mUmAE3UwW8tij1
+ MqOnVTo5o5e1oC1oEdO3bK8ZxMmFkCCdUt5digRtZOgRDX4gG6orhNZ+BigPkUKIl71DPaXDJ2vAQ
+ iSvRUv1OmtjS75UkNU/wb0zlFYASQd6VCtHlT3vUNZKDNU9hyD+lytx/Yjqukz3kJW4UqHs/KK6py
+ sLQ1CfHX6SjB3Ow3TSfjFxZsiW3UQcVZ0wVJlm3U+/6ReJk9UH/J118twZk+sFbO90lDjyPmYyunO
+ zUVgojiXlDO3gXJ2vxNmCgUkNN7X9KzWIq59grTV5h1UvAeij8TZb9/UAJtWLwYZUqCIuAUr0mXe1
+ /fg1vh9g==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xJukJ-006vdp-Gk; Thu, 22 Oct 2026 17:30:23 +0200
+Message-ID: <e9ed9a33-80b4-4cd0-98f6-61695aa981cf@igalia.com>
+Date: Thu, 22 Oct 2026 16:30:22 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261022114754.865669-1-mptagliari@gmail.com>
-In-Reply-To: <20261022114754.865669-1-mptagliari@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 22 Oct 2026 11:12:12 -0400
-X-Gm-Features: AclHuK_pmpA8FYbBRpXzvreBUaKMzQ3M_QgHr4Byziz9NDrFFS95zIqKnggaqPY
-Message-ID: <CADnq5_Mvjyi+a_2zhSg0cmNUm7nKCK3kD8_0+mcFYeZzbQ-d2A@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] drm/radeon: fix VCE1 encoding on SI by handling
- the VCE interrupt
-To: Matheus Tagliari <mptagliari@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH i-g-t v7 9/9] tests/cgroup_dmem: add test for dmem.current
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Natalie Vock <natalie.vock@gmx.de>,
+ kernel-dev@igalia.com
+References: <20260923-dmem_max-v7-0-194ea47bbb4d@igalia.com>
+ <20260923-dmem_max-v7-9-194ea47bbb4d@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260923-dmem_max-v7-9-194ea47bbb4d@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,79 +61,235 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Oct 22, 2026 at 9:21=E2=80=AFAM Matheus Tagliari <mptagliari@gmail.=
-com> wrote:
->
-> Hardware H.264 encoding with the VCE block on SI GPUs (radeon driver)
-> hangs the GPU after a few dozen frames.  I hit it with the KDE Plasma
-> RDP server, which encodes through VAAPI, and reproduced it with a
-> plain "ffmpeg -vaapi_device ... -c:v h264_vaapi" test on a Radeon HD
-> 8870M (Cape Verde).
->
-> The VCE1 code never enables the VCE trap interrupt and the SI (and
-> Trinity) interrupt handlers do not process it, unlike the CIK code and
-> amdgpu.  Patch 1 adds the handlers, patch 2 enables the interrupt.
->
-> Results on Debian 6.12.113 (see patch 2 for numbers): hang before,
-> none after, and 34 fps instead of ~4 fps for the workaround that avoids
-> the hang.  The KDE RDP server (KRDP) itself, driven by a local FreeRDP
-> client, now encodes on the VCE ring for several minutes (about 40
-> fences per second on ring 6 in the radeon_fence_emit tracepoint) with a
-> clean kernel log.
->
-> Two caveats:
->
->  - I have not worked out why the missing interrupt turns into ring
->    lockups instead of only added latency.  What I know is that the
->    hang needs the VCE ring to wait on a hardware semaphore (disabling
->    only the waiting side, or both sides, of radeon_vce_semaphore_emit()
->    avoids it) and that handling the interrupt makes it go away with
->    the semaphores left enabled.  If someone knows why, I would be glad
->    to improve the commit message.
->  - The Trinity/Richland change has not been tested on that hardware.
->
-> The series was developed and tested on Debian's 6.12.113 with the
-> radeon module built out of tree.  It applies cleanly on drm-next
-> (fad06cf), where drivers/gpu/drm/radeon builds without warnings (W=3D1,
-> allmodconfig) both after patch 1 and with the whole series.
->
-> v1: https://lore.kernel.org/r/20261021114122.94008-1-mptagliari@gmail.com
->
-> Changes in v2:
->  - Patch 2: only enable VCE_SYS_INT_EN for VCE1 (family < CHIP_BONAIRE).
->    vce_v1_0_start() is also reached on CIK (vce_v1_0_init() from cik.c,
->    kv_dpm), where the register is at a different offset and is already
->    enabled by vce_v2_0_resume(); v1 would have written the VCE1 offset
->    there.  Thanks to the automated review of v1 for pointing this out.
->  - Patch 1: unchanged.
->
-> Matheus Tagliari (2):
->   drm/radeon: process the VCE interrupt on SI and Trinity
->   drm/radeon/vce1: enable the VCE trap interrupt
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-and applied.
+On 23/09/2026 21:44, Thadeu Lima de Souza Cascardo wrote:
+> Based on the work of Thomas Hellström to test dmem.max eviction, add a
+> test for dmem.current usage after allocations and setting dmem.max.
 
-Alex
+Isn't 7/9 testing current after setting max already? I went back and 
+forth a bit and isn't the new thing in this test is looking at current 
+after freeing objects? Unless I got confused maybe then rename the test 
+and update the commit message. One more comment below.
 
->
->  drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
->  drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
->  drivers/gpu/drm/radeon/sid.h       |  2 ++
->  drivers/gpu/drm/radeon/vce_v1_0.c  |  9 +++++++++
->  4 files changed, 39 insertions(+)
->
->
-> base-commit: fad06cfaf385787b9ffa2f73f049d42dbe1de57f
-> --
-> 2.47.3
->
+> Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
+> check current usage is within a small slack of the expected allocation.
+> Then, set max to a small value and check allocations and current usage
+> are limited to the max set.  Set max to less than a single BO size, then
+> check no allocations are allowed and current usage is also within the
+> slack. After each allocation, release memory and check current usage
+> has gone down.
+> 
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> ---
+>   tests/cgroup_dmem.c | 147 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 147 insertions(+)
+> 
+> diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> index 7f3cfe22db2c..1f01037e1cf2 100644
+> --- a/tests/cgroup_dmem.c
+> +++ b/tests/cgroup_dmem.c
+> @@ -36,6 +36,8 @@
+>   #define BO_SIZE			SZ_64M
+>   #define MAX_LIMIT		((uint64_t)4 * SZ_1G)
+>   #define EVICT_STEP		SZ_128M
+> +#define USAGE_POLL_MS		10
+> +#define USAGE_DROP_TIMEOUT_MS	1000
+>   
+>   #define TEST_INTERRUPTIBLE	(1 << 0)
+>   #define TEST_NONBLOCK		(1 << 1)
+> @@ -48,6 +50,20 @@
+>    *  and configured limits, then destroys the cgroup.
+>    */
+>   
+> +/**
+> + * SUBTEST: current
+> + * DESCRIPTION:
+> + *  Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
+> + *  check current usage is within a small slack of the expected allocation.
+> + *  Then, set max to a small value and check allocations and current usage
+> + *  are limited to the max set.
+> + *  Set max to less than a single BO size, then check no allocations are allowed
+> + *  and current usage is also within the slack.
+> + *  After each allocation, release memory and check current usage has gone
+> + *  down.
+> + *  This subtest requires GPU device with at least one VRAM region.
+> + */
+> +
+>   /**
+>    * SUBTEST: write_eviction
+>    * DESCRIPTION:
+> @@ -116,6 +132,23 @@ static void install_sigcont_counter(void)
+>   	sigaction(SIGCONT, &sa, &sigcont_oldact);
+>   }
+>   
+> +static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
+> +				    uint64_t limit)
+> +{
+> +	uint64_t current;
+> +	unsigned int elapsed = 0;
+> +
+> +	do {
+> +		igt_cgroup_dmem_get_current(cg, region, &current);
+> +		if (current <= limit)
+> +			return current;
+> +		usleep(USAGE_POLL_MS * 1000);
+> +		elapsed += USAGE_POLL_MS;
+> +	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
+> +
+> +	return current;
+> +}
+> +
+>   static int allocate_vram(void **handles, const struct igt_dmem_driver *drv,
+>   			 void *ctx, int max_bo, size_t len)
+>   {
+> @@ -137,6 +170,119 @@ static int allocate_vram(void **handles, const struct igt_dmem_driver *drv,
+>   	return err;
+>   }
+>   
+> +static void free_vram(void **handles, const struct igt_dmem_driver *drv,
+> +		      void *ctx, int max_bo)
+> +{
+> +	int i;
+> +	for (i = 0; i < max_bo; i++)
+> +		drv->free_vram(ctx, handles[i]);
+> +}
+> +
+> +static void test_current(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
+> +{
+> +	struct igt_cgroup *cg;
+> +	void **handles;
+> +	uint64_t current, capacity, cg_max;
+> +	int n_bo = 0, max_bo;
+> +
+> +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+> +	igt_require_f(capacity >= 4 * BO_SIZE,
+> +		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
+> +		      capacity / SZ_1M);
+> +
+> +	/*
+> +	 * Use up to 4 GiB, or the full capacity if the device has less.
+> +	 * Leave one BO_SIZE worth of headroom so the device isn't completely
+> +	 * exhausted before the cgroup limit is hit.
+> +	 */
+> +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
+> +	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
+> +
+> +	/* Create cgroup and move into it */
+> +	cg = igt_cgroup_new("igt_cgroups_test");
+> +	igt_cgroup_move_current(cg);
+> +
+> +	max_bo = cg_max / BO_SIZE;
+> +
+> +	handles = calloc(max_bo, sizeof(handles[0]));
+> +	igt_assert_f(handles, "failed to allocate handles array");
+> +
+> +	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
+> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current == cg_max,
+> +		     "current usage (%"PRIu64" MiB) is not requested allocation (%"PRIu64" MiB)\n",
+> +		     current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	free_vram(handles, drv, ctx, n_bo);
+> +	wait_for_usage_drop(cg, cg_region, 0);
+
+The fact in there is a sleeping loop makes me think dmem cgroup contract 
+is not for current to go down immediate when bos are freed from 
+userspace, but when the driver feels like it?
+
+In which case, to ask an annoying question, does it ever have to go down 
+(in a generic case) if no one is touching neither the fd nor the device. 
+Or maybe I am misunderstanding something.
+
+Regards,
+
+Tvrtko
+
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current == 0,
+> +		     "current usage (%"PRIu64" MiB) is not zero\n",
+> +		     current / SZ_1M);
+> +
+> +	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE, false);
+> +
+> +	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
+> +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current == 2 * BO_SIZE,
+> +		     "current usage (%"PRIu64" MiB) is not requested max allocation (%"PRIu64" MiB)\n",
+> +		     current / SZ_1M, cg_max / SZ_1M);
+> +
+> +	free_vram(handles, drv, ctx, n_bo);
+> +	wait_for_usage_drop(cg, cg_region, 0);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current == 0,
+> +		     "current usage (%"PRIu64" MiB) is not zero\n",
+> +		     current / SZ_1M);
+> +
+> +	igt_cgroup_dmem_set_max(cg, cg_region, 0, false);
+> +
+> +	n_bo = allocate_vram(handles, drv, ctx, max_bo, BO_SIZE);
+> +
+> +	/*
+> +	 * amdgpu may succeed the allocation, by falling back to GTT, so no assertion here.
+> +	 * Verify by reading current usage.
+> +	 */
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current == 0,
+> +		     "current usage (%"PRIu64" MiB) is not zero\n",
+> +		     current / SZ_1M);
+> +
+> +	if (n_bo > 0)
+> +		free_vram(handles, drv, ctx, n_bo);
+> +	wait_for_usage_drop(cg, cg_region, 0);
+> +
+> +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> +		  "max = %"PRIu64" MiB\n",
+> +		  current / SZ_1M, cg_max / SZ_1M);
+> +	igt_assert_f(current == 0,
+> +		     "current usage (%"PRIu64" MiB) is not zero\n",
+> +		     current / SZ_1M);
+> +}
+> +
+>   static void test_write_eviction(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx)
+>   {
+>   	struct igt_cgroup *cg;
+> @@ -246,6 +392,7 @@ static const struct {
+>   	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv, void *ctx);
+>   	unsigned int flags;
+>   } subtests[] = {
+> +	{ "current", test_current, 0 },
+>   	{ "write_eviction", test_write_eviction, 0 },
+>   	{ "write_eviction_interruptible", test_write_eviction, TEST_INTERRUPTIBLE },
+>   	{ "write_eviction_nonblock", test_write_eviction, TEST_NONBLOCK },
+> 
+
