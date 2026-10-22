@@ -2,73 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC127606A31F
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 16:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CA2606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 16:47:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ujno0Th7
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcUlmrYz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4653F11280D;
-	Thu, 22 Oct 2026 16:39:49 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18E0B11280F;
- Thu, 22 Oct 2026 16:39:43 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id E015B1A12C9;
- Thu, 22 Oct 2026 16:39:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AB4BD60763;
- Thu, 22 Oct 2026 16:39:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C322A10328E8D; 
- Thu, 22 Oct 2026 18:39:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1792687176; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=StysNLdbp3G1oFHxTS6FrcZ8MFyidPzjh/fRUss0P6c=;
- b=Ujno0Th7EPhz/6QSKu7yGLMJZrd2QJ/XvLoNw35A0QIEae2DSTIDq++frzLK2PZoALfC8i
- QvgE8ja7WJejS7HaNrnv7kNTsPpPXoWqOnelNtzyyT4MSEwUyCk4sq4Rhbg7kOk2CZz0fA
- 4SAx5bgTt5vlVcroIIqdkGQBcAmvHwYNKAV3Z/3HWXistz6m3ev7pA4kYY7YpacwlTMJ6F
- 8QL9pPP6w7xaoLcEGgslkpOYt86ZRiCFQPZXJtbuVfpxVsjrpzXCbYGisEtbY0Prvrs6fs
- aUQXX2UoKIEvZV/2lpbz9w+wXwAQ4CrfauZdjESuIz6O0+CgQbZP56Mc2bs4GQ==
-From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Thu, 22 Oct 2026 18:38:04 +0200
-Subject: [PATCH v4 8/8] drm/mediatek: Use dp_connector helpers to expose
- link training state
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-feat_link_cap-v4-8-a4f3f6e8cad9@bootlin.com>
-References: <20261022-feat_link_cap-v4-0-a4f3f6e8cad9@bootlin.com>
-In-Reply-To: <20261022-feat_link_cap-v4-0-a4f3f6e8cad9@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, 
- Manasi Navare <navaremanasi@google.com>, 
- Drew Davenport <ddavenport@google.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- Kory Maincent <kory.maincent@bootlin.com>
-X-Mailer: b4 0.16.1-dev-17221
-X-Last-TLS-Session-Version: TLSv1.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 632F610E42E;
+	Thu, 22 Oct 2026 16:47:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A07510E42E
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 16:47:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 86E0042A34;
+ Thu, 22 Oct 2026 16:47:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179391F01825;
+ Thu, 22 Oct 2026 16:47:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792687641;
+ bh=vbOJigGe+ZyCcLUM2u5fbhq5ZhA5n8CDCfZA8F7woPM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=XcUlmrYzYWNiMABCDmUbjW4nTR63gd9KNfU7ftnaFyVgXppgo4lue9MRcpon52g0H
+ PlbPUfnF3jnPsBI7377gOAsTa899EetpTH+yb7Bzn0TxKu9pk9YonRtjgpUfSrGnt+
+ stPT1mVdo3dM+6nBFslGvayKRV3YwJW6Bzkef5T4QgWY2oznnh0aplYygdXkQe2Y8R
+ YSMzGNTyrdXOBpkAFmbGmTzde+DhCTdDV5K9ta1iOL3a8DegJkUXSHhdZxJQcQuL1r
+ 2WnZ/DfITrUo8d/hqThHfnWJnuew8qdMqz1l3HeXTPYQmVaVUt+Ah5bnXx7cnj6EWy
+ kEGI9AmNcaGDA==
+Message-ID: <sashiko-outbox-181828@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] rust: DmaFence: Don't drop on signal
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, ojeda@kernel.org,
+ gary@garyguo.net
+In-Reply-To: <20261022162701.2297062-3-phasta@kernel.org>
+References: <20261022162701.2297062-3-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 16:47:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,189 +48,132 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Adopt the DRM core DisplayPort helpers by setting DRM_BRIDGE_OP_DP and
-populating the bridge dp_link_caps at probe time. Report the sink
-capabilities on hotplug, reset them on disconnect, and report the link
-parameters once link training succeeds.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] rust: dma_fence: premature unsignaled fence count decrement in sig=
+nal()
+--
 
-Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
----
-Not tested. I believed I had a board with this device, but it actually uses
-an anx7625 bridge. I'm unable to test it; it would be appreciated if
-someone else could, so the change isn't dropped.
+commit d89d19611f93fbf6fde4c15619608d55fb454178
+Author: Philipp Stanner <phasta@kernel.org>
 
-Changes in v3:
-- Sync and report sink capabilities from the HPD thread for DisplayPort,
-  or in atomic_enable for eDP. Reset them on unplug, or atomic disable
-  and only report link parameters after successful training.
-- Add connection_mutex lock for DisplayPort in the IRQ thread.
+rust: DmaFence: Don't drop on signal
 
-Changes in v2:
-- Remove voltage swing and pre emphasis properties.
----
- drivers/gpu/drm/mediatek/mtk_dp.c | 61 ++++++++++++++++++++++++++++++++++++---
- 1 file changed, 57 insertions(+), 4 deletions(-)
+This commit changes DriverFence::signal() to take &self instead of consuming
+self by value so that signaling a fence in atomic context does not
+immediately drop it, and moves the nr_of_unsignaled_fences decrement inside
+the unsignaled check.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index f656b85b84212..b87e171d88d83 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -1812,6 +1812,17 @@ static void mtk_dp_train_change_mode(struct mtk_dp *mtk_dp)
- 	mtk_dp_reset_swing_pre_emphasis(mtk_dp);
- }
- 
-+static void mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
-+{
-+	u32 rate, nlanes;
-+	bool dsc = false;
-+
-+	rate = drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_rate);
-+	nlanes = mtk_dp->train_info.lane_count;
-+
-+	drm_dp_set_cur_link_params(mtk_dp->conn, rate, nlanes, dsc);
-+}
-+
- static int mtk_dp_training(struct mtk_dp *mtk_dp)
- {
- 	int ret;
-@@ -2015,6 +2026,8 @@ static irqreturn_t mtk_dp_hpd_event_thread(int hpd, void *dev)
- 			ret = mtk_dp_training(mtk_dp);
- 			if (ret)
- 				drm_err(mtk_dp->drm_dev, "Training failed, %d\n", ret);
-+			else
-+				mtk_dp_report_link_train(mtk_dp);
- 
- 			mtk_dp->enabled = true;
- 		}
-@@ -2145,9 +2158,12 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- 	struct mtk_dp *mtk_dp = mtk_dp_from_bridge(bridge);
- 	enum drm_connector_status ret = connector_status_disconnected;
- 	bool enabled = mtk_dp->enabled;
-+	int err;
- 
--	if (!mtk_dp->train_info.cable_plugged_in)
-+	if (!mtk_dp->train_info.cable_plugged_in) {
-+		drm_dp_sink_reset_caps(connector);
- 		return ret;
-+	}
- 
- 	if (!enabled)
- 		mtk_dp_aux_panel_poweron(mtk_dp, true);
-@@ -2160,9 +2176,18 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- 	 * whether we connect to a sink device.
- 	 */
- 
--	if (drm_dp_read_sink_count(&mtk_dp->aux) > 0)
-+	if (drm_dp_read_sink_count(&mtk_dp->aux) > 0) {
- 		ret = connector_status_connected;
- 
-+		err = drm_dp_sink_sync_caps(connector, &mtk_dp->aux, NULL);
-+		if (err)
-+			drm_dbg_kms(mtk_dp->aux.drm_dev,
-+				    "%s: error sink caps synchronisation (%d)\n",
-+				    mtk_dp->aux.name, err);
-+	} else {
-+		drm_dp_sink_reset_caps(connector);
-+	}
-+
- 	if (!enabled)
- 		mtk_dp_aux_panel_poweron(mtk_dp, false);
- 
-@@ -2390,6 +2415,12 @@ static void mtk_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
- 		mtk_dp_aux_panel_poweron(mtk_dp, true);
- 
-+		ret = drm_dp_sink_sync_caps(mtk_dp->conn, &mtk_dp->aux, NULL);
-+		if (ret)
-+			drm_dbg_kms(mtk_dp->aux.drm_dev,
-+				    "%s: error sink caps synchronisation (%d)\n",
-+				    mtk_dp->aux.name, ret);
-+
- 		/* Training */
- 		ret = mtk_dp_training(mtk_dp);
- 		if (ret) {
-@@ -2398,6 +2429,8 @@ static void mtk_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		}
- 	}
- 
-+	mtk_dp_report_link_train(mtk_dp);
-+
- 	ret = mtk_dp_video_config(mtk_dp);
- 	if (ret)
- 		goto power_off_aux;
-@@ -2435,6 +2468,7 @@ static void mtk_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
- 		mtk_dp->enabled = false;
- 		mtk_dp_aux_panel_poweron(mtk_dp, false);
-+		drm_dp_sink_reset_caps(mtk_dp->conn);
- 	}
- 
- 	mtk_dp_update_plugged_status(mtk_dp);
-@@ -2740,11 +2774,14 @@ static int mtk_dp_edp_link_panel(struct drm_dp_aux *mtk_aux)
- 	return 0;
- }
- 
-+static int mtk_dp_rates[] = {162000, 270000, 540000, 810000};
-+
- static int mtk_dp_probe(struct platform_device *pdev)
- {
-+	struct drm_connector_dp_link_caps *source_caps;
- 	struct mtk_dp *mtk_dp;
- 	struct device *dev = &pdev->dev;
--	int ret;
-+	int ret, i, max_rate;
- 
- 	mtk_dp = devm_drm_bridge_alloc(dev, struct mtk_dp, bridge,
- 				       &mtk_dp_bridge_funcs);
-@@ -2758,6 +2795,20 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to parse dt\n");
- 
-+	source_caps = devm_kzalloc(dev, sizeof(*source_caps), GFP_KERNEL);
-+	if (!source_caps)
-+		return -ENOMEM;
-+
-+	source_caps->nlanes = mtk_dp->max_lanes;
-+	source_caps->link_rates = mtk_dp_rates;
-+
-+	max_rate = drm_dp_bw_code_to_link_rate(mtk_dp->max_linkrate);
-+	for (i = 0; i < ARRAY_SIZE(mtk_dp_rates); i++)
-+		if (mtk_dp_rates[i] > max_rate)
-+			break;
-+
-+	source_caps->nlink_rates = i;
-+
- 	/*
- 	 * Request the interrupt and install service routine only if we are
- 	 * on full DisplayPort.
-@@ -2809,6 +2860,8 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 
- 	mtk_dp->bridge.of_node = dev->of_node;
- 	mtk_dp->bridge.type = mtk_dp->data->bridge_type;
-+	mtk_dp->bridge.dp_link_caps = source_caps;
-+	mtk_dp->bridge.ops = DRM_BRIDGE_OP_DP;
- 
- 	if (mtk_dp->bridge.type == DRM_MODE_CONNECTOR_eDP) {
- 		/*
-@@ -2849,7 +2902,7 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 			}
- 		}
- 	} else {
--		mtk_dp->bridge.ops = DRM_BRIDGE_OP_DETECT |
-+		mtk_dp->bridge.ops |= DRM_BRIDGE_OP_DETECT |
- 				     DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
- 		ret = devm_drm_bridge_add(dev, &mtk_dp->bridge);
- 		if (ret)
+> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
+ence.rs
+> index a1d851656562d..3022bdb5f7c3e 100644
+> --- a/rust/kernel/dma_buf/dma_fence.rs
+> +++ b/rust/kernel/dma_buf/dma_fence.rs
+> @@ -805,7 +805,7 @@ pub fn as_fence(&self) -> &Fence {
+>      }
+> =20
+>      /// Signal the fence. This will invoke all registered callbacks.
+> -    pub fn signal(self, res: Result) {
+> +    pub fn signal(&self, res: Result) {
+>          let fence =3D self.as_fence().lock();
+> =20
+>          // SAFETY: `fence` is valid because `self` is valid. The lock mu=
+st be
+> @@ -816,14 +816,15 @@ pub fn signal(self, res: Result) {
+>                  // must not have been signaled yet, which we check direc=
+tly above.
+>                  unsafe { bindings::dma_fence_set_error(fence.as_raw(), e=
+rr.to_errno()) };
+>              }
+> +
+> +            // SAFETY: `self.data` is valid because `self` is valid.
+> +            let fctx =3D unsafe { self.data.as_ref().fctx };
+> +            let _ =3D fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
+> +
+>              // SAFETY: `fence` is valid because `self` is valid. The loc=
+k must
+>              // be held, which we acquired above.
+>              unsafe { bindings::dma_fence_signal_locked(fence.as_raw()) };
+>          }
+> -
+> -        // SAFETY: `self.data` is valid because `self` is valid.
+> -        let fctx =3D unsafe { self.data.as_ref().fctx };
+> -        let _ =3D fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
+>      }
+>  }
 
--- 
-2.43.0
+[Severity: High]
+Can decrementing fctx.nr_of_unsignaled_fences in DriverFence::signal() befo=
+re
+DriverFence::drop() runs lead to a use-after-free of FenceContext?
 
+Previously, DriverFence::signal(self, res) consumed self by value, so
+decrementing nr_of_unsignaled_fences was immediately followed by
+DriverFence::drop(), which queues the drop_driver_fence_data() callback via
+call_rcu():
+
+rust/kernel/dma_buf/dma_fence.rs:DriverFence::drop() {
+    ...
+    unsafe { bindings::call_rcu(rcu_head_ptr, Some(drop_driver_fence_data::=
+<T>)) };
+}
+
+In FenceContext::drop(), the check on nr_of_unsignaled_fences and the
+subsequent rcu_barrier() rely on all associated DriverFence instances having
+already been dropped and having queued their call_rcu() callbacks:
+
+rust/kernel/dma_buf/dma_fence.rs:FenceContext::drop() {
+    if self.nr_of_unsignaled_fences.load(Relaxed) !=3D 0 {
+        panic!("Forgotten fences in FenceContext.");
+    }
+    ...
+    rcu_barrier();
+}
+
+With DriverFence::signal(&self, res) no longer consuming self,
+fctx.nr_of_unsignaled_fences is decremented before DriverFence::drop() runs
+and before bindings::dma_fence_signal_locked() is called.
+
+If a DriverFence is signaled via DriverFence::signal() and then leaked with
+core::mem::forget(), or held as a foreign pointer via
+ForeignOwnable::into_foreign() and signaled via DriverFenceBorrow::signal(),
+nr_of_unsignaled_fences can reach 0 before DriverFence::drop() has queued
+call_rcu().
+
+When FenceContext::drop() then runs:
+
+1. The nr_of_unsignaled_fences check passes even though DriverFence::drop()
+   has not run.
+2. rcu_barrier() only waits for already-queued call_rcu() callbacks, so it
+   can return without waiting for a grace period after
+   dma_fence_signal_locked(), or before a foreign-owned DriverFence is later
+   reclaimed via DriverFence::from_foreign() and dropped.
+3. For a foreign-owned DriverFence, decrementing nr_of_unsignaled_fences wi=
+th
+   Relaxed ordering before dma_fence_signal_locked() also allows
+   FenceContext::drop() to free fctx.driver_name and fctx.timeline_name whi=
+le
+   dma_fence_signal_locked() (via trace_dma_fence_signaled()) or concurrent
+   readers in dma_fence_driver_name() and dma_fence_timeline_name() are sti=
+ll
+   accessing the FenceContext through FenceContext::get_driver_name() and
+   FenceContext::get_timeline_name().
+
+Should nr_of_unsignaled_fences only be decremented in DriverFence::drop() (=
+or
+tracked until drop) so that FenceContext::drop() cannot complete before all
+DriverFence instances have queued their call_rcu() callbacks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022162701.2297=
+062-3-phasta@kernel.org?part=3D1
