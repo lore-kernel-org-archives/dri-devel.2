@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F22A606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:53:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44BC60A3824
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:53:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jjKTsqfu
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/kUfP99
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CED6B112664;
-	Thu, 22 Oct 2026 13:53:45 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E75FB112664
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:53:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13A0811266B;
+	Thu, 22 Oct 2026 13:53:51 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B039112654
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:53:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CA8BD4139A;
- Thu, 22 Oct 2026 13:53:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD1F1F000C1;
- Thu, 22 Oct 2026 13:53:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8157A60DC8;
+ Thu, 22 Oct 2026 13:53:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3A61F000C5;
+ Thu, 22 Oct 2026 13:53:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792677218;
- bh=mTDmY50binhv4KAhOwDjYuuuzxrs3fracWCulNAzN7A=;
+ s=k20260515; t=1792677222;
+ bh=Ht4+C9dMEY772FpQRO+VRVQi2AMnCm63uPW871AMEho=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jjKTsqfuU60TMwiTZt8Z4AaEEIgXoh1AYVIfhKzAHT3foYHIPstJiAXoiajRzOdni
- NTXDGcuNHPHD6/TQ96bFG/8O2K5Ef4x07D+uMAvRAOV30Ukz9ha2CrJE6+D9QDD9ns
- 0BB+pro278zIMZ+7YzD+ibfXrRoM+ZtKwlU9uJ8/yNo5KTV7wKrCjVwiC6C92JU2ln
- +fD0Tw1/Nbt+zHHdTs5YX7OeQQRq+Iq+LgEPUnM5Z7qCnRWMXP0SyjQASHKFdKQ00Y
- 3oeZGCxtoT3eo3TVLENXb0eKVVGo6TfSDq0L9jXt9kEjHLpMN5D7eiCsgXvt2ZXtGP
- te608JMZSsydQ==
+ b=F/kUfP99FwGPGJjGPwiJ3SsAfxTBRsyWDC2YyUeOyECNuDrIAh7oLphrkMDjTYKx4
+ vO7bzZuEWjljwGdl0FAPxWr3FOt8dM5YUUn9P5K1QkvfH8ilRTX+AcuITsxEYT/rgu
+ L1VQFXFjjuILvrWO4FPCvdO5i1oukml6eSJFyRnNXyUKWwxrNWWFaOtKh1ofg/5cdT
+ a8dwZywZjZwvHMqB66iHZ/nracQ6plACOHc9DgYS96zU48TGf4PtrB5ZpS2wiBpKru
+ kMSHFhZ7m8/SxGY5Y5dLgm31uFS2GpR4SDyDNU8DNV8aUFLxefljHH8a/bRUW9uWjN
+ G+lscJSvO0JPg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 15:53:07 +0200
-Subject: [PATCH v6 06/15] drm/atomic: Create function to insert plane state
- into a commit
+Date: Thu, 22 Oct 2026 15:53:08 +0200
+Subject: [PATCH v6 07/15] drm/atomic: Create function to insert colorop
+ state into a commit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-reset-state-flag-v6-6-f36d640b7e76@kernel.org>
+Message-Id: <20261022-drm-reset-state-flag-v6-7-f36d640b7e76@kernel.org>
 References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 In-Reply-To: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2304; i=mripard@kernel.org;
- h=from:subject:message-id; bh=41LUGhYJAROn0oZPZrkQUy7D8c62RSMKcGFPg+lAdDc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RF3LqgujlXqcVY3dRXYw2d9VfJRZYmB6Mf/FJq/Hr
- ry6GZ87prIwCHMyyIopsjyRCTu9vH1xlYP9yh8wc1iZQIYwcHEKwERucDI27En7FRPL5u40Nyq4
- XVSv6flG+e+vN194O+X4BcnHBdEnE5ol3zryXbIqmnyo+OSr7f2HGRuOfdvGluWhrVGaVXmkkuf
- 9qi8n580XW3x5naIK79TGEw+m5U8pfadbeEXsTmfF4+fV758AAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2428; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=P0k8mj+gDqmFXtZ5SqhgfD1SldUjK4nLwH6NhSPh4sE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RN3efnwqO4/TK15g3Ylaf2Ov/Uwx2xiVOxZVi4vMT
+ wt0263WMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZyaT9jreyZmFlvC3Q3R89c
+ f6LH4x1TzupjZiq/V9/jYFw/UaA7bFptDV9d3JNpDawBJhe86yNrGBuOi1TMmd7nWDL101r2iKD
+ 8zNLYq7b/Z1j6r37zW2GXf/IWB47yGDbZd0k5Qb8OhsfnnwIA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,17 +81,17 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_get_plane_state() allocates a new plane state by
+drm_atomic_get_colorop_state() allocates a new colorop state by
 duplicating the current one and inserts it into the atomic commit as
 a single operation.
 
-However, a later change will need to insert a plane state into a
+However, a later change will need to insert a colorop state into a
 commit without going through the full allocation and duplication path
-in drm_atomic_get_plane_state().
+in drm_atomic_get_colorop_state().
 
 Extract the state insertion logic into a new static
-drm_atomic_commit_set_plane_state() helper, and convert
-drm_atomic_get_plane_state() to use it.
+drm_atomic_commit_set_colorop_state() helper, and convert
+drm_atomic_get_colorop_state() to use it.
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Daniel Stone <daniels@collabora.com>
@@ -101,47 +101,47 @@ Signed-off-by: Maxime Ripard <mripard@kernel.org>
  1 file changed, 17 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 178eca95d0e3..b26458ee98d8 100644
+index b26458ee98d8..807b575ecc54 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -631,4 +631,19 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
- }
+@@ -705,4 +705,19 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+ EXPORT_SYMBOL(drm_atomic_get_plane_state);
  
-+static void drm_atomic_commit_set_plane_state(struct drm_atomic_commit *commit,
-+					      struct drm_plane *plane,
-+					      struct drm_plane_state *plane_state)
++static void drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit,
++						struct drm_colorop *colorop,
++						struct drm_colorop_state *colorop_state)
 +{
-+	int index = drm_plane_index(plane);
++	int index = drm_colorop_index(colorop);
 +
-+	drm_modeset_lock_assert_held(&plane->mutex);
++	drm_modeset_lock_assert_held(&colorop->plane->mutex);
 +
-+	commit->planes[index].state_to_destroy = plane_state;
-+	commit->planes[index].old_state = plane->state;
-+	commit->planes[index].new_state = plane_state;
-+	commit->planes[index].ptr = plane;
-+	plane_state->state = commit;
++	commit->colorops[index].state_to_destroy = colorop_state;
++	commit->colorops[index].old_state = colorop->state;
++	commit->colorops[index].new_state = colorop_state;
++	commit->colorops[index].ptr = colorop;
++	colorop_state->state = commit;
 +}
 +
  /**
-  * drm_atomic_get_plane_state - get plane state
-@@ -649,5 +664,5 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
- 			  struct drm_plane *plane)
+  * drm_atomic_get_colorop_state - get colorop state
+@@ -724,5 +739,5 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
+ 			     struct drm_colorop *colorop)
  {
--	int ret, index = drm_plane_index(plane);
+-	int ret, index = drm_colorop_index(colorop);
 +	int ret;
- 	struct drm_plane_state *plane_state;
+ 	struct drm_colorop_state *colorop_state;
  
-@@ -672,9 +687,5 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+@@ -741,9 +756,5 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
  		return ERR_PTR(-ENOMEM);
  
--	state->planes[index].state_to_destroy = plane_state;
--	state->planes[index].ptr = plane;
--	state->planes[index].old_state = plane->state;
--	state->planes[index].new_state = plane_state;
--	plane_state->state = state;
-+	drm_atomic_commit_set_plane_state(state, plane, plane_state);
+-	state->colorops[index].state_to_destroy = colorop_state;
+-	state->colorops[index].ptr = colorop;
+-	state->colorops[index].old_state = colorop->state;
+-	state->colorops[index].new_state = colorop_state;
+-	colorop_state->state = state;
++	drm_atomic_commit_set_colorop_state(state, colorop, colorop_state);
  
- 	drm_dbg_atomic(plane->dev, "Added [PLANE:%d:%s] %p state to %p\n",
+ 	drm_dbg_atomic(colorop->dev, "Added [COLOROP:%d:%d] %p state to %p\n",
 
 -- 
 2.55.0
