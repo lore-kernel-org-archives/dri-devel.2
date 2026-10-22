@@ -2,60 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3736C606A331
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:38:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD86A60A2606
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:39:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KPzPoR/w
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=TzStpDly
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FF5B112449;
-	Thu, 22 Oct 2026 09:38:10 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A5F2112422
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:38:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0305743883;
- Thu, 22 Oct 2026 09:38:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67421F000C1;
- Thu, 22 Oct 2026 09:37:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792661883;
- bh=fJCiqJRPGgAfSVN7RbM7iHySGCq41L373bwkKti7+4I=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=KPzPoR/wrjNNGbKIkqlMCH7CJUloCIWwrjPJzodjNYeKU3Ve/XXaS5wxkQckuueOt
- R3EwVlkaTwaZAxVCAW0LmapgJ2a9lWtZBxLjZD1h3uPnKRl3f8WdlED65AcWmUQp58
- s2P18JLCDr6LONj/VPojqKPBQRJaVml0ZrRgnWJOYYShV1g0YIf3IAcpU0R9DTVglE
- yPid1dVogbCXY2+8v9y4Lo/UYyycv628hGEAbMPEviteTg/79AmEhMa1gbtF7nDsB5
- zqRySub6a9kHn01RYLG6wi2lbf+tB4naNkfIhu2hsnvf1GngoPW/8cTVphE6Do0ckm
- LrbG12th5iOUg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34C6B112422;
+	Thu, 22 Oct 2026 09:38:59 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1442112422
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:38:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=XjC6tLjuAhdZA6EAag1c8rxrurEQGdNeh8zsiCS6oN4=; b=
+ TzStpDlyvAVJpfHEDIsiUw2mdadSLGjPEXuOZIACNtz+ZxY0a3cJZNOmqY9IoCm/FTooHdPnEoRPT
+ C+VN6RSUrDwlOCNhoOgqrEolhdcx1yXCM2cWsA+a+xLiEtg11BfxWyDSoFVcjYdyY1OVZALbh9RGs
+ IN/kwJUkfFFbUm8V1cd/mzxfas/CnxEYU8Kv+V64TxNW6PL4CHmi5M/D9ylTRuGLerj8Ek8uowjEh
+ qRxwCUfaWA8cfWxnivp8jVe6vytk5MUwy5+c+az3/dANSNsBdDZFP+5wc8ppuxiMKkxDP1HF6kuIo
+ vjKEZGIDwalHzVe4HPC5EqsS2wB0TEBwVw==;
+Received: from [81.79.79.1] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xJpG6-006erT-Ab; Thu, 22 Oct 2026 11:38:50 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Chia-I Wu <olv@google.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Steven Price <steven.price@arm.com>, Tejun Heo <tj@kernel.org>
+Subject: [PATCH v7 0/4] Realtime workqueues and panthor realtime submission
+Date: Thu, 22 Oct 2026 10:38:44 +0100
+Message-ID: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 22 Oct 2026 11:37:56 +0200
-Message-Id: <DMB9LKZEM5I0.2NOCDMVFATD2P@kernel.org>
-Subject: Re: [PATCH v4 4/7] gpu: nova-core: add NVKV decoder
-Cc: <sashiko-reviews@lists.linux.dev>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "Roman
- Gushchin" <roman.gushchin@linux.dev>
-To: "John Hubbard" <jhubbard@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261016-b4-nvkv-v4-0-e8b92b91aa5b@nvidia.com>
- <20261016-b4-nvkv-v4-4-e8b92b91aa5b@nvidia.com>
- <sashiko-outbox-173606@kernel.org>
- <db71fe6b-bc96-4d02-a139-2bef73f568a2@nvidia.com>
-In-Reply-To: <db71fe6b-bc96-4d02-a139-2bef73f568a2@nvidia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,30 +51,105 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Oct 16, 2026 at 4:05 AM CEST, John Hubbard wrote:
-> How do we update sashiko to make it stop reporting on this issue, which
-> we have decided is a non-issue (Nova is actually configured to only ever
-> be little-endian)?
+This is a continuation of the previous discussion which was here:
+https://lore.kernel.org/dri-devel/20260702143745.79293-1-tvrtko.ursulin@igalia.com/
 
-There's a repository [1] to track the review prompts of subsystems, compone=
-nts
-and drivers. Those should be considered when Sashiko picks up patches for
-review.
+Work is now converted to a much simpler approach by adding real-time scheduling
+workqueues based on Tejun's feedback
 
-It should be as simple as adding a new file kernel/subsystem/nova.md and
-referencing it in kernel/subsystem/subsystem.md.
+To re-cap, when an userspace thread submits GPU work, due how the DRM scheduler
+uses workqueues to feed the GPU, and regardless of the GPU rendering context
+priority, or the CPU scheduling priority of the userspace thread itself, the
+use of workqueues can add significant latency to the submit path.
 
-(I have a few things collected I considered for adding them as review promp=
-t and
-I can send a patch in about two weeks, but please also feel free to go ahea=
-d and
-send a PR with the first bits.)
+When CPU is busy with enough backround load this translates to severe latency
+spikes measured as time between userspace submitting work and GPU actually being
+given that work to execute.
 
-[1] https://github.com/masoncl/review-prompts
+With the panthor workqueue upgraded to use WQ_HIGHPRI and varying the CPU
+priority of the submit thread, the test program from
+https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49 reproduces these
+kind of latencies:
+
+         .    N    RT
+    M   27   28    32
+  95%  163  246   809
+  98%  924  991  1882
+
+Legend:
+
+   M = Median submit latency in us
+ 95% = Percentile latency in us
+
+   . = Userspace submit thread SCHED_OTHER
+   N = -||= nice -1
+  RT = -||- FIFO 1
+
+Upgrading the panthor workqueues so that the realtime GPU priority queue uses
+WQ_RT, submit latency becomes completely controlled with the median of 14us and
+95 and 98-th percentiles at 23us and 25us respectively.
+
+Important to note is that VK_QUEUE_GLOBAL_PRIORITY_REALTIME already requires
+that userspace either has CAP_SYS_NICE, or the DRM master capability. The latter
+can be had by a single DRM client per GPU, usually the compositor since DRM
+master is required to drive the display hardware. It is not possible to have two
+DRM master clients simultaneously.
+
+On the overall this limits the number of userspace threads which can access the
+RT queue - it either has to be a compositor, or a rendering client which was
+explicitly granted CAP_SYS_NICE.
+
+v2:
+ * See patch 1 changelog.
+
+v3:
+ * See patch 1 changelog + apologies for v3 following so quickly after v2.
+   I have found a race condition as I expanded the testing to a second platform.
+
+v4:
+ * See patch 1 changelog.
+
+v5:
+ * Rebased on top of tj/for-7.4 branch.
+ * New patch in series simplifies unbound sysfs attribute handling.
+ * WQ_RTPRI reworked to fold RT marker into attr->nice.
+
+v6:
+ * Fixed accidental sysfs attribute rename (patch 1).
+ * Various review feedback as per patch 2 changelog.
+
+v7:
+ * Describe DRM master in the cover letter.
+ * New patch in series to separate attribute sanitizing steps.
+ * WQ_RT updated per the respective change log.
+
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Chia-I Wu <olv@google.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Tejun Heo <tj@kernel.org>
+
+Tvrtko Ursulin (4):
+  workqueue: Simplify unbound sysfs attribute registration
+  workqueue: Separate sysfs mutable vs immutable wq attribute sanitizing
+  workqueue: Add support for real-time workers
+  drm/panthor: Create per queue priority workqueues
+
+ Documentation/core-api/workqueue.rst    |   8 +
+ drivers/gpu/drm/panthor/panthor_sched.c |  37 +++-
+ include/linux/workqueue.h               |   5 +-
+ kernel/workqueue.c                      | 237 +++++++++++++++---------
+ tools/workqueue/wq_dump.py              |   9 +-
+ 5 files changed, 197 insertions(+), 99 deletions(-)
+
+-- 
+2.56.0
+
