@@ -2,54 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91211606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:34:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B57B606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:34:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKsXQq15
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RtsTCN6T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD38E112594;
-	Thu, 22 Oct 2026 12:34:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 691541125A5;
+	Thu, 22 Oct 2026 12:34:31 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA821112594
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:34:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDE6112594
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:34:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A38B9447DE;
- Thu, 22 Oct 2026 12:34:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D2FD1F000C6;
- Thu, 22 Oct 2026 12:34:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EC77A4060D;
+ Thu, 22 Oct 2026 12:34:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AD11F000C1;
+ Thu, 22 Oct 2026 12:34:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792672452;
- bh=CGCCewg7+U8EKiFufRLPBzivndbwughZmYmxz3+EA8s=;
+ s=k20260515; t=1792672459;
+ bh=5OrwlOiKBpkBUc0tI09Bwnwh7mwzlEKuxtwBm+g1w9s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=GKsXQq15cwmPCYB82OACx6rUrZGrAlQSa549Xt3r+FrMgC3ByTBMbGaHkiUz0t2gY
- EA0WZSgHoUIxuxIWmEiggkWT8dUTRkEFEw0GoUFX5Qf21JX+9KPknee7HeHoUclQ1V
- uK+FRbgK5mrX8/KqrYnMyCDBDWhunB3G1hITD/Ogj+tsYDPgFmh2ZrDCzs778iMQ/Z
- kjUcFYp/ldHxmK/uKDxefhh0OQZXuaKy+LSCiKz7seN+v2DGZ9tlImJK+bJJ+2jGp1
- LbXCrbas3ht4QS1PK7D5Sai8WohPPEQGu6wCKGO4IvAhhy2ZHGC695ykOVVP7Kx1kp
- 1wTCBUCoXMWYw==
+ b=RtsTCN6T6RsmNsh03pTbuqPvXLgBOONL3GU6FyX+9C1bj0PIYB9/M4eCqqJ3qROt1
+ Wl9khc3YpbrvlS9IBwsk+KOPA+r9BQ9fZuWrlGbjRDD7DjTMgGkYdlSs8uEmCYchBR
+ n26De+3ZQ/FLq+7B+HnHkjlT/+WJWzZ/x7tOQnXXCRT17uQzjm/ktEg/QlQvFocQga
+ Kg3dNLdn2yY7d9a+svj8fw0rhGIiNl+h9ph/KkMuEByAlOhu1y9FRKWy+uf0EzhSwE
+ A2sWzcrSeq6X4BYe2OjIRenn1b8cMabtvhQjRP/0mzDbpIvvJ9DIs7IvHfLdaM8XlJ
+ s24Fl0kMsotew==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 14:31:06 +0200
-Subject: [PATCH v2 07/59] drm/ast: Switch to
+Date: Thu, 22 Oct 2026 14:31:08 +0200
+Subject: [PATCH v2 09/59] drm/bridge: analogix-anx78xx: Switch to
  drm_atomic_helper_connector_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-no-more-connector-reset-v2-7-0b7e4e85b1e8@kernel.org>
+Message-Id: <20261022-drm-no-more-connector-reset-v2-9-0b7e4e85b1e8@kernel.org>
 References: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 In-Reply-To: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2746; i=mripard@kernel.org;
- h=from:subject:message-id; bh=7glheR4wlOHrHzgeWkYfVCjdnxDmk1YnTLr/QIWFIkc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mCbkJO+aH9j6KrvYf+d+Bn7emc0/jq4+u+FE6d+qB
- AE3vyezO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBELv5hrM+fVMetmXKu56lL
- qvbv5qeqXQYhG7d/5theejby2uMXXntrMvcEeL42XJ/guPjVhC0qMxkbGlyfL89aGS76hdNGpu/
- gXctZC7LNdefOSw0UY3zFUWlmozh5mt/pAEmPtVl7X04/XXQOAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1068; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=GSs2PgJC/rPvA2P1sSv7/3awU96Rv7Rvr0U7prCKCjY=;
+ b=kA0DAAkTJ1/OGaI9vnYByyZiAGraApGgn9uIFYl9zxdthUkn/SZgtENrJvhqk4S+I3JgDjM8N
+ IiVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmraApEACgkQJ1/OGaI9vnYnCwGAnmTw
+ mF8hME7Gfq0V0a/WnOtmKyhUlFiA2tkXljPKyC/UIJKtFiMvKA07GzP69hgNAYCG4GJyRvjun6c
+ Sa3KU2L6Pad9y1ijm4+gxKTIXZdh13bnBztqFhzzLVjV/x99qjbU=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,58 +69,24 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The ast connector implementation uses the deprecated
+The bridge: analogix-anx78xx connector implementation uses the deprecated
 drm_atomic_helper_connector_reset() as its reset hook.
 
 Switch to drm_atomic_helper_connector_create_state() instead.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
----
- drivers/gpu/drm/ast/ast_dp501.c  | 2 +-
- drivers/gpu/drm/ast/ast_sil164.c | 2 +-
- drivers/gpu/drm/ast/ast_vga.c    | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/ast/ast_dp501.c b/drivers/gpu/drm/ast/ast_dp501.c
-index 6d6ccfad1415..fd357ff97cd4 100644
---- a/drivers/gpu/drm/ast/ast_dp501.c
-+++ b/drivers/gpu/drm/ast/ast_dp501.c
-@@ -547,7 +547,7 @@ static const struct drm_connector_helper_funcs ast_dp501_connector_helper_funcs
- 
- static const struct drm_connector_funcs ast_dp501_connector_funcs = {
--	.reset = drm_atomic_helper_connector_reset,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c b/drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c
+index 32186efa6f50..94f07a2317e1 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix-anx78xx.c
+@@ -855,5 +855,5 @@ static const struct drm_connector_funcs anx78xx_connector_funcs = {
+ 	.detect = anx78xx_detect,
  	.destroy = drm_connector_cleanup,
-+	.atomic_create_state = drm_atomic_helper_connector_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-diff --git a/drivers/gpu/drm/ast/ast_sil164.c b/drivers/gpu/drm/ast/ast_sil164.c
-index be01254dd48a..baefee645533 100644
---- a/drivers/gpu/drm/ast/ast_sil164.c
-+++ b/drivers/gpu/drm/ast/ast_sil164.c
-@@ -67,7 +67,7 @@ static const struct drm_connector_helper_funcs ast_sil164_connector_helper_funcs
- 
- static const struct drm_connector_funcs ast_sil164_connector_funcs = {
 -	.reset = drm_atomic_helper_connector_reset,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.destroy = drm_connector_cleanup,
-+	.atomic_create_state = drm_atomic_helper_connector_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-diff --git a/drivers/gpu/drm/ast/ast_vga.c b/drivers/gpu/drm/ast/ast_vga.c
-index abe0fff8485c..bc415ec91547 100644
---- a/drivers/gpu/drm/ast/ast_vga.c
-+++ b/drivers/gpu/drm/ast/ast_vga.c
-@@ -67,7 +67,7 @@ static const struct drm_connector_helper_funcs ast_vga_connector_helper_funcs =
- 
- static const struct drm_connector_funcs ast_vga_connector_funcs = {
--	.reset = drm_atomic_helper_connector_reset,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.destroy = drm_connector_cleanup,
 +	.atomic_create_state = drm_atomic_helper_connector_create_state,
  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
