@@ -2,131 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900D9606A31B
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 02:36:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F36606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 02:53:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pvsjUTz2;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SEjIyLE7
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aXUbzyKB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC84510E36A;
-	Thu, 22 Oct 2026 02:36:12 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97D0510E145
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:35:49 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69M1iJIs3411902
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:35:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=NX7bsqG292S
- tQteEaBo56Z6RlMknr2B+M80QoiufMRA=; b=pvsjUTz2cj0zDLqbE07MDsCoQc1
- HDTaFprqfAcxjqajgEAHVmv2DtWJ70C0AaIPyo8F05NAAk4v07Jjg2znmQLlD3xI
- bmCF+q9m+QwkZvKJVvcUFFOLnesfG7Qe2zooD1crUkmuCU/K09vBYhR+DGp+I/RW
- ixFNWDhDnhFa8qqdMBp93nxCAg2eO2Fh7eJIt70ENEIXcwynktnUjCzr5zuMlmN3
- JmSLRrzE1UhPw+tQ1NRRygPSue0nxZtiANx+5ZVoxbmQ4YqKQ6bH4bSMibApKFpu
- i9uqhnRAVbLQj8ydfkYZwJGT3Z3TsYcrcL5iYj/RPup/jyqZhvSgpg+zR5Q==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93agb3t-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:35:48 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2df8d1e91c9so20701915ad.0
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 19:35:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792636548; x=1793241348;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=NX7bsqG292StQteEaBo56Z6RlMknr2B+M80QoiufMRA=;
- b=SEjIyLE75isqiHytGpJ01BigKOOZ7BvXKMICMhwwKhNR7JoWyYS6MpPVGbVViG9B/L
- eRvY+KcGEsoAYhE+fOOglT9AjsRFx4GMZNXUwr+J5HL1fTD//RNhipyfTn++v6WJda83
- RLwGcqAaZ/JkwRddmupGJN73VSp3Gmgu3HouqPBGUKHsCf69JVAdjRbaIkhzfAqUDyC4
- t8CSPFFO+FD/HSADtsnqGCVHtBGNQO7KeCtY3+mKeiOk7RvPjvlZZv3SWM6kaAqF72rA
- N00I98rcNg0MKOM+yS8AuHf1h6B3Ojxw0xkjHWi+lWkbh6Mm77+EAqk44EdLTAtfsFQd
- eLIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792636548; x=1793241348;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=NX7bsqG292StQteEaBo56Z6RlMknr2B+M80QoiufMRA=;
- b=v4mOESDy3zdmjP8pGOOR/V61BN+ojzyPLwHF3q5dWxbnODq3Vbjmt+nCXUWBJclk9e
- VcOqP1lld6v8H1W3SfuTi0hUUWaDW2kh5OQ0JbZtcmys7IBkoU3zO0pLC6BbbViQZkyH
- K40bAkjJ/Jpldg0PdSsV43Z1JeeQE/vd9uJ2zMICX3ioKA9YOFJsEukEPIzffonW6Ol6
- vHyM+eAeLYQgZQaOT4OucJOucd0FyDVsez2xGikPKz/5eNKEAACftyc39z6o9oRX5L6x
- mmKOIiab2S5UJo2/keubFSYEFxgZxjmFOrlwgYTL4KsZ1+wnINHwxVRzmMrrwE4lDNPx
- S5AQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwo6S+/mJsk/MdoJy2f7uIIMc2wZEeOsh+VDbw/SUUFzOf4i4SSyprZXOFWjQDCQ341QWb95uFNKxs=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJM396KoJzXK0rre5TY9ifDae5aPThoMqDHZwsJjmzFMnTqHsoM
- qk3CFrCJuxCOdwh+c0v0gukP+QBVx4zmIudnibFystQ00hw2K2TD26HnFSH6abb40T7PpSLWKh4
- XFpNR5MaJMYkvRlRRQBje+QHlvM5zES5/7ihIocpLelBgNKyWEq/cxWXUbpimJImVY0j+jZw=
-X-Gm-Gg: AYBFou3FcFzwCPKR9G554bCVUeFdyUlvYtAp27k1RXZETdFWkmEIub74xxn/rbkNX17
- fxnpMXXULIDw/zh4Ziu8c5mw/fKzKszUfVVegEBOVX7YFsIhouA2ojZBKQ6MsO/1RK6wrv9YjwW
- eiw+bexMYtz41lFVAyXj0vZ2LhRazLR6aR7yZ+68EpVahtnA3OpbeN701GiBZHZq5ZtiSrE365l
- qbACm/0g75JMK2cV4bJbXmQupcYmXjw40LtgPuOxIBkDMCOyfby5eOPcme+K0FYSKHc20wjS0PI
- YEHkNtLxJaX1TigGkSvgj+INeBO+tvg9EPCq1/TTADlI+G/nQ8uxArwWDuHELBPKtYIMnQSxiHF
- gsuIPpAqSIUk6fhiKLmolRQiMaFV2groOzgrABbo4uJGiLREZuHjfSYSIL+wJlhAjAs9HfQeg
-X-Received: by 2002:a17:90b:37cf:b0:3ab:2d46:1dd6 with SMTP id
- 98e67ed59e1d1-3ad86dddc3bmr3988931a91.4.1792636548134; 
- Wed, 21 Oct 2026 19:35:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:37cf:b0:3ab:2d46:1dd6 with SMTP id
- 98e67ed59e1d1-3ad86dddc3bmr3988903a91.4.1792636547619; 
- Wed, 21 Oct 2026 19:35:47 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com
- (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ada488550esm1959935a91.3.2026.10.21.19.35.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Oct 2026 19:35:47 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thierry Escande <thierry.escande@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com
-Subject: [PATCH v2 2/2] misc: fastrpc: drain in-flight invokes before tearing
- down context banks
-Date: Thu, 22 Oct 2026 10:35:31 +0800
-Message-Id: <20261022023531.465-3-jianping.li@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261022023531.465-1-jianping.li@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9915510E09F;
+	Thu, 22 Oct 2026 02:53:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3784D10E09F
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:53:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4635D60A98;
+ Thu, 22 Oct 2026 02:53:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8BAB1F000C1;
+ Thu, 22 Oct 2026 02:53:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792637618;
+ bh=Th+Q6rKTuH125Z1zCn2ylXxpfwXJBHCG4rNfTsaueA0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=aXUbzyKB3aGcbs/tzHLiz6/h488bn/aXHj6cnVNa5RdhLwHtCYyjC56u1eNkwQBYu
+ xc9+0QfsODiPwSnUZQLtCgIHh7k8THooeGsp/wRDSkmY1Yn+BiHm7tPEzU8K4uF2xS
+ RI63n/+qKbOZzjkV5+uDahBML1Gtkn4nzttTPzo/mi+wHZW9QlNZDhz1WzYsSCX6QZ
+ y+9SOg8xY8sNlx1FzYCE9h1spnWUf3MCATPb84sXYNcZ4Ks2VB6nSIDb/vrDMMWyPB
+ FH/KftfoM1+VS0PjtFtIO6Mw2r/7zVQOuHi98OGjo0CyKLloc/dKLKtYnQEGtMHHpO
+ E3bcQ8IzWe2ww==
+Message-ID: <sashiko-outbox-180889@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] misc: fastrpc: drain in-flight invokes before
+ tearing down context banks
+To: "Jianping Li" <jianping.li@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261022023531.465-3-jianping.li@oss.qualcomm.com>
 References: <20261022023531.465-1-jianping.li@oss.qualcomm.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAxMCBTYWx0ZWRfX9PDW+Dp51iur
- H9SR5c8Z0ndBy3A3b4fVT5CkcI/gVfFbj9PV1kurhWrlyfGys8EHYb7kdKW6ZHPehSC/OxXdbIB
- 5O1fFbB9aGBkUHRZfE8bVbWm96Rw9OI7vOViaxjtw5G4TlK7vu+sKZ/2YCSiviYxcht5+OaQFtG
- uWVtjF5XMIETomhEotNYi7NX5Q5Gu5i0MORccJrJ+kP/7Sjs9zHyxKfMPmRTAEBjF8zv6asp+ys
- D39r74GahVH/CF7TK+uTRbeYjoHPQF+fMBPZ2y5FD1ZXrC1os/uWl1rTBhR46v8BVmKxM+8DM39
- MLwC+ii/zlKVtgZIhtxQnu8kmUZPbK3cfrAZKsNj6osRhRrCCF3UMec0GKJR0eukOzNHTlvkkwb
- s8mNB33ifKnxfGyM94vcQDXjF/a6ALDHGdB/ax4ddLJuhMhcWMiSBHgsvElNJA5mRHTO1roDxUD
- +6MPVELu4HD5Cvbjzzw==
-X-Authority-Analysis: v=2.4 cv=H7FOUOYi c=1 sm=1 tr=0 ts=6ad97684 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=XraR69nYKyiK7xGMLcsA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: frsmbl1kpYPg7_B6mOYdt_8I3RchU-NL
-X-Proofpoint-GUID: frsmbl1kpYPg7_B6mOYdt_8I3RchU-NL
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAxMCBTYWx0ZWRfX4QkdNTtgCvP7
- 5qrhgamEohjlWDuiCrqohI44hE4XgyTOuh5fEPNJbFo0Kb4LkM9aUNrsDf0OdoIefsnh26v/mcS
- sib2TDIa0VsKoUpIEQaYTKmiSJ9X8W0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- phishscore=0 adultscore=0 spamscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220010
+ <20261022023531.465-3-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 02:53:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,190 +49,240 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-fastrpc_rpmsg_remove() clears cctx->rpdev, wakes every pending invoke
-with -EPIPE through fastrpc_notify_users(), and then goes straight on to
-of_platform_depopulate() the context bank devices, with nothing
-synchronising the two:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] misc: fastrpc: teardown hang when invoke misses fastrpc_notify_use=
+rs()
+- [High] misc: fastrpc: fastrpc_rpmsg_remove() fails to drain all context-b=
+ank frees
+--
 
- - The only thing stopping new work is the unlocked rpdev check at the
-   top of fastrpc_internal_invoke(). A thread can observe a valid rpdev,
-   get preempted, and resume in the middle of the teardown.
+commit 5c02fd01b12d73075ac0b237229b9d3b84e331dc
+Author: Jianping Li <jianping.li@oss.qualcomm.com>
 
- - Invokes that were already admitted are woken and head for the bail:
-   label, where fastrpc_context_put() releases ctx->buf through
-   dma_free_coherent(). If the depopulate wins, the call runs against an
-   unbound context bank and falls through to dma_direct_free(), which
-   treats the IOVA as a physical address.
+misc: fastrpc: drain in-flight invokes before tearing down context banks
 
-Close both windows under cctx->lock:
+This commit adds a teardown flag, an in-flight invoke counter, and a wait
+queue to fastrpc_channel_ctx so that fastrpc_rpmsg_remove() blocks new
+invocations and waits for active fastrpc_internal_invoke() calls to finish
+before clearing rpdev and depopulating context bank devices.
 
- - Add cctx->teardown, set at the start of fastrpc_rpmsg_remove().
-   fastrpc_internal_invoke() checks it and, in the same critical
-   section, increments cctx->invoke_cnt, so an invoke is either rejected
-   or counted. The count is dropped on every return path.
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index d201f26d8e463..cffe96a181a2b 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
 
- - fastrpc_rpmsg_remove() waits for invoke_cnt to reach zero before
-   clearing rpdev and before touching any other channel resource.
+[ ... ]
 
-The gate lives in fastrpc_internal_invoke() rather than in the ioctl
-dispatcher so that it also covers fastrpc_device_release() ->
-fastrpc_release_current_dsp_process(), which sends INIT_RELEASE outside
-of any ioctl.
+> @@ -1365,14 +1385,25 @@ static int fastrpc_internal_invoke(struct fastrpc=
+_user *fl,  u32 kernel,
+>  	if (!fl->cctx->rpdev)
+>  		return -EPIPE;
+> =20
+> +	spin_lock_irqsave(&fl->cctx->lock, flags);
+> +	if (atomic_read(&fl->cctx->teardown)) {
+> +		spin_unlock_irqrestore(&fl->cctx->lock, flags);
+> +		return -EPIPE;
+> +	}
+> +	fastrpc_channel_update_invoke_cnt(fl->cctx, true);
+> +	spin_unlock_irqrestore(&fl->cctx->lock, flags);
+> +
+>  	if (handle =3D=3D FASTRPC_INIT_HANDLE && !kernel) {
+>  		dev_warn_ratelimited(fl->sctx->dev, "user app trying to send a kernel =
+RPC message (%d)\n",  handle);
+> -		return -EPERM;
+> +		err =3D -EPERM;
+> +		goto out;
+>  	}
+> =20
+>  	ctx =3D fastrpc_context_alloc(fl, kernel, sc, args);
+> -	if (IS_ERR(ctx))
+> -		return PTR_ERR(ctx);
+> +	if (IS_ERR(ctx)) {
+> +		err =3D PTR_ERR(ctx);
+> +		goto out;
+> +	}
 
-Teardown is kept separate from rpdev because the two have different
-lifetimes: the gate must close immediately, whereas rpdev has to stay
-valid until the admitted invokes have finished rpmsg_send(). Clearing
-rpdev up front, as the code does today, lets an invoke that was sleeping
-in an allocation dereference a NULL rpdev:
+[Severity: High]
+Can fastrpc_rpmsg_remove() hang in wait_event() if it runs after
+fastrpc_internal_invoke() increments cctx->invoke_cnt, but before
+fastrpc_context_alloc() adds ctx->node to user->pending?
 
-  Unable to handle kernel NULL pointer dereference at virtual address
-0000000000000358
-  CPU: 2 UID: 0 PID: 2003 Comm: adsprpcd
-  pc : fastrpc_internal_invoke+0xb40/0x1398 [fastrpc]
-  Call trace:
-    fastrpc_internal_invoke [fastrpc]
-    fastrpc_device_release [fastrpc]
-    __fput
-    __arm64_sys_close
+In drivers/misc/fastrpc.c, fastrpc_internal_invoke() checks cctx->teardown,
+increments cctx->invoke_cnt, and drops fl->cctx->lock before calling
+fastrpc_context_alloc():
 
-The faulting address is the offset of ept within struct rpmsg_device,
-i.e. the cctx->rpdev->ept dereference in rpmsg_send().
+drivers/misc/fastrpc.c:fastrpc_context_alloc() {
+	...
+	ctx =3D kzalloc_obj(*ctx);
+	...
+	init_completion(&ctx->work);
+	INIT_WORK(&ctx->put_work, fastrpc_context_put_wq);
 
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 60 +++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 56 insertions(+), 4 deletions(-)
+	spin_lock(&user->lock);
+	list_add_tail(&ctx->node, &user->pending);
+	spin_unlock(&user->lock);
+	...
+}
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index d201f26d8e46..cffe96a181a2 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -328,6 +328,15 @@ struct fastrpc_channel_ctx {
- 	atomic_t ctx_seq;
- 	u64 dma_mask;
- 	const struct fastrpc_soc_data *soc_data;
-+	/*
-+	 * Set once fastrpc_rpmsg_remove() starts tearing the channel down.
-+	 * Checked under @lock so that no new invoke can begin afterwards.
-+	 */
-+	atomic_t teardown;
-+	/* Number of in-flight invokes; guarded by @lock */
-+	int invoke_cnt;
-+	/* Woken whenever @invoke_cnt drops to zero */
-+	wait_queue_head_t ssr_wait_queue;
- };
- 
- struct fastrpc_device {
-@@ -1350,12 +1359,23 @@ static int fastrpc_wait_for_completion(struct fastrpc_invoke_ctx *ctx,
- 	return fastrpc_wait_for_response(ctx, kernel);
- }
- 
-+/* Caller must hold cctx->lock */
-+static void fastrpc_channel_update_invoke_cnt(struct fastrpc_channel_ctx *cctx,
-+					      bool enter)
-+{
-+	if (enter)
-+		cctx->invoke_cnt++;
-+	else if (--cctx->invoke_cnt == 0)
-+		wake_up(&cctx->ssr_wait_queue);
-+}
-+
- static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 				   u32 handle, u32 sc,
- 				   struct fastrpc_invoke_args *args)
- {
- 	struct fastrpc_invoke_ctx *ctx = NULL;
- 	struct fastrpc_buf *buf, *b;
-+	unsigned long flags;
- 
- 	int err = 0;
- 
-@@ -1365,14 +1385,25 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 	if (!fl->cctx->rpdev)
- 		return -EPIPE;
- 
-+	spin_lock_irqsave(&fl->cctx->lock, flags);
-+	if (atomic_read(&fl->cctx->teardown)) {
-+		spin_unlock_irqrestore(&fl->cctx->lock, flags);
-+		return -EPIPE;
-+	}
-+	fastrpc_channel_update_invoke_cnt(fl->cctx, true);
-+	spin_unlock_irqrestore(&fl->cctx->lock, flags);
-+
- 	if (handle == FASTRPC_INIT_HANDLE && !kernel) {
- 		dev_warn_ratelimited(fl->sctx->dev, "user app trying to send a kernel RPC message (%d)\n",  handle);
--		return -EPERM;
-+		err = -EPERM;
-+		goto out;
- 	}
- 
- 	ctx = fastrpc_context_alloc(fl, kernel, sc, args);
--	if (IS_ERR(ctx))
--		return PTR_ERR(ctx);
-+	if (IS_ERR(ctx)) {
-+		err = PTR_ERR(ctx);
-+		goto out;
-+	}
- 
- 	err = fastrpc_get_args(kernel, ctx);
- 	if (err)
-@@ -1428,6 +1459,10 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 
- 	if (err)
- 		dev_dbg(fl->sctx->dev, "Error: Invoke Failed %d\n", err);
-+out:
-+	spin_lock_irqsave(&fl->cctx->lock, flags);
-+	fastrpc_channel_update_invoke_cnt(fl->cctx, false);
-+	spin_unlock_irqrestore(&fl->cctx->lock, flags);
- 
- 	return err;
- }
-@@ -2635,6 +2670,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
- 	spin_lock_init(&data->lock);
- 	idr_init(&data->ctx_idr);
-+	atomic_set(&data->teardown, 0);
-+	data->invoke_cnt = 0;
-+	init_waitqueue_head(&data->ssr_wait_queue);
- 	data->domain_id = domain_id;
- 	data->rpdev = rpdev;
- 	dev_set_drvdata(&rpdev->dev, data);
-@@ -2678,11 +2716,25 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 
- 	/* No invocations past this point */
- 	spin_lock_irqsave(&cctx->lock, flags);
--	cctx->rpdev = NULL;
-+	atomic_set(&cctx->teardown, 1);
- 	list_for_each_entry(user, &cctx->users, user)
- 		fastrpc_notify_users(user);
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 
-+	/*
-+	 * Wait for every invoke that was already past the gate to finish.
-+	 * They have all just been woken with -EPIPE, and no new one can be
-+	 * counted, so this is guaranteed to make progress.
-+	 */
-+	spin_lock_irqsave(&cctx->lock, flags);
-+	while (cctx->invoke_cnt > 0) {
-+		spin_unlock_irqrestore(&cctx->lock, flags);
-+		wait_event(cctx->ssr_wait_queue, cctx->invoke_cnt == 0);
-+		spin_lock_irqsave(&cctx->lock, flags);
-+	}
-+	cctx->rpdev = NULL;
-+	spin_unlock_irqrestore(&cctx->lock, flags);
-+
- 	if (cctx->fdevice)
- 		misc_deregister(&cctx->fdevice->miscdev);
- 
--- 
-2.43.0
+If fastrpc_rpmsg_remove() runs on another CPU during that window (for examp=
+le
+while fastrpc_context_alloc() sleeps in kzalloc_obj()), it sets
+cctx->teardown to 1, calls fastrpc_notify_users() once across cctx->users,
+and then blocks in wait_event(cctx->ssr_wait_queue, cctx->invoke_cnt =3D=3D=
+ 0)
+with cctx->rpdev still valid.
 
+Because ctx->node was not on user->pending when fastrpc_notify_users() ran,
+ctx->work is never completed with -EPIPE. The invoke thread then finishes
+fastrpc_context_alloc(), runs fastrpc_get_args(), and calls
+fastrpc_invoke_send() -> rpmsg_send() without re-checking cctx->teardown.
+
+When rpmsg_send() succeeds (such as on a remote channel close, driver unbin=
+d,
+module unload, or when a glink rx intent is cached),
+fastrpc_wait_for_completion() -> fastrpc_wait_for_response() enters
+wait_for_completion_interruptible(&ctx->work) for user invokes and sleeps
+waiting for a remote reply that will never arrive, preventing
+cctx->invoke_cnt from reaching 0 and leaving fastrpc_rpmsg_remove() stuck in
+wait_event().
+
+For kernel invokes (or signal-interrupted user invokes),
+fastrpc_wait_for_completion() returns -ETIMEDOUT after 10 seconds (or
+-ERESTARTSYS), which skips fastrpc_context_put(ctx) at the bail label while
+the out label decrements cctx->invoke_cnt to 0, allowing
+fastrpc_rpmsg_remove() to proceed to of_platform_depopulate() with ctx->buf
+still allocated on the context bank device.
+
+> =20
+>  	err =3D fastrpc_get_args(kernel, ctx);
+>  	if (err)
+> @@ -1428,6 +1459,10 @@ static int fastrpc_internal_invoke(struct fastrpc_=
+user *fl,  u32 kernel,
+> =20
+>  	if (err)
+>  		dev_dbg(fl->sctx->dev, "Error: Invoke Failed %d\n", err);
+> +out:
+> +	spin_lock_irqsave(&fl->cctx->lock, flags);
+> +	fastrpc_channel_update_invoke_cnt(fl->cctx, false);
+> +	spin_unlock_irqrestore(&fl->cctx->lock, flags);
+> =20
+>  	return err;
+>  }
+
+[ ... ]
+
+> @@ -2678,11 +2716,25 @@ static void fastrpc_rpmsg_remove(struct rpmsg_dev=
+ice *rpdev)
+> =20
+>  	/* No invocations past this point */
+>  	spin_lock_irqsave(&cctx->lock, flags);
+> -	cctx->rpdev =3D NULL;
+> +	atomic_set(&cctx->teardown, 1);
+>  	list_for_each_entry(user, &cctx->users, user)
+>  		fastrpc_notify_users(user);
+>  	spin_unlock_irqrestore(&cctx->lock, flags);
+> =20
+> +	/*
+> +	 * Wait for every invoke that was already past the gate to finish.
+> +	 * They have all just been woken with -EPIPE, and no new one can be
+> +	 * counted, so this is guaranteed to make progress.
+> +	 */
+> +	spin_lock_irqsave(&cctx->lock, flags);
+> +	while (cctx->invoke_cnt > 0) {
+> +		spin_unlock_irqrestore(&cctx->lock, flags);
+> +		wait_event(cctx->ssr_wait_queue, cctx->invoke_cnt =3D=3D 0);
+> +		spin_lock_irqsave(&cctx->lock, flags);
+> +	}
+> +	cctx->rpdev =3D NULL;
+> +	spin_unlock_irqrestore(&cctx->lock, flags);
+
+[Severity: High]
+Does waiting only for cctx->invoke_cnt =3D=3D 0 in fastrpc_rpmsg_remove() s=
+till
+leave context-bank buffers being freed concurrently with or after
+of_platform_depopulate(&rpdev->dev), or leaked when woken with -EPIPE?
+
+There appear to be three paths in drivers/misc/fastrpc.c where ctx->buf or
+other fastrpc_buf allocations on fl->sctx->dev outlive cctx->invoke_cnt:
+
+1. In fastrpc_invoke_send(), fastrpc_context_get(ctx) takes a second
+reference on ctx before calling rpmsg_send():
+
+drivers/misc/fastrpc.c:fastrpc_invoke_send() {
+	...
+	fastrpc_context_get(ctx);
+
+	ret =3D rpmsg_send(cctx->rpdev->ept, (void *)msg, sizeof(*msg));
+
+	if (ret)
+		fastrpc_context_put(ctx);
+	...
+}
+
+If fastrpc_rpmsg_callback() runs just before teardown, it completes ctx->wo=
+rk
+and calls schedule_work(&ctx->put_work) to drop that second reference via
+fastrpc_context_put_wq(). The woken invoke thread drops its own reference at
+the bail label and decrements cctx->invoke_cnt to 0 at the out label,
+allowing fastrpc_rpmsg_remove() to call of_platform_depopulate(&rpdev->dev)
+while fastrpc_context_put_wq() is still running fastrpc_context_put() ->
+fastrpc_context_free() -> fastrpc_buf_free(ctx->buf) -> dma_free_coherent()
+against the unbound context bank.
+
+Conversely, if rpmsg_send() succeeded and fastrpc_notify_users() wakes the
+waiter with -EPIPE before fastrpc_rpmsg_callback() runs, nothing drops the
+extra reference taken by fastrpc_invoke_send(). At the bail label,
+list_del(&ctx->node) unlinks ctx from fl->pending and
+fastrpc_context_put(ctx) only decrements ctx->refcount from 2 to 1, leaking
+ctx, ctx->buf, ctx->maps, fl, and cctx.
+
+2. If fastrpc_wait_for_completion() returns -ERESTARTSYS or -ETIMEDOUT, the
+bail label skips fastrpc_context_put(ctx):
+
+drivers/misc/fastrpc.c:fastrpc_internal_invoke() {
+	...
+bail:
+	if (err !=3D -ERESTARTSYS && err !=3D -ETIMEDOUT) {
+		/* We are done with this compute context */
+		spin_lock(&fl->lock);
+		list_del(&ctx->node);
+		spin_unlock(&fl->lock);
+		fastrpc_context_put(ctx);
+	}
+	...
+}
+
+The out label then decrements cctx->invoke_cnt to 0 while ctx remains on
+fl->pending to be freed later by fastrpc_device_release() ->
+fastrpc_user_put() -> fastrpc_user_free() after of_platform_depopulate().
+
+3. Callers of fastrpc_internal_invoke() allocate or free buffers on
+fl->sctx->dev outside the cctx->invoke_cnt gate:
+  - fastrpc_init_create_process() and fastrpc_req_mmap() call
+    fastrpc_buf_free() on their error paths after fastrpc_internal_invoke()
+    has already decremented cctx->invoke_cnt to 0 and returned -EPIPE.
+  - fastrpc_device_release() calls fastrpc_release_current_dsp_process(fl)
+    (which exits fastrpc_internal_invoke() and drops cctx->invoke_cnt to 0)
+    and only afterwards calls fastrpc_user_put(fl) -> fastrpc_user_free(),
+    which frees fl->init_mem, fl->pending, fl->maps, and fl->mmaps on
+    fl->sctx->dev without blocking fastrpc_rpmsg_remove().
+
+> +
+>  	if (cctx->fdevice)
+>  		misc_deregister(&cctx->fdevice->miscdev);
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022023531.465-=
+1-jianping.li@oss.qualcomm.com?part=3D2
