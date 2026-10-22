@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B5360A3806
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:54:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB71606A33B
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:54:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtJSdTrt
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HjFw8ykO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F004711266D;
-	Thu, 22 Oct 2026 13:53:55 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03137112654
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:53:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79B3B112667;
+	Thu, 22 Oct 2026 13:53:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BA31112654
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:53:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7889560DD4;
- Thu, 22 Oct 2026 13:53:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27651F000C3;
- Thu, 22 Oct 2026 13:53:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 745DF41E4B;
+ Thu, 22 Oct 2026 13:53:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBC4D1F000D0;
+ Thu, 22 Oct 2026 13:53:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792677215;
- bh=CzmNkiMv5ZgXclvYn2qzX3vsC5a+5Aneg6GuHpphg5U=;
+ s=k20260515; t=1792677229;
+ bh=6OCca06egYWlAwVkTs+cUvuzH9TznyqKs3FaTESZMz8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=EtJSdTrtUtpc8GIFb8KKjWN8/2FyRDb7wjf6YBX6QWZutEaAe3H3V07YVmJatvz0O
- 8xRvPErOLaFCShgZJ0aFk0kMbSteOptlgY6KVj7v/PJ89ev9CAyQtAorkCkLqWRmIT
- PgEkKpd8X/fPxjL66e9CMnTJWVVcZ58ejgRJVnpQhF4Il46eJ8hWB0IenFx2513FlF
- TmrzxFoQ4CWw53mCDdoanT3G9j8fpSmPcSNoyeEyj6KhjRhL/O4mRgOcAO9EobV176
- ic2hKs4+gmGeLMqu4aHhXbdO+H6yON+s+037I/B7WRNyfFBTNha6nW5p/GntLbNHaT
- ghGZBafsfElOA==
+ b=HjFw8ykO/avO9Ytc2N17PWDN9aYbwBV+6KB0j+dZzU4PrikLQntPW5FWpZU7R2GQK
+ cViNXx5R5SaKSprWJaIydZZZAsipWA1TS6VXA6jBrehCchP2JzU+J9Jznz0ii7I4KU
+ LaS4lNc7HfjQLvYAC8BoYCAJY6RAHxaparv2++Tre4/8ZtTM23m+plgy9XzkoLXH38
+ IftiAA2qf4jk9ReGSWaqqvpcfaMTJHETQLJUP80eQ16Anik8YBswOHFZxjKLWFpEKp
+ obFDkBS91TElyoBC0pTA146O3Pnql4aThNeMQnijGPYJ6FelRrP+oOU+rUh1EP2zu/
+ lqCEjRMRbj1Aw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 15:53:06 +0200
-Subject: [PATCH v6 05/15] drm/atomic: Create function to insert CRTC state
- into a commit
+Date: Thu, 22 Oct 2026 15:53:10 +0200
+Subject: [PATCH v6 09/15] drm/atomic: Create function to insert connector
+ state into a commit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-reset-state-flag-v6-5-f36d640b7e76@kernel.org>
+Message-Id: <20261022-drm-reset-state-flag-v6-9-f36d640b7e76@kernel.org>
 References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 In-Reply-To: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2272; i=mripard@kernel.org;
- h=from:subject:message-id; bh=xfMzixrk5y7ZgO75udLR6cvkHU3Ewzag0kKdSZQHgRU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RF2XCDXKKZUwNJx08PXU+c3mmvVT/sSGDt5jId7rb
- S49crrfMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACay8C5jrbi/5OFmF7MwtzKe
- tIZMlcnbG0wtLAwdpmqezvh01uu2asr8rFTxyNnckR96frU9uJzHWF8ZwdC4P4e5dlf8qc1iqWd
- 1LBrYXG5fmnJqap7YlvYs78h1Sb7/tY/WGD90ZlJ+4ZEdDwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3841; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=4N1f/VazZl18ma1rQKS+o923euu0mcNJmmmZyREtvXg=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RN0/7Pu090nGToPncbkW+1tk/9593/dT8ubETKZzf
+ xo8Q22udUxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJ9AQy1nCszmd79vrFSikD
+ tbDzLQq3W/a8FhKysTKI0b8cqjUzPbr7awNfvvAFhXhFZY2+J/5BjPWh03Lm8KRvVj7+Oylww1l
+ 7oVAG96MdpqH+j/kD/h3rX3nh74f2sE9Hn5+/P6PFuaNU6wgA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,67 +81,109 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_get_crtc_state() allocates a new CRTC state by duplicating
-the current one and inserts it into the atomic commit as a single
-operation.
+drm_atomic_get_connector_state() allocates a new connector state by
+duplicating the current one and inserts it into the atomic commit as
+a single operation.
 
-However, a later change will need to insert a CRTC state into a
+However, a later change will need to insert a connector state into a
 commit without going through the full allocation and duplication path
-in drm_atomic_get_crtc_state().
+in drm_atomic_get_connector_state().
 
-Extract the state insertion logic into a new static
-drm_atomic_commit_set_crtc_state() helper, and convert
-drm_atomic_get_crtc_state() to use it.
+Extract the state insertion logic, including the dynamic array
+reallocation, into a new static
+drm_atomic_commit_set_connector_state() helper, and convert
+drm_atomic_get_connector_state() to use it.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 60 ++++++++++++++++++++++++++++----------------
+ 1 file changed, 38 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 80436adcfb7f..178eca95d0e3 100644
+index 513e91ad2fdc..81591173265d 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -434,4 +434,19 @@ void __drm_atomic_commit_free(struct kref *ref)
- EXPORT_SYMBOL(__drm_atomic_commit_free);
+@@ -1405,4 +1405,36 @@ drm_atomic_get_new_crtc_for_encoder(struct drm_atomic_commit *state,
+ EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
  
-+static void drm_atomic_commit_set_crtc_state(struct drm_atomic_commit *commit,
-+					     struct drm_crtc *crtc,
-+					     struct drm_crtc_state *crtc_state)
++static int drm_atomic_commit_set_connector_state(struct drm_atomic_commit *commit,
++						 struct drm_connector *connector,
++						 struct drm_connector_state *connector_state)
 +{
-+	int index = drm_crtc_index(crtc);
++	struct drm_mode_config *config = &connector->dev->mode_config;
++	int index = drm_connector_index(connector);
 +
-+	drm_modeset_lock_assert_held(&crtc->mutex);
++	drm_modeset_lock_assert_held(&config->connection_mutex);
 +
-+	commit->crtcs[index].state_to_destroy = crtc_state;
-+	commit->crtcs[index].old_state = crtc->state;
-+	commit->crtcs[index].new_state = crtc_state;
-+	commit->crtcs[index].ptr = crtc;
-+	crtc_state->state = commit;
++	if (index >= commit->num_connector) {
++		struct __drm_connnectors_state *c;
++		int alloc = max(index + 1, config->num_connector);
++
++		c = krealloc_array(commit->connectors, alloc,
++				   sizeof(*commit->connectors), GFP_KERNEL | __GFP_ZERO);
++		if (!c)
++			return -ENOMEM;
++
++		commit->connectors = c;
++		commit->num_connector = alloc;
++	}
++
++	drm_connector_get(connector);
++	commit->connectors[index].state_to_destroy = connector_state;
++	commit->connectors[index].old_state = connector->state;
++	commit->connectors[index].new_state = connector_state;
++	commit->connectors[index].ptr = connector;
++	connector_state->state = commit;
++
++	return 0;
 +}
 +
  /**
-  * drm_atomic_get_crtc_state - get CRTC state
-@@ -456,5 +471,5 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
- 			  struct drm_crtc *crtc)
+  * drm_atomic_get_connector_state - get connector state
+@@ -1423,5 +1455,5 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+ 			  struct drm_connector *connector)
  {
--	int ret, index = drm_crtc_index(crtc);
+-	int ret, index;
 +	int ret;
- 	struct drm_crtc_state *crtc_state;
+ 	struct drm_mode_config *config = &connector->dev->mode_config;
+ 	struct drm_connector_state *connector_state;
+@@ -1434,19 +1466,4 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+ 		return ERR_PTR(ret);
  
-@@ -474,9 +489,5 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
+-	index = drm_connector_index(connector);
+-
+-	if (index >= state->num_connector) {
+-		struct __drm_connnectors_state *c;
+-		int alloc = max(index + 1, config->num_connector);
+-
+-		c = krealloc_array(state->connectors, alloc,
+-				   sizeof(*state->connectors), GFP_KERNEL | __GFP_ZERO);
+-		if (!c)
+-			return ERR_PTR(-ENOMEM);
+-
+-		state->connectors = c;
+-		state->num_connector = alloc;
+-	}
+-
+ 	connector_state = drm_atomic_get_new_connector_state(state, connector);
+ 	if (connector_state)
+@@ -1457,10 +1474,9 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
  		return ERR_PTR(-ENOMEM);
  
--	state->crtcs[index].state_to_destroy = crtc_state;
--	state->crtcs[index].old_state = crtc->state;
--	state->crtcs[index].new_state = crtc_state;
--	state->crtcs[index].ptr = crtc;
--	crtc_state->state = state;
-+	drm_atomic_commit_set_crtc_state(state, crtc, crtc_state);
+-	drm_connector_get(connector);
+-	state->connectors[index].state_to_destroy = connector_state;
+-	state->connectors[index].old_state = connector->state;
+-	state->connectors[index].new_state = connector_state;
+-	state->connectors[index].ptr = connector;
+-	connector_state->state = state;
++	ret = drm_atomic_commit_set_connector_state(state, connector, connector_state);
++	if (ret) {
++		connector->funcs->atomic_destroy_state(connector, connector_state);
++		return ERR_PTR(ret);
++	}
  
- 	drm_dbg_atomic(state->dev, "Added [CRTC:%d:%s] %p state to %p\n",
+ 	drm_dbg_atomic(connector->dev, "Added [CONNECTOR:%d:%s] %p state to %p\n",
 
 -- 
 2.55.0
