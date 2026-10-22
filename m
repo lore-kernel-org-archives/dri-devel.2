@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766B060A2610
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:53:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F13606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:53:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+57qLBu
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdNbL7ii
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D184D11265C;
-	Thu, 22 Oct 2026 13:53:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F177011265F;
+	Thu, 22 Oct 2026 13:53:32 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DEB711265C
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:53:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BF02112656
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:53:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3F18060DC8;
- Thu, 22 Oct 2026 13:53:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940B51F000D0;
- Thu, 22 Oct 2026 13:53:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E3D2660DE4;
+ Thu, 22 Oct 2026 13:53:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23BAA1F000C2;
+ Thu, 22 Oct 2026 13:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792677201;
- bh=HRt7WehTKctLnGbeC7pLAnadKrHTL2sk3kSDhLhx7zo=;
+ s=k20260515; t=1792677204;
+ bh=bp8Sv56uWGNu5dzO8hoWLI+wBl8bSINfQ15wCZlMHhg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=L+57qLBuGwCRdPb+IrY0wdf3hAeqmn9FYqvH9JM3eWEPUmPTFxh1cCricOrjbvG/j
- ku4JsLFdJyakWLo0wEaCIX2jayOztmolQttZ25pMQf3TmZzTPjH/VCA7lzuG1wBj8z
- spTWtyT7dKGgPy5V+THGwmPx/t9EvlZHDGNvhhIR+R8DurPWOxLvuUEXUsvnZnWeIW
- /yVUQJfOIwAL7bZo7G6FSzbD4wRh56USkobymqjuu97n9v+tNPgpjqgYaBuZdg2qvu
- o57ekE1lOpLYQzMnXLz2IW3HGwQkv2zeA2wE9mH5zymwkM2ZdYDjmSy+kwkwxnyX2P
- kyPMQI6BvYxmw==
+ b=VdNbL7iiFiqZk2DsxL87UDc7lFoy6Jq2+vVHB6I3vfKqQiWtc/K2wgVyCUJLPepZ3
+ LRpMGtl0mfHIw/lRJx0IixQTr/W5BQxcbe7nlAZjL39eKjHzdFPix3nrhivqNsQsfE
+ 6egR9gqfjR5oPCUrREv6w4LR9Gj1FXI7cnnO2vi5xDMoHGoYq0mkv4H01pkR6T7xgx
+ kDamF9uZeJcb39UeWdmVF013g4c/cD5sGNh/Y2kQm8OF36Q5wNCpp9O0kd8nSB9i/R
+ 1CnIfhlwXdAFnLlzPXeb+WQZHuU+w2xVxdiWz1i8l+2XQx0lo7qwdk47vtFrGcJkLs
+ E6dM2CdDSn+8w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 15:53:02 +0200
-Subject: [PATCH v6 01/15] drm/amd/display: Fix planes atomic_create_state
- implementation
+Date: Thu, 22 Oct 2026 15:53:03 +0200
+Subject: [PATCH v6 02/15] drm/atomic: Switch to krealloc_array() in
+ drm_atomic_get_private_obj_state()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-reset-state-flag-v6-1-f36d640b7e76@kernel.org>
+Message-Id: <20261022-drm-reset-state-flag-v6-2-f36d640b7e76@kernel.org>
 References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 In-Reply-To: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1367; i=mripard@kernel.org;
- h=from:subject:message-id; bh=jPfBSx0AuI4AiSP23xvBSmuv7S2aZHPRkqVpdnQnLP4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RJ1ddpyrlnhcP91Y5H671vN3BTvfGEanXXHh/rqlr
- zFAJ+1vx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIbC9jvU/0zN++11+/Wd4t
- vujlR2mly9bHGBPXn5W7PyOx/kTvqkeXX926EtuxRGd5Wa1fX67QU8aGW+XKvZnHH7bOlHh1aFP
- T/KPm/dNds43rM8WONpc8sdSdfkapecqcY7ay3uyr6uyZ89cBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1391; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=BzbEMPPA4chwGhrAev6Iwlnw4dYruoi/b+S/QBBvOnk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RF2yNn6sawlbdMQm02LNmf3LL0/fL1F9eYnSfbmV7
+ 705tJO2dkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJaN5irC+f2GJoqx6+13Qr
+ W2/KkSbf5D1cmrf3Cv7N3d2rcow3W+m278L6JQ8bdnsflkxXlZiuxtiwJ/rT/Yii4rtblDiz2ju
+ utEyL4//osCTYverWAhOpDR/+nFjwY82/LamCVWxLHvH3BfEBAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,34 +81,39 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Commit 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
-converted the amdgpu planes to use atomic_create_state instead of reset.
+The drm_atomic_get_private_obj_state() function manually computes the
+allocation size by multiplying the element count by the element size
+before passing it to krealloc().
 
-Unlike reset, atomic_create_state is meant to allocate a new default
-state without any side effect on the hardware or software state.
+krealloc_array() handles this multiplication internally and includes
+overflow checking. Switch to it and drop the now-unused size variable.
 
-However, during the conversion we forgot to remove the call to destroy
-the existing plane state if any. While this was expected from a reset
-implementation, it's not for an atomic_create_state one. Remove it.
-
-Fixes: 2bcec01cf105 ("drm/amdgpu_dm: Convert to atomic_create_state")
+Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 2f88b9d65b82..779dabb7fc51 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1821,7 +1821,4 @@ STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(
- 	}
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 9bb761eda59f..aa47c647df31 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1080,5 +1080,4 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
+ {
+ 	int index, num_objs, ret;
+-	size_t size;
+ 	struct __drm_private_objs_state *arr;
+ 	struct drm_private_state *obj_state;
+@@ -1096,6 +1095,6 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
  
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
--
- 	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	num_objs = state->num_private_objs + 1;
+-	size = sizeof(*state->private_objs) * num_objs;
+-	arr = krealloc(state->private_objs, size, GFP_KERNEL);
++	arr = krealloc_array(state->private_objs, num_objs,
++			     sizeof(*state->private_objs), GFP_KERNEL);
+ 	if (!arr)
+ 		return ERR_PTR(-ENOMEM);
 
 -- 
 2.55.0
