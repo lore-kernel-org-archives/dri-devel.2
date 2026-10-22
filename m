@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD46A60A260C
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:54:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2EF606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:54:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NB8fDpfL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jjm0kvsx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11AB2112678;
-	Thu, 22 Oct 2026 13:54:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C16DE11267A;
+	Thu, 22 Oct 2026 13:54:17 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADAED11267B
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:54:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89F4711266F
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:53:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 95F7C4381A;
- Thu, 22 Oct 2026 13:54:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B551F000CB;
- Thu, 22 Oct 2026 13:54:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 722A742D55;
+ Thu, 22 Oct 2026 13:53:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBD3E1F000C5;
+ Thu, 22 Oct 2026 13:53:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792677243;
- bh=o5gtiULA1NZC2U6J/Oa0bNCG28fMGm4tgbHrjXTYLYM=;
+ s=k20260515; t=1792677236;
+ bh=O4IMozYP08PnQMYBwMfhZ3uJKrffllKZ7I9Qvn1rQYw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=NB8fDpfLm6vSFgEr73PdM9gvE0PAsHA2JSGW2F1Oj1iibLxPvjn5Jbv8MuLnkUYnV
- +Dq3Fu06EGc1iKbixV3vIbEy7iCsUUPrEawZe3J3igEUr7mn8czH2C7+VoxyRPmb+0
- QQUcLGRqc2oTABBqWOxpcxZSr+6gq3436j7aEtGQtamowY4JB59bFFs1itq19c/Lf/
- l+PhyFmL4hoGBDVrY6P9myezIlwpjaAJInvXXgnCMqhm4gzaWo4iFz/49yNBvQ82bv
- UgJ4RfsNF6I9AZ1e02DcamaI+drDxtBT3XG+ZgVqPzCl59KW5muHKL/uiyLNWgQzvk
- jxaTJPvgu1xdw==
+ b=Jjm0kvsxUoM6cj8+6Mmkh9wDA+eq54d+6ZCJGhmiZvZ84AFYo0NqHVT2a+9/QG/n6
+ jFkE/WkapmwOKXuaAsdVIC8Al0n26EOn/X0ucjPLTtUS7SuYvdn1Ivff5eZpPnLWip
+ sLZIgowTFeXMwzfKNu2toOQTO+dTmh3QxFEONZjei3zdkMdU1B6WsTRe6pg/B5LnnY
+ rP6DCuJbAOpV5qC8GuzXH7aQsnOBs6v+Km341A+R7mToL0Xr+/IF6l+ZcJORanKumH
+ 6Exw3JvS4DyqQlar3L86hhknetoUHbcLv7cUZmLOUhQS60vtTCemmtNeq9XkTAvqFr
+ bN1tbLz3TBD9g==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 15:53:14 +0200
-Subject: [PATCH v6 13/15] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+Date: Thu, 22 Oct 2026 15:53:12 +0200
+Subject: [PATCH v6 11/15] drm/atomic: Allow filling a commit with pristine
+ object states
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-reset-state-flag-v6-13-f36d640b7e76@kernel.org>
+Message-Id: <20261022-drm-reset-state-flag-v6-11-f36d640b7e76@kernel.org>
 References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 In-Reply-To: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -53,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5059; i=mripard@kernel.org;
- h=from:subject:message-id; bh=pF0lhGmgxx8fbjAQrzFFtkSE3++zqMO9whXwChkhTUw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RD2U2BX/nGo4lLUpxddyrtfLzriN5/LUO46waepIH
- RI6NO1Kx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIXgJjrVRbwdv3Oxtm3SxP
- SNGIXnShY7uAFtul3RmBlpHraxeqcvUW9Ou8DX1w6VPNpoDMg3YXGOs99yduqpkxwy/b4MwD9rB
- dh6bdlxNaNTXw1fk7q5/YvBZ8EyKxbXVTsEfdqq7bH4vcHvwBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6766; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=wr2wA2j7r+WhpVhEV6CZXiNA0JOfrUn2lu2LA9cxvbw=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RD08C9cbGZ1nlCwPWadwkenOuplvfHs+9p7p2KF2r
+ DfNzP1Ax1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIiZeMDdfarJSVXAX5VZ63
+ HGKK4f/Qwnqp7Yn+Q24BS7kUDqsbkm/9s1e+YT5+d+rvG2kxCjl5jA0XG272F7jYnFNJ9v7Qf43
+ hhY5MskON9ZHVO/etE+K97jXtsW4M16/0dVNW/3wtd4K57BIA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,139 +81,197 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Sebastian Wick <sebastian.wick@redhat.com>
+The upcoming DRM_MODE_ATOMIC_RESET flag will need to create an atomic
+commit that brings the entire device back to a pristine state, as if
+no configuration had ever been applied.
 
-Userspace currently has no atomic way to reset all KMS object states
-to their defaults. To bring a display pipeline to a known state, a
-compositor must explicitly set every property on every object, which
-requires tracking which properties exist and what their defaults are.
+Create drm_atomic_commit_fill_with_defaults() which iterates over all
+CRTCs, planes, connectors, and color operations in the device and
+inserts a fresh default state for each one into the commit. This uses
+the atomic_create_state() hooks rather than atomic_duplicate_state(),
+since atomic_create_state() provides exactly this pristine state on a
+per-object basis.
 
-Introduce DRM_MODE_ATOMIC_RESET (0x0800) which, when passed to the
-atomic ioctl, fills the commit with default states for all KMS
-objects before applying the properties supplied in the request.
-Properties not explicitly included in the commit remain at their
-defaults (CRTCs inactive, planes disabled, connectors unbound, and
-so on).
-
-The flag cannot be combined with DRM_MODE_PAGE_FLIP_ASYNC, since a
-full state reset is incompatible with an async flip.
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
-Co-developed-by: Maxime Ripard <mripard@kernel.org>
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c      |  3 +++
- drivers/gpu/drm/drm_atomic_uapi.c | 18 ++++++++++++++++++
- drivers/gpu/drm/drm_ioctl.c       |  3 +++
- include/uapi/drm/drm.h            | 10 ++++++++++
- include/uapi/drm/drm_mode.h       | 14 +++++++++++++-
- 5 files changed, 47 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_atomic.c | 142 +++++++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_ioctl.c  |   1 +
+ include/drm/drm_atomic.h     |   2 +
+ 3 files changed, 145 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index c3c38695814f..e7867da2d921 100644
+index 7a77051096c9..c3c38695814f 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1614,4 +1614,7 @@ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
-  * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
-  *
-+ * This is used to report the %DRM_CAP_ATOMIC_RESET capability to userspace,
-+ * and as a precondition in drm_atomic_commit_fill_with_defaults().
-+ *
-  * Returns:
-  * True if all objects implement atomic_create_state, false otherwise.
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 1eebcf6f5e05..9ff1ddecb8ed 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1674,4 +1674,11 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 	}
+@@ -1650,4 +1650,146 @@ bool drm_atomic_implements_create_state(struct drm_device *dev)
+ EXPORT_SYMBOL(drm_atomic_implements_create_state);
  
-+	if ((arg->flags & DRM_MODE_ATOMIC_RESET) &&
-+			(arg->flags & DRM_MODE_PAGE_FLIP_ASYNC)) {
-+		drm_dbg_atomic(dev,
-+			       "commit failed: reset cannot be combined with async flip\n");
-+		return -EINVAL;
++/**
++ * drm_atomic_commit_fill_with_defaults - populate a commit with pristine states
++ * @file_priv: DRM file the reset was requested from, or NULL
++ * @commit: atomic commit to fill
++ *
++ * Iterate over all CRTCs, planes, connectors, and color operations in
++ * the device and insert a freshly created default state for each one
++ * into @commit. The states are created through the atomic_create_state()
++ * hooks, producing the same initial state the driver starts with rather
++ * than a copy of the current hardware state.
++ *
++ * If @file_priv is a lessee, only the CRTCs, planes and connectors part
++ * of its lease are reset, and the other ones are left untouched.
++ * @file_priv is optional: if NULL, it is considered to not hold any
++ * lease, and all objects are reset.
++ *
++ * In the default state, all objects are disabled: CRTCs are inactive,
++ * planes are disabled, and connectors are unbound. Driver-specific
++ * properties such as color pipeline settings or max_bpc may carry
++ * non-zero defaults appropriate for basic display output.
++ *
++ * This is meant to be used with the %DRM_MODE_ATOMIC_RESET flag, which
++ * needs to bring the device back to a known baseline before applying
++ * userspace property changes on top.
++ *
++ * Returns:
++ * 0 on success, or a negative error code on failure.
++ */
++int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
++					 struct drm_atomic_commit *commit)
++{
++	struct drm_device *dev = commit->dev;
++	struct drm_mode_config *config = &dev->mode_config;
++	struct drm_crtc *crtc;
++	struct drm_plane *plane;
++	struct drm_connector *connector;
++	struct drm_connector_list_iter conn_iter;
++	struct drm_colorop *colorop;
++	int ret;
++
++	drm_WARN_ON(dev, !commit->acquire_ctx);
++
++	/*
++	 * Private objects are ignored because none have userspace
++	 * properties we might want to reset. atomic_check
++	 * implementations will derive or infer their private obj state
++	 * from the state that will end up being committed anyway.
++	 */
++	drm_for_each_colorop(colorop, dev) {
++		struct drm_colorop_state *colorop_state;
++
++		if (!drm_lease_held(file_priv, colorop->plane->base.id))
++			continue;
++
++		ret = drm_modeset_lock(&colorop->plane->mutex, commit->acquire_ctx);
++		if (ret)
++			return ret;
++
++		colorop_state = drm_atomic_helper_colorop_create_state(colorop);
++		if (IS_ERR(colorop_state))
++			return PTR_ERR(colorop_state);
++
++		drm_atomic_commit_set_colorop_state(commit, colorop, colorop_state);
 +	}
 +
- 	state = drm_atomic_commit_alloc(dev);
- 	if (!state)
-@@ -1689,4 +1696,15 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 	num_fences = 0;
- 
-+	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
-+		if (!drm_atomic_implements_create_state(dev)) {
-+			ret = -EOPNOTSUPP;
-+			goto out;
++	drm_for_each_plane(plane, dev) {
++		struct drm_plane_state *plane_state;
++
++		if (!drm_lease_held(file_priv, plane->base.id))
++			continue;
++
++		ret = drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
++		if (ret)
++			return ret;
++
++		plane_state = plane->funcs->atomic_create_state(plane);
++		if (IS_ERR(plane_state))
++			return PTR_ERR(plane_state);
++
++		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
++	}
++
++	drm_for_each_crtc(crtc, dev) {
++		struct drm_crtc_state *crtc_state;
++
++		if (!drm_lease_held(file_priv, crtc->base.id))
++			continue;
++
++		ret = drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
++		if (ret)
++			return ret;
++
++		crtc_state = crtc->funcs->atomic_create_state(crtc);
++		if (IS_ERR(crtc_state))
++			return PTR_ERR(crtc_state);
++
++		drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
++	}
++
++	drm_connector_list_iter_begin(dev, &conn_iter);
++	drm_for_each_connector_iter(connector, &conn_iter) {
++		struct drm_connector_state *connector_state;
++
++		if (!drm_lease_held(file_priv, connector->base.id))
++			continue;
++
++		ret = drm_modeset_lock(&config->connection_mutex, commit->acquire_ctx);
++		if (ret) {
++			drm_connector_list_iter_end(&conn_iter);
++			return ret;
 +		}
 +
-+		ret = drm_atomic_commit_fill_with_defaults(file_priv, state);
-+		if (ret)
-+			goto out;
-+	}
++		/*
++		 * drm_atomic_implements_create_state() already checked
++		 * this, but connectors can be hotplugged between that
++		 * lockless check and the iteration here.
++		 */
++		if (!connector->funcs->atomic_create_state) {
++			drm_connector_list_iter_end(&conn_iter);
++			return -EOPNOTSUPP;
++		}
 +
- 	for (i = 0; i < arg->count_objs; i++) {
- 		uint32_t obj_id, count_props;
++		connector_state = connector->funcs->atomic_create_state(connector);
++		if (IS_ERR(connector_state)) {
++			drm_connector_list_iter_end(&conn_iter);
++			ret = PTR_ERR(connector_state);
++			return ret;
++		}
++
++		ret = drm_atomic_commit_set_connector_state(commit, connector, connector_state);
++		if (ret) {
++			connector->funcs->atomic_destroy_state(connector, connector_state);
++			drm_connector_list_iter_end(&conn_iter);
++			return ret;
++		}
++	}
++	drm_connector_list_iter_end(&conn_iter);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_atomic_commit_fill_with_defaults);
++
+ /**
+  * drm_atomic_add_encoder_bridges - add bridges attached to an encoder
 diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 0dbf04d4aa9e..e589d93871e2 100644
+index 9039a39c4324..0dbf04d4aa9e 100644
 --- a/drivers/gpu/drm/drm_ioctl.c
 +++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -306,4 +306,7 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
- 			     dev->mode_config.async_page_flip;
- 		break;
-+	case DRM_CAP_ATOMIC_RESET:
-+		req->value = drm_atomic_implements_create_state(dev);
-+		break;
- 	default:
- 		return -EINVAL;
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index bc7ef7684099..b6e2f2edd122 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -796,4 +796,14 @@ struct drm_gem_change_handle {
- #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
+@@ -34,4 +34,5 @@
+ #include <linux/uaccess.h>
  
-+/**
-+ * DRM_CAP_ATOMIC_RESET
-+ *
-+ * If set to 1, the driver supports the &DRM_MODE_ATOMIC_RESET flag in
-+ * &DRM_IOCTL_MODE_ATOMIC commits. When supported, userspace can pass that
-+ * flag to reset all KMS object states to their defaults before applying
-+ * property changes.
-+ */
-+#define DRM_CAP_ATOMIC_RESET	0x16
-+
- /* DRM_IOCTL_GET_CAP ioctl argument type */
- struct drm_get_cap {
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index ed1a660a3dfd..32eb3f650d7a 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -1329,4 +1329,15 @@ struct drm_mode_destroy_dumb {
-  */
- #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
-+/**
-+ * DRM_MODE_ATOMIC_RESET
-+ *
-+ * Reset all KMS object states (CRTCs, planes, connectors, color operations)
-+ * to their default values before applying the properties in this commit.
-+ * Properties not explicitly included in the commit will remain at their
-+ * defaults (CRTCs inactive, planes disabled, connectors unbound, etc.).
-+ *
-+ * This flag cannot be combined with &DRM_MODE_PAGE_FLIP_ASYNC.
-+ */
-+#define DRM_MODE_ATOMIC_RESET 0x0800
++#include <drm/drm_atomic.h>
+ #include <drm/drm_auth.h>
+ #include <drm/drm_crtc.h>
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 72c3d420f40c..cac74d43a34d 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -704,4 +704,6 @@ void drm_atomic_commit_clear(struct drm_atomic_commit *state);
+ 
+ bool drm_atomic_implements_create_state(struct drm_device *dev);
++int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
++					 struct drm_atomic_commit *commit);
  
  /**
-@@ -1341,5 +1352,6 @@ struct drm_mode_destroy_dumb {
- 		DRM_MODE_ATOMIC_TEST_ONLY |\
- 		DRM_MODE_ATOMIC_NONBLOCK |\
--		DRM_MODE_ATOMIC_ALLOW_MODESET)
-+		DRM_MODE_ATOMIC_ALLOW_MODESET |\
-+		DRM_MODE_ATOMIC_RESET)
- 
- struct drm_mode_atomic {
 
 -- 
 2.55.0
