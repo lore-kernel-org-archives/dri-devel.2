@@ -2,126 +2,155 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212AB606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:51:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0967C606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:52:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5Vx50p7m
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HsFBnS5F;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VIuFkIol
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AB411125D7;
-	Thu, 22 Oct 2026 12:51:15 +0000 (UTC)
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012019.outbound.protection.outlook.com [52.101.48.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E8801125D6;
- Thu, 22 Oct 2026 12:51:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m+ePP62zBNhockumMd1XWAT0zLpEsjK4PvJNsjKimDizuwVprg5oiHH+qOs1CkJZSBawkIEFZa2hL4RKanKCp1/phy2xy9q+kNyk/OvOckJRa4hk+TBsIHQtHBULR9dO6J2qokFPIGoYIJxxP57T4Vdue3LxFXx7ipptfJMqJ56Yt46qfUyk4iOu9hKZfJFUJBif57WcE00jUz9qSg3J0emqw/povaRUcOwEFG19w/gMcik22SsQJCZWtZeUVzZ+D5IYNONWbjH0+3jg0Xs7Z1P+mnt7SlkTEKr46a6wU3kqNm4VduT6KYLxjJYnrHktFVUWKIMEdfACrLzHNaY1Dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RMIeIFQVr+6ftq8D6oQLq1Al0V8jYJmLLkeJLqduiAQ=;
- b=ej9z1CJfsseVCeNDJPCZnNZILcLiZ/LyddGzmamctQQUKVGfgKgCgaJ7/J9Qa6SJA+ObMcxKPIxo40LZ9cNgFinLXcwbwe7nugH/3T2zF3/uE7ewV0j+bJ4Iu1bjJIDkx6IAaWGmHzhxLDZXnF9u8wS654+GhAM7AP/WNawH5ETjLfKdy8Gpz5JcmsIdL8KyMFswJVjlhj+l//83BljoreResi7ddBSqyEY/96oH+3FKqMsMjjpC8B4AVgnukvbOG73/cqU1E0q3TiGqz4KAL5HM5iTnSfij2G2btUh/jv9zN9kZS6JFdm/d8TycJHQgGLCKHGJyUkLZTCaOM8Hl1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RMIeIFQVr+6ftq8D6oQLq1Al0V8jYJmLLkeJLqduiAQ=;
- b=5Vx50p7mwJXwjC+QPn5bKWKwEb5uhguSaJypMgafCLtbtQoL+omRV8t9PE6qQ0eZxH97th/c8MI9/QjGCpqNOhB9xEMXhpDODmS/hE7VMeYesypGHWQks36bV2qq+VDq/HKPViATrhW7+VayaXAYui3rNVPL4rWFjn0ARpnWOTQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB7926.namprd12.prod.outlook.com (2603:10b6:8:14a::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Thu, 22 Oct
- 2026 12:51:05 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 12:51:04 +0000
-Message-ID: <a2f06480-786c-4189-8984-7cf3fd7a81ab@amd.com>
-Date: Thu, 22 Oct 2026 14:50:59 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/radeon: retry UVD v1 init on failure after resume
-To: =?UTF-8?B?0J4g0Jo=?= <kolomiiec@gmail.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Leo Liu <leo.liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- dri-devel@lists.freedesktop.org
-References: <20261019144916.108589-1-kolomiiec@gmail.com>
- <CADnq5_Nabpz1U+taZX7-Adc+ZtCKCvyPsz7etBYkewpnRpgC+g@mail.gmail.com>
- <dbaf07c4-9d14-41a1-a943-0ce5e9c7eff8@amd.com>
- <CA+e2gLu+tUWXgQ5F08W9L8FY3K12bMQKPAqaPdzb14NxKVdOFA@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CA+e2gLu+tUWXgQ5F08W9L8FY3K12bMQKPAqaPdzb14NxKVdOFA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0P223CA0008.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:52b::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 657C41125F7;
+	Thu, 22 Oct 2026 12:52:35 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6624D1125E4
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:52:24 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69MA07RB1963443
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:52:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ zSQPAtesTEdiMBUjd/2CJ4F2wEY/qZhqqsQihlJ4XBg=; b=HsFBnS5Fv3bTET6N
+ 83BhsGN7E/bGWWqjqaynZBFwpQEZAN++Yw550oO7AQaITWTmv756jybsKbXzjq3g
+ v8GMcab3u6oFEaJtVbszXgXKjwTjk9HLc+ht8xq6vQoFWfZ5dqw6w0YzM3IK5wMi
+ qIm9Fr8qkR5C8EhfHKQIAB+sfCknI4NCg+CoKhPYXzPqRuhaeONlXgBGUHdjHaIK
+ fFusdQygjF6GgOekdeTJMNUkwoYzN2Z6sytunYrdosqd0mx06BLKFqtzC0BAUuJd
+ +F1s+diOc/t2ar2be7oeCLUkIZ54diZ5gZXe37zcbmTKGZXnBfs6veZ9hFHZoHM9
+ nwvMSQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93akdew-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:52:23 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93c5ab5c136so315166585a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 05:52:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792673543; x=1793278343;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=zSQPAtesTEdiMBUjd/2CJ4F2wEY/qZhqqsQihlJ4XBg=;
+ b=VIuFkIolRP9jdmJ6rZ7YQxcbSrf0/c8ay7d6wS/6oXUQb4hkZG2FO/xyAUBIkWy/FT
+ s1+GvRypMeeKK2DyuQijPp9NG0oUoJLQTZ8/40RNhqT/PjROcEg6QD4Sxk/Lmnj3YxxB
+ LLi3wCdUQTf/OL9ebkpKlQeG1tok+gtJDH8z9xtQUkRASoYNpld2kkK1mB6q0NIZxiS4
+ gLt2HDyakKoStxABp6Nkx4+ug/6UUUMcxOoHZNK5up52woALKykSaN8/JhjBUU9UPglU
+ tnOaohOAChIK6HZQBkinhxlbBxbmBFIjNvJIkbSTlFmmTm2P1nlIgeaaH1c9C14n6v6J
+ FPAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792673543; x=1793278343;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=zSQPAtesTEdiMBUjd/2CJ4F2wEY/qZhqqsQihlJ4XBg=;
+ b=NZXk62uZDIeJd+p03CFFg7DivasKkdEgoFbikrcdR+htmn9+K9q4p6eoMNSfQNyOlL
+ MtLH+TSkLkP1pL6gJRckRXPdXUunwZRIttEPSZPSBhB5QPvIUCMLdY2kpLe5jprmC2QS
+ JQkfWgtcpJvce00B/dra5r40kUUJonRK9zgcselGJzQKfZzB4ZPh5tGxfY6agdJ/MmQp
+ f5LRZCXbawk1z6H+uQDyconm6PWj+oqbrAaIUqlq61+RvL/ZEsVrS4zpU8I27vOQ0EzF
+ 1X5KO/wbOveODkHBbZ97BDar21DOIgaritUD6IjGHasTPQ5YS6PmGllqy0Hii6C+9gOe
+ u3cA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByJK3gEUeln3FMOazC05P1+Zg+W6+rQS55baGcDcRUi8IS3fjRfRjxl5EzIbdjPQmDG4U2jm+ntRbg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIT4q4JODlh0RxM138+wzhTwEeJowyvpAkwg91B7CYHTN033/IK
+ 5+oxyWc8Fr6CauIiiSTfUneRcFI24vL+bIBm9FOWbjvoDkluMr+5r1axmw9N59G3uNmeysLA50f
+ 1QnVaPbDuxFbg63WJ6GnS8mGtOX7CGsV9ha1jNyAA4fm+9t1t5EuNAux4w2/TG3jccTogW1c=
+X-Gm-Gg: AYBFou3YG/Ceu7WoS6g7S0w3qdKprlvKRaZBI3P/EF7SFIX2gjmcNSFa2Tpu0FS6r7K
+ h7reIfUgsZ1R0wuuh+oClzL3UhomtmqtWhk5PjszyChhly8InEoLptl7xQA6do7wDUuJhkhG/gE
+ 6CztKJou4MtozebUqFl4+TkPED+Z5KHmFd1MHcdd7BvdAu9gZ60jtQ5+mMeKv89B7apZceYqltu
+ W1dQPgxR2//cQG06ehBQAbqhlL0HdhwsmeoQdfw7BsZFNMjm8+2kAOg9gt0Eo8vUiGGKYPSqOH+
+ eT1KGrUmDPtqyw9xyTB44ECU2a3OWhe3K4F4uRynPQ/QWmtgsAgXaFJROak7ofptCk+ezueMWwE
+ ulwCL7bB4qmRgIkTpXenEmikfNMsCRcNtXiw5PNSir7Va0Njdo5IS1ug/79jJWNe6kwCkAceSqs
+ AtJbfM6/qbSxoU
+X-Received: by 2002:a05:620a:2995:b0:93e:c12c:f134 with SMTP id
+ af79cd13be357-93f5803c527mr942190085a.79.1792673542585; 
+ Thu, 22 Oct 2026 05:52:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:2995:b0:93e:c12c:f134 with SMTP id
+ af79cd13be357-93f5803c527mr942184085a.79.1792673541916; 
+ Thu, 22 Oct 2026 05:52:21 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5bfae6337dcsm93302e87.72.2026.10.22.05.52.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Oct 2026 05:52:19 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:52:17 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ iommu@lists.linux.dev
+Subject: Re: [PATCH 01/13] dt-bindings: display: msm: Add Qualcomm DCP bindings
+Message-ID: <b7kf23jpwkqhpbmytuomofiewx34qxrjn2zqq3ydhnl4jk2smy@bb7h5vecnnag>
+References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-jshekhar-drm-msm-dcp-v1-v1-1-48aad0fe4f72@oss.qualcomm.com>
+ <hprf3vrsveovq3hwcgjrfj6uhmlxlq5u5bx4lkbswgxe476qwz@pacalsdgrjx7>
+ <ea81fcc1-c7e4-4b80-b65e-f483487bd1a1@oss.qualcomm.com>
+ <f7926ef7-1edf-4d74-9758-2ee0c8a795bc@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB7926:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c24f04c-2f6c-4637-238b-08df303b2248
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|6133799003|22082099003|10067099003|18002099003|261021121427099003|3023799007|261021123027099003|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info: vVuvu+2J209xFZdREjoeyPe34/y3H5A0X/rrhv2NimCZEDhHKPGr1Fss4MUvicHN5zybQFR96ouFmyYKW4JI0pFm1DFvkSH5Ey7e0tp+yxAPrj52yLkA/6fhREAWFtohwx4WT0YWKl3Ofw/igfrkIH5yxMmRzyC10i6c3f86Oqkzl9iv8mdc/baSqc81JeWMtGyEohBrxVzHsZOIPvbFhy9EsTwIK/BwHl974KlJNZeCPo3H7g8StgG1b4Ww9JtBLn+QcI53GIFLtrIvTxuas6pLPOoI3XOdEc2P2M+glQWQB7jxir72jlPC2sVTSoiFQQgZ9Gbja0dEFSApyWUA/blDOSuiL50t6juE70u96qEQgLKyRufr2Y6ZnebRluk8hwzIlGz2QpUoBRdxB4OBHhDamUthjQMGG/V8V42V0ElLYFqV6PV75TCNOGXAuKknQth2pOdBD3gIShMxmySwiUqsuOHL6zOLweo8Wp/+/kS8F9Y3yh1KhDmbXJmsX5UKWkDGcv8cj7KzGlOmHp829nIRWNrmXvTiDsqlL5Va6l6C0KWewDMlsIpClm5wnr4uAC4x5b4eJqvH3Fx3s3dU3716vMyMg8/E7iUIebg+eeA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(261021121427099003)(3023799007)(261021123027099003)(11063799006)(4143699003)(261009223027099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amVmQkd5RHk5YWdTelBUOFQ0NzI0QU5jSXZHVm5mQlJiRm1VMjJvNEpsN2Vl?=
- =?utf-8?B?dlN5d3VnMUFvTVNxcmVlMXNYQy9xbERTakt6M0ZiQlFVL2VTT3JoeUJQRlhC?=
- =?utf-8?B?bEp1cW9SbzVpZGhCT0dxWW5tVlB4Q3RibzZkUDFnY0ZyYlc5eGcvRTNFNXRy?=
- =?utf-8?B?dEQwVVhZMnl1NFFqZzVYdG5UR01DRTdyOWkwK1V5djRtVk51dXZrQm5SL3N2?=
- =?utf-8?B?VXdJamRmOXZlclZkQzdtTGJkdGxNNTlwRUhDeFNyRWdsTW1BQkVvVDNKdXY4?=
- =?utf-8?B?N0VHWGl6THJRNHRWNFV2T0MvaWllZWFab3l0S29PMFphOTlzeVhJZ0Z5MFUr?=
- =?utf-8?B?WmFFREVWcTJud3BBclZXL1kxUjl4eWJDN0c5RGx6UFk3YmVETlNvSDdGR2x6?=
- =?utf-8?B?Y2J0YUVEN2E3MU1tbHgwMFlCMWhwTzZuT3lTbmkxZkl5TTYwZlFxemFoVlpr?=
- =?utf-8?B?eCtJTlNSUHNMd2QzUStkazQ0MGc1MkJhTktmN1ByQkRKTkdjaFluZXlxbmw0?=
- =?utf-8?B?eTB3MkU0TWU0SjdOSStXT0VyYmthcDlUbU5oM3dOM0wvbUVDelo2cUg2K2lF?=
- =?utf-8?B?QVF1RlJxWmdtT056akpYWXVnVUtYdzE3WkZUL3UyT2swSTRFRVlwY2g1QVFk?=
- =?utf-8?B?dHU5cWZVNDl6cFhwdzlZbEI4Z1FueVJqKzFrWlY4bFlkZ2lnQWhITXpwUHZM?=
- =?utf-8?B?Rk9HOTlyVzd6YzdzUTlXQUhWamw0eS9QSjZnQXB3ZDJZdzBTZzN5TFE3aFU4?=
- =?utf-8?B?MVRoOGhROG5ybnNLSDg2LzJHdWIxekpPZ2VsUUdSM20zQzFHTHFrMEc4MkZO?=
- =?utf-8?B?V0VDb0RpRHpPMGkzb2ZRK1VFY0tIeXIxUkNiaDJLOGZ6b1JTaTUzelN2SEZq?=
- =?utf-8?B?ellhYU42aFVwNEhlYkc3OUUrTk5QTUo2QzRqTGUzRWhTZmNuZVBEZUswdWUw?=
- =?utf-8?B?R2RLdmREWHpndjZzQmoxZll5MDJOT3Q1aDM0TVVDUlk4VThzU3Q1TWZiekM2?=
- =?utf-8?B?b0dPQ1VzaDMxbW9rbUR5eFhreDlpYnVnOUYzQUhCbDRldVJjalJuYzJNQWta?=
- =?utf-8?B?MEtSNkIzQ3YrRUdiYU1BcUwyZi9ZTStneTFYRjdiellWY2c5N2ZqbC8walc0?=
- =?utf-8?B?YmFJa3hpdjJtSzM1T1B6QnFUUTlGZW9VRi92elIvYXovQ29jWDN3R2FvUHZD?=
- =?utf-8?B?K09weTZXM2xDZitrb25GalpaSk1SaTF4bCtUMFlzcFNFS09jSXN0R0xDZUwv?=
- =?utf-8?B?bFFUUzRCUklteU83U1ZGditySGE3OFRqUFRwSUR6bStMcGZQbFBkZ1Rvdmsv?=
- =?utf-8?B?UVN1TUlOaXR2Y2plVm92eTNaSTVuUmd2RVJwcFZOa1VPSGZkREdiSjhEc1Bq?=
- =?utf-8?B?Ris0ZlVWdHZBeVhZZzNYYkpQQTh0SG5WVmM5SlpvWkFKZUkrQy9vODBYclRR?=
- =?utf-8?B?S3RFZUc0L0tiVis4cUlpcjRuN2JYekRuZW1aeWtTZmhvZ0RkTXBEWEdkcnI3?=
- =?utf-8?B?UXRydGxiZFVXN0V2eXdqazdmWTJsbFpRVVdydDI0NTF0Zml6WTRST0tPRmRq?=
- =?utf-8?B?WE1jSDZWZHlZT1JhSW1SR1QyN2FVS1Q0SkVTNnpUSkdFSFgwK2FPa3F2M2d3?=
- =?utf-8?B?WlpQMXpySFg2RWU1enp4ZEV4Z2RZaFFNMnRRMVhuR0ZXSTZZYzY3V2NLZHpH?=
- =?utf-8?B?Z0hsZGJDYkR5Zndrazd1R1Rsd2JFeVFrV1A3clgvM1hwTlJuSXdCc2h5ZS9k?=
- =?utf-8?B?K1RHMUFmblBiYnR6NEFpUmpVSkNvRU1TSEhYNEZWc1pwdmMrZ0tqbmF3Y2ZL?=
- =?utf-8?B?bnFMRXN3NzVyZmZteWVjVHNSbDd5cnNPYXBWQU1vWDhpYmN2SFc2UWxjTlRB?=
- =?utf-8?B?YmVnWDVVNVpFRjJJMTBBVUNQSG9xWXQ5SWJycjNqSGs3TGV3NUdQWWFKZWpu?=
- =?utf-8?B?cUpWZUJDTTdIbWJ0bXc4UFZlUTRsZXZ1NWpwdGVRTVpDY0htd0poS2xjSk8w?=
- =?utf-8?B?ODNKMEJGK2tiK3g2aXhWVlFsMlg2dk03VFRMM1YyY09MbHk4QlZoZ2tIWGpX?=
- =?utf-8?B?aWQrRXVrQ2tXbTc1emVHc3BCSHk3dG9yWkQ3RDlVNjNMZUVaZDhTOXgyTTdO?=
- =?utf-8?B?MHhVNlFNZFhVSkoyQk1LeXRUVCtQa1krYVBmRzd6MGtUQ28xL25VaFI5eEt1?=
- =?utf-8?B?UTgzT2xxd0xFTUsyQ0VhdWh5RTNLeWRvMGgrK0o0MS9PZy9OUWJHVm1HbUdL?=
- =?utf-8?B?OHVQY2w4WmlpNFhWb3JWOG9CZ1NwSG5pSFl6aTJEMnRzWGU4c09paGtRVlNa?=
- =?utf-8?Q?xQIBVrNUHJlty9Mr2J?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c24f04c-2f6c-4637-238b-08df303b2248
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 12:51:04.7711 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yalZyEwSoGxcx0wyxrECdWAJBD0sum7HTOsaRq9aee3INAdKvWY/Uo5NAe0oC7kB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7926
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f7926ef7-1edf-4d74-9758-2ee0c8a795bc@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1MSBTYWx0ZWRfXxIYT33Ng+dQL
+ ZwqB666imtHCy/p2VoyFTy/9kqZvd0RpxGgyAtoYWrITQHouT0sQsDiV1+RvL/4hB94eY3jIG5L
+ cNM1jGPbyGeUIzJItP1VYWZQ+kp98o+VAuCR3Kzc0DOwnlUGh2g1jhaZjh1yhLIitDOgSwOIjhY
+ tdBRbLDG50X+iGF24CB9YotPcub9+Xbk0y2EJZUUtzk6KYx+RjP1/9Qw+zSozJBn9eLvEQEyLDG
+ 5m0rqD60Ih7cHLNLIXhC2CaDisCawHJy9li8CkEUg4BXI2weOsO0p3YTtxDnAQwPB+W1MObHo8M
+ y3GD6mAi8zpUzqm09TWEBEQ91bYiaaAPHgbGGfqhRenfRGpMbnd2pNLOELgSLWEaGaz/xv9qZ/Y
+ DD3p1eyvM06nphP4lcCfFvxRpcC7QYIbRF+2phR2fi3xu0+6SzHhXpcnHmmB4z86AfagLwLvyU4
+ n2PH/H2Mwkrk46JAZhg==
+X-Proofpoint-GUID: qZk7cDm19X965MPLKJVaVwwqqA2qbRW9
+X-Authority-Analysis: v=2.4 cv=feg4WEQF c=1 sm=1 tr=0 ts=6ada0707 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=SNC64sLV-JS3cwQd52MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-ORIG-GUID: qZk7cDm19X965MPLKJVaVwwqqA2qbRW9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1MSBTYWx0ZWRfXzAE7vJ5A1kR2
+ PKg7+2yHQpb/PtwAgBFyieZelrFF4Pp41XuwACO0hwS0hSyyeHSaBQgeyfdBw6DFNR2lH1ToKbN
+ NWUQtHUgNnbGYyVDmYwZ9fQDsNPnpFs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 suspectscore=0
+ spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220051
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,236 +162,325 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/21/26 23:47, О К wrote:
-> Hello everybody,
+On Wed, Oct 21, 2026 at 05:09:15PM +0530, Jayant Shekhar wrote:
 > 
->> That HW is ancient!
+> On 21-10-2026 14:15, Jayant Shekhar wrote:
+> > 
+> > On 15-10-2026 17:47, Dmitry Baryshkov wrote:
+> > > On Thu, Oct 15, 2026 at 01:08:21PM +0530, Jayant Shekhar wrote:
+> > > > DCP platforms place the display pipeline under firmware control,
+> > > > so Linux
+> > > > cannot discover display resources through direct register
+> > > > access. The DRM
+> > > > driver therefore needs device-tree descriptions of the firmware
+> > > > transport,
+> > > > display topology, IOMMU contexts, and panel connections.
+> > > > 
+> > > > Add bindings for the Qualcomm DCP VirtIO display function,
+> > > > including the
+> > > > INTF graph and DSI host outputs. Document the framebuffer IOMMU
+> > > > context,
+> > > > IPCC power-notify mailbox and interrupts, firmware display
+> > > > topology, and
+> > > > firmware-visible IOVA window supplied by the parent VirtIO-MMIO
+> > > > transport.
+> > > > 
+> > > > Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> > > > Assisted-by: LLM
+> > > > ---
+> > > >   .../bindings/display/msm/qcom,dcp-dsi.yaml         |  75
+> > > > +++++++++++++
+> > > >   .../bindings/display/msm/qcom,dcp-virtio.yaml      | 113
+> > > > +++++++++++++++++++
+> > > >   .../devicetree/bindings/display/msm/qcom,dcp.yaml  | 119
+> > > > +++++++++++++++++++++
+> > > >   3 files changed, 307 insertions(+)
+> > > > 
+> > > > diff --git
+> > > > a/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+> > > > b/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..f7178c66c09e
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+> > > > @@ -0,0 +1,75 @@
+> > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/display/msm/qcom,dcp-dsi.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: Qualcomm DCP DSI host
+> > > > +
+> > > > +maintainers:
+> > > > +  - Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> > > > +
+> > > > +description: |
+> > > > +  A MIPI DSI host exposed by the Qualcomm DCP VirtIO device (see
+> > > > +  qcom,dcp.yaml). DCP is a firmware protocol shared across multiple
+> > > > +  Qualcomm SoCs, not specific to any one of them; Hawi is its first
+> > > > +  platform. The DSI host and its connection to a panel are described
+> > > > +  using the standard DSI controller and OF graph properties.
+> > > > +
+> > > > +allOf:
+> > > > +  - $ref: /schemas/display/dsi-controller.yaml#
+> > > > +
+> > > > +properties:
+> > > > +  reg:
+> > > > +    maxItems: 1
+> > > > +    description: Index of this DSI host among its siblings.
+> > > > +
+> > > > +  status: true
+> > > > +
+> > > > +  ports:
+> > > > +    $ref: /schemas/graph.yaml#/properties/ports
+> > > > +    description: |
+> > > > +      port@0: Input from the DCP virtio device's DPU INTF output port.
+> > > > +      port@1: Output to the attached panel.
+> > > > +    properties:
+> > > > +      port@0:
+> > > > +        $ref: /schemas/graph.yaml#/properties/port
+> > > > +      port@1:
+> > > > +        $ref: /schemas/graph.yaml#/$defs/port-base
+> > > > +        unevaluatedProperties: false
+> > > > +        properties:
+> > > > +          endpoint:
+> > > > +            $ref: /schemas/media/video-interfaces.yaml#
+> > > > +            unevaluatedProperties: false
+> > > Why do we need OF graph here? Would it be enough to link one of the
+> > > ports of the root node with the panel's input?
+> > > 
+> > > > +
+> > > > +required:
+> > > > +  - reg
+> > > > +  - ports
+> > > > +
+> > > > +unevaluatedProperties: false
+> > > > +
+> > > > +examples:
+> > > > +  - |
+> > > > +    dcp-subsystem {
+> > > > +        #address-cells = <1>;
+> > > > +        #size-cells = <0>;
+> > > > +
+> > > > +        dsi@0 {
+> > > > +            reg = <0>;
+> > > > +            #address-cells = <1>;
+> > > > +            #size-cells = <0>;
+> > > > +
+> > > > +            ports {
+> > > > +                #address-cells = <1>;
+> > > > +                #size-cells = <0>;
+> > > > +
+> > > > +                port@0 {
+> > > > +                    reg = <0>;
+> > > > +                    dcp_dsi0_in: endpoint {
+> > > > +                        remote-endpoint = <&dcp_intf1_out>;
+> > > > +                    };
+> > > > +                };
+> > > > +
+> > > > +            };
+> > > > +        };
+> > > > +    };
+> > > > diff --git
+> > > > a/Documentation/devicetree/bindings/display/msm/qcom,dcp-virtio.yaml
+> > > > b/Documentation/devicetree/bindings/display/msm/qcom,dcp-virtio.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..018694310dfb
+> > > > --- /dev/null
+> > > > +++
+> > > > b/Documentation/devicetree/bindings/display/msm/qcom,dcp-virtio.yaml
+> > > > @@ -0,0 +1,113 @@
+> > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/display/msm/qcom,dcp-virtio.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: Qualcomm DCP VirtIO host
+> > > > +
+> > > > +maintainers:
+> > > > +  - Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> > > > +
+> > > > +description: |
+> > > > +  Qualcomm's DCP VirtIO host provides the generic VirtIO-MMIO
+> > > > transport and
+> > > > +  the host-side IPCC channel used to wake the DCP firmware.
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    contains:
+> > > > +      const: qcom,dcp-virtio
+> > > > +
+> > > > +  reg:
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  iommus:
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  iommu-ranges:
+> > > > +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> > > > +
+> > > > +  interrupts-extended:
+> > > > +    minItems: 2
+> > > > +
+> > > > +  interrupt-names:
+> > > > +    items:
+> > > > +      - const: virtio
+> > > > +      - const: dcp_power_notify_irq
+> > > > +
+> > > > +  dma-coherent: true
+> > > > +
+> > > > +  mboxes:
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  mbox-names:
+> > > > +    const: dcp-power-tx
+> > > > +
+> > > > +  dcp-subsystem:
+> > > > +    $ref: qcom,dcp.yaml#
+> > > > +
+> > > > +required:
+> > > > +  - compatible
+> > > > +  - reg
+> > > > +  - interrupts-extended
+> > > > +  - interrupt-names
+> > > > +  - iommus
+> > > > +  - dcp-subsystem
+> > > > +
+> > > > +additionalProperties: false
+> > > > +
+> > > > +examples:
+> > > > +  - |
+> > > > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > > > +    #include <dt-bindings/mailbox/qcom-ipcc.h>
+> > > > +
+> > > > +    virtio@9be8000 {
+> > > > +        compatible = "qcom,dcp-virtio", "virtio,mmio";
+> > > Is it really compatible with virtio,mmio? Can it be handled completely
+> > > by virtio,mmio?
+> > 
+> > 
+> > There are two possible approaches:
+> > 
+> > Option 1 — Use the standard VirtIO-MMIO parent (preferred)
+> > 
+> > Keep the parent as:
+> > 
+> > compatible = "virtio,mmio";
+> > reg = <...>;
+> > interrupts = <...>;
+> > iommus = <...>;
+> > iommu-ranges = <...>;
+> > dma-coherent;
+> > 
+> > The generic virtio/mmio.yaml binding would be extended only to document
+> > the generic iommu-ranges property.
+> > 
+> > The DCP-specific resources would be placed on the virtio,deviceXX child:
+> > 
+> > dcp-subsystem {
+> >     compatible = "virtio,deviceXX";
+> >     iommus = <...>;
+> >     interrupts-extended = <&ipcc ...>;
+> >     mboxes = <&ipcc ...>;
+> >     mbox-names = "dcp-power-tx";
+> > };
+> > 
+> > The parent uses the standard VirtIO-MMIO interrupts property. The child
+> > has one DCP-specific interrupt, so interrupt-names is unnecessary and
+> > the driver uses interrupt index 0.
+> > 
+> > Option 2 — Add a Qualcomm-specific VirtIO-MMIO parent binding
+> > 
+> > Keep a Qualcomm-specific compatible such as:
+> > 
+> > compatible = "qcom,dcp-virtio", "virtio,mmio";
+> > 
+> > and extend the parent binding to describe iommu-ranges, the additional
+> > IPCC interrupt, mailbox, and related DCP resources.
+> > 
+> > However, this approach duplicates the generic VirtIO-MMIO binding and is
+> > only justified if the transport requires Qualcomm-specific handling.
+> > Since the DCP transport is handled completely by the standard
+> > VirtIO-MMIO driver.
+> > 
+> > Which one do you prefer?
+> > 
+> > I will be addressing other comments in v2.
+> > 
+> > 
+> > Thanks
+> > 
+> > Jayant
+> > 
+> > 
 > 
-> It is — and still in daily service here, which is exactly why I care. :)
-> 
->> The question is really if that works reliable or if that could break anything?
-> 
-> Fair frame, so let me answer it directly.
-> 
-> 1) The success path is bit-identical to stock. When the first attempt
-> works (cold boot, healthy resumes), the added code executes zero extra
-> instructions — the loop breaks immediately.
-> 
-> 2) The failure path cannot leave the system worse than stock.
-Oh well, that is not even remotely true :)
+> I think Option 1 is not suitable because the IPCC power-notify sequence is
+> required before the first VirtIO-MMIO register access. The standard
+> VirtIO-MMIO driver would otherwise probe the DT node directly and access the
+> registers before Qualcomm-specific initialization is complete.
 
-The problem is that those old HW generations work with a rather rudimentary UVD FW signing. When that FW signing HW block thinks you are tampering with the UVD FW the device usually spontaneously falls of the bus.
-
-In other words you can't read/write the PCI config space of the device any more, reads to MMIO BARs only return 0xffffffff and a few seconds later the system becomes completely unresponsive and you can only power cycle it to get out of that.
-
-> Today a
-> failed ring test already ends in -EINVAL with UVD dead for the session.
-> The patch only adds up to two more bounded attempts (~250 ms each:
-> start, ring test, stop, 20 ms settle) and then falls through to the
-> same failure state. The display rings (0/3) and the rest of the resume
-> path never touch this code — and years of stock behavior prove the
-> machine resumes fine with UVD dead.
-
-Yeah that sounds unproblematic, the bit extra delay is not really a problem.
-
-> 3) The one real hazard — MMIO to an unclocked UVD block in the retry's
-> stop path — was caught by the Sashiko review and is fixed in the
-> [PATCH v3] already on the list: stop is now called only when clock
-> setup succeeded. v3 also drops the warm-up cycle and the widened poll
-> window I had in v2 — both reviews were right that they didn't belong;
-> our measurements agree (neither prevented first-attempt failures).
-
-Yeah that is definitely a good idea as well.
-
-IIRC there is also a bit in the LMI register which is called *_VPU_STALL_* or something like that. Setting that before a retry and waiting a few miliseconds is usually a good idea as well.
-
-> Measured on the target machine (HD 5650M, kernel 7.0.0): stock survives
-> resume with working UVD in ~50% of 42 measured cycles; patched has been
-> 12/12 on the test stand plus every daily resume since.
-> 
-> If you prefer a tighter bound, I'm fine with 2 attempts instead of 3.
-
-That is not really the problem, question is rather have you seen any hard crashes with this?
-
-Regards,
-Christian.
+Good. Which means that dcp-vrtio device isn't compatible with
+"virtio-mmio" and can't use it as a fallback in DT.
 
 > 
->> when resume doesn't work at all any more then that would be really bad
+>   Would the following Qualcomm-specific transport approach be acceptable?
 > 
-> Agreed — and that scenario is exactly what the v3 guard is about.
-> 
-> Thanks,
-> Oleg
-> 
-> ср, 21 жовт. 2026 р. о 17:28 Christian König <christian.koenig@amd.com> пише:
->>
->> That HW is ancient!
->>
->> The question is really if that works reliable or if that could break anything?
->>
->> I mean when UVD doesn't work after resume is ugly, but when resume doesn't work at all any more then that would be really bad.
->>
->> Regards,
->> Christian.
->>
->> On 10/21/26 15:29, Alex Deucher wrote:
->>> + Leo, Christian
->>>
->>> On Tue, Oct 20, 2026 at 3:46 AM ukrainer8 <kolomiiec@gmail.com> wrote:
->>>>
->>>> On Evergreen/Redwood (and likely other UVD v1/v2 hardware), resume from
->>>> suspend intermittently fails the UVD ring test:
->>>>
->>>>     radeon 0000:01:00.0: [drm] *ERROR* radeon: ring 5 test failed (0xCAFEDEAD)
->>>>     radeon 0000:01:00.0: failed initializing UVD (-22).
->>>>
->>>> Cold boot always succeeds; resume succeeds only in about half of the cycles
->>>> (42 measured suspend/resume cycles on a Radeon HD 5650M: OK counts per
->>>> 6-cycle run were 2, 3, 5, 6, 1, 5, 3). Once the ring test fails, UVD stays
->>>> dead for the rest of the session and hardware video decode silently falls
->>>> back to CPU.
->>>>
->>>> The resume path runs the same full asic startup as cold boot
->>>> (evergreen_resume() -> evergreen_startup()), so the difference is the
->>>> hardware state at entry, not a skipped call. Field data shows the first
->>>> ring instance after resume is dead functionally, not by timeout: the ring
->>>> test fails fast and deterministically, and only a full stop+init cycle
->>>> revives the engine.
->>>>
->>>> Fix this the way the Windows driver effectively does it: silently cycle
->>>> the engine once (clocks up, start, stop, 20 ms settle) before testing,
->>>> then run the init sequence in a retry loop - on failure of clock setup,
->>>> VCPU start or the ring test, fully stop UVD, let it settle for 20 ms and
->>>> try again (up to 3 attempts). Each retry logs the failing step and the
->>>> attempt number, which also makes future reports of this failure mode
->>>> self-diagnosing. The ring-test polling window is widened from 100 ms to
->>>> 2000 ms as spare capacity; the early-exit poll keeps healthy hardware on
->>>> the fast path.
->>>>
->>>> On the same machine the patched driver went 6/6 OK across repeated test
->>>> runs, with the warm-up absorbing the dead first instance and zero error
->>>> lines in dmesg.
->>>>
->>>> v2: guard uvd_v1_0_stop() behind successful clock setup, per Sashiko AI
->>>> review - MMIO writes to an unclocked UVD block can cause a PCI bus master
->>>> abort and hard-hang the system.
->>>>
->>>> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1867
->>>> Link: https://bugs.launchpad.net/bugs/1865130
->>>> Tested-by: ukrainer8 <kolomiiec@gmail.com>   # Radeon HD 5650M, kernel 7.0.0
->>>> Signed-off-by: ukrainer8 <kolomiiec@gmail.com>
->>>> ---
->>>> v1 -> v2: keep the clock-setup result in a separate variable and only
->>>> call uvd_v1_0_stop() when clocks were actually raised (Sashiko AI review).
->>>> Also folded in the silent warm-up cycle and the wider ring-test window
->>>> validated in field testing since v1.
->>>>  drivers/gpu/drm/radeon/uvd_v1_0.c | 57 ++++++++++++++++++++++++++-------------
->>>> --- a/drivers/gpu/drm/radeon/uvd_v1_0.c
->>>> +++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
->>>> @@ -158,24 +158,58 @@
->>>>  {
->>>>         struct radeon_ring *ring = &rdev->ring[R600_RING_TYPE_UVD_INDEX];
->>>>         uint32_t tmp;
->>>> -       int r;
->>>> +       int r, retry, clk_err;
->>>>
->>>> -       /* raise clocks while booting up the VCPU */
->>>> +       /* warm-up: silently cycle the engine once (like the Windows driver),
->>>> +        * the first ring instance after resume is dead functionally */
->>>>         if (rdev->family < CHIP_RV740)
->>>>                 radeon_set_uvd_clocks(rdev, 10000, 10000);
->>>>         else
->>>>                 radeon_set_uvd_clocks(rdev, 53300, 40000);
->>>> +       uvd_v1_0_start(rdev);
->>>> +       uvd_v1_0_stop(rdev);
->>>> +       mdelay(20);
->>>>
->>>> -       r = uvd_v1_0_start(rdev);
->>>> -       if (r)
->>>> -               goto done;
->>>> +       /* after resume the first ring test can race with the hardware; retry */
->>>> +       for (retry = 0; retry < 3; retry++) {
->>>> +               /* raise clocks while booting up the VCPU */
->>>> +               if (rdev->family < CHIP_RV740)
->>>> +                       clk_err = radeon_set_uvd_clocks(rdev, 10000, 10000);
->>>> +               else
->>>> +                       clk_err = radeon_set_uvd_clocks(rdev, 53300, 40000);
->>>> +               r = clk_err;
->>>> +               if (r)
->>>> +                       drm_warn(&rdev->ddev, "radeon: raising UVD clocks failed (%d), attempt %d\n",
->>>> +                                r, retry + 1);
->>>> +
->>>> +               if (!r) {
->>>> +                       r = uvd_v1_0_start(rdev);
->>>> +                       if (r)
->>>> +                               drm_warn(&rdev->ddev, "radeon: starting UVD failed (%d), attempt %d\n",
->>>> +                                        r, retry + 1);
->>>> +               }
->>>>
->>>> -       ring->ready = true;
->>>> -       r = radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
->>>> -       if (r) {
->>>> -               ring->ready = false;
->>>> -               goto done;
->>>> +               if (!r) {
->>>> +                       ring->ready = true;
->>>> +                       r = radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
->>>> +                       if (r) {
->>>> +                               ring->ready = false;
->>>> +                               drm_warn(&rdev->ddev, "radeon: UVD ring test failed (%d), attempt %d\n",
->>>> +                                        r, retry + 1);
->>>> +                       }
->>>> +               }
->>>> +
->>>> +               if (!r)
->>>> +                       break;
->>>> +
->>>> +               /* MMIO is only safe when the block is actually clocked */
->>>> +               if (!clk_err)
->>>> +                       uvd_v1_0_stop(rdev);
->>>> +               if (retry < 2)
->>>> +                       mdelay(20);
->>>>         }
->>>> +       if (r)
->>>> +               goto done;
->>>>
->>>>         r = radeon_ring_lock(rdev, ring, 10);
->>>>         if (r) {
->>>> @@ -421,7 +455,8 @@
->>>>  int uvd_v1_0_ring_test(struct radeon_device *rdev, struct radeon_ring *ring)
->>>>  {
->>>>         uint32_t tmp = 0;
->>>> -       unsigned i;
->>>> +       /* after resume the ring buffer controller needs ~1.5-2s to settle */
->>>> +       unsigned i, timeout = 2000000;
->>>>         int r;
->>>>
->>>>         WREG32(UVD_CONTEXT_ID, 0xCAFEDEAD);
->>>> @@ -434,14 +469,14 @@
->>>>         radeon_ring_write(ring, PACKET0(UVD_CONTEXT_ID, 0));
->>>>         radeon_ring_write(ring, 0xDEADBEEF);
->>>>         radeon_ring_unlock_commit(rdev, ring, false);
->>>> -       for (i = 0; i < rdev->usec_timeout; i++) {
->>>> +       for (i = 0; i < timeout; i++) {
->>>>                 tmp = RREG32(UVD_CONTEXT_ID);
->>>>                 if (tmp == 0xDEADBEEF)
->>>>                         break;
->>>>                 udelay(1);
->>>>         }
->>>>
->>>> -       if (i < rdev->usec_timeout) {
->>>> +       if (i < timeout) {
->>>>                 drm_info(&rdev->ddev, "ring test on %d succeeded in %d usecs\n",
->>>>                          ring->idx, i);
->>>>         } else {
->>
+>   - qcom,dcp-virtio is the DT-compatible Qualcomm wrapper. It initializes
+> IPCC and sends the required power notification before creating a synthetic
+> virtio-mmio platform device.
+>   - The unchanged generic VirtIO-MMIO driver probes the synthetic child,
+> accesses the MMIO registers, creates the VirtIO queues, and registers the
+> VirtIO device.
 
+Why do you need a synthetic VirtIO-MMIO? Why can't you register a virtio
+host from dcp-virtio? The driver is not designed to work in that way.
+
+You have two major options here:
+- Copy relevant parts of virtio-mmio to the dcp-virtio driver.
+- Turn the core parts of the virtio-mmio driver into the library, making
+  it possible to share the code with DCP driver.
+
+>   - The DCP VirtIO driver binds to the resulting VirtIO device through its
+> VirtIO device/vendor ID table and initializes HFI, firmware capabilities,
+> and DRM/KMS.
+>   - The virtio,deviceXX DT child is discovered by the VirtIO core and
+> describes the DCP-specific IOMMU context, DSI hosts, display graph, and
+> panels.
+
+With your suggested codeflow, what happens if the dcp-virtio driver
+suspends the DCP host, making virtio queues unavailable? How would
+virtio-mmio know that it should also prevent the access? How would you
+suspend it too?
+
+> 
+>   The flow is:
+> 
+>   qcom,dcp-virtio
+>       → IPCC power-up
+>       → synthetic virtio-mmio device
+>       → generic VirtIO-MMIO driver
+>       → virtio,deviceXX DT child
+>       → DCP HFI/DRM driver
+> 
+>   Since the Qualcomm wrapper creates and owns the synthetic VirtIO-MMIO
+> device, the parent node uses only:
+> 
+>   compatible = "qcom,dcp-virtio";
+> 
+>   It should not also advertise "virtio,mmio", because the generic driver
+> must not probe the parent directly before IPCC initialization.
+
+Good.
+
+-- 
+With best wishes
+Dmitry
