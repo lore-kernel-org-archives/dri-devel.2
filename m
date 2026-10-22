@@ -2,101 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3182D606A319
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:09:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93DA606A319
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 09:09:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Sok4x+qO;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Trv9Sg7r
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=awUZGDvU;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JIYlqAcY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88B06112418;
-	Thu, 22 Oct 2026 09:09:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C21610E32E;
+	Thu, 22 Oct 2026 09:09:46 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26EFA10E32E
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:30 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94D98112410
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:34 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69M702bT3076364
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:29 GMT
+ 69M6xv371560116
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=j3WJZdu5775elj6uuKLwnG
- 5OWtcyQAMV793EswPClxw=; b=Sok4x+qOHyVxuPipE7GtNfO1/rPu2zg79DNu8N
- hnplTNRMR+l5OdyGhr1eeeGo5Q3ZjY8oZtB3xF17wF99fhHKnihjZqA93HKg1IXn
- XuFboaCcdZKCTRGO617gnO8qFLmOgDMt9fr3A4rPtt45Ra+0e4jy/JtjaPTr6IZL
- avn71avb6o5huyFX2wJozZeuctvcpKUllYJgMw1uoZzVG76uILTeu50jul9GISA3
- OWSJTiXw7SmlZUy7nl4W43bsp63nYHqw0SEIpKE2ToYsWfmLHZqxIgzIdjy4TNNP
- xT80qtksputk4foZPzsZkJaV/C8HW0wQ3HqkhoJArnKbjWnQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93a1kyw-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ I1otG1lzuT2TL603n+ZyA3mzLoyhPcar5mVP11oCq/4=; b=awUZGDvUo381zakE
+ 6IlU2NFPZS8CF4z1toImlJP1v4c1Us3D8S8tMGlDHsaLjViCgF5tKaRlScW2sGNR
+ nzmedS4PMfnjR80vijvCqrG+GaG9VAtgMPp61NXNNJ+RGPWnoUrwzavCYwRD9Fqi
+ Xu94BxbDRb0fejtCJuA7qXSkwI800z1MI2kh4i77allNd8iPzTyOwc1uN4mPJvyG
+ HyzsOwQKdSGYfdPjTtbmSVQJ9M5NPr42HxJ+UdPWqwgtVfKifdlqH+nVZWQnYBBJ
+ eGs2OR9c60sSgnLWeeuN0rZli8aJruEX5nBv+Y6TGTDLvc39pLaVUWJWwRKTO1A6
+ EIc1wA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
+ [74.125.82.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93ahn4v-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:29 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-3510d0baf63so3813479eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:09:29 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 09:09:33 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-3692c5b061bso896452eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 02:09:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792660169; x=1793264969;
+ d=oss.qualcomm.com; s=google; t=1792660173; x=1793264973;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=j3WJZdu5775elj6uuKLwnG5OWtcyQAMV793EswPClxw=;
- b=Trv9Sg7rOBoauiUO7efSkloRNaEvyNfBXIQB68Uw+PlsrMhmnXRutBskcsS909lSNv
- PC2g7jy46K7oHZPmJm1wWvknXTdBx8F7pwqK6aZ+peMa6GOcDzN7EFZTp+y8d/9xWAFD
- wL2eY1HqYUtaiwwk3j97DA1PE6osWF0j0BVAC/nWp9rknzvL/0tlQ/euWupAFvC6QRMg
- uTD//ByfrJkKaGgrUzHR7+E4kNEV1UztQUx8kdtXV0hWV4PD8hP5NDhC+sWT0GNnR0xS
- MkxGu8w0YJXK8nyu2li/MDE8uqNmf+MbZ8n/rvZC8lNYDpbAYJYUJ/yGR2CKodSm0QOA
- ydzg==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=I1otG1lzuT2TL603n+ZyA3mzLoyhPcar5mVP11oCq/4=;
+ b=JIYlqAcYYRx1Xo7pYIcrHeGMt0tkqPky3xOjM3uttYRwe9XeT8wVtBugb4mx0T7nsK
+ QQQFQ+YHTkgKbs21ML+RM5llsMkLT12CGpeK0yRdyjeWNytUn3KmVzUhgKGrcRXLGi2j
+ P+lK2IlvQka8TZKixdqM119rrdnsOwR7PmK7IXsvATenzWOn2bTA4aEcekZOKT2IMqoT
+ FBkiDn4n9Z6ao1ofw9qytqP8zs+Dn5x7mMjJpCXXJw+70l/DVZrblHo/DhT+i6AGz2Kq
+ e/ZO1fHCZabFHieD1CHRBkE5PmvdXrayhWQT7kywiduwnDPe0Fi8eDq/ExYLm/pScdKD
+ RfHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792660169; x=1793264969;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=j3WJZdu5775elj6uuKLwnG5OWtcyQAMV793EswPClxw=;
- b=yotbRjbBEicnadXdMcAR2O5DYxYS0RVfzx+CWoQajvSp7TB/PRWj1cjl/IrQPs+JZe
- NfrwKAldB46YhHF8a/M8M5WydY4mIHqyBpCPfcb/l5F0mwt9YVO12LNHFB0Dug0TEQcU
- WeuUmZsjgELMYj+D3ubtRN8+jS5rMreYYgR82AMjp37wVxCbdn9FGOd31yC/NQ52oXhm
- j9HXIrGV4pQTsslcWzuGZlkQdst2nyv1oJknpGVfH6RFs1iGF+yQa/O5kCiA//dSSorH
- OFKy66vl/J0OaJ30tTqFrIulWZO3eI/7fyUCtTuf9RheNXfwzf/7J6lQFCam01RKvA2i
- ZSEw==
+ d=1e100.net; s=20260707; t=1792660173; x=1793264973;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=I1otG1lzuT2TL603n+ZyA3mzLoyhPcar5mVP11oCq/4=;
+ b=gincQphQRBixImO49EsFBUhkCW6Zuj84d4uwEub2d9Hra502EhpHujv6UDjAXQ9pWF
+ eqQM+2UDjuXWv376VGEbkdjbjdVOqvSazNAay8xyfPczJbTCd8KxQ/53y3vGSJ4wSG6o
+ 2ta4ga0maDFmsbqFPbtfPVRNT482SnhkNoKTpwUou06dX9tIy1Ha5zEmSPTnoYfnDKZq
+ f4Xda6T15P1W+g9Pv64lkHYSTf0SPRdI2l+LtewSbnoPZWwPo8G1uQGNBqAFmZhBO9oF
+ 8pdGrckOlHwSsY48gCi7GkJzgziX6XoEXDkNREtUR+pkxZj51Mk9Zyk7sE9lRInO2zh4
+ Y78Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxiNHNE7nDsVr5lSuwvt0pdP50hLOvGSlAHyQCIT/Bo2lifqw8uwf8em0Vdf/TNlbVvCiceb8iAePE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYICpZqa1oUaH1KWyHPjlRfLbM9XnDdHDDGtCWZ7nLqR7owNVDZm
- Js7uZ91Q4hNkJPptrZJQS8GwvlYIziXiTQZG5hXNj9T02imH9wxO+Izose259rZNFcdt0nXzbDX
- VjzPgc9AMlpWAXnz+g288/qatPgLbTvSbnNYef60WM4Sq2+CiqkSqGZJ2KFJHhcP8zKycBCs=
-X-Gm-Gg: AYBFou3I8pviXBla57K+VzeC7r9YC7BRGW/eP1N+KemRTI+DIrN8zmseV7dRDcZm7Nj
- OIpwKEIfxTUg6Qm43h+5ox52m9d3o5r6va7Ro+8fOathFmorx35BDICGeovwlgz7nIs2Z0J99Hd
- Jo66/ruLISWDgimxmz36Q3TMvTb1IfRI4q+6nM3Y+gxfYLycbz2WeW4m1zItC8VXxr/UoiysKzM
- DPGwzB5BUQ7jP5Gk7/T5ezvTYlCwMHludyIo/Wo2w2D/aQJMtRdTXvN5t42hH5PGlPDE076qV3n
- 0rQ+VtCfxnDGnHS8zStdzUErqLxY7DdyEYuJdAcK3Gb/M4Y3hhHC1oilR1cDgXQ1+vIRGHmtI7o
- U5XghH7C5iiBnDYtrYlGAexguj86Qb2yM
-X-Received: by 2002:a05:701b:428c:20b0:143:54c6:6a5 with SMTP id
- a92af1059eb24-190a7e0c231mr5790182c88.37.1792660168755; 
- Thu, 22 Oct 2026 02:09:28 -0700 (PDT)
-X-Received: by 2002:a05:701b:428c:20b0:143:54c6:6a5 with SMTP id
- a92af1059eb24-190a7e0c231mr5790148c88.37.1792660168220; 
- Thu, 22 Oct 2026 02:09:28 -0700 (PDT)
+ AKwUvBzGrlSKd3kEHlZM6tIwSnmu8Eq9fLDIfpbitg1xC3M0m//u51snq8MwOs5/olWlIu4t3puivGontZM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLRjBYKmk/W5C4lRLG8hBUOEq8oSe13mrsnYJw837kYFQn/ccVO
+ h/GZQK/7LIKGjyNB2mNskfSnkv1ySLdR00GZJTwIgZYaHrLypp712TXmh4YxBUolbOgRYYCWpyz
+ kQ16YAzCfPEF6o3/H+XPPNJ6mvTAdj6yMSrP3byvq7mFt4SB0bzDa13Fd+Z/QVCJp4sic/NM=
+X-Gm-Gg: AYBFou3I5SOtDJwqeo5V55yl7NGtSnn99gH4GWYvgWv1rjtJRLUS5R4fxDYegB8Oyek
+ TpI1U/Vf2PnXIwoUHmPpDtPYLGoV4N4bJ2fBFecf05pZfnLP+W6W4t6YD581rWSakPIBAMb1Q1p
+ 7+rKAE5ppIyEwoxc5Pqt22UUELIOibNpEsIibWmllcfluuOpoAWj93nc82UdHDVjTwuNpMb78e0
+ sjQpNC0xpc9vXb1i+eX8cKcs/Zf4IduR05+JGzjhl/IGnYjOb6hcFSFOjUZcKG/UtHewAGQ47Mu
+ 42VWUF/jjOfbQ+iRwVm8BvNLAWotLolye/411sv6GUpovSCezFk4j5aqPN/MW4XS17KXI20vh9K
+ zxRbzn0uaJLNPzgu565LF8y0ZkDrcA1D5
+X-Received: by 2002:a05:7022:3f09:b0:18b:bce0:a227 with SMTP id
+ a92af1059eb24-190a6adcd36mr6565158c88.15.1792660173235; 
+ Thu, 22 Oct 2026 02:09:33 -0700 (PDT)
+X-Received: by 2002:a05:7022:3f09:b0:18b:bce0:a227 with SMTP id
+ a92af1059eb24-190a6adcd36mr6565116c88.15.1792660172672; 
+ Thu, 22 Oct 2026 02:09:32 -0700 (PDT)
 Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1903a180b9esm20475694c88.4.2026.10.22.02.09.23
+ a92af1059eb24-1903a180b9esm20475694c88.4.2026.10.22.02.09.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 02:09:27 -0700 (PDT)
+ Thu, 22 Oct 2026 02:09:32 -0700 (PDT)
 From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Subject: [PATCH v2 0/2] fastrpc: fix probe-time races between rpmsg and
- userspace
-Date: Thu, 22 Oct 2026 14:38:46 +0530
-Message-Id: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
+Date: Thu, 22 Oct 2026 14:38:47 +0530
+Subject: [PATCH v2 1/2] misc: fastrpc: fix NULL rpdev dereference when
+ session alloc fails
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJ7S2WoC/22PPW7DMAyFr2JoLgPKimXLU+9RZNAP1QhoIke0j
- RaB717ZGbp0IfhI8HuPT8FUErEYm6cotCZO+V5F+9YIf7X3T4IUqhYtthpNqyBansvkYSrZEcT
- 0TQwKvTQDug5Ji3o5FToW9fDj8tKFHkuFz6/hH7ta7eTKhrBMwMR7AgayrfXWVq45j+tBdZYJf
- L7d0jw2Q+xDROxs3+mzC32MtQvWeIVDFzpnjI6SpBa7/zXxnMvP8eQqjwC7q0SU//6zSkCQqtf
- BKDc4Re+Z+fRY7Nduf6pFXLZt+wVfI7UNPQEAAA==
-X-Change-ID: 20260923-fastrpc-probe-fixes-30c1980b50e6
+Message-Id: <20261022-fastrpc-probe-fixes-v2-1-a6b3f6f62571@oss.qualcomm.com>
+References: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
+In-Reply-To: <20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
  Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
  Arnd Bergmann <arnd@arndb.de>,
@@ -108,38 +106,38 @@ Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
  linux-kernel@vger.kernel.org,
  Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792660163; l=1910;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792660163; l=2456;
  i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=GFQalxNhnzpwWjm7qg2xNhpXW9tdjjxqTNEL/AZf5UM=;
- b=QbQSyyVdl4WlLYx8U2VU5VSCc6okBD3GFA81JkdZS7FkrpJp5C7ukMRM06GCf1gxI48cZynGC
- 1mR5saLcRfgAHEHis2LoIX8F7z/NPrUQYV2Ly1h+RU6Svnjk7MlaVCO
+ bh=gXjATeM4mZmReR8r0Cip4k+l0pcgcK7OC7jL7Usz15g=;
+ b=8iJBr+ATdJCU8iVTzYlUb94TGIBcH2KOuljI0XoPmBRr5XGtpiQDEOswWN590/Yv2vamfMEy3
+ TbUqejlm+2lDL+f2YkKmWMu7HVv5HlkgMxM3BKl9mdpWAdKCNExxSM6
 X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
  pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX4bjPJng74cko
- ozkyBGHJkHkRkHrjdQfZVBZr7ZE7mkznUEXXOjcL0IL2kQcM5phF+Ufzboe/eTDjELLg5YKI5TZ
- OMFr8D/6NCVOnJNCiWlnze2x0NrGtfzqAhKQAFu2QEH0JwGkJ1chOR+gs65BHXFfwI3z3ndz3Na
- m/cF+sFSTR+mwkiF4sTOF6dN1eFj4GLJqSYPjK/DiIfvRDi1NehnmnVOxth1+BTC/itbWCm1W4L
- YKWNqlMdnC3stGT4nLFhHdEyOvX7e26ClGF5I5GfKST3zIXcUqwW+pDFukiq32LXil61N+Ks2ZJ
- hbtHr/W6etuvOi31cHfNdzQ86nMWXY4HYNgeQ1clA2hNKKj/H5frPzfYvnFEi9M7xUBLRvvSBl9
- ZDY7hsXpw/W6bD4JzeB78GQiA93zCJmt82bqZUcQqm0qtXm5OCAa/N5KBw4V+Bj4Ue+k3z8O3kj
- 3aFq5QOCdi6hsXbSPQw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfXzFs3GcLydU5c
- kX4Qrfm1t/9d24bfYptAiX7N14PLgnTMIaf0ifDtw7X9/epmbKFQ69zUx86HDzHmZNFthjC/hZt
- z0LIJUj04CjyGRuPtWRFl6Beq/SMULU=
-X-Proofpoint-GUID: n8lPp5YaFeGLujZk37TfNLCAijHOgODW
-X-Authority-Analysis: v=2.4 cv=NaFzRGD4 c=1 sm=1 tr=0 ts=6ad9d2c9 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX20rSi5ez7uXG
+ B5NE+rs8A3AKtC+WbZTMzqcnqIYF157yIHSPIy7bPI9658SMA7/FUotjhV+OAPclzGYZX/D8m5L
+ b3HeT/TnoB6KaX3Rjt8UIw4EWBawGLBrDdwA4pHvV5TOP0D0flX6zzSP25qiBhUoZTGzNHK6kWj
+ V7UHCe9EqYJzQhAqSQth4rk1P7+gMxU//RgYz9vwI3r4xoa5M6dSFDdu5ame07daNkNnfac2pol
+ EeDJHXcRGaacVOoHwF6GZQPvglQnjcCXiJzo11K1UV/XGbUDbdmtO96eGeCnheB299Ja6r5cluq
+ 2puKyjToeg9sbp93uL4nU43zkqw8MByilfysmfnfj1GbzYROD1UlbdLW2t93dxzOY3+NZkElTVp
+ LqnbZUrDseSUNueX7A9rPWymC/EXcuYSGm3y88RpFBMFQ4xdX3zvE980fkF5XACimzaXOo+IA29
+ 8rIv6gPpGh7LEVq6BPQ==
+X-Proofpoint-GUID: exjNoPQ_nibUJp4v8d-LL2EvvCqoK9ig
+X-Authority-Analysis: v=2.4 cv=feg4WEQF c=1 sm=1 tr=0 ts=6ad9d2ce cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Z9hRlnAjW1SqKzzyvooA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: n8lPp5YaFeGLujZk37TfNLCAijHOgODW
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=HPkHAgnwbDoOiCnvmVMA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: exjNoPQ_nibUJp4v8d-LL2EvvCqoK9ig
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfXxC/dSOamUFWU
+ HrXE6xe1NAQYqV195uh6SfB/wiUE+AZy+5UwDkaKKigNQ0bC4Jklo9T3z0q869nXBDru/MN3wxY
+ VxKkEBitkwKLvKGbuTmFvEXhjAbD4yg=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
- phishscore=0 priorityscore=1501 adultscore=0 clxscore=1015 bulkscore=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 suspectscore=0
+ spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220036
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -161,45 +159,68 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series fixes two races in fastrpc_rpmsg_probe() that can be
-triggered when userspace opens a fastrpc device node concurrently with
-the rpmsg probe sequence.
+When a fastrpc client process dies abnormally without closing its file
+descriptor, fastrpc_device_release() is never called and the compute-cb
+session slot is never freed. The abnormal client death on the DSP side
+triggers a glink channel teardown which propagates up through the rpmsg
+bus and calls fastrpc_rpmsg_remove().
 
-fastrpc_device_register() calls misc_register() before the channel
-context is fully initialised. A concurrent open() in that window hits
-kref_get() on a zero refcount, and because fastrpc_cb_devices_create()
-has not yet run sesscount is 0, the error path calls kref_put() on the
-saturated refcount, triggering kfree() of the channel context. A
-subsequent IRQ-path fastrpc_rpmsg_callback() then dereferences the
-freed spinlock, causing a kernel panic. A NULL dereference in the
-fastrpc_device_open() error path when cctx->rpdev is concurrently
-cleared by fastrpc_rpmsg_remove() is also addressed.
+fastrpc_rpmsg_remove() nulls cctx->rpdev before calling
+misc_deregister(). If a concurrent open() enters fastrpc_device_open()
+in this window and fastrpc_session_alloc() returns NULL (sessions
+exhausted by the leaked slot), the error path dereferences
+cctx->rpdev->dev causing a NULL pointer dereference:
 
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+  pc : fastrpc_device_open+0x1b8/0x258 [fastrpc]
+  Call trace:
+   fastrpc_device_open+0x1b8/0x258 [fastrpc] (P)
+   misc_open+0xd8/0x1a0
+
+Fix by moving misc_deregister() before rpdev = NULL. misc_open() and
+misc_deregister() both take misc_mtx, so misc_deregister() will either
+block until fastrpc_device_open() completes or prevent new opens from
+entering it entirely.
+
+Fixes: 7c11df42d0c7 ("misc: fastrpc: Fix device_open when no session is available")
+Cc: stable@vger.kernel.org
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 ---
-Changes in v2:
-- Add Cc: stable to both fixes
-- Free cctx via fastrpc_channel_ctx_put() in the probe error path
-- Clear rpdev and wake pending users there, as remove() does
-- Move fastrpc_notify_users() above probe
-- Link to v1: https://lore.kernel.org/r/20261001-fastrpc-probe-fixes-v1-0-1376d93b8b3e@oss.qualcomm.com
+ drivers/misc/fastrpc.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
----
-Vinayak Katoch (2):
-      misc: fastrpc: fix NULL rpdev dereference when session alloc fails
-      misc: fastrpc: fix init ordering race in rpmsg probe
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 5dd1990d3e2a..f280bff2edf0 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -2697,6 +2697,12 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	struct fastrpc_user *user;
+ 	unsigned long flags;
+ 
++	if (cctx->fdevice)
++		misc_deregister(&cctx->fdevice->miscdev);
++
++	if (cctx->secure_fdevice)
++		misc_deregister(&cctx->secure_fdevice->miscdev);
++
+ 	/* No invocations past this point */
+ 	spin_lock_irqsave(&cctx->lock, flags);
+ 	cctx->rpdev = NULL;
+@@ -2704,12 +2710,6 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 		fastrpc_notify_users(user);
+ 	spin_unlock_irqrestore(&cctx->lock, flags);
+ 
+-	if (cctx->fdevice)
+-		misc_deregister(&cctx->fdevice->miscdev);
+-
+-	if (cctx->secure_fdevice)
+-		misc_deregister(&cctx->secure_fdevice->miscdev);
+-
+ 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+ 		list_del(&buf->node);
+ 
 
- drivers/misc/fastrpc.c | 95 +++++++++++++++++++++++++++++---------------------
- 1 file changed, 56 insertions(+), 39 deletions(-)
----
-base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
-change-id: 20260923-fastrpc-probe-fixes-30c1980b50e6
-prerequisite-change-id: 20260609-dup-sessions-ea2acaac1994:v6
-prerequisite-patch-id: c8b4a3873f9cf0d69beff0f608933ae83faa4c47
-prerequisite-patch-id: 05d9299adf4184e0e56d97dc063ab5bf227cc5a5
-prerequisite-patch-id: da0a3d55397a522ea4b77769e387df9faea8e024
-
-Best regards,
 -- 
-Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+2.34.1
 
