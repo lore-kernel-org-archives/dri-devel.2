@@ -2,54 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A039606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1987E606A31A
 	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 12:34:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgdnAjyM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y3W3W0Up
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61DD411259F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61D6F11259D;
 	Thu, 22 Oct 2026 12:34:15 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33A9C11259D
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:34:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 034D811259F
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 12:34:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1C66C416F6;
- Thu, 22 Oct 2026 12:34:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1A61F000C1;
- Thu, 22 Oct 2026 12:34:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E102143473;
+ Thu, 22 Oct 2026 12:34:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5601F000C2;
+ Thu, 22 Oct 2026 12:34:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792672449;
- bh=A9wDY56LaQzzFdi01jdxVffvWBAmPrhs3O19qkkyRvo=;
+ s=k20260515; t=1792672441;
+ bh=nvyuP1r+MO3tgTobCWeGBNNCwqJtP6MqZeknh7Nbd0w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=fgdnAjyM++1IoPFWj44mnUMY9QyYB0ImfUkFU879Njbgvh9l120Qe26N7Etxa67oP
- Stm1tqHnYE7SFou3xF88BSJuPvDNUqpJbMr7OFa1v4JXFFas8knFv+3RaBZlC89qln
- cz+Yu9UipKztQB6dNmXtJnuHCXlw3fdHTzePo3cdh7Fs7p40hH1Nrm0s9/gbNT3WoR
- QAA10j01d/0qxyofjfSn7mAu+kYI92J1sw7KPSPxB6eyjcXOy2796w7O7eg3aOVYNG
- nen1j4APebZ3kmYUXZX8X0ssnrOnpofp5bv3DV9Lk7U9u3Gf9Nfd2C5w9UEnIN+chx
- +rERF+U7vAxJg==
+ b=Y3W3W0Upmv+pymo44sRhmCWGXRgpNSak9V2TF508lqFgdX0un/EHygtwmlF3dTyFb
+ wFbeP82rK6lPPirZYGVUUH24ytA6n7/3xqXBCue5XKLdREtGkJYSBAwdcawLvFrC6l
+ hVSGKd4pmGwAC9iX+UE2e9PFzE62P/Zhvp8QBPgY205pi6ruL4ya+ab+8JGDRTHPyh
+ kXcMOSxVZqCnXbaxuTk27/vlq2+B8aMDZAqf1dHkcKusnSepLtp5RWwO3u2H+uQ0hK
+ B3k3191RqkWdcts+JIZckmlunM+bpQTpai0PTDmLO7nAd9dqVy4hydaRj0IyalcYeD
+ S20gOC1YSWwPQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 14:31:05 +0200
-Subject: [PATCH v2 06/59] drm/aspeed: Switch to
- drm_atomic_helper_connector_create_state
+Date: Thu, 22 Oct 2026 14:31:03 +0200
+Subject: [PATCH v2 04/59] drm/panel: Add atomic_create_state support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-no-more-connector-reset-v2-6-0b7e4e85b1e8@kernel.org>
+Message-Id: <20261022-drm-no-more-connector-reset-v2-4-0b7e4e85b1e8@kernel.org>
 References: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 In-Reply-To: <20261022-drm-no-more-connector-reset-v2-0-0b7e4e85b1e8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1173; i=mripard@kernel.org;
- h=from:subject:message-id; bh=tOYa+mFlXn8802kY6N87p0IAhA6QXgqKpekXON6NVF8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mCZsE3oT5S4nL77O8481/9ZFvVleKaLTm1cnsKY+3
- Lol0VSpYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExkchRjrfDp9rzpFeWaTRF6
- Xqt2qMy6+nSSM/OJFbwzJVl6BWL5HBbM9H+94PnDE1PdJv+2rf3Azdhwfv/2eU289bwn9/80PJs
- l+mNjstntj08kp7R+1JBI7D8+0bhNfZMSP396qanKHPurDk4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1339; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=NvzNnPjO15immcT2DKl3ccisgpqNp3HuH0EQBGBlLnw=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3mPq3OfidyGeo7PK/YHPueHvFuepJ95dP0ow9KHwtw
+ W3JhVDfjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR9b8Ya8UNc9LdkxQ1vj6U
+ WiiVJvfoX3XHk3Sxb97HP8yy+N6qOy1calPjDIn3HC25nrmHum0+MDZcDY/6KbzQXt9XiK/I5oj
+ lu+iM699W7WGx18mP8av7vMi4vPTV7QnuR9/O/do5w8xuw2MA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,31 +68,43 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The aspeed connector implementation uses the deprecated
-drm_atomic_helper_connector_reset() as its reset hook.
+The panel bridge attach hook calls the connector's reset function to
+initialize the connector state when the device is already registered.
 
-Switch to drm_atomic_helper_connector_create_state() instead.
+Now that connectors are being migrated from the reset hook to
+atomic_create_state, prefer it over reset and fall back to the reset
+hook if atomic_create_state is not implemented.
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: Joel Stanley <joel@jms.id.au>
----
- drivers/gpu/drm/aspeed/aspeed_gfx_out.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_panel.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_out.c b/drivers/gpu/drm/aspeed/aspeed_gfx_out.c
-index 78775e0c853f..cfa8eb6ccb5c 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_out.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_out.c
-@@ -22,5 +22,5 @@ static const struct drm_connector_funcs aspeed_gfx_connector_funcs = {
- 	.fill_modes		= drm_helper_probe_single_connector_modes,
- 	.destroy		= drm_connector_cleanup,
--	.reset			= drm_atomic_helper_connector_reset,
-+	.atomic_create_state	= drm_atomic_helper_connector_create_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index c00529bfb706..313053c123d1 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -105,6 +105,18 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
+ 
+ 	if (bridge->dev->registered) {
+-		if (connector->funcs->reset)
++		if (connector->funcs->atomic_create_state) {
++			struct drm_connector_state *conn_state;
++
++			conn_state = connector->funcs->atomic_create_state(connector);
++			if (IS_ERR(conn_state)) {
++				drm_connector_cleanup(connector);
++				return PTR_ERR(conn_state);
++			}
++
++			connector->state = conn_state;
++		} else if (connector->funcs->reset) {
+ 			connector->funcs->reset(connector);
++		}
++
+ 		drm_connector_register(connector);
+ 	}
 
 -- 
 2.55.0
