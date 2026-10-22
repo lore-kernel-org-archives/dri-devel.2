@@ -2,45 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E90606AF41
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:46:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452C660A5BE3
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 13:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1It2CFc
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGlQNmbO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 968BC112642;
-	Thu, 22 Oct 2026 13:46:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D31B112633;
+	Thu, 22 Oct 2026 13:47:52 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF46112642;
- Thu, 22 Oct 2026 13:46:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40F96112633
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 13:47:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0F6EF43F64;
- Thu, 22 Oct 2026 13:46:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78DCE1F000C5;
- Thu, 22 Oct 2026 13:46:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0E552431DF;
+ Thu, 22 Oct 2026 13:47:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93FEA1F000C1;
+ Thu, 22 Oct 2026 13:47:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792676785;
- bh=xlXgzCsk7GWchCuQqi932QWkmLMSYvgwRHNnNOUqMyk=;
+ s=k20260515; t=1792676866;
+ bh=OxxKOH7t6FGURuJlztIT2JeBLZQD+0wcCCE6Y7WLeZw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c1It2CFcNVsUsxIjhOXYoGtk1vffbxX0dImWtPkqQB9u/6Se7Rv88QnpksdYGTi0y
- 1okUY76ZrahqsLYxLTaaK5dbzjg2+y381MY70LUvCzkde3qPvKZ9SjPtA43sjYihTR
- CcBXx1EV7wkZ8JARlZVtUsbvzlmY+r6O4/I9ShbVWJLPgSAwb7SrFYXCvFGuFHUuBq
- XkUV2sCJbOwOmyK4KiJIfuvYKbVecojiAb65dhOfmVJ5OOty0OhsBZCipyg5BiQY6G
- GPIdZrN+hUid75bZA2lHcBqWcQzWf7izwwE/WFHdVuuoLKi2r4KS7noFePMDQfu+Ep
- 6RqFRjzVwlN7Q==
-Message-ID: <sashiko-outbox-181565@kernel.org>
+ b=UGlQNmbO1kSZCqA3+rn17josT3C3IhTMDY1pDLco957Sh+CXl2Q+ENuCrEHkRLSb9
+ aKGMkqCrNEo7AIKWq+/K1yFQpGdZzkw0McDwmsoI6l1zDHniLStY4DTqALu9tgNi8Y
+ g7iSJf4dTwOii7tOZ6+uNz0l0s8wvZsGBXRWwIggDpV7IFdiTFviehpIs5GKXwdpmM
+ 84E4PQjI6bvs5oTTZEGjQUve9eT5Du8Nl1tzKgSdo5OdkDWXMaOtWDCdbx7XIaPFdw
+ xJrYUau5m0R0BO5vHluXtL4bu8DG2MgxoD9RWM2BAvYJLLqgu2SdXfuHkMGMdjUfuj
+ +4oe0EDDiDP0w==
+Message-ID: <sashiko-outbox-181583@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 6/9] drm/msm/dp: don't take extra references on
- multiple plug events
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20261022-hpd-irq-events-v6-6-337ea3ddaa62@oss.qualcomm.com>
-References: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
- <20261022-hpd-irq-events-v6-6-337ea3ddaa62@oss.qualcomm.com>
+Subject: Re: [PATCH v4 6/7] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261022132259.240717-7-clamor95@gmail.com>
+References: <20261022132259.240717-1-clamor95@gmail.com>
+ <20261022132259.240717-7-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 13:46:24 +0000
+Date: Thu, 22 Oct 2026 13:47:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,144 +60,98 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/msm/dp: skipped HPD high processing in msm_dp_hpd_plug_handle()
-- [Medium] drm/msm/dp: runtime PM reference leak in msm_dp_bridge_detect()
+- [High] drm/tegra: unlocked drm_bridge_get_current_state() call in tegra_r=
+gb_encoder_enable()
 --
 
-commit 1182d7f2f2e876c63dd6756de1f85227702b93b4
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+commit 743a0ce150c28976e990ee80b4eaf7239b83fcc3
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-drm/msm/dp: don't take extra references on multiple plug events
+drm/tegra: rgb: Parameterize configuration based on bus flags
 
-This commit skips subsequent HPD plug events in msm_dp_hpd_plug_handle() wh=
-en
-dp->plugged is already set so that extra runtime PM references are not taken
-before an unplug event arrives.
+This commit updates tegra_rgb_encoder_enable() to read bus flags from the
+bridge state and configure pixel clock polarity, display enable polarity,
+and data alignment accordingly.
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
-/dp_display.c
-> index fa8942922b533..ce919a26fba28 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -412,6 +412,9 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_displ=
-ay_private *dp)
-> =20
->  	guard(mutex)(&dp->plugged_lock);
-> =20
-> +	if (dp->plugged)
-> +		return 0;
+> diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
+> index b6d09a8d8e5ea..da9e37fe36689 100644
+> --- a/drivers/gpu/drm/tegra/rgb.c
+> +++ b/drivers/gpu/drm/tegra/rgb.c
+
+[ ... ]
+
+> @@ -104,14 +105,24 @@ static void tegra_rgb_encoder_enable(struct drm_enc=
+oder *encoder)
+>  	struct drm_display_mode *mode =3D &encoder->crtc->state->adjusted_mode;
+>  	struct tegra_output *output =3D encoder_to_output(encoder);
+>  	struct tegra_rgb *rgb =3D to_rgb(output);
+> -	u32 value;
+> +	struct drm_bridge_state *bridge_state;
+> +	u32 bus_flags, value;
+> +
+> +	/* Get but flags from the bridge state. */
+> +	bridge_state =3D drm_bridge_get_current_state(output->bridge);
+> +	if (bridge_state)
+> +		bus_flags =3D bridge_state->input_bus_cfg.flags;
+> +	else
+> +		bus_flags =3D DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
+> +			    DRM_BUS_FLAG_DE_HIGH |
+> +			    DRM_BUS_FLAG_DATA_MSB_TO_LSB;
 
 [Severity: High]
-Can returning early here when dp->plugged is true cause
-msm_dp_display_process_hpd_high() to be skipped completely when a display is
-connected?
+Is it safe to call drm_bridge_get_current_state() from
+tegra_rgb_encoder_enable() during a non-blocking atomic commit?
 
-In drivers/gpu/drm/display/drm_bridge_connector.c,
-drm_bridge_connector_detect_ctx() invokes the bridge detect callback before
-notifying HPD:
+In include/drm/drm_bridge.h, drm_bridge_get_current_state() asserts that
+bridge->base.lock is held before reading bridge->base.state:
 
-drm_bridge_connector_detect_ctx()
-    detect->funcs->detect() -> msm_dp_bridge_detect()
-    drm_bridge_connector_hpd_notify()
-        -> msm_dp_bridge_hpd_notify()
-        -> msm_dp_hpd_plug_handle()
+static inline struct drm_bridge_state *
+drm_bridge_get_current_state(struct drm_bridge *bridge)
+{
+	if (!bridge)
+		return NULL;
 
-When msm_dp_bridge_detect() in drivers/gpu/drm/msm/dp/dp_display.c runs
-first (for instance at boot or resume when a monitor is already connected, =
-or
-during connector probing before the threaded HPD IRQ runs), it reads the DP=
-CD
-capabilities into a local buffer and sets priv->plugged =3D true without
-calling msm_dp_display_process_hpd_high():
+	drm_modeset_lock_assert_held(&bridge->base.lock);
 
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_bridge_detect() {
-    ...
-	status =3D connector_status_connected;
-	priv->plugged =3D true;
-    ...
+	if (!bridge->base.state)
+		return NULL;
+
+	return drm_priv_to_bridge_state(bridge->base.state);
 }
 
-When msm_dp_hpd_plug_handle() is then called, it sees dp->plugged =3D=3D tr=
-ue and
-returns 0 immediately.
+During a non-blocking atomic modeset commit in
+drivers/gpu/drm/drm_atomic_helper.c, drm_atomic_helper_commit() queues
+state->commit_work to run commit_tail() asynchronously on system_dfl_wq,
+and drm_mode_atomic_ioctl() drops all modeset locks before the worker runs:
 
-Similarly, if msm_dp_hpd_plug_handle() runs first and
-msm_dp_display_process_hpd_high() returns an error (such as when a branch
-device is connected with sink_count =3D=3D 0 or on a transient AUX error),
-msm_dp_hpd_plug_handle() still sets dp->plugged =3D true at the end of the
-function:
+drm_mode_atomic_ioctl() ->
+  drm_atomic_nonblocking_commit() ->
+    drm_atomic_helper_commit()
+      queue_work(system_dfl_wq, &state->commit_work);
+  drm_modeset_drop_locks()
 
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_hpd_plug_handle() {
-    ...
-	ret =3D msm_dp_display_process_hpd_high(dp);
+When the worker executes commit_tail() -> tegra_atomic_commit_tail() ->
+drm_atomic_helper_commit_tail_rpm() ->
+drm_atomic_helper_commit_modeset_enables() ->
+drm_atomic_helper_commit_encoder_bridge_enable() ->
+tegra_rgb_encoder_enable(), no drm_modeset_lock is held. Calling
+drm_bridge_get_current_state(output->bridge) here will trigger the
+drm_modeset_lock_assert_held(&bridge->base.lock) lockdep warning and perform
+an unlocked read of bridge->base.state that can race with concurrent atomic
+commits swapping or freeing the state.
 
-	drm_dbg_dp(dp->drm_dev, "After, type=3D%d sink_count=3D%d\n",
-			dp->msm_dp_display.connector_type,
-			dp->link->sink_count);
+In addition, if an attached bridge does not implement
+.atomic_duplicate_state, drm_atomic_add_encoder_bridges() skips acquiring
+bridge->base.lock even during blocking modeset commits, while
+drm_bridge_attach() unconditionally initializes bridge->base.lock via
+drm_atomic_private_obj_init().
 
-	dp->plugged =3D true;
-
-	return ret;
-}
-
-Because msm_dp_display_process_hpd_high() is never completed in either case,
-will dp->panel->link_info, LTTPR state, the connector EDID, and
-dp->link->sink_count remain uninitialized?
-
-[Severity: Medium]
-How does this single-reference model in msm_dp_hpd_plug_handle() interact
-with the runtime PM reference handling in msm_dp_bridge_detect()?
-
-In drivers/gpu/drm/msm/dp/dp_display.c, msm_dp_bridge_detect()
-unconditionally acquires a runtime PM reference on &dp->pdev->dev at entry
-and only releases it at the end if !priv->plugged:
-
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_bridge_detect() {
-	guard(mutex)(&priv->plugged_lock);
-	ret =3D pm_runtime_resume_and_get(&dp->pdev->dev);
-	if (ret) {
-		DRM_ERROR("failed to pm_runtime_resume\n");
-		return status;
-	}
-    ...
-	status =3D connector_status_connected;
-	priv->plugged =3D true;
-    ...
-end:
-	if (!priv->plugged) {
-		if (phy_deinit) {
-			msm_dp_aux_enable_xfers(priv->aux, false);
-			msm_dp_display_host_phy_exit(priv);
-		}
-
-		pm_runtime_put_sync(&dp->pdev->dev);
-	}
-
-	return status;
-}
-
-When a sink is connected and priv->plugged is already true, won't every call
-to msm_dp_bridge_detect() leak an extra runtime PM reference on
-&dp->pdev->dev because msm_dp_hpd_unplug_handle() only calls
-pm_runtime_put_sync(&pdev->dev) once when transitioning dp->plugged from tr=
-ue
-to false?
-
-Conversely, if priv->plugged is true (holding a reference from
-msm_dp_hpd_plug_handle()) and drm_dp_read_dpcd_caps() or drm_dp_read_desc()
-fails inside msm_dp_bridge_detect(), msm_dp_bridge_detect() sets
-priv->plugged =3D false and only drops the reference it took at entry, caus=
-ing
-msm_dp_hpd_unplug_handle() to return early on !dp->plugged without releasing
-the reference acquired by msm_dp_hpd_plug_handle().
-
-> +
->  	ret =3D pm_runtime_resume_and_get(&pdev->dev);
->  	if (ret) {
->  		DRM_ERROR("failed to pm_runtime_resume\n");
+Would it be better to switch tegra_rgb_encoder_helper_funcs to use the
+.atomic_enable callback and look up the state from the drm_atomic_state via
+drm_atomic_get_new_bridge_state(state, output->bridge)?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022-hpd-irq-ev=
-ents-v6-0-337ea3ddaa62@oss.qualcomm.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022132259.2407=
+17-1-clamor95@gmail.com?part=3D6
