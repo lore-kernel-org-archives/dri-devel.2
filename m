@@ -2,70 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB28606A337
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 03:22:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A432606A329
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 03:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KCfclWSX
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QHNGFeDF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF78A10E197;
-	Thu, 22 Oct 2026 03:22:10 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 157E710E197
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 03:22:05 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a018792ab3so11047075e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 20:22:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E731610E0C0;
+	Thu, 22 Oct 2026 03:56:47 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AF6A10E0C0
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 03:56:40 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4a021c809e3so10821945e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 21 Oct 2026 20:56:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792639323; x=1793244123; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=iY1/g9P0L4rhvgCO8gfRef6JrnvEPdwuVRox6+EysUI=;
- b=KCfclWSXW9IHNJmaZyTn3ywFCFGGOJgLpyEBXzQsOCsZ9TtrT/BoWOM9iXMcFuHLeu
- wlyTkKOB+4jowrgS35mvUPHKaZcDRTljXbNjqm8GNc8DNvi4O5xPcyKqN6+FLH/9Qca3
- tzMZxp5PXBQMHwNC6rzsuYnYF6qur8DIg7FSceGJ05hzNUKkmxCdrcM0pbSRtrJI+7n6
- XcldnxMPqxok2fulIjJzP+weCyUi2+p3CgRfN4E7bbAJPA2nQ8iI7IUEWxvAy9N2WoZR
- eshuMl8nChIUdwfNv3FyGznRewdrSaV9/Og2cw4t5Na3cu+NWdm4BBpqLDU2FPpOCCpg
- srXg==
+ d=gmail.com; s=20251104; t=1792641399; x=1793246199; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
+ b=QHNGFeDFGf0f6WysEj77LUOKH+1Wr5Wml5Z8rqZdFMn8OqTajh7TBtPEqHAXRKrOFX
+ KxvcmBlgTw6DjUQXiadPG9+pFHYBg5AW6MxICEs3umCjE0yxLl6KaNX/MvRakSDDjLZb
+ dZ3HJD9b8FDnNwxd/XJp5LOQ/OKYkXFVZH2V1XxoxFSu2VH6B3U4Y6R0YyWXuu6C6geM
+ 2N8OTZeUYXtNOatCGPYMpuJqlTaQedZbpk51Y+VgW59PbsrYj4rcAHMTr0slXGzbDCAc
+ PYs3w2Yogd3e/Qo6Y1tpRDMX4OTH8wO1DXR9UosD4ueiW9TgmBUNxEvH1k5Ah1h20eGh
+ IynQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792639323; x=1793244123;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=iY1/g9P0L4rhvgCO8gfRef6JrnvEPdwuVRox6+EysUI=;
- b=MpUTd6DgGV0YlOKzed6f86Jad5VyTtWB6JWCAtYMT3PX2Lz3YgjtRrdfzzn9dH48do
- jQk8F/yHm2F9rdFqyg+xgHJl5hm6uFabQpBdg3eWgwmpq5TaCET2iLfBT6uGnlagz0lT
- h6KblQo3W62rc3JZpOv2YgQq7bciScvLsLvREdL3FAOxj4ETGIk9srPigNvCsjFmTJkn
- HtvpxZiSJz1a/eQQl/uEFUis32uU1pP0leE+DoFBwNI56hwYc6AjmPWEayoKTO1w8dRS
- uH3iFBSaZumttvae4nGTazGNm2twd0IsgW10cfPV3rYcw+mU9j93X9iyEgOL2FkNXcO3
- KjiQ==
+ d=1e100.net; s=20260707; t=1792641399; x=1793246199;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
+ b=ZCnc6BHuPBlA3ePp/Su4hSVikBO88k8syTYgsNfaEUHFL0BXVTPOR5Hbd6BtFT4Fyg
+ XH39QNkQQ4Sk+ujN93M56OXQiXPRbE0qhndnbXE13MgBD2uob7NG0c9fiZ3u4F1UJ6FL
+ yAmTVp2Fcjgvb0kl0xoU0tluM4i0gyajrpynG5UkItKvW0esHWKY04gcvXwmbOsquIF8
+ tf49kYFTfVDWU3cljCpWAOVDZMfY+7iYmOFSVqrSC26dEm0nmtZnyRIDJqOcrxczYe/d
+ JpZ7IEZhSSiz3ry3qRbvxrV535bQtnqmHssT7fbkieADpwwAKxoIMKmgnhUcl9jDgr9k
+ eqMQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzif2T6NX+GbSz6MGMiHQEQofG58cAxmxEYLJf9n6LHub9vHXWE1Wwl/od4WJDQ/iVHN68Mi9L9/3U=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI6VbOzJAZLdYZdun43SSSmgQOG3M/fn2luNQVM7HWTGEJ0/N9u
- Ka8W2F+/l8Fn6RsLkitazYdMI+kVjXmDSR9VF7efWl34vtzIRnLeXM10
-X-Gm-Gg: AYBFou1bXMzdFxGTZr6s+tffUTz6OIDVPnx8DmTGhufWL9ncZDZMH5xLY0meMC7laj+
- aiwvoD625Diy9d7suELCBtXCpveyddPu94UNddptNTxXufV7Vw6Bc3MTLptWWH45xTHdQpLmhng
- JsfOeWIWe3yT0f/KVenT6CDn8Wtkj6zBeg3BanEW445AfaNG3ZfXAk3Rm2ajWwNyI4Dn87+adwZ
- lMCnH8Y/mIsg3CqPXRE34yD/SJJUA+iGofi3PVvWMDeT0ufZ+VbhmnDG5/k+w2EgDfDIqbipRgO
- 6JGVyE/pIYX4ss8mQuR576Jx5CF0PnUGMXdCesJSf98pAlRYw0UUk7TTbHFHYXMtU8aawVJ/oRq
- 9p/NlOqoDlpmCkEjyMymBmsaRC3BVNiXCbOeFwvShAop/EYVIc1C7uUrhz1nhJ+StDCTS1SCjB+
- Btl/4DZuSq5jfUC54Dh9f3WNqv4dEi28dDvLJ0jeAwTxRTQrvC4jv6LC6CUOFVP/jxrf73eQiGY
- pzFci+PYiQpxoJ3PyDSNniY5UAQ1rJFOjkMrv1HnXZlvd+fTmqMBa5GuX5fQA9NT34js7t6/8ht
- jnBSAWiBeY2MrWk2iyjx5V7JsbzejSW94l6I6Q7fAPsZcEq7V5t6gXSyFMw2Ds933r8rGOr+PT+
- KylMv/WQ9L0wkjsbyEnkMGS1ru8x5A5sET2SDZ8nTYcikvZgXEdw0SxVO
-X-Received: by 2002:a05:600c:628d:b0:4a1:f377:5c6e with SMTP id
- 5b1f17b1804b1-4a1fdd20a24mr80516715e9.7.1792639320880; 
- Wed, 21 Oct 2026 20:22:00 -0700 (PDT)
+ AKwUvBwUNGampLy2weCEMxm/mxRCL61phZ/QaF2Vt6coNF4Jqh3IpApNnlWgiSTxI484uIo3zaYR88If6VE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIDCZLxQ+YxUQsqENZ0VXbcVm2j+4Q3tj1+MN2iOdckrWTmbIrG
+ XCJvcCghP5QGl1mxQvCe0m1SOJPxIhU1b6nqlkZAF7vIl0dHIkQgQNIUYu/aVw==
+X-Gm-Gg: AYBFou1VgcmYOgsQ71nmxnWGi7df9a462cNQULEs4ZhVF0ttYd3ZG4Uah2pkYhBxGjO
+ j9RzYPDMANZJJNFm5DQtZABDVnmZsp4FgeMmbnvJeWJK0NBIxI1ublHZ2FuhdYG2eBCdw/AUb/W
+ TWFY9ji1yzp2Z2HC1kdA2fomyGp+QW0XHCm/H9PLUfsqehfE5v2Zhh69huJeg4dnzat1I2rjdlm
+ 3u/QaTrsXYyOeByVPhmB0662eVAuia9UEafrp7EALV7cB2JAoyShDXt5MP8HuidtV1RTde+mbM+
+ X7ikf6UQoH4yyC0bVsi9r0xiEWCk9RmetMt49RBWiKWM2RtiZeQ2DEKSNE6ZIHzFPu6qRW9WeZm
+ Xsf4fNunxGl6p0o90EpKx3xsbKP5XKFAgDjiYTeuS2rYWMjgYdy+N6ssu7QKKQdVKgqWSkEDIcL
+ x6ZBGsZoUILdIh0e2wy0Z28xSnp/Os4WfMOG4JAkqmJ0pOkFbwVkq9wE0r/J6BkmtPK4QCBwC4n
+ oNHI3h1jyQ49IFu8qVcZhqESgmtHA36oeD0mGdav6cpONt2jVZGMM7/3G6kyMhcCfwtsCQ3rJsJ
+ dUmubeTzK7UkKCIOZ9rHJZDuZGfhQ22GZd09GKqrTaNxKQ3t/GSrdvbq6hFk4uTItPPDLtMYU7y
+ klWEo0gWAiT0tLrWLfb0Zmm1btupG6AcQtPiCBcsxrp+CXWi3PHaDeDNUPsFw3g==
+X-Received: by 2002:a05:600c:609a:b0:4a1:7bd4:d07d with SMTP id
+ 5b1f17b1804b1-4a1fdd64e88mr75312025e9.34.1792641399195; 
+ Wed, 21 Oct 2026 20:56:39 -0700 (PDT)
 Received: from unknown748F3CBA5068
  (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de.
  [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a1fcdd3856sm23089115e9.1.2026.10.21.20.21.58
+ 5b1f17b1804b1-4a1fd0f4427sm86914085e9.3.2026.10.21.20.56.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Oct 2026 20:21:59 -0700 (PDT)
-Date: Thu, 22 Oct 2026 05:21:54 +0200
+ Wed, 21 Oct 2026 20:56:38 -0700 (PDT)
+Date: Thu, 22 Oct 2026 05:56:36 +0200
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Tomasz Figa <tfiga@chromium.org>
 Cc: linux-media@vger.kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
@@ -78,17 +78,17 @@ Cc: linux-media@vger.kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>,
  Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] media: videobuf2: finish prepared buffers in
- VIDIOC_REMOVE_BUFS
-Message-ID: <atl_rOMxqyHbD64q@gmail.com>
+Subject: Re: [PATCH 2/4] media: videobuf2: add opt-in DMA-BUF CPU access
+Message-ID: <atmEfHtoW0Ato4P6@gmail.com>
 References: <cover.1792392288.git.kmehltretter@gmail.com>
- <f2258d73562e0ebf2efd793b646706ba0dacb2c7.1792392288.git.kmehltretter@gmail.com>
- <CAAFQd5CDPG4RxUwPDbPUJSCxVZE1cEeYEZvQ25Sy4CuJR861Yg@mail.gmail.com>
+ <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
+ <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAAFQd5CDPG4RxUwPDbPUJSCxVZE1cEeYEZvQ25Sy4CuJR861Yg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,30 +107,62 @@ X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello Tomasz,
-
-On Thu, Oct 22, 2026 at 01:00:19AM +0100, Tomasz Figa wrote:
-> > +               __vb2_buf_mem_finish(vb);
-> > +               call_void_vb_qop(vb, buf_finish, vb);
-> > +               vb->prepared = 0;
-> > +       }
-> > +
+On Thu, Oct 22, 2026 at 01:20:45AM +0100, Tomasz Figa wrote:
+> On Mon, Oct 19, 2026 at 4:14 PM Karl Mehltretter <kmehltretter@gmail.com> wrote:
+> > Add a queue flag to do so from buf_prepare() through buf_finish(). Use
+> > read access for output and write access for capture. Map imports
+> > bidirectionally because CPU and device access directions are opposite.
+> > Pass the mapping direction to attach_dmabuf() so USERPTR and MMAP keep
+> > the queue's normal direction.
 > 
-> __vb2_queue_cancel() does much more than that, especially all the
-> media request handling. In addition, this open coded handling just
-> causes code duplication.
-> 
-> Would it make more sense to refactor the relevant part of the buffer
-> cancelation loop from __vb2_queue_cancel() into a helper function and
-> call it here instead?
-> 
+> This isn't right. For the regular vb2 mem ops (dma-sg, dma-contig), a
+> buffer in the prepared state is expected to be ready for hardware
+> usage, meaning only the hardware can access it until the buffer is
+> finished. The vmalloc ops are special in a way that CPU is the
+> "hardware".
 
-Yes that makes sense. The complete per-buffer cancellation tail can be
-moved into a shared helper, while keeping the REMOVE_BUFS range check
-before any buffer is changed.
+Agreed. vivid can select vb2_dma_contig_memops while patch 4 enables
+uses_cpu_access unconditionally.
 
-I can then send patch 1 separately from the DMA-BUF access work.
+Automatic handling belongs in vb2_vmalloc_memops. Regular DMA memops
+need separate handling.
+
+> > Keep this opt-in because some vb2-vmalloc drivers pass buffers to
+> > hardware. End access in process context because DMA-BUF callbacks may
+> > sleep.
+> 
+> That is at least unexpected, but also probably wrong (I haven't
+> checked all the drivers) - the vmalloc mem ops are expected to be used
+> by drivers that only access the buffer contents from the CPU.
+
+One current exception is AMD ISP4. It combines VB2_DMABUF with
+vb2_vmalloc_memops, imports and pins the DMA-BUF through amdgpu, and
+passes the resulting GPU address to ISP firmware.
+
+> Putting all the above together, what I think we need is:
+>  1) prepare/finish ops in vb2_vmalloc_memops to invoke the
+> dma_buf_begin/end_cpu_access() API if the buffer is backed by a
+> DMA-buf,
+>  2) some vb2 API for drivers using the regular (dma-) memops to invoke
+> the dma_buf_begin/end_cpu_access() API for them when they need to
+> perform some CPU accesses to the buffers - typically they would do
+> that in their vb2_ops::buf_prepare/finish callbacks, but definitelly
+> must not after the buffer is already prepared.
+> 
+> It sounds like this series focuses on uvcvideo and vivid, which likely
+> means that 1) alone would be enough to fix the original problem. WDYT?
+
+1) alone would cover the original vmalloc problem.
+
+But today it would also mark the ISP4 hardware interval as CPU access.
+
+The memops finish() callback may also run from vb2_buffer_done() in
+atomic context, while dma_buf_end_cpu_access() may sleep.
+
+The callbacks are void, so errors cannot be returned.
+
+Should ISP4 move to different memops, or should CPU access remain
+opt-in for vb2-vmalloc queues?
 
 Thanks,
 Karl
-
