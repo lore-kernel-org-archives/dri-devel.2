@@ -2,108 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B043606A31B
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 17:58:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE8F606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 18:05:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XMKYwysr
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Cpdv97o4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3E6810E45A;
-	Thu, 22 Oct 2026 17:58:20 +0000 (UTC)
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBF9610E45A
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 17:58:14 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-150ef97e790so961c88.1
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 10:58:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792691894; cv=none;
- d=google.com; s=arc-20260327;
- b=pu2tBIp4M/+4OHgbbSlCbTP9dgudI4+E/Q/9padwFJR+t8D00H045erzlPaW3sou50
- CCub2ol0BGG6AyMCdR5CQuS+DC+zBN46xq83aXKOIFNyvZ7u9xI5EX8MHCpvWphybiI3
- 7p0OvpLSc+O2gY60B04FPBOjWGMwQ2J3FZeIRJWZNC/hmC4DfsXH76MFWiF/W/Nj31f9
- sT5ShlAK72cVf/Gsgeq3K9S9q4BJHVh8goiWBzsNGwSJzYTDGiFGgqHCMTK/QDey+2+M
- 1dPKPkvxPboCzLFNBPfvNOWKUlo/0U2bYTxElpCWbe3IJXi6IvhSIXF09XYfjWmGxkUW
- W6bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=gOxyJqweGrhnvnodtSAXe9yahnUU1PnlCf3PPg5Ekys=;
- fh=akIR/G5V39dhkxt3pShWtq1I+TxFvT/QUoEyvC1YEYA=;
- b=PuhGTh1Zgyr/c8+ufCDp/lNEdqLDoJs+XLIwx/8gyON1FHi2T7F4z8nx9uKAV7ud5J
- hgMCudPAmgmvIZ0aoE2QLRSUDBP/U8ZeRXoe0L7qIe6fllMl5jHEDcwLznicBp6xKZRf
- T0iD0X30C1K4a9anD8evEnplrv/2NEgje1TF5zWiwmBqJPoJIJKKGjtdconAlWNjQTM7
- 943Fz5dEmocNYj6ateX4rWdmJ77N/5FH9WLp/nRXVs3tzeyTHezcFc7EdiX2eG30/Pcy
- HbdVAlVvFi+19MDX8rhMmJ7kXus94BH4CqXqfsP72v+Q0oeQAE8uhvKLh3NuikdS8JOU
- vFhw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 834BA10E47C;
+	Thu, 22 Oct 2026 18:05:49 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B46D10E494
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 18:05:43 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4a1698ea378so745245e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 11:05:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792691894; x=1793296694;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=gOxyJqweGrhnvnodtSAXe9yahnUU1PnlCf3PPg5Ekys=;
- b=XMKYwysrSFCvXIY6MlX40efWWNvk3KrauSewFU9+hf8GV8Pw0HCYh+RXKsHOhj5E4T
- P3DOvjI7QMLj5pyx7iPbPCMsymwAB8WrXcjhbSr5c7qzo01Hq9BntQxXR112oahiZqhx
- YZkln5ubao4esv2AAgMTKaW3XgSHl2j+cTFph8iI4zBasNaE/r4PGFxBbtYKd7MyYkNq
- kQzF8RrrpzqscvZ1DmXXCSxxZska7ZpWAmfpiLybsfUJehK4JWmgfvxP4oZY7t6sKgKM
- Af8kTPoxNp7/F/d8xCr9rU1rEBGmPBcmX8HovY1TUB8aRKQtKI5f4RR0MAa2HYcFIvhO
- 29ag==
+ d=gmail.com; s=20251104; t=1792692341; x=1793297141; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=JY/kgswJkw3rC1uB03Rt3fXoWelWaBya4FySXulL7N8=;
+ b=Cpdv97o4/sL0SvQopr4pyZiqaRc4Zc+pUUXcRVvsFlD6YNUjYsZ2a8kzFaW9G4Pm44
+ z596DZ01YAsGYe4H+79hLDmFMrq3YI+C3BhjpTKJCQB0DnPrTgWlWm99MPsYaog6bFqq
+ pQg66kSpIcKoqlouVJTH31tt+47c2AILDyygvZQcSnJxohQtpllmRWnVpOX+CueyyD4Y
+ pGTuEBgoKDeKOafQ/sc8rSlWY2k/REy0teDzHTuDLwdYMGuFU3H9fxiap7WObonK4kOd
+ hfA13aokia6I6ecvsFzagjr9L0lLJJ/6AUIDIAAtKo3yYQDZSSm7GrCszS0N0/tSlwMK
+ mbKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792691894; x=1793296694;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=gOxyJqweGrhnvnodtSAXe9yahnUU1PnlCf3PPg5Ekys=;
- b=tGj87qZKcsM9s9smlDYv2pZ/2kEqVpZmhtzBzJfaY89oYzv6WzuLLwWf3Flct2f1JL
- ESShsmV5gXQXXThhVMXNyOjt63j+w2X9B3MU/M2Z/j5hGlr/Hhkiagvim73Hke/4yz7Y
- g6p+as36G0Mg7ZRJsP3WZqihDb4LteGg33OOo1VmtJMhbvQw8H/sMWw2VcAGZ5N/epAK
- fYT1mO1saKODbjlJ6qu64mEnnio8WFzMnnRhvFICgnDVD3XA+3IV4nPY2jfeqyFPTs2y
- gXVDvVQJFB6DST63M3Os7wlveDRHOtE8StDDY5DJTucMsWxqmNgCmdxknCakCz1w/7f2
- kzXQ==
+ d=1e100.net; s=20260707; t=1792692341; x=1793297141;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:from:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=JY/kgswJkw3rC1uB03Rt3fXoWelWaBya4FySXulL7N8=;
+ b=Hw51iMUTw08WTF7jVuXua2maPG4fKLkGCeaSHniWkGufpwY/RwOqDO7ZLKVJ5LLrBi
+ ROW1ULfT9bV1b8rc4qX5TnSHhgEs1qJMMyfVLG2bmR9NeN6Z+d3Q8k8haVNwKYwKLgA7
+ O1FJ+mQmvXqTVD1zRnjEi2n5dxgLgFU+nzCTBa0Cw0MfhD0nlKXL7P/6iHe9DW3D/n/a
+ +7jzFbGWR84xdW0AepbVpvQ2k6AqkFRDq7Bi6jEFuQG+SiKb8r+w3iyYSWU2lnFIoblB
+ lYM8NB+SqtULfl8vF0Hi8g8bHyaac7D+b0Gz3n39cENVLqfaQMqORuQtQMmD8v+jHV81
+ qIAw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByJXJePZd2jh2ePi1mfijnUHJnHyBBywjqIbXlur+N7KX96HPPvsTjmJbFJ18g7+i9eoOXsIN+2IPA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLV+V9EM6VqPAosoIReCucnjBObHhbKbdzRF0mOnicPsrCcGgQI
- FDsDpU8CmqqA1pDNjX2x6uxxRTLbnoVH8RsLRbSShMeC+rUiliBu048HvxbhT5FDH2NxcWx9Vdz
- OPTcM5AM0h4DA8MA2fZNaXIxkcHQntuuG/f3RKrn+wzV4qWjwojnTAo87uA==
-X-Gm-Gg: AYBFou1lOcMdEW0vjdvb4dcSpzYQv3/hSVAjXvM+LqIh3ewwMx2+VP4cEsw0Tx1N14q
- 162BswZgfblrxXv7RWnqhfTDGGrhbjfJyo3VqWmcIa4LsRcblo0knOEwwFMcOWv7NPR8sp6Gc+T
- hefGKuMu/+aY1kXA+OVWH/iEFRtcyxT5BeB4ywUOUjGMqnGar3SsrpJShzbqwqpMull0F/r/ppY
- YdKJD+Uvc/WucBEjJVyvucf35ApoxzpvZIMwEsoA4efmdQaqkET3MmXylPSm9sqBoRcd6anQhwR
- mDFJthbVPKcf9caY5J1472tCka1DEhe/Bsyii93ivSjU4iatQ/IvmDvG85148N7+uGW1a1cejc6
- Kjl0w4I9jS91rpFbezqQxoFlkjIb7pY3jBuzOD0ZRp/SSs1C05WieuvOKAntIuxU3zpLnoKh4tI
- DkMqKt/NQqhLPGojLpeZrCOUJOEGLMozfaZXRNGyTUK0ndUugTe9DI
-X-Received: by 2002:a05:701b:2085:10b0:192:ce56:4982 with SMTP id
- a92af1059eb24-195b384f21cmr17350c88.1.1792691893149; Thu, 22 Oct 2026
- 10:58:13 -0700 (PDT)
+ AKwUvBxOmO00AjEWD0lLffyhYHfgnR/pZFCdXIIjl0e09NgzrpaCFuUUfCXQfLc0F7qEeR7sxDCJBt5YY80=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKzichoKpany4OunWVxv1ZkHU+8j5kXyVe/9aRDRL/ec92rSU9Z
+ loxV/cNs4nkYRLHCR2S8+S35Pkj8UXHhdPkSdDywrVv7gyEP6Q/oVhM=
+X-Gm-Gg: AYBFou0S9+tRJnU2chhEeiKBxfDZ/+vqr2QrTBmxyMVpaktiqSJYDvZCmY16BKkghMq
+ JHRXvLMX7wCr6iAp+iG0/bRkxgWQIrPJPx6hIWyV1fLBNhIvxS6jrgLcjTTkq2KpWYqT1riYFc7
+ 6/7EdtwuadGj4Sq62yivUDYbOmrm8dFVTqigwJDfH3V4KDN1TGmzS8mbrrFpxzCJG7wlATSSGTt
+ XZI1uY8djw1tBjXYXw2riL6MRcuUPwovAV7Doblg+kr0pV2EkHwHZK+ZFKqbjCj2x5mj7080YJ8
+ fACQ1vYpIKcAumHcGT/P7GRTLPUHieHmBqzTAzyvfmkT5HB5PKyj9VB9BmxLhlkJUzF54d8qiRo
+ 4fAoEK40NyJbIpZVemR5MunrDalApop3HngyihwBu2qIQ4uHyze+fXrtxs1kpTEiSWZdCWGDEfY
+ Us+hnJ/xSMWzbKrC0XlSE0X1qhMPbJB04BxjI0OhNzaRTtZpbzk1hzDmoZziNYzNdlRsvNUSFbc
+ Y1RT8+ObjoUgc9p2DlxBlYphoj5IR1MkIaIkZi2aKhgbDjYwr0lW+pQ0AVSfhl99PJGB3MdAzch
+ IVT6bD6UgJsGPphVtxM0H1GBtpBqifPeoi8Q
+X-Received: by 2002:a05:600c:46d3:b0:4a1:acaa:c355 with SMTP id
+ 5b1f17b1804b1-4a1fdd0b191mr127111405e9.10.1792692340943; 
+ Thu, 22 Oct 2026 11:05:40 -0700 (PDT)
+Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a?
+ ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a2104627e0sm14106125e9.9.2026.10.22.11.05.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Oct 2026 11:05:40 -0700 (PDT)
+Message-ID: <31970f28-5415-4e78-aa0f-51f15d779e1b@gmail.com>
+Date: Thu, 22 Oct 2026 20:05:38 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261006154913.2689067-2-val@invisiblethingslab.com>
- <8b0fbe1a-1410-42d7-8031-611795ae39d9@collabora.com>
- <4d86ec37-ce27-4556-966e-4b4e80ec0718@invisiblethingslab.com>
- <f717bc84-57f4-4001-a15b-fcdca67bb9b4@collabora.com>
- <6c0f26af-e363-46b8-b3b9-8d3910297dc0@collabora.com>
-In-Reply-To: <6c0f26af-e363-46b8-b3b9-8d3910297dc0@collabora.com>
-From: Yiwei Zhang <zzyiwei@google.com>
-Date: Thu, 22 Oct 2026 10:58:01 -0700
-X-Gm-Features: AclHuK8zrBSyPW0ecQ4Wi5vbzBHjWnhi_xIgMiJLjDz9C3zXcHZS3t6jUqqUQ44
-Message-ID: <CAKT=dDmEf3McX50KYxmLDb-oeuYWMBSnkcGGSEfi_PO4pD6qjA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/virtio: do not enforce blob_alignment in
- cross-domain contexts
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Val Packett <val@invisiblethingslab.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Sergio Lopez <slp@redhat.com>,
- Yiwei Zhang <zzyiwei@chromium.org>, 
- Ryan Neph <ryanneph@chromium.org>, dri-devel@lists.freedesktop.org, 
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
+ <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
+ <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
+ <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
+ <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+ <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
+ <wtun2cfukyzxlsfiz2izsejd33k4jpapwqa3uqih5drcsrkff5@e6llkke5dayw>
+ <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
+Content-Language: en-US
+In-Reply-To: <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,165 +111,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-28.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Oct 14, 2026 at 2:02=E2=80=AFPM Dmitry Osipenko
-<dmitry.osipenko@collabora.com> wrote:
+On 10/22/26 2:54 PM, Anna Maniscalco wrote:
+> On 7/9/26 9:39 PM, Dmitry Baryshkov wrote:
+>> On Thu, Jul 09, 2026 at 05:54:23PM +0300, Dmitry Baryshkov wrote:
+>>> On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
+>>>> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
+>>>>> On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
+>>>>>> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
+>>>>>>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
+>>>>>>>> In order to associate the SID used by LPAC to it's own domain and
+>>>>>>>> context bank we need a separate node on the DTS.
+>>>>>>> Can we use iommu-map instead of adding a new device using the same
+>>>>>>> addresses? You provide zero explanations, but it seems like you are
+>>>>>>> trying to separate a part of the GPU into a separate device, but 
+>>>>>>> it's
+>>>>>>> unnecessary.
+>>>>>> What I was trying to say is that we need to map sid0 and sid1 to 
+>>>>>> different
+>>>>>> context banks.
+>>>>>>
+>>>>>>  From what I recall, so long as we use the same dt node, the 
+>>>>>> iommu drivert
+>>>>>> provides no way of doing this.
+>>>>>>
+>>>>>> What kgsl does is having a node for the iommu and then subnodes 
+>>>>>> for gfx lpac
+>>>>>> and secure.
+>>>>>>
+>>>>>> The address on the lpac device doesn't really matter. I have very 
+>>>>>> limted
+>>>>>> knowledge of DTSs but I think we could just leave it out altogether?
+>>>>> I think, you were poined to the Glymur Iris patches. Another 
+>>>>> option is
+>>>>> the QDA driver being submitted too. Both ot them use iommu-map to
+>>>>> describe the same usecase - a set of SIDs which are used by the 
+>>>>> device
+>>>>> but which should not be a part of the defaut set. With it in place 
+>>>>> you
+>>>>> don't need to have separate qcom,lpac devices, no additional 
+>>>>> properties,
+>>>>> etc.
+>>>>>
+>>>>> I'd recommend following the same approach.
+>>>> iiuc, the conclusion in this recent thread is to use child nodes for a
+>>>> similar case:
+>>>> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
+>>> Let me check internally.
+>> After a brief discussion: it can be either, depending on what suites
+>> better (and if you can persuade DMA / IOMMU maintainers to let one extra
+>> bus or not).
+>>
+> One thing sashiko is pointing out is that new dt should work with hold 
+> kernel so, in general moving sid1 from there would break it since old 
+> kernels don't know how to handle them separately.
 >
-> On 10/10/26 22:40, Dmitry Osipenko wrote:
-> > On 10/8/26 23:59, Val Packett wrote:
-> >>
-> >> On 10/8/26 4:33 AM, Dmitry Osipenko wrote:
-> >>> On 10/6/26 18:42, Val Packett wrote:
-> >>>> VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context ty=
-pes,
-> >>>> however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resource=
-s
-> >>>> created under cross-domain contexts are arbitrary shared system memo=
-ry
-> >>>> files, which includes unusual things like Wayland keymaps received
-> >>>> from the host compositor. Do not enforce alignment requirements ther=
-e.
-> >>>>
-> >>>> Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements"=
-)
-> >>>> Signed-off-by: Val Packett <val@invisiblethingslab.com>
-> >>>> ---
-> >>>>
-> >>>> v2: also check has_virgl_3d to prevent dereferencing NULL vfpriv
-> >>>> v1: https://lore.kernel.org/all/20261006004044.2242154-1-
-> >>>> val@invisiblethingslab.com/
-> >>>>
-> >>>> ~val
-> >>>>
-> >>>> ---
-> >>>>   drivers/gpu/drm/virtio/virtgpu_ioctl.c | 4 +++-
-> >>>>   1 file changed, 3 insertions(+), 1 deletion(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/
-> >>>> drm/virtio/virtgpu_ioctl.c
-> >>>> index 3ddd5481d6bc..4d5ae062834d 100644
-> >>>> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> >>>> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> >>>> @@ -551,7 +551,9 @@ static int verify_blob(struct virtio_gpu_device
-> >>>> *vgdev,
-> >>>>       params->blob_flags =3D rc_blob->blob_flags;
-> >>>>       params->blob_hints =3D rc_blob->blob_hints;
-> >>>>   -    if (vgdev->has_blob_alignment &&
-> >>>> +    if (vgdev->has_blob_alignment && vgdev->has_virgl_3d &&
-> >>>> +        (vfpriv->context_init &
-> >>>> VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=3D
-> >>>> +        VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
-> >>>>           !IS_ALIGNED(params->size, vgdev->blob_alignment))
-> >>>>           return -EINVAL;
-> >>>>
-> >>> What userspace has this problem and why it re-purposes virtio-gpu to =
-act
-> >>> as udmabuf for arbitrary data that never reaches host?
-> >>
-> >> Sorry, what do you mean by that?
-> >>
-> >> This is not related to data that "never reaches host" at all! The erro=
-r
-> >> I referred to in the patch message literally says "received *from* the
-> >> host"=E2=80=A6??
-> >>
-> >> Guest userspace is any of the cross-domain proxies:
-> >>
-> >> * https://codeberg.org/drakulix/wl-cross-domain-proxy
-> >> * https://github.com/talex5/wayland-proxy-virtwl
-> >> * https://github.com/google/sommelier-rs (or old C++ version)
-> >>
-> >> VIRTIO_GPU_CAPSET_CROSS_DOMAIN "repurposes virtio-gpu" to act as a
-> >> cross-VM UNIX socket transport that supports fd passing. By referring =
-to
-> >> virtio-gpu resources in the send command the guest can make the device
-> >> send the resources' corresponding host fds to the host Wayland
-> >> compositor. It can refer to resources from other contexts, in order to
-> >> present drm/venus/etc rendered buffers on Wayland surfaces. (i.e. the
-> >> host would send the actual dma-buf from virglrenderer) But the resourc=
-es
-> >> created on the cross-domain context itself are system memory buffers,
-> >> generally used for software rendering and miscellaneous Wayland "stuff=
-"
-> >> like keymaps which are sent *from* the host, and exposed to Wayland
-> >> clients in the guest. Socket receive handling in rutabaga-gfx stores
-> >> incoming fds and returns their IDs to the guest, then the guest does a
-> >> CREATE_BLOB with matching blob_id, which creates a virtio-gpu resource
-> >> from the incoming buffer, so the guest can just MAP_BLOB it. These are
-> >> the blobs that are not aligned to anything because they're just
-> >> arbitrary memfds on the host.
-> >
-> > RE "These are the blobs that are not aligned to anything because they'r=
-e
-> > just arbitrary memfds on the host." I'll appreciate confirmation from
-> > people more familiar with Sommelier internals like Gurchetan, Yiwei or =
-Ryan.
-
-Technically there's no need to enforce alignment on keymaps backed by
-memfds, meanwhile those consumed by GPU have the proper alignment told
-by CROSS_DOMAIN_CMD_GET_IMAGE_REQUIREMENTS (unless it fails to do the
-right thing).
-
-> >
-> > In a case it is a correct claim, might be better to remove the
-> > blob_alignment check entirely and let blob sharing fail naturally if
-> > alignment is wrong.
-> >
+> Not sure how to address this.
 >
-> Reproduced the bug with Sommelier.
->
-> Driver always implicitly rounds up BO size up to PAGE_SIZE for both
-> guest and host blobs [1][2], hence need to retain this old behavior to
-> fix the problem properly.
->
-> Please send v2
->
-> [1]
-> https://elixir.bootlin.com/linux/v7.2.10/source/drivers/gpu/drm/virtio/vi=
-rtgpu_object.c#L217
-> [2]
-> https://elixir.bootlin.com/linux/v7.2.10/source/drivers/gpu/drm/virtio/vi=
-rtgpu_vram.c#L210
->
-> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-> @@ -539,9 +539,15 @@ static int verify_blob(struct virtio_gpu_device *vgd=
-ev,
->         params->blob_flags =3D rc_blob->blob_flags;
->         params->blob_hints =3D rc_blob->blob_hints;
->
-> -       if (vgdev->has_blob_alignment &&
-> -           !IS_ALIGNED(params->size, vgdev->blob_alignment))
-> -               return -EINVAL;
-> +       /*
-> +        * Blob sizes always implicitly rounded up to PAGE_SIZE by the
-> +        * driver, userspace may be unaware of the host's alignment.
-> +        * Round up to the larger of the host and guest page sizes.
-> +        */
-> +       if (vgdev->has_blob_alignment)
-> +               params->size =3D ALIGN(params->size,
-> +                                    max_t(u32, vgdev->blob_alignment,
-> PAGE_SIZE));
->
->         return 0;
->  }
->
->
->
-> --
 > Best regards,
-> Dmitry
 
-I like Dmitry's latest proposal much better. Keeping the alignment
-agnostic to the guest userspace is more seamless, which also covers
-the implicit 4k alignment case without forcing userspace to adapt.
+Also, looking into iommu-map, it seems like I would ultimately still 
+need to add a child device.
 
-Best,
-Yiwei
+Best regards,
+-- 
+Anna Maniscalco <anna.maniscalco2000@gmail.com>
+
