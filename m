@@ -2,36 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C16606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 16:21:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2000B606A31D
+	for <dri-devel@archiver.kernel.org>; Thu, 22 Oct 2026 16:27:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0+ksbiT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmiC120B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5F7010E096;
-	Thu, 22 Oct 2026 16:21:42 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A546F10E096
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 16:21:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2FC10E451;
+	Thu, 22 Oct 2026 16:27:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D31E310E451
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 16:27:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6A18D43DC5;
- Thu, 22 Oct 2026 16:21:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C008B1F01828;
- Thu, 22 Oct 2026 16:21:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D38F4602C5;
+ Thu, 22 Oct 2026 16:27:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026B71F031ED;
+ Thu, 22 Oct 2026 16:27:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792686096;
- bh=4oz5dX4tDBH0WqAQg9PhRE4xJRQGNmthSi52inKF9B0=;
+ s=k20260515; t=1792686438;
+ bh=1gaTKAWNo5zd3KFHzEp92l6xFt453cp+GsDCAPAz/9Q=;
  h=From:To:Cc:Subject:Date;
- b=U0+ksbiTduDU7g2VPa9NcaYlCjoPp3YwKe7qAuewXxTnZ2WM3riuNva02dkZl1mme
- viI4fAYuREXSuzk+4O/BmscDrpn5zBD8h1E/h+qJ+YtREgZAi39VIHRZesMchcT138
- BTyCAzoA6fsvM/0N2pETw3xQ3/3DKOfNeW/7Cxf9LIDKT5uqckkU5ZC8CAyT53dbWq
- 1npn+6BSTHY19JKrNLjuQHOTZbQzssdQu5TwICvdvDVA5b7kMFtCa1vmfobRl9vkjN
- WqVyerElqLI55a+LMAcv6GB6yGOAYdRp8Mz4BebgLWyi1jyPbqKqTwwRTo+IWlOqEy
- mxhJAXXM0kBUA==
+ b=FmiC120BJNiO7YlSbc4PgGjMkQw0E75g6JOvlm36vGn1x6c9hLzbMklFw0RiKQjSW
+ NlQDR1tlfOcUACzDvJj9BOTi9dNTMDmLRodho6GC7z0xFLZdQxwLGWVeBb2CYCeFov
+ ega7CYUO0VM3RJDAHVSF+jsTq0hCMZ2yUK/rJw6QxdhQLTu7LM9zeHPuA03t1oC/SL
+ JdkKAOwM23jdE859EhCy2Tm4IqPz3mDg+udnxcY4IuAolHJZ7vgM8n+w9V2wxE6P9B
+ 0PVLoDOeEuk5pxgzZk634t+VJa1XStH8qjy0M0eSZlTZLklrX9iLaut/J7szDOBwjD
+ DG5piyghkc5zw==
 From: Philipp Stanner <phasta@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
+To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
@@ -42,9 +42,9 @@ To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
 Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] rust: DmaFence: Implement Deref for FenceContext
-Date: Thu, 22 Oct 2026 18:21:17 +0200
-Message-ID: <20261022162116.2282295-2-phasta@kernel.org>
+Subject: [PATCH] rust: DmaFence: Don't drop on signal
+Date: Thu, 22 Oct 2026 18:27:03 +0200
+Message-ID: <20261022162701.2297062-3-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -68,35 +68,65 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A FenceContext carries data, which the user should be able to access.
+The original design for DmaFence intended to comply as strictly as
+possible with the "dma_fence contract", which, according to some, says
+that a fence must only be signaled once. Thus, the implementation was
+made so that a DriverFence drops on signal.
 
-Implement Deref for FenceContext.
+While extending JobQueue's capabilities, it was discovered that this
+characteristic causes - unnecessary - trouble: fence-data must be
+dropped in an RCU-deferred manner because the C backend demands that.
+However, fences are often signaled in atomic context (e.g., interrupt
+handler) where you don't want to drop, but signal as quickly as
+possible.
+
+Actually, there is no real hard reason to enforce that a fence can only
+get signaled once, because the C backend is robust against multiple
+signal attempts.
+
+What is decisive is that a) all fences signal and b) they only drop no
+earlier than 1 RCU grace period after signaling.
+
+Don't drop a DriverFence on signal().
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- rust/kernel/dma_buf/dma_fence.rs | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ rust/kernel/dma_buf/dma_fence.rs | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index a1d851656562..5300448882e7 100644
+index a1d851656562..3022bdb5f7c3 100644
 --- a/rust/kernel/dma_buf/dma_fence.rs
 +++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -86,6 +86,15 @@ pub struct FenceContext<T: FenceContextOps + Send + Sync> {
-     data: T,
+@@ -805,7 +805,7 @@ pub fn as_fence(&self) -> &Fence {
+     }
+ 
+     /// Signal the fence. This will invoke all registered callbacks.
+-    pub fn signal(self, res: Result) {
++    pub fn signal(&self, res: Result) {
+         let fence = self.as_fence().lock();
+ 
+         // SAFETY: `fence` is valid because `self` is valid. The lock must be
+@@ -816,14 +816,15 @@ pub fn signal(self, res: Result) {
+                 // must not have been signaled yet, which we check directly above.
+                 unsafe { bindings::dma_fence_set_error(fence.as_raw(), err.to_errno()) };
+             }
++
++            // SAFETY: `self.data` is valid because `self` is valid.
++            let fctx = unsafe { self.data.as_ref().fctx };
++            let _ = fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
++
+             // SAFETY: `fence` is valid because `self` is valid. The lock must
+             // be held, which we acquired above.
+             unsafe { bindings::dma_fence_signal_locked(fence.as_raw()) };
+         }
+-
+-        // SAFETY: `self.data` is valid because `self` is valid.
+-        let fctx = unsafe { self.data.as_ref().fctx };
+-        let _ = fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
+     }
  }
  
-+impl<T: Send + Sync + FenceContextOps> Deref for FenceContext<T> {
-+    type Target = T;
-+
-+    #[inline]
-+    fn deref(&self) -> &Self::Target {
-+        &self.data
-+    }
-+}
-+
- impl<'a, T: Send + Sync + FenceContextOps> FenceContext<T> {
-     // This can later be extended as a vtable in case other parties need support
-     // for the more "exotic" callbacks.
 
 base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
 -- 
