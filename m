@@ -2,77 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A5B606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED39606A323
 	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 06:40:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JlJk70kV
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=d26CcLDT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0AE510E592;
-	Fri, 23 Oct 2026 06:40:46 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA7EF10E5B3
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:40:25 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-48e09aa5264so255112f8f.2
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 23:40:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46D1E11298B;
+	Fri, 23 Oct 2026 06:40:47 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F2EB10E592
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:40:23 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-48e10a70540so268319f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 23:40:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792737624; x=1793342424; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792737621; x=1793342421; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=4UoeFHsO2E1Dm3EPGxkpKrzw1COi+rNj0JGJlw6wJw8=;
- b=JlJk70kVaLYzOAtbSGVM90BAu+S1wfHdvT+bVlbTXRX5uh4QfNykWemOp5+aXDh+/k
- 9OdVJ8wJ+SGIzHlz/nKbk+/dyx9ZxI9T8Gh+b96AgOMczw6Qc3nxcYLKQ4Aoyxiszaj4
- cHz/DzSy9w5YXmHYgDA8jwcLTbYNUUpdMjjB4NIA8bPMwQMEN+aFdAFhuWXgCYCdTvFw
- LWbiDFN9JfOxnVmhmDSvaA11TKtNwdTOmtzomU3vPwhqeaCuC21iIo9xV/kobf6xcdiC
- gsBWp1wdSlT6CPvOvfkHGWAaob8TQD1slrgE7C/H4b1DDDOFNsf8PQVfDhoTrCgKBPMz
- TJOg==
+ bh=ZJFWHzliBTc3+ANTD4MSj5zAkBWI2RhH31jFlttP6lk=;
+ b=d26CcLDTX5zmg3qVl8ca7ugKDM2eoxmSL4wDyj8kcwCT+fRvhG5FoWyNR5+RgRxT0V
+ j/OClnLALdpqCYOjfOsgd2WNN+P2XVla4fgzOFIvZwcAY6J1DJvBCp1GLlHjX07z4KsJ
+ s8jDKALFSCDeLWvVLPoRmpqSgLXq+eE9xgt06lhKDRfw2v7LfX1UD2dCPmm49rigW913
+ f1d7HsrSJCNxnamWAFaQP+Jr0kBju9h+2MdyKIcPP6KLiJ7ebLPLCDXteQg62yNz9T/X
+ E16JLT1f4ISBEkniWF98FmfGx450k+7tJ/8qMeg213TZ0XkMIj+LCKOLq3ChKmBp4mdH
+ CHrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792737624; x=1793342424;
+ d=1e100.net; s=20260707; t=1792737621; x=1793342421;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=4UoeFHsO2E1Dm3EPGxkpKrzw1COi+rNj0JGJlw6wJw8=;
- b=AQUOnEc1zEpBpurfyGZzZ288U4MIgrFRMtrCn/fnEKB+ryvNvQScTpPZzIFRfsO9RG
- wU62qWTQ3T/ZfLQV1X1JcFjwpCzDha83plvDbGHU+D9zHBJtAZpYhD+SfCr7DZSrfkFj
- zGAzoZ3fgTfE3vIqr+H4HZpuu1N4qKvA7848trSjitpdbNGcEeBPUIn2xm7o1vqvecN2
- iOrlHI5uuVrzp7zOsmdoihFr+3ajYFVPbIj50q9Jz5pYnRQCIn2d3oyP5vdbpLqt0xl5
- CQ/UZnTT9lzBYgxlJdG7yaK/JXA4xnJyWm0f4w8VpZdGg/Lsw4ECv6RM5IUYuP1MsAv5
- co4g==
+ bh=ZJFWHzliBTc3+ANTD4MSj5zAkBWI2RhH31jFlttP6lk=;
+ b=aNHuGz3QubPwf9Nco1xfq+0Fqeg7pKRNCvH8+zPorzjUTET+NCmMEBZhvFg0eCFxEh
+ 48cuVLvu7lTMViK6g1UV7BzxBKCogVgXGiQYRhH69U0nZsT0elNG5BLzy5RCiCKWdgK0
+ C0GeAZvrZHCT4qW+IiUISgKdZGSyqv68PK0YrLU2a94ZSFOkgbMwiyO8kPdJWLlvYij9
+ pob2CFmTFK0F84f/2/SiZvf32Erg+4QNkBiW4gedawRKhYJ1qoh1n15qfBYWYd8HXhPH
+ BBwjQPyWXn9ZYFFaPCvgwk9ELMNcVu+b7o7z5KAerw+mO8Osf9BpZs+UQ7d3itNRadyY
+ pA6A==
 X-Forwarded-Encrypted: i=1;
- AKwUvByhQqBTqa/kxZWl6s873ePjLelU6xOIyMc6MkO2Jc6GpkngGBhJLlUaEIavZbPIjAwaLptT/I71dto=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLxksDyIfSEy8R3wbLk6GjynQlCDWfZcqguNv0IPN30+wOvVyBL
- 1pmqDIJ/ICyVCEMke1dQvTZlhw7+9vbVl67TBRsXlWEN2MTSS4z57jph
-X-Gm-Gg: AYBFou1KG2nJbAk3Rwne4YO+0+uLDxRerWkzAHNQmA4kHjvKFDJvwParDs/jmxx4HSy
- DxOruzx227wfAAsT1HabuAtpS6jAvDYvjmSmNUwF9a0uxHSEBhLdHrwtdo80iQxhgUQvtV5iBd3
- gVVyU7kaoOjWb551bfo92RHemuMfs/cFL5dFYm5jCNIBBZWwn4VXNhZ3z94UGAA+ftRUI+SP29T
- g3Slhtg76y0kJhQu+sw9tyYTDSF+hhxSOw7yuS8S4A1FdkU0aEo0HdEdT6Tp8qOqkKrSbicgQKp
- jQ+y2gIsbBwlGCYKtbWVKsvndrbdYq363QLTxeL4P3ehVHSEuXJZ/gExAYWF2qbNKRVud+xeyOF
- +lBLlDyZR3vZ1TDmHKDBpm/lEeD7LB0YP5VgANDEZrq+OAl0YVIDAsTTSQoL1UwFwYe5p75Wyj1
- RnRGioEI7aR/tFObE+KjW/KP7csd9DA4hntDZs6kCYWfmH1mlkhdxMOz02WwIhqh7XsGr5WGTkl
- VpPXsPMiMxILSJldK+Fb971hjwV7z5q5UkW4MZ5LbJ8k3APXhwuxEZast0p7CJQuHvOKY+ERTQN
- O/XHNS/+I1eRtpi0FvhyT/7uVpXoHH3yyrfIemJpteCKgyQgOITgqoNki6PwJBxuTkktBPTw7+8
- O1pTm2e7Z3b1TLFTHi7GMqnax
-X-Received: by 2002:a05:6000:4910:b0:48e:1c2:55a1 with SMTP id
- ffacd0b85a97d-48e385c0867mr1563144f8f.52.1792737623908; 
- Thu, 22 Oct 2026 23:40:23 -0700 (PDT)
+ AKwUvBxXd+HkjhcuoBOIS+FH0umkMITJMfsXhASH7LGcCemaLI3CrY6M3c4NNjUxClchs2ZVEUdtQb89pLM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI9beJeRd0uiiP9e4qkVt/AFN3HtpGJp28pVmYhSRDPuocmn7Lb
+ 9NYca02v+w90X5H5Lo4tMYwOYJz+1kfj+UhMHAkKFnfMolQ63x1ROoCW
+X-Gm-Gg: AYBFou20egwhiUGXcJxTxtEsg47mOFtGyF8DgzTR430/YlaCZabJ21/NqBX4cpVj/jK
+ 6PkX1vihp1ArgxODyzCH0dCC7SGxbKYg41+oPU+xPKXqIoe8E7YaAae663iKeDU5RlwXHNKbKTh
+ kvyxGYbtOIAgZf5ts0SI6aG77QhwG+tzKT+18yyZZxvs2hnD5RkE/M4mXhBgJlgw7IYBucmyU13
+ FdTv2YvCarCCiZ7QkgTmIujxBsE+/VWw6GphhLbZi445fCWizGqFXIllE+uyqacHF4tmqVm35nl
+ TgNvXRUFdh3Hc+XFHlJBvy0vLhMkT7wMVBQhpAXU+xua5zj3w/t6XuoGEeHwCuwzBfQRdfCNfFQ
+ S0v+CEOHo7hX38GLdS3pX1PiySr9cQkxXaSwgVZgvvSVpeRFCTPe68aFGNEO8tvsH8tYjFxWXGU
+ FBK53E6uQO9/Oju0fWH/YuCWIdkTBIJS8cL3cEIllp6CJ5NkzZDHApGAhitiSUCV2s7BgHd5MNo
+ j/5vbWDUjCDrgtvsjE864vRlbTUm9F2FSc+VpTfzxqcrEDOZnOD4d3XiswD7NbWEqNpVrTta4mB
+ GeMOqFObXwLq3GbqrQ5hrycZmHvfPwtodP0pf1G9/aqydOtowA9hNyVQRXch3PQCTA3OAqRIvCw
+ BYeE=
+X-Received: by 2002:a05:6000:310e:b0:48e:f14:61bd with SMTP id
+ ffacd0b85a97d-48e38588967mr1965340f8f.14.1792737621324; 
+ Thu, 22 Oct 2026 23:40:21 -0700 (PDT)
 Received: from [192.168.1.22] (cst-prg-49-173.cust.vodafone.cz.
  [46.135.49.173]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.40.21
+ ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.40.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 23:40:23 -0700 (PDT)
+ Thu, 22 Oct 2026 23:40:20 -0700 (PDT)
 From: Tomeu Vizoso <tomeu.vizoso@gmail.com>
 X-Google-Original-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Fri, 23 Oct 2026 08:39:40 +0200
-Subject: [PATCH v3 15/16] arm64: dts: ti: k3-j722s: Add second submailbox
- to the C7x cores
+Date: Fri, 23 Oct 2026 08:39:39 +0200
+Subject: [PATCH v3 14/16] arm64: dts: ti: k3-j722s: Add the AUX L2 SRAM and
+ DRU regions
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-thames-v3-15-3ab40aa17157@tomeuvizoso.net>
+Message-Id: <20261023-thames-v3-14-3ab40aa17157@tomeuvizoso.net>
 References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 In-Reply-To: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 To: Nishanth Menon <nm@ti.com>, "Andrew F. Davis" <afd@ti.com>, 
@@ -121,62 +121,70 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-For firmware that uses something other than RPMsg for communication with
-the Linux kernel.
+The DRM accel Thames driver maps each core's auxiliary L2 SRAM and the
+DRU's channel registers into the Contexts it creates, so the DSP nodes
+carry these two regions besides the L2 SRAM, and the bus gains ranges
+for them. The auxiliary L2 is 256 KiB of SRAM in a 512 KiB aperture; a
+read past it faults, so the reg entry covers the SRAM only.
 
 Assisted-by: LLM
 Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 ---
- arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/ti/k3-j722s-main.dtsi | 16 ++++++++++++----
+ arch/arm64/boot/dts/ti/k3-j722s.dtsi      |  4 ++++
+ 2 files changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-index a59c3648d805..611220ff2655 100644
---- a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-@@ -86,6 +86,11 @@ mbox_c7x_0: mbox-c7x-0 {
- 		ti,mbox-rx = <0 0 0>;
- 		ti,mbox-tx = <1 0 0>;
+diff --git a/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi b/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
+index 5a5b9a1bfd9e..b6c951a1dd74 100644
+--- a/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j722s-main.dtsi
+@@ -385,10 +385,16 @@ main_r5fss0_core0: r5f@78400000 {
+ 		};
  	};
-+
-+	mbox_c7x_0_client: mbox-c7x-0-client {
-+		ti,mbox-rx = <3 0 0>;
-+		ti,mbox-tx = <2 0 0>;
-+	};
- };
  
- &mailbox0_cluster3 {
-@@ -100,6 +105,11 @@ mbox_c7x_1: mbox-c7x-1 {
- 		ti,mbox-rx = <2 0 0>;
- 		ti,mbox-tx = <3 0 0>;
- 	};
-+
-+	mbox_c7x_1_client: mbox-c7x-1-client {
-+		ti,mbox-rx = <5 0 0>;
-+		ti,mbox-tx = <4 0 0>;
-+	};
- };
++	/*
++	 * The auxiliary L2 is 256 KiB of SRAM in a 512 KiB aperture; a read
++	 * past it faults.
++	 */
+ 	c7x_0: dsp@7e000000 {
+ 		compatible = "ti,am62a-c7xv-dsp";
+-		reg = <0x00 0x7e000000 0x00 0x00200000>;
+-		reg-names = "l2sram";
++		reg = <0x00 0x7e000000 0x00 0x00200000>,
++		      <0x00 0x7f000000 0x00 0x00040000>,
++		      <0x00 0x7c460000 0x00 0x00020000>;
++		reg-names = "l2sram", "l2aux", "dru";
+ 		resets = <&k3_reset 208 1>;
+ 		firmware-name = "j722s-c71_0-fw";
+ 		ti,sci = <&dmsc>;
+@@ -399,8 +405,10 @@ c7x_0: dsp@7e000000 {
  
- /* Timers are used by Remoteproc firmware */
-@@ -152,14 +162,16 @@ &main_r5fss0_core0 {
- };
- 
- &c7x_0 {
--	mboxes = <&mailbox0_cluster2 &mbox_c7x_0>;
-+	mboxes = <&mailbox0_cluster2 &mbox_c7x_0>,
-+		 <&mailbox0_cluster2 &mbox_c7x_0_client>;
- 	memory-region = <&c7x_0_dma_memory_region>,
- 			<&c7x_0_memory_region>;
- 	status = "okay";
- };
- 
- &c7x_1 {
--	mboxes = <&mailbox0_cluster3 &mbox_c7x_1>;
-+	mboxes = <&mailbox0_cluster3 &mbox_c7x_1>,
-+		 <&mailbox0_cluster3 &mbox_c7x_1_client>;
- 	memory-region = <&c7x_1_dma_memory_region>,
- 			<&c7x_1_memory_region>;
- 	status = "okay";
+ 	c7x_1: dsp@7e200000 {
+ 		compatible = "ti,am62a-c7xv-dsp";
+-		reg = <0x00 0x7e200000 0x00 0x00200000>;
+-		reg-names = "l2sram";
++		reg = <0x00 0x7e200000 0x00 0x00200000>,
++		      <0x00 0x7f800000 0x00 0x00040000>,
++		      <0x00 0x7d460000 0x00 0x00020000>;
++		reg-names = "l2sram", "l2aux", "dru";
+ 		resets = <&k3_reset 268 1>;
+ 		firmware-name = "j722s-c71_1-fw";
+ 		ti,sci = <&dmsc>;
+diff --git a/arch/arm64/boot/dts/ti/k3-j722s.dtsi b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
+index ca10c6904b69..6c0d2ee94290 100644
+--- a/arch/arm64/boot/dts/ti/k3-j722s.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
+@@ -185,6 +185,10 @@ cbass_main: bus@f0000 {
+ 			 <0x00 0x78500000 0x00 0x78500000 0x00 0x00008000>, /* MAIN R5FSS0 BTCM */
+ 			 <0x00 0x7e000000 0x00 0x7e000000 0x00 0x00200000>, /* C7X_0 L2SRAM */
+ 			 <0x00 0x7e200000 0x00 0x7e200000 0x00 0x00200000>, /* C7X_1 L2SRAM */
++			 <0x00 0x7f000000 0x00 0x7f000000 0x00 0x00080000>, /* C7X_0 L2 aux */
++			 <0x00 0x7f800000 0x00 0x7f800000 0x00 0x00080000>, /* C7X_1 L2 aux */
++			 <0x00 0x7c460000 0x00 0x7c460000 0x00 0x00020000>, /* C7X_0 DRU */
++			 <0x00 0x7d460000 0x00 0x7d460000 0x00 0x00020000>, /* C7X_1 DRU */
+ 			 <0x01 0x00000000 0x01 0x00000000 0x00 0x00310000>, /* A53 PERIPHBASE */
+ 			 <0x05 0x00000000 0x05 0x00000000 0x01 0x00000000>, /* FSS0 DAT3 */
+ 			 <0x06 0x00000000 0x06 0x00000000 0x01 0x00000000>, /* PCIe0 DAT1 */
 
 -- 
 2.54.0
