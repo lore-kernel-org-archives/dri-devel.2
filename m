@@ -2,24 +2,24 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA56B60A381B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E8B606C9C1
 	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 15:41:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=j2L2/ww6
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YzGxLblo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2724310E658;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F36D10E69C;
 	Fri, 23 Oct 2026 15:41:44 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011019.outbound.protection.outlook.com [52.101.52.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1E9D112BD0
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:41:22 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7547E112BE6
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:41:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S5E5Ai6gyxiJX0vcY2lM2ocb92WVGD4C1wnPZe7qBfZs1RhNCoFNWzw1bB/ErwGsOY9JJpZQTEPEsHHFrHTw2ZrMlTLdI1tLBH6q30V7RHcIJpUlamFI3n+7RQG1yd7cW/apVNcVptGuM5s+0Ql5ipWaN0occm8O6xJINzoyR5RsJTptn/8Jv6Oa1fNJTEEVxAIcskRQfgZrUgBJcf7vRcB0ucaZHLsiFnOkhDWkQ5V26/Ucb8Zmp15hmHZZ8EbbVI5xagwG39cX/WmvelsQLmsZ+mcS/fLVb0Wsw8uwHlsG9GmdfcbePQXAK4pEoFZrC7ua946kucU8JtjMV4oeYA==
+ b=dCdokpuRjJ5QL+GrPdJgYCLlBMnupNQqfgmmNVYEdEVwwMPLoGD8tqU9wb3i/KN61Dt7I7A/KNpNlf1+XLHuh9qQIkUv4+D7U+FIonmuLi+6KMId01x33/Zbif1awPG4QlQRCGofnJwU50j0GZl7EKzyNZZkYWAKjLulNPqmrdJ5Ra6h5neQDmcz98IFwG+7zcQrUGTqOI1kugyF+mYsIBcz/t93ehwZRsbu5xmTXQeK1Y4fOaqiPV3uXX3EcSQWieCQxcEHyuBdNfDqSCIkevDckP+zPXnzqZ4lV5PeRDN0AxknPB6mwK7N14jC46n4E9myXuukdAChchIqz2llcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eBR3Pqe3Pyee5roLi63owH40AL/NWUQhGTuxpN3BGEA=;
- b=cofGUVwB4Du9TD0VuqqhgCsBBZiNZntJQ/8TdBgY12+h+9WG5rnbRr8XT/Yzav8Xuhyng15D9sWncyt2PnXm0TaGr7Qun56QooMqt3ZNgwy/mm+Cuo/8Wv7BgYG3icLVRgmuFIfBHTwKp7ffCp617Xbug8414/hmMAmDH+5BAaEgzkA8F3NgN+9AOSnLc217dA80zdmP0yJ6FB6umMZAPwGXao/7Tbn4xBQ2G/zYhHnwn/kE9Sq1Au9Cntqq+UHTXzK87FDfFh3aF6GvQh2G+OHa6WzF4ptmDKBXMFa0G6pRfc/NJ0cTfndxGjtWhiGYylN6vCOrks2O7dHL1RdMcQ==
+ bh=RkfP1OZeK3M8qmQIodlCBgJsG58wBYQjiY33tunm5s4=;
+ b=OrTHktja52qw3s1J7FD+GuiZXkTzhJTz0Vi7UnGnodMQJ+/hFjiiN3nzZxxvGLZsCoeTGzRCBMLoqokQMkbAQwTp7HYkazfW/c6PVF5qusEnErEMto2AZyVRXdkh/UJxljPYdon3YIARfqApEFGhm13Z8adrTROZUkVhVfvoqWPr4jdxPQuU7E8AAU1uYC7l90kjHSqTg8YviIeK1yH9iuuUclNHxMuTuir8D4nDNMGpjHaWRVSkxp3bWQD8GwK+b+A13DP3bq+9HaQYKAGSz8RcmSv7rSBPtJSMem9/CU/83fdtQVktctYlJ+4ki0CDrTU3+STP3Gk1R/3tFm2I9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -27,18 +27,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eBR3Pqe3Pyee5roLi63owH40AL/NWUQhGTuxpN3BGEA=;
- b=j2L2/ww6zTgIOj3rXfdpv0eV3eAExSUPQAdLzGg3XlbSLI/XcXmkKxG7KxTUkuzgdWihh8TMl81IcYAJffC1A6pEGeOh4RfizCN7MoYjzdLZVf4x/q899lg9JvSPEfEvSmxTwuQOECQiOfy/N/Rq1H3NoGS5BBdCMXRMIt4Cw3C2LhwAOdjcpI5Nq9v/uILv0oELpHTsjt2uaivA7RcWGHJBUd+sn6c74TSKnzDK18thoNrU0WzvVIvT2TJf0Suz4SY4OJRf6rrViV8HfCtRFN2Y85bDKdHxEH9T8YApAVqA8t6CZkzLUrVSqky/VIqzKtEBuq3K9NSbRhUIYgs//w==
-Received: from SJ0PR03CA0023.namprd03.prod.outlook.com (2603:10b6:a03:33a::28)
- by DS7PR12MB5720.namprd12.prod.outlook.com (2603:10b6:8:73::21) with
+ bh=RkfP1OZeK3M8qmQIodlCBgJsG58wBYQjiY33tunm5s4=;
+ b=YzGxLblor/8NsPt0gg/AeE8+glvLMoLLu47l5/jgZnrkCXg9X46VDsFMyqknQE0PLhnx8i+BojLA6r8Ha7u4W0lwMh6lwL2xkN2d4UPbnCQKJu9wywSul1K5pe48zKIPSOHuquYW/8pdWSmtEARpGbmPVK1b+HeduIzEoAJwXWfJwirxB/E2woyH0uiDNJzn34vFPixXIJpifAh+sWGbD7LkioJU9db0OLzPRkqn+lr21xO68Cd7qmqQ/N+KeEgkWyqU8CTYn/DyUX3h+ro0S0pjV2RY5sq1OYpAxGvw81I1DkJbGXzKCVB+qFt0Pjcs9dI9p2JAknL/NISbVPHN1Q==
+Received: from MW4PR03CA0303.namprd03.prod.outlook.com (2603:10b6:303:dd::8)
+ by CY8PR12MB8267.namprd12.prod.outlook.com (2603:10b6:930:7c::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Fri, 23 Oct
- 2026 15:41:12 +0000
-Received: from CO1PEPF0001885E.namprd02.prod.outlook.com
- (2603:10b6:a03:33a:cafe::20) by SJ0PR03CA0023.outlook.office365.com
- (2603:10b6:a03:33a::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.17 via Frontend Transport; Fri,
- 23 Oct 2026 15:41:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Fri, 23 Oct
+ 2026 15:41:16 +0000
+Received: from CO1PEPF0001885F.namprd02.prod.outlook.com
+ (2603:10b6:303:dd:cafe::14) by MW4PR03CA0303.outlook.office365.com
+ (2603:10b6:303:dd::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Fri,
+ 23 Oct 2026 15:41:15 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
@@ -47,17 +47,17 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.160 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.160) by
- CO1PEPF0001885E.mail.protection.outlook.com (10.167.249.247) with Microsoft
+ CO1PEPF0001885F.mail.protection.outlook.com (10.167.249.248) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 15:41:12 +0000
+ 15.21.569.4 via Frontend Transport; Fri, 23 Oct 2026 15:41:15 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
  (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 23 Oct
- 2026 08:40:49 -0700
+ 2026 08:40:53 -0700
 Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.231.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 23 Oct 2026 08:40:47 -0700
+ 15.2.2562.56; Fri, 23 Oct 2026 08:40:51 -0700
 From: Simon Song <xinmengs@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
  <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
@@ -76,9 +76,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
  <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
  <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
  <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v2 09/12] rust: vfio: use the PCI adapter for variant drivers
-Date: Fri, 23 Oct 2026 08:40:04 -0700
-Message-ID: <20261023154009.2246627-10-xinmengs@nvidia.com>
+Subject: [PATCH v2 11/12] gpu: nova-core: publish typed SR-IOV PF APIs
+Date: Fri, 23 Oct 2026 08:40:06 -0700
+Message-ID: <20261023154009.2246627-12-xinmengs@nvidia.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
 References: <20261023154009.2246627-1-xinmengs@nvidia.com>
@@ -90,29 +90,29 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF0001885E:EE_|DS7PR12MB5720:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6cf7f2df-f859-43cd-01c3-08df311c1117
+X-MS-TrafficTypeDiagnostic: CO1PEPF0001885F:EE_|CY8PR12MB8267:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28c099f5-bde5-4cb3-0629-08df311c12f3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|82310400026|376014|7416014|36860700016|261021121427099003|11063799006|261021123027099003|56012099006|10067099003|3023799007|261009223027099003|22082099003|18002099003|6133799003|261022105027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info: Nafwm4Cugi71zuUJfvURc7u34Fn/qytJue64AqD0kwkzHo3M9mw/64kx8Q1trxBiQAXhjz9sp4ZdJSlhzxtMH2Vbn5WjfDj0SuyqKjbTvSLc61A0+WL6WnjOKXGvAkA3wSQ6lThiYnN1tMBZLWfbZ50ePntQULXGM7ZLSFQLheFnRaZn6gRASXobUMHT34ChFnKMmKuCzgEV1ZPqj12v4zCIjKI1tP75R49z8PBwWfViSZCUObCIKhqWXu15MxCEl9IhwAljNDZPP2iYZ3KzgU2tn1BHukTJGk3k7+VEGaDo2QSTHXnuJasPMRxKnFVeOiJ2tNmA+XdquzDBYRHUP/W5NzplKkfcBK4PzYnWaJf7LBgBQnp+/LeZp0GOEP78lsyYNq08FyNj5iDTuDhUSW0HgjMpY8lTlEWYU1Fqkx89ygHi34zY0SlJ5L+EVCKOQScjZlXUW5Z3ooxaFkzOZ4pHEy+pNum89n3FhrZe7LIVVFVB8BanpY6cVeovMKynmlMF18u2n4Bpepwmt2QtATyxRMoAgwrJKOdZmS3uq2xz/QIN/HkAhgHGSKDnFYJjWm2DU7cKogHtMckmCsqmg+rU8y5l/V0UMjzzMNw/0BhVgS4uHK3C1NmElCuO3/imN6QmO0ZPxswOq/ZinxQTmrfXAC4z/m+l1wixgbgezdpwCJ59tsuQmmQl/mue4NtcBvvRrcIiIjuJIoE8NzKHCw==
+ ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|56012099006|11063799006|261021121427099003|261022113327099003|261022105027099003|261009223027099003|261021123027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: K6RCQcZ/9HQo9Gfv9YAKVNCVp8vORN9bgrbXoECwWBB81P/Ra1BIHFAOQlm+q7ADYHZUvNq1g2+xQrOLl5mwPaWNCF0kTxEit2K9pwarPUC8GQmt0z55VPX5/6cg7o6904126r+hSvH4rmLliDcyMLu76Wn03qsHDK24OZmrM3xWxZMNZiOpmoM04PfsitQFu74cnrvfYxDCfXc30sXJOIpUEyslXxtzofNwcjnZ7WUg1xzeTWv+osyceN6Erh/So2c/e1oy2rdc3bqnGE+3AGruswO1S6ywqQU7QhGJvLv6oAkOJy0IEtfS0rHpOhttgqW8292Q19eo3tr6BCDTUdEEWZcZTdSLFW9P3U+Ikh+pLtb3/Op2DSHPEaMIf/Jforl1TpigBVbnuOy9p6NN0ovuYBw+7yISrumEYc+KQuklwF5sUlEG0b8YxrJSNOemBWmr1nKOCPARNGW93HJDvlj1m4awBl3Y9Gbp2glCt+lEyvcq2ntWjR+7jbrN6ZaWk9p7EMgTti91zKtkpIPn2e9wNMsdncWwWouUnJADBAUHH/JQKWt1jckY+DRxzQyW+KohqHXfqew+wlmUVTAzAjLzZryt96/05oy1WJbkIBSJOT+tSj819E8SQX8F2UoMk/Tfatoo4iEA46xMm2F5Q5FoAwEXfyo8FFqFsWSp/XI8aVLsLNv593v5ctdekVdlUiNBYxSxxjzBoNuARYhQRA==
 X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(7416014)(36860700016)(261021121427099003)(11063799006)(261021123027099003)(56012099006)(10067099003)(3023799007)(261009223027099003)(22082099003)(18002099003)(6133799003)(261022105027099003)(261022075727099003);
+ SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(56012099006)(11063799006)(261021121427099003)(261022113327099003)(261022105027099003)(261009223027099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: rOckH//4rRyQFfUkuL/ReieXMTsO1Vy6BPsEBzyAxjQrWIXc4Nrrp3eIpHBxuK1BxP3YEDicvIu5YrHDmlJLc8hd0QCcH1R1Q3u9WXNAT9rJj+gdUvvjiTEn7YV4PI2J8qVFJQVUDG31vkdYKaK0QA+IUmBXsHl7PdMshzUP2a1sm1G//HOx3k+h9nr7gYxDzubAjs8XnNWpIdNffER6q8aCRPZgJ8D7GoAxX3WQHKWGNApP16Gkqviy2hnc6yngQ2tOc4zOH7Fy2btvGLHfsElizpqIn+bwrBtdQOR1Ll5SsnOMyxONbsS9jkhFrZGu9FuYnFyhUSpMq4crJmwSFXHK2hqWpEByeMXUCNy2DZBml6K3wcd3jyBI8rOD/JtCbkBe5bJIahWGMJLxJq7w1HlzT8UyTtNYXUTKbGTAGJlGYeH6ODBwoeWt5yQmov0q
+X-MS-Exchange-AntiSpam-MessageData-0: PL0f9H4h8qqYklsJi1oYv46vT+/QwZKZjLLeTJA+mzuDslSG4XrjCK0Lsc7YnHDEdNQoZCGBCJe64AYLVVkadJV4xE7kPVRgsMLxmK3GLS5Hn10HZpIfEL2GeQDvm7ULFOOplALqR91tM6vSiAHLWKjqOXrYdx5T85TfWXQn/0u9Pu0B79uYJv9x1Mt2wBF7Tg2/aR9y3YeGep/eLCDmFGU1+jrU86jUc8JIO6cR4mbAuvmBP3HP/hvUs2o+a8Sq2p5m+297GGe1RX9U6hgFX8BSpA0bguDdJ+4EEx44Ww62KVAyW4f7yJynjWMttfoVRRR7KkZD06liU/dSyijYxklU2ID0BYDIAF4yj8/INI/U6KW1uWWkE12DRnj79bHBhrJxMEV18ilNeFY5uJg7vwiUZz1j2iByYzQK/mk+PztD8qXM0xBYv0lwYEbAifld
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:12.4795 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6cf7f2df-f859-43cd-01c3-08df311c1117
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:15.6033 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28c099f5-bde5-4cb3-0629-08df311c12f3
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF0001885E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF0001885F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5720
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8267
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,382 +132,234 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-pci::Driver now provides reset, bind, error, pm callbacks, vfio::pci
-now can reuse pci adapter's callback instead of maintain its own
-separate adapter
+From: Zhi Wang <zhiw@nvidia.com>
 
-Remove vfio::pci::Adapter and its callback dispatch. Expose VFIO
-registration and runtime PM operations for drivers using pci::Adapter.
+Register NovaCoreVfApi as typed SR-IOV PF data once the GPU is initialized.
 
-Move the DMA ownership and SR-IOV checks to registration, and require
-VFIO drivers to install PM callbacks when CONFIG_PM is enabled.
+Enable and disable VFs through sriov_configure(). The Rust PCI adapter
+removes VFs before dropping PF driver data. Declare the registration
+before the GPU so its borrowed services remain valid through VF teardown.
 
-Suggested-by: Zhi Wang <zhiw@nvidia.com>
+Expose a VF-side handle that borrows these services for each operation.
+Return an owned instance on open and close it on drop while the VF
+remains bound.
+
+Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Simon Song <xinmengs@nvidia.com>
 ---
- rust/kernel/vfio/pci.rs | 287 +++++++---------------------------------
- 1 file changed, 51 insertions(+), 236 deletions(-)
+ drivers/gpu/nova-core/driver.rs        | 47 +++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs     |  2 +
+ drivers/gpu/nova-core/vgpu/vgpu_api.rs | 82 +++++++++++++++++++++++++-
+ 3 files changed, 130 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/vfio/pci.rs b/rust/kernel/vfio/pci.rs
-index 0fbc6a920dc..f3e68a3d18c 100644
---- a/rust/kernel/vfio/pci.rs
-+++ b/rust/kernel/vfio/pci.rs
-@@ -18,11 +18,8 @@
-     alloc::allocator::Kmalloc,
-     bindings,
-     device,
--    device_id::RawDeviceIdIndex,
--    driver,
-     error::{
-         from_err_ptr,
--        from_result,
-         to_result, //
-     },
-     mm::virt::VmaRef,
-@@ -38,8 +35,7 @@
-         NotThreadSafe,
-         Opaque, //
-     },
--    uaccess::UserPtr,
--    ThisModule, //
-+    uaccess::UserPtr, //
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index dc6febeee65..99beab18987 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -35,6 +35,12 @@
+     }, //
  };
- use core::{
-     alloc::Layout,
-@@ -98,120 +94,6 @@ impl DeviceContext for Ioctl {}
- impl DeviceContext for Read {}
- impl DeviceContext for GetRegionInfo {}
  
--/// Connect a PCI driver's private data to its VFIO registration.
--///
--/// # Safety
--///
--/// `registration` must always select this PCI device's sole registration and must not sleep.
--/// The driver must use [`Adapter`], and its `probe` and `unbind` callbacks must not enable SR-IOV.
--pub unsafe trait Driver: for<'a> pci::Driver<Data<'a>: Sync> + Sized {
--    /// The VFIO operations implemented by this driver.
--    type Operations: Operations;
--
--    /// Select the registration without blocking or changing its identity.
--    fn registration<'a, 'bound>(
--        data: Pin<&'a Self::Data<'bound>>,
--    ) -> &'a Registration<'bound, Self::Operations>;
--}
--
--/// Register a VFIO PCI variant driver and coordinate its callback lifetimes.
--///
--/// The adapter publishes complete private data before registering VFIO, and unregisters VFIO
--/// before calling the driver's optional `unbind` callback or removing private data. SR-IOV
--/// enable and disable callbacks are not supported by this adapter.
--pub struct Adapter<D: Driver>(D);
--
--// SAFETY: The C PCI driver embeds `device_driver` at the stated offset; its private data is
--// the pinned `D::Data` installed by this adapter's probe callback.
--unsafe impl<D: Driver> driver::DriverLayout for Adapter<D> {
--    type DriverType = bindings::pci_driver;
--    type DriverData<'bound> = D::Data<'bound>;
--    const DEVICE_DRIVER_OFFSET: usize = core::mem::offset_of!(Self::DriverType, driver);
--}
--
--// SAFETY: The driver core unregisters only a successfully registered, still-live PCI driver.
--unsafe impl<D: Driver> driver::RegistrationOps for Adapter<D> {
--    unsafe fn register(
--        pdrv: &Opaque<Self::DriverType>,
--        name: &'static CStr,
--        module: &'static ThisModule,
--    ) -> Result {
--        build_assert!(
--            D::DRIVER_MANAGED_DMA,
--            "VFIO drivers must manage DMA ownership"
--        );
--        #[cfg(CONFIG_PCI_IOV)]
--        build_assert!(
--            !D::HAS_SRIOV_ENABLE && !D::HAS_SRIOV_DISABLE,
--            "VFIO PCI variant drivers do not support SR-IOV configuration"
--        );
--
--        // SAFETY: The driver is being initialized and is not yet visible to the PCI core.
--        unsafe {
--            (*pdrv.get()).name = name.as_char_ptr();
--            (*pdrv.get()).probe = Some(Self::probe_callback);
--            (*pdrv.get()).remove = Some(Self::remove_callback);
--            (*pdrv.get()).id_table = D::ID_TABLE.as_ptr();
--            (*pdrv.get()).driver_managed_dma = D::DRIVER_MANAGED_DMA;
--            (*pdrv.get()).err_handler = &PciCallbacks::<D>::ERROR_HANDLERS;
--            (*pdrv.get()).driver.pm = &PciCallbacks::<D>::PM_OPS;
--        }
--
--        // SAFETY: The caller keeps this initialized driver pinned until unregistration.
--        to_result(unsafe {
--            bindings::__pci_register_driver(pdrv.get(), module.as_ptr(), name.as_char_ptr())
--        })
--    }
--
--    unsafe fn unregister(pdrv: &Opaque<Self::DriverType>) {
--        // SAFETY: The registration contract guarantees a live, registered PCI driver.
--        unsafe { bindings::pci_unregister_driver(pdrv.get()) };
--    }
--}
--
--impl<D: Driver> Adapter<D> {
--    extern "C" fn probe_callback(
--        pdev: *mut bindings::pci_dev,
--        id: *const bindings::pci_device_id,
--    ) -> c_int {
--        // SAFETY: PCI supplies a live device and holds its lock throughout probe.
--        let pdev = unsafe { &*pdev.cast::<pci::Device<device::CoreInternal<'_>>>() };
--        // SAFETY: `DeviceId` is a transparent wrapper with no additional invariants.
--        let id = unsafe { &*id.cast::<pci::DeviceId>() };
--        // SAFETY: The ID comes from `D::ID_TABLE`, a dynamic ID with matching driver_data,
--        // or the wildcard ID whose driver_data is zero.
--        let info = unsafe { id.info_unchecked_opt::<D::IdInfo>() };
--
--        from_result(|| {
--            pdev.as_ref().set_drvdata(D::probe(pdev, info))?;
--            // SAFETY: The fully initialized, pinned `D::Data` was just installed above.
--            let data = unsafe { pdev.as_ref().drvdata_borrow::<D::Data<'_>>() };
--            // SAFETY: `D` selects this device's sole registration. Private data is installed
--            // before VFIO can enable runtime PM.
--            if let Err(error) = unsafe { D::registration(data).register() } {
--                // SAFETY: Failed VFIO registration has unwound its callbacks. In particular,
--                // rejecting a PF with enabled VFs must not disable those VFs during rollback.
--                drop(unsafe { pdev.as_ref().drvdata_obtain::<D::Data<'_>>() });
--                return Err(error);
--            }
--            Ok(0)
--        })
--    }
--
--    extern "C" fn remove_callback(pdev: *mut bindings::pci_dev) {
--        // SAFETY: PCI supplies a live device under its lock, after quiescing runtime PM.
--        let pdev = unsafe { &*pdev.cast::<pci::Device<device::CoreInternal<'_>>>() };
--        // SAFETY: A successful probe installed this device's complete private data.
--        let data = unsafe { pdev.as_ref().drvdata_borrow::<D::Data<'_>>() };
--        // SAFETY: Probe registered this object. Private data and all its fields remain live
--        // while VFIO unregister drains VFIO, VGA and PM callbacks.
--        unsafe { D::registration(data).unregister() };
--        D::unbind(pdev, data);
--        // SAFETY: Callbacks have drained, so private data can now be removed and destroyed.
--        drop(unsafe { pdev.as_ref().drvdata_obtain::<D::Data<'_>>() });
--    }
--}
--
- /// The trait for VFIO PCI variant driver implementations.
- ///
- /// Unoverridden callbacks delegate to the corresponding PCI core operation.
-@@ -848,109 +730,6 @@ unsafe impl<T: Operations> Sync for Device<T> {}
-     }
- }
- 
--/// Callbacks that recover the VFIO device through its PCI driver's private data.
--struct PciCallbacks<D>(PhantomData<D>);
--
--impl<D: Driver> PciCallbacks<D> {
--    /// # Safety
--    ///
--    /// `dev` must belong to `D`. Its private data must remain installed and valid for `'a`,
--    /// or not yet be installed. The caller must exclude its removal; runtime PM callbacks
--    /// use their own synchronization rather than the PCI device lock.
--    unsafe fn registration<'a>(
--        dev: *mut bindings::device,
--    ) -> Option<&'a Registration<'a, D::Operations>> {
--        // SAFETY: The callback supplies a live device bound to `D`.
--        let data = unsafe { bindings::dev_get_drvdata(dev) };
--        if data.is_null() {
--            return None;
--        }
--        // SAFETY: PCI published a fully initialized, pinned `D::Data`. The caller prevents
--        // its removal, and `D::Data: Sync` permits shared runtime PM callback borrows.
--        let data = unsafe { Pin::new_unchecked(&*data.cast::<D::Data<'_>>()) };
--        Some(D::registration(data))
--    }
--
--    unsafe extern "C" fn reset_prepare(pdev: *mut bindings::pci_dev) {
--        // SAFETY: PCI holds the device lock across reset and registration teardown.
--        let Some(reg) = (unsafe { Self::registration(&raw mut (*pdev).dev) }) else {
--            return;
--        };
--        // SAFETY: The registration owns callback data throughout bind and unbind.
--        unsafe { reg.dev.registration_data_with(D::Operations::reset_prepare) };
--    }
--
--    unsafe extern "C" fn reset_done(pdev: *mut bindings::pci_dev) {
--        // SAFETY: PCI holds the device lock across reset and registration teardown.
--        let Some(reg) = (unsafe { Self::registration(&raw mut (*pdev).dev) }) else {
--            return;
--        };
--        // SAFETY: The registration owns callback data throughout bind and unbind.
--        let result = unsafe { reg.dev.registration_data_with(D::Operations::reset_done) };
--        if let Err(error) = result {
--            // SAFETY: The PCI callback keeps its embedded device alive.
--            let dev = unsafe { device::Device::<device::Normal>::from_raw(&raw mut (*pdev).dev) };
--            dev_err!(dev, "VFIO device reset failed: {:?}\n", error);
--            // SAFETY: The initialized VFIO device remains alive for this callback.
--            unsafe {
--                bindings::vfio_pci_core_aer_err_detected(reg.dev.core_device());
--            }
--        }
--    }
--
--    unsafe extern "C" fn error_detected(
--        pdev: *mut bindings::pci_dev,
--        _state: bindings::pci_channel_state_t,
--    ) -> bindings::pci_ers_result_t {
--        // SAFETY: PCI serializes error callbacks with binding and unbinding.
--        let Some(reg) = (unsafe { Self::registration(&raw mut (*pdev).dev) }) else {
--            return bindings::pci_ers_result_PCI_ERS_RESULT_CAN_RECOVER;
--        };
--        // SAFETY: The registered device owns its error notification state.
--        unsafe { bindings::vfio_pci_core_aer_err_detected(reg.dev.core_device()) }
--    }
--
--    #[cfg(CONFIG_PM)]
--    unsafe extern "C" fn runtime_suspend(dev: *mut bindings::device) -> c_int {
--        // SAFETY: Registration enables PM only after private data is installed. PCI remove
--        // and VFIO unregister quiesce runtime PM before private data can be removed.
--        let Some(reg) = (unsafe { Self::registration(dev) }) else {
--            return EBUSY.to_errno();
--        };
--        // SAFETY: This is the runtime-suspend callback for the initialized core device.
--        unsafe { bindings::vfio_pci_core_runtime_suspend(reg.dev.core_device()) }
--    }
--
--    #[cfg(CONFIG_PM)]
--    unsafe extern "C" fn runtime_resume(dev: *mut bindings::device) -> c_int {
--        // SAFETY: Private data remains installed until VFIO unregister has resumed the
--        // device and quiesced PM, including registration failure.
--        let Some(reg) = (unsafe { Self::registration(dev) }) else {
--            return ENODEV.to_errno();
--        };
--        // SAFETY: This is the runtime-resume callback for the initialized core device.
--        unsafe { bindings::vfio_pci_core_runtime_resume(reg.dev.core_device()) }
--    }
--
--    const ERROR_HANDLERS: bindings::pci_error_handlers = bindings::pci_error_handlers {
--        error_detected: Some(Self::error_detected),
--        mmio_enabled: None,
--        slot_reset: None,
--        reset_prepare: Some(Self::reset_prepare),
--        reset_done: Some(Self::reset_done),
--        resume: None,
--        cor_error_detected: None,
--    };
--
--    const PM_OPS: bindings::dev_pm_ops = bindings::dev_pm_ops {
--        #[cfg(CONFIG_PM)]
--        runtime_suspend: Some(Self::runtime_suspend),
--        #[cfg(CONFIG_PM)]
--        runtime_resume: Some(Self::runtime_resume),
--        ..pin_init::zeroed()
--    };
--}
--
- /// Build the `vfio_device_ops` vtable for a variant driver `T`.
- ///
- /// Open and I/O callbacks dispatch to `T`'s trait implementation.
-@@ -1007,9 +786,8 @@ macro_rules! build_ops {
- /// Owns both the VFIO device reference and the registration data, tying
- /// resource lifetimes to the PCI binding scope `'a`.
- ///
--/// Prepare this owner during probe. [`Adapter`] registers it after private data is installed
--/// and unregisters it before private data is removed. Dropping the owner releases the VFIO
--/// allocation and registration data after callbacks have drained.
-+/// Prepare this owner during probe, register it in [`pci::Driver::bind`], and unregister it
-+/// in [`pci::Driver::unbind`] before releasing any driver data.
- pub struct Registration<'a, T: Operations> {
-     dev: ARef<Device<T>>,
-     _reg_data: Pin<KBox<<T::RegistrationData as ForLt>::Of<'a>>>,
-@@ -1034,8 +812,8 @@ impl<'a, T: Operations> Registration<'a, T> {
-     /// The device must have been allocated during this parent binding and never registered.
-     /// No other `Registration` may own or publish callback data for this device until this
-     /// owner is dropped.
--    /// The caller must hold the PCI device lock. The owner must be stored in the private data
--    /// of a driver registered through [`Adapter`] and selected by [`Driver::registration`].
-+    /// The caller must hold the PCI device lock. Store the owner in the driver's private data
-+    /// and keep it alive until unregistration has completed.
-     pub unsafe fn new(
-         pdev: &'a pci::Device<device::Core<'_>>,
-         dev: &Device<T>,
-@@ -1064,10 +842,25 @@ pub unsafe fn new(
-     ///
-     /// # Safety
-     ///
--    /// Call once under the PCI device lock, after installing complete driver data whose
--    /// [`Driver::registration`] selector returns `self`. On success, unregister before
--    /// private data is removed or destroyed.
--    unsafe fn register(&self) -> Result {
-+    /// Call once from the bound PCI driver `D`'s `bind` callback, with `self` in its installed
-+    /// driver data. Its PCI reset, error and runtime-PM callbacks must delegate to this owner.
-+    /// After success, unregister before any later bind error or driver-data teardown.
-+    pub unsafe fn register<D: pci::Driver>(&self) -> Result {
-+        build_assert!(
-+            D::DRIVER_MANAGED_DMA,
-+            "VFIO drivers must manage DMA ownership"
-+        );
-+        #[cfg(CONFIG_PM)]
-+        build_assert!(
-+            D::PM_OPS.is_some(),
-+            "VFIO drivers must install runtime PM callbacks"
-+        );
-+        #[cfg(CONFIG_PCI_IOV)]
-+        build_assert!(
-+            !D::HAS_SRIOV_ENABLE && !D::HAS_SRIOV_DISABLE,
-+            "VFIO PCI variant drivers do not support SR-IOV configuration"
-+        );
++#[cfg(CONFIG_PCI_IOV)]
++use kernel::types::ForLt;
 +
-         // SAFETY: The caller has published complete private data under the PCI device lock;
-         // it remains accessible during runtime PM setup.
-         to_result(unsafe { bindings::vfio_pci_core_register_device(self.dev.core_device()) })
-@@ -1077,9 +870,10 @@ unsafe fn register(&self) -> Result {
-     ///
-     /// # Safety
-     ///
--    /// Call once after successful registration, with the PCI device lock held and private
--    /// data still installed. No private-data fields may have been destroyed.
--    unsafe fn unregister(&self) {
-+    /// Call once after successful registration, with the PCI device lock held and all driver
-+    /// data still installed. Do not call after registration failed: that can disable VFs
-+    /// belonging to a PF which VFIO refused to bind.
-+    pub unsafe fn unregister(&self) {
-         // SAFETY: The caller keeps private data installed while unregistration drains VFIO,
-         // VGA and runtime PM callbacks. No field of the enclosing data is being destroyed.
-         unsafe { bindings::vfio_pci_core_unregister_device(self.dev.core_device()) };
-@@ -1102,12 +896,33 @@ pub fn error_detected(&self) -> bindings::pci_ers_result_t {
-         // SAFETY: This owner keeps the initialized VFIO core device alive.
-         unsafe { bindings::vfio_pci_core_aer_err_detected(self.dev.core_device()) }
++#[cfg(CONFIG_PCI_IOV)]
++use crate::vgpu::vgpu_api::NovaCoreVfApi;
++
+ /// Counter for generating unique auxiliary device IDs.
+ static AUXILIARY_ID_COUNTER: Atomic<u32> = Atomic::new(0);
+ 
+@@ -42,6 +48,10 @@
+ pub(crate) struct NovaCore<'bound> {
+     /// Firmware-control registration.
+     _fwctl: fwctl::Registration<'bound, NovaCoreFwCtl>,
++    #[cfg(CONFIG_PCI_IOV)]
++    #[allow(clippy::type_complexity)]
++    #[pin]
++    _vf_registration: pci::VfRegistration<'bound, ForLt!(NovaCoreVfApi<'_>)>,
+     #[pin]
+     pub(crate) gpu: Gpu<'bound>,
+     bar: pci::Bar<'bound, BAR0_SIZE>,
+@@ -114,6 +124,11 @@ fn probe<'bound>(
+         pin_init::pin_init_scope(move || {
+             dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+ 
++            #[cfg(CONFIG_PCI_IOV)]
++            if pdev.is_virtfn() {
++                return Err(ENODEV);
++            }
++
+             pdev.enable_device_mem()?;
+             pdev.set_master();
+ 
+@@ -144,6 +159,18 @@ fn probe<'bound>(
+                 // Run optional GPU selftests.
+                 #[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
+                 _: { gpu.run_selftests(pdev) },
++                #[cfg(CONFIG_PCI_IOV)]
++                _vf_registration <- {
++                    // SAFETY: `gpu` is initialized at its pinned address and
++                    // outlives the registration and its borrowed API data.
++                    let gpu = unsafe { &(*this.as_ptr()).gpu };
++                    let api = NovaCoreVfApi::new(gpu, pdev);
++                    // SAFETY: Probe has exclusive access to the registration
++                    // slot and no VFs are enabled before successful probe. The
++                    // registration keeps PF services available until VF removal
++                    // completes and is dropped before its borrowed GPU resources.
++                    unsafe { pci::VfRegistration::new(pdev, Ok(api)) }
++                },
+                 _reg: auxiliary::Registration::new(
+                     pdev.as_ref(),
+                     c"nova-drm",
+@@ -176,4 +203,24 @@ fn probe<'bound>(
+             }))
+         })
      }
 +
-+    /// Prepare the VFIO core device for runtime suspend.
-+    ///
-+    /// # Safety
-+    ///
-+    /// Only call from the parent PCI driver's runtime-suspend callback.
-+    #[cfg(CONFIG_PM)]
-+    pub unsafe fn runtime_suspend(&self) -> Result {
-+        // SAFETY: The caller supplies the runtime-suspend callback context.
-+        to_result(unsafe { bindings::vfio_pci_core_runtime_suspend(self.dev.core_device()) })
++    #[cfg(CONFIG_PCI_IOV)]
++    fn sriov_enable<'bound, 'callback>(
++        _dev: &'bound pci::Device<Core<'_>>,
++        _this: Pin<&Self::Data<'bound>>,
++        token: pci::SriovEnable<'callback>,
++    ) -> Result<pci::SriovEnabled<'callback>> {
++        let num_vfs = token.num_vfs();
++        token.enable(num_vfs)
 +    }
 +
-+    /// Complete the VFIO core device's runtime resume.
-+    ///
-+    /// # Safety
-+    ///
-+    /// Only call from the parent PCI driver's runtime-resume callback.
-+    #[cfg(CONFIG_PM)]
-+    pub unsafe fn runtime_resume(&self) -> Result {
-+        // SAFETY: The caller supplies the runtime-resume callback context.
-+        to_result(unsafe { bindings::vfio_pci_core_runtime_resume(self.dev.core_device()) })
++    #[cfg(CONFIG_PCI_IOV)]
++    fn sriov_disable<'bound>(
++        _dev: &'bound pci::Device<Core<'_>>,
++        _this: Pin<&Self::Data<'bound>>,
++        token: pci::SriovDisable<'_>,
++    ) -> Result {
++        token.disable();
++        Ok(())
 +    }
  }
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 619f32c7941..ee511bdf354 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -33,6 +33,8 @@
+ #[cfg(CONFIG_PCI_IOV)]
+ pub use vgpu::vgpu_api::{
+     NovaCoreVfApi,
++    NovaCoreVfApiHandle,
++    VgpuInstance,
+     VgpuTypeInfo, //
+ };
  
- impl<T: Operations> Drop for Registration<'_, T> {
-     fn drop(&mut self) {
--        // SAFETY: The adapter unregisters before removing private data. Failed or unattempted
--        // registration also leaves no callbacks behind.
-+        // SAFETY: The driver unregistered in `unbind`, or registration did not succeed.
-         unsafe { *self.dev.reg_data.get() = NonNull::dangling() };
+diff --git a/drivers/gpu/nova-core/vgpu/vgpu_api.rs b/drivers/gpu/nova-core/vgpu/vgpu_api.rs
+index f9f3e527bdc..a440108d2c2 100644
+--- a/drivers/gpu/nova-core/vgpu/vgpu_api.rs
++++ b/drivers/gpu/nova-core/vgpu/vgpu_api.rs
+@@ -11,6 +11,9 @@
+     prelude::*, //
+ };
+ 
++#[cfg(CONFIG_PCI_IOV)]
++use kernel::types::ForLt;
++
+ use crate::{
+     driver::Bar0,
+     gpu::Gpu,
+@@ -61,7 +64,6 @@ pub struct NovaCoreVfApi<'gpu> {
+ }
+ 
+ impl<'gpu> NovaCoreVfApi<'gpu> {
+-    #[expect(dead_code)]
+     pub(crate) fn new(gpu: &'gpu Gpu<'gpu>, pdev: &'gpu pci::Device<device::Bound>) -> Self {
+         Self {
+             pdev,
+@@ -84,6 +86,20 @@ fn gfid(&self, gfid: u32) -> Result<Gfid> {
+ }
+ 
+ impl NovaCoreVfApi<'_> {
++    /// Obtains the enabled PF services for a bound VF.
++    #[cfg(CONFIG_PCI_IOV)]
++    pub fn handle(vf: &pci::Device<device::Bound>) -> Result<NovaCoreVfApiHandle<'_>> {
++        let handle = NovaCoreVfApiHandle { vf };
++        handle.with(|api| {
++            if api.is_available() {
++                Ok(())
++            } else {
++                Err(ENODEV)
++            }
++        })?;
++        Ok(handle)
++    }
++
+     /// Creates and boots an instance for a one-based VF ID.
+     ///
+     /// `sbdf` encodes the VF address as `(segment << 16) | (bus << 8) | devfn`.
+@@ -156,3 +172,67 @@ pub fn reset_instance(&self, gfid: u32) -> Result {
+         Ok(())
      }
  }
++
++/// Access to PF services for the lifetime of a VF driver binding.
++///
++/// The PF's registration keeps these services available until VF removal
++/// completes and is dropped before the GPU resources they borrow.
++#[cfg(CONFIG_PCI_IOV)]
++pub struct NovaCoreVfApiHandle<'vf> {
++    vf: &'vf pci::Device<device::Bound>,
++}
++
++#[cfg(CONFIG_PCI_IOV)]
++impl<'vf> NovaCoreVfApiHandle<'vf> {
++    /// Borrows the typed PF services for a single operation.
++    fn with<R>(
++        &self,
++        f: impl for<'borrow, 'data> FnOnce(Pin<&'borrow NovaCoreVfApi<'data>>) -> Result<R>,
++    ) -> Result<R> {
++        self.vf
++            .vf_registration_data_with::<ForLt!(NovaCoreVfApi<'_>), _>(f)?
++    }
++
++    /// Creates and boots an instance that closes when dropped.
++    ///
++    /// The arguments have the same meaning as in [`NovaCoreVfApi::open_instance`].
++    pub fn open(&self, gfid: u32, dbdf: u32, vm_pid: u32) -> Result<VgpuInstance<'vf>> {
++        let type_info = self.with(|api| api.open_instance(gfid, dbdf, vm_pid))?;
++        Ok(VgpuInstance {
++            api: Self { vf: self.vf },
++            gfid,
++            type_info,
++        })
++    }
++
++    /// Resets an active instance and scrubs its guest VRAM.
++    pub fn reset(&self, gfid: u32) -> Result {
++        self.with(|api| api.reset_instance(gfid))
++    }
++}
++
++/// An active instance whose teardown runs while its VF driver remains bound.
++///
++/// Dropping this guard may sleep while firmware teardown completes.
++#[cfg(CONFIG_PCI_IOV)]
++pub struct VgpuInstance<'vf> {
++    api: NovaCoreVfApiHandle<'vf>,
++    gfid: u32,
++    type_info: VgpuTypeInfo,
++}
++
++#[cfg(CONFIG_PCI_IOV)]
++impl VgpuInstance<'_> {
++    /// Returns the assigned PCI IDs and BAR1 aperture size.
++    #[inline]
++    pub fn type_info(&self) -> &VgpuTypeInfo {
++        &self.type_info
++    }
++}
++
++#[cfg(CONFIG_PCI_IOV)]
++impl Drop for VgpuInstance<'_> {
++    fn drop(&mut self) {
++        let _ = self.api.with(|api| api.close_instance(self.gfid));
++    }
++}
 -- 
 2.43.7
 
