@@ -2,48 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B53606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 18:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F63606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 18:17:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=IngimSJw
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=czFeG6/9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5777B112CA9;
-	Fri, 23 Oct 2026 18:17:14 +0000 (UTC)
-Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net
- [51.250.60.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9678110E044;
- Fri, 23 Oct 2026 15:24:30 +0000 (UTC)
-Received: from mail-nwsmtp-smtp-production-main-12.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-12.yp-c.yandex.net)
- by forward102d.mail.yandex.net (postfix) with ESMTPS id 28A12C017E;
- Fri, 23 Oct 2026 18:24:28 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-12 with ESMTPSA id
- GOf0WQDdMGk0-4OD3IW0V; Fri, 23 Oct 2026 18:24:27 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.com; s=mail;
- t=1792769067; bh=LbacRowWzwVnlWbExXUMiESmxUlI+FAcFK05tc4OaJ0=;
- h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
- b=IngimSJw6n+DSn0/XNAB70exzvTkwmDZrUAthuRcBs2fspHRAX02TMVxXsjm/111U
- gP+AsKpm4qtjC8XTSFHs4qiroQnQT1oMDgvxMi5ueMjB4wmSzkSZpLBlEb5EUUyfXm
- 2oLBGTy5Lx8lAu3j8VpBsvYksZ5vlnbPJxDojeUw=
-Authentication-Results: mail-nwsmtp-smtp-production-main-12;
- dkim=pass header.i=@yandex.com
-From: Alex <xnderv@yandex.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- xnderv@yandex.com
-Subject: [PATCH v2] drm/nouveau: idle the channel before destroying an engine
- object via abi16
-Date: Fri, 23 Oct 2026 18:23:32 +0300
-Message-ID: <20261023152332.9420-2-xnderv@yandex.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261023152332.9420-1-xnderv@yandex.com>
-References: <20261023144219.46478-1-xnderv@yandex.com>
- <20261023152332.9420-1-xnderv@yandex.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4B0112CBF;
+	Fri, 23 Oct 2026 18:17:15 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1F9411274B
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:56:22 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-89d6bd67045so275479b3a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 00:56:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792742182; x=1793346982; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=d5nwKFsZvE5L1iVkiN9qlakuwuo5b+7GgbmdUMjeiGo=;
+ b=czFeG6/9SXTs59Cih/UUH4r/dsO5qEh41/PsCxdRQkxCb/AtSBJpY2oFImj12oXfI6
+ koxjqlDoIlBU3fU6cc3EP9LTgm1OWsg6SF5V1NYrxFI51aUj7P4oKV+oLob4Ftqueu/H
+ KF2hyX1B3nZIbCQ58ti9JzQcvHHTsxT3scVQbvt/QLZ8oZjkbwjEG1NRbn6yosj/rul8
+ 13rRKHakJPcITEaQ5VnG9Xf8q8FurFxp1zkOdfbuzm7Z27Kb8Z3fOcnvXX3IKKtdGilv
+ nAWsOSauA7tuFhp1Ax+6myuzAgDfkNZafwB3ffKigFfMB519BoKT7Ga3mfuIYla0syxg
+ ugNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792742182; x=1793346982;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=d5nwKFsZvE5L1iVkiN9qlakuwuo5b+7GgbmdUMjeiGo=;
+ b=qY6fJWiZ+RhIO67v7QVj6+Zm2MPUwj72hAU6yhNlMW0ipU9FDuzF/6xWDMmFVhF07U
+ 82R1gbWIRJVGOUfTv0SAajcjv1uJUBb7Lv5ML7vKT7NygUeCZq+jJEclHyLiSkTbTdWc
+ F8q/yu0A5vC9aFpql2CkueE7IXQX3JUGZNq1zSZm1QaasVWxbzUZIJUhjc/TULYlQV6i
+ 1wRTo7vp2VTopfQgfIUlVd7edB1Wt6pZOni+Xgdiq3tqsffxkxD8daaK6U3aOgj18eUr
+ 5gT1fW909bIm+jOSvCua9ptm0BPcpNPGtSKiwNp9Lm2q5nmuAZG/DLa9cToC1ov69B0C
+ VMAg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwFcIfHtxjxLRCcjDnNlN5SslrAaLvrigUfaAhIZlur4tF/QpU2n119ovRO62fNomE5VnLvSvcSKSw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJSWvyCoaZ4NCX95HXLLzE6ugjRQuYeVKa69syYnTDcG69tyYmh
+ ZFjvORSFLZuITLcT5/FsyNpzsUr1VmvqedJYSA83eTaYzuLFgfdlxJ63
+X-Gm-Gg: AYBFou18czTXxzmXuq6r6HVkkw7/wywqGTh3kZJBnLUe6mscnoXNTE+Jsz52lm1Kjp0
+ mWrJCTjKLcU28u5Zg2fqkbI7DTSVLeoo2C3Op7Rnn7OrO+LnzLUkJYu+jdv78T0+AHgjHYIWjMq
+ h7ot4o/Uwe6pQHxM7TwlNDyljqYfLlgOgCcKkiCZfyExPtUr34PfRD94oZhGYZ3pP1wskaJfihE
+ 3nEH2/OfOqvH30BK97N6LFN4XDR8N5CPTN0bWkrJDVmdUj15zg4hp1ekHd4O17nh6lh70XszMv2
+ a39vLbekNbqNn4GdyXUXDMcfr7UVJAtwerLkmBMeEYIeOjjt7s/AJVFhzLQ8JRStOsE7C6u9Yd6
+ dG6U657/UAQjQd+pQ1Py7ONHnsfvsIqS2sLPBIYmzclBvptR2T+Np22SpHFazkPsentPnSlQ48R
+ QiKi6QoD221wsm79T1iAerll5dQ+lFlcfTz/VOsgtgYnQ1TLTki5uHamWl4uWeoc3d2vyGnhGlg
+ 3rOpAV9kzHmcDGXeTUVFb7b7VWd2sHPVwC/arnjgasq9oQICaN/5KUak0twT91XxCa7Ad98keij
+ 4fAW7uwBQGhYwEBL3gbiV72yPEo=
+X-Received: by 2002:a05:6a00:bd88:b0:89e:7bfa:f87b with SMTP id
+ d2e1a72fcca58-8a2c472e08dmr1075229b3a.3.1792742182084; 
+ Fri, 23 Oct 2026 00:56:22 -0700 (PDT)
+Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8a2c8ffc99bsm430968b3a.43.2026.10.23.00.56.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Oct 2026 00:56:21 -0700 (PDT)
+From: Li Ximo <lixicaicai@gmail.com>
+To: Nicolas Ferre <nicolas.ferre@microchip.com>, Helge Deller <deller@gmx.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Wang Haoran <haoranwangsec@gmail.com>, Li Ximo <lixicaicai@gmail.com>
+Subject: [PATCH] video: fbdev: atmel_lcdfb: fix list_first_entry() on possibly
+ empty modelist in probe
+Date: Fri, 23 Oct 2026 15:56:11 +0800
+Message-Id: <20261023075611.3559095-1-lixicaicai@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 23 Oct 2026 18:17:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -60,149 +91,75 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
+From: Wang Haoran <haoranwangsec@gmail.com>
 
-nouveau_abi16_ioctl_del() destroys an engine object (ENGOBJ) created by
-nouveau_abi16_ioctl_new() without waiting for the owning channel to go
-idle.  The legacy path, nouveau_abi16_ioctl_gpuobj_free(), does call
-nouveau_channel_idle() first ("synchronize with the user channel and
-destroy the gpu object"), the new ioctl does not.
+list_first_entry() does not return NULL on an empty list; it returns a
+bogus pointer computed by container_of() from the list head.
+atmel_lcdfb_probe() initializes info->modelist with INIT_LIST_HEAD()
+and later takes its first entry with list_first_entry(), assuming
+atmel_lcdfb_of_init() populated it. However, atmel_lcdfb_of_init()
+drops the return value of fb_add_videomode() — unlike every other
+fallible call in the same function — so if fb_add_videomode() fails
+(its internal kmalloc can return -ENOMEM under memory pressure or
+fault injection), the list stays empty while of_init() reports
+success. The probe path then dereferences the bogus pointer in
+fb_videomode_to_var(&info->var, &modelist->mode). Because the bogus
+pointer lands inside the contiguous fb_info allocation, this may not
+fault immediately; instead it silently reads adjacent memory as a
+struct fb_videomode and programs garbage timing parameters into the
+LCD controller. This was found by code audit; we do not have Atmel
+hardware to reproduce it.
 
-Chromium-based applications (Chrome, Yandex Browser, Electron apps)
-create and immediately delete probe 3D objects at startup.  If the GPU
-is busy with other work at that moment (compositor animation while the
-app is launched from the GNOME dash, cursor movement), the engine
-context is unbound while the channel still references it, and the GPU
-faults:
+Fix this on two levels: check the return value of fb_add_videomode()
+in atmel_lcdfb_of_init() so the failure is propagated (root cause),
+and use list_first_entry_or_null() in atmel_lcdfb_probe() with a NULL
+check that fails probe gracefully with -EINVAL (defense in depth),
+consistent with the surrounding error handling which bails out to
+stop_clk.
 
-  nouveau 0000:01:00.0: fifo: fault 00 [VIRT_READ] at 0000000000000000
-    engine 00 [GR] client 0f [HUB/CTXCTL] reason 00 [PDE] on channel 5
-  nouveau 0000:01:00.0: fifo: ... PAGE_NOT_PRESENT ... channel 5 killed!
-
-after which the desktop freezes.  Observed on GF114 (GeForce GTX 560 Ti)
-with Linux 7.0.x, reproducible almost every time by launching a Chromium
-app from the dash; not seen in 10 consecutive launches with this patch.
-
-Remember the channel an engine object was created on, drop the reference
-when the channel is destroyed first, and idle the channel before
-nvif_object_dtor() like the gpuobj_free path does.
-
-Signed-off-by: Alex <xnderv@yandex.com>
+Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+Reported-by: Li Ximo <lixicaicai@gmail.com>
+Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
 ---
-v2: wait for the channel's scheduler to drain before idling the channel
-    when VM_BIND is in use.  Legacy PUSHBUF submissions are serialized
-    with the ioctl by cli->mutex, but EXEC jobs are pushed to the channel
-    asynchronously from the scheduler workqueue, so emitting a fence from
-    nouveau_abi16_ioctl_del() could race with nouveau_exec_job_run(), and
-    jobs still queued in the entity would not have been covered by the
-    fence at all.  Reuse the existing job-list wait from
-    nouveau_sched_fini() through a small helper, nouveau_sched_wait_idle().
-    (Race pointed out by the Sashiko AI review of v1.)
+ drivers/video/fbdev/atmel_lcdfb.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-drivers/gpu/drm/nouveau/nouveau_abi16.c | 27 +++++++++++++++++++++++-
-drivers/gpu/drm/nouveau/nouveau_sched.c |  9 +++++++-
-drivers/gpu/drm/nouveau/nouveau_sched.h |  1 +
-3 files changed, 35 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-index b776030..d979cd8 100644
---- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-@@ -89,6 +89,7 @@ struct nouveau_abi16_obj {
- 		ENGOBJ,
- 	} type;
- 	u64 object;
-+	struct nouveau_abi16_chan *chan;
+diff --git a/drivers/video/fbdev/atmel_lcdfb.c b/drivers/video/fbdev/atmel_lcdfb.c
+index 53f015699..6820a2400 100644
+--- a/drivers/video/fbdev/atmel_lcdfb.c
++++ b/drivers/video/fbdev/atmel_lcdfb.c
+@@ -1007,7 +1007,9 @@ static int atmel_lcdfb_of_init(struct atmel_lcdfb_info *sinfo)
+ 	if (ret < 0)
+ 		goto put_display_node;
  
- 	struct nvif_object engobj;
+-	fb_add_videomode(&fb_vm, &info->modelist);
++	ret = fb_add_videomode(&fb_vm, &info->modelist);
++	if (ret < 0)
++		goto put_display_node;
  
-@@ -173,6 +174,13 @@ nouveau_abi16_chan_fini(struct nouveau_abi16 *abi16,
- 			struct nouveau_abi16_chan *chan)
- {
- 	struct nouveau_abi16_ntfy *ntfy, *temp;
-+	struct nouveau_abi16_obj *obj;
-+
-+	/* Forget references to this channel held by engine objects. */
-+	list_for_each_entry(obj, &abi16->objects, head) {
-+		if (obj->chan == chan)
-+			obj->chan = NULL;
-+	}
- 
- 	/* Cancel all jobs from the entity's queue. */
- 	if (chan->sched)
-@@ -784,8 +792,24 @@ nouveau_abi16_ioctl_del(struct nouveau_abi16 *abi16, struct nvif_ioctl_v0 *ioctl
- 
- 	obj = nouveau_abi16_obj_find(abi16, ioctl->object);
- 	if (obj) {
--		if (obj->type == ENGOBJ)
-+		if (obj->type == ENGOBJ) {
-+			/* Synchronize with the user channel before destroying the
-+			 * engine object, as the legacy GPUOBJ_FREE path does.  The
-+			 * channel may still have work queued that needs the engine
-+			 * context which is about to be unbound.
-+			 *
-+			 * Legacy PUSHBUF submissions are serialized with this ioctl
-+			 * by cli->mutex.  With VM_BIND, EXEC jobs are pushed to the
-+			 * channel asynchronously by the scheduler, so wait for every
-+			 * submitted job to finish before touching the channel.
-+			 */
-+			if (obj->chan && obj->chan->chan) {
-+				if (obj->chan->sched)
-+					nouveau_sched_wait_idle(obj->chan->sched);
-+				nouveau_channel_idle(obj->chan->chan);
-+			}
- 			nvif_object_dtor(&obj->engobj);
-+		}
- 		nouveau_abi16_obj_del(obj);
+ put_display_node:
+ 	of_node_put(display_np);
+@@ -1075,8 +1077,13 @@ static int atmel_lcdfb_probe(struct platform_device *pdev)
  	}
+ 	atmel_lcdfb_start_clock(sinfo);
  
-@@ -826,6 +850,7 @@ nouveau_abi16_ioctl_new(struct nouveau_abi16 *abi16, struct nvif_ioctl_v0 *ioctl
- 	obj = nouveau_abi16_obj_new(abi16, ENGOBJ, args->object);
- 	if (IS_ERR(obj))
- 		return PTR_ERR(obj);
-+	obj->chan = chan;
+-	modelist = list_first_entry(&info->modelist,
+-			struct fb_modelist, list);
++	modelist = list_first_entry_or_null(&info->modelist,
++					    struct fb_modelist, list);
++	if (!modelist) {
++		dev_err(dev, "no video mode available\n");
++		ret = -EINVAL;
++		goto stop_clk;
++	}
+ 	fb_videomode_to_var(&info->var, &modelist->mode);
  
- 	ret = nvif_object_ctor(&chan->chan->user, "abi16EngObj", args->handle, args->oclass,
- 			       NULL, 0, &obj->engobj);
-diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
-index b3f02c4..956ca73 100644
---- a/drivers/gpu/drm/nouveau/nouveau_sched.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
-@@ -493,13 +493,20 @@ nouveau_sched_job_list_empty(struct nouveau_sched *sched)
- 	return empty;
- }
- 
-+/* Wait until every job submitted to the scheduler has finished. */
-+void
-+nouveau_sched_wait_idle(struct nouveau_sched *sched)
-+{
-+	wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
-+}
-+
- static void
- nouveau_sched_fini(struct nouveau_sched *sched)
- {
- 	struct drm_gpu_scheduler *drm_sched = &sched->base;
- 	struct drm_sched_entity *entity = &sched->entity;
- 
--	wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
-+	nouveau_sched_wait_idle(sched);
- 
- 	drm_sched_entity_fini(entity);
- 	drm_sched_fini(drm_sched);
-diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.h b/drivers/gpu/drm/nouveau/nouveau_sched.h
-index 51ce8dc..0562af6 100644
---- a/drivers/gpu/drm/nouveau/nouveau_sched.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_sched.h
-@@ -115,5 +115,6 @@ struct nouveau_sched {
- int nouveau_sched_create(struct nouveau_sched **psched, struct nouveau_drm *drm,
- 			 struct workqueue_struct *wq, u32 credit_limit);
- void nouveau_sched_destroy(struct nouveau_sched **psched);
-+void nouveau_sched_wait_idle(struct nouveau_sched *sched);
- 
- #endif
+ 	atmel_lcdfb_check_var(&info->var, info);
+-- 
+2.30.2
+
