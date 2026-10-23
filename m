@@ -2,68 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29CA606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 09:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P9AvNkWS
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2706606A323
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 09:52:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CF3810E606;
-	Fri, 23 Oct 2026 09:47:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5382610E606
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 09:47:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792748826; x=1824284826;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=gQ9nQ7BayhpQi7/501DcO0lJ2Sxa5ZeozNJ37s/HH+M=;
- b=P9AvNkWSa9Qs+tEOhMvWH1bdVlJMNnZHhLpr2dVLpO+PNZkmEzuLtjlu
- BCuug3MQ0zias7X9rXRL/6qO1M+aB1hld7otQeF+lHdyBgDaN9x4aYIWG
- d3sVSFfaIpHyhFlVtOm4vIZKO4QnqxWJJxFJ7U8NKiPD4cI63RDmVgMI4
- rya27TkHZQevyRPRgH2E36YQVpxz3Tspu5Y1vrnRIMami+G4z10vNo1Hs
- LSumaMpDHIz4z8B3ExfXkdhpCWW7nKoutOzwhhwOGoTlkRyxVJF1RYXcH
- dZfGZNJENfPWtd9qlzWXUZlLtU9f4U3G+VA8s+DcUttxJCaFqiWEvAR79 g==;
-X-CSE-ConnectionGUID: 75MV8lS8TluZ+qb4lKM19g==
-X-CSE-MsgGUID: KGKVVZXCQl2dlu8AxGllnQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1383347"
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="1383347"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2026 02:47:05 -0700
-X-CSE-ConnectionGUID: CtmiaNT2Qe610YGnKfB18Q==
-X-CSE-MsgGUID: 72CUuvjpQs6P+tCXdd0VJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,174,1787036400"; 
-   d="scan'208";a="3691885"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by fmviesa003.fm.intel.com with ESMTP; 23 Oct 2026 02:47:01 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xKBrW-00000000SVu-2fyk;
- Fri, 23 Oct 2026 09:46:58 +0000
-Date: Fri, 23 Oct 2026 17:46:48 +0800
-From: kernel test robot <lkp@intel.com>
-To: Lars Rask <lars.rask@axis.com>,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3952910E60A;
+	Fri, 23 Oct 2026 09:52:34 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D407110E60A
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 09:52:27 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F41561692
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 02:52:23 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ E6EA23F7B4
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 02:52:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1792749147; bh=TfS+5iBGdvQQgD3LBX27obCx/oEfX6j0esxfBZq56Ls=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=NaQGOsMnLlPJfJVGB20PM3+QFRrslEChkuPyKiHw6JZ4OMLF81e9kEHhCoEWF5Qlw
+ EedNXejPO5tU2WnSURWZrIkzKW5WaULRWc65j643OfsE7kTbfymx42K6WR71qDk4ns
+ 1/aWMytrzoKNhiz7wzgeZSU6exjgK3A+Lobr91BE=
+Date: Fri, 23 Oct 2026 10:52:19 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@axis.com, Lars Rask <lars.rask@axis.com>
-Subject: Re: [PATCH 1/2] drm/sitronix/st7571-spi: Add support for ST75156
- controller
-Message-ID: <202610231738.0gNssMIn-lkp@intel.com>
-References: <20261022-add_st75156_support-v1-1-582525a39a39@axis.com>
+ kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/panthor: Replace panthor_mmu_as_fault_mask() with a
+ macro
+Message-ID: <atsuU3fCRu-3AbCH@e142607>
+References: <20261022-panthor-as-mask-v1-1-6aba7ad8cb9f@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261022-add_st75156_support-v1-1-582525a39a39@axis.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261022-panthor-as-mask-v1-1-6aba7ad8cb9f@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,85 +51,123 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Lars,
+On Thu, Oct 22, 2026 at 10:42:45AM -0300, Maíra Canal wrote:
+> panthor_mmu_as_fault_mask() ignores its ptdev argument and only returns
+> the per-AS fault bit, which is fixed in the MMU interrupt registers.
+> Replace it with the macro MMU_INT_AS_FAULT(), which is defined next to
+> the other MMU register definitions.
+> 
+> No functional change.
+> 
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c      | 17 +++++------------
+>  drivers/gpu/drm/panthor/panthor_mmu_regs.h |  1 +
+>  2 files changed, 6 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index d4b968ab094e..1109959dadc6 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -596,18 +596,12 @@ static u64 pack_region_range(struct panthor_device *ptdev, u64 *region_start, u6
+>  	return region_width | *region_start;
+>  }
+>  
+> -static u32 panthor_mmu_as_fault_mask(struct panthor_device *ptdev, u32 as)
+> -{
+> -	return BIT(as);
+> -}
 
-kernel test robot noticed the following build warnings:
+Minor nit and it's a personal preference, but I would've kept the macro here as replacement
+to the function.
 
-[auto build test WARNING on 8d3ae59288f1e7d58d76558a6ee96d533bc5019f]
+Outside of that:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Lars-Rask/drm-sitronix-st7571-spi-Add-support-for-ST75156-controller/20261022-173105
-base:   8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-patch link:    https://lore.kernel.org/r/20261022-add_st75156_support-v1-1-582525a39a39%40axis.com
-patch subject: [PATCH 1/2] drm/sitronix/st7571-spi: Add support for ST75156 controller
-config: i386-buildonly-randconfig-1001-20261023 (https://download.01.org/0day-ci/archive/20261023/202610231738.0gNssMIn-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261023/202610231738.0gNssMIn-lkp@intel.com/reproduce)
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610231738.0gNssMIn-lkp@intel.com/
+Best regards,
+Liviu
 
-All warnings (new ones prefixed by >>):
+> -
+>  static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+>  				 u64 transtab, u64 transcfg, u64 memattr)
+>  {
+>  	struct panthor_mmu *mmu = ptdev->mmu;
+>  
+> -	panthor_irq_enable_events(&ptdev->mmu->irq,
+> -				  panthor_mmu_as_fault_mask(ptdev, as_nr));
+> +	panthor_irq_enable_events(&ptdev->mmu->irq, MMU_INT_AS_FAULT(as_nr));
+>  
+>  	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
+>  	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
+> @@ -625,8 +619,7 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
+>  
+>  	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
+>  
+> -	panthor_irq_disable_events(&ptdev->mmu->irq,
+> -				   panthor_mmu_as_fault_mask(ptdev, as_nr));
+> +	panthor_irq_disable_events(&ptdev->mmu->irq, MMU_INT_AS_FAULT(as_nr));
+>  
+>  	/* Flush+invalidate RW caches, invalidate RO ones. */
+>  	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
+> @@ -745,7 +738,7 @@ int panthor_vm_active(struct panthor_vm *vm)
+>  		/* Unhandled pagefault on this AS, the MMU was disabled. We need to
+>  		 * re-enable the MMU after clearing+unmasking the AS interrupts.
+>  		 */
+> -		if (ptdev->mmu->as.faulty_mask & panthor_mmu_as_fault_mask(ptdev, as))
+> +		if (ptdev->mmu->as.faulty_mask & MMU_INT_AS_FAULT(as))
+>  			goto out_enable_as;
+>  
+>  		goto out_make_active;
+> @@ -800,7 +793,7 @@ int panthor_vm_active(struct panthor_vm *vm)
+>  	/* Unhandled pagefault on this AS, clear the fault and enable the AS,
+>  	 * which re-enables interrupts.
+>  	 */
+> -	fault_mask = panthor_mmu_as_fault_mask(ptdev, as);
+> +	fault_mask = MMU_INT_AS_FAULT(as);
+>  	if (ptdev->mmu->as.faulty_mask & fault_mask) {
+>  		gpu_write(ptdev->mmu->irq.iomem, INT_CLEAR, fault_mask);
+>  		ptdev->mmu->as.faulty_mask &= ~fault_mask;
+> @@ -1864,7 +1857,7 @@ static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
+>  	status = panthor_mmu_fault_mask(ptdev, status);
+>  	while (status) {
+>  		u32 as = ffs(status | (status >> 16)) - 1;
+> -		u32 mask = panthor_mmu_as_fault_mask(ptdev, as);
+> +		u32 mask = MMU_INT_AS_FAULT(as);
+>  		u64 addr;
+>  		u32 fault_status;
+>  		u32 exception_type;
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+> index 4e32ab931949..1ec7f5ef2b19 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+> @@ -7,6 +7,7 @@
+>  /* MMU regs */
+>  
+>  #define MMU_INT_BASE					0x2000
+> +#define   MMU_INT_AS_FAULT(as)				BIT(as)
+>  
+>  /* AS_COMMAND register commands */
+>  
+> 
+> ---
+> base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
+> change-id: 20261022-panthor-as-mask-129688951377
+> 
 
->> drivers/gpu/drm/sitronix/st7571-spi.c:121:43: warning: variable 'regmap' is uninitialized when used here [-Wuninitialized]
-     121 |                 return dev_err_probe(&spi->dev, PTR_ERR(regmap),
-         |                                                         ^~~~~~
-   drivers/gpu/drm/sitronix/st7571-spi.c:116:23: note: initialize the variable 'regmap' to silence this warning
-     116 |         struct regmap *regmap;
-         |                              ^
-         |                               = NULL
-   1 warning generated.
-
-
-vim +/regmap +121 drivers/gpu/drm/sitronix/st7571-spi.c
-
-   112	
-   113	static int st7571_spi_probe(struct spi_device *spi)
-   114	{
-   115		struct st7571_device *st7571;
-   116		struct regmap *regmap;
-   117		struct spi_device_data *spi_data;
-   118	
-   119		spi_data = devm_kzalloc(&spi->dev, sizeof(*spi_data), GFP_KERNEL);
-   120		if (IS_ERR(spi_data))
- > 121			return dev_err_probe(&spi->dev, PTR_ERR(regmap),
-   122					     "Failed to initialize spi data\n");
-   123	
-   124		spi_data->spi = spi;
-   125		spi_data->dc_gpio = devm_gpiod_get(&spi->dev, "dc", GPIOD_OUT_LOW);
-   126	
-   127		if (IS_ERR(spi_data->dc_gpio))
-   128			/* init regmap for 3 line SPI */
-   129			regmap = devm_regmap_init_spi(spi, &st7571_spi_regmap_config);
-   130		else
-   131			/* init regmap for 4 line SPI */
-   132			regmap = devm_regmap_init(&spi->dev, &regmap_spi_dc_bus,
-   133						  spi_data, &st7571_spi_regmap_config);
-   134	
-   135		if (IS_ERR(regmap))
-   136			return dev_err_probe(&spi->dev, PTR_ERR(regmap),
-   137					     "Failed to initialize regmap\n");
-   138	
-   139		st7571 = st7571_probe(&spi->dev, regmap);
-   140		if (IS_ERR(st7571))
-   141			return dev_err_probe(&spi->dev, PTR_ERR(st7571),
-   142					     "Failed to initialize regmap\n");
-   143	
-   144		st7571->spi_data = spi_data;
-   145		spi_set_drvdata(spi, st7571);
-   146	
-   147		return 0;
-   148	}
-   149	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
