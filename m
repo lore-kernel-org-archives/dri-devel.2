@@ -2,113 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984E260A3802
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 20:01:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0ED606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 20:07:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=HPiulKq7
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJoC3vVC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 984C210E104;
-	Fri, 23 Oct 2026 20:01:26 +0000 (UTC)
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D27F10E26F
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 20:01:20 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-194d0c31715so2288c88.0
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 13:01:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792785680; cv=none;
- d=google.com; s=arc-20260327;
- b=szhCoXODVBvQJOH0RvTrjPwG3wTifRLoJDMcNx0mgiLxZ6jQOve/dK8xiE5iAP52gQ
- UpcwuyVHLRkFxMKRfOAKat/FCJ2LPnX4M+a2On2SSElZHII5v0rpXQS1dNPWHB3VS0Kw
- tJ2XwAlI/HOIndbTFL82NIsdiJQReESPmNZg2HjfzumwtaTJzQZyndXrUG4zQBbA0dB5
- uYSYdM3XM+SyV6bONPBFqVvP5sGA070NB4gxZoudOxccB9TJMrp7eAIm8aNh8LwU0H1d
- 2Xgo31K0GyzKPC6FAAqar6Ro9dpGdmQhE5qUJ1zPxBJBGXln7l/RumK+BzrQQISozuuA
- PuFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=R6P232PvLRYTH0fZdfO+3AJcU5WVHpT1tzKpJhoLyzQ=;
- fh=UQxyah0DdRHbSFcMGhpMXT2qQzDq64C6+pqgjUi/aYg=;
- b=b13zY9CGjPV2PE9xKFVRB8mJE+SIFwnlW37jNuwx+vG9zhJntJGz5ORYcD+oqwYRkI
- 04wZr+TyRDNBgIohfiZSwVW+I0S/+lKl4cpTXaP274mM/pCTyap5NtZtwDNOPUsS0i3u
- 7GXZs4qYMu9xKkqyg+agQ9QS5TiiME3C4CjzcWNK8SWVXB2ePizwCPakk0wxf68yM62X
- OXQGGlmbCUfee46Zi6UBmCXDyfXdaOp4C6ZYFsSs4KueHJygZs2rw68BqLU6R83MT+N1
- IC4D+t5Ytg01ETALjeZRnu21OWQm9GxzFtDS/PIFHaPK88DuO6PCaYqDsfwDmwyYvwaa
- 9hMQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792785680; x=1793390480;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=R6P232PvLRYTH0fZdfO+3AJcU5WVHpT1tzKpJhoLyzQ=;
- b=HPiulKq7wysrb4cakFERae6fEajr3qC//SHm784iXUJdUlD2/NlJEUryoZLhVwOL51
- X/WtiRLNvP3EcBThB1wNbJzeX3Y+3von2sUhwKdupZHh/snHMD+Pl2e0Hr8/p2Y8aPEr
- lO51nBcnIm1GLVp4N1Wbt9z30yFpi0+kvzevnsoKZaD7c15Iq06+wDka5GYVV7fr3J48
- 7KiSlByXA74YIMJC6TjQd/xd+tPox2H+81WU0iJCbTxVxM9jX+a30GdWuCDOO4o8dJhN
- jyP/poB61uj5VBwh7o29nd5N3AyFlpIZwOzNYdq+e5r9DUBeePBLp5qMG146SHG9I0s9
- BmUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792785680; x=1793390480;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=R6P232PvLRYTH0fZdfO+3AJcU5WVHpT1tzKpJhoLyzQ=;
- b=M8AeTq8JRa6TjQn6nGQ1oz8fHX8DJ8Pv9wTEEeONbsXyDgjc+r7QABoXdRFLDLsLxT
- jwOFKk7qH4WqfySsrNC1rr0hpLcXm01irSoNTGeLfFuid4XLc4XcRaEFTOX4TZfikYj+
- eZcgOFGc7xMxdjp1XaT70nu+6PnQaD8ammofdtOXlEECyxn/UHShSCOpwk8Ps0M7DDO9
- 8mBNKEPAEuCCUGj/4JR+5nueHxvDx/exwZubcSa+swhCAjYBuqQENyI8D43Xw73y/PX7
- 3cYHFZQKN9oInsPzAV5Qq9FftamEms2U13G+hTfvjLfktG+uV+K3QdIDWiRRDxJvcBnX
- qkUA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzy+ZCm+ibBRfqMa4qz0srBDhoKygPdUtStr6fAySyNdXpPRWFKG7vdSqo79yOLCKnHvztSENp9Lg0=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI1V4nF69ndcWwzMdgmsTwpU85C4vzFDdnNO31jxxyxRxvBd265
- wAdYMdCJL4Ds+jcPwsap/j9lYyO3Z1DWI2OPU8mFYHgML9ZdNTkAfstZG0U01Gxwu1zIWfa6v2s
- RVjsSKMHz5D01k7Ql/pUdMW0PfekZXK1tmac3lqoA
-X-Gm-Gg: AYBFou3EsgjOKJ2LiujdX389DFM+m9OqTQJX6fnED3IvCqbqk7jp3uoGA5BQsa+Tm1X
- tgfYmfWt189ibk6S6iighqRSsXKA0MpUvcx/fi5G+DY/nnohp3o5ujhzI8UeKaLJJ5DzmSJWXKy
- jA7XTjm1I1oqogFJvXD5L12o0h/Z4UtPhZIahIkBj7AUjUU075OlUmyndlfauhl5ZuDYIb0cFt4
- cXr66/qAQ/BDUuKVRXCH3gN3s95xudE3NY6nhRLBgoQRdBMcX2WTi+PCAQVyPtfxilksw9PC0sK
- qqweP0rqaXlpQbLmv4vmDVcs46P4oj+gVcJeARI41nPvVYLVJW0BozKle91Nwp/f/U8IaeiV+Vs
- eaAU1klX4JCFw41O+oFo98ZtS6gx1R7NAV9Pa
-X-Received: by 2002:a05:7022:4587:b0:184:6afb:b26c with SMTP id
- a92af1059eb24-1993fe82542mr15165c88.18.1792785679160; Fri, 23 Oct 2026
- 13:01:19 -0700 (PDT)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261015163915.1166043-1-almasrymina@google.com>
- <20261015163915.1166043-4-almasrymina@google.com>
- <20261020121858.3b9107c5@kernel.org>
- <CAHS8izPwWT+vbgAe49m5vXsRxT3unbfjLTkVZBScgAPdQTo2dQ@mail.gmail.com>
- <20261021132304.23e0a4e7@kernel.org>
- <CAHS8izN_N25mm9vALax+P+W45gyxVoMbZoTXW3r6nPC2Z0A7JQ@mail.gmail.com>
- <20261022181911.5d19ff13@kernel.org>
-In-Reply-To: <20261022181911.5d19ff13@kernel.org>
-From: Mina Almasry <almasrymina@google.com>
-Date: Fri, 23 Oct 2026 13:01:04 -0700
-X-Gm-Features: AclHuK-uP7Gir6yY-QN4sOQ103425f3gALMoJmdo_Tw66r7N7gb2W22rdmAKl0w
-Message-ID: <CAHS8izOTLYU=5sfJvpwB57Bp3tJ=xt7Gwws5xCVqABFw4T3WUA@mail.gmail.com>
-Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
- Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>,
- Paolo Abeni <pabeni@redhat.com>, 
- Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman <horms@kernel.org>,
- Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Dragos Tatulea <dtatulea@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
- Kaifeng Wang <kaifengw@google.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01F5710E105;
+	Fri, 23 Oct 2026 20:07:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BF9410E105
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 20:06:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B69DD41139;
+ Fri, 23 Oct 2026 20:06:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ACB81F01825;
+ Fri, 23 Oct 2026 20:06:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792786018;
+ bh=1xbW0gED+/2J2YzZoOddp/9wnZ2oY4IZ+JT4oKEW64k=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=RJoC3vVCeOAvr6Y0LTDZs0R5EARa4oY8zuQ93BY/41wC8RF521CTdXoLb5l/ZivWH
+ O2Hd8tKZcaEip1pqMwuGuxwU0hVW/aC8CysQ32qxGfxGiG/9dAIs9glGfugMXY9TDX
+ Srsuwqu8yzC6u/D2GQqNnzQkIzHpOMeA/DmAv3Vbvi9h8Oa+g63PWc2LkKOqkTxp4R
+ VU9D9oOf6DyIOSFBpp3bUxfn5q8lpExes8SmGJZclqbWdDghoK1rgitCcgLiAiGW6g
+ P3SLFetjYq5S7ZDyGsv1sn6cPBHwMI0SIyCp9ZxmZ1vge1TN725x+IrcKpMmIxjVkB
+ wr7Twzrg2WLhg==
+Message-ID: <sashiko-outbox-183160@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 7/7] arm64: dts: imx8dxl-evk: add lcdif overlay
+To: Frank.Li@oss.nxp.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261023-dxl_lcdif-v4-7-4ae8395a4b23@nxp.com>
+References: <20261023-dxl_lcdif-v4-0-4ae8395a4b23@nxp.com>
+ <20261023-dxl_lcdif-v4-7-4ae8395a4b23@nxp.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 20:06:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,59 +49,145 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Oct 22, 2026 at 6:19=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Thu, 22 Oct 2026 08:41:43 -0700 Mina Almasry wrote:
-> > On Wed, Oct 21, 2026 at 1:23=E2=80=AFPM Jakub Kicinski <kuba@kernel.org=
-> wrote:
-> > > On Tue, 20 Oct 2026 23:17:34 -0700 Mina Almasry wrote:
-> > > > But on the other hand the test coverage is nice, and maybe one day =
-if
-> > > > we add enough devmem support in netdevsim we'll be able to fuzz the
-> > > > data path or something. Is there a way to get the best of both worl=
-ds?
-> > > > Like put a comment on top of netdevsim that this is test simulator
-> > > > device and any missing functionality and/or bugs in it should be
-> > > > medium criticality max or something? Or is it too much trouble and =
-I
-> > > > should drop the netdevsim support and tests?
-> > >
-> > > I already strip Fixes tags and apply the patches to net-next.
-> > > But it's still a burden. If you're signing up to fix the issues /
-> > > review the slop we can try.
-> >
-> > I'm more than happy to help but I'm not sure what you have
-> > specifically in mind. What I was going to do is put a comment/readme
-> > in drivers/net/netdevsim with a note to sashiko and LLMs, "this is a
-> > netdev simulator, used for testing; do not call out missing or
-> > incomplete functionality as bugs." And then hope that the LLMs and
-> > sashiko pick the directive. If not, I can tell patch submitters to
-> > ignore sashiko code review bug findings in netdevsim. Is that
-> > sufficient, or do you need something else from me?
->
-> No, the fact that it's a test harness only impacts whether fixes
-> got to net & stable, not whether bugs need to be fixed.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: imx8dxl-evk: invalid and ignored bus-width in adma_l=
+cdif endpoint
+- [Medium] arm64: dts: imx8dxl-evk: lcdif overlay leaves broken audio consu=
+mers enabled
+--
 
-Ack, I meant like if the bots start to consider missing/incomplete
-functionality as 'bugs' when it's actually missing from netdevsim on
-purpose because we don't need it for testing.
+commit 19a4bb9fef78514466afe51bb1b962f7fabf9e20
+Author: Frank Li <Frank.Li@nxp.com>
 
-> I was expecting you to keep an eye on the list and review any fixes
-> that come, basically.
->
+arm64: dts: imx8dxl-evk: add lcdif overlay
 
-OK, I'll add netdevsim to my email filters for patches to review and
-see how it goes.
+This commit adds a device tree overlay to support the waiken,101wx001-wct L=
+CD
+panel on imx8dxl-evk boards, enabling adma_lcdif and disabling conflicting
+peripherals that share pins with the 18-bit LCDIF interface.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001-wct=
+.dtso b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001-wct.dtso
+> new file mode 100644
+> index 0000000000000..39abf9b3884ea
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001-wct.dtso
+[ ... ]
+> +&acm {
+> +	status =3D "disabled";
+> +};
+> +
+> +&adma_lcdif {
+> +	pinctrl-0 =3D <&pinctrl_lcdif>, <&lcd_0_fun>, <&lcd_1_fun>, <&lcd_2_fun=
+>, <&lcd_3_fun>;
+> +	pinctrl-names =3D "default";
+> +	status =3D "okay";
+> +
+> +	port {
+> +		lcdif_out: endpoint {
+> +			bus-width =3D <18>;
+> +			remote-endpoint =3D <&panel_in>;
+> +		};
+> +	};
+> +};
+
+[Severity: Medium]
+Is bus-width valid or handled in the adma_lcdif endpoint node here?
+
+In Documentation/devicetree/bindings/display/fsl,lcdif.yaml, the port node =
+is
+defined purely via /schemas/graph.yaml#/properties/port:
+
+  port:
+    $ref: /schemas/graph.yaml#/properties/port
+    description: The LCDIF output port
+
+Because /schemas/graph.yaml#/properties/port enforces unevaluatedProperties:
+false on endpoint and does not reference video-interfaces.yaml, adding
+bus-width =3D <18> causes dtbs_check validation to fail on
+imx8dxl-evk-lcdif-101wx001-wct.dtb.
+
+Furthermore, at runtime, adma_lcdif (fsl,imx8dxl-lcdif / fsl,imx6sx-lcdif) =
+is
+driven by mxsfb, and neither mxsfb, drm_panel_bridge, nor panel-simple pars=
+es
+bus-width from the endpoint node. Instead, the call chain:
+
+  mxsfb_crtc_atomic_enable()
+    -> mxsfb_crtc_mode_set_nofb()
+      -> mxsfb_set_formats()
+
+selects CTRL_BUS_WIDTH_* solely from the panel's media bus format. Since
+waiken_101wx001_wct_panel in drivers/gpu/drm/panel/panel-simple.c specifies:
+
+  .bus_format =3D MEDIA_BUS_FMT_RGB888_1X24,
+
+mxsfb_set_formats() programs LCDC_CTRL with CTRL_BUS_WIDTH_24 instead of
+CTRL_BUS_WIDTH_18, causing the controller to output 24-bit RGB888 when only=
+ 18
+data lines (ADMA_LCDIF_D00 through ADMA_LCDIF_D17) are routed on the board.
+
+[ ... ]
+> +&sai0 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&sai1 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&wm8960_1 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&wm8960_2 {
+> +	status =3D "disabled";
+> +};
+> +
+> +&wm8960_3 {
+> +	status =3D "disabled";
+> +};
+
+[Severity: Medium]
+Should this overlay also disable asrc0, sai2, sai3, and the root sound card
+nodes from arch/arm64/boot/dts/freescale/imx8dxl-evk.dts?
+
+Disabling acm, sai0, sai1, and wm8960_1..3 while leaving their consumers
+enabled in the base DTB causes several probe failures and permanently defer=
+red
+devices at boot:
+
+1. asrc0 remains enabled in imx8dxl-evk.dts and references <&acm
+IMX_ADMA_ACM_AUD_CLK0_SEL> and <&acm IMX_ADMA_ACM_AUD_CLK1_SEL>. With acm
+disabled, of_clk_get_hw_from_clkspec() returns ERR_PTR(-ENOENT), causing
+fsl_asrc_probe() in sound/soc/fsl/fsl_asrc.c to fail with -ENOENT.
+
+2. sai2 and sai3 remain enabled in imx8dxl-evk.dts even though their codecs
+(wm8960_2 and wm8960_3) are disabled here. Their clock controllers (sai2_lp=
+cg
+and sai3_lpcg in imx8-ss-audio.dtsi) take parent clocks from acm; with acm
+disabled, of_clk_parent_fill() in imx_lpcg_parse_clks_from_dt() fails to
+resolve the parent clock, causing LPCG probe to fail with -ENODEV and leavi=
+ng
+sai2 and sai3 stuck in -EPROBE_DEFER.
+
+3. The root sound card nodes in imx8dxl-evk.dts (sound-bt-sco, sound-wm8960=
+-1,
+sound-wm8960-2, and sound-wm8960-3) remain enabled while referencing the
+disabled CPU, codec, and ASRC nodes, leaving all four sound card devices
+permanently in -EPROBE_DEFER.
 
 --=20
-Thanks,
-Mina
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-dxl_lcdif-=
+v4-0-4ae8395a4b23@nxp.com?part=3D7
