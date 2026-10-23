@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2473606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 23:42:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACFD606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 23:52:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MevWOUq3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7VuMTU5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66BB110E76E;
-	Fri, 23 Oct 2026 23:42:23 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B602B10E76E
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 23:42:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8962110E758;
+	Fri, 23 Oct 2026 23:51:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F050410E758
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 23:51:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 380FA6022B;
- Fri, 23 Oct 2026 23:42:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9CAF1F01825;
- Fri, 23 Oct 2026 23:42:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B21E543E0F;
+ Fri, 23 Oct 2026 23:51:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3BA1F01825;
+ Fri, 23 Oct 2026 23:51:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792798935;
- bh=Bwq0wI3Jav3cfwEHo6FDxKwWMpkYXSM38uH2+F8n320=;
+ s=k20260515; t=1792799512;
+ bh=X4K9p9nHIGGaDmvlVoCJ+KPKXBTKEYA6Vq+vrXxagY4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MevWOUq3XWCAg93YAcig8D5KQsCABxkQqKnpn8W6UvM/k2i7A8VUb4ZJ4Z8+QAAnI
- LKG2ZrE92ERRAcOukqnkK3n3tYnIdjPo6l0YtvprUtAKWfN47smahcm9GtAdoKRL/s
- 6WQFU7mwpRxtmiwqVM6tLkWYM+ye0V8Jxa4Yufe/JPrT5JnhYSwvN+OpLIQuhm9xYj
- 6pI1e+zQd11tSFN5qNQkYU8GtvSPJF5PQxe4Hdxce/pfX6Cfl0h6wCqMCUaWEnBN12
- ivCe1d+2ijdBxHSSdlFHnYGHNK56ESCxfwhC74Z3t6cDnhVODd77p7NRuvvDHQbQQW
- 0YmvI688CXeiA==
-Message-ID: <sashiko-outbox-183425@kernel.org>
+ b=G7VuMTU5/Nz/xEH1SSjAr5muaVU700W9K4vbn07tVfPyCQiE8Pxx5qYFjYeg5ffmZ
+ hSUZFi8RRlHUb2vKDNOZg8f8yiKMv5Ts8+wUSfWP5GEjCluQ1Fkj2Ej7L6Ny0BQ5A4
+ X6c4zFCTOAQp6y/mpWO/miaoxWZtpJwiUN5wLv3K49gQqFC9DyGif4KjRJ2773jKvP
+ moioWqMhtScOnEkVyUckPo4inDkI4VzJdHdUYtzHu+JbDbAiKGOdP9aBhTGXU/9ThJ
+ p5k2cNn3RfKRQ1TsLHqjrSNYUjvbJXQDQkx+hucncFwLD8sFNnBUPJGdx1Pgr9FZUm
+ 5csLUYPoMWaiA==
+Message-ID: <sashiko-outbox-183436@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/10] drm/msm/dpu: clear the DSPP pointer when no
- DSPP is assigned
+Subject: Re: [PATCH v5 09/10] drm/msm/dpu: only reassign resources when the
+ encoder is reprogrammed
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261024-fd-kms-fix-smmu-v5-7-a5b0b284aead@oss.qualcomm.com>
+In-Reply-To: <20261024-fd-kms-fix-smmu-v5-9-a5b0b284aead@oss.qualcomm.com>
 References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
- <20261024-fd-kms-fix-smmu-v5-7-a5b0b284aead@oss.qualcomm.com>
+ <20261024-fd-kms-fix-smmu-v5-9-a5b0b284aead@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 23:42:15 +0000
+Date: Fri, 23 Oct 2026 23:51:52 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,121 +61,111 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/msm/dpu: clearing hw_dspp in dpu_crtc_assign_resources() leave=
-s DSPP enabled
+- [High] drm/msm/dpu: dpu_crtc_check_mode_changed() forces modeset on disab=
+led CRTC
 --
 
-commit 1d1b56e93b802629a163cf47cb75949dc3b0cdc9
+commit c3f9e050a732ed23fbcf8ea33c7cb5ebd0743f16
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/msm/dpu: clear the DSPP pointer when no DSPP is assigned
+drm/msm/dpu: only reassign resources when the encoder is reprogrammed
 
-This commit updates dpu_crtc_assign_resources() to explicitly set
-cstate->mixers[i].hw_dspp to NULL when the new topology does not assign a
-DSPP block to a mixer, preventing stale DSPP pointers from persisting across
-state duplications.
+This commit restricts DPU CRTC resource reassignment to modeset and connect=
+or
+changes rather than color management updates, and moves the modeset check f=
+or
+DSPP reservation into dpu_crtc_check_mode_changed() while removing the CTM
+modeset workaround from msm_atomic_check().
 
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/m=
 sm/disp/dpu1/dpu_crtc.c
-> index 1f8fce366a1d3..2ff0dab33710b 100644
+> index 2ff0dab33710b..048800227ad30 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1480,8 +1480,8 @@ static int dpu_crtc_assign_resources(struct drm_crt=
-c *crtc,
+> @@ -1489,6 +1489,26 @@ static int dpu_crtc_assign_resources(struct drm_cr=
+tc *crtc,
+>  	return 0;
+>  }
 > =20
->  		cstate->mixers[i].hw_lm =3D to_dpu_hw_mixer(hw_lm[i]);
->  		cstate->mixers[i].lm_ctl =3D to_dpu_hw_ctl(hw_ctl[ctl_idx]);
-> -		if (i < num_dspp)
-> -			cstate->mixers[i].hw_dspp =3D to_dpu_hw_dspp(hw_dspp[i]);
-> +		cstate->mixers[i].hw_dspp =3D i < num_dspp ?
-> +			to_dpu_hw_dspp(hw_dspp[i]) : NULL;
+> +static bool dpu_crtc_needs_dspp(const struct drm_crtc_state *crtc_state)
+> +{
+> +	return crtc_state->ctm || crtc_state->gamma_lut;
+> +}
+> +
+> +static bool dpu_crtc_has_dspp(const struct drm_crtc_state *crtc_state)
+> +{
+> +	const struct dpu_crtc_state *cstate =3D to_dpu_crtc_state(crtc_state);
+> +	unsigned int i;
+> +
+> +	if (!cstate->num_mixers)
+> +		return false;
+> +
+> +	for (i =3D 0; i < cstate->num_mixers; i++)
+> +		if (!cstate->mixers[i].hw_dspp)
+> +			return false;
+> +
+> +	return true;
+> +}
+> +
+>  /**
+>   * dpu_crtc_check_mode_changed: check if full modeset is required
+>   * @old_crtc_state:	Previous CRTC state
+> @@ -1506,6 +1526,11 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_st=
+ate *old_crtc_state,
+> =20
+>  	DRM_DEBUG_ATOMIC("%d\n", crtc->base.id);
+> =20
+> +	/* DSPPs are only reserved during a modeset */
+> +	if (dpu_crtc_needs_dspp(new_crtc_state) &&
+> +	    !dpu_crtc_has_dspp(old_crtc_state))
+> +		new_crtc_state->mode_changed =3D true;
 
 [Severity: High]
-Does clearing cstate->mixers[i].hw_dspp here leave the DSPP PCC and GC
-sub-blocks stuck enabled in hardware with stale coefficients and LUTs when
-userspace disables color management?
+What happens here when ctm or gamma_lut is set on a disabled CRTC where
+new_crtc_state->enable is false?
 
-In DPU hardware, each DSPP block sits inline in the datapath between its
-layer mixer and pingpong block (per lm_cfg->dspp in the catalog), with no
-CTL active-bit bypass mux. The only place in the driver that disables PCC
-and GC in the DSPP registers and stages a DSPP flush on the CTL is
-dpu_crtc_atomic_begin() -> _dpu_crtc_setup_cp_blocks():
+In drm_mode_atomic_ioctl() -> drm_atomic_check_only() -> msm_atomic_check()=
+ ->
+dpu_kms_check_mode_changed() -> dpu_crtc_check_mode_changed(),
+dpu_crtc_needs_dspp(new_crtc_state) returns true whenever ctm or gamma_lut =
+is
+present regardless of whether new_crtc_state->enable is set.
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:_dpu_crtc_setup_cp_blocks() {
+Because dpu_crtc_assign_resources() skips resource reservation when the CRTC
+is disabled:
+
+drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:dpu_crtc_assign_resources() {
 	...
-	for (i =3D 0; i < cstate->num_mixers; i++) {
-		ctl =3D mixer[i].lm_ctl;
-		dspp =3D mixer[i].hw_dspp;
+	dpu_rm_release(global_state, crtc);
 
-		if (!dspp)
-			continue;
-
-		if (dspp->ops.setup_pcc) {
-			if (!state->ctm) {
-				dspp->ops.setup_pcc(dspp, NULL);
-			} else {
-				_dpu_crtc_get_pcc_coeff(state, &cfg);
-				dspp->ops.setup_pcc(dspp, &cfg);
-			}
-
-			/* stage config flush mask */
-			ctl->ops.update_pending_flush_dspp(ctl,
-				mixer[i].hw_dspp->idx, DPU_DSPP_PCC);
-		}
+	if (!crtc_state->enable)
+		return 0;
 	...
 }
 
-When userspace enables ctm or gamma_lut, dpu_crtc_get_topology() sets
-topology.num_dspp =3D topology.num_lm, dpu_crtc_assign_resources() populates
-cstate->mixers[i].hw_dspp, and _dpu_crtc_setup_cp_blocks() enables PCC
-and/or GC in the DSPP block and flushes it.
+cstate->num_mixers is 0 on a disabled CRTC, so
+dpu_crtc_has_dspp(old_crtc_state) is false and dpu_crtc_check_mode_changed()
+sets new_crtc_state->mode_changed =3D true.
 
-When userspace later disables both ctm and gamma_lut by setting them to
-NULL, crtc_state->color_mgmt_changed is set (and msm_atomic_check() also
-sets mode_changed =3D true when ctm transitions to NULL), causing
-dpu_crtc_atomic_check() to call dpu_crtc_assign_resources():
+If userspace sets CTM or GAMMA_LUT on a disabled CRTC without
+DRM_MODE_ATOMIC_ALLOW_MODESET, drm_atomic_check_only() will see
+drm_atomic_crtc_needs_modeset(new_crtc_state) and reject the commit with
+-EINVAL.
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:dpu_crtc_atomic_check() {
-	...
-	if (crtc_state->mode_changed || crtc_state->connectors_changed ||
-	    crtc_state->color_mgmt_changed) {
-		rc =3D dpu_crtc_assign_resources(crtc, crtc_state);
-		if (rc < 0)
-			return rc;
-	}
-	...
-}
+Furthermore, even if CTM or GAMMA_LUT is initially committed on a disabled
+CRTC with allow_modeset =3D true (or via legacy gamma/property ioctls or
+drm_fb_helper's setcmap_atomic()), dpu_crtc_assign_resources() still returns
+early without reserving mixers or DSPPs. On every subsequent atomic commit
+that includes that disabled CRTC in state, dpu_crtc_needs_dspp(new_crtc_sta=
+te)
+&& !dpu_crtc_has_dspp(old_crtc_state) remains true, forcing
+new_crtc_state->mode_changed =3D true and causing any non-modeset commit to=
+ fail
+with -EINVAL.
 
-Inside dpu_crtc_assign_resources(), dpu_crtc_get_topology() sees both
-crtc_state->ctm and crtc_state->gamma_lut as NULL and leaves
-topology.num_dspp as 0:
-
-drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:dpu_crtc_get_topology() {
-	...
-	if (crtc_state->ctm || crtc_state->gamma_lut)
-		topology.num_dspp =3D topology.num_lm;
-	...
-}
-
-While dpu_rm_reserve() still assigns the same layer mixer,
-dpu_crtc_assign_resources() now sets cstate->mixers[i].hw_dspp to NULL.
-When _dpu_crtc_setup_cp_blocks() subsequently runs in
-dpu_crtc_atomic_begin(), it sees dspp =3D=3D NULL and continues early, skip=
-ping
-dspp->ops.setup_pcc(dspp, NULL), dspp->ops.setup_gc(dspp, NULL), and
-ctl->ops.update_pending_flush_dspp().
-
-A later commit in the series ("drm/msm/dpu: only reassign resources when
-the encoder is reprogrammed") stops calling dpu_crtc_assign_resources() on
-color-management-only commits where mode_changed and connectors_changed are
-false. However, won't the DSPP sub-blocks still be left enabled whenever
-ctm and gamma_lut are cleared in the same atomic commit as a modeset
-(where mode_changed or connectors_changed is true), or when a CRTC with
-active ctm or gamma_lut is disabled (since dpu_crtc_atomic_begin() returns
-early on !crtc->state->enable and dpu_encoder_helper_phys_cleanup() does
-not reset or flush DSPP sub-blocks) and a CRTC is subsequently enabled on
-the same layer mixer without ctm or gamma_lut?
+Should dpu_crtc_needs_dspp() or dpu_crtc_check_mode_changed() check
+new_crtc_state->enable before requiring a modeset for DSPP reservation?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261024-fd-kms-fix=
--smmu-v5-0-a5b0b284aead@oss.qualcomm.com?part=3D7
+-smmu-v5-0-a5b0b284aead@oss.qualcomm.com?part=3D9
