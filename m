@@ -2,62 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E6A60A6F69
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 15:41:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558AB606AD13
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 15:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hih+ev8/
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Fo9YrXNh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7349D10E6AE;
-	Fri, 23 Oct 2026 15:41:26 +0000 (UTC)
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010051.outbound.protection.outlook.com [52.101.201.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E471A112BD0
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:41:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3AE3112BD0;
+	Fri, 23 Oct 2026 15:41:35 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011067.outbound.protection.outlook.com [40.107.208.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6F1F112BD0
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:41:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kJIIEu0glrr6B+xnqfO/FlxsNXsIjyvmwcCUSAspDWvAXLzJfWv5iqfZxQkV77d5SAABDSH4b7r6CL/seF9DsikK8D8M4g77E95H6/r5h7Qb24OkmwD7XX2SHntJ2LK7+GoHvWhO5/F4d0ymJ2xZQLbY4qFeYMp82C0kU3jCJTo2zU+m3K5BUK5ivFWHdaAvqlzQ49UqBeY9c1JOWYPb/OxvewNdLHyf7fWU0AYcVJh3/Q3SNPueu8S3mlWZboOPvwVcPIwfU2Ll2UStUOD0bp1skWWfrPMt3mHjIBhrMNmx8idyGYyBEuIKFfe0NBRuGXw56jjHg5OBZpG4dFrawg==
+ b=dsT36FRsB0q3f0gA/O1hQY4dbr4qRBcSVybhiUu5VoZwr8p5q/MOCsF6hffw6KT1+Yn3iP79PFjmosR9Ej6avIh4Ti567XVeYvBhjgLOTgzhXC1U9bEAPyZgPDSTlrCU3IcI1OUUA0S3ihTqLzJzm9ma5SuMVlHE2huviufg+3qSfVlFMeMl2DtTVtOKSiztV5OK7/VBz/lSZPKaWtQk836P9bshFFz2IVYHn8V5DmEigm6SdOeaxsFjH49QnyoUMyEK381t7+iSWsycjRRVMvmP2LUTLOPV9kiiLuBrP4is2M8+Kzln7TpxSqc3AyqG3z9H045uQdoS6rqDzqxGnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YofhPltgVP+OiGlkHx0znbMPx9OWlqge5VudApLeNug=;
- b=y88FM4V1i+FSyjfDUX9R+hF0wHbVpO6xY+yglXkFLlOyZt4ptTqJ2tIQHkFdTHnyR/ruPAHBqxQjHfxNgLHRmYrUJ6T7R/GVss8ZnyA52MxQBbsl1uBuU9VwDhm0zGywJPz6mxUo/zltbTDzDy5JFA16VAN1SgdSFfYWQjUvf5AokNFnw+HGJjGGL/YMnJpXD/WEABvhPZQs3PDmDn5odSbeP7ADa2xQWIh+9URuSKpOD8LemPIPZO7M6vCEoBOpyeyqfSO6zLDYS6BqBz7HueuOXQmHIgpMAH9TCoRVF3vuAbUD+bxkWa0LMVveoTMEBQLcWrlaXRgj/qtJselItA==
+ bh=Es8v+TmDgsT7AaU8tCGUkyLbuR3yWL8yc++7cel+0/U=;
+ b=OgyQemrJIUWecvidN16uSRHbRlwh+qtYlfupt/f2hzNtPjR1e6EomWMatX2VMp5wK4eDOnQhI5tBY+VI4GUBT6JHNPS9oQpbI5iuUdHIfNQqbfjfSJLqYa4DF4MAFrTrQ1ulQouDny4m5AV19j9/1k19R+6iVhm139AW/H285ONLVGttwmRdzN9SqQrTy2VlQkakxSDCkBQ7X3hOwF6nK4OQLR+hEzh+3/SFhzbYBPFBTE5lRtWkW+UIyijqXtZ8tNpCBNgpxoLzSAPqptsTyywGFIOxl6SOaExk6H6GPQmCVaxC1PEBcqUALw1Xp9eFgBOsFqLMjeAU9iVXBqx10g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YofhPltgVP+OiGlkHx0znbMPx9OWlqge5VudApLeNug=;
- b=hih+ev8/3qtQAOYLgMXXUVxwEfrxLYvi27krtUIOgckCvUjkPcY0C4JOsaPPe4imX1C1BOzedY/iiqYSwN19IHWUrKCfFLBaiFJ3g3G9UO1huSzc4BpzLgsTSNM2r0z9b43TRE903nnlBHlgKCJEL6jrECw8umw3Bm5w/AZTh9bMa8ZhC2Stmgp7N/JBoiux587hhtGQM9PKj8RHxdk0KF/E0D1VtIN809/HKgJFHUGkfW4VwBWgCoTlHPeqv0Dl+x+p/6z9K2Zgwe05De8WMOleseqABjq/k/mS7dRvcfD6Rdm8rBukq6yd2TmvhxqHvkWLvtUk+J2Xp5mYPEQsQA==
-Received: from CH0PR03CA0228.namprd03.prod.outlook.com (2603:10b6:610:e7::23)
- by IA4PR12MB604997.namprd12.prod.outlook.com (2603:10b6:207:12a::18)
+ bh=Es8v+TmDgsT7AaU8tCGUkyLbuR3yWL8yc++7cel+0/U=;
+ b=Fo9YrXNhNK+c3XVRkNcGGElMtMH3FAoNIvGqviHXZdSyjdP6QQmSe4o4K4kPLHPwbkDkCIpKGDhmRSjKgnVRTktbw0SNon7EoZtjfE8aOTg+JFsj+G3JTyIlWkPxYBdOVH7PqRbD9jldshT6kRxJTkbxFKvHIj2j+sm1sfh6++kicJJ/dDoQqCncKqVtdlYVh2okFrwhzEOAEDpthwXsZmmjVUWtVPSAoXfZzyJchMdTGmQ6uIhVJ76z67IXaGnpKM0ETkJ8xD7T3O/YJgRrQ2/F+Gku1lOhAtWpCLE6T4bBdjY2svKAx9SHM7F1P6YnDe/YaXRylADEGVWlnxLqAw==
+Received: from SJ0PR13CA0195.namprd13.prod.outlook.com (2603:10b6:a03:2c3::20)
+ by BL1PR12MB5897.namprd12.prod.outlook.com (2603:10b6:208:395::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
- 2026 15:41:08 +0000
-Received: from BL02EPF0002992B.namprd02.prod.outlook.com
- (2603:10b6:610:e7:cafe::a1) by CH0PR03CA0228.outlook.office365.com
- (2603:10b6:610:e7::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Fri,
- 23 Oct 2026 15:41:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Fri, 23 Oct
+ 2026 15:41:19 +0000
+Received: from CO1PEPF00018861.namprd02.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::1e) by SJ0PR13CA0195.outlook.office365.com
+ (2603:10b6:a03:2c3::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.4 via Frontend Transport; Fri, 23
+ Oct 2026 15:41:19 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161)
+ is 216.228.117.160)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BL02EPF0002992B.mail.protection.outlook.com (10.167.249.56) with Microsoft
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CO1PEPF00018861.mail.protection.outlook.com (10.167.249.250) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Fri, 23 Oct 2026 15:41:07 +0000
+ 15.21.569.4 via Frontend Transport; Fri, 23 Oct 2026 15:41:18 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 23 Oct
- 2026 08:40:39 -0700
+ 2026 08:40:56 -0700
 Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.231.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 23 Oct 2026 08:40:37 -0700
+ 15.2.2562.56; Fri, 23 Oct 2026 08:40:54 -0700
 From: Simon Song <xinmengs@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
  <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
@@ -76,43 +76,43 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
  <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
  <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
  <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v2 04/12] rust: vfio: add PCI variant driver abstractions
-Date: Fri, 23 Oct 2026 08:39:59 -0700
-Message-ID: <20261023154009.2246627-5-xinmengs@nvidia.com>
+Subject: [PATCH v2 12/12] vfio/nvidia-vgpu: add the Rust VFIO variant driver
+Date: Fri, 23 Oct 2026 08:40:07 -0700
+Message-ID: <20261023154009.2246627-13-xinmengs@nvidia.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
 References: <20261023154009.2246627-1-xinmengs@nvidia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|IA4PR12MB604997:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79eead3c-d83a-4920-3bd7-08df311c0e32
+X-MS-TrafficTypeDiagnostic: CO1PEPF00018861:EE_|BL1PR12MB5897:EE_
+X-MS-Office365-Filtering-Correlation-Id: 553a72de-b4aa-4517-848a-08df311c14e5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|23010399003|36860700016|82310400026|5023799004|56012099006|11063799006|261021123027099003|261021121427099003|261022105027099003|261022113327099003|261022075727099003|261009223027099003|10067099003|18002099003|6133799003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: pNU0iwipuEaSwiuTyxtRjh2oBOLqCkFxlN66sVpupKnZ8Y8KOOOlNZwja6elZP5Q1YgBv0SSMZU3WbEkzeJvj6VT+mvHXLqUH571jZcyFVrHiyVLH/DJckYJEhYGsWUecqouxy/KGj7eaxO5itzNw9hYNlHEZa7uB06Yg5M8C2eJ0YAEx9tCQxl63Z36iCKWVJEL1xlrL8JzgBKsTG57R+F6Vk5Jgq82pOwkIkzTRVp9qJ0Km1b2t8oF0SARScMWmPXYkvAl6cMmlB6fuz0EYhhwiPtAPdxzeXvKh4q8Io12IDsxd04O9dVrXiiP3s+5yKK+Zq+upyaYsQoEK2kONC2NjTXlmdvbgDufq11h3Y2SoV7rCo+BrbVw84TEfMMdYV9LJsEZB7GMSCCCzPcSf0HvyEn8moAuoiDiqdmTUWOtHMgDTWsP/c1pELfR4a7VIc69js6lvz7qdrXTP4R8S97qitK1WySI2VN4To1Qiwg003DY5azr3WJab53lG3al02AQL9lSdBTV89Ef1/r47zLpgpv5N8xn3wZuQpI/dQvyUxUfrjm2xmZzqwZZMFOXHx7C8PymrQYuIYmUMjlIbX85vo4uupp8esyfEnMAdBsLyB+oOiesz8b/u4b8JtjoqkGgvMOhXfgdBNVDijYFNdIKlzFfkUVLPeSpWlw5Fo7vhbJkJcBKDJ7He/ELW9MROExNvmQfIR8sRDcbzGiDrQ==
-X-Forefront-Antispam-Report: CIP:216.228.117.161; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge2.nvidia.com; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(36860700016)(82310400026)(5023799004)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261022105027099003)(261022113327099003)(261022075727099003)(261009223027099003)(10067099003)(18002099003)(6133799003)(22082099003)(3023799007);
+ ARA:13230040|7416014|376014|82310400026|36860700016|23010399003|1800799024|5023799004|11063799006|56012099006|261022075727099003|261021123027099003|261021130227099003|261022113327099003|261022105027099003|261022115727099003|261021135927099003|261021121427099003|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: 5khIg/a/zUkMnRKdE6tMoJ7nuVeeZZVcAXLcn+sQfUUT0F77wcGncNvq77vVUxo2Oo/V4eT4DSZCzu/NPAnF1SlX46W6d2F++tOCozNIMnNSvW/jWABaOg8YGj0Tps56g7dgDCLC/noQtYLei5CxOSjXSG29UP8VWY37OTwcEg8854LEUoo+UWGrNB4NjXnI+F/aUX4WTZbFwwVvQu8Rgyp2Vvqrytaryz0yBku+UHPZ9WZBGqpBM16zyErgWZaOYee539YfW/aMcR7NBiN/H/wnv7sB1Mv3ql8El/i5nKUSVA9teq35JLk47LNb6OOHRgT4fVCkKWfn0kn8iwdpQN4zS76nTdqrVZRb/g+xjBbGtXJ5dfuzAqbHtWAibRh4vTO3o/tANq6X92uJZ84ghSU9UBn/+vin8efK5tNvzlLiht9hCX/QAAT1vN8xKIR3OSZDOkzlTfHWJsGfl6s1fv4uv3co0PRNBZQ0H8jADtFRsqq6bNXUqCCwYwBK22O5VEchWx/x0gHFtpO+LB/topYfAjhBzENikTu1t2udCBLZ5vLaMFKrFN5odFstam41AR5iv4xdBEUt6rdo/p5q572YxazLbiVihLDEoVEzWykfdFn4avW2a4SRUQ48Ec1J4mZ8x8mKH0OCqlFq9ahDTS4srdyP5idhaqcLD5ybkmUswpYEuWNEc7MNeiaHfzw/oPgAJ7A7SvDgHh3fd4tU8g==
+X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(5023799004)(11063799006)(56012099006)(261022075727099003)(261021123027099003)(261021130227099003)(261022113327099003)(261022105027099003)(261022115727099003)(261021135927099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: gYSS1Q1kwSKrJIIVE1s7XcNAuH8nE2b9vJgtRPbcZZqtIN21Hp+DedyGebE1TsyOat70wX856/gX7sdvHZd0VVZHo/01J193QICntOfaPUwuEDeM+1q3ZM9QOQTpFmUqnD+wbrSDqCqQWp/CDE+bDZwthYA58UhpMxEkKLKdjeEjYLwVeITIXbuTTCibNOz8vFv25kUyGS1R3SC+2X0S+cEvpdywc1ZqGdTHP5pljgxbwFKKh5mrZaCsWgWSte1jMTk0fmh4HLUWYRhcf8tyHEas4nQMu5kXfOauaSo/yX4XbzgcZe7kem5l/5/jKz9bdSjEFBvb+v5B9ICq1dV/LjLwl9JYL70pzqFjP+lY4a5vyvHFA9JaoeLTMt23DT9NBkQnBo5KHeLiYBJnKcvKHvOijcrJz1ZujGlBl6SBGGoXGbg46jK09Tkn3yINDp4N
+X-MS-Exchange-AntiSpam-MessageData-0: ruhYlfDSLF+XfLok+XoVwKvuWQakGWdvlEzfgveObR71v9+C2FIJiKq0KzZAztfYcquRVhpIvXWnaQf0PycnL73HOJxZriUSvB0UYLd6tFBfmPcuDr9iXCsDwm1JVO/59mHBwUremIULnRgEUUznvfhCLLtDyi7iAUx6/R4d8CdJMmk/6ca0WT6jNk/hfSxU8jKqYGTjPdE3/saxac2OV89C1RJT/jnsC8ulG5qxwaFqy51UqORWCm7G7exwAAaMgHLQI2OXdamrpNcw5i3VUkDvNSLVQgeDUY/ZFCctW8k1FRk1lyI+HOT7WYzTUezRZjDBm+PE8RaAaJLs8dzvIbE70FgmnX9AhN0KzoW6CTJtzlvJJYzcHumChqw0J9cyomg9J47ST6VbVWMnlf4pDoys1DMJxxFTorraab/0T7Glmov0IzViQFdtI2UyB+h+
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:07.5298 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79eead3c-d83a-4920-3bd7-08df311c0e32
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:18.8685 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 553a72de-b4aa-4517-848a-08df311c14e5
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.161];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00018861.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB604997
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5897
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,1279 +134,536 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Danilo Krummrich <dakr@kernel.org>
 
-Add Rust abstractions for PCI drivers that extend vfio-pci-core with
-device-specific operations.
+NVIDIA vGPU VFs need nova-core to manage their instances when assigned
+to userspace through VFIO.
 
-Provide Operations, Device and Registration with separate registration
-and first-open/last-close data. Allow open data to borrow registration
-data, undo PCI enablement if open fails, and drop open data before
-closing the core device.
+Add a Rust VFIO PCI variant driver that uses the typed SR-IOV PF APIs
+to create an instance on first open and close it on last close. Expose
+the assigned device and subsystem IDs, enforce the assigned BAR1
+aperture, and coordinate firmware reset with PCI reset.
 
-Use a PCI adapter to register VFIO after publishing initialized driver
-data and unregister it before unbind and data destruction. Route runtime
-PM, AER and reset callbacks through the driver's typed registration.
-Let vfio-pci-core select its VGA arbitration callbacks.
+Match NVIDIA devices through a VFIO override-only entry. Devices
+without an available Nova vGPU interface use ordinary PCI passthrough.
 
-Restrict core I/O helpers to their corresponding callback contexts.
-Require covariant registration data so callback borrows can safely
-shorten its erased binding lifetime. Add bounded user-buffer and region
-mapping helpers, and wire up VFIO core support for device features,
-matching, IOMMUFD and PASID. Allow passthrough devices to export physical
-BARs as DMA buffers.
+Use the PCI adapter to keep callback data available throughout
+registration and removal. Extend the GPU build rules to make nova-core
+crate metadata available to the VFIO driver and export the Rust symbols
+it references.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Simon Song <xinmengs@nvidia.com>
 ---
- rust/bindings/bindings_helper.h |    4 +
- rust/kernel/lib.rs              |    2 +
- rust/kernel/vfio.rs             |  100 +++
- rust/kernel/vfio/pci.rs         | 1095 +++++++++++++++++++++++++++++++
- 4 files changed, 1201 insertions(+)
- create mode 100644 rust/kernel/vfio.rs
- create mode 100644 rust/kernel/vfio/pci.rs
+ drivers/gpu/Makefile                        |  15 +-
+ drivers/vfio/pci/Kconfig                    |   2 +
+ drivers/vfio/pci/Makefile                   |   2 +
+ drivers/vfio/pci/nvidia-vgpu/Kconfig        |  20 +
+ drivers/vfio/pci/nvidia-vgpu/Makefile       |   3 +
+ drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs | 402 ++++++++++++++++++++
+ 6 files changed, 441 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/vfio/pci/nvidia-vgpu/Kconfig
+ create mode 100644 drivers/vfio/pci/nvidia-vgpu/Makefile
+ create mode 100644 drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 930e63290cd..25ae5d30a93 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -93,6 +93,8 @@
- #include <linux/task_work.h>
- #include <linux/tracepoint.h>
- #include <linux/usb.h>
-+#include <linux/vfio.h>
-+#include <linux/vfio_pci_core.h>
- #include <linux/wait.h>
- #include <linux/workqueue.h>
- #include <linux/xarray.h>
-@@ -115,6 +117,8 @@
- const size_t RUST_CONST_HELPER_ARCH_SLAB_MINALIGN = ARCH_SLAB_MINALIGN;
- const size_t RUST_CONST_HELPER_ARCH_KMALLOC_MINALIGN = ARCH_KMALLOC_MINALIGN;
- const size_t RUST_CONST_HELPER_PAGE_SIZE = PAGE_SIZE;
-+const unsigned int RUST_CONST_HELPER_VFIO_DEVICE_RESET = VFIO_DEVICE_RESET;
-+const unsigned int RUST_CONST_HELPER_VFIO_DEVICE_PCI_HOT_RESET = VFIO_DEVICE_PCI_HOT_RESET;
- const size_t RUST_CONST_HELPER_GENLMSG_DEFAULT_SIZE = GENLMSG_DEFAULT_SIZE;
- const gfp_t RUST_CONST_HELPER_GFP_ATOMIC = GFP_ATOMIC;
- const gfp_t RUST_CONST_HELPER_GFP_KERNEL = GFP_KERNEL;
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index f9ef36217bb..261a411ab50 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -146,6 +146,8 @@
- pub mod uaccess;
- #[cfg(CONFIG_USB = "y")]
- pub mod usb;
-+#[cfg(CONFIG_VFIO)]
-+pub mod vfio;
- pub mod workqueue;
- pub mod xarray;
+diff --git a/drivers/gpu/Makefile b/drivers/gpu/Makefile
+index e372fc02139..1b8a907e716 100644
+--- a/drivers/gpu/Makefile
++++ b/drivers/gpu/Makefile
+@@ -19,8 +19,9 @@ nova-core-y := nova-core/nova_core.o nova-core/nova_core_exports.o
+ obj-$(CONFIG_DRM_NOVA) += nova-drm.o
+ nova-drm-y := drm/nova/nova.o
  
-diff --git a/rust/kernel/vfio.rs b/rust/kernel/vfio.rs
+-# Export Rust symbols from nova-core only if nova-drm actually references them.
+-nova-core-export-deps := $(if $(CONFIG_DRM_NOVA),$(obj)/drm/nova/nova.o)
++# Export Rust symbols from nova-core only if dependent modules reference them.
++nova-core-export-deps := $(if $(CONFIG_DRM_NOVA),$(obj)/drm/nova/nova.o) \
++	$(if $(CONFIG_NVIDIA_VGPU_VFIO_PCI),$(obj)/../vfio/pci/nvidia-vgpu/nvidia_vgpu.o)
+ 
+ rust_needed_exports = \
+ 	{ $(if $(strip $(2)),$(NM) -u $(2);,) echo "__DEFINED_RUST_SYMBOLS__"; \
+@@ -57,10 +58,18 @@ $(obj)/nova-core/nova_core_exports.o: private cmd_gensymtypes_c = \
+ 		$(obj)/nova-core/nova_core.o
+ endif
+ 
+-# Output nova-core's crate metadata for use by nova-drm at compile time.
++# Output nova-core's crate metadata for its Rust consumers at compile time.
+ RUSTFLAGS_nova-core/nova_core.o += \
+ 	--emit=metadata=$(objtree)/$(obj)/nova-core/libnova_core.rmeta
+ 
+ # Allow nova-drm to import nova-core's types.
+ $(obj)/drm/nova/nova.o: $(obj)/nova-core/nova_core.o
+ RUSTFLAGS_drm/nova/nova.o := -L $(objtree)/$(obj)/nova-core --extern nova_core
++
++# Build the NVIDIA VFIO driver here so metadata and generated exports share
++# the same dependency graph as nova-drm.
++obj-$(CONFIG_NVIDIA_VGPU_VFIO_PCI) += nvidia-vgpu-vfio-pci.o
++nvidia-vgpu-vfio-pci-y := ../vfio/pci/nvidia-vgpu/nvidia_vgpu.o
++
++$(obj)/../vfio/pci/nvidia-vgpu/nvidia_vgpu.o: $(obj)/nova-core/nova_core.o
++RUSTFLAGS_../vfio/pci/nvidia-vgpu/nvidia_vgpu.o := -L $(objtree)/$(obj)/nova-core --extern nova_core
+diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
+index 296bf01e185..b48d8d1af42 100644
+--- a/drivers/vfio/pci/Kconfig
++++ b/drivers/vfio/pci/Kconfig
+@@ -74,4 +74,6 @@ source "drivers/vfio/pci/qat/Kconfig"
+ 
+ source "drivers/vfio/pci/xe/Kconfig"
+ 
++source "drivers/vfio/pci/nvidia-vgpu/Kconfig"
++
+ endmenu
+diff --git a/drivers/vfio/pci/Makefile b/drivers/vfio/pci/Makefile
+index 6138f1bf241..58c88304a18 100644
+--- a/drivers/vfio/pci/Makefile
++++ b/drivers/vfio/pci/Makefile
+@@ -24,3 +24,5 @@ obj-$(CONFIG_NVGRACE_GPU_VFIO_PCI) += nvgrace-gpu/
+ obj-$(CONFIG_QAT_VFIO_PCI) += qat/
+ 
+ obj-$(CONFIG_XE_VFIO_PCI) += xe/
++
++# nvidia-vgpu is built from drivers/gpu/Makefile for nova-core crate linkage.
+diff --git a/drivers/vfio/pci/nvidia-vgpu/Kconfig b/drivers/vfio/pci/nvidia-vgpu/Kconfig
 new file mode 100644
-index 00000000000..ed93066e2da
+index 00000000000..1363f84163e
 --- /dev/null
-+++ b/rust/kernel/vfio.rs
-@@ -0,0 +1,100 @@
-+// SPDX-License-Identifier: GPL-2.0
++++ b/drivers/vfio/pci/nvidia-vgpu/Kconfig
+@@ -0,0 +1,20 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config NVIDIA_VGPU_VFIO_PCI
++	tristate "VFIO support for the NVIDIA vGPU"
++	depends on NOVA_CORE && PCI_IOV && RUST
++	select VFIO_PCI_CORE
++	help
++	  This option enables VFIO (Virtual Function I/O) support for
++	  NVIDIA virtual GPUs (vGPU). It allows the assignment of a virtual
++	  GPU instance to userspace applications via VFIO, typically used
++	  with hypervisors such as KVM and device emulators like QEMU.
 +
-+//! Virtual Function I/O (VFIO) abstractions.
++	  Devices without an available Nova vGPU interface use ordinary PCI
++	  passthrough. Both paths use the VFIO PCI core defaults; vfio-pci
++	  module options do not apply.
 +
-+use crate::{
-+    bindings,
-+    prelude::*,
-+    uaccess::{
-+        UserPtr,
-+        UserSlice, //
-+    },
-+};
++	  The NVIDIA vGPU allows a physical GPU to be partitioned into
++	  multiple virtual GPUs, each of which can be passed to a virtual
++	  machine as a PCI device using the standard VFIO infrastructure.
 +
-+#[cfg(CONFIG_VFIO_PCI_CORE)]
-+pub mod pci;
-+
-+/// Reset the VFIO device.
-+pub const DEVICE_RESET: u32 = bindings::VFIO_DEVICE_RESET;
-+
-+/// Reset the PCI slot or bus containing a VFIO device.
-+pub const DEVICE_PCI_HOT_RESET: u32 = bindings::VFIO_DEVICE_PCI_HOT_RESET;
-+
-+/// Capability buffer supplied by VFIO for a region-info callback.
-+#[cfg(CONFIG_VFIO_PCI_CORE)]
-+pub struct InfoCap<'a> {
-+    raw: &'a mut bindings::vfio_info_cap,
-+}
-+
-+/// Opaque wrapper around a `char __user *` buffer from a VFIO read or write callback.
-+///
-+/// Provides bounds-checked copying of kernel data into the user-space buffer.
-+///
-+/// This type cannot be constructed by driver code — it is only created by the
-+/// callback trampoline.
-+pub struct UserBuf {
-+    ptr: UserPtr,
-+    count: usize,
-+}
-+
-+impl UserBuf {
-+    /// Returns the buffer length in bytes.
-+    pub fn len(&self) -> usize {
-+        self.count
-+    }
-+
-+    /// Returns `true` when the buffer is empty.
-+    pub fn is_empty(&self) -> bool {
-+        self.count == 0
-+    }
-+
-+    /// Limit this callback's transfer to at most `count` bytes.
-+    pub fn truncate(&mut self, count: usize) {
-+        self.count = self.count.min(count);
-+    }
-+
-+    /// Overwrite the part of `data` that overlaps a completed region read.
-+    ///
-+    /// `read_offset` is the starting region offset and `read_len` is the number of
-+    /// bytes returned by the read. `data_offset` locates `data` within the same region.
-+    pub fn write_overlapping(
-+        &self,
-+        read_offset: u64,
-+        read_len: usize,
-+        data_offset: u64,
-+        data: &[u8],
-+    ) -> Result {
-+        if read_len > self.len() {
-+            return Err(EINVAL);
-+        }
-+        let read_end = read_offset.checked_add(read_len as u64).ok_or(EOVERFLOW)?;
-+        let data_end = data_offset
-+            .checked_add(data.len() as u64)
-+            .ok_or(EOVERFLOW)?;
-+        let start = read_offset.max(data_offset);
-+        let end = read_end.min(data_end);
-+        if start >= end {
-+            return Ok(());
-+        }
-+
-+        // These differences are bounded by `read_len` and `data.len()`.
-+        let buf_offset = (start - read_offset) as usize;
-+        let data_start = (start - data_offset) as usize;
-+        let data_end = (end - data_offset) as usize;
-+        self.write_at(buf_offset, &data[data_start..data_end])
-+    }
-+
-+    /// Copy `data` to the user buffer at byte offset `offset`.
-+    ///
-+    /// Returns [`EFAULT`] if the copy fails, [`EINVAL`] if the write would
-+    /// exceed the buffer bounds.
-+    fn write_at(&self, offset: usize, data: &[u8]) -> Result {
-+        let end = offset.checked_add(data.len()).ok_or(EOVERFLOW)?;
-+        if end > self.count {
-+            return Err(EINVAL);
-+        }
-+        let dest = self.ptr.wrapping_byte_add(offset);
-+        let mut writer = UserSlice::new(dest, data.len()).writer();
-+        writer.write_slice(data)
-+    }
-+}
-diff --git a/rust/kernel/vfio/pci.rs b/rust/kernel/vfio/pci.rs
++	  If you don't know what to do here, say N.
+diff --git a/drivers/vfio/pci/nvidia-vgpu/Makefile b/drivers/vfio/pci/nvidia-vgpu/Makefile
 new file mode 100644
-index 00000000000..43c14b4e3a1
+index 00000000000..bce0133562f
 --- /dev/null
-+++ b/rust/kernel/vfio/pci.rs
-@@ -0,0 +1,1095 @@
++++ b/drivers/vfio/pci/nvidia-vgpu/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0
++# nvidia-vgpu is built from drivers/gpu/Makefile for nova-core crate linkage.
++# nvidia_vgpu.o (rust-analyzer marker - DO NOT REMOVE).
+diff --git a/drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs b/drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs
+new file mode 100644
+index 00000000000..f16d6cf6a4a
+--- /dev/null
++++ b/drivers/vfio/pci/nvidia-vgpu/nvidia_vgpu.rs
+@@ -0,0 +1,402 @@
 +// SPDX-License-Identifier: GPL-2.0
++// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +
-+//! VFIO PCI variant driver abstractions.
++//! NVIDIA vGPU VFIO variant driver.
 +//!
-+//! Provides Rust abstractions for writing VFIO PCI variant drivers (also known
-+//! as "VFIO PCI core" drivers). A [`Registration`] struct owns the VFIO device
-+//! and its associated registration data, tying resource lifetimes to the PCI
-+//! driver's binding scope.
-+//!
-+//! C header: [`include/linux/vfio_pci_core.h`](srctree/include/linux/vfio_pci_core.h)
++//! Nova VFs own an instance between the first VFIO open and last close. Other
++//! matching devices use ordinary PCI passthrough.
 +
-+use super::{
-+    InfoCap,
-+    UserBuf, //
-+};
-+
-+use crate::{
-+    alloc::allocator::Kmalloc,
++use kernel::{
 +    bindings,
-+    device,
-+    device_id::RawDeviceIdIndex,
-+    driver,
-+    error::{
-+        from_err_ptr,
-+        from_result,
-+        to_result, //
++    device::{
++        Bound,
++        Core, //
 +    },
-+    mm::virt::VmaRef,
++    io::resource::Flags,
 +    pci,
 +    prelude::*,
-+    sync::aref::{
-+        ARef,
-+        AlwaysRefCounted, //
++    sync::{
++        CondVar,
++        Mutex,
++        MutexGuard, //
 +    },
-+    types::{
-+        CovariantForLt,
-+        ForLt,
-+        NotThreadSafe,
-+        Opaque, //
-+    },
-+    uaccess::UserPtr,
-+    ThisModule, //
++    types::CovariantForLt,
++    vfio::{
++        self,
++        pci::{
++            GetRegionInfo,
++            Ioctl,
++            Mapping,
++            Mmap,
++            Open,
++            Position,
++            Read,
++            Write, //
++        }, //
++    }, //
 +};
-+use core::{
-+    alloc::Layout,
-+    cell::UnsafeCell,
-+    marker::PhantomData,
-+    ptr::NonNull, //
++use nova_core::{
++    NovaCoreVfApi,
++    NovaCoreVfApiHandle,
++    VgpuInstance, //
 +};
 +
-+/// Index of the PCI configuration-space region.
-+pub const CONFIG_REGION_INDEX: u32 = bindings::VFIO_PCI_CONFIG_REGION_INDEX;
++struct NvidiaVgpuOps;
 +
-+/// The context in which a VFIO PCI device reference is valid.
-+///
-+/// Callback views can only be borrowed from the corresponding VFIO trampoline.
-+/// They cannot be refcounted or shared across threads.
-+pub trait DeviceContext: private::Sealed {}
-+
-+/// An ordinary device reference, without callback-specific operations.
-+pub struct Normal;
-+
-+/// The device is enabled but has not yet completed its first-open callback.
-+pub struct Open;
-+
-+/// The device is borrowed for a VFIO ioctl callback on the current thread.
-+pub struct Ioctl;
-+
-+/// The device is borrowed for a VFIO read callback on the current thread.
-+pub struct Read;
-+
-+/// The device is borrowed for a VFIO write callback on the current thread.
-+pub struct Write;
-+
-+/// The device is borrowed for a VFIO mmap callback on the current thread.
-+pub struct Mmap;
-+
-+/// The device is borrowed for a VFIO region-info callback on the current thread.
-+pub struct GetRegionInfo;
-+
-+mod private {
-+    pub trait Sealed {}
-+
-+    impl Sealed for super::Normal {}
-+    impl Sealed for super::Open {}
-+    impl Sealed for super::Write {}
-+    impl Sealed for super::Mmap {}
-+    impl Sealed for super::Ioctl {}
-+    impl Sealed for super::Read {}
-+    impl Sealed for super::GetRegionInfo {}
++struct VgpuRegistration<'a> {
++    api: NovaCoreVfApiHandle<'a>,
++    gfid: u32,
 +}
 +
-+impl DeviceContext for Normal {}
-+impl DeviceContext for Open {}
-+impl DeviceContext for Write {}
-+impl DeviceContext for Mmap {}
-+impl DeviceContext for Ioctl {}
-+impl DeviceContext for Read {}
-+impl DeviceContext for GetRegionInfo {}
-+
-+/// Connect a PCI driver's private data to its VFIO registration.
-+///
-+/// # Safety
-+///
-+/// `registration` must always select this PCI device's sole registration and must not sleep.
-+/// The driver must use [`Adapter`], and its `probe` and `unbind` callbacks must not enable SR-IOV.
-+pub unsafe trait Driver: for<'a> pci::Driver<Data<'a>: Sync> + Sized {
-+    /// The VFIO operations implemented by this driver.
-+    type Operations: Operations;
-+
-+    /// Select the registration without blocking or changing its identity.
-+    fn registration<'a, 'bound>(
-+        data: Pin<&'a Self::Data<'bound>>,
-+    ) -> &'a Registration<'bound, Self::Operations>;
++#[derive(Default)]
++struct InstanceState {
++    active: bool,
++    resetting: bool,
++    reset_error: Option<Error>,
 +}
 +
-+/// Register a VFIO PCI variant driver and coordinate its callback lifetimes.
-+///
-+/// The adapter publishes complete private data before registering VFIO, and unregisters VFIO
-+/// before calling the driver's optional `unbind` callback or removing private data. SR-IOV
-+/// enable and disable callbacks are not supported by this adapter.
-+pub struct Adapter<D: Driver>(D);
-+
-+// SAFETY: The C PCI driver embeds `device_driver` at the stated offset; its private data is
-+// the pinned `D::Data` installed by this adapter's probe callback.
-+unsafe impl<D: Driver> driver::DriverLayout for Adapter<D> {
-+    type DriverType = bindings::pci_driver;
-+    type DriverData<'bound> = D::Data<'bound>;
-+    const DEVICE_DRIVER_OFFSET: usize = core::mem::offset_of!(Self::DriverType, driver);
++#[pin_data]
++struct NvidiaVgpuRegData<'a> {
++    pdev: &'a pci::Device<Bound>,
++    vgpu: Option<VgpuRegistration<'a>>,
++    fb_bar: u32,
++    #[pin]
++    state: Mutex<InstanceState>,
++    #[pin]
++    reset_done: CondVar,
 +}
 +
-+// SAFETY: The driver core unregisters only a successfully registered, still-live PCI driver.
-+unsafe impl<D: Driver> driver::RegistrationOps for Adapter<D> {
-+    unsafe fn register(
-+        pdrv: &Opaque<Self::DriverType>,
-+        name: &'static CStr,
-+        module: &'static ThisModule,
-+    ) -> Result {
-+        build_assert!(
-+            D::DRIVER_MANAGED_DMA,
-+            "VFIO drivers must manage DMA ownership"
-+        );
-+        #[cfg(CONFIG_PCI_IOV)]
-+        build_assert!(
-+            !D::HAS_SRIOV_ENABLE && !D::HAS_SRIOV_DISABLE,
-+            "VFIO PCI variant drivers do not support SR-IOV configuration"
-+        );
-+
-+        // SAFETY: The driver is being initialized and is not yet visible to the PCI core.
-+        unsafe {
-+            (*pdrv.get()).name = name.as_char_ptr();
-+            (*pdrv.get()).probe = Some(Self::probe_callback);
-+            (*pdrv.get()).remove = Some(Self::remove_callback);
-+            (*pdrv.get()).id_table = D::ID_TABLE.as_ptr();
-+            (*pdrv.get()).driver_managed_dma = D::DRIVER_MANAGED_DMA;
-+            (*pdrv.get()).err_handler = &PciCallbacks::<D>::ERROR_HANDLERS;
-+            (*pdrv.get()).driver.pm = &PciCallbacks::<D>::PM_OPS;
++impl NvidiaVgpuRegData<'_> {
++    fn lock_instance(&self) -> MutexGuard<'_, InstanceState> {
++        let mut state = self.state.lock();
++        while state.resetting {
++            self.reset_done.wait(&mut state);
 +        }
-+
-+        // SAFETY: The caller keeps this initialized driver pinned until unregistration.
-+        to_result(unsafe {
-+            bindings::__pci_register_driver(pdrv.get(), module.as_ptr(), name.as_char_ptr())
-+        })
-+    }
-+
-+    unsafe fn unregister(pdrv: &Opaque<Self::DriverType>) {
-+        // SAFETY: The registration contract guarantees a live, registered PCI driver.
-+        unsafe { bindings::pci_unregister_driver(pdrv.get()) };
++        state
 +    }
 +}
 +
-+impl<D: Driver> Adapter<D> {
-+    extern "C" fn probe_callback(
-+        pdev: *mut bindings::pci_dev,
-+        id: *const bindings::pci_device_id,
-+    ) -> c_int {
-+        // SAFETY: PCI supplies a live device and holds its lock throughout probe.
-+        let pdev = unsafe { &*pdev.cast::<pci::Device<device::CoreInternal<'_>>>() };
-+        // SAFETY: `DeviceId` is a transparent wrapper with no additional invariants.
-+        let id = unsafe { &*id.cast::<pci::DeviceId>() };
-+        // SAFETY: The ID comes from `D::ID_TABLE`, a dynamic ID with matching driver_data,
-+        // or the wildcard ID whose driver_data is zero.
-+        let info = unsafe { id.info_unchecked_opt::<D::IdInfo>() };
++struct NvidiaVgpuOpenData<'a> {
++    registration: &'a NvidiaVgpuRegData<'a>,
++    instance: Option<VgpuInstance<'a>>,
++}
 +
-+        from_result(|| {
-+            pdev.as_ref().set_drvdata(D::probe(pdev, info))?;
-+            // SAFETY: The fully initialized, pinned `D::Data` was just installed above.
-+            let data = unsafe { pdev.as_ref().drvdata_borrow::<D::Data<'_>>() };
-+            // SAFETY: `D` selects this device's sole registration. Private data is installed
-+            // before VFIO can enable runtime PM.
-+            if let Err(error) = unsafe { D::registration(data).register() } {
-+                // SAFETY: Failed VFIO registration has unwound its callbacks. In particular,
-+                // rejecting a PF with enabled VFs must not disable those VFs during rollback.
-+                drop(unsafe { pdev.as_ref().drvdata_obtain::<D::Data<'_>>() });
-+                return Err(error);
++impl<'a> NvidiaVgpuOpenData<'a> {
++    fn new(
++        dev: &vfio::pci::Device<NvidiaVgpuOps, Open>,
++        rd: &'a NvidiaVgpuRegData<'a>,
++    ) -> Result<Self> {
++        let mut state = rd.lock_instance();
++        let instance = match &rd.vgpu {
++            Some(vgpu) => {
++                // The firmware DBDF format has a 16-bit PCI segment field.
++                let segment = u16::try_from(rd.pdev.domain_nr()).map_err(|_| EOVERFLOW)?;
++                let dbdf = (u32::from(segment) << 16) | u32::from(rd.pdev.dev_id());
++                let vm_pid = kernel::current!().tgid().try_into()?;
++                let instance = vgpu.api.open(vgpu.gfid, dbdf, vm_pid)?;
++                let info = instance.type_info();
++                dev.set_device_id(info.pci_dev_id as u16);
++                state.active = true;
++                state.reset_error = None;
++                Some(instance)
 +            }
-+            Ok(0)
++            None => None,
++        };
++        Ok(Self {
++            registration: rd,
++            instance,
 +        })
 +    }
 +
-+    extern "C" fn remove_callback(pdev: *mut bindings::pci_dev) {
-+        // SAFETY: PCI supplies a live device under its lock, after quiescing runtime PM.
-+        let pdev = unsafe { &*pdev.cast::<pci::Device<device::CoreInternal<'_>>>() };
-+        // SAFETY: A successful probe installed this device's complete private data.
-+        let data = unsafe { pdev.as_ref().drvdata_borrow::<D::Data<'_>>() };
-+        // SAFETY: Probe registered this object. Private data and all its fields remain live
-+        // while VFIO unregister drains VFIO, VGA and PM callbacks.
-+        unsafe { D::registration(data).unregister() };
-+        D::unbind(pdev, data);
-+        // SAFETY: Callbacks have drained, so private data can now be removed and destroyed.
-+        drop(unsafe { pdev.as_ref().drvdata_obtain::<D::Data<'_>>() });
-+    }
-+}
-+
-+/// The trait for VFIO PCI variant driver implementations.
-+///
-+/// Unoverridden callbacks delegate to the corresponding PCI core operation.
-+///
-+/// # Lifetime of `RegistrationData`
-+///
-+/// `RegistrationData` describes a covariant type family borrowing from the PCI
-+/// binding scope. [`Registration`] owns the data, and each callback borrows it.
-+/// Covariance permits shortening the binding lifetime to the callback's borrow
-+/// without allowing callback-local references to be stored in registration data.
-+pub trait Operations: Sized + Send + Sync + 'static {
-+    /// The name of the VFIO driver.
-+    const NAME: &'static CStr;
-+
-+    /// Data owned by the [`Registration`] and passed to VFIO callbacks.
-+    ///
-+    /// Per-device state (e.g. the GFID, cached type info) lives here.
-+    type RegistrationData: for<'a> CovariantForLt<Of<'a>: Send + Sync> + 'static;
-+
-+    /// Data shared by callbacks from the first successful open until the last close.
-+    /// May borrow registration data; dropped before PCI core close on the last close.
-+    type OpenData<'a>: Send + Sync + 'a;
-+
-+    /// Called when the first file descriptor is opened for this device.
-+    ///
-+    /// `vfio_pci_core_enable()` has already succeeded; if this returns an
-+    /// error, `vfio_pci_core_disable()` is called automatically.
-+    fn open_device<'a>(
-+        dev: &'a Device<Self, Open>,
-+        reg_data: &'a <Self::RegistrationData as ForLt>::Of<'a>,
-+    ) -> impl PinInit<Self::OpenData<'a>, Error> + 'a;
-+
-+    /// Handle a VFIO ioctl.
-+    ///
-+    /// The default `vfio_pci_core_ioctl()` is available via
-+    /// [`Device::core_ioctl()`] for delegation.
-+    fn ioctl<'a>(
-+        dev: &Device<Self, Ioctl>,
-+        reg_data: &<Self::RegistrationData as ForLt>::Of<'a>,
-+        open_data: Pin<&Self::OpenData<'a>>,
-+        cmd: u32,
-+        arg: usize,
-+    ) -> Result<isize>;
-+
-+    /// Read from the device.
-+    ///
-+    /// `buf` is a user-space buffer provided by the VFIO core. Use
-+    /// [`Device::core_read()`] to delegate the default read, and
-+    /// [`UserBuf::write_overlapping()`] to override specific bytes afterwards.
-+    fn read<'a>(
-+        dev: &Device<Self, Read>,
-+        reg_data: &<Self::RegistrationData as ForLt>::Of<'a>,
-+        open_data: Pin<&Self::OpenData<'a>>,
-+        buf: &mut UserBuf,
-+        ppos: &mut Position<'_>,
-+    ) -> Result<isize>;
-+
-+    /// Write to the device, delegating to [`Device::core_write()`] if appropriate.
-+    fn write<'a>(
-+        dev: &Device<Self, Write>,
-+        _reg_data: &<Self::RegistrationData as ForLt>::Of<'a>,
-+        _open_data: Pin<&Self::OpenData<'a>>,
-+        buf: &mut UserBuf,
-+        ppos: &mut Position<'_>,
-+    ) -> Result<isize> {
-+        dev.core_write(buf, ppos)
++    fn bar1_size(&self) -> Result<Option<u64>> {
++        let Some(instance) = &self.instance else {
++            return Ok(None);
++        };
++        let physical = self
++            .registration
++            .pdev
++            .resource_len(self.registration.fb_bar)?;
++        let size = instance
++            .type_info()
++            .bar1_length
++            .checked_mul(1 << 20)
++            .ok_or(EOVERFLOW)?;
++        Ok(Some(if size == 0 {
++            physical
++        } else {
++            size.min(physical)
++        }))
 +    }
 +
-+    /// Map a device region, delegating to [`Device::core_mmap()`] if appropriate.
-+    fn mmap<'a>(
-+        dev: &Device<Self, Mmap>,
-+        _reg_data: &<Self::RegistrationData as ForLt>::Of<'a>,
-+        _open_data: Pin<&Self::OpenData<'a>>,
-+        mapping: &mut Mapping<'_>,
-+    ) -> Result {
-+        dev.core_mmap(mapping)
-+    }
-+
-+    /// Prepare for PCI reset, including resets initiated during enable or close.
-+    fn reset_prepare(_reg_data: &<Self::RegistrationData as ForLt>::Of<'_>) {}
-+
-+    /// Finish PCI reset; errors are reported through the VFIO error interrupt.
-+    fn reset_done(_reg_data: &<Self::RegistrationData as ForLt>::Of<'_>) -> Result {
++    fn limit_bar1(&self, buf: &mut vfio::UserBuf, position: &Position<'_>) -> Result {
++        if buf.is_empty() || position.region_index() != self.registration.fb_bar {
++            return Ok(());
++        }
++        if let Some(size) = self.bar1_size()? {
++            let offset = position.region_offset();
++            if offset >= size {
++                return Err(EINVAL);
++            }
++            if size - offset < buf.len() as u64 {
++                buf.truncate((size - offset) as usize);
++            }
++        }
 +        Ok(())
 +    }
-+
-+    /// Fill in region info capabilities.
-+    ///
-+    /// The default `vfio_pci_ioctl_get_region_info()` is available via
-+    /// [`Device::core_get_region_info()`] for delegation.
-+    fn get_region_info<'a>(
-+        dev: &Device<Self, GetRegionInfo>,
-+        reg_data: &<Self::RegistrationData as ForLt>::Of<'a>,
-+        open_data: Pin<&Self::OpenData<'a>>,
-+        info: &mut bindings::vfio_region_info,
-+        caps: &mut InfoCap<'_>,
-+    ) -> Result;
 +}
 +
-+/// A VFIO PCI file position, encoding a region index and an offset within that region.
-+pub struct Position<'a> {
-+    raw: &'a mut i64,
++impl Drop for NvidiaVgpuOpenData<'_> {
++    fn drop(&mut self) {
++        let mut state = self.registration.lock_instance();
++        state.active = false;
++        drop(self.instance.take());
++    }
 +}
 +
-+impl Position<'_> {
-+    /// Commit a temporary position only after the operation succeeds.
-+    ///
-+    /// This preserves the original position if a read succeeds but a subsequent
-+    /// user copy fails.
-+    pub fn with_temporary<R>(
-+        &mut self,
-+        operation: impl FnOnce(&mut Position<'_>) -> Result<R>,
-+    ) -> Result<R> {
-+        let mut next = *self.raw;
-+        let result = operation(&mut Position { raw: &mut next })?;
-+        *self.raw = next;
++impl vfio::pci::Operations for NvidiaVgpuOps {
++    const NAME: &'static CStr = c"nvidia-vgpu-vfio-pci";
++    type RegistrationData = CovariantForLt!(NvidiaVgpuRegData<'_>);
++    type OpenData<'a> = NvidiaVgpuOpenData<'a>;
++
++    fn open_device<'a>(
++        dev: &'a vfio::pci::Device<Self, Open>,
++        rd: &'a NvidiaVgpuRegData<'a>,
++    ) -> impl PinInit<Self::OpenData<'a>, Error> + 'a {
++        NvidiaVgpuOpenData::new(dev, rd)
++    }
++
++    fn ioctl<'a>(
++        dev: &vfio::pci::Device<Self, Ioctl>,
++        rd: &NvidiaVgpuRegData<'a>,
++        _open_data: Pin<&Self::OpenData<'a>>,
++        cmd: u32,
++        arg: usize,
++    ) -> Result<isize> {
++        let reset = cmd == vfio::DEVICE_RESET || cmd == vfio::pci::DEVICE_PCI_HOT_RESET;
++        if reset {
++            if let Some(error) = rd.state.lock().reset_error {
++                return Err(error);
++            }
++        }
++        let result = dev.core_ioctl(cmd, arg)?;
++        if reset {
++            if let Some(error) = rd.state.lock().reset_error {
++                return Err(error);
++            }
++        }
 +        Ok(result)
 +    }
 +
-+    /// Returns the PCI region index.
-+    pub fn region_index(&self) -> u32 {
-+        ((*self.raw as u64) >> bindings::VFIO_PCI_OFFSET_SHIFT) as u32
-+    }
-+
-+    /// Returns the byte offset within the current region.
-+    pub fn region_offset(&self) -> u64 {
-+        (*self.raw as u64) & ((1u64 << bindings::VFIO_PCI_OFFSET_SHIFT) - 1)
-+    }
-+}
-+
-+/// Mapping metadata supplied by VFIO while the current thread holds the mmap lock.
-+///
-+/// The underlying VMA can only be passed back to the core mmap operation.
-+pub struct Mapping<'a> {
-+    vma: &'a VmaRef,
-+    _not_thread_safe: NotThreadSafe,
-+}
-+
-+impl Mapping<'_> {
-+    fn page_offset(&self) -> u64 {
-+        // SAFETY: The mmap callback holds the mmap lock for this VMA.
-+        unsafe { (*self.vma.as_ptr()).vm_pgoff as u64 }
-+    }
-+
-+    /// Returns the PCI region index encoded in the mapping offset.
-+    pub fn region_index(&self) -> u32 {
-+        (self.page_offset() >> (bindings::VFIO_PCI_OFFSET_SHIFT as usize - crate::page::PAGE_SHIFT))
-+            as u32
-+    }
-+
-+    /// Returns the byte offset within the PCI region.
-+    fn region_offset(&self) -> u64 {
-+        let mask = ((1u64 << bindings::VFIO_PCI_OFFSET_SHIFT) - 1) >> crate::page::PAGE_SHIFT;
-+        (self.page_offset() & mask) << crate::page::PAGE_SHIFT
-+    }
-+
-+    /// Returns the requested mapping length in bytes.
-+    fn size(&self) -> Result<u64> {
-+        self.vma
-+            .end()
-+            .checked_sub(self.vma.start())
-+            .map(|size| size as u64)
-+            .ok_or(EOVERFLOW)
-+    }
-+
-+    /// Returns the exclusive end of the requested mapping within the PCI region.
-+    pub fn region_end(&self) -> Result<u64> {
-+        self.region_offset()
-+            .checked_add(self.size()?)
-+            .ok_or(EOVERFLOW)
-+    }
-+}
-+
-+/// A VFIO PCI variant device, wrapping `struct vfio_pci_core_device`.
-+///
-+/// The layout is `#[repr(C)]` with `core_device` first, so the
-+/// `vfio_device` embedded at offset 0 of `vfio_pci_core_device` is also at
-+/// offset 0 of `Self`, matching the `vfio_alloc_device` requirement.
-+/// Callback contexts expose only their matching core helper and cannot be
-+/// refcounted or shared across threads.
-+///
-+/// # Invariants
-+///
-+/// - Callback contexts are only borrowed for the corresponding callback and thread.
-+/// - `core_device` was initialized by `vfio_pci_core_init_dev()`.
-+/// - The VFIO device refcount owns the allocation lifetime.
-+/// - `reg_data` is dangling without an owner or points to a valid
-+///   `<T::RegistrationData as ForLt>::Of<'_>` owned by the enclosing [`Registration`].
-+/// - `open_data` is null outside a successful open, otherwise it owns a pinned
-+///   `KBox<T::OpenData<'_>>` until last close. Only open/close mutate it; VFIO
-+///   prevents I/O callbacks from racing those transitions. The data is dropped
-+///   before PCI core close and before registration data is freed.
-+#[repr(C)]
-+pub struct Device<T: Operations, Ctx: DeviceContext = Normal> {
-+    core_device: Opaque<bindings::vfio_pci_core_device>,
-+    reg_data: UnsafeCell<NonNull<<T::RegistrationData as ForLt>::Of<'static>>>,
-+    open_data: UnsafeCell<*mut T::OpenData<'static>>,
-+    _context: PhantomData<(Ctx, NotThreadSafe)>,
-+}
-+
-+impl<T: Operations> Device<T> {
-+    /// Allocate a VFIO PCI device for subsequent registration.
-+    pub fn new(pdev: &pci::Device<device::Core<'_>>) -> Result<ARef<Self>> {
-+        Self::allocate(pdev, false)
-+    }
-+
-+    /// Allocate a device whose physical BARs may also be exported as DMA buffers.
-+    pub fn new_passthrough(pdev: &pci::Device<device::Core<'_>>) -> Result<ARef<Self>> {
-+        Self::allocate(pdev, true)
-+    }
-+
-+    fn allocate(pdev: &pci::Device<device::Core<'_>>, passthrough: bool) -> Result<ARef<Self>> {
-+        const_assert!(core::mem::offset_of!(Self, core_device) == 0);
-+        let size = Kmalloc::aligned_layout(Layout::new::<Self>()).size();
-+
-+        // SAFETY: The bound PCI device and static ops are valid. The allocation
-+        // includes the full Rust wrapper with kmalloc-compatible size and alignment.
-+        let raw = from_err_ptr(unsafe {
-+            bindings::_vfio_alloc_device(size, pdev.as_ref().as_raw(), &Self::OPS)
-+        })?;
-+        let this = NonNull::new(raw.cast::<Self>()).ok_or(ENOMEM)?;
-+
-+        // SAFETY: Initialise the Rust field in the newly allocated device.
-+        unsafe {
-+            (&raw mut (*this.as_ptr()).reg_data).write(UnsafeCell::new(NonNull::dangling()));
-+            (&raw mut (*this.as_ptr()).open_data).write(UnsafeCell::new(core::ptr::null_mut()));
-+            (&raw mut (*this.as_ptr())._context).write(PhantomData);
++    fn read<'a>(
++        dev: &vfio::pci::Device<Self, Read>,
++        _rd: &NvidiaVgpuRegData<'a>,
++        open_data: Pin<&Self::OpenData<'a>>,
++        buf: &mut vfio::UserBuf,
++        position: &mut Position<'_>,
++    ) -> Result<isize> {
++        if let Some(instance) = &open_data.instance {
++            if position.region_index() == vfio::pci::CONFIG_REGION_INDEX {
++                let offset = position.region_offset();
++                return position.with_temporary(|next| {
++                    let count = dev.core_read(buf, next)?;
++                    buf.write_overlapping(
++                        offset,
++                        count.try_into()?,
++                        u64::from(bindings::PCI_SUBSYSTEM_ID),
++                        &(instance.type_info().pci_subsys_id as u16).to_le_bytes(),
++                    )?;
++                    Ok(count)
++                });
++            }
 +        }
-+
-+        if passthrough {
-+            // SAFETY: No registration or callbacks can observe this allocation yet.
-+            unsafe { (*this.as_ref().core_device()).pci_ops = &Self::PASSTHROUGH_OPS };
-+        }
-+
-+        // SAFETY: `this` owns the initial VFIO device reference.
-+        Ok(unsafe { ARef::from_raw(this) })
++        open_data.limit_bar1(buf, position)?;
++        dev.core_read(buf, position)
 +    }
 +
-+    /// Access the registration data through a closure with an HRTB lifetime.
-+    ///
-+    /// The closure's `for<'a>` bound prevents the caller from smuggling
-+    /// references with a concrete short lifetime out of the closure.
-+    ///
-+    /// # Safety
-+    ///
-+    /// Registration data must be published and remain valid through this call.
-+    unsafe fn registration_data_with<R>(
-+        &self,
-+        f: impl for<'a> FnOnce(&'a <T::RegistrationData as ForLt>::Of<'a>) -> R,
-+    ) -> R {
-+        // SAFETY: Registration keeps the allocation and its borrowed resources
-+        // alive until unregistration completes. Covariance permits shortening
-+        // the erased binding lifetime to this callback's borrow.
-+        let reg_data: &<T::RegistrationData as ForLt>::Of<'_> = unsafe {
-+            (*self.reg_data.get())
-+                .cast::<<T::RegistrationData as ForLt>::Of<'_>>()
-+                .as_ref()
-+        };
-+        f(reg_data)
++    fn write<'a>(
++        dev: &vfio::pci::Device<Self, Write>,
++        _rd: &NvidiaVgpuRegData<'a>,
++        open_data: Pin<&Self::OpenData<'a>>,
++        buf: &mut vfio::UserBuf,
++        position: &mut Position<'_>,
++    ) -> Result<isize> {
++        open_data.limit_bar1(buf, position)?;
++        dev.core_write(buf, position)
 +    }
 +
-+    /// # Safety
-+    ///
-+    /// The caller must be an I/O callback while VFIO keeps the device open.
-+    unsafe fn callback_data_with<R>(
-+        &self,
-+        f: impl for<'borrow, 'data> FnOnce(
-+            &'borrow <T::RegistrationData as ForLt>::Of<'data>,
-+            Pin<&'borrow T::OpenData<'data>>,
-+        ) -> R,
-+    ) -> R {
-+        // SAFETY: VFIO excludes open/close and unregister while this callback runs.
-+        unsafe {
-+            self.registration_data_with(|reg_data| {
-+                let ptr = (*self.open_data.get()).cast::<T::OpenData<'_>>();
-+                // The data lifetime stays independent of the callback borrow,
-+                // so borrowed OpenData fields cannot be stored back into OpenData.
-+                f(reg_data, Pin::new_unchecked(&*ptr))
-+            })
-+        }
-+    }
-+
-+    /// # Safety
-+    /// The returned view must only be used during the callback represented by `Ctx`.
-+    unsafe fn with_context<Ctx: DeviceContext>(&self) -> &Device<T, Ctx> {
-+        // SAFETY: All contexts have the same layout; the caller guarantees the context.
-+        unsafe { &*core::ptr::from_ref(self).cast() }
-+    }
-+
-+    /// Recover `&Self` from a raw `*mut vfio_device` in a callback.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `vdev` must point to the `vfio_device` at the start of a
-+    /// `Device<T>` allocated by `_vfio_alloc_device()` and remain valid for `'a`.
-+    unsafe fn from_vfio_device<'a>(vdev: *mut bindings::vfio_device) -> &'a Self {
-+        // SAFETY: `vfio_device` is at offset 0 of `vfio_pci_core_device`,
-+        // which is at offset 0 of `Device<T>`, so the pointer cast is
-+        // valid.
-+        unsafe { &*(vdev.cast()) }
-+    }
-+}
-+
-+impl<T: Operations, Ctx: DeviceContext> Device<T, Ctx> {
-+    fn core_device(&self) -> *mut bindings::vfio_pci_core_device {
-+        self.core_device.get()
-+    }
-+
-+    fn vfio_device(&self) -> *mut bindings::vfio_device {
-+        self.core_device.get().cast()
-+    }
-+}
-+
-+impl<T: Operations> Device<T, Open> {
-+    /// Set the device ID exposed through VFIO's virtual PCI configuration space.
-+    pub fn set_device_id(&self, device_id: u16) {
-+        // SAFETY: core_enable allocated vconfig; the exclusive first-open callback
-+        // runs before finish_enable publishes the configuration to userspace.
-+        unsafe {
-+            (*self.core_device())
-+                .vconfig
-+                .add(bindings::PCI_DEVICE_ID as usize)
-+                .cast::<u16>()
-+                .write_unaligned(device_id.to_le());
-+        }
-+    }
-+}
-+
-+impl<T: Operations> Device<T, Ioctl> {
-+    /// Delegate to `vfio_pci_core_ioctl()`.
-+    pub fn core_ioctl(&self, cmd: u32, arg: usize) -> Result<isize> {
-+        // SAFETY: The Ioctl context keeps this device open on the callback thread.
-+        let ret = unsafe { bindings::vfio_pci_core_ioctl(self.vfio_device(), cmd, arg) };
-+        if ret < 0 {
-+            Err(Error::from_errno(ret as i32))
-+        } else {
-+            Ok(ret)
-+        }
-+    }
-+}
-+
-+impl<T: Operations> Device<T, Read> {
-+    /// Delegate to `vfio_pci_core_read()`.
-+    ///
-+    /// The VFIO core fills the user-space buffer with the default PCI data
-+    /// for the region identified by `ppos` and advances the position by the bytes read.
-+    pub fn core_read(&self, buf: &UserBuf, ppos: &mut Position<'_>) -> Result<isize> {
-+        // SAFETY: The Read context keeps this device open on the callback thread;
-+        // `buf.ptr` is a user-space pointer supplied by VFIO.
-+        let ret = unsafe {
-+            bindings::vfio_pci_core_read(
-+                self.vfio_device(),
-+                buf.ptr.as_mut_ptr().cast(),
-+                buf.count,
-+                ppos.raw,
-+            )
-+        };
-+        if ret < 0 {
-+            Err(Error::from_errno(ret as i32))
-+        } else {
-+            Ok(ret)
-+        }
-+    }
-+}
-+
-+impl<T: Operations> Device<T, Write> {
-+    /// Delegate to `vfio_pci_core_write()` for this callback's bounded buffer.
-+    pub fn core_write(&self, buf: &UserBuf, ppos: &mut Position<'_>) -> Result<isize> {
-+        // SAFETY: The Write context keeps the device open on the callback thread;
-+        // the buffer is a userspace pointer supplied by VFIO.
-+        let ret = unsafe {
-+            bindings::vfio_pci_core_write(
-+                self.vfio_device(),
-+                buf.ptr.as_const_ptr().cast(),
-+                buf.count,
-+                ppos.raw,
-+            )
-+        };
-+        if ret < 0 {
-+            Err(Error::from_errno(ret as i32))
-+        } else {
-+            Ok(ret)
-+        }
-+    }
-+}
-+
-+impl<T: Operations> Device<T, Mmap> {
-+    /// Delegate to `vfio_pci_core_mmap()` for the current callback's VMA.
-+    pub fn core_mmap(&self, mapping: &mut Mapping<'_>) -> Result {
-+        // SAFETY: The Mmap context and Mapping keep the open device and locked VMA
-+        // on the callback thread. The VMA cannot be replaced by driver code.
-+        to_result(unsafe { bindings::vfio_pci_core_mmap(self.vfio_device(), mapping.vma.as_ptr()) })
-+    }
-+}
-+
-+impl<T: Operations> Device<T, GetRegionInfo> {
-+    /// Delegate to `vfio_pci_ioctl_get_region_info()`.
-+    pub fn core_get_region_info(
-+        &self,
-+        info: &mut bindings::vfio_region_info,
-+        caps: &mut InfoCap<'_>,
++    fn mmap<'a>(
++        dev: &vfio::pci::Device<Self, Mmap>,
++        rd: &NvidiaVgpuRegData<'a>,
++        open_data: Pin<&Self::OpenData<'a>>,
++        mapping: &mut Mapping<'_>,
 +    ) -> Result {
-+        // SAFETY: GetRegionInfo keeps the device open on the callback thread;
-+        // `InfoCap` preserves the validity of VFIO's capability buffer.
-+        to_result(unsafe {
-+            bindings::vfio_pci_ioctl_get_region_info(self.vfio_device(), info, caps.raw)
-+        })
-+    }
-+}
-+
-+// SAFETY: The embedded device reference count owns the VFIO allocation.
-+unsafe impl<T: Operations> AlwaysRefCounted for Device<T> {
-+    fn inc_ref(&self) {
-+        // SAFETY: `self` holds a live VFIO device reference.
-+        unsafe { bindings::get_device(&raw mut (*self.vfio_device()).device) };
-+    }
-+
-+    unsafe fn dec_ref(obj: NonNull<Self>) {
-+        // SAFETY: The caller owns the reference being released.
-+        unsafe { bindings::put_device(&raw mut (*obj.as_ref().vfio_device()).device) };
-+    }
-+}
-+
-+// SAFETY: VFIO serializes open/close transitions, and callback data is Send + Sync.
-+unsafe impl<T: Operations> Send for Device<T> {}
-+
-+// SAFETY: I/O callbacks share Sync data. VFIO excludes them from mutations of
-+// `open_data` during first open and last close; registration data follows the
-+// registration lifetime. Mutable C state is managed by the VFIO core.
-+unsafe impl<T: Operations> Sync for Device<T> {}
-+
-+/// # Safety
-+///
-+/// `vdev` must belong to a registered `Device<T>` in VFIO's first-open context.
-+/// VFIO must exclude other opens, closes and I/O callbacks for this call.
-+unsafe extern "C" fn open_device_cb<T: Operations>(
-+    vdev: *mut bindings::vfio_device,
-+) -> core::ffi::c_int {
-+    // SAFETY: `vdev` is valid; set by vfio_alloc_device.
-+    let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-+
-+    // SAFETY: Enable the PCI-core side first.
-+    let ret = unsafe { bindings::vfio_pci_core_enable(dev.core_device()) };
-+    if ret != 0 {
-+        return ret;
-+    }
-+
-+    // SAFETY: Registration data is initialized before the VFIO device is published.
-+    let result = unsafe {
-+        dev.registration_data_with(|rd| {
-+            // Allocate before calling the driver so allocation failure cannot follow open.
-+            let data = KBox::<T::OpenData<'_>>::new_uninit(GFP_KERNEL)?;
-+            let data = data.write_pin_init(T::open_device(dev.with_context::<Open>(), rd))?;
-+
-+            // SAFETY: Only the owning pointer is moved; the allocation remains pinned.
-+            let raw =
-+                KBox::into_raw(Pin::into_inner_unchecked(data)).cast::<T::OpenData<'static>>();
-+            // SAFETY: First open is exclusive with I/O callbacks and last close.
-+            // Lifetimes do not affect layout; the device owns the allocation until close.
-+            *dev.open_data.get() = raw;
-+            Ok::<(), Error>(())
-+        })
-+    };
-+    match result {
-+        Ok(()) => {
-+            // SAFETY: open succeeded.
-+            unsafe { bindings::vfio_pci_core_finish_enable(dev.core_device()) };
-+            0
++        if mapping.region_index() == rd.fb_bar {
++            if let Some(size) = open_data.bar1_size()? {
++                if mapping.region_end()? > size {
++                    return Err(EINVAL);
++                }
++            }
 +        }
-+        Err(e) => {
-+            // SAFETY: Undo the enable on failure.
-+            unsafe { bindings::vfio_pci_core_disable(dev.core_device()) };
-+            e.to_errno()
++        dev.core_mmap(mapping)
++    }
++
++    fn get_region_info<'a>(
++        dev: &vfio::pci::Device<Self, GetRegionInfo>,
++        rd: &NvidiaVgpuRegData<'a>,
++        open_data: Pin<&Self::OpenData<'a>>,
++        info: &mut bindings::vfio_region_info,
++        caps: &mut vfio::InfoCap<'_>,
++    ) -> Result {
++        dev.core_get_region_info(info, caps)?;
++        if info.index == rd.fb_bar && info.size != 0 {
++            if let Some(size) = open_data.bar1_size()? {
++                info.size = info.size.min(size);
++            }
 +        }
-+    }
-+}
-+
-+/// # Safety
-+///
-+/// `vdev` must belong to a registered `Device<T>` whose first open succeeded.
-+/// Call exactly once for the last close, after draining I/O callbacks and while
-+/// excluding the next first open.
-+unsafe extern "C" fn close_device_cb<T: Operations>(vdev: *mut bindings::vfio_device) {
-+    // SAFETY: `vdev` is valid.
-+    let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-+    // SAFETY: Last close is exclusive with I/O callbacks and the next first open.
-+    let raw = unsafe { core::mem::replace(&mut *dev.open_data.get(), core::ptr::null_mut()) };
-+    // Run the driver's destructor while registration data and PCI resources are valid.
-+    // SAFETY: Successful open transferred this allocation with `KBox::into_raw`.
-+    // Last close takes ownership exactly once and drops it without moving the pointee.
-+    unsafe { drop(KBox::from_raw(raw)) };
-+    // SAFETY: Matches the enable in open_device_cb.
-+    unsafe { bindings::vfio_pci_core_close_device(vdev) };
-+}
-+
-+/// # Safety
-+///
-+/// `vdev` must belong to a registered, open `Device<T>` in VFIO's ioctl callback
-+/// context. Registration and open data must remain alive until the call returns.
-+unsafe extern "C" fn ioctl_cb<T: Operations>(
-+    vdev: *mut bindings::vfio_device,
-+    cmd: core::ffi::c_uint,
-+    arg: usize,
-+) -> isize {
-+    // SAFETY: `vdev` is valid.
-+    let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-+    // SAFETY: VFIO invokes this callback for an open device with valid arguments.
-+    match unsafe {
-+        dev.callback_data_with(|rd, od| T::ioctl(dev.with_context::<Ioctl>(), rd, od, cmd, arg))
-+    } {
-+        Ok(v) => v,
-+        Err(e) => e.to_errno() as isize,
-+    }
-+}
-+
-+/// # Safety
-+///
-+/// `vdev` must belong to a registered, open `Device<T>` in VFIO's read context.
-+/// `buf` must be a userspace address and `ppos` must be exclusively accessible
-+/// for this call. Registration and open data must remain alive until it returns.
-+unsafe extern "C" fn read_cb<T: Operations>(
-+    vdev: *mut bindings::vfio_device,
-+    buf: *mut u8,
-+    count: usize,
-+    ppos: *mut i64,
-+) -> isize {
-+    // SAFETY: `vdev` is valid. `buf` is a valid user-space pointer provided by
-+    // the VFIO core. `ppos` is a valid kernel pointer.
-+    let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-+    let mut ubuf = UserBuf {
-+        ptr: UserPtr::from_ptr(buf.cast()),
-+        count,
-+    };
-+    let mut pos = Position {
-+        // SAFETY: `ppos` is a valid kernel pointer provided by the VFIO core.
-+        raw: unsafe { &mut *ppos },
-+    };
-+    // SAFETY: VFIO invokes this callback for an open device with valid arguments.
-+    match unsafe {
-+        dev.callback_data_with(|rd, od| {
-+            T::read(dev.with_context::<Read>(), rd, od, &mut ubuf, &mut pos)
-+        })
-+    } {
-+        Ok(n) => n,
-+        Err(e) => e.to_errno() as isize,
-+    }
-+}
-+
-+/// # Safety
-+///
-+/// `vdev` must belong to a registered, open `Device<T>` in VFIO's region-info
-+/// context. `info` and `caps` must be valid, disjoint, exclusively accessible
-+/// objects; the capability buffer must satisfy the VFIO core's invariants.
-+/// Registration and open data must remain alive until the call returns.
-+unsafe extern "C" fn get_region_info_cb<T: Operations>(
-+    vdev: *mut bindings::vfio_device,
-+    info: *mut bindings::vfio_region_info,
-+    caps: *mut bindings::vfio_info_cap,
-+) -> core::ffi::c_int {
-+    // SAFETY: `vdev`, `info`, and `caps` are valid kernel pointers provided
-+    // by the VFIO core.
-+    let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-+    // SAFETY: `info` is a valid pointer provided by the VFIO core.
-+    let info = unsafe { &mut *info };
-+    let mut caps = InfoCap {
-+        // SAFETY: `caps` is a valid pointer provided by the VFIO core.
-+        raw: unsafe { &mut *caps },
-+    };
-+    // SAFETY: VFIO invokes this callback for an open device with valid arguments.
-+    match unsafe {
-+        dev.callback_data_with(|rd, od| {
-+            T::get_region_info(dev.with_context::<GetRegionInfo>(), rd, od, info, &mut caps)
-+        })
-+    } {
-+        Ok(()) => 0,
-+        Err(e) => e.to_errno(),
-+    }
-+}
-+
-+/// # Safety
-+///
-+/// `vdev` must belong to a registered, open `Device<T>` in VFIO's write context.
-+/// `buf` must be a userspace address and `ppos` must be exclusively accessible
-+/// for this call. Registration and open data must remain alive until it returns.
-+unsafe extern "C" fn write_cb<T: Operations>(
-+    vdev: *mut bindings::vfio_device,
-+    buf: *const u8,
-+    count: usize,
-+    ppos: *mut i64,
-+) -> isize {
-+    // SAFETY: VFIO supplies an open device and a valid file position pointer.
-+    let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-+    let mut ubuf = UserBuf {
-+        ptr: UserPtr::from_ptr(buf.cast_mut().cast()),
-+        count,
-+    };
-+    let mut pos = Position {
-+        // SAFETY: VFIO holds the file-position lock when required.
-+        raw: unsafe { &mut *ppos },
-+    };
-+    // SAFETY: This callback runs while VFIO keeps both callback data allocations alive.
-+    match unsafe {
-+        dev.callback_data_with(|rd, od| {
-+            T::write(dev.with_context::<Write>(), rd, od, &mut ubuf, &mut pos)
-+        })
-+    } {
-+        Ok(n) => n,
-+        Err(e) => e.to_errno() as isize,
-+    }
-+}
-+
-+/// # Safety
-+///
-+/// `vdev` must belong to a registered, open `Device<T>` in VFIO's mmap context.
-+/// `vma` must be the valid VMA being mapped, with the mmap write lock held on
-+/// this thread. Registration and open data must remain alive until return.
-+unsafe extern "C" fn mmap_cb<T: Operations>(
-+    vdev: *mut bindings::vfio_device,
-+    vma: *mut bindings::vm_area_struct,
-+) -> core::ffi::c_int {
-+    // SAFETY: VFIO supplies an open device for this mmap callback.
-+    let dev = unsafe { Device::<T>::from_vfio_device(vdev) };
-+    let mut mapping = Mapping {
-+        // SAFETY: The mmap callback holds the mmap lock for this VMA.
-+        vma: unsafe { VmaRef::from_raw(vma) },
-+        _not_thread_safe: NotThreadSafe,
-+    };
-+    // SAFETY: This callback runs while VFIO keeps both callback data allocations alive.
-+    match unsafe {
-+        dev.callback_data_with(|rd, od| T::mmap(dev.with_context::<Mmap>(), rd, od, &mut mapping))
-+    } {
-+        Ok(()) => 0,
-+        Err(e) => e.to_errno(),
-+    }
-+}
-+
-+/// Callbacks that recover the VFIO device through its PCI driver's private data.
-+struct PciCallbacks<D>(PhantomData<D>);
-+
-+impl<D: Driver> PciCallbacks<D> {
-+    /// # Safety
-+    ///
-+    /// `dev` must belong to `D`. Its private data must remain installed and valid for `'a`,
-+    /// or not yet be installed. The caller must exclude its removal; runtime PM callbacks
-+    /// use their own synchronization rather than the PCI device lock.
-+    unsafe fn registration<'a>(
-+        dev: *mut bindings::device,
-+    ) -> Option<&'a Registration<'a, D::Operations>> {
-+        // SAFETY: The callback supplies a live device bound to `D`.
-+        let data = unsafe { bindings::dev_get_drvdata(dev) };
-+        if data.is_null() {
-+            return None;
-+        }
-+        // SAFETY: PCI published a fully initialized, pinned `D::Data`. The caller prevents
-+        // its removal, and `D::Data: Sync` permits shared runtime PM callback borrows.
-+        let data = unsafe { Pin::new_unchecked(&*data.cast::<D::Data<'_>>()) };
-+        Some(D::registration(data))
++        Ok(())
 +    }
 +
-+    unsafe extern "C" fn reset_prepare(pdev: *mut bindings::pci_dev) {
-+        // SAFETY: PCI holds the device lock across reset and registration teardown.
-+        let Some(reg) = (unsafe { Self::registration(&raw mut (*pdev).dev) }) else {
-+            return;
-+        };
-+        // SAFETY: The registration owns callback data throughout bind and unbind.
-+        unsafe { reg.dev.registration_data_with(D::Operations::reset_prepare) };
-+    }
-+
-+    unsafe extern "C" fn reset_done(pdev: *mut bindings::pci_dev) {
-+        // SAFETY: PCI holds the device lock across reset and registration teardown.
-+        let Some(reg) = (unsafe { Self::registration(&raw mut (*pdev).dev) }) else {
-+            return;
-+        };
-+        // SAFETY: The registration owns callback data throughout bind and unbind.
-+        let result = unsafe { reg.dev.registration_data_with(D::Operations::reset_done) };
-+        if let Err(error) = result {
-+            // SAFETY: The PCI callback keeps its embedded device alive.
-+            let dev = unsafe { device::Device::<device::Normal>::from_raw(&raw mut (*pdev).dev) };
-+            dev_err!(dev, "VFIO device reset failed: {:?}\n", error);
-+            // SAFETY: The initialized VFIO device remains alive for this callback.
-+            unsafe {
-+                bindings::vfio_pci_core_aer_err_detected(reg.dev.core_device());
++    fn reset_prepare(rd: &NvidiaVgpuRegData<'_>) {
++        // PCI holds the device lock, and VFIO may hold its memory lock. Open and
++        // close release this mutex before entering the VFIO core.
++        let mut state = rd.state.lock();
++        state.resetting = true;
++        if state.active {
++            if let Some(vgpu) = &rd.vgpu {
++                if let Err(error) = vgpu.api.reset(vgpu.gfid) {
++                    state.reset_error.get_or_insert(error);
++                }
 +            }
 +        }
 +    }
 +
-+    unsafe extern "C" fn error_detected(
-+        pdev: *mut bindings::pci_dev,
-+        _state: bindings::pci_channel_state_t,
-+    ) -> bindings::pci_ers_result_t {
-+        // SAFETY: PCI serializes error callbacks with binding and unbinding.
-+        let Some(reg) = (unsafe { Self::registration(&raw mut (*pdev).dev) }) else {
-+            return bindings::pci_ers_result_PCI_ERS_RESULT_CAN_RECOVER;
-+        };
-+        // SAFETY: The registered device owns its error notification state.
-+        unsafe { bindings::vfio_pci_core_aer_err_detected(reg.dev.core_device()) }
++    fn reset_done(rd: &NvidiaVgpuRegData<'_>) -> Result {
++        let mut state = rd.state.lock();
++        let error = state.reset_error;
++        state.resetting = false;
++        rd.reset_done.notify_all();
++        error.map_or(Ok(()), Err)
 +    }
++}
 +
++struct NvidiaVgpuDriver;
++
++kernel::pci_device_table!(
++    PCI_TABLE,
++    <NvidiaVgpuDriver as pci::Driver>::IdInfo,
++    [(
++        pci::DeviceId::from_id_vfio_override(pci::Vendor::NVIDIA, bindings::PCI_ANY_ID as u32),
++        (),
++    ),]
++);
++
++#[pin_data]
++struct NvidiaVgpuData<'bound> {
++    reg: vfio::pci::Registration<'bound, NvidiaVgpuOps>,
++}
++
++#[vtable]
++impl pci::Driver for NvidiaVgpuDriver {
++    type IdInfo = ();
++    type Data<'bound> = NvidiaVgpuData<'bound>;
++    const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
++    const DRIVER_MANAGED_DMA: bool = true;
 +    #[cfg(CONFIG_PM)]
-+    unsafe extern "C" fn runtime_suspend(dev: *mut bindings::device) -> c_int {
-+        // SAFETY: Registration enables PM only after private data is installed. PCI remove
-+        // and VFIO unregister quiesce runtime PM before private data can be removed.
-+        let Some(reg) = (unsafe { Self::registration(dev) }) else {
-+            return EBUSY.to_errno();
-+        };
-+        // SAFETY: This is the runtime-suspend callback for the initialized core device.
-+        unsafe { bindings::vfio_pci_core_runtime_suspend(reg.dev.core_device()) }
-+    }
++    const PM_OPS: Option<pci::PmOps<Self>> = Some(pci::PmOps::new());
 +
-+    #[cfg(CONFIG_PM)]
-+    unsafe extern "C" fn runtime_resume(dev: *mut bindings::device) -> c_int {
-+        // SAFETY: Private data remains installed until VFIO unregister has resumed the
-+        // device and quiesced PM, including registration failure.
-+        let Some(reg) = (unsafe { Self::registration(dev) }) else {
-+            return ENODEV.to_errno();
-+        };
-+        // SAFETY: This is the runtime-resume callback for the initialized core device.
-+        unsafe { bindings::vfio_pci_core_runtime_resume(reg.dev.core_device()) }
-+    }
-+
-+    const ERROR_HANDLERS: bindings::pci_error_handlers = bindings::pci_error_handlers {
-+        error_detected: Some(Self::error_detected),
-+        mmio_enabled: None,
-+        slot_reset: None,
-+        reset_prepare: Some(Self::reset_prepare),
-+        reset_done: Some(Self::reset_done),
-+        resume: None,
-+        cor_error_detected: None,
-+    };
-+
-+    const PM_OPS: bindings::dev_pm_ops = bindings::dev_pm_ops {
-+        #[cfg(CONFIG_PM)]
-+        runtime_suspend: Some(Self::runtime_suspend),
-+        #[cfg(CONFIG_PM)]
-+        runtime_resume: Some(Self::runtime_resume),
-+        ..pin_init::zeroed()
-+    };
-+}
-+
-+/// Build the `vfio_device_ops` vtable for a variant driver `T`.
-+///
-+/// Open and I/O callbacks dispatch to `T`'s trait implementation.
-+/// All other callbacks use the `vfio_pci_core_*` defaults.
-+macro_rules! build_ops {
-+    ($T:ty) => {
-+        bindings::vfio_device_ops {
-+            #[allow(clippy::disallowed_methods)]
-+            name: <$T>::NAME.as_ptr().cast_mut().cast(),
-+            init: Some(bindings::vfio_pci_core_init_dev),
-+            release: Some(bindings::vfio_pci_core_release_dev),
-+            open_device: Some(open_device_cb::<$T>),
-+            close_device: Some(close_device_cb::<$T>),
-+            ioctl: Some(ioctl_cb::<$T>),
-+            read: Some(read_cb::<$T>),
-+            write: Some(write_cb::<$T>),
-+            mmap: Some(mmap_cb::<$T>),
-+            request: Some(bindings::vfio_pci_core_request),
-+            get_region_info_caps: Some(get_region_info_cb::<$T>),
-+            match_: Some(bindings::vfio_pci_core_match),
-+            match_token_uuid: Some(bindings::vfio_pci_core_match_token_uuid),
-+            device_feature: Some(bindings::vfio_pci_core_ioctl_feature),
-+            #[cfg(CONFIG_IOMMUFD)]
-+            bind_iommufd: Some(bindings::vfio_iommufd_physical_bind),
-+            #[cfg(not(CONFIG_IOMMUFD))]
-+            bind_iommufd: None,
-+            #[cfg(CONFIG_IOMMUFD)]
-+            unbind_iommufd: Some(bindings::vfio_iommufd_physical_unbind),
-+            #[cfg(not(CONFIG_IOMMUFD))]
-+            unbind_iommufd: None,
-+            #[cfg(CONFIG_IOMMUFD)]
-+            attach_ioas: Some(bindings::vfio_iommufd_physical_attach_ioas),
-+            #[cfg(not(CONFIG_IOMMUFD))]
-+            attach_ioas: None,
-+            #[cfg(CONFIG_IOMMUFD)]
-+            detach_ioas: Some(bindings::vfio_iommufd_physical_detach_ioas),
-+            #[cfg(not(CONFIG_IOMMUFD))]
-+            detach_ioas: None,
-+            #[cfg(CONFIG_IOMMUFD)]
-+            pasid_attach_ioas: Some(bindings::vfio_iommufd_physical_pasid_attach_ioas),
-+            #[cfg(not(CONFIG_IOMMUFD))]
-+            pasid_attach_ioas: None,
-+            #[cfg(CONFIG_IOMMUFD)]
-+            pasid_detach_ioas: Some(bindings::vfio_iommufd_physical_pasid_detach_ioas),
-+            #[cfg(not(CONFIG_IOMMUFD))]
-+            pasid_detach_ioas: None,
-+            dma_unmap: None,
-+        }
-+    };
-+}
-+
-+/// The registration of a VFIO PCI variant device.
-+///
-+/// Owns both the VFIO device reference and the registration data, tying
-+/// resource lifetimes to the PCI binding scope `'a`.
-+///
-+/// Prepare this owner during probe. [`Adapter`] registers it after private data is installed
-+/// and unregisters it before private data is removed. Dropping the owner releases the VFIO
-+/// allocation and registration data after callbacks have drained.
-+pub struct Registration<'a, T: Operations> {
-+    dev: ARef<Device<T>>,
-+    _reg_data: Pin<KBox<<T::RegistrationData as ForLt>::Of<'a>>>,
-+}
-+
-+impl<T: Operations> Device<T> {
-+    const OPS: bindings::vfio_device_ops = build_ops!(T);
-+
-+    const PASSTHROUGH_OPS: bindings::vfio_pci_device_ops = bindings::vfio_pci_device_ops {
-+        #[cfg(CONFIG_VFIO_PCI_DMABUF)]
-+        get_dmabuf_phys: Some(bindings::vfio_pci_core_get_dmabuf_phys),
-+        #[cfg(not(CONFIG_VFIO_PCI_DMABUF))]
-+        get_dmabuf_phys: None,
-+    };
-+}
-+
-+impl<'a, T: Operations> Registration<'a, T> {
-+    /// Prepare a previously allocated VFIO PCI device and its callback data.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The device must have been allocated during this parent binding and never registered.
-+    /// No other `Registration` may own or publish callback data for this device until this
-+    /// owner is dropped.
-+    /// The caller must hold the PCI device lock. The owner must be stored in the private data
-+    /// of a driver registered through [`Adapter`] and selected by [`Driver::registration`].
-+    pub unsafe fn new(
-+        pdev: &'a pci::Device<device::Core<'_>>,
-+        dev: &Device<T>,
-+        reg_data: impl PinInit<<T::RegistrationData as ForLt>::Of<'a>, Error>,
-+    ) -> Result<Self> {
-+        // SAFETY: `dev` holds a live VFIO allocation; only compare its parent pointer.
-+        if unsafe { (*dev.vfio_device()).dev } != pdev.as_ref().as_raw() {
-+            return Err(EINVAL);
-+        }
-+
-+        let reg_data: Pin<KBox<<T::RegistrationData as ForLt>::Of<'a>>> =
-+            KBox::pin_init(reg_data, GFP_KERNEL)?;
-+        let ptr: NonNull<<T::RegistrationData as ForLt>::Of<'static>> =
-+            NonNull::from(Pin::get_ref(reg_data.as_ref())).cast();
-+
-+        // SAFETY: No concurrent registration or callbacks; publish before registering.
-+        unsafe { *dev.reg_data.get() = ptr };
-+
-+        Ok(Self {
-+            dev: dev.into(),
-+            _reg_data: reg_data,
++    fn probe<'bound>(
++        pdev: &'bound pci::Device<Core<'_>>,
++        _info: Option<&'bound Self::IdInfo>,
++    ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
++        try_pin_init!(NvidiaVgpuData {
++            reg: {
++                let vgpu = match NovaCoreVfApi::handle(pdev) {
++                    Ok(api) => Some(VgpuRegistration {
++                        api,
++                        gfid: pdev.vf_id()?.checked_add(1).ok_or(EOVERFLOW)?,
++                    }),
++                    Err(_) => None,
++                };
++                let dev = if vgpu.is_some() {
++                    vfio::pci::Device::<NvidiaVgpuOps>::new(pdev)?
++                } else {
++                    vfio::pci::Device::<NvidiaVgpuOps>::new_passthrough(pdev)?
++                };
++                let fb_bar = if pdev.resource_flags(0)?.contains(Flags::IORESOURCE_MEM_64) {
++                    2
++                } else {
++                    1
++                };
++                // SAFETY: This probe owns the unregistered device; bind/unbind handle registration.
++                unsafe {
++                    vfio::pci::Registration::new(
++                        pdev,
++                        &dev,
++                        try_pin_init!(NvidiaVgpuRegData {
++                            pdev,
++                            vgpu,
++                            fb_bar,
++                            state <- kernel::new_mutex!(InstanceState::default()),
++                            reset_done <- kernel::new_condvar!(),
++                        }),
++                    )?
++                }
++            },
 +        })
 +    }
 +
-+    /// Register after the PCI adapter has installed the driver's private data.
-+    ///
-+    /// # Safety
-+    ///
-+    /// Call once under the PCI device lock, after installing complete driver data whose
-+    /// [`Driver::registration`] selector returns `self`. On success, unregister before
-+    /// private data is removed or destroyed.
-+    unsafe fn register(&self) -> Result {
-+        // SAFETY: The caller has published complete private data under the PCI device lock;
-+        // it remains accessible during runtime PM setup.
-+        to_result(unsafe { bindings::vfio_pci_core_register_device(self.dev.core_device()) })
++    fn bind<'bound>(_pdev: &pci::Device<Core<'_>>, data: Pin<&Self::Data<'bound>>) -> Result {
++        // SAFETY: PCI installed the complete driver data; `unbind` unregisters it before removal.
++        unsafe { data.reg.register::<Self>() }
 +    }
 +
-+    /// Unregister while callbacks can still recover the PCI driver's private data.
-+    ///
-+    /// # Safety
-+    ///
-+    /// Call once after successful registration, with the PCI device lock held and private
-+    /// data still installed. No private-data fields may have been destroyed.
-+    unsafe fn unregister(&self) {
-+        // SAFETY: The caller keeps private data installed while unregistration drains VFIO,
-+        // VGA and runtime PM callbacks. No field of the enclosing data is being destroyed.
-+        unsafe { bindings::vfio_pci_core_unregister_device(self.dev.core_device()) };
++    fn unbind<'bound>(_pdev: &'bound pci::Device<Core<'_>>, data: Pin<&Self::Data<'bound>>) {
++        // SAFETY: Bind succeeded, and PCI has not removed or destroyed any driver data.
++        unsafe { data.reg.unregister() };
++    }
++
++    fn reset_prepare<'bound>(_pdev: &pci::Device<Core<'_>>, data: Pin<&Self::Data<'bound>>) {
++        data.reg.reset_prepare();
++    }
++
++    fn reset_done<'bound>(pdev: &pci::Device<Core<'_>>, data: Pin<&Self::Data<'bound>>) {
++        if let Err(error) = data.reg.reset_done() {
++            dev_err!(pdev, "VFIO device reset failed: {:?}\n", error);
++            data.reg.error_detected();
++        }
++    }
++
++    fn error_detected<'bound>(
++        _pdev: &pci::Device<Core<'_>>,
++        data: Pin<&Self::Data<'bound>>,
++        _state: bindings::pci_channel_state_t,
++    ) -> bindings::pci_ers_result_t {
++        data.reg.error_detected()
++    }
++
++    #[cfg(CONFIG_PM)]
++    fn runtime_suspend<'bound>(
++        _pdev: &pci::Device<Bound>,
++        data: Pin<&Self::Data<'bound>>,
++    ) -> Result {
++        // SAFETY: Called from this device's PCI runtime-suspend callback.
++        unsafe { data.reg.runtime_suspend() }
++    }
++
++    #[cfg(CONFIG_PM)]
++    fn runtime_resume<'bound>(
++        _pdev: &pci::Device<Bound>,
++        data: Pin<&Self::Data<'bound>>,
++    ) -> Result {
++        // SAFETY: Called from this device's PCI runtime-resume callback.
++        unsafe { data.reg.runtime_resume() }
 +    }
 +}
 +
-+impl<T: Operations> Drop for Registration<'_, T> {
-+    fn drop(&mut self) {
-+        // SAFETY: The adapter unregisters before removing private data. Failed or unattempted
-+        // registration also leaves no callbacks behind.
-+        unsafe { *self.dev.reg_data.get() = NonNull::dangling() };
-+    }
++kernel::module_pci_driver! {
++    type: NvidiaVgpuDriver,
++    name: "nvidia-vgpu-vfio-pci",
++    authors: ["NVIDIA"],
++    description: "NVIDIA vGPU VFIO variant driver",
++    license: "GPL v2",
 +}
 -- 
 2.43.7
