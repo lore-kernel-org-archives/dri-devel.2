@@ -2,77 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F532606A328
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 06:39:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9A1606A332
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 06:40:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nhq43x+Q
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JEXre3Tw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A35A10E529;
-	Fri, 23 Oct 2026 06:39:50 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 040F110E552
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:39:42 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4a214c5c4c0so1902925e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 23:39:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B049F10E552;
+	Fri, 23 Oct 2026 06:39:54 +0000 (UTC)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B6D010E552
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:39:48 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-48441a2ba1bso273572f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 23:39:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792737580; x=1793342380; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792737587; x=1793342387; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=e9iXPCmoOhpVXWg91psYHS0PCZjsptq0x3nugAHkv9M=;
- b=nhq43x+QTyl5EZZNyRaP7FDueozMvWUyPJ3RaP7EHaYRjrtH68HM4WyvQYDopKScS/
- xlY8+x/iHvlXRcsBV0bB3BNSVrsn17A/QUnH+yWGYFx4NtcKw5bfeUc1RvFy/G7mApUc
- Nxj4Me1DVAMjUnsr90Di8IprExwsMW1UGXAg/0Jcpvl5zBi5E1rg3zDHf0v363/QZSSz
- SSLF1I9p1czJ/1RlWhqmlIibo6CeGXDoC/XBL8ZW1AO4nPRrXgRItVrMgX07LUTcrukS
- GyOTNTa/sl6p1G/qnbvIph726R5h0+KjW9+cLYzZuYyVbuopBrHQYBbGeL/oFzXs1E1Y
- pR3w==
+ bh=zM6qRbp5A9CbBlh2Bu/tmcTR/0lPEgQHJG0kewWnWN4=;
+ b=JEXre3TwN/rIYOu50mHNd4/wMAxKmQ+MEWWq8kRcBBbXBT4GmxfaocvBM7njEiFPrE
+ aN5r1a6a5AZV6iW9K6Cc1t1vKfaFrz1rD4C3JUiTt/Q1XXseRCVXSxuFLCej53Q5qH6/
+ S4qVVy6rAIbENIJrc8QWQo1ex7uZAlAhzuXBHr+vkle6WazR3cPqoUe1jTwvuPBeS1LG
+ fF7gQSTsThTuCNwyNJYOCg6QBGJdB1W5zbo5Wa+sUwiwgs05Ns9I0oLL5+PPvd0QvKW6
+ +c4AvB+GJx62G/+cMXl59E6OjAnW3VFvNJQI9D7p69nRpDcoFLGZo4y5vCDpRxJkhcjR
+ 95Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792737580; x=1793342380;
+ d=1e100.net; s=20260707; t=1792737587; x=1793342387;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=e9iXPCmoOhpVXWg91psYHS0PCZjsptq0x3nugAHkv9M=;
- b=LQ7+bgVnxBQKtbF0TSWfGz9XMqZxqWuhQMqELQasICkcbdklcCLqbzbS6kHUXsZjeP
- Ype89S3Uqjwjo2d/+O6hwPClS+nulYvBZFWgpnGFWsGjL4VEEgJxU8KuzOSHsAivXI/1
- Rp0a78ioFZN2i1AH/fE1jk/LhYpxf+/87SGZ2kcru5zr5g3DXugXQNAncCUOtCJ6C0nY
- f6rFgGSUC7UlGp1Lqn4dy8bTBIJQC6UJHCo8xziOKGQRbF/JE2nTADW+iRY6rBPvaGXT
- RKDJXZrXp7kEtVqnkjvkQCWfeV9WhwD7Ee6RSjeWTiuusLOyvLjg6dBDwi6FUQ0ixHTL
- azkQ==
+ bh=zM6qRbp5A9CbBlh2Bu/tmcTR/0lPEgQHJG0kewWnWN4=;
+ b=N90xHSvC2CGk3B+e4B5PcD29XsQCQwshiUI4N9zoIjP7BIiUKrd+25VzXDuv1SUNfm
+ 2iwxMcFe1pmidKNP178jaGUwhXy3rHlJLS+ebD8qqxQ0WnXFu+GZTVuJ1NeeM6WlkOgF
+ +y0CTAGPE7WoxEGSUGYtWEh6lddSXLDAIO68MAyq0ZCttqTndtmPmBrv5B3bb8A61QLi
+ hw5RTTCFY/CoUPPByj5OqPjXGr4Ew5k+oK1DRmKsEv2rrvr62YYZiltGMZ0xp+EBSw86
+ 22XkxmNYccvSk/chLsF0/KdRlgb1WqWv8kZd2zyFjNosvlseT850D8eXnT5l0Q9DpRlt
+ 8HgQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzDSoQgnGFIgNi6+oVVIDMqddyS6KVSuIfA424Acz7setLfb6mBc0h8opwPMJzW22iBClLWlFdu9Ko=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIUUFHyVcKhk18JcoKPUh3QJwJXT0bZrKS1bHNiDBEFpepan72B
- 9ZYACSjIdhALXfTmov8UVYTnf3jG33Z93LprFfnm2+Woulv5qZ8q9I2w
-X-Gm-Gg: AYBFou2fCjBbLdG6u+sSfkhaOlVhKbXM0d827QuqWsDjn34s1RQgt4wWARazGlRYl/6
- Vp/j65GPj2fSrsFNRYvagtchhK4J3GUyex32fp4M6gBG8xZOlVah5c0xiPz+FWn+eisUKxYIGVL
- iSQxQA8HvruxO3cYAYAFCidYoHkPrgF9Ro69ltTWjdv99/VBIlGCSwCWkMsowUIhe9dKzz/cX0L
- tEDP5tdjH376n4yip56CjZ3W4qYJPcq+XeMAzcE3vikoyqSXwTa/HNXnSEwAxvQgh9rWFcPGVVH
- 2HaLbftv9FOuhObZJ7sK6GbBTQRArVl1g5bnPWYQk5XTCBcVxOjmHRLGdXNvUd/UIQJEw9mlO8P
- Dp9hEz23CKqogiX6y8h9ESeeJBhpYochEwTqGPukJegvW7uUemBaDmjHAbMv5nCbRTTd5vlLYCT
- XIm6SvcHe4vv+qIzNqx32cKFq3QXDDtpAv4lIFHbEBGDFfv5jqUvM8vBuSkgMN1ZgPVDcxPszCi
- HFER0jvRT2pg2kfakfuz8ahnGjuCLz1aT0vcxjMIo6W+ErGtcv4gRJ6i2VDcPmfbyaOLNgGij15
- R/TlA2BAuOOiXJzYosSBbplo5P0hL939FUNtAGRJY20wGMajsFAdAWONbMnowzs5F3RPs3LTnGN
- fi8U=
-X-Received: by 2002:a05:600c:a46:b0:4a1:db17:c7e6 with SMTP id
- 5b1f17b1804b1-4a211c50e30mr19135615e9.2.1792737580211; 
- Thu, 22 Oct 2026 23:39:40 -0700 (PDT)
+ AKwUvByLcm1cIiQWk3tCjZ/uPoHfFUjHsSzRr3DuZ21HZyRQBsMB1NlscjKW0JQg5Lt1LTmU62G+2co+vBI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLGt7tcUrotcHN4PLR14A1Q8tL2AilP9S8uGQR8SEbAk4k3KR0t
+ szs5nO6y/KA0kPQtEpF5xbz96DNselU5in9oBQ16K5q83J66Vr+xKBpw
+X-Gm-Gg: AYBFou1jQcbFNaPMgGMEqa9Ap/8BgdmAzpvwUiVMurBUM1c6o3O7ll4s3k+rwVhzDGy
+ 3BHQUuM9UV1OeeQY9U4rxw8HSav2LDbQxcrTDTgz38WhM1ol32/rEiFDLkC+J2wecsq2ZZ1yNBY
+ gGzHsI/9QW8MVF7B48nRRt98AVxXPjgt26iFbBEKFLIsX5HUVsg5mV3XSbfgehTVlrGlniAYAlQ
+ 4DVAqL0O1/Q5oJysOxUpDojwc6y/pN8BaivOUGruPKayqrs6SZfMIZt8tvAt0sRxFJcqe5hnpd+
+ sHbZmCpTtKvtrN2nK9YPwmbvEhw1H6QYBts3vaZo1sNbDUkeNl7Cm3MNNQCliWXzUI+sioskqNf
+ vYqfitFmP0veMsQxlXM04xjSoENEBGfV9Ax660i+qhXxIH++QRJLrOj5ecGalEr3jpW/kmhkbDf
+ a7YClnjjiCmf34AqLJZFeudwXSdc2Gl+Ba1BUMO9CoqDsLuSTwP4yCvEB3ZSuSTcfa398ElpPxA
+ dTUWHfIVl34Oj3HYf8ioq+LFSnrPGPd56e0mVrZazlB3jnW1stm+fB4vvnUet7SEwAFeCHbUa3v
+ 8ScLe2/jR8cr4GvNlCZ0HSY4hM4ccM0jkD2PV+jtPYbKPcbkfpz6D/mNfvayFbiPLxQYRM5hQf4
+ G7GA=
+X-Received: by 2002:a05:6000:41c9:b0:48e:dee:52bc with SMTP id
+ ffacd0b85a97d-48e384e4205mr1725429f8f.0.1792737586551; 
+ Thu, 22 Oct 2026 23:39:46 -0700 (PDT)
 Received: from [192.168.1.22] (cst-prg-49-173.cust.vodafone.cz.
  [46.135.49.173]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.39.37
+ ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.39.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 23:39:39 -0700 (PDT)
+ Thu, 22 Oct 2026 23:39:45 -0700 (PDT)
 From: Tomeu Vizoso <tomeu.vizoso@gmail.com>
 X-Google-Original-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Fri, 23 Oct 2026 08:39:26 +0200
-Subject: [PATCH v3 01/16] dt-bindings: remoteproc: k3-dsp: Add the L2
- auxiliary and DRU regions
+Date: Fri, 23 Oct 2026 08:39:28 +0200
+Subject: [PATCH v3 03/16] dt-bindings: remoteproc: k3-dsp: Allow
+ referencing the timers' power domains
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-thames-v3-1-3ab40aa17157@tomeuvizoso.net>
+Message-Id: <20261023-thames-v3-3-3ab40aa17157@tomeuvizoso.net>
 References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 In-Reply-To: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 To: Nishanth Menon <nm@ti.com>, "Andrew F. Davis" <afd@ti.com>, 
@@ -121,17 +121,9 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Besides the existing L2 SRAM region, at least some C7x DSPs in K3 SoCs
-have an additional region called in the documentation "AUX L2 SRAM".
-This is just some more SRAM that is accessed separately.
-
-Also add the memory region for the control registers of the DRU (Data
-Routing Unit), which allow starting DMA transactions and polling for
-their completion.
-
-The two entries are optional, so existing device trees still validate,
-and are allowed only for the ti,am62a-c7xv-dsp compatible, the C7x
-generation that has them.
+A firmware may drive the core's timers, which need their power domains
+held; the remoteproc driver does not hold them, so let the DSP node
+reference them for a driver that attaches to the running core to hold.
 
 Assisted-by: LLM
 Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
@@ -141,31 +133,37 @@ Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 v3:
 - Initial version
 ---
- Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ .../devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-index 8b1ed384ef22..278b88b7f906 100644
+index d6319c8e96f8..80eaef0a19b8 100644
 --- a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
 +++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-@@ -122,11 +122,17 @@ allOf:
-     then:
-       properties:
-         reg:
-+          minItems: 1
-           items:
-             - description: Address and Size of the L2 SRAM internal memory region
-+            - description: Address and Size of the auxiliary L2 SRAM aperture
-+            - description: Address and Size of the DRU real-time register page
-         reg-names:
-+          minItems: 1
-           items:
-             - const: l2sram
-+            - const: l2aux
-+            - const: dru
+@@ -76,6 +76,23 @@ properties:
+ # Optional properties:
+ # --------------------
  
-   - $ref: /schemas/arm/keystone/ti,k3-sci-common.yaml#
- 
++  power-domains:
++    description: |
++      Power domains of the SoC timers the running firmware ticks on and
++      times its work out with. The firmware programs these timers itself
++      and makes no power request for them, and the timers' own nodes are
++      reserved for it, so nothing else requests their power; a client
++      driver of the firmware holds them on while it drives the processor.
++      The processor's own power is managed through ti,sci-dev-id, not here.
++    items:
++      - description: power domain of the first timer
++      - description: power domain of the second timer
++
++  power-domain-names:
++    items:
++      - const: timer1
++      - const: timer2
++
+   sram:
+     minItems: 1
+     maxItems: 4
 
 -- 
 2.54.0
