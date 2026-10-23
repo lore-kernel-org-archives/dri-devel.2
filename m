@@ -2,63 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5A0606A31D
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 15:42:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E00E606A32C
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 15:42:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rEhCzlPe
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bfi50gxK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71934112BEA;
-	Fri, 23 Oct 2026 15:42:05 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010027.outbound.protection.outlook.com
- [52.101.193.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4688010E69B
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:41:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE92610E6A9;
+	Fri, 23 Oct 2026 15:42:10 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011056.outbound.protection.outlook.com [52.101.57.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 208F610E6AE
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:41:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mx6sNVGdFD/ztZQ+QSAEsHCAn0V1CdgjIPTDIoo/ISJL3irZ7e8e/iGEWfeUzGp73Hn/ZpVam9TwRMBm6Ta0lzdiQTf4v/C8e2RBcPkIzAA6IMiivZxcLqSTSDWNzunC8TUoTENwYDe8ZmvS65SqKLzO0cqx4etqeMYRNrhIgP2KGM9oCJcVsMZ/yegAUw3W7EvTRxiRDqnXWAiBcAW2dM6h8RHFJ2aC4xpdOEFIYGN6VsWeFg8+0ZTCZ6YpdV9b6yYgQ+n6f/rI2UNIqYMSD19Q8CUqi5dIqD4e31GVag6OlJGfU0cStcIjaeexF+4VU7MNk314Y6h8HogZSojijQ==
+ b=nHLz2xTUrwX16SLUFNgbuYIZ/0iiz/kTtzHx29/DITKnCIdkKti813OifrZPGWZe99hLcb9mj8aDajUHkz8SnWGEcVIZcNxQv4unnh93cRfLpppKA8GF5zC7QCD14oVszBrjCw/ej0UeuhnG7KqWdWeRH47UyGraugWxqYTKkHuRvXR8xH0PtojXHz5seUiH/b3FwROcOR00hFNyKAMakBYthaVpiZcBG1yw4X+7gB7GEZJkImQh/BY3qDhcMV9RFTXpDIHhe4NAp2bzZq23tS5dQH23+4+Ic6Hh5V8FxDj+qeuwaYcVaeDtLJISOCQIEVvFNsSWWEK9JhknNxS5ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WE5LYdR9xmj0w1zxqcIWKfA8YAuzOMob61V6KgXDplw=;
- b=JGtE62bpv6o+FfSjjLhBDZFptuPmItexet4TgTKHUC+JhrnkkT40wsNSuj7vANYUb1nMsIrddTyutvOnq2c8qMtw3f5weT3X7AA0b0kNlWKOCQWQ5ww+uUEmoxlW8AdL3TAZ5dovf8aRUG2T2dmL59PL24aCy2PD083qmO8Gx0ynWzk0uVbe1eZJmrDEBUoXyS3GncekpGjDKwePWnEQd2iMjyaiUJyvaNsIjqFkZRaEGOQcYC/UXM78dKo0UYpitAikxWDeDEykf8mL+o3UqVJB24Gets8WPBmsvXlgX3duSt7yaK933an7ndx50jvVZsG9AKjtB1G2u7upbXyitA==
+ bh=wBJtS2/ii4JthRgJsIdKgZCGCO26tHMqgB0eiwqu1Ck=;
+ b=HLlHfyOVm3kdXNIW77KnA0B7qmFkJzxediOp2pNaQrCQH/q87AH1WvyCr2GUfPcJxcnPmRdffN8FsIRKkJrLNJfNLghWA0KOWgdI53c/dqFj3V58Uh8BHS+we6CIvoO7HmqtrGl62Ek9+EJ0QWfqscU42AepsE7DxSqxHjlSFXWdCHSopEeR4n96g/neuVmhbjeIKuMUiieSd45vtz8/lNlUGAWAX8cvPKVHSWWJw5Ml5prwpEuqLv6Bfstv/utGE/Oc2Ymf2ZSXDHAItPZkikAcIku2mZA122+j2z0sW+0vR7OmuiPe8rocJH0smnvkheO0iaWxN1RGvLhU+ixqUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WE5LYdR9xmj0w1zxqcIWKfA8YAuzOMob61V6KgXDplw=;
- b=rEhCzlPeEbzr9//xeYRzu8Cx1LrVsn+5Ca4DTFiAZASA26nTQmIsp5Ceo+aRPM39Us9nIdkWqDfWvP37PjJ0K6agz8O4ptv8owRlV+hOSzPi3sg2AtKMl4S+UMvpuRtx9LQyyrYgiUtcFqlyohoUaC3bEoNGI0Hz++umGXBesR3dXoiwMRj1ZYQIt23+2iLUwCihF5nko3TmIlXJviLTjR+/ViDz+pBXe5nx/rlhF8YJtXmuXeCZQ/W6T1RNw/FI9w7X6j0qm8yAeG+xmD7m/IgxXmp8zzStjqoYEHgEfwM8LtDVqSPcDuruZ+ZhauzSzjrw7mi3fZQVRAbzVSe9Dw==
-Received: from SJ0PR03CA0134.namprd03.prod.outlook.com (2603:10b6:a03:33c::19)
- by DS6PR12MB140904.namprd12.prod.outlook.com (2603:10b6:8:4f4::19)
+ bh=wBJtS2/ii4JthRgJsIdKgZCGCO26tHMqgB0eiwqu1Ck=;
+ b=bfi50gxKYSMDXX9FYS+pAlpMmOl7goOo67C3aTboOlSM412+60CMv6vpAD7ESXgYr1vUPO6xc6LmIaJPuZwIr9ZEU1Kv75cLSThS8bgx9jrVCQFEsa8CqfpD+QFC99xnJbyhkdH6+I+oGSRHOj3j+NTOjsZ1d+lhAIQaESDifVQqnqqTBdl4HapQNhpK0L4KoiLWwYS7rA8EgRjolKwjE5AEwzi87/M0zxaxIFn0k2CnjjUm1zTjUV1ZMU15qIu6WOzHr1dHgzgUKwyTVsHz6PNmQDbzBu5huMVUslumNWVEpmzqe3HlyBbwE//SHvkG2/pW7kcVf2DN/Bai+FEaxg==
+Received: from CH0P221CA0016.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::18)
+ by DS4PR12MB508551.namprd12.prod.outlook.com (2603:10b6:8:50e::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Fri, 23 Oct
- 2026 15:41:01 +0000
-Received: from CO1PEPF00018860.namprd02.prod.outlook.com
- (2603:10b6:a03:33c:cafe::45) by SJ0PR03CA0134.outlook.office365.com
- (2603:10b6:a03:33c::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.18 via Frontend Transport; Fri,
- 23 Oct 2026 15:41:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 23 Oct
+ 2026 15:41:14 +0000
+Received: from BL02EPF0002992C.namprd02.prod.outlook.com
+ (2603:10b6:610:11c:cafe::3d) by CH0P221CA0016.outlook.office365.com
+ (2603:10b6:610:11c::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.19 via Frontend Transport; Fri,
+ 23 Oct 2026 15:41:13 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160)
+ is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- CO1PEPF00018860.mail.protection.outlook.com (10.167.249.249) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BL02EPF0002992C.mail.protection.outlook.com (10.167.249.57) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Fri, 23 Oct 2026 15:41:00 +0000
+ 15.21.569.4 via Frontend Transport; Fri, 23 Oct 2026 15:41:13 +0000
 Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 23 Oct
- 2026 08:40:36 -0700
+ 2026 08:40:47 -0700
 Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.231.37) by
  rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 23 Oct 2026 08:40:34 -0700
+ 15.2.2562.56; Fri, 23 Oct 2026 08:40:45 -0700
 From: Simon Song <xinmengs@nvidia.com>
 To: <dakr@kernel.org>, <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
  <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
@@ -77,9 +76,9 @@ CC: <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
  <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
  <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
  <peter@colberg.org>, <xinmengs@nvidia.com>
-Subject: [PATCH v2 03/12] rust: pci: allow drivers to manage DMA ownership
-Date: Fri, 23 Oct 2026 08:39:58 -0700
-Message-ID: <20261023154009.2246627-4-xinmengs@nvidia.com>
+Subject: [PATCH v2 08/12] rust: pci: add runtime PM callbacks
+Date: Fri, 23 Oct 2026 08:40:03 -0700
+Message-ID: <20261023154009.2246627-9-xinmengs@nvidia.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
 References: <20261023154009.2246627-1-xinmengs@nvidia.com>
@@ -91,29 +90,29 @@ X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
  rnnvmail201.nvidia.com (10.129.68.8)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00018860:EE_|DS6PR12MB140904:EE_
-X-MS-Office365-Filtering-Correlation-Id: 424304c6-555c-4f80-955a-08df311c0a0f
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992C:EE_|DS4PR12MB508551:EE_
+X-MS-Office365-Filtering-Correlation-Id: 321db5b4-976a-4a2e-9365-08df311c11b6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|261021121427099003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: T4h3fNZOLgbfLwZ+SPBROaUrpgfXCTi22YdPCL2Pwrh65IFm8jAsVXOre0e6h+rvcYPOuIDi3aScdcgQ1+/+Uhk+AcaSVNx8gKk6MofThIEV188Gx5nlLDzPyXwOKMZ55AmIDgNo9lj/WCItFdFZNjxGyzUns/xVjCudut4P0uD5lFuof8jTE1HPYhSCNHR7Wf6oxCp6E7tsy2t2DdM+hZCsT72VOVJ3UEYrUDLLnsgc4pPpHY0JpqBqRJRLntZSajE9YlKX564xTEUKTcZHcJbIJBAW4BBQwYPcfV1XqYh3vb4EiRkryiNfT4Gl4c3fvkTIMfqBfQLM/lUtdOiCBp1FKJ05iXuo1DSldRi+BkvuevqR4udhvGQ1EN9e/IUsVintuIlCaBsHeieF5XYBEkcql259uKbrf9oZj6X4KhGVJRq0nToVxCp2r/Ab+PljhiujErH88tLdTckCOMrN1fBAAtgRpTVyDHjZ6UwJ9N8pBqMBecJdAvuqmecN7iGsNrFlr14Ln2JIne9avim5neuVJsVRjSFJkMn4esTH+b+VwJji3X0FLm6XJt3SHXzn6YJ/OXCchZMWCAOPJEnYaBBogUS4Ml6uzEeOZRIebk/NUz4qssV8Po7m5Vz4n/SRNF2s0h2RXbj3OQrV/DAfbm4h4VZOEX2JqCrE17yKkbWHcxiR5+nDt74aZMhzwcU3s9YLMQJtyTDVEhIGDeui0Q==
-X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(261021121427099003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(261022105027099003);
+ ARA:13230040|376014|7416014|1800799024|82310400026|36860700016|23010399003|56012099006|11063799006|261021121427099003|261022113327099003|261022075727099003|261022105027099003|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: D0ywcxFfXBYIneO7wxBJ7fGH5lwhDP5AVG3ztzzx7kRXjlNlxKqhCO89B/XmrsuX/n8J1+at1ZJqbPRnKae/dqmlvlWY7UUdzEcY7zpyutQBj5wYWzocmBW1f0G5ncAfLHFH40ZcBxFGRgVYs+z8gmcUmLaFy080ZW7YNRbIf6NTU189bNdGqKslXFlmAld0DALr8pKVOsmPTwSWVUVoHcgd6QISyXsJABxVT0tTK7MjK/bvx4Yc+MGshotANFWdkI0ghI8YDMzeEzvYlYSB79jgMUhMX+xtYYM+68qZT53knkI1yCbBEnibgRbaiPLB572jldNfKL/YrC/gwsbqBQApUiD2xgpNSJ9ptYeG+EjJ4iQ7dMYqoU02lYxCFc5frs7x5ioAdfAnafulv8RMxV1KdqlX1D/mnxoU6Q3/IFFoy0UF1Ddu7F+0KLlF5SLvE/hLk8Bww+aRGAmijbe2vedPRiYDlwXf2jMu7+hC+XbMnYBd0dCLQkCs7y7JyAi06coJ9yYgyLqRj0sAIzo+mgWgOT4z9yFUID62Nlca79Sod1IyX5qSZQIvtTpK4uPUQ9TdejAq6sFAQxhPyNbF7uOgm3Fn2Ie9LipAIgf7Ghil4W71E/dgsVJPq+YT+E83oKB9hk8FxVfkSl/uVfCNIMTCIMRSrRE+meviLdondFer2AQzuVxGBB1FYsRoNZH2i2VLC7LFkezNk++zS9907Q==
+X-Forefront-Antispam-Report: CIP:216.228.117.161; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge2.nvidia.com; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(36860700016)(23010399003)(56012099006)(11063799006)(261021121427099003)(261022113327099003)(261022075727099003)(261022105027099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: d7lepq/zECbr4FZrOIRPOTlR3OVgVtcGQuQZ7CU5Silf8RLkGUy3D8v7i6PXCdUrtJu0L1E4Ym07/0ByOllD7Rvyp/xZijNELjGyxRwV5pa6Ue6qTLvdkaOOcTOyzpwxe4s0LCyN+JL8Au4GwleXDWm2BOyVlJV7yE6lQRGED6l9WW6Eez0IR5uZiOAS4LYkLPwm+5XNCC9QVjgs2zhxvIX9oyyEvBqOt6fsI6re90sJUFO42Lex7ACC2Blb7WkZvXVxd7zDAhMavgzYwjjp2IIWdf2RKpp/mtriysES0555E03F853HgrmtSLqY4hJwrOeDM/yCrwVJ6bPzXnoQRu7U8ztC/F2pp7NW3V6lCuEYwA5Cqtg3PypUlGGJL6OhDpujwrXgXcos1d9Ltu9KcZvy9h0x0agJ1bkjW+Austsh776MIgdbz0RJqkEtFgfw
+X-MS-Exchange-AntiSpam-MessageData-0: 7wIcaMwqNZAzLqK7FsmIlE8QFPZpS/rqMqcmh8qGJCtt8jiwsRRde16G4l5qooVDWijRRng5YBzV74GuN8BUwIMS7tgzXCAwT0/wOLgBRGkLwlpZRbksHs0z+ab5qiwawvJYyEXd3TnvnoRi0OWMnXBhUbQ2hxp+X8lSNFIfmgJeqKD6nF7FPpxlFmYZD5LCNEEjMCrohtqve17Oe6eg8yAiqYuQlMRqzVc/Jw8TniD7+qA7Tu78tUOKfLSPlZ+X5JiDcnEn7+4RYZ+tgMMdWCVfudPq35KEOO4VEmBjpMu+sm+gOPzA6RSJZ6j8NajzEA5mRoXEax/p3rUpOFdCnXUXzzaN+hiZRBlQQpQxnVCCME9dF+A5eyF3epdLlExw2AZzkBp+Ez7561+m9X19PmiH/qiNMlbULqd8apWcND+hzo3Y+QA9ubfCgCv25KIN
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:00.6872 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 424304c6-555c-4f80-955a-08df311c0a0f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2026 15:41:13.4429 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 321db5b4-976a-4a2e-9365-08df311c11b6
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.161];
  Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00018860.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB140904
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB508551
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,43 +132,164 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Danilo Krummrich <dakr@kernel.org>
+VFIO PCI variant drivers will use runtime_suspend() and runtime_resume()
+to forward runtime PM callbacks to vfio-pci-core.
 
-VFIO manages DMA ownership through the userspace IOMMU interface. Its
-PCI variant drivers must opt out of the driver's default DMA domain.
+Adding these callbacks to pci::Driver lets VFIO variants reuse the PCI
+adapter's runtime PM callback dispatch. A following patch removes the
+duplicate vfio::pci::Adapter.
 
-Add Driver::DRIVER_MANAGED_DMA and pass it to the PCI core. Existing
-Rust PCI drivers keep the default setting.
+Require Sync driver data only for runtime PM, whose callbacks run
+without the PCI device lock.
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+Suggested-by: Zhi Wang <zhiw@nvidia.com>
 Signed-off-by: Simon Song <xinmengs@nvidia.com>
 ---
- rust/kernel/pci.rs | 4 ++++
- 1 file changed, 4 insertions(+)
+ rust/kernel/pci.rs | 103 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 103 insertions(+)
 
 diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index 10864ffda4e..a156927e23d 100644
+index ddc28099087..136a817a833 100644
 --- a/rust/kernel/pci.rs
 +++ b/rust/kernel/pci.rs
-@@ -108,6 +108,7 @@ unsafe fn register(
-             (*pdrv.get()).probe = Some(Self::probe_callback);
-             (*pdrv.get()).remove = Some(Self::remove_callback);
-             (*pdrv.get()).id_table = T::ID_TABLE.as_ptr();
-+            (*pdrv.get()).driver_managed_dma = T::DRIVER_MANAGED_DMA;
+@@ -112,6 +112,10 @@ unsafe fn register(
+             if T::HAS_ERROR_DETECTED || T::HAS_RESET_PREPARE || T::HAS_RESET_DONE {
+                 (*pdrv.get()).err_handler = &Self::ERROR_HANDLERS;
+             }
++            #[cfg(CONFIG_PM)]
++            if let Some(ops) = T::PM_OPS {
++                (*pdrv.get()).driver.pm = ops.raw;
++            }
              #[cfg(CONFIG_PCI_IOV)]
              if T::HAS_SRIOV_ENABLE {
                  (*pdrv.get()).sriov_configure = Some(Self::sriov_configure_callback);
-@@ -345,6 +346,9 @@ pub trait Driver {
-     /// The table of device ids supported by the driver.
-     const ID_TABLE: IdTable<Self::IdInfo>;
+@@ -261,6 +265,72 @@ extern "C" fn error_detected_callback(
+     };
+ }
  
-+    /// Whether the driver manages DMA ownership instead of using the default DMA domain.
-+    const DRIVER_MANAGED_DMA: bool = false;
++#[cfg(CONFIG_PM)]
++impl<T: Driver> Adapter<T>
++where
++    for<'a> T::Data<'a>: Sync,
++{
++    extern "C" fn runtime_suspend_callback(dev: *mut bindings::device) -> c_int {
++        // SAFETY: PCI supplies its embedded device; runtime PM excludes driver-data removal.
++        let pdev =
++            unsafe { &*container_of!(dev, bindings::pci_dev, dev).cast::<Device<device::Bound>>() };
++        // SAFETY: Runtime PM keeps installed data alive; `T::Data: Sync` permits shared borrows.
++        let result =
++            unsafe { Self::callback_data_with(dev, |data| T::runtime_suspend(pdev, data)) }
++                .unwrap_or(Err(EBUSY));
++        match result {
++            Ok(()) => 0,
++            Err(error) => error.to_errno(),
++        }
++    }
 +
-     /// PCI driver probe.
++    extern "C" fn runtime_resume_callback(dev: *mut bindings::device) -> c_int {
++        // SAFETY: PCI supplies its embedded device; runtime PM excludes driver-data removal.
++        let pdev =
++            unsafe { &*container_of!(dev, bindings::pci_dev, dev).cast::<Device<device::Bound>>() };
++        // SAFETY: Runtime PM keeps installed data alive; `T::Data: Sync` permits shared borrows.
++        let result = unsafe { Self::callback_data_with(dev, |data| T::runtime_resume(pdev, data)) }
++            .unwrap_or(Err(ENODEV));
++        match result {
++            Ok(()) => 0,
++            Err(error) => error.to_errno(),
++        }
++    }
++
++    const PM_OPS: bindings::dev_pm_ops = bindings::dev_pm_ops {
++        runtime_suspend: Some(Self::runtime_suspend_callback),
++        runtime_resume: Some(Self::runtime_resume_callback),
++        ..pin_init::zeroed()
++    };
++}
++
++/// Runtime PM callbacks for PCI driver `T`, installed through [`Driver::PM_OPS`].
++#[cfg(CONFIG_PM)]
++pub struct PmOps<T: ?Sized> {
++    raw: &'static bindings::dev_pm_ops,
++    // Invariant in `T`, so subtyping can't pass one driver's callbacks off as another's.
++    _driver: PhantomData<fn(&T) -> &T>,
++}
++
++#[cfg(CONFIG_PM)]
++impl<T: Driver> PmOps<T>
++where
++    for<'a> T::Data<'a>: Sync,
++{
++    /// Returns the runtime PM callbacks for `T`, which must override both PM methods.
++    #[expect(clippy::new_without_default)]
++    pub const fn new() -> Self {
++        const_assert!(
++            T::HAS_RUNTIME_SUSPEND && T::HAS_RUNTIME_RESUME,
++            "PCI runtime PM requires both runtime_suspend and runtime_resume"
++        );
++        Self {
++            raw: &Adapter::<T>::PM_OPS,
++            _driver: PhantomData,
++        }
++    }
++}
++
+ /// Declares a kernel module that exposes a single PCI driver.
+ ///
+ /// # Examples
+@@ -425,6 +495,9 @@ pub trait Driver {
+     type IdInfo: 'static;
+ 
+     /// The type of the driver's bus device private data.
++    ///
++    /// Callbacks access this data under the PCI device lock, except runtime PM callbacks,
++    /// which additionally require [`Sync`].
+     type Data<'bound>: Send + 'bound;
+ 
+     /// The table of device ids supported by the driver.
+@@ -462,6 +535,9 @@ fn bind<'bound>(dev: &Device<device::Core<'_>>, this: Pin<&Self::Data<'bound>>)
      ///
-     /// Called when a new pci device is added or discovered. Implementers should
+     /// Otherwise, release operations for driver resources should be performed in `Drop`.
+     ///
++    /// PCI has drained runtime-PM work before this callback. Driver data remains installed
++    /// until this callback returns.
++    ///
+     /// For a PF with enabled VFs, `VfRegistration` disables SR-IOV when it is dropped. This
+     /// callback must leave resources accessed by VF drivers available until then.
+     fn unbind<'bound>(dev: &'bound Device<device::Core<'_>>, this: Pin<&Self::Data<'bound>>) {
+@@ -490,6 +566,33 @@ fn error_detected<'bound>(
+         build_error!(crate::error::VTABLE_DEFAULT_ERROR)
+     }
+ 
++    /// Prepare for runtime suspend, without holding the PCI device lock.
++    #[cfg(CONFIG_PM)]
++    fn runtime_suspend<'bound>(
++        dev: &Device<device::Bound>,
++        this: Pin<&Self::Data<'bound>>,
++    ) -> Result
++    where
++        for<'a> Self::Data<'a>: Sync,
++    {
++        let _ = (dev, this);
++        build_error!(crate::error::VTABLE_DEFAULT_ERROR)
++    }
++
++    /// Finish runtime resume, without holding the PCI device lock.
++    #[cfg(CONFIG_PM)]
++    fn runtime_resume<'bound>(dev: &Device<device::Bound>, this: Pin<&Self::Data<'bound>>) -> Result
++    where
++        for<'a> Self::Data<'a>: Sync,
++    {
++        let _ = (dev, this);
++        build_error!(crate::error::VTABLE_DEFAULT_ERROR)
++    }
++
++    /// Runtime PM callbacks, if any. Construct with [`PmOps::new`].
++    #[cfg(CONFIG_PM)]
++    const PM_OPS: Option<PmOps<Self>> = None;
++
+     /// Enables Single Root I/O Virtualization (SR-IOV) for a PF.
+     ///
+     /// Called when userspace writes a nonzero VF count to `sriov_numvfs`. The token carries the
 -- 
 2.43.7
 
