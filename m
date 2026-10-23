@@ -2,135 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671E5606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 13:14:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E636B606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 13:15:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=d1biOfEP
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C5oZPJfr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A760710E04A;
-	Fri, 23 Oct 2026 13:13:56 +0000 (UTC)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011038.outbound.protection.outlook.com
- [40.93.194.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEF2C10E04A;
- Fri, 23 Oct 2026 13:13:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UH/2HldUZwLWA/r6fAdO4IMmq43Z6rsJVVo42CjSIfLGl1GAk4xAdY9dNNBfz+IpSKohPeFoNdjv+c/RoV3n/ZXgCXsz/vseG8t7mMSPdWYfKfFTrI8MxAs9bGGm0+dSpwcwK6o/eFnV7lb6Q7Tmcki5Qwx7PI4TrKgsDT37m/HYOUIj2TSAu9Jhdp7jz57azU4T8MNR/EiOagGi8ya5345solnd0gq6igq3b1v70BiX/5q4fwSKobaaNPg/gGb8B0i5VEDaCtq64ZQJesENoMzjCbJVQLeLTS1fOycVPCkBfze9yBCUWSxvZPQwqC2xVyjuhNXdr1sAg0oCZPIpYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bT7hFGfyUtBDFaBerQtlbyD5gE+98mAiKi6cGNcl9xE=;
- b=SyFSGxihgxpMTQ+UOHsI8mZ6AAIJTHk9VHRbWvZapfqNSi+OThxeDz8cfItIRYhHp/EC2yeaapFU4oN6/asCd3in/oAy9lupHeGlQovqMyLgUTHvXABcm3FSKj3XJ566BaxYIs4i13tAppKr5u+FOgQZex/rk3Ku3II78l4dABOW372d9krcDZgaFFCBfyaz/sB3FG8jpMJiveLDgE6v9s7wStW3Uzoy7W2tSbftf19koNU601Pmyj3AuUVeCOF6j7XZrARIxsy5GgJo1JnDo1IzB5SoyZ1nb1XSLKxGbca5wLNC6MN3mQtrpxtOYXUG9h4o+pzOo1SxXgey2As4+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bT7hFGfyUtBDFaBerQtlbyD5gE+98mAiKi6cGNcl9xE=;
- b=d1biOfEP2Vg7PSliEpIzZo+3oUe4nT5XSMG9ng9tA8a17x7PUWoB88o17FGubWMDnB3aO6e7sDoyy9MWxkNfJd8VAKDhj/GuFju+v3EqeYNxeW446i+GWI3o0IXWMGsslfJzs0gdB49ZYBlbA3vL2sgjo+PVpnM1bnNP/KCPUOw=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by BN3PR12MB9572.namprd12.prod.outlook.com (2603:10b6:408:2ca::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Fri, 23 Oct
- 2026 13:13:44 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%7]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 13:13:43 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>, Bjorn Helgaas
- <helgaas@kernel.org>, "Koenig, Christian" <Christian.Koenig@amd.com>
-CC: Oz Tiram <oz@shift-computing.de>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: RE: [PATCH v2 1/3] PCI: Preserve the initial bus number in pci_dev
-Thread-Topic: [PATCH v2 1/3] PCI: Preserve the initial bus number in pci_dev
-Thread-Index: AQHdYJv+d1Cm4hPWU0O2wr0yUWedjLcLHubQ
-Date: Fri, 23 Oct 2026 13:13:43 +0000
-Message-ID: <BN9PR12MB51466890FC618C99BA48B2A7F7642@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20261020-vfct-regression-v2-0-d2394d11450a@amd.com>
- <20261020-vfct-regression-v2-1-d2394d11450a@amd.com>
-In-Reply-To: <20261020-vfct-regression-v2-1-d2394d11450a@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-10-23T13:11:53.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|BN3PR12MB9572:EE_
-x-ms-office365-filtering-correlation-id: c85ff519-369a-4a3e-84db-08df310776e3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|261021121427099003|18002099003|10067099003|3023799007|261022113327099003|22082099003|56012099006|4143699003|11063799006|261009223027099003|261022105027099003|261022075727099003|38070700021;
-x-microsoft-antispam-message-info: Cnto8nRbqMb0kq0/uYas03TGF2TZdbvxNkXxRvVl27d6Ha7VWnyq0JX1WHnahrNBVyjZhujxX7weTEbIFqZNJcakIIO8oqrE3Ty2Xh5OyIR3ixk9E0JU6zgehq1ZG5+qnfmrRC+8yh9pyzCIfwg0cQ+/etWhTfIzFej0LlT0Nn9vclqKaMRiTWn7TNpPiUyKHPWTuAlN2L7H/A+iLHCZ0DVN+l/kbAphPZwWirEbrwCmIMCEF5y3NX7cmtbUNAqyjZizun8EJg4Kr7K28S+PPjUVPNxB3V3GytHHpoyJP3JgQ6kx6/+1AA2ju+CUCQYCBxbEpuCec1gZBja7KTROLVzIubYyBeRdddGt2Z8RCGGm+7ri6dedRimKe6vnIckDWFqs5wB4j24wnr72oHD4RP9O0UfBaL+1HVN1EfxWggUl9aprfLpkSiM1skMlx7vaI/65lsocUDXyWwuQaNsTLLEJibW5PgmNmbB7DmkBb/jD5ByuIPQKIIXy5ebg0NZWLfxEcIldmAMy9VwqdeqReNWAbdhP6Wfb6z6L0VMBcmP1Byy8HJZmnF+KWBvrFx3VdDIwxWWcLpOcnSUiPIafqklqXGbKMBfCOj2qdLtgEhS6It5SwF+grsEd9LaLmuYZtJRjVHdceO/TTc0mDXJpeMj6HKV99Ra5qPjHxPmxNbgg+WoemZmciunBiX7ZU1gjohAfUCY5fG/0C0Oolv6lRg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(261021121427099003)(18002099003)(10067099003)(3023799007)(261022113327099003)(22082099003)(56012099006)(4143699003)(11063799006)(261009223027099003)(261022105027099003)(261022075727099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?clo5Zk14VTRuS1pXZVFwSEg0eDF3RStaUFRYRS80Y0JVbGhLR0NIYUFlMEpQ?=
- =?utf-8?B?dGJKWVRTQlpYcUtyUTdLaFpseG8xbU5TVldGa0NNeUdrcmhCakVvWng5REF0?=
- =?utf-8?B?bXNBelE3ZFpmanhhSGd6bitlVnVSNERLUWtxcjFtVy9qR296OVV5UzFLaWdw?=
- =?utf-8?B?V2xEc1VTMDlQeVNWenFYcVlZbktaSlBPUUI2WDFscGxrRytOQ1FPTFNrS2Z5?=
- =?utf-8?B?RkE0Y3QzQVhWbHQyemNTL0dwZFpxN1lWUkRLMTJ5VXlCZ25vL1VxNVZwTW16?=
- =?utf-8?B?Q3k1aWo0SlhpQk5UZGhTMWZ1YnFxSVM2M1BCa0FDTzY3NDUxVEx5YndiWElC?=
- =?utf-8?B?eFIvMnp4MUg0Q002RzFMQit2dFJzVHFCQXVHNXF1T2s3QmE3NS9HeUY0Um5Z?=
- =?utf-8?B?bXJLRnFOUHlKL05xOE5SR094UUZXdkwyeTc2UjVZdjliaXdkSUg1eFI4eUtD?=
- =?utf-8?B?ZGFaa3U2Zm5ldGdBWWgvU2ZCUzVGVVdoK1U4Z1lMT1JlN3dERG0vRVpaOWo2?=
- =?utf-8?B?ZWNwVmpMcDVFSGpqZXJCc3VhU0xPalJYdlBPQ1k0Rm1penlncktSbnhTeGRj?=
- =?utf-8?B?bzlBcmo0QW1OMENlV3FHeUJSQWtkZU81SFAzbWx2KzYzd2lJYjRoMnUzNFhU?=
- =?utf-8?B?bnJ6dzA3MGxqVEZraENRTFJXTWozZGJHZWl0Z3l6UDBxU0VuOU1ZWGplOXRU?=
- =?utf-8?B?NjdLaFhjakxZMmUxdzdjeDhCWER6QTI3eWpFak5udnR2WmFZZVEyVDVOOThZ?=
- =?utf-8?B?UjkrWjFUY0NnRzlMdXJiTGprbmlqb01mY1pMWVYzanhqNXFaMzIzcUhtRkE5?=
- =?utf-8?B?RVRsY28rVWd0NFV0a0hTRHcxaVhIbkNaRFBtUmlrL3puU0R1aFAvWS9nN2ox?=
- =?utf-8?B?UXFOSGlodXdodVFVUEJ2dEkxY0xCSTZyaDFad1FqZEJjaVhWWjFTeE55TE5F?=
- =?utf-8?B?Ymh4MTFnYTNNZEtXcDd4d29yREg4aDlhcGl1L1FRUkFuYnB0K0YwejJPNDZv?=
- =?utf-8?B?MllBN0tFTlhvUjc1REpNR05oOGQwTy85SDFxdUlsK2ZSMUQ2azRMVWg3Wm9X?=
- =?utf-8?B?eFV6dHBiSFRQblBONFhnNEtXSm11SnR0dllDRVV5NHZOVkg5eFRla1FSeHR2?=
- =?utf-8?B?Ri9mZUpadEd6a0ppanJHUE9qRmErOWNZY3NpWnJFSHhOVEJ1WjZpTWdwWVpq?=
- =?utf-8?B?VU9oMnBmL3o4MzllL0NKRk0vRWUvM0NSY21QbEkxZGwvRFo3M1VIQms4UUFo?=
- =?utf-8?B?bXB0eStjY1l3WFJVaUpLT2djM0oxNVo3MWxjWWZVSjNObXBjdTBWdHAvdTI3?=
- =?utf-8?B?Z3h3RktJS3oxeThCN0dIMzhBaFFTMWM0MnVOVFl1SDQ3eExheFhYZk5udCs2?=
- =?utf-8?B?aVJ1bzRUWkdHeFByVGg0WFVtYUxmdkZPNUJ5WWFPNVZiaVNSSXZNR1MvSXho?=
- =?utf-8?B?RzBvMzNrNytYeXN3VThEb2Q3c0M4Qk5BNTRmQy9zNzVkanIzMHVmVWxNV3VB?=
- =?utf-8?B?eThrVGR5SXVwbVJERmRpSjN4NG9Fbmcwemc4NXJYYXdwM2dxVkV4VXpESmZs?=
- =?utf-8?B?b3ZiVHdQdHl6WG85QUpKSHN6UFBCT1JjZWhsMCswL0JTOG0wSUFJTTFrNE4r?=
- =?utf-8?B?SjBKWi91UTZXRkU3eUgzTlJRTC9TTjNOa1FWc3J5OC8rbC90VVliWnoybWlF?=
- =?utf-8?B?dURkeDJ1T2tvQXBjelJFOFlYSjFjRzIxZ1VEckNNaW5teDIyQytwWlo5L2da?=
- =?utf-8?B?ZEh4dWFuM1dQcFJGUndtcURFc0dQdU1RVkNJMkcyMEdmUGZRNjIycFo4T1Yw?=
- =?utf-8?B?Y3Y0aFlnY1ExTGVCSk1UaXFaWlNRdHZLa2IrZGd0ZUw1QkkzVUhSYlliNkZJ?=
- =?utf-8?B?b2NrSld3ZEJueGF3NWErTEUrYytQU3VtZ2h0cHdlQkJ0N1N1NFRxazNXWkc1?=
- =?utf-8?B?MExGRUNxRnV2UFhuYS9yQVdlQ2l6alI2L2k5SWFuNEdLZGVHSm5OWjVzZlk5?=
- =?utf-8?B?MkE5cVVadDJmSnJpc2R0RWllczlTczhuSVVFU3ZTMHg2UEZTaktKaVprVzF1?=
- =?utf-8?B?Zll6WkNrWWVkY0YwRVNETTU2QmNWR083NnBlT3dWZkxxRTdsc2xLUE1aZkY0?=
- =?utf-8?B?dzIraWp5aUpreHNLcjkzeEtKWDd0SnJGYjN2M3ZuQnZIWjdZaUxZaDVLWW8y?=
- =?utf-8?B?UDJIVmVidExKSVlPcExYNWNQT00rdzdZRHVWdHdaemhqc2FOK1hzMlBTcUJN?=
- =?utf-8?B?S0pBY3RWR3VQakNObkp4bnJQMjdrMkh3Mmx4QlB0YTVBVUdwKzZxSllzdlFy?=
- =?utf-8?Q?3SrGqtDlM3g8mwrVZc?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5430410E5FF;
+	Fri, 23 Oct 2026 13:15:00 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 23DE510E5FF
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 13:14:54 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 773DB31DB
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:14:50 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 742143F673
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:14:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1792761293; bh=UQ5/3tBMTbpg8C8cu7Y5xDvLCqAOImajR7a717b4m94=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=C5oZPJfrVm0BsBP9FR9zCAIRvvErwEIYMg3OA1Eossbg9V0GotoWOzO6DZDMX0zKw
+ wNIeLtV/j6f1dcp4sk+ljB2fvip6yVZxQIDen6wHaFkJA7lFZW1xNAb3SyI5w6xK4G
+ 7NXnUO6W1PjQDI9j8HCXInpWwcrqQg/RpiHkiqe8=
+Date: Fri, 23 Oct 2026 14:14:50 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Steven Price <steven.price@arm.com>, Tejun Heo <tj@kernel.org>
+Subject: Re: [PATCH v7 1/4] workqueue: Simplify unbound sysfs attribute
+ registration
+Message-ID: <attdyi_ghyPWJQJv@e142607>
+References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
+ <20261022093848.5727-2-tvrtko.ursulin@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c85ff519-369a-4a3e-84db-08df310776e3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 13:13:43.8443 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kUjFsRIgIm/KMdhMHLOOIh5ukzXjfpWZhGxMKjnIVScwyV9llWxgInMzcl+RHkklK+5UNJ6OiCNoz3rMUJ7wsw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9572
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261022093848.5727-2-tvrtko.ursulin@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,108 +55,235 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-UHVibGljDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTGltb25jaWVs
-bG8sIE1hcmlvIDxNYXJpby5MaW1vbmNpZWxsb0BhbWQuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBP
-Y3RvYmVyIDIwLCAyMDI2IDEwOjA1IEFNDQo+IFRvOiBCam9ybiBIZWxnYWFzIDxoZWxnYWFzQGtl
-cm5lbC5vcmc+OyBEZXVjaGVyLCBBbGV4YW5kZXINCj4gPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5j
-b20+OyBLb2VuaWcsIENocmlzdGlhbg0KPiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiBD
-YzogT3ogVGlyYW0gPG96QHNoaWZ0LWNvbXB1dGluZy5kZT47IGxpbnV4LXBjaUB2Z2VyLmtlcm5l
-bC5vcmc7IGxpbnV4LQ0KPiBrZXJuZWxAdmdlci5rZXJuZWwub3JnOyBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZzsgZHJpLQ0KPiBkZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IExpbW9u
-Y2llbGxvLCBNYXJpbw0KPiA8TWFyaW8uTGltb25jaWVsbG9AYW1kLmNvbT4NCj4gU3ViamVjdDog
-W1BBVENIIHYyIDEvM10gUENJOiBQcmVzZXJ2ZSB0aGUgaW5pdGlhbCBidXMgbnVtYmVyIGluIHBj
-aV9kZXYNCj4NCj4gQnJpZGdlcyB0aGF0IG5lZWQgYnVzIHJlYXNzaWdubWVudCBhcmUgc2Nhbm5l
-ZCBpbiB0d28gcGFzc2VzLiBTYXZlIHRoZQ0KPiBmaXJtd2FyZSBzZWNvbmRhcnkgYnVzIG51bWJl
-ciBkdXJpbmcgdGhlIGZpcnN0IHBhc3MsIGJlZm9yZSB0aGUgYnJpZGdlIGlzDQo+IGRpc2FibGVk
-LCBhbmQgY2FycnkgaXQgdG8gdGhlIGJ1cyBjcmVhdGVkIGluIHRoZSBzZWNvbmQgcGFzcy4gSW5p
-dGlhbGl6ZSBwY2lfZGV2DQo+IGZyb20gdGhpcyBwcmVzZXJ2ZWQgYnVzIG51bWJlciBzbyBkcml2
-ZXJzIGNhbiBtYXRjaCBmaXJtd2FyZSByZWNvcmRzIGFmdGVyDQo+IFBDSSBidXMgcmVudW1iZXJp
-bmcuDQo+DQo+IEhhbmRsZSBwY2lfYWxsb2NfZGV2KE5VTEwpIGFzIHdlbGw7IHNvbWUgaW4tdHJl
-ZSBjYWxsZXJzIHVzZSBpdCB0byBhbGxvY2F0ZSBhDQo+IHN0YW5kYWxvbmUgcGNpX2Rldi4NCj4N
-Cj4gU2lnbmVkLW9mZi1ieTogTWFyaW8gTGltb25jaWVsbG8gPG1hcmlvLmxpbW9uY2llbGxvQGFt
-ZC5jb20+DQoNCkxvb2tzIGdvb2QgdG8gbWUuICBQYXRjaCAxIGlzOg0KQWNrZWQtYnk6IEFsZXgg
-RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KUGF0Y2hlcyAyLCAzOg0KUmV2
-aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KSSBk
-b24ndCBoYXZlIGEgcHJlZmVyZW5jZSB3aGljaCB0cmVlIHRoZXNlIGdvIHRocm91Z2gsIGFzc3Vt
-aW5nIEJqb3JuIGlzIG9rIHdpdGggdGhlIFBDSSBjaGFuZ2UuDQoNCkFsZXgNCg0KPiAtLS0NCj4g
-IGRyaXZlcnMvcGNpL3Byb2JlLmMgfCA5ICsrKysrKysrKw0KPiAgaW5jbHVkZS9saW51eC9wY2ku
-aCB8IDMgKysrDQo+ICAyIGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKykNCj4NCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvcGNpL3Byb2JlLmMgYi9kcml2ZXJzL3BjaS9wcm9iZS5jIGluZGV4
-DQo+IDI3MDA4ZTJlYTVhZmMuLjRlY2U0YjcwY2RjMTUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
-cGNpL3Byb2JlLmMNCj4gKysrIGIvZHJpdmVycy9wY2kvcHJvYmUuYw0KPiBAQCAtMTAxMiw2ICsx
-MDEyLDcgQEAgc3RhdGljIGludCBwY2lfcmVnaXN0ZXJfaG9zdF9icmlkZ2Uoc3RydWN0DQo+IHBj
-aV9ob3N0X2JyaWRnZSAqYnJpZGdlKQ0KPiAgICAgICBidXMtPnN5c2RhdGEgPSBicmlkZ2UtPnN5
-c2RhdGE7DQo+ICAgICAgIGJ1cy0+b3BzID0gYnJpZGdlLT5vcHM7DQo+ICAgICAgIGJ1cy0+bnVt
-YmVyID0gYnVzLT5idXNuX3Jlcy5zdGFydCA9IGJyaWRnZS0+YnVzbnI7DQo+ICsgICAgIGJ1cy0+
-aW5pdGlhbF9idXNfbnVtYmVyID0gYnVzLT5udW1iZXI7DQo+ICAjaWZkZWYgQ09ORklHX1BDSV9E
-T01BSU5TX0dFTkVSSUMNCj4gICAgICAgaWYgKGJyaWRnZS0+ZG9tYWluX25yID09IFBDSV9ET01B
-SU5fTlJfTk9UX1NFVCkNCj4gICAgICAgICAgICAgICBidXMtPmRvbWFpbl9uciA9IHBjaV9idXNf
-ZmluZF9kb21haW5fbnIoYnVzLCBwYXJlbnQpOyBAQCAtDQo+IDEyMzIsNiArMTIzMyw3IEBAIHN0
-YXRpYyBzdHJ1Y3QgcGNpX2J1cyAqcGNpX2FsbG9jX2NoaWxkX2J1cyhzdHJ1Y3QgcGNpX2J1cw0K
-PiAqcGFyZW50LA0KPg0KPiAgICAgICAvKiBTZXQgdXAgdGhlIHByaW1hcnksIHNlY29uZGFyeSBh
-bmQgc3Vib3JkaW5hdGUgYnVzIG51bWJlcnMgKi8NCj4gICAgICAgY2hpbGQtPm51bWJlciA9IGNo
-aWxkLT5idXNuX3Jlcy5zdGFydCA9IGJ1c25yOw0KPiArICAgICBjaGlsZC0+aW5pdGlhbF9idXNf
-bnVtYmVyID0gYnVzbnI7DQo+ICAgICAgIGNoaWxkLT5wcmltYXJ5ID0gcGFyZW50LT5idXNuX3Jl
-cy5zdGFydDsNCj4gICAgICAgY2hpbGQtPmJ1c25fcmVzLmVuZCA9IDB4ZmY7DQo+DQo+IEBAIC0x
-NDcwLDYgKzE0NzIsNyBAQCBzdGF0aWMgaW50IHBjaV9zY2FuX2JyaWRnZV9leHRlbmQoc3RydWN0
-IHBjaV9idXMNCj4gKmJ1cywgc3RydWN0IHBjaV9kZXYgKmRldiwNCj4gICAgICAgICAgICAgICAg
-ICAgICAgIGNoaWxkID0gcGNpX2FkZF9uZXdfYnVzKGJ1cywgZGV2LCBzZWNvbmRhcnkpOw0KPiAg
-ICAgICAgICAgICAgICAgICAgICAgaWYgKCFjaGlsZCkNCj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgZ290byBvdXQ7DQo+ICsgICAgICAgICAgICAgICAgICAgICBjaGlsZC0+aW5pdGlh
-bF9idXNfbnVtYmVyID0gc2Vjb25kYXJ5Ow0KPiAgICAgICAgICAgICAgICAgICAgICAgY2hpbGQt
-PnByaW1hcnkgPSBwcmltYXJ5Ow0KPiAgICAgICAgICAgICAgICAgICAgICAgcGNpX2J1c19pbnNl
-cnRfYnVzbl9yZXMoY2hpbGQsIHNlY29uZGFyeSwNCj4gc3Vib3JkaW5hdGUpOw0KPiAgICAgICAg
-ICAgICAgICAgICAgICAgY2hpbGQtPmJyaWRnZV9jdGwgPSBiY3RsOw0KPiBAQCAtMTQ5MSw2ICsx
-NDk0LDggQEAgc3RhdGljIGludCBwY2lfc2Nhbl9icmlkZ2VfZXh0ZW5kKHN0cnVjdCBwY2lfYnVz
-DQo+ICpidXMsIHN0cnVjdCBwY2lfZGV2ICpkZXYsDQo+ICAgICAgICAgICAgICAgICogZG8gaW4g
-dGhlIHNlY29uZCBwYXNzLg0KPiAgICAgICAgICAgICAgICAqLw0KPiAgICAgICAgICAgICAgIGlm
-ICghcGFzcykgew0KPiArICAgICAgICAgICAgICAgICAgICAgaWYgKCFkZXYtPmluaXRpYWxfc2Vj
-b25kYXJ5X2J1c19udW1iZXIpDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldi0+
-aW5pdGlhbF9zZWNvbmRhcnlfYnVzX251bWJlciA9DQo+IHNlY29uZGFyeTsNCj4gICAgICAgICAg
-ICAgICAgICAgICAgIGlmIChwY2liaW9zX2Fzc2lnbl9hbGxfYnVzc2VzKCkgfHwgYnJva2VuKQ0K
-Pg0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvKg0KPiBAQCAtMTUyNiw2ICsxNTMx
-LDkgQEAgc3RhdGljIGludCBwY2lfc2Nhbl9icmlkZ2VfZXh0ZW5kKHN0cnVjdCBwY2lfYnVzDQo+
-ICpidXMsIHN0cnVjdCBwY2lfZGV2ICpkZXYsDQo+ICAgICAgICAgICAgICAgICAgICAgICBjaGls
-ZCA9IHBjaV9hZGRfbmV3X2J1cyhidXMsIGRldiwgbmV4dF9idXNucik7DQo+ICAgICAgICAgICAg
-ICAgICAgICAgICBpZiAoIWNoaWxkKQ0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBn
-b3RvIG91dDsNCj4gKyAgICAgICAgICAgICAgICAgICAgIGlmIChkZXYtPmluaXRpYWxfc2Vjb25k
-YXJ5X2J1c19udW1iZXIpDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNoaWxkLT5p
-bml0aWFsX2J1c19udW1iZXIgPQ0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGRldi0+aW5pdGlhbF9zZWNvbmRhcnlfYnVzX251bWJlcjsNCj4gICAgICAgICAgICAgICAg
-ICAgICAgIHBjaV9idXNfaW5zZXJ0X2J1c25fcmVzKGNoaWxkLCBuZXh0X2J1c25yLA0KPiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnVzLT5idXNuX3Jlcy5l
-bmQpOw0KPiAgICAgICAgICAgICAgIH0NCj4gQEAgLTI1MDgsNiArMjUxNiw3IEBAIHN0cnVjdCBw
-Y2lfZGV2ICpwY2lfYWxsb2NfZGV2KHN0cnVjdCBwY2lfYnVzICpidXMpDQo+ICAgICAgIElOSVRf
-TElTVF9IRUFEKCZkZXYtPmJ1c19saXN0KTsNCj4gICAgICAgZGV2LT5kZXYudHlwZSA9ICZwY2lf
-ZGV2X3R5cGU7DQo+ICAgICAgIGRldi0+YnVzID0gcGNpX2J1c19nZXQoYnVzKTsNCj4gKyAgICAg
-ZGV2LT5pbml0aWFsX2J1c19udW1iZXIgPSBidXMgPyBidXMtPmluaXRpYWxfYnVzX251bWJlciA6
-IDA7DQo+ICAgICAgIGRldi0+ZHJpdmVyX2V4Y2x1c2l2ZV9yZXNvdXJjZSA9IChzdHJ1Y3QgcmVz
-b3VyY2UpIHsNCj4gICAgICAgICAgICAgICAubmFtZSA9ICJQQ0kgRXhjbHVzaXZlIiwNCj4gICAg
-ICAgICAgICAgICAuc3RhcnQgPSAwLA0KPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9wY2ku
-aCBiL2luY2x1ZGUvbGludXgvcGNpLmggaW5kZXgNCj4gNWZmY2Y1Y2U4Yzk2Ni4uZjZiMzc3ZGNm
-N2ExNCAxMDA2NDQNCj4gLS0tIGEvaW5jbHVkZS9saW51eC9wY2kuaA0KPiArKysgYi9pbmNsdWRl
-L2xpbnV4L3BjaS5oDQo+IEBAIC0zNjMsNiArMzYzLDggQEAgc3RydWN0IHBjaV9kZXYgew0KPiAg
-ICAgICBzdHJ1Y3QgcGNpX3Nsb3QgKnNsb3Q7ICAgICAgICAgIC8qIFBoeXNpY2FsIHNsb3QgdGhp
-cyBkZXZpY2UgaXMgaW4gKi8NCj4NCj4gICAgICAgdW5zaWduZWQgaW50ICAgIGRldmZuOyAgICAg
-ICAgICAvKiBFbmNvZGVkIGRldmljZSAmIGZ1bmN0aW9uIGluZGV4ICovDQo+ICsgICAgIHU4ICAg
-ICAgICAgICAgICBpbml0aWFsX2J1c19udW1iZXI7ICAgICAvKiBCdXMgbnVtYmVyIHdoZW4gZGV2
-aWNlDQo+IHdhcyBkaXNjb3ZlcmVkICovDQo+ICsgICAgIHU4ICAgICAgICAgICAgICBpbml0aWFs
-X3NlY29uZGFyeV9idXNfbnVtYmVyOyAgIC8qIEJ1cyBudW1iZXIgYmVoaW5kDQo+IHRoaXMgYnJp
-ZGdlICovDQo+ICAgICAgIHVuc2lnbmVkIHNob3J0ICB2ZW5kb3I7DQo+ICAgICAgIHVuc2lnbmVk
-IHNob3J0ICBkZXZpY2U7DQo+ICAgICAgIHVuc2lnbmVkIHNob3J0ICBzdWJzeXN0ZW1fdmVuZG9y
-Ow0KPiBAQCAtNzI0LDYgKzcyNiw3IEBAIHN0cnVjdCBwY2lfYnVzIHsNCj4gICAgICAgc3RydWN0
-IHByb2NfZGlyX2VudHJ5ICpwcm9jZGlyOyAvKiBEaXJlY3RvcnkgZW50cnkgaW4gL3Byb2MvYnVz
-L3BjaSAqLw0KPg0KPiAgICAgICB1bnNpZ25lZCBjaGFyICAgbnVtYmVyOyAgICAgICAgIC8qIEJ1
-cyBudW1iZXIgKi8NCj4gKyAgICAgdW5zaWduZWQgY2hhciAgIGluaXRpYWxfYnVzX251bWJlcjsg
-ICAgIC8qIEJ1cyBudW1iZXIgYmVmb3JlDQo+IHJlYXNzaWdubWVudCAqLw0KPiAgICAgICB1bnNp
-Z25lZCBjaGFyICAgcHJpbWFyeTsgICAgICAgIC8qIE51bWJlciBvZiBwcmltYXJ5IGJyaWRnZSAq
-Lw0KPiAgICAgICB1bnNpZ25lZCBjaGFyICAgbWF4X2J1c19zcGVlZDsgIC8qIGVudW0gcGNpX2J1
-c19zcGVlZCAqLw0KPiAgICAgICB1bnNpZ25lZCBjaGFyICAgY3VyX2J1c19zcGVlZDsgIC8qIGVu
-dW0gcGNpX2J1c19zcGVlZCAqLw0KPg0KPiAtLQ0KPiAyLjQzLjANCg0K
+On Thu, Oct 22, 2026 at 10:38:45AM +0100, Tvrtko Ursulin wrote:
+> Instead of manually registering each attribute we can put them in an
+> attribute group with a visibility check and device core will handle the
+> rest, which simplifies the registration and error unwind.
+> 
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: Bradley Morgan <include@grrlz.net>
+> Cc: Chia-I Wu <olv@google.com>
+> Cc: Liviu Dudau <liviu.dudau@arm.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Steven Price <steven.price@arm.com>
+> Cc: Tejun Heo <tj@kernel.org>
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+> ---
+> v2:
+>  * Fix accidental rename of affinity_scope.
+> 
+> v3:
+>  * SYSFS_GROUP_INVISIBLE should not be used for un-named groups.
+> ---
+>  kernel/workqueue.c | 98 ++++++++++++++++++++++++----------------------
+>  1 file changed, 52 insertions(+), 46 deletions(-)
+> 
+> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+> index 41754f4126a6..d8cf546d853f 100644
+> --- a/kernel/workqueue.c
+> +++ b/kernel/workqueue.c
+> @@ -7599,8 +7599,8 @@ static const struct attribute_group wq_sysfs_group = {
+>  };
+>  __ATTRIBUTE_GROUPS(wq_sysfs);
+>  
+> -static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
+> -			    char *buf)
+> +static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
+> +			 char *buf)
+>  {
+>  	struct workqueue_struct *wq = dev_to_wq(dev);
+>  	int written;
+> @@ -7627,8 +7627,8 @@ static struct workqueue_attrs *wq_sysfs_prep_attrs(struct workqueue_struct *wq)
+>  	return attrs;
+>  }
+>  
+> -static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+> -			     const char *buf, size_t count)
+> +static ssize_t nice_store(struct device *dev, struct device_attribute *attr,
+> +			  const char *buf, size_t count)
+>  {
+>  	struct workqueue_struct *wq = dev_to_wq(dev);
+>  	struct workqueue_attrs *attrs;
+> @@ -7652,8 +7652,8 @@ static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+>  	return ret ?: count;
+>  }
+>  
+> -static ssize_t wq_cpumask_show(struct device *dev,
+> -			       struct device_attribute *attr, char *buf)
+> +static ssize_t unbound_cpumask_show(struct device *dev,
+> +				    struct device_attribute *attr, char *buf)
+>  {
+>  	struct workqueue_struct *wq = dev_to_wq(dev);
+>  	int written;
+> @@ -7665,9 +7665,9 @@ static ssize_t wq_cpumask_show(struct device *dev,
+>  	return written;
+>  }
+>  
+> -static ssize_t wq_cpumask_store(struct device *dev,
+> -				struct device_attribute *attr,
+> -				const char *buf, size_t count)
+> +static ssize_t unbound_cpumask_store(struct device *dev,
+> +				     struct device_attribute *attr,
+> +				     const char *buf, size_t count)
+>  {
+>  	struct workqueue_struct *wq = dev_to_wq(dev);
+>  	struct workqueue_attrs *attrs;
+> @@ -7689,8 +7689,8 @@ static ssize_t wq_cpumask_store(struct device *dev,
+>  	return ret ?: count;
+>  }
+>  
+> -static ssize_t wq_affn_scope_show(struct device *dev,
+> -				  struct device_attribute *attr, char *buf)
+> +static ssize_t affinity_scope_show(struct device *dev,
+> +				   struct device_attribute *attr, char *buf)
+>  {
+>  	struct workqueue_struct *wq = dev_to_wq(dev);
+>  	int written;
+> @@ -7708,9 +7708,9 @@ static ssize_t wq_affn_scope_show(struct device *dev,
+>  	return written;
+>  }
+>  
+> -static ssize_t wq_affn_scope_store(struct device *dev,
+> -				   struct device_attribute *attr,
+> -				   const char *buf, size_t count)
+> +static ssize_t affinity_scope_store(struct device *dev,
+> +				    struct device_attribute *attr,
+> +				    const char *buf, size_t count)
+>  {
+>  	struct workqueue_struct *wq = dev_to_wq(dev);
+>  	struct workqueue_attrs *attrs;
+> @@ -7731,8 +7731,8 @@ static ssize_t wq_affn_scope_store(struct device *dev,
+>  	return ret ?: count;
+>  }
+>  
+> -static ssize_t wq_affinity_strict_show(struct device *dev,
+> -				       struct device_attribute *attr, char *buf)
+> +static ssize_t affinity_strict_show(struct device *dev,
+> +				    struct device_attribute *attr, char *buf)
+>  {
+>  	struct workqueue_struct *wq = dev_to_wq(dev);
+>  
+> @@ -7740,9 +7740,9 @@ static ssize_t wq_affinity_strict_show(struct device *dev,
+>  			 wq->attrs->affn_strict);
+>  }
+>  
+> -static ssize_t wq_affinity_strict_store(struct device *dev,
+> -					struct device_attribute *attr,
+> -					const char *buf, size_t count)
+> +static ssize_t affinity_strict_store(struct device *dev,
+> +				     struct device_attribute *attr,
+> +				     const char *buf, size_t count)
+>  {
+>  	struct workqueue_struct *wq = dev_to_wq(dev);
+>  	struct workqueue_attrs *attrs;
+> @@ -7762,14 +7762,40 @@ static ssize_t wq_affinity_strict_store(struct device *dev,
+>  	return ret ?: count;
+>  }
+>  
+> -static struct device_attribute wq_sysfs_unbound_attrs[] = {
+> -	__ATTR(nice, 0644, wq_nice_show, wq_nice_store),
+> -	__ATTR(cpumask, 0644, wq_cpumask_show, wq_cpumask_store),
+> -	__ATTR(affinity_scope, 0644, wq_affn_scope_show, wq_affn_scope_store),
+> -	__ATTR(affinity_strict, 0644, wq_affinity_strict_show, wq_affinity_strict_store),
+> -	__ATTR_NULL,
+> +static DEVICE_ATTR_RW(nice);
+> +static DEVICE_ATTR_RW(affinity_scope);
+> +static DEVICE_ATTR_RW(affinity_strict);
+> +/* Avoid naming clash with the other cpumask */
+> +static struct device_attribute dev_attr_unbound_cpumask =
+> +	__ATTR(cpumask, 0644, unbound_cpumask_show, unbound_cpumask_store);
+> +
+> +static struct attribute *wq_sysfs_unbound_attrs[] = {
+> +	&dev_attr_nice.attr,
+> +	&dev_attr_unbound_cpumask.attr,
+> +	&dev_attr_affinity_scope.attr,
+> +	&dev_attr_affinity_strict.attr,
+> +	NULL,
+>  };
+>  
+> +static umode_t wq_sysfs_unbound_group_visible(struct kobject *kobj,
+> +					      struct attribute *attr, int n)
+> +{
+> +	struct device *dev = kobj_to_dev(kobj);
+> +	struct workqueue_struct *wq = dev_to_wq(dev);
+> +
+> +	if (!(wq->flags & WQ_UNBOUND))
+> +		return 0;
+> +
+> +	return attr->mode;
+> +}
+> +
+> +static const struct attribute_group wq_sysfs_unbound_group = {
+> +	.is_visible = wq_sysfs_unbound_group_visible,
+> +	.attrs = wq_sysfs_unbound_attrs,
+> +};
+> +
+> +__ATTRIBUTE_GROUPS(wq_sysfs_unbound);
+> +
+>  static const struct bus_type wq_subsys = {
+>  	.name				= "workqueue",
+>  	.dev_groups			= wq_sysfs_groups,
+> @@ -7907,14 +7933,9 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+>  	wq_dev->wq = wq;
+>  	wq_dev->dev.bus = &wq_subsys;
+>  	wq_dev->dev.release = wq_device_release;
+> +	wq_dev->dev.groups = wq_sysfs_unbound_groups;
+>  	dev_set_name(&wq_dev->dev, "%s", wq->name);
+>  
+> -	/*
+> -	 * attrs are created separately.  Suppress uevent until
+> -	 * everything is ready.
+> -	 */
+> -	dev_set_uevent_suppress(&wq_dev->dev, true);
+> -
+>  	ret = device_register(&wq_dev->dev);
+>  	if (ret) {
+>  		put_device(&wq_dev->dev);
+> @@ -7922,21 +7943,6 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+>  		return ret;
+>  	}
+>  
+> -	if (wq->flags & WQ_UNBOUND) {
+> -		struct device_attribute *attr;
+> -
+> -		for (attr = wq_sysfs_unbound_attrs; attr->attr.name; attr++) {
+> -			ret = device_create_file(&wq_dev->dev, attr);
+> -			if (ret) {
+> -				device_unregister(&wq_dev->dev);
+> -				wq->wq_dev = NULL;
+> -				return ret;
+> -			}
+> -		}
+> -	}
+> -
+> -	dev_set_uevent_suppress(&wq_dev->dev, false);
+> -	kobject_uevent(&wq_dev->dev.kobj, KOBJ_ADD);
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.56.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
