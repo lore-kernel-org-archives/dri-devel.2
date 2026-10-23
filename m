@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4814606A32E
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 09:28:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5CE606A31B
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 09:29:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAMiazq0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FU8TCa39
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0B6B10E5DA;
-	Fri, 23 Oct 2026 09:28:21 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F150B10E5DA
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 09:28:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9C4B10E600;
+	Fri, 23 Oct 2026 09:29:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2607810E600
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 09:29:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DA6FB602C3;
- Fri, 23 Oct 2026 09:28:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14DC1F01825;
- Fri, 23 Oct 2026 09:28:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D9F9A405A9;
+ Fri, 23 Oct 2026 09:29:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A82B1F031E2;
+ Fri, 23 Oct 2026 09:29:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792747694;
- bh=tlePnP3GE78vbgKi5tLSYix5xa2MNZBwLKVMInUWwZ8=;
+ s=k20260515; t=1792747778;
+ bh=WH6ppsWJmNp7XsRvR8E8E9xrLV/H91K1v+S1jWsOr98=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SAMiazq0h/d4fr7VYelFNOoHhHhBYWz8XP8e8Tkhw420EvwAw9Umtlm16H1x+YAm1
- yspCfKmJlVDvuuz+DX8MhDfHgXkciawgUp/iHUmny3Ge3LUZy0rWnXMJwC5RgA5TxB
- QheRdXq+kNXoukztdjuAkaUr/0vjNROT5NeJXX1hZ50T1Jh6GuYmkIWXlufDKw1BFA
- gto3ZRZcrjAX0O/8e0/1jIxI5jHnhFSvd2hH0Fx7JqNAUeOWUjzz8U5xO2ED16NYRk
- YAYnDCRbwQ5FZhjYoV+D188RwVwcg9lao1puIsFDtOCYhw4tRTxaKYaHz4QL73xdHO
- Oo/18fZpTQD2A==
-Date: Fri, 23 Oct 2026 11:28:11 +0200
+ b=FU8TCa39PytfbnkRY4DJctKSSCC37mFhtmkpTw/Q94ZEsGIoe0POJ9U45KcVMVCmA
+ X93457lPUGQNQhbMzjXZi9TtOhLLJEEnns5i04OVWAR5ItVlUMr8IBGUf1yh2/z22r
+ rKMGp6BOFV5sKqpCWzTup7fm3xngwwuN/4UF1FI0X99Fmm00H/fg5h4dOOIdUFlSCe
+ BOOaHM99eoXMiHFuQ54EgmIB2LRNPgrrOVrxbfDorOvOjn/6+4I8U3cJNbwOKsk9j8
+ xEKFYMbNIVB5SqBM/YLYBAj82ZRmlVeqGjGFk3hBn1s6sE4NT3nOhIZKltMUMaw0MN
+ yU9Jcki0kExtw==
+Date: Fri, 23 Oct 2026 11:29:36 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Frank.Li@oss.nxp.com
 Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -47,16 +47,16 @@ Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
  linux-arm-kernel@lists.infradead.org, 
  Robert Chiras <robert.chiras@nxp.com>, Liu Ying <victor.liu@nxp.com>,
  Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 1/7] dt-bindings: lcdif: add compatible string for
- i.MX8QXP and i.MX8DXL
-Message-ID: <20261023-uppish-invincible-chinchilla-cf8a47@quoll>
+Subject: Re: [PATCH v3 2/7] dt-bindings: display: simple: Add
+ waiken,101wx001-wct
+Message-ID: <20261023-apricot-hawk-of-spirit-267aed@quoll>
 References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
- <20261020-dxl_lcdif-v3-1-adc944659e14@nxp.com>
+ <20261020-dxl_lcdif-v3-2-adc944659e14@nxp.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261020-dxl_lcdif-v3-1-adc944659e14@nxp.com>
+In-Reply-To: <20261020-dxl_lcdif-v3-2-adc944659e14@nxp.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,19 +75,20 @@ X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 20, 2026 at 04:12:51PM -0400, Frank.Li@oss.nxp.com wrote:
+On Tue, Oct 20, 2026 at 04:12:52PM -0400, Frank.Li@oss.nxp.com wrote:
 > From: Frank Li <Frank.Li@nxp.com>
 > 
-> i.MX8QXP and i.MX8DXL have lcdif, which back compatible with i.MX6SX. Add
-> front compatible string "fsl,imx8dxl-lcdif" and "fsl,imx8qxp-lcdif", which
-> fallback to "fsl,imx6sx-lcdif".
-> 
-> Required power-domains for both. Required 3 clocks and clock-names.
+> Add WKS101WX001-WCT panel, which is an industrial-grade 10.1-inch IPS TFT
+> LCD capacitive touch screen display module.
 > 
 > Signed-off-by: Frank Li <Frank.Li@nxp.com>
 > ---
+> change in v3
+> - Use Waiken Technology Limited in description
+> - Use 10.1" at comments
+> - Use waiken,101wx001-wct
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
