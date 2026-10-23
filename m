@@ -2,77 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366D1606A31D
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 06:40:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A5B606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 06:40:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nwVkBCc2
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JlJk70kV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B773112993;
-	Fri, 23 Oct 2026 06:40:35 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27F52112993
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:40:28 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4a215e64962so1252195e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 23:40:28 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0AE510E592;
+	Fri, 23 Oct 2026 06:40:46 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA7EF10E5B3
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:40:25 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-48e09aa5264so255112f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 23:40:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792737626; x=1793342426; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792737624; x=1793342424; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=qBC94N5Vlr3FlLO5bq8d1hj8zBP4JCR0k1VspHMjzxs=;
- b=nwVkBCc27/uuLjpMaDAt1WmtvfynFEAiEOsvldUN4wvwgt+FRWg4QedwQ8S0p/KYPf
- F7/ZQvFaZ61AYUtCNt+HEB+0sii9repRQu/LO3NqXt56p+ahKhDRJrlxPXbplYqvrjcK
- oV6cZXxEV0hhSVJKFsVEOfOcRtNCJjR1NlA43mgjYxoYxh4nHXC2ozKRF3x1cQSjTvLA
- VOYN3gBFccyP6Lsw/I9DzGoJY+kqkT0fYGozfZ66lTmDuF7m2s1rC7y7xwcL3DnNOYgV
- eFXhOYzAd5n0sscdaKjOAZT2rQKyG1hehvIr7yTXLvntckOH15fTwGoNwRuc3yj2rAQM
- w3PQ==
+ bh=4UoeFHsO2E1Dm3EPGxkpKrzw1COi+rNj0JGJlw6wJw8=;
+ b=JlJk70kVaLYzOAtbSGVM90BAu+S1wfHdvT+bVlbTXRX5uh4QfNykWemOp5+aXDh+/k
+ 9OdVJ8wJ+SGIzHlz/nKbk+/dyx9ZxI9T8Gh+b96AgOMczw6Qc3nxcYLKQ4Aoyxiszaj4
+ cHz/DzSy9w5YXmHYgDA8jwcLTbYNUUpdMjjB4NIA8bPMwQMEN+aFdAFhuWXgCYCdTvFw
+ LWbiDFN9JfOxnVmhmDSvaA11TKtNwdTOmtzomU3vPwhqeaCuC21iIo9xV/kobf6xcdiC
+ gsBWp1wdSlT6CPvOvfkHGWAaob8TQD1slrgE7C/H4b1DDDOFNsf8PQVfDhoTrCgKBPMz
+ TJOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792737626; x=1793342426;
+ d=1e100.net; s=20260707; t=1792737624; x=1793342424;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=qBC94N5Vlr3FlLO5bq8d1hj8zBP4JCR0k1VspHMjzxs=;
- b=2CRDV6WEKy6Q44rZA2CpIMUErlRRFhIqgW9axuLO1aUnb+VBSTCuSk2z9yzQNCOWWE
- omxDUVuZhZ7lyxdrFQ7+pddmCgsynFkGPoG8iz37qyS6hj6wVe8Aiq790ykOjk9JChHO
- JMpB+U8/ok3j41BWvNcw6Ie1PEScvKxNYuz16pWxeK6pCDbLN2/TpHhm8lrCEk3NvcTH
- LK7qFl9TDf/l08AavXxU25JepFDTjThPVu21JsR+cBVOg/tELFoLGJLnQbqiPjdEIO8c
- AW1HvA2qvmoh1eAH6phsOKbSrmWbo9yiji5AkCb/LYIvFkhKUspnXaYcREmXJjbLSCOz
- fFiw==
+ bh=4UoeFHsO2E1Dm3EPGxkpKrzw1COi+rNj0JGJlw6wJw8=;
+ b=AQUOnEc1zEpBpurfyGZzZ288U4MIgrFRMtrCn/fnEKB+ryvNvQScTpPZzIFRfsO9RG
+ wU62qWTQ3T/ZfLQV1X1JcFjwpCzDha83plvDbGHU+D9zHBJtAZpYhD+SfCr7DZSrfkFj
+ zGAzoZ3fgTfE3vIqr+H4HZpuu1N4qKvA7848trSjitpdbNGcEeBPUIn2xm7o1vqvecN2
+ iOrlHI5uuVrzp7zOsmdoihFr+3ajYFVPbIj50q9Jz5pYnRQCIn2d3oyP5vdbpLqt0xl5
+ CQ/UZnTT9lzBYgxlJdG7yaK/JXA4xnJyWm0f4w8VpZdGg/Lsw4ECv6RM5IUYuP1MsAv5
+ co4g==
 X-Forwarded-Encrypted: i=1;
- AKwUvBztPOxoB29ErDls+h6RZOMPXQhFrkCVkvlqNBuLJh9HXY+RTcuL3mrE83BMdOri5qLc79XgerQQ4fo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJCqurTvegz60vH6xUwSnAAWac+lWurNiWAOY3mnlP5jhQXrtFo
- R6wMYP+ebViPYf81lZePrDxRnMMzWwzkI6Xurdw5YKggfCVAnjuFGxgB
-X-Gm-Gg: AYBFou2fQBdsmzGD66AygXxhbBCjvqKGsnhJtrcGo8w1BA7YhxwScgoRFWlbqqFpC+2
- C8Cq+ESZ6RdQmBk5b6WuLZhwR59YqUK9SJqWlZ1i+rOUxvJgyFHoleKTK6Mnh5ySTlQ6iWnwDQQ
- cpTRDucKrsyDo4DGxkPxKL7qcxYZZS4I8KuuJ1DqL4t6IcwShaYpzlDe5v9Z3eFIwyV/tzgwJQZ
- fu4XNt1W4MCTYjLAgb7xuJc4CbJNxVx5e/XEXDyiinYDbCKyOZSLyh+gB5oWLmywE7lxn1tchCc
- Xt6D2ttdTNRGMgF34Q9r2vUU6gSQ2BeVpLKD5d6WdK9y7Fa8f/sH7Y6dX4XrvLYQJ8xDQ5thYTn
- 4+KHMXTbo7ccMH/NH9ZQvuS2FuhUxvYjSv92EZfpVU+7Q0wtwhmpH3pjm1IJmORxGKF0B8ajCXL
- IS2MP0tLW7qFL+sz4h+6XDMrBi5M14QdNHKbLTMjNs1Dv+pN7/VfZ4F8Iu5yc8iPSuKg0pU6Zkj
- ykRTdhME942c6JgmhnnD4eB4qvmBsrFjJ2Ut0kRWeyAkoekm1FFBqGthBoe4uh0rU9tuzFZxu+l
- AgQLSFSXX2SxfRJFGfqHKrp8N2Ll9zg9bgmcD9VyUwY6iOFyoOX3Yc4wqILKx+KrmnkS8c5SiJ+
- VVd8=
-X-Received: by 2002:a05:600c:3486:b0:4a1:722a:d2a3 with SMTP id
- 5b1f17b1804b1-4a211eec13amr18677595e9.23.1792737626234; 
- Thu, 22 Oct 2026 23:40:26 -0700 (PDT)
+ AKwUvByhQqBTqa/kxZWl6s873ePjLelU6xOIyMc6MkO2Jc6GpkngGBhJLlUaEIavZbPIjAwaLptT/I71dto=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLxksDyIfSEy8R3wbLk6GjynQlCDWfZcqguNv0IPN30+wOvVyBL
+ 1pmqDIJ/ICyVCEMke1dQvTZlhw7+9vbVl67TBRsXlWEN2MTSS4z57jph
+X-Gm-Gg: AYBFou1KG2nJbAk3Rwne4YO+0+uLDxRerWkzAHNQmA4kHjvKFDJvwParDs/jmxx4HSy
+ DxOruzx227wfAAsT1HabuAtpS6jAvDYvjmSmNUwF9a0uxHSEBhLdHrwtdo80iQxhgUQvtV5iBd3
+ gVVyU7kaoOjWb551bfo92RHemuMfs/cFL5dFYm5jCNIBBZWwn4VXNhZ3z94UGAA+ftRUI+SP29T
+ g3Slhtg76y0kJhQu+sw9tyYTDSF+hhxSOw7yuS8S4A1FdkU0aEo0HdEdT6Tp8qOqkKrSbicgQKp
+ jQ+y2gIsbBwlGCYKtbWVKsvndrbdYq363QLTxeL4P3ehVHSEuXJZ/gExAYWF2qbNKRVud+xeyOF
+ +lBLlDyZR3vZ1TDmHKDBpm/lEeD7LB0YP5VgANDEZrq+OAl0YVIDAsTTSQoL1UwFwYe5p75Wyj1
+ RnRGioEI7aR/tFObE+KjW/KP7csd9DA4hntDZs6kCYWfmH1mlkhdxMOz02WwIhqh7XsGr5WGTkl
+ VpPXsPMiMxILSJldK+Fb971hjwV7z5q5UkW4MZ5LbJ8k3APXhwuxEZast0p7CJQuHvOKY+ERTQN
+ O/XHNS/+I1eRtpi0FvhyT/7uVpXoHH3yyrfIemJpteCKgyQgOITgqoNki6PwJBxuTkktBPTw7+8
+ O1pTm2e7Z3b1TLFTHi7GMqnax
+X-Received: by 2002:a05:6000:4910:b0:48e:1c2:55a1 with SMTP id
+ ffacd0b85a97d-48e385c0867mr1563144f8f.52.1792737623908; 
+ Thu, 22 Oct 2026 23:40:23 -0700 (PDT)
 Received: from [192.168.1.22] (cst-prg-49-173.cust.vodafone.cz.
  [46.135.49.173]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.40.23
+ ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.40.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 23:40:25 -0700 (PDT)
+ Thu, 22 Oct 2026 23:40:23 -0700 (PDT)
 From: Tomeu Vizoso <tomeu.vizoso@gmail.com>
 X-Google-Original-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Fri, 23 Oct 2026 08:39:41 +0200
-Subject: [PATCH v3 16/16] arm64: dts: ti: k3-j722s: Reference the power
- domains of the C7x timers
+Date: Fri, 23 Oct 2026 08:39:40 +0200
+Subject: [PATCH v3 15/16] arm64: dts: ti: k3-j722s: Add second submailbox
+ to the C7x cores
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-thames-v3-16-3ab40aa17157@tomeuvizoso.net>
+Message-Id: <20261023-thames-v3-15-3ab40aa17157@tomeuvizoso.net>
 References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 In-Reply-To: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 To: Nishanth Menon <nm@ti.com>, "Andrew F. Davis" <afd@ti.com>, 
@@ -121,42 +121,62 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Make sure that the timers are powered up so the firmware can use them.
+For firmware that uses something other than RPMsg for communication with
+the Linux kernel.
 
 Assisted-by: LLM
 Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 ---
- arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-index 611220ff2655..7639081dc913 100644
+index a59c3648d805..611220ff2655 100644
 --- a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
 +++ b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-@@ -166,6 +166,14 @@ &c7x_0 {
- 		 <&mailbox0_cluster2 &mbox_c7x_0_client>;
+@@ -86,6 +86,11 @@ mbox_c7x_0: mbox-c7x-0 {
+ 		ti,mbox-rx = <0 0 0>;
+ 		ti,mbox-tx = <1 0 0>;
+ 	};
++
++	mbox_c7x_0_client: mbox-c7x-0-client {
++		ti,mbox-rx = <3 0 0>;
++		ti,mbox-tx = <2 0 0>;
++	};
+ };
+ 
+ &mailbox0_cluster3 {
+@@ -100,6 +105,11 @@ mbox_c7x_1: mbox-c7x-1 {
+ 		ti,mbox-rx = <2 0 0>;
+ 		ti,mbox-tx = <3 0 0>;
+ 	};
++
++	mbox_c7x_1_client: mbox-c7x-1-client {
++		ti,mbox-rx = <5 0 0>;
++		ti,mbox-tx = <4 0 0>;
++	};
+ };
+ 
+ /* Timers are used by Remoteproc firmware */
+@@ -152,14 +162,16 @@ &main_r5fss0_core0 {
+ };
+ 
+ &c7x_0 {
+-	mboxes = <&mailbox0_cluster2 &mbox_c7x_0>;
++	mboxes = <&mailbox0_cluster2 &mbox_c7x_0>,
++		 <&mailbox0_cluster2 &mbox_c7x_0_client>;
  	memory-region = <&c7x_0_dma_memory_region>,
  			<&c7x_0_memory_region>;
-+	/*
-+	 * Both timers on each core: core 0's firmware drives TIMER1 and core
-+	 * 1's TIMER2; two entries also keep the platform bus from attaching the
-+	 * domain to the K3 driver's device.
-+	 */
-+	power-domains = <&k3_pds 37 TI_SCI_PD_EXCLUSIVE>,
-+			<&k3_pds 38 TI_SCI_PD_EXCLUSIVE>;
-+	power-domain-names = "timer1", "timer2";
  	status = "okay";
  };
  
-@@ -174,5 +182,8 @@ &c7x_1 {
- 		 <&mailbox0_cluster3 &mbox_c7x_1_client>;
+ &c7x_1 {
+-	mboxes = <&mailbox0_cluster3 &mbox_c7x_1>;
++	mboxes = <&mailbox0_cluster3 &mbox_c7x_1>,
++		 <&mailbox0_cluster3 &mbox_c7x_1_client>;
  	memory-region = <&c7x_1_dma_memory_region>,
  			<&c7x_1_memory_region>;
-+	power-domains = <&k3_pds 37 TI_SCI_PD_EXCLUSIVE>,
-+			<&k3_pds 38 TI_SCI_PD_EXCLUSIVE>;
-+	power-domain-names = "timer1", "timer2";
  	status = "okay";
- };
 
 -- 
 2.54.0
