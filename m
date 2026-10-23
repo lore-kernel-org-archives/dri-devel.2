@@ -2,72 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C15F606A333
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 01:21:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78FF606A31D
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 02:35:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=X/Fm4VDX
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=hLPmJ282
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E10A11292C;
-	Fri, 23 Oct 2026 01:21:37 +0000 (UTC)
-Received: from mail-m6021.netease.com (mail-m6021.netease.com [210.79.60.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9057811292C;
- Fri, 23 Oct 2026 01:21:29 +0000 (UTC)
-Received: from [127.0.0.1] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 520f42c30;
- Fri, 23 Oct 2026 09:21:25 +0800 (GMT+08:00)
-Message-ID: <e19ac7d1-5a86-4a96-a868-56a4abda3ec4@rock-chips.com>
-Date: Fri, 23 Oct 2026 09:21:08 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA1A10E504;
+	Fri, 23 Oct 2026 02:35:08 +0000 (UTC)
+Received: from mail-m20521016437.xmail.ntesmail.com
+ (mail-m20521016437.xmail.ntesmail.com [205.210.164.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEA4210E504
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 02:35:00 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 52123f987;
+ Fri, 23 Oct 2026 10:34:55 +0800 (GMT+08:00)
+Message-ID: <45615806-fa9a-4823-8f96-9a906e4433aa@rock-chips.com>
+Date: Fri, 23 Oct 2026 10:34:54 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/9] drm/bridge: pass down IRQ_HPD to the drivers
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Subject: Re: [PATCH v3 1/6] dt-bindings: display: rockchip: analogix-dp: Add
+ support for RK3568
+To: Rob Herring <robh@kernel.org>
+Cc: Sandy Huang <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Francesco Dolcini <francesco@dolcini.it>, Kevin Hilman
- <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20261022-hpd-irq-events-v6-0-337ea3ddaa62@oss.qualcomm.com>
- <20261022-hpd-irq-events-v6-3-337ea3ddaa62@oss.qualcomm.com>
+ Dave Jones <s.dave.jones@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20261020030916.3223833-1-damon.ding@rock-chips.com>
+ <20261020030916.3223833-2-damon.ding@rock-chips.com>
+ <20261021133002.GA3886567-robh@kernel.org>
 Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261022-hpd-irq-events-v6-3-337ea3ddaa62@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20261021133002.GA3886567-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1665937f503a7kunmabefcd952d3a31
+X-HM-Tid: 0aa1669c826703a8kunm895555f01716b0
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHkxKVkIdSU4dHxpNGhkZTFYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQkxVSktLVUpCS0tZBg++
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSR5JVk4YS0IeTk5MH0NOS1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
+ 5KVUpLS1VKQktCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=X/Fm4VDX9sFENPD6Wn9qD+Uao+7D0Epq2pQrsnbwFBrymGk6h8O6RmS3bL18Vm4+OOE5fn9EHK7f5aXlKmzlgC52HGgkZdlKQwycb9gdto26fXfwfIFdx0+DDP+R8+nr+Q9Qgl+MLUiC4hQPHMwHPlcJ75OMdNIu2jiqwx+mQLE=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=fTHe9pcXTKxRGNgBHQwELDkRI1+tQnp9o4yzAANBj4Y=;
+ b=hLPmJ282eTgyBRhFIComvj78l4vIa84ErkQymRNMxoY0RgAFUIbIegUnHzdyzCaPeZHu7N1zuHwFlctmx/1NHXSnzItVBvPAC4TxtK4oXwyaJSvDTKLEXeXCs4dnSLQk3TYEixGBh/Q9B2dONuKZXAzcdCq5DXv/MAMPyt8eao0=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=g7p57vMomCUBZccjEesEUi9+rounalBz2hqbDLPfdqw=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,125 +80,56 @@ X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/22/2026 9:27 PM, Dmitry Baryshkov wrote:
-> The DisplayPort standard defines a special kind of HPD events called
-> IRQ_HPD. These events are used to notify DP Source about the events on
-> the Sink side. Pass down the extra status to the bridge drivers via the
-> hpd_notify() callback, letting DP bridges to act accordingly.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/bridge/lontium-lt9611uxc.c     | 3 ++-
->  drivers/gpu/drm/display/drm_bridge_connector.c | 2 +-
->  drivers/gpu/drm/meson/meson_encoder_hdmi.c     | 3 ++-
->  drivers/gpu/drm/msm/dp/dp_display.c            | 3 ++-
->  drivers/gpu/drm/msm/dp/dp_drm.h                | 3 ++-
->  drivers/gpu/drm/omapdrm/dss/hdmi4.c            | 3 ++-
->  include/drm/drm_bridge.h                       | 3 ++-
->  7 files changed, 13 insertions(+), 7 deletions(-)
-> 
+Hi Rob,
 
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> index b3bb7f2cebb3..b1ffbab89a16 100644
-> --- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-> @@ -429,7 +429,8 @@ static const struct drm_edid *lt9611uxc_bridge_edid_read(struct drm_bridge *brid
->  
->  static void lt9611uxc_bridge_hpd_notify(struct drm_bridge *bridge,
->  					struct drm_connector *connector,
-> -					enum drm_connector_status status)
-> +					enum drm_connector_status status,
-> +					enum drm_connector_dp_event event)
->  {
->  	const struct drm_edid *drm_edid;
->  
-> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-> index 898273f60cf6..1b0a1a00d8eb 100644
-> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> @@ -151,7 +151,7 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
->  	/* Notify all bridges in the pipeline of hotplug events. */
->  	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
->  		if (bridge->funcs->hpd_notify)
-> -			bridge->funcs->hpd_notify(bridge, connector, status);
-> +			bridge->funcs->hpd_notify(bridge, connector, status, event);
->  	}
->  }
->  
-> diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-> index c4355c5cc340..a637613ae2e1 100644
-> --- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-> +++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-> @@ -323,7 +323,8 @@ static int meson_encoder_hdmi_atomic_check(struct drm_bridge *bridge,
->  
->  static void meson_encoder_hdmi_hpd_notify(struct drm_bridge *bridge,
->  					  struct drm_connector *connector,
-> -					  enum drm_connector_status status)
-> +					  enum drm_connector_status status,
-> +					  enum drm_connector_dp_event event)
->  {
->  	struct meson_encoder_hdmi *encoder_hdmi = bridge_to_meson_encoder_hdmi(bridge);
->  
-> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-> index 6abe30bdff12..fa8942922b53 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_display.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -1541,7 +1541,8 @@ void msm_dp_bridge_hpd_disable(struct drm_bridge *bridge)
->  
->  void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
->  			      struct drm_connector *connector,
-> -			      enum drm_connector_status status)
-> +			      enum drm_connector_status status,
-> +			      enum drm_connector_dp_event event)
->  {
->  	struct msm_dp_bridge *msm_dp_bridge = to_dp_bridge(bridge);
->  	struct msm_dp *msm_dp_display = msm_dp_bridge->msm_dp_display;
-> diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-> index da412c788503..8f2f4201da60 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_drm.h
-> +++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-> @@ -31,6 +31,7 @@ void msm_dp_bridge_hpd_enable(struct drm_bridge *bridge);
->  void msm_dp_bridge_hpd_disable(struct drm_bridge *bridge);
->  void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
->  			      struct drm_connector *connector,
-> -			      enum drm_connector_status status);
-> +			      enum drm_connector_status status,
-> +			      enum drm_connector_dp_event event);
->  
->  #endif /* _DP_DRM_H_ */
-> diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-> index bd6c4d2dcdc8..72972a6fe989 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-> +++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-> @@ -429,7 +429,8 @@ static void hdmi4_bridge_disable(struct drm_bridge *bridge,
->  
->  static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
->  				    struct drm_connector *connector,
-> -				    enum drm_connector_status status)
-> +				    enum drm_connector_status status,
-> +				    enum drm_connector_dp_event event)
->  {
->  	struct omap_hdmi *hdmi = drm_bridge_to_hdmi(bridge);
->  
-> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-> index 1981d24a700d..6382ef5f1ea2 100644
-> --- a/include/drm/drm_bridge.h
-> +++ b/include/drm/drm_bridge.h
-> @@ -509,7 +509,8 @@ struct drm_bridge_funcs {
->  	 */
->  	void (*hpd_notify)(struct drm_bridge *bridge,
->  			   struct drm_connector *connector,
-> -			   enum drm_connector_status status);
-> +			   enum drm_connector_status status,
-> +			   enum drm_connector_dp_event event);
->  
->  	/**
->  	 * @hpd_enable:
+On 10/21/2026 9:30 PM, Rob Herring wrote:
+> On Tue, Oct 20, 2026 at 11:09:11AM +0800, Damon Ding wrote:
+>> Document the "rockchip,rk3568-edp" compatible.  Like RK3576/RK3588,
+>> the RK3568 eDP controller has the dp/pclk/hclk clocks and dp/apb
+>> resets, but unlike them it does not use GRF registers, so make the
+>> "rockchip,grf" property conditional on the SoC.
+>>
+>> Also document the optional avdd-0v9 and avdd-1v8 supplies, which are
+>> needed by the RK3568 eDP controller.
+>>
+>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>> ---
+>>   .../rockchip/rockchip,analogix-dp.yaml        | 25 ++++++++++++++++++-
+>>   1 file changed, 24 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> index 39dafe75a680..f8670a4e0430 100644
+>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> @@ -15,6 +15,7 @@ properties:
+>>       enum:
+>>         - rockchip,rk3288-dp
+>>         - rockchip,rk3399-edp
+>> +      - rockchip,rk3568-edp
+>>         - rockchip,rk3576-edp
+>>         - rockchip,rk3588-edp
+>>   
+>> @@ -47,6 +48,16 @@ properties:
+>>         - const: dp
+>>         - const: apb
+>>   
+>> +  avdd-0v9-supply:
+>> +    description:
+>> +      A 0.9V supply that powers up the SoC internal circuitry. The actual
+>> +      supply source varies between different boards.
+>> +
+>> +  avdd-1v8-supply:
+>> +    description:
+>> +      A 1.8V supply that powers up the SoC internal circuitry. The actual
+>> +      supply source varies between different boards.
+>> +
+> 
+> Are these valid for other compatibles?
 > 
 
--- 
-Best, 
-Chaoyi
+Got it. These properties are not required for other compatibles.
+I will restrict them to the RK3568 compatible in v4.
+
+Best regards,
+Damon
 
