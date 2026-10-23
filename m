@@ -2,84 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6F2606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 11:53:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49194606A31B
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 12:05:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=DzYdy9e+
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=mEgiAF0V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2217D112AF5;
-	Fri, 23 Oct 2026 11:53:40 +0000 (UTC)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7AAC112AF5
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 11:53:33 +0000 (UTC)
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4a2000d5ebeso6103225e9.2
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 04:53:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A554E10E60B;
+	Fri, 23 Oct 2026 12:05:33 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58E8F112AD9
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 12:05:27 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4a1fe9efc0eso8706705e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 05:05:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1792756411; x=1793361211;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=uLj6FN5zzpYaXQgmzegMg+GrSB746kgYZ/YLy03P7lg=;
- b=DzYdy9e++RPryOhZpj4nm2tQz/jMc7pjd40Wr7qlFb3k5QparY6eX/bx8R3mIvi4I4
- YcqNlCsYISwStGwWwKA8aqwlWzczO5tce40WsvnxA2EplCdffVOf8WVWDvNGy4BiXjjW
- Jl/8RXb8dD4lzZhIz5JFI3oQKvGM7le+UGUQhEEBd51o8zS5qZZkUmEjKdlqC4Gfop7p
- B+GJDoliQ3g/BO00uyTUiAoqe3gG47ncWrcLuGAGdS8JK74QapjOx+5f4+QBxYb9+R09
- qCk2eBRg+pDOrELlvnKEn7Tbkf18tXJKsj9A4rzFhlcDjf8cofCwpfqwI3qSxJSg6zt7
- 7FVQ==
+ d=fairphone.com; s=fair; t=1792757125; x=1793361925; darn=lists.freedesktop.org;
+ h=in-reply-to:references:subject:cc:to:from:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=uSco1V1HeJRIohr0HU9Igo93pBA2b9NsqhyVUoLr4Hc=;
+ b=mEgiAF0V4TN94GYlbB0Hxm0u2gYskNWAZE79V6mPaNj0BsXiT0fCJk3rIDZciX9orq
+ sWUifvfssBZ80deUbkyc6V3JL7gSyDXuxynemCfUF5yMNxCqgu3MVMoU0cRqhoy2AeL9
+ eKawBv2dDRkIfy2lkJiHIgrYrjNVDP7ai4Egk6lUGgxsTJ7+GfNMRi9m1ZMGy6bQs+hK
+ aryLi6/Xn72DcerOHoOuvbdUlmiEf1cKYGIRu7DDvXQcvv4IZGr92+w11Zo4DQaOS8yi
+ BMBcCONJq+m72C7fSz1PebCfxg3cXJjSxxyjMqzjSnbylutGfs6AGzM8XayRWKvBwZHq
+ tNvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792756411; x=1793361211;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=uLj6FN5zzpYaXQgmzegMg+GrSB746kgYZ/YLy03P7lg=;
- b=lOUgLlZDjRdS6LBl4c6rR/bFmCCDW+9gdT6oar5gHrezB1+7rAusqSCWmQkQb2eUJs
- ykoPKOtjXc7Y7SkTr6420Wsw4smpRdDiEXeCYTkIDYpKCAleM7E4ICIC99J7JOdnziLZ
- NtJ4KIcKqvXY5qxKDUlWO/VBvaPb2uNhPqDP0PbpLrdv6miuVfYvfXlC1grzYSuvHGIy
- bBsN19cQYJF2tm66Z3T/61XSyuQUGVUUd8w3+jz/9L+ZrhlhwedIxwqecPS1XO7Q20rZ
- 7Jcx9tenPwDNVQgXB/yCwN5GiFbvS/KBFErCJLhkCXIJcG29cfuXjbrCHYxdIUs+aGiK
- 7q/g==
+ d=1e100.net; s=20260707; t=1792757125; x=1793361925;
+ h=in-reply-to:references:subject:cc:to:from:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=uSco1V1HeJRIohr0HU9Igo93pBA2b9NsqhyVUoLr4Hc=;
+ b=Wf5GNACD4qYZd5iS04KQE5JWHdh9ftPQsPbxw8tcXsUJSCOu4UcH3owmcZjf96pqOT
+ DTJFQw0cRV2YFYS8s+gF30VdOWPOicb6n0BoK66FDuBc5ZYExd2WhEBYO18H6zZveJJf
+ mVfe3j5ejvL1vAXyj8WC5dUcVpA+4KiitsVMdKPMJNpdbE82dh4O7iWULoB3WRvkbxJw
+ zG2LE2fYS/Sb9IqTASYwKhSQH8CAUAAoirrT2rtD6OIQtWT/QcFXs63G0n+JN2BSALEQ
+ GtR/lbLBJJZMz7UjwNgVmGLkPtHEyd106BwlF9/ojAmrx4AtHf+ttWfS9a35klrKiGqn
+ 1eag==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzFJsDjeVbTYQOfj9/izJtINu1bIhhr8YA56hz3UviiyqZeA8YzAo4p5Wz0656HBVi8sqihpj7NWb0=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ10ZOT+N7LH+O7RHiZbbGwxycXjo8JNOml+zmIazlJAI3yNlIy
- 1NSwyihJdDhbmaJ63FEZkx4ArsxWgYqk8Ua/U5M2XTlZTApL2Di9zqZZV8pZbM1WyZmpoDSscSq
- l8752wOeqBhILwbBONg==
-X-Received: from wmoh19.prod.google.com ([2002:a05:600c:3153:b0:4a1:8915:6ed2])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4e8a:b0:49f:fe39:5bc8 with SMTP id
- 5b1f17b1804b1-4a211ee9b8amr34064815e9.12.1792756410725; 
- Fri, 23 Oct 2026 04:53:30 -0700 (PDT)
-Date: Fri, 23 Oct 2026 11:53:26 +0000
-In-Reply-To: <atqh41vrlC4xVtaj@um790>
+ AKwUvBzWZ1DVrSUysPo5x9bhdKOWsUhBvvQhdUw1fNAzRw3EKFCDkonSW1dq1JC2mq67pyax0Ac6cqbBvvk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLU6k+X0UJclFrmm4fDZCeREwwulhX7ixksOuHMTJOIxbb43I4A
+ qQJ2hrDL9WGyEKJajckUNxRATAspJkrT27OOIjHFnGpRR92PkRS/Thrm8+wYM8oLJk8=
+X-Gm-Gg: AYBFou39RVxFO7uvRTOPp9xxxXNoYr34gHjhHTJ75d9jlGRLiV+XsMHb2j94ONL81K1
+ 9bi/HG7Z1Dg3RqL9Wky+MlMuwf3ICu33LRveVr8z7MSOieu6GnLtEXc2ehUxWX+mmAO4yueS1Yo
+ jCAp00uu6UB23FLx8LYT+1pXBikBr04qNeSMBxn6ef13fyTWB38n/UAlcqV99IJqEsqa9+7JSv+
+ 8focgWrdO2PfWhsvFz7I/52oTxMBc9OXl8TmC0nlq1gT8sSf/Xz0DB+HNISZ/WCP7OkBIacsLsC
+ 3gaN9lMcB7oaRPUomSYKeQ1QOKtLdDRuxXiMjcBdOVVRn7dCdxRt6YPtn5ww61G5wZLh3FTNVF9
+ 8pbgm9N7C/MJcDZDfr/qHABf6Qp7JVsCDOK/0hAHVVN8c18Z9ihSiQjPDCx8gb75a7rq2C9c++0
+ 267sq1hljAX3IK1RvHKo9a+qSIbWAIeFEV9sxZTw/JE3jvlnCn49HTPdcNBykAGK7bvteR36lqz
+ t5A3GwsK5/ePX0V48sHN8R7zasecuUN5426FqXaTgn+N1Mu8b6TLM2OaA==
+X-Received: by 2002:a05:600c:1c08:b0:4a2:16c0:f4f with SMTP id
+ 5b1f17b1804b1-4a216c010e4mr22298145e9.30.1792757124684; 
+ Fri, 23 Oct 2026 05:05:24 -0700 (PDT)
+Received: from localhost ([93.123.20.211]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a21544dc5csm28563925e9.3.2026.10.23.05.05.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Oct 2026 05:05:23 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
-References: <20261020-tyr-ioctls-v4-0-704de77da223@kylinos.cn>
- <20261020-tyr-ioctls-v4-2-704de77da223@kylinos.cn> <atqh41vrlC4xVtaj@um790>
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261023115327.1776353-1-aliceryhl@google.com>
-Subject: Re: [PATCH v4 02/11] rust: mm: add `task_size` helper
-From: Alice Ryhl <aliceryhl@google.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>, Ke Sun <sunke@kylinos.cn>
-Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Lyude Paul <lyude@redhat.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, 
- rust-for-linux@vger.kernel.org, linux-mm@kvack.org, 
- dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 23 Oct 2026 17:35:06 +0530
+Message-Id: <DMC7CT2C3AZ5.2SEL62SMKTXEQ@fairphone.com>
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "erebion" <erebion@erebion.eu>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Jessica Zhang" <jesszhan0024@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v2 2/8] arm64: dts: qcom: sm6350-lena: Add
+ qcom,rmtfs-mem node
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-2-b4612e3eb536@erebion.eu>
+In-Reply-To: <20260926-pdx213-upstream-3-v2-2-b4612e3eb536@erebion.eu>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,35 +94,72 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,
-	USER_IN_DEF_DKIM_WL autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Oct 22, 2026 at 04:53:07PM -0700, Deborah Brouwer wrote:
-> On Tue, Oct 20, 2026 at 04:25:19PM +0800, Ke Sun wrote:
-> > From: Alvin Sun <alvin.sun@linux.dev>
-> 
-> I was testing Tyr's auto allocation for the user va range,
-> and was surprised to see that mm.task_size() is always returning 0.
-> It seems like it should work since it uses the task_size from
-> struct mm_struct, but it doesn't, at least for me. 
-> 
-> If you look at tyr-dev, I think it would be better to use Sami's approach:
->   428d71932b6f rust: task: add task_size()
-> 
-> Sami creates a task_size() method for CurrentTask which is our equivalent
-> to the `current` global and then you can see that task_size becomes much
-> more clearly the equivalent of "TASK_SIZE_OF" used by panthor.
-> 
-> This approach also correctly returns a user va range when Tyr has to
-> assign it in my tests, so let's switch over.
+(re-posting my mail from Sep 28 because apparently I forgot Reply-all)
 
-+1 to switching to CurrentTask::task_size(&self) backed by a C helper
-calling TASK_SIZE_OF(current). Please also include `<linux/mm.h>` in
-`rust/helpers/task.c`, as on some architectures (e.g. riscv) `TASK_SIZE` is
-defined in `<asm/pgtable.h>` rather than `<linux/sched/task.h>`.
+On Sat Sep 26, 2026 at 7:30 PM IST, erebion wrote:
+> Adds the qcom,rmtfs-mem node required for the modem
+>
+> Signed-off-by: erebion <erebion@erebion.eu>
+> ---
+>  .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 17 +++++++++++=
+++++++
+>  1 file changed, 17 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
+b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index 79aa2521aed40..0ef3e9e239786 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> @@ -4,6 +4,7 @@
+>   */
+>  /dts-v1/;
+> =20
+> +#include <dt-bindings/firmware/qcom,scm.h>
+>  #include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> @@ -54,6 +55,22 @@ touch_en_vreg: touch-en-regulator {
+> =20
+>  		vin-supply =3D <&pm6350_l6>;
+>  	};
+> +
+> +	reserved-memory {
 
-Alice
+r (reserved-memory) < t (touch-en-regulator)
+
+But it'd probably make more sense to actually rename touch-en-regulator
+to regulator-touch-en (to keep any future fixed-regulator sorted
+together as well), then the current sorting makes sense. Maybe add this
+as a patch before this one?
+
+With that fixed:
+
+Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+
+> +		/*
+> +		 * The rmtfs memory region in downstream is 'dynamically allocated'
+> +		 * but given the same address every time. Hard code it as this address=
+ is
+> +		 * where the modem firmware expects it to be.
+> +		 */
+> +		rmtfs@fe901000 {
+> +			compatible =3D "qcom,rmtfs-mem";
+> +			reg =3D <0x0 0xfe901000 0x0 0x280000>;
+> +			no-map;
+> +
+> +			qcom,client-id =3D <1>;
+> +			qcom,vmid =3D <QCOM_SCM_VMID_MSS_MSA>;
+> +		};
+> +	};
+>  };
+> =20
+>  &apps_rsc {
+
+
