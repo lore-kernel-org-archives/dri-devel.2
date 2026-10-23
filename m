@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA63606A31B
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 13:55:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0873E606A31B
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 13:59:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WPucXX3W
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GfWuBKFo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EEB8112B2D;
-	Fri, 23 Oct 2026 13:55:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 622D9112B58;
+	Fri, 23 Oct 2026 13:59:02 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1D8E6112B4F
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 13:55:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4F51B112B58
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 13:58:55 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6F7481C00
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:54:57 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B25691C00
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:58:51 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 5A04A3F673
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:55:00 -0700 (PDT)
+ B037C3F673
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:58:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792763700; bh=CBAd3D2nS0pV5DyJNQc3hXRDVv+Z6NVGzTQtyO8Q/is=;
+ t=1792763934; bh=xKoA97gtYFyGQYoGNvmpRHwPabgsxdqPlSj5YP1vDxQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WPucXX3WhKkmOQm2eVOj9NfQqy0bLGj9km3s56i7x3gTjtJemmEo7Wco+m+yfkQKO
- I1BEJWWMy3mJCDn7CBMssiqoEZsbMreNIrssQbhYnxo1CRJpJbmkOhhy1O7XETeQcI
- eXlEaxMdhECdP8KV2GImXgNXBORWlE4ebgb/UcAA=
-Date: Fri, 23 Oct 2026 14:54:49 +0100
+ b=GfWuBKFoepJrCCdSBSdneOv4NY8flB7/t8ZbhdC0aksuDJ48ZJq0+RR18sMMKdmeQ
+ MCGmYrcc2vGJx8gxifnyt7FJj6IBNU7xynhg+4sR1Cjq5GAdpngX3QoA3T3P3uVG0k
+ JsAaNHWag/wKR37hZ5IjyZOWPqhD/4wPEdckxvVA=
+Date: Fri, 23 Oct 2026 14:58:43 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Lukas Zapolskas <lukas.zapolskas@arm.com>
 Cc: Daniel Almeida <daniel.almeida@collabora.com>,
@@ -37,16 +37,17 @@ Cc: Daniel Almeida <daniel.almeida@collabora.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, nd@arm.com
-Subject: Re: [PATCH v7 3/8] drm/panthor: Add DEV_QUERY.PERF_INFO handling
-Message-ID: <attnKY2jJvfF6X6q@e142607>
+Subject: Re: [PATCH v7 4/8] drm/panthor: Add panthor perf initialization and
+ termination
+Message-ID: <attoEwv8OgZ2-l58@e142607>
 References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
- <20261011-panthor-performance-counters-v7-3-12c32495062f@arm.com>
+ <20261011-panthor-performance-counters-v7-4-12c32495062f@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261011-panthor-performance-counters-v7-3-12c32495062f@arm.com>
+In-Reply-To: <20261011-panthor-performance-counters-v7-4-12c32495062f@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,286 +66,268 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sun, Oct 11, 2026 at 06:36:50PM +0100, Lukas Zapolskas wrote:
-> This change adds the IOCTL to query data about the performance counter
-> setup. Some of this data was available via previous DEV_QUERY calls,
-> for instance for GPU info, but exposing it via PERF_INFO
-> minimizes the overhead of creating a single session to just the one
-> aggregate IOCTL, and removes the dependence on architectural details of
-> the counter layout.
-> 
-> This required reading one of the GPU registers, which is exposed via
-> a new helper in the gpu header.
-> 
-> The current handling covers GPUs from the Mali-Gx10 up to and including
-> the Mali-G1.
+On Sun, Oct 11, 2026 at 06:36:51PM +0100, Lukas Zapolskas wrote:
+> Added the panthor_perf system initialization and unplug code for
+> subsystem-level handling in subsequent patches. Userspace session
+> handling is done at the pfile level, via a pool of sessions.
 > 
 > Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
-
-Hi,
-
-I can't find a best place to put my thoughts in so I'm going to use this patch to
-say how I think I would like the series to look like. The general idea is that
-while a series introduces new functionality, each patch should ideally
-stand on its own and be able to be committed individually without breaking the
-previous version or end up confusing user space.
-
-Therefore, I would merge patch 1/8 and 3/8 into a single bigger patch that at least offers
-support for some of the exposed uAPI. Whether that means we should bump the driver's
-minor version twice it's up for debate, but at least we don't end up having uAPI
-headers with no implementation in case only the first commit in the series is merged.
-
 > ---
->  drivers/gpu/drm/panthor/Makefile         |  1 +
->  drivers/gpu/drm/panthor/panthor_device.c |  7 +++
->  drivers/gpu/drm/panthor/panthor_device.h |  3 ++
->  drivers/gpu/drm/panthor/panthor_drv.c    | 10 +++-
->  drivers/gpu/drm/panthor/panthor_gpu.c    |  5 ++
->  drivers/gpu/drm/panthor/panthor_gpu.h    |  2 +
->  drivers/gpu/drm/panthor/panthor_perf.c   | 87 ++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_perf.h   | 15 ++++++
->  8 files changed, 129 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/panthor/panthor_device.c |  2 +
+>  drivers/gpu/drm/panthor/panthor_device.h |  9 +++-
+>  drivers/gpu/drm/panthor/panthor_drv.c    |  9 ++++
+>  drivers/gpu/drm/panthor/panthor_perf.c   | 85 ++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/panthor/panthor_perf.h   |  6 +++
+>  5 files changed, 110 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/Makefile b/drivers/gpu/drm/panthor/Makefile
-> index dd15d52a88ba..c65fff290720 100644
-> --- a/drivers/gpu/drm/panthor/Makefile
-> +++ b/drivers/gpu/drm/panthor/Makefile
-> @@ -10,6 +10,7 @@ panthor-y := \
->  	panthor_heap.o \
->  	panthor_hw.o \
->  	panthor_mmu.o \
-> +	panthor_perf.o \
->  	panthor_pwr.o \
->  	panthor_sched.o
->  
 > diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 9687c59de350..2877d47c6717 100644
+> index 2877d47c6717..535383ef629f 100644
 > --- a/drivers/gpu/drm/panthor/panthor_device.c
 > +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -24,6 +24,7 @@
->  #include "panthor_gpu.h"
->  #include "panthor_hw.h"
->  #include "panthor_mmu.h"
-> +#include "panthor_perf.h"
->  #include "panthor_pwr.h"
->  #include "panthor_sched.h"
->  
-> @@ -287,6 +288,10 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	if (ret)
->  		goto err_unplug_fw;
->  
-> +	ret = panthor_perf_init(ptdev);
-> +	if (ret)
-> +		goto err_unplug_sched;
-> +
->  	panthor_gem_init(ptdev);
->  
->  	/* Now that everything is initialized, we can enable the reset work. */
-> @@ -305,6 +310,8 @@ int panthor_device_init(struct panthor_device *ptdev)
+> @@ -95,6 +95,7 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+>  	/* Now, try to cleanly shutdown the GPU before the device resources
+>  	 * get reclaimed.
+>  	 */
+> +	panthor_perf_unplug(ptdev);
+>  	panthor_sched_unplug(ptdev);
+>  	panthor_fw_unplug(ptdev);
+>  	panthor_mmu_unplug(ptdev);
+> @@ -310,6 +311,7 @@ int panthor_device_init(struct panthor_device *ptdev)
 >  
 >  err_disable_autosuspend:
 >  	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
-> +
-> +err_unplug_sched:
->  	panthor_sched_unplug(ptdev);
+> +	panthor_perf_unplug(ptdev);
 >  
->  err_unplug_fw:
+>  err_unplug_sched:
+>  	panthor_sched_unplug(ptdev);
 > diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index b55a3f9edd41..d93b182a3d9b 100644
+> index d93b182a3d9b..085254a60fc4 100644
 > --- a/drivers/gpu/drm/panthor/panthor_device.h
 > +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -174,6 +174,9 @@ struct panthor_device {
->  	/** @pwr: Power control management data. */
->  	struct panthor_pwr *pwr;
->  
-> +	/** @perf_info: Performance counter interface information. */
-> +	struct drm_panthor_perf_info perf_info;
-> +
->  	/** @gpu: GPU management data. */
->  	struct panthor_gpu *gpu;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 8cdba0c1a14b..b6b55b0f2ff5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -182,7 +182,8 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
-> -		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size))
-> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size), \
-> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_info, shader_blocks))
+> @@ -29,10 +29,11 @@ struct panthor_hw;
+>  struct panthor_job;
+>  struct panthor_mmu;
+>  struct panthor_fw;
+> -struct panthor_perfcnt;
+>  struct panthor_pwr;
+> +struct panthor_perf;
+>  struct panthor_vm;
+>  struct panthor_vm_pool;
+> +struct panthor_perf_pool;
 >  
 >  /**
->   * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
-> @@ -959,6 +960,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
->  			args->size = sizeof(ptdev->mmu_info);
->  			return 0;
+>   * struct panthor_soc_data - Panthor SoC Data
+> @@ -323,6 +324,9 @@ struct panthor_device {
+>  		atomic_t recovery_needed;
+>  	} pm;
 >  
-> +		case DRM_PANTHOR_DEV_QUERY_PERF_INFO:
-> +			args->size = sizeof(ptdev->perf_info);
-> +			return 0;
+> +	/** @perf: Performance counter management data. */
+> +	struct panthor_perf *perf;
 > +
->  		default:
->  			return -EINVAL;
->  		}
-> @@ -992,6 +997,9 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
->  	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
->  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
+>  	/** @profile_mask: User-set profiling flags for job accounting. */
+>  	u32 profile_mask;
 >  
-> +	case DRM_PANTHOR_DEV_QUERY_PERF_INFO:
-> +		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->perf_info);
-> +
->  	default:
->  		return -EINVAL;
->  	}
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index a383b04f101e..726a70b74346 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -508,3 +508,8 @@ int panthor_gpu_coherency_init(struct panthor_device *ptdev)
->  	drm_err(&ptdev->base, "Coherency not supported by the device");
->  	return -ENOTSUPP;
->  }
-> +
-> +u32 panthor_gpu_get_prfcnt_features(struct panthor_device *ptdev)
-> +{
-> +	return gpu_read(ptdev->gpu->iomem, GPU_PRFCNT_FEATURES);
-> +}
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
-> index f615feb05609..46a6ca98cbb1 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.h
-> @@ -60,4 +60,6 @@ u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev);
+> @@ -377,6 +381,9 @@ struct panthor_file {
+>  	/** @groups: Scheduling group pool attached to this file. */
+>  	struct panthor_group_pool *groups;
 >  
->  int panthor_gpu_coherency_init(struct panthor_device *ptdev);
->  
-> +u32 panthor_gpu_get_prfcnt_features(struct panthor_device *ptdev);
+> +	/** @sessions: Perf session pool attached to this file. */
+> +	struct panthor_perf_pool *sessions;
 > +
->  #endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
-> new file mode 100644
-> index 000000000000..cbfe1ca5872d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_perf.c
-> @@ -0,0 +1,87 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +/* Copyright 2023 Collabora Ltd */
-> +/* Copyright 2025 Arm ltd. */
-> +
-> +#include <linux/bitops.h>
-> +#include <drm/panthor_drm.h>
-> +
-> +#include "panthor_device.h"
-> +#include "panthor_fw.h"
-> +#include "panthor_gpu.h"
-> +#include "panthor_gpu_regs.h"
+>  	/** @stats: cycle and timestamp measures for job execution. */
+>  	struct panthor_gpu_usage stats;
+>  };
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index b6b55b0f2ff5..3e62142d7ebd 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -37,6 +37,7 @@
+>  #include "panthor_gpu.h"
+>  #include "panthor_heap.h"
+>  #include "panthor_mmu.h"
 > +#include "panthor_perf.h"
+>  #include "panthor_sched.h"
+>  
+>  /**
+> @@ -1635,9 +1636,16 @@ panthor_open(struct drm_device *ddev, struct drm_file *file)
+>  	if (ret)
+>  		goto err_destroy_vm_pool;
+>  
+> +	ret = panthor_perf_pool_create(pfile);
+> +	if (ret)
+> +		goto err_destroy_group_pool;
 > +
-> +/**
-> + * PANTHOR_PERF_COUNTERS_PER_BLOCK - On CSF architectures pre-11.x, the number of counters
-> + * per block was hardcoded to be 64. Arch 11.0 onwards supports the PRFCNT_FEATURES GPU register,
-> + * which indicates the same information.
-> + */
-> +#define PANTHOR_PERF_COUNTERS_PER_BLOCK (64)
+>  	file->driver_priv = pfile;
+>  	return 0;
+>  
+> +err_destroy_group_pool:
+> +	panthor_group_pool_destroy(pfile);
 > +
-> +/**
-> + * PANTHOR_HW_COUNTER_SIZE - The size of a hardware counter in the FW ring buffer.
-> + */
-> +#define PANTHOR_HW_COUNTER_SIZE (sizeof(u32))
+>  err_destroy_vm_pool:
+>  	panthor_vm_pool_destroy(pfile);
+>  
+> @@ -1651,6 +1659,7 @@ panthor_postclose(struct drm_device *ddev, struct drm_file *file)
+>  {
+>  	struct panthor_file *pfile = file->driver_priv;
+>  
+> +	panthor_perf_pool_destroy(pfile);
+>  	panthor_group_pool_destroy(pfile);
+>  	panthor_vm_pool_destroy(pfile);
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
+> index cbfe1ca5872d..ba466e22c50d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_perf.c
+> +++ b/drivers/gpu/drm/panthor/panthor_perf.c
+> @@ -3,7 +3,9 @@
+>  /* Copyright 2025 Arm ltd. */
+>  
+>  #include <linux/bitops.h>
+> +#include <drm/drm_managed.h>
+>  #include <drm/panthor_drm.h>
+> +#include <drm/drm_print.h>
+>  
+>  #include "panthor_device.h"
+>  #include "panthor_fw.h"
+> @@ -23,11 +25,26 @@
+>   */
+>  #define PANTHOR_HW_COUNTER_SIZE (sizeof(u32))
+>  
+> +#define MAX_SESSIONS_PER_FILE 1
 > +
-> +struct panthor_perf_counter_block {
-> +	struct drm_panthor_perf_block_header header;
-> +	u64 counters[];
+>  struct panthor_perf_counter_block {
+>  	struct drm_panthor_perf_block_header header;
+>  	u64 counters[];
+>  };
+>  
+> +struct panthor_perf {
+> +	/** @info: Pointer to the previously initialized perf info. */
+> +	struct drm_panthor_perf_info *info;
 > +};
 > +
-> +static size_t get_annotated_block_size(size_t counters_per_block)
-> +{
-> +	return struct_size_t(struct panthor_perf_counter_block, counters, counters_per_block);
-> +}
+> +struct panthor_perf_pool {
+> +	/** @session_range: The number of sessions supported at a time. */
+> +	struct xa_limit session_range;
 > +
-> +static size_t session_get_sample_size(const struct drm_panthor_perf_info *const info)
-> +{
-> +	const size_t block_size = get_annotated_block_size(info->counters_per_block);
-> +	const size_t block_nr = info->cshw_blocks + info->fw_blocks +
-> +		info->tiler_blocks + info->memsys_blocks + info->shader_blocks;
+> +	/** @xa: Xarray used to manage session handles. */
+> +	struct xarray xa;
+> +};
 > +
-> +	return info->sample_header_size + (block_size * block_nr);
-> +}
+>  static size_t get_annotated_block_size(size_t counters_per_block)
+>  {
+>  	return struct_size_t(struct panthor_perf_counter_block, counters, counters_per_block);
+> @@ -74,14 +91,82 @@ static void panthor_perf_info_init(struct panthor_device *const ptdev)
+>   * panthor_perf_init - Initialize the performance counter subsystem.
+>   * @ptdev: Panthor device
+>   *
+> + * The performance counters require the FW interface to be available to setup the
+> + * sampling ringbuffers, so this must be called only after FW is initialized.
+> + *
+>   * Return: 0 on success, negative error code on failure.
+>   */
+>  int panthor_perf_init(struct panthor_device *ptdev)
+>  {
+> +	struct panthor_perf *perf;
+> +	int ret = 0;
 > +
-> +static void panthor_perf_info_init(struct panthor_device *const ptdev)
-> +{
-> +	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
-> +	struct drm_panthor_perf_info *const perf_info = &ptdev->perf_info;
+>  	if (!ptdev)
+>  		return -EINVAL;
+>  
+>  	panthor_perf_info_init(ptdev);
+>  
+> +	perf = drmm_kzalloc(&ptdev->base, sizeof(*perf), GFP_KERNEL);
+> +	if (!perf)
+> +		return -ENOMEM;
 > +
-> +	if (GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id) < 11) {
-> +		perf_info->counters_per_block = PANTHOR_PERF_COUNTERS_PER_BLOCK;
-> +	} else {
-> +		u32 features = panthor_gpu_get_prfcnt_features(ptdev);
+> +	drm_info(&ptdev->base, "Performance counter subsystem initialized");
 > +
-> +		perf_info->counters_per_block = PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(features) /
-> +			PANTHOR_HW_COUNTER_SIZE;
-> +	}
+> +	perf->info = &ptdev->perf_info;
+> +	ptdev->perf = perf;
 > +
-> +	perf_info->sample_header_size = sizeof(struct drm_panthor_perf_sample_header);
-> +	perf_info->block_header_size = sizeof(struct drm_panthor_perf_block_header);
-> +
-> +	if (GLB_PERFCNT_FW_SIZE(glb_iface->control->perfcnt_size))
-> +		perf_info->fw_blocks = 1;
-> +
-> +	perf_info->cshw_blocks = 1;
-> +	perf_info->tiler_blocks = 1;
-> +	perf_info->memsys_blocks = GPU_MEM_FEATURES_L2_SLICES(ptdev->gpu_info.mem_features);
-> +	perf_info->shader_blocks = hweight64(ptdev->gpu_info.shader_present);
-> +
-> +	perf_info->sample_size = session_get_sample_size(perf_info);
+> +	return ret;
 > +}
 > +
 > +/**
-> + * panthor_perf_init - Initialize the performance counter subsystem.
-> + * @ptdev: Panthor device
+> + * panthor_perf_unplug - Terminate the performance counter subsystem.
+> + * @ptdev: Panthor device.
 > + *
-> + * Return: 0 on success, negative error code on failure.
+> + * Release the performance counter hardware resources. The control structure is
+> + * released with the DRM device.
 > + */
-> +int panthor_perf_init(struct panthor_device *ptdev)
+> +void panthor_perf_unplug(struct panthor_device *ptdev)
 > +{
-> +	if (!ptdev)
-> +		return -EINVAL;
+> +	struct panthor_perf *perf = ptdev->perf;
 > +
-> +	panthor_perf_info_init(ptdev);
+> +	if (!perf)
+> +		return;
 > +
-> +	return 0;
+> +	ptdev->perf = NULL;
+> +}
+> +
+> +int panthor_perf_pool_create(struct panthor_file *pfile)
+> +{
+> +	struct panthor_perf_pool *pool;
+> +
+> +	pool = kzalloc_obj(*pool);
+> +	if (!pool)
+> +		return -ENOMEM;
+> +
+> +	xa_init_flags(&pool->xa, XA_FLAGS_ALLOC);
+> +
+> +	pool->session_range.min = 0;
+> +	pool->session_range.max = MAX_SESSIONS_PER_FILE - 1;
+> +
+> +	pfile->sessions = pool;
+> +
+>  	return 0;
+>  }
+> +
+> +void panthor_perf_pool_destroy(struct panthor_file *pfile)
+> +{
+> +	struct panthor_perf_pool *pool = pfile->sessions;
+> +
+> +	if (IS_ERR_OR_NULL(pool))
+> +		return;
+> +
+> +	if (!xa_empty(&pool->xa)) {
+> +		drm_err(&pfile->ptdev->base,
+> +			"Performance counter sessions active when unplugging the driver!");
+> +	}
+> +
+> +	xa_destroy(&pool->xa);
+> +	kfree(pool);
+> +
+> +	pfile->sessions = NULL;
 > +}
 > diff --git a/drivers/gpu/drm/panthor/panthor_perf.h b/drivers/gpu/drm/panthor/panthor_perf.h
-> new file mode 100644
-> index 000000000000..3c32c24c164c
-> --- /dev/null
+> index 3c32c24c164c..ad01fc88f18f 100644
+> --- a/drivers/gpu/drm/panthor/panthor_perf.h
 > +++ b/drivers/gpu/drm/panthor/panthor_perf.h
-> @@ -0,0 +1,15 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2025 Collabora Ltd */
-> +/* Copyright 2025 Arm ltd. */
+> @@ -8,8 +8,14 @@
+>  #include <linux/types.h>
+>  
+>  struct panthor_device;
+> +struct panthor_file;
+> +struct panthor_perf_pool;
 > +
-> +#ifndef __PANTHOR_PERF_H__
-> +#define __PANTHOR_PERF_H__
-> +
-> +#include <linux/types.h>
-> +
-> +struct panthor_device;
-> +
-> +int panthor_perf_init(struct panthor_device *ptdev);
+> +int panthor_perf_pool_create(struct panthor_file *pfile);
+> +void panthor_perf_pool_destroy(struct panthor_file *pfile);
+>  
+>  int panthor_perf_init(struct panthor_device *ptdev);
+> +void panthor_perf_unplug(struct panthor_device *ptdev);
+>  
+>  #endif /* __PANTHOR_PERF_H__ */
 
-You could add the declaration in panthor_device.h and drop the creation of the new header file.
+Now the panthor_perf.h file is sizeable enough to merit its existence. Maybe
+we should have 1/8 + 3/8 + 4/8 together in one big happy patch?
 
-Otherwise, the content of the patch looks good to me.
+Code looks good to me, so:
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
 Best regards,
 Liviu
 
-
-> +
-> +#endif /* __PANTHOR_PERF_H__ */
-> +
+>  
 > 
 > -- 
 > 2.43.0
