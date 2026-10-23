@@ -2,100 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E1F606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 15:32:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72377606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 15:32:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kvLgKBDE;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=keUngtSc
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vi7sK0WN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Y2sI1B3+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99CFB10E654;
-	Fri, 23 Oct 2026 15:32:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 004A510E66E;
+	Fri, 23 Oct 2026 15:32:24 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E566510E66E
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:32:11 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ABE210E676
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:32:01 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69NE6op22676495
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:32:09 GMT
+ 69NE6ArG2974547
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:32:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ss2KL0OlOxY+W+P1n4KMOe89FXmDrXUTQoz5/67K/78=; b=kvLgKBDESPU8ZDsU
- FIwwUJZZEzWiJ4CKEXrtOJUg9AnOQG+p5GN2TlIH/crsEBMur926Tt2fjkErDpZK
- HRJ4BKDDCJ00g/PEcqfWC/zgwxDHBGcwL4kUf8O0GA6JM7YJSZlfkpQr+LqcJku8
- KYvSV9NdZ7/n8B1BMpTIzLGHaz0MclWYnJRB71hg5tELNMcrkJSbxuP4S0rjE+Fg
- iTa/lVcI6sNqLiEcxhbkgmaJlGcsfVXIJjg5TfAMclkVqIpYv4mPbWMbP69SOtiN
- qMc8FYmT/giNSRt7RmLC81DRINxDZPQixaC6g+MUasQg6nUiUKdzyLSdCp551kJU
- xLdlNQ==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
- [209.85.217.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfpahvrmb-1
+ qZunG5yy6pTO2DbkEtv1VKnSC8oT+62cq2lapmplUqo=; b=Vi7sK0WNtWQdHzsy
+ Gets4YpsMR84/FWJuUEyRU/MYOZJxghldPvauQ+WmZIWC5q85FlIJSD3a3iPewcV
+ qVY1gahd0vS4HkQXPXyOYLyT+kanyWz4AU5nyfzlKD49HwPaMH8WTSreHBxes85v
+ bvMRMv/4k1rwvdsZViZcIDOHq5QJnfiNJltnbMPtkMPQEYwVLdjAIuZWTomcGSJV
+ 5luLdqVUsQHoYb/zpC7yz6cJ+5i1+C5Jxe33SGvdpeckf+hiJ4/nusDx2fUBWQby
+ QH9YcpWagByyQkeViOvvliOoC75ehXZtbju/KfvS4FwZvcUXsa9SSjgy/pfINOPu
+ U8d03g==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfnyw4t9x-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:32:09 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id
- ada2fe7eead31-7cb9d27ddcfso173365137.1
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 08:32:09 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:32:00 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-7cc3a482af7so969860137.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 08:32:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792769529; x=1793374329;
+ d=oss.qualcomm.com; s=google; t=1792769519; x=1793374319;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Ss2KL0OlOxY+W+P1n4KMOe89FXmDrXUTQoz5/67K/78=;
- b=keUngtScfN7kpl5jdaa3iq5Nk+gzllDHqH0IROQEYNzsjlWvPOLkfNky0tmvQwngmz
- JucNCjuP8snjDA35A5AfrS/Jc7YwUW2qWBuGD95wFfgqmXltoskoFV03joaoyXGNLW8m
- FhbTKDlGapH7PEJE+Hamk5Plduw29+O+vPjTM65Il9yRdMOI0dEbEIwUxEWrsrqJ9UWF
- 4sip7A5i3djM86awoSE+SY9Ciffq5FZ2b9/9irtjpcLWOl/o2m0JY8AwBUqFhOg9pSHD
- gM/06+V0t2gxR2Xzw0Hcw7lL1qINezheP5QAUsdMNBR4FZbVeG8gXFGEYRu7TrpdbEm2
- dkIA==
+ bh=qZunG5yy6pTO2DbkEtv1VKnSC8oT+62cq2lapmplUqo=;
+ b=Y2sI1B3+zNjdl9/edLO0GWqh4v5zMmrF8u3BI1rYOCJGMdo2vZ5zgM3ekTqJwIoIrq
+ f6TiaOVXBt52Ix3ujHtEu2BhqslT8oHc5sXq5BQKk6dyvTyWJd6ykQexz8BBeEK5epBN
+ AAAI6StSJpv7kwLToCEMqH66C0eoOtXjkcmn8Lnkjdnnl3DMibde4RMAuFJ0lFI8UarV
+ KFdyWZRlUkjvo8EXNPomclsp6+8AaiCcuoJGp1FEMTmrwdNXgaDtQcVmopTUa2wq/vq0
+ cwSpyo+p1X9/fxivrnCLWWWi2eVgsjLcx0u51oTvVuqGgF9+zXA8zhpg3c0T+zHekk93
+ fZSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792769529; x=1793374329;
+ d=1e100.net; s=20260707; t=1792769519; x=1793374319;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Ss2KL0OlOxY+W+P1n4KMOe89FXmDrXUTQoz5/67K/78=;
- b=FQfC6C/gA2RDkhEiK+Gd4eKK0CNYMUxvOHGiBAM4jIAkjy7QOIM7hBTLKqE9tDaZ0a
- /vYpvLx0NcQ+JpFZ8zSRHIlDugzbVdMOW9TlZbb5BFGn5N+mYdG3rFYCdN6LWGp7mpPI
- Ov+GwyC1JCiiGXvI6xAxWBQeoBvk6oxiT+C0DkUTkbMqOmrZXKWzk1HBNT8rKMYN7pT2
- RI9ufcAvLE3f+lOHckAxybxMHpGPpJu1PSnhS+gDAvYIbkAQNOQ15Yl+G1K+JcIvodV5
- UrEAuhM2Y4QFlVkwoFNzdGXi+uGn+gkcptr7fzTV0Z+AtWvVOTfKlN+ZE3VN39dyq5Th
- s7FQ==
+ bh=qZunG5yy6pTO2DbkEtv1VKnSC8oT+62cq2lapmplUqo=;
+ b=m0exYF13WuuoCS/t9UVLTVY7IqHLNUa6ljLboOtXNwXGdUbzHCheGNJPy7KO5XLmZ3
+ trUXlQpotfXWRdRX+jFSFfMhsnyGfhUjrdvNgxp6o/PfubIzT2VDPl2/XwM7rl2UaGYV
+ HOQPk+zC7wuayIB2sKUCPlio41AzUDuu1yeUG+NOH0DbP25ioNigmUSsq3FZ8MZoojqB
+ RCevq0vhtNi5gyp1WluZ2ET39MEKBw8BpZWZGwDt7C3lCszSviRfIO/HkRoissk582EF
+ N3TVhByGbGMVtq3Pbv3Em6p+eE4yXo1f2WCTySyv+r92d5fNRh3yZ4enaY3s4z+FinqS
+ 9M+Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvByO25wWKtkFcteg3U3G6a6Fhbl7EphcqqlmEBgRZHCJy7+LuO45mRY1pSXmKOcKkNnQM/fJFAcMqe4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKNM5HqB/B34xMa3C54SAXvlMYnewlU9Q6OhOqrsTxk/v/frj5N
- +pt6jjw6bZZRk+/TxUYi6XcHs2vYatLLZRo0f7Qd1ptClpbeQO/kGT+xAhzna3mWyjPGxypunF3
- T1aVDhercowWsxQqkdYPK49A50/1qw68l0gYSIEKtN/ojctTBLBB5pmaZwpyxWLKyKS0XSHg=
-X-Gm-Gg: AYBFou3ByWuNUJcL2dZj5/pix/uaTy/NekT7g9WYcnjvwK7A4aafmTe9GYhcvmhpTvJ
- C43Qo0L3vl8l3sFBuedqD6wUuJ5l1rN6x60rh1roqT1ozKhxBEtkeqs5wS5ESG78fA+C9X77fWp
- AAoqjqlHmo5epNtanCJqTvaUFZF0LHMA2wuWpgV/GUw1ByUBhdIWu9T/lGwgHFKZg3iUJyW0+FB
- Gq9gdhazhGSudmwJQBLXqUBqa+6j9M4GP62HB4lmXp6GYT5MLWPwrJV4TfabrW3v6Myvh1fzWo3
- kfT28/onLe9KCFljVWNd7sEuKqzJ89B4jxwz/y+vjX7PY1CT9IG/tl/5Ko7OSPAuH43d8Q61xNl
- 3jM1sq6J9hhDd6qiBQx+K6k6h5gVAYLb6oG9rbkozkQrdG6dsS6JqIho6QtxT6/neud4tGHENIr
- WInE24nI2SePO4
-X-Received: by 2002:a05:6102:6445:b0:7cc:9d82:61e2 with SMTP id
- ada2fe7eead31-7ccc31cfefdmr988221137.13.1792769528996; 
- Fri, 23 Oct 2026 08:32:08 -0700 (PDT)
-X-Received: by 2002:a05:6102:6445:b0:7cc:9d82:61e2 with SMTP id
- ada2fe7eead31-7ccc31cfefdmr988186137.13.1792769528478; 
- Fri, 23 Oct 2026 08:32:08 -0700 (PDT)
+ AKwUvBx8n4RUp2h3EdlWn77c6VwI73Os5iljSoHO03dVEOwes+Nvzj95V5V30/xsg1VapS5HLzEah4TzjX4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJqNKuan9eGi+OUgSQSwH5PPePGfh3KzydF7WkkU4uLyEEFMuKk
+ 0FisP/SxC62AE/7C5JTj0UlmDk55pSCz2CYr1xO+TYXJ+s/RzDktHnMxGzvnzOVvXx8XyjNVfRW
+ lEKVwVq5OfezFEynraAVfbcZmVs8qgkH3EfLXMh1YyYqtymSQ+d0fYHF8hn2q7BIZ5eFdqNI=
+X-Gm-Gg: AYBFou28INYhqk0WmyeYxYIfQLrhbrFY03MTa+r5Pj3YaBWaXgbT+gsfA/+yToAjcf+
+ dZEeyKUlQUZs8P8VIhQe1FQCA0G9XIhX9EAFpI164cxya/lpzoy1Q9p97n5GPtNem33cOWzAmTV
+ sx6kfstPgokrKUXdo7WxwqQRjMnDxgwYlqsMRcUKpTVjXZ8zcp9vx3QWeW36iYy+A3siRi/hfNY
+ DBVmFnwE0AEdyV4laEq5G4bxw328ylAFhjG/I3mzItr1FyNLvU+zUNWSS5KjCGqI1OJrl5bhhK7
+ T4vcdSa4ZXvjIkLY6iHWPJAyC2H9QytBMUuWfOGpZ5rHobVQCBKgCezGK5mdNCUz0fsRZeeKbch
+ HFUvRt+x4CeyPXr3lk80Ua16v3zZA+nYPUZI9lJTqXucS7FM11Ru501mOD6ujMMKJ4aYUF41lNx
+ fRiupv3cSUuOAw
+X-Received: by 2002:a05:6102:570d:b0:7cc:3eb0:6ef5 with SMTP id
+ ada2fe7eead31-7ccc31aac14mr1052321137.11.1792769519413; 
+ Fri, 23 Oct 2026 08:31:59 -0700 (PDT)
+X-Received: by 2002:a05:6102:570d:b0:7cc:3eb0:6ef5 with SMTP id
+ ada2fe7eead31-7ccc31aac14mr1052302137.11.1792769518924; 
+ Fri, 23 Oct 2026 08:31:58 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfb0288806sm478062e87.55.2026.10.23.08.32.07
+ 2adb3069b0e04-5bfb0288806sm478062e87.55.2026.10.23.08.31.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2026 08:32:07 -0700 (PDT)
+ Fri, 23 Oct 2026 08:31:57 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 18:31:29 +0300
-Subject: [PATCH v2 14/14] drm/msm: drop the runtime PM flags from the KMS
- teardown
+Date: Fri, 23 Oct 2026 18:31:23 +0300
+Subject: [PATCH v2 08/14] drm/msm/mdp4: unwind a failed mdp4_kms_init()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-msm-kms-destroy-fixes-v2-14-83727c122de7@oss.qualcomm.com>
+Message-Id: <20261023-msm-kms-destroy-fixes-v2-8-83727c122de7@oss.qualcomm.com>
 References: <20261023-msm-kms-destroy-fixes-v2-0-83727c122de7@oss.qualcomm.com>
 In-Reply-To: <20261023-msm-kms-destroy-fixes-v2-0-83727c122de7@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -107,42 +106,42 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4747;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5971;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=B4JgGLbwDstbXJHsjEO5t0PiEr07XCtrTjLF1Zlgghk=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq233d05ctLcFT1lQ5L0/y1fptF2HZbcHeyP4sb
- JAkkvqqzfSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatt93QAKCRCLPIo+Aiko
- 1SETB/9GthrzeNPq8k9LtQHSiF43VI7ukKfO1qp+Sqy1VfPwJGk6afIi5bG9zV9tuFc3RXD7H9S
- Wdyw9IQyb7B0r8OjXjtaPsp3ABNorMhRIe+ar2YRvLeRN0v/J04O2oqFuI/u7hYEiPuNOfzIEkX
- a+byim64iLn2VYOaMOZMNT4qm0TEhNSiQd8SN9KrUDiI5iB2sdUPxGifzecdttWjyYjiAgLJHvM
- vQwH9gdoe6FgLUwN7HBlulveia31pWVKDg8HF7TABV8sVfwT5PFJuhaF43nXuvt3uL9ok4N5H49
- AOtjRoBdgN/3XUcMg3RXyD5dxC+F79DScnWsLE8tXz+K5+z9
+ bh=pQFgWanoVOPU1SD9eoh1kwmHhNTamyaQG3R5/Cs4y3w=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq233WRwV1Nx7UujDseXGQBGM8nNMWB3vz2nTgE
+ 4ZCtfQXErWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatt91gAKCRCLPIo+Aiko
+ 1QFAB/9iOnE5dtT4rUrAk5VrFsyu38++IvedCVNLH08Ap8cOOOrtfOaz71QP1J32M6kZa8tBl+m
+ 2YclTWgKFCVTMP4WfliUamp99N+eSBwqvIucwakg5XS7gitbR5z4ESK6NwYTMafdp57JShh90/J
+ 42iVIjf12UiKK+m2dz+ivg8qYu9JRcrATXu6adxZSw3p3KWyowJ1eQS1ZY2yyreT+6dL5G0mcFg
+ gjirvdVOO1/CrOs3T2F3cPLkK3zz4kyCnjJ3b4FJ8uFWUixDJ9crwcI5ATh7d3O1vVLRqcxflJC
+ 0Pw+DHa/Hmm9AP48J48TS52+i9oMZkp1y3uOkWmLBTHqT+Y3
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA2MCBTYWx0ZWRfX0wjhhosNIhS0
- 76ZaKeD6ASN/BFS/xb/za/zGkSJp9QGaHfuzts2taIyH+Pwh2CaALGLsh29GOTXj5/e2f01v/Z4
- InO9iQGKQ7FwFyQJjNR+eYS0VXlbJYY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA2MCBTYWx0ZWRfX/YAIMx8xDL5b
- pJ7qXhIYB4hAC7VhsFVlamYr3VZEsokyd3+Z1TowTCxARf3K4uQcwwPUJLRtEal2JdpzDMrk3RN
- nu2n5qT7BqbsYf2KdSybo9Y7YmvhaSEIqdzDRDeJ72usoj9mt2zTfnI6VxhJIPRBACbTkpuoTkO
- Xytmv/eCbUsUvSwwW9eELerVuLOJZPns3ZxhtOHuMegGMO8zVZJvo3z3oYSByMQdZ64mtzgXbH1
- GpQk26kHyxK1SIwjqqZi9oIV8cTy+nCUG0RC/838B/4i3kO6dFcN1wmbaO/rvDHRFF00yRuAcZT
- ShEX2YakZNTihsaXJhCWsyQPrAASfs0QFQheNoDSC6eNDaJfTxVOr2/bh18BvoLeY1kqgON8aEd
- pLhZTAx4BWVrgRTEVhDGZ6S5MbnrZFEegVbbjboW8f2vF7uQH61K+PUN8Jfevh0oXI+rxhiJPIe
- /2mF8ZbnEy6elBC781A==
-X-Proofpoint-GUID: R0CBIUxnqFaNk42pULL9ykBjAuN-cvh5
-X-Authority-Analysis: v=2.4 cv=YIMKWhGx c=1 sm=1 tr=0 ts=6adb7df9 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: 3-osdW0t5CVv6ZfGr4fZP0OVHxkVT7NK
+X-Proofpoint-ORIG-GUID: 3-osdW0t5CVv6ZfGr4fZP0OVHxkVT7NK
+X-Authority-Analysis: v=2.4 cv=dphOmFg4 c=1 sm=1 tr=0 ts=6adb7df0 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=83TlOTTOEq1NsKmbc34A:9 a=QEXdDO2ut3YA:10 a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-ORIG-GUID: R0CBIUxnqFaNk42pULL9ykBjAuN-cvh5
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=j6QtfvlM2Oj41uVX788A:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA2MCBTYWx0ZWRfX4G0QWvcXayRI
+ Ajb6aRTV4NObqewl3kpvSi19vHj0Hpqqdl4POcg8t7qEEH75xH6WtSmpuMwDp6+8adymUEmG9+x
+ PuvKIRwSkZt49oRKHU31AkKotO0lm+k=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA2MCBTYWx0ZWRfX1R2MEfsr9MnF
+ sAh4rDe3cMnhp7mHfoF79rl6wcyTzj85+fpvKxk8UfvCZLEN/NLvbJ04+wq++YhAvkSmsC3sZRf
+ 6dDtV3aXS1xP4BddBIirpxB4q5GcMwVpltWpWiP75uMJyXHqDA35BCf+EVa1vV0cpY9xbj4WKVG
+ nPrPzbOkTubBV8bD2c/j7iiVijx7BgVew3bW4xHAU94gIcnMd9arBshUC4qhG3tvthUtBdhNIn8
+ +9Ku4oEMJT6xDoCN9Hp/jAuUDF1qxN6voI6NgvRwR4R7QBAL7D6eNrHkTxB95pN66YqEM5bkgtU
+ hTbd4wr+UrBT9X7jq8mWvigcrvbd6+dR3gxMsfjxPn5GXCepSqduDnav4qz9hQo+UiYZ6JOuzdr
+ Vz5RHpcYd18l2L+PPDcNS3SfBvFAl3YVmuWnqo5hsQ/+V4e8wjULXD7X8w9QlZMS7RGNp/hE5Qe
+ r8tv/kwrbUY1DBLaMow==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
+ malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0 adultscore=0
+ lowpriorityscore=0 priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230060
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -164,136 +163,198 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DPU, MDP4 and MDP5 drivers track whether they have enabled runtime PM,
-and MDP4 whether it has pinned its blank cursor, so that ->destroy() can
-tear down a KMS whose init failed half way. ->destroy() now only runs for
-a KMS which was initialised successfully, where both are always true.
+mdp4_kms_init() returns straight away when one of its steps fails and
+lets the ->destroy() callback, which the caller runs afterwards, clean
+up. mdp4_destroy() however dereferences mdp4_kms->dev, which is only set
+after mdp_kms_init() has succeeded, so a failure there turns into a NULL
+pointer dereference. It also leaves the vdd regulator enabled.
 
-Drop the flags and the checks.
+Set mdp4_kms->dev before anything can fail, undo the steps which have
+completed, in the reverse order, and tell the caller not to run
+->destroy() after a failed init. Fold the hardware setup, which can't
+fail, into mdp4_kms_init().
 
+Fixes: 93c125e4ea98 ("drm/msm: don't tear down KMS twice when KMS init fails")
 Assisted-by: LLM
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c  | 4 +---
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h  | 1 -
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 7 ++-----
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h | 2 --
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 5 +----
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h | 2 --
- 6 files changed, 4 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c | 61 ++++++++++++++++++++------------
+ 1 file changed, 38 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 3546efacba3c..e994fd267c5b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -927,8 +927,7 @@ static void dpu_kms_destroy(struct msm_kms *kms)
- 
- 	msm_kms_destroy(&dpu_kms->base);
- 
--	if (dpu_kms->rpm_enabled)
--		pm_runtime_disable(&dpu_kms->pdev->dev);
-+	pm_runtime_disable(&dpu_kms->pdev->dev);
- }
- 
- static int dpu_irq_postinstall(struct msm_kms *kms)
-@@ -1320,7 +1319,6 @@ static int dpu_kms_init(struct drm_device *ddev)
- 	dpu_kms->dev = ddev;
- 
- 	pm_runtime_enable(&pdev->dev);
--	dpu_kms->rpm_enabled = true;
- 
- 	ret = dpu_kms_hw_init(dpu_kms);
- 	if (ret)
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-index e39831a397b1..769b8ce6332f 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h
-@@ -87,7 +87,6 @@ struct dpu_kms {
- 	bool has_danger_ctrl;
- 
- 	struct platform_device *pdev;
--	bool rpm_enabled;
- 
- 	struct clk_bulk_data *clocks;
- 	size_t num_clocks;
 diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-index 58a269cae31d..0668ae79f6f1 100644
+index 9b1d1982e683..cc6f202aa011 100644
 --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
 +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
-@@ -129,14 +129,12 @@ static void mdp4_destroy(struct msm_kms *kms)
- 	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
- 	struct device *dev = mdp4_kms->dev->dev;
+@@ -15,9 +15,8 @@
+ #include "msm_mmu.h"
+ #include "mdp4_kms.h"
  
--	if (mdp4_kms->blank_cursor_iova)
--		msm_gem_unpin_iova(mdp4_kms->blank_cursor_bo, kms->vm);
-+	msm_gem_unpin_iova(mdp4_kms->blank_cursor_bo, kms->vm);
+-static int mdp4_hw_init(struct msm_kms *kms)
++static void mdp4_hw_init(struct mdp4_kms *mdp4_kms)
+ {
+-	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
+ 	struct drm_device *dev = mdp4_kms->dev;
+ 	u32 dmap_cfg, vg_cfg;
+ 	unsigned long clk;
+@@ -70,8 +69,6 @@ static int mdp4_hw_init(struct msm_kms *kms)
+ 		mdp4_write(mdp4_kms, REG_MDP4_RESET_STATUS, 1);
+ 
+ 	pm_runtime_put_sync(dev->dev);
+-
+-	return 0;
+ }
+ 
+ static void mdp4_enable_commit(struct msm_kms *kms)
+@@ -118,6 +115,15 @@ static long mdp4_round_pixclk(struct msm_kms *kms, unsigned long rate,
+ 	}
+ }
+ 
++static void mdp4_destroy_vm(struct msm_kms *kms)
++{
++	struct msm_mmu *mmu = to_msm_vm(kms->vm)->mmu;
++
++	mmu->funcs->detach(mmu);
++	drm_gpuvm_put(kms->vm);
++	kms->vm = NULL;
++}
++
+ static void mdp4_destroy(struct msm_kms *kms)
+ {
+ 	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
+@@ -127,12 +133,7 @@ static void mdp4_destroy(struct msm_kms *kms)
+ 		msm_gem_unpin_iova(mdp4_kms->blank_cursor_bo, kms->vm);
  	drm_gem_object_put(mdp4_kms->blank_cursor_bo);
  
- 	mdp4_destroy_vm(kms);
+-	if (kms->vm) {
+-		struct msm_mmu *mmu = to_msm_vm(kms->vm)->mmu;
+-
+-		mmu->funcs->detach(mmu);
+-		drm_gpuvm_put(kms->vm);
+-	}
++	mdp4_destroy_vm(kms);
  
--	if (mdp4_kms->rpm_enabled)
--		pm_runtime_disable(dev);
-+	pm_runtime_disable(dev);
+ 	if (mdp4_kms->rpm_enabled)
+ 		pm_runtime_disable(dev);
+@@ -142,7 +143,6 @@ static void mdp4_destroy(struct msm_kms *kms)
  
- 	if (mdp4_kms->vdd)
- 		regulator_disable(mdp4_kms->vdd);
-@@ -437,7 +435,6 @@ static int mdp4_kms_init(struct drm_device *dev)
+ static const struct mdp_kms_funcs kms_funcs = {
+ 	.base = {
+-		.hw_init         = mdp4_hw_init,
+ 		.irq_preinstall  = mdp4_irq_preinstall,
+ 		.irq_postinstall = mdp4_irq_postinstall,
+ 		.irq_uninstall   = mdp4_irq_uninstall,
+@@ -386,7 +386,7 @@ static int mdp4_kms_init(struct drm_device *dev)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(priv->kms));
+-	struct msm_kms *kms = NULL;
++	struct msm_kms *kms = priv->kms;
+ 	struct drm_gpuvm *vm;
+ 	int ret;
+ 	u32 major, minor;
+@@ -395,21 +395,20 @@ static int mdp4_kms_init(struct drm_device *dev)
+ 	/* TODO: Chips that aren't apq8064 have a 200 Mhz max_clk */
+ 	max_clk = 266667000;
+ 
++	kms->init_unwinds = true;
++	mdp4_kms->dev = dev;
++
+ 	ret = mdp_kms_init(&mdp4_kms->base, &kms_funcs);
+ 	if (ret) {
+ 		DRM_DEV_ERROR(dev->dev, "failed to init kms\n");
+ 		return ret;
  	}
  
- 	pm_runtime_enable(dev->dev);
--	mdp4_kms->rpm_enabled = true;
- 
- 	/* make sure things are off before attaching iommu (bootloader could
- 	 * have left things on, in which case we'll start getting faults if
-diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-index 06458d4ee48c..9dd829ec9401 100644
---- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-+++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h
-@@ -34,8 +34,6 @@ struct mdp4_kms {
- 
- 	struct mdp_irq error_handler;
- 
--	bool rpm_enabled;
+-	kms = priv->kms;
 -
- 	/* empty/blank cursor bo to use when cursor is "disabled" */
- 	struct drm_gem_object *blank_cursor_bo;
- 	uint64_t blank_cursor_iova;
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-index c349eedd55a6..bbf459bff35d 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-@@ -575,9 +575,7 @@ static int mdp5_kms_init(struct drm_device *dev)
- 
- static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
- {
--	if (mdp5_kms->rpm_enabled)
--		pm_runtime_disable(&mdp5_kms->pdev->dev);
+-	mdp4_kms->dev = dev;
 -
-+	pm_runtime_disable(&mdp5_kms->pdev->dev);
- 	drm_atomic_private_obj_fini(&mdp5_kms->glob_state);
+ 	if (mdp4_kms->vdd) {
+ 		ret = regulator_enable(mdp4_kms->vdd);
+ 		if (ret) {
+ 			DRM_DEV_ERROR(dev->dev, "failed to enable regulator vdd: %d\n", ret);
+-			return ret;
++			goto err_kms_destroy;
+ 		}
+ 	}
  
- 	mdp5_kms->num_hwpipes = 0;
-@@ -734,7 +732,6 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
- 	clk_set_rate(mdp5_kms->core_clk, 200000000);
+@@ -421,7 +420,7 @@ static int mdp4_kms_init(struct drm_device *dev)
+ 		DRM_DEV_ERROR(dev->dev, "unexpected MDP version: v%d.%d\n",
+ 			      major, minor);
+ 		ret = -ENXIO;
+-		return ret;
++		goto err_disable_vdd;
+ 	}
  
- 	pm_runtime_enable(&pdev->dev);
--	mdp5_kms->rpm_enabled = true;
+ 	mdp4_kms->rev = minor;
+@@ -430,7 +429,7 @@ static int mdp4_kms_init(struct drm_device *dev)
+ 		if (!mdp4_kms->lut_clk) {
+ 			DRM_DEV_ERROR(dev->dev, "failed to get lut_clk\n");
+ 			ret = -ENODEV;
+-			return ret;
++			goto err_disable_vdd;
+ 		}
+ 		clk_set_rate(mdp4_kms->lut_clk, max_clk);
+ 	}
+@@ -452,7 +451,7 @@ static int mdp4_kms_init(struct drm_device *dev)
+ 	vm = msm_kms_init_vm(mdp4_kms->dev, NULL);
+ 	if (IS_ERR(vm)) {
+ 		ret = PTR_ERR(vm);
+-		return ret;
++		goto err_disable_rpm;
+ 	}
  
- 	read_mdp_hw_revision(mdp5_kms, &major, &minor);
+ 	kms->vm = vm;
+@@ -460,7 +459,7 @@ static int mdp4_kms_init(struct drm_device *dev)
+ 	ret = modeset_init(mdp4_kms);
+ 	if (ret) {
+ 		DRM_DEV_ERROR(dev->dev, "modeset_init failed: %d\n", ret);
+-		return ret;
++		goto err_destroy_vm;
+ 	}
  
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-index 7bf2172fce0b..c0b163c4baa3 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h
-@@ -62,8 +62,6 @@ struct mdp5_kms {
- 	 */
- 	spinlock_t resource_lock;
+ 	mdp4_kms->blank_cursor_bo = msm_gem_new(dev, SZ_16K, MSM_BO_WC | MSM_BO_SCANOUT, NULL);
+@@ -468,14 +467,14 @@ static int mdp4_kms_init(struct drm_device *dev)
+ 		ret = PTR_ERR(mdp4_kms->blank_cursor_bo);
+ 		DRM_DEV_ERROR(dev->dev, "could not allocate blank-cursor bo: %d\n", ret);
+ 		mdp4_kms->blank_cursor_bo = NULL;
+-		return ret;
++		goto err_destroy_vm;
+ 	}
  
--	bool rpm_enabled;
--
- 	struct mdp_irq error_handler;
+ 	ret = msm_gem_get_and_pin_iova(mdp4_kms->blank_cursor_bo, kms->vm,
+ 			&mdp4_kms->blank_cursor_iova);
+ 	if (ret) {
+ 		DRM_DEV_ERROR(dev->dev, "could not pin blank-cursor bo: %d\n", ret);
+-		return ret;
++		goto err_put_cursor;
+ 	}
  
- 	int enable_count;
+ 	dev->mode_config.min_width = 0;
+@@ -483,7 +482,23 @@ static int mdp4_kms_init(struct drm_device *dev)
+ 	dev->mode_config.max_width = 2048;
+ 	dev->mode_config.max_height = 2048;
+ 
++	mdp4_hw_init(mdp4_kms);
++
+ 	return 0;
++
++err_put_cursor:
++	drm_gem_object_put(mdp4_kms->blank_cursor_bo);
++err_destroy_vm:
++	mdp4_destroy_vm(kms);
++err_disable_rpm:
++	pm_runtime_disable(dev->dev);
++err_disable_vdd:
++	if (mdp4_kms->vdd)
++		regulator_disable(mdp4_kms->vdd);
++err_kms_destroy:
++	mdp_kms_destroy(&mdp4_kms->base);
++
++	return ret;
+ }
+ 
+ static const struct dev_pm_ops mdp4_pm_ops = {
 
 -- 
 2.47.3
