@@ -2,77 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9A1606A332
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 06:40:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A21F60A2620
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 06:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JEXre3Tw
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pFfx2FxW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B049F10E552;
-	Fri, 23 Oct 2026 06:39:54 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B6D010E552
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:39:48 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-48441a2ba1bso273572f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 23:39:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC0E210E58A;
+	Fri, 23 Oct 2026 06:39:59 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 601C410E529
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 06:39:45 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-48afcd7ba9bso252333f8f.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 22 Oct 2026 23:39:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792737587; x=1793342387; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792737584; x=1793342384; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=zM6qRbp5A9CbBlh2Bu/tmcTR/0lPEgQHJG0kewWnWN4=;
- b=JEXre3TwN/rIYOu50mHNd4/wMAxKmQ+MEWWq8kRcBBbXBT4GmxfaocvBM7njEiFPrE
- aN5r1a6a5AZV6iW9K6Cc1t1vKfaFrz1rD4C3JUiTt/Q1XXseRCVXSxuFLCej53Q5qH6/
- S4qVVy6rAIbENIJrc8QWQo1ex7uZAlAhzuXBHr+vkle6WazR3cPqoUe1jTwvuPBeS1LG
- fF7gQSTsThTuCNwyNJYOCg6QBGJdB1W5zbo5Wa+sUwiwgs05Ns9I0oLL5+PPvd0QvKW6
- +c4AvB+GJx62G/+cMXl59E6OjAnW3VFvNJQI9D7p69nRpDcoFLGZo4y5vCDpRxJkhcjR
- 95Sg==
+ bh=zCs0TMoU/xtdfW2o//Qc3w2kO9KE9uGMF0SrdJknZZc=;
+ b=pFfx2FxWl1jFA5kYXlhWEYJf1uplbxqMPGniXRvQ9E7rhCKQTp15ylpLCFVBYGsD2h
+ uPBvYCHamHRd/9RoyF1gNCMGyK8YyKH1lXPWPNgzxwj3CVGvpDCm3rruJvllbRKSSKLS
+ nl1Gnvu9z83anHV4SgKnYF/Zcw5x9v2Uoggu1rUdQa2LDGmsOxysxb2MZAiRttjIBcyi
+ +LK1NXl5a3L347gKhWeX6FrN+HsDXmdab78pcqcWLq/eS52WBye3wT5NFfULVLqDqrBh
+ rfy1Ser+JBCkF9nGqs0gSEwfM30X6GIZ3TBWTz1bXAT9dg4xM04KJo6Uf+9eiBVChlQv
+ zI+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792737587; x=1793342387;
+ d=1e100.net; s=20260707; t=1792737584; x=1793342384;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=zM6qRbp5A9CbBlh2Bu/tmcTR/0lPEgQHJG0kewWnWN4=;
- b=N90xHSvC2CGk3B+e4B5PcD29XsQCQwshiUI4N9zoIjP7BIiUKrd+25VzXDuv1SUNfm
- 2iwxMcFe1pmidKNP178jaGUwhXy3rHlJLS+ebD8qqxQ0WnXFu+GZTVuJ1NeeM6WlkOgF
- +y0CTAGPE7WoxEGSUGYtWEh6lddSXLDAIO68MAyq0ZCttqTndtmPmBrv5B3bb8A61QLi
- hw5RTTCFY/CoUPPByj5OqPjXGr4Ew5k+oK1DRmKsEv2rrvr62YYZiltGMZ0xp+EBSw86
- 22XkxmNYccvSk/chLsF0/KdRlgb1WqWv8kZd2zyFjNosvlseT850D8eXnT5l0Q9DpRlt
- 8HgQ==
+ bh=zCs0TMoU/xtdfW2o//Qc3w2kO9KE9uGMF0SrdJknZZc=;
+ b=RQsdpwekthIeZatB15YADljiY/WwgqiiHuxyk6sX29DtJjnJUd8LjMKrWoxCJZSL++
+ Kx4ny0eT+piLMadE8YYSzjk857YWTVNUpfSYkLV5pRtKOZqT0qJCq1XtUwAnMrHEV/zK
+ JPo43urcNzBp26eibl2tagrw6dGpery0ynwq069WrYkSX5Nmgu/g/QecT66U7hcK3YCv
+ fT9teg6Gc0VqJjBDSfExm8fPHVlfQROr2KwYNMOvq865imIVhP2aWC1szNi27PTolqss
+ R42/j+5Fdo6NEyPkO6ahaDjVczWLPnlxVAqIgADeu5iW6s/uah07hIIGgnsJ4iNmPUwl
+ oVvw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByLcm1cIiQWk3tCjZ/uPoHfFUjHsSzRr3DuZ21HZyRQBsMB1NlscjKW0JQg5Lt1LTmU62G+2co+vBI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLGt7tcUrotcHN4PLR14A1Q8tL2AilP9S8uGQR8SEbAk4k3KR0t
- szs5nO6y/KA0kPQtEpF5xbz96DNselU5in9oBQ16K5q83J66Vr+xKBpw
-X-Gm-Gg: AYBFou1jQcbFNaPMgGMEqa9Ap/8BgdmAzpvwUiVMurBUM1c6o3O7ll4s3k+rwVhzDGy
- 3BHQUuM9UV1OeeQY9U4rxw8HSav2LDbQxcrTDTgz38WhM1ol32/rEiFDLkC+J2wecsq2ZZ1yNBY
- gGzHsI/9QW8MVF7B48nRRt98AVxXPjgt26iFbBEKFLIsX5HUVsg5mV3XSbfgehTVlrGlniAYAlQ
- 4DVAqL0O1/Q5oJysOxUpDojwc6y/pN8BaivOUGruPKayqrs6SZfMIZt8tvAt0sRxFJcqe5hnpd+
- sHbZmCpTtKvtrN2nK9YPwmbvEhw1H6QYBts3vaZo1sNbDUkeNl7Cm3MNNQCliWXzUI+sioskqNf
- vYqfitFmP0veMsQxlXM04xjSoENEBGfV9Ax660i+qhXxIH++QRJLrOj5ecGalEr3jpW/kmhkbDf
- a7YClnjjiCmf34AqLJZFeudwXSdc2Gl+Ba1BUMO9CoqDsLuSTwP4yCvEB3ZSuSTcfa398ElpPxA
- dTUWHfIVl34Oj3HYf8ioq+LFSnrPGPd56e0mVrZazlB3jnW1stm+fB4vvnUet7SEwAFeCHbUa3v
- 8ScLe2/jR8cr4GvNlCZ0HSY4hM4ccM0jkD2PV+jtPYbKPcbkfpz6D/mNfvayFbiPLxQYRM5hQf4
- G7GA=
-X-Received: by 2002:a05:6000:41c9:b0:48e:dee:52bc with SMTP id
- ffacd0b85a97d-48e384e4205mr1725429f8f.0.1792737586551; 
- Thu, 22 Oct 2026 23:39:46 -0700 (PDT)
+ AKwUvBx5Q0Yq1mhsM6DmmE2OH2UDjhLdIqDmRvXTQ/snV2M24HS4fZzcJwQ0Ukm4H/kgI/ShU+e1x9TTQNs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKB6Hy+mtQO4cZxpaMCfb3xIwO1MNKqV/S0KNzXhgmz7l06Q6ls
+ l2T1e0P/EgRl1LLsl1rs0AkBeyWN8wf7xVziPFiQ19CwbzfaMEzEmqPt
+X-Gm-Gg: AYBFou3QI8E5ZObg3Gv4mwhdM1OyI9tMvUw5EhmYtgTcFYk7c4epbhJIS+wgGUGZI2S
+ fL6c7j6dUQvThHytEzurr/4Y8X/Elvh8WyapZmhwta7BHJkOmoOaJXlm9++pwGWsexRCCj/N837
+ f1JCmp9n/AMxmNkolrazqmCIcNMNDcPdyEzgHC40Klj/Q9J1pKqKnx5YHK9kyc9tf63HnJSwPhW
+ S8X6mI17SBmsQghxU1jlHUw4r8p7L1VxGGhZjqdhobyIjcszRudn4CvEMvFRO1fxVTT49kSdcWy
+ Nf/ipK4DoSBainT7wXRfhJ1Ut9zLiYmkvSor6PHemk24YIp3l/DCTbaXoieD0AfBx3L54AjDLRv
+ yH6a8jKNMmsIXqmaDpMiF7hutyqJfbpUpDI3uwGseYbJ7618cMksideqs+XUb12CeCEmrFD0RxF
+ yY3ztPI4tlimy5cGHuD7lnyH3St9QJscCYvAQ+8fAE6yZtUC8g/qx+9B+dEj4CCyogZXApEHdFb
+ Ri53eN4P7hKqujydv5xyhsVU3mDqQgGurew9RLS11YHDiAIHAArZPhUDpb3NEXhm28lniWjdFfr
+ zd+PZoBSmAmBu3PJj1yO8rztM1HzXQ5SH/wxozqPxkXw3RkrGDUj9syJrczhcGYNhw62u5GIqpQ
+ b0Jw=
+X-Received: by 2002:a05:6000:15d9:b0:48d:ff0d:cfa5 with SMTP id
+ ffacd0b85a97d-48e385b9322mr977703f8f.47.1792737583628; 
+ Thu, 22 Oct 2026 23:39:43 -0700 (PDT)
 Received: from [192.168.1.22] (cst-prg-49-173.cust.vodafone.cz.
  [46.135.49.173]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.39.43
+ ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.39.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2026 23:39:45 -0700 (PDT)
+ Thu, 22 Oct 2026 23:39:42 -0700 (PDT)
 From: Tomeu Vizoso <tomeu.vizoso@gmail.com>
 X-Google-Original-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Fri, 23 Oct 2026 08:39:28 +0200
-Subject: [PATCH v3 03/16] dt-bindings: remoteproc: k3-dsp: Allow
- referencing the timers' power domains
+Date: Fri, 23 Oct 2026 08:39:27 +0200
+Subject: [PATCH v3 02/16] dt-bindings: remoteproc: k3-dsp: Allow a second
+ sub-mailbox
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-thames-v3-3-3ab40aa17157@tomeuvizoso.net>
+Message-Id: <20261023-thames-v3-2-3ab40aa17157@tomeuvizoso.net>
 References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 In-Reply-To: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 To: Nishanth Menon <nm@ti.com>, "Andrew F. Davis" <afd@ti.com>, 
@@ -121,9 +121,11 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A firmware may drive the core's timers, which need their power domains
-held; the remoteproc driver does not hold them, so let the DSP node
-reference them for a driver that attaches to the running core to hold.
+Allow specifying a second sub-mailbox that could be used by the firmware
+in addition to the first one, which is taken by remoteproc.
+
+This is required by firmware that doesn't use rpmsg for their
+communication with the Linux kernel.
 
 Assisted-by: LLM
 Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
@@ -133,37 +135,30 @@ Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 v3:
 - Initial version
 ---
- .../devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ .../devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml        | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-index d6319c8e96f8..80eaef0a19b8 100644
+index 278b88b7f906..d6319c8e96f8 100644
 --- a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
 +++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-@@ -76,6 +76,23 @@ properties:
- # Optional properties:
- # --------------------
+@@ -51,10 +51,12 @@ properties:
  
-+  power-domains:
-+    description: |
-+      Power domains of the SoC timers the running firmware ticks on and
-+      times its work out with. The firmware programs these timers itself
-+      and makes no power request for them, and the timers' own nodes are
-+      reserved for it, so nothing else requests their power; a client
-+      driver of the firmware holds them on while it drives the processor.
-+      The processor's own power is managed through ti,sci-dev-id, not here.
-+    items:
-+      - description: power domain of the first timer
-+      - description: power domain of the second timer
-+
-+  power-domain-names:
-+    items:
-+      - const: timer1
-+      - const: timer2
-+
-   sram:
-     minItems: 1
-     maxItems: 4
+   mboxes:
+     description: |
+-      OMAP Mailbox specifier denoting the sub-mailbox, to be used for
+-      communication with the remote processor. This property should match
+-      with the sub-mailbox node used in the firmware image.
+-    maxItems: 1
++      OMAP Mailbox specifiers denoting the sub-mailboxes allotted to
++      communication with the remote processor. The first is the one the
++      remoteproc core uses and should match the sub-mailbox node used in the
++      firmware image. The second is optional.
++    minItems: 1
++    maxItems: 2
+ 
+   memory-region:
+     minItems: 2
 
 -- 
 2.54.0
