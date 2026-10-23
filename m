@@ -2,78 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301D4606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 18:17:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B53606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 18:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h+kH2iX/
+	dkim=pass (1024-bit key, unprotected) header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=IngimSJw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E22310E6CF;
-	Fri, 23 Oct 2026 18:17:03 +0000 (UTC)
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB29410E5CD
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 09:02:26 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-3856d6fbcb3so395867a91.2
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 02:02:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792746146; x=1793350946; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LErop/DGERkB7CZZF2w1mWsEqhlGZfF07HpoQtKJxU0=;
- b=h+kH2iX/txtFPkBC5kwDUieYg2GGTJglZa7xGRzO/4eZZABre7DbfOKQufADJR7FfE
- 6IRWfyWL8DKj0iOghdGWo0ga567aUkK4wHizMYU7110uPZGJZujxbcGSXixSnTchyo96
- ZnelW5+mUbvMOIiCLPLmEwXtCifVODDKNq6Nxwfz5O8AWxZmQ8GvE91fp4aBss7tD4hq
- mMVKTyQ3sSN8Kek7gkvIcU4eW1YOArv4YN0cY5XKCwmXOjkIHYiAyC23NU7nELR9ajWd
- s/QEirl58KLnYZWaVYDnqjKaALiIxJNJqafJbLUuoKbcqyVmW+d/HlHCY1jlqNEqX6u0
- Uwfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792746146; x=1793350946;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=LErop/DGERkB7CZZF2w1mWsEqhlGZfF07HpoQtKJxU0=;
- b=Ro/JRx1rCxhBV3EVCy24qgQ6JESjUDjqAva8p6jbxhtoI5+yEHPazlPq9s3xwGZCrM
- 4zxIG1lbkxlsLS6hzDD21LHX0b9WhY8W/1dczLF1zausjlYrXngP9JqUUAqyXyyt5fso
- bVkzgRLk58KHlPkEFpL88uFOwxkwVPxSHPtfYX0QA9zu1og4sGJLWCKjTIH8kTUz+tle
- kExzZkD1e6UPeP04WaAjxBWTSYyHDePpG3+yFgHZQ3toh2MCCxPHThmhvqZipovniC2p
- QHVNhrOT0qJeu9QdCEYrjN4s8QPjFXetGsN6q9VOYgeDId3eXWQrfqBl3UlZ3aKSn+fg
- rjvg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwKGwG08M3ik+WrTWNFweAIdrfsCerSTzN57OuqWBODyh5dS+KVF00vD/R7f1W5F364H4sgiGSkU40=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIHHFen6067P/2qN/OAixz3swliOfiLSB7qeMOHKmbykD0pPgSw
- Ab/mZseV74L94snqQgVqzBfeKkClEMME3CRUFmCjFlJrjS9v7jBmh7TG
-X-Gm-Gg: AYBFou1Qv9AkkQR62OUI+9/ZTtJvOysLuzGL+rGpDbdMaicSMPFoa3oRJ9CY6SodD3q
- LRU1MVLhYzlO9U1fjnGx0y3q3UsWc1qK5UsYJoxpBlcJ41GwfV5YRIy+7ifuYpauLzEDggffKds
- YlB5fPF7Y3o/GM1/E1kjSdD/bI326UEMixbBCNugt4VPKFCThVXaXlmhzRN/Nfoilj9LvghyMjh
- zNcgyWj/6f2KzAvfhskL50pz2jlCl8iRTJWTa+NQW8mcfjHbw1ursZ0Gs9vv0J279KtzUbbLwax
- gKQz1/9avXIZDJBS+Ki1Ps5Apz6ob2MynDilZtE3/m4tCJO3MR84Lf5DYgN6df0CNhQoQRD9WoO
- IHL0htSkDTeUXpZsPkghuqmgUTsFNXMng27Z4DPuzajhuZhsLPa/ii6Mo17/uS4w1MUHWEfmwaM
- dIqs/EVSS9LzJJNdJ2xVBeJ9PmpulRLoyxcvZdzrRdYTVPKMPiuOLCKu7JA84xWLFmqo8X6ieQn
- x6Fy6ZXOSO9CHrQiOUnPu0PnxJzmCntJF+eQ3Wd7BSlk5jFTSN0nhcRdEZiVcS2qm0=
-X-Received: by 2002:a17:90b:5108:b0:3aa:fc22:8aac with SMTP id
- 98e67ed59e1d1-3adce0cda23mr1334868a91.51.1792746145878; 
- Fri, 23 Oct 2026 02:02:25 -0700 (PDT)
-Received: from LYF-imac ([120.235.89.223]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ada49314besm7842720a91.11.2026.10.23.02.02.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2026 02:02:25 -0700 (PDT)
-From: fausten <yunfeng.li.nb@gmail.com>
-X-Google-Original-From: fausten <fausten@ebizmis.com>
-To: Zack Rusin <zack.rusin@broadcom.com>,
- Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Cc: fausten <yunfeng.li.nb@gmail.com>, dri-devel@lists.freedesktop.org,
- bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION
- as unset
-Date: Fri, 23 Oct 2026 17:01:20 +0800
-Message-ID: <20261023090121.5031-1-fausten@ebizmis.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <e84774ae-b49d-4df5-923d-ae2cde480aaf@broadcom.com>
-References: <e84774ae-b49d-4df5-923d-ae2cde480aaf@broadcom.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5777B112CA9;
+	Fri, 23 Oct 2026 18:17:14 +0000 (UTC)
+Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net
+ [51.250.60.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9678110E044;
+ Fri, 23 Oct 2026 15:24:30 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-12.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-12.yp-c.yandex.net)
+ by forward102d.mail.yandex.net (postfix) with ESMTPS id 28A12C017E;
+ Fri, 23 Oct 2026 18:24:28 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-12 with ESMTPSA id
+ GOf0WQDdMGk0-4OD3IW0V; Fri, 23 Oct 2026 18:24:27 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.com; s=mail;
+ t=1792769067; bh=LbacRowWzwVnlWbExXUMiESmxUlI+FAcFK05tc4OaJ0=;
+ h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+ b=IngimSJw6n+DSn0/XNAB70exzvTkwmDZrUAthuRcBs2fspHRAX02TMVxXsjm/111U
+ gP+AsKpm4qtjC8XTSFHs4qiroQnQT1oMDgvxMi5ueMjB4wmSzkSZpLBlEb5EUUyfXm
+ 2oLBGTy5Lx8lAu3j8VpBsvYksZ5vlnbPJxDojeUw=
+Authentication-Results: mail-nwsmtp-smtp-production-main-12;
+ dkim=pass header.i=@yandex.com
+From: Alex <xnderv@yandex.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ xnderv@yandex.com
+Subject: [PATCH v2] drm/nouveau: idle the channel before destroying an engine
+ object via abi16
+Date: Fri, 23 Oct 2026 18:23:32 +0300
+Message-ID: <20261023152332.9420-2-xnderv@yandex.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261023152332.9420-1-xnderv@yandex.com>
+References: <20261023144219.46478-1-xnderv@yandex.com>
+ <20261023152332.9420-1-xnderv@yandex.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -89,44 +57,152 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: fausten <yunfeng.li.nb@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
 
-On Tue, Sep 2, 2026 at 8:44 PM, Maaz Mombasawala
-<maaz.mombasawala@broadcom.com> wrote:
-> This patch bricked my testing VM, investigating..
+nouveau_abi16_ioctl_del() destroys an engine object (ENGOBJ) created by
+nouveau_abi16_ioctl_new() without waiting for the owning channel to go
+idle.  The legacy path, nouveau_abi16_ioctl_gpuobj_free(), does call
+nouveau_channel_idle() first ("synchronize with the user channel and
+destroy the gpu object"), the new ioctl does not.
 
-Hi Maaz, hi Zack,
+Chromium-based applications (Chrome, Yandex Browser, Electron apps)
+create and immediately delete probe 3D objects at startup.  If the GPU
+is busy with other work at that moment (compositor animation while the
+app is launched from the GNOME dash, cursor movement), the engine
+context is unbound while the channel still references it, and the GPU
+faults:
 
-Just a gentle ping on this one. Maaz, did the investigation into your
-bricked testing VM turn up anything in the meantime?
+  nouveau 0000:01:00.0: fifo: fault 00 [VIRT_READ] at 0000000000000000
+    engine 00 [GR] client 0f [HUB/CTXCTL] reason 00 [PDE] on channel 5
+  nouveau 0000:01:00.0: fifo: ... PAGE_NOT_PRESENT ... channel 5 killed!
 
-Meanwhile I've done more testing on my side. I applied this fix on
-top of mainline 7.3 and the cursor works correctly again:
+after which the desktop freezes.  Observed on GF114 (GeForce GTX 560 Ti)
+with Linux 7.0.x, reproducible almost every time by launching a Chromium
+app from the dash; not seen in 10 consecutive launches with this patch.
 
-  Host:   VMware Fusion 26.0.1 on macOS 26.7.1 (x86_64)
-  Guest:  Kylin Linux Advanced Server V10 (Halberd)
-  Kernel: 7.3 + this patch
+Remember the channel an engine object was created on, drop the reference
+when the channel is destroyed first, and idle the channel before
+nvif_object_dtor() like the gpuobj_free path does.
 
-Before the patch, every cursor update was rejected with -EINVAL
-because SVGA_REG_CURSOR_MAX_DIMENSION reads back 0 on this setup;
-with the patch applied, cursor updates go through normally again.
-3D acceleration is disabled in the VM settings.
+Signed-off-by: Alex <xnderv@yandex.com>
+---
+v2: wait for the channel's scheduler to drain before idling the channel
+    when VM_BIND is in use.  Legacy PUSHBUF submissions are serialized
+    with the ioctl by cli->mutex, but EXEC jobs are pushed to the channel
+    asynchronously from the scheduler workqueue, so emitting a fence from
+    nouveau_abi16_ioctl_del() could race with nouveau_exec_job_run(), and
+    jobs still queued in the entity would not have been covered by the
+    fence at all.  Reuse the existing job-list wait from
+    nouveau_sched_fini() through a small helper, nouveau_sched_wait_idle().
+    (Race pointed out by the Sashiko AI review of v1.)
 
-So far I haven't been able to reproduce the failure you reported.
-If you can share your test environment (hypervisor product and
-version, host OS, guest kernel, 3D acceleration on/off) and the
-failure symptoms (boot hang vs. cursor path only), I'd like to
-narrow down what's different between our setups.
+drivers/gpu/drm/nouveau/nouveau_abi16.c | 27 +++++++++++++++++++++++-
+drivers/gpu/drm/nouveau/nouveau_sched.c |  9 +++++++-
+drivers/gpu/drm/nouveau/nouveau_sched.h |  1 +
+3 files changed, 35 insertions(+), 2 deletions(-)
 
-And if the conclusion is that treating 0 as "unset" with the current
-fallback isn't the right fix, I'm happy to rework it as a v5.
-
-Thanks,
-fausten
+diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c b/drivers/gpu/drm/nouveau/nouveau_abi16.c
+index b776030..d979cd8 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
++++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
+@@ -89,6 +89,7 @@ struct nouveau_abi16_obj {
+ 		ENGOBJ,
+ 	} type;
+ 	u64 object;
++	struct nouveau_abi16_chan *chan;
+ 
+ 	struct nvif_object engobj;
+ 
+@@ -173,6 +174,13 @@ nouveau_abi16_chan_fini(struct nouveau_abi16 *abi16,
+ 			struct nouveau_abi16_chan *chan)
+ {
+ 	struct nouveau_abi16_ntfy *ntfy, *temp;
++	struct nouveau_abi16_obj *obj;
++
++	/* Forget references to this channel held by engine objects. */
++	list_for_each_entry(obj, &abi16->objects, head) {
++		if (obj->chan == chan)
++			obj->chan = NULL;
++	}
+ 
+ 	/* Cancel all jobs from the entity's queue. */
+ 	if (chan->sched)
+@@ -784,8 +792,24 @@ nouveau_abi16_ioctl_del(struct nouveau_abi16 *abi16, struct nvif_ioctl_v0 *ioctl
+ 
+ 	obj = nouveau_abi16_obj_find(abi16, ioctl->object);
+ 	if (obj) {
+-		if (obj->type == ENGOBJ)
++		if (obj->type == ENGOBJ) {
++			/* Synchronize with the user channel before destroying the
++			 * engine object, as the legacy GPUOBJ_FREE path does.  The
++			 * channel may still have work queued that needs the engine
++			 * context which is about to be unbound.
++			 *
++			 * Legacy PUSHBUF submissions are serialized with this ioctl
++			 * by cli->mutex.  With VM_BIND, EXEC jobs are pushed to the
++			 * channel asynchronously by the scheduler, so wait for every
++			 * submitted job to finish before touching the channel.
++			 */
++			if (obj->chan && obj->chan->chan) {
++				if (obj->chan->sched)
++					nouveau_sched_wait_idle(obj->chan->sched);
++				nouveau_channel_idle(obj->chan->chan);
++			}
+ 			nvif_object_dtor(&obj->engobj);
++		}
+ 		nouveau_abi16_obj_del(obj);
+ 	}
+ 
+@@ -826,6 +850,7 @@ nouveau_abi16_ioctl_new(struct nouveau_abi16 *abi16, struct nvif_ioctl_v0 *ioctl
+ 	obj = nouveau_abi16_obj_new(abi16, ENGOBJ, args->object);
+ 	if (IS_ERR(obj))
+ 		return PTR_ERR(obj);
++	obj->chan = chan;
+ 
+ 	ret = nvif_object_ctor(&chan->chan->user, "abi16EngObj", args->handle, args->oclass,
+ 			       NULL, 0, &obj->engobj);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
+index b3f02c4..956ca73 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.c
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+@@ -493,13 +493,20 @@ nouveau_sched_job_list_empty(struct nouveau_sched *sched)
+ 	return empty;
+ }
+ 
++/* Wait until every job submitted to the scheduler has finished. */
++void
++nouveau_sched_wait_idle(struct nouveau_sched *sched)
++{
++	wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
++}
++
+ static void
+ nouveau_sched_fini(struct nouveau_sched *sched)
+ {
+ 	struct drm_gpu_scheduler *drm_sched = &sched->base;
+ 	struct drm_sched_entity *entity = &sched->entity;
+ 
+-	wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
++	nouveau_sched_wait_idle(sched);
+ 
+ 	drm_sched_entity_fini(entity);
+ 	drm_sched_fini(drm_sched);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.h b/drivers/gpu/drm/nouveau/nouveau_sched.h
+index 51ce8dc..0562af6 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.h
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.h
+@@ -115,5 +115,6 @@ struct nouveau_sched {
+ int nouveau_sched_create(struct nouveau_sched **psched, struct nouveau_drm *drm,
+ 			 struct workqueue_struct *wq, u32 credit_limit);
+ void nouveau_sched_destroy(struct nouveau_sched **psched);
++void nouveau_sched_wait_idle(struct nouveau_sched *sched);
+ 
+ #endif
