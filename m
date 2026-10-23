@@ -2,86 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFAA606A31B
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 10:53:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE9E606A31B
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 11:27:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eOvBRRYQ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L4XT2nUn;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TXzzxD3Z;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lNZndVHM
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=g09d70JU;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vEPP7UqY;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=g09d70JU;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vEPP7UqY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7963F10E61F;
-	Fri, 23 Oct 2026 10:53:25 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A769A10E625
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 10:53:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF36E10E62C;
+	Fri, 23 Oct 2026 11:26:50 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 698C110E62C
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 11:26:39 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EED2621F81;
- Fri, 23 Oct 2026 10:53:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9EB9A1F785;
+ Fri, 23 Oct 2026 11:26:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792752792; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1792754797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Ck5538vplGRYzOsXA+G4AVyxQSUzsoSCXDYUVK14jME=;
- b=eOvBRRYQTqg5EuKrtxgapxGZcDC17kg2J4nCBhEsLhEH5NLGi0A7h/FbAiYKA6haYiHrxV
- o6//rg7i0cSMHxNugnVS+cyez8/3MGPNLu78nxj3QSK+DpYZb75qmdxifiuWxcn5bf+x9G
- m9p5IrUonWJIGFaCoA7qcAjA2FyZCZ8=
+ bh=rH5uI+MFFbqA2/IjxVKao6Wy3U0y7FtYS68LxQh8NN0=;
+ b=g09d70JUhHy1R/ylgiL3xD+c9XkLyM5XAWeqxDoj1gStW+S5GjCU8Q5KFfjYlrfxNKPEgk
+ uFs1oDSwW1WGkxDxQ8GboLF6dbApD8iC6gcM5PEME2N3dV2o2Jnww/orlLuYxb961M/okl
+ FLeIz44ht8n6Vxw103z7dyG66eZSNt0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792752792;
+ s=susede2_ed25519; t=1792754797;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Ck5538vplGRYzOsXA+G4AVyxQSUzsoSCXDYUVK14jME=;
- b=L4XT2nUnSPUfJ8Loybl573SFzF3mmzLUDJ9alg9QAlnBrCxuKgmhn/8tVb670aK1hb8EAC
- MM8x7NitS1Kxn2AQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TXzzxD3Z;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=lNZndVHM
+ bh=rH5uI+MFFbqA2/IjxVKao6Wy3U0y7FtYS68LxQh8NN0=;
+ b=vEPP7UqYltxaqK7Xukyvllo+6SuslGec4MxGptvGWpg6yC0jhGmCBCf0yEKiFBpEpYCHiS
+ O7X0CFUDlZ3kPKAQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=g09d70JU;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vEPP7UqY
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1792752791; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1792754797; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Ck5538vplGRYzOsXA+G4AVyxQSUzsoSCXDYUVK14jME=;
- b=TXzzxD3ZWA5m80AdBe1KVKPkfo6s0mpc4Jfzhnlrme+iDMxc5zjyVpFSCspTIMFBide7O/
- JXA5Et+SN7/hzb61V5yel+ujGXV/8wH3w+Lh+ouWP3K6iPIvQZYchv6D2jmi5rx6qXDUrU
- ZzQf3Q4i8AsQhRGoxBbjCXfe+cdgh+s=
+ bh=rH5uI+MFFbqA2/IjxVKao6Wy3U0y7FtYS68LxQh8NN0=;
+ b=g09d70JUhHy1R/ylgiL3xD+c9XkLyM5XAWeqxDoj1gStW+S5GjCU8Q5KFfjYlrfxNKPEgk
+ uFs1oDSwW1WGkxDxQ8GboLF6dbApD8iC6gcM5PEME2N3dV2o2Jnww/orlLuYxb961M/okl
+ FLeIz44ht8n6Vxw103z7dyG66eZSNt0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1792752791;
+ s=susede2_ed25519; t=1792754797;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Ck5538vplGRYzOsXA+G4AVyxQSUzsoSCXDYUVK14jME=;
- b=lNZndVHM/iB8O2V09NPM4If9ftbMhR9jT4X53JSmomlvBQpcS58qAuP+Rb8tMN4s6douX/
- 4z+bQ0dZxi8VdvBg==
+ bh=rH5uI+MFFbqA2/IjxVKao6Wy3U0y7FtYS68LxQh8NN0=;
+ b=vEPP7UqYltxaqK7Xukyvllo+6SuslGec4MxGptvGWpg6yC0jhGmCBCf0yEKiFBpEpYCHiS
+ O7X0CFUDlZ3kPKAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9CF8A133F3;
- Fri, 23 Oct 2026 10:53:11 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D68AF133F6;
+ Fri, 23 Oct 2026 11:26:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id qZptD5c822oCIwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 23 Oct 2026 10:53:11 +0000
-Message-ID: <baaf7d18-ade1-48ad-a7f6-03769a3178d4@suse.de>
-Date: Fri, 23 Oct 2026 12:53:10 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 2mW1KmxE22r7RQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 23 Oct 2026 11:26:36 +0000
+Message-ID: <645c1c2b-9aa8-44b4-8a67-dcd7bfbe8fbd@suse.de>
+Date: Fri, 23 Oct 2026 13:26:36 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/client: Don't print a NULL firmware config mode
-To: Hugo Sales <hugo@hsal.es>, dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Subject: Re: [PATCH v5 03/13] drm: client: add splash client
+To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-References: <20261022114356.669988-1-hugo@hsal.es>
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Francesco Valla <francesco@valla.it>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261013093243.505776-1-maximpedraza@gmail.com>
+ <20261013093243.505776-4-maximpedraza@gmail.com>
+ <fafa7327-e624-49f2-98b2-83fd602a0ad7@suse.de>
+ <20261021005006.2341200-2-maximpedraza@gmail.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -108,30 +123,35 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261022114356.669988-1-hugo@hsal.es>
+In-Reply-To: <20261021005006.2341200-2-maximpedraza@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spamd-Result: default: False [-12.00 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[vger.kernel.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- RCPT_COUNT_SEVEN(0.00)[7]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.com:url];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ XM_UA_NO_VERSION(0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[25]; FREEMAIL_TO(0.00)[gmail.com];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,lwn.net,valla.it,amd.com,redhat.com,ravnborg.org,linaro.org,linuxfoundation.org,infradead.org,lists.freedesktop.org,vger.kernel.org];
+ MID_RHS_MATCH_FROM(0.00)[]; TAGGED_RCPT(0.00)[dt];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.de:dkim]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Rspamd-Action: no action
-X-Spam-Score: -13.50
+X-Spam-Score: -12.00
 X-Spam-Level: 
-X-Rspamd-Queue-Id: EED2621F81
+X-Rspamd-Queue-Id: 9EB9A1F785
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,79 +163,247 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi
+
+Am 21.10.26 um 02:50 schrieb Màxim Pedraza Padilla:
+> Hi Thomas,
+>
+> Thanks a lot for the thorough review. I was preparing v6 when it came
+> in; I will hold it back and work all of this in first. Answers below.
+>
+> Am 20.10.26 um 12:28 schrieb Thomas Zimmermann:
+>> This lengthy comment should be a list of per-revision changes, like this:
+>>
+>> v5:
+>> - exit when firmware BMP is missing
+>> - foo
+>> - bla
+>>
+>> and so on. We keep these in the commit message right before the tags.
+> Will do.
+>
+>>> +	select DRM_CLIENT_LIB if DRM_CLIENT_SPLASH
+>>>    	select DRM_CLIENT_LIB if DRM_CLIENT_LOG
+>> Alphabetic order please
+> OK.
+>
+>>> +	  The color can be overridden through the drm_client_lib.splash_color
+>>> +	  kernel command line parameter.
+>> No extra module parameters please.
+> [...]
+>
+>> As I said, no module parameter for colors.  The color is something that
+>> the SoC firmware vendor would know at build-time. There is no reason for
+>> the user to modify this at runtime.
+> Sorry, I should have answered this the first time rather than keep
+> the parameter without a word. Let me explain why I would like to keep
+> the command line, for the colour and also for the parameters patch 12
+> adds, and you tell me whether it holds.
+>
+> The build-time defaults cover what a product normally shows. The
+> parameters are for what is only known at boot: the bootloader finds an
+> update pending, a failed boot count or a recovery request, or reads the
+> product variant from an EEPROM, and wants the splash to say so, with
+> another logo or a red or amber background. Any bootloader can do that
+> by adding to the command line: a setenv in a U-Boot script, a recovery
+> entry in GRUB or systemd-boot. Changing the device tree instead needs
+> fdt support in the bootloader and knowledge of the node, and is not
+> possible at all when the device tree is signed along with the kernel
+> in a FIT image. On x86 with the BGRT there is no device tree, and the
+> command line is the only way.
+
+I'd just like to say that these are not good uses of the splash screen.  
+They also move the goal from having a boot-up logo to 
+reporting/debugging boot-up problems.
+
+>
+> There is precedent for this kind of setting: video=...,rotate=,
+> fbcon=rotate: and fbcon=logo-pos: are all about how the boot screen
+> looks, and console= wins over stdout-path the way these win over the
+> device tree.
+
+video= has its uses, but the others seem misguided. Rotation should be 
+auto-configured in some way; logo-pos shouldn't even be a thing IMHO.
 
 
-Am 22.10.26 um 13:43 schrieb Hugo Sales:
-> When some tiles of a tiled display are missing,
-> drm_client_firmware_config() replaces the connector's mode with
-> drm_connector_fallback_non_tiled_mode(). That returns NULL when
-> connector->modes has no mode other than the tile size, but the debug
-> message after it still reads modes[i]->name. Accessing a member through
-> a NULL pointer is undefined behaviour. Today printk happens to get an
-> address below PAGE_SIZE and prints "(efault)"
 >
-> Print which step found no mode instead, "no non tiled mode found" in
-> this case, from the mode_type the function already tracks. A connector
-> whose mode is NULL is skipped by drm_client_modeset_probe(), so it is
-> left off, as before
->
-> Sashiko found this while reviewing a series that makes the fallback
-> return NULL more often, by also skipping modes larger than the client
->
-> Fixes: cf1d0180f571 ("drm/fbdev: Fallback to non tiled mode if all tiles not present")
-> Link: https://lore.kernel.org/all/sashiko-outbox-173425@kernel.org/
-> Signed-off-by: Hugo Sales <hugo@hsal.es>
-> ---
-> Sashiko found this while reviewing my fbdev probe series:
-> https://lore.kernel.org/all/20261015212545.1989962-1-hugo@hsal.es/
-> That series makes the fallback return NULL more often
->
-> I ran checkpatch and built drm_client_modeset.o with W=1
->
->   drivers/gpu/drm/drm_client_modeset.c | 13 +++++++++----
->   1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-> index 0080a8e9556a..a8cbe4c0e166 100644
-> --- a/drivers/gpu/drm/drm_client_modeset.c
-> +++ b/drivers/gpu/drm/drm_client_modeset.c
-> @@ -754,10 +754,15 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
->   		}
->   		crtcs[i] = crtc;
->   
-> -		drm_dbg_kms(dev, "[CONNECTOR::%d:%s] on [CRTC:%d:%s] using %s mode: %s\n",
-> -			    connector->base.id, connector->name,
-> -			    crtc->base.id, crtc->name,
-> -			    mode_type, modes[i]->name);
-> +		if (modes[i])
-> +			drm_dbg_kms(dev, "[CONNECTOR::%d:%s] on [CRTC:%d:%s] using %s mode: %s\n",
-> +				    connector->base.id, connector->name,
-> +				    crtc->base.id, crtc->name,
-> +				    mode_type, modes[i]->name);
-> +		else
-> +			drm_dbg_kms(dev, "[CONNECTOR:%d:%s] on [CRTC:%d:%s] no %s mode found\n",
-> +				    connector->base.id, connector->name,
-> +				    crtc->base.id, crtc->name, mode_type);
+> So my proposal for v6: the defaults are set at build time, as you ask
+> (the colour already is, and the BMP's file name becomes a Kconfig
+> string), and the parameters stay, only to override them for one boot.
+> If that is still a no, I will drop them all, patch 12 included.
 
-That seems excessive. Can you use   modes[i] ? modes[i]->name : 
-"(none)"  for the final argument?
+Please drop the parameters for now. If we want to give status messages 
+from boot loader to kernel, we should first evaluate how to do that 
+correctly. This involves people from the various supported 
+architectures. Once we have support for such a channel, we can try to 
+use it on any DRM client and build a shared solution.
+
+I'm not against reporting boot-loader messages, but it seems to require 
+a lot more thought that what can be done here in this series.
+
+
+>
+>> How could we find out about the bmp's file name? I assume it is just a
+>> file in the initfs, which we have to know about?
+> It is requested with request_firmware_nowait(), so it is looked up like
+> any other firmware: built into the kernel with EXTRA_FIRMWARE, in the
+> initramfs, or under /lib/firmware once the root file system is there.
+> The name is fixed by whoever builds the image, so
+>
+>> In any case, this should again not be module parameter. Please make it
+>> build-time configurable via Kconfig.
+> a Kconfig string fits it well for the default name; v6 will have it.
+> splash_bmp= would then only pick another file for one boot, such as
+> one of several images built in with EXTRA_FIRMWARE, as above.
+>
+>>> +} __packed;
+>> These types are already in efifb.c can we move them into a header file.
+>> include/video/bmp.h should work.
+> Yes, I'll add a patch that moves them there and makes efifb use the
+> header. The header keeps the __le types, as BMP is little endian
+> whatever the CPU, so efifb will read the fields through
+> get_unaligned_le*() like the splash does; no change on the little
+> endian systems EFI runs on. That patch touches fbdev, so it will go to
+> Helge and Peter as well.
+
+Makes sense.
+
+>
+>>> +	*data = fw->data;
+>>> +	*size = fw->size;
+>> Why does this work?
+>>
+>> We no longer hold a lock on fw. If a concurrent thread calls
+>> release_firmware() on splash->fw, data and size might become invalid.
+> The only release_firmware() on splash->fw is in
+> drm_splash_image_cleanup(), which runs in the render thread itself
+> once it has drawn, and at unregister after the thread has been
+> stopped. The firmware callback stores the firmware under fw_lock, or
+> releases it itself if the thread is already done, and never touches it
+> again. So nobody can release it while the thread reads from it; the
+> lock is only there for the hand-over from the callback. I'll put that
+> in a comment, since it is not obvious from the code.
+
+Thanks.
+
+>
+>>> +	drm_info(client->dev, "splash: request %s as firmware", splash_bmp);
+>> drm_dbg() here. drm_info() is log spam.
+> OK, here and in the other places you pointed out.
+>
+>>> +	int i;
+>> format_count is an unsigned int. i should lik
+> OK.
+
+
+Oh, I just noticed that my comment got truncated. I meant to that "i 
+should likely by unsigned int as well".
+
+
+>
+>> Values like px_width are deprecated because they don't work in the
+>> general case.  Rather pass the format as drm_format_into and do the
+>> px_width lookup within the drm_splash_fill().
+> OK.
+
+At some point I'd like to have a nice, shared drawing interface that all 
+the clients can use easily.
+
+
+>
+>>> +			scolor = *(const u32 *)(&sbuf8[src_offset + 3 * x]);
+>> Please build scolor from the individual entries in the color table. This
+>> type casting is fragile. It also only works on little endian with
+>> unaligned loads AFAIU.
+> Agreed. It also read one byte past the end of the image on the last
+> pixel. v6 already reads each pixel with get_unaligned_le24(), which
+> builds it from the three bytes, in this patch rather than in a later
+> one as in v5.
+>
+>>> +	bmp_width = (s32)get_unaligned_le32(&dib_header->width);
+>>> +	bmp_height = (s32)get_unaligned_le32(&dib_header->height);
+>> Why not make these variables unsigned?
+> [...]
+>
+>>> +	bmp_invert_y = (bmp_height > 0);
+>>> +	bmp_height = abs(bmp_height);
+>> That's the answer to my question above, i guess?   But what about bmp_width?
+> Yes. Both are signed in the BMP header, as in efifb's struct
+> bmp_dib_header. A negative width has no meaning, and keeping it signed
+> lets the format check reject it as such (bmp_width <= 0) rather than
+> see a huge width that only the size checks further down would stop.
+> I can read the width as unsigned and check it against S32_MAX instead
+> if you prefer.
+
+It's ok.
+
+>
+>>> +		 * On x86 some firmwares use a low non native resolution for
+>> 'Some firmware on x86 uses a non-native resolution for'
+>>
+>>> +		 * the display when they have shown some text messages. While
+>> 'the display if it has shown some text messages.'
+> OK, thanks.
+>
+>> The entire if-else block below should be a function drm_splash_blit().
+>> Please also see my comment on using px_width.
+> OK. Together with your comment on patch 9, the blit will become a
+> function from this patch on.
+>
+>> The client receives a hotplug whenever the attached display changes.
+>> Returning here would likely break anything after the initial one.
+>>
+>> Best is to kill the rendering thread, rebuild the list of modesets and
+>> reinit.
+> Right, today an output plugged in later stays dark, and a restore puts
+> back the modesets of the first hotplug. v6 will rebuild on every
+> hotplug, keeping the image around so that an output plugged in later
+> gets it too.
+
+It's probably ok to address things in small steps. DRM's common client 
+interfaces could be easier to use and getting it all right is fairly 
+complicated, I think.
 
 Best regards
 Thomas
 
->   
->   		fallback = false;
->   		conn_configured |= BIT(i);
+
 >
-> base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
+>> Why does it use a rendering threat?  Wouldn't it be much easier to
+>> schedule a worker?  You can also try to put it on the power-efficient
+>> work queue.
+> The thread mostly waits: for the BMP firmware and for the next
+> redraw. A work item queued from the hotplug and from the firmware
+> callback covers both, and makes the start and stop paths simpler,
+> which is where v3 had its use-after-frees. I'll move it to
+> system_power_efficient_wq.
+>
+>> I don't think this is right. (?) If there's no fb, the restore should
+>> disable the display. Just run the commit below.
+> Fair enough. The early return was there because committing modesets
+> that still had a mode but no framebuffer failed with -EINVAL and a
+> WARN. v6 already clears the mode of an output that gets no buffer;
+> I'll do the same when the buffers are freed, drop the early return,
+> and let the commit turn the outputs off.
+>
+>>> +	mutex_destroy(&splash->hotplug_lock);
+>> This line belongs into drm_splash_client_unregister(). The free callback
+>> is only for free-ing the client instance.
+> OK.
+>
+>>> +	drm_dbg(dev, "Unregistered with drm splash");
+>> 'free', not 'unregister'
+> OK.
+>
+> Best regards,
+> Màxim
 
 -- 
 --
