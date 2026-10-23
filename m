@@ -2,53 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7C8606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 17:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E757B606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 18:17:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l3aSYYbE
+	dkim=pass (1024-bit key, unprotected) header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=xggIpMTA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A41D10E0DF;
-	Fri, 23 Oct 2026 17:58:50 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3253910E0DF
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 17:58:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D3B1B43DA2;
- Fri, 23 Oct 2026 17:58:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12221F01829;
- Fri, 23 Oct 2026 17:58:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792778322;
- bh=rbckzzyzIkFqZpi1BADHlyG5EWbCbTqZ1QrQLEtCk1s=;
- h=From:To:Cc:Subject:Date;
- b=l3aSYYbEdOUtAjoqARzhPp6sXqmfcJ897g7NKkVz5enpyxTriBHdNBONSCRMfjRiz
- sX+koQMwZgR2V+H0XVMvrn5Sj6TsurF9Y0aQSEivs5+WOLpos3LMKmknzoIN1ZvuZ9
- 09l+I4NUI49ccg3wJIjUs3v3CvcP+LFPhhR5o2PijNOZEx6gGWgqavIWjWdUjuGcrG
- AA5uu3s0zGdp0G3mxGTrppkoX0mvV8tLtOEPDsnxvpqD7qfFyrL9syqBKXS26g0hPP
- Mw5Vp8zMwIoWVcNbL6J3bc/mDKOChwO22Ich++hfojQD1NQOH8jD7fyoBoPyOGdidx
- +85FJYpdUsldQ==
-From: Philipp Stanner <phasta@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] rust: DmaFence: Initialize for 64-bit seqnos
-Date: Fri, 23 Oct 2026 19:57:51 +0200
-Message-ID: <20261023175750.2979015-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA8910E4F1;
+	Fri, 23 Oct 2026 18:17:03 +0000 (UTC)
+X-Greylist: delayed 2460 seconds by postgrey-1.36 at gabe;
+ Fri, 23 Oct 2026 15:24:25 UTC
+Received: from forward105d.mail.yandex.net (forward105d.mail.yandex.net
+ [51.250.60.165])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EC3910E63D;
+ Fri, 23 Oct 2026 15:24:25 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-12.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-12.yp-c.yandex.net)
+ by forward105d.mail.yandex.net (postfix) with ESMTPS id 0BAF1100072;
+ Fri, 23 Oct 2026 18:24:23 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-12 with ESMTPSA id
+ GOf0WQDdMGk0-GJ7eC45D; Fri, 23 Oct 2026 18:24:22 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.com; s=mail;
+ t=1792769062; bh=npNmIRcmiTbe8TUN5oF9hqxjSAu4kad9SSf+fBhKItc=;
+ h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+ b=xggIpMTA+9QrK39kLs7DqFcL5iYULlATGWKi98PgdVpdYgPrmPLPir8A8G6pkJ8Un
+ 5M/QmsPEK0gy1ppY3dmt40uWJA8BlZTgkWbA0Sa8nCK5G2S6fL6q6HIeEkXpSSlrcS
+ KJAU7XSU4cbsIPqsgLcHZfBty9I5cDoaeqY96kr0=
+Authentication-Results: mail-nwsmtp-smtp-production-main-12;
+ dkim=pass header.i=@yandex.com
+From: Alex <xnderv@yandex.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ xnderv@yandex.com
+Subject: Re: [PATCH] drm/nouveau: idle the channel before destroying an engine
+ object via abi16
+Date: Fri, 23 Oct 2026 18:23:31 +0300
+Message-ID: <20261023152332.9420-1-xnderv@yandex.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261023144219.46478-1-xnderv@yandex.com>
+References: <20261023144219.46478-1-xnderv@yandex.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 23 Oct 2026 18:17:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,40 +58,33 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When dma_buf::DriverFence et al. were added, it was completely
-overlooked that dma_fence has to be instructed to use the desired 64-bit
-sequence numbers with a special init function, dma_fence_init64().
+On the Sashiko AI review of this patch:
 
-Replace the bindings call to dma_fence_init() with one to
-dma_fence_init64().
+> Can calling nouveau_channel_idle(obj->chan->chan) here race with jobs
+> running on obj->chan->sched when VM_BIND is enabled?
 
-Fixes: 3282d5916019 ("rust: Add dma_fence abstractions")
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- rust/kernel/dma_buf/dma_fence.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks, the race is real.
 
-diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index a1d851656562..de0bbaf18c7f 100644
---- a/rust/kernel/dma_buf/dma_fence.rs
-+++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -744,7 +744,7 @@ pub fn new_fence(self) -> DriverFence<'a, T> {
-         // SAFETY: `fence_ptr` has been created directly above. It will live
-         // at least as long as `Self`. The same applies to `&Self::OPS`.
-         unsafe {
--            bindings::dma_fence_init(fence_ptr, self.ops, null_ptr, self.data.fctx.nr, seqno)
-+            bindings::dma_fence_init64(fence_ptr, self.ops, null_ptr, self.data.fctx.nr, seqno)
-         };
- 
-         self.data.fctx.nr_of_unsignaled_fences.fetch_add(1, Relaxed);
--- 
-2.56.0
+Legacy PUSHBUF submissions take cli->mutex (nouveau_abi16_get()), so they
+are serialized with nouveau_abi16_ioctl_del(), which is why the Chromium
+case was fixed by the plain nouveau_channel_idle().  With VM_BIND the
+EXEC jobs are pushed from the scheduler workqueue without cli->mutex, so
+emitting a fence from the ioctl could indeed race with
+nouveau_exec_job_run(), and jobs still queued in the entity would not be
+covered by the fence at all.
 
+v2 (sent as a reply to this thread) waits for the channel's scheduler to
+drain first -- the same job-list wait nouveau_sched_fini() already does,
+factored out as nouveau_sched_wait_idle() -- and then idles the channel.
+New EXEC submissions cannot sneak in meanwhile because the EXEC ioctl
+also holds cli->mutex.
+
+Alex
