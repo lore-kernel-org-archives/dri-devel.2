@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652E8606A31D
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:17:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78EC606A323
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:27:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UncHcpjc
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNdEAGo5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9274410E593;
-	Fri, 23 Oct 2026 07:17:47 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2216010E593
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 140A310E576;
+	Fri, 23 Oct 2026 07:27:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B10D10E576
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:27:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D9DE243F13;
- Fri, 23 Oct 2026 07:17:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE651F031E4;
- Fri, 23 Oct 2026 07:17:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5107660252;
+ Fri, 23 Oct 2026 07:27:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4D1A1F031E2;
+ Fri, 23 Oct 2026 07:27:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792739861;
- bh=oDo1sirqUHWZkPceJf1cPDGxOi9QVrjmK0DBW2JH0KQ=;
+ s=k20260515; t=1792740466;
+ bh=Fsn5fcCLJL4J5YSgosoLT98bUyV1U1KOay8uVikHbUU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UncHcpjcWcDVBVzqMa1qkhxyq8XbTxgESUO0/LqW7Y9TlW4zbrH20GzL4bqKhUbDb
- xy79yUj7S102S0y1bicx/k82ELJMxqXn/8RU6MXl31FGtfSTMhW/GKGzSAv9diG3x/
- sfqHT8wG7PAYXYW00wVTgb8Hs485CKC8Z7DVIYsCvE2PpuFMzqAPnKJQ6jUO0hQhEb
- M6SVLmT5e2zHYByQO+hGOZwJiCvP62Hx4ea2934rJSwOCP4xgIZTUCwQaGRDmCmn1I
- Di/t/dED68Ft3J2z/5SSZuKBCuDuVBZdqlCZrsJQOnsB/H+tufDyiTXIz8MjYrghyA
- RiPf+SxwaPGQw==
-Message-ID: <sashiko-outbox-182398@kernel.org>
+ b=DNdEAGo5uH1HZd79+tHz57jDdv7x83qxETjru6MyJPIJeV5rJ7L2adPA7xhZpVQt4
+ L1O4oW27ikBgxUYzzKHPdbFgXEem7UIpY61JTI5PEMk82kG3oPuMsZzWfHt/zYYT5q
+ SNbB8U8YwXGsHe31pmipdhd2qYszjP3TUjqKTJupf5BmzmILVumgZG2oFsc8CQn0Sx
+ HDTLrOg6p8UTJNbQ4Ah5sMxou6sehNWuEApikSwr6si/doOrCMhDMslpgGh/9wSS01
+ QWf+lJrriL51R7ryMNLPcnbFFRdEnCZ61/OJNpvU0Zzjp4HIGIFVXK6G3e2LmqLKN2
+ T0bBxOshfTYtA==
+Message-ID: <sashiko-outbox-182411@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 16/16] arm64: dts: ti: k3-j722s: Reference the power
- domains of the C7x timers
+Subject: Re: [PATCH v3 06/16] accel/thames: Create a context per client on
+ device open
 To: "Tomeu Vizoso" <tomeu.vizoso@gmail.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261023-thames-v3-16-3ab40aa17157@tomeuvizoso.net>
+In-Reply-To: <20261023-thames-v3-6-3ab40aa17157@tomeuvizoso.net>
 References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
- <20261023-thames-v3-16-3ab40aa17157@tomeuvizoso.net>
+ <20261023-thames-v3-6-3ab40aa17157@tomeuvizoso.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 07:17:40 +0000
+Date: Fri, 23 Oct 2026 07:27:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,127 +60,171 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] arm64: dts: ti: k3-j722s: C7x timer power-domains hack leaves time=
-rs unpowered
+- [High] accel/thames: mapping overlap in thames_context_alloc_user_pages()=
+ on >4K pages
+- [Medium] accel/thames: select IOMMU_IO_PGTABLE_LPAE without Kconfig depen=
+dencies
 --
 
-commit 245f841e18148c5c992f99bb10260a30c9c5baf8
+commit aad1ae439ba5b7b0cdec19071014a9f8abea740d
 Author: Tomeu Vizoso <tomeu.vizoso@gmail.com>
 
-arm64: dts: ti: k3-j722s: Reference the power domains of the C7x timers
+accel/thames: Create a context per client on device open
 
-This commit adds power-domains and power-domain-names properties referencing
-the timer1 and timer2 power domains to the c7x_0 and c7x_1 DSP nodes in
-k3-j722s-ti-ipc-firmware.dtsi so the firmware can use the timers.
+This commit creates a per-client context on device open and manages an
+ARM_64_LPAE_S1 page table for each context using IOMMU_IO_PGTABLE_LPAE. It
+allocates cyclic ASIDs, maps the core windows and per-context user stack and
+save area pages, and populates the IPC context table entries.
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi b/arch/=
-arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-> index 611220ff26555..7639081dc9133 100644
-> --- a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-> @@ -166,6 +166,14 @@ &c7x_0 {
->  		 <&mailbox0_cluster2 &mbox_c7x_0_client>;
->  	memory-region =3D <&c7x_0_dma_memory_region>,
->  			<&c7x_0_memory_region>;
-> +	/*
-> +	 * Both timers on each core: core 0's firmware drives TIMER1 and core
-> +	 * 1's TIMER2; two entries also keep the platform bus from attaching the
-> +	 * domain to the K3 driver's device.
-> +	 */
-> +	power-domains =3D <&k3_pds 37 TI_SCI_PD_EXCLUSIVE>,
-> +			<&k3_pds 38 TI_SCI_PD_EXCLUSIVE>;
-> +	power-domain-names =3D "timer1", "timer2";
->  	status =3D "okay";
->  };
-> =20
-> @@ -174,5 +182,8 @@ &c7x_1 {
->  		 <&mailbox0_cluster3 &mbox_c7x_1_client>;
->  	memory-region =3D <&c7x_1_dma_memory_region>,
->  			<&c7x_1_memory_region>;
-> +	power-domains =3D <&k3_pds 37 TI_SCI_PD_EXCLUSIVE>,
-> +			<&k3_pds 38 TI_SCI_PD_EXCLUSIVE>;
-> +	power-domain-names =3D "timer1", "timer2";
+> diff --git a/drivers/accel/thames/Kconfig b/drivers/accel/thames/Kconfig
+> index c621002d8efaa..9362b92740751 100644
+> --- a/drivers/accel/thames/Kconfig
+> +++ b/drivers/accel/thames/Kconfig
+> @@ -6,6 +6,7 @@ config DRM_ACCEL_THAMES
+>  	depends on TI_K3_DSP_REMOTEPROC
+>  	depends on REMOTEPROC
+>  	depends on MAILBOX
+> +	select IOMMU_IO_PGTABLE_LPAE
+
+[Severity: Medium]
+Can selecting IOMMU_IO_PGTABLE_LPAE here without its dependencies cause
+unmet direct dependency warnings and build failures?
+
+In drivers/iommu/Kconfig, IOMMU_IO_PGTABLE_LPAE is inside an if IOMMU_SUPPO=
+RT
+block (which depends on MMU) and has:
+
+config IOMMU_IO_PGTABLE_LPAE
+	bool "ARMv7/v8 Long Descriptor Format"
+	select IOMMU_IO_PGTABLE
+	depends on ARM || ARM64 || COMPILE_TEST
+	depends on !GENERIC_ATOMIC64	# for cmpxchg64()
+
+Because TI_K3_DSP_REMOTEPROC depends on ARCH_K3 || COMPILE_TEST,
+DRM_ACCEL_THAMES can be enabled when IOMMU_SUPPORT is disabled, or under
+COMPILE_TEST on architectures with GENERIC_ATOMIC64=3Dy or MMU=3Dn.
+
+When IOMMU_SUPPORT=3Dn, drivers/iommu/iommu-pages.o is not built, causing
+undefined references to iommu_alloc_pages_node_sz() and iommu_free_pages() =
+in
+drivers/iommu/io-pgtable-arm.c, and GENERIC_ATOMIC64=3Dy fails to compile d=
+ue
+to cmpxchg64_relaxed().
+
+Should DRM_ACCEL_THAMES also depend on MMU and !GENERIC_ATOMIC64, and select
+IOMMU_SUPPORT (similar to DRM_PANTHOR and DRM_PANFROST)?
+
+>  	help
+>  	  Choose this option if you have a Texas Instruments J722S and want to
+>  	  use its C7x DSP cores as compute accelerators.
+> diff --git a/drivers/accel/thames/thames_gem.c b/drivers/accel/thames/tha=
+mes_gem.c
+> new file mode 100644
+> index 0000000000000..b98e0fe203b08
+> --- /dev/null
+> +++ b/drivers/accel/thames/thames_gem.c
+
+[ ... ]
+
+> +static struct drm_gem_dma_object *thames_gem_create(struct drm_device *d=
+dev, size_t size)
+> +{
+> +	struct device *dev =3D drm_dev_dma_dev(ddev);
+> +	struct thames_gem_object *bo;
+> +	struct drm_gem_object *obj;
+> +	size_t offset =3D 0;
+> +	int ret;
+> +
+> +	size =3D PAGE_ALIGN(size);
+> +
+> +	bo =3D kzalloc_obj(*bo, GFP_KERNEL);
+> +	if (!bo)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	obj =3D &bo->base.base;
+> +	obj->funcs =3D &thames_gem_funcs;
+> +	bo->base.map_noncoherent =3D true;
+> +
+> +	ret =3D drm_gem_object_init(ddev, obj, size);
+
+[ ... ]
+
+> +static struct drm_gem_dma_object *thames_context_alloc_user_pages(struct=
+ thames_file_priv *priv,
+> +								  u64 dsp_va, size_t size)
+> +{
+> +	int prot =3D IOMMU_READ | IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_CACHE;
+> +	struct drm_gem_dma_object *dma_obj;
+> +	int ret;
+> +
+> +	dma_obj =3D thames_gem_create(&priv->tdev->ddev, size);
+> +	if (IS_ERR(dma_obj))
+> +		return dma_obj;
+> +
+> +	ret =3D thames_context_map(priv, dsp_va, prot, dma_obj->dma_addr, dma_o=
+bj->base.size);
+> +	if (ret) {
+> +		drm_gem_object_put(&dma_obj->base);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	return dma_obj;
+> +}
+> +
+> +static int thames_context_map_user_pages(struct thames_file_priv *priv)
+> +{
+> +	struct drm_gem_dma_object *dma_obj;
+> +
+> +	dma_obj =3D thames_context_alloc_user_pages(priv, THAMES_USER_STACK_BAS=
+E,
+> +						  THAMES_USER_STACK_SIZE);
+> +	if (IS_ERR(dma_obj))
+> +		return PTR_ERR(dma_obj);
+> +	priv->user_stack =3D dma_obj;
+> +
+> +	dma_obj =3D thames_context_alloc_user_pages(priv, THAMES_USER_SAVE_AREA=
+_BASE,
+> +						  THAMES_USER_SAVE_AREA_SIZE);
+> +	if (IS_ERR(dma_obj))
+> +		return PTR_ERR(dma_obj);
+> +	priv->save_area =3D dma_obj;
+> +
+> +	return 0;
+> +}
 
 [Severity: High]
-Can specifying both timer power domains on c7x_0 and c7x_1 leave the timers
-unpowered while the C7x DSP firmware is booting or running?
+What happens on arm64 kernels configured with 16 KiB or 64 KiB pages when
+thames_open() calls thames_context_create() -> thames_context_map_user_page=
+s()?
 
-Because two entries are listed in power-domains, genpd_dev_pm_attach() skips
-attaching the domains when k3_dsp_rproc_probe() probes the platform device:
+In drivers/accel/thames/thames_abi.h, the user region addresses are fixed at
+4 KiB granularity:
 
-drivers/pmdomain/core.c:genpd_dev_pm_attach() {
-	if (of_count_phandle_with_args(dev->of_node, "power-domains",
-				       "#power-domain-cells") !=3D 1)
-		return 0;
+#define THAMES_USER_REGION_BASE		0x10000000000ull
+#define THAMES_USER_REGION_SIZE		0x200000ull
+#define THAMES_USER_SAVE_AREA_BASE	(THAMES_USER_REGION_BASE + 0x2000ull)
+#define THAMES_USER_SAVE_AREA_SIZE	0x2000ull
+#define THAMES_USER_STACK_BASE		(THAMES_USER_REGION_BASE + 0x5000ull)
+#define THAMES_USER_STACK_SIZE		0x1000ull
 
-	return __genpd_dev_pm_attach(dev, dev, 0, 1, true);
-}
+In thames_gem_create(), size is rounded up to the host PAGE_SIZE via
+PAGE_ALIGN(size) and stored in dma_obj->base.size. Then
+thames_context_alloc_user_pages() maps dma_obj->base.size bytes into the DSP
+page table rather than the requested size.
 
-Meanwhile, k3_dsp_rproc_probe() leaves rproc->auto_boot set to true, and
-thames_core_init() defers probe until remoteproc has already booted the DSP
-before calling thames_core_get_timers():
+When PAGE_SIZE is 16 KiB (0x4000) or 64 KiB (0x10000),
+thames_context_map_user_pages() first maps user_stack starting at
+THAMES_USER_REGION_BASE + 0x5000, and then maps save_area for PAGE_SIZE byt=
+es
+starting at THAMES_USER_REGION_BASE + 0x2000 (covering at least +0x2000 to
++0x6000).
 
-drivers/accel/thames/thames_core.c:thames_core_init() {
-	if (rproc->state =3D=3D RPROC_OFFLINE && rproc->auto_boot) {
-		rproc_put(rproc);
-		return dev_err_probe(core->tdev->ddev.dev, -EPROBE_DEFER,
-				     "%pOF: remoteproc has not booted it yet (auto-boot pending)\n",
-				     core->of_node);
-	}
-	...
-	err =3D thames_core_get_timers(core);
-}
-
-As a result, there appear to be several paths where the C7x firmware runs
-without its timer power domains powered:
-
-1. rproc_auto_boot_callback() -> rproc_boot() -> k3_dsp_rproc_start() boots
-the C7x firmware before thames_core_init() -> thames_core_get_timers() ever
-calls dev_pm_domain_attach_list() to attach and power on power domains 37 a=
-nd
-38.
-
-2. In thames_platform_probe(), if c7x_0 has finished auto-boot
-(RPROC_RUNNING) while c7x_1 still has auto-boot pending (RPROC_OFFLINE),
-thames_core_init() on core 0 attaches power domains 37 and 38, and then
-thames_core_init() on core 1 returns -EPROBE_DEFER. The err_fini_cores unwi=
-nd
-path calls thames_core_fini() -> thames_core_put_timers() on core 0, which
-detaches power domains 37 and 38 via dev_pm_domain_detach_list() and powers
-off power domain 37 while c7x_0 firmware is actively running.
-
-3. When thames is unloaded or when a core runs non-Thames IPC firmware (such
-as the TI SDK IPC firmware for which k3-j722s-ti-ipc-firmware.dtsi is
-included by k3-j722s-evm.dts and k3-am67a-beagley-ai.dts) and fails
-thames_core_wait_handshake(), thames_core_fini() drops the rproc reference
-without shutting down the DSP while detaching the timer power domains:
-
-drivers/accel/thames/thames_core.c:thames_core_fini() {
-	rproc_put(core->rproc);
-	core->rproc =3D NULL;
-	thames_core_unmap_ipc(core);
-	thames_core_put_timers(core);
-}
-
-Likewise, when CONFIG_DRM_ACCEL_THAMES is disabled, nothing attaches to pow=
-er
-domains 37 and 38, so of_genpd_sync_state() will power them off once k3_pds
-consumers finish probing.
-
-4. Since c7x_0 only uses main_timer1 (power domain 37) and c7x_1 only uses
-main_timer2 (power domain 38), listing both domains with TI_SCI_PD_EXCLUSIVE
-on both DSP nodes also misdescribes the hardware in the device tree and cau=
-ses
-c7x_0 to claim main_timer2's power domain even if c7x_1 is disabled.
-
-Should the timer relationship and power domain lifecycle be managed by the
-remoteproc lifecycle (or via a dedicated timer phandle property) so that ea=
-ch
-DSP core only claims its own timer and keeps it powered for as long as the
-firmware is running?
+Won't the save_area mapping cover the guard page at +0x4000 and collide with
+the already-mapped user_stack PTEs at +0x5000, triggering a WARN_ON in
+arm_lpae_init_pte() and failing context creation with -EEXIST?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-thames-v3-=
-0-3ab40aa17157@tomeuvizoso.net?part=3D16
+0-3ab40aa17157@tomeuvizoso.net?part=3D6
