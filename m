@@ -2,149 +2,136 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61C2606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 10:26:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFAA606A31B
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 10:53:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QgBLDPCZ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MUWnPCQ6
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=eOvBRRYQ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L4XT2nUn;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TXzzxD3Z;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lNZndVHM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EA38112AA2;
-	Fri, 23 Oct 2026 10:26:27 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C87A5112AA2
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 10:26:15 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69NAAbx32164371
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 10:26:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- t38QF437OGSZbU1LgmCYZ33oL6v3P/HVKC+sKk2KKj8=; b=QgBLDPCZRKnWFt7R
- GQySepEZHhLJwvp9cpFc1+XalNBUIf+bv6eGjktc3F7///EVijMuSwVuBL1OzQIU
- beDPm6e3dZCXtad1VbQ7ZrjSiwtQKRX7TGDlo4YS+Z39vTRkJOoEue4ztF4To91h
- oNPxy7VHMwdnba8X0SQrWr1nXsUIny61g0Yb5wJta5Te6CVoBLbk1msoBPew4e1c
- NOprPZKQTHaN/t6u4bbUuvmW2zRsl5W78TKWZCifjcLnkybNEp4GPBjUCzhx59tD
- 50pMBcgKYPWhJ/wpQvxcyotIspPglT7QnofnPr9nHCyUkdh8ieEGNhBmGjJ9W0m9
- qxJ/Pw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfpahunmg-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 10:26:14 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93f1f1f2ecfso18041785a.3
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 03:26:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792751174; x=1793355974;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=t38QF437OGSZbU1LgmCYZ33oL6v3P/HVKC+sKk2KKj8=;
- b=MUWnPCQ64iAP0XpEoDCpjhJHOgfTxGKK5x81mlA/zTzpvgOqdIYZKukw/qwnwNMrCP
- oR/qQBk8S+BsHBJRd6kyqY6SW0hC/elESLyEuSLG7iRpHY6iV5YgIL5D4ipXqcY719ct
- UQcn7MSqBxb6VH65B4WMTdA3ZtN4G4ukW0gRRWJa2D4x2JiGry1G/bEjojLIFe63h6+j
- gTVHbt3dS9iS5ulgACBEoAJYRxnlDpiqAt7w2FQht+oAz7gLtE9fxDHpVE0eG2hw2zRc
- hRdTxH1YmM2ncaRoBqg+p1NzHD9GKHCFJ6Tu2ZpjzAXx0h3Wl5lLX+rcEwlNab57XJEN
- CqIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792751174; x=1793355974;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=t38QF437OGSZbU1LgmCYZ33oL6v3P/HVKC+sKk2KKj8=;
- b=Fj9rFb5e6CMaMfwDf++Z75eaqTArUaOmlAe0mMBgFRNhVmB7eE+N2a9eruZlG9ohRm
- 9OZEcLcgZrCbL760v7ppNihGsEYvKsROqyNl2X7hqTEeOuGHagnLMtX6b6OyRY7lKr7K
- MDv8NKdygVZqmlZQQkhctwVGbs+gjarnhnAquEyj/+75KQlyvujVl5dwYSLLYnzNLafy
- 7njVqfpZv6IGykblApHrB5O1hDtrD/giQcRWTdHVaefcjCX+7YXzw2StlcaH7vrqBtQq
- 3P1Ch05fO6grW56mrEjXg7WkT/jeFzWEgNXzB29RZWIgc5nQeI30K06F3s5CjFDacKNx
- 9R9g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwjdErWWP/L4MizaN8cPbrM3jSOweq7GYNHXDeZXvthvhBk03TLGeBwnR54vayuh2lbMJGkx0bkie0=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKOdRwUVl9vuMJt/SGxfx++YbmUinsw9iAojc5m2ihmijeVQTqk
- YYN4RcA+XfRKHeE8lQQeK9iaW5GAaVHx0weFxcMGH4oShDMT+zUmNTfywh4X/SOylmAbutwMH0v
- 04aQpm1XQNQxm8Y5op+CJ7ctQrUAf7AM/4VqFlX0xW/21HLpAc2q8HNktfUeoXA8W5hx9/Ts=
-X-Gm-Gg: AYBFou1HONaVvjprP3PNIlyaz0pZZK+VuwcY6Qw6q/AAPEaYI+Plyl8Ki3W5/oGvufj
- fHXLGkAzxydIVG0Dmz3RMjY6F/8nyJxYFNF9EzIiH4MLtKxSVNy4eRBxywKYwK7ePCAjthZiqYq
- gF9QOb+btHJG53+dNTTimpwzvUoRfXN/hrQOFe+dshZjHNLONFmLp8MMFHtJrJC+fACrG12XWfq
- ZzgWOID2DRsW54zDWVHIVHXRwcYoHtTC1p9gn+cAgFfPo4zd621FZaRVaybF+0yMFeCdxTdmTED
- emjj78RFg1tx7105tiV6xhjmYYyTtewbgJLEQvn6UAhRwrfHIGDN54jZq1s+fHRWJaiQLbhOMZV
- H7179HqIyx0luyf2h6lLbLw==
-X-Received: by 2002:a05:620a:8121:b0:93e:54fc:2c79 with SMTP id
- af79cd13be357-93f6f96e833mr361782585a.5.1792751174337; 
- Fri, 23 Oct 2026 03:26:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:8121:b0:93e:54fc:2c79 with SMTP id
- af79cd13be357-93f6f96e833mr361779385a.5.1792751173857; 
- Fri, 23 Oct 2026 03:26:13 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c46a5cf7164sm85473666b.76.2026.10.23.03.26.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Oct 2026 03:26:13 -0700 (PDT)
-Message-ID: <2bcea2ae-b79c-4138-98ab-aa401466f9f2@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 12:26:09 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7963F10E61F;
+	Fri, 23 Oct 2026 10:53:25 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A769A10E625
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 10:53:13 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EED2621F81;
+ Fri, 23 Oct 2026 10:53:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792752792; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Ck5538vplGRYzOsXA+G4AVyxQSUzsoSCXDYUVK14jME=;
+ b=eOvBRRYQTqg5EuKrtxgapxGZcDC17kg2J4nCBhEsLhEH5NLGi0A7h/FbAiYKA6haYiHrxV
+ o6//rg7i0cSMHxNugnVS+cyez8/3MGPNLu78nxj3QSK+DpYZb75qmdxifiuWxcn5bf+x9G
+ m9p5IrUonWJIGFaCoA7qcAjA2FyZCZ8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792752792;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Ck5538vplGRYzOsXA+G4AVyxQSUzsoSCXDYUVK14jME=;
+ b=L4XT2nUnSPUfJ8Loybl573SFzF3mmzLUDJ9alg9QAlnBrCxuKgmhn/8tVb670aK1hb8EAC
+ MM8x7NitS1Kxn2AQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TXzzxD3Z;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=lNZndVHM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1792752791; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Ck5538vplGRYzOsXA+G4AVyxQSUzsoSCXDYUVK14jME=;
+ b=TXzzxD3ZWA5m80AdBe1KVKPkfo6s0mpc4Jfzhnlrme+iDMxc5zjyVpFSCspTIMFBide7O/
+ JXA5Et+SN7/hzb61V5yel+ujGXV/8wH3w+Lh+ouWP3K6iPIvQZYchv6D2jmi5rx6qXDUrU
+ ZzQf3Q4i8AsQhRGoxBbjCXfe+cdgh+s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1792752791;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Ck5538vplGRYzOsXA+G4AVyxQSUzsoSCXDYUVK14jME=;
+ b=lNZndVHM/iB8O2V09NPM4If9ftbMhR9jT4X53JSmomlvBQpcS58qAuP+Rb8tMN4s6douX/
+ 4z+bQ0dZxi8VdvBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9CF8A133F3;
+ Fri, 23 Oct 2026 10:53:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id qZptD5c822oCIwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 23 Oct 2026 10:53:11 +0000
+Message-ID: <baaf7d18-ade1-48ad-a7f6-03769a3178d4@suse.de>
+Date: Fri, 23 Oct 2026 12:53:10 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/5] drm/msm/dp: Add DisplayPort controller for
- Kaanapali
-To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH] drm/client: Don't print a NULL firmware config mode
+To: Hugo Sales <hugo@hsal.es>, dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>,
- Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261022-kaanapali_dp-v3-0-b5ae8e6083c3@oss.qualcomm.com>
- <20261022-kaanapali_dp-v3-2-b5ae8e6083c3@oss.qualcomm.com>
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+References: <20261022114356.669988-1-hugo@hsal.es>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261022-kaanapali_dp-v3-2-b5ae8e6083c3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA0MCBTYWx0ZWRfX+NOLzAt8t5pX
- NyN5zPmeMVOtV5gGMhssFDg3BoVAQHlWAu78VFf+HQvcreFNCySO6jvfuwHdLlxUsjH+vWq2V0f
- 8qBThzL77LCqW7+QmmPrDPe9fhb9ISQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA0MCBTYWx0ZWRfX3AstWH/91Ifw
- 0ApERW3fLo9DNt9opos4qSXM9cLQtcikFAGa50Uk5RERFBKl58SS3WjTt6F64BgwYecXVTsCHHt
- 0bQ9XNQ/y3yIdNWWM+gQrRxCPKpvlhH9RFBjIOQmbIJwTPomHg48sR0N0Au/wLRN4Ya1SERAXym
- zG2Q+XhgZNp1KTDWCqV/eErYfGIDkMY+PRlsTy9CgZbrwmGFESHtl6/pZ3c4F8yTiT7zkF/YUsG
- q5xceapobtMLcu+9mhsRs6TsPgtqg60wkHOL2pSoLzRiO2XhAv+CIuU/6uWmb6ANon6yPx2yJxP
- yb7ewKdO9GCKIsjJA20CjbBPeJqGGgjS2dg7B6p+7CzvZfJVAkwACBmLmlMjHyBiymQb6iPGf0O
- 7VTR3r/ybPS4JThFDqs0fPCQDFY4kVnVefM5wVwIAtTlcTQoTAaZhdKbISOtugGEshozzfhmUeO
- pyIMrYJ9O6NvhzgfxpQ==
-X-Proofpoint-GUID: g278XEzgJov-7GfSoRZw4QFGJMbgULWR
-X-Authority-Analysis: v=2.4 cv=YIMKWhGx c=1 sm=1 tr=0 ts=6adb3646 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=pYsF8wcMre0XH_84TdcA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: g278XEzgJov-7GfSoRZw4QFGJMbgULWR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230040
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261022114356.669988-1-hugo@hsal.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[vger.kernel.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCPT_COUNT_SEVEN(0.00)[7]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.com:url];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: EED2621F81
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,24 +143,86 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/22/26 11:49 AM, Balaji Kalkonda wrote:
-> The Qualcomm Kaanapali platform comes with a DisplayPort controller
-> with a different base offset than the previous SM8650 SoC, add support
-> for this in the DisplayPort driver.
-> 
-> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+
+
+Am 22.10.26 um 13:43 schrieb Hugo Sales:
+> When some tiles of a tiled display are missing,
+> drm_client_firmware_config() replaces the connector's mode with
+> drm_connector_fallback_non_tiled_mode(). That returns NULL when
+> connector->modes has no mode other than the tile size, but the debug
+> message after it still reads modes[i]->name. Accessing a member through
+> a NULL pointer is undefined behaviour. Today printk happens to get an
+> address below PAGE_SIZE and prints "(efault)"
+>
+> Print which step found no mode instead, "no non tiled mode found" in
+> this case, from the mode_type the function already tracks. A connector
+> whose mode is NULL is skipped by drm_client_modeset_probe(), so it is
+> left off, as before
+>
+> Sashiko found this while reviewing a series that makes the fallback
+> return NULL more often, by also skipping modes larger than the client
+>
+> Fixes: cf1d0180f571 ("drm/fbdev: Fallback to non tiled mode if all tiles not present")
+> Link: https://lore.kernel.org/all/sashiko-outbox-173425@kernel.org/
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
 > ---
+> Sashiko found this while reviewing my fbdev probe series:
+> https://lore.kernel.org/all/20261015212545.1989962-1-hugo@hsal.es/
+> That series makes the fallback return NULL more often
+>
+> I ran checkpatch and built drm_client_modeset.o with W=1
+>
+>   drivers/gpu/drm/drm_client_modeset.c | 13 +++++++++----
+>   1 file changed, 9 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
+> index 0080a8e9556a..a8cbe4c0e166 100644
+> --- a/drivers/gpu/drm/drm_client_modeset.c
+> +++ b/drivers/gpu/drm/drm_client_modeset.c
+> @@ -754,10 +754,15 @@ static bool drm_client_firmware_config(struct drm_client_dev *client,
+>   		}
+>   		crtcs[i] = crtc;
+>   
+> -		drm_dbg_kms(dev, "[CONNECTOR::%d:%s] on [CRTC:%d:%s] using %s mode: %s\n",
+> -			    connector->base.id, connector->name,
+> -			    crtc->base.id, crtc->name,
+> -			    mode_type, modes[i]->name);
+> +		if (modes[i])
+> +			drm_dbg_kms(dev, "[CONNECTOR::%d:%s] on [CRTC:%d:%s] using %s mode: %s\n",
+> +				    connector->base.id, connector->name,
+> +				    crtc->base.id, crtc->name,
+> +				    mode_type, modes[i]->name);
+> +		else
+> +			drm_dbg_kms(dev, "[CONNECTOR:%d:%s] on [CRTC:%d:%s] no %s mode found\n",
+> +				    connector->base.id, connector->name,
+> +				    crtc->base.id, crtc->name, mode_type);
 
-you lost the tags from v1
+That seems excessive. Can you use   modes[i] ? modes[i]->name : 
+"(none)"  for the final argument?
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Best regards
+Thomas
 
-Konrad
+>   
+>   		fallback = false;
+>   		conn_configured |= BIT(i);
+>
+> base-commit: cf5d8e390e2ac2cfa24a50645efdbb9f0eebe65f
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
