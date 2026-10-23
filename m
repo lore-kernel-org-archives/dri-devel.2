@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D540606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A366606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 07:41:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvdflLe9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RKXQn8Il
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65D6710E073;
-	Fri, 23 Oct 2026 07:37:12 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 779D710E073
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:37:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A35901129F4;
+	Fri, 23 Oct 2026 07:40:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 796451129E3
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:40:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 499A743FAC;
- Fri, 23 Oct 2026 07:37:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41201F031E2;
- Fri, 23 Oct 2026 07:37:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 84AC1600E2;
+ Fri, 23 Oct 2026 07:40:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FC11F01825;
+ Fri, 23 Oct 2026 07:40:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792741026;
- bh=oE1FZicooVYFv3XUDMbZRMPTacNfmeiQiwaBy/+EciY=;
+ s=k20260515; t=1792741249;
+ bh=tIc6RvqAx4fgXR/KqgGUy24L4PCMZM/6Y5c91frl0po=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kvdflLe9EuwX4IDpp6hrN8aOix2/Fv6HoRuzHFujb9lrBF0gkvN7gK+j4eiiGQeBH
- P7fGlkb9WWEoqs/p8UBHUVam29I048O8V1EIR42RwNAa8UJ8KGKa9Rg4w6DTiRBAbp
- /ZytA0YuiyVG9YEICwY3w14gAuHp2dvVJfkqr6VoFX9Ho5eCBqPflvpaP4gl75NDlq
- A1TAIB89rtiGm0ZUcFV5Nd+qAiiT4NbBQeZr3B2MNfSoa62PLmgvl3P4s5ugVV/UMj
- PPMqXlfiyQfqedLeNrFzCejVglNCcS5wlytzAF98YPmtoAgezhNZGtCPkiN6jItov6
- QTAT1OGwCA4Lg==
-Message-ID: <sashiko-outbox-182421@kernel.org>
+ b=RKXQn8IlhM9I3gmgNHdY8J/J3OqTPcNzBeV2OqJxGNRK0KCR4YxaMHsd46XeUq2kd
+ xM0lPS3hpDEqiA1yaEC+f4EcLNSIIerA9fgOHZAy/BUj2bkTqLAWpFdFZ6Ov71UBR3
+ uapxp5xvF6IXoNO3Az1a4lM3CBZwl+6kXTbPWRQuHcT5E4AztLsN4fSUQw1yPGVkYc
+ bfjuXab/Mznb84OIQLf+jUAoDmAyk1H5X0ESbaHfzf+IdUK1qsy7sWAGQeGOrGwxNH
+ VkvpYlAp6/sjzRofjxq+97Av5t5v3bddqYXq32u8P57/5iOTDIpIirBGT+3frX7YPK
+ Vme6s9UYrKgCA==
+Message-ID: <sashiko-outbox-182428@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/16] accel/thames: Add driver for the C7x DSPs in
- TI SoCs
+Subject: Re: [PATCH v3 07/16] accel/thames: Add IOCTLs for BO creation and
+ mapping
 To: "Tomeu Vizoso" <tomeu.vizoso@gmail.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261023-thames-v3-5-3ab40aa17157@tomeuvizoso.net>
+In-Reply-To: <20261023-thames-v3-7-3ab40aa17157@tomeuvizoso.net>
 References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
- <20261023-thames-v3-5-3ab40aa17157@tomeuvizoso.net>
+ <20261023-thames-v3-7-3ab40aa17157@tomeuvizoso.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 07:37:05 +0000
+Date: Fri, 23 Oct 2026 07:40:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,302 +62,244 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] accel/thames: persistent device link to rejected core in thames_co=
-re_init()
-- [High] accel/thames: embedded mbox_dev lifetime and reuse in thames_platf=
-orm_probe()
-- [High] accel/thames: broken rproc auto_boot check and power leak in thame=
-s_core_init()
-- [Medium] accel/thames: unconditional platform device creation in thames_r=
-egister()
+- [Critical] accel/thames: use-after-free of bo in thames_ioctl_bo_create()
+- [High] accel/thames: missing TLB flush when thames_bo_bind() replaces L3 =
+table
+- [Low] accel/thames: Kconfig selects DRM_GEM_SHMEM_HELPER without MMU depe=
+ndency
+- [Low] accel/thames: missing MMU, IOMMU_SUPPORT, and 64BIT dependencies in=
+ Kconfig
 --
 
-commit 33330c246e61374c538a20616d02df3f30a783af
+commit e7110c2d02687ac644a69317b2f94c6b4caee594
 Author: Tomeu Vizoso <tomeu.vizoso@gmail.com>
 
-accel/thames: Add driver for the C7x DSPs in TI SoCs
+accel/thames: Add IOCTLs for BO creation and mapping
 
-This commit adds the initial DRM compute accelerator driver for Texas
-Instruments C7x DSP cores on the J722S SoC. It discovers available DSP
-cores via device tree, attaches to their remoteproc instances, performs a
-shared-memory and mailbox doorbell handshake to validate firmware ABI and
-capabilities, and exposes a device capability query ioctl to userspace.
+This commit adds the DRM_IOCTL_THAMES_BO_CREATE,
+DRM_IOCTL_THAMES_BO_MMAP_OFFSET, and DRM_IOCTL_THAMES_BO_BIND ioctls to
+create SHMEM or contiguous DMA buffer objects and map or unmap them in
+the DSP page tables of each core.
 
-> diff --git a/drivers/accel/thames/thames_core.c b/drivers/accel/thames/th=
-ames_core.c
-> new file mode 100644
-> index 0000000000000..d74c74b8f8ebf
-> --- /dev/null
-> +++ b/drivers/accel/thames/thames_core.c
-[ ... ]
-> +/* Embedded in struct thames_core: nothing to free. */
-> +static void thames_core_mbox_dev_release(struct device *dev)
-> +{
-> +}
-> +
-> +/*
-> + * A device of the driver's own carrying the DSP node, so the mailbox co=
-re finds
-> + * the node's mboxes without borrowing the K3 driver's device.
-> + */
-> +static int thames_core_request_doorbell(struct thames_core *core)
-> +{
-> +	struct mbox_client *cl =3D &core->mbox_client;
-> +	struct device *mbox_dev =3D &core->mbox_dev;
-> +	int err;
-> +
-> +	device_initialize(mbox_dev);
-> +	mbox_dev->parent =3D core->tdev->ddev.dev;
-> +	mbox_dev->release =3D thames_core_mbox_dev_release;
-> +	device_set_node(mbox_dev, of_fwnode_handle(core->of_node));
-> +	dev_set_name(mbox_dev, "thames-mbox.%u", core->index);
-> +
-> +	err =3D device_add(mbox_dev);
-> +	if (err) {
-> +		put_device(mbox_dev);
-> +		return err;
-> +	}
-> +
-> +	cl->dev =3D mbox_dev;
-> +	cl->rx_callback =3D thames_mbox_rx;
-> +	cl->tx_block =3D false;
-> +	cl->knows_txdone =3D false;
-> +
-> +	core->mbox_chan =3D mbox_request_channel(cl, 1);
-> +	if (IS_ERR(core->mbox_chan)) {
-> +		err =3D PTR_ERR(core->mbox_chan);
-> +		core->mbox_chan =3D NULL;
-> +		device_del(mbox_dev);
-> +		put_device(mbox_dev);
-> +		return err;
-> +	}
-> +
-> +	return 0;
-> +}
+> diff --git a/drivers/accel/thames/Kconfig b/drivers/accel/thames/Kconfig
+> index 9362b92740751..47a2986fcabdc 100644
+> --- a/drivers/accel/thames/Kconfig
+> +++ b/drivers/accel/thames/Kconfig
+> @@ -6,6 +6,8 @@ config DRM_ACCEL_THAMES
+>  	depends on TI_K3_DSP_REMOTEPROC
+>  	depends on REMOTEPROC
+>  	depends on MAILBOX
+> +	select DRM_GEM_DMA_HELPER
+> +	select DRM_GEM_SHMEM_HELPER
+>  	select IOMMU_IO_PGTABLE_LPAE
 
-[Severity: High]
-Can embedding struct device mbox_dev inside struct thames_core with an empty
-thames_core_mbox_dev_release() callback corrupt kobject state or cause a
-use-after-free?
+[Severity: Low]
+Can selecting DRM_GEM_SHMEM_HELPER and IOMMU_IO_PGTABLE_LPAE without
+inheriting their dependencies cause Kconfig unmet dependency warnings,
+build failures, or 32-bit address truncation when COMPILE_TEST is enabled?
 
-In thames_core_init(), thames_core_request_doorbell() registers core->mbox_=
-dev
-via device_initialize() and device_add() before rproc_boot(),
-thames_core_wait_handshake(), and thames_core_read_handshake(). If core 0
-fails any of those steps (for example, when its firmware handshake is
-refused), thames_core_free_doorbell() calls device_del() and put_device(), =
-and
-thames_platform_probe() in drivers/accel/thames/thames_drv.c immediately do=
-es:
+In drivers/remoteproc/Kconfig, TI_K3_DSP_REMOTEPROC has:
 
-	if (err) {
-		dev_warn(&pdev->dev, "Leaving out the core at %pOF: %d\n", np, err);
-		of_node_put(np);
-		memset(&tdev->cores[core], 0, sizeof(tdev->cores[core]));
-		continue;
-	}
+	config TI_K3_DSP_REMOTEPROC
+		tristate "TI K3 DSP remoteproc support"
+		depends on ARCH_K3 || COMPILE_TEST
 
-Without incrementing core, the next loop iteration zeroes and re-registers =
-the
-same tdev->cores[0].mbox_dev memory in-place via device_initialize() and
-device_add(). Furthermore, tdev is allocated with devm_drm_dev_alloc(), so =
-its
-lifetime is tied to tdev->ddev rather than mbox_dev's kobject refcount. If a
-sysfs reader, uevent handler, or CONFIG_DEBUG_KOBJECT_RELEASE still holds a
-reference to mbox_dev->kobj after put_device(), zeroing and re-initializing
-tdev->cores[0] or freeing tdev on unbind will access or overwrite live kobj=
-ect
-memory.
+However, DRM_GEM_SHMEM_HELPER in drivers/gpu/drm/Kconfig depends on MMU:
+
+	config DRM_GEM_SHMEM_HELPER
+		tristate
+		depends on DRM && MMU
+
+And IOMMU_IO_PGTABLE_LPAE in drivers/iommu/Kconfig is guarded by
+if IOMMU_SUPPORT (which depends on MMU) and depends on !GENERIC_ATOMIC64,
+with drivers/iommu/io-pgtable-arm.c also calling iommu_alloc_pages_node_sz()
+and iommu_free_pages() from CONFIG_IOMMU_SUPPORT:
+
+	if IOMMU_SUPPORT
+	...
+	config IOMMU_IO_PGTABLE_LPAE
+		bool "ARMv7/v8 Long Descriptor Format"
+		select IOMMU_IO_PGTABLE
+		depends on ARM || ARM64 || COMPILE_TEST
+		depends on !GENERIC_ATOMIC64	# for cmpxchg64()
+
+In addition, thames_bo_bind() requires dsp_va >=3D THAMES_BIND_VA_START
+(SZ_4G) and passes dsp_va through thames_context_map() ->
+thames_pgtable_map() -> io_pgtable_ops->map_pages() and ->unmap_pages(),
+where the iova parameter is unsigned long and would truncate 64-bit DSP
+virtual addresses on 32-bit COMPILE_TEST builds.
+
+Should DRM_ACCEL_THAMES depend on MMU, IOMMU_SUPPORT (or select it as
+DRM_PANFROST and DRM_PANTHOR do), !GENERIC_ATOMIC64, and 64BIT?
 
 [ ... ]
-> +int thames_core_init(struct thames_core *core)
-> +{
-> +	struct thames_caps caps =3D {};
-> +	struct rproc *rproc;
-> +	int err;
-> +
-> +	/* Without a phandle the lookup would defer forever. */
-> +	if (!core->of_node->phandle) {
-> +		dev_err(core->tdev->ddev.dev, "%pOF has no phandle to find its remotep=
-roc by\n",
-> +			core->of_node);
-> +		return -EINVAL;
-> +	}
-> +
-> +	rproc =3D rproc_get_by_phandle(core->of_node->phandle);
-> +	if (!rproc)
-> +		return dev_err_probe(core->tdev->ddev.dev, -EPROBE_DEFER,
-> +				     "%pOF: no remoteproc registered for it yet\n", core->of_node);
-> +
-> +	/*
-> +	 * remoteproc's own boot is still to come: booting the core here as well
-> +	 * would leave two power counts, and a reset or a suspend could not stop
-> +	 * it.
-> +	 */
-> +	if (rproc->state =3D=3D RPROC_OFFLINE && rproc->auto_boot) {
-> +		rproc_put(rproc);
-> +		return dev_err_probe(core->tdev->ddev.dev, -EPROBE_DEFER,
-> +				     "%pOF: remoteproc has not booted it yet (auto-boot pending)\n",
-> +				     core->of_node);
-> +	}
-> +
-> +	core->rproc =3D rproc;
-> +	core->dev =3D rproc->dev.parent;
-> +	snprintf(core->name, sizeof(core->name), "DSP core %s (index %u)", dev_=
-name(core->dev),
-> +		 core->index);
-> +
-> +	/*
-> +	 * The PM core then suspends this driver before the DSP, and an unbind
-> +	 * of the K3 driver unbinds this one first.
-> +	 */
-> +	if (!device_link_add(core->tdev->ddev.dev, core->dev, DL_FLAG_AUTOPROBE=
-_CONSUMER)) {
-> +		dev_err(core->tdev->ddev.dev, "Failed to link to %s\n", dev_name(core-=
->dev));
-> +		err =3D -EINVAL;
-> +		goto err_put;
-> +	}
-> +
-> +	err =3D thames_core_read_windows(core);
-> +	if (err)
-> +		goto err_put;
-> +
-> +	err =3D thames_core_get_timers(core);
-> +	if (err)
-> +		goto err_put;
-> +
-> +	err =3D thames_core_map_ipc(core);
-> +	if (err)
-> +		goto err_timers;
-> +
-> +	err =3D thames_core_request_doorbell(core);
-> +	if (err)
-> +		goto err_unmap;
-> +
-> +	if (rproc->state =3D=3D RPROC_OFFLINE) {
-> +		err =3D rproc_boot(rproc);
-> +		if (err)
-> +			goto err_doorbell;
-> +	}
-> +
-> +	err =3D thames_core_wait_handshake(core);
-> +	if (err)
-> +		goto err_doorbell;
-> +
-> +	err =3D thames_core_read_handshake(core, &caps);
-> +	if (err)
-> +		goto err_doorbell;
-> +
-> +	if (!core->tdev->num_cores)
-> +		core->tdev->caps =3D caps;
-> +
-> +	return 0;
-> +
-> +err_doorbell:
-> +	thames_core_free_doorbell(core);
-> +err_unmap:
-> +	thames_core_unmap_ipc(core);
-> +err_timers:
-> +	thames_core_put_timers(core);
-> +err_put:
-> +	rproc_put(rproc);
-> +	core->rproc =3D NULL;
-> +	return err;
-> +}
 
-[Severity: High]
-Does adding the managed device link via device_link_add() before validating
-the core's resources and firmware handshake leave an active supplier link t=
-o a
-rejected DSP core?
+> diff --git a/drivers/accel/thames/thames_gem.c b/drivers/accel/thames/tha=
+mes_gem.c
+> index b98e0fe203b08..c9fd08c7aaf4d 100644
+> --- a/drivers/accel/thames/thames_gem.c
+> +++ b/drivers/accel/thames/thames_gem.c
 
-In thames_core_init(), device_link_add(core->tdev->ddev.dev, core->dev,
-DL_FLAG_AUTOPROBE_CONSUMER) is called before thames_core_read_windows(),
-thames_core_get_timers(), thames_core_map_ipc(),
-thames_core_request_doorbell(), rproc_boot(), thames_core_wait_handshake(),
-and thames_core_read_handshake(). If any of those steps fail (for instance,
-when one of the two DSP cores runs non-Thames firmware and is refused at
-handshake), the error path unwinds without removing the managed device link,
-and thames_platform_probe() continues probing with the remaining DSP core.
-
-When thames_platform_probe() succeeds using the other core,
-device_links_driver_bound() activates all managed links on
-core->tdev->ddev.dev, including the link to the refused core->dev. If the
-user later unbinds the remoteproc driver from the refused DSP core,
-device_links_unbind_consumers() will forcefully unbind the thames driver and
-unplug the active DRM device, and device_links_check_suppliers() will block
-thames from re-probing with -EPROBE_DEFER while that core's remoteproc rema=
-ins
-unbound.
-
-[Severity: High]
-In addition, how can the offline boot path in thames_core_init() be reached
-given that rproc->auto_boot remains true?
-
-In rproc_alloc(), rproc->auto_boot is initialized to true, and neither
-k3_dsp_rproc_probe() nor the remoteproc core clears rproc->auto_boot after
-rproc_trigger_auto_boot() completes, fails, or when a core is stopped via
-sysfs. Because of the earlier check:
-
-	if (rproc->state =3D=3D RPROC_OFFLINE && rproc->auto_boot) {
-		rproc_put(rproc);
-		return dev_err_probe(core->tdev->ddev.dev, -EPROBE_DEFER, ...);
-	}
-
-any core in RPROC_OFFLINE causes thames_core_init() to return -EPROBE_DEFER
-(which aborts thames_platform_probe() for all cores), making the subsequent
-if (rproc->state =3D=3D RPROC_OFFLINE) rproc_boot(rproc) block unreachable =
-unless
-rproc->state changes concurrently without rproc->lock. Even when
-rproc_auto_boot_callback() is genuinely in flight, returning -EPROBE_DEFER
-relies on driver_deferred_probe_trigger(), which is only invoked when a dev=
-ice
-binds to a driver; since this firmware creates no virtio or remoteproc
-subdevices, completing rproc_boot() will not re-trigger deferred probing.
-
-Also, if rproc_boot(rproc) in thames_core_init() is reached via a race on
-rproc->state and succeeds, but thames_core_wait_handshake() or
-thames_core_read_handshake() then fails, jumping to err_doorbell drops the
-rproc reference via rproc_put() without calling rproc_shutdown(), leaking t=
-he
-rproc->power count. And in both thames_core_init() and thames_core_suspend(=
-),
-rproc->state is read without holding rproc->lock.
-
-> diff --git a/drivers/accel/thames/thames_drv.c b/drivers/accel/thames/tha=
-mes_drv.c
-> new file mode 100644
-> index 0000000000000..de93bc87756c3
-> --- /dev/null
-> +++ b/drivers/accel/thames/thames_drv.c
 [ ... ]
-> +static int __init thames_register(void)
+
+> +static int thames_bo_bind(struct thames_file_priv *priv, struct thames_g=
+em_object *bo,
+> +			  u64 dsp_va)
 > +{
+> +	size_t size =3D bo->base.base.size;
+> +	int prot =3D thames_bo_flags_to_prot(bo->flags);
+> +	struct thames_binding *binding;
 > +	int ret;
 > +
-> +	drm_dev =3D platform_device_register_simple("thames", -1, NULL, 0);
-> +	if (IS_ERR(drm_dev))
-> +		return PTR_ERR(drm_dev);
+> +	if (!IS_ALIGNED(dsp_va, PAGE_SIZE))
+> +		return -EINVAL;
 > +
-> +	ret =3D platform_driver_register(&thames_platform_driver);
+> +	if (dsp_va < THAMES_BIND_VA_START || dsp_va > THAMES_BIND_VA_END ||
+> +	    size > THAMES_BIND_VA_END - dsp_va)
+> +		return -EINVAL;
+> +
+> +	binding =3D kzalloc_obj(*binding);
+> +	if (!binding)
+> +		return -ENOMEM;
+> +
+> +	binding->bo =3D bo;
+> +	binding->priv =3D priv;
+> +	binding->mm.start =3D dsp_va;
+> +	binding->mm.size =3D size;
+> +
+> +	ret =3D mutex_lock_interruptible(&priv->tdev->bindings_lock);
 > +	if (ret)
-> +		platform_device_unregister(drm_dev);
+> +		goto err_free;
 > +
-> +	return ret;
-> +}
+> +	if (thames_bo_find_binding(bo, priv)) {
+> +		ret =3D -EBUSY;
+> +		goto err_unlock;
+> +	}
+> +
+> +	scoped_guard(mutex, &priv->mm_lock)
+> +		ret =3D drm_mm_reserve_node(&priv->mm, &binding->mm);
+> +	if (ret)
+> +		goto err_unlock;
+> +
+> +	if (bo->flags & DRM_THAMES_BO_CONTIGUOUS)
+> +		ret =3D thames_context_map(priv, dsp_va, prot, bo->base.dma_addr, size=
+);
+> +	else
+> +		ret =3D thames_context_map_sgt(priv, dsp_va, prot, bo->shmem.sgt);
+> +	if (ret) {
+> +		scoped_guard(mutex, &priv->mm_lock)
+> +			drm_mm_remove_node(&binding->mm);
+> +		goto err_unlock;
+> +	}
+> +
+> +	list_add_tail(&binding->bo_link, &bo->bindings);
+> +	list_add_tail(&binding->context_link, &priv->bindings);
+> +	mutex_unlock(&priv->tdev->bindings_lock);
 
-[Severity: Medium]
-Should thames_register() check whether a compatible DSP node is available in
-the device tree before calling platform_device_register_simple()?
+[Severity: High]
+Can thames_bo_bind() leave stale walk-cache entries on the DSP cores when a
+2 MiB block mapping replaces an existing Level 3 page table?
 
-On multiplatform kernels where CONFIG_DRM_ACCEL_THAMES is built-in or loaded
-on a SoC without an available "ti,am62a-c7xv-dsp" node, thames_register()
-unconditionally creates the "thames" platform device. This triggers
-thames_platform_probe(), which logs an error ("No DSP core attached") and
-fails with -ENODEV, while platform_driver_register() still returns 0 and
-leaves the unbound platform device registered in sysfs.
+In thames_context_pgtable_init(), the ARM_64_LPAE_S1 page tables are
+allocated with cfg.tlb left as NULL:
+
+	struct io_pgtable_cfg cfg =3D {
+		.pgsize_bitmap =3D SZ_4K | SZ_2M,
+		.ias =3D 48,
+		.oas =3D 40,
+		.coherent_walk =3D false,
+		.iommu_dev =3D tdev->ddev.dev,
+	};
+
+Because cfg.tlb is NULL, io_pgtable_tlb_flush_walk() is a no-op and TLB
+invalidation relies on thames_context_bump_generation(priv).
+
+If a 4 KiB buffer is bound inside a 2 MiB region and later unbound via
+thames_bo_unbind(), __arm_lpae_unmap() clears the Level 3 leaf PTE while
+leaving the Level 2 ARM_LPAE_PTE_TYPE_TABLE descriptor in place. If a job
+then runs on the DSP, the unbind's mapping_generation is consumed while the
+Level 2 table descriptor remains valid and cacheable by the MMU walk cache.
+
+When a 2 MiB buffer is subsequently bound at that 2 MiB-aligned dsp_va via
+thames_bo_bind(), arm_lpae_init_pte() in drivers/iommu/io-pgtable-arm.c
+unmaps and frees the old Level 3 page table page before installing the
+block entry:
+
+	} else if (iopte_type(ptep[i]) =3D=3D ARM_LPAE_PTE_TYPE_TABLE) {
+		/*
+		 * We need to unmap and free the old table before
+		 * overwriting it with a block entry.
+		 */
+		arm_lpae_iopte *tblp;
+		size_t sz =3D ARM_LPAE_BLOCK_SIZE(lvl, data);
+
+		tblp =3D ptep - ARM_LPAE_LVL_IDX(iova, lvl, data);
+		if (__arm_lpae_unmap(data, NULL, iova + i * sz, sz, 1,
+				     lvl, tblp) !=3D sz) {
+			WARN_ON(1);
+			return -EINVAL;
+		}
+	}
+
+Since neither cfg.tlb->tlb_flush_walk nor thames_bo_bind() calls
+thames_context_bump_generation(priv), won't the DSP MMU walk cache retain
+entries pointing to the freed Level 3 page table page?
+
+[ ... ]
+
+> +int thames_ioctl_bo_create(struct drm_device *ddev, void *data, struct d=
+rm_file *file)
+> +{
+> +	struct drm_thames_bo_create *args =3D data;
+> +	struct thames_gem_object *bo;
+> +	struct drm_gem_dma_object *mem;
+> +	int ret;
+> +
+> +	if (args->handle)
+> +		return -EINVAL;
+> +
+> +	if (!args->size)
+> +		return -EINVAL;
+> +
+> +	if (args->flags & ~(DRM_THAMES_BO_READ_ONLY | DRM_THAMES_BO_EXECUTABLE |
+> +			    DRM_THAMES_BO_CONTIGUOUS))
+> +		return -EINVAL;
+> +
+> +	if (args->flags & DRM_THAMES_BO_CONTIGUOUS) {
+> +		mem =3D thames_gem_create(ddev, args->size);
+> +		if (IS_ERR(mem))
+> +			return PTR_ERR(mem);
+> +		bo =3D to_thames_bo(&mem->base);
+> +	} else {
+> +		bo =3D thames_gem_create_shmem(ddev, args->size);
+> +		if (IS_ERR(bo))
+> +			return PTR_ERR(bo);
+> +	}
+> +
+> +	bo->flags =3D args->flags;
+> +
+> +	ret =3D drm_gem_handle_create(file, &bo->base.base, &args->handle);
+> +	drm_gem_object_put(&bo->base.base);
+> +	if (ret) {
+> +		dev_err(ddev->dev, "Failed to create gem handle: %d", ret);
+> +		return ret;
+> +	}
+> +
+> +	args->size =3D bo->base.base.size;
+
+[Severity: Critical]
+Does reading bo->base.base.size after drm_gem_object_put(&bo->base.base)
+cause a use-after-free of bo?
+
+Once drm_gem_handle_create() publishes the handle in file->object_idr and
+drm_gem_object_put() drops the local reference, a concurrent thread sharing
+the same drm_file can call DRM_IOCTL_GEM_CLOSE on the new handle and free
+bo via thames_gem_bo_free() or thames_gem_shmem_bo_free() before
+args->size =3D bo->base.base.size is reached.
+
+Should args->size =3D bo->base.base.size be set before calling
+drm_gem_handle_create() or before dropping the local reference?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-thames-v3-=
-0-3ab40aa17157@tomeuvizoso.net?part=3D5
+0-3ab40aa17157@tomeuvizoso.net?part=3D7
