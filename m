@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACFD606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 23:52:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB82E606A31D
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 23:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7VuMTU5
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1WXlcf2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8962110E758;
-	Fri, 23 Oct 2026 23:51:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B698112D24;
+	Fri, 23 Oct 2026 23:55:37 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F050410E758
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 23:51:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2D1A112D24
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 23:55:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B21E543E0F;
- Fri, 23 Oct 2026 23:51:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3BA1F01825;
- Fri, 23 Oct 2026 23:51:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A27AC43230;
+ Fri, 23 Oct 2026 23:55:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7F21F01829;
+ Fri, 23 Oct 2026 23:55:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792799512;
- bh=X4K9p9nHIGGaDmvlVoCJ+KPKXBTKEYA6Vq+vrXxagY4=;
+ s=k20260515; t=1792799730;
+ bh=/TEKOEdyGLRLDw966kfpxuhl28Q/ZVRJhFU9PH9ywN4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=G7VuMTU5/Nz/xEH1SSjAr5muaVU700W9K4vbn07tVfPyCQiE8Pxx5qYFjYeg5ffmZ
- hSUZFi8RRlHUb2vKDNOZg8f8yiKMv5Ts8+wUSfWP5GEjCluQ1Fkj2Ej7L6Ny0BQ5A4
- X6c4zFCTOAQp6y/mpWO/miaoxWZtpJwiUN5wLv3K49gQqFC9DyGif4KjRJ2773jKvP
- moioWqMhtScOnEkVyUckPo4inDkI4VzJdHdUYtzHu+JbDbAiKGOdP9aBhTGXU/9ThJ
- p5k2cNn3RfKRQ1TsLHqjrSNYUjvbJXQDQkx+hucncFwLD8sFNnBUPJGdx1Pgr9FZUm
- 5csLUYPoMWaiA==
-Message-ID: <sashiko-outbox-183436@kernel.org>
+ b=P1WXlcf2LKfZTm7bLdlBEjp7UJhwaVzv5R271eg0cw6ktAhG6CkZQDtfX35BvgSpF
+ EUZ0qmqGKa8mMbjfuo5f8RMmDrWBtgtsLsWhl+E819s5qbT8sn8hvGTrt6cPAJl/BU
+ VQPoWW//9n26MIujMbGVo04iGZQ6deUYP3kzZ3Gm4e9yo6alszBd7ep+4g3AfGY+yQ
+ nsurwR6ItK3do6febbP91dTjjW4CeuVmMveIXG6b9bjq4rp5QMDVhNOgwwUIfJ0dUA
+ +dkS/T5TbW0ZQew+r0XH/+XncL0XuEq9/C4JtPbvGXzT3A+phIoGpg6geFxG8NyJy0
+ Y8W98J4TBwMKg==
+Message-ID: <sashiko-outbox-183438@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 09/10] drm/msm/dpu: only reassign resources when the
- encoder is reprogrammed
+Subject: Re: [PATCH v5 03/10] drm/msm: release scanout framebuffers only
+ after a vblank
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261024-fd-kms-fix-smmu-v5-9-a5b0b284aead@oss.qualcomm.com>
+In-Reply-To: <20261024-fd-kms-fix-smmu-v5-3-a5b0b284aead@oss.qualcomm.com>
 References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
- <20261024-fd-kms-fix-smmu-v5-9-a5b0b284aead@oss.qualcomm.com>
+ <20261024-fd-kms-fix-smmu-v5-3-a5b0b284aead@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 23:51:52 +0000
+Date: Fri, 23 Oct 2026 23:55:29 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,113 +59,165 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/msm/dpu: dpu_crtc_check_mode_changed() forces modeset on disab=
-led CRTC
+- [High] drm/msm: unpin stall in msm_framebuffer_cleanup() on writeback CRT=
+C planes
+- [High] drm/msm: premature fb unpin in msm_atomic_commit_tail() async path
 --
 
-commit c3f9e050a732ed23fbcf8ea33c7cb5ebd0743f16
+commit ee002ddb1edfe27610ec310afec717b4795eee7e
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/msm/dpu: only reassign resources when the encoder is reprogrammed
+drm/msm: release scanout framebuffers only after a vblank
 
-This commit restricts DPU CRTC resource reassignment to modeset and connect=
-or
-changes rather than color management updates, and moves the modeset check f=
-or
-DSPP reservation into dpu_crtc_check_mode_changed() while removing the CTM
-modeset workaround from msm_atomic_check().
+This patch defers unpinning retired scanout framebuffers to a
+drm_vblank_work scheduled on the CRTC, preventing the display controller
+from fetching from an unmapped IOMMU VMA before the next vblank latches the
+new configuration. Pending unpin works are tracked per CRTC and released
+directly in msm_crtc_vblank_off() when a CRTC is disabled.
 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/m=
-sm/disp/dpu1/dpu_crtc.c
-> index 2ff0dab33710b..048800227ad30 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> @@ -1489,6 +1489,26 @@ static int dpu_crtc_assign_resources(struct drm_cr=
-tc *crtc,
->  	return 0;
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/=
+msm/disp/dpu1/dpu_plane.c
+> index 7b92082d35a64..0e986b533bf07 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+> @@ -684,7 +684,8 @@ static void dpu_plane_cleanup_fb(struct drm_plane *pl=
+ane,
+> =20
+>  	DPU_DEBUG_PLANE(pdpu, "FB[%u]\n", old_state->fb->base.id);
+> =20
+> -	msm_framebuffer_cleanup(old_state->fb, old_pstate->needs_dirtyfb);
+> +	msm_framebuffer_cleanup(old_state->fb, old_state->crtc,
+> +				old_pstate->needs_dirtyfb);
 >  }
-> =20
-> +static bool dpu_crtc_needs_dspp(const struct drm_crtc_state *crtc_state)
-> +{
-> +	return crtc_state->ctm || crtc_state->gamma_lut;
-> +}
-> +
-> +static bool dpu_crtc_has_dspp(const struct drm_crtc_state *crtc_state)
-> +{
-> +	const struct dpu_crtc_state *cstate =3D to_dpu_crtc_state(crtc_state);
-> +	unsigned int i;
-> +
-> +	if (!cstate->num_mixers)
-> +		return false;
-> +
-> +	for (i =3D 0; i < cstate->num_mixers; i++)
-> +		if (!cstate->mixers[i].hw_dspp)
-> +			return false;
-> +
-> +	return true;
-> +}
-> +
->  /**
->   * dpu_crtc_check_mode_changed: check if full modeset is required
->   * @old_crtc_state:	Previous CRTC state
-> @@ -1506,6 +1526,11 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_st=
-ate *old_crtc_state,
-> =20
->  	DRM_DEBUG_ATOMIC("%d\n", crtc->base.id);
-> =20
-> +	/* DSPPs are only reserved during a modeset */
-> +	if (dpu_crtc_needs_dspp(new_crtc_state) &&
-> +	    !dpu_crtc_has_dspp(old_crtc_state))
-> +		new_crtc_state->mode_changed =3D true;
 
 [Severity: High]
-What happens here when ctm or gamma_lut is set on a disabled CRTC where
-new_crtc_state->enable is false?
+When a CRTC is driven by a standalone writeback encoder, can passing
+old_state->crtc here leave the retired source plane framebuffer pinned on
+kms->fb_unpin[idx].fbs indefinitely after the writeback completes?
 
-In drm_mode_atomic_ioctl() -> drm_atomic_check_only() -> msm_atomic_check()=
- ->
-dpu_kms_check_mode_changed() -> dpu_crtc_check_mode_changed(),
-dpu_crtc_needs_dspp(new_crtc_state) returns true whenever ctm or gamma_lut =
-is
-present regardless of whether new_crtc_state->enable is set.
+In dpu_crtc_enable(), msm_crtc_vblank_on(crtc) is called for all CRTCs,
+which clears vblank->inmodeset and sets kms->fb_unpin[idx].vblank_off =3D
+false.
 
-Because dpu_crtc_assign_resources() skips resource reservation when the CRTC
-is disabled:
+During a standalone writeback commit in msm_atomic_commit_tail(),
+kms->funcs->wait_flush() blocks in dpu_encoder_phys_wb_wait_for_commit_done=
+()
+until dpu_encoder_phys_wb_done_irq() runs:
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:dpu_crtc_assign_resources() {
-	...
-	dpu_rm_release(global_state, crtc);
+drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_wb.c:dpu_encoder_phys_wb_don=
+e_irq()
+    dpu_encoder_frame_done_callback(phys_enc->parent, phys_enc, event);
+    dpu_encoder_vblank_callback(phys_enc->parent, phys_enc);
+    ...
+    wake_up_all(&phys_enc->pending_kickoff_wq);
 
-	if (!crtc_state->enable)
-		return 0;
-	...
-}
+At that point, the hardware has finished reading the input planes and the
+only vblank for the one-shot writeback transfer has already been signaled v=
+ia
+dpu_encoder_vblank_callback() -> dpu_crtc_vblank_callback() ->
+drm_crtc_handle_vblank().
 
-cstate->num_mixers is 0 on a disabled CRTC, so
-dpu_crtc_has_dspp(old_crtc_state) is false and dpu_crtc_check_mode_changed()
-sets new_crtc_state->mode_changed =3D true.
+Only after wait_flush() returns does msm_atomic_commit_tail() run
+drm_atomic_helper_cleanup_planes() -> dpu_plane_cleanup_fb() ->
+msm_framebuffer_cleanup(), which schedules msm_fb_unpin_work for
+drm_crtc_vblank_count(crtc) + 1.
 
-If userspace sets CTM or GAMMA_LUT on a disabled CRTC without
-DRM_MODE_ATOMIC_ALLOW_MODESET, drm_atomic_check_only() will see
-drm_atomic_crtc_needs_modeset(new_crtc_state) and reject the commit with
--EINVAL.
+Because the writeback encoder is one-shot and has no free-running timing
+engine (and subsequent commits without a new writeback job skip kickoff in
+dpu_crtc_commit_kickoff() when !dpu_encoder_is_valid_for_commit(encoder)),
+no further vblank arrives to run the work, leaving the drm_framebuffer
+reference, prepare_count pin, kms->vm VMA, and vblank reference held until
+another writeback job is submitted or the CRTC is disabled.
 
-Furthermore, even if CTM or GAMMA_LUT is initially committed on a disabled
-CRTC with allow_modeset =3D true (or via legacy gamma/property ioctls or
-drm_fb_helper's setcmap_atomic()), dpu_crtc_assign_resources() still returns
-early without reserving mixers or DSPPs. On every subsequent atomic commit
-that includes that disabled CRTC in state, dpu_crtc_needs_dspp(new_crtc_sta=
-te)
-&& !dpu_crtc_has_dspp(old_crtc_state) remains true, forcing
-new_crtc_state->mode_changed =3D true and causing any non-modeset commit to=
- fail
-with -EINVAL.
+[ ... ]
 
-Should dpu_crtc_needs_dspp() or dpu_crtc_check_mode_changed() check
-new_crtc_state->enable before requiring a modeset for DSPP reservation?
+> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+> index 9a207c1e85837..d836d6dd7f3ec 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.c
+> +++ b/drivers/gpu/drm/msm/msm_kms.c
+
+[ ... ]
+
+> +/*
+> + * Publish and schedule the work in one go under the lock, as
+> + * msm_crtc_vblank_off() frees whatever it finds on the list.
+> + */
+> +static bool msm_kms_fb_unpin_schedule(struct msm_kms_fb_unpin *pending,
+> +				      struct msm_fb_unpin_work *unpin,
+> +				      struct drm_crtc *crtc)
+> +{
+> +	guard(spinlock)(&pending->lock);
+> +
+> +	if (pending->vblank_off)
+> +		return false;
+> +
+> +	list_add_tail(&unpin->node, &pending->fbs);
+> +
+> +	if (drm_vblank_work_schedule(&unpin->base,
+> +				     drm_crtc_vblank_count(crtc) + 1, true) =3D=3D 1)
+> +		return true;
+
+[Severity: High]
+Could scheduling the unpin for drm_crtc_vblank_count(crtc) + 1 unpin and
+unmap the old cursor framebuffer one frame too early on the timer-deferred
+async path in msm_atomic_commit_tail()?
+
+When a legacy cursor update changes or disables the cursor framebuffer
+(state->legacy_cursor_update =3D true), DPU1 and MDP4 do not implement
+atomic_async_check, and mdp5_plane_atomic_async_check() rejects framebuffer
+changes (plane->state->fb !=3D new_plane_state->fb). As a result, the commit
+goes through msm_atomic_commit_tail() with async =3D can_do_async(state,
+&async_crtc) =3D=3D true:
+
+drivers/gpu/drm/msm/msm_atomic.c:msm_atomic_commit_tail()
+    if (async) {
+        if (!(kms->pending_crtc_mask & crtc_mask)) {
+            ...
+            if (drm_crtc_next_vblank_start(async_crtc, &vsync_time))
+                goto fallback;
+
+            wakeup_time =3D ktime_sub(vsync_time, ms_to_ktime(1));
+
+            msm_hrtimer_queue_work(&timer->work, wakeup_time,
+                    HRTIMER_MODE_ABS);
+        }
+
+        kms->funcs->disable_commit(kms);
+        unlock_crtcs(kms, crtc_mask);
+        drm_atomic_helper_commit_hw_done(state);
+        drm_atomic_helper_cleanup_planes(dev, state);
+        ...
+        return;
+    }
+
+In this branch, kms->funcs->flush_commit() has not been called yet; writing
+CTL_FLUSH is deferred to timer->work (msm_atomic_pending_work ->
+msm_atomic_async_commit), while drm_atomic_helper_cleanup_planes() runs
+immediately and schedules msm_kms_fb_unpin_work for
+drm_crtc_vblank_count(crtc) + 1.
+
+If msm_atomic_commit_tail() runs during the Vertical Front Porch (line >
+vactive_end), dpu_crtc_get_scanout_position() returns a negative vpos:
+
+drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:dpu_crtc_get_scanout_position()
+    if (line < vactive_start)
+        line -=3D vactive_start;
+    else if (line > vactive_end)
+        line =3D line - vfp_end - vactive_start;
+    else
+        line -=3D vactive_start;
+
+This causes drm_crtc_next_vblank_start() to return vsync_time at the end of
+frame N + 1 (before vblank N + 2), while drm_crtc_vblank_count(crtc) is
+still N until the VSYNC interrupt fires at line =3D 1. Similarly, if the
+cursor update arrives within 1ms of vsync_time or timer->work runs after
+programmable fetch start / vblank N + 1, flush_commit() will not latch
+until vblank N + 2, but msm_kms_fb_unpin_work will run at vblank N + 1 and
+detach the VMA while the hardware is still scanning out the old framebuffer
+during frame N + 1.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261024-fd-kms-fix=
--smmu-v5-0-a5b0b284aead@oss.qualcomm.com?part=3D9
+-smmu-v5-0-a5b0b284aead@oss.qualcomm.com?part=3D3
