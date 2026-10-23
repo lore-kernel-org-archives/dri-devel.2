@@ -2,152 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F3A606A31D
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 08:14:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A194F606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 08:21:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kJQsA8Fs;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YtpOJBjY
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExuxVVwF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54597112A19;
-	Fri, 23 Oct 2026 08:14:13 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8041D112A1D
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 08:14:02 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69N7FKFC1552321
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 08:14:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- tqv4KAoTYY3S/U2JwEiFFAex7twOglJ8WJnUqUg1DcM=; b=kJQsA8FsdDYDXY6i
- a7Kj2LAxWDzNHdXqTYI8OUen0oHwtkYY49xBoELPc7nsS3cmskLKwlLSQuMI1Sfz
- PQ8/BdIr+lSMLozM6PymdpD5dU3HjuHwh4a5XIRnCtneyZgq9dsjQ5LKU9PZL3gG
- lefv5o5fY+/kjDHBCB2iMrXOQpZpJRVbfwokoURV/idtOFD0KAO6VLk0sZsUCrsU
- 5tneIsou6i0pqjtKPcEW8Ajev5nljBoxbIg9OCcyzjB1wSvh7gkwUVCBr5gQ8H54
- yDjCWahkVkHcW4MKPCMPHpVtBndx3L+ZDbwKERK5HP+7uOTs/CY8sT858z7Pr4Ip
- NTGnzg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmttnfr-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 08:14:01 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-3ad704d4760so663415a91.3
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 01:14:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792743240; x=1793348040;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=tqv4KAoTYY3S/U2JwEiFFAex7twOglJ8WJnUqUg1DcM=;
- b=YtpOJBjYTPd36LZWfF3jgXZTjgR0k8HhwuG2YarCmjBrcSurkLPO8ItR+1eAnDICQo
- lQ2fOb66eIerIZsQE+U/E/h2deAOIluAslOvlwBTvC17brza/wWIeZ0JzVLcJzJxeKrY
- tCxGTELyTeP/YGJtYeyxeR9B73oO7ItTgatqxEU2D/ReMICqK0ASElO7ddY3iNBOn1nt
- 1p/8Yn4QzdLt2Q+mqHRPBFdLeFOpx2eR97HrLqsvumK498iu9JnsWfBp2jsW+B0oUc9c
- alyE4lwR7k7z+T0JYu9L+7YhTCZdRws/bfLWheNd8JTI3HzX7GpaeWgtA71u7LxdV5oW
- 1p6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792743240; x=1793348040;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=tqv4KAoTYY3S/U2JwEiFFAex7twOglJ8WJnUqUg1DcM=;
- b=1QYWMso+0JJvplP4w3Y4n038X07oFRK/DCDX2QvzptdHuuowA32yBvm50kgBfZ4ylJ
- PSjFfNsbg2NlacGedZAa6RXbw8fJJpbcQYyKg6MMgN9tpTXWB1txuMLYyE0Of4wOPiIY
- yV/2+X4/d51VHbFmgFqJ7eFEDVYmtvSVzlbaQOODbqvgyubbC2txAnz8fGgzpRVEOjuG
- 29SW3LA2IW83cnU0awU7BlZiWn+y6BtxvTnyy7lpsApDj1RalaJv9URnwDhg9SEujvUe
- 4fHJMZmmcaFuyjEl1lXEkLLUjVq2NQHDRAlfbpVNxvGpNk5LclkD8hiL++Cw4zLUHHwB
- uRbg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByVVBkgzF7Y2KJ6Uk+9Hi5ILPhp/3iPW5sb6WXXVCreZNzkFHO96dq4JMrF2xdPSQkBbv2NNhnqF3I=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIQDSii+7WCiPbkkJWos+yBjw88UjNYZMmjU9hY4mxKmbrI/U+C
- FRdB6FWpkg+k+3qFaZdrkJhY8R+CQM+H75me+Zq2zVNPOoL/9WMzXBd6D3Pp929GM1bMGKO4ckR
- aTUHbXOO00O9XZ+nS6jD6q/C3XUPryuRAnkffc7WlLD3dm77n/BALrHFLH9MAYueFZ9xho+I=
-X-Gm-Gg: AYBFou0sdqqxaXHfxEmsg2zb3lkEZ9XtUy8TpxgRfLBxAh0j4mAoyd5LVxtRVKqs7Lm
- xQcfSZt+7OUZf2FU5wPcBUe/bngxlrCjYOmL58glwSTqB+0olPK17tXpICyydJJvrlUxVp056DK
- CtIqtx0DXbB0BMqjCTQGJhfSF2Ei5Zp7KJQmBk/o5/r9fjrj3WEyFi8Vw0GeFcRAF+ZHoo593r7
- sTujxIvnmOhdFjIo9r1QUJQeMfMd4nFf2kuc7jn/7C2oprt2YJacDql4CDj37iUiL7hw/l2HwHm
- ne/EURLRxLxGi/E8CCkqXlcs3+yANNNoH83zVvZQ51sL7iBdWins9tfYioHAqTs0F0Qch6WsAhU
- a25oCHg+m6fFU52yssemN1dK8JMDIRgrzIA==
-X-Received: by 2002:a17:90a:d40b:b0:3ac:8ee5:e007 with SMTP id
- 98e67ed59e1d1-3adce616026mr940554a91.20.1792743240430; 
- Fri, 23 Oct 2026 01:14:00 -0700 (PDT)
-X-Received: by 2002:a17:90a:d40b:b0:3ac:8ee5:e007 with SMTP id
- 98e67ed59e1d1-3adce616026mr940524a91.20.1792743239783; 
- Fri, 23 Oct 2026 01:13:59 -0700 (PDT)
-Received: from [10.204.79.28] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ada4954979sm7758959a91.17.2026.10.23.01.13.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Oct 2026 01:13:59 -0700 (PDT)
-From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
-Message-ID: <4c4e48a7-5ece-4fca-9387-a50c29bbcc83@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 13:43:49 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id D470A1129EB;
+	Fri, 23 Oct 2026 08:21:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2796C1129EB
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 08:21:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EE5C043CD5;
+ Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1792743681;
+ b=gJwwxr/JTV5SsavDMzmYJGEKhGdTl4Uft/t7iRcZUAQde+1GwCwuij78G+QK/kbQHZ0V
+ oFAYrcfZicCE18m4590H3NxPB+1o0E3FeqheRBpS25/ZBKZ9ZRVCIGnOXyscZc4+hLT3y
+ UOM95IX4iwuyuhWbunwEGE3yhfaXhvuJJOh8doEquL4TQ6TJRr9bV7WytYPfa5XnXrDMK
+ Nl3/Xh6+yvXaOCNwVDpaemHqICUT3IVTpeBQWVP4JqMUehWPBaRnN+3bc2CtqOYNf8tnx
+ okMs5CLwXb9h9Vi0Z6AS7HyVimKSl4L5ZEYmmjRoJ7sCqOSNmS9UNuDPVz0io3JrGXg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1792743681;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=9Ep0HE79/a9+3p5ZBtG4xFmSDb6r9PHiQif27zyrmII=;
+ b=eb8RK/VM9yPik9gWpGFLUxBNgidplRKl0wF0M7/D0J6bFil0w3T0bB1Mv92YXFAH1Ikm
+ HFXCu0y4wKdFrZGV8LN1XgWqSUoAwFO+6vJBquBgzEiwgkPu0RiSvamk2QCOvJLuzrUU5
+ ex+bYQF07x485UDlVkPMUAcvT3dCAFsVrHaTweks/NpMH3qJp/GIKps8vypsF0h4VohRC
+ 05cjWZgQTI34g6XoWEtce3d/4p6Lf8ms/mZCnlVGUBiPaqKnr50ajnOEJXLvY5hMDrFzC
+ ooHaFIGKlgZ6qyPAhhHRtb4oIp67Ht24CZynzfAC7Kreq2MOgt3/kijhj0L4Yp1qe0w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 3B2EF1F01829;
+ Fri, 23 Oct 2026 08:21:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792743681;
+ bh=9Ep0HE79/a9+3p5ZBtG4xFmSDb6r9PHiQif27zyrmII=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=ExuxVVwF2Is5feRimIBYjpSQnBydP3to/Y5x7TD5Aw1TuUq7KwKVagrp5VP8PW0YQ
+ KZ2/rfod8F/b+lP8oJJPZEruDgZmbXFDsHZ5HUQFL7kexE22471VsdX1Q7TZRCylrJ
+ 5E02WN9P6xSE3Qp9FwVJp6t5l5rP9kHemyGsprbmseG9QEJMel0wp/uuBCUmKjFv+V
+ oU8ItOCwWq5m/IEn8DQW/BI9d9CjBIXnNV6d4JXkcGhmi9yGuxVLWd5+eu5Qhv4QgG
+ aAyuICgeoXSUjY7yxDnHt76fldz3htPvL2plqiEb/Mn3GfGGCKcTYeDCFiEjM+QCUR
+ MJZOq+/U73JdQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id C1B2144423;
+ Fri, 23 Oct 2026 08:21:20 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Date: Fri, 23 Oct 2026 13:51:16 +0530
+Subject: [PATCH 1/2] dt-bindings: display: panel: Add Samsung AMS644VK04
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/13] drm/msm/dcp: Register DCP display pipeline
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
- <20261015-jshekhar-drm-msm-dcp-v1-v1-9-48aad0fe4f72@oss.qualcomm.com>
- <b2cf0c52-4c31-4b17-b341-029b82ddbd7f@kernel.org>
-Content-Language: en-US
-In-Reply-To: <b2cf0c52-4c31-4b17-b341-029b82ddbd7f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261023-panel-ams644vk04-v1-1-56096aecd0ff@brar.si>
+References: <20261023-panel-ams644vk04-v1-0-56096aecd0ff@brar.si>
+In-Reply-To: <20261023-panel-ams644vk04-v1-0-56096aecd0ff@brar.si>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792743679; l=3095;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=Tt1XsfnXS440HSGg/wswJNMW2cDPJCmbAVKWWsAuN2g=;
+ b=o0Gqznn8TvZqQCsIDRMLvYNrNIirR2xp0Z7BhozECpMPgRKrnmjJvRoqtN1rcSdC1jdxyP7SP
+ qe0ujG2FtpoBZOi6xSIfYl3P68RNeLyvT9XrpDjis+we2UuJLFYn+K0
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adb1749 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=_vtLzGX-cFUddgSYHekA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: cG-fpxbMCyGx5MHyfTyrFdgic6G4e_XP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX32JUkiae8IE3
- TOya6jPAxFR1qJBp8wyC0o2bcPIvsg9YlH/g0A1iM8w5wf2HFBli0EZLpsVHNKUi+8ETy6cjXzr
- G+MqFGfbgwy1n1t6tzOdXPLjK7hrkkD1XdriCQvTZpTj7hrUve+UKKJKdukhzWendxCaLHYLV1U
- luqXRxM/sKLbIKwYvcppfB3L+dHDZ0ve1dCxlcwZsNCz5gxtOY1h2yr0/daI7afCgTMLd28rELX
- AX6CcMPHswspodyPCrYrTYP5SgSy9V3dEqcfOm/ZR8UKfJqXsfVlMRXANMgTxjPfLlv3Sjb6+6E
- oQNYBswUYHnU2NdeVM0RMWG8opmdENA0mG2YAyqZec/q8zPNOxRd0zpqq2PEg6cRB749xKOhg1p
- E8EJ2sox1bwbDyOMFtZk9sp9wAaTPljAsnuCXkXLhwO9uVOTDn64TlM5JcSdc7xgNjfYExtU6CS
- UTvHT5Q/mF5V/2rtomA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAzMiBTYWx0ZWRfX6g8SZWUP+LP3
- Le1KDivxD/Fr8vKIBpBurl5qbpvWEIv8PxI3pwvB7PFJUoiSAsgd4TLNHE7Z1tC7f9OR8+T+YER
- 4hSod4o2tUdLT+CVeSOs+eRc6kfLLhM=
-X-Proofpoint-ORIG-GUID: cG-fpxbMCyGx5MHyfTyrFdgic6G4e_XP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610230032
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,51 +95,130 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: patches@brar.si
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+From: Ishu Brar <patches@brar.si>
 
-On 21-10-2026 17:35, Krzysztof Kozlowski wrote:
-> On 15/10/2026 09:38, Jayant Shekhar wrote:
->> The DCP firmware exposes display resources through capabilities rather than
->> through host-visible display registers. The MSM DRM backend therefore needs
->> to build its KMS objects from the firmware capabilities and device-tree
->> display graph.
->
-> ...
->
->> +
->> +		remote_np = of_graph_get_remote_port_parent(ep_np);
->> +		of_node_put(ep_np);
->> +		if (!remote_np)
->> +			continue;
->> +
->> +		if (!of_device_is_available(remote_np)) {
->> +			of_node_put(remote_np);
->> +			continue;
->> +		}
->> +
->> +		if (of_node_name_prefix(remote_np, "dsi")) {
-> Where did you document the ABI?
->
+Document the Samsung AMS644VK04, a 6.44 inch 1080x2400 MIPI DSI command
+mode AMOLED panel with DSC that supports 60 Hz and 90 Hz. It is used in
+the OnePlus Nord (SM7250). The panel is powered by three supplies and
+has a reset GPIO.
 
-Will update in the bindings in v2.
+Signed-off-by: Ishu Brar <patches@brar.si>
+---
+ .../bindings/display/panel/samsung,ams644vk04.yaml | 76 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++
+ 2 files changed, 82 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml b/Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
+new file mode 100644
+index 000000000..50f8c516b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/samsung,ams644vk04.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung AMS644VK04 1080x2400 MIPI-DSI Panel
++
++maintainers:
++  - Ishu Brar <patches@brar.si>
++
++description:
++  The Samsung AMS644VK04 is a 6.44 inch 1080x2400 MIPI-DSI command mode AMOLED
++  panel with DSC, supporting 60 Hz and 90 Hz refresh rates. It is used in the
++  OnePlus Nord.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    const: samsung,ams644vk04
++
++  reg:
++    maxItems: 1
++
++  vddio-supply:
++    description: I/O voltage rail (1.8 V)
++
++  vdd-supply:
++    description: Panel logic voltage rail (3.0 V)
++
++  vout-supply:
++    description: Panel supply rail (1.28 V)
++
++  reset-gpios: true
++  port: true
++
++required:
++  - compatible
++  - reg
++  - vddio-supply
++  - vdd-supply
++  - vout-supply
++  - reset-gpios
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "samsung,ams644vk04";
++            reg = <0>;
++
++            vddio-supply = <&vreg_l13a_1p8>;
++            vdd-supply = <&vreg_l18a_3p0>;
++            vout-supply = <&vreg_l7a_1p28>;
++
++            reset-gpios = <&pm8150l_gpios 3 GPIO_ACTIVE_LOW>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&mdss_dsi0_out>;
++                };
++            };
++        };
++    };
++
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a08087fb6..1eec53b0e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8462,6 +8462,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
+ F:	drivers/gpu/drm/panel/panel-raydium-rm69220.c
+ 
++DRM DRIVER FOR SAMSUNG AMS644VK04 PANEL
++M:	Ishu Brar <patches@brar.si>
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	Documentation/devicetree/bindings/display/panel/samsung,ams644vk04.yaml
++
+ DRM DRIVER FOR SAMSUNG DB7430 PANELS
+ M:	Linus Walleij <linusw@kernel.org>
+ S:	Maintained
+
+-- 
+2.56.0
 
 
-Thanks
-
-Jayant
-
-
->> +			if (dsi_idx >= ARRAY_SIZE(dpu_kms->dsi_bridge)) {
->> +				dev_err(dev->dev, "too many DSI outputs\n");
->> +				ret = -E2BIG;
->> +				goto out;
->> +			}
-> Best regards,
-> Krzysztof
