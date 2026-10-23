@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2A3606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 14:32:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379A7606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 14:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BL/Lw7tc
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F48nCjBc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AF0810E63B;
-	Fri, 23 Oct 2026 14:32:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF5610E0B5;
+	Fri, 23 Oct 2026 14:33:31 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id B503E10E496
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 14:32:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9FA1010E0B5
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 14:33:16 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 129C91C14
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:32:20 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 060DF1C14
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:33:13 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 102113F673
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:32:22 -0700 (PDT)
+ 002A03F8C6
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 07:33:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1792765943; bh=anSElN5yBjJkYZBOkU/8sr3NncGEwgUdXZ2Ow2+bIdw=;
+ t=1792765996; bh=Gn5JR1ydvrwm3YaCW1+DyZrrnVAr3G/GKLqMw2kyGeg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BL/Lw7tclapUr7xayI4e5tm8BlgTgxOue8eA9KsEck5zw3e6OQRm4gE14NwORC/VC
- 9BzeB0cmSAlgD+t80YURutxCaoC1cDUBvaVHlcfK699RDsi3X+VGZdPGcVbtoZH4m4
- WrkZiMlCp3BoSRe9eqMhncM+KVAGp041YJAiUMB4=
-Date: Fri, 23 Oct 2026 15:32:11 +0100
+ b=F48nCjBchpvQ07geL5KcWSTG6kf1AxXfmz5aSx8pbcQSTw3EBJUtVA2GMOvK0Tfrr
+ 9T9kEfrZoE/wUJtQ3x/tDwY0Z1XO5p5cYcrNjpcIKy8hpMdTpZ3Es7eq6X86beLbMj
+ X8vQc8WdQxouR9iJb8tEiA8UjFl3q9TbRWkEN5Fc=
+Date: Fri, 23 Oct 2026 15:33:04 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Lukas Zapolskas <lukas.zapolskas@arm.com>
 Cc: Daniel Almeida <daniel.almeida@collabora.com>,
@@ -37,16 +37,16 @@ Cc: Daniel Almeida <daniel.almeida@collabora.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, nd@arm.com
-Subject: Re: [PATCH v7 7/8] drm/panthor: Add suspend, resume and reset handling
-Message-ID: <attv60kGpPPpKfJG@e142607>
+Subject: Re: [PATCH v7 8/8] drm/panthor: Expose the panthor perf ioctls
+Message-ID: <attwIGMsvdfAx-j_@e142607>
 References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
- <20261011-panthor-performance-counters-v7-7-12c32495062f@arm.com>
+ <20261011-panthor-performance-counters-v7-8-12c32495062f@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261011-panthor-performance-counters-v7-7-12c32495062f@arm.com>
+In-Reply-To: <20261011-panthor-performance-counters-v7-8-12c32495062f@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,193 +65,183 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Minor nit: subject line gives the wrong idea about the patch.
-
-On Sun, Oct 11, 2026 at 06:36:54PM +0100, Lukas Zapolskas wrote:
-> The sampler must disable and re-enable counter sampling around
-> suspends, and must re-program the FW interface after a reset to
-> avoid losing data. Additionally, if a request was pending before the
-> reset and it was not acked, the reset will have cleared it, so we toggle
-> the flag and re-request a sample.
+On Sun, Oct 11, 2026 at 06:36:55PM +0100, Lukas Zapolskas wrote:
+> This patch implements the PANTHOR_PERF_SESSION ioctl series.
+> 
+> The minor version is bumped to indicate that the feature is now
+> supported.
 > 
 > Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.c |  8 ++-
->  drivers/gpu/drm/panthor/panthor_perf.c   | 83 ++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_perf.h   |  6 +++
->  3 files changed, 96 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 535383ef629f..c842480472ac 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -138,6 +138,7 @@ static void panthor_device_reset_work(struct work_struct *work)
->  	if (!drm_dev_enter(&ptdev->base, &cookie))
->  		return;
->  
-> +	panthor_perf_pre_reset(ptdev);
->  	panthor_sched_pre_reset(ptdev);
->  	panthor_fw_pre_reset(ptdev, true);
->  	panthor_mmu_pre_reset(ptdev);
-> @@ -147,6 +148,8 @@ static void panthor_device_reset_work(struct work_struct *work)
->  	ret = panthor_fw_post_reset(ptdev);
->  	atomic_set(&ptdev->reset.pending, 0);
->  	panthor_sched_post_reset(ptdev, ret != 0);
-> +	if (!ret)
-> +		panthor_perf_post_reset(ptdev);
->  	drm_dev_exit(cookie);
->  
->  	if (ret) {
-> @@ -539,8 +542,10 @@ int panthor_device_resume(struct device *dev)
->  			ret = panthor_device_resume_hw_components(ptdev);
->  		}
->  
-> -		if (!ret)
-> +		if (!ret) {
->  			panthor_sched_resume(ptdev);
-> +			panthor_perf_resume(ptdev);
-> +		}
->  
->  		drm_dev_exit(cookie);
->  
-> @@ -604,6 +609,7 @@ int panthor_device_suspend(struct device *dev)
->  		/* We prepare everything as if we were resetting the GPU.
->  		 * The end of the reset will happen in the resume path though.
->  		 */
-> +		panthor_perf_suspend(ptdev);
->  		panthor_sched_suspend(ptdev);
->  		panthor_fw_suspend(ptdev);
->  		panthor_mmu_suspend(ptdev);
-> diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
-> index c66ad658a95d..28b02003f9f9 100644
-> --- a/drivers/gpu/drm/panthor/panthor_perf.c
-> +++ b/drivers/gpu/drm/panthor/panthor_perf.c
-> @@ -1798,6 +1798,57 @@ int panthor_perf_session_sample(struct panthor_file *pfile, u32 handle, u64 user
->  	return err;
->  }
->  
-> +/**
-> + * panthor_perf_suspend - Prepare the performance counter subsystem for system suspend.
-> + * @ptdev: Panthor device.
-> + *
-> + * Indicate to the performance counters that the system is suspending.
-> + *
-> + * This function must not be used to handle MCU power state transitions: just before MCU goes
-> + * from on to any inactive state, an automatic sample will be performed by the firmware, and
-> + * the performance counter firmware state will be restored on warm boot.
-> + *
-> + */
-> +void panthor_perf_suspend(struct panthor_device *ptdev)
-> +{
-> +	struct panthor_perf *perf = ptdev->perf;
-> +	int ret;
-> +
-> +	if (!perf)
-> +		return;
-> +
-> +	guard(mutex)(&perf->op_lock);
-> +
-> +	ret = perf_disable(perf);
-> +
-> +	if (ret)
-> +		drm_warn(&ptdev->base, "Could not stop sampling before suspend, err = %d", ret);
-> +}
-> +
-> +/**
-> + * panthor_perf_resume - Resume the performance counter subsystem after system resumption.
-> + * @ptdev: Panthor device.
-> + *
-> + * Indicate to the performance counters that the system has resumed. This must not be used
-> + * to handle MCU state transitions, for the same reasons as detailed in the kerneldoc for
-> + * @panthor_perf_suspend.
-> + */
-> +void panthor_perf_resume(struct panthor_device *ptdev)
-> +{
-> +	struct panthor_perf *perf = ptdev->perf;
-> +	int ret;
-> +
-> +	if (!perf)
-> +		return;
-> +
-> +	guard(mutex)(&perf->op_lock);
-> +
-> +	ret = perf_enable(perf);
-> +
-> +	if (ret)
-> +		drm_warn(&ptdev->base, "Could not resume sampling, err = %d", ret);
-> +}
-> +
->  /**
->   * panthor_perf_unplug - Terminate the performance counter subsystem.
->   * @ptdev: Panthor device.
-> @@ -1868,3 +1919,35 @@ void panthor_perf_pool_destroy(struct panthor_file *pfile)
->  
->  	pfile->sessions = NULL;
->  }
-> +
-> +void panthor_perf_pre_reset(struct panthor_device *ptdev)
-> +{
-> +	if (!ptdev->perf)
-> +		return;
-> +
-> +	guard(mutex)(&ptdev->perf->op_lock);
-> +
-> +	perf_disable(ptdev->perf);
-> +}
-> +
-> +void panthor_perf_post_reset(struct panthor_device *ptdev)
-> +{
-> +	bool rerequest = false;
-> +
-> +	if (!ptdev->perf)
-> +		return;
-> +
-> +	guard(mutex)(&ptdev->perf->op_lock);
-> +
-> +	perf_enable(ptdev->perf);
-> +
-> +	scoped_guard(spinlock_irqsave, &ptdev->perf->pend_lock) {
-> +		rerequest = ptdev->perf->fw_sample_requested;
-> +
-> +		if (rerequest)
-> +			ptdev->perf->fw_sample_requested = false;
-> +	}
-> +
-> +	if (rerequest)
-> +		perf_fw_request_sample(ptdev->perf);
-> +}
-> diff --git a/drivers/gpu/drm/panthor/panthor_perf.h b/drivers/gpu/drm/panthor/panthor_perf.h
-> index 0e1172dbae39..e4a323fe6f0d 100644
-> --- a/drivers/gpu/drm/panthor/panthor_perf.h
-> +++ b/drivers/gpu/drm/panthor/panthor_perf.h
-> @@ -18,6 +18,8 @@ int panthor_perf_pool_create(struct panthor_file *pfile);
->  void panthor_perf_pool_destroy(struct panthor_file *pfile);
->  
->  int panthor_perf_init(struct panthor_device *ptdev);
-> +void panthor_perf_suspend(struct panthor_device *ptdev);
-> +void panthor_perf_resume(struct panthor_device *ptdev);
->  void panthor_perf_unplug(struct panthor_device *ptdev);
->  
->  int panthor_perf_session_create(struct drm_file *file,
-> @@ -30,5 +32,9 @@ int panthor_perf_session_sample(struct panthor_file *pfile, unsigned int handle,
->  
->  void panthor_perf_report_irq(struct panthor_device *ptdev, u32 status);
->  
-> +void panthor_perf_pre_reset(struct panthor_device *ptdev);
-> +
-> +void panthor_perf_post_reset(struct panthor_device *ptdev);
-> +
->  #endif /* __PANTHOR_PERF_H__ */
->  
-> 
-> -- 
-> 2.43.0
-> 
 
 Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
 Best regards,
 Liviu
+
+> ---
+>  drivers/gpu/drm/panthor/panthor_drv.c | 117 +++++++++++++++++++++++++++++++++-
+>  1 file changed, 115 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 3e62142d7ebd..5ca41cb9c1ba 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -184,7 +184,12 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size), \
+> -		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_info, shader_blocks))
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_info, shader_blocks), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_create, shader_enable_mask), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_start, user_data), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_stop, user_data), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_sample, user_data), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_session_destroy, handle))
+>  
+>  /**
+>   * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
+> @@ -1603,6 +1608,103 @@ static int panthor_ioctl_bo_query_info(struct drm_device *ddev, void *data,
+>  	return 0;
+>  }
+>  
+> +static int panthor_ioctl_perf_session_create(struct drm_device *ddev, void *data,
+> +					     struct drm_file *file)
+> +{
+> +	int ret, cookie;
+> +	unsigned long sid = 0;
+> +	struct drm_panthor_perf_session_create *args = data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (!mem_is_zero(args->pad, sizeof(args->pad)))
+> +		return -EINVAL;
+> +
+> +	ret = panthor_perf_session_create(file, args, &sid);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_dev_exit(cookie);
+> +	return sid;
+> +}
+> +
+> +static int panthor_ioctl_perf_session_start(struct drm_device *ddev, void *data,
+> +					    struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile = file->driver_priv;
+> +	struct drm_panthor_perf_session_start *args = data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+> +
+> +	ret = panthor_perf_session_start(pfile, args->handle, args->user_data);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
+> +
+> +static int panthor_ioctl_perf_session_sample(struct drm_device *ddev, void *data,
+> +					     struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile = file->driver_priv;
+> +	struct drm_panthor_perf_session_sample *args = data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+> +
+> +	ret =  panthor_perf_session_sample(pfile, args->handle, args->user_data);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
+> +
+> +static int panthor_ioctl_perf_session_stop(struct drm_device *ddev, void *data,
+> +					   struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile = file->driver_priv;
+> +	struct drm_panthor_perf_session_stop *args = data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+> +
+> +	ret = panthor_perf_session_stop(pfile, args->handle, args->user_data);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
+> +
+> +static int panthor_ioctl_perf_session_destroy(struct drm_device *ddev, void *data,
+> +					      struct drm_file *file)
+> +{
+> +	int cookie, ret;
+> +	struct panthor_file *pfile = file->driver_priv;
+> +	struct drm_panthor_perf_session_destroy *args = data;
+> +
+> +	if (!drm_dev_enter(file->minor->dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (args->pad0)
+> +		return -EINVAL;
+> +
+> +	ret = panthor_perf_session_destroy(pfile, args->handle);
+> +
+> +	drm_dev_exit(cookie);
+> +	return ret;
+> +}
+> +
+>  static int
+>  panthor_open(struct drm_device *ddev, struct drm_file *file)
+>  {
+> @@ -1687,6 +1789,11 @@ static const struct drm_ioctl_desc panthor_drm_driver_ioctls[] = {
+>  	PANTHOR_IOCTL(SET_USER_MMIO_OFFSET, set_user_mmio_offset, DRM_RENDER_ALLOW),
+>  	PANTHOR_IOCTL(BO_SYNC, bo_sync, DRM_RENDER_ALLOW),
+>  	PANTHOR_IOCTL(BO_QUERY_INFO, bo_query_info, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_CREATE, perf_session_create, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_START, perf_session_start, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_SAMPLE, perf_session_sample, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_STOP, perf_session_stop, DRM_RENDER_ALLOW),
+> +	PANTHOR_IOCTL(PERF_SESSION_DESTROY, perf_session_destroy, DRM_RENDER_ALLOW),
+>  };
+>  
+>  static int panthor_mmap(struct file *filp, struct vm_area_struct *vma)
+> @@ -1807,6 +1914,12 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+>   * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
+>   * - 1.9 - adds DRM_PANTHOR_DEV_QUERY_MMU_INFO query
+>   *       - adds DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE flag
+> + * - 1.10 - adds DEV_QUERY_PERF_INFO query
+> + *        - adds PERF_SESSION_CREATE ioctl
+> + *        - adds PERF_SESSION_START ioctl
+> + *        - adds PERF_SESSION_SAMPLE ioctl
+> + *        - adds PERF_SESSION_STOP ioctl
+> + *        - adds PERF_SESSION_DESTROY ioctl
+>   */
+>  static const struct drm_driver panthor_drm_driver = {
+>  	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
+> @@ -1820,7 +1933,7 @@ static const struct drm_driver panthor_drm_driver = {
+>  	.name = "panthor",
+>  	.desc = "Panthor DRM driver",
+>  	.major = 1,
+> -	.minor = 9,
+> +	.minor = 10,
+>  
+>  	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
+>  	.gem_prime_import = panthor_gem_prime_import,
+> 
+> -- 
+> 2.43.0
+> 
 
 -- 
 ====================
