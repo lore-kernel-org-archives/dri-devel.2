@@ -2,94 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D366C606A322
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 09:53:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41AD606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 10:00:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwT7/H00
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KDfpvWtV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 267DD112A85;
-	Fri, 23 Oct 2026 09:53:53 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4EF710E626;
- Fri, 23 Oct 2026 09:53:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 81DDE43E9C;
- Fri, 23 Oct 2026 09:53:35 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1792749215;
- b=m3qSbIUxhz7U6nSp0WpcpgNfRYhLx44inJ/oO8GdaFnOQysaoezujezNswv5QulePdjn
- HqGuZaDYAWmrikipgIu+tn0u4IR8XZoyAaATfjJC37u3EjWoLwTcoLyCcZ71YnJEVXehM
- gMa/msiRZwBd+MtDwBO49HnnteNujA1FNFzrkpbPLz1/sbrZdr7xu4un+tNZTaKH+cYsw
- Z1UJWOShIIcrZDaLrS8ZeHOZ7IBEdS4y0chpC7g5aTpRi7BK/lfFgHSo6JI2HHE9DDDMO
- GLpSuFHXE6Q8hHM5BvaWOxbbbLfkeSlSMYBnuiWore+cNWJyvTLwVSMSRmTGST+CcFg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1792749215;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=r2pM4CpJWOS3Sfct0QcDwXyqljtdvngtcEGJlhpskwM=;
- b=kyTDSV2ozNfEy5IPwzNZjiQOkluToBFQUtA7+d3WOwLtLqRLxYIFnp5WQtg0N05H8KmW
- Ui4Jo83Jy8dJeAulSCO+/yE8UMyGqAsOc8qSozlWD7Fs/QHlqXBInE3dRb3AK9Bk6szwD
- Kqk4DmpSVpR1SkDvOCYUTYrwUkRbsxOerXW6DJsBjYfD1x90UCJcXelD/b5hfzliEg2CG
- 9rcsI6dHa+lDQuahdZNxBsuHkj/fZ2FF+2w1Fphi/q8HWn6Vi0OBVp9HwxGjHR3axiclU
- 5QG4iOHh6lFH+TrVmXEKxAJOM9S4dB5d+6D5nfVEoH4Dsq6zLPyty4+BlqCIZQmlvoA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 552FE1F031E3;
- Fri, 23 Oct 2026 09:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792749215;
- bh=r2pM4CpJWOS3Sfct0QcDwXyqljtdvngtcEGJlhpskwM=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=WwT7/H00CMi7k0qVCptjDJmPVfEsi5m0FDJHEYilD8YdE2a+5XKtLNsaKrop1ArMg
- DuDb0+09arUNlt0TFIIsxrABxdteVOVw7yU8FodUoj3nL03E2nmNsb/ElySPmW+gE5
- 8NvtQu1moj5iJt17+Ady98mv0I0xXehe46Z+wFoWGWuaSRD5VPEr6msyr2aSB6GKh4
- /Wn2otILP4yJXRu4d4ufIfTc3U6im3Y+W4BFyf6BspH7qsUHy8qVOZqnbXVmIgu6MI
- TjMRpxRlSgfFJ71g/8MX8McQGMTTsQ83OM93iDWmnhOTEU3TUdr5dBkjW9YQ6euPpH
- 9GzoTzXKCAlow==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id D64A544491;
- Fri, 23 Oct 2026 09:53:33 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Fri, 23 Oct 2026 15:23:34 +0530
-Subject: [PATCH v3 4/4] drm/msm/adreno: Add Adreno 620
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B673112A86;
+	Fri, 23 Oct 2026 10:00:00 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8B1DB112A6F
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 09:59:53 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E7EAE1692
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 02:59:49 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ E55963F7B4
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 02:59:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1792749593; bh=AdJpYJ1hfByJ4QHJIAC72tRES7U+BgqdvCBCxNPxJ2g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KDfpvWtVIOXmbBQmMFz7fGvKb/uzYwzGNKQb5+1iyWTpzfp5YD4aqNitbjRH1p5eV
+ LCbi6pfK+xqs19nhD9HAvnB7glgpClTYF3p7mnZUmb72AL/0aHZ0EW3GZHkggzU1lm
+ 8NDbFZSVFMvciJoCqEIpHyzZLy0hUyIJJRIzLStE=
+Date: Fri, 23 Oct 2026 10:59:47 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Avi Shif <avi.shif@arm.com>
+Cc: mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org, Lisa.wu@arm.com,
+ rosen.zhelev@arm.com
+Subject: Re: [PATCH] drm/fourcc: Add MSB-aligned 12- and 14-bit formats
+Message-ID: <atswE57d6oulEE7W@e142607>
+References: <20261021150348.1634126-1-avi.shif@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261023-adreno-a620-v3-4-2d1d566e5e13@brar.si>
-References: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
-In-Reply-To: <20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792749211; l=1984;
- i=patches@brar.si; h=from:subject:message-id;
- bh=SXhjO95iBcH7IwOefumH4uTRVu/XmPTsHaG2fpqGjpA=;
- b=L0BEo4fMIFVbf9gVY7fAAvdmI6AITOYqdPNYNROXF8xN81RzhJ2BBsKOXWzdEiz3ODP5IFH+v
- OkG2EBKwPTZC6SEaurnkedD9bidNpQ6y0DVVzMszz/Gze/sVWD19Sn2
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261021150348.1634126-1-avi.shif@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,76 +50,153 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: patches@brar.si
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ishu Brar <patches@brar.si>
+On Wed, Oct 21, 2026 at 06:03:48PM +0300, Avi Shif wrote:
+> Define padded 12- and 14-bit RGB formats and add their format
+> metadata. Each component occupies a 16-bit word, with the unused
+> bits in the least significant positions.
+> 
+> Add P212, P014 and P214 for two-plane YCbCr buffers, including
+> their plane sizes and chroma subsampling metadata.
+> 
+> Due to collisions with existing DRM FourCC codes, the codes for
+> four-component formats indicate the total number of color bits
+> per pixel rather than the number of bits per component
+> (e.g., '3', '6' and '4', '2').
+> 
+> Signed-off-by: Avi Shif <avi.shif@arm.com>
 
-Add the catalog entry for the Adreno 620 (chip id 0x06020000) found in
-the Snapdragon 765/765G/768G (SM7250). It is an A650 derivative and
-uses its SQE and GMU firmware and protect table, together with the A620
-zap shader.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-The speed-bin fuse values map to the OPP bins as in the downstream
-"lito" devicetree: fuse 0 is the default bin and fuse 132 and 115 are
-the two alternate ones.
+Best regards,
+Liviu
 
-The GMU clock gating mode is 0x00020202, which is what the downstream
-driver programs on every A6xx except the A612 and A615 family. Use the
-shared list of Bus Clock Managers so that the GMU bandwidth table is
-generated from the bandwidth levels of the GPU OPP table.
-
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-index c4d332f48..6cdc3f5a2 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -954,6 +954,32 @@ static const struct adreno_info a6xx_gpus[] = {
- 			{ 169, 2 },
- 			{ 180, 1 },
- 		),
-+	}, {
-+		.chip_ids = ADRENO_CHIP_IDS(0x06020000),
-+		.family = ADRENO_6XX_GEN3,
-+		.fw = {
-+			[ADRENO_FW_SQE] = "a650_sqe.fw",
-+			[ADRENO_FW_GMU] = "a650_gmu.bin",
-+		},
-+		.gmem = SZ_512K,
-+		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
-+		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+			  ADRENO_QUIRK_HAS_HW_APRIV,
-+		.funcs = &a6xx_gpu_funcs,
-+		.zapfw = "a620_zap.mbn",
-+		.a6xx = &(const struct a6xx_info) {
-+			.hwcg = a620_hwcg,
-+			.protect = &a650_protect,
-+			.gbif_cx = a640_gbif,
-+			.gmu_cgc_mode = 0x00020202,
-+			.prim_fifo_threshold = 0x00010000,
-+			.bcms = a6xx_bcms,
-+		},
-+		.speedbins = ADRENO_SPEEDBINS(
-+			{ 0,   0 },
-+			{ 132, 1 },
-+			{ 115, 3 },
-+		),
- 	}, {
- 		.chip_ids = ADRENO_CHIP_IDS(0x06020100),
- 		.family = ADRENO_6XX_GEN3,
+> ---
+>  drivers/gpu/drm/drm_fourcc.c  | 23 ++++++++++++++++++++++-
+>  include/uapi/drm/drm_fourcc.h | 31 +++++++++++++++++++++++++++++++
+>  2 files changed, 53 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
+> index 60cd02b7ea64..608e2d411dfe 100644
+> --- a/drivers/gpu/drm/drm_fourcc.c
+> +++ b/drivers/gpu/drm/drm_fourcc.c
+> @@ -255,6 +255,16 @@ const struct drm_format_info *__drm_format_info(u32 format)
+>  		{ .format = DRM_FORMAT_ARGB16161616F,	.depth = 0,  .num_planes = 1, .cpp = { 8, 0, 0 }, .hsub = 1, .vsub = 1, .has_alpha = true },
+>  		{ .format = DRM_FORMAT_ABGR16161616F,	.depth = 0,  .num_planes = 1, .cpp = { 8, 0, 0 }, .hsub = 1, .vsub = 1, .has_alpha = true },
+>  		{ .format = DRM_FORMAT_AXBXGXRX106106106106, .depth = 0, .num_planes = 1, .cpp = { 8, 0, 0 }, .hsub = 1, .vsub = 1, .has_alpha = true },
+> +		{ .format = DRM_FORMAT_RX124,		.depth = 0, .num_planes = 1, .cpp = { 2, 0, 0 }, .hsub = 1, .vsub = 1 },
+> +		{ .format = DRM_FORMAT_GXRX124124,	.depth = 0, .num_planes = 1, .cpp = { 4, 0, 0 }, .hsub = 1, .vsub = 1 },
+> +		{ .format = DRM_FORMAT_AXBXGXRX124124124124, .depth = 0,
+> +		  .num_planes = 1, .cpp = { 8, 0, 0 }, .hsub = 1, .vsub = 1,
+> +		  .has_alpha = true },
+> +		{ .format = DRM_FORMAT_RX142,		.depth = 0, .num_planes = 1, .cpp = { 2, 0, 0 }, .hsub = 1, .vsub = 1 },
+> +		{ .format = DRM_FORMAT_GXRX142142,	.depth = 0, .num_planes = 1, .cpp = { 4, 0, 0 }, .hsub = 1, .vsub = 1 },
+> +		{ .format = DRM_FORMAT_AXBXGXRX142142142142, .depth = 0,
+> +		  .num_planes = 1, .cpp = { 8, 0, 0 }, .hsub = 1, .vsub = 1,
+> +		  .has_alpha = true },
+>  		{ .format = DRM_FORMAT_XRGB16161616,	.depth = 0,  .num_planes = 1, .cpp = { 8, 0, 0 }, .hsub = 1, .vsub = 1 },
+>  		{ .format = DRM_FORMAT_XBGR16161616,	.depth = 0,  .num_planes = 1, .cpp = { 8, 0, 0 }, .hsub = 1, .vsub = 1 },
+>  		{ .format = DRM_FORMAT_ARGB16161616,	.depth = 0,  .num_planes = 1, .cpp = { 8, 0, 0 }, .hsub = 1, .vsub = 1, .has_alpha = true },
+> @@ -316,7 +326,10 @@ const struct drm_format_info *__drm_format_info(u32 format)
+>  		  .hsub = 2, .vsub = 2, .is_yuv = true},
+>  		{ .format = DRM_FORMAT_P012,		.depth = 0,  .num_planes = 2,
+>  		  .char_per_block = { 2, 4, 0 }, .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 },
+> -		   .hsub = 2, .vsub = 2, .is_yuv = true},
+> +		  .hsub = 2, .vsub = 2, .is_yuv = true},
+> +		{ .format = DRM_FORMAT_P014,		.depth = 0,  .num_planes = 2,
+> +		  .char_per_block = { 2, 4, 0 }, .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 },
+> +		  .hsub = 2, .vsub = 2, .is_yuv = true},
+>  		{ .format = DRM_FORMAT_P016,		.depth = 0,  .num_planes = 2,
+>  		  .char_per_block = { 2, 4, 0 }, .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 },
+>  		  .hsub = 2, .vsub = 2, .is_yuv = true},
+> @@ -324,6 +337,14 @@ const struct drm_format_info *__drm_format_info(u32 format)
+>  		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
+>  		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 2,
+>  		  .vsub = 1, .is_yuv = true },
+> +		{ .format = DRM_FORMAT_P212,		.depth = 0,
+> +		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
+> +		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 2,
+> +		  .vsub = 1, .is_yuv = true },
+> +		{ .format = DRM_FORMAT_P214,		.depth = 0,
+> +		  .num_planes = 2, .char_per_block = { 2, 4, 0 },
+> +		  .block_w = { 1, 1, 0 }, .block_h = { 1, 1, 0 }, .hsub = 2,
+> +		  .vsub = 1, .is_yuv = true },
+>  		{ .format = DRM_FORMAT_VUY101010,	.depth = 0,
+>  		  .num_planes = 1, .cpp = { 0, 0, 0 }, .hsub = 1, .vsub = 1,
+>  		  .is_yuv = true },
+> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+> index 0bb049f91524..efd8bc81e91a 100644
+> --- a/include/uapi/drm/drm_fourcc.h
+> +++ b/include/uapi/drm/drm_fourcc.h
+> @@ -234,6 +234,16 @@ extern "C" {
+>   */
+>  #define DRM_FORMAT_AXBXGXRX106106106106 fourcc_code('A', 'B', '1', '0') /* [63:0] A:x:B:x:G:x:R:x 10:6:10:6:10:6:10:6 little endian */
+>  
+> +/* 12-bit components in 16-bit words, with 4 LSBs unused per component */
+> +#define DRM_FORMAT_RX124	fourcc_code('R', '0', '1', '2') /* [15:0] R:x 12:4 little endian */
+> +#define DRM_FORMAT_GXRX124124	fourcc_code('G', 'R', '1', '2') /* [31:0] G:x:R:x 12:4:12:4 little endian */
+> +#define DRM_FORMAT_AXBXGXRX124124124124 fourcc_code('A', 'B', '3', '6') /* [63:0] A:x:B:x:G:x:R:x 12:4:12:4:12:4:12:4 little endian */
+> +
+> +/* 14-bit components in 16-bit words, with 2 LSBs unused per component */
+> +#define DRM_FORMAT_RX142	fourcc_code('R', '0', '1', '4') /* [15:0] R:x 14:2 little endian */
+> +#define DRM_FORMAT_GXRX142142	fourcc_code('G', 'R', '1', '4') /* [31:0] G:x:R:x 14:2:14:2 little endian */
+> +#define DRM_FORMAT_AXBXGXRX142142142142 fourcc_code('A', 'B', '4', '2') /* [63:0] A:x:B:x:G:x:R:x 14:2:14:2:14:2:14:2 little endian */
+> +
+>  /* packed YCbCr */
+>  #define DRM_FORMAT_YUYV		fourcc_code('Y', 'U', 'Y', 'V') /* [31:0] Cr0:Y1:Cb0:Y0 8:8:8:8 little endian */
+>  #define DRM_FORMAT_YVYU		fourcc_code('Y', 'V', 'Y', 'U') /* [31:0] Cb0:Y1:Cr0:Y0 8:8:8:8 little endian */
+> @@ -334,6 +344,20 @@ extern "C" {
+>   */
+>  #define DRM_FORMAT_P210		fourcc_code('P', '2', '1', '0') /* 2x1 subsampled Cr:Cb plane, 10 bit per channel */
+>  
+> +/*
+> + * 2 plane YCbCr MSB aligned
+> + * index 0 = Y plane, [15:0] Y:x [12:4] little endian
+> + * index 1 = Cr:Cb plane, [31:0] Cr:x:Cb:x [12:4:12:4] little endian
+> + */
+> +#define DRM_FORMAT_P212		fourcc_code('P', '2', '1', '2') /* 2x1 subsampled Cr:Cb plane 12 bits per channel */
+> +
+> +/*
+> + * 2 plane YCbCr MSB aligned
+> + * index 0 = Y plane, [15:0] Y:x [14:2] little endian
+> + * index 1 = Cr:Cb plane, [31:0] Cr:x:Cb:x [14:2:14:2] little endian
+> + */
+> +#define DRM_FORMAT_P214		fourcc_code('P', '2', '1', '4') /* 2x1 subsampled Cr:Cb plane 14 bits per channel */
+> +
+>  /*
+>   * 2 plane YCbCr MSB aligned
+>   * index 0 = Y plane, [15:0] Y:x [10:6] little endian
+> @@ -348,6 +372,13 @@ extern "C" {
+>   */
+>  #define DRM_FORMAT_P012		fourcc_code('P', '0', '1', '2') /* 2x2 subsampled Cr:Cb plane 12 bits per channel */
+>  
+> +/*
+> + * 2 plane YCbCr MSB aligned
+> + * index 0 = Y plane, [15:0] Y:x [14:2] little endian
+> + * index 1 = Cr:Cb plane, [31:0] Cr:x:Cb:x [14:2:14:2] little endian
+> + */
+> +#define DRM_FORMAT_P014		fourcc_code('P', '0', '1', '4') /* 2x2 subsampled Cr:Cb plane 14 bits per channel */
+> +
+>  /*
+>   * 2 plane YCbCr MSB aligned
+>   * index 0 = Y plane, [15:0] Y little endian
+> -- 
+> 2.55.0
+> 
 
 -- 
-2.56.0
-
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
