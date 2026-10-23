@@ -2,101 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C04606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 16:00:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522EA606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 23 Oct 2026 16:00:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=ElwVowt/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1c0VAsA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A017110E0E0;
-	Fri, 23 Oct 2026 16:00:04 +0000 (UTC)
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B74010E0E0
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 15:59:16 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id
- d75a77b69052e-5364d86f7f0so10698801cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 08:59:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1792771155; x=1793375955; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qfip9nPMyQ6NKHGpF7rQvQFL04olz8IZl5yoz+w1jok=;
- b=ElwVowt/XKmH7sbi3qv8BTYpUHce/dox1GqhHjDi1nqdwe5E0cpgSpqDzkZQQcHn3X
- f0BE+0aDIOJyrW0QcWUhSreWu1JwoD/eKey4aPwF6/uV1pUk1Bu1ZfGWRuU4YFpetyhB
- bjgA+PWWMmiWBwdXbBlhQLck2pL1Zmbcs5q0rBlogC9np1iT6ORMbrsrvOFG8nVxenji
- tCvpPOCccr9FoRgqlsLtwAjtBprG+fkS2LyGqATAjhzQR+9i+4zh2ahNK/ZT3xKvEAsm
- h2XRQ4WKI8fKavYdFVm+iW0bL0u+gxBZ4sRIn2I7mr6boF5H1NVXhw8TAqMMEOTMNcwZ
- CenA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792771155; x=1793375955;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qfip9nPMyQ6NKHGpF7rQvQFL04olz8IZl5yoz+w1jok=;
- b=0aM7dghjeoUfkRCz2+Xvg8Z9wLgmk+m9DYRXLWQP0nhCfTHFyC3mbb5ZAC0ErJh2nF
- rTkHo/1N2BlgngXZaEh5YmycAPmw1Mn+V+JZSarpDYOVxzZWKwhtbqDdgZRLB0tMz2tG
- e5DJ/olIOn0l5mzVpWKrsvdFKDsIm6fP3Ujvs5ZxMZlw8ZMxdwjozw/JsOYqSbn75Yz8
- +1DQLgr2Sm7xQ73IKi5lEoSyOZrvWmMybZlu+O7SHlQamJY6+R/UOogBw8ay7LZlkHw4
- t+EyNlt4X6Xtej4ad3D0DXH3YLD309ckE/MI2IBAeoAmz1zHxkpHtoi+YNJNUUE74CZB
- G4oA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByq27yUeZrjuyZJrG1esAdgNE1+5Ad0oD5UiBIBLwnazwIMyB+2WXAhe5mrTLKs09/ri3zGZME9lLU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLBAk+AQQiMSEEnijfQMrnSPwpbcARmq2Z54h6jaAoLfodMKpTu
- PZKKb/YLXsRe0hBIXDUZHp7MI6lUtiZUOOaiHhgyFbMNSs3l5BJCPAfsTzzsNjWbMnk=
-X-Gm-Gg: AYBFou3yG1e8aQbUtOuLT6vH5SjRM2lv7YZ+38vN3ZAeg/CbDYwdfhIUqZS405v9XxE
- Vus1zrEBvUevrFk7Kn3Paj76BZtZX/bJ9RrALWKOOUAd3PgzVxGKaM3uYjn7nDA6trrQ+/gpwyi
- Kwssl5k8VEH3bfjzhhae1MBuuOTr2713GavYWvH7OUJA85TFntOlKm4cU8eudu+0EBlfkLKDBi/
- NYnKuchD9aO+0gN62Ht5zdxxpQRMrCIR2XJIUDxEz47l1b62CyDlxdGustS6os6gG4TpHU4QsRU
- bSE8rp7rxFcXUC3Cdd+yCouTUZljPP5uVFQl3yN5oc6NfPATsftgzpIR8tsweI5ZDWn97g0VWmb
- 3YcplGJYrzpp2DDEbYwupx1ENcQ+bQkBrsz5R+h+3MwPjz7FQ7JRQxe9BgqJJJgv6uySKZXmRWE
- gef+Xv5CXC15yaF8FD17AvOqkyo+UVLGEFWflHQkl/v70o61lqLLBvbC2qYr7NbSLGPNuVjujmo
- yr550G9ObMedTEUUh7QCVK4ZsCCvn1oJEGWEe7Va+QCCJWNucGikR0HyOBwNULqT3LAO1pqWSv9
- qpFVn602ZTiu43RYy+mf7VPzZnW6AF+uENQDng==
-X-Received: by 2002:a05:622a:a0e:b0:535:859c:b6ff with SMTP id
- d75a77b69052e-536c24e2452mr39136051cf.20.1792771155235; 
- Fri, 23 Oct 2026 08:59:15 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net.
- [159.2.239.150]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-53836c78f67sm656181cf.27.2026.10.23.08.59.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2026 08:59:14 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1xKHfm-0000000Go19-0EMi;
- Fri, 23 Oct 2026 12:59:14 -0300
-Date: Fri, 23 Oct 2026 12:59:14 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, iommu@lists.linux.dev,
- Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
- Chaitanya Kulkarni <kch@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
- controls
-Message-ID: <20261023155914.GK3977851@ziepe.ca>
-References: <20261007063227.GC7822@unreal> <20261007204045.GA783967@bhelgaas>
- <20261009174301.GC11438@unreal>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009174301.GC11438@unreal>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB76010E696;
+	Fri, 23 Oct 2026 16:00:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D18310E6B4
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 16:00:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BCFD743243;
+ Fri, 23 Oct 2026 16:00:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F3B1F01828;
+ Fri, 23 Oct 2026 16:00:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792771214;
+ bh=aaUG1WEMoiePtPMHaU3bEseP9u28pCg5CTORnOaQ3RM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=j1c0VAsAiv7MMLzvdU9Ri8E7ziI8MVM1usTysyDPUBHLDGnpRv2mY4mKd6+zniAgh
+ dMnTVWAiYxPMbOp+8sb9bKiv3zIR5KeRPxyOhVxkcvS4UI277ljBLpv62wK0ZDcDs1
+ bO57A0jdFnkycXD4LJiFI7kGA40D10g+bF48NrBPvoNLONHqZQsufIQhdKiT56AEEK
+ j7dJXCVZO25xJPcKjb2S7PdiJESVwEz3li3084uhw6cwL+yrfaAWwzyHzay3PjgbBf
+ I3Xt2EF9iCIQ/sHvBfCq6I7lC0Q4L1SdW2lgmkWFRJnSv/GicqL1zoDAc6X7CLLvb/
+ l0qw1ZBQwCORA==
+Message-ID: <sashiko-outbox-182936@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 04/14] drm/msm: order the display snapshot sources
+ around its worker
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261023-msm-kms-destroy-fixes-v2-4-83727c122de7@oss.qualcomm.com>
+References: <20261023-msm-kms-destroy-fixes-v2-0-83727c122de7@oss.qualcomm.com>
+ <20261023-msm-kms-destroy-fixes-v2-4-83727c122de7@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 23 Oct 2026 16:00:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,55 +49,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri, Oct 09, 2026 at 08:43:01PM +0300, Leon Romanovsky wrote:
-> On Wed, Oct 07, 2026 at 03:40:45PM -0500, Bjorn Helgaas wrote:
-> > On Wed, Oct 07, 2026 at 09:32:27AM +0300, Leon Romanovsky wrote:
-> > > On Tue, Oct 06, 2026 at 03:49:47PM -0500, Bjorn Helgaas wrote:
-> > > > On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
-> > > > > From: Leon Romanovsky <leonro@nvidia.com>
-> > > > > 
-> > > > > pci_bridge_has_acs_redir() treats Request and Completion Redirect as
-> > > > > interchangeable. On asymmetric fabrics, a control for only the reverse TLP
-> > > > > direction can unnecessarily force P2PDMA through the host bridge.
-> > > > 
-> > > > Does "the reverse TLP direction" refer to Completions?
-> > > 
-> > > In general, the P2P code treats TLPs flowing from device A to device B the
-> > > same as TLPs flowing from device B to device A.
-> > > 
-> > > However, in the context of this commit message, yes: completions flow in the
-> > > opposite direction from the device's perspective.
-> > 
-> > And I guess asymmetric fabrics must mean fabrics where Request
-> > Redirect and Completion Redirect are not set the same way?
-> 
-> Yes, in some of our systems, deviceA to deviceB is going through
-> different route than deviceB to deviceA.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/msm: unsynchronized fault handler update in msm_mmu_set_fault_=
+handler()
+--
 
-It is a little more subtle, I think practical systems try very hard to
-avoid that since many host bridges do not like seeing only half of an
-exchange.
+commit 9dc038a2fc1d880292f387fc89c8359b97d9cf93
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-What we end up with is Relaxed Ordering and Strict Ordering take
-different flows in the fabric.
+drm/msm: order the display snapshot sources around its worker
 
-> > But I asked about ordering because it sounds like this patch expects
-> > to encounter asymmetric fabrics where Request Redirect and Completion
-> > Redirect may not be set the same way, and the spec implies that
-> > asymmetry may result in ordering violations.
-> 
-> My guess is that the hardware and system architects have ensured this
-> doesn't happen. At least, I haven't received any complaints about this
-> series during internal testing.
+This commit reorders the registration and teardown of the display IOMMU
+fault handler and display snapshot worker in msm_drm_kms_init() and
+msm_drm_kms_uninit() so that snapshot sources are only active while the
+KMS and its dump worker are initialized.
 
-Yes, the ACS combination is selected to avoid ordering issues
+> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+> index f3e39c3907a93..a94d2888a21e5 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.c
+> +++ b/drivers/gpu/drm/msm/msm_kms.c
+[ ... ]
+> @@ -245,6 +241,8 @@ void msm_drm_kms_uninit(struct device *dev)
+> =20
+>  	BUG_ON(!kms);
+> =20
+> +	msm_mmu_set_fault_handler(to_msm_vm(kms->vm)->mmu, kms, NULL);
+> +
+>  	/* We must cancel and cleanup any pending vblank enable/disable
+>  	 * work before msm_irq_uninstall() to avoid work re-enabling an
+>  	 * irq after uninstall has disabled it.
+> @@ -256,12 +254,12 @@ void msm_drm_kms_uninit(struct device *dev)
+> =20
+>  	drm_kms_helper_poll_fini(ddev);
+> =20
+> -	msm_disp_snapshot_destroy(ddev);
+> -
+>  	pm_runtime_get_sync(dev);
+>  	msm_irq_uninstall(ddev);
+>  	pm_runtime_put_sync(dev);
+> =20
+> +	msm_disp_snapshot_destroy(ddev);
+> +
+>  	if (kms && kms->funcs)
+>  		kms->funcs->destroy(kms);
+>  }
+> @@ -339,6 +337,8 @@ int msm_drm_kms_init(struct device *dev, const struct=
+ drm_driver *drv)
+> =20
+>  	drm_mode_config_reset(ddev);
+> =20
+> +	msm_mmu_set_fault_handler(to_msm_vm(kms->vm)->mmu, kms, msm_kms_fault_h=
+andler);
 
-Jason
+[Severity: High]
+Can msm_mmu_set_fault_handler() in drivers/gpu/drm/msm/msm_kms.c race with
+an in-flight display IOMMU fault during msm_drm_kms_init() or
+msm_drm_kms_uninit()?
+
+In drivers/gpu/drm/msm/msm_mmu.h, msm_mmu_set_fault_handler() performs
+plain unlocked stores:
+
+static inline void msm_mmu_set_fault_handler(struct msm_mmu *mmu, void *arg,
+		int (*handler)(void *arg, unsigned long iova, int flags, void *data))
+{
+	mmu->arg =3D arg;
+	mmu->handler =3D handler;
+}
+
+And in drivers/gpu/drm/msm/msm_iommu.c, msm_disp_fault_handler() reads and
+calls those fields without locking or memory barriers:
+
+static int msm_disp_fault_handler(struct iommu_domain *domain, struct devic=
+e *dev,
+				  unsigned long iova, int flags, void *arg)
+{
+	struct msm_iommu *iommu =3D arg;
+
+	if (iommu->base.handler)
+		return iommu->base.handler(iommu->base.arg, iova, flags, NULL);
+
+	return -ENOSYS;
+}
+
+During msm_drm_kms_uninit(), msm_irq_uninstall() only frees the display
+controller interrupt (kms->irq), while the SMMU context fault interrupt
+remains active until kms->funcs->destroy(kms) detaches the IOMMU at the end
+of msm_drm_kms_uninit().
+
+If msm_disp_fault_handler() is already executing on another CPU when
+msm_drm_kms_uninit() clears mmu->handler to NULL, nothing waits for
+msm_disp_fault_handler() -> msm_kms_fault_handler() to finish before
+msm_disp_snapshot_destroy() calls kthread_destroy_worker(kms->dump_worker).
+Could an in-flight msm_kms_fault_handler() then call
+msm_disp_snapshot_state() and queue kms->dump_work onto the freed
+kms->dump_worker, or could a compiler reload of iommu->base.handler in
+msm_disp_fault_handler() call a NULL function pointer?
+
+Similarly, during msm_drm_kms_init(), msm_kms_init_vm() ->
+msm_iommu_disp_new() attaches the IOMMU domain before
+msm_mmu_set_fault_handler() is called. Without release/acquire ordering
+when publishing mmu->arg and mmu->handler, could a concurrent fault on
+weakly ordered architectures observe a non-NULL iommu->base.handler while
+iommu->base.arg is still NULL?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261023-msm-kms-de=
+stroy-fixes-v2-0-83727c122de7@oss.qualcomm.com?part=3D4
