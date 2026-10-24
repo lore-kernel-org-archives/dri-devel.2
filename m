@@ -2,29 +2,29 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D64606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 23:00:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF170606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 23:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Poz2aMRi
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=aeDj+9yR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D8EA10E665;
-	Sat, 24 Oct 2026 23:00:49 +0000 (UTC)
-Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
- [109.224.244.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9E4910E038
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 14:28:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2D5410E65F;
+	Sat, 24 Oct 2026 23:00:53 +0000 (UTC)
+Received: from mail-106110.protonmail.ch (mail-106110.protonmail.ch
+ [79.135.106.110])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E75510E112
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 14:29:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=michaelmcallister.org; s=protonmail2; t=1792852127; x=1793111327;
- bh=eeV3+U5/yrctaUKSJ/PKpGOtHdLYEHHC9dwLeVDP3lg=;
+ d=michaelmcallister.org; s=protonmail2; t=1792852125; x=1793111325;
+ bh=zh9RMhEB4nxkzrKhtN4Kf6FgQMlP7iI79irVGvGVleY=;
  h=From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Poz2aMRiybGqje6dJX61E0vcxeWB4RF/bD6ruBGZuGc/6/PrXUfIejQfTT+M4CxIO
- wfbgs21HnYhwgpnS2rTLDXWay7xXop0WiV4FAbunpoUnHPj/V4uwnBytOGOpw1kbmQ
- c6M3AaaO2I/W2/+xrXQHxTsfHxYWhOxrdUi4yyqaNLYJgIpLazzSTwPCPHNYQ9l1RL
- gIdALN8BSHcSYT8pXr/Jb+lz/NbgCPWn/JYmqts5VONNdXlD9sn6HGK++YFXtY1EH3
- TZrofNj0ux1YiQrxceOKFlcZPybyqNm/vj+3k7HBPS5fNxsCrX0VGknOdQtVEc2RMe
- cpVf1JmY3qctQ==
-X-Pm-Submission-Id: 4jBj1T284sz1DDnW
+ b=aeDj+9yR9fw1b2/ES2myr5vsyqdBEy7wvcystlGt2MW1yBKufj6Ubtrw/1JzuatyM
+ M9iNy09iuy6G7aUM8/vn7dkwhbXE/b2Gss8d962+nCZrnJQUrj9p/TcqUENfLZpavc
+ IyHA0qi8bgdVVer4cCJ8WdMtKTjSIvKcyj1uqV+w1GRVe3U/stI06adYN060HedwHJ
+ Yje1p9vhf7tv1pJtE7NMPAlCkQkDR0kZRDpXLoI5m+WPm88Bns3Ef4eZvazLMSar1y
+ v1+j4XdCyaXlDKwhoPQDeowkHrKaN4FxdjzHe90nOKZma9E+mbVRNORB1Q8v1gk+SS
+ Ku0ItHe37Qvyw==
+X-Pm-Submission-Id: 4jBj1P5CVNz1DDnZ
 From: Michael McAllister <me@michaelmcallister.org>
 To: Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
@@ -37,8 +37,9 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Date: Sat, 24 Oct 2026 15:27:59 +0100
-Subject: [PATCH 2/2] arm64: dts: qcom: sm6115: Add missing MDSS AHB clock
-Message-ID: <7f99fda6f99d6053db240f2f1ba4d7b71da72261.1792852079.git.me@michaelmcallister.org>
+Subject: [PATCH 1/2] dt-bindings: display: msm: sm6115-mdss: Add missing AHB
+ clock
+Message-ID: <5326d23102e89b492767862fc7ae027f3eec2205.1792852079.git.me@michaelmcallister.org>
 In-Reply-To: <cover.1792852079.git.me@michaelmcallister.org>
 References: <cover.1792852079.git.me@michaelmcallister.org>
 Content-Type: text/plain; charset="us-ascii"
@@ -64,37 +65,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The MDSS node is missing DISP_CC_MDSS_AHB_CLK. Although the DPU child
-already requests this clock, MDSS resumes before the child enables it.
-The MDSS hardware-version register can then read as zero, causing
-msm_mdss_enable() to skip UBWC configuration.
+MDSS register access requires the AHB clock supplied by DISPCC, in
+addition to the GCC bus clocks and the MDP core clock already listed.
+The DPU child also uses this clock, but MDSS needs it before the child
+resumes so that it can access its own registers.
 
-On the Motorola Moto G10 (SM4250), this results in garbled compressed
-scanout after display power cycling. Adding the clock restores the
-UBWC configuration and makes compressed and linear scanout agree.
+Add the missing clock to the end of the list and update the example.
+Keep the existing three-clock descriptions valid for compatibility with
+older device trees.
 
-Include the DISPCC AHB clock in the MDSS clock list so that its existing
-bulk clock handling enables it before accessing the MDSS registers.
-
-Fixes: 705e50427d81 ("arm64: dts: qcom: sm6115: Add mdss/dpu node")
-Cc: stable@vger.kernel.org
+Fixes: b93bdff44a85 ("dt-bindings: display/msm: add support for SM6115")
 
 Signed-off-by: Michael McAllister <me@michaelmcallister.org>
 ---
- arch/arm64/boot/dts/qcom/sm6115.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml    | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-index 0f2af8aba..f7002b9eb 100644
---- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-@@ -1927,7 +1927,8 @@ mdss: display-subsystem@5e00000 {
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+index 309de1953..d4fac93d9 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+@@ -21,10 +21,12 @@ properties:
+     const: qcom,sm6115-mdss
  
- 			clocks = <&gcc GCC_DISP_AHB_CLK>,
- 				 <&gcc GCC_DISP_HF_AXI_CLK>,
--				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-+				 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+				 <&dispcc DISP_CC_MDSS_AHB_CLK>;
+   clocks:
++    minItems: 3
+     items:
+       - description: Display AHB clock from gcc
+       - description: Display AXI clock
+       - description: Display core clock
++      - description: Display AHB clock from dispcc
  
- 			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
+   iommus:
+     maxItems: 2
+@@ -92,7 +94,8 @@ examples:
+         power-domains = <&dispcc MDSS_GDSC>;
+         clocks = <&gcc GCC_DISP_AHB_CLK>,
+                  <&gcc GCC_DISP_HF_AXI_CLK>,
+-                 <&dispcc DISP_CC_MDSS_MDP_CLK>;
++                 <&dispcc DISP_CC_MDSS_MDP_CLK>,
++                 <&dispcc DISP_CC_MDSS_AHB_CLK>;
  
+         interrupts = <GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH>;
+         interrupt-controller;
