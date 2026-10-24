@@ -2,84 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D79C606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 22:59:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81413606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 22:59:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IqwMGkOm
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=CnfEMRbk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52A5E10E09B;
-	Sat, 24 Oct 2026 22:59:01 +0000 (UTC)
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9D9F10E582
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 12:33:51 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-1931ff67a29so3067669c88.1
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 05:33:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792845231; x=1793450031; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=UcH8rYHopQiyfN2N9CeJ5UIPAEXGC3cUJ4H4eP6mIrA=;
- b=IqwMGkOmyHODEawLRX+U9lG54t/wiWl4u9a0cZKAhH8lHBgsHpYHmFbadbME+XM1i5
- UJiLXWDDUNuBC5bgQfANxkDX/yDCXdUhqAQP1OuinTO/ygeztFqOmEXrVYRLNZIu8m8W
- wW6Jf5AFmUNJz+MW4oeJsZF/lrQMI2QwA2hqTH7jctP59XQD6+Kfh3xztjRdbOlpYWxZ
- chcia/zojf0sXrA+PQVRnHRq1c/oHDLuizyOe1O6NFxvm4+i1v0WimLLJNyz1L/kAgmo
- shWNH36dwI7S9/wxJ4lAftZ0e5qNOrO0ytNKo1z4ZmdJwIleNjs7cQqWMl0pZlZ29X9Y
- gRqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792845231; x=1793450031;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=UcH8rYHopQiyfN2N9CeJ5UIPAEXGC3cUJ4H4eP6mIrA=;
- b=ZjNJJuntRE0Jg8Q/FX7s11Hnc/W6NRA9gWR2yKWLzgiOGT1VphcQtLyM4xMWR8OhOS
- R4B/PnpaGj61IWx5LTtuozQ0tZsfgYbKbyWb/t1eSqSXGNXbNJy2SclYQbNQcN1s8NlE
- J2MId1QPQpVINETvi0iKnP8zEBV9554ZzOCnWUBFcGt3DDoJszqC61QXbOzXJYx6I2Oo
- VxPcOre9GrbdUe6UxiTD5S34D7erCPxdpdvEDBOBfvWUxPdu/bHsDl4W4acdCUsc5hL8
- NfQNDH/MM/GqGmHhLDV//N0mh2a4gXykI4yey9kEa34U+g0TUMpl1a19qf7UDHkPKeXS
- s1Dg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxWwb3fWJ4mCt5pJeNoa9OVualvOcpGbcu5sIU58CRRtF+JEmWXdERfvbOzqhdQxrp9I4nZuVHIBQo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLw2ao5ofYZEIzINb/8j5yBl2gorLZSUyqQJPeYv4tLS29r8kQ+
- CQeFn03zj4puovkTaI/UAYf7lAk5bpDiwZelff/EjPodcwinpAE1gKcf
-X-Gm-Gg: AYBFou2eljkhQ1WjKv6XCf3k+MffYvYrMUFh0lYD2XDQ9/dft73hTVdDU9190jJchic
- ypIYCninbnQOYl3z7uCiIp26o3/TtPyhcJ+ZrsgnJvWgJUosqKRQkeQt6Cn53F0HDaxw+Qb+8DV
- LSwcLkBRv7H9POqbL/OpXDy8J/KTgpbIrrzLb5fEnU3g2RPFMCSRhSAByzW8mwPXoDvsW8ag5Tc
- /xfv07ZgNW9NLQig53hOQk4VukKej1A9ucsp7yZxQq8AYmCHJ10PeetTlsgDKQDBV6++DbcZOZi
- Y9ir0VPDM4GbuxlCCg0mMS2e6u3GFzMGiXlX8+IBuOMGC1FHGHx7RWk+/BVSwNBhBnRCAoPcyiA
- cYRkbRX7tB6NuYCXHKaWN7AAsuJf3ygdWnPTRgQnAmMjLgIQNMoFGE07Kx4vVpM1i8AwIfnYmSw
- NE6s40L63ZJozd9uZZcETLzOK0mIwUQ5jK2xflc4f9UWMnYKhoJYyoWchNCMF3Ekohe7U7pgzH3
- /LvKtc7kE96Zqg66vWe5bBQYxBHsZFZdLenssZj3tU8lh3hZPNSafmsLcANkGBhdmCuMjkhH6nL
- UGZj7T55pf6aKMY=
-X-Received: by 2002:a05:7022:7f18:b0:143:296a:3ee with SMTP id
- a92af1059eb24-1993571a3bemr3230839c88.25.1792845230770; 
- Sat, 24 Oct 2026 05:33:50 -0700 (PDT)
-Received: from [127.0.1.1] ([2406:7400:129:3e65:f4a6:5e8f:7da4:c9bb])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-19894d5a470sm6295559c88.2.2026.10.24.05.33.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Oct 2026 05:33:50 -0700 (PDT)
-From: Aman Sharma <amansharma6122002@gmail.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- Aman Sharma <amansharma6122002@gmail.com>
-Subject: [PATCH v2] drm/i915/hdmi: preserve cached EDID on DDC failure when
- connector is forced
-Date: Sat, 24 Oct 2026 18:03:43 +0530
-Message-ID: <179284522321.1666644.7085985666852699043@gmail.com>
-In-Reply-To: <179284356403.1659508.10439113185286055496@gmail.com>
-References: <179284356403.1659508.10439113185286055496@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B07310E1E3;
+	Sat, 24 Oct 2026 22:59:02 +0000 (UTC)
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09F9210E315;
+ Sat, 24 Oct 2026 16:33:52 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jBlnp0zlbzMl0B;
+ Sat, 24 Oct 2026 18:33:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1792859630;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=A+smEMxRbdf3wqkFYq5ydoYj4fQO7s8hJFqE/+6d3PM=;
+ b=CnfEMRbk82Tbp5ybgWKzKwguxXmY22sXjPvpisqCMEuWJr8LhIqgYOpjnTJGFvsnItfeaL
+ VwCG99eGQQJFULpwoAm0NMaklMKXlnvMnKOzwNDTr83F6PabFUCmu6jXCbT8p4WmebiGjW
+ dXFJWJO1sxOcK8WFiPPnVtZkkZyL44JmmO5dLoycazZaXZlhD3cxWg/eorpmBc/hibFfes
+ UWH3v4eyBHimwqEp4vBgprVUS3b6COVBsPAUQqm9ppfpIMyQNQmQSVQCu2+EObxxahpck3
+ W1Ek8KH0DLUA9ArXsGwNVeNhn1CSNgnBXNztIQEoBJfMKXwHQ4rpLlCadl4LuQ==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com,
+ "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
+Subject: [PATCH v2 0/2] drm/amd/display: Keep eDP native timing after resume
+ with video=
+Date: Sat, 24 Oct 2026 17:33:45 +0100
+Message-ID: <20261024163347.2413649-1-hugo@hsal.es>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <74c73b6f-a6b3-4652-8da1-b5c46ae58809@amd.com>
+References: <74c73b6f-a6b3-4652-8da1-b5c46ae58809@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jBlnp0zlbzMl0B
 X-Mailman-Approved-At: Sat, 24 Oct 2026 22:59:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,102 +63,102 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When an HDMI connector is forced enabled (e.g. via video=HDMI-A-1:e for
-laptop clamshell operation) and the external monitor enters DPMS standby,
-some monitors (such as the BenQ GW2790Q) power down their internal DDC/I2C
-controller, causing SCDC/EDID reads to fail with -ENXIO (-6).
+On a 3840x2400 eDP panel booted with video=eDP-1:1920x1200@60, an HDMI
+hotplug followed by suspend/resume brings the panel back with the
+1920x1200 mode as its raw timing. The image ends up squeezed into the
+top-left corner. Photos, hardware details and the test loop are in
+https://gitlab.freedesktop.org/drm/amd/-/issues/5983
 
-Currently, intel_hdmi_detect() and intel_hdmi_force() unconditionally call
-intel_hdmi_unset_edid() before calling intel_hdmi_set_edid(). When
-drm_edid_read_ddc() returns NULL during monitor standby, the connector's
-cached detect_edid is wiped out and
-drm_helper_probe_single_connector_modes() falls back to the 1024x768 VESA
-no-EDID mode. When the monitor wakes back up, because the connector status
-remained forced to connector_status_connected, no hotplug state transition
-occurs and the display remains stuck at 1024x768 until a manual mode probe
-(such as toggling the laptop lid) is triggered.
+The hotplug makes fbdev emulation reprobe every connector with its
+framebuffer size as the limit, so connector->modes loses the 3840x2400
+mode. On resume, create_stream_for_sink() finds no preferred mode in the
+list and scales onto the first mode instead. Patch 1 falls back to a
+mode of the native size if the list still has one, and otherwise to the
+encoder's native_mode, which amdgpu_dm_get_native_mode() copies from the
+preferred mode before the size limits apply. Patch 2 adds KUnit tests
+for it
 
-Fix this by moving intel_hdmi_unset_edid() into intel_hdmi_set_edid() after
-checking whether a forced connector already has a valid cached EDID
-(detect_edid and edid_blob_ptr) when DDC fails, and only clearing
-detect_edid on Gen11+ digital port disconnect when the connector is not
-forced. When the monitor is awake or a different monitor is plugged in,
-drm_edid_read_ddc() succeeds, resets the previous EDID and dp_dual_mode
-state via intel_hdmi_unset_edid(), and updates the connector with the new
-EDID.
+The fallback only applies to eDP and LVDS, where amdgpu turns scaling on
+by itself. On other connectors the preferred mode can also be missing
+because mode_valid rejected it, and then scaling onto the first valid
+mode is right. From reading the code, other connectors take the same
+path when userspace sets the scaling mode property after fbdev pruned
+the list, but I haven't tried that, and this series doesn't change it
 
-v2:
-- Move intel_hdmi_unset_edid() into intel_hdmi_set_edid() so hotplug
-  detection via intel_hdmi_detect() also preserves the cached EDID on
-  forced connectors and resets dp_dual_mode when updating EDID.
-- Clear detect_edid on Gen11+ disconnect when the connector is unforced,
-  and verify edid_blob_ptr is non-NULL before retaining detect_edid.
+A fuller amdgpu fix would always drive eDP and LVDS at their native
+size, not only when the preferred mode is missing. I kept this to a
+fallback so it changes less, but I can respin it that way if you'd
+prefer
 
-Signed-off-by: Aman Sharma <amansharma6122002@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_hdmi.c | 25 +++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+I left out one other case, also because the fix is big. On eDP the probe
+can drop every mode of the native size by itself, for example when
+mode_valid rejects the native timing after link training settles on a
+lower rate. The list then has no native size mode, and the fallback
+takes the encoder's copy, a timing DC may reject, where before it took
+the first mode. I have a follow-up that uses the copy only when the last
+probe with room for the native size kept that exact timing, and retries
+without it if DC rejects it. It's about 170 lines plus tests, for a case
+I haven't hit on hardware. Sashiko, running locally, has no findings on
+it, but the instance on the list may see it differently. It replaces
+both patches here and is at
+https://github.com/someonewithpc/linux/tree/edp-native-mode-validated
+I can send it if you think it's worth it
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index b6fa1a1558b8..89ab9a790a41 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2570,6 +2570,19 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
- 		intel_gmbus_force_bit(ddc, false);
- 	}
- 
-+	/*
-+	 * If the connector is forced on (e.g. video=HDMI-A-1:e) and the sink's
-+	 * DDC/I2C bus is powered down during DPMS standby, keep the previously
-+	 * cached EDID rather than wiping it and falling back to 1024x768.
-+	 */
-+	if (!drm_edid && connector->base.force &&
-+	    connector->detect_edid && connector->base.edid_blob_ptr) {
-+		intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
-+		return true;
-+	}
-+
-+	intel_hdmi_unset_edid(&connector->base);
-+
- 	/* Below we depend on display info having been updated */
- 	drm_edid_connector_update(&connector->base, drm_edid);
- 
-@@ -2611,10 +2624,11 @@ intel_hdmi_detect(struct drm_connector *_connector, bool force)
- 	wakeref = intel_display_power_get(display, POWER_DOMAIN_GMBUS);
- 
- 	if (DISPLAY_VER(display) >= 11 &&
--	    !intel_digital_port_connected(encoder))
-+	    !intel_digital_port_connected(encoder)) {
-+		if (!connector->base.force)
-+			intel_hdmi_unset_edid(&connector->base);
- 		goto out;
--
--	intel_hdmi_unset_edid(&connector->base);
-+	}
- 
- 	if (intel_hdmi_set_edid(&connector->base))
- 		status = connector_status_connected;
-@@ -2638,10 +2652,10 @@ intel_hdmi_force(struct drm_connector *_connector)
- 	if (!intel_display_driver_check_access(display))
- 		return;
- 
--	intel_hdmi_unset_edid(&connector->base);
--
--	if (connector->base.status != connector_status_connected)
-+	if (connector->base.status != connector_status_connected) {
-+		intel_hdmi_unset_edid(&connector->base);
- 		return;
-+	}
- 
- 	intel_hdmi_set_edid(&connector->base);
- }
+On amd-staging-drm-next before this rebase, with an HDMI hotplug and
+suspend/resume (pm_test=platform) in a loop, 28 of 29 resumes came back
+with the wrong timing without the patch, and the other showed it
+briefly. With it, 169 of 169 were fine. A backport to 7.2.8 went from
+103 of 103 bad to 1363 of 1363 good. Those runs predate the lookup of a
+native size mode in the list, but in this case the list has none, so
+the patch takes the same path. On the current base the
+amdgpu_dm_connector KUnit suite passes, 358 of 358. Without the fix, the
+new eDP and LVDS tests fail and the HDMI one passes. Without the lookup,
+the test with a native size mode in the list fails
+
+I've also sent a DRM core series that fixes the cause for every
+driver. It makes drm_client_modeset_probe() probe with the device's
+limits and has fbdev's mode pickers check the framebuffer size
+themselves. Either series alone fixes the reported bug:
+https://lore.kernel.org/all/20261015212545.1989962-1-hugo@hsal.es/
+
+v1: https://lore.kernel.org/r/20261014223041.171317-1-hugo@hsal.es
+
+Changes in v2:
+- Use drm_mode_init() for the on-stack copy of the encoder's native
+  mode. drm_mode_copy() reads the destination's list head, which was
+  uninitialized (Sashiko)
+- If connector->modes still has a mode of the native size, use it
+  instead of the encoder's copy, whose timing mode_valid may have
+  rejected (Sashiko)
+- Build the copy in saved_mode, which this path doesn't use, so the
+  stack frame doesn't grow (Sashiko)
+- KUnit cases for each condition of the fallback
+- Link the DRM core series, now sent
+- Rebased onto amd-staging-drm-next at 77f548b127c6, as Tom Chung
+  asked. That includes 3299935e65c0 ("drm/amd/display: Use separate
+  iterator for preferred mode lookup"), which changes the same lookup
+  but keeps the fall back to the first mode, so this fix still applies.
+  It now checks for a NULL preferred_mode, since native_mode_found is
+  gone
+
+Hugo Sales (2):
+  drm/amd/display: Fall back to the native mode, not the first, on
+    eDP/LVDS
+  drm/amd/display: Add KUnit tests for the eDP/LVDS native mode fallback
+
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  47 ++++
+ .../tests/amdgpu_dm_connector_test.c          | 226 +++++++++++++++++-
+ 2 files changed, 271 insertions(+), 2 deletions(-)
+
+
+base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
 -- 
-2.43.0
+2.55.0
+
