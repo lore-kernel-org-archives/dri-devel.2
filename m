@@ -2,95 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51147606A328
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 10:31:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558A1606A323
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 10:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nVceZx+O;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GVT1qnu2
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hbFw69Za;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Tf8sF75i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B230210E7D3;
-	Sat, 24 Oct 2026 10:30:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDC7510E7EE;
+	Sat, 24 Oct 2026 10:31:02 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C4EC10E7D3
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 10:30:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1E7C10E7EE
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 10:30:51 +0000 (UTC)
 Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69O8otUD1167529
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 10:30:44 GMT
+ 69O8o39T1166345
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 10:30:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- j94BsXEDA7Y1sr27o39tNrIVO8VP/cqZsrlA9BINVVU=; b=nVceZx+Oaxtl/yF+
- rwF9rjyA8ux6Mh0FvrAXnPM+l6DRVSpC6BmuD0SL2fwkzv353uXQwvI7YL1wgRHF
- mrMTGdfC0ocmKg9NxblJ/3qdn9LbmPqKE9h18nzGLHe3Ks/GUPSrDgpBx5UaRUba
- q1qt/476MZXdfLmAHo8ucKguqctLBFbhTlBNRVoyopmF910B85hSmZPw3IKQrgL3
- MAMGc8+N5IwEjwzNycScEZHlfoEe31DGhxudnBumyuQyfzhHssINMviOI9x8qBX5
- 70FQCT08gHxtwmuZMq/DOS+Mf2jitFT2lexQBm4GGGB36UVCBIw8ymW33pgOQiX+
- zEZzzA==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgmw3gqcp-1
+ A2cReWsSiTJKbfzFTEgcvWxEdzaCiferPXrh60qGdmw=; b=hbFw69Za6+9aZVUA
+ HqU6MRuyyTjYdXcuuPU8rrD8BRNE77vyWRfOoZcFb4RCcAPUd062hYBXO/QqDobO
+ eYoR1KxBuc7pv32sv7QWw2jkpBsjnxF4BLvOkY0slRguf7UdN2kIWihywZ9AYOD0
+ kHT/EGg8ATp50XwlJU+YX4FAtp6RLA/eioveQaC799vQn0EWFRd+Mrgxn8wqtdwH
+ nBrMnHZde3C/QYDkfV5O11mf2M4oVY6Fn8KbeTbTVY7IaVM2j/tjKcfX6TTEAppL
+ LOiCWUUr+23O2o441ldrvC/Ek68wNMdtAdX95yS0yPipsPM2L0Rr457a5DE/5L68
+ 1mR4jA==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgmw3gqd8-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 10:30:44 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id
- a92af1059eb24-18b5ee75447so6377213c88.1
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 03:30:44 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 10:30:51 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id
+ a92af1059eb24-186c1aae818so5408307c88.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 03:30:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792837844; x=1793442644;
+ d=oss.qualcomm.com; s=google; t=1792837851; x=1793442651;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=j94BsXEDA7Y1sr27o39tNrIVO8VP/cqZsrlA9BINVVU=;
- b=GVT1qnu2n7uUEG8WFUTMQr0gmg3ENKha+NZTEnR0pk5IPZUrLKXA5aPbBCQEg4vdj8
- JW/tkQ09h2PctQhMN/7yJgNqdEtUMlJPbFDTuNbOMpsxvTDchcptdfU1keEPtUSSz6/H
- qmiw1ViY5eBVUJQLYW44+WDs4LfSjEJEGESVIQVshQHPPslwbYEj5wle/MabHs/ppHpW
- EGC0rUp+Tmc3HZVBF732iTvKzRTUi5UymlXqR/hEe0hJk3BoTGJ3KcMbzHg2X4iNkEQT
- VRQ35m5zBxpjG374Ou05rw6J5hsW4FHrAh6IDbAz35Rv0GFprq2wo5E5tX70UTH288RX
- ssUg==
+ bh=A2cReWsSiTJKbfzFTEgcvWxEdzaCiferPXrh60qGdmw=;
+ b=Tf8sF75ivF5QLim3yPY2Vshg/Qwu3FVqLL12irCTDPXjbXy3VQxkt7KpMHu0zf1SoP
+ 9zPlfSBosVRZEl4glZGzlKZSAatHgVQD9J+HZXK4xLhrjzKagzc8G4QfDzRVkm8Zm5/t
+ ekrdICsZLDwCGfTpXeIa8BgC8hWahJCojuG7/gNe/V4jRBc5YXYWSK7k3e7jgidm3q6E
+ gr5g3BsB8lM/4kfrV/yryy5eErt6Xo6DTiQPR2yAIQq6iaY0X2h9fxn0tE2xBtHwHaE5
+ nendAB1yqnAJ7S/jKVUcojb2NT80oV2WbhMUOx2UQrN4wFoZMTZwH9QT1qjkbWjpLo3A
+ rTSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792837844; x=1793442644;
+ d=1e100.net; s=20260707; t=1792837851; x=1793442651;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=j94BsXEDA7Y1sr27o39tNrIVO8VP/cqZsrlA9BINVVU=;
- b=S+uOab98v6KbfeMe5cPw32FTc3Pcw1HgRmXVI7bQoyuUIszbXMOMAbIPH+5eLh1/eE
- S53Ny09C6XrgrkTVaT+ywpI/4SxGcAuc5mpQgKmilFxjXD+gOdMMq6EP2RlGxyyYD/Qd
- dAnP6VzngS4anrWHgjVs9KLwwrhxL22BDxC4tIG+GZ+SAshpubv0wCClC3xbZG1LFvrS
- aGqvDD5ZdWNmmNzEgQ6XVXGnyZ/4t4Pfqv3yC0NhZq46u4bfDPULB9aTamijqJfVBMT5
- JCyyDALDGJKs8xTytg+hDwk9PhDs9ksH7+8VZBIu76GTVll8MG9BnOFI882UMjUHrpfZ
- QqFg==
+ bh=A2cReWsSiTJKbfzFTEgcvWxEdzaCiferPXrh60qGdmw=;
+ b=h8wIsAEPUGusIVosJhld+kpqdPU0kBSa6XoT82qml0fnc2IMowaXjLcu/V7E5T/jES
+ sRCxSv58IE+Gp9mwwBKMVtmk+UOQ8Govr+GnMFmk8FhvE+qaMmAunY3FD6RJudOuhInV
+ Ga1JoulBIp5b+6GtmBXsQF75aMmfURPW+9rc1MU/OgU4Ao05UigWy0+nFJY09szUKGHa
+ LuWVV853I54QX5xzmvJ9+bT6RMQVwfSszpYEgpS5pMBiKwn+OL8cbOE4DGCKBUlTC4Op
+ qBy2Q9HhZldC5IoaLgtgX2xncXPfbi7qfTaYeTeK5kropQkUYktiHzO29BRrc+qW98t0
+ yThg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzUR5jOfS7UfGnQW4b+yiF1MVmeQcaM0DGPcgtKd42RI6tyq1QGuVUESfDVqVyLTj+FC5rSpHnNvcs=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLnAZR36jWA437QRQb4v8fkdP4gn+FhdJD5OkKnxK9UFoJOrlxB
- iBJ6KnPGl8myBPoqIEjSl/fyv02drJ4RcfGstNT+JtWEw09EIU2JtgkVW4eobKins+29G5XxKRP
- P68nUVHUyytUH0caJLhUygPYx9f9hNimKK6QaooCeY0po/LrSDMXTA/Idqm5JZldWEPjW9hI=
-X-Gm-Gg: AYBFou2ZomnTY8cHr+jEc8wNdj10XXuh77kaU5TsadJJF1pDPol8c0qfiBB22elJMO/
- aGPI5WNHH4sMLyzfPB1mlSTtQeOc1TbTrjhJJ32yl9Gw+ivbP3v1Z0zaqzHGKHXfJwaFh2z437/
- QymwWQ/bFZ7v4e3RhlQggaUb2GPI5+bopFSrbwgRjl9Yq5PIAazZAUPn84u53mNIeOrY/WENa4j
- 30J5+pfhXQvcE/5im8yf5IbYNgIdWigXzmXkqf3OByDtLJXjd0gjgrCCLncseNXdOHHzxoNVpY/
- P6e4ZrE12463eamL4aL8Lgk3H5XrV+vVgmrUjWqWSbKtwjJ3WLZ14pUk4/YAF14a4fRFD+CO6lg
- 7mC6UJ2MDSAo/wa43kPrVJ2E=
-X-Received: by 2002:a05:701b:4192:10b0:193:8116:f5bf with SMTP id
- a92af1059eb24-1993571a391mr2354247c88.16.1792837843883; 
- Sat, 24 Oct 2026 03:30:43 -0700 (PDT)
-X-Received: by 2002:a05:701b:4192:10b0:193:8116:f5bf with SMTP id
- a92af1059eb24-1993571a391mr2354211c88.16.1792837843365; 
- Sat, 24 Oct 2026 03:30:43 -0700 (PDT)
+ AKwUvBwnPOOmaP5rvhfUZ7ok9MQ3Q7bVPUdQ8MsryDh1gJapReYWLv/4VpZS4dY2q4hiKcnyn1mVQbHlcLY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJWZMUAWxnOGpXKn1VPg5EzHA4C+DFjYTearXSOo8q7tc2hp7Ke
+ chCSaukTW89LrnexdjJff4Sx9hE2bWZFQMHpjjiEDPykHcWdhI5gp01wboHnQ0QKWhrSEOd43bY
+ bN1J8e/jZ9RIKHzBRwqTrfO3aIt1V2pWvaQAknEojQmIsTyck6fToygoJsh21YiaAHQkDrPs=
+X-Gm-Gg: AYBFou1rHOZeleVOE+7KEcpbfJ3gSRc1vgHb7sreHU97TxMMzmi2Wcjlp8XY8hZRhGr
+ g7PDRdvct9PNgKSYJq3gQ9nROF3/+mniT7B9mKsT0q8XQVGwE1FSGf0cMYwPdaqG9A1qUx5Q5aj
+ 8oTTyFdam7I1aRzdXq6jJqsj3coCHn8kwoHr7My5EG1pHrsGx6UraBE4KM8O/9IeaMVi9DjSKj9
+ oOYlQxYq+g3PF0c9n0IBs0R95zEL3BZ/AwfGOSdYFY1El3LHF8nAfD6YVJgRtSn4hQPZARtujvk
+ YhqkBgLt8cwbGTOL4uVmTe/FywMo/bP9KLwPfrko7vumaxAsqllxAxm2X+LBNPZRizMbtCr+N4B
+ AOPg/Nnn8FWj5Mc6irPWh9bI=
+X-Received: by 2002:a05:7022:4198:b0:14c:be8e:69f2 with SMTP id
+ a92af1059eb24-199363a06f2mr3358619c88.21.1792837850598; 
+ Sat, 24 Oct 2026 03:30:50 -0700 (PDT)
+X-Received: by 2002:a05:7022:4198:b0:14c:be8e:69f2 with SMTP id
+ a92af1059eb24-199363a06f2mr3358566c88.21.1792837850081; 
+ Sat, 24 Oct 2026 03:30:50 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-19894d5a10csm6009441c88.1.2026.10.24.03.30.36
+ a92af1059eb24-19894d5a10csm6009441c88.1.2026.10.24.03.30.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Oct 2026 03:30:42 -0700 (PDT)
+ Sat, 24 Oct 2026 03:30:49 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Sat, 24 Oct 2026 16:00:09 +0530
-Subject: [PATCH 3/8] drm/msm/a6xx: Fix stale boot up BW vote
+Date: Sat, 24 Oct 2026 16:00:10 +0530
+Subject: [PATCH 4/8] drm/msm/devfreq: Record idle_time at GPU idle onset
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-assorted-fixes-oct-v1-3-2977f974ddb7@oss.qualcomm.com>
+Message-Id: <20261024-assorted-fixes-oct-v1-4-2977f974ddb7@oss.qualcomm.com>
 References: <20261024-assorted-fixes-oct-v1-0-2977f974ddb7@oss.qualcomm.com>
 In-Reply-To: <20261024-assorted-fixes-oct-v1-0-2977f974ddb7@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -110,32 +110,32 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
  Jie Zhang <jie.zhang@oss.qualcomm.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792837816; l=3775;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792837816; l=1385;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=voH+JkrR9QIo+7kjwDUt48OKHwoMp5q/sdC06buV3JQ=;
- b=gJ33HT1NFi3QtbiCd69PZDhwQT3+LvJ4P8gpJokrgedWIzmsFNZ3OH32KpgHg/+bCx6vhYX+U
- Sk82RMQNEA4DmaWZen2Ox3AVyt2QqTjk0DFcpZ1GVaFzu1e78kgoiTx
+ bh=B/7JK0auHlH1E5rs71vnCUiEOGLiVg3K7pfC0lEPdGQ=;
+ b=OHcBZxDZNTeCg15sZVgW9W325yRHdMZt7Y5EKtm8SHncpfDafjAKZCIaSdMq/XWwJEHRJ3iWF
+ s8jSVSyR42UDmFDV0cQIE4lrEBBUQUKAG7jkIMW2a0xZrPPBZ0xCjcb
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-GUID: nZ9Da9KPWxVLlsZV9ynMu7Gksw9Vb2ne
-X-Proofpoint-ORIG-GUID: nZ9Da9KPWxVLlsZV9ynMu7Gksw9Vb2ne
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfX76zwPabDgbaG
- 1KyNoQXKmuAlaUcr2u9UJQB00sBRwgIbQ0kJHgPCDJUeugRYLf4flipRqKDOBGz7FpMT16xvt8e
- ZKvJepnI1M3VzDionsemqwKfwPm20R8=
-X-Authority-Analysis: v=2.4 cv=HqHjiETS c=1 sm=1 tr=0 ts=6adc88d4 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-GUID: 8H6tKvlew-4L2h_OO_jsFOFh3c6akKcc
+X-Proofpoint-ORIG-GUID: 8H6tKvlew-4L2h_OO_jsFOFh3c6akKcc
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfX9YkZEhJDecJF
+ XeOJfQg8VCQwtAjN7M7BMtcgeeyR2UCxl1rTpQDlIS4Od26XnUb1rDo+KO5Ptee2YjABHyLp1/A
+ o77YHY3WilGs/EshjpugA4HrpKWWn2s=
+X-Authority-Analysis: v=2.4 cv=HqHjiETS c=1 sm=1 tr=0 ts=6adc88db cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=mfC4Gle6AAAA:8 a=daYzuOo6NrLquwzkd_0A:9
- a=QEXdDO2ut3YA:10 a=vBUdepa8ALXHeOFLBtFW:22 a=aghUjlmjzLPIEfOzDLpx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfX4q1nH+8VJvBB
- gNu/qmsZBk+KIaHeuF+2PhjktIJCAiYRcgKaSZZSid/kjBz6Nd5IkOMuY5aYn8ZMbfKuYOEDE7G
- 6/a62x7xyKaWuevYpYO8PJjcFUYj28Vij46riHVbXDPHNclEvvvBIUI6czgqc5QjW9duTXyMYCk
- b7SCANQ0Ktyu9efgFdSA3TW0ZEUK7w9M/WMNRpFZgnUUGgpYZoQRpdRP25whvYUdq0RiR3p+S1q
- cMiS5n/nuIBe5heS6oH/SeLs4EbT1eSIgdxKrufgR7zpwRamZVvyW1tHQq74KpIWdLpN19UyRzp
- unpP3vvN5ms4BSDkjM+MY175ognZ4pz7fzKN3ainTRUyo2/cxuxEPjRpF+++gqb92M9FlN47aE4
- llcnFxJpjeqmzyu6XDNZ6BmbPGNsSJk6rfCukXDRoOAmdp64q9pMqpp2l0g1qVWuCaz/UOd5Gjp
- v7fSDnDklw0GHWHwhAA==
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=8Gjds2nr7p1U5lpkA6QA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfX0HSZHaH5N7Mr
+ qjMWbPvynuDJWKqpbOwRSDdFL3nQ8pRaMqOMQwR5DseRuqO7PFQq4zABBlujQdald5KelOeIDM2
+ KlXBSiwgeMn1JhIwU1JFtrUQWEDt77UIMFsd6p3zPV1ZcCn+CWjBkU8L/2VOBBWGLbOiCAKuosr
+ oR8UfgsSODuSQhGd4Yz7h7No5XMVymOojxF2K7pLOP3ji+4QeYqxwR3rA9VwVGHO63L5o+yPTyr
+ zdiWJ0cg/9rRovMBJ5gCP04FFusYbYny+0DuyMLGRLg9OIu0OU06lAVXY5KDkeBxKskOeaTtTiP
+ NWNsPRZJWqXlJh6Oaq41UJME0rc1GZTBLL9holEJv9ksj10fmf4t0mpwqTq/4PufSh+hVBe+jVX
+ LpYq3ZDHVNL0EyrsO6g82+FuJ6HMuElMb+oQvMeFLoRgD81p3d49eLat2TMF0YEzkGDTBq+P+fg
+ eokovREGSXpKPircnew==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-24_01,2026-10-21_02,2025-10-01_01
@@ -165,100 +165,42 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Jie Zhang <jie.zhang@oss.qualcomm.com>
 
-An initial bus bandwidth is voted during boot to bring up the GMU. In GPUs
-where the GMU drives bandwidth scaling, this boot-time BW vote is
-redundant and can be removed.
+Setting df->idle_time in msm_devfreq_idle_work() means a cancelled
+idle_work leaves a stale timestamp, causing idle_time to accumulate
+across idle cycles and potentially trigger a spurious devfreq boost.
 
-Fixes: 7047e655a567 ("drm/msm: adreno: find bandwidth index of OPP and set it along freq index")
+Move the assignment to msm_devfreq_idle() so the timestamp always
+reflects the actual GPU idle onset.
+
+Fixes: 658f4c829688 ("drm/msm/devfreq: Add 1ms delay before clamping freq")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jie Zhang <jie.zhang@oss.qualcomm.com>
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 16 +++++++++++++---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h |  1 +
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c |  2 +-
- 3 files changed, 15 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/msm/msm_gpu_devfreq.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 7e80670736a6..991db3c9cd96 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -76,6 +76,13 @@ static irqreturn_t a6xx_hfi_irq(int irq, void *data)
- 	return IRQ_HANDLED;
+diff --git a/drivers/gpu/drm/msm/msm_gpu_devfreq.c b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+index 2e1d5c343272..f3c664b20a1b 100644
+--- a/drivers/gpu/drm/msm/msm_gpu_devfreq.c
++++ b/drivers/gpu/drm/msm/msm_gpu_devfreq.c
+@@ -357,7 +357,6 @@ static void msm_devfreq_idle_work(struct kthread_work *work)
+ 	if (priv->gpu_clamp_to_idle)
+ 		msm_devfreq_target(&gpu->pdev->dev, &target_freq, 0);
+ 
+-	df->idle_time = ktime_get();
+ 	df->idle_freq = idle_freq;
+ 
+ 	mutex_unlock(&df->devfreq->lock);
+@@ -370,6 +369,8 @@ void msm_devfreq_idle(struct msm_gpu *gpu)
+ 	if (!has_devfreq(gpu))
+ 		return;
+ 
++	df->idle_time = ktime_get();
++
+ 	msm_hrtimer_queue_work(&df->idle_work, ms_to_ktime(1),
+ 			       HRTIMER_MODE_REL);
  }
- 
-+bool a6xx_gmu_scales_bw(struct a6xx_gmu *gmu)
-+{
-+	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-+
-+	return a6xx_gpu->base.info->a6xx->bcms && gmu->nr_gpu_bws > 1;
-+}
-+
- bool a6xx_gmu_sptprac_is_on(struct a6xx_gmu *gmu)
- {
- 	u32 val;
-@@ -169,7 +176,6 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp,
- 		       bool suspended)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
--	const struct a6xx_info *info = adreno_gpu->info->a6xx;
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
- 	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
- 	u32 perf_index;
-@@ -187,7 +193,7 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp,
- 			break;
- 
- 	/* If enabled, find the corresponding DDR bandwidth index */
--	if (info->bcms && gmu->nr_gpu_bws > 1) {
-+	if (a6xx_gmu_scales_bw(gmu)) {
- 		unsigned int bw = dev_pm_opp_get_bw(opp, true, 0);
- 
- 		for (bw_index = 0; bw_index < gmu->nr_gpu_bws - 1; bw_index++) {
-@@ -1393,6 +1399,10 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
- 	/* Set the GPU to the current freq */
- 	a6xx_gmu_set_initial_freq(gpu, gmu);
- 
-+	/* Clear the boot bus quota to allow GMU-driven BW scaling */
-+	if (a6xx_gmu_scales_bw(gmu))
-+		dev_pm_opp_set_opp(&gpu->pdev->dev, NULL);
-+
- 	return 0;
- 
- disable_irq:
-@@ -1913,7 +1923,7 @@ static int a6xx_gmu_rpmh_votes_init(struct a6xx_gmu *gmu)
- 		gmu->gmu_freqs, gmu->nr_gmu_freqs, "cx.lvl", "mx.lvl");
- 
- 	/* Build the interconnect votes */
--	if (info->bcms && gmu->nr_gpu_bws > 1)
-+	if (a6xx_gmu_scales_bw(gmu))
- 		ret |= a6xx_gmu_rpmh_bw_votes_init(adreno_gpu, info, gmu);
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index d3f6cd8b9741..b9e966e602e2 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -239,6 +239,7 @@ bool a6xx_gmu_gx_is_on(struct adreno_gpu *adreno_gpu);
- bool a7xx_gmu_gx_is_on(struct adreno_gpu *adreno_gpu);
- bool a8xx_gmu_gx_is_on(struct adreno_gpu *adreno_gpu);
- bool a6xx_gmu_sptprac_is_on(struct a6xx_gmu *gmu);
-+bool a6xx_gmu_scales_bw(struct a6xx_gmu *gmu);
- void a6xx_sptprac_disable(struct a6xx_gmu *gmu);
- int a6xx_sptprac_enable(struct a6xx_gmu *gmu);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-index 6b34e704a70d..ac684d72d2b4 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
-@@ -810,7 +810,7 @@ static int a6xx_hfi_send_bw_table(struct a6xx_gmu *gmu)
- 	if (!msg)
- 		return -ENOMEM;
- 
--	if (info->bcms && gmu->nr_gpu_bws > 1)
-+	if (a6xx_gmu_scales_bw(gmu))
- 		a6xx_generate_bw_table(info, gmu, msg);
- 	else if (adreno_is_a618(adreno_gpu))
- 		a618_build_bw_table(msg);
 
 -- 
 2.55.0
