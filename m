@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60BD606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 00:54:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC15606A31B
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 01:02:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FU9DS4vJ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxzt2ExI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 163D2112D53;
-	Sat, 24 Oct 2026 00:54:53 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FF3110E6EE;
- Sat, 24 Oct 2026 00:54:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DC7410E751;
+	Sat, 24 Oct 2026 01:02:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D55A10E750;
+ Sat, 24 Oct 2026 01:02:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5528B4156E;
- Sat, 24 Oct 2026 00:54:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBAA51F01825;
- Sat, 24 Oct 2026 00:54:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 83C28601DE;
+ Sat, 24 Oct 2026 01:02:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D35761F01825;
+ Sat, 24 Oct 2026 01:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792803286;
- bh=8rTFWG/u8g3zFtmWZhV06zKt+YsOU4geLx3qnx8KCJg=;
+ s=k20260515; t=1792803742;
+ bh=UwjE+gl620La07uAsA8wn+kUBNJ7JNgAYLdqzEZ1xMI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FU9DS4vJ4/dAm7XzkIMUAW5vsubdpRax8xjtgox3i6IOnjY0wF/b0/JiJWkhnze98
- WZYBqTMr0FwmbsJ+xcl1MkRrDNamufd133Ux6UoPorwJWK6QUzj4qUU0r20wo20O1N
- fz9aXBJAqZVWbnqahLzjtf99nP+mkpv4yNwWTJOB+YfY35/Ens18PAKDuWrG3sy2Lz
- 5tfTHmaiYFjYZrPomX9mfeXFHMrUIAYHPpZWMVb88/jVamw4xNeN3yj3IfmzmFyQ5h
- fxXWEZaOgZAeDjvlAGrVBndASlRI3/vR0K8Dz1sWhcnhvc3u74LLlrU02HqOSm0Dx2
- LSRI744njnS4w==
-Message-ID: <sashiko-outbox-183472@kernel.org>
+ b=gxzt2ExIm4oPRVsKZwW5ynw3PkG22F1/BAV88wEPjRyZWZq+Z+AlzubFmc1WmRrC0
+ WNiGqhyD1/TbsqkmZgNDEm2Ejh3Pi6cASmI5+tG4kkdcx1dthoWhdqoo1k3VBfhxB6
+ X4qT/C9i5tcm4cD8BgG4tjaIlhjUS+kshN/otA1T4ZeN1662zZE9yNLfZL6yZ00z3S
+ 2hD8ehlr1ivk2vqnP+7WkxcmdJvIXnmQ3hIo+TOfFa4rnS6jfmg1wZ3Tl9VyePRsvY
+ RIJSanZtn2m+K6tZFdqJ3jM4DALHCvCuu+JWkglw8LIbMjdVQcGC9sT5/lE3mc00Er
+ 8JxpU9JrVRpYg==
+Message-ID: <sashiko-outbox-183480@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 6/9] drm/msm/dp: don't take extra references on
- multiple plug events
+Subject: Re: [PATCH v8 7/9] drm/msm/dp: handle the IRQ_HPD events reported
+ by USB-C
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20261024-hpd-irq-events-v8-6-6ee949e7a384@oss.qualcomm.com>
+In-Reply-To: <20261024-hpd-irq-events-v8-7-6ee949e7a384@oss.qualcomm.com>
 References: <20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com>
- <20261024-hpd-irq-events-v8-6-6ee949e7a384@oss.qualcomm.com>
+ <20261024-hpd-irq-events-v8-7-6ee949e7a384@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 00:54:45 +0000
+Date: Sat, 24 Oct 2026 01:02:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,90 +63,130 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/msm/dp: msm_dp_hpd_plug_handle() skips HPD init when dp->plugg=
-ed is set
+- [High] drm/msm/dp: msm_dp_bridge_hpd_notify() runs irq_hpd on plug and wh=
+en powered off
 --
 
-commit 4113312f878c771b378b82c05f3076f2ed79cfc7
+commit 975cd993397b923350a403b7275ed9d5223bb6a9
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/msm/dp: don't take extra references on multiple plug events
+drm/msm/dp: handle the IRQ_HPD events reported by USB-C
 
-This commit skips subsequent HPD plug events in msm_dp_hpd_plug_handle()
-when dp->plugged is already set, avoiding extra runtime PM references.
+This commit updates msm_dp_bridge_hpd_notify() to handle out-of-band
+DRM_CONNECTOR_DP_IRQ_HPD events reported by USB-C AltMode handlers.
 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
 /dp_display.c
-> index fa8942922b533..ce919a26fba28 100644
+> index ce919a26fba28..771c8b0744aee 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -412,6 +412,9 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_displ=
-ay_private *dp)
-> =20
->  	guard(mutex)(&dp->plugged_lock);
-> =20
-> +	if (dp->plugged)
-> +		return 0;
+> @@ -1566,11 +1566,13 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *=
+bridge,
+>  		if (hpd_link_status =3D=3D ISR_HPD_REPLUG_COUNT) {
+>  			msm_dp_hpd_unplug_handle(dp);
+>  			msm_dp_hpd_plug_handle(dp);
+> -		} else if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT) {
+> -			msm_dp_irq_hpd_handle(dp);
+>  		} else {
+>  			msm_dp_hpd_plug_handle(dp);
+>  		}
+> +
+> +		if (hpd_link_status =3D=3D ISR_IRQ_HPD_PULSE_COUNT ||
+> +		    event =3D=3D DRM_CONNECTOR_DP_IRQ_HPD)
+> +			msm_dp_irq_hpd_handle(dp);
 
 [Severity: High]
-Could this early return cause msm_dp_hpd_plug_handle() to skip
-msm_dp_display_process_hpd_high() completely when detection runs before HPD
-plug handling?
+Could running msm_dp_hpd_plug_handle() and msm_dp_irq_hpd_handle()
+sequentially here trigger link maintenance while the display and link clocks
+are still powered off, or attempt AUX transactions while the PHY is exited?
 
-When connector detection runs while dp->plugged is false and a DisplayPort
-sink is connected (for example at boot via
-drm_helper_probe_single_connector_modes() -> drm_bridge_connector_detect_ct=
-x(),
-on system resume, or via DRM_IOCTL_MODE_GETCONNECTOR),
-drm_bridge_connector_detect_ctx() calls detect->funcs->detect() immediately
-before drm_bridge_connector_hpd_notify():
+When status is connector_status_connected and either event is
+DRM_CONNECTOR_DP_IRQ_HPD or hpd_link_status is ISR_IRQ_HPD_PULSE_COUNT,
+msm_dp_bridge_hpd_notify() now executes msm_dp_hpd_plug_handle(dp) followed
+unconditionally by msm_dp_irq_hpd_handle(dp).
 
-drivers/gpu/drm/display/drm_bridge_connector.c:drm_bridge_connector_detect_=
-ctx() {
-	if (detect) {
-		status =3D detect->funcs->detect(detect, connector);
-		...
-		drm_bridge_connector_hpd_notify(connector, status, DRM_CONNECTOR_NO_EXTRA=
-_STATUS);
+If dp->plugged is false when this runs (for example, when an AltMode driver
+reports both HPD state and HPD IRQ on initial connect, or when a monitor is
+plugged into a USB-C dock after msm_dp_hpd_unplug_handle() set dp->plugged
+to false on sink_count =3D=3D 0), msm_dp_hpd_plug_handle() initializes the =
+PHY
+and calls msm_dp_display_process_hpd_high():
+
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_process_hpd_high() {
+	...
+	msm_dp_link_process_request(dp->link);
+	...
+}
+
+That first call to msm_dp_link_process_request() updates
+link->prev_sink_count to match link->msm_dp_link.sink_count. However,
+drm_kms_helper_connector_hotplug_event() and msm_dp_display_atomic_enable()
+have not enabled the stream yet, so dp->msm_dp_display.power_on is false,
+ctrl->link_clks_on is false, and the mainlink is untrained.
+
+Immediately afterward, msm_dp_irq_hpd_handle() calls
+msm_dp_link_process_request() a second time:
+
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_irq_hpd_handle() {
+	...
+	rc =3D msm_dp_link_process_request(dp->link);
+	if (!rc) {
+		sink_request =3D dp->link->sink_request;
+		drm_dbg_dp(dp->drm_dev, "sink_request=3D%d\n", sink_request);
+		if (sink_request & DS_PORT_STATUS_CHANGED)
+			rc =3D msm_dp_display_process_hpd_high(dp);
+		else
+			rc =3D msm_dp_display_handle_irq_hpd(dp);
 	}
+	...
 }
 
-In msm_dp_bridge_detect(), priv->plugged is set to true after reading DPCD
-into local stack buffers, without calling msm_dp_display_process_hpd_high():
+Because link->prev_sink_count already equals sink_count, if
+DP_DOWNSTREAM_PORT_STATUS_CHANGED is no longer set in
+DP_LANE_ALIGN_STATUS_UPDATED, msm_dp_link_process_request() falls through to
+msm_dp_link_process_link_status_update():
 
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_bridge_detect() {
+drivers/gpu/drm/msm/dp/dp_link.c:msm_dp_link_process_request() {
 	...
-	status =3D connector_status_connected;
-	priv->plugged =3D true;
+	} else {
+		ret =3D msm_dp_link_process_link_status_update(link);
+		if (!ret) {
+			msm_dp_link->sink_request |=3D DP_LINK_STATUS_UPDATED;
+		}
+	}
+	...
 }
 
-When drm_bridge_connector_hpd_notify() then invokes msm_dp_bridge_hpd_notif=
-y()
--> msm_dp_hpd_plug_handle(), dp->plugged is already true, so
-msm_dp_hpd_plug_handle() returns 0 without calling
-msm_dp_display_process_hpd_high().
+Since the link has not been trained yet (or if an out-of-band
+DRM_CONNECTOR_DP_IRQ_HPD arrives while dp->plugged is true before
+msm_dp_display_atomic_enable() turns the display on), drm_dp_channel_eq_ok()
+is false and DP_LINK_STATUS_UPDATED is flagged. That causes
+msm_dp_display_handle_irq_hpd() -> msm_dp_ctrl_handle_sink_request() ->
+msm_dp_ctrl_link_maintenance() to program DP_STATE_CTRL_PUSH_IDLE, mainlink
+setup, and DP_STATE_CTRL_SEND_VIDEO into dp_link registers while
+dp->msm_dp_display.power_on and ctrl->link_clks_on are false.
 
-Similarly, if msm_dp_hpd_plug_handle() runs first and
-msm_dp_display_process_hpd_high() fails (for example returning -ENOTCONN in
-msm_dp_panel_read_link_caps() when a branch device is connected with
-sink_count =3D=3D 0, or on a transient AUX timeout), msm_dp_hpd_plug_handle=
-()
-still sets dp->plugged =3D true unconditionally:
+In addition, if the display was disabled via
+msm_dp_display_atomic_post_disable() -> msm_dp_display_disable() while a
+sink remained connected (sink_count !=3D 0):
 
-drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_hpd_plug_handle() {
+drivers/gpu/drm/msm/dp/dp_display.c:msm_dp_display_disable() {
 	...
-	ret =3D msm_dp_display_process_hpd_high(dp);
-	...
-	dp->plugged =3D true;
+	if (dp->link->sink_count =3D=3D 0)
+		/* re-init the PHY so that we can listen to Dongle disconnect */
+		msm_dp_ctrl_reinit_phy(dp->ctrl);
+	else
+		msm_dp_display_host_phy_exit(dp);
 
-	return ret;
+	msm_dp_display->power_on =3D false;
+	...
 }
 
-Wouldn't both paths leave dp->panel->link_info, the connector EDID, LTTPR,
-and dp->link->sink_count uninitialized, causing msm_dp_display_get_modes()
-to return 0 modes, msm_dp_display_mode_valid() to reject modes with
-MODE_BAD, and msm_dp_display_prepare_link() to fail with -ENOTCONN?
+dp->phy_initialized is false while dp->plugged stays true. If an out-of-band
+DRM_CONNECTOR_DP_IRQ_HPD arrives in this state, msm_dp_hpd_plug_handle()
+returns early because dp->plugged is true, and msm_dp_irq_hpd_handle() then
+attempts AUX reads while the PHY is powered down.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261024-hpd-irq-ev=
-ents-v8-0-6ee949e7a384@oss.qualcomm.com?part=3D6
+ents-v8-0-6ee949e7a384@oss.qualcomm.com?part=3D7
