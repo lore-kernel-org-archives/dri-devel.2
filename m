@@ -2,78 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9B8606A31F
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 23:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE7A606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 23:00:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bSPJgQnr
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=krTo/vNI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF25510E55A;
-	Sat, 24 Oct 2026 23:00:40 +0000 (UTC)
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12017112D60
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 00:42:04 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-15ea896ddc8so2241874c88.0
- for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 17:42:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51B3410E55E;
+	Sat, 24 Oct 2026 23:00:48 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A987C10E13D
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 20:57:53 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4a20bde60a0so14536955e9.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 13:57:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792802523; x=1793407323; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=/XRXSv4fVHsC4ziboqWGIFRRdg8cj1bRHxSMe4gZ92A=;
- b=bSPJgQnrimc553AnyTKW0nJmpyMoyCRSKfUJihzHWgZfUhHG8HIdEPkvGGJ6nGLHPC
- bb5jMMZ45OcCTVF4gWRZOkd0nme+Wxk/4Yxy0mWX3JhW7MQvXL29NMxHeEwDyI1qQvW4
- 7j5vX0Lehd++nc93RNXt1YeVjG+ThtnfYtylb9sfmTG63ORDXZlajqEwRWweJKZJfjh3
- w8tV5kNswKjnhWjS9edDiMLt2isfTVEaAEcXN0LzwA2laQPyDgnjVfRrxMvzeHULvAua
- FVdQOiEn/I8KZdhL6YdpJ6PYTHLFHNEsR+ySbZqaw0TVrLkWMFl9FMxD8N97gBT8b/rW
- 85IA==
+ d=gmail.com; s=20251104; t=1792875472; x=1793480272; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=mphibqgTFFMm6n9Ocw8j+xegMNjz+2yKf+Knt+msTKc=;
+ b=krTo/vNILbb9kNrGDJ0lmaQWuM853/C3BT80WFUxWDMFz7DZLEtOGlg2UcbkOov8S7
+ RBDeuB6OXuazHPv6dwoA1rVxCICDxiTyvMDg7NiVRiLxCMKJph/ZQYiOOsxUMOCwOeyt
+ pLVOOBleRCrEVCe0ngYTipVKdpj4zrqF8HwRkdm1DAqamwoN6aHKYH7A31jBI3TBYcco
+ hAqZibfhfqRzvnsKfx8Of5+ma6QMukcFW1PPPts4dOHi1vJJycPr0Ws97qvOCz7I6Es9
+ 5GG0hlDRYWBK+mE5LPLETo6R1SGDiVF704lBUYAGrqtsvdIVwO2a8z65X1mrPU0JfaxR
+ 6TDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792802523; x=1793407323;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=/XRXSv4fVHsC4ziboqWGIFRRdg8cj1bRHxSMe4gZ92A=;
- b=GxE1hbhe/QPFRyxFOSYaCg+bWEhcvYwZg8blwRQH7z5zd5KmQP7z35yCyyRBt5N9gG
- 3yCNVzf88eN2+suMeDwTP4ribp29rbU4f1vTLImr8/cQ4Dan8eha9OTeBx9EszyRvWqK
- LbPD8nAiMkHHZ9eA+ItBSgTstrj+FH3qLebWNB2ekog0TFyJ+qnieGP6RJD+T8zJD4br
- 73cWDJeGDo/R/7oCVXUx5etvozqNa8UDn6p96FnBRWFuBj0/QCw1vgFss07kIXhPOKWg
- brKrfQyuvs/JyWzV/jbf+wo0ApWYoa3denDl2jrd3a9kHTZdqQLMAa+8Lz6w1C+kzUbn
- 4ZHA==
+ d=1e100.net; s=20260707; t=1792875472; x=1793480272;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=mphibqgTFFMm6n9Ocw8j+xegMNjz+2yKf+Knt+msTKc=;
+ b=HuX5ngRu7rU59aHkDW2N7R1SeNzoAYz+vfKqtY63gxIgTNi+N29aea8Coc2bqCNbC8
+ S0Xiy/cqIwBiNoSRnHa4bI7HXgRAlZf9Z9bPoF/MjrQqgbJYEk9NVe//6wVoBJ5ux8vi
+ AnuaLPSi1fMQXTie0b3aOYWFD0GG1gI+95yVHOLCj0CkjJsg8lFU4bqtvQGBGwbH/JL1
+ PBp5OR4i97HmrdLKkC+IsoenxrhrdCCzrl4V89BHrbxTx74mmO90UFOLrrBR8+M5M4H/
+ 7AXQwBEOURhKg5tN2qXR1Q+S0Jafo0lb0jOs5C56TUQmM5L7UNQxXFa+3aHhgrhKOZ7f
+ LPwA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxEc8bhPb4OFBcljy/Tn6D8LANlWMnArJj+SyOVL1sgkPGQdv76mUjFPNdsRJvBsG/ifYwLGEzol4E=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJTCBD0c5jUxew7ptyIiur8fCy06UU2BNLoGgGdwyeeiPc8uQAI
- aqnQexO0RPYN4qVeVYMlicIwsLw5/mwswBcCb9GtNE59egwHna8t7FSP
-X-Gm-Gg: AYBFou1e7DZMlP8Vtc0/SNYb+iqZCEq93m2P4OryDYH8PbqOX4QtZeoW0y2rAJjgaVK
- 5PS5tRvwKdvyZ6oWvo+NrCdayyGJhf0c9BNtDsqrLJmsv3T+qXgApzz0eOda4/eP0VfMtmAR3+B
- n8mVOliwDiIO2J6cYCxY2b5EyLyec4ZS0tjOobYC6UCz2XwayIQNmCIb3OBFyzr/acbbYJcuWrG
- q7hlKM+Y8IxjCvSMfoXEcINCAHxIdlq7u8OI/VyxHauOIYDy3Vw9CiLExTdYDno7wHpMCct8IUU
- O3Ru6IFjzQF6jM2CncznUCmYO181VlQlW583Q79111Wkd/hcPlh5f0/t+990E9JnyI8ofDinYj4
- axMQlQD7+WC2wCL6ITQpjXi/oIkSqORU+g5dDm8IYrJOycnrlmzXuTXp7tvM8EOWk6SC2qg4vtJ
- 2pLX6qeExUlVKYViV41y5RO4JYsMew7nn/jx1fUcSb5yBrpYUm2CMWZSmm1MvG6yfyIK5v6gLfe
- hyaSiwMH/jNxgIB4WRw2idvbUBRi7BbPafmCJmS1EWBNnTQLTc942qKBpLdahNh2JPSf8jCjHUC
- 1JAUedaG+HmmZ2AmVjuEO6sbR+81fQiF
-X-Received: by 2002:a05:7022:3b8c:b0:190:3950:43e2 with SMTP id
- a92af1059eb24-19933f05581mr963161c88.8.1792802523106; 
- Fri, 23 Oct 2026 17:42:03 -0700 (PDT)
-Received: from ryu.remote.fontis.id.au ([2403:5814:a404:0:f5b3:4c58:d5d1:e6e6])
+ AKwUvBzYL0B/RWyEwER3D2W28vqv+bteVV36RNEWR1UKHXLaKCp1nCM5Dke4l0kV0806xVS+3rHZXKu7hqA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKXh55A7YA0VQRD0b31DaYGQ5ADgLTjw5QcPcbIBkCjqf8t6sFc
+ K0CPj2lNzFeO7gxFx2IMhHmSF7Fzo7cGGQktm/+JOMFfTmHGrR+q7hY=
+X-Gm-Gg: AYBFou2cvQaQeB+ACnhbZY2l+qxcyKrm/Fw/LxXKazHfmN1AmaGBeS0BnPolarnpvpx
+ fbn0Vhy66UzT1Vlv2aS0kS4mgBdwi7tVJo4xpNMGzdnvy2p/cjndNKSwEH1LEHF2wfNRB6jGcH/
+ 2wUpZw2Dj3fAtgU7lmWHADbbePlQRZm0cWCLnk4brcz7jPUOhgXq4lUZLf1PGumP+7T/blN7W8x
+ Ea+V5BvDer5VDUq/0gAoG3sPnShJA5ti5NAhF2B3isCnZbnyybtD54Z8h4qZ/X0jcuv779HZzy5
+ 4j0ZW6wAfA9i2Wd9sAX61a77F9G+yHrp6B0Bpx9v8LX22WzAIDJOQBT63IvR9vXUM9vE/09yILz
+ F46WQHKDunqQdk6/g5aQ0Y6xaQ1jVysNWQzM8EpjTmN22aJ9ZN4vztwxYXlrQqcs6E2ym0Fjowv
+ RccRBrd1B/8hilaX6fB2pxmCNsJEc0gXTkwPW+2U3AjrxDQMCuB/hNS66YUVhTdXJW2BuILurrL
+ ARxLYpYMVZHdx47OKSEfiYcPZvqGJZ+0i3XtWeBF5yBcA==
+X-Received: by 2002:a05:600c:34d5:b0:4a0:2391:6540 with SMTP id
+ 5b1f17b1804b1-4a35aca2b53mr39027755e9.25.1792875471790; 
+ Sat, 24 Oct 2026 13:57:51 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-198a37c88aasm1697548c88.23.2026.10.23.17.41.59
+ 5b1f17b1804b1-4a35a56992dsm71004965e9.6.2026.10.24.13.57.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Oct 2026 17:42:02 -0700 (PDT)
-From: lloyd.hazlett@gmail.com
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Lloyd Hazlett <lloyd.hazlett@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH RFC RFT] drm/msm: adreno: attach the GMU device to a driver
-Date: Sat, 24 Oct 2026 11:41:07 +1100
-Message-ID: <20261024004108.2084140-1-lloyd.hazlett@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
-References: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
+ Sat, 24 Oct 2026 13:57:49 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Dave Airlie <airlied@gmail.com>, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] drm/nouveau/disp/r535: validate ACPI backlight DSM return type
+Date: Sat, 24 Oct 2026 20:57:49 +0000
+Message-ID: <20261024205749.4045480-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -89,72 +84,84 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Lloyd Hazlett <lloyd.hazlett@gmail.com>
+From: Tristan Madani <tristan@talencesecurity.com>
 
-> Does this *actually* cause any harm, by the way?
->
-> For example on x1e, GMU refers to 2 GPU_CC GDSCs, GPU_CC refers
-> to a pair of GCC clocks and GCC refers to VDD_CX
->
-> and I see these prints, yet:
->
-> /sys/kernel/debug/pm_genpd/gpu_cx_gdsc/current_state:off-0
-> /sys/kernel/debug/pm_genpd/gpu_gx_gdsc/current_state:off-0
+r535_disp_oneinit() evaluates ACPI _DSM method 0x14 for backlight data
+and directly accesses obj->package.count and obj->package.elements
+without first verifying that the returned ACPI object is actually a
+package. If firmware returns an unexpected type (integer, string,
+buffer), the union access reads unrelated fields, causing undefined
+behavior.
 
-I may well be missing something, but on an ASUS Zenbook A14 (x1e80100,
-next-20261001) the GCC half of that message does seem to cost
-something. The GPU_CC domains here are off as you describe; it is the
-GCC ones that stay on.
+Additionally, the loop accesses each element as integer.value without
+checking that the element is actually ACPI_TYPE_INTEGER, and copies
+into the fixed-size backLightData array without bounds checking, which
+can overflow when firmware returns more elements than expected.
 
-Every GDSC the firmware hands over enabled is registered powered-on,
-genpd records that as stay_on, and genpd_power_off() returns on that
-flag before it looks at consumers. So nothing downstream can release
-them. Unbinding dwc3-qcom, runtime-suspending the controllers and
-booting without pd_ignore_unused each made no difference.
+Add type validation:
 
-UFS is the clearest case: ufshc@1d84000 is status = "disabled" with no
-driver bound, and gcc_ufs_phy_gdsc and gcc_ufs_mem_phy_gdsc still read
-"on" through a suspend.
+1. Check obj->type == ACPI_TYPE_PACKAGE before accessing package fields.
+2. Free the ACPI object when the type is unexpected.
+3. Validate each element is ACPI_TYPE_INTEGER before accessing its value.
+4. Check that the cumulative copy size does not exceed the destination
+   array.
 
-With fw_devlink.sync_state=timeout, seven domains let go - both UFS,
-gcc_usb30_tert_gdsc and gcc_usb20_prim_gdsc straight away, and
-gcc_usb30_{prim,sec,mp}_gdsc once xhci-hcd and dwc3-qcom are also
-allowed to runtime-suspend. Their idle_states show Usage 1, Rejected 0.
+When a non-integer child or oversized element is encountered, the loop
+breaks and the valid prefix is forwarded. This preserves the existing
+behavior of reporting success for the _DSM call while preventing
+out-of-bounds access.
 
-Suspend draw on battery, same kernel either side, both windows ~99%
-suspended:
+Fixes: 9e99444490238d ("drm/nouveau/disp/r535: initial support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-  domains held on   23.3 Wh / 21.3 h   1.09 W
-  seven released     2.0 Wh /  2.3 h   0.87 W
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+index f5f22173fc2c1..267cc098ff769 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+@@ -1556,15 +1556,21 @@ r535_disp_oneinit(struct nvkm_disp *disp)
+ 								0x00000102, 0x14, &argv4);
+ 					if (!obj) {
+ 						acpi_handle_info(handle, "failed to evaluate _DSM\n");
+-					} else {
++					} else if (obj->type == ACPI_TYPE_PACKAGE) {
+ 						for (int i = 0; i < obj->package.count; i++) {
+ 							union acpi_object *elt = &obj->package.elements[i];
+ 							u32 size;
+ 
++							if (elt->type != ACPI_TYPE_INTEGER)
++								break;
++
+ 							if (elt->integer.value & ~0xffffffffULL)
+ 								size = 8;
+ 							else
+ 								size = 4;
++							if (ctrl->backLightDataSize + size >
++							    sizeof(ctrl->backLightData))
++								break;
+ 
+ 							memcpy(&ctrl->backLightData[ctrl->backLightDataSize], &elt->integer.value, size);
+ 							ctrl->backLightDataSize += size;
+@@ -1572,6 +1578,8 @@ r535_disp_oneinit(struct nvkm_disp *disp)
+ 
+ 						ctrl->status = 0;
+ 						ACPI_FREE(obj);
++					} else {
++						ACPI_FREE(obj);
+ 					}
+ 
+ 					kfree(argv4.buffer.pointer);
+-- 
+2.47.3
 
-The windows are very different lengths, so to be clear about which way
-that cuts: the long one is the most reliable figure I have for the
-held-on case, and shorter runs of that same configuration came out
-higher, between 1.1 and 1.7 W. Taking the lowest of them makes ~20%
-the conservative reading. It is not the whole problem, since this
-machine never reaches cxsd either way. It may relate to your note in
-the same mail that cx sits at perf_state 256 "because of USB3 votes":
-those GDSCs cannot collapse, so the votes stay.
-
-The same thing happens here with a second device, in case that is
-useful:
-
-  qnoc-x1e80100 interconnect-1:       sync_state() pending due to 1dfa000.crypto
-  qnoc-x1e80100 1700000.interconnect: sync_state() pending due to 1dfa000.crypto
-
-1dfa000.crypto is enabled in DT but qce is not built here, so it never
-probes. Any consumer that never binds seems to do this to its provider,
-so the GMU may be the most visible case rather than the only one.
-
-I have not tested the patch itself - the GMU here has no driver bound,
-which is what led me to the thread. This is only evidence that the
-motivation holds on x1e80100.
-
-Assisted-by: Claude:claude-opus-5 [claude-code]
