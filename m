@@ -2,36 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86704606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 12:57:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FA3606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 12:58:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=pBnRFIcY
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=YpqeCJOH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98CFA10E5E4;
-	Sat, 24 Oct 2026 12:57:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1597510E642;
+	Sat, 24 Oct 2026 12:58:09 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFF1510E5E4
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 12:57:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB3A10E642
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 12:58:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=+Rc+oJJEotg5wOv9yVmfTsAo8uj8nIoLDX4v3EN96vI=; b=pBnRFIcYZ8BrwAj8bBLGZOgXrw
- Jis5VO6TwRtOUJ5nBLMjpcvXEdFpM4FywUdJo2bR4oA0zuQvVoZonEoQ2QgyFY2NtAiLb9dkyU376
- DQFns+h41wKaVprW8ptfwofIqdY72bZUZIkW8tVM5AualcGWdRQAeWClDPKtmzww2h2gOhkspxakj
- 89mCdbBvorzZc3JIN5fn10v8jueR+HXp8LRJbcQyJyXRc9FY2KoJZRvaMjgmjquCGUtuxyFVFHMqS
- +1Oo6DucKk2i/xoqUHUaxcFHDDtKvaXuTYrNl/RyldjtNhmXHdUG/8UENZFO907emja92zUH6vKN7
- NKBRA8Kg==;
+ bh=yXDqyeb3hzfE8o2jGQs5QyRva9K4MrHRBvif9lBWajU=; b=YpqeCJOH2AUcs/eSJM/5cVq6cv
+ HLDPWceRCfOEpW3C0S0j2/+h0Uw/rgZ9J+P5ddGRSAchlCQAJva5JNLt0UrjsFlpu2LfxgvVg4w/Z
+ BMCMcZOViVrGBltAAkHQ3qWVGzgVvwvj5+LhToZPNvB+iqojytcMuJDRTzFmuhoHWcg0U9kYK6h3D
+ DbWU+Sp4YdrWCCjByVCECCEwxzegjPfKpZtO7xi1oPZ/mQ9AFowhyDfCvu/zpHlpk8S8EISRrC309
+ bl6QVk24L/WxTysFzRNv64pkgp6jFGDBehcTUjOSamJUhI0DLEx86vl+ViYzlzouOuIHBNePPl8YX
+ e9I19vnw==;
 Received: from [179.105.94.163] (helo=[192.168.0.2])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xKbIy-008sKO-7H; Sat, 24 Oct 2026 14:57:00 +0200
-Message-ID: <e8321403-43dd-4ca2-8b20-117b9c18dcc6@igalia.com>
-Date: Sat, 24 Oct 2026 09:56:54 -0300
+ id 1xKbJo-008sMg-Tv; Sat, 24 Oct 2026 14:57:53 +0200
+Message-ID: <7c634e77-92b6-456e-a186-c1e2442e4790@igalia.com>
+Date: Sat, 24 Oct 2026 09:57:47 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] drm/vc4: dsi: stop using deprecated
+Subject: Re: [PATCH v3 1/3] drm/vc4: dpi: stop using deprecated
  drmm_of_get_bridge()
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -45,7 +45,7 @@ Cc: Paul Cercueil <paul.cercueil@bootlin.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20261013-drm-fix-of_get_bridge-build-regression-v3-0-0b4c0b65be82@bootlin.com>
- <20261013-drm-fix-of_get_bridge-build-regression-v3-2-0b4c0b65be82@bootlin.com>
+ <20261013-drm-fix-of_get_bridge-build-regression-v3-1-0b4c0b65be82@bootlin.com>
 From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 Content-Language: en-US
 Autocrypt: addr=mcanal@igalia.com; keydata=
@@ -72,7 +72,7 @@ Autocrypt: addr=mcanal@igalia.com; keydata=
  Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
  uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
  raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261013-drm-fix-of_get_bridge-build-regression-v3-2-0b4c0b65be82@bootlin.com>
+In-Reply-To: <20261013-drm-fix-of_get_bridge-build-regression-v3-1-0b4c0b65be82@bootlin.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,94 +94,61 @@ X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Luca,
-
 On 13/10/26 12:23, Luca Ceresoli wrote:
 > drmm_of_get_bridge() is deprecated, switch to
 > of_drm_get_bridge_by_endpoint(). As of_drm_get_bridge_by_endpoint() returns
-> a refcounted bridge, ensure it is put by using bridge.next_bridge.
+> a refcounted bridge, ensure it is put.
 > 
 > drm_panel.h becomes unused, drop the include.
 > 
+> Also remove a comment that is now obvious: now panels are just bridges.
+> 
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+Reviewed-by: Maíra Canal <mcanal@igalia.com>
+
+Best regards,
+- Maíra
 > 
 > ---
 > 
 > Changes in v3:
-> - fix bridge reference leak in error path
+> - re-add and update comment
 > ---
->   drivers/gpu/drm/vc4/vc4_dsi.c | 17 ++++++++++-------
->   1 file changed, 10 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/vc4/vc4_dpi.c | 10 +++-------
+>   1 file changed, 3 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index 0148f2befed1..675bd0fc1391 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -35,7 +35,6 @@
+> diff --git a/drivers/gpu/drm/vc4/vc4_dpi.c b/drivers/gpu/drm/vc4/vc4_dpi.c
+> index 53f36626a50d..feefefcf3ad7 100644
+> --- a/drivers/gpu/drm/vc4/vc4_dpi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_dpi.c
+> @@ -16,7 +16,6 @@
+>   #include <drm/drm_drv.h>
 >   #include <drm/drm_edid.h>
->   #include <drm/drm_mipi_dsi.h>
 >   #include <drm/drm_of.h>
 > -#include <drm/drm_panel.h>
 >   #include <drm/drm_print.h>
 >   #include <drm/drm_probe_helper.h>
 >   #include <drm/drm_simple_kms_helper.h>
-> @@ -555,7 +554,6 @@ struct vc4_dsi {
+> @@ -279,16 +278,13 @@ static const struct of_device_id vc4_dpi_dt_match[] = {
+>   	{}
+>   };
 >   
->   	struct platform_device *pdev;
+> -/* Sets up the next link in the display chain, whether it's a panel or
+> - * a bridge.
+> - */
+> +/* Sets up the next link in the display chain */
+>   static int vc4_dpi_init_bridge(struct vc4_dpi *dpi)
+>   {
+> -	struct drm_device *drm = dpi->encoder.base.dev;
+>   	struct device *dev = &dpi->pdev->dev;
+> -	struct drm_bridge *bridge;
 >   
-> -	struct drm_bridge *out_bridge;
->   	struct drm_bridge bridge;
->   
->   	void __iomem *regs;
-> @@ -1165,7 +1163,7 @@ static int vc4_dsi_bridge_attach(struct drm_bridge *bridge,
->   	struct vc4_dsi *dsi = bridge_to_vc4_dsi(bridge);
-
-I believe you can delete *dsi
-
->   
->   	/* Attach the panel or bridge to the dsi bridge */
-> -	return drm_bridge_attach(encoder, dsi->out_bridge,
-> +	return drm_bridge_attach(encoder, dsi->bridge.next_bridge,
-
-and use drm_bridge_attach(encoder, bridge->next_bridge, bridge, flags).
-Also, I believe the comment is now redundant as panels are just bridges.
-
-Apart from these nits, could you also address Sashiko's feedback?
-
-Best regards,
-- Maíra
-
->   				 &dsi->bridge, flags);
->   }
->   
-> @@ -1749,9 +1747,10 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
->   		return ret;
->   	}
->   
-> -	dsi->out_bridge = drmm_of_get_bridge(drm, dev->of_node, 0, 0);
-> -	if (IS_ERR(dsi->out_bridge))
-> -		return PTR_ERR(dsi->out_bridge);
-> +	struct drm_bridge *next_bridge __free(drm_bridge_put) =
+> -	bridge = drmm_of_get_bridge(drm, dev->of_node, 0, 0);
+> +	struct drm_bridge *bridge __free(drm_bridge_put) =
 > +		of_drm_get_bridge_by_endpoint(dev->of_node, 0, 0);
-> +	if (IS_ERR(next_bridge))
-> +		return PTR_ERR(next_bridge);
->   
->   	/* The esc clock rate is supposed to always be 100Mhz. */
->   	ret = clk_set_rate(dsi->escape_clock, 100 * 1000000);
-> @@ -1775,9 +1774,13 @@ static int vc4_dsi_bind(struct device *dev, struct device *master, void *data)
->   	if (ret)
->   		return ret;
->   
-> +	dsi->bridge.next_bridge = drm_bridge_get(next_bridge);
-> +
->   	ret = drm_bridge_attach(encoder, &dsi->bridge, NULL, 0);
-> -	if (ret)
-> +	if (ret) {
-> +		drm_bridge_clear_and_put(&dsi->bridge.next_bridge);
->   		return ret;
-> +	}
->   
->   	return 0;
->   }
+>   	if (IS_ERR(bridge)) {
+>   		/* If nothing was connected in the DT, that's not an
+>   		 * error.
 > 
 
