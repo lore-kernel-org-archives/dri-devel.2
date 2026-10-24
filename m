@@ -2,36 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3DF606A31F
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 13:13:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBE560A2609
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 13:23:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XyewIJ1i
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JR0xJzSz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7E810E4BE;
-	Sat, 24 Oct 2026 13:13:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 388E210E0AB;
+	Sat, 24 Oct 2026 13:23:48 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED5410E176
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 13:13:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72E5A10E0AB
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 13:23:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
  MIME-Version:Date:Message-ID:From:Reply-To;
- bh=ce0kdpDhTFSS379ttT8KRzX4UYhoWlsjBLxr2Om5QXM=; b=XyewIJ1iJyV4K43lQoKX19RJyS
- Iyu/aBncnWhJtLLji+/L1rlSeibLcjcSXgo1w0DjVSkRdsgnhk9gETpG1AU6blLuiHY30pdfZb7IF
- 5wxutdILkmLEVuh6yt6jTztTUUPyRU/6IQOt9p9CWO2h/+rAa8XCdaxwDHTjU7CSF2dmaJBwiIdu0
- hvxKXJhdo5B07C+Q4vsf0lQg3i0zZW9LcgWZf3lu53uNlZ/ZvsT9y6DCVfGx+sCu7PIELMzUeaK6k
- 3fGuce9BlkdAKSzavsBEJbaTv+dNOwBp5YvIpKaZjrbat2xrwaATjCdnXbzWyVmrIpAgIE1skz82u
- TfVZFo5w==;
+ bh=BmOPd8jjUzSJEjyHdUjg4yjuqOFQ3OWoekKkiSGNQ1Y=; b=JR0xJzSzsEEnnphgYjl3qrYfdI
+ ks1h/bk5TC+H/et0eNM/NyiS59l2FvL9HMNiaci2IZexwgXfixmrAJlx4ccHi7zQFIbX52j4LVEk/
+ K+AtqADvqK7mzMpWx9L8UVS9xzkGtkShoTLada4fpyUA0MeHZ/LTM3AAHwSCsAGm60c1+wVFPTINL
+ GHi5t7unjaNpgTU1Folg2DbHm/RYZJ/DYp4iwBuNq3qVtkBlP8kE2G3XknWCbcGy0LRs7zlwSYF9O
+ qpywvUSeMl2ijAsVf7+T5Bdr7IDL42Vx0BGY/7rk0ipeDnt6xpQ52aWXGaDj2vRAWkG9aFf8GZu2v
+ 279T+r5g==;
 Received: from [179.105.94.163] (helo=[192.168.0.2])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xKbYg-008swf-Sn; Sat, 24 Oct 2026 15:13:15 +0200
-Message-ID: <9981dfe9-9d86-4c6b-8524-c31e2a8b3343@igalia.com>
-Date: Sat, 24 Oct 2026 10:13:10 -0300
+ id 1xKbif-008tLD-1o; Sat, 24 Oct 2026 15:23:33 +0200
+Message-ID: <dd94d07e-464c-43e8-bbea-c0b659077d41@igalia.com>
+Date: Sat, 24 Oct 2026 10:23:29 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] drm/vc4: Implement vc6_hdmi_phy_disable
+Subject: Re: [PATCH v2 2/3] drm/vc4: hdmi: always cancel the scrambling work
+ synchronously
 To: Lucas Tanure <lucas.tanure@neat.no>, Maxime Ripard <mripard@kernel.org>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
 Cc: Dom Cobley <popcornmix@gmail.com>,
@@ -41,7 +42,7 @@ Cc: Dom Cobley <popcornmix@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
 References: <20261020151948.83459-1-lucas.tanure@neat.no>
- <20261020151948.83459-2-lucas.tanure@neat.no>
+ <20261020151948.83459-3-lucas.tanure@neat.no>
 From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 Content-Language: en-US
 Autocrypt: addr=mcanal@igalia.com; keydata=
@@ -68,7 +69,7 @@ Autocrypt: addr=mcanal@igalia.com; keydata=
  Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
  uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
  raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20261020151948.83459-2-lucas.tanure@neat.no>
+In-Reply-To: <20261020151948.83459-3-lucas.tanure@neat.no>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,39 +91,43 @@ X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Lucas,
-
 On 20/10/26 12:19, Lucas Tanure wrote:
-> From: Dom Cobley <popcornmix@gmail.com>
+> The scrambling work re-arms itself every second while a scrambled mode
+> is active. When the output is disabled, the work may be executing at
+> that moment rather than pending, and delayed_work_pending() is then
+> false, so the cancel is skipped. The running instance finishes after
+> the disable, sees the sink report scrambling off, writes the SCDC
+> scrambling and clock ratio bits back on, and queues itself again. The
+> sink is left configured for a scrambled 1/40 link that no longer exists
+> and the work keeps running until the next enable.
 > 
-> The body of this function was missing so we don't reset the phy
-> when disabling it.
+> cancel_delayed_work_sync() handles both states: it waits for a running
+> instance and blocks it from queueing itself again.
+> 
+> Fixes: 257d36d493e9 ("drm/vc4: hdmi: Add a workqueue to set scrambling")
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
 
-Please, improve this commit message. At the moment, it's not explaining
-what's is fixing, nor how.
+Reviewed-by: Maíra Canal <mcanal@igalia.com>
 
 Best regards,
 - Maíra
-> 
-> Fixes: 0b1dbe82e051 ("drm/vc4: hdmi: Add support for BCM2712 HDMI controllers")
-> Signed-off-by: Dom Cobley <popcornmix@gmail.com>
-> Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
 > ---
->   drivers/gpu/drm/vc4/vc4_hdmi_phy.c | 5 +++++
->   1 file changed, 5 insertions(+)
+>   drivers/gpu/drm/vc4/vc4_hdmi.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi_phy.c b/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
-> index 56e6a35da357..5040f014bf7e 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
-> @@ -1197,4 +1197,9 @@ void vc6_hdmi_phy_init(struct vc4_hdmi *vc4_hdmi,
+> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> index 2cc46036f11d..4a386e053d3f 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> @@ -843,8 +843,7 @@ static void vc4_hdmi_disable_scrambling(struct drm_encoder *encoder)
 >   
->   void vc6_hdmi_phy_disable(struct vc4_hdmi *vc4_hdmi)
->   {
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
-> +	vc6_hdmi_reset_phy(vc4_hdmi);
-> +	spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
->   }
+>   	vc4_hdmi->scdc_enabled = false;
+>   
+> -	if (delayed_work_pending(&vc4_hdmi->scrambling_work))
+> -		cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
+> +	cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
+>   
+>   	if (!drm_dev_enter(drm, &idx))
+>   		return;
 
