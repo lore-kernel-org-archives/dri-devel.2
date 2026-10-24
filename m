@@ -2,38 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314A9606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 22:59:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1189A606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 22:59:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nozomi.space header.i=@nozomi.space header.a=rsa-sha256 header.s=mail header.b=WMkQLEdh
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ScTf3ovP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA13910E662;
-	Sat, 24 Oct 2026 22:59:13 +0000 (UTC)
-Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4051910E09B
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 22:49:43 +0000 (UTC)
-From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
- s=mail; t=1792882181;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=tw3b76rDa30BUAUXIT9wy2RRpvrslrRXO3zIbnXtAbE=;
- b=WMkQLEdhhQFxqiqzCDg3pInpoIHK00pmPhMyL1XDEKdqij7pKoKcHpELgmHHYjyujD10sS
- A91BQ6HeeFaT0Rjg+jPLVnV+k4vfSw4WUY570Mmfog19Yap/8qtpiOr7i2yLF/7nXFJPFq
- FEz6yS8sYEUFmKOdZLW4R5QkvJRdOS7Xap48tVNkmZ7p0HN8jOaUNcbBldtNLCRNIYYhQK
- 5OPcwB08FJW+rG+zjpupm+fD54TCSUYQM8U3qdZNkNZfUDtlEj+YWk+ustqpwRrD1Lg58O
- k08zLu74ExYjkUCvlkMF3X9eKa6/maI/1ETUuN0Jq/QDKvzHizU82SXIfl3cJA==
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-Subject: [PATCH] drm/amd/display: keep LTTPR AUX timeout when repeater caps
- are invalid
-Date: Sun, 25 Oct 2026 00:49:40 +0200
-Message-ID: <20261024224940.17258-1-michal@nozomi.space>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CA5A10E4C7;
+	Sat, 24 Oct 2026 22:59:19 +0000 (UTC)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1EA210E64D
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 12:53:35 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-353804b591eso2959774eec.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 05:53:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792846415; x=1793451215; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=eOAYbZiH4x6SHtvIeJhRKrK8ZEV2eHwdec8xlqf3xRY=;
+ b=ScTf3ovPH1L0yGAdr0nOUaf63MObIcyRoT73EJsik9X11oBsZ/lsxj4Y0tyPGIqYho
+ G9545vycPRyn9IdkDv1odC/v5jqOoBmu+cK9m4Vz2yvcSEV/XoSqL+w2hiZl7of5cXM9
+ 33U6HRXLqVLZaH1sYNhgleBgkS9vGZS8jiIOJ1CccV34xGCOxNrL0uyZuBhuyQDANCEl
+ 8kAxVQs160GEJcByEmF3D/afkVr4ugHLlCt6PpY4Y58FJOgMORRIAzONfF5oePN5orT1
+ 9YzPXgMcKE4xTF5fg0NOLcLSGDhd1+EAVB9GhPiA7C2K6ZnZ48Xbzl7JwJb/gwXrz9pb
+ AdoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792846415; x=1793451215;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=eOAYbZiH4x6SHtvIeJhRKrK8ZEV2eHwdec8xlqf3xRY=;
+ b=OBavy7ue6SOp7Yf58gEcUgD6PjyXOPNO39+JQMBT8gz2Bzt0WBYWLrO3rRhEzC987C
+ SNwwLL7U6DkvsBOENICz9osFYGMMSGjXugFC7BE43D0zRUzd0mRfOuXi4bvZ5c5tlmJR
+ dP7oYgURVd2IWLZBxtS2R60SkaYz8B6Ofck9I+TdA0oGkCXJWazd/2vbsjbDbm9wrv8H
+ kjwkNIXiDzs+PVOatVPhm4mMa0JBny5zHLFvIU7AQmhH8EB6Bm7ZGQtn8loyZ1sbz3y7
+ GRF7o9aAORF+qIc/qzs/5xkTzoshTECe82q3lZfOSNEQOfCscDs06xeDXyLbsZjIEIiw
+ p+vA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxm2sOSFO3R/mnt6e7zqNwimCiNjcd3r2zghsJW5wea4yQLbP/6sPdijEA0fYz/ZudXpZ+wb4nXa4Q=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIk40nh1oInr8yp8vqvMsNCr/57JAsGr+kiiuHrnSkeEbBAzdTz
+ ll3cJBX4zEoK8ohTNoyYt2hWPg5VySVgYkeE84IS7OgcYG4RcfrJug7q
+X-Gm-Gg: AYBFou28nsrxOxlIfN7Do5wpW7pyX9cnZD0ziN6oua6dLjL74amLt4kIEkgtcDKb2SW
+ EljopHBW4H/X3tY9wyFDxoe/AQPxD3WAtAyWcWBzsCmVeUwyudM78Po2ts93fT6xu8uL4y0ntV+
+ 4I0yfumi8Mz0duoMYt4bBEFgJNCQzT2zxOANIap1lrUHnn4IU/Fqts2mkmfBPZuw31/5aTW6zQe
+ M5tXvf50AZoZTX8VJgBZ/610HvmrKAhNqvvOD65CbULaVHkFGWMeN4qFbhedfbQ1otSEgcAnKrq
+ EOrncnYSANLqrX5VEFfTZNXtFOlvFjuh1Y2BHmil4+MQQRKYBBsY2DhAINed/h1uV+60Xpm3/zr
+ Ck+k3rQNcSbnYsgwdT0a1ZVOdSDiXR6dS/1Q1QK/pgGmVRuGRUcmzFKOa7P4qnN+YxpX1vy3JjK
+ Q/3SkB6oTyCyjoM4ecvD5i/PFkg7BewbfQMRsN5w9+fj29L9Fn4U0eC0bUfr29Nps3VpnANIsPe
+ B+/+4y5SxbqORxSE48XBjdBshMCXd/+ko36KH4oWKJcp+cBTTDf6uTuw4ghsAhTredA
+X-Received: by 2002:a05:693c:839b:20b0:365:cdcc:9f57 with SMTP id
+ 5a478bee46e88-369e83547aemr3342308eec.4.1792846414983; 
+ Sat, 24 Oct 2026 05:53:34 -0700 (PDT)
+Received: from [127.0.1.1] ([2406:7400:129:3e65:f4a6:5e8f:7da4:c9bb])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-369e8d578casm8006260eec.6.2026.10.24.05.53.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 24 Oct 2026 05:53:34 -0700 (PDT)
+From: Aman Sharma <amansharma6122002@gmail.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ Aman Sharma <amansharma6122002@gmail.com>
+Subject: [PATCH v3] drm/i915/hdmi: preserve cached EDID on DDC failure when
+ connector is forced
+Date: Sat, 24 Oct 2026 18:23:28 +0530
+Message-ID: <179284640822.1672477.8751430644960613659@gmail.com>
+In-Reply-To: <179284522321.1666644.7085985666852699043@gmail.com>
+References: <179284356403.1659508.10439113185286055496@gmail.com>
+ <179284522321.1666644.7085985666852699043@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -50,111 +93,126 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some retimers report a nonzero PHY repeater count together with an
-invalid max lane count. One example is the MegaChips (Kinetic) MCDP6000
-USB-C DP Alt Mode retimer in the Sony PlayStation VR2 PC adapter.
-dp_is_lttpr_present() then treats the link as having no LTTPR, and both
-retrieve_link_cap() and the resume path in amdgpu_dm drop the AUX reply
-timeout from the LTTPR value (3.2 ms) to the default one (552 us).
+When an HDMI connector is forced enabled (e.g. via video=HDMI-A-1:e for
+laptop clamshell operation) and the external monitor enters DPMS standby,
+some monitors (such as the BenQ GW2790Q) power down their internal DDC/I2C
+controller, causing SCDC/EDID reads to fail with -ENXIO (-6).
 
-The retimer is still in the AUX path and relays every transaction. The
-MCDP6000 datasheet gives 100 us of round-trip AUX latency in its normal
-latency mode, and recommends that a source using it raise its AUX reply
-timeout. Reading the LTTPR caps has also told the repeater that the
-source uses the extended timeout, as required by the DP spec.
+Currently, intel_hdmi_detect() and intel_hdmi_force() unconditionally call
+intel_hdmi_unset_edid() before calling intel_hdmi_set_edid(). When
+drm_edid_read_ddc() returns NULL during monitor standby, the connector's
+cached detect_edid is wiped out and
+drm_helper_probe_single_connector_modes() falls back to the 1024x768 VESA
+no-EDID mode. When the monitor wakes back up, because the connector status
+remained forced to connector_status_connected, no hotplug state transition
+occurs and the display remains stuck at 1024x768 until a manual mode probe
+(such as toggling the laptop lid) is triggered.
 
-With a sink that replies quickly this goes unnoticed, but with a slower
-downstream device behind the retimer (a USB-C dock driving a monitor),
-replies miss the 552 us window. Reading the extended receiver caps
-fails, EDID reads fail, link training fails, and the connector falls
-back to 640x480:
+Fix this by moving intel_hdmi_unset_edid() into intel_hdmi_set_edid() after
+checking whether a forced-on connector (DRM_FORCE_ON or
+DRM_FORCE_ON_DIGITAL) already has a valid cached EDID (detect_edid and
+edid_blob_ptr) when DDC fails, and preserving connector_status_connected
+on Gen11+ digital port disconnect when a forced-on connector has a cached
+EDID. When the monitor is awake or a different monitor is plugged in,
+drm_edid_read_ddc() succeeds, resets the previous EDID and dp_dual_mode
+state via intel_hdmi_unset_edid(), and updates the connector with the new
+EDID.
 
-  LTTPR count is nonzero but invalid lane count reported. Assuming no LTTPR present.
-  retrieve_link_cap: Read extend caps data failed, use cap from dpcd 0.
-  EDID err: 2, on connector: DP-1
-  enabling link 0 failed: 15
+v3:
+- Explicitly check for DRM_FORCE_ON / DRM_FORCE_ON_DIGITAL so DRM_FORCE_OFF
+  still clears the cached EDID as expected.
+- Report connector_status_connected on Gen11+ disconnect when a forced-on
+  connector retains its cached EDID, and jump to out in
+  intel_hdmi_set_edid() so CEC physical address remains valid and
+  drm_helper_probe_detect_ctx() does not increment epoch_counter on
+  standby HPD pulses.
 
-Add dp_lttpr_needs_extended_aux_timeout(), which is true whenever a
-repeater count is reported, and only drop to the default timeout when
-no repeater is reported at all. Links without a repeater and links with
-a valid LTTPR behave as before.
+v2:
+- Move intel_hdmi_unset_edid() into intel_hdmi_set_edid() so hotplug
+  detection via intel_hdmi_detect() also preserves the cached EDID on
+  forced connectors and resets dp_dual_mode when updating EDID.
+- Clear detect_edid on Gen11+ disconnect when the connector is unforced,
+  and verify edid_blob_ptr is non-NULL before retaining detect_edid.
 
-Tested on an RX 9070 XT with PSVR2 adapter -> USB-C switch -> USB-C dock
--> Dell AW3425DW: EDID is read and the link trains at 3440x1440@240Hz
-with DSC. The same adapter connected directly to the monitor keeps
-working.
-
-Signed-off-by: Michał Kopeć <michal@nozomi.space>
+Signed-off-by: Aman Sharma <amansharma6122002@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   |  2 +-
- .../display/dc/link/protocols/link_dp_capability.c  | 13 ++++++++++++-
- .../display/dc/link/protocols/link_dp_capability.h  |  2 ++
- 3 files changed, 15 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 31 ++++++++++++++++++-----
+ 1 file changed, 25 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bdabb4bf14dab..35885b6d6f787 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1333,7 +1333,7 @@ STATIC_IFN_KUNIT void s3_handle_mst(struct drm_device *dev, bool suspend)
- 			 * CTS 4.2.1.1 regression introduced by CTS specs requirement update.
- 			 */
- 			try_to_configure_aux_timeout(aconnector->dc_link->ddc, LINK_AUX_DEFAULT_LTTPR_TIMEOUT_PERIOD);
--			if (!dp_is_lttpr_present(aconnector->dc_link))
-+			if (!dp_lttpr_needs_extended_aux_timeout(aconnector->dc_link))
- 				try_to_configure_aux_timeout(aconnector->dc_link->ddc, LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
- 
- 			/* TODO: move resume_mst_branch_status() into drm mst resume again
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index ad1a499b0d9d2..25e901f23d2db 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -404,6 +404,17 @@ bool dp_is_lttpr_present(struct dc_link *link)
- 	return is_lttpr_present;
- }
- 
-+/*
-+ * A repeater that reports a nonzero count with invalid caps is not used as an
-+ * LTTPR, but it is still in the AUX path and adds relay latency. Reading its
-+ * caps has also told it that the source uses the extended AUX timeout, so keep
-+ * that timeout unless no repeater is reported at all.
-+ */
-+bool dp_lttpr_needs_extended_aux_timeout(struct dc_link *link)
-+{
-+	return dp_parse_lttpr_repeater_count(link->dpcd_caps.lttpr_caps.phy_repeater_cnt) > 0;
-+}
-+
- /* in DP compliance test, DPR-120 may have
-  * a random value in its MAX_LINK_BW dpcd field.
-  * We map it to the maximum supported link rate that
-@@ -1825,7 +1836,7 @@ static bool retrieve_link_cap(struct dc_link *link)
- 		return false;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index b6fa1a1558b8..a14a857dfe94 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2570,6 +2570,21 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
+ 		intel_gmbus_force_bit(ddc, false);
  	}
  
--	if (!dp_is_lttpr_present(link))
-+	if (!dp_lttpr_needs_extended_aux_timeout(link))
- 		try_to_configure_aux_timeout(link->ddc, LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h
-index 6e17f72a752f3..e5c2382390a11 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h
-@@ -55,6 +55,8 @@ bool dp_is_sink_present(struct dc_link *link);
- 
- bool dp_is_lttpr_present(struct dc_link *link);
- 
-+bool dp_lttpr_needs_extended_aux_timeout(struct dc_link *link);
++	/*
++	 * If the connector is forced on (e.g. video=HDMI-A-1:e) and the sink's
++	 * DDC/I2C bus is powered down during DPMS standby, keep the previously
++	 * cached EDID rather than wiping it and falling back to 1024x768.
++	 */
++	if (!drm_edid &&
++	    (connector->base.force == DRM_FORCE_ON ||
++	     connector->base.force == DRM_FORCE_ON_DIGITAL) &&
++	    connector->detect_edid && connector->base.edid_blob_ptr) {
++		connected = true;
++		goto out;
++	}
 +
- bool dp_is_fec_supported(const struct dc_link *link);
++	intel_hdmi_unset_edid(&connector->base);
++
+ 	/* Below we depend on display info having been updated */
+ 	drm_edid_connector_update(&connector->base, drm_edid);
  
- bool is_dp_active_dongle(const struct dc_link *link);
+@@ -2580,6 +2595,7 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
+ 		connected = true;
+ 	}
+ 
++out:
+ 	intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
+ 
+ 	cec_notifier_set_phys_addr(intel_hdmi->cec_notifier,
+@@ -2611,10 +2627,15 @@ intel_hdmi_detect(struct drm_connector *_connector, bool force)
+ 	wakeref = intel_display_power_get(display, POWER_DOMAIN_GMBUS);
+ 
+ 	if (DISPLAY_VER(display) >= 11 &&
+-	    !intel_digital_port_connected(encoder))
++	    !intel_digital_port_connected(encoder)) {
++		if ((connector->base.force == DRM_FORCE_ON ||
++		     connector->base.force == DRM_FORCE_ON_DIGITAL) &&
++		    connector->detect_edid && connector->base.edid_blob_ptr)
++			status = connector_status_connected;
++		else
++			intel_hdmi_unset_edid(&connector->base);
+ 		goto out;
+-
+-	intel_hdmi_unset_edid(&connector->base);
++	}
+ 
+ 	if (intel_hdmi_set_edid(&connector->base))
+ 		status = connector_status_connected;
+@@ -2638,10 +2659,10 @@ intel_hdmi_force(struct drm_connector *_connector)
+ 	if (!intel_display_driver_check_access(display))
+ 		return;
+ 
+-	intel_hdmi_unset_edid(&connector->base);
+-
+-	if (connector->base.status != connector_status_connected)
++	if (connector->base.status != connector_status_connected) {
++		intel_hdmi_unset_edid(&connector->base);
+ 		return;
++	}
+ 
+ 	intel_hdmi_set_edid(&connector->base);
+ }
 -- 
-2.56.0
-
+2.43.0
