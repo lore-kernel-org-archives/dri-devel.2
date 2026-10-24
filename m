@@ -2,77 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2739B606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9B8606A31F
 	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 23:00:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gkF0rniG
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bSPJgQnr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46E7F10E559;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF25510E55A;
 	Sat, 24 Oct 2026 23:00:40 +0000 (UTC)
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8C2E10E0DE
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 18:09:36 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-33fb4680717so2798429eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 11:09:36 -0700 (PDT)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12017112D60
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 00:42:04 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-15ea896ddc8so2241874c88.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 23 Oct 2026 17:42:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792865375; x=1793470175; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=1do5SZCsNsXFNjC3kteHvHno5OZSZlN4oGD9w4JlcOk=;
- b=gkF0rniGI4lAu1vxURZJi7oQbjJ4j7V6RCbnx1vzO7kSsALRNW7oQP5EvtamanqTgA
- Cga3HL0WuNehjXHvhJYLAJYCCXDOsjslFD4s2TV6EXbQhfsKpG56KJjES0Dgyf7K+OqY
- 4bKZ72YiaCTfmMaVgoiUyJlTWbVEws1A90toKk6l16CWvTgLSWrHQLuzCf2B7sX85zYO
- avCKyvZqvnrU6VI63JJvm+/niChHm1gowCy0tD05MkB2ar40SfyWOaWvFJhTf1MmIHmS
- isQuAWVGp3vyphFkT4i0tBk/LjcqEiKmQY9YgbSDPBf94IqlFgsAStcKEGKhqeBT6oW0
- c8oA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792865375; x=1793470175;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1792802523; x=1793407323; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=1do5SZCsNsXFNjC3kteHvHno5OZSZlN4oGD9w4JlcOk=;
- b=tFb1ln84koV0Xe2tWLF7k2OORWOkKRg/XUrttxciyZzIWgisWtBD7fHpQApNG/QMXU
- 5qp+NezbWdEgai4klsGDP3wm+1Gci6r3alN0JJegqEUZe3jzekUrchN2kqwvgUE8KweW
- NXufAkjaaJnysQNs88UMXwc2xGbxRKMkm1U5WJ2VriCpa6N0lIw5hePsO19B7ZLuI28x
- ZFVKxuYFkOM3IPoM+bi2npxsrNnRViQeEPJ3oHCmYIVGml4T9QrW5NoY577IJi/ik9OW
- nw9uduo3HSHF7UehHK3mi8Yj8vedaHQzvlrnZlS5kYQq/Fva8g9GsvKpO8uhRKdYz2Rt
- mjXg==
+ bh=/XRXSv4fVHsC4ziboqWGIFRRdg8cj1bRHxSMe4gZ92A=;
+ b=bSPJgQnrimc553AnyTKW0nJmpyMoyCRSKfUJihzHWgZfUhHG8HIdEPkvGGJ6nGLHPC
+ bb5jMMZ45OcCTVF4gWRZOkd0nme+Wxk/4Yxy0mWX3JhW7MQvXL29NMxHeEwDyI1qQvW4
+ 7j5vX0Lehd++nc93RNXt1YeVjG+ThtnfYtylb9sfmTG63ORDXZlajqEwRWweJKZJfjh3
+ w8tV5kNswKjnhWjS9edDiMLt2isfTVEaAEcXN0LzwA2laQPyDgnjVfRrxMvzeHULvAua
+ FVdQOiEn/I8KZdhL6YdpJ6PYTHLFHNEsR+ySbZqaw0TVrLkWMFl9FMxD8N97gBT8b/rW
+ 85IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792802523; x=1793407323;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=/XRXSv4fVHsC4ziboqWGIFRRdg8cj1bRHxSMe4gZ92A=;
+ b=GxE1hbhe/QPFRyxFOSYaCg+bWEhcvYwZg8blwRQH7z5zd5KmQP7z35yCyyRBt5N9gG
+ 3yCNVzf88eN2+suMeDwTP4ribp29rbU4f1vTLImr8/cQ4Dan8eha9OTeBx9EszyRvWqK
+ LbPD8nAiMkHHZ9eA+ItBSgTstrj+FH3qLebWNB2ekog0TFyJ+qnieGP6RJD+T8zJD4br
+ 73cWDJeGDo/R/7oCVXUx5etvozqNa8UDn6p96FnBRWFuBj0/QCw1vgFss07kIXhPOKWg
+ brKrfQyuvs/JyWzV/jbf+wo0ApWYoa3denDl2jrd3a9kHTZdqQLMAa+8Lz6w1C+kzUbn
+ 4ZHA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz+o4GbExkLRA4qT7xBN/XTSgyhB+JNTirR/HIka9TWJA5FUlseeKIwf3w5zhu8FoZdOwJaac9NB7Y=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK18rxSgXzPAZBJTMOdtPAgpynIQaEBPsF35rciubLbQpHBIIUT
- 5kAXFA0Q6XUEow7j9ZdQEQDdJFpOg0jWdEvshZ7tYpxlG1POwtvRw+RioNbJFqJo
-X-Gm-Gg: AYBFou18rp7zX+/Sj/X8MOcEKfyzkU41HaPmBLbGGzOiKanD6TXRhq/UtCg5KokHi7I
- HcgfOalL9TkFzjX9zMvq/FImxilQQrq6gxdU44nItGCsOwLrbRshJU9SWGaYgqLgoygqfcmbhfS
- dfES7z66YCLL9yUAOtlTn5xgWRBHJOHHTqM4diIsAdy0f6PMmC38fALub8EhYTNnG75GzVcGg4U
- CaoFEoijz2UnbGWVWjB9kGAz9rhcL9sH+ozMuqSAGcMmJt8a9Z6lqCD415HC21ru+K7kQzo4FXh
- wHtHx4uMLfKpIHPpTUv3QVbIwwQsPnApB5X/2h47Qh8GkYjolj2fw2CvZipZH/JrHfji8Ise0r+
- cKjZTRzPehDHgWwPBdACIHmQpE5mKKTqsgGW99s1a08HGZwKktd8yyKbO1YXFuxU3mfln3Q9Im4
- IaqJOYCePRY5U7u9ESQbB0OrSIrqebcE9hT9OIcU5v8uUZB643C3VQGXArjnbsFVIlx8l6U02yw
- Jk7L6pthBvNang/CxKZP2GgVJAx3ruR6wvew6tBkE2VnXKTjKNOG2XmVSHdvBrOnICyehQr+68=
-X-Received: by 2002:a05:693c:62d2:b0:360:8a6e:640f with SMTP id
- 5a478bee46e88-369e8625854mr3682464eec.39.1792865375371; 
- Sat, 24 Oct 2026 11:09:35 -0700 (PDT)
-Received: from himanshubakshi ([2401:4900:1c9b:1c1b:d646:355d:1105:8655])
+ AKwUvBxEc8bhPb4OFBcljy/Tn6D8LANlWMnArJj+SyOVL1sgkPGQdv76mUjFPNdsRJvBsG/ifYwLGEzol4E=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJTCBD0c5jUxew7ptyIiur8fCy06UU2BNLoGgGdwyeeiPc8uQAI
+ aqnQexO0RPYN4qVeVYMlicIwsLw5/mwswBcCb9GtNE59egwHna8t7FSP
+X-Gm-Gg: AYBFou1e7DZMlP8Vtc0/SNYb+iqZCEq93m2P4OryDYH8PbqOX4QtZeoW0y2rAJjgaVK
+ 5PS5tRvwKdvyZ6oWvo+NrCdayyGJhf0c9BNtDsqrLJmsv3T+qXgApzz0eOda4/eP0VfMtmAR3+B
+ n8mVOliwDiIO2J6cYCxY2b5EyLyec4ZS0tjOobYC6UCz2XwayIQNmCIb3OBFyzr/acbbYJcuWrG
+ q7hlKM+Y8IxjCvSMfoXEcINCAHxIdlq7u8OI/VyxHauOIYDy3Vw9CiLExTdYDno7wHpMCct8IUU
+ O3Ru6IFjzQF6jM2CncznUCmYO181VlQlW583Q79111Wkd/hcPlh5f0/t+990E9JnyI8ofDinYj4
+ axMQlQD7+WC2wCL6ITQpjXi/oIkSqORU+g5dDm8IYrJOycnrlmzXuTXp7tvM8EOWk6SC2qg4vtJ
+ 2pLX6qeExUlVKYViV41y5RO4JYsMew7nn/jx1fUcSb5yBrpYUm2CMWZSmm1MvG6yfyIK5v6gLfe
+ hyaSiwMH/jNxgIB4WRw2idvbUBRi7BbPafmCJmS1EWBNnTQLTc942qKBpLdahNh2JPSf8jCjHUC
+ 1JAUedaG+HmmZ2AmVjuEO6sbR+81fQiF
+X-Received: by 2002:a05:7022:3b8c:b0:190:3950:43e2 with SMTP id
+ a92af1059eb24-19933f05581mr963161c88.8.1792802523106; 
+ Fri, 23 Oct 2026 17:42:03 -0700 (PDT)
+Received: from ryu.remote.fontis.id.au ([2403:5814:a404:0:f5b3:4c58:d5d1:e6e6])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-369e8ec865esm8020891eec.26.2026.10.24.11.09.32
+ a92af1059eb24-198a37c88aasm1697548c88.23.2026.10.23.17.41.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Oct 2026 11:09:35 -0700 (PDT)
-From: himanshu bakshi <himanshu.bakshi478@gmail.com>
-To: andy@kernel.org
-Cc: gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- Himanshu Bakshi <himanshu.bakshi478@gmail.com>
-Subject: [PATCH] staging: fbtft: Fix line length warning
-Date: Sat, 24 Oct 2026 23:38:03 +0530
-Message-ID: <20261024180803.108872-1-himanshu.bakshi478@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ Fri, 23 Oct 2026 17:42:02 -0700 (PDT)
+From: lloyd.hazlett@gmail.com
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Lloyd Hazlett <lloyd.hazlett@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC RFT] drm/msm: adreno: attach the GMU device to a driver
+Date: Sat, 24 Oct 2026 11:41:07 +1100
+Message-ID: <20261024004108.2084140-1-lloyd.hazlett@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
+References: <20251022-topic-adreno-attach-gmu-to-driver-v1-1-999037f7c83e@linaro.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 24 Oct 2026 23:00:39 +0000
+X-Mailman-Approved-At: Sat, 24 Oct 2026 22:59:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,38 +89,72 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+From: Lloyd Hazlett <lloyd.hazlett@gmail.com>
 
-Split the line in fbtft_init_dbg macro to keep it within the limit of 100
-columns and address the check-patch warning.
+> Does this *actually* cause any harm, by the way?
+>
+> For example on x1e, GMU refers to 2 GPU_CC GDSCs, GPU_CC refers
+> to a pair of GCC clocks and GCC refers to VDD_CX
+>
+> and I see these prints, yet:
+>
+> /sys/kernel/debug/pm_genpd/gpu_cx_gdsc/current_state:off-0
+> /sys/kernel/debug/pm_genpd/gpu_gx_gdsc/current_state:off-0
 
-Signed-off-by: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
----
- drivers/staging/fbtft/fbtft.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I may well be missing something, but on an ASUS Zenbook A14 (x1e80100,
+next-20261001) the GCC half of that message does seem to cost
+something. The GPU_CC domains here are off as you describe; it is the
+GCC ones that stay on.
 
-diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
-index c7afb0fd3943..fd7f8fc2afba 100644
---- a/drivers/staging/fbtft/fbtft.h
-+++ b/drivers/staging/fbtft/fbtft.h
-@@ -424,7 +424,8 @@ module_spi_driver(fbtft_driver_spi_driver);
- #define fbtft_init_dbg(dev, format, arg...)                  \
- do {                                                         \
- 	if (unlikely((dev)->platform_data &&                 \
--	    (((struct fbtft_platform_data *)(dev)->platform_data)->display.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
-+	    (((struct fbtft_platform_data *)(dev)->platform_data)-> \
-+	    display.debug & DEBUG_DRIVER_INIT_FUNCTIONS))) \
- 		dev_info(dev, format, ##arg);                \
- } while (0)
- 
--- 
-2.56.0
+Every GDSC the firmware hands over enabled is registered powered-on,
+genpd records that as stay_on, and genpd_power_off() returns on that
+flag before it looks at consumers. So nothing downstream can release
+them. Unbinding dwc3-qcom, runtime-suspending the controllers and
+booting without pd_ignore_unused each made no difference.
 
+UFS is the clearest case: ufshc@1d84000 is status = "disabled" with no
+driver bound, and gcc_ufs_phy_gdsc and gcc_ufs_mem_phy_gdsc still read
+"on" through a suspend.
+
+With fw_devlink.sync_state=timeout, seven domains let go - both UFS,
+gcc_usb30_tert_gdsc and gcc_usb20_prim_gdsc straight away, and
+gcc_usb30_{prim,sec,mp}_gdsc once xhci-hcd and dwc3-qcom are also
+allowed to runtime-suspend. Their idle_states show Usage 1, Rejected 0.
+
+Suspend draw on battery, same kernel either side, both windows ~99%
+suspended:
+
+  domains held on   23.3 Wh / 21.3 h   1.09 W
+  seven released     2.0 Wh /  2.3 h   0.87 W
+
+The windows are very different lengths, so to be clear about which way
+that cuts: the long one is the most reliable figure I have for the
+held-on case, and shorter runs of that same configuration came out
+higher, between 1.1 and 1.7 W. Taking the lowest of them makes ~20%
+the conservative reading. It is not the whole problem, since this
+machine never reaches cxsd either way. It may relate to your note in
+the same mail that cx sits at perf_state 256 "because of USB3 votes":
+those GDSCs cannot collapse, so the votes stay.
+
+The same thing happens here with a second device, in case that is
+useful:
+
+  qnoc-x1e80100 interconnect-1:       sync_state() pending due to 1dfa000.crypto
+  qnoc-x1e80100 1700000.interconnect: sync_state() pending due to 1dfa000.crypto
+
+1dfa000.crypto is enabled in DT but qce is not built here, so it never
+probes. Any consumer that never binds seems to do this to its provider,
+so the GMU may be the most visible case rather than the only one.
+
+I have not tested the patch itself - the GMU here has no driver bound,
+which is what led me to the thread. This is only evidence that the
+motivation holds on x1e80100.
+
+Assisted-by: Claude:claude-opus-5 [claude-code]
