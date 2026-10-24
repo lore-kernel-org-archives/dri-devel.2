@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9C2606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 12:20:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF48606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 12:47:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l7kzU72C
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDhmsvR5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 249D610E02D;
-	Sat, 24 Oct 2026 12:20:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE2D10E02D;
- Sat, 24 Oct 2026 12:19:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A97D10E582;
+	Sat, 24 Oct 2026 12:47:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EC6310E534;
+ Sat, 24 Oct 2026 12:47:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9103441228;
- Sat, 24 Oct 2026 12:19:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5BD1F01825;
- Sat, 24 Oct 2026 12:19:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 62B99601DE;
+ Sat, 24 Oct 2026 12:47:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7A91F01825;
+ Sat, 24 Oct 2026 12:47:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792844398;
- bh=dtE7j/jX/gKHJiZ1uT4G8lAYvOj53k+dec7TisSIbOQ=;
+ s=k20260515; t=1792846054;
+ bh=tmF62NjlscGkeWZQjI3YN977k0WOLrEhQNAYoYbUTKI=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=l7kzU72CB6r0KSISrf6sHP5gP3jQLLzxd9vz2fa+Lpmu1YEn3MCDZoa1VdsBcG62Q
- 5w2WkaqfCgUJit5LNdRqE0V6kRku8V9y91lIMhvlBBrons30dxv9sXN1Yuge62468M
- zdJH5B2UojICADuzYoeAPfRT9ogMfVV795uJNFG9B7QSnhu9vYoN9ExNhmCEIpKcUj
- YKHygIVdIkVqQpyBpPXIg3ZXtEmvYM/H5BP3f5aKkeTAR7vhIJpTdEhFJmAKms5WXp
- 2EamCTMnMTJQvjOdISx08fWAHbhryw+JlHCQCDi3gyYmigcvlAP0b6z/GEO9tOgdV7
- OYknXkdS9bn8w==
-Message-ID: <sashiko-outbox-183708@kernel.org>
+ b=LDhmsvR5OPS90ZFWZo9Q/gCK0Ix37mbFsOYnIGvL3922jcAe/ksp4OUSUAdsxvo7t
+ jqwNHfKMcUu75JP9pPcCnaPN7LMz3obVHDAuOuqPQTSLTYUeDg9OYmq3Msff58i+AL
+ W2kvbpfASpVa4UzS33QsXuPJJt9Ja/DrKbmk0UUrIuAVBUPB4w2ZSYFgab7bW7+htM
+ EXzS2yb8TVQkTRCtAGDAdIGdI5eZHSiDVLtQTOAyAseYKX/JfXv91PV7PvK9iUz56o
+ pkmZ1PrMa8GqjSXQ6KZ94bMfjfWRFQPPqxUfgC1jAemygLaS9x5F8tbNBws/iBWHql
+ 0K54UFdBTdX6g==
+Message-ID: <sashiko-outbox-183732@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/hdmi: preserve cached EDID on DDC failure when
- connector is forced
+Subject: Re: [PATCH v2] drm/i915/hdmi: preserve cached EDID on DDC failure
+ when connector is forced
 To: "Aman Sharma" <amansharma6122002@gmail.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <179284356403.1659508.10439113185286055496@gmail.com>
+In-Reply-To: <179284522321.1666644.7085985666852699043@gmail.com>
 References: <179284356403.1659508.10439113185286055496@gmail.com>
+ <179284522321.1666644.7085985666852699043@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 24 Oct 2026 12:19:57 +0000
+Date: Sat, 24 Oct 2026 12:47:33 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,39 +53,36 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/i915/hdmi: cached EDID still wiped by intel_hdmi_detect() on=
- hotplug
-- [Medium] drm/i915/hdmi: stale dp_dual_mode state in intel_hdmi_force()
-- [Medium] drm/i915/hdmi: stale detect_edid retained after Gen11+ disconnect
+- [Medium] drm/i915/hdmi: DRM_FORCE_OFF treated as forced-on in intel_hdmi_=
+set_edid()
+- [Medium] drm/i915/hdmi: CEC invalidation and hotplug churn in intel_hdmi_=
+detect()
 --
 
-commit 3cd457134d1b7d17ad43e200eb7f55647f7587b7
+commit fa3007d46f607179adb22d75054bb3efa254e38b
 Author: Aman Sharma <amansharma6122002@gmail.com>
 
 drm/i915/hdmi: preserve cached EDID on DDC failure when connector is forced
 
-This commit retains the previously cached connector->detect_edid when a DDC
-read fails on a forced-on HDMI connector instead of unconditionally clearing
-it in intel_hdmi_force(). This avoids wiping the cached EDID and falling ba=
-ck
-to the 1024x768 no-EDID mode when an external monitor powers down its DDC/I=
-2C
-controller during DPMS standby.
+This commit preserves the cached detect_edid on forced HDMI connectors when
+DDC reads fail during monitor standby, moving intel_hdmi_unset_edid() into
+intel_hdmi_set_edid() and skipping EDID teardown on Gen11+ disconnect when
+the connector is forced.
 
 > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
 i915/display/intel_hdmi.c
-> index b6fa1a1558b82..140d98a61a9c6 100644
+> index b6fa1a1558b82..89ab9a790a419 100644
 > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -2568,6 +2568,18 @@ intel_hdmi_set_edid(struct drm_connector *_connect=
+> @@ -2568,6 +2568,19 @@ intel_hdmi_set_edid(struct drm_connector *_connect=
 or)
 >  		intel_gmbus_force_bit(ddc, false);
 >  	}
@@ -95,181 +93,106 @@ or)
 > +	 * DDC/I2C bus is powered down during DPMS standby, keep the previously
 > +	 * cached EDID rather than wiping it and falling back to 1024x768.
 > +	 */
-> +	if (!drm_edid && connector->base.force && connector->detect_edid) {
+> +	if (!drm_edid && connector->base.force &&
+> +	    connector->detect_edid && connector->base.edid_blob_ptr) {
 > +		intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
 > +		return true;
 > +	}
 
 [Severity: Medium]
-Will this check ever trigger when intel_hdmi_set_edid() is called from the
-hotplug detection path, or will intel_hdmi_detect() still wipe
-connector->detect_edid on hotplug?
+What happens here when a connector with a cached EDID is forced off via
+DRM_FORCE_OFF?
 
-Even when connector->base.force is set, hotplug and poll handling in
-drivers/gpu/drm/i915/display/intel_hotplug.c still runs
-intel_hotplug_detect_connector() -> drm_helper_probe_detect() ->
-intel_hdmi_detect():
+Because enum drm_connector_force defines DRM_FORCE_OFF as a non-zero value,
+connector->base.force evaluates to true when the connector is forced off
+(for example via connector_write() in drivers/gpu/drm/drm_debugfs.c, which
+sets connector->force =3D DRM_FORCE_OFF without calling fill_modes() or
+intel_hdmi_force()).
 
-drivers/gpu/drm/i915/display/intel_hotplug.c:intel_hotplug_detect_connector=
-() {
-	...
-	status =3D drm_helper_probe_detect(&connector->base, NULL, false);
-	if (!connector->base.force)
-		connector->base.status =3D status;
-	...
+When a subsequent probe runs intel_hdmi_detect() -> intel_hdmi_set_edid(),
+drm_edid_read_ddc() explicitly returns NULL for DRM_FORCE_OFF:
+
+drivers/gpu/drm/drm_edid.c:drm_edid_read_ddc() {
+	if (connector->force =3D=3D DRM_FORCE_OFF)
+		return NULL;
+    ...
 }
 
-In drivers/gpu/drm/i915/display/intel_hdmi.c, intel_hdmi_detect() is the on=
-ly
-caller that checks the boolean return value of intel_hdmi_set_edid(), and it
-still unconditionally calls intel_hdmi_unset_edid() first:
+In that case, intel_hdmi_set_edid() will match !drm_edid &&
+connector->base.force, skip intel_hdmi_unset_edid() and
+drm_edid_connector_update(), retain the stale detect_edid and dp_dual_mode
+state, and return true as if the forced-off connector were connected. The
+same boolean check in intel_hdmi_detect() also skips
+intel_hdmi_unset_edid() on Gen11+ disconnect when force is DRM_FORCE_OFF.
 
-drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_detect() {
-	...
-	if (DISPLAY_VER(display) >=3D 11 &&
-	    !intel_digital_port_connected(encoder))
-		goto out;
-
-	intel_hdmi_unset_edid(&connector->base);
-
-	if (intel_hdmi_set_edid(&connector->base))
-		status =3D connector_status_connected;
-	...
-}
-
-On DISPLAY_VER(display) < 11, or on DISPLAY_VER(display) >=3D 11 when
-intel_digital_port_connected(encoder) is true during standby or wake-up whi=
-le
-DDC is still powered down, intel_hdmi_unset_edid() frees
-connector->detect_edid and sets it to NULL before intel_hdmi_set_edid() is
-called.
-
-When intel_hdmi_set_edid() then sees connector->detect_edid =3D=3D NULL, it=
- calls
-drm_edid_connector_update(&connector->base, NULL) and returns false. Because
-drm_helper_probe_detect_ctx() sees the returned status differ from the forc=
-ed
-connector->status, it increments connector->epoch_counter and triggers a
-hotplug uevent, causing the subsequent userspace mode probe to find
-connector->detect_edid already cleared and fall back to 1024x768 anyway.
-
-Should intel_hdmi_detect() also avoid calling intel_hdmi_unset_edid() up
-front so that connector->detect_edid is preserved across hotplug detection =
-on
-a forced connector?
-
-[Severity: Medium]
-Can this early return also leave connector->detect_edid out of sync with
-connector->base.edid_blob_ptr if an unforced connector on DISPLAY_VER >=3D =
-11
-is unplugged and later forced on?
-
-In drivers/gpu/drm/i915/display/intel_hdmi.c, when a sink is disconnected on
-DISPLAY_VER(display) >=3D 11, intel_hdmi_detect() jumps to out before calli=
-ng
-intel_hdmi_unset_edid():
-
-drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_detect() {
-	...
-	if (DISPLAY_VER(display) >=3D 11 &&
-	    !intel_digital_port_connected(encoder))
-		goto out;
-
-	intel_hdmi_unset_edid(&connector->base);
-	...
-}
-
-When the connector is not forced, drm_helper_probe_single_connector_modes()
-in drivers/gpu/drm/drm_probe_helper.c handles connector_status_disconnected
-by clearing the EDID property to NULL while connector->detect_edid remains
-non-NULL:
-
-drivers/gpu/drm/drm_probe_helper.c:drm_helper_probe_single_connector_modes(=
-) {
-	...
-	if (connector->status =3D=3D connector_status_disconnected) {
-		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] disconnected\n",
-			    connector->base.id, connector->name);
-		drm_connector_update_edid_property(connector, NULL);
-		drm_mode_prune_invalid(dev, &connector->modes, false);
-		goto exit;
-	}
-	...
-}
-
-If the user subsequently forces the connector on (for example via sysfs)
-while disconnected or while DDC fails, drm_helper_probe_single_connector_mo=
-des()
-calls intel_hdmi_force() -> intel_hdmi_set_edid(). Because
-connector->detect_edid is still non-NULL from the previously unplugged
-monitor, intel_hdmi_set_edid() will hit this early return without calling
-drm_edid_connector_update(), retaining the unplugged monitor's stale
-connector->detect_edid while connector->base.edid_blob_ptr remains NULL.
+Should these checks explicitly test for >=3D DRM_FORCE_ON (or !=3D DRM_FORC=
+E_OFF
+&& !=3D DRM_FORCE_UNSPECIFIED) instead of a boolean check on
+connector->base.force?
 
 > +
-> +	drm_edid_free(connector->detect_edid);
+> +	intel_hdmi_unset_edid(&connector->base);
 > +
 >  	/* Below we depend on display info having been updated */
 >  	drm_edid_connector_update(&connector->base, drm_edid);
 > =20
-> @@ -2638,10 +2650,10 @@ intel_hdmi_force(struct drm_connector *_connector)
->  	if (!intel_display_driver_check_access(display))
->  		return;
+> @@ -2609,10 +2622,11 @@ intel_hdmi_detect(struct drm_connector *_connecto=
+r, bool force)
+>  	wakeref =3D intel_display_power_get(display, POWER_DOMAIN_GMBUS);
 > =20
-> -	intel_hdmi_unset_edid(&connector->base);
+>  	if (DISPLAY_VER(display) >=3D 11 &&
+> -	    !intel_digital_port_connected(encoder))
+> +	    !intel_digital_port_connected(encoder)) {
+> +		if (!connector->base.force)
+> +			intel_hdmi_unset_edid(&connector->base);
+>  		goto out;
 > -
-> -	if (connector->base.status !=3D connector_status_connected)
-> +	if (connector->base.status !=3D connector_status_connected) {
-> +		intel_hdmi_unset_edid(&connector->base);
->  		return;
+> -	intel_hdmi_unset_edid(&connector->base);
 > +	}
-> =20
->  	intel_hdmi_set_edid(&connector->base);
->  }
 
 [Severity: Medium]
-Does skipping intel_hdmi_unset_edid() in intel_hdmi_force() when
-connector->base.status =3D=3D connector_status_connected leave stale
-intel_hdmi->dp_dual_mode state behind when a new EDID is read?
+On DISPLAY_VER(display) >=3D 11, if the sink drops HPD during standby so
+!intel_digital_port_connected(encoder) is true on a forced-on connector,
+could jumping to out with status =3D connector_status_disconnected cause CEC
+invalidation and hotplug churn?
 
-Previously, intel_hdmi_force() called intel_hdmi_unset_edid(), which resets
-intel_hdmi->dp_dual_mode in addition to freeing connector->detect_edid:
+In intel_hdmi_detect(), jumping to out leaves status set to
+connector_status_disconnected:
 
-drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_unset_edid() {
-	...
-	intel_hdmi->dp_dual_mode.type =3D DRM_DP_DUAL_MODE_NONE;
-	intel_hdmi->dp_dual_mode.max_tmds_clock =3D 0;
+drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_detect() {
+    ...
+out:
+	intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
 
-	drm_edid_free(connector->detect_edid);
-	connector->detect_edid =3D NULL;
+	if (status !=3D connector_status_connected)
+		cec_notifier_phys_addr_invalidate(intel_hdmi->cec_notifier);
+
+	return status;
 }
 
-When intel_hdmi_force() instead calls intel_hdmi_set_edid() directly and a
-new EDID is read, intel_hdmi_set_edid() frees connector->detect_edid and
-calls intel_hdmi_dp_dual_mode_detect(), which returns early without clearing
-hdmi->dp_dual_mode when type =3D=3D DRM_DP_DUAL_MODE_NONE:
+First, this invalidates cec_notifier even though connector->detect_edid and
+display_info are kept, and subsequent calls to intel_hdmi_force() ->
+intel_hdmi_set_edid() while DDC is powered down return early before reaching
+cec_notifier_set_phys_addr().
 
-drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_dp_dual_mode_detect() {
-	...
-	if (type =3D=3D DRM_DP_DUAL_MODE_NONE)
-		return;
+Second, returning connector_status_disconnected while connector->base.status
+remains forced to connector_status_connected causes
+drm_helper_probe_detect_ctx() to see ret !=3D connector->status and increme=
+nt
+connector->epoch_counter on every probe:
 
-	hdmi->dp_dual_mode.type =3D type;
-	hdmi->dp_dual_mode.max_tmds_clock =3D
-		drm_dp_dual_mode_max_tmds_clock(display->drm, type, ddc);
-	...
+drivers/gpu/drm/drm_probe_helper.c:drm_helper_probe_detect_ctx() {
+    ...
+	if (ret !=3D connector->status)
+		connector->epoch_counter +=3D 1;
+    ...
 }
 
-If a DP++ adaptor was previously connected, or if an unforced connector had
-assumed DRM_DP_DUAL_MODE_TYPE1_DVI from VBT before being forced on via sysf=
-s,
-won't intel_hdmi->dp_dual_mode.type and intel_hdmi->dp_dual_mode.max_tmds_c=
-lock
-retain their old values, causing hdmi_port_clock_limit() to clamp the maxim=
-um
-TMDS clock and intel_dp_dual_mode_set_tmds_output() to send DP++ I2C writes
-to a native HDMI sink?
+In intel_hotplug_detect_connector(), connector->base.status is not updated
+when connector->base.force is set, so old_epoch_counter !=3D
+connector->base.epoch_counter triggers INTEL_HOTPLUG_CHANGED and sends
+hotplug uevents on every HPD or poll while the sink is in standby.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179284356403.165950=
-8.10439113185286055496@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179284522321.166664=
+4.7085985666852699043@gmail.com?part=3D1
