@@ -2,147 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23982606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 10:31:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9C2606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 24 Oct 2026 12:20:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=POaySfmr;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ikIsjM62
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l7kzU72C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76DA310E7EF;
-	Sat, 24 Oct 2026 10:31:29 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8E410E7F7
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 10:31:18 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69O8oDXk1707947
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 10:31:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yVmbznb/9DErXq4djUHi/SV9iaCO3GJadLn0oXVswrI=; b=POaySfmr2zWvxh07
- 3S0ZVpsfY7f8Y4FE06+L/2UfpZ+i8jSmmb49bIUm3JyBejnwgh2UXSHHzLITyyTN
- mgaa8TsVm77gV7XEcNCWJHYCsLqz3GQYjUteq7i4/aza/DgaIBbB3psihXKmKaEQ
- LxVJkp5Y4NXEBLlN27nfx6suryimr4Woma7c8NU6Mz3jkTa2LjDNEyECTTt022D6
- mQnUZgGS4wLJvtHJswPt4D0wV3P/xxNVwtRxr4QgDlaNyHNy5nfqy8Oq2j6lHmwn
- 0b5ICZ0CbLmpjxpfCHbkEWwMBBijMoUM7QWCFYf0vCYzgClugx6+ahtaygWR4hIm
- rHU88A==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgm8xgstq-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 10:31:17 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id
- a92af1059eb24-156b5338d4bso298696c88.1
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 03:31:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792837876; x=1793442676;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=yVmbznb/9DErXq4djUHi/SV9iaCO3GJadLn0oXVswrI=;
- b=ikIsjM62Tw4sJQWQ79yxA5OzF81x5gwuTJGKIWRn8rqWq5iDwbBU2mQfgb96U+hh7G
- W+f02sBsjhRx8LZv6uDot2hguSfFSinRtP3FyK5mEjsQljgW8D+CekCS9zXuRJON63VH
- usTAF9+ZHAg3Ne6EdDQkSNGGHu4O1pzh+NgFN4ettFkaIoD/gHmpLbOKpJB6+nvxaith
- 38vEEcYJIcKGuUnEutb9yly7iZS83oUQPV4+RK2sKDcIob/BLCamAzbXOcQgk9hu59j+
- CVKhch84E2AL1JtchSLTKvAZ1nDEbs6n5ZiVD9POrnk/skAD4lWDjGcT96hC6UX3+0qj
- Hg3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792837876; x=1793442676;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=yVmbznb/9DErXq4djUHi/SV9iaCO3GJadLn0oXVswrI=;
- b=HbUdNrrKPqrb+j9yD3/iLo8OYUyHpHFsB4pW2td5bdh6paSf/pKEC9WzJ2eFMVzIxQ
- M9T1X+wrM51PGT/XBa+ZBv0Gy/G+y76/sCXFCpcWNyz/U/NRjsyIKSqSI96gWiYEXxfI
- 9TTECBCRj4FBywJY+/sPxSe+DTjkcM7opYWWHL+F8TOcwpePyquPz0orJsGp+JJFuWlx
- JkSug5n36uz9LFHQD+l+MMHz4FiL0gn1nVU9DfehG+2HflPVsBUBqYKyN/zp+CIQlH1i
- AO496SSxKlr8id2SX2Ljpeb++nwoJadcvRcDF4rxv8OMdqulE05D8brL9MquIrx5mmWR
- DOLA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzmUzKmGcJS6/jcEyeCLBm4ocFkyaKFASdOixbgyJzzOCQqYjuspu0C6w+wN9DANmKvh8IRvolJrdU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK/AfDVAxZC9+lJ/CXaJVqQe3Emb+rcne0m2dOnw6C2WGPy/bHx
- efQBe8kT4GGqljOi5IWkWfh4nzhdaQmN2VPYAclsiYpIwuiCPwRumLgvOQBcZLcmWtw0MbGxs6O
- X4qgmTJnBjuaU2aAJ3hRUqd6hD9pGynkHTIQM2xX0Pp6PNpL8X2lkSQoLR0+FE4dEhIa5bfo=
-X-Gm-Gg: AYBFou2Nuoo0dHzNFXunAhlSJVkaNy87z7e5GrIXBzhtm5mvBMPNsO+XnjQRSMD5LGG
- QDQ9HYqgNUuCq8NR6b3E2riZEhrgAsWYVSXaMqVOEUSBie7XRLOajHEg8W+zJLhKyiowpk+vkaD
- KlTVMmpuY2Hh6qvkjHUU8mPQftS/Bzx/D4KgSBrfGEiItmdoVhnZ61sFI6M2g96/LQF40xt9pka
- +38U38pk2/ejRP/RyhNxQ8hk0YO9aImWCc8W7J0LsP9DOFofMOefDGMnMUF13FJHPCN9T7Fdq9x
- +pBF84bL3Lc60KXk1O1emO1Vocg9Y8wDr0J1l8HadhuHK+8lqcKB/zv4jRL8I/q+AuNmhxxcKvc
- nBu0YKeHg1mWtD25HBCZHnMo=
-X-Received: by 2002:a05:701b:2311:b0:16a:8ffd:4977 with SMTP id
- a92af1059eb24-199363a356emr2026615c88.17.1792837876139; 
- Sat, 24 Oct 2026 03:31:16 -0700 (PDT)
-X-Received: by 2002:a05:701b:2311:b0:16a:8ffd:4977 with SMTP id
- a92af1059eb24-199363a356emr2026570c88.17.1792837875267; 
- Sat, 24 Oct 2026 03:31:15 -0700 (PDT)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-19894d5a10csm6009441c88.1.2026.10.24.03.31.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Oct 2026 03:31:14 -0700 (PDT)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Sat, 24 Oct 2026 16:00:14 +0530
-Subject: [PATCH 8/8] drm/msm/a8xx: Add AQE firmware to Adreno X2-90 GPU
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261024-assorted-fixes-oct-v1-8-2977f974ddb7@oss.qualcomm.com>
-References: <20261024-assorted-fixes-oct-v1-0-2977f974ddb7@oss.qualcomm.com>
-In-Reply-To: <20261024-assorted-fixes-oct-v1-0-2977f974ddb7@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Luben Tuikov <ltuikov89@gmail.com>,
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792837816; l=758;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=6jmsPstXRSfknq1XodxmYZvUhspzwwQE2hSVoneLg8I=;
- b=Hx/1/hc3l+NGbzYOE4B5IZ8a9HEQEd14sU4mikm18b12ltSKrCeyQdGfZiLcmnEkmV9KRmVWZ
- 2nhiRi5Ya70DDbbG84Qw3t7aDbYMJye+XM6j65PhrewxK1J542MF3J8
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-GUID: EloUyb1lQhL7cpJqsvys6LRqGIegZuTd
-X-Authority-Analysis: v=2.4 cv=Ra0FmFtv c=1 sm=1 tr=0 ts=6adc88f5 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=Kvm9o7dbxh_Zzo95XxIA:9 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfX0XBaRvhBHteB
- tYewLKKCu1e4odDLVbr7biCEI+fVxM0K3/w2elWuCH6f9JNirXDfh1HMoRBr/F6tVIj7GqpR9aY
- Wma16ItCOHIcLg4VQxlAhc56UYvW5kQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDA0MSBTYWx0ZWRfX2KgFri00pfJ0
- 4xA4tX4ek3g4EO4ltyteFR6ahpxgemgL2/3SHwIy9PWjWmFd4G2eC/oPKBuPPDw7sVv40EJUKcA
- MSAftfoFLNBwRHGx3MFdFbz8WI8VP0EXj0pV9xtMYAyCsNptqMfP5iVYSh6YSpmmqYhzaiS6/AQ
- 77deKaCprGV8BpvQWay1aFa5T037f28Exkojt1rFB33lTZ+zpIl28aitRlqc/6MrY+WE/bB4fvm
- XS/CTwATIehKT0uFFkWBH8OEXkXrNHqhFv8I6rMyuSvsGLNJwYI2iprNWDTFtC+AAuYnF6tHoZF
- I9KikO6oEGlCiUafNUEUaQsa+vseM7R4CmaeNxY5F4WkKkOFsBSnbhtJsryosngf1jKWM7gm12R
- jIJGogNhZLV/5JlrIO8KSUN4HVOtDrcdtIDzc61pm5VbfxPUaw4bMdSijhxmhuUSO2Uajwfx7MX
- DVguryWoxSMZhPZ6j6w==
-X-Proofpoint-ORIG-GUID: EloUyb1lQhL7cpJqsvys6LRqGIegZuTd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-24_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 impostorscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610240041
+	by gabe.freedesktop.org (Postfix) with ESMTP id 249D610E02D;
+	Sat, 24 Oct 2026 12:20:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FE2D10E02D;
+ Sat, 24 Oct 2026 12:19:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9103441228;
+ Sat, 24 Oct 2026 12:19:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5BD1F01825;
+ Sat, 24 Oct 2026 12:19:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792844398;
+ bh=dtE7j/jX/gKHJiZ1uT4G8lAYvOj53k+dec7TisSIbOQ=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=l7kzU72CB6r0KSISrf6sHP5gP3jQLLzxd9vz2fa+Lpmu1YEn3MCDZoa1VdsBcG62Q
+ 5w2WkaqfCgUJit5LNdRqE0V6kRku8V9y91lIMhvlBBrons30dxv9sXN1Yuge62468M
+ zdJH5B2UojICADuzYoeAPfRT9ogMfVV795uJNFG9B7QSnhu9vYoN9ExNhmCEIpKcUj
+ YKHygIVdIkVqQpyBpPXIg3ZXtEmvYM/H5BP3f5aKkeTAR7vhIJpTdEhFJmAKms5WXp
+ 2EamCTMnMTJQvjOdISx08fWAHbhryw+JlHCQCDi3gyYmigcvlAP0b6z/GEO9tOgdV7
+ OYknXkdS9bn8w==
+Message-ID: <sashiko-outbox-183708@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/hdmi: preserve cached EDID on DDC failure when
+ connector is forced
+To: "Aman Sharma" <amansharma6122002@gmail.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <179284356403.1659508.10439113185286055496@gmail.com>
+References: <179284356403.1659508.10439113185286055496@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 24 Oct 2026 12:19:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,35 +48,228 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Update the catalog to add AQE firmware to the Adreno X2-90 GPU.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] drm/i915/hdmi: cached EDID still wiped by intel_hdmi_detect() on=
+ hotplug
+- [Medium] drm/i915/hdmi: stale dp_dual_mode state in intel_hdmi_force()
+- [Medium] drm/i915/hdmi: stale detect_edid retained after Gen11+ disconnect
+--
 
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 1 +
- 1 file changed, 1 insertion(+)
+commit 3cd457134d1b7d17ad43e200eb7f55647f7587b7
+Author: Aman Sharma <amansharma6122002@gmail.com>
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-index 55a805ab438c..775aca1964ee 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
-@@ -1582,6 +1582,7 @@ static const struct adreno_info a8xx_gpus[] = {
- 		.fw = {
- 			[ADRENO_FW_SQE] = "gen80100_sqe.fw",
- 			[ADRENO_FW_GMU] = "gen80100_gmu.bin",
-+			[ADRENO_FW_AQE] = "gen80100_aqe.fw",
- 		},
- 		.gmem = 21 * SZ_1M,
- 		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+drm/i915/hdmi: preserve cached EDID on DDC failure when connector is forced
 
--- 
-2.55.0
+This commit retains the previously cached connector->detect_edid when a DDC
+read fails on a forced-on HDMI connector instead of unconditionally clearing
+it in intel_hdmi_force(). This avoids wiping the cached EDID and falling ba=
+ck
+to the 1024x768 no-EDID mode when an external monitor powers down its DDC/I=
+2C
+controller during DPMS standby.
 
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
+i915/display/intel_hdmi.c
+> index b6fa1a1558b82..140d98a61a9c6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> @@ -2568,6 +2568,18 @@ intel_hdmi_set_edid(struct drm_connector *_connect=
+or)
+>  		intel_gmbus_force_bit(ddc, false);
+>  	}
+> =20
+> +	/*
+> +	 * If the connector is forced on (e.g. video=3DHDMI-A-1:e) and the sink=
+'s
+> +	 * DDC/I2C bus is powered down during DPMS standby, keep the previously
+> +	 * cached EDID rather than wiping it and falling back to 1024x768.
+> +	 */
+> +	if (!drm_edid && connector->base.force && connector->detect_edid) {
+> +		intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
+> +		return true;
+> +	}
+
+[Severity: Medium]
+Will this check ever trigger when intel_hdmi_set_edid() is called from the
+hotplug detection path, or will intel_hdmi_detect() still wipe
+connector->detect_edid on hotplug?
+
+Even when connector->base.force is set, hotplug and poll handling in
+drivers/gpu/drm/i915/display/intel_hotplug.c still runs
+intel_hotplug_detect_connector() -> drm_helper_probe_detect() ->
+intel_hdmi_detect():
+
+drivers/gpu/drm/i915/display/intel_hotplug.c:intel_hotplug_detect_connector=
+() {
+	...
+	status =3D drm_helper_probe_detect(&connector->base, NULL, false);
+	if (!connector->base.force)
+		connector->base.status =3D status;
+	...
+}
+
+In drivers/gpu/drm/i915/display/intel_hdmi.c, intel_hdmi_detect() is the on=
+ly
+caller that checks the boolean return value of intel_hdmi_set_edid(), and it
+still unconditionally calls intel_hdmi_unset_edid() first:
+
+drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_detect() {
+	...
+	if (DISPLAY_VER(display) >=3D 11 &&
+	    !intel_digital_port_connected(encoder))
+		goto out;
+
+	intel_hdmi_unset_edid(&connector->base);
+
+	if (intel_hdmi_set_edid(&connector->base))
+		status =3D connector_status_connected;
+	...
+}
+
+On DISPLAY_VER(display) < 11, or on DISPLAY_VER(display) >=3D 11 when
+intel_digital_port_connected(encoder) is true during standby or wake-up whi=
+le
+DDC is still powered down, intel_hdmi_unset_edid() frees
+connector->detect_edid and sets it to NULL before intel_hdmi_set_edid() is
+called.
+
+When intel_hdmi_set_edid() then sees connector->detect_edid =3D=3D NULL, it=
+ calls
+drm_edid_connector_update(&connector->base, NULL) and returns false. Because
+drm_helper_probe_detect_ctx() sees the returned status differ from the forc=
+ed
+connector->status, it increments connector->epoch_counter and triggers a
+hotplug uevent, causing the subsequent userspace mode probe to find
+connector->detect_edid already cleared and fall back to 1024x768 anyway.
+
+Should intel_hdmi_detect() also avoid calling intel_hdmi_unset_edid() up
+front so that connector->detect_edid is preserved across hotplug detection =
+on
+a forced connector?
+
+[Severity: Medium]
+Can this early return also leave connector->detect_edid out of sync with
+connector->base.edid_blob_ptr if an unforced connector on DISPLAY_VER >=3D =
+11
+is unplugged and later forced on?
+
+In drivers/gpu/drm/i915/display/intel_hdmi.c, when a sink is disconnected on
+DISPLAY_VER(display) >=3D 11, intel_hdmi_detect() jumps to out before calli=
+ng
+intel_hdmi_unset_edid():
+
+drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_detect() {
+	...
+	if (DISPLAY_VER(display) >=3D 11 &&
+	    !intel_digital_port_connected(encoder))
+		goto out;
+
+	intel_hdmi_unset_edid(&connector->base);
+	...
+}
+
+When the connector is not forced, drm_helper_probe_single_connector_modes()
+in drivers/gpu/drm/drm_probe_helper.c handles connector_status_disconnected
+by clearing the EDID property to NULL while connector->detect_edid remains
+non-NULL:
+
+drivers/gpu/drm/drm_probe_helper.c:drm_helper_probe_single_connector_modes(=
+) {
+	...
+	if (connector->status =3D=3D connector_status_disconnected) {
+		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] disconnected\n",
+			    connector->base.id, connector->name);
+		drm_connector_update_edid_property(connector, NULL);
+		drm_mode_prune_invalid(dev, &connector->modes, false);
+		goto exit;
+	}
+	...
+}
+
+If the user subsequently forces the connector on (for example via sysfs)
+while disconnected or while DDC fails, drm_helper_probe_single_connector_mo=
+des()
+calls intel_hdmi_force() -> intel_hdmi_set_edid(). Because
+connector->detect_edid is still non-NULL from the previously unplugged
+monitor, intel_hdmi_set_edid() will hit this early return without calling
+drm_edid_connector_update(), retaining the unplugged monitor's stale
+connector->detect_edid while connector->base.edid_blob_ptr remains NULL.
+
+> +
+> +	drm_edid_free(connector->detect_edid);
+> +
+>  	/* Below we depend on display info having been updated */
+>  	drm_edid_connector_update(&connector->base, drm_edid);
+> =20
+> @@ -2638,10 +2650,10 @@ intel_hdmi_force(struct drm_connector *_connector)
+>  	if (!intel_display_driver_check_access(display))
+>  		return;
+> =20
+> -	intel_hdmi_unset_edid(&connector->base);
+> -
+> -	if (connector->base.status !=3D connector_status_connected)
+> +	if (connector->base.status !=3D connector_status_connected) {
+> +		intel_hdmi_unset_edid(&connector->base);
+>  		return;
+> +	}
+> =20
+>  	intel_hdmi_set_edid(&connector->base);
+>  }
+
+[Severity: Medium]
+Does skipping intel_hdmi_unset_edid() in intel_hdmi_force() when
+connector->base.status =3D=3D connector_status_connected leave stale
+intel_hdmi->dp_dual_mode state behind when a new EDID is read?
+
+Previously, intel_hdmi_force() called intel_hdmi_unset_edid(), which resets
+intel_hdmi->dp_dual_mode in addition to freeing connector->detect_edid:
+
+drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_unset_edid() {
+	...
+	intel_hdmi->dp_dual_mode.type =3D DRM_DP_DUAL_MODE_NONE;
+	intel_hdmi->dp_dual_mode.max_tmds_clock =3D 0;
+
+	drm_edid_free(connector->detect_edid);
+	connector->detect_edid =3D NULL;
+}
+
+When intel_hdmi_force() instead calls intel_hdmi_set_edid() directly and a
+new EDID is read, intel_hdmi_set_edid() frees connector->detect_edid and
+calls intel_hdmi_dp_dual_mode_detect(), which returns early without clearing
+hdmi->dp_dual_mode when type =3D=3D DRM_DP_DUAL_MODE_NONE:
+
+drivers/gpu/drm/i915/display/intel_hdmi.c:intel_hdmi_dp_dual_mode_detect() {
+	...
+	if (type =3D=3D DRM_DP_DUAL_MODE_NONE)
+		return;
+
+	hdmi->dp_dual_mode.type =3D type;
+	hdmi->dp_dual_mode.max_tmds_clock =3D
+		drm_dp_dual_mode_max_tmds_clock(display->drm, type, ddc);
+	...
+}
+
+If a DP++ adaptor was previously connected, or if an unforced connector had
+assumed DRM_DP_DUAL_MODE_TYPE1_DVI from VBT before being forced on via sysf=
+s,
+won't intel_hdmi->dp_dual_mode.type and intel_hdmi->dp_dual_mode.max_tmds_c=
+lock
+retain their old values, causing hdmi_port_clock_limit() to clamp the maxim=
+um
+TMDS clock and intel_dp_dual_mode_set_tmds_output() to send DP++ I2C writes
+to a native HDMI sink?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179284356403.165950=
+8.10439113185286055496@gmail.com?part=3D1
