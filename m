@@ -2,55 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D67606A31A
-	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 07:04:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDBC606A31A
+	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 07:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=puri.sm header.i=@puri.sm header.a=rsa-sha256 header.s=smtp2 header.b=imsWa+T3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=liEK3AT2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB72E10E762;
-	Sun, 25 Oct 2026 07:04:23 +0000 (UTC)
-X-Greylist: delayed 540 seconds by postgrey-1.36 at gabe;
- Sun, 25 Oct 2026 07:04:16 UTC
-Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC5DA10E762
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 07:04:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
- t=1792911314; bh=w71AOpYV4KpXNAjp5dKcP/PzJQbMMVW/4xVNb5ORZE4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=imsWa+T3NwRKj8oDtY5T56XNFve2MS+TUd02sJYs5aeVoSrQDQy4zZ8UUbXRqWOB9
- kmBbKYJcREts1A6Ub3FykMs/zZT4RbOkFz3rF4f9nhxEDKGZgG6JzwQf8rfVHwqjiV
- feInWMkQ6iXChh8Qi2JJLmsXORXxEo1ELGeco6LaXPdtM501mq/ED6rBJtQQ7/LbJB
- HLS9qTS387y90wDm4ti1z28sy72ZCOt+3XXeaTukVOzdnJVQFpgsFSkdLQBg9raZNm
- XyynV6FouwPU7AU8okfXdkmzdCr3uwHaTKxsJfqHcJZqWa9QikBh/3lO31Z2ExhLvR
- 6PvDQvTS62Unw==
-Received: from pliszka.localnet (83.24.9.32.ipv4.supernova.orange.pl
- [83.24.9.32]) by ms.puri.sm (Postfix) with ESMTPSA id 1F7131F6F8;
- Sat, 24 Oct 2026 23:55:13 -0700 (PDT)
-From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Guido =?UTF-8?B?R8O8bnRoZXI=?= <agx@sigxcpu.org>,
- Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Oliver F. Brown" <oliver.brown@oss.nxp.com>
-Subject: Re: [PATCH RESEND v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI
- horizontal sync timing
-Date: Sun, 25 Oct 2026 07:55:10 +0100
-Message-ID: <DCOT4twKSTiyzo8_8SFRJQ@puri.sm>
-In-Reply-To: <20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
-References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
- <20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E4D110E16D;
+	Sun, 25 Oct 2026 07:24:02 +0000 (UTC)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B70C10E16F
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 05:21:48 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-33bf40b0c8bso5559835eec.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 22:21:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792905707; x=1793510507; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=VrsetohNIasoINtJjADb3Jjeqh2EUCIwdnh6PcRK+gk=;
+ b=liEK3AT20QlHoj5LKUcRkaaOWcl3ehXZlecuDQ9TdGBgyvALsmyK905gPTpawikMkV
+ w4irGpTgkki9+Kx4fujHVLzoYokSlsZxDZNrqZcJLH77vXKq6we2ulvjWg+HHMisS1Gu
+ BR8nq313qmwo2mDGzGKt1iqHqfhDc9UbuFxWomw7C71AiAxFsQgmXeyx39dnrx7db+s6
+ dPu0DgHxRJ971z/TlnMwu6GUrfcE/mpse28oV8mORgbsEWxnq0zKMwwLVHCb6kp4YBx/
+ 9xwoX5y9fVQnA0B24Y4D303KssrkQCKy9odfljQdcZUSmCioZC2EAnP/wuL4+ZTyrd6C
+ 3wfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792905707; x=1793510507;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=VrsetohNIasoINtJjADb3Jjeqh2EUCIwdnh6PcRK+gk=;
+ b=qcreVq2jETdzzngn3caLTPirOD/gB8Jm376YysJKBHglWQdpDsKO41vBsQo+nMDdXU
+ LdGq9lvZjwKjELrgxfRTkLFxdVSSa1LAY05g2uBIRxQD9maWjVUDvIL/9aCSgdMjYUR4
+ nR7hO0QjsXQ+HUNzYHl74CkixaJYZ2OHlNW0yLKqeG4+vUgoxqsR4v+nsqADvqLQfglt
+ teqUYyb+Jvztx6a0wF0Lg4gMujX9WsGkk5OuH4YgpZbgVXDgtgW1rC1rwe7Qs6jBStnS
+ gRBEoKoKN01XopDUPetr1+Co5hRNWNUgAd0Fg4bxIwTY+CAlHpPjpgfV13a+b7hAECqf
+ 6aGA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzLwD0EYsE/N3luZ0MHeX1Nd6ZvvJKxrBnPcCjkQvn+VM6cmcIPbNgtlWtcHtKOhDHndjU7nE2Dj5A=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIbmNELG6LOfW26tlTOZCLTOOBUqFipahrkUD1MxHxihhWKwWKh
+ f9290aqZyl6XlsY0i80dW1xIvYI30cyTCCeBLi+9U9DkXdX8PsEcAzX/
+X-Gm-Gg: AYBFou0HyNLYITZmKunGVtNFVFtUCcEqqrBkeBM42ZmVtUz9+nfskWAihQdGyR9Y0Vk
+ hc+fk3bnxwhkbRjKJJ23rh+SXIAqI5osQE0zq9s/gcc8fjFm5tk3VehFT97Lw8NhuCt7QMc2FY+
+ JkXSpja8skbBSynSUGSYqJZGU+fTfq1YSIjWbT9jxg80fexBT/JAsEsXABMb/OHPemTwY3zc/sr
+ z5tvkWxxblWXQ01/l6UNO1xxYpII11qlC6E/Kqgg9QVdLuXCYfpTyGAwuTbWwBIp3jzpsUEMG9O
+ fZTUWnzc6Hf884Yd6DzSV6bgkQ1XB1cDZZA9uCNNb/diwDxCyJZO5341mGnoXzv7bTddcsMOYVZ
+ lO7cRS4fNP0qXjw5ISiOogzvRrBIXNceExI/b7shse9CrQz9fgjlB7VAp7GjOzBYYE3e9JOHXcT
+ E8Ye3P15USA7I1KjMRvy3Sm8wI3fet887PoXb0R3+SFACOHRwBBUEgpspU7D1L/+A/uBk+UBXWX
+ IBfgVhe/3emoJNV3m+DHCybXNCvYtCHm5ybA8ynTy2Il1DiqDC2i6ZJ
+X-Received: by 2002:a05:7300:cc14:b0:358:1f59:48c9 with SMTP id
+ 5a478bee46e88-369e84dcb4amr6835607eec.24.1792905707382; 
+ Sat, 24 Oct 2026 22:21:47 -0700 (PDT)
+Received: from myarch ([49.36.79.131]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-369e8ec864fsm15239138eec.24.2026.10.24.22.21.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 24 Oct 2026 22:21:46 -0700 (PDT)
+From: Aditya Nagar <dev.adityanagar@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Aditya Nagar <dev.adityanagar@gmail.com>
+Subject: [PATCH] staging: fbtft: remove unused argument from FBTFT_SPI_DRIVER()
+Date: Sun, 25 Oct 2026 10:51:36 +0530
+Message-ID: <20261025052136.389541-1-dev.adityanagar@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 25 Oct 2026 07:24:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,42 +83,66 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On =C5=9Broda, 14 pa=C5=BAdziernika 2026 09:44:45 czas =C5=9Brodkowoeuropej=
-ski standardowy=20
-Esben Haabendal wrote:
-> The NWL MIPI Host controller registers specifies the horizontal front
-> porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
-> not in pixel clocks).
->=20
-> The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
-> the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
-> Manual (rev. 3.1). The formula shown there does not take packet header si=
-ze
-> into account though.
->=20
-> The formula implemented here converts the hfp, hsa, and hbp to DSI packet
-> bytes and then subtracts the number of packet header bytes.
->=20
-> It is worth noting that these values only needs to match approximately,
-> according to the reference manual.
->=20
-> Based on commit in NXP vendor tree
-> commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI
-> horizontal sync timing")
->=20
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> Cc: Robert Chiras <robert.chiras@nxp.com>
-> Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
+The _compatible argument of FBTFT_SPI_DRIVER() is never used in the
+macro body. The device tree match table is created separately by
+FBTFT_DT_TABLE() in both callers, FBTFT_REGISTER_DRIVER() and
+FBTFT_REGISTER_SPI_DRIVER().
 
-This lets the Librem 5 screen be driven without additional timing hacks.
+Drop the argument and update both callers. No functional change.
 
-Tested-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+The argument has been unused since the macro was introduced in commit
+c222ea5d2f33 ("staging: fbtft: Deduplicate driver registration macros").
 
+Found with checkpatch.pl (MACRO_ARG_UNUSED). The change was prepared
+with the help of an AI coding assistant (Claude); I reviewed it and
+build-tested all fbtft drivers with W=1.
+
+Signed-off-by: Aditya Nagar <dev.adityanagar@gmail.com>
+---
+ drivers/staging/fbtft/fbtft.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
+index 40a7567df..62d5c39d7 100644
+--- a/drivers/staging/fbtft/fbtft.h
++++ b/drivers/staging/fbtft/fbtft.h
+@@ -279,7 +279,7 @@ static const struct of_device_id dt_ids[] = {					\
+ };										\
+ MODULE_DEVICE_TABLE(of, dt_ids);
+ 
+-#define FBTFT_SPI_DRIVER(_name, _compatible, _display, _spi_ids)		\
++#define FBTFT_SPI_DRIVER(_name, _display, _spi_ids)				\
+ 										\
+ static int fbtft_driver_probe_spi(struct spi_device *spi)			\
+ {										\
+@@ -319,7 +319,7 @@ static void fbtft_driver_remove_pdev(struct platform_device *pdev)	   \
+ 									   \
+ FBTFT_DT_TABLE(_compatible)						   \
+ 									   \
+-FBTFT_SPI_DRIVER(_name, _compatible, _display, NULL)			   \
++FBTFT_SPI_DRIVER(_name, _display, NULL)					   \
+ 									   \
+ static struct platform_driver fbtft_driver_platform_driver = {             \
+ 	.driver = {                                                        \
+@@ -363,7 +363,7 @@ static const struct spi_device_id spi_ids[] = {					\
+ };										\
+ MODULE_DEVICE_TABLE(spi, spi_ids);						\
+ 										\
+-FBTFT_SPI_DRIVER(_name, _comp_vend "," _comp_dev, _display, spi_ids)		\
++FBTFT_SPI_DRIVER(_name, _display, spi_ids)					\
+ 										\
+ module_spi_driver(fbtft_driver_spi_driver);
+ 
+
+base-commit: 4a177d5e688e8e82113f7a32d6f75f0bab9658c4
+-- 
+2.56.0
 
