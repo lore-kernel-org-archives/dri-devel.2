@@ -2,65 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6E1606A31A
-	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 04:03:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E96606A32C
+	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 04:03:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cklDkuek
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KU1EE+0S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB62E10E57B;
-	Sun, 25 Oct 2026 04:02:55 +0000 (UTC)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 495FC10E66A
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 04:02:49 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-3550c917fd3so3059831eec.0
- for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 21:02:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 501AA10E66A;
+	Sun, 25 Oct 2026 04:03:09 +0000 (UTC)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C55C410E66A
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 04:03:02 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-1517bda04a0so2120099c88.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 21:03:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792900968; x=1793505768; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792900982; x=1793505782; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=kIWFjWx6bY2aMzP1Dlox6FZiyYw6gduqI5+MEIlEj5E=;
- b=cklDkuek544JNBsdVjqKZNR+BcqNtDeXfljxkJfM7QB2XCy4arHVLqLdwWKDBr3sRd
- DWnPb958f7BxaL/AiNkUlJ7rYa58gJ4L8gQg53C7G+tm2dBXuiQp0H6UIMajCBeRbsi7
- 74N4KbFty5BZbaW19dR1JAcMrRf/CmtXUpzlR9AZnHs2kkuDu7TMBHYDxFwxEtQO8ajw
- Yz0ERBkPFVY2hWxzTU+5khvyI0DdZ1KLe+L5bMroTZjABrMEH6NpPkF0UvCGySQOoXTd
- 9JP19r6cywPv/VEZHmSf6IrZVKpJZ8jzkxFl3CCjgG2qn0rE+LcQvw/V7DCrq+fapXo7
- vVLw==
+ bh=788LSEJ/nQEllvwR1yiw9f56ICCRyDbD8OfNlkBC7CM=;
+ b=KU1EE+0SjSGiJTLTEa+mMCyBphzR/nYNvN6vIXumAm1Dhr+cwqmxUjyJv93+yoB2Vz
+ GvclgNW5HrdI+eJmeBBmwo1jBCmBBto1s2p1v+BBK+aW1nw1OmuWHLbZFmuxxEqC2Typ
+ VQFkS4Jo+m00c7yBixG6AQQEOzU0VjFc2TS3HkSqMOGh4xEim0DSKvXXRwhdQUWSoLhY
+ Jio3aBBW5p0RElGwRzEEQSio4LzgPE4NPyXLhu6vlsx038U3vgy+Inp4LayE20dvEAZh
+ Hp7NUJhkExndJcQzHkXYV+mJPJZyTo6Rs47r3uoHTsnIwYe+vEVNsC+GXfamfMIP1hyq
+ DhRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792900968; x=1793505768;
+ d=1e100.net; s=20260707; t=1792900982; x=1793505782;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=kIWFjWx6bY2aMzP1Dlox6FZiyYw6gduqI5+MEIlEj5E=;
- b=SAkmS1eIaTFkrDXl1nvAkceQHTZE+T4W/KvcYs8zwItfjmcWmy5jkr3N1BXrTcthOk
- j2Zlvy+9RrqRzTk70xWD9wS0129NdAYEKZ3kqitANhbIiIq7T8MB9kE/ex85jyzmdQcA
- dMHgmCBcA0xvVJUAPJk77Xgyn4zooO9/fFXUN8mDYhDZsen9wXuPHeqemHS0JPuVlZOQ
- B9+Z8h2zXWsVTUxIQyJ87RAkekDMyygFmEFjnP1comt89S5lQBY/geGn6Gtz/0ASjZuI
- k1n6/LGyVpSzPBQqb8Tg8A7tKUqWRMKsz4cvdW5/XQpHuIUgtFfjJpM9C393RkeUOm6E
- HOpw==
+ bh=788LSEJ/nQEllvwR1yiw9f56ICCRyDbD8OfNlkBC7CM=;
+ b=xEfXaL/3w5xOS/rATIrtw+wR77RXPnXH3ClaZhJZuHvzL01AytmMwqJstYocSOSa+A
+ NZxfPF7VIAjqvhdabh0UsDvPj9wMskFnNN/yssMQhuKOEDFonP1KGZdCm4uwVjfSBOb8
+ SPyl12qYw4KGbBZjXwG0EOn/kznbmkHBXVrKHK253PlQYBieEs1kJopEQK0uqCAin+eV
+ uKdBd7UUgLZAFJX9bk6nvsCwFCAAMkiMWjTbhziv5eCBamW6Xh6bQ/px80/ipBnWvbDI
+ QG0gRGDPq3uV2ym8lOrE9yWPPFfcjvOBLbMR61uEdBe3/nw7JrAEGmSRrYiPBHAL2j3Q
+ Vrxw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxnr76AHT4odHUZ5Vfwj04S9tfKDsshqbvz3y7NR4w7jfqT19Lo8nP7/mRJk7T8Bc7Lk88mISfq8ys=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKZnLIwYPM+XgPkKPnhevwxAbjsUbxin9wUbCUVhODD84Tm8idp
- 7B/uOo2I9/3eIfYJAZoEn27rb+pf8Fy19faG9adWK+VSU12yLMCdhY0=
-X-Gm-Gg: AYBFou3E+znhEVJDQ99QyrT0nxKeSaa4yalrYV+RUvNDy4aIA52SlcKMK4zt9A/eM+f
- FXmuYdrKF6xTnVD4QStMKi92KddAXVJ4tWKs5qqwBlFYO+srz7iAyhnnrGhh1nUTdRZRynuSGG7
- 0uZZmQB8tTKrnyA66zq7evWESvO6kNNiaPbIT4QdeqHX8emDCZILW7OLd+pAZoSwDlH+0ozVVuK
- 766nsZOxnbyz/MUEyHxiUwks7JGi0EuQef/KFC+Du8fQfAaeQHZNASNcltHm+9bkYS46XRwxmsc
- 9ggin7qA0g/vdqVo4TaIGAFGAvfMo1Ex+QyhqX1WNEyz1CxLibx51bJou46JpxbKk2dgCegx8Iz
- NSwxeriZFpFZQRTcYKYETEz4C0Xh5RDI10SgQldp3IZprQDCTWPrjTvyq+x+0hLGS+FlqjAFE5h
- YoXX4/zJMVkw6s7Y3l2cM0qdAAbZ7J5t03t+nAyl/7LZ44uz0lqUX3elgIACWWZ8K9rilH4TW4q
- 02UF+IjmR+BH4+v5Y6K5STQR3sqMBjUjeMTXZE505yyTMZR/pM2qnhhXpeeBEDakCpp3O7Z9a6Z
- 20dlNZp82LOkuRX8
-X-Received: by 2002:a05:701a:ca0b:b0:17d:7b45:f91f with SMTP id
- a92af1059eb24-1993580fcd2mr5442774c88.32.1792900968114; 
- Sat, 24 Oct 2026 21:02:48 -0700 (PDT)
+ AKwUvBxav12Cw5I6Pw1fsJc4Q0D442c/9hTwi1MfypUhjQjN7QZw9mF0RN4WU0JnSTnW6eVdR3sLCOJdErg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLkRN0+eErxAca90K11V4t545qRoaQ6oXldIbefqMxv3cX//jXT
+ U1uNxthldD+XfgW6icCFzA8N5VuHOSd34XzxAj5WryrU/1lMewTQp6w=
+X-Gm-Gg: AYBFou1TYamLXjFUYmj5jRDtoc9QuxNBnth70fkonew6fZrnScLUD7Z65kug2zVKSq+
+ TRvPXNhPRzcWu7cMRxfk4xpGlDtvtubXKQaDcylvYVdlRqwKf42Dgx56Krvbmwjkz0N+m3f6X7P
+ AVBNV//zpa6Z7OGYw0rlbueXoFBvPawvB4XB7FJPR363i1T0mbokbheV2hpihrmAl2ygCVLkh/H
+ YJV9CSjcLxotHPid0NyIAdE1BSfCqFePXO4P3IxGg99rDh414W+VoBJEDvaQQ92qHXeo0Zpemyy
+ k3C6GF63ZZkM9+mY2Y1F78t4fuvWQhNEVWyMzyiuVONLjr5op+9nja9l4VFacg9a0+v0EBz5ubm
+ Db4EoQo2bFsA52BQWl+i7fJth+Y28kEi3QOuK7CnIFKn27UX9C9TGu9CpKGJQvwDy3bLZCdRbZS
+ 4QeIE7Qyq1reWta04VTPHDdPSxCg4B7OS2rWEAgX6tWsFFsFflEGG8dLWqbj4S24QhZaayqfccP
+ MgaZ5tqzDqozZ5FDl7yBEAx2HyHDc3f4qCRcFye9FzDC+iAx23Vdxa7m4SacEB0fKJgWOEX8Wtt
+ TpgIdMboE8l9tXo=
+X-Received: by 2002:a05:701a:ca05:b0:14c:1f57:3e86 with SMTP id
+ a92af1059eb24-1993f3f1d75mr5747943c88.47.1792900981958; 
+ Sat, 24 Oct 2026 21:03:01 -0700 (PDT)
 Received: from at-Standard-PC-Q35-ICH9-2009 ([106.221.76.40])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-198a32ff780sm11635283c88.22.2026.10.24.21.02.39
+ a92af1059eb24-198a32ff780sm11635283c88.22.2026.10.24.21.02.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 24 Oct 2026 21:02:47 -0700 (PDT)
+ Sat, 24 Oct 2026 21:03:01 -0700 (PDT)
 From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 To: 
 Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
@@ -81,9 +80,9 @@ Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
  platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH 06/13] platform/apple-gmux: Add parameter to configure boot gpu
-Date: Sat, 24 Oct 2026 23:59:42 -0400
-Message-ID: <20261025040046.1602-7-atharvatiwarilinuxdev@gmail.com>
+Subject: [PATCH 07/13] platform/apple-gmux: Add check to detect FSS
+Date: Sat, 24 Oct 2026 23:59:43 -0400
+Message-ID: <20261025040046.1602-8-atharvatiwarilinuxdev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
 References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
@@ -109,43 +108,43 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Currently on Indexed and MMIO systems, the system can't change
-GPU's on runtime, as the display is not trained on the secondary
-GPU, to combat this, we add a module parameter to configure the boot
-GPU, so users can change to iGPU or dGPU via reboot.
+On MMIO macs, there is feature called FSS, we assume its
+a display syncing technology between internal links
+(for example 5K iMacs).
+
+We detect it and then warn the user about it, if its broken/unavailable.
 
 Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 ---
- drivers/platform/x86/apple-gmux.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/platform/x86/apple-gmux.c | 2 ++
+ include/linux/apple-gmux.h        | 1 +
+ 2 files changed, 3 insertions(+)
 
 diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index 637b3b216..6a9580f27 100644
+index 6a9580f27..dda281f2f 100644
 --- a/drivers/platform/x86/apple-gmux.c
 +++ b/drivers/platform/x86/apple-gmux.c
-@@ -109,6 +109,10 @@ struct apple_gmux_config {
- 	char *name;
- };
+@@ -1224,6 +1224,8 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 	else if (boot_gpu == 1)
+ 		gmux_switchto(VGA_SWITCHEROO_DIS);
  
-+static int boot_gpu = -1;
-+module_param(boot_gpu, int, 0);
-+MODULE_PARM_DESC(boot_gpu, "Configure the boot gpu (-1 = auto, 0 = iGPU, 1 = dGPU)");
-+
- #define GMUX_INTERRUPT_ENABLE		0xff
- #define GMUX_INTERRUPT_DISABLE		0x00
- 
-@@ -1215,6 +1219,11 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 	gmux_enable_interrupts(gmux_data, 1);
- 	gmux_read_switch_state(gmux_data);
- 
-+	if (boot_gpu == 0)
-+		gmux_switchto(VGA_SWITCHEROO_IGD);
-+	else if (boot_gpu == 1)
-+		gmux_switchto(VGA_SWITCHEROO_DIS);
-+
++	if (type == APPLE_GMUX_TYPE_MMIO && gmux_read8(gmux_data, GMUX_PORT_FSS) & 1)
++		pr_warn("FSS Failure, display tearing expected\n");
  	/*
  	 * Retina MacBook Pros cannot switch the panel's AUX separately
  	 * and need eDP pre-calibration. They are distinguishable from
+diff --git a/include/linux/apple-gmux.h b/include/linux/apple-gmux.h
+index 206d97ffd..a4fa84500 100644
+--- a/include/linux/apple-gmux.h
++++ b/include/linux/apple-gmux.h
+@@ -22,6 +22,7 @@
+ #define GMUX_PORT_VERSION_RELEASE	0x06
+ #define GMUX_PORT_SWITCH_DISPLAY	0x10
+ #define GMUX_PORT_SWITCH_GET_DISPLAY	0x11
++#define GMUX_PORT_FSS			0x12
+ #define GMUX_PORT_INTERRUPT_ENABLE	0x14
+ #define GMUX_PORT_INTERRUPT_STATUS	0x16
+ #define GMUX_PORT_SWITCH_DDC		0x28
 -- 
 2.55.0
 
