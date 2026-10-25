@@ -2,88 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DD4606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B62B606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:36:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=NJQboMZ8
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U8HFpFjY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9079510EC4C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 905CF10EC47;
 	Mon, 26 Oct 2026 08:36:44 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6E7710E865
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 08:58:19 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-48df0fa43c5so1251427f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 01:58:19 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8786510E0C6
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 12:53:33 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4a2084d62cdso17599975e9.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 05:53:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792918698; x=1793523498;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=/BvMQkzk3cbMAzfEoRy8m31ymEv5Jtrkq2HGUm904Yk=;
- b=NJQboMZ814l7hGj2fmfJwwO/FA0Hq8G+HF7JJ/Ccwq4XYhOwPEnqiEtMFnkjelLUGH
- k+W03hP62Hz1UVnV+6RnIPOACf+Jp4LuTNfdwYMbFHRbUL6Zm/qBvhIaEbT6M33P80y/
- J8YVAEK1qBd5J3POenPGJktZW7llkIxuVCgyK1ewuqGLRDP4hcZSSj269+u5uPTdZ27g
- 1sqAwqmt0kfCsvA8jU3iJnE+KrXC7GGCfJMY7jUwCLL4QuJL9e1hA4cKNpf9B/NULmwX
- 60MRhsD+Vdh2/FbbN0KXUAtJY1ks0VKhFhqgf1W3FDqhE3EeoDQ+AbjXGIPF5Nt8FUkz
- D0tw==
+ d=gmail.com; s=20251104; t=1792932812; x=1793537612; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=AMW1/8fX8Atf6UqsvjpOywQP22hAnwECitMY445RWYA=;
+ b=U8HFpFjYcae/BqN7CQvuuh2jFpetrbiNWHJ5PMTGlrsYmgQKDA11oSBELmMZPWFNRZ
+ 7snGEfr1pIOGMNvuZHSs/5PAmfUjAaAbS7vOCrob9OPQknN9vFKeM/FegbLxs+VTUnqt
+ f6dStfhdyzQwaRfLtU19vKcbEbg5fpxIfcNwUk/chwdLQ8c8nILcuqWPiiY0ZBgrXqeL
+ wAO6QordkGZZ+tDglSc3nKF4zNs/jHhf1+GC6nH1MwhZOqMtA5maEQITYqpA62ZSZ3Ik
+ qtcqtWSCJ0q3UVMIqofR/O6y83eAC0GdjFxykpbWsndFBZtQ31yHGrNTUlJSWcNqZE/D
+ Bf1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792918698; x=1793523498;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=/BvMQkzk3cbMAzfEoRy8m31ymEv5Jtrkq2HGUm904Yk=;
- b=b3cagOcjSYkwVSq4RsSuvD2m7J0ZYyMKJsGYfmdFs2/VJd4p30JsXELut5GJHBl46y
- Kxnp4IMbJnsQHfS6zwTcexKJri3SnazorvmN2ahc16kjNSdZUQk8VU3MQluErrzDtwTb
- 0udtwVzOXqrmBd8uyECwtkvnXfekqlX9vPLi88lVvn+tY5NN6WxD9hHN5yWdB6W2dg/I
- qcIEoU3MFlL0w7LuhBlxjPo4Bb9oNwxZZXjMCoKQmxSTMvBMY6vHr/eMO+JlCHC8WkY6
- E2dQJTBOLd4wKbXBNuW2nSM2r0Ix/KddpUhFDeUjjQzZOKbR3Df8W0bxyuQ8gHkKDWee
- DYXw==
+ d=1e100.net; s=20260707; t=1792932812; x=1793537612;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=AMW1/8fX8Atf6UqsvjpOywQP22hAnwECitMY445RWYA=;
+ b=USp8rKCKZA7WMbBugA0U3V6UJ2XZSFERoxkaf0zKrxKb3BFzBXWmUOui4g18XV0Gxt
+ 53IgUpbIoAwm75wB0Q6zxKUzOeQnoIaqTbNWzflDVt9kEpg/+0uk9G2NhaYNUoRMYbnv
+ SeOjbVmONlAr94oPtxB21Aktspgku3zdgLCbjZTjU1GgScZnowIVT2xGHMUCsR09UdX0
+ b3MPXxDos6Xx7lHv3vJWqy37mRGiMFIhsJ1XuotiJRLpMSn7AVtXwedJ7S9dMmdZOrLq
+ vl95pXT+UmgbYa40T2qQo699/ymtv2SUudNBq4hdT+f9p1x/PQKuPQaznzleTlUozh6l
+ 33bg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxU3XEUojOF0PWsvphCqh3jyOVzIrjEwDSoK9vXhqA+HQTJBnHLFNbsB5TuQqKNa5m4foPQ6ZJjo78=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJa80xOa6r0kn5Mf2cBX7Lem8PPhLKE2WRkNEr8SdrYDNiG0NfC
- zKTWNEP3XoXZ761SG2vmIB24vsVowwbh9KvJDSdS74cNkvxbnxMyBZ+kE/FA8AhoZNQ=
-X-Gm-Gg: AYBFou23rk7dyC0eh8EkR25FEUjueXFB96mSqZUogi48wVN0uRrJMv6BoGfExqmdVWS
- EYtNhabE/cckhnrQCJyvWNriFqVVlVbuw2Q7j9m1BIyjBiDH/cPvS0jq+HzIkETn/oZeLSyX956
- 6p1dKt9amIBpg2azXnDm9jPua71B5zrS1RCs+L9uFrX7Tm9yiJ3iIDowNLLeLudLwzYVO+Sr+5c
- DejIRwrLUYaufg5LEZPiK/6GD4yLUEH9YHnGJvTC/eBwNR2/JO9rSJqiLcWqNl/i2H8Nhf+asss
- vhzlCLTiQR0ABRRKucsKzKesRZ+R9g3/2CVRB2uW8hqVdLM6d+oDzaiAlOZ3r4JKOWr6N4wRDbF
- LEFkYzmTxljGv4/DsLXTEHQDps2MD81WrR2XS4Bdh9vVjEM6F193lkncs5b3JrmxBfRf3GN+3BO
- 77unmCQuTM0qPxjUW2+HEGjbHyFs0xAwg07GQc+d0cBXsz/5APdCWySC7aGPDRzgkdfj0q476Vh
- 11b11ZIpKc1JBne5chrc9DJKioMRsUt8kjdhgLxfYZUxNci9wAWSgI4BuUpAcTPaPoCnuEolM1Q
- HAZfOJFMsssg/EENfgxbFaz+De+InGgZxJx6kK7CNDnJfrKxtyH8mzjyFN6nDAFOWln55oCOVVH
- GYNjLzIMtx9D28QRoOkU=
-X-Received: by 2002:a05:6000:1626:b0:48e:4ad2:32e0 with SMTP id
- ffacd0b85a97d-48e4ad232f4mr1415110f8f.29.1792918697894; 
- Sun, 25 Oct 2026 01:58:17 -0700 (PDT)
-Received: from localhost.localdomain
- (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr.
- [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3ebc3cfasm9094542f8f.17.2026.10.25.01.58.17
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 25 Oct 2026 01:58:17 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- "H . Nikolaus Schaller" <hns@goldelico.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH 0/5] drm/ingenic: Add the X1600 LCD controller and the HiBy R1
- panel
-Date: Sun, 25 Oct 2026 09:58:11 +0100
-Message-ID: <20261025085816.60405-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
+ AKwUvBzOj/azc4YdFpZtiD2aIXKd0Klr8Q3MoIAH2rDwJSvqk6SGAZgG2GYzJFTGskq+vGTnINuD/kk5Fy8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI9YDrHTDrsJYl48D250v41NDljo/4HpMWcStmqSfUylCkzptKE
+ dqHlRCL9calgjDS/HJM/gRzRmF4xjiDulopvvSO6/EX2dxMYznkumn3R
+X-Gm-Gg: AYBFou2+/GkHzyQKOoHEgI3GIFeIbYI2AEe5vCgdL77rFUk0nJAYMq6BloEuyEuJIz9
+ ZB8FLph0xsWZ4+sSRaEFju/mO7XGcoP3bJ5LLMWVaXGy1VlZtHpt57hcShrBOgEbCMWW2uVcZxp
+ 19t4hcnbKftV8nJWteLk1Jlsan836pKm7cO820pbbAfFr8MY/2F7sD091YJJfE6zLIueWJ9ZRqB
+ ZRKfxfGzvBliGRm3+OwR5M8/pFjzpTbHBPrbNImqE4dvXU2bZB4hEa3UJkIYWDks8mw56psaN1R
+ 2wB5w59Xlzn+8mqggLFn1LKnT82yq11ZVo5Nn+y/v+GG7w5DlD6KOTGNAl8sx10BMEgmxm6jNql
+ +VOwm7nNtSPW8W1LhnED2LOrQKcu6qnUbtw8PwaRNf+RWQPiTmmQfT+VSt4CbeakEC0oehXVhq3
+ UkNat5tIoCqsaQ94MMuz/widr/PEJrCXO+6rL44r0ZBsZQsh4qod2PZ5rHlC8+x6w7mbyJ9M4QN
+ 6R6FmFk3F7cU6+/cgr4kkpTk7GvdmzVpXcdrmN0KogoTXyOjsaLYlB5MFdNhaSJR8lh08NjhS9q
+ rL3mQj8XWjugaiZBqst4/3i5Pd9vHZhnvSu5sVjpNE6SU/2zQ5us8ltuckwfNP9r4G5e
+X-Received: by 2002:a05:600c:870b:b0:4a1:777b:8a12 with SMTP id
+ 5b1f17b1804b1-4a35ac95981mr70164175e9.14.1792932811603; 
+ Sun, 25 Oct 2026 05:53:31 -0700 (PDT)
+Received: from hermes-agent.lan (228.red-80-29-82.staticip.rima-tde.net.
+ [80.29.82.228]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e3ece14a1sm10240448f8f.57.2026.10.25.05.53.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 25 Oct 2026 05:53:30 -0700 (PDT)
+From: =?UTF-8?q?Ram=C3=B3n=20Jes=C3=BAs=20Miranda?=
+ <ramonjesusmiranda@gmail.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/msm/dpu: keep vblank enabled when entering self
+ refresh
+Date: Sun, 25 Oct 2026 12:53:27 +0000
+Message-ID: <20261025125327.208328-1-ramonjesusmiranda@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <9ee7225b-588b-4253-b766-5e6ee6dffb04@oss.qualcomm.com>
+References: <9ee7225b-588b-4253-b766-5e6ee6dffb04@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:36:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,65 +96,26 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The display controller of the Ingenic X1600 is not the one ingenic-drm
-drives: it fetches frames through descriptors and keeps its interface and
-timings in register blocks of their own. It is the X2000's controller
-without the composer. This series adds a binding and a driver for it,
-then the panel of the HiBy R1, an X1600 audio player: 480x800 parallel
-RGB, set up over a 3-wire SPI bus.
+On 10/19/26 3:27 PM, Konrad Dybcio wrote:
+> FWIW this is not enough to get self-refresh to work on the Glymur
+> Zenbook A16 and the 8280-based x13s, the screen stays black if
+> there's no updates (it worked on the latter in the past). Dmitry promised
+> to take a look one day.
 
-The driver covers what the R1 uses and what could be tested: parallel RGB
-panels on a 24-bit bus and one full-screen RGB565 plane. The composer,
-smart panels and other pixel formats are left out.
+Thanks. For the record, I had already withdrawn this patch after the
+sashiko-bot review (the self refresh exit path, and the vblank worker
+touching DPU registers after the last runtime PM reference is gone). It
+was never meant to make self refresh work, only to avoid the atomic
+helper warning about vblank being disabled on a self refresh "disable".
 
-Two things come from the vendor kernel rather than the manual. A flip
-also writes SRD_CHAIN_START, which the manual doesn't describe for a
-running controller; flips without it were not tried. The panel's set-up
-sequence is the vendor's too: HiBy calls the panel LG35583, its maker and
-controller are unknown, hence the hiby prefix.
+I have no fix for the black screen, but I am happy to test whatever
+Dmitry comes up with on the Surface Pro 11 (x1e80100, OLED eDP panel).
 
-Tested on a HiBy R1: the fbdev console and a player drawing through
-fbdev, blanking and unblanking, 60 page flips in 0.97 s at about 61 Hz,
-and the colour order (RGB order swaps red and blue on this panel).
-
-The X1600 has no device tree upstream yet; its support is being posted
-one subsystem at a time. The R1's backlight uses the X1600 PWM driver
-posted separately:
-https://lore.kernel.org/r/20261025084643.93167-1-olivier@mgcrea.io
-
-Olivier Louvignes (5):
-  dt-bindings: vendor-prefixes: Add HiBy
-  dt-bindings: display: Add the Ingenic X1600 LCD controller
-  drm/ingenic: Add a driver for the X1600 LCD controller
-  dt-bindings: display: panel: Add the HiBy LG35583
-  drm/panel: Add the HiBy LG35583
-
- .../bindings/display/ingenic,x1600-lcd.yaml   |  70 ++
- .../bindings/display/panel/hiby,lg35583.yaml  |  71 ++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |  12 +
- drivers/gpu/drm/Makefile                      |   1 +
- drivers/gpu/drm/ingenic/Kconfig               |  22 +
- drivers/gpu/drm/ingenic/Makefile              |   1 +
- drivers/gpu/drm/ingenic/ingenic-x1600-drm.c   | 694 ++++++++++++++++++
- drivers/gpu/drm/panel/Kconfig                 |  10 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-hiby-lg35583.c    | 342 +++++++++
- 11 files changed, 1226 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
- create mode 100644 Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
- create mode 100644 drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
- create mode 100644 drivers/gpu/drm/panel/panel-hiby-lg35583.c
-
-
-base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
--- 
-2.39.5
-
+Ramón
