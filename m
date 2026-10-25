@@ -2,103 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4AC606A31E
-	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 22:30:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45905606A31F
+	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 22:34:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=jSaUz0/U
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4OrdcG9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7AF610E0F3;
-	Sun, 25 Oct 2026 22:30:22 +0000 (UTC)
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E4B410E0F3
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 22:30:16 +0000 (UTC)
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
- [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DABF10E25E;
+	Sun, 25 Oct 2026 22:34:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE98510E25E
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 22:34:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E575D600AA;
+ Sun, 25 Oct 2026 22:34:33 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1792967673;
+ b=SHewheyRtZfuxriB3dDwwINejOql8VII8VlA1cyANGzovt9mkSUIVIbKH6pRtF7vS+gB
+ R76pP8a1fpPfETi7QiHO7c6Hxrh53ZdD+zh/mcrt1YJtDtpM6IbqmlPH6lQ9CIcvhlXKy
+ 72qrSyBhFdAvgSkk7f4EOwo0um70cKBV5ekC+s4AAVWi+j6aoatdjmXPQ5W68snVqfeLQ
+ KxHcglmkabOy9iH1hFaDSqrl3F5nqROYFs6fYhgTkIVR4s8/yY7MjtgRh+kDcPsP1VSYD
+ WtJ+3XROU4ysg0tJXdcuWe/ULgtWD0WXP2taFZyDSvCB2f/hVTqQXsULpLUAxTsdqHQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1792967673;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=iWpP69MVDriPAkNSdmiVW0K+EO0TbrPe1mDsjukcdE0=;
+ b=bd/qHYRn0WaeRW3dSujmGUr7D5yrkoLsWCBP25a12GdwC1yCteS9zUcTJeZ2JHT88lSK
+ 9OnPOPeN7AMHs09HXYFzT5TDduQaunLbVFnz621D6tewWbwT66ZNFytPNjxWflnwXerk5
+ VEhKdYJPf4rLcyexIUZdyqqHggLyUbESuQ8ANnOkKZmhLru/hpXJnB0vbBW5E8l/jjjxL
+ zxEGlTsr0tKaMYA/WL3w5L6ZJXfr1Kx5Mwu7X5a7zwP9LaDB5Zk1cjXyPzhq9cFnkVj+Y
+ vAR53mNjGyM5ioQgdBsJ8lcvLahBwyOta7z5LoHfltxx7vkq8qOI/X2SrBgzLm70Qyw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 474AF5340E03;
- Sun, 25 Oct 2026 23:30:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1792967413;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fDWb9AesW86OHa5AcGp256kq5+uqGSj+V/E/pkUOy8s=;
- b=jSaUz0/UbpFaLbdYZvXZGIce7Of4cPVH9SQLD8tEu0VLZ9aizfdZq0a8BERLIJC4CEdXNP
- qVWT565XZ3J22Ks1PNf4uDJai9yNUuQa4mHDJza4TovmCSBn0Aa2Ivp0aOYu/9ffm6h4XE
- Cxv5Z/C34yTY/zKFLhKXCQyLj9SMD10=
-Message-ID: <36df49c8-cb1c-4a4e-8c7c-47825fbf326f@ixit.cz>
-Date: Sun, 25 Oct 2026 23:30:13 +0100
+ by smtp.kernel.org (Postfix) with ESMTPS id 1C3C01F01829;
+ Sun, 25 Oct 2026 22:34:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792967673;
+ bh=iWpP69MVDriPAkNSdmiVW0K+EO0TbrPe1mDsjukcdE0=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=P4OrdcG9c7bSJQ0PjRt2HrN8fB22+bR2e1rTvF86A6tt5wqT6RhpPd76AVwnn6/Z8
+ 0IJFjbIUng2QNhvU7U2SU+pLKEVVHJwzHl1zrXRDVWy6QZHRYpCcu/6prZZDI+xgBJ
+ XnTD029oqawBKL+4d6t2VBcyis01bASEKtf+u5c32YfPBzguvNb5vjW2TVKzwL6fFh
+ KOH5E78lRfK8X6kXh1bD/SGZFexPwv2Lr35TN2vQO0rBty3640JZZjtWSXfyL1jjBD
+ OJfM2Ra9NtJEoHoP3rEOi/qJqqbJUru1sdlGnHGryZtTwTHnEwpAfJ1tFg26y9Ssa0
+ 8HzXzLA9rFFsQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 8B0FE44AFA;
+ Sun, 25 Oct 2026 22:34:32 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Sun, 25 Oct 2026 17:34:30 -0500
+Subject: [PATCH v4 2/2] drm/tegra: Support YVU formats
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/11] arm64: dts: qcom: sdm845-google: Move panel pins
- into common
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dzmitry Sankouski <dsankouski@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
- <20260924-crosshatch-panel-v2-10-08d5c7bf72fc@ixit.cz>
- <667fe242-7779-4a8b-aa01-19277ff8d6d1@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <667fe242-7779-4a8b-aa01-19277ff8d6d1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261025-tegra-drm-yvu420-v4-2-30b3bb0d0752@gmail.com>
+References: <20261025-tegra-drm-yvu420-v4-0-30b3bb0d0752@gmail.com>
+In-Reply-To: <20261025-tegra-drm-yvu420-v4-0-30b3bb0d0752@gmail.com>
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792967672; l=2852;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=8hGc03SYXizHw33ULcwZEIrKQWKQjAVy5h5uRAdlKuo=;
+ b=1D6RRONTaL2oH0hlIrVl+UBp4c9XG3985eezteFQ4tHkYjh2vAO8O+zne7rWV0vOR/nGd+92O
+ OZmtRuge0pXDhOs68QBNrmG3SUErtE6s9OoSfiaNvR7UCSmW34tooOg
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,39 +92,118 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: webgeek1234@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-17.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 30/09/2026 12:39, Konrad Dybcio wrote:
-> On 9/24/26 4:01 PM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> Both devices share the pinctrl configuration.
->>
->> Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
-> 
-> no real reason for this to be separate but okay..
+From: Aaron Kling <webgeek1234@gmail.com>
 
-Thanks for the review. Au contraire, since the series didn't got into 7.4 which 
-sentence me for maintaining it in our tree, I sent this one separately here:
+YVU420 is used by AOSP for video playback among other things. YVU422 and
+YVU444 can be trivially supported in the same manner, so add them where
+supported as well.
 
-https://lore.kernel.org/linux-arm-msm/20261025-pixel-panel-pins-fix-v1-1-7cde6f7ca861@ixit.cz
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ drivers/gpu/drm/tegra/dc.c    |  7 +++++++
+ drivers/gpu/drm/tegra/hub.c   |  1 +
+ drivers/gpu/drm/tegra/plane.c | 24 ++++++++++++++++++++++++
+ 3 files changed, 32 insertions(+)
 
-moving bits within the DT is causing too much pain during the rebases.
-Hopefully one day will sdm845-next will have 0 patches, but it's not today.
+diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+index 39c2e920d76a6..be913f2609077 100644
+--- a/drivers/gpu/drm/tegra/dc.c
++++ b/drivers/gpu/drm/tegra/dc.c
+@@ -1282,6 +1282,8 @@ static const u32 tegra20_overlay_formats[] = {
+ 	DRM_FORMAT_YUYV,
+ 	DRM_FORMAT_YUV420,
+ 	DRM_FORMAT_YUV422,
++	DRM_FORMAT_YVU420,
++	DRM_FORMAT_YVU422,
+ };
+ 
+ static const u32 tegra114_overlay_formats[] = {
+@@ -1309,6 +1311,8 @@ static const u32 tegra114_overlay_formats[] = {
+ 	DRM_FORMAT_YUYV,
+ 	DRM_FORMAT_YUV420,
+ 	DRM_FORMAT_YUV422,
++	DRM_FORMAT_YVU420,
++	DRM_FORMAT_YVU422,
+ 	/* semi-planar formats */
+ 	DRM_FORMAT_NV12,
+ 	DRM_FORMAT_NV21,
+@@ -1349,6 +1353,9 @@ static const u32 tegra124_overlay_formats[] = {
+ 	DRM_FORMAT_YUV420, /* YU12 */
+ 	DRM_FORMAT_YUV422, /* YU16 */
+ 	DRM_FORMAT_YUV444, /* YU24 */
++	DRM_FORMAT_YVU420, /* YV12 */
++	DRM_FORMAT_YVU422, /* YV16 */
++	DRM_FORMAT_YVU444, /* YV24 */
+ 	/* semi-planar formats */
+ 	DRM_FORMAT_NV12,
+ 	DRM_FORMAT_NV21,
+diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
+index 5a86f8260f136..46756c749e674 100644
+--- a/drivers/gpu/drm/tegra/hub.c
++++ b/drivers/gpu/drm/tegra/hub.c
+@@ -51,6 +51,7 @@ static const u32 tegra_shared_plane_formats[] = {
+ 	DRM_FORMAT_YUYV,
+ 	DRM_FORMAT_YUV420,
+ 	DRM_FORMAT_YUV422,
++	DRM_FORMAT_YVU420,
+ };
+ 
+ static const u64 tegra_shared_plane_modifiers[] = {
+diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plane.c
+index 757bc552809fe..79ef5fc1b3678 100644
+--- a/drivers/gpu/drm/tegra/plane.c
++++ b/drivers/gpu/drm/tegra/plane.c
+@@ -433,14 +433,38 @@ int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_uv)
+ 		*format = WIN_COLOR_DEPTH_YCbCr420P;
+ 		break;
+ 
++	case DRM_FORMAT_YVU420:
++		if (!swap_uv)
++			return -EINVAL;
++
++		*format = WIN_COLOR_DEPTH_YCbCr420P;
++		*swap_uv = true;
++		break;
++
+ 	case DRM_FORMAT_YUV422:
+ 		*format = WIN_COLOR_DEPTH_YCbCr422P;
+ 		break;
+ 
++	case DRM_FORMAT_YVU422:
++		if (!swap_uv)
++			return -EINVAL;
++
++		*format = WIN_COLOR_DEPTH_YCbCr422P;
++		*swap_uv = true;
++		break;
++
+ 	case DRM_FORMAT_YUV444:
+ 		*format = WIN_COLOR_DEPTH_YCbCr444P;
+ 		break;
+ 
++	case DRM_FORMAT_YVU444:
++		if (!swap_uv)
++			return -EINVAL;
++
++		*format = WIN_COLOR_DEPTH_YCbCr444P;
++		*swap_uv = true;
++		break;
++
+ 	case DRM_FORMAT_NV12:
+ 		*format = WIN_COLOR_DEPTH_YCbCr420SP;
+ 		break;
 
-David
+-- 
+2.56.0
 
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Konrad
 
