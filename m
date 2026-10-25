@@ -2,41 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF02606A31A
-	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 11:40:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8016D606A31A
+	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 11:40:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K6sH20VH
+	dkim=pass (2048-bit key, unprotected) header.d=emersion.fr header.i=@emersion.fr header.a=rsa-sha256 header.s=protonmail2 header.b=CONgnt9n
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0267410E1BA;
-	Sun, 25 Oct 2026 11:39:58 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84ACD10E115;
- Sun, 25 Oct 2026 11:39:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 406A4434D3;
- Sun, 25 Oct 2026 11:39:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36D41F01825;
- Sun, 25 Oct 2026 11:39:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792928391;
- bh=cMWyryFwg6Mdq0UuaTwmq0qDSTsWM53sZ6Yt96arTV8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K6sH20VHfLQQqnp2kdYqaxi57M/OhY1VuOmNeK1fkn7zNh/axiFlp/2aQMZsJf8sC
- bqcZNPF8XYXL7iJRfKzJKzHEjAEoU7ba/BXMQTWlvYyGDppWNThgKhzIGPWQyVKsy3
- Gv9zLZeNrhxM74/0oE/B9GmUD26Javdajs+Mn/YuNfOAuWJ8f1wSXtnj1Xg4rPCG4o
- ZCf2iXqtqWjPIk7CMh2hwod1EyodaH/yPZ3DOXtL3ri7LyRkEqXIGBKMAUAX1ciZL2
- //EWNEPOqBXtEaBZnWurW3oKHgaU4P1tuATKz/bcSbnJycyfZl4H/bu8gJ2dC0AUeJ
- yHkgk1QQqDjOQ==
-Message-ID: <sashiko-outbox-184196@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/dp: Remove redundant link capabilities reset
-To: "George Karagounis" <taterraster@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261025113200.25097-1-mail@taterr.org>
-References: <20261025113200.25097-1-mail@taterr.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D39FE10E23A;
+	Sun, 25 Oct 2026 11:40:06 +0000 (UTC)
+Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
+ [109.224.244.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 974F810E23A
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 11:40:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1792928394; x=1793187594;
+ bh=6eslfCC3ABP4Z1XjVwXxbHKPfc8IzpMrU43LTb75dzc=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=CONgnt9nZi9rhqmdNxjWVSi/+ZKpSa8PmNnTWrofL+pbko3aKOgD/ataT7cdwg9xv
+ I9M2VQL3D3bzf0nA2I0aIwRoVPYbsML69uAbjL/zOfgLGCjz7hbk360EsA8DHuutNH
+ SjBprRCgkVeHTZ6DiDPJbOaGfWZWAwhPTC5wNEJ3h2AiDKtIzA9S4oFGwxyRbUYmr1
+ hPYXRinu37H7cYiAI5WaBiRVnJq13GsM6dkPWwNXZ2O9DzKn409AuK5CLk5NgDnBv2
+ Rjnx8o6g6TpAmDW7tMw0ZID8er9KVrxdBNCq0mvx18KsY9zSNpF4QKNTuo2nYbRjZG
+ S7DzEtoqUA3eg==
+Date: Sun, 25 Oct 2026 11:39:50 +0000
+To: dri-devel@lists.freedesktop.org
+From: Simon Ser <contact@emersion.fr>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ =?utf-8?Q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>,
+ Daniel Stone <daniels@collabora.com>
+Subject: [PATCH] drm: guard Linux-specific headers behind check in drm_mode.h
+Message-ID: <20261025113946.111649-1-contact@emersion.fr>
+Feedback-ID: 1358184:user:proton
+X-Pm-Message-ID: ffe6c0cef57655290cdd539d959ad307fafdb9f9
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 11:39:50 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,140 +49,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] drm/i915/dp: missing link capabilities reset in intel_dp_reset_lin=
-k_params()
-- [Low] drm/i915/dp: unused function intel_dp_link_caps_reset() left behind
-- [Low] drm/i915/dp: space indentation used in intel_dp_reset_link_params()
---
+Non-Linux systems (e.g. FreeBSD) ship drm_mode.h but don't have
+Linux headers. This causes build failures [1].
 
-commit a8d5bf6dc42f9bcd49f6371d597ac7f839e9b04f
-Author: George Karagounis <taterraster@gmail.com>
+Guard Linux-specific header #include behind Linux checks (kernel
+and user-space). The macros depending on these headers are not
+usable, but this at least unblocks libdrm upgrades. A future
+patch may re-implement the required macros.
 
-drm/i915/dp: Remove redundant link capabilities reset
+[1]: https://gitlab.freedesktop.org/mesa/libdrm/-/merge_requests/462#note_3=
+473512
 
-This commit removes the intel_dp_link_caps_reset() call from
-intel_dp_reset_link_params(), assuming that intel_dp_link_caps_update() with
-reset=3Dtrue has already been invoked beforehand.
+Signed-off-by: Simon Ser <contact@emersion.fr>
+Fixes: 4c684596cde4 ("drm: Add CRTC background color property")
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: N=C3=ADcolas F. R. A. Prado <nfraprado@collabora.com>
+Cc: Daniel Stone <daniels@collabora.com>
+---
+ include/uapi/drm/drm_mode.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index d8c0d9381471d..0e753824bc281 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -3674,17 +3674,10 @@ void intel_dp_set_link_params(struct intel_dp *in=
-tel_dp,
-> =20
->  void intel_dp_reset_link_params(struct intel_dp *intel_dp)
->  {
-> -	/*
-> -	 * TODO: Remove the following reset of link capabilities, as
-> -	 * this isn't needed after intel_dp_link_caps_update(reset=3Dtrue)
-> -	 * was called.
-> -	 */
-> -	intel_dp_link_caps_reset(intel_dp->link.caps);
-
-[Severity: High]
-Are all callers of intel_dp_reset_link_params() guaranteed to have called
-intel_dp_link_caps_update(reset=3Dtrue) beforehand?
-
-Several paths call intel_dp_reset_link_params() without invoking
-intel_dp_link_caps_update():
-
-1. In drivers/gpu/drm/i915/display/intel_dp_link_caps.c, the debugfs handle=
-rs
-i915_dp_force_link_rate_write() and i915_dp_force_lane_count_write() call
-intel_dp_reset_link_params() directly before setting forced_params:
-
-	intel_dp_flush_connector_commits(connector);
-
-	intel_dp_reset_link_params(intel_dp);
-	link_caps->forced_params.rate =3D rate;
-
-2. In drivers/gpu/drm/i915/display/intel_dp.c, when intel_dp_detect() runs =
-on
-an eDP connector after intel_dp->reset_link_params is set (such as on
-suspend/resume, a long HPD pulse in intel_dp_hpd_pulse(), or RX_CAP_CHANGED=
- in
-intel_dp_handle_link_service_irq()), it takes the edp_detect() branch rather
-than intel_dp_detect_dpcd():
-
-	if (intel_dp_is_edp(intel_dp))
-		status =3D edp_detect(intel_dp);
-	else if (intel_digital_port_connected(encoder))
-		status =3D intel_dp_detect_dpcd(intel_dp);
-	...
-	if (intel_dp->reset_link_params) {
-		intel_dp_reset_link_params(intel_dp);
-		intel_dp->reset_link_params =3D false;
-	}
-
-Because intel_dp_get_dpcd() also skips intel_dp_update_sink_caps() for eDP,
-intel_dp_link_caps_update() is never called on this path.
-
-3. In drivers/gpu/drm/i915/display/intel_dp.c, intel_dp_sync_state() skips
-intel_dp_get_dpcd() during system resume when intel_dp->dpcd[DP_DPCD_REV] !=
-=3D 0
-(and on eDP) and calls intel_dp_reset_link_params() directly:
-
-	if (crtc_state && intel_dp->dpcd[DP_DPCD_REV] =3D=3D 0) {
-		intel_dp_get_dpcd(intel_dp);
-		dpcd_updated =3D true;
-	}
-
-	intel_dp_tunnel_resume(intel_dp, crtc_state, dpcd_updated);
-
-	if (crtc_state) {
-		intel_dp_reset_link_params(intel_dp);
-		intel_dp_set_link_params(intel_dp, crtc_state->port_clock, crtc_state->la=
-ne_count);
-		intel_dp->link.active =3D true;
-	}
-
-Without intel_dp_link_caps_reset() here, won't reduced link_caps->max_limits
-and disabled configurations in link_caps->enabled_configs from earlier link
-training fallbacks remain stuck on these paths?
-
-[Severity: Low]
-Also, since this was the only caller of intel_dp_link_caps_reset(), removing
-this call leaves the function definition in
-drivers/gpu/drm/i915/display/intel_dp_link_caps.c and its declaration in
-drivers/gpu/drm/i915/display/intel_dp_link_caps.h unused:
-
-void intel_dp_link_caps_reset(struct intel_dp_link_caps *link_caps)
-{
-	reset_max_link_limits_reenable_all(link_caps);
-}
-
-If intel_dp_link_caps_reset() were no longer needed here, should its
-definition and declaration be removed as well?
-
-> -	intel_dp_tunnel_uhbr_lanes_wa_apply(intel_dp);
-> -
-> -	intel_dp->link.mst_probed_lane_count =3D 0;
-> -	intel_dp->link.mst_probed_rate =3D 0;
-> -	intel_dp_link_training_reset(intel_dp->link.training);
-> +       intel_dp_tunnel_uhbr_lanes_wa_apply(intel_dp);
-> +       intel_dp->link.mst_probed_lane_count =3D 0;
-> +       intel_dp->link.mst_probed_rate =3D 0;
-> +       intel_dp_link_training_reset(intel_dp->link.training);
-
-[Severity: Low]
-This isn't a bug, but the replacement lines in intel_dp_reset_link_params()
-replace the leading tab indentation with spaces. Could these lines keep
-standard tab indentation?
-
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index ed1a660a3dfd..b0e3d8c4df9f 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -10,8 +10,10 @@
+ #ifndef _DRM_MODE_H
+ #define _DRM_MODE_H
+=20
++#if defined(__KERNEL__) || defined(__linux__)
+ #include <linux/bits.h>
+ #include <linux/const.h>
++#endif
+=20
+ #include "drm.h"
+=20
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025113200.2509=
-7-1-mail@taterr.org?part=3D1
+2.56.0
+
+
