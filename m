@@ -2,83 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0551606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:37:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67410606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:37:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W6QTABE2
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jz82Vd2h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C893B10EC86;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE66710EC83;
 	Mon, 26 Oct 2026 08:37:24 +0000 (UTC)
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 782DD10E168
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 14:26:56 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-3ae1d0caaedso25818a91.2
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 07:26:56 -0700 (PDT)
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84C0310E3B0
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 18:24:25 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 46e09a7af769-846566246e8so2093055a34.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 11:24:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792938416; x=1793543216; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1792952664; x=1793557464; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=JCokAAgAWjsPtUD0NKsGFk/Sx5sgBs2gnUzEQm6U42Q=;
- b=W6QTABE2YZ0BagI8+Y9mgcfVYyn9EMJ+MA773xhraCnTlB3FQG1WTSTExqPvVGQeNd
- ArFgB4KS1eijujevDTvS65h7SHqQTq0FbbP5xzUnZ37iqAn19hbGvGoKPTvv1q/T7M+f
- aPQ9xngAhM8rBiAqAShxMTXOoJYbgO6ekfz40Z8+z5p34riPhchdzKOXcn3Xkh4jgxPF
- IWxWJxXIAnguGdqMewKln89BNycwZJIqEFjcKK0w5r0Pgis3BDxT/gf0upIX1oicQC+N
- jfuVsP/l+ex0/tLnXWPE/h1tO4BBcYNdjI5I/gBHQ1/i/8oY2P82S62eMyxEV690JkEU
- dc6A==
+ bh=/T7fiSPlKiLhGhZT4rMc/42F0EceA/cMU4biTXFIUI4=;
+ b=jz82Vd2hmLJ34Rd2DhLJQtsqpx8Zwd30MzNwIQhf11HOirvPv40QpJ8ODinIMEstHE
+ WGDB0tAMNX+vjSslyzbYT8JC28RTjmVyMvqcuxR8v6fXwc7KaO4NwUQaHdUqnLmhnRn3
+ kUd+aJ+BBiC51L4zFNRUuwPDA82wFXzdC/ssECyVdoqqzSxkykVsvYkKaJ/ZfR+sj95w
+ juulVQFDypBG5mI6o3iHyCsnhZC6tW1jPKVwYsyz3465CrZJp/HVvS0QnDm9xm3be3dG
+ f4cKAvcsa4t0Q4tzfkd80Mu8BM0Cm0XweLj6s/Z6h2VRt/TdkGnuGdd/JVIWkB4OZR1I
+ mgHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792938416; x=1793543216;
+ d=1e100.net; s=20260707; t=1792952664; x=1793557464;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=JCokAAgAWjsPtUD0NKsGFk/Sx5sgBs2gnUzEQm6U42Q=;
- b=FSKwcq8+rMXHFWQyPrZbD/18kwvURBjNMEyvQ1WihwxSHFiWqKL6skoTK8reJsBpPv
- zeYHynyATRMK7ZoSP1ENt6OzS7vTMlLIseYCarCfe3c2Heym3ZROYQVW/lHzKqUq0kFk
- +fkDsoYNslMu4DPngFXCD927/hYYaep6Hs2uJrQm0Jk6CqhZiLNTxrcR8SKgAzo8IIxG
- +BLR5ELOp4JAIaFTlgMirxsWNw27vcJsIeA4yXvmeYpbk4dAcRH2ItCfetuXGeLGjfUJ
- 7S2SX72HZ/ejdPC3rXDE4Gq7FPdr7maklAQaWQjLJfIB6ole+ggHnIwJZyf2Wy7/x1qB
- GzNQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvByK0EaFItGBQEovTXETEq0XjrvZVzdoBjifLBB3yES7P67wiWJR0OArXYel7klTJay23WXjRABB3j4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIM/QYiRI5FpiXa3kPMflYNQdWJikLyKAvXYmzOGJZAjbWuuJ6b
- v9rmCjtxKskn0fCiuqo2KIpj2I9wsLFOq9cqxyRn5eUqMChbgIPL/ZY4
-X-Gm-Gg: AYBFou1m7Ce56DRjosA+6c8mATTTbak2O7XSQgbWClkPCkRlrMIdz300eOyAcZQv6wj
- 7pnbcDDLq7NuEZSbKkNj9/MK6j2//+uckmeDAhds7+lMLrp9xblXdNrA6nHZRiFgCHa3089Ago9
- D72OKX0qBanbcYOWcnaBvykzDn+Q2cNrx3rsXJy6gKwmhY1TSk8iVy74TYa9lnVPoIDPgu88hVA
- CrUEK5xPEfK347ggKCnpay/8mLfQ2FNUoqE22rDO+1jYHE0FfK6u/pCMNJOazSrvwevpubypCEF
- 1gzgm8qRNU2UwH86ddkVpBTVJIFiPTADR3NlcLRpEBsSPhRqzUUHJ5QQFNlk4CyuKqiggyGDQ/G
- 4siUPPN5SYtXDHZgMzsbQYT6laG1qT5Cbt1Y0xhhTNkM8Eh+/EQwoFnZsZ5i4yk31E3B0m0j3pc
- g16KKXC4GHeATV9LfsHDUjRgWnS8vKq7ZYd7/10jEjOY5EiiS7NKNxmEiiDi3G82l9kvZk/Wpnq
- NsVTUWr+FLMjJb4re6EdAOjXt43L/3PzeTMvnh+iUH6KBcVQHYQ7lVBwMVZHZJ+oPxk6sxCCV1H
- bgtySH8LUQJwEN/4ElkXfpaGYqKj/Vbu6YdXMpXcf+rsAfLwGO+G6nUvSu+o5IT9BKP8V10=
-X-Received: by 2002:a17:90a:d2c7:b0:3ac:9706:7735 with SMTP id
- 98e67ed59e1d1-3ade9b2d476mr3991234a91.5.1792938415936; 
- Sun, 25 Oct 2026 07:26:55 -0700 (PDT)
-Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net
- ([2001:861:39c2:e340:4c3:3a00:d533:9d50])
+ bh=/T7fiSPlKiLhGhZT4rMc/42F0EceA/cMU4biTXFIUI4=;
+ b=XmC8K5wykjbvVa7xXyJIuAFoZA71m5VhAxxCSflik+9Gqz0yiGVmuipAZtiwpxWHfH
+ WAXqAP0K0UrK+nTmnSPlioZ6cmk7555+7vjcJfSrU+aHkPXUpVYkDUy251NBNKq21rxF
+ 0wIPijukYeOXh1/T/E8PMLgq2WyrhqD3rn9Vnh03SnR8EqfLJK3mInqRSS2FU5ahwQZR
+ 1zgCgzUEUPPD4hB+MDqRRFJ6FhseR/Hu5QdyoB5gLjccQnPXCWTpRknc4sN6lRE8Gww2
+ JzYy3HztqviDQL/xudAO2CQ5tz9fFBIVArUIIAhf6Z0dB5ceS4m1HU8lKQDEQdRZLSGM
+ oarA==
+X-Gm-Message-State: AFq9FYJeM86XwbNQUZgYGkbrE8aV15NcVYJ1W8R6enh59lpxwBycaTG5
+ 1gt6G0r/2WrnlJkdMusbxZMnzHZhiuQE8MNIdfvOAQ25L1cM4lUU7D4+
+X-Gm-Gg: AYBFou2IvlbByrOaFuLZTQRHW5XP3igER+t+6f3IXykvkiAUk1CzeABLAyGl3iUh+9z
+ 5xGkcRqP/uohivKJKRaWUVM/Ym6lpsYIp4IORcKoHrFM6citCxgXJHmUDEhFLaW0k0/1T8jtpAS
+ MCbz8I5d4Cj1HOO9HvfG8vxXa2txGDXJjGjub4cYC5a9d2DrHxoMJSvu1+6Ci8OtPcYV4+euE2S
+ xL/fo0Ersif7E3YZ3QntO417v7hTRUMmedGY3my/vEX1R34LgiT1hgj9Evii8K1dHe+gcxMby40
+ 2GeNLCp6RlnSCYnbplevJiW6CyFpvZzQL6QVwqtZQFEBn2I/o0RjgWs7gRXBlCLZJaz0wCbmDt1
+ aJgUYCebMu4C4nK0z1EQxjl+Tyl5ZEGmm6FElDor0+CwP2VsH6efAytOwAAmEVvQObMeEKTdRgA
+ zJc6A/6wyT1JmsFoPd0wcX+0UR7qMkY14IJOYsPtUzW2XckWOmr+EAjjtb37IxUm/gYUGZjzEZZ
+ zd1g5wEiGIxHWd9zB2IxhJL9bVotoz3CO1hfUdM5FzHFFJWCbWq4FrIIjwmn35Q0OguOgqqlSBX
+ wjkQIO95FEgPuej0coa0qXBsFXZIjupBXnby
+X-Received: by 2002:a05:6830:2317:b0:843:a64b:6e3b with SMTP id
+ 46e09a7af769-850ff0a576fmr2804000a34.32.1792952664554; 
+ Sun, 25 Oct 2026 11:24:24 -0700 (PDT)
+Received: from localhost.localdomain ([72.12.197.23])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3adebb0977asm5068848a91.13.2026.10.25.07.26.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Oct 2026 07:26:55 -0700 (PDT)
-From: Romain TISSERAND <romain.tisserand@gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- Liu Ying <victor.liu@nxp.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: dw-mipi-dsi: use the lane rate for lbcc when
- lanes run faster
-Date: Sun, 25 Oct 2026 15:26:39 +0100
-Message-ID: <20261025142639.3454322-1-romain.tisserand@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ 46e09a7af769-850fa99bd27sm5396324a34.7.2026.10.25.11.24.22
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 25 Oct 2026 11:24:23 -0700 (PDT)
+From: atipre <tipreaditya@gmail.com>
+To: igt-dev@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	louis.chauvet@bootlin.com
+Subject: [PATCH i-g-t] tests/kms_writeback: Check CRC capture survives
+ writeback
+Date: Sun, 25 Oct 2026 14:24:20 -0400
+Message-ID: <20261025182420.52258-1-tipreaditya@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -97,105 +85,135 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Commit ac87d23694f4 ("drm/bridge: synopsys: dw-mipi-dsi: Use pixel clock
-rate to calculate lbcc") counts HSA, HBP and HLINE from the pixel clock,
-which is only right when the lanes run at the pixel bandwidth (pixel
-clock * bpp / lanes). Commit 93e82bb4de01 ("drm/bridge: synopsys:
-dw-mipi-dsi: Fix hcomponent lbcc for burst mode") went back to the lane
-rate for burst mode, where the lanes are faster on purpose.
+The existing writeback tests validate captured framebuffer contents, but
+do not keep pipe CRC capture active across writeback completion. This
+misses the VKMS bug where writeback cleanup disables the composer while
+CRC capture still needs it, leaving subsequent CRC reads waiting for
+samples that never arrive.
 
-The Rockchip glue runs the lanes faster in every mode: it adds 25% to
-the pixel bandwidth, or uses the rate the panel asks for. In non-burst
-video mode the line programmed in lane byte clocks is then shorter than
-the DPI line. On the GPD XD (RK3288, ILI9881C panel, 4 lanes at
-752 Mbps, 59.5 MHz pixel clock, htotal 747) HLINE was 561 lane byte
-clocks (6.0 us) for a 12.55 us line: the DPI payload FIFO overflows
-(dpi_pld_wr_err in DSI_INT_ST1) and the panel shows garbage as soon as
-a client page-flips.
+Add writeback-preserves-crc. Complete the initial modeset before starting
+capture and establish reference CRCs for separate red and blue input
+framebuffers. Keep capture open across four alternating writebacks, wait
+for each output fence, and compare three fresh CRC samples with the
+corresponding reference after each writeback. Use atomic updates without
+ALLOW_MODESET once capture starts, and release capture from the final
+fixture so a failed subtest also closes it.
 
-Use the lane rate when it is clearly above the pixel bandwidth (more
-than 1/8), and keep the pixel clock formula when both match, as on
-i.MX93, Meson and STM in non-burst mode, where lane_mbps is the pixel
-bandwidth rounded up to the next MHz. On the GPD XD this gives HLINE
-1181, HSA 21 and HBP 7, and the picture is stable.
+Check output fence status in the shared wait helper so a signalled error
+fence cannot be treated as a successful writeback.
 
-Fixes: ac87d23694f4 ("drm/bridge: synopsys: dw-mipi-dsi: Use pixel clock rate to calculate lbcc")
-Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
+On ARM64 QEMU with one and two CPUs, the new subtest fails on unmodified
+mainline and passes with the local VKMS composer-user lifetime
+fix. Four existing applicable writeback subtests pass on both kernels;
+the two XRGB2101010 subtests skip because the format probe rejects them.
+
+Signed-off-by: atipre <tipreaditya@gmail.com>
 ---
-Notes for reviewers (not for the changelog):
-- The 1/8 threshold separates glues that report the pixel bandwidth
-  rounded up to the next MHz (i.MX93, Meson; STM in non-burst mode) from
-  Rockchip, which adds 25% in every mode. If a per-glue flag is
-  preferred instead of a threshold, I can rework it that way.
-- Testing: built with W=1 for arm (multi_v7) and arm64 (defconfig),
-  DRM_DW_MIPI_DSI=y and =m, no warnings. Tested live on the GPD XD
-  (RK3288, ILI9881C, non-burst with sync pulses), 6.18.54 with this
-  exact change applied: HLINE 1181, HSA 21, HBP 7 read back from the
-  DSI host, no dpi_pld_wr_err in DSI_INT_ST1 while the UI page-flips,
-  and a clean picture in the UI and in games (before the change: garbage
-  as soon as a client page-flips).
-  Not tested on i.MX93, Meson or STM hardware; for them the computation
-  is unchanged unless the lane rate is more than 1/8 above the pixel
-  bandwidth.
-- Tool disclosure: this patch was prepared with Claude Opus 5.5
-  (Anthropic) as a coding assistant, in an interactive session where I
-  asked it to bring up the GPD XD display and then to prepare the fix
-  for upstream. It located the cause from the DSI host registers, went
-  through the history of the lbcc computation (ac87d23694f4,
-  93e82bb4de01) and the lane rates of the other dw-mipi-dsi glues, and
-  drafted the code change and the changelog. I reviewed and understand
-  both, and tested the patch on the GPD XD as described above.
+ tests/kms_writeback.c | 62 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
- drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 23 +++++++++++++------
- 1 file changed, 16 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-index 22d1b8cbe1..b026b602ab 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-@@ -781,19 +781,28 @@ static u32 dw_mipi_dsi_get_hcomponent_lbcc(struct dw_mipi_dsi *dsi,
- 					   u32 hcomponent)
- {
- 	u32 frac, lbcc, minimum_lbcc;
-+	u64 pixel_kbps;
- 	int bpp;
+diff --git a/tests/kms_writeback.c b/tests/kms_writeback.c
+index 7c30e8e..71317cf 100644
+--- a/tests/kms_writeback.c
++++ b/tests/kms_writeback.c
+@@ -64,6 +64,10 @@
+  *
+  * SUBTEST: writeback-pixel-formats
+  * Description: Check the writeback format
++ *
++ * SUBTEST: writeback-preserves-crc
++ * Description: CRC capture remains active across completed writebacks
++ * Driver requirement: i915, xe, vkms
+  */
  
--	if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_BURST) {
-+	bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
-+	if (bpp < 0) {
-+		dev_err(dsi->dev, "failed to get bpp\n");
-+		return 0;
-+	}
-+
-+	/*
-+	 * Use the lane rate when it is above the pixel bandwidth (burst, or
-+	 * glues adding margin in all modes); the 1/8 slack ignores lane_mbps
-+	 * being rounded up to the next MHz. Otherwise the pixel clock is more
-+	 * precise.
-+	 */
-+	pixel_kbps = div_u64((u64)mode->clock * bpp, dsi->lanes);
-+	if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_BURST ||
-+	    (u64)dsi->lane_mbps * MSEC_PER_SEC > pixel_kbps + pixel_kbps / 8) {
- 		/* lbcc based on lane_mbps */
- 		lbcc = hcomponent * dsi->lane_mbps * MSEC_PER_SEC / 8;
- 	} else {
- 		/* lbcc based on pixel clock rate */
--		bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
--		if (bpp < 0) {
--			dev_err(dsi->dev, "failed to get bpp\n");
--			return 0;
--		}
--
- 		lbcc = div_u64((u64)hcomponent * mode->clock * bpp, dsi->lanes * 8);
+ IGT_TEST_DESCRIPTION(
+@@ -317,6 +321,7 @@ static void get_and_wait_out_fence(igt_output_t *output)
+ 
+ 	ret = sync_fence_wait(output->writeback_out_fence_fd, 1000);
+ 	igt_assert_f(ret == 0, "sync_fence_wait failed: %s\n", strerror(-ret));
++	igt_assert_eq(sync_fence_status(output->writeback_out_fence_fd), 1);
+ 	close(output->writeback_out_fence_fd);
+ 	output->writeback_out_fence_fd = -1;
+ }
+@@ -537,6 +542,7 @@ int igt_main_args("b:c:f:dl", long_options, help_str, opt_handler, NULL)
+ 	igt_output_t *output;
+ 	igt_plane_t *plane;
+ 	igt_fb_t input_fb, input_fb_10bit;
++	static igt_pipe_crc_t *pipe_crc;
+ 	drmModeModeInfo mode;
+ 	unsigned int fb_id;
+ 	int ret;
+@@ -709,7 +715,63 @@ int igt_main_args("b:c:f:dl", long_options, help_str, opt_handler, NULL)
+ 		igt_remove_fb(display.drm_fd, &output_fb);
  	}
  
++	igt_describe("CRC capture remains active across completed writebacks");
++	igt_subtest("writeback-preserves-crc") {
++		igt_fb_t blue_fb, output_fb;
++		igt_fb_t *colors[] = { &input_fb, &blue_fb };
++		igt_crc_t reference[2], crc;
++		int i, j;
++
++		igt_skip_on(data.dump_check || data.list_modes);
++		igt_require(data.supported_colors & XRGB8888);
++		igt_require_pipe_crc(display.drm_fd);
++
++		igt_create_color_fb(display.drm_fd, mode.hdisplay, mode.vdisplay,
++				    DRM_FORMAT_XRGB8888, DRM_FORMAT_MOD_LINEAR,
++				    0.0, 0.0, 1.0, &blue_fb);
++		igt_create_fb(display.drm_fd, mode.hdisplay, mode.vdisplay,
++			      DRM_FORMAT_XRGB8888, DRM_FORMAT_MOD_LINEAR,
++			      &output_fb);
++		fill_fb(&input_fb, 0x00ff0000);
++		igt_plane_set_fb(plane, &input_fb);
++		igt_output_set_writeback_fb(output, NULL);
++		igt_display_commit_atomic(&display, DRM_MODE_ATOMIC_ALLOW_MODESET, NULL);
++
++		/* Finish the modeset before starting continuous CRC capture. */
++		pipe_crc = igt_pipe_crc_new(display.drm_fd, output->config.crtc_index,
++					    IGT_PIPE_CRC_SOURCE_AUTO);
++		igt_pipe_crc_start(pipe_crc);
++
++		/* Establish both references before writeback can affect capture. */
++		for (i = 0; i < ARRAY_SIZE(colors); i++) {
++			igt_plane_set_fb(plane, colors[i]);
++			igt_display_commit_atomic(&display, 0, NULL);
++			igt_pipe_crc_get_current(display.drm_fd, pipe_crc, &reference[i]);
++		}
++
++		for (i = 0; i < 4; i++) {
++			int color = i % ARRAY_SIZE(colors);
++
++			igt_plane_set_fb(plane, colors[color]);
++			igt_output_set_writeback_fb(output, &output_fb);
++			igt_display_commit_atomic(&display, 0, NULL);
++			get_and_wait_out_fence(output);
++
++			/* Require fresh frames without stopping or restarting capture. */
++			for (j = 0; j < 3; j++) {
++				igt_pipe_crc_get_current(display.drm_fd, pipe_crc, &crc);
++				igt_assert_crc_equal(&reference[color], &crc);
++			}
++		}
++
++		igt_plane_set_fb(plane, &input_fb);
++		igt_display_commit_atomic(&display, 0, NULL);
++		igt_remove_fb(display.drm_fd, &blue_fb);
++		igt_remove_fb(display.drm_fd, &output_fb);
++	}
++
+ 	igt_fixture() {
++		igt_pipe_crc_free(pipe_crc);
+ 		cleanup_writeback(&display, output);
+ 		igt_remove_fb(display.drm_fd, &input_fb);
+ 
 
-base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
+base-commit: bb76404eac7032ba85c53eac15b76e4fadaff0de
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
