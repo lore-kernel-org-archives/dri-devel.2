@@ -2,41 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3762606A31A
-	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 13:48:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EE1606A31A
+	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 14:39:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bKA6LJlc
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ahc8+q4f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3858810E0E9;
-	Sun, 25 Oct 2026 13:48:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99F8110E0E9
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 13:48:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA8C510E244;
+	Sun, 25 Oct 2026 14:38:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6156510E244
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 14:38:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CFB93600CB;
- Sun, 25 Oct 2026 13:48:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68AEB1F01825;
- Sun, 25 Oct 2026 13:48:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EAD1E43914;
+ Sun, 25 Oct 2026 14:38:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C2C1F01825;
+ Sun, 25 Oct 2026 14:38:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792936102;
- bh=u4nBrtlRd8CyKGRhGlajHs/dIr69w/JMdhoO/IZ0tKI=;
+ s=k20260515; t=1792939130;
+ bh=gQq9ercy7WpejexTUf9xdDgd8HWYxGM+rf5OLyBX04c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bKA6LJlcha62NxQSUifaUbtYxWJPLbFuq4xQOsuyaKI+X920e/hokhXLqiY72d0p+
- jm5QI+KtTmGCWmYVuM4xKLgy2DPL94L3pqqAuZOP7j3mbTGPrhzYhxvmAROmtpKHrX
- BVXPGVYWOvAiO8mAUpJbFDTdba1bqf25ruydra0WJpz3w+VQDMHWFfJ+fYNSyJYuLZ
- HQUmjotySXbQRu2sfyig9NKgKsBn0+A43ZdHmpHY6bHhVM32XmjL1KFXxUeD+Qgtpv
- r8CSyKGoEQIAJKeNpfZ0bvJnghbCrqkkHfbG7ypPKDVAceEnhWPWGkOeH1h9AKUWa5
- EFO/kKifHo+xw==
-Message-ID: <sashiko-outbox-184230@kernel.org>
+ b=Ahc8+q4fNlyoviwTQ18Z1FSVFTE8xV1duWzCIMzZziAAwlWcShXcVeXwEXOPOuN4I
+ m0PANEh0HzyCw3uHcgR+ak35HnyhbUGufVv9fVmfvs8Zt8RLCijq+aqbR9+QG+p+5G
+ W3vlOmR4D3wj9E7yBokHGZ2w8I5J7YGlhsYOxlBSAHgu//8Gmxe9it235Td5ObG9Ai
+ UzX1E6iIOGTnfLanWJBzMXWyfuwyPYEdwLv89KWArDHWdlY5LquWZl9AsA11DYMi2X
+ ZI/RTmF2oPbegDPxNlMAvd0Qs5hBnKrJQAQl3n7/+DFuOg8uFhpzpi1DCmSv21d4CZ
+ 9HJEa+gccsqfg==
+Message-ID: <sashiko-outbox-184251@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] drm/bridge: ssd2825: Fix panel enable sequence
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Subject: Re: [PATCH] drm/bridge: dw-mipi-dsi: use the lane rate for lbcc
+ when lanes run faster
+To: "Romain TISSERAND" <romain.tisserand@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261025133636.253505-1-clamor95@gmail.com>
-References: <20261025133636.253505-1-clamor95@gmail.com>
+In-Reply-To: <20261025142639.3454322-1-romain.tisserand@gmail.com>
+References: <20261025142639.3454322-1-romain.tisserand@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 13:48:21 +0000
+Date: Sun, 25 Oct 2026 14:38:50 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,95 +58,133 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/bridge: ssd2825: duplicate atomic_enable() call on next_brid=
-ge
+- [Medium] drm/bridge: dw-mipi-dsi: wrong lane count in dw_mipi_dsi_get_hco=
+mponent_lbcc()
+- [Medium] drm/bridge: dw-mipi-dsi: 1/8 margin check in dw_mipi_dsi_get_hco=
+mponent_lbcc()
 --
 
-commit 1c5e404afec7538a0e06a870cc1167b8db336814
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit 6499adefdc008cafd18dfe3208439c2abd0174aa
+Author: Romain TISSERAND <romain.tisserand@gmail.com>
 
-drm/bridge: ssd2825: Fix panel enable sequence
+drm/bridge: dw-mipi-dsi: use the lane rate for lbcc when lanes run faster
 
-This commit invokes the next bridge's atomic_enable() callback directly at
-the end of ssd2825_bridge_atomic_pre_enable() to restore panel output after
-commit 554d36acf5e0 removed direct panel handling.
+This commit updates dw_mipi_dsi_get_hcomponent_lbcc() to calculate horizont=
+al
+timing values from the DSI lane rate rather than the pixel clock whenever t=
+he
+lane rate exceeds the pixel bandwidth by more than 1/8, fixing DPI payload
+FIFO overflows on glues such as Rockchip that run the lanes faster in
+non-burst video modes.
 
-> diff --git a/drivers/gpu/drm/bridge/ssd2825.c b/drivers/gpu/drm/bridge/ss=
-d2825.c
-> index 71877699dfab6..9216cee09115f 100644
-> --- a/drivers/gpu/drm/bridge/ssd2825.c
-> +++ b/drivers/gpu/drm/bridge/ssd2825.c
-> @@ -475,6 +475,7 @@ static void ssd2825_bridge_atomic_pre_enable(struct d=
-rm_bridge *bridge,
->  					     struct drm_atomic_commit *state)
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/=
+drm/bridge/synopsys/dw-mipi-dsi.c
+> index 22d1b8cbe1d57..b026b602abc0f 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
+> @@ -781,19 +781,28 @@ static u32 dw_mipi_dsi_get_hcomponent_lbcc(struct d=
+w_mipi_dsi *dsi,
+>  					   u32 hcomponent)
 >  {
->  	struct ssd2825_priv *priv =3D bridge_to_ssd2825(bridge);
-> +	struct drm_bridge *next_bridge =3D priv->output.bridge;
->  	struct mipi_dsi_device *dsi_dev =3D priv->output.dev;
->  	const struct drm_crtc_state *crtc_state;
->  	const struct drm_display_mode *mode;
-> @@ -569,6 +570,14 @@ static void ssd2825_bridge_atomic_pre_enable(struct =
-drm_bridge *bridge,
->  	/* Initial DSI configuration register set */
->  	ssd2825_write_reg(priv, SSD2825_CONFIGURATION_REG, config);
->  	ssd2825_write_reg(priv, SSD2825_VC_CTRL_REG, 0);
+>  	u32 frac, lbcc, minimum_lbcc;
+> +	u64 pixel_kbps;
+>  	int bpp;
+> =20
+> -	if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_BURST) {
+> +	bpp =3D mipi_dsi_pixel_format_to_bpp(dsi->format);
+> +	if (bpp < 0) {
+> +		dev_err(dsi->dev, "failed to get bpp\n");
+> +		return 0;
+> +	}
 > +
 > +	/*
-> +	 * The SSD2825 requires that the next bridge be enabled first;
-> +	 * otherwise, the SSD2825 cannot complete its configuration and
-> +	 * there will be no output.
+> +	 * Use the lane rate when it is above the pixel bandwidth (burst, or
+> +	 * glues adding margin in all modes); the 1/8 slack ignores lane_mbps
+> +	 * being rounded up to the next MHz. Otherwise the pixel clock is more
+> +	 * precise.
 > +	 */
-> +	if (next_bridge->funcs && next_bridge->funcs->atomic_enable)
-> +		next_bridge->funcs->atomic_enable(next_bridge, state);
+> +	pixel_kbps =3D div_u64((u64)mode->clock * bpp, dsi->lanes);
+> +	if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_BURST ||
+> +	    (u64)dsi->lane_mbps * MSEC_PER_SEC > pixel_kbps + pixel_kbps / 8) {
 
 [Severity: Medium]
-Does calling next_bridge->funcs->atomic_enable() directly in
-ssd2825_bridge_atomic_pre_enable() cause next_bridge->funcs->atomic_enable()
-to be invoked twice on every modeset enable?
+Can the 1/8 margin check miss panels where the lane rate runs faster than t=
+he
+pixel bandwidth by less than 12.5%?
 
-In drivers/gpu/drm/bridge/ssd2825.c, ssd2825_bridge_attach() attaches
-priv->output.bridge to the encoder's bridge chain:
+In drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c,
+dw_mipi_dsi_get_lane_mbps() computes the default lane rate using integer
+division for (bpp / lanes):
 
-	return drm_bridge_attach(bridge->encoder, priv->output.bridge, bridge,
-				 flags);
+	mpclk =3D DIV_ROUND_UP(mode->clock, MSEC_PER_SEC);
+	if (mpclk) {
+		/* take 1 / 0.8, since mbps must big than bandwidth of RGB */
+		tmp =3D mpclk * (bpp / lanes) * 10 / 8;
 
-During an atomic modeset enable, drm_atomic_helper_commit_modeset_enables()
-runs drm_atomic_bridge_chain_pre_enable(), which calls
-ssd2825_bridge_atomic_pre_enable() and now invokes
-next_bridge->funcs->atomic_enable() for the first time.
+For a 4-lane non-burst panel using MIPI_DSI_FMT_RGB666_PACKED (bpp =3D 18),
+(bpp / lanes) truncates from 4.5 to 4, giving a lane rate of 5 * mpclk Mbps.
+That is only 11.1% (1/9) above the 4.5 * mode->clock pixel bandwidth, rather
+than 25%.
 
-Immediately afterwards, drm_atomic_helper_commit_encoder_bridge_enable()
-calls drm_atomic_bridge_chain_enable() in drivers/gpu/drm/drm_bridge.c:
+For any pixel clock >=3D 16 MHz on such a panel (or when a panel's requested
+hs_rate or max_mbps clamp puts dsi->lane_mbps between +1 MHz and +12.5% abo=
+ve
+pixel_kbps), (u64)dsi->lane_mbps * MSEC_PER_SEC > pixel_kbps + pixel_kbps /=
+ 8
+evaluates to false. Wouldn't that fall back to the pixel-clock formula and
+program DSI_VID_HLINE_TIME, DSI_VID_HSA_TIME, and DSI_VID_HBP_TIME shorter
+than the DPI line period, triggering the same DPI payload FIFO overflow?
 
-	drm_for_each_bridge_in_chain_from(first_bridge, bridge)
-		if (bridge->funcs->atomic_enable)
-			bridge->funcs->atomic_enable(bridge, state);
+If the slack is only meant to ignore lane_mbps being rounded up to the next
+MHz, should the check compare dsi->lane_mbps against
+DIV_ROUND_UP_ULL(pixel_kbps, MSEC_PER_SEC) instead of adding pixel_kbps / 8?
 
-This calls next_bridge->funcs->atomic_enable() a second time while
-drm_atomic_bridge_chain_disable() only calls atomic_disable() once.
+>  		/* lbcc based on lane_mbps */
+>  		lbcc =3D hcomponent * dsi->lane_mbps * MSEC_PER_SEC / 8;
+>  	} else {
+>  		/* lbcc based on pixel clock rate */
+> -		bpp =3D mipi_dsi_pixel_format_to_bpp(dsi->format);
+> -		if (bpp < 0) {
+> -			dev_err(dsi->dev, "failed to get bpp\n");
+> -			return 0;
+> -		}
+> -
+>  		lbcc =3D div_u64((u64)hcomponent * mode->clock * bpp, dsi->lanes * 8);
 
-When next_bridge is a panel bridge, panel_bridge_atomic_enable() calls
-drm_panel_enable() in drivers/gpu/drm/drm_panel.c, where the second call hi=
-ts
-the already-enabled check and emits a warning on every modeset:
+[Severity: Medium]
+Should pixel_kbps and the pixel-clock lbcc calculation divide by
+dw_mipi_dsi_get_lanes(dsi) instead of dsi->lanes to handle dual-DSI panels?
 
-	if (panel->enabled) {
-		dev_warn(panel->dev, "Skipping enable of already enabled panel\n");
-		return;
-	}
+In dw_mipi_dsi_bridge_atomic_pre_enable() -> dw_mipi_dsi_mode_set(),
+dsi->lane_mbps is obtained by passing the combined master and slave lane
+count from dw_mipi_dsi_get_lanes(dsi) along with the full-panel
+adjusted_mode:
 
-When next_bridge is a non-panel drm_bridge, there is no enabled-state guard
-in the DRM bridge core, so next_bridge->funcs->atomic_enable() runs twice
-without a matching second disable.
+	u32 lanes =3D dw_mipi_dsi_get_lanes(dsi);
 
-Additionally, if next_bridge sets pre_enable_prev_first,
-drm_atomic_bridge_chain_pre_enable() runs ssd2825_bridge_atomic_pre_enable()
-before next_bridge->funcs->atomic_pre_enable(), which would cause
-next_bridge->funcs->atomic_enable() to run before next_bridge has been
-prepared in atomic_pre_enable().
+	clk_prepare_enable(dsi->pclk);
+
+	ret =3D phy_ops->get_lane_mbps(priv_data, adjusted_mode, dsi->mode_flags,
+				     lanes, dsi->format, &dsi->lane_mbps);
+
+When a dual-DSI panel is attached in non-burst video mode via
+dw_mipi_dsi_set_slave() (such as innolux,p097pfg on rk3399-gru-scarlet with
+4 + 4 lanes), dsi->lane_mbps is the per-lane rate across all 8 lanes, where=
+as
+dividing mode->clock * bpp by dsi->lanes (4) makes pixel_kbps twice the
+actual per-lane pixel bandwidth.
+
+Because pixel_kbps is doubled, the condition
+(u64)dsi->lane_mbps * MSEC_PER_SEC > pixel_kbps + pixel_kbps / 8 evaluates =
+to
+false, and the else branch then also divides by dsi->lanes (4) instead of
+dw_mipi_dsi_get_lanes(dsi) (8), programming DSI_VID_HLINE_TIME,
+DSI_VID_HSA_TIME, and DSI_VID_HBP_TIME for twice the per-lane pixel bandwid=
+th
+rather than the actual lane rate.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025133636.2535=
-05-1-clamor95@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025142639.3454=
+322-1-romain.tisserand@gmail.com?part=3D1
