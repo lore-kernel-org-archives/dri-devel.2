@@ -2,107 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E63606A31B
-	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 08:52:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1FC606A31A
+	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 09:45:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MP35hMwZ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZ1FJQd4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5837B10E231;
-	Sun, 25 Oct 2026 08:52:12 +0000 (UTC)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 218FB10E231
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 08:52:06 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-35f036b17easo5274792eec.1
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 01:52:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792918325; cv=none;
- d=google.com; s=arc-20260327;
- b=YPWZ6vAtR+dHoGvNjtWrPtBtRK7+hSt/pPq0+wQ/dAWLvwy3IFL/gvsoyz4J8Rl9Hc
- ABg3k/BM/CRMpjGF4QY8CSbk6NvsBBMUuFEgUnFMIUEf6ICIVPde+2aMv/loJJQr2RPh
- Ph9ENBlr3FH6ZrzJKvaYIoRkVHCGIKKKfsCyxqxWQTNBJMSCenwEwOIfdU9NwN8qf2/e
- EdlNrrfvy6I9kX7wP/MK7+VWoutnGY1qbhPEduhi/ukMFM8Ut1mw38r/z2qcOkiBsTYG
- dAPF0/vIjTQY9u9itqQlLwCEJmmKSr0jzG0tatMWcDwct937nvRKWBOMuseDUEkEKYO3
- IBkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=bc41FckTcBQthvtCzkFLVNCK1+fJ08FUf/3Pl3O3aMU=;
- fh=eYefsXtsmM7WxG2P+kka1Cm6yyPOdPBC9JjRqI/veIk=;
- b=nFPGopwqJCNjVqOH0txfjJqJMp77BVz9voo8mNLt4v5gsTfuMiEUmv41Qr7xMGq4W2
- MEEw6CH2ybaZagfwi4MPzq0NQNNhN66Y/owuPhZzKJziCB0Lw7TfbqPDPqmFetnyEXkf
- gXEUjoHB0Fgdgljhcm+aD+f5uvUsXMckD94J/yjVv0FkdW8w3+k6ev88jdaod7/lCYeM
- JnnnpRLVWvp+MckGG/0WY0paZId5krJbqSf6mFavGtCIpk076FTLG4BcWeWqDnjzCMVw
- oioygqPOHRhUYOaXCzcwnVfMWdrTboxQaMavXDkitzgYt64PSZ8wpANq4BMi+rzJAV61
- 8hlg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792918325; x=1793523125; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bc41FckTcBQthvtCzkFLVNCK1+fJ08FUf/3Pl3O3aMU=;
- b=MP35hMwZQb2CI+MDXujGfRgpQFz5iYxV7ulWGN+n/yxgwHToFG8QSkRjDFJq/bQcon
- xbr2ZdktvPqJzguvW+ekJQYXBnI06ocSSkn9M0rRrGiauoXEYf03FbTzd3bQGDXzleNy
- QNiCVdf+63BIQQiz+d9LbdN1MxvciS1U4/N9PvhKR47sF+la+LmBk18L1hiaqBee3IYc
- 8rsNtIQqWdAFzHdJ0yHz1J2ye8/I7G8e3Nt1iUq254YZjZeCHd4xrEM8Sd+b/m+ncc8A
- rQO8KFxWdGkWS0yRjgIki1tmR7+t1Ptcgw/HWuOJoQI4fpwj/EvNpNfzXENHEZ6BCV0c
- 9L1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792918325; x=1793523125;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=bc41FckTcBQthvtCzkFLVNCK1+fJ08FUf/3Pl3O3aMU=;
- b=p8iTJywuZg55H7czjKXIyObwUesYXlZkaJ7zpQ9HjES1/CRKtEYSbIXA6SOCGgX+mr
- 46O1rockfiU7ZwzSXN/67JIvGFO6wsbi8cjq7Nu44EJ6f5FBmh+uAYlPaNIhRENgErLW
- 9hntehxxRMZZIVhTijVWv0wBuOWtm6nVz2ISHgdlO4/tcpUzaVENClBHA2mINamHgIuG
- 31h2eLKJcEfZhIBCqjXVEpiZxCF59utu+2UthROTe8Av2ZjPawzT9pFphPHw8wrJDJth
- 7ZAMklW89hUrz4zISweRJAm0p8eagyzR09fgO026JG0Am8T1KYu5Cj5E6PiFROCGxb5F
- VewQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxt7+ddWSPaIjFDa//iZwd9uq290+i6MPrJrVdQPuVKpj8Jj9tjXlUDpacdYeEsNkVYSa0pBqYIFwE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKOipgx1gt1bkQ1/o1WVgEpB2o4TzHsMWUY4+IMtwuxq1POuWfe
- py2ngjxhX0f2b7rtL2Rk/gEZKLdVFYCL4119YfWoGu/e5AsceMKI4G6vRWpe3faTSinHSvw1wLf
- YVyQxismt1b3xLQXjBgs7K0rh/Pdu4xo=
-X-Gm-Gg: AYBFou1vlQYsYDtjLkFEtSTyD6VhRiO4uoTv28KubE34Z0XG0bPhviZs5BpKxUMd1Uq
- lLXrZLTZXdYkKtfJB3d1H61Aihny0eUA7IDbINnw2fTybualSdWcp78Oo/5a9FIh1ir0/bSc0/M
- teYXH+mr3wmOyKQXJv3WmSizyw1EUF3uaqS6P05Ke71bTsOGXWgO0gyHuYA0e5eAPVhMBPtcHcc
- e73m8j8nybzjtGDHUOmcvPXz79M98/AFnkmCj53TXNV7YDm6KRRVXkGh7IEJam7nsyEOizCu1og
- q4RDe1J9Re20iJGAchOm126f1Lo792fCLbjuHN4dL7qVWfal5A8uSlLaoorumO6odFUgN9Sx0Sp
- W9JjzAfw25fAVp2jXcBcDWSROLImaX1lwTrbGSK+nMQyn4jWHG5itvkujG7LaCNk77QXD1w==
-X-Received: by 2002:a05:693c:66c1:20b0:35e:51d6:9f6f with SMTP id
- 5a478bee46e88-369e84f5952mr5827731eec.27.1792918325200; Sun, 25 Oct 2026
- 01:52:05 -0700 (PDT)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261022132259.240717-1-clamor95@gmail.com>
- <CAPVz0n3Vrzb96iR5ZW8zvmruZ4aK0hKGKpJ2T9Ys+bSPCtLWHw@mail.gmail.com>
- <CAPVz0n3gzV+gAu_gzp3oTG9VOu-YiNSiQA0SdCFApKsi0dGjKQ@mail.gmail.com>
- <0g7damfVTZ2r6s4H0kv6Lg@nvidia.com>
-In-Reply-To: <0g7damfVTZ2r6s4H0kv6Lg@nvidia.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sun, 25 Oct 2026 10:51:53 +0200
-X-Gm-Features: AclHuK8VdLvGZN3upYS8jizoanUHoPG-jyCBtPV5Pp4C9VbRI_nvkyJWhb9qq0g
-Message-ID: <CAPVz0n1G0cDuUj7WRfj9YRgvMSd0sqSCjnir2p=QxUGu5BWTXQ@mail.gmail.com>
-Subject: Re: [PATCH v4 7/7] drm/tegra: Add support for 8-bit CPU interface
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: devicetree@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AC4110E4E3;
+	Sun, 25 Oct 2026 09:44:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2135610E4E3
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 09:44:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1669F600CB;
+ Sun, 25 Oct 2026 09:44:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDB91F01828;
+ Sun, 25 Oct 2026 09:44:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1792921488;
+ bh=3JwxsyCfb55NCobpjZR9jSidMoC2tmsb6VCKlofU2pk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VZ1FJQd4qCNVdhT+MWemv6Ng8GdRPBxzHaY7VI0yCLqBRve3keb3D6j7XvYCamY6j
+ DiluvvT4toB0FPF1HomuzJw9DGzTeVTNrT1mzf7wVOgEAsOn6499AR7p5l/GTfFRKO
+ sst55MaFYrgulbZsDZSYiGIxgeAZQHq8H18OrfpoQlIYzfB3qCH4tl0XHCkigfpS/4
+ 9ZS0QL8odZD73GsRA24PLbJDDENn07uQK1zxKhiTNIrFpKRWT6le7fss7pCmguO9DW
+ x92gwhX89Ws3sjKYKwoXdKfdjQ+LjCYIms35xLlL8/d+mXTpGEPGT8sZ0y854sOX5z
+ JO/Roed9oj1/g==
+Message-ID: <sashiko-outbox-184181@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/5] drm/ingenic: Add a driver for the X1600 LCD controller
+To: "Olivier Louvignes" <olivier@mgcrea.io>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261025085816.60405-4-olivier@mgcrea.io>
+References: <20261025085816.60405-1-olivier@mgcrea.io>
+ <20261025085816.60405-4-olivier@mgcrea.io>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Sun, 25 Oct 2026 09:44:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,78 +49,273 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-=D0=BD=D0=B4, 25 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 03:4=
-6 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Friday, October 23, 2026 11:14=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 23 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-11:26 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > =D0=BF=D1=82, 23 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=
-=BE 10:53 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > ...
-> > > > > +MODULE_ALIAS("platform:tegra-dbi");
-> > > > > +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-> > > > > +MODULE_DESCRIPTION("Nvidia Tegra20/30 MIPI-DBI Type B driver");
-> > > > > +MODULE_LICENSE("GPL");
-> > > >
-> > > > No separate platform driver or device. If a separate struct device =
-is
-> > > > needed for some technical purpose, we need to create a minimal sepa=
-rate
-> > > > virtual device, but unless there is a strong reason to have that we
-> > > > should be fine with just the dc device.
-> > > >
-> > > > Thank you
-> > > > Mikko
-> > > >
-> > >
-> > > ATM, I use bridge framework to describe interface and I am attaching
-> > > it to RGB since it basically uses RGB to transfer video data. It work=
-s
-> > > pretty nice so far.
-> > >
-> > > You propose to replicate how RGB works just for DBI?
-> > >
-> >
-> > One of the reasons I used separate pdev was to be able get mipi_dbi
-> > from it using dev_get_drvdata() from patent (dbi bridge in this case).
-> > DBI framework seems to not have a way to pass it in any other way,
-> > unless you know smth I don't.
->
-> Right, I think using a bridge is fine; passing the mipi_dbi interface is
-> properly done in other ways. The direct parent devdata link is a bit of
-> a "poor man's bus", and sometimes it breaks down, such as here.
->
-> MIPI DBI is comparable to MIPI DSI -- both have a hardware channel that
-> sends both pixel data and commands. I think we should follow DSI's
-> example and have a DBI bus and devices while keeping it as simple as
-> possible.
->
-> The DC driver would register a DBI host and the panel would bind as a
-> DBI device. The DC driver can then supply the mipi_dbi object in a field
-> of the mipi_dbi_device.
->
-> This is a bit more complicated than a parent devdata pointer but much
-> cleaner, and follows the existing DSI pattern.
->
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] drm/ingenic: premature plane cleanup via drm_atomic_helper_wait_fo=
+r_vblanks()
+- [High] drm/ingenic: missing visibility check in x1600_lcd_plane_atomic_ch=
+eck()
+- [Medium] drm/ingenic: premature vblank event in x1600_lcd_crtc_atomic_flu=
+sh()
+- [Medium] drm/ingenic: unclocked MMIO on disable in x1600_lcd_crtc_atomic_=
+disable()
+--
 
-I understand your intentions, but ATM kernel lacks any DBI type B
-framework. No hosts, ho devices, noting granular. Implementing
-everything just not worth my time to support 2 panels of device based
-on Tegra 20. And I am talking not about time to actually implement
-this in the code, but to upstream. DSI framework is huge, copying even
-part of it to wrap legacy DBI interface and ustreaming it does not
-worth hassle. And yes, I am a poor man, I use a parent devdata bus.
+commit ff594f68d62e2b467c0fa558eebe60679b4a51ba
+Author: Olivier Louvignes <olivier@mgcrea.io>
 
->
->
+drm/ingenic: Add a driver for the X1600 LCD controller
+
+This commit adds a DRM driver for the Ingenic X1600 LCD controller,
+supporting parallel RGB panels on a 24-bit bus with a single full-screen
+RGB565 primary plane and descriptor-chain page flipping.
+
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c b/drivers/gpu/dr=
+m/ingenic/ingenic-x1600-drm.c
+> new file mode 100644
+> index 0000000000000..34fbfc7de1c4b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+[ ... ]
+> +static void x1600_lcd_crtc_atomic_enable(struct drm_crtc *crtc,
+> +					 struct drm_atomic_commit *state)
+> +{
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
+> +	struct drm_display_mode *mode =3D &crtc->state->adjusted_mode;
+> +	unsigned int hde =3D mode->htotal - mode->hsync_start;
+> +	unsigned int vde =3D mode->vtotal - mode->vsync_start;
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D clk_set_rate(lcd->clk, mode->crtc_clock * 1000);
+> +	if (ret)
+> +		dev_warn(lcd->drm.dev, "Unable to set the pixel clock: %d\n", ret);
+> +	ret =3D clk_prepare_enable(lcd->clk);
+> +	if (ret) {
+> +		dev_err(lcd->drm.dev, "Unable to start the pixel clock: %d\n", ret);
+> +		return;
+> +	}
+[ ... ]
+> +	writel(x1600_lcd_desc_addr(lcd, lcd->cur), lcd->base + X1600_LCD_SRD_CH=
+AIN_ADDR);
+> +	writel(1, lcd->base + X1600_LCD_SRD_CHAIN_START);
+> +	lcd->running =3D true;
+> +
+> +	drm_crtc_vblank_on(crtc);
+> +}
+> +
+> +static void x1600_lcd_crtc_atomic_disable(struct drm_crtc *crtc,
+> +					  struct drm_atomic_commit *state)
+> +{
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
+> +
+> +	if (!x1600_lcd_stop(lcd))
+> +		dev_warn(lcd->drm.dev, "The controller did not stop\n");
+> +	lcd->running =3D false;
+> +
+> +	spin_lock_irq(&crtc->dev->event_lock);
+> +	if (lcd->event) {
+> +		drm_crtc_send_vblank_event(crtc, lcd->event);
+> +		drm_crtc_vblank_put(crtc);
+> +		lcd->event =3D NULL;
+> +	}
+> +	spin_unlock_irq(&crtc->dev->event_lock);
+> +
+> +	drm_crtc_vblank_off(crtc);
+> +	clk_disable_unprepare(lcd->clk);
+> +}
+
+[Severity: Medium]
+In drivers/gpu/drm/ingenic/ingenic-x1600-drm.c, if clk_prepare_enable() fai=
+ls
+in x1600_lcd_crtc_atomic_enable(), the function returns early with lcd->clk
+disabled and lcd->running left false, while the atomic state still marks the
+crtc as enabled.
+
+When the crtc is later disabled (for example via DPMS off, a subsequent
+modeset, or drm_atomic_helper_shutdown() in x1600_lcd_remove()),
+x1600_lcd_crtc_atomic_disable() unconditionally calls x1600_lcd_stop(lcd) a=
+nd
+clk_disable_unprepare(lcd->clk).
+
+Could this access hardware registers in x1600_lcd_stop() while lcd->clk is
+gated and underflow the clock prepare/enable counts in
+clk_disable_unprepare(lcd->clk) if x1600_lcd_crtc_atomic_disable() does not
+check lcd->running first?
+
+[ ... ]
+> +static void x1600_lcd_crtc_atomic_flush(struct drm_crtc *crtc,
+> +					struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
+te, crtc);
+> +	struct drm_pending_vblank_event *event =3D crtc_state->event;
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(crtc->dev);
+> +
+> +	if (!event)
+> +		return;
+> +
+> +	crtc_state->event =3D NULL;
+> +
+> +	/*
+> +	 * The controller takes a new descriptor "at appropriate time" (manual,
+> +	 * 10.6.4): wait until it reports reading the one just handed over.
+> +	 */
+> +	spin_lock_irq(&crtc->dev->event_lock);
+> +	if (lcd->running && !WARN_ON(lcd->event) && drm_crtc_vblank_get(crtc) =
+=3D=3D 0) {
+> +		lcd->event =3D event;
+> +		lcd->event_desc =3D x1600_lcd_desc_addr(lcd, lcd->cur);
+> +	} else {
+> +		drm_crtc_send_vblank_event(crtc, event);
+> +	}
+> +	spin_unlock_irq(&crtc->dev->event_lock);
+> +}
+
+[Severity: Medium]
+In x1600_lcd_probe(), drm->mode_config.helper_private is left unset, so
+atomic commits use the default drm_atomic_helper_commit_tail() ordering:
+
+  drm_atomic_helper_commit_tail()
+    drm_atomic_helper_commit_modeset_disables()
+    drm_atomic_helper_commit_planes()
+      x1600_lcd_plane_atomic_update()
+      x1600_lcd_crtc_atomic_flush()
+    drm_atomic_helper_commit_modeset_enables()
+      x1600_lcd_crtc_atomic_enable()
+
+During any commit that enables or re-enables the crtc,
+x1600_lcd_crtc_atomic_flush() runs before x1600_lcd_crtc_atomic_enable() se=
+ts
+lcd->running =3D true and calls drm_crtc_vblank_on(crtc).
+
+Won't the check in x1600_lcd_crtc_atomic_flush() always take the else branch
+during a modeset enable, sending the vblank event and completing flip_done
+before the controller and panel bridge have even started?
+
+[ ... ]
+> +static irqreturn_t x1600_lcd_irq(int irq, void *data)
+> +{
+> +	struct x1600_lcd *lcd =3D data;
+> +	u32 st =3D readl(lcd->base + X1600_LCD_INT_FLAG);
+> +
+> +	if (!st)
+> +		return IRQ_NONE;
+> +
+> +	writel(st, lcd->base + X1600_LCD_CLR_ST);
+> +	if (st & X1600_LCD_ST_STOP_SRD_ACK)
+> +		complete(&lcd->stopped);
+> +
+> +	if (st & X1600_LCD_ST_DISP_END) {
+> +		drm_crtc_handle_vblank(&lcd->crtc);
+> +
+> +		spin_lock(&lcd->drm.event_lock);
+> +		if (lcd->event &&
+> +		    readl(lcd->base + X1600_LCD_CHAIN_SITE) =3D=3D lcd->event_desc) {
+> +			drm_crtc_send_vblank_event(&lcd->crtc, lcd->event);
+> +			drm_crtc_vblank_put(&lcd->crtc);
+> +			lcd->event =3D NULL;
+> +		}
+> +		spin_unlock(&lcd->drm.event_lock);
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+[Severity: High]
+When a page flip is programmed near the end of a frame and the controller h=
+as
+not yet switched to the new descriptor in lcd->event_desc when the next
+end-of-frame interrupt fires, x1600_lcd_irq() holds back the flip event
+because X1600_LCD_CHAIN_SITE does not match lcd->event_desc yet, but it sti=
+ll
+calls drm_crtc_handle_vblank(&lcd->crtc) unconditionally.
+
+Because drm->mode_config.helper_private is unset in x1600_lcd_probe(), the
+default drm_atomic_helper_commit_tail() waits for
+drm_atomic_helper_wait_for_vblanks() rather than
+drm_atomic_helper_wait_for_flip_done():
+
+  drm_atomic_helper_commit_tail()
+    drm_atomic_helper_wait_for_vblanks()
+    drm_atomic_helper_cleanup_planes()
+
+Can that first vblank interrupt wake drm_atomic_helper_wait_for_vblanks() a=
+nd
+allow drm_atomic_helper_cleanup_planes() to release the old framebuffer whi=
+le
+the controller is still scanning out the previous descriptor for another
+frame?
+
+> +
+> +static int x1600_lcd_plane_atomic_check(struct drm_plane *plane,
+> +					struct drm_atomic_commit *state)
+> +{
+> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
+state, plane);
+> +	struct drm_crtc_state *crtc_state;
+> +
+> +	if (!plane_state->crtc)
+> +		return 0;
+> +
+> +	crtc_state =3D drm_atomic_get_new_crtc_state(state, plane_state->crtc);
+> +	if (WARN_ON(!crtc_state))
+> +		return -EINVAL;
+> +
+> +	/* The plane covers the whole screen: no scaling, no position. */
+> +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   false, true);
+> +}
+> +
+> +static void x1600_lcd_plane_atomic_update(struct drm_plane *plane,
+> +					  struct drm_atomic_commit *state)
+> +{
+> +	struct x1600_lcd *lcd =3D to_x1600_lcd(plane->dev);
+> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
+state, plane);
+> +	struct drm_framebuffer *fb =3D plane_state->fb;
+> +	unsigned int next =3D lcd->running ? !lcd->cur : lcd->cur;
+> +	struct x1600_lcd_desc *desc =3D &lcd->desc[next];
+> +
+> +	if (!fb)
+> +		return;
+> +
+> +	desc->next =3D x1600_lcd_desc_addr(lcd, next);
+> +	desc->addr =3D drm_fb_dma_get_gem_addr(fb, plane_state, 0);
+> +	desc->stride =3D fb->pitches[0] / fb->format->cpp[0];
+
+[Severity: High]
+In drm_atomic_helper_check_plane_state(), if userspace places the plane's
+destination rectangle completely outside the active crtc dimensions, the
+helper sets plane_state->visible =3D false and returns 0 before checking
+can_position:
+
+  drm_atomic_helper_check_plane_state()
+    plane_state->visible =3D drm_rect_clip_scaled(src, dst, &clip);
+    ...
+    if (!plane_state->visible)
+            return 0;
+
+    if (!can_position && !drm_rect_equals(dst, &clip))
+            return -EINVAL;
+
+If userspace submits a small framebuffer positioned off-screen, won't
+x1600_lcd_plane_atomic_check() accept the state and
+x1600_lcd_plane_atomic_update() program desc->addr to scan out a full frame
+past the end of the small buffer unless !plane_state->visible is rejected?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025085816.6040=
+5-1-olivier@mgcrea.io?part=3D3
