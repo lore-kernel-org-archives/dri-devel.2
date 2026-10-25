@@ -2,43 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EA1606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:37:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141FA606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=startmail.com header.i=@startmail.com header.a=rsa-sha256 header.s=2020-07 header.b=EriZjacy
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=tHh65fKh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3E6210EC84;
-	Mon, 26 Oct 2026 08:37:24 +0000 (UTC)
-Received: from mx-out1.startmail.com (mx-out1.startmail.com [145.131.90.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A67D010E1CA
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 13:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=startmail.com;
- s=2020-07; t=1792935517;
- bh=RMftgAUp5cONeZ2SOkSnUtb3aJRq1ym02GWaJFoUPeM=;
- h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
- Mime-Version:Content-Transfer-Encoding:From:Subject:To:Date:Sender:
- Content-Type:Content-Transfer-Encoding:Content-Disposition:
- Mime-Version:Reply-To:In-Reply-To:References:Message-Id:Autocrypt;
- b=EriZjacynyZoQOitbldrxZwmdVVNaB9896vzSOG+Gu3b564D7AW9cuDN1mLeDNI4y
- ziUFHAFrvGGSKv25o9oMiNpVNCpshw5TxxY7evHQZ0EXWKQcegC360HxxFqL3/c+97
- GfkKcDSnrhV0Oe6avSL2dAZDVbJdpo54hsgBKib8APw+G6xQdGiV+ETFHXwCmtsl9R
- lTofqMNTvGjFCeiEES/NHWjNsceqSOWFwXwfZd+riupu73F3mpeFbv21bsrxFdmvUX
- guKryvEzr8OXNWAkad2TVnvMJfKT+r2TXWpznTemE4l8bM4RbLrrKx7sHzSRrM6rED
- rllBvbuJ++DJA==
-From: Jacob Pyke <jacob@pyk.ee>
-To: neil.armstrong@linaro.org
-Cc: jesszhan0024@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, teguh@sobir.in,
- Andrew.liu@moorechip.net, Jacob Pyke <jacob@pyk.ee>
-Subject: [PATCH 1/2] dt-bindings: display: panel: Add Retroid Pocket IL97680A
- panels
-Date: Sun, 25 Oct 2026 23:37:40 +1000
-Message-ID: <20261025133741.100490-2-jacob@pyk.ee>
-In-Reply-To: <20261025133741.100490-1-jacob@pyk.ee>
-References: <20261025133741.100490-1-jacob@pyk.ee>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5B210EC88;
+	Mon, 26 Oct 2026 08:37:25 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C576B10E182
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 19:16:42 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4a60f9474c4so2718885e9.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 12:16:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792955801; x=1793560601;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4nx2+DECqgeu/AGfuDB9I8gflqDb1c6vzu+N1VHtydM=;
+ b=tHh65fKh8gLqHvHw2xaFrR2yi2HMMJPMK1pjI/vFSXA6zaVhO5A70LmqFVLSblTVhl
+ Fuop2KYfyVKfPoQ3vR3JgwpmxzSP0rnomn1MEABYSsEy7mhjwZoTIzTdUq947hsVzevg
+ NNGE0w1w02XssUzakKKX0HnWozDzP4t+SZPCoLG5bkooQDOHFj13yGh3qDmgfHRk0+S1
+ p8ityHx+KUTL+XwVKuurnTC951JbHq9tJ3ZGHqRst5twcU00401vIsp2r7FtsKuvGLpx
+ nx33mEQDdX7qoqfCrgUiX89ZjxZYRG/tqBa2kMxAk6z/WuRCiasxM5g2qaWdlC34i9SU
+ 5jvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792955801; x=1793560601;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=4nx2+DECqgeu/AGfuDB9I8gflqDb1c6vzu+N1VHtydM=;
+ b=uGAJ3mCiJumwWZibL99w4L+vL2heV26yO+2vh+pxbj1V9joDMCxhdRx9FJIVc4KNsG
+ MDxOoXd0lDsCoZFdiS+kOjJEkiHffBxDBe+MruhfCvSptACYLJ20EhGRX/brUsj61Ykz
+ 7FWzCSs4B46p/ka59J4I8U1RcAqb2YCusDAVA8MHoUjuEkUZLQ3SWB6RBb6nj1iiTkJT
+ cWcY13AEu73co0QH6q7XosfM2s4GXmq+fuxnWhF7vkQx3d52EsT/lHOVAK0Es94+HsxR
+ 0K3FpnThwIaWBsKEYt3BaJsDxWxXeIbUtYCngrm47RyFbvzu2BQcw6GcgKDQeas1z4VR
+ 9jQw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzrIWPRxb7vrPJArhmItdD6W0o5BHtzN1tdS9TNnIvJ6jSK06JfKWlIHCIZ5P7uSIhdGF0xHeWK9IE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK3cVyOD9lglxyyVLHwtCmRSEtQe81lq/pBMIW1wPAWqC2XZB4p
+ qyUjeSs+q0te9xxSq4HF9t+VvxtpNVYUt+X1TPjbngUntjqUR7sXENWVg74VBK0rmG0=
+X-Gm-Gg: AYBFou3F628vulkyeIPDbg/e54jYx4x684+bblxwsR2t5x35GwfTYNUyaz8EM3FSYBO
+ KBUv5Ze+wvmhEFvQApB0UA21lpirjLlVC85aedYWLYSflWPWhdgaPrU+vbVP1B1ZVuKZbedZtY+
+ i4WvaqNWUVql4SQv9YW7NxgI4CChnU7Q6Sm3rkzBYnJJTPAD9hqhjMdVOUybkyyN8YZy7e9cU7s
+ gcDWAaYUg/dyHwfSbqWBy0J22sAP2A8PQH9IxRyXP7ilCzGp4wSTeO+iCK52l4loEmJdVVBzRmW
+ qEKgHVwaJbFv58WAjh72+1W1XnAfdSEP6+xlE1iD6iQMOr+BqkRzNxuSzBnphUSLvdK3dbezUo6
+ pXeE7cL2GrOvkgLM0sQwW+04me23JctUyKEj8TAgx+OK5gxdwzZzbJInICnL4KxqfYH+uxes8vo
+ k/hvHDCGNGMAl6pc3S64rk5HjsRpzc6rt2hFL1X2hJrVKflLNBMNtplP+9miU2RgGVzpQaiyQrD
+ pUrC/INFNen9qzKrwx2aMqXJBgGQoOA0FgUxF8y4dA3vISGhwBQlL2ZMlzrmDUiGQLI4pp+Yn9+
+ PdWFtVLqiCSRuQ==
+X-Received: by 2002:a05:600c:4e87:b0:4a2:1867:10e8 with SMTP id
+ 5b1f17b1804b1-4a35aca7643mr101451135e9.25.1792955801092; 
+ Sun, 25 Oct 2026 12:16:41 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:6dfc:5715:ead7:7540])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a35a5822a7sm144560865e9.11.2026.10.25.12.16.40
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 25 Oct 2026 12:16:40 -0700 (PDT)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ "H . Nikolaus Schaller" <hns@goldelico.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH v2 0/5] drm/ingenic: Add the X1600 LCD controller and the HiBy
+ R1 panel
+Date: Sun, 25 Oct 2026 20:16:35 +0100
+Message-ID: <20261025191640.13592-1-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:36:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -52,170 +94,85 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Teguh Sobirin <teguh@sobir.in>
+The display controller of the Ingenic X1600 is not the one ingenic-drm
+drives: it fetches frames through descriptors and keeps its interface and
+timings in register blocks of their own. It is the X2000's controller
+without the composer. This series adds a binding and a driver for it,
+then the panel of the HiBy R1, an X1600 audio player: 480x800 parallel
+RGB, set up over a 3-wire SPI bus.
 
-Document the Ilitek IL97680A panels in the Retroid Pocket Nova and the
-bottom display of the Retroid Pocket Duo. Both are 1280x960 MIPI DSI
-command-mode panels, with different supply configurations.
+The driver covers what the R1 uses and what could be tested: parallel RGB
+panels on a 24-bit bus and one full-screen RGB565 plane. The composer,
+smart panels and other pixel formats are left out.
 
-Link: https://github.com/RetroidPocket/linux/commit/9bfe85be2179d03338d09b8900f3b1916999ef15
-Signed-off-by: Teguh Sobirin <teguh@sobir.in>
-Assisted-by: LLM
-Signed-off-by: Jacob Pyke <jacob@pyk.ee>
----
- .../display/panel/ilitek,il97680a.yaml        | 121 ++++++++++++++++++
- MAINTAINERS                                   |   6 +
- 2 files changed, 127 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,il97680a.yaml
+Two things come from the vendor kernel rather than the manual. A flip
+also writes SRD_CHAIN_START, which the manual doesn't describe for a
+running controller; flips without it were not tried. The panel's set-up
+sequence is the vendor's too: HiBy calls the panel LG35583, its maker and
+controller are unknown, hence the hiby prefix.
 
-diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,il97680a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,il97680a.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..70a1bdccef75ea3ee6335304ede771ff711991de
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/ilitek,il97680a.yaml
-@@ -0,0 +1,121 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/ilitek,il97680a.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Ilitek IL97680A based DSI panels
-+
-+maintainers:
-+  - Teguh Sobirin <teguh@sobir.in>
-+  - Jacob Pyke <jacob@pyk.ee>
-+
-+description:
-+  The Ilitek IL97680A is a DSI display driver IC driving the 1280x960
-+  command mode panels of the RetroidPocket handhelds.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          const: retroidpocket,rpnova-panel
-+    then:
-+      required:
-+        - vdd18-supply
-+        - vdd28-supply
-+    else:
-+      properties:
-+        vdd18-supply: false
-+        vdd28-supply: false
-+
-+properties:
-+  compatible:
-+    enum:
-+      - retroidpocket,rpduo-panel-bottom
-+      - retroidpocket,rpnova-panel
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Core voltage supply
-+
-+  vddio-supply:
-+    description: I/O voltage supply
-+
-+  vci-supply:
-+    description: Analog voltage supply
-+
-+  vdd18-supply:
-+    description: 1.8V supply of the panel module
-+
-+  vdd28-supply:
-+    description: 2.8V supply of the panel module
-+
-+  reset-gpios: true
-+  rotation: true
-+  port: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - vddio-supply
-+  - vci-supply
-+  - reset-gpios
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "retroidpocket,rpnova-panel";
-+            reg = <0>;
-+
-+            vdd-supply = <&vreg_l11b_1p2>;
-+            vddio-supply = <&vreg_l12b_1p8>;
-+            vci-supply = <&vreg_l13b_3p0>;
-+            vdd18-supply = <&vdd_disp_1v8>;
-+            vdd28-supply = <&vdd_disp_2v8>;
-+
-+            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
-+
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi0_out>;
-+                };
-+            };
-+        };
-+    };
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "retroidpocket,rpduo-panel-bottom";
-+            reg = <0>;
-+
-+            vdd-supply = <&vreg_l1g>;
-+            vddio-supply = <&vdd_disp_s_1v8>;
-+            vci-supply = <&vdd_disp_s_3v0>;
-+            reset-gpios = <&tlmm 73 GPIO_ACTIVE_LOW>;
-+
-+            port {
-+                duo_panel_in: endpoint {
-+                    remote-endpoint = <&dsi1_out>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b9424b630ac34ae6b1774416ef4cb3ef1a8ebe63..d1be1cf2b93c4fa57ffcb6a17aaf2e14dad0deed 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8235,6 +8235,12 @@ S:	Maintained
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	drivers/gpu/drm/hyperv
- 
-+DRM DRIVER FOR ILITEK IL97680A PANELS
-+M:	Jacob Pyke <jacob@pyk.ee>
-+L:	dri-devel@lists.freedesktop.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/panel/ilitek,il97680a.yaml
-+
- DRM DRIVER FOR ILITEK ILI9225 PANELS
- M:	David Lechner <david@lechnology.com>
- S:	Maintained
+Changes in v2, all in 3/5 and all found by the Sashiko review of v1:
+- Commits wait for flip_done instead of a vblank before the planes are
+  cleaned up. A flip's event waits until the controller reports reading
+  the new descriptor, which can be a frame after the vblank that v1's
+  default commit_tail waited for, so the old framebuffer could be freed
+  while still scanned out.
+- A CRTC being enabled sends its event from atomic_enable(), once the
+  controller runs; v1 sent it from atomic_flush(), which runs first.
+- A plane that is not visible is rejected: the controller always scans
+  out a whole frame, so v1 would have read past the end of a small
+  framebuffer placed off-screen.
+- atomic_disable() returns early when atomic_enable() failed to start
+  the pixel clock, instead of touching an unclocked controller.
+
+Tested on a HiBy R1: the fbdev console and a player drawing through
+fbdev, blanking and unblanking, 60 page flips in 0.97 s at about 61 Hz,
+and the colour order (RGB order swaps red and blue on this panel). For
+v2 also: 120 fbdev pans in 1.95 s (one flip per frame, none timing out),
+three blank/unblank cycles, and a 64x64 framebuffer set on the primary
+plane just past the right edge through SETPLANE, which v1 accepted and
+v2 refuses with -EINVAL, while a full-screen one is still accepted.
+
+The X1600 has no device tree upstream yet; its support is being posted
+one subsystem at a time. The R1's backlight uses the X1600 PWM driver
+posted separately, now at v2:
+https://lore.kernel.org/r/20261025191624.9219-1-olivier@mgcrea.io
+
+v1: https://lore.kernel.org/r/20261025085816.60405-1-olivier@mgcrea.io
+
+Olivier Louvignes (5):
+  dt-bindings: vendor-prefixes: Add HiBy
+  dt-bindings: display: Add the Ingenic X1600 LCD controller
+  drm/ingenic: Add a driver for the X1600 LCD controller
+  dt-bindings: display: panel: Add the HiBy LG35583
+  drm/panel: Add the HiBy LG35583
+
+ .../bindings/display/ingenic,x1600-lcd.yaml   |  70 ++
+ .../bindings/display/panel/hiby,lg35583.yaml  |  71 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |  12 +
+ drivers/gpu/drm/Makefile                      |   1 +
+ drivers/gpu/drm/ingenic/Kconfig               |  22 +
+ drivers/gpu/drm/ingenic/Makefile              |   1 +
+ drivers/gpu/drm/ingenic/ingenic-x1600-drm.c   | 744 ++++++++++++++++++
+ drivers/gpu/drm/panel/Kconfig                 |  10 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-hiby-lg35583.c    | 342 ++++++++
+ 11 files changed, 1276 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
+ create mode 100644 drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+ create mode 100644 drivers/gpu/drm/panel/panel-hiby-lg35583.c
+
+
+base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
+-- 
+2.39.5
+
