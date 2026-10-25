@@ -2,91 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A190606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:38:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DAD4606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:38:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20251104.gappssmtp.com header.i=@mg-crea-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=AlZKnllt
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gCvHDqDo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4502410EC94;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90C1710EC95;
 	Mon, 26 Oct 2026 08:38:25 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FBF810E877
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 08:58:22 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-48e3b22e971so838779f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 01:58:22 -0700 (PDT)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD05810E200
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 18:46:03 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-c4301e334ceso134043166b.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 11:46:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792953962; cv=none;
+ d=google.com; s=arc-20260327;
+ b=a5rNBBRxLHW53MO1cGxwYCxe+l5yTpBtoaLo7N1il0L8q4520dS3Didwhy1ZWDPYza
+ rTugWVrnyfNRg0qVg+zEFRafk6SC51wptI8t7Wcdgvwlf5JTIg+djInK1f/H0ATUb4qe
+ WVuIlSEH6sOcfx4u8VeDCnwy6ez07DaM8/5+oUAz9k5zxkdJA9xOtiZ3/nI71mqeZg1A
+ l+PCDNGrImeVky9GmQWydywng4s/HgNiyqKxj4LScBXcRIBkoB7uQTlf9Ci4RgkWpvFc
+ rnVRIwvt3fnu3osnGbdXCmofcCAe1itFITqleGPqfBN2P5rzIhOvyejxt56gL99vuTL5
+ hfqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=XPpzylSFPiRoNkfc9kWpT/XKJhJoYsaKVaCelc9FgwI=;
+ fh=+aQAFS1M8fyHGgjhqFIgBcc73lYAwSLsYDgiptWJXDs=;
+ b=buo2atRDdAQfeZrEWMv+KZJgaMQy4cPBPk4r45K9VmZN0fgvXllq6KBuKiUCTnAP9l
+ 69E4WN4Dh9OMzwevkqBDfq60vSzSJm1sQ5Atl5cKVfJ6neyVqi1gJVpZiTv0HcU61t8P
+ 6j5qnSdzzNHX7WTMKfwqfdbLCGFQxJwK31G7/y6bTbyfwlnkewoAT52sfs05GDymeiCQ
+ AMUQcl0zYQaVw5p3VaTfmgncDK7XBThuOB84SpYoztu5FEvlZwfp/afGiR+NIP5d8xKf
+ C0bIhHnlBnGjIeVWI1d2zLjwCBKdyIhPocfaTwiaDFD+67NgQ/MdSHJ9A0GPjHaej5Ob
+ JCJA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mg-crea-com.20251104.gappssmtp.com; s=20251104; t=1792918700; x=1793523500;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=TUXrWd1uFQ9/7zBa9iOKq/mMkUTdmQim8i8VROH4cyg=;
- b=AlZKnlltxDr74nrD/+es+gXmDQo84QXmV52MuDeeCTd/9jU0UIZfW/MKXIg2HAnxq0
- Ps5ezJTsQMwf+2QaeukH0ORKWBQrOjtBncnUtqQChTR2hbP/uBLjjhvlxXE+N5+O0iAW
- xA+CaVk/pnGquMG8P3oo32vfinQtHmpHtsKWFvi9RH678zJActzZtycmlDNbVI0jIw1f
- AezrPGkxltU60dhBXo3+PLOE6ix0cMwUYxsfD/PgzBsYd1PEMqAH7Izt9/gy3ElLHtVW
- yOS/XK1ikpJLxLtVq5iAPgMGi8eaeOTfHuyOfljSBHRBbWOmJ/QD4Gz4GPTYAFsmlAyX
- fqBg==
+ d=gmail.com; s=20251104; t=1792953962; x=1793558762; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=XPpzylSFPiRoNkfc9kWpT/XKJhJoYsaKVaCelc9FgwI=;
+ b=gCvHDqDo/36MgWfIm52Iz68gXbVjn1XAm41f1OzFtWcpd8iO8MnvF1xZgH9z0pIjIi
+ s5XVR6vYpGlLZiXUi5AkxV/aB9SSHqGtomO+Jj6onFBeEeXoMraVv8NWkovdgzFVQiHy
+ fLBQ+5Tu9Mqfl9X53aO2m4Ctpck2TzEu1Vs/aqEJ05n2XKKC40Dor6PioLNK0ZBid3oL
+ YINokwYMrWxM2eOpciJoo09FlIN/ZxAzGYv/ajZAIihnQXh5xJVZSHKMXk4E7vC6Ink1
+ qi3QLpDSaoA5xR6gqsYHjDXFT4WHGBHcII6Z1gLPjW3Y6YWxpdrQ0/D0RR7qmJ6wgWPE
+ IGVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792918700; x=1793523500;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=TUXrWd1uFQ9/7zBa9iOKq/mMkUTdmQim8i8VROH4cyg=;
- b=vsJRnutuPft6iFy/MfdSKIxI/xab3j7skDGT+HoPzDv0jQBIDzkFG8RC08/+y0+lDZ
- 9eXD/XKZJ7kvJnA5uO/zav2Mapaa2OUfnsFtvGXaT2e6nCYcczO1NDSCA8GSyDpJsb7m
- kbu7ZxH6EMtnzp3/42jn3uyKzUhopJk5gH6bzoRh63elb/tn2lMYE0N/El/mQY8pJDf2
- 2THG/zcCKoeLRHJu6MddUfO4k+WxVdFlEWHWBFPFA720y0s9h/Rno+YYB/z3kVZOI+lv
- EehABcr5S7DxQyA6mzDSAB6/OI6DG0U/AQ1nAvbBsag3YRR78ajV2vr/lvnjBNSguu4J
- 8IFA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxv52wPf3KW5V589vGy3G/4jjIH12Wgn4/PNO2psX2mF0T3ymtEVrCCHzksRVbSyeaqOm+NDpqOhuc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLBspIiQ5kF2ViK7MymLUVhUQ9FxFIAS0JDKd/ZOGCcnxz1fMz4
- L+PoPiA2k0Qs1xAkXmHmlltskKrTdJh5bx9OYtxrUfDs0jgxgjMj+llxL4XzLNGAtm4=
-X-Gm-Gg: AYBFou2xLDaaWAzkTrzSsiaXpbTj2bJloj5pVQIZVzExyyuDG16Xl4moi9c16Ho6N/v
- PXFhzOIs931qM281YQqJiYXFwdEgmS/vfdL/Xx7W9EtO50csGpEh5zDI1nB13iPtbwdxR69kgfr
- x8ntpsZYOT1YuG00GKjGKzxVduDG52Ab/q0vLZvFT7aWT84K4OfYt9kMCoOM0/vmjHAgH9PjRF2
- kdVs7CdAbPZmZEuFCHIdi7Ot2bmGACqwyVz4xK520rpDgvgG27InM2ErTmjT9FYP3J98pKBXRBY
- 3NTWsgHnx4DjMA+Iqjc83xxvGqTH4Cm9IBqJzud2eDS0xKzckakFXb/qljicuRzhklAcO9z1REt
- m4uzblDfS/LFNcuL44V+BQ5xM+P5QgqV4Jg6liyozY375Pm6LRx5B89nnmRxgaMSyKAzNU5Lbiy
- pNYa7MH+xOqD8fdYhQ2KWLCBrrLvIrUgxJ5uON/1YlxYvbp7uzVx4N1Ojn0zdmMiZoLbdaBOnlS
- bfH3a6M9R0eBpsNpdvOrmecdgBzQYbrWT1frTSeHkPfLlXBg+/x5dvTtHZtPZLG+Yx4ZN1lRjx5
- 19NMJstOFugyd3zf0Hr+Ct9FqgNHlFg1Tup4Qw+HOctyv0jcqcnLm/9ufwj1h5paLZ9sQarKQw=
- =
-X-Received: by 2002:a5d:4ccc:0:b0:48e:bf0:30f with SMTP id
- ffacd0b85a97d-48e3eb8b7fcmr5025357f8f.34.1792918700367; 
- Sun, 25 Oct 2026 01:58:20 -0700 (PDT)
-Received: from localhost.localdomain
- (2a01cb060184ad00bcfbae5efa3e0f0b.ipv6.abo.wanadoo.fr.
- [2a01:cb06:184:ad00:bcfb:ae5e:fa3e:f0b])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3ebc3cfasm9094542f8f.17.2026.10.25.01.58.19
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 25 Oct 2026 01:58:19 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- "H . Nikolaus Schaller" <hns@goldelico.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH 3/5] drm/ingenic: Add a driver for the X1600 LCD controller
-Date: Sun, 25 Oct 2026 09:58:14 +0100
-Message-ID: <20261025085816.60405-4-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261025085816.60405-1-olivier@mgcrea.io>
-References: <20261025085816.60405-1-olivier@mgcrea.io>
+ d=1e100.net; s=20260707; t=1792953962; x=1793558762;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=XPpzylSFPiRoNkfc9kWpT/XKJhJoYsaKVaCelc9FgwI=;
+ b=Nz6gC5qOiWDV4HqOtJ8g/JihujWVccpIMTQNTDztzoYyWRcynio1D7q3JA9+GQTUNk
+ ErN9mv5vsbi1K+IPV3vIB5mGVYC0YZ6G3Lz7zt3E9HDy98ZgNX4zdzRtPLTeiIG9STQL
+ dubLYjbVw6tJk2XZxZelligS71Sv5eiSkPfPsEmwb+MFuqbadkUU4qhlrPNc3iybZjwj
+ NFk9qFY9ldJkPThDMaKLGXrCuVuMvT2xUUCubWOpiMMxkmmOLyLOoKdyfDKfRN0tcuwo
+ cm/xHqYTMBhtoowdyqNvAURbF8qViHZ4LB+7FPP1EIr9qs4tCrNxnRqIX7i9WnXNzPTF
+ 48Ug==
+X-Gm-Message-State: AFq9FYJVE0dVV3dyAp89Ur90UuqBA0S6XESi5s9SmMqMzDB4C6AaV7j0
+ rKe6LypVEySHhCWodwrQttjDsd5+higPTYECN2R8eSmZqPoW4hvtmpniPVNJm4NwdF//bmJ8smN
+ +3TUHqEs5JCfRxhzacoQs7D+WdoQS7VI=
+X-Gm-Gg: AYBFou2XisViLmbWnrUe01nXWCM49UykLk3WdxTz70rjD8Dm3PeRF9cu6gdiQHOffQh
+ HpVRulnBib1WHWhcLoGCRg4XfQIF+goPf6qwzHJARtUyrIEh5IThsNpcygnuru94Pu3OUvujsGe
+ pnyieQ1S24d6KYWYL7Spdvs8jdBYdLAfbxgeV39SRsd4ZR2H7cjr58JxBT0/rMau0o88xJ9KJ81
+ 2vFAbAq0oYXNq18A3xFfgknQANDpE3yvOHQn1y+HnnVbjzmZOW/q6eRPH/FZ57vaqAmMstX5eUb
+ o0onV6yuSeDbxsWFVooUgEgJt27MRO/DLQmPNB5td9CW7l79QdxOD4lI1/NoeOYSdSfnXni4nWi
+ HanH9Q0fUQeSNiUwRxdjE8Tt71aO3gzNZ1yBm9PiaY/QanRI6Hw3kd1yeo/NCE6oaCjR5YWfrzt
+ bPTRj2xXUaJskyIZpkNhrKuQ==
+X-Received: by 2002:a17:907:6092:b0:c31:82aa:dd4c with SMTP id
+ a640c23a62f3a-c46bde48accmr541783466b.24.1792953961869; Sun, 25 Oct 2026
+ 11:46:01 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261019144916.108589-1-kolomiiec@gmail.com>
+ <CADnq5_N3bnL6oMbikTRVtDzZAPGwd-ptZ5ph2Sr6wPykShwm4A@mail.gmail.com>
+In-Reply-To: <CADnq5_N3bnL6oMbikTRVtDzZAPGwd-ptZ5ph2Sr6wPykShwm4A@mail.gmail.com>
+From: =?UTF-8?B?0J4g0Jo=?= <kolomiiec@gmail.com>
+Date: Sun, 25 Oct 2026 20:45:25 +0200
+X-Gm-Features: AclHuK_rnI1y7WgTkH9iEnBAoMB8X4jF7zymcZmEj1XWzkobtWl9fV6xK-ohjas
+Message-ID: <CA+e2gLs3jiLmQOHwS+nxsVEdb0HvnZxGDQKKU=wwPrKS9d==UQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/radeon: retry UVD v1 init on failure after resume
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Leo Liu <leo.liu@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:36:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,807 +103,227 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The X1600's display controller has none of the registers ingenic-drm
-programs: it fetches each frame through a descriptor whose address it
-takes from SRD_CHAIN_ADDR, and keeps its interface, TFT timings and smart
-panel set-up in separate register blocks (X1600 programming manual,
-chapter 10; the X2000's controller without the composer). This driver
-handles parallel RGB panels on a 24-bit bus, with one full-screen RGB565
-plane, and takes the colour order (RGB or BGR) from the panel's bus
-format.
+> That is not really the problem, question is rather have you seen any
+> hard crashes with this?
 
-Each descriptor points at itself, so a frame repeats until a flip hands
-the controller the other one. The controller takes it "at appropriate
-time", so a flip's event waits until the descriptor-site register
-reports the new descriptor at the end of a frame.
+Short answer: no =E2=80=94 zero.
 
-Tested on a HiBy R1 with its 480x800 panel: the fbdev console and
-r1player, blanking and unblanking, and 60 fbdev pans in 0.97 s, one flip
-per frame at about 61 Hz, none timing out.
+Across the whole testing history of this patch there has not been a
+single hard crash, spontaneous reboot, PCI fall-off-the-bus event or
+any other unrecoverable failure: the three stand runs (6+6+6
+suspend/resume cycles for v1/v2/v3), every daily resume since ~Oct 12
+on the patched DKMS build, and all 42 cycles of stock behaviour before
+that. Every failed resume on stock ended the same soft way =E2=80=94 ring 5
+test fails, UVD declared dead, display and the rest of the machine
+keep working.
 
-Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
----
- MAINTAINERS                                 |   1 +
- drivers/gpu/drm/Makefile                    |   1 +
- drivers/gpu/drm/ingenic/Kconfig             |  22 +
- drivers/gpu/drm/ingenic/Makefile            |   1 +
- drivers/gpu/drm/ingenic/ingenic-x1600-drm.c | 694 ++++++++++++++++++++
- 5 files changed, 719 insertions(+)
- create mode 100644 drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
+I take the FW-signing scenario you describe seriously, and it is a
+good frame for judging the patch: but the retry path performs exactly
+the same set of MMIO operations as the stock init sequence (raise
+clocks, start VCPU, ring test, stop) =E2=80=94 it just performs them up to
+three times. It introduces no new class of register access and no
+firmware interaction beyond what stock already does once. So the
+signing block sees nothing it would not see on a stock boot or a stock
+resume where the first attempt happens to fail.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 98d46b1cc029..57313163e59e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12931,6 +12931,7 @@ INGENIC X1600 DRM DRIVER
- M:	Olivier Louvignes <olivier@mgcrea.io>
- S:	Maintained
- F:	Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
-+F:	drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
- 
- INJOINIC IP5xxx POWER BANK IC DRIVER
- M:	Samuel Holland <samuel@sholland.org>
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 2c6bc093a923..37dc781761d6 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -206,6 +206,7 @@ obj-$(CONFIG_DRM_STM) += stm/
- obj-$(CONFIG_DRM_STI) += sti/
- obj-y 			+= imx/
- obj-$(CONFIG_DRM_INGENIC) += ingenic/
-+obj-$(CONFIG_DRM_INGENIC_X1600) += ingenic/
- obj-$(CONFIG_DRM_LOGICVC) += logicvc/
- obj-$(CONFIG_DRM_MEDIATEK) += mediatek/
- obj-$(CONFIG_DRM_MESON)	+= meson/
-diff --git a/drivers/gpu/drm/ingenic/Kconfig b/drivers/gpu/drm/ingenic/Kconfig
-index 987ed42f6f7a..206e26be143d 100644
---- a/drivers/gpu/drm/ingenic/Kconfig
-+++ b/drivers/gpu/drm/ingenic/Kconfig
-@@ -20,6 +20,28 @@ config DRM_INGENIC
- 
- 	  If M is selected the module will be called ingenic-drm.
- 
-+config DRM_INGENIC_X1600
-+	tristate "DRM support for the Ingenic X1600 LCD controller"
-+	depends on MIPS || COMPILE_TEST
-+	depends on DRM
-+	depends on OF
-+	depends on COMMON_CLK
-+	select APERTURE_HELPERS
-+	select DRM_BRIDGE
-+	select DRM_CLIENT_SELECTION
-+	select DRM_PANEL_BRIDGE
-+	select DRM_KMS_HELPER
-+	select DRM_DISPLAY_HELPER
-+	select DRM_BRIDGE_CONNECTOR
-+	select DRM_GEM_DMA_HELPER
-+	help
-+	  Choose this option for DRM support for the display controller of
-+	  the Ingenic X1600 SoC. It drives parallel RGB panels on a 24-bit
-+	  bus from one full-screen RGB565 plane; the controller's smart panel
-+	  interface is not supported.
-+
-+	  If M is selected the module will be called ingenic-x1600-drm.
-+
- if DRM_INGENIC
- 
- config DRM_INGENIC_IPU
-diff --git a/drivers/gpu/drm/ingenic/Makefile b/drivers/gpu/drm/ingenic/Makefile
-index f10cc1c5a5f2..90072ad13158 100644
---- a/drivers/gpu/drm/ingenic/Makefile
-+++ b/drivers/gpu/drm/ingenic/Makefile
-@@ -2,3 +2,4 @@ obj-$(CONFIG_DRM_INGENIC) += ingenic-drm.o
- ingenic-drm-y = ingenic-drm-drv.o
- ingenic-drm-$(CONFIG_DRM_INGENIC_IPU) += ingenic-ipu.o
- obj-$(CONFIG_DRM_INGENIC_DW_HDMI) += ingenic-dw-hdmi.o
-+obj-$(CONFIG_DRM_INGENIC_X1600) += ingenic-x1600-drm.o
-diff --git a/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c b/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
-new file mode 100644
-index 000000000000..34fbfc7de1c4
---- /dev/null
-+++ b/drivers/gpu/drm/ingenic/ingenic-x1600-drm.c
-@@ -0,0 +1,694 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DRM driver for the LCD controller of the Ingenic X1600
-+ *
-+ * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
-+ *
-+ * The X1600's display controller (X1600 programming manual, chapter 10) is
-+ * the simple read channel of the X2000's, without its composer. It shares no
-+ * registers with the JZ47xx and X1000 controllers that ingenic-drm drives: it
-+ * fetches each frame through a descriptor whose address is in SRD_CHAIN_ADDR,
-+ * and its interface and timings sit in register blocks of their own. It
-+ * drives parallel RGB (TFT) panels and smart panels; this driver handles
-+ * parallel RGB panels on a 24-bit bus, from RGB565 framebuffers.
-+ */
-+
-+#include <linux/aperture.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/media-bus-format.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/spinlock.h>
-+
-+#include <drm/clients/drm_client_setup.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_bridge_connector.h>
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_encoder.h>
-+#include <drm/drm_fb_dma_helper.h>
-+#include <drm/drm_fbdev_dma.h>
-+#include <drm/drm_fourcc.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_gem_dma_helper.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_plane.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_vblank.h>
-+
-+#define X1600_LCD_SRD_CHAIN_ADDR	0x1000
-+#define X1600_LCD_SRD_CHAIN_START	0x1004
-+#define X1600_LCD_CTRL			0x2000
-+#define X1600_LCD_ST			0x2004
-+#define X1600_LCD_CLR_ST		0x2008
-+#define X1600_LCD_INTC			0x200c
-+#define X1600_LCD_INT_FLAG		0x2010
-+#define X1600_LCD_COM_CONFIG		0x2014
-+#define X1600_LCD_CHAIN_SITE		0x2204
-+#define X1600_LCD_DISP_COM		0x8000
-+#define X1600_LCD_TFT_HSYNC		0x9000
-+#define X1600_LCD_TFT_VSYNC		0x9004
-+#define X1600_LCD_TFT_HDE		0x9008
-+#define X1600_LCD_TFT_VDE		0x900c
-+#define X1600_LCD_TFT_TRAN_CFG		0x9010
-+
-+/* CTRL: stop the simple read channel at the end of the frame. */
-+#define X1600_LCD_CTRL_GEN_STP_SRD	BIT(4)
-+
-+/* ST; CLR_ST (write 1 to clear), INTC and INT_FLAG have the same bits. */
-+#define X1600_LCD_ST_WORKING		BIT(0)
-+#define X1600_LCD_ST_STOP_SRD_ACK	BIT(7)
-+#define X1600_LCD_ST_TFT_UNDR		BIT(8)
-+#define X1600_LCD_ST_DISP_END		BIT(17)	/* a frame was displayed */
-+
-+#define X1600_LCD_COM_CONFIG_BURST_LEN	GENMASK(5, 4)
-+#define X1600_LCD_BURST_LEN_32		3
-+
-+#define X1600_LCD_DISP_COM_IF		GENMASK(1, 0)
-+#define X1600_LCD_DISP_COM_IF_TFT	1
-+#define X1600_LCD_DISP_COM_DITHER_EN	BIT(4)
-+#define X1600_LCD_DISP_COM_TFT_CLKGATE	BIT(5)
-+#define X1600_LCD_DISP_COM_SLCD_CLKGATE	BIT(6)
-+
-+/* TFT_HSYNC, TFT_VSYNC: sync length and total; TFT_HDE, TFT_VDE: active area. */
-+#define X1600_LCD_TIMING_START		GENMASK(27, 16)
-+#define X1600_LCD_TIMING_END		GENMASK(11, 0)
-+
-+#define X1600_LCD_TFT_COLOR_EVEN	GENMASK(21, 19)
-+#define X1600_LCD_TFT_COLOR_ODD		GENMASK(18, 16)
-+#define X1600_LCD_TFT_PIX_CLK_INV	BIT(10)
-+#define X1600_LCD_TFT_DE_DL		BIT(9)
-+#define X1600_LCD_TFT_HSYNC_DL		BIT(8)
-+#define X1600_LCD_TFT_VSYNC_DL		BIT(7)
-+#define X1600_LCD_TFT_MODE		GENMASK(2, 0)
-+#define X1600_LCD_TFT_MODE_24BIT	0
-+#define X1600_LCD_TFT_COLOR_RGB		0
-+#define X1600_LCD_TFT_COLOR_BGR		2
-+
-+#define X1600_LCD_DESC_CFG_FMT		GENMASK(22, 19)
-+#define X1600_LCD_DESC_FMT_RGB565	2
-+/* An interrupt at the end of the frame: DISP_END needs this and INTC set. */
-+#define X1600_LCD_DESC_CTRL_EOD_MSK	BIT(17)
-+
-+#define X1600_LCD_MAX_PIXELS		(1280 * 720)
-+/* A smaller frame breaks a continuous descriptor chain (manual, 10.7). */
-+#define X1600_LCD_MIN_PIXELS		500
-+#define X1600_LCD_STOP_TIMEOUT_MS	100
-+
-+/*
-+ * The controller reads a descriptor at the start of each frame and then
-+ * follows its next field. Each descriptor points at itself, so a frame
-+ * repeats until SRD_CHAIN_ADDR names another one.
-+ */
-+struct x1600_lcd_desc {
-+	u32 next;
-+	u32 addr;
-+	u32 stride;	/* in pixels */
-+	u32 cfg;
-+	u32 ctrl;
-+} __aligned(64);
-+
-+struct x1600_lcd {
-+	struct drm_device drm;
-+	struct drm_plane plane;
-+	struct drm_crtc crtc;
-+	struct drm_encoder encoder;
-+
-+	void __iomem *base;
-+	struct clk *clk;
-+
-+	struct x1600_lcd_desc *desc;
-+	dma_addr_t desc_phys;
-+	unsigned int cur;		/* the descriptor last handed over */
-+	bool running;
-+	struct completion stopped;
-+	/* Serialises the read-modify-writes of INTC. */
-+	spinlock_t irq_lock;
-+
-+	/* Under drm.event_lock: sent once the controller reads event_desc. */
-+	struct drm_pending_vblank_event *event;
-+	u32 event_desc;
-+
-+	u32 bus_flags;
-+	u32 color_order;
-+};
-+
-+static const u32 x1600_lcd_formats[] = {
-+	DRM_FORMAT_RGB565,
-+};
-+
-+static struct x1600_lcd *to_x1600_lcd(struct drm_device *drm)
-+{
-+	return container_of(drm, struct x1600_lcd, drm);
-+}
-+
-+static dma_addr_t x1600_lcd_desc_addr(struct x1600_lcd *lcd, unsigned int i)
-+{
-+	return lcd->desc_phys + i * sizeof(*lcd->desc);
-+}
-+
-+static void x1600_lcd_irq_enable(struct x1600_lcd *lcd, u32 mask, bool enable)
-+{
-+	unsigned long flags;
-+	u32 val;
-+
-+	spin_lock_irqsave(&lcd->irq_lock, flags);
-+	val = readl(lcd->base + X1600_LCD_INTC);
-+	if (enable)
-+		val |= mask;
-+	else
-+		val &= ~mask;
-+	/* Seen on the R1: a bit still set when it is masked keeps the line up. */
-+	writel(mask, lcd->base + X1600_LCD_CLR_ST);
-+	writel(val, lcd->base + X1600_LCD_INTC);
-+	spin_unlock_irqrestore(&lcd->irq_lock, flags);
-+}
-+
-+/* Stops at the end of the frame; false if the controller did not report it. */
-+static bool x1600_lcd_stop(struct x1600_lcd *lcd)
-+{
-+	unsigned long left;
-+
-+	reinit_completion(&lcd->stopped);
-+	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_STOP_SRD_ACK, true);
-+	writel(X1600_LCD_CTRL_GEN_STP_SRD, lcd->base + X1600_LCD_CTRL);
-+	left = wait_for_completion_timeout(&lcd->stopped,
-+					   msecs_to_jiffies(X1600_LCD_STOP_TIMEOUT_MS));
-+	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_STOP_SRD_ACK, false);
-+	return left;
-+}
-+
-+static u32 x1600_lcd_timing(unsigned int start, unsigned int end)
-+{
-+	return FIELD_PREP(X1600_LCD_TIMING_START, start) |
-+	       FIELD_PREP(X1600_LCD_TIMING_END, end);
-+}
-+
-+static void x1600_lcd_crtc_atomic_enable(struct drm_crtc *crtc,
-+					 struct drm_atomic_commit *state)
-+{
-+	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
-+	struct drm_display_mode *mode = &crtc->state->adjusted_mode;
-+	unsigned int hde = mode->htotal - mode->hsync_start;
-+	unsigned int vde = mode->vtotal - mode->vsync_start;
-+	u32 val;
-+	int ret;
-+
-+	ret = clk_set_rate(lcd->clk, mode->crtc_clock * 1000);
-+	if (ret)
-+		dev_warn(lcd->drm.dev, "Unable to set the pixel clock: %d\n", ret);
-+	ret = clk_prepare_enable(lcd->clk);
-+	if (ret) {
-+		dev_err(lcd->drm.dev, "Unable to start the pixel clock: %d\n", ret);
-+		return;
-+	}
-+
-+	writel(readl(lcd->base + X1600_LCD_ST), lcd->base + X1600_LCD_CLR_ST);
-+	val = readl(lcd->base + X1600_LCD_COM_CONFIG) & ~X1600_LCD_COM_CONFIG_BURST_LEN;
-+	writel(val | FIELD_PREP(X1600_LCD_COM_CONFIG_BURST_LEN, X1600_LCD_BURST_LEN_32),
-+	       lcd->base + X1600_LCD_COM_CONFIG);
-+
-+	/* In the manual's order: timings, output format, then the interface. */
-+	writel(x1600_lcd_timing(mode->hsync_end - mode->hsync_start, mode->htotal),
-+	       lcd->base + X1600_LCD_TFT_HSYNC);
-+	writel(x1600_lcd_timing(mode->vsync_end - mode->vsync_start, mode->vtotal),
-+	       lcd->base + X1600_LCD_TFT_VSYNC);
-+	writel(x1600_lcd_timing(hde, hde + mode->hdisplay),
-+	       lcd->base + X1600_LCD_TFT_HDE);
-+	writel(x1600_lcd_timing(vde, vde + mode->vdisplay),
-+	       lcd->base + X1600_LCD_TFT_VDE);
-+
-+	val = FIELD_PREP(X1600_LCD_TFT_COLOR_EVEN, lcd->color_order) |
-+	      FIELD_PREP(X1600_LCD_TFT_COLOR_ODD, lcd->color_order) |
-+	      FIELD_PREP(X1600_LCD_TFT_MODE, X1600_LCD_TFT_MODE_24BIT);
-+	if (lcd->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE)
-+		val |= X1600_LCD_TFT_PIX_CLK_INV;
-+	if (lcd->bus_flags & DRM_BUS_FLAG_DE_LOW)
-+		val |= X1600_LCD_TFT_DE_DL;
-+	/* The *_DL bits set the level outside the pulse. */
-+	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
-+		val |= X1600_LCD_TFT_HSYNC_DL;
-+	if (mode->flags & DRM_MODE_FLAG_NVSYNC)
-+		val |= X1600_LCD_TFT_VSYNC_DL;
-+	writel(val, lcd->base + X1600_LCD_TFT_TRAN_CFG);
-+
-+	/* No dithering: it only applies to 888 sources. */
-+	val = readl(lcd->base + X1600_LCD_DISP_COM);
-+	val &= ~(X1600_LCD_DISP_COM_IF | X1600_LCD_DISP_COM_DITHER_EN);
-+	val |= FIELD_PREP(X1600_LCD_DISP_COM_IF, X1600_LCD_DISP_COM_IF_TFT) |
-+	       X1600_LCD_DISP_COM_TFT_CLKGATE | X1600_LCD_DISP_COM_SLCD_CLKGATE;
-+	writel(val, lcd->base + X1600_LCD_DISP_COM);
-+
-+	writel(x1600_lcd_desc_addr(lcd, lcd->cur), lcd->base + X1600_LCD_SRD_CHAIN_ADDR);
-+	writel(1, lcd->base + X1600_LCD_SRD_CHAIN_START);
-+	lcd->running = true;
-+
-+	drm_crtc_vblank_on(crtc);
-+}
-+
-+static void x1600_lcd_crtc_atomic_disable(struct drm_crtc *crtc,
-+					  struct drm_atomic_commit *state)
-+{
-+	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
-+
-+	if (!x1600_lcd_stop(lcd))
-+		dev_warn(lcd->drm.dev, "The controller did not stop\n");
-+	lcd->running = false;
-+
-+	spin_lock_irq(&crtc->dev->event_lock);
-+	if (lcd->event) {
-+		drm_crtc_send_vblank_event(crtc, lcd->event);
-+		drm_crtc_vblank_put(crtc);
-+		lcd->event = NULL;
-+	}
-+	spin_unlock_irq(&crtc->dev->event_lock);
-+
-+	drm_crtc_vblank_off(crtc);
-+	clk_disable_unprepare(lcd->clk);
-+}
-+
-+static int x1600_lcd_crtc_atomic_check(struct drm_crtc *crtc,
-+				       struct drm_atomic_commit *state)
-+{
-+	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+
-+	/* Only when enabled: drm_atomic_helper_shutdown() disables both at once. */
-+	if (!crtc_state->enable)
-+		return 0;
-+
-+	return drm_atomic_helper_check_crtc_primary_plane(crtc_state);
-+}
-+
-+static void x1600_lcd_crtc_atomic_flush(struct drm_crtc *crtc,
-+					struct drm_atomic_commit *state)
-+{
-+	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	struct drm_pending_vblank_event *event = crtc_state->event;
-+	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
-+
-+	if (!event)
-+		return;
-+
-+	crtc_state->event = NULL;
-+
-+	/*
-+	 * The controller takes a new descriptor "at appropriate time" (manual,
-+	 * 10.6.4): wait until it reports reading the one just handed over.
-+	 */
-+	spin_lock_irq(&crtc->dev->event_lock);
-+	if (lcd->running && !WARN_ON(lcd->event) && drm_crtc_vblank_get(crtc) == 0) {
-+		lcd->event = event;
-+		lcd->event_desc = x1600_lcd_desc_addr(lcd, lcd->cur);
-+	} else {
-+		drm_crtc_send_vblank_event(crtc, event);
-+	}
-+	spin_unlock_irq(&crtc->dev->event_lock);
-+}
-+
-+static enum drm_mode_status
-+x1600_lcd_crtc_mode_valid(struct drm_crtc *crtc, const struct drm_display_mode *mode)
-+{
-+	unsigned int pixels = mode->hdisplay * mode->vdisplay;
-+
-+	if (mode->htotal > FIELD_MAX(X1600_LCD_TIMING_END) ||
-+	    mode->vtotal > FIELD_MAX(X1600_LCD_TIMING_END))
-+		return MODE_BAD;
-+
-+	/* The sync pulses' end points must not be 0. */
-+	if (mode->hsync_end == mode->hsync_start)
-+		return MODE_HSYNC_NARROW;
-+	if (mode->vsync_end == mode->vsync_start)
-+		return MODE_VSYNC_NARROW;
-+
-+	if (pixels > X1600_LCD_MAX_PIXELS)
-+		return MODE_MEM;
-+	if (pixels < X1600_LCD_MIN_PIXELS)
-+		return MODE_BAD;
-+
-+	return MODE_OK;
-+}
-+
-+static int x1600_lcd_enable_vblank(struct drm_crtc *crtc)
-+{
-+	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
-+
-+	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_DISP_END, true);
-+	return 0;
-+}
-+
-+static void x1600_lcd_disable_vblank(struct drm_crtc *crtc)
-+{
-+	struct x1600_lcd *lcd = to_x1600_lcd(crtc->dev);
-+
-+	x1600_lcd_irq_enable(lcd, X1600_LCD_ST_DISP_END, false);
-+}
-+
-+static irqreturn_t x1600_lcd_irq(int irq, void *data)
-+{
-+	struct x1600_lcd *lcd = data;
-+	u32 st = readl(lcd->base + X1600_LCD_INT_FLAG);
-+
-+	if (!st)
-+		return IRQ_NONE;
-+
-+	writel(st, lcd->base + X1600_LCD_CLR_ST);
-+	if (st & X1600_LCD_ST_STOP_SRD_ACK)
-+		complete(&lcd->stopped);
-+
-+	if (st & X1600_LCD_ST_DISP_END) {
-+		drm_crtc_handle_vblank(&lcd->crtc);
-+
-+		spin_lock(&lcd->drm.event_lock);
-+		if (lcd->event &&
-+		    readl(lcd->base + X1600_LCD_CHAIN_SITE) == lcd->event_desc) {
-+			drm_crtc_send_vblank_event(&lcd->crtc, lcd->event);
-+			drm_crtc_vblank_put(&lcd->crtc);
-+			lcd->event = NULL;
-+		}
-+		spin_unlock(&lcd->drm.event_lock);
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int x1600_lcd_plane_atomic_check(struct drm_plane *plane,
-+					struct drm_atomic_commit *state)
-+{
-+	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_crtc_state *crtc_state;
-+
-+	if (!plane_state->crtc)
-+		return 0;
-+
-+	crtc_state = drm_atomic_get_new_crtc_state(state, plane_state->crtc);
-+	if (WARN_ON(!crtc_state))
-+		return -EINVAL;
-+
-+	/* The plane covers the whole screen: no scaling, no position. */
-+	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
-+						   DRM_PLANE_NO_SCALING,
-+						   DRM_PLANE_NO_SCALING,
-+						   false, true);
-+}
-+
-+static void x1600_lcd_plane_atomic_update(struct drm_plane *plane,
-+					  struct drm_atomic_commit *state)
-+{
-+	struct x1600_lcd *lcd = to_x1600_lcd(plane->dev);
-+	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_framebuffer *fb = plane_state->fb;
-+	unsigned int next = lcd->running ? !lcd->cur : lcd->cur;
-+	struct x1600_lcd_desc *desc = &lcd->desc[next];
-+
-+	if (!fb)
-+		return;
-+
-+	desc->next = x1600_lcd_desc_addr(lcd, next);
-+	desc->addr = drm_fb_dma_get_gem_addr(fb, plane_state, 0);
-+	desc->stride = fb->pitches[0] / fb->format->cpp[0];
-+	desc->cfg = FIELD_PREP(X1600_LCD_DESC_CFG_FMT, X1600_LCD_DESC_FMT_RGB565);
-+	desc->ctrl = X1600_LCD_DESC_CTRL_EOD_MSK;
-+
-+	if (!lcd->running)
-+		return;
-+
-+	/*
-+	 * The manual hands over a descriptor by writing SRD_CHAIN_ADDR; the
-+	 * vendor kernel also sets SRD_CHAIN_START, and so does this.
-+	 */
-+	wmb();
-+	writel(x1600_lcd_desc_addr(lcd, next), lcd->base + X1600_LCD_SRD_CHAIN_ADDR);
-+	writel(1, lcd->base + X1600_LCD_SRD_CHAIN_START);
-+	lcd->cur = next;
-+}
-+
-+/*
-+ * Panels with 18 data lines take the top six bits of each colour of the
-+ * 888 mode: in the 666 mode, the HiBy R1's panel shows wrong colours.
-+ */
-+static int x1600_lcd_color_order(const struct drm_display_info *info)
-+{
-+	if (!info->num_bus_formats)
-+		return X1600_LCD_TFT_COLOR_RGB;
-+
-+	switch (info->bus_formats[0]) {
-+	case MEDIA_BUS_FMT_RGB666_1X18:
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+		return X1600_LCD_TFT_COLOR_RGB;
-+	case MEDIA_BUS_FMT_BGR666_1X18:
-+	case MEDIA_BUS_FMT_BGR888_1X24:
-+		return X1600_LCD_TFT_COLOR_BGR;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int x1600_lcd_encoder_atomic_check(struct drm_encoder *encoder,
-+					  struct drm_crtc_state *crtc_state,
-+					  struct drm_connector_state *conn_state)
-+{
-+	const struct drm_display_info *info = &conn_state->connector->display_info;
-+
-+	if (x1600_lcd_color_order(info) < 0) {
-+		drm_dbg_kms(encoder->dev, "Unsupported bus format 0x%04x\n",
-+			    info->bus_formats[0]);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static void x1600_lcd_encoder_atomic_mode_set(struct drm_encoder *encoder,
-+					      struct drm_crtc_state *crtc_state,
-+					      struct drm_connector_state *conn_state)
-+{
-+	struct x1600_lcd *lcd = to_x1600_lcd(encoder->dev);
-+	const struct drm_display_info *info = &conn_state->connector->display_info;
-+
-+	lcd->bus_flags = info->bus_flags;
-+	lcd->color_order = x1600_lcd_color_order(info);
-+}
-+
-+static const struct drm_plane_funcs x1600_lcd_plane_funcs = {
-+	.update_plane		= drm_atomic_helper_update_plane,
-+	.disable_plane		= drm_atomic_helper_disable_plane,
-+	.atomic_create_state	= drm_atomic_helper_plane_create_state,
-+	.destroy		= drm_plane_cleanup,
-+	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
-+	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
-+};
-+
-+static const struct drm_plane_helper_funcs x1600_lcd_plane_helper_funcs = {
-+	.atomic_check		= x1600_lcd_plane_atomic_check,
-+	.atomic_update		= x1600_lcd_plane_atomic_update,
-+};
-+
-+static const struct drm_crtc_funcs x1600_lcd_crtc_funcs = {
-+	.set_config		= drm_atomic_helper_set_config,
-+	.page_flip		= drm_atomic_helper_page_flip,
-+	.atomic_create_state	= drm_atomic_helper_crtc_create_state,
-+	.destroy		= drm_crtc_cleanup,
-+	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
-+	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
-+	.enable_vblank		= x1600_lcd_enable_vblank,
-+	.disable_vblank		= x1600_lcd_disable_vblank,
-+};
-+
-+static const struct drm_crtc_helper_funcs x1600_lcd_crtc_helper_funcs = {
-+	.atomic_check		= x1600_lcd_crtc_atomic_check,
-+	.atomic_enable		= x1600_lcd_crtc_atomic_enable,
-+	.atomic_disable		= x1600_lcd_crtc_atomic_disable,
-+	.atomic_flush		= x1600_lcd_crtc_atomic_flush,
-+	.mode_valid		= x1600_lcd_crtc_mode_valid,
-+};
-+
-+static const struct drm_encoder_helper_funcs x1600_lcd_encoder_helper_funcs = {
-+	.atomic_check		= x1600_lcd_encoder_atomic_check,
-+	.atomic_mode_set	= x1600_lcd_encoder_atomic_mode_set,
-+};
-+
-+static const struct drm_mode_config_funcs x1600_lcd_mode_config_funcs = {
-+	.fb_create		= drm_gem_fb_create,
-+	.atomic_check		= drm_atomic_helper_check,
-+	.atomic_commit		= drm_atomic_helper_commit,
-+};
-+
-+DEFINE_DRM_GEM_DMA_FOPS(x1600_lcd_fops);
-+
-+static const struct drm_driver x1600_lcd_driver = {
-+	.driver_features	= DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
-+	.name			= "ingenic-x1600-drm",
-+	.desc			= "DRM driver for the Ingenic X1600 LCD controller",
-+	.major			= 1,
-+	.minor			= 0,
-+	.fops			= &x1600_lcd_fops,
-+	DRM_GEM_DMA_DRIVER_OPS,
-+	DRM_FBDEV_DMA_DRIVER_OPS,
-+};
-+
-+static int x1600_lcd_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct drm_connector *connector;
-+	struct drm_bridge *bridge;
-+	struct drm_device *drm;
-+	struct x1600_lcd *lcd;
-+	int irq, ret;
-+
-+	lcd = devm_drm_dev_alloc(dev, &x1600_lcd_driver, struct x1600_lcd, drm);
-+	if (IS_ERR(lcd))
-+		return PTR_ERR(lcd);
-+
-+	drm = &lcd->drm;
-+	platform_set_drvdata(pdev, lcd);
-+	init_completion(&lcd->stopped);
-+	spin_lock_init(&lcd->irq_lock);
-+
-+	lcd->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(lcd->base))
-+		return PTR_ERR(lcd->base);
-+
-+	lcd->clk = devm_clk_get(dev, "lcd");
-+	if (IS_ERR(lcd->clk))
-+		return dev_err_probe(dev, PTR_ERR(lcd->clk), "Unable to get clock\n");
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
-+	if (IS_ERR(bridge))
-+		return dev_err_probe(dev, PTR_ERR(bridge), "Unable to get the panel\n");
-+
-+	lcd->desc = dmam_alloc_coherent(dev, 2 * sizeof(*lcd->desc),
-+					&lcd->desc_phys, GFP_KERNEL);
-+	if (!lcd->desc)
-+		return -ENOMEM;
-+
-+	ret = drmm_mode_config_init(drm);
-+	if (ret)
-+		return ret;
-+
-+	/* Framebuffers, not modes: fbdev's double buffer is taller than 720p. */
-+	drm->mode_config.max_width = FIELD_MAX(X1600_LCD_TIMING_END);
-+	drm->mode_config.max_height = FIELD_MAX(X1600_LCD_TIMING_END);
-+	drm->mode_config.funcs = &x1600_lcd_mode_config_funcs;
-+
-+	ret = drm_universal_plane_init(drm, &lcd->plane, 1, &x1600_lcd_plane_funcs,
-+				       x1600_lcd_formats, ARRAY_SIZE(x1600_lcd_formats),
-+				       NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
-+	if (ret)
-+		return ret;
-+	drm_plane_helper_add(&lcd->plane, &x1600_lcd_plane_helper_funcs);
-+
-+	ret = drm_crtc_init_with_planes(drm, &lcd->crtc, &lcd->plane, NULL,
-+					&x1600_lcd_crtc_funcs, NULL);
-+	if (ret)
-+		return ret;
-+	drm_crtc_helper_add(&lcd->crtc, &x1600_lcd_crtc_helper_funcs);
-+
-+	ret = drmm_encoder_init(drm, &lcd->encoder, NULL, DRM_MODE_ENCODER_DPI, NULL);
-+	if (ret)
-+		return ret;
-+	lcd->encoder.possible_crtcs = drm_crtc_mask(&lcd->crtc);
-+	drm_encoder_helper_add(&lcd->encoder, &x1600_lcd_encoder_helper_funcs);
-+
-+	ret = drm_bridge_attach(&lcd->encoder, bridge, NULL,
-+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (ret)
-+		return ret;
-+
-+	connector = drm_bridge_connector_init(drm, &lcd->encoder);
-+	if (IS_ERR(connector))
-+		return PTR_ERR(connector);
-+	drm_connector_attach_encoder(connector, &lcd->encoder);
-+
-+	ret = drm_vblank_init(drm, 1);
-+	if (ret)
-+		return ret;
-+
-+	drm_mode_config_reset(drm);
-+
-+	/* Take over from a boot framebuffer, and stop what it left running. */
-+	ret = aperture_remove_all_conflicting_devices(x1600_lcd_driver.name);
-+	if (ret)
-+		return ret;
-+
-+	ret = clk_prepare_enable(lcd->clk);
-+	if (ret)
-+		return ret;
-+
-+	/* No interrupt from what the boot loader left enabled or pending. */
-+	writel(0, lcd->base + X1600_LCD_INTC);
-+	writel(readl(lcd->base + X1600_LCD_ST), lcd->base + X1600_LCD_CLR_ST);
-+
-+	ret = devm_request_irq(dev, irq, x1600_lcd_irq, 0, dev_name(dev), lcd);
-+	if (ret) {
-+		clk_disable_unprepare(lcd->clk);
-+		return dev_err_probe(dev, ret, "Unable to request the IRQ\n");
-+	}
-+
-+	/*
-+	 * Seen on the R1: after an underrun (TFT_UNDR) the controller can stop
-+	 * answering GEN_STP_SRD, and only a reset brings it back.
-+	 */
-+	if (readl(lcd->base + X1600_LCD_ST) & X1600_LCD_ST_WORKING && !x1600_lcd_stop(lcd))
-+		dev_err(dev, "The controller did not stop%s\n",
-+			readl(lcd->base + X1600_LCD_ST) & X1600_LCD_ST_TFT_UNDR ?
-+			" after an underrun" : "");
-+	clk_disable_unprepare(lcd->clk);
-+
-+	ret = drm_dev_register(drm, 0);
-+	if (ret)
-+		return ret;
-+
-+	drm_client_setup_with_fourcc(drm, DRM_FORMAT_RGB565);
-+	return 0;
-+}
-+
-+static void x1600_lcd_remove(struct platform_device *pdev)
-+{
-+	struct x1600_lcd *lcd = platform_get_drvdata(pdev);
-+
-+	drm_dev_unregister(&lcd->drm);
-+	drm_atomic_helper_shutdown(&lcd->drm);
-+}
-+
-+static void x1600_lcd_shutdown(struct platform_device *pdev)
-+{
-+	struct x1600_lcd *lcd = platform_get_drvdata(pdev);
-+
-+	drm_atomic_helper_shutdown(&lcd->drm);
-+}
-+
-+static const struct of_device_id x1600_lcd_of_match[] = {
-+	{ .compatible = "ingenic,x1600-lcd" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, x1600_lcd_of_match);
-+
-+static struct platform_driver x1600_lcd_platform_driver = {
-+	.driver = {
-+		.name = "ingenic-x1600-drm",
-+		.of_match_table = x1600_lcd_of_match,
-+	},
-+	.probe = x1600_lcd_probe,
-+	.remove = x1600_lcd_remove,
-+	.shutdown = x1600_lcd_shutdown,
-+};
-+module_platform_driver(x1600_lcd_platform_driver);
-+
-+MODULE_AUTHOR("Olivier Louvignes <olivier@mgcrea.io>");
-+MODULE_DESCRIPTION("DRM driver for the Ingenic X1600 LCD controller");
-+MODULE_LICENSE("GPL");
--- 
-2.39.5
+And per Alex's call on the list =E2=80=94 if such reports ever do show up,
+reverting is always possible.
 
+> IIRC there is also a bit in the LMI register which is called
+> *_VPU_STALL_* or something like that. Setting that before a retry and
+> waiting a few miliseconds is usually a good idea as well.
+
+Noted, thank you =E2=80=94 I'll keep that in mind as a follow-up if failure
+reports ever surface on this or the other UVD v1/v2 families.
+
+Thanks,
+Oleg
+
+=D1=87=D1=82, 22 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 18:1=
+1 Alex Deucher <alexdeucher@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Tue, Oct 20, 2026 at 3:46=E2=80=AFAM ukrainer8 <kolomiiec@gmail.com> w=
+rote:
+> >
+> > On Evergreen/Redwood (and likely other UVD v1/v2 hardware), resume from
+> > suspend intermittently fails the UVD ring test:
+> >
+> >     radeon 0000:01:00.0: [drm] *ERROR* radeon: ring 5 test failed (0xCA=
+FEDEAD)
+> >     radeon 0000:01:00.0: failed initializing UVD (-22).
+> >
+> > Cold boot always succeeds; resume succeeds only in about half of the cy=
+cles
+> > (42 measured suspend/resume cycles on a Radeon HD 5650M: OK counts per
+> > 6-cycle run were 2, 3, 5, 6, 1, 5, 3). Once the ring test fails, UVD st=
+ays
+> > dead for the rest of the session and hardware video decode silently fal=
+ls
+> > back to CPU.
+> >
+> > The resume path runs the same full asic startup as cold boot
+> > (evergreen_resume() -> evergreen_startup()), so the difference is the
+> > hardware state at entry, not a skipped call. Field data shows the first
+> > ring instance after resume is dead functionally, not by timeout: the ri=
+ng
+> > test fails fast and deterministically, and only a full stop+init cycle
+> > revives the engine.
+> >
+> > Fix this the way the Windows driver effectively does it: silently cycle
+> > the engine once (clocks up, start, stop, 20 ms settle) before testing,
+> > then run the init sequence in a retry loop - on failure of clock setup,
+> > VCPU start or the ring test, fully stop UVD, let it settle for 20 ms an=
+d
+> > try again (up to 3 attempts). Each retry logs the failing step and the
+> > attempt number, which also makes future reports of this failure mode
+> > self-diagnosing. The ring-test polling window is widened from 100 ms to
+> > 2000 ms as spare capacity; the early-exit poll keeps healthy hardware o=
+n
+> > the fast path.
+> >
+> > On the same machine the patched driver went 6/6 OK across repeated test
+> > runs, with the warm-up absorbing the dead first instance and zero error
+> > lines in dmesg.
+> >
+> > v2: guard uvd_v1_0_stop() behind successful clock setup, per Sashiko AI
+> > review - MMIO writes to an unclocked UVD block can cause a PCI bus mast=
+er
+> > abort and hard-hang the system.
+> >
+> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1867
+> > Link: https://bugs.launchpad.net/bugs/1865130
+> > Tested-by: ukrainer8 <kolomiiec@gmail.com>   # Radeon HD 5650M, kernel =
+7.0.0
+> > Signed-off-by: ukrainer8 <kolomiiec@gmail.com>
+>
+> We'll see how this goes.  If anyone reports any issues, we can revert it.
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> and applied.
+>
+> > ---
+> > v1 -> v2: keep the clock-setup result in a separate variable and only
+> > call uvd_v1_0_stop() when clocks were actually raised (Sashiko AI revie=
+w).
+> > Also folded in the silent warm-up cycle and the wider ring-test window
+> > validated in field testing since v1.
+> >  drivers/gpu/drm/radeon/uvd_v1_0.c | 57 ++++++++++++++++++++++++++-----=
+--------
+> > --- a/drivers/gpu/drm/radeon/uvd_v1_0.c
+> > +++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
+> > @@ -158,24 +158,58 @@
+> >  {
+> >         struct radeon_ring *ring =3D &rdev->ring[R600_RING_TYPE_UVD_IND=
+EX];
+> >         uint32_t tmp;
+> > -       int r;
+> > +       int r, retry, clk_err;
+> >
+> > -       /* raise clocks while booting up the VCPU */
+> > +       /* warm-up: silently cycle the engine once (like the Windows dr=
+iver),
+> > +        * the first ring instance after resume is dead functionally */
+> >         if (rdev->family < CHIP_RV740)
+> >                 radeon_set_uvd_clocks(rdev, 10000, 10000);
+> >         else
+> >                 radeon_set_uvd_clocks(rdev, 53300, 40000);
+> > +       uvd_v1_0_start(rdev);
+> > +       uvd_v1_0_stop(rdev);
+> > +       mdelay(20);
+> >
+> > -       r =3D uvd_v1_0_start(rdev);
+> > -       if (r)
+> > -               goto done;
+> > +       /* after resume the first ring test can race with the hardware;=
+ retry */
+> > +       for (retry =3D 0; retry < 3; retry++) {
+> > +               /* raise clocks while booting up the VCPU */
+> > +               if (rdev->family < CHIP_RV740)
+> > +                       clk_err =3D radeon_set_uvd_clocks(rdev, 10000, =
+10000);
+> > +               else
+> > +                       clk_err =3D radeon_set_uvd_clocks(rdev, 53300, =
+40000);
+> > +               r =3D clk_err;
+> > +               if (r)
+> > +                       drm_warn(&rdev->ddev, "radeon: raising UVD cloc=
+ks failed (%d), attempt %d\n",
+> > +                                r, retry + 1);
+> > +
+> > +               if (!r) {
+> > +                       r =3D uvd_v1_0_start(rdev);
+> > +                       if (r)
+> > +                               drm_warn(&rdev->ddev, "radeon: starting=
+ UVD failed (%d), attempt %d\n",
+> > +                                        r, retry + 1);
+> > +               }
+> >
+> > -       ring->ready =3D true;
+> > -       r =3D radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
+> > -       if (r) {
+> > -               ring->ready =3D false;
+> > -               goto done;
+> > +               if (!r) {
+> > +                       ring->ready =3D true;
+> > +                       r =3D radeon_ring_test(rdev, R600_RING_TYPE_UVD=
+_INDEX, ring);
+> > +                       if (r) {
+> > +                               ring->ready =3D false;
+> > +                               drm_warn(&rdev->ddev, "radeon: UVD ring=
+ test failed (%d), attempt %d\n",
+> > +                                        r, retry + 1);
+> > +                       }
+> > +               }
+> > +
+> > +               if (!r)
+> > +                       break;
+> > +
+> > +               /* MMIO is only safe when the block is actually clocked=
+ */
+> > +               if (!clk_err)
+> > +                       uvd_v1_0_stop(rdev);
+> > +               if (retry < 2)
+> > +                       mdelay(20);
+> >         }
+> > +       if (r)
+> > +               goto done;
+> >
+> >         r =3D radeon_ring_lock(rdev, ring, 10);
+> >         if (r) {
+> > @@ -421,7 +455,8 @@
+> >  int uvd_v1_0_ring_test(struct radeon_device *rdev, struct radeon_ring =
+*ring)
+> >  {
+> >         uint32_t tmp =3D 0;
+> > -       unsigned i;
+> > +       /* after resume the ring buffer controller needs ~1.5-2s to set=
+tle */
+> > +       unsigned i, timeout =3D 2000000;
+> >         int r;
+> >
+> >         WREG32(UVD_CONTEXT_ID, 0xCAFEDEAD);
+> > @@ -434,14 +469,14 @@
+> >         radeon_ring_write(ring, PACKET0(UVD_CONTEXT_ID, 0));
+> >         radeon_ring_write(ring, 0xDEADBEEF);
+> >         radeon_ring_unlock_commit(rdev, ring, false);
+> > -       for (i =3D 0; i < rdev->usec_timeout; i++) {
+> > +       for (i =3D 0; i < timeout; i++) {
+> >                 tmp =3D RREG32(UVD_CONTEXT_ID);
+> >                 if (tmp =3D=3D 0xDEADBEEF)
+> >                         break;
+> >                 udelay(1);
+> >         }
+> >
+> > -       if (i < rdev->usec_timeout) {
+> > +       if (i < timeout) {
+> >                 drm_info(&rdev->ddev, "ring test on %d succeeded in %d =
+usecs\n",
+> >                          ring->idx, i);
+> >         } else {
