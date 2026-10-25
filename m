@@ -2,95 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DAD4606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:38:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBFCA606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:38:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gCvHDqDo
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=ZFm+Ugxq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90C1710EC95;
-	Mon, 26 Oct 2026 08:38:25 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD05810E200
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 18:46:03 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-c4301e334ceso134043166b.1
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 11:46:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792953962; cv=none;
- d=google.com; s=arc-20260327;
- b=a5rNBBRxLHW53MO1cGxwYCxe+l5yTpBtoaLo7N1il0L8q4520dS3Didwhy1ZWDPYza
- rTugWVrnyfNRg0qVg+zEFRafk6SC51wptI8t7Wcdgvwlf5JTIg+djInK1f/H0ATUb4qe
- WVuIlSEH6sOcfx4u8VeDCnwy6ez07DaM8/5+oUAz9k5zxkdJA9xOtiZ3/nI71mqeZg1A
- l+PCDNGrImeVky9GmQWydywng4s/HgNiyqKxj4LScBXcRIBkoB7uQTlf9Ci4RgkWpvFc
- rnVRIwvt3fnu3osnGbdXCmofcCAe1itFITqleGPqfBN2P5rzIhOvyejxt56gL99vuTL5
- hfqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=XPpzylSFPiRoNkfc9kWpT/XKJhJoYsaKVaCelc9FgwI=;
- fh=+aQAFS1M8fyHGgjhqFIgBcc73lYAwSLsYDgiptWJXDs=;
- b=buo2atRDdAQfeZrEWMv+KZJgaMQy4cPBPk4r45K9VmZN0fgvXllq6KBuKiUCTnAP9l
- 69E4WN4Dh9OMzwevkqBDfq60vSzSJm1sQ5Atl5cKVfJ6neyVqi1gJVpZiTv0HcU61t8P
- 6j5qnSdzzNHX7WTMKfwqfdbLCGFQxJwK31G7/y6bTbyfwlnkewoAT52sfs05GDymeiCQ
- AMUQcl0zYQaVw5p3VaTfmgncDK7XBThuOB84SpYoztu5FEvlZwfp/afGiR+NIP5d8xKf
- C0bIhHnlBnGjIeVWI1d2zLjwCBKdyIhPocfaTwiaDFD+67NgQ/MdSHJ9A0GPjHaej5Ob
- JCJA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792953962; x=1793558762; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=XPpzylSFPiRoNkfc9kWpT/XKJhJoYsaKVaCelc9FgwI=;
- b=gCvHDqDo/36MgWfIm52Iz68gXbVjn1XAm41f1OzFtWcpd8iO8MnvF1xZgH9z0pIjIi
- s5XVR6vYpGlLZiXUi5AkxV/aB9SSHqGtomO+Jj6onFBeEeXoMraVv8NWkovdgzFVQiHy
- fLBQ+5Tu9Mqfl9X53aO2m4Ctpck2TzEu1Vs/aqEJ05n2XKKC40Dor6PioLNK0ZBid3oL
- YINokwYMrWxM2eOpciJoo09FlIN/ZxAzGYv/ajZAIihnQXh5xJVZSHKMXk4E7vC6Ink1
- qi3QLpDSaoA5xR6gqsYHjDXFT4WHGBHcII6Z1gLPjW3Y6YWxpdrQ0/D0RR7qmJ6wgWPE
- IGVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792953962; x=1793558762;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=XPpzylSFPiRoNkfc9kWpT/XKJhJoYsaKVaCelc9FgwI=;
- b=Nz6gC5qOiWDV4HqOtJ8g/JihujWVccpIMTQNTDztzoYyWRcynio1D7q3JA9+GQTUNk
- ErN9mv5vsbi1K+IPV3vIB5mGVYC0YZ6G3Lz7zt3E9HDy98ZgNX4zdzRtPLTeiIG9STQL
- dubLYjbVw6tJk2XZxZelligS71Sv5eiSkPfPsEmwb+MFuqbadkUU4qhlrPNc3iybZjwj
- NFk9qFY9ldJkPThDMaKLGXrCuVuMvT2xUUCubWOpiMMxkmmOLyLOoKdyfDKfRN0tcuwo
- cm/xHqYTMBhtoowdyqNvAURbF8qViHZ4LB+7FPP1EIr9qs4tCrNxnRqIX7i9WnXNzPTF
- 48Ug==
-X-Gm-Message-State: AFq9FYJVE0dVV3dyAp89Ur90UuqBA0S6XESi5s9SmMqMzDB4C6AaV7j0
- rKe6LypVEySHhCWodwrQttjDsd5+higPTYECN2R8eSmZqPoW4hvtmpniPVNJm4NwdF//bmJ8smN
- +3TUHqEs5JCfRxhzacoQs7D+WdoQS7VI=
-X-Gm-Gg: AYBFou2XisViLmbWnrUe01nXWCM49UykLk3WdxTz70rjD8Dm3PeRF9cu6gdiQHOffQh
- HpVRulnBib1WHWhcLoGCRg4XfQIF+goPf6qwzHJARtUyrIEh5IThsNpcygnuru94Pu3OUvujsGe
- pnyieQ1S24d6KYWYL7Spdvs8jdBYdLAfbxgeV39SRsd4ZR2H7cjr58JxBT0/rMau0o88xJ9KJ81
- 2vFAbAq0oYXNq18A3xFfgknQANDpE3yvOHQn1y+HnnVbjzmZOW/q6eRPH/FZ57vaqAmMstX5eUb
- o0onV6yuSeDbxsWFVooUgEgJt27MRO/DLQmPNB5td9CW7l79QdxOD4lI1/NoeOYSdSfnXni4nWi
- HanH9Q0fUQeSNiUwRxdjE8Tt71aO3gzNZ1yBm9PiaY/QanRI6Hw3kd1yeo/NCE6oaCjR5YWfrzt
- bPTRj2xXUaJskyIZpkNhrKuQ==
-X-Received: by 2002:a17:907:6092:b0:c31:82aa:dd4c with SMTP id
- a640c23a62f3a-c46bde48accmr541783466b.24.1792953961869; Sun, 25 Oct 2026
- 11:46:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB5010EC8C;
+	Mon, 26 Oct 2026 08:38:28 +0000 (UTC)
+X-Greylist: delayed 1035 seconds by postgrey-1.36 at gabe;
+ Sun, 25 Oct 2026 19:42:30 UTC
+Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0177610E097
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 19:42:30 +0000 (UTC)
+Received: from surface-pro-5 (178.115.151.51.wireless.dyn.drei.com
+ [178.115.151.51]) (authenticated bits=0)
+ by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJOc4G518903
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Sun, 25 Oct 2026 20:24:40 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJOc4G518903
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
+ s=prod24a; t=1792956281;
+ bh=ypquldAWuxa1LSa+UX3kpk8yZZ3zjYWQWprvIQGk7+k=;
+ h=From:To:Cc:Subject:Date;
+ b=ZFm+UgxqtRhTxiJ1QIQr1yNtjYY0VF32BcDcSSw1V3+mr3AZUa2n9KHn2viDmKUIn
+ oEG9LgMtXNEAFsPCwadJ9ERltO2DgeWV97EZDJDlhDkpra/dZSwbCwFhdbo8yd3/r3
+ plBtswmRp73yRvrRE702jpl73NjDzdSEXHHYvjaU=
+From: christian.koever-draxl@student.uibk.ac.at
+To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+Subject: [PATCH] drm/bridge: dw-hdmi-i2s: support the S/PDIF audio input
+Date: Sun, 25 Oct 2026 20:24:36 +0100
+Message-ID: <20261025192436.209908-1-christian.koever-draxl@student.uibk.ac.at>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261019144916.108589-1-kolomiiec@gmail.com>
- <CADnq5_N3bnL6oMbikTRVtDzZAPGwd-ptZ5ph2Sr6wPykShwm4A@mail.gmail.com>
-In-Reply-To: <CADnq5_N3bnL6oMbikTRVtDzZAPGwd-ptZ5ph2Sr6wPykShwm4A@mail.gmail.com>
-From: =?UTF-8?B?0J4g0Jo=?= <kolomiiec@gmail.com>
-Date: Sun, 25 Oct 2026 20:45:25 +0200
-X-Gm-Features: AclHuK_rnI1y7WgTkH9iEnBAoMB8X4jF7zymcZmEj1XWzkobtWl9fV6xK-ohjas
-Message-ID: <CA+e2gLs3jiLmQOHwS+nxsVEdb0HvnZxGDQKKU=wwPrKS9d==UQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/radeon: retry UVD v1 init on failure after resume
-To: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Leo Liu <leo.liu@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: () -13.0 ALL_TRUSTED, RCV_SMTP_AUTH, RCV_SMTP_UIBK, U_H_APTO_LONG,
+ U_RCPTS_11_PLUS
+X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:36:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,227 +58,213 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> That is not really the problem, question is rather have you seen any
-> hard crashes with this?
+From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-Short answer: no =E2=80=94 zero.
+The DesignWare HDMI TX has an S/PDIF audio input next to the I2S one,
+but the I2S audio glue only ever registers the I2S DAI. Over I2S the
+controller builds the IEC 60958 channel status itself and always sends
+linear PCM, so compressed IEC 61937 bitstreams (AC-3, DTS) reach the
+sink as PCM and play as noise. Over S/PDIF the channel status of the
+stream is passed through and the sink decodes the bitstream.
 
-Across the whole testing history of this patch there has not been a
-single hard crash, spontaneous reboot, PCI fall-off-the-bus event or
-any other unrecoverable failure: the three stand runs (6+6+6
-suspend/resume cycles for v1/v2/v3), every daily resume since ~Oct 12
-on the patched DKMS build, and all 42 cycles of stock behaviour before
-that. Every failed resume on stock ended the same soft way =E2=80=94 ring 5
-test fails, UVD declared dead, display and the rest of the machine
-keep working.
+Let platforms flag a wired S/PDIF input with a new spdif_input field in
+dw_hdmi_plat_data, register the hdmi-codec S/PDIF DAI when it is set,
+and program the audio sampler for it in hw_params: S/PDIF selected in
+AUD_CONF0, 24 bit sub-frames, FIFO and sampler reset, then N and CTS.
 
-I take the FW-signing scenario you describe seriously, and it is a
-good frame for judging the patch: but the retry path performs exactly
-the same set of MMIO operations as the stock init sequence (raise
-clocks, start VCPU, ring test, stop) =E2=80=94 it just performs them up to
-three times. It introduces no new class of register access and no
-firmware interaction beyond what stock already does once. So the
-signing block sees nothing it would not see on a stock boot or a stock
-resume where the first attempt happens to fail.
+Tested on an Amlogic S4 board: AC-3 passthrough is decoded by the HDMI
+sink.
 
-And per Alex's call on the list =E2=80=94 if such reports ever do show up,
-reverting is always possible.
+Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+---
+Tool use (Documentation/process/generated-content.rst):
+This work was done with the help of an AI coding assistant, Claude
+(Anthropic), used through Claude Code over many sessions. It did a large
+part of the hands-on work: it read the vendor kernel and the firmware
+interfaces, probed registers on the board, drafted the code and the
+changelogs, and ran the builds, checkpatch, dt_binding_check and the
+tests on the hardware. I directed the work, reviewed every change and
+the final patches, and take responsibility for them. There is no single
+prompt to quote; the sessions were of the form "find out why X fails on
+this board, fix it, test it on the box".
 
-> IIRC there is also a bit in the LMI register which is called
-> *_VPU_STALL_* or something like that. Setting that before a retry and
-> waiting a few miliseconds is usually a good idea as well.
+Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
+vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
 
-Noted, thank you =E2=80=94 I'll keep that in mind as a follow-up if failure
-reports ever surface on this or the other UVD v1/v2 families.
+ .../gpu/drm/bridge/synopsys/dw-hdmi-audio.h   |  1 +
+ .../drm/bridge/synopsys/dw-hdmi-i2s-audio.c   | 48 +++++++++++++++++++
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  1 +
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.h     | 14 ++++++
+ include/drm/bridge/dw_hdmi.h                  |  3 ++
+ 5 files changed, 67 insertions(+)
 
-Thanks,
-Oleg
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h
+index f72d27208ebe..4149ae88188b 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h
+@@ -18,6 +18,7 @@ struct dw_hdmi_i2s_audio_data {
+ 	void (*write)(struct dw_hdmi *hdmi, u8 val, int offset);
+ 	u8 (*read)(struct dw_hdmi *hdmi, int offset);
+ 	u8 *(*get_eld)(struct dw_hdmi *hdmi);
++	bool spdif;
+ };
+ 
+ #endif
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+index 2c903c9fe805..304ef881e06c 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+@@ -12,6 +12,7 @@
+ #include <drm/bridge/dw_hdmi.h>
+ #include <drm/drm_crtc.h>
+ 
++#include <sound/asoundef.h>
+ #include <sound/hdmi-codec.h>
+ 
+ #include "dw-hdmi.h"
+@@ -34,6 +35,49 @@ static inline u8 hdmi_read(struct dw_hdmi_i2s_audio_data *audio, int offset)
+ 	return audio->read(hdmi, offset);
+ }
+ 
++/*
++ * S/PDIF input. Unlike the I2S path it carries the IEC 60958 channel status
++ * of the stream through to the sink, so compressed IEC 61937 bitstreams
++ * (AC-3, DTS, ...) can be passed through.
++ */
++static int dw_hdmi_spdif_hw_params(struct dw_hdmi_i2s_audio_data *audio,
++				   struct hdmi_codec_params *hparms)
++{
++	struct dw_hdmi *hdmi = audio->hdmi;
++	u8 conf0;
++
++	/*
++	 * Configure first, then reset the FIFOs and the S/PDIF sampler, then
++	 * latch N again. The receiver always takes 24 bit wide sub-frames.
++	 */
++	hdmi_write(audio, HDMI_AUD_INT_FIFO_EMPTY_MSK |
++		   HDMI_AUD_INT_FIFO_FULL_MSK, HDMI_AUD_INT);
++	hdmi_write(audio, 0, HDMI_AUD_CONF0);	/* I2S_SELECT clear: S/PDIF */
++	hdmi_write(audio, HDMI_AUD_CONF1_WIDTH_24, HDMI_AUD_CONF1);
++	hdmi_write(audio, 0, HDMI_AUD_CONF2);
++	hdmi_write(audio, HDMI_AUD_INT_FIFO_EMPTY_MSK |
++		   HDMI_AUD_INT_FIFO_FULL_MSK, HDMI_AUD_SPDIFINT);
++	hdmi_write(audio, HDMI_AUD_INPUTCLKFS_128FS, HDMI_AUD_INPUTCLKFS);
++	hdmi_write(audio, HDMI_AUD_SPDIF1_WIDTH_24, HDMI_AUD_SPDIF1);
++
++	dw_hdmi_set_channel_count(hdmi, hparms->channels);
++	dw_hdmi_set_channel_allocation(hdmi, hparms->cea.channel_allocation);
++
++	conf0 = hdmi_read(audio, HDMI_AUD_CONF0);
++	hdmi_write(audio, conf0 | HDMI_AUD_CONF0_SW_RESET, HDMI_AUD_CONF0);
++	hdmi_write(audio, conf0, HDMI_AUD_CONF0);
++	hdmi_write(audio, HDMI_AUD_SPDIF0_SW_RESET, HDMI_AUD_SPDIF0);
++	hdmi_write(audio, 0, HDMI_AUD_SPDIF0);
++	hdmi_write(audio, (u8)~(HDMI_MC_SWRSTZ_I2SSWRST_REQ |
++				HDMI_MC_SWRSTZ_SPDIFSWRST_REQ), HDMI_MC_SWRSTZ);
++	hdmi_write(audio, HDMI_AUD_SPDIF0_SW_RESET, HDMI_AUD_SPDIF0);
++	hdmi_write(audio, 0, HDMI_AUD_SPDIF0);
++
++	dw_hdmi_set_sample_rate(hdmi, hparms->sample_rate);
++
++	return 0;
++}
++
+ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+ 				 struct hdmi_codec_daifmt *fmt,
+ 				 struct hdmi_codec_params *hparms)
+@@ -50,6 +94,9 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+ 		return -EINVAL;
+ 	}
+ 
++	if (fmt->fmt == HDMI_SPDIF)
++		return dw_hdmi_spdif_hw_params(audio, hparms);
++
+ 	/* Reset the FIFOs before applying new params */
+ 	hdmi_write(audio, HDMI_AUD_CONF0_SW_RESET, HDMI_AUD_CONF0);
+ 	hdmi_write(audio, (u8)~HDMI_MC_SWRSTZ_I2SSWRST_REQ, HDMI_MC_SWRSTZ);
+@@ -197,6 +244,7 @@ static int snd_dw_hdmi_probe(struct platform_device *pdev)
+ 	memset(&pdata, 0, sizeof(pdata));
+ 	pdata.ops		= &dw_hdmi_i2s_ops;
+ 	pdata.i2s		= 1;
++	pdata.spdif		= audio->spdif;
+ 	pdata.max_i2s_channels	= 8;
+ 	pdata.data		= audio;
+ 
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 34c5f583e910..3c0a7775678f 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -3542,6 +3542,7 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+ 		audio.get_eld	= hdmi_audio_get_eld;
+ 		audio.write	= hdmi_writeb;
+ 		audio.read	= hdmi_readb;
++		audio.spdif	= plat_data->spdif_input;
+ 		hdmi->enable_audio = dw_hdmi_i2s_audio_enable;
+ 		hdmi->disable_audio = dw_hdmi_i2s_audio_disable;
+ 
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
+index af43a0414b78..e977053e003a 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
+@@ -402,6 +402,8 @@
+ #define HDMI_AUD_CTS2                           0x3204
+ #define HDMI_AUD_CTS3                           0x3205
+ #define HDMI_AUD_INPUTCLKFS                     0x3206
++#define HDMI_AUD_SPDIF0                         0x3300
++#define HDMI_AUD_SPDIF1                         0x3301
+ #define HDMI_AUD_SPDIFINT			0x3302
+ #define HDMI_AUD_CONF0_HBR                      0x3400
+ #define HDMI_AUD_HBR_STATUS                     0x3401
+@@ -945,6 +947,17 @@ enum {
+ 	HDMI_AUD_CTS3_CTS_MANUAL = 0x10,
+ 	HDMI_AUD_CTS3_AUDCTS19_16_MASK = 0x0f,
+ 
++/* AUD_INT and AUD_SPDIFINT field values */
++	HDMI_AUD_INT_FIFO_EMPTY_MSK = 0x08,
++	HDMI_AUD_INT_FIFO_FULL_MSK = 0x04,
++
++/* AUD_SPDIF0 field values */
++	HDMI_AUD_SPDIF0_SW_RESET = 0x80,
++
++/* AUD_SPDIF1 field values */
++	HDMI_AUD_SPDIF1_WIDTH_16 = 0x10,
++	HDMI_AUD_SPDIF1_WIDTH_24 = 0x18,
++
+ /* HDMI_AUD_INPUTCLKFS field values */
+ 	HDMI_AUD_INPUTCLKFS_128FS = 0,
+ 	HDMI_AUD_INPUTCLKFS_256FS = 1,
+@@ -995,6 +1008,7 @@ enum {
+ 	HDMI_MC_CLKDIS_PIXELCLK_DISABLE = 0x1,
+ 
+ /* MC_SWRSTZ field values */
++	HDMI_MC_SWRSTZ_SPDIFSWRST_REQ = 0x10,
+ 	HDMI_MC_SWRSTZ_I2SSWRST_REQ = 0x08,
+ 	HDMI_MC_SWRSTZ_TMDSSWRST_REQ = 0x02,
+ 
+diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
+index 8500dd4f99d8..55caf9cd1842 100644
+--- a/include/drm/bridge/dw_hdmi.h
++++ b/include/drm/bridge/dw_hdmi.h
+@@ -138,6 +138,9 @@ struct dw_hdmi_plat_data {
+ 	bool use_drm_infoframe;
+ 	bool ycbcr_420_allowed;
+ 
++	/* The S/PDIF audio input of the controller is wired up */
++	bool spdif_input;
++
+ 	/*
+ 	 * Private data passed to all the .mode_valid() and .configure_phy()
+ 	 * callback functions.
 
-=D1=87=D1=82, 22 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 18:1=
-1 Alex Deucher <alexdeucher@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, Oct 20, 2026 at 3:46=E2=80=AFAM ukrainer8 <kolomiiec@gmail.com> w=
-rote:
-> >
-> > On Evergreen/Redwood (and likely other UVD v1/v2 hardware), resume from
-> > suspend intermittently fails the UVD ring test:
-> >
-> >     radeon 0000:01:00.0: [drm] *ERROR* radeon: ring 5 test failed (0xCA=
-FEDEAD)
-> >     radeon 0000:01:00.0: failed initializing UVD (-22).
-> >
-> > Cold boot always succeeds; resume succeeds only in about half of the cy=
-cles
-> > (42 measured suspend/resume cycles on a Radeon HD 5650M: OK counts per
-> > 6-cycle run were 2, 3, 5, 6, 1, 5, 3). Once the ring test fails, UVD st=
-ays
-> > dead for the rest of the session and hardware video decode silently fal=
-ls
-> > back to CPU.
-> >
-> > The resume path runs the same full asic startup as cold boot
-> > (evergreen_resume() -> evergreen_startup()), so the difference is the
-> > hardware state at entry, not a skipped call. Field data shows the first
-> > ring instance after resume is dead functionally, not by timeout: the ri=
-ng
-> > test fails fast and deterministically, and only a full stop+init cycle
-> > revives the engine.
-> >
-> > Fix this the way the Windows driver effectively does it: silently cycle
-> > the engine once (clocks up, start, stop, 20 ms settle) before testing,
-> > then run the init sequence in a retry loop - on failure of clock setup,
-> > VCPU start or the ring test, fully stop UVD, let it settle for 20 ms an=
-d
-> > try again (up to 3 attempts). Each retry logs the failing step and the
-> > attempt number, which also makes future reports of this failure mode
-> > self-diagnosing. The ring-test polling window is widened from 100 ms to
-> > 2000 ms as spare capacity; the early-exit poll keeps healthy hardware o=
-n
-> > the fast path.
-> >
-> > On the same machine the patched driver went 6/6 OK across repeated test
-> > runs, with the warm-up absorbing the dead first instance and zero error
-> > lines in dmesg.
-> >
-> > v2: guard uvd_v1_0_stop() behind successful clock setup, per Sashiko AI
-> > review - MMIO writes to an unclocked UVD block can cause a PCI bus mast=
-er
-> > abort and hard-hang the system.
-> >
-> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1867
-> > Link: https://bugs.launchpad.net/bugs/1865130
-> > Tested-by: ukrainer8 <kolomiiec@gmail.com>   # Radeon HD 5650M, kernel =
-7.0.0
-> > Signed-off-by: ukrainer8 <kolomiiec@gmail.com>
->
-> We'll see how this goes.  If anyone reports any issues, we can revert it.
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> and applied.
->
-> > ---
-> > v1 -> v2: keep the clock-setup result in a separate variable and only
-> > call uvd_v1_0_stop() when clocks were actually raised (Sashiko AI revie=
-w).
-> > Also folded in the silent warm-up cycle and the wider ring-test window
-> > validated in field testing since v1.
-> >  drivers/gpu/drm/radeon/uvd_v1_0.c | 57 ++++++++++++++++++++++++++-----=
---------
-> > --- a/drivers/gpu/drm/radeon/uvd_v1_0.c
-> > +++ b/drivers/gpu/drm/radeon/uvd_v1_0.c
-> > @@ -158,24 +158,58 @@
-> >  {
-> >         struct radeon_ring *ring =3D &rdev->ring[R600_RING_TYPE_UVD_IND=
-EX];
-> >         uint32_t tmp;
-> > -       int r;
-> > +       int r, retry, clk_err;
-> >
-> > -       /* raise clocks while booting up the VCPU */
-> > +       /* warm-up: silently cycle the engine once (like the Windows dr=
-iver),
-> > +        * the first ring instance after resume is dead functionally */
-> >         if (rdev->family < CHIP_RV740)
-> >                 radeon_set_uvd_clocks(rdev, 10000, 10000);
-> >         else
-> >                 radeon_set_uvd_clocks(rdev, 53300, 40000);
-> > +       uvd_v1_0_start(rdev);
-> > +       uvd_v1_0_stop(rdev);
-> > +       mdelay(20);
-> >
-> > -       r =3D uvd_v1_0_start(rdev);
-> > -       if (r)
-> > -               goto done;
-> > +       /* after resume the first ring test can race with the hardware;=
- retry */
-> > +       for (retry =3D 0; retry < 3; retry++) {
-> > +               /* raise clocks while booting up the VCPU */
-> > +               if (rdev->family < CHIP_RV740)
-> > +                       clk_err =3D radeon_set_uvd_clocks(rdev, 10000, =
-10000);
-> > +               else
-> > +                       clk_err =3D radeon_set_uvd_clocks(rdev, 53300, =
-40000);
-> > +               r =3D clk_err;
-> > +               if (r)
-> > +                       drm_warn(&rdev->ddev, "radeon: raising UVD cloc=
-ks failed (%d), attempt %d\n",
-> > +                                r, retry + 1);
-> > +
-> > +               if (!r) {
-> > +                       r =3D uvd_v1_0_start(rdev);
-> > +                       if (r)
-> > +                               drm_warn(&rdev->ddev, "radeon: starting=
- UVD failed (%d), attempt %d\n",
-> > +                                        r, retry + 1);
-> > +               }
-> >
-> > -       ring->ready =3D true;
-> > -       r =3D radeon_ring_test(rdev, R600_RING_TYPE_UVD_INDEX, ring);
-> > -       if (r) {
-> > -               ring->ready =3D false;
-> > -               goto done;
-> > +               if (!r) {
-> > +                       ring->ready =3D true;
-> > +                       r =3D radeon_ring_test(rdev, R600_RING_TYPE_UVD=
-_INDEX, ring);
-> > +                       if (r) {
-> > +                               ring->ready =3D false;
-> > +                               drm_warn(&rdev->ddev, "radeon: UVD ring=
- test failed (%d), attempt %d\n",
-> > +                                        r, retry + 1);
-> > +                       }
-> > +               }
-> > +
-> > +               if (!r)
-> > +                       break;
-> > +
-> > +               /* MMIO is only safe when the block is actually clocked=
- */
-> > +               if (!clk_err)
-> > +                       uvd_v1_0_stop(rdev);
-> > +               if (retry < 2)
-> > +                       mdelay(20);
-> >         }
-> > +       if (r)
-> > +               goto done;
-> >
-> >         r =3D radeon_ring_lock(rdev, ring, 10);
-> >         if (r) {
-> > @@ -421,7 +455,8 @@
-> >  int uvd_v1_0_ring_test(struct radeon_device *rdev, struct radeon_ring =
-*ring)
-> >  {
-> >         uint32_t tmp =3D 0;
-> > -       unsigned i;
-> > +       /* after resume the ring buffer controller needs ~1.5-2s to set=
-tle */
-> > +       unsigned i, timeout =3D 2000000;
-> >         int r;
-> >
-> >         WREG32(UVD_CONTEXT_ID, 0xCAFEDEAD);
-> > @@ -434,14 +469,14 @@
-> >         radeon_ring_write(ring, PACKET0(UVD_CONTEXT_ID, 0));
-> >         radeon_ring_write(ring, 0xDEADBEEF);
-> >         radeon_ring_unlock_commit(rdev, ring, false);
-> > -       for (i =3D 0; i < rdev->usec_timeout; i++) {
-> > +       for (i =3D 0; i < timeout; i++) {
-> >                 tmp =3D RREG32(UVD_CONTEXT_ID);
-> >                 if (tmp =3D=3D 0xDEADBEEF)
-> >                         break;
-> >                 udelay(1);
-> >         }
-> >
-> > -       if (i < rdev->usec_timeout) {
-> > +       if (i < timeout) {
-> >                 drm_info(&rdev->ddev, "ring test on %d succeeded in %d =
-usecs\n",
-> >                          ring->idx, i);
-> >         } else {
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+-- 
+2.56.0
+
