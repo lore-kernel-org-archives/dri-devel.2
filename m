@@ -2,89 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D54606A31D
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:37:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD26606A324
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:37:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FhQWdNEA
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WoCOdoQq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13CE810EC80;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA5410EC87;
 	Mon, 26 Oct 2026 08:37:25 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9428510E245
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 12:09:32 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c34bff61551so300256866b.2
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 05:09:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792930171; cv=none;
- d=google.com; s=arc-20260327;
- b=kJMk8AVocAl7Yl1WFCQDdH0gFeiGv1BZI9EX+Aq65LQrLWfzoixHPT8gIOyGtU6jzJ
- V8s6EtjENV9wJGy0HyCvY6Jo6Ueo0VAjUcg0e62uSQr5PEwO92fU635Uf6aSldX+VErT
- iNJCe98iwW93xax8TCFxfWak9CHMajGtnTEKBhdthiTLQveNsyE1f2Xh9AFl4VaE+CAp
- rKwbKNBzWc8V+W9+MAamcZQRdVS3LpSDflojb5HvQPOb4V9+peJSyrJsQqFgtT+yRbEI
- 7engGrmt3aKfanx1tha1HkpWGGVXePMaKa0ynXMAotbeJGMyjlX8EIGw/2nJGEQVT/wz
- PBzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=a995Dm/5BTmmuNdFImu0YZINKYRwMq3Z1BgBkz0ytC0=;
- fh=M3wAi34qudLzTykn6JoZW43RGcsHzzdHYRtSNdPA99w=;
- b=VcPbVShKLbyOt6eR70pAJJ9hs58Y9MMkreaw2D+Q7PSw4yNnfzZQDv6rUR/PdYCZ3P
- 106i1AOJQUjP543bJ3PljAhBe7t09+HuoEY6XF/qrah9FbL1URxCbi9aLf/3vauiKCAf
- zqFBs3NjCZNNeoownN8P5BuDqQ5TgUcnUIxY6Bz1M51MH3EM6Ym/xeoGE6+uS50tS4Ak
- fTbvDY5/AG4R8zasp2spB9M6FeomGFuD+ZdEKdqviM6L/fbMaDgAt+g8wd01519wbOY+
- njN9L4IiPTCmNZWWfrZYz7jQZLyRh1QwZp5oJA2bbtuWDCnnSPK44uP3y+mmm/RZziqJ
- ifww==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com
+ [209.85.161.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0D310E097
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 19:47:43 +0000 (UTC)
+Received: by mail-oo1-f47.google.com with SMTP id
+ 006d021491bc7-70bf1671c21so248489eaf.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 12:47:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1792930171; x=1793534971; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=a995Dm/5BTmmuNdFImu0YZINKYRwMq3Z1BgBkz0ytC0=;
- b=FhQWdNEAbA1IMVJA+5hTW/7JLOVWDjWsoawEgPVwLcw6CzTcauSRZIVilklcIZXSnt
- B2FIWHi/ujlSLw9t0+Gubb9AJ+9fMSMMBaA4k9cw5WpJiZbjobfvqtoE9eipp6gtNlek
- TSyQ4cy7KHKkA7w7eluj/ql1ZC3QN/I+Czq8OjZWk2mYZh7wutw/tj+RhMiz7X8MkDZH
- YO45KnoUz3TEPVlid5miTUA97UaUI44kUsX+X+uWsElY1sRQkcRNgN7VB2hfwkvzlwRJ
- kVcqYDBL1MNTEX54ddnjfHAisfvC3LKi88TE/Iwb61cXVUAj4faTr26f0B5Pve2Y5gVj
- xYkw==
+ d=gmail.com; s=20251104; t=1792957662; x=1793562462; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=fvXda2ntZpOoAr8wvRdn1LTGflX+1i5bW8ufU/JyDzc=;
+ b=WoCOdoQqfuDULz7C/6kTR9uy/ZnXAnuCBI56zZe69RA3Us9CCW1/hhA4BokmQ17/Hx
+ 4OXkaWqOGGPxfxYbSh1ZmZdzXq8+AWcCx/I7txu0tDJNBdcapIYXLBpDtuyhYMIOOwW+
+ bIyoiKRYojhWL4kx91hHgUSvse9tlFP92Z7GdC0GZMLw6fEcsBV57LDh/trjrWpCq8zB
+ dSB1WxqrPUGHnyQRt2s2XGzWKN1zG8mJ3acLnmNlqcqVS2iy8LhVDNelYjEDz5uedyt1
+ YzrLJ6If9vDQ6Re9mgub9sfvPIwDihQ6/zE7Xw2SuPiFpNIWSVX3kII10LyOfg/YAUn1
+ fv9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792930171; x=1793534971;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=a995Dm/5BTmmuNdFImu0YZINKYRwMq3Z1BgBkz0ytC0=;
- b=XfxpMZ2BChf1nFGVGAeV8ETW4S6NujujSiPwY078t7kcDB9iCVp55kTCuP/9+gTf/k
- CioxdSq0ssFOUQsFgOUuLMYDmJfMapbno0fAPU8nGYKba+F9Ssmi3jHTFOgvxIdzu3bX
- 7SRZyplCAZrJbpAowKr+S8pkQN4v0OgBmwNfsu6aOPk1rylHznljESZ4ZuUkskKnoqlC
- d9Z83WLkmYZbKi4D7jrbNtyGO4hYf79uG0/evOOt5YDyYTRp8ehV6XOBHIQi3kLw0uvI
- ky8aUfHOmsSvCiP3MJk3sSI6yWjVdx8jrZPCkPYZHDYU+PXVdgW+7i4psua3uYgo7/we
- EaVw==
+ d=1e100.net; s=20260707; t=1792957662; x=1793562462;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=fvXda2ntZpOoAr8wvRdn1LTGflX+1i5bW8ufU/JyDzc=;
+ b=GTXqs3MCpTQiQZsBL5BnKKzVcV63q1sAHAa1rGvxPRMCbrj7vnJ7n6IEijbxaDBCVv
+ XU6yUnrZVOhNA6TNfUqyaNpDtsTq++M2bYGBoI0reuwE19k4/5Mfc6L0vnVDkcW3Yv/x
+ ZDHEOVgAG1AuNebiEkIZk7Jl66a4wilZ2AOxRhkalM5jVorM/tmskZens7ymUcE6WcGn
+ W618mAxIjAP92M73ii4PvVxgtGRPyGRYMrnpstCfqs2uSytOX6TUQlELAdwHQc9lg9jX
+ GRAXKVMe96EX8RA6QS2ias2VsenG9W5x9z5Mo23xb6+h6c9Rs8fyc3TP4Oe1Jveesr0O
+ FZew==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy/jRo8Z5CpXSmPvK3H+uPiv8XK0yQ4kADOSyp6OXYeQuV8P5JCEcwf3tfbpCBhRDNNXPzPNMa+sGM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLVijWks5oeX2TDatyMwJqVXXFJtxEjcdTdaleXlDTW+350Fw6z
- 1YLHJBWZj/YKkqwgGkA0sUdT7HazvjIDWn1FP4Fy4XwMCkFNhum58NgzzQJJ5O4ikdDjHgVFMuo
- eEmnKMUeu8OY7D3R5jh16AmaGiwiSRJTLiik4oKb2Kw==
-X-Gm-Gg: AYBFou2h+JS87dybpF3N7xjP70ZoSZMtDsuwGIz6A7SRe8VnASqewjD0IikVi613+S+
- M3J0tV+3IpliVPypm0Y+f/Prse0kmhZ7xYdD3z7V/TodCvghLty+0zaJgMQwASKdX4hFDOl4DWe
- Mwyxs9RWSAfxwDQi7J0L+4YWkC0o0TpmWRthtFzAxdchM6oAL/QbL8BbE91q3A8Ul5jzqDEXdaF
- 0CEDmI1QzYB8ACC7dyeqDmamaqPVqr/fbeCIAv26HYv+cRCH1cM1Ckw5z+yVwRXkPb5h7/NhQed
- U+OhOY6IdV0IIf4ir3UU99GVzTEjpl4s+G/bTmHABCShjeqrYRSgZkrQuf9c4tPQtJeaLRq9vLi
- /g6Jo+Zi8+/44uDahbC4cIpRTkt2eBDB4JUM=
-X-Received: by 2002:a17:907:94cf:b0:c2e:3f49:df04 with SMTP id
- a640c23a62f3a-c46bdaf8b27mr471383466b.1.1792930170435; Sun, 25 Oct 2026
- 05:09:30 -0700 (PDT)
+ AKwUvBwbXzu0K+aoUQSvZVUAkbX9uEG4l76eGGUSLwf2CVphNV9DFU59HSkKxZIWy/Y22vPTlTh8fiesUWc=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLfTH7gjbHZz7jopULi9g5P6Kg+Z8e/y/z0RQ3cR6FxhA0HZWl1
+ QE+YxdsAFhBa9Zn5DRhmyXvrJXSkluv1EqcU0fjGTq2vAK/dvxuAKj0+
+X-Gm-Gg: AYBFou2L9VjFwkbu3O32whyPMWunGlYNLipKutNZbpsV6DDoB2gulrceAJSQ2IoviXX
+ iCJ9xzKvgQFppMS4n4VveFg5djr7KGgYePQzIqlJYezIbk1FAej6pIoVrxi52vWfzgXU2kCphbk
+ mmaZIEb+vpBmWNNqGeWj2OZgC8w1x0DLE1pmKe4d6P4zAtxLSIDIb+K/oc+2hj8hOr7m//tR2E/
+ tqJDkk9os42fXtJMEiAz27CeFaTZuEIVzMABJIkBvHHys0TIPAU/34r4/LkqtusPXKVEyt+JFWn
+ uQZDOBX5vL4i8aEINILxHxPSVI3EzbImNjLCTqxX4PBi5HSdE6biUEwXj212n/A0ArQc0R2vgEL
+ WfT/HqZzfQ4JoSd2aNPbqXRkKKE+EmOH7f0EqVhC0RWsa2ml5JpCj7Gny7/blUlT63pCzTURaBG
+ 1dIVxOJposIytIZgfB3MjwqOnyAGQqlBFZV1eZ5Emnh0lI+OzE4s6qxL3Aj7H3RvsCUW2kalRrQ
+ WMGInU4EaFfn3RhXBbQo+2iIFgX7g5GKheEVj+kjFGDjCRH15SU1T3Ba4Qi6DoJ0VX4ZKHVH/uX
+ GF9NWFBb66a0J5QQvjB51riItSucQSk4N5jS
+X-Received: by 2002:a05:6820:a294:20b0:6c9:80d8:a1ea with SMTP id
+ 006d021491bc7-70ba0e10437mr1759922eaf.39.1792957662485; 
+ Sun, 25 Oct 2026 12:47:42 -0700 (PDT)
+Received: from localhost.localdomain ([72.12.197.23])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-4a8430d8130sm2991167fac.5.2026.10.25.12.47.41
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 25 Oct 2026 12:47:41 -0700 (PDT)
+From: atipre <tipreaditya@gmail.com>
+To: louis.chauvet@bootlin.com
+Cc: tipreaditya@gmail.com, dri-devel@lists.freedesktop.org,
+ hamohammed.sa@gmail.com, simona@ffwll.ch, melissa.srw@gmail.com,
+ corbet@lwn.net, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/vkms: Keep composition enabled for concurrent users
+Date: Sun, 25 Oct 2026 15:47:27 -0400
+Message-ID: <20261025194727.89093-1-tipreaditya@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: =?UTF-8?B?7J207J6s7ZuI?= <dlwognsdc6100@gmail.com>
-Date: Sun, 25 Oct 2026 21:09:18 +0900
-X-Gm-Features: AclHuK_NQG-FPVaZjrn9OhnO2a1wfu6rKiyQZ5UFTcUxTw58REiCUkZs91sNnC0
-Message-ID: <CAE5fF3jr6A=UiC6vMv1q=JM4Fjm1n+eX4xCsRBQycxybk2oWAg@mail.gmail.com>
-Subject: [RFC PATCH v2] drm/v3d: add write-back BO mappings and cache sync
-To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Melissa Wen <mwen@igalia.com>
-Cc: Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org, 
- linux-api@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 26 Oct 2026 08:36:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,406 +84,256 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-20.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: JaeHoon Lee <dlwognsdc610@gmail.com>
+CRC capture and writeback share composer_enabled. Cleaning up a writeback
+clears this flag even when CRC capture is still active. The composer then
+stops producing CRC samples while the CRC data file remains open. Cleanup
+of a prepared but uncommitted writeback can also disable composition for
+another user.
 
-Add V3D_BO_WB_MMAP to request WB CPU mappings. Keep WC as the default.
-Set map_wc before getting the BO pages, and use WB for the kernel mapping
-only when the BO is native and uses WB.
+Replace the shared boolean with a user count protected by the output lock.
+Hold one vblank reference for the combined lifetime of all composer users,
+refunding redundant references when concurrent first users race. Track
+whether each writeback job acquired a composer reference so its cleanup
+only releases a reference it owns. Propagate CRC acquisition errors and
+signal a failed writeback's own fence before cleaning up the unqueued job.
+Read the user count under the output lock in the vblank callback and remove
+the resolved documentation TODO.
 
-Add V3D_SYNC_BO, based on Panfrost's BO sync API. It takes a list of BO
-ranges and supports cache flush or flush and invalidate. Reject imported
-BOs and invalid ranges or sync types.
+A local IGT kms_writeback@writeback-preserves-crc regression times out
+reading CRCs on the unmodified kernel and passes with this change on ARM64
+QEMU with one and two CPUs. All four existing applicable writeback subtests
+also pass; two unsupported XRGB2101010 subtests skip on both kernels.
 
-Indirect CSD uses a CPU job to read three 32-bit workgroup counts. Sync
-this 12-byte input range before the CPU reads it from a WB BO.
-
-Signed-off-by: JaeHoon Lee <dlwognsdc610@gmail.com>
-Assisted-by: LLM
+Fixes: dbd9d80c1b2e ("drm/vkms: Add support for writeback")
+Signed-off-by: atipre <tipreaditya@gmail.com>
 ---
-Sorry, the wrong version of the email was sent without my Signed-off-by
-trailer. I also forgot to Cc Iago Toral.
-Please use this version instead.
+IGT regression:
+https://gist.github.com/atipre/36a712615c0300d5e09e11a3b5b83f29
 
-This is an RFC for the V3DV host-cached memory work. The Mesa changes are
-on this branch:
-https://gitlab.freedesktop.org/yserrr/mesa/-/commits/v3dv-host-cached
+Apply the linked patch to igt-gpu-tools, rebuild, then run:
+  sudo IGT_FORCE_DRIVER=vkms ./build/tests/kms_writeback \
+    --run-subtest writeback-preserves-crc
 
-V3DV uses WB for native HOST_CACHED memory. Internal BOs, including the
-uniform BO, still use WC. Shared allocations, images and TRANSFER_DST
-buffers also use WC. TRANSFER_DST needs cache sync in the CPU jobs that
-copy query results.
+ Documentation/gpu/vkms.rst            |  5 ---
+ drivers/gpu/drm/vkms/vkms_composer.c  | 47 ++++++++++++++++++++++-----
+ drivers/gpu/drm/vkms/vkms_crtc.c      |  5 +--
+ drivers/gpu/drm/vkms/vkms_drv.h       |  9 ++---
+ drivers/gpu/drm/vkms/vkms_writeback.c | 21 ++++++++++--
+ 5 files changed, 64 insertions(+), 23 deletions(-)
 
-Hardware tests were run on a Raspberry Pi 5 with a backport to
-6.18.34 and a rebuilt V3DV driver. Native BO creation and
-mapping, sync batches, and checks for invalid inputs passed.
-
-If I have missed anything, please let me know so I can fix it.
-
-Base: drm-misc-next cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
-
-
- drivers/gpu/drm/v3d/v3d_bo.c    | 127 ++++++++++++++++++++++++++++++++++++++--
- drivers/gpu/drm/v3d/v3d_drv.c   |   1 +
- drivers/gpu/drm/v3d/v3d_drv.h   |   3 +
- drivers/gpu/drm/v3d/v3d_sched.c |  16 +++++
- include/uapi/drm/v3d_drm.h      |  52 +++++++++++++++-
- 5 files changed, 192 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
-index db95a2fac..1eaa57c64 100644
---- a/drivers/gpu/drm/v3d/v3d_bo.c
-+++ b/drivers/gpu/drm/v3d/v3d_bo.c
-@@ -16,6 +16,8 @@
-  */
-
- #include <linux/dma-buf.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/uaccess.h>
- #include <linux/vmalloc.h>
-
- #include <drm/drm_print.h>
-@@ -147,8 +149,8 @@ v3d_bo_create_finish(struct drm_gem_object *obj)
-        return 0;
+diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
+index 1e79e62a6..fe7dc8def 100644
+--- a/Documentation/gpu/vkms.rst
++++ b/Documentation/gpu/vkms.rst
+@@ -246,11 +246,6 @@ module through configfs. Use/Test-cases:
+ Writeback support
+ -----------------
+ 
+-- The writeback and CRC capture operations share the use of composer_enabled
+-  boolean to ensure vblanks. Probably, when these operations work together,
+-  composer_enabled needs to refcounting the composer state to proper work.
+-  [Good to get started]
+-
+ - Add support for cloned writeback outputs and related test cases using a
+   cloned output in the IGT kms_writeback.
+ 
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index 0fc915a95..5860e86e6 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -711,19 +711,44 @@ int vkms_verify_crc_source(struct drm_crtc *crtc, const char *src_name,
+ 	return 0;
  }
-
--struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file
-*file_priv,
--                            size_t unaligned_size)
-+static struct v3d_bo *v3d_bo_create_flags(struct drm_device *dev,
-+                                         size_t unaligned_size, u32 flags)
+ 
+-void vkms_set_composer(struct vkms_output *out, bool enabled)
++int vkms_composer_get(struct vkms_output *out)
  {
-        struct drm_gem_shmem_object *shmem_obj;
-        struct v3d_bo *bo;
-@@ -159,6 +161,12 @@ struct v3d_bo *v3d_bo_create(struct drm_device
-*dev, struct drm_file *file_priv,
-                return ERR_CAST(shmem_obj);
-        bo = to_v3d_bo(&shmem_obj->base);
-        bo->vaddr = NULL;
-+       /*
-+        * Use map_wc=true for WC by default.
-+        * V3D_BO_WB_MMAP sets map_wc=false for WB.
-+        * WB memory needs explicit cache sync.
-+        */
-+       bo->base.map_wc = !(flags & V3D_BO_WB_MMAP);
-
-        ret = v3d_bo_create_finish(&shmem_obj->base);
-        if (ret)
-@@ -171,6 +179,12 @@ struct v3d_bo *v3d_bo_create(struct drm_device
-*dev, struct drm_file *file_priv,
-        return ERR_PTR(ret);
- }
-
-+struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file
-*file_priv,
-+                            size_t unaligned_size)
-+{
-+       return v3d_bo_create_flags(dev, unaligned_size, 0);
+-	bool old_enabled;
++	bool already_enabled;
++	int ret;
+ 
+-	if (enabled)
+-		drm_crtc_vblank_get(&out->crtc);
++	spin_lock_irq(&out->lock);
++	if (out->composer_users) {
++		out->composer_users++;
++		spin_unlock_irq(&out->lock);
++		return 0;
++	}
++	spin_unlock_irq(&out->lock);
++
++	ret = drm_crtc_vblank_get(&out->crtc);
++	if (ret)
++		return ret;
+ 
+ 	spin_lock_irq(&out->lock);
+-	old_enabled = out->composer_enabled;
+-	out->composer_enabled = enabled;
++	already_enabled = out->composer_users != 0;
++	out->composer_users++;
+ 	spin_unlock_irq(&out->lock);
+ 
+-	if (old_enabled)
++	/* Another user may have enabled composition while we got vblank. */
++	if (already_enabled)
++		drm_crtc_vblank_put(&out->crtc);
++
++	return 0;
 +}
 +
- struct drm_gem_object *
- v3d_prime_import_sg_table(struct drm_device *dev,
-                          struct dma_buf_attachment *attach,
-@@ -195,9 +209,13 @@ v3d_prime_import_sg_table(struct drm_device *dev,
- void v3d_get_bo_vaddr(struct v3d_bo *bo)
- {
-        struct drm_gem_shmem_object *obj = &bo->base;
-+       pgprot_t prot = pgprot_writecombine(PAGE_KERNEL);
-+
-+       if (!drm_gem_is_imported(&obj->base) && !obj->map_wc)
-+               prot = PAGE_KERNEL;
-
-        bo->vaddr = vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,
--                        pgprot_writecombine(PAGE_KERNEL));
-+                        prot);
- }
-
- void v3d_put_bo_vaddr(struct v3d_bo *bo)
-@@ -213,12 +231,12 @@ int v3d_create_bo_ioctl(struct drm_device *dev,
-void *data,
-        struct v3d_bo *bo = NULL;
-        int ret;
-
--       if (args->flags != 0) {
-+       if (args->flags & ~V3D_BO_WB_MMAP) {
-                drm_dbg(dev, "unknown create_bo flags: %d\n", args->flags);
-                return -EINVAL;
-        }
-
--       bo = v3d_bo_create(dev, file_priv, PAGE_ALIGN(args->size));
-+       bo = v3d_bo_create_flags(dev, PAGE_ALIGN(args->size), args->flags);
-        if (IS_ERR(bo))
-                return PTR_ERR(bo);
-
-@@ -230,6 +248,105 @@ int v3d_create_bo_ioctl(struct drm_device *dev,
-void *data,
-        return ret;
- }
-
-+int v3d_bo_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size)
++void vkms_composer_put(struct vkms_output *out)
 +{
-+       struct drm_gem_shmem_object *shmem = &to_v3d_bo(obj)->base;
-+       struct sg_table *sgt;
-+       struct scatterlist *sg;
-+       unsigned int i;
++	bool last_user;
 +
-+       if (offset + size < offset)
-+               return -EINVAL;
++	spin_lock_irq(&out->lock);
++	last_user = --out->composer_users == 0;
++	spin_unlock_irq(&out->lock);
 +
-+       if (offset + size > obj->size)
-+               return -EINVAL;
-+
-+       if (drm_gem_is_imported(obj))
-+               return -EINVAL;
-+
-+       if (type != V3D_BO_SYNC_CPU_CACHE_FLUSH &&
-+           type != V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
-+               return -EINVAL;
-+
-+       if (shmem->map_wc)
-+               return 0;
-+
-+       if (!size)
-+               return 0;
-+
-+       sgt = drm_gem_shmem_get_pages_sgt(shmem);
-+       if (IS_ERR(sgt))
-+               return PTR_ERR(sgt);
-+
-+       for_each_sgtable_dma_sg(sgt, sg, i) {
-+               dma_addr_t addr = sg_dma_address(sg);
-+               size_t len = sg_dma_len(sg);
-+
-+               if (!size)
-+                       break;
-+
-+               if (offset >= len) {
-+                       offset -= len;
-+                       continue;
-+               }
-+
-+               addr += offset;
-+               len -= offset;
-+               len = min_t(size_t, len, size);
-+               size -= len;
-+               offset = 0;
-+
-+               dma_sync_single_for_device(obj->dev->dev, addr, len,
-DMA_TO_DEVICE);
-+               if (type == V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
-+                       dma_sync_single_for_cpu(obj->dev->dev, addr,
-len, DMA_FROM_DEVICE);
-+       }
-+
-+       return 0;
-+}
-+
-+int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
-+                     struct drm_file *file_priv)
-+{
-+       struct drm_v3d_sync_bo *args = data;
-+       struct drm_v3d_bo_sync_op *ops;
-+       struct drm_gem_object *obj;
-+       unsigned int i;
-+       int ret = 0;
-+
-+       if (args->pad)
-+               return -EINVAL;
-+
-+       if (!args->op_count)
-+               return 0;
-+
-+       ops = kvmalloc_objs(*ops, args->op_count);
-+       if (!ops)
-+               return -ENOMEM;
-+
-+       if (copy_from_user(ops, u64_to_user_ptr(args->ops),
-+                          args->op_count * sizeof(*ops))) {
-+               ret = -EFAULT;
-+               goto out;
-+       }
-+
-+       for (i = 0; i < args->op_count; i++) {
-+               obj = drm_gem_object_lookup(file_priv, ops[i].handle);
-+               if (!obj) {
-+                       ret = -ENOENT;
-+                       goto out;
-+               }
-+
-+               ret = v3d_bo_sync(obj, ops[i].type, ops[i].offset, ops[i].size);
-+               drm_gem_object_put(obj);
-+               if (ret)
-+                       goto out;
-+       }
-+
-+out:
-+       kvfree(ops);
-+       return ret;
-+}
-+
- int v3d_mmap_bo_ioctl(struct drm_device *dev, void *data,
-                      struct drm_file *file_priv)
++	if (last_user)
+ 		drm_crtc_vblank_put(&out->crtc);
+ }
+ 
+@@ -734,8 +759,12 @@ int vkms_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+ 	int ret = 0;
+ 
+ 	ret = vkms_crc_parse_source(src_name, &enabled);
++	if (ret)
++		return ret;
+ 
+-	vkms_set_composer(out, enabled);
++	if (enabled)
++		return vkms_composer_get(out);
+ 
+-	return ret;
++	vkms_composer_put(out);
++	return 0;
+ }
+diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
+index fe17f4930..69ec6b14a 100644
+--- a/drivers/gpu/drm/vkms/vkms_crtc.c
++++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+@@ -17,7 +17,7 @@ static bool vkms_crtc_handle_vblank_timeout(struct drm_crtc *crtc)
  {
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-index 8d914dbc3..0fcf6ceed 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.c
-+++ b/drivers/gpu/drm/v3d/v3d_drv.c
-@@ -264,6 +264,7 @@ static const struct drm_ioctl_desc v3d_drm_ioctls[] = {
-        DRM_IOCTL_DEF_DRV(V3D_SUBMIT_CPU, v3d_submit_cpu_ioctl,
-DRM_RENDER_ALLOW | DRM_AUTH),
-        DRM_IOCTL_DEF_DRV(V3D_PERFMON_GET_COUNTER,
-v3d_perfmon_get_counter_ioctl, DRM_RENDER_ALLOW),
-        DRM_IOCTL_DEF_DRV(V3D_PERFMON_SET_GLOBAL,
-v3d_perfmon_set_global_ioctl, DRM_RENDER_ALLOW),
-+       DRM_IOCTL_DEF_DRV(V3D_SYNC_BO, v3d_sync_bo_ioctl, DRM_RENDER_ALLOW),
+ 	struct vkms_output *output = drm_crtc_to_vkms_output(crtc);
+ 	struct vkms_crtc_state *state;
+-	bool ret, fence_cookie;
++	bool ret, fence_cookie, composer_enabled;
+ 
+ 	fence_cookie = dma_fence_begin_signalling();
+ 
+@@ -27,9 +27,10 @@ static bool vkms_crtc_handle_vblank_timeout(struct drm_crtc *crtc)
+ 		DRM_ERROR("vkms failure on handling vblank");
+ 
+ 	state = output->composer_state;
++	composer_enabled = output->composer_users != 0;
+ 	spin_unlock(&output->lock);
+ 
+-	if (state && output->composer_enabled) {
++	if (state && composer_enabled) {
+ 		u64 frame = drm_crtc_accurate_vblank_count(crtc);
+ 
+ 		/* update frame_start only if a queued vkms_composer_worker()
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index 381483aa4..4919d8036 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -89,6 +89,7 @@ struct vkms_writeback_job {
+ 	struct iosys_map data[DRM_FORMAT_MAX_PLANES];
+ 	struct vkms_frame_info wb_frame_info;
+ 	pixel_write_t pixel_write;
++	bool composer_ref;
  };
-
- static const struct drm_driver v3d_drm_driver = {
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index 7c7bdf6e5..d5db64bf5 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.h
-+++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -595,10 +595,13 @@ struct v3d_bo *v3d_bo_create(struct drm_device
-*dev, struct drm_file *file_priv,
-                             size_t size);
- void v3d_get_bo_vaddr(struct v3d_bo *bo);
- void v3d_put_bo_vaddr(struct v3d_bo *bo);
-+int v3d_bo_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size);
- int v3d_create_bo_ioctl(struct drm_device *dev, void *data,
-                        struct drm_file *file_priv);
- int v3d_mmap_bo_ioctl(struct drm_device *dev, void *data,
-                      struct drm_file *file_priv);
-+int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
-+                     struct drm_file *file_priv);
- int v3d_get_bo_offset_ioctl(struct drm_device *dev, void *data,
-                            struct drm_file *file_priv);
- int v3d_wait_bo_ioctl(struct drm_device *dev, void *data,
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 1924e3440..17648a913 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -396,6 +396,22 @@
-v3d_rewrite_csd_job_wg_counts_from_indirect(struct v3d_cpu_job *job)
-        struct drm_v3d_submit_csd *args = &indirect_csd->job->args;
-        struct v3d_dev *v3d = job->base.v3d;
-        u32 num_batches, *wg_counts;
-+       int ret;
-+
-+       /*
-+        * WB memory needs cache sync before the CPU reads the three counts.
-+        * The GPU job that wrote them must finish first.
-+        */
-+       if (!drm_gem_is_imported(&bo->base.base)) {
-+               ret = v3d_bo_sync(&bo->base.base,
-+                                V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE,
-+                                indirect_csd->offset, 3 * sizeof(*wg_counts));
-+               if (ret) {
-+                       dma_fence_set_error(job->base.done_fence, ret);
-+
-dma_fence_set_error(indirect_csd->job->base.done_fence, ret);
-+                       return;
-+               }
-+       }
-
-        v3d_get_bo_vaddr(bo);
-        v3d_get_bo_vaddr(indirect);
-diff --git a/include/uapi/drm/v3d_drm.h b/include/uapi/drm/v3d_drm.h
-index d9b01f4c3..ca7352e96 100644
---- a/include/uapi/drm/v3d_drm.h
-+++ b/include/uapi/drm/v3d_drm.h
-@@ -44,6 +44,7 @@ extern "C" {
- #define DRM_V3D_SUBMIT_CPU                        0x0b
- #define DRM_V3D_PERFMON_GET_COUNTER               0x0c
- #define DRM_V3D_PERFMON_SET_GLOBAL                0x0d
-+#define DRM_V3D_SYNC_BO                           0x0e
-
- #define DRM_IOCTL_V3D_SUBMIT_CL           DRM_IOWR(DRM_COMMAND_BASE +
-DRM_V3D_SUBMIT_CL, struct drm_v3d_submit_cl)
- #define DRM_IOCTL_V3D_WAIT_BO             DRM_IOWR(DRM_COMMAND_BASE +
-DRM_V3D_WAIT_BO, struct drm_v3d_wait_bo)
-@@ -64,6 +65,8 @@ extern "C" {
-                                                   struct
-drm_v3d_perfmon_get_counter)
- #define DRM_IOCTL_V3D_PERFMON_SET_GLOBAL  DRM_IOW(DRM_COMMAND_BASE +
-DRM_V3D_PERFMON_SET_GLOBAL, \
-                                                   struct
-drm_v3d_perfmon_set_global)
-+#define DRM_IOCTL_V3D_SYNC_BO             DRM_IOWR(DRM_COMMAND_BASE +
-DRM_V3D_SYNC_BO, \
-+                                                  struct drm_v3d_sync_bo)
-
- #define DRM_V3D_SUBMIT_CL_FLUSH_CACHE             0x01
- #define DRM_V3D_SUBMIT_EXTENSION                 0x02
-@@ -237,11 +240,13 @@ struct drm_v3d_wait_bo {
-        __u64 timeout_ns;
- };
-
-+/* WB BOs require explicit cache sync. */
-+#define V3D_BO_WB_MMAP 4
-+
+ 
  /**
-  * struct drm_v3d_create_bo - ioctl argument for creating V3D BOs.
-  *
-- * There are currently no values for the flags argument, but it may be
-- * used in a future extension.
-+ * The flags argument may request V3D_BO_WB_MMAP for a write-back CPU mapping.
+@@ -210,8 +211,7 @@ struct vkms_crtc_state {
+  *	       vblank timestamps
+  * @composer_workq: Ordered workqueue for @composer_state.composer_work.
+  * @lock: Lock used to protect concurrent access to the composer
+- * @composer_enabled: Protected by @lock, true when the VKMS composer is active (crc needed or
+- *		      writeback)
++ * @composer_users: Protected by @lock, number of CRC capture and writeback users
+  * @composer_state: Protected by @lock, current state of this VKMS output
+  * @composer_lock: Lock used internally to protect @composer_state members
   */
- struct drm_v3d_create_bo {
-        __u32 size;
-@@ -278,6 +283,49 @@ struct drm_v3d_mmap_bo {
-        __u64 offset;
- };
+@@ -222,7 +222,7 @@ struct vkms_output {
+ 	struct workqueue_struct *composer_workq;
+ 	spinlock_t lock;
+ 
+-	bool composer_enabled;
++	unsigned int composer_users;
+ 	struct vkms_crtc_state *composer_state;
+ 
+ 	spinlock_t composer_lock;
+@@ -317,7 +317,8 @@ int vkms_verify_crc_source(struct drm_crtc *crtc, const char *source_name,
+ 
+ /* Composer Support */
+ void vkms_composer_worker(struct work_struct *work);
+-void vkms_set_composer(struct vkms_output *out, bool enabled);
++int vkms_composer_get(struct vkms_output *out);
++void vkms_composer_put(struct vkms_output *out);
+ void vkms_writeback_row(struct vkms_writeback_job *wb, const struct line_buffer *src_buffer, int y);
+ 
+ /* Writeback */
+diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
+index ecf29a2c0..584a71862 100644
+--- a/drivers/gpu/drm/vkms/vkms_writeback.c
++++ b/drivers/gpu/drm/vkms/vkms_writeback.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0+
+ 
++#include <linux/dma-fence.h>
+ #include <linux/iosys-map.h>
+ 
+ #include <drm/drm_atomic.h>
+@@ -118,7 +119,9 @@ static void vkms_wb_cleanup_job(struct drm_writeback_connector *connector,
+ 
+ 	drm_framebuffer_put(vkmsjob->wb_frame_info.fb);
+ 
+-	vkms_set_composer(vkms_output, false);
++	/* Prepared jobs can be cleaned up without ever being committed. */
++	if (vkmsjob->composer_ref)
++		vkms_composer_put(vkms_output);
+ 	kfree(vkmsjob);
+ }
+ 
+@@ -137,13 +140,25 @@ static void vkms_wb_atomic_commit(struct drm_connector *conn,
+ 	struct vkms_writeback_job *active_wb;
+ 	struct vkms_frame_info *wb_frame_info;
+ 	u32 wb_format = fb->format->format;
++	int ret;
+ 
+ 	if (!conn_state)
+ 		return;
+ 
+-	vkms_set_composer(output, true);
+-
+ 	active_wb = conn_state->writeback_job->priv;
++	ret = vkms_composer_get(output);
++	if (ret) {
++		struct drm_writeback_job *job = conn_state->writeback_job;
++
++		conn_state->writeback_job = NULL;
++		if (job->out_fence) {
++			dma_fence_set_error(job->out_fence, ret);
++			dma_fence_signal(job->out_fence);
++		}
++		drm_writeback_cleanup_job(job);
++		return;
++	}
++	active_wb->composer_ref = true;
+ 	wb_frame_info = &active_wb->wb_frame_info;
+ 
+ 	spin_lock_irq(&output->composer_lock);
 
-+/* Valid flags to pass to drm_v3d_bo_sync_op */
-+#define V3D_BO_SYNC_CPU_CACHE_FLUSH                    0
-+#define V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE     1
-+
-+/**
-+ * struct drm_v3d_bo_sync_op - BO map sync op
-+ */
-+struct drm_v3d_bo_sync_op {
-+       /** Handle of the buffer object to sync. */
-+       __u32 handle;
-+
-+       /** Type of sync operation. */
-+       __u32 type;
-+
-+       /**
-+        * Offset into the BO at which the sync range starts.
-+        *
-+        * This will be rounded down to the nearest cache line as needed.
-+        */
-+       __u32 offset;
-+
-+       /**
-+        * Size of the range to sync
-+        *
-+        * size + offset will be rounded up to the nearest cache line as
-+        * needed.
-+        */
-+       __u32 size;
-+};
-+
-+/**
-+ * struct drm_v3d_sync_bo - ioctl argument for syncing BO maps
-+ */
-+struct drm_v3d_sync_bo {
-+       /** Array of struct drm_v3d_bo_sync_op */
-+       __u64 ops;
-+
-+       /** Number of BO sync ops */
-+       __u32 op_count;
-+
-+       __u32 pad;
-+};
-+
- enum drm_v3d_param {
-        DRM_V3D_PARAM_V3D_UIFCFG,
-        DRM_V3D_PARAM_V3D_HUB_IDENT1,
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+-- 
+2.50.1 (Apple Git-155)
+
