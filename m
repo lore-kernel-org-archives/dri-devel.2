@@ -2,43 +2,147 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C1560A2613
-	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 05:56:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48F7606A31A
+	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 06:48:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jr2lCtWM
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=B1f+FXkv;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YmbRrsLS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0F1510E82D;
-	Sun, 25 Oct 2026 05:56:29 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 125DA10E82D
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 05:56:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C244D40ABF;
- Sun, 25 Oct 2026 05:56:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E78D1F01828;
- Sun, 25 Oct 2026 05:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792907783;
- bh=BKxDd19D0yoa/qzlvIaVJ+Oe9dHf46zHnt8PtCY8syw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jr2lCtWMCW9DE2mJcenNHNtakyIXX7fvyPk4YzdGIfk0BfD4We1k8ACUp6NiDkqnv
- f0T6nmi++egaHytUoaVWQnR7EsnBdd+dlBLB5Uwrl/kbir+1cQ/0OBKexIwIfUdVcc
- 753TpqF8NKGp+EtVvEMEuXLiy72IAL+/aJGtZTwct2Eg9hP45+zuDxZYRo3XnCYM9G
- QB6LH2fvMR3q4rSI6VqBCyM+DCmcYRuH9Fxv55qwwCYd7Nb0ynWztJy599VcA2yeGS
- KteymeUC62GDWsMrN0434z8ty9ieuEFtfd6JU7Hcn/nQ9Po/ZGtMNXIuGqK1RMq6/H
- Fn9V6Ern1faCA==
-Message-ID: <sashiko-outbox-184089@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/13] drm/amdgpu: Add Apple GMUX runtime PM support
-To: "Atharva Tiwari" <atharvatiwarilinuxdev@gmail.com>
-Cc: =?utf-8?b?b3BlbiBsaXN0OlBDSSBTVUJTWVNURU0=?= <linux-pci@vger.kernel.org>, 
- =?utf-8?b?b3BlbiBsaXN0OkRSTSBEUklWRVJT?= <dri-devel@lists.freedesktop.org>
-In-Reply-To: <20261025040046.1602-10-atharvatiwarilinuxdev@gmail.com>
-References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
- <20261025040046.1602-10-atharvatiwarilinuxdev@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 05:56:23 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 027BB10E222;
+	Sun, 25 Oct 2026 06:48:43 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74E8C10E222
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 06:48:31 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69P4suYl3577485
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 06:48:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=X4mro5Ju+0/OZNa6+ydVcS
+ k0tnNUNnmhCi4geW3t7cw=; b=B1f+FXkv7WIc1WX7NfQd2k+7LDtBtPw6hPcMIt
+ uW6H1dkF9SaIWgTkE1hA1ujDe4uygBWA7cvg29F0TU8Jere/U8kuMwWnDmT8bn9Z
+ Qgzv/LAYC1sK7SMYsfAirdS37PjPbqRDVDxB0bTAQ+iQeV/ubg17HQcLJqZ8oz3W
+ oxiOcLFgsrGKc9PHZ8QIoU9QqI5yx6IC0MHF/KHXh5Jvm1TQ2yZ06G5RrAbiHgJY
+ g3+wUL9kDSAGxZ3X/m2Zgwbn0SjsW3iXJ6G++7baLJD0jPtEwj7zVAlRJuFXt0WG
+ TH7Qot5Mgqz7AAYrXC3hpIbo7lMY5vYWiSA/zNv2x+uFg4EQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgmw3jjw2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 06:48:30 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-3663d3547a0so230665eec.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 24 Oct 2026 23:48:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1792910910; x=1793515710;
+ darn=lists.freedesktop.org; 
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=X4mro5Ju+0/OZNa6+ydVcSk0tnNUNnmhCi4geW3t7cw=;
+ b=YmbRrsLSIzesBXPIfXqMIyuLXS6GlfEzm+Mhy1wPJoTj9Qg9JFPK1YSen7e7jnxMzh
+ rq+jc+cfy+VOPs9JAHJLKHnnW75Q/Q7V373abdPvYRgQi07g4tVwbc13dpPwhE6rMh87
+ NkKzLGYID99wDcWu0R3zXEmnLuDN7E9UJyFMEJaSavEhfEPItBKXn1AHZIKm0txU4evs
+ c96/trR0narMznZtedtohoS65hp47SgVnTYVyMWWfYEKBL0PQ75VMamOKn3Hd1IgShPk
+ gB1SrBrq5nAb9sWV9xF+L5fwcIvGu8fpDk6Z+vfZzqSphL5zEKEe+qrQ5Vr0LsvsVrQH
+ t3Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792910910; x=1793515710;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=X4mro5Ju+0/OZNa6+ydVcSk0tnNUNnmhCi4geW3t7cw=;
+ b=MXN410l3QPbi2XKDVKxOZl9+ezW0HZoEyzc0942NN2IDV4B/9sWTngLhMVk3dpLWyw
+ hnfqRmUOGwwgygLqLcHByDN5PUrGlT1fYaifeB5UcwQSihxlG1DlA/R/y+gyr6WdKSBs
+ REQWXs0CrvM4puwNSEqHOkT7zkMiFIqth7aPjYnY+dAuhRn2pkn+NuGFRA+TNPFM3x8x
+ N8eFOgpEeoOku/X1TckWGq98vGf9moPzONQTSEgiI0/uP4+ehavJjSOhyy2TjoP4riyj
+ wy9SFjBWY3nxII7aJg/RORXYxy48/LXXILoknt5Ixjd84bCKETO/FAl0xpLD1Mqn5sif
+ z9lQ==
+X-Gm-Message-State: AFq9FYI6m6Bi7sRGnBy0IquUGKiNevlOisumTPnyK08bas6x0xkP4Y6A
+ elDF097inhxPFbQYv7DPiKtRjiHZsgi4coxCT/i0hd5fJXhu750rrKdVjPSFVGMcwXA7lSaBH7c
+ 6lKfbuuw8Syoyb5btDgQPnYeFuZSWTa4dIykonKVcIm8BVV6IrZmOQjGPzkwhPsmxfJhqL6w=
+X-Gm-Gg: AYBFou3W2rdO+1+lYVwHBBMSccD/5+1zbAPhm4n98qSfo8VID7aOdcjYextQBDwTBOJ
+ HzLJJR4FFqXseFFcY4Fm+2topP1i91Yg3i6rg+262/X4QRLw1WdmVVsR3YHEV2MDiJAfwuoB7EP
+ h8sp4cTZYH4FAKyjsWQQwuOqOe4dCicmFNrqPsPx+xlp6iXomSeYYug6m6LTCix4NKGSiFj//YH
+ 6Kbi+QtxFqK9FHre8Kol3OrZL66PyvakCqXEzYnETx53jVdIA2Lf1gijr0/nmr4ORphU3KzmfXo
+ WilghPIOi+1YPRm48vDsarPpqzmp40eKnaofsGmaMDgUJ2mzJmDICMV7zYLUVJztiHJzUy1rdCD
+ 01Yl3tHQajaMPo+Dm20Cd4KSClljHBPV3M13rBjbvWIdqxjVLYGgqtsgO9j/3qZx2C5j1nqUY2e
+ 8LHJtZS5rH8bXkKsa9FJqXYl8YEOmt27olDRMKf1wjucQXJaU40zHh
+X-Received: by 2002:a05:7301:19c:b0:368:1f8c:5f23 with SMTP id
+ 5a478bee46e88-369e821311amr8345556eec.0.1792910909978; 
+ Sat, 24 Oct 2026 23:48:29 -0700 (PDT)
+X-Received: by 2002:a05:7301:19c:b0:368:1f8c:5f23 with SMTP id
+ 5a478bee46e88-369e821311amr8345520eec.0.1792910909428; 
+ Sat, 24 Oct 2026 23:48:29 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-369e8db7e73sm13649886eec.20.2026.10.24.23.48.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 24 Oct 2026 23:48:28 -0700 (PDT)
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+Date: Sun, 25 Oct 2026 12:18:17 +0530
+Subject: [PATCH] dt-bindings: display: panel: ilitek,ili7807s: Allow
+ backlight property
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIADCm3WoC/x3MQQqAIBBA0avIrBMmoYiuEhE2TjkkFRoRhHdPW
+ r7F/y8kjsIJevVC5FuSHHtBXSkgb/eVtbhiMGjaGk2jXaBptrQFWf2lCdEhMnVLa6A0Z+RFnv8
+ 3jDl//RLYNl8AAAA=
+X-Change-ID: 20261025-dlc_backlight-c00d00ec8f62
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792910904; l=1110;
+ i=vishnu.saini@oss.qualcomm.com; s=20251113; h=from:subject:message-id;
+ bh=KEjEjjiW+qz2CFMhiqwDXwGVoBcaGxFwtK5Yh/btD6w=;
+ b=ylj8Su/xsVS1c7l08nNRZ+V2yiouVkhZg1jT7eGaGd1z+hATN4BsRBfwWI817ktPIOmaDohGF
+ AVCrKxZAdVVB8JVubT0YZ2dpuDFX2fRBC/RFywHiADGjoX/5Coo8lAz
+X-Developer-Key: i=vishnu.saini@oss.qualcomm.com; a=ed25519;
+ pk=8hlXlF8j/3GeOaDK3w2LYhkv9FanCQru0c7kRH/It7k=
+X-Proofpoint-GUID: UM3xkxIBTDAPQMogfTFgBT4BcWBC94Ez
+X-Proofpoint-ORIG-GUID: UM3xkxIBTDAPQMogfTFgBT4BcWBC94Ez
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI1MDAyNiBTYWx0ZWRfX8L8KxP4a2N+q
+ fdC5NxNJiVwNLqFLfj0pTk1a+k0kc2kzLZU/wC9MTY/GHkyE25kzHMe5V4v/T7pxvhC/BpUHG2+
+ fXQU8E7/m/4XL/0Q94dV3dQPcId8dbE=
+X-Authority-Analysis: v=2.4 cv=HqHjiETS c=1 sm=1 tr=0 ts=6adda63e cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=In323_k3SEhDHscflrYA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI1MDAyNiBTYWx0ZWRfXwBohHhZfQDoY
+ lT/rf47PeL24jfj12ctg62sFuvItHaa/BnFifrZn7XhBe/zYfBJZrlml4nS2ih55zOeHgIIqMTM
+ 0PDof3IXsHu0nIxrCeIOGfIhJf8R7rhgmjhI4wC0DczPJiF30uEdBv8kBPxFn6ZrNk8oC57rxur
+ j15ETu4zzk3LtOH7BOx+feJBDgZYiWX8nf0sfaW5Nhfg8pfN1IPUBt6dkOW4e9/BxcqI7WCB35b
+ +sNbl6bAis1pDnfjju9NKyTRcd9NFv444UI1ME11xJy3Wz0rxfAkTPmdhag37M2gWt/kQFWw7w9
+ 5JvKyqzb4LD033UWIlS0IGLoXFZSmR23pvGuBAgl7JXm63u8sd2U0bx+gG6nmi7uLlYCitEe7NW
+ AoViRWyln5E55ZIdhzyLElNr5Hn4envAcEcEiY35AqLpjxosIegTho4FQU60btcVBLMbi2BvHZm
+ DKyccEglXlPo9TgTWPQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-25_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 adultscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610250026
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,317 +153,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] drm/amdgpu: missing thunderbolt check in amdgpu_device_supports_gm=
-ux()
-- [High] drm/amdgpu: NULL deref on GMUX runtime suspend if handler or iGPU =
-not ready
-- [High] drm/amdgpu: broken smart-suspend handling for GMUX in amdgpu_pci_p=
-robe()
-- [Medium] drm/amdgpu: unconditional GMUX switcheroo runtime PM setup ignor=
-es runpm param
---
+The DLC0697 panel is lit by a separate backlight device, which is
+referenced from the panel node through the common 'backlight'
+property.
 
-commit f1610061faecf7abbb15383a149d6591a343aafc
-Author: Andre Eikmeyer <dev@deq.rocks>
+Declare 'backlight: true' so the property is explicitly allowed by the
+schema.
 
-drm/amdgpu: Add Apple GMUX runtime PM support
+Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-This commit adds runtime power management support for discrete GPUs on T2
-MacBook Pro models controlled via Apple gmux using the vga_switcheroo power
-domain. It also marks inactive gmux eDP panels as disconnected prior to
-Display Core initialization so that disconnected internal panels do not hold
-the discrete GPU runtime active.
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+index ba8c5bbf8ffc..46b941c18565 100644
+--- a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+@@ -23,6 +23,8 @@ properties:
+     maxItems: 1
+     description: DSI virtual channel
+ 
++  backlight: true
++
+   vddi-supply:
+     description: I/O voltage supply (1.8V)
+ 
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 9269e780feb73..c1f1962425fee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-[ ... ]
-> @@ -570,6 +571,45 @@ bool amdgpu_device_supports_px(struct amdgpu_device =
-*adev)
->  	return false;
->  }
-> =20
-> +static const struct dmi_system_id amdgpu_gmux_runpm_dmi_table[] =3D {
-> +	{
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-> +		},
-> +	},
-> +	{
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-> +		},
-> +	},
-> +	{
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-> +		},
-> +	},
-> +	{
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-> +		},
-> +	},
-> +	{ }
-> +};
-> +
-> +bool amdgpu_device_supports_gmux(struct amdgpu_device *adev)
-> +{
-> +	return dmi_check_system(amdgpu_gmux_runpm_dmi_table) &&
-> +	       !dev_is_removable(&adev->pdev->dev) &&
+---
+base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
+change-id: 20261025-dlc_backlight-c00d00ec8f62
 
-[Severity: High]
-Should amdgpu_device_supports_gmux() also check
-!pci_is_thunderbolt_attached(adev->pdev)?
+Best regards,
+-- 
+Vishnu Saini <vishnu.saini@oss.qualcomm.com>
 
-On MacBook Pro systems, Intel Thunderbolt hierarchies are identified via
-pci_is_thunderbolt_attached(adev->pdev) rather than the ExternalFacingPort
-property that sets dev_is_removable() (as seen in commit 8587d48d694d and in
-amdgpu_device_should_register_switcheroo()):
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:amdgpu_device_should_register_sw=
-itcheroo() {
-	return !pci_is_thunderbolt_attached(adev->pdev) &&
-	       (px || (!dev_is_removable(&adev->pdev->dev) &&
-		       apple_gmux_detect(NULL, NULL)));
-}
-
-Because dmi_check_system() and apple_gmux_detect(NULL, NULL) are host-wide
-checks, connecting a Thunderbolt external GPU to a MacBookPro15,1, 15,3,
-16,1, or 16,4 causes amdgpu_device_supports_gmux() to return true for the
-external GPU while amdgpu_device_should_register_switcheroo() returns false.
-
-In amdgpu_device_init(), this skips vga_switcheroo_register_client() for the
-Thunderbolt GPU, but still executes vga_switcheroo_init_domain_pm_ops()
-because gmux is true, binding the external GPU to vga_switcheroo's power
-domain without registering it as a switcheroo client. In addition,
-amdgpu_device_has_gmux_edp() returns true for the external GPU on
-MacBookPro15,3, 16,1, and 16,4, causing amdgpu_dm_init() to set
-init_data.flags.edp_not_connected =3D true and
-amdgpu_dm_initialize_drm_device() to skip eDP detection on the external GPU.
-
-> +	       apple_gmux_detect(NULL, NULL);
-> +}
-
-[Severity: High]
-Can this trigger a NULL pointer dereference when the 5-second runtime
-autosuspend timer fires after amdgpu_pci_probe() if the apple-gmux handler =
-or
-the integrated GPU client has not been registered yet?
-
-The inline helper apple_gmux_detect(NULL, NULL) only checks for hardware
-presence in ACPI/PNP and returns true even if the apple-gmux driver
-(CONFIG_APPLE_GMUX) has not probed or registered a vga_switcheroo handler.
-Because amdgpu_pci_probe() does not call vga_switcheroo_client_probe_defer()
-before enabling runtime autosuspend, two failure paths can occur when
-vga_switcheroo_runtime_suspend() runs:
-
-1. If apple-gmux has not probed yet (for instance, when built as a module a=
-nd
-not loaded in initramfs, or if its probe failed), vgasr_priv.handler is NULL
-when vga_switcheroo_runtime_suspend() dereferences it:
-
-drivers/gpu/vga/vga_switcheroo.c:vga_switcheroo_runtime_suspend() {
-	...
-	mutex_lock(&vgasr_mutex);
-	if (vgasr_priv.handler->switchto) {
-		mutex_lock(&vgasr_priv.mux_hw_lock);
-		vgasr_priv.handler->switchto(VGA_SWITCHEROO_IGD);
-		mutex_unlock(&vgasr_priv.mux_hw_lock);
-	}
-	pci_bus_set_current_state(pdev->bus, PCI_D3cold);
-	vga_switcheroo_power_switch(pdev, VGA_SWITCHEROO_OFF);
-	mutex_unlock(&vgasr_mutex);
-	...
-}
-
-2. Even if apple-gmux has registered its handler, vga_switcheroo_enable()
-only runs and invokes gmux_get_client_id() (which is the only place that
-populates gmux_data->discrete_pdev) once two vga_switcheroo clients have
-registered. If i915 has not probed or is disabled when amdgpu autosuspends,
-client->id remains VGA_SWITCHEROO_UNKNOWN_ID, and
-vga_switcheroo_power_switch() -> gmux_set_power_state() ->
-gmux_set_discrete_state() dereferences gmux_data->discrete_pdev while it is
-NULL:
-
-drivers/platform/x86/apple-gmux.c:gmux_set_discrete_state() {
-	reinit_completion(&gmux_data->powerchange_done);
-	acpi_handle discrete_handle =3D ACPI_HANDLE(&gmux_data->discrete_pdev->dev=
-);
-	...
-}
-
-[ ... ]
-> @@ -4202,12 +4245,13 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->  		vga_client_register(adev->pdev, amdgpu_device_vga_set_decode);
-> =20
->  	px =3D amdgpu_device_supports_px(adev);
-> +	gmux =3D amdgpu_device_supports_gmux(adev);
-> =20
->  	if (amdgpu_device_should_register_switcheroo(adev, px))
->  		vga_switcheroo_register_client(adev->pdev,
-> -					       &amdgpu_switcheroo_ops, px);
-> +					       &amdgpu_switcheroo_ops, px || gmux);
-> =20
-> -	if (px)
-> +	if (px || gmux)
->  		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
-
-[Severity: Medium]
-What happens here when the module parameter amdgpu.runpm is set to 0, 1, or=
- 2
-on a supported MacBook Pro?
-
-In amdgpu_driver_load_kms(), amdgpu_device_init() runs before
-amdgpu_device_detect_runtime_pm_mode() evaluates amdgpu_runtime_pm:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:amdgpu_driver_load_kms() {
-	...
-	r =3D amdgpu_device_init(adev, flags);
-	if (r) {
-		dev_err(dev->dev, "Fatal error during GPU init\n");
-		goto out;
-	}
-
-	amdgpu_device_detect_runtime_pm_mode(adev);
-	...
-}
-
-Because amdgpu_device_init() sets driver_power_control to true (px || gmux)
-and attaches adev->vga_pm_domain unconditionally whenever
-amdgpu_device_supports_gmux(adev) is true:
-
-1. With amdgpu.runpm=3D0, amdgpu_device_detect_runtime_pm_mode() leaves
-adev->pm.rpm_mode as AMDGPU_RUNPM_NONE, so amdgpu_pci_probe() does not enab=
-le
-runtime power management. At the same time, vga_switchoff() and
-vga_switchon() in drivers/gpu/vga/vga_switcheroo.c return early when
-client->driver_power_control is true, disabling manual vga_switcheroo power
-control as well.
-
-2. With amdgpu.runpm=3D1 or amdgpu.runpm=3D2 on an ASIC that reports
-BACO_SUPPORT or MACO_SUPPORT, amdgpu_device_detect_runtime_pm_mode() selects
-AMDGPU_RUNPM_BACO or AMDGPU_RUNPM_BAMACO while vga_pm_domain remains attach=
-ed
-to adev->dev. On runtime suspend, amdgpu_pmops_runtime_suspend() enters BACO
-without saving PCI state or disabling the PCI device, and
-vga_switcheroo_runtime_suspend() then cuts power to the GPU and bridge via
-gmux.
-
-[ ... ]
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index d9d794a7db964..5ad7b6dd8b2b5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2494,11 +2494,12 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
->  		DRM_ERROR("Creating debugfs files failed (%d).\n", ret);
-> =20
->  	if (adev->pm.rpm_mode !=3D AMDGPU_RUNPM_NONE) {
-> -		/* only need to skip on ATPX */
-> +		/* ATPX requires a full system-sleep transition. */
->  		if (amdgpu_device_supports_px(adev))
->  			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
-> -		/* we want direct complete for BOCO */
-> -		if (amdgpu_device_supports_boco(adev))
-> +		/* BOCO and GMUX can remain runtime suspended across system sleep. */
-> +		if (amdgpu_device_supports_boco(adev) ||
-> +		    adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_GMUX)
->  			dev_pm_set_driver_flags(ddev->dev, DPM_FLAG_SMART_PREPARE |
->  						DPM_FLAG_SMART_SUSPEND |
->  						DPM_FLAG_MAY_SKIP_RESUME);
-> @@ -2610,7 +2611,9 @@ static int amdgpu_pmops_prepare(struct device *dev)
->  	/* Return a positive number here so
->  	 * DPM_FLAG_SMART_SUSPEND works properly
->  	 */
-> -	if (amdgpu_device_supports_boco(adev) && pm_runtime_suspended(dev))
-> +	if ((amdgpu_device_supports_boco(adev) ||
-> +	     adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_GMUX) &&
-> +	    pm_runtime_suspended(dev))
->  		return 1;
-
-[Severity: High]
-Is setting DPM_FLAG_SMART_PREPARE, DPM_FLAG_SMART_SUSPEND, and
-DPM_FLAG_MAY_SKIP_RESUME safe for AMDGPU_RUNPM_GMUX when direct_complete is
-not used during system sleep or hibernation?
-
-When a gmux discrete GPU is runtime-suspended, amdgpu_pmops_runtime_suspend=
-()
-caches PCI state (setting pdev->state_saved =3D true), sets pdev->current_s=
-tate
-to PCI_D3cold, and sets drm_dev->switch_power_state to
-DRM_SWITCH_POWER_DYNAMIC_OFF, while vga_switcheroo_runtime_suspend() cuts
-power via apple-gmux (and powers down the PCIe bridge on MacBookPro16,1 and
-16,4).
-
-During system sleep or hibernation, direct_complete can be cleared in two
-ways, neither of which is handled by vga_pm_domain or the amdgpu system sle=
-ep
-callbacks:
-
-1. When the companion HDA audio device (linked as a consumer to the discrete
-GPU with DL_FLAG_PM_RUNTIME by quirk_gpu_hda()) is bound to snd_hda_intel,
-its child PCM devices have .prepare =3D NULL and .suspend =3D do_pcm_suspen=
-d,
-which clears direct_complete up to the HDA PCI device via
-dpm_clear_superiors_direct_complete(). In pci_pm_suspend(), because
-snd_hda_intel does not set DPM_FLAG_SMART_SUSPEND, pm_runtime_resume() is
-called on the HDA device, which via rpm_get_suppliers() runtime-resumes the
-gmux GPU during dpm_suspend() after amdgpu_pmops_prepare() already returned=
- 1
-and skipped amdgpu_device_prepare(). Then dpm_clear_superiors_direct_comple=
-te()
-clears direct_complete on the GPU, so amdgpu_pmops_suspend() calls
-amdgpu_device_suspend() without amdgpu_device_prepare() having run, and
-because vga_pm_domain only implements runtime PM callbacks, gmux never cuts
-power to the GPU for system sleep.
-
-2. If direct_complete is false while the gmux GPU stays runtime-suspended
-(for example, during hibernation in pci_pm_poweroff(), when
-device_may_wakeup() is enabled, when a child amdgpu_bl backlight device who=
-se
-class PM ops have .prepare =3D NULL clears direct_complete, or when
-snd_hda_intel is unbound), pci_pm_suspend() and pci_pm_poweroff() evaluate
-(!dev_pm_smart_suspend(dev) || pci_dev_need_resume(pci_dev)) as false becau=
-se
-DPM_FLAG_SMART_SUSPEND is set and pci_dev_need_resume() is false for a
-non-ACPI PCI device already in PCI_D3cold. They therefore skip
-pm_runtime_resume() and invoke amdgpu_pmops_suspend() or
-amdgpu_pmops_poweroff() -> amdgpu_device_suspend() while the GPU is powered
-off:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:amdgpu_device_suspend() {
-	if (dev->switch_power_state =3D=3D DRM_SWITCH_POWER_OFF)
-		return 0;
-	...
-}
-
-Because amdgpu_device_suspend() only checks for DRM_SWITCH_POWER_OFF (and n=
-ot
-DRM_SWITCH_POWER_DYNAMIC_OFF or pm_runtime_suspended(dev)), it proceeds to
-access registers on the powered-off GPU. On the subsequent resume path,
-pci_pm_resume() (which does not check dev_pm_skip_resume()) sees
-pci_dev->state_saved =3D=3D true from runtime suspend, attempts
-pci_restore_standard_config() on the powered-off device, and calls
-amdgpu_pmops_resume(), where pci_device_is_present() reads 0xffff, sets
-adev->no_hw_access =3D true, and runs amdgpu_device_resume() while gmux sti=
-ll
-has power cut.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025040046.1602=
--1-atharvatiwarilinuxdev@gmail.com?part=3D9
