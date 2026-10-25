@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8773C606A31A
-	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 04:30:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E2E606A31A
+	for <dri-devel@archiver.kernel.org>; Sun, 25 Oct 2026 04:33:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AE4TFXUg
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i70/jgrS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A33E910E683;
-	Sun, 25 Oct 2026 04:30:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B044110E683
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 04:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87D6F10E69F;
+	Sun, 25 Oct 2026 04:33:35 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BECA10E69F
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 04:33:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 026CF600D4;
- Sun, 25 Oct 2026 04:30:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 639C71F01825;
- Sun, 25 Oct 2026 04:30:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 580434392B;
+ Sun, 25 Oct 2026 04:33:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B501F01825;
+ Sun, 25 Oct 2026 04:33:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792902622;
- bh=2QQcs87YaWMya2pBYkAwd1G49GEHG9Z7e4/sZPzlK3Q=;
+ s=k20260515; t=1792902809;
+ bh=dHw0EKu4k0p0Oz4zb81mC7aP3BMmCiwp8oi82RBR1y4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AE4TFXUgoNIOoke4H01g1kZXmFqrq/oyP1WkMpGo2aI7pn6KbHoJbXY9px9V3Djgj
- 8e1U712SjOz4ADDr1KSUzrjFlDUi+uQA3yYwpT6yxpgSpcXsyW+UVDPkV4D3rLByox
- Ovf65odSW1TPdmCzdLo0VjokB/yNFupuJ58gOIcnrRZPaOEq/QYyYILYnIO+aMXdci
- 45tcT6oOcXVB8sgHh1UB/EokPTUPu1iEnFdDaMIDo5n5QpxDQ3DHUfX0O3MEhW4G1G
- xMixa9raIgYCAyUAwL3KPBE+YbJimSl9V9FP/7dGLMfCTUpq3k1+/ceKxmFW5ng12Y
- 1ldaIQxDf3+Hw==
-Message-ID: <sashiko-outbox-184066@kernel.org>
+ b=i70/jgrS1k3O9dbP3uC6Rv2VCT9yw0xKe5Ey6M31QZXZhMm6iFKjvMSsbG95FGAEI
+ iKS2xir+zSnoSIVynWrloYtpinEA4w+H0kv8BV80kIKGV+dpoWgNFal98J3h5Tw/5I
+ Zxj1vEtCFNyc1Njld8dd9sjxzQOhGLBRL+yY4H8FbIpHOaAjN7sCNTlLK0O1sOSvEZ
+ 3nzYd7hNMJxyK4z8GdSTUtXtbe77T8TnVvAlar7fR/poiBQcO5wjl0fiu2yO1Vh9m2
+ 7HWRqC7QHynZQZAdpf5nVovkYhe7j2pMent+q/A2iXlLegX1v2O8rQDGbKZAZVbtyt
+ Kzks2RMruSBnA==
+Message-ID: <sashiko-outbox-184068@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 13/13] drm/amd/display: Skip panel power savings on eDP
- links without a panel
+Subject: Re: [PATCH 06/13] platform/apple-gmux: Add parameter to configure
+ boot gpu
 To: "Atharva Tiwari" <atharvatiwarilinuxdev@gmail.com>
 Cc: =?utf-8?b?b3BlbiBsaXN0OlBDSSBTVUJTWVNURU0=?= <linux-pci@vger.kernel.org>, 
  =?utf-8?b?b3BlbiBsaXN0OkRSTSBEUklWRVJT?= <dri-devel@lists.freedesktop.org>
-In-Reply-To: <20261025040046.1602-14-atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <20261025040046.1602-7-atharvatiwarilinuxdev@gmail.com>
 References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
- <20261025040046.1602-14-atharvatiwarilinuxdev@gmail.com>
+ <20261025040046.1602-7-atharvatiwarilinuxdev@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 25 Oct 2026 04:30:21 +0000
+Date: Sun, 25 Oct 2026 04:33:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,65 +60,136 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/amd/display: KUnit test failures in amdgpu_dm_should_create_=
-sysfs()
+- [High] platform/x86: apple-gmux: live mux switch and state desync in gmux=
+_probe()
+- [Low] platform/x86: apple-gmux: missing kernel-parameters.txt entry for b=
+oot_gpu
 --
 
-commit 7217c1895d0e9a0b0a4343bbfd37bba3770b7920
-Author: Andre Eikmeyer <dev@deq.rocks>
+commit 67d1397b4ef1b203319bca9aa1d861e7cd7059c6
+Author: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 
-drm/amd/display: Skip panel power savings on eDP links without a panel
+platform/apple-gmux: Add parameter to configure boot gpu
 
-This commit updates amdgpu_dm_should_create_sysfs() to return false when
-dc_link->edp_sink_present is false, preventing creation of the
-panel_power_savings sysfs attribute on eDP links without an attached panel.
+This commit adds a boot_gpu module parameter to drivers/platform/x86/apple-=
+gmux.c
+and calls gmux_switchto() during gmux_probe() when boot_gpu is set to 0 or =
+1.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> index 703d0617df6d4..c8fbd2167b6b2 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-> @@ -761,6 +761,9 @@ amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connec=
-tor *amdgpu_dm_connector)
->  	if (amdgpu_dm_connector->base.connector_type !=3D DRM_MODE_CONNECTOR_eD=
-P)
->  		return false;
+> diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/app=
+le-gmux.c
+> index 637b3b216d4e3..6a9580f27b5eb 100644
+> --- a/drivers/platform/x86/apple-gmux.c
+> +++ b/drivers/platform/x86/apple-gmux.c
+> @@ -109,6 +109,10 @@ struct apple_gmux_config {
+>  	char *name;
+>  };
 > =20
-> +	if (!amdgpu_dm_connector->dc_link->edp_sink_present)
-> +		return false;
+> +static int boot_gpu =3D -1;
+> +module_param(boot_gpu, int, 0);
+> +MODULE_PARM_DESC(boot_gpu, "Configure the boot gpu (-1 =3D auto, 0 =3D i=
+GPU, 1 =3D dGPU)");
 
-[Severity: Medium]
-Does this break the existing KUnit tests for amdgpu_dm_should_create_sysfs()
-in drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c?
+[Severity: Low]
+Should this new module parameter also be documented in
+Documentation/admin-guide/kernel-parameters.txt?
 
-In setup_test_connector(), fixture->link is zero-allocated with
-kunit_kzalloc(), leaving edp_sink_present set to false:
+Because module_param(boot_gpu, int, 0) sets the sysfs permission to 0,
+apple_gmux.boot_gpu=3D is configured via the kernel command line or module =
+load
+options, and kernel command-line parameters are expected to have a
+corresponding entry in Documentation/admin-guide/kernel-parameters.txt.
 
-	fixture->link =3D kunit_kzalloc(test, sizeof(*fixture->link), GFP_KERNEL);
-	...
-	fixture->aconnector->bl_idx =3D bl_idx;
-	fixture->aconnector->dc_link =3D fixture->link;
-	fixture->aconnector->base.dev =3D &fixture->adev->ddev;
-	fixture->link->connector_signal =3D signal;
+> +
+>  #define GMUX_INTERRUPT_ENABLE		0xff
+>  #define GMUX_INTERRUPT_DISABLE		0x00
+> =20
+> @@ -1215,6 +1219,11 @@ static int gmux_probe(struct pnp_dev *pnp, const s=
+truct pnp_device_id *id)
+>  	gmux_enable_interrupts(gmux_data, 1);
+>  	gmux_read_switch_state(gmux_data);
+> =20
+> +	if (boot_gpu =3D=3D 0)
+> +		gmux_switchto(VGA_SWITCHEROO_IGD);
+> +	else if (boot_gpu =3D=3D 1)
+> +		gmux_switchto(VGA_SWITCHEROO_DIS);
 
-Because edp_sink_present is never initialized to true in
-setup_test_connector() or in the test cases, amdgpu_dm_should_create_sysfs()
-now returns false unconditionally in:
+[Severity: High]
+Does calling gmux_switchto() unconditionally in gmux_probe() switch the live
+hardware display mux to an untrained GPU on the current boot and desynchron=
+ize
+the hardware state from vga_switcheroo?
 
-- dm_test_should_create_sysfs_no_backlight_index()
-- dm_test_should_create_sysfs_oled_cacp()
-- dm_test_should_create_sysfs_lcd_panel()
+Looking at gmux_switchto() in drivers/platform/x86/apple-gmux.c:
 
-causing their KUNIT_EXPECT_TRUE() assertions to fail, while
-dm_test_should_create_sysfs_oled_no_cacp() returns early at the
-edp_sink_present check before testing the panel_type and cacp_supported
-condition.
+    static int gmux_switchto(enum vga_switcheroo_client_id id)
+    {
+        apple_gmux_data->switch_state_ddc =3D id;
+        apple_gmux_data->switch_state_display =3D id;
+        if (apple_gmux_data->external_switchable)
+            apple_gmux_data->switch_state_external =3D id;
 
-Should setup_test_connector() or those KUnit tests be updated to set
-edp_sink_present =3D true?
+        gmux_write_switch_state(apple_gmux_data);
+        if (apple_gmux_data->type =3D=3D APPLE_GMUX_TYPE_MMIO)
+            gmux_write_switch_state_efi(apple_gmux_data);
+
+        return 0;
+    }
+
+Calling gmux_probe() -> gmux_switchto() -> gmux_write_switch_state()
+immediately writes GMUX_PORT_SWITCH_DDC, GMUX_PORT_SWITCH_DISPLAY, and
+GMUX_PORT_SWITCH_EXTERNAL. When boot_gpu selects the non-boot GPU, this fli=
+ps
+the live panel mux to the secondary GPU that firmware has not trained on the
+current boot, while vga_default_device() remains pointing to the EFI boot G=
+PU.
+
+Because vga_switcheroo_register_client() in drivers/gpu/vga/vga_switcheroo.c
+determines the active client from vga_default_device():
+
+    int vga_switcheroo_register_client(struct pci_dev *pdev,
+                       const struct vga_switcheroo_client_ops *ops,
+                       bool driver_power_control)
+    {
+        return register_client(pdev, ops, VGA_SWITCHEROO_UNKNOWN_ID, NULL,
+                       pdev =3D=3D vga_default_device(),
+                       driver_power_control);
+    }
+
+vga_switcheroo still records the EFI boot GPU as active. If a user writes O=
+FF
+to vgaswitcheroo/switch in vga_switcheroo_debugfs_write(), it powers off the
+client with !client->active, which is the GPU that gmux_probe() just switch=
+ed
+the display mux to.
+
+Conversely, if the system booted on the iGPU and boot_gpu=3D1 is passed to
+select the discrete GPU for the next reboot, the discrete GPU remains the
+inactive client on the current boot. When the discrete GPU runtime-suspends,
+vga_switcheroo_runtime_suspend() in drivers/gpu/vga/vga_switcheroo.c runs:
+
+    if (vgasr_priv.handler->switchto) {
+        mutex_lock(&vgasr_priv.mux_hw_lock);
+        vgasr_priv.handler->switchto(VGA_SWITCHEROO_IGD);
+        mutex_unlock(&vgasr_priv.mux_hw_lock);
+    }
+
+Wouldn't that call gmux_switchto(VGA_SWITCHEROO_IGD) and overwrite both the
+mux state and the gpu-active EFI variable back to the iGPU before the system
+reboots?
+
+In addition, gmux_switchto() only calls gmux_write_switch_state_efi() when
+apple_gmux_data->type =3D=3D APPLE_GMUX_TYPE_MMIO, so on APPLE_GMUX_TYPE_IN=
+DEXED
+systems no EFI variable is written for the next boot. And when the system is
+already booted on the GPU matching boot_gpu, calling gmux_switchto()
+unconditionally without checking gmux_data->switch_state_display rewrites t=
+he
+mux ports and the non-volatile gpu-active EFI variable in NVRAM on every bo=
+ot.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261025040046.1602=
--1-atharvatiwarilinuxdev@gmail.com?part=3D13
+-1-atharvatiwarilinuxdev@gmail.com?part=3D6
