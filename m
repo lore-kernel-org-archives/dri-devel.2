@@ -2,156 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D23606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 10:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58AB606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 10:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WBa5R6DO;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZwfIFw0i
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNnPDjqe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38BF510EDC1;
-	Mon, 26 Oct 2026 10:20:31 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19CD010EDBB
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 10:20:19 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69Q9aRYx2560526
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 10:20:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 7FDKcPmUfm8pKhwk0XQXsdGdq3ble75jjcxbCWLT98U=; b=WBa5R6DOTbjnjhg6
- oR+yaDocepQyyKbFvCO8gL6By+UFGT9Xohprkgdmh7jPeGBhZAFyjKNzaOkuOypT
- ygzkq3W3+P2AB2eBq0ri/8gOaObnxIJZbgBCgl7T4MBG7s6FV7bY0VSnSZwv4NF5
- binG9KB7KqKnNomvsStayo0oaocFxa7jCR/BVD064JVSxlhcVi8cKS7vvnu6EY4b
- GSN0Ee60XYevX2wC0LUHkZQfp40FkLpgI0o0Sc4KPoXwqP332NqnWvsKeTPSH/8/
- WX6l2wAtYXEdbplrkbwhypaNUQBMopXZofmInDGYDmvKKslYj1LcLb9bEiebykoC
- v9AuwA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4cp85jm-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 10:20:17 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93f1e62510cso720699685a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 03:20:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793010017; x=1793614817;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=7FDKcPmUfm8pKhwk0XQXsdGdq3ble75jjcxbCWLT98U=;
- b=ZwfIFw0i8z+CY/VD4OHCIDz7TGqef8ZJ+QvWRX9LJ/ir/gqy/ffaZTzWPZkeac2q6K
- gDSWiF6S0/z9gWv22Qt754rHXYRuLvziWeySq1xhf/sQBZ/tW+8rW2FM5HJL0pjgL8C5
- 2rRoVFlHBVjNt18hqPtBeA6FtqlhziysS/x7+xVZ9A593/RPHDMe96aBVExjHfxkylDL
- V7fUkq71GJpacQIlHVdDOkHSRhwu47cGxvKCCA6j7XPBouRuJrWXfd/pgPEBCVEY/OR9
- 8Xp4nZjbassJiG7KI5pECiEttouYh1kUjipt5v2K81huB9/3Fnf98fgtoMTRha6VX2DD
- M+6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793010017; x=1793614817;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=7FDKcPmUfm8pKhwk0XQXsdGdq3ble75jjcxbCWLT98U=;
- b=EprrcTdA/2Wk89vl0BolMysLyDcCdf4A6+aK/rqSndPRlbaIh4XIBR/F89yG0my/Sf
- Ph3hEMYXuc7xgGrv6rSy9cpdVoGgbaxvNFgjQck4muj8wqz6CXeYshdNx6QpKBu7+SSX
- OxrIIxAAhgFvrr0ssFM4M6KhdEs8lZii55ZJE9F3ec3W8ldc7ygov8195zHYmDlqETXN
- NmjAgTCrb2QhhVSmaXPVZhGPbm950Fr57z2ywpE7KnSeK51Wbr/Cxh6s5ORHHI9xq0eT
- o/wprPyyGcrVwA/czkeJg71SXeO2CpDqOjp9SSWiNl1JpiVEJonv/4bmQVzFb0e5+enX
- G8tA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz4r9QfM830haB8BjAjnOaAurvZCAnptZD/OlG5qN6QDfVqHIeFW6bNQ5ZvF440FKdpkfrGlgBOacQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ2oRUVQ+p8Iv8I80TJWwkPW0Vf5FfrAJgoeETi+0s8+WAhzkqR
- prDT0MJy5Rh9qE8Ba7Ccz2D+rO/AStb9x8oLlzpzfwYtJXznhauBz2Tzj86/KFSCLujw5C5ikQ6
- lvP8DYUdiyXjLscbG1bX1US1T1q7wyUdQNt2oXVm15sQMLKmHwwyS0oo5kxIouTnPmJOMrZ4=
-X-Gm-Gg: AYBFou2PS4iDgOpZcpP3PmPwanZPzd59wQYZH1IjdBQwhe3Nsgb4JpUEhWGidtc6AYR
- EsOLMAWMV2lV9GWMMB8ssSjTKbzjWBiQpaK6ppH/3omJGQLohFpOTw2Lfl02mFElzk5gbnLSwj8
- T3Z7BRwv75vKQzJsGvaLpxPBeDdQYM7G8hP/eWrBJy6YBofKVMshguMksHAkDBDq5nmSfuev27N
- HQv84XpFSmOLskGYTDCpOAxTRDZJekF+wTLlwgjDaHCoe64TNFRoOJXr+6279TeRcSH3FpT/R57
- Lbsd+IakoIwngo0IT4B/8FzNZfHs8ezXU9lq/6/XBamCVJnli1+O3X5LTx7xKxodhkPST3f27lN
- 4jSPKwbQ8MIousZXfXX2p7a6cRZubpsoojNmKe4lmbOetkYaWW/lP+DtS6pMekAXxZIcJbWK1LM
- lpKhz6McV51nvT
-X-Received: by 2002:a05:620a:4002:b0:93e:910c:5fbd with SMTP id
- af79cd13be357-940ef9a6dabmr876606785a.63.1793010017193; 
- Mon, 26 Oct 2026 03:20:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:4002:b0:93e:910c:5fbd with SMTP id
- af79cd13be357-940ef9a6dabmr876600685a.63.1793010016682; 
- Mon, 26 Oct 2026 03:20:16 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfb7a6ac6asm1437302e87.22.2026.10.26.03.20.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2026 03:20:15 -0700 (PDT)
-Date: Mon, 26 Oct 2026 12:20:13 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- iommu@lists.linux.dev
-Subject: Re: [PATCH 09/13] drm/msm/dcp: Register DCP display pipeline
-Message-ID: <vd6e7jr4ciipj6ork5i36att6bamm4gpzxjdeqoqof3rdj2m4q@rtg7jop2bfwf>
-References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
- <20261015-jshekhar-drm-msm-dcp-v1-v1-9-48aad0fe4f72@oss.qualcomm.com>
- <64603812-672f-43ba-9c5b-783d666d0ac0@kernel.org>
- <c7bdcdf2-1fa4-42a5-a89f-689e688af5ae@oss.qualcomm.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43E3110E051;
+	Mon, 26 Oct 2026 10:22:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0281310E051
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 10:22:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 88F75601EF;
+ Mon, 26 Oct 2026 10:22:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D3D1F01825;
+ Mon, 26 Oct 2026 10:22:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793010144;
+ bh=AXUoYFo+cwVqLWZJ+2dHgemfWX+nriJDROeDiR68zbA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JNnPDjqedMFaUY3vhq8b3BmS/5KrcQaezFEDTMlV0Jy1HYmPxFdq9J5SxlM/ef28q
+ KTCEqktgSvYXHZVqFhQvfKFDQsAO6rdO7itLCE/PxWxHGBYaNCHPu1OVcSGE2KRL6P
+ 4ayVq72ERP4KpbIXEOnfo3BwRGHQ0hQS2Zg0OpQOQ+Eec+Dy/KcF2YcXQVrrryWLZk
+ Yzx9DEjn/bxE8DPkPsGS/1oMfThB8ATd+1EfO700asLwIv4my0mkz0s6r9oIj28S8u
+ POsZpj740BMWHfakJbJ3E48U/WMMUcBofzZdV7tPIK9pBk2glf/6jNotiNc+Gwvv12
+ w2u18s8kL3YDg==
+Message-ID: <sashiko-outbox-184929@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 07/23] drm/msm/dcp: Handle asynchronous HFI responses
+To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
+Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ media-ci@linuxtv.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-7-7cf014efdee1@oss.qualcomm.com>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-7-7cf014efdee1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c7bdcdf2-1fa4-42a5-a89f-689e688af5ae@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MSBTYWx0ZWRfX1fQBv9ecNCY4
- DxDXvHLSVZo4okBeQHrHN8mUgSnWI/6rFV3Yq9Z/N+yvxpZ5Iqh1i9PnjqBZo8zoE7pV9iAjlTv
- Eead8bj/J7FdQsmpeKEQQ/EaAvjJIOvYrOGI5okYmN2S26Mq0TkH5vEkK2C8mvkyLBWMxMBaRvF
- 68awcHqGQFWzGHaWU9BrRaH3i67s+2zT+TyFkYz2Tmd7lrkQyax8rkDNU44wWYly7lV/9abKo4j
- abQBAD8nUKGFltsmU6kqzOQTj9v9LkzAwUmnkmTVgmGX+Ov7DDeXYh6TX1Ql1RGQkox789m8DvP
- ebReTozRUis2P0hrh4ppDtBPJfq7ZiDC7p645r1U0vZswR7bf99e5DUs6ajyMIcTXoT6INeldRF
- ciqIjOQJ0pFzXkUUqkZdw/SdrTw7hQF9gN43qWtiF/FYvZCTXtaCpR0QOHp/4YYDsM0L6ByoS3d
- 4fQaM7xOhLMSeN+ofNQ==
-X-Proofpoint-GUID: SD7VVjO57uxkVbiEh8gn7ftFfGNokSER
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MSBTYWx0ZWRfX+HVe22+Gj6I1
- THH6a2GroNjvuFGZSip3QmBbduzNmSBgFHB/zgRPOFk+2x4lhEGKlCtETXWiS8ifuDZuNTYqhTD
- Citx4MzRqWKMs43lSlYCbjC26vO5VnY=
-X-Proofpoint-ORIG-GUID: SD7VVjO57uxkVbiEh8gn7ftFfGNokSER
-X-Authority-Analysis: v=2.4 cv=TboDJhQh c=1 sm=1 tr=0 ts=6adf2961 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=XPLrJM8uNFvCFI0Cpc4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- spamscore=0 clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260041
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 10:22:23 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,44 +51,306 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri, Oct 23, 2026 at 01:42:43PM +0530, Jayant Shekhar wrote:
-> 
-> On 21-10-2026 17:35, Krzysztof Kozlowski wrote:
-> > On 15/10/2026 09:38, Jayant Shekhar wrote:
-> > > The DCP firmware exposes display resources through capabilities rather than
-> > > through host-visible display registers. The MSM DRM backend therefore needs
-> > > to build its KMS objects from the firmware capabilities and device-tree
-> > > display graph.
-> > > 
-> > > Complete DCP KMS registration, including power and IOMMU integration,
-> > > capability handling, display-graph parsing, and creation of DRM planes,
-> > > CRTCs, encoders, bridges, and connectors.
-> > > 
-> > > Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-> > > Assisted-by: LLM
-> > 
-> > Your tag is the last one.
-> 
-> Sure, but I notice there are checkpatch errors, should we keep this or
-> remove?
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] drm/msm/dcp: uninitialized completions in dcp_hfi_init() and dcp_h=
+fi_deinit()
+- [High] drm/msm/dcp: race re-scheduling resource_vote_work after dcp_hfi_s=
+top()
+- [High] drm/msm/dcp: race between dcp_hfi_clear_power_control_cb() and pow=
+er_cb()
+- [Medium] drm/msm/dcp: malformed RESOURCE_VOTE clobbers vote in dcp_hfi_di=
+spatch_event()
+- [Low] drm/msm/dcp: declarations placed after #endif include guard in dcp_=
+hfi.h
+--
 
-Read the docs?
+commit 181941c645b83584ab1315f1b30bec1f0ef47673
+Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-> 
->   ● env: :3: WARNING: Non-standard signature: Assisted-by:
->   ● env: :3: ERROR: Unrecognized email address: 'LLM'
-> 
-> > Best regards,
-> > Krzysztof
+drm/msm/dcp: Handle asynchronous HFI responses
 
--- 
-With best wishes
-Dmitry
+This commit adds handling for asynchronous HFI messages in the DCP driver,
+dispatching display events, caching capability payloads, invoking power
+control callbacks, and deferring resource vote updates to a workqueue.
+
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi.h b/drivers/gpu/drm/msm/dcp/=
+dcp_hfi.h
+> index 23e1cd39b89d4..055e9c584892b 100644
+> --- a/drivers/gpu/drm/msm/dcp/dcp_hfi.h
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi.h
+
+[ ... ]
+
+> @@ -167,3 +211,8 @@ int dcp_hfi_send_no_wait_atomic_flags(struct dcp_hfi =
+*hfi, u32 cmd,
+>  				      enum hfi_packet_payload_type payload_type,
+>  				      void *payload, u32 payload_size, u32 tx_flags);
+>  #endif /* __DCP_HFI_H__ */
+> +void dcp_hfi_set_power_control_cb(struct dcp_hfi *hfi, void *priv,
+> +				  void (*cb)(void *priv, u32 display_id,
+> +					     u32 power_mask, bool enable,
+> +					     u32 packet_id));
+> +void dcp_hfi_clear_power_control_cb(struct dcp_hfi *hfi, void *priv);
+
+[Severity: Low]
+Should the declarations for dcp_hfi_set_power_control_cb() and
+dcp_hfi_clear_power_control_cb() be placed before #endif /* __DCP_HFI_H__ */
+so they remain inside the header include guard?
+
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm=
+/dcp/dcp_hfi_core.c
+> index 9f7ac798e13c4..774a5afac0f0a 100644
+> --- a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+
+[ ... ]
+
+> @@ -227,6 +233,218 @@ void dcp_hfi_cmd_callback(struct virtqueue *vq)
+>  	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
+>  }
+> =20
+> +static void dcp_hfi_store_caps_payload(struct dcp_hfi *hfi,
+> +				       struct completion *done,
+> +				       u8 *dst, u32 *dst_len,
+> +				       const struct hfi_packet_info *pkt_info,
+> +				       const char *name)
+> +{
+> +	u32 n;
+> +
+> +	if (!pkt_info->payload_ptr || !pkt_info->payload_size) {
+> +		dev_dbg(hfi->dev, "%s: empty payload\n", name);
+> +		return;
+> +	}
+> +
+> +	if (pkt_info->payload_size > DCP_HFI_CAPS_BUF_SIZE) {
+> +		dev_warn(hfi->dev, "%s: payload too large: %u\n",
+> +			 name, pkt_info->payload_size);
+> +		return;
+> +	}
+> +
+> +	n =3D pkt_info->payload_size;
+> +	memcpy(dst, pkt_info->payload_ptr, n);
+> +	*dst_len =3D n;
+> +	if (done)
+> +		complete(done);
+> +	dev_dbg(hfi->dev, "%s: stored %u bytes\n", name, n);
+> +}
+> +
+> +/* Route asynchronous events and capability packets before flag handling=
+. */
+> +static bool dcp_hfi_dispatch_event(struct dcp_hfi *hfi,
+> +				   const struct hfi_packet_info *pkt_info)
+> +{
+> +	switch (pkt_info->cmd) {
+
+[ ... ]
+
+> +	case HFI_COMMAND_DISPLAY_POWER_CONTROL: {
+> +		u32 display_id =3D pkt_info->id & 0xFFFF;
+> +		u32 power_mask =3D 0;
+> +		bool enable =3D true;
+> +		unsigned long flags;
+> +		void *power_priv;
+> +		void (*power_cb)(void *priv, u32 display_id,
+> +				 u32 power_mask, bool enable, u32 packet_id);
+> +
+> +		if (pkt_info->payload_ptr &&
+> +		    pkt_info->payload_size >=3D 2 * sizeof(u32)) {
+> +			const u32 *p =3D pkt_info->payload_ptr;
+> +
+> +			power_mask =3D p[0];
+> +			enable     =3D (p[1] =3D=3D HFI_TRUE);
+> +		}
+> +
+> +		spin_lock_irqsave(&hfi->resp_drain_lock, flags);
+> +		power_cb =3D hfi->power_control_cb;
+> +		power_priv =3D hfi->power_control_priv;
+> +		spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
+> +
+> +		if (power_cb)
+> +			power_cb(power_priv, display_id, power_mask, enable,
+> +				 pkt_info->packet_id);
+> +		return true;
+> +	}
+
+[Severity: High]
+Can power_cb() race with dcp_hfi_clear_power_control_cb() during teardown?
+
+In dcp_hfi_dispatch_event(), HFI_COMMAND_DISPLAY_POWER_CONTROL copies
+hfi->power_control_cb and hfi->power_control_priv under hfi->resp_drain_lock
+and then drops the lock before calling power_cb(power_priv, ...).
+
+Meanwhile, dcp_hfi_clear_power_control_cb() only clears those pointers under
+hfi->resp_drain_lock and returns immediately:
+
+drivers/gpu/drm/msm/dcp/dcp_hfi_core.c:dcp_hfi_clear_power_control_cb() {
+	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
+	if (hfi->power_control_priv =3D=3D priv) {
+		hfi->power_control_priv =3D NULL;
+		hfi->power_control_cb =3D NULL;
+	}
+	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
+}
+
+If a caller unregisters its callback and cancels its work or frees priv whi=
+le
+dcp_hfi_dispatch_event() has already dropped hfi->resp_drain_lock, couldn't
+power_cb() still run after dcp_hfi_clear_power_control_cb() returns,
+re-scheduling work or accessing power_priv after it is torn down?
+
+> +
+> +	case HFI_COMMAND_DEVICE_INIT_DEVICE_CAPS: {
+> +		unsigned long flags;
+> +
+> +		spin_lock_irqsave(&hfi->caps_lock, flags);
+> +		dcp_hfi_store_caps_payload(hfi, &hfi->caps_cache.device_done,
+> +					   hfi->caps_cache.device_buf,
+> +					   &hfi->caps_cache.device_len,
+> +					   pkt_info, "DEVICE_INIT_DEVICE_CAPS");
+> +		spin_unlock_irqrestore(&hfi->caps_lock, flags);
+> +		return true;
+> +	}
+> +
+> +	case HFI_COMMAND_DEVICE_INIT_DISPLAY_CAPS: {
+> +		unsigned long flags;
+> +
+> +		spin_lock_irqsave(&hfi->caps_lock, flags);
+> +		dcp_hfi_store_caps_payload(hfi, &hfi->caps_cache.display_done,
+> +					   hfi->caps_cache.display_buf,
+> +					   &hfi->caps_cache.display_len,
+> +					   pkt_info, "DEVICE_INIT_DISPLAY_CAPS");
+> +		spin_unlock_irqrestore(&hfi->caps_lock, flags);
+> +		return true;
+> +	}
+
+[ ... ]
+
+> +	case HFI_COMMAND_DEVICE_CALLBACK_RESOURCE_VOTE: {
+> +		unsigned long vote_flags;
+> +		u32 payload_size =3D pkt_info->payload_size;
+> +		bool valid =3D pkt_info->payload_ptr && payload_size &&
+> +			payload_size <=3D DCP_HFI_RESOURCE_VOTE_BUF_SIZE &&
+> +			payload_size % sizeof(struct dcp_resource_vote_wire) =3D=3D 0;
+> +
+> +		if (!valid) {
+> +			dev_warn_ratelimited(hfi->dev,
+> +					     "dropping malformed RESOURCE_VOTE payload size=3D%u max=3D%u\n=
+",
+> +					     payload_size, DCP_HFI_RESOURCE_VOTE_BUF_SIZE);
+> +			payload_size =3D 0;
+> +		}
+> +
+> +		spin_lock_irqsave(&hfi->resource_vote_lock, vote_flags);
+> +		if (payload_size)
+> +			memcpy(hfi->resource_vote_buf, pkt_info->payload_ptr,
+> +			       payload_size);
+> +		hfi->resource_vote_len =3D payload_size;
+> +		hfi->resource_vote_generation++;
+> +		spin_unlock_irqrestore(&hfi->resource_vote_lock, vote_flags);
+
+[Severity: Medium]
+When a malformed HFI_COMMAND_DEVICE_CALLBACK_RESOURCE_VOTE packet arrives,
+why does this set payload_size =3D 0 and continue instead of returning earl=
+y?
+
+By setting hfi->resource_vote_len =3D 0 and incrementing
+hfi->resource_vote_generation under hfi->resource_vote_lock, a malformed
+packet will clobber any valid resource vote already queued in
+hfi->resource_vote_buf that dcp_hfi_resource_vote_work() has not yet
+processed, causing dcp_hfi_resource_vote_work() to see len =3D=3D 0 and dro=
+p the
+earlier valid vote.
+
+[ ... ]
+
+> @@ -726,7 +987,10 @@ int dcp_hfi_init(struct dcp_drv *drv,
+> =20
+>  	spin_lock_init(&hfi->cmd_lock);
+>  	spin_lock_init(&hfi->pending_lock);
+> +	spin_lock_init(&hfi->resource_vote_lock);
+>  	spin_lock_init(&hfi->resp_drain_lock);
+> +	spin_lock_init(&hfi->caps_lock);
+> +	mutex_init(&hfi->caps_cache_lock);
+
+[Severity: High]
+Where are hfi->caps_cache.device_done and hfi->caps_cache.display_done
+initialized?
+
+In dcp_hfi_init(), hfi is allocated with devm_kzalloc() and response buffers
+are posted immediately via dcp_hfi_prepost_resp_bufs(), but init_completion=
+()
+is never called on hfi->caps_cache.device_done or
+hfi->caps_cache.display_done. In addition, dcp_hfi_deinit() zeroes the enti=
+re
+struct with memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache)), which wip=
+es
+the embedded completion waitqueues and spinlocks.
+
+If HFI_COMMAND_DEVICE_INIT_DEVICE_CAPS or
+HFI_COMMAND_DEVICE_INIT_DISPLAY_CAPS arrives in
+dcp_hfi_resp_callback()->dcp_hfi_dispatch_event()->dcp_hfi_store_caps_paylo=
+ad()
+while those completions are zeroed, won't complete(done) dereference a NULL
+wait.task_list pointer in swake_up_locked()?
+
+[ ... ]
+
+> @@ -804,6 +1097,7 @@ void dcp_hfi_stop(struct dcp_hfi *hfi)
+>  	atomic_set(&hfi->shutdown_in_progress, 1);
+>  	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
+> =20
+> +	cancel_work_sync(&hfi->resource_vote_work);
+>  	cancel_delayed_work_sync(&hfi->resp_repost_work);
+>  	dcp_hfi_cancel_pending(hfi, -ENODEV);
+>  }
+
+[Severity: High]
+Can dcp_hfi_resp_callback() re-schedule hfi->resource_vote_work after
+dcp_hfi_stop() has already called cancel_work_sync()?
+
+In dcp_hfi_resp_callback(), hfi->shutdown_in_progress is only checked at the
+start of the function, and hfi->resp_drain_lock is dropped while unpacking
+packets and calling dcp_hfi_dispatch_event():
+
+drivers/gpu/drm/msm/dcp/dcp_hfi_core.c:dcp_hfi_resp_callback() {
+	if (!hfi || atomic_read(&hfi->shutdown_in_progress))
+		return;
+
+	spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
+	virtqueue_disable_cb(vq);
+	for (;;) {
+		while ((buf =3D virtqueue_get_buf(vq, &len)) !=3D NULL) {
+			...
+			spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
+			...
+			} else if (dcp_hfi_dispatch_event(hfi, &pkt_info)) {
+}
+
+If dcp_hfi_stop() runs on another CPU while dcp_hfi_resp_callback() is
+processing a buffer, dcp_hfi_stop() can set hfi->shutdown_in_progress =3D 1=
+ and
+finish cancel_work_sync(&hfi->resource_vote_work) before
+dcp_hfi_dispatch_event() handles HFI_COMMAND_DEVICE_CALLBACK_RESOURCE_VOTE
+and calls schedule_work(&hfi->resource_vote_work).
+
+Since neither HFI_COMMAND_DEVICE_CALLBACK_RESOURCE_VOTE nor
+dcp_hfi_resource_vote_work() checks hfi->shutdown_in_progress, and neither
+dcp_hfi_quiesce_queues() nor dcp_hfi_deinit() cancels resource_vote_work
+after virtqueue callbacks are synchronized, could dcp_hfi_resource_vote_wor=
+k()
+execute after teardown completes?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
+cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D7
