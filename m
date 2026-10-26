@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE019606A326
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 05:38:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87885606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 05:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=i7wzVTN+
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZAk2dXNT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2381310E955;
-	Mon, 26 Oct 2026 05:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE2410E945;
+	Mon, 26 Oct 2026 05:39:02 +0000 (UTC)
 Received: from CY3PR05CU001.outbound.protection.outlook.com
  (mail-westcentralusazon11013053.outbound.protection.outlook.com
  [40.93.201.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2F4D10E951;
- Mon, 26 Oct 2026 05:38:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 249E610E957;
+ Mon, 26 Oct 2026 05:38:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fHQoudL/zPWCEClS+ltGoU14e1xqV9o0TTdVMMFy4ojbRR98yJZJmmleZidcKKa5/sZrPbkfmQd4DZmfV6Wj/pAh9AuulDnQH5iTs7ssrgHiIX7HTUQeiu+8uzRcnYwD36QcwX/fA0ynhdeAK+D2pNu+AVpc/1EuNeV+dF29b5sNiZZwLy8et2bOQlQY7sNP96B9ckfoSnCpZp+GCcwI6AMnv6AsF7MlEbARm9cu4Pp63+0jgnK7Q3aC5pV2N7Gwd3XDEf1JeRUht82Nw4R1pkAc33fTFfGY2m8f1c9XkoqYxAE54AmW503TeLuGZA1CfRsx3ruky38Vjz7ATpNvcw==
+ b=Q7+5jIYudsUjnF6yf04hvz+1SSB6b4bYgUrbwLMELbDI4SA/RKPKkQD3dG+WRHM3Lf6DzC4FuTaG+fCZzOq9LGpUa/7aUrYcMPgTgPQ9zsfCvczjYNq0wzzJ9711xgQ4Mu6L0MtYb3fCnJfXZj09iSYnFaHz/GlqtTGLgbi+1APt6iehFLp6i1tpn42CppjuaUGbz7m4c2XqYpetEyA51gRi5EJPd0vOEHFqBVv3afCkNh9MP9ySyU7kCHIrQ5E19TLSH1evk6Xv6YOcItWVFOj5gYoLnABEcbbSWcI50JhKdr040BgUrLib78aC2p3h/lgg+Zp5b9Xz17MJER/+HA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=01qhkv0UwYC2HqI/Bus2cOTDoXMw6c8oaejQ9+uOCXA=;
- b=HGq8hvytbZqkpBANag7ZViswUks+AFTbUZKRlkTg72tbvjDy/CW3HStiVpeA8hdTn3EJg2SOJO8IfTd0wtWne003k0q5/fe10MO2rwUvmLqMId2bfWGYl2onv6hAr58DK1VySlVmczn9y89bEE+3nd1FWjEpZ2iULA04iYIDRysT9SxQ8tKOoy+0fpgzQNSxY6oO0Rjng1n9HhkVasmMEaGVQblmRXaEbPt+YsaduPdJheOl/OoAd0RUDMOMRCnQ0UBDkcP0P5ojCitjKF0cux2dtDIsma5/ywF7A6UWpeZNlZN0jNKP+oeqBhvG9JIzzsbvlr3jBkk8XD/u4Blnhg==
+ bh=omjT3x4Mor9YKifck/IQ3Rn1pS/qkEztusBwXFWEUe0=;
+ b=FeNac9Eol+I90c7Etxuoi8iNjGdl6xoY+oqpkQYLY1tKiOQb2hypIzPNILKA17ZljgfLvJG+mH4/2bRqDJQQ+1yaeuEksPkmL//AXWBeabA2WY+otvGcQ/9cHqitcl8eHULYeJCOe8RiTclOV2iqtJZecCPZcLc37MKqcEiEpGt6qbD/aUKRcE8yj8SqSZNbuP2WYJNn+UUKX9MvV7i9Jmg+V+3VpfVAERU96Fr7LBnrPRMY8jbByM+E4ez5iqZceoiAndT3SjxdigKer5bLjiUoV7C/WgSmWS8tJHRqHvgkbmRiHyIVBXChuMRWGWgxics3S9qQC4utM41fKtiWCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=01qhkv0UwYC2HqI/Bus2cOTDoXMw6c8oaejQ9+uOCXA=;
- b=i7wzVTN+9JYXt8tw7MvhaSVjMWHpphp5pgavh3UcCM2g9OKaW+AS6WyoTEhsGKz4ef7nCEb+pMDhSGdhZHa/3/cZr12pXbBEjJ7G90FLwvOGd7pktq45SgX7IqBXV1GTF2IXwuhZVlI1hagIuC+PGotp/UNGmGQ/Y0yaqT6qfmTihhbVxnM21qUqTe0hNgP9ZIBKg1evOXU5pRIGf62kknuh94liGHQWgtR2Z5GkezU6F361rdzh6V/0nNV4N5XwvPccWIwxY4OwSrpYpUJkzmAtrubF0wV0RbmJy9fHkCxE1dgL3DXS3zJnqJLLi1J1QU1BT2QEs0eaQltyfEBe2w==
+ bh=omjT3x4Mor9YKifck/IQ3Rn1pS/qkEztusBwXFWEUe0=;
+ b=ZAk2dXNT6kZPdxGPxBV4wBUW/7UZkEK2W+pfJsWSfE0TQfqMOLr7p9Zyts4foajL203WGhoGapIyEg0nd1dcKXTHNSh1El+HoWM7p2OD4hmcBUAN4PDm/jBzbyBn5chl3sZvsX6tgp7h2a8poJp3BZnHVYH/Cb2isDcH5NmG3XWFjNOGwpiRgky6i5gAd8XfUQdb8KRotw0MRXTMvXWK8Epu5cURoFwCTGYbMjk6zd2bPNnpn4ouXL7H2sw5onFBLJu32qR04c314Jo2HIUXGWmOSzjbgVbO6XQQZ79NZZ9ZMuZUA38RZ4uc4OKTlmDKyZVmkMx71mphUxD+QHnNtA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SA3PR12MB598757.namprd12.prod.outlook.com
  (2603:10b6:806:52d::14) by SJ0PR12MB6967.namprd12.prod.outlook.com
  (2603:10b6:a03:44b::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 05:38:37 +0000
+ 2026 05:38:43 +0000
 Received: from SA3PR12MB598757.namprd12.prod.outlook.com
  ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
  ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 05:38:37 +0000
+ 05:38:43 +0000
 From: Alistair Popple <apopple@nvidia.com>
 To: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
  sumit.semwal@linaro.org, jgg@nvidia.com
@@ -58,72 +58,71 @@ Cc: Alistair Popple <apopple@nvidia.com>,
  linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
  iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
  zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com
-Subject: [PATCH 24/26] treewide: Rename dma_buf_dynamic_attach() to
- dma_buf_sgt_dynamic_attach()
-Date: Mon, 26 Oct 2026 16:36:15 +1100
-Message-ID: <20261026053623.202642-25-apopple@nvidia.com>
+Subject: [PATCH 25/26] dma-buf: Add kunit tests for mapping type
+Date: Mon, 26 Oct 2026 16:36:16 +1100
+Message-ID: <20261026053623.202642-26-apopple@nvidia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261026053623.202642-1-apopple@nvidia.com>
 References: <20261026053623.202642-1-apopple@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SY5P300CA0102.AUSP300.PROD.OUTLOOK.COM
- (2603:10c6:10:248::19) To SA3PR12MB598757.namprd12.prod.outlook.com
+X-ClientProxiedBy: SY5PR01CA0086.ausprd01.prod.outlook.com
+ (2603:10c6:10:1f5::18) To SA3PR12MB598757.namprd12.prod.outlook.com
  (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SJ0PR12MB6967:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35637b44-eb21-4013-4364-08df33236238
+X-MS-Office365-Filtering-Correlation-Id: f75b264f-6854-4109-ef49-08df33236583
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|23010399003|366016|18002099003|22082099003|6133799003|56012099006|11063799006|261022075727099003|261021121427099003|261021123027099003|10067099003|261009221727099003|261009220027099003|261009221227099003|261009223327099003|261009223027099003|261022113327099003;
-X-Microsoft-Antispam-Message-Info: tlrImbnyijWF46v7/Jd/Nb6xnx43OnoeVTAMmi8FuQVBqtb2RuKmqHkuKuxuIZ+11rcXmSEQtAQTpwoKUGHs8dCy0FGG+sHxHjJZwizOI9pJQ1UdNH1ui8H1tXPWJXW27b0ZRJwFpPDI3IphYd+xi+XrNSAoHmuHmIm0wYFRsGNBgMO2zMNZ8hlRwbZrT05DCjChLqsF+D3SYQMBoqzjGcYneoC1FIXHz9Ealnpbax45asabOus1uGwpzMzt3dlbrxEmmOVszDIS1F6GOJ/OWJasHIXIyMkur55Cw57+AgNIZ59NnG6dRH4zM4qsAOpyeN609jHni0tMawhs0w6e6WEWSQFxSucOjS983ObtVTF9LB7SYFw4yfiMHLYu6kpInd4TkGrmKZUjpgtjt8Ibyjmz/6168oilq9MV4OpyzSXXdbwOLhOUoLnCiqnqm6uct2G5HnBCklSqzOfXczoGpUh+i011VLAifZwzsMYxTTMuxtZwb/LJiWcbE485wvzgOPe7ILhU+tnHe08wqRCHRr+x/9QCQdqGRx7z6CLGTFswVXpdWRetSTiSu03pZnzKnwM6cTlkAxMT5urNzIQAENZYsKmPwI0ymd3a71iy/5Hoh2sTeBOpKI4pRV0EuJp/qhGc4hFy6XxBm1vV379D6O24+FWXCywRdcD2JJKjGN8=
+ ARA:13230040|7416014|376014|1800799024|23010399003|366016|18002099003|22082099003|56012099006|11063799006|261022075727099003|261021121427099003|10067099003|261009223027099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: COEYSZrz1fhEnJT0NiTofSqT4vWaBw7tuZNw5Tn83CfnTj0QeZ/5lQTreKqaBs6Ht3doufN34u34c3AZ4wOuBL9Gt8oy2mGtCKrcWaV/y4OXkI1eotFH8d0qYo+s+atksROQwSaxg4nPqEsGh9L8qYjccvU/Osuza/iyOdJM/MiVCpMYhkjXzrtzEpwzm79SEAGezf4WQFcb0h7AfmNYHHSM2YFKNoYRpa5JswMcOdChORBxy4JU35p/+Czn1uke2vqbYF7K0h2hqcQyTryOYdatXTTr8y+qqY/cDdry+p2lS5QBg+JxmITgErVaj02uNKkQbC4xDnOkJaPGD7r3D1jXLLQAUEYmiOZeswxSbK5sGBm1uOT3mm+yzpkS/kd5PrBZzH4tFgsN0nY6NUR+ugrcxkBbVlxftlWnWx4H9bJxgKN1U/OFe1PjvcM2cpdblI9liqg5JYbLj87BPtey/wdX4jzKhehoeJRZc9opP5yztfb/eGJ1sQaG6NfSBZgc6mItpZwxFY0t8CP+IgDc8U491e0c8cJiVnMzEUlBVdvve11rc/F1Br3bw8b1jHiYh3wBIdd07wGPD9TCe7sARFzX/8HSgWFvd0BjjmAjj6usMxmWz0RxMznIbAor1lQAz8oDI9W+H5s/rhIISkYlxkG2uexj+IztXLiAO9xKo3w=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(6133799003)(56012099006)(11063799006)(261022075727099003)(261021121427099003)(261021123027099003)(10067099003)(261009221727099003)(261009220027099003)(261009221227099003)(261009223327099003)(261009223027099003)(261022113327099003);
+ SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(261022075727099003)(261021121427099003)(10067099003)(261009223027099003)(261022105027099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?43FogyUx9ZiX4pXHw45ezdAKzhxiutjLJTCegC4C7E4Q5VBkrGyZ7hcOoirb?=
- =?us-ascii?Q?k9mf9+iK4oaG3lfFpuVqhUAciYalitgOD3RYqBNj93RgVdDnjQWHHc9dmoct?=
- =?us-ascii?Q?cKZiuzNOiJHzOOj5LIb3T0Wtg5+4fQpK9fZrCpHoT/cjECeFGSHkSMrBwh17?=
- =?us-ascii?Q?lKrwxqRaDP9b2Sdmxqmni+xgpZCtSTruSz5IbwW8HwKSAM6D3pFJ6wu/u9aC?=
- =?us-ascii?Q?SMSFE8/JEHjbNTma0ssvMDQLLRcXpzkmldNsCZHT/Pp97Kz4c7jDEFQQJZS7?=
- =?us-ascii?Q?nAVn3vZpI6+XPRCSl3GEOE1F6bGxXndxooKjZu0N6BUw2uAnCI2/ZI2HPunu?=
- =?us-ascii?Q?Dna+btSVR8j9eohrC8ASVautJi4N2kCuLAoZ0Jmi59BSwUvuiB/bSAG6lV8V?=
- =?us-ascii?Q?Z1vbr3YO4+PicjwaKJ0+QD60P3pVSNmHiyOAmxbm4NGRNW7rO+J9NI9cO7EM?=
- =?us-ascii?Q?YNUdbw+LTgTxgvjas7OOwi1BwAatQN5y/HeH4HLtRCpti7HuWsV9dNtvvvNu?=
- =?us-ascii?Q?m2DlUik3kwipQHnUGSKeXMTulzmjiOIUOJHuuvtA2KOUUlyU+HQAqQIXv0o4?=
- =?us-ascii?Q?7Xx104tvNHbn9nL3nzkZI4OCRohPWbW68NcXAxdl30i8ZjEy8nqIShCEtz8K?=
- =?us-ascii?Q?491Jt2TiN/LSLEXF6LS/xUONEOkTDdt619ttDLl8fVAwIVY9FhsMqCDmWgxf?=
- =?us-ascii?Q?psbcxcbN6gn90FiyXGRcGKnmzwx/Od2onNQxEkj17VVmegzNqZvkK3+xaEFA?=
- =?us-ascii?Q?e3rVQ3+9v2teyY5LNc4mX44UoTLsg0ZlvMdBEiqCU7YYLrmF5iYg97aDudG9?=
- =?us-ascii?Q?spEu3VG7M6vgv33Gz7XL4CTT5vAw5vb1gtTX/lpe9vnby8WmHe4CKGC0UrFS?=
- =?us-ascii?Q?EJ4VMwkbKwHi2fBVcwjKiNzZ8pDsyw/pThDxKYXhvYk3KNBNTq6NA11309HV?=
- =?us-ascii?Q?6/iO1euvtUJEyJweA1oS5J4y4C9VnHouthw17LUjLE/dpM5JWmCKFk035wgN?=
- =?us-ascii?Q?1+qCw20jBMctrf3AfldHXHbMdM8FpgvOIef3tIEPJjfnlXviXUk2zGAHGZFF?=
- =?us-ascii?Q?XVjXkJXoASi23hYIfpLZOEjsUOb4H4GnzDsQrds2y6TJUNwV9URB7/Bcd2HR?=
- =?us-ascii?Q?5OmZy8qhSlLnTr12fWh7B9nkFLlw4oulWWv9Pq1GrPrl9UROO5HFWIGCbFKP?=
- =?us-ascii?Q?AKPlXJUbe8NKqaCAuQC1UeD2HoPZS8SIfZU6k+HvAQ9GBiQgpHV8RGs2hdw3?=
- =?us-ascii?Q?XbI9MpbrVockQR4PNcLf3I5CUjASZ/Wv7tSla27v6//q47AAY4mNktzLsYJT?=
- =?us-ascii?Q?MqmlOxHbJ5IAuyd5PYM8UbnLEDKQ5y4OlVSaXqAo7rUiHyHYDDSd05NALMI+?=
- =?us-ascii?Q?VnreffvY9X2ydfI2fVdBF+dxa4W4kVbVLVZ4sseu+iatdlIgf8JkRnZ8erPc?=
- =?us-ascii?Q?ehBDp39+XjaPioFesFwAIMIOjep2BjxQ9ibG11QJk72kw829Dgp+uWSc/ZCo?=
- =?us-ascii?Q?sXYP1gQ5Loa/U+D4B8d0FwW/BkIba5pESrFN5kQQwzzSY73pydKezR4vkYdM?=
- =?us-ascii?Q?6f15PnbtFiOu3ZXyoKBd/YudHDt78Hh59lkrO8QijKGlsqXzZYu4PDvUyqS/?=
- =?us-ascii?Q?GMOqcXW1w51j8TMtjHsyqXtPJ90r0XQBCBmGB1mjk/s2aiQ7zv/BIulHPjiB?=
- =?us-ascii?Q?7yXdJWPP0Vr1EVBjCH6gYbNVS4rIMXQyDP3PnRJ4/emk9mBv8vnyjdCjgOCV?=
- =?us-ascii?Q?jgtmog70yg=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?signlY3OO1veHFKrWdCguYEYzr7i+jqVYB71w9lBPVG7/8nv0VK+X+IXRBWG?=
+ =?us-ascii?Q?Lcujf1/AXTvlRnrr+DvPVko7OP0PnNMVucqIc7rdXSn9Jly5jIe90A7/0sT+?=
+ =?us-ascii?Q?7RfZZ0OxQ2mehiV8vQdXA4aaJNq52gWtDsjOcmpyRweCwOD2aNo4T5Tsz/fn?=
+ =?us-ascii?Q?NzVwVSKYhage799PIbXheuqSYq25vy9uGQUn7KP5I43A/1xIapROqMxaOw0D?=
+ =?us-ascii?Q?/5HeihLfqAAnpDECERSQtG2xvc6QLe0RpBijywQ1rTMjzKv7S6KJ2qMt8FVB?=
+ =?us-ascii?Q?KsPkL6Tb09I8z0YNO05RzmBS4NJ7/eWfo0CeaABAFFNlmm3k4jFYU0WH97cM?=
+ =?us-ascii?Q?BcNxTFLn215aMCmm7g00L8BWgK1khvdopH3Q4yiDHXFCYqRMQvTK6gYwTRZh?=
+ =?us-ascii?Q?3F0NZqCGCPtxGVlfy031LsccuyyAs/UAUiJjtsMQmHJ3Rd6IZo5OPq4wiYbv?=
+ =?us-ascii?Q?6x6YI2ukWv5Jvwu7gwGBN5YA7Jpuk4LdiVUfIPi4pj5GfL8lmyAn/tHj6tGK?=
+ =?us-ascii?Q?szsJTFnOCvv5NZqsH+Qshn6eghJWqik6Kxl7bNc6bJzrYklkaTgQq9YQLDgn?=
+ =?us-ascii?Q?9uLoHEeGQHrRk5DkOR98TqsFCrXovrrEViVWsSSMdz9DhGhQfTHICcpDuJ8q?=
+ =?us-ascii?Q?OjNFoz9Jc0pNtLJX8/hRdwG45RI+oenedH080t5QHnAc3V1NqByktAMmujM+?=
+ =?us-ascii?Q?3Nupcqh2Q1TahEx4cr/veUWsjnYSkqkWun4Q/bPX0gmmsP/ctIe5KV7Bu2+z?=
+ =?us-ascii?Q?pqHfjeN95gjnjNmpKfsKgBZAqxqV7PaXc708U4JgrGRESPb/CCWx0VTopuay?=
+ =?us-ascii?Q?imwI8t0xK+1T3Sk7HA5c9ArtWa72ICSG7wZe2+ztfSjU61Kxv9IwkThb4mOh?=
+ =?us-ascii?Q?vJ3NPqDYfJBa8/MHxIK6zoLL0eMYc0tlCpFBqAJJIFkyeS3MitpQ0nQ0UR0X?=
+ =?us-ascii?Q?RR4RyEhPlpn3caA+/BEWrZzt4K7LaVcDQE/N6aBVDhouyvXWhU74IwY9qE9B?=
+ =?us-ascii?Q?8inTES0xPjUzQlXvQFu6y4vJyx5Vs0e8RTuA1td4P2EHqm5TUeUFx/zG9jXD?=
+ =?us-ascii?Q?5bDjI/AoiORJEJ/RHTJpAa8ZpYXnEmS+hs5H8SISf7tsKpMVAGfara3OgMPV?=
+ =?us-ascii?Q?q5DLnHRz7UuQZiOmZ9g9KeqyI7IvO22QM/r0VkfnCbT9CZBqWHsD9kDWPwEs?=
+ =?us-ascii?Q?bmMt/fEeHOsXrD476GrDWUa1Kig9pAgnyGlfYBE5uVFzUH0EvM3bH2mW7iiT?=
+ =?us-ascii?Q?/eKK5Inwiw3e1XzVQX7qzE1apRHEAGh2VErLl/RteeucigbJ2aqlCdAlar8S?=
+ =?us-ascii?Q?02tubNMxFusWzw2p0hnLBFCHSSGa6emJZjn4vzasi8bfEwwewmO0Pm9DvMcx?=
+ =?us-ascii?Q?LgUp8dbL62UOmHQcv/WFJyOKlJJCbpsnalRWT6y8kcz2lW75PT378EWhfe0L?=
+ =?us-ascii?Q?0oTQsOMURAEIREhufuHmq1qKdSs8zO6jMHBEdgKgrvi8XCSUwkvRnmAjntLm?=
+ =?us-ascii?Q?AF0+oMpnorCUd5LRpmZX4hT2Q7aqgvrt1UQtBQD8SiNZMl2nnAmBjmj7B5of?=
+ =?us-ascii?Q?mhsghk/JSDxrqrSCkaoMI9oZj8uRJOydiyWNiLeFA8g5utMwVCN9MrLmQ5fI?=
+ =?us-ascii?Q?lpqJ3kvXvGE5kdpFuq2Y4IkUxyZ6cejEUJRQBlHJXriu1L6ui+cx7M4pU9Hs?=
+ =?us-ascii?Q?deBb7cnn+rNLJFqT5gcgoYztqPcq/5R6SUgoka31qT/hB1cUx8lB5vc/upol?=
+ =?us-ascii?Q?PjjtP4GiTQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35637b44-eb21-4013-4364-08df33236238
+X-MS-Exchange-CrossTenant-Network-Message-Id: f75b264f-6854-4109-ef49-08df33236583
 X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:38:37.6776 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 05:38:43.0623 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4OW47ZsZk82rKu5pb5weBpCCqllixZNMGbrCUX0QHC9CtFhGxBzP511aFnVojqF5c29juYK8xZS/DXrOTSUfdw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: nvp2zJAG1tXwzHkd275b5CzBNlPBBXJmSn3h3NbA3yxv5H7bGvOsFYvVE93WlcRuEwErG0Y6tZgsksqMx5wjMQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6967
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,166 +145,426 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Jason Gunthorpe <jgg@nvidia.com>
 
-This attach function always creates a SGT mapping type importer.
+Some basic coverage of common flows:
+ - Check dma_buf_match_mapping()'s rules. These choices effectively
+   become driver facing API and it would be a pain to change them later
+ - Test the dma_bug_sgt attachment flow to see that the new wrappers work
 
 Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+[ .move_notify renamed to .invalidate_mappings - apopple ]
+[ dma_buf_match_mapping() records every compatible pair into the
+  attachment instead of stopping at the first, so every test passes an
+  attachment and the priority tests assert the recorded match set - apopple ]
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- drivers/dma-buf/dma-buf.c                   | 14 +++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  4 ++--
- drivers/gpu/drm/virtio/virtgpu_prime.c      |  4 ++--
- drivers/gpu/drm/xe/xe_dma_buf.c             |  2 +-
- drivers/infiniband/core/umem_dmabuf.c       |  7 ++-----
- drivers/iommu/iommufd/pages.c               |  5 +++--
- include/linux/dma-buf.h                     |  6 +++---
- 7 files changed, 20 insertions(+), 22 deletions(-)
+ drivers/dma-buf/Makefile         |   1 +
+ drivers/dma-buf/st-dma-mapping.c | 385 +++++++++++++++++++++++++++++++
+ 2 files changed, 386 insertions(+)
+ create mode 100644 drivers/dma-buf/st-dma-mapping.c
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 06bc25eff079..40301939331f 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -967,7 +967,7 @@ dma_buf_pin_on_map(struct dma_buf_attachment *attach)
-  *    functions:
-  *
-  *     - dma_buf_sgt_attach()
-- *     - dma_buf_dynamic_attach()
-+ *     - dma_buf_sgt_dynamic_attach()
-  *     - dma_buf_detach()
-  *     - dma_buf_export()
-  *     - dma_buf_fd()
-@@ -1120,7 +1120,7 @@ struct dma_buf_attachment *dma_buf_sgt_attach(struct dma_buf *dmabuf,
- EXPORT_SYMBOL_NS_GPL(dma_buf_sgt_attach, "DMA_BUF");
+diff --git a/drivers/dma-buf/Makefile b/drivers/dma-buf/Makefile
+index b25d7550bacf..92fce1b5e2e0 100644
+--- a/drivers/dma-buf/Makefile
++++ b/drivers/dma-buf/Makefile
+@@ -11,6 +11,7 @@ dmabuf_kunit-y := \
+ 	st-dma-fence.o \
+ 	st-dma-fence-chain.o \
+ 	st-dma-fence-unwrap.o \
++	st-dma-mapping.o \
+ 	st-dma-resv.o
  
- /**
-- * dma_buf_dynamic_attach - Add the device to dma_buf's attachments list
-+ * dma_buf_sgt_dynamic_attach - Add the device to dma_buf's attachments list
-  * @dmabuf:		[in]	buffer to attach device to.
-  * @dev:		[in]	device to be attached.
-  * @importer_ops:	[in]	importer operations for the attachment
-@@ -1129,9 +1129,9 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_sgt_attach, "DMA_BUF");
-  * Wrapper to call dma_buf_mapping_attach() for drivers which only support SGT.
-  */
- struct dma_buf_attachment *
--dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
--		       const struct dma_buf_attach_ops *importer_ops,
--		       void *importer_priv)
-+dma_buf_sgt_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
-+			   const struct dma_buf_attach_ops *importer_ops,
-+			   void *importer_priv)
- {
- 	struct dma_buf_mapping_match sgt_match[] = {
- 		DMA_BUF_IMAPPING_SGT(dev, importer_ops->allow_peer2peer ?
-@@ -1142,7 +1142,7 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
- 	return dma_buf_mapping_attach(dmabuf, sgt_match, ARRAY_SIZE(sgt_match),
- 				      importer_ops, importer_priv);
- }
--EXPORT_SYMBOL_NS_GPL(dma_buf_dynamic_attach, "DMA_BUF");
-+EXPORT_SYMBOL_NS_GPL(dma_buf_sgt_dynamic_attach, "DMA_BUF");
- 
- /**
-  * dma_buf_detach - Remove the given attachment from dmabuf's attachments list
-@@ -1177,7 +1177,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_detach, "DMA_BUF");
-  * dma_buf_pin - Lock down the DMA-buf
-  * @attach:	[in]	attachment which should be pinned
-  *
-- * Only dynamic importers (who set up @attach with dma_buf_dynamic_attach()) may
-+ * Only dynamic importers (who set up @attach with dma_buf_sgt_dynamic_attach()) may
-  * call this, and only for limited use cases like scanout and not for temporary
-  * pin operations. It is not permitted to allow userspace to pin arbitrary
-  * amounts of buffers through this interface.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index 19ee9f85ff30..45dbf57c7899 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -653,8 +653,8 @@ struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
- 	if (IS_ERR(obj))
- 		return obj;
- 
--	attach = dma_buf_dynamic_attach(dma_buf, dev->dev,
--					&amdgpu_dma_buf_attach_ops, obj);
-+	attach = dma_buf_sgt_dynamic_attach(dma_buf, dev->dev,
-+					    &amdgpu_dma_buf_attach_ops, obj);
- 	if (IS_ERR(attach)) {
- 		drm_gem_object_put(obj);
- 		return ERR_CAST(attach);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
-index 2faa22875a51..09571e746cfc 100644
---- a/drivers/gpu/drm/virtio/virtgpu_prime.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
-@@ -366,8 +366,8 @@ struct drm_gem_object *virtgpu_gem_prime_import(struct drm_device *dev,
- 	obj->funcs = &virtgpu_gem_dma_buf_funcs;
- 	drm_gem_private_object_init(dev, obj, buf->size);
- 
--	attach = dma_buf_dynamic_attach(buf, dev->dev,
--					&virtgpu_dma_buf_attach_ops, obj);
-+	attach = dma_buf_sgt_dynamic_attach(buf, dev->dev,
-+					    &virtgpu_dma_buf_attach_ops, obj);
- 	if (IS_ERR(attach)) {
- 		kfree(bo);
- 		return ERR_CAST(attach);
-diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-index 3ca198da6ee8..4ed246f8617e 100644
---- a/drivers/gpu/drm/xe/xe_dma_buf.c
-+++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-@@ -402,7 +402,7 @@ struct drm_gem_object *xe_gem_prime_import(struct drm_device *dev,
- 		attach_ops = test->attach_ops;
- #endif
- 
--	attach = dma_buf_dynamic_attach(dma_buf, dev->dev, attach_ops, obj);
-+	attach = dma_buf_sgt_dynamic_attach(dma_buf, dev->dev, attach_ops, obj);
- 	if (IS_ERR(attach)) {
- 		xe_bo_put(gem_to_xe_bo(obj));
- 		return ERR_CAST(attach);
-diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
-index 950db165d9c7..5bcf848c8675 100644
---- a/drivers/infiniband/core/umem_dmabuf.c
-+++ b/drivers/infiniband/core/umem_dmabuf.c
-@@ -152,11 +152,8 @@ ib_umem_dmabuf_get_with_dma_device(struct ib_device *device,
- 	if (!ib_umem_num_pages(umem))
- 		goto out_free_umem;
- 
--	umem_dmabuf->attach = dma_buf_dynamic_attach(
--					dmabuf,
--					dma_device,
--					ops,
--					umem_dmabuf);
-+	umem_dmabuf->attach = dma_buf_sgt_dynamic_attach(dmabuf, dma_device,
-+							 ops, umem_dmabuf);
- 	if (IS_ERR(umem_dmabuf->attach)) {
- 		ret = ERR_CAST(umem_dmabuf->attach);
- 		goto out_free_umem;
-diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-index 404f31d8f729..82bd6d630ce8 100644
---- a/drivers/iommu/iommufd/pages.c
-+++ b/drivers/iommu/iommufd/pages.c
-@@ -1487,8 +1487,9 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
- 	struct dma_buf_attachment *attach;
- 	int rc;
- 
--	attach = dma_buf_dynamic_attach(dmabuf, iommufd_global_device(),
--					&iopt_dmabuf_attach_revoke_ops, pages);
-+	attach = dma_buf_sgt_dynamic_attach(dmabuf, iommufd_global_device(),
-+					    &iopt_dmabuf_attach_revoke_ops,
-+					    pages);
- 	if (IS_ERR(attach))
- 		return PTR_ERR(attach);
- 
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 208752eb93d9..b2f4cec5e748 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -594,9 +594,9 @@ static inline bool dma_buf_is_dynamic(struct dma_buf *dmabuf)
- struct dma_buf_attachment *dma_buf_sgt_attach(struct dma_buf *dmabuf,
- 					      struct device *dev);
- struct dma_buf_attachment *
--dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
--		       const struct dma_buf_attach_ops *importer_ops,
--		       void *importer_priv);
-+dma_buf_sgt_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
-+			   const struct dma_buf_attach_ops *importer_ops,
-+			   void *importer_priv);
- struct dma_buf_attachment *dma_buf_mapping_attach(
- 	struct dma_buf *dmabuf, struct dma_buf_mapping_match *importer_matches,
- 	size_t match_len, const struct dma_buf_attach_ops *importer_ops,
+ obj-$(CONFIG_DMABUF_KUNIT_TEST) += dmabuf_kunit.o
+diff --git a/drivers/dma-buf/st-dma-mapping.c b/drivers/dma-buf/st-dma-mapping.c
+new file mode 100644
+index 000000000000..9d0f1e389e15
+--- /dev/null
++++ b/drivers/dma-buf/st-dma-mapping.c
+@@ -0,0 +1,385 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * KUnit tests for dma_buf_match_mapping()
++ */
++
++#include <kunit/device.h>
++#include <kunit/test.h>
++#include <linux/dma-buf.h>
++#include <linux/dma-buf-mapping.h>
++#include <linux/errno.h>
++
++/* Mock tracking state -- reset before each test */
++static bool mock_match_called;
++static const struct dma_buf_mapping_match *mock_match_exp_arg;
++static const struct dma_buf_mapping_match *mock_match_imp_arg;
++static int mock_match_ret;
++
++static bool mock_finish_called;
++static const struct dma_buf_match_args *mock_finish_args_arg;
++static const struct dma_buf_mapping_match *mock_finish_exp_arg;
++static const struct dma_buf_mapping_match *mock_finish_imp_arg;
++
++static int reset_mock_state(struct kunit *test)
++{
++	mock_match_called = false;
++	mock_match_exp_arg = NULL;
++	mock_match_imp_arg = NULL;
++	mock_match_ret = 0;
++	mock_finish_called = false;
++	mock_finish_args_arg = NULL;
++	mock_finish_exp_arg = NULL;
++	mock_finish_imp_arg = NULL;
++	return 0;
++}
++
++static int mock_match(struct dma_buf *dmabuf,
++		      const struct dma_buf_mapping_match *exp,
++		      const struct dma_buf_mapping_match *imp)
++{
++	mock_match_called = true;
++	mock_match_exp_arg = exp;
++	mock_match_imp_arg = imp;
++	return mock_match_ret;
++}
++
++static void mock_finish_match(struct dma_buf_match_args *args,
++			      const struct dma_buf_mapping_match *exp,
++			      const struct dma_buf_mapping_match *imp)
++{
++	mock_finish_called = true;
++	mock_finish_args_arg = args;
++	mock_finish_exp_arg = exp;
++	mock_finish_imp_arg = imp;
++
++	args->attach->map_type = (struct dma_buf_mapping_match){
++		.type = exp->type,
++		.exp_ops = exp->exp_ops,
++	};
++}
++
++/* Type with both match and finish_match callbacks */
++static struct dma_buf_mapping_type mock_type_a = {
++	.name = "mock_type_a",
++	.match = mock_match,
++	.finish_match = mock_finish_match,
++};
++
++/* Second type -- distinct pointer identity from A */
++static struct dma_buf_mapping_type mock_type_b = {
++	.name = "mock_type_b",
++	.match = mock_match,
++	.finish_match = mock_finish_match,
++};
++
++static void test_match_fail(struct kunit *test)
++{
++	struct dma_buf_mapping_match matches[] = { { .type = &mock_type_a } };
++	struct dma_buf_mapping_match exp[] = { { .type = &mock_type_b } };
++	struct dma_buf_attachment attach = {};
++	struct dma_buf_match_args args = {
++		.attach = &attach,
++		.imp_matches = matches,
++		.imp_len = ARRAY_SIZE(matches),
++	};
++
++	/* Zero-length exporter array returns -EINVAL */
++	KUNIT_EXPECT_EQ(test, dma_buf_match_mapping(&args, NULL, 0), -EINVAL);
++	KUNIT_EXPECT_FALSE(test, mock_match_called);
++	KUNIT_EXPECT_FALSE(test, mock_finish_called);
++
++	/* Zero-length importer array returns -EINVAL */
++	args = (struct dma_buf_match_args){ .attach = &attach };
++	KUNIT_EXPECT_EQ(test,
++			dma_buf_match_mapping(&args, matches,
++					      ARRAY_SIZE(matches)),
++			-EINVAL);
++	KUNIT_EXPECT_FALSE(test, mock_match_called);
++	KUNIT_EXPECT_FALSE(test, mock_finish_called);
++
++	/* Different types produce no match */
++	KUNIT_EXPECT_EQ(test,
++			dma_buf_match_mapping(&args, exp, ARRAY_SIZE(exp)),
++			-EINVAL);
++	KUNIT_EXPECT_FALSE(test, mock_match_called);
++	KUNIT_EXPECT_FALSE(test, mock_finish_called);
++}
++
++/* When type->match() is NULL same types always match */
++static void test_match_no_match_callback(struct kunit *test)
++{
++	static struct dma_buf_mapping_type mock_type_no_match = {
++		.name = "mock_type_no_match",
++		.finish_match = mock_finish_match,
++	};
++	struct dma_buf_mapping_match matches[] = {
++		{ .type = &mock_type_no_match }
++	};
++	struct dma_buf_attachment attach = {};
++	struct dma_buf_match_args args = {
++		.attach = &attach,
++		.imp_matches = matches,
++		.imp_len = ARRAY_SIZE(matches),
++	};
++
++	KUNIT_EXPECT_EQ(
++		test,
++		dma_buf_match_mapping(&args, matches, ARRAY_SIZE(matches)), 0);
++	KUNIT_EXPECT_FALSE(test, mock_match_called);
++	KUNIT_EXPECT_TRUE(test, mock_finish_called);
++	KUNIT_EXPECT_PTR_EQ(test, mock_finish_args_arg, &args);
++	KUNIT_EXPECT_PTR_EQ(test, mock_finish_exp_arg, &matches[0]);
++	KUNIT_EXPECT_PTR_EQ(test, mock_finish_imp_arg, &matches[0]);
++}
++
++static void test_match_callback_returns(struct kunit *test)
++{
++	struct dma_buf_mapping_match matches[] = { { .type = &mock_type_a } };
++	struct dma_buf_attachment attach = {};
++	struct dma_buf_match_args args = {
++		.attach = &attach,
++		.imp_matches = matches,
++		.imp_len = ARRAY_SIZE(matches),
++	};
++
++	/* type->match() returns -EOPNOTSUPP. Skips to next */
++	mock_match_ret = -EOPNOTSUPP;
++	KUNIT_EXPECT_EQ(test,
++			dma_buf_match_mapping(&args, matches,
++					      ARRAY_SIZE(matches)),
++			-EINVAL);
++	KUNIT_EXPECT_TRUE(test, mock_match_called);
++	KUNIT_EXPECT_FALSE(test, mock_finish_called);
++
++	/* type->match() returns an error code. Stops immediately, returns code */
++	mock_match_ret = -ENOMEM;
++	KUNIT_EXPECT_EQ(test,
++			dma_buf_match_mapping(&args, matches,
++					      ARRAY_SIZE(matches)),
++			-ENOMEM);
++	KUNIT_EXPECT_TRUE(test, mock_match_called);
++	KUNIT_EXPECT_FALSE(test, mock_finish_called);
++}
++
++/*
++ * The match set records every compatible pair, in the exporter's order. The
++ * first entry is the default selection.
++ */
++static void test_match_exporter_priority(struct kunit *test)
++{
++	struct dma_buf_mapping_match exp1[2] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	struct dma_buf_mapping_match exp2[] = { { .type = &mock_type_b } };
++	struct dma_buf_mapping_match imp[2] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	struct dma_buf_attachment attach = {};
++	struct dma_buf_match_args args = {
++		.attach = &attach,
++		.imp_matches = imp,
++		.imp_len = ARRAY_SIZE(imp),
++	};
++
++	/* Both match, exporter order preserved, first is the default */
++	KUNIT_EXPECT_EQ(
++		test, dma_buf_match_mapping(&args, exp1, ARRAY_SIZE(exp1)), 0);
++	KUNIT_ASSERT_EQ(test, attach.nr_matches, 2);
++	KUNIT_EXPECT_PTR_EQ(test, attach.matches[0].type, &mock_type_a);
++	KUNIT_EXPECT_PTR_EQ(test, attach.matches[1].type, &mock_type_b);
++	KUNIT_EXPECT_PTR_EQ(test, attach.map_type.type, &mock_type_a);
++
++	/* Only the second importer type is offered */
++	KUNIT_EXPECT_EQ(
++		test, dma_buf_match_mapping(&args, exp2, ARRAY_SIZE(exp2)), 0);
++	KUNIT_ASSERT_EQ(test, attach.nr_matches, 1);
++	KUNIT_EXPECT_PTR_EQ(test, attach.matches[0].type, &mock_type_b);
++	KUNIT_EXPECT_PTR_EQ(test, attach.map_type.type, &mock_type_b);
++	KUNIT_EXPECT_PTR_EQ(test, mock_finish_imp_arg, &imp[1]);
++}
++
++/* The exporter's order wins over the importer's */
++static void test_match_importer_priority(struct kunit *test)
++{
++	struct dma_buf_mapping_match exp[] = {
++		{ .type = &mock_type_a },
++		{ .type = &mock_type_b },
++	};
++	struct dma_buf_mapping_match imp1[] = { { .type = &mock_type_b } };
++	struct dma_buf_mapping_match imp2[] = {
++		{ .type = &mock_type_b },
++		{ .type = &mock_type_a },
++	};
++	struct dma_buf_attachment attach = {};
++	struct dma_buf_match_args args = {
++		.attach = &attach,
++		.imp_matches = imp1,
++		.imp_len = ARRAY_SIZE(imp1),
++	};
++
++	/* Single importer type */
++	KUNIT_EXPECT_EQ(test,
++			dma_buf_match_mapping(&args, exp, ARRAY_SIZE(exp)), 0);
++	KUNIT_ASSERT_EQ(test, attach.nr_matches, 1);
++	KUNIT_EXPECT_PTR_EQ(test, attach.matches[0].type, &mock_type_b);
++	KUNIT_EXPECT_PTR_EQ(test, mock_finish_imp_arg, &imp1[0]);
++
++	/* Importer prefers B, exporter prefers A: A is the default */
++	args.imp_matches = imp2;
++	args.imp_len = ARRAY_SIZE(imp2);
++	KUNIT_EXPECT_EQ(test,
++			dma_buf_match_mapping(&args, exp, ARRAY_SIZE(exp)), 0);
++	KUNIT_ASSERT_EQ(test, attach.nr_matches, 2);
++	KUNIT_EXPECT_PTR_EQ(test, attach.matches[0].type, &mock_type_a);
++	KUNIT_EXPECT_PTR_EQ(test, attach.matches[1].type, &mock_type_b);
++	KUNIT_EXPECT_PTR_EQ(test, attach.map_type.type, &mock_type_a);
++}
++
++static void mock_dmabuf_release(struct dma_buf *dmabuf)
++{
++}
++
++static struct sg_table *mock_map_dma_buf(struct dma_buf_attachment *attach,
++					 enum dma_data_direction dir)
++{
++	return ERR_PTR(-ENODEV);
++}
++
++static void mock_unmap_dma_buf(struct dma_buf_attachment *attach,
++			       struct sg_table *sgt,
++			       enum dma_data_direction dir)
++{
++}
++
++static const struct dma_buf_mapping_sgt_exp_ops mock_sgt_ops = {
++	.map_dma_buf = mock_map_dma_buf,
++	.unmap_dma_buf = mock_unmap_dma_buf,
++};
++
++static const struct dma_buf_ops mock_dmabuf_simple_sgt_ops = {
++	.release = mock_dmabuf_release,
++	DMA_BUF_SIMPLE_SGT_EXP_MATCH(mock_map_dma_buf, mock_unmap_dma_buf),
++};
++
++static int mock_dmabuf_match_mapping(struct dma_buf_match_args *args)
++{
++	struct dma_buf_mapping_match sgt_match[2];
++	unsigned int num_match = 0;
++
++	sgt_match[num_match++] =
++		(struct dma_buf_mapping_match){ .type = &mock_type_a };
++
++	sgt_match[num_match++] = DMA_BUF_EMAPPING_SGT(&mock_sgt_ops);
++
++	return dma_buf_match_mapping(args, sgt_match, ARRAY_SIZE(sgt_match));
++}
++
++static const struct dma_buf_ops mock_dmabuf_two_exp_ops = {
++	.release = mock_dmabuf_release,
++	.match_mapping = mock_dmabuf_match_mapping,
++};
++
++struct dma_exporter {
++	const struct dma_buf_ops *ops;
++	const char *desc;
++};
++
++static struct dma_buf *mock_dmabuf_export(const struct dma_buf_ops *ops)
++{
++	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
++
++	exp_info.ops = ops;
++	exp_info.size = PAGE_SIZE;
++	exp_info.priv = ERR_PTR(-EINVAL);
++	return dma_buf_export(&exp_info);
++}
++
++/*
++ * Check that a simple SGT exporter with single_exporter_match works with
++ * dma_buf_sgt_attach()
++ */
++static void test_sgt_attach(struct kunit *test)
++{
++	const struct dma_exporter *param = test->param_value;
++	struct dma_buf *dmabuf;
++	struct dma_buf_attachment *attach;
++	struct device *dev;
++
++	dev = kunit_device_register(test, "dma-buf-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	dmabuf = mock_dmabuf_export(param->ops);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
++
++	attach = dma_buf_sgt_attach(dmabuf, dev);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
++
++	KUNIT_EXPECT_PTR_EQ(test, attach->map_type.type,
++			    &dma_buf_mapping_sgt_type);
++	KUNIT_EXPECT_PTR_EQ(test, dma_buf_sgt_dma_device(attach), dev);
++	KUNIT_EXPECT_FALSE(test, dma_buf_sgt_p2p_allowed(attach));
++
++	dma_buf_detach(dmabuf, attach);
++	dma_buf_put(dmabuf);
++}
++
++static void mock_move_notify(struct dma_buf_attachment *attach)
++{
++}
++
++static const struct dma_buf_attach_ops mock_importer_ops = {
++	.invalidate_mappings = &mock_move_notify,
++};
++
++/* Check a dynamic attach with a non-sgt mapping type */
++static void test_mock_attach(struct kunit *test)
++{
++	struct dma_buf_mapping_match imp[] = { { .type = &mock_type_a } };
++	struct dma_buf *dmabuf;
++	struct dma_buf_attachment *attach;
++	struct device *dev;
++
++	dev = kunit_device_register(test, "dma-buf-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	dmabuf = mock_dmabuf_export(&mock_dmabuf_two_exp_ops);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmabuf);
++
++	attach = dma_buf_mapping_attach(dmabuf, imp, ARRAY_SIZE(imp),
++					&mock_importer_ops, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, attach);
++
++	KUNIT_EXPECT_PTR_EQ(test, attach->map_type.type, &mock_type_a);
++
++	dma_buf_detach(dmabuf, attach);
++	dma_buf_put(dmabuf);
++}
++
++static const struct dma_exporter dma_exporter_params[] = {
++	{ &mock_dmabuf_simple_sgt_ops, "simple_sgt" },
++	{ &mock_dmabuf_two_exp_ops, "two_exp" },
++};
++KUNIT_ARRAY_PARAM_DESC(dma_exporter, dma_exporter_params, desc);
++
++static struct kunit_case dma_mapping_cases[] = {
++	KUNIT_CASE(test_match_fail),
++	KUNIT_CASE(test_match_no_match_callback),
++	KUNIT_CASE(test_match_callback_returns),
++	KUNIT_CASE(test_match_exporter_priority),
++	KUNIT_CASE(test_match_importer_priority),
++	KUNIT_CASE_PARAM(test_sgt_attach, dma_exporter_gen_params),
++	KUNIT_CASE(test_mock_attach),
++	{}
++};
++
++static struct kunit_suite dma_mapping_test_suite = {
++	.name = "dma-buf-mapping",
++	.init = reset_mock_state,
++	.test_cases = dma_mapping_cases,
++};
++
++kunit_test_suite(dma_mapping_test_suite);
++
++MODULE_IMPORT_NS("DMA_BUF");
 -- 
 2.54.0
 
