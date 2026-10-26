@@ -2,144 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C0B606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:16:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DFA606A32E
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:16:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WUgYFR4s;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Cw35qeaG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FbX1UOiX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AB8310ED0C;
-	Mon, 26 Oct 2026 09:15:51 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0895010ECE0
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:15:39 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69Q4b7P41907871
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:15:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- c2xXoHXxXOmiBow795UfR0gDHVbeNq9gSE/Bwil+gxQ=; b=WUgYFR4sTGtWjFKY
- 66jXQhx0WuLCHICfw5AYC6k356oboZqmTcAx8JputT4MnDGKLVG6kxeogx5gJaFx
- QEFnthrgms2Bq1Tapxc7NEU9pQcxs0EBOyj9PD4D87KKLPvBfOdZr/EpPNx3bnyz
- /TNHhQvZj0F12A6F+7WcAizuC6DrUpIrJmrx0eV0t2PEVHfFiEDlQxpxDk39kwN2
- xlj0D02XC+eZzkOgyH23hJU1E4M4/Rfv0TDaDXTxy7qYaa6tTO1iD6J0BhkkJtOd
- tFfBxkeVD5oI6aDlsK7j6YJkSV2lo7/xBulgzCyJ7IhEoz2uPnGYLXRyQSIw1ub3
- zj6gOg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgm0gnqfk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:15:38 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93cb1091fffso19991185a.3
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:15:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793006138; x=1793610938;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=c2xXoHXxXOmiBow795UfR0gDHVbeNq9gSE/Bwil+gxQ=;
- b=Cw35qeaGzbbnFzNYC7+Og14gJztIgrd4FaJXiatEWqSqBGxGANYcCfvPFmeCN6nSLL
- f5kElnoGJKAWC1kRB8X72Xc/59pp+9l0yb8fjvbSA9I0ra48UDwz7zwocrpDJGWfLEoK
- vMsuAVFEOIEhxluTIb39tPf6SOfmuJvx9Mrcd4S6MaD2g/glBcPKDdT2Bh9qOkI1B1SX
- L/tBocz97MLQkyVIVf+1EaUj8n0M+15ZChMmeaIFEth5owrSaQPnG2t8/9RuJPg5XXC/
- DOFLMz9+qU04eEES0EG8KGu7/hKWUAIHtzY9j39MJxWNnLAWk0U7k5iycVUXeEbp4i01
- EeYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793006138; x=1793610938;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=c2xXoHXxXOmiBow795UfR0gDHVbeNq9gSE/Bwil+gxQ=;
- b=Flz96SI2C1OPSAhfQZ7WOyXixO/mW9+cGntCkTDUfcuFCnCXtucDvCFZab9IaNhofv
- SLW6pTBj7Bf1cOnbKbHFBSC32Ic7Z3P0aQToaMo+ywGWMTa1o71YsJrELIasrlN/vthB
- 8wFCENG+gGqzLBjiSIog3AkcMLNwaF9F82EO1BZtTUP6Jc9PJKMXFzRtFrPKke/kZUDv
- hHeQ8KizSYu29AYAFFfX9yrwiw8ngeuVesXeEBRqk4d0dmg/sNNC2EU+URvTd91M/TxH
- PJzRTPhToGTvlJ0vFevPJQOPpCZbHBxpbfx5X5cyvVusYp7uC3tKWfMKYeIOiGXLfKAi
- iX3A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzDP4vxlvB95M+v/eXlh9ovkjCQk/7ksEXJC9g2mBbRw47Q8h5cx619GV500ZDEvG3Qb0fDe4VKUIE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLFUxFhdsR11vZhmP/rYBdiNodDP+Rj9Xv5fWfrRxUbyvzlnKIO
- 3TTfQc01aGsNKZpeaZhcv6p2vfIJ47FlwsuGPQxXRBthk3UoyHKe5yriybOj3zKFKGO6NoHo0ZM
- lDUR87H1zK/wnihT8WyoJ9qlLHrkv/oh8LWukE8/+kNRAK9SPambvbcH+pjsj+tvtDzWUwTE=
-X-Gm-Gg: AYBFou3VROJ1fPE0PbVyVwcO8Hwh0007xlCbuKK31TkQGDR35XV/5pp94SiB6T3a/fg
- 5SVzMIGHgLm9GVuYYCsVwgubQ14DKkJH6pmW2bE8FP0xqNVERn7dmbvsm6eUIQVakHjtu4HWiGR
- SwZIDLLH9ttrn+Qi+G9o30FSU35Lv5oXWCoSY7c/g5LkHCQE0ccrqN07tMPcdcoLz2WQ+pFf/C9
- 4CANSqydTrpnc7ThW5brU9InQdATq12MtTIOs5zudIgumxK4ZK1KzKDcApBioKdaU7biEpxFyzR
- AhsXi/DlhRM87OQJJGI0g10i2Ns7PPicuokXBHgxosXLjXunHBFoJEpSiTuL8R45CqB3FxRRr61
- 7sXHqrolkJw44ym00OqqQFA==
-X-Received: by 2002:a05:620a:6e9c:20b0:939:8148:1e3d with SMTP id
- af79cd13be357-940ef81147amr890466885a.2.1793006138099; 
- Mon, 26 Oct 2026 02:15:38 -0700 (PDT)
-X-Received: by 2002:a05:620a:6e9c:20b0:939:8148:1e3d with SMTP id
- af79cd13be357-940ef81147amr890464085a.2.1793006137625; 
- Mon, 26 Oct 2026 02:15:37 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b44595e70asm3496891a12.9.2026.10.26.02.15.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 02:15:36 -0700 (PDT)
-Message-ID: <ad790e59-9de2-4f9d-b2cf-1be9e7ebe292@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 10:15:33 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/10] drm/msm/dpu: clear the CDM block left by a
- previous reservation
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Kalyan Thota <quic_kalyant@quicinc.com>,
- Federico Amedeo Izzo <federico@izzo.pro>,
- Helen Koike <helen.fornazier@gmail.com>,
- Vignesh Raman <vignesh.raman@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
- <20261024-fd-kms-fix-smmu-v5-6-a5b0b284aead@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-fd-kms-fix-smmu-v5-6-a5b0b284aead@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: YcUad-2M2qdHhSs-3oALLNf0KACI2DW7
-X-Authority-Analysis: v=2.4 cv=UfTE26SN c=1 sm=1 tr=0 ts=6adf1a3a cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=h7YTzkf8KlyT4Ruvd0EA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: YcUad-2M2qdHhSs-3oALLNf0KACI2DW7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfXzuFftRZOKD4Y
- vwmOqHeQvoayFXgC37oyV/WUuaLDi1dcERhBB7eKl/gv1NH4rOG4mlpZPXIKaWCLl9V10hBe3Kn
- OKWfOAeBiVRc8jEnJLGPnApMpDnq0IAi7nOtyrg6xTMXRnWId7RmA3k0i+296avpIadMr2bsHFb
- NDhqBbk14QXsWNvcVdszy4ZOpYWA2SWjHK7zo7Vyn6YWbVxz0Bftjjad9JrzgZRACq9o8yL4L16
- KLBcyQaPtRVSWv5ug4a26NtBtttcL5LjDJsDmV4ZJC0cr50Phu1N05yGxg8N4QuyT0MrJsGiVWd
- W6WS3SN99V1hUVquFGH9RTBuUBle68ZIf0dEIu4b7ShfXMoHwy+PeD1273S9q/4atKB2he1lKkD
- LMl6Bx1AfHJzLdyQ5yye2OovkX1e5etWzXkxqijeIjwNvVS2eJ/BPfMGKD0wraj4l8UKB0smlbX
- 6kbLZYmMVpQTOZ6dE1Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX9lPda3EBFXaT
- DSqNOaeth/3t48+B8S3cnYyyhwErOQi2thiJB8lM9e/BSi3fwrfNHpiVgEgKESuOwFhUbEuIl3q
- xNRI2nzrIP9O69OQ0MWAvZuTG3D2raM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 spamscore=0 bulkscore=0
- suspectscore=0 impostorscore=0 phishscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260036
+	by gabe.freedesktop.org (Postfix) with ESMTP id A815110ECE9;
+	Mon, 26 Oct 2026 09:16:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B663310ECE0;
+ Mon, 26 Oct 2026 09:16:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BF408601EF;
+ Mon, 26 Oct 2026 09:16:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592B81F031E3;
+ Mon, 26 Oct 2026 09:16:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793006182;
+ bh=jOX8HNX/sDLo6StqernrOTL5C1m7uvZYbmSW8LiQpAo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FbX1UOiXHR/vJHs5jCn0BgfgIuNzUilCYsO0JiG7DmbZG5ZP47t+K5mgsciYA97E9
+ 5+RKOalANcXsYhX69Sje9VpyRzR8Rfhw/6swfp6iuGmS2L7tu/yBV2aW9Y1PXMj/Yo
+ 7II3boWVkjYomv0LDKJ/AcLIR33OwHSsTp778KyEA/JQ4GT3YRryqE7RoFyVHkWxTT
+ LssesAWjCqkC6rTO1ZiBcUOlc4KJ5bGv+AOe+y9hiWbDJN1Sjvlm67XZutA9+WfUha
+ FapGNkxTMmCZF3ycDfJkYRGMUq2PT+ix3KBnyJxfDuvFE9zrfFCWBUyRtTNd4soJoT
+ Rhmh8e8Y7KgCQ==
+Message-ID: <sashiko-outbox-184753@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 16/26] RDMA/uverbs: Use the SGT_P2P mapping type
+To: "Alistair Popple" <apopple@nvidia.com>, dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ media-ci@linuxtv.org
+In-Reply-To: <20261026053623.202642-17-apopple@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-17-apopple@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 09:16:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,30 +49,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 10/24/26 1:25 AM, Dmitry Baryshkov wrote:
-> dpu_encoder_virt_atomic_mode_set() only updates cur_master->hw_cdm for a
-> writeback with a job or for DP, so a modeset of a writeback without a job
-> keeps the CDM of the previous reservation, which the crtc may no longer
-> own.  dpu_encoder_helper_phys_cleanup() later unbinds that CDM from its
-> pingpong and flushes it, changing a block which may by then belong to
-> another display.
-> 
-> Store NULL when no CDM is assigned.
-> 
-> Fixes: 8b45a26f2ba9 ("drm/msm/dpu: reserve cdm blocks for writeback in case of YUV output")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] RDMA/uverbs: use-after-free in uverbs_dmabuf_match_mapping() after=
+ unbind
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit 573a52ef0d548646c203780dd26bd3aa8dbc3284
+Author: Jason Gunthorpe <jgg@ziepe.ca>
 
-Konrad
+RDMA/uverbs: Use the SGT_P2P mapping type
+
+This commit converts the RDMA uverbs dma-buf exporter to use the SGT_P2P
+mapping type via uverbs_dmabuf_match_mapping() and removes the
+uverbs_dmabuf_attach() callback.
+
+> diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/=
+infiniband/core/uverbs_std_types_dmabuf.c
+> index 2411ebee69e2d..3c5c3ea2cf556 100644
+> --- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+> +++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
+
+[ ... ]
+
+> @@ -76,13 +67,30 @@ static void uverbs_dmabuf_release(struct dma_buf *dma=
+buf)
+>  	uverbs_uobject_release(&priv->uobj);
+>  }
+> =20
+> -static const struct dma_buf_ops uverbs_dmabuf_ops =3D {
+> -	.attach =3D uverbs_dmabuf_attach,
+> +static const struct dma_buf_mapping_sgt_exp_ops uverbs_dma_buf_sgt_ops =
+=3D {
+>  	.map_dma_buf =3D uverbs_dmabuf_map,
+>  	.unmap_dma_buf =3D uverbs_dmabuf_unmap,
+> +};
+> +
+> +static int uverbs_dmabuf_match_mapping(struct dma_buf_match_args *args)
+> +{
+> +	struct ib_uverbs_dmabuf_file *priv =3D args->dmabuf->priv;
+> +	struct dma_buf_mapping_match sgt_match[1];
+> +
+> +	if (WARN_ON(!dev_is_pci(priv->provider->owner)))
+> +		return -EINVAL;
+> +
+> +	sgt_match[0] =3D DMA_BUF_EMAPPING_SGT_P2P(
+> +		&uverbs_dma_buf_sgt_ops, to_pci_dev(priv->provider->owner));
+> +
+> +	return dma_buf_match_mapping(args, sgt_match, ARRAY_SIZE(sgt_match));
+> +}
+
+[Severity: High]
+Can uverbs_dmabuf_match_mapping() cause a use-after-free of priv->provider
+and priv->provider->owner if an importer attaches to the dma-buf after the
+exporting PCI/RDMA driver unbinds or the PCI device is removed?
+
+During UVERBS_METHOD_DMABUF_ALLOC, priv->provider is populated via
+ib_dev->ops.mmap_get_pfns() -> mlx5_ib_mmap_get_pfns() ->
+pcim_p2pdma_provider():
+
+drivers/pci/p2pdma.c:pcim_p2pdma_provider() {
+	...
+	p2p =3D rcu_dereference_protected(pdev->p2pdma, 1);
+	if (WARN_ON(!p2p))
+		/* Someone forgot to call to pcim_p2pdma_init() before */
+		return NULL;
+
+	return &p2p->mem[bar];
+}
+
+Because struct pci_p2pdma is allocated with devm_kzalloc(&pdev->dev, ...) in
+pcim_p2pdma_init(), its lifetime is tied to the PCI driver binding rather
+than the exported dma-buf file.
+
+When the driver is unbound or hot-unplugged while userspace still holds the
+dma-buf fd open, ib_uverbs_remove_one() calls ib_uverbs_free_hw_resources()
+-> uverbs_destroy_ufile_hw() -> uverbs_dmabuf_fd_destroy_uobj():
+
+drivers/infiniband/core/uverbs_std_types_dmabuf.c:uverbs_dmabuf_fd_destroy_=
+uobj() {
+	...
+	dma_resv_lock(uverbs_dmabuf->dmabuf->resv, NULL);
+	if (!uverbs_dmabuf->revoked) {
+		uverbs_dmabuf->revoked =3D true;
+		list_del(&uverbs_dmabuf->dmabufs_elm);
+		dma_buf_invalidate_mappings(uverbs_dmabuf->dmabuf);
+		dma_resv_wait_timeout(uverbs_dmabuf->dmabuf->resv,
+				      DMA_RESV_USAGE_BOOKKEEP, false,
+				      MAX_SCHEDULE_TIMEOUT);
+		wait_for_comp =3D true;
+	}
+	dma_resv_unlock(uverbs_dmabuf->dmabuf->resv);
+	...
+}
+
+After revoking and waiting for active mappings to unmap,
+ib_uverbs_remove_one() sets wait_clients =3D 0 and returns without waiting =
+for
+open dma-buf fds to close. Once the PCI driver remove completes, devres fre=
+es
+struct pci_p2pdma (leaving priv->provider dangling), and if the PCI device =
+is
+removed, struct pci_dev (priv->provider->owner) can also be freed since
+struct ib_uverbs_dmabuf_file does not hold a pci_dev_get() reference.
+
+Previously, uverbs_dmabuf_attach() only checked attachment->peer2peer, and
+priv->provider was only accessed inside uverbs_dmabuf_map() under
+dma_resv_lock() after checking !priv->revoked.
+
+With this change, dma_buf_mapping_attach() invokes
+uverbs_dmabuf_match_mapping() without holding dmabuf->resv or checking
+priv->revoked, and unconditionally dereferences priv->provider->owner and
+passes the pci_dev to dma_buf_match_mapping() -> dma_buf_sgt_match() ->
+pci_p2pdma_distance().
+
+Notice that commit 9770a3eb805c ("vfio/pci: Change the DMA-buf exporter to
+use mapping_type") earlier in this series avoided this same issue in
+vfio_pci_dmabuf.c by storing a reference-counted struct pci_dev pointer in
+priv->pdev for the lifetime of the dma-buf and passing priv->pdev in
+match_mapping(). Should uverbs_std_types_dmabuf.c similarly hold a reference
+or synchronize against revocation here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026053623.2026=
+42-1-apopple@nvidia.com?part=3D16
