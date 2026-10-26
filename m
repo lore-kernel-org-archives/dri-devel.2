@@ -2,59 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31746606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 05:41:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791BF60A2600
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 05:49:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y8AruQAO
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xve4SU9L
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5877910E988;
-	Mon, 26 Oct 2026 05:41:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5C6110E99D;
- Mon, 26 Oct 2026 05:41:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792993276; x=1824529276;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=b97ex+KxEyYAupFj2AOhxiUTL/tRK5oBQWuu8/XeWgY=;
- b=Y8AruQAO6nZERhZgWphtaJa7t2tm6Z20VNQhMhYQdrY8CdZBbgMSmjX6
- L9VNQs1JQofdJ1LEB94J9Wau7xTw5Jlva+UG6Eb1ONg45ELili/YnQTEr
- uDXjj4bQ1QqYNmi58QLNfhQhrcHpQJsrTe4fY771GkjDieOtIWYx1Rghx
- o7EbkQzNJYhII7ufDm9uVyV9mXvBqMv2ZXPaisqP537oef9HbXUSoEVtm
- 49h/FDS25EJxSjLTVw2c93C27OZDjfxjIWAOrnd/9l9mxesT+JRuATjiE
- aLmJJ6oaIRRgPLXnyIyciQaKGgR96lSU9+Ggm4Fmdx2Gf9aq3+4/9kHCU A==;
-X-CSE-ConnectionGUID: AIL6ITmOQ9CxUqwRkas6WA==
-X-CSE-MsgGUID: 1uUT6nPyRpiyXsdcrStfVA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1550228"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1550228"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2026 22:41:16 -0700
-X-CSE-ConnectionGUID: 8zd8VsjZR+OnQIdxH56pqg==
-X-CSE-MsgGUID: TeSpGi3CQ7iMo+T54OuTog==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="6002067"
-Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.190.238.88])
- by fmviesa013.fm.intel.com with ESMTP; 25 Oct 2026 22:41:14 -0700
-From: Animesh Manna <animesh.manna@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: jouni.hogander@intel.com, jani.nikula@intel.com, suraj.kandpal@intel.com,
- Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v7 20/20] drm/i915/dp: Enable AS SDP for DP Panel Replay with
- AUX-less ALPM
-Date: Mon, 26 Oct 2026 11:09:31 +0530
-Message-ID: <20261026054001.799894-21-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026054001.799894-1-animesh.manna@intel.com>
-References: <20261026054001.799894-1-animesh.manna@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB86210E9D1;
+	Mon, 26 Oct 2026 05:48:56 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF2F010E9D1
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 05:48:49 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-48dfaa3fa12so2560066f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 22:48:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1792993728; x=1793598528; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=RYAYmmDh2YKbl8OgItUgUWB8sbjY7eRAlNwNblYFtjE=;
+ b=Xve4SU9Lj7wJTJuptyU6R/ZmKe5z0TbzAhoa1f0Q6uYKGpSUnN4rMpEcop7mSIuzct
+ fVD/nm/Z56i4BCt9FXoB8GUCd5ex8r4xBK2mt4KvxoCPYK7jVrQWda0/R8Y+Wcl7k/wI
+ xCblybc+dHqtxUXFxl0rw/tuScZwNBfccQJi670N2wBHJw3sXpeMHPeXMdeD7CW46etl
+ soDu/CO5XrqvYM69GCTk3XqLjIMYPG/xt8G93OKyAEMVc732D5vngz4pUPPtnE/ELBen
+ nUwsvOcmz77+6/yekgOXpLTKj8XTiIld1/wiHUnqs9SUTZ9YgZ6oYLXfhnHV8Qey6Q5u
+ tiKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1792993728; x=1793598528;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=RYAYmmDh2YKbl8OgItUgUWB8sbjY7eRAlNwNblYFtjE=;
+ b=tg8HOYYuEkYWSop7+7vQe7OSbDVd2wqCh9ZBm8DV1WySX3qeIiAjlJA9A7Cy+eZJ8G
+ phsNpSfeOmt3jAkYhEc4HzyRUcZv4er/i/xmuPUYf4du8BCG8ZR42PbosOFOUmBVWR3B
+ AiLsBc5HDTiDTLZDmr6EswHg4i8Y+17ORwxZynCiCdVHcdM5mQkkoBGvNcOm8xzymNgY
+ JlTpmL2kWnXZvgatJGW1LAYMHxluSF40fXEmr2LQuIop9uNonFm7LWxvOIqD4Sv5T7Ck
+ uWO2WsDJL5n0KSEOIRLR3pfL1SUMmoY7qaCSlTavk1et4HiOwf0snfd+Mcii4o4wq6xM
+ Rg4Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBylxReGiHiIsRYf6vgXLbBQSRFO1LjOzYKadxO8dUE8+UrXocl0mt+KNp0r2AgGHe1edwSFgdGadfQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ6DIroJOUnIwi8Kz+/LvReNhKZOM8jHHCFNfu6T+QX3nOdLQy7
+ omhDZINTXYnhLDCxr8j5ZTrrZaMUM0CqHcRepezNPJAXGvDf0fQbzNgl
+X-Gm-Gg: AYBFou1BjQHuFAmjGdaM4DgaMLYP/EeIqd/KfNLqFri7vRg9ANEVdO5X9SE5yuFWQZu
+ smjOoRvAafB71Bh74aWYGWSaIp5X3LunMpbL5rzw9PUKieRfsaxXAc0O+Odj/46ZVSk8v+ULM6Z
+ qpYvEpAJNsco4GTCNPSQxkjK0sosJ8fSQ+ydbWaVmWtkSLM0Fw5a8FW/sMwcn0LjVr2Nzjhe2ti
+ D8kJh4CoIvpFwB0cr2AHlm1V0biCxEgwSAfmKVSVFccNw8lrooFwTxC9VS1qkbfOO/LSkhhqBp7
+ ESHUIrHN8G2567VreO5MyYcxPJ+5vHcLnISo201XntcERGelJb7owyiQMFRPtD0n4R0n79ifS35
+ cIqWL/+QBo3eejVsYQ8pwqkLa8NX6wqB6aiEP9ggV29sV+pzfCfcljetxv4gHmy7wi9YYi3ACQw
+ GGRhKSNocHSpY7iGyygwEd9EsBLCUuDdIb97JEvZuv/icZQBNi6CgtaVVGb9dtkYRluYQ4ERepO
+ 8wbgBCVWNXAU4M54XHIBie4zJtkHUP1BOgWLKOOGuPB9eQrn2q1VUxfqR1UTWDuTLy2mbfedA==
+X-Received: by 2002:a5d:6184:0:b0:48e:22fd:1ea3 with SMTP id
+ ffacd0b85a97d-48e3eb93665mr8333616f8f.28.1792993728187; 
+ Sun, 25 Oct 2026 22:48:48 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e3ebcb9cesm14713554f8f.27.2026.10.25.22.48.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 25 Oct 2026 22:48:47 -0700 (PDT)
+Date: Mon, 26 Oct 2026 08:48:43 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: himanshu bakshi <himanshu.bakshi478@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] staging: fbtft: Fix line length warning
+Message-ID: <at7pu4hldDTgZtXy@stanley.mountain>
+References: <20261025164003.143864-1-himanshu.bakshi478@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025164003.143864-1-himanshu.bakshi478@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,91 +86,25 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-1.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-AS SDP for Panel Replay with AUX-less ALPM and the related
-DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE setting are limited to eDP by
-intel_psr_needs_alpm_aux_less(). DP Panel Replay can now use AUX-less
-ALPM as well, so base these on the ALPM state instead.
+On Sun, Oct 25, 2026 at 10:10:03PM +0530, himanshu bakshi wrote:
+> From: Himanshu Bakshi <himanshu.bakshi478@gmail.com>
+> 
+> Hi Andy,
+> 
 
-has_alpm is decided only in the late compute config, after AS SDP has
-been computed. Use alpm_state.aux_less_possible to decide whether AS
-SDP is needed, and has_alpm for the link training DPCD setting, which
-happens with the final state.
+We don't need this in a commit message.
 
-intel_psr_needs_alpm_aux_less() is now used only within intel_psr.c,
-so make it static.
+Also I would prefer to delete these weirdo debug messages.  The
+normal dev_dbg() messages are good enough.  Plus, is this even
+used?
 
-Cc: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c               | 4 +++-
- drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 +-
- drivers/gpu/drm/i915/display/intel_psr.c              | 4 ++--
- drivers/gpu/drm/i915/display/intel_psr.h              | 2 --
- 4 files changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 43b17d2ed93f..02ea3f2b00ac 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3274,7 +3274,9 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 	if (drm_dp_is_branch(intel_dp->dpcd))
- 		return false;
- 
--	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
-+	/* has_alpm is not final yet, so check if AUX-less ALPM is possible */
-+	if (crtc_state->has_panel_replay &&
-+	    crtc_state->alpm_state.aux_less_possible &&
- 	    !intel_psr_pr_async_video_timing_supported(intel_dp))
- 		return true;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 0dbc6174c402..c7a3cfd29e37 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1124,7 +1124,7 @@ static bool
- intel_dp_pr_with_as_sdp_enabled(struct intel_dp *intel_dp,
- 				const struct intel_crtc_state *crtc_state)
- {
--	return intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
-+	return crtc_state->has_panel_replay && crtc_state->has_alpm &&
- 		(crtc_state->infoframes.enable &
- 		 intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC));
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 4c429a14b50e..0875de33f0da 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -4566,8 +4566,8 @@ static bool intel_psr_needs_alpm(struct intel_dp *intel_dp,
- 					     crtc_state->has_panel_replay);
- }
- 
--bool intel_psr_needs_alpm_aux_less(struct intel_dp *intel_dp,
--				   const struct intel_crtc_state *crtc_state)
-+static bool intel_psr_needs_alpm_aux_less(struct intel_dp *intel_dp,
-+					  const struct intel_crtc_state *crtc_state)
- {
- 	return intel_dp_is_edp(intel_dp) && crtc_state->has_panel_replay;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.h b/drivers/gpu/drm/i915/display/intel_psr.h
-index 2557776a402b..8adb27c21408 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.h
-+++ b/drivers/gpu/drm/i915/display/intel_psr.h
-@@ -79,8 +79,6 @@ void intel_psr_trigger_frame_change_event(struct intel_dsb *dsb,
- int intel_psr_min_set_context_latency(const struct intel_crtc_state *crtc_state);
- void intel_psr_connector_debugfs_add(struct intel_connector *connector);
- void intel_psr_debugfs_register(struct intel_display *display);
--bool intel_psr_needs_alpm_aux_less(struct intel_dp *intel_dp,
--				   const struct intel_crtc_state *crtc_state);
- bool intel_psr_wake_lines_fit_into_vblank(const struct intel_crtc_state *crtc_state,
- 					  int wake_lines);
- void intel_psr_compute_config_late(struct intel_dp *intel_dp,
--- 
-2.43.0
+regards,
+dan carpenter
 
