@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31093606A322
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 16:41:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B332606A31E
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 16:41:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xs1HTniV
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJHfTTi6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82D1E10F048;
-	Mon, 26 Oct 2026 16:41:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E1AC10F038;
+	Mon, 26 Oct 2026 16:41:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDB3F10F021
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:41:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 529A910F026
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:41:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 892FA43734;
- Mon, 26 Oct 2026 16:41:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2D35443DF6;
+ Mon, 26 Oct 2026 16:41:14 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793032873;
- b=cArWtRwHhB15EMkjHJNjqh3f3H2IQPZ+UM6RrSa8YQlU4/ybDvhEh4JaivUQU2udfI48
- jHMKSFngBbaHel9RZTHG7cksuo/+DeSC4R/Qj3Q2SjtJ9tlma5P/7xu/sltYnpKVfnhdh
- LjxZ//YsRcWrkdKgCeFM5JayXY+56B/7s1FhgkVcvWVJRWdgTbtd/5b7KSHFubiDgzVM5
- LQ3yn4Zquxdrmt810U/ByhNzUQ6ZvXzcExNidIRxsNKwU5HTishhzMUCX7rms7xm2Wnzi
- XUkcIaGukbQx+FWqdPYzn/ykHiPIRLGjF7BSVrHmE//gOmfLXngBAjUHKXuTqracJjw==
+ t=1793032874;
+ b=b/CKrsVAT/b1SZUNT+uEcm0MmCl1ye7CGj0SaK3ijJgJ/QbaARPolCFp8VeqFSLubntr
+ GNcVFR49GOAqAt2uThuC6PvhGZzeeVpOOK2lmhv6plQ37ZYBoFNyzNLLnLacXC8pgygIT
+ 52NG3B/QXMt+gZLC0paOsLfT/CYrUP9WWVMBHFM6VkmqkJSdUYvRvOTCXZABQr2dszsVQ
+ NPSzHFUsPm5ytcPNelPcvmWvRKYjedNs7Dpt1qjruGhPCbUf/FfAeGfSIG7dQISVob4r9
+ xsSrY0k3wbAKBWL3GfBCVEPKOYOXzBI0BzfWXxWutFUA7GcQ5/EY+5pxnKr/UJchdFw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793032873;
+ c=relaxed/relaxed; t=1793032874;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
  X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To;
- bh=8M0oh2AqgxAI6ZpQRJJhghp96GjY8sQQ1ghn1+UQZnU=;
- b=Q/Z29Idh4d0TmZVBoNrRV1/TSqY6SHK7orn88Trq0797VSMWT9WQG3T/4P7C3cK4qWNO
- EJ9fqPjkcPcGaxzgO4SzM0e8p38sVreb/jfTNGGR8lx6z8Mijj8d9pik65GCBlfebS+44
- 8ZPaDSNa4fiJPt0eQFx4doUlsCFF3bgWM5pTKmLKHkApYix5zAIjQiRIsADimzczLIuKc
- CUfQeVrBkB6nfYwifQJFiH9ZmZO/oYsgRB1wg2ehbAgNx6IiPQ45DriUCGBi9zDQ4aJrC
- qEFIkG6Bn1h+UXwZL9oCz63XVntNaw2gh+kpfF9t51RK/+innPuijZGscrLFnRGVpLg==
+ bh=jPxyRVxUkD8Td+9QwNyvaWaSg+CRoePkY9b5UHxne8c=;
+ b=OLC+6eQHJhxt3ho/9+L73HRcDlnjLW1ZsWduLMnzC/cu6vGgwYIpbijQR7J8tDyVYRqf
+ SfZ8zio2poYBsTTXxBx96XTqKRr7MEmVOPmbZPdTdt6yOtiElGDD0PIK7d5n+C/aIm+y7
+ 2UdSIo8ckaHMMWh3WuXjIA2Hb7Mdjq/XCRiv9jY0vxJwd7IlrspMKmNKoBx8KvfUxP2UB
+ gSrk5qOwOdzXfaHDW4s7to87lsqDSMnPovfgw4Eggy6MTdeiGnQEtTVHXCsmirT2W7zXc
+ Tv+1CEathWD6uoR0M9byRmxfIjlHjA40fyBO6uJInNfc9Gex/2Pt8zZ7nDBvOK5iJjQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id CF6A91F01829;
+ by smtp.kernel.org (Postfix) with ESMTPS id DBA9C1F031E0;
  Mon, 26 Oct 2026 16:41:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793032873;
- bh=8M0oh2AqgxAI6ZpQRJJhghp96GjY8sQQ1ghn1+UQZnU=;
+ s=k20260515; t=1793032874;
+ bh=jPxyRVxUkD8Td+9QwNyvaWaSg+CRoePkY9b5UHxne8c=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=Xs1HTniVmSXsyDaRDI4h9R/EilRgZDTNyw0A5n+Njl2o8cx4B3ngK6UMwIxaHOmzh
- HOMZfoN+HQvp7JLFpTkWQavaBgh1iOFhZCVc7UxrBGknvod2aoiuTvjBMe9MNElLyt
- flEzrCVSW+SUqY/scmy9EpLKU56TkojfVElosALZhLCCe3xQsXHslelySSo3+f1skd
- q05+2lccY2ELUU7f+G4XzMdyarZgoqKcRw6weZv8EMr/doOwEzx0UAMje3ZYpCv686
- sTapBr2/q/hHY6/1+HgznMakkWIQTRDDO4x2bMxu+Vl2rZYYqOCXd4HF5s8Pn6UdcZ
- o3Ki+S5I518tg==
+ b=RJHfTTi6vfr1qmU4HBARtkQuo3mprmtwNAaMcWxQ4NWoHQ3Y5vM5XDkHX1yoB/yjA
+ h01mlA0PRxWXiQmWAjA8lb5nYvbj5yd33wkudow1WRqJ+77DlNvzC2gGp60TE6dbV9
+ Hrc2XGMpYpOYHSUMI+kR1FXgWMN3p3rd7NTD7hlWEDxo3XAfnWklU5q9IkwAI02eOv
+ KsmGk2Xw3+uLa7pKEtPa3XOp3+awGqcxFbNbm/yb5y/eAfyAyUT81SRqrEois8Xg5I
+ Id3D33MLPmKbUl+nVq5n+k1rofRU+YI+8y2FFvpj21uigauvPBuvIbUPQrt2G780rW
+ bDcBX87tIwpig==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 4CD6F44DC6;
+ by lkml.kernel.org (Postfix) with ESMTP id 61E5E44DCD;
  Mon, 26 Oct 2026 16:41:12 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 27 Oct 2026 00:40:54 +0800
-Subject: [PATCH v5 01/11] rust: sizes: add SZ_4G constant
+Date: Tue, 27 Oct 2026 00:40:56 +0800
+Subject: [PATCH v5 03/11] rust: sync: arc: relax `ForeignOwnable` for `Arc<T>`
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261027-tyr-ioctls-v5-1-59dfe98cb003@kylinos.cn>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-tyr-ioctls-v5-3-59dfe98cb003@kylinos.cn>
 References: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
 In-Reply-To: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -84,11 +84,11 @@ Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev, 
  Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793032870; l=1808;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793032870; l=1389;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=5K5ZDtbb0No9pS3iRwCaB/ZkoyNuv4RA97gE66KsHmQ=;
- b=3xbf/Ui9pjN4/qzsbUlA392NPtGKkMDXcuaouEQqRyRyagAyDKTbCKWEjzhrj8CcnYpOpMqNs
- Q5cwKjb1MULCcgOqn1keN7x8FTAVjwijV21to9361zXabag+zsWjG0t
+ bh=E65clxOu/qjNbqNDrRBBfaWHB/W/gvw7JStoVkgnAT4=;
+ b=OuJ11WJeh+RTO5A+UnE6Z62IEeZ7bfDvHeR9vBre58ENq5srwGFZMjbo6AfdON1Wem0+woS/l
+ dyWuNRlyKyCDl78DBCx6ah0cAAnlHREJsX69X5O9L/9F0RA4djDQzzc
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
@@ -115,51 +115,42 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Alvin Sun <alvin.sun@linux.dev>
 
-SZ_4G is used by Tyr when splitting the GPU VA range into
-user and kernel regions. Add a LargeSizeConstants trait, implemented
-for u64 since SizeConstants only covers sizes that fit in a u32.
+Drop the `'static` bound so that refcounted values borrowing from a
+driver registration scope can be foreign-owned by the XArray
+abstraction.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 Reviewed-by: Gary Guo <gary@garyguo.net>
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- rust/bindings/bindings_helper.h |  1 +
- rust/kernel/sizes.rs            | 12 ++++++++++++
- 2 files changed, 13 insertions(+)
+ rust/kernel/sync/arc.rs | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 930e63290cdd4..ee99f470ae5f4 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -116,6 +116,7 @@ const size_t RUST_CONST_HELPER_ARCH_SLAB_MINALIGN = ARCH_SLAB_MINALIGN;
- const size_t RUST_CONST_HELPER_ARCH_KMALLOC_MINALIGN = ARCH_KMALLOC_MINALIGN;
- const size_t RUST_CONST_HELPER_PAGE_SIZE = PAGE_SIZE;
- const size_t RUST_CONST_HELPER_GENLMSG_DEFAULT_SIZE = GENLMSG_DEFAULT_SIZE;
-+const unsigned long long RUST_CONST_HELPER_SZ_4G = SZ_4G;
- const gfp_t RUST_CONST_HELPER_GFP_ATOMIC = GFP_ATOMIC;
- const gfp_t RUST_CONST_HELPER_GFP_KERNEL = GFP_KERNEL;
- const gfp_t RUST_CONST_HELPER_GFP_KERNEL_ACCOUNT = GFP_KERNEL_ACCOUNT;
-diff --git a/rust/kernel/sizes.rs b/rust/kernel/sizes.rs
-index 521b2b38bfe77..0acc8733d2368 100644
---- a/rust/kernel/sizes.rs
-+++ b/rust/kernel/sizes.rs
-@@ -132,3 +132,15 @@ impl SizeConstants for $first {
- }
+diff --git a/rust/kernel/sync/arc.rs b/rust/kernel/sync/arc.rs
+index 8ae0fe6f19ec0..9b582a815f888 100644
+--- a/rust/kernel/sync/arc.rs
++++ b/rust/kernel/sync/arc.rs
+@@ -363,11 +363,17 @@ pub fn into_unique_or_drop(this: Self) -> Option<Pin<UniqueArc<T>>> {
  
- define_sizes!(u32, u64, usize);
-+
-+/// Large size constants (≥ 4 GiB).
-+///
-+/// Only implemented for [`u64`].
-+pub trait LargeSizeConstants {
-+    /// `0x1_0000_0000`.
-+    const SZ_4G: Self;
-+}
-+
-+impl LargeSizeConstants for u64 {
-+    const SZ_4G: Self = bindings::SZ_4G;
-+}
+ // SAFETY: The pointer returned by `into_foreign` was originally allocated as an
+ // `KBox<ArcInner<T>>`, so that type is what determines the alignment.
+-unsafe impl<T: 'static> ForeignOwnable for Arc<T> {
++unsafe impl<T> ForeignOwnable for Arc<T> {
+     const FOREIGN_ALIGN: usize = <KBox<ArcInner<T>> as ForeignOwnable>::FOREIGN_ALIGN;
+ 
+-    type Borrowed<'a> = ArcBorrow<'a, T>;
+-    type BorrowedMut<'a> = Self::Borrowed<'a>;
++    type Borrowed<'a>
++        = ArcBorrow<'a, T>
++    where
++        T: 'a;
++    type BorrowedMut<'a>
++        = Self::Borrowed<'a>
++    where
++        T: 'a;
+ 
+     fn into_foreign(self) -> *mut c_void {
+         ManuallyDrop::new(self).ptr.as_ptr().cast()
 
 -- 
 2.43.0
