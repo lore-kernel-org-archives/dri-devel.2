@@ -2,45 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EB7606A328
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 15:10:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A5B606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 15:25:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dchg4vGt
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kKmqL2a0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4317510E25F;
-	Mon, 26 Oct 2026 15:10:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B51610E25F
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:10:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0510710EF93;
+	Mon, 26 Oct 2026 15:25:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7852210EF8B
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:24:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4C02F600CB;
- Mon, 26 Oct 2026 15:10:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 948781F01825;
- Mon, 26 Oct 2026 15:10:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0E2764091F;
+ Mon, 26 Oct 2026 15:24:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5DB1F01825;
+ Mon, 26 Oct 2026 15:24:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793027412;
- bh=2WRc+6jKb1+rLFwlm6EMxXrK00B3VaipSnTC3dwcXMM=;
+ s=k20260515; t=1793028294;
+ bh=ZE8szWsQmnbHxdEtK5XCjl8lo6q8ldHbAIM3oGikHXk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Dchg4vGtrpLM04uYvU6oR6FN93DNFhSnS0EKv0Uy5TG6P1YGMNO+EqEDcDB4njqOn
- Opk00KY0UqvphCpRURdUbZ51bZHL9mYKRTS49oyAg/T+qe9RHWiJhzta66V19b1fQH
- 8sNKon6cZm0uKEVaNZW6Rk4UvCMwnzE9ASYsLBZRFpMVI24TWKmejq3NvTQc0WfOeS
- bNg66TkCUDCsvqbpB4UR9/Zr1l4Goyi8FyLF+KXpzrgOAlbWCU2WhL29QVoMv52wdQ
- Kp2ZbTdko6DCRKg4s7+4z2xO+NwTG2ZZtWMXonem0bosTtmgv4Un1XXp78eU658o1q
- d5U+KZxULb2Lw==
-Message-ID: <sashiko-outbox-185424@kernel.org>
+ b=kKmqL2a05iET41XbSDRoF/dMlJT1GaTB3fgyzSgRWGAU5ou+G3cOpXK99Xzt93Oxj
+ o8UAT8HDnPTTxQsdffw6ckx3jVxM9d0npalEL25wrtrFikyCDLz+pwMgjDsSgw0zqZ
+ S6GF3k10W6m6i5u1dSdC/Xxv44bLmvcYWXRc/yA59mlp1IGVnLYoXZpt3Fxa7uJ1E0
+ blZoF2U3WJ2OYyX/wmSsMPOVBMdGETsMI+mO6OhLajiAaOqIC+9HwyWyoFeWeUS6EC
+ GLH9m5/IhsqUaCDVCVg+3VvMfxT4D7MVy5ObZAN1V4Zci7aQR3MPuCcaE/oONOpuzU
+ jNbrIhGl9lBeg==
+Message-ID: <sashiko-outbox-185435@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 23/23] arm64: dts: qcom: hawi: Add DCP support
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- media-ci@linuxtv.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-23-7cf014efdee1@oss.qualcomm.com>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-23-7cf014efdee1@oss.qualcomm.com>
+Subject: Re: [PATCH] fbcon: Avoid cancel_delayed_work_sync() in atomic context
+To: "Yao Yiqi" <yyaqia@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261026145916.414396-1-yyaqia@gmail.com>
+References: <20261026145916.414396-1-yyaqia@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 15:10:11 +0000
+Date: Mon, 26 Oct 2026 15:24:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,263 +51,138 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] arm64: dts: qcom: hawi: dcp virtio node placed under root instead =
-of soc@0
-- [High] arm64: dts: qcom: hawi: panel reset-gpios pin 210 mismatches pinct=
-rl gpio211
-- [Medium] arm64: dts: qcom: hawi: dcp left enabled in dtsi with unconnecte=
-d endpoint
-- [Low] arm64: dts: qcom: hawi: sde_disp0_vdd_active violates qcom,pmic-gpi=
-o schema
-- [Low] arm64: dts: qcom: hawi: duplicate tlmm block and unsorted nodes in =
-hawi-mtp
-- [Low] arm64: dts: qcom: hawi: raw integer 13 used instead of IPCC_MPROC_D=
-CP macro
+- [High] fbcon: fbcon_del_cursor_work() still sleeps in atomic context on P=
+REEMPT_RT
+- [Medium] fbcon: fb_flashcursor() re-queues cursor_work after cancel_delay=
+ed_work()
 --
 
-commit 1a3114977b7eb966fe7d2b04c935e54daa02d988
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+commit 81badb044cb0837eebe19d72924931a878fcf8e9
+Author: Yao Yiqi <yaoyiqi3@huawei.com>
 
-arm64: dts: qcom: hawi: Add DCP support
+fbcon: Avoid cancel_delayed_work_sync() in atomic context
 
-This commit adds device tree nodes for the Qualcomm DCP VirtIO display
-transport, subsystem, IOMMU mappings, and DSI endpoints in hawi.dtsi, and
-adds the DSI panel, regulator, and pinctrl configuration in hawi-mtp.dts.
+This commit updates fbcon_del_cursor_work() to use cancel_delayed_work()
+instead of cancel_delayed_work_sync() when in_interrupt() or irqs_disabled()
+is true, avoiding sleeping when fbcon_cursor() is called from the console
+printing path with interrupts disabled.
 
-> diff --git a/arch/arm64/boot/dts/qcom/hawi-mtp.dts b/arch/arm64/boot/dts/=
-qcom/hawi-mtp.dts
-> index c38e5fab7a2cb..a27003f69d024 100644
-> --- a/arch/arm64/boot/dts/qcom/hawi-mtp.dts
-> +++ b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
-
-[ ... ]
-
-> @@ -995,3 +1008,119 @@ &usb_dp_qmpphy {
->  &usb_dp_qmpphy_out {
->  	remote-endpoint =3D <&pmic_glink_ss_in>;
->  };
-> +
-> +&dcp_dsi0 {
-> +	panel@0 {
-> +		compatible =3D "novatek,nt37801";
-> +		reg =3D <0>;
-> +
-> +		pinctrl-0 =3D <&sde_dsi_active &sde_te_active &sde_esync0_suspend
-> +			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
-> +			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
-> +		pinctrl-1 =3D <&sde_dsi_suspend &sde_te_suspend &sde_esync0_suspend
-> +			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
-> +			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
-> +		pinctrl-names =3D "default", "sleep";
-> +
-> +		vddio-supply =3D <&vreg_l12b_1p8>;
-> +		vci-supply =3D <&vreg_l13b_3p0>;
-> +		vdd-supply =3D <&display_panel_vdd>;
-> +
-> +		reset-gpios =3D <&tlmm 210 GPIO_ACTIVE_LOW>;
-> +
-> +		port {
-> +			panel_dcp_in: endpoint {
-> +				remote-endpoint =3D <&dcp_intf0_out>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&dcp_intf0_out {
-> +	remote-endpoint =3D <&panel_dcp_in>;
-> +};
-> +
-> +&pmd8028_e1_gpios {
-> +	sde_disp0_vdd_active: sde_disp0_vdd_active {
-> +		pins =3D "gpio2";
-
-[Severity: Low]
-Does the child node name sde_disp0_vdd_active under &pmd8028_e1_gpios in
-arch/arm64/boot/dts/qcom/hawi-mtp.dts cause a dtbs_check failure?
-
-Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml sets
-additionalProperties: false and requires pin configuration child node names
-to match:
-
-patternProperties:
-  '-state$':
-    oneOf:
-      - $ref: '#/$defs/qcom-pmic-gpio-state'
-
-Should this node be named sde-disp0-vdd-active-state to match the schema and
-the other PMIC GPIO state nodes in this file?
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
+fbcon.c
+> index 7720dfc80c165..14611be17cb19 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
 
 [ ... ]
 
-> +&tlmm {
-> +	sde_te_active: sde-te-active-state {
-
-[Severity: Low]
-This isn't a bug, but arch/arm64/boot/dts/qcom/hawi-mtp.dts already has a
-&tlmm block earlier in the file and keeps &label overrides sorted
-alphabetically. Should the new TLMM pin states be merged into the existing
-&tlmm node, and the new &dcp_dsi0, &dcp_intf0_out, &pmd8028_e1_gpios,
-&pmh0110_d_e0_gpios, and &pmh0110_f_e0_gpios nodes be placed in alphabetical
-order?
-
-[ ... ]
-
-> +	sde_dsi_active: sde-dsi-active-state {
-> +		pins =3D "gpio211";
-> +		function =3D "gpio";
-> +		drive-strength =3D <8>;
-> +		bias-disable;
-> +	};
-> +
-> +	sde_dsi_suspend: sde-dsi-suspend-state {
-> +		pins =3D "gpio211";
-> +		function =3D "gpio";
-> +		drive-strength =3D <2>;
-> +		bias-pull-down;
-> +	};
-> +};
+> @@ -441,7 +444,14 @@ static void fbcon_del_cursor_work(struct fb_info *in=
+fo)
+>  {
+>  	struct fbcon_par *par =3D info->fbcon_par;
+> =20
+> -	cancel_delayed_work_sync(&par->cursor_work);
+> +	/*
+> +	 * fbcon_cursor() can be reached from the console printing path with=20
+> +	 * interrupts disabled. Only synchronize when sleeping is allowed.
+> +	 */
+> +	if (in_interrupt() || irqs_disabled())
+> +		cancel_delayed_work(&par->cursor_work);
+> +	else
+> +		cancel_delayed_work_sync(&par->cursor_work);
+>  }
 
 [Severity: High]
-Is there a pin number mismatch between reset-gpios in panel@0 and the
-sde_dsi_active / sde_dsi_suspend pinctrl states in
-arch/arm64/boot/dts/qcom/hawi-mtp.dts?
+Can fbcon_del_cursor_work() still call cancel_delayed_work_sync() from an
+atomic context when hardware interrupts are enabled?
 
-When the novatek,nt37801 panel driver probes and transitions between default
-and sleep pinctrl states, panel@0 under &dcp_dsi0 requests pin 210 for rese=
-t:
+On CONFIG_PREEMPT_RT, force_legacy_kthread() is true, so
+console_emit_next_record() invokes con->write() (vt_console_print()) in task
+context without disabling interrupts:
 
-	reset-gpios =3D <&tlmm 210 GPIO_ACTIVE_LOW>;
-
-However, sde_dsi_active and sde_dsi_suspend under &tlmm configure "gpio211"
-instead of "gpio210". Since the Qualcomm TLMM controller uses 0-based pin
-numbering, does this leave pin 210 without its active/sleep drive-strength
-and pull-down settings while reconfiguring pin 211 instead, or should
-reset-gpios and the pinctrl states reference the same pin?
-
-> diff --git a/arch/arm64/boot/dts/qcom/hawi.dtsi b/arch/arm64/boot/dts/qco=
-m/hawi.dtsi
-> index 6b0a0ff0faa45..836970cdef718 100644
-> --- a/arch/arm64/boot/dts/qcom/hawi.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/hawi.dtsi
-> @@ -6841,4 +6841,44 @@ timer {
->  			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
->  			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
->  	};
-> +
-> +	dcp: virtio@9be8000 {
-> +		compatible =3D "qcom,dcp-virtio";
-> +		reg =3D <0x0 0x09be8000 0x0 0x1000>;
-
-[Severity: High]
-Was dcp: virtio@9be8000 in arch/arm64/boot/dts/qcom/hawi.dtsi meant to be
-placed inside soc@0 rather than directly under the root node?
-
-In arch/arm64/boot/dts/qcom/hawi.dtsi, all SoC MMIO peripherals live under
-soc@0, which defines the bus ranges and 36-bit dma-ranges:
-
-	soc@0 {
-		compatible =3D "simple-bus";
-
-		#address-cells =3D <2>;
-		#size-cells =3D <2>;
-		dma-ranges =3D <0x0 0x0 0x0 0x0 0x10 0x0>;
-		ranges =3D <0x0 0x0 0x0 0x0 0x10 0x0>;
-
-Because dcp: virtio@9be8000 is added after timer directly under the root
-node, which has no ranges or dma-ranges properties, root-node schema
-validation fails and of_dma_configure_id()->of_dma_get_range() cannot find
-the SoC dma-ranges when configuring either the virtio@9be8000 transport
-device or the child dcp-subsystem device in
-drivers/gpu/drm/msm/dcp/dcp_drv.c:dcp_subsystem_dev_init():
-
-	ret =3D of_dma_configure_id(dev, dcp_subsystem_node, true, NULL);
-	if (ret) {
-		dev_err(dev, "of_dma_configure_id failed: %d\n", ret);
-		goto err_destroy;
+kernel/printk/printk.c:console_emit_next_record() {
+    ...
+	if (force_legacy_kthread() && !panic_in_progress()) {
+		con->write(con, outbuf, pmsg.outbuf_len);
+		con->seq =3D pmsg.seq + 1;
 	}
+    ...
+}
 
-Should dcp: virtio@9be8000 be moved inside soc@0 (ordered by unit address
-between camcc: clock-controller@956d000 and usb_1: usb@a600000)?
+Inside vt_console_print(), spin_trylock(&printing_lock) calls
+__rt_spin_trylock(), which acquires printing_lock (an LD_WAIT_CONFIG lock),
+enters rcu_read_lock(), and calls migrate_disable() while leaving hardware
+interrupts enabled:
 
-> +		interrupts-extended =3D <&intc GIC_ESPI 956 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&ipcc 13 5 IRQ_TYPE_EDGE_RISING>;
-> +		iommus =3D <&apps_smmu 0x15a3 0x0>;
-> +		iommu-ranges =3D <0x0 0x84000000 0x0 0x04000000>;
-> +		dma-coherent;
-> +		mboxes =3D <&ipcc 13 5>;
+drivers/tty/vt/vt.c:vt_console_print() {
+    ...
+	if (!spin_trylock(&printing_lock))
+		return;
+    ...
+	if (con_is_fg(vc))
+		hide_cursor(vc);
+    ...
+}
 
-[Severity: Low]
-This isn't a bug, but since arch/arm64/boot/dts/qcom/hawi.dtsi includes
-hawi-ipcc.h, could interrupts-extended and mboxes in dcp: virtio@9be8000 use
-the symbolic constant for client 13 (defined as IPCC_MPROC_DCP in
-hawi-ipcc.h) to match the other IPCC consumers in this file?
+When vc->vc_cursor_type & CUR_SW is set, hide_cursor(), lf() -> con_scroll(=
+) ->
+fbcon_scroll(), and set_cursor() call into fbcon_cursor() ->
+fbcon_del_cursor_work(). Because both in_interrupt() and irqs_disabled() are
+false, fbcon_del_cursor_work() still calls cancel_delayed_work_sync() ->
+__cancel_work_sync() while holding printing_lock and rcu_read_lock().
 
-> +		mbox-names =3D "dcp-power-tx";
-> +
-> +		dcp-subsystem {
-> +			compatible =3D "virtio,device34";
-> +
-> +			iommus =3D <&apps_smmu 0x400 0x2>;
-> +
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				port@0 {
-> +					reg =3D <0>;
-> +					dcp_intf0_out: endpoint {
-> +
-> +					};
-> +				};
-> +
-> +			};
+Similarly, in_interrupt() is marked deprecated in include/linux/preempt.h a=
+nd
+only checks irq_count(), so it does not detect preempt_disable(), spin_lock=
+(),
+or rcu_read_lock() critical sections (for example during an oops via
+bust_spinlocks(0) -> console_unblank() -> do_unblank_screen() ->
+fbcon_cursor()).
+
+Since fbcon_cursor() only stops cursor blinking and does not free par, while
+teardown paths such as fbcon_release() and fbcon_deinit() need synchronous
+draining, should fbcon_cursor() use a non-synchronizing cancel directly ins=
+tead
+of checking in_interrupt() || irqs_disabled()?
 
 [Severity: Medium]
-Should dcp: virtio@9be8000 in arch/arm64/boot/dts/qcom/hawi.dtsi have
-status =3D "disabled"; by default, with arch/arm64/boot/dts/qcom/hawi-mtp.d=
-ts
-enabling &dcp?
+Also, when fbcon_del_cursor_work() uses cancel_delayed_work() instead of
+cancel_delayed_work_sync(), can an in-flight fb_flashcursor() work item
+immediately re-arm par->cursor_work after it was canceled?
 
-The commit message notes "Enable the DCP display device on the Hawi MTP
-platform", but dcp is left enabled in hawi.dtsi with an empty
-dcp_intf0_out: endpoint node that has no remote-endpoint property.
+In fb_flashcursor(), queue_delayed_work() is called outside console_lock and
+without checking whether CUR_SW is set or whether the work was canceled:
 
-In Documentation/devicetree/bindings/display/msm/qcom,dcp.yaml, every port
-endpoint requires remote-endpoint:
+drivers/video/fbdev/core/fbcon.c:fb_flashcursor() {
+    ...
+	par->bitops->cursor(vc, info, enable,
+			    get_fg_color(vc, info, c),
+			    get_bg_color(vc, info, c));
+	console_unlock();
 
-    patternProperties:
-      "^port@[0-9a-f]+$":
-        $ref: /schemas/graph.yaml#/$defs/port-base
-        unevaluatedProperties: false
-        properties:
-          endpoint:
-            $ref: /schemas/graph.yaml#/$defs/endpoint-base
-            unevaluatedProperties: false
-            required:
-              - remote-endpoint
+	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
+			   par->cur_blink_jiffies);
+}
 
-In addition, on any Hawi board DTS that includes hawi.dtsi without attaching
-a panel to dcp_intf0_out and dcp_dsi0, leaving dcp enabled causes
-drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c:dcp_dpu_kms_init_dsi_bridges() to add
-dsi@0 to the DRM component match list even though no panel ever attaches to
-register the component:
+If par->cursor_work was armed (for instance via fbcon_startup(),
+fbcon_switch(), fbcon_unblank(), cursor_blink_store(), or when switching to
+CUR_SW with CUR_NONE) and fb_flashcursor() is running, vt_console_print() ->
+hide_cursor() / set_cursor() -> fbcon_cursor() -> fbcon_del_cursor_work() c=
+an
+run during or right after fb_flashcursor()'s console_unlock() call.
 
-		dcp_kms->dsi_bridge[dsi_idx] =3D to_dcp_dsi_bridge(bridge);
-		drm_of_component_match_add(dcp_kms->pm_dev, matchptr,
-					   component_compare_of, dsi_np);
+Because cancel_delayed_work() does not wait for the running fb_flashcursor()
+callback to finish, fb_flashcursor() will proceed to queue_delayed_work() a=
+nd
+re-arm par->cursor_work indefinitely.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
-cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D23
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026145916.4143=
+96-1-yyaqia@gmail.com?part=3D1
