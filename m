@@ -2,92 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E864D606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 22:25:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D246606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 22:28:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W0+8HsvH
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AKptj4iF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6164E10F186;
-	Mon, 26 Oct 2026 22:25:43 +0000 (UTC)
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
- [74.125.224.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC97310F186
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 22:25:37 +0000 (UTC)
-Received: by mail-yx1-f47.google.com with SMTP id
- 956f58d0204a3-679a2297c55so4268998d50.1
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:25:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793053537; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B124710E1D9;
+	Mon, 26 Oct 2026 22:28:07 +0000 (UTC)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
+ [209.85.128.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EF4B10E1D9
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 22:28:00 +0000 (UTC)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-8565d77c277so29342837b3.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:28:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793053679; cv=none;
  d=google.com; s=arc-20260327;
- b=VvHKJASZVGSAtVbC5/Mfb0TFj3WFFNBtMCA4Dh5agsYQcRULmg/IAIaW+rf9BmygwT
- Mg+nAgNk1aUmic5UjArBxCmaO0aAwJuKANHR4p2XHoiUj3+X5gTpOKCMFtvfci10rr58
- CjeHG1zUHH9wiyy4e0vzslloz2Rz17u/y6P2LaV/YAnCsYrJT1whAZxpl2MMbmHdrUxa
- sExi/3QQn7F8E/GLh9yeOJUsK57rkbd3o2UgJvPsV7DSOMGVVULVjmgNlmixsUsmYxh4
- OgONXGDeoFXkkdjtcke11LsgNWLua8Ul4UgmgtZWxXS1AGzOfTPlljyyQxm97evKBhWp
- Yo6Q==
+ b=kxPsya8qHIu4KA0UgAUxTgI7A0HMu17HyF3uLz+jxrvQF4CUxYor17BbLW4VaKbcmj
+ yfbkHdd8DjqGm4xL4PYHdUzlvf6ii94h2UNXbiqJtakOKf2vJYxhx1gAxY52wcoBZ05l
+ spEypzRTpJQN+qBQMXDf+a5QtYwt3COPlywDf+Nk5/EVpivxVeOHPQHhSgE8gtWw7gGc
+ +zZt0f6lQQnpLWvEZ2OzZNQ3MWNqIS6e2Nwp6n3oU/1B2OHJl3AxUF79S0+iTihHdB48
+ 2qW9ljeGbwQWdaXLAaKqolywpJSaXUiJShszj6hS3DRFoZXPCaMCiPIFe+QTgUGjzFYf
+ TtqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=cGAzUHcm0sGgQA1n2QKAQBWci/eVii3nOBq4rFQatG4=;
- fh=XfhyecUYoTNV0rYTAYeEpEFw4UXejmuP1fNS0R2QiRk=;
- b=PVAatRDPC6R5PDxC5oTzGUE4j9NQhSyMpDRcumsDIAvtL8zsy/Q4wxiQx71dyPax25
- dPshsdq++cJAx93vmzfmqxht/BfTZvfJqHpZxkbLFpGpegGNPo9aGen7gaPGQ495zGvQ
- I6EjCshOlwH9Aj4wWrffl5TFq8pL+uWDjdxYQ0G1UctvzgKXc1KzLEPu5/9kFE60/Wa9
- 6u9SdvtgUK/fglHFSTeTaX+skpSggOmXQogiRDH7ix4adI91XoFjKnhng5l9pgr1Sdg+
- 5Qiu7NCWB7CMZ+DBndFCrFTVtxO8Np5GFDVJLV3KrVyCAEMeRJeGBx3XLYcqLwtb2dvT
- brEw==; darn=lists.freedesktop.org
+ bh=K6A7J4OpJDcLLheDWUIyyi0Xo+zxVRi79rgHbCkqBj8=;
+ fh=jhUT3T+ABw1TK0bCL7dGfDzxFl2q1ig1eKqJP2AzZ68=;
+ b=acRrk8THmeFBE9bgeJ04E/IMsAj4YNUIP7TWlqfjFKzGGblG7WfN5PrWJjNnJSr9kz
+ 9FsqiAA/ZmJ2lmN0HLNO8r0nNHrvrFqrqEAoPETGAnT8Zw+9Up+WIjawMHn0ldh8/Hdg
+ GIVXQ6Z7tnyzx0MktIEf/YCEhp7FKVjMaOHhp1BZQaA2PrA6LTnKrR+PkbdRSU+PWvKo
+ iUr1VYebRThbQsaN5cVC45/514w6bbkkkeUsNV8I+i6p2EPwCJDiR6FgY78TnKBG2veS
+ d5INTDb1S6+jVXCHZZzwpPRJIDFX2eT1Er6Av2WkKfNVDWVZsyR6AaIhrwmGS52hmeZ3
+ 6Szw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793053537; x=1793658337; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1793053679; x=1793658479; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=cGAzUHcm0sGgQA1n2QKAQBWci/eVii3nOBq4rFQatG4=;
- b=W0+8HsvHyVDI7ofmSKFZN59ErvxNKykvBTUvZUSzNgexybgiPAUbqN6psMwYBa6Ai5
- mP281XRUOkJufh2gip/U6AT38eUOPVpFgrruShPbkfIiH7Uek1LQL3wlJ+FFYcAQlJAe
- 0xg3IOtEE7s6553JS08V7/PLvYOds7GXg1UOojbvXVBC3pLrUDL/Tm4sUQQreuKgP9hc
- czQDGIv9ddkJm7qXaqSLY5bXFfzaXW2yZFJLNCif2ffhWUTlr/EYtyHV56XWpvz28DTC
- dq3A5JpUrE6FgbLERP4n/y6Bf5tSBnvLejT0P6Hw0FZYS12A5K9YRjv4wPH+1UmkJg6d
- J5yg==
+ bh=K6A7J4OpJDcLLheDWUIyyi0Xo+zxVRi79rgHbCkqBj8=;
+ b=AKptj4iF8TVLFQ7Wx+oiCaESy/SRcJn1hg5FQdeIqxDa3ynadJSq24rQw7HIXZ/0MD
+ 8srFzCU7ikeVIvaKRVVdASD6t1UBznSygileqV3IEXfVNKu2ilYDkqwzhkvCVhhGexHS
+ gebw0vckJ8lqQBdx1VxnU1YyZTPEKMJqd2dUtQv37fgxUt2+wOnjyRyHXZCv/2yMs2W+
+ 0/k1OeVxVn7D6QZlrWm4oIop2lZRDQsNZ6OwHkrMgIGg+Jnl5VIWWfWFUyn7VfJWJtEJ
+ 8WxMOp/q3WLm+JO/IJ6JregkC9kAQxpa0gAuMHmPiH2wzi3sXofI+MWM7rygtqlLgvr0
+ Kk+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793053537; x=1793658337;
+ d=1e100.net; s=20260707; t=1793053679; x=1793658479;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=cGAzUHcm0sGgQA1n2QKAQBWci/eVii3nOBq4rFQatG4=;
- b=Ou7tnz4Op6xLfvTTfvZ2YXXuip4F7Rxvi3e/MxMQCfXvstnl0pX/TLD2BuaB8GiPSR
- XujFj0EA4zPV05nIcstt6SX3Ff5Ne79JsqvHWCAmNzd2/NjKtbioNDZBksymDs5UJO3f
- Mgv6viA2IDR+YocX92qnVatRB2nNtcqP3vHS7CNNLSUP6DerPsPrWJGQjhfBeQvBLQb0
- 2dSj+mUb+nEW4PCIIkLdQXRLmDNsVkhEs9TzbFZ0I2jcs5D6C9TV3oZ1dIozX6mJiOQF
- ptMKMAhcPN3kx1b/htf3r4EKwv1E5O9rTfPXaDP9SZ/MKsQJEB4XV7VSGXxORtad520e
- FOhw==
+ bh=K6A7J4OpJDcLLheDWUIyyi0Xo+zxVRi79rgHbCkqBj8=;
+ b=v6iZpitnWv3yThRnxfEj6aRT3dlV3e9pkL930p52dm8f7EBJxoMfFdf32YqqLmjzdz
+ cfT0IZzUkvMmVzEgq+asUyVMCvuvi3/cveuAw9cmfH+R1FVN7+p26gsx0wcCnE/WM8qu
+ 6XMmMvSH7IYnTMArM8zT0cdYumq14BOtmY6ydLQoHKhF8bIaV6MVMdF0MwZNw+7GSokG
+ OG435tYjG3TI21VRQ9TAVV8umSp57XhFclUKx+rCdeyE2BztYlxwxQx9gaQMLCbbrNzQ
+ F6qROJ+FUbfkBgJDciGDhHsFTpig7iZOfPDWNuCu3L8oZ/VBGY9eqDdiKXytpNAmB+uN
+ O1mA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByyAkXbibshh+Nf7C1ocJ+PHD1cnE1oK8qkA/d6Q+nWZmqIXepkpjo9BSeAOo5AUDVTIL/u0Oy0PZU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI2j5fDKzcISHVGtM8S9YiK2Ocyq7if1bsjyeSZgsOSD9YjeVEa
- qkKXWbXm/Iv5foqZxW2Q3LqAHzBgkUXJ8gnVfnabfVCebvvhaZaAGsAsbTj9CNLqDDqcXY1Ahon
- 9yPLptp5FEfe0c6ruFyONCAzbbYLd5WI=
-X-Gm-Gg: AYBFou0APb2Ylkx4RRNLUN+PvLnUWAUMcBqbmQVsPuo1iawav9+qvLu4ybEmUbCMBKN
- ovuBz30mnHZVWykaWUQP+SWc4wbsTDdW2XRJXx6cKJfVux8A4tFaOAnFRyqOegyDvMiRn3+AEno
- j6YlCXsJb4laorw4ruo5qWZKz72HJkeZGJRHltHHfavftVvfEq9WDThfpv57FC5YEqz4jxC9fEO
- 6cGCk/Suy0zOUOzMqNWTlN+SLsJazqYF3IsM4LtaS2qvPueiNQ4qkCAaXJnNFY9qTRg6WpBTTcr
- zZz10SfNYMZigGA/XCCqkGK6ulPb7dONhnRbIUJJmxC8xis3WUGOUKZhFNLQEID9KFgyQI77e7O
- 2mkR1w1RVeb+2DDhNDEV2CZ8+D+xsuXRq5XUMFP8RaOSRUTAdtu0QfJEVSb2B+7Y/29plMvdhh1
- X2dS2h9mRDJJU31Mn2B8zfhqAm7ffN/kEj8e5N
-X-Received: by 2002:a05:690e:12c6:b0:679:ac3:9752 with SMTP id
- 956f58d0204a3-67a4519489cmr5899753d50.13.1793053536512; Mon, 26 Oct 2026
- 15:25:36 -0700 (PDT)
+ AKwUvBz1VMATvGuSaWXPubIMmGiH0dDUe8wgrwhNM1F4hZm1KucGvnmZhQqMMH/Xe3YkOGcIaji0xPQk6n0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJsSAkqAvgFKhB5lfwU4G79AOkf34d8sFxdYHlVl4Z5Q/FchMKC
+ HdE1dHoV5I6bc96oHvCyy5VA9jiCr2AYKZYy1KS/qzdo71itOYsftgLk3JR3Mi6j0R/qKr7sGnN
+ IVkd66AIGFtnKuIviJiPFObq6A0m+e4k=
+X-Gm-Gg: AYBFou2JwGDnVD/ZyG2PwdAXZS+qT+CeDMGRSvUnT9VF5MimPk6aXgYs/Ph/XzDPHqO
+ 9idhYqrR3RXn1c1JsIJl2VRnoJRC/ynCXZ5Mr3rT7BZD94nE6cnVxZxKl8nWhyOj3Ii6D5UTTxw
+ ZL/Ra+7omsZZ+1htfgqb/V6IRDlFOX38A5Nk5OkNgW/zQdjbeSrhA9hsOSpIrL9TphoIoulzwEr
+ yEqC680I2VQArPggXg9Bg8ewuzt3icT0HMKQ88/R+4oEXm3w7/h2gYYvTHQbj7VCwLvpwDZzJNH
+ 3c1sf85ABzSfDEWsmfi1q+hccJfKaZQMfqBznqX2hTQ6+U7aFfQ1UWvWJRDSlWgLT4bj18io/VZ
+ o8oK6YNIvLG1k537F1eb6vYhucdbOCsOR0B9NvZF6JyrzhM9DjC5oVLViGl45P1jXChKcg2eUzw
+ VWXKmAz9BI1GH9vwI=
+X-Received: by 2002:a05:690e:1548:20b0:679:afc3:b990 with SMTP id
+ 956f58d0204a3-67a455751ddmr3346085d50.152.1793053679299; Mon, 26 Oct 2026
+ 15:27:59 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
- <20261012-dd-cmap-part2-clean-v12-32-3c8cc5725def@gmail.com>
- <sashiko-outbox-170731@kernel.org>
-In-Reply-To: <sashiko-outbox-170731@kernel.org>
+ <20261012-dd-cmap-part2-clean-v12-23-3c8cc5725def@gmail.com>
+ <sashiko-outbox-170722@kernel.org>
+In-Reply-To: <sashiko-outbox-170722@kernel.org>
 From: jim.cromie@gmail.com
-Date: Mon, 26 Oct 2026 16:25:09 -0600
-X-Gm-Features: AclHuK8oPmCxBxu3r6O0jmjf6VGp1ZvogtAuE50408WWPep9paf2BtUZbw8FvSg
-Message-ID: <CAJfuBxysCwTo9PZpgvjz+=ciTAAmJtOBAbE55_D_yhk+XuvCFw@mail.gmail.com>
-Subject: Re: [PATCH v12 32/40] docs/dyndbg: add classmap info to howto
+Date: Mon, 26 Oct 2026 16:27:33 -0600
+X-Gm-Features: AclHuK-iFp5xqB6d-LRnKDMtWnZXSOdE3cMaERLXso3BmPK_qGi1CmXSW6vaeP8
+Message-ID: <CAJfuBxw9uTaqwRudCe7r8_G3-jh+VvRoEzoY-OcZXC=WpctzOA@mail.gmail.com>
+Subject: Re: [PATCH v12 23/40] selftests/dyndbg: Enable FT_classmap_inheritance
 To: sashiko-reviews@lists.linux.dev
 Cc: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
  Andrew Morton <akpm@linux-foundation.org>, 
@@ -110,7 +110,7 @@ Cc: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
  Sergey Senozhatsky <senozhatsky@chromium.org>, 
  =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
  dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Louis Chauvet <louis.chauvet@bootlin.com>
+ linux-kbuild@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -133,66 +133,90 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 On Tue, Oct 13, 2026 at 8:37=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 >
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
 e(s) to consider:
-> - [Low] docs/dyndbg: incorrect signature for DYNAMIC_DEBUG_CLASSMAP_PARAM
-> - [Low] docs/dyndbg: commit message count mismatch for API macros
+> - [Medium] selftests: regex flaw silently excludes submodule from test as=
+sertions
 > --
 >
-> commit 28be193f6b722396acbf0216c1b36e74ba099d0b
+> commit d0e8e8cb940b9b06248942fb57c7a41c66ad8636
 > Author: Jim Cromie <jim.cromie@gmail.com>
 >
-> docs/dyndbg: add classmap info to howto
+> selftests/dyndbg: Enable FT_classmap_inheritance
 >
-> Describes the dynamic debug classmaps API and macro usage in the howto
-> documentation.
+> Exercise classmap state inheritance between supermod and submod, verifyin=
+g
+> that class settings and controlling parameter states propagate from paren=
+t
+> classmap definitions to dependent class users upon module load and during
+> runtime reconfiguration.
 >
-> > Describe the 3 API macros providing dynamic_debug's classmaps
-> >
-> > DYNAMIC_DEBUG_CLASSMAP_DEFINE - create & export a classmap
-> > DYNAMIC_DEBUG_CLASSMAP_USE    - refer to exported map
-> > DYNAMIC_DEBUG_CLASSMAP_PARAM  - bind control param to the classmap
-> > DYNAMIC_DEBUG_CLASSMAP_PARAM_REF + use module's storage - __drm_debug
->
-> [Severity: Low]
-> This isn't a bug, but the commit message states it will describe 3 API ma=
-cros
-> while actually listing and describing 4 of them. Should this count be upd=
-ated
-> to match the list?
->
-> > diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Docume=
-ntation/admin-guide/dynamic-debug-howto.rst
-> > index a8962ab22aaf0..f5b1470a4b881 100644
-> > --- a/Documentation/admin-guide/dynamic-debug-howto.rst
-> > +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+> > diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b=
+/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> > index c279c795867b6..d759243a4cbe7 100755
+> > --- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+> > +++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
 > [ ... ]
-> > +Dynamic Debug Classmap API
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> > +
-> > +DYNAMIC_DEBUG_CLASSMAP_DEFINE(clname,type,_base,classnames) - this map=
-s
-> > +classnames (a list of strings) onto class-ids consecutively, starting
-> > +at _base.
-> > +
-> > +DYNAMIC_DEBUG_CLASSMAP_USE(clname) & _USE_(clname,_base) - modules
-> > +call this to refer to the var _DEFINEd elsewhere (and exported).
-> > +
-> > +DYNAMIC_DEBUG_CLASSMAP_PARAM(clname) - creates the sysfs/kparam,
-> > +maps/exposes bits 0..N as class-names.
+> > @@ -291,6 +292,78 @@ function FT_basic_queries {
+> >      ddcmd "file $f =3D_" "$f"
+> >  }
+> >
+> > +function FT_classmap_inheritance {
+> [ ... ]
+> > +    # Real-time mathematical proof that load-time (modprobe) parameter=
+ parsing
+> > +    # and runtime (sysfs write) parameter configurations are perfectly=
+ equivalent!
+> > +    local hash_modprobe=3D$(slice_and_hash_ddctrl '\[test_dynamic_debu=
+g*\]')
 >
-> [Severity: Low]
-> Does DYNAMIC_DEBUG_CLASSMAP_PARAM only take one argument here?
+> [Severity: Medium]
+> Does this regex fail to match the sub-module as intended?
 >
-> The kernel macro defined in include/linux/dynamic_debug.h requires three
-> arguments: _name, _var, and _flags. Could this discrepancy mislead develo=
-pers
-> attempting to use the API?
+> Looking at FT_classmap_inheritance(), it calls slice_and_hash_ddctrl() wh=
+ich
+> uses grep to filter output. In POSIX Basic Regular Expressions (BRE), the=
+ *
+> quantifier matches zero or more occurrences of the preceding character (g=
+).
+>
+> This means the regex matches [test_dynamic_debug] but demands that the
+> bracket ] immediately follows the g's. It completely fails to match
+> [test_dynamic_debug_submod], silently excluding the sub-module from the
+> load-time test assertions.
 >
 
 fixed in v13
 
+> > +
+> > +    # Fresh load with default parameters, then configure them dynamica=
+lly at runtime
+> > +    ifrmmod test_dynamic_debug_submod
+> > +    ifrmmod test_dynamic_debug
+> > +    my_modprobe test_dynamic_debug
+> > +    my_modprobe test_dynamic_debug_submod
+> > +    echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_b=
+its
+> > +    echo 5 > /sys/module/test_dynamic_debug/parameters/p_level_num
+> > +
+> > +    local hash_sysfs=3D$(slice_and_hash_ddctrl '\[test_dynamic_debug*\=
+]')
+>
+> [Severity: Medium]
+> Similar to the issue above, does this regex fail to capture the runtime
+> state of the sub-module?
+>
+> This allows the equivalence check between hash_modprobe and hash_sysfs
+> to pass without actually verifying the sub-module inheritance behavior.
+
+yes, now fixed
+
+>
+> > +    if [ "$hash_modprobe" !=3D "$hash_sysfs" ]; then
+> > +        echo -e "${RED}: Load-time vs runtime parameter equivalence ch=
+eck failed!${NC}"
+> > +        exit $ksft_fail
+>
 > --
 > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-dd-cmap-=
-part2-clean-v12-0-3c8cc5725def@gmail.com?part=3D32
+part2-clean-v12-0-3c8cc5725def@gmail.com?part=3D23
