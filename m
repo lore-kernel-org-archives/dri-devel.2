@@ -2,137 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CBE606A325
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 12:30:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE70606A320
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 12:33:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tfnQa80g
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fejUhc/t
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FEC610EEB1;
-	Mon, 26 Oct 2026 12:30:12 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012021.outbound.protection.outlook.com [52.101.53.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D05610EEE2
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 12:30:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nce6DRY92trok+l8sgP0yGWqKxLcgnAPYj4rvo4nRiNlsqfBwH/U0a4flFkpHiSVOfKowWA3IJSwFDQDM44terMUGumP0bdYBbnUFa4AN8q58jvzYLd8FUMZiUkIKPZOgcKFiUX2HPnR3qX3kTM/y/oFEl72nips4d32o7BgbCzVTeKIGbIVLr2T+GjeyEjumW0lhsPW6bZ/saDjo30Xi3Yt6LwXC9A/S2QModIWrha0BXuK9HlCkhM1fH61vXymdYKBi8AE62RYnDc+DmHrj1Q4R/NrLpBlr861zrgIi7bSsTkbOaWD5A25Ilurvn91N9jXLuFFl8tareZfqUPrFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Idlm7EDRzRSycgoet/q18BiVYzrbhzykbCttwUtOoI=;
- b=UlHzzapIvVHPgKPGeb0K2oLNWPDiZI030Cfac77hSFhhhb2aGv9z/cJ8xGupI4S6dbLsc1I8g/ISAlmI2mUqHXgZaH1Tz8WRDdPClhGRBj+C47hudxg3FXi0JnDXht3MIqHmYkV/HvBQmMivwCmgbph+q2xP/lmmKkGxRoznCN10ICwEdoPl4rNkTXx3xx3y9ePACQMpfNb99Gl/jwA/i5Uq6+XXarMUUWShQg+dPhFLo3S/hDfSfhgLgoGqERBzsFSnMSDe6FK/irmabNZnEQYyuCGdYT8NwTP9237xMagVmj+fK8mDg7/Q0taqj26PMoR4DjoiNBNp472O5bC7rQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Idlm7EDRzRSycgoet/q18BiVYzrbhzykbCttwUtOoI=;
- b=tfnQa80gAod4wGFqJSufWtaLhiENGKMd7x4/OFRgjZOwTcOPyV8Asdc/Hr9jbp+Co50rYKTdo/y+Qk7YXs8GXeF4ZJ6viVjF49vQIuezzR+bMUVOFojveicTR6FV/a98vkc1iVg3h/dSriBqtGV73muDA/vBlxQ5319xuJon21bp8lKDnJYoX+paS+FFbXN8XAjqVA6K6qA11w97rwJU40oXRrc5qfHCYK2ZoYwWJX5jSWYxswnYn5P9M18TITLXrzbJP0XlTPDOeh+6D2eWCfZbnxXylbXlP1Cwf0RZznPkewGT6wfJ2zxb77zgdZ7oPXNmeE9sXwSQRJGE97Bwhw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SN7PR12MB8101.namprd12.prod.outlook.com (2603:10b6:806:321::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 12:30:02 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 12:30:01 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F6C110E1C0;
+	Mon, 26 Oct 2026 12:33:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F67710E1C0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 12:33:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id ECA494396E;
+ Mon, 26 Oct 2026 12:32:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79EF1F01828;
+ Mon, 26 Oct 2026 12:32:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793017979;
+ bh=Ja62S+qA5E7SwUb8tQK+Ee9SdG5q8k/sV2OR2KuIYkE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fejUhc/tEuY22faUMAovotXCGW0rutU/Zx8C5bQdRevhIPLikDlTwtse5zSCsQ0k2
+ LW/Kpr9xT9rTHq3tex+X4nTb44aNo0Ys3e05fNNzOGchsvfScixRl00gdDH5WISeRd
+ C4C71iS+Qx8UBp6FpZKlvvxJQk0GHqRBPMmT7G3+tmKlRCVJp8iy6Fqk074GBA+xsO
+ sB6rGQDkFf0+gNE1O3QSV7271cxCNof0p8nvYeHwNiLF7wCCXTwPKcpeAAHzFxf/uR
+ mjzbZCka6eItOR4zRRdF7X1NmBT5CYxTrOv9QV5GxRufVwL4jozFlmI0wrQcNI5IuX
+ 4FWe7lcSW9G9A==
+Message-ID: <sashiko-outbox-185215@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/tegra: Use shmem for DMA IOMMU buffer allocations
+To: "Mikko Perttunen" <mperttunen@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261026-b4-tegradrm-allocate-shmem-v1-1-eae07ab827d6@nvidia.com>
+References: <20261026-b4-tegradrm-allocate-shmem-v1-1-eae07ab827d6@nvidia.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 26 Oct 2026 21:29:58 +0900
-Message-Id: <DMERRHB51QZ2.3BHL28WN4DSJ3@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v4 6/7] gpu: nova-core: add NVKV typed decoding
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20261016-b4-nvkv-v4-0-e8b92b91aa5b@nvidia.com>
- <20261016-b4-nvkv-v4-6-e8b92b91aa5b@nvidia.com>
-In-Reply-To: <20261016-b4-nvkv-v4-6-e8b92b91aa5b@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0015.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:26c::19) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SN7PR12MB8101:EE_
-X-MS-Office365-Filtering-Correlation-Id: 078efd76-5bb8-410a-3c47-08df335cdb02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|7416014|376014|1800799024|23010399003|366016|22082099003|18002099003|3023799007|56012099006|11063799006|4143699003|261022075727099003|261021121427099003|10067099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: oBatr2KltQAHT8DiNC3QhcPg/Rde1woXOZWOeJDdih4D9Wm2qVesDqyVVuOxwP49KWCZkLHXO8VaCQpLUx9GOCUca+lk36naQWE/FuLiKocAKT+mdYWSnNPi4EvBRJBILT2wO0EE47EZeo8NC6tMiGk9145LDrBybDGOlxGGNW6grdMsqpnrvcP7G08Bkm9wGNNRurNDBbn1CUW9eLo/qjBVoTN2eVILVfkHMUqVn8Dm7GWXyNGcw5P4Q4drm5CYDawyy3AgTrBt9F2sfiVwRSCH1icPrm2e/KThVFIzJmDFdaeJiT2TRBbVl1as14D0fP+u0WPH3s5P48UEdytdVB6W5bjDVoRd43Bf15moIe1v8uM2QyXhXLWWyHH6D148DqaObMGJ5sinxEEBm092wgK43zYCyJYzSutxEPsy+5uatjsAMtsSn/g48gOnKmWuo2EG9bdYBAztpR6TuhgQBY/eNs3c7FrOZCGD1CVWi62w1MpxFdMi7ArdmfR8X0JXlw8sS+w4z1Yzd6hXERJifd4WouoJkJqPgZA6BjuBR7/TIBI01oCdNZ+8jShK3d8ZhzA+n1nD6qHwRqwUOELIqiDUMpvQYjqBVhWaUynOsC5iiwM0pJZlYKoAsb0p/cxauPOF9wJIYhy3M6RsXDknS89wbxgpP2nrjQZedXk6WFo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006)(4143699003)(261022075727099003)(261021121427099003)(10067099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUxsbGp3K3hkOSt4S0ppRVpXVW4xQ001RWQray9MN3JRc0gzZnlsVm5yK09G?=
- =?utf-8?B?Z1dGTGJSUjBCUG5PV0g1dTgzSjlhRkNyemZjanJ1TzJjb2hKa1RMM2pIOUdi?=
- =?utf-8?B?ZGVFSEV4eUduUlZURDVCVGptOHhaTkRxU1gzcXdaZlRFVCttVURhNExZSldO?=
- =?utf-8?B?STVtaGJKZU83Q3pOaWdPZStzL1dBUUszdlE1SHhDWkFDUmtIaHJNM3ZZUjBG?=
- =?utf-8?B?bUtkeVpRcEIxUDVDVSt3SVkyeHFGZE1GSkpoU1hnSEN1NUM2WlowMmhJb3Bh?=
- =?utf-8?B?VUNacERaU0JMZS8rUnlTWVlWWjErWU5mdkhEUXhlZzdZalpYdDNwVGY3WS9t?=
- =?utf-8?B?WW42QXpXenErTEJLR1diTE5lK1NiVkhsQWpvVlpoaUdyYmlCUzkxQ3NIODZJ?=
- =?utf-8?B?WUhVTFpVNHNVYlZWQkdrSGdtalVzaDR0SU1QWHBQWEVvWU9kNHk1YkNVNGU4?=
- =?utf-8?B?WU5sWVZiOXAxYzdneVhrYy9uSCtjdFBvdnlKL1lMN2JiOTR2M0JOTEY1VzVF?=
- =?utf-8?B?U1ZiNlVUTTdHOTN4VEVpRU81ZXNRMkdQcGJMc3YvTUQyT2pmTFkydzQ1Y3ZG?=
- =?utf-8?B?MTlwYlVaaEJLU1FlQnlYTjgyd0liWlZHYlg1QjlxWXd5NUpndlJ1ekE5TXZN?=
- =?utf-8?B?Yzh5Zm51L1BTTUxrWTh1OVo1UzlUZDd3K09MTzYyaCsyR0gxT24rNktIWE4y?=
- =?utf-8?B?L003cWozTWFHRUtjVVpmS2J3b2M5U0dicGNGR3pWNHEyWk01RTBVUFlPckNW?=
- =?utf-8?B?ejBKbklyUFVvYXk1QXl4dmNpWnBYbDF4Yks0ckUvL0VRU0pqQTdUcHkwTW4r?=
- =?utf-8?B?ZDJIWGNuWmdEMStGUk5KYkJjQnFsMzFtKytEdXEyUGo0dFVITHh3M0p0bDBZ?=
- =?utf-8?B?WkdTQno2aFFZQWZ2K1IwK3NIOHNISk0wanMzRlg3cEozc3B0R0xlaldIeGlr?=
- =?utf-8?B?bHFQcEtISG1WVnRlRDFXZjU4UU15ZGdBWnA5T09xTHFsY25UYlJHQUxQa2dz?=
- =?utf-8?B?RmFhdG5jVjA2SUIzUXBrMi9mcjM0eXpVQUx5cUY2UHNzMHFtb3VjUVpDbzg5?=
- =?utf-8?B?NW5RRWxJbDdwVXJDWmtLczJTRmdaTzU5eFRUWDVOeDBoYVovRzMwRkVNaHg0?=
- =?utf-8?B?WG5TTVVDaXlRajh6bXE0ZVZNOTQ2c2pwLzRrSWFUNEJ3c0pBMGZXUms5b0Nq?=
- =?utf-8?B?L2dXTDR1MU85NTFMVk9ObmhGVmNYRDZlenJEZW9Tdmd1L2piWDVsTUYrcUpO?=
- =?utf-8?B?VEFkeDVUNjI4L3JKdGpjblhFZUc5eFQ4QlByNkJVUTdqTG5SU1dMeXRYVUhG?=
- =?utf-8?B?MndudWpsREFsdkIrc3BoTnN2ZWR4Y1hLTVRyNWo0NEpoOHRQUWowMzM3eFlt?=
- =?utf-8?B?eWFabSsySzA1UUhBd1lzb2RqSVN2dU5Gd1U5SFJJWFNQaDc0MjlFelBwS2k2?=
- =?utf-8?B?OG1uaUxBT2xvQUdIQWJCZk1ic3l5eDVza054Y2kxMGhIMTE0MHRFSWwzc2J4?=
- =?utf-8?B?MVFHT2daajdmV2xUVk96MDFvNVlMem05YlBDU0tDQldKMnMwUXhlZzBGcjVN?=
- =?utf-8?B?MkNka0hQU2hoanpCSm5BNURhOC9YVm1MM2g0MTU4dHRuMFpIM2lHdlNXZG5x?=
- =?utf-8?B?MzNnc2dta09ERkpLV2phVzgzTUZLdFd3Z1FLeUtYekRNaE1STkErMW56ZVBt?=
- =?utf-8?B?TVlueXpob3Z2U1dZQUlQNW55TnNyTVUzamlWNngyRmh5cjhTcEI1SzlTaHJB?=
- =?utf-8?B?b0tqYkR3RytYL2d4NWFyekxUOWVtVHhNN0JaUTFlUEVsbi9yVmNsc1dUWVFh?=
- =?utf-8?B?Z1Y0bU9rYTFmb0g1R0ZyQkVuQjVnWFJ0bzduZDZFdUJNYm12WXNFZzhsTVJH?=
- =?utf-8?B?ZDIwYTUvbkFpbGR2SHB0all3cDd1Z3l0RU5JdGdkdCt4bllUdk83bUdFdUs1?=
- =?utf-8?B?MS9IbEZUZmd4cVdBcGZjdk9zM0ZFV2dEZldoZkJpTU4wODNOOTN0amJPZ3Z6?=
- =?utf-8?B?cWlEUW15bytVQ2dDTGxnTUo2UGhvempVYld4WXcvcHRTVlZjVHg4MVRDc2lE?=
- =?utf-8?B?WnljdU9vMm04eENiTE9oczA0c3Y2Wm81ZU5oUnROdGVIWCszd3hKc2lIV3NI?=
- =?utf-8?B?OWhxcnc0K1lRbG5NUTZXc2hRclhuUnQ5eHp0NDJwVVhQMk02RkkwNGdZSEJq?=
- =?utf-8?B?MXJxQ1lGMlFOTkRrUVJ3YVhaWlpqeUE1NWtPdDYxMkw4UUllRTFPYmkxV0NJ?=
- =?utf-8?B?TTFVeTFPa3prcDRzUzBxQXUwQkQ3WTROTFd6TnVTSlNHU3dTb0tQUHdNb1h0?=
- =?utf-8?B?RGZENllxTG5ISXBBUkJFTU1YZnBCOGpDYVYzbzlOVVAyVkozWFJqcnc3WFhU?=
- =?utf-8?Q?nbCqgt3ANazSK8g47NbPnvo3XiX6P4smZkKTO8RyOWW0W?=
-X-MS-Exchange-AntiSpam-MessageData-1: 9F6SDeOz0ff4ZQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 078efd76-5bb8-410a-3c47-08df335cdb02
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 12:30:01.5779 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qeyDY9w4lxjTbkLydojgSPqtyYlZtmzGUBhGCy0txkfF0h/iPTL0ejR4DNC6T/ygmldUmkbBPT33Sh1LaUSXQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8101
+Date: Mon, 26 Oct 2026 12:32:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,57 +47,184 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri Oct 16, 2026 at 10:53 AM JST, Eliot Courtney wrote:
-> Similar to the typed encoding layer, add some decoding type machinery.
-> Add a simple macro `nvkv_decode!` which implements `Schema` for a struct
-> by composing visit calls to each member. Add some common `Schema` kinds,
-> such as `Array` which collects an array value into a fixed maximum size
-> array, and `Required` which fails a decode if the value is not sent.
->
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/tegra: use_direct_dma not set in host1x_client_iommu_attach()
+- [High] drm/tegra: missing chunk count in tegra_bo_pin() for shmem BOs
+--
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+commit 12a809963b5e12b284858a4f0ff8bc1a58e8b048
+Author: Mikko Perttunen <mperttunen@nvidia.com>
 
-A few (hopefully final) nits below.
+drm/tegra: Use shmem for DMA IOMMU buffer allocations
 
-<...>
-> +impl<T: Default, const KEY_ID: KeyId, As> Schema for Key<T, KEY_ID, As> =
-{
-> +    type Target =3D T;
-> +
-> +    fn init() -> impl Init<Self> {
-> +        Self::default()
-> +    }
-> +
-> +    fn finish(&mut self) -> impl Init<Self::Target, Error> + '_ {
-> +        const_assert!(
-> +            size_of::<T>() <=3D 32,
+This commit records whether host1x clients are attached to a DMA IOMMU
+domain during initialization and uses drm_gem_get_pages() via
+tegra_bo_get_pages() for buffer allocations when DMA IOMMU is active. In
+mixed IOMMU and direct DMA configurations, it attempts to fall back to
+contiguous DMA allocations.
 
-Let's use a constant here again instead of a hardcoded value. We could
-share that constant with `Encodable::encode`.
+> diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
+> index 324480c87fb1f..1013bbd662f84 100644
+> --- a/drivers/gpu/drm/tegra/drm.c
+> +++ b/drivers/gpu/drm/tegra/drm.c
+> @@ -958,14 +958,10 @@ int host1x_client_iommu_attach(struct host1x_client=
+ *client)
+>  	}
+>  #endif
+> =20
+> -	/*
+> -	 * If the host1x client is already attached to an IOMMU domain that is
+> -	 * not the shared IOMMU domain, don't try to attach it to a different
+> -	 * domain. This allows using the IOMMU-backed DMA API.
+> -	 */
+> -	if (domain && domain->type !=3D IOMMU_DOMAIN_IDENTITY &&
+> -	    domain !=3D tegra->domain)
+> +	if (domain && iommu_is_dma_domain(domain)) {
+> +		tegra->use_dma_iommu =3D true;
+>  		return 0;
+> +	}
+> =20
+>  	if (tegra->domain) {
+>  		group =3D iommu_group_get(client->dev);
+> @@ -981,6 +977,8 @@ int host1x_client_iommu_attach(struct host1x_client *=
+client)
+>  		}
+> =20
+>  		tegra->use_explicit_iommu =3D true;
+> +	} else {
+> +		tegra->use_direct_dma =3D true;
+>  	}
 
-<...>
-> +/// A schema field for an array value under the NVKV key `KEY_ID` that k=
-eeps at most `N` elements.
-> +///
-> +/// Unlike [`Array`], a longer value is truncated to its first `N` eleme=
-nts instead of failing the
-> +/// decode.
-> +pub(crate) struct TruncatingArray<T, const N: usize, const KEY_ID: KeyId=
-> {
-> +    vec: ArrayVec<T, N>,
-> +}
+[Severity: High]
+Can tegra->use_direct_dma remain unset when a direct-DMA client is
+initialized while tegra->domain is speculatively allocated?
 
-This is basically a copy/paste of `Array`, with one line changing in
-`visit`. Is it possible to just wrap `Array`, proxy the methods that are
-identical, and only duplicate `visit`? (or better, have a private
-function in `Array` that is called by both `visit` implementations to
-reduce code duplication even more)
+In host1x_drm_probe(), tegra->domain is allocated before
+host1x_device_init() runs whenever the parent host1x device is IOMMU-mapped,
+and is only freed after host1x_device_init() completes:
+
+drivers/gpu/drm/tegra/drm.c:host1x_drm_probe() {
+	if (host1x_drm_wants_iommu(dev) && device_iommu_mapped(dma_dev)) {
+		tegra->domain =3D iommu_paging_domain_alloc(dma_dev);
+		...
+	}
+	...
+	err =3D host1x_device_init(dev);
+	...
+	if (tegra->use_explicit_iommu) {
+		...
+	} else if (tegra->domain) {
+		iommu_domain_free(tegra->domain);
+		tegra->domain =3D NULL;
+		iova_cache_put();
+	}
+}
+
+When a client without an IOMMU group calls host1x_client_iommu_attach()
+during host1x_device_init(), tegra->domain is non-NULL, so execution enters
+the if (tegra->domain) branch instead of the else branch:
+
+drivers/gpu/drm/tegra/drm.c:host1x_client_iommu_attach() {
+	if (tegra->domain) {
+		group =3D iommu_group_get(client->dev);
+		if (!group)
+			return -ENODEV;
+}
+
+Client initialization callbacks such as tegra_dc_init() ignore -ENODEV and
+continue operating in direct-DMA mode:
+
+drivers/gpu/drm/tegra/dc.c:tegra_dc_init() {
+	err =3D host1x_client_iommu_attach(client);
+	if (err < 0 && err !=3D -ENODEV) {
+		dev_err(client->dev, "failed to attach to domain: %d\n", err);
+		return err;
+	}
+}
+
+Because host1x_client_iommu_attach() returned -ENODEV early without setting
+tegra->use_direct_dma =3D true, the mixed-configuration check in
+host1x_drm_probe() (if (tegra->use_dma_iommu && tegra->use_direct_dma)) will
+not trigger, leaving tegra->use_dma_iommu enabled and allocating
+discontiguous shmem buffers that direct-DMA clients cannot use.
+
+Should tegra->use_direct_dma =3D true also be set before returning -ENODEV
+when !group?
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+> index f76af733ea793..bb8d9f9e64534 100644
+> --- a/drivers/gpu/drm/tegra/gem.c
+> +++ b/drivers/gpu/drm/tegra/gem.c
+> @@ -111,10 +111,6 @@ static struct host1x_bo_mapping *tegra_bo_pin(struct=
+ device *dev, struct host1x_
+>  	}
+> =20
+>  	if (obj->pages) {
+> -		/*
+> -		 * If the buffer object was allocated from the explicit IOMMU
+> -		 * API code paths, construct an SG table from the pages.
+> -		 */
+>  		err =3D sg_alloc_table_from_pages(map->sgt, obj->pages, obj->num_pages=
+, 0, gem->size,
+>  						GFP_KERNEL);
+>  		if (err < 0)
+
+[Severity: High]
+With shmem-backed buffers now taking the obj->pages path in tegra_bo_pin()
+when tegra->use_dma_iommu is enabled (where obj->mm is NULL), does
+map->chunks get set to 0 instead of the mapped scatterlist chunk count?
+
+Looking at tegra_bo_pin() in drivers/gpu/drm/tegra/gem.c:
+
+	if (obj->pages) {
+		err =3D sg_alloc_table_from_pages(map->sgt, obj->pages, obj->num_pages, 0=
+, gem->size,
+						GFP_KERNEL);
+		if (err < 0)
+			goto free;
+	} else {
+		...
+	}
+
+	err =3D dma_map_sgtable(dev, map->sgt, direction, 0);
+	if (err)
+		goto free_sgt;
+
+out:
+	if (!obj->mm) {
+		map->phys =3D sg_dma_address(map->sgt->sgl);
+		map->chunks =3D err;
+	} else {
+		map->phys =3D obj->iova;
+		map->chunks =3D 1;
+	}
+
+Unlike the obj->dma_buf path above it which sets
+err =3D sgt_dma_count_chunks(map->sgt), the non-imported path leaves err as=
+ 0
+(the return value of dma_map_sgtable()).
+
+When !obj->mm is true, map->chunks is assigned 0, which bypasses the
+if (map->chunks > 1) contiguity checks in tegra_dc_pin() and host1x's
+pin_job() if the DMA mapping is not coalesced into a single contiguous
+chunk.
+
+Should err =3D sgt_dma_count_chunks(map->sgt) be called after
+dma_map_sgtable() succeeds?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-b4-tegradr=
+m-allocate-shmem-v1-1-eae07ab827d6@nvidia.com?part=3D1
