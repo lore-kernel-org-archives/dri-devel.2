@@ -2,71 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBBF606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 09:32:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBD3606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 09:32:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cokjIgVH
+	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=SFo3EwWO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA48B10F327;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAF5A10F326;
 	Tue, 27 Oct 2026 09:32:00 +0000 (UTC)
-Received: from mail-dl2-f4.google.com (mail-dl2-f4.google.com [74.125.229.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 925C410EF63
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 14:59:45 +0000 (UTC)
-Received: by mail-dl2-f4.google.com with SMTP id
- a92af1059eb24-1922a6f0d23so1190562c88.0
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 07:59:45 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BA1610F053
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:40:32 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4a140e7405dso32633775e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:40:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793026785; x=1793631585; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=0hZu4fC9M40eXtw7zx0zkLs5DS7aBYk38bRzFK4atkQ=;
- b=cokjIgVH85QXYxphb741bleT6JrdXtXsZN71nepQ9ERBKqJKA/tAaDxAEw32kPUZIL
- owJlF/GBt1N+/7M0YzOFcJ1E8uJSYc8wkydZNzOB6yKP8Ui+yG8UdmGsAJm3g3dyE5Au
- ThsIQ6dJ+c8T2tsTIbgof5QIzjsXppfpg8onCCm9KoYbF9EOTYczKylZD3C9IEjQXQxI
- Up/U6OHk6qD1Ztr1U5wRPjVWWI63LmR21UT/t4W3ani9LT2Xl/EN5BcWO9mtI7mvZd8A
- 7wh390uXaKkR95TTv77WeabLJ0ldPB4imaYneERlpDriAajrI5VEA0L+4v1/KsXrG3i5
- zyWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793026785; x=1793631585;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=neat.no; s=google; t=1793032831; x=1793637631; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=0hZu4fC9M40eXtw7zx0zkLs5DS7aBYk38bRzFK4atkQ=;
- b=0cG3Y5M7QzJW9K2k4MUD1rlm07srMTzU5LwAf1WrLcbE6594FIZIKYirqL8LYBoyXV
- KSu6O31ypp2Cv6ReJrus54paMxH8SOTboZ6Zf2UDMnaiD1xyTpqm+Je8jNzKFJta1v6Z
- smNetqFyJpfJKUgVYh4k8+fHRQheGBKuQSv21X/paCSZS6QCURq+UnbCiY0GghOiK0qK
- GF51fXYHxGGwTdjq3ga2Iv0PGFfbv9OOUuM0eZQbtsvgtHSSIHyrrEdsIXrsnd7+FzRt
- j8eQ6QCf6Q8Xpci4KmJ9yDc7Gyndt2hv/ogEOsuoOk4M3s8pGy1GC8WPHIL6jvkNci2N
- g1Dw==
-X-Gm-Message-State: AFq9FYKEkROrZ8dr3Uo9lefDu3J5HMPbcOGiq5ONUbs0r1gAwEhGnqsz
- QcFg1mNeN0c25Ln22Xd0Y7v2C05tho+EDBNpG6Gteb5DV2RbM9pePCND
-X-Gm-Gg: AYBFou33M0Hc1lp8sQLqR+Dfeo8QtCYhe39EWXlTfNOpfFSZJCBUTJmgWIMwUg/jhzt
- TKCLtGZZJAIiGYWzGj8PLKApyH2iQgyXLzZpUcIJbwfI6vy9ttwHppgV2PeCasXrGfNXCk+Ynra
- DftXHcCUIGvB3FqhZ6U7gE1uea8JxubETfTdNPTOXUB0453wQTWhrToZo9PaEFhHBbefmc/rLXV
- Wa0pK2UMLbdeaXTcuFJMv4q3kvju8EqX2neBIRhmnTJNA0XetpVDDQSjXIQRUaSi8++2+1N7bf+
- Mwvfx1N0pfRxoCfOSrROUpNRLyUOIMlewTQMxDP+5n2PaO4x+om40n5zkKbsEhegNOiAQ5wGH5X
- QqID4o4IM7mpa+z2aJ2aC9VYCF9GGezBu2MKlWVcoiuP4bErezobwJQYgJkoAuvU77thAZ8fFtn
- BhS2GMkW2xlF8POo8dibguA8mLWlGbWxLuIO3mDqLqF4C7XHBB3jdvI0tkPkWWKBvA8IrRjm6GK
- PeXyZcevOxIl40KDgkQXYW8aFxzddZHKRJLdpJnyoTIKR2t2o8UxIS2fnE/LIZbHd1Uf6F9K2hA
- LWPC+ZwZDipTRTk2GA==
-X-Received: by 2002:a05:7022:b04f:b0:181:8948:f01f with SMTP id
- a92af1059eb24-19937309c99mr9745342c88.36.1793026784563; 
- Mon, 26 Oct 2026 07:59:44 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com.
- [104.194.64.109]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-198a277b26csm28619817c88.18.2026.10.26.07.59.41
+ bh=sAOWa8x25rACNbacVKQZnJMMCRBQGzMNA9iEryT5ck0=;
+ b=SFo3EwWOH6HB3I5xw8cSCnYbESZAtQSpp0JhaevgaJHuCIjg9QFFvbOCnwD45wFoM8
+ KGxrOvoKNpxXen6AhWrrL1aIx1s842vENJfUN3iHph8ac+ITRmNoJvRriPIfv1hf4vEN
+ I8DFDGoKqAb842kAxPpx0z+daQjbuWuPH1COrJ1Jn07axrjKHIzRHuyp4x6JpnUb1dF9
+ DZou0jtPSfsDoORheXy9iCrHNE/eiYV89DpHhTZ7B9RikHh3pqD4fl/E2eBiYG0vbRsM
+ tDlC1TdVJImqPp00wZGkg2en8q1s95fWwGE/kMjo/zZLAGTG2Uh++ki3BCUZv2mr10mY
+ 7emA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793032831; x=1793637631;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=sAOWa8x25rACNbacVKQZnJMMCRBQGzMNA9iEryT5ck0=;
+ b=fu3CXu+CrIrzeRMKrBaY+NpfoNGvqcAu8W3QNF9DvqLbKTiZX6HuRVj7wVxHhbIRtB
+ 9xCWIO0BuMXOa5JMfF4p9t5wjUB6SnANPDTSxSUiK5hAhZPY/euaKSCh2vIesnNNW1H5
+ EOnPe0hHVqUbZkG3sic9QR9WDk8xzjubtrtcUmVf71A1AZ2Hr4A1e20PrgWWLphL+7oK
+ t4TR80d9gZVosxWOV9B4atcdcN3GzWUHkmvfw7o2auUDE3A+qv0j+9V7nzmNo197CSo6
+ HwD8CacEYThaY9S9MzOspYA+4ngr4k+tPdS/mVaGOLoCsOEozGyAmjD/FWcUIWFFAUhB
+ faEw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBygTIxzs1BdgNKcpAhAT1FrVflKPHo+0OqLsH5VduhC21suMXUTDf4Ay9hUN6uEGFhPekO9zzdefE0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ9nzWajZSIOd7poyStwjO1aUO2xh/JxYYAeNaincx/1oXyy6c3
+ /YukY9SiwFHqehwal+/VdzOoc6lfucfrqmp7PVBvKVbECgwhzJhciZHUeHwVqVran5XWds/joQO
+ EGBno4LMTqu4uaLA6V13D8fdUy5sYRwRa6SYQATpuyMYAdRilETQguUx57DmeWrKdSalUKRb+/L
+ e1ZkuLS51bi4TEGZlRfJexEJiE3uaK3cVejMDHBkRRo4Oag9fzS/5nKRLUTuIWlmUSj7vSQx96z
+ 9S8IXKCSDwzq8BkHtpcxLeDGNA=
+X-Gm-Gg: AYBFou3JzpWi3lhG/aU/lC/WK5YJ0/JZOQjm5c16jiOAfW33Q6JMDxVJhlXCaPpQA4E
+ 1793j/CgzVJBptT2mZTBY3DkZ40K5hFmEfURtVwhKJ3zQSaRGTaUsyjN1jE9jl2yFXfQy+UGyCT
+ Guj7p0E4J3SDBCTQOehyRZKhcndy35S0N25bxnGBPBYQKuNWGG90eiTLAG9xMNMzKSlGjG1suPX
+ xFkInw+33FQGJSgNdFnG3wjL/UxXUhHf6ASFwkLPPZ/9+7ROzPF20b1OrO+iPqucCwkWy++LA6d
+ OJD3bBetKDiJReS+ALWxiQMObj2v6E9aFZnMz1O5VEw0px5bt1dDfo8G4NHhkBYi/O7cvM6gL/R
+ CQph8SCCciTKFD4S4Ym7iFWL/1Jr2WKEqRt67CgXx5NCWYmZ+1DcR0SkPPK965XVsPTulR663MF
+ av5mQtD6rMkMbtMC4DANU0eJd271/gOyV+d2L3FuPeY8hE3iLfpcyB+8wkO5PvoexdQgym4QhLe
+ BPgwlXe/HhW4dDqDvzqOHgTrY6HVuY76o0TyUDn2sLWDCfc8lOvwCJelIkPdyt6MRjyiNJnLV2u
+ z48tFSYefg==
+X-Received: by 2002:a05:600c:3b11:b0:4a1:dade:f049 with SMTP id
+ 5b1f17b1804b1-4a35acbd3b3mr141129035e9.15.1793032830719; 
+ Mon, 26 Oct 2026 09:40:30 -0700 (PDT)
+Received: from threads.localdomain ([81.79.62.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a35a30e22csm205961655e9.2.2026.10.26.09.40.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2026 07:59:43 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, yaoyiqi3@huawei.com
-Subject: [PATCH] fbcon: Avoid cancel_delayed_work_sync() in atomic context
-Date: Mon, 26 Oct 2026 22:59:16 +0800
-Message-ID: <20261026145916.414396-1-yyaqia@gmail.com>
+ Mon, 26 Oct 2026 09:40:30 -0700 (PDT)
+From: Lucas Tanure <lucas.tanure@neat.no>
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Dom Cobley <popcornmix@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/3] drm/vc4: hdmi: power down the BCM2712 PHY when the
+ output is disabled
+Date: Mon, 26 Oct 2026 16:40:26 +0000
+Message-ID: <20261026164028.78792-2-lucas.tanure@neat.no>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261026164028.78792-1-lucas.tanure@neat.no>
+References: <20261026164028.78792-1-lucas.tanure@neat.no>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -82,91 +96,46 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+From: Dom Cobley <popcornmix@gmail.com>
 
-fbcon_cursor() can be reached from the console printing path with
-interrupts disabled, but it might sleep in two paths:
+vc6_hdmi_phy_disable() is empty, so on BCM2712 the PHY keeps its PLL
+and TMDS drivers running after the HDMI output is disabled, until the
+next vc6_hdmi_phy_init(). The TMDS clock is therefore not stopped
+between two mode sets, which the SCDC clock ratio change requires, and
+the idle PHY wastes power.
 
-  console_unlock()                  <- IRQ disabled here
-    vt_console_print()
-      hide_cursor()
-        con_cursor()
-          fbcon_cursor()
-            fbcon_del_cursor_work() <- this call may sleep
+Reset and power down the PHY on disable, as the BCM2711 variant does.
 
-  console_unlock()                    <- IRQ disabled here
-    vt_console_print()
-      lf()
-        con_scroll()
-          fbcon_scroll()
-            fbcon_cursor()
-              fbcon_del_cursor_work() <- this call may sleep
-
-When the VT software cursor is enabled (vc_cursor_type & CUR_SW),
-fbcon_cursor() calls fbcon_del_cursor_work(), which uses
-cancel_delayed_work_sync() and therefore may sleep.
-
-With CONFIG_DEBUG_ATOMIC_SLEEP enabled, there are reports like this:
-
-  BUG: sleeping function called from invalid context at kernel/workqueue.c:4722
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0
-  ...
-  __cancel_work_sync
-  fbcon_del_cursor_work
-  fbcon_cursor
-  hide_cursor
-  vt_console_print
-  console_unlock
-  ...
-
-Use the non-synchronizing cancel when called with interrupts disabled or
-from an interrupt context. We still keep the synchronizing cancel in
-sleepable contexts, where it is needed to drain the work before
-teardown.
-
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+Fixes: 0b1dbe82e051 ("drm/vc4: hdmi: Add support for BCM2712 HDMI controllers")
+Signed-off-by: Dom Cobley <popcornmix@gmail.com>
+[lucas.tanure: Rewrote commit message to clarify the issue and fix]
+Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
 ---
- drivers/video/fbdev/core/fbcon.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vc4/vc4_hdmi_phy.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 94abbb5ac766..f1dbf973e44b 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -56,6 +56,9 @@
-  *  more details.
-  */
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi_phy.c b/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
+index 56e6a35da357..5040f014bf7e 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi_phy.c
+@@ -1197,4 +1197,9 @@ void vc6_hdmi_phy_init(struct vc4_hdmi *vc4_hdmi,
  
-+#include "linux/irqflags.h"
-+#include "linux/preempt.h"
-+#include "linux/workqueue.h"
- #include <linux/export.h>
- #include <linux/module.h>
- #include <linux/types.h>
-@@ -441,7 +444,14 @@ static void fbcon_del_cursor_work(struct fb_info *info)
+ void vc6_hdmi_phy_disable(struct vc4_hdmi *vc4_hdmi)
  {
- 	struct fbcon_par *par = info->fbcon_par;
- 
--	cancel_delayed_work_sync(&par->cursor_work);
-+	/*
-+	 * fbcon_cursor() can be reached from the console printing path with 
-+	 * interrupts disabled. Only synchronize when sleeping is allowed.
-+	 */
-+	if (in_interrupt() || irqs_disabled())
-+		cancel_delayed_work(&par->cursor_work);
-+	else
-+		cancel_delayed_work_sync(&par->cursor_work);
++	unsigned long flags;
++
++	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
++	vc6_hdmi_reset_phy(vc4_hdmi);
++	spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
  }
- 
- unsigned char *fbcon_cursor_glyph(const struct vc_font *font, unsigned int cursor_type)
 -- 
 2.56.0
 
