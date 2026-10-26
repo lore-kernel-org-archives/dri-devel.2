@@ -2,41 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B574606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 10:24:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE390606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 10:26:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+RxFM7/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCrIU93w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDCE810E138;
-	Mon, 26 Oct 2026 10:24:34 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B745110E1CC
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 10:24:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00C2410EDDB;
+	Mon, 26 Oct 2026 10:26:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB18010EDBA;
+ Mon, 26 Oct 2026 10:26:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D751B60A53;
- Mon, 26 Oct 2026 10:24:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF781F01825;
- Mon, 26 Oct 2026 10:24:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6DECF43BAC;
+ Mon, 26 Oct 2026 10:26:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF781F01828;
+ Mon, 26 Oct 2026 10:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793010267;
- bh=fFrqcUXqY0vLdbx38h53LjA++EYTfuWPMW99sIDZ9i4=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=e+RxFM7/BhCa8BXgx4GDchiQ09AwNsWTswoK8kQMYc3eNeCCF2K/26xtmZ93/aHrg
- ZFP44nSbCqnpgx7lg1JFrT6szhAvGBjMLik9v3jBYn1tRZQp44wib/GGJTtFQ1kukq
- DAL5GbUg5ad2BPc6XCSANoUXczeNe3iLi5BnRF0TB0S9/AtBk2uhWoTf/VHaO3HYri
- MtjK2KdVVpqBJTM7ygXjYqbJcGq+6z2SqshH1On3QF7kq1ZGk/il1tVFyqRPwPL0Mk
- 6Uheso2XkG3/r+eG21njovjenbWB2FiT5HgTkdRMHZkGGFGK1jSkh9ExZb2BtPyUJ5
- a7fQ8V8fiE7Hg==
-Message-ID: <sashiko-outbox-184934@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/ivpu: Read preemption buffer size from boot params
-To: "Andrzej Kacprowski" <andrzej.kacprowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261026093020.228233-1-andrzej.kacprowski@linux.intel.com>
-References: <20261026093020.228233-1-andrzej.kacprowski@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 10:24:27 +0000
+ s=k20260515; t=1793010370;
+ bh=Y6oRwARljAebElUKFvK8H3t3ANwhHxuF/Ppq0WMLrq8=;
+ h=From:To:Cc:Subject:Date;
+ b=TCrIU93w9IHx64zbHME5wnCOja5h5+idy8mXAZzOIJn62yXZ5CiDq4JKjUxL9oeoV
+ svklRgsVSTOk6cwdO3SCpHUUUsyLy6XbUXAq1e3GXOgrzpQbyUi6/nryC0XHKSYPDT
+ xuFeQYaHtFksLzQicEe6FVWCOV7zDcaJ8MYpq/m3Wdhp4JxW6d0VkpgWQLqX6gbkYJ
+ Vqs4kGvZVOYuSIp42uXgSEf8j71pmmpU3kkFmaSaihvBYQnBnokduJTty788sN3ueU
+ FYXlFevbdSUl0FlGtHdOpuXtBUK/3KTK7ZQQFFf0n64JGXQ+bc8i77vfqZLM6KqS3O
+ AKfe8307sq18w==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matt Roper <matthew.d.roper@intel.com>,
+ Lucas De Marchi <demarchi@kernel.org>, Riana Tauro <riana.tauro@intel.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Matthew Auld <matthew.auld@intel.com>,
+ Shuicheng Lin <shuicheng.lin@intel.com>, Armin Wolf <W_Armin@gmx.de>,
+ Zhanjun Dong <zhanjun.dong@intel.com>,
+ Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ =?UTF-8?q?Piotr=20Pi=C3=B3rkowski?= <piotr.piorkowski@intel.com>,
+ Tejas Upadhyay <tejas.upadhyay@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm: xe: select configfs
+Date: Mon, 26 Oct 2026 11:25:50 +0100
+Message-ID: <20261026102603.2045493-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,115 +57,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] accel/ivpu: ivpu_preemption_config_parse() rejects zero secondar=
-y buffer size
---
+From: Arnd Bergmann <arnd@arndb.de>
 
-commit e2bae997f3bdfe346d64fb0ce52874d7284d8b32
-Author: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+The original addition of configfs to xe missed a compile-time dependency,
+which leads to a link failure when configfs is enabled as a loadable module:
 
-accel/ivpu: Read preemption buffer size from boot params
+ld.lld-21: error: undefined symbol: xe_configfs_get_survivability_mode
+>>> referenced by xe_survivability_mode.c:224
+>>>               drivers/gpu/drm/xe/xe_survivability_mode.o:(xe_survivability_mode_is_requested) in archive vmlinux.a
 
-This commit updates the ivpu driver to read the preemption buffer size from
-the firmware boot parameters after cold boot during device initialization,
-falling back to the sizes in the firmware image header if not reported. It
-also updates the image header parsing logic to use
-preemption_buffer_2_max_size even when it is zero if
-preemption_buffer_1_max_size is set, and updates the firmware boot API head=
-er
-to version 3.39.1.
+A recent workaround added a 'IS_REACHABLE()' check around the calls into
+configfs, which makes it link in this configuration, but this is generally
+a bad idea because it makes the actual behavior inconsistent and confusing
+to users that expect configfs to work if both xe and configfs are enabled.
 
-> diff --git a/drivers/accel/ivpu/ivpu_fw.c b/drivers/accel/ivpu/ivpu_fw.c
-> index 96f5be23a8673..6607a5da19340 100644
-> --- a/drivers/accel/ivpu/ivpu_fw.c
-> +++ b/drivers/accel/ivpu/ivpu_fw.c
-[ ... ]
-> @@ -160,35 +165,31 @@ ivpu_fw_sched_mode_select(struct ivpu_device *vdev)
->  static void
->  ivpu_preemption_config_parse(struct ivpu_device *vdev, const struct vpu_=
-firmware_header *fw_hdr)
->  {
-> -	struct ivpu_fw_info *fw =3D vdev->fw;
->  	u32 primary_preempt_buf_size, secondary_preempt_buf_size;
-> =20
-> -	if (fw_hdr->preemption_buffer_1_max_size)
-> +	if (fw_hdr->preemption_buffer_1_max_size) {
->  		primary_preempt_buf_size =3D fw_hdr->preemption_buffer_1_max_size;
-> -	else
-> -		primary_preempt_buf_size =3D fw_hdr->preemption_buffer_1_size;
-> -
-> -	if (fw_hdr->preemption_buffer_2_max_size)
->  		secondary_preempt_buf_size =3D fw_hdr->preemption_buffer_2_max_size;
-> -	else
-> +	} else {
-> +		primary_preempt_buf_size =3D fw_hdr->preemption_buffer_1_size;
->  		secondary_preempt_buf_size =3D fw_hdr->preemption_buffer_2_size;
-> -
-> -	ivpu_dbg(vdev, FW_BOOT, "Preemption buffer size, primary: %u, secondary=
-: %u\n",
-> -		 primary_preempt_buf_size, secondary_preempt_buf_size);
-> +	}
-> =20
->  	if (primary_preempt_buf_size < FW_PREEMPT_BUF_MIN_SIZE ||
->  	    secondary_preempt_buf_size < FW_PREEMPT_BUF_MIN_SIZE) {
-> -		ivpu_warn(vdev, "Preemption buffers size too small\n");
-> +		ivpu_warn(vdev, "Preemption buffers size too small, primary %u, second=
-ary %u\n",
-> +			  primary_preempt_buf_size, secondary_preempt_buf_size);
->  		return;
->  	}
+Use 'select CONFIGFS_FS' instead, like every other configfs user does,
+and remove the unnecessary stub functions. There is little practical
+difference here as anyone using XE graphics is likely to have a complex
+configuration that already selects configfs anyway, and the link error
+or the IS_REACHABLE() would only manifest during randconfig testing.
 
-[Severity: Medium]
-When fw_hdr->preemption_buffer_1_max_size is non-zero and
-fw_hdr->preemption_buffer_2_max_size is 0, won't the
-secondary_preempt_buf_size < FW_PREEMPT_BUF_MIN_SIZE check in
-ivpu_preemption_config_parse() in drivers/accel/ivpu/ivpu_fw.c always trigg=
-er
-a warning and return early?
+Fixes: 30499cbd7961 ("drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m")
+Fixes: 16280ded45fb ("drm/xe: Add configfs to enable survivability mode")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/xe/Kconfig       |  1 +
+ drivers/gpu/drm/xe/xe_configfs.h | 30 ------------------------------
+ 2 files changed, 1 insertion(+), 30 deletions(-)
 
-The commit message notes that when preemption_buffer_1_max_size is set in t=
-he
-image header, preemption_buffer_2_max_size should be used even if it is zer=
-o,
-and ivpu_preemption_buffers_create() in drivers/accel/ivpu/ivpu_job.c is
-updated to handle vdev->fw->secondary_preempt_buf_size =3D=3D 0.
+diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
+index 4fc8abdc5cb6..b52a8dc28f97 100644
+--- a/drivers/gpu/drm/xe/Kconfig
++++ b/drivers/gpu/drm/xe/Kconfig
+@@ -11,6 +11,7 @@ config DRM_XE
+ 	# the shmem_readpage() which depends upon tmpfs
+ 	select SHMEM
+ 	select TMPFS
++	select CONFIGFS_FS
+ 	select DRM_BUDDY
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_KMS_HELPER
+diff --git a/drivers/gpu/drm/xe/xe_configfs.h b/drivers/gpu/drm/xe/xe_configfs.h
+index 327b648944ff..d726800de26a 100644
+--- a/drivers/gpu/drm/xe/xe_configfs.h
++++ b/drivers/gpu/drm/xe/xe_configfs.h
+@@ -14,7 +14,6 @@
+ 
+ struct pci_dev;
+ 
+-#if IS_REACHABLE(CONFIG_CONFIGFS_FS)
+ int xe_configfs_init(void);
+ void xe_configfs_exit(void);
+ void xe_configfs_check_device(struct pci_dev *pdev);
+@@ -36,34 +35,5 @@ u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+ unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev);
+ bool xe_configfs_admin_only_pf(struct pci_dev *pdev);
+ #endif
+-#else
+-static inline int xe_configfs_init(void) { return 0; }
+-static inline void xe_configfs_exit(void) { }
+-static inline void xe_configfs_check_device(struct pci_dev *pdev) { }
+-static inline bool xe_configfs_get_survivability_mode(struct pci_dev *pdev) { return false; }
+-static inline bool xe_configfs_primary_gt_allowed(struct pci_dev *pdev) { return true; }
+-static inline bool xe_configfs_media_gt_allowed(struct pci_dev *pdev) { return true; }
+-static inline u64 xe_configfs_get_engines_allowed(struct pci_dev *pdev) { return U64_MAX; }
+-static inline bool xe_configfs_get_psmi_enabled(struct pci_dev *pdev) { return false; }
+-static inline bool xe_configfs_get_enable_multi_queue(struct pci_dev *pdev) { return true; }
+-static inline u32 xe_configfs_get_migrate_ulls_period_ms(struct pci_dev *pdev) { return 5; }
+-static inline bool xe_configfs_get_disable_vram_page_offline(struct pci_dev *pdev) { return false; }
+-static inline u32 xe_configfs_get_ctx_restore_mid_bb(struct pci_dev *pdev,
+-						     enum xe_engine_class class,
+-						     const u32 **cs) { return 0; }
+-static inline u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+-						      enum xe_engine_class class,
+-						      const u32 **cs) { return 0; }
+-#ifdef CONFIG_PCI_IOV
+-static inline unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev)
+-{
+-	return xe_modparam.max_vfs;
+-}
+-static inline bool xe_configfs_admin_only_pf(struct pci_dev *pdev)
+-{
+-	return XE_DEFAULT_ADMIN_ONLY_PF;
+-}
+-#endif
+-#endif
+ 
+ #endif
+-- 
+2.53.0
 
-However, during ivpu_dev_init() -> ivpu_fw_init() -> ivpu_fw_parse() ->
-ivpu_preemption_config_parse(), if secondary_preempt_buf_size is 0, checking
-secondary_preempt_buf_size < FW_PREEMPT_BUF_MIN_SIZE (where
-FW_PREEMPT_BUF_MIN_SIZE is SZ_4K) evaluates to true and returns before
-reaching:
-
-	vdev->fw->primary_preempt_buf_size =3D ALIGN(primary_preempt_buf_size, PAG=
-E_SIZE);
-	vdev->fw->secondary_preempt_buf_size =3D ALIGN(secondary_preempt_buf_size,=
- PAGE_SIZE);
-
-For firmware that relies on the image header sizes
-(boot_params->preemption_buffer_size =3D=3D 0) with
-preemption_buffer_1_max_size > 0 and preemption_buffer_2_max_size =3D=3D 0,
-vdev->fw->primary_preempt_buf_size remains 0, ivpu_fw_postboot_init() warns
-that hardware scheduling has no preemption buffer, and
-ivpu_preemption_buffers_create() skips allocating the primary preemption
-buffer.
-
-In addition, on newer firmware where the deprecated image header preemption
-buffer fields are zeroed in favor of boot_params->preemption_buffer_size,
-won't ivpu_preemption_config_parse() also emit a false-positive warning on
-every probe before the boot params are read in ivpu_fw_postboot_init()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026093020.2282=
-33-1-andrzej.kacprowski@linux.intel.com?part=3D1
