@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FB5606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 19:24:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55E6606A31D
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 19:29:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQFcYCJa
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XyONEJhz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0945910E05A;
-	Mon, 26 Oct 2026 19:24:20 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34EAB10E05A
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 19:24:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF3A10E398;
+	Mon, 26 Oct 2026 19:29:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30BB710E398
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 19:29:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5E238601EF;
- Mon, 26 Oct 2026 19:24:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0421F01828;
- Mon, 26 Oct 2026 19:24:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E6952403F0;
+ Mon, 26 Oct 2026 19:29:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEECB1F01825;
+ Mon, 26 Oct 2026 19:29:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793042652;
- bh=MYsX7CE4CECx1LdUuB5DRh+KbNBKFqgTouF5svnDZyQ=;
+ s=k20260515; t=1793042963;
+ bh=y9pqkVqBLHTAFE1kT38MetMXgHPlXzJ9k4cGnQNqIIE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hQFcYCJaVRlNitzs0ubqQchOznqRIP6Qq7KNdz78YKeW0929BF1d0eAMZqwQbhmLd
- avmPrdECtnFO1beDCyVEjargv7SSjzR9l8R65MugWxT+pM9Z50rwsFGP6UlyUGr4kx
- ioO4w7oeOZ+lNEw5lEJBe0gm3OnV6LiBr2Qre7Qv471Ncb9rmNPzDhpl2Ysp7Fgglj
- RHkS8O9AJQVRnuDqIucHxuqqdPIyOIn5CCxwtbqlRhQO4CmTTo8M+yjE6HFT2PXxhx
- USxK4GTx515/H8PP3QM7jW3KSuhwxeHSm0Mni7+QpWWn8QuSQwhjm3ESKz0MxbLyNg
- oywM7Y3njry+A==
-Message-ID: <sashiko-outbox-185667@kernel.org>
+ b=XyONEJhza4yI7/X5WVxO9rvhF9mKBu6F783RdKNp9qfbLC6CjPUuYLRfrI/+HdmC3
+ IeZ0n5yVk3GszJUp99Hesnk7pEzX97xqF6/OWiDFqcOjO68Hs4ywmft5lkti+QTOYK
+ 8VM6/FgVWgxMzB/NJ+umu6qxonWbEBaybaFYTKuOyDhxCqyQxZgFWc4BNz9RkUdqQ+
+ iHEJAxx/KG7h+CN4w6ohao+xKEgJmnWLyTd2AaMSo6DGsoxyWkpMSd6InzX2TkCsb2
+ jjzL/fDsKdwg2KFMW6QnDEMlGixWRVNHH5uzE1+uc0C/fb+t75ygOJcKXssK58xNz9
+ iacCqKnSS1kMg==
+Message-ID: <sashiko-outbox-185674@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/8] drm/msm/dpu: use cached PINGPONGs from mode set in
- cwb setup
+Subject: Re: [PATCH 2/8] drm/msm/dpu: save LMs in encoder mode_set for
+ cleanup use later
 To: "Xi Zhang" <xz.ca.cn@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261026-msm-dpu-res-clean-v1-5-f46130a8a717@gmail.com>
+In-Reply-To: <20261026-msm-dpu-res-clean-v1-2-f46130a8a717@gmail.com>
 References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
- <20261026-msm-dpu-res-clean-v1-5-f46130a8a717@gmail.com>
+ <20261026-msm-dpu-res-clean-v1-2-f46130a8a717@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 19:24:11 +0000
+Date: Mon, 26 Oct 2026 19:29:23 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,148 +61,130 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/msm/dpu: wrong pingpong index in dpu_encoder_helper_phys_setup=
-_cwb()
+- [Medium] drm/msm/dpu: incomplete blendstage reset in dpu_encoder_helper_r=
+eset_mixers()
 --
 
-commit 43be42587de24c595bae6d488f5806f627560896
+commit d3a43e897b19cb72f6d34115067a2c68f2bef217
 Author: Xi Zhang <xz.ca.cn@gmail.com>
 
-drm/msm/dpu: use cached PINGPONGs from mode set in cwb setup
+drm/msm/dpu: save LMs in encoder mode_set for cleanup use later
 
-This commit replaces the global state lookup of DPU_HW_BLK_PINGPONG blocks =
-in
-dpu_encoder_helper_phys_setup_cwb() with the cached dpu_enc->hw_pp array fr=
-om
-dpu_encoder_virt_atomic_mode_set().
+This commit caches layer mixers in dpu_encoder_virt during atomic_mode_set =
+so
+that dpu_encoder_helper_reset_mixers() cleans up the previously assigned
+mixers rather than querying the post-swap global state. It also removes the
+ctl->ops.setup_blendstage() call from dpu_encoder_helper_reset_mixers().
 
 > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/dr=
 m/msm/disp/dpu1/dpu_encoder.c
-> index 7d092398fc991..f1d2482b787b0 100644
+> index 8d2b4d2726f27..09afc0681248f 100644
 > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
 > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -2363,11 +2363,6 @@ void dpu_encoder_helper_phys_setup_cwb(struct dpu_=
-encoder_phys *phys_enc,
->  	struct dpu_hw_ctl *hw_ctl;
->  	struct dpu_hw_cwb_setup_cfg cwb_cfg;
+
+[ ... ]
+
+> @@ -2183,42 +2194,34 @@ void dpu_encoder_kickoff(struct drm_encoder *drm_=
+enc)
 > =20
-> -	struct dpu_kms *dpu_kms;
+>  static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phy=
+s_enc)
+>  {
+> -	int i, num_lm;
 > -	struct dpu_global_state *global_state;
-> -	struct dpu_hw_blk *rt_pp_list[MAX_CHANNELS_PER_ENC];
-> -	int num_pp;
+> -	struct dpu_hw_blk *hw_lm[2];
+> -	struct dpu_hw_mixer *hw_mixer[2];
+> +	int i;
+>  	struct dpu_hw_ctl *ctl =3D phys_enc->hw_ctl;
+> +	struct dpu_encoder_virt *dpu_enc =3D to_dpu_encoder_virt(phys_enc->pare=
+nt);
+> =20
+>  	/* reset all mixers for this encoder */
+>  	if (ctl->ops.clear_all_blendstages)
+>  		ctl->ops.clear_all_blendstages(ctl);
+> =20
+> -	global_state =3D dpu_kms_get_existing_global_state(phys_enc->dpu_kms);
+> +	for (i =3D 0; i < ARRAY_SIZE(dpu_enc->hw_mixer); i++) {
+> +		if (dpu_enc->hw_mixer[i]) {
+> +			if (ctl->ops.update_pending_flush_mixer)
+> +				ctl->ops.update_pending_flush_mixer(ctl, dpu_enc->hw_mixer[i]->idx);
+> =20
+> -	num_lm =3D dpu_rm_get_assigned_resources(&phys_enc->dpu_kms->rm, global=
+_state,
+> -		phys_enc->parent->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
 > -
->  	if (!phys_enc->hw_wb)
->  		return;
-> =20
-> @@ -2379,33 +2374,20 @@ void dpu_encoder_helper_phys_setup_cwb(struct dpu=
-_encoder_phys *phys_enc,
->  		return;
->  	}
-> =20
-> -	dpu_kms =3D phys_enc->dpu_kms;
-> -	global_state =3D dpu_kms_get_existing_global_state(dpu_kms);
-> -	num_pp =3D dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-> -					       phys_enc->parent->crtc,
-> -					       DPU_HW_BLK_PINGPONG, rt_pp_list,
-> -					       ARRAY_SIZE(rt_pp_list));
+> -	for (i =3D 0; i < num_lm; i++) {
+> -		hw_mixer[i] =3D to_dpu_hw_mixer(hw_lm[i]);
+> -		if (ctl->ops.update_pending_flush_mixer)
+> -			ctl->ops.update_pending_flush_mixer(ctl, hw_mixer[i]->idx);
 > -
-> -	if (num_pp =3D=3D 0 || num_pp > MAX_CHANNELS_PER_ENC) {
-> -		DPU_DEBUG_ENC(dpu_enc, "invalid num_pp %d\n", num_pp);
-> -		return;
-> -	}
+> -		/* clear all blendstages */
+> -		if (ctl->ops.setup_blendstage)
+> -			ctl->ops.setup_blendstage(ctl, hw_mixer[i]->idx, NULL);
 > -
->  	/*
->  	 * The CWB mux supports using LM or DSPP as tap points. For now,
->  	 * always use LM tap point
->  	 */
->  	cwb_cfg.input =3D INPUT_MODE_LM_OUT;
-> =20
-> -	for (int i =3D 0; i < MAX_CWB_PER_ENC; i++) {
-> +	for (int i =3D 0; i < ARRAY_SIZE(dpu_enc->hw_cwb); i++) {
->  		hw_cwb =3D dpu_enc->hw_cwb[i];
->  		if (!hw_cwb)
->  			continue;
-> =20
->  		if (enable) {
-> -			struct dpu_hw_pingpong *hw_pp =3D
-> -					to_dpu_hw_pingpong(rt_pp_list[i]);
-> -			cwb_cfg.pp_idx =3D hw_pp->idx;
-> +			cwb_cfg.pp_idx =3D i < ARRAY_SIZE(dpu_enc->hw_pp) && dpu_enc->hw_pp[i=
-] ?
-> +					dpu_enc->hw_pp[i]->idx : PINGPONG_NONE;
+> -		if (hw_mixer[i]->ops.clear_all_blendstages)
+> -			hw_mixer[i]->ops.clear_all_blendstages(hw_mixer[i]);
+> +			/* clear all blendstages */
+> +			if (dpu_enc->hw_mixer[i]->ops.clear_all_blendstages)
+> +				dpu_enc->hw_mixer[i]->ops.clear_all_blendstages(
+> +					dpu_enc->hw_mixer[i]);
+> +		}
+> +	}
 
-[Severity: High]
-Does using dpu_enc->hw_pp[i]->idx here pass the dedicated CWB pingpong index
-(PINGPONG_CWB_*) instead of the real-time display's pingpong index into
-cwb_cfg.pp_idx?
+[Severity: Medium]
+Does ctl->ops.clear_all_blendstages() completely cover what
+ctl->ops.setup_blendstage(ctl, hw_mixer[i]->idx, NULL) was doing here?
 
-dpu_encoder_helper_phys_setup_cwb() only configures CWB blocks when called =
-on
-a writeback encoder where dpu_enc->hw_cwb[i] is populated. In
-dpu_encoder_virt_atomic_mode_set(), whenever dpu_enc->hw_cwb is populated
-(is_cwb_encoder is true), dpu_enc->hw_pp is populated with
-DPU_HW_BLK_DCWB_PINGPONG rather than DPU_HW_BLK_PINGPONG:
+When dpu_encoder_virt_atomic_disable() -> dpu_encoder_helper_phys_cleanup()=
+ ->
+dpu_encoder_helper_reset_mixers() runs on DPU hardware with core_major_ver =
+< 12,
+ctl->ops.clear_all_blendstages invokes dpu_hw_ctl_clear_all_blendstages() in
+drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c:
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:dpu_encoder_virt_atomic_mode_se=
-t() {
-	...
-	if (is_cwb_encoder) {
-		num_pp =3D dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-						       drm_enc->crtc,
-						       DPU_HW_BLK_DCWB_PINGPONG,
-						       hw_pp, ARRAY_SIZE(hw_pp));
-		num_cwb =3D dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-						       drm_enc->crtc,
-						       DPU_HW_BLK_CWB,
-						       hw_cwb, ARRAY_SIZE(hw_cwb));
-	} else {
-		num_pp =3D dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
-						       drm_enc->crtc,
-						       DPU_HW_BLK_PINGPONG, hw_pp,
-						       ARRAY_SIZE(hw_pp));
+static void dpu_hw_ctl_clear_all_blendstages(struct dpu_hw_ctl *ctx)
+{
+	struct dpu_hw_blk_reg_map *c =3D &ctx->hw;
+	int i;
+
+	for (i =3D 0; i < ctx->mixer_count; i++) {
+		enum dpu_lm mixer_id =3D ctx->mixer_hw_caps[i].id;
+
+		DPU_REG_WRITE(c, CTL_LAYER(mixer_id), 0);
+		DPU_REG_WRITE(c, CTL_LAYER_EXT(mixer_id), 0);
+		DPU_REG_WRITE(c, CTL_LAYER_EXT2(mixer_id), 0);
+		DPU_REG_WRITE(c, CTL_LAYER_EXT3(mixer_id), 0);
 	}
-	...
+
+	DPU_REG_WRITE(c, CTL_FETCH_PIPE_ACTIVE, 0);
 }
 
-In dpu_rm_get_assigned_resources(), DPU_HW_BLK_PINGPONG and
-DPU_HW_BLK_DCWB_PINGPONG return mutually exclusive sets of pingpong blocks:
+By contrast, dpu_hw_ctl_setup_blendstage() with stage_cfg =3D=3D NULL did:
 
-drivers/gpu/drm/msm/disp/dpu1/dpu_rm.c:dpu_rm_get_assigned_resources() {
-	...
-		if (type =3D=3D DPU_HW_BLK_PINGPONG) {
-			struct dpu_hw_pingpong *pp =3D to_dpu_hw_pingpong(hw_blks[i]);
+	mixercfg[0] =3D CTL_MIXER_BORDER_OUT; /* always set BORDER_OUT */
 
-			if (pp->idx >=3D PINGPONG_CWB_0)
-				continue;
-		}
+	if (!stage_cfg)
+		goto exit;
+...
+exit:
+	DPU_REG_WRITE(c, CTL_LAYER(lm), mixercfg[0]);
+	DPU_REG_WRITE(c, CTL_LAYER_EXT(lm), mixercfg[1]);
+	DPU_REG_WRITE(c, CTL_LAYER_EXT2(lm), mixercfg[2]);
+	DPU_REG_WRITE(c, CTL_LAYER_EXT3(lm), mixercfg[3]);
+	if (ctx->mdss_ver->core_major_ver >=3D 9)
+		DPU_REG_WRITE(c, CTL_LAYER_EXT4(lm), mixercfg[4]);
 
-		if (type =3D=3D DPU_HW_BLK_DCWB_PINGPONG) {
-			struct dpu_hw_pingpong *pp =3D to_dpu_hw_pingpong(hw_blks[i]);
+Without ctl->ops.setup_blendstage(), on DPU v9.x through v11.x platforms
+CTL_LAYER_EXT4(lm) is never cleared during mixer reset (leaving any staged
+SSPP_DMA4 or SSPP_DMA5 bits set), and on DPU < v5 (where
+ctl->ops.reset_intf_cfg is not implemented) CTL_LAYER(lm) is left as 0
+instead of having CTL_MIXER_BORDER_OUT set.
 
-			if (pp->idx < PINGPONG_CWB_0)
-				continue;
-		}
-	...
-}
-
-However, dpu_hw_cwb_config() expects the real-time display's pingpong index
-when programming the CWB_MUX register:
-
-drivers/gpu/drm/msm/disp/dpu1/dpu_hw_cwb.c:dpu_hw_cwb_config() {
-	...
-	/*
-	 * The CWB_MUX register takes the pingpong index for the real-time
-	 * display
-	 */
-	if ((pp !=3D PINGPONG_NONE) && (pp < PINGPONG_MAX))
-		cwb_mux_cfg =3D FIELD_PREP(CWB_MUX_MASK, pp - PINGPONG_0);
-	...
-}
-
-By replacing the DPU_HW_BLK_PINGPONG lookup with dpu_enc->hw_pp[i]->idx on
-the CWB writeback encoder, won't this program CWB_MUX with the dedicated CWB
-pingpong block index instead of the real-time display's pingpong index?
+Should dpu_hw_ctl_clear_all_blendstages() be updated to also clear
+CTL_LAYER_EXT4(mixer_id) on core_major_ver >=3D 9 (and preserve
+CTL_MIXER_BORDER_OUT if needed), or should the setup_blendstage() call be
+kept?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-msm-dpu-re=
-s-clean-v1-0-f46130a8a717@gmail.com?part=3D5
+s-clean-v1-0-f46130a8a717@gmail.com?part=3D2
