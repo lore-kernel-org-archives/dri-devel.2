@@ -2,72 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41541606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:51:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A20606A31D
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:56:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kK6KAtcp
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CtpywzzI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A240910E09D;
-	Mon, 26 Oct 2026 07:51:45 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04F8A10E263
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 07:51:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C63A610E263;
+	Mon, 26 Oct 2026 07:56:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8516C10E263;
+ Mon, 26 Oct 2026 07:56:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 545E6600CB;
- Mon, 26 Oct 2026 07:51:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF581F01825;
- Mon, 26 Oct 2026 07:51:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2A15B42E67;
+ Mon, 26 Oct 2026 07:56:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5C21F01825;
+ Mon, 26 Oct 2026 07:56:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793001098;
- bh=ReopTLtwQNEVhs7qRFvgKJ+ZmFHz1cCFpaMGBdlN7ds=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=kK6KAtcpcJVtoleORKRGvQMTbkBoXD6YMNGx/enpf+xC5rMP/oswCcruMBvWnxCVb
- 09gboOOnQYNlQgt4cSaAZhBLWhfSVpuNq9NzxvM0UiWrLykPMgkZPt+rVdFngQChet
- cV0Wke/cdj5gDrWaPCG5jsaMbR/kST2oO+jDHGfyGfHFtAS0qwhf3RJtK6HALcr9aq
- ffYblwaIm+2djIWwu9R9qj0k6vBwfJwFEKXmIclifXTkCFxZPAPMTfd0MP6hxBeXaI
- j0u9OEX5daFxBICOSYnIHtKIpT8MqxcUSPM4g5i5JKcxORGxBxEx/nLOXtru05DHFm
- Yt9lksUulWEkg==
-Date: Mon, 26 Oct 2026 08:51:34 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Tomeu Vizoso <tomeu.vizoso@gmail.com>
-Cc: Nishanth Menon <nm@ti.com>, "Andrew F. Davis" <afd@ti.com>, 
- Randolph Sapp <rs@ti.com>, Jonathan Humphreys <j-humphreys@ti.com>, 
- Andrei Aldea <a-aldea@ti.com>, Chirag Shilwant <c-shilwant@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
- Tero Kristo <kristo@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Robert Nelson <robertcnelson@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Markus Elfring <Markus.Elfring@web.de>, 
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Suman Anna <s-anna@ti.com>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, linux-remoteproc@vger.kernel.org, 
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 03/16] dt-bindings: remoteproc: k3-dsp: Allow
- referencing the timers' power domains
-Message-ID: <20261026-encouraging-musical-piculet-debfeb@quoll>
-References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
- <20261023-thames-v3-3-3ab40aa17157@tomeuvizoso.net>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+ s=k20260515; t=1793001396;
+ bh=PLLNAbC16tf/SLz/VX6ZhbHix+lJmPrbLiK0sto1u0k=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CtpywzzIPNYVwDu8PKnrCp3ovNqCpIom0N0pt8llwEr6X+qPy2zI3QWR5Yhfil7/7
+ qEApxf20xRVoDnUqg69/BIPn2f5f3xD2yTV3GeCSsbIYwJRDVAoE+VmNDEy+UH4jMd
+ 0ujmp/ttEao4dYGN0cxHI3zI9l2/FyBQ2lnJixVCLcsaI5g4VUmtrRu2Xp1VEB/CWr
+ oxI6yPjZ+1uNbiZi+QOJHF3WCsZED5TGgMdFHDcazZjKfruItQeBahhxxJpVlzIace
+ e61GzRpp8bTXOozCNrlQ+hayv60cgFTWe1UuZ10kyj+CMJh5jCvIehigIh/7BHRrLC
+ A4ZtFHkspuA+g==
+Message-ID: <sashiko-outbox-184667@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 07/26] dma-buf: Add dma_buf_mapping_map() returning a
+ type-tagged mapping
+To: "Alistair Popple" <apopple@nvidia.com>, dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ media-ci@linuxtv.org
+In-Reply-To: <20261026053623.202642-8-apopple@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-8-apopple@nvidia.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261023-thames-v3-3-3ab40aa17157@tomeuvizoso.net>
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 07:56:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,59 +50,152 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri, Oct 23, 2026 at 08:39:28AM +0200, Tomeu Vizoso wrote:
-> A firmware may drive the core's timers, which need their power domains
-> held; the remoteproc driver does not hold them, so let the DSP node
-> reference them for a driver that attaches to the running core to hold.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-> 
-> ---
-> 
-> v3:
-> - Initial version
-> ---
->  .../devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> index d6319c8e96f8..80eaef0a19b8 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> @@ -76,6 +76,23 @@ properties:
->  # Optional properties:
->  # --------------------
->  
-> +  power-domains:
-> +    description: |
-> +      Power domains of the SoC timers the running firmware ticks on and
-> +      times its work out with. The firmware programs these timers itself
-> +      and makes no power request for them, and the timers' own nodes are
-> +      reserved for it, so nothing else requests their power; a client
-> +      driver of the firmware holds them on while it drives the processor.
-> +      The processor's own power is managed through ti,sci-dev-id, not here.
-> +    items:
-> +      - description: power domain of the first timer
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dma-buf: do not clear prior attach->selected on error in dma_buf=
+_mapping_map()
+--
 
-first timer
+commit 03dc2c734a4965633dec9f21493634bacf3d9de7
+Author: Alistair Popple <apopple@nvidia.com>
 
-> +      - description: power domain of the second timer
+dma-buf: Add dma_buf_mapping_map() returning a type-tagged mapping
 
-second timer
+This commit introduces dma_buf_mapping_map() and dma_buf_mapping_unmap() so
+importers supporting multiple mapping types can let the exporter select the
+mapping type at map time and receive a type-tagged struct dma_buf_mapping. =
+It
+also wires up the SGT mapping type to these new operations via struct
+dma_buf_sgt_mapping and dma_buf_sgt_mapping_table().
 
-No need to say that power domain is a power domain.
+> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-=
+mapping.c
+> index dbcd83b6dcff7..7a5a379a372e7 100644
+> --- a/drivers/dma-buf/dma-buf-mapping.c
+> +++ b/drivers/dma-buf/dma-buf-mapping.c
+> @@ -366,6 +366,79 @@ int dma_buf_mapping_select(struct dma_buf_attachment=
+ *attach)
+>  	return 0;
+>  }
+> =20
+> +/**
+> + * dma_buf_mapping_map - Map an attachment with whichever type the expor=
+ter
+> + *                       selects
+> + * @attach: the attachment
+> + * @dir: DMA direction
+> + *
+> + * For importers that listed more than one mapping type. The exporter pi=
+cks the
+> + * type from the possible matches and the result's &dma_buf_mapping.type=
+ records
+> + * which was used. Must be called with the dma_resv lock held, and the l=
+ock must
+> + * be held until the result has been acted on. Importers that listed a s=
+ingle
+> + * type keep using that type's map function.
+> + *
+> + * Returns: a &struct dma_buf_mapping to pass to dma_buf_mapping_unmap()=
+, or
+> + * an ERR_PTR.
+> + */
+> +struct dma_buf_mapping *dma_buf_mapping_map(struct dma_buf_attachment *a=
+ttach,
+> +					    enum dma_data_direction dir)
+> +{
+> +	struct dma_buf_mapping *mapping;
+> +	int ret;
+> +
+> +	might_sleep();
+> +
+> +	if (WARN_ON(!attach || !attach->dmabuf))
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	dma_resv_assert_held(attach->dmabuf->resv);
+> +
+> +	ret =3D dma_buf_mapping_select(attach);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	if (!attach->map_type.type->map) {
+> +		ret =3D -EOPNOTSUPP;
+> +		goto err_release;
+> +	}
+> +
+> +	mapping =3D attach->map_type.type->map(attach, dir);
+> +	if (IS_ERR(mapping)) {
+> +		ret =3D PTR_ERR(mapping);
+> +		goto err_release;
+> +	}
+> +
+> +	return mapping;
+> +
+> +err_release:
+> +	/* Nothing was established, so the choice may be made afresh */
+> +	attach->selected =3D false;
+> +	return ERR_PTR(ret);
+> +}
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+[Severity: Medium]
+Can jumping to err_release in dma_buf_mapping_map() corrupt an already
+established selection state on attach?
 
-Best regards,
-Krzysztof
+If attach->selected is already true when dma_buf_mapping_map() is entered
+(for instance, after dma_buf_pin(), after a prior map/unmap cycle without an
+intervening dma_buf_invalidate_mappings(), or while another mapping on the
+same attachment is still active), dma_buf_mapping_select() returns 0 without
+making a new choice:
 
+drivers/dma-buf/dma-buf-mapping.c:dma_buf_mapping_select() {
+	if (attach->selected)
+		return 0;
+	...
+	attach->map_type =3D *match;
+	attach->selected =3D true;
+	return 0;
+}
+
+If the subsequent map operation fails (such as kzalloc_obj() returning NULL
+in dma_buf_sgt_type_map(), or sgt_exp_ops->map_dma_buf() failing in
+__dma_buf_sgt_map_attachment()), err_release unconditionally sets
+attach->selected =3D false.
+
+A later call to dma_buf_mapping_select() can then invoke
+dmabuf->ops->select_mapping(attach) again and overwrite attach->map_type
+while the buffer is still pinned or has an active mapping. If an earlier SGT
+mapping is still active and attach->map_type is changed to a non-SGT type,
+unmapping that earlier mapping via:
+
+dma_buf_mapping_unmap()
+  -> dma_buf_sgt_type_unmap()
+    -> dma_buf_unmap_attachment()
+
+will find dma_buf_get_sgt_ops(attach) =3D=3D NULL, trigger WARN_ON(!sgt_exp=
+_ops),
+and return early without unmapping or freeing mapping->sgt.
+
+Additionally, when attach->selected was false on entry and
+dma_buf_mapping_select() picked a match other than attach->matches[0],
+clearing attach->selected on error leaves attach->map_type overwritten rath=
+er
+than restored to attach->matches[0].
+
+Should dma_buf_mapping_map() remember whether attach->selected was already
+true before calling dma_buf_mapping_select(), and only reset attach->select=
+ed
+(and restore attach->map_type) if this call actually performed the selectio=
+n?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026053623.2026=
+42-1-apopple@nvidia.com?part=3D7
