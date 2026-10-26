@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 268D8606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 16:41:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B4E606A31D
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 16:41:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4AwGPZ3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W1Zaz9rO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 522B810F026;
-	Mon, 26 Oct 2026 16:41:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8082C10F021;
+	Mon, 26 Oct 2026 16:41:50 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CF5A10F040
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:41:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E619210F049
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:41:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0F2F140C16;
- Mon, 26 Oct 2026 16:41:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 506234477F;
+ Mon, 26 Oct 2026 16:41:17 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793032875;
- b=hKcNThT+VeJ5HHRKNUn4OjPO36nlCLnXWk7tSi2ybcIu5FPx/HuhuwoGiMUarv+7XyfE
- enc7k2nK5swamxUNTyNhByIAU2y117FmbDvHeQ3y/5BqYIwdz1a6mVyvEkdg1+74brQua
- 9Am6FHGDK4ikxnVQyJhWQ819BKDCFAhyypfLnmMg348knUmmE/ERgbPRbDi2pCSt8nn1Y
- 1MfArNePATO0yJvDa9FrHmkSQuqXyCPNpy/e+gOWJ+StYFIsXIR/ra7s3cSPvnjlKQ08f
- 4LwONVwto6qriJy5i9IfVX1F6CfuXP2t1iy1KbA1l+cybOZj9ZV2cB67UuaoimytzYw==
+ t=1793032877;
+ b=XkW19BUAyn/w4U0XUOI64/3bOBbhgsCok9/7/7jJV/xD4ywtYq8Qxjv5SXedl+lnE/AE
+ Fl/f6o0pPrdhj2PRJRsxKP2vr8E0pRfbX2lPEv8DRVbPFu5PHaPx1fsbumTY+sC0Rzhhx
+ furMamzqZvv3DyMy7PAFqjxV8s0xmJz4foYPiC5MjcX1nytJNm5lELLPHuxoF9zHujsKt
+ 2w5NB1IDvt7iIsl08Xlpf1fy+Rt9vNR2dLVzJA9f2linHiesfuNR2yaelsdiuHM4pwBvG
+ OGqOAnbzg3gzacMQUKK8J/FVwcrxwmsCCpGiV1xKrSWvmgYmXC+yThBKCax2AqixBSw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793032875;
+ c=relaxed/relaxed; t=1793032877;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
  X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To;
- bh=ysKNZ1fLk05dgw7IfewdnzuzrTzPYh3xPW1z8eBNmAc=;
- b=rvRxNXAP76GbQGv0V76Wj16hekLfviBvFqpIb5HAe3EU7ROdjXbk+j2qocmAvnlhE1Hp
- 20tWAb3hF/YlZYrDQIyaivVvx8jicM1uZ2d39qy/xe93ONY7sO0TVgIMrMlgbeFCD+dxu
- v3IlGkOMiLFP4FI14+J4+Lal/Ys8ok6LksZj/iFfglkjddIMTSzhMebc+DLttmEOOGUG8
- qytd2/atTSkTw2OMiw8lmxV4+GBGrf6DbVJ4Eg6YBLPyaJ+KTxpZLlUq5dlZS0GMVHLqJ
- FM0NfEIkHhTiAiJxq4k10pgo631XnoeeuBdi75eefTapELKEvrp8Vybd/Kz5Qf2SLcw==
+ bh=KZCokNbzURQ1V4lsTcBSivofKrCBXHO45x1JwJ3Vxz4=;
+ b=HXsVGLJ8TSFSlUx7h0A3ivCfenEHzM27Z5SQ2F+dYyzcQ17qW6y0lGk2AMUguzTdsynh
+ xsOcWT2c+Q69nAnaKeoKQAN7vGmdVo1bOTETdv1EJvkV9drhCsbvJc4m25Ni4+m0LkJXz
+ MOjVVA7mO5jXVXyf1ANbnr1iNz8UESM9+6OZbh80NId6yLfEZ+xqgsAbFFC2LChFcm/Q6
+ YKp7XPJ0hvJDS2wALJzMBkBFchIkTmnz/stCyZcso+gJFTY1ZIXWxOaMuv8TI96kFtvnC
+ cSIfT47Inp1sLpKDMo6tPuqLTt5UxnfqBEaUYoMSG+OLXrXmRYSEXw/BJO4gWPZ5JaQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 0972B1F031E2;
+ by smtp.kernel.org (Postfix) with ESMTPS id 836081F031E3;
  Mon, 26 Oct 2026 16:41:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793032875;
- bh=ysKNZ1fLk05dgw7IfewdnzuzrTzPYh3xPW1z8eBNmAc=;
+ s=k20260515; t=1793032877;
+ bh=KZCokNbzURQ1V4lsTcBSivofKrCBXHO45x1JwJ3Vxz4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=O4AwGPZ3GGIllYL3b5SiV7GRf/E11fHDEhsKVRL/XVJsQRljdNc4R5Ip6UWNR51PJ
- SGayfKkv1zRAhz6OaGd7Ov1u2fMkN3xdFmhbO+4jtx4b40muLgiziCz/U+UtEUH0Hk
- 8ERhtii9/F8pfe/4FXI3c8Miqhk5fsqDJwg5Vy8NO7kyPvECTOx678hggQc6qQjoeG
- 5UkOJoaNXmB+ypyTjUmgRZ2kpgph93+zYSJ9UrbOY6ECeVM4Bx+TwfYchmvTSK7HbY
- 9qZqfUAjnJ0fCWvFY9u+LIsA8UNNWAxf6CeGZnAzMi5ymMYNHrS/yF+KgP/7J6iaWq
- VDirAmk3LeWBA==
+ b=W1Zaz9rOrd0C6qc7SDghAKSw6pjbSDCwwVPfknBh8AynV+cs4U9g+v24eSLZverUn
+ EPYwvFtdGUddfwtIq8hTNpXSDy5WeoQy6+OMbv5JJzqoMPslTDSXda/cgnfsWWVNWc
+ 4pd1roQe9soAOOJkx1XwAr2KrQgR4E0SicNNAvsX9hNvegKiAQcYcQ0r1xVbpa4R/F
+ DWuu8m2w8/kEyKXDWqxqIQamfcFIJlId+lUCGVW9Oo/JJ76Xh1/84tXPC4bnRhXp/T
+ PdMuc5rZOUKJJOZq+bGqNKk+3zhgI7CKREkHHFBDNDwspvnqp4AeZr6ohVboKL4+Hd
+ KbyaNZONaqt5w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 774AF44DD5;
+ by lkml.kernel.org (Postfix) with ESMTP id 8C7B444DDD;
  Mon, 26 Oct 2026 16:41:12 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 27 Oct 2026 00:40:58 +0800
-Subject: [PATCH v5 05/11] drm/tyr: add user and MCU VM specifications
+Date: Tue, 27 Oct 2026 00:41:00 +0800
+Subject: [PATCH v5 07/11] drm/tyr: add VM-related ioctls
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-tyr-ioctls-v5-5-59dfe98cb003@kylinos.cn>
+Message-Id: <20261027-tyr-ioctls-v5-7-59dfe98cb003@kylinos.cn>
 References: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
 In-Reply-To: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -84,11 +84,11 @@ Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev, 
  Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793032870; l=10738;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793032870; l=20879;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=5olk0wPkluu5YrzX/YLAGBRncbBGNyGmwbWvc52l7lc=;
- b=HCfAzgOxz+WFiH6lasSIiQDCIefcZdzFCV27nBSS8inkBVnBjH0mZc5ri89ZwzamZNViA4Goe
- q/llvYbDStuDovJmo6J2FwdbOQ0OkI0Z3DjFPDyHaFdpCIrrSk8NBJN
+ bh=wO5ByhX8MEBBvyXJMM6yY0YJ8J/TfwmhgC1RrfQn9vk=;
+ b=pofd/TNwUdTHWY2S5PHVvCjEbsQPcQW0VY6NtQvmnpMX79Fg0Evnl6zQQKcCUs87W4l2Y8NKM
+ FN1u+rnKd+2CMHbjw8ptFDfZW8sn9iAKcN6JsRi/pyeSBcMF2wOeQ/l
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
@@ -115,313 +115,613 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Alvin Sun <alvin.sun@linux.dev>
 
-The MCU and user VMs need different VA layouts. Give each a dedicated
-constructor: new_for_fw() builds the kernel-only 4G layout, while
-new_for_user() splits the address space by task_size or a user-provided
-size, rejecting oversized requests rather than clamping. The resulting
-user range is what VM_CREATE reports back as user_va_range.
+Implement VM_CREATE, VM_DESTROY, VM_BIND and VM_GET_STATE. VM_CREATE
+hands the new VM to the per-file pool and, on insertion failure, the
+caller tears it down, so an aborted creation never leaks a VM.
+VM_DESTROY removes the VM from the pool and kills it, even if in-flight
+jobs still hold references (matching panthor: such jobs are expected
+to fault). VM_BIND runs synchronously for now.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/gpu/drm/tyr/fw.rs |  19 +++---
- drivers/gpu/drm/tyr/vm.rs | 157 +++++++++++++++++++++++++++++++++++++++++-----
- 2 files changed, 151 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/tyr/driver.rs |  12 +-
+ drivers/gpu/drm/tyr/file.rs   | 320 ++++++++++++++++++++++++++++++++++++++++--
+ drivers/gpu/drm/tyr/gem.rs    |   1 -
+ drivers/gpu/drm/tyr/vm.rs     |  69 +++++++--
+ 4 files changed, 381 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-index aea151ff1f934..81e8103368bc2 100644
---- a/drivers/gpu/drm/tyr/fw.rs
-+++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -51,7 +51,6 @@
-         KernelBoVaAlloc, //
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index e2b6d63491b91..c0f17bc4ce2c9 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -33,7 +33,7 @@
+         Mutex, //
      },
-     gpu::GpuInfo,
--
-     mmu::Mmu,
-     regs::{
-         gpu_control::{
-@@ -219,10 +218,10 @@ pub(crate) fn new(
-         mmu: ArcBorrow<'_, Mmu<'drm>>,
-         gpu_info: &GpuInfo,
-     ) -> Result<Firmware<'drm>> {
--        let vm = Vm::new(dev, ddev, mmu, gpu_info)?;
-+        let vm = Vm::new_for_fw(dev, ddev, mmu, gpu_info)?;
-         vm.activate()?;
+     time,
+-    types::CovariantForLt, //
++    types::ForLt, //
+ };
  
--        let result = (|| {
-+        let sections = (|| -> Result<KVec<Section<'drm>>> {
-             let (fw, parsed_sections) = Self::load(dev, ddev, gpu_info)?;
-             let mut sections = KVec::new();
-             for parsed in parsed_sections {
-@@ -252,18 +251,18 @@ pub(crate) fn new(
-                 sections.push(Section { data, mem }, GFP_KERNEL)?;
-             }
+ use crate::{
+@@ -74,6 +74,9 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
+     /// Firmware sections.
+     pub(crate) fw: Firmware<'drm>,
  
--            Ok(Firmware {
--                iomem,
--                vm: vm.clone(),
--                sections,
--            })
-+            Ok(sections)
-         })();
++    /// Memory management unit for address space slots.
++    pub(crate) mmu: Arc<Mmu<'drm>>,
++
+     #[pin]
+     clks: Mutex<Clocks>,
  
--        if result.is_err() {
-+        if sections.is_err() {
-             vm.kill();
-         }
+@@ -172,6 +175,7 @@ fn probe<'bound>(
+                     pin_init!(TyrDrmRegistrationData {
+                         pdev,
+                         fw: firmware,
++                        mmu,
+                         clks <- new_mutex!(Clocks {
+                             core: core_clk,
+                             stacks: stacks_clk,
+@@ -210,7 +214,7 @@ fn drop(self: Pin<&mut Self>) {}
+ impl drm::Driver for TyrDrmDriver {
+     type Data = ();
+     type RegistrationData<'drm> = TyrDrmRegistrationData<'drm>;
+-    type File = CovariantForLt!(TyrDrmFileData);
++    type File = ForLt!(TyrDrmFileData<'_>);
+     type Object = Bo;
+     type ParentDevice<Ctx: DeviceContext> = platform::Device<Ctx>;
  
--        result
-+        Ok(Firmware {
-+            iomem,
-+            vm,
-+            sections: sections?,
-+        })
-     }
+@@ -219,6 +223,10 @@ impl drm::Driver for TyrDrmDriver {
  
-     pub(crate) fn boot(&self) -> Result {
-diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-index 69b092a130883..b2fcda1e61073 100644
---- a/drivers/gpu/drm/tyr/vm.rs
-+++ b/drivers/gpu/drm/tyr/vm.rs
-@@ -8,6 +8,7 @@
- //! mapped into hardware address space (AS) slots for GPU execution.
- 
- use core::marker::PhantomData;
-+use core::num::NonZeroU64;
- use core::ops::Range;
- 
- use kernel::{
-@@ -45,6 +46,8 @@
-     num::casts::FromSafeCast,
-     prelude::*,
-     sizes::{
-+        LargeSizeConstants,
-+        SizeConstants,
-         SZ_1G,
-         SZ_2M,
-         SZ_4K, //
-@@ -160,6 +163,90 @@ fn try_from(value: u32) -> Result<Self, Self::Error> {
+     kernel::declare_drm_ioctls! {
+         (PANTHOR_DEV_QUERY, drm_panthor_dev_query, ioctl::RENDER_ALLOW, TyrDrmFileData::dev_query),
++        (PANTHOR_VM_CREATE, drm_panthor_vm_create, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_create),
++        (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
++        (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_bind),
++        (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
      }
  }
  
-+/// User VA size request for a user VM.
-+pub(crate) enum UserVaRequest {
-+    /// Split based on `task_size()` and the GPU VA range.
-+    Auto,
-+    /// Caller-specified size; construction guarantees `> 0`.
-+    Fixed(NonZeroU64),
+diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+index 933a365cb016e..22a74b4abf3de 100644
+--- a/drivers/gpu/drm/tyr/file.rs
++++ b/drivers/gpu/drm/tyr/file.rs
+@@ -1,39 +1,64 @@
+ // SPDX-License-Identifier: GPL-2.0 or MIT
+ 
++use core::mem::offset_of;
++
+ use kernel::{
+     drm::{
+         self,
++        gem::BaseObject,
+         Registered, //
+     },
+     prelude::*,
+-    uaccess::UserSlice,
++    sizes::SizeConstants,
++    transmute::FromBytes,
++    uaccess::{
++        UserSlice,
++        UserSliceReader, //
++    },
+     uapi, //
+ };
+ 
+-use crate::driver::{
+-    TyrDrmDevice,
+-    TyrDrmDriver,
+-    TyrDrmRegistrationData, //
++use crate::{
++    driver::{
++        TyrDrmDevice,
++        TyrDrmDriver,
++        TyrDrmRegistrationData, //
++    },
++    vm::{
++        UserVaRequest,
++        Vm,
++        VmBindOpType,
++        VmMapFlags,
++        VmPool, //
++    }, //
+ };
+ 
+ #[pin_data]
+-pub(crate) struct TyrDrmFileData {}
++pub(crate) struct TyrDrmFileData<'a> {
++    reg: &'a TyrDrmRegistrationData<'a>,
++
++    #[pin]
++    vm_pool: VmPool<'a>,
 +}
+ 
+ /// Convenience type alias for our DRM `File` type.
+ pub(crate) type TyrDrmFile = drm::file::File<TyrDrmDriver>;
+ 
+-impl drm::file::DriverFile<'_> for TyrDrmFileData {
++impl<'a> drm::file::DriverFile<'a> for TyrDrmFileData<'a> {
+     type Driver = TyrDrmDriver;
+ 
+     fn open(
+         _device: &TyrDrmDevice<Registered>,
+-        _reg_data: &TyrDrmRegistrationData<'_>,
++        reg_data: &'a TyrDrmRegistrationData<'a>,
+     ) -> impl PinInit<Self, Error> {
+-        Ok(Self {})
++        try_pin_init!(Self {
++            reg: reg_data,
++            vm_pool <- VmPool::new(reg_data.pdev.as_ref()),
++        })
+     }
+ }
+ 
+-impl TyrDrmFileData {
++impl TyrDrmFileData<'_> {
+     pub(crate) fn dev_query(
+         _ddev: &TyrDrmDevice<Registered>,
+         reg_data: &TyrDrmRegistrationData<'_>,
+@@ -65,4 +90,279 @@ pub(crate) fn dev_query(
+             }
+         }
+     }
 +
-+impl UserVaRequest {
-+    /// UAPI boundary normalization: `0` -> [`Auto`](Self::Auto).
-+    #[expect(dead_code)]
-+    pub(crate) fn from_uapi(v: u64) -> Self {
-+        match NonZeroU64::new(v) {
-+            Some(size) => Self::Fixed(size),
-+            None => Self::Auto,
-+        }
-+    }
-+}
-+
-+/// Final user/kernel VA layout for a VM.
-+pub(crate) struct VmLayout {
-+    /// Full GPU VA range covered by this VM.
-+    pub(crate) full: Range<u64>,
-+    /// User-accessible VA range. Empty for MCU VMs.
-+    pub(crate) user: Range<u64>,
-+}
-+
-+impl VmLayout {
-+    /// Kernel VA range, reserved for future kernel object allocation.
-+    #[expect(dead_code)]
-+    pub(crate) fn kernel(&self) -> Range<u64> {
-+        self.user.end..self.full.end
-+    }
-+
-+    /// Compute a user/kernel split for a user VM from the full GPU VA range and
-+    /// a user request.
-+    pub(crate) fn compute(full: Range<u64>, req: UserVaRequest) -> Result<Self> {
-+        // Minimum VA space reserved for kernel objects (heaps, ring buffers, ...).
-+        const MIN_KERNEL_VA: u64 = u64::SZ_256M;
-+
-+        if full.end <= MIN_KERNEL_VA {
++    pub(crate) fn vm_create(
++        ddev: &TyrDrmDevice<Registered>,
++        _reg_data: &TyrDrmRegistrationData<'_>,
++        vmcreate: &mut uapi::drm_panthor_vm_create,
++        file: &TyrDrmFile,
++    ) -> Result<u32> {
++        if vmcreate.flags != 0 {
++            dev_dbg!(
++                ddev.as_ref(),
++                "Invalid VM create flags: {:#x}\n",
++                vmcreate.flags
++            );
 +            return Err(EINVAL);
 +        }
 +
-+        let user_max = full.end - MIN_KERNEL_VA;
++        let ret: Result<u32, Error> = file.inner_with(|pfile| {
++            let vm = Vm::new_for_user(
++                pfile.reg.pdev.as_ref(),
++                ddev,
++                pfile.reg.mmu.as_arc_borrow(),
++                &pfile.reg.gpu_info,
++                UserVaRequest::from_uapi(vmcreate.user_va_range),
++            )?;
++            let user_va_range = vm.layout.user.end;
++            let id = pfile.vm_pool.add(vm).map_err(|e| {
++                e.vm.kill();
++                e.error
++            })?;
++            vmcreate.user_va_range = user_va_range;
++            vmcreate.id = id;
 +
-+        let user_end = match req {
-+            UserVaRequest::Fixed(v) => {
-+                let user_size = v.get();
-+                if user_size > user_max {
-+                    return Err(EINVAL);
++            Ok(0)
++        });
++        ret
++    }
++
++    pub(crate) fn vm_destroy(
++        ddev: &TyrDrmDevice<Registered>,
++        _reg_data: &TyrDrmRegistrationData<'_>,
++        vmdestroy: &mut uapi::drm_panthor_vm_destroy,
++        file: &TyrDrmFile,
++    ) -> Result<u32> {
++        if vmdestroy.pad != 0 {
++            dev_dbg!(
++                ddev.as_ref(),
++                "Invalid VM destroy pad: {:#x}\n",
++                vmdestroy.pad
++            );
++            return Err(EINVAL);
++        }
++
++        let ret: Result<u32, Error> = file.inner_with(|pfile| {
++            pfile.vm_pool.remove(vmdestroy.id)?;
++            Ok(0)
++        });
++        ret
++    }
++
++    pub(crate) fn vm_bind(
++        ddev: &TyrDrmDevice<Registered>,
++        _reg_data: &TyrDrmRegistrationData<'_>,
++        vmbind: &mut uapi::drm_panthor_vm_bind,
++        file: &TyrDrmFile,
++    ) -> Result<u32> {
++        let async_flag = uapi::drm_panthor_vm_bind_flags_DRM_PANTHOR_VM_BIND_ASYNC;
++
++        if vmbind.flags & !async_flag != 0 {
++            dev_dbg!(
++                ddev.as_ref(),
++                "Invalid VM_BIND flags: {:#x}\n",
++                vmbind.flags
++            );
++            return Err(EINVAL);
++        }
++
++        if vmbind.flags & async_flag != 0 {
++            dev_dbg!(ddev.as_ref(), "Async VM_BIND not supported\n");
++            return Err(EOPNOTSUPP);
++        }
++
++        let count = vmbind.ops.count as usize;
++        if count == 0 {
++            return Ok(0);
++        }
++
++        // Accept any stride that covers the trailing `syncs` array
++        // descriptor, so userspace built against older headers works.
++        static_assert!(
++            size_of::<VmBindOp>()
++                == offset_of!(uapi::drm_panthor_vm_bind_op, syncs)
++                    + size_of::<uapi::drm_panthor_obj_array>()
++        );
++        let min_size = offset_of!(uapi::drm_panthor_vm_bind_op, syncs)
++            + size_of::<uapi::drm_panthor_obj_array>();
++        if min_size > vmbind.ops.stride as usize {
++            dev_dbg!(
++                ddev.as_ref(),
++                "Invalid VM_BIND op stride {} (expected at least {})\n",
++                vmbind.ops.stride,
++                size_of::<VmBindOp>()
++            );
++            return Err(EINVAL);
++        }
++        let stride = vmbind.ops.stride as usize;
++
++        let total_len = stride.checked_mul(count).ok_or_else(|| {
++            dev_dbg!(ddev.as_ref(), "VM_BIND ops length overflow\n");
++            EINVAL
++        })?;
++        let mut reader =
++            UserSlice::new(UserPtr::from_addr(vmbind.ops.array as usize), total_len).reader();
++        let mut ops = KVec::new();
++        for _ in 0..count {
++            ops.push(reader.read::<VmBindOp>()?, GFP_KERNEL)?;
++            read_padding_zero(&mut reader, stride - size_of::<VmBindOp>())?;
++        }
++
++        let ret: Result<u32, Error> = file.inner_with(|pfile| {
++            let vm = pfile.vm_pool.get(vmbind.vm_id).ok_or_else(|| {
++                dev_dbg!(ddev.as_ref(), "Invalid VM_BIND vm_id: {}\n", vmbind.vm_id);
++                EINVAL
++            })?;
++
++            for (i, op) in ops.iter().enumerate() {
++                if let Err(e) = vm_bind_exec_op(&vm, file, op) {
++                    dev_dbg!(ddev.as_ref(), "VM_BIND op {} failed: {:?}\n", i, e);
++                    vmbind.ops.count = i as u32;
++                    return Err(e);
 +                }
-+                user_size
 +            }
-+            UserVaRequest::Auto => {
-+                let task_size = current!().task_size() as u64;
-+                let candidate = if task_size < full.end {
-+                    task_size
-+                } else {
-+                    // If the range exceeds 4G, split it in two so CPU and
-+                    // GPU share the same addresses (SVM).
-+                    if full.end > u64::SZ_4G {
-+                        full.end / 2
-+                    } else {
-+                        user_max
-+                    }
-+                };
-+                candidate.min(user_max)
-+            }
-+        };
 +
-+        let delta = full.end - user_end;
-+        // Pick a kernel VA range that's a power of two, to have a clear split.
-+        let kernel_va_range = 1u64 << delta.ilog2();
-+        let kernel_va_start = full.end - kernel_va_range;
-+        let full_start = full.start;
++            Ok(0)
++        });
++        ret
++    }
 +
-+        Ok(Self {
-+            full,
-+            user: full_start..kernel_va_start,
++    pub(crate) fn vm_get_state(
++        ddev: &TyrDrmDevice<Registered>,
++        _reg_data: &TyrDrmRegistrationData<'_>,
++        vmgetstate: &mut uapi::drm_panthor_vm_get_state,
++        file: &TyrDrmFile,
++    ) -> Result<u32> {
++        file.inner_with(|pfile| {
++            let vm = pfile.vm_pool.get(vmgetstate.vm_id).ok_or_else(|| {
++                dev_dbg!(
++                    ddev.as_ref(),
++                    "Invalid VM_GET_STATE vm_id: {}\n",
++                    vmgetstate.vm_id
++                );
++                EINVAL
++            })?;
++            vmgetstate.state = if vm.is_unusable() {
++                uapi::drm_panthor_vm_state_DRM_PANTHOR_VM_STATE_UNUSABLE
++            } else {
++                uapi::drm_panthor_vm_state_DRM_PANTHOR_VM_STATE_USABLE
++            };
++            Ok(0)
 +        })
 +    }
 +}
 +
- /// Arguments for a virtual memory map operation.
- struct VmMapArgs<'drm> {
-     /// Access permissions and caching behavior for the mapping.
-@@ -335,26 +422,64 @@ pub(crate) struct Vm<'drm> {
-     /// Non-core part of the GPUVM. Can be used for stuff that doesn't modify the
-     /// internal mapping tree, like GpuVm::obtain()
++fn vm_bind_exec_op(vm: &Vm<'_>, file: &TyrDrmFile, op: &VmBindOp) -> Result {
++    if op.size == 0 {
++        return Ok(());
++    }
++
++    if op.syncs.count != 0 {
++        dev_dbg!(vm.dev(), "VM_BIND op syncs not supported\n");
++        return Err(EINVAL);
++    }
++
++    let end = match op.va.checked_add(op.size) {
++        Some(end) => end,
++        None => {
++            dev_dbg!(vm.dev(), "VM_BIND op VA range overflow\n");
++            return Err(EINVAL);
++        }
++    };
++    if op.va < vm.layout.user.start || end > vm.layout.user.end {
++        dev_dbg!(
++            vm.dev(),
++            "VM_BIND op VA range {:#x}..{:#x} outside user range\n",
++            op.va,
++            end
++        );
++        return Err(EINVAL);
++    }
++
++    if (op.va | op.size | op.bo_offset) & (u64::SZ_4K - 1) != 0 {
++        dev_dbg!(vm.dev(), "VM_BIND op not GPU-page-aligned\n");
++        return Err(EINVAL);
++    }
++
++    match VmBindOpType::try_from(op.flags) {
++        Ok(VmBindOpType::Map) => {
++            // Once the VM is unusable only MAP ops are rejected; UNMAP
++            // stays available for cleanup (see the UAPI docs).
++            if vm.is_unusable() {
++                dev_err!(vm.dev(), "VM_BIND map op on unusable VM\n");
++                return Err(EINVAL);
++            }
++
++            let map_flags = match VmMapFlags::try_from(op.flags & !VmBindOpType::MASK) {
++                Ok(flags) => flags,
++                Err(_) => {
++                    dev_dbg!(vm.dev(), "VM_BIND op invalid map flags {:#x}\n", op.flags);
++                    return Err(EINVAL);
++                }
++            };
++            let bo = crate::gem::lookup_handle(file, op.bo_handle).map_err(|_| {
++                dev_dbg!(vm.dev(), "VM_BIND op invalid BO handle {}\n", op.bo_handle);
++                EINVAL
++            })?;
++            // Validate the BO window before mapping.
++            let bo_size = bo.size() as u64;
++            if op.size > bo_size || op.bo_offset > bo_size - op.size {
++                dev_dbg!(vm.dev(), "VM_BIND op BO range out of bounds\n");
++                return Err(EINVAL);
++            }
++            vm.map_bo_range(&bo, op.bo_offset, op.size, op.va, map_flags)
++        }
++        Ok(VmBindOpType::Unmap) => {
++            // Unmap must not carry map-specific flags or BO references.
++            if op.flags & !VmBindOpType::MASK != 0 || op.bo_handle != 0 || op.bo_offset != 0 {
++                dev_dbg!(
++                    vm.dev(),
++                    "VM_BIND UNMAP carries flags/BO refs: flags={:#x} bo_handle={} bo_offset={}\n",
++                    op.flags,
++                    op.bo_handle,
++                    op.bo_offset
++                );
++                return Err(EINVAL);
++            }
++            vm.unmap_range(op.va, op.size)
++        }
++        Err(_) => {
++            dev_dbg!(
++                vm.dev(),
++                "VM_BIND op type {:#x} not supported\n",
++                op.flags & VmBindOpType::MASK
++            );
++            Err(EINVAL)
++        }
++    }
++}
++
++/// Reads `len` bytes of array padding, rejecting any nonzero byte with `E2BIG`.
++fn read_padding_zero(reader: &mut UserSliceReader, len: usize) -> Result {
++    let mut buf = [0u8; 64];
++    let mut remaining = len;
++    while remaining > 0 {
++        let chunk = remaining.min(buf.len());
++        reader.read_slice(&mut buf[..chunk])?;
++        if buf[..chunk].iter().any(|&b| b != 0) {
++            return Err(E2BIG);
++        }
++        remaining -= chunk;
++    }
++    Ok(())
+ }
++
++#[repr(transparent)]
++struct VmBindOp(uapi::drm_panthor_vm_bind_op);
++
++impl core::ops::Deref for VmBindOp {
++    type Target = uapi::drm_panthor_vm_bind_op;
++
++    fn deref(&self) -> &Self::Target {
++        &self.0
++    }
++}
++
++// SAFETY: `VmBindOp` contains only integers, so any bit pattern is valid;
++// the `#[repr(transparent)]` wrapper has the same layout as the UAPI struct.
++unsafe impl FromBytes for VmBindOp {}
+diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
+index 0e0989a48678f..60f6363995a5a 100644
+--- a/drivers/gpu/drm/tyr/gem.rs
++++ b/drivers/gpu/drm/tyr/gem.rs
+@@ -77,7 +77,6 @@ pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result
+ }
+ 
+ /// Look up a GEM object by handle for a DRM file.
+-#[expect(dead_code)]
+ pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> Result<ARef<Bo>> {
+     Bo::lookup_handle(file, handle)
+ }
+diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+index b2fcda1e61073..5c3be79b2c595 100644
+--- a/drivers/gpu/drm/tyr/vm.rs
++++ b/drivers/gpu/drm/tyr/vm.rs
+@@ -54,6 +54,11 @@
+     },
+     sync::{
+         aref::ARef,
++        atomic::{
++            Acquire,
++            Atomic,
++            Release, //
++        },
+         Arc,
+         ArcBorrow,
+         Mutex, //
+@@ -173,7 +178,6 @@ pub(crate) enum UserVaRequest {
+ 
+ impl UserVaRequest {
+     /// UAPI boundary normalization: `0` -> [`Auto`](Self::Auto).
+-    #[expect(dead_code)]
+     pub(crate) fn from_uapi(v: u64) -> Self {
+         match NonZeroU64::new(v) {
+             Some(size) => Self::Fixed(size),
+@@ -182,6 +186,38 @@ pub(crate) fn from_uapi(v: u64) -> Self {
+     }
+ }
+ 
++/// Operation type, packed into the top nibble of
++/// `drm_panthor_vm_bind_op::flags`.
++#[derive(Debug, Clone, Copy, PartialEq, Eq)]
++pub(crate) enum VmBindOpType {
++    /// Map a BO range into the VM.
++    Map,
++    /// Unmap a VA range.
++    Unmap,
++}
++
++impl VmBindOpType {
++    /// Bits occupied by the op type in `drm_panthor_vm_bind_op::flags`.
++    pub(crate) const MASK: u32 =
++        uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_TYPE_MASK as u32;
++}
++
++impl TryFrom<u32> for VmBindOpType {
++    type Error = Error;
++
++    fn try_from(flags: u32) -> Result<Self, Self::Error> {
++        const MAP: u32 = uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_TYPE_MAP as u32;
++        const UNMAP: u32 =
++            uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_TYPE_UNMAP as u32;
++
++        match flags & Self::MASK {
++            MAP => Ok(Self::Map),
++            UNMAP => Ok(Self::Unmap),
++            _ => Err(EINVAL),
++        }
++    }
++}
++
+ /// Final user/kernel VA layout for a VM.
+ pub(crate) struct VmLayout {
+     /// Full GPU VA range covered by this VM.
+@@ -424,6 +460,8 @@ pub(crate) struct Vm<'drm> {
      gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
--    /// VA range for this VM.
--    va_range: Range<u64>,
-+    /// VA layout for this VM.
-+    pub(crate) layout: VmLayout,
+     /// VA layout for this VM.
+     pub(crate) layout: VmLayout,
++    /// Whether the VM is unusable.
++    unusable: Atomic<bool>,
  }
  
  impl<'drm> Vm<'drm> {
--    /// Creates a new GPU virtual address space.
-+    /// Creates the MCU/firmware VM.
-     ///
--    /// The VM is initialized with a page table configured according to the GPU's
--    /// address translation capabilities and registered with the GPUVM framework.
--    pub(crate) fn new(
-+    /// The MCU VM is entirely kernel-managed: it has no user-accessible range.
-+    pub(crate) fn new_for_fw(
-+        dev: &'drm Device<Bound>,
-+        ddev: &TyrDrmDevice,
-+        mmu: ArcBorrow<'_, Mmu<'drm>>,
-+        gpu_info: &GpuInfo,
-+    ) -> Result<Arc<Vm<'drm>>> {
-+        // As in panthor: the CSF MCU is a Cortex-M7 and can only address 4G.
-+        let layout = VmLayout {
-+            full: 0..u64::SZ_4G,
-+            user: 0..0u64,
-+        };
-+        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
-+    }
-+
-+    /// Creates a user VM, splitting the GPU VA range per `user_va`.
-+    #[expect(dead_code)]
-+    pub(crate) fn new_for_user(
+@@ -445,7 +483,6 @@ pub(crate) fn new_for_fw(
+     }
+ 
+     /// Creates a user VM, splitting the GPU VA range per `user_va`.
+-    #[expect(dead_code)]
+     pub(crate) fn new_for_user(
          dev: &'drm Device<Bound>,
          ddev: &TyrDrmDevice,
-         mmu: ArcBorrow<'_, Mmu<'drm>>,
-         gpu_info: &GpuInfo,
-+        user_va: UserVaRequest,
-+    ) -> Result<Arc<Vm<'drm>>> {
-+        let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
-+        let va_bits = mmu_features.va_bits().get();
-+        let range = 0..(1u64 << va_bits);
-+
-+        let layout = VmLayout::compute(range.clone(), user_va).inspect_err(|_| {
-+            dev_dbg!(
-+                dev,
-+                "Failed to split GPU VA range {:#x}..{:#x} into user and kernel regions\n",
-+                range.start,
-+                range.end
-+            );
-+        })?;
-+        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
-+    }
-+
-+    /// Initializes a VM with the given layout.
-+    fn new_internal(
-+        dev: &'drm Device<Bound>,
-+        ddev: &TyrDrmDevice,
-+        mmu: ArcBorrow<'_, Mmu<'drm>>,
-+        gpu_info: &GpuInfo,
-+        layout: VmLayout,
-     ) -> Result<Arc<Vm<'drm>>> {
-         let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
-         let va_bits = mmu_features.va_bits().get();
-         let pa_bits = mmu_features.pa_bits().get();
- 
--        let range = 0..(1u64 << va_bits);
-         let reserve_range = 0..0u64;
- 
-         // dummy_obj is used to initialize the GPUVM tree.
-@@ -366,7 +491,7 @@ pub(crate) fn new(
-             c"Tyr::GpuVm",
-             ddev,
-             &*dummy_obj,
--            range.clone(),
-+            layout.full.clone(),
-             reserve_range,
-             GpuVmData::<'drm> {
-                 _phantom: PhantomData::<&()>,
-@@ -386,7 +511,7 @@ pub(crate) fn new(
-                 mmu: mmu.into(),
+@@ -512,6 +549,7 @@ fn new_internal(
                  gpuvm,
                  gpuvm_unique <- new_mutex!(gpuvm_unique),
--                va_range: range,
-+                layout,
+                 layout,
++                unusable: Atomic::new(false),
              }),
              GFP_KERNEL,
          )?;
-@@ -417,10 +542,12 @@ fn deactivate(&self) -> Result {
+@@ -542,6 +580,7 @@ fn deactivate(&self) -> Result {
  
      /// Kills the VM by deactivating it and unmapping all regions.
      pub(crate) fn kill(&self) {
--        // TODO: Turn the VM into a state where it can't be used.
++        self.mark_unusable();
          let _ = self.deactivate();
          let _ = self
--            .unmap_range(self.va_range.start, self.va_range.end - self.va_range.start)
-+            .unmap_range(
-+                self.layout.full.start,
-+                self.layout.full.end - self.layout.full.start,
-+            )
-             .inspect_err(|e| {
-                 dev_err!(self.dev, "Failed to unmap range during deactivate: {:?}", e);
+             .unmap_range(
+@@ -553,6 +592,15 @@ pub(crate) fn kill(&self) {
              });
-@@ -557,14 +684,14 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
+     }
  
-         let end = va.checked_add(size).ok_or(EINVAL)?;
- 
--        if va < self.va_range.start || end > self.va_range.end {
-+        if va < self.layout.full.start || end > self.layout.full.end {
-             dev_err!(
-                 self.dev,
-                 "Unmap range {:#x}..{:#x} exceeds VM range {:#x}..{:#x}",
-                 va,
-                 end,
--                self.va_range.start,
--                self.va_range.end
-+                self.layout.full.start,
-+                self.layout.full.end
-             );
-             return Err(EINVAL);
-         }
-@@ -574,7 +701,7 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
-             region: va..end,
++    /// Marks the VM unusable.
++    fn mark_unusable(&self) {
++        self.unusable.store(true, Release);
++    }
++
++    pub(crate) fn is_unusable(&self) -> bool {
++        self.unusable.load(Acquire)
++    }
++
+     /// Executes a virtual memory operation.
+     ///
+     /// This handles both map and unmap operations by coordinating between the
+@@ -664,6 +712,17 @@ pub(crate) fn map_bo_range(
          };
+         let result = {
+             let mut gpuvm_unique = self.gpuvm_unique.lock();
++            // Check under the GPUVM lock, which the kill path also takes to
++            // unmap, so this serializes against a concurrent teardown.
++            if self.is_unusable() {
++                dev_err!(
++                    self.dev,
++                    "Failed to map VA {:#x}..{:#x}: VM is unusable\n",
++                    req.region.start,
++                    req.region.end
++                );
++                return Err(EINVAL);
++            }
+             self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)
+         };
+         // We flush the defer cleanup list now. Things will be different in
+@@ -1100,15 +1159,12 @@ pub(crate) struct VmPool<'drm> {
+ /// Error returned when a VM cannot be added to the pool. The caller
+ /// owns the teardown of the VM in [`AddError::vm`].
+ pub(crate) struct AddError<'drm> {
+-    #[expect(dead_code)]
+     pub(crate) error: Error,
+-    #[expect(dead_code)]
+     pub(crate) vm: Arc<Vm<'drm>>,
+ }
  
--        let full_vm = va == self.va_range.start && end == self.va_range.end;
-+        let full_vm = va == self.layout.full.start && end == self.layout.full.end;
+ impl<'drm> VmPool<'drm> {
+     /// Creates a new [`VmPool`].
+-    #[expect(dead_code)]
+     pub(crate) fn new(dev: &'drm Device<Bound>) -> impl PinInit<Self> {
+         let ids = IdPool::new();
+         pin_init!(Self {
+@@ -1124,7 +1180,6 @@ pub(crate) fn new(dev: &'drm Device<Bound>) -> impl PinInit<Self> {
+     /// returned in an [`AddError`] so the caller owns the teardown.
+     // TODO: allocate IDs with the XArray directly (once it grows range
+     // allocation, the equivalent of C's `XA_LIMIT`) and drop the IdPool.
+-    #[expect(dead_code)]
+     pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32, AddError<'drm>> {
+         let id = (|| {
+             let mut ids = self.ids.lock();
+@@ -1174,7 +1229,6 @@ pub(crate) fn add(&self, vm: Arc<Vm<'drm>>) -> Result<u32, AddError<'drm>> {
+     }
  
-         let mut resources = VmOpResources {
-             preallocated_gpuvas: if full_vm {
+     /// Removes and kills the VM with the given ID.
+-    #[expect(dead_code)]
+     pub(crate) fn remove(&self, id: u32) -> Result<()> {
+         let mut vms = self.vms.lock();
+         let vm = match vms.remove(usize::from_safe_cast(id)) {
+@@ -1191,7 +1245,6 @@ pub(crate) fn remove(&self, id: u32) -> Result<()> {
+     }
+ 
+     /// Gets a shared reference to the VM with the given ID.
+-    #[expect(dead_code)]
+     pub(crate) fn get(&self, id: u32) -> Option<Arc<Vm<'drm>>> {
+         let vms = self.vms.lock();
+         let borrow = vms.get(usize::from_safe_cast(id))?;
 
 -- 
 2.43.0
