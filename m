@@ -2,129 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62475606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 21:37:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694EE606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 21:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UTqZWwBq;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BXYpKmAH
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=O2goMOQm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D30E310E3A9;
-	Mon, 26 Oct 2026 21:37:20 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20DBA10E3A9
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 21:37:10 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69QIoClW417808
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 21:37:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=pIu8GhpwL+jzjKQYXaJ1hRumnv1fMlDksFz
- 956xyz9A=; b=UTqZWwBqoLxrkOgHwfWznpU6NDTEeGe3CIqNjNOymCvLRjcqmL6
- 8Tl3wj4BV3zIiDJV2Y4IhfUmwapY03wyeYdXjJGxTrI+nRXUCDH1i6WgMy9pDhTA
- 0yVIXDhdVPZiofW+FNpkSHCTVt42rOUMCCViwhuxVowGky895XSIh+I2BJ9499mk
- 614ufjRXJrlNLdG6Jz8kOjUZn5hXeK0lH9QYWnAzscClUmoIAItA2WT5eH1Mc8BW
- mOcBMhhtstH+ekloMdbd+ZO2oi8JhhYUt/LezU8Cj3XrzI7X2teKP3u1k0cMB7c3
- RwBmL+tzU5phB+3jIl1ZqLtMI81wMy6X8Pg==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4s92kg0-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 21:37:08 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-cd68b8579f2so1333877a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 14:37:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793050628; x=1793655428;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=pIu8GhpwL+jzjKQYXaJ1hRumnv1fMlDksFz956xyz9A=;
- b=BXYpKmAHFnvIUxmac3ZDGce8s8SrDH/G8ss3QJs6svieX1nInH89XSPS2x9oJqXrUB
- WS29L7C7p6W2sE47tLFwQlW0VI1Ur5ipfWDzxm0lXHlRI/HqNWGsXiwMtLkThc5SMJof
- vh+Ibiyagt9O6CfJpucCUcL7S/NEprOOhbOEtX2HlNYLyaORaWEo16CS41+M7FDU9N4O
- OLk8mcVInY1JLAxfzN6UPN/Nvz3IvLWEtIFVh4dRv/LmPU9oT4WEIZTp8MYZwVvNsTU7
- hYJTH773wbiOgrkJChTRd+Wp0QpwZt3QvwtQ/T2YNzwRB2cDH0zd2/XGbpMzaye+KXjU
- nYEA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF99110F171;
+	Mon, 26 Oct 2026 21:37:33 +0000 (UTC)
+Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com
+ [209.85.214.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B765C10F186
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 21:37:27 +0000 (UTC)
+Received: by mail-pl1-f226.google.com with SMTP id
+ d9443c01a7336-2e9cf928dc9so1545065ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 14:37:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793050628; x=1793655428;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1793050647; x=1793655447;
+ h=content-type:mime-version:message-id:date:subject:cc:to:from
+ :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=pIu8GhpwL+jzjKQYXaJ1hRumnv1fMlDksFz956xyz9A=;
- b=eksCHXoniNUZmH+RSXA+ruSTuHa371IVMub+t1BRNlcE0TAZ6S/zFajlMUIGjMMT2K
- vaFRIqjTzJ+Zqetx0NK76iCV5sLlbBOHDnTle4r5VRMljTWWVDJWmmibgIBr4h0JzBCP
- kWbWnCnsTCWRm+X2FbnDBqQkub0U75OuzUKEf6+kpd8PktvlpEyKvDSMG0RF3bXtbHfc
- h/OStDcRIFiEhKduu8BDmLauPefiYChvQrlss/J69WIDgxaZDd2tY1ypoBTt5FJI94JI
- SMj7NCSmOewmr+8p1YnBJE1i+t7bJRYaYd2AStohTWxuarRZod9SRqHffdcXfIgaEIv4
- df5A==
-X-Gm-Message-State: AFq9FYJEuwGgJjEN0cqskp1vAZEa+hcOIdArJdQ9ZxDw8p/PTcE40UO6
- JXEjqjHgQx4Zb1ubCnL+zz3WdXYgOpiMyrxb+fzKR6hogvRGiYWQUE5vbvxU4ZE43875Vx7vpx9
- +h/vgbO7GZJ25ScXDsTfkjhrf8ENvK66xf1dLgxf1ZF2QIb7sXlo3/9Y77hsy+4ufSKp8bOncqW
- n1gS8=
-X-Gm-Gg: AYBFou1xBpxXgtRM9gR81/u1+f838Nh6g3/AN/8SBFft/ONzNBZ2m5z3gX1uZg4EhFC
- blp6FBHuZ3MLdd2RQqnYhwNTYZ2DJgufGgG2dGfQXYXgGQ6P6B5IECdX4X26bW+IP68/Ajn1+dY
- zszCKg6JYfgYBzQ7aTNUje46i8PDptMO3Bq2m6rfrE4A1NRZltVZ+HkImuQtZhjvdoiwzKi69Ng
- 1WxvYdE9vJGxtcTjBSqcC0aacVeICxad2iHPWsnSdkuUBAALP4GEE5Untkkciin4ed0VA3gk4m9
- MrYSGBJhLrgjBxRjs6LyULayEudlBZ296HrnWF9p2VRdTmDjpuW6j8q7qzfp1sh1GBlSqfViywS
- Tz3An5bpPfJI4hXNgQqqfaurYMfv29vakUDQJsqWil/TEyIPs
-X-Received: by 2002:a17:90b:5823:b0:3ac:8897:7b98 with SMTP id
- 98e67ed59e1d1-3adeae7644emr7043739a91.32.1793050627551; 
- Mon, 26 Oct 2026 14:37:07 -0700 (PDT)
-X-Received: by 2002:a17:90b:5823:b0:3ac:8897:7b98 with SMTP id
- 98e67ed59e1d1-3adeae7644emr7043709a91.32.1793050626968; 
- Mon, 26 Oct 2026 14:37:06 -0700 (PDT)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
- [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ae40614daasm886781a91.4.2026.10.26.14.37.06
+ bh=gNDkjRKZQQ6qroQ91bOWf00WtM9v7Kf6rFkmHWhmVCM=;
+ b=1xz6/e3PR2FKQdM/JOF/odLa8nPeSlnZI+ws8z8CHtF+WLOlWcXJWliZgFk4Xs4vd7
+ NAYBQ8YmmN0Xcuw93CT8rMbKZuTPr+6CAX/xWMGyR3oc46HiDUoAkqUR3MXi/LKPB6mJ
+ m+8skHDzAKOae9ZN2l86GYsqCQX9wSKiGNORNRMlny2h42GWhV2u3dI+KlS80BnHaIMM
+ +clZsMKIEqp0JxjsV4QlUv6grRwqmo98nHHXZjUK97NRb7aQyKxf1fjE7wHPBDXox9Qm
+ GThQXfwZxJOX1v3ZabxMz/sggF5z40mh9gmjvMDSo3/yk5xQ9SJoer9WOQzwO+DCkvqa
+ wK9g==
+X-Gm-Message-State: AFq9FYJPsHZlH35zy9EaIKlR0KEfGdVkoLpadjEILezlGTgMCGEbakN1
+ Gg8UvwmMZQOkDe/Ws3f6uPuUTTaFAewmXWw25uepI6V9A6hf2SYww3Ig1PqeXl5rZOt0TBeGUEm
+ F+VyUj4hf7tu0yaC4sSOtZEGt4mj5K2sriP/Xp82CuhC11XkWsM6/F5io6sKaKQ8XfqeGvNODBF
+ Uuoc51cWgELM40Zi0T3wWZm7N8nJlCUCFg9L9uWUq0Iy+oW4yAs9Xn0L+URUg7n9+H1gbzH7/8M
+ 2tC6Keo6EXbH9QY0xQG
+X-Gm-Gg: AYBFou1LWZjrPno7EOqjfESbaA9szEPtzMr8ItSyw1HqLUHwXIdqHICXI3b2jPbIU65
+ IOOTiJLENSfLir09kNXe0eHXuUDCn9bkdhUO5wrDYyqwuAqLjuMPWnVPv2/KG9w8kmDgW9O7XIt
+ 9fHlFv2vVPaUoWyiJiMQroTfTXHzumBvJP8c/x1I9FtXfOkVBbGRXM284pAwGUTX7Ae9l/bO37W
+ K/FS4Qyg4E9bw7IA9ePCOEj/Q4RMwwqoMROm+25G3LkxhUPPBRe0osgcJ3RJg3U8B4yLTRjQVKO
+ AErnZwTquorpRpRuiWwxhBGBbYOS54uBBqlwKZn2qA4kidTFJb+B3PI2wSOeFeRu/ErWXEtuYbG
+ Lb9hgNLLN3vyZsTHJLI1/djKcovDsBuQlP9HeGl5TMao3xGHIHj/Nfx3DYjoJkWPOUD3u0ypaXm
+ 4k0WX4bKmdDPy4rZUWPsIXudpB6egmlA1uV2k=
+X-Received: by 2002:a17:90b:580d:b0:3ac:9ed8:f301 with SMTP id
+ 98e67ed59e1d1-3ae403a58dbmr375265a91.30.1793050646967; 
+ Mon, 26 Oct 2026 14:37:26 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+ by smtp-relay.gmail.com with ESMTPS id
+ 98e67ed59e1d1-3ae406dc8fbsm537096a91.1.2026.10.26.14.37.26
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 26 Oct 2026 14:37:26 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f71.google.com with SMTP id
+ a92af1059eb24-151dcfb1569so182763c88.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 14:37:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1793050645; x=1793655445;
+ darn=lists.freedesktop.org; 
+ h=content-type:mime-version:message-id:date:subject:cc:to:from:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=gNDkjRKZQQ6qroQ91bOWf00WtM9v7Kf6rFkmHWhmVCM=;
+ b=O2goMOQm5WBeBPFlUgZ0LDlvhEfQG5vEITJV8jap1BBZvMqszvMLbh9lYKhV8MR7A+
+ A5hOabqow4pphzcedYoyyCU9HRYlXqyS+XmTgnYQHXIY/Zv0rIDnHT3gl1QM0HZIrCBy
+ vBZr1OYWb+Qrw0CgLrHCi4aTwWDW4ffYAGrZE=
+X-Received: by 2002:a05:701b:418a:10b0:1a0:d131:662b with SMTP id
+ a92af1059eb24-1a3c7666e26mr1044939c88.6.1793050645167; 
+ Mon, 26 Oct 2026 14:37:25 -0700 (PDT)
+X-Received: by 2002:a05:701b:418a:10b0:1a0:d131:662b with SMTP id
+ a92af1059eb24-1a3c7666e26mr1044899c88.6.1793050644459; 
+ Mon, 26 Oct 2026 14:37:24 -0700 (PDT)
+Received: from vertex.localdomain ([192.19.144.250])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-198a21bc6cbsm26705289c88.16.2026.10.26.14.37.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2026 14:37:06 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
+ Mon, 26 Oct 2026 14:37:23 -0700 (PDT)
+From: Zack Rusin <zack.rusin@broadcom.com>
 To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Bart Van Assche <bvanassche@acm.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm/gem: Add some cleanup.h
-Date: Mon, 26 Oct 2026 14:37:00 -0700
-Message-ID: <20261026213701.22126-1-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
+Cc: ian.forbes@broadcom.com, maaz.mombasawala@broadcom.com,
+ Zack Rusin <zack.rusin@broadcom.com>, stable@vger.kernel.org,
+ Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Subject: [PATCH] drm/vmwgfx: validate backup buffer size in command buffer
+ processing
+Date: Mon, 26 Oct 2026 17:37:12 -0400
+Message-ID: <20261026213712.244907-1-zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA4NiBTYWx0ZWRfX3LhYrNDsYN3q
- NbolABTlHk5W7e1Z0dZd+Ua7YBogDvqmuWuLhZ7V+fE9fhwgmL8ewXMlwDf2tGaMKbpwUaETMgs
- 98e7aQZZbH4eekfGeTm7L9NgTH+7oo7hwI4VOOnhCiDRmxtgkhKCacfhziM9ArgFnLlVIEieFw+
- igHOKvG25DSYPNd0Rr5T0Li356xItz3vRaOHJPYa+eR1t5+/XMhcmy68GA6bGNUrhITQ5IAcTrG
- 8Syw0VWRVmjpu1cm9Pdz1N+oi21tF6ZZf0a+tdHaOMprytW8P9iA6NOxorxUw6bq4KVSUFLgmks
- SaDS3ZS7qIU4DupItOrZyvVV9leXpBqjFVF9E73iwIxGqsnp5DtceNxfFECxPZfA/SlPpueeyTg
- H5A5+9+MwSrJFI5d+EjWXQrR+3mIiYWyfmZGmVfQrBaNt/0aw5/U9Q2wtjyfZxpak6JihjgUyxL
- SZONWxHsQywhnXXp1mw==
-X-Proofpoint-ORIG-GUID: y5-4eEqRuV5iaMChziekg6fgrGTA4UGn
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA4NiBTYWx0ZWRfX0IVjldKn05GD
- MU7o9/utoIbZi4Aq/9R4YtD945XIWXnCbAjSN2O5ROL7GahjTom9ED65Ot8aCg2pWLjO8KF75Rp
- vLp7VCyGRWBBRnfT1oryElsIiJgFCKg=
-X-Proofpoint-GUID: y5-4eEqRuV5iaMChziekg6fgrGTA4UGn
-X-Authority-Analysis: v=2.4 cv=HKhWhYtv c=1 sm=1 tr=0 ts=6adfc804 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=N54-gffFAAAA:8
- a=EUspDBNiAAAA:8 a=YqXTWzTma6UHzskxvDAA:9 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260086
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="000000000000cc0abb065ec52283"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,259 +101,163 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MIME_NO_TEXT,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Convert (most of) the msm_gem_lock() and friends over to scope based
-cleanup.
+--000000000000cc0abb065ec52283
+Content-Transfer-Encoding: 8bit
 
-Other than fixing a lock leak in msm_ioctl_gem_info_set_metadata() there
-should be no functional change.
+vmw_cmd_res_switch_backup lets userspace bind an arbitrary MOB to a
+resource without checking that the MOB is large enough for the resource's
+guest_memory_size. The dirty-tracking bitmap is allocated based on the
+MOB size, but later accessed using the (larger) surface size, causing an
+out-of-bounds write in the bitmap that corrupts adjacent slab memory.
 
-Reported-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+Add a check that backup_offset + res->guest_memory_size does not exceed
+the buffer size before allowing the backup switch.
+
+Fixes: a97e21923b42 ("drm/vmwgfx: Hook up guest-backed surfaces")
+Cc: stable@vger.kernel.org
+Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-34068
+Closes: https://lore.kernel.org/all/BYAPR01MB38301CFC012E873340F77E3D80662@BYAPR01MB3830.prod.exchangelabs.com/
 ---
- drivers/gpu/drm/msm/msm_drv.c        | 38 ++++++++------------------
- drivers/gpu/drm/msm/msm_gem.c        | 41 +++++++---------------------
- drivers/gpu/drm/msm/msm_gem.h        |  3 ++
- drivers/gpu/drm/msm/msm_gem_submit.c |  6 ++--
- drivers/gpu/drm/msm/msm_gpu.c        |  3 +-
- 5 files changed, 29 insertions(+), 62 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index 5e8f3ce26b32..42381db0c468 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -550,7 +550,6 @@ static int msm_ioctl_gem_info_set_metadata(struct drm_gem_object *obj,
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+index a9136a6523cb..0156aee84c9f 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+@@ -1718,6 +1718,7 @@ static int vmw_cmd_res_switch_backup(struct vmw_private *dev_priv,
  {
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
- 	void *new_metadata;
--	void *buf;
+ 	struct vmw_bo *vbo;
+ 	void *info;
++	u64 end;
  	int ret;
  
- 	/* Impose a moderate upper bound on metadata size: */
-@@ -559,31 +558,25 @@ static int msm_ioctl_gem_info_set_metadata(struct drm_gem_object *obj,
- 	}
+ 	info = vmw_execbuf_info_from_res(sw_context, res);
+@@ -1728,6 +1729,13 @@ static int vmw_cmd_res_switch_backup(struct vmw_private *dev_priv,
+ 	if (ret)
+ 		return ret;
  
- 	/* Use a temporary buf to keep copy_from_user() outside of gem obj lock: */
--	buf = memdup_user(metadata, metadata_size);
-+	void *buf __free(kfree) = memdup_user(metadata, metadata_size);
- 	if (IS_ERR(buf))
- 		return PTR_ERR(buf);
- 
--	ret = msm_gem_lock_interruptible(obj);
--	if (ret)
--		goto out;
-+	ACQUIRE(gem_lock_intr, lock)(obj);
-+	if ((ret = ACQUIRE_ERR(gem_lock_intr, &lock)))
-+		return ret;
- 
- 	new_metadata =
- 		krealloc(msm_obj->metadata, metadata_size, GFP_KERNEL);
- 	if (!new_metadata) {
--		ret = -ENOMEM;
--		goto out;
-+		return -ENOMEM;
- 	}
- 
- 	msm_obj->metadata = new_metadata;
- 	msm_obj->metadata_size = metadata_size;
- 	memcpy(msm_obj->metadata, buf, metadata_size);
- 
--	msm_gem_unlock(obj);
--
--out:
--	kfree(buf);
--
--	return ret;
-+	return 0;
- }
- 
- static int msm_ioctl_gem_info_get_metadata(struct drm_gem_object *obj,
-@@ -607,21 +600,14 @@ static int msm_ioctl_gem_info_get_metadata(struct drm_gem_object *obj,
- 		return 0;
- 	}
- 
--	ret = msm_gem_lock_interruptible(obj);
--	if (ret)
--		return ret;
--
--	/* Avoid copy_to_user() under gem obj lock: */
--	len = msm_obj->metadata_size;
--	buf = kmemdup(msm_obj->metadata, len, GFP_KERNEL);
--
--	if (!buf) {
--		msm_gem_unlock(obj);
--		return -ENOMEM;
-+	scoped_cond_guard (gem_lock_intr, return -EINTR, obj) {
-+		/* Avoid copy_to_user() under gem obj lock by making a copy: */
-+		len = msm_obj->metadata_size;
-+		buf = kmemdup(msm_obj->metadata, len, GFP_KERNEL);
-+		if (!buf)
-+			return -ENOMEM;
- 	}
- 
--	msm_gem_unlock(obj);
--
- 	if (*metadata_size < len) {
- 		ret = -ETOOSMALL;
- 	} else if (copy_to_user(metadata, buf, len)) {
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 72e3cd8bb1e7..9abcc7beb268 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -376,8 +376,6 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
- 	struct page **pages;
- 	unsigned long pfn;
- 	pgoff_t pgoff;
--	int err;
--	vm_fault_t ret;
- 
- 	if (drm_WARN_ON_ONCE(obj->dev, drm_gem_is_imported(obj)))
- 		return VM_FAULT_SIGBUS;
-@@ -386,22 +384,19 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
- 	 * vm_ops.open/drm_gem_mmap_obj and close get and put
- 	 * a reference on obj. So, we dont need to hold one here.
- 	 */
--	err = msm_gem_lock_interruptible(obj);
--	if (err) {
--		ret = VM_FAULT_NOPAGE;
--		goto out;
-+	ACQUIRE(gem_lock_intr, lock)(obj);
-+	if (ACQUIRE_ERR(gem_lock_intr, &lock)) {
-+		return VM_FAULT_NOPAGE;
- 	}
- 
- 	if (GEM_WARN_ON(msm_obj->madv != MSM_MADV_WILLNEED)) {
--		msm_gem_unlock(obj);
- 		return VM_FAULT_SIGBUS;
- 	}
- 
- 	/* make sure we have pages attached now */
- 	pages = get_pages(obj);
- 	if (IS_ERR(pages)) {
--		ret = vmf_error(PTR_ERR(pages));
--		goto out_unlock;
-+		return vmf_error(PTR_ERR(pages));
- 	}
- 
- 	/* We don't use vmf->pgoff since that has the fake offset: */
-@@ -412,12 +407,7 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
- 	VERB("Inserting %p pfn %lx, pa %lx", (void *)vmf->address,
- 			pfn, pfn << PAGE_SHIFT);
- 
--	ret = vmf_insert_pfn(vma, vmf->address, pfn);
--
--out_unlock:
--	msm_gem_unlock(obj);
--out:
--	return ret;
-+	return vmf_insert_pfn(vma, vmf->address, pfn);
- }
- 
- 
-@@ -803,13 +793,8 @@ void *msm_gem_get_vaddr_locked(struct drm_gem_object *obj)
- 
- void *msm_gem_get_vaddr(struct drm_gem_object *obj)
- {
--	void *ret;
--
--	msm_gem_lock(obj);
--	ret = msm_gem_get_vaddr_locked(obj);
--	msm_gem_unlock(obj);
--
--	return ret;
-+	guard(gem_lock)(obj);
-+	return msm_gem_get_vaddr_locked(obj);
- }
- 
- /*
-@@ -836,9 +821,8 @@ void msm_gem_put_vaddr_locked(struct drm_gem_object *obj)
- 
- void msm_gem_put_vaddr(struct drm_gem_object *obj)
- {
--	msm_gem_lock(obj);
-+	guard(gem_lock)(obj);
- 	msm_gem_put_vaddr_locked(obj);
--	msm_gem_unlock(obj);
- }
- 
- /* Update madvise status, returns true if not purged, else
-@@ -849,9 +833,8 @@ int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv)
- 	struct drm_device *dev = obj->dev;
- 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
- 
--	msm_gem_lock(obj);
--
--	mutex_lock(&dev->gem_lru_mutex);
-+	guard(gem_lock)(obj);
-+	guard(mutex)(&dev->gem_lru_mutex);
- 
- 	if (msm_obj->madv != __MSM_MADV_PURGED)
- 		msm_obj->madv = madv;
-@@ -863,10 +846,6 @@ int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv)
- 	 */
- 	update_lru_locked(obj);
- 
--	mutex_unlock(&dev->gem_lru_mutex);
--
--	msm_gem_unlock(obj);
--
- 	return (madv != __MSM_MADV_PURGED);
- }
- 
-diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
-index d8ec696d89d7..bd7968232d73 100644
---- a/drivers/gpu/drm/msm/msm_gem.h
-+++ b/drivers/gpu/drm/msm/msm_gem.h
-@@ -347,6 +347,9 @@ msm_gem_unlock(struct drm_gem_object *obj)
- 	dma_resv_unlock(obj->resv);
- }
- 
-+DEFINE_LOCK_GUARD_1(gem_lock, struct drm_gem_object, msm_gem_lock(_T->lock), msm_gem_unlock(_T->lock));
-+DEFINE_LOCK_GUARD_1_COND(gem_lock, _intr, msm_gem_lock_interruptible(_T->lock), _RET == 0);
++	if (check_add_overflow((u64)backup_offset,
++			       (u64)res->guest_memory_size, &end) ||
++	    end > vbo->tbo.base.size) {
++		VMW_DEBUG_USER("Backup buffer too small for resource.\n");
++		return -EINVAL;
++	}
 +
- /**
-  * msm_gem_lock_vm_and_obj() - Helper to lock an obj + VM
-  * @exec: the exec context helper which will be initalized
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 5862db05297a..ff6cf39587c9 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -536,9 +536,9 @@ void msm_submit_retire(struct msm_gem_submit *submit)
- 		struct drm_gem_object *obj = submit->bos[i].obj;
- 		struct drm_gpuvm_bo *vm_bo = submit->bos[i].vm_bo;
- 
--		msm_gem_lock(obj);
--		drm_gpuvm_bo_put(vm_bo);
--		msm_gem_unlock(obj);
-+		scoped_guard (gem_lock, obj)
-+			drm_gpuvm_bo_put(vm_bo);
-+
- 		drm_gem_object_put(obj);
- 	}
- }
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 0c2c35636251..fb07803f5aba 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -308,10 +308,9 @@ static void crashstate_get_bos(struct msm_gpu_state *state, struct msm_gem_submi
- 			struct drm_gem_object *obj = submit->bos[i].obj;
- 			bool dump = rd_full || (submit->bos[i].flags & MSM_SUBMIT_BO_DUMP);
- 
--			msm_gem_lock(obj);
-+			guard(gem_lock)(obj);
- 			msm_gpu_crashstate_get_bo(state, obj, submit->bos[i].iova,
- 						  dump, 0, obj->size);
--			msm_gem_unlock(obj);
- 		}
- 	}
- }
+ 	vmw_validation_res_switch_backup(sw_context->ctx, info, vbo,
+ 					 backup_offset);
+ 	return 0;
 -- 
-2.56.0
+2.53.0
 
+
+--000000000000cc0abb065ec52283
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEINGz
+zgaeHDUD1qR6RfMe39MZanfKnPmUL4Nfj8NUrPaiMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAyNjIxMzcyNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAB3wDEP4kNfV0GPGBnOHwgoCoD6+wVKShldwDssJ
+Tv0RNC+nVP/iETXa/i9LyCJ62NCiEJmfF4TnUxbtKAfmetSMXLtMp2X8YsSI+a89Buz6f1w+LoV8
+Wnztm7LWveFUpQHx+/LfmHP61mvobq9SlO+cK3fQm3HoxBNLGH5ovUX5ql8yFkdZpeo5vCv3AQuW
+vVciHpQ9+DuJAN0QjzNPB2M4rbwDQEiCONFyM/OyosurXbjtIGSnTzJByFRIpK3b/gMpEHZYv+7s
+En5Jbu0CaYqGEpmPU51bz4CIfRT4pTgEFLdsh+HisDdPdophdXITSbdiUS8MnVAihYmUzRlmSQg=
+--000000000000cc0abb065ec52283--
