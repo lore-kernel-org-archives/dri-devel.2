@@ -2,142 +2,138 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE4F606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:21:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B836606A31E
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XyrWckL3
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m9CCfkDH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eaU9HjSt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F52D10ED12;
-	Mon, 26 Oct 2026 09:21:33 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012013.outbound.protection.outlook.com
- [40.93.195.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A48C310ED01
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:21:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C94zzvTjD05Gr8WxuX64Ne2FXmxl78gBgxeHcFQ8BsxK05c3Z9p7NTjTV3xZ3LvRE1qapOZeJJ7/WQjNFLCYylOvDqme6IpicXRKFb3jUzWVId9hvPx1pFINrnLa3FQgqgeYemoKEk/WbnzlyCwYjErsHam3nuqMDR8aHPndrKoTkvWsP+pChVANeA1Zp6yxD80N8xkOxcajFy4iuHlw3odXsx16pMcn7HPFr+gJLm3GE/AUOZlRh3b7FIXK5BQTEqNeFFuBxfiMyX9pxpxmUjDxqmj/PYLrir4cT4IIjhhwp7+0seZO0OeJrjo9esaiBgELDYFbf8t2qf88WLNPiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ULmxYLOiy2fmk3jwy72P4K/5hjpKCs9HpSMXMwaQYp4=;
- b=xZoq8zycjFj4+7SYxNEXE7ZEcHFY0TnTfs2+XqOgwdCrNpoG5VMMkKbuQzvuHL2ZzEmOdstZN6adpK6e5eXg0bUzhIzNzBwJYJ/3/IIbYgqE9LoFTJBKDVrY8NC45AgLBn0+TD89LcBVdcCXZBF2G0CIimyKAEkyo5/XiNOVMBu3XDgXHHfkg7bRqq8/1+/4Lwh7TX0sML9m7dvG2JX6/HL3ISQA5/WGn1od8RcsF89EzLLhb1bkK3fu0VwvEUQeECs8rwVosjQyKSf4/4KTwFRfmht4aex9i8Z8j1qNtr1JzmQLcLvCAB4poVV/NWPYK6w4/qdBs2+2I3uvWOphfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ULmxYLOiy2fmk3jwy72P4K/5hjpKCs9HpSMXMwaQYp4=;
- b=XyrWckL38IXDL3wTCFCgbgnsfA+5+pjNpAfOLMEVfwIKjuTsLE9hODPb4blpYgfKNlXj5mD2Bd+TpkgoSI2nZYG5pt1pom4nZtD14bUUqi8sqtUKbv+x08imTD7GgrxdOJRWljmZvSEwWCgOybzLlz4gh30Q9DixDsJr2pHCNm+XwpxsR/SeZ3AZ3rPxF4+MzCiebzfdepVXC/+n3K+uvXn28t9fn/45mCZrZz5JW+Az013O432PlCv9NbVb8hrhIINWJHza23FPl2j/g4MKXlrbvEC74xQ8rFJa2ZKaMMkhFz9gqzkRW9Hj/6O+7vNzKWPiTMwa3f4ljyoLMkb41w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by MN6PR12MB8591.namprd12.prod.outlook.com (2603:10b6:208:471::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 09:21:11 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 09:21:10 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Mon, 26 Oct 2026 18:19:34 +0900
-Subject: [PATCH v3 09/10] iommu/tegra-smmu: Defer display client
- translation to driver handover
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-b4-arm32-iommu-dma-cookie-v3-9-3901d74b1ff2@nvidia.com>
-References: <20261026-b4-arm32-iommu-dma-cookie-v3-0-3901d74b1ff2@nvidia.com>
-In-Reply-To: <20261026-b4-arm32-iommu-dma-cookie-v3-0-3901d74b1ff2@nvidia.com>
-To: Robin Murphy <robin.murphy@arm.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>, 
- Krishna Reddy <vdumpa@nvidia.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TYCP286CA0334.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:38e::12) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65B1689B78;
+	Mon, 26 Oct 2026 09:22:26 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60EE210ED0E
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:22:14 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69Q8xN3X1912088
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:22:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ iBHz0YV3YdiXGolaXXLrTp8rFrwcwAaKpHWy6zk0/rM=; b=m9CCfkDHBtQtvar0
+ NYfH7dg81uQPVwzS1po3OITBRmUfqMcPwOo5cWXJyjfvoXUoQNYe3lSx/ObzhQ2e
+ Ch7m2dCfokKZPKrkU4GTRz213IWkhyTHfoRcss+h6wVIQIidhaCVk1hZttIpvvIq
+ 9qoTTtKleoaH7M/pp3UV6nnngrJpyWHrrDyVcG6M3eWd9/aVfKRyAhgnfCzfInNm
+ Lfu/Bkog2SmK8A1GZXAsXx7/GSosAqAkK9PfLmoRy0exxp1BgtM9zDzdqw8XIeAJ
+ VsN6RIFgHALZX3oIeQgiDBjmCLRzdSfznhVGLf4J94QEs5/0K82TaWyoTtKTEw9t
+ C6AARw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u602rk-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:22:13 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-91c5ffce3f4so2582116d6.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:22:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793006533; x=1793611333;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=iBHz0YV3YdiXGolaXXLrTp8rFrwcwAaKpHWy6zk0/rM=;
+ b=eaU9HjStbr1j7CIU4V3TEIWs5hmG0XYiNZkcYhhjReQAlqKV6jd9TNZ/DHwIvJYNkt
+ sm8Q4KHVXReyZtSPGU3AGrPNrkkEKre6hbwg20wrHXJara7y0BWiv7PgAXKrDLTg74Cg
+ 5IEzS7bDUzrLcLiQPQJ0tABFki6U27j5q4htqZQ1arIyitDzhHvJLJfSxF+Og65WdsMX
+ I23VBxUNnqOwUwkKLX9izckfnGWbLF7npxBAcK4fwkifU/fGmhZpQfoForUioUCIPOTk
+ iRKiOMUyFFEJv+DUwiQ9hfYSpX9HUHQZi8LAElH++oZyVpySfLP4slM1mvzOGMwLXbR6
+ nPGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793006533; x=1793611333;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=iBHz0YV3YdiXGolaXXLrTp8rFrwcwAaKpHWy6zk0/rM=;
+ b=xrkHBsQ2hoyzTSZtzaPshbtWLz558EZeC+ovRroGoOmCNc1zdX7DekcdGAivkv/QnE
+ NHGOQgPvGCNobvre/NpB30saj2Kbj6oG0ggx4p5NtBWgTfXVLV5EUTRgj1sr3QLAYKpT
+ hRVDFf/aj8Ggx+YoGItH1pyp1qSSTx3iOBscqy5JcFRIWzNAK5bhfEL4Bnc7pcM+j21E
+ 6KJi9wPZsf4V+11/+P1sx7lJ1ByKQvKrrQ02XDq7F1PhB1l1xwlgv6pH7P1EUqdjgL4N
+ eFJjQRLbGixH6yyG6GpV+KNGPG1z2FvW8FWnQz+jXuhbRMvdEpKYAqPps0PsKvH4FOYS
+ G9MQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwxvmbt8K3fSn3xpp/1bhSLEhcFUvnuL+pxRdkyY53vSnoN7jU6iKYnhG55styFKfKLYsrlSXR+qXg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKbwPwiIcJcEJieI2rZheD3OnaADMiYQjq7ZPDQ4MZBsepKgZxc
+ xzMEzoSPuKWJjhrKl0o+zYaGF4Lszsms0VSdqc5S+AUiuaogMq8BtmV2QCkCiIiqGfKi3wtQ4lr
+ LxlphRV7YcWcQe2pFZxL8utP4+4+wxWiEsq5stY9WBuCayY4NkdWb9sAfiOxb6yvUzE7D8xrFUg
+ kcbFA=
+X-Gm-Gg: AYBFou2sFbf+C3fCviXuFyw1E2O6coB8+4KtezX6sjK3tBOl++3Rnej9oQnEoXQ6+uu
+ jy/cs6tpsC4MxSggK8eRNjnBCdCt0FZvrFB6MLWfq1D5s6bumXpmeKNpCOeFW7nW+XR2h+9YyXl
+ 3hbDkI0dbQW2pGPMCFLTF2Fz75ZyFgCm43t8NtqWj9ChvxAp/B0NnKE9gL+oxm0PnblLgK7os8K
+ J2AoHVG+qb0cJKD71TrSvlOF6TbjDtmUso/ktr4OIgIzbQfrMC+uz+VWN914r1B2XEkXG9TePkS
+ v08UEW/IGOb5hxdJy6FLTOfxwxjo0f1Ghsxsa7XpqqdXVQv0wxQgKuhnfrXOqyS+5TMiGaw0dKq
+ 6cOAud9MqCckVveLSvG+CSg==
+X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id
+ af79cd13be357-940ef7d5676mr947659285a.1.1793006532775; 
+ Mon, 26 Oct 2026 02:22:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id
+ af79cd13be357-940ef7d5676mr947656285a.1.1793006532304; 
+ Mon, 26 Oct 2026 02:22:12 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c4992141068sm76044666b.60.2026.10.26.02.22.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Oct 2026 02:22:11 -0700 (PDT)
+Message-ID: <a2905078-a7ca-4241-92f1-d4d2b0de3984@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 10:22:08 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|MN6PR12MB8591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ac4cb8c-4dd1-424b-7815-08df3342794a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|7416014|376014|1800799024|23010399003|366016|18002099003|22082099003|6133799003|921020|56012099006|11063799006|261022075727099003|261021121427099003|261021123027099003|10067099003|261009223027099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: YfgpaTotALWe2+ZCCrz0xiMYQm6qrfKqI2aCRSkd/lCOINSV2t3uLoOTApePsO798kiITN8NtZIDNcA6rRqsxYT4VDDxSr1Jq92d1gzmPtgy8fFpKUOtQZbX4r5Xb2ToPRepk4EdCw1Cn0cZYGcybgTCKqJDni3R7uZJH6bnFiR1lR9AosLZZ3j5G1MKsxo01WYhFCShzUHdS0NR59pxEkhYnyayqKb4IL+8S7sYDrWytWWIveN2RItUXXYw/YGaB7ufzYEK0ZSFJ5lml4PljsctsvHcBZVCfV+kLDkdxJMwWtCxsCsVoStZpeYYCAQLUZnDmiEPc7q4A1dGjSvIW6OQUso7Ol8iPykbgy0KZynfa418g63dQvuEcvYnHHRPK5aQvUMQtBN9NKSXVKAx7ted6pXzZQ8tzcFmE0XemJdZcANq9ZQ5jMxWuHAnnoVfT9CkZH5ZYDwT87Y80YDek5MxMKwDm831loWXrKoy8iWzz+j37TyjTno1r5mBHUPWjOgef/31u0RsBz2unCA5aEs/QI6Q3iP/s0yVHzjxJtWjEZvCCTqdmz0g8zUbQyKXQUJq0rR1hVjpaqr7uJpqu52hjd1FoAmHkgXqcBXvu6n2AobQyKShYc2UuqwJ1ubdHQk5ut1I6vtf5zC4aO8OpRSwheD2pudBHdNwFBFHQjS8WEkYyyhIE3sn/xHloFjZDogNYEyC5MhL5UmZBPv+Iw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(6133799003)(921020)(56012099006)(11063799006)(261022075727099003)(261021121427099003)(261021123027099003)(10067099003)(261009223027099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXM1VzgzUlhhcWhEUlRIY3ZEZkJhSnNSN2ptVVAwdE1SMmVrQ2hIZUNYeXFE?=
- =?utf-8?B?dWxaVGVvbTVxM0FoRExyWFJjVEI1VEtaenlla1ZzUHRtcGVib2ZhdVV5eVZh?=
- =?utf-8?B?UW5pN1lMVmk3Z0lkQnVkV0tsajB2M0c3NkNhTkZmRlgrbVlOamdpWmpFWkd1?=
- =?utf-8?B?WmlkdWxnWGp0ODE1RnQvL0NDODVLNW1BSHY2dGRPNUNGVVdtMjZHUm1KdlVH?=
- =?utf-8?B?b1FHOFd6bVlVRHZVOXBQc1kvTE9xYlZrMDZnYWN4Z2xBeXZHVlBvY0hac0Vu?=
- =?utf-8?B?MFlsMTZjWVJ0d3kzNXRnbmFqTjN1dzk5QytIWWlZYTJ2ZGw1WjhKd2g5aUp1?=
- =?utf-8?B?cmQvbUVuU2lZbyt1VlkyeHJISXNrZXpVdTY1SzdLUndNU3Ird1lra09kZzNN?=
- =?utf-8?B?ZlBNNk4vMlA5S05pTmMvSUF4U200RlE3R1ZBd3RGS3VPWmNYTFRvMytDUndX?=
- =?utf-8?B?QWRTWDJ0MiszVHpOOGwwMHJ5MmtoeTJ0bXFNSzhXSmtHdEV2SDNCOE1Rb1pi?=
- =?utf-8?B?bC9sYk9HUmEzMmhJbktQeEx2M1U5VGl1U2pzV3ljRlhIQ0VQY0tHengxY0Ny?=
- =?utf-8?B?ZkVIZmpwdXlGMHJobHFyWXJ2dXZWUUJmZk9Edk13RXZmMlczRzFvd3dlMDc4?=
- =?utf-8?B?dWhuMzBkVEwzd0l3NkFBc28yUngwQzExcVovZjQvODArK3p5SUFRYnNiN1h0?=
- =?utf-8?B?NlFyWWFTYkFNaUlId0h3UDBQaG4raURzd2cwK3FCSXRJcGh0enRxMVRIV1By?=
- =?utf-8?B?Y0VRbnFQSHFmb1BOYnR6ak04SHZoM0U0L0NManNxenQ4NGJOMTF3M0p5TEt5?=
- =?utf-8?B?WkxqbzNXS1EwK1JmMURtVXFWcVhaMHdSS3lPcXFHRVdySFBvV1hxaUloVDBX?=
- =?utf-8?B?dmxzQ25JcVVGVkhQZGNVTzRhODJ4UWtra3Erd1pJN0E2M2FXTkdiVUR6V21x?=
- =?utf-8?B?eG9kRUszZGIxcWdnR0djSG5zTGVzeXRxOGFkaUFENGZsNXlSTkdHY3JhNG0r?=
- =?utf-8?B?MmNublMvK2I1SFhMRWJ1ejlPUk9xTUdiVzBOZktEODJ0c2RzQUQ4NjRxSXFy?=
- =?utf-8?B?RDBoUTJBZ2FtV3ZrQzV4RzN5a2VqdW5UWHhaYTFpdkZGcHJFVWUxbHpJeGUv?=
- =?utf-8?B?ckJjYkk3bmFvVUtXTVZWZWFHeUc4UzlydlBsK3ZyUmpvU0w5TkRZekxFR1VM?=
- =?utf-8?B?bk9DU2Q3bkVGQTVOa0VrMmMzS0hZOE04THg1RE04L0wva2tpemF6WXVsZVlI?=
- =?utf-8?B?UUFKY1RORXJaMmczTGp5dGVZWkUzcFk1Q1JZcXFUaEF4d1YzR0NFeUhxT2pv?=
- =?utf-8?B?VGczV0pmZ3dBaUxMNkRxWTVqL1VBQ2JtMnVQZlNTVXdHQ3BJaEswZjRKK09t?=
- =?utf-8?B?M0k1L2xoQ3FoTWtPQWJ4V0ExWFJlcUw1elJPOE8rN0xyUVpzS3ZNN3d4N214?=
- =?utf-8?B?amxyT3pPRXZVODQrc08yWWt2TmlmNzArNXJzbDZ5TFBWQXQ4OVZCNEZmR3lX?=
- =?utf-8?B?TFZRbXFNU0pTVUlxaTltaHc3c0txZVMvUFhCLzAwTEMvcGMzZitVUlUwNzU0?=
- =?utf-8?B?bDhsUHg1Mzd1ZTlNOCsrU3VobW9WYlArejdqYUVyaUU4eHA2S1VhdThobTMw?=
- =?utf-8?B?SHUrTkRlZ1NNbFg0eWJRSGpWN0VaUG5LdXV3blJrTXJZbHhlT1J3cmo1N3ZF?=
- =?utf-8?B?a09QNlpEczBUNUlTZFNpb1YrSjRRNkZmT0ZsWjhEWTQ3UGFSR3QyZTdhMk0w?=
- =?utf-8?B?emFKQlNlYXJxMzk5SnlWUUJuQnJ0VmZ1YkRmUEI1T2RGZ0VsckhOY1EzYVJk?=
- =?utf-8?B?WGx5c21ULzYrbEhXMmdNMG5IK2JWdGVpYldZR2p0ZVpNV3I2M1poSXp0U2dV?=
- =?utf-8?B?TXViT1lQdFhPeUowQmIvY1hOUUhmQXNZWUxqS09yaGpKNWlyM0tWa1dTTW84?=
- =?utf-8?B?SlFNcFB6QzVVQmNQSTJidGtkY2UvaDlIOTlFWmM4WEtUclZncGJhMWpWRWdG?=
- =?utf-8?B?Y0N0STBub2VMK1RqZHpoTXJRRVFiMXZQMGV4ZG84N3ExQXY2Wjl5Ni9tbVpu?=
- =?utf-8?B?eGdTbTZQZVJPTWF6U2FpbHRhTXFSSWNDQnBoc2VLVCtYaVFLVnZ1eEExblgr?=
- =?utf-8?B?REZiM3J2dlpudG9oZE5LeWVHOVJnak0zbWtYSW9hODRIODZ5WXpOMXV6dUZL?=
- =?utf-8?B?UzU1OXZmZktYcG1ZbHNEaDNRUEhCSW9HZzlYRW8xRWlyTUI5RFZoSURoRTJP?=
- =?utf-8?B?SWVzNUNLbys4OFFqZ1Z0clAwemRWcUIzbThLU01GZHU5blFMcjdhYUx4cExE?=
- =?utf-8?B?ckVHZ2w3SWZvVWlENTU3dHc0bGpCVE5IRFYwZjJYYjBpMnVoRTFUWW1ZNTdn?=
- =?utf-8?Q?bgoBm/TULBJ6bBdBzIi4yzTwa5Bk/vFYXJCdD3S6/71/m?=
-X-MS-Exchange-AntiSpam-MessageData-1: +dlCTDC3cYnMZQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ac4cb8c-4dd1-424b-7815-08df3342794a
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 09:21:10.7167 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xG8eFruaEd0Dp5pvEzD4JEoZ2RrdJoWtwusPF4jzH47+sTIT6Btktd2vaIBPXVm+tpCcxN+ovx7M30Rx5Yu/Cg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8591
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 02/14] drm/msm/mdp5: forget the hardware blocks of a
+ previous bind
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261024-msm-kms-destroy-fixes-v3-0-66a30120a5ea@oss.qualcomm.com>
+ <20261024-msm-kms-destroy-fixes-v3-2-66a30120a5ea@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261024-msm-kms-destroy-fixes-v3-2-66a30120a5ea@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: HxnML9FHUdBNp7K4g2mMGivzxwySaDF9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNyBTYWx0ZWRfX7i52/Jpiwr7X
+ SvdP5kXp9gcY0Pj/HZw0eyOnJl5aLeLwT8wiXS0Kco50weeqEsX/XNZElHdyQ2gaTeiw/357lRb
+ bE1Hib/OKig803HNAmscIxRyoQm2pnPUVL+0TDPaJo6rCWg2Mf4LeeFi0zR1ojr5Z3YxrTBCCXB
+ vJ7zhKxGsbOXqDYfkShQbZ+SJPILeKuYC/WsqQ/4Dn92Cg4qgrJWrLYX5pBEtGSPtJEX+uxKCbl
+ uSsuV6JpjlPC1f6g/qXn+fund7ypZfXgASmp+kja4ZIW54eyWTC0cD9vuWC1iQGNUTHCsqo3XcJ
+ 4XtIyxGghVgGdW7eKqphzieazv1YgLHw0TokioCjtSuitk3UJBDzv6gvn4W9nfM4PMPQ65aAg2r
+ q9WkQmOYn+MgllNHr6N/I7nsGca26OXnm0jaGimzCTSaEiRzfZA6BbxNRjOule2KsJ0cPamZuDC
+ lkfHlKf4oAbLPU1ir4w==
+X-Proofpoint-ORIG-GUID: HxnML9FHUdBNp7K4g2mMGivzxwySaDF9
+X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6adf1bc5 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=sdshgxurkjS-ratPg-cA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNyBTYWx0ZWRfX6TzfhckZRJaZ
+ JrDSVCr2nBpRTx3JCkO47kKQhk6U0UnBGHlS5C+RbOodipSoPVnil+CXiBigS4QUVbChHayPTkU
+ hUwx73Dc7K/yv1/rQn9kEH+fjA/A3II=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260037
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,244 +145,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Bootloaders may leave display controllers scanning out a boot splash
-while the kernel boots. Enabling translation for them without special
-care during that time would cause translation faults.
+On 10/24/26 1:19 AM, Dmitry Baryshkov wrote:
+> Binding the MDP5 driver again, after an unbind or after a failed bind,
+> corrupts struct mdp5_kms. On DB820c, binding it after a failed bind
+> oopses in hwmixer_init():
+> 
+>   Unable to handle kernel paging request at virtual address ffff0004d411f9d8
+>   pc : mdp5_kms_init+0x264/0x7f8
+> 
+> Since mdp5_kms is allocated in mdp5_dev_probe(), it outlives the bind,
+> but hwpipe_init(), hwmixer_init() and interface_init() still run on
+> each bind and append to the hwpipes[], hwmixers[] and intfs[] arrays
+> without resetting their counts. The second bind writes past the end of
+> hwpipes[] into the fields which follow it.
+> 
+> Reset the counts when the hardware blocks are torn down. The blocks
+> themselves are devm-allocated on the MDP5 device on each bind and are
+> only freed when it is unbound; that leak is left for a separate change.
+> 
+> Fixes: 1f50db2f3e1e ("drm/msm/mdp5: move resource allocation to the _probe function")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-Because of this, tegra_smmu_def_domain_type has kept every device on an
-identity domain at boot, and TegraDRM has parallel custom IOMMU domain
-management code paths for these clients.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Mark the dc and dcb swgroups on Tegra30, Tegra114, Tegra124 and Tegra210
-with a new defer_enable flag. tegra_smmu_enable() sets those swgroups up
-as usual, ASID and per-client enables and all, but leaves
-SMMU_ASID_ENABLE clear, so the clients stay in bypass. tegra_dc_probe()
-then calls tegra_smmu_enable_translation() once it has asserted the
-display controller's reset (and set up its final IOMMU domain), at which
-point the hardware is guaranteed not to be fetching and translation can
-be turned on.
-
-If the display driver never probes, the clients simply stay in bypass,
-which is what they do today.
-
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- drivers/gpu/drm/tegra/dc.c      |  8 +++++++
- drivers/iommu/tegra-smmu.c      | 51 ++++++++++++++++++++++++++++++++++++++++-
- drivers/memory/tegra/tegra114.c |  6 +++--
- drivers/memory/tegra/tegra124.c |  6 +++--
- drivers/memory/tegra/tegra210.c |  6 +++--
- drivers/memory/tegra/tegra30.c  |  6 +++--
- include/soc/tegra/mc.h          | 13 +++++++++++
- 7 files changed, 87 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-index fefc3761a4bc..caf898e3db00 100644
---- a/drivers/gpu/drm/tegra/dc.c
-+++ b/drivers/gpu/drm/tegra/dc.c
-@@ -19,6 +19,7 @@
- #include <linux/reset.h>
- 
- #include <soc/tegra/common.h>
-+#include <soc/tegra/mc.h>
- #include <soc/tegra/pmc.h>
- 
- #include <drm/drm_atomic.h>
-@@ -2757,6 +2758,13 @@ static int tegra_dc_init(struct host1x_client *client)
- 		return err;
- 	}
- 
-+	/*
-+	 * Enable translation now that the final domain is attached.
-+	 * The hardware was reset at probe and has not been programmed
-+	 * since.
-+	 */
-+	tegra_smmu_enable_translation(client->dev);
-+
- 	if (dc->soc->wgrps)
- 		primary = tegra_dc_add_shared_planes(drm, dc);
- 	else
-diff --git a/drivers/iommu/tegra-smmu.c b/drivers/iommu/tegra-smmu.c
-index 67e7a7b925f0..6779528a9e7c 100644
---- a/drivers/iommu/tegra-smmu.c
-+++ b/drivers/iommu/tegra-smmu.c
-@@ -368,7 +368,13 @@ static void tegra_smmu_enable(struct tegra_smmu *smmu, unsigned int swgroup,
- 		value = smmu_readl(smmu, group->reg);
- 		value &= ~SMMU_ASID_MASK;
- 		value |= SMMU_ASID_VALUE(asid);
--		value |= SMMU_ASID_ENABLE;
-+		/*
-+		 * A deferred client is set up completely, but with translation
-+		 * gated off, so it stays in bypass until its driver calls
-+		 * tegra_smmu_enable_translation().
-+		 */
-+		if (!group->defer_enable)
-+			value |= SMMU_ASID_ENABLE;
- 		smmu_writel(smmu, value, group->reg);
- 	} else {
- 		pr_warn("%s group from swgroup %u not found\n", __func__,
-@@ -1190,3 +1196,46 @@ void tegra_smmu_remove(struct tegra_smmu *smmu)
- 	if (IS_ENABLED(CONFIG_DEBUG_FS))
- 		tegra_smmu_debugfs_exit(smmu);
- }
-+
-+/**
-+ * tegra_smmu_enable_translation - Release a client's swgroups to translation
-+ * @dev: memory client device, already quiesced by its driver
-+ *
-+ * Enables translation for swgroups which were left in bypass at attach time
-+ * because the client could still have been running from a pre-kernel
-+ * configuration. Must be called after @dev has been attached to the domain it
-+ * will use. Safe to call for any device, including ones behind other IOMMUs;
-+ * clients which were not deferred are unaffected.
-+ */
-+void tegra_smmu_enable_translation(struct device *dev)
-+{
-+	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-+	struct iommu_domain *domain;
-+	struct tegra_smmu *smmu;
-+	unsigned int i;
-+
-+	domain = iommu_get_domain_for_dev(dev);
-+	if (!fwspec || !domain || domain->owner != &tegra_smmu_ops ||
-+	    !(domain->type & __IOMMU_DOMAIN_PAGING))
-+		return;
-+
-+	smmu = dev_iommu_priv_get(dev);
-+
-+	mutex_lock(&smmu->lock);
-+
-+	for (i = 0; i < fwspec->num_ids; i++) {
-+		const struct tegra_smmu_swgroup *group;
-+		u32 value;
-+
-+		group = tegra_smmu_find_swgroup(smmu, fwspec->ids[i]);
-+		if (!group || !group->defer_enable)
-+			continue;
-+
-+		value = smmu_readl(smmu, group->reg);
-+		value |= SMMU_ASID_ENABLE;
-+		smmu_writel(smmu, value, group->reg);
-+	}
-+
-+	mutex_unlock(&smmu->lock);
-+}
-+EXPORT_SYMBOL_GPL(tegra_smmu_enable_translation);
-diff --git a/drivers/memory/tegra/tegra114.c b/drivers/memory/tegra/tegra114.c
-index 2cb153091228..2883c4f91144 100644
---- a/drivers/memory/tegra/tegra114.c
-+++ b/drivers/memory/tegra/tegra114.c
-@@ -1028,8 +1028,10 @@ static const struct tegra_mc_client tegra114_mc_clients[] = {
- };
- 
- static const struct tegra_smmu_swgroup tegra114_swgroups[] = {
--	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240 },
--	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244 },
-+	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
-+	  .defer_enable = true },
-+	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
-+	  .defer_enable = true },
- 	{ .name = "epp",       .swgroup = TEGRA_SWGROUP_EPP,       .reg = 0x248 },
- 	{ .name = "g2",        .swgroup = TEGRA_SWGROUP_G2,        .reg = 0x24c },
- 	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
-diff --git a/drivers/memory/tegra/tegra124.c b/drivers/memory/tegra/tegra124.c
-index df87c5038625..a38fbf2baf6c 100644
---- a/drivers/memory/tegra/tegra124.c
-+++ b/drivers/memory/tegra/tegra124.c
-@@ -1070,8 +1070,10 @@ static const struct tegra_mc_client tegra124_mc_clients[] = {
- };
- 
- static const struct tegra_smmu_swgroup tegra124_swgroups[] = {
--	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240 },
--	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244 },
-+	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
-+	  .defer_enable = true },
-+	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
-+	  .defer_enable = true },
- 	{ .name = "afi",       .swgroup = TEGRA_SWGROUP_AFI,       .reg = 0x238 },
- 	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
- 	{ .name = "hda",       .swgroup = TEGRA_SWGROUP_HDA,       .reg = 0x254 },
-diff --git a/drivers/memory/tegra/tegra210.c b/drivers/memory/tegra/tegra210.c
-index f58f3ef6f681..92e809cd7c26 100644
---- a/drivers/memory/tegra/tegra210.c
-+++ b/drivers/memory/tegra/tegra210.c
-@@ -1166,8 +1166,10 @@ static const struct tegra_mc_client tegra210_mc_clients[] = {
- static const struct tegra_smmu_swgroup tegra210_swgroups[] = {
- 	{ .name = "afi",       .swgroup = TEGRA_SWGROUP_AFI,       .reg = 0x238 },
- 	{ .name = "avpc",      .swgroup = TEGRA_SWGROUP_AVPC,      .reg = 0x23c },
--	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240 },
--	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244 },
-+	{ .name = "dc",        .swgroup = TEGRA_SWGROUP_DC,        .reg = 0x240,
-+	  .defer_enable = true },
-+	{ .name = "dcb",       .swgroup = TEGRA_SWGROUP_DCB,       .reg = 0x244,
-+	  .defer_enable = true },
- 	{ .name = "hc",        .swgroup = TEGRA_SWGROUP_HC,        .reg = 0x250 },
- 	{ .name = "hda",       .swgroup = TEGRA_SWGROUP_HDA,       .reg = 0x254 },
- 	{ .name = "isp2",      .swgroup = TEGRA_SWGROUP_ISP2,      .reg = 0x258 },
-diff --git a/drivers/memory/tegra/tegra30.c b/drivers/memory/tegra/tegra30.c
-index 8389e3af0121..0ee4715413ba 100644
---- a/drivers/memory/tegra/tegra30.c
-+++ b/drivers/memory/tegra/tegra30.c
-@@ -1139,8 +1139,10 @@ static const struct tegra_mc_client tegra30_mc_clients[] = {
- };
- 
- static const struct tegra_smmu_swgroup tegra30_swgroups[] = {
--	{ .name = "dc",   .swgroup = TEGRA_SWGROUP_DC,   .reg = 0x240 },
--	{ .name = "dcb",  .swgroup = TEGRA_SWGROUP_DCB,  .reg = 0x244 },
-+	{ .name = "dc",   .swgroup = TEGRA_SWGROUP_DC,   .reg = 0x240,
-+	  .defer_enable = true },
-+	{ .name = "dcb",  .swgroup = TEGRA_SWGROUP_DCB,  .reg = 0x244,
-+	  .defer_enable = true },
- 	{ .name = "epp",  .swgroup = TEGRA_SWGROUP_EPP,  .reg = 0x248 },
- 	{ .name = "g2",   .swgroup = TEGRA_SWGROUP_G2,   .reg = 0x24c },
- 	{ .name = "mpe",  .swgroup = TEGRA_SWGROUP_MPE,  .reg = 0x264 },
-diff --git a/include/soc/tegra/mc.h b/include/soc/tegra/mc.h
-index 25d465d70493..ea67972fd585 100644
---- a/include/soc/tegra/mc.h
-+++ b/include/soc/tegra/mc.h
-@@ -70,6 +70,14 @@ struct tegra_smmu_swgroup {
- 	const char *name;
- 	unsigned int swgroup;
- 	unsigned int reg;
-+
-+	/*
-+	 * Set for clients which may already be running when the kernel takes
-+	 * over, e.g. display controllers scanning out a boot splash. They are
-+	 * left in bypass until their driver calls
-+	 * tegra_smmu_enable_translation().
-+	 */
-+	bool defer_enable;
- };
- 
- struct tegra_smmu_group_soc {
-@@ -103,6 +111,7 @@ struct tegra_smmu *tegra_smmu_probe(struct device *dev,
- 				    const struct tegra_smmu_soc *soc,
- 				    struct tegra_mc *mc);
- void tegra_smmu_remove(struct tegra_smmu *smmu);
-+void tegra_smmu_enable_translation(struct device *dev);
- #else
- static inline struct tegra_smmu *
- tegra_smmu_probe(struct device *dev, const struct tegra_smmu_soc *soc,
-@@ -114,6 +123,10 @@ tegra_smmu_probe(struct device *dev, const struct tegra_smmu_soc *soc,
- static inline void tegra_smmu_remove(struct tegra_smmu *smmu)
- {
- }
-+
-+static inline void tegra_smmu_enable_translation(struct device *dev)
-+{
-+}
- #endif
- 
- struct tegra_mc_reset {
-
--- 
-2.55.0
-
+Konrad
