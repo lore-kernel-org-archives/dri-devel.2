@@ -2,95 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95570606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:12:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122E5606A31D
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:14:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AM1cYYST;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bkPyZu8G
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HE5Ej9OG;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=K65QCqnW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F14FD10E0BB;
-	Mon, 26 Oct 2026 09:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4494310E2E3;
+	Mon, 26 Oct 2026 09:13:52 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15A0910E0BB
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:11:54 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E80810E1C7
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:13:41 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69Q4arqx3303612
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:11:53 GMT
+ 69Q8xN2E1912088
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:13:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- /vDERYeVL03wKO34taLC/BjiC0AyLdy7FJkp+DjJcs0=; b=AM1cYYSTA37KxufC
- Y9gCmJaHvPM8awTBsY97AbFNn/5c/owS0kW6fy15Ri9NiVS9o5nrNAHLFFoJ2HEw
- aJKbm0d5eJGmj5yj8rnlgqxBLtoekUOIRSYMh7IWS9GjoJtjZ0s57/W4lGmThLFj
- /O8/iiJAr6xLsRuQdKrGuRHpbX32hYprGHTCVK9PYWuGbX2MxfJH5EIV8I4cHQ+Y
- Hgy1iCBzc1bXClRZhAcPbAS9Jxj4tfWf6YL02QW2BHYue6CbdY3WgQPz4Ho57vMc
- DTiaswtRB1q3ataXB83m0qnfOAvqIwe6xsWXpWkf2N64OwQZnbhL/9hghwj33Je/
- WESGNA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkmsdqbr-1
+ 504GS7G2c5HvF1fzY/p3b+yghdp3at25Pz8Gt9PufVE=; b=HE5Ej9OGUxYGrI8N
+ YKB+QS0Q8izHhB4qTjUsd1Mnr7E66NzQri9a3l5R8+cYFJHrRhgK77FsrOZvlbUw
+ R32p9NpTqyhwXI1diVf635IA1Qk6+XUNiQU1p36fqcRqRRSJ7z73DtJ+wCcr2kTc
+ GhaIMdBfug8bY7wCPqXmmkgTIWc/y1RwRikL2ObtwQEzrSwtFPlfVsTNqmnbrQxR
+ HWsVRR5/nUjwJ+VgWEZ8bOe2fIhEb0MMkJi4cQOf2Ub1I4z4JTMWr1oGaTGKqw2k
+ jR1UBzyEDgvhql3KRKQ/ovLU6aUGihyLLXO+3q119Zy/rKcrYYPNHEEHVFghPWcR
+ 97/0Ng==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u601mc-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:11:53 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-93df7a9466bso27919685a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:11:53 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:13:40 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-53568f05f8bso9732841cf.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:13:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793005912; x=1793610712;
+ d=oss.qualcomm.com; s=google; t=1793006020; x=1793610820;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=/vDERYeVL03wKO34taLC/BjiC0AyLdy7FJkp+DjJcs0=;
- b=bkPyZu8GTEWE362MXBihYYDBhF+IWOuoCirDOGgAU3IPgHm8jAmihhOMXKX6D8Ykv4
- t0Dj8fxEl6YglzzmXoBUAwPbhXBRtzJaN8YSZEoLXvL+u1CLlncRs03/GzNcNm+/uKAF
- 90ukBx2Q3vPOM73HFIklivabSTwo1TjlRTqOLlCClVSthIkJiB1SdPrfHSpjHEU+zJHc
- l8iYpn/gHrg9ncz2XKS1KmRRV+xqBcXS/zLGFMzL8bYvix0oNIDbNSnyeboevx192nHb
- T/OLpFrvZ7PETK9bHIjCIoCsU4fU5cy4r3OY78Lii/vpBbS+Pv/bjFcz7Zvf+GU0BnLg
- ZlWg==
+ :content-type; bh=504GS7G2c5HvF1fzY/p3b+yghdp3at25Pz8Gt9PufVE=;
+ b=K65QCqnW2QcsT8P/qAlJ/Rsu8m7i3vLAYn/8Bb2khPuHzPoWHa0WwFGYrYDwDA/0si
+ oFUHbi5nqxoQBVq0PBhj7dw176ZSXrBUw65UjTpP5r/CTUZY0hyCn+FmzTasxAwUFvFY
+ TLXcNDy6gnTcamszjrVGGXK00WejiDVzgVJzzJIRwRLidi22SYG5pswAxAazzVFvd5QT
+ PkIENVd1q1ov5mKEk1NyoEHXyRl5QqrWI5bry1Hnfw8XYu+5Sj4SMXCPfS0Bn/T/Djck
+ +yyjDDxmxJSKWdfelAA44H4scFI3OdkWJGWm2s+WkIqMUGYbM3ZgjFAGyqsGYvM9YcaE
+ n6Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793005912; x=1793610712;
+ d=1e100.net; s=20260707; t=1793006020; x=1793610820;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=/vDERYeVL03wKO34taLC/BjiC0AyLdy7FJkp+DjJcs0=;
- b=MR0jabuqmuQrpFMB95I7sl80JG5PcDvPZLtZ4z2O1LKppdMJvq15Dx9imL7QJzzIEy
- d25qQFjXUhf5bAHlDeF7hbF5wJ7847Wg+OgoHFpS7iXY9atQvjGz4NdK/W4pY2DsSyQj
- bY+UkwE2bnfku8vmmRISsIscUIP5ntIF08fih1k5x+uEYQK+BQprGxOs6J5B8DcDiZEJ
- dy8Vu4RCCuIQiaLu6tX8QFVvxDVqq9/+Su3RlotqApHFx/pbRWt7Tb1IoUhZ21ZyhvL3
- Ph2odXtY20RriA7mw7ccHmJ9WCK4F8k793fVpSR++buuTZGf0rmTB3X533+rLhkZwtVV
- nfxg==
+ bh=504GS7G2c5HvF1fzY/p3b+yghdp3at25Pz8Gt9PufVE=;
+ b=Wykj5dAhjQq4KaoRJTIxwFuN25444JYUg73/YldYCbowWJT3+kbHfaPOE9abBw3eah
+ MXjHxwcuCSXGn3vvep5xMi+goN8BTCEvPpV95SgPDnL0JYEr4qSLK47SHucXOH+MlyL8
+ 6A1BbTa6iC1hqXVbsQLe2rp96BzVXL39ueBNmZGcRIQA7K0OTNpINQNDCQMAEACQxcKj
+ tGQzy3+mgJq+yg2Cf1P239nP3nI2QptXmd311wBARXHutBE0Bv2eFvul+O+GShD63l75
+ iujIX6CJA88XOR7MbjlWzl+qiHsAe9+u8/4HRIH+ytpe3B/0vSQMZSMi9T8LcQv9dSUF
+ wxwg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBy18hkI8ILZlyY92HGpOaKLw2uBJG2/M83+cjJRPC6rIP3nYd6WFFg5DZtsq/O8rqs/AsBGadsZ9yE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKDXoBHpl8/uGXHKlaMTytHKBwzci4PIFariTXdfC6tl4Y5o+lD
- ZZRY+NwsX/L/DF+B475eYZyWxnGeo08nXktDF/qQDwRcGhGGrra8rWw/uWHnkcTvqFnpZfza9/d
- PFRjV7Nt4lfcMDUKGanKb19jHniyqdIFFBgTiUQhJ3Z3VHvR5jk/V+K6WIUqpX0J/D1hovHo=
-X-Gm-Gg: AYBFou1JrroMiwmz5i/tNc7DlhFVP2BpAOXeA/wu3h6PoyXB53ZhnUe8O2Rp3NL9J2j
- YK3nhrcMKn+RpYRUZG+73f9DDh4H9o67Tq+CWTrV8lSmGRZML0yXelh+C0lNI/QJ2dierTt792N
- 3yj474ZsJXIyWESZS8ti5rEnZGIiVHtwVnxuBrilh+NNzvC6tqIR/gFQ5bGjun4qtOYyHlWcRzE
- 8MKnNucC4D2x+pux33FdDc9nUlooXTfP5HQzDKUeBthZUOvD9CsNCB7lRvvlhBCZUH/Mqun8sY1
- lTR6gceGIOcaFgLElIxPdwkJAk99jRWT4DdRiBXwCzr7squ/xZaJnUJNPeAJfUtaFeSirVy2D3K
- K2Mjprg+TIa8wOPZAPUun5w==
-X-Received: by 2002:a05:620a:26e4:b0:93e:6d87:4f69 with SMTP id
- af79cd13be357-940ef8ec03dmr999830285a.3.1793005912437; 
- Mon, 26 Oct 2026 02:11:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:26e4:b0:93e:6d87:4f69 with SMTP id
- af79cd13be357-940ef8ec03dmr999825585a.3.1793005911851; 
- Mon, 26 Oct 2026 02:11:51 -0700 (PDT)
+ AKwUvBxHzrRWJJnylcoWkwV6iz4oxqEBA9i8u7GrNHM6XWikdU23H7HBKsqMbQKjhanngvnk2//ZPJ1LlYQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKaozkmIvFw+n+k4dpbOxTXb4kzL4mTBNx5SHut7yUg+/76k4YV
+ vvGfTdlOgJVY9bM0xjsAzNDlrHlYJdke/3ExmDMekC45kud1XGtT12jOpOWphFEUpRsgOhd/wcT
+ pN2ljnWMu/fFudGU2B5BMWzU/sK4cX4K19LbknE2pUJoJp1L1EE+pN0AEv5Yqk3ujb/RG7ZQ=
+X-Gm-Gg: AYBFou2wnj7isWJTRiUT1rip4K8eBL62i8O/EoNp7px4If8ErpRHtMEznej67xKQNV0
+ gHQWHOqYpIuLwjoa8Fcfi/LFkxBduKrX7/1kruSJJgIc6/VEql9ggjUDIRrNArazST/Y08iSVGW
+ tZzFbT1qNqhRqeF2M+05bMe7FWRd1exjZdywGlAovkLAz6BWHy86Ni80pkDALgAfbtGcsjMvHr6
+ H6z8mQ3alA4lbbCUSc+Ip69F0je3T0jdNZWFYYQkaQpnTTjRA9Pfv3dNYCOR+V2iPwr2x/UMsjA
+ Z+rZmuup3i+N1e89K/AGh/9HDbHZt+CrIjEVeXAr4uV0GQM5sA+co05HboV3eP2yTo0dqvEbcmc
+ S3TX9h3tebeyeLlQxcW5OMQ==
+X-Received: by 2002:a05:620a:4918:b0:93f:1fc5:f07b with SMTP id
+ af79cd13be357-940ef7e9992mr970011485a.2.1793006019696; 
+ Mon, 26 Oct 2026 02:13:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:4918:b0:93f:1fc5:f07b with SMTP id
+ af79cd13be357-940ef7e9992mr970007185a.2.1793006019169; 
+ Mon, 26 Oct 2026 02:13:39 -0700 (PDT)
 Received: from [192.168.226.26] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b4459711d2sm3281710a12.17.2026.10.26.02.11.49
+ a640c23a62f3a-c46bd66bd3asm295841466b.56.2026.10.26.02.13.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 02:11:50 -0700 (PDT)
-Message-ID: <c86259a3-f719-4e92-ad8b-a0cb6e1d685d@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 10:11:48 +0100
+ Mon, 26 Oct 2026 02:13:38 -0700 (PDT)
+Message-ID: <d9d6a2c2-545f-4b48-ae19-dc30234540e0@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 10:13:34 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/10] drm/msm/mdp5: flush the interface before
- starting the timing engine
+Subject: Re: [PATCH v5 05/10] drm/msm/dpu: clear the CWB blocks left by a
+ previous reservation
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
  <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -107,40 +107,39 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
- <20261024-fd-kms-fix-smmu-v5-4-a5b0b284aead@oss.qualcomm.com>
+ <20261024-fd-kms-fix-smmu-v5-5-a5b0b284aead@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-fd-kms-fix-smmu-v5-4-a5b0b284aead@oss.qualcomm.com>
+In-Reply-To: <20261024-fd-kms-fix-smmu-v5-5-a5b0b284aead@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: lMxersox_xtCpoagnDJlK7UxZEGR_5pO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfXxTafPVzur7y6
- xhOKmC4EivgAjod7mgPm6N5kZDvvaiX0H7sAg40LV9hg5RGxxFAtm3nrFrh74eJtU+dBtM6yAvs
- C+0GLO5g+BTiyt2wtwuHDaea0f+mFKONx2QdpnE9wAl++SxeU4QE7itozIgZnRaeqRIDHYBR+Mb
- zyCXVKMKXjX8L61F1yyNfEbUwajZb3qA79r1REdzdNM3r1B0gKbymoSm/vQPVmx/YFEJFFZbN5h
- z6me/AdkI48pp1Odh2RMFfR0zhBKyXTGX4ygCVjXLomVbLpOap8m3/Mlk+A6yL5dMymznFxPYMY
- cornZ3r8wlc7BvLxknvndal/q1SNHsBv3ZUDsNmBH0sOu2U5muPDQccTWpAOxR8pSF2Hf49kCAq
- TwdHvg/7PG2G4dk9prH84Y1+XIZ70GzWBfcdPxQQAGjqtRzQKLGIOq+be+mjiI0WUrWN3zT2kup
- CPDkQbPZ1f+Qxf+6OMg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX5PMIErRrW7+k
- pWO1Xe+Xwvp6oRMpRBHwTYkB/f6Z8DBVVJHsBwIo3d3rJcUmrDG84DyFkSaiXi9YqbREHH1mKPF
- g0+ECp1iE1b+ynM7fwOxstDBPPfzjoM=
-X-Authority-Analysis: v=2.4 cv=UqX2pOwB c=1 sm=1 tr=0 ts=6adf1959 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-GUID: bjp2MwquJOPy4gmUD2fh23ddGWcLx6q_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX6gRZ75BJnCE2
+ RwI7wkPtVvgPLpvqt6ew3e+FIO30wXHui8YruHotqqJG27Bz1BQIZC+k4t4a6Y7ZaD5cRRriw5Y
+ tCPiXVbk4qWqZMn3UKUVxitfsPAOwQUXzr22lm57/YM9cvTY84wbyFV6JYH53KlIh2IZdxhtLM5
+ aX8lwX9IZYg1JMT14J1k/KPWLb0ED477Bm2NS7KThBz3vHTNrDvoOF8198c+lGINEkc6UV2BdAL
+ 2p9iglYzkq3i5H5M/HWypwaafbE2d64jXTXbBRDohIkps81OldNAWuEgtFyy7WcLWrzSUkvSeTm
+ 6/pqNiAfK4ndA9yJEMRdYZcE1Wkvox5VLeM41zES75zPGsqy5EkHdIDgPWnQqbrPDDQLOdGeC8O
+ Wfee7hSRwtbxPtbCrT10EpxHT1cRMYfNVhdDpM8u5WnsIPyl5doXhPCvz9TS5db4ffpos+awuml
+ 1NHxz/PKUbWUR0dFa7w==
+X-Proofpoint-ORIG-GUID: bjp2MwquJOPy4gmUD2fh23ddGWcLx6q_
+X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6adf19c4 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=t3vDU1A9I6D9DDbkPvEA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: lMxersox_xtCpoagnDJlK7UxZEGR_5pO
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=xIhFS8ZktLuDZ2I-VrQA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX9aKp7L/9p3rd
+ LPbMDuSeJi6FCGac8/vgAJJInMZgbUrB0DGBiGOAEB37aQwYh1G2vzOyBIOFjNaP4rCEK1JWM+D
+ 9DjgLHETcczC7pxu4rK+Z9pY95gqDvg=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260036
+ priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260036
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,32 +160,22 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 10/24/26 1:25 AM, Dmitry Baryshkov wrote:
-> Disabling a CRTC and then enabling it again can produce an SMMU fault on
-> MSM8996 as soon as the timing engine restarts, e.g. when fbcon takes over
-> after kms_atomic:
+> dpu_encoder_virt_atomic_mode_set() only writes the first num_cwb entries
+> of dpu_enc->hw_cwb[], and not at all when the encoder is not the
+> writeback of a clone, so a modeset which drops the clone, or reserves
+> fewer CWB blocks, keeps the pointers from the previous reservation.
+> dpu_encoder_helper_phys_setup_cwb() then walks every non-NULL entry: it
+> programs a CWB mux the crtc no longer owns, and looks its pingpong up past
+> the pingpongs actually assigned, in the uninitialised part of rt_pp_list[].
 > 
->   arm-smmu d00000.iommu: Unhandled context fault: fsr=0x402, iova=0x01fa6e00
+> Store NULL for the entries which have no CWB block, as is done for the
+> pingpongs.
 > 
-> The faulting address is inside the framebuffer that was scanned out
-> before the disable, which has been released since. The pipes keep that
-> address latched (CURRENT_SRC0_ADDR still points to the released buffer)
-> because the plane removal flushed after the timing engine stopped never
-> takes effect. On the next enable the pipes are programmed and flushed
-> before the encoder is enabled, but that flush doesn't include the
-> interface: the encoder enables the timing engine first and only then
-> flushes the INTF. The first frame is fetched with the latched pipe
-> configuration, from the released buffer.
-> 
-> Flush the interface before enabling the timing engine, the order used by
-> both the DPU driver and the downstream mdss driver. With the INTF flush
-> pending, the whole pending flush takes effect when the timing engine
-> starts and the first frame is fetched with the new configuration.
-> 
-> Fixes: 06c0dd96bfbb ("drm/msm: add mdp5/apq8x74")
+> Fixes: 5008375443ed ("drm/msm/dpu: Reserve resources for CWB")
 > Assisted-by: LLM
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
 Konrad
