@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E97B606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93AB606A320
 	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 19:17:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us+cBCcJ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0yK9/uZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B26D110F0E2;
-	Mon, 26 Oct 2026 19:17:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1359610F0EE;
+	Mon, 26 Oct 2026 19:17:33 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAC4210F0D2;
- Mon, 26 Oct 2026 19:17:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFAD910E393;
+ Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 81F464451B;
- Mon, 26 Oct 2026 19:17:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 876A84169E;
+ Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793042240;
- b=cabIcGffNexV246wSdv72au5KVzUY/fixq6wBplUpJGslPnvFpSNsoJMXwl0kxTQbcVD
- LnS0lkRh3+H1iIGLXufiriskGtsvm3mWeP9mFjD2MMAwe4QJt+4M8Y/F0c2LBXgFC73Tt
- 1Rgj+6vKp8eT5nLs7DwKV87ELKdyqeeKX6l4d2Rg6bw+lb2AM9RBpZ1YWZqlwXWuc8Ey2
- ZjSgL6GiS35yEIq0X1alanin4sqCqa2R7EKm8im/ew0GLG6uQGk1cSiVuPtyNr/iNItY7
- M31bKP6eVrfEuu9ICPruszl7u3tXmWovsekhZDEQZWysZWTjpF8SxKIV5Mjn8gGjCjQ==
+ t=1793042238;
+ b=tk6cDKKdp9Mz3Gya5HP+Fw0wLDqXYXROVxON2M3L1TMm7CBXOjZ+DTXCtNKdtQK5jCDC
+ DXx/pjqhfV7rJAkNmwWRrRlXt9gYEKmevsHvw8kbhOT5msodwKGSWQZ1+uIAsGls9LbTj
+ Zw7+VZNAki1ZpRUWjS+E1H3Ul2PpS6kC1ToTw1HaemtMLvODxz3LmbXZ4A1qgBOHPoo+C
+ K5G5uWnSdZCT6BzP3W9zGlTK+ZR+VeLpEyUhu2rT0rhUkjx3Tz8Y8q4GcHlgHs6sVP+zG
+ SniYhqlPIx+v4T90W0UlMf0G/aZgs44qChIeMVGC4RL9MOWKgEX3PU27PFDiKX9+JZA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793042240;
+ c=relaxed/relaxed; t=1793042238;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
- b=lRtvmNtjfrWDbl3LKNTIf6qqUfL5FEE6AyTe1BzW2uzMeW/h/jgLMlgRlnRUWPH/JrKc
- kENEXMU5awypCIAO08ZanevO4xyqD7yrseu0BpExIk7FDGR7KJxs0pnfLrbFffuBjiXoe
- 5Vm84kA03cTato/OWl8Jx+UnyYbK6JTsZcuLxDQ//dfZy6oYPItVsHOqNOpUuxGMFf5Ii
- K9xVX6eNm8gosOCZFwGP/LqM2HIaH5Ncr5veN+l84g9MdoI4IEmiFfIjCliTbwhWstK82
- +1Y0iaYqpCbyNhA2BG1/kdjC8Pa1DMg02Wsi3QfbS/nLQPxDLWp3YOmPRZDMA7ict3A==
+ bh=9kV3mpo9IDcWJzdmAM3TrfjqAu96cGtkJuIv3p/bUaE=;
+ b=mjdLojFehkXDbZsCS+PklthuWqYsUNMnIrgyB24gEHL0Yv6JSTKdzcooIz0R/XwLB5G6
+ bIMWwELdYgDc4zY/KAAbqfR2w2W6NERYQ7EeKPHSujJ8LEXrfVfMo0HQVamQSXEsvOU4e
+ UDHbCadJUBE16xWWl4aw4R/dRBw8bKdgP+uUAT++DwbnyZyUBSDbymXNzfVgbUax8Vj/P
+ F6wzBVt6x2zJcmAwGm8/ivrC3jUhggkDy6nCV2W1WWaeyWxGjZ31uZui86sMhrG+wuxKb
+ xKmpFEq3GGTx/y67nr4hHnNzYMiD5MDgkKO3+P7FDaqYXVptv42xqbPMIiDckq2uvEQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id D47FE1F01828;
- Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 413021F031E1;
+ Mon, 26 Oct 2026 19:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793042240;
- bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
+ s=k20260515; t=1793042238;
+ bh=9kV3mpo9IDcWJzdmAM3TrfjqAu96cGtkJuIv3p/bUaE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=Us+cBCcJbAn3Q+yLcgwyQHQby9XUeGr9p7f2jxnJtte0O8MWoiPXsC+CCZ5JJQi8a
- n9INEvY2OVVr2ou2zlexFanoHDSYr2dV6S/exHzjV36wg3mIgJgT7Tt0L0DU0/mVqa
- /TpoIoZoLUHIaFABITbzpojIp6VNOH63AJFU9Zfz4+1kR5+rD4lgg5gnKFacZAlv/T
- cXOVZBYuYg1wFBpESzY2R9/ZErYuQqQfYU1nFJBi0L7Ks1+C+yhJvXlDXq44FmBDhS
- Af4flbgvyHkU6mQBQ5FeeDasVr2tdzQ7VHyPvlv5tk8DVyGHpjwMk5eyXus2Y+ZlSI
- pc3BLUBDBSOgA==
+ b=O0yK9/uZUT8cnvoTVvbAb2Ot+R0nSjnEtr7wIKCYdnZJGMwNFVvGTIYwYetlotD/h
+ Rd8MpWw41LXMa8m6zol31+sr9qO5dUttZT1zkbbFBY2/EUFDJCzMZQK3pVgjaAuDmr
+ VZqq0EAtI4VCuX5HgHSju7FT7d+btm7qeucCNq3rUcckn3i3DWp994IlI918R0si+f
+ 5HHWf/TxwTxp9f2qboR5uiKvi1uZQaqiWBMew3KHukDSRwKYSxTam9CiruZCidiWo1
+ RJHngPCzbilOpB12IVL+pBxtpttctHIMVUBQj6tJC+A5iBzz5bRjlh2Plsu9w52dyC
+ Tme4Iud6lPJLA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id E7F2A44E5C;
+ by lkml.kernel.org (Postfix) with ESMTP id A429544E31;
  Mon, 26 Oct 2026 19:17:16 +0000 (UTC)
 From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 16:16:55 -0300
-Subject: [PATCH 7/8] drm/msm: force mode_changed on color_mgmt_changed, not
- just ctm
+Date: Mon, 26 Oct 2026 16:16:49 -0300
+Subject: [PATCH 1/8] drm/msm/dpu: reset unassigned resource slots to NULL
+ on topology update
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-msm-dpu-res-clean-v1-7-f46130a8a717@gmail.com>
+Message-Id: <20261026-msm-dpu-res-clean-v1-1-f46130a8a717@gmail.com>
 References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 In-Reply-To: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -76,11 +76,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Xi Zhang <xz.ca.cn@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=1219;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=2413;
  i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
- bh=Wo3tEP0RL/iVZrlVbjqizqGErC2YhsS/kVeKWgJ1UBY=;
- b=Ka8elEcmKvRmXT6MxV7shh8QtW1BUM34m8jO69Pppxv34hT1WkBIwW/du7byZGl5q+mivl9sR
- dI2mCiPGOpqDqqYH8xMs8i3CNw8qaTypCBy8azN6b6SYsV6VTBNx13P
+ bh=XV5yIGRicisWHnZm/blBrd+eV6OtBhD/12tGnVobzAE=;
+ b=s55jsSFGNJ3ReHkx8AMVQSTN6+WwH+fE1jNAXjs8ys3POrRiBNFM/SLkbQeL00+tsbmzalW/j
+ 5tLQIjH2UBwCk5ifphW1VkW+DEOnolU72y5xsm2yA+GtfW2h7Q/JDm9
 X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
  pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
 X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
@@ -109,37 +109,68 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Xi Zhang <xz.ca.cn@gmail.com>
 
-dpu_crtc_atomic_check calls dpu_crtc_assign_resources when
-color_mgmt_changed is set, which is unsafe outside of full modeset.
+While this is not currently the case, it may be possible that topology
+for cwb and dsc resource requirements change between mode set in the
+future.
 
-Set allow_modeset and mode_changed when color_mgmt_changed is set,
-not just when ctm is changed.
+e.g. when dsc support is added to DisplayPort, dsc may be optionally
+enabled and disabled between different modes due to
+bandwidth requirements.
 
-Also would fix
-commit 42f62cd79578 ("drm/msm/dpu: try reserving the DSPP-less LM first")
-which was reverted.
-
-Closes: https://gitlab.freedesktop.org/drm/msm/-/work_items/102
+Set unassigned resource slots to NULL on topology update to avoid
+issues in the future. It's good practice to do so anyway.
 
 Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
 ---
- drivers/gpu/drm/msm/msm_atomic.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
-index a8babf1dbe0d..6f0f30b0728a 100644
---- a/drivers/gpu/drm/msm/msm_atomic.c
-+++ b/drivers/gpu/drm/msm/msm_atomic.c
-@@ -195,8 +195,7 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
- 	 */
- 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
- 				      new_crtc_state, i) {
--		if ((old_crtc_state->ctm && !new_crtc_state->ctm) ||
--		    (!old_crtc_state->ctm && new_crtc_state->ctm)) {
-+		if (new_crtc_state->color_mgmt_changed) {
- 			new_crtc_state->mode_changed = true;
- 			state->allow_modeset = true;
- 		}
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 0a6be69a3e83..8d2b4d2726f2 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -1205,9 +1205,13 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 						       ARRAY_SIZE(hw_pp));
+ 	}
+ 
+-	for (i = 0; i < num_cwb; i++) {
+-		dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
+-		cwb_mask |= BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
++	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_cwb); i++) {
++		if (i < num_cwb) {
++			dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
++			cwb_mask |= BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
++		} else {
++			dpu_enc->hw_cwb[i] = NULL;
++		}
+ 	}
+ 
+ 	dpu_enc->cwb_mask = cwb_mask;
+@@ -1215,16 +1219,20 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+ 		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
+ 
+-	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
++	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_pp); i++)
+ 		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
+ 						: NULL;
+ 
+ 	num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+ 						drm_enc->crtc, DPU_HW_BLK_DSC,
+ 						hw_dsc, ARRAY_SIZE(hw_dsc));
+-	for (i = 0; i < num_dsc; i++) {
+-		dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
+-		dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
++	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_dsc); i++) {
++		if (i < num_dsc) {
++			dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
++			dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
++		} else {
++			dpu_enc->hw_dsc[i] = NULL;
++		}
+ 	}
+ 
+ 	dpu_enc->dsc_mask = dsc_mask;
 
 -- 
 2.55.0
