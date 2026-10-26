@@ -2,52 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056FE606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 05:41:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4113606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 05:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WxM242wp
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ag6tYi6W
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B0C110E97C;
-	Mon, 26 Oct 2026 05:40:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 265BD10E991;
+	Mon, 26 Oct 2026 05:41:00 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 204A210E978;
- Mon, 26 Oct 2026 05:40:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3937210E965;
+ Mon, 26 Oct 2026 05:40:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1792993250; x=1824529250;
+ t=1792993253; x=1824529253;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=MqoPFVwAPikUyAMKDlry3546AYbNV849boOFHu7vJBI=;
- b=WxM242wpeMYjgtHqAuOviAmY5KuBa+A6HVQAo5sI4tdC+hUYiTQJB41i
- 0bY/vQfvO3DcA+69Vrjs1vC/Gv23EDNAeeQWOgKOcAC+d5aZkuSE9VLY4
- zvgIrUtW+zyGlBjzFIfcbtxKiOrK0S5EVUiyvn16HW0sDYQO3NGQIWVE5
- Ok+QYfQHgG7NYAS21Cxb2QhKbmJe7gwsE3eaVNFrM12OE2pf4agzjQ2qg
- Tw9QiT5XrriwOOAY9b9O7908jc3xmKhNvhjjsbcpAl2fFoYCDbhgE4DeJ
- 4AcdGVRrYnAMlgBBg0ttgSBjUGMZTe3CBl7PQWASclNHYSP5zLV8wnd7r Q==;
-X-CSE-ConnectionGUID: 2Bs/Q+K1Ta27yA1g9NcMsw==
-X-CSE-MsgGUID: kwf3pkhVQpilHdvr1Uwm/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1550203"
+ bh=wLRVvx39bv5eLZwIi7y5VlkPjCGbKbU5Ks/gD85gXDE=;
+ b=ag6tYi6W6b8QWCq9lOlzoksRm62w46+B9Yu/NQZZRIQgOvQG+2U80WUa
+ EDeVG0Pe9No8imgUb4fxqKhZ4RF3zhWO7WZkMvi/SeqjT1nCg8eUGXfsj
+ BxzfQYgTqI6Ael5H3BRbRH2su/5AOksdFToVV6bMFsvKOUmPBHRpoeN2+
+ jIw3TZ6U9vnaeb7T6HoXYaWvX/zBNcU38uBOPh6Ec8wOybcCj3iCiBPGp
+ kIniBCRWD+UzRq84sPlbgxxYsHGkGCQlvrH3pNm2kviv2xrmcUXGrZThu
+ nxwHt033ZAefP+HCm4C40SUe+xEjc69FWPeQrIT2F7ZfwIkHocn5ES4xT w==;
+X-CSE-ConnectionGUID: Si3UpUr/SdqU1u5eX0F+IQ==
+X-CSE-MsgGUID: hugacVP0QQavG33EaufiZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1550206"
 X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1550203"
+   d="scan'208";a="1550206"
 Received: from fmviesa013.fm.intel.com ([10.60.135.153])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2026 22:40:50 -0700
-X-CSE-ConnectionGUID: +R54eggkQdmJrB83IRZ8tA==
-X-CSE-MsgGUID: cErDmbNHTNew0teQd1/yCA==
+ 25 Oct 2026 22:40:53 -0700
+X-CSE-ConnectionGUID: ytLLeDkvQU+v3bL7FaBr7Q==
+X-CSE-MsgGUID: qqRdx85cTZKE4T7q5P8kKg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="6001952"
+   d="scan'208";a="6001962"
 Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.190.238.88])
- by fmviesa013.fm.intel.com with ESMTP; 25 Oct 2026 22:40:48 -0700
+ by fmviesa013.fm.intel.com with ESMTP; 25 Oct 2026 22:40:51 -0700
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: jouni.hogander@intel.com, jani.nikula@intel.com, suraj.kandpal@intel.com,
  Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v7 12/20] drm/i915/alpm: Modify LFPS_CYCLE_COUNT bitfield for
- xe3lpd
-Date: Mon, 26 Oct 2026 11:09:23 +0530
-Message-ID: <20261026054001.799894-13-animesh.manna@intel.com>
+Subject: [PATCH v7 13/20] drm/i915/alpm: Program LTTPR count for DP 2.1 ALPM
+Date: Mon, 26 Oct 2026 11:09:24 +0530
+Message-ID: <20261026054001.799894-14-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261026054001.799894-1-animesh.manna@intel.com>
 References: <20261026054001.799894-1-animesh.manna@intel.com>
@@ -69,66 +68,100 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The LFPS_CYCLE_COUNT bitfield in PORT_ALPM_LFPS_CTL is widened from
-4 bits (27:24) to 7 bits (30:24) starting from xe3lpd. Add the wider
-register mask and field macro, and program the cycle count using the
-appropriate macro based on the display version.
+Issue a AUX write transaction to DPCD DP_TOTAL_LTTPR_CNT (0xf000a)
+with total number of LTTPR before link training.
 
-v2: Split in a separate patch. [Jouni]
+v2: Cosmetic changes. [Suraj]
+v3:
+- Use same encoding format for lttpr_count. [Jouni]
+- Avoid reading alpm_ctl2 register. [Jouni]
+v4:
+- Program DP_TOTAL_LTTPR_CNT only for DP, not eDP. [Jouni, sashiko]
+- Drop redundant lttpr_count check. [Jouni, sashiko]
+- Check drm_dp_lttpr_count() return value before programming
+  ALPM_CTL2. [Jouni, sashiko]
+- Fix LTTPR revision check to match the comment. [sashiko]
+- Use drm_dp_dpcd_write_byte(). [Jani]
 
 Cc: Jouni Högander <jouni.hogander@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_alpm.c     | 11 ++++++++++-
- drivers/gpu/drm/i915/display/intel_psr_regs.h |  2 ++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 10 +++++++++-
+ .../drm/i915/display/intel_dp_link_training.c | 20 +++++++++++++++++++
+ 2 files changed, 29 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index 1fd528cb7fe6..f3c0884989ce 100644
+index f3c0884989ce..831dfa5e677b 100644
 --- a/drivers/gpu/drm/i915/display/intel_alpm.c
 +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -747,12 +747,21 @@ void intel_alpm_port_configure(struct intel_dp *intel_dp,
- 		return;
+@@ -687,7 +687,8 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+-	u32 alpm_ctl;
++	u32 alpm_ctl, alpm_ctl2;
++	int lttpr_count;
  
- 	if (intel_alpm_is_alpm_aux_less(intel_dp, crtc_state)) {
-+		int lfps_cycle = get_lfps_cycle_count(crtc_state);
-+		u32 lfps_cycle_val;
+ 	if (DISPLAY_VER(display) < 20 || (!intel_psr_needs_alpm(intel_dp, crtc_state) &&
+ 					  !crtc_state->has_lobf))
+@@ -725,6 +726,13 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 
+ 	alpm_ctl |= ALPM_CTL_ALPM_ENTRY_CHECK(crtc_state->alpm_state.check_entry_lines);
+ 
++	lttpr_count = drm_dp_lttpr_count(intel_dp->lttpr_common_caps);
++	if (lttpr_count < 0)
++		lttpr_count = 0;
 +
-+		if (DISPLAY_VER(display) >= 35)
-+			lfps_cycle_val = PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_XE3LPD(lfps_cycle);
-+		else
-+			lfps_cycle_val = PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(lfps_cycle);
++	alpm_ctl2 = ALPM_CTL2_NUMBER_OF_LTTPR(lttpr_count);
 +
- 		alpm_ctl_val = PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE |
- 			PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(15) |
- 			PORT_ALPM_CTL_MAX_PHY_SWING_HOLD(0) |
- 			PORT_ALPM_CTL_SILENCE_PERIOD(
- 				crtc_state->alpm_state.silence_period_sym_clocks);
--		lfps_ctl_val = PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(get_lfps_cycle_count(crtc_state)) |
++	intel_de_write(display, ALPM_CTL2(display, cpu_transcoder), alpm_ctl2);
+ 	intel_de_write(display, ALPM_CTL(display, cpu_transcoder), alpm_ctl);
+ 	mutex_unlock(&intel_dp->alpm.lock);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index ac1aff6edf05..0dbc6174c402 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -2271,6 +2271,24 @@ intel_dp_128b132b_link_train(struct intel_dp *intel_dp,
+ 	return passed;
+ }
+ 
++static void intel_dp_update_lttpr_count(struct intel_dp *intel_dp)
++{
++	u8 val;
 +
-+		lfps_ctl_val = lfps_cycle_val |
- 			PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(
- 				crtc_state->alpm_state.lfps_half_cycle_num_of_syms) |
- 			PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(
-diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
-index 124aa74e1dbb..aee4f2592302 100644
---- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
-@@ -335,8 +335,10 @@
- #define PORT_ALPM_LFPS_CTL(port)				_MMIO_PORT(port, _PORT_ALPM_LFPS_CTL_A, _PORT_ALPM_LFPS_CTL_B)
- #define  PORT_ALPM_LFPS_CTL_LFPS_START_POLARITY			REG_BIT(31)
- #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK		REG_GENMASK(27, 24)
-+#define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK_XE3LPD	REG_GENMASK(30, 24)
- #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN		7
- #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(val)		REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK, (val) - PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN)
-+#define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_XE3LPD(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK_XE3LPD, (val) - PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN)
- /*
-  * The LFPS half cycle duration fields (including the first and last half
-  * cycle) are zero-based, i.e. the value programmed is N_Symbol - 1.
++	/*
++	 * Program only for DP and return if LTTPR revision is less than 0x20
++	 * where 0:3 represents minor rev and 4:7 represent major rev
++	 */
++	if (intel_dp_is_edp(intel_dp) ||
++	    intel_dp->lttpr_common_caps[0] < 0x20)
++		return;
++
++	val = intel_dp->lttpr_common_caps[DP_PHY_REPEATER_CNT -
++					  DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
++	if (drm_dp_dpcd_write_byte(&intel_dp->aux, DP_TOTAL_LTTPR_CNT, val) < 0)
++		lt_dbg(intel_dp, DP_PHY_DPRX, "Failed to write total LTTPR count\n");
++}
++
+ /**
+  * intel_dp_start_link_train - start link training
+  * @state: Atomic state
+@@ -2310,6 +2328,8 @@ void intel_dp_start_link_train(struct intel_atomic_state *state,
+ 
+ 	intel_dp_prepare_link_train(intel_dp, crtc_state);
+ 
++	intel_dp_update_lttpr_count(intel_dp);
++
+ 	if (intel_dp_is_uhbr(crtc_state))
+ 		passed = intel_dp_128b132b_link_train(intel_dp, crtc_state, lttpr_count);
+ 	else
 -- 
 2.43.0
 
