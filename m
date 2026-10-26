@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D64606A31D
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 19:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498DE606A326
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 19:17:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IX4K7ivH
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4n0CBhU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90CC410F0EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2BDB10F0F1;
 	Mon, 26 Oct 2026 19:17:33 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA8CB10F0CC;
- Mon, 26 Oct 2026 19:17:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECD2810E429;
+ Mon, 26 Oct 2026 19:17:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 898DB406A8;
- Mon, 26 Oct 2026 19:17:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 19CC660A96;
+ Mon, 26 Oct 2026 19:17:20 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
  t=1793042239;
- b=MOUo6YgwbhwNRmmf3zZYaHojh5lisCjhzMu7RERrUQftkIisc66b5aAsHfq7A2Qc227n
- fmUC8DRphzTft2nh7j85LFS80m82ctn/F2wRNrVh/S1XRDzmkfdJnSW2zLcHWMRNIgO3k
- 4TtDH8OYcPAtctB9/QwaEuYUKrxQkPnYWxx1njaDaO7W5oF154YGLChbUNlC+T+oeH35q
- 7rR2jS6LGboFc71fdmXNfGag3jbjZ2QlnmbV4zHadWdSmC0suvJ6HNURK+LYdAwPxvTUO
- CIok0EDo+vYmKIWW7vJQ6iSd/cZv26+YwQOmgolCI6ONiWW+txDTeptMYEqj02c/LYA==
+ b=zhEj0wSvD9+j6a/pz7Z5qCOUV2rejkNv61mJMheqvcN/+Bmp+j4eVpGeCDT7ttOZ8XoS
+ mW8DTpvtpHX+jXBxjP2YpzZzYkzDpUzr5bUfCjHu9lbXykOG5b96keOe6DPGowbebUuHB
+ yvIO2GTBABJYWpF3gEa3OLuYIk4NvzWaI++V2WSevitL3r9x+idT3dFgCjMKqJXT0QUTx
+ rVvR2hGNnagIkxfoKAsGvVUNJrYXEUH0hQR+BkYd1jWF2lWQdpGSwjq18y+kD9SiRgdqN
+ 52c/8dNVNAby8GsVqoxM2OIh/0wlHY8rtxrqu+sDtyUjZM/ETPaDYyvqFs6/trLhTdQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
  c=relaxed/relaxed; t=1793042239;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=2YZQW11LMpAg6FbtG7dfpuG3Q4WOyZw1dtjuZP2GnOE=;
- b=LOP3pvqFrHnV8wZqZ60bfiVZOb/N8lQn/JjcjqrXShKTpBnnL+/JnkzdM1uYbl5ZYr/p
- mbqN180h1PIt/tHZ1XVxONgZjV2i8iGQtY1ak6WJ/FVfoWYkmEOsM2v26rFpBlT7qr74T
- KPCHYLBIh4wbqZJm+Wsxr4j5rGpX6nsHQ0bfRdOGHVuAtp5p93rx/R4Zqxfky59DaXJ+A
- dm1ZtH/8/5fWokAcJhD7nkAVoyEouFwioFCCE7+/W2qEXs5YPVTYUpXqiaX0bn5MxnJOi
- s6QWZ7GiebleRUXMMvYE+k6gRBD20T6XNfMqfjL5AjPXTR1uCiA3GVAMf72NEog2CBg==
+ bh=m6JQuiiAvAgYD5P15vse2J1auiyKgGQSXV7w3Qubaxs=;
+ b=Yf7SugHUK4bD9uJW7S8Nj4M5PeZ8D6qYHc65Fj8xWV1F8Aqy2hDiabPy/3CDGbqcmRCg
+ 5tDXT+8GSqKhq6SSmHEAaQwo19Pkpv9//UfWzT/7pMBnTpcTo2UqhZZRNl6gt7xb0OiTw
+ 3UeaPC2Km0tNQ9tIzlsVWhd3IMwmc0uh1OMWhyzjm4irycEfhkIsKltxDHo/3QyXI92zm
+ e4h5u0r8KGJuft17keIndR51QszwqUDyhW1uS7dpz2cLDuli2nVQbrDe5Kkdv5no06Q5L
+ 5RU9FuplcaoWSEUW5YJnRAM2zUEdzP89NgPiM3UyB22uELmpScs1djdcAizkrd5KGvA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id B38891F031E3;
+ by smtp.kernel.org (Postfix) with ESMTPS id B5A661F031E6;
  Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793042239;
- bh=2YZQW11LMpAg6FbtG7dfpuG3Q4WOyZw1dtjuZP2GnOE=;
+ bh=m6JQuiiAvAgYD5P15vse2J1auiyKgGQSXV7w3Qubaxs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=IX4K7ivHe/2GiHSMJO8vxrFhil+02Ik3xSngW311rwOPlRTeQA7Agg2qZPVprP3Kf
- k79EW5KZ2RlDGIh/nR4FEqMzf9QAmWpqnNb1alSspGQQea249VWQvoxlWR+his5h+C
- ohLSfO9XhLyIUdwHRZJ/JZE9efUlIXS+qmqPszmSqc4hxkAG5SDt2G2ZkIev3ij356
- s2np48oy7NbbC7V2wlYUBngKam0oxZeot+gPXQgIKW/0iNSk/i6OwSYeb4NWjegD8Y
- krtGGq0SlmEiRwHQtiWmm5yo+BGq6tMX1CmA/+jzL+s+zTzT0n8INZJvd9VoQ2nfo2
- eTuQ0Pg09eJTg==
+ b=F4n0CBhUCYnGNj1cWqi28pTIOvZsA3SKRhrT0hZ4hWuJL9mAUB4S6qORi4bG8+EUD
+ eavjIO/7EDVEcVzWa1Y3fCY9Q6bIwE2dJIYH4inRDMAO/cVSxwFpU8ibD+FkoAESdF
+ 14kES7EBwkmfo+ZJLMBwQ3GTsIaT/7xqir8CQsVd+GccEaP2lFRCSk7pprq8zC5Mc8
+ MRorNYvxJeuiZHef7JnGPP/8uG7pE30IiMb+fGoTtLMU6SrMS0d0wOcRIIMUG0372X
+ njqwcfz6muWND44UH6nwUvbQlbTHNQY/WRhX88tYx1aBluXAKJf4pn7SKKOQGnH6GL
+ /M33KTTWLIsgQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id D07F344E54;
+ by lkml.kernel.org (Postfix) with ESMTP id DC2D244E58;
  Mon, 26 Oct 2026 19:17:16 +0000 (UTC)
 From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 16:16:53 -0300
-Subject: [PATCH 5/8] drm/msm/dpu: use cached PINGPONGs from mode set in cwb
- setup
+Date: Mon, 26 Oct 2026 16:16:54 -0300
+Subject: [PATCH 6/8] drm/msm/dpu: workaround res re-assignment issues by
+ pairing enc/crtc
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-msm-dpu-res-clean-v1-5-f46130a8a717@gmail.com>
+Message-Id: <20261026-msm-dpu-res-clean-v1-6-f46130a8a717@gmail.com>
 References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 In-Reply-To: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -76,11 +76,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Xi Zhang <xz.ca.cn@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=2160;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=1740;
  i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
- bh=Z1k+1OyboIw3FwlS2YQ2mt7AUCLFoNmOxjQChG5wHhQ=;
- b=5WTfGrGDY9HoEPtY+145EtqV+YOoCgU2atdQ0i8iU7JsZE1MEqBQ4meUEIE494qCHpGNhkttD
- 946Gcd33reACz0p/fbHprBwGUCfIbHLcjfreDPdoexf9dSQCm1d71oA
+ bh=3eiBb0uy0PBNKjp2IH6yVXShmpVfE6rEzfXROTQjPv0=;
+ b=ycxSfaEHnf/r9SC/zlyhmgTTleLJJJn92cKvzii6Bit0CyIas1C355iPIhMAqv0NA6PlhVHZC
+ dulUR+CXhM7DEBZrrlKO277amomkcrzgmo04Y0S7FeLxt7KmbuRk4vy
 X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
  pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
 X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
@@ -109,70 +109,49 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Xi Zhang <xz.ca.cn@gmail.com>
 
-No functional change intended. Clean up only.
+Consider the scenario with 4 crtcs, 3 encoders/displays are
+connected. DPU resources is nearly maxed-out, and mode set is
+performed on a display which has acquired many dpu resources.
+A new crtc is selected by kernel drm for the mode set,
+and during atomic_check, the previous crtc won't have a chance
+to release its old resources from global_state before the new
+crtc tries to allocate new ones. Leading to atomic_check failure.
 
-The cached hw_pp should be the same as the ones from
-dpu_kms_get_existing_global_state during
-dpu_encoder_helper_phys_setup_cwb.
+By having the same crtc for encoder when possible, during
+atomic_check each individual crtc will always be able to release
+old resources before allocating new ones.
 
 Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 24 +++---------------------
- 1 file changed, 3 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 7d092398fc99..f1d2482b787b 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2363,11 +2363,6 @@ void dpu_encoder_helper_phys_setup_cwb(struct dpu_encoder_phys *phys_enc,
- 	struct dpu_hw_ctl *hw_ctl;
- 	struct dpu_hw_cwb_setup_cfg cwb_cfg;
- 
--	struct dpu_kms *dpu_kms;
--	struct dpu_global_state *global_state;
--	struct dpu_hw_blk *rt_pp_list[MAX_CHANNELS_PER_ENC];
--	int num_pp;
--
- 	if (!phys_enc->hw_wb)
- 		return;
- 
-@@ -2379,33 +2374,20 @@ void dpu_encoder_helper_phys_setup_cwb(struct dpu_encoder_phys *phys_enc,
- 		return;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index da3556eb6ecc..13099d6e3ac9 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -879,9 +879,18 @@ static int _dpu_kms_drm_obj_init(struct dpu_kms *dpu_kms)
+ 		}
  	}
  
--	dpu_kms = phys_enc->dpu_kms;
--	global_state = dpu_kms_get_existing_global_state(dpu_kms);
--	num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
--					       phys_enc->parent->crtc,
--					       DPU_HW_BLK_PINGPONG, rt_pp_list,
--					       ARRAY_SIZE(rt_pp_list));
--
--	if (num_pp == 0 || num_pp > MAX_CHANNELS_PER_ENC) {
--		DPU_DEBUG_ENC(dpu_enc, "invalid num_pp %d\n", num_pp);
--		return;
--	}
--
- 	/*
- 	 * The CWB mux supports using LM or DSPP as tap points. For now,
- 	 * always use LM tap point
- 	 */
- 	cwb_cfg.input = INPUT_MODE_LM_OUT;
+-	/* All CRTCs are compatible with all encoders */
+-	drm_for_each_encoder(encoder, dev)
+-		encoder->possible_crtcs = (1 << dev->mode_config.num_crtc) - 1;
++	/* All CRTCs are compatible with all encoders.
++	 * Nevertheless, if enough CRTCs are available, pair up crtc/encoder
++	 * for better resource re-assignments during atomic_check
++	 * from userspace mode set.
++	 */
++	i = 0;
++	drm_for_each_encoder(encoder, dev) {
++		if (dev->mode_config.num_crtc >= num_encoders)
++			encoder->possible_crtcs = 1 << i++;
++		else
++			encoder->possible_crtcs = (1 << dev->mode_config.num_crtc) - 1;
++	}
  
--	for (int i = 0; i < MAX_CWB_PER_ENC; i++) {
-+	for (int i = 0; i < ARRAY_SIZE(dpu_enc->hw_cwb); i++) {
- 		hw_cwb = dpu_enc->hw_cwb[i];
- 		if (!hw_cwb)
- 			continue;
- 
- 		if (enable) {
--			struct dpu_hw_pingpong *hw_pp =
--					to_dpu_hw_pingpong(rt_pp_list[i]);
--			cwb_cfg.pp_idx = hw_pp->idx;
-+			cwb_cfg.pp_idx = i < ARRAY_SIZE(dpu_enc->hw_pp) && dpu_enc->hw_pp[i] ?
-+					dpu_enc->hw_pp[i]->idx : PINGPONG_NONE;
- 		} else {
- 			cwb_cfg.pp_idx = PINGPONG_NONE;
- 		}
+ 	return 0;
+ }
 
 -- 
 2.55.0
