@@ -2,82 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1CB8606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:34:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105F9606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:39:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HFU6P0Y0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMnebJM5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63C3B10EC23;
-	Mon, 26 Oct 2026 07:34:00 +0000 (UTC)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 769BF10E2D8
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 07:33:54 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5be4fea434bso3033122e87.1
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 00:33:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793000032; x=1793604832; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=F8U0LKvHGA5PLMBRYsbuaSBNWEEM8e/eqX0yoWLbYmU=;
- b=HFU6P0Y0LkMgS6dezuYIbT0eytAXToc4Fqmb5+hkZEdhg+Ka0LRCQWdxNpfctEphfj
- Ti8P3/nRYIjIeblC+xXBRNG/ncDMO5Qw7AVlA9Z7DhQ0RjcbyqRHuXwmXVOl70hiu3Fp
- Qd2G0IdnjLLxJcya0cETQ95RF1LWQcKRSaelZTgbvUdAzkpl1q2RJE/MaOtTLwe4FPD8
- Lps8lrInSg5zUJ6Z8+VEQVlq5kxMRzw0i228vHksY5UaBDNVunIEQNDkDtXdEuVCbr6O
- RgnXd/QdC6MLHKyukxyljuFnGl5b3tQ6NbKMjpW4cvZ/kDXYgZEQXd0YOv6h5pvkDAjD
- VarA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793000032; x=1793604832;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=F8U0LKvHGA5PLMBRYsbuaSBNWEEM8e/eqX0yoWLbYmU=;
- b=T/qDbu0SuZwMsA9oltqMmhZU/zA2ms/P3D3w8/gEq+FzqYY6Rbo6LlCe++xoUhvau6
- VFhAjcS252X2/HGckzMpo4PCucOXjR4ErviiE7WKIcGp70Vj3ph45Dm6vMp9/2TCGDaa
- LMWgZaP9g+eb66ZcHZNzMFcm1CD4VlmC98pPPV8I1ADf8dFgcCXHp7BBnjhYFNd4L3iI
- WdC/Vlk9gMSM+UoXXqfgpbqwFGpKcDKbrdps/+MB/Dodlt6wBSAuDZW23gMFMih17nu0
- QNuGe1EPeFvsLxYuHpXfN+Cn+ecOqRL6ZAbQah9O0p+nkaeURpmFbSIETNJrs2IFiwbJ
- P0cA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwgeO1x8JuNkhXNFVFisN/hm4mSLCjAHGHMiLqI76mwjGH6cQJjfam7hRMFS1tGbr39iqzwaJJOvlY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLtwmPalrNB+QNug2w/Zif4u2MZdf4j6PjqRdxT2dWQJsY9ZPbF
- H6XQTMPWHxNQON3jMvm1+mpPNlZiuHcZHRigCOEr0uC+XJ08Xa9UUI/c
-X-Gm-Gg: AYBFou0/kpybJZ92/fhBJENPUqFbAcZD8+Xf7uH/fukLFXe3MF1+eijBKWi/j01zBkW
- /7TQgJkD7u2R99KxP03gZiyklI+Ny+6D+yQ1EEgx9U3J+MzTPAGuYLIxibZRMtxxbwav0yoSdbH
- YEiJBXTjTngY2JKS8cRtfdRL1u5xkKV+tnsTCGf+hN+viT9POGG+/DPos5FultyPqgmNAn3lEDz
- OXzgh7GspdnAzzHpnkJQCiZd8KOiX4UqqVyJ0fMFdQeeWtQ0DInZQEStP1xew/yacWWuThLSQoc
- +tosO3wHenATBkPXbW+DRpHcfC00ERnduqj4cRk2iPqcNAVKlYfbtLhOsrSkI/zYGL2vAMDpOoR
- fGAV0bQrn7IXygIm97BaFlDhRRXVlpe0ylxgodHxQHoXzRv8Ch/krBzUH0JT2zgySBgiH+KFOqV
- RVBNyvtWuRxnfvn4TVHYXQ1fA820ODBh01Hppsr/x52dyfnt7+RQTwttX5wgp0sZ46P3rapI+/6
- d2+76z6J2zUIQP5g8cLuQUwVzeOCoTL+MMYM2tdYO5IY5ScHyAiYYjB9vr0rOwEffbZA2PkFgGs
- E2plA3ubwTia3HpZak/LHJDRzSrmpXANZFGpLQbfZi1zMQdKG7DArg==
-X-Received: by 2002:a05:6512:3c9a:b0:5bc:f296:a12b with SMTP id
- 2adb3069b0e04-5bfb7449714mr1568356e87.26.1793000032116; 
- Mon, 26 Oct 2026 00:33:52 -0700 (PDT)
-Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfc085a3d2sm236852e87.10.2026.10.26.00.33.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2026 00:33:50 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Josh Kasten <jkasten@gmail.com>
-Subject: [PATCH v2] drm/amd/display: set allow_freesync before validating a
- new stream
-Date: Mon, 26 Oct 2026 12:33:45 +0500
-Message-ID: <20261026073345.297491-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.56.0
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3A210E1AB;
+	Mon, 26 Oct 2026 07:39:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A6410E1AB;
+ Mon, 26 Oct 2026 07:39:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BC5FE434BE;
+ Mon, 26 Oct 2026 07:39:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591451F01825;
+ Mon, 26 Oct 2026 07:39:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793000384;
+ bh=5RVBbrUO/utme8eFXIXPzSpA0Nz6zTQIANbgxZjHxsI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=bMnebJM5Cyqrc15+7DLiddBcaAOut22ltldid3SyR6MZZcMeXP9vg/NY2OFsgD40O
+ x6djMe2Mxd//y5gTCbGgbog4AnJttAe2ZPrb1u8JfRNjOBdsIwrlwRF8c2Le1SUgTY
+ mxOxks5c9kn+H4HGYUiqA8nWBTqkePYoyocDTSzT+jy1SRPMrziy9NHFXyl45vpDc7
+ 09XNJYWEHHz5A/0xKmwUEOr+NUYwESueYYgk1krA1nFVfGoVsirYTCZcQ//Yf1TDZ2
+ q0mnY/OZwDGw/geInMYkkAepD2A/Ml8oLqYgotj5LwGj1b5B0iQPhSbDk3xx6EveB+
+ y8xScHtZ/7eDQ==
+Message-ID: <sashiko-outbox-184662@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 05/26] dma-buf: Let the exporter select mapping type at
+ pin/map
+To: "Alistair Popple" <apopple@nvidia.com>, dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ media-ci@linuxtv.org
+In-Reply-To: <20261026053623.202642-6-apopple@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-6-apopple@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 07:39:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,81 +50,161 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-After resume from S3, DC enables SubVP on a single FreeSync display at
-a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
-meant to keep SubVP off that configuration ("For single display cases,
-freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
-at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
-after boot and enabled after "rtcwake -m mem", and the memory clock
-starts switching.  It stays that way until a later commit re-validates
-the state; a CRTC gamma change (toggling Night Light) turns SubVP off
-again.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] dma-buf: dma_buf_map_attachment() clears preexisting attach->selec=
+ted on error
+- [Medium] dma-buf: dma_buf_pin() leaves attach->selected true when ops->pi=
+n() fails
+--
 
-The policy reads dc_stream_state::allow_freesync while the new state
-is validated, but amdgpu_dm sets that field only in
-amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
-the commit.  A stream created by a modeset is therefore validated as
-if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
-streams and forces a modeset, so the resumed state is validated
-without FreeSync.
+commit e1080028468cc11821bdd6c9ecd4fc7204151523
+Author: Alistair Popple <apopple@nvidia.com>
 
-Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
-atomic check calls for every active CRTC and which already writes
-ignore_msa_timing_param to the stream.  It uses vrr_supported, the
-condition the flip-time value is derived from.  With this change the
-same TV keeps SubVP disabled across "rtcwake -m mem".
+dma-buf: Let the exporter select mapping type at pin/map
 
-On this machine SubVP is also what exposes the single-frame scanout
-corruption reported in the thread linked below, so the FreeSync
-setting stopped working as a workaround after every suspend.
+This commit adds dma_buf_ops.select_mapping() so the exporter can select a
+mapping type from attach->matches when an attachment is first pinned or
+mapped, recording the choice in attach->selected until mappings are
+invalidated via dma_buf_invalidate_mappings().
 
-Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
-Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714#note_3736349
-Tested-by: Josh Kasten <jkasten@gmail.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
-v2:
- - Rebased onto amd-staging-drm-next, where vrr_supported also depends
-   on vrr_timing_valid, so v1 no longer applied there.  No functional
-   change.
- - Added Tested-by from Josh Kasten, who ran v2 on next-20261023 (the
-   file is the same there as in amd-staging-drm-next) and saw SubVP
-   stay disabled across rtcwake with FreeSync enabled.
- 
-v1: https://lore.kernel.org/all/20261018221726.27259-1-mikhail.v.gavrilov@gmail.com/
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index 348b47f266b48..03f06c4b957ca 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -1201,6 +1201,10 @@ int dma_buf_pin(struct dma_buf_attachment *attach)
+> =20
+>  	dma_resv_assert_held(dmabuf->resv);
+> =20
+> +	ret =3D dma_buf_mapping_select(attach);
+> +	if (ret)
+> +		return ret;
+> +
+>  	if (dmabuf->ops->pin)
+>  		ret =3D dmabuf->ops->pin(attach);
+> =20
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c    | 8 ++++++++
- 1 file changed, 8 insertions(+)
+[Severity: Medium]
+Should dma_buf_pin() reset attach->selected to false if dmabuf->ops->pin()
+fails when attach->selected was false upon entry?
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 386ba88c57c6..936a899aef00 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -170,6 +170,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- 					vrefresh <= aconnector->max_vfreq &&
- 					vrr_timing_valid;
- 
-+	/*
-+	 * DC reads allow_freesync while validating the new state, for example
-+	 * to keep SubVP off a single FreeSync display, but it is otherwise set
-+	 * only on the first flip after the commit.  Set it here, so that a
-+	 * stream created by this commit is not validated without it.
-+	 */
-+	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
-+
- 	if (new_crtc_state->vrr_supported) {
- 		new_crtc_state->stream->ignore_msa_timing_param = true;
- 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
--- 
-2.56.0
+When dma_buf_pin() is called on an unselected attachment,
+dma_buf_mapping_select() sets attach->map_type and attach->selected =3D tru=
+e:
 
+drivers/dma-buf/dma-buf-mapping.c:dma_buf_mapping_select() {
+	...
+	attach->map_type =3D *match;
+	attach->selected =3D true;
+	return 0;
+}
+
+If dmabuf->ops->pin(attach) subsequently returns an error, dma_buf_pin()
+returns that error while leaving attach->selected set to true even though t=
+he
+pin was not established. Because the attachment is not pinned, the exporter
+may migrate the buffer elsewhere without invalidating it (and for attachmen=
+ts
+without importer_ops->invalidate_mappings, dma_buf_invalidate_mappings()
+skips clearing attach->selected). A later retry of dma_buf_pin() or call to
+dma_buf_map_attachment() will see attach->selected =3D=3D true in
+dma_buf_mapping_select() and skip dmabuf->ops->select_mapping(), leaving a
+stale attach->map_type in place.
+
+[ ... ]
+
+> @@ -1324,6 +1305,52 @@ struct sg_table *dma_buf_map_attachment(struct dma=
+_buf_attachment *attach,
+> =20
+>  	return sg_table;
+>  }
+> +
+
+[ ... ]
+
+> +struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attac=
+h,
+> +					enum dma_data_direction direction)
+> +{
+> +	struct sg_table *sg_table;
+> +	int ret;
+> +
+> +	might_sleep();
+> +
+> +	if (WARN_ON(!attach || !attach->dmabuf))
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	dma_resv_assert_held(attach->dmabuf->resv);
+> +
+> +	ret =3D dma_buf_mapping_select(attach);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	sg_table =3D __dma_buf_sgt_map_attachment(attach, direction);
+> +	if (IS_ERR(sg_table))
+> +		/* Nothing was established, so the choice may be made afresh */
+> +		attach->selected =3D false;
+
+[Severity: High]
+What happens in dma_buf_map_attachment() if attach->selected was already tr=
+ue
+prior to calling dma_buf_mapping_select() and __dma_buf_sgt_map_attachment()
+fails?
+
+An importer can enter dma_buf_map_attachment() with attach->selected =3D=3D=
+ true
+because the attachment was previously pinned via dma_buf_pin(), because it =
+is
+remapping after a prior map/unmap cycle without an intervening
+dma_buf_invalidate_mappings(), or because another mapping on the same
+attachment is already active. In that case, dma_buf_mapping_select() return=
+s 0
+immediately without making a new selection:
+
+drivers/dma-buf/dma-buf-mapping.c:dma_buf_mapping_select() {
+	...
+	if (attach->selected)
+		return 0;
+	...
+}
+
+If __dma_buf_sgt_map_attachment() then fails (for example, sgt_exp_ops is
+NULL, map_dma_buf() or dma_buf_wrap_sg_table() returns -ENOMEM, or
+dma_resv_wait_timeout() is interrupted), dma_buf_map_attachment()
+unconditionally clears attach->selected =3D false.
+
+A subsequent dma_buf_map_attachment() or dma_buf_pin() call will then invoke
+dmabuf->ops->select_mapping(attach) again without
+dma_buf_invalidate_mappings() having been delivered, which can overwrite
+attach->map_type while the attachment is still pinned or while an earlier
+mapping is still active. When that earlier mapping is later unmapped in
+dma_buf_unmap_attachment():
+
+drivers/dma-buf/dma-buf.c:dma_buf_unmap_attachment() {
+	const struct dma_buf_mapping_sgt_exp_ops *sgt_exp_ops =3D
+		dma_buf_get_sgt_ops(attach);
+	...
+	if (WARN_ON(!attach || !attach->dmabuf || !sg_table || !sgt_exp_ops))
+		return;
+	...
+	dma_buf_unwrap_sg_table(&sg_table);
+	sgt_exp_ops->unmap_dma_buf(attach, sg_table, direction);
+}
+
+ wouldn't dma_buf_get_sgt_ops(attach) read the overwritten attach->map_type
+and either call the wrong unmap_dma_buf() callback or hit
+WARN_ON(!sgt_exp_ops) and leak the mapping?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026053623.2026=
+42-1-apopple@nvidia.com?part=3D5
