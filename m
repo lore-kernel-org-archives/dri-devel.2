@@ -2,95 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135C7606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:19:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C290D606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:19:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iy78WORG;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NzVEZI78
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cIpHX3Da;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fb2Jo+9I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6440810ECDE;
-	Mon, 26 Oct 2026 09:19:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA4910ECFD;
+	Mon, 26 Oct 2026 09:19:32 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C07D10ECDE
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:19:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52C0610ED00
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:19:21 +0000 (UTC)
 Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69Q4b0TO2806300
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:19:12 GMT
+ 69Q4b2QV2806372
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:19:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- n9MudQ0NaHJP2SfNJ4CqXFHWBa7zfJmnwB9phhWhgS8=; b=iy78WORGwPeWAGI9
- z7s+NJqkRJDPjiGphkUqRD4G/WxwyZxs84YzVslcs70p10trDhQAt3MgJ7HOnv/I
- vYwbrT/UhU1HTX6nDrt8Zt5abLEPdhNfva29hqAxtc1aBS2cuTU6/PzLycmm++3I
- DupcSUEmiOz877jWhKZC7APZUkTN4lV5DfEfoerl6yOiOFTcQ3W9KjhHjIJltvP8
- 1g6FHyFAaMg8ZiVK3beJXbAMeq+yWBvJbf+m732RbbYUIRmvwcbAcqTEAFmLSPgX
- X8HJ0SF6kLUFY9rqLxjKscr2GZTgJ9nNTAYad3zM9yglbq9WLjxuABgcl7nHapKz
- aayNrw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgm8xnr5c-1
+ 4mPhZDRt9QlLUW4y6TN1ZMTZKVwC2eRdbQhQ0HjWnJg=; b=cIpHX3Da9S+jSWxY
+ RilXb0nVvMKz/goG/S3rI5SZ7QrT6mo0KtNff+tblgqr0tnSrN7wJcRjU1fwhdfY
+ khWQ8UCJCLaK/cp2wUYk9Sa5sUhCwFKvQfed4h3U9GhdYuo5Qg296Coe+TxwCrxK
+ wjIV9dwknhWvm5HJBZGz9GTS26Z9bJj+o0NlMP44p2hdoHj2WGQEj2iMzs1+b8na
+ gQK0j01Gn2ZXEty65PaqqeiICLewMfsssm56Z4JgX2bvQflon+2vkKltJVSzt915
+ eNZ3vPfgBi05dUMwDrRi1eBWnPRiQu7SqpMBKKv1bf4K4XfaSyHM/XmLq2BwYXPi
+ 0LWItA==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgm8xnr5s-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:19:11 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-53635fe2335so2849651cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:19:11 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:19:20 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-91c5ffce3f4so2573496d6.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:19:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793006351; x=1793611151;
+ d=oss.qualcomm.com; s=google; t=1793006360; x=1793611160;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=n9MudQ0NaHJP2SfNJ4CqXFHWBa7zfJmnwB9phhWhgS8=;
- b=NzVEZI78s4tHmNkd/ZPlY1bG9NnNlAyHQiAuw3R8RcM8ZI+biwjgv/WnVxCFZDeJ37
- y13yyGP3qcsstsQt1WNMTWnVYbrWqRQpUP9KHYlq8o4r6D+ntyshh+OBOHEOokmARgwc
- ijWgj9Vjlp54GBd5zxsxN0xAlgyN/K7JGOOexTkauCH5kVI5SBjAj17aOuCHCy6fSxLk
- wLJ5E/SW6dwB3V/qKeosq3gXUBDGtlJZeEoVZxeVEyUCpJYZcvr9JROReln2EWueaSoB
- nr0uLw+xwOw4TUlBxvmR6pEWfKONrrzDkI8gApw59V9tmtd+T6pXxsg2j9iZbsS3ZQGj
- 05uA==
+ :content-type; bh=4mPhZDRt9QlLUW4y6TN1ZMTZKVwC2eRdbQhQ0HjWnJg=;
+ b=fb2Jo+9ISz4VGLvcV1sdqVkHKTRsoyemBbClFkschJInJUKf/GxBiGPyn7HObAFA4y
+ 3MQuiTolH93Er0n6BFHZtWFeZVu2yy7c6SiPy9lj3ivzD/MxXlnWSPSRQ1XQJFjMEQ9N
+ Sx8yFp9rSy0OsK7RXvVpYnAoOxLfhz0vxO5GZhDJr0XpbNFE3UiwRDb9wjZ/ftii480y
+ FtegaIIvuKHpvy1pYuG2erOgkVTCRRPQFct6Lb1Gz94S5O4YYL3A/0/UeKgF38ntz2Cz
+ Nqgsw7pQjpQBXZ7whrkyLqHGQek3eEM+0hc6++ztpia4ZN1tPbaDXd/cnDqYJrn3YXKT
+ 7QAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793006351; x=1793611151;
+ d=1e100.net; s=20260707; t=1793006360; x=1793611160;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=n9MudQ0NaHJP2SfNJ4CqXFHWBa7zfJmnwB9phhWhgS8=;
- b=ZW0snaFNQarvta7EXWzmh5WoyKhi5IhXbw/rvpExVJFh7zEp8saufquORp4i04LdUV
- cnB9cHBrMbn+7tBuGWaEerNGu2K20TcrtDGhfw1m/OtZIXRpmn7sGsY3syQJ0N1/RJlW
- jW49m7IrNCWc3Kk8AZwcVF4xyFVfpiINOtTepvDDKdr2ucOsTkm56u0npeBbGnf0QHYV
- X9oeaN9lWl3+5pbFgm4tA5Xfvi64wjMuoCC6U1Qs6vNHviYR8FlK/4kIS5WDsc/ETku0
- NvykjRBST09gyGRjAfpDWmQH77ryXoO77EXv6PvW87KtG36uEZdy3DYpD695EvCr3NWq
- Druw==
+ bh=4mPhZDRt9QlLUW4y6TN1ZMTZKVwC2eRdbQhQ0HjWnJg=;
+ b=JetaEu6F56xVGYLHTHHbvE8ZoHzROzpVEgdp7yfg6TfryJUexn0STmpZsAmwUGFiD+
+ 0KFSqmT4YmRklIs+Kw4UXvaSLIh+RRo11dvd1bv44Q7t0lHIKBASAU6nclnu9OyoEKPW
+ PTCbzBWkdRQ/YsiCsu9Qqn7LGnaOFNrg/5pe3VY+b0i+ezdPjFUgl2kSUJIiJOoKBVkj
+ Bp1r4SwOYo+24otDgDl8zBbHfPORe8BC5r6lWlHOLTd5MTe/cKc9ocmrDeJbwZGATQtc
+ R1Ee/OH9sOlqAh1EqHNpBET6hndZ+sAjmo0aTqS/APDA2b0XsXAIjY8XuP0cFQ4QquTm
+ rAEQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzbREbLMD/F/5/nzf6tsm8Wb/H4R2+1otmDj40+mseseLi94AnJVoHhei3lKmrfVduTE4yXyiQkj1U=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKUlM4mTrEHyuYKjdRX4+vsz2oKMZdqQfZs7AvnZkmGIZdErpMs
- 8s3qmwCT7yXfF0Hka8Ax86fVDPAXwgtiSpVVuP378Zvm30a8Kt2FpiZGVWA65NHunFiaQgbh+Yl
- GCft/pYUY3L++xh0ctanQcgXvWUiktiGKmIU4R2+6Vm45C/WbboeWP7khnMTFi653iFhIDe0=
-X-Gm-Gg: AYBFou04vbaKBWIySo+5AUwA8L3wMT7omfFO71QIUPq3eM2QVKbCLVNjLhNpMRLiNin
- rPj8X8P8O7SB/9NBak6dMt4ykgZNcwK8XHVJy0uoaQJhmnbr6Zcnen0pwe7pTYtrHQAxautmv9n
- s3onhW/NC/b3Xd2WHOufkSqLuAio3EZuvyxESJwI8rcDcRciCGXkQiR8ykBsF1JkFgioSD7gLiS
- VtdDp6muCIV3Tn9wbRyPKneQy1Gi0eTbgLycm7rDjoY88pik5tdxW7ulRqlfK/1PVvmD7t1053k
- 3HHI4PO9z7w0NNfpcXPxP9gpuJjRlgvrykh/0VDiGcbcTwxQkaF+3vagfiM2J50N+WUKPspGkWR
- CWtfgeykTW7F73y0Z+tKj3A==
-X-Received: by 2002:a05:620a:4bc9:b0:93e:54fc:2c79 with SMTP id
- af79cd13be357-940ef942706mr813956085a.5.1793006351411; 
- Mon, 26 Oct 2026 02:19:11 -0700 (PDT)
-X-Received: by 2002:a05:620a:4bc9:b0:93e:54fc:2c79 with SMTP id
- af79cd13be357-940ef942706mr813951485a.5.1793006350822; 
- Mon, 26 Oct 2026 02:19:10 -0700 (PDT)
+ AKwUvBzK/Y7vm2x1oo8ZVGeCdSAenz94BNSVIryyB4XZ5jrp7TzE9/ogQAQn3Ai0x4GmEGvAZ2aKTFfXZgg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYISn+V9Qq7x4nvi/LT5HuKvdk1Lfer9/vEfMMek1B6vnc62onGe
+ hbwlybG1RTCvg0erUufoJg9145rs1Wit6xdg5mIbB91bkS5IlalGd4wtERKstsNTYn7iL4uC4h3
+ WIIyy1fRe2k1191fw/qQ0p2whU70I+3At78RzhyLLKEIA1It4J55IozD8i3e3sn5r6FmHk4o=
+X-Gm-Gg: AYBFou18wqiG8GMzTlPqdCCOiir7UjrznbqnZrCjczB4VeuWpv9+ny01ObQnQvmYpPq
+ M5QOjTIGnnVHwsya8FQaopqvNK0biOQvE3iwTihAHRVcHEWby9LZMc81pIZcKw0IFHX1yFZ89sl
+ tVzOa589LVUTAU3i2lsf25fmeMOHkTWlv8LwqC/tT+T1k7Q4Np+8C/HGPMHdmY6H9LYX89182+t
+ FWeUknp+NUl69+gJO3HJpDw9ymNNW+1lRMaGlFOjuVQv3AEoTaoLW9brjkp1HmLHKi2k6NZiATK
+ M8kkOxbpLZwNuuTTys7zLO6VBY4qhYJ9B64Dq8Kg/L3s46IoDdgzWWXKA1tH1SgSSeX+QigsTxh
+ lBfiN0bOZLfCD+ZFhH+orcA==
+X-Received: by 2002:a05:620a:8a87:b0:93e:571e:94f0 with SMTP id
+ af79cd13be357-940ef8f51fdmr885091585a.3.1793006359733; 
+ Mon, 26 Oct 2026 02:19:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:8a87:b0:93e:571e:94f0 with SMTP id
+ af79cd13be357-940ef8f51fdmr885088485a.3.1793006359301; 
+ Mon, 26 Oct 2026 02:19:19 -0700 (PDT)
 Received: from [192.168.226.26] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c46bd34f95csm299862866b.5.2026.10.26.02.19.07
+ a640c23a62f3a-c46bd34f95csm299862866b.5.2026.10.26.02.19.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 02:19:09 -0700 (PDT)
-Message-ID: <86bf919b-5528-42bb-aa89-b518452ed7a0@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 10:19:06 +0100
+ Mon, 26 Oct 2026 02:19:18 -0700 (PDT)
+Message-ID: <dcf8619a-29c6-4ec7-bb98-fc9dc705b064@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 10:19:15 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/10] drm/msm/dpu: only reassign resources when the
- encoder is reprogrammed
+Subject: Re: [PATCH v5 10/10] drm/ci: mark pixel-format tests as passing on
+ SC7180
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
  <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -107,31 +107,31 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
- <20261024-fd-kms-fix-smmu-v5-9-a5b0b284aead@oss.qualcomm.com>
+ <20261024-fd-kms-fix-smmu-v5-10-a5b0b284aead@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-fd-kms-fix-smmu-v5-9-a5b0b284aead@oss.qualcomm.com>
+In-Reply-To: <20261024-fd-kms-fix-smmu-v5-10-a5b0b284aead@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: fVAPQn6gqVh7Vr9ZaAMNI6t-3YvTc5mg
-X-Authority-Analysis: v=2.4 cv=Ra0FmFtv c=1 sm=1 tr=0 ts=6adf1b10 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+X-Proofpoint-GUID: 1ZIVoGGBsYPvZ9Un_SKHZ_Z3fagvPMzW
+X-Authority-Analysis: v=2.4 cv=Ra0FmFtv c=1 sm=1 tr=0 ts=6adf1b18 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=4sCBZ3MT6_yhT8qeVe4A:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX0kDyUxiNik49
- pqqIw/xZFTVc/GqJh8wUJzrzU4/NIPUme6f9lKjUMuGvqEaE4TnZWRr+F4xq/woAidNV6R9sid9
- hdqM5FJ2Qz+IunUdRMQJd7hSN33tWFY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX9inWhUO35QA0
- rMBsSGcyUbcf1JzX5EBxdPRPyC0r1nsKJZPYze39PEyrJPEbRg+NFwdt7kcpu8SZ4NSNWIqvRg3
- IMpAV38u5pT2YegmGqJbFFAuWe0FqAJ0QMVznk3rouSBEHGj+n3c/BmTXsgg6fuYjZD/dVC3Wiu
- Y6uKCUuBP6znpbqRkcqlM9Ealy5N25fBWRhHYWWsP9MpQQAyJe/1VlhwXuC8bzZ4P5TuDUNp5pm
- Qnn+MoTrWh2ERiPXvf4x5/DnXpF43nQR4FzRvKLXuptyyUMk32vU9hZpdC4+NEiM9YDuTw5yPTQ
- HJ4In3oaQx7JuA4Yp91E77E3w8jyaZPQkeWOQpJ7gVZxRiqDgV4NC9UCMiw4Hz4V4TPOuubHx3e
- T4ylxapUg/I8veG86IXWXDLgWK0Jv2f1cJNv7mZ9GPFSagbihUdHthbCgpMWSTrhEcUbORgj98w
- NK0y9Bp3T7gJ5K9AJDQ==
-X-Proofpoint-ORIG-GUID: fVAPQn6gqVh7Vr9ZaAMNI6t-3YvTc5mg
+ a=EUspDBNiAAAA:8 a=FX_9VyN8hJSf147S1HYA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX+dr7NOABIpt4
+ Z4znlvyIVr4+aowYO00+6ozyvnt7hLjbgBeNMiZOgOHF/UktyMABKvqh6ICGDZITOlAGUZlWNml
+ tGXRNk/KCzDcGNjurFqhIORkXpuMnvw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfXxeS5AuBguKyB
+ M8vwtk5lqjm48teKUNERx6zQrLqR/pPeQPfwZsRWUSb+oHkXqeSClnj09zYQLLipy/u0pqT6PPl
+ qgO6kie7R7D39f53/xY9xICLa0V59WoAwpDhfTar+lILV4xbw5I9J1gstI9SXUrUMiKLT7XET2X
+ 9MDD3RK3ahQ+BWZeVsVOr8oXU0gIg7vOQWQJj2V7xOVdoksOLRM6Pl0DBSBXMsj1dulFPeZxfnN
+ mf8cVVdB4z9wkVmDc4jfE44lVq4S2EVc53YQF5iPDYbCRU1RooeNUnpnXzoFXEyth5lGDKEdhmf
+ HBPEQRQibIUHXZIbgltvq2/ehXKn4CYsXCHvm61MFtEtbx+/9DZmin8znRMJ7KU5J3qOmeiYCip
+ k+MGUy2ZiV+kQCZ/iR7c9tMGCsCBJZgy1l+M0cxB16fBliuTtw/RH1x5ROaIn02tETaC357BfVm
+ H8KLta1Z9vMmB4ae9+g==
+X-Proofpoint-ORIG-GUID: 1ZIVoGGBsYPvZ9Un_SKHZ_Z3fagvPMzW
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
@@ -160,31 +160,14 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 10/24/26 1:25 AM, Dmitry Baryshkov wrote:
-> Running kms_plane@pixel-format-source-clamping causes SMMU faults
-> (fsr=0x402, iova=0x0001fb00): it sets a CTM, after which the display stops
-> updating, so the test times out waiting for a CRC and the pipe is still
-> fetching the framebuffers released when the runner kills it.
+> kms_plane@pixel-format and kms_plane@pixel-format-source-clamping timed out
+> waiting for the first CRC once the test had set a legacy gamma LUT.  They
+> pass since "drm/msm/dpu: only reassign resources when the encoder is
+> reprogrammed", so drop them from the expected failures.
 > 
-> dpu_crtc_atomic_check() reassigns resources whenever color_mgmt_changed is
-> set, but crtc_set_mode() only calls ->atomic_mode_set() for mode_changed or
-> connectors_changed.  A colour management update therefore re-reserves and
-> can get a different CTL: cstate->mixers[].lm_ctl points at the new one
-> while phys->hw_ctl still points at the old, so the flush mask is
-> accumulated on one and triggered on the other.  CTL_FLUSH is written with
-> zero, so the pipe is not reprogrammed again until the next modeset.
-> 
-> Reassign only when the encoder is reprogrammed too.  Enabling colour
-> management still needs a modeset, as that is when DSPPs join the topology,
-> so ask for one in dpu_crtc_check_mode_changed() and only there.  Drop the
-> msm_atomic_check() hack, which forced a modeset both ways, ignored
-> GAMMA_LUT and overrode allow_modeset behind userspace's back.
-> 
-> Fixes: 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide GAMMA_LUT DRM property")
-> Assisted-by: LLM
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
 
-LLM is curious whether turning off CTM/GAMMA should trigger a modeset too.
-My hunch is "yes"
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
 Konrad
