@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FEB606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:17:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E242606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:21:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gyZeAlHm
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFFPQDxY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D889110E4FB;
-	Mon, 26 Oct 2026 07:17:01 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D69F210E4D4;
- Mon, 26 Oct 2026 07:16:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93BFB10EBD9;
+	Mon, 26 Oct 2026 07:21:04 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC78C10EBF6;
+ Mon, 26 Oct 2026 07:20:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 92238438BB;
- Mon, 26 Oct 2026 07:16:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A631F01825;
- Mon, 26 Oct 2026 07:16:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DADA8600CB;
+ Mon, 26 Oct 2026 07:20:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE0C1F01825;
+ Mon, 26 Oct 2026 07:20:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792999014;
- bh=hSbhNpatzEnO4hwtFbBU7aRdCQ03TrbKNZMM1lLw85A=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=gyZeAlHmzO6/lbTX0qdxWanb53yYatpweL58QSR+/yTzuu79I1JPoYOd3/4sghZyn
- f73NnDV5UUmZn356nZqtejgAHhSlzDzXnWapSZwKb7h/S7WU31JyRJgXm7l7LrkZdE
- 2mPX1aZVDT7peqlIMAEXz3L+La1w2KbKu5BhdiXrY/Aghtd4jpfmonZF1tfrWid5/o
- tuDsgpdKTcEAGIeaRHpAqqWHhhg1VRerTBhhIrBDC5lOPrkL5XssLYdQ6V0t0Hxvat
- DspNzYmUuasAxfNogmpVqktIOsXkRR6CW7MW7L9oqBHFVKL0sTobwjTB8Hx/s/LE0D
- eRY5Fq2rNSQxg==
-Message-ID: <sashiko-outbox-184653@kernel.org>
+ s=k20260515; t=1792999257;
+ bh=7F8/Dw2IEZGp7meIs3INlSoTvSdn/zEE5T/r1TSFuKk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nFFPQDxYfmgp6kQwjsXqGbcRzO+yrHuqedwXfacF/KBfjO7uhpOkGb0gSK/ee+BK6
+ oFJAC7NLIgWtdEnk5/pc0ZXWvIyHfh+05CR9EyL7p8Z0oiKkStBWFtqGHHsqyVxOxD
+ LZ4aD1rkR+r0fosVpepP5fJes7IoX0LAObfiFtCTfCnFPN2NoY7ccEcFHdQ436Xcq0
+ mNNxKd0ZhzUOTBtcLYFn8Gnawz5zBVGE3yT207ijR/8SV6utAHyYXevWAHNKd9TIVl
+ GggDHQ3YRMuFmLLybrUEA55mjatB6okfKn5cpVG6mwwGtAooE3zpcegoNnNbiLqys/
+ h7uYz8hb3I50w==
+Message-ID: <sashiko-outbox-184656@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 16/20] drm/i915/alpm: Replace is_edp() with
- alpm_is_possible()
-To: "Animesh Manna" <animesh.manna@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261026054001.799894-17-animesh.manna@intel.com>
-References: <20261026054001.799894-1-animesh.manna@intel.com>
- <20261026054001.799894-17-animesh.manna@intel.com>
+Subject: Re: [PATCH 03/26] dma-buf: Add dma_buf_mapping_attach()
+To: "Alistair Popple" <apopple@nvidia.com>, dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ media-ci@linuxtv.org
+In-Reply-To: <20261026053623.202642-4-apopple@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-4-apopple@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 07:16:53 +0000
+Date: Mon, 26 Oct 2026 07:20:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,85 +61,97 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] drm/i915/alpm: uninitialized mutex lock in intel_alpm_lobf_disable=
-()
+- [High] dma-buf: NULL pointer dereference of importer_ops in dma_buf_dynam=
+ic_attach()
 --
 
-commit 3691f816d97c5d3f84209f1900c4bc02406c352b
-Author: Animesh Manna <animesh.manna@intel.com>
+commit 4415ca9de8f7d7c189e76efc4aa022c3564f88f1
+Author: Jason Gunthorpe <jgg@ziepe.ca>
 
-drm/i915/alpm: Replace is_edp() with alpm_is_possible()
+dma-buf: Add dma_buf_mapping_attach()
 
-This commit introduces intel_alpm_is_possible() to check ALPM capability
-from DPCD and LTTPR info instead of checking intel_dp_is_edp() in
-intel_alpm_lobf_compute_config(). It also removes the intel_dp_is_edp()
-checks from intel_alpm_lobf_enable() and intel_alpm_lobf_disable().
+This commit introduces dma_buf_mapping_attach() to match importer-supported
+mapping types against exporter-supported mapping types during attachment. It
+also converts dma_buf_attach() and dma_buf_dynamic_attach() into wrappers
+around dma_buf_mapping_attach().
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
-i915/display/intel_alpm.c
-> index 4e761022485d7..205f1ae10d431 100644
-> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
-> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index 4c9add51f9ef5..16a7fbb8aaabe 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
 
 [ ... ]
 
-> @@ -829,9 +848,6 @@ void intel_alpm_lobf_disable(const struct intel_crtc_=
-state *new_crtc_state)
-> =20
->  		intel_dp =3D enc_to_intel_dp(encoder);
-> =20
-> -		if (!intel_dp_is_edp(intel_dp))
-> -			continue;
-> -
->  		mutex_lock(&intel_dp->alpm.lock);
->  		intel_de_write(display, ALPM_CTL(display, cpu_transcoder), 0);
->  		drm_dbg_kms(display->drm, "Link off between frames (LOBF) disabled\n");
+> @@ -1025,31 +1035,55 @@ dma_buf_pin_on_map(struct dma_buf_attachment *att=
+ach)
+
+[ ... ]
+
+> -	attach->dev =3D dev;
+>  	attach->dmabuf =3D dmabuf;
+> -	if (importer_ops)
+> -		attach->peer2peer =3D importer_ops->allow_peer2peer;
+>  	attach->importer_ops =3D importer_ops;
+>  	attach->importer_priv =3D importer_priv;
+
+[ ... ]
+
+> @@ -1068,23 +1103,53 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, st=
+ruct device *dev,
+
+[ ... ]
+
+> +/**
+> + * dma_buf_dynamic_attach - Add the device to dma_buf's attachments list
+> + * @dmabuf:		[in]	buffer to attach device to.
+> + * @dev:		[in]	device to be attached.
+> + * @importer_ops:	[in]	importer operations for the attachment
+> + * @importer_priv:	[in]	importer private pointer for the attachment
+> + *
+> + * Wrapper to call dma_buf_mapping_attach() for drivers which only suppo=
+rt SGT.
+> + */
+> +struct dma_buf_attachment *
+> +dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
+> +		       const struct dma_buf_attach_ops *importer_ops,
+> +		       void *importer_priv)
+> +{
+> +	struct dma_buf_mapping_match sgt_match[] =3D {
+> +		DMA_BUF_IMAPPING_SGT(dev, importer_ops->allow_peer2peer ?
+> +						  DMA_SGT_IMPORTER_ACCEPTS_P2P :
+> +						  DMA_SGT_NO_P2P),
+> +	};
 
 [Severity: High]
-Can removing the intel_dp_is_edp() check in intel_alpm_lobf_disable() cause
-mutex_lock(&intel_dp->alpm.lock) to be called on an uninitialized mutex?
+Can importer_ops be NULL when passed to dma_buf_dynamic_attach(), causing a
+NULL pointer dereference when evaluating importer_ops->allow_peer2peer?
 
-In drivers/gpu/drm/i915/display/intel_alpm.c, intel_alpm_init() only
-initializes alpm.lock when intel_alpm_source_supported(intel_dp) is true:
+Previously, dma_buf_dynamic_attach() guarded this dereference with
+if (importer_ops). In-tree callers still rely on passing a NULL importer_ops
+pointer here, such as xe_gem_prime_import() when running the non-dynamic KU=
+nit
+test cases in drivers/gpu/drm/xe/tests/xe_dma_buf.c:
 
-void intel_alpm_init(struct intel_dp *intel_dp)
-{
-	if (!intel_alpm_source_supported(intel_dp))
-		return;
+drivers/gpu/drm/xe/xe_dma_buf.c:xe_gem_prime_import() {
+	...
+	attach_ops =3D &xe_dma_buf_attach_ops;
+#if IS_ENABLED(CONFIG_DRM_XE_KUNIT_TEST)
+	if (test)
+		attach_ops =3D test->attach_ops;
+#endif
 
-	mutex_init(&intel_dp->alpm.lock);
+	attach =3D dma_buf_dynamic_attach(dma_buf, dev->dev, attach_ops, obj);
+	...
 }
 
-On platforms with DISPLAY_VER between 20 and 34, intel_alpm_source_supporte=
-d()
-is only true for eDP encoders, so non-eDP DP encoders leave alpm.lock
-uninitialized.
+Note that a later commit in the series, 77ea3fee521c ("dma-buf: Rename
+dma_buf_dynamic_attach() to dma_buf_sgt_dynamic_attach()"), renames this
+function while keeping the unconditional importer_ops->allow_peer2peer
+dereference.
 
-In drivers/gpu/drm/i915/display/intel_display.c, intel_pre_plane_update()
-checks whether LOBF is being disabled via intel_crtc_lobf_disabling(), which
-inspects old_crtc_state->has_lobf, but then passes new_crtc_state to
-intel_alpm_lobf_disable():
-
-	if (intel_crtc_lobf_disabling(old_crtc_state, new_crtc_state))
-		intel_alpm_lobf_disable(new_crtc_state);
-
-If a CRTC with LOBF active on an eDP encoder (old_crtc_state->has_lobf is
-true) is switched in an atomic modeset to a non-eDP DP encoder
-(new_crtc_state->has_lobf is false), intel_alpm_lobf_disable() iterates over
-new_crtc_state->uapi.encoder_mask and calls mutex_lock(&intel_dp->alpm.lock)
-on the non-eDP encoder whose mutex was never initialized.
-
-Additionally, because intel_alpm_lobf_disable() inspects new_crtc_state
-rather than old_crtc_state, disabling a CRTC by detaching its connector
-(leaving new_crtc_state->uapi.encoder_mask empty) skips the loop and leaves
-ALPM_CTL enabled, or on DISPLAY_VER >=3D 35 locks the new encoder's alpm.lo=
-ck
-instead of the old encoder's.
-
-Should intel_pre_plane_update() pass old_crtc_state to
-intel_alpm_lobf_disable(const struct intel_crtc_state *old_crtc_state) so it
-operates on the encoder and transcoder where LOBF was previously enabled?
+Should dma_buf_dynamic_attach() check importer_ops &&
+importer_ops->allow_peer2peer before dereferencing importer_ops?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026054001.7998=
-94-1-animesh.manna@intel.com?part=3D16
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026053623.2026=
+42-1-apopple@nvidia.com?part=3D3
