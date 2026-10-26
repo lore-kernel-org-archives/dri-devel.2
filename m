@@ -2,54 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F13606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 20:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB26760A260B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 20:26:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=mj3hWv+h
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C0eW8vF7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B799B89336;
-	Mon, 26 Oct 2026 20:16:50 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14DD410F132;
- Mon, 26 Oct 2026 20:16:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=5tCDDqUS49+X8b9tPNWi92TBAJVHzJOzj7MBEX71PqM=; b=mj3hWv+h6o8426SOEqQIRbHs1g
- TzgQ/rOn8av03nSwmOUQWVGFW0H0KaoGDt+x6xgWo96umiOicdH+Q/7io15KAvEvKIzPR59nT1f24
- Wd9HBvAmZ6i4mth5iOkYdi0f7x0zi2zEsGfNS7/dUu/UsBlv6977Sy7He5Efp5hjSD+n7FbR4iEdF
- /O+lzT+CWTEsbZI5W4swL+6KGh+CpwjGQjo+UwwnBBX+yVw/nobehb8R9M4f395p3qISzVKJIezma
- R4j+ME2BY7hGu2tBBcbAWudBjSdjGg3UoRE4M+KH7eLFvTCwzNcl7KZrfvrCXKdZYQusxsS7cfpuM
- ofG2M/KQ==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xLR7Z-00B3Rg-2b; Mon, 26 Oct 2026 21:16:41 +0100
-Message-ID: <ee303a21-32f9-42ed-a351-35a23d6de202@Igalia.com>
-Date: Mon, 26 Oct 2026 13:16:34 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB5EE10F12E;
+	Mon, 26 Oct 2026 20:26:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C3310E362;
+ Mon, 26 Oct 2026 20:26:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A461543ECE;
+ Mon, 26 Oct 2026 20:26:06 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1793046366;
+ b=itxv7IKT/UcVflnv00AVbLQvo4453jPr6M3z7zc8Tc1OIAuxMePpG+l/rYsLnei/e5gl
+ cwVsBqDKHQbU3IvYnPalOvrAtqGvICA0X8+nAHchTnXYDccbrQM2s1WVWOlsXmWCYagAc
+ plWoqs3OiAi4sw1cJ2FfwCouG6pejHfEMajx6/+UjIdrXq/oyG6kXW54CwcX7m7z1TBSd
+ Sz9CYTejvPDZ3KJgkhhb+UP/2VWZpZW7tn89YRnr2RerRgD4eGHYGx9sN926YIOE5IpKq
+ /4snYr7UiiTF1xko7eaMdRfJoXRZ8wkjOwY1GO711atiX2xwz0wppUcPql4Egolmiqw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1793046366;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=JRjSAAuR7hRAdwbUXH9UJHGrVoF/0JplyAOZ6D7TEAE=;
+ b=2qI4Vrjdh902evixlHeHW6G4hRN5Kso4DG4hl37ynteVXwoCDnJbaLPkxc3DBxlSjP3f
+ UU2FALkRwsQI/OxDCUegz45K/2q+RN8Q+LrBj3Z9vAZUFKPmBFU5JY9hNn+4jNwGNJsk+
+ 7Sbm5C5UeircFgnCAUCkbfz/1lTvbl1aLZmG8h3TryK4kBo+vAnvtPUvJwyUdQVJsGpfv
+ 8h7/8LoRH3szOJZV/VZlKn7xibwTO622Bnb1ezdLIz4yOVQXJtEjDoYEYqdpdwqTbt3oV
+ O8UaXvLYj0cTsHljSMy8t0/nxeUzdnU6O6CdVOUt1YmusLW9hCehBSRYvO9bXZeTNtg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 6C1521F031E0;
+ Mon, 26 Oct 2026 20:26:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793046366;
+ bh=JRjSAAuR7hRAdwbUXH9UJHGrVoF/0JplyAOZ6D7TEAE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=C0eW8vF7gH8itK7kNwszXIsozuRuoy0cXg7bS9yn8BucYHdJYquQCENT2l0ks24pp
+ uSqExJvWUssV2o18NDV2EJbuoCemEpHVKyfTGzOaG6KF030uCZ7k3M57CQPHIFhLXB
+ znXZIq5OksjTY2PxA7mjxqMql+hH9hKQ/U6DrcjH/zh9iJyO36m4hvC6V6admKwrxH
+ MayvP6R7kPsJk1rQGxuFaGWij4t07oLVsw4wChzACxtVkAQNJmlK7mWWER7FHNu4Iq
+ VuOR90DHUHeI73XdzsosAPPx/NOsz1OW53bTtNL3t23qj4VXgwqK4mzlZ9nv2Kx9d6
+ EpeIN0Kv4pw7g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id D14B044E91;
+ Mon, 26 Oct 2026 20:26:04 +0000 (UTC)
+From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
+Date: Mon, 26 Oct 2026 17:25:43 -0300
+Subject: [PATCH v2 2/6] drm/msm/dpu: save LMs in encoder mode_set for
+ cleanup use later
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Add null DC check to hpd init
-From: John Harrison <John.Harrison@Igalia.com>
-To: Albert Esteve <aesteve@redhat.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Mattia Tadini <info@mtsistemi.it>,
- Roman Li <roman.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Alex Hung <alex.hung@amd.com>, George Zhang <george.zhang@amd.com>,
- Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>, Leo Li <sunpeng.li@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Geoffrey McRae <geoffrey.mcrae@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
-References: <20261022173154.2318054-1-John.Harrison@Igalia.com>
- <atsRYJ7XTBY987fr@aesteve-thinkpadp1gen8.rmtes.csb>
- <e076014e-b461-4e27-8220-709722b73ceb@Igalia.com>
-Content-Language: en-GB
-In-Reply-To: <e076014e-b461-4e27-8220-709722b73ceb@Igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261026-msm-dpu-res-clean-v2-2-3d864435186e@gmail.com>
+References: <20261026-msm-dpu-res-clean-v2-0-3d864435186e@gmail.com>
+In-Reply-To: <20261026-msm-dpu-res-clean-v2-0-3d864435186e@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Xi Zhang <xz.ca.cn@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793046364; l=5310;
+ i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
+ bh=8PB6tAtHyoeBMCu0fLO2+0ATMltRJRVeHPZqWTJn5Yg=;
+ b=iBv0391PMeix+fnawpXmmHtKjJOc3TB+UeksvQ9BJXQqpuJGpTaUATRuwe5KrHBF5U5i9iIS7
+ rMwO0sB2KQ0BAuPP8uDgaPmlL079F2SfNauhc+TW43FPDc3tjv5qwL4
+X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
+ pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
+X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
+ auth_id=1328
+X-Original-From: Xi Zhang <xz.ca.cn@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,144 +97,146 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: xz.ca.cn@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/26/26 11:57, John Harrison wrote:
-> On 10/23/26 00:48, Albert Esteve wrote:
->> Hi John,
->>
->> On Thu, Oct 22, 2026 at 10:31:54AM -0700, John Harrison wrote:
->>> A bunch of the KUNIT tests (dm_test_hpd_init_*) expect that the init
->>> function can be called with adev->dm.dc set to null. Indeed, the
->>> dm_test_hpd_init_fini_with_connectors test has a comment explicitly
->>> saying that the null is intentional. Unfortunately, since the patch
->>> mentioned below, the first thing that the init function does is access
->>> adev->dm.dc->link_count. Thus it is a null pointer dereference and a
->>> boom (at least if running with KASAN).
->>>
->>> I'm not sure if a null DC can ever occur outside of the KUNIT tests,
->>> but there is presumably a reason for the KUNITs explicitly testing it.
->>> So add a null check around the link_count loop.
->> This feels backwards reasoning. The tests assume in comments that
->> "a NULL dc that fallback is a safe no-op", which isn't true after
->> commit e38159437a91. Also, in amdgpu_dm_init() the DC is created and
->> checked, and if it is NULL errors out. Thus, DC is never NULL at
->> amdgpu_dm_hpd_init() in production.
->>
->> The fix should be in the tests, maybe allocating a stub with
->> link_count 0?
-> I was meaning the later comment "DC is absent (NULL), so the HW writes 
-> are NULL-safe no-ops.". To me that reads as the test is explicitly 
-> checking that a NULL DC is safe. Also, the 
-> dm_test_hpd_init_empty_connectors test says "init must complete 
-> without touching the DC". Which also seems to be saying that a null DC 
-> is a valid thing to happen and must be allowed.
->
-> If you are certain that there is never a possibility nor a reason for 
-> having a null DC in reality, then sure, the tests can be updated 
-> instead. This is not code I am especially familiar with - I'm just 
-> trying to run the tests to ensure that other changes don't break 
-> existing drivers. I just don't want to go removing test coverage 
-> simply because a driver change breaks a test - that is generally the 
-> backwards direction!
->
-> John.
-I'm finding more and more tests that explicitly test a null DC. Also, a 
-stub DC with a link_count of zero is not sufficient. All the IRQ code 
-goes boom trying to configure interrupts because dc->res_pool->irqs is 
-dc->[null]->[null]. Hacking up a fake res_pool and a fake irq structure 
-would presumably be possible but then the driver will be attempting to 
-enable interrupts in a non-hardware kunit test. I haven't gone further 
-than that to see if anything else goes boom with a partial DC yet.
+From: Xi Zhang <xz.ca.cn@gmail.com>
 
-It seems like trying to force a fake DC is an unravelling thread that 
-will mean a lot of changes to a lot of tests and maybe to the driver too.
+dpu_encoder_helper_reset_mixers, which is called during atomic_commit
+disable phase, previously called
+dpu_kms_get_existing_global_state, which returns the global_state
+after the state swap. So the cleanup was performed on the newly
+allocated resources instead of the ones that actually need reset.
 
-As the driver currently stands, the tests explode with null pointer 
-dereferences. Fixing up the one patch that broke a fundamental 
-requirement of so many tests by adding a simple null-pointer check and 
-returning the original functionality seems like a sensible first step. 
-We get the test coverage back with no real downside to the driver. If 
-the people that really know this code want to do a more involved fix 
-then that is up to them to decide how it should be done.
+Cache LMs in dpu_enc similar to other resources during mode set, and
+perform the cleanup on cached LMs instead.
 
-John.
+Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 58 ++++++++++++++++-------------
+ 1 file changed, 32 insertions(+), 26 deletions(-)
 
->
->> BR,
->> Albert
->>
->>> Fixes: e38159437a91 ("drm/amd/display: only clear the hotplug 
->>> sources the ASIC has")
->>> Cc: Mattia Tadini <info@mtsistemi.it>
->>> Cc: Roman Li <roman.li@amd.com>
->>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>> Cc: Alex Hung <alex.hung@amd.com>
->>> Cc: George Zhang <george.zhang@amd.com>
->>> Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
->>> Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>
->>> Cc: Leo Li <sunpeng.li@amd.com>
->>> Cc: "Timur Kristóf" <timur.kristof@gmail.com>
->>> Cc: Albert Esteve <aesteve@redhat.com>
->>> Cc: Geoffrey McRae <geoffrey.mcrae@amd.com>
->>> Cc: Harry Wentland <harry.wentland@amd.com>
->>> Signed-off-by: John Harrison <John.Harrison@Igalia.com>
->>> ---
->>>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 26 
->>> ++++++++++---------
->>>   1 file changed, 14 insertions(+), 12 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c 
->>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
->>> index 5b4ff079cd55..427f7bba343d 100644
->>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
->>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
->>> @@ -989,18 +989,20 @@ void amdgpu_dm_hpd_init(struct amdgpu_device 
->>> *adev)
->>>        * has rather than over the whole enum: the unused slots of 
->>> the DC
->>>        * interrupt table hold dummy handlers that assert when touched.
->>>        */
->>> -    for (i = 0; i < adev->dm.dc->link_count; i++) {
->>> -        const struct dc_link *link = adev->dm.dc->links[i];
->>> -
->>> -        if (link->irq_source_hpd != DC_IRQ_SOURCE_INVALID &&
->>> -            !amdgpu_dm_irq_set(adev, link->irq_source_hpd, false))
->>> -            drm_err(dev, "Failed to clear hpd source=%d on init\n",
->>> -                link->irq_source_hpd);
->>> -
->>> -        if (link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID &&
->>> -            !amdgpu_dm_irq_set(adev, link->irq_source_hpd_rx, false))
->>> -            drm_err(dev, "Failed to clear hpdrx source=%d on init\n",
->>> -                link->irq_source_hpd_rx);
->>> +    if (adev->dm.dc) {
->>> +        for (i = 0; i < adev->dm.dc->link_count; i++) {
->>> +            const struct dc_link *link = adev->dm.dc->links[i];
->>> +
->>> +            if (link->irq_source_hpd != DC_IRQ_SOURCE_INVALID &&
->>> +                !amdgpu_dm_irq_set(adev, link->irq_source_hpd, false))
->>> +                drm_err(dev, "Failed to clear hpd source=%d on 
->>> init\n",
->>> +                    link->irq_source_hpd);
->>> +
->>> +            if (link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID &&
->>> +                !amdgpu_dm_irq_set(adev, link->irq_source_hpd_rx, 
->>> false))
->>> +                drm_err(dev, "Failed to clear hpdrx source=%d on 
->>> init\n",
->>> +                    link->irq_source_hpd_rx);
->>> +        }
->>>       }
->>>         drm_connector_list_iter_begin(dev, &iter);
->>> -- 
->>> 2.43.0
->>>
->
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 8d2b4d2726f2..81b983ecffbb 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -133,6 +133,7 @@ enum dpu_enc_rc_states {
+  * @cur_master:		Pointer to the current master in this mode. Optimization
+  *			Only valid after enable. Cleared as disable.
+  * @cur_slave:		As above but for the slave encoder.
++ * @hw_mixer:		Handle to the layer mixers used for the display.
+  * @hw_pp:		Handle to the pingpong blocks used for the display. No.
+  *			pingpong blocks can be different than num_phys_encs.
+  * @hw_cwb:		Handle to the CWB muxes used for concurrent writeback
+@@ -182,6 +183,7 @@ struct dpu_encoder_virt {
+ 	struct dpu_encoder_phys *phys_encs[MAX_PHYS_ENCODERS_PER_VIRTUAL];
+ 	struct dpu_encoder_phys *cur_master;
+ 	struct dpu_encoder_phys *cur_slave;
++	struct dpu_hw_mixer *hw_mixer[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_pingpong *hw_pp[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_cwb *hw_cwb[MAX_CWB_PER_ENC];
+ 	struct dpu_hw_dsc *hw_dsc[MAX_CHANNELS_PER_ENC];
+@@ -1156,11 +1158,12 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 	struct msm_drm_private *priv;
+ 	struct dpu_kms *dpu_kms;
+ 	struct dpu_global_state *global_state;
++	struct dpu_hw_blk *hw_lm[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_pp[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_ctl[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_dsc[MAX_CHANNELS_PER_ENC];
+ 	struct dpu_hw_blk *hw_cwb[MAX_CHANNELS_PER_ENC];
+-	int num_ctl, num_pp, num_dsc, num_pp_per_intf;
++	int num_ctl, num_lm, num_pp, num_dsc, num_pp_per_intf;
+ 	int num_cwb = 0;
+ 	bool is_cwb_encoder;
+ 	unsigned int dsc_mask = 0;
+@@ -1189,6 +1192,14 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
+ 	trace_dpu_enc_mode_set(DRMID(drm_enc));
+ 
+ 	/* Query resource that have been reserved in atomic check step. */
++
++	num_lm = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
++		drm_enc->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
++
++	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_mixer); i++)
++		dpu_enc->hw_mixer[i] = i < num_lm ? to_dpu_hw_mixer(hw_lm[i])
++						: NULL;
++
+ 	if (is_cwb_encoder) {
+ 		num_pp = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
+ 						       drm_enc->crtc,
+@@ -2183,42 +2194,37 @@ void dpu_encoder_kickoff(struct drm_encoder *drm_enc)
+ 
+ static void dpu_encoder_helper_reset_mixers(struct dpu_encoder_phys *phys_enc)
+ {
+-	int i, num_lm;
+-	struct dpu_global_state *global_state;
+-	struct dpu_hw_blk *hw_lm[2];
+-	struct dpu_hw_mixer *hw_mixer[2];
++	int i;
+ 	struct dpu_hw_ctl *ctl = phys_enc->hw_ctl;
++	struct dpu_encoder_virt *dpu_enc = to_dpu_encoder_virt(phys_enc->parent);
+ 
+ 	/* reset all mixers for this encoder */
+ 	if (ctl->ops.clear_all_blendstages)
+ 		ctl->ops.clear_all_blendstages(ctl);
+ 
+-	global_state = dpu_kms_get_existing_global_state(phys_enc->dpu_kms);
+-
+-	num_lm = dpu_rm_get_assigned_resources(&phys_enc->dpu_kms->rm, global_state,
+-		phys_enc->parent->crtc, DPU_HW_BLK_LM, hw_lm, ARRAY_SIZE(hw_lm));
+-
+-	for (i = 0; i < num_lm; i++) {
+-		hw_mixer[i] = to_dpu_hw_mixer(hw_lm[i]);
+-		if (ctl->ops.update_pending_flush_mixer)
+-			ctl->ops.update_pending_flush_mixer(ctl, hw_mixer[i]->idx);
++	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_mixer); i++) {
++		if (dpu_enc->hw_mixer[i]) {
++			if (ctl->ops.update_pending_flush_mixer)
++				ctl->ops.update_pending_flush_mixer(ctl, dpu_enc->hw_mixer[i]->idx);
+ 
+-		/* clear all blendstages */
+-		if (ctl->ops.setup_blendstage)
+-			ctl->ops.setup_blendstage(ctl, hw_mixer[i]->idx, NULL);
++			/* clear all blendstages */
++			if (ctl->ops.setup_blendstage)
++				ctl->ops.setup_blendstage(ctl, dpu_enc->hw_mixer[i]->idx, NULL);
+ 
+-		if (hw_mixer[i]->ops.clear_all_blendstages)
+-			hw_mixer[i]->ops.clear_all_blendstages(hw_mixer[i]);
++			if (dpu_enc->hw_mixer[i]->ops.clear_all_blendstages)
++				dpu_enc->hw_mixer[i]->ops.clear_all_blendstages(
++					dpu_enc->hw_mixer[i]);
++		}
++	}
+ 
+-		if (ctl->ops.set_active_lms)
+-			ctl->ops.set_active_lms(ctl, NULL);
++	if (ctl->ops.set_active_lms)
++		ctl->ops.set_active_lms(ctl, NULL);
+ 
+-		if (ctl->ops.set_active_fetch_pipes)
+-			ctl->ops.set_active_fetch_pipes(ctl, NULL);
++	if (ctl->ops.set_active_fetch_pipes)
++		ctl->ops.set_active_fetch_pipes(ctl, NULL);
+ 
+-		if (ctl->ops.set_active_pipes)
+-			ctl->ops.set_active_pipes(ctl, NULL);
+-	}
++	if (ctl->ops.set_active_pipes)
++		ctl->ops.set_active_pipes(ctl, NULL);
+ }
+ 
+ static void dpu_encoder_dsc_pipe_clr(struct dpu_hw_ctl *ctl,
+
+-- 
+2.55.0
+
 
