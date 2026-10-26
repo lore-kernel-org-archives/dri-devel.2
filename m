@@ -2,144 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122E5606A31D
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:14:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75F3606A31D
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:14:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HE5Ej9OG;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=K65QCqnW
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=uesWt4mf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4494310E2E3;
-	Mon, 26 Oct 2026 09:13:52 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E80810E1C7
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:13:41 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69Q8xN2E1912088
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:13:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 504GS7G2c5HvF1fzY/p3b+yghdp3at25Pz8Gt9PufVE=; b=HE5Ej9OGUxYGrI8N
- YKB+QS0Q8izHhB4qTjUsd1Mnr7E66NzQri9a3l5R8+cYFJHrRhgK77FsrOZvlbUw
- R32p9NpTqyhwXI1diVf635IA1Qk6+XUNiQU1p36fqcRqRRSJ7z73DtJ+wCcr2kTc
- GhaIMdBfug8bY7wCPqXmmkgTIWc/y1RwRikL2ObtwQEzrSwtFPlfVsTNqmnbrQxR
- HWsVRR5/nUjwJ+VgWEZ8bOe2fIhEb0MMkJi4cQOf2Ub1I4z4JTMWr1oGaTGKqw2k
- jR1UBzyEDgvhql3KRKQ/ovLU6aUGihyLLXO+3q119Zy/rKcrYYPNHEEHVFghPWcR
- 97/0Ng==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u601mc-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:13:40 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-53568f05f8bso9732841cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:13:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793006020; x=1793610820;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=504GS7G2c5HvF1fzY/p3b+yghdp3at25Pz8Gt9PufVE=;
- b=K65QCqnW2QcsT8P/qAlJ/Rsu8m7i3vLAYn/8Bb2khPuHzPoWHa0WwFGYrYDwDA/0si
- oFUHbi5nqxoQBVq0PBhj7dw176ZSXrBUw65UjTpP5r/CTUZY0hyCn+FmzTasxAwUFvFY
- TLXcNDy6gnTcamszjrVGGXK00WejiDVzgVJzzJIRwRLidi22SYG5pswAxAazzVFvd5QT
- PkIENVd1q1ov5mKEk1NyoEHXyRl5QqrWI5bry1Hnfw8XYu+5Sj4SMXCPfS0Bn/T/Djck
- +yyjDDxmxJSKWdfelAA44H4scFI3OdkWJGWm2s+WkIqMUGYbM3ZgjFAGyqsGYvM9YcaE
- n6Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793006020; x=1793610820;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=504GS7G2c5HvF1fzY/p3b+yghdp3at25Pz8Gt9PufVE=;
- b=Wykj5dAhjQq4KaoRJTIxwFuN25444JYUg73/YldYCbowWJT3+kbHfaPOE9abBw3eah
- MXjHxwcuCSXGn3vvep5xMi+goN8BTCEvPpV95SgPDnL0JYEr4qSLK47SHucXOH+MlyL8
- 6A1BbTa6iC1hqXVbsQLe2rp96BzVXL39ueBNmZGcRIQA7K0OTNpINQNDCQMAEACQxcKj
- tGQzy3+mgJq+yg2Cf1P239nP3nI2QptXmd311wBARXHutBE0Bv2eFvul+O+GShD63l75
- iujIX6CJA88XOR7MbjlWzl+qiHsAe9+u8/4HRIH+ytpe3B/0vSQMZSMi9T8LcQv9dSUF
- wxwg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxHzrRWJJnylcoWkwV6iz4oxqEBA9i8u7GrNHM6XWikdU23H7HBKsqMbQKjhanngvnk2//ZPJ1LlYQ=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKaozkmIvFw+n+k4dpbOxTXb4kzL4mTBNx5SHut7yUg+/76k4YV
- vvGfTdlOgJVY9bM0xjsAzNDlrHlYJdke/3ExmDMekC45kud1XGtT12jOpOWphFEUpRsgOhd/wcT
- pN2ljnWMu/fFudGU2B5BMWzU/sK4cX4K19LbknE2pUJoJp1L1EE+pN0AEv5Yqk3ujb/RG7ZQ=
-X-Gm-Gg: AYBFou2wnj7isWJTRiUT1rip4K8eBL62i8O/EoNp7px4If8ErpRHtMEznej67xKQNV0
- gHQWHOqYpIuLwjoa8Fcfi/LFkxBduKrX7/1kruSJJgIc6/VEql9ggjUDIRrNArazST/Y08iSVGW
- tZzFbT1qNqhRqeF2M+05bMe7FWRd1exjZdywGlAovkLAz6BWHy86Ni80pkDALgAfbtGcsjMvHr6
- H6z8mQ3alA4lbbCUSc+Ip69F0je3T0jdNZWFYYQkaQpnTTjRA9Pfv3dNYCOR+V2iPwr2x/UMsjA
- Z+rZmuup3i+N1e89K/AGh/9HDbHZt+CrIjEVeXAr4uV0GQM5sA+co05HboV3eP2yTo0dqvEbcmc
- S3TX9h3tebeyeLlQxcW5OMQ==
-X-Received: by 2002:a05:620a:4918:b0:93f:1fc5:f07b with SMTP id
- af79cd13be357-940ef7e9992mr970011485a.2.1793006019696; 
- Mon, 26 Oct 2026 02:13:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:4918:b0:93f:1fc5:f07b with SMTP id
- af79cd13be357-940ef7e9992mr970007185a.2.1793006019169; 
- Mon, 26 Oct 2026 02:13:39 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c46bd66bd3asm295841466b.56.2026.10.26.02.13.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 02:13:38 -0700 (PDT)
-Message-ID: <d9d6a2c2-545f-4b48-ae19-dc30234540e0@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 10:13:34 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC9710E1C7;
+	Mon, 26 Oct 2026 09:13:58 +0000 (UTC)
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1C010E1C7
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:13:51 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20261026091349euoutp0260a6484cdb132677f41b85104a90e968~iCXwB5PQU2933229332euoutp024;
+ Mon, 26 Oct 2026 09:13:49 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20261026091349euoutp0260a6484cdb132677f41b85104a90e968~iCXwB5PQU2933229332euoutp024
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1793006029;
+ bh=BKmKriFXy7STc0ChdV4GVkhXybSuVhKoMJ3vCyY6ebQ=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=uesWt4mf7L6uH2e2D0Uz0HVRucHuV8HZkP6w6G5X4a91jpvD/uKc3BJqBUmuRXjve
+ GgrdbGaDFfjJl73WiJG4wPNL+OImYScLzZ5eCyyvPV3LlJUGczWGKuH07jKOHSZaRq
+ J4j2ifjZbGqdQZI5IPmFXPvANcfdee4i8r50bnPI=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20261026091348eucas1p104a72aa9c878c637a7ef778613c492a9~iCXvH8nmx3193831938eucas1p1i;
+ Mon, 26 Oct 2026 09:13:48 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20261026091345eusmtip1dd488ccf4592aee32b30711c858f6c13~iCXsMa8873092630926eusmtip1x;
+ Mon, 26 Oct 2026 09:13:45 +0000 (GMT)
+Message-ID: <943aa2e7-3945-48f9-9a87-9c963f97099d@samsung.com>
+Date: Mon, 26 Oct 2026 10:13:45 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 05/10] drm/msm/dpu: clear the CWB blocks left by a
- previous reservation
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Kalyan Thota <quic_kalyant@quicinc.com>,
- Federico Amedeo Izzo <federico@izzo.pro>,
- Helen Koike <helen.fornazier@gmail.com>,
- Vignesh Raman <vignesh.raman@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
- <20261024-fd-kms-fix-smmu-v5-5-a5b0b284aead@oss.qualcomm.com>
+Subject: Re: [PATCH v4 16/20] phy: Add common Innosilicon HDMI PHY helpers
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
+ <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+ Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+ Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+ Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-fd-kms-fix-smmu-v5-5-a5b0b284aead@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <asEPmpQTwXYADwTk@parshuram>
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: bjp2MwquJOPy4gmUD2fh23ddGWcLx6q_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX6gRZ75BJnCE2
- RwI7wkPtVvgPLpvqt6ew3e+FIO30wXHui8YruHotqqJG27Bz1BQIZC+k4t4a6Y7ZaD5cRRriw5Y
- tCPiXVbk4qWqZMn3UKUVxitfsPAOwQUXzr22lm57/YM9cvTY84wbyFV6JYH53KlIh2IZdxhtLM5
- aX8lwX9IZYg1JMT14J1k/KPWLb0ED477Bm2NS7KThBz3vHTNrDvoOF8198c+lGINEkc6UV2BdAL
- 2p9iglYzkq3i5H5M/HWypwaafbE2d64jXTXbBRDohIkps81OldNAWuEgtFyy7WcLWrzSUkvSeTm
- 6/pqNiAfK4ndA9yJEMRdYZcE1Wkvox5VLeM41zES75zPGsqy5EkHdIDgPWnQqbrPDDQLOdGeC8O
- Wfee7hSRwtbxPtbCrT10EpxHT1cRMYfNVhdDpM8u5WnsIPyl5doXhPCvz9TS5db4ffpos+awuml
- 1NHxz/PKUbWUR0dFa7w==
-X-Proofpoint-ORIG-GUID: bjp2MwquJOPy4gmUD2fh23ddGWcLx6q_
-X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6adf19c4 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=xIhFS8ZktLuDZ2I-VrQA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX9aKp7L/9p3rd
- LPbMDuSeJi6FCGac8/vgAJJInMZgbUrB0DGBiGOAEB37aQwYh1G2vzOyBIOFjNaP4rCEK1JWM+D
- 9DjgLHETcczC7pxu4rK+Z9pY95gqDvg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260036
+X-CMS-MailID: 20261026091348eucas1p104a72aa9c878c637a7ef778613c492a9
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153242eucas1p1394a6a5e272f106b9cab2a0f709ddeb8@eucas1p1.samsung.com>
+ <20260915-jh7110-clean-send-v4-16-f0e4fd6f2cc8@samsung.com>
+ <asEPmpQTwXYADwTk@parshuram>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,31 +91,102 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/24/26 1:25 AM, Dmitry Baryshkov wrote:
-> dpu_encoder_virt_atomic_mode_set() only writes the first num_cwb entries
-> of dpu_enc->hw_cwb[], and not at all when the encoder is not the
-> writeback of a clone, so a modeset which drops the clone, or reserves
-> fewer CWB blocks, keeps the pointers from the previous reservation.
-> dpu_encoder_helper_phys_setup_cwb() then walks every non-NULL entry: it
-> programs a CWB mux the crtc no longer owns, and looks its pingpong up past
-> the pingpongs actually assigned, in the uninitialised part of rt_pp_list[].
-> 
-> Store NULL for the entries which have no CWB block, as is done for the
-> pingpongs.
-> 
-> Fixes: 5008375443ed ("drm/msm/dpu: Reserve resources for CWB")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+Hi Vinod,
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On 10/3/26 16:22, Vinod Koul wrote:
+> On 15-09-26, 17:32, Michal Wilczynski wrote:
+>> The Innosilicon HDMI PHY IP is used by several SoCs. They differ in
+>> where the PHY register block sits in the register space and in which
+>> pixel clocks they support, but the pre-PLL programming sequence and the
+>> layout of its registers are the same.
+>>
+>> Add a small library holding that shared part: the pre-PLL configuration
+>> table format, a lookup, clk_ops determine_rate and recalc_rate helpers,
+>> and the pre-PLL register programming. Callers pass a regmap, a register
+>> offset for the PHY block, and their own pixel clock table.
+>>
+>> No driver uses it yet; the users are converted separately.
+> 
+> Is there anything in phy patches here that has dependency with rest? If
+> not consider splitting it up...
 
-Konrad
+The phy patches don't depend on anything else so they apply cleanly
+from this series alone. The helpers and the Rockchip conversion are
+self contained and the JH7110 phy driver only needs its parent at
+runtime not at build time.
+
+I kept everything in one series so a single posting applies and boots on
+its own. The patches already target three separate trees and everyone
+testing this has been applying the full set splitting would force them
+to assemble two postings in the correct order, given that the JH7110 phy
+driver build depends on the helpers. The v5 cover letter lists which
+tree each patch goes to.
+
+That being said, the helpers and the Rockchip conversion are the two
+patches independent of the StarFive work - happy to send those as a
+separate series if you'd rather take them that way.
+
+> 
+>> +static u8 inno_read(const struct inno_hdmi_phy_pre_pll *pll, unsigned int reg)
+>> +{
+>> +	unsigned int val;
+>> +	int ret;
+>> +
+>> +	ret = regmap_read(pll->regmap, inno_reg(pll, reg), &val);
+>> +	if (ret)
+>> +		return 0;
+>> +
+>> +	return val;
+> 
+> why not just return regmap_read()
+> 
+> There is no logic here, nothing. This is really not ideal.
+> Also why add a wrapper and not use regmap directly?
+
+The same IP block is used by both Rockchip and the JH7110 but on the
+JH7110 the registers sit at a 0x100 offset.That is what inno_reg() is
+for.
+
+Dropping the error is wrong though - nd comes from one of those reads
+and then becomes the divisor in do_div(vco, nd * 5 ) so a failed read
+feeds in 0. I will make it return int and have recalc_rate check.
+
+> 
+>> +/**
+>> + * inno_hdmi_phy_pre_pll_determine_rate - clk_ops.determine_rate helper
+>> + * @pll: pre-PLL instance
+>> + * @req: rate request, updated with the rate the PHY would produce
+>> + *
+>> + * The PHY can only generate the pixel clocks described by its table, so a
+>> + * request that does not appear there is rejected rather than rounded.
+>> + *
+>> + * Return: 0 on success, -EINVAL if the rate is not supported.
+>> + */
+>> +int inno_hdmi_phy_pre_pll_determine_rate(const struct inno_hdmi_phy_pre_pll *pll,
+>> +					 struct clk_rate_request *req)
+>> +{
+>> +	const struct inno_hdmi_phy_pre_pll_config *cfg;
+>> +	unsigned long rate = rounddown(req->rate, 1000);
+>> +
+>> +	for (cfg = pll->table; cfg->pixclock != 0; cfg++) {
+> 
+> Is there a chance of null/garbage if we reach end of table? You dont
+> know the size of table, and incrementing pointer without bounds does not
+> look good to me.
+
+Fair. For now both config tables end with a sentinel, so it cannot
+happen. I can add the count of the bounds though.
+
+> 
+> 
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
