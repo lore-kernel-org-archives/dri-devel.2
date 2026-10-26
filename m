@@ -2,96 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726A8606A333
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 06:23:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E416D606A321
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 06:23:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=G7uFCjp3;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NatFotXe
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eqq6Xly6;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bKeOZSZx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBC0E10EBEE;
-	Mon, 26 Oct 2026 06:23:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5871310EBE5;
+	Mon, 26 Oct 2026 06:23:18 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7644C10EBD9
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:22:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADD2210EBD4
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:23:06 +0000 (UTC)
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69Q4bBiF2206438
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:22:55 GMT
+ 69Q4b1Vm2206172
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:23:05 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 3HnpPLv8wy66pzWRk1gzuYm3lOZgZtPQsBL6ePFeWBo=; b=G7uFCjp3LSMwZOZ3
- b6O8U9fQNx2RpMwBGo/81JaWxOZz0TyPw+Gq821GO9emD0hFpvSjyz/8ilgavpAi
- Zev+Fs8sF7z1sa0F39lZjr9Lq2RphDAUc+o9Hi9/rWe2ymRX2EP9W7h2DV8qZJUB
- 0JQGqoD35a+5GEHFLGOqnPLCBFA9+LHVwm7TFkxeQXNRmmSYboe/JkrNd3NkoMrG
- A7vg8BCjv36+B9OIPME1ddDXJrA5IDH6LxS8pLXK9aaQk2ZqmbOLXTjC6D9nhM5Y
- jLFkJn6PweBnzvYoA/5waxd3g/SANy5VBS3pDFPzZ8BIn+1Ix76ATt14i6CquX8+
- hjkMrw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgmrun1qm-1
+ FOTpEFlT+y/a1rTH+O9UH/+T4QWFtNapc0ipHXawgfI=; b=eqq6Xly6j99rVXxm
+ mTMq6xSCi4SVvYsj6gI/WPSO/xQ3S3GU6gaMtmo6Vk6MCg+dNeUJoFzftv+auoIt
+ Dy08ozdSZLaxETXhRU5WikzK5iroDhSedoGKCVyFGEaDLMcPZfUOfXFm3CuaguJa
+ T0B5KvsRAyxdMnFR4gcC5+VDi1jlyQOaHiTce5Dwcect4a+2VAzt1NxHcQOlvrNl
+ pSINbm5NOU8CAVE0VtjzUmo9SbLqMZNTNULAaPeQ3JESGMi2D9DYFG2JZ2O9T8+B
+ YNy0LsCNrJhJSNVBB1huy5+oOSL3GO/3OBnzwxqe2RHYdN/k4murgsQ36qeGYanK
+ 5wkOLw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgmrun1rq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:22:55 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2e832c03576so52489305ad.1
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 23:22:55 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:23:05 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2e95f8543c9so22155265ad.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 23:23:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792995774; x=1793600574;
+ d=oss.qualcomm.com; s=google; t=1792995785; x=1793600585;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=3HnpPLv8wy66pzWRk1gzuYm3lOZgZtPQsBL6ePFeWBo=;
- b=NatFotXe9qaZPJdgTUN8DXHB4SLIZ3NKyxJxX6N4caEHlIJNGYoRSRrmyfbp8UbNiR
- CO71Z2/Uevtjo4wrglLnBmgKvhmwzWiLc3T/kLUUE/9xG7DjK2nYe+iKd9AInQNP+KTh
- E+RyRN3iUXDT8MNgHyGNbNN0gyOp4/f0D9BKAFkhdGx7yO8JTMiU/25i9IcbR2nXxH+w
- YM03y5jgYjQlDHZtcFd0ZkAr9XBSqHrcF8+E8nsCVZPvSQfGzxEBgup5NQkbrrFsY3hr
- NcyylwS0cDnfYyLmkWD2wG/d5tXQw+psoRTKY/OLd3tOgYPxepCjA5bUNJtrXOhATr5b
- hU7g==
+ bh=FOTpEFlT+y/a1rTH+O9UH/+T4QWFtNapc0ipHXawgfI=;
+ b=bKeOZSZxlNKo0y6oEgigzdk8HP6KsXII4inZ4T4OAntwrJlFwOmVLJ+OoTHWQ7yD5z
+ bGLzvwXODWBCO/w9Jn2LQ+DMnauJ0MOAbn8Z0p+ePndYVsLw7qZxbL6WvlN/AXroNovJ
+ a6lUwea7zdBXiV6+dJj/pjpva7IxUuweHbN6Ribfy7C96qWTlDWuZYo50Lkcp08h9wka
+ s4NpcWRzBVISwzFhM4JuC23Wum6cw/12h08dVjCVQT93m986MwzRUl0gbLuFR1ZAuCEc
+ 2ViJ0xsey1DpX7mKMrSLjAFVcUI5Vg6P9ggHSrsicsQf5cAIA93qh846EiuoNmaEoWV0
+ NQ2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792995774; x=1793600574;
+ d=1e100.net; s=20260707; t=1792995785; x=1793600585;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=3HnpPLv8wy66pzWRk1gzuYm3lOZgZtPQsBL6ePFeWBo=;
- b=FED1obXDA0Y9TifIMOp9eBlEGReXm2kQLvJ4O+LyAmtf91swRFvlcGFksijeYdX/36
- ON914/WyqpwVw3zbb8xb5z6zVNwMEpO+1gaTgv+ZmJU50DN8G1CSscJQEQYVDwUK1COe
- f68L7zAQJpG1QqiZBzJzYLSmAISF8fsge62SoDwhIgYZ+CkFs6fvNbI+lQN/QQSfIFVB
- L0yS3fxSo1PIo+KgM8beI0OsiSuS1Tw/0fkJSDhPMwf8r+rtI1I1MwVMfIs7dScZ2yOF
- 879alKIpiR6ga5/HnJkYrAL9iRsXcJeCmzAWIuALtyWRBCoM/y5OL2//ZDD7EM88YUAd
- ET9Q==
+ bh=FOTpEFlT+y/a1rTH+O9UH/+T4QWFtNapc0ipHXawgfI=;
+ b=upabCs3fNr2Djv1KudGgg3u/ECwT5wBjisrQbJhHqd7vIGRisuQif0RPAfWOgoOwQc
+ fR9m5jXzOi6kBsW5yWDJDUQzps1gZwaXqDInJCgcuDNKQ4vrmzKotC4xSjX6EruA7esI
+ y26Bd34WMjaZkXYIb49MXspk0cF+0cz+p40iLcJMdN9j8FVMeepEQdL8rjZbfDH39eKx
+ 8h6+ksa2Ilasvkm7J96Niz3drwtnAGU5RSecTx2wnrl7BLee5TO12lq51R8E91jl8BgX
+ ZLPxSRgOlyJyRBZ0s9tGFwNQTzE11GtaS0tLDFW69nd/L0XVRPo419otl8wNQ2u4UpOs
+ uS+Q==
 X-Forwarded-Encrypted: i=1;
- AKwUvByGUnCTLm7j+j5VG43n4roI3cSmA+cjrPVHazRFuTkcyoxazWcivfHLhGtWUb3e9+LJaGc3HfN6kvo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL+ZZS8i9wP27c8gaMIc7nRTH4hO34v6pKH2nzbstXy80ZuOdfz
- i6dVmda+iTGD/KEZEOy1c/vB6hb4BZj/fe3i1FuXYNN8P4xMRrrhvAcc2vRPArXh9JS7DWxgi44
- KXqKnuMIttbBiTENxupejzErnDyWfP7ha9LjgNMoCiBsMQI2RG5Vcf54slmnUaVbNrh/05u8=
-X-Gm-Gg: AYBFou2bE4qTs2CpAV+RaTP5fBvqExn2anc/sxsZ0l5JvO0oeGi0KFW2RXK69hlA/1e
- +Gkhkv73M1+6D2vXnRkFHhPV3Ej5KnJa7tpMqqwKuOMyfrSyd+VtMt/U5F9AeAF2XEcN2EMO1td
- cCf2LS7uFiyqEC4/4T/xEZSIs2w5olrqDNO3bAkPx7rlBwpRy2pMK7D8i1yUQX7lUR1EYg3+5Z6
- 3/GEew8Bq69GBZWT8nyVKGGqsjrpEe1LvfJvoIXzJhzF/xK17OH5CLS00A+9X5/KE641OnwmuQM
- Sa/Lw7kJaKQ9PEl1owoqbhmW9d7/CJ5w2QgQ3qSEeOl7gdVeyz3ZXqbhkSuNUQCYFkgndpyrHis
- cUeHGRnzVDmkhYeUe48kj8v0cVyZ9IdtIbg==
-X-Received: by 2002:a17:903:46cb:b0:2df:9a4d:650a with SMTP id
- d9443c01a7336-2ea9c68d0c0mr52258235ad.29.1792995774292; 
- Sun, 25 Oct 2026 23:22:54 -0700 (PDT)
-X-Received: by 2002:a17:903:46cb:b0:2df:9a4d:650a with SMTP id
- d9443c01a7336-2ea9c68d0c0mr52257785ad.29.1792995773496; 
- Sun, 25 Oct 2026 23:22:53 -0700 (PDT)
+ AKwUvBzVMkXsq9h2GUWatBP6s3wo0WRucTOdsK60aTu0RGnirrw7HuTjWID0PgWFWUPbQtpy1ck+vda5oQI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLNTn3xWNK8pFG4k7H3SIV2nA+oCONGMZTP1ayrN50e222MPTfJ
+ nBpechiK6klsNYCF8cnhmnTFVU4aRpXfDoyKskGR8QuA1QI07GqRI6feIsz/TsL+z3fgXeet/8I
+ wpu6v1Qwvm4x4F85cmvBrb9XRTCDPwE/9QqhARZ4ojskOwmgLt3kdlM0lQBUBRovJnu8pOYI=
+X-Gm-Gg: AYBFou3L+Va267bi8klAizNw8WmlsmgjrjjETljWxbixIoajytML7THcVvqq2iL/GIy
+ rXTwAjyfF21qqTX0DqZR3rL7kglgKTy6igOshrRi0sgiY1BD0ffBUSQYDRdIxWzIi9/2m4TzpOw
+ kPaoeA9efn21wRMYyBSSJHLvEWVFz0+kXo9MqQmtlUQGoUHNIxznVtKGcnA1DGASSI0GuW0mMjs
+ c6EXhzfkExEqSTyQ22kXfvuHjrkys90hBDM1Mt7NxmuSwX5e3TRtlhuY1E5shpWQT2tjJ6Llcz2
+ DZBW31ZI6edGBulYcmH1rH9h0lUuULlQhaDJPwVHvO94RCI02TF8OIs/KN/4K6K5Ql4xaBudb6W
+ OSFFoLLa4fVIJAxRDMegPwVAQliHhCAnxaA==
+X-Received: by 2002:a17:903:3850:b0:2ea:7180:3ab9 with SMTP id
+ d9443c01a7336-2ea9c8afeb4mr48270015ad.43.1792995784637; 
+ Sun, 25 Oct 2026 23:23:04 -0700 (PDT)
+X-Received: by 2002:a17:903:3850:b0:2ea:7180:3ab9 with SMTP id
+ d9443c01a7336-2ea9c8afeb4mr48269755ad.43.1792995784146; 
+ Sun, 25 Oct 2026 23:23:04 -0700 (PDT)
 Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ea9b1a1c56sm12633415ad.44.2026.10.25.23.22.43
+ d9443c01a7336-2ea9b1a1c56sm12633415ad.44.2026.10.25.23.22.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Oct 2026 23:22:53 -0700 (PDT)
+ Sun, 25 Oct 2026 23:23:03 -0700 (PDT)
 From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 11:51:17 +0530
-Subject: [PATCH v2 07/23] drm/msm/dcp: Handle asynchronous HFI responses
+Date: Mon, 26 Oct 2026 11:51:18 +0530
+Subject: [PATCH v2 08/23] drm/msm/dcp: Add IPCC power notifications
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261026-jshekhar-dcp-hlos-v2-7-7cf014efdee1@oss.qualcomm.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-jshekhar-dcp-hlos-v2-8-7cf014efdee1@oss.qualcomm.com>
 References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
 In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -124,32 +124,32 @@ Cc: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  iommu@lists.linux.dev
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792995687; l=15935;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792995687; l=7880;
  i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=OiMozPmQnmLsvyt75pE7b3Slp3h5P6NYxCn1k9FoRzc=;
- b=9m6pcpml0JQDGu6M7g7srWd9wq218FG0TGaeH6Edupj8hVl3fWCemwAhkp8zHAPPS0shVcEip
- ez0c6MP7yyyCDleBNW8/2Y7oU3WT17BRthIatZv5L1RvORXp5BcuGRx
+ bh=ZliBQcpFZc/16J0ivg4K92KJ50R0FEFC7a9oWSS2AUk=;
+ b=oeF2+yhu6C0tTEPvS4ijcCGa3EHT1863DUfZIbjiUMBcQ15kbRI0oR2KII+grdry/V7RCxSJT
+ 3oyw8G3PXx7B2Xb39BRODfFABQmVENPqGVOsWGj/n1PxFxmt+AyeeZ+
 X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
  pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfXxUfXfUJ9l5RI
- cEm1OtNTticQVkx/cJVgjgnBpvzYZ1uZMbAfa92NRg4WOM06IJFoCt7PHfmqsDNWvwF+XIPN9BX
- iGAh/4nEULBmp2lFH8dY2J1n7OHbMacnusTkwsFB5ZBeOIJ+HL0EGDK3Oh95jM34PC4yClRIdGZ
- 2uG0WUOByLUzFemYGL/Vys778fzYyhx4Su4/M7Glk6EG1ykvBSIbIdigPtDkvLKfudcLVxAEFLJ
- Tu7gXL2Eashh2WadNKnCXyD7t53KoObGbPTbdkXQQnVMqVdncpWBVnX1MAtaPATh3uGeDvuK34S
- Vq2jQOWRVoR/rch+EF68lrNQiTHvVBTmHyEwlPQDHSn63FHnW0Ogy/LuVipI+WxNEIuoTIYci0L
- K3z8fF9jg5Og4Wi7ulTN7eiBdzCrRulwcawcEv1yK7h7bOmJXeTPOIi3IiDGxJFXxpL4lc+EDB1
- OMoCvK5mYWadpHJ+jGw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfXwga/WRmc4T7Q
- 5lO6albsgx/yA3+Cd03KrIkIhsc+JcYirPO8Ff3NtWhDLR60mLzxN+lOW/WPM8X2trvqvey6qVM
- AvpdBNMmljwXb8m7X/O8daPhKsIQE6s=
-X-Proofpoint-ORIG-GUID: SfK2ViqrsUdW52be5zvAJaj5vwjfyz3W
-X-Authority-Analysis: v=2.4 cv=e+aT2qp/ c=1 sm=1 tr=0 ts=6adef1bf cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfXx5DbtHGlh/1b
+ LwVU6iCkSBa/JTozFNVDYc57C8dHx1XhpB9JprD0Vi1Lv+8ROffYR7tHlYZwL1m1r1yJV9FIWnR
+ 6Ii5PfjEzeAJGL5zUVzSNcXIXwNHPMExP7bToyseOTaVXQLPeDPoXAvPPF2zXaPewMUrvnyIpMr
+ vjAta6sUZFcZtm+ktBxgcroYahD9P1ECVhSkdOzARS+2LA5abQyCMdgPsEQCiPud4gQls66QAeg
+ FL9U/3dBB0hEp5jQvf7jBYfDNZbevoZqaxtgWkbbDJgDDuGs4t9gIt97hEm7Xi5iAXc2k0xjoAZ
+ s7rCUJe/oSO7bW38zb5LAkaqmPZJIjcZRt0zBZlSSv63EEDE8s/zHlZkp2AYqbnOcZ9lTZRnoFO
+ HrEsDtu5wQScLdIQzXR2TeCkLEKT7YerdcOl7Euukt8oDNGHFDYjZmfR2Ibw9b+u7OwDLWItyl3
+ 2d943DJwxbEurAjo3Mw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfX2uSbclfq2Xuy
+ mA6AnF466CvrQTZfPeAb+biuwnubLwDlMdRItNP23As99RS2Oft2WkKIk0B72/yyyf7/UrM7/VG
+ CFDupDbbZOHzdo0sdWz9xIoafakJjiU=
+X-Proofpoint-ORIG-GUID: UqCty7aroOvGHQ5FoIpLzIgNU8wbO1l6
+X-Authority-Analysis: v=2.4 cv=e+aT2qp/ c=1 sm=1 tr=0 ts=6adef1c9 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=N7S9M41rjFJ9e01nWvMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: SfK2ViqrsUdW52be5zvAJaj5vwjfyz3W
+ a=EUspDBNiAAAA:8 a=Rkk83rcldGj31tuyXloA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: UqCty7aroOvGHQ5FoIpLzIgNU8wbO1l6
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
@@ -177,489 +177,275 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Handle HFI messages that are not synchronous command
-completions. Capability discovery, resource voting, and display power
-control produce asynchronous responses that must not be mistaken for
-ordinary command replies.
+Wake and acknowledge DCP firmware through the platform IPCC
+channel. DCP may power-collapse while VirtIO-MMIO remains accessible,
+so a VirtIO queue kick alone cannot reliably wake firmware during
+system power transitions.
 
-Dispatch display events, cache capability payloads, deliver
-power-control notifications, and defer resource-vote processing while
-preserving the existing completion path for synchronous commands.
+Implement serialized IPCC notifications, bounded acknowledgment waits,
+IRQ wake handling, and teardown-safe callback lifetime management
+while leaving HFI data transport on VirtIO.
 
 Assisted-by: LLM
 Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dcp/dcp_hfi.h      |  49 ++++++
- drivers/gpu/drm/msm/dcp/dcp_hfi_core.c | 298 +++++++++++++++++++++++++++++++++
- 2 files changed, 347 insertions(+)
+ drivers/gpu/drm/msm/Makefile       |   1 +
+ drivers/gpu/drm/msm/dcp/dcp_drv.h  |   1 +
+ drivers/gpu/drm/msm/dcp/dcp_ipcc.c | 173 +++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dcp/dcp_ipcc.h |  42 +++++++++
+ 4 files changed, 217 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi.h b/drivers/gpu/drm/msm/dcp/dcp_hfi.h
-index 23e1cd39b89d..055e9c584892 100644
---- a/drivers/gpu/drm/msm/dcp/dcp_hfi.h
-+++ b/drivers/gpu/drm/msm/dcp/dcp_hfi.h
-@@ -19,11 +19,24 @@
- #include <linux/workqueue.h>
- #include <linux/xarray.h>
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index 56c48fe2e2c5..9c698c4f4949 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -73,6 +73,7 @@ msm-display-$(CONFIG_DRM_MSM_MDP5) += \
  
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
+ msm-display-$(CONFIG_DRM_MSM_DCP) += \
+ 	dcp/dcp_hfi_core.o \
++	dcp/dcp_ipcc.o \
+ 	dcp/hfi/hfi_packer.o \
+ 	dcp/hfi/hfi_unpacker.o \
+ 	dcp/hfi/hfi_utils.o
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+index 44d9b2cd5171..16f87035cb9a 100644
+--- a/drivers/gpu/drm/msm/dcp/dcp_drv.h
++++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+@@ -11,6 +11,7 @@
+ #include <linux/platform_device.h>
+ 
+ #include "dcp_hfi.h"
++#include "dcp_ipcc.h"
+ 
+ struct dcp_dpu_kms;
+ 
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_ipcc.c b/drivers/gpu/drm/msm/dcp/dcp_ipcc.c
+new file mode 100644
+index 000000000000..e161939dddc1
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dcp/dcp_ipcc.c
+@@ -0,0 +1,173 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * DCP IPCC power-notify mailbox client.
++ *
++ * The APSS-to-DCP channel must be signaled before a VirtIO queue kick.
++ */
 +
- #include "hfi/hfi_packet.h"
- #include "hfi/hfi_pack_unpack_common.h"
- #include "hfi/hfi_packer.h"
- #include "hfi/hfi_unpacker.h"
-+#include "hfi/hfi_commands_device.h"
-+#include "hfi/hfi_commands_display.h"
-+#include "hfi/hfi_commands_panel.h"
-+#include "hfi/hfi_commands_display_events.h"
- #include "hfi/hfi_defs_common.h"
-+#include "hfi/hfi_defs_display.h"
-+#include "hfi/hfi_defs_device.h"
-+#include "hfi/hfi_defs_panel.h"
-+#include "hfi/hfi_properties_device.h"
-+#include "hfi/hfi_properties_display.h"
-+#include "hfi/hfi_properties_panel.h"
- 
- struct dcp_drv;
- 
-@@ -35,6 +48,19 @@ struct dcp_drv;
- #define DCP_MAX_DISPLAYS	4
- #define DCP_HFI_CAPS_BUF_SIZE	4096
- 
-+#define DCP_HFI_RESOURCE_VOTE_BUF_SIZE	256
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/jiffies.h>
++#include <linux/interrupt.h>
++#include <linux/mailbox_client.h>
++#include <linux/mutex.h>
++#include <linux/of_irq.h>
++#include <linux/string.h>
++#include <linux/virtio.h>
 +
-+/* Wire-format resource vote entry. */
-+struct dcp_resource_vote_pair {
-+	u32 key;
-+	u64 value;
++#include "dcp_ipcc.h"
++
++#define DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS	10000
++
++static void dcp_ipcc_handle_rx(struct dcp_ipcc *ipcc)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&ipcc->state_lock, flags);
++	if (ipcc->shutting_down) {
++		spin_unlock_irqrestore(&ipcc->state_lock, flags);
++		return;
++	}
++
++	complete(&ipcc->power_notify_done);
++	if (ipcc->resp_vq && virtqueue_kick_prepare(ipcc->resp_vq))
++		virtqueue_notify(ipcc->resp_vq);
++
++	spin_unlock_irqrestore(&ipcc->state_lock, flags);
++}
++
++static irqreturn_t dcp_ipcc_power_notify_irq(int irq, void *data)
++{
++	struct dcp_ipcc *ipcc = data;
++
++	dcp_ipcc_handle_rx(ipcc);
++
++	return IRQ_HANDLED;
++}
++
++static void dcp_ipcc_rx_callback(struct mbox_client *cl, void *data)
++{
++	struct dcp_ipcc *ipcc = container_of(cl, struct dcp_ipcc, client);
++
++	dcp_ipcc_handle_rx(ipcc);
++}
++
++static void dcp_ipcc_free_channel(void *data)
++{
++	mbox_free_channel(data);
++}
++
++int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev, unsigned int irq_index)
++{
++	int irq, ret;
++
++	memset(ipcc, 0, sizeof(*ipcc));
++	init_completion(&ipcc->power_notify_done);
++	mutex_init(&ipcc->power_notify_lock);
++	spin_lock_init(&ipcc->state_lock);
++
++	ipcc->client.dev          = dev;
++	ipcc->client.tx_block     = false;
++	ipcc->client.tx_tout      = 0;
++	ipcc->client.knows_txdone = true;
++	ipcc->client.rx_callback  = dcp_ipcc_rx_callback;
++
++	ipcc->power_chan = mbox_request_channel(&ipcc->client, 0);
++	if (IS_ERR(ipcc->power_chan)) {
++		ret = PTR_ERR(ipcc->power_chan);
++		if (ret != -EPROBE_DEFER)
++			dev_err(dev, "IPCC: failed to get DCP power channel: %d\n", ret);
++		return ret;
++	}
++
++	ret = devm_add_action_or_reset(dev, dcp_ipcc_free_channel,
++				       ipcc->power_chan);
++	if (ret)
++		return ret;
++
++	irq = of_irq_get(dev->of_node, irq_index);
++	if (irq <= 0)
++		return dev_err_probe(dev, irq ? irq : -EINVAL,
++				    "failed to get required power notify IRQ\n");
++
++	ret = devm_request_irq(dev, irq, dcp_ipcc_power_notify_irq, 0,
++			       "dcp-power-notify", ipcc);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				    "failed to request power notify IRQ %d\n", irq);
++
++	ipcc->power_notify_irq = irq;
++
++	return 0;
++}
++
++void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&ipcc->state_lock, flags);
++	if (!ipcc->shutting_down)
++		ipcc->resp_vq = resp_vq;
++	spin_unlock_irqrestore(&ipcc->state_lock, flags);
++}
++
++void dcp_ipcc_deinit(struct dcp_ipcc *ipcc)
++{
++	struct device *dev = ipcc->client.dev;
++	unsigned long flags;
++
++	mutex_lock(&ipcc->power_notify_lock);
++
++	spin_lock_irqsave(&ipcc->state_lock, flags);
++	ipcc->shutting_down = true;
++	ipcc->resp_vq = NULL;
++	spin_unlock_irqrestore(&ipcc->state_lock, flags);
++
++	devm_free_irq(dev, ipcc->power_notify_irq, ipcc);
++	devm_release_action(dev, dcp_ipcc_free_channel, ipcc->power_chan);
++	mutex_unlock(&ipcc->power_notify_lock);
++}
++
++int dcp_ipcc_enable_irq_wake(struct dcp_ipcc *ipcc)
++{
++	return enable_irq_wake(ipcc->power_notify_irq);
++}
++
++void dcp_ipcc_disable_irq_wake(struct dcp_ipcc *ipcc)
++{
++	disable_irq_wake(ipcc->power_notify_irq);
++}
++
++int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc)
++{
++	unsigned long timeout;
++	int ret;
++
++	mutex_lock(&ipcc->power_notify_lock);
++
++	reinit_completion(&ipcc->power_notify_done);
++
++	ret = mbox_send_message(ipcc->power_chan, NULL);
++	mbox_client_txdone(ipcc->power_chan, ret);
++	if (ret < 0) {
++		dev_err(ipcc->client.dev,
++			"IPCC TX: power notify failed: %d\n", ret);
++		goto out_unlock;
++	}
++
++	timeout = wait_for_completion_timeout(&ipcc->power_notify_done,
++					      msecs_to_jiffies(DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS));
++	if (!timeout) {
++		dev_err(ipcc->client.dev,
++			"IPCC power notify acknowledgment timed out\n");
++		ret = -ETIMEDOUT;
++	} else {
++		ret = 0;
++	}
++
++out_unlock:
++	mutex_unlock(&ipcc->power_notify_lock);
++	return ret;
++}
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_ipcc.h b/drivers/gpu/drm/msm/dcp/dcp_ipcc.h
+new file mode 100644
+index 000000000000..2d1ddd5adebb
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dcp/dcp_ipcc.h
+@@ -0,0 +1,42 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * IPCC power-notify mailbox interface for DCP firmware.
++ *
++ * Channel 5 carries APSS-to-DCP wake notifications; responses arrive through
++ * the mailbox client's RX callback.
++ */
++
++#ifndef __DCP_IPCC_H__
++#define __DCP_IPCC_H__
++
++#include <linux/completion.h>
++#include <linux/mailbox_client.h>
++#include <linux/mutex.h>
++#include <linux/spinlock.h>
++
++struct device;
++struct virtqueue;
++
++struct dcp_ipcc {
++	struct mbox_client client;
++	struct mbox_chan *power_chan;
++	struct virtqueue *resp_vq;
++	struct completion power_notify_done;
++	/* Serializes concurrent power-notify transactions. */
++	struct mutex power_notify_lock;
++	/* Protects callback state and response queue access. */
++	spinlock_t state_lock;
++	bool shutting_down;
++	int power_notify_irq;
 +};
 +
-+struct dcp_resource_vote_wire {
-+	__le32 key;
-+	__le64 value;
-+} __packed;
++int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev, unsigned int irq_index);
++void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq);
++void dcp_ipcc_deinit(struct dcp_ipcc *ipcc);
++int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc);
++int dcp_ipcc_enable_irq_wake(struct dcp_ipcc *ipcc);
++void dcp_ipcc_disable_irq_wake(struct dcp_ipcc *ipcc);
 +
- struct dcp_hfi_caps_cache {
- 	struct completion device_done;
- 	struct completion display_done;
-@@ -135,6 +161,24 @@ struct dcp_hfi {
- 	atomic_t packet_id;
- 	/* Blocks new work once transport teardown begins. */
- 	atomic_t shutdown_in_progress;
-+	struct work_struct resource_vote_work;
-+	/* Protects resource_vote_buf, resource_vote_len, and callback state. */
-+	spinlock_t resource_vote_lock;
-+	u8 resource_vote_buf[DCP_HFI_RESOURCE_VOTE_BUF_SIZE];
-+	u32 resource_vote_len;
-+	u32 resource_vote_generation;
-+	void (*resource_vote_cb)(struct dcp_drv *drv,
-+				 const struct dcp_resource_vote_pair *pairs,
-+				 u32 count);
-+	/* Protects capability payload buffers during event delivery. */
-+	spinlock_t caps_lock;
-+	/* Serializes capability transactions. */
-+	struct mutex caps_cache_lock;
-+	struct dcp_hfi_caps_cache caps_cache;
-+
-+	void *power_control_priv;
-+	void (*power_control_cb)(void *priv, u32 display_id,
-+				 u32 power_mask, bool enable, u32 packet_id);
- };
- 
- int dcp_hfi_init(struct dcp_drv *drv, struct virtio_device *vdev,
-@@ -167,3 +211,8 @@ int dcp_hfi_send_no_wait_atomic_flags(struct dcp_hfi *hfi, u32 cmd,
- 				      enum hfi_packet_payload_type payload_type,
- 				      void *payload, u32 payload_size, u32 tx_flags);
- #endif /* __DCP_HFI_H__ */
-+void dcp_hfi_set_power_control_cb(struct dcp_hfi *hfi, void *priv,
-+				  void (*cb)(void *priv, u32 display_id,
-+					     u32 power_mask, bool enable,
-+					     u32 packet_id));
-+void dcp_hfi_clear_power_control_cb(struct dcp_hfi *hfi, void *priv);
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-index 9f7ac798e13c..774a5afac0f0 100644
---- a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-+++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-@@ -9,6 +9,7 @@
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/kernel.h>
-+#include <linux/unaligned.h>
- #include <linux/slab.h>
- #include <linux/scatterlist.h>
- #include <linux/spinlock.h>
-@@ -21,8 +22,13 @@
- #include "hfi/hfi_packet.h"
- #include "hfi/hfi_packer.h"
- #include "hfi/hfi_unpacker.h"
-+#include "hfi/hfi_commands_device.h"
-+#include "hfi/hfi_commands_display.h"
-+#include "hfi/hfi_commands_display_events.h"
- #include "hfi/hfi_defs_common.h"
-+#include "hfi/hfi_defs_display.h"
- 
-+static void dcp_hfi_resource_vote_work(struct work_struct *work);
- static int dcp_hfi_prepost_resp_bufs(struct dcp_hfi *hfi);
- 
- u32 dcp_hfi_next_packet_id(struct dcp_hfi *hfi)
-@@ -227,6 +233,218 @@ void dcp_hfi_cmd_callback(struct virtqueue *vq)
- 	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
- }
- 
-+static void dcp_hfi_store_caps_payload(struct dcp_hfi *hfi,
-+				       struct completion *done,
-+				       u8 *dst, u32 *dst_len,
-+				       const struct hfi_packet_info *pkt_info,
-+				       const char *name)
-+{
-+	u32 n;
-+
-+	if (!pkt_info->payload_ptr || !pkt_info->payload_size) {
-+		dev_dbg(hfi->dev, "%s: empty payload\n", name);
-+		return;
-+	}
-+
-+	if (pkt_info->payload_size > DCP_HFI_CAPS_BUF_SIZE) {
-+		dev_warn(hfi->dev, "%s: payload too large: %u\n",
-+			 name, pkt_info->payload_size);
-+		return;
-+	}
-+
-+	n = pkt_info->payload_size;
-+	memcpy(dst, pkt_info->payload_ptr, n);
-+	*dst_len = n;
-+	if (done)
-+		complete(done);
-+	dev_dbg(hfi->dev, "%s: stored %u bytes\n", name, n);
-+}
-+
-+/* Route asynchronous events and capability packets before flag handling. */
-+static bool dcp_hfi_dispatch_event(struct dcp_hfi *hfi,
-+				   const struct hfi_packet_info *pkt_info)
-+{
-+	switch (pkt_info->cmd) {
-+	case HFI_COMMAND_DISPLAY_EVENT_VSYNC:
-+		return true;
-+
-+	case HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_START:
-+		return true;
-+
-+	case HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_COMPLETE:
-+		return true;
-+
-+	case HFI_COMMAND_DISPLAY_EVENT_HPD_STATUS:
-+		return true;
-+
-+	case HFI_COMMAND_DISPLAY_EVENT_PANEL_DEAD:
-+		dev_err(hfi->dev,
-+			"DCP: panel dead display %u\n",
-+			pkt_info->id & 0xFFFF);
-+		return true;
-+
-+	case HFI_COMMAND_DISPLAY_EVENT_HW_RECOVERY:
-+		dev_err(hfi->dev,
-+			"DCP: HW recovery display %u\n",
-+			pkt_info->id & 0xFFFF);
-+		return true;
-+
-+	case HFI_COMMAND_DISPLAY_POWER_CONTROL: {
-+		u32 display_id = pkt_info->id & 0xFFFF;
-+		u32 power_mask = 0;
-+		bool enable = true;
-+		unsigned long flags;
-+		void *power_priv;
-+		void (*power_cb)(void *priv, u32 display_id,
-+				 u32 power_mask, bool enable, u32 packet_id);
-+
-+		if (pkt_info->payload_ptr &&
-+		    pkt_info->payload_size >= 2 * sizeof(u32)) {
-+			const u32 *p = pkt_info->payload_ptr;
-+
-+			power_mask = p[0];
-+			enable     = (p[1] == HFI_TRUE);
-+		}
-+
-+		spin_lock_irqsave(&hfi->resp_drain_lock, flags);
-+		power_cb = hfi->power_control_cb;
-+		power_priv = hfi->power_control_priv;
-+		spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
-+
-+		if (power_cb)
-+			power_cb(power_priv, display_id, power_mask, enable,
-+				 pkt_info->packet_id);
-+		return true;
-+	}
-+
-+	case HFI_COMMAND_DEVICE_INIT_DEVICE_CAPS: {
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&hfi->caps_lock, flags);
-+		dcp_hfi_store_caps_payload(hfi, &hfi->caps_cache.device_done,
-+					   hfi->caps_cache.device_buf,
-+					   &hfi->caps_cache.device_len,
-+					   pkt_info, "DEVICE_INIT_DEVICE_CAPS");
-+		spin_unlock_irqrestore(&hfi->caps_lock, flags);
-+		return true;
-+	}
-+
-+	case HFI_COMMAND_DEVICE_INIT_DISPLAY_CAPS: {
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&hfi->caps_lock, flags);
-+		dcp_hfi_store_caps_payload(hfi, &hfi->caps_cache.display_done,
-+					   hfi->caps_cache.display_buf,
-+					   &hfi->caps_cache.display_len,
-+					   pkt_info, "DEVICE_INIT_DISPLAY_CAPS");
-+		spin_unlock_irqrestore(&hfi->caps_lock, flags);
-+		return true;
-+	}
-+
-+	case HFI_COMMAND_DEVICE_INIT_VIG_CAPS: {
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&hfi->caps_lock, flags);
-+		dcp_hfi_store_caps_payload(hfi, NULL, hfi->caps_cache.vig_buf,
-+					   &hfi->caps_cache.vig_len,
-+					   pkt_info, "VIG_CAPS");
-+		hfi->caps_cache.pipe_caps_received |= BIT(0);
-+		spin_unlock_irqrestore(&hfi->caps_lock, flags);
-+		return true;
-+	}
-+
-+	case HFI_COMMAND_DEVICE_INIT_DMA_CAPS: {
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&hfi->caps_lock, flags);
-+		dcp_hfi_store_caps_payload(hfi, NULL, hfi->caps_cache.dma_buf,
-+					   &hfi->caps_cache.dma_len,
-+					   pkt_info, "DMA_CAPS");
-+		hfi->caps_cache.pipe_caps_received |= BIT(1);
-+		spin_unlock_irqrestore(&hfi->caps_lock, flags);
-+		return true;
-+	}
-+
-+	case HFI_COMMAND_DEVICE_INIT_VIG_R1_CAPS: {
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&hfi->caps_lock, flags);
-+		dcp_hfi_store_caps_payload(hfi, NULL, hfi->caps_cache.vig_r1_buf,
-+					   &hfi->caps_cache.vig_r1_len,
-+					   pkt_info, "VIG_R1_CAPS");
-+		hfi->caps_cache.pipe_caps_received |= BIT(2);
-+		spin_unlock_irqrestore(&hfi->caps_lock, flags);
-+		return true;
-+	}
-+
-+	case HFI_COMMAND_DEVICE_INIT_DMA_R1_CAPS: {
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&hfi->caps_lock, flags);
-+		dcp_hfi_store_caps_payload(hfi, NULL, hfi->caps_cache.dma_r1_buf,
-+					   &hfi->caps_cache.dma_r1_len,
-+					   pkt_info, "DMA_R1_CAPS");
-+		hfi->caps_cache.pipe_caps_received |= BIT(3);
-+		spin_unlock_irqrestore(&hfi->caps_lock, flags);
-+		return true;
-+	}
-+
-+	case HFI_COMMAND_DEVICE_INIT_COMMON_LAYER_CAPS: {
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&hfi->caps_lock, flags);
-+		hfi->caps_cache.pipe_caps_received |= BIT(4);
-+		spin_unlock_irqrestore(&hfi->caps_lock, flags);
-+		dev_dbg(hfi->dev,
-+			"COMMON_LAYER_CAPS: received (size=%u)\n",
-+			pkt_info->payload_size);
-+		return true;
-+	}
-+
-+	case HFI_COMMAND_DEVICE_INIT_DISPLAY_WB_CAPS: {
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&hfi->caps_lock, flags);
-+		hfi->caps_cache.pipe_caps_received |= BIT(5);
-+		spin_unlock_irqrestore(&hfi->caps_lock, flags);
-+		dev_dbg(hfi->dev,
-+			"DISPLAY_WB_CAPS: received (size=%u) — all pipe caps received\n",
-+			pkt_info->payload_size);
-+		return true;
-+	}
-+
-+	case HFI_COMMAND_DEVICE_CALLBACK_RESOURCE_VOTE: {
-+		unsigned long vote_flags;
-+		u32 payload_size = pkt_info->payload_size;
-+		bool valid = pkt_info->payload_ptr && payload_size &&
-+			payload_size <= DCP_HFI_RESOURCE_VOTE_BUF_SIZE &&
-+			payload_size % sizeof(struct dcp_resource_vote_wire) == 0;
-+
-+		if (!valid) {
-+			dev_warn_ratelimited(hfi->dev,
-+					     "dropping malformed RESOURCE_VOTE payload size=%u max=%u\n",
-+					     payload_size, DCP_HFI_RESOURCE_VOTE_BUF_SIZE);
-+			payload_size = 0;
-+		}
-+
-+		spin_lock_irqsave(&hfi->resource_vote_lock, vote_flags);
-+		if (payload_size)
-+			memcpy(hfi->resource_vote_buf, pkt_info->payload_ptr,
-+			       payload_size);
-+		hfi->resource_vote_len = payload_size;
-+		hfi->resource_vote_generation++;
-+		spin_unlock_irqrestore(&hfi->resource_vote_lock, vote_flags);
-+
-+		if (payload_size)
-+			schedule_work(&hfi->resource_vote_work);
-+		return true;
-+	}
-+
-+	default:
-+		return false;
-+	}
-+}
-+
- void dcp_hfi_resp_callback(struct virtqueue *vq)
- {
- 	struct dcp_drv *drv = vq->vdev->priv;
-@@ -297,6 +515,8 @@ void dcp_hfi_resp_callback(struct virtqueue *vq)
- 						"HFI error: cmd=0x%x pkt_id=%u\n",
- 						pkt_info.cmd, pkt_info.packet_id);
- 					dcp_hfi_complete_pending(hfi, &pkt_info, -EIO);
-+				} else if (dcp_hfi_dispatch_event(hfi, &pkt_info)) {
-+					/* Event dispatch runs before flag handling. */
- 				} else if (pkt_info.flags & HFI_RX_FLAGS_SUCCESS) {
- 					if (pkt_info.flags & HFI_RX_FLAGS_INFORMATION)
- 						dev_dbg(hfi->dev,
-@@ -639,6 +859,47 @@ int dcp_hfi_send_no_wait(struct dcp_hfi *hfi,
- 			payload_type, payload, payload_size, HFI_TX_FLAGS_NONE);
- }
- 
-+static void dcp_hfi_resource_vote_work(struct work_struct *work)
-+{
-+	struct dcp_hfi *hfi = container_of(work, struct dcp_hfi,
-+					     resource_vote_work);
-+	u8 buf[DCP_HFI_RESOURCE_VOTE_BUF_SIZE];
-+	struct dcp_resource_vote_pair pairs[DCP_HFI_RESOURCE_VOTE_BUF_SIZE /
-+							 sizeof(struct dcp_resource_vote_wire)];
-+	const struct dcp_resource_vote_wire *wire;
-+	u32 len, generation, count, i;
-+	bool dirty;
-+	unsigned long flags;
-+
-+	do {
-+		spin_lock_irqsave(&hfi->resource_vote_lock, flags);
-+		len = hfi->resource_vote_len;
-+		generation = hfi->resource_vote_generation;
-+		if (len)
-+			memcpy(buf, hfi->resource_vote_buf, len);
-+		spin_unlock_irqrestore(&hfi->resource_vote_lock, flags);
-+
-+		if (!len || !hfi->resource_vote_cb)
-+			return;
-+		if (len % sizeof(struct dcp_resource_vote_wire)) {
-+			dev_warn_ratelimited(hfi->dev,
-+					     "dropping malformed RESOURCE_VOTE size=%u\n", len);
-+			return;
-+		}
-+		count = len / sizeof(struct dcp_resource_vote_wire);
-+		wire = (const struct dcp_resource_vote_wire *)buf;
-+		for (i = 0; i < count; i++) {
-+			pairs[i].key = le32_to_cpu(wire[i].key);
-+			pairs[i].value = get_unaligned_le64(&wire[i].value);
-+		}
-+
-+		hfi->resource_vote_cb(hfi->drv, pairs, count);
-+		spin_lock_irqsave(&hfi->resource_vote_lock, flags);
-+		dirty = generation != hfi->resource_vote_generation;
-+		spin_unlock_irqrestore(&hfi->resource_vote_lock, flags);
-+	} while (dirty);
-+}
-+
- static void dcp_hfi_free_pool(struct dcp_hfi *hfi, struct dcp_hfi_buf *pool,
- 			      u32 count)
- {
-@@ -726,7 +987,10 @@ int dcp_hfi_init(struct dcp_drv *drv,
- 
- 	spin_lock_init(&hfi->cmd_lock);
- 	spin_lock_init(&hfi->pending_lock);
-+	spin_lock_init(&hfi->resource_vote_lock);
- 	spin_lock_init(&hfi->resp_drain_lock);
-+	spin_lock_init(&hfi->caps_lock);
-+	mutex_init(&hfi->caps_cache_lock);
- 
- 	atomic_set(&hfi->packet_id, 0);
- 	atomic_set(&hfi->shutdown_in_progress, 0);
-@@ -735,8 +999,11 @@ int dcp_hfi_init(struct dcp_drv *drv,
- 
- 	xa_init(&hfi->pending_xa);
- 
-+	INIT_WORK(&hfi->resource_vote_work, dcp_hfi_resource_vote_work);
- 	INIT_DELAYED_WORK(&hfi->resp_repost_work, dcp_hfi_resp_repost_work);
- 	INIT_LIST_HEAD(&hfi->resp_repost_list);
-+	hfi->resource_vote_len = 0;
-+	hfi->resource_vote_generation = 0;
- 
- 	hfi->cmd_pool = devm_kcalloc(hfi->dev, DCP_HFI_CMD_POOL_SIZE,
- 				     sizeof(*hfi->cmd_pool), GFP_KERNEL);
-@@ -784,6 +1051,7 @@ int dcp_hfi_init(struct dcp_drv *drv,
- 
- err:
- 	atomic_set(&hfi->shutdown_in_progress, 1);
-+	cancel_work_sync(&hfi->resource_vote_work);
- 	cancel_delayed_work_sync(&hfi->resp_repost_work);
- 	while (virtqueue_detach_unused_buf(hfi->cmd_vq))
- 		;
-@@ -796,6 +1064,31 @@ int dcp_hfi_init(struct dcp_drv *drv,
- 	return ret;
- }
- 
-+void dcp_hfi_set_power_control_cb(struct dcp_hfi *hfi, void *priv,
-+				  void (*cb)(void *priv, u32 display_id,
-+					     u32 power_mask, bool enable,
-+					     u32 packet_id))
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
-+	hfi->power_control_priv = priv;
-+	hfi->power_control_cb = cb;
-+	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
-+}
-+
-+void dcp_hfi_clear_power_control_cb(struct dcp_hfi *hfi, void *priv)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
-+	if (hfi->power_control_priv == priv) {
-+		hfi->power_control_priv = NULL;
-+		hfi->power_control_cb = NULL;
-+	}
-+	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
-+}
-+
- void dcp_hfi_stop(struct dcp_hfi *hfi)
- {
- 	unsigned long flags;
-@@ -804,6 +1097,7 @@ void dcp_hfi_stop(struct dcp_hfi *hfi)
- 	atomic_set(&hfi->shutdown_in_progress, 1);
- 	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
- 
-+	cancel_work_sync(&hfi->resource_vote_work);
- 	cancel_delayed_work_sync(&hfi->resp_repost_work);
- 	dcp_hfi_cancel_pending(hfi, -ENODEV);
- }
-@@ -829,6 +1123,10 @@ void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi)
- 
- void dcp_hfi_deinit(struct dcp_hfi *hfi)
- {
-+	mutex_lock(&hfi->caps_cache_lock);
-+	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
-+	mutex_unlock(&hfi->caps_cache_lock);
-+
- 	xa_destroy(&hfi->pending_xa);
- 
- 	dcp_hfi_free_pool(hfi, hfi->cmd_pool, DCP_HFI_CMD_POOL_SIZE);
++#endif /* __DCP_IPCC_H__ */
 
 -- 
 2.43.0
