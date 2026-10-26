@@ -2,160 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D869C606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 13:10:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7DE606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 13:25:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=murfKBxV;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OTS/1wDi
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgMNATh8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E9E410E225;
-	Mon, 26 Oct 2026 13:10:10 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB79410E120
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 13:09:58 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69QAsuon2732724
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 13:09:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- n7yxWtPMUXi7IWlyGxpU0TZfSphuR8DxMIcDIMKDNB8=; b=murfKBxV5uzBPNCR
- T54ppeH1fTQLM3q/mBgRjDF8P1SH6AV3rdnDYWH0i3t5OJ4iY28DaWIC0mFxcNi8
- vIUm3Xi8GEy6U1GLXNSYwCfDdsmcWOf6r1tGAwS23/MyH3LgIKQu5bGDcqsukvzm
- O7zJfhIsDdGbP4w/2nm8TOW7PClBA2eXKAlD0ygEM72cSir51B2owyLYK/gLmcKi
- u6IH4uc9plP5f6e8X9gbHpgVL1tsneix2Ae5+YHmzmJ+mX7+S3bAiTlHjc9FXxkM
- AWf6368sFLrAjH9BrUG3rB16k7h5ia7hPV9HOkOGcv0zD3ajUxcGqMBsHOfQHH9U
- uRiOhQ==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
- [209.85.161.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4cp8st0-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 13:09:57 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id
- 006d021491bc7-6e0063e7a02so3569461eaf.2
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:09:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793020197; x=1793624997;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=n7yxWtPMUXi7IWlyGxpU0TZfSphuR8DxMIcDIMKDNB8=;
- b=OTS/1wDibWCiO5u3Ko9iAc74NxLQzEIR7MLZcGUkBOHeMToOK551OgahZD6SPfwkLa
- qfAdyJkvDDkrdBQ4M6Y/vMhLdSFfBqCikaNxjsJtETkz0JVQqmcGxavi56twnYECemuf
- cHPFZ4Oi48Xsge/6nP/CHpGARQjxhnlKTaQeWVppF7j6L07lcXZJkBZkEyjnyXv4PK80
- C6a7TfWNWRAM5JSdkDTlm5otDeu1z0cvMK6AaSerne9X+QcdYNYc4dm75aC8RO+L/nkp
- CX3xveAmkqkx6/Wh/EXHM+A4kAOrdE3wY+a8/j27qXXezY5JELZtLY+rQLQqdo1oqA0n
- aLzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793020197; x=1793624997;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=n7yxWtPMUXi7IWlyGxpU0TZfSphuR8DxMIcDIMKDNB8=;
- b=Cz4lL5m/JeteZXTGJj5GYVbgblZ2IzXhfvseMD6+R/d4K+pP43k+IUE1HIomcx0+Mb
- 5zE5Ijgu47d0eqDgMX05KF9Z3QTN8tmUsy+HZPeMN1+F6rMrcgfsN7DHc9HxZJaa6W3s
- WRcw+wNAZPSS7y3PqrHMEPt3Eypc//va+0dh7/A6kzL0puz8IBKWwKg2c2WHYvu2JUBU
- N7crDd/QLnzyCoW5l95ov8ASk7FpDRIWLLEO3ChSvD2of1hLSQ4NkXKYq/+heKBUbCuu
- PC9tDc+SMDiu/I/5S07+TTHxGjuBUge2K14+hMliN6ljx34C8LiA5amtT0Rk6YcpmL2T
- CLYg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxs2TXh8ta7GMpQz7jpxbQLk6GIKYbLyzDAJq+WdAEu1LLSN0AnvCLgtpUKWfq5/baXqkdgyQXd5QA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKhTgRWbn+FblOlPZZ+lH1tIprdR2ap6k3D1FEa/I6W3Bi8ErXc
- sZiyrAOPTUc9oD69JShq9Qiiqiy8w2UCaO+lqInOc6Loo18xfFHEA546SuIWmP2QEifQV4zLjr/
- RdP5w97F8+y9PeaIrxbxOdy/Es8BSYSKAUDjpXgsfbAgEp1n/UO/lspzMlr+rzYgWyKPPneA=
-X-Gm-Gg: AYBFou1zfXhn/QFnCb+FX/DjxjTq/UM2L1yPrRZgTjdcoe2Or5rAgjTTm4WM9ZkkrH1
- blg8NwHxwbqPfWJV8jmq/velr0u9cd80G02jz65Xx8s+/RCKg3m1YgtvGwxDTwko6QrZlv4aSOr
- 0cBcRIENZiwB37Ygv6iCofpForapbAOUEO/hDIViF6PLM93nUk8LMlv69YpFUdJqhGYqAUP+UYy
- S4nCrvHpexi0jwEVVZWjtf+E73bI28oofCcUBcZrAQp8fCvNv5JvcthC7oBDCKvYD872HFIz41J
- COq+uP8hXMIPgthwN7gv8Qi8eUsX5VyJAvCYjp5GKETakyM+E0Y+JJiesxZXYRrHLdywZ3mPXz7
- n9re+Oc43FsDpIUO9MQGAADNdgpMi9yEYaUNbBfEJ+naf+MmZIH44Ln3OdirRaUsgFU8tRXSdan
- sgK1MgKTCJLqIvS7CDuDFjAAXoQTI=
-X-Received: by 2002:a05:6820:61d:b0:70c:f411:409a with SMTP id
- 006d021491bc7-70cf411484bmr1858248eaf.60.1793020196881; 
- Mon, 26 Oct 2026 06:09:56 -0700 (PDT)
-X-Received: by 2002:a05:6820:61d:b0:70c:f411:409a with SMTP id
- 006d021491bc7-70cf411484bmr1858226eaf.60.1793020196412; 
- Mon, 26 Oct 2026 06:09:56 -0700 (PDT)
-Received: from [10.190.200.105]
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
- by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-70b9e163a5dsm6838618eaf.8.2026.10.26.06.09.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 06:09:55 -0700 (PDT)
-Message-ID: <0cace778-b68f-49a9-b52d-dc632bf3a0ea@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 18:39:45 +0530
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
- Laptop 8th Edition
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maximilian Luz
- <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
- <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
- <245e5eef-e18a-4ec5-b57c-65e561101351@oss.qualcomm.com>
- <52adff3a-370c-4445-9797-e0b0dde36fab@oss.qualcomm.com>
- <5568fd0f-e412-4f2a-9f1e-729a469da572@oss.qualcomm.com>
- <65f6883d-8ead-4c6e-80f5-81f6857df0b8@oss.qualcomm.com>
- <f624b075-df3b-4862-8231-8fcae7f18d50@oss.qualcomm.com>
- <5cfc6414-735d-4df3-868d-c8c3c4a98e30@oss.qualcomm.com>
- <5478c0da-e28b-4ea5-9b7a-f7aef2c7f437@oss.qualcomm.com>
-Content-Language: en-US
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-In-Reply-To: <5478c0da-e28b-4ea5-9b7a-f7aef2c7f437@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1MiBTYWx0ZWRfX7E1mf/hRexi2
- F2tcCmR9U1+AVZ7i/wI7P09Acgu61ZcFqx5wfQP1wk8EFLVDfRE8tMO3ERieOkXfv6oQ0sQp8zd
- jM+kRKOz9NyjPkR8n9OUJCTDwCjv+J8SsXBG0xFlVzvkeOeoq+s6al6dl88kINWzsRoxlf+P0Q+
- eMaCfPuq+zWQF2Y80ZoaotH012g8duqJnysBBPLGzNc6gFDypGPb+BzQ6+whC7yzAL9BFy2Q9CA
- ZqOcgCh/LL5fcYOnqliJyBSOf+EORkyjAqhabo9bxFgIk2gnQQ2rViNR3U3LuP2efUC9CMO6k4a
- rohrz5xPibG9cEjprVDYFOniXhj6gEIYDpcUYwPIYtXKptDCgVLkDKjMH+K3xuALVk7NPmv4SP/
- DQr/DKolpPQwq+4YigL7sMHU8oF+95ZG+/nAPZYnRlKA86P+4MW3/1p0Qo6PhyEv0gA+41Mn6+a
- dy7PQRwhdWPByQuATPQ==
-X-Proofpoint-GUID: 2HDyLCgj6EwobM_WRGARPdDNiIMnrbtK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1MiBTYWx0ZWRfX9i5T2xTE6fKa
- /M1pfCkauZNdZjPPVYYvxBbpZQDRfwczNyvFdtn65d/BoOpc2b5TyL0O1pAKggaeZ0AtOjyA28p
- rQa6TfWQ+pqiY6yAktppN1ihhA4eKXM=
-X-Proofpoint-ORIG-GUID: 2HDyLCgj6EwobM_WRGARPdDNiIMnrbtK
-X-Authority-Analysis: v=2.4 cv=TboDJhQh c=1 sm=1 tr=0 ts=6adf5125 cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=orzTaoVzejLQ65uNlDkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=WZGXeFmKUf7gPmL3hEjn:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- spamscore=0 clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260052
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96CC410E2A6;
+	Mon, 26 Oct 2026 13:25:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA6E510E253
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 13:24:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CF06F600DA;
+ Mon, 26 Oct 2026 13:24:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F99F1F01825;
+ Mon, 26 Oct 2026 13:24:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793021097;
+ bh=RAZuT03HTn/udnmMaEZSmIRI0nqa8DRHM5i7rHrvtU0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QgMNATh8tg8wne169TeOtGhgKlrqzOlUn5Cvm/NGxS+UvbssCOVmtL2DDqdIgPhvO
+ LrHEe4pPkrAuDhPmCCub6Z55oAVvUCsbSyBQ3QFATQDPztCH5YRkOyf9zojpLkyK86
+ 7QjLhjwbnTgnr6FlyK4eOAbba5EX1pd0TdpuJzT2D2QqGhvomVcGicX7agrO4dQHB7
+ JqzDaErdCuy4JbgUtGMQGlbw27axYAm0rrQWLLbUYaz8kt9m5ULPg04P7fhkL7vB8q
+ JDmMFjKBcQPCGC/Bt91EjgFJpaU6A8HjShWoGMXjoLOVxPXch+zdtQUbwJpQ/nVWGE
+ fXzjPWJAQ99xQ==
+Message-ID: <sashiko-outbox-185304@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 17/23] drm/msm/dcp: Register DCP display pipeline
+To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
+Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ media-ci@linuxtv.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-17-7cf014efdee1@oss.qualcomm.com>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-17-7cf014efdee1@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 13:24:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,47 +51,439 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] drm/msm/dcp: dcp_dpu_kms_cleanup_bridges() called under component_=
+mutex
+- [High] drm/msm/dcp: missing remote port check and sequential bridge lookup
+- [High] drm/msm/dcp: race and runtime PM leak in dcp_dpu_kms_enable_commit=
+()
+- [High] drm/msm/dcp: unbalanced msm_kms and runtime PM teardown in dcp_dpu=
+_kms_destroy()
+- [High] drm/msm/dcp: dangling CRTC and drm_device pointers in dcp_dpu_kms_=
+destroy()
+- [Medium] drm/msm/dcp: invalid possible_crtcs mask when max_crtc_count is =
+clamped
+--
 
+commit 5fc21d18f27dcbb7ac8d64f95bc52703e58d9984
+Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-On 10/19/2026 4:02 PM, Konrad Dybcio wrote:
-> On 10/19/26 12:31 PM, Konrad Dybcio wrote:
->> On 10/16/26 11:26 AM, Sibi Sankar wrote:
->>>
->>>
->>> On 15/10/2026 19:02, Konrad Dybcio wrote:
->>>> On 10/15/26 2:47 PM, Gopikrishna Garmidi wrote:
->>>>> Hi Konrad,
->>>>>
->>>>> On 10/13/2026 2:09 PM, Konrad Dybcio wrote:
->>>>>> On 10/7/26 9:11 AM, Gopikrishna Garmidi wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 10/6/2026 3:20 PM, Gopikrishna Garmidi wrote:
->>>>>>>> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
->>>>>>>>
->>>>>>>> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
->>>>>>>> ---
-> 
-> [...]
-> 
->>> microsoft,surface-laptop-8-lcd13
->>> microsoft,surface-laptop-8-lcd13p8
->>> microsoft,surface-laptop-8-lcd15
-> 
-> (FWIW I don't think there's a non-LCD option)
-> 
+drm/msm/dcp: Register DCP display pipeline
 
-ACK, I’ll drop the lcd suffix and use microsoft,surface-laptop-8-13p8
-instead.
+This commit registers the DCP display pipeline using firmware capabilities
+and the device-tree display graph, integrating runtime PM and IOMMU setup a=
+nd
+creating the DRM planes, CRTCs, encoders, bridges, and connectors.
 
-Thanks,
-Gopikrishna
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c b/drivers/gpu/drm/msm/=
+dcp/dcp_dpu_kms.c
+> index 61a4d85653594..8a73a99b2c763 100644
+> --- a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
+
+[ ... ]
+
+> @@ -59,3 +78,609 @@ bool dcp_dpu_kms_needs_dirtyfb(struct dcp_dpu_kms *dc=
+p_kms,
+> =20
+>  	return false;
+>  }
+> +
+> +void dcp_dpu_kms_cleanup_bridges(struct dcp_dpu_kms *dcp_kms)
+> +{
+> +	u32 i;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
+> +		if (!dcp_kms->dsi_bridge[i])
+> +			continue;
+> +
+> +		dcp_dsi_bridge_cleanup(dcp_kms->dsi_bridge[i]);
+> +		dcp_kms->dsi_bridge[i] =3D NULL;
+> +	}
+> +}
+
+[Severity: High]
+Will calling dcp_dpu_kms_cleanup_bridges() from dcp_dpu_kms_setup_bridges(),
+dcp_dpu_setup_pipeline(), or dcp_dpu_kms_destroy() deadlock on
+component_mutex and break deferred probe retries?
+
+Before registering the aggregate component master, dcp_component_register()
+calls dcp_dpu_kms_init_dsi_bridges() -> dcp_dsi_bridge_init(), which
+registers dsi_host_dev and mipi_dsi_host and adds each dsi_np to the
+component match list. When the DSI panel attaches, dcp_dsi_host_attach()
+calls component_add(&dsi_bridge->dsi_host_dev, &dcp_dsi_component_ops).
+
+Once all components are added, drivers/base/component.c holds the non-
+recursive component_mutex across both aggregate bind and unbind:
+
+  try_to_bring_up_aggregate_device() [holds component_mutex]
+    -> msm_drm_bind()
+      -> msm_drm_init()
+        -> msm_drm_kms_init()
+          -> dcp_dpu_kms_hw_init()
+            -> dcp_dpu_drm_obj_init()
+              -> dcp_dpu_setup_pipeline()
+                -> dcp_dpu_kms_setup_bridges()
+
+  take_down_aggregate_device() [holds component_mutex]
+    -> msm_drm_unbind()
+      -> msm_drm_uninit()
+        -> msm_drm_kms_uninit()
+          -> dcp_dpu_kms_destroy()
+
+When dcp_dpu_kms_cleanup_bridges() runs from any of those paths, it calls:
+
+  dcp_dsi_bridge_cleanup()
+    -> mipi_dsi_host_unregister()
+      -> mipi_dsi_remove_device_fn()
+        -> mipi_dsi_detach()
+          -> dcp_dsi_host_detach()
+            -> component_del(&dsi_bridge->dsi_host_dev, ...)
+
+which tries to acquire component_mutex while it is already held by the
+calling thread.
+
+In addition, in msm_drm_uninit(), msm_drm_kms_uninit() runs before
+component_unbind_all() and drm_dev_put(), so dcp_dpu_kms_destroy() tears do=
+wn
+the bridges and deletes dsi_host_dev while it is still bound as a component
+and attached to encoder->bridge_chain. Destroying and clearing
+dcp_kms->dsi_bridge[] on error or -EPROBE_DEFER in dcp_dpu_kms_setup_bridge=
+s()
+or dcp_dpu_setup_pipeline() also prevents any subsequent deferred probe ret=
+ry
+from succeeding because dcp_dpu_kms_init_dsi_bridges() only runs once before
+component_master_add_with_match().
+
+[ ... ]
+
+> +static void dcp_dpu_kms_enable_commit(struct msm_kms *kms)
+> +{
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(dcp_kms->pm_dev);
+> +	if (ret < 0) {
+> +		dcp_kms->commit_pm_active =3D false;
+> +		drm_err_ratelimited(dcp_kms->dev,
+> +				    "pm_runtime_resume_and_get failed: %d\n",
+> +				    ret);
+> +		return;
+> +	}
+> +
+> +	dcp_kms->commit_pm_active =3D true;
+> +}
+> +
+> +static void dcp_dpu_kms_disable_commit(struct msm_kms *kms)
+> +{
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
+> +
+> +	if (dcp_kms->commit_pm_active) {
+> +		pm_runtime_put_autosuspend(dcp_kms->pm_dev);
+> +		dcp_kms->commit_pm_active =3D false;
+> +	}
+> +}
+
+[Severity: High]
+Can overlapping commits race on dcp_kms->commit_pm_active and leak a runtime
+PM reference on dcp_kms->pm_dev?
+
+msm_atomic_commit_tail() calls kms->funcs->enable_commit(kms) before
+lock_crtcs(kms, crtc_mask) and calls kms->funcs->disable_commit(kms) after
+unlock_crtcs(kms, crtc_mask), while msm_atomic_async_commit() also calls
+enable_commit() and disable_commit() from per-CRTC worker threads, and
+commits on separate CRTCs execute concurrently.
+
+If two commits overlap between dcp_dpu_kms_enable_commit() and
+dcp_dpu_kms_disable_commit():
+
+1. Both commits call pm_runtime_resume_and_get(dcp_kms->pm_dev) and set the
+   single shared boolean dcp_kms->commit_pm_active =3D true.
+2. When the first commit finishes and calls dcp_dpu_kms_disable_commit(), it
+   calls pm_runtime_put_autosuspend(dcp_kms->pm_dev) once and sets
+   dcp_kms->commit_pm_active =3D false.
+3. The second in-flight commit then sees !dcp_kms->commit_pm_active in
+   dcp_crtc_atomic_begin() (failing the commit with cstate->hfi_error =3D -=
+EIO),
+   and when it reaches dcp_dpu_kms_disable_commit() it sees
+   dcp_kms->commit_pm_active =3D=3D false and skips
+   pm_runtime_put_autosuspend(dcp_kms->pm_dev), leaking its runtime PM usage
+   count.
+
+[ ... ]
+
+> +static void dcp_dpu_kms_destroy(struct msm_kms *kms)
+> +{
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
+> +
+> +	dcp_dpu_kms_cleanup_bridges(dcp_kms);
+> +
+> +	if (kms->vm) {
+> +		struct msm_gem_vm *msm_vm =3D to_msm_vm(kms->vm);
+> +
+> +		if (msm_vm->mmu && msm_vm->mmu->funcs->detach) {
+> +			drm_dbg_driver(dcp_kms->dev,
+> +				       "detaching IOMMU domain from dcp-dpus\n");
+> +			msm_vm->mmu->funcs->detach(msm_vm->mmu);
+> +		}
+> +
+> +		drm_gpuvm_put(kms->vm);
+> +		kms->vm =3D NULL;
+> +	}
+> +
+> +	if (dcp_kms->rpm_enabled) {
+> +		pm_runtime_disable(dcp_kms->pm_dev);
+> +		dcp_kms->rpm_enabled =3D false;
+> +	}
+> +
+> +	msm_kms_destroy(&dcp_kms->base);
+> +}
+
+[Severity: High]
+Is the teardown in dcp_dpu_kms_destroy() balanced with dcp_kms_init() across
+deferred probe or component rebind?
+
+In msm_drm_init(), msm_drm_kms_init() calls priv->kms_init(ddev)
+(dcp_kms_init()) and kms->funcs->hw_init(kms) (dcp_dpu_kms_hw_init()). If
+msm_drm_kms_init() fails (for instance with -EPROBE_DEFER when a panel is n=
+ot
+ready in dcp_dpu_kms_setup_bridges()) or when the aggregate device unbinds,
+msm_drm_uninit() calls msm_drm_kms_uninit(), which flushes kms->wq and calls
+dcp_dpu_kms_destroy().
+
+However, msm_kms_init(&dcp_kms->base, &dcp_dpu_kms_funcs) and
+pm_runtime_enable(&drv->dcp_subsystem_dev->dev) are only called once during
+virtio probe (in dcp_virtio_probe() and dcp_subsystem_dev_init()), not in
+dcp_kms_init(). When dcp_dpu_kms_destroy() runs:
+
+- pm_runtime_disable(dcp_kms->pm_dev) disables runtime PM on pm_dev (and on
+  driver removal, dcp_subsystem_dev_deinit() calls pm_runtime_disable() a
+  second time on the same device).
+- msm_kms_destroy(&dcp_kms->base) destroys kms->wq and kms->pending_timers[=
+],
+  leaving kms->wq as a dangling pointer that will be flushed and destroyed
+  again on a subsequent bind attempt or uninit.
+
+[Severity: High]
+Does dcp_dpu_kms_destroy() (and the error path in dcp_dpu_setup_pipeline())
+leave dangling CRTC and drm_device pointers reachable from HFI event
+callbacks?
+
+dcp_kms_init() sets dcp_kms->dev =3D ddev and drv->kms =3D dcp_kms, and
+dcp_dpu_setup_pipeline() populates dcp_kms->crtcs[] with CRTCs allocated via
+drmm_kzalloc(ddev, ...) in dcp_crtc_init() and increments dcp_kms->num_crtc=
+s.
+
+When msm_drm_uninit() runs on init failure, component unbind, or during
+dcp_virtio_remove() -> dcp_component_unregister() before
+dcp_virtio_hfi_cleanup() stops the VirtIO queues, drm_dev_put(ddev) frees
+ddev and all drmm-managed dcp_crtc instances while dcp_kms and drv remain
+allocated. Because neither dcp_dpu_kms_destroy() nor
+dcp_dpu_setup_pipeline()'s error path clears dcp_kms->num_crtcs,
+dcp_kms->crtcs[], dcp_kms->dev, or drv->kms, an incoming
+HFI_COMMAND_DISPLAY_EVENT_VSYNC or
+HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_COMPLETE message in
+dcp_hfi_resp_callback() will invoke dcp_crtc_hfi_vblank_cb() or
+dcp_crtc_hfi_frame_done_cb() and dereference the freed dcp_crtc or drm_devi=
+ce.
+
+[ ... ]
+
+> +int dcp_dpu_kms_init_dsi_bridges(struct dcp_dpu_kms *dcp_kms,
+> +				 struct component_match **matchptr)
+> +{
+> +	struct device_node *dpu_np =3D dcp_kms->dpus_np;
+> +	struct device_node *ep_np, *dsi_np, *child_np;
+> +	struct of_endpoint ep;
+> +	int ret;
+> +
+> +	for_each_of_graph_port(dpu_np, port_np) {
+> +		u32 dsi_idx, fw_display_id;
+> +		struct drm_bridge *bridge;
+> +
+> +		ep_np =3D of_get_next_child(port_np, NULL);
+> +		if (!ep_np)
+> +			continue;
+> +
+> +		ret =3D of_graph_parse_endpoint(ep_np, &ep);
+> +		of_node_put(ep_np);
+> +		if (ret)
+> +			continue;
+> +
+> +		dsi_idx =3D ep.port;
+> +		if (dsi_idx >=3D ARRAY_SIZE(dcp_kms->dsi_bridge))
+> +			return -E2BIG;
+> +
+> +		if (dcp_kms->dsi_bridge[dsi_idx])
+> +			continue;
+> +
+> +		dsi_np =3D NULL;
+> +		for_each_available_child_of_node(dpu_np, child_np) {
+> +			u32 reg;
+> +
+> +			if (!of_node_name_prefix(child_np, "dsi") ||
+> +			    of_property_read_u32(child_np, "reg", &reg) ||
+> +			    reg !=3D dsi_idx)
+> +				continue;
+> +
+> +			dsi_np =3D of_node_get(child_np);
+> +			break;
+> +		}
+> +		of_node_put(child_np);
+> +		if (!dsi_np)
+> +			return -ENODEV;
+> +
+> +		fw_display_id =3D
+> +			dcp_dpu_kms_resolve_fw_display_id(dcp_kms, dsi_idx);
+> +		if (fw_display_id =3D=3D U32_MAX) {
+> +			of_node_put(dsi_np);
+> +			return -EINVAL;
+> +		}
+> +
+> +		bridge =3D dcp_dsi_bridge_init(dcp_kms, dsi_np, dpu_np,
+> +					     ep.port, dsi_idx, fw_display_id);
+> +		if (IS_ERR(bridge)) {
+> +			ret =3D PTR_ERR(bridge);
+> +			of_node_put(dsi_np);
+> +			return ret;
+> +		}
+> +
+> +		dcp_kms->dsi_bridge[dsi_idx] =3D to_dcp_dsi_bridge(bridge);
+> +		drm_of_component_match_add(dcp_kms->pm_dev, matchptr,
+> +					   component_compare_of, dsi_np);
+> +		of_node_put(dsi_np);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static int dcp_dpu_setup_pipeline(struct dcp_dpu_kms *dcp_kms,
+> +				  struct device_node *dpu_np)
+> +{
+
+[ ... ]
+
+> +	dcp_kms->num_crtcs =3D 0;
+> +	for (i =3D 0; i < max_crtc_count; i++) {
+> +		u32 display_id;
+> +
+> +		if (!dcp_kms->dsi_bridge[i]) {
+> +			drm_err(dev, "missing DSI bridge for CRTC%u\n", i);
+> +			ret =3D -ENODEV;
+> +			goto err_cleanup_bridges;
+> +		}
+> +
+> +		display_id =3D dcp_kms->dsi_bridge[i]->fw_display_id;
+
+[Severity: High]
+What happens if a DT graph port has no available remote panel or if port@0 =
+is
+omitted or disabled while port@1 is active?
+
+First, dcp_dpu_kms_setup_bridges() checks of_graph_get_remote_port_parent()
+and of_device_is_available(remote_np) and skips ports without an available
+panel, but dcp_dpu_kms_init_dsi_bridges() does not perform this check before
+creating dcp_kms->dsi_bridge[dsi_idx] and adding dsi_np to matchptr via
+drm_of_component_match_add(). Because component_add() is only called from
+dcp_dsi_host_attach() when a panel driver attaches to the DSI host, any
+unpopulated or disabled panel endpoint in DT will prevent the component
+master from ever binding.
+
+Second, both dcp_dpu_kms_init_dsi_bridges() and dcp_dpu_kms_setup_bridges()
+index dcp_kms->dsi_bridge[] by ep.port, whereas dcp_dpu_setup_pipeline()
+loops from i =3D 0 to max_crtc_count - 1 and looks up dcp_kms->dsi_bridge[i]
+using the sequential CRTC index i. If port@0 is absent or disabled and only
+port@1 is active, dcp_kms->dsi_bridge[1] holds the active bridge while
+max_crtc_count is 1, so dcp_dpu_setup_pipeline() checks
+dcp_kms->dsi_bridge[0] and either fails with -ENODEV or binds CRTC 0 to the
+wrong bridge's fw_display_id.
+
+> +		if (dcp_dpu_kms_get_crtc(dcp_kms, display_id)) {
+> +			drm_err(dev, "duplicate firmware display ID %u\n",
+> +				display_id);
+> +			ret =3D -EINVAL;
+> +			goto err_cleanup_bridges;
+> +		}
+> +
+> +		crtc =3D dcp_crtc_init(dcp_kms, primary_planes[i],
+> +				     display_id);
+> +		if (IS_ERR(crtc)) {
+> +			ret =3D PTR_ERR(crtc);
+> +			drm_err(dev, "CRTC init failed: %d\n", ret);
+> +			goto err_cleanup_bridges;
+> +		}
+> +		dcp_kms->crtcs[dcp_kms->num_crtcs].crtc =3D crtc;
+> +		dcp_kms->crtcs[dcp_kms->num_crtcs++].display_id =3D display_id;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_cleanup_bridges:
+> +	dcp_dpu_kms_cleanup_bridges(dcp_kms);
+> +	return ret;
+> +}
+> +
+> +int dcp_dpu_drm_obj_init(struct dcp_dpu_kms *dcp_kms)
+> +{
+> +	struct drm_device *dev =3D dcp_kms->dev;
+> +	struct device_node *dpus_np =3D dcp_kms->dpus_np;
+> +	struct drm_encoder *encoder;
+> +	int enc_idx =3D 0;
+> +	int ret;
+> +
+> +	if (!dpus_np) {
+> +		drm_err(dev, "no DCP subsystem node =E2=80=94 cannot create DRM object=
+s\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	ret =3D dcp_dpu_setup_pipeline(dcp_kms, dpus_np);
+> +	if (ret)
+> +		return dev_err_probe(dev->dev, ret, "pipeline setup failed\n");
+> +
+> +	/* v1 - Encoders map one-to-one to CRTCs; cloning is unsupported. */
+> +	drm_for_each_encoder(encoder, dev) {
+> +		encoder->possible_crtcs =3D BIT(enc_idx);
+> +		encoder->possible_clones =3D 0;
+> +		enc_idx++;
+> +	}
+
+[Severity: Medium]
+Can plane and encoder possible_crtcs masks reference non-existent CRTCs when
+max_crtc_count is clamped in dcp_dpu_setup_pipeline()?
+
+In dcp_dpu_setup_pipeline(), dcp_dpu_kms_setup_bridges() creates an encoder
+for each active DSI port before CRTC and plane limits are applied:
+
+  max_crtc_count =3D min(max_crtc_count, DCP_DPU_MAX_CRTCS);
+  max_crtc_count =3D min_t(int, max_crtc_count,
+                         dcp_kms->caps->num_displays);
+  max_crtc_count =3D min_t(int, max_crtc_count,
+                         ARRAY_SIZE(dcp_kms->dsi_bridge));
+
+Then, during plane creation, possible_crtcs is computed from max_crtc_count
+before max_crtc_count is clamped again to min(max_crtc_count, primary_idx).
+Finally, in dcp_dpu_drm_obj_init(), every created encoder is assigned
+encoder->possible_crtcs =3D BIT(enc_idx).
+
+If caps->num_displays or total_planes clamps the number of created CRTCs
+below the number of encoders, planes and encoders will have possible_crtcs
+bits set for CRTC indices that do not exist, triggering a WARN() in
+validate_encoder_possible_crtcs() during drm_mode_config_validate().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
+cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D17
