@@ -2,90 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF41C606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 09:32:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514A5606A31B
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 09:32:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=neat.no header.i=@neat.no header.a=rsa-sha256 header.s=google header.b=d+a4GOZi
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HszM9iea
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E655410F317;
-	Tue, 27 Oct 2026 09:31:59 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B983F10F052
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:40:33 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-48e20edd106so2795119f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:40:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9189910F321;
+	Tue, 27 Oct 2026 09:32:00 +0000 (UTC)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBBD910E25D
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 19:16:57 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-19305bcb72cso2486609c88.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 12:16:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=neat.no; s=google; t=1793032832; x=1793637632; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=oG0OCrqpe0XEV+bay86LwUo+wIO5sgYnrEJ8HAsyUYo=;
- b=d+a4GOZicOjS1AxKlOyHiZiaDMRxYpq1gVEJ8/GzepBYvUJbg8pNAmcrS5BmtNhq4y
- 1s+IjyShCxrkrQZbI2lp5/dGWu2DJdcRAfkER8M1LAXfYTLE2KyCvwDL1ce5kksU3WsZ
- ZcNsEuEE2SZbtqXgShfeUS43ZIMwUP39FZnxYbEwp63kyKH1wVnU/Qeal6xyLY0KWV44
- FxUTdGkxHWKnt45HUu7ocRGUGaZTEzuTEweUcv4VLSXc7Jm4auVPftxfWyWEC4/Sc/Qw
- FZQZOgBMd7NHR6RQXhk5wnvX187SsnNDwbmaulrEl77fwtbISp951WpS2kMzSBAwEEhT
- MIhA==
+ d=gmail.com; s=20251104; t=1793042217; x=1793647017; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZmT2nATq+bZ29K53UZMGVTr9REnvo4iJdWh63MeUqzM=;
+ b=HszM9ieavp/KaP4hiFEgrmwAuSIRccXyARm65UBjDlnV1D5CZ/EmnuUoDmE+xxY875
+ 22AfRqFRgh4p7F4pRYtOxJr9Xpi4zffksE/klfXt3m/l/q65kFJyY8/0GtsnKmZx9KaZ
+ Vd8ADGMgAvDzNjeyWu0i3VTe7EFwNQzu/q5HTjc1j32bhbHNeepazQbbn7lMH3m22RcT
+ yPbcE/t2+/G+Bco0osEJiRjsCnFaIffVFN35fvZuT3hx1VWXX8GDz7WXIcA//CGGScJX
+ knYsQQM1t/d2nBYCTKm0GSCFt3Bxsiy3PiVC7e6kp9nIVfSI6jt2cV04psMJDQzwFeHN
+ 53Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793032832; x=1793637632;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=oG0OCrqpe0XEV+bay86LwUo+wIO5sgYnrEJ8HAsyUYo=;
- b=oI8y0JYm65uRLQErEARIGqoZ5muTSUpMoqcUBOOl1BeARa3ccwNZ0Qfxb6iT52Bl/M
- xM6dC1g05Zw6k9v2azbFeHt7mQCarVj6FX6dyKcCFerObAFpYlEiLSSKGY0XGX+DwG2Q
- 8W/biBg2j6LDDxtY8cggUsuEgzIQlF7JgqcA+oFq8vmeBU8vlH/3YEuejJR5UWjHxN18
- 2ztdubr9b4A5tAh2TFGFgSCLMd3rgOx5lvMDKSn6EFWKpd5xZn1IHhYiR9dxXm2Xkdak
- xJ1w2+6iidtvqMjfNyTt2o79nBen4R1WRzlzpWfNl1WCwkbPo8eoDZh79rKaNy2Nv6jL
- azLw==
+ d=1e100.net; s=20260707; t=1793042217; x=1793647017;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZmT2nATq+bZ29K53UZMGVTr9REnvo4iJdWh63MeUqzM=;
+ b=Fk2uRIkoRrkeorszJaWncfuRaEI99v9Zet1hYMl8OOB/7vBsGfZUixTwnTMOBjiw4+
+ XUJmmLrtOpjN1B8zPclplf/OdFgWjz+PPUyJM6BX1qkhvVkDuBi+vkg/Zveq2tkAKkgN
+ arIKuqS5pnr+u/3+ArkA7RVqxevdql+mfAlHhS6qA7jlDTqP6cgepP3UOtu33eQ222TU
+ ZeNQrHVb7P2xycY0pmHDUTdvXkJLXWkqLQZe7E41yApTN3RO9yxB7I2Zm9tgtF1jqNnR
+ 2WOYqTtt0jCvfNVu9E7VqJVbuLIG6MDovWSyoKO1fMk6R4nvmeisqnOPQrpJTLhvgQzX
+ P/NA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzC1Fm2TlUBecZYr5eaDgpRyuIkMVbDhNHgZHCzXBPcg5Stp8MScMqTbE57HOdzU8YsykKMcVQNAqs=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLwQls77LEXuFpVj0K9fpsA+rHhj5kRSUGcKOHUm63Pa/gCvBUS
- dHE2yd+sn+o541ZW5EiJV3XEQBv0xlQAmTXpjgj4vGoSp7l/5CFunqb5buRv5iJ/qD3RrW8Owqw
- dmvcYo14QKUhqs087eYxoPOzerMCgK3ZKkRtH20+iisUsHzAa8PDNrmjliIEZ1p3HT9o0LOvZUY
- hFxHSZN38IHAx8a0JBIsoUTI7s+0EeQclfSRp2qO+szf3ZurEs+zqWzzLbxZG/ALrt0fAbX0d8b
- fCuJjuNOCLC1eAHuuXy40gt4VI=
-X-Gm-Gg: AYBFou0lIO5RsgzG6/G0xEvjt8jOjg7WarXisL5YOOaVDFFL86x/k6ySdnXFnT6aCzu
- 2lLXwpBkebEKGNORLoKKHeNLRsJi6/xUmgKYWhpSFD1HhqqMwCgbdSe2jTjbXa1JX2PumrkRG6M
- gm+3sjXPDa6ZeDcH8WSDRQt8zIRmBHzna3Fb2kVOEWp8ZF+VsHWLLwJKCG7L63Yh2m0y7DmXk+Z
- mUuvQkfx/dSva2Vj/d5ujbF4ShvEYJ7EA5nnTGx/dc7IbK9LMf3umY9b5aSKKzZcwlMHiZWsFiw
- 1wCdtifDFPs6Td3hMln+1t+Qc0SRRKE9QSCjmyOfo9O0MQLdNO2WQoKfvb/13davQJyazBmIlsd
- LbK/tk8UbtPaNQAwoQvwNXzd5phIJEUYXYBOpEf0TFxV1cnnCDauwKUnmRLzl6J1gwFnylFYoXS
- xOFEBnWzDQJGOLM/NAAZhowj1suLBe52MWva+4w88KbkEWfN7P3Tlw34QEumH7CVW3nL39Qzvbs
- ZGTgNqskXC6Suk0rzc8U8jaKDzZPiNi7UXPIGTCJEvuIevvpDCT3FbbsFq4/dNO
-X-Received: by 2002:a05:600c:19d4:b0:4a1:fa33:441a with SMTP id
- 5b1f17b1804b1-4a35ac3f123mr144774155e9.2.1793032832124; 
- Mon, 26 Oct 2026 09:40:32 -0700 (PDT)
-Received: from threads.localdomain ([81.79.62.202])
+ AKwUvBySBGrt4dAv9B8MNfHySTmNr/cKB+5naSkwowNZBer9Q82EDTU2Ioi/IHP0kx0qwYphyukEX6P0y4E=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK6kwYh4qEuGpeTQLhGtuGDqmQt6bFsByzH4zWHSA/x+7Fn+lh6
+ 28qqTYzqx5ji8RtFuH2d9kgt2rKpIn2Hjn81SBHZ5t7tpbkicauTNl9r
+X-Gm-Gg: AYBFou2makmjsNeU8oga6d5hUgvAUle15aYk08fTP20uETfEPY4zTkU16SRznCdeOTD
+ /Sl68glsmNlrPAvtSPvvim8JrfYs+hbNyK8q02gCMxvvm06tgYyRhKRvABQyKRK/O8QV+VRyu9j
+ bd2bAzM/AkcDDFR1qAeSZ5wPLk23f0iTwpk4U8tMt78lcbouPr/DVpXcjXSamfsDQ3jXpOIY87L
+ DL5iTShvoR8qJCYWLv+3bXz7U7wY9SGzKK7NWjQgbJuHRe9xfq31jXZlqsZCXU/YqLHiFCQvOlV
+ s1HmhWu3Cuj2aLfE/PkPZWxBvoenciR+TGSC35vs8vStFiyUEXOZSkHALDMooQWW12ap0Qd2auE
+ puAdnZ92xHDHTHWpATm6eS0vX2gJprIot7MvGhB12MqvJajlqLO/uZrMJ3XkWEucavE82xSdGxH
+ PP0tbo2SLDWR+33BU3s1MeVenu0fqj2j2Yw4a0K4liZF92/RFbB2SOM6QIZVsOBmENq4THcDHyo
+ but7dZKXe0XeJXI7Z1JP9kmbfmQEBo9JiUcTbI8/iVSWkMclvphtLJAWL4Hg+uN34WE2Z/wQzm4
+ hNzOYJKQQ1Ukz/Dh2aU9
+X-Received: by 2002:a05:7022:6283:b0:143:7001:7645 with SMTP id
+ a92af1059eb24-19937022b7amr15370847c88.47.1793042216791; 
+ Mon, 26 Oct 2026 12:16:56 -0700 (PDT)
+Received: from localhost.localdomain ([136.126.251.209])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a35a30e22csm205961655e9.2.2026.10.26.09.40.31
+ 5a478bee46e88-36a01fa4c58sm25348449eec.21.2026.10.26.12.16.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2026 09:40:31 -0700 (PDT)
-From: Lucas Tanure <lucas.tanure@neat.no>
+ Mon, 26 Oct 2026 12:16:56 -0700 (PDT)
+From: Henry Zhang <henryzhang62@gmail.com>
 To: Maxime Ripard <mripard@kernel.org>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Dom Cobley <popcornmix@gmail.com>,
+Cc: Henry Zhang <henryzhang62@gmail.com>,
  =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/3] drm/vc4: hdmi: enable scrambling before the TMDS clock
- starts
-Date: Mon, 26 Oct 2026 16:40:28 +0000
-Message-ID: <20261026164028.78792-4-lucas.tanure@neat.no>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026164028.78792-1-lucas.tanure@neat.no>
-References: <20261026164028.78792-1-lucas.tanure@neat.no>
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] drm/vc4: dsi: Make failed reads visible and recoverable
+Date: Mon, 26 Oct 2026 12:14:54 -0700
+Message-ID: <20261026191618.9430-1-henryzhang62@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 27 Oct 2026 09:31:58 +0000
+X-Mailman-Approved-At: Tue, 27 Oct 2026 09:31:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,81 +88,88 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-HDMI 2.0 requires a source to suspend the TMDS clock, write the
-TMDS_Bit_Clock_Ratio bit in the sink's SCDC registers, wait at least
-1 ms and only then resume the clock. vc4 does the opposite: the PHY
-starts at the new rate first, and the SCDC bits are written tens of
-milliseconds later, at the very end of the enable sequence, together
-with the source side scrambler. On disable the bits are cleared while
-the clock is still running.
+DSI reads on the Raspberry Pi 4 (vc4, DSI1) can fail in two ways that
+the caller cannot handle:
 
-Some sinks sample the bit only when the clock appears. One HDMI 2.0
-sink we tested then sets up its receiver for a 1/10 clock and never
-recovers: a Raspberry Pi 5 at 3840x2160@60 shows no picture, while
-1080p60 and 4K30 work and other sources work at 4K60 on the same sink.
-Writing the bit by hand before enabling the output makes the same mode
-lock every time.
+- A peripheral that detected an error answers a read with an
+  Acknowledge and Error Report. vc4 copies its two bytes into the
+  caller's buffer and returns success, so the error bits look like
+  register contents (patch 1).
 
-Enable scrambling, on the sink and in the controller, before the PHY is
-started, and disable it only after the PHY has been stopped. The SCDC
-helper already waits the required time after writing the ratio bit.
+- After a read whose bus turnaround times out, every following DSI
+  transfer times out as well, until the display is switched off and on
+  (patch 4).
 
-Fixes: c85695a2016e ("drm/vc4: hdmi: Enable the scrambler")
-Link: https://github.com/raspberrypi/linux/issues/7693
-Assisted-by: LLM
-Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/vc4/vc4_hdmi.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Patch 2 rate-limits the error interrupt messages, which patch 4 would
+otherwise turn into an interrupt storm. Patch 3 serializes host
+transfers against each other and against the bridge callbacks, so that
+the recovery cannot reset the block under a transfer or while it is
+being configured.
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 4a386e053d3f..e57fc33af6b3 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -918,8 +918,6 @@ static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encoder,
- 		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
- 	}
- 
--	vc4_hdmi_disable_scrambling(encoder);
--
- 	drm_dev_exit(idx);
- 
- out:
-@@ -947,6 +945,8 @@ static void vc4_hdmi_encoder_post_crtc_powerdown(struct drm_encoder *encoder,
- 	if (vc4_hdmi->variant->phy_disable)
- 		vc4_hdmi->variant->phy_disable(vc4_hdmi);
- 
-+	vc4_hdmi_disable_scrambling(encoder);
-+
- 	clk_disable_unprepare(vc4_hdmi->pixel_bvb_clock);
- 	clk_disable_unprepare(vc4_hdmi->pixel_clock);
- 
-@@ -1554,6 +1554,8 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
- 		goto err_disable_pixel_clock;
- 	}
- 
-+	vc4_hdmi_enable_scrambling(encoder);
-+
- 	if (vc4_hdmi->variant->phy_init)
- 		vc4_hdmi->variant->phy_init(vc4_hdmi, conn_state);
- 
-@@ -1688,7 +1690,6 @@ static void vc4_hdmi_encoder_post_crtc_enable(struct drm_encoder *encoder,
- 	}
- 
- 	vc4_hdmi_recenter_fifo(vc4_hdmi);
--	vc4_hdmi_enable_scrambling(encoder);
- 
- 	drm_dev_exit(idx);
- 
+These patches do not prevent the timeouts. With video running, vc4
+does not keep commands within vertical blanking, so a command can still
+collide with active video and time out. That is a separate issue; this
+series makes such failures visible to the caller and recoverable
+without a modeset.
+
+Tested on a Raspberry Pi 4 (DSI1, 2-lane video mode panel) with the
+same changes backported to the Raspberry Pi 6.18 kernel:
+
+- 5 minutes of generic long writes from 4 extra threads with video
+  running: 40394 writes, 583 timed out; each timeout was followed by a
+  reset and restore, and the following writes went through. The DSI
+  interrupt rate stayed at 131/s, with one error message logged.
+- 50 display off/on cycles with 2 writer threads running (the case that
+  locked up v2): no lock-up, no warning.
+- 250 display off/on cycles without extra traffic: 248 panel inits
+  succeeded; 2 failed because the data lanes did not reach LP-11 after
+  power-up, which this series does not address.
+
+Reads were tested with these patches plus a change, not part of this
+series, that stops video while a command is sent: 2000 of 2000 reads
+returned the expected data.
+
+Compile-tested on drm-misc-next (arm64 defconfig, DRM_VC4=m, W=1), each
+patch on its own.
+
+Changes in v3:
+- v2 is not safe; please don't apply it. Its recovery keeps the block
+  usable after a timeout, and a peripheral that leaves the data lanes in
+  a bad state then raises the "data lane 0 sequence" error interrupt
+  tens of thousands of times per second. Printing each one starved a
+  Raspberry Pi 4 until it had to be reset.
+- Patch 2: new, rate-limit the error interrupt messages.
+- Patch 3 (was 3/3): moved before the recovery, and also taken in the
+  bridge pre_enable, enable, disable and post_disable callbacks.
+- Patch 4 (was 2/3): only recover while the block is enabled, and mask
+  the interrupts while the block and its AFE are in reset.
+- Link to v2: https://lore.kernel.org/r/20261019174930.7237-1-henryzhang62@gmail.com
+
+Changes in v2:
+- Patch 2: restore the registers in the same order as pre_enable, and
+  call synchronize_irq() before the reset (Sashiko review)
+- Patch 3: new, serialize host transfers (Sashiko review)
+- Link to v1: https://lore.kernel.org/r/20261012190249.3167-1-henryzhang62@gmail.com
+
+Henry Zhang (4):
+  drm/vc4: dsi: Don't return error reports as read data
+  drm/vc4: dsi: Rate-limit error interrupt messages
+  drm/vc4: dsi: Serialize host transfers
+  drm/vc4: dsi: Recover from a timed-out transfer
+
+ drivers/gpu/drm/vc4/vc4_dsi.c | 172 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 163 insertions(+), 9 deletions(-)
+
+
+base-commit: 650385a0fd0ea6475a17d39a20ec90470c7a4c67
 -- 
-2.56.0
+2.47.3
 
