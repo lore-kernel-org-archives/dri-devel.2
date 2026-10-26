@@ -2,100 +2,113 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A78B606A31D
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 18:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC256606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 18:18:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=PQMZtNqw
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aasF9R53
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0A910E313;
-	Mon, 26 Oct 2026 18:13:43 +0000 (UTC)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE9610E313
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 18:13:37 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-844a8bf7e25so2339793a34.1
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:13:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793038416; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA9310E344;
+	Mon, 26 Oct 2026 18:18:28 +0000 (UTC)
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE7F10E344
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 18:18:22 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-36a10095f3aso23653eec.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:18:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793038701; cv=none;
  d=google.com; s=arc-20260327;
- b=qmGHStMTyO5XwdvMWbvfmeeaiP+Yg/aSipwkF3YZHDCnpBto21OPni5L2RgSGOPXMI
- tiPvpE+8mpozcN3H38pMFK7PgGpOOitMQkBoPXnsf5nri/FswE4s5Euz+eubsb1rm2J7
- 566RH4ovaYiNOwNS5FaUqjrs9bZ7CXwHiuqZ2i099WCxo3NuTj6+sVoeqI+tQrf+lqkp
- ES5en+IHIAPvE9JHFUXjP2no9xQ7S37gFEsfoMpaPEPECAPeXdHMf4HtsI1Ms7/13KPh
- lcN9L3pI8FdpwBa9xebzlVjGVzJl/wl5V42t7VvM7lLQfhHsHUnmjpYaK8lMl9EQqpEa
- f6pg==
+ b=ZmQvzE+TlSyqDGkbw42ulFXfi7QHvfBxV+pE+HqSdNvT5Ocsx1NmTH1ZjCaYIS1Tn9
+ rqixYQO2f210P7/Nor5m7aur+ACMXMUiOpRhLMJbHAICUGam2Ff3uxGEO6Wt9uCOLC8T
+ CilUL3i5wmYRJe8u8S44BWD81C+ww/RBRIukferG/Ef13pIzjPPIPgVRloYBBm/bSMyu
+ IhfcSRBSvsar4hfxBtMdkyoW6aJ+P/zVdmxrHD2oEUOu03hHWTKjrDO3ehgJtm4VC8K2
+ Nvq78d+OcC9UTTnY4RY08F0LWfFvGfAn0D41f26y+kr4QzV7obcgkL/Jw+coKOuzuLLV
+ 9x6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=9AjMwR7Z8B2oTWOzAAhJ00jw1hl54hnoREOaiO4tzI0=;
- fh=eD6JdcIItJeLZC4aLk7RTeb+8o1nsA5fqcZbgWwHqwM=;
- b=huevBm5oDHlC3XtjH9c8H81q/52uKQomk7qWEgl5QczdTAechzVSCkXVHKnMd2CXTu
- iRFfuppFPm/34BseZAwtufm0jiItpf8gaEXn1OyhKIkZEhY+JDa0zPjB1vf1gEBqOsKf
- OqngmOvAW51sVXFbi+VwHJ3enQh5VLvQtM1pOTM1JamIs3luhtcRcQ6ra+0gmpmg/yfh
- Labfnt2Bj17sdB5L1lqRYZBzSfbGxZGMHT+BdGRxSzU9cgXlQ0NwyQ+4yqYQa1hZhKOb
- Jc30nzpeiJ1L26zkCOROzNxAaamZmP1oHgqxb5Uwd1F6mTgM7E/k22vefPnoOthALTwc
- F9Jw==; darn=lists.freedesktop.org
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=rUFVEl7fV+HUh8nhoQnb/g9LkM23VhHFCgUj8hV83sM=;
+ fh=msLGwEhzdxFpcjQc5paXPsZ7tZL31Zydr+NmCzTYQsE=;
+ b=gTs0EIA6lfd0wf6zblSRRyXe+oiOpXXgHbBDs6uRQVhwWX5hAB8BDG+iVEEsIq1rsh
+ 9X0iPvlC5h1IIb+Kw8dVgrlEbSEANEW8qdhbaImqyAjbaknSvPfBbrh0hBuHKlD8SbFq
+ 2gae2gcAnr4iD+VIO3HeOisALqf8zf8tTzaMSjG8/a5yCW9DThT1OrxagiOg+R2ySpzG
+ 05WdyCDOt1HShy5GdHsCsJg9SmPK6UuIHlpS4hMSQxYP9la1MEiZDMKdcxY9qTN96ds6
+ 4lrjAc4YVrNGxgFmyRCuRNCkMFwIbMB15XFplYkYTMsXyaHO1RW5TaK6eDtqzg5s8H4K
+ +pQg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raspberrypi.com; s=google; t=1793038416; x=1793643216;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=9AjMwR7Z8B2oTWOzAAhJ00jw1hl54hnoREOaiO4tzI0=;
- b=PQMZtNqwgyuQVBklaU+4sH3c7RzmJovMtMlANig/sBOlLPeMuyqPtU2LXgg1EVq0Ro
- b6yByL52Fx+mFX2uij0v7t/XnF1L419D0K/vLMbjWZnqu97OdOJXotCiBLjRQvYrSfIE
- kGNRSqnmEhPt+V2YAgsHTSD4ttreoCiPrqCO8xWjPScRVwClDrvQBX4XpM/xW6n3xv1c
- kmbyZdZL/j09PajMPL6cUziTD687McPGuo4YHRgj2CeQ5ZYKUJ5Am6KtQl/5EtKR2LKx
- jZW3KI65V8AImQtBGZslK/Fnv+VPYt3D1lI4SLKLojIHQ+0nZNfmiGinV2/r25cafZ/F
- YPeQ==
+ d=gmail.com; s=20251104; t=1793038701; x=1793643501; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=rUFVEl7fV+HUh8nhoQnb/g9LkM23VhHFCgUj8hV83sM=;
+ b=aasF9R532WA4TtV+fFjh1Cfw6zEtP3ruWvGIQ6UHm5AN4ZGsKrPmckUJ0HhGeM8jGs
+ 8ssfzNgZW61gw0xXD19iiJ93G+5e7r0zidLWUFtERLYxg65A/3PwlYMi/FxbDKpeJD0m
+ aECcd9et7pp0oFszpET4gNoyY6lYzHx0bvtyn9JrI79SHNEKJDjWOCxZYKOcAL6OaudU
+ YD69lp2YN5ybagynaILb0GfsMHGrHrnIkL4qLdLi1qn1i0Q+blo8KPapuXpr6zgLaBNl
+ IXy7EoFMFnD/Qk9wotlev8LSJyEe2f6FDItg2NFRYOt0pXIkrdkJLklBmdDxSz9hcUtn
+ VUqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793038416; x=1793643216;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=9AjMwR7Z8B2oTWOzAAhJ00jw1hl54hnoREOaiO4tzI0=;
- b=vS0lY037l0rW0bOH0QH3duaXcmoxwGAVliSHtjXOqJCorcgDxSynT+09Fw4Z0vavly
- f752z+UUhsi+TuCWNZDUQFadCNsYtSlyLndzUOoLFM7MGSCwmWGcKHOZFIn2x89SsT2J
- gSacwTj5AKlWI8NzMiemOm26PVXJP+gA/bqqK2/Z5hERT9BoOWlW+uhVeO87CyJb4rIs
- V993x9vPZ+TWzPP5awC6LqCfbdDlrWqXGds4G7ETcPKDJjUYfeDR3I7d2Sae/aYW9D4u
- Rhw2n5IGO254FO9afTGu+gXBinb5KLJXOg44N0beP9qUxEGh8K3m+z+XHSsbmg/RKwc9
- UNsg==
+ d=1e100.net; s=20260707; t=1793038701; x=1793643501;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=rUFVEl7fV+HUh8nhoQnb/g9LkM23VhHFCgUj8hV83sM=;
+ b=IJRRfqMrhdvCTqsVeemsNDLKE1rO7g7m6hyKzwvL/UAkHDDIE6fyDz5gFq9d/ZphCd
+ 5z5F6iUiiiA2XnHBJ1N87vdYN3xWEPgEaL7pmWO8UaOnsGUN9/uqFUEcXqPUWTiKG4IX
+ OhjrVNcw42GKX08N5H0FA4CmAi0DFFb2CHS80zAiFOwCK7Usyh/woQRprgNVQgDdD83T
+ +tkEwmjokV4LDQr03vrZGOsusoTTeJyhsfnsSLyQRqMkgnp5V/33uxgjc0c/gLCV0//G
+ C5+B6rgKuqHByQvDWmtxEte8nmaM7ZIRAgNFMIu+AV0o93x1Ag08/Ihz8/fXF434uzug
+ xewA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwPCI9OybId9q2vPMP1adabh0aaoTLqdopsDTWwEc0GYv5AINX0155cFCUqpT4dHjAEgZfXwbAWxPo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIjNif6PJmkpAR5tbknpdfTNjOYExyPNNehlLqsxJEKVKnneB15
- app8tydqs8tXtJmWm3lpNXhYW+3EIScAZ3Hr4yKhqcpGuQz7/xp4IO32bIX0oz9dHY37t41GKzx
- UYXyrOblwJsw/Ll0OtCV3pLt5lQHi0vojuk5aNuu31g==
-X-Gm-Gg: AYBFou2d/lmwNAID7Uw5eor7WHQdb39PH4sTQILkb9kiUfFlSY6Dmlnmd5WklyrpeHB
- Rbcvx6X4bBtRz1NkJJyBFgzFm1SWUvOXpnCTcxBeXUajpz1Dqw+AY3Son4j+UKp2Sh7jtcsulZQ
- ywZpoUwpkptT6Pq+csFvxxnLO16PfGEU3ctKlvuDMLB/wXrFOCBtt/nzKABgpVUnG7GpHj29nU+
- JuC+foI7eRJ7FXn0bEHh8zrL+SkuQjcAgafN9tY4zAc+I550YIhQnFcfZ5SYUayVLDBW0x9Z58L
- pXhe0OzOfv7IXZ2F3glRdILN+k6q7jnHhj2p2BFUniZ1pVmJcgvKmdZgnV8gX8Ah54K1yyKKttV
- zr5ZIaCiVJeWygVSTug5/cxwzA7aHdA2r8lBcvGOvRyvd360rrICIPKMItUezpApJE685IxiB7c
- M0qUsvpV5Ob/ZU8qeb2T//pwKBz1KdYfevI7hJ6Q41yqyFrzz3IJ94pA==
-X-Received: by 2002:a05:6820:80f:b0:70d:1692:14fa with SMTP id
- 006d021491bc7-70d169217b8mr2519101eaf.13.1793038416125; Mon, 26 Oct 2026
- 11:13:36 -0700 (PDT)
+ AKwUvBwE4ns2IaSjEkGua1ZKiUTlqKsCHfV3WJ7V/QuhExZNW6yP7IaoCAYRZ+Rac9cDHLlPnHHWls32/B0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIQKPIyObzFbNPiWPJKCSKbDgZsET62Xn02oTMR0GNogYuSKioW
+ Vm47zftmRepKwqWvrnlsks0PCiwhBoGyWGtLRgCv768pIDDda+B/HMQ7NV2eydj67Hap0Ju8TO4
+ GlOwDm/8+27BgGwacfugaa3Q0H8i+Mhs=
+X-Gm-Gg: AYBFou3rkk0k/j5BSCw7vWHW8dWCcMyoYM+MfdxUzUe5EHWn3N7jT+NCfmHOoAZDbnY
+ hYNAnBZ7OqJYGpZIiHbdiux2HDsOEum6uxvrJaPtoTtAz9Q8ExEhW1FkqkoyoeQtrCsR+PgTUmq
+ EwuR26XdDhqGMuBADvm8VY6HOChYUmTmiLNxb9W8Fwx2NlNRf2XPDt7vESDRnXM3qfb3h6Tmlwl
+ LVXKAgi0FpYcn/ZbM76fKsVX/XqAqPEbq5TLoUSuM8fKrkknab1Zh7YK5wr2qVqmHdPeQy3UcKH
+ /tHQnYB7nM5HtGSNULD0dUVTLxGpapx5I5f9j++Jr0JZFHIlWUJ9yAzLmAX40CGIC5wEE+frIzp
+ VKplVYLyvZjnJzG9oCfSgTNgRAuSULTDTRuCEfxGhFF36QxQ9Fu+pdov0nrSPr8whOPMjnQprIV
+ j2kLVu1Ug1DjTi5jKb1vszhZU=
+X-Received: by 2002:a05:7022:5f07:b0:146:ffa9:2117 with SMTP id
+ a92af1059eb24-1993639e5f7mr16191284c88.1.1793038700920; Mon, 26 Oct 2026
+ 11:18:20 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261019174930.7237-1-henryzhang62@gmail.com>
- <20261019174930.7237-2-henryzhang62@gmail.com>
-In-Reply-To: <20261019174930.7237-2-henryzhang62@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 26 Oct 2026 18:13:19 +0000
-X-Gm-Features: AclHuK_KlFEnUlqXLwNDSuqARQFNNPqFsCBg53fZhcmuBv7einI3hP8qmGSxzCM
-Message-ID: <CAPY8ntAhuJ2cvoTjDoZoMe9c+43sD4muATtRSq-cFnQRk14-=g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] drm/vc4: dsi: Don't return error reports as read
- data
-To: Henry Zhang <henryzhang62@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
+ <20261025040046.1602-13-atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <20261025040046.1602-13-atharvatiwarilinuxdev@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 26 Oct 2026 14:18:09 -0400
+X-Gm-Features: AclHuK_gGXqjT0cI7KV7tvEEJQhRHXFUqhLnyaELH9XqFgMeuwm1bkZPQKcDe-s
+Message-ID: <CADnq5_NLhN4TKH-afTtJdF2d-e0=1kysf=pWiUpXu+bLhJFEeQ@mail.gmail.com>
+Subject: Re: [PATCH 12/13] drm/amdgpu: Skip AC/DC notification while the GPU
+ is runtime suspended
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: Andre Eikmeyer <dev@deq.rocks>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, Kenneth Feng <kenneth.feng@amd.com>, 
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>, 
+ "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
+ <linux-kernel@vger.kernel.org>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, 
+ "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,92 +120,86 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Henry
-
-On Mon, 19 Oct 2026 at 18:54, Henry Zhang <henryzhang62@gmail.com> wrote:
+On Sun, Oct 25, 2026 at 12:11=E2=80=AFAM Atharva Tiwari
+<atharvatiwarilinuxdev@gmail.com> wrote:
 >
-> When a DSI peripheral detects an error, for example contention during
-> the bus turnaround, it may answer a read request with an Acknowledge
-> and Error Report short packet instead of the read response.
+> From: Andre Eikmeyer <dev@deq.rocks>
 >
-> vc4_dsi_host_transfer() does not check the type of the received packet
-> (there is a FINISHME for it). It copies the two bytes of the error
-> report into the caller's buffer and returns success, so the caller
-> gets the error bits as if they were register contents. Packets
-> received with a checksum error, an uncorrectable ECC error or
-> incomplete are passed on the same way.
+> Plugging or unplugging the charger raises an ACPI AC event. The handler
+> sent the new power source to the SMU without a runtime PM reference, so
+> with GMUX keeping the GPU off every SMU message spun on skipped register
+> reads for seconds. A runtime resume racing with that left the SMU
+> firmware unable to start on MacBookPro15,1 and the GPU in runtime PM
+> error state. Record the power source only and let the resume apply it.
 >
-> Return -EIO in these cases so that callers can tell a failed read from
-> data, and retry if they want to.
->
-> Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
-
-Thanks for the patch.
-
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-
+> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 > ---
+>  drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
 >
-> Notes:
->     v2: no changes.
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm=
+/amdgpu_dpm.c
+> index 808be6c42..b64f0b681 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> @@ -30,6 +30,7 @@
+>  #include "amd_pcie.h"
+>  #include "amdgpu_display.h"
+>  #include "hwmgr.h"
+> +#include <linux/pm_runtime.h>
+>  #include <linux/power_supply.h>
+>  #include "amdgpu_smu.h"
 >
->  drivers/gpu/drm/vc4/vc4_dsi.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
+> @@ -498,20 +499,26 @@ int amdgpu_dpm_smu_i2c_bus_access(struct amdgpu_dev=
+ice *adev,
 >
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index 5ed3c35..5452b72 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -39,6 +39,8 @@
->  #include <drm/drm_print.h>
->  #include <drm/drm_probe_helper.h>
->
-> +#include <video/mipi_display.h>
+>  void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
+>  {
+> +       int active =3D 0;
 > +
->  #include "vc4_drv.h"
->  #include "vc4_regs.h"
->
-> @@ -1299,6 +1301,24 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
->                 u32 rxpkt1h = DSI_PORT_READ(RXPKT1H);
->                 u8 *msg_rx = msg->rx_buf;
->
-> +               /*
-> +                * A peripheral that detected an error, e.g. contention during
-> +                * the bus turnaround, may answer with an Acknowledge and Error
-> +                * Report instead of the read response. Don't hand that, or a
-> +                * packet received with errors, to the caller as read data.
-> +                * Bits 7:6 of the Data ID are the virtual channel.
-> +                */
-> +               if ((rxpkt1h & (DSI_RXPKT1H_CRC_ERR | DSI_RXPKT1H_DET_ERR |
-> +                               DSI_RXPKT1H_INCOMP_PKT)) ||
-> +                   (!(rxpkt1h & DSI_RXPKT1H_PKT_TYPE_LONG) &&
-> +                    (VC4_GET_FIELD(rxpkt1h, DSI_RXPKT1H_DT_LP_CMD) & 0x3f) ==
-> +                    MIPI_DSI_RX_ACKNOWLEDGE_AND_ERROR_REPORT)) {
-> +                       drm_dbg_driver(drm, "DSI read rejected, RXPKT1H 0x%08x\n",
-> +                                      rxpkt1h);
-> +                       ret = -EIO;
-> +                       goto reset_fifo_and_return;
-> +               }
+>         if (adev->pm.dpm_enabled) {
+>                 mutex_lock(&adev->pm.mutex);
+> +               active =3D adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_GMUX ?
+> +                               pm_runtime_get_if_active(adev->dev) : 1;
+
+There's no reason this needs to be GMUX only.  You can drop the
+AMDGPU_RUNPM_GMUX check here.
+
+Alex
+
 > +
->                 if (rxpkt1h & DSI_RXPKT1H_PKT_TYPE_LONG) {
->                         u32 rxlen = VC4_GET_FIELD(rxpkt1h,
->                                                   DSI_RXPKT1H_BC_PARAM);
-> @@ -1313,8 +1333,6 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
->                         for (i = 0; i < msg->rx_len; i++)
->                                 msg_rx[i] = DSI_READ(DSI1_RXPKT_FIFO);
->                 } else {
-> -                       /* FINISHME: Handle AWER */
+>                 if (power_supply_is_system_supplied() > 0)
+>                         adev->pm.ac_power =3D true;
+>                 else
+>                         adev->pm.ac_power =3D false;
+>
+> -               if (adev->powerplay.pp_funcs &&
+> -                   adev->powerplay.pp_funcs->notify_ac_dc)
+> -                       amdgpu_dpm_notify_ac_dc(adev);
 > -
->                         msg_rx[0] = VC4_GET_FIELD(rxpkt1h,
->                                                   DSI_RXPKT1H_SHORT_0);
->                         if (msg->rx_len > 1) {
+> -               if (is_support_sw_smu(adev))
+> -                       smu_set_ac_dc(adev->powerplay.pp_handle, true);
+> +               if (active) {
+> +                       if (adev->powerplay.pp_funcs &&
+> +                           adev->powerplay.pp_funcs->notify_ac_dc)
+> +                               amdgpu_dpm_notify_ac_dc(adev);
+>
+> +                       if (is_support_sw_smu(adev))
+> +                               smu_set_ac_dc(adev->powerplay.pp_handle, =
+true);
+> +               }
+>                 mutex_unlock(&adev->pm.mutex);
+>         }
+>  }
 > --
-> 2.47.3
+> 2.55.0
 >
