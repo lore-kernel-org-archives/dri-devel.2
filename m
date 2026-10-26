@@ -2,98 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924536072BD7
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 11:11:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD7F6072BEF
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 11:11:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SoOl5FT4;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cgkuEpDi
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IildK/Ik;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AipGJRwV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0E1510EE42;
-	Mon, 26 Oct 2026 11:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13BD410EE45;
+	Mon, 26 Oct 2026 11:11:25 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 870EA10EE34
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:11:06 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4127610EE2E
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:10:33 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69QAspYK2168629
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:11:06 GMT
+ 69QAtMUS2541998
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:10:32 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- z+AIXvczawfI8EmCH7mB903AvReMzPtUT6kwOSKhzOs=; b=SoOl5FT4oUwWlrup
- w602dzJ/8d0kluDERn7rgovsGk3r3RrwLNwQY1CGhhoo1cP0kQrBjgHAValXUwzg
- /nXzV3W953+C71g7MRN0LcfE4CEo9jT1GuCfnk06b89a/woNyI++7gScIFEAXtXe
- iBU40U15wQItKd263vXug6XGe1F/e01tDeKIxRGvjOqR35y9cpdgYQXUUb8fqkuu
- xg0spNtF1KCFop80bJfrQH13wlV56QhqN8bw39wHLMVAyJMVJ5Jb1zvjAjpmDZL3
- A+U9NqRS2GAIdMQak8y8608vMdKzlSj/UtHQP2JtpbLO9fpjLmkf+VaC3vtMr2xG
- JLbPEA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u60fvm-1
+ O/NYPa5aoqcu91RkIOpDv6ECYq/Y+3u1TbX3D34wWQM=; b=IildK/IkT1oiGAcO
+ 0rkDGnQSndd5h8/Flx4igfFmv6pb1kJjABNierxgdw062CeIZZsS4itr/PuYBGhW
+ 0sTZXPCJBcGwBWbPaQ8Q8VSP6ufEvBUc0Ggn0evLqywRZ8yJY8HHHQ+wbP5YMXY/
+ g6XOWO8oT4DQ7LoSVKtyPE5vA0brd/P9bZ3/gUO+tzpuOyqGSYarKOZeCbAhRyiC
+ ERFl9weGsSjnEdxrZBC2vB2uw/splLIYdaDvCKFWRE72cUCUmBpwlWpNwJARIytv
+ AKB5MZCK+LmWfuRcti8lnqbwGEKZUeEneqU5yxoY8xD+4+3dC0rhIcZGnjNDEnqv
+ LeEc/w==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhsjda5fy-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:11:05 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93e49a1d3b1so364861285a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 04:11:05 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:10:32 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93f5844cb60so580869385a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 04:10:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793013065; x=1793617865;
+ d=oss.qualcomm.com; s=google; t=1793013032; x=1793617832;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=z+AIXvczawfI8EmCH7mB903AvReMzPtUT6kwOSKhzOs=;
- b=cgkuEpDiD9zQE43dds0WiG6iUaEBp4XQOuDvR396I9SrY3X8ZqPHFQyNUg023VS9nP
- +lawhPuCP5MsahZ5sFgckqzqRloQMTX74wjI6X6GXQgpbyj8GBFuNjNaOGRe/XcWgFUa
- i7XtC33fx6Bm13KId6TBeV5x9NI1LU+a/KkOusNICP/gdVIFPMYMy7zD0qQx0AMO+ZF2
- 8BzpS/dyaRyJmDYHPtLPWNvN09OqglYrlfLwfcExzC2vvCWoNsgU66eoeKrCa8rLYUUm
- m90Aw5kF7KH8nda+mnYdFSWITsShFzcoRMXljfwAF1bmD6F1W/Mc0VmnAJCT/8ZX6yRE
- f62Q==
+ bh=O/NYPa5aoqcu91RkIOpDv6ECYq/Y+3u1TbX3D34wWQM=;
+ b=AipGJRwVwjh+eOkrj9WdV79Jug9GsXiAr31/HW9oiduXAIQ+NhLn9dkhXUGg1Ig7lm
+ Hxbjl6eVqJGEQdmapxuT8ysHUpyTVg2E/BmBO5y52BAYA9sPhcK3wF9QzoyAUGW6MD5g
+ No5CcMuY8DkRu92SB1vbQGPvAvrNzRgF5wdjNN9t1vBF7g6H95xDc7/RDuHB9L/rASC7
+ rClfiTWIAqSlcKim8sfx5uQWmq0vWKVkqmZebgEoVToP5DsTCs6xThe+oMN0bGVsurwQ
+ d70Pf5bpOiZ/C8F7/HcYg/0Con/ScRj8ajgRkcRIJZbFNhenXEj2SAJcXLFy+aiUOh0a
+ Lskw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793013065; x=1793617865;
+ d=1e100.net; s=20260707; t=1793013032; x=1793617832;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=z+AIXvczawfI8EmCH7mB903AvReMzPtUT6kwOSKhzOs=;
- b=f1d/TGGcA513kzduVIYmSbT0gtOA80O7D1440iDMIqdZALVYbaaadEYMlyVssWHVig
- r+RpLodXgVZtTqCaUxLWKD6FOEpFmb0mxdFbglueL8xtePfZ726MKtlbL+uu6UQDd2+h
- SCT6JQL4QHo9ZI2ar5wDV/nbsJP/YZa1JiQR512au5YxRvFYLOUqBiPBYgRgPOCAq5u5
- uIcVYu4XJUAuQ3DF+5fjRlYqt+lZ6dBX/pG2uJSPEOIy+auphQ8MvY0qMSEXs9z/ouZK
- 8V4KMNmiHeWEGujTALTPtRBgusFT9QlRK0oOb81zCCXC15/+1E9YhPfikuczlyJzYKi1
- eqAA==
-X-Gm-Message-State: AFq9FYK5JCv34IJPFYGbL5kgrXYEJB2iaip9DcMhEe62QTtuLB8szuoO
- eCOVGYTtS+dp2mEKhkzpkFhpKTZRW0AzLddnGcsnHmwFhmm8RIoB/TWbWEzOlTGBRoxfwdugT3k
- e77RoLJGh5ZBeCuCYARchtrMhA9FueAm8saxZJ/NGZLSOieRD6LFcknSgofC8PPkgl0uJG66qtk
- 4tNIE=
-X-Gm-Gg: AYBFou3kjB/2y/FjSuQnJ+uqRXA2e78AvbxHYBNM9a/TF3gFeooEyU/5yC3uStOxRrK
- 9qcapBXJDsrrcilrTndXrUkBJQgEyQwPPa7SXFg/V8vgTPf1GRdlbtPu5wYkzuuoudpfOd6kCq3
- t2nfgIbSoxLNoW4hnT2F2eZkkCO/Vbra9v49pv2QKEBiD7dIj5zb1PnVLX8y+xS8q1lnPQxsEGS
- 7bmUocs2+lp/Tu4Hfmlub2BkDIkNr6RO23SMP7mKgQJiaKqmAq8q87WVvFIlgZgpSp0fumKwitd
- C9IdQFvLxCGCVfNqvIR1WfkTiL6PRRVFQJY61bd0OoBbPL2K5Zem2mSsA5JnZd9u/z+FpJTyr2o
- w6jBpLK8s/RfryxtcMcWBOtqbfrZVoSDTrKrVvYlkPgMEFw1SArQR4LkG7WiEox5LGtXSQiK+cD
- 8TjcJpUOTKUkwu
-X-Received: by 2002:a05:620a:4016:b0:93c:8e3f:3036 with SMTP id
- af79cd13be357-940ef795b3fmr912286085a.4.1793013064581; 
- Mon, 26 Oct 2026 04:11:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:4016:b0:93c:8e3f:3036 with SMTP id
- af79cd13be357-940ef795b3fmr912276285a.4.1793013064036; 
- Mon, 26 Oct 2026 04:11:04 -0700 (PDT)
+ bh=O/NYPa5aoqcu91RkIOpDv6ECYq/Y+3u1TbX3D34wWQM=;
+ b=KIF8YU3+L2nuRbwdyPzMyWlN0IMOsqlSz4kU6glcC4PTtBuw6FUSGgNyVkfgDK81N5
+ 5SaKtbqCp79WQ8lgZ07Y8uLaH0ttgQQKBcgF6PAvdWgmXW9FVcmr+hNLGwvOAQpuwzDz
+ Byg6nZ37pzKhhV0aMfNucaUKQY8rAB3ekZECGp3HCnD/z+nUw5faOJAaoN+3reH5x89+
+ ThgWpYI23g7ki5+8V0kzGbVghFI4gH2PXSnY9Rgwl55LLw95a7VKrk3Nxnb2Rh+qhuYo
+ OUjQY+Wox8xYo3OS3m84tQ+nprkbEGHuQtA+dfQxA7X5I+SQ1YDOef9lsFZ08fhF3xGp
+ iEpg==
+X-Gm-Message-State: AFq9FYJI/JIhySiGQ2njHOv+cUIjdM0fjN9YxL/EoXz3BHAi+/RqS1QH
+ rZAK9c+F9PySN63mKgJhDDR+0FimyC+kRJWHyOHLAtj0+f8EGzr3K3AD32Nn02AU068zqCqstV0
+ +hhsfyPbZW+hgs+dDh5kat0+UG9mSMZSSjvusrZNLAE6H+RWiLMtMs+PSwM9pKY7EsBxxuLQ=
+X-Gm-Gg: AYBFou3NE6lLOd5oGmwmcuiFYWNuWCRqhkm3kpoyF43IwZQ9pNjo8zntMLQZ1SzYMjw
+ +Y6w9IvrT8wxuqcsqYvNHz6u32pR8t4Bcvg1NDLbkw4spaVvVKxp7Taq8QxccffbxKhgo8qPyYO
+ 0nr5XqMdOHt0jG2CV+nl6OKy3Ze5+df571dqBRv8k4twfQSakAEZQ7z80XqqIWfKWLUZI75rkpl
+ J+2RVZe9AtakPaZVItX5vy4BBcE8qyIGTBy+aaWp+QX5WvwL5hkWhTVmlvmD8OkMIR7psVPi+C3
+ nO+2ZDozE6HPPbu00HsTBjJW37qSeeOXaBPAFiEUkHc1U+Hd4bF8JGBTHGQ+zDHGb0g4F4Uu+Av
+ Q+2TjvAWDbAvfxKM+TJGwhzri0rtWSlWNB321TFgJQuzHcDKKdc/0XOfcQ20iEtErYdCIw4T+R9
+ iYiTwhPR6WNU8L
+X-Received: by 2002:a05:620a:2556:b0:93f:2b65:593b with SMTP id
+ af79cd13be357-940ef9dbe6emr819422285a.38.1793013031600; 
+ Mon, 26 Oct 2026 04:10:31 -0700 (PDT)
+X-Received: by 2002:a05:620a:2556:b0:93f:2b65:593b with SMTP id
+ af79cd13be357-940ef9dbe6emr819414885a.38.1793013030960; 
+ Mon, 26 Oct 2026 04:10:30 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfb7a950a3sm1455459e87.68.2026.10.26.04.11.01
+ 2adb3069b0e04-5bfb7a950a3sm1455459e87.68.2026.10.26.04.10.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2026 04:11:02 -0700 (PDT)
+ Mon, 26 Oct 2026 04:10:29 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 13:10:07 +0200
-Subject: [PATCH 18/35] drm/logicvc: set the panel orientation on the connector
+Date: Mon, 26 Oct 2026 13:09:55 +0200
+Subject: [PATCH 06/35] drm: mxsfb: use devm_drm_panel_bridge_add()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-drm-panel-funcs-v1-18-5e3070a3478f@oss.qualcomm.com>
+Message-Id: <20261026-drm-panel-funcs-v1-6-5e3070a3478f@oss.qualcomm.com>
 References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
 In-Reply-To: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
 To: Douglas Anderson <dianders@chromium.org>,
@@ -172,42 +171,42 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1168;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=974;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=Qdajy+ZxizCGYRHwcySOH98TyzKssLnXiyy5l4MYQ6w=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq3zUOSPb5SkROiJ1qgWHeJ/0zI3xpF33LRg7Kl
- 3E+JMtrfDKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCat81DgAKCRCLPIo+Aiko
- 1fCrB/sG4pFH+B9sQNL86lviJf0md4fWW8kPrNEAXeSTrNauPGWoN+5qU86gqZnym81fcvJGHWt
- eidB4GCk2J5yvG2doNP8Mgu5fQwLl91HF7cy1j/D0y3dqSMl3DZ4Bx6bni/p1jmv25RYm5RDwWV
- 9pUznhEgK6pJdKm5YVNoOIlduKYbWWVGMEvzwSvXdNTYFH8RiG70sb4ThrUeLCmKUSF38QGdbdg
- SqZrAkA4nt1QYH9Y9EVqohUn/NIGzsKGvBK8yURwP9QQvtHIFXvTtWwnoT+jm71gG/gkc8aAvk3
- 5dwraj1xDfN8EgWs5GT3ujM5ENWatL+090SyEKJp6JNnP1PC
+ bh=a/x7dJOBA8FZd0WveKfgICj2FZ9z8HimB+uvZN8QIWU=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq3zUISjjZ32quLsYppeLFnZUubyw89xz2vLjqK
+ a3kaiRXP8mJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCat81CAAKCRCLPIo+Aiko
+ 1VJ/B/9LPMsd5msSwfbNUnNBey/TrEJCBg+N3SgDXzl24HorxEMN7u3LYz/NyZ1TNOd/pIxFBCM
+ c0okzzGsnMswVRglGXqaUvX9vE5lqiTny2ZL8obWRimVF1xDFheDtJ2CSeNm5Y3PnwdPV02HNSv
+ 29s4K/p1PBi4kRNtnOyr1JA0Qa75YEf5wk4SxSu8CpIJz/d2FYGtEJJw8E2wK6wa3Q1vtbh5kWC
+ aDAwkLp3U1nKh5fpbQD1Do6o6BQ5S2krzDRMlNc1l6x/tX2Osci+bjKcYnSBEG/QnSX+74m6PMn
+ xg1urETPEc65fac+BXQquFP3uOsqz3Wr4HYj670K8yOIqW5b
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: sprJsVzBd48Fjx1CYzKCj5eQlzUd-Sdx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX/hky2nJO9N0K
- o4o2Vl8NqeiHxqvgYTUpFAQdehVoOTKTTiGcQrpZNism5oWuIB+h8lXWQhmXrhes0asA2uQRXiR
- UnCArPwl5dC8vlmookBrdf8le2TAVcMKEYsuZ2ys78lcx0zEH28reB+PIV4BE2X2c2LId3RyrG7
- sLKFBG2cLBnjMVLG8yfN2YWPgiLlR1ocPxoJ7xKfS9QJXQJlwlkKZYcvM2ZSVSca5htJFm0aLW/
- ojlOQqsC1GWTUW74qnwenfvWzKYVQoXlMyxaFbV+4jTYYvRBm/ClqmRxe1eIkIUw/KmtInRhtQz
- HXket0SBf6lb2tZKbXCUzsEeWeCT/txvOYs9piccps+h0z2p+iFEWNMm2pnDU1mw4N2c9+jkMir
- 9Wj+UaPyCGsQRAqUU4i6ek8yvBjheNTIj/qk5XE/SO8TnC0rYA+IaIPLHO8R7jw8BoadcSyZ1/o
- xIUhzMDCLTN+bb92pmg==
-X-Proofpoint-ORIG-GUID: sprJsVzBd48Fjx1CYzKCj5eQlzUd-Sdx
-X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6adf354a cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: _9Fgsh9ZYgSUzxzgEf3vph1mKEPwx61b
+X-Proofpoint-GUID: _9Fgsh9ZYgSUzxzgEf3vph1mKEPwx61b
+X-Authority-Analysis: v=2.4 cv=a4elZkSF c=1 sm=1 tr=0 ts=6adf3528 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=1mv1z9nBhO4L486rGt0A:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX4BAf4yHDrwWU
- j0FBKPmhXlwleaQftgeohvD61AKTib+SmtwRDOoNdUJrBgbTWQqDrfcuLkVB+uFRLMWFb8+qT8N
- s3Cub50iJ5G9XLh6NfXViYIkSV/nk1M=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=JPWqk69mNThXLZiqCgwA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX7hVqUZI7+h1D
+ 4YL179K3rwx8foXHpS6gQsyAUXUmMNZ79VzoZhXWLJ0+RepIipw8Gmn0Gf0IFzxv/HqaFMLgU5L
+ XY/eicLlyd85ygjxOaEYIZHScJ7P6N0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX764eu40JRB+A
+ LmLtk7HeOFkYQry4p22ISzxU4j4UDYahJ74af5slQ620Bu73QWC/VBGhENm+WARIXF+2/IqUSXp
+ CxVTemGph25mIn4N4QhxAOBq4qOmDFifcq+tVKEB+pgAwUoO0CuykWZGu4+yRxbdgtnL4JV+Y/i
+ 5fsATZx4AVGe+Cg6clNVvEewJBIXO5fGAXBuMVLQ80ow6rgw2czlgUUqmXozxC/tRdmgrPrgHLD
+ u7bOP6kdLGDmWEtQ2JA7xAUREWYF3JL7ZFiJjjN1gr1F9MIOYmGMsuHiIkWVCS67jLtQDkTZNbM
+ mcXNu3buzP1WlC8TbG/SKt8ewsQ6mL02j0hLpA2agSLdBBkAgMwlPoXBRQQjA25x7v3AcjUfIN5
+ 6BgLx/LMgFJYvwsxU3gp4fluF6xthUnUHq95UVklPoCQEmR7IX+HC04JUshFYICqHq8EWBrs0Vn
+ 3s2vxzqBeyN4RDlclfw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 spamscore=0 clxscore=1015 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260044
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -228,34 +227,30 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The panel is used directly, without the panel bridge, so nothing sets
-its orientation on the connector apart from the workaround in the
-get_modes() of some panel drivers, which runs too late.
+The connector type passed to devm_drm_panel_bridge_add_typed() has been
+ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
+every drm_panel"), the bridge always has the type of the panel.
 
 Assisted-by: LLM
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/logicvc/logicvc_interface.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_interface.c b/drivers/gpu/drm/logicvc/logicvc_interface.c
-index 81f760dc07f8..bcbb837c9675 100644
---- a/drivers/gpu/drm/logicvc/logicvc_interface.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_interface.c
-@@ -194,6 +194,13 @@ int logicvc_interface_init(struct logicvc_drm *logicvc)
- 		drm_connector_helper_add(&interface->drm_connector,
- 					 &logicvc_connector_helper_funcs);
+diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+index 641691fc92c8..75c7e869393b 100644
+--- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
++++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
+@@ -129,8 +129,7 @@ static int mxsfb_attach_bridge(struct mxsfb_drm_private *mxsfb)
+ 		return ret;
  
-+		ret = drm_connector_set_orientation_from_panel(&interface->drm_connector,
-+							       interface->drm_panel);
-+		if (ret) {
-+			drm_err(drm_dev, "Failed to set panel orientation\n");
-+			goto error_encoder;
-+		}
-+
- 		ret = drm_connector_attach_encoder(&interface->drm_connector,
- 						   &interface->drm_encoder);
- 		if (ret) {
+ 	if (panel) {
+-		bridge = devm_drm_panel_bridge_add_typed(drm->dev, panel,
+-							 DRM_MODE_CONNECTOR_DPI);
++		bridge = devm_drm_panel_bridge_add(drm->dev, panel);
+ 		drm_panel_put(panel);
+ 		if (IS_ERR(bridge))
+ 			return PTR_ERR(bridge);
 
 -- 
 2.47.3
