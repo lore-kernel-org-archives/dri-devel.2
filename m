@@ -2,96 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9BA606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 06:24:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 062D0606A328
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 06:25:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Kl3hjtqH;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aqvWtxsl
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nKtifuI5;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fc8zIpj2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 356AA10E10D;
-	Mon, 26 Oct 2026 06:24:43 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA7310EBEC
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:24:32 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5951810EBEF;
+	Mon, 26 Oct 2026 06:24:55 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1394C10EBEA
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:24:44 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69Q4arHF3303617
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:24:31 GMT
+ 69Q4aSKi2222559
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:24:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- aEFp7w2tgG6bRDJtDTShC/IAhrO3WLDIL2BdyzZpv7U=; b=Kl3hjtqHrbNM6nOj
- xuJncX+4ETr1rcO1gtaxpuptG70g6UsCA5K/Ynn7toA8YQqwLAy/rYiM47629XK5
- FrxT9GKcl4jIDO3QYrJjHf0rmW7/TBkxY8LNm27cc/2M+kLf9xUaMPfpZCKaksQ8
- kTGZOmq+fzP3GAf+oxwvMKa3fk4Iz2b83SLTGaxF/IgvbsijG8Pkz3eMB6OdnTfF
- BWFoH18dsmGDfLW6vSgthw1Cqs0lIw2PJ5Dgnr4AokMjLycCaSVw/rBAxdWIF8dt
- pp++/eEl7NDUU9zanBQvzCzqu4fe6xQ59iD9j83N7ZiGe6b9kjdz2eCctfkNST90
- iKJsPw==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkmsd56n-1
+ ghfaBWLkZdsfExNTUGqygog0Ct4Ic42/RH9IFidFsO0=; b=nKtifuI5MlWCdo5J
+ ZEmurlx6vTWDEVdpf+Rtc/q4ilPM4NgUVEg29Bh1pziLSENRoWHii7vHPcqIzFeP
+ jMP/ofHH9K1EtK9lAwA4CBEdNqgeVfTXAscgyi+zreiBaKrAJzogyivFH3e69YRQ
+ sUyvzAwL3l7sfs6Fb4/1D0E4h+C7zQrKcaXYopYBJNt/FeH85F+RWeiLTcklJKnE
+ EEVsE5l5SK2pDA36fuXburBLYJMKsxtfZdafENBA3BBHu6bnLSNCIhPpMHvDt3pl
+ 5HNO1PWY6F8jI5CcwIIDt/7EKLev6Hmb7gYCCKgF2devRNp8agtkEbXgRzeEpAUv
+ Envumg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhvdd8tyr-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:24:31 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-cd6969473a4so1573767a12.0
- for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 23:24:31 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:24:42 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2e9995cea88so27958805ad.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 25 Oct 2026 23:24:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1792995871; x=1793600671;
+ d=oss.qualcomm.com; s=google; t=1792995882; x=1793600682;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=aEFp7w2tgG6bRDJtDTShC/IAhrO3WLDIL2BdyzZpv7U=;
- b=aqvWtxslrqVq6vXtNOuIE2nan9zNnQa5Bdn6PwBz0BPQ3L+Rsn8OZ+LarS25E2vhBo
- kri0fKagqcEsLg+A/5pU54ZoQ9qsrDgFLJ1BEFlCyZE/CKerG9u31jhP001dP6Wsp9+E
- bWTNozZftu/4waQzFUsNzZdSHp6eb5vs9pyJ/YWJuoMK9Jxzxn7qb8L3XucaXkJ2kT4N
- 8wEYZ61gF2MIwVacLIswxDauSKD7miKFTvLo2ibmGDJkBIqaAqR5BvzbYMvuCQVgUYk/
- rdmAvFIqrB6QSXtSFUJ2b0gW01UVfL1pqUvdDSZN2o5u1NeIEGtPdTDUinw2xpCgOdm2
- oonQ==
+ bh=ghfaBWLkZdsfExNTUGqygog0Ct4Ic42/RH9IFidFsO0=;
+ b=fc8zIpj2GDNdaKVciBh/JL2bMmAT49ReJVS3qg0+W/9C0+1sUILDpla+2tZsWHt2+9
+ GXLAtc0q6XfZoDKK6k1UvtOI0o96VVG5ykKsMxn068kqN3G5SGTuRSC48q0KxU9Umto9
+ qwdeXZUc46LmQcwi2jfLxlnnBrTiMF79w1fTfPE8TWZxpTvs1a6m5DOZbXJF86RgCVwb
+ LnTCQeBMtbyvDAaPicH1G4flm9XpcWR9d6qNTfqtGc0/+dDbWkuRorsxjSb7MVoURmYA
+ ZnkpMtYD+YqM6eCXvZ6prFcJE5Ws1m6cFf9HAP4FY313ZwZ6FXxU7mW8Nihe8utAMrXB
+ W4AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1792995871; x=1793600671;
+ d=1e100.net; s=20260707; t=1792995882; x=1793600682;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=aEFp7w2tgG6bRDJtDTShC/IAhrO3WLDIL2BdyzZpv7U=;
- b=qiBSYkofOwUBBtL7n612enuSYUFOctADeLJ0dZE8P0dYcXuar2xbRaEpGIWQxqnJAE
- YTmLVlV+MN0iOTfYTI3M2xOEgsD8YMHwXJVCywajx7ALF6tKG0i92pzPRbNL6MSWRdIK
- xNo7qP+nvzrqEpapTbeklFCA0+FYGQ5dmic1Jj0wzMNSfFKwuUdPDiW8DgYzlM5jRzpG
- idcDphyV+q10ccEiIy760nZXzogsyCnKxlCabf7N/r7isGnMta5uaqXu0a8oREU8A5ib
- ToJEjuL5z/tBAfrBBeW+VEAi4Rtqcz4Ef7Dja3xCoTpEChTI/MImlvozYPZAm5fiG5o+
- vDhg==
+ bh=ghfaBWLkZdsfExNTUGqygog0Ct4Ic42/RH9IFidFsO0=;
+ b=u8mjGZUjet0ca7dShqUXqRHwl32MIQUs2FqQLN4UWCR2NX5QxKykDR3a086fhEtoA1
+ XUg5PCIZPRnjDg1RMHFziOiylwukuQO3TazFq6vgON+dcUy6+YpNQdFU8kRK+IaWH+dN
+ /8raa39Jh1nnj2Oc6t5AfkxDnOhSKcqgUbZBrRjfSbzQGwH9Lb/Zz7iSepU+47cXhdEX
+ l3qN9ulqqLi1wUpFu0roVhEJfvc0yq7RLszM6HqfmTwQWivOkUXmR/UlSI/05WWyIgQn
+ 5gsNFGxDh6n9ID9Ua9KS8lQtbfMnCRKcAZIsTztJw+zhZCrKupUrB/uEXiIUGBM+KXQL
+ e9ew==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwPryFigWdr3LMApNnc3sUxYBzgH0coNW28BSGJV5cKaysHFVHiavrFuQ1Nzn4ZkSspMyVCjbDADUc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ5UkLl2O9CB+4K9Q9yEjf5Kg1EJSnbVvUjtGlJIfWVJx3ovKiY
- P3dgRukH3EvKn62h+Z8p33gnsiMd3QRutSk+DkzUyT9xxzpM5VZuEW1iN912wbVLi70FQAFtOZ8
- NWmelV41mepuSY4bXRB5dxi59IS64ZYhfWGEQDFmPNABRTi8GtPRTHTnd30RULbvY/UY1mP4=
-X-Gm-Gg: AYBFou2K+9kHOrj1XnTA/DfwpYN22T54XE7YgyzI19ng2VNSo3H85HLdHaftK8kToO3
- MM0t9CNirFbiz2F9kFIfSmdmWd7OMeM9BNxKHGTECTQwYh7uQUZSRuvDqh22O/0mti/YZ7p8keh
- tN1iNS41SkSkOUzFSCRC7QY7HeLyHALRWSZiMMyOBbU3x1CmXmvPnKpLZjmO3gWXKKFJ7u+TNEu
- zIBx2HFKTxAkD3Cved6ZyGLFdlDySMMYDRO70MC6CnSeOQsYAG7PjdAQF9nfMv7l5XF+vCdMsmb
- eyb8sag3UGpiM/QxQDoSY3KRsXN4acSxp7V2x9ZGtyirc8NlCPS6E7kSljGrrFezOLuS4+jpynU
- iqERjz6ySOfz3LA7m74AZVwwtAAwVY7BPIw==
-X-Received: by 2002:a17:903:3c30:b0:2e9:821a:5527 with SMTP id
- d9443c01a7336-2ea9c6c73a1mr46780295ad.12.1792995870981; 
- Sun, 25 Oct 2026 23:24:30 -0700 (PDT)
-X-Received: by 2002:a17:903:3c30:b0:2e9:821a:5527 with SMTP id
- d9443c01a7336-2ea9c6c73a1mr46780015ad.12.1792995870524; 
- Sun, 25 Oct 2026 23:24:30 -0700 (PDT)
+ AKwUvByhmKqP07zi1e2R1wQ9syVrovVs/6KcvXoTYcMYRYG7QFSiSNJbzSp3LN15bU35M3LuxdY2Eq7RvwY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKieC5vJH2dZm6w4XgAjtRRhzX3lKIxjx3ijOD7Uu9dcyHBYTwz
+ MWi+McuRL7hNY5V/l2fxzZTMk0Xj1N58dLI6CJnVtbXur9IfzpO0ZV+cMm8hnvgihhnFMyKiUiK
+ saCUrlSbBI6WRoChIFAp6EnZMPsSaxtfuR6v86TetEs5YiA7AYXN2bqTN+XyrNYt51BLUi/o=
+X-Gm-Gg: AYBFou32jtt0/VYqd28Su1tOMHMNP65gGtOK3+gEp9xY9ri7hQB7yb4NjECbxjEv/MW
+ ukrmwG9HKPoLaNwfWqK8yLT0rNAOtxGj0jx4ogoIPjuCDPuml5ij3BXbNizmXThCfkHtJKT0Afe
+ 5a20lytubs7meZ/icMbDLJ4Zvvp+Nrk2U3U8tEvwr9XRJbnu9hHU4fFyinlfTLCEbhnJ4DhqAIv
+ 2rHLdGyF4ce/+e8Hl/tOxaUXdecd9AQ7VEqT1EcoZoy7T4XNj9eNRMS6jLoJE6bOaLUx+/Gg4Pf
+ kphRcQ1F0iLpQbbnD1di1BW+hcUG50eIkXNqsl1/veiWruXIHM2IQsmbJtryJTGk4qH7ppaV69s
+ gMjbWUjKfwaOgrmIFWWTLjpUfI4nN1vOSXw==
+X-Received: by 2002:a17:902:d486:b0:2e3:1776:278f with SMTP id
+ d9443c01a7336-2ea9c876327mr49835695ad.42.1792995881727; 
+ Sun, 25 Oct 2026 23:24:41 -0700 (PDT)
+X-Received: by 2002:a17:902:d486:b0:2e3:1776:278f with SMTP id
+ d9443c01a7336-2ea9c876327mr49835295ad.42.1792995881136; 
+ Sun, 25 Oct 2026 23:24:41 -0700 (PDT)
 Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ea9b1a1c56sm12633415ad.44.2026.10.25.23.24.20
+ d9443c01a7336-2ea9b1a1c56sm12633415ad.44.2026.10.25.23.24.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Oct 2026 23:24:30 -0700 (PDT)
+ Sun, 25 Oct 2026 23:24:40 -0700 (PDT)
 From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 11:51:26 +0530
-Subject: [PATCH v2 16/23] drm/msm/dcp: Integrate the DSI bridge with KMS
+Date: Mon, 26 Oct 2026 11:51:27 +0530
+Subject: [PATCH v2 17/23] drm/msm/dcp: Register DCP display pipeline
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-jshekhar-dcp-hlos-v2-16-7cf014efdee1@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261026-jshekhar-dcp-hlos-v2-17-7cf014efdee1@oss.qualcomm.com>
 References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
 In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -124,41 +124,40 @@ Cc: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  iommu@lists.linux.dev
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792995687; l=4407;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792995687; l=18889;
  i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=YkElIL2VP9q3UDs86ECzwDFEF/OyzmGpxHXTXDTkMBY=;
- b=dK6ojiOmJgJpI/PfAGPWySwWrv1PqCpsjGAfv4a+OAjHAZ2np/K6tzX6Lr5Vz7Q11ykgxlBBr
- N1hOZCgwbYoDaTZ7PMa47CbVwaPr/4ZRRrA8jHmArpW87PZxJe5Cdu/
+ bh=hr6hkKPz6nEVUHntKzLpsUaKYOwRP+Hnnn0BXIJCB7o=;
+ b=1mo06t1AFDucGADqQuA7kGSNVbpcgWQSOxyJKgH3n9FrVlhkYkbLEbbHdP9IUQLrs5+Lg7cpr
+ SCkGTqMbSDLCRoa3P4m5UQDoYVMh733gI6gYAaYHvCd5rSsFrTVvpRd
 X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
  pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Proofpoint-ORIG-GUID: XnnCO_qiRuB6OOFRCS2GmdfU7YjseTQg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfXzB6986LvlP7N
- I1UdGFqGDU1k1OskmKU6t6cvUl7GRxQVcsSnikvXXeIm/7FWMAzyR77rIPPNxBG3KMrXOOmxYM7
- 4G0I0W4qjUeRflZREVJarpHyQSwpU59mdXtP7K+lT6X7HWguVEprxoOcyNc/FXiMLn6y1V0Mwpj
- f3SOrhw7qOEUPx4AN6A76nfJdos2zGkb34wDVOF1uzzsiOTRv6IDB+itya9frkkUE9imjBAK4Xs
- giSwEUYHNQbQJiuIjveQnEIPSVBL8iAxKQNBC/vKafenK0vaYx2euoSRtcwK7A2uoQkTkc6v+z1
- Szk0FQRRghHo+C2cW98jQi0FPrQERyAOKdor/xiRCJMm+G8C4iQ3tm3CVN/PXiWSnrhj2nv0/Ql
- 0EUiBihuicOaLKxbVPhuB+60QC10orZGKsFz12WJ5KHYUwmUGYrek/++pDyNOeE8mAAAfmlfifn
- VEHQtkFB6pXeK+jKbJg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfX3HLDMmpaNXDE
- SWrrLNZE95A1FAjLXUX/ZJ7I3zMNziilDzzlZNif1W/2YHmDqUGQPjm7Na9/g6i9I64m/bE7HDN
- yid87yMRUjQzngcuH4Bkr6EXN9xI8vU=
-X-Authority-Analysis: v=2.4 cv=UqX2pOwB c=1 sm=1 tr=0 ts=6adef21f cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-ORIG-GUID: pqBAZYL3afydLrN0LqxN9xHGSeOW5Sxq
+X-Proofpoint-GUID: pqBAZYL3afydLrN0LqxN9xHGSeOW5Sxq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfX6B5sejeFLmxA
+ eCmy3vzk/92vVejNpXYTAnS37VutTlu9QNm5d90OIL0exSgQesriNut3ITViybKP9fStfgsO5/u
+ WtA6inNri2dnjwEniqxzz0zuwWNFhnwoz8LvGFL6QlfHNiQdTuUyhD9/FT8sqNNAjfr0oRiFStR
+ XWRI6ghk75wDPstokteC6ZzJBwKgCJhwMUmKN6vKcbC2OYaSQxrnlHcvp3EzyB+MMlPONdMeMhN
+ xgFRu97WTyXHaBuqDO6o4XiLRRuu8iziZ7LualMoEtfmujAS9f29xDLMH+c5T7wBHnWW0vZzNfP
+ PNDLAgpNhxHWbXg0bZ83p+CfpQxH5SYZ+RIRILe+WxSAN1hWYHZ29ccGrDtQosJvn94FQq/FQua
+ +ulL4JeoIoxS+jXdu/Bn25Q27u4Abu3qwnC2BtfiuQ2r0zQnisAHRyO61ROr8oJqaGs2nT5uUDb
+ 1fYyTRLkmWZK23p0XGw==
+X-Authority-Analysis: v=2.4 cv=N8+8hG9B c=1 sm=1 tr=0 ts=6adef22b cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=vhVORTM7vdiWvPRSmu0A:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-GUID: XnnCO_qiRuB6OOFRCS2GmdfU7YjseTQg
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=bYrMkLCSNY_9vvF2WuwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfXxLlZVSypVmVu
+ 2Mxs0cL+9JjPYvVhbJEII3+CrP8Cm7oLU7zfrySg3H4dszHX6NpZy0rZsZXr8SE30w5eNB3k2Xw
+ IQ0OwV3/Kca0E0TmbWCppIqyZKZGTpE=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260025
+ clxscore=1015 phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260025
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,138 +177,679 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Connect the DCP DSI host and panel bridge to the DCP KMS
-pipeline. Without bridge integration, DRM cannot create display
-sessions, attach connectors, or run the bridge enable and disable
-sequence for atomic commits.
+Register the DCP display pipeline from firmware capabilities and
+the device-tree display graph. DCP exposes display resources through
+firmware rather than host-visible display registers, so KMS objects
+cannot be registered from a static hardware catalog alone.
 
-Set up and tear down the bridge and CRTC relationship, pass panel
-configuration through KMS, and connect bridge-backed display operations
-to the DCP HFI commands.
+Integrate power and IOMMU setup, parse capabilities and display
+graph data, and create the DRM planes, CRTCs, encoders, bridges,
+and connectors used by the DCP backend.
 
 Assisted-by: LLM
 Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dcp/dcp_crtc.c    | 14 ++++++++++++
- drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c | 40 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h |  2 ++
- 3 files changed, 56 insertions(+)
+ drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c | 625 ++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h |   3 +
+ 2 files changed, 628 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_crtc.c b/drivers/gpu/drm/msm/dcp/dcp_crtc.c
-index ec4f74c2920f..173a07df71c5 100644
---- a/drivers/gpu/drm/msm/dcp/dcp_crtc.c
-+++ b/drivers/gpu/drm/msm/dcp/dcp_crtc.c
-@@ -147,6 +147,12 @@ static void dcp_crtc_atomic_begin(struct drm_crtc *crtc,
- 		return;
- 	}
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
+index 61a4d8565359..8a73a99b2c76 100644
+--- a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
++++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
+@@ -4,10 +4,29 @@
+  * DCP KMS driver.
+  */
  
-+	ret = dcp_dpu_kms_prepare_crtc_session(dcp_kms, crtc);
++#include <linux/of.h>
++#include <linux/of_graph.h>
++#include <linux/pm_runtime.h>
++
++#include <drm/drm_atomic.h>
++#include <drm/drm_bridge.h>
++#include <drm/drm_bridge_connector.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_encoder.h>
++#include <drm/drm_of.h>
++#include <drm/drm_plane.h>
++
++#include "msm_drv.h"
++#include "msm_gem.h"
++#include "msm_kms.h"
+ 
+ #include "dcp_dpu_kms.h"
+ #include "dcp_dsi_bridge.h"
++#include "dcp_crtc.h"
++#include "dcp_drv.h"
++#include "dcp_encoder.h"
++#include "dcp_hfi.h"
++#include "dcp_plane.h"
+ 
+ int dcp_dpu_kms_prepare_crtc_session(struct dcp_dpu_kms *dcp_kms,
+ 				     struct drm_crtc *crtc)
+@@ -59,3 +78,609 @@ bool dcp_dpu_kms_needs_dirtyfb(struct dcp_dpu_kms *dcp_kms,
+ 
+ 	return false;
+ }
++
++void dcp_dpu_kms_cleanup_bridges(struct dcp_dpu_kms *dcp_kms)
++{
++	u32 i;
++
++	for (i = 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
++		if (!dcp_kms->dsi_bridge[i])
++			continue;
++
++		dcp_dsi_bridge_cleanup(dcp_kms->dsi_bridge[i]);
++		dcp_kms->dsi_bridge[i] = NULL;
++	}
++}
++
++static void dcp_dpu_kms_dump_caps(struct dcp_dpu_kms *dcp_kms)
++{
++	const struct dcp_caps *caps = dcp_kms->caps;
++	u32 i;
++
++	drm_dbg_driver(dcp_kms->dev, "DCP caps: hw=%u.%u fw=%u displays=%u\n",
++		       caps->dcp_hw_rev, caps->hw_rev, caps->fw_rev,
++		       caps->num_displays);
++	drm_dbg_driver(dcp_kms->dev, "DCP caps: max_planes=%u max=%ux%u\n",
++		       caps->max_planes, caps->max_width, caps->max_height);
++
++	drm_dbg_driver(dcp_kms->dev, "DCP caps: VIG pipes=%u virt=%u\n",
++		       caps->num_vig_pipes, caps->virt_vig_count);
++	for (i = 0; i < min_t(u32, caps->num_vig_pipes,
++			      DCP_MAX_SSPP_COUNT); i++)
++		drm_dbg_driver(dcp_kms->dev, "DCP caps: VIG[%u] pipe=%u r1=%u\n", i,
++			       caps->vig_pipe_ids[i], caps->vig_r1_indices[i]);
++
++	drm_dbg_driver(dcp_kms->dev, "DCP caps: DMA pipes=%u virt=%u\n",
++		       caps->num_dma_pipes, caps->virt_dma_count);
++	for (i = 0; i < min_t(u32, caps->num_dma_pipes,
++			      DCP_MAX_SSPP_COUNT); i++)
++		drm_dbg_driver(dcp_kms->dev, "DCP caps: DMA[%u] pipe=%u r1=%u\n", i,
++			       caps->dma_pipe_ids[i], caps->dma_r1_indices[i]);
++
++	drm_dbg_driver(dcp_kms->dev, "DCP caps: DSI count=%u\n", caps->dsi_count);
++}
++
++static int dcp_dpu_kms_hw_init(struct msm_kms *kms)
++{
++	struct dcp_dpu_kms *dcp_kms = to_dcp_dpu_kms(kms);
++	struct drm_device *dev = dcp_kms->dev;
++	struct drm_gpuvm *vm;
++	unsigned int i;
++	int ret;
++
++	kms->irq = IRQ_NOTCONNECTED;
++	dev->mode_config.cursor_width  = 512;
++	dev->mode_config.cursor_height = 512;
++
++	ret = pm_runtime_resume_and_get(dcp_kms->pm_dev);
++	if (ret < 0) {
++		drm_err(dev, "failed to enable power: %d\n", ret);
++		return ret;
++	}
++
++	vm = msm_kms_init_vm(dev, NULL);
++	if (IS_ERR(vm)) {
++		drm_err(dev, "SMMU/IOMMU init failed: %pe\n", vm);
++		ret = PTR_ERR(vm);
++		goto err_cleanup;
++	}
++	kms->vm = vm;
++
++	for (i = 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
++		if (!dcp_kms->dsi_bridge[i])
++			continue;
++
++		ret = dcp_dsi_bridge_map_buffers(dcp_kms->dsi_bridge[i]);
++		if (ret) {
++			drm_err(dev, "failed to map DSI%u DCS buffers: %d\n", i, ret);
++			goto err_cleanup;
++		}
++	}
++
++	if (!dcp_kms->hfi) {
++		drm_err(dev, "HFI unavailable, cannot initialize DCP KMS\n");
++		ret = -ENODEV;
++		goto err_cleanup;
++	}
++	if (!dcp_kms->caps) {
++		drm_err(dev, "DCP caps unavailable, cannot initialize DCP KMS\n");
++		ret = -ENODEV;
++		goto err_cleanup;
++	}
++
++	dcp_dpu_kms_dump_caps(dcp_kms);
++
++	dev->mode_config.min_width  = 0;
++	dev->mode_config.min_height = 0;
++	dev->mode_config.max_width  = max(dcp_kms->caps->max_width,
++					  dcp_kms->caps->max_height);
++	dev->mode_config.max_height = dev->mode_config.max_width;
++	dev->max_vblank_count = 0xffffffff;
++	dev->vblank_disable_immediate = true;
++
++	ret = dcp_dpu_drm_obj_init(dcp_kms);
 +	if (ret) {
-+		cstate->hfi_error = ret;
++		dev_err_probe(dev->dev, ret, "DRM object init failed\n");
++		goto err_cleanup;
++	}
++
++	pm_runtime_put_autosuspend(dcp_kms->pm_dev);
++	drm_dbg_driver(dev, "DCP hw_init complete\n");
++	return 0;
++
++err_cleanup:
++	for (i = 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
++		if (dcp_kms->dsi_bridge[i])
++			dcp_dsi_bridge_unmap_buffers(dcp_kms->dsi_bridge[i]);
++	}
++
++	if (kms->vm) {
++		struct msm_gem_vm *msm_vm = to_msm_vm(kms->vm);
++
++		if (msm_vm->mmu && msm_vm->mmu->funcs->detach)
++			msm_vm->mmu->funcs->detach(msm_vm->mmu);
++		drm_gpuvm_put(kms->vm);
++		kms->vm = NULL;
++	}
++	pm_runtime_put_autosuspend(dcp_kms->pm_dev);
++	return ret;
++}
++
++static void dcp_dpu_kms_enable_commit(struct msm_kms *kms)
++{
++	struct dcp_dpu_kms *dcp_kms = to_dcp_dpu_kms(kms);
++	int ret;
++
++	ret = pm_runtime_resume_and_get(dcp_kms->pm_dev);
++	if (ret < 0) {
++		dcp_kms->commit_pm_active = false;
++		drm_err_ratelimited(dcp_kms->dev,
++				    "pm_runtime_resume_and_get failed: %d\n",
++				    ret);
 +		return;
 +	}
 +
- 	if (!dcp_crtc_get_session(crtc, &session_id)) {
- 		cstate->hfi_error = -ENODEV;
- 		return;
-@@ -559,6 +565,7 @@ static int dcp_crtc_atomic_check(struct drm_crtc *crtc,
- 	const struct drm_plane_state *pstate;
- 	u32 max_width, max_height;
- 	u32 mixer_count;
-+	bool needs_dirtyfb;
- 	int num_planes = 0;
- 	int ret;
- 
-@@ -569,6 +576,8 @@ static int dcp_crtc_atomic_check(struct drm_crtc *crtc,
- 	if (!crtc_state->enable || !crtc_state->active)
- 		return 0;
- 
-+	needs_dirtyfb = dcp_dpu_kms_needs_dirtyfb(dcp_kms, crtc);
-+
- 	mixer_count = cstate->topology_mixer_count;
- 	if (mixer_count < 1 || mixer_count > DCP_MAX_MIXERS) {
- 		drm_err(crtc->dev,
-@@ -598,8 +607,13 @@ static int dcp_crtc_atomic_check(struct drm_crtc *crtc,
- 
- 	/* Limit visible planes to the firmware blend-stage count. */
- 	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
-+		struct dcp_plane_state *dcp_pstate;
-+
- 		if (!pstate || !pstate->visible)
- 			continue;
-+
-+		dcp_pstate = to_dcp_plane_state((struct drm_plane_state *)pstate);
-+		dcp_pstate->needs_dirtyfb = needs_dirtyfb;
- 		num_planes++;
- 	}
- 
-diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
-index 44b1c2200aee..61a4d8565359 100644
---- a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
-+++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
-@@ -7,6 +7,27 @@
- #include <drm/drm_crtc.h>
- 
- #include "dcp_dpu_kms.h"
-+#include "dcp_dsi_bridge.h"
-+
-+int dcp_dpu_kms_prepare_crtc_session(struct dcp_dpu_kms *dcp_kms,
-+				     struct drm_crtc *crtc)
-+{
-+	u32 i;
-+
-+	for (i = 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
-+		struct dcp_dsi_bridge *bridge = dcp_kms->dsi_bridge[i];
-+
-+		if (!bridge)
-+			continue;
-+		if (dcp_dpu_kms_get_crtc(dcp_kms, bridge->fw_display_id) != crtc)
-+			continue;
-+
-+		return dcp_dsi_bridge_prepare_session(bridge,
-+						      &crtc->state->adjusted_mode);
-+	}
-+
-+	return -ENODEV;
++	dcp_kms->commit_pm_active = true;
 +}
- 
- struct drm_crtc *dcp_dpu_kms_get_crtc(struct dcp_dpu_kms *dcp_kms,
- 				      u32 display_id)
-@@ -19,3 +40,22 @@ struct drm_crtc *dcp_dpu_kms_get_crtc(struct dcp_dpu_kms *dcp_kms,
- 
- 	return NULL;
- }
 +
-+bool dcp_dpu_kms_needs_dirtyfb(struct dcp_dpu_kms *dcp_kms,
-+			       struct drm_crtc *crtc)
++static void dcp_dpu_kms_disable_commit(struct msm_kms *kms)
 +{
-+	u32 i;
++	struct dcp_dpu_kms *dcp_kms = to_dcp_dpu_kms(kms);
 +
-+	for (i = 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
-+		struct dcp_dsi_bridge *bridge = dcp_kms->dsi_bridge[i];
++	if (dcp_kms->commit_pm_active) {
++		pm_runtime_put_autosuspend(dcp_kms->pm_dev);
++		dcp_kms->commit_pm_active = false;
++	}
++}
 +
-+		if (!bridge ||
-+		    dcp_dpu_kms_get_crtc(dcp_kms, bridge->fw_display_id) != crtc)
++static int dcp_dpu_kms_check_mode_changed(struct msm_kms *kms,
++					  struct drm_atomic_commit *state)
++{
++	struct drm_crtc_state *new_crtc_state, *old_crtc_state;
++	struct drm_crtc *crtc;
++	int i;
++
++	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
++				      new_crtc_state, i) {
++		if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
 +			continue;
-+
-+		return bridge->dsi_device &&
-+			!(bridge->dsi_device->mode_flags & MIPI_DSI_MODE_VIDEO);
++		if (!new_crtc_state->active)
++			continue;
++		new_crtc_state->planes_changed = true;
 +	}
 +
-+	return false;
++	return 0;
++}
++
++static void dcp_dpu_kms_flush_commit(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	struct dcp_dpu_kms *dcp_kms = to_dcp_dpu_kms(kms);
++	struct drm_crtc *crtc;
++
++	for_each_crtc_mask(dcp_kms->dev, crtc, crtc_mask) {
++		if (!crtc->state || !crtc->state->active)
++			continue;
++		dcp_crtc_commit_kickoff(crtc);
++	}
++}
++
++static void dcp_dpu_kms_wait_flush(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	struct dcp_dpu_kms *dcp_kms = to_dcp_dpu_kms(kms);
++	struct drm_crtc *crtc;
++
++	for_each_crtc_mask(dcp_kms->dev, crtc, crtc_mask)
++		dcp_crtc_wait_for_commit_done(crtc);
++}
++
++static void dcp_dpu_kms_complete_commit(struct msm_kms *kms, unsigned int crtc_mask)
++{
++	struct dcp_dpu_kms *dcp_kms = to_dcp_dpu_kms(kms);
++	struct drm_crtc *crtc;
++
++	for_each_crtc_mask(dcp_kms->dev, crtc, crtc_mask)
++		dcp_crtc_complete_commit(crtc);
++}
++
++static int dcp_dpu_kms_enable_vblank(struct msm_kms *kms, struct drm_crtc *crtc)
++{
++	return dcp_crtc_vblank(crtc, true);
++}
++
++static void dcp_dpu_kms_disable_vblank(struct msm_kms *kms,
++				       struct drm_crtc *crtc)
++{
++	dcp_crtc_vblank(crtc, false);
++}
++
++static void dcp_dpu_kms_destroy(struct msm_kms *kms)
++{
++	struct dcp_dpu_kms *dcp_kms = to_dcp_dpu_kms(kms);
++
++	dcp_dpu_kms_cleanup_bridges(dcp_kms);
++
++	if (kms->vm) {
++		struct msm_gem_vm *msm_vm = to_msm_vm(kms->vm);
++
++		if (msm_vm->mmu && msm_vm->mmu->funcs->detach) {
++			drm_dbg_driver(dcp_kms->dev,
++				       "detaching IOMMU domain from dcp-dpus\n");
++			msm_vm->mmu->funcs->detach(msm_vm->mmu);
++		}
++
++		drm_gpuvm_put(kms->vm);
++		kms->vm = NULL;
++	}
++
++	if (dcp_kms->rpm_enabled) {
++		pm_runtime_disable(dcp_kms->pm_dev);
++		dcp_kms->rpm_enabled = false;
++	}
++
++	msm_kms_destroy(&dcp_kms->base);
++}
++
++static void dcp_dpu_kms_irq_preinstall(struct msm_kms *kms) {}
++static void dcp_dpu_kms_irq_uninstall(struct msm_kms *kms) {}
++
++static irqreturn_t dcp_dpu_kms_irq(struct msm_kms *kms)
++{
++	return IRQ_NONE;
++}
++
++static void dcp_dpu_kms_snapshot(struct msm_disp_state *disp_state,
++				 struct msm_kms *kms)
++{
++	struct dcp_dpu_kms *dcp_kms = to_dcp_dpu_kms(kms);
++
++	drm_dbg_driver(dcp_kms->dev,
++		       "DCP snapshot: max %ux%u\n",
++		       dcp_kms->caps->max_width,
++		       dcp_kms->caps->max_height);
++}
++
++const struct msm_kms_funcs dcp_dpu_kms_funcs = {
++	.hw_init            = dcp_dpu_kms_hw_init,
++	.irq_preinstall     = dcp_dpu_kms_irq_preinstall,
++	.irq_uninstall      = dcp_dpu_kms_irq_uninstall,
++	.irq                = dcp_dpu_kms_irq,
++	.enable_commit      = dcp_dpu_kms_enable_commit,
++	.disable_commit     = dcp_dpu_kms_disable_commit,
++	.check_mode_changed = dcp_dpu_kms_check_mode_changed,
++	.flush_commit       = dcp_dpu_kms_flush_commit,
++	.wait_flush         = dcp_dpu_kms_wait_flush,
++	.complete_commit    = dcp_dpu_kms_complete_commit,
++	.enable_vblank      = dcp_dpu_kms_enable_vblank,
++	.disable_vblank     = dcp_dpu_kms_disable_vblank,
++	.destroy            = dcp_dpu_kms_destroy,
++	.snapshot           = dcp_dpu_kms_snapshot,
++};
++
++static u32 dcp_dpu_kms_resolve_fw_display_id(struct dcp_dpu_kms *dcp_kms,
++					     u32 intf_idx)
++{
++	const struct dcp_caps *caps = dcp_kms->caps;
++	u32 count;
++	const u32 *ids;
++	u32 id;
++
++	count = caps->dsi_count;
++	ids = caps->dsi_indices;
++
++	if (intf_idx >= count) {
++		drm_err(dcp_kms->dev,
++			"DSI%u: no catalog entry (%u)\n", intf_idx, count);
++		return U32_MAX;
++	}
++
++	id = ids[intf_idx];
++
++	if (id > 0xFF) {
++		drm_err(dcp_kms->dev,
++			"DSI%u: catalog id 0x%x exceeds 8-bit range\n",
++			intf_idx, id);
++		return U32_MAX;
++	}
++
++	return id;
++}
++
++int dcp_dpu_kms_init_dsi_bridges(struct dcp_dpu_kms *dcp_kms,
++				 struct component_match **matchptr)
++{
++	struct device_node *dpu_np = dcp_kms->dpus_np;
++	struct device_node *ep_np, *dsi_np, *child_np;
++	struct of_endpoint ep;
++	int ret;
++
++	for_each_of_graph_port(dpu_np, port_np) {
++		u32 dsi_idx, fw_display_id;
++		struct drm_bridge *bridge;
++
++		ep_np = of_get_next_child(port_np, NULL);
++		if (!ep_np)
++			continue;
++
++		ret = of_graph_parse_endpoint(ep_np, &ep);
++		of_node_put(ep_np);
++		if (ret)
++			continue;
++
++		dsi_idx = ep.port;
++		if (dsi_idx >= ARRAY_SIZE(dcp_kms->dsi_bridge))
++			return -E2BIG;
++
++		if (dcp_kms->dsi_bridge[dsi_idx])
++			continue;
++
++		dsi_np = NULL;
++		for_each_available_child_of_node(dpu_np, child_np) {
++			u32 reg;
++
++			if (!of_node_name_prefix(child_np, "dsi") ||
++			    of_property_read_u32(child_np, "reg", &reg) ||
++			    reg != dsi_idx)
++				continue;
++
++			dsi_np = of_node_get(child_np);
++			break;
++		}
++		of_node_put(child_np);
++		if (!dsi_np)
++			return -ENODEV;
++
++		fw_display_id =
++			dcp_dpu_kms_resolve_fw_display_id(dcp_kms, dsi_idx);
++		if (fw_display_id == U32_MAX) {
++			of_node_put(dsi_np);
++			return -EINVAL;
++		}
++
++		bridge = dcp_dsi_bridge_init(dcp_kms, dsi_np, dpu_np,
++					     ep.port, dsi_idx, fw_display_id);
++		if (IS_ERR(bridge)) {
++			ret = PTR_ERR(bridge);
++			of_node_put(dsi_np);
++			return ret;
++		}
++
++		dcp_kms->dsi_bridge[dsi_idx] = to_dcp_dsi_bridge(bridge);
++		drm_of_component_match_add(dcp_kms->pm_dev, matchptr,
++					   component_compare_of, dsi_np);
++		of_node_put(dsi_np);
++	}
++
++	return 0;
++}
++
++static int dcp_dpu_kms_setup_bridges(struct dcp_dpu_kms *dcp_kms,
++				     struct device_node *dpu_np)
++{
++	struct drm_device *dev = dcp_kms->dev;
++	struct device_node *ep_np, *remote_np;
++	struct of_endpoint ep;
++	struct drm_encoder *encoder;
++	struct drm_bridge *bridge;
++	struct drm_connector *connector;
++	int ret = 0;
++	int dsi_idx = 0;
++
++	for_each_of_graph_port(dpu_np, port_np) {
++		ep_np = of_get_next_child(port_np, NULL);
++		if (!ep_np)
++			continue;
++
++		ret = of_graph_parse_endpoint(ep_np, &ep);
++		if (ret) {
++			of_node_put(ep_np);
++			continue;
++		}
++
++		remote_np = of_graph_get_remote_port_parent(ep_np);
++		of_node_put(ep_np);
++		if (!remote_np)
++			continue;
++
++		if (!of_device_is_available(remote_np)) {
++			of_node_put(remote_np);
++			continue;
++		}
++
++		dsi_idx = ep.port;
++		if (dsi_idx >= ARRAY_SIZE(dcp_kms->dsi_bridge)) {
++			of_node_put(remote_np);
++			drm_err(dev, "too many DSI outputs\n");
++			ret = -E2BIG;
++			goto out;
++		}
++
++		drm_dbg_driver(dev, "port@%u: DSI bridge intf_idx=%u\n",
++			       ep.port, dsi_idx);
++		if (!dcp_kms->dsi_bridge[dsi_idx]) {
++			of_node_put(remote_np);
++			drm_err(dev, "port@%u: no DSI host for index %u\n",
++				ep.port, dsi_idx);
++			ret = -ENODEV;
++			goto out;
++		}
++		bridge = &dcp_kms->dsi_bridge[dsi_idx]->bridge;
++
++		of_node_put(remote_np);
++
++		encoder = dcp_encoder_init(dev, DRM_MODE_ENCODER_DSI);
++		if (IS_ERR(encoder)) {
++			ret = PTR_ERR(encoder);
++			drm_err(dev, "encoder init failed: %d\n", ret);
++			goto out;
++		}
++
++		ret = drm_bridge_attach(encoder, bridge, NULL,
++					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++		if (ret) {
++			if (ret == -EPROBE_DEFER) {
++				drm_dbg_driver(dev,
++					       "port@%u bridge deferred; panel not ready\n",
++					       ep.port);
++				goto out;
++			}
++			drm_err(dev, "bridge attach failed: %d\n", ret);
++			goto out;
++		}
++
++		connector = drm_bridge_connector_init(dev, encoder);
++		if (IS_ERR(connector)) {
++			ret = PTR_ERR(connector);
++			drm_err(dev, "bridge connector init failed: %d\n", ret);
++			goto out;
++		}
++	}
++
++out:
++	if (ret)
++		dcp_dpu_kms_cleanup_bridges(dcp_kms);
++	return ret;
++}
++
++static int dcp_dpu_setup_pipeline(struct dcp_dpu_kms *dcp_kms,
++				  struct device_node *dpu_np)
++{
++	struct drm_device *dev = dcp_kms->dev;
++	struct drm_plane *primary_planes[DCP_DPU_MAX_CRTCS];
++	struct drm_plane *plane;
++	struct drm_crtc *crtc;
++	struct drm_encoder *encoder;
++	int primary_idx = 0;
++	int max_crtc_count;
++	int total_planes;
++	int i, ret;
++
++	ret = dcp_dpu_kms_setup_bridges(dcp_kms, dpu_np);
++	if (ret)
++		return dev_err_probe(dev->dev, ret, "bridge setup failed\n");
++
++	max_crtc_count = 0;
++	drm_for_each_encoder(encoder, dev)
++		max_crtc_count++;
++
++	max_crtc_count = min(max_crtc_count, DCP_DPU_MAX_CRTCS);
++	max_crtc_count = min_t(int, max_crtc_count,
++			       dcp_kms->caps->num_displays);
++	max_crtc_count = min_t(int, max_crtc_count,
++			       ARRAY_SIZE(dcp_kms->dsi_bridge));
++
++	total_planes = min_t(int, dcp_kms->caps->max_planes,
++			     DCP_DPU_MAX_CRTCS * DCP_DPU_MAX_PLANES);
++
++	for (i = 0; i < total_planes; i++) {
++		enum drm_plane_type type;
++		unsigned long possible_crtcs;
++
++		possible_crtcs = ((1UL << max_crtc_count) - 1)
++				 << dev->mode_config.num_crtc;
++
++		if (primary_idx < max_crtc_count)
++			type = DRM_PLANE_TYPE_PRIMARY;
++		else
++			type = DRM_PLANE_TYPE_OVERLAY;
++
++		plane = dcp_plane_init(dev, U32_MAX, type, possible_crtcs);
++		if (IS_ERR(plane)) {
++			ret = PTR_ERR(plane);
++			drm_err(dev, "plane init failed: %d\n", ret);
++			goto err_cleanup_bridges;
++		}
++
++		if (type == DRM_PLANE_TYPE_PRIMARY)
++			primary_planes[primary_idx++] = plane;
++	}
++
++	max_crtc_count = min(max_crtc_count, primary_idx);
++
++	dcp_kms->num_crtcs = 0;
++	for (i = 0; i < max_crtc_count; i++) {
++		u32 display_id;
++
++		if (!dcp_kms->dsi_bridge[i]) {
++			drm_err(dev, "missing DSI bridge for CRTC%u\n", i);
++			ret = -ENODEV;
++			goto err_cleanup_bridges;
++		}
++
++		display_id = dcp_kms->dsi_bridge[i]->fw_display_id;
++		if (dcp_dpu_kms_get_crtc(dcp_kms, display_id)) {
++			drm_err(dev, "duplicate firmware display ID %u\n",
++				display_id);
++			ret = -EINVAL;
++			goto err_cleanup_bridges;
++		}
++
++		crtc = dcp_crtc_init(dcp_kms, primary_planes[i],
++				     display_id);
++		if (IS_ERR(crtc)) {
++			ret = PTR_ERR(crtc);
++			drm_err(dev, "CRTC init failed: %d\n", ret);
++			goto err_cleanup_bridges;
++		}
++		dcp_kms->crtcs[dcp_kms->num_crtcs].crtc = crtc;
++		dcp_kms->crtcs[dcp_kms->num_crtcs++].display_id = display_id;
++	}
++
++	return 0;
++
++err_cleanup_bridges:
++	dcp_dpu_kms_cleanup_bridges(dcp_kms);
++	return ret;
++}
++
++int dcp_dpu_drm_obj_init(struct dcp_dpu_kms *dcp_kms)
++{
++	struct drm_device *dev = dcp_kms->dev;
++	struct device_node *dpus_np = dcp_kms->dpus_np;
++	struct drm_encoder *encoder;
++	int enc_idx = 0;
++	int ret;
++
++	if (!dpus_np) {
++		drm_err(dev, "no DCP subsystem node — cannot create DRM objects\n");
++		return -ENODEV;
++	}
++
++	ret = dcp_dpu_setup_pipeline(dcp_kms, dpus_np);
++	if (ret)
++		return dev_err_probe(dev->dev, ret, "pipeline setup failed\n");
++
++	/* v1 - Encoders map one-to-one to CRTCs; cloning is unsupported. */
++	drm_for_each_encoder(encoder, dev) {
++		encoder->possible_crtcs = BIT(enc_idx);
++		encoder->possible_clones = 0;
++		enc_idx++;
++	}
++
++	drm_dbg_driver(dev,
++		       "DCP KMS: DPU ready — %d CRTCs, %d planes, %d encoders\n",
++		       dev->mode_config.num_crtc,
++		       dev->mode_config.num_total_plane,
++		       dev->mode_config.num_encoder);
++
++	return 0;
++}
++
++int dcp_kms_init(struct drm_device *ddev)
++{
++	struct msm_drm_private *priv = ddev->dev_private;
++	struct dcp_dpu_kms *dcp_kms = to_dcp_dpu_kms(priv->kms);
++	struct dcp_drv *drv = dcp_kms->drv;
++
++	dcp_kms->dev = ddev;
++	if (drv) {
++		drv->kms = dcp_kms;
++		dcp_kms->pm_dev = &drv->dcp_subsystem_dev->dev;
++	}
++
++	if (!dcp_kms->hfi)
++		return -ENODEV;
++	if (!dcp_kms->caps)
++		return -ENODEV;
++
++	return 0;
 +}
 diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h
-index f8010fc5d32f..333567a78ad7 100644
+index 333567a78ad7..857ff211e0aa 100644
 --- a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h
 +++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.h
-@@ -44,6 +44,8 @@ struct dcp_dpu_kms {
- #define to_dcp_dpu_kms(x) container_of(x, struct dcp_dpu_kms, base)
- struct drm_crtc *dcp_dpu_kms_get_crtc(struct dcp_dpu_kms *dcp_kms,
- 				      u32 display_id);
-+bool dcp_dpu_kms_needs_dirtyfb(struct dcp_dpu_kms *dcp_kms,
-+			       struct drm_crtc *crtc);
- int dcp_dpu_kms_prepare_crtc_session(struct dcp_dpu_kms *dcp_kms,
+@@ -50,6 +50,9 @@ int dcp_dpu_kms_prepare_crtc_session(struct dcp_dpu_kms *dcp_kms,
  				     struct drm_crtc *crtc);
+ 
+ int dcp_dpu_drm_obj_init(struct dcp_dpu_kms *dcp_kms);
++void dcp_dpu_kms_cleanup_bridges(struct dcp_dpu_kms *dcp_kms);
++int dcp_dpu_kms_init_dsi_bridges(struct dcp_dpu_kms *dcp_kms,
++				 struct component_match **matchptr);
+ extern const struct msm_kms_funcs dcp_dpu_kms_funcs;
+ int dcp_kms_init(struct drm_device *ddev);
  
 
 -- 
