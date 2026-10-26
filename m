@@ -2,53 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639D5606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 19:41:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30C3606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 19:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=bLnUytpN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORXNjc6l
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3A8D10F0FA;
-	Mon, 26 Oct 2026 19:41:23 +0000 (UTC)
-Received: from mta1.migadu.com (out-115.mta1.migadu.com [95.215.58.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E916710F0F6
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 19:41:16 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=rCKcQvSjfqvqlSYee/K00QDuSFn4KmH4U1/bkKGe2jc=; 
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793043674; v=1; x=1793648474;
- b=bLnUytpNCxpa/8qVBbDCOS1U+zK7koPJVz/vXsrPny66PG40vcDU+qb+ZtZEhrmdcNAEtV9G
- ul459QvM9KPzqoQecaVUUR2ej5i06nDc1S7svftmeuUaHtICVG1jHmzEAnouOrIqeQymzMspSmM
- US0yNC/q85el9NVHuzoSAD3s0QFnn7/rEbBUqqUKgADko1jo+x7AKBb15MU5VFphiW/wZ7hQMnR
- OHdV46eQ+azQlX5ECSOkzlrT/cfoogHTbD/GtqOwLzGrjQ0tsmCENtCJh0H/5wJWTAhwBhz+RFb
- DqwLlAAcS5tbFCrzknYgEYbwzFd4vf9wK7jG/rgFDmpfg==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id fb68a8c92d4f5fc8;
- Mon, 26 Oct 2026 19:41:14 +0000
-X-Mizu-Trace-ID: fb68a8c92d4f5fc8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1ea484c0-e451-4753-af1a-ad931f41be58@packett.cool>
-Date: Mon, 26 Oct 2026 16:41:07 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56E5F10F0F6;
+	Mon, 26 Oct 2026 19:44:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 785E010F0F6;
+ Mon, 26 Oct 2026 19:44:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 034FA41A0D;
+ Mon, 26 Oct 2026 19:44:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6CE1F01828;
+ Mon, 26 Oct 2026 19:44:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793043864;
+ bh=EnFV3b4kBOohLUYDrT2EqqoWC7vJoIJiTj7bdy7r6OI=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject;
+ b=ORXNjc6lV4OPB/JbeGos2UZgw/cJHmUDpVxWFIXeJ9IQc1OIbUO0GwHsSt+PYSBtF
+ 0c+bFq+C4t8uvAgxXtft9Qrilg9uZFSeIQWNo1tRBzMmGSfP4zboJpS4awNV5jnqTn
+ sF4yIE+AS+NvvERIjFrHj32wwaxBM/jJj0yu6wL2H9fx4577Bc1r7DDgBZgK2sTW5s
+ KFxAKu5vUEzq0Fl5b7iG3BDLNDDuQ7ucgNaLVKIB7MZuoiHY+/QFcf/m4Cqu2k0SZJ
+ sEBMBktyAgstq+lAAeCm/sSGl1ZIl9FIxURJ6wIlBpQb6CU36g1MwtCN3lqepAt9rp
+ e9K0DDBfzoVlg==
+Date: Mon, 26 Oct 2026 14:44:21 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] drm/msm/dpu: reset unassigned resource slots to NULL
- on topology update
-To: Xi Zhang <xz.ca.cn@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Xilin Wu <sophon@radxa.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
- <20261026-msm-dpu-res-clean-v1-1-f46130a8a717@gmail.com>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20261026-msm-dpu-res-clean-v1-1-f46130a8a717@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: iommu@lists.linux.dev, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Simona Vetter <simona@ffwll.ch>, Robin Murphy <robin.murphy@arm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ linux-arm-msm@vger.kernel.org, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ devicetree@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>, 
+ linaro-mm-sig@lists.linaro.org, virtualization@lists.linux.dev, 
+ Jason Wang <jasowangio@gmail.com>, linux-kernel@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, linux-media@vger.kernel.org, 
+ Mahadevan P <mahap@oss.qualcomm.com>, freedreno@lists.freedesktop.org, 
+ "Michael S. Tsirkin" <mst@redhat.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Flemin Jose <flemin.jose@oss.qualcomm.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ dri-devel@lists.freedesktop.org, Abel Vesa <abelvesa@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Will Deacon <will@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
+Message-Id: <179304379330.2965544.11793708430519844335.robh@kernel.org>
+Subject: Re: [PATCH v2 01/23] dt-bindings: display: msm: Add Qualcomm DCP
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,88 +75,85 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On 10/26/26 4:16 PM, Xi Zhang wrote:
-> While this is not currently the case, it may be possible that topology
-> for cwb and dsc resource requirements change between mode set in the
-> future.
->
-> e.g. when dsc support is added to DisplayPort, dsc may be optionally
-> enabled and disabled between different modes due to
-> bandwidth requirements.
->
-> Set unassigned resource slots to NULL on topology update to avoid
-> issues in the future. It's good practice to do so anyway.
->
-> Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
+On Mon, 26 Oct 2026 11:51:11 +0530, Jayant Shekhar wrote:
+> DCP platforms place the display pipeline under firmware control, so Linux
+> cannot discover display resources through direct register access. The DRM
+> driver therefore needs device-tree descriptions of the Qualcomm transport
+> wrapper, display topology, IOMMU contexts, and panel connections.
+> 
+> Add bindings for the Qualcomm DCP transport wrapper and VirtIO display
+> subsystem. Document the IPCC power-notify resources, transport and
+> framebuffer IOMMU contexts, firmware-visible IOVA range, INTF graph, and
+> DSI panel connections. The wrapper creates a standard VirtIO-MMIO child
+> after the IPCC power-notify sequence has completed.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 > ---
->   drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 22 +++++++++++++++-------
->   1 file changed, 15 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> index 0a6be69a3e83..8d2b4d2726f2 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> @@ -1205,9 +1205,13 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->   						       ARRAY_SIZE(hw_pp));
->   	}
->   
-> -	for (i = 0; i < num_cwb; i++) {
-> -		dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
-> -		cwb_mask |= BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
-> +	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_cwb); i++) {
-> +		if (i < num_cwb) {
-> +			dpu_enc->hw_cwb[i] = to_dpu_hw_cwb(hw_cwb[i]);
-> +			cwb_mask |= BIT(dpu_enc->hw_cwb[i]->idx - CWB_0);
-> +		} else {
-> +			dpu_enc->hw_cwb[i] = NULL;
-> +		}
->   	}
->   
->   	dpu_enc->cwb_mask = cwb_mask;
-> @@ -1215,16 +1219,20 @@ static void dpu_encoder_virt_atomic_mode_set(struct drm_encoder *drm_enc,
->   	num_ctl = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
->   		drm_enc->crtc, DPU_HW_BLK_CTL, hw_ctl, ARRAY_SIZE(hw_ctl));
->   
-> -	for (i = 0; i < MAX_CHANNELS_PER_ENC; i++)
-> +	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_pp); i++)
->   		dpu_enc->hw_pp[i] = i < num_pp ? to_dpu_hw_pingpong(hw_pp[i])
->   						: NULL;
->   
->   	num_dsc = dpu_rm_get_assigned_resources(&dpu_kms->rm, global_state,
->   						drm_enc->crtc, DPU_HW_BLK_DSC,
->   						hw_dsc, ARRAY_SIZE(hw_dsc));
-> -	for (i = 0; i < num_dsc; i++) {
-> -		dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
-> -		dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
-> +	for (i = 0; i < ARRAY_SIZE(dpu_enc->hw_dsc); i++) {
-> +		if (i < num_dsc) {
-> +			dpu_enc->hw_dsc[i] = to_dpu_hw_dsc(hw_dsc[i]);
-> +			dsc_mask |= BIT(dpu_enc->hw_dsc[i]->idx - DSC_0);
-> +		} else {
-> +			dpu_enc->hw_dsc[i] = NULL;
-> +		}
->   	}
->   
->   	dpu_enc->dsc_mask = dsc_mask;
+>  .../bindings/display/msm/qcom,dcp-dsi.yaml         |  79 ++++++++++++
+>  .../devicetree/bindings/display/msm/qcom,dcp.yaml  | 123 +++++++++++++++++++
+>  .../bindings/virtio/qcom,dcp-virtio.yaml           | 132 +++++++++++++++++++++
+>  3 files changed, 334 insertions(+)
+> 
 
-The radxa 7.0.11 tree which has some DP DSC patches indeed touches this 
-code with "drm/msm/dpu: Clear stale DSC resources during modesets":
+My bot found errors running 'make dt_binding_check' on your patch:
 
-https://github.com/radxa/kernel/commit/d0a8968dca16965395f4089a28d48ab6acde565e
+yamllint warnings/errors:
 
-(but it only clears hw_dsc, but in the hw_pp loop, for the assigned 
-resources..)
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml: iommu-ranges: multiple incompatible types: uint32-array
+/usr/local/lib/python3.13/dist-packages/dtschema/schemas/iommu/iommu.yaml: iommu-ranges: multiple incompatible types: uint32-matrix
+Could not decode node virtio@9be8000 property iommu-ranges with value b'\x00\x00\x00\x00\x84\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x00'
 
-[+cc sophon]
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-validate", line 8, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb_validate.py", line 443, in main
+    dtb_diagnostics = sg.check_dtb(filename)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb_validate.py", line 331, in check_dtb
+    dt = self.validator.decode_dtb(f.read(), decode_errors)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/validator.py", line 631, in decode_dtb
+    return [dtschema.dtb.fdt_unflatten(self, dtb)]
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 591, in fdt_unflatten
+    dt = fdt_scan_node(validator, fdt, '/', offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 320, in fdt_scan_node
+    node = fdt_scan_node(validator, fdt, nodename, offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 320, in fdt_scan_node
+    node = fdt_scan_node(validator, fdt, nodename, offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 312, in fdt_scan_node
+    node_dict = node_props(validator, fdt, nodename, offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 258, in node_props
+    props_dict[p.name] = prop_value(validator, nodename, p)
+                         ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 185, in prop_value
+    if len(p) / type_format[fmt].size >= min_dim:
+                ~~~~~~~~~~~^^^^^
+KeyError: 'uint32-array'
 
-~val
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
