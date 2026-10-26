@@ -2,45 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7DE606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 13:25:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3C2606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 13:50:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgMNATh8
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VmqzD1cc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96CC410E2A6;
-	Mon, 26 Oct 2026 13:25:05 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA6E510E253
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 13:24:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CF06F600DA;
- Mon, 26 Oct 2026 13:24:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F99F1F01825;
- Mon, 26 Oct 2026 13:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793021097;
- bh=RAZuT03HTn/udnmMaEZSmIRI0nqa8DRHM5i7rHrvtU0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QgMNATh8tg8wne169TeOtGhgKlrqzOlUn5Cvm/NGxS+UvbssCOVmtL2DDqdIgPhvO
- LrHEe4pPkrAuDhPmCCub6Z55oAVvUCsbSyBQ3QFATQDPztCH5YRkOyf9zojpLkyK86
- 7QjLhjwbnTgnr6FlyK4eOAbba5EX1pd0TdpuJzT2D2QqGhvomVcGicX7agrO4dQHB7
- JqzDaErdCuy4JbgUtGMQGlbw27axYAm0rrQWLLbUYaz8kt9m5ULPg04P7fhkL7vB8q
- JDmMFjKBcQPCGC/Bt91EjgFJpaU6A8HjShWoGMXjoLOVxPXch+zdtQUbwJpQ/nVWGE
- fXzjPWJAQ99xQ==
-Message-ID: <sashiko-outbox-185304@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 17/23] drm/msm/dcp: Register DCP display pipeline
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- media-ci@linuxtv.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-17-7cf014efdee1@oss.qualcomm.com>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-17-7cf014efdee1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 13:24:56 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0FB810E2ED;
+	Mon, 26 Oct 2026 13:50:04 +0000 (UTC)
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29B6210E2ED
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 13:49:59 +0000 (UTC)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-3abb4c24125so2863145a91.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:49:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1793022598; x=1793627398;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=c7my5rSEsn+U+kYhoFnNu7P7PE6jHz+gWSHK/wcS/Mk=;
+ b=VmqzD1ccXkloZDK4Rjo1kUYeSgKe087hapboqSY/q2fGTQeWGv8vx6rZFXPiZaNorh
+ AgfxU5XQicUnNqSbQgQxpqI9cCxGFvp6oaoYi8pn3b4Icc1efzFlXlZ4h+rYfxBLTZkN
+ 6yynHlzNWB6YpDy3wZDHS2VIxhZ5VVeNKh/dM6kNqBo5XE2RN7z0f5ezXsPPfLC+o+E9
+ w20tV3mDP134rosz0J78eTvsknNV28DgApOC1NnB4p+bMi9JBgis1p0u75+ecZ0ye3nh
+ Cwjkk8v7cy7KQ2wRN9aPBf6lVICrbLiw29gZEL8P80e3sB6Pw+n8Gu5VYaMCrERO5Mxo
+ Z2Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793022598; x=1793627398;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=c7my5rSEsn+U+kYhoFnNu7P7PE6jHz+gWSHK/wcS/Mk=;
+ b=pPJZIJ2ZHgMtSE1OgZ4pETKtoRKxWC7K/nwgIggMZkOzCHqZGtVpNirkmD/rH/BkA0
+ X/hl+XBqtZQ90PXasje93tV7285QkxsrYqCilcG5pyNrJSGAf4Ok6kQSPynAEU3kWx2/
+ lxXcJ+fwyoAsrStxqY6QWAogjkn55NcesxEeUi4xL9oWbasKUiKAnaLluP+xBPRjvBbC
+ XEJdVf6Re6BsQdvVOExDFNBGur69Swoa0CcrD1a9R9pB7Cl8Lxtizp99BzhoIBXAN80S
+ 0KnZBDyJXhjcl1UdU7yT0jXU/AeBBSDD4hhyiHD7YksPUj6sNHD0vpmM5tQmnjzDMzSt
+ pKVA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByf/RbMbC5xLqWT++9EQTcoUSFvx3WxcrVE0z6rzXcHGFWyO+PGZ5MOiqm8UtDYZN2cvKBlr2Eirds=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIT2CBQlHhhB/2Jlq9PINfDOjXHDTuqCl0/IA904xq5TQccuKcr
+ NrI0XPC/vgw5XEcFLzk4y4W+iY0yY7cQVCIn2FG9KJwZp6tuIG3vfHy2WByzF2TNEeWyWh/BvHb
+ GbWTnaw==
+X-Received: from pjbbu22.prod.google.com ([2002:a17:90a:ee56:b0:3ac:c43b:e322])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:564d:b0:3ac:7f4c:a690
+ with SMTP id 98e67ed59e1d1-3adeafb0449mr5178332a91.35.1793022598376; Mon, 26
+ Oct 2026 06:49:58 -0700 (PDT)
+Date: Mon, 26 Oct 2026 06:49:56 -0700
+In-Reply-To: <20260804120529.1730187-1-pbonzini@redhat.com>
+X-Archived-By: <archiver.kernel.org>
+Mime-Version: 1.0
+References: <20260804120529.1730187-1-pbonzini@redhat.com>
+Message-ID: <at9ahKiYsVtH8kpU@google.com>
+Subject: Re: [PATCH v2 0/6] mm,
+ drm: fix interaction of .pfn_mkwrite() with fixup_user_fault()
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+ Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ David Hildenbrand <david@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Fei Li <fei1.li@intel.com>, Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, 
+ linux-s390@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Sergio Lopez <slp@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,439 +80,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] drm/msm/dcp: dcp_dpu_kms_cleanup_bridges() called under component_=
-mutex
-- [High] drm/msm/dcp: missing remote port check and sequential bridge lookup
-- [High] drm/msm/dcp: race and runtime PM leak in dcp_dpu_kms_enable_commit=
-()
-- [High] drm/msm/dcp: unbalanced msm_kms and runtime PM teardown in dcp_dpu=
-_kms_destroy()
-- [High] drm/msm/dcp: dangling CRTC and drm_device pointers in dcp_dpu_kms_=
-destroy()
-- [Medium] drm/msm/dcp: invalid possible_crtcs mask when max_crtc_count is =
-clamped
---
+On Tue, Aug 04, 2026, Paolo Bonzini wrote:
+> This "v2" combines three series that I have previously posted separately to gather
+> reviews and tests:
+> 
+> - kvm: apply VM_READ/VM_WRITE checks to all VMA types
+>   https://lore.kernel.org/kvm/20260731175834.1121005-1-pbonzini@redhat.com/
+> 
+> - mm: pull writability check to follow_pfnmap_start()
+>   https://lore.kernel.org/kvm/20260731160514.1101989-1-pbonzini@redhat.com/T/#u
+> 
+> - mm, drm: ensure .fault() does not have to be followed by .pfn_mkwrite() for write faults
+>   https://lore.kernel.org/kvm/20260731164341.1109827-1-pbonzini@redhat.com/
+> 
+> All three, together, make it possible to write drivers that use .fault()
+> and .pfn_mkwrite() callbacks for VM_IO|VM_PFNMAP regions, and that also
+> interact correctly with users of fixup_user_fault().
+> 
+> The problem is that if you define .pfn_mkwrite(), vma_set_page_prot()
+> clears the writable PTE bit in vma->vm_page_prot, at which point
+> the .fault() callback has no way to create a writable PTE.  Users of
+> fixup_user_fault() will then see a read-only PTE and have no clue that
+> the page needs a *second* fault to reach its final status.
+> 
+> fixup_user_fault() itself does not have a good way to notice this, because
+> vma->vm_page_prot is an opaque pgprot_t, so the fix needs to be somewhere
+> else.  Other preexisting functions, namely vmf_insert_page_mkwrite()
+> as well as vmf_insert_pfn_pmd(), suggest that this has to be the driver.
+> In fact, of the five vm_ops that use .pfn_mkwrite() together with .fault(),
+> three are in file systems and are not buggy: all of them ultimately end
+> up in dax_fault_iter(), which uses vmf_insert_page_mkwrite() to correctly
+> insert the PTE.
+> 
+> The two problematic implementations instead are both in drm code.  One, in
+> drm_gem_shmem_helper, was reported as a KVM regression; the other, in
+> vmwgfx, was found by inspection of .pfn_mkwrite() implementors.
+> Both of these use pfn-mapped regions, but there is nothing like a
+> vmf_insert_pfn_mkwrite() function that they could use; the first part of
+> this series thus adjusts mm.h to provide two new functions for this
+> usecase---vmf_insert_pfn_prot_mkwrite() and vmf_insert_pfn_mkwrite()---and
+> then teaches drm's two users of .pfn_mkwrite() to call them.
+> 
+> This however leaves another case buggy where fixup_user_fault() is preceded
+> by follow_pfnmap_start().  Most callers of follow_pfnmap_start(), seeing
+> it return 0 for a PFN that is mapped read-only, would not attempt to
+> call fixup_user_fault() on it, and thus the PTE would not be upgraded
+> to writable.
+> 
+> This is arguably a bug in... almost all the callers of follow_pfnmap_start(),
+> but fixing it is much better achieved with a small improvement to the API;
+> if follow_pfnmap_start() is told by the caller that it needs the memory
+> for a write, most callers are simplified because they were doing such a check
+> anyway and now just see -EFAULT.  They then proceed to call fixup_user_fault()
+> and everyone is happy.  This is done in patch 5.
+> 
+> To sum up:
+> 
+> - patches 1-3 introduce the new MM API, and use it in the DRM .fault()
+>   callbacks to install writable PTEs in response to write faults
+> 
+> - patch 4 is a preparatory fix in KVM, eliminating inconsistencies in the
+>   handling of !VM_READ and !VM_WRITE VMAs; these would return different
+>   error codes for a !VM_WRITE VMA depending on whether the PTE happens
+>   to be mapped (but with wrong permissions).  This needs to be here
+>   because the next patch would introduce even more inconsistencies.
+>   
+> - patch 5 moves the check for writable PTEs from follow_pfnmap_start()'s
+>   callers to the function itself
+> 
+> - finally, patch 6 is a KVM addendum that will have to wait until
+>   the next merge window; it removes yet another inconsistency in
+>   KVM's handling of !VM_WRITE but is technically userspace-visible,
+>   and therefore it shouldn't be included in stable kernel releases
+>   unlike the rest.
 
-commit 5fc21d18f27dcbb7ac8d64f95bc52703e58d9984
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-
-drm/msm/dcp: Register DCP display pipeline
-
-This commit registers the DCP display pipeline using firmware capabilities
-and the device-tree display graph, integrating runtime PM and IOMMU setup a=
-nd
-creating the DRM planes, CRTCs, encoders, bridges, and connectors.
-
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c b/drivers/gpu/drm/msm/=
-dcp/dcp_dpu_kms.c
-> index 61a4d85653594..8a73a99b2c763 100644
-> --- a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
-
-[ ... ]
-
-> @@ -59,3 +78,609 @@ bool dcp_dpu_kms_needs_dirtyfb(struct dcp_dpu_kms *dc=
-p_kms,
-> =20
->  	return false;
->  }
-> +
-> +void dcp_dpu_kms_cleanup_bridges(struct dcp_dpu_kms *dcp_kms)
-> +{
-> +	u32 i;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
-> +		if (!dcp_kms->dsi_bridge[i])
-> +			continue;
-> +
-> +		dcp_dsi_bridge_cleanup(dcp_kms->dsi_bridge[i]);
-> +		dcp_kms->dsi_bridge[i] =3D NULL;
-> +	}
-> +}
-
-[Severity: High]
-Will calling dcp_dpu_kms_cleanup_bridges() from dcp_dpu_kms_setup_bridges(),
-dcp_dpu_setup_pipeline(), or dcp_dpu_kms_destroy() deadlock on
-component_mutex and break deferred probe retries?
-
-Before registering the aggregate component master, dcp_component_register()
-calls dcp_dpu_kms_init_dsi_bridges() -> dcp_dsi_bridge_init(), which
-registers dsi_host_dev and mipi_dsi_host and adds each dsi_np to the
-component match list. When the DSI panel attaches, dcp_dsi_host_attach()
-calls component_add(&dsi_bridge->dsi_host_dev, &dcp_dsi_component_ops).
-
-Once all components are added, drivers/base/component.c holds the non-
-recursive component_mutex across both aggregate bind and unbind:
-
-  try_to_bring_up_aggregate_device() [holds component_mutex]
-    -> msm_drm_bind()
-      -> msm_drm_init()
-        -> msm_drm_kms_init()
-          -> dcp_dpu_kms_hw_init()
-            -> dcp_dpu_drm_obj_init()
-              -> dcp_dpu_setup_pipeline()
-                -> dcp_dpu_kms_setup_bridges()
-
-  take_down_aggregate_device() [holds component_mutex]
-    -> msm_drm_unbind()
-      -> msm_drm_uninit()
-        -> msm_drm_kms_uninit()
-          -> dcp_dpu_kms_destroy()
-
-When dcp_dpu_kms_cleanup_bridges() runs from any of those paths, it calls:
-
-  dcp_dsi_bridge_cleanup()
-    -> mipi_dsi_host_unregister()
-      -> mipi_dsi_remove_device_fn()
-        -> mipi_dsi_detach()
-          -> dcp_dsi_host_detach()
-            -> component_del(&dsi_bridge->dsi_host_dev, ...)
-
-which tries to acquire component_mutex while it is already held by the
-calling thread.
-
-In addition, in msm_drm_uninit(), msm_drm_kms_uninit() runs before
-component_unbind_all() and drm_dev_put(), so dcp_dpu_kms_destroy() tears do=
-wn
-the bridges and deletes dsi_host_dev while it is still bound as a component
-and attached to encoder->bridge_chain. Destroying and clearing
-dcp_kms->dsi_bridge[] on error or -EPROBE_DEFER in dcp_dpu_kms_setup_bridge=
-s()
-or dcp_dpu_setup_pipeline() also prevents any subsequent deferred probe ret=
-ry
-from succeeding because dcp_dpu_kms_init_dsi_bridges() only runs once before
-component_master_add_with_match().
-
-[ ... ]
-
-> +static void dcp_dpu_kms_enable_commit(struct msm_kms *kms)
-> +{
-> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_resume_and_get(dcp_kms->pm_dev);
-> +	if (ret < 0) {
-> +		dcp_kms->commit_pm_active =3D false;
-> +		drm_err_ratelimited(dcp_kms->dev,
-> +				    "pm_runtime_resume_and_get failed: %d\n",
-> +				    ret);
-> +		return;
-> +	}
-> +
-> +	dcp_kms->commit_pm_active =3D true;
-> +}
-> +
-> +static void dcp_dpu_kms_disable_commit(struct msm_kms *kms)
-> +{
-> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
-> +
-> +	if (dcp_kms->commit_pm_active) {
-> +		pm_runtime_put_autosuspend(dcp_kms->pm_dev);
-> +		dcp_kms->commit_pm_active =3D false;
-> +	}
-> +}
-
-[Severity: High]
-Can overlapping commits race on dcp_kms->commit_pm_active and leak a runtime
-PM reference on dcp_kms->pm_dev?
-
-msm_atomic_commit_tail() calls kms->funcs->enable_commit(kms) before
-lock_crtcs(kms, crtc_mask) and calls kms->funcs->disable_commit(kms) after
-unlock_crtcs(kms, crtc_mask), while msm_atomic_async_commit() also calls
-enable_commit() and disable_commit() from per-CRTC worker threads, and
-commits on separate CRTCs execute concurrently.
-
-If two commits overlap between dcp_dpu_kms_enable_commit() and
-dcp_dpu_kms_disable_commit():
-
-1. Both commits call pm_runtime_resume_and_get(dcp_kms->pm_dev) and set the
-   single shared boolean dcp_kms->commit_pm_active =3D true.
-2. When the first commit finishes and calls dcp_dpu_kms_disable_commit(), it
-   calls pm_runtime_put_autosuspend(dcp_kms->pm_dev) once and sets
-   dcp_kms->commit_pm_active =3D false.
-3. The second in-flight commit then sees !dcp_kms->commit_pm_active in
-   dcp_crtc_atomic_begin() (failing the commit with cstate->hfi_error =3D -=
-EIO),
-   and when it reaches dcp_dpu_kms_disable_commit() it sees
-   dcp_kms->commit_pm_active =3D=3D false and skips
-   pm_runtime_put_autosuspend(dcp_kms->pm_dev), leaking its runtime PM usage
-   count.
-
-[ ... ]
-
-> +static void dcp_dpu_kms_destroy(struct msm_kms *kms)
-> +{
-> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
-> +
-> +	dcp_dpu_kms_cleanup_bridges(dcp_kms);
-> +
-> +	if (kms->vm) {
-> +		struct msm_gem_vm *msm_vm =3D to_msm_vm(kms->vm);
-> +
-> +		if (msm_vm->mmu && msm_vm->mmu->funcs->detach) {
-> +			drm_dbg_driver(dcp_kms->dev,
-> +				       "detaching IOMMU domain from dcp-dpus\n");
-> +			msm_vm->mmu->funcs->detach(msm_vm->mmu);
-> +		}
-> +
-> +		drm_gpuvm_put(kms->vm);
-> +		kms->vm =3D NULL;
-> +	}
-> +
-> +	if (dcp_kms->rpm_enabled) {
-> +		pm_runtime_disable(dcp_kms->pm_dev);
-> +		dcp_kms->rpm_enabled =3D false;
-> +	}
-> +
-> +	msm_kms_destroy(&dcp_kms->base);
-> +}
-
-[Severity: High]
-Is the teardown in dcp_dpu_kms_destroy() balanced with dcp_kms_init() across
-deferred probe or component rebind?
-
-In msm_drm_init(), msm_drm_kms_init() calls priv->kms_init(ddev)
-(dcp_kms_init()) and kms->funcs->hw_init(kms) (dcp_dpu_kms_hw_init()). If
-msm_drm_kms_init() fails (for instance with -EPROBE_DEFER when a panel is n=
-ot
-ready in dcp_dpu_kms_setup_bridges()) or when the aggregate device unbinds,
-msm_drm_uninit() calls msm_drm_kms_uninit(), which flushes kms->wq and calls
-dcp_dpu_kms_destroy().
-
-However, msm_kms_init(&dcp_kms->base, &dcp_dpu_kms_funcs) and
-pm_runtime_enable(&drv->dcp_subsystem_dev->dev) are only called once during
-virtio probe (in dcp_virtio_probe() and dcp_subsystem_dev_init()), not in
-dcp_kms_init(). When dcp_dpu_kms_destroy() runs:
-
-- pm_runtime_disable(dcp_kms->pm_dev) disables runtime PM on pm_dev (and on
-  driver removal, dcp_subsystem_dev_deinit() calls pm_runtime_disable() a
-  second time on the same device).
-- msm_kms_destroy(&dcp_kms->base) destroys kms->wq and kms->pending_timers[=
-],
-  leaving kms->wq as a dangling pointer that will be flushed and destroyed
-  again on a subsequent bind attempt or uninit.
-
-[Severity: High]
-Does dcp_dpu_kms_destroy() (and the error path in dcp_dpu_setup_pipeline())
-leave dangling CRTC and drm_device pointers reachable from HFI event
-callbacks?
-
-dcp_kms_init() sets dcp_kms->dev =3D ddev and drv->kms =3D dcp_kms, and
-dcp_dpu_setup_pipeline() populates dcp_kms->crtcs[] with CRTCs allocated via
-drmm_kzalloc(ddev, ...) in dcp_crtc_init() and increments dcp_kms->num_crtc=
-s.
-
-When msm_drm_uninit() runs on init failure, component unbind, or during
-dcp_virtio_remove() -> dcp_component_unregister() before
-dcp_virtio_hfi_cleanup() stops the VirtIO queues, drm_dev_put(ddev) frees
-ddev and all drmm-managed dcp_crtc instances while dcp_kms and drv remain
-allocated. Because neither dcp_dpu_kms_destroy() nor
-dcp_dpu_setup_pipeline()'s error path clears dcp_kms->num_crtcs,
-dcp_kms->crtcs[], dcp_kms->dev, or drv->kms, an incoming
-HFI_COMMAND_DISPLAY_EVENT_VSYNC or
-HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_COMPLETE message in
-dcp_hfi_resp_callback() will invoke dcp_crtc_hfi_vblank_cb() or
-dcp_crtc_hfi_frame_done_cb() and dereference the freed dcp_crtc or drm_devi=
-ce.
-
-[ ... ]
-
-> +int dcp_dpu_kms_init_dsi_bridges(struct dcp_dpu_kms *dcp_kms,
-> +				 struct component_match **matchptr)
-> +{
-> +	struct device_node *dpu_np =3D dcp_kms->dpus_np;
-> +	struct device_node *ep_np, *dsi_np, *child_np;
-> +	struct of_endpoint ep;
-> +	int ret;
-> +
-> +	for_each_of_graph_port(dpu_np, port_np) {
-> +		u32 dsi_idx, fw_display_id;
-> +		struct drm_bridge *bridge;
-> +
-> +		ep_np =3D of_get_next_child(port_np, NULL);
-> +		if (!ep_np)
-> +			continue;
-> +
-> +		ret =3D of_graph_parse_endpoint(ep_np, &ep);
-> +		of_node_put(ep_np);
-> +		if (ret)
-> +			continue;
-> +
-> +		dsi_idx =3D ep.port;
-> +		if (dsi_idx >=3D ARRAY_SIZE(dcp_kms->dsi_bridge))
-> +			return -E2BIG;
-> +
-> +		if (dcp_kms->dsi_bridge[dsi_idx])
-> +			continue;
-> +
-> +		dsi_np =3D NULL;
-> +		for_each_available_child_of_node(dpu_np, child_np) {
-> +			u32 reg;
-> +
-> +			if (!of_node_name_prefix(child_np, "dsi") ||
-> +			    of_property_read_u32(child_np, "reg", &reg) ||
-> +			    reg !=3D dsi_idx)
-> +				continue;
-> +
-> +			dsi_np =3D of_node_get(child_np);
-> +			break;
-> +		}
-> +		of_node_put(child_np);
-> +		if (!dsi_np)
-> +			return -ENODEV;
-> +
-> +		fw_display_id =3D
-> +			dcp_dpu_kms_resolve_fw_display_id(dcp_kms, dsi_idx);
-> +		if (fw_display_id =3D=3D U32_MAX) {
-> +			of_node_put(dsi_np);
-> +			return -EINVAL;
-> +		}
-> +
-> +		bridge =3D dcp_dsi_bridge_init(dcp_kms, dsi_np, dpu_np,
-> +					     ep.port, dsi_idx, fw_display_id);
-> +		if (IS_ERR(bridge)) {
-> +			ret =3D PTR_ERR(bridge);
-> +			of_node_put(dsi_np);
-> +			return ret;
-> +		}
-> +
-> +		dcp_kms->dsi_bridge[dsi_idx] =3D to_dcp_dsi_bridge(bridge);
-> +		drm_of_component_match_add(dcp_kms->pm_dev, matchptr,
-> +					   component_compare_of, dsi_np);
-> +		of_node_put(dsi_np);
-> +	}
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int dcp_dpu_setup_pipeline(struct dcp_dpu_kms *dcp_kms,
-> +				  struct device_node *dpu_np)
-> +{
-
-[ ... ]
-
-> +	dcp_kms->num_crtcs =3D 0;
-> +	for (i =3D 0; i < max_crtc_count; i++) {
-> +		u32 display_id;
-> +
-> +		if (!dcp_kms->dsi_bridge[i]) {
-> +			drm_err(dev, "missing DSI bridge for CRTC%u\n", i);
-> +			ret =3D -ENODEV;
-> +			goto err_cleanup_bridges;
-> +		}
-> +
-> +		display_id =3D dcp_kms->dsi_bridge[i]->fw_display_id;
-
-[Severity: High]
-What happens if a DT graph port has no available remote panel or if port@0 =
-is
-omitted or disabled while port@1 is active?
-
-First, dcp_dpu_kms_setup_bridges() checks of_graph_get_remote_port_parent()
-and of_device_is_available(remote_np) and skips ports without an available
-panel, but dcp_dpu_kms_init_dsi_bridges() does not perform this check before
-creating dcp_kms->dsi_bridge[dsi_idx] and adding dsi_np to matchptr via
-drm_of_component_match_add(). Because component_add() is only called from
-dcp_dsi_host_attach() when a panel driver attaches to the DSI host, any
-unpopulated or disabled panel endpoint in DT will prevent the component
-master from ever binding.
-
-Second, both dcp_dpu_kms_init_dsi_bridges() and dcp_dpu_kms_setup_bridges()
-index dcp_kms->dsi_bridge[] by ep.port, whereas dcp_dpu_setup_pipeline()
-loops from i =3D 0 to max_crtc_count - 1 and looks up dcp_kms->dsi_bridge[i]
-using the sequential CRTC index i. If port@0 is absent or disabled and only
-port@1 is active, dcp_kms->dsi_bridge[1] holds the active bridge while
-max_crtc_count is 1, so dcp_dpu_setup_pipeline() checks
-dcp_kms->dsi_bridge[0] and either fails with -ENODEV or binds CRTC 0 to the
-wrong bridge's fw_display_id.
-
-> +		if (dcp_dpu_kms_get_crtc(dcp_kms, display_id)) {
-> +			drm_err(dev, "duplicate firmware display ID %u\n",
-> +				display_id);
-> +			ret =3D -EINVAL;
-> +			goto err_cleanup_bridges;
-> +		}
-> +
-> +		crtc =3D dcp_crtc_init(dcp_kms, primary_planes[i],
-> +				     display_id);
-> +		if (IS_ERR(crtc)) {
-> +			ret =3D PTR_ERR(crtc);
-> +			drm_err(dev, "CRTC init failed: %d\n", ret);
-> +			goto err_cleanup_bridges;
-> +		}
-> +		dcp_kms->crtcs[dcp_kms->num_crtcs].crtc =3D crtc;
-> +		dcp_kms->crtcs[dcp_kms->num_crtcs++].display_id =3D display_id;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_cleanup_bridges:
-> +	dcp_dpu_kms_cleanup_bridges(dcp_kms);
-> +	return ret;
-> +}
-> +
-> +int dcp_dpu_drm_obj_init(struct dcp_dpu_kms *dcp_kms)
-> +{
-> +	struct drm_device *dev =3D dcp_kms->dev;
-> +	struct device_node *dpus_np =3D dcp_kms->dpus_np;
-> +	struct drm_encoder *encoder;
-> +	int enc_idx =3D 0;
-> +	int ret;
-> +
-> +	if (!dpus_np) {
-> +		drm_err(dev, "no DCP subsystem node =E2=80=94 cannot create DRM object=
-s\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret =3D dcp_dpu_setup_pipeline(dcp_kms, dpus_np);
-> +	if (ret)
-> +		return dev_err_probe(dev->dev, ret, "pipeline setup failed\n");
-> +
-> +	/* v1 - Encoders map one-to-one to CRTCs; cloning is unsupported. */
-> +	drm_for_each_encoder(encoder, dev) {
-> +		encoder->possible_crtcs =3D BIT(enc_idx);
-> +		encoder->possible_clones =3D 0;
-> +		enc_idx++;
-> +	}
-
-[Severity: Medium]
-Can plane and encoder possible_crtcs masks reference non-existent CRTCs when
-max_crtc_count is clamped in dcp_dpu_setup_pipeline()?
-
-In dcp_dpu_setup_pipeline(), dcp_dpu_kms_setup_bridges() creates an encoder
-for each active DSI port before CRTC and plane limits are applied:
-
-  max_crtc_count =3D min(max_crtc_count, DCP_DPU_MAX_CRTCS);
-  max_crtc_count =3D min_t(int, max_crtc_count,
-                         dcp_kms->caps->num_displays);
-  max_crtc_count =3D min_t(int, max_crtc_count,
-                         ARRAY_SIZE(dcp_kms->dsi_bridge));
-
-Then, during plane creation, possible_crtcs is computed from max_crtc_count
-before max_crtc_count is clamped again to min(max_crtc_count, primary_idx).
-Finally, in dcp_dpu_drm_obj_init(), every created encoder is assigned
-encoder->possible_crtcs =3D BIT(enc_idx).
-
-If caps->num_displays or total_planes clamps the number of created CRTCs
-below the number of encoders, planes and encoders will have possible_crtcs
-bits set for CRTC indices that do not exist, triggering a WARN() in
-validate_encoder_possible_crtcs() during drm_mode_config_validate().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
-cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D17
+What happened to this series?  It seemed liked something semi-urgent, but AFAICT
+it got silently dropped?
