@@ -2,123 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E28F606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 16:09:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9BE606A31D
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 16:11:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qfHGl/Jm
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=duOWRnJ0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04CEA10E2D5;
-	Mon, 26 Oct 2026 16:09:36 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012068.outbound.protection.outlook.com [52.101.53.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C498410F009
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:09:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gq0Ae1yAn1Q2klc+TW6bvEubjfyfKg9f/Q1TSyol3YFtOosHjjiZhINPLmQqGGL9vmDaVBCp+mFKC8POLnLbSvRBkxb58t8gbxB5u86WjGSnD0UYfR7WuhYPBhRPr906keYofGwOclNOLcV2f1TSuXmHfHH1jCXrRHftvMGFXmlBTFjhQygCGx8Y8GigfJ3layvyCc0cBskF9VJ6T8ZlYU0LDSWM1C8QLOODA2eQGBb23S8sYrlH3K7D4wJGu7se6OmoEd/z+bBgddHCWuyDPBRb8HtE9rwEYUDwmW5CGaVUrbBjmagIDl7L57Vhj0iMTECdUtsAgLyuKVsiomJfPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h0Ke6N1x7PJK+EQ6eoYCGhcjV/O0T1vXRaN/kaOK4UA=;
- b=H+BKJZM3RBwJ0pmDks5vDpq7PWP8owZNfQ4m4eK/2JQdkUlGCCC9WyzuDyM13O4mmfmS8bLO0AyJ1sSE6L5vecbVNbQUIVEUicfg6j9rsJWfMNNDiNbbL1hvYgXDPH7UtMUwED7dJH4mKVDQg48Dala5+A2OFKNmupYRCccIa54gluwiItl8SAvI9yD0LMBC83YAfVPZ6XQs6XpgG85K6gavxfwHQdMZszaabYNNRaujh5OzCSNx+Y/jLetiYnT/wT+Vma4Dt7joDFXOOTJGFNUami47/VGd3FEYYn7YrgLSPUmML2KZ5I+Jo+dfBrc6NCjJApW6LLJWOZ1yzInhxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h0Ke6N1x7PJK+EQ6eoYCGhcjV/O0T1vXRaN/kaOK4UA=;
- b=qfHGl/JmPHbAQ212FRR9otHNiq4T33pABbKtEXz/jgTj8h+JRbrfaBM2E0ohXwrQnqxcUv+t1sMMdyfIDHW8KzqTCfBuNhrK3Zyt0kIqPsNBWKpozy3YC08pD62U9r4c1GIlxHIJHxQT7RrhtcxXVh4e1tm7mGse4UWEwwrX+XA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
- by SA1PR12MB8599.namprd12.prod.outlook.com (2603:10b6:806:254::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 16:09:26 +0000
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 16:09:25 +0000
-Message-ID: <d6d10a47-6524-47d1-8588-fd5099ea6233@amd.com>
-Date: Mon, 26 Oct 2026 11:09:23 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] PCI: Preserve the initial bus number in pci_bus
-Content-Language: en-US
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20261026-vfct-regression-v3-0-fe9586ed6978@amd.com>
- <20261026-vfct-regression-v3-1-fe9586ed6978@amd.com>
- <sashiko-outbox-185478@kernel.org>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <sashiko-outbox-185478@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7P220CA0017.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:806:123::22) To PH7PR12MB9174.namprd12.prod.outlook.com
- (2603:10b6:510:2ed::9)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBF6710EFF4;
+	Mon, 26 Oct 2026 16:11:00 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 143D710EFF4
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:10:55 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5ba3ac592faso1436394e87.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:10:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1793031053; x=1793635853;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LRYiObfFeB4WPOp5iFNMLIAZZFa6drRLpmas4AXgTgk=;
+ b=duOWRnJ0TToMm4JEQbK9N3YPy5WG5zpUfSvU7E0OL2nlV2PoDdapnXKEsn9kBtuMU7
+ JobBUwFV3Gw2/r7MgSHFURrMg8fJ/o707Me3PqVjowxsvnKWv4IKGJVPvUimAuUss+hu
+ /8u7VUGOcJ6+np4u7CTqWR1qfLSCJ36A593Ho=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793031053; x=1793635853;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LRYiObfFeB4WPOp5iFNMLIAZZFa6drRLpmas4AXgTgk=;
+ b=urrZsVFVmuRi/WmJ8HtCw/4Mq6wyJLqhEfB7LiqEYGntvnTksDTaFwohRj5UL5ihWs
+ zjtqLFJcuV7/MS6xnKDnGIICgTmpOnkPgzNKttD1e9IS9PWKEuZEhpKeVhC+H/3lHC2a
+ NwzoEeo/G0eA87Mw2JHasL6zIkoHIAZhZJYE/+lneff9zt/t9xwCRtx8jAM92SKyIX+u
+ hhaPUS3dy5o9iCuKlRFBym8MiLOiUJ6iwBB9KnuwFuiprPQ/8ow6geZkcCk6a2+yWKd0
+ L2mj/BBDtJ7jFC6V31izui+Ags3u8wGlCNOGVCV6fZ1JIzQIhJb9eTrxHK+PxfTnLnOF
+ ht5g==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBznJs7puguoJ/NiszTZTsOb8xFz360iXuHb+bPJD617ef8syXIM2Ky/6he5aivM4xLe+QlSbsg9KJY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIiga2AunYXhBsuVIRuGa0AGDQnR8reyHSXHytsPT39oxySoTGP
+ oaS6HZd/NWwWacutybr4U8YUDZ9pK45g7fyn5t5XPqWPFe//9Od49kyVvzLMe98hpS7cE2cSrtJ
+ qgtDDww==
+X-Gm-Gg: AYBFou1WGTshswQe5F/sd17Ky4aM91eIBfDaGoTP/gWAEa4LbA1rBHO6hIre5fdwMm1
+ UjXOygMMaWAevZEit/Jo/NuF8LOcdH8DE9iPs1FXhmodwkostnDzxuV12Bj/iKKDbamHhhMfz7O
+ 7/haB2SmTV74Bdxi4nMmNs0wxRpGHXJryYNP18wVHZP5emFcc8eUcOesYB3nInRaDP5EhuZvDch
+ fuzFJKDPzA+lVsSrXCTcwAUKA9fLGZACbnhON1Gabqb7tVHLPhNaQuqVZEl2RnvBgLxZKrzaJUJ
+ KjB6gN2BAMPKpJV2w68DClPcGvI/x9GtTEE5F49otG+HlM8DukStAc55ZsNVs8iemdDfaiahW47
+ arg94AE+gV3olqe4z57bYsXMvw3pbveKAFYmGQ0tJnhyjnf2+uKmFnQmGb/L0g6mXFyATkW7wgq
+ WLvh3RP5HihP7Jcbas6d9igaq0PuMW+RT8kt278zcN/9p7ro4pmyYddL6GiHTTrCNthhfZSphfg
+ qQo2aYeagogZ3+mEJnfJrkgUyjkxGrvGEgyYwu730hUBbAc02BVeHiGWcoXl3d8bNVxmJtPDTSR
+ ZhPmalDB0cU+zD2neP2SBVo=
+X-Received: by 2002:a05:6512:3984:b0:5b6:1a7c:59dc with SMTP id
+ 2adb3069b0e04-5bfb71e29b4mr2223837e87.54.1793031052930; 
+ Mon, 26 Oct 2026 09:10:52 -0700 (PDT)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com.
+ [209.85.208.182]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5bfb7a75a84sm1729949e87.35.2026.10.26.09.10.48
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Oct 2026 09:10:50 -0700 (PDT)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-3ab3b29a298so21982011fa.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:10:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBze4VuJqSyncRavyzrUdf+IAge1gKC49I+Avk1WKmKWXQ/PCrmouK1aeRr4F4gLMH9gfP9xzfSckd4=@lists.freedesktop.org
+X-Received: by 2002:a05:651c:a32c:b0:3ab:690f:82ab with SMTP id
+ 38308e7fff4ca-3ac6fd6d952mr16112171fa.28.1793031047006; Mon, 26 Oct 2026
+ 09:10:47 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|SA1PR12MB8599:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67c56db1-191b-4148-bea3-08df337b8165
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|261022075727099003|261026140227099003|4143699003|11063799006|56012099006|261009223027099003|261022105027099003|261021121427099003|10067099003|261026121527099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: wF2XAO9HUFz0gAFDna8gsI6scxFl9PlSD4M6gZswvNnBxswMomOYadjOCEzP6UKBcMzyQvWvAOhZ/LjaCGGB4gOrAcOFnY1+zW9KW29wRm2prY4U2iykjwANPTD0n57ESEliU1kecyog4Uj2uXIfISmyEPlvCRjKIWEpr/qgkRvFCv8YyqRmA0e0r34aTku6+Yzwr4YcI2Go+WVXUfU+FnD6MLYks6767IQYknfKhzae1D4ybDn/S+PKjaJAc/KAIOjOMcHqmNLtclidFz2CuKi/sH9wuA7//wWIzzOEDOzgapakzsf0kdpDZ4/YxUdrJfc+YXaZi6iFi5UAJS/bxHOPb/o9x+ec71+m5uajDoioapO1+0a/zn2zYNF1EoW5FbwJDH0FWnkeY9lu18oVAvboLu/kdbR1gGTJho2YT6JlXHeljGJWu8XMpJmR3qMV9uj46DXnmFQvawD6OduIo9iCcLku0szHMqGkhiFVO5kmm5Ipxe0Wjt3SzTai/UnItRQCopktofbtiimiVxWarSRXhig+zELMHwK2r9KUzxgd5W+MUWHlQOyR1TysC+bZjRJ6A59CoMXwSylgm78N6Fab3bFY9WmTq3T5ZaggnLya5gKxny55ViRHnqQGxUClLxuvS4ON/nJJM79TdDi/aOc/lT4GOJ1sFfQ3KD+dptY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB9174.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(261022075727099003)(261026140227099003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261021121427099003)(10067099003)(261026121527099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UXVjNm50dGtDVDR2NXh5UmxDWmpHR0VKWFIzWHJSVTVtT2NRcExOV2pTNm5k?=
- =?utf-8?B?TG93ZjB2akZ5NGt3bmZsdnZITnV1Z0tFUmx3Vkl4UFM2Q1hYT2lJTVVHQkFw?=
- =?utf-8?B?STh3NHVpTDFzcDNsMi94UFI0VGt0UnJGQ3o2NDVwTXdWRGE5REM1RkdWUnI4?=
- =?utf-8?B?OVM4ZHF6R1ZzaWhvOHVlNFlRajA1Q3RiR3lMTWZuWHdld2RSY29ka0YwdGZM?=
- =?utf-8?B?cTIwcGs0WjRnR0M5TXpzN1ozUUlDME9qMHdXN1JtRFlkWFg1OFlQVVRTeGFR?=
- =?utf-8?B?NCtsTnVNZGtXeWd3RXNMOGJBSm4wSWhaRFlrS3pTNGwzMFFiK2pxeG5sUHpw?=
- =?utf-8?B?UVZrLzg0RFpQZStpb1dSNGd3M2FxcnN5Q3hMZSt2TVpENmd5TXZGM0M5V2Zw?=
- =?utf-8?B?MVZOeDNPV0xMcGpVODBSRlRLN2J4Qk9VTThVVGNGeEpGckw4UkdqV0xxZkll?=
- =?utf-8?B?WnU0eGk2M1B4U2pUNHM4ZUxrTnp5ZkdydmdqNVF2WVZ3UU1JNUNNVU0ycTB3?=
- =?utf-8?B?Q0xrWUFvRXB6eVA2OWtDZ0g3YllxRCtSQXQ2WWh1T043aWVEUWpFdFV1NjIv?=
- =?utf-8?B?cS8vcVZVdXkyVC8rUFRUQXRDOEtlU2pZeGRHb1dNRm40ZjFsMDJQbWQ4eFpO?=
- =?utf-8?B?bzhqajZwUE5ia3ljc0NiVkZ4cWJaQUtISUJjUFIyYXNEWERLc1luL1lsZ0FP?=
- =?utf-8?B?aXlEN3RtODREQW13MGxBMW1FUURvL2U4RTNMTXFZVFNPL3hMOXVSUGFpWDVv?=
- =?utf-8?B?cHc2TXhyMEg2VmVrZEVrMkx2Y3BFT01CWGlFNnFrVjhtNEhPZnV1eGFXejh2?=
- =?utf-8?B?aHBvU2kyTGxqdkZqSEt4aFBVV3dra3BIbDNvcGovQlI2S2c3eEtrS3BHT0U0?=
- =?utf-8?B?YnZkRGJxR2ZzVWxLRDdaVXdsYWhpRmQvY21jRFR1OEdjajNid2l6dmVtRFgw?=
- =?utf-8?B?bzI3SSs3SnhMLzBFa3RWZWxBN1JiSFhQQWZha01Md1RzbFZiN1Vhbm9MSEtU?=
- =?utf-8?B?aWRrSi85d2JRbmV2ZGl1dXFaZXVqQzZ0Vy94bzROUHp3cTR4emVvS3hzTDE3?=
- =?utf-8?B?T2NqUGVicXVIQmd3Q2J6YjZEOHBLQnh0Z2UwNUZ1YnlCanFmS3dNRlJxMXhk?=
- =?utf-8?B?cjcza0R0Z2JibjhHS0hJVHM3NzdEejZMYk1yODlhejhCbWhrdnFISGY1Vm5P?=
- =?utf-8?B?ZlJ1Qm1BMXVsNmMwQlg3ekNDTUdUU3NmT3k1Si92bGR3aDN5SEc5VVVuQVh2?=
- =?utf-8?B?UHUydXoyMjFDYTMvckJVVFVudVBnbUJPd1JDLzYvdm1hZHBjb0cwck1maG5j?=
- =?utf-8?B?V2J5Z29sNURDK2owa1Y4YmZKY1F5MytncVdsMG54YTRCbEk2SVUrYlVnNUlK?=
- =?utf-8?B?WGRlWnRMMy9GOEVKWmNPSnFJbVlwcXVJVE45WTgvVWFQNmUxQ1RnRlhSVWlE?=
- =?utf-8?B?VGk4Z0JVOTZRc1d4c0xtVGFaNFN1dGJqbWl5OUxsaUFBWjZlSFRBRDhwWmxW?=
- =?utf-8?B?RkhKZGthYnFBbUlOQlpQdm5CbEg3ZjhCdmJoVkUvVmJOa1FCQVVjUEx2b0VC?=
- =?utf-8?B?dUdwbEVlamduQVNrR3JGSklUcFhXY0gxYXo3V3VNVzFVWGJOaFNhbjJTQjJ0?=
- =?utf-8?B?VVdpYzJoRmhVTExNWmhTZjVSWjBLRHJuZTcvNXY0OHlZUks0ZG5HQ1ZRL05w?=
- =?utf-8?B?M1hxZzVZWEFoUDM4bXN0RzRSdU1lci8yRytROWtDVUQ4dFIrQTI0U2hBTjJK?=
- =?utf-8?B?ZW1DU2pCNzNGNEFUMDJNMjRRczJDWW5VbE12TlN2LzRZSjRHcGFWRzU2cGxK?=
- =?utf-8?B?ZlpHNUhBWERpUWhKbmthZTJwM1kzVWJSMGRlQ2ppTUJYUXRudk4yQVJwS0Fs?=
- =?utf-8?B?ZHJYU3RoNC9nUXNSVFZ5T3Z4cTI2UFEweFdOSGppZytwNHBUUTB4eGx6TTlK?=
- =?utf-8?B?UjNhYjV1TjhuZGoxUk14Mmt4cGYrODh2WHk1d3RJei9uWkw2SGVOdTNablNU?=
- =?utf-8?B?alFVNjdZS0txelUzby80dDk5Mnkrbk5SMWpSdUlwUU9KMmQzWU14RnZCODBn?=
- =?utf-8?B?SzVsZWg3TzFYV1RwQnNzQzd2Wk15U2lkMFVYOHQrY2ovVFV3blh4Z2NuTFpE?=
- =?utf-8?B?eVpCWkdlTDdoeHFtRSttV2gyRUMvSU5iMDQ0YXc5NWw0TzFHV3lzMW5HWGVu?=
- =?utf-8?B?Y3hqU1JyNDJ6c1lIYmY0SU5tNUJMVTlZUUVCakJFM1FBRnorUWhnekRBNVcr?=
- =?utf-8?B?NFU4bHUyMHpGd0FVRHlxSjBJeTlMVTFtZUZoMzlSR0QxT0c4TmNEeXNaTkt0?=
- =?utf-8?Q?xfPGSC+P2VFO+Bf8g/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67c56db1-191b-4148-bea3-08df337b8165
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 16:09:25.7672 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dkWvEI6M5X/gCBKvlfyHKv9G7t9G8lc17oU3iIcS05DYUgoLtYeKWDd6Pp8O/ZA8lc2uJL4cCiAYXP0bU4JoVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8599
+References: <20261024-sp11-bl-upstream-1-v1-1-d39bfaf9afbc@gmail.com>
+In-Reply-To: <20261024-sp11-bl-upstream-1-v1-1-d39bfaf9afbc@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 26 Oct 2026 09:10:34 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X+003jZ_LLQK6HEtuKs9Y39z=4=2SaN_=Y0uSXgVXFOA@mail.gmail.com>
+X-Gm-Features: AclHuK8VJDZ71e8SV7IfzgVPRQ8znFYiO6UYRUmBFyp4fXJJtzRNheKbSl34Kx8
+Message-ID: <CAD=FV=X+003jZ_LLQK6HEtuKs9Y39z=4=2SaN_=Y0uSXgVXFOA@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: disable the backlight before powering off
+ panel
+To: jimmie.lin@gmail.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Linus Walleij <linusw@kernel.org>,
+ Sam Ravnborg <sam@ravnborg.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Dale Whinham <daleyo@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ aarch64-laptops@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,112 +104,139 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-21.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi,
 
+On Sat, Oct 24, 2026 at 5:24=E2=80=AFPM Haipeng Lin via B4 Relay
+<devnull+jimmie.lin.gmail.com@kernel.org> wrote:
+>
+> From: Haipeng Lin <jimmie.lin@gmail.com>
+>
+> If the display pipeline takes longer than the runtime-PM autosuspend
+> delay (1 s) to bind after the panel probes, panel-edp's runtime suspend
+> powers the panel off while the backlight is still on: pwm-backlight
+> inherits the enable state left by the firmware at probe and keeps the
+> enable GPIO high. The panel supply is thus cut without first disabling
+> the backlight, leaving BL_EN asserted across a panel power cycle.
+>
+> On the Surface Pro 11 LCD (LGD0779), leaving BL_EN high across this
+> power cycle appears to leave the backlight controller in an incorrect
+> state: brightness is pinned near maximum with a greatly reduced
+> dimming range. Subsequent brightness changes update the PWM duty, but
+> do not restore it to normal. Cycling the backlight off and on at
+> unchanged brightness restores the full range.
+>
+> The first drm_panel_enable() does not recover from this because
+> pwm-backlight still considers itself enabled and leaves BL_EN high.
+>
+> Disable the attached backlight in panel_edp_suspend() before marking
+> AUX unpowered and cutting panel power. This ensures that the first
+> modeset enables the backlight after panel power and video are ready.
+> When DRM has already disabled the backlight, it remains off.
+>
+> Verified on the Surface Pro 11 LCD by delaying display pipeline bind
+> past the autosuspend timeout. BL_EN now drops before panel power is
+> cut, and brightness control works at the first modeset.
+>
+> Fixes: 5540cf8f3e8d ("drm/panel-edp: Implement generic "edp-panel"s probe=
+d by EDID")
+> Link: https://github.com/dwhinham/archiso-aarch64-sp11/issues/41
+> Assisted-by: claude-fable:5
+> Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
+> ---
+> Can reproduce on an installed system on Surface Pro 11 LCD (X1P-64-100,
+> LGD0779 LCD) by booting with modprobe.blacklist=3Dphy_qcom_qmp_combo then
+> loading that module manually after ~20s. This delays DPU component bind
+> past the panel's runtime autosuspend timeout.
+>
+> A/B tested against the same v7.2 tree:
+>
+> - Unpatched: panel VDD off 3.5s..20.5s while BL_EN stays high.
+> after the first modeset brightness is pinned near max brightness with
+> a "collapsed" dimming range. sysfs brightness writes still reprogram
+> the PMIC LPG. One bl_power off/on cycle at unchanged brightness
+> restores the full range.
+>
+> - Patched: BL_EN drops ~300us before the VDD cut and rises again after
+> panel power+link at the first modeset. full brightness range works.
+>
+> Tracing and functional testing on the SP11 shows unchanged sequencing
+> for fast boots, DPMS off/on, and system suspend/resume.
+>
+> Two cases would benefit from testing on other hardware:
+> 1. AUX-controlled backlights
+> The disable is placed before drm_dp_dpcd_set_powered(false) and
+> regulator_disable() so the panel remains accessible if disabling its
+> backlight requires AUX writes. But I have not tested this since my
+> LCD is GPIO/PWM based.
+>
+> 2. Panels with shared/always-on supplies and no panel enable GPIO
+> These panels may continue displaying the firmware framebuffer during
+> the pre-first-modeset runtime suspend. This change will turn off their
+> attached backlight during that interval, potentially making the boot
+> display go dark earlier. This matches the driver's powered-off state,
+> but I have not tested that configuration.
+>
+> Testing on other panel-edp systems particularly with pwm-backlight,
+> would be appreciated.
+> ---
+>  drivers/gpu/drm/panel/panel-edp.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
+nel-edp.c
+> index 94bc54c3833a..87f9c13380be 100644
+> --- a/drivers/gpu/drm/panel/panel-edp.c
+> +++ b/drivers/gpu/drm/panel/panel-edp.c
+> @@ -21,6 +21,7 @@
+>   * DEALINGS IN THE SOFTWARE.
+>   */
+>
+> +#include <linux/backlight.h>
+>  #include <linux/debugfs.h>
+>  #include <linux/delay.h>
+>  #include <linux/gpio/consumer.h>
+> @@ -413,6 +414,18 @@ static int panel_edp_suspend(struct device *dev)
+>  {
+>         struct panel_edp *p =3D dev_get_drvdata(dev);
+>
+> +       /*
+> +        * eDP panel power sequencing requires the backlight to be off
+> +        * whenever the panel is powered off. Before the first modeset th=
+e
+> +        * backlight driver may still hold the enable state inherited fro=
+m
+> +        * the firmware, and some panels' backlight controllers come up i=
+n a
+> +        * wrong dimming mode if their enable line stays high across a pa=
+nel
+> +        * power cycle. Sync the backlight off here so that the backlight
+> +        * enable from drm_panel_enable() performs a true power-on in the
+> +        * correct order.
+> +        */
+> +       backlight_disable(p->base.backlight);
 
-On 10/26/26 11:01, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] PCI: number_initial clobbered on bus rescan in pci_scan_bridge_extend()
-> --
-> 
-> commit 66abeabff58a043b28934ad23308d764456e9fa4
-> Author: Mario Limonciello <mario.limonciello@amd.com>
-> 
-> PCI: Preserve the initial bus number in pci_bus
-> 
-> This commit saves the firmware-assigned secondary bus number before PCI bus
-> renumbering and stores it in pci_bus->number_initial so drivers can match
-> firmware records against the initial bus number.
-> 
->> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
->> index 27008e2ea5afc..9950a9dd1db1f 100644
->> --- a/drivers/pci/probe.c
->> +++ b/drivers/pci/probe.c
-> 
-> [ ... ]
-> 
->> @@ -1232,6 +1233,7 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
->>   
->>   	/* Set up the primary, secondary and subordinate bus numbers */
->>   	child->number = child->busn_res.start = busnr;
->> +	child->number_initial = busnr;
->>   	child->primary = parent->busn_res.start;
->>   	child->busn_res.end = 0xff;
->>   
->> @@ -1470,6 +1472,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->>   			child = pci_add_new_bus(bus, dev, secondary);
->>   			if (!child)
->>   				goto out;
->> +			child->number_initial = secondary;
->>   			child->primary = primary;
->>   			pci_bus_insert_busn_res(child, secondary, subordinate);
->>   			child->bridge_ctl = bctl;
->> @@ -1491,6 +1494,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->>   		 * do in the second pass.
->>   		 */
->>   		if (!pass) {
->> +			if (!dev->secondary_busnr)
->> +				dev->secondary_busnr = secondary;
->>   			if (pcibios_assign_all_busses() || broken)
->>   
->>   				/*
->> @@ -1529,6 +1534,10 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->>   			pci_bus_insert_busn_res(child, next_busnr,
->>   						bus->busn_res.end);
->>   		}
->> +		if (dev->secondary_busnr) {
->> +			child->number_initial = dev->secondary_busnr;
->> +			dev->secondary_busnr = 0;
->> +		}
-> 
-> [Severity: Medium]
-> Can this overwrite child->number_initial with the reassigned runtime bus
-> number during a subsequent PCI bus rescan when pcibios_assign_all_busses()
-> is enabled?
-> 
-> During the initial scan of a bridge taking the bus reassignment branch in
-> pci_scan_bridge_extend(), pass 0 saves the firmware secondary bus number in
-> dev->secondary_busnr. Pass 1 then transfers it to child->number_initial,
-> resets dev->secondary_busnr to 0, and writes the newly assigned bus number
-> (next_busnr) into the bridge's PCI_PRIMARY_BUS register:
-> 
-> drivers/pci/probe.c:pci_scan_bridge_extend() {
->      ...
-> 		buses = (buses & PCI_SEC_LATENCY_TIMER_MASK) |
-> 			FIELD_PREP(PCI_PRIMARY_BUS_MASK, child->primary) |
-> 			FIELD_PREP(PCI_SECONDARY_BUS_MASK, child->busn_res.start) |
-> 			FIELD_PREP(PCI_SUBORDINATE_BUS_MASK, child->busn_res.end);
-> 
-> 		/* We need to blast all three values with a single write */
-> 		pci_write_config_dword(dev, PCI_PRIMARY_BUS, buses);
->      ...
-> }
-> 
-> When a later bus rescan occurs (for example via pci_rescan_bus(),
-> /sys/bus/pci/rescan, pci_rescan_bus_bridge_resize(), or hotplug), pass 0
-> reads PCI_PRIMARY_BUS again, where secondary is now the reassigned bus
-> number. Because dev->secondary_busnr was reset to 0 in the first scan,
-> !dev->secondary_busnr is true and dev->secondary_busnr is set to the
-> reassigned bus number.
-> 
-> In pass 1 of the rescan, pci_find_bus(pci_domain_nr(bus), next_busnr) finds
-> the existing child bus, and the block after if (!child) overwrites
-> child->number_initial with the reassigned bus number. A similar overwrite
-> can occur if pci_find_bus() finds an already-existing bus during hotplug.
-> 
-> Also, in the new-bus case, pci_add_new_bus() calls pci_alloc_child_bus(),
-> which sets child->number_initial = busnr (next_busnr) before calling
-> device_register(&child->dev), pcibios_add_bus(child), and
-> child->ops->add_bus(child), so those callbacks see the reassigned bus
-> number in child->number_initial before pci_scan_bridge_extend() updates it
-> from dev->secondary_busnr.
-> 
+The above doesn't look right to me. In general, the backlight should
+be owned by the core DRM panel code. Jamming this in here looks like a
+hack. We'll also be double-disabling the backlight in most cases since
+the core drm_panel code will be disabling it _and_ we'll be disabling
+it.
 
-I'll dig in.  I initially think this one is true.
+I guess the problem here is that the PWM backlight code tries to
+preserve the backlight to handle panel drivers that support a seamless
+handoff from the bootloader to the kernel. Since some panel drivers
+handle that and others (like panel-edp) don't, it's hard for the core
+to magically do the right thing.
+
+I think the right answer is to disable the backlight at probe time for
+panel-edp. This is a one-time thing and just to handle the bootloader
+handoff, so having the workaround run once at bootup is better.
+
+-Doug
