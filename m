@@ -2,97 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F536606A32F
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 11:22:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB9F60A3823
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 11:22:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=evLfp9jz;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=QxHLfqly
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=TOHq44JS;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=n+zycrMu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D00F310EE5E;
-	Mon, 26 Oct 2026 11:22:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64BE110EE5D;
+	Mon, 26 Oct 2026 11:22:08 +0000 (UTC)
+X-Greylist: delayed 329 seconds by postgrey-1.36 at gabe;
+ Mon, 26 Oct 2026 11:21:54 UTC
 Received: from fout-a2-smtp.messagingengine.com
  (fout-a2-smtp.messagingengine.com [103.168.172.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0CD510EDAB
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2C8B10E1E1
  for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:21:54 +0000 (UTC)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfout.phl.internal (Postfix) with ESMTP id 9C485EC0387
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 07:14:26 -0400 (EDT)
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailfout.phl.internal (Postfix) with ESMTP id 5BCBEEC0325
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 07:14:22 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Mon, 26 Oct 2026 07:14:26 -0400
+ by phl-compute-03.internal (MEProxy); Mon, 26 Oct 2026 07:14:22 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
  :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1793013266;
- x=1793099666; bh=DXYVe7CNLIz7yJ9VzKjWYgPWAbLU1uMBEbXYftb1oMU=; b=
- evLfp9jzLV4IDOdyesGVYhsJiwSxzDYhlsMG9KOlbI4/BIyeF0XOtn/jq+k4XtWC
- KQeSBG/Y7yjxcQawhLcrvuQ9y0vIQzvsj6KB2zuqRQ6qpaSFbJN86+cukPmimp1H
- LCETV/F+XRO+lcNiz+MiNJmn8NjFRX80faveqjWoaCSus+q68xbtWSkhTeEo4hoo
- L2QNh2Q7Qh0zVCeOc3d6b4fdCmhONHbVILTbjZu33fOCckzM33z4UKyx4CjDgdJJ
- dCgeohdZ8qvLhLtAgVLsXw/k5JzUsu804GnTWg/TTPc1TM31OwHWeIIaNsA9ZdnM
- ZQrfq5y0XXNbaQO4XihK8w==
+ :date:from:from:in-reply-to:message-id:mime-version:reply-to
+ :subject:subject:to:to; s=fm1; t=1793013262; x=1793099662; bh=cl
+ zgYqSXVQLG3at2x8tUVnHhbFljXlxxPxEyRtdtAGo=; b=TOHq44JSbPvOeFhCGn
+ hX+hVmEBOKyGVFxnVqYIJ4tEL2g7hfNGfayPmUEQLcl0TA4F1svHVgm3LU3G6vj0
+ xEy8hkMmyXc8G+b3uqVnwOk6/WYMpKB/asBYVoFjw7myJ6Ixg2MmDeBF4kiTipMe
+ IaNkpWsdsrTWdYm7Sze/e82/yMfcDjBGEcLPCIRonZveU/AFI32dNlQS3nIaXHcz
+ 1m7hvmhTByMNK7o3qArI2zmE3VUENflL+yWxBce0x8OQ88WDUgs+LGwkqNrnogN0
+ q4VYqbJUy5MmZ/c+5T/+rvk9++Wd0f8tQ53tbMn+4N5Uj6xW6Ub3E4Vmyu+iFNxU
+ qUbg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793013266; x=
- 1793099666; bh=DXYVe7CNLIz7yJ9VzKjWYgPWAbLU1uMBEbXYftb1oMU=; b=Q
- xHLfqlyOW61irSWhdgOeP4B5TzzEJEANY31WjFuzhTLXZz8GHFJ0iSJ4J/Pvyx8K
- Nt2CP9lCKMtEcf0UlMKFtl9UkDtnY63bGxmUOmcnMOyQuo/z5ovjEpI2MBGN4T4D
- JOtu94e7sezy9jXYbbzVa64ffItxNEEJIxxZOvyBRsl7WuSNYjMki1FQHrm8Mld0
- xbHTst51FdeIFYlg0pBXMdlHEqMxy2OYgP4dS4YZeCKlQ0VIlnl2ycffXIJEgo6d
- YpD4eNmq172FxOacFZvXFRRs6qRRW0Xm38+OjQuFsKN6lzWJXH3RNVYcwDDIDMk/
- Kus+leByN13WB8ZY/Pcvg==
+ :from:from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; t=1793013262; x=1793099662; bh=clzgYqSXVQLG3at2x8tUVnHhbFlj
+ XlxxPxEyRtdtAGo=; b=n+zycrMusTWzxCIpi2nSqZUpn5SvgXaK6GmWLdxK8xKW
+ YigJlZ4jhIX0UkPXBW6LzI43M3V0R+CDP+ajiUWpGmclAIlm+v9YK5JCpxU9h7u+
+ HaokcptThdQg81E65mefrxw4pU/9daC1Tg7nw2wXRWKc8ihC3HEpjgcLJtie4oFF
+ 8u3W20EXgQ0Ymy32TR8l2X0HSDs3TeB1MOXmbNG+IgNBa4pF4BufN4Te11Pb4c4a
+ MJj6kCLMIhVrt3RbIhKOy3rygIIgV2onE439So99rD/9JxilzEnmnxGb/QM28OZv
+ P5jCgFb3511VpmYeJc9UQ7IYbdfn/X9bPq8IwGZEwg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
  repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
  action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793013266; d=jannau.net; mf=PGpAamFubmF1Lm5ldD4=;
+DKIM2-Signature: i=1; m=1; t=1793013262; d=jannau.net; mf=PGpAamFubmF1Lm5ldD4=;
  rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:t2zTA0YQ2sqkPymH1pd5wQjBR+wBFeexA7wubQ5Lgh9RRgu
- QFd9qRlTtDNyG8tHqN/PlLSUhJshtxJn2FXYwWQE7+cyJuINuodpcRbI8zbTIk89
- qEQ+7eqWmd4795Oi8elNFi13XQatthj8LyPxUyX+WcWDOc5QUjXIA1Bh4WmKHkBE
- si0pIRs/H5YJlUDpdU9D6LyVAHuqKwHJl8hbbxCqYRPiPIHVb1ZjZfnf5pOfrPga
- ZKjcpdtFcCr4gt/jgIAVfZZFvgQnNCeqS6LkZ3WaOyKRv4FmpNRzl5Uy1n7mflFT
- LPiIxMyQldlS7ermj9dWLZ4ud1ML4P6fcIcVNgQ==;
+ s=fm1:rsa-sha256:cfaHpoQ88f2bGkyGt58391CJe+aCJXYUUzmciusqV74aKwd
+ 7Xrezx8rJrP17H/x6EkqgUkTVX7YdfBl+vU2rDe/TaHccXNJyhTYq5ncJ6IjLjn6
+ F8eNlFul2QKd2Sk3rbkBK/9CPUbWh/HiKcYsr2707u9NXkmY7ohom1PjE8LaN3e4
+ o7Xep+Wjn72dRcXe4jxaCwxlOPd4srnUNbXC2qmuNfeVn/tN+NsEqEkpjYP62zkz
+ TJYw4iuAxzXRCxLjdPuUw0jr3F/D2nK0+13vUAOL6Y/ZYJGRXdAFkjqbiN6ik1Gm
+ jtx16L81M6Pk+HUEmrhwJzBeHKMqdqjU/zkuKaA==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
  repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
- action=mi-m=1; hc=12;
+ action=mi-m=1; hc=10;
  hn=cc,content-transfer-encoding,content-type,date,feedback-id,
- from,in-reply-to,message-id,mime-version,references,subject,to;
+ from,message-id,mime-version,subject,to;
 Message-Instance: m=1;
- h=sha256:RYSLW73I78j0EtqWI3hr1NOeLZj2Zc7tUlgixISG9Z4=:xGEkm1UVWNmD/CcCSf5Ky60m67kbjzi3LJ1BFgNgNPQ=;
-X-ME-Sender: <xms:EjbfamEcMROzPCt7DV5Z7KBa16LLySd-vtW-upGe6RTfEs-iCAVf2g>
- <xme:Ejbfai7i5VhoWhQl54JGpM-ajuqMfRsuGnOTd81SUoi-MCN6iNOLuXdpNnpPisNHK
- ebBu5q1H3g0KcUjFfC2jt7WJkPneVoBgmSfgGBJa8WN1mS8Bw8D9ddX>
-X-ME-Received: <xmr:EjbfagI-eZcsIT6KZsrAWASPSiUxgjOJiVnPxjp3OYpQcnrAVjkrKkNc7do0rtBCXqtU5Z6AKum0ncAX9RwhcHMEP1ynpzD92-4>
-X-ME-Proxy-Cause: dmFkZTFmWKNzxilsosn2AiOSTQBzQCKqijXuWDtuYcyNU5PT2LnXjQH9TggnkIPYYOofzf
- 5x1dpL92mqjacmPimklyXzPWwipYY6x+66VZu8Tv2NIJi/xjXE/dGg+P6gmCFOEPnAANMa
- GWbcVZCeOd+6glMcPbe9sptsseTQLY/yMD/T8XDQ6zPyiAetAAobPNHg+7Fo1kWYVo3y4/
- tJY7yjWdLCspccv2sVZ5tHGBaie7ZnUdej3ckQvzSCkHM28HfPYg1x/4QXp7MPPyN/oD0f
- GXJxq3QMGIawVafsXBanxMlWFrsqrdL5PuIhs/OPluzLTCG5ZaD+HgOPfzieAHmkSzApDG
- dUS7W9fWwNttwaIA1dA+pImrkBR/3h4GGIlu4fp4mQdzTZzodD69aDUoqGprDAjqE92Umm
- HIXnO7yzSB9zvumuLffk1bR13Pcw2PylOdS3v2xKhZ0/hQfEFOTh69EaHkVzqaGKK66LRB
- AqYAhO6JzyCfpuWnXGU+eE0ijYqpGIJ1cXWlvAYNxA6a1Moks0oaZ72SeTKyoJRYc+1dXT
- vpkwdYn/YimgwbB3z72QU3OVGsaS+xCdyQsL5SKOmHGQJLYoYaGkrD144teXYlMcVTIkjG
- AZ7E0WgasHyrpjfN+ZfjQM8wrVcvy8B+DQNi/N51eH6ydkjEihp6zDzuPJVQ
-X-ME-Proxy: <xmx:EjbfalAmflRK5VMw3HSlqyi-oge-d5cz46RcIbmPab_RgHFim6LTnQ>
- <xmx:EjbfauRADlpgarBtCPtVcBu1D5NHlr7tv5mT2L2glbkZyLI3lyTt_A>
- <xmx:EjbfavdIMb1swThSv9OECX9ncitpCOPHmJsy_ciFJ7WGRISDIpDKpQ>
- <xmx:EjbfamhUhuduAZ-SeNLxpHgPdOQmiOwPFuhnOdBr6Rzy8rShrZmQlg>
- <xmx:EjbfasDJ1osCpQeIa4Rh372S8YxD2aD_wpSu-hEnZcQSIdDEbubOewXu>
+ h=sha256:lz+m8lbgMpMAl98624me9BGYUOyDJ9+3DVD9KDFEE0o=:tc0JNhbJEv+YLkcKMJB8dzQje+YSOMOPBx9PO/3eAgA=;
+X-ME-Sender: <xms:DTbfai3JXP8QASfHgzymtDx_AVLg6i8pA1QPD-vbVJOUUkUl0dZJ6Q>
+ <xme:DTbfapBd5mBDIMh_5os3baUExFiw1uTjGqbITbF96kqHxf81d2k_oJ39JtHAe21DS
+ E6Mi0OJdOK6kRLTxMpXcf11uwWUc7VFgQeQ0aVfrhdS95DAfZfoKPRk>
+X-ME-Received: <xmr:DTbfajZ2oqOHjs4uRYpIVr6k5wluuskQkqVfCKM4_ZwaLGZDLAVtmxTXZto6Ja5WfnsnKqdnfKdbwypvwaYGG1DDpF86XWViRG8>
+X-ME-Proxy-Cause: dmFkZTE6oQ5h5XRSw4+vD9WrOXLZuJyselaKPSfXQRbuWV77QBYt2EQ9tGCIZCCfI+m/Qa
+ n1uq+aW9E9Plcmh5Wsv53mR3Wfq/LD6EENm7YTAEFUrz7L+d6txwtv/3nX1t2prik/j6tu
+ yXxNz7uqmkWpSSQeynxMGSf2mSIlZo8vtuvDvwG6n00wrFR6ggPRsGAFH+8sPhQSQDDeC5
+ 2ljVt1H99p8IGY9SHE8DxIzwt08oVWef+BIPgXkdo8gDC3konj3WvEsUCIeCIMfWKrPIz9
+ QBjQ1nEEkNbjgv4/z18Wsq/1xq+Bsn/ewUoOcAk6sYBlaAnokTQqQm9IA/x0DUS/OiEqTk
+ 4KamfMcNHHpe9IAMLuzC0SqQvwFB5W0+CcZYGKu359DoiAjA1THa+H9Or46BFr2mgJwMp/
+ MunMX8Fl2wAT4yGbiNBkOX4I0SBopsE4fElnl5gqvAWSm+9DnI+RUWFEgMwmPB/46+XMOT
+ VBaHEfdmi6FucDyoo5v7aU7mGngkL5mm1ZodfJXn9Khqx60gYGrc4V0yLYVEXV+wf02A+D
+ sUZLU/eh5ok3UJmjCoZHrqa5jdS9aKGhvMNLxwCYdDDJ17p+Cq0QlsD1N1LejmPQKehm+y
+ wO+wir2R3mQ/jKbPavM7LEox1cQZBGrHzgqlnGxxfIWr5barEjCG+FSvRxJA
+X-ME-Proxy: <xmx:DTbfatbpBOLTTcsQrpU9xVaOUrP-qmVGwCke4getTh7AvSZZsGiZAw>
+ <xmx:DTbfaskmPpqN1MVqTNlG39zXi5mXDMhz-p0FNpsKgUOxFXCi-_tpGw>
+ <xmx:DTbfanQr5JE76MsiSWwHQOVXRjlVzdyYLABXHliiyBDMWwnDeH_VZQ>
+ <xmx:DTbfapXeERQWotN_C_NAdgqdsz-X5EJvAm8jH02tEVhGF1nhfld5vg>
+ <xmx:Djbfapje4HVWSQEEhWYyBHbIYBwrkTN9r40W9TxBOHMGMLJQW8LwUFts>
 Feedback-ID: i47b949f6:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 07:14:25 -0400 (EDT)
+ 26 Oct 2026 07:14:20 -0400 (EDT)
 From: Janne Grunau <j@jannau.net>
-Date: Mon, 26 Oct 2026 12:14:09 +0100
-Subject: [PATCH 2/3] rust: drm: gem: add an is_imported() accessor
+Subject: [PATCH 0/3] Fix import of dma-buf buffers as DRM GEM shmem objects
+Date: Mon, 26 Oct 2026 12:14:07 +0100
+Message-Id: <20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-rust-drm-gem-shmem-imported-sgt-v1-2-36f15ace04b1@jannau.net>
-References: <20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net>
-In-Reply-To: <20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NQQqEMAxFryJZGxirDuJVxEXHxppFVZIqA+LdD
+ S7eh7f57wIlYVLoiwuETlbeVpOqLGBa/BoJOZiD+7hvZaAcmjFIwkgJdUm2nPZNMgXUmLFrp8Y
+ 37Y9cV4O97EIz/9/CMN73A0rLLmVxAAAA
+X-Change-ID: 20261026-rust-drm-gem-shmem-imported-sgt-85c4a45be283
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
  Gary Guo <gary@garyguo.net>, 
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
@@ -108,15 +111,15 @@ To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Lyude Paul <lyude@redhat.com>
 Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
- Janne Grunau <j@jannau.net>
+ Janne Grunau <j@jannau.net>, stable+noautosel@kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1695; i=j@jannau.net;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2228; i=j@jannau.net;
  s=yk2025; h=from:subject:message-id;
- bh=QM7q0FfDYp8A00L/ZX7AriznaohL6TlI/fH0ot/ZaOc=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqz7Zlwz0hhaH+Qc7y/ffjXG6ffajVZHHjs+Srway7NuX
- uWLplaZjlIWBjEuBlkxRZYk7ZcdDKtrFGNqH4TBzGFlAhnCwMUpABM5oc/IcLy+T0Sh5N7u3/6a
- kSzppx9xrNU8UbHnzbEQ1XM7boszv2D47200qe8dm3DNvjCFmvr/fxKVixZJXEjJfNKnf+aatLE
- +EwA=
+ bh=tc0JNhbJEv+YLkcKMJB8dzQje+YSOMOPBx9PO/3eAgA=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqz7ZlzBhslsCmq2btH9vH57s5XmhjUcXBB4neNf0YZ5Z
+ w7ZvzrYUcrCIMbFICumyJKk/bKDYXWNYkztgzCYOaxMIEMYuDgFYCL+nIwMezyFGx8bXfu1bmu8
+ RGozS8ViV7G3ztdNXzV8U1+7bJf1eUaGvmcZzFEGi01dfWfyzKwu1u5aL5VTfsQ5ct3hBwn1WQ+
+ YAQ==
 X-Developer-Key: i=j@jannau.net; a=openpgp;
  fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -138,56 +141,55 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Sami Tolvanen <samitolvanen@google.com>
+Hej,
 
-Drivers need to check whether a GEM object is PRIME-imported.
+this is triggered by the discussion of gem/shmem.rs SGTableMap issues
+in [1] which has an additional issue with imported object.
+Imported objects are supported since GEM shmem's AllocOps use
+drm_gem_shmem_prime_import_sg_table() as gem_prime_import_sg_table which
+sets the same function pointer field in struct drm_driver.
 
-Add BaseObject::is_imported(), wrapping drm_gem_is_imported() through a
-C helper shim.
+The code is broken in two ways. SGTableMap::drop() calls
+__drm_gem_shmem_free_sgt_locked() uncondiftionally which it must not do
+for imported objects as the object does not own `sgt`.
+The second issue is that the imported object is allocated by
+__drm_gem_shmem_create() with sizeof(struct drm_gem_shmem_object) as
+size instead of the size of Rust's Object<T>.
 
-Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+The second issue is already fixed in tyr's downstream driver by adding a
+`gem_create_object` callback which is used instead of the minimal
+allocation in the C helper.
+The first issue is fixed in the Asahi downstream driver together with a
+drm_gem_is_imported() wrapper change taken from the tyr downstream
+driver.
+
+All three patches are tested in the Asahi downstream driver. As this is
+unused code in-tree I marked the fixes as not suitable for stable
+backports. The known downstream users of the code are aware of the
+issues and carry fixes downstream. I don't expect new Rust DRM drivers
+to be based on the (old) stable trees.
+
+Link: https://lore.kernel.org/rust-for-linux/20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com/ [1]
 Signed-off-by: Janne Grunau <j@jannau.net>
 ---
- rust/helpers/drm.c         | 6 ++++++
- rust/kernel/drm/gem/mod.rs | 7 +++++++
- 2 files changed, 13 insertions(+)
+Janne Grunau (1):
+      rust: drm: gem: shmem: Do not free SG table of imported objects
 
-diff --git a/rust/helpers/drm.c b/rust/helpers/drm.c
-index 65f3f22b0e1d..8cf3ca7aeeb2 100644
---- a/rust/helpers/drm.c
-+++ b/rust/helpers/drm.c
-@@ -16,6 +16,12 @@ __rust_helper void rust_helper_drm_gem_object_put(struct drm_gem_object *obj)
- 	drm_gem_object_put(obj);
- }
- 
-+__rust_helper bool
-+rust_helper_drm_gem_is_imported(const struct drm_gem_object *obj)
-+{
-+	return drm_gem_is_imported(obj);
-+}
-+
- __rust_helper __u64
- rust_helper_drm_vma_node_offset_addr(struct drm_vma_offset_node *node)
- {
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index e01b8311dd89..5da8627275a2 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -187,6 +187,13 @@ fn size(&self) -> usize {
-         unsafe { (*self.as_raw()).size }
-     }
- 
-+    /// Returns whether the object's backing buffer is imported from another
-+    /// driver.
-+    fn is_imported(&self) -> bool {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `struct drm_gem_object`.
-+        unsafe { bindings::drm_gem_is_imported(self.as_raw()) }
-+    }
-+
-     /// Creates a new handle for the object associated with a given `File`
-     /// (or returns an existing one).
-     fn create_handle<D, F>(&self, file: &drm::File<F>) -> Result<u32>
+Sami Tolvanen (2):
+      rust: drm: gem: shmem: implement gem_create_object for prime imports
+      rust: drm: gem: add an is_imported() accessor
 
+ drivers/gpu/drm/nova/gem.rs  |  4 +++
+ drivers/gpu/drm/tyr/gem.rs   |  4 +++
+ rust/helpers/drm.c           |  6 +++++
+ rust/kernel/drm/gem/mod.rs   | 16 ++++++++++++
+ rust/kernel/drm/gem/shmem.rs | 62 +++++++++++++++++++++++++++++++++++++++++++-
+ 5 files changed, 91 insertions(+), 1 deletion(-)
+---
+base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
+change-id: 20261026-rust-drm-gem-shmem-imported-sgt-85c4a45be283
+
+Best regards,
 -- 
-2.56.0
+Janne Grunau <j@jannau.net>
 
