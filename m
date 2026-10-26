@@ -2,134 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A02F606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 09:32:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B00D606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 09:32:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=Z2wcR7t7
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JHuCpQk0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8754D10F328;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 903FD10F329;
 	Tue, 27 Oct 2026 09:32:01 +0000 (UTC)
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013033.outbound.protection.outlook.com
- [52.101.83.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DB2410F2D4
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 08:39:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P6g2ynRimPJK3+oJh2YOEJ5C/QGFHEN4OXy7zVBjejJP15dEc6esC4KvPBq21YZ5OrMYT2z9DKSaX3HI2sI2k0lNKebZJfqJRUUilieqLuJ9iJZ+A2iRpIzunsbR/uUE/wjOqtOP3Tu9EVesYWmgzCSTcOpXr3ENRC7iQWzix3lK+2PwuPKugU2m2bnE84VUrX5QMHUFu4miI4APl66FExs+WTTaoK1MYRc/YiQK3v89xuo1xmz1bvcZLJ7FUrEF8IIccR3etdH8cOjD/MmVmmN2jgjX6PU2kgO7JCRfqvoI/386R346Y//aZc6dH4FAWdvQJrFVMrCSKmuXn4pyGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x60qU4bGGBUvyP3F/hQ4dD1mbTjfs/J1KDfUFpzgDTA=;
- b=jOWI2vn+E3Xlck0MWzOUwoSI/ypPCupkzDrcbYiZbG/gpZAn9qtxDfKb0w7ttVqn5pBb4mUNQ0w95Vk0mSlZeMuldzYzVN4SqftduE/pZzw6EXFTUZM3Ls2qNFgObS7s2LB0pWQ2H0vFBTmBlcYAFKsbeArp7n2VaUTqsblnoRG4T1SiY67WxsvRilELoflrxjbMQ2U1LPgg9nY63ERs3o3UCVDj/YfYQUqjJwPp0R3pW1e00TCVMBQXPS/YU/lCuGk2hHmd4zejyqIAAzD8Zoc7plBlyHwZQEE97Vr3EqiMI0R6Cpqm8sy9NCe0oeGI83uo3McDSBKwWEwk8EC3Lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x60qU4bGGBUvyP3F/hQ4dD1mbTjfs/J1KDfUFpzgDTA=;
- b=Z2wcR7t7YT8oxZeOtw+kZJ12FeALHJzpjAwvcFshbbDJOHORIdcvwirh6xyJypHZkBV96prgf+LePLuL1uuYEsiv0nnZbLzqNVJ4/8+OOYkZNH6i52SJV2bi5fSBs24+tYOTxptPu20uuCVdOjFoqAFZNSo05w0hUOeLbukGk8Q=
-Received: from MI9PR02MB105101.eurprd02.prod.outlook.com (2603:10a6:290:c2::7)
- by PAXPR02MB7863.eurprd02.prod.outlook.com (2603:10a6:102:288::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 08:39:31 +0000
-Received: from MI9PR02MB105101.eurprd02.prod.outlook.com
- ([fe80::f9b9:80ec:3b7b:b78c]) by MI9PR02MB105101.eurprd02.prod.outlook.com
- ([fe80::f9b9:80ec:3b7b:b78c%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 08:39:31 +0000
-From: Tobias Johansson <Tobias.Johansson@axis.com>
-To: "tzimmermann@suse.de" <tzimmermann@suse.de>, "mehdi.djait@bootlin.com"
- <mehdi.djait@bootlin.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "u.kleine-koenig@baylibre.com" <u.kleine-koenig@baylibre.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "lanzano.alex@gmail.com"
- <lanzano.alex@gmail.com>, "lumag@kernel.org" <lumag@kernel.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Kernel
- <Kernel@axis.com>
-Subject: Re: [PATCH RESEND 0/2] drm/tiny: sharp-memory: fix TX buffer
- corruption on partial update
-Thread-Topic: [PATCH RESEND 0/2] drm/tiny: sharp-memory: fix TX buffer
- corruption on partial update
-Thread-Index: AQHdOgilILiD6SxhB0e62jClrqoNZbcRaU2A
-Date: Tue, 27 Oct 2026 08:39:31 +0000
-Message-ID: <e9314360aabfadf902f66a6173c8057a429cf454.camel@axis.com>
-References: <20260901-flickering-v1-0-eaf7bbf9c000@axis.com>
-In-Reply-To: <20260901-flickering-v1-0-eaf7bbf9c000@axis.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MI9PR02MB105101:EE_|PAXPR02MB7863:EE_
-x-ms-office365-filtering-correlation-id: 2404beda-94f0-4023-878b-08df3405d250
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|7416014|10067099003|56012099006|22082099003|18002099003|11063799006|38070700021;
-x-microsoft-antispam-message-info: baXO9jAL1xnkPKYbMV9Up856+TBbXrdtqZxvcSbnRCBJoNuHbqJzrAZcDIvAyWHgwGQ+lYrVAIy9Xbt010SYfM6GDf9fcuy73LzVJuZ0IsDAm7FGcS9f+HeLsdEeqPGh6gJysQu4jIjpWL1WLcHilV8EJPonKxvtYmCGrpssMaB5rrM2zYJY+W9FguSRyajO6GToH6HPgKuZEfKzNOyiEJp9BI3vVDsz9cyKnFfWedyuiI1sBrmys/A1k1v5wKkAJD1LRcsJ7/gvHDS29WgPZn/m8IMltHo3rbnjYMbhCFzL2+/xmjAmllgVCnmocl3QOTf3wSMAE0lOlwbETu9UOloMbhxO/MKoPFRex97VSpGkBkdd7NCOPel/ftAxJ7jRu/Upg9l3+odkYU1Ae35eChSTb3dZWK8M3pka13CGDAYT632GEQT1/9ej05S3sIeeLyLivlfn8YNM2JePJsU6o5i35P6yIUK99VVy0sNVLjnelouKTEbloaVzii5zsPa1/k/MNiZ+q6mc6umtiE+2yszEFFZP5+kUlAqtVbEHTecQHs8PJs/9Ik5H3+4+zYYy/g0tCc+95e7jkAXLWnxqAdqEgDHF0NzUS684hfx05vCXHfx6pA4gOrNRCXoBydKM22Vj5dUfgprGAypyVJPa4R7j5k0Ch4EO9Qk9iS55f4+4zJy9KIA34LuNw0nsu92oINNT9+Xs1RjcDT7JUiYMONOhMaUXEB+nhPt0S4nC7DI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI9PR02MB105101.eurprd02.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(7416014)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RG5COWMxMEFpV0FDY0lHVWNtLzhjZGtUU1Q2b2V0d3NSNHd5dTIwdlFFSmZi?=
- =?utf-8?B?NVJ6WDBIUWc5NXY5Wit4bXpjZm8wNXVFRlBFMGcrYk5Tb1ZSYzN0OEY1dDVa?=
- =?utf-8?B?bW94VmJsbHpwRWVhTGFmeHdLUC81VEM5aUVzTjNDb0lDalBWRVNIa3dIb2tY?=
- =?utf-8?B?Z3E4VlR0azFlNTh1RzhzalBxMWlhalNhWk40STNkT1RSMjVpNXZjc3pzR0Nw?=
- =?utf-8?B?bzhHM0xiYmJqam41OWQ0TUd5d1BQMVZMK0t1ZlV6LzN4d0pMMHIrbnhERHZ1?=
- =?utf-8?B?R0VpM2RnVVVNZUVLbUlJWDc3ckxJYjZPRUs0Ymt1SUVuQXNwMFhmQ1NJOWZW?=
- =?utf-8?B?c0cxMGZrYXd4VEdkNTZTazAwSEd4MWpraHJHWlVHSWdQemd6RUdNQkR4N0gw?=
- =?utf-8?B?UXkzd0dxUHluWjI2ZnA5ZStQK2pPV3FhSWFNUlVZQjhKLzJNVHVHZmRDNXRo?=
- =?utf-8?B?dGpuUGFnQWhhV2o3Sng5RmxNSGRIRCt0dlRZclVVaVUrNXVMTW4yODNlMkpi?=
- =?utf-8?B?L1hqOVdrTHVjdnVGaE1oREM5TFFUT0NUeGxpbmFnYlJGWXRQVW9zRFpCYzhO?=
- =?utf-8?B?SlQ2WUlwUktrRDhlOE84aXk2RkdjbkhhYk5oRzByejExM010QUlyVzBvRlpV?=
- =?utf-8?B?cjBpSkc3MEg0aHFVT2ZLRU05TmdmbUFNZWUyZXI1UWdlUEsxUjVwMklFUXNY?=
- =?utf-8?B?cEl5YnlJQWZXOHVsU3lEL1huSkR1eTRtOE0xM2JZY3hRdXpBQVNLN2prK0tQ?=
- =?utf-8?B?WEhJcld1MEV0NmM4NnNQbC85SXYrcnRDZ0Q1RGszMTQvdW9sdS9aSlY1YS9x?=
- =?utf-8?B?NTV6c2R5S2tvdEJpYkVQZ2VYUmVMZFNwbDM1VTBlL3EvMXU4emF0MSt0WGJm?=
- =?utf-8?B?bUxCOStLdkREcW1xZ1FoMVBBdUJXY3g4QWpNcVB6ZWVzeng1VjZJZ0tIQzB6?=
- =?utf-8?B?dVVFOFpoL3RsbExQNXN6SWpzSFduZG1KNS92SUU3eHZXbUJxQnJvUXVDZFhy?=
- =?utf-8?B?UDRMMDdtSWdGbGJIbEV6TE80a0RERE00V1NBQXlkbEVwZjVERWpPOVUxVEpM?=
- =?utf-8?B?cHloVXNyZ1ZVN3RpMXkvQUJWT1JvZUxYNU9nS3pMWDlVMVhNR1hVNTVDSDhw?=
- =?utf-8?B?TDQ4ckZrRERnc0V6bWZSQlo5bFFoMGxOZ0kzTHN5RjJuZFVHUEo4OFVnQVc4?=
- =?utf-8?B?SVYwWkRvYUtqYnlGYzBIREpTQnhQNkRFQXp6VCt6Vi8ycVJ2bEtqeko1eFVj?=
- =?utf-8?B?UXFMYW1hejZBNkFzK0N1anZnQS9JZ1AvN2pBOEQraHRnQWNhbS9WNGkyVm5B?=
- =?utf-8?B?QWN3bXJlKytBdjRiQlVtc2xhWmZzd1A0Y3BJVkUrUmU3amo1V3JKOHBTWWNN?=
- =?utf-8?B?a085TDIvK1N1Qy9WWlpJTjMwRUc5ejJJT0JHVmVzWHRONS83Y1IrcmRvRjlz?=
- =?utf-8?B?NEVFRzBhNnU4NnFIMTlCU1R4L1p3YjdER0M1Ti9RNmxQanlEQXlhelBZaFAy?=
- =?utf-8?B?M1FRZ09UU3lWcm9DS1lTd2g4ZzlUSVRxUUdzK1Y5RUdqOFJPc1Y1VktGUmc4?=
- =?utf-8?B?eVJuSTZ0RUdRY2c2cEtnb1BOcFM4MHFGamVpSGc2K2pzZUpYVmR0RUJDeXN1?=
- =?utf-8?B?TW5ZZjA4QXp1KytWL2lPaGYvanpONUdWU3FGZ3V6ckNzcWJaNXAyUTNCNVo0?=
- =?utf-8?B?REowRTIxZlBhd3ZCS2paMG55VTg2Mzg3WHpoSmppVHBlNnYyN21FMkltSGF0?=
- =?utf-8?B?d2pCbGlZTElvVm15R3ZwNXlGSU5HT1pSZHN2azNNTjJMQlRnRWUzd3ZDU2h2?=
- =?utf-8?B?RFdudk85ZjlQQytpd3VZSVdoUE5GYmVUcmpITzdKbU14MHljN1UxeklsQWdD?=
- =?utf-8?B?UURna3Y3L3FPL2FvYmYxWjFCVk8yWTRPK0JNYkZLTElnbHNJMUJCQ1QybDZG?=
- =?utf-8?B?YldOeEMxbXhHbWgzWExFdFZUUS9ROHc5SmhDMEdRSVkzKzZtNzVaNEhhVGU0?=
- =?utf-8?B?VUR4U3R5eUNYMi9SelhhS1h3L1pqNGdHVmt2REVldDhKVlp4QmpVUkE1UDVl?=
- =?utf-8?B?bEIwYnpuN1dZQ2pQVURoN3pjL1c2d0RGdDh1RFBLWVl3WmsyQjg4Ui9XbGkx?=
- =?utf-8?B?d1BrRVVjM0hkZDVXeDMxNU1TOHRhVGprNUMxbDRHTWl4M3JzeUI3M0VoMWkx?=
- =?utf-8?B?TVYxTk4rb1RQSkw1UFJvQlJvRVdieFI0TjVRRy9CUmFrVTZoTG5kQi9mdEVT?=
- =?utf-8?B?eUF6RVJSQk9iL1NXRDBLclEwY3hkdUZma25IWkF3YjRLU3JOeWxEelBRN3BJ?=
- =?utf-8?B?UFVXbVl1MDYrajNHMCtaSmZSN3RVaXBuYnJ6cTNwN3JZNEdRQ3pzZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <99D4A04C84DA4C4A889CD71E66FA0DBE@eurprd02.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D62510E393
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 19:17:00 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-35943f55c06so370196eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 12:17:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1793042220; x=1793647020; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=b+bGNbnue3tJ58zjsjRmvD5wgIcpWQRHib1cVlgVdWU=;
+ b=JHuCpQk0ZAoqRFgv4fqWRru7QLrakJhGRd6SBhX8y95u6arL3bMvppHB3gzvjM4Lrs
+ ObwuAeUo+Lv5Bq7IMGsQTqFapXFzpcd6iPJFmvNX7DHQXd6WUIzpOLVG5dPKkcUnLcZX
+ uXFeqhJeyO99E7AeowsT9GvAyNlFAum3fiDgiuIFkOOJMYtC3Lzn8x8sg6du3mBVhVnh
+ uTX+QA/C0muk9uLCbYJmCgC8lpYmGdTiFubOjs3g+l4ipNP30+c/EaurmTZdJWyPn0E6
+ 36tBohAHdpy7T+Hx25dA3Kh1DBoYGdjs9Z/ii/IjuWXVPtTSBKLG9gFke3LA0ALJrzbf
+ kULg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793042220; x=1793647020;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=b+bGNbnue3tJ58zjsjRmvD5wgIcpWQRHib1cVlgVdWU=;
+ b=aJqoiM7QWDFkcIJlvFmBzMBzwmzTmAFOEFw2zjsjHfeDL6QB6+5XmT0IaKMeikjfRY
+ p1YDPuCoQc2pieMvfQL1MShfF4o18hiEbGiKDvQ+B5chHyBp83xAlGzgLUsC0MfNdH8N
+ Cxi3xxBDkqwUXwpVqwUOyVDfBv1Jiysm1yQ/C2fh5LodnAlsAMjEJdMAqWisrRwf9cQS
+ n/i0mCSSdavWFiQRESqUA9ew8I79aPI0QkLYdazSyQ2prxAYfpuG/Cv8iasvitC8FsyP
+ 4wVWrPKS507ULXiFuDbZ8zE8GyXOCvXyGA1GvXZoDNRX6eKxWcbRN53yA9okNJWoojT+
+ zW3w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwxgajcMAJpHYrdPOolubYDekHmauH5BQO/5eo3GajCXpPmMGnUDjCw2r4Cn2eSMJJPlr8ThB+x77Q=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLikGhBFEsWkcW+UMz2jb7may9/HIK8ZVFnvHRoSYrYfK9AcRlT
+ a1Fg/bdZ384WdlFNL5lndX76qlX6kLdvDaaf7nnZHElc8iz3veGhFTie
+X-Gm-Gg: AYBFou3YwPC9NtqK4aHI14R+4UjOj4oJtAYoIa4wLuZHSUYnM6dI8Ia6W/XkakYd93V
+ U4A0x5gXEdNWrFY5Nfzt5bs5cRJOmdcUfc/4d6a7rSxzKmPazlo1ekrvxhDTNF/DxRotdJu92cM
+ zELm5cloc9jmcsxnEJgo3v4AKJWcK6uL0IAXZwkF0xYuJXwBPVw3XO+GMK7MPAwSk3KIIVAte0N
+ VGTy52+a+pjpusZbX87Rl9heqwFwHX9CRILNee1dQI4YpxUtxTEYugwNFqMkz9TXjJt3jEx9Neo
+ us0FdjWHsuphWnm76m+G4Grm+zZk5aFvO8fhQldA/zd+oqZKChlS75KZsUD4X3NZQhWsFgiWu32
+ Q8v8Q1YJbhx31Y75Q7AxtsuCjh3Uu9M3d+yx9LFdTsZgxX41ioeZUCagSLdfM7k4E8aIbDGICJV
+ vWFOJvObf8IFuhOrHbv4KGmUCZBG4U545l9XP8yo5GQacabIOfFIwleVyIfvAjjEh9NM/fg+tTs
+ G+QQPLKmKLFidybqVv2fJ3s2pJOWSefxCVO6x3M2QJvAo21RKoQNect0D+yT9sbOedsaIWfzCYi
+ niY2I06cIcQyns2AaBTaGw==
+X-Received: by 2002:a05:7301:2123:b0:361:cd8f:7422 with SMTP id
+ 5a478bee46e88-36a0f7617bemr638620eec.9.1793042219444; 
+ Mon, 26 Oct 2026 12:16:59 -0700 (PDT)
+Received: from localhost.localdomain ([136.126.251.209])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36a01fa4c58sm25348449eec.21.2026.10.26.12.16.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Oct 2026 12:16:59 -0700 (PDT)
+From: Henry Zhang <henryzhang62@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Henry Zhang <henryzhang62@gmail.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 3/4] drm/vc4: dsi: Serialize host transfers
+Date: Mon, 26 Oct 2026 12:14:57 -0700
+Message-ID: <20261026191618.9430-4-henryzhang62@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261026191618.9430-1-henryzhang62@gmail.com>
+References: <20261026191618.9430-1-henryzhang62@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR02MB105101.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2404beda-94f0-4023-878b-08df3405d250
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2026 08:39:31.7655 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iMQgInlhMblE0eR3VFFhhCSkCFziJ1cKaBPj5RbKeO9uWI/eURi0XqWXLhlZwHgWk95/dFWTZzTzq4Q2NBAVKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR02MB7863
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Oct 2026 09:31:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,17 +92,118 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-T24gVHVlLCAyMDI2LTA5LTAxIGF0IDEzOjUzICswMjAwLCBUb2JpYXMgSm9oYW5zc29uIHdyb3Rl
-Og0KPiBVc2VycyBydW5uaW5nIGFwcGxpY2F0aW9ucyB0aGF0IHN1Ym1pdCBwYXJ0aWFsIGZyYW1l
-YnVmZmVyIHVwZGF0ZXMNCj4gKHN1Y2ggYXMgTFZHTCB3aXRoIGRpcnR5LXJlZ2lvbiB0cmFja2lu
-ZykgY2FuIG9ic2VydmUgcGVyc2lzdGVudA0KPiBmbGlja2VyaW5nIG9uIHRoZSBkaXNwbGF5IHdo
-ZW4gdXNpbmcgYW5pbWF0aW9ucy4NCg0KSGVsbG8hDQoNCkp1c3QgYSBwaW5nIG9uIHRoaXMgc2Vy
-aWVzLiBIYXMgYW55b25lIGhhZCB0aGUgY2hhbmNlIHRvIGxvb2sgYXQgdGhpcw0KeWV0Pw0KDQpU
-aGFua3MsDQpUb2JpYXMgSm9oYW5zc29uDQo=
+vc4_dsi_host_transfer() fills the command FIFOs and the TXPKT registers
+and waits on a single completion without any locking. Two callers
+sending at the same time, for example a panel driver and a backlight
+update, can overwrite each other's packets. Nothing keeps a transfer
+from running while the bridge callbacks reprogram the block either,
+for example while pre_enable sets up the PHY timings.
+
+Add a mutex and hold it for the whole host transfer and in the bridge
+pre_enable, enable, disable and post_disable callbacks. None of these
+callbacks calls into the DSI device, so the lock is never taken
+recursively.
+
+Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
+---
+ drivers/gpu/drm/vc4/vc4_dsi.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
+index face44a23..ea3a6d06b 100644
+--- a/drivers/gpu/drm/vc4/vc4_dsi.c
++++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+@@ -25,6 +25,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/dmaengine.h>
+ #include <linux/io.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/of_address.h>
+ #include <linux/platform_device.h>
+@@ -595,6 +596,11 @@ struct vc4_dsi {
+ 	 */
+ 	struct clk *pixel_clock;
+ 
++	/*
++	 * Serializes host transfers against each other and against the
++	 * bridge enable/disable paths, which reprogram the block.
++	 */
++	struct mutex transfer_lock;
+ 	struct completion xfer_completion;
+ 	int xfer_result;
+ 
+@@ -805,6 +811,8 @@ static void vc4_dsi_bridge_disable(struct drm_bridge *bridge,
+ 	struct vc4_dsi *dsi = bridge_to_vc4_dsi(bridge);
+ 	u32 disp0_ctrl;
+ 
++	guard(mutex)(&dsi->transfer_lock);
++
+ 	disp0_ctrl = DSI_PORT_READ(DISP0_CTRL);
+ 	disp0_ctrl &= ~DSI_DISP0_ENABLE;
+ 	DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
+@@ -816,6 +824,8 @@ static void vc4_dsi_bridge_post_disable(struct drm_bridge *bridge,
+ 	struct vc4_dsi *dsi = bridge_to_vc4_dsi(bridge);
+ 	struct device *dev = &dsi->pdev->dev;
+ 
++	guard(mutex)(&dsi->transfer_lock);
++
+ 	clk_disable_unprepare(dsi->pll_phy_clock);
+ 	clk_disable_unprepare(dsi->escape_clock);
+ 	clk_disable_unprepare(dsi->pixel_clock);
+@@ -891,6 +901,8 @@ static void vc4_dsi_bridge_pre_enable(struct drm_bridge *bridge,
+ 	unsigned long phy_clock;
+ 	int ret;
+ 
++	guard(mutex)(&dsi->transfer_lock);
++
+ 	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret) {
+ 		drm_err(bridge->dev, "Failed to runtime PM enable on DSI%d\n", dsi->variant->port);
+@@ -1148,6 +1160,8 @@ static void vc4_dsi_bridge_enable(struct drm_bridge *bridge,
+ 	bool debug_dump_regs = false;
+ 	u32 disp0_ctrl;
+ 
++	guard(mutex)(&dsi->transfer_lock);
++
+ 	disp0_ctrl = DSI_PORT_READ(DISP0_CTRL);
+ 	disp0_ctrl |= DSI_DISP0_ENABLE;
+ 	DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
+@@ -1181,6 +1195,8 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
+ 	bool is_long = mipi_dsi_packet_format_is_long(msg->type);
+ 	u32 cmd_fifo_len = 0, pix_fifo_len = 0;
+ 
++	guard(mutex)(&dsi->transfer_lock);
++
+ 	mipi_dsi_create_packet(&packet, msg);
+ 
+ 	pkth |= VC4_SET_FIELD(packet.header[0], DSI_TXPKT1H_BC_DT);
+@@ -1807,6 +1823,7 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct vc4_dsi *dsi;
++	int ret;
+ 
+ 	dsi = devm_drm_bridge_alloc(&pdev->dev, struct vc4_dsi, bridge, &vc4_dsi_bridge_funcs);
+ 	if (IS_ERR(dsi))
+@@ -1814,6 +1831,9 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
+ 	dev_set_drvdata(dev, dsi);
+ 
+ 	dsi->pdev = pdev;
++	ret = devm_mutex_init(dev, &dsi->transfer_lock);
++	if (ret)
++		return ret;
+ #ifdef CONFIG_OF
+ 	dsi->bridge.of_node = dev->of_node;
+ #endif
+-- 
+2.47.3
+
