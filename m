@@ -2,145 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A34606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:00:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681FB606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UFlPsP6N;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b9EPVhqU
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHhsGeKw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C7410E2E2;
-	Mon, 26 Oct 2026 09:00:08 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B1EB10E2E2
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 08:59:57 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69Q4axv82727320
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 08:59:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- EITttCplPBszuYmRY3XITt4UQcQyLGgPfNuHXF+5Hgk=; b=UFlPsP6Ni/9BBo8w
- bsRJcpKJmfnq3F/TPwop48kefP1i+H/QqCheh0KVa3P+uejNFwzIxLwT26hltKF+
- 2jfLLZjYsEi7NFvvoj8ojZQ6/KQuSdDPHMD/7o139NLK7xP9l+hhnHVgYcMZsk8L
- ZQ5wpqL8fXckWanU3awtl8nmxk0P17qWRYFjAGcweH1OZD49SZPrU1raE1b6Z15S
- XSzUUdkQf7D3rW8T/CJ/xNRDE3XcirAPbXBkbKt+jXGzmXaNd9fsAw60+7vYpmu0
- 1ms5Y7AOf4NvWPrzV8h5OrvYy47895KXSIHwaJvQaZwqmGSA0dZ6gNVL1uAvgqst
- MTXx5g==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkp6nqjt-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 08:59:55 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-533758f24f4so3626141cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 01:59:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793005195; x=1793609995;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=EITttCplPBszuYmRY3XITt4UQcQyLGgPfNuHXF+5Hgk=;
- b=b9EPVhqUEESR7DaY7iqw+k3a5+kzUGGuL5Nv1Pw7NiUF3u63zWziCb+hOjQ3wdMWXu
- OQNmxHSZtdoHqADjanRxjkjFn5VdHQ07tYI+015jgWLd9SZceJjkl+7u5OQBWTTnPst6
- XCuW+q3eTeORBcJXlC9nd/V30OGF5y2WwFNJDuCSHoYymQuQWm5ipfpN+YRBGIleQNlU
- R9Z6pbmo2x87M4x7QEdCm0/exEZTdICWW4sHYNVxZXYzSFAEvHfRgYtUo7MPprkXHwhd
- MLcKEXSGqUmJinxGk0BnCISHsQMjURAtIkP5tAaUyF7wwKPDlZ/g+beZ7Jn49FJqnCwY
- JJRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793005195; x=1793609995;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=EITttCplPBszuYmRY3XITt4UQcQyLGgPfNuHXF+5Hgk=;
- b=uwyKjfRUWBaU7Ei4WONwXA9QqFCRBodMfznNm0i+XplER/iig27QuUkzySdmotPach
- TNayN/+6ry8nLIb/wRlgvANNNpI/L/S/BsFY2qVOxhNZsUNC0PeMR7C49grwZTooWeQR
- dIwB+zxOnT+G7oyp5s++heymXNJMQiSlRwSx/Y59wmqysF6723Ip+kagnrldK7FNI9E2
- /my7Nk+COwzYLhUJxKkBlXtvGEVmDsUIoOOuJrLWPZBFUWIMAMGjVOdTEgPyyVvGWmo9
- cQm7FGvsp6qehV3a/Q866wv+inUHh2Yygg5CTHuM3PIy3ETheoMOIKOZZRtQoq/tWim2
- WAWQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzaCsnl6X0FrqKWr8mZDMY0ZKfkgMjUqqwW278BFYX6V4bAYSIjzQBwu4Uqa/Qy+eR60rbETdFe+t0=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJrjv6v3yqimYdsPlpiq9Oil8NF3bPHqvDipxE+29fA/qNEnG3p
- gGZEe7hWjeuCH6R/KQ2CJ3TqyPCIDTRhkXTwBA9ZzAoFCdcTO5Cbj8nNjItKjgoSI7CmuEBG01O
- 3oSuZ9O4TTKp+cOurF6haaHj3QwUjJV3MOe9f/9BncjmE7R39UBoXusPLNMW5+BaOBw4cESU=
-X-Gm-Gg: AYBFou1DAXOdkTY8vv97ximnHGqaL4/OHZp8nPE3lGAa52FwZKwt+R4cTWeVOi/laKH
- uWxSS0MKl7rhzP9HRW8L9SkdM5hvr5aoC74wVZSLv/iCHtyzhJeIDtuITQ4VkGVb18nRojIHQl5
- ACJKHL1/HhnswtvnBftJDqfq0n1cYWIifmE6xlQ2dloIl1jq4i8E13DvdSNiP5Zqit469EMfk/p
- WrMXfdXBiAoN42sgFPezp6ImWz1vfnkXsCzcPn+9WMGUpcqAoOtHciLWSvrTorDAYhK999sdcm4
- VaQS7okDMAXQcNAXNDwHDht4yh2RL3h13VbIkJ5QQGYj4ZKaXSxhwLbynfcf+PyjiRfPhjKLMt+
- bD17wLd781zs2aZPPVx2fIA==
-X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id
- af79cd13be357-940ef7d5676mr940739785a.1.1793005195160; 
- Mon, 26 Oct 2026 01:59:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id
- af79cd13be357-940ef7d5676mr940736685a.1.1793005194699; 
- Mon, 26 Oct 2026 01:59:54 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b445984c99sm3437518a12.28.2026.10.26.01.59.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 01:59:53 -0700 (PDT)
-Message-ID: <109df222-efc8-4298-9bc4-937ef9edb59f@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 09:59:50 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/10] drm/msm: fix framebuffer pin refcount leak on
- prepare failure
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>,
- Kalyan Thota <quic_kalyant@quicinc.com>,
- Federico Amedeo Izzo <federico@izzo.pro>,
- Helen Koike <helen.fornazier@gmail.com>,
- Vignesh Raman <vignesh.raman@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
- <20261024-fd-kms-fix-smmu-v5-2-a5b0b284aead@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261024-fd-kms-fix-smmu-v5-2-a5b0b284aead@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: D8cS0RQWHgA5TJzTzOG1eV9iIarbnxyt
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNSBTYWx0ZWRfX0/Y8E+mKcE+0
- Ckz7jUlSnTInjnXxDHcbIKHgbzyRn+nraacuCUJGeFR7rqpjuaFV3rfqBDf1oZIVWQ4F5UI5LCO
- x6yV/4u/4mQZ12UUpKzKhZEBTHqA870=
-X-Proofpoint-GUID: D8cS0RQWHgA5TJzTzOG1eV9iIarbnxyt
-X-Authority-Analysis: v=2.4 cv=bq/Zl0ai c=1 sm=1 tr=0 ts=6adf168b cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=Mfa03keUj_DI804JYAIA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNSBTYWx0ZWRfX9DiyM8tEiGP6
- 04dqvXYAidO9Z39G5TFL0ADvw7lj8bjWlQq2ofhZGeXi8dolhJSwRmgDM6Emrk3lRekLhujC+ps
- dgEXxJ1s0Dl34mVX29rjyI8TMml3yWnvD6eV7QrHU2PQ7mY/8i+FZL4wNlk1ptLSclTaO9Jr7+N
- SfzcNNBlxd9QShO+zZJ4chzYkW5zCd2SDteQf7WQiNM/JVkvqgu2ob7JI+ukVp7WYJQOlXU9Owq
- G242QkuPgGcSsskMVQxxsBWEaWCXQPon3XRF5TvOTQtXLm8OA143iEpRCdqUG/0NGp9XnzZ/B0i
- 8Zgfm60qjGAi7tKy3mjqmT28gubLMJGOm5UFrwKjSzzF90hJ3w2fyrae1YO9sMz7/HahrGg1/yl
- hoUy3L3D+O8TR2LzInuwFpcx2ECEaqGQW7VJLz1ieCR1xLn2LWEwDhl72xQEUWsHT3GGB5E9zOQ
- tMxzMI/BLPeyiz5z4fA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260035
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAA7910E0D8;
+	Mon, 26 Oct 2026 09:00:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B7410E0D8;
+ Mon, 26 Oct 2026 09:00:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8420C600DA;
+ Mon, 26 Oct 2026 09:00:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9C231F01825;
+ Mon, 26 Oct 2026 09:00:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793005228;
+ bh=Xg9/KcGYBcGtgInejmZU4ytemTtqf/sGHcPNxqZ/CM4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QHhsGeKwI+LIDag9S9C4tASaUriI1p0Xq0fLQrD24zWBH4qnhe46fmYyJ92K3YM8r
+ wPTFx2C93EzPjuY3GH//43XAwFIW9R4dzTs09oNkEmZRyYiqaFGcuTvJQYp+IfHPet
+ WumxUMO0AbVnwO4OoFKlLZLDrRTena3W10/nME3ecJA2ArshQN43QVyu1+blVC3MTm
+ fdBR34jJJNQHPCXaFkt6LbOHIdRVaViBYZUfXtvDuLLz0yKHWywIEkxg+m6VSemWDe
+ h0kmgl6bAexkJzuNMAzKe5F0zUJsVdAmciRYBqXisJ2pAra/C4sTTaNbZlL8PlwgpH
+ JapKkeuxTvXnw==
+Message-ID: <sashiko-outbox-184718@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 15/26] vfio/pci: Change the DMA-buf exporter to use
+ mapping_type
+To: "Alistair Popple" <apopple@nvidia.com>, dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ media-ci@linuxtv.org
+In-Reply-To: <20261026053623.202642-16-apopple@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-16-apopple@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 26 Oct 2026 09:00:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,70 +50,181 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 10/24/26 1:25 AM, Dmitry Baryshkov wrote:
-> msm_framebuffer_prepare() bumps prepare_count before pinning, but returns
-> straight out of the pin loop on error, leaking the count, the
-> msm_gem_vma_get() reference and any planes already pinned.
-> drm_atomic_helper_prepare_planes() does not call cleanup_fb() for the
-> plane whose prepare_fb() failed, so nothing ever drops it.
-> 
-> Since commit 8ac37c88f991 ("drm/msm: Refcount framebuffer pins") a
-> prepare which finds the count already non-zero returns early, assuming
-> iova[] is populated.  With the count stuck, every later prepare of that
-> framebuffer reports success while iova[] is still zero, and DPU scans out
-> from a NULL base address:
-> 
->   arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402,
->       iova=0x00000100, fsynr=0x3e0023, cbfrsynra=0x1c00, cb=11
-> 
-> Unwind properly on failure instead.
-> 
-> Fixes: 8ac37c88f991 ("drm/msm: Refcount framebuffer pins")
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] vfio/pci: vfio_pci_dma_buf_match_mapping() breaks iopt_map_dmabuf(=
+) attach
+- [High] vfio/pci: UAF on pdev->p2pdma in vfio_pci_dma_buf_match_mapping()
+--
 
-LLM:
+commit 9770a3eb805c4984c35cbfef83d18657c914f9b0
+Author: Jason Gunthorpe <jgg@ziepe.ca>
 
-Regression: writeback path double-decrements prepare_count
+vfio/pci: Change the DMA-buf exporter to use mapping_type
 
-DPU writeback swallows the prepare error, so cleanup still runs for
-a count that the error unwind has already dropped:
+This commit converts the VFIO PCI DMA-buf exporter to implement a
+match_mapping() callback offering an SGT P2P mapping type and replaces the
+attachment->peer2peer check in vfio_pci_dma_buf_attach(). It also holds a
+pci_dev reference in struct vfio_pci_dma_buf for the lifetime of the
+dma-buf to pass to DMA_BUF_EMAPPING_SGT_P2P().
 
-1. dpu_wb_conn_prepare_job() (dpu_writeback.c) calls
-   dpu_encoder_prepare_wb_job(), which returns void, then always
-   returns 0.
-2. dpu_encoder_phys_wb_prepare_wb_job() calls
-   msm_framebuffer_prepare(). On failure it logs and returns, so the
-   error is lost.
-3. drm_writeback_prepare_job() therefore sets job->prepared = true.
-4. drm_writeback_cleanup_job() (drm_writeback.c:501) calls
-   dpu_encoder_phys_wb_cleanup_wb_job(), which calls
-   msm_framebuffer_cleanup().
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
+ci_dmabuf.c
+> index c16f460c01d68..58e771309c5f6 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
 
-With patch 2, the failed prepare has already dropped prepare_count
-from 1 to 0. Cleanup decrements it again. Because prepare_count is
-unsigned (patch 1), it wraps to UINT_MAX and never reaches zero, so
-the planes are not unpinned. The next prepare of that framebuffer
-does prepare_count++, sees a nonzero old value, and returns success
-with iova[] still zero: the original NULL-base-address fault.
+[ ... ]
 
-Before patch 2 the same path left the count at 1 and cleanup brought
-it back to 0, so it was consistent.
+> @@ -95,15 +93,31 @@ static void vfio_pci_dma_buf_release(struct dma_buf *=
+dmabuf)
+>  		up_write(&priv->vdev->memory_lock);
+>  		vfio_device_put_registration(&priv->vdev->vdev);
+>  	}
+> +	pci_dev_put(priv->pdev);
+>  	kfree(priv->phys_vec);
+>  	kfree(priv);
+>  }
+> =20
+> -static const struct dma_buf_ops vfio_pci_dmabuf_ops =3D {
+> -	.attach =3D vfio_pci_dma_buf_attach,
+> +static const struct dma_buf_mapping_sgt_exp_ops vfio_pci_dma_buf_sgt_ops=
+ =3D {
+>  	.map_dma_buf =3D vfio_pci_dma_buf_map,
+>  	.unmap_dma_buf =3D vfio_pci_dma_buf_unmap,
+> +};
+> +
+> +static int vfio_pci_dma_buf_match_mapping(struct dma_buf_match_args *arg=
+s)
+> +{
+> +	struct vfio_pci_dma_buf *priv =3D args->dmabuf->priv;
+> +	struct dma_buf_mapping_match sgt_match[1];
+> +
+> +	sgt_match[0] =3D DMA_BUF_EMAPPING_SGT_P2P(&vfio_pci_dma_buf_sgt_ops,
+> +						priv->pdev);
 
+[Severity: High]
+Does offering only DMA_BUF_EMAPPING_SGT_P2P() here break iommufd mapping of
+VFIO PCI dma-bufs via iopt_map_dmabuf()?
 
-Konrad:
+When userspace maps a VFIO PCI dma-buf through iommufd, iopt_map_dmabuf()
+in drivers/iommu/iommufd/pages.c attaches using iommufd_global_device()
+before calling sym_vfio_pci_dma_buf_iommufd_map():
 
-I had a hunch to suggest using refcount_t in patch 1 and I think
-we can go forward with that
+drivers/iommu/iommufd/pages.c:iopt_map_dmabuf()
+	attach =3D dma_buf_dynamic_attach(dmabuf, iommufd_global_device(),
+					&iopt_dmabuf_attach_revoke_ops, pages);
+	if (IS_ERR(attach))
+		return PTR_ERR(attach);
+	...
+	rc =3D sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys);
 
-Konrad
+where iommufd_global_device() in drivers/iommu/iommufd/main.c returns
+iommu_misc_dev.this_device, a miscdevice with no parent pci_dev.
+
+With DMA_BUF_EMAPPING_SGT_P2P(), dma_buf_dynamic_attach() runs:
+
+  dma_buf_mapping_attach()
+    -> vfio_pci_dma_buf_match_mapping()
+      -> dma_buf_match_mapping()
+        -> dma_buf_sgt_match()
+          -> pci_p2pdma_distance(priv->pdev, iommufd_global_device(), true)
+            -> pci_p2pdma_distance_many()
+
+In drivers/pci/p2pdma.c:pci_p2pdma_distance_many(), find_parent_pci_dev()
+returns NULL for iommufd_global_device():
+
+	for (i =3D 0; i < num_clients; i++) {
+		pci_client =3D find_parent_pci_dev(clients[i]);
+		if (!pci_client) {
+			if (verbose)
+				dev_warn(clients[i],
+					 "cannot be used for peer-to-peer DMA as it is not a PCI device\n");
+			return -1;
+		}
+
+This emits a dev_warn() and returns -1, causing dma_buf_sgt_match() to
+return -EOPNOTSUPP and dma_buf_match_mapping() to fail with -EINVAL before
+sym_vfio_pci_dma_buf_iommufd_map() can be reached.
+
+> +
+> +	return dma_buf_match_mapping(args, sgt_match, ARRAY_SIZE(sgt_match));
+> +}
+
+[Severity: High]
+Can passing priv->pdev to DMA_BUF_EMAPPING_SGT_P2P() in
+vfio_pci_dma_buf_match_mapping() race with driver unbind and trigger a
+use-after-free on pdev->p2pdma?
+
+When the VFIO device is closed while the exported dma-buf fd remains open,
+vfio_pci_dma_buf_cleanup() revokes the dma-buf and drops the vfio_device
+registration reference:
+
+drivers/vfio/pci/vfio_pci_dmabuf.c:vfio_pci_dma_buf_cleanup()
+	list_for_each_entry_safe(priv, tmp, &vdev->dmabufs, dmabufs_elm) {
+		if (!get_file_active(&priv->dmabuf->file))
+			continue;
+
+		list_del_init(&priv->dmabufs_elm);
+		priv->vdev =3D NULL;
+		vfio_device_put_registration(&vdev->vdev);
+		fput(priv->dmabuf->file);
+	}
+
+Once vfio_device_put_registration() drops that reference, nothing pins the
+driver binding on priv->pdev (pci_dev_get() only pins struct pci_dev, not
+devres). Unbinding vfio-pci runs devres_release_all(), which invokes
+pci_p2pdma_release() and frees the devm_kzalloc()-allocated struct
+pci_p2pdma:
+
+drivers/pci/p2pdma.c:pci_p2pdma_release()
+	/* Flush and disable pci_alloc_p2p_mem() */
+	pdev->p2pdma =3D NULL;
+	if (p2pdma->pool)
+		synchronize_rcu();
+	xa_destroy(&p2pdma->map_types);
+
+Because vfio_pci_core_init_dev() only calls pcim_p2pdma_init() and never
+allocates p2pdma->pool via pci_p2pdma_add_resource(), p2pdma->pool is NULL.
+As a result, pci_p2pdma_release() skips synchronize_rcu(), immediately
+calls xa_destroy(&p2pdma->map_types), and devres frees p2pdma.
+
+Concurrently, if an importer attaches to the open dma-buf fd,
+dma_buf_mapping_attach() calls vfio_pci_dma_buf_match_mapping() before
+vfio_pci_dma_buf_attach() checks priv->revoked:
+
+  dma_buf_mapping_attach()
+    -> vfio_pci_dma_buf_match_mapping()
+      -> dma_buf_match_mapping()
+        -> dma_buf_sgt_match()
+          -> pci_p2pdma_distance()
+            -> pci_p2pdma_distance_many()
+              -> calc_map_type_and_dist()
+
+In drivers/pci/p2pdma.c:calc_map_type_and_dist():
+
+	rcu_read_lock();
+	p2pdma =3D rcu_dereference(provider->p2pdma);
+	if (p2pdma)
+		xa_store(&p2pdma->map_types, map_types_idx(client),
+			 xa_mk_value(map_type), GFP_ATOMIC);
+	rcu_read_unlock();
+
+Without synchronize_rcu() in pci_p2pdma_release(), calc_map_type_and_dist()
+can load a non-NULL p2pdma pointer just before pdev->p2pdma is cleared and
+call xa_store(&p2pdma->map_types, ...) concurrently with xa_destroy() and
+after p2pdma has been freed by devres.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026053623.2026=
+42-1-apopple@nvidia.com?part=3D15
