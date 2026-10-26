@@ -2,57 +2,124 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942C8606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:36:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F68606A31E
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:36:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NWwWRlEx
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=S3mffKzx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0265110ED1B;
-	Mon, 26 Oct 2026 09:36:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7B4D10ED1B
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:36:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793007366; x=1824543366;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=OVnYgL0l1Zg+JEnCiZJwFCqaO1s2/oT4oYQZVQTDEi8=;
- b=NWwWRlExOCZStSwnwW3ThHtYaHdqTpxglxeye4dKsUV1fdDLlhcRf3TY
- J6BO4gdMx0yp34G3Y/DnuyOkMJUPlmzc+l/iggkVEKCikcNSZKu/XlttB
- PCYNScEFiN82IfGvENX1KwwGaeidVSYW9SuZ26dcEBbgaNU3FMBqxWHb5
- Y7XwBKeH7nN9YS6w5wTFw4TJR9TjG2flmF6yNeLlKlj0pEJS/uXCZJoje
- PWswGd/tXl4xIf25zHEOkET9U3yPU+8CTtPvdxeMs4TAd6wBOWv9ofNSP
- WtqwqKBLNX1zpTK9S2sVHS3B8VO66LhlLVthrLWBIRonorbkR/9OO4u74 A==;
-X-CSE-ConnectionGUID: p+LeKLiZQ7akkUhw36KyeA==
-X-CSE-MsgGUID: H/hVMYorToSXabBJXQm/Bg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1673081"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1673081"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2026 02:36:06 -0700
-X-CSE-ConnectionGUID: 3XZPtCgySnq1/cTX9ZpfwA==
-X-CSE-MsgGUID: 5fktleE+SHG1l36gr70vzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4100165"
-Received: from akacprow-dev3.igk.intel.com ([10.91.220.47])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2026 02:36:05 -0700
-From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
- karol.wachowski@linux.intel.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Subject: [PATCH] accel/ivpu: Read preemption buffer size from boot params
-Date: Mon, 26 Oct 2026 10:30:20 +0100
-Message-ID: <20261026093020.228233-1-andrzej.kacprowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB6C10ED1E;
+	Mon, 26 Oct 2026 09:36:22 +0000 (UTC)
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010060.outbound.protection.outlook.com [52.101.69.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D473C10ED1E
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:36:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nUwDlbIz9kloYIDcidggRyK0ceBjV/Zlg/mCPxcbpxurLDjlUl8J5mqZdujoNUzRrHatFHPyuZILjVMb6J0Hy+VOxS476JrPbsH8bTCFngf6O7Ag4iWeyDYoPwoSg7FV8tjLfqbhIdIPc4UdbUH1HeEilAKPMBxQUJgixxd0FKRaPY+pMvxPQ7i1MSSDg8Hz7a+glQPcCimJU1zntiYvM/2OMS2N/wDTOLnVh7OMgMFqLEMROBaI1/iOq1gmCHBDlMqjmKQi2z51PaIefQpAhsBTWV8vRu92Qe4er1bTVOUMNxbc6qQfyYMmnJK62xD0JyiRLaZeXk1/E15S8NtOqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9crnHvk+Msuoo1SOz47Zy5HKLqjz1md5BXrkLxW8pwQ=;
+ b=GpN/tBZ3yFArOY29fPPZStEjG4maUBpYsL7c7uiMCpjfwibnJn8Bn4RvHs/yFQ9O/ndBLd2PuMCPjPGslJOKHq3uj1nZL2ywFZazmGyb5QgKlISCQRwiTJuHsByc259aNlItZ9F4mKknoG8OIeHqVoZAhzIC3IxjrjZaZ7m0WExqCYJ3/w82CstjLA1hpUoLKqeON0lzNrXCkGW1St2uBeTZVgjoSATo2XLwIZrRFM9fcF7dkY1P0UTbGiFMEWk+CJYrsaluaQvdfOad/+ZUepDoCPVgdG4wR0CY472k/7hkyP9VZ17Xz9LsCVSJLmHxf58mGgcOdMCLqivocnvwDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9crnHvk+Msuoo1SOz47Zy5HKLqjz1md5BXrkLxW8pwQ=;
+ b=S3mffKzxdlhkLO6xZY5Jxjjy7+Zr4zSW/j1QC4X8U1sk6vfR740qucrqFFs/l21w2lus5dw1Z9NFaxne0qcyH0lfGaHfKC/5aSp5p7Bu2Te1k0dzCd8kFnlbmt2e0jH6ElcKVK+qMVsLFC0tSNpe3Eo8RyyZ3uCTaBzZSdacZU1Xnu9q2us7Oas9Xv8LWacZyDSU36iOEXOCgwkgg+7yIVurjlnfjcqe+PUabZmvznd1ZRyzNobRgdkXlX2GhXEteQRoYjA1HID460h3jpVRE1Ku0NSHr/OiB9VDMrYCQI8/gNrf6CATHBu/rJS2XY9pGv00oZmdIv9kUwb9jX6ltg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by PAWPR04MB11707.eurprd04.prod.outlook.com (2603:10a6:102:509::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 09:36:12 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 09:36:11 +0000
+Date: Mon, 26 Oct 2026 17:37:45 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>,
+ Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v6 07/13] drm/imx: dc: Use TCON operation mode
+Message-ID: <at8faVUk6GOXVjmX@raspi>
+References: <20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com>
+ <20260904-imx8-dc-prefetch-v6-7-26643e3f6cb7@nxp.com>
+ <apqBoxjblzSIuG36@houat>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apqBoxjblzSIuG36@houat>
+X-ClientProxiedBy: SI2PR01CA0026.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::16) To MI9PR04MB350878.eurprd04.prod.outlook.com
+ (2603:10a6:290:c0::7)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|PAWPR04MB11707:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cc04cd6-f047-4cfb-d82b-08df3344927b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|366016|19092799006|1800799024|261009223027099003|261022075727099003|261022105027099003|261021121427099003|10067099003|56012099006|6133799003|22082099003|18002099003|18092099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: jhdPx4+J6kwpx4hw8B8+l3qKQU2rHD0XwVyaLH0YdTHTqDYBSUixd5lTfAQeS2+00xlfLmYsspeuheWHOa5OYSkD18RwsDU2rgztuVJO4eVjnSx1CtKkwl0yYGKAq7K8C8x094ULHGM8CX4bhdH3DLRAhI66hE4rFm7jPVMaAIkvFvXaAfUqHAvgzkgAh7fvBWXznIuedE2apwB9Dm2XaWeV20CzrNOLnnBHrisKabgvWaMCmnsEQBmLjF7j04AmCNQRDodNh0CdIoy6DQBjqqB/TruGnegay0yTsYDx+rHH1fkv8UcCxpS8oa3U9FhDexs09O1q+gR5DX5kQfCs/J0O2UQoGQzl1GvKh11+HGg/LOV1r5Jk7CrSIRUREhFhTZoC5Bnv/ov/P+msdawdD1AXdyO9JU+A5sVJ5rA87IDFZsfb1vMgmWx8gdSxRa10QHAMHzObZ+tdjCLTHozz2DzUktw7NsSdykr/gVz2y8QZtrZ22uimUW1gbsqV1uDj44uGa2TCBq9jKa0jEJhBokR7Y630xpLcR20+yEdsUB/Ii03IA3TsF+X6DOk4pF5j7VEOZ9dlcHAJTCePsc3ZgUbwi5YSUGXWSgoY++7kreNJUFDpBK2mu184UkMywMMdabb4erCBA4EFPYwmVqzNsdd0M/9M8pTt3LK9fSX/ffY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MI9PR04MB350878.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(366016)(19092799006)(1800799024)(261009223027099003)(261022075727099003)(261022105027099003)(261021121427099003)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(18092099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sHSvqQTBXw61k9KCfXmcQb1Y52vHWoGwiSjkhqGbk9IRRq/cudKtQSix+C2u?=
+ =?us-ascii?Q?mdEaq0nI/P9wkEv3tpxgI2sF1oxbTzcm74uu4dK7YnF8mYIBksWQJ7srVffh?=
+ =?us-ascii?Q?xp6bSXp3IxmQbKPslBsrhB6U0WjJA5uvqL/ogjMLjzOHWzCEYuzP10LeedwJ?=
+ =?us-ascii?Q?//qrF26U1uVirMtpjSWK3PgpEQqfLsBfSvCMr/sh8dAPZsYyp5QpDIM3NLd9?=
+ =?us-ascii?Q?g9zB5jxONLyKhblNGEzfBq+cg5SDKo5YX6mGDINSip0Cnac95TA5cQZWU1O5?=
+ =?us-ascii?Q?tceLDeofEMDfHGB2N28iKMDK/7G2fUdeoYNVIdNG813ZItTzxP+xkkAsaqU4?=
+ =?us-ascii?Q?vg+Ge6bqhpwSZg3UEO4K62PF4725ycwwQEsZwIpUJJ/YBCOXadaDgIiOaSif?=
+ =?us-ascii?Q?POLZqdUJ/8/kyoIOnNFGt50oQvMk7aZgIBELimLFAFBy42SSCvVBd703eNuA?=
+ =?us-ascii?Q?i1ourmU4thCaZEMoV3ebS6ZExgKFPs3+BBJvdcdvx355TBxEp6aEdz5ShvbT?=
+ =?us-ascii?Q?0zesX0jXhdYHnK8T33kGjM/O6sbKQaQysVZAIKTx0KVO2Mf3W3SWwQNfwXug?=
+ =?us-ascii?Q?fGYJGh41kTmUNCmMjYar/A8dpv9zLUXp08bqYlR67afU9/sWZIE/sutr52Nz?=
+ =?us-ascii?Q?1VeyWZQ4ozEwmE4GgjUlBY+oi93IHgKdlZ5DtdCg9a9gqPv9QQbsj4Q6BrXC?=
+ =?us-ascii?Q?v1IVO/rWWWXKSIQOYRhnpWyJ+g1/IZXhDgas5g55NdB2uxRixrZxrlT5RoU5?=
+ =?us-ascii?Q?2E5suAxSdBJPnWTZ3lOqd0Cq2fexvh3WztwvQf5CXhBSEwiamckhI4Py6QG6?=
+ =?us-ascii?Q?/NY01VVNREdjq8S2oaB1f5Pha45fCv0TTGH+9NyEzeezZfxf1hY650CckEGC?=
+ =?us-ascii?Q?V95s43QvbeeZSXDiUbk7ldtDld7aoqdYj4XX7610MsFQOvd4gQf+58CxH2fG?=
+ =?us-ascii?Q?rjuloyVmaHA/GPyBHkStL0EMzkeV5fdG7Ca0/OUokcjuI8OzlWxHj8nxxiQB?=
+ =?us-ascii?Q?dIbLeMtA/AbDb4ANajv17XpWIMX3TJvvHNz6hJ2xFn/artw0xdnNahdrqLc7?=
+ =?us-ascii?Q?CeROGQ8q5AtxS/GIqmTxSsoGGFr/VZd84OZ2VbH/MdA3dd+muMMmKJHGETkm?=
+ =?us-ascii?Q?+PT05LNsWHbU6fQTRYnDKOiXS1R0sCd9wEanQpykVPDhWenwzur+VsJeFrDo?=
+ =?us-ascii?Q?9+U7a8Quj4pPF/JqngSkM7PVpXmIN+zaR3ihgYjVUb4RjHZlxF/esJ6ssAnd?=
+ =?us-ascii?Q?wCkRBHw0ghrJoHb9PgaSeqHcgoXbkN5AnrSZi125GWHMTQSlscUhKneuDhAa?=
+ =?us-ascii?Q?XFdHXh3zGTQXVlwhPI8VIF3L3c8qUr6lv1B4/+X4VGkjd6paQ0pMpa1RGPWJ?=
+ =?us-ascii?Q?w2eUGRD0RtOlq/HgEQqF3l8BSKHHKBF1XSnnflIQpH5R74ckAXm5T79vBeau?=
+ =?us-ascii?Q?COEXKiscpGoWxnJe17PpbJd9vo0AGCCqFjjJ/4BWN1VEe0ENI/Yki9s4AHYh?=
+ =?us-ascii?Q?vmH9ABc0mEqDOiuJ5ntMXB4uVVTlzoMm/7TqD95OVMeaaYcyRI9q21tvQmzK?=
+ =?us-ascii?Q?IMUuqhtcuBZzwRkgke6qwuQbfn59O68QKAa6TIk/EwYWuw1mI/x4zcLMJlAK?=
+ =?us-ascii?Q?QUPBqebqZw1uOUcDUvDpmYa5WTawkeANDz/eX2SEHR56CcQ0U0bKWhjIzPWQ?=
+ =?us-ascii?Q?SkWNe0Xs8oqIBFKxZ4jsaUx8HIBo8/1Ou54v0AP+wgTUm0/NGHMHiZ+naGDR?=
+ =?us-ascii?Q?vcDw4twzOw=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc04cd6-f047-4cfb-d82b-08df3344927b
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 09:36:11.8996 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0aDYRvr/mVyI78ygSbbYLMN2z3rhY3OitwyQQliJU7QMf9/56q6rs/fKyspykTFgDto8w1e0EjSt042hY+uRrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB11707
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,395 +131,58 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The optimal preemption buffer size depends on the hardware and firmware
-configuration, which is best known to the firmware. Newer firmware
-reports the required size in the preemption_buffer_size field of the
-boot params, which it writes before signaling cold boot completion.
+On Fri, Sep 04, 2026 at 10:32:35AM +0200, Maxime Ripard wrote:
+> Hi,
 
-Read the size from the boot params once, after the initial cold boot
-during device initialization, as the firmware does not update it
-afterwards. Use it as the primary preemption buffer size and skip
-allocating the secondary buffer. A size outside of the [2 MiB, 32 MiB]
-range is treated as a firmware error and fails probe. If the firmware
-does not report the size, keep using the sizes from the firmware image
-header to preserve compatibility with older firmware.
+Hi,
 
-When preemption_buffer_1_max_size is set in the image header, use
-preemption_buffer_2_max_size even if it is zero, instead of falling
-back to preemption_buffer_2_size.
+Sorry for the late reply.
 
-Move initialization of the trace and DVFS defaults to
-ivpu_fw_preboot_init().
+> 
+> On Fri, Sep 04, 2026 at 03:54:57PM +0800, Liu Ying wrote:
+> > @@ -273,7 +285,22 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> >  	dc_ed_pec_sync_trigger(dc_crtc->ed_cont);
+> >  	dc_ed_pec_sync_trigger(dc_crtc->ed_safe);
+> >  	dc_fg_shdtokgen(dc_crtc->fg);
+> > +
+> > +	/* Don't relinquish CPU until TCON is set to operation mode. */
+> > +	local_irq_save(flags);
+> > +	preempt_disable();
+> > +
+> >  	dc_fg_enable(dc_crtc->fg);
+> > +	/*
+> > +	 * Turn TCON into operation mode as soon as the first dumb
+> > +	 * frame is generated by DC(we don't relinquish CPU to ensure
+> > +	 * this).  This makes DPR/PRG be able to evade the frame.
+> > +	 */
+> > +	DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(dc_crtc->fg);
+> > +	dc_tc_set_operation_mode(dc_crtc->tc);
+> > +
+> > +	local_irq_restore(flags);
+> > +	preempt_enable();
+> 
+> That's really not great... Can you expand on why you need this, and is
+> there really no other way to do it?
 
-Update the FW boot API header to version 3.39.1:
-- Add the VPU_GOV_ON_DEMAND_PER_PRIORITY and VPU_GOV_ON_DEMAND_QOS
-  DVFS governors
-- Add the preemption_buffer_size field to struct vpu_boot_params
-- Mark the preemption buffer sizes in the image header as deprecated
+This is a sequence instructed by NXP/Freescale IP designer to ensure
+that the prefetch engine(DPRC + PRG) can be enabled reliably - TCON must
+be switched to operation mode from bypass mode as soon as FrameGen finishes
+generating the first frame(frame index moves).  This is the only way to
+do that, AFAIK.
 
-Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
----
- drivers/accel/ivpu/ivpu_drv.c     | 11 +++-
- drivers/accel/ivpu/ivpu_drv.h     |  2 +-
- drivers/accel/ivpu/ivpu_fw.c      | 91 +++++++++++++++++++++++--------
- drivers/accel/ivpu/ivpu_fw.h      |  1 +
- drivers/accel/ivpu/ivpu_job.c     |  3 +
- drivers/accel/ivpu/ivpu_pm.c      |  2 +-
- drivers/accel/ivpu/vpu_boot_api.h | 36 +++++++++---
- 7 files changed, 112 insertions(+), 34 deletions(-)
+I'll address Sashiko AI bot's comments about local irq disablement in
+next version.
 
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index 61149b7c30c2..b60430dcf168 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -506,11 +506,12 @@ static int ivpu_hw_sched_init(struct ivpu_device *vdev)
- /**
-  * ivpu_boot() - Start VPU firmware
-  * @vdev: VPU device
-+ * @device_init: Indicates if this is the initial boot during device initialization
-  *
-  * This function is paired with ivpu_shutdown() but it doesn't power up the
-  * VPU because power up has to be called very early in ivpu_probe().
-  */
--int ivpu_boot(struct ivpu_device *vdev)
-+int ivpu_boot(struct ivpu_device *vdev, bool device_init)
- {
- 	int ret;
- 
-@@ -547,6 +548,12 @@ int ivpu_boot(struct ivpu_device *vdev)
- 	if (ivpu_test_mode & IVPU_TEST_MODE_FW_TEST)
- 		return 0;
- 
-+	if (device_init) {
-+		ret = ivpu_fw_postboot_init(vdev);
-+		if (ret)
-+			goto err_disable_ipc;
-+	}
-+
- 	if (!ivpu_fw_is_warm_boot(vdev)) {
- 		ret = ivpu_pm_dct_init(vdev);
- 		if (ret)
-@@ -841,7 +848,7 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
- 
- 	ivpu_pm_init(vdev);
- 
--	ret = ivpu_boot(vdev);
-+	ret = ivpu_boot(vdev, true);
- 	if (ret)
- 		goto err_ipc_fini;
- 
-diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
-index ea5b8dc612d1..70fab9c649d2 100644
---- a/drivers/accel/ivpu/ivpu_drv.h
-+++ b/drivers/accel/ivpu/ivpu_drv.h
-@@ -243,7 +243,7 @@ extern int ivpu_test_mode;
- struct ivpu_file_priv *ivpu_file_priv_get(struct ivpu_file_priv *file_priv);
- void ivpu_file_priv_put(struct ivpu_file_priv **link);
- 
--int ivpu_boot(struct ivpu_device *vdev);
-+int ivpu_boot(struct ivpu_device *vdev, bool device_init);
- int ivpu_shutdown(struct ivpu_device *vdev);
- void ivpu_prepare_for_reset(struct ivpu_device *vdev);
- bool ivpu_is_capable(struct ivpu_device *vdev, u32 capability);
-diff --git a/drivers/accel/ivpu/ivpu_fw.c b/drivers/accel/ivpu/ivpu_fw.c
-index 96f5be23a867..6607a5da1934 100644
---- a/drivers/accel/ivpu/ivpu_fw.c
-+++ b/drivers/accel/ivpu/ivpu_fw.c
-@@ -19,8 +19,13 @@
- 
- #define FW_SHAVE_NN_MAX_SIZE	SZ_2M
- #define FW_FILE_IMAGE_OFFSET	(VPU_FW_HEADER_SIZE + FW_VERSION_HEADER_SIZE)
--#define FW_PREEMPT_BUF_MIN_SIZE SZ_4K
--#define FW_PREEMPT_BUF_MAX_SIZE SZ_32M
-+
-+/* Size limits for preemption buffer sizes from image header */
-+#define FW_PREEMPT_BUF_MIN_SIZE		SZ_4K
-+#define FW_PREEMPT_BUF_MAX_SIZE		SZ_32M
-+/* Size limits for preemption buffer size from boot parameters */
-+#define FW_PREEMPT_BUF_BP_MIN_SIZE	SZ_2M
-+#define FW_PREEMPT_BUF_BP_MAX_SIZE	SZ_32M
- 
- #define WATCHDOG_MSS_REDIRECT	32
- #define WATCHDOG_NCE_REDIRECT	33
-@@ -160,35 +165,31 @@ ivpu_fw_sched_mode_select(struct ivpu_device *vdev)
- static void
- ivpu_preemption_config_parse(struct ivpu_device *vdev, const struct vpu_firmware_header *fw_hdr)
- {
--	struct ivpu_fw_info *fw = vdev->fw;
- 	u32 primary_preempt_buf_size, secondary_preempt_buf_size;
- 
--	if (fw_hdr->preemption_buffer_1_max_size)
-+	if (fw_hdr->preemption_buffer_1_max_size) {
- 		primary_preempt_buf_size = fw_hdr->preemption_buffer_1_max_size;
--	else
--		primary_preempt_buf_size = fw_hdr->preemption_buffer_1_size;
--
--	if (fw_hdr->preemption_buffer_2_max_size)
- 		secondary_preempt_buf_size = fw_hdr->preemption_buffer_2_max_size;
--	else
-+	} else {
-+		primary_preempt_buf_size = fw_hdr->preemption_buffer_1_size;
- 		secondary_preempt_buf_size = fw_hdr->preemption_buffer_2_size;
--
--	ivpu_dbg(vdev, FW_BOOT, "Preemption buffer size, primary: %u, secondary: %u\n",
--		 primary_preempt_buf_size, secondary_preempt_buf_size);
-+	}
- 
- 	if (primary_preempt_buf_size < FW_PREEMPT_BUF_MIN_SIZE ||
- 	    secondary_preempt_buf_size < FW_PREEMPT_BUF_MIN_SIZE) {
--		ivpu_warn(vdev, "Preemption buffers size too small\n");
-+		ivpu_warn(vdev, "Preemption buffers size too small, primary %u, secondary %u\n",
-+			  primary_preempt_buf_size, secondary_preempt_buf_size);
- 		return;
- 	}
- 
- 	if (primary_preempt_buf_size > FW_PREEMPT_BUF_MAX_SIZE ||
- 	    secondary_preempt_buf_size > FW_PREEMPT_BUF_MAX_SIZE) {
--		ivpu_warn(vdev, "Preemption buffers size too big\n");
-+		ivpu_warn(vdev, "Preemption buffers size too big, primary %u, secondary %u\n",
-+			  primary_preempt_buf_size, secondary_preempt_buf_size);
- 		return;
- 	}
- 
--	if (fw->sched_mode != VPU_SCHEDULING_MODE_HW)
-+	if (vdev->fw->sched_mode != VPU_SCHEDULING_MODE_HW)
- 		return;
- 
- 	if (ivpu_test_mode & IVPU_TEST_MODE_MIP_DISABLE)
-@@ -196,6 +197,9 @@ ivpu_preemption_config_parse(struct ivpu_device *vdev, const struct vpu_firmware
- 
- 	vdev->fw->primary_preempt_buf_size = ALIGN(primary_preempt_buf_size, PAGE_SIZE);
- 	vdev->fw->secondary_preempt_buf_size = ALIGN(secondary_preempt_buf_size, PAGE_SIZE);
-+
-+	ivpu_dbg(vdev, FW_BOOT, "Preemption buffer size, primary: %u, secondary: %u\n",
-+		 vdev->fw->primary_preempt_buf_size, vdev->fw->secondary_preempt_buf_size);
- }
- 
- static int ivpu_fw_parse(struct ivpu_device *vdev)
-@@ -318,18 +322,10 @@ static int ivpu_fw_parse(struct ivpu_device *vdev)
- 	fw->shave_nn_size = PAGE_ALIGN(fw_hdr->shave_nn_fw_size);
- 	fw->cold_boot_entry_point = fw_hdr->entry_point;
- 
--	fw->trace_level = min(ivpu_fw_log_level, IVPU_FW_LOG_FATAL);
--	fw->trace_destination_mask = VPU_TRACE_DESTINATION_VERBOSE_TRACING;
--	fw->trace_hw_component_mask = -1;
--
--	fw->dvfs_mode = 0;
--
- 	fw->sched_mode = ivpu_fw_sched_mode_select(vdev);
- 	ivpu_info(vdev, "Scheduler mode: %s\n", fw->sched_mode ? "HW" : "OS");
- 
- 	ivpu_preemption_config_parse(vdev, fw_hdr);
--	ivpu_dbg(vdev, FW_BOOT, "Mid-inference preemption %s supported\n",
--		 ivpu_fw_preempt_buf_size(vdev) ? "is" : "is not");
- 
- 	if (fw_hdr->ro_section_start_address &&
- 	    !ivpu_is_within_range(fw_hdr->ro_section_start_address, fw_hdr->ro_section_size,
-@@ -363,6 +359,16 @@ static void ivpu_fw_release(struct ivpu_device *vdev)
- 	release_firmware(vdev->fw->file);
- }
- 
-+static void ivpu_fw_preboot_init(struct ivpu_device *vdev)
-+{
-+	struct ivpu_fw_info *fw = vdev->fw;
-+
-+	/* Let the firmware decide optimal DVFS mode */
-+	fw->dvfs_mode = 0;
-+	fw->trace_level = min(ivpu_fw_log_level, IVPU_FW_LOG_FATAL);
-+	fw->trace_destination_mask = VPU_TRACE_DESTINATION_VERBOSE_TRACING;
-+	fw->trace_hw_component_mask = -1;
-+}
- 
- static void ivpu_fw_mem_fini(struct ivpu_device *vdev)
- {
-@@ -469,6 +475,8 @@ int ivpu_fw_init(struct ivpu_device *vdev)
- 	if (ret)
- 		goto err_fw_release;
- 
-+	ivpu_fw_preboot_init(vdev);
-+
- 	ret = ivpu_fw_mem_init(vdev);
- 	if (ret)
- 		goto err_fw_release;
-@@ -710,3 +718,40 @@ void ivpu_fw_boot_params_setup(struct ivpu_device *vdev, struct vpu_boot_params
- 
- 	ivpu_fw_boot_params_print(vdev, boot_params);
- }
-+
-+int ivpu_fw_postboot_init(struct ivpu_device *vdev)
-+{
-+	struct vpu_boot_params *boot_params = ivpu_bo_vaddr(vdev->fw->mem_bp);
-+	u32 preempt_buf_size = boot_params->preemption_buffer_size;
-+
-+	ivpu_dbg(vdev, FW_BOOT, "Post boot init\n");
-+
-+	if (vdev->fw->sched_mode == VPU_SCHEDULING_MODE_OS ||
-+	    ivpu_test_mode & IVPU_TEST_MODE_MIP_DISABLE) {
-+		drm_WARN_ON(&vdev->drm, ivpu_fw_preempt_buf_size(vdev));
-+		ivpu_dbg(vdev, FW_BOOT, "Preemption disabled!\n");
-+		return 0;
-+	}
-+
-+	if (preempt_buf_size) {
-+		/* Preemption buffer size provided in boot parameters */
-+		if (preempt_buf_size < FW_PREEMPT_BUF_BP_MIN_SIZE ||
-+		    preempt_buf_size > FW_PREEMPT_BUF_BP_MAX_SIZE) {
-+			ivpu_err(vdev, "Invalid preemption buffer size in boot params: %u, expected range [%u, %u]\n",
-+				 preempt_buf_size,
-+				 FW_PREEMPT_BUF_BP_MIN_SIZE,
-+				 FW_PREEMPT_BUF_BP_MAX_SIZE);
-+			/* Be strict about invalid preemption buffer size in boot params */
-+			return -EINVAL;
-+		}
-+		vdev->fw->primary_preempt_buf_size = ALIGN(preempt_buf_size, PAGE_SIZE);
-+		vdev->fw->secondary_preempt_buf_size = 0;
-+	}
-+
-+	ivpu_dbg(vdev, FW_BOOT, "Preemption buffer size: %u\n", ivpu_fw_preempt_buf_size(vdev));
-+
-+	if (!ivpu_fw_preempt_buf_size(vdev))
-+		ivpu_warn(vdev, "Hardware scheduling without preemption buffer!\n");
-+
-+	return 0;
-+}
-diff --git a/drivers/accel/ivpu/ivpu_fw.h b/drivers/accel/ivpu/ivpu_fw.h
-index 45a705431f22..2fcedb6c3e7d 100644
---- a/drivers/accel/ivpu/ivpu_fw.h
-+++ b/drivers/accel/ivpu/ivpu_fw.h
-@@ -57,6 +57,7 @@ int ivpu_fw_init(struct ivpu_device *vdev);
- void ivpu_fw_fini(struct ivpu_device *vdev);
- int ivpu_fw_load(struct ivpu_device *vdev);
- void ivpu_fw_boot_params_setup(struct ivpu_device *vdev, struct vpu_boot_params *boot_params);
-+int ivpu_fw_postboot_init(struct ivpu_device *vdev);
- 
- static inline bool ivpu_fw_is_warm_boot(struct ivpu_device *vdev)
- {
-diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
-index bfdee29cd91c..6a1307ee2e19 100644
---- a/drivers/accel/ivpu/ivpu_job.c
-+++ b/drivers/accel/ivpu/ivpu_job.c
-@@ -45,6 +45,9 @@ static int ivpu_preemption_buffers_create(struct ivpu_device *vdev,
- 		return -ENOMEM;
- 	}
- 
-+	if (vdev->fw->secondary_preempt_buf_size == 0)
-+		return 0;
-+
- 	cmdq->secondary_preempt_buf = ivpu_bo_create(vdev, &file_priv->ctx, &vdev->hw->ranges.dma,
- 						     vdev->fw->secondary_preempt_buf_size,
- 						     DRM_IVPU_BO_WC);
-diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
-index cd4eff72f76c..8a6062bb101c 100644
---- a/drivers/accel/ivpu/ivpu_pm.c
-+++ b/drivers/accel/ivpu/ivpu_pm.c
-@@ -100,7 +100,7 @@ static int ivpu_resume(struct ivpu_device *vdev)
- 		goto err_power_down;
- 	}
- 
--	ret = ivpu_boot(vdev);
-+	ret = ivpu_boot(vdev, false);
- 	if (ret)
- 		goto err_mmu_disable;
- 
-diff --git a/drivers/accel/ivpu/vpu_boot_api.h b/drivers/accel/ivpu/vpu_boot_api.h
-index 06c092d5e675..c0da9e9cba62 100644
---- a/drivers/accel/ivpu/vpu_boot_api.h
-+++ b/drivers/accel/ivpu/vpu_boot_api.h
-@@ -1,6 +1,6 @@
- /* SPDX-License-Identifier: MIT */
- /*
-- * Copyright (c) 2020-2025, Intel Corporation.
-+ * Copyright (c) 2020-2026, Intel Corporation.
-  */
- 
- /**
-@@ -36,12 +36,12 @@
-  * Minor version changes when API backward compatibility is preserved.
-  * Resets to 0 if Major version is incremented.
-  */
--#define VPU_BOOT_API_VER_MINOR 29
-+#define VPU_BOOT_API_VER_MINOR 39
- 
- /**
-  * API header changed (field names, documentation, formatting) but API itself has not been changed
-  */
--#define VPU_BOOT_API_VER_PATCH 5
-+#define VPU_BOOT_API_VER_PATCH 1
- 
- /**
-  * Index in the API version table
-@@ -74,6 +74,10 @@ struct vpu_firmware_header {
- 	/** Size of memory require for firmware execution */
- 	u32 runtime_size;
- 	u32 shave_nn_fw_size;
-+	/*
-+	 * Preemption buffer sizes in image header are deprecated post NPU50xx.
-+	 * Use vpu_boot_params::preemption_buffer_size instead.
-+	 */
- 	/**
- 	 * Size of primary preemption buffer, assuming a 2-job submission queue.
- 	 * NOTE: host driver is expected to adapt size accordingly to actual
-@@ -199,7 +203,7 @@ struct vpu_boot_l2_cache_config {
-  * Macros to enable various power profiles within the NPU.
-  * To be defined as part of 32 bit mask.
-  */
--#define POWER_PROFILE_SURVIVABILITY 0x1
-+#define POWER_PROFILE_SURVIVABILITY BIT(0)
- 
- /**
-  * Enum for dvfs_mode boot param.
-@@ -209,7 +213,9 @@ enum vpu_governor {
- 	VPU_GOV_MAX_PERFORMANCE = 1, /** Maximum performance governor */
- 	VPU_GOV_ON_DEMAND = 2, /** On Demand frequency control governor */
- 	VPU_GOV_POWER_SAVE = 3, /** Power save governor */
--	VPU_GOV_ON_DEMAND_PRIORITY_AWARE = 4 /** On Demand priority based governor */
-+	VPU_GOV_ON_DEMAND_PRIORITY_AWARE = 4, /** On Demand priority based governor */
-+	VPU_GOV_ON_DEMAND_PER_PRIORITY = 5, /** On Demand frequency per-priority governor */
-+	VPU_GOV_ON_DEMAND_QOS = 6 /** On Demand QOS based governor */
- };
- 
- struct vpu_boot_params {
-@@ -239,8 +245,20 @@ struct vpu_boot_params {
- 	 * On VPU2.7 HW this address must be within 2GB range starting from L2C_PAGE_TABLE base
- 	 */
- 	u64 shave_nn_fw_base;
--	u64 save_restore_ret_address; /** stores the address of FW's restore entry point */
--	u32 reserved_4[43];
-+	/**
-+	 * Firmware restore entry point used to resume from D0i3.
-+	 * Set before entering D0i3 and cleared during the resume sequence.
-+	 * Deprecated on NPU60xx and later; boot_type selects the warmboot path.
-+	 */
-+	u64 save_restore_ret_address;
-+	/**
-+	 * Required preemption buffer size in bytes.
-+	 * Firmware writes this before signaling cold-boot completion to the host;
-+	 * it is not updated afterward.
-+	 * Available since NPU50xx.
-+	 */
-+	u32 preemption_buffer_size;
-+	u32 reserved_4[42];
- 	/** IRQ re-direct numbers: 0x200 - 0x2FF */
- 	s32 watchdog_irq_mss;
- 	s32 watchdog_irq_nce;
-@@ -268,6 +286,10 @@ struct vpu_boot_params {
- 	 * TODO: EISW-33556: Move log level definition (mvLog_t) to this file.
- 	 */
- 	u32 default_trace_level;
-+	/**
-+	 * Boot mode requested by the host: VPU_BOOT_TYPE_COLDBOOT or
-+	 * VPU_BOOT_TYPE_WARMBOOT. Used by the boot loader on NPU60xx+.
-+	 */
- 	u32 boot_type;
- 	u64 punit_telemetry_sram_base;
- 	u64 punit_telemetry_sram_size;
+> 
+> Maxime
+
 -- 
-2.43.0
-
+Regards,
+Liu Ying
