@@ -2,98 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF60F606A970
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 11:12:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2730F606A970
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 11:12:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NT/pTjjt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=E351pZo0
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CoNVTt/w;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gwtoj5BK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1DC510EE11;
-	Mon, 26 Oct 2026 11:11:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B93310EE34;
+	Mon, 26 Oct 2026 11:11:57 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC2FE10EE34
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:11:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 306D710EE3E
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:11:04 +0000 (UTC)
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69QAtNVl2009947
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:11:18 GMT
+ 69QAtMd62009926
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:11:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- dg5zkY2HMaN3S1LQ7C2wxwVeSCWjIGLxXjphKAEg1Bc=; b=NT/pTjjtrT8dYnjF
- WH6qLjW6kx2wD0tAa1EQLt5mJoBFBC278Sstl3FzSsSLBoPXgMOCnzIX09ifooBv
- 7pkRxd4fS7XPQ7JUM4NjjZcmJx19Y7WHU7i6jtMBXYyLPC9T6rwbv93In7PMXpzi
- QPJAkI+be2BxxA5zI5XamOE6r6O3Kr5HDZwTNTv73jT5VrWnsFJ77Yi5yzqT9yFn
- o45rm4LsQsYn7vmIWTjo6iqt6X9ZYuPY0W1pF4CdJNLN/FLKlxEq6LFKnF2+K0UB
- 5kXQZ/lskryTSgbtibVEeNId1StpbWSfS21DPbH0l2PIcYPWxAp1dLnqntim7WL0
- OGOMwQ==
+ vY8BWoJH8w/x7seYGIIKWtBAXqP7TPJ+H06hDuNNvmY=; b=CoNVTt/wg0dZFClx
+ IKMDZ7tlMz+/NZn73DytzEzpH8rMCz2JqFK+bpL6iVSbKYS64sMCiau/NPeFLMQc
+ qaN2SPZosMEXZQQ1v9n13dzA/0NLEdG124wtfe+rFuOoePloJRl0awLDq2OQOs+W
+ SO7D9J49wPSnd3jrDGRH1LCsmpURaI4vpnbP1t74IR4R+dsCcHJAw4wd3rfhhZQs
+ kR5Tm9g0mkTjSEDP82haOZuYqFwIWpAGnTjYpWJYlLGsc4GudFJFYaJv2hop32FN
+ Mm26/TxHtuMTR6+s8OgmAPhPN92oZAkirFyg/Yy4tebL2tM0kdZ/Cq1BGjqSqUsj
+ wZZ7cg==
 Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
  [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgn27x2w5-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgn27x2ug-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:11:17 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:11:02 +0000 (GMT)
 Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93f2c0e6653so274722185a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 04:11:17 -0700 (PDT)
+ af79cd13be357-943e8ff02d0so71810285a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 04:11:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793013077; x=1793617877;
+ d=oss.qualcomm.com; s=google; t=1793013062; x=1793617862;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=dg5zkY2HMaN3S1LQ7C2wxwVeSCWjIGLxXjphKAEg1Bc=;
- b=E351pZo0btga3xl2PDOG0IQdrPjjGcNKx9srvERge0ucy6JKsjwTm6MHIXwYp4vOT/
- jPQ97it9HJrsL+G97S7O+XshqyJpUalku4MJ/Ji7phC8+kbizoObE0FXfYnwF6tk5T2b
- oBXrmkFBPAU3bV01PizkiBZLhRWcm/hDXz+6k7bCfJBNnnBgKvbx5v1WmJM8Gl9V7Y//
- LdO3eBu+ai/IyptSCAujXlHFS9gJ+hDz2/2nX7K4ruKMP69u3Ozn057pJ9o3+2YuOB4o
- 4LrRxFQfExiZwKP2KCOisulduj/wedD3iTwJ3LFE80jOSc5ErSSiB6HkWUq/vG30aJ7L
- m3hA==
+ bh=vY8BWoJH8w/x7seYGIIKWtBAXqP7TPJ+H06hDuNNvmY=;
+ b=gwtoj5BK/l5fJZx5x+aVNqpDcmzEvXXMVRRPCiHJUOJ1DLv34H6tBWFylAD4B9kCmU
+ gBn5BxyrTCNMz9JK6hRprdFQ0MAIfpuVU6CZYiJHwifp1HdcLtRVGPzFOMZ1juUsBps9
+ e/mAeoktxNWbCX0w1LT15ZWKJvfOpuBXLavo450trTNvHDV5GKoQIM18ExSE2ZGb26Nu
+ mJCZuxNKy9V6NS9Bd2FbGveJB9NEO9sIsY/K1P36H80jW4GskPx8UfBLPpwIoFLTFgAy
+ DC8ZMiXtw1soXm8D5oerGLt7yej9NCu4AFxWjVoBYXeH0Spz3QTizwCRM9M/WUY4MFw/
+ hsHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793013077; x=1793617877;
+ d=1e100.net; s=20260707; t=1793013062; x=1793617862;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=dg5zkY2HMaN3S1LQ7C2wxwVeSCWjIGLxXjphKAEg1Bc=;
- b=COX/Eoxpu+9+RDahA2YOYp/2poxAWVyQF9ZGsT4huY3kQ1TBEJlrJT9Rg1QYO4gezz
- KeTWcqed3M7+MJfsCnOda6rZMPqOsqtbJwn4OBNhhBnHaPaWt3rOjTFn0EC3sKPObzos
- CXPbJiE3V+nI6mKj9VmlDWZG0JMw0BhArz16EGwpXeKx+/Se3TwKbbUEOFYmzsIaValQ
- Al3G3111/h4pZZpC04G+2e+DRuFBGDgTjI+k5oHoHAvosrmN3kYiZiIRj1dTnQzWn2mj
- lQgL56Cpg0qQRBsThtf1kigjg4neR+i7V4BBCH/9919w3JTJjDMJpK3k2URCyjRGIGM2
- nh0A==
-X-Gm-Message-State: AFq9FYIvbgBRTBMrZQpjkw7IyaE3bWqcWk3UVAeOcRopz707wayaAPN8
- CR9S+3BKoMk6rfYff9KgAAKOsQZWSa/ERNJegbB/zCPHOAu59nGcPCSSA/XbLT2h2+7zOsd6OZo
- k5PO5rKfaxxzodLgnb//agAkF4F+gyjO+4/urr7wS1794l2JWVquWWjYg1RM5Gyx2wGuQoiY=
-X-Gm-Gg: AYBFou1buWP6H4O5WE794rP3JzEU9oOGeZJb9RvFkys+WuQaibQ3vHd7qRW1il0ZqnV
- 0OOPBA2Vxa7Y/z9QHUikFKljsI2mTK3qCGRkDjDuEcnLItwIWyL8/so+glSHbIlrZIH+Kejugc9
- FcCh1BlsUEqNaahIBvH9gug0xS1D40p4NK7AxZUbM9xgjO7gu6fpOZKjRAhORSozF2d0j56D+5w
- fKVJNkwOsN1OAb4R/MR+zuVfMmcSnNbii5QErDTjPBkcuovz7pCPjd42bpFhICvMjCQEYjG92vf
- parU3/zeRSZLTYps3N/qlMa0w/3nIC/e0SHJBNbnZtdcOzRORvSMFhRC1/4s0WVdsNFA3kaJan6
- ZC+6gqJle7pdB+GWfw9g7eDVhkENqLokCZmtVGcSdVDX4mpX0nxBCSuZXr8iKk0fKVEOQyHON0k
- BTyh0x7mRJ6VSr
-X-Received: by 2002:a05:620a:261c:b0:93f:707f:28d2 with SMTP id
- af79cd13be357-940ef8aed1bmr994267385a.26.1793013077000; 
- Mon, 26 Oct 2026 04:11:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:261c:b0:93f:707f:28d2 with SMTP id
- af79cd13be357-940ef8aed1bmr994262285a.26.1793013076523; 
- Mon, 26 Oct 2026 04:11:16 -0700 (PDT)
+ bh=vY8BWoJH8w/x7seYGIIKWtBAXqP7TPJ+H06hDuNNvmY=;
+ b=zjTuMbd8XE3A45XxXdoB9XbVzyIuMFULmJc3S7nBMbM90FHCMDypOWlPWYFEEvg+aV
+ E0X99cCcP29DS3BD8LCoV4D3BxjccgrvUMRHS2JkUkbP3naOlEWKm0Ru9vrx2c6Opvvc
+ x/dKx0hpn6RyR65HzeqUuolUDCoEDADZmCEUV18CVdfFT8wInnyisLfslJvbdRvgPcu9
+ VVKDKVNuUE5tRONabALTPJweK9YGqmQJ9TWioWKUZ/D0u8a0cA/xUVwzDmpGB9q9LbN8
+ 6V6ikUPLoJD1kdjk7lgldpVWLAW9flORpYd2SvqUIylgUUQYDTAQRwiM1EwoLj+wIH8z
+ 5BuQ==
+X-Gm-Message-State: AFq9FYKzC2G8QJyR2uG9habpStO8CT9ygpnFlWdl2REUs6BSc+YYglDu
+ vPhoF8ODIaSNAfueQ5p3xQqOerF9avb/ka1yecq10khdvd2qPE1XRWze20hs11fonbt5NOZqSaX
+ c9FfGa+3tY7XaW1Oz5cNoVV0Muu6EEFREE44xpwXyT6kSh8KNc/GOpWKokyloUqvsPzWKBWk=
+X-Gm-Gg: AYBFou0IUs4sd4dbefUKIgq0WZSh6bMDieSNFl25SSNrdLca+vcN7v5Cmh2uEy87M/j
+ t/M5IjzLAqlMRzNQct6QpRnyFRcp9osRXzhmPjA1c0Rs+WLYZQn0UAJ/gMIKtcHVGN93wJHBDGZ
+ mixiy5QxNgonodz5DsLAzUZNFXRsLgBlaK6Hz6cI5Iwh38GmC6anVFO5bywPpY+G23J17lJGoiR
+ 1eJguTqsnHz70EVuYsjNgQtToevJlfovYmM68CbP2wwiTBBtS4cjKOdZRBJKYV68qmNRO0tjvCN
+ kFzU08jxL7wZdmMChpZPgwFIYPzTuZfQWGgw4O06aOaY9rTNgkCaMXa7Rpo+u8djVVzvGm6J/si
+ /4Oc6A9X3pzxJWVwgWyesvPBnpolXTRTJcPMcmJbKVAtIcXFAhaMQjTkfTZI4nbjalLtepsPGK3
+ qKvRgn9cFDUEr5
+X-Received: by 2002:a05:620a:1a12:b0:93b:d7a2:dd32 with SMTP id
+ af79cd13be357-940ef9add84mr1002525185a.66.1793013062143; 
+ Mon, 26 Oct 2026 04:11:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a12:b0:93b:d7a2:dd32 with SMTP id
+ af79cd13be357-940ef9add84mr1002510785a.66.1793013061497; 
+ Mon, 26 Oct 2026 04:11:01 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfb7a950a3sm1455459e87.68.2026.10.26.04.11.14
+ 2adb3069b0e04-5bfb7a950a3sm1455459e87.68.2026.10.26.04.10.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2026 04:11:14 -0700 (PDT)
+ Mon, 26 Oct 2026 04:11:00 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 13:10:11 +0200
-Subject: [PATCH 22/35] drm/panel: drop the orientation workaround from
- get_modes()
+Date: Mon, 26 Oct 2026 13:10:06 +0200
+Subject: [PATCH 17/35] drm/fsl-dcu: set the panel orientation on the connector
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-drm-panel-funcs-v1-22-5e3070a3478f@oss.qualcomm.com>
+Message-Id: <20261026-drm-panel-funcs-v1-17-5e3070a3478f@oss.qualcomm.com>
 References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
 In-Reply-To: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
 To: Douglas Anderson <dianders@chromium.org>,
@@ -172,36 +171,36 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6347;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1000;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=pIOB3uhyuBnIv/4e7qIm3qYvTrQqV7MkFySAJKsupco=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq3zURNMUbn+OFPYO6Rs5wHYoMvPXWbHnPEQw+S
- eR2by97mJWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCat81EQAKCRCLPIo+Aiko
- 1ZJmB/4pC0z3MOz+MYOvygaw89qOLA80ziZqdzL2JsocIt6Gdpqn+jXgLiKeKzfpkRqe93yynNS
- 6w72Miunger/6rdcY7rRGrRlFem8FTSpCJtamc5WacQP7woDC6T0A67d60V0sA53pFs6mnPcf1c
- wmG+kc/TZizvHfgHcIsV3ojeaH0YdfS0Uw0jd5DpNQMPz4+FJ4SEOdO0N9UsSqaN8p99GLZ4wnN
- Eg7CEyx8XI/MEu4LI5iPg3mHptZfQ+7T8GOdDgkhLvNvhyz24Lm16Y6wMSjdIQKPau5mwzUKf2R
- 8CvwIbzO6VH8PVQTzIyeLMh901DD8wek/BCPDasQMN/5pNtU
+ bh=NybjcCZxaVBV8YlLKaTAyHmm87V6T4TYtZ0TLbzplQY=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq3zUOmRe8CEbGjT64KtPnEJZg/5EMluF4tX1Lg
+ 9OIb9ldBJ6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCat81DgAKCRCLPIo+Aiko
+ 1QpUB/9uR3l3GfVIvTKbA10ZF19l1tvhKCRzqc+3iCVH6xmO7vqg1/9o/l9+GRVdBZJb7Qt+ZoV
+ ryAW6z5syuqvIF6XU/Z1zs3gzoaUULDp0z1E5cxM8sHDD2KSmahajUh8mhN5hQpY/NdAmWWRybN
+ HhPwxvxRuXM6fIyMbV0HOFGjniWA2/TJ/A48YxNlva6uqAIq1y1+Oj2SbU1jrQCnlvCiX1xkb1B
+ xP7jH7YQUa+wkP9/hVqiOMclVILAluZqPYKKB2nJJuKsiQaDPiYAjazAxr+x+vVIC0RJVQaLdl/
+ BiAVwbiKmq7eT5KFJTtY7a4PdKMB5tGgv5ni4kck/fYLVSrD
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=G7GJgNk5 c=1 sm=1 tr=0 ts=6adf3555 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=G7GJgNk5 c=1 sm=1 tr=0 ts=6adf3546 cx=c_pps
  a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=PL5jcg54admUc1aTEAgA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: 4hvgp3lEldFqJILrGJrxmFAB41OpjXvp
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfXxEEIVb7ivOHW
- B6DZVewQzFj+TxLVLRMGTNSyUPS2ygT5s1kv/PXOue53kmWBcc6yXtS5MDk6gxRtSTi5wc+q3+z
- ekUog7Pdr37pBtU7LRRifVXKD94vObc=
-X-Proofpoint-GUID: 4hvgp3lEldFqJILrGJrxmFAB41OpjXvp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX7SDSgmmryvpX
- GwdAsgrMgkWZn2FZP6FL9mytbpJdbpqpF39W7pc1wMOzbveHrc0b8co6lMsUrLI9T2jvwz7grOL
- O0GUbZO4w0LU2BwPCRjHqPAYQQRod1ETGoAKcvv/BGU50CvLQrpSXjkW8ldDCEmSdAKt8uaydxl
- /rXWiRG4BmgMJzKDOa6rA6BS180wMhF15AqUCKaCSxE/QljNKu/M/DrOYiLYgU8OEhqb15OTTmL
- tCx6MgYxEcBZNDqzTJoLUrdBvwVQNNNY5XFwbj0erRp3pkBA+SQi0ojlpCkuUiPZggRJkH22+e/
- hfGCFfpu6gVDXSMoR6e5SLv4HhLprrtf4hAdplRk04idYS8+eJdGK/9mmbwkiUoC1XbfchhmKAe
- 8F6iODm9MalIwRRWbuBbpkxsWRplujWSmXtJsQW8o/OPPaXzQNQgBGKg316Vv3nqG+regygoQUQ
- QWrmDCX0FOo7oargcmA==
+ a=vjBfRQYTh69vIXlwGnYA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: MokDkOOgHj1kkFaMT0nGQNtZ8guEcFgU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX9h+dU/nKnDCr
+ UyF4HXGY/8m7gM3edA7y333C3R571W6lws55wQqDRzqBa0wP/5ZiFhxTYgf2bjQUGGKGScmqJaU
+ qMnRdEQmi/O4tZJKEuHzgYIeEeUb2VY=
+X-Proofpoint-GUID: MokDkOOgHj1kkFaMT0nGQNtZ8guEcFgU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0NCBTYWx0ZWRfX218BEc4A4Wqd
+ XW/JLUUBjdfcBjICneBYl5X+Et1cNSGudvEPRadXrGf16wwWgyea8fo2o4dKui3YF5XzbyM3TEe
+ gbGUkWqQ/OPnQQRmvhisiFUr5zNWW1pijRErPwjmgc+hIMkDglpQ6xQUoeOWEfr6dWmP69NYshW
+ 9PtthaOs9GcEMIriVCnZhtAgzPy8GVg3iuJIS1G+LJAgJh+d+Sme+vJ7N1QZF9+VRCFkXRO5hkV
+ Fzk6EBBVsHVoo08vUQ/mIqWo1ffcuSx9zIB9tGJzdVBcqTMHXiHeVoJWT4Q6sdCklEvhrgCj/WH
+ kbvpvNPYmezOomqCV6cfbEsrfaU17dw7HALRyFqLHsqeK0kKLLNMi+ESBvQnES1diPDM5olwDJj
+ KCcXyWTUwnaThKtbe2upUjafPRVYSeySvbgv81p5SbF5+p9lTZKdA0+UThZhLlMit5KYcNRT9to
+ mj9cYljAHv4hXyUHktw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
@@ -229,166 +228,32 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Setting the orientation from get_modes() was a stopgap for the display
-drivers not calling drm_connector_set_orientation_from_panel(). It is
-also too late: by then the connector is registered and the property can
-no longer be attached properly.
-
-drm_bridge_connector and the panel bridge set the orientation on their
-own, and the drivers using a panel directly do it when creating the
-connector now. The exceptions are sun6i_mipi_dsi, sti_dvo and the Tegra
-DSI, which get the panel only after the DRM device has been registered.
-None of the in-tree boards using them has a rotated panel.
+The panel is used directly, without the panel bridge, so nothing sets
+its orientation on the connector apart from the workaround in the
+get_modes() of some panel drivers, which runs too late.
 
 Assisted-by: LLM
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c | 6 ------
- drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c       | 6 ------
- drivers/gpu/drm/panel/panel-edp.c                    | 6 ------
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c        | 6 ------
- drivers/gpu/drm/panel/panel-lvds.c                   | 6 ------
- drivers/gpu/drm/panel/panel-simple.c                 | 6 ------
- drivers/gpu/drm/panel/panel-sitronix-st7701.c        | 6 ------
- drivers/gpu/drm/panel/panel-sitronix-st7789v.c       | 6 ------
- 8 files changed, 48 deletions(-)
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-index a70a2e58f88c..a67e0e57d8c3 100644
---- a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-+++ b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-@@ -318,12 +318,6 @@ static int boe_th101mb31ig002_get_modes(struct drm_panel *panel,
- 	const struct drm_display_mode *desc_mode = ctx->desc->modes;
+diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
+index c64264541fe2..6d42376a57a2 100644
+--- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
++++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
+@@ -96,6 +96,11 @@ static int fsl_dcu_attach_panel(struct fsl_dcu_drm_device *fsl_dev,
+ 		return ret;
  
- 	connector->display_info.bpc = 8;
--	/*
--	 * TODO: Remove once all drm drivers call
--	 * drm_connector_set_orientation_from_panel()
--	 */
--	drm_connector_set_panel_orientation(connector, ctx->orientation);
--
- 	return drm_connector_helper_get_modes_fixed(connector, desc_mode);
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-index 150dff3ab6c3..681a2418f154 100644
---- a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-+++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-@@ -1666,12 +1666,6 @@ static int boe_panel_get_modes(struct drm_panel *panel,
- 	connector->display_info.width_mm = boe->desc->size.width_mm;
- 	connector->display_info.height_mm = boe->desc->size.height_mm;
- 	connector->display_info.bpc = boe->desc->bpc;
--	/*
--	 * TODO: Remove once all drm drivers call
--	 * drm_connector_set_orientation_from_panel()
--	 */
--	drm_connector_set_panel_orientation(connector, boe->orientation);
--
- 	return 1;
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index d3a4cf9b1760..493a76f7416c 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -637,12 +637,6 @@ static int panel_edp_get_modes(struct drm_panel *panel,
- 	else if (!num)
- 		dev_warn(p->base.dev, "No display modes\n");
- 
--	/*
--	 * TODO: Remove once all drm drivers call
--	 * drm_connector_set_orientation_from_panel()
--	 */
--	drm_connector_set_panel_orientation(connector, p->orientation);
--
- 	return num;
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-index 7bf38e96678a..9e64bdb403ed 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-@@ -2520,12 +2520,6 @@ static int ili9881c_get_modes(struct drm_panel *panel,
- 	else
- 		connector->display_info.subpixel_order = SubPixelHorizontalRGB;
- 
--	/*
--	 * TODO: Remove once all drm drivers call
--	 * drm_connector_set_orientation_from_panel()
--	 */
--	drm_connector_set_panel_orientation(connector, ctx->orientation);
--
- 	return 1;
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-lvds.c b/drivers/gpu/drm/panel/panel-lvds.c
-index 37f7498449ec..92d397b131ba 100644
---- a/drivers/gpu/drm/panel/panel-lvds.c
-+++ b/drivers/gpu/drm/panel/panel-lvds.c
-@@ -98,12 +98,6 @@ static int panel_lvds_get_modes(struct drm_panel *panel,
- 					 &lvds->bus_format, 1);
- 	connector->display_info.bus_flags = lvds->bus_flags;
- 
--	/*
--	 * TODO: Remove once all drm drivers call
--	 * drm_connector_set_orientation_from_panel()
--	 */
--	drm_connector_set_panel_orientation(connector, lvds->orientation);
--
- 	return 1;
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index e4629428b1b2..0bd0afbd562e 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -396,12 +396,6 @@ static int panel_simple_get_modes(struct drm_panel *panel,
- 	/* add hard-coded panel modes */
- 	num += panel_simple_get_non_edid_modes(p, connector);
- 
--	/*
--	 * TODO: Remove once all drm drivers call
--	 * drm_connector_set_orientation_from_panel()
--	 */
--	drm_connector_set_panel_orientation(connector, p->orientation);
--
- 	return num;
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7701.c b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-index f16e0de1ea60..b6e62a4c67fa 100644
---- a/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-+++ b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-@@ -635,12 +635,6 @@ static int st7701_get_modes(struct drm_panel *panel,
- 	connector->display_info.width_mm = desc_mode->width_mm;
- 	connector->display_info.height_mm = desc_mode->height_mm;
- 
--	/*
--	 * TODO: Remove once all drm drivers call
--	 * drm_connector_set_orientation_from_panel()
--	 */
--	drm_connector_set_panel_orientation(connector, st7701->orientation);
--
- 	return 1;
- }
- 
-diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7789v.c b/drivers/gpu/drm/panel/panel-sitronix-st7789v.c
-index da6ed31d151e..4d28efeafd64 100644
---- a/drivers/gpu/drm/panel/panel-sitronix-st7789v.c
-+++ b/drivers/gpu/drm/panel/panel-sitronix-st7789v.c
-@@ -361,12 +361,6 @@ static int st7789v_get_modes(struct drm_panel *panel,
- 	drm_display_info_set_bus_formats(&connector->display_info,
- 					 &ctx->info->bus_format, 1);
- 
--	/*
--	 * TODO: Remove once all drm drivers call
--	 * drm_connector_set_orientation_from_panel()
--	 */
--	drm_connector_set_panel_orientation(connector, ctx->orientation);
--
- 	return 1;
- }
- 
+ 	drm_connector_helper_add(connector, &connector_helper_funcs);
++
++	ret = drm_connector_set_orientation_from_panel(connector, panel);
++	if (ret < 0)
++		goto err_cleanup;
++
+ 	ret = drm_connector_register(connector);
+ 	if (ret < 0)
+ 		goto err_cleanup;
 
 -- 
 2.47.3
