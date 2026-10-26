@@ -2,97 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A87606A31E
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 04:24:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CAE8606A31F
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 04:57:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aAmzCEzd
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=M8OnpaH1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2143A10E1D5;
-	Mon, 26 Oct 2026 04:24:27 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B511A10E1D5
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 04:24:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5D03641AE9;
- Mon, 26 Oct 2026 04:24:20 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1792988660;
- b=a2CBFB9jEv2uMy7CWJfRJRtTSKWI+1cC4/5LeVGR9Wr4idPU4TiygcaXRfTvABid2o55
- KRjHMBQAh78hGI2whpCuG99MXSoXoNmetIJCvtZp/9/XOmghQgIKLls6uw0AkUgXEHKRu
- jK5ThKi4kTN+HPRcL0zMlyNQ8Sgfhbh+qG233FxQtlxM8anLOOhMUyDQQkzM27aGmgXGQ
- 3mc36sujc8AkSgVTTvvKegm6Px36P2vZpzUCaQartR5IGfA8oepSCnEiBFa820GGZ3euD
- 1MfQyaWOmvzzmXZalD/HyBBCHvfx2esN2iVEMpdAqP0HSCgfYRwTHi+PRWTP0/u7ICw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1792988660;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=L/8EqOc1eOCAo4Mtj0fcKWMPILlYNNa2Pq4/as8ce3g=;
- b=Lmg2l8P0dPBd5IhVF6iuA968p0HdaDaQQpjv8ghFUloLPOdg2GXQb0PMVW1XnHOypxGb
- QfMe9Oz7ux3VhS/ZHnYd5vf5ug5hNhhs3aOJVxOhECeVvJUoSnFMzJUakIbo9sMRp0WkF
- tNgJU6SUhM+AxvzBdtCa+N31eTmpktJ4+kQCzkdGuli+IzK/s1+LWrtZAdeI166qeOONq
- LF1IH2JocXuD/mqX2QFfQtUsB5X3MpAh2cFJf0RHEdod/AaZN0HA/jbRxPaQmjmP4K6GM
- bp2nNCHybZunRKSslVg9DnQjRAqPe9T7g1zJMat25cekDw2n/oAWe1n8w+EqCU3StNA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id D33091F01825;
- Mon, 26 Oct 2026 04:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792988660;
- bh=L/8EqOc1eOCAo4Mtj0fcKWMPILlYNNa2Pq4/as8ce3g=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=aAmzCEzd3+1763LXOLzAB7CZS4gvZVgb2HgEweX1Db8LgIrbBqg5V5UKWNUWOx6oL
- PUqeIiNKDLphytJwMpTCISn2FgUj4MnQw8GFO4hwT8Uc0HtxbL8rATHtOsde4GuIt8
- DO+bBlvcQevPPyBzwtIBk1JmblT+G2PH9ezjzpL19z1KyTTduZrB//mtGJXPSrEYGQ
- AYYARls8W9JpVYY6iawQN2KGp/AbVfGWlsYQ0aoph4VtRdEvHyIqnaO+Orqak7oQeN
- pgkAuPutkJDGHaQpsbHmEPY6Kg/Ibn1jq4/VWXk8fLm2mDTqUbaakSxckCUmeQDZfV
- FHHAFd5QyO9LQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 2FD0744C07;
- Mon, 26 Oct 2026 04:24:15 +0000 (UTC)
-From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Date: Mon, 26 Oct 2026 14:24:13 +1000
-Subject: [PATCH] gpu: nova-core: make pramin/buddy optional
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D54010E27F;
+	Mon, 26 Oct 2026 04:57:39 +0000 (UTC)
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D60E10E27F;
+ Mon, 26 Oct 2026 04:57:33 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69Q4doPJ2391863; Mon, 26 Oct 2026 04:57:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=8fu43DNA2RG8i02HeOjlRKt
+ PZ4P9JA9dEbuGqv9jRII=; b=M8OnpaH1CVvGe3uJ1GKfHxyth4YeVMrEVYkGL+R
+ ruMlFQk1qg4EIpo5TXS6DJarWpdM4kKltUVm+n3X/BG0O06Bub4MVVCSMoh+31of
+ BTyhOPyakotbI0qrygIaBhgASWiDEKV6TL6GyySwbZf3sn4Y1G2WbKdLDZRRzDKh
+ QdPPkOiLiRiYe99Bktv+PYb8l+r8gNyC+kVhyEAk9e4/S71dpeORnPTm3cEb411E
+ ify8f2VuOkg28HfVfizIu2HBC9rFIumhf+1hul0OyRjq1rKiUdHcP0kPV/gGs9Kk
+ KWOP0R9siStKvO1ePr9ATKp/phqO9ttb/Ly9vNpHsVvhvZw==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hgmrthcby-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 26 Oct 2026 04:57:17 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 26 Oct
+ 2026 04:57:13 +0000
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Date: Mon, 26 Oct 2026 10:26:45 +0530
+Subject: [PATCH] drm/imagination: Support for querying Firmware information
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-nova-pramin-option-v1-1-d073b3f047fc@redhat.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDINbNyy9L1C0oSszNzNPNLygBKtc1NUhOSTMEyhpZGCoBNRYUpaZlVoA
- NjY6trQUAwL1fyGQAAAA=
-X-Change-ID: 20261026-nova-pramin-option-50cdf1102281
-To: Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Dave Airlie <airlied@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10660;
- i=airlied@redhat.com; h=from:subject:message-id;
- bh=y1Ee85SjLYBHnt+Mbfoy0aEr1Y5JSRZKiYENRoxCwXc=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq3tXu5PO9wEwJbKjSgA6vlZqeSRtnKJGH52VFy
- OZNLXHXrIaJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCat7V7gAKCRAMdPNZecSG
- vqsZD/sHdnK0GEJDTG12tR0y7WTGHNhd+8RW0DgG+a+Qjcy04ylv+pY/6HIatDuqhKGjxlg601B
- R70K2d9YmJ/0F7sFPz8kMmTADmCPlUB7I6krEcYp9vj4uQcQna/1bh75+H+xfmPMAtC7HKgxDwO
- FYO8673KTQ6T8SXlQDKBzatCV6lpX/hRoJT/pLipBHsC+9lbDLuwJUL3VIPlkN4zwZ7T8Qn1mdl
- Z/cJ3aV2TELq17KjqIxdfvPryT6jKEGhoron0cTHjM8W14p3KG3jvDk9RZYa9Em4ENHfUeA+CCx
- F5m1n+eDDTSiLmEqZNsoz4JhU0au17+FfMOYZmcF36zhf0E2PLBh3KTsZPwV+8q88l3lRO6Mf9J
- yWA70E0ciRWZWuDYyNdberhU/qDcMbEm5pi3hdXPgEif6mNHM0pVFbzjw5YY7Coq8H6/g8lyMQb
- wJgFUrSMrf+vOIVMsJetepH79rQ+P4kPECd9Oa28wXOijcxxsue9u7CWapfYMeORJWQAYicALkB
- 3B2mH2SpO2iUWdK+DhR7YoIz+S6I4oocBMnycEupcIHyNmHbh+RMnwTSVto8l9H5a4eI3arGgww
- P0LMVQotg4CMQFbe59vyNc3Y+TgeGqEuuhpfPvxwNA3xUpfXxVEnUPGDjpqsBkGv+aog4+OTviJ
- BZh+t/bHe5gaaZg==
-X-Developer-Key: i=airlied@redhat.com; a=openpgp;
- fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
-X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
- auth_id=1321
-X-Original-From: Dave Airlie <airlied@redhat.com>
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261026-fwversion-v1-1-3ed17c65bf4c@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAIzd3moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINZNKy9LLQKp0rU0TbQwSrQ0TLNMM1cCqi8oSk3LrACbFR1bWwsAPLu
+ UBVsAAAA=
+X-Change-ID: 20261026-fwversion-95a82a91f9f7
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Brajesh Gupta <brajesh.gupta@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5329;
+ i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
+ bh=EjB5brLJIxO02+FtPvrMC3ZFJgz/BdZGAbQJm8HvvcU=;
+ b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBq3t2pFF/WiCq+BNjL7WLIr1sDEP5lTvvcSdpzb
+ VlMlLrDUpSJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCat7dqQAKCRDQJndZfgLx
+ cGbID/4vESQAXz+n6321XS5RrP1l/wyM3jaYXl6P9s5dAR0PyrVT3/NXxH1QprSsHGYXSGg0ND5
+ WS5l3DQnnK4/AUtnZY2ZX/8raLnXl1cXpEOBgVWQ9ttOty48GNrvN0pWlXS67cSJpT5CqFcxnKC
+ 0tsLaR4+7VeLJHxV2+JVkTMSFU7g0s0Ox5cjgYQq3rqfNWlM9neEAJWDaMrWnH4dErrLroBSsTn
+ wliAkJCstHggMaXu1YGeJ3ayLx3ugK4a8HC2kLS8DBh6wkMijZeUkVHAxNyYMrK25A00P38A5ay
+ PA3Bkx4ZQ8A9ObPd5c/esS0iTrFkKQDVnuJO/GC2HuLB1T2vjs/0neOCYma3NLXYbIRFoCQxygd
+ bI/xYnFl3WS3IlrRLnJ2cqjKj6/NaQC80Jj340BAKNFSN/kxxu+5HWdui0HhvEl+2lzliSOVeuu
+ TYKAN+gzfkK7UO1mHFq0+nMohZVAuftoVF097waSguQOHOYYQLAzKNt33u+yEfQ5mKxJ+RfBzaY
+ bE7fXmvgrdn6HgOvDf8k9l4TXFky9KEWEYk3sU2rtB2tHJV6Z2H6O/vooo1kcDMf1Yqf0TXMvpV
+ mBEbDtzUzvBTeE30duNUT8jDIIO9MotqagwKgi8dDJCaZKTtv+5bmZohNOVNHSnNPfPSOfDCzYs
+ 8ATh3MatKZgZpCw==
+X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
+ fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
+X-Proofpoint-ORIG-GUID: 89KgDbSGtrz5uKctqCA9P-5rbOMmZdni
+X-Authority-Analysis: v=2.4 cv=NZdzRGD4 c=1 sm=1 tr=0 ts=6adeddad cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=VQtmmEAXoFRDbT8Ph0MA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAxOSBTYWx0ZWRfX/aS4Cd3NB7td
+ DckXBhmTwujrhMJWmrgK0f0ro8+eP068348KTxpfJeo+UMrSGL2KknUIksQuhevOi3JvcfGBZL6
+ TESFOlce/RUVzsBHOCkjCANua1iYvi8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAxOSBTYWx0ZWRfX0QNRPzaFD+JX
+ qIwKl1Oogp8EOyoiRLXLmgqApB/bqUnhFCkCOIp1Dx6WWdRMLiqfABM5abGo8NS0SSQ2DsiIUND
+ oUk/WcU7X3GQ/XpE0ybxJSaNROqiQMUCYEb5UnmgNnoBfd4qmN6bHmX4GC05Idii8tvtLYxw+5n
+ GB7ZGi1zQeN0axXXNGi1Ij7Z4VZRoAL13Vgi7ct9eoqLhNLJBQoScZLb7fBs/pxE33CWbljgWdS
+ fEZ7NEe13pqmLQagaDz8WUhYFj4+MsQhq37V5dbXizCOJEq/RnVPHhIj5GStqkm+PVIXJP85HHw
+ v+uFE0gkCo2N+4QsSnc1uxhO3d9lPHRnyBVSENu680W0B5R+TqV5GRLjDH8EwpE45tib3NW0ntb
+ Kzi9EZrmEa/agHG4t7YGp/xwwJwJsZ62dpMFaz1PFaJ2Av7tpC2thnfFX6LJnn9bgfgeRpul7Zk
+ YyLMLaRKXkxsUWgEYsA==
+X-Proofpoint-GUID: 89KgDbSGtrz5uKctqCA9P-5rbOMmZdni
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,266 +100,170 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: airlied@redhat.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Dave Airlie <airlied@redhat.com>
+Add a new subtype DRM_PVR_DEV_QUERY_FW_INFO_GET under
+DRM_IOCTL_PVR_DEV_QUERY to query Firmware information. This allows the
+userspace to detect any bug fixes and features present in the Firmware
+and take appropriate action.
+Currently it supports querying major and minor version of the Firmware.
 
-These aren't used on systems with no framebuffer memory.
-
-Signed-off-by: Dave Airlie <airlied@redhat.com>
+Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
 ---
- drivers/gpu/nova-core/gpu.rs               | 15 +++++++------
- drivers/gpu/nova-core/mm.rs                | 34 +++++++++++++++---------------
- drivers/gpu/nova-core/mm/bar_user.rs       | 14 ++++++------
- drivers/gpu/nova-core/mm/pagetable/map.rs  | 10 ++++-----
- drivers/gpu/nova-core/mm/pagetable/walk.rs |  2 +-
- 5 files changed, 38 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/imagination/pvr_drv.c |  5 +++++
+ drivers/gpu/drm/imagination/pvr_drv.h |  4 +++-
+ drivers/gpu/drm/imagination/pvr_fw.c  | 25 +++++++++++++++++++++++++
+ drivers/gpu/drm/imagination/pvr_fw.h  |  3 +++
+ include/uapi/drm/pvr_drm.h            | 18 ++++++++++++++++++
+ 5 files changed, 54 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 4e59072cab50..5d53fde2cdc1 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -564,18 +564,19 @@ pub(crate) fn new<'a>(
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
+index 5c965ef0274f..2d522a8e46ad 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.c
++++ b/drivers/gpu/drm/imagination/pvr_drv.c
+@@ -6,6 +6,7 @@
+ #include "pvr_device.h"
+ #include "pvr_drv.h"
+ #include "pvr_free_list.h"
++#include "pvr_fw.h"
+ #include "pvr_gem.h"
+ #include "pvr_hwrt.h"
+ #include "pvr_job.h"
+@@ -658,6 +659,10 @@ pvr_ioctl_dev_query(struct drm_device *drm_dev, void *raw_args,
+ 	case DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET:
+ 		ret = pvr_static_data_areas_get(pvr_dev, args);
+ 		break;
++
++	case DRM_PVR_DEV_QUERY_FW_INFO_GET:
++		ret = pvr_fw_info_get(pvr_dev, args);
++		break;
+ 	}
  
-             // Create GPU memory manager owning memory management resources.
-             mm: {
--                let usable_vram = gsp_static_info.usable_fb_regions.first().ok_or(ENODEV)?;
--                let buddy_params = GpuBuddyParams {
--                    base_offset: usable_vram.start,
--                    size: usable_vram.end - usable_vram.start,
--                    chunk_size: Alignment::new::<SZ_4K>(),
--                };
-+                let buddy_params = gsp_static_info.usable_fb_regions.first().map(|usable_vram| {
-+                    GpuBuddyParams {
-+                        base_offset: usable_vram.start,
-+                        size: usable_vram.end - usable_vram.start,
-+                        chunk_size: Alignment::new::<SZ_4K>(),
-+                    }
-+                });
+ 	drm_dev_exit(idx);
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
+index 7fa147312dd1..fd01feeeda1d 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.h
++++ b/drivers/gpu/drm/imagination/pvr_drv.h
+@@ -13,9 +13,10 @@
+ /*
+  * Driver interface version:
+  *  - 1.0: Initial interface
++ *  - 1.1: Add DRM_PVR_DEV_QUERY_FW_INFO_GET query
+  */
+ #define PVR_DRIVER_MAJOR 1
+-#define PVR_DRIVER_MINOR 0
++#define PVR_DRIVER_MINOR 1
+ #define PVR_DRIVER_PATCHLEVEL 0
  
-                 GpuMm::new(
-                     bar,
-                     gsp_resources.spec.chipset,
-                     buddy_params,
--                    VramAddress::from_raw(gsp_static_info.total_fb_end),
-+                    Some(VramAddress::from_raw(gsp_static_info.total_fb_end)),
-                 )?
-             },
+ int pvr_get_uobj(u64 usr_ptr, u32 usr_size, u32 min_size, u32 obj_size, void *out);
+@@ -68,6 +69,7 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
+ 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_heap_info, heaps) \
+ 	PVR_UOBJ_DECL(struct drm_pvr_static_data_area, offset) \
+ 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_static_data_areas, static_data_areas) \
++	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, minor_version) \
+ 	)
  
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index 8a934c55169f..9a2c73c978be 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -71,12 +71,12 @@ macro_rules! impl_pfn_bounded {
- /// GPU Memory Manager - owns all core MM components.
- ///
- /// Provides centralized ownership of memory management resources:
--/// - [`GpuBuddy`] allocator for VRAM page table allocation.
--/// - [`pramin::Pramin`] for direct VRAM access.
-+/// - Optional [`GpuBuddy`] allocator for VRAM page table allocation.
-+/// - Optional [`pramin::Pramin`] for direct VRAM access.
- /// - [`Tlb`] manager for translation buffer flush operations.
- pub(crate) struct GpuMm<'gpu> {
--    buddy: GpuBuddy,
--    pramin: pramin::Pramin<'gpu>,
-+    buddy: Option<GpuBuddy>,
-+    pramin: Option<pramin::Pramin<'gpu>>,
-     tlb: Pin<KBox<Tlb<'gpu>>>,
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index c6c77b152342..1f21e6adaff2 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -4,6 +4,7 @@
+ #include "pvr_ccb.h"
+ #include "pvr_device.h"
+ #include "pvr_device_info.h"
++#include "pvr_drv.h"
+ #include "pvr_fw.h"
+ #include "pvr_fw_info.h"
+ #include "pvr_fw_startstop.h"
+@@ -1496,3 +1497,27 @@ pvr_fw_hard_reset(struct pvr_device *pvr_dev)
+ 
+ 	return 0;
  }
++
++int
++pvr_fw_info_get(const struct pvr_device *pvr_dev,
++		struct drm_pvr_ioctl_dev_query_args *args)
++{
++	struct drm_pvr_dev_query_fw_info fw_info = {0};
++	int err;
++
++	if (!args->pointer) {
++		args->size = sizeof(struct drm_pvr_dev_query_fw_info);
++		return 0;
++	}
++
++	fw_info.major_version = pvr_dev->fw_version.major;
++	fw_info.minor_version = pvr_dev->fw_version.minor;
++
++	err = PVR_UOBJ_SET(args->pointer, args->size, fw_info);
++	if (err < 0)
++		return err;
++
++	if (args->size > sizeof(fw_info))
++		args->size = sizeof(fw_info);
++	return 0;
++}
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
+index 4b25291135b6..7e18f3e7d4be 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.h
++++ b/drivers/gpu/drm/imagination/pvr_fw.h
+@@ -496,4 +496,7 @@ int
+ pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
+ 				  u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr);
  
-@@ -85,28 +85,28 @@ impl<'gpu> GpuMm<'gpu> {
-     pub(crate) fn new(
-         bar: Bar0<'gpu>,
-         chipset: Chipset,
--        buddy_params: GpuBuddyParams,
--        total_fb_end: VramAddress,
-+        buddy_params: Option<GpuBuddyParams>,
-+        total_fb_end: Option<VramAddress>,
-     ) -> Result<Self> {
--        // PRAMIN covers all physical VRAM (including GSP-reserved areas
--        // above the usable region, e.g. the BAR1 page directory).
--        let vram_region = VramAddress::ZERO..total_fb_end;
--
-         Ok(Self {
--            buddy: GpuBuddy::new(buddy_params)?,
--            pramin: pramin::Pramin::new(bar, chipset, vram_region)?,
-+            buddy: buddy_params.map(GpuBuddy::new).transpose()?,
-+            // PRAMIN covers all physical VRAM, including GSP-reserved areas above
-+            // the usable region, such as the BAR1 page directory.
-+            pramin: total_fb_end
-+                .map(|end| pramin::Pramin::new(bar, chipset, VramAddress::ZERO..end))
-+                .transpose()?,
-             tlb: KBox::pin_init(Tlb::new(bar), GFP_KERNEL)?,
-         })
-     }
++int
++pvr_fw_info_get(const struct pvr_device *pvr_dev, struct drm_pvr_ioctl_dev_query_args *args);
++
+ #endif /* PVR_FW_H */
+diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
+index ccf6c2112468..94281af974c7 100644
+--- a/include/uapi/drm/pvr_drm.h
++++ b/include/uapi/drm/pvr_drm.h
+@@ -434,6 +434,18 @@ struct drm_pvr_dev_query_static_data_areas {
+ 	struct drm_pvr_obj_array static_data_areas;
+ };
  
-     /// Access the [`GpuBuddy`] allocator.
--    pub(crate) fn buddy(&self) -> &GpuBuddy {
--        &self.buddy
-+    pub(crate) fn buddy(&self) -> Result<&GpuBuddy> {
-+        self.buddy.as_ref().ok_or(ENODEV)
-     }
++/**
++ * struct drm_pvr_dev_query_fw_info - Container used to fetch information
++ * about the GPU Firmware like its version.
++ */
++struct drm_pvr_dev_query_fw_info {
++	/** @major_version: Major version of the Firmware. */
++	__u16 major_version;
++
++	/** @minor_version: Minor version of the Firmware. */
++	__u16 minor_version;
++};
++
+ /**
+  * enum drm_pvr_dev_query - For use with &drm_pvr_ioctl_dev_query_args.type to
+  * indicate the type of the receiving container.
+@@ -476,6 +488,12 @@ enum drm_pvr_dev_query {
+ 	 * a pointer to &struct drm_pvr_dev_query_static_data_areas.
+ 	 */
+ 	DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET,
++
++	/**
++	 * @DRM_PVR_DEV_QUERY_FW_INFO_GET: The dev query args contain
++	 * a pointer to &struct drm_pvr_dev_query_fw_info.
++	 */
++	DRM_PVR_DEV_QUERY_FW_INFO_GET,
+ };
  
-     /// Access the [`pramin::Pramin`].
--    fn pramin_mut(&mut self) -> &mut pramin::Pramin<'gpu> {
--        &mut self.pramin
-+    fn pramin_mut(&mut self) -> Result<&mut pramin::Pramin<'gpu>> {
-+        self.pramin.as_mut().ok_or(ENODEV)
-     }
- 
-     /// Access the [`Tlb`] manager.
-@@ -329,7 +329,7 @@ pub(crate) fn run(
-             return Ok(());
-         };
- 
--        pramin::selftest::run(dev, mm.pramin_mut(), VramAddress::from_raw(base))?;
-+        pramin::selftest::run(dev, mm.pramin_mut()?, VramAddress::from_raw(base))?;
-         bar_user::run_self_test(dev, mm, bar_user, bar1_pdb, chipset)
-     }
- }
-diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-index 6e9384f06f43..baf9450b93a6 100644
---- a/drivers/gpu/nova-core/mm/bar_user.rs
-+++ b/drivers/gpu/nova-core/mm/bar_user.rs
-@@ -212,14 +212,14 @@ pub(crate) fn run_self_test(
-     let pdb_addr = VramAddress::from_raw(bar1_pdb);
- 
-     // Check if initial page tables are in VRAM.
--    if crate::mm::pagetable::check_pdb_valid(mm.pramin_mut(), pdb_addr, chipset).is_err() {
-+    if crate::mm::pagetable::check_pdb_valid(mm.pramin_mut()?, pdb_addr, chipset).is_err() {
-         dev_info!(dev, "MM: Self-test SKIPPED - no valid VRAM page tables\n");
-         return Ok(());
-     }
- 
-     // Set up a test page from the buddy allocator.
-     let test_page_blocks = KBox::pin_init(
--        mm.buddy().alloc_blocks(
-+        mm.buddy()?.alloc_blocks(
-             GpuBuddyAllocMode::Simple,
-             SZ_4K.into_safe_cast(),
-             Alignment::new::<SZ_4K>(),
-@@ -245,7 +245,7 @@ pub(crate) fn run_self_test(
-     let vram_read_addr = test_vram + 0x100;
- 
-     // Test 1: Write via PRAMIN, read via BAR1.
--    mm.pramin_mut()
-+    mm.pramin_mut()?
-         .window_at::<u32>(vram_read_addr)?
-         .view()
-         .write_val(PATTERN_PRAMIN);
-@@ -296,7 +296,7 @@ pub(crate) fn run_self_test(
- 
-     // Punch a 4K hole at base+16K so the subsequent 32K allocation must split.
-     let _hole = KBox::pin_init(
--        mm.buddy().alloc_blocks(
-+        mm.buddy()?.alloc_blocks(
-             GpuBuddyAllocMode::Range(range_base + sz_16k..range_base + sz_16k + sz_4k),
-             SZ_4K.into_safe_cast(),
-             Alignment::new::<SZ_4K>(),
-@@ -308,7 +308,7 @@ pub(crate) fn run_self_test(
-     // Allocate 32K within [base, base+36K). The hole forces the allocator to return
-     // split blocks whose sizes are determined by buddy alignment.
-     let blocks = KBox::pin_init(
--        mm.buddy().alloc_blocks(
-+        mm.buddy()?.alloc_blocks(
-             GpuBuddyAllocMode::Range(range_base..range_base + sz_32k_4k),
-             SZ_32K.into_safe_cast(),
-             Alignment::new::<SZ_4K>(),
-@@ -353,7 +353,7 @@ pub(crate) fn run_self_test(
-             bar1.try_write32(PATTERN_BAR1, page_bar1_off)?;
- 
-             let pramin_val = mm
--                .pramin_mut()
-+                .pramin_mut()?
-                 .window_at::<u32>(VramAddress::from_raw(page_phys))?
-                 .view()
-                 .read_val();
-@@ -391,7 +391,7 @@ pub(crate) fn run_self_test(
-     let access = bar_user.map(mm, &[test_pfn], true)?;
- 
-     // Write pattern via PRAMIN, read via BarUserAccess.
--    mm.pramin_mut()
-+    mm.pramin_mut()?
-         .window_at::<u32>(test_vram)?
-         .view()
-         .write_val(PATTERN_BAR1);
-diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
-index 77431c509a89..fd404b0734bb 100644
---- a/drivers/gpu/nova-core/mm/pagetable/map.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
-@@ -81,7 +81,7 @@ pub(super) fn new(pdb_addr: VramAddress) -> Self {
-     /// Allocate and zero a physical page table page.
-     fn alloc_and_zero_page(mm: &mut GpuMm<'_>, level: PageTableLevel) -> Result<PreparedPtPage> {
-         let blocks = KBox::pin_init(
--            mm.buddy().alloc_blocks(
-+            mm.buddy()?.alloc_blocks(
-                 GpuBuddyAllocMode::Simple,
-                 SZ_4K.into_safe_cast(),
-                 Alignment::new::<SZ_4K>(),
-@@ -94,7 +94,7 @@ fn alloc_and_zero_page(mm: &mut GpuMm<'_>, level: PageTableLevel) -> Result<Prep
- 
-         // Zero via PRAMIN.
-         let window = mm
--            .pramin_mut()
-+            .pramin_mut()?
-             .window_at::<[u64; PAGE_SIZE / 8]>(page_vram)?;
-         for i in 0..PAGE_SIZE / 8 {
-             io_write!(window.view(), [build: i], 0);
-@@ -120,7 +120,7 @@ fn ensure_single_pte_path(
-         for _ in 0..max_iter {
-             let result = self
-                 .walker
--                .walk_pde_levels(mm.pramin_mut(), vfn, |install_addr| {
-+                .walk_pde_levels(mm.pramin_mut()?, vfn, |install_addr| {
-                     pt_pages.get(&install_addr).and_then(|p| {
-                         p.alloc
-                             .iter()
-@@ -197,7 +197,7 @@ pub(super) fn install_mappings(
-         writable: bool,
-     ) -> Result {
-         {
--            let pramin = mm.pramin_mut();
-+            let pramin = mm.pramin_mut()?;
- 
-             // Drain prepared PT pages, install all pending PDEs.
-             let mut cursor = pt_pages.cursor_front_mut();
-@@ -255,7 +255,7 @@ pub(super) fn invalidate_ptes(
-         let invalid_pte = M::Pte::invalid();
- 
-         {
--            let pramin = mm.pramin_mut();
-+            let pramin = mm.pramin_mut()?;
-             for i in 0..num_pages {
-                 let i_u64: u64 = i.into_safe_cast();
-                 let vfn = Vfn::new(vfn_start.raw() + i_u64);
-diff --git a/drivers/gpu/nova-core/mm/pagetable/walk.rs b/drivers/gpu/nova-core/mm/pagetable/walk.rs
-index 76c1729971f5..19aae75c2c76 100644
---- a/drivers/gpu/nova-core/mm/pagetable/walk.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable/walk.rs
-@@ -172,7 +172,7 @@ pub(super) fn walk_pde_levels(
-     ///
-     /// Returns [`WalkResult::PageTableMissing`] if intermediate tables don't exist.
-     pub(super) fn walk_to_pte_lookup(&self, mm: &mut GpuMm<'_>, vfn: Vfn) -> Result<WalkResult> {
--        self.walk_to_pte_lookup_with_window(mm.pramin_mut(), vfn)
-+        self.walk_to_pte_lookup_with_window(mm.pramin_mut()?, vfn)
-     }
- 
-     /// Walk to PTE using a caller-provided PRAMIN manager (lookup only).
+ /**
 
 ---
-base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
-change-id: 20261026-nova-pramin-option-50cdf1102281
+base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
+change-id: 20261026-fwversion-95a82a91f9f7
 
 Best regards,
--- 
-Dave Airlie <airlied@redhat.com>
-
+--  
+Brajesh Gupta <brajesh.gupta@imgtec.com>
 
