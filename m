@@ -2,137 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19635606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 06:00:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7645B606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 06:02:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Jy6wg5n4
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=WzS7+lSd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 793B210EA7B;
-	Mon, 26 Oct 2026 06:00:38 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010009.outbound.protection.outlook.com [52.101.56.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66AF810EA7B
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:00:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XhUN0v2BnFyGN7oBsK8dyyCxSp8WdLZOuY1QVpvU/KLKI4fV16wm08HDKvW88sc+XskOj9RNSWAkd6zY7YLHg1rG76JCUQIvx2x77W3SN7IlyKwKrE+8NB4WxSQxebLl6T1yPc6fVOBXdr5FZEZ54+OqgmdhbhtTwp6UWo8NaE/ZXq9yOFY4DlN+bjESO9TrAimE5VrdXiGZpRGmSn4HNzZOnIz4xQ/TlcUo0hVh2qSAzBxlHINLQzcuM7LSIR/qvu7IWTktsEhhzwtcF/egpRzcVztC+yUhQcwXXKNC2p+L+/rJwRpArEAAJmBKg7sJYbc6E/xIn2UYgBxSnXV0kg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NdrVES6cBxCoVqfZygZv458YoGaZ2e1uGqDnKxdwVns=;
- b=BqVHekFs6LKBYTmJWTLx+K2qqM1oQ8C8XXtOuGEE/oSsgqCdaE3BKIoR//K7yVcPykUqpNicFeuD5MCcjgyx2sqT2YPWkBgfZi5rO3FW/isPPCw6X7e9iRgf/+Upj8RxNEgnPo4YVhaFtZXBM2C+kv4pqfqDWHNDDeDXqRGk3ecZQMIE3Kf02G/PXhPljDxLyF5P9jatxbNilfAQy/fwi8svfDeIQMAzfyhr/8eNXgWBtDn0/2eUFmEoiqUGz8aS9sSOoxHdt/jHkontMac+LrBMimGv/4tSxJTzgrVfR2O5U4PWDs++0xDaEX14BSd0GoJB2N5m7EFnkpkT7x9lVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NdrVES6cBxCoVqfZygZv458YoGaZ2e1uGqDnKxdwVns=;
- b=Jy6wg5n44NwMrMnvKtpv/6Kga/825YjBDD3v1NT+m5e2a3r9sYSrZ60ZPC9Mx0jwzbgdGBw8LuDZMvUSRC4m0M/tAXRcUZnDOc3CWf4TSeNnG8qdHm3ffFQ5hpvRhyVcv6kjh0lWCjrIABAmrn5Bpu6a6pPUx9H7PQtlK5aZj+we1VzYNuELCdnNq01xsVtVK7w5biZSKEprkBvFoMKQmzl+De6PmR7Bsm+kU1W7b6HsLB4VbUfcvEQiW3hq8JFhDpefF5CXcMBQhR+O5G46C9YiGyNSuXjUJJhGkm51x0lep3HnTMhGw/mu/fSyUlcJ9LLokBv2Olr9Rv6R81PFDg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SJ2PR12MB7962.namprd12.prod.outlook.com (2603:10b6:a03:4c2::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 06:00:26 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 06:00:25 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 26 Oct 2026 15:00:22 +0900
-Message-Id: <DMEJH6QMN46I.20QLHRHQWR32P@nvidia.com>
-Subject: Re: [PATCH v4 3/7] gpu: nova-core: add NVKV encoder
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
- <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-References: <20261016-b4-nvkv-v4-0-e8b92b91aa5b@nvidia.com>
- <20261016-b4-nvkv-v4-3-e8b92b91aa5b@nvidia.com>
-In-Reply-To: <20261016-b4-nvkv-v4-3-e8b92b91aa5b@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0291.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c8::13) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE53A10E08B;
+	Mon, 26 Oct 2026 06:01:57 +0000 (UTC)
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com
+ [113.46.200.222])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0034210E9A2
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 06:01:50 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=YUsDrIsQFf7u2M6+ouvMSrkdV5qNOI7EBxDvQmWtcPI=;
+ b=WzS7+lSdNs/Le1nqYRxq3LDikGcIa/iJ8ZNyTvToliOUUzWG/Ry1gBPWL+CgDD9xavRzoroZC
+ cAapjIH4FJsS13eQTMOVQFQabApqua4MsV5Jv9nU/sd40LolGmaQU4GbuhMPSjB+ZNjHnKSdHsw
+ pWLuYpah+joWIEgNsLTG27g=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+ by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jCjgV4NVTzLlSk;
+ Mon, 26 Oct 2026 14:01:42 +0800 (CST)
+Received: from kwepemk200005.china.huawei.com (unknown [7.202.194.71])
+ by mail.maildlp.com (Postfix) with ESMTPS id BA1634057C;
+ Mon, 26 Oct 2026 14:01:47 +0800 (CST)
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemk200005.china.huawei.com (7.202.194.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 26 Oct 2026 14:01:47 +0800
+Message-ID: <96b30d87-2519-495f-b126-82aa29671683@huawei.com>
+Date: Mon, 26 Oct 2026 14:01:46 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ2PR12MB7962:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07b6df98-2971-446e-45ad-08df33266dd6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|10070799003|366016|1800799024|7416014|261021121427099003|261022105027099003|261021135927099003|10067099003|56012099006|3023799007|18002099003|22082099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: aRl4rHRDdV7GhuKBrPlNwz4keLH5dCs2igaAoeuMZqd/w/Y48+J22974zuFh3ocGk7siUN1Zs2qlloJvnYcNSVkiH1axJe+4u4C1aB/Dg5z8uLSwhEbuoTcE+CDlikWvpr8QDDsOYy8Ax3a4y4Zh44JxfEz67o+rpJY9OPT0H3TW93cNwdphSVTIS8RS1QkWNwYDyvNI8mISzP67uDjfhgDx6ZGNI3CDyEcKH8BVQZMm5g8v8rvIgs8wwmZCJbLcu0pETzkqCgqmqJqQBU1GEvpK7BNPmAVKC/kWb3ImxIta3SK/GBmdgMzaojc5t2Opu+RXsd4+0/cOFLC/PDAlLCT1raVum535i+8+KhyjrdK9SApm277dpyPovEptI2VdHtgwttL6LeU8r5XVlcaLbf4/2wIiBKxDnCMUO6fYhGCGsR94TZJo/sphPDfueGDkVgIlW1KOqX9azdCRareGd9lxc4JuUN1TX48AS0ybHqlKTA+sW3u6l61kvwV8l0+g2Hw9+grW1fKg3mfmP5GhbK5iQb3D03ZQ3O3YCwRMe84G1sAt0hR5ytEUZ8n4NXA68Xpv1+RPrmTIfZWicPXogF5wSwZ3f1oMcOYvTDaZipS7B40fe6dC4Nw44qiUplolYl4QVvzkpHSICYnmAmCYsalp5jrBz9SgAKa6sAQ5Wng=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(10070799003)(366016)(1800799024)(7416014)(261021121427099003)(261022105027099003)(261021135927099003)(10067099003)(56012099006)(3023799007)(18002099003)(22082099003)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SGs5aTYvZjdZUnk0alJvNStwVk4xYlRmN2o3a0Rjczd4R0Zlck9BaDlrUm9V?=
- =?utf-8?B?WWtsb2RHaFh4dDQ3U1BCNzJKWVRPVFFQOHRTZWNVT3dPOC83a3VYdm5nZncv?=
- =?utf-8?B?YVBkM25FbDlPRWFhN1FjUVZhOGRURnZvUyt3WHZxTVVaQlFNelk2d2VoVDJw?=
- =?utf-8?B?VHo4b0ZRR2M2eVQyaGQ1SUdISTNIMnpybkpibGpvVlFjdTJGamhETEZIcWVy?=
- =?utf-8?B?VHVkY1pUc05TbVhVa2lUZ1hha2wyaW10aGdvcG90SXFZeXVsRE1hczRyOEFJ?=
- =?utf-8?B?WjVmdS90aWQxQVJJUFF1Y2xGbjlCeDMzVmVRdHBUNmNEU3BreWdjM1oycGFr?=
- =?utf-8?B?c3BGdE56aHBxVXNZcmQxZFVZeTVrV2JjVFRPcTMyU2VlQzROdktwSkRCMnRL?=
- =?utf-8?B?cGRxUUVHdWJKMkRQMzRiWjZRR0J4dk01RDRDbWo5ZFBEK3RjZndjaWZJcVZY?=
- =?utf-8?B?cmcyelNpZGNTSGlpMVRsNW1wSEtxeVN5a0x3Y1ExVVdwY2VLVm9Mdkl3NGEy?=
- =?utf-8?B?Z0o2V1RSR0gyR3VhTUh0ZkIwN0pRYlNqSFdRdVN1b3l3Y042aW8zT3Jtb3ZV?=
- =?utf-8?B?VGFXVVgwYnZHak9jcldRWjM0N1Y2WUl2Z1ArMHliVzFRY3h4OXAxOW9sRGRH?=
- =?utf-8?B?Nkk5cEM0VkJZbkVXRWVwaG1QMXdDVHVuVTUzcW1UcGh4R3ZlU2JLZUdmZ09p?=
- =?utf-8?B?NTNxR2l2MjF3YXFuakVkbmVSRUcvcTdIcnRMN0JMQXdHOUNNRjVPbmFQZkhj?=
- =?utf-8?B?ODY4cUxHdVVaVG1rN29ZOGVPQmNKVFlIRWpsZkhOU3c4N0dZZEZ6ZlhYRm9U?=
- =?utf-8?B?NGNLV3BUMFBaUU9aY3doNGtjaExpeE5hZStxdWQzd28vNkVvVjVoUmNaSEpq?=
- =?utf-8?B?OHhLYzBNZjQ1dEwyRjZFVTdTN1J1R1lHQnRnZ1BzeElOZHdQMURKQWZCOVZV?=
- =?utf-8?B?eDRJYzVPMVRkNkJzamd1aDQydy9TcXVmM2FHdHc5dDMwNHVXNFo5NG16SEpM?=
- =?utf-8?B?c29kTXptc2l1cTFvK1cycWdQUkkvMzVNSGhJNEJzcGVMOFNBaGNtZWJJb2li?=
- =?utf-8?B?OVFmVmEzc0p0QXhUVEpNUVQ3SGVtYnNsWnBtYWt0SHM1RDYyQmliZXcvd2lK?=
- =?utf-8?B?THdycHlabk1zS0Y5ZmVVWE9XR0M0NXBybjhOVFJCbVdJM1JJNHJiemhMc1V1?=
- =?utf-8?B?QXpqN3A5VTgwZGprTlBnZHhZcFN4UDMvR0gvcWs4aUZPTDl2OUZqdmUxUGtF?=
- =?utf-8?B?M1ZZdXJCWHJ4SUZFKzRVc3UwVEhLRXgxN3o5ajhyVVlnVHZPRGN4czMxY1hK?=
- =?utf-8?B?cXpQeWZ2YU5nMGxzd0tIWEl2NHRaS1A2K01GT05LblhlTUdUclJsb1JIWGlr?=
- =?utf-8?B?Z0g5RjRnWkZQSEd4QnBpdW9ranFmNDBIZUF1R09TcE4vZ2JVSTYvcFM3dWhD?=
- =?utf-8?B?TTA1WUdFUlpWVmlRNVlVM1BoUnVlNDd5Z0lVejhwWitMT1RMaFRGQUJhRm9I?=
- =?utf-8?B?QTV1czRKN1BST1ljYUZMNFpKNWhxR2F6YWVjZ01iV2hPbDhCcTMxQ2JMeFF1?=
- =?utf-8?B?LytDL0FZTDBSczJUcVlWMWJzMllXZTBKZklFUTFjeC80Y21hVm55ZnBhZWdt?=
- =?utf-8?B?b3czdnpOQWxzKzlYUUpqMzQ5UUpsZXV6c2pkdisyYnM4bVV1ODlwNW05Zld6?=
- =?utf-8?B?b3NxVHZ6VGQ4SEt5R1VVZ3dhNFpGcW9MSmpENXBkOFUyanQ0VDFHMmcwQ0hQ?=
- =?utf-8?B?dUlsZFVLMU1hdnpQeVUzSjBzOUpra0tqcnp5NjB1K0FlWmZGUjJRWGdONVNT?=
- =?utf-8?B?eUFueHIrZGYxZXFVc0lEaWlDaVdTZ1BhM0w3RSt6WHFibitqS2lpY2h1azhE?=
- =?utf-8?B?WndKOGZPYXdHaDBFV0ZnRTkzOTlJSEw4TWs1cUZzamwwblVmVWF0cHREeHJJ?=
- =?utf-8?B?K21hTlJIQ28ySXg0V1E3TklSellwSy9WVUFaM3R2a0JpTjhYbjlEMFhtMzRY?=
- =?utf-8?B?Q2ZLMTFMQktxbStwWld4cVcydjg0SE14WSsyS2ZCTC9LTFJ3VjVMc09rK25W?=
- =?utf-8?B?c3dXb05sT3cvUFNYMHJzZGFJOXlYNUJFb2tXdFV5Qm8weFptTTBzQWtLMXYv?=
- =?utf-8?B?WGZhWUJRa2U0emsrZU9WS3Vyam85RndSSlArMS9YQVhBZmRWa0lLQW1ZYTVk?=
- =?utf-8?B?ZDB5Z1hVTzFRLzNxQzFKaUZDRlV2Si93NUFGMW1zRDJoeXU4SFp4bWUxSVEr?=
- =?utf-8?B?ZlZwaGRzTXZhRzllbkZRSGkzVzFveUIrKzlWMVMzME4rTThCazhreVR4ekh5?=
- =?utf-8?B?QnVwZXh1SWhoYUxwSUlNNlJ4RGZ0Rm5ZOWNKU3F2TDNuMlpVSDcyb2NHZENu?=
- =?utf-8?Q?voKungBSI3kNqQ1tbUAIvxlBhe19v31iVwT/HX+BbMAge?=
-X-MS-Exchange-AntiSpam-MessageData-1: 9y+9/5ps5/idFw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07b6df98-2971-446e-45ad-08df33266dd6
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 06:00:25.5964 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: US+PGK64IpDKq37EF3VAC4TSylQciFe8FbFaw/G4hzZvcLaa8KuXCWPkX4a9f5zNiUnDuXqeS7DIvXp72/G6ZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7962
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v3 1/2] drm/hisilicon/hibmc: Modify the
+ method of obtaining the hpd_status
+To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ <shuliubin@huawei.com>, "fengsheng (A)" <fengsheng5@huawei.com>, "helin (T)"
+ <helin52@h-partners.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ <shiyongbang@huawei.com>
+References: <20260924080609.3681795-1-shiyongbang@huawei.com>
+ <20260924080609.3681795-2-shiyongbang@huawei.com>
+ <20260924083002.24F441F000FF@smtp.kernel.org>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <20260924083002.24F441F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200005.china.huawei.com (7.202.194.71)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,30 +61,188 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Oct 16, 2026 at 10:53 AM JST, Eliot Courtney wrote:
-> +    /// Encodes a 64-bit value as a single-element SEQ64 pair.
-> +    pub(crate) fn encode_u64(&mut self, key: KeyId, index: Index, value:=
- u64) -> Result {
-> +        // TODO: Consider automatically merging sequential keys.
-> +        const KEY_COUNT: u32 =3D 1;
-> +        self.encode_op(
-> +            Op::zeroed()
-> +                .with_key(key)
-> +                .with_index(index)
-> +                .with_opcode(Opcode::Seq64)
-> +                .with_value(KEY_COUNT),
-> +        )?;
-> +        self.stream.push_u64(value)
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> - [High] drm/hisilicon: Hardcoded initial HPD_OUT state breaks boot display detection
+> - [High] drm/hisilicon: Removal of HPD debounce causes DPCD read failures on hotplug
+> - [Medium] drm/hisilicon: Early exit in encoder_enable breaks KMS forced modesets
+> - [Low] drm/hisilicon: Data race on dp->hpd_status between hardirq and process contexts
+> --
+> 
+> commit 19dc442443127128a0c2f9bcb0ceca722bb81f14
+> Author: Lin He <helin52@huawei.com>
+> 
+> drm/hisilicon/hibmc: Modify the method of obtaining the hpd_status
+> 
+> This commit replaces the polling mechanism in the lower half of the HPD
+> interrupt with a direct read of the interrupt status in the upper half.
+> It also skips detection and training if the status is not HPD_IN, and
+> initializes the state to HPD_OUT.
+> 
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>> index d5bd3c45649b2..a4cd4cd8cc75e 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.c
+> [ ... ]
+>> @@ -322,20 +326,26 @@ void hibmc_dp_set_cbar(struct hibmc_dp *dp, const struct hibmc_dp_cbar_cfg *cfg)
+>>   	writel(HIBMC_DP_SYNC_EN_MASK, dp_dev->base + HIBMC_DP_TIMING_SYNC_CTRL);
+>>   }
+>>   
+>> -bool hibmc_dp_check_hpd_status(struct hibmc_dp *dp, int exp_status)
+>> +int hibmc_dp_get_hpd_status(struct hibmc_dp *dp)
+>>   {
+>> +	int hpd_status = HIBMC_HPD_UNKNOWN;
+>>   	u32 status;
+>> -	int ret;
+>>   
+>> -	ret = readl_poll_timeout(dp->dp_dev->base + HIBMC_DP_HPD_STATUS, status,
+>> -				 FIELD_GET(HIBMC_DP_HPD_CUR_STATE, status) == exp_status,
+>> -				 1000, 100000); /* DP spec says 100ms */
+>> -	if (ret) {
+>> -		drm_dbg_dp(dp->drm_dev, "wait hpd status timeout");
+>> -		return false;
+>> +	status = FIELD_GET(HIBMC_DP_HPD_CUR_STATE,
+>> +			   readl(dp->dp_dev->base + HIBMC_DP_HPD_STATUS));
+>> +	switch (status) {
+>> +	case 0: /* idle */
+>> +	case 3: /* unplug */
+>> +	case 4: /* unplug intermediate */
+>> +		hpd_status = HIBMC_HPD_OUT;
+>> +		break;
+>> +	case 1: /* plug */
+>> +	case 2: /* plug intermediate */
+>> +		hpd_status = HIBMC_HPD_IN;
+> 
+> [Severity: High]
+> Does mapping the 'plug intermediate' state (value 2) directly to HIBMC_HPD_IN
+> without the previous 100ms debounce loop cause DPCD read failures?
+> 
+> When the link is physically bouncing during a hotplug event, returning
+> HIBMC_HPD_IN immediately schedules hibmc_dp_detect(). The immediate AUX
+> transaction in hibmc_dp_get_dpcd() can then fail because the connection has
+> not stabilized, causing the hotplug event to be dropped.
+> 
 
-Only noticed now that if `push_u64` fails, the encoded op remains on the
-stream without its expected payload. It's not a problem at the moment
-because an error here is a global failure, but it would be nice to see
-if this cannot be made more atomic by tweaking `EncodedStream` a bit
-(same for all the `encode_array` methods below).
+As answered in [1]: debouncing is implemented on-chip. The driver
+reads the debounced HPD state-machine output (HIBMC_DP_HPD_CUR_STATE
+in HIBMC_DP_HPD_STATUS), never the raw HPD pin, so mechanical contact
+bounce is filtered by hardware before software can observe it.
+
+Regarding 'plug intermediate' (state 2): despite the name, this is
+not an unstable plug. The state machine enters state 2 only from
+the stable plug state, to debounce a possible unplug; the sink
+remains connected throughout. So mapping it to HIBMC_HPD_IN is
+consistent with the plug interrupt that fired.
+
+Note also that the removed loop was not a debounce: our hardware
+already implements the debouncing, so the software 100 ms loop
+served no purpose.
+
+>> +		break;
+>> +	default:
+>> +		break;
+>>   	}
+>>   
+>> -	dp->dp_dev->hpd_status = exp_status;
+>> -
+>> -	return true;
+>>   }
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>> index 2e9403b8bf3c8..1f8ea0b092537 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+> [ ... ]
+>> @@ -63,11 +61,10 @@ static int hibmc_dp_detect(struct drm_connector *connector,
+>>   	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+>>   	int ret = connector_status_disconnected;
+>>   
+>> -	if (dp->irq_status) {
+>> -		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
+>> -			ret = connector_status_disconnected;
+>> -			goto exit;
+>> -		}
+>> +	if (dp->hpd_status != HIBMC_HPD_IN) {
+> 
+> [Severity: Low]
+> Is there a theoretical data race here when reading dp->hpd_status?
+> 
+> It appears to be modified in hardirq context by hibmc_dp_interrupt() and read
+> here in process context without WRITE_ONCE()/READ_ONCE() annotations or
+> locking.
+> 
+
+Okay, I'll change it to use READ_ONCE and WRITE_ONCE; they are indeed more secure.
+
+>> +		drm_dbg_dp(dp->drm_dev, "dp detect skipped, hpd (%d)\n",
+>> +			   dp->hpd_status);
+>> +		goto exit;
+>>   	}
+>>   
+>>   	if (!hibmc_dp_get_dpcd(dp_dev)) {
+> [ ... ]
+>> @@ -166,6 +163,12 @@ static void hibmc_dp_encoder_enable(struct drm_encoder *drm_encoder,
+>>   	struct hibmc_dp *dp = container_of(drm_encoder, struct hibmc_dp, encoder);
+>>   	struct drm_display_mode *mode = &drm_encoder->crtc->state->mode;
+>>   
+>> +	if (dp->hpd_status != HIBMC_HPD_IN) {
+> 
+> [Severity: Medium]
+> Does this early exit break KMS forced modesets?
+> 
+> If a user overrides the connector to 'connected' (e.g., via sysfs or kernel
+> command line) and the DRM core attempts an atomic commit, this check will
+> refuse to program the hardware. This would desynchronize the KMS software
+> state from the actual hardware state.
+> 
+
+Okay, the original purpose of this interceptor was to reduce the number of
+exception logs when HPD_OUT; it serves no other purpose. I will remove it in v4.
+
+>> +		drm_dbg_dp(dp->drm_dev, "dp encoder enable skipped, hpd (%d)\n",
+>> +			   dp->hpd_status);
+>> +		return;
+>> +	}
+>> +
+>>   	if (hibmc_dp_prepare(dp, mode))
+>>   		return;
+> [ ... ]
+>> @@ -223,6 +228,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+>>   
+>>   	dp->mmio = priv->mmio;
+>>   	dp->drm_dev = dev;
+>> +	dp->hpd_status = HIBMC_HPD_OUT;
+> 
+> [Severity: High]
+> Will hardcoding the initial state to HIBMC_HPD_OUT break display detection
+> at boot?
+> 
+> During boot, drm_client_setup() runs detect() before or immediately after
+> interrupts are enabled in late_register(). Because detect() no longer queries
+> the live hardware register and relies only on this cached value, it will read
+> HPD_OUT and silently force a disconnected state even if a monitor is already
+> connected.
+> 
+As explained in [1], a monitor connected before boot does trigger an
+HPD interrupt: the event is latched by hardware while DP interrupts
+are still masked. hibmc_dp_hw_init() ends with a 100 ms delay, which
+gives the hardware time to complete the debouncing and latch the
+interrupt; this already detects the plug-in in the vast majority of
+cases.
+
+Moreover, even if a transient or sporadic hardware issue prevents
+the plug-in from being recognized within the 100 ms window, or even
+by the time drm_client_setup() runs, hibmc_dp_hpd_isr(), the
+threaded bottom half of the HPD interrupt, re-triggers the hotplug
+flow via drm_connector_helper_hpd_irq_event(), so the DP plug-in
+event is never lost.
+
+[1] https://lore.kernel.org/all/8026563b-d04a-4f8d-9c9c-c30f5520b3b9@huawei.com/
+
+Thanks,
+Yongbang.
