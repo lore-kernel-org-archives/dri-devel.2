@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0615C60A3802
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 19:17:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E97B606A320
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 19:17:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VLSPxDOH
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us+cBCcJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87A5E10E38A;
-	Mon, 26 Oct 2026 19:17:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B26D110F0E2;
+	Mon, 26 Oct 2026 19:17:32 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F2BD10E37C;
- Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAC4210F0D2;
+ Mon, 26 Oct 2026 19:17:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6319B43D79;
- Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 81F464451B;
+ Mon, 26 Oct 2026 19:17:20 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793042238;
- b=kx+V4n8SbADSUpw550YT/jlvFREIffVPDdHBQfBfPGJy6yGzRQw6WicLqc9lfg9z6089
- 5ENz+2gjOFtlhWmjUxILWEf2QVEmQOhdQ6MdDD1497hmfEax/01NrkllOYrLIr3u4ZaUs
- GZ19dHesIcwK2iDh+YeLtsEx+G6G0xDSbNE3vH4M/4zm8YV4c0KWFp19qiOajoeNWOSxB
- 8MzB2h4kdmp5jQdQVZx4LOfTHOQ4qCpTqOBdLny2bqJHDzI2xkyALzEhHccTfmujz9jg4
- m17tw+AdP52ZbgkCeCopoNN0wDEO3HxK7XwMauQ+iKPjOFenvKJNMJ3TgEbcqaWmrZQ==
+ t=1793042240;
+ b=cabIcGffNexV246wSdv72au5KVzUY/fixq6wBplUpJGslPnvFpSNsoJMXwl0kxTQbcVD
+ LnS0lkRh3+H1iIGLXufiriskGtsvm3mWeP9mFjD2MMAwe4QJt+4M8Y/F0c2LBXgFC73Tt
+ 1Rgj+6vKp8eT5nLs7DwKV87ELKdyqeeKX6l4d2Rg6bw+lb2AM9RBpZ1YWZqlwXWuc8Ey2
+ ZjSgL6GiS35yEIq0X1alanin4sqCqa2R7EKm8im/ew0GLG6uQGk1cSiVuPtyNr/iNItY7
+ M31bKP6eVrfEuu9ICPruszl7u3tXmWovsekhZDEQZWysZWTjpF8SxKIV5Mjn8gGjCjQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793042238;
+ c=relaxed/relaxed; t=1793042240;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=14rfyzm65lxIesVgmpqsb3ClQ/W4rPHSeHF6M+MbKeI=;
- b=G0TpD8uw6xnin59lKuZzimJasVqiL9hF8ThL4uOVmU9E+KEOGvklod4l4Ls4fdELff5H
- msrPTS74sNRM74Lmr0QzNI7JcOITZFWEpBflvfzmM/ZZtc6DvzXbOE1zQRoeX1LTCBbmd
- CguRPv9xeE12XBbsXffyJ16VrI9uJnuTxFuwQDrTHykXid8bhmbp0gAuvQ/UkUca6Ftfr
- Cbp37cnFapd0ojV0LbMMWybRR9UXS3MX7ZW6XVn1gg/w510Ow9xrpbuOjbCHkhWVcbOXp
- 12NI2U/JP14imtbLUI1AiiQC86fKAeNX7JK4aYx70jSmn/r2NWSiGh9BvBvA2Gs9qkQ==
+ bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
+ b=lRtvmNtjfrWDbl3LKNTIf6qqUfL5FEE6AyTe1BzW2uzMeW/h/jgLMlgRlnRUWPH/JrKc
+ kENEXMU5awypCIAO08ZanevO4xyqD7yrseu0BpExIk7FDGR7KJxs0pnfLrbFffuBjiXoe
+ 5Vm84kA03cTato/OWl8Jx+UnyYbK6JTsZcuLxDQ//dfZy6oYPItVsHOqNOpUuxGMFf5Ii
+ K9xVX6eNm8gosOCZFwGP/LqM2HIaH5Ncr5veN+l84g9MdoI4IEmiFfIjCliTbwhWstK82
+ +1Y0iaYqpCbyNhA2BG1/kdjC8Pa1DMg02Wsi3QfbS/nLQPxDLWp3YOmPRZDMA7ict3A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 4138F1F031E4;
- Mon, 26 Oct 2026 19:17:17 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id D47FE1F01828;
+ Mon, 26 Oct 2026 19:17:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793042238;
- bh=14rfyzm65lxIesVgmpqsb3ClQ/W4rPHSeHF6M+MbKeI=;
+ s=k20260515; t=1793042240;
+ bh=bUzni0iK/C+PhtxdHk9zeTrgmQXy4renjbgo9cCUJ7I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=VLSPxDOHrN8ex+rMYXNdJmZ3u7Djxyabua6sGerQCnHIY+PaTtGLCnmxcgO+BLtM5
- 9KHogUujLcvF6navi3pwPGjiIHEBBwsAoIlP8oCoPUi7Fu3ejWcK1rkdhATk+YLHjy
- lpi6hgwNkW5WWvqee1iexr8GB3G9A+5gPDoKzocSys3/kBJ7flocq4KsTKrbxTWEew
- lx2dTqcsUb93azTeMqcYFIO9NYJHXJ4mKEM0csVJaoAvP31TcizwBSFZkLIhsYY3y4
- GttNpQL49gYvKToYYP7RrqnAcQYuRH2cAnWpqGRajqORiz9cWN79i0MZfPUeS5WYDA
- iLGKKrdCvZXZA==
+ b=Us+cBCcJbAn3Q+yLcgwyQHQby9XUeGr9p7f2jxnJtte0O8MWoiPXsC+CCZ5JJQi8a
+ n9INEvY2OVVr2ou2zlexFanoHDSYr2dV6S/exHzjV36wg3mIgJgT7Tt0L0DU0/mVqa
+ /TpoIoZoLUHIaFABITbzpojIp6VNOH63AJFU9Zfz4+1kR5+rD4lgg5gnKFacZAlv/T
+ cXOVZBYuYg1wFBpESzY2R9/ZErYuQqQfYU1nFJBi0L7Ks1+C+yhJvXlDXq44FmBDhS
+ Af4flbgvyHkU6mQBQ5FeeDasVr2tdzQ7VHyPvlv5tk8DVyGHpjwMk5eyXus2Y+ZlSI
+ pc3BLUBDBSOgA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id BAE1344E4C;
+ by lkml.kernel.org (Postfix) with ESMTP id E7F2A44E5C;
  Mon, 26 Oct 2026 19:17:16 +0000 (UTC)
 From: Xi Zhang via B4 Relay <devnull+xz.ca.cn.gmail.com@kernel.org>
-Date: Mon, 26 Oct 2026 16:16:51 -0300
-Subject: [PATCH 3/8] drm/msm/dpu: use common helper cleanup function in cmd
- mode disable
+Date: Mon, 26 Oct 2026 16:16:55 -0300
+Subject: [PATCH 7/8] drm/msm: force mode_changed on color_mgmt_changed, not
+ just ctm
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-msm-dpu-res-clean-v1-3-f46130a8a717@gmail.com>
+Message-Id: <20261026-msm-dpu-res-clean-v1-7-f46130a8a717@gmail.com>
 References: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 In-Reply-To: <20261026-msm-dpu-res-clean-v1-0-f46130a8a717@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -76,11 +76,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Xi Zhang <xz.ca.cn@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=2525;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793042236; l=1219;
  i=xz.ca.cn@gmail.com; s=20261026; h=from:subject:message-id;
- bh=gZ1zC6u8j/CKI/qwlb5BfuiGxnpobk+GG3KE6oTYs3E=;
- b=djxSX4RkzGCjSlbrGlDEDQTemoOHmmwWVv3U6EqgJqc3gjSxfRZHYmyKyI7l0tIR3a4tgvWE1
- KaOqgDsEm/lCj2DQejbY1fYbGErlUkz9xTZzHmPKFYvGiYzrUtBbytL
+ bh=Wo3tEP0RL/iVZrlVbjqizqGErC2YhsS/kVeKWgJ1UBY=;
+ b=Ka8elEcmKvRmXT6MxV7shh8QtW1BUM34m8jO69Pppxv34hT1WkBIwW/du7byZGl5q+mivl9sR
+ dI2mCiPGOpqDqqYH8xMs8i3CNw8qaTypCBy8azN6b6SYsV6VTBNx13P
 X-Developer-Key: i=xz.ca.cn@gmail.com; a=ed25519;
  pk=aRUll5L3eJbwG8Y4BO9uySKGzm+Uy+Ccei9prnRVZRs=
 X-Endpoint-Received: by B4 Relay for xz.ca.cn@gmail.com/20261026 with
@@ -109,66 +109,37 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Xi Zhang <xz.ca.cn@gmail.com>
 
-cmd mode encoder previously did not clean up dsc, or LMs during
-disable.
+dpu_crtc_atomic_check calls dpu_crtc_assign_resources when
+color_mgmt_changed is set, which is unsafe outside of full modeset.
 
-Change to use the common dpu_encoder_helper_phys_cleanup function
-for cmd mode disable.
+Set allow_modeset and mode_changed when color_mgmt_changed is set,
+not just when ctm is changed.
 
-Also do not set intf_cfg.mode_3d during disable:
-dpu_encoder_helper_get_3d_blend_mode accesses drm_encoder->crtc->state
-directly so intf_cfg.mode_3d weren't set to expected value for disable.
-intf_cfg.mode_3d is also ignored by ctl->ops.reset_intf_cfg.
+Also would fix
+commit 42f62cd79578 ("drm/msm/dpu: try reserving the DSPP-less LM first")
+which was reverted.
+
+Closes: https://gitlab.freedesktop.org/drm/msm/-/work_items/102
 
 Signed-off-by: Xi Zhang <xz.ca.cn@gmail.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c          |  4 ++--
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c | 10 +---------
- 2 files changed, 3 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/msm/msm_atomic.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 09afc0681248..0ab151369c99 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -2332,8 +2332,8 @@ void dpu_encoder_helper_phys_cleanup(struct dpu_encoder_phys *phys_enc)
- 		dpu_enc->dsc = NULL;
- 	}
- 
--	intf_cfg.stream_sel = 0; /* Don't care value for video mode */
--	intf_cfg.mode_3d = dpu_encoder_helper_get_3d_blend_mode(phys_enc);
-+	intf_cfg.stream_sel = 0; /* Ignored by reset_intf_cfg */
-+	intf_cfg.mode_3d = 0; /* Ignored by reset_intf_cfg */
- 	intf_cfg.dsc = dpu_encoder_helper_get_dsc(phys_enc);
- 	intf_cfg.cwb = dpu_enc->cwb_mask;
- 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-index 45079ee59cf6..111f9dd5e053 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_cmd.c
-@@ -538,7 +538,6 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
- {
- 	struct dpu_encoder_phys_cmd *cmd_enc =
- 		to_dpu_encoder_phys_cmd(phys_enc);
--	struct dpu_hw_ctl *ctl;
- 
- 	if (phys_enc->enable_state == DPU_ENC_DISABLED) {
- 		DPU_ERROR_CMDENC(cmd_enc, "already disabled\n");
-@@ -566,14 +565,7 @@ static void dpu_encoder_phys_cmd_disable(struct dpu_encoder_phys *phys_enc)
- 			phys_enc->hw_pp->ops.disable_tearcheck(phys_enc->hw_pp);
- 	}
- 
--	if (phys_enc->hw_intf->ops.bind_pingpong_blk) {
--		phys_enc->hw_intf->ops.bind_pingpong_blk(
--				phys_enc->hw_intf,
--				PINGPONG_NONE);
--
--		ctl = phys_enc->hw_ctl;
--		ctl->ops.update_pending_flush_intf(ctl, phys_enc->hw_intf->idx);
--	}
-+	dpu_encoder_helper_phys_cleanup(phys_enc);
- 
- 	phys_enc->enable_state = DPU_ENC_DISABLED;
- }
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index a8babf1dbe0d..6f0f30b0728a 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -195,8 +195,7 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
+ 	 */
+ 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+ 				      new_crtc_state, i) {
+-		if ((old_crtc_state->ctm && !new_crtc_state->ctm) ||
+-		    (!old_crtc_state->ctm && new_crtc_state->ctm)) {
++		if (new_crtc_state->color_mgmt_changed) {
+ 			new_crtc_state->mode_changed = true;
+ 			state->allow_modeset = true;
+ 		}
 
 -- 
 2.55.0
