@@ -2,145 +2,156 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14769606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 10:07:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3456606A31F
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 10:08:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=NuAWlkjW
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RermaiNu;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SGcrssvV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72F7210ED7C;
-	Mon, 26 Oct 2026 10:07:29 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010047.outbound.protection.outlook.com
- [52.101.193.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2F4010E14C
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 10:07:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bh0xeAaq4rj4sqzf7BydAcKBJy7ynsznokKEGXEWyrZot90husQMU7GZnO2znMe+b49kXiOcql0QRSUaKi2D2RjrK/sqpEup9i22akNRAzpLmRp4JpDk7rbrJfyuHcl764/jdJ1zgxgdVvYM61+q13CJHW7u7aCLVr3TmjvbDzH3AxGPbfhflwxgLwzAI+2YivsJzRiu2/eTCaevkKfVLMZXKPSsiB3ieQQk7H7Jkx1e0xfTEr+RpuooqcLOKhAvBcQP40JL9f9qDPHYv2uMD/T4zBggV9ygIp2DM28JZSyFZm9bWs43vyL/6QJS2MoT9+Pp8A+7AGaKNUFj4Glwtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UZWVVvTJbsLnHtCinLThofoDPd2yx2mtt3iM/fbOoHI=;
- b=DO9E/Ym1yET7tJ4sezlsSP7QIbiGWCVaCwl8fmq8EBa4M787c72aLT/iGBejpmpDRgVmr8m3vr2beQeO+1CP6+nqqBcqHLK/w3O5w7yHmJkvyJElyWoxGIgD6/LDEbSS7ELwFb/JFBUkWIMO6T2c8Y043ojbFBfR6DikNNtqnz39wEvG4mk4l2zgypKKHSRNoBQFlVrHd3ZsDY05HVJA7iXTrjLemgecrdUsVgA7jIDu+w012+0jKGX1kITTJBudEqhvNHQDluHnZj18sQfsoBicqeeYBewYBK483RYE5fzYzZ3Z/0bHybhFtDN+Fmt/fJEqv/5rIwVX+3rANuVX3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UZWVVvTJbsLnHtCinLThofoDPd2yx2mtt3iM/fbOoHI=;
- b=NuAWlkjWAE/ajedSOLiGFjksuVK7UYny1T+OFzp+KbwIxYkgxkPKn67PJO18LQo07XKlf2du9Hh5PyVibS8MghTQWygDGCcW68i8+z2ohDNuzxAtfg8YlWWJJncUb+pVMGsp3UnYqyr2Ki9v5eprxepS1UUgwZv4A6fJA+BMfZg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB8030.namprd12.prod.outlook.com (2603:10b6:510:28d::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 10:07:17 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 10:07:11 +0000
-Message-ID: <93a8d4f5-fcbb-4fb1-a601-9503c215dfa6@amd.com>
-Date: Mon, 26 Oct 2026 11:07:02 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/16] accel/thames: Add IOCTLs for BO creation and
- mapping
-To: Tomeu Vizoso <tomeu.vizoso@gmail.com>, Nishanth Menon <nm@ti.com>,
- "Andrew F. Davis" <afd@ti.com>, Randolph Sapp <rs@ti.com>,
- Jonathan Humphreys <j-humphreys@ti.com>, Andrei Aldea <a-aldea@ti.com>,
- Chirag Shilwant <c-shilwant@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Beleswar Padhi <b-padhi@ti.com>, Tero Kristo <kristo@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- Robert Nelson <robertcnelson@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2005910ED67;
+	Mon, 26 Oct 2026 10:07:54 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 517F810ED67
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 10:07:43 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69Q4atgF2255111
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 10:07:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=GnGg3CwhR38uGbReDQYTDKY/
+ Dc4Njz+sxG9mC0bWH/s=; b=RermaiNumI6rQUJ4BUBComPJBEVniwoJh0VMlc6L
+ zi8lY4wo4UkHn1tu94EH1c2wE/7KGgmysAno4bo/lleCg63U8CmjHFLWK9QouH1O
+ YqwLJQKjvKHHKyn/QDBQvxD5RMNH0RRPk6f+b541i3J5cDRx23yunhFNdcOJHUUl
+ BhjjLC2wqsPkZ9lXYJ1SeV8LnyOWq1ZuuK7KZxf7xu6Qbq0HPN6yrB5I3LHs44Qs
+ WSwK9lOVPsbzYhLFRb50iRgeRrew+XmBUFPw5vrkxUpcwTSJD5B5l5qNHtlXx13d
+ GE4mUhKllt4PYqyf5veLfeemSRlQ7vWnM9rW8wlISiPNfA==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
+ [209.85.222.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgmw3ntus-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 10:07:42 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id
+ a1e0cc1a2514c-990c957f129so4019752241.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 03:07:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793009262; x=1793614062;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=GnGg3CwhR38uGbReDQYTDKY/Dc4Njz+sxG9mC0bWH/s=;
+ b=SGcrssvVh9dCCEUnHjJvXiaXGaOqFMCa1NNu2f7N87+PI+ZSjK1YEsOjXn8P/ZWrwk
+ Pf3IPRSGF36zAGDtPZXUVAtI0grfzUZbpzNjKMvaICtK5iQZpPsTxWnNsLL8X1aPEPOY
+ 43eTLnUelDXSroUehltZVUaAiv/WB564q0Vz9U3ZJ/BfGDSGZJgP0JL2PsJZbqqBSfKu
+ EvHP+ShMBtl5obSnUIJjAkKAxqyORO5b1HzC6XoZH9Rf70+3YaKarrPySTvyITXeOouc
+ MffiLW3TjjIYbrqKREgx+zsWam9Mb4HcVEN6WW8ig45MI0fkxq+uyvwJUZWycwIQt0Hz
+ o01g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793009262; x=1793614062;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=GnGg3CwhR38uGbReDQYTDKY/Dc4Njz+sxG9mC0bWH/s=;
+ b=ESmqVbc0q4dXryfcc7N4GvLIIZ8abFT+XRuJwdTet0PKSYckuzryPjpgGE6WY02sIj
+ BS84RbDuZR3//l0mjhqpkjTE+HhGCCbOXSyATSCT0NtoG6PE2LLYMPYzeRCF4QxJr3jN
+ NfxKDifg4yJygw/Msx1k4XeaZYspxZIK9QhltUGi/Qq/qI1EL2znD0biyrUZzTRDrt8z
+ TlUcs8WAnspC6EIV9tNlHc7AQIXLwM+HzU3ad7SIC8Xjdf/yXM/xl5AkyFtquXjb0wsJ
+ lzB2LQ15On+tChursoYSN7JQVFIj7VqKlkpfvDF2mPtpD9G0E94oB4uyEIgMeYTK/oBc
+ 3ufw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByrPK9q5TdJuUi7tZTgTGDLB5V3LEzslSsQ06w0g4gwLPZpJCGB5k5YM2VA9Oomaew6zgQNjj4r68U=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKHl7BjDuKKisqbaHVikPsAlBhoWr37EXf0QCCP5oQEnGJE/Oyn
+ kooq3JXp0e4RP6Y+N7Vj3dtLVagnhHEizMvwLg63iRIE0Kt1ZNrcpnN6P6TNIeCBSQF+gD8zw5/
+ Fh6n5Ez5NtOPVPttdCm60XB/nyG1d2EIUL5hZI/4we++0tUCtaSbG506ovPXTHxtZWacbPmg=
+X-Gm-Gg: AYBFou3mfJBRtmb/RPCCvdKwG90ck4r/8tSufoB7hQep7CciWWl6E14Hez/o19zZN/X
+ itWOSU8pEFNgf+mwiHwXB8XfO5pp8mJKoy3cjNChd9Hc9zlXjh2XPOYEVWZdsKS3Qlfozp6Fg7W
+ ni2q7anhUc470DtpGPBrDwuaSJltzw9BE/PXfm+MMl1Dk1AmnZ3g0g+lVkiZeD96vvPJzsB7hC5
+ CToOzGVCzFcjM7djJTpH7UAHTWCjElkhozVTA7ynuH98lHmTparrH40a0OrA/+sTcHult56VLEC
+ gatv8pHyjGW5tSTBzvOn1h7wCVHQRliB8zwAbufwvtU4RVBbij4Iyu0lKcD8oawAIP9iLXReMt7
+ PVEguRyvP6szKmPhmWyUiKFJs7Go8pRubsCRWUJiamCjC1KrrYToBjjYFRFhY1XkqoLeHmUBX4J
+ OKj4Z1Xg7iiqG1
+X-Received: by 2002:a05:6102:2ad2:b0:7cc:148f:c531 with SMTP id
+ ada2fe7eead31-7ce5cd9e89cmr1435445137.26.1793009261545; 
+ Mon, 26 Oct 2026 03:07:41 -0700 (PDT)
+X-Received: by 2002:a05:6102:2ad2:b0:7cc:148f:c531 with SMTP id
+ ada2fe7eead31-7ce5cd9e89cmr1435438137.26.1793009261000; 
+ Mon, 26 Oct 2026 03:07:41 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ac70a463f5sm16498211fa.36.2026.10.26.03.07.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Oct 2026 03:07:39 -0700 (PDT)
+Date: Mon, 26 Oct 2026 12:07:38 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Markus Elfring
- <Markus.Elfring@web.de>, Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Suman Anna <s-anna@ti.com>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- linux-remoteproc@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
- <20261023-thames-v3-7-3ab40aa17157@tomeuvizoso.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261023-thames-v3-7-3ab40aa17157@tomeuvizoso.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR5P281CA0033.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f3::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowangio@gmail.com>,
+ Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Flemin Jose <flemin.jose@oss.qualcomm.com>,
+ Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v2 19/23] drm/msm/dcp: Add Qualcomm VirtIO transport
+ wrapper
+Message-ID: <ib5ts37i4f7qx4wqoscawrwnpeld3pcnarb4w7y3z4b3kolgkf@5avoy2fyp22l>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-19-7cf014efdee1@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB8030:EE_
-X-MS-Office365-Filtering-Correlation-Id: 856001ef-66d6-467e-ba48-08df3348e699
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|366016|1800799024|6133799003|18002099003|22082099003|3023799007|921020|56012099006|4143699003|11063799006|5023799004|261021121427099003|261021123027099003|261022105027099003|10067099003|261009223027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info: NXR3mCehgykDRrYoNNiD8OujLBZDQatUNouS1G33ScM0iUWtH3QqKvSPATVFuiVQPfXYIjH9CEf0U5YBH65DlwRpFjjay30FW7QofHV+TjtZ81nQV2EjgR1eGQYdRKC+NVQfFCWVnuQ1mW58yh0/yRCrDtXhhmIL96TAkVvyTjsE/4AVZG8fhmdD3bZ8RRi/zC73OdLtytxjn1224VHUzA+G3WJIkZrrDq/MOuytZPbgRKRI0ALbm7nZGepVgN7L5sdHstTpWU2YcN1sfnZZ+GfEcvJjj2AzLj2mMISTDI96Nijaaow39naUkqJ6oBpdVSfYgiD1KO5mb2Wb45G0h8VLih+eo60Aurkjm8yepu4C+GI7g+bGqwD6x+EWEsDi2mgWCKJzT0ppvTTOfIPAI5NAHVMA6rlAm1BYot5l+NuRAfcSuMJi5pCeJhE1oaMZnOSLMYdT3dJh35kGhs79tm9FqdY//pif0aW2Izc1MslYbrs6fo6ZWLLSfK3o6jLw1HZ3iYcrht1+wLbvL1yMmT5DuXjPMULRHY5QD7oZMnyq/fWm4hy7G6m1jnebETRlEozJbtT6b3hpjbodqIw/jCIiLuUVpi+ts/r9BSolHeFDKzOjvLhydQM7bapwnYaLO9uvk/Yt38wjVxOp2esBBUqXh7sQQTTuK9vAMDbUiaaIUIOdfm3s/yKNxnZiUUfdZBVgUMbPbD9dpNHeFP6kEA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(6133799003)(18002099003)(22082099003)(3023799007)(921020)(56012099006)(4143699003)(11063799006)(5023799004)(261021121427099003)(261021123027099003)(261022105027099003)(10067099003)(261009223027099003)(261022075727099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cEVOMmdVcitMeEw3eUkwOXpmb3dSYjk3R05ydE5FSnE3dWRnRjhvSXkrZ2w1?=
- =?utf-8?B?b0V2NXd3L2Z4MzBYTndrb0s3QWlEaFJuaVZRUVI0d2F2OUwxaXRCMStrYXRS?=
- =?utf-8?B?d0J5NFBqcVZYcTVXRHF2Z2lSd0ZVMHgwOHd3V3JwcWRqQlZ2UW55REg1alFl?=
- =?utf-8?B?bmlaUW1xZTFjN2JIb3lnem50a1FESnRia0JyMWtodGNZaFpUYk5jMHZqUzhI?=
- =?utf-8?B?SkFXc0ZBWHNseUFJYWZQQm9CbGt6ZjFkNFlMVUtDbGEwNzR4YXh5N1ZVb2RT?=
- =?utf-8?B?eUQ0L3lCMXMybjBJcWg0RGR5dHZpVEQ3R1NkT3gram5SWVNIeTRkYkM4RHZM?=
- =?utf-8?B?L3RrM0dCWE9TczdkZGcwSU50cmxOZk42anJSbkNNMjVlbzgxRzA4ZkxnOUNE?=
- =?utf-8?B?Y1V1MmZKQ3o0QVBESUFsUko4eVBUWWt4anJaQkI1WkM1eWlvZ1R6eE5UWHJu?=
- =?utf-8?B?M0t4aEs4d0xDckFhdTBjNC82TnFMdmZQT212TDIwNXpzeXZzUXZtKzBmWXV4?=
- =?utf-8?B?MktXdlZJNXNZS3ljcXlZeGtudWRaTDgzSElNblQrQ3dLY1JvcHVvbkRDdlkw?=
- =?utf-8?B?ZmFIeXBUN0V3WEVrWXozaG9tNU5mM0VhSHdPV0MrYU9jZ0pDNk9kcG9mRHJQ?=
- =?utf-8?B?bnRnbk1XYUJiN3FQdCsxMnlocXZJZGluc1crWGVNSUhRQUgrMDRMUXI1WURS?=
- =?utf-8?B?U0ZjaUJtWStzV2h0TTdvK2hBeTQ0VUxMYWpRTk0xMExwSlBOWVg5Z3NONmxC?=
- =?utf-8?B?TVFpTTlIZ2hNaDg0cjdRU3lSajRpWUdsTjhTNTlYOUdpODlyMHBwbWU0Rlk1?=
- =?utf-8?B?U0FMaytPVkE4R3lER3lla2NpampURGpweDMrQXcvbTB2UWNxNTBPRDByUWhX?=
- =?utf-8?B?WXZFemtpaVV4Wko5Y1dndlNUY1A4Q0xaNWJaQUhWaGdRSFR2eU1MTXdmL2hz?=
- =?utf-8?B?ZlZOT3hLQ3hkVGcwVnhqVlQ3ZjkrVlhXVnduc04wTHp1d1BBcm5HZnE2QVZQ?=
- =?utf-8?B?Vi9TNzZOUkhJdFZvUlYvTTMreThGT2J0VVFlUkpFTHArOGlUNWp2a05DdzdL?=
- =?utf-8?B?dUNWLzVBemFhUlhsTWsyZVAwcHk3T0k4azd2SVdKQVlDZG40SzQxeXE2RzA0?=
- =?utf-8?B?TlVxcTRudHNiUTVIVVV4cVFOUVI1SHRJVFQ0YXlTQ0ErK2JvTEdIVENWbldM?=
- =?utf-8?B?Q096akY2Tm5ncm96ckhXQWRJRGFBQ3RhK3pRSWszRURWajVWU1MvUEk4Y1pr?=
- =?utf-8?B?d3lIdHVtc1BUc0piTGhHWUZSRFVUa0VOaTZRUDhidTJKNFFwV2M3dDN6Uk8z?=
- =?utf-8?B?am1oOHRUR3hDY3NnUzQ0V09Fb1kvNlQ0ejJacFJYOTJGV2ZTZmcxcE5LYnJB?=
- =?utf-8?B?N1JKN2lUcHBmdFVFWnMwVUNSaVh1djN4OUdKMHlKaTdocWVWSmdseE9DTmVr?=
- =?utf-8?B?VlBoWVdhMkQxWGFwSm5FaHpQaFZSMWRzRXZEQ2dDRExpZUZYeWkxd0pUUzIz?=
- =?utf-8?B?T091bnptRHN1Nkk3THJqUEhMNG0zVVFNSWdLNG9RWnVnOTdBbWY3azBoN1JV?=
- =?utf-8?B?WFBxQVp2cy9CUW41UWNSWmZ0am8rbFliRlVrR3c5bkhhS1dxNUlqOWsvYlZN?=
- =?utf-8?B?U2JiTXh6UmVPTklscWJtU09ZNlZqZ2xMYWs4QnRjR2M4ZCtFZGZZdzU1QnZD?=
- =?utf-8?B?SEVCUnhaRWViYjlRZjlxUUJWWk1TbU1oQzBYZmJWdE1YaWwwaWlXNEozVUww?=
- =?utf-8?B?Yk1Ic2toRE9acksxVzlwNkM4clNyeG1wNWYzcTR2V25IQ2JyaU11VkFsa2xK?=
- =?utf-8?B?bWZpUUtRVG55Z0VLOVpQZFNWbHdvbmFzWTVNcFBLbFUrR0xDbXo1WGtYbWJ6?=
- =?utf-8?B?dXVhTjR2SEFCSWJUZVVFNnpCbnVvanFOUng3TGlqQlNFdHpuSVQ1VzZYdU81?=
- =?utf-8?B?VHhJWGI0NlFjQUlJSlB2dSttdXFoV1JaVDF6UGlhRE9uUWRicU1kTXczemhr?=
- =?utf-8?B?N3FUNC9uN3AvZkVUNmRFbjR5MFA4MEZOTDFzZThFMk1LL0NpY3FOMU55ZHlO?=
- =?utf-8?B?c3NjTllIcnZybHBqYy9sQ2J1NTIxS1psUVE1dFNmblVwZ3BVMEJaSDd5QTQ5?=
- =?utf-8?B?MTVFRnEzL0E2Z0diaE9iblF1RHlQek9YL3RVOWYxcCtYaVhTRS9FOExqSVB3?=
- =?utf-8?B?UUYvb0x1T2ZmQVZaOFE2TCtoRi9TUG15ZVUrNjZ1Q2JUZmJyTVJMeXlETkN6?=
- =?utf-8?B?RmdTRHNWS25zQXJVT3Q5RllZMDRXUHY0d0UzZjd3R0ozaFJ1aVgrZC8xMUQy?=
- =?utf-8?Q?rkDnUuQRXU6pIknIXS?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 856001ef-66d6-467e-ba48-08df3348e699
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 10:07:11.2072 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GPI5kYjpnsrYoq3Cp9M+1CPtxamnegwYyETVZp36dgRnBs7TMkKAbylTRffHywLJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8030
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-19-7cf014efdee1@oss.qualcomm.com>
+X-Proofpoint-GUID: srbcbBOxb4dmcNFDldm0NCwjocjA7qII
+X-Proofpoint-ORIG-GUID: srbcbBOxb4dmcNFDldm0NCwjocjA7qII
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA0MCBTYWx0ZWRfX6iVny+u3Qrse
+ bllB+vi4ZzrhUFbHOn6yadSSVWiLrYpM57h3pUatVEU63asaPTYS2MplK6lUvUCs33k7vrgQnXm
+ VABs4ywNbNElo3KgPy2kqtqu4hYbW3A=
+X-Authority-Analysis: v=2.4 cv=HqHjiETS c=1 sm=1 tr=0 ts=6adf266e cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=zJVDlABOU36UOg3UFKQA:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA0MCBTYWx0ZWRfXwmhv/FGvJu2w
+ Gb5X4f6+vizMQh4T/7rTn7yDtKYDW7O7ZlYdv5B5LGLxGoies6j8hnkHbVa1ry0CiCqa+f/sppP
+ 7IgdEbN9dJUhh0JMOMhHEHkW+AdPGop8tZmY8skk9fU0aJl7ifVbLQx6iXQIdRCQbr/O9nWXOm0
+ XgCxrwG74tJHwEnsCjKvWkmWn+cZlT75E8mPEyaaBZ5XJaeCI/MyeVshf1VnzgetAyleUUbFE4L
+ /lRrzTcIXNtKhPGnwxtF0DL7hzdTU0+0RJz319GfqL3dh5AsVUWeKyikv1D+kOa2TRx6TLwxqf8
+ JLLXvNGSQ+v4e2nwu/ytVvF32nYcP43satocvZHC+vIj6RQI1piNkgNzJojaaiAzAD4+CMBR14u
+ J1j7MB9iQhK8pJ+KJa5oirwcGWR4wBAWiruDpgmmr4IFTusVRarq/GUMH5PFYN1G+AzI16IMFqa
+ xojMnbyw0rx02p5tYLA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 adultscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260040
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,979 +163,310 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/23/26 08:39, Tomeu Vizoso wrote:
-> Creation returns a handle and maps nothing. The client maps a buffer
-> with DRM_IOCTL_THAMES_BO_BIND at a DSP address of its choice, as a
-> Vulkan driver would; the kernel enters the mapping in the page table
-> of every core, because we cannot know upfront which core will run a
-> given job.
+On Mon, Oct 26, 2026 at 11:51:29AM +0530, Jayant Shekhar wrote:
+> Add the Qualcomm-specific VirtIO transport required by DCP firmware.
 > 
-> We use the SHMEM helpers for non-contiguous memory. Contiguous memory
-> comes from the driver's own allocator, which aligns a buffer of 2 MiB or
-> more to 2 MiB so it can be mapped as blocks; only the GEM DMA object
-> and its mmap and vmap helpers are used for it.
-
-How exactly do you do that? IIRC the SHMEM helpers can only do 2MiB allocations on a best effort basis.
-
-In other words you don't get a guarantee that this always works and when memory is fragmented the 4k fallback must work as well.
-
-Regards,
-Christian.
-
+> The transport sends an IPCC power notification before accessing the
+> VirtIO MMIO registers, then registers a VirtIO device directly.
 > 
-> Contiguous memory is needed for buffers that are going to be read from
-> or written into by the DRU, as it doesn't resolve addresses via the MMU.
-> 
-> Binding at an address the client chooses lets a program be compiled,
-> with its addresses fixed, on a machine without the hardware, and is what
-> a Vulkan driver needs.
-> 
-> A buffer is bound anywhere from 4 GiB up to the user region at 1 TiB; a
-> buffer shared through a dma-buf may be bound in several Contexts, so
-> the bindings are kept under one device-wide lock. The IOCTLs take their
-> arrays as versioned objects whose stride is the size userspace was
-> built against, so a structure can grow under a minor bump.
+> Implement MMIO configuration access, feature negotiation, virtqueue
+> setup, interrupt handling, reset, DMA setup, and suspend/resume
+> sequencing in the transport. Keep power-management ordering in the
+> transport so VirtIO queues are quiesced before DCP power changes.
 > 
 > Assisted-by: LLM
-> Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-> 
+> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 > ---
-> 
-> v3:
-> - Added read-only, executable and contiguous flags.
-> - Added BO_BIND IOCTL.
-> - Copy the IOCTLs' arrays with vmemdup_array_user(), through one helper
->   for versioned arrays (Tvrtko Ursulin).
-> 
-> v2:
-> - Add thames_accel.h UAPI header (Robert Nelson).
-> ---
->  drivers/accel/thames/Kconfig         |   2 +
->  drivers/accel/thames/thames_device.h |   6 +
->  drivers/accel/thames/thames_drv.c    |  47 +++++
->  drivers/accel/thames/thames_drv.h    |   5 +
->  drivers/accel/thames/thames_gem.c    | 398 +++++++++++++++++++++++++++++++++++
->  drivers/accel/thames/thames_gem.h    |  21 ++
->  include/uapi/drm/thames_accel.h      | 183 +++++++++++++++-
->  7 files changed, 661 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/thames/Kconfig b/drivers/accel/thames/Kconfig
-> index 9362b9274075..47a2986fcabd 100644
-> --- a/drivers/accel/thames/Kconfig
-> +++ b/drivers/accel/thames/Kconfig
-> @@ -6,6 +6,8 @@ config DRM_ACCEL_THAMES
->         depends on TI_K3_DSP_REMOTEPROC
->         depends on REMOTEPROC
->         depends on MAILBOX
-> +       select DRM_GEM_DMA_HELPER
-> +       select DRM_GEM_SHMEM_HELPER
->         select IOMMU_IO_PGTABLE_LPAE
->         help
->           Choose this option if you have a Texas Instruments J722S and want to
-> diff --git a/drivers/accel/thames/thames_device.h b/drivers/accel/thames/thames_device.h
-> index e89e0dfd89b8..a1a54d974359 100644
-> --- a/drivers/accel/thames/thames_device.h
-> +++ b/drivers/accel/thames/thames_device.h
-> @@ -58,6 +58,12 @@ struct thames_device {
->         struct list_head contexts;
->         struct mutex contexts_lock;
-> 
-> +       /*
-> +        * One lock for the device: a dma-buf shared buffer is bound from
-> +        * several files.
-> +        */
-> +       struct mutex bindings_lock;
-> +
->  };
-> 
->  #define to_thames_device(drm_dev) \
-> diff --git a/drivers/accel/thames/thames_drv.c b/drivers/accel/thames/thames_drv.c
-> index cb0287430d25..a17e7a90f7c1 100644
-> --- a/drivers/accel/thames/thames_drv.c
-> +++ b/drivers/accel/thames/thames_drv.c
-> @@ -93,6 +93,41 @@ static void thames_postclose(struct drm_device *dev, struct drm_file *file)
->         thames_file_priv_put(thames_priv);
->  }
-> 
-> +void *thames_get_uobj_array(const struct drm_thames_obj_array *in, u32 min_stride, u32 obj_size)
-> +{
-> +       void __user *in_ptr = u64_to_user_ptr(in->array);
-> +       void *out, *out_ptr;
-> +       int ret;
-> +       u32 i;
-> +
-> +       if (!in->count)
-> +               return NULL;
-> +
-> +       if (in->stride < min_stride)
-> +               return ERR_PTR(-EINVAL);
-> +
-> +       if (in->stride == obj_size)
-> +               return vmemdup_array_user(in_ptr, in->count, obj_size);
-> +
-> +       out = kvmalloc_array(in->count, obj_size, GFP_KERNEL);
-> +       if (!out)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       out_ptr = out;
-> +       for (i = 0; i < in->count; i++) {
-> +               ret = copy_struct_from_user(out_ptr, obj_size, in_ptr, in->stride);
-> +               if (ret) {
-> +                       kvfree(out);
-> +                       return ERR_PTR(ret);
-> +               }
-> +
-> +               out_ptr += obj_size;
-> +               in_ptr += in->stride;
-> +       }
-> +
-> +       return out;
-> +}
-> +
->  #define THAMES_DRIVER_MAJOR 1
->  #define THAMES_DRIVER_MINOR 0
-> 
-> @@ -121,6 +156,8 @@ static int thames_query_caps(struct drm_device *dev, struct drm_thames_dev_query
->                 .l2_aux.dsp_va = thames_window_va(tdev, THAMES_WINDOW_L2AUX),
->                 .l2_aux.size = reported->window_sizes[THAMES_WINDOW_L2AUX],
->                 .dru_realtime_dsp_va = thames_window_va(tdev, THAMES_WINDOW_DRU),
-> +               .dsp_va_range.dsp_va = THAMES_BIND_VA_START,
-> +               .dsp_va_range.size = THAMES_BIND_VA_END - THAMES_BIND_VA_START,
->                 .user_region.dsp_va = THAMES_USER_REGION_BASE,
->                 .user_region.size = THAMES_USER_REGION_SIZE,
->                 .hardware_id = reported->hardware_id,
-> @@ -165,11 +202,17 @@ static int thames_ioctl_##func##_entered(struct drm_device *dev, void *data,      \
->         return ret;                                                             \
->  }
-> 
-> +THAMES_IOCTL_ENTERED(bo_create)
-> +THAMES_IOCTL_ENTERED(bo_mmap_offset)
->  THAMES_IOCTL_ENTERED(dev_query)
-> +THAMES_IOCTL_ENTERED(bo_bind)
-> 
->  static const struct drm_ioctl_desc thames_drm_driver_ioctls[] = {
->  #define THAMES_IOCTL(n, func) DRM_IOCTL_DEF_DRV(THAMES_##n, thames_ioctl_##func, 0)
-> +       THAMES_IOCTL(BO_CREATE, bo_create_entered),
-> +       THAMES_IOCTL(BO_MMAP_OFFSET, bo_mmap_offset_entered),
->         THAMES_IOCTL(DEV_QUERY, dev_query_entered),
-> +       THAMES_IOCTL(BO_BIND, bo_bind_entered),
->  };
-> 
->  DEFINE_DRM_ACCEL_FOPS(thames_accel_driver_fops);
-> @@ -234,6 +277,10 @@ static struct thames_device *thames_device_init(struct platform_device *pdev,
->         if (err)
->                 return ERR_PTR(err);
-> 
-> +       err = drmm_mutex_init(&tdev->ddev, &tdev->bindings_lock);
-> +       if (err)
-> +               return ERR_PTR(err);
-> +
->         INIT_LIST_HEAD(&tdev->contexts);
-> 
->         tdev->asid_next = 1;
-> diff --git a/drivers/accel/thames/thames_drv.h b/drivers/accel/thames/thames_drv.h
-> index f4536078e02f..7f9031b63780 100644
-> --- a/drivers/accel/thames/thames_drv.h
-> +++ b/drivers/accel/thames/thames_drv.h
-> @@ -15,6 +15,7 @@
->  #include "thames_device.h"
-> 
->  struct drm_gem_dma_object;
-> +struct drm_thames_obj_array;
-> 
->  struct thames_file_priv {
->         struct thames_device *tdev;
-> @@ -37,6 +38,8 @@ struct thames_file_priv {
->         struct drm_mm_node user_region;
->         struct drm_mm_node window_nodes[THAMES_NUM_WINDOWS];
-> 
-> +       struct list_head bindings;
-> +
->         u32 context_id;
-> 
->         u64 context_serial;
-> @@ -47,4 +50,6 @@ struct thames_file_priv {
-> 
->  void thames_file_priv_put(struct thames_file_priv *priv);
-> 
-> +void *thames_get_uobj_array(const struct drm_thames_obj_array *in, u32 min_stride, u32 obj_size);
-> +
->  #endif
-> diff --git a/drivers/accel/thames/thames_gem.c b/drivers/accel/thames/thames_gem.c
-> index b98e0fe203b0..c9fd08c7aaf4 100644
-> --- a/drivers/accel/thames/thames_gem.c
-> +++ b/drivers/accel/thames/thames_gem.c
-> @@ -14,6 +14,7 @@
->  #include <drm/drm_device.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_gem_dma_helper.h>
-> +#include <drm/drm_gem_shmem_helper.h>
->  #include <drm/drm_print.h>
->  #include <drm/drm_timeout.h>
->  #include <drm/thames_accel.h>
-> @@ -23,6 +24,30 @@
->  #include "thames_drv.h"
->  #include "thames_gem.h"
-> 
-> +/*
-> + * References neither the buffer nor the Context: whichever goes first removes
-> + * it.
-> + */
-> +struct thames_binding {
-> +       struct thames_gem_object *bo;
-> +       struct thames_file_priv *priv;
-> +       struct drm_mm_node mm;
-> +       struct list_head bo_link;
-> +       struct list_head context_link;
-> +};
-> +
-> +static int thames_bo_flags_to_prot(u32 flags)
-> +{
-> +       int prot = IOMMU_READ | IOMMU_CACHE;
-> +
-> +       if (!(flags & DRM_THAMES_BO_EXECUTABLE))
-> +               prot |= IOMMU_NOEXEC;
-> +       if (!(flags & (DRM_THAMES_BO_READ_ONLY | DRM_THAMES_BO_EXECUTABLE)))
-> +               prot |= IOMMU_WRITE;
-> +
-> +       return prot;
-> +}
-> +
->  static size_t thames_pgsize(u64 addr, size_t size, size_t *count)
->  {
->         size_t blk_offset = -addr % SZ_2M;
-> @@ -95,6 +120,72 @@ static int thames_context_map(struct thames_file_priv *priv, u64 dsp_va, int pro
->         return 0;
->  }
-> 
-> +static void thames_context_unmap(struct thames_file_priv *priv, u64 dsp_va, u64 size)
-> +{
-> +       unsigned int c;
-> +
-> +       for (c = 0; c < priv->tdev->num_cores; c++)
-> +               thames_pgtable_unmap(priv->pgtbl_ops[c], dsp_va, size);
-> +}
-> +
-> +struct thames_gem_object *thames_context_find_bo(struct thames_file_priv *priv, u64 start,
-> +                                                u64 end, u64 *offset)
-> +{
-> +       struct thames_binding *binding;
-> +       struct thames_gem_object *bo;
-> +       struct drm_mm_node *node;
-> +       unsigned int i;
-> +
-> +       guard(mutex)(&priv->mm_lock);
-> +
-> +       node = __drm_mm_interval_first(&priv->mm, start, start);
-> +       if (node == &priv->mm.head_node || node == &priv->first_page ||
-> +           node == &priv->user_region)
-> +               return NULL;
-> +
-> +       for (i = 0; i < THAMES_NUM_WINDOWS; i++) {
-> +               if (node == &priv->window_nodes[i])
-> +                       return NULL;
-> +       }
-> +
-> +       binding = container_of(node, struct thames_binding, mm);
-> +       bo = binding->bo;
-> +       if (end > node->start + bo->base.base.size)
-> +               return NULL;
-> +
-> +       if (!kref_get_unless_zero(&bo->base.base.refcount))
-> +               return NULL;
-> +
-> +       *offset = start - node->start;
-> +
-> +       return bo;
-> +}
-> +
-> +static struct thames_binding *thames_bo_find_binding(struct thames_gem_object *bo,
-> +                                                    struct thames_file_priv *priv)
-> +{
-> +       struct thames_binding *binding;
-> +
-> +       lockdep_assert_held(&priv->tdev->bindings_lock);
-> +
-> +       list_for_each_entry(binding, &bo->bindings, bo_link) {
-> +               if (binding->priv == priv)
-> +                       return binding;
-> +       }
-> +
-> +       return NULL;
-> +}
-> +
-> +u64 thames_bo_dsp_va(struct thames_gem_object *bo, struct thames_file_priv *priv)
-> +{
-> +       struct thames_binding *binding;
-> +
-> +       guard(mutex)(&priv->tdev->bindings_lock);
-> +       binding = thames_bo_find_binding(bo, priv);
-> +
-> +       return binding ? binding->mm.start : 0;
-> +}
-> +
->  /* Cyclic, so a freed ASID is not handed out again at once. */
->  static int thames_asid_alloc(struct thames_device *tdev)
->  {
-> @@ -215,6 +306,7 @@ static int thames_context_map_core_regions(struct thames_file_priv *priv)
->  }
-> 
->  static const struct drm_gem_object_funcs thames_gem_funcs;
-> +static const struct drm_gem_object_funcs thames_gem_shmem_funcs;
-> 
->  /*
->   * The allocator zeroes through the cache: clean it before the DSP can reach the
-> @@ -234,6 +326,7 @@ static struct drm_gem_dma_object *thames_gem_create(struct drm_device *ddev, siz
->         if (!bo)
->                 return ERR_PTR(-ENOMEM);
-> 
-> +       INIT_LIST_HEAD(&bo->bindings);
->         obj = &bo->base.base;
->         obj->funcs = &thames_gem_funcs;
->         bo->base.map_noncoherent = true;
-> @@ -271,6 +364,38 @@ static struct drm_gem_dma_object *thames_gem_create(struct drm_device *ddev, siz
->         return ERR_PTR(ret);
->  }
-> 
-> +/*
-> + * The DSP reaches these pages only through the page tables, never by a DRU
-> + * transfer.
-> + */
-> +static struct thames_gem_object *thames_gem_create_shmem(struct drm_device *ddev, size_t size)
-> +{
-> +       struct thames_gem_object *bo;
-> +       struct sg_table *sgt;
-> +       int ret;
-> +
-> +       bo = kzalloc_obj(*bo, GFP_KERNEL);
-> +       if (!bo)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       INIT_LIST_HEAD(&bo->bindings);
-> +       bo->shmem.base.funcs = &thames_gem_shmem_funcs;
-> +
-> +       ret = drm_gem_shmem_init(ddev, &bo->shmem, PAGE_ALIGN(size));
-> +       if (ret) {
-> +               kfree(bo);
-> +               return ERR_PTR(ret);
-> +       }
-> +
-> +       sgt = drm_gem_shmem_get_pages_sgt(&bo->shmem);
-> +       if (IS_ERR(sgt)) {
-> +               drm_gem_object_put(&bo->shmem.base);
-> +               return ERR_CAST(sgt);
-> +       }
-> +
-> +       return bo;
-> +}
-> +
->  static struct drm_gem_dma_object *thames_context_alloc_user_pages(struct thames_file_priv *priv,
->                                                                   u64 dsp_va, size_t size)
->  {
-> @@ -459,6 +584,7 @@ int thames_context_create(struct thames_file_priv *priv)
-> 
->         priv->context_id = ret;
->         priv->context_serial = atomic64_inc_return(&tdev->last_context_serial);
-> +       INIT_LIST_HEAD(&priv->bindings);
-> 
->         ret = thames_context_va_init(priv);
->         if (ret)
-> @@ -500,14 +626,37 @@ int thames_context_create(struct thames_file_priv *priv)
->         return ret;
->  }
-> 
-> +static void thames_binding_remove(struct thames_binding *binding)
-> +{
-> +       struct thames_file_priv *priv = binding->priv;
-> +
-> +       lockdep_assert_held(&priv->tdev->bindings_lock);
-> +
-> +       thames_context_unmap(priv, binding->mm.start, binding->mm.size);
-> +       thames_context_bump_generation(priv);
-> +
-> +       scoped_guard(mutex, &priv->mm_lock)
-> +               drm_mm_remove_node(&binding->mm);
-> +
-> +       list_del(&binding->bo_link);
-> +       list_del(&binding->context_link);
-> +       kfree(binding);
-> +}
-> +
->  void thames_context_destroy(struct thames_file_priv *priv)
->  {
->         struct thames_device *tdev = priv->tdev;
-> +       struct thames_binding *binding, *tmp;
-> 
->         /*
->          * The Context goes after its last pushed Job completed, so no Job runs
->          * on mappings removed here.
->          */
-> +       scoped_guard(mutex, &tdev->bindings_lock) {
-> +               list_for_each_entry_safe(binding, tmp, &priv->bindings, context_link)
-> +                       thames_binding_remove(binding);
-> +       }
-> +
->         scoped_guard(mutex, &tdev->contexts_lock)
->                 list_del(&priv->context_node);
-> 
-> @@ -522,10 +671,124 @@ void thames_context_destroy(struct thames_file_priv *priv)
->                 priv->context_id, priv->asid);
->  }
-> 
-> +static int thames_context_map_sgt(struct thames_file_priv *priv, u64 dsp_va, int prot,
-> +                                 struct sg_table *sgt)
-> +{
-> +       struct scatterlist *sg;
-> +       u64 offset = 0;
-> +       unsigned int i;
-> +       int ret;
-> +
-> +       for_each_sgtable_dma_sg(sgt, sg, i) {
-> +               ret = thames_context_map(priv, dsp_va + offset, prot, sg_dma_address(sg),
-> +                                        sg_dma_len(sg));
-> +               if (ret) {
-> +                       thames_context_unmap(priv, dsp_va, offset);
-> +                       return ret;
-> +               }
-> +
-> +               offset += sg_dma_len(sg);
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static int thames_bo_bind(struct thames_file_priv *priv, struct thames_gem_object *bo,
-> +                         u64 dsp_va)
-> +{
-> +       size_t size = bo->base.base.size;
-> +       int prot = thames_bo_flags_to_prot(bo->flags);
-> +       struct thames_binding *binding;
-> +       int ret;
-> +
-> +       if (!IS_ALIGNED(dsp_va, PAGE_SIZE))
-> +               return -EINVAL;
-> +
-> +       if (dsp_va < THAMES_BIND_VA_START || dsp_va > THAMES_BIND_VA_END ||
-> +           size > THAMES_BIND_VA_END - dsp_va)
-> +               return -EINVAL;
-> +
-> +       binding = kzalloc_obj(*binding);
-> +       if (!binding)
-> +               return -ENOMEM;
-> +
-> +       binding->bo = bo;
-> +       binding->priv = priv;
-> +       binding->mm.start = dsp_va;
-> +       binding->mm.size = size;
-> +
-> +       ret = mutex_lock_interruptible(&priv->tdev->bindings_lock);
-> +       if (ret)
-> +               goto err_free;
-> +
-> +       if (thames_bo_find_binding(bo, priv)) {
-> +               ret = -EBUSY;
-> +               goto err_unlock;
-> +       }
-> +
-> +       scoped_guard(mutex, &priv->mm_lock)
-> +               ret = drm_mm_reserve_node(&priv->mm, &binding->mm);
-> +       if (ret)
-> +               goto err_unlock;
-> +
-> +       if (bo->flags & DRM_THAMES_BO_CONTIGUOUS)
-> +               ret = thames_context_map(priv, dsp_va, prot, bo->base.dma_addr, size);
-> +       else
-> +               ret = thames_context_map_sgt(priv, dsp_va, prot, bo->shmem.sgt);
-> +       if (ret) {
-> +               scoped_guard(mutex, &priv->mm_lock)
-> +                       drm_mm_remove_node(&binding->mm);
-> +               goto err_unlock;
-> +       }
-> +
-> +       list_add_tail(&binding->bo_link, &bo->bindings);
-> +       list_add_tail(&binding->context_link, &priv->bindings);
-> +       mutex_unlock(&priv->tdev->bindings_lock);
-> +
-> +       return 0;
-> +
-> +err_unlock:
-> +       mutex_unlock(&priv->tdev->bindings_lock);
-> +err_free:
-> +       kfree(binding);
-> +       return ret;
-> +}
-> +
-> +static int thames_bo_unbind(struct thames_file_priv *priv, struct thames_gem_object *bo)
-> +{
-> +       struct thames_binding *binding;
-> +       int ret;
-> +
-> +       ret = mutex_lock_interruptible(&priv->tdev->bindings_lock);
-> +       if (ret)
-> +               return ret;
-> +
-> +       binding = thames_bo_find_binding(bo, priv);
-> +       if (binding)
-> +               thames_binding_remove(binding);
-> +       else
-> +               ret = -EINVAL;
-> +
-> +       mutex_unlock(&priv->tdev->bindings_lock);
-> +       return ret;
-> +}
-> +
-> +static void thames_bo_unmap_from_device(struct thames_gem_object *bo)
-> +{
-> +       struct thames_device *tdev = to_thames_device(bo->base.base.dev);
-> +       struct thames_binding *binding, *tmp;
-> +
-> +       guard(mutex)(&tdev->bindings_lock);
-> +       list_for_each_entry_safe(binding, tmp, &bo->bindings, bo_link)
-> +               thames_binding_remove(binding);
-> +}
-> +
->  static void thames_gem_bo_free(struct drm_gem_object *obj)
->  {
->         struct thames_gem_object *bo = to_thames_bo(obj);
-> 
-> +       thames_bo_unmap_from_device(bo);
-> +
->         if (bo->alloc_vaddr)
->                 dma_free_noncoherent(drm_dev_dma_dev(obj->dev), bo->alloc_size, bo->alloc_vaddr,
->                                      bo->alloc_dma, DMA_TO_DEVICE);
-> @@ -535,6 +798,16 @@ static void thames_gem_bo_free(struct drm_gem_object *obj)
->         kfree(bo);
->  }
-> 
-> +static void thames_gem_shmem_bo_free(struct drm_gem_object *obj)
-> +{
-> +       struct thames_gem_object *bo = to_thames_bo(obj);
-> +
-> +       thames_bo_unmap_from_device(bo);
-> +
-> +       drm_gem_free_mmap_offset(obj);
-> +       drm_gem_shmem_free(&bo->shmem);
-> +}
-> +
->  static const struct drm_gem_object_funcs thames_gem_funcs = {
->         .free = thames_gem_bo_free,
->         .print_info = drm_gem_dma_object_print_info,
-> @@ -544,3 +817,128 @@ static const struct drm_gem_object_funcs thames_gem_funcs = {
->         .vm_ops = &drm_gem_dma_vm_ops,
->  };
-> 
-> +static const struct drm_gem_object_funcs thames_gem_shmem_funcs = {
-> +       .free = thames_gem_shmem_bo_free,
-> +       .print_info = drm_gem_shmem_object_print_info,
-> +       .pin = drm_gem_shmem_object_pin,
-> +       .unpin = drm_gem_shmem_object_unpin,
-> +       .get_sg_table = drm_gem_shmem_object_get_sg_table,
-> +       .vmap = drm_gem_shmem_object_vmap,
-> +       .vunmap = drm_gem_shmem_object_vunmap,
-> +       .mmap = drm_gem_shmem_object_mmap,
-> +       .vm_ops = &drm_gem_shmem_vm_ops,
-> +};
-> +
-> +int thames_ioctl_bo_create(struct drm_device *ddev, void *data, struct drm_file *file)
-> +{
-> +       struct drm_thames_bo_create *args = data;
-> +       struct thames_gem_object *bo;
-> +       struct drm_gem_dma_object *mem;
-> +       int ret;
-> +
-> +       if (args->handle)
-> +               return -EINVAL;
-> +
-> +       if (!args->size)
-> +               return -EINVAL;
-> +
-> +       if (args->flags & ~(DRM_THAMES_BO_READ_ONLY | DRM_THAMES_BO_EXECUTABLE |
-> +                           DRM_THAMES_BO_CONTIGUOUS))
-> +               return -EINVAL;
-> +
-> +       if (args->flags & DRM_THAMES_BO_CONTIGUOUS) {
-> +               mem = thames_gem_create(ddev, args->size);
-> +               if (IS_ERR(mem))
-> +                       return PTR_ERR(mem);
-> +               bo = to_thames_bo(&mem->base);
-> +       } else {
-> +               bo = thames_gem_create_shmem(ddev, args->size);
-> +               if (IS_ERR(bo))
-> +                       return PTR_ERR(bo);
-> +       }
-> +
-> +       bo->flags = args->flags;
-> +
-> +       ret = drm_gem_handle_create(file, &bo->base.base, &args->handle);
-> +       drm_gem_object_put(&bo->base.base);
-> +       if (ret) {
-> +               dev_err(ddev->dev, "Failed to create gem handle: %d", ret);
-> +               return ret;
-> +       }
-> +
-> +       args->size = bo->base.base.size;
-> +
-> +       return 0;
-> +}
-> +
-> +static int thames_bind_exec_op(struct drm_file *file, const struct drm_thames_bind_op *op)
-> +{
-> +       struct thames_file_priv *priv = file->driver_priv;
-> +       struct drm_gem_object *obj;
-> +       int ret;
-> +
-> +       if (op->flags & ~DRM_THAMES_BIND_OP_UNBIND)
-> +               return -EINVAL;
-> +
-> +       if ((op->flags & DRM_THAMES_BIND_OP_UNBIND) && op->dsp_va)
-> +               return -EINVAL;
-> +
-> +       obj = drm_gem_object_lookup(file, op->handle);
-> +       if (!obj)
-> +               return -ENOENT;
-> +
-> +       if (op->flags & DRM_THAMES_BIND_OP_UNBIND)
-> +               ret = thames_bo_unbind(priv, to_thames_bo(obj));
-> +       else
-> +               ret = thames_bo_bind(priv, to_thames_bo(obj), op->dsp_va);
-> +
-> +       drm_gem_object_put(obj);
-> +
-> +       return ret;
-> +}
-> +
-> +int thames_ioctl_bo_bind(struct drm_device *ddev, void *data, struct drm_file *file)
-> +{
-> +       struct drm_thames_bo_bind *args = data;
-> +       struct drm_thames_bind_op *ops;
-> +       int ret = 0;
-> +       u32 i;
-> +
-> +       if (args->flags || args->pad)
-> +               return -EINVAL;
-> +
-> +       ops = thames_get_uobj_array(&args->ops, sizeof(*ops), sizeof(*ops));
-> +       if (IS_ERR(ops))
-> +               return PTR_ERR(ops);
-> +
-> +       for (i = 0; i < args->ops.count; i++) {
-> +               ret = thames_bind_exec_op(file, &ops[i]);
-> +               if (ret) {
-> +                       args->ops.count = i;
-> +                       break;
-> +               }
-> +       }
-> +
-> +       kvfree(ops);
-> +
-> +       return ret;
-> +}
-> +
-> +int thames_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data, struct drm_file *file)
-> +{
-> +       struct drm_thames_bo_mmap_offset *args = data;
-> +       struct drm_gem_object *obj;
-> +
-> +       if (args->pad)
-> +               return -EINVAL;
-> +
-> +       obj = drm_gem_object_lookup(file, args->handle);
-> +       if (!obj)
-> +               return -ENOENT;
-> +
-> +       args->offset = drm_vma_node_offset_addr(&obj->vma_node);
-> +       drm_gem_object_put(obj);
-> +
-> +       return 0;
-> +}
-> +
-> diff --git a/drivers/accel/thames/thames_gem.h b/drivers/accel/thames/thames_gem.h
-> index 09ac1b50d21a..c9d0e170dad3 100644
-> --- a/drivers/accel/thames/thames_gem.h
-> +++ b/drivers/accel/thames/thames_gem.h
-> @@ -12,6 +12,13 @@
-> 
->  #include "thames_abi.h"
-> 
-> +/*
-> + * The windows sit below 4 GiB because Kernels load their addresses with 32-bit
-> + * moves.
-> + */
-> +#define THAMES_BIND_VA_START   SZ_4G
-> +#define THAMES_BIND_VA_END     THAMES_USER_REGION_BASE
-> +
->  struct thames_core;
->  struct thames_device;
->  struct thames_file_priv;
-> @@ -34,9 +41,18 @@ struct thames_gem_object {
->         dma_addr_t alloc_dma;
->         size_t alloc_size;
-> 
-> +       struct list_head bindings;
-> +
-> +       u32 flags;
->  };
-> 
-> 
-> +int thames_ioctl_bo_create(struct drm_device *ddev, void *data, struct drm_file *file);
-> +
-> +int thames_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data, struct drm_file *file);
-> +
-> +int thames_ioctl_bo_bind(struct drm_device *ddev, void *data, struct drm_file *file);
-> +
->  int thames_context_create(struct thames_file_priv *priv);
-> 
->  void thames_context_destroy(struct thames_file_priv *priv);
-> @@ -44,6 +60,11 @@ void thames_context_rewrite_entries(struct thames_core *core);
-> 
->  void thames_context_va_fini(struct thames_file_priv *priv);
-> 
-> +struct thames_gem_object *thames_context_find_bo(struct thames_file_priv *priv, u64 start,
-> +                                                u64 end, u64 *offset);
-> +
-> +u64 thames_bo_dsp_va(struct thames_gem_object *bo, struct thames_file_priv *priv);
-> +
->  static inline struct thames_gem_object *to_thames_bo(struct drm_gem_object *obj)
->  {
->         return container_of(obj, struct thames_gem_object, base.base);
-> diff --git a/include/uapi/drm/thames_accel.h b/include/uapi/drm/thames_accel.h
-> index af427a29b585..ea556b48f1d7 100644
-> --- a/include/uapi/drm/thames_accel.h
-> +++ b/include/uapi/drm/thames_accel.h
-> @@ -45,15 +45,116 @@ extern "C" {
->   * definitions instead.
->   */
->  enum drm_thames_ioctl_id {
-> +       /** @DRM_THAMES_BO_CREATE: Create a buffer object. */
-> +       DRM_THAMES_BO_CREATE,
-> +
-> +       /**
-> +        * @DRM_THAMES_BO_MMAP_OFFSET: Get the file offset to pass to
-> +        * mmap to map a GEM object.
-> +        */
-> +       DRM_THAMES_BO_MMAP_OFFSET,
-> +
->         /** @DRM_THAMES_DEV_QUERY: Query the device's capabilities. */
->         DRM_THAMES_DEV_QUERY,
-> 
-> +       /**
-> +        * @DRM_THAMES_BO_BIND: Bind buffers into the file's Context at the
-> +        * addresses the client chooses, or unbind them.
-> +        */
-> +       DRM_THAMES_BO_BIND,
->  };
-> 
->  /**
->   * DOC: IOCTL arguments
->   */
-> 
-> +/**
-> + * enum drm_thames_bo_flags - Buffer object flags, passed at creation time.
-> + *
-> + * A buffer with neither permission flag is user read-write and execute-never;
-> + * DRM_THAMES_BO_CONTIGUOUS chooses the backing, not the permissions.
-> + */
-> +enum drm_thames_bo_flags {
-> +       /**
-> +        * @DRM_THAMES_BO_READ_ONLY: Mapped user read-only in the Context.  For
-> +        * the params, the coefficients and the constants, so that a Kernel
-> +        * cannot alter the inputs of a Job's next run.
-> +        */
-> +       DRM_THAMES_BO_READ_ONLY = 1 << 0,
-> +
-> +       /**
-> +        * @DRM_THAMES_BO_EXECUTABLE: Mapped user read-execute and not
-> +        * writable.  Required of a Job's program.
-> +        */
-> +       DRM_THAMES_BO_EXECUTABLE = 1 << 1,
-> +
-> +       /**
-> +        * @DRM_THAMES_BO_CONTIGUOUS: Backed by one physically contiguous
-> +        * allocation, so that a transfer of a Job can name it.  For the buffers
-> +        * a DRU transfer reads or writes; any other buffer is backed page by
-> +        * page.
-> +        */
-> +       DRM_THAMES_BO_CONTIGUOUS = 1 << 2,
-> +};
-> +
-> +/**
-> + * struct drm_thames_bo_create - Arguments passed to DRM_IOCTL_THAMES_BO_CREATE.
-> + *
-> + * Returns a handle and no address; the buffer is bound in no Context until
-> + * DRM_IOCTL_THAMES_BO_BIND.
-> + */
-> +struct drm_thames_bo_create {
-> +       /**
-> +        * @size: Requested size for the object
-> +        *
-> +        * The (page-aligned) allocated size for the object will be returned.
-> +        */
-> +       __u64 size;
-> +
-> +       /**
-> +        * @handle: MBZ on input; returns the object's handle, which is nonzero.
-> +        */
-> +       __u32 handle;
-> +
-> +       /** @flags: Combination of &enum drm_thames_bo_flags. */
-> +       __u32 flags;
-> +};
-> +
-> +/**
-> + * struct drm_thames_bo_mmap_offset - Arguments passed to DRM_IOCTL_THAMES_BO_MMAP_OFFSET.
-> + */
-> +struct drm_thames_bo_mmap_offset {
-> +       /** @handle: Handle of the object we want an mmap offset for. */
-> +       __u32 handle;
-> +
-> +       /** @pad: MBZ. */
-> +       __u32 pad;
-> +
-> +       /** @offset: The fake offset to use for subsequent mmap calls. */
-> +       __u64 offset;
-> +};
-> +
-> +/**
-> + * struct drm_thames_obj_array - An array of versioned objects passed by pointer.
-> + *
-> + * The stride is the size of the object userspace was built against, so a
-> + * structure can grow at its end under a minor bump.
-> + * The kernel reads each element with copy_struct_from_user(): a stride smaller
-> + * than its own size has the rest read as zero, down to the size the structure
-> + * had when it entered the uAPI and no smaller; a larger stride is accepted only
-> + * if the bytes the kernel does not know are zero.
-> + */
-> +struct drm_thames_obj_array {
-> +       /** @stride: Size of one element in bytes. */
-> +       __u32 stride;
-> +
-> +       /** @count: Number of elements. */
-> +       __u32 count;
-> +
-> +       /** @array: User pointer to the first element. */
-> +       __u64 array;
-> +};
-> +
->  /**
->   * struct drm_thames_range - A range of the Context's address space.
->   */
-> @@ -65,6 +166,73 @@ struct drm_thames_range {
->         __u64 size;
->  };
-> 
-> +/**
-> + * DOC: Bind operation flags
-> + *
-> + * - %DRM_THAMES_BIND_OP_UNBIND: Unbind the buffer from the Context instead
-> + *   of binding it; &drm_thames_bind_op.dsp_va must be 0.
-> + */
-> +#define DRM_THAMES_BIND_OP_UNBIND      (1 << 0)
-> +
-> +/**
-> + * struct drm_thames_bind_op - One operation of DRM_IOCTL_THAMES_BO_BIND
-> + *
-> + * A bind maps the whole buffer at @dsp_va in every page table of the file's
-> + * Context, with the permissions of its creation flags; an unbind removes the
-> + * mapping.  A buffer is bound at most once in a Context, at one address, over
-> + * no range another buffer is bound in.  A buffer shared through a dma-buf may
-> + * be bound in each importing file's Context, each at its own address.  The
-> + * kernel maps 2 MiB blocks where both the address and the buffer's pages are
-> + * 2 MiB aligned, so a client aligns a buffer of 2 MiB or more to 2 MiB.
-> + *
-> + * Unbinding a buffer a submitted Job still reaches through the MMU is the
-> + * client's error: the mapping goes at once, and the Job faults in the client's
-> + * own Context as on any other fault.  A Job's transfers keep the buffers they
-> + * reach, whether bound or not, until the Job is destroyed.  Freeing a bound
-> + * buffer unbinds it.
-> + */
-> +struct drm_thames_bind_op {
-> +       /** @handle: The buffer. */
-> +       __u32 handle;
-> +
-> +       /**
-> +        * @flags: 0 to bind the buffer at @dsp_va,
-> +        * %DRM_THAMES_BIND_OP_UNBIND to unbind it.
-> +        */
-> +       __u32 flags;
-> +
-> +       /**
-> +        * @dsp_va: Where the buffer is bound in the DSP's address space,
-> +        * page-aligned, the buffer wholly inside
-> +        * &drm_thames_caps.dsp_va_range; 0 for an unbind.
-> +        *
-> +        * The address the core's MMU translates through the Context's page
-> +        * table, the same on every core.  It is the number userspace embeds
-> +        * in params and Kernel code.  It is neither the bus address the page
-> +        * table entries hold nor the CPU address mmap returns.
-> +        */
-> +       __u64 dsp_va;
-> +};
-> +
-> +/**
-> + * struct drm_thames_bo_bind - Arguments passed to DRM_IOCTL_THAMES_BO_BIND
-> + *
-> + * The operations are applied in order and each is done when the call
-> + * returns.  The call stops at the first operation that fails and returns its
-> + * error; the operations before it hold, and @ops.count is set to their
-> + * number.
-> + */
-> +struct drm_thames_bo_bind {
-> +       /** @flags: MBZ. */
-> +       __u32 flags;
-> +
-> +       /** @pad: MBZ. */
-> +       __u32 pad;
-> +
-> +       /** @ops: Array of &struct drm_thames_bind_op, applied in order. */
-> +       struct drm_thames_obj_array ops;
-> +};
-> +
->  /**
->   * enum drm_thames_dev_query_type - Query type
->   *
-> @@ -126,9 +294,16 @@ struct drm_thames_caps {
->          */
->         __u64 dru_realtime_dsp_va;
-> 
-> +       /**
-> +        * @dsp_va_range: The span of the Context's address space the client
-> +        * binds its buffers in with DRM_IOCTL_THAMES_BO_BIND.  The windows
-> +        * above sit below it and @user_region above it.
-> +        */
-> +       struct drm_thames_range dsp_va_range;
-> +
->         /**
->          * @user_region: Where the kernel driver maps the Context's user stack
-> -        * and save page.
-> +        * and save page, outside @dsp_va_range.
->          */
->         struct drm_thames_range user_region;
-> 
-> @@ -189,8 +364,14 @@ struct drm_thames_dev_query {
->                            struct drm_thames_ ## __type)
-> 
->  enum {
-> +       DRM_IOCTL_THAMES_BO_CREATE =
-> +               DRM_IOCTL_THAMES(WR, BO_CREATE, bo_create),
-> +       DRM_IOCTL_THAMES_BO_MMAP_OFFSET =
-> +               DRM_IOCTL_THAMES(WR, BO_MMAP_OFFSET, bo_mmap_offset),
->         DRM_IOCTL_THAMES_DEV_QUERY =
->                 DRM_IOCTL_THAMES(WR, DEV_QUERY, dev_query),
-> +       DRM_IOCTL_THAMES_BO_BIND =
-> +               DRM_IOCTL_THAMES(WR, BO_BIND, bo_bind),
->  };
-> 
->  #if defined(__cplusplus)
-> 
-> --
-> 2.54.0
-> 
+>  drivers/gpu/drm/msm/Makefile                   |   1 +
+>  drivers/gpu/drm/msm/dcp/dcp_virtio.h           |  23 +
+>  drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c | 643 +++++++++++++++++++++++++
 
+This is a separate VirtIO host driver. Please move it to drivers/virtio
+like the rest of the VirtIO hosts. It has nothing to do with the drm
+subsystem now.
+
+>  3 files changed, 667 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index 9f0a9bfeb2a7..e1a995a8c980 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -85,6 +85,7 @@ msm-display-$(CONFIG_DRM_MSM_DCP) += \
+>  	dcp/dcp_hfi_plane.o \
+>  	dcp/dcp_ipcc.o \
+>  	dcp/dcp_encoder.o \
+> +	dcp/dcp_virtio_transport.o \
+>  	dcp/hfi/hfi_packer.o \
+>  	dcp/hfi/hfi_unpacker.o \
+>  	dcp/hfi/hfi_utils.o
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.h b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
+> new file mode 100644
+> index 000000000000..a9c3b9aff61d
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
+> @@ -0,0 +1,23 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __DCP_VIRTIO_H__
+> +#define __DCP_VIRTIO_H__
+> +
+> +#include <linux/device.h>
+> +#include <linux/virtio.h>
+> +
+> +struct dcp_drv;
+> +struct dcp_ipcc;
+> +
+> +struct dcp_ipcc *dcp_virtio_get_ipcc(struct virtio_device *vdev);
+
+What is the use for it? The DCP driver should not communicate to the
+IPCC, it's a part of the underlying VirtIO mechanism. If we export DCP
+to the VM there will be no IPCC anymore.
+
+> +
+> +int dcp_virtio_transport_register(void);
+> +void dcp_virtio_transport_unregister(void);
+> +
+> +int dcp_virtio_register(void);
+> +void dcp_virtio_unregister(void);
+
+Unused, remove these two.
+
+> +
+> +#endif /* __DCP_VIRTIO_H__ */
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c b/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c
+> new file mode 100644
+> index 000000000000..02c0e2a9fafe
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio_transport.c
+> @@ -0,0 +1,643 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * Qualcomm DCP VirtIO transport.
+> + */
+> +
+> +#include <linux/acpi.h>
+> +#include <linux/delay.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/highmem.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/list.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm.h>
+> +#include <linux/slab.h>
+> +#include <linux/virtio.h>
+> +#include <linux/virtio_config.h>
+> +#include <uapi/linux/virtio_mmio.h>
+> +#include <linux/virtio_ring.h>
+> +
+> +#include "dcp_ipcc.h"
+> +#include "dcp_virtio.h"
+> +
+> +#define VIRTIO_MMIO_VRING_ALIGN		PAGE_SIZE
+> +
+> +#define to_dcp_virtio_transport(_plat_dev) \
+> +	container_of(_plat_dev, struct dcp_virtio_transport, vdev)
+> +
+> +struct dcp_virtio_transport {
+> +	struct virtio_device vdev;
+> +	struct platform_device *pdev;
+> +
+> +	void __iomem *base;
+> +	unsigned long version;
+> +
+> +	bool wake_irq_enabled;
+> +	struct dcp_ipcc ipcc;
+> +};
+> +
+> +static u64 dcp_virtio_get_features(struct virtio_device *vdev)
+> +{
+> +	struct dcp_virtio_transport *transport = to_dcp_virtio_transport(vdev);
+> +	u64 features;
+> +
+> +	writel(1, transport->base + VIRTIO_MMIO_DEVICE_FEATURES_SEL);
+> +	features = readl(transport->base + VIRTIO_MMIO_DEVICE_FEATURES);
+> +	features <<= 32;
+> +
+> +	writel(0, transport->base + VIRTIO_MMIO_DEVICE_FEATURES_SEL);
+> +	features |= readl(transport->base + VIRTIO_MMIO_DEVICE_FEATURES);
+
+Can we turn virtio-mmio into the library code instead of copy-pasting
+everything here?
+
+> +
+> +	return features;
+> +}
+> +
+
+[...]
+
+> +
+> +	magic = readl(transport->base + VIRTIO_MMIO_MAGIC_VALUE);
+> +	if (magic != ('v' | 'i' << 8 | 'r' << 16 | 't' << 24)) {
+
+Is it really a correct magic here? should it be a different magic as you
+are not just a virtio-mmio?
+
+> +		dev_warn(&pdev->dev, "Wrong magic value 0x%08lx!\n", magic);
+> +		ret = -ENODEV;
+> +		goto err_node;
+> +	}
+> +
+> +	transport->version = readl(transport->base + VIRTIO_MMIO_VERSION);
+> +	if (transport->version < 1 || transport->version > 3) {
+
+Isn't transport version fixed for the DCP purposes? Why do we need to
+determine it again at the runtime?
+
+> +		dev_err(&pdev->dev, "Version %ld not supported!\n",
+> +			transport->version);
+> +		ret = -ENXIO;
+> +		goto err_node;
+> +	}
+> +
+> +	transport->vdev.id.device =
+> +		readl(transport->base + VIRTIO_MMIO_DEVICE_ID);
+> +	if (!transport->vdev.id.device) {
+> +		ret = -ENODEV;
+> +		goto err_node;
+> +	}
+> +	transport->vdev.id.vendor =
+> +		readl(transport->base + VIRTIO_MMIO_VENDOR_ID);
+> +
+> +	if (transport->version == 1) {
+> +		writel(PAGE_SIZE,
+> +		       transport->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
+> +		ret = dma_set_mask(&pdev->dev, DMA_BIT_MASK(64));
+> +		if (!ret)
+> +			ret = dma_set_coherent_mask(&pdev->dev,
+> +						    DMA_BIT_MASK(32 + PAGE_SHIFT));
+> +	} else {
+> +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
+> +	}
+> +	if (ret)
+> +		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> +	if (ret)
+> +		dev_warn(&pdev->dev,
+> +			 "Failed to enable 64-bit or 32-bit DMA. Trying to continue, but this might not work.\n");
+> +
+> +	ret = register_virtio_device(&transport->vdev);
+> +	if (ret) {
+> +		put_device(&transport->vdev.dev);
+> +		dcp_ipcc_deinit(&transport->ipcc);
+> +		platform_set_drvdata(pdev, NULL);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_node:
+> +err_ipcc:
+> +	dcp_ipcc_deinit(&transport->ipcc);
+> +err_free:
+> +	platform_set_drvdata(pdev, NULL);
+> +	return ret;
+> +}
+> +
+> +static void dcp_virtio_transport_remove(struct platform_device *pdev)
+> +{
+> +	struct dcp_virtio_transport *transport = platform_get_drvdata(pdev);
+> +
+> +	unregister_virtio_device(&transport->vdev);
+> +	platform_set_drvdata(pdev, NULL);
+> +	dcp_ipcc_deinit(&transport->ipcc);
+> +}
+> +
+> +static int dcp_virtio_transport_suspend(struct device *dev)
+> +{
+> +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret = virtio_device_freeze(&transport->vdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = dcp_ipcc_enable_irq_wake(&transport->ipcc);
+> +	if (ret)
+> +		goto err_restore;
+> +
+> +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
+> +	if (ret) {
+> +		dcp_ipcc_disable_irq_wake(&transport->ipcc);
+> +		goto err_restore;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_restore:
+> +	virtio_device_restore(&transport->vdev);
+> +	return ret;
+> +}
+> +
+> +static int dcp_virtio_transport_resume(struct device *dev)
+> +{
+> +	struct dcp_virtio_transport *transport = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret = dcp_ipcc_send_power_notify(&transport->ipcc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	dcp_ipcc_disable_irq_wake(&transport->ipcc);
+> +	if (transport->version == 1)
+> +		writel(PAGE_SIZE,
+> +		       transport->base + VIRTIO_MMIO_GUEST_PAGE_SIZE);
+> +
+> +	return virtio_device_restore(&transport->vdev);
+> +}
+> +
+> +static const struct dev_pm_ops dcp_virtio_transport_pm_ops = {
+> +	.suspend = dcp_virtio_transport_suspend,
+> +	.resume = dcp_virtio_transport_resume,
+> +};
+> +
+> +static const struct of_device_id dcp_virtio_transport_of_match[] = {
+> +	{ .compatible = "qcom,dcp-virtio" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, dcp_virtio_transport_of_match);
+> +
+> +static struct platform_driver dcp_virtio_transport_driver = {
+> +	.probe = dcp_virtio_transport_probe,
+> +	.remove = dcp_virtio_transport_remove,
+> +	.driver = {
+> +		.name = "qcom-dcp-virtio",
+> +		.of_match_table = dcp_virtio_transport_of_match,
+> +		.pm = &dcp_virtio_transport_pm_ops,
+> +	},
+> +};
+> +
+> +int dcp_virtio_transport_register(void)
+> +{
+> +	return platform_driver_register(&dcp_virtio_transport_driver);
+> +}
+> +
+> +void dcp_virtio_transport_unregister(void)
+> +{
+> +	platform_driver_unregister(&dcp_virtio_transport_driver);
+> +}
+
+Turn it into a separate driver, use module_platform_driver().
+
+-- 
+With best wishes
+Dmitry
