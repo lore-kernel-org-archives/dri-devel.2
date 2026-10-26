@@ -2,64 +2,103 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91403606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 15:37:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A114F60A2606
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 15:49:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W/wgfmpr
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=shaSTnvu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 053CD10E02C;
-	Mon, 26 Oct 2026 15:37:44 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E62E210E02C;
- Mon, 26 Oct 2026 15:37:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793029058; x=1824565058;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ABzbBfcKkptUCHkSrV+1KuKjKwYsif+aBVWDr4ugau0=;
- b=W/wgfmprl0FBT9ye/4vBCieg5vCFcGjSNC4IFBNzi7bK7LPosgwJvpEM
- CN7BJu1DC3u4LlCbei8oj7uRRMxhtl22X0OLt3cr92BF5F/bZS8V1uxUw
- zXXwHUJyAqgAwCjzXs3FzW8AviN3YQ8HMRgNWUlZqXPsw6uUDtQoRnC7B
- U71h3fp9pjmE9IkKgN/yKD7WPQD376oclgd1caAG0t3/BOUdosfiawuXk
- J5vJF/KNhjniBahNTlFiEhvQjbB45SE97g/iyCIXBKcbpdO7PfnUQSHsx
- Fmc4E47QHYQUP4adh/Tq5IuLqIbuHiBqEbozuQLxXwqm0uHqwuPLZauGC A==;
-X-CSE-ConnectionGUID: A5Pov6d0SlCKaUN6QHv7Lg==
-X-CSE-MsgGUID: aq2AInAFSVa8ABEPu4S0Jg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1711817"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1711817"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2026 08:37:37 -0700
-X-CSE-ConnectionGUID: gJc8ZQ2uROWZbfb52Lw5uw==
-X-CSE-MsgGUID: uhH7Zg1qTROBOaShTRvWmg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4802389"
-Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2026 08:37:36 -0700
-Date: Mon, 26 Oct 2026 16:37:33 +0100
-From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-To: atipre <tipreaditya@gmail.com>
-Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- louis.chauvet@bootlin.com, Karthik B S <karthik.b.s@intel.com>,
- Swati Sharma <swati2.sharma@intel.com>
-Subject: Re: [PATCH i-g-t] tests/kms_writeback: Check CRC capture survives
- writeback
-Message-ID: <20261026153733.fdbw34baxoduq357@kamilkon-DESK.igk.intel.com>
-Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- atipre <tipreaditya@gmail.com>, igt-dev@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
- Karthik B S <karthik.b.s@intel.com>,
- Swati Sharma <swati2.sharma@intel.com>
-References: <20261025182420.52258-1-tipreaditya@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A16C010EFB7;
+	Mon, 26 Oct 2026 15:49:10 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012006.outbound.protection.outlook.com
+ [40.93.195.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4818410E10B;
+ Mon, 26 Oct 2026 15:49:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QKd0Iim2574UeKN4oYEhS7K4T6OuwTARjwli9WJzQeNE8TXfraQHIGVwuL362qw3H08ZfuNz4QWjOiZ0edp7mf0/GtW0wcUWnyHWD9QFKQVrVIo6KZoVoHjgviLWdOVVlkiQWDsdWq61Ga2EMELrIS4Yc2VLivbAOFsWOOYFK6GIzTzVF1+dBRMVd9CTs/Qeb9AY63pkTe1oVwqKMC0TjAwjDVVKJQym+Tm2sZ2b5p5iKTMyM/D2WWt0EJUgxuWIkyLaiJKY5FBtMUI6WwEuq+OaCHRsZMMl9fuJOO98P3zfShNDWhYuRshtoB4F5VlqXbTAlyHMTLWO6fXpbewPLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5zZecloCTSpg37x6b5RH9F2IkJlaCw2rwn33pgqJ0CU=;
+ b=KSEDfrUIBznRKgtHzadkA6GNT4ssC92Lj/q5H41+ddczrVhquTRYiJ2FBKZdkdlA1qHO4EaHj9dTC0UqIxzHpXDFYvpBpA1p1UTqfQRxMCdCADavKbxweOa9f8tUq4jW74rTPHA9Eyd5nSSZDExwK+gGPXIpdMGMjsFg8+hFDY6YjpdjaL5wOX/3orXRFFP1aR/Is/ZtpPv3L+edHAG67C9bGsOIo7CwzxHQ5/NAkRIyCQuhaqPUQJxPrKbHRJ0NkQ8L+SN2c6GVTgO9wWRzsMNgV7hWnA9YdrBme0P8Keeaxgxltmq03T6k/8rl/GjF/7KEqYscpwi3hZjRwYWsLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5zZecloCTSpg37x6b5RH9F2IkJlaCw2rwn33pgqJ0CU=;
+ b=shaSTnvug0rqhiYHXRFCDV+nzrEB9UbPY5o2daOPwnUg8s+bZEg98bL2EbduuUQYq+YGcpqKpLoDItrd4HF7ZQ6aflRYQCUJcMK+m2Y0ILxJc52uxJA7B2tDWmKASLIqYFqmlUJvp6/m986BhQ+CJupKDPTdgYsvS9ST2Ah5Cfg=
+Received: from SJ2PR07CA0008.namprd07.prod.outlook.com (2603:10b6:a03:505::8)
+ by CY0PR12MB708545.namprd12.prod.outlook.com (2603:10b6:930:130::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 15:49:01 +0000
+Received: from SJ1PEPF000037A0.namprd04.prod.outlook.com
+ (2603:10b6:a03:505:cafe::7) by SJ2PR07CA0008.outlook.office365.com
+ (2603:10b6:a03:505::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon,
+ 26 Oct 2026 15:49:01 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000037A0.mail.protection.outlook.com (10.167.244.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Mon, 26 Oct 2026 15:49:01 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 26 Oct
+ 2026 10:49:00 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Mon, 26 Oct 2026 10:48:32 -0500
+Subject: [PATCH v3 1/3] PCI: Preserve the initial bus number in pci_bus
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261025182420.52258-1-tipreaditya@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261026-vfct-regression-v3-1-fe9586ed6978@amd.com>
+References: <20261026-vfct-regression-v3-0-fe9586ed6978@amd.com>
+In-Reply-To: <20261026-vfct-regression-v3-0-fe9586ed6978@amd.com>
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A0:EE_|CY0PR12MB708545:EE_
+X-MS-Office365-Filtering-Correlation-Id: cae83bc4-801a-4f0b-689a-08df3378a80e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|261026140227099003|11063799006|56012099006|261026121527099003|10067099003|261022105027099003|261021121427099003|261022075727099003|261009223027099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: /SU+HaX2tiyDU+Kdj7G5WPUseGnOhTeDVsDn9x8mrjBty+bIGRjfdrgrZ+XBsmJk/PTozMoaUSVMAknXxGOU0MreuM02r7y1qz7Ujg2lniUu/KRGi98lV2U00GIwqZDg7rTyoiIIwts3TcA16jfM/6IVzJAPy84+gJfclo1ElrF2qVFafDR8vR1rGwCpN86gHvOmO0ViETVxzf++rRFKi60P3j4kuTXkub8gYzhCHqftRv88k5wYwGd8WwB+Ic5xi1q3I6QGogTjLeBtl5RnFPb6f4+/F7Mnk8xLq+ppBzFg2V6gL30U6W4FjsBt65pDCTe9Y8N4lJd09ZEDNbmUTAX+zRqdqU4nHUbHLUtwxCWAd9qVRFQtTuRoAMwS2SrbGgURz0so7Xxhl+uFWvJZiMvpGDFHk2IelAlrVvcWmLQT0FzImWBhA63JdEw+K0Vw+hckhmbOX1z/MbIB2ihmQtk5+7bFfcVkzS/OgwD5y+NKr2IS0Ev9TqhAWGbV4PVEuFlUFKDwm/+zCd4pPPFD1OOt19PPVomQ4R1kEkHHgz+4xsqv2OEiSTnWctYTS6YDysRnGflqcqBi5JG5SMvIB07YijZXbyPqmuKMDpISnIE1zr4rM/tZY3frlD7scvK2lV3uo3t1Kh6sDSMLsKzkF8edj7zdKAP8vXC1abd1eGvjAmdAJHBn9Z07AI25mdzKefVLC/bxJpZvzgof2QQYSA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(261026140227099003)(11063799006)(56012099006)(261026121527099003)(10067099003)(261022105027099003)(261021121427099003)(261022075727099003)(261009223027099003)(22082099003)(18002099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: u7yqwbqZAxRmRu/k3x3ehlwhVQytv/wit6EIx1kr3kz1IDJ8x/6nQNXZhBHBrehaWmuxqu4K3AlI9QmDLTv208z6kslBg5QTjn15bLQ+lBheoJ4LxSthyPXm2Cpu6y0xTI0i3I6Bu3PBrCrdhWVa81lq1Tq/Ll9K6urFeIpUCPxhxnjT+E5GDmIEa+dykndgHNpLvQPH5GlxQnWxwdTwQ0ezE/ZhdFkD4RmTzrRDtW1qWCnEib6qwKCZ8JdTFSv0+fvb/3LUXPYbFbhxo8p18Fnv2ITUnmDTmA480RSjM7bOEJFmZ+QkhvbMkXBQvYz0TaFqr8c8EDzoLn5IhaMj2r+IdzXgjojXdSisain1DSqcjXt6k8Hv6Ywvan3bb3W1L0zmL6rAt+a+bsIV5Ojp/C6+cMmN59GN99KB+KOPMHYsnCfAylNZAG9VpTnFm5BB
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 15:49:01.7236 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cae83bc4-801a-4f0b-689a-08df3378a80e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037A0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY0PR12MB708545
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,155 +110,98 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi atipre,
-On 2026-10-25 at 14:24:20 -0400, atipre wrote:
-> The existing writeback tests validate captured framebuffer contents, but
-> do not keep pipe CRC capture active across writeback completion. This
-> misses the VKMS bug where writeback cleanup disables the composer while
-> CRC capture still needs it, leaving subsequent CRC reads waiting for
-> samples that never arrive.
-> 
-> Add writeback-preserves-crc. Complete the initial modeset before starting
-> capture and establish reference CRCs for separate red and blue input
-> framebuffers. Keep capture open across four alternating writebacks, wait
-> for each output fence, and compare three fresh CRC samples with the
-> corresponding reference after each writeback. Use atomic updates without
-> ALLOW_MODESET once capture starts, and release capture from the final
-> fixture so a failed subtest also closes it.
-> 
-> Check output fence status in the shared wait helper so a signalled error
-> fence cannot be treated as a successful writeback.
-> 
-> On ARM64 QEMU with one and two CPUs, the new subtest fails on unmodified
-> mainline and passes with the local VKMS composer-user lifetime
-> fix. Four existing applicable writeback subtests pass on both kernels;
-> the two XRGB2101010 subtests skip because the format probe rejects them.
-> 
-> Signed-off-by: atipre <tipreaditya@gmail.com>
+Bridges that need bus reassignment are scanned in two passes. Save
+the firmware secondary bus number during the first pass, before the
+bridge is disabled, and carry it to the bus created in the second
+pass. Drivers can then match firmware records against the bus number
+from before PCI bus renumbering.
 
-It would be preferable to have Full Name instead of nick,
-should this be:
-Signed-off-by: Tipre Aditya <tipreaditya@gmail.com>
-?
+The initial number belongs to the bus, so consumers can use the
+pci_bus value directly without copying it into every pci_dev.
 
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/pci/probe.c | 9 +++++++++
+ include/linux/pci.h | 2 ++
+ 2 files changed, 11 insertions(+)
 
-If yes, add also same From: at beginnig or configure your git.
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 27008e2ea5afc..9950a9dd1db1f 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -1012,6 +1012,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+ 	bus->sysdata = bridge->sysdata;
+ 	bus->ops = bridge->ops;
+ 	bus->number = bus->busn_res.start = bridge->busnr;
++	bus->number_initial = bus->number;
+ #ifdef CONFIG_PCI_DOMAINS_GENERIC
+ 	if (bridge->domain_nr == PCI_DOMAIN_NR_NOT_SET)
+ 		bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
+@@ -1232,6 +1233,7 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
+ 
+ 	/* Set up the primary, secondary and subordinate bus numbers */
+ 	child->number = child->busn_res.start = busnr;
++	child->number_initial = busnr;
+ 	child->primary = parent->busn_res.start;
+ 	child->busn_res.end = 0xff;
+ 
+@@ -1470,6 +1472,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 			child = pci_add_new_bus(bus, dev, secondary);
+ 			if (!child)
+ 				goto out;
++			child->number_initial = secondary;
+ 			child->primary = primary;
+ 			pci_bus_insert_busn_res(child, secondary, subordinate);
+ 			child->bridge_ctl = bctl;
+@@ -1491,6 +1494,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 		 * do in the second pass.
+ 		 */
+ 		if (!pass) {
++			if (!dev->secondary_busnr)
++				dev->secondary_busnr = secondary;
+ 			if (pcibios_assign_all_busses() || broken)
+ 
+ 				/*
+@@ -1529,6 +1534,10 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+ 			pci_bus_insert_busn_res(child, next_busnr,
+ 						bus->busn_res.end);
+ 		}
++		if (dev->secondary_busnr) {
++			child->number_initial = dev->secondary_busnr;
++			dev->secondary_busnr = 0;
++		}
+ 		max++;
+ 		if (available_buses)
+ 			available_buses--;
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 5ffcf5ce8c966..75a5fd2374acb 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -363,6 +363,7 @@ struct pci_dev {
+ 	struct pci_slot	*slot;		/* Physical slot this device is in */
+ 
+ 	unsigned int	devfn;		/* Encoded device & function index */
++	u8		secondary_busnr;	/* Original secondary bus number */
+ 	unsigned short	vendor;
+ 	unsigned short	device;
+ 	unsigned short	subsystem_vendor;
+@@ -724,6 +725,7 @@ struct pci_bus {
+ 	struct proc_dir_entry *procdir;	/* Directory entry in /proc/bus/pci */
+ 
+ 	unsigned char	number;		/* Bus number */
++	unsigned char	number_initial;	/* Bus number before reassignment */
+ 	unsigned char	primary;	/* Number of primary bridge */
+ 	unsigned char	max_bus_speed;	/* enum pci_bus_speed */
+ 	unsigned char	cur_bus_speed;	/* enum pci_bus_speed */
 
-+cc Swati and Karthik
-Cc: Karthik B S <karthik.b.s@intel.com>
-Cc: Swati Sharma <swati2.sharma@intel.com>
+-- 
+2.43.0
 
-Regards,
-Kamil
-
-> ---
->  tests/kms_writeback.c | 62 +++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 62 insertions(+)
-> 
-> diff --git a/tests/kms_writeback.c b/tests/kms_writeback.c
-> index 7c30e8e..71317cf 100644
-> --- a/tests/kms_writeback.c
-> +++ b/tests/kms_writeback.c
-> @@ -64,6 +64,10 @@
->   *
->   * SUBTEST: writeback-pixel-formats
->   * Description: Check the writeback format
-> + *
-> + * SUBTEST: writeback-preserves-crc
-> + * Description: CRC capture remains active across completed writebacks
-> + * Driver requirement: i915, xe, vkms
->   */
->  
->  IGT_TEST_DESCRIPTION(
-> @@ -317,6 +321,7 @@ static void get_and_wait_out_fence(igt_output_t *output)
->  
->  	ret = sync_fence_wait(output->writeback_out_fence_fd, 1000);
->  	igt_assert_f(ret == 0, "sync_fence_wait failed: %s\n", strerror(-ret));
-> +	igt_assert_eq(sync_fence_status(output->writeback_out_fence_fd), 1);
->  	close(output->writeback_out_fence_fd);
->  	output->writeback_out_fence_fd = -1;
->  }
-> @@ -537,6 +542,7 @@ int igt_main_args("b:c:f:dl", long_options, help_str, opt_handler, NULL)
->  	igt_output_t *output;
->  	igt_plane_t *plane;
->  	igt_fb_t input_fb, input_fb_10bit;
-> +	static igt_pipe_crc_t *pipe_crc;
->  	drmModeModeInfo mode;
->  	unsigned int fb_id;
->  	int ret;
-> @@ -709,7 +715,63 @@ int igt_main_args("b:c:f:dl", long_options, help_str, opt_handler, NULL)
->  		igt_remove_fb(display.drm_fd, &output_fb);
->  	}
->  
-> +	igt_describe("CRC capture remains active across completed writebacks");
-> +	igt_subtest("writeback-preserves-crc") {
-> +		igt_fb_t blue_fb, output_fb;
-> +		igt_fb_t *colors[] = { &input_fb, &blue_fb };
-> +		igt_crc_t reference[2], crc;
-> +		int i, j;
-> +
-> +		igt_skip_on(data.dump_check || data.list_modes);
-> +		igt_require(data.supported_colors & XRGB8888);
-> +		igt_require_pipe_crc(display.drm_fd);
-> +
-> +		igt_create_color_fb(display.drm_fd, mode.hdisplay, mode.vdisplay,
-> +				    DRM_FORMAT_XRGB8888, DRM_FORMAT_MOD_LINEAR,
-> +				    0.0, 0.0, 1.0, &blue_fb);
-> +		igt_create_fb(display.drm_fd, mode.hdisplay, mode.vdisplay,
-> +			      DRM_FORMAT_XRGB8888, DRM_FORMAT_MOD_LINEAR,
-> +			      &output_fb);
-> +		fill_fb(&input_fb, 0x00ff0000);
-> +		igt_plane_set_fb(plane, &input_fb);
-> +		igt_output_set_writeback_fb(output, NULL);
-> +		igt_display_commit_atomic(&display, DRM_MODE_ATOMIC_ALLOW_MODESET, NULL);
-> +
-> +		/* Finish the modeset before starting continuous CRC capture. */
-> +		pipe_crc = igt_pipe_crc_new(display.drm_fd, output->config.crtc_index,
-> +					    IGT_PIPE_CRC_SOURCE_AUTO);
-> +		igt_pipe_crc_start(pipe_crc);
-> +
-> +		/* Establish both references before writeback can affect capture. */
-> +		for (i = 0; i < ARRAY_SIZE(colors); i++) {
-> +			igt_plane_set_fb(plane, colors[i]);
-> +			igt_display_commit_atomic(&display, 0, NULL);
-> +			igt_pipe_crc_get_current(display.drm_fd, pipe_crc, &reference[i]);
-> +		}
-> +
-> +		for (i = 0; i < 4; i++) {
-> +			int color = i % ARRAY_SIZE(colors);
-> +
-> +			igt_plane_set_fb(plane, colors[color]);
-> +			igt_output_set_writeback_fb(output, &output_fb);
-> +			igt_display_commit_atomic(&display, 0, NULL);
-> +			get_and_wait_out_fence(output);
-> +
-> +			/* Require fresh frames without stopping or restarting capture. */
-> +			for (j = 0; j < 3; j++) {
-> +				igt_pipe_crc_get_current(display.drm_fd, pipe_crc, &crc);
-> +				igt_assert_crc_equal(&reference[color], &crc);
-> +			}
-> +		}
-> +
-> +		igt_plane_set_fb(plane, &input_fb);
-> +		igt_display_commit_atomic(&display, 0, NULL);
-> +		igt_remove_fb(display.drm_fd, &blue_fb);
-> +		igt_remove_fb(display.drm_fd, &output_fb);
-> +	}
-> +
->  	igt_fixture() {
-> +		igt_pipe_crc_free(pipe_crc);
->  		cleanup_writeback(&display, output);
->  		igt_remove_fb(display.drm_fd, &input_fb);
->  
-> 
-> base-commit: bb76404eac7032ba85c53eac15b76e4fadaff0de
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
