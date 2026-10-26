@@ -2,42 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24AF606A320
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 20:14:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F13606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 20:16:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5367NdD
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=mj3hWv+h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E6BA10F11E;
-	Mon, 26 Oct 2026 20:14:26 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4F510F120
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 20:14:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 24735415DA;
- Mon, 26 Oct 2026 20:14:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6EB21F01825;
- Mon, 26 Oct 2026 20:14:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793045659;
- bh=ueSkdDEiPmgQG7zb4RyC7y2axiBFPfc/Lp4D710xmX0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=n5367NdDWFsPJtBph/r8cP59SwgTAV0Aic2D6CoAt49Z+uRV9O77oY9vQHzsYKDBE
- 8LLpzlbG6dANaGJ/gtOvqjYj/h8AJ7BjBDoxizG35nPHNc5oVVlWpVGO66yGL+M1oW
- BjQ6Lyic2fp9OxbR/EHtzraemzW8mJq8bDo6/mj5qZTHohPHxcC83t31f/jqHsEwWU
- pzCl5z+fz6me4yvZYZQnrwcZ5vr4RgnJrIGY9IR3g10m75NesqfLe6VaWm8fbtY6OF
- /t/EvCVQa76wR6vJsRYgcUJJFhjm8rgqHT9p5vD3LkOXJD3vAuIuw7J0wocHdAsXrC
- R9vqqLxF2OChg==
-Message-ID: <sashiko-outbox-185705@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/gud: move format init from gud_probe()
-To: "Ruben Wauters" <rubenru09@aol.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261026200739.18523-2-rubenru09@aol.com>
-References: <20261026200739.18523-2-rubenru09.ref@aol.com>
- <20261026200739.18523-2-rubenru09@aol.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 20:14:18 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B799B89336;
+	Mon, 26 Oct 2026 20:16:50 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14DD410F132;
+ Mon, 26 Oct 2026 20:16:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=5tCDDqUS49+X8b9tPNWi92TBAJVHzJOzj7MBEX71PqM=; b=mj3hWv+h6o8426SOEqQIRbHs1g
+ TzgQ/rOn8av03nSwmOUQWVGFW0H0KaoGDt+x6xgWo96umiOicdH+Q/7io15KAvEvKIzPR59nT1f24
+ Wd9HBvAmZ6i4mth5iOkYdi0f7x0zi2zEsGfNS7/dUu/UsBlv6977Sy7He5Efp5hjSD+n7FbR4iEdF
+ /O+lzT+CWTEsbZI5W4swL+6KGh+CpwjGQjo+UwwnBBX+yVw/nobehb8R9M4f395p3qISzVKJIezma
+ R4j+ME2BY7hGu2tBBcbAWudBjSdjGg3UoRE4M+KH7eLFvTCwzNcl7KZrfvrCXKdZYQusxsS7cfpuM
+ ofG2M/KQ==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
+ helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xLR7Z-00B3Rg-2b; Mon, 26 Oct 2026 21:16:41 +0100
+Message-ID: <ee303a21-32f9-42ed-a351-35a23d6de202@Igalia.com>
+Date: Mon, 26 Oct 2026 13:16:34 -0700
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Add null DC check to hpd init
+From: John Harrison <John.Harrison@Igalia.com>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Mattia Tadini <info@mtsistemi.it>,
+ Roman Li <roman.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Alex Hung <alex.hung@amd.com>, George Zhang <george.zhang@amd.com>,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>, Leo Li <sunpeng.li@amd.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Geoffrey McRae <geoffrey.mcrae@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
+References: <20261022173154.2318054-1-John.Harrison@Igalia.com>
+ <atsRYJ7XTBY987fr@aesteve-thinkpadp1gen8.rmtes.csb>
+ <e076014e-b461-4e27-8220-709722b73ceb@Igalia.com>
+Content-Language: en-GB
+In-Reply-To: <e076014e-b461-4e27-8220-709722b73ceb@Igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,154 +60,144 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/gud: unsigned num_formats in gud_probe() misses errors and cau=
-ses OOB read
-- [Medium] drm/gud: gud_get_max_buffer_size() sizes buffer using emulated X=
-RGB8888
---
+On 10/26/26 11:57, John Harrison wrote:
+> On 10/23/26 00:48, Albert Esteve wrote:
+>> Hi John,
+>>
+>> On Thu, Oct 22, 2026 at 10:31:54AM -0700, John Harrison wrote:
+>>> A bunch of the KUNIT tests (dm_test_hpd_init_*) expect that the init
+>>> function can be called with adev->dm.dc set to null. Indeed, the
+>>> dm_test_hpd_init_fini_with_connectors test has a comment explicitly
+>>> saying that the null is intentional. Unfortunately, since the patch
+>>> mentioned below, the first thing that the init function does is access
+>>> adev->dm.dc->link_count. Thus it is a null pointer dereference and a
+>>> boom (at least if running with KASAN).
+>>>
+>>> I'm not sure if a null DC can ever occur outside of the KUNIT tests,
+>>> but there is presumably a reason for the KUNITs explicitly testing it.
+>>> So add a null check around the link_count loop.
+>> This feels backwards reasoning. The tests assume in comments that
+>> "a NULL dc that fallback is a safe no-op", which isn't true after
+>> commit e38159437a91. Also, in amdgpu_dm_init() the DC is created and
+>> checked, and if it is NULL errors out. Thus, DC is never NULL at
+>> amdgpu_dm_hpd_init() in production.
+>>
+>> The fix should be in the tests, maybe allocating a stub with
+>> link_count 0?
+> I was meaning the later comment "DC is absent (NULL), so the HW writes 
+> are NULL-safe no-ops.". To me that reads as the test is explicitly 
+> checking that a NULL DC is safe. Also, the 
+> dm_test_hpd_init_empty_connectors test says "init must complete 
+> without touching the DC". Which also seems to be saying that a null DC 
+> is a valid thing to happen and must be allowed.
+>
+> If you are certain that there is never a possibility nor a reason for 
+> having a null DC in reality, then sure, the tests can be updated 
+> instead. This is not code I am especially familiar with - I'm just 
+> trying to run the tests to ensure that other changes don't break 
+> existing drivers. I just don't want to go removing test coverage 
+> simply because a driver change breaks a test - that is generally the 
+> backwards direction!
+>
+> John.
+I'm finding more and more tests that explicitly test a null DC. Also, a 
+stub DC with a link_count of zero is not sufficient. All the IRQ code 
+goes boom trying to configure interrupts because dc->res_pool->irqs is 
+dc->[null]->[null]. Hacking up a fake res_pool and a fake irq structure 
+would presumably be possible but then the driver will be attempting to 
+enable interrupts in a non-hardware kunit test. I haven't gone further 
+than that to see if anything else goes boom with a partial DC yet.
 
-commit 19e6d0cc37d9a0a4a7292d2a1f0cf5690fddd459
-Author: Ruben Wauters <rubenru09@aol.com>
+It seems like trying to force a fake DC is an unravelling thread that 
+will mean a lot of changes to a lot of tests and maybe to the driver too.
 
-drm/gud: move format init from gud_probe()
+As the driver currently stands, the tests explode with null pointer 
+dereferences. Fixing up the one patch that broke a fundamental 
+requirement of so many tests by adding a simple null-pointer check and 
+returning the original functionality seems like a sensible first step. 
+We get the test coverage back with no real downside to the driver. If 
+the people that really know this code want to do a more involved fix 
+then that is up to them to decide how it should be done.
 
-This commit refactors pixel format initialization out of gud_probe() into
-dedicated helper functions gud_get_formats() and gud_get_max_buffer_size().
+John.
 
-> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-> index 680447f426f37..278cc9bf68d02 100644
-> --- a/drivers/gpu/drm/gud/gud_drv.c
-> +++ b/drivers/gpu/drm/gud/gud_drv.c
-> @@ -435,11 +435,123 @@ static void gud_free_buffers_and_mutex(void *data)
->  	mutex_destroy(&gdrm->ctrl_lock);
->  }
-> =20
-> -static int gud_probe(struct usb_interface *intf, const struct usb_device=
-_id *id)
-> +static size_t gud_get_max_buffer_size(struct gud_device *gdrm, u32 *form=
-ats, u32 num_formats)
-> +{
-> +	struct drm_device *drm =3D &gdrm->drm;
-> +	size_t max_buffer_size =3D 0;
-> +	size_t fmt_buf_size;
-> +	int i;
-> +
-> +	for (i =3D 0; i < num_formats; i++) {
-> +		const struct drm_format_info *info =3D drm_format_info(formats[i]);
-> +
-> +		fmt_buf_size =3D drm_format_info_min_pitch(info, 0, drm->mode_config.m=
-ax_width) *
-> +							 drm->mode_config.max_height;
-> +		max_buffer_size =3D max(max_buffer_size, fmt_buf_size);
-> +	}
-> +
-> +	/* GUD_DRM_FORMAT_R1 and GUD_DRM_FORMAT_XRGB1111 are not in the formats=
- array. */
-> +	/* Ensure there is enough space for them. */
-> +	fmt_buf_size =3D drm_format_info_min_pitch(&gud_drm_format_r1, 0,
-> +						 drm->mode_config.max_width) *
-> +						 drm->mode_config.max_height;
-> +	max_buffer_size =3D max(max_buffer_size, fmt_buf_size);
-> +
-> +	fmt_buf_size =3D drm_format_info_min_pitch(&gud_drm_format_xrgb1111, 0,
-> +						 drm->mode_config.max_width) *
-> +						 drm->mode_config.max_height;
-> +	max_buffer_size =3D max(max_buffer_size, fmt_buf_size);
-> +
-> +	return max_buffer_size;
-> +}
+>
+>> BR,
+>> Albert
+>>
+>>> Fixes: e38159437a91 ("drm/amd/display: only clear the hotplug 
+>>> sources the ASIC has")
+>>> Cc: Mattia Tadini <info@mtsistemi.it>
+>>> Cc: Roman Li <roman.li@amd.com>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: Alex Hung <alex.hung@amd.com>
+>>> Cc: George Zhang <george.zhang@amd.com>
+>>> Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+>>> Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>
+>>> Cc: Leo Li <sunpeng.li@amd.com>
+>>> Cc: "Timur Kristóf" <timur.kristof@gmail.com>
+>>> Cc: Albert Esteve <aesteve@redhat.com>
+>>> Cc: Geoffrey McRae <geoffrey.mcrae@amd.com>
+>>> Cc: Harry Wentland <harry.wentland@amd.com>
+>>> Signed-off-by: John Harrison <John.Harrison@Igalia.com>
+>>> ---
+>>>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 26 
+>>> ++++++++++---------
+>>>   1 file changed, 14 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c 
+>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+>>> index 5b4ff079cd55..427f7bba343d 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+>>> @@ -989,18 +989,20 @@ void amdgpu_dm_hpd_init(struct amdgpu_device 
+>>> *adev)
+>>>        * has rather than over the whole enum: the unused slots of 
+>>> the DC
+>>>        * interrupt table hold dummy handlers that assert when touched.
+>>>        */
+>>> -    for (i = 0; i < adev->dm.dc->link_count; i++) {
+>>> -        const struct dc_link *link = adev->dm.dc->links[i];
+>>> -
+>>> -        if (link->irq_source_hpd != DC_IRQ_SOURCE_INVALID &&
+>>> -            !amdgpu_dm_irq_set(adev, link->irq_source_hpd, false))
+>>> -            drm_err(dev, "Failed to clear hpd source=%d on init\n",
+>>> -                link->irq_source_hpd);
+>>> -
+>>> -        if (link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID &&
+>>> -            !amdgpu_dm_irq_set(adev, link->irq_source_hpd_rx, false))
+>>> -            drm_err(dev, "Failed to clear hpdrx source=%d on init\n",
+>>> -                link->irq_source_hpd_rx);
+>>> +    if (adev->dm.dc) {
+>>> +        for (i = 0; i < adev->dm.dc->link_count; i++) {
+>>> +            const struct dc_link *link = adev->dm.dc->links[i];
+>>> +
+>>> +            if (link->irq_source_hpd != DC_IRQ_SOURCE_INVALID &&
+>>> +                !amdgpu_dm_irq_set(adev, link->irq_source_hpd, false))
+>>> +                drm_err(dev, "Failed to clear hpd source=%d on 
+>>> init\n",
+>>> +                    link->irq_source_hpd);
+>>> +
+>>> +            if (link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID &&
+>>> +                !amdgpu_dm_irq_set(adev, link->irq_source_hpd_rx, 
+>>> false))
+>>> +                drm_err(dev, "Failed to clear hpdrx source=%d on 
+>>> init\n",
+>>> +                    link->irq_source_hpd_rx);
+>>> +        }
+>>>       }
+>>>         drm_connector_list_iter_begin(dev, &iter);
+>>> -- 
+>>> 2.43.0
+>>>
+>
 
-[Severity: Medium]
-Does gud_get_max_buffer_size() end up computing max_buffer_size for a 32-bpp
-format regardless of the formats supported by the device?
-
-Previously in gud_probe(), max_buffer_size was calculated inside the loop o=
-ver
-formats_dev before the emulated DRM_FORMAT_XRGB8888 was appended to formats=
-[],
-because XRGB8888 framebuffers are converted down to
-gdrm->xrgb8888_emulation_format in bulk_buf.
-
-With this change, gud_get_formats() appends DRM_FORMAT_XRGB8888 to formats[]
-before gud_get_max_buffer_size() is called:
-
-	if (!xrgb8888_supported && xrgb8888_emulation_format) {
-		gdrm->xrgb8888_emulation_format =3D xrgb8888_emulation_format;
-		formats[num_formats++] =3D DRM_FORMAT_XRGB8888;
-	}
-
-Since every valid format returned by gud_to_fourcc() is either already 32-b=
-pp
-(DRM_FORMAT_XRGB8888, DRM_FORMAT_ARGB8888) or sets xrgb8888_emulation_forma=
-t,
-formats[] always contains a 32-bpp format when passed to
-gud_get_max_buffer_size(). As a result, when desc.max_buffer_size is not se=
-t,
-gdrm->bulk_buf and gdrm->compress_buf are sized for 4 bytes per pixel even =
-on
-devices that only support smaller wire formats (such as R1, XRGB1111, R8,
-RGB332, or RGB565), and the subsequent max() checks for gud_drm_format_r1 a=
-nd
-gud_drm_format_xrgb1111 become no-ops.
-
-[ ... ]
-
-> +static int gud_probe(struct usb_interface *intf, const struct usb_device=
-_id *id)
-> +{
-> +	unsigned int num_formats =3D 0;
-
-[ ... ]
-
-> @@ -510,81 +621,16 @@ static int gud_probe(struct usb_interface *intf, co=
-nst struct usb_device_id *id)
->  	drm->mode_config.helper_private =3D &gud_mode_config_helpers;
-> =20
->  	/* Format init */
-> -	formats_dev =3D devm_kmalloc(dev, GUD_FORMATS_MAX_NUM, GFP_KERNEL);
->  	/* Add room for emulated XRGB8888 */
->  	formats =3D devm_kmalloc_array(dev, GUD_FORMATS_MAX_NUM + 1, sizeof(*fo=
-rmats), GFP_KERNEL);
-> -	if (!formats_dev || !formats)
-> +	if (!formats)
->  		return -ENOMEM;
-> =20
-> -	ret =3D gud_usb_get(gdrm, GUD_REQ_GET_FORMATS, 0, formats_dev, GUD_FORM=
-ATS_MAX_NUM);
-
-[ ... ]
-
-> +	num_formats =3D gud_get_formats(gdrm, formats);
-> +	if (num_formats <=3D 0)
-> +		return num_formats;
-> =20
-> +	max_buffer_size =3D gud_get_max_buffer_size(gdrm, formats, num_formats);
-
-[Severity: High]
-Since num_formats is declared as unsigned int in gud_probe(), won't negative
-error codes returned by gud_get_formats() (such as -ENOMEM, -EINVAL, or an
-error from gud_usb_get()) wrap to a large positive value?
-
-When gud_get_formats() fails, the check if (num_formats <=3D 0) evaluates to
-false (and triggers a -Wtype-limits warning), causing gud_probe() to pass t=
-he
-wrapped unsigned value into gud_get_max_buffer_size() and read past the end=
- of
-the formats[] array in the loop over num_formats. Should num_formats be a
-signed int (or assigned via ret first)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026200739.1852=
-3-2-rubenru09@aol.com?part=3D1
