@@ -2,44 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 105F9606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:39:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2106606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:41:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMnebJM5
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VtzxTUpx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3A210E1AB;
-	Mon, 26 Oct 2026 07:39:51 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24A6410E1AB;
- Mon, 26 Oct 2026 07:39:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BC5FE434BE;
- Mon, 26 Oct 2026 07:39:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591451F01825;
- Mon, 26 Oct 2026 07:39:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793000384;
- bh=5RVBbrUO/utme8eFXIXPzSpA0Nz6zTQIANbgxZjHxsI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bMnebJM5Cyqrc15+7DLiddBcaAOut22ltldid3SyR6MZZcMeXP9vg/NY2OFsgD40O
- x6djMe2Mxd//y5gTCbGgbog4AnJttAe2ZPrb1u8JfRNjOBdsIwrlwRF8c2Le1SUgTY
- mxOxks5c9kn+H4HGYUiqA8nWBTqkePYoyocDTSzT+jy1SRPMrziy9NHFXyl45vpDc7
- 09XNJYWEHHz5A/0xKmwUEOr+NUYwESueYYgk1krA1nFVfGoVsirYTCZcQ//Yf1TDZ2
- q0mnY/OZwDGw/geInMYkkAepD2A/Ml8oLqYgotj5LwGj1b5B0iQPhSbDk3xx6EveB+
- y8xScHtZ/7eDQ==
-Message-ID: <sashiko-outbox-184662@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/26] dma-buf: Let the exporter select mapping type at
- pin/map
-To: "Alistair Popple" <apopple@nvidia.com>, dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- media-ci@linuxtv.org
-In-Reply-To: <20261026053623.202642-6-apopple@nvidia.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
- <20261026053623.202642-6-apopple@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 07:39:43 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F5E210EBF5;
+	Mon, 26 Oct 2026 07:41:26 +0000 (UTC)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E1A610EBF5
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 07:41:20 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-3ab3b29a210so25093361fa.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 00:41:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1793000479; x=1793605279; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=h88WcqDPqZBUi5FkapMuvsXDFtP2x22CkYcuFL5W6bs=;
+ b=VtzxTUpxy5rPMaNjumxBhBuk5QO2s+bnAFlRmxcN5EbSDqr/2hxdmLVDU4VM83u1vf
+ tB0bfFxQTkufbtlt7zfCKnaL3D9GQQ2Q0geFirVeRbNM1tAtxcWNsfyowCEj8wOIG4Vr
+ HD1OWxOSdf39QF+f7418bt7d8L5DJ5YlSLnxzUips9d0zYM8LZ4oeVTXTxKK/Btzujl2
+ Ag2sowYwHQpdSRucHAUqdt+T4RdRlQNznClYhQ51w2OTXRBISfyOyCNdHxp2f4H+Jtzt
+ 9WMh6OkafoCCnvKe9mbtfMHV+cuuOuJdH9i8y5WsyKZyTtjku/NAGdv5T54z2/JPgHAY
+ CwGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793000479; x=1793605279;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=h88WcqDPqZBUi5FkapMuvsXDFtP2x22CkYcuFL5W6bs=;
+ b=cIpEQL7k3upvxIYtXoIwStH8JpayYgDgtQgzvbcnrXWj7j1Jd8IR29uLiTwVTfPU9p
+ LpV0l66mB9biqydpQXuB9C9PtrhmyVo5wXGxT8bMqesL96ArUhJL+vv2C3XomT0Vcvdq
+ 6km639sxPf1WuHhyhPWSnHG9JmuzG/RMvNuVKIh6DP4hmVgvH4OqpLG4DlfJe1KQbV6W
+ DfGZW/LAtaMmDMKh/ihkCMq7M0qoiTFv/4wOLPROXLdIAX3EueYoazhRDdz8U5O87Vum
+ vFkNg9sg88N+fidJSncgZTrlC687Jw9VI/UMPsOFL3JLmNwed6y9xTaKT48pb3qJxR7D
+ /4Ig==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxhNFhlqS02GMIG1Vt2aMqtG7Mr+s0Zir5e7ZGX5rqJxGqpAFdHPwlIpuEsKVyohShQPjyx2yL/+BE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLEPrGNZQL1FB/BN7vrRPk+AerLLK6N66bNP6WYHuL8fxqDmSv9
+ uSyqrFrcku0wZR10yfxmvRClFXvy7ayin5xXmRJbN2gb1ihHDcalTQJd
+X-Gm-Gg: AYBFou3DT7FgF4fP9G5F66//4CHg+oRgR3IPZuNnW3w4GskmznyFA0hM62mqMt8HxHP
+ vDhU9HJu4rVr5VCwYAvc+wQHWIgraRPH0YnQpf89nqzRXRcV7gLDppbmDgb9d5ayOD6uujBArnc
+ I3DhYkwhA6/tJKVodsAzs0AXETeDzAJT6JA/g2MQPsMkA8CthKcBQ4uZfKdNDkMcmQ6LnaPBLuZ
+ do670BbolO5l4PKn5krGqF33dOaxrPZ+Lls9ZZhBljXZCtTUL7QbjyL5XcfI7TmFx5sesIj4cis
+ +P4XsmFzBPUxZJWk9dIWiIftwKt0p6mUa0kI3Temy7N0JgXiJbf3d4FjgVvPfNSBXfxPAX0cE/c
+ ZUXcHseVTpC1WWpHyjFLwtcMrl5c26O3gMf0Y1uWM+pfAV6cT/zsv0X8tvvw2aePD9R6Oylm7aL
+ +AZMByrfMwsph/BTUx5VHSMIkKF9gZPvAOpowmza1xPqPF7SXmZt5AH3acEYFg9DQrMZsCxgA5z
+ 5fS0hKWktrMh9wPD2MojnGScT7KpRC87JFl397YoaTaGhomxws87p00BtoPkxSOjEiw9UNTlxmn
+ O8Uk6l4xn9ofIRlnT0rzl9uAGDX6vmfCxsCm29O+MKCDSSrkMRJ1kQ==
+X-Received: by 2002:a2e:a917:0:b0:3a9:8762:d77 with SMTP id
+ 38308e7fff4ca-3ac6fcbf58bmr12890491fa.6.1793000478642; 
+ Mon, 26 Oct 2026 00:41:18 -0700 (PDT)
+Received: from localhost ([178.214.243.78]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ac70a493b6sm15089911fa.37.2026.10.26.00.41.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Oct 2026 00:41:18 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>,
+ Jun Lei <Jun.Lei@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/display: set allow_freesync before validating a
+ new stream
+Date: Mon, 26 Oct 2026 12:41:13 +0500
+Message-ID: <20261026074113.299632-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261018221726.27259-1-mikhail.v.gavrilov@gmail.com>
+References: <20261018221726.27259-1-mikhail.v.gavrilov@gmail.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,161 +89,20 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-4.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] dma-buf: dma_buf_map_attachment() clears preexisting attach->selec=
-ted on error
-- [Medium] dma-buf: dma_buf_pin() leaves attach->selected true when ops->pi=
-n() fails
---
+Superseded by v2, rebased onto amd-staging-drm-next, where v1 no longer
+applies, and with a Tested-by from a second user:
 
-commit e1080028468cc11821bdd6c9ecd4fc7204151523
-Author: Alistair Popple <apopple@nvidia.com>
+  https://lore.kernel.org/all/20261026073345.297491-1-mikhail.v.gavrilov@gmail.com/
 
-dma-buf: Let the exporter select mapping type at pin/map
-
-This commit adds dma_buf_ops.select_mapping() so the exporter can select a
-mapping type from attach->matches when an attachment is first pinned or
-mapped, recording the choice in attach->selected until mappings are
-invalidated via dma_buf_invalidate_mappings().
-
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 348b47f266b48..03f06c4b957ca 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -1201,6 +1201,10 @@ int dma_buf_pin(struct dma_buf_attachment *attach)
-> =20
->  	dma_resv_assert_held(dmabuf->resv);
-> =20
-> +	ret =3D dma_buf_mapping_select(attach);
-> +	if (ret)
-> +		return ret;
-> +
->  	if (dmabuf->ops->pin)
->  		ret =3D dmabuf->ops->pin(attach);
-> =20
-
-[Severity: Medium]
-Should dma_buf_pin() reset attach->selected to false if dmabuf->ops->pin()
-fails when attach->selected was false upon entry?
-
-When dma_buf_pin() is called on an unselected attachment,
-dma_buf_mapping_select() sets attach->map_type and attach->selected =3D tru=
-e:
-
-drivers/dma-buf/dma-buf-mapping.c:dma_buf_mapping_select() {
-	...
-	attach->map_type =3D *match;
-	attach->selected =3D true;
-	return 0;
-}
-
-If dmabuf->ops->pin(attach) subsequently returns an error, dma_buf_pin()
-returns that error while leaving attach->selected set to true even though t=
-he
-pin was not established. Because the attachment is not pinned, the exporter
-may migrate the buffer elsewhere without invalidating it (and for attachmen=
-ts
-without importer_ops->invalidate_mappings, dma_buf_invalidate_mappings()
-skips clearing attach->selected). A later retry of dma_buf_pin() or call to
-dma_buf_map_attachment() will see attach->selected =3D=3D true in
-dma_buf_mapping_select() and skip dmabuf->ops->select_mapping(), leaving a
-stale attach->map_type in place.
-
-[ ... ]
-
-> @@ -1324,6 +1305,52 @@ struct sg_table *dma_buf_map_attachment(struct dma=
-_buf_attachment *attach,
-> =20
->  	return sg_table;
->  }
-> +
-
-[ ... ]
-
-> +struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attac=
-h,
-> +					enum dma_data_direction direction)
-> +{
-> +	struct sg_table *sg_table;
-> +	int ret;
-> +
-> +	might_sleep();
-> +
-> +	if (WARN_ON(!attach || !attach->dmabuf))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	dma_resv_assert_held(attach->dmabuf->resv);
-> +
-> +	ret =3D dma_buf_mapping_select(attach);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	sg_table =3D __dma_buf_sgt_map_attachment(attach, direction);
-> +	if (IS_ERR(sg_table))
-> +		/* Nothing was established, so the choice may be made afresh */
-> +		attach->selected =3D false;
-
-[Severity: High]
-What happens in dma_buf_map_attachment() if attach->selected was already tr=
-ue
-prior to calling dma_buf_mapping_select() and __dma_buf_sgt_map_attachment()
-fails?
-
-An importer can enter dma_buf_map_attachment() with attach->selected =3D=3D=
- true
-because the attachment was previously pinned via dma_buf_pin(), because it =
-is
-remapping after a prior map/unmap cycle without an intervening
-dma_buf_invalidate_mappings(), or because another mapping on the same
-attachment is already active. In that case, dma_buf_mapping_select() return=
-s 0
-immediately without making a new selection:
-
-drivers/dma-buf/dma-buf-mapping.c:dma_buf_mapping_select() {
-	...
-	if (attach->selected)
-		return 0;
-	...
-}
-
-If __dma_buf_sgt_map_attachment() then fails (for example, sgt_exp_ops is
-NULL, map_dma_buf() or dma_buf_wrap_sg_table() returns -ENOMEM, or
-dma_resv_wait_timeout() is interrupted), dma_buf_map_attachment()
-unconditionally clears attach->selected =3D false.
-
-A subsequent dma_buf_map_attachment() or dma_buf_pin() call will then invoke
-dmabuf->ops->select_mapping(attach) again without
-dma_buf_invalidate_mappings() having been delivered, which can overwrite
-attach->map_type while the attachment is still pinned or while an earlier
-mapping is still active. When that earlier mapping is later unmapped in
-dma_buf_unmap_attachment():
-
-drivers/dma-buf/dma-buf.c:dma_buf_unmap_attachment() {
-	const struct dma_buf_mapping_sgt_exp_ops *sgt_exp_ops =3D
-		dma_buf_get_sgt_ops(attach);
-	...
-	if (WARN_ON(!attach || !attach->dmabuf || !sg_table || !sgt_exp_ops))
-		return;
-	...
-	dma_buf_unwrap_sg_table(&sg_table);
-	sgt_exp_ops->unmap_dma_buf(attach, sg_table, direction);
-}
-
- wouldn't dma_buf_get_sgt_ops(attach) read the overwritten attach->map_type
-and either call the wrong unmap_dma_buf() callback or hit
-WARN_ON(!sgt_exp_ops) and leak the mapping?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026053623.2026=
-42-1-apopple@nvidia.com?part=3D5
+-- 
+Thanks,
+Mikhail
