@@ -2,134 +2,146 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1EC606A31B
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 14:59:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78585606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 15:08:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=HaOnoQFq
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FIoA4Kox;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=G1NXMV+Q
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B99A310EF52;
-	Mon, 26 Oct 2026 14:59:00 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013000.outbound.protection.outlook.com [40.107.159.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8CF010EF52
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 14:58:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UMmJ8i7MQYrgznJ5pScjKOLFjJ4PT5tmm4jN/ScCHUXwdzaejSmOim3UGV7mb2dgStvuAjGqELIg81c9fvE/hHKMtiwX322AzlIPljHBAdj5Dur3QDTFsZqo+pV+3vkHEEaiykv8hX7Kh+1A5wZ0sdzFYe7wC/F++6B9cwoCDKMbW8/Ae/BCHoHIUDiKVx8DuS36yVF9vrcuyYYib4rGCHsyHyP43LwEgUdKehsiG6b1O1fkb8D++dD/I16UyiZDDhIpnTQhFbX16UD+dmbcR6EYk2iitCO0nJ0fw+gCF36dg36Vu4/GMlpg8ukj7GbtxUgw1rlC8Ve38GH3MTubyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QSmOZrIpRY65/d5vWIFXFZ1Wq5EMAjQ6Og4Ui6Xnkoo=;
- b=r7GJsFLCJx9el/4O/ulWK4ulFVCQOTVKiCM8ACXhYfED3hiCs1oyltljxLmgerBMNnRbxY0L+/qSURtUDECs72iWYmWqXP0xPHuhpWrinyqwxJghZ53WFlLnDRyxi2grWNEnwv58baF8Ax4zTukW1Z9tr3OOgB+FkCQm0a7Vmcp1clgVvyBU3tGoD1/I+nMDY+MiAuC2AfGmbcYrqc5LW6OacjywIK48bJZpin8Wf9th1IppUEJvouRFfkzHq1SABy04NNgyCr/duHbQhOHvKSC0tbdBZi+/RafUI65OO00GnmKjAmyT4x1kH7W8oPJTD8bav1fZzIbNWhGU7izoag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QSmOZrIpRY65/d5vWIFXFZ1Wq5EMAjQ6Og4Ui6Xnkoo=;
- b=HaOnoQFq8lGPJuieI9gNNGjxQdnmbdNqC3w7n0SxXa5MSzEX/78RQ7h1VNgX8B2B2BeWBpAbliyYUICpIawgjKveY8e4XDiV59iLnOJj6HCe0pXdYU4Xrjf/sRdoT5FsREjoDIyTBJjzItmHwUc52p76nu/iY51Pqa1QxAXnMu43nB6ksEcdNJvkZqvOEJ0YjVqyh5Hfbqmvm/5UawA5Qe70TIqO3HS2ffZaMk7NENoQo7fy8D3ib9/PYwa9J2DzTJpunJuHOXeg+ntvkLR9gBMBNydUoBZ4mLY0tM68/YV5YcZiku7Hci+0K6EUCD27p47hcVv+002wOmk7ad44rw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM0PR04MB662462.eurprd04.prod.outlook.com (2603:10a6:20b:7fb::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 14:58:50 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 14:58:50 +0000
-Date: Mon, 26 Oct 2026 09:58:38 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Leonardo Costa <leoreis.costa@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 3/3] ARM: dts: imx6q-apalis: Add VGA overlay
-Message-ID: <at9qnn_njux-hwj2@SMW015318>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-3-ef6a3a780472@toradex.com>
- <atZxhWaUWthEHkti@SMW015318>
- <lozimedmt3h7v6odvp4svvmatvk7726a4ztn3j7ft44oto7p5p@dmrudrmzyz3s>
- <ateQWqoTtXSBSBvm@SMW015318>
- <wancrsxcem5uep5oy5pnw5prewefqah7drmhiu5wrq3ctykltl@akwvtqbebblb>
- <20261026124328.GA82443@francesco-nb>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026124328.GA82443@francesco-nb>
-X-ClientProxiedBy: DS7PR03CA0296.namprd03.prod.outlook.com
- (2603:10b6:5:3ad::31) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C4510E338;
+	Mon, 26 Oct 2026 15:08:12 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CAAA10E338
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:08:01 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69QEvgLZ4098743
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:08:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ dd7RAO3avlBAcafG0kd8O46r9QB0mFFuCyVtLE7G4lo=; b=FIoA4Kox/ttae0+O
+ t98EgnygqVSsHm2ONIDoPWq4F6mCBecD5xgWMZxA/Z+aInxiCxDMSFEflyfNO7XO
+ xa9phdWO7fvx8TEUjviy4CWZT1aDuOHwlwCzg4wTjwCLLm/iR8/ETzMrG4mRJ45a
+ 0D3/ZRp9LdnXuAUrPsQ5EPew42p1UNiYx6vPc2o51M/sW+qAdrobTdA24pNRloNI
+ ZGGu2jbIXXixL978qmXp7a4wc7ik88U8epAJ8o0x06NgvXGyRjw75b5aSVUpSDQx
+ rBzAdziDr9ohbKmGMia0VfpP68oF6SnOQUpH4hOCmWOXoBwrgZ6avHgd+XQ5hDpK
+ vajIaA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
+ [209.85.217.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4s916bj-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:08:00 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id
+ ada2fe7eead31-7cba2460f8fso130429137.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 08:08:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793027280; x=1793632080;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=dd7RAO3avlBAcafG0kd8O46r9QB0mFFuCyVtLE7G4lo=;
+ b=G1NXMV+Qcch6pTnCjDDQaG/wapy+sCARzRiLiSVuGUXiIiVFR0a2DGPx7HR2aF6Exk
+ idrOW7tNYYIJrbeMUVeY5T2E1Efqp4AxaX66az51vFrrLoPm0NhDv6h1NI62BNJ/zsvo
+ F2vGYuucoowicsgz9HQXoj11ylzjXlBb0vnx7qm7BeIjZkmuTdu9vUtAthSo+BZvZKbV
+ WeoB4flHqjJvTanA2vz1Owvhm3vG6GQIE7bwJMOs6g7z32E8zVoyDcrKIyiJcWSmvt5I
+ 7SQqUuvFN1YBXDtS824uTt0JoSgrEHkpR6kjtBwM7x01uxUQhYvSgrssp1ryGbO+IqcP
+ AIGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793027280; x=1793632080;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=dd7RAO3avlBAcafG0kd8O46r9QB0mFFuCyVtLE7G4lo=;
+ b=Ka0eLR1jS47a/6K/004E67PIZY0viqttm/AVZshOxupz2PeDXk329UvRJCXAuGu6FF
+ cEc1h6GfFWFovpU4YYiZYqzkmQgQ+m8cK/JXNR41djeOd3y5MHxeXjFDFjw2XODq5x8f
+ m5aexY5gu1zYbjpEjY+cWfFlzTvm+MeZCX8hGA24dJ1ArZAqfP1EOPbKxuI6kpiG8d1m
+ ci1II8JDtG3WiYq/sB+41/J/fZ/PPFYy/LL3pf1EfdoH3y1SDtivtf17RwhmhDQPpu22
+ l0QuhmzFMk4Wsm3uyhFOeGNNTTxiyu+DS5gccL1kI2RifCIeDZuBdlgSUUKHWU31BIZ9
+ XS4w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwc8sAFLNP9QiosV1oHEofA3Dr+hQ8NvXh1WKT/L84uObAltlKp544OeiJ9Zeg+jk+5YvKcfOK0CpY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIwW/0VXXYxftK7saz848cVOm/+ggkQoK1AdxizQg+VS0VSKa/4
+ vHX9P2AB03lgT1Jc0LCDz39+YI74zU2Vlh7A4pVSs0PJaXaQU3n+Tp5NaKMYk/MSPwT52emXECU
+ 6c8ThmzcF4T+rolqQWfPjGbrUrM8nrMeFQsK4kBlhx9oiZ4gKleQwPLGk3FxC9xJG3Wrk3Jw=
+X-Gm-Gg: AYBFou0q/KCTiSftHJzCtVTzVXBLO1JyhqHibhNgyGwAlSvFHhbUyWHHs9urw0OFhta
+ zBsOeNmx5vk93LOKuJB/2sgaZiynDOEbPClQWD0LPf6XuiWq65tDYoIdk6ZvYYQ6btOeJz0PVyO
+ dHer7B1AXs0hFEV6NUbXzBdwfGQFPRJEziws/ZlGqHwHz9XV+nU+8xCjXy7292iymjIoC9TSjKf
+ IiICz0jS7MwXuf7EvSsIlB8tLD57ySS3CCATBgfP5KGygghcLUTgZZVWuXaD5wm2pQbsepXLpKy
+ 7q7hP8ojmkFfwBYze/yDZPfTyxaoXMgebA3xCQLDcbNa6kAWfQaz8IQ/Vji2p/vC+K6PQUYu/os
+ 9KhQVE9cfaycANG8Lwpdsxw==
+X-Received: by 2002:a05:6122:e006:10b0:5ea:e196:2742 with SMTP id
+ 71dfb90a1353d-5ec232d4fe2mr2047511e0c.4.1793027279391; 
+ Mon, 26 Oct 2026 08:07:59 -0700 (PDT)
+X-Received: by 2002:a05:6122:e006:10b0:5ea:e196:2742 with SMTP id
+ 71dfb90a1353d-5ec232d4fe2mr2047469e0c.4.1793027278882; 
+ Mon, 26 Oct 2026 08:07:58 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c46bd79683csm325953166b.69.2026.10.26.08.07.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Oct 2026 08:07:57 -0700 (PDT)
+Message-ID: <bd89e242-22ec-4666-988b-9edc473a5851@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 16:07:53 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM0PR04MB662462:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2809a36-084d-4543-b8ae-08df3371a53b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|19092799006|23010399003|366016|1800799024|261026140227099002|261026121527099002|4143699003|11063799006|56012099006|261021121427099003|261022105027099003|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: yXqFxykwJji3vXgxki86xjKpVDHjKJtd8T5BafR4Gkm6VSBQQ7iOMoC9AARo+AZOCoRJXNDshbGA3D7KoZd3I2pcc92SHn2TJXVshu2I4j/lQU2rYa5ntlpgjCV36leX5ndOu4PrXayP+urNieVrmt14IC8gWEeJnjlRZ9gYZnHuEMCz+rnHvzlprOfk6WgDPNjRHHoBlfiuzTLJkqIOddCg8BAklOXK7zy0B8hQninGEREI2x+f11l7EcFJmTrV5eEr/JfUrdcOE8HE/i7r6WMvOJUGs8z+R9SOZUCzjszzkI3Us6zY2paGtC8BnpvT7os6lmTQed1yp+6iIRYjQBPYYYPLguJNVgXYp73XetIG4DcAwEzdaHxUxlzFkz+QDWY6wOZZCoHPqmHnQaq2zHZ5hcKRu5iE+kSCLzdCjP77z1FICH3kZJsoFC9LfRQrO4JrZ6mplTOzOiWH8ii7kqK1sJPTHwTibyldARFnqA8NKW7Wg43j5LA9+Y8Uzw1XviRLPKky12VXkT0VvMrNnO9y/+noWtCv/47f5/1hAbsHIXGERL+kMIu9sFEDEJIJ05hQxGhrRGgE5vMUuibApF1tmOAQcwkdjh8c0rgx/78a/K6F3fYQVd/bkgGxT17a
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(19092799006)(23010399003)(366016)(1800799024)(261026140227099002)(261026121527099002)(4143699003)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ujRAjjNxBonV26zJ8am51G3tm9XDLDcx4lGXt11Ir4yvl+viksWDyAUOMkiF?=
- =?us-ascii?Q?tdXrusU/HSDsEBa/i6J8eMtZAbLAghi9ootYf88kAMs2bqPrMcuPElgGvT2D?=
- =?us-ascii?Q?5Bfd1JIGT6kk6w7w2C0EBI1hlXDB2picoqKQ90xXD4peJ2GO130ZradGNpDF?=
- =?us-ascii?Q?AfZWdTs4ul7mBx/f9G2AGu22QtlJSaeca4xLhb9zS8OXPJPpSgH6xIX7emuj?=
- =?us-ascii?Q?zoTnT48DzHg4WSsps/pYdP0/3EuOsbi2vjDVkJxT+zWY8dBauwVpYRwQ4WAK?=
- =?us-ascii?Q?1Hi6msNIITKWCRXQJFcEPwKtloFPoxtR7Jj0DGgBUI2tf1Pu/0isY+pi4dkG?=
- =?us-ascii?Q?gQ9FBAaSwTMnRSj6kLyfRvqz39gQmVtfcP3lFHhmBPLwcKov9MsxqBUQOuI2?=
- =?us-ascii?Q?t4caScUZmWxyV5n071FnqLdtrHthcBohvW/edSXBmXpUYvR3thgKS5o7w9bn?=
- =?us-ascii?Q?8XdlxndC6jJ9Me+LQCCxiwI+W1aumA30K2VBCnyBp6LmCXL2pK+9UbpXOpBk?=
- =?us-ascii?Q?t8vnKAWinOYjLXnngYa6o/rwkwUZpZH9xnruHml8Nr7eBCR7E8Y/EkcQNtEP?=
- =?us-ascii?Q?L1vKugOGEZzN09+Xg/qOQ+D8megSWwEDVHd3E9OLp5U+zVlwEo+4Cce1At91?=
- =?us-ascii?Q?rOjwK1o5KDU0nlGxPfyxBFoMMH/XDu3SgBf/5auhLZBE2gNt2ecQIQvNpyg2?=
- =?us-ascii?Q?CdH15m7Db28iAwilTJsxdmCUzGRbYwwLb0zY2DdoC6D0IA0sUD1EA5OgkJLD?=
- =?us-ascii?Q?Bj81OQxrk/sKCuJpQqpbfY+E22YAkfpnybe3K2Zvnntl5mriT1D7IIT7i8Rw?=
- =?us-ascii?Q?Aq/eIf57sP3dAx8QBJeL3DWAwQ4Vec1cXHW5ZHwhVfv2sfDtekX9xv2smj1r?=
- =?us-ascii?Q?sxPHvXpcZ676MJtho3jluyWxtcZtypfbuAJ1CSO9xdf4YV0yh0DVXSnaFXd3?=
- =?us-ascii?Q?dU2lN+YtQlDy3NhzEDB1HadUQu4Fm38BqSz3zGwPbJmBI0aGTgRNfDzIiwNg?=
- =?us-ascii?Q?v++cKlepFsiyX2aNKqjdUVAXorOt4oqzRm0GS7ZIhtrmOqpaq4mCauoTi689?=
- =?us-ascii?Q?iCSru8qqWocg8NQxIjUHDn8+r6Mim7GJaQhXNAN6FTGN/57VrgmvKKdI2kF/?=
- =?us-ascii?Q?mkC1zD2lEPKRhk/AC/imaALezY9QY4d5yrcfIEeza6KFGt/cDPKounvbUEvQ?=
- =?us-ascii?Q?vf/iFlL5cfM+q748LhuxQwAMWBBGJZGTPm1i2+qWAkF5hRGtBJpfZDDQ9v5d?=
- =?us-ascii?Q?o1GGAnjOzoqXtcuRR33Z/WCu2xfkiqIQ7gw+szicUWFcW53OZbzKkwNoLEGV?=
- =?us-ascii?Q?q0A3XOUq13IaqxfCXT4lbzmli2wcUEQZhfTKjCAVHqgHXVrrSi3ioZx+F0NA?=
- =?us-ascii?Q?QJbBASihQgMBpqSYHAcj1U7jnga9jZh3rux/ZGidemBSn27CLEiQSRXzZJpG?=
- =?us-ascii?Q?rNbfmvdq2OEzf12XJVtSnsVtQ6Et/IFSGDvmysmdNLKUDk8y947nwAJeiCsE?=
- =?us-ascii?Q?9m3E/ihybFX12Wsg4PVly74UOohG7ehpsMbEbxvdX080zzEpyB8or5R/DPpu?=
- =?us-ascii?Q?9hnkhw39dhMORzZqHOufVLySSL2DqaXp8U0U5usH8wJGrAZIkyLVEtx3GkjS?=
- =?us-ascii?Q?YKmRaOzpVUBudrgLQNDa/hrTkzslVkn1jAn/3gcf+/INoz/N4vBmIZr4xsFq?=
- =?us-ascii?Q?ezzQZXdXLm1VxkLHav1PDDJDzjJzrPpbNYXPF/QUpZt47VqApQ60V41lgK7S?=
- =?us-ascii?Q?El29u+Z27z9s14oF+JMhDQAikpnT7e0p5NDFUVLon6l25QroFjWf?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2809a36-084d-4543-b8ae-08df3371a53b
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 14:58:50.8279 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3UpClUqnueZ3CjW1B+NgrgJ1hrSnS/NA2lSNYF1O/4l6vTFhCj+TiBOConBzsrAINggtAE9liaMS2+H5oiD6ZRhwpk47+ah//TdqNjEGDo02/sgneYkspK/auflsiXb5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB662462
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC] drm/msm: move VM_BIND op validation to Rust
+To: rob.clark@oss.qualcomm.com, Konrad Dybcio <konradybcio@kernel.org>
+Cc: Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org
+References: <20261026-topic-vm_bind_rs-v1-1-6581465f2428@oss.qualcomm.com>
+ <CACSVV01LdgUEAG+xyhWRoWe5Y=N7KztU1p4kQyzeW_KeWWAA1w@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CACSVV01LdgUEAG+xyhWRoWe5Y=N7KztU1p4kQyzeW_KeWWAA1w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2MCBTYWx0ZWRfX/rOYAGbM55qn
+ iepVfZvC3J+Fv0QSs0R0YrvCexmslKTnp+kuvg+5SU65+JlxR6lNtqts+uPc3URJpxKxJglMJMV
+ SEXht8WX9+x7pa4CLmcDrZ+PdIwITc86zivrQ4uODPUv5xHNHX0dDvcizOkds8RCEw/pdWaC7Bo
+ FGeyceMNOYPXYB8XJYLvd0HJS2ssINXzyGzoRuz62lrf1pI9mdWQe3pv3lOOpupyG/cZ/rX1UtO
+ olCtD/jkcta+OGT4yw9hUAXKOPf/llCB0Fs5FmE7xeIJRYNjzqJvrH4ab+vrElmd5j/ePXlfSro
+ cWUn+UtuSXulIamme3rYc3UUj3GTSyOqm55shxYcbKaWA5yTft5mW88WpwlzA1i1pn5NGxvio23
+ puhd+YQouZ1ybr1402yHwz1kV3iVrMdcn1UcKhG7kFUvz5Mif71F1QxS/s0ofePQriL7QghZBI/
+ B+8R34QXI0ItDZa/Zcg==
+X-Proofpoint-ORIG-GUID: DsiOc7yYv4iczIOC_OI7oWukaCQcPaMZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2MCBTYWx0ZWRfX1K0+whlh4OxW
+ 7GOz5/yGIxPS6OvPG5VMjZS0ZXbnh12ksxtOSgW26VK74wQs9BSB2GamJPqV+ralfWrUeUb/ZqZ
+ rdULDRtzWBt3UDEVCZ6eIhCLF2O0gok=
+X-Proofpoint-GUID: DsiOc7yYv4iczIOC_OI7oWukaCQcPaMZ
+X-Authority-Analysis: v=2.4 cv=HKhWhYtv c=1 sm=1 tr=0 ts=6adf6cd0 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KBXt8WmB77sV3oe1ItkA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260060
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,76 +153,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 26, 2026 at 01:43:28PM +0100, Francesco Dolcini wrote:
-> On Mon, Oct 26, 2026 at 09:25:20AM -0300, Leonardo Costa wrote:
-> > Hi Frank,
-> >
-> > On Tue, Oct 20, 2026 at 11:01:30AM -0500, Frank Li wrote:
-> > > On Tue, Oct 20, 2026 at 07:33:10AM -0300, Leonardo Costa wrote:
-> > > > On Mon, Oct 19, 2026 at 02:37:41PM -0500, Frank Li wrote:
-> > > > > On Mon, Oct 19, 2026 at 07:17:16AM -0300, Leonardo Costa wrote:
-> > > > > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > > > > >
-> > > > > > Add a device tree overlay for the VGA output available on the Apalis
-> > > > > > Evaluation Board, which is driven from a parallel RGB interface passing
-> > > > > > through a non-programmable video DAC to a VGA connector, without VESA
-> > > > > > DDC I2C signals.
-> > > > > >
-> > > > > > The non-programmable video DAC consists of a simple resistor ladder that
-> > > > > > converts the digital 16-bit RGB signal to VGA. The VGA output is gated by
-> > > > > > an active-low data-enable signal.
-> > > > > >
-> > > > > > The overlay is also combined with the various Apalis Evaluation Board
-> > > > > > device trees to provide ready-to-use DTBs.
-> > > > > >
-> > > > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > > > > ---
-> > > > > >  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
-> > > > > >  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 80 ++++++++++++++++++++++
-> > > > >
-> > > > > what's difference with
-> > > > >
-> > > > > https://lore.kernel.org/imx/20261019-colibri-imx6-overlays-v1-5-e4d028727382@toradex.com/T/#u
-> > > > >
-> > > > > Is it possible share one dtso also?
-> > > > >
-> > > > > Frank
-> > > >
-> > > > Hi Frank,
-> > > >
-> > > > The Apalis iMX6 one needs to set up the connection between the IPU the
-> > > > LCD interface (endpoints ipu2_di0_disp0 and vga_display_in), and the
-> > > > Colibri iMX6 one uses a DVI connector instead of a VGA one. Most of all,
-> > > > the bridge on the Colibri iMX6 doesn't have any control signals, while
-> > > > this one on the Apalis iMX6 has an active-low data-enable signal
-> > >
-> > > This make sense to use difference dtso to cover it. Is it use name
-> > > imx6q-ipu-di0-vga.dtso, because this dtso have not boards specific part,
-> > > which can reuse for other similar hardware? Or we can rename it when reuse
-> > > happen.
-> >
-> > I think the overlay should be kept as imx6q-apalis-eval-vga.dtso. As it
-> > currently is, it's easy to identify the hardware it may be used with. If
-> > another board is added which uses the same interface in this same way,
-> > we can evaluate if it's adequate to change names for reusability.
+On 10/26/26 3:39 PM, Rob Clark wrote:
+> On Mon, Oct 26, 2026 at 4:40 AM Konrad Dybcio <konradybcio@kernel.org> wrote:
+>>
+>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>
+>> Much of the VM handling code is a headache to read and maintain.
+>> There's a soup of mixed-signedness/size types which need to be compared
+>> and added and getting that wrong in C is very easy.
 
-Okay, we can rename at that time.
+[...]
 
-Frank
+>> @@ -1118,11 +1071,10 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *job, struct drm_msm_vm_bind *args
+>>                 op->obj = obj;
+>>                 cnt++;
+>>
+>> -               if ((op->range + op->obj_offset) > obj->size) {
+>> -                       ret = UERR(EINVAL, dev, "invalid range: %016llx + %016llx > %016zx\n",
+>> -                                  op->range, op->obj_offset, obj->size);
+>> +               ret = msm_vm_bind_check_bo_range(dev->dev, op->obj_offset, op->range,
+>> +                                                obj->size);
+>> +               if (ret)
+> 
+> I think the ioctl surface area is a sensible place to start using
+> rust.. but seems like this patch could instead be a 1-ish line patch
+> to use check_add_overflow() here?
 
->
-> 2 more cents. There is no such other board in the toradex portfolio and
-> it's very unlikely we are going to build any new board with an old VGA
-> interface.
->
-> Francesco
->
->
->
+Yeah I said that under the --- line, my main objective here is to
+encourage rs
+
+> Big picture, I'm a bit more interested in the
+> goto-error-unwind-spagatti-monstors.  Even there, just using more
+> cleanup.h would be an improvement.
+
+Same. I'm done reviewing gotos. LLMs help a lot, but LLMs probably
+prefer Rust too.
+
+Konrad
