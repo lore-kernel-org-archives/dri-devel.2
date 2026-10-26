@@ -2,45 +2,137 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA11606A324
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:39:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14AE9606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:39:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G9M0Xfv7
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VqEqEuWs;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KLC8qzNU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EFBE10E076;
-	Mon, 26 Oct 2026 09:39:00 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BABF10E076
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:38:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F037943948;
- Mon, 26 Oct 2026 09:38:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F481F01825;
- Mon, 26 Oct 2026 09:38:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793007533;
- bh=1gZceDB5JLaDORdRyGWYQSRD3vgwVOwK8Zur333F1/s=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=G9M0Xfv7Kq7IilAIm8zurx9hac+5nKKhHsBhDz+BuvyCR7dZ0+WzsZDRlaPlHuqsY
- 3PtadpEeESZm4EYhNQis6oCpFDd3heGt6NRIKTVf3iGXP445fOUwH4tst1XSIfnoVB
- f+YbF4uga/RRSuJgqUYtlaoMepgh7geSy6kfDChRKipj1bh2yRL88xpuwKFU+TLtvO
- YQnsvtFI2QENTvH+1xEqaJVBPnTG1DPZlYoePmrDngetRMn6hyhL1D65Ze/naWA796
- nmivBC7E+he182/UXxGU6iJCaENJWwvKpQ9C5KscA9oPHWYFlKeW8cX5LK0vj0tdaj
- AQFt7AiMaHGrA==
-Message-ID: <sashiko-outbox-184814@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/23] dt-bindings: display: msm: Add Qualcomm DCP
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- media-ci@linuxtv.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 09:38:52 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70CD010ED25;
+	Mon, 26 Oct 2026 09:39:40 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55F4210ED25
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:39:29 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69Q4arjN1181759
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:39:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ w/iLWULZfyYJInPergzM8rUXSCK5Rmi/SGvYDtmq1OU=; b=VqEqEuWsgh56Xb9S
+ cpHo/6LH6TuyV1z5cwX6i1uDLS4x1T//86MpXUTsu5MMWf6+TsnwGF05rtpnEZBy
+ XjVFds75SQXXXJSs7Ly7Be+PQvWNie+qFOL4SWh55be1xsvqKSJ3xFFnCC47axBj
+ j9IUjBhv0yob73caB09JK/n02LNy7dv8vqkFDasko08DTLjQRcm/IjAsOnOs98zl
+ KduK/fnyxop99YY0zy+25gySF14ZjfKBN25wOimjCHVjZm3Engw1GNMNBct8O7DX
+ uTjseWvxN1hCmQpd6h7dRp3o9unLBsWC1pWtUj33C0CmiWeH2qCxiBCRn8HPC4se
+ kqS/gA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgn27wrd8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:39:28 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-93ea6b66e53so36073285a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:39:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793007567; x=1793612367;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=w/iLWULZfyYJInPergzM8rUXSCK5Rmi/SGvYDtmq1OU=;
+ b=KLC8qzNUbn6PHRCEE/K8dYnz4OLNFOxAvoiu5WmEvbQndz4/F8M5BHDNI16WjFn0di
+ vLWFpR9dMHjwhHDSyCyHxqgr1Lhet8C0N/o74Oox3nJts8vwzWZOKc9ukJeDp3wFvKWZ
+ 6qSbbjDR4M52gtMph0ELe9q8LQpG03Cao1xComlos3j98cBZMwy8JJG8dxP59x0Kgb2p
+ FKylTRbNau9YYkjgMuLYmBuBnmw6oWcC9dA4oWaVL9nbl9jZK28XuEIo5WBbGHeNVSI3
+ dUPampPYRM/ubsuC3RlaQhwUT5g67j9FyUnC11pOyir99yfg6WS+QOeeqixdmi8GuJ8K
+ /fIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793007567; x=1793612367;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=w/iLWULZfyYJInPergzM8rUXSCK5Rmi/SGvYDtmq1OU=;
+ b=0+o9i16G6ujQnsQ/jagnL4llMN+71bBXXaPJyqVma2WexqdolmEGBCoZWXbHV5zbjG
+ kmw6R3U8zk0tKSmAif5VkFLsN/uExNUE0XVJZ9VryL3Q2UYGdrTUfjZCx6vQvPQXhboC
+ sRmB5bKYOBDmriJ5AFZLhGIhWf/Gh2PEFJhQuGf0OJLGWJp8YM6orSVmYigw7M57PulQ
+ ryOtO5kr4METmVXlV2OIFyb2/C8UUVaAcJRZ1ByghyTw7zM81ZIA23QeFPUv8cqTXf1t
+ RzLpKKMwySvnVq28c3KmkF9oMBKSMqA/qRLnAp3p99asdEXOKnuTKDSsurVxjy7vuxpw
+ rjaw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByX7wGBqUHu2WDCK5Qe2zh4fJ4fawljX7FLRtow5oAAoyVacI6YUhxdTpWiFO7BpFda32uVxd8ZvY8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIm+e1SzReMBqiO3fW8vaBjFpIS8SWmGDSaOB0x0E4pzs7IPtYj
+ TEFkTJdt9W1Wl7DYoEwVw1CKI4SfGkZCchFrATjkeN1KI+CpTMrUm/1xd/gAEOxOf/98EdzGmg0
+ MwVapqzgKQRs7TX55nCv49GbUUzvI+cwlH3waPZcA5kQJVjIAhknuUI5/NFkMFzaUAPyEjhI=
+X-Gm-Gg: AYBFou03xN/0THTMuOJknrsuMUnlpirki3cwmKJK9cb7qoEwwjTRioiC5+ikW/nkrYe
+ WHO3U1j2u+f0A9o9Qzz7aUGDR4ArwHltEjJ9u7cbJ5z4qDgvQZtnV0RYENGZjNSPvTepQzi8Zox
+ 1nXBzospaKHc1Q488BbQkbR0K+w7mtg3IChx8Wv2N5l0vsfNLHl44N+1jC/7sy1XQqceSmfVRer
+ AuJZv7i7rHitfswjY8+mse6dDnTAe4+cxDp+SS8DLNTXkW/sOH0LwmkkZOR6oKQ3gqgy1DXJDSg
+ 2eTnftkAOfJHL6GhFQsJ9Lwv+f1LoMCGlGGacvNiRqk7FVgd7v1+f5v1wDWLvtp0zz48/Hi69NZ
+ Rtgnn6zE2xq+3zg1AkE2HFA==
+X-Received: by 2002:a05:620a:899:b0:939:eb09:4458 with SMTP id
+ af79cd13be357-940ef8dcadamr953765685a.3.1793007567277; 
+ Mon, 26 Oct 2026 02:39:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:899:b0:939:eb09:4458 with SMTP id
+ af79cd13be357-940ef8dcadamr953764285a.3.1793007566871; 
+ Mon, 26 Oct 2026 02:39:26 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6b44595e25fsm3393695a12.7.2026.10.26.02.39.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Oct 2026 02:39:26 -0700 (PDT)
+Message-ID: <aaca9b2e-d318-494b-8313-46945dfb96a4@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 10:39:23 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/14] drm/msm/mdp5: unwind a failed mdp5_kms_init()
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261024-msm-kms-destroy-fixes-v3-0-66a30120a5ea@oss.qualcomm.com>
+ <20261024-msm-kms-destroy-fixes-v3-7-66a30120a5ea@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261024-msm-kms-destroy-fixes-v3-7-66a30120a5ea@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=G7GJgNk5 c=1 sm=1 tr=0 ts=6adf1fd0 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=b3vL7svAqNHW8n6rvRwA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: GsE1EtIxe0CfDd1kl0aFhwLWnfnmlkXv
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfXx4335vixsB3j
+ 90walBhjgp3SF6LQuOA3YEmEV4UTvvTg5UrLnhvCZKxjMmd1wlPLTPMcjME02WTFEkKeJXUIvM4
+ W8FlLx8H8qMyWZRMHsRfji0OXXeiCK4=
+X-Proofpoint-GUID: GsE1EtIxe0CfDd1kl0aFhwLWnfnmlkXv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzOCBTYWx0ZWRfX2kPociqb6Vq5
+ EQ1R7vAbMdCYSjS3cgc+xNKg7ETq+gLMlqEPXjjwGHuQKnaE9TvakxTBeIFHHBBh1YTzs8PafL7
+ LPQ7V9R9XnbVO8EuIdslnCWWdcwoKDRzDBTvT3nhS6K4SxNB9wzlbbwK5vnAXd+dkiPnSFOtfGl
+ AnCfXBI0uxUeS+PZze7HzpIpga8EWLOY4LVkgqeN3ju6/pHnOApzUrOCbnnuA/lOBfazbqzIrbR
+ HoZq4p1qFmdFlm4EOMUlfvFO+JUrw7WVfcvFY+4edqxvFh41WjhWIX+Auzb+7hJKI/vjSud6GBB
+ wO+ostQ6gBb+AQZJPSWWVfE657hGGGq3qTTn20GZxYAcHhHfStYNFqOta4+IG6P74hmc77yPnpy
+ 1k1rWUoKQoWAWHXSPACQnKYrzVDHy5rB/r6+mWJEHlyNy4AlnSL0N6xUcwv91TkxAYcLTN9GJ8W
+ KeBBWPFBVwxwN89gqeg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260038
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,147 +143,33 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: qcom,dcp-virtio: invalid uint32 $ref in iommu-range=
-s items
-- [Medium] dt-bindings: qcom,dcp-virtio: mismatched reg and iommu-ranges ce=
-ll counts
---
+On 10/24/26 1:19 AM, Dmitry Baryshkov wrote:
+> mdp5_kms_init() returns straight away when one of its later steps fails,
+> leaving behind the kms, the runtime PM reference taken around the address
+> space setup and the address space itself, and lets the ->destroy()
+> callback, which the caller runs afterwards, clean up. When mdp5_init()
+> fails, however, it has already run mdp5_destroy() itself, and ->destroy()
+> runs it a second time: the global state object is finalised twice.
+> 
+> Undo the steps which have completed, in the reverse order, drop the
+> runtime PM reference on the error path as well, and tell the caller not
+> to run ->destroy() after a failed init. Fold the hardware setup, which
+> can't fail, into mdp5_kms_init().
+> 
+> Fixes: 8d58ef346f30 ("drm/msm/mdp5: Add global state as a private atomic object")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-commit 148fd24e1536920168a0cc19486ca6a7b8039591
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-dt-bindings: display: msm: Add Qualcomm DCP
-
-This commit adds Device Tree binding schemas for the Qualcomm Display
-Co-Processor (DCP) VirtIO transport wrapper, the DCP VirtIO display
-subsystem, and its child MIPI DSI host controller.
-
-> diff --git a/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yam=
-l b/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml
-> new file mode 100644
-> index 0000000000000..6020e848ce259
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml
-> @@ -0,0 +1,132 @@
-
-[ ... ]
-
-> +  iommu-ranges:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    description: |
-> +      The firmware-visible IOVA range, specified as a four-cell tuple
-> +      containing a 64-bit IOVA base followed by a 64-bit range size.
-> +    items:
-> +      - description: IOVA base, high cell
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +      - description: IOVA base, low cell
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +      - description: IOVA range size, high cell
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +      - description: IOVA range size, low cell
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-
-[Severity: Medium]
-Does make dt_binding_check pass on properties.iommu-ranges in
-Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml with these
-per-item $ref entries?
-
-When iommu-ranges uses /schemas/types.yaml#/definitions/uint32-array at the
-property level, dtschema validates each entry under items against
-meta-schemas/cell.yaml#/$defs/single-cell, which sets additionalProperties:
-false and does not permit $ref, causing dt-doc-validate to fail.
-
-In addition, /schemas/types.yaml#/definitions/uint32 is a property-level 2D
-matrix schema rather than a scalar cell schema, so applying it to individual
-cells of a uint32-array creates an array-versus-integer type conflict when
-dt-validate checks the example's iommu-ranges property. Should the four $re=
-f:
-/schemas/types.yaml#/definitions/uint32 lines under items be dropped?
-
-> +
-> +  dma-coherent: true
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +
-> +  mbox-names:
-> +    const: dcp-power-tx
-> +
-> +  dcp-subsystem:
-> +    $ref: ../display/msm/qcom,dcp.yaml#
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts-extended
-> +  - iommus
-> +  - iommu-ranges
-> +  - dma-coherent
-> +  - mboxes
-> +  - mbox-names
-> +  - dcp-subsystem
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/mailbox/qcom-ipcc.h>
-> +
-> +    virtio@9be8000 {
-> +        compatible =3D "qcom,dcp-virtio";
-> +        reg =3D <0x09be8000 0x1000>;
-> +        interrupts-extended =3D <&intc GIC_ESPI 956 IRQ_TYPE_LEVEL_HIGH>,
-> +                              <&ipcc 13 5 IRQ_TYPE_EDGE_RISING>;
-> +        iommus =3D <&apps_smmu 0x15a3 0x0>;
-> +        iommu-ranges =3D <0x0 0x84000000 0x0 0x04000000>;
-
-[Severity: Medium]
-In the examples block of
-Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml, reg is
-specified with 1 address cell and 1 size cell under the default example bus
-(#address-cells =3D <1>; #size-cells =3D <1>;), whereas iommu-ranges is wri=
-tten
-as a 4-cell tuple (2 address cells and 2 size cells).
-
-When the kernel parses iommu-ranges via
-of_iommu_get_resv_regions() -> of_iommu_derive_resv_regions() ->
-of_translate_dma_region() in drivers/of/address.c:
-
-    struct device_node *parent __free(device_node) =3D __of_get_dma_parent(=
-dev);
-    ...
-    na =3D of_bus_n_addr_cells(parent);
-    ns =3D of_bus_n_size_cells(parent);
-
-    address =3D of_translate_dma_address(dev, prop);
-    if (address =3D=3D OF_BAD_ADDR)
-        return NULL;
-
-    size =3D of_read_number(prop + na, ns);
-
-both reg and iommu-ranges use the parent bus #address-cells and #size-cells.
-With a 1-cell parent bus, wouldn't of_iommu_derive_resv_regions() misparse
-<0x0 0x84000000 0x0 0x04000000> as two 32-bit ranges ([0x0, 0x84000000) and
-[0x0, 0x04000000)) instead of one 64-bit range ([0x84000000, 0x88000000))?
-Should the example wrap virtio@9be8000 in a parent bus node with
-#address-cells =3D <2> and #size-cells =3D <2> and use a 4-cell reg propert=
-y?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026-jshekhar-d=
-cp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com?part=3D1
+Konrad
