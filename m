@@ -2,93 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934C4606A31F
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 16:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31093606A322
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 16:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mzmb/nX6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xs1HTniV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1A5F10F00F;
-	Mon, 26 Oct 2026 16:39:49 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBAD410F00F
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82D1E10F048;
+	Mon, 26 Oct 2026 16:41:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDB3F10F021
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 16:41:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A06A9601EF;
- Mon, 26 Oct 2026 16:39:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 892FA43734;
+ Mon, 26 Oct 2026 16:41:13 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793032781;
- b=GbcqJSFucOxhGmmRzmOaNsrQouZqF2095H+4ie/UbqJH4Zv0ht7mpNPc4lsRKNL5rHPo
- xIeCp0LydmmXxh/L7AP2tNm8pRDGX3L6Oetm/ksT3gAj/dsAqgtG20UHOvVvFbigv+s9B
- 7wPp+kXgsJAudYGszkrmhj9Gjp0cbX6kOLDN96K2Mm8d4C90j3fvcauq0K17IEOMSi40J
- +TlspiPG2ycU8TCPjnZIhpHryU+nBh/s7fUjRFr4HmacwvfjyaPabu3rTkmcGHH+hw+UW
- p6JmgYchqLgj8DOOaSeYuRga1aIUGNmyEy0KY9wNVtn4OzFvTqIhNOHXDVygMmcdmNQ==
+ t=1793032873;
+ b=cArWtRwHhB15EMkjHJNjqh3f3H2IQPZ+UM6RrSa8YQlU4/ybDvhEh4JaivUQU2udfI48
+ jHMKSFngBbaHel9RZTHG7cksuo/+DeSC4R/Qj3Q2SjtJ9tlma5P/7xu/sltYnpKVfnhdh
+ LjxZ//YsRcWrkdKgCeFM5JayXY+56B/7s1FhgkVcvWVJRWdgTbtd/5b7KSHFubiDgzVM5
+ LQ3yn4Zquxdrmt810U/ByhNzUQ6ZvXzcExNidIRxsNKwU5HTishhzMUCX7rms7xm2Wnzi
+ XUkcIaGukbQx+FWqdPYzn/ykHiPIRLGjF7BSVrHmE//gOmfLXngBAjUHKXuTqracJjw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793032781;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ c=relaxed/relaxed; t=1793032873;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+ X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To;
- bh=6gA85CyMOQkuO4GtKon7BdcQlSKa+F1G+8pHjrdjc5A=;
- b=cANYSbVvNxWWilKsWcAhAzcAZFmf1S5Ee7IC/KRfjSbynbRnIj5q/HDDvFuxIuewRpe2
- ZDB7CX1bpNo9XMewxVeEc7qd7+9S3okjgkvCOhZneb7CL5EXnSaEmYwGa7LLr7di92iTu
- SgYrEOvi7qmDpvQPDvTV2XaR9M1v3E8/vdfnEDQNyBPB7D4xC89zkVIqIJ9dbn07dwjbY
- 6WVR7Uzec7OCXmcfPUmzJzaPOJ87IkmY0rS8r0oE/1NIVoKG2pRfMYmrLSMfuqm50+Khi
- 13v3ecysJq8x8eKJ+o0ZYSN2+rNi4sdJP04X6MMvFsvkLOo9A762MWjBb7IQEtcXieA==
+ bh=8M0oh2AqgxAI6ZpQRJJhghp96GjY8sQQ1ghn1+UQZnU=;
+ b=Q/Z29Idh4d0TmZVBoNrRV1/TSqY6SHK7orn88Trq0797VSMWT9WQG3T/4P7C3cK4qWNO
+ EJ9fqPjkcPcGaxzgO4SzM0e8p38sVreb/jfTNGGR8lx6z8Mijj8d9pik65GCBlfebS+44
+ 8ZPaDSNa4fiJPt0eQFx4doUlsCFF3bgWM5pTKmLKHkApYix5zAIjQiRIsADimzczLIuKc
+ CUfQeVrBkB6nfYwifQJFiH9ZmZO/oYsgRB1wg2ehbAgNx6IiPQ45DriUCGBi9zDQ4aJrC
+ qEFIkG6Bn1h+UXwZL9oCz63XVntNaw2gh+kpfF9t51RK/+innPuijZGscrLFnRGVpLg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id CAE391F01825;
- Mon, 26 Oct 2026 16:39:40 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id CF6A91F01829;
+ Mon, 26 Oct 2026 16:41:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793032781;
- bh=6gA85CyMOQkuO4GtKon7BdcQlSKa+F1G+8pHjrdjc5A=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=Mzmb/nX632SEp9kFIAuMUZJyepYsQKwPy6QJBK89W/FzjV0xlOHZtF0OQl/D1nU4r
- 8znpwKfAWLzHGLPwJaUVfve0B+wqeIPxD1qTLGQdjgLGKQF3E4fPzW3BK0cHIT5rgH
- j38w+p1/4ZkmebOQh0ZNb0DBF24OezjL3did86EQG6eTwF3Ay9ADoJ8F+y0VSJAcFQ
- iTvNqRE9OERVboZ2E2NP1I9Dk5tA34I39HQ9yJqVqJNrZ98QUh20qqztWHLUTDq6HO
- QxW0scTQwpXY6sH+yxeCe2z+BzlMZHj3Z+vRkjS04x80Peq3A84D1kPQLMy7TrC2QB
- UcwvLzuGA6brw==
+ s=k20260515; t=1793032873;
+ bh=8M0oh2AqgxAI6ZpQRJJhghp96GjY8sQQ1ghn1+UQZnU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=Xs1HTniVmSXsyDaRDI4h9R/EilRgZDTNyw0A5n+Njl2o8cx4B3ngK6UMwIxaHOmzh
+ HOMZfoN+HQvp7JLFpTkWQavaBgh1iOFhZCVc7UxrBGknvod2aoiuTvjBMe9MNElLyt
+ flEzrCVSW+SUqY/scmy9EpLKU56TkojfVElosALZhLCCe3xQsXHslelySSo3+f1skd
+ q05+2lccY2ELUU7f+G4XzMdyarZgoqKcRw6weZv8EMr/doOwEzx0UAMje3ZYpCv686
+ sTapBr2/q/hHY6/1+HgznMakkWIQTRDDO4x2bMxu+Vl2rZYYqOCXd4HF5s8Pn6UdcZ
+ o3Ki+S5I518tg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 3373644DBA;
- Mon, 26 Oct 2026 16:39:40 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Subject: [PATCH v2 0/2] drm/panel: Add Samsung AMS644VK04 panel
-Date: Mon, 26 Oct 2026 22:09:31 +0530
-Message-Id: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
+ by lkml.kernel.org (Postfix) with ESMTP id 4CD6F44DC6;
+ Mon, 26 Oct 2026 16:41:12 +0000 (UTC)
+From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
+Date: Tue, 27 Oct 2026 00:40:54 +0800
+Subject: [PATCH v5 01/11] rust: sizes: add SZ_4G constant
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw6CMBBFf4XM2poy1kZd+R+GRQtTGR+FdLDRE
- P5dwL3Lk5x77ghCiUngVIyQKLNwF2fATQF16+KVFDczA2q0pcad6l2kh3JPscbkuzaKwsGjR0O
- ICPOsTxT4vSYv1Y/l5W9UD0tnMVqWoUuf9TOXi/cnn0ul1d7qo3VUNzqEs08ubYWhmqbpC//zP
- 73AAAAA
-X-Change-ID: 20261023-panel-ams644vk04-ef8b2b24e222
-To: Ishu Brar <patches@brar.si>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261027-tyr-ioctls-v5-1-59dfe98cb003@kylinos.cn>
+References: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
+In-Reply-To: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Lyude Paul <lyude@redhat.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793032778; l=2277;
- i=patches@brar.si; h=from:subject:message-id;
- bh=4KvuWUHaPdgXq8ehofY3K9oc4EVZW4Z4TVVrcbXXOJY=;
- b=oSUMPeh/n1fzasZaiOnn9y+qAgPxIn7YgjYD7xmaw9+shBNZFQr2yzmiEhCb8tcSEzXPwGe6s
- ALIYNO0WNnJAZwe8hZCAf7ODwNP07CZqLC1Sgy1iALMHiilk8zatLUl
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, driver-core@lists.linux.dev, 
+ Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793032870; l=1808;
+ i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
+ bh=5K5ZDtbb0No9pS3iRwCaB/ZkoyNuv4RA97gE66KsHmQ=;
+ b=3xbf/Ui9pjN4/qzsbUlA392NPtGKkMDXcuaouEQqRyRyagAyDKTbCKWEjzhrj8CcnYpOpMqNs
+ Q5cwKjb1MULCcgOqn1keN7x8FTAVjwijV21to9361zXabag+zsWjG0t
+X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with auth_id=950
+X-Original-From: Ke Sun <sunke@kylinos.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,71 +103,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: patches@brar.si
+Reply-To: sunke@kylinos.cn
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a binding and a driver for the Samsung AMS644VK04, a 6.44 inch
-1080x2400 MIPI DSI command mode AMOLED panel with DSC, used in the
-OnePlus Nord (SM7250).
+From: Alvin Sun <alvin.sun@linux.dev>
 
-The driver describes only the 90 Hz mode for now; the panel also does
-60 Hz, which needs a way to pick the mode from the display pipeline that
-I did not want to invent here.
+SZ_4G is used by Tyr when splitting the GPU VA range into
+user and kernel regions. Add a LargeSizeConstants trait, implemented
+for u64 since SizeConstants only covers sizes that fit in a u32.
 
-Tested on a OnePlus Nord with the msm DSI host (a 7.3-rc7 based tree),
-including suspend and resume. The SoC devicetree nodes are not part of
-this series.
-
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 ---
-Changes in v2:
-- Rebased on drm-misc-next
-- Dropped the T: entry from MAINTAINERS (not a committer)
-- Collected Reviewed-by on the binding patch
-- Send the PPS packed by drm_dsc_pps_payload_pack() with
-  mipi_dsi_picture_parameter_set_multi() instead of the downstream blob,
-  so the panel uses the same DSC parameters as the DSI host
-- Binding example: sorted properties, dropped the unused endpoint label
-  (dt-check-style strict)
-- Link to v1: https://patch.msgid.link/20261023-panel-ams644vk04-v1-0-56096aecd0ff@brar.si
+ rust/bindings/bindings_helper.h |  1 +
+ rust/kernel/sizes.rs            | 12 ++++++++++++
+ 2 files changed, 13 insertions(+)
 
-To: Ishu Brar <patches@brar.si>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index 930e63290cdd4..ee99f470ae5f4 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -116,6 +116,7 @@ const size_t RUST_CONST_HELPER_ARCH_SLAB_MINALIGN = ARCH_SLAB_MINALIGN;
+ const size_t RUST_CONST_HELPER_ARCH_KMALLOC_MINALIGN = ARCH_KMALLOC_MINALIGN;
+ const size_t RUST_CONST_HELPER_PAGE_SIZE = PAGE_SIZE;
+ const size_t RUST_CONST_HELPER_GENLMSG_DEFAULT_SIZE = GENLMSG_DEFAULT_SIZE;
++const unsigned long long RUST_CONST_HELPER_SZ_4G = SZ_4G;
+ const gfp_t RUST_CONST_HELPER_GFP_ATOMIC = GFP_ATOMIC;
+ const gfp_t RUST_CONST_HELPER_GFP_KERNEL = GFP_KERNEL;
+ const gfp_t RUST_CONST_HELPER_GFP_KERNEL_ACCOUNT = GFP_KERNEL_ACCOUNT;
+diff --git a/rust/kernel/sizes.rs b/rust/kernel/sizes.rs
+index 521b2b38bfe77..0acc8733d2368 100644
+--- a/rust/kernel/sizes.rs
++++ b/rust/kernel/sizes.rs
+@@ -132,3 +132,15 @@ impl SizeConstants for $first {
+ }
+ 
+ define_sizes!(u32, u64, usize);
++
++/// Large size constants (≥ 4 GiB).
++///
++/// Only implemented for [`u64`].
++pub trait LargeSizeConstants {
++    /// `0x1_0000_0000`.
++    const SZ_4G: Self;
++}
++
++impl LargeSizeConstants for u64 {
++    const SZ_4G: Self = bindings::SZ_4G;
++}
 
----
-Ishu Brar (2):
-      dt-bindings: display: panel: Add Samsung AMS644VK04
-      drm/panel: Add Samsung AMS644VK04 panel driver
-
- .../bindings/display/panel/samsung,ams644vk04.yaml |  76 +++++
- MAINTAINERS                                        |   6 +
- drivers/gpu/drm/panel/Kconfig                      |  17 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-samsung-ams644vk04.c   | 356 +++++++++++++++++++++
- 5 files changed, 456 insertions(+)
----
-base-commit: 650385a0fd0ea6475a17d39a20ec90470c7a4c67
-change-id: 20261023-panel-ams644vk04-ef8b2b24e222
-
-Best regards,
---  
-Ishu Brar <patches@brar.si>
+-- 
+2.43.0
 
 
