@@ -2,99 +2,113 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D32606A31D
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 18:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9176606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 18:25:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=KLuGUXBH
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NAxnxjlk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3588F10E353;
-	Mon, 26 Oct 2026 18:20:07 +0000 (UTC)
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A245010E353
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 18:20:00 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-4a77dcc4ca0so1582443fac.2
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:20:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793038800; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B68DC10E389;
+	Mon, 26 Oct 2026 18:25:34 +0000 (UTC)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB8B10F09E
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 18:25:28 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-3550dd02c9cso326933eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 11:25:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793039127; cv=none;
  d=google.com; s=arc-20260327;
- b=Z2Cw1bwXzvz8npx06Y//BtGMni8olr3/gw0rUILd4ZIkVwPo6dkT20Q/1wlq1CBUI2
- hjNZRQoPh6UWt5Ifzi2lyY9JfR3/FUQ+0+picowgyPb7X7aC1o9/c8uvJN30wRQwjr4E
- ATMN9FFxOHgmG4tBH6P5KzB4kHXMTEEJuap5CRIe5/pLukJ6mAezwfAStSzFbuwOD2zC
- Cc2yVzOn2z5bDhyC3QX9ZJDY+p6cp694JO5oyBtSLJvDEcoN6R9CiIXlpYZ86T9g6Vz+
- Dc3qv0Lx76Xy/THtf2WzP8QCUtA0m1SatRhuc22n3611oca76IAyLKxdPq1OrwR0VRyp
- FDcw==
+ b=bDxmAlwHFyFrm7c0eRTPjZWhh8W2LHiBDWp7WcgJQ+DBlgJGsZ2Xr0kL+gpvdxM5d8
+ K7Qz+nnwH9i2FMfIo7gwDu1RZlkD5VNUlqeDtYTcpEi9gMP3u7wmuncZIXwT8AgiklcX
+ qjUfXCJTMglAAjE7gxGGonfAZSz7UQBdc769qmlZqB3vTpkIjfqlYEgxZzj+vdPDeoPx
+ Bt4LtBE26y+VdJgl3WJRGIF6dPD+MIDu2bxlKuLS1ZwUe4UFV23oG2Tsn4RUCSH7SUC5
+ spWaivtF7UBUH3Zx7I8ye77Bb3V7F0Um0C+kiAgn2hfhS0bFfSwVJsg+e153P7xidke1
+ lZsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=WA5AxzH89R1SOTsw3YYXHEoBQlAVi2xqh5J2QmPmhV8=;
- fh=+c2URaRTaGObUUrT/eBdBW9gT89wJdTV7ZJhQhRnPcA=;
- b=q8EVR394ulz4DmW4sFOPxsiDWT/OGKNvtW3VJYP120lmYf6AlLaJwZcaCINnvAFXPZ
- 5SLWDgM3eAUfTMliBqy1sR/VV72XtnwwY/yS7eI7jHTWXrj6tMwCCYZ1mtSlaoH+bSGr
- YWONuLMUWVdDJnMRs9/hamudcYh2y9wAChr86xEUk2eVXQhUZYifokIKIZlnAEQT68mZ
- M2LMvfQ4T0iyxqSLxYvFhfiR+L/uw89c7tXn2x4JydkMEmDsONKrdjGNKv4rkeYpRCRQ
- 2UpFmcn8imTv5MmjWoTAk2KQ4CB0Ri4iBhg+lwuz1ihMKhsRdXzBZbU5fCNb3C/bvyCb
- Wdqw==; darn=lists.freedesktop.org
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Do/93Ec+a4uH5EBQqfEmx8Kskebovc78z6QXsKmL6Zw=;
+ fh=mgC+iS8N84RVSEmNX2hGPsijNMYKnBxLOtYL+uTGark=;
+ b=q7dlw9BjqdMsj0iLHXsGPADoSXshI92jl81DTRe02mWs5f+KDs72AWC+GdvuRBQA/N
+ NJFG6S1DtVyshSuaHpFLfCXZi8fBoWacbTpEyOPlWfPckwfqBvnBUOLRqpi587aONaJn
+ MbaYi3cxaeVVe7QG/4kHOpabUopNwMrOl1oqtX3pVLBFtNFiCVTwTgZtRBgSOuldeofG
+ UTSUCZOxJJnmLVIjHxgP9sD0qk7Jf4qjTVSEwCqZ95LQ06p9yzg+cFL/TyJDTCioN23v
+ qWHwfSSp5Bfgip2NU3z1/mNwKiC4mBXJVtgpWDTgPEUKbF60jrLf+p8ijuEHO1yc8AYw
+ fQuQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raspberrypi.com; s=google; t=1793038800; x=1793643600;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=WA5AxzH89R1SOTsw3YYXHEoBQlAVi2xqh5J2QmPmhV8=;
- b=KLuGUXBHLKFNCrlUKdQPQAoIwupM3JBGFAGR/LjcncgcKRZnh2vTXL5nxuPl2UpMqB
- 4lVQTanjKHoYEkxYBNju9F9L7FQYH0Y9acff47k5QdtkH9uJXsFnHYOz7AVg+GwyKpv0
- UPUZMnYhc0K4YknWHJf8Mt1FNa7MI6+ICmH8R93oAz+IC2alZcUeqD4z+NqwsvaRCLbS
- lVcJkfOS67m1NKrqJnV7af7D22gFutfz+0udzTALTBRlFBwM7gZ3GJsilAZ65WE1EgfO
- tQoj8cPB9hnT60z34PqAL9l5yLp6vf+rW3Uq1zAt7nasI90AB77LrlxS0SxZKKut/m0T
- 8XVA==
+ d=gmail.com; s=20251104; t=1793039127; x=1793643927; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Do/93Ec+a4uH5EBQqfEmx8Kskebovc78z6QXsKmL6Zw=;
+ b=NAxnxjlkJ22m33oPl+q/tQWY7wQkGtEMMP0p2kTpI/Rd3RtCaxbpYXlzaDilLwsKQj
+ nYmeAKTHdUTLcHRFlLkMO69hFwNadX/G5aYNLbPgxE4umcNDBYIsIIuHiJ1HbTj1jzYY
+ wCrO3QLUXJ/TilBvDQn70h4yCZLF/+hkJ1Mtn+gZlXCut8D1bhodsKvSGrHlpuROgj4T
+ e9Gc+3MwQlSLTPAo66cbC4J3KWjOzgAPqbg8jUcK1aVSBVEP1kC/gtxRma+ucO2XXXtL
+ L0yaeLfwldC15vprD92R73vSLpqLMK3u+9n0W4mhygSuKr6BOebYKp5sdWOVnXBTu2r5
+ H1bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793038800; x=1793643600;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=WA5AxzH89R1SOTsw3YYXHEoBQlAVi2xqh5J2QmPmhV8=;
- b=b3R4oFVQ67GIC2yJYLHJ+nFKT928ky/9ejHpJ7dXpIyvCGi52PGD1BwtKcpG+stDb0
- n51Y1eo3hxag5RXJfKCIBHqZN/v4i5uX9hnsnjzTRItviZknJBchQK9Dg6U56ZdzLDtq
- pYBX3iiIMJ5ncDnoRDOODvFgkWm/R7lBhfTvIpKHyCCQILagE+B1eqismQu4dEooTUKT
- ZuGxHd220sBTPIsnup7MaUYN1HLlcsvoVtYCBO65pODd5mwpHvrZQXF6g6ETWaT/b0qx
- wsGEOc0HbkYCaFkdGJdEjRioDf9c8G4G/dJzHB5AsTjhWosnVyi6JzrNv38ygZg1bXo5
- wYQw==
+ d=1e100.net; s=20260707; t=1793039127; x=1793643927;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Do/93Ec+a4uH5EBQqfEmx8Kskebovc78z6QXsKmL6Zw=;
+ b=ghARPgLJtBGqcvm4137JqJZaliuKML55yOfiFJhZRg9U0vHdOcvOlKRPV37IisBXM/
+ JVGLiQ/HMbTb8s8zhOYkYi0QZxV9Z/YodqLsSrcsBCVr+yEqoM4uf1aYJQ+I5niCZqHc
+ uM9CalbSVqP2XI/4QN++HHRu0xREcO/f78u1jDnWx/3FTGr3Lv3LMu32xZrsAHPOxKhp
+ BGzW+SIlxJcgwk6Qx9llyXNnProsQL963vWcTrfnPIueLaOZR99MoldlyLW4ndIKy1Nb
+ nUSxnqCTnCHjjwDyGrzs21Vg7Ki2/bq2LNUw42jTvOl02sFK2nyKNwWZmn60iNJVTMXS
+ jcHA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwGjldZ7VjjG3t12uXJbz+Xa4G88xK0hwPw8PihN0Z5N3eyCg3KnM/PihnpyBHy+6nhG1t/AFvEHtE=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLVuzE5Bgm/hjepS7Re0YxUfR13yvbGphmxNDYfHtbuZFftfxY8
- 7D3xCkT7qEkQyXRGYjAdAaai1ez2sqkssaj7gWxqmJqCaF9S1Sgn0Y6xty9KkrFJynxINsuNn63
- FHEeNHkOi40UE6Q1Mq4vocN2piijKRHkQW+m9nhsRvQ==
-X-Gm-Gg: AYBFou3L7mBcFATBA25LIhfj6fuOJq2611a0NRU4T4WitUpN6bPP3JBS8TA4tbhcMmT
- lvxdcmdKEvdzwJzJYTNzdIV8JWAwFoW9Reu0CIwhiJoGW9j8ISaykkrAzLrHDeur0hvKMVczXPX
- EkhMmlmxwq+3Z2f8/TIaVPWEEuAh3Pr5CRPeu8ApgtgJHIy++vu0CJiKLNNGJkPkG4tSUnH42gL
- K8baPQnOLURODn92GE7Zz9s1CwS+l+QrGEt6q7KMCfiOQNAVtMgkjQBpgXxy6Ll38lpz8LOhdH3
- j5w/HSocJAEqxiKu7ZNZHrHDA45h/egpgcebw334cpjMTY/THzAhSGUnOVBbBXWnL54P49LimKw
- /2KoSWS8sZNVQ9IWIQ5pneDADZ2gjVT1QFYWlZNhjHx3OJys6gu4W7p4yAVWSJ0cDCE4czpGGbn
- SzEzVhZCRC+5gztWhvqsGMzPNt1uUHDt1CFaGrXpTRmNel9mTDcnljxA==
-X-Received: by 2002:a05:6871:d3:b0:494:75ba:c6d2 with SMTP id
- 586e51a60fabf-4a83f4a1680mr5146584fac.13.1793038799703; Mon, 26 Oct 2026
- 11:19:59 -0700 (PDT)
+ AKwUvBz04w/4t0iWx7mZT45Qi5TsUbthEwL89nhk46tT8aUhCiZAobiC7VlhYdhgYIyi3wry6oqmyHg3vVc=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI5WPTorwC8bLKnXyhcD9w2J/myWYVM6msTUqQSLLxSzcLe/PJI
+ gNI5VXichiJlUKV70By6C4wxvQFwEOQEI99/AUbA/WelZGSaoOOC9gHdMIKsVqEeeBGnEKF1fXg
+ G9avYBF686aRdD2BA9PXNXmeHoInXlsQ=
+X-Gm-Gg: AYBFou0fhs4r53vyP5qrm0wDyoL5eYdiNqG/15cB3psLVQTGhbDG82KoVtTtthciWj7
+ cxA8KtRNAuxF71LiAPnR6OkOuJ2g/hrr2Et2wXaMjrnMshfXHOHDBnszqssYa2gP/sZmh4srugf
+ VXrWUYVOVXv8xck6oBiik+GfaWtddWRyYO0IL8PuB7oJppLoeDYHgg+Q44icD+OOD7adQs8fUdg
+ 6BfvO+MTfFwIZVG/pf/ppDBezHV+y9BBJyO3CUp4iA4Mq5faUDmkeVYhNrUFfj2rZaELwk4ybjr
+ llVsQZ3N+3/phNbw0mDcEFXQ9wVFcCpWSuutZIeV2QapX+9HXNrjnpLMEeIVVUv/RIriDCX6VIr
+ v01ZZ/e2XVf3kxSFl6FA+NerCJaN7sLIpfs/9Mk4YZkTIkTLkMU2w+Iz9YJBBpZtuwtRaEcfDQE
+ 6aIydMDtCGt1vDMDaiTtxrUPo=
+X-Received: by 2002:a05:7022:7f05:b0:17f:641e:7f6b with SMTP id
+ a92af1059eb24-199345c5ecamr17915804c88.1.1793039127302; Mon, 26 Oct 2026
+ 11:25:27 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261019174930.7237-1-henryzhang62@gmail.com>
- <20261019174930.7237-4-henryzhang62@gmail.com>
-In-Reply-To: <20261019174930.7237-4-henryzhang62@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 26 Oct 2026 18:19:42 +0000
-X-Gm-Features: AclHuK9tlTBZJu7ULazzmt-h2nMwB_CPhUkhsXOT5jfzH2rY1dSineF5A9oA7q0
-Message-ID: <CAPY8ntAyrZO5Oi5hxDfSKHdSFpJTR29J8kUDCL7Au0QCXR0iLg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] drm/vc4: dsi: Serialize host transfers
-To: Henry Zhang <henryzhang62@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com>
+ <20261025040046.1602-11-atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <20261025040046.1602-11-atharvatiwarilinuxdev@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 26 Oct 2026 14:25:15 -0400
+X-Gm-Features: AclHuK-iVje5ZZPGXAxueHXGbehXRgBbIH4abpn4VFZrQQC5igwZxtMQm-2wnbg
+Message-ID: <CADnq5_O2tEUHOcbiKL8c4UHpy3AmOWtmM7A8o3jP2qLwkx2jUQ@mail.gmail.com>
+Subject: Re: [PATCH 10/13] drm/amdgpu: Catch register access while GMUX keeps
+ the GPU off
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: Andre Eikmeyer <dev@deq.rocks>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, Kenneth Feng <kenneth.feng@amd.com>, 
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>, 
+ "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
+ <linux-kernel@vger.kernel.org>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, 
+ "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,84 +120,189 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 19 Oct 2026 at 18:55, Henry Zhang <henryzhang62@gmail.com> wrote:
+On Sun, Oct 25, 2026 at 12:26=E2=80=AFAM Atharva Tiwari
+<atharvatiwarilinuxdev@gmail.com> wrote:
 >
-> vc4_dsi_host_transfer() fills the command FIFOs and the TXPKT registers
-> and waits on a single completion without any locking. Two callers
-> sending at the same time, for example a panel driver and a backlight
-> update, can overwrite each other's packets, and the timeout recovery
-> added in the previous patch could reset the block under a transfer
-> that is still in flight.
+> From: Andre Eikmeyer <dev@deq.rocks>
 >
-> Hold a mutex for the whole host transfer, including the recovery.
+> As mentioned previous any access to the GPU when the GMUX has
+> shut off the rails results in a CPU CATTER, skip and report
+> any register access after the GPU was runtime suspended for GMUX power-of=
+f.
 >
-> Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
-
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-
+> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 > ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  5 ++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  5 ++++
+>  .../gpu/drm/amd/amdgpu/amdgpu_reg_access.c    | 24 +++++++++++++++++++
+>  4 files changed, 36 insertions(+)
 >
-> Notes:
->     New in v2 (Sashiko review).
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 6fd607587..ac8dfc3ab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -881,6 +881,8 @@ struct amdgpu_device {
+>         /* enable runtime pm on the device */
+>         bool                            in_runpm;
+>         bool                            has_pr3;
+> +       /* GMUX has cut power, any register access would hang the PEG lin=
+k */
+> +       bool                            gmux_off;
+
+You can drop this.  Nothing about this is GMUX specific.
+
 >
->  drivers/gpu/drm/vc4/vc4_dsi.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>         bool                            ucode_sysfs_en;
 >
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index 2d985bc..627adf0 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-> @@ -25,6 +25,7 @@
->  #include <linux/dma-mapping.h>
->  #include <linux/dmaengine.h>
->  #include <linux/io.h>
-> +#include <linux/mutex.h>
->  #include <linux/of.h>
->  #include <linux/of_address.h>
->  #include <linux/platform_device.h>
-> @@ -595,6 +596,8 @@ struct vc4_dsi {
->          */
->         struct clk *pixel_clock;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index c1f196242..8185934b4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -946,6 +946,11 @@ bool amdgpu_device_skip_hw_access(struct amdgpu_devi=
+ce *adev)
+>         if (adev->no_hw_access)
+>                 return true;
 >
-> +       /* Serializes host transfers, including the recovery after a timeout. */
-> +       struct mutex transfer_lock;
->         struct completion xfer_completion;
->         int xfer_result;
->         int irq;
-> @@ -1434,6 +1437,8 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
->         u32 disp0_ctrl;
->         ssize_t ret;
+> +       if (unlikely(READ_ONCE(adev->gmux_off))) {
+> +               WARN_RATELIMIT(1, "%s: register access while powered off =
+by GMUX\n",
+> +                                       dev_name(adev->dev));
+> +               return true;
+> +       }
+>  #ifdef CONFIG_LOCKDEP
+>         /*
+>          * This is a bit complicated to understand, so worth a comment. W=
+hat we assert
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 5ad7b6dd8..135798c76 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2932,6 +2932,9 @@ static int amdgpu_pmops_runtime_suspend(struct devi=
+ce *dev)
+>                 amdgpu_device_baco_enter(adev);
+>         }
 >
-> +       guard(mutex)(&dsi->transfer_lock);
+> +       if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_GMUX)
+> +               WRITE_ONCE(adev->gmux_off, true);
 > +
->         ret = vc4_dsi_transfer(dsi, msg);
->         if (ret != -ETIMEDOUT)
->                 return ret;
-> @@ -1911,6 +1916,7 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
->  {
->         struct device *dev = &pdev->dev;
->         struct vc4_dsi *dsi;
-> +       int ret;
+>         dev_dbg(&pdev->dev, "asic/device is runtime suspended\n");
 >
->         dsi = devm_drm_bridge_alloc(&pdev->dev, struct vc4_dsi, bridge, &vc4_dsi_bridge_funcs);
->         if (IS_ERR(dsi))
-> @@ -1918,6 +1924,9 @@ static int vc4_dsi_dev_probe(struct platform_device *pdev)
->         dev_set_drvdata(dev, dsi);
+>         return 0;
+> @@ -2960,6 +2963,8 @@ static int amdgpu_pmops_runtime_resume(struct devic=
+e *dev)
+>         if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_NONE)
+>                 return -EINVAL;
 >
->         dsi->pdev = pdev;
-> +       ret = devm_mutex_init(dev, &dsi->transfer_lock);
-> +       if (ret)
-> +               return ret;
->  #ifdef CONFIG_OF
->         dsi->bridge.of_node = dev->of_node;
->  #endif
+> +       WRITE_ONCE(adev->gmux_off, false);
+> +
+>         /* Avoids registers access if device is physically gone */
+>         if (!pci_device_is_present(adev->pdev))
+>                 adev->no_hw_access =3D true;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_reg_access.c
+> index 7468855c1..bb5dbeb7f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
+> @@ -594,6 +594,9 @@ u32 amdgpu_device_indirect_rreg(struct amdgpu_device =
+*adev, u32 reg_addr)
+>         void __iomem *pcie_data_offset;
+>         u32 r;
+>
+> +       if (amdgpu_device_skip_hw_access(adev))
+> +               return 0;
+> +
+>         pcie_index =3D adev->nbio.funcs->get_pcie_index_offset(adev);
+>         pcie_data =3D adev->nbio.funcs->get_pcie_data_offset(adev);
+>
+> @@ -677,6 +680,12 @@ u64 amdgpu_device_indirect_rreg64(struct amdgpu_devi=
+ce *adev, u32 reg_addr)
+>         void __iomem *pcie_data_offset;
+>         u64 r;
+>
+> +       if (amdgpu_device_skip_hw_access(adev))
+> +               return 0;
+> +
+> +       if (amdgpu_device_skip_hw_access(adev))
+> +               return 0;
+
+Duplicate check here.
+
+Alex
+
+> +
+>         pcie_index =3D adev->nbio.funcs->get_pcie_index_offset(adev);
+>         pcie_data =3D adev->nbio.funcs->get_pcie_data_offset(adev);
+>
+> @@ -706,6 +715,9 @@ u64 amdgpu_device_indirect_rreg64_ext(struct amdgpu_d=
+evice *adev, u64 reg_addr)
+>         void __iomem *pcie_data_offset;
+>         u64 r;
+>
+> +       if (amdgpu_device_skip_hw_access(adev))
+> +               return 0;
+> +
+>         pcie_index =3D adev->nbio.funcs->get_pcie_index_offset(adev);
+>         pcie_data =3D adev->nbio.funcs->get_pcie_data_offset(adev);
+>         if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offs=
+et))
+> @@ -762,6 +774,9 @@ void amdgpu_device_indirect_wreg(struct amdgpu_device=
+ *adev, u32 reg_addr,
+>         void __iomem *pcie_index_offset;
+>         void __iomem *pcie_data_offset;
+>
+> +       if (amdgpu_device_skip_hw_access(adev))
+> +               return;
+> +
+>         pcie_index =3D adev->nbio.funcs->get_pcie_index_offset(adev);
+>         pcie_data =3D adev->nbio.funcs->get_pcie_data_offset(adev);
+>
+> @@ -784,6 +799,9 @@ void amdgpu_device_indirect_wreg_ext(struct amdgpu_de=
+vice *adev, u64 reg_addr,
+>         void __iomem *pcie_index_hi_offset;
+>         void __iomem *pcie_data_offset;
+>
+> +       if (amdgpu_device_skip_hw_access(adev))
+> +               return;
+> +
+>         pcie_index =3D adev->nbio.funcs->get_pcie_index_offset(adev);
+>         pcie_data =3D adev->nbio.funcs->get_pcie_data_offset(adev);
+>         if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offs=
+et))
+> @@ -832,6 +850,9 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_devi=
+ce *adev, u32 reg_addr,
+>         void __iomem *pcie_index_offset;
+>         void __iomem *pcie_data_offset;
+>
+> +       if (amdgpu_device_skip_hw_access(adev))
+> +               return;
+> +
+>         pcie_index =3D adev->nbio.funcs->get_pcie_index_offset(adev);
+>         pcie_data =3D adev->nbio.funcs->get_pcie_data_offset(adev);
+>
+> @@ -861,6 +882,9 @@ void amdgpu_device_indirect_wreg64_ext(struct amdgpu_=
+device *adev, u64 reg_addr,
+>         void __iomem *pcie_index_hi_offset;
+>         void __iomem *pcie_data_offset;
+>
+> +       if (amdgpu_device_skip_hw_access(adev))
+> +               return;
+> +
+>         pcie_index =3D adev->nbio.funcs->get_pcie_index_offset(adev);
+>         pcie_data =3D adev->nbio.funcs->get_pcie_data_offset(adev);
+>         if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offs=
+et))
 > --
-> 2.47.3
+> 2.55.0
 >
