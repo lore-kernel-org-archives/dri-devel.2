@@ -2,93 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6260D606A322
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:44:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64426606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 08:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=VpmQ77Y5
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SjT+cLJ5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5D7410ECD7;
-	Mon, 26 Oct 2026 08:44:53 +0000 (UTC)
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C376F10ECD7;
- Mon, 26 Oct 2026 08:44:46 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69Q5I2ig2459339; Mon, 26 Oct 2026 08:44:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=OPjKlmQhOolYsyN1l8JwVw0
- v9oJi4NbTI7scNS9SDa4=; b=VpmQ77Y59Ib9gtOqe87dNqTYSp+4fdMDMEeA4l4
- 2n4XaYXJ9FN4Pd473sGbKPV2EUSL/AWuNd+B3jqfqeArJkTzslcIQvHIKdiz4HOG
- mal8t98tOyMONxfWq3Gwdue0lLYoWl+V0WGuY8fEn30fxqwbvglNXroO1WsD3Fg8
- 1Qm0LVTogkCcAIGiQsqD67+3eHiBgpK7kHGplZ8kpP4qzwPrYRahrtmmnmEp7ENX
- hrJ34UbrMK2xwLK2lZTsdx5tgZAHD87DkGj7uDDGGJ5uMXImL9zIPNoMQbXVvaV8
- FT45+QEWNgvGGLnjvZ8MiH4jAt98wpOfUAzZQKPRrZITJ2A==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hgmrthgvs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Oct 2026 08:44:37 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 26 Oct
- 2026 08:44:34 +0000
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Mon, 26 Oct 2026 14:13:55 +0530
-Subject: [PATCH v2] drm/imagination: Support for querying Firmware information
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADFA210E119;
+	Mon, 26 Oct 2026 08:50:00 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED2D510E9B2
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 08:49:53 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4a218c463d1so15878395e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 01:49:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1793004592; x=1793609392; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rszKDmeyYp+Dq9ttmtnC0+XaYnbTJ3v9qyyrMyWHQC8=;
+ b=SjT+cLJ5aZe49LFSRTXTViuV5dmnwjoAoGSUtWbln/UfslQ2VEY7Iaue+svGNtwyH9
+ 59FCTD06o1pC9r/RR1tYLjRS8HPpW2XoKB4ArI5fBVpLRbZ0Hc3I8VS5KsQbTGyLEANZ
+ 9X9eDK9CqG3HPp62qJ5cF5uJoua0zl0fMJxE7eSxNTkUkcqojilYM9NysxFQD5eRA2PB
+ UMABUDxsfrcqB+qk/MRkPrZeAqx/vt39WpODe75atoX/xVyciAcioAPiqf0m8d2Xa3IZ
+ FJbm05I/eElX+mfCrW1RKyVkdzmZD2s2Np+UOjBqo0zMYfnColmST+K5/aXtxmGQP/4o
+ +3WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793004592; x=1793609392;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=rszKDmeyYp+Dq9ttmtnC0+XaYnbTJ3v9qyyrMyWHQC8=;
+ b=SyhLgUNEYY4P6lS55qmE6BB8bLmUD1pszZrnJa8iMVqYoeSx6p3U+SbKYAeXtwkp3u
+ 41sgvx2ZEhmjV35gRUhyBJFfyCsCOkqMOJd10qg+tnbzw7hlaE/UBbkT9PvLkhMSkkUW
+ GZhoIsnuQZhMvj/doYP4I43B4Yq0RX3sii8mdmylyPlXO8IeZV4ivJSr29zmPAApnzAA
+ 6nHpocN45uoEbWuJ0WM1GT4duIJ45tTnDyoXFrf2pQWELwCRY4HNXJCFZc5EzI/7v/1Z
+ hH6dhudsJZJ5ZmwT5CtnKHjRfNMS+KlzInuxOCcF0o7oAOx8UZzkXW/iLRI0g7choMsv
+ qjPw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxwmH7J2e//A81rL9g0Bdg2ZMafMTYyCfecd/AdCpi9g1CAJMZl3XgxlBX9/yjW+CFLgdHCOPU1Qxs=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJiOxWO5bupeDSNKS9NZr3Crf6MAab4m1mx8SqdOrAkR6rO4T1x
+ ++2X82CSV6B+Zsg9+ThsuhR9wOA6jHRIfN0Chuw4XB9eYVpXuq+KYomv
+X-Gm-Gg: AYBFou2QyWaO3f6cMa8R6ZknwqeITW6USj/9g5+ZFkFyza5JLLb2ZFKsBg1GlS+nqgM
+ kbW/8eh3uic+2aaxkBJ1pR9XjQaKdNxlA8U9wjngyKWLVi+Nad03n5Dy4+6ZI+iAmBwxO6cGrMo
+ Max74U+2e2L8qLhod9XhLMzVvLwQoB/aQZLIKC7m5d5iU26BSuoQRBQcqck4mBOJR3DmGF+XoDP
+ sJmf6cN1y3GFegWRHQhqXsLQOURaS9kKH9awSeMUIIeQe3/EV5nHGKzl/nYzeKRIt+AD+JpsD3H
+ L3BH+AkAsQs52zsfdxtXxO+/5gvwM2PPF87oIbS2Nsuc6yS83tP91CNXHH49lWfF4Bu3ZC8SVQP
+ okeMaQHCcJoyQGqvXUce+wIOnw51zfFT85d2l2mjd4RyaPOEIRGysL+fxmM5H96QDpE6tEzGal7
+ nW7/w0pr4xsLcwJY+UhHEgLvzc5XHPmh/2Jpx1AkwsiXk8GBRT+vDtNovyLSkhZkaXjM48rh11j
+ 6otg/Yc7R4pNuWcme3Zipp8OE+3/9BaNHBagb6I5BVsI+bWPrx4qvn+il1PNGkZyN69
+X-Received: by 2002:a05:600c:1c06:b0:4a1:e7ce:107b with SMTP id
+ 5b1f17b1804b1-4a35ac407fdmr149623005e9.2.1793004592159; 
+ Mon, 26 Oct 2026 01:49:52 -0700 (PDT)
+Received: from fra-x8664.wind3.hub ([151.16.244.30])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4a35a30e22csm179923445e9.2.2026.10.26.01.49.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Oct 2026 01:49:51 -0700 (PDT)
+From: Francesco Magazzu <postadelmaga@gmail.com>
+To: Lyude Paul <lyude@redhat.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Karol Herbst <kherbst@redhat.com>
+Subject: Re: [PATCH 1/2] drm/nouveau/clk: don't ignore RAM clock programming
+ errors in nvkm_pstate_prog
+Date: Mon, 26 Oct 2026 09:49:49 +0100
+Message-ID: <20261026084949.256678-1-postadelmaga@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260727152821.128432-1-postadelmaga@gmail.com>
+References: <20260727152821.128432-1-postadelmaga@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261026-fwversion-v2-1-bb025c93a04a@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAMoS32oC/22MQQ6CMBBFr0Jm7RinClhX3sOwqGUKs4CallQN6
- d0trF38xft5eStEDsIRbtUKgZNE8XMBdajAjmYeGKUvDOqkGipD904cNgt1ba7KaHLatVD8V2A
- nn7316AqPEhcfvns60fb+qyRCwjP31NqmfrqLvcs0LGyP1k/Q5Zx/Ctipd6MAAAA=
-To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Brajesh Gupta <brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5582;
- i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
- bh=PW7i/+RQVTHXW4Nw0I6lp9odmlm2he+P1vM5eQQiXgQ=;
- b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBq3xLxW1T+12APP9dl0C6q+tF8JKcTMU7so0OCe
- /0O6VvAETSJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCat8S8QAKCRDQJndZfgLx
- cFLeEACCF1SIvYT7QloOek3MQKeOPHiGw5MyKJUBL5SByPYMurI82ylBX1VX0BSZmop3LTuxe2W
- GDaMnc058n2hW5BS0dZC6mvu0n6YmIfSpqYgYo8Y9WxfabrXSZmHn/qEkfv5BhlwH5cKwcauo+T
- GL3YyyzkX2bTOOL7JxfgQo39jCCkyBalm7/hW0MMrVd4FjW57xJyF2vR+G54zdzX7/Acp3P4fpp
- 0cx+H3zdrNWfA0lmoAanQzmSq5PHyFtQAhdNN0O58hynzl7GUo2hpaH5yfg7EgW9HXwP/GyV2ye
- PG82ijbirCIkarDjHYA9DOOdmy1oHxrSwluNlW9G/hJm1JAjR6SI5Vfj4LVRCIE9kllFamxphE0
- Ny0Q2TXYsoHc2hCkpoz2upgoODcIHkSFQxs06cf9M1jbYEQVor7/zPMjTjLGAw/l7PUEAzHdQGO
- NQal4dZblRwQ/JlA9TayLa3O+N0YSMd1QGHGCniUi8iBFTuGfUi5TSGRmeGNgeqBOC+ZTSOkaUa
- SGgvUeBuf4nPCpkdKsYVEJ8zVmi6mRM7qciASUm+qXmymuF8nDGOtEyxVXO5tHgoKz6Kou2gz9j
- QJc5xnFyOGk1+Og0hlOtMJiAtCeTEYdS+u2sWqxORvF/6KsWOPwqZeh3Iby9dTxM+jYiaNJlv+Y
- N0ZepvM3UkaKSZg==
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
- fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
-X-Proofpoint-ORIG-GUID: iURTvS0fMT8INX3wjdNinv5m0Pn4Kt8S
-X-Authority-Analysis: v=2.4 cv=NZdzRGD4 c=1 sm=1 tr=0 ts=6adf12f5 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=tATwJB8W6yD03TAJafYA:9 a=QEXdDO2ut3YA:10
- a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNCBTYWx0ZWRfX3nVQX6ueuzBW
- XXc0FOhh+dp9LgTFYMOdPMT+HA3rJNXx41x8LUHyTc0lCSUIa6PoxGN8T/k75CrQ7SKeh21GWQz
- o8xzZ/GmARUSe4lLMLvyNZPuOCjCqL8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNCBTYWx0ZWRfX1FMINEoJUlUF
- Up5oqmdg4jHRjrLQc5m21emqmhgZ6CZMlRL3Wb+w/K9/ZbuObht1Odk1L17m38nfSydnutZmJIt
- nVGWdNQ/ydhpnU176QrsYlYckfXjg/UgQsgE76TCCPvpOAjIgS9rVtwWPWeKqBsNN39O768/1NY
- Kj9v7Knr8s4+4sfQpLQU8LfOJP0iMsY9Uvhh3RSVN3nNzAvhSrMeYKZAULi0PGQJevNMvNvc6VG
- eJW+ARpAPkEhGt9VbD8GqHDJ35p4i8+jtjzyW/vM8UsUXBJmbX2IGVz3vUPpuv6/patDmEWe17B
- bMtJ6SI77Cu2csTPuvLdyWPcVN2A1TU5L6/MYLu/xvCKaaShtRw3Uyx3YfG97JWlKmqqD8HsL8y
- nQySb/+63MkRysEiPEcbKU7zfaUpxybt5yrT2qzFQkOpFuWfmQ5mFpfuKeHBzlt5SZD7qcFFe87
- Y94n24hbL9Ohx+TgXyw==
-X-Proofpoint-GUID: iURTvS0fMT8INX3wjdNinv5m0Pn4Kt8S
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,177 +86,24 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a new subtype DRM_PVR_DEV_QUERY_FW_INFO_GET under
-DRM_IOCTL_PVR_DEV_QUERY to query Firmware information. This allows the
-userspace to detect any bug fixes and features present in the Firmware
-and take appropriate action.
-Currently it supports querying major and minor version of the Firmware.
+Hi Lyude,
 
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
----
-Changes in v2:
-- Add padding field to align new FW query struct to 64-bit.
-- Link to v1: https://patch.msgid.link/20261026-fwversion-v1-1-3ed17c65bf4c@imgtec.com
----
- drivers/gpu/drm/imagination/pvr_drv.c |  5 +++++
- drivers/gpu/drm/imagination/pvr_drv.h |  4 +++-
- drivers/gpu/drm/imagination/pvr_fw.c  | 25 +++++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_fw.h  |  3 +++
- include/uapi/drm/pvr_drm.h            | 21 +++++++++++++++++++++
- 5 files changed, 57 insertions(+), 1 deletion(-)
+Gentle ping on these two.  The v3 of the cursor series is in v7.3 now,
+thanks for picking it up - but these two don't show up in mainline or in
+drm-misc-next, so I suspect they got lost after your review.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 5c965ef0274f..2d522a8e46ad 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -6,6 +6,7 @@
- #include "pvr_device.h"
- #include "pvr_drv.h"
- #include "pvr_free_list.h"
-+#include "pvr_fw.h"
- #include "pvr_gem.h"
- #include "pvr_hwrt.h"
- #include "pvr_job.h"
-@@ -658,6 +659,10 @@ pvr_ioctl_dev_query(struct drm_device *drm_dev, void *raw_args,
- 	case DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET:
- 		ret = pvr_static_data_areas_get(pvr_dev, args);
- 		break;
-+
-+	case DRM_PVR_DEV_QUERY_FW_INFO_GET:
-+		ret = pvr_fw_info_get(pvr_dev, args);
-+		break;
- 	}
- 
- 	drm_dev_exit(idx);
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
-index 7fa147312dd1..4e058a6fdd5c 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.h
-+++ b/drivers/gpu/drm/imagination/pvr_drv.h
-@@ -13,9 +13,10 @@
- /*
-  * Driver interface version:
-  *  - 1.0: Initial interface
-+ *  - 1.1: Add DRM_PVR_DEV_QUERY_FW_INFO_GET query
-  */
- #define PVR_DRIVER_MAJOR 1
--#define PVR_DRIVER_MINOR 0
-+#define PVR_DRIVER_MINOR 1
- #define PVR_DRIVER_PATCHLEVEL 0
- 
- int pvr_get_uobj(u64 usr_ptr, u32 usr_size, u32 min_size, u32 obj_size, void *out);
-@@ -68,6 +69,7 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
- 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_heap_info, heaps) \
- 	PVR_UOBJ_DECL(struct drm_pvr_static_data_area, offset) \
- 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_static_data_areas, static_data_areas) \
-+	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, _padding_4) \
- 	)
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index c6c77b152342..1f21e6adaff2 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -4,6 +4,7 @@
- #include "pvr_ccb.h"
- #include "pvr_device.h"
- #include "pvr_device_info.h"
-+#include "pvr_drv.h"
- #include "pvr_fw.h"
- #include "pvr_fw_info.h"
- #include "pvr_fw_startstop.h"
-@@ -1496,3 +1497,27 @@ pvr_fw_hard_reset(struct pvr_device *pvr_dev)
- 
- 	return 0;
- }
-+
-+int
-+pvr_fw_info_get(const struct pvr_device *pvr_dev,
-+		struct drm_pvr_ioctl_dev_query_args *args)
-+{
-+	struct drm_pvr_dev_query_fw_info fw_info = {0};
-+	int err;
-+
-+	if (!args->pointer) {
-+		args->size = sizeof(struct drm_pvr_dev_query_fw_info);
-+		return 0;
-+	}
-+
-+	fw_info.major_version = pvr_dev->fw_version.major;
-+	fw_info.minor_version = pvr_dev->fw_version.minor;
-+
-+	err = PVR_UOBJ_SET(args->pointer, args->size, fw_info);
-+	if (err < 0)
-+		return err;
-+
-+	if (args->size > sizeof(fw_info))
-+		args->size = sizeof(fw_info);
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 4b25291135b6..7e18f3e7d4be 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -496,4 +496,7 @@ int
- pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
- 				  u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr);
- 
-+int
-+pvr_fw_info_get(const struct pvr_device *pvr_dev, struct drm_pvr_ioctl_dev_query_args *args);
-+
- #endif /* PVR_FW_H */
-diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
-index ccf6c2112468..1179c1e7d92d 100644
---- a/include/uapi/drm/pvr_drm.h
-+++ b/include/uapi/drm/pvr_drm.h
-@@ -434,6 +434,21 @@ struct drm_pvr_dev_query_static_data_areas {
- 	struct drm_pvr_obj_array static_data_areas;
- };
- 
-+/**
-+ * struct drm_pvr_dev_query_fw_info - Container used to fetch information
-+ * about the GPU Firmware like its version.
-+ */
-+struct drm_pvr_dev_query_fw_info {
-+	/** @major_version: Major version of the Firmware. */
-+	__u16 major_version;
-+
-+	/** @minor_version: Minor version of the Firmware. */
-+	__u16 minor_version;
-+
-+	/** @_padding_4: Reserved. This field must be zeroed. */
-+	__u32 _padding_4;
-+};
-+
- /**
-  * enum drm_pvr_dev_query - For use with &drm_pvr_ioctl_dev_query_args.type to
-  * indicate the type of the receiving container.
-@@ -476,6 +491,12 @@ enum drm_pvr_dev_query {
- 	 * a pointer to &struct drm_pvr_dev_query_static_data_areas.
- 	 */
- 	DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET,
-+
-+	/**
-+	 * @DRM_PVR_DEV_QUERY_FW_INFO_GET: The dev query args contain
-+	 * a pointer to &struct drm_pvr_dev_query_fw_info.
-+	 */
-+	DRM_PVR_DEV_QUERY_FW_INFO_GET,
- };
- 
- /**
+Both still apply on current mainline (one line of offset).  On
+drm-misc-next 2/2 needs the v3 series to be there first, since its
+context comes from "drm/nouveau/clk: don't use the pstate cursor after
+the loop" - so either after the next backmerge, or I can rebase and
+resend, whichever is less work for you.
 
----
-base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
-change-id: 20261026-fwversion-95a82a91f9f7
-
-Best regards,
--- 
-Brajesh Gupta <brajesh.gupta@imgtec.com>
-
+Thanks,
+Francesco
