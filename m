@@ -2,72 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D14606A31D
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:49:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEB3606A321
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Djp6KgM/
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gAdEfPmM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66F8A10E058;
-	Mon, 26 Oct 2026 07:49:42 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9158410E058
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 07:49:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7DAB2600CB;
- Mon, 26 Oct 2026 07:49:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5CF11F01825;
- Mon, 26 Oct 2026 07:49:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793000975;
- bh=tGan54VoAnB4BE1bGQWN3/UB0AMHIKWY02TwZZSb8dc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Djp6KgM/ed2JB1GYRGErLaSBWyk2umqHkL8Qd/t3iZ3KIQyMH6wf/SZcOl/F2nvnm
- J08z3u6soNcscjlSljFsrWs6jyqderjJuFXv/LlciGkUiS9YEcnwijYS5Py3Q9pAwu
- 5bzhC5Ss5o53wBcVQrBHXM+T/1fFyG6FzDtDj8up7fgb9EzaTeYsGguzFoWm3A5Mdz
- kQcxdWEhC+PHL5MtK8b5dR/4RhmmD/3Bfil48gkj2uelsLrQDnV57mcsLKCJGorOM0
- Q2hbssBt6WxooFcoe9hM9jjebnDbKqSAs8zh4kX5GjMY1LopHj+IACG3uZoTLwjQLC
- n/FTqA94ydnpQ==
-Date: Mon, 26 Oct 2026 08:49:31 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Tomeu Vizoso <tomeu.vizoso@gmail.com>
-Cc: Nishanth Menon <nm@ti.com>, "Andrew F. Davis" <afd@ti.com>, 
- Randolph Sapp <rs@ti.com>, Jonathan Humphreys <j-humphreys@ti.com>, 
- Andrei Aldea <a-aldea@ti.com>, Chirag Shilwant <c-shilwant@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
- Tero Kristo <kristo@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Robert Nelson <robertcnelson@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Markus Elfring <Markus.Elfring@web.de>, 
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Suman Anna <s-anna@ti.com>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, linux-remoteproc@vger.kernel.org, 
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 02/16] dt-bindings: remoteproc: k3-dsp: Allow a second
- sub-mailbox
-Message-ID: <20261026-illegal-gifted-rooster-047a1a@quoll>
-References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
- <20261023-thames-v3-2-3ab40aa17157@tomeuvizoso.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1087010EC30;
+	Mon, 26 Oct 2026 07:49:58 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC65D10E09D
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 07:49:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793000992; x=1824536992;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=xdoP/3wkFtbyhTDEtPGlM0pOcxylHkC82Pv0VGU/oew=;
+ b=gAdEfPmM9TnqFH14ZZDS9XFgXymEhOaNXxjmnDjCNRT+cOW/6JwrNrQf
+ tD1EePjcWYLqHI/lUORwYGvTWdEx0cuWMSdHbQk1vmqS0IfT7S56YpwGs
+ j+PsBV3zFsRas3Xj2ZxZoqTLmP1FXAvUKQNWKMB1xjgpNhVVQ7mBDtpL4
+ SeIA1YoO1pE2YZDNxOJVQwOmYQ9RMH8JhBZNMrXJf3d/8dIdSfU/IyOam
+ oGRbALTK40aogL4ArZD2BQ2Y8P+ONzPXaJQ0P2JMbCs3B9tHqOkn6A/JD
+ 933AtF4W5Y1A/XW+CPi8EX6/LuFU9OjTFkbaTLUVgOOzGVp5zlCtru6LT A==;
+X-CSE-ConnectionGUID: z/+m85u2SZecqnjTZEFNDg==
+X-CSE-MsgGUID: 0Njr7DiuRjupKaNN1GhvSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1648378"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1648378"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2026 00:49:51 -0700
+X-CSE-ConnectionGUID: 7xMj5IMvRaezQaBy2FqKZA==
+X-CSE-MsgGUID: MCjZAatsQZqL/d//rG0mHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4582440"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa006.fm.intel.com with ESMTP; 26 Oct 2026 00:49:48 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xLFSi-00000000VZi-1l2H;
+ Mon, 26 Oct 2026 07:49:44 +0000
+Date: Mon, 26 Oct 2026 15:48:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: Philipp Stanner <phasta@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, Arnd Bergmann <arnd@arndb.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ Philipp Stanner <phasta@kernel.org>
+Subject: Re: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit
+ properly
+Message-ID: <202610261518.t3m9Kwds-lkp@intel.com>
+References: <20261021095512.1345191-4-phasta@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023-thames-v3-2-3ab40aa17157@tomeuvizoso.net>
+In-Reply-To: <20261021095512.1345191-4-phasta@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,59 +76,103 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 23, 2026 at 08:39:27AM +0200, Tomeu Vizoso wrote:
-> Allow specifying a second sub-mailbox that could be used by the firmware
-> in addition to the first one, which is taken by remoteproc.
-> 
-> This is required by firmware that doesn't use rpmsg for their
-> communication with the Linux kernel.
-> 
-> Assisted-by: LLM
+Hi Philipp,
 
-Drop
+kernel test robot noticed the following build errors:
 
-> Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+[auto build test ERROR on 1ecab8b0bad393750c60cc3819ce9c256595463c]
 
-DCO mismatch.
+url:    https://github.com/intel-lab-lkp/linux/commits/Philipp-Stanner/asm-generic-bitops-Add-set_bit_release/20261021-115512
+base:   1ecab8b0bad393750c60cc3819ce9c256595463c
+patch link:    https://lore.kernel.org/r/20261021095512.1345191-4-phasta%40kernel.org
+patch subject: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit properly
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20261026/202610261518.t3m9Kwds-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610261518.t3m9Kwds-lkp@intel.com/reproduce)
 
-> 
-> ---
-> 
-> v3:
-> - Initial version
-> ---
->  .../devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml        | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> index 278b88b7f906..d6319c8e96f8 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> @@ -51,10 +51,12 @@ properties:
->  
->    mboxes:
->      description: |
-> -      OMAP Mailbox specifier denoting the sub-mailbox, to be used for
-> -      communication with the remote processor. This property should match
-> -      with the sub-mailbox node used in the firmware image.
-> -    maxItems: 1
-> +      OMAP Mailbox specifiers denoting the sub-mailboxes allotted to
-> +      communication with the remote processor. The first is the one the
-> +      remoteproc core uses and should match the sub-mailbox node used in the
-> +      firmware image. The second is optional.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610261518.t3m9Kwds-lkp@intel.com/
 
-Instead list the items with description and minItems: 1. Don't repeat
-constraints in free form text.
+All errors (new ones prefixed by >>):
 
-> +    minItems: 1
+>> drivers/dma-buf/dma-fence.c:393:2: error: call to undeclared function 'set_bit_release'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     393 |         set_bit_release(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+         |         ^
+   1 error generated.
 
-Best regards,
-Krzysztof
 
+vim +/set_bit_release +393 drivers/dma-buf/dma-fence.c
+
+   337	
+   338	/**
+   339	 * dma_fence_signal_timestamp_locked - signal completion of a fence
+   340	 * @fence: the fence to signal
+   341	 * @timestamp: fence signal timestamp in kernel's CLOCK_MONOTONIC time domain
+   342	 *
+   343	 * Signal completion for software callbacks on a fence, this will unblock
+   344	 * dma_fence_wait() calls and run all the callbacks added with
+   345	 * dma_fence_add_callback(). Can be called multiple times, but since a fence
+   346	 * can only go from the unsignaled to the signaled state and not back, it will
+   347	 * only be effective the first time. Set the timestamp provided as the fence
+   348	 * signal timestamp.
+   349	 *
+   350	 * Unlike dma_fence_signal_timestamp(), this function must be called with
+   351	 * &dma_fence.lock held.
+   352	 */
+   353	void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+   354					      ktime_t timestamp)
+   355	{
+   356		const struct dma_fence_ops *ops;
+   357		struct dma_fence_cb *cur, *tmp;
+   358		struct list_head cb_list;
+   359	
+   360		dma_fence_assert_held(fence);
+   361	
+   362		if (unlikely(dma_fence_test_signaled_flag(fence)))
+   363			return;
+   364	
+   365		trace_dma_fence_signaled(fence);
+   366	
+   367		/*
+   368		 * When neither a release nor a wait operation is specified set the ops
+   369		 * pointer to NULL to allow the fence structure to become independent
+   370		 * from who originally issued it.
+   371		 */
+   372		ops = rcu_dereference_protected(fence->ops, true);
+   373		if (!ops->release && !ops->wait)
+   374			RCU_INIT_POINTER(fence->ops, NULL);
+   375	
+   376		/* Stash the cb_list before replacing it with the timestamp */
+   377		list_replace(&fence->cb_list, &cb_list);
+   378	
+   379		fence->timestamp = timestamp;
+   380		set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
+   381	
+   382		list_for_each_entry_safe(cur, tmp, &cb_list, node) {
+   383			INIT_LIST_HEAD(&cur->node);
+   384			cur->func(fence, cur);
+   385		}
+   386	
+   387		/*
+   388		 * This orders the signaled-state with the test_bit_acquire() in
+   389		 * dma_fence_test_signaled_flag(). This ensures that functions like
+   390		 * dma_fence_is_signaled() can only ever return true once signaling is
+   391		 * completed (i.e., after the callbacks above ran).
+   392		 */
+ > 393		set_bit_release(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+   394	}
+   395	EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
+   396	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
