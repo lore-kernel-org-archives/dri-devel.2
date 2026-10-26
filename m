@@ -2,72 +2,145 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E054606A31D
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:08:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95570606A31B
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 09:12:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=eT6zOUVN
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AM1cYYST;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bkPyZu8G
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBD0210E0D9;
-	Mon, 26 Oct 2026 09:08:47 +0000 (UTC)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5479410E0D9
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:08:41 +0000 (UTC)
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-4a2065a2ef9so27247645e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:08:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F14FD10E0BB;
+	Mon, 26 Oct 2026 09:12:04 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15A0910E0BB
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:11:54 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69Q4arqx3303612
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:11:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ /vDERYeVL03wKO34taLC/BjiC0AyLdy7FJkp+DjJcs0=; b=AM1cYYSTA37KxufC
+ Y9gCmJaHvPM8awTBsY97AbFNn/5c/owS0kW6fy15Ri9NiVS9o5nrNAHLFFoJ2HEw
+ aJKbm0d5eJGmj5yj8rnlgqxBLtoekUOIRSYMh7IWS9GjoJtjZ0s57/W4lGmThLFj
+ /O8/iiJAr6xLsRuQdKrGuRHpbX32hYprGHTCVK9PYWuGbX2MxfJH5EIV8I4cHQ+Y
+ Hgy1iCBzc1bXClRZhAcPbAS9Jxj4tfWf6YL02QW2BHYue6CbdY3WgQPz4Ho57vMc
+ DTiaswtRB1q3ataXB83m0qnfOAvqIwe6xsWXpWkf2N64OwQZnbhL/9hghwj33Je/
+ WESGNA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkmsdqbr-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 09:11:53 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-93df7a9466bso27919685a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 02:11:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1793005720; x=1793610520;
+ d=oss.qualcomm.com; s=google; t=1793005912; x=1793610712;
  darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=6xeXvSy4w9o/b7yWR4xuzrTkC32fzIISOboFKZOljJg=;
- b=eT6zOUVNdy3M3HLIqRL7Y3+lvuE8K9lZ0oqhjUxWaAt1MIRewCaoTrVgfp0Y+nSG9f
- 7RuYQS8U5thCZDorgY0jUhhL/XSTMOKMBfIqjPJJBW/FdnBSYxbbb/97k7tno2pr4Yue
- zUQ56OqScX7gUJ7nUcjTbNG1erg63vH4t+qts2utYdgq6GzFCvYqBkEZ/4HQcmqT8aD+
- yx4hpDfzonKnNbD0tZtMt9DvD1FZPMfCNMXjFZgPixdcVYSjnGsKWZ483Vm+xwo+AIqA
- SIfJ3pFXlCzw8n7KnFgGNGFrim5lSJEVRZIDaFJ5vrVasf9DeaPGI626yysm4shQJ32e
- 4IZQ==
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=/vDERYeVL03wKO34taLC/BjiC0AyLdy7FJkp+DjJcs0=;
+ b=bkPyZu8GTEWE362MXBihYYDBhF+IWOuoCirDOGgAU3IPgHm8jAmihhOMXKX6D8Ykv4
+ t0Dj8fxEl6YglzzmXoBUAwPbhXBRtzJaN8YSZEoLXvL+u1CLlncRs03/GzNcNm+/uKAF
+ 90ukBx2Q3vPOM73HFIklivabSTwo1TjlRTqOLlCClVSthIkJiB1SdPrfHSpjHEU+zJHc
+ l8iYpn/gHrg9ncz2XKS1KmRRV+xqBcXS/zLGFMzL8bYvix0oNIDbNSnyeboevx192nHb
+ T/OLpFrvZ7PETK9bHIjCIoCsU4fU5cy4r3OY78Lii/vpBbS+Pv/bjFcz7Zvf+GU0BnLg
+ ZlWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793005720; x=1793610520;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1793005912; x=1793610712;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=6xeXvSy4w9o/b7yWR4xuzrTkC32fzIISOboFKZOljJg=;
- b=mbpDkq8jNZ988LbUib2Q0vYUu2w94B5/BrHynIl+tz/yaM42BEVD722JdcL5Nj92jB
- GfLkchRp5lfnBimhEqSZmsuZGoq2BdA7HawuDoxz6EvNguyofkcU3vL2JHG0+9dMepZT
- zUiLdBhNvFkvP9nGPokCJ590+jKpiGbrK/DlxtLBzaNaUOGKTcK5yzyK80Lzd/hZSi7d
- wYaZBbgHz2Kp+Yb9zMAD/Ce82y36SQyeF9GIPRZPdccz+5CILfQmQOv5kExMM6ApAWqi
- nKaJ6eK63TcjBCV1UpZgyl8dReHXCVbI8/712kB2BK7A0inhPX27BMMua9kTfDEecWBP
- SwKw==
+ bh=/vDERYeVL03wKO34taLC/BjiC0AyLdy7FJkp+DjJcs0=;
+ b=MR0jabuqmuQrpFMB95I7sl80JG5PcDvPZLtZ4z2O1LKppdMJvq15Dx9imL7QJzzIEy
+ d25qQFjXUhf5bAHlDeF7hbF5wJ7847Wg+OgoHFpS7iXY9atQvjGz4NdK/W4pY2DsSyQj
+ bY+UkwE2bnfku8vmmRISsIscUIP5ntIF08fih1k5x+uEYQK+BQprGxOs6J5B8DcDiZEJ
+ dy8Vu4RCCuIQiaLu6tX8QFVvxDVqq9/+Su3RlotqApHFx/pbRWt7Tb1IoUhZ21ZyhvL3
+ Ph2odXtY20RriA7mw7ccHmJ9WCK4F8k793fVpSR++buuTZGf0rmTB3X533+rLhkZwtVV
+ nfxg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz4EbIJdoH25f8JJk1zVdelwbRJ11zz3n/HenTUmIYyvnPaxhclgSN6PRxx8kgnTvZucLgmh4JPeK4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJBWUrGRSeM3RH1FeeU2wRBDR/CpWggrUKuW58MIolIzZoBUEwN
- nOaY5HCpIjMEwkRaM7QIkDj66kfiY1QQVgRDjuUUMVvsuhzHedPBwhOAN3VxOQxN26phaCZOc2m
- Rg8Hwkcx9ZuGs5kEcQA==
-X-Received: from wrvd13.prod.google.com ([2002:a5d:538d:0:b0:48a:fe63:7751])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:34c9:b0:4a1:f625:2108 with SMTP id
- 5b1f17b1804b1-4a35acebc28mr107940825e9.33.1793005719194; 
- Mon, 26 Oct 2026 02:08:39 -0700 (PDT)
-Date: Mon, 26 Oct 2026 09:08:36 +0000
-In-Reply-To: <20261005134010.302208-1-laura.nao@collabora.com>
+ AKwUvBy18hkI8ILZlyY92HGpOaKLw2uBJG2/M83+cjJRPC6rIP3nYd6WFFg5DZtsq/O8rqs/AsBGadsZ9yE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKDXoBHpl8/uGXHKlaMTytHKBwzci4PIFariTXdfC6tl4Y5o+lD
+ ZZRY+NwsX/L/DF+B475eYZyWxnGeo08nXktDF/qQDwRcGhGGrra8rWw/uWHnkcTvqFnpZfza9/d
+ PFRjV7Nt4lfcMDUKGanKb19jHniyqdIFFBgTiUQhJ3Z3VHvR5jk/V+K6WIUqpX0J/D1hovHo=
+X-Gm-Gg: AYBFou1JrroMiwmz5i/tNc7DlhFVP2BpAOXeA/wu3h6PoyXB53ZhnUe8O2Rp3NL9J2j
+ YK3nhrcMKn+RpYRUZG+73f9DDh4H9o67Tq+CWTrV8lSmGRZML0yXelh+C0lNI/QJ2dierTt792N
+ 3yj474ZsJXIyWESZS8ti5rEnZGIiVHtwVnxuBrilh+NNzvC6tqIR/gFQ5bGjun4qtOYyHlWcRzE
+ 8MKnNucC4D2x+pux33FdDc9nUlooXTfP5HQzDKUeBthZUOvD9CsNCB7lRvvlhBCZUH/Mqun8sY1
+ lTR6gceGIOcaFgLElIxPdwkJAk99jRWT4DdRiBXwCzr7squ/xZaJnUJNPeAJfUtaFeSirVy2D3K
+ K2Mjprg+TIa8wOPZAPUun5w==
+X-Received: by 2002:a05:620a:26e4:b0:93e:6d87:4f69 with SMTP id
+ af79cd13be357-940ef8ec03dmr999830285a.3.1793005912437; 
+ Mon, 26 Oct 2026 02:11:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:26e4:b0:93e:6d87:4f69 with SMTP id
+ af79cd13be357-940ef8ec03dmr999825585a.3.1793005911851; 
+ Mon, 26 Oct 2026 02:11:51 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6b4459711d2sm3281710a12.17.2026.10.26.02.11.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 Oct 2026 02:11:50 -0700 (PDT)
+Message-ID: <c86259a3-f719-4e92-ad8b-a0cb6e1d685d@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 10:11:48 +0100
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-References: <arOP5iuLuj1aTiLl@google.com>
- <20261005134010.302208-1-laura.nao@collabora.com>
-Message-ID: <at8YlKUJOWc_X-JV@google.com>
-Subject: Re: [PATCH v6 2/2] drm/tyr: add Job IRQ handling
-From: Alice Ryhl <aliceryhl@google.com>
-To: Laura Nao <laura.nao@collabora.com>
-Cc: a.hindborg@kernel.org, acourbot@nvidia.com, airlied@gmail.com, 
- bjorn3_gh@protonmail.com, boqun@kernel.org, dakr@kernel.org, 
- daniel.almeida@collabora.com, deborah.brouwer@collabora.com, 
- dri-devel@lists.freedesktop.org, gary@garyguo.net, kernel@collabora.com, 
- linux-kernel@vger.kernel.org, lossin@kernel.org, ojeda@kernel.org, 
- rust-for-linux@vger.kernel.org, simona@ffwll.ch, tamird@kernel.org, 
- tmgross@umich.edu, work@onurozkan.dev
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 04/10] drm/msm/mdp5: flush the interface before
+ starting the timing engine
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Kalyan Thota <quic_kalyant@quicinc.com>,
+ Federico Amedeo Izzo <federico@izzo.pro>,
+ Helen Koike <helen.fornazier@gmail.com>,
+ Vignesh Raman <vignesh.raman@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
+ <20261024-fd-kms-fix-smmu-v5-4-a5b0b284aead@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261024-fd-kms-fix-smmu-v5-4-a5b0b284aead@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: lMxersox_xtCpoagnDJlK7UxZEGR_5pO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfXxTafPVzur7y6
+ xhOKmC4EivgAjod7mgPm6N5kZDvvaiX0H7sAg40LV9hg5RGxxFAtm3nrFrh74eJtU+dBtM6yAvs
+ C+0GLO5g+BTiyt2wtwuHDaea0f+mFKONx2QdpnE9wAl++SxeU4QE7itozIgZnRaeqRIDHYBR+Mb
+ zyCXVKMKXjX8L61F1yyNfEbUwajZb3qA79r1REdzdNM3r1B0gKbymoSm/vQPVmx/YFEJFFZbN5h
+ z6me/AdkI48pp1Odh2RMFfR0zhBKyXTGX4ygCVjXLomVbLpOap8m3/Mlk+A6yL5dMymznFxPYMY
+ cornZ3r8wlc7BvLxknvndal/q1SNHsBv3ZUDsNmBH0sOu2U5muPDQccTWpAOxR8pSF2Hf49kCAq
+ TwdHvg/7PG2G4dk9prH84Y1+XIZ70GzWBfcdPxQQAGjqtRzQKLGIOq+be+mjiI0WUrWN3zT2kup
+ CPDkQbPZ1f+Qxf+6OMg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAzNiBTYWx0ZWRfX5PMIErRrW7+k
+ pWO1Xe+Xwvp6oRMpRBHwTYkB/f6Z8DBVVJHsBwIo3d3rJcUmrDG84DyFkSaiXi9YqbREHH1mKPF
+ g0+ECp1iE1b+ynM7fwOxstDBPPfzjoM=
+X-Authority-Analysis: v=2.4 cv=UqX2pOwB c=1 sm=1 tr=0 ts=6adf1959 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=t3vDU1A9I6D9DDbkPvEA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: lMxersox_xtCpoagnDJlK7UxZEGR_5pO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260036
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,129 +152,41 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 05, 2026 at 03:40:10PM +0200, Laura Nao wrote:
-> Hi Alice,
+On 10/24/26 1:25 AM, Dmitry Baryshkov wrote:
+> Disabling a CRTC and then enabling it again can produce an SMMU fault on
+> MSM8996 as soon as the timing engine restarts, e.g. when fbcon takes over
+> after kms_atomic:
 > 
-> On 9/23/26 10:37, Alice Ryhl wrote:
-> > I agree with sashiko's review here.
-> >
-> > This needs to happen after the free_irq() call in the destructor of
-> > TyrIrq.
+>   arm-smmu d00000.iommu: Unhandled context fault: fsr=0x402, iova=0x01fa6e00
 > 
-> Thanks for the feedback.
+> The faulting address is inside the framebuffer that was scanned out
+> before the disable, which has been released since. The pipes keep that
+> address latched (CURRENT_SRC0_ADDR still points to the released buffer)
+> because the plane removal flushed after the timing engine stopped never
+> takes effect. On the next enable the pipes are programmed and flushed
+> before the encoder is enabled, but that flush doesn't include the
+> interface: the encoder enables the timing engine first and only then
+> flushes the INTF. The first frame is fetched with the latched pipe
+> configuration, from the released buffer.
 > 
-> In v5, I was masking the interrupts in TyrIrq's PinnedDrop impl which
-> resulted in clear_mask() being called after free_irq(). However, sashiko
-> warned the device could then assert irqs after free_irq() completes
-> but before clear_mask() runs, potentially leading to an IRQ storm that
-> could result in the shared line being permanently disabled. 
+> Flush the interface before enabling the timing engine, the order used by
+> both the DPU driver and the downstream mdss driver. With the INTF flush
+> pending, the whole pending flush takes effect when the timing engine
+> starts and the first frame is fetched with the new configuration.
 > 
-> So calling clear_mask() before free_irq() should avoid this, but we
-> still have to deal with threaded handlers potentially re-enabling the
-> mask after clear_mask() has run (as per sashiko's review on this current
-> revision). Adding the atomic state should help with that though, as you
-> suggested:
-> 
-> > And most likely, we need an atomic along the lines of ACTIVE /
-> > PROCESSING / SUSPENDING in panthor_irq.
-> >
-> 
-> So I'm thinking something like this for the state:
-> 
-> #[derive(Clone, Copy, PartialEq, Eq)]
-> #[repr(i32)]
-> enum IrqState {
->     Active = 0,
->     Processing,
->     Unregistering,
-> }
-> 
-> unsafe impl AtomicType for IrqState {
->     type Repr = i32;
-> }
-> 
-> This could then be stored in TyrIrq:
-> 
-> #[pin_data]
-> pub(crate) struct TyrIrq<T: TyrIrqTrait> {
->     irq: T,
->     state: Arc<Atomic<IrqState>>,
->     #[pin]
->     _pin: PhantomPinned,
-> }
-> 
-> Then TyrIrq::handle() proceeds only when the state is active and
-> TyrIrq::handle_threaded() re-enables the mask only if the state is not
-> `Unregistering`.
-> 
-> Does this make sense to you?
-> 
-> As for masking before free_irq() runs, I'm thinking of possible
-> alternatives to JobIrqMaskGuard and its ordering convention (i.e. must
-> be stored in a field declared before the corresponding
-> `ThreadedRegistration` in the struct that owns both). Would it make
-> sense to define a TyrIrqRegistration struct that wraps
-> ThreadedRegistration instead? and then clear the mask in
-> TyrIrqRegistration's drop impl.
-> 
-> Something like:
-> 
-> #[pin_data(PinnedDrop)]
-> pub(crate) struct TyrIrqRegistration<'a, T: TyrIrqTrait> {
->     #[pin]
->     registration: ThreadedRegistration<'a, TyrIrq<T>>,
-> }
-> 
-> #[pinned_drop]
-> impl<T: TyrIrqTrait> PinnedDrop for TyrIrqRegistration<'_, T> {
->     fn drop(self: Pin<&mut Self>) {
->         let handler = self.registration.handler();
->         handler.state.store(IrqState::Unregistering, Release);
->         handler.irq.clear_mask();
->     }
-> }
-> 
-> This should make sure teardown order is still respected without relying
-> on the user correctly putting the guard before `ThreadedRegistration`.
-> 
-> Any thoughts on this approach? In case it helps as a reference, I've
-> drafted both IrqState and TyrIrqRegistration in [1].
-> 
-> [1] https://gitlab.freedesktop.org/laura.nao/linux/-/commit/c78e296690e643b790fb3195660f1229e3cdb5ca
+> Fixes: 06c0dd96bfbb ("drm/msm: add mdp5/apq8x74")
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-I believe there is still a race. In this code:
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-        if self
-            .state
-            .cmpxchg(IrqState::Processing, IrqState::Active, Full)
-            .is_ok()
-        {
-	    // <--- thread is preempted here
-            self.irq.reenable_mask();
-        }
-
-If the above code performs the cmpxchg, but then gets preempted before
-it runs the reenable_mask() call, then another thread can come along and
-execute:
-
-        handler.state.store(IrqState::Unregistering, Release);
-        handler.irq.clear_mask();
-
-clearing the mask. Once the original code starts running again, it calls
-reenable_mask() even though the state is now Unregistering.
-
-This incorrectly leaves the irq enabled even though the
-TyrIrqRegistration has been dropped.
-
-Adding a lock around these critical regions would solve this, because
-it would make preemption between `state = Active` and `reenable_mask()`
-impossible.
-
-Alice
+Konrad
