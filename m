@@ -2,161 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84138606A31F
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 15:34:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91403606A31A
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 15:37:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UcS0ih4B;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LvrNvlv2
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W/wgfmpr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E724810E1F7;
-	Mon, 26 Oct 2026 15:34:10 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44B6410EF8F
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:33:59 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69QEvwmD2707743
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:33:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=qidAGMYPaKRzpoE4VkvBWD/KkiVta3FKeYv3IJb+rMQ=; b=Uc
- S0ih4B0SqyqXAGstgs78uTJ2W7qimh8yCjoJbY09Gm39AV24Ile16ot+enHW4FFm
- 9qMmuf6FHur8O9jfG/YMtkMxEAz1IiClXAjROITmWFDsnvmI8tw6nfgct/dmtN9z
- c63Mg4VyG+G/31UCIsG0BKMBk7IEt/zLwMQ/+Wf++9Km8773Q8spidzIzLZMEjwK
- Sbh+9lT/5wawmkzk3TuAEmif2GlDCYa/P8Qdcjgh7TkJmLTCpkZEDNIxwFNJiao3
- 92AAAEeutzkreIbsQHsLINmFTDvp/FJ3sBJNB/sQeJ5RgQcq7rMOpOGcAHd2kmcv
- I4q1Lf0XMMwaAaExINsA==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
- [209.85.161.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u61fsh-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:33:58 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id
- 006d021491bc7-704aee0b7b2so3179402eaf.2
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 08:33:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793028838; cv=none;
- d=google.com; s=arc-20260327;
- b=rR37qH8CN/2MOHPXhjhbwvyo2wpKr+sqdlTyrO0v6JHpXg+bz/6yQI8TBp3pYcpWr8
- t5inh+w6+YxScSObHyVz5B7R5Vr04yjxqk7DJ42xpCeJ3+rjjCOX2oLeDk75qNofNeZ2
- RQItlGnR9b16GiEjrvpCTFMrIwePlm+qLGefe5WZGpLKss/VWU40Opn4yxP3FgFTq8WP
- yKq2w+dFwrxLoPZJUSJ2T9WevN3eKRgxZzuT0xTqHUIRCZGu7yIcD+G9qhBWdjWV4NTI
- lI2NJ+ZkulVKUPFr/T/xNQrI9Ni5+2fGnQHkWVowo9H/6MOAygksMmJpqTrvcbx447mQ
- NssQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=qidAGMYPaKRzpoE4VkvBWD/KkiVta3FKeYv3IJb+rMQ=;
- fh=r0pnopSaZmClIwrAuTMF/Xkj4RLIeWWw0Vfff2UngK8=;
- b=R2GmUd1Vhya5Waq1n2IJCDmHMkE0xqz6RdGhmGqH3W/kgt3+Ini7vtz2Qa/IAWENpu
- YRNkWz8VWblufIqc2Bn29axN7Qnzwdj6daovemk8kwbY7nCYQcvsEZkiA3ABTyJrn5Ku
- sVBu3zQmKXnrdQm24WpJcyr2N/C8NsoInCA9S9a2F1XamcZN/6s8cPqMC4WCHhMSLwF0
- NnqrCDdHCN2Y/8/kXwTTMBLOmItF1Je2YyTyCTpHVX0qfpku2c2qY31sIks6cIVjxkFt
- hnN9f/qxVg/krLyrktfM7J3C0FiBYfJbJ68XLcrwVhE+9P4u6eY4VyMBumE4GaR2EAje
- SX9Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793028838; x=1793633638;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=qidAGMYPaKRzpoE4VkvBWD/KkiVta3FKeYv3IJb+rMQ=;
- b=LvrNvlv2et/b0Y/Jhpt36F3ogMDOHiGMonyXi82etPz18zWfzyEXpv+Ik/7IcCLrji
- v3koxsnYfKGvgPIikNSI75IEsKqzgjvDBEL3bmowv1+rjWT81fDtSiyf0im02MSztv4t
- IGfDPhPSse1bipuS/vQBNswppOjYIYCGcT5LGubf6VwAFZj8cwECSYT8A8zHiCh9ZX3i
- NP6CpE93n9t8rjv+5GJukB+tOfjx8LCwEqUr/rogoPKLvqKhfkYD0i7tIaUzEgw1WNaO
- slGp+in6BymXYd7fG3I+nIHKzWDZv6xfpCt9KzVLVXvo7YDAMjws9U7pTjo7mRnzIIe4
- fEHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793028838; x=1793633638;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qidAGMYPaKRzpoE4VkvBWD/KkiVta3FKeYv3IJb+rMQ=;
- b=pF3KLBbokYbM6ggBJfCnZU0Iy0LZq9jy4emkswFQDV7gOILxLFFOCoDIkGBh7rQqHb
- SrPPtt1X5lZqxm39LV6RP6SRpnsxr1mxhlvmkxRnRquOAmAlNkToSIaIt6rUYtkRByLa
- jRoupsxwAnhAjpwJQCTjVMyo2Fpc6f51tZUlo9enjuSfQEdwsK01tiSUtfCCMtxfvtKe
- zAieU/lCvQCbmFu7thVnw8uw8DPueN+Hb2qy+hqaghIsKOOCrvXcASrKazbt3z0/grET
- M2nqPJ3uGzaaN2WRufjAYOSk6GVuo2MC59S85IP9Hd05O5MwTC2tYd0RnL4QDdO/Za91
- Vc6A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz+h3+IjrjjAVSuDJpLEjAC1UC2fD3u4lUteibWboH/MFn8IkHZBWprGvjcJ7vLPLjkTGWs78t7nLU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIr1Q1V46eojmRgUp3n00kiQvH0jSLMNbnmEx6JYwJS1zNW3k7G
- JwdFiMvqGgrkPVnpAT2YHPQwlB8cRrXahBb8OIrIedW88nQytpcow4e0DdxNhsUd0TKJSOIz6++
- lxMfgkoCdbp/Pj3/9fsfwRsAlvCeyI04+gNSbDGeRWGOD5zyxZnuI2PSVzws4UYxofx9jvxlkxa
- oxpO6//T41X9kE56qXHqYo9UWEN3f9b4THzKcp4AoO+BSLuQ==
-X-Gm-Gg: AYBFou14VNNq1fOw4zQjZ0gw2KXXpKg+2277dOxIAEF7pJceXwnF/ZUFFvLaOXc9LSo
- f0ekNl67uTb3Tp/Cqw+C7UmQd38QvfG3vMgToXq4r3fZoZpL7spstYZy4yrNx6X8WO1oldHx+lk
- cT/bPbSXwJldJdJEJJ/xI2VE+uxeD2eAbeXtTc8J+hzdo+BEHFeCNqX9hREQ==
-X-Received: by 2002:a05:6820:1387:b0:70e:78ba:11dc with SMTP id
- 006d021491bc7-70e78ba2a36mr1241822eaf.17.1793028837864; 
- Mon, 26 Oct 2026 08:33:57 -0700 (PDT)
-X-Received: by 2002:a05:6820:1387:b0:70e:78ba:11dc with SMTP id
- 006d021491bc7-70e78ba2a36mr1241797eaf.17.1793028837444; Mon, 26 Oct 2026
- 08:33:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 053CD10E02C;
+	Mon, 26 Oct 2026 15:37:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E62E210E02C;
+ Mon, 26 Oct 2026 15:37:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793029058; x=1824565058;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ABzbBfcKkptUCHkSrV+1KuKjKwYsif+aBVWDr4ugau0=;
+ b=W/wgfmprl0FBT9ye/4vBCieg5vCFcGjSNC4IFBNzi7bK7LPosgwJvpEM
+ CN7BJu1DC3u4LlCbei8oj7uRRMxhtl22X0OLt3cr92BF5F/bZS8V1uxUw
+ zXXwHUJyAqgAwCjzXs3FzW8AviN3YQ8HMRgNWUlZqXPsw6uUDtQoRnC7B
+ U71h3fp9pjmE9IkKgN/yKD7WPQD376oclgd1caAG0t3/BOUdosfiawuXk
+ J5vJF/KNhjniBahNTlFiEhvQjbB45SE97g/iyCIXBKcbpdO7PfnUQSHsx
+ Fmc4E47QHYQUP4adh/Tq5IuLqIbuHiBqEbozuQLxXwqm0uHqwuPLZauGC A==;
+X-CSE-ConnectionGUID: A5Pov6d0SlCKaUN6QHv7Lg==
+X-CSE-MsgGUID: aq2AInAFSVa8ABEPu4S0Jg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1711817"
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="1711817"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2026 08:37:37 -0700
+X-CSE-ConnectionGUID: gJc8ZQ2uROWZbfb52Lw5uw==
+X-CSE-MsgGUID: uhH7Zg1qTROBOaShTRvWmg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
+   d="scan'208";a="4802389"
+Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2026 08:37:36 -0700
+Date: Mon, 26 Oct 2026 16:37:33 +0100
+From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+To: atipre <tipreaditya@gmail.com>
+Cc: igt-dev@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ louis.chauvet@bootlin.com, Karthik B S <karthik.b.s@intel.com>,
+ Swati Sharma <swati2.sharma@intel.com>
+Subject: Re: [PATCH i-g-t] tests/kms_writeback: Check CRC capture survives
+ writeback
+Message-ID: <20261026153733.fdbw34baxoduq357@kamilkon-DESK.igk.intel.com>
+Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ atipre <tipreaditya@gmail.com>, igt-dev@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, louis.chauvet@bootlin.com,
+ Karthik B S <karthik.b.s@intel.com>,
+ Swati Sharma <swati2.sharma@intel.com>
+References: <20261025182420.52258-1-tipreaditya@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261026-topic-vm_bind_rs-v1-1-6581465f2428@oss.qualcomm.com>
- <CACSVV03M_MzamPN5X=+bmbqOkET2QOJk8O_vQyhnjDGbSTvN2g@mail.gmail.com>
- <a5667943-3c3a-4bcd-99f4-fe5e487cb6c5@oss.qualcomm.com>
-In-Reply-To: <a5667943-3c3a-4bcd-99f4-fe5e487cb6c5@oss.qualcomm.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 08:33:44 -0700
-X-Gm-Features: AclHuK_qyCyqkMau4o0U6eEvxC80Yve9tJ1hV1jdwuEzcVPxGyIcGYsybUyrLPI
-Message-ID: <CACSVV016mJk+oLotAUKeXr4a9FHn=cfPcWrxdfrwRxmC4S4wqw@mail.gmail.com>
-Subject: Re: [PATCH RFC] drm/msm: move VM_BIND op validation to Rust
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: YySoRcVeLNZnTasOu-A8N2QqV4OLE4NF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfXzJonwmxmLOmb
- Cf9K/LT9N9F1y9tvta0tBmOpuDEO3Cw8oI1pGRhOIBybwEqhxlyQ6gWbYN6Svu+JCIRmAEnY5l7
- iHpflmZLt4xGeebjCpuj78Uq7eAr/ZjHdE56eE6Z8veF8I6onjyk5G5uKFAqrABOwt2H+T8HnUB
- tgrPUtKxPeFA3e/rSJw2niD79ky+TWGaSdEwiC+FvGhz5GJ6mCPBfwJTi/euAj2rvhsLzqy5QSr
- bI9C01XzipnG8vE2k6oXW0Wzm9QY1KJFZ65uiYcJLaKE9GQsVDi+m9jg7+N5PJvFuOfl3HjXtjl
- 9XGgg4o4iDehkJOdyaFmbIlGTzLcSRawRS1rDkP/48HL51pRz+qokJZXHZrFpIrQK75k9FIiTRU
- 2jpviGJfvgO0gAulaUUiyqqrJm9J3VcZmztWFxe5emakA2GJRnBSjSsX+xDn/GZL9byyePPteja
- IMl23HqBriRlIzqq5nw==
-X-Proofpoint-ORIG-GUID: YySoRcVeLNZnTasOu-A8N2QqV4OLE4NF
-X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6adf72e6 cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
- a=9rG3V10fu7yUYHM-WnoA:9 a=QEXdDO2ut3YA:10 a=WZGXeFmKUf7gPmL3hEjn:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfX5vW9BJK0H1On
- kK14OmAgBg17SjmaU1zy543mbN2pCqcXtGltC2i5P5Iz+HpBm3Xyu6pph7+9FkQ9sy9ac0CJxXT
- R8jI9NFHclx9Wq7UabxuZuOM4vTo7cU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260061
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261025182420.52258-1-tipreaditya@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,62 +70,156 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 26, 2026 at 8:30=E2=80=AFAM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 10/26/26 4:26 PM, Rob Clark wrote:
-> > On Mon, Oct 26, 2026 at 4:40=E2=80=AFAM Konrad Dybcio <konradybcio@kern=
-el.org> wrote:
-> >>
-> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>
-> >> Much of the VM handling code is a headache to read and maintain.
-> >> There's a soup of mixed-signedness/size types which need to be compare=
-d
-> >> and added and getting that wrong in C is very easy.
-> >>
-> >> The "(range + obj_offset) > obj->size" check could wrap for a large
-> >> obj_offset, which let an out-of-range map be accepted and then mapped
-> >> as nothing. Oxidize it and use checked_add() to fix that.
-> >>
-> >> This commit is a "get the foot in the door" type change to make sure
-> >> that folks building kernels for Qualcomm SoCs have their Rust setup
-> >> ready. It may/should be extended to the wider mm code once the
-> >> appropriate abstractions are finalized.
-> >>
-> >> Worth noting, the C UERR() macro expands to dev_dbg() and the Rust
-> >> implementation for that currently doesn't support dynamic_debug.
-> >>
-> >> The DRM_BRIDGE dependency is dropped because including RUST exposed
-> >> some spaghetti dependencies ending at DEBUGFS and it's enabled anyway.
-> >>
-> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >> ---
-> >> (if this is rejected we may just patch the C code).
-> >>
-> >> Notably, this will regress some ancient configurations:
-> >> -- arch/arm/Kconfig
-> >>     select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7 && !KASAN
-> >
-> > Side note, I'm ok w/ drm/msm (or at least the gpu part) depending on
-> > CPU_LITTLE_ENDIAN.  The combination of BE CPU and LE GPU would be a
-> > mess.  I'll actively ignore bug reports, patches, etc related to BE.
-> > So please, no BE!
->
-> arm64 is free of it now!
->
-> 134b0fbc5c24 ("arm64: Kbuild: Remove vestigial big-endian support")
+Hi atipre,
+On 2026-10-25 at 14:24:20 -0400, atipre wrote:
+> The existing writeback tests validate captured framebuffer contents, but
+> do not keep pipe CRC capture active across writeback completion. This
+> misses the VKMS bug where writeback cleanup disables the composer while
+> CRC capture still needs it, leaving subsequent CRC reads waiting for
+> samples that never arrive.
+> 
+> Add writeback-preserves-crc. Complete the initial modeset before starting
+> capture and establish reference CRCs for separate red and blue input
+> framebuffers. Keep capture open across four alternating writebacks, wait
+> for each output fence, and compare three fresh CRC samples with the
+> corresponding reference after each writeback. Use atomic updates without
+> ALLOW_MODESET once capture starts, and release capture from the final
+> fixture so a failed subtest also closes it.
+> 
+> Check output fence status in the shared wait helper so a signalled error
+> fence cannot be treated as a successful writeback.
+> 
+> On ARM64 QEMU with one and two CPUs, the new subtest fails on unmodified
+> mainline and passes with the local VKMS composer-user lifetime
+> fix. Four existing applicable writeback subtests pass on both kernels;
+> the two XRGB2101010 subtests skip because the format probe rejects them.
+> 
+> Signed-off-by: atipre <tipreaditya@gmail.com>
 
-And there was much rejoicing :-)
+It would be preferable to have Full Name instead of nick,
+should this be:
+Signed-off-by: Tipre Aditya <tipreaditya@gmail.com>
+?
 
-BR,
--R
+
+If yes, add also same From: at beginnig or configure your git.
+
++cc Swati and Karthik
+Cc: Karthik B S <karthik.b.s@intel.com>
+Cc: Swati Sharma <swati2.sharma@intel.com>
+
+Regards,
+Kamil
+
+> ---
+>  tests/kms_writeback.c | 62 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 62 insertions(+)
+> 
+> diff --git a/tests/kms_writeback.c b/tests/kms_writeback.c
+> index 7c30e8e..71317cf 100644
+> --- a/tests/kms_writeback.c
+> +++ b/tests/kms_writeback.c
+> @@ -64,6 +64,10 @@
+>   *
+>   * SUBTEST: writeback-pixel-formats
+>   * Description: Check the writeback format
+> + *
+> + * SUBTEST: writeback-preserves-crc
+> + * Description: CRC capture remains active across completed writebacks
+> + * Driver requirement: i915, xe, vkms
+>   */
+>  
+>  IGT_TEST_DESCRIPTION(
+> @@ -317,6 +321,7 @@ static void get_and_wait_out_fence(igt_output_t *output)
+>  
+>  	ret = sync_fence_wait(output->writeback_out_fence_fd, 1000);
+>  	igt_assert_f(ret == 0, "sync_fence_wait failed: %s\n", strerror(-ret));
+> +	igt_assert_eq(sync_fence_status(output->writeback_out_fence_fd), 1);
+>  	close(output->writeback_out_fence_fd);
+>  	output->writeback_out_fence_fd = -1;
+>  }
+> @@ -537,6 +542,7 @@ int igt_main_args("b:c:f:dl", long_options, help_str, opt_handler, NULL)
+>  	igt_output_t *output;
+>  	igt_plane_t *plane;
+>  	igt_fb_t input_fb, input_fb_10bit;
+> +	static igt_pipe_crc_t *pipe_crc;
+>  	drmModeModeInfo mode;
+>  	unsigned int fb_id;
+>  	int ret;
+> @@ -709,7 +715,63 @@ int igt_main_args("b:c:f:dl", long_options, help_str, opt_handler, NULL)
+>  		igt_remove_fb(display.drm_fd, &output_fb);
+>  	}
+>  
+> +	igt_describe("CRC capture remains active across completed writebacks");
+> +	igt_subtest("writeback-preserves-crc") {
+> +		igt_fb_t blue_fb, output_fb;
+> +		igt_fb_t *colors[] = { &input_fb, &blue_fb };
+> +		igt_crc_t reference[2], crc;
+> +		int i, j;
+> +
+> +		igt_skip_on(data.dump_check || data.list_modes);
+> +		igt_require(data.supported_colors & XRGB8888);
+> +		igt_require_pipe_crc(display.drm_fd);
+> +
+> +		igt_create_color_fb(display.drm_fd, mode.hdisplay, mode.vdisplay,
+> +				    DRM_FORMAT_XRGB8888, DRM_FORMAT_MOD_LINEAR,
+> +				    0.0, 0.0, 1.0, &blue_fb);
+> +		igt_create_fb(display.drm_fd, mode.hdisplay, mode.vdisplay,
+> +			      DRM_FORMAT_XRGB8888, DRM_FORMAT_MOD_LINEAR,
+> +			      &output_fb);
+> +		fill_fb(&input_fb, 0x00ff0000);
+> +		igt_plane_set_fb(plane, &input_fb);
+> +		igt_output_set_writeback_fb(output, NULL);
+> +		igt_display_commit_atomic(&display, DRM_MODE_ATOMIC_ALLOW_MODESET, NULL);
+> +
+> +		/* Finish the modeset before starting continuous CRC capture. */
+> +		pipe_crc = igt_pipe_crc_new(display.drm_fd, output->config.crtc_index,
+> +					    IGT_PIPE_CRC_SOURCE_AUTO);
+> +		igt_pipe_crc_start(pipe_crc);
+> +
+> +		/* Establish both references before writeback can affect capture. */
+> +		for (i = 0; i < ARRAY_SIZE(colors); i++) {
+> +			igt_plane_set_fb(plane, colors[i]);
+> +			igt_display_commit_atomic(&display, 0, NULL);
+> +			igt_pipe_crc_get_current(display.drm_fd, pipe_crc, &reference[i]);
+> +		}
+> +
+> +		for (i = 0; i < 4; i++) {
+> +			int color = i % ARRAY_SIZE(colors);
+> +
+> +			igt_plane_set_fb(plane, colors[color]);
+> +			igt_output_set_writeback_fb(output, &output_fb);
+> +			igt_display_commit_atomic(&display, 0, NULL);
+> +			get_and_wait_out_fence(output);
+> +
+> +			/* Require fresh frames without stopping or restarting capture. */
+> +			for (j = 0; j < 3; j++) {
+> +				igt_pipe_crc_get_current(display.drm_fd, pipe_crc, &crc);
+> +				igt_assert_crc_equal(&reference[color], &crc);
+> +			}
+> +		}
+> +
+> +		igt_plane_set_fb(plane, &input_fb);
+> +		igt_display_commit_atomic(&display, 0, NULL);
+> +		igt_remove_fb(display.drm_fd, &blue_fb);
+> +		igt_remove_fb(display.drm_fd, &output_fb);
+> +	}
+> +
+>  	igt_fixture() {
+> +		igt_pipe_crc_free(pipe_crc);
+>  		cleanup_writeback(&display, output);
+>  		igt_remove_fb(display.drm_fd, &input_fb);
+>  
+> 
+> base-commit: bb76404eac7032ba85c53eac15b76e4fadaff0de
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
