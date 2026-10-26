@@ -2,125 +2,161 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470B1606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 15:33:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84138606A31F
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 15:34:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Db0M3KVM
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UcS0ih4B;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LvrNvlv2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE30710EF95;
-	Mon, 26 Oct 2026 15:33:41 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011071.outbound.protection.outlook.com [52.101.52.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDD7010E1F7;
- Mon, 26 Oct 2026 15:33:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w0FI/eO++5ZSL5pJPZyHs4cmlT6m+dyMeFxwr8xBDhcqS7yUSGNBslBbmscDB1C67Jqn9XkiJfffox/N98vy89xQ32beOXUqdvR8XtH0b2wjxPyRGQJbkTeTDaUjk14fMJQ8RLmPCPKquLIYactqw7IabOwuYUN7pvPSCwlvTIKcaNouMFW0OX6A4XXXzzP1o+Gt0wTD/NmDCd/hF8bWoP2G6Cr/2pX4LOeoq/chJeUvJ4slktM9Js0E3sUB/r4wrP5pXjowDkjqjBT5ul8uWWf4gJcnx929DzgIEOdnPIkVMih7XPLfUzJKsEnWcjVdE8jwG7Y3u3/4k6WjY/HsZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H/tRL1R0IsMoOHCiUvTXn8/JcRjQxo+pOzEjDh/XYjk=;
- b=iF9qcbfglKj9+lIdWCXCbxyB/mma9I6SyW723At07zKyyd/gdo4QEzzR2EzDovcbg0FwNzlgUTrPT728WUV+/kCub7b3KPqsNuvhDureMX2/cBYvsgcyPQu6fB5gs+IcCbT60pnODsl0EPXuubNg1cYJtnvmfQvmTxk6zhqwJtkpoNlRbesltr98vMYMpmTEfr6NQj3oWFi58XyZ9FDNq3n1ZGxZlKTGLvUOmIkOvZcvIZEze6JhAScgYJ4SjaGQcJvUsQce7xhZt+Gjijblbr4FMo0D/JMqYeYfFkPftnP+GPcNUccEqLAmkVkXNXzQG9QPiowC6s6d++h0hENZSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H/tRL1R0IsMoOHCiUvTXn8/JcRjQxo+pOzEjDh/XYjk=;
- b=Db0M3KVMM3z9WPoqbeZjiKmwOMG2ntL7EPIunLpVF571nkW+VO5x0VkDxKS524GH++9pDDxISXN7FhStY3OxQjvu76oHCuD7wC1qO/ltHwoGV5UIKpGL1lm2jcP1bWzatIbbY7LlPQDx9Zg35O5NSgHFMCJ71dc/pt1aYMMs2Pc=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
- by DS7PR12MB6093.namprd12.prod.outlook.com (2603:10b6:8:9e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Mon, 26 Oct
- 2026 15:33:31 +0000
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 15:33:30 +0000
-Message-ID: <26db05a7-f723-4fb9-9eab-ef6dfaa88482@amd.com>
-Date: Mon, 26 Oct 2026 10:33:28 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] PCI: Preserve the initial bus number in pci_dev
-Content-Language: en-US
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20261023174746.GA2791886@bhelgaas>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20261023174746.GA2791886@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR04CA0066.namprd04.prod.outlook.com
- (2603:10b6:806:121::11) To PH7PR12MB9174.namprd12.prod.outlook.com
- (2603:10b6:510:2ed::9)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E724810E1F7;
+	Mon, 26 Oct 2026 15:34:10 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44B6410EF8F
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:33:59 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69QEvwmD2707743
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:33:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=qidAGMYPaKRzpoE4VkvBWD/KkiVta3FKeYv3IJb+rMQ=; b=Uc
+ S0ih4B0SqyqXAGstgs78uTJ2W7qimh8yCjoJbY09Gm39AV24Ile16ot+enHW4FFm
+ 9qMmuf6FHur8O9jfG/YMtkMxEAz1IiClXAjROITmWFDsnvmI8tw6nfgct/dmtN9z
+ c63Mg4VyG+G/31UCIsG0BKMBk7IEt/zLwMQ/+Wf++9Km8773Q8spidzIzLZMEjwK
+ Sbh+9lT/5wawmkzk3TuAEmif2GlDCYa/P8Qdcjgh7TkJmLTCpkZEDNIxwFNJiao3
+ 92AAAEeutzkreIbsQHsLINmFTDvp/FJ3sBJNB/sQeJ5RgQcq7rMOpOGcAHd2kmcv
+ I4q1Lf0XMMwaAaExINsA==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
+ [209.85.161.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u61fsh-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:33:58 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id
+ 006d021491bc7-704aee0b7b2so3179402eaf.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 08:33:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793028838; cv=none;
+ d=google.com; s=arc-20260327;
+ b=rR37qH8CN/2MOHPXhjhbwvyo2wpKr+sqdlTyrO0v6JHpXg+bz/6yQI8TBp3pYcpWr8
+ t5inh+w6+YxScSObHyVz5B7R5Vr04yjxqk7DJ42xpCeJ3+rjjCOX2oLeDk75qNofNeZ2
+ RQItlGnR9b16GiEjrvpCTFMrIwePlm+qLGefe5WZGpLKss/VWU40Opn4yxP3FgFTq8WP
+ yKq2w+dFwrxLoPZJUSJ2T9WevN3eKRgxZzuT0xTqHUIRCZGu7yIcD+G9qhBWdjWV4NTI
+ lI2NJ+ZkulVKUPFr/T/xNQrI9Ni5+2fGnQHkWVowo9H/6MOAygksMmJpqTrvcbx447mQ
+ NssQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=qidAGMYPaKRzpoE4VkvBWD/KkiVta3FKeYv3IJb+rMQ=;
+ fh=r0pnopSaZmClIwrAuTMF/Xkj4RLIeWWw0Vfff2UngK8=;
+ b=R2GmUd1Vhya5Waq1n2IJCDmHMkE0xqz6RdGhmGqH3W/kgt3+Ini7vtz2Qa/IAWENpu
+ YRNkWz8VWblufIqc2Bn29axN7Qnzwdj6daovemk8kwbY7nCYQcvsEZkiA3ABTyJrn5Ku
+ sVBu3zQmKXnrdQm24WpJcyr2N/C8NsoInCA9S9a2F1XamcZN/6s8cPqMC4WCHhMSLwF0
+ NnqrCDdHCN2Y/8/kXwTTMBLOmItF1Je2YyTyCTpHVX0qfpku2c2qY31sIks6cIVjxkFt
+ hnN9f/qxVg/krLyrktfM7J3C0FiBYfJbJ68XLcrwVhE+9P4u6eY4VyMBumE4GaR2EAje
+ SX9Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793028838; x=1793633638;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=qidAGMYPaKRzpoE4VkvBWD/KkiVta3FKeYv3IJb+rMQ=;
+ b=LvrNvlv2et/b0Y/Jhpt36F3ogMDOHiGMonyXi82etPz18zWfzyEXpv+Ik/7IcCLrji
+ v3koxsnYfKGvgPIikNSI75IEsKqzgjvDBEL3bmowv1+rjWT81fDtSiyf0im02MSztv4t
+ IGfDPhPSse1bipuS/vQBNswppOjYIYCGcT5LGubf6VwAFZj8cwECSYT8A8zHiCh9ZX3i
+ NP6CpE93n9t8rjv+5GJukB+tOfjx8LCwEqUr/rogoPKLvqKhfkYD0i7tIaUzEgw1WNaO
+ slGp+in6BymXYd7fG3I+nIHKzWDZv6xfpCt9KzVLVXvo7YDAMjws9U7pTjo7mRnzIIe4
+ fEHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793028838; x=1793633638;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=qidAGMYPaKRzpoE4VkvBWD/KkiVta3FKeYv3IJb+rMQ=;
+ b=pF3KLBbokYbM6ggBJfCnZU0Iy0LZq9jy4emkswFQDV7gOILxLFFOCoDIkGBh7rQqHb
+ SrPPtt1X5lZqxm39LV6RP6SRpnsxr1mxhlvmkxRnRquOAmAlNkToSIaIt6rUYtkRByLa
+ jRoupsxwAnhAjpwJQCTjVMyo2Fpc6f51tZUlo9enjuSfQEdwsK01tiSUtfCCMtxfvtKe
+ zAieU/lCvQCbmFu7thVnw8uw8DPueN+Hb2qy+hqaghIsKOOCrvXcASrKazbt3z0/grET
+ M2nqPJ3uGzaaN2WRufjAYOSk6GVuo2MC59S85IP9Hd05O5MwTC2tYd0RnL4QDdO/Za91
+ Vc6A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz+h3+IjrjjAVSuDJpLEjAC1UC2fD3u4lUteibWboH/MFn8IkHZBWprGvjcJ7vLPLjkTGWs78t7nLU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIr1Q1V46eojmRgUp3n00kiQvH0jSLMNbnmEx6JYwJS1zNW3k7G
+ JwdFiMvqGgrkPVnpAT2YHPQwlB8cRrXahBb8OIrIedW88nQytpcow4e0DdxNhsUd0TKJSOIz6++
+ lxMfgkoCdbp/Pj3/9fsfwRsAlvCeyI04+gNSbDGeRWGOD5zyxZnuI2PSVzws4UYxofx9jvxlkxa
+ oxpO6//T41X9kE56qXHqYo9UWEN3f9b4THzKcp4AoO+BSLuQ==
+X-Gm-Gg: AYBFou14VNNq1fOw4zQjZ0gw2KXXpKg+2277dOxIAEF7pJceXwnF/ZUFFvLaOXc9LSo
+ f0ekNl67uTb3Tp/Cqw+C7UmQd38QvfG3vMgToXq4r3fZoZpL7spstYZy4yrNx6X8WO1oldHx+lk
+ cT/bPbSXwJldJdJEJJ/xI2VE+uxeD2eAbeXtTc8J+hzdo+BEHFeCNqX9hREQ==
+X-Received: by 2002:a05:6820:1387:b0:70e:78ba:11dc with SMTP id
+ 006d021491bc7-70e78ba2a36mr1241822eaf.17.1793028837864; 
+ Mon, 26 Oct 2026 08:33:57 -0700 (PDT)
+X-Received: by 2002:a05:6820:1387:b0:70e:78ba:11dc with SMTP id
+ 006d021491bc7-70e78ba2a36mr1241797eaf.17.1793028837444; Mon, 26 Oct 2026
+ 08:33:57 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|DS7PR12MB6093:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd5d7ed2-6805-4bc1-c1f1-08df33767c86
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|261009223027099003|261021121427099003|261021135927099003|10067099003|56012099006|261026121527099003|261022075727099003|18002099003|22082099003|3023799007|261022105027099003|11063799006|261026140227099003|261022113327099003;
-X-Microsoft-Antispam-Message-Info: F6WJPtgSGQZqg12muQ/fdJciwPfJ+kUZFjrYI9Phj7HbHssJh5pCtypzQshmbJIPefnKjpfk9lb3JdCWOnQf+F7l9qoAKCEktCL60N2KFsrN/LckpIHdQrWXH3vW56IpTlhd5yhRtUdJm8mD6kIRaIId8f42VytRAPb8hoLnbx84h13egPtWNPpKD97j3oN1WWTErDSTx+wB2EVzIC/kcxggOFQjuylhAHDzaalSIdsx3nFAoustAq1JqgZpJCCDFE5NzB48dOgd72aovWRzQOx9LvgqunLoliiLdQzvT6F2eroihC6fpU0datovjlycv/GZCz3X+sxFGcRBKS2fbXmttViSs58QilBOhN7/zVIwqTBUKqh8RKlnWq9OzB/b6pcV/2x3qYY9L49n0R1byVgiB4eEGqNp0ukvNiaKVip89+Svdg4rKqAGrdIxwxO9PX9g12kiJwLNgAg4cHxEO9fdLbRi3eyNld3X7LZyEs4TP4TXCq6donOt6CaNpkB2a46R1wXnrLOKkmPa1aBxN8pyODbEIRAgE3XpHiahe/OKfTRUnniprEg0oin81iAE8mPjEoMbJ4hvyZeW7e9Se4usa4p2bUCy4+TcR48lAhmzKwpbL1tzVRl29QDf5wyhLa2+LC4H03LrHCrItDzN3JThanXxSV5XQnk0Rq/6n1Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB9174.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261009223027099003)(261021121427099003)(261021135927099003)(10067099003)(56012099006)(261026121527099003)(261022075727099003)(18002099003)(22082099003)(3023799007)(261022105027099003)(11063799006)(261026140227099003)(261022113327099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WDRrVUJtZ08rV080V210TUtaQ2NLOUoya0o4T2ZHcnJNdFFhb0xXSk1VdW1i?=
- =?utf-8?B?cHdxRkdSUTBHeTNUem0wOTE2SmlHcnljS0t0MCtvTHhZZm1uSmNhSEZ1RCtF?=
- =?utf-8?B?TkkzRjdVTEV5Z3VEcHNYbXl4NGkvK1BvMUtUYXh4M0ZuSDhEcjRPMzBIWmsy?=
- =?utf-8?B?QittdGlmeTZLVFNteU1vVVRpaFRndFZPbWNQaGsvZHE0RUNmQ2h3VmhjT3M4?=
- =?utf-8?B?UWdSZE9tYy9PUGxJL0FWS0tFMzJhbVVsTFBKcy9TRzByQ01VS1A0dm1nL2pr?=
- =?utf-8?B?MEV4OFhFTXh3ZkpodGhvdnN3NklGN0xta3RPU3VlaU82eTd0L1djOU8veVZi?=
- =?utf-8?B?K0I4dXpSWHBWNzI3R2txNGR4RDJuZlFINFFoV2U4UzBKVk5NMStVcUNRUEll?=
- =?utf-8?B?STBqakF1TXdsMWdqR0dJUXBDYzAza3NZRG8wZUR3RUJMTnFnYVkrUXpmS1E0?=
- =?utf-8?B?TDRZSkNjeXcwNkZoR0NIeDM0WEs0YVZiUGFaT1dndWNSelVNcU1RZUR5WndU?=
- =?utf-8?B?eTRNU0QvcTZRTXFNdUNKVzEzQ3JDMWR4SlNlTitCTmdVc2k2cG84aDIyN3p1?=
- =?utf-8?B?Q3BXQ2pQd2FsRlJsMFRqQUxIRlptYWlMS2pSc0QwWUtGMmEyL2k4WThVZ0Vj?=
- =?utf-8?B?WTJCOFgycXU0bmFheTZRQUtOL1NjZlZkODVjVk1tR1NLcm1IcVRjRW1qaFRv?=
- =?utf-8?B?WlViY1VUMGNwa2dmZzhONTBINlM3SCt6Y00vL01XWTUrT2VEcUtMVGZTcUdU?=
- =?utf-8?B?cjRMaHdRZmxxMHR3d09WS1Z6VVFYeDFWR0VTOU9zNnlXNnVVQ1c1a2NOUTRG?=
- =?utf-8?B?NElmVEF1T3VSV3lmM1pXTG5pRzRTK3RacnVWZk52UmlFSXVISlUzQmdBeWx4?=
- =?utf-8?B?dnJEejRRSHRTZTZQeU02K1ZUYU94bXI3Z1FGOTlNYWtqN2dNUVR0S1UxY2h3?=
- =?utf-8?B?N0FrbmJsSEl1ck5HWTVueFNma3pMNFYzWUdFYkNnVFJSTXZPK2FPVjJPcnZt?=
- =?utf-8?B?NWJkeXVBWlFPWXVrT0JzMmxTV1Q3azdTM2JKVkJzZlR2TXJuR1pUQjRsUkt3?=
- =?utf-8?B?dXdpcWwveTdSY2hQcnBWZHpqYUlYc1lNaWJvSkhYcUpXWnRsUkU5U0NqRDY0?=
- =?utf-8?B?NVZxcEhLdmthOGEwWmtlVEs5RlZiWCtxZVo3bHE5SlBnQUNydGdnSTVBODdU?=
- =?utf-8?B?cGpCeDJQdStOUmd0ZFl0cllTNW82WHhGNjlrb2E4UGsvTlBVaDNVbCtDelQr?=
- =?utf-8?B?OFRZRkNrNTczVnlyM3pYd3U0eXpGRTk2cTg2TWozaG93dmJvN1UrS0FCMXdo?=
- =?utf-8?B?WndLU1RITEdBUndydWtIRXdIalNMQWN4SnV2UEdIRnVmWngyM0t1NWI4U0o3?=
- =?utf-8?B?N2tyUE0zY1J6NGxUdXBiUExRdGVKTUhzRDIxdlRFbDJDUTY1T0xjRWZLUlF5?=
- =?utf-8?B?WHNsd3hGTFJEYjJTbk1mQ25yRkRtdThsR0t6aldibUxPOEhoN2N3Zno0QWo2?=
- =?utf-8?B?c3BNbzdGQXFnajl6YXVaU0Q0ZlRDbmlNR0Z3cXVKZ29oc3o0OUt4RlFIUUR4?=
- =?utf-8?B?cGRGazlCSlQ2eDRHdVozclNWVFhHSjBmV3JxUllDTUgramk2MzEvSVdjbmxo?=
- =?utf-8?B?RjVDNnRJb3c1V1Z6MXJYakJ5Sy9YUUZYbFUzOVhkVGdtNXJ4SWMzTWE3bWZZ?=
- =?utf-8?B?WVhDKytXTVhvMXc4VTlVQW5EU2hKTTdVQ1Z0WDhERktHcnl5eFZPYVFQdnM4?=
- =?utf-8?B?OUdNRkZyS0d3eUVhYW14aDgxem1xbkFqa1lLdUlneUJ4T1AxeDJkd3REY2xX?=
- =?utf-8?B?ZjF4T0pXY0pTQW11cDlqajdrUkt3QjMwN3hIZFBBc3V3VFgzWXZrTm5aWTRZ?=
- =?utf-8?B?b0t4aUcrUzBPREl0ZlRnUklROXRuV2ZXTlJoaUJxa3Eva3ppTDNCcG1DQVN0?=
- =?utf-8?B?MXo0TFpnOVQ1ZVlrKzFpQ3A5WFJIRFFBSGhaZnYxbG5GWUFRTng5STh1OVla?=
- =?utf-8?B?dEFIWWlzMFNobTJjd2lnZFdRTGJZekFRTkFLVTFieEVXcjhDcXdMSjRrSldO?=
- =?utf-8?B?RzU4cGVCcTNOeXg2bWcva3k1RDZ5MXdKWVFZVTNlZmg1aTlqUWVnUC9xOVBa?=
- =?utf-8?B?WTNSOEZOWjVqSmFYYkE0Z0c2K0F2UWgzTUFvcVhwd3VEdk0wSjJuelc1OHlh?=
- =?utf-8?B?TTZwM0xNcHdkRFF0WmJiMXR1TVkzVUtZOEFqU2NWUVhiL2gybGJGd3JKZzQ0?=
- =?utf-8?B?d1c4cU4wUFhKRXVrQTUwbkVqaWdUaE5WQjk2Tzl1UTBRSVR6dG1ETkJLbDZa?=
- =?utf-8?Q?K0X+E2Xm9+jObs2TR6?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd5d7ed2-6805-4bc1-c1f1-08df33767c86
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 15:33:30.0263 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C54ZiYpbIYu9iiqgXtdMVzqYCCzXuQFvhkrQqCilZy/U9dxFyIeoUVASzhUo+Jo7KDUuhlf/eJvh1x66AV/yGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6093
+References: <20261026-topic-vm_bind_rs-v1-1-6581465f2428@oss.qualcomm.com>
+ <CACSVV03M_MzamPN5X=+bmbqOkET2QOJk8O_vQyhnjDGbSTvN2g@mail.gmail.com>
+ <a5667943-3c3a-4bcd-99f4-fe5e487cb6c5@oss.qualcomm.com>
+In-Reply-To: <a5667943-3c3a-4bcd-99f4-fe5e487cb6c5@oss.qualcomm.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 08:33:44 -0700
+X-Gm-Features: AclHuK_qyCyqkMau4o0U6eEvxC80Yve9tJ1hV1jdwuEzcVPxGyIcGYsybUyrLPI
+Message-ID: <CACSVV016mJk+oLotAUKeXr4a9FHn=cfPcWrxdfrwRxmC4S4wqw@mail.gmail.com>
+Subject: Re: [PATCH RFC] drm/msm: move VM_BIND op validation to Rust
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: YySoRcVeLNZnTasOu-A8N2QqV4OLE4NF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfXzJonwmxmLOmb
+ Cf9K/LT9N9F1y9tvta0tBmOpuDEO3Cw8oI1pGRhOIBybwEqhxlyQ6gWbYN6Svu+JCIRmAEnY5l7
+ iHpflmZLt4xGeebjCpuj78Uq7eAr/ZjHdE56eE6Z8veF8I6onjyk5G5uKFAqrABOwt2H+T8HnUB
+ tgrPUtKxPeFA3e/rSJw2niD79ky+TWGaSdEwiC+FvGhz5GJ6mCPBfwJTi/euAj2rvhsLzqy5QSr
+ bI9C01XzipnG8vE2k6oXW0Wzm9QY1KJFZ65uiYcJLaKE9GQsVDi+m9jg7+N5PJvFuOfl3HjXtjl
+ 9XGgg4o4iDehkJOdyaFmbIlGTzLcSRawRS1rDkP/48HL51pRz+qokJZXHZrFpIrQK75k9FIiTRU
+ 2jpviGJfvgO0gAulaUUiyqqrJm9J3VcZmztWFxe5emakA2GJRnBSjSsX+xDn/GZL9byyePPteja
+ IMl23HqBriRlIzqq5nw==
+X-Proofpoint-ORIG-GUID: YySoRcVeLNZnTasOu-A8N2QqV4OLE4NF
+X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6adf72e6 cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=9rG3V10fu7yUYHM-WnoA:9 a=QEXdDO2ut3YA:10 a=WZGXeFmKUf7gPmL3hEjn:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA2MSBTYWx0ZWRfX5vW9BJK0H1On
+ kK14OmAgBg17SjmaU1zy543mbN2pCqcXtGltC2i5P5Iz+HpBm3Xyu6pph7+9FkQ9sy9ac0CJxXT
+ R8jI9NFHclx9Wq7UabxuZuOM4vTo7cU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260061
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,137 +167,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Mon, Oct 26, 2026 at 8:30=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 10/26/26 4:26 PM, Rob Clark wrote:
+> > On Mon, Oct 26, 2026 at 4:40=E2=80=AFAM Konrad Dybcio <konradybcio@kern=
+el.org> wrote:
+> >>
+> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>
+> >> Much of the VM handling code is a headache to read and maintain.
+> >> There's a soup of mixed-signedness/size types which need to be compare=
+d
+> >> and added and getting that wrong in C is very easy.
+> >>
+> >> The "(range + obj_offset) > obj->size" check could wrap for a large
+> >> obj_offset, which let an out-of-range map be accepted and then mapped
+> >> as nothing. Oxidize it and use checked_add() to fix that.
+> >>
+> >> This commit is a "get the foot in the door" type change to make sure
+> >> that folks building kernels for Qualcomm SoCs have their Rust setup
+> >> ready. It may/should be extended to the wider mm code once the
+> >> appropriate abstractions are finalized.
+> >>
+> >> Worth noting, the C UERR() macro expands to dev_dbg() and the Rust
+> >> implementation for that currently doesn't support dynamic_debug.
+> >>
+> >> The DRM_BRIDGE dependency is dropped because including RUST exposed
+> >> some spaghetti dependencies ending at DEBUGFS and it's enabled anyway.
+> >>
+> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >> ---
+> >> (if this is rejected we may just patch the C code).
+> >>
+> >> Notably, this will regress some ancient configurations:
+> >> -- arch/arm/Kconfig
+> >>     select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7 && !KASAN
+> >
+> > Side note, I'm ok w/ drm/msm (or at least the gpu part) depending on
+> > CPU_LITTLE_ENDIAN.  The combination of BE CPU and LE GPU would be a
+> > mess.  I'll actively ignore bug reports, patches, etc related to BE.
+> > So please, no BE!
+>
+> arm64 is free of it now!
+>
+> 134b0fbc5c24 ("arm64: Kbuild: Remove vestigial big-endian support")
 
+And there was much rejoicing :-)
 
-On 10/23/26 12:47, Bjorn Helgaas wrote:
-> On Tue, Oct 20, 2026 at 09:04:40AM -0500, Mario Limonciello wrote:
->> Bridges that need bus reassignment are scanned in two passes. Save
->> the firmware secondary bus number during the first pass, before the
->> bridge is disabled, and carry it to the bus created in the second
->> pass. Initialize pci_dev from this preserved bus number so drivers
->> can match firmware records after PCI bus renumbering.
->>
->> Handle pci_alloc_dev(NULL) as well; some in-tree callers use it to
->> allocate a standalone pci_dev.
->>
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->>   drivers/pci/probe.c | 9 +++++++++
->>   include/linux/pci.h | 3 +++
->>   2 files changed, 12 insertions(+)
->>
->> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
->> index 27008e2ea5afc..4ece4b70cdc15 100644
->> --- a/drivers/pci/probe.c
->> +++ b/drivers/pci/probe.c
->> @@ -1012,6 +1012,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
->>   	bus->sysdata = bridge->sysdata;
->>   	bus->ops = bridge->ops;
->>   	bus->number = bus->busn_res.start = bridge->busnr;
->> +	bus->initial_bus_number = bus->number;
->>   #ifdef CONFIG_PCI_DOMAINS_GENERIC
->>   	if (bridge->domain_nr == PCI_DOMAIN_NR_NOT_SET)
->>   		bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
->> @@ -1232,6 +1233,7 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
->>   
->>   	/* Set up the primary, secondary and subordinate bus numbers */
->>   	child->number = child->busn_res.start = busnr;
->> +	child->initial_bus_number = busnr;
->>   	child->primary = parent->busn_res.start;
->>   	child->busn_res.end = 0xff;
->>   
->> @@ -1470,6 +1472,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->>   			child = pci_add_new_bus(bus, dev, secondary);
->>   			if (!child)
->>   				goto out;
->> +			child->initial_bus_number = secondary;
->>   			child->primary = primary;
->>   			pci_bus_insert_busn_res(child, secondary, subordinate);
->>   			child->bridge_ctl = bctl;
->> @@ -1491,6 +1494,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->>   		 * do in the second pass.
->>   		 */
->>   		if (!pass) {
->> +			if (!dev->initial_secondary_bus_number)
->> +				dev->initial_secondary_bus_number = secondary;
->>   			if (pcibios_assign_all_busses() || broken)
->>   
->>   				/*
->> @@ -1526,6 +1531,9 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->>   			child = pci_add_new_bus(bus, dev, next_busnr);
->>   			if (!child)
->>   				goto out;
->> +			if (dev->initial_secondary_bus_number)
->> +				child->initial_bus_number =
->> +					dev->initial_secondary_bus_number;
->>   			pci_bus_insert_busn_res(child, next_busnr,
->>   						bus->busn_res.end);
->>   		}
->> @@ -2508,6 +2516,7 @@ struct pci_dev *pci_alloc_dev(struct pci_bus *bus)
->>   	INIT_LIST_HEAD(&dev->bus_list);
->>   	dev->dev.type = &pci_dev_type;
->>   	dev->bus = pci_bus_get(bus);
->> +	dev->initial_bus_number = bus ? bus->initial_bus_number : 0;
->>   	dev->driver_exclusive_resource = (struct resource) {
->>   		.name = "PCI Exclusive",
->>   		.start = 0,
->> diff --git a/include/linux/pci.h b/include/linux/pci.h
->> index 5ffcf5ce8c966..f6b377dcf7a14 100644
->> --- a/include/linux/pci.h
->> +++ b/include/linux/pci.h
->> @@ -363,6 +363,8 @@ struct pci_dev {
->>   	struct pci_slot	*slot;		/* Physical slot this device is in */
->>   
->>   	unsigned int	devfn;		/* Encoded device & function index */
->> +	u8		initial_bus_number;	/* Bus number when device was discovered */
->> +	u8		initial_secondary_bus_number;	/* Bus number behind this bridge */
-> 
-> Why do we need this in the pci_dev?  Is there something about
-> pci_scan_bridge_extend() that means it has to be in pci_dev as well as
-> pci_bus?  Multiple copies means possible inconsistencies.
-
-Agreed that the initial bus number should have one canonical home. I'll 
-remove the copy from pci_dev; the drivers now read it from pdev->bus.
-
-The separate initial_secondary_bus_number is temporary bridge state: 
-pci_scan_bridge_extend() captures the firmware value in pass 0, before 
-clearing the bridge, then transfers it to the child bus in pass 1 and 
-clears it.
-
-> 
->>   	unsigned short	vendor;
->>   	unsigned short	device;
->>   	unsigned short	subsystem_vendor;
->> @@ -724,6 +726,7 @@ struct pci_bus {
->>   	struct proc_dir_entry *procdir;	/* Directory entry in /proc/bus/pci */
->>   
->>   	unsigned char	number;		/* Bus number */
->> +	unsigned char	initial_bus_number;	/* Bus number before reassignment */
-> 
-> I think it should be stylistically similar to the existing
-> "pci_bus.number"; adding "initial" before or after is ok, but adding
-> both "initial" and "bus" makes them less connected.
-> 
-> Users would check "vhdr->PCIBus == rdev->pdev->bus->number_initial" or
-> similar.
-
-OK, will adjust.
-
-> 
->>   	unsigned char	primary;	/* Number of primary bridge */
->>   	unsigned char	max_bus_speed;	/* enum pci_bus_speed */
->>   	unsigned char	cur_bus_speed;	/* enum pci_bus_speed */
->>
->> -- 
->> 2.43.0
->>
-
+BR,
+-R
