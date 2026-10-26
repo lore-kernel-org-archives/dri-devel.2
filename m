@@ -2,43 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E79606A31A
-	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:23:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CEC5606A31D
+	for <dri-devel@archiver.kernel.org>; Mon, 26 Oct 2026 07:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dE4IszWs
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFdSkP2i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 386CC10EBE4;
-	Mon, 26 Oct 2026 07:23:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B43CD10EBDA;
+	Mon, 26 Oct 2026 07:24:41 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8233410EBDA;
- Mon, 26 Oct 2026 07:23:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE6610EAF4
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 07:24:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E02BE601EF;
- Mon, 26 Oct 2026 07:23:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65C941F01825;
- Mon, 26 Oct 2026 07:23:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B711D6024D;
+ Mon, 26 Oct 2026 07:24:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5771D1F01828;
+ Mon, 26 Oct 2026 07:24:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1792999423;
- bh=AMwVPp5HpDCoT/cxWMTSyPwhYjtLGnpByZsfc6YEMtc=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=dE4IszWsH67rP3m2vIGTmAKpgC+sN9JT5qnC7gk/Tl7vbkhXsdad32fBVWxthswhu
- Cf5NkhypKBa5m2N24PbKeZRxdGyeVWvpDhb+9+71SIBXc+GHEj9V1c6FNnauncdGw3
- ocHY5KWJA4gftGY9Yr9f9UZI7AzYnXHUvFWuW7uwXH5XUqNJEN8f4NecK21Q2xIYyW
- CQ/rG2Ca2iWS5yiR95+No4cQA6vJxOegYq3K+CUr+qIMOUORlDLCmb8C9yqjAqf+ts
- fkKoWOc+pOgsUwnTs6z1k2AcMp5IorBF7u9yuN2gbB6BOhJX75GJ2ZHZg8vQaTgO4l
- n1G0hjNV5H8Nw==
-Message-ID: <sashiko-outbox-184657@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 19/20] drm/i915/alpm: Introduce has_alpm to decouple
- from pr/psr2/lobf
-To: "Animesh Manna" <animesh.manna@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261026054001.799894-20-animesh.manna@intel.com>
-References: <20261026054001.799894-1-animesh.manna@intel.com>
- <20261026054001.799894-20-animesh.manna@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Oct 2026 07:23:42 +0000
+ s=k20260515; t=1792999474;
+ bh=DNtf8N62TZAs0/m8oPs56srsuiRIll36IGkpT7NfcBc=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To;
+ b=JFdSkP2iJW1pKifnLD+AH6i+fYSVMDcxRgQAM6vb2VRjR1fVJm/h49dYoc4CAho3m
+ +6hS00ne+kGCLB5y8Q2Ic0jIzEgsWDG+87nZFJVq+8Cu+VYbTLjFxsS1ZXFC3I+d5D
+ WdrQUgUKgBK7rw9t0eZB4uuFyM9CidllWJbKC+XUHqDTRab2Gel7BLawvm99eBh9xT
+ 3l5ySg7QNGuK9KG0nnffjAFs+3hO+JhjLlkATId7f5FsBZDbZVVMZgeHqqpst0+0WZ
+ J4tEp+aT/meZ2z0PTxrrpeLBoE7suYdH4iwJ4IYRuj5efaS8VO17lB2oWaZvoixjD5
+ hJJO1XxPHCysA==
+Message-ID: <e123e765-fdf7-418c-b8cf-e814a80c2488@kernel.org>
+Date: Mon, 26 Oct 2026 08:24:26 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/sitronix/st7571-spi: Add support for ST75156
+ controller
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lars Rask <lars.rask@axis.com>
+Cc: Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, kernel@axis.com
+References: <20261022-add_st75156_support-v1-0-582525a39a39@axis.com>
+ <20261022-add_st75156_support-v1-1-582525a39a39@axis.com>
+ <20261026-dancing-beneficial-tuatara-d70263@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261026-dancing-beneficial-tuatara-d70263@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,224 +103,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/i915/alpm: ALPM left enabled on DP Panel Replay disable or !ha=
-s_alpm
-- [Medium] drm/i915/alpm: intel_psr_min_guardband() skips DP Panel Replay A=
-LPM wake lines
---
+On 26/10/2026 08:23, Krzysztof Kozlowski wrote:
+> On Thu, Oct 22, 2026 at 05:31:05PM +0200, Lars Rask wrote:
+>> +
+>>  static int st7571_spi_probe(struct spi_device *spi)
+>>  {
+>>  	struct st7571_device *st7571;
+>>  	struct regmap *regmap;
+>> +	struct spi_device_data *spi_data;
+>> +
+>> +	spi_data = devm_kzalloc(&spi->dev, sizeof(*spi_data), GFP_KERNEL);
+>> +	if (IS_ERR(spi_data))
+>> +		return dev_err_probe(&spi->dev, PTR_ERR(regmap),
+>> +				     "Failed to initialize spi data\n");
+> 
+> I do not see how you initialize spi data here, so this is just incorrect
+> error message. Regardless, driver NEVER prints error messages for
+> allocation.
+> 
 
-commit 599e7704f4924a7a5dd73754cb1a7ffd13dae956
-Author: Animesh Manna <animesh.manna@intel.com>
+... and you have there obvious build warning. Don't copy-paste code.
 
-drm/i915/alpm: Introduce has_alpm to decouple from pr/psr2/lobf
-
-This patch introduces crtc_state->has_alpm in intel_alpm_compute_config_lat=
-e()
-to decouple ALPM enablement from Panel Replay, PSR2, and LOBF so that DP 2.1
-Panel Replay can operate with or without ALPM.
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
-i915/display/intel_alpm.c
-> index 65d06e8ebbe06..47263af0970cf 100644
-> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
-> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-[ ... ]
-> @@ -598,14 +599,34 @@ void intel_alpm_compute_config(struct intel_dp *int=
-el_dp,
-> =20
->  	crtc_state->alpm_state.aux_wake_possible =3D true;
->  	crtc_state->alpm_state.aux_less_possible =3D
-> -		DISPLAY_VER(display) >=3D 20 &&
-> -		(intel_dp_is_edp(intel_dp) ||
-> -		 (intel_alpm_is_possible(intel_dp, crtc_state) &&
-> -		  intel_alpm_aux_less_wake_supported(intel_dp)));
-> +		DISPLAY_VER(display) >=3D 20 && intel_alpm_is_possible(intel_dp, crtc_=
-state) &&
-> +		(intel_dp_is_edp(intel_dp) || intel_alpm_aux_less_wake_supported(intel=
-_dp));
-> =20
->  	intel_alpm_lobf_compute_config(intel_dp, crtc_state);
->  }
-> =20
-> +/*
-> + * Decide whether ALPM is enabled once PSR, Panel Replay and LOBF have b=
-een
-> + * finalized. eDP Panel Replay and PSR2 always use ALPM, for DP Panel Re=
-play
-> + * ALPM is optional and used only if the AUX-less wake time fits.
-> + */
-> +void intel_alpm_compute_config_late(struct intel_dp *intel_dp,
-> +				    struct intel_crtc_state *crtc_state)
-> +{
-> +	int aux_less_wake_lines =3D crtc_state->alpm_state.aux_less_wake_lines;
-> +
-> +	intel_alpm_lobf_compute_config_late(intel_dp, crtc_state);
-> +
-> +	if (crtc_state->has_psr && crtc_state->has_panel_replay)
-> +		crtc_state->has_alpm =3D intel_dp_is_edp(intel_dp) ||
-> +			(crtc_state->alpm_state.aux_less_possible &&
-> +			 intel_psr_wake_lines_fit_into_vblank(crtc_state, aux_less_wake_lines=
-));
-
-[Severity: Medium]
-Can intel_psr_wake_lines_fit_into_vblank() fail to enable crtc_state->has_a=
-lpm
-on external DP Panel Replay because intel_psr_min_guardband() does not rese=
-rve
-aux_less_wake_lines for non-eDP outputs?
-
-On DISPLAY_VER(display) >=3D 35, intel_vrr_always_use_vrr_tg() and
-intel_vrr_use_optimized_guardband() are used, so before
-intel_dp_compute_config_late() -> intel_alpm_compute_config_late() runs,
-intel_crtc_compute_config() -> intel_vrr_compute_guardband() ->
-intel_vrr_compute_optimized_guardband() computes crtc_state->vrr.guardband =
-and
-adjusts crtc_vblank_start:
-
-drivers/gpu/drm/i915/display/intel_vrr.c:intel_vrr_compute_optimized_guardb=
-and() {
-	...
-	if (intel_crtc_has_dp_encoder(crtc_state)) {
-		guardband =3D max(guardband, intel_psr_min_guardband(crtc_state));
-		guardband =3D max(guardband, intel_dp_sdp_min_guardband(crtc_state, true)=
-);
-		guardband =3D max(guardband, intel_alpm_lobf_min_guardband(crtc_state));
-	}
-	...
-}
-
-drivers/gpu/drm/i915/display/intel_vrr.c:intel_vrr_compute_guardband() {
-	...
-	if (intel_vrr_always_use_vrr_tg(display)) {
-		adjusted_mode->crtc_vblank_start  =3D
-			adjusted_mode->crtc_vtotal - crtc_state->vrr.guardband;
-	...
-}
-
-However, intel_psr_min_guardband() in drivers/gpu/drm/i915/display/intel_ps=
-r.c
-currently skips non-eDP encoders:
-
-drivers/gpu/drm/i915/display/intel_psr.c:intel_psr_min_guardband() {
-	...
-	if (!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP))
-		return 0;
-
-	if (crtc_state->has_panel_replay)
-		wake_lines =3D crtc_state->alpm_state.aux_less_wake_lines;
-	...
-}
-
-When crtc_state->has_lobf is false (for example, when !intel_dp->as_sdp_sup=
-ported,
-intel_dp->alpm.lobf_disable_debug is set, or intel_dp->alpm.sink_alpm_error=
- is
-set), intel_alpm_lobf_min_guardband() also returns 0. That shrinks
-crtc_state->vrr.guardband (and therefore intel_crtc_vblank_length(crtc_stat=
-e))
-to the prefill/SDP guardband, which can be smaller than aux_less_wake_lines
-even when the mode's full vblank is large enough.
-
-Should intel_psr_min_guardband() also reserve aux_less_wake_lines for exter=
-nal
-DP Panel Replay when crtc_state->alpm_state.aux_less_possible is true?
-
-> +	else if (crtc_state->has_psr && crtc_state->has_sel_update)
-> +		crtc_state->has_alpm =3D intel_dp_is_edp(intel_dp);
-> +	else
-> +		crtc_state->has_alpm =3D crtc_state->has_lobf;
-> +}
-[ ... ]
-> @@ -767,8 +788,7 @@ static void lnl_alpm_configure(struct intel_dp *intel=
-_dp,
->  	u32 alpm_ctl, alpm_ctl2;
->  	int lttpr_count;
-> =20
-> -	if (DISPLAY_VER(display) < 20 || (!intel_psr_needs_alpm(intel_dp, crtc_=
-state) &&
-> -					  !crtc_state->has_lobf))
-> +	if (DISPLAY_VER(display) < 20 || !crtc_state->has_alpm)
->  		return;
-[ ... ]
-> @@ -888,13 +908,12 @@ void intel_alpm_enable_sink(struct intel_dp *intel_=
-dp,
->  {
->  	u8 val;
-> =20
-> -	if (!intel_psr_needs_alpm(intel_dp, crtc_state) && !crtc_state->has_lob=
-f)
-> +	if (!crtc_state->has_alpm)
->  		return;
-> =20
->  	val =3D DP_ALPM_ENABLE | DP_ALPM_LOCK_ERROR_IRQ_HPD_ENABLE;
-> =20
-> -	if (crtc_state->has_panel_replay || (crtc_state->has_lobf &&
-> -					     intel_alpm_aux_less_wake_supported(intel_dp)))
-> +	if (intel_alpm_is_aux_less(intel_dp, crtc_state))
->  		val |=3D DP_ALPM_MODE_AUX_LESS;
-> =20
->  	drm_dp_dpcd_write_byte(&intel_dp->aux, DP_RECEIVER_ALPM_CONFIG, val);
-
-[Severity: High]
-With crtc_state->has_alpm now enabling ALPM in lnl_alpm_configure() and
-intel_alpm_enable_sink() for non-eDP Panel Replay, can ALPM remain enabled =
-on
-both the source and sink when DP Panel Replay is later disabled or reconfig=
-ured
-to !crtc_state->has_alpm?
-
-In drivers/gpu/drm/i915/display/intel_psr.c, intel_psr_disable_locked() sti=
-ll
-guards intel_alpm_disable() with intel_dp_is_edp() and only clears
-DP_RECEIVER_ALPM_CONFIG when !intel_dp->psr.panel_replay_enabled:
-
-drivers/gpu/drm/i915/display/intel_psr.c:intel_psr_disable_locked() {
-	...
-	if (intel_dp->psr.panel_replay_enabled && intel_dp_is_edp(intel_dp))
-		intel_alpm_disable(intel_dp);
-
-	/* Disable PSR on Sink */
-	if (!intel_dp->psr.panel_replay_enabled) {
-		drm_dp_dpcd_write_byte(&intel_dp->aux, DP_PSR_EN_CFG, 0);
-
-		if (intel_dp->psr.sel_update_enabled)
-			drm_dp_dpcd_write_byte(&intel_dp->aux,
-					       DP_RECEIVER_ALPM_CONFIG, 0);
-	}
-}
-
-When external DP Panel Replay (!intel_dp_is_edp(intel_dp)) with ALPM is
-disabled without a full encoder disable (such as in
-intel_psr_pre_plane_update() when all planes become inactive, during fastse=
-ts,
-or on a sink error in intel_psr_short_pulse()), intel_alpm_disable() is ski=
-pped
-and ALPM_CTL_ALPM_ENABLE stays set in ALPM_CTL. Subsequent re-enables in
-intel_psr_post_plane_update() -> intel_psr_enable_locked() ->
-intel_psr_enable_source() -> intel_alpm_configure() -> lnl_alpm_configure()
-then rewrite ALPM_CTL, ALPM_CTL2, and PR_ALPM_CTL while ALPM is still enabl=
-ed
-in hardware.
-
-Furthermore, because neither intel_psr_disable_locked() nor
-intel_alpm_enable_sink() clears DP_RECEIVER_ALPM_CONFIG for Panel Replay wh=
-en
-transitioning to !crtc_state->has_alpm, won't DP_RECEIVER_ALPM_CONFIG remain
-enabled on the sink (and ALPM_CTL remain enabled on the source across a
-fastset) if a subsequent commit runs Panel Replay without ALPM?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261026054001.7998=
-94-1-animesh.manna@intel.com?part=3D19
+Best regards,
+Krzysztof
