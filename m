@@ -2,58 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5DD606A32D
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:37:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AED606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:37:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W4ItAAYH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0578710F540;
-	Tue, 27 Oct 2026 13:37:24 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2B5A10F4A4
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:36:56 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E6FB721F2F;
- Tue, 27 Oct 2026 13:36:54 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9B6E81342D;
- Tue, 27 Oct 2026 13:36:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wbs7OfSo4GoWVAAAD6G6ig:T7
- (envelope-from <tzimmermann@suse.de>); Tue, 27 Oct 2026 13:36:54 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: deller@gmx.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 6/6] fbcon: Handle characters with no glyph defined in a
- consistent way
-Date: Tue, 27 Oct 2026 14:27:21 +0100
-Message-ID: <20261027133646.297856-7-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027133646.297856-1-tzimmermann@suse.de>
-References: <20261027133646.297856-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 030F610F54E;
+	Tue, 27 Oct 2026 13:37:25 +0000 (UTC)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6D9A10F4D7
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:37:13 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-363cd582f45so395144eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 06:37:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793108233; cv=none;
+ d=google.com; s=arc-20260327;
+ b=YWTQ9vVSiPQuvJIheLCztqLG1N8t7/Rr7K6HBuO8STErUhLl8/RT5r8apBWsuQG65y
+ TtKLIKcyZWTldVGp9mmDfX8O1+6Y3LzjWSDTgPhkYtUz3UdCjnfTmr1SHR6FEpAP7GL2
+ qSxMn1uBUv0SJV/Iqyj03CIkOed9sckO5tAUOB4YZXu+O33iJLiI2D3tvktBu3MEcqqa
+ PzABZ70Nt0stIFDbXNRr/1FAkdP4p/bUGcmh0ITVlMDqlS/RmjkY4T4U6/FeR7MZYWbR
+ ZbkJSyt1pzDrnk8pVbcoUH86WYM8lc+/z0rWq8FkULgxne5W0i4/SDDX+HT6GEqy1TSx
+ xcfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=FufhvRCtL/dPRhc2t8mrLa65DAQwulVvCxNep8YNhyQ=;
+ fh=Lz7yPiyIlrHFq5PerXBw75pCe8+HaBK26XrCYKa4GrY=;
+ b=P1HOmH7Oea3reBbvZUIRIzoBs1B81FbuXCexDzpiD62QAgYJYchOTe0Bj5T5wyW+ct
+ LU4BMPvxG6CU2FEKnxvUBZ9G34K/Hb+q2Dn8sQ6edqDAyoAz+kdKu74OiRZZ72HavJcS
+ W/yOMKiqO7Vi3SPtguYG/CzOkYaw0DU4I3Sf8ha25M1adxR8Ta83QkcUImzU0+QPJ/Xb
+ UWJ5uqObR4H63oMNIyBJD3qswv0s/JW5xUiPRqfqHtuZ4UfJYWo+KgjkuYhPIjUm4pEq
+ /iqeTTdj9Eiz4MwRr7RqBGwAqyjtFBP9F67z5nMVRSmxzkbgkqxKgi8RAkLteQn0PzLp
+ xPEw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1793108233; x=1793713033; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=FufhvRCtL/dPRhc2t8mrLa65DAQwulVvCxNep8YNhyQ=;
+ b=W4ItAAYHjOEzs/mjfx16NkQDuPN3bWREWq4XOLTgCR+/jmU5S9L53xn5Ae2BmqzMto
+ fGonpUBNgP09ea5Zp/C9UWuaLa8UZh9mO7SjIZm3aX+rymETNlmQZaGqG7tPhDUh07nZ
+ 6Xgc1ZDCogu332JYuYBscFjF8kHltFGz+sbdjpUfGnAVtmF5yAgYnGODhHGaiMPYrULl
+ 5ckLccCQ91leyFqb28WuEYXgUhPR69sVS7Qd/7QEduylYZLDycb4ze5kJL1K14usPfLH
+ YVw89vg1uUlkeO4btI7xkDr2uvw9gt36OP70hLMR4P4TPgkc8SGMwjOC/VeJyh3X6OfW
+ JWmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793108233; x=1793713033;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=FufhvRCtL/dPRhc2t8mrLa65DAQwulVvCxNep8YNhyQ=;
+ b=ZwIcTM8kr571ZMunNltColjzjMRxWAKshf+b2WKvNU6fYVd9x+a3321h1qQOjuBVPQ
+ oqqISzDUKwN12rzpivnm7yafpGikjNn3YNpa5s5ds/peVw4HJdAfHXoly6fJ5BmludDd
+ aDWXmQWpcQFgBREZYyOKCuGGGSCLSKuxfHID4utyszeaoM6C8UWu6fW820iXR+5l8nm6
+ 9O+xxmFIET9IX1ZOBBgVDUJPTBFXYyfLDUMULuWPWF8+ySjQNsTh4NklNnyDUOaQrCzN
+ Hu1n3tvBLrUP0GHyMB9kScVszJHi8jh2YzJePL5zqZDkXOfvNEEXYnJ53Bar635vZDOT
+ oXvA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw6K+01e3HnaiXHHJEuALlSolzHX9O/k9j0VKfac4L6/OeGl+9wu1FiF4M15LprhU3xFZUNl+k+wZI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJtPPI2GyFKsVMQ4ROfnqsLYSNm2UshJmfgGB47d4o2J+QTML4S
+ O9lD/05Tp2lzbsYpO43dOEtxyY39kj4+BOER8h6KkcSILEUNLoATbOSNvvek+XWXiFxYASlFANK
+ 28rKVkTo7VR8wToVY5X7qOXpSFH2sjtk=
+X-Gm-Gg: AYBFou2j5weWR7BGX6g3/ldOeTqAwRQ2bkOe03s2LwwOZjhdsx8WqBnY20rX8NMXuNA
+ ObFFLlEnBYELyXlYB6FK80z6F+j0GRE2vP+OImHnXM7az7pxMB/D79Ja3iQuG91GeVEUQS2LOH1
+ 7biJETqFKxOLvQp7o9QWggrTIbeAZD3QR3MFvsjcThA1JaL3cTxPCWHyONvPus11gXkoRTtRM8e
+ pg+cVRIIrqKDcPHf+xAXCnUyts+vmuhbUEmdJOUHFabhmIEtT+VcJ9bH20DsYS/NQHAEgthncmX
+ 0jo+kgkipyu5nA8daVAcGrEkpkXzzTMXgUw9XXyqqr+NlMu4yzMCSOiaGglT+JAKkHuICoNoGx4
+ 3SYoKibzOWESDAxBvKHW+n3Em/lhU/8SouI5k/w1pL/GS6Ee9346nnafl4QwF/fR8DHUi9dF82e
+ +Nli74w5p3P4CHNNmeK/W3YDg=
+X-Received: by 2002:a05:701b:430a:b0:16b:4f52:a08 with SMTP id
+ a92af1059eb24-1991b142105mr20151825c88.0.1793108232858; Tue, 27 Oct 2026
+ 06:37:12 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Queue-Id: E6FB721F2F
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Spam-Score: -4.00
+References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
+ <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
+ <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
+ <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
+In-Reply-To: <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 27 Oct 2026 09:37:00 -0400
+X-Gm-Features: AclHuK-wHTgKpLhkTxBfx8DFmsearMvG8jH9zbeIpPdOt_OZOMlG9BJnbkLKU4I
+Message-ID: <CADnq5_OTLQuD3B6-VUgZv6wGjhFNY_U77wqdv5Y+e25+O0B2ZA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K
+ iMac
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Richard Lane <richardlanedev@gmail.com>, amd-gfx@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,248 +111,101 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Check the result of font_data_glyph_buf() for NULL when drawing the
-screen. Fall back to a default value of '\0' for undefined glpyhs. Skip
-the character if no fallback exists.
+On Tue, Oct 27, 2026 at 9:16=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+>
+>
+> On 10/27/26 07:57, Alex Deucher wrote:
+> > On Tue, Oct 27, 2026 at 8:21=E2=80=AFAM Christian K=C3=B6nig
+> > <christian.koenig@amd.com> wrote:
+> >>
+> >> On 10/26/26 23:46, Richard Lane wrote:
+> >>> Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
+> >>> VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated EF=
+I
+> >>> framebuffer.
+> >>>
+> >>> Override the stolen VGA memory allocation size to 64 MiB when matchin=
+g
+> >>> PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
+> >>> framebuffer corruption during boot handover.
+> >>
+> >> Hacks like those are usually a big no-go.
+> >>
+> >> Why is that framebuffer handling not working with DC out of the box?
+> >
+> > The GMC IP code reserves the memory used by the display hardware from
+> > the pre-OS console.  The gmc get_vbios_fb_size() callback looks to see
+> > what display viewport was set by the pre-OS environment.  If the Macs
+> > need a workaround, that's where it should go.  Since these displays
+> > require multiple display pipes, my guess is you need to double the
+> > allocation in that case since the current code just checks the first
+> > pipe.
+>
+>
+> Could this also be a logic error in that callback?  Would it be worth
+> double checking all the register values in that callback for this system?
+>
+> I know for example there are a few different IP specific implementations
+> in gmc_v9_0_get_vbios_fb_size().
 
-Error checking for fonts has been inconsistent or absent from fbcon.
-Most of the drawing code relies on earlier validation in the font-import
-code. Some code implements the glyph test by itself. At least all of
-fbcon should be consistent in how it handles undefined glyphs.
+Not likely.  I suspect the issue is that these systems use two display
+pipes so we only reserve enough memory to cover half of the display.
+On PCs the vbios never sets up MST.
 
-Calls to font_data_glyph_buf() returning NULL for undefined glyphs make
-it easy to handle this special case consistently across fbcon.
+Alex
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/video/fbdev/core/bitblit.c   | 27 +++++++++++++++++----------
- drivers/video/fbdev/core/fbcon_ccw.c | 12 +++++++++++-
- drivers/video/fbdev/core/fbcon_cw.c  | 13 +++++++++++--
- drivers/video/fbdev/core/fbcon_ud.c  | 18 +++++++++++++++++-
- 4 files changed, 56 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/bitblit.c
-index b1c90bc29648..e108cd50cb1d 100644
---- a/drivers/video/fbdev/core/bitblit.c
-+++ b/drivers/video/fbdev/core/bitblit.c
-@@ -80,7 +80,6 @@ static inline void bit_putcs_aligned(struct vc_data *vc, struct fb_info *info,
- 				     unsigned char *buf, u8 *dst)
- {
- 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
--	unsigned int charcnt = vc->vc_font.charcount;
- 	u32 idx = vc->vc_font.width >> 3;
- 	struct fbcon_par *par = info->fbcon_par;
- 	u32 s_pitch = font_glyph_pitch(s_width);
-@@ -89,9 +88,12 @@ static inline void bit_putcs_aligned(struct vc_data *vc, struct fb_info *info,
- 	while (cnt--) {
- 		u16 ch = scr_readw(s++) & charmask;
- 
--		if (ch >= charcnt)
--			ch = 0;
- 		src = font_data_glyph_buf(par->p->fontdata, s_width, s_vpitch, ch);
-+		if (!src) {
-+			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
-+			if (!src)
-+				goto next_char;
-+		}
- 
- 		if (attr) {
- 			update_attr(buf, src, attr, vc);
-@@ -104,7 +106,7 @@ static inline void bit_putcs_aligned(struct vc_data *vc, struct fb_info *info,
- 		else
- 			fb_pad_aligned_buffer(dst, d_pitch, src, idx,
- 					      image->height);
--
-+next_char:
- 		dst += s_pitch;
- 	}
- 
-@@ -119,7 +121,6 @@ static inline void bit_putcs_unaligned(struct vc_data *vc,
- 				       unsigned char *buf, u8 *dst)
- {
- 	u16 charmask = vc->vc_hi_font_mask ? 0x1ff : 0xff;
--	unsigned int charcnt = vc->vc_font.charcount;
- 	u32 shift_low = 0, mod = vc->vc_font.width % 8;
- 	u32 shift_high = 8;
- 	u32 idx = vc->vc_font.width >> 3;
-@@ -130,9 +131,12 @@ static inline void bit_putcs_unaligned(struct vc_data *vc,
- 	while (cnt--) {
- 		u16 ch = scr_readw(s++) & charmask;
- 
--		if (ch >= charcnt)
--			ch = 0;
- 		src = font_data_glyph_buf(par->p->fontdata, s_width, s_vpitch, ch);
-+		if (!src) {
-+			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
-+			if (!src)
-+				goto next_char;
-+		}
- 
- 		if (attr) {
- 			update_attr(buf, src, attr, vc);
-@@ -142,6 +146,7 @@ static inline void bit_putcs_unaligned(struct vc_data *vc,
- 		fb_pad_unaligned_buffer(dst, d_pitch, src, idx,
- 					image->height, shift_high,
- 					shift_low, mod);
-+next_char:
- 		shift_low += mod;
- 		dst += (shift_low >= 8) ? s_pitch : s_pitch - 1;
- 		shift_low &= 7;
-@@ -271,10 +276,12 @@ static void bit_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
- 	attribute = get_attribute(info, c);
- 	c &= charmask;
- 
--	/* Clamp to font size, same as bit_putcs_aligned() */
--	if (c >= vc->vc_font.charcount)
--		c = 0;
- 	src = font_data_glyph_buf(par->p->fontdata, width, vpitch, c);
-+	if (!src) {
-+		src = font_data_glyph_buf(par->p->fontdata, width, vpitch, '\0');
-+		if (!src)
-+			return;
-+	}
- 
- 	if (par->cursor_state.image.data != (const char *)src ||
- 	    par->cursor_reset) {
-diff --git a/drivers/video/fbdev/core/fbcon_ccw.c b/drivers/video/fbdev/core/fbcon_ccw.c
-index 9da6c0e41e7a..cbaa75fc1cc1 100644
---- a/drivers/video/fbdev/core/fbcon_ccw.c
-+++ b/drivers/video/fbdev/core/fbcon_ccw.c
-@@ -109,6 +109,11 @@ static inline void ccw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
- 	while (cnt--) {
- 		src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch,
- 					  scr_readw(s--) & charmask);
-+		if (!src) {
-+			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
-+			if (!src)
-+				goto next_char;
-+		}
- 
- 		if (attr) {
- 			ccw_update_attr(buf, src, attr, vc);
-@@ -121,7 +126,7 @@ static inline void ccw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
- 		else
- 			fb_pad_aligned_buffer(dst, d_pitch, src, idx,
- 					      vc->vc_font.width);
--
-+next_char:
- 		dst += d_pitch * vc->vc_font.width;
- 	}
- 
-@@ -246,6 +251,11 @@ static void ccw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
-  	c = scr_readw((u16 *) vc->vc_pos);
- 	attribute = get_attribute(info, c);
- 	src = font_data_glyph_buf(par->rotated.buf, width, vpitch, c & charmask);
-+	if (!src) {
-+		src = font_data_glyph_buf(par->rotated.buf, width, vpitch, c & charmask);
-+		if (!src)
-+			return;
-+	}
- 
- 	if (par->cursor_state.image.data != (const char *)src ||
- 	    par->cursor_reset) {
-diff --git a/drivers/video/fbdev/core/fbcon_cw.c b/drivers/video/fbdev/core/fbcon_cw.c
-index 354f40f77bb4..7606ad38c269 100644
---- a/drivers/video/fbdev/core/fbcon_cw.c
-+++ b/drivers/video/fbdev/core/fbcon_cw.c
-@@ -94,7 +94,11 @@ static inline void cw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
- 	while (cnt--) {
- 		src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch,
- 					  scr_readw(s++) & charmask);
--
-+		if (!src) {
-+			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
-+			if (!src)
-+				goto next_char;
-+		}
- 		if (attr) {
- 			cw_update_attr(buf, src, attr, vc);
- 			src = buf;
-@@ -106,7 +110,7 @@ static inline void cw_putcs_aligned(struct vc_data *vc, struct fb_info *info,
- 		else
- 			fb_pad_aligned_buffer(dst, d_pitch, src, idx,
- 					      vc->vc_font.width);
--
-+next_char:
- 		dst += d_pitch * vc->vc_font.width;
- 	}
- 
-@@ -229,6 +233,11 @@ static void cw_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
-  	c = scr_readw((u16 *) vc->vc_pos);
- 	attribute = get_attribute(info, c);
- 	src = font_data_glyph_buf(par->rotated.buf, width, vpitch, c & charmask);
-+	if (!src) {
-+		src = font_data_glyph_buf(par->rotated.buf, width, vpitch, '\0');
-+		if (!src)
-+			return;
-+	}
- 
- 	if (par->cursor_state.image.data != (const char *)src ||
- 	    par->cursor_reset) {
-diff --git a/drivers/video/fbdev/core/fbcon_ud.c b/drivers/video/fbdev/core/fbcon_ud.c
-index 01f45eaa2013..bdba3a959d1e 100644
---- a/drivers/video/fbdev/core/fbcon_ud.c
-+++ b/drivers/video/fbdev/core/fbcon_ud.c
-@@ -96,6 +96,11 @@ static inline void ud_putcs_aligned(struct vc_data *vc, struct fb_info *info,
- 	while (cnt--) {
- 		src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch,
- 					  scr_readw(s--) & charmask);
-+		if (!src) {
-+			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
-+			if (!src)
-+				goto next_char;
-+		}
- 
- 		if (attr) {
- 			ud_update_attr(buf, src, attr, vc);
-@@ -108,7 +113,7 @@ static inline void ud_putcs_aligned(struct vc_data *vc, struct fb_info *info,
- 		else
- 			fb_pad_aligned_buffer(dst, d_pitch, src, idx,
- 					      image->height);
--
-+next_char:
- 		dst += s_pitch;
- 	}
- 
-@@ -133,6 +138,11 @@ static inline void ud_putcs_unaligned(struct vc_data *vc,
- 	while (cnt--) {
- 		src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch,
- 					  scr_readw(s--) & charmask);
-+		if (!src) {
-+			src = font_data_glyph_buf(par->rotated.buf, s_width, s_vpitch, '\0');
-+			if (!src)
-+				goto next_char;
-+		}
- 
- 		if (attr) {
- 			ud_update_attr(buf, src, attr, vc);
-@@ -142,6 +152,7 @@ static inline void ud_putcs_unaligned(struct vc_data *vc,
- 		fb_pad_unaligned_buffer(dst, d_pitch, src, idx,
- 					image->height, shift_high,
- 					shift_low, mod);
-+next_char:
- 		shift_low += mod;
- 		dst += (shift_low >= 8) ? s_pitch : s_pitch - 1;
- 		shift_low &= 7;
-@@ -279,6 +290,11 @@ static void ud_cursor(struct vc_data *vc, struct fb_info *info, bool enable,
-  	c = scr_readw((u16 *) vc->vc_pos);
- 	attribute = get_attribute(info, c);
- 	src = font_data_glyph_buf(par->rotated.buf, width, vpitch, c & charmask);
-+	if (!src) {
-+		src = font_data_glyph_buf(par->rotated.buf, width, vpitch, '\0');
-+		if (!src)
-+			return;
-+	}
- 
- 	if (par->cursor_state.image.data != (const char *)src ||
- 	    par->cursor_reset) {
--- 
-2.56.0
-
+>
+> >
+> > Alex
+> >
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+> >>> ---
+> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
+> >>>   1 file changed, 9 insertions(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_gmc.c
+> >>> index 4204c3c750a8..8b196fbfa724 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> >>> @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struct a=
+mdgpu_device *adev)
+> >>>          } else {
+> >>>                  size =3D amdgpu_gmc_get_vbios_fb_size(adev);
+> >>>
+> >>> -               if (adev->mman.keep_stolen_vga_memory)
+> >>> +               /*
+> >>> +                * Apple 5K iMacs report one 2560x2880 tile in VIEWPO=
+RT_SIZE
+> >>> +                * while scanning out up to 64M across the relocated =
+EFI
+> >>> +                * framebuffer.
+> >>> +                */
+> >>> +               if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID=
+_APPLE &&
+> >>> +                   size =3D=3D (2560 * 2880 * 4))
+> >>> +                       size =3D 64U * 1024 * 1024;
+> >>> +               else if (adev->mman.keep_stolen_vga_memory)
+> >>>                          size =3D max(size, (unsigned)AMDGPU_VBIOS_VG=
+A_ALLOCATION);
+> >>>          }
+> >>>
+> >>> --
+> >>> 2.55.0
+> >>
+>
