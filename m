@@ -2,43 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C32606A32E
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:53:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C205E606A324
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:53:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFC7IhuO
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neJ6Av6X
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E682910F558;
-	Tue, 27 Oct 2026 13:53:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 244D710F55A;
+	Tue, 27 Oct 2026 13:53:24 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0083D10F558
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:53:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5DD310F563
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:53:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B1E664108A;
- Tue, 27 Oct 2026 13:53:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79A011F01825;
- Tue, 27 Oct 2026 13:53:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CE9C943F85;
+ Tue, 27 Oct 2026 13:53:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09EF01F01825;
+ Tue, 27 Oct 2026 13:53:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793109183;
- bh=FaqJPeJsb4R7FWBq36p22c6DRyoNLVlBk26f9NSmuQE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZFC7IhuO9dXf7o4UCJmiKZbZ6lSdtITezHqb6a6wXiEyAcXdgbKGvqSzJRpyeyShs
- uN9+UTa0ExJQR9FCwaHEQFynUkemxRbVXg22aAH4bTaCryFai7cU/1mOcnUoCepVEI
- Pal/6IOFC9bCEjcbdN4U4pNqGQ+ohNaybPOlIXDL4smD4Ro1Wy1eNPBXefDiU9tM91
- EhneX+YrfvDjSc+Jvsxynl3aiS0DugbNDqaFgtsixJCkyJP1Gfwsu3hKA33+tBfkpY
- K9QdBN5d42+1u2rrpKuEp4QtU8AOy8H+FsUFY2Imfex/ZHaM3tJY66FhBAcTw0ZDuT
- mCL6AlmtGIEiQ==
-Message-ID: <sashiko-outbox-186670@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 14/18] drm/bridge: analogix_dp: Move IRQ
- enable/disable to bind/unbind
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261027132810.1746118-15-damon.ding@rock-chips.com>
-References: <20261027132810.1746118-1-damon.ding@rock-chips.com>
- <20261027132810.1746118-15-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 13:53:03 +0000
+ s=k20260515; t=1793109197;
+ bh=wGwT1JNbkqmcP8fUAnZimf+aufAiCIdNGNB+5b8MPdA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=neJ6Av6XcAg6zlKSlBzItq+Kq/XVhU3FTSTQ40LLLW1NXhjlBZMaCGr98AraxOMEW
+ +rDgxRqp7oMaPJc8VyZy3Z2ZwiMs8mKLlkRYid5Si+8vRh5YKfA/TlGpvTGtn4Ycq5
+ 0cBX5X6C6Ip9AqH+3gxI2qSkLhOmsx7oN3SLHF+zGVB/nBAHoptZDnJE9pksEQoklH
+ p03vP3AByRwPSoY1xY1ZITKr//jMGet6GgRJvnIhJNHSWDtJh3MSNyhw6L14pkJR9t
+ BFOUfHKE/qGFAhxkcxjILeQvMa/1rR26xCoph5E/k6fpoaA9TG1B224LzKuj4NzVNA
+ kgT6eeSMMSZfw==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailfauth.ams.internal (Postfix) with ESMTP id 85CC7198004A;
+ Tue, 27 Oct 2026 09:53:11 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-03.internal (MEProxy); Tue, 27 Oct 2026 09:53:15 -0400
+X-ME-Sender: <xms:xqzgal-vr3ZeqbXQYJBliutUwh-BPoCNU76xbXs7mx_Ps-IdSmK23A>
+ <xme:xqzgaoksYXGkYGnJF43sYID0Tus98V08BBjG64swDvpdheaZW5VbBJyVOc7DQ6Frl
+ aoZ3R23YOrTA4h2thSa7n_eENBiVLh_oK4jdwW4aOnapsUIANjaAKZd>
+X-ME-Received: <xmr:xqzgajaYJVYfdqtgodH29574WA_vexf-pM5sNeV3dSMQBjrPqxVqpVsiMiw>
+X-ME-Proxy-Cause: dmFkZTEZ/rZ8QL4tKdVH13M4isFoJoqE6mmyk1+ybcvlxgqSp6W0ayLRKd0L7SfTmxuGb5
+ U6+Pfm114T++Wp3SC2FV78EqIZ6zQGqKV5XyNS0Q8g8zeea3kGWywXyvNgIRW79CajYQHr
+ 2jF/D3zyUpa8mENlQ2k9kDlrLHG9vuqIwsGPeExjecTgPLyR3BG4mU+4iFcKzGjlB8O7dl
+ rHahXQtAt7H4ct4Hi0ph4caUm45qDhARWvo+NXS6RvFk5in2esxS1VkNF3/wtGoX2gxkDU
+ HYhd+ifyLHB/lQg4TvDcO1vty+4TgdFGCdUfD6xIrm+RnS//HTrIeeMZCfQmeBD5mTfrrt
+ 28F2SJuazbG4sdilPjnUK5Xk2C/b77Urnpd+yJpFkxf0srCyBWlhL6vR0USCQldwnnbiLW
+ 9q+grn+3rpVTZTV5aFHrdKvOYqBL1I68cy6Ts9EvEo2mG6eqSnlWVGArQuLZTDmYpXGIvS
+ wXLvRFTOpi4viZ4HzYk4qCerKNTdy3232MaWMRw4+fGiHl1k0822eLObmoSxbGhZG/SB+U
+ RY6eT6x1Fr7R33DiHsTIEPGR6+Uf+O9CEjZE+sUhhEJff/MTsubZ9LmOVI85mrAWUqqbJx
+ XWv9aGmJ+yJbAfbRPaNRNIocYryGvdsYvD8pPJi4F3KUYMPNesYsAvQV4dWg
+X-ME-Proxy: <xmx:xqzgaudbz8X2mj1TmcVhbSB5pj192_SKV8vP7t-J3qUs-AsDGR5erQ>
+ <xmx:x6zgar5lbie9c9vsEIGyR4WR5HHpSCBz3DCSwhV-Wl76bl2cm_9stA>
+ <xmx:x6zgaqkT5H7khckA_fD9bSj4bobce4cCO515thNp8GAx2LHLg5LD3g>
+ <xmx:x6zgapYUC1r3US7DHJV2QXJyRoI41UHODbj8ZuE46i0U3Qjz7C1IHw>
+ <xmx:x6zgagOltv2MpGmQj-wyDgIG_3JLhCWmQzbtOVj1MoCubVlHQLT8Bbj6>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 09:53:10 -0400 (EDT)
+Date: Tue, 27 Oct 2026 13:53:09 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Konstantin Khorenko <khorenko@virtuozzo.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
+ Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?utf-8?B?TG/Dr2M=?= Molinari <loic.molinari@collabora.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v4 1/4] mm/rmap: duplicate a PMD mapping as one in
+ folio_dup_file_rmap_pmd()
+Message-ID: <auCsphluu2gwzEPo@thinkstation>
+References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
+ <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-1-66f00b7a564c@virtuozzo.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-1-66f00b7a564c@virtuozzo.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,177 +93,35 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/bridge: analogix_dp: level IRQ storm when pm_runtime_resume_an=
-d_get() fails
-- [Medium] drm/bridge: analogix_dp: pm_runtime_resume_and_get() in IRQ clea=
-rs HPD status
---
+On Wed, Oct 21, 2026 at 10:36:00PM +0200, Konstantin Khorenko wrote:
+> folio_dup_file_rmap_pmd() passes PGTABLE_LEVEL_PTE to
+> __folio_dup_file_rmap() for HPAGE_PMD_NR pages, so it adds HPAGE_PMD_NR
+> PTE mappings to the folio instead of one PMD mapping. Each unmap of the
+> PMD removes one PMD mapping:
+> 
+> - the folio's mapcount never returns to zero, and removing the folio
+>   from the page cache reports "Bad page cache", or hits a VM_BUG_ON
+>   with CONFIG_DEBUG_VM;
+> - the first unmap already counts as the last one and drops the
+>   PMD-mapped statistics while the other mm still maps the folio;
+> - the second one drives the entire mapcount below zero and drops them
+>   again.
+> 
+> The helper has no caller yet, the next patch adds the first one. Pass
+> PGTABLE_LEVEL_PMD, as folio_try_dup_anon_rmap_pmd() does.
+> 
+> Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 
-commit 2a41fb565a5b1a6da39d3e4bf4efd7dfc99b3b81
-Author: Damon Ding <damon.ding@rock-chips.com>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-drm/bridge: analogix_dp: Move IRQ enable/disable to bind/unbind
-
-This commit moves enable_irq() and disable_irq() from the bridge enable/dis=
-able
-handlers into analogix_dp_bind() and analogix_dp_unbind(). It also converts=
- the
-interrupt handler to a pure threaded IRQ handler that acquires a runtime PM
-reference before accessing controller registers.
-
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
-/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index a8a2d5d615aea..e92d86c678947 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -700,24 +700,22 @@ static int analogix_dp_enable_scramble(struct analo=
-gix_dp_device *dp,
->  	return ret < 0 ? ret : 0;
->  }
-> =20
-> -static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
-> -{
-> -	struct analogix_dp_device *dp =3D arg;
-> -	irqreturn_t ret =3D IRQ_NONE;
-> -	u32 irq_type;
-> -
-> -	irq_type =3D analogix_dp_get_irq_type(dp);
-> -	if (irq_type)
-> -		ret =3D IRQ_WAKE_THREAD;
-> -
-> -	return ret;
-> -}
-> -
->  static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
->  {
->  	struct analogix_dp_device *dp =3D arg;
->  	u32 irq_type;
->  	bool hpd_detected;
-> +	int ret;
-> +
-> +	/*
-> +	 * The device may have been runtime suspended since the interrupt
-> +	 * was raised. Hold a runtime PM reference before touching the
-> +	 * registers, as the controller clocks are only guaranteed to be
-> +	 * enabled while the device is runtime PM active.
-> +	 */
-> +	ret =3D pm_runtime_resume_and_get(dp->dev);
-> +	if (ret)
-> +		return IRQ_HANDLED;
-
-[Severity: High]
-Can returning IRQ_HANDLED when pm_runtime_resume_and_get() fails cause a
-level-triggered IRQ storm or unclocked MMIO access during system suspend and
-resume?
-
-On Rockchip and Exynos platforms, the native DP controller interrupt is a
-level-high interrupt (IRQ_TYPE_LEVEL_HIGH) requested with IRQF_ONESHOT.
-Moving disable_irq() from analogix_dp_bridge_disable() to
-analogix_dp_unbind() leaves dp->irq enabled across system suspend and resum=
-e,
-where rockchip_dp_pm_ops and exynos_dp_pm_ops use pm_runtime_force_suspend()
-in dpm_suspend and pm_runtime_force_resume() in dpm_resume (outside the
-dpm_suspend_noirq and dpm_resume_noirq window where device IRQs are masked).
-
-If an interrupt fires when dp->dev is runtime-suspended and
-dev->power.disable_depth > 0 (or if analogix_dp_resume() fails at runtime),
-pm_runtime_resume_and_get() returns a negative error code such as -EACCES.
-Returning IRQ_HANDLED here without clearing or masking the hardware interru=
-pt
-status registers causes irq_thread_fn() to increment desc->threads_handled
-and irq_finalize_oneshot() to unmask the still-asserted level IRQ line. That
-immediately re-triggers the interrupt while preventing note_interrupt() in
-the spurious IRQ detector from ever disabling the screaming line.
-
-Furthermore, if dev->power.usage_count > 1 during pm_runtime_force_suspend()
-(such as when a later commit in this series, "drm/bridge: analogix_dp: Mana=
-ge
-pm runtime and IRQ for native HPD pin detection", holds a runtime PM
-reference in analogix_dp_bind(), or when runtime PM is forbidden via sysfs),
-pm_runtime_force_suspend() disables the DP clocks via analogix_dp_suspend()
-while leaving runtime_status and last_status set to RPM_ACTIVE with
-disable_depth > 0. In that state, rpm_resume() returns 1 and
-pm_runtime_resume_and_get() returns 0, allowing analogix_dp_irq_thread() to
-perform MMIO accesses on an unclocked controller.
-
-> =20
->  	irq_type =3D analogix_dp_get_irq_type(dp);
->  	if (!dp->hpd_gpiod && irq_type)
-
-[Severity: Medium]
-If the device has actually runtime suspended before analogix_dp_irq_thread()
-runs, won't pm_runtime_resume_and_get() wipe the pending interrupt status
-registers before analogix_dp_get_irq_type() can read them?
-
-When dp->dev is runtime suspended, pm_runtime_resume_and_get() invokes the
-runtime resume callback (rockchip_dp_resume() or exynos_dp_resume() ->
-analogix_dp_resume()):
-
-drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:analogix_dp_resume() {
-	...
-	if (dp->plat_data->power_on)
-		dp->plat_data->power_on(dp->plat_data);
-
-	phy_set_mode(dp->phy, PHY_MODE_DP);
-	phy_power_on(dp->phy);
-
-	analogix_dp_init_dp(dp);
-	...
-}
-
-On Rockchip, dp->plat_data->power_on() calls rockchip_dp_poweron() ->
-rockchip_dp_pre_init(), which asserts and deasserts dp->rst and dp->apbrst,
-wiping all controller registers.
-
-On all platforms, analogix_dp_init_dp() then resets the controller and clea=
-rs
-all pending interrupts:
-
-drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:analogix_dp_init_dp() {
-	analogix_dp_reset(dp);
-
-	analogix_dp_swreset(dp);
-
-	analogix_dp_init_analog_param(dp);
-	analogix_dp_init_interrupt(dp);
-	...
-	analogix_dp_init_hpd(dp);
-	analogix_dp_init_aux(dp);
-}
-
-Both analogix_dp_init_interrupt() and analogix_dp_init_hpd() explicitly cle=
-ar
-ANALOGIX_DP_COMMON_INT_STA_4 and ANALOGIX_DP_INT_STA. By the time
-pm_runtime_resume_and_get() returns to analogix_dp_irq_thread(),
-analogix_dp_get_irq_type() reads cleared registers (0), so irq_type is 0 and
-the hotplug event is silently dropped. Note that the later commit in this
-series ("drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD
-pin detection") only keeps runtime PM active across bind/unbind on
-RK3576_EDP and RK3588_EDP, leaving EXYNOS_DP, RK3288_DP, RK3399_EDP, and
-other configurations susceptible to runtime suspend while the IRQ is enable=
-d.
-
-Conversely, when dp->hpd_gpiod is used, analogix_dp_get_irq_type() (as well
-as analogix_dp_get_plug_in_status() in commit "drm/bridge: analogix_dp:
-Declare DRM_BRIDGE_OP_HPD for hotplug reporting") only reads the GPIO level
-via gpiod_get_value(dp->hpd_gpiod) and never touches DP controller MMIO
-registers. Does analogix_dp_irq_thread() need to call
-pm_runtime_resume_and_get() when dp->hpd_gpiod is present, since doing so
-powers on, resets, and reinitializes the DP controller and PHY on every GPIO
-HPD interrupt while the display is off?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027132810.1746=
-118-1-damon.ding@rock-chips.com?part=3D14
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
