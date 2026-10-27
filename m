@@ -2,178 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3B2606A31D
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 07:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F3B606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 07:47:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=bAiMCxi4;
-	dkim=pass (1024-bit key, unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=U92NmsXP
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=eldrP/xP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99D5E10E1F8;
-	Tue, 27 Oct 2026 07:42:21 +0000 (UTC)
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF35E10F2B8
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 07:42:09 +0000 (UTC)
-X-UUID: e7df760ad1d911f18dc8c9802ae25ab1-20261027
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=2HT48ylWBJhy+CGwEa5UNCwp3lYDkY7Ry/TVbRPWuRo=; 
- b=bAiMCxi4tILwH9NHWmBaA2Laua/OSuhKs0DFkNjkUNcnSAOAMSgId2v3BCEieP3Iw9fZY360S+7YIYg/n+cCTNqSyjrJgqXWWjYuIn3oa6BS4ZS1ZkmzSEN3liKa4HkrO/yH38Tmq2UCUkVIYFf2ipxlkzquzwAct92GVVqktBw=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20, REQID:348cb046-9c3f-4a14-b628-0a5d3ce74931, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:291e20b, CLOUDID:901e7eb9-4279-411e-a32e-f7638bbb2c8b,
- B
- ulkID:nil,BulkQuantity:0,SF:81|82|83|102|110|111|836|865|888|898,TC:-5,Con
- tent:0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,C
- OL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e7df760ad1d911f18dc8c9802ae25ab1-20261027
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by
- mailgw02.mediatek.com (envelope-from <ck.hu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1440261802; Tue, 27 Oct 2026 15:42:05 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 27 Oct 2026 15:42:04 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 27 Oct 2026 15:42:04 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EjjA5+3JUvIzuyjqNIyzbIYlULHFruDhr83MG8dL+BgmOyrKIgyzpa8HQE+Qwcr/2o4bq3BIS+tDLsRUGpolrv+nl8WnQBG4aFue+o+ew4PFqO80v2xu+NHUw6g2Jgx5agcXsKBBwd+CLQcfr0XAnrRmjdlm7Xd1fEeP0nNKL0iQLwOs0X9o+Eon+gq2/4r1en47UR03hq3UOTlmd/1M5kM3AJ3lfBS4sCPsAGdptEbfOJ3bWCejRd2ghBpkNpvZm7q3RTJVyr6N4p75nLHYSb7wyPjS3E7rA1xNygfuKuxPalAfjcNO1FZlSfGF2f7+nksCZobMABf5o7OaXmFOlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2HT48ylWBJhy+CGwEa5UNCwp3lYDkY7Ry/TVbRPWuRo=;
- b=afAtB+k8WBxtDV3quG9fyDVJ2KV9kot053vAyC3vscOJVZveW/zLZwgOJHzxfaHJZcchNe7L4tD37uSnr9O10/kyPr1zrRCh4mt2JTq0KiZ7B6cBwTbFJPfw7/p2eUZrVXeBkp6iFe+i2r3xhcA0h/lJaRvSOeb8g0nV3fREgKWeEJxDtAN8xCjw6v/YuDwbDt5l2oYs6R/ZpaoI382f0fS5zNQ0B4JB+197CibtpHteyDNIIsMA0+eMQOYlW9Z2thyLb4jjVNrTAbtY2l51AwzwPbXljPwA4AllhIGkR9fg7WCw47o9uAf4yf/o+pL139hliIUaa9ikKPa9IdW+KA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2HT48ylWBJhy+CGwEa5UNCwp3lYDkY7Ry/TVbRPWuRo=;
- b=U92NmsXPmF7r6LymtNNB4W13T+Pgrit9+Uq7xai9jcxDrh4uZ8pkRbGTmp4WJ0R4bdCkvm22CoZpwwuQsaAUtHkKckrMsAeqPOekeMLBiv7NbJShbiHT6dW9SJ15mZzt9eACdPTeUpWwGtlbIEUkzDy+H7/NQ/+JmU12rQDYlbo=
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com (2603:1096:d10:91::20)
- by SEZPR03MB7266.apcprd03.prod.outlook.com (2603:1096:101:72::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 07:42:00 +0000
-Received: from KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b]) by KUYPR03MB9902.apcprd03.prod.outlook.com
- ([fe80::9598:2e59:20dd:960b%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 07:42:00 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "robh@kernel.org" <robh@kernel.org>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "mripard@kernel.org" <mripard@kernel.org>, "kernel@collabora.com"
- <kernel@collabora.com>, "linux-mediatek@lists.infradead.org"
- <linux-mediatek@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "p.zabel@pengutronix.de"
- <p.zabel@pengutronix.de>, "airlied@gmail.com" <airlied@gmail.com>,
- =?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- =?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
-Subject: Re: [PATCH v2 07/46] drm/mediatek: Use hashtable for components
- discovery and registration
-Thread-Topic: [PATCH v2 07/46] drm/mediatek: Use hashtable for components
- discovery and registration
-Thread-Index: AQHdE4ZLJBmZGanwqUi83gYBq7RaTLcRpj+A
-Date: Tue, 27 Oct 2026 07:42:00 +0000
-Message-ID: <925c8a17bf65734deeb5b70c0dc580a4402c24b7.camel@mediatek.com>
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-8-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-8-angelogioacchino.delregno@collabora.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KUYPR03MB9902:EE_|SEZPR03MB7266:EE_
-x-ms-office365-filtering-correlation-id: 77636b21-d777-4c1d-3136-08df33fdc914
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|42112799006|376014|7416014|1800799024|18002099003|22082099003|56012099006|11063799006|4143699003|10067099003|261021123027099003|38070700021;
-x-microsoft-antispam-message-info: Bi/81IdUH11+iXpU+FAmCo93koM6qqKaw6tr3l+9o3mtUIONT0fjQPpfs88J52XvGmsCHwfzXeicwrr4wih09j0pcMT8zDuWBMbUb2E/9Li2kEHtCcWaauXgB97qD43p5EVWy5dLA1MJgwbT1B66Zozhi4OcqrDCxq1lNCw/3IfWU8OBpbaVYWfMWv9UQ2TcZlJhg3hG2MONnvHUaIsYIrjVws40s+okkywwhHOrvjBqgAgOr3axK9He5wmXdXCblDUvnipIIGI70u9utAC5cVO9pS0GcfrBaG3X4W7XjyqPER++gVmq/iORxqjulS5WSDCOaacQMm9wy44/LzsUzjEYHNK5VFfUW2GNvz0mES12C+glMzXRAMPm20coBtvHCs0Cj9y4M5iShQkXBkDx09ddy/BH4IGeu7sZdeiRoyWjIdlfvbUYcKt7RzJfQ0s1jFXDVKxea1Jp/7iULGT91vuHTOzAcP9bb+8cewtuI6JGmnL+1kT5TvYvP/+GWldWXSlvzq/+El3e2yFahzap8CpBFCyYQfmAkJJ1wwZE8wOoMnwOnjdrKWWqMDg5d9QXXW83nRaKOrMf7v8cfzXlXM2/rX/N+gWnYeUDWBcP+aA3nqVQQ1UhcxG2VBJaMbNOe2Uo6CIokbqlvQrl6YUSuuLX9zNVUf7RN2BvvEk6AuaDZ+8TKuZ9jwqpJZcAM5U+r8xQs4e/TXtvC/+SCs6EHoHsGo6ed2WvWQJ3a/QmLJU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:KUYPR03MB9902.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(42112799006)(376014)(7416014)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(10067099003)(261021123027099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SnB1eHo0WU1mM0VMVTJuMjJ0NUJhcWJoOFF0alBkNk56SS9iQ1lqaGEzcXlD?=
- =?utf-8?B?RVpZeExWeFhsTTczbHNXLzM2L21xZ3IrUllGNVlIRzk4OGhKbmNMNDFTUm9O?=
- =?utf-8?B?V09Pci9RWmRhWHpReCs0Z1NEcjA2dDZweEd1ZVh1S21OcUw3ODRBQ2syNERr?=
- =?utf-8?B?TURsRkkxZnFFakFwa1NZM0lZcGFKcGN5cTg5SFZpNEpTSjlhemUxOGRvQ1NC?=
- =?utf-8?B?NWtiMEJtNnpHMll3UWxSRWJ0NWlDRW1LNXhRQjNqOVJjVGtMU0s2YnduUmtI?=
- =?utf-8?B?Qnh2ZGVBTitkRHVBeEZabHVXR2RueVZPaHpHNUJjaDIrQzhyM0tNa1RnMFQ0?=
- =?utf-8?B?a09VVWxESzh5VmM3TExsMDBlTkIzSmI3d25lWVJ1c09IVzdvZ2pjdmc3d3o5?=
- =?utf-8?B?OS93ejdSOXpGejQ1U2dEVXJscWJMWEhxVlZJclBpcnUrVXpMZDhhNHVMcG1a?=
- =?utf-8?B?c3RwSnVCUGN6bU1pRG1xQUpwQXdKeUdoTnFkT0FPU2x0cnNHYXJaTUdDUXJD?=
- =?utf-8?B?dU5BUlNkUDR1c1hHU0dIZ2FJNENXckZyYmx2RDR5eVFYV3VXc05yV3F6TzdP?=
- =?utf-8?B?MUZPRDR3MEpBZ1JINWwyQVg0b2ZPTkhpTi8xZ1J1VGFhZVE3RWFOREk2TjN3?=
- =?utf-8?B?bzExbHdEK2RwcCtOdXA0dVgzOUxxeCtJb0cyNUx2RHJScDVjb2t6MTByazd5?=
- =?utf-8?B?bkk3aUMwbUhVbkYwT0t3elNCQjh4VGRwYm81RFNOYnFwTlo3S2s3WStVNnlI?=
- =?utf-8?B?aEtabWgwNk9SNHVqVTVvTmVVdTZPcjJ0ZU5BV0VqMGdkNlFualdlZzdSYjVS?=
- =?utf-8?B?dEE5R21rY2lJUWZWdFlTSmFnMm9kSHF3YzJqK2FYcWdSSmlBaE9MV1lPSUxm?=
- =?utf-8?B?RFg3WFRMZGxNWUlSeTh2eVJZY1hhRGFZNFNiUm4rSllkTXVIUzhYRDVoaVNs?=
- =?utf-8?B?QzU3VUFoaW9NQTM1bGZOZnRLWUxmd0RZRGZNaTNUUE9DaVlFOWZnREhLNS95?=
- =?utf-8?B?VnpEbC81Smo0NXNyWlMyMUU4RzR3TU5OZTd1dTVsY21BR2lUYVV4T3c1MThz?=
- =?utf-8?B?aVhWNmhkb2ErUVFJQjNyaHB2VzZSdGNjc0liOGIwZHR4SmNkWTFrVmhwc0NT?=
- =?utf-8?B?cU1iZzVoWUJkUVBFa05BU3pPQVZkcWdFS3FwdjI2S3lZNitHSzF6S1ZHU2lL?=
- =?utf-8?B?Tmg1djJuWnBhdnZ1eENoNkxUcVhuUENWY3huY29zdzNERldXT2Z1ek9NVldu?=
- =?utf-8?B?WmlTRjNVV0lDSFBwcmIrV3JOWlZqMTRhZWlNK1hQRlRVRXd3SklDRS9FRXNZ?=
- =?utf-8?B?ZXo1UjdDUzNCOUtlaUdIdkl0eHBybmZpVmh5VzNBZDRKRzZ4WUZRaFRnVE1D?=
- =?utf-8?B?OS9WV0NENmpyc2tLaVoyQVFsZjV2eE1tMlk5dGUxSG5EM1J4c2Q0MFBHd3Fn?=
- =?utf-8?B?aXE0NXhoMzlaREtjcFlha0xZeUg1Q3B1SVF4eDBQZlJQWFd6YTlvTU9VRlVs?=
- =?utf-8?B?TjJ5bDJXT29rVlpWa0dWcmhlZUF6YVdHNkIyelYrY280U2pnL1docE9MTFVz?=
- =?utf-8?B?N1NVMVRadWYzakFENERnamtGWWlxMzNEanh4OTRQNHNSUDZLZmFBK3NDd2ND?=
- =?utf-8?B?TUd1Wk1pZmUrcnNvY3d2TGRuV2c1Ui9sWk9udFV5OHdDRG5WV1dCSEhKSWtv?=
- =?utf-8?B?ZXhJUUdaNko1NUg4emtsM3J2am1vbjN0Yk1FRTQ5MFQ2MEk1eEh0Lzlia253?=
- =?utf-8?B?ZkYydThTUnNHYkNFT2w1ekZxMm1QNW1kSUM4VmVkeTY0YVpOTHRQdTFzdWUw?=
- =?utf-8?B?SGFiR0JQeEdWOXVRa1FXUjc4RHVGbWg0ZStmQW9YVUYxYWtHNmg4NGtEVXJw?=
- =?utf-8?B?WXJXT0dxRU0xR2wwVHh2dW1ZT1ZwNWV2STN2VXhtRjZBRkh3OFVrajVOZy8r?=
- =?utf-8?B?T0ZBdERzWDlvRG15VkJ6Q2FaaWErYnp2cDdzUHkweklWSGtBcE80YmpHTUdB?=
- =?utf-8?B?NVQ0dWtFb2lkV3FJYThXdXg5eEZWdHpwbDk1ZFdpZENoRXpUVGE2YWNFd1Ns?=
- =?utf-8?B?SkZFcjJEamRDZ1BxeFpDRGJhdDVaNU5WUFp1cWdJVnJLbm5DY1FyMGF4aTgv?=
- =?utf-8?B?UmpMWUFkR2ZwaXFBM0pRdy9oVmdya3dzcHp1RzBrSkhoeG1neXo4YUR4a242?=
- =?utf-8?B?YTFQMHRwVXJNa2h5TVV0M05sS2N5OHYxWFNSWVJGOHNaUDJ0V0VpR3hzejVV?=
- =?utf-8?B?NFVLaWJmRnRYb2VFRFFiK1lOdGF2R2V2Q2M1UHBIRVR6VDhVeWNLY2l3Vi9z?=
- =?utf-8?B?VlVlTjJac1R0aEc3UFMvZVpNZUpsdk0xQ0lEWHpZU3NBbEh4YU5uZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <7A3D2CF353D0E942B265CBB1D19F4233@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C40210E1FC;
+	Tue, 27 Oct 2026 07:47:54 +0000 (UTC)
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.63.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42B3510E1FC
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 07:47:47 +0000 (UTC)
+Received: from mors-relay8204.netcup.net (localhost [127.0.0.1])
+ by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4jDMzN6HmYz8tt6;
+ Tue, 27 Oct 2026 07:47:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1793087264;
+ bh=jvH5rmcNh//J8ryzh9aICY7L0QAJcN8DwFIlF0b0dRs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=eldrP/xPXhDKLrDwUdZmFUxTy5je/eM7Mk7uPx1hMxzejC/E+/kQqkEZnV4YjvWF6
+ NAfOr+NEpCmWCVig/1w/P8OxFBgkW4VQvTM67ogv63cipqMJuuhyI3JmFZlZgdCUPj
+ tui5X3n75IWjPe70/OYu8lGPIDqNAklbVoyhXCllwOtiQHGcNo3XSQ+e8vVL4tK7oi
+ UzjY8V/cLogqxx+NogI5D0X7/F786u7sm0T60bmoxjVwOKGJfh07J5E5nR7HmtMyeT
+ DaP/kKljpIcrZzrpkcGLApoBOsHuw/OByzuPS5UoxflqIphYqC/88aHahDQXLmnUh1
+ 2nOkL16SayRhA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4jDMzN5YPnz8tt1;
+ Tue, 27 Oct 2026 07:47:44 +0000 (UTC)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jDMzM0cMgz8sZN;
+ Tue, 27 Oct 2026 08:47:42 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 56B0E5FA40;
+ Tue, 27 Oct 2026 08:47:35 +0100 (CET)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <b9284046-be28-4f80-81e9-d800e2d4204a@leemhuis.info>
+Date: Tue, 27 Oct 2026 08:47:34 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: JGeBBvWPJUdc9+9Wyo8jxIDszJDmZBuZXj6fELrdhjAurZRZgld0bOxSSMoLmJrRIJ98N3FeEF2yZ0b1xVxxIby+tS7/OHAIoB7rXwp3EQ2LErahyDBFLweYhGqucTPfRGQEQlIZz741imlVSnvKqstaCOiQFvCS9/LCsMXe9YUnw+eTompAVf4YIrGfmBo/z2X1DMUvyb/jswdk5zaHME8KWkNxwUC8GnA1Qx6/Mi3NxfTaeyCVyYrv641iy1qz9ulSV/Wyy4GRxR3le09/dtCalPLOLVRB7eweuw+ZpzoiIgu8WObkZf3K4yWF6BWG2V/Unf/HgecX3hK0jt8gdQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KUYPR03MB9902.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77636b21-d777-4c1d-3136-08df33fdc914
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2026 07:42:00.2796 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JqnoqVVHDVsuytmj/cu26aczKcgaNoFXj+aettdlUn5xeRHCdYZGZdb2Xw6ltmNeMnlmoa39PBQxTljMQBDl2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB7266
-X-MTK: N
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid frame
+ duration
+To: Thomas Zimmermann <tzimmermann@suse.de>, Roman Ilin <me@romanilin.is>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, Javier Martinez Canillas <javierm@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Peter Arnesen <peter.m.arnesen@gmail.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20260613224434.96501-1-me@romanilin.is>
+ <20260702181027.98526-1-me@romanilin.is>
+ <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
+ <3b192119-9709-4f21-841f-a4706cc85e4a@suse.de>
+ <0600a3f0-b2d2-4a07-ab21-f590c2979612@leemhuis.info>
+ <f0e4cc76-5cf3-4fdb-b42c-f405a09c0d2a@suse.de>
+ <ec0c2486-b127-4a47-a81c-499130f268d9@leemhuis.info>
+ <d106ad8a-78d4-45be-95da-0222c44107c5@suse.de>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <d106ad8a-78d4-45be-95da-0222c44107c5@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179308725599.897684.6626675984855169399@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 56B0E5FA40
+X-NC-CID: M6CcPbjGK/UHjI05l20YNEahmWfau3KE3EWN7F4qWvaP7iQOPC0=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -185,19 +89,276 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	UNPARSEABLE_RELAY autolearn=unavailable autolearn_force=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-T24gVHVlLCAyMDI2LTA3LTE0IGF0IDEzOjQzICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gQXMgYSBwcmVwYXJhdGlvbiBmb3IgcmVmYWN0b3JpbmcgdGhlIGNvbmNl
-cHQgb2YgaGFyZHdhcmUgY29tcG9uZW50DQo+IGlkZW50aWZpY2F0aW9uLCBzZWFyY2gsIGFuZCBm
-aW5hbCB1c2FnZSwgcmVtb3ZlIHRoZSBkZHBfY29tcCBhcnJheQ0KPiBvZiBjb21wb25lbnRzIGFu
-ZCByZXBsYWNlIGl0IHdpdGggYSBoYXNodGFibGUsIGluZGV4ZWQgYnkgSUQuDQoNClJldmlld2Vk
-LWJ5OiBDSyBIdSA8Y2suaHVAbWVkaWF0ZWsuY29tPg0KDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBB
-bmdlbG9HaW9hY2NoaW5vIERlbCBSZWdubyA8YW5nZWxvZ2lvYWNjaGluby5kZWxyZWdub0Bjb2xs
-YWJvcmEuY29tPg0KPiAtLS0NCg0K
+On 9/14/26 13:00, Thomas Zimmermann wrote:
+> Am 11.09.26 um 09:39 schrieb Thorsten Leemhuis:
+>> On 9/4/26 08:19, Thomas Zimmermann wrote:
+>>> Am 03.09.26 um 16:07 schrieb Thorsten Leemhuis:
+>>>> On 7/3/26 09:26, Thomas Zimmermann wrote:
+>>>>> Am 02.07.26 um 20:23 schrieb Roman Ilin:
+>>>>>> Apologies, I accidentally fired off send-email before saving my final
+>>>>>> changelog notes. Please ignore the changelog and notes in the
+>>>>>> original
+>>>>>> v3 email.
+>>>>> We want to know when this happens. And user space will only be able to
+>>>>> trigger this once, so there's no risk of spamming the kernel log.
+>>>>>> Hmmm, just wondering: what's the status here?
+>>>> Roman Ilin, did you loose interest? Or was this continued somewhere or
+>>>> maybe even resolved and I just missed that?
+>>>>
+>>>> Thomas: if Roman left this behind, could you maybe handle this, [...]
+>>> AFAICT it was almost there except for the error messaging. The v4 then
+>>> never happened. I can finish the patch if Roman is no longer around.
+>> No answer from Roman since then, so yes, that would be great! Tia!
+> 
+> I've now sent out an update with minor changes.
+
+Many thx again. But the thing is: it still s	
+
+
+
+>>>>> So this is not really a problem. drm_WARN_ON_ONCE was ok for that. You
+>>>>> can also use a regular DRM print macro. But instead of drm_dbg_kms()
+>>>>> should use drm_err_once(). But please also output linedur_ns and
+>>>>> framedur_ns in the error. We want to know which of them is incorrect.
+>>>>> You can also add more information to the error message. See [1] for
+>>>>> the
+>>>>> mode-formating macros.
+>>>>>
+>>>>> [1] https://elixir.bootlin.com/linux/v7.1.2/source/include/drm/
+>>>>> drm_modes.h#L422
+>>>>>
+>>>>>
+>>>>>> - Updated drm_calc_timestamping_constants with the goto error
+>>>>>> fallback
+>>>>>>      to clear the stale state.
+>>>>>>
+>>>>>> Also, an automated review bot pointed out an AB-BA deadlock in
+>>>>>> drm_crtc_vblank_start_timer(). But I am leaving this out of the
+>>>>>> patch to
+>>>>>> keep the fixes orthogonal.
+>>>>>>
+>>>>>> Sorry for the noise.
+>>>>>>
+>>>>>>> On Jul 2, 2026, at 21:10, Roman Ilin <me@romanilin.is> wrote:
+>>>>>>>
+>>>>>>> When a CRTC's display mode carries a too small pixel clock,
+>>>>>>> drm_calc_timestamping_constants() computes a frame duration that
+>>>>>>> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
+>>>>>>> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
+>>>>>>> interval, after which vblank events are no longer delivered. Pending
+>>>>>>> page flips never complete and the display appears frozen.
+>>>>>>>
+>>>>>>> This could be triggered on virtio-gpu guests that have dynamic
+>>>>>>> resolution
+>>>>>>> enabled: when the SPICE agent or the X server resizes the output, it
+>>>>>>> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
+>>>>>>>
+>>>>>>>       clock = 406 kHz, htotal = 3152, vtotal = 2148
+>>>>>>>
+>>>>>>>       framedur_ns = 3152 * 2148 * 1000000 / 406 = 16675852216 ns
+>>>>>>> (~16.7 s)
+>>>>>>>
+>>>>>>> 16675852216 does not fit into an int and wraps to roughly
+>>>>>>> -504000000.
+>>>>>>> ns_to_ktime() then yields a negative interval and the timer stops
+>>>>>>> working.
+>>>>>>>
+>>>>>>> Found by bisection, which pointed at commit a036f5fceedb ("drm/
+>>>>>>> virtgpu:
+>>>>>>> Use vblank timer"). That commit merely made virtio-gpu use the
+>>>>>>> vblank
+>>>>>>> timer and thereby exposed the pre-existing problem in the timer
+>>>>>>> setup
+>>>>>>> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
+>>>>>>>
+>>>>>>> To fix this, modify drm_calc_timestamping_constants() to use u64 for
+>>>>>>> calculations, check for INT_MAX overflows, and return an error code.
+>>>>>>> drm_crtc_vblank_start_timer() will then propagate the error,
+>>>>>>> enabling
+>>>>>>> the driver to fall back to immediate vblank events. Valid modes are
+>>>>>>> unaffected, and the timer self-heals on the next mode with a sane
+>>>>>>> clock.
+>>>>>>>
+>>>>>>> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+>>>>>>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>>>>>> Signed-off-by: Roman Ilin <me@romanilin.is>
+>>>>>>> ---
+>>>>>>> Changes in v3:
+>>>>>>>
+>>>>>>> - Changed the WARN_ON_ONCE to drm_err_once
+>>>>>>>
+>>>>>>> Notes:
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>> drivers/gpu/drm/drm_vblank.c | 71 ++++++++++++++++++++++
+>>>>>>> +-------------
+>>>>>>> include/drm/drm_vblank.h     |  4 +-
+>>>>>>> 2 files changed, 48 insertions(+), 27 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/
+>>>>>>> drm_vblank.c
+>>>>>>> index f90fb2d13..629b9fcc7 100644
+>>>>>>> --- a/drivers/gpu/drm/drm_vblank.c
+>>>>>>> +++ b/drivers/gpu/drm/drm_vblank.c
+>>>>>>> @@ -631,42 +631,51 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
+>>>>>>>     * drm_crtc_vblank_helper_get_vblank_timestamp(). They are
+>>>>>>> derived from
+>>>>>>>     * CRTC's true scanout timing, so they take things like panel
+>>>>>>> scaling or
+>>>>>>>     * other adjustments into account.
+>>>>>>> + *
+>>>>>>> + * Returns:
+>>>>>>> + * 0 on success, or a negative errno code otherwise.
+>>>>>>>     */
+>>>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> -     const struct drm_display_mode *mode)
+>>>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> +    const struct drm_display_mode *mode)
+>>>>>>> {
+>>>>>>> struct drm_device *dev = crtc->dev;
+>>>>>>> unsigned int pipe = drm_crtc_index(crtc);
+>>>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>>>>>> - int linedur_ns = 0, framedur_ns = 0;
+>>>>>>> + u64 linedur_ns, framedur_ns;
+>>>>>>> int dotclock = mode->crtc_clock;
+>>>>>>> + unsigned int frame_size;
+>>>>>>>
+>>>>>>> if (!drm_dev_has_vblank(dev))
+>>>>>>> - return;
+>>>>>>> + return 0;
+>>>>>>>
+>>>>>>> if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
+>>>>>>> - return;
+>>>>>>> + return -EINVAL;
+>>>>>>>
+>>>>>>> - /* Valid dotclock? */
+>>>>>>> - if (dotclock > 0) {
+>>>>>>> - int frame_size = mode->crtc_htotal * mode->crtc_vtotal;
+>>>>>>> + if (dotclock <= 0) {
+>>>>>>> + drm_err(dev, "crtc %u: Can't calculate constants, dotclock =
+>>>>>>> %d!\n",
+>>>>> Please turn this into drm_err_once() because this call can actually be
+>>>>> triggered repeatedly from userspace.
+>>>>>
+>>>>> Best regards
+>>>>> Thomas
+>>>>>
+>>>>>
+>>>>>>> + crtc->base.id, dotclock);
+>>>>>>> + goto error;
+>>>>>>> + }
+>>>>>>>
+>>>>>>> - /*
+>>>>>>> - * Convert scanline length in pixels and video
+>>>>>>> - * dot clock to line duration and frame duration
+>>>>>>> - * in nanoseconds:
+>>>>>>> - */
+>>>>>>> - linedur_ns  = div_u64((u64) mode->crtc_htotal * 1000000,
+>>>>>>> dotclock);
+>>>>>>> - framedur_ns = div_u64((u64) frame_size * 1000000, dotclock);
+>>>>>>> + frame_size = (unsigned int)mode->crtc_htotal * (unsigned int)mode-
+>>>>>>>> crtc_vtotal;
+>>>>>>> - /*
+>>>>>>> - * Fields of interlaced scanout modes are only half a frame
+>>>>>>> duration.
+>>>>>>> - */
+>>>>>>> - if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>>>>>> - framedur_ns /= 2;
+>>>>>>> - } else {
+>>>>>>> - drm_err(dev, "crtc %u: Can't calculate constants, dotclock = 0!
+>>>>>>> \n",
+>>>>>>> - crtc->base.id);
+>>>>>>> + /*
+>>>>>>> + * Convert scanline length in pixels and video dot clock to line
+>>>>>>> duration
+>>>>>>> + * and frame duration in nanoseconds.
+>>>>>>> + */
+>>>>>>> + linedur_ns  = div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
+>>>>>>> + framedur_ns = div_u64((u64)frame_size * 1000000, dotclock);
+>>>>>>> +
+>>>>>>> + /*
+>>>>>>> + * Fields of interlaced scanout modes are only half a frame
+>>>>>>> duration.
+>>>>>>> + */
+>>>>>>> + if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>>>>>> + framedur_ns /= 2;
+>>>>>>> +
+>>>>>>> + if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
+>>>>>>> + drm_dbg_kms(dev, "crtc %u: Can't calculate constants, mode clock
+>>>>>>> too small!\n",
+>>>>>>> +    crtc->base.id);
+>>>>>>> + goto error;
+>>>>>>> }
+>>>>>>>
+>>>>>>> vblank->linedur_ns  = linedur_ns;
+>>>>>>> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct
+>>>>>>> drm_crtc *crtc,
+>>>>>>>        crtc->base.id, mode->crtc_htotal,
+>>>>>>>        mode->crtc_vtotal, mode->crtc_vdisplay);
+>>>>>>> drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
+>>>>>>> -     crtc->base.id, dotclock, framedur_ns, linedur_ns);
+>>>>>>> +     crtc->base.id, dotclock,
+>>>>>>> +     vblank->framedur_ns, vblank->linedur_ns);
+>>>>>>> +
+>>>>>>> + return 0;
+>>>>>>> +
+>>>>>>> +error:
+>>>>>>> + vblank->linedur_ns  = 0;
+>>>>>>> + vblank->framedur_ns = 0;
+>>>>>>> + drm_mode_copy(&vblank->hwmode, mode);
+>>>>>>> + return -EINVAL;
+>>>>>>> }
+>>>>>>> EXPORT_SYMBOL(drm_calc_timestamping_constants);
+>>>>>>>
+>>>>>>> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct
+>>>>>>> drm_crtc
+>>>>>>> *crtc)
+>>>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>>>>>> struct drm_vblank_crtc_timer *vtimer = &vblank->vblank_timer;
+>>>>>>> unsigned long flags;
+>>>>>>> + int ret;
+>>>>>>>
+>>>>>>> if (!vtimer->crtc) {
+>>>>>>> /*
+>>>>>>> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct
+>>>>>>> drm_crtc
+>>>>>>> *crtc)
+>>>>>>> hrtimer_try_to_cancel(&vtimer->timer);
+>>>>>>> }
+>>>>>>>
+>>>>>>> - drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>>>>>> + ret = drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>>>>>> + if (ret)
+>>>>>>> + return ret;
+>>>>>>>
+>>>>>>> spin_lock_irqsave(&vtimer->interval_lock, flags);
+>>>>>>> vtimer->interval = ns_to_ktime(vblank->framedur_ns);
+>>>>>>> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+>>>>>>> index 2fcef9c0f..d99772dfa 100644
+>>>>>>> --- a/include/drm/drm_vblank.h
+>>>>>>> +++ b/include/drm/drm_vblank.h
+>>>>>>> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
+>>>>>>> u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
+>>>>>>> void drm_crtc_vblank_restore(struct drm_crtc *crtc);
+>>>>>>>
+>>>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> -     const struct drm_display_mode *mode);
+>>>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> +    const struct drm_display_mode *mode);
+>>>>>>> wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
+>>>>>>> void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
+>>>>>>>      u32 max_vblank_count);
+>>>>>>> -- 
+>>>>>>> 2.54.0
+>>>>>>>
+> 
+
