@@ -2,47 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A24606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EC1606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=YRR0JGwf
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Ed37GiXq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA21011205E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7A9711205F;
 	Thu, 29 Oct 2026 07:59:17 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 28 Oct 2026 09:37:27 UTC
-Received: from mail-m127205.xmail.ntesmail.com
- (mail-m127205.xmail.ntesmail.com [115.236.127.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B26E710E5E2
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:37:27 +0000 (UTC)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <ANIAPQCBLHZReocA2eIWZ4rb.1.1793179941502.Hmail.242270054@hdu.edu.cn>
-To: zack.rusin@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
- daniel@ffwll.ch, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, security@kernel.org
-Subject: =?UTF-8?B?TlVMTCBUVE0gYmFja2luZyBpbiB0aGUgUFJJTUUgaW1wb3J0IGNhbGxiYWNr?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+X-Greylist: delayed 544 seconds by postgrey-1.36 at gabe;
+ Tue, 27 Oct 2026 09:58:51 UTC
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com
+ [111.22.67.151])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6B68B10F372
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 09:58:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cmss.chinamobile.com; s=default; l=0;
+ h=from:subject:message-id:to:cc:mime-version;
+ bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+ b=Ed37GiXqwNsqzNpJ5CXcuYDUd57ahg06bDk5s54HCenDaLHn3s4ms1Eiiz9yJcRGOx+mqh5BbQCct
+ z0mBce5/wqHPSx3rru5d17/YNOU0Pjk5sf8U+Ul7UqxRmA58yrk2a0Zum6OTC5MOC9jjj9moVnuQTJ
+ dPTGVutrj95ReGU4=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from spf.mail.chinamobile.com (unknown[10.188.0.87])
+ by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae073b8630-24845;
+ Tue, 27 Oct 2026 17:49:44 +0800 (CST)
+X-RM-TRANSID: 2ee66ae073b8630-24845
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from FHA-W6400298 (unknown[10.55.1.71])
+ by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae073b5bb3-d716d;
+ Tue, 27 Oct 2026 17:49:44 +0800 (CST)
+X-RM-TRANSID: 2ee96ae073b5bb3-d716d
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
+ simona@ffwll.ch, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ tangbin@cmss.chinamobile.com, stable@vger.kernel.org
+Subject: [PATCH] drm/mediatek: mtk_hdmi_v2: NULL check curr_conn in pre_enable
+Date: Tue, 27 Oct 2026 17:49:41 +0800
+Message-ID: <20261027094941.1862-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Received: from 242270054@hdu.edu.cn( [218.75.123.175] ) by ajax-webmail (
- [127.0.0.1] ) ; Wed, 28 Oct 2026 17:32:21 +0800 (GMT+08:00)
-From: =?UTF-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
-Date: Wed, 28 Oct 2026 17:32:21 +0800 (GMT+08:00)
-X-HM-Tid: 0aa181da3922d45akusy52daf49710b61
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUhXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTB9OVkwdSE0aS0tJH0NCHVYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVTE5VSklIVUpMTllXWRYaDxIVHRRZQVlPQkxVSE
- lMTUNVT1VKT0tCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=YRR0JGwf3yGXoUFOpF+ZSqGNzr+p3ua6cNqdR4Wu3/wdAfmaWrvD1xu2xEjYoYgjYmbsQcWjFdaa6bfEz0zo+liEgbFkxF1MfVrZ+qdp7BX5i+qbhoOnMDLq4/ze7rEaGtX5Hwsu2ncjpP7KtwSxu5uUCxwAAOw7kKVMdq3Acow=;
- c=relaxed/relaxed; s=default; d=hdu.edu.cn; v=1; 
- bh=wlKGhN30yI3ecWAgwszvzQSKsIaTJhOnsCcGTF+gRkI=;
- h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,78 +60,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-CgpIZWxsbywKCkdQVC02LUx1bmEgYXNzaXN0ZWQgd2l0aCB0aGUgaW5pdGlhbCBhbmFseXNpcyBh
-bmQgZHJhZnRpbmcgdGhlIHByb3Bvc2VkIGZpeC4KSSBhbSByZXNwb25zaWJsZSBmb3IgdGhpcyBy
-ZXBvcnQuCgpJIGZvdW5kIGEgTlVMTC1wb2ludGVyIHBhZ2UgZmF1bHQgaW4gdm13X2dlbV9vYmpl
-Y3RfZ2V0X3NnX3RhYmxlKCkgZHVyaW5nIGEKUFJJTUUgZmQtdG8taGFuZGxlIGltcG9ydCBpbiB0
-aGUgTGludXggNy4xLjUgZnV6eiBzZXR1cC4gVGhlIGNhbGxiYWNrCmFzc3VtZXMgdGhhdCB0aGUg
-R0VNIG9iamVjdCBoYXMgYSB2YWxpZCBUVE0gdHJhbnNsYXRpb24gdGFibGUsIGJ1dCB0aGUgY3Jh
-c2hpbmcKb2JqZWN0IGhhcyBgYm8tPnR0bSA9PSBOVUxMYC4KClRoZSBjcmFzaCBleGNlcnB0IGlz
-OgoKICBCVUc6IGtlcm5lbCBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UsIGFkZHJlc3M6IDAwMDAw
-MDAwMDAwMDAwODgKICAjUEY6IHN1cGVydmlzb3IgcmVhZCBhY2Nlc3MgaW4ga2VybmVsIG1vZGUK
-ICBSSVA6IHZtd19nZW1fb2JqZWN0X2dldF9zZ190YWJsZSsweDJmLzB4YTAKICBDUjI6IDAwMDAw
-MDAwMDAwMDAwODgKICBSQlA6IDAwMDAwMDAwMDAwMDAwMDAKICBDb2RlOiAuLi4gPDRjPiA4YiBh
-NSA4OCAwMCAwMCAwMCAuLi4KICBDYWxsIFRyYWNlOgogICAgdm13X2dlbV9vYmplY3RfZ2V0X3Nn
-X3RhYmxlCiAgICBkcm1fZ2VtX21hcF9kbWFfYnVmCiAgICBkbWFfYnVmX21hcF9hdHRhY2htZW50
-CiAgICBkbWFfYnVmX21hcF9hdHRhY2htZW50X3VubG9ja2VkCiAgICBkcm1fZ2VtX3ByaW1lX2lt
-cG9ydF9kZXYKICAgIGRybV9nZW1fcHJpbWVfZmRfdG9faGFuZGxlCiAgICB2bXdfcHJpbWVfZmRf
-dG9faGFuZGxlCiAgICBkcm1fcHJpbWVfZmRfdG9faGFuZGxlX2lvY3RsCiAgICBkcm1faW9jdGwK
-ICAgIHZtd191bmxvY2tlZF9pb2N0bAogICAgX194NjRfc3lzX2lvY3RsCgpUaGUgZmF1bHRpbmcg
-aW5zdHJ1Y3Rpb24gcmVhZHMgYFtSQlAgKyAweDg4XWA7IHRoZSByZWNvcmRlZCBSQlAgaXMgemVy
-bywgc28KdGhlIGF0dGVtcHRlZCByZWFkIGlzIGZyb20gYWRkcmVzcyAweDg4LiBJbiBgc3RydWN0
-IHZtd190dG1fdHRgLCBgZG1hX3R0bWAgaXMKdGhlIGZpcnN0IG1lbWJlci4gVGhlcmVmb3JlIGBj
-b250YWluZXJfb2YoYm8tPnR0bSwgc3RydWN0IHZtd190dG1fdHQsCmRtYV90dG0pYCBldmFsdWF0
-ZXMgdG8gYSBOVUxMLWJhc2VkIGB2bXdfdHRgIHdoZW4gYGJvLT50dG1gIGlzIE5VTEwuIFRoZSBu
-ZXh0CnNvdXJjZSBhY2Nlc3MsIGB2bXdfdHQtPnZzZ3Quc2d0YCwgcmVhZHMgYSBtZW1iZXIgYXQg
-b2Zmc2V0IDB4ODgsIG1hdGNoaW5nIHRoZQpmYXVsdCBhZGRyZXNzIGFuZCB0aGUgaW5zdHJ1Y3Rp
-b24gaW4gdGhlIGxvZy4KClRoZSBjcmFzaCBpcyByZWFjaGVkIHRocm91Z2ggdGhlc2Ugc3RlcHM6
-CgogIDEuIFVzZXJzcGFjZSBpc3N1ZXMgRFJNX0lPQ1RMX1BSSU1FX0ZEX1RPX0hBTkRMRSB3aXRo
-IHRoZSBleHBvcnRlZCBkbWEtYnVmIGZkLgogIDIuIHZtd19wcmltZV9mZF90b19oYW5kbGUoKSBl
-bnRlcnMgZHJtX2dlbV9wcmltZV9mZF90b19oYW5kbGUoKSBhbmQKICAgICBkcm1fZ2VtX3ByaW1l
-X2ltcG9ydF9kZXYoKSB0byBhdHRhY2gvbWFwIHRoZSBkbWEtYnVmIGZvciB0aGlzIERSTSBkZXZp
-Y2UuCiAgMy4gZG1hX2J1Zl9tYXBfYXR0YWNobWVudCgpIGludm9rZXMgdGhlIGRtYS1idWYgbWFw
-IGNhbGxiYWNrOwogICAgIGRybV9nZW1fbWFwX2RtYV9idWYoKSBvYnRhaW5zIHRoZSBleHBvcnRp
-bmcgR0VNIG9iamVjdCBhbmQgY2FsbHMgaXRzCiAgICAgZ2V0X3NnX3RhYmxlIG9wZXJhdGlvbi4K
-ICA0LiBUaGUgdm13Z2Z4IGdldF9zZ190YWJsZSBjYWxsYmFjaywgdm13X2dlbV9vYmplY3RfZ2V0
-X3NnX3RhYmxlKCksIG9idGFpbnMKICAgICB0aGUgVFRNIEJPIGFuZCBkZXJpdmVzIHZtd190dCBm
-cm9tIGJvLT50dG0gd2l0aG91dCBjaGVja2luZyBpdC4KICA1LiBTaW5jZSBiby0+dHRtIGlzIE5V
-TEwgaW4gdGhlIGNyYXNoaW5nIHN0YXRlLCB2bXdfdHQgaXMgTlVMTDsgcmVhZGluZwogICAgIHZt
-d190dC0+dnNndC5zZ3QgYWNjZXNzZXMgTlVMTCArIDB4ODggYW5kIHJhaXNlcyB0aGUgcGFnZSBm
-YXVsdC4KClRoZSBjb3JyZXNwb25kaW5nIHNvdXJjZS1sZXZlbCBjYWxsIHBhdGggaXM6CgogIF9f
-eDY0X3N5c19pb2N0bAogICAgLT4gdm13X3VubG9ja2VkX2lvY3RsKCkKICAgIC0+IGRybV9pb2N0
-bCgpCiAgICAtPiBkcm1fcHJpbWVfZmRfdG9faGFuZGxlX2lvY3RsKCkKICAgIC0+IHZtd19wcmlt
-ZV9mZF90b19oYW5kbGUoKQogICAgLT4gZHJtX2dlbV9wcmltZV9mZF90b19oYW5kbGUoKQogICAg
-LT4gZHJtX2dlbV9wcmltZV9pbXBvcnRfZGV2KCkKICAgIC0+IGRtYV9idWZfbWFwX2F0dGFjaG1l
-bnQoKQogICAgLT4gZHJtX2dlbV9tYXBfZG1hX2J1ZigpCiAgICAtPiB2bXdfZ2VtX29iamVjdF9n
-ZXRfc2dfdGFibGUoKQogICAgLT4gY29udGFpbmVyX29mKGJvLT50dG0sIHN0cnVjdCB2bXdfdHRt
-X3R0LCBkbWFfdHRtKQogICAgLT4gdm13X3R0LT52c2d0LnNndCAgLyogTlVMTCArIDB4ODggcmVh
-ZCAqLwoKVGhlIHJlcHJvZHVjZXIgY3JlYXRlcyBhIGR1bWIgR0VNIG9iamVjdCwgZXhwb3J0cyBp
-dCBhcyBhIFBSSU1FIGZkLCBhbmQgdGhlbgppbXBvcnRzIHRoYXQgZmQgd2l0aCBEUk1fSU9DVExf
-UFJJTUVfRkRfVE9fSEFORExFLiBBIHRlc3RlZCBzb3VyY2UgcmVwcm9kdWNlcgppcyBhdmFpbGFi
-bGUgYW5kIGNhbiBiZSBwcm92aWRlZCBwcml2YXRlbHkgdG8gdGhlIG1haW50YWluZXJzLgoKVGhl
-IHBhdGNoIGJlbG93IGNoZWNrcyBgYm8tPnR0bWAgYmVmb3JlIHVzaW5nIGl0IHdpdGggY29udGFp
-bmVyX29mKCkgYW5kCnJldHVybnMgLUVJTlZBTCB0aHJvdWdoIHRoZSBEUk0gUFJJTUUgZXJyb3Ig
-cGF0aCB3aGVuIHRoZSBiYWNraW5nIGlzIGFic2VudC4KVGhpcyBpcyBjb25maXJtZWQgaW4gdGhl
-IHN0YXRlZCBRRU1VIHJ1bjsgaXQgaGFzIG5vdCBiZWVuIHZlcmlmaWVkIG9uCnBoeXNpY2FsIFZN
-d2FyZSBoYXJkd2FyZS4gVGhlIHBhdGNoIHBhc3NlcyBgZ2l0IGFwcGx5IC0tY2hlY2tgOyBydW50
-aW1lCnJlZ3Jlc3Npb24gdGVzdGluZyBoYXMgbm90IHlldCBiZWVuIHBlcmZvcm1lZC4KCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9nZW0uYyBiL2RyaXZlcnMvZ3B1
-L2RybS92bXdnZngvdm13Z2Z4X2dlbS5jCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13
-Z2Z4X2dlbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X2dlbS5jCkBAIC03
-MCw4ICs3MCwxMiBAQCBzdGF0aWMgc3RydWN0IHNnX3RhYmxlICp2bXdfZ2VtX29iamVjdF9nZXRf
-c2dfdGFibGUoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopCiBzdGF0aWMgc3RydWN0IHNnX3Rh
-YmxlICp2bXdfZ2VtX29iamVjdF9nZXRfc2dfdGFibGUoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpv
-YmopCiB7CiAgc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibyA9IGRybV9nZW1fdHRtX29mX2dl
-bShvYmopOwotIHN0cnVjdCB2bXdfdHRtX3R0ICp2bXdfdHQgPQotICAgY29udGFpbmVyX29mKGJv
-LT50dG0sIHN0cnVjdCB2bXdfdHRtX3R0LCBkbWFfdHRtKTsKKyBzdHJ1Y3Qgdm13X3R0bV90dCAq
-dm13X3R0OworCisgaWYgKHVubGlrZWx5KCFiby0+dHRtKSkKKyAgIHJldHVybiBFUlJfUFRSKC1F
-SU5WQUwpOworCisgdm13X3R0ID0gY29udGFpbmVyX29mKGJvLT50dG0sIHN0cnVjdCB2bXdfdHRt
-X3R0LCBkbWFfdHRtKTsKIAogIGlmICh2bXdfdHQtPnZzZ3Quc2d0KQogICAgcmV0dXJuIHZtd190
-dC0+dnNndC5zZ3Q7CgpSZWdhcmRzLApZdWhhbmcgUGFuCjI0MjI3MDA1NEBoZHUuZWR1LmNuCgo=
+mtk_hdmi_v2_bridge_pre_enable() calls
+drm_atomic_get_new_connector_state(state, hdmi->curr_conn) which
+dereferences hdmi->curr_conn (via drm_connector_index) before the existing
+WARN_ON(!conn_state) check. Add WARN_ON(!hdmi->curr_conn) first.
+
+Fixes: 8d0f79886273 ("drm/mediatek: Introduce HDMI/DDC v2 for MT8195/MT8188")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+ drivers/gpu/drm/mediatek/mtk_hdmi_v2.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+index f0277fcf3..c94d22042 100644
+--- a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
++++ b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
+@@ -1026,6 +1026,8 @@ static void mtk_hdmi_v2_bridge_pre_enable(struct drm_bridge *bridge,
+ 
+ 	/* Retrieve the connector through the atomic state */
+ 	hdmi->curr_conn = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
++	if (WARN_ON(!hdmi->curr_conn))
++		return;
+ 
+ 	conn_state = drm_atomic_get_new_connector_state(state, hdmi->curr_conn);
+ 	if (WARN_ON(!conn_state))
+-- 
+2.52.0.windows.1
+
+
+
