@@ -2,91 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47A0606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 17:51:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E05606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 17:52:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=pPi3DAbO
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Kl3T2azV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB6C10E22E;
-	Tue, 27 Oct 2026 17:50:55 +0000 (UTC)
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
- [209.85.160.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 553DA10E22E
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 17:50:49 +0000 (UTC)
-Received: by mail-oa1-f47.google.com with SMTP id
- 586e51a60fabf-4a76f63b243so980113fac.0
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 10:50:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793123448; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A00689A77;
+	Tue, 27 Oct 2026 17:52:04 +0000 (UTC)
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
+ [209.85.160.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA68689A77
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 17:51:57 +0000 (UTC)
+Received: by mail-oa1-f49.google.com with SMTP id
+ 586e51a60fabf-483c607ccb4so116618fac.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 10:51:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793123517; cv=none;
  d=google.com; s=arc-20260327;
- b=e34U7LmWINFkV6aQF4eZ/x/F4grD/HKUrSFIhgkFdy37GUKivaNYG0kU6UaAQiG6RZ
- M5qvc/AYjMgcjiAixiu2XO2rcYs1se/17hWvwcVS9OJon8Mj/vHCV/tLtKAe7/5ExfcN
- 5/Q8HKqfg4iLvkMd1y7l6X2FaVV0AryRKaW1Qg8aJGoJYiEQiSXoHvuF1HHoGrH/weMX
- WHQJOwh7G2QmvTYcMrrXWVvcoTJMh2Vp8Smhq+DeqNBDoRJkVE8kIUlAefiXnyPVBOpH
- dmKIrRTm971T6EYLv3u7K3vxj8q//JRArxMyOjkhno3DYFDfAZ2IN8kEjwsjXCqGsgFE
- cUIQ==
+ b=LdV5sNrsn0iiv0/72hZPx/ieM9syMMPvwnuslQFk8wXPMb2Qu742lnhjBelGSpnesB
+ IO/Tzjlu5ba+5pu2GOKhEKAvW/eIZNjUTrRPf/PQs2iTG+/estruLLi3TPBbDP5dD/FN
+ 3fDG8ETmZ3yi+YOE3uQNM/iOB3zQTGPSyPYz2mSEwRulCb/OH8RTYvr77CNPdzMWm5pB
+ e0cIhiorI3K/ypRUdJ5PbhKChOPc2pE2wYg01EXhwnqmZKXfgQ+hJopD3yRENboV543T
+ 4IX4jlQBZ56wvz6f1ZSE3CXdK4+ty/vKRicz05S6w+wl/9P7q1lu2LHO4pxQf27Xpe0K
+ OaVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=EV/47UjyvEtLQbjYDkN466Fly+arTuIDMnysTk3prZ4=;
- fh=xSIxGzx/VlAtLg1bcYIzzn44tulHPKnuoLl0S6+FySQ=;
- b=C4bTYpD9zr5Oaq+LLvXMxaehyPWIzX26e/8/RSRGfTA9UmHhkdJmn+2KpEmGnGEYz/
- tPhqRj8G6RED/wooHOTqCOjdtemEvEseoJmsFVU3CODinJjoop/P0VMX7xFemun8z71P
- n1tHd/OUDdcNwuEoWOf05fUNkGxvKmLHrDdfYaX95UXACOU8AmxsbAh3EiccSTjPZvtt
- MUcFoncfbx18yj4mfEf69K4cUpm4xMqxSUBC98XC7vLizKR6RtPpdBYzXVUXmqhFYVYm
- 8pC3QUME85XQnQlwWJRugWoehghb3gQMrjIz/suMmJcxk1xXKafsVQ2gZGuJWDfznxbj
- 83BQ==; darn=lists.freedesktop.org
+ bh=GGr5j5Bzi08+rjV4DuhZvfvPzAyD+nxpZaxVOzmJBZY=;
+ fh=asJ1H7DzqjhKNG6su/ZAW1JQCyKf1/hWH94M76pNSeE=;
+ b=YE6ohzD2AaVYCNe/yXyC37w4r7u57eZcy8BUHt9PpTBL82KfSZSZVIuIl9IWE5+uL1
+ JR+uqTpn9/v2TIVPdsfH2WRqfDbrBc1zr/qjbIesaJ3KNlOepJVojpXqECNcB+SEAZNQ
+ 3a/x7zaEY7oUk+PGvti+NDQS70Z4Dn8xM4Kx5BBv1pJJynuYofBxIE2bLCc9ITEGLLz5
+ uHEJ5u1hVOV1Aj5drDVp/0hd13vStypGjm+4cMv9wABoaIq10aCTCJ9dIX6HS+dIYJLF
+ VOMW6MIcCbGiZCXO7Ka42OCMmGhycABFa0a1mQOTEZLtpJyiuPgyzIgTDeszM5qcq1ZG
+ 1NZw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raspberrypi.com; s=google; t=1793123448; x=1793728248;
+ d=raspberrypi.com; s=google; t=1793123517; x=1793728317;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=EV/47UjyvEtLQbjYDkN466Fly+arTuIDMnysTk3prZ4=;
- b=pPi3DAbOAaPpH3/CcSmZXu3myJpwFrFVWyHBPFTQ6n0X00vV5iOKoLoX705YaDJFxE
- 6rLK52R83/uqvqaGxYk76Jf5gqMJYTcgPA/rZ0eNZ7xJmVZSgyCAVOZuVJyRLzaDrONt
- uiCPSFCsoKalCvCH7oXHMy9WYZK3G7Q0DT1q3HI0mrDm5D086jg7WddKM8Hc7tMc+bve
- tR5UJRaSaE7cauYrUY/CzuhPMhrVvQUT7sTgyeyb7+KHOKIG8gGYkVeADDfzJJd3E5dl
- PloSXwJstagkS5FCVw1t9ntF+M6h5MvDYJGTW3KwP5OIu9N5gPahTwFoE4SaqhL2o6R1
- tmMA==
+ :content-type; bh=GGr5j5Bzi08+rjV4DuhZvfvPzAyD+nxpZaxVOzmJBZY=;
+ b=Kl3T2azVE43AZfy1dd2kEWtXz4XZfSnBaEfigBfuAbCUNNqcUmsBhH1rvWEFYRZi2U
+ X5Kea6qIrLyUud1WhEePXnUfUh2WvJ/61G7N4Fc/UeivBWagz7Ll7fP/ht7QmyTl5cg7
+ +BUmlinJaFeo05liik5r8+lHXKsx6iMGyrOhfKwQfvJMgInz7yZYzxDMBMsc7vndndGZ
+ ZBt/Ma7BdRVwuI2PoxD5H8VtGAyPRvcYrDf0N4EzqDeCJhe2lkeec+g21vdQFarfxk4w
+ ZPtzwW2x5gjOOsq26fDacQoTbSpPN3wkx8bHiqhgAWBTPao3FrHbYdQ7pW4h2Ml+uToF
+ WZhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793123448; x=1793728248;
+ d=1e100.net; s=20260707; t=1793123517; x=1793728317;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=EV/47UjyvEtLQbjYDkN466Fly+arTuIDMnysTk3prZ4=;
- b=A3cAHa3r2F8KHhuQY6v1+/AzF22ydb8Nv1AOsxxZhB273ZqCMwvWEvXH9X+0GKnpkb
- 5FeZ1fpkoGipE29O/U2SeY8toW6qZOHx+AEhWwdSLuLsuBXimC8mXbNMxpHcCAzi/mF8
- JvX7Xqu1tkbwNli8Cq4j4Clc03jP7U15I3JE65QiVwt7O3qpo506MhEtYykgls5eVHvj
- 35k7lpteVhNcvZBOgqBeqYlLmpOT7gcM+GJsCKyazRtQ0vyzqK8cQgLaKmr4PBOs2pww
- FcHKby32KAN0Z6Cu8/S5z+rmGoN8TbfuikqWZJAw8s6auqEmVx+1zECPc0WxtIFkTzp1
- pN/A==
+ bh=GGr5j5Bzi08+rjV4DuhZvfvPzAyD+nxpZaxVOzmJBZY=;
+ b=HEpusQraQlNv+rBjix3ME/KDXIFRZu2w3hvqdJuuO/AFqYoaaTd6KfjqR1e96VbM/Z
+ 5PIQh4QqJ8BdeKTNX+WA4M5QI4J1BtM85QHWK1oYnqvITo3ISGR7JdKnrJitXSNtsq3/
+ 79Ts2a2p9bAjJcD90Rid0Vwhx2AU5/j+E30LowLTpZ/TXkCzjlbgs6gSZhDUx0mJqzUK
+ z6Foio2MP0N4y9Bxh17AxaO8RvCGT/RAnZRpnTCFd4Dyq6lxgZcXLIYl2DwUxyUkL1tn
+ 0oFdfI76gXcr/nQH7Is86Ty52Jz7tnJLxBBx+3g7fNN1EKLyrmZ3oioznPNZRNExrekm
+ jJ9A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxHcHND1kTLKHeXJa0FmLxHtm9S0asEAKG4LXIwQn9g2LeECir758Zx4VIUShlx8P7/t96oIj9EPqU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIUkpOcTTMMUihM0S1morDHxPAHGeerKYeOZb3gRL81d1B9Ci+1
- qNyv5fZmIxfBjHMAKUi8VJfzve8i1pGMLFd4qW/FyKcgNUm5I0Te26btmOag9nLMhxI3njUPCRr
- 0E8zG7rbbHSSHcna4vrg7oqf9DRau3wouDFqAC7G52g==
-X-Gm-Gg: AYBFou2Mtu4KLGQvQsh8/P4nzukqfMOdCBD0wYVC6kRfm5Y4vbcC1o0DxfR5qpuBnh2
- tc9zR/GgzTYsFiYRGfoqzqj+xiMe0o31HavM7bEoC2q+uSTr4xZkkbfTBRn+NISgZ2CylyVkQf6
- js2OvXKnkX6+TPj0lfSz6u46Z+bcbFL7Y/hwhfnzSURN7ys14aYOnNa+/JHjg29mTq71gOOx0SO
- ifz21z2Niafvo6MmAEbAxPw1uNhENBv44Y9Rea8qEA/wgmsyMO09t2JA4aVr33nQHoy4H1GmsT6
- zAHKHnX1fY0u21/IqIcUsCc53s+vL2/9JWVjksNqrHL0KoweAXpvxMSPX4RSzqDvYs5j91+jNuu
- 0akSxWx2O+jiMEqu59IeMVh9aNXH51tFgmImArfrIm+XFb3FPtxaOFm+UEOZkLt7EiDnwBm1oNO
- +WnuLOceuUInpWhJ++rJpMZIU2QQ+zWfG1323+f4gpNTNyBSzZyYZnqA==
-X-Received: by 2002:a05:6870:36c9:b0:49d:d318:c12 with SMTP id
- 586e51a60fabf-4a89b8fc3a3mr1775504fac.32.1793123448237; Tue, 27 Oct 2026
- 10:50:48 -0700 (PDT)
+ AKwUvBwB6ndrDKmlJFW80sml0aGQOZiY8+0GDl5M+O9f1W32Db1nRcc2Cm+coVNLBi8hoJk8WYr4YlHt1+o=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKM6cUh6bOQGwPSmFpS99NWIWa2T75fup3hWFYR+0y/lZANZaGx
+ Guimu2msVziYDxF1D8lbD1sJVcDmo9w/97f273//HGV1LoI+f125hmJ5CL3h4GPc9b7G+6l77Fw
+ l7XU5EAvBMHOh4XU1eFV1X+PRkRAUwgTqk9+wh4ZlBw==
+X-Gm-Gg: AYBFou0DIxU9afYQ5rmaHQsJOiPgL7CqnhIlJH2L3byGEedsUbd44UT21v6eGnD1oUh
+ D5gWhpFU8lRLqK03WVMGnhHJB44lFy+180vIm60jzWn+fTzFT5Acg7Ww4de8HPCtNARPbtk58hf
+ Z2oTPkBORFf6tnU0EojUOfPJja74wstbug7fYgxDPBoGCoo9uJKfBeSjTk1O9IPybxmhsckliNu
+ iGJeJazs8pPjf3FZevM2lX3yP/upyLSY7vOjNGae2okvWknRAm1ZUipP+PqyNck0f+wIsdFnTgJ
+ IbArdkx2BBfHPghIUbCnNW1DwqHF6k69fcfLEFH/JN5g9eXGbF911aaAh1zB8/RmxrhdcbNNYVs
+ fCAur1aSDWZLSVqolIj+WUpsaFR1fuwu7gWR4Ib4MqnpWIMsCrUMIq/mzCzn/0ELAgjSvI46ROh
+ 88xAllPQnCijRMluTowmQwrrxycYD7x52VR0nQwFBscrxI1LsRJW/Qp9gYrF55yRkPrFY4EiSDX
+ /w=
+X-Received: by 2002:a05:6870:32d4:b0:4a7:2ba2:61e3 with SMTP id
+ 586e51a60fabf-4a8bb68a9cdmr212651fac.38.1793123517141; Tue, 27 Oct 2026
+ 10:51:57 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
- <20261014-vc4-common-scramb-v3-7-c68d58d959a2@collabora.com>
-In-Reply-To: <20261014-vc4-common-scramb-v3-7-c68d58d959a2@collabora.com>
+ <20261014-vc4-common-scramb-v3-8-c68d58d959a2@collabora.com>
+In-Reply-To: <20261014-vc4-common-scramb-v3-8-c68d58d959a2@collabora.com>
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 27 Oct 2026 17:50:29 +0000
-X-Gm-Features: AclHuK9QePu5dfzFpjyvRzZ61mYTzHhRQlgWJ8M2sWAiOXGhDxVqz0HepknjYFs
-Message-ID: <CAPY8ntBKv9HRADVTsaZ6QkBKx_3b1_NHLy=Dvb7Zjx0t=9FZog@mail.gmail.com>
-Subject: Re: [PATCH v3 7/9] drm/vc4: hdmi: Clamp CEC clock divider to its
- register field width
+Date: Tue, 27 Oct 2026 17:51:40 +0000
+X-Gm-Features: AclHuK8ZKJ_JTVubRk5FXQa86W3jtd6tziWTz8u6Qiv1FIRrgy2UTs2WpYRya4I
+Message-ID: <CAPY8ntCPZBwg3ynaoQPM=EJFeWYCeueFNN_MD_4+sZuj3csMEQ@mail.gmail.com>
+Subject: Re: [PATCH v3 8/9] drm/vc4: hdmi: Bump BCM2835 max pixel clock to 165
+ MHz
 To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Cc: Maxime Ripard <mripard@kernel.org>,
  =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
@@ -95,8 +96,7 @@ Cc: Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  kernel@collabora.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Sashiko <sashiko-bot@kernel.org>
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,53 +119,48 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 On Wed, 14 Oct 2026 at 02:03, Cristian Ciocaltea
 <cristian.ciocaltea@collabora.com> wrote:
 >
-> The CEC clock divider computed in vc4_hdmi_cec_update_clk_div() is
-> written unmasked into the 12-bit DIV_CLK_CNT field of the CEC_CNTRL_1
-> register.  On BCM2835, the CEC clock is obtained by dividing the HSM
-> clock, which in turn is scaled to 101% of the pixel clock.  For HSM
-> clock rates above 163.8 MHz, the divider exceeds the field limit (4095),
-> corrupting the adjacent CEC_ADDR field and truncating the effective
-> divider, which breaks CEC entirely.
+> Historically, the HSM clock for BCM2835 was fixed at 163.7 MHz.  Since
+> the pixel clock had to be at least 1% below the HSM clock, it was capped
+> at 162 MHz.
 >
-> The BCM2835 maximum pixel clock of 162 MHz yields an HSM clock of 163.62
-> MHz, so the overflow cannot currently be triggered.
+> Since commit cd4cb49dc5bb ("drm/vc4: hdmi: Adjust HSM clock rate
+> depending on pixel rate"), the HSM clock rate is set to pixel clock *
+> 101 / 100.  For a 165 MHz pixel clock, this gives an HSM rate of 166.65
+> MHz, which, per Dave Stevenson, the hardware can handle without issues.
 >
-> Clamp the divider to the field maximum.  This is a prerequisite for
-> raising the BCM2835 maximum pixel clock to 165 MHz, which pushes the HSM
-> clock up to 166.65 MHz.  The CEC bit clock will then run up to ~1.75%
-> faster than the nominal 40 kHz, i.e. ~40.7 kHz, which is still within
-> the CEC bit-timing tolerances.
+> Increase the max pixel clock to 165 MHz, which matches the maximum TMDS
+> character rate of HDMI 1.0 through 1.2.
 >
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-168686@kernel.org/
+> Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 > Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
 Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
 > ---
->  drivers/gpu/drm/vc4/vc4_hdmi.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/vc4/vc4_hdmi.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> index 2451ff85e759..0a95e14792e8 100644
+> index 0a95e14792e8..5b7dedd7a9a1 100644
 > --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
 > +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> @@ -231,9 +231,14 @@ static void vc4_hdmi_cec_update_clk_div(struct vc4_hdmi *vc4_hdmi)
->
->         /*
->          * Set the clock divider: the hsm_clock rate and this divider
-> -        * setting will give a 40 kHz CEC clock.
-> +        * setting will give a 40 kHz CEC clock. Clamp the divider to
-> +        * its 12-bit field to avoid corrupting CEC_ADDR; for HSM rates
-> +        * above 163.8 MHz, the CEC clock runs marginally faster, but
-> +        * still within CEC timing tolerances.
->          */
-> -       clk_cnt = cec_rate / CEC_CLOCK_FREQ;
-> +       clk_cnt = min_t(unsigned long, cec_rate / CEC_CLOCK_FREQ,
-> +                       VC4_HDMI_CEC_DIV_CLK_CNT_MASK >>
-> +                       VC4_HDMI_CEC_DIV_CLK_CNT_SHIFT);
->         value |= clk_cnt << VC4_HDMI_CEC_DIV_CLK_CNT_SHIFT;
->         HDMI_WRITE(HDMI_CEC_CNTRL_1, value);
+> @@ -1319,7 +1319,7 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
+>          * users are able to use pixel clocks closer to HSM's, namely for
+>          * 1920x1200@60Hz. So it was decided to have leave a 1% margin between
+>          * both clocks. Which, for RPi0-3 implies a maximum pixel clock of
+> -        * 162MHz.
+> +        * 165MHz.
+>          *
+>          * Additionally, the AXI clock needs to be at least 25% of
+>          * pixel clock, but HSM ends up being the limiting factor.
+> @@ -3190,7 +3190,7 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
+>         .encoder_type           = VC4_ENCODER_TYPE_HDMI0,
+>         .debugfs_name           = "hdmi_regs",
+>         .card_name              = "vc4-hdmi",
+> -       .max_pixel_clock        = 162000000,
+> +       .max_pixel_clock        = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ,
+>         .registers              = vc4_hdmi_fields,
+>         .num_registers          = ARRAY_SIZE(vc4_hdmi_fields),
 >
 >
 > --
