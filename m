@@ -2,51 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA54606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 22:49:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028B560A2604
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 22:49:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kAFhKQP+
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RLT44OQr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C94710E4F3;
-	Tue, 27 Oct 2026 22:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65B5910E4D1;
+	Tue, 27 Oct 2026 22:49:20 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3090710E0AE;
- Tue, 27 Oct 2026 22:49:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58E7110E4D1;
+ Tue, 27 Oct 2026 22:49:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793141347; x=1824677347;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=PyT9OGBhtj/L4eX5YB5KrMA7p3mhdS2urXL9bJSrwAU=;
- b=kAFhKQP+wH1eCptx09fs09w3+z02ljt+mY1IJMrKbdALf4xVgoZFa8OU
- KQ4VcigwAIXfmn5XM5v+QUyg5/Jx1VpR5G0yyh1ir59PE/OMAHuto6q2a
- f2U+qKjFPSqJ0o7sj/zAUZUKVNn9g6nr9tvXrFPQ1/RUtV4vEmXDTBU3K
- lPxzLuA+RKV1FXWBWKv+yiCTS/ksZvhozfTKvJgdco0N7cd30Q8LUlxqJ
- Rhl/Igg0QAJOK8p3wDTDeKQMG/vA75xfRxxZdFZdpVAgeqzVb7GDPGRhJ
- s59uPYod1W7FLLaT1+nBYHeK4Ah6c8iRBIXVMPVa+qyDS2lGf922bcwBH g==;
-X-CSE-ConnectionGUID: HMZZqhfFTAaWK60t6LFVtA==
-X-CSE-MsgGUID: Fs49C4kmQsebTuI7/w8DDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1842030"
+ t=1793141352; x=1824677352;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=4osgydFKP9q7dfBxY1RYyGja1Q7a4PTd0+Lxe9xcnXg=;
+ b=RLT44OQrpvat289swvdqhClxB6/o63yUfhqdOqR7t3xUF057kaoJ1Gbk
+ fp8Ht1Mzqx2Kcg3hKO92K0iJJ9xHWBntXp9VSKDIoy3dUOsbUvGFMyaHB
+ 9D2Vi0MIwQer/cw6zHBK7HBMIwapMl3PXBPt13X4VzhML6/lXgwJcjMZK
+ s5k3TS0v4AZSdQo8d5wp+xXdW4N0nrLk1V7bsnp6AeA2kKpqdGc1AdUuZ
+ pTjnqwvuwANFsMco7gPHSd9k61RegZPUWNLqrVo3OAWlayXSVnE9X8O9x
+ NJ9eFAkYMPQlXGI0FPh3gAsnWIxHGZWzD8YhDTQ3kD4WOnY0XbMx7Zjb3 A==;
+X-CSE-ConnectionGUID: yEeQvvTOQEWAL8GoVC8qMg==
+X-CSE-MsgGUID: EOxx/Z3RR1WfgTM+xEPTIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1842031"
 X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1842030"
+   d="scan'208";a="1842031"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Oct 2026 15:49:07 -0700
-X-CSE-ConnectionGUID: DTdNmclKSRO2WXvdzo+fWQ==
-X-CSE-MsgGUID: arljolqKQ/a0iT2WiIpOhw==
+X-CSE-ConnectionGUID: 1dGC000WSMWN/CMPuwqjow==
+X-CSE-MsgGUID: oVK737AIRtiIekmBbbJtqg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="5056293"
+   d="scan'208";a="5056294"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Oct 2026 15:49:07 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH v6 0/3] Add a minimum age gate to the shrinker + LRU fixes
-Date: Tue, 27 Oct 2026 15:48:59 -0700
-Message-Id: <20261027224902.1085762-1-matthew.brost@intel.com>
+Subject: [PATCH v6 1/3] drm/xe: Bump the LRU on a successful page fault
+Date: Tue, 27 Oct 2026 15:49:00 -0700
+Message-Id: <20261027224902.1085762-2-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261027224902.1085762-1-matthew.brost@intel.com>
+References: <20261027224902.1085762-1-matthew.brost@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -61,39 +63,53 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Fix misuse of the TTM LRU in Xe + add a minimum age gate to the shrinker
-which is hidden behind a Kconfig for shrinker tuning.
+Servicing a page fault validates the VMA's backing store and binds it,
+making the BO part of the VM's active working set, but unlike exec it
+never moves anything on the TTM LRU. In fault mode, where a VM may run
+for a long time without a single exec, the BOs the GPU actually touches
+therefore drift towards the LRU head and are picked by eviction and by
+the shrinker ahead of genuinely cold BOs.
 
-Matt
+Bump the BO's LRU on a successful page fault.
 
-Matthew Brost (3):
-  drm/xe: Bump the LRU on a successful page fault
-  drm/ttm: Allow skipping to the next priority in the bo LRU cursor
-  drm/xe: Add a minimum age gate to the shrinker
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/xe/xe_pagefault.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- drivers/gpu/drm/ttm/ttm_bo_util.c    |   3 +
- drivers/gpu/drm/ttm/ttm_resource.c   |  35 +++++-
- drivers/gpu/drm/xe/Kconfig.profile   |  15 +++
- drivers/gpu/drm/xe/xe_bo.c           |  83 ++++++++++++++
- drivers/gpu/drm/xe/xe_bo.h           |   5 +
- drivers/gpu/drm/xe/xe_bo_types.h     |   8 ++
- drivers/gpu/drm/xe/xe_device_sysfs.c |  35 ++++++
- drivers/gpu/drm/xe/xe_pagefault.c    |   7 ++
- drivers/gpu/drm/xe/xe_shrinker.c     | 164 +++++++++++++++++++++++++--
- drivers/gpu/drm/xe/xe_shrinker.h     |   3 +
- drivers/gpu/drm/xe/xe_vm.c           |   4 +-
- drivers/gpu/drm/xe/xe_vm_types.h     |   8 ++
- include/drm/ttm/ttm_bo.h             |  19 ++++
- include/drm/ttm/ttm_resource.h       |   2 +
- 14 files changed, 377 insertions(+), 14 deletions(-)
-
+diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
+index 5247321c805e..6828f81df50e 100644
+--- a/drivers/gpu/drm/xe/xe_pagefault.c
++++ b/drivers/gpu/drm/xe/xe_pagefault.c
+@@ -201,6 +201,8 @@ static int xe_pagefault_handle_vma(struct xe_gt *gt, struct xe_vma *vma,
+ 		xe_validation_ctx_init(&ctx, &vm->xe->val, &exec,
+ 				       (struct xe_val_flags) {});
+ 		drm_exec_until_all_locked(&exec) {
++			struct xe_bo *bo = xe_vma_bo(vma);
++
+ 			err = xe_pagefault_begin(&exec, vma, tile->mem.vram,
+ 						 needs_vram == 1);
+ 			drm_exec_retry_on_contention(&exec);
+@@ -221,6 +223,11 @@ static int xe_pagefault_handle_vma(struct xe_gt *gt, struct xe_vma *vma,
+ 				xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_VMA_REBIND);
+ 				break;
+ 			}
++
++			if (bo) {
++				scoped_guard(spinlock, &vm->xe->ttm.lru_lock)
++					ttm_bo_move_to_lru_tail(&bo->ttm);
++			}
+ 		}
+ 		xe_validation_ctx_fini(&ctx);
+ 	} while (err == -EAGAIN);
 -- 
 2.34.1
 
