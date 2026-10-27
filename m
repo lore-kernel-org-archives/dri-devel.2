@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0E0606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:52:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C32606A32E
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:53:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mtCYy4YC
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFC7IhuO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85F5710F54D;
-	Tue, 27 Oct 2026 13:52:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E682910F558;
+	Tue, 27 Oct 2026 13:53:10 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D40A10F558
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:52:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0083D10F558
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:53:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E9F4F43250;
- Tue, 27 Oct 2026 13:52:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17F21F031E1;
- Tue, 27 Oct 2026 13:52:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B1E664108A;
+ Tue, 27 Oct 2026 13:53:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79A011F01825;
+ Tue, 27 Oct 2026 13:53:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793109122;
- bh=+eNsy5l3T92AvOMKs4cBhRYlEoTtdEVq4bpNZqdJHuI=;
+ s=k20260515; t=1793109183;
+ bh=FaqJPeJsb4R7FWBq36p22c6DRyoNLVlBk26f9NSmuQE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mtCYy4YC7zVSpdK880/ukycTYHrsiV4fBTj/Mie+5TyIc7pbBe3dpPp7gsXaVE+zo
- J7JQJcbUolzdMhMF3OI4tkr3p5CUQchoC+1rS024Ed5mL3p8ZegZEE2v5goByEuMxN
- brCpz/7rTgCU7XW8CAIT+Mon0E07Fgll7u4qLdJrJdqj4B/xZE8Fkg4jUihtSwwdP3
- 03/NTfpjarqxr4eU+YDc2Q5Rig8Pb/8Tun3G8pitXg6yFi+GNSo5SYRDxB6RgJX7Ma
- JZ+M80MYRmQHD5DRpAfSpQSY3Wx3s9iIsuzX9yV/5MI57svMWI/Xi4XiHtptWXmMrw
- h/9aPJmlMlUKQ==
-Message-ID: <sashiko-outbox-186669@kernel.org>
+ b=ZFC7IhuO9dXf7o4UCJmiKZbZ6lSdtITezHqb6a6wXiEyAcXdgbKGvqSzJRpyeyShs
+ uN9+UTa0ExJQR9FCwaHEQFynUkemxRbVXg22aAH4bTaCryFai7cU/1mOcnUoCepVEI
+ Pal/6IOFC9bCEjcbdN4U4pNqGQ+ohNaybPOlIXDL4smD4Ro1Wy1eNPBXefDiU9tM91
+ EhneX+YrfvDjSc+Jvsxynl3aiS0DugbNDqaFgtsixJCkyJP1Gfwsu3hKA33+tBfkpY
+ K9QdBN5d42+1u2rrpKuEp4QtU8AOy8H+FsUFY2Imfex/ZHaM3tJY66FhBAcTw0ZDuT
+ mCL6AlmtGIEiQ==
+Message-ID: <sashiko-outbox-186670@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/amd/display: Keep FreeSync flip timing across
- plane resets
-To: "Davey Hughes" <davidralphhughes@gmail.com>
+Subject: Re: [PATCH v5 14/18] drm/bridge: analogix_dp: Move IRQ
+ enable/disable to bind/unbind
+To: "Damon Ding" <damon.ding@rock-chips.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261027-freesync-plane-reset-time-v1-1-bb43b501faf4@gmail.com>
-References: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
- <20261027-freesync-plane-reset-time-v1-1-bb43b501faf4@gmail.com>
+In-Reply-To: <20261027132810.1746118-15-damon.ding@rock-chips.com>
+References: <20261027132810.1746118-1-damon.ding@rock-chips.com>
+ <20261027132810.1746118-15-damon.ding@rock-chips.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 13:52:02 +0000
+Date: Tue, 27 Oct 2026 13:53:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,115 +59,167 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/amd/display: race and stale flip time copy in dm_update_plan=
-e_state()
+- [High] drm/bridge: analogix_dp: level IRQ storm when pm_runtime_resume_an=
+d_get() fails
+- [Medium] drm/bridge: analogix_dp: pm_runtime_resume_and_get() in IRQ clea=
+rs HPD status
 --
 
-commit ab38a8475d9a38b0920f07d4b8cd8a1171060e9b
-Author: Davey Hughes <davidralphhughes@gmail.com>
+commit 2a41fb565a5b1a6da39d3e4bf4efd7dfc99b3b81
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-drm/amd/display: Keep FreeSync flip timing across plane resets
+drm/bridge: analogix_dp: Move IRQ enable/disable to bind/unbind
 
-This commit preserves the DC plane flip timing across plane resets when the
-plane remains on the same CRTC, preventing FreeSync below-the-range (BTR) or
-fixed-refresh paths from seeing a zeroed flip history on color management
-updates.
+This commit moves enable_irq() and disable_irq() from the bridge enable/dis=
+able
+handlers into analogix_dp_bind() and analogix_dp_unbind(). It also converts=
+ the
+interrupt handler to a pure threaded IRQ handler that acquires a runtime PM
+reference before accessing controller registers.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index bdabb4bf14dab..a69e28685857f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6076,6 +6076,11 @@ dm_update_plane_state(struct dc *dc,
->  			goto out;
->  		}
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index a8a2d5d615aea..e92d86c678947 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -700,24 +700,22 @@ static int analogix_dp_enable_scramble(struct analo=
+gix_dp_device *dp,
+>  	return ret < 0 ? ret : 0;
+>  }
 > =20
-> +		/* FreeSync times each frame from the plane's previous flip. */
-> +		if (dm_old_plane_state->dc_state &&
-> +		    old_plane_crtc =3D=3D new_plane_crtc)
-> +			dc_new_plane_state->time =3D dm_old_plane_state->dc_state->time;
+> -static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
+> -{
+> -	struct analogix_dp_device *dp =3D arg;
+> -	irqreturn_t ret =3D IRQ_NONE;
+> -	u32 irq_type;
+> -
+> -	irq_type =3D analogix_dp_get_irq_type(dp);
+> -	if (irq_type)
+> -		ret =3D IRQ_WAKE_THREAD;
+> -
+> -	return ret;
+> -}
+> -
+>  static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+>  {
+>  	struct analogix_dp_device *dp =3D arg;
+>  	u32 irq_type;
+>  	bool hpd_detected;
+> +	int ret;
+> +
+> +	/*
+> +	 * The device may have been runtime suspended since the interrupt
+> +	 * was raised. Hold a runtime PM reference before touching the
+> +	 * registers, as the controller clocks are only guaranteed to be
+> +	 * enabled while the device is runtime PM active.
+> +	 */
+> +	ret =3D pm_runtime_resume_and_get(dp->dev);
+> +	if (ret)
+> +		return IRQ_HANDLED;
+
+[Severity: High]
+Can returning IRQ_HANDLED when pm_runtime_resume_and_get() fails cause a
+level-triggered IRQ storm or unclocked MMIO access during system suspend and
+resume?
+
+On Rockchip and Exynos platforms, the native DP controller interrupt is a
+level-high interrupt (IRQ_TYPE_LEVEL_HIGH) requested with IRQF_ONESHOT.
+Moving disable_irq() from analogix_dp_bridge_disable() to
+analogix_dp_unbind() leaves dp->irq enabled across system suspend and resum=
+e,
+where rockchip_dp_pm_ops and exynos_dp_pm_ops use pm_runtime_force_suspend()
+in dpm_suspend and pm_runtime_force_resume() in dpm_resume (outside the
+dpm_suspend_noirq and dpm_resume_noirq window where device IRQs are masked).
+
+If an interrupt fires when dp->dev is runtime-suspended and
+dev->power.disable_depth > 0 (or if analogix_dp_resume() fails at runtime),
+pm_runtime_resume_and_get() returns a negative error code such as -EACCES.
+Returning IRQ_HANDLED here without clearing or masking the hardware interru=
+pt
+status registers causes irq_thread_fn() to increment desc->threads_handled
+and irq_finalize_oneshot() to unmask the still-asserted level IRQ line. That
+immediately re-triggers the interrupt while preventing note_interrupt() in
+the spurious IRQ detector from ever disabling the screaming line.
+
+Furthermore, if dev->power.usage_count > 1 during pm_runtime_force_suspend()
+(such as when a later commit in this series, "drm/bridge: analogix_dp: Mana=
+ge
+pm runtime and IRQ for native HPD pin detection", holds a runtime PM
+reference in analogix_dp_bind(), or when runtime PM is forbidden via sysfs),
+pm_runtime_force_suspend() disables the DP clocks via analogix_dp_suspend()
+while leaving runtime_status and last_status set to RPM_ACTIVE with
+disable_depth > 0. In that state, rpm_resume() returns 1 and
+pm_runtime_resume_and_get() returns 0, allowing analogix_dp_irq_thread() to
+perform MMIO accesses on an unclocked controller.
+
+> =20
+>  	irq_type =3D analogix_dp_get_irq_type(dp);
+>  	if (!dp->hpd_gpiod && irq_type)
 
 [Severity: Medium]
-Can copying dm_old_plane_state->dc_state->time here in dm_update_plane_stat=
-e()
-race with an in-flight non-blocking commit or copy stale flip timestamps?
+If the device has actually runtime suspended before analogix_dp_irq_thread()
+runs, won't pm_runtime_resume_and_get() wipe the pending interrupt status
+registers before analogix_dp_get_irq_type() can read them?
 
-When userspace submits a non-blocking commit (Commit 1),
-drm_atomic_helper_swap_state() installs Commit 1's plane state into
-plane->state and queues commit_work before dropping drm_modeset_locks.
+When dp->dev is runtime suspended, pm_runtime_resume_and_get() invokes the
+runtime resume callback (rockchip_dp_resume() or exynos_dp_resume() ->
+analogix_dp_resume()):
 
-Commit 1's worker then runs asynchronously without holding drm_modeset_lock=
-s:
+drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:analogix_dp_resume() {
+	...
+	if (dp->plat_data->power_on)
+		dp->plat_data->power_on(dp->plat_data);
 
-  amdgpu_dm_atomic_commit_tail()
-    -> amdgpu_dm_commit_planes()
-      -> drm_atomic_helper_wait_for_fences()
-      -> mutex_lock(&dm->dc_lock)
-      -> update_planes_and_stream_adapter()
-        -> dc_update_planes_and_stream()
-          -> update_planes_and_stream_state()
-            -> copy_surface_update_to_plane()
+	phy_set_mode(dp->phy, PHY_MODE_DP);
+	phy_power_on(dp->phy);
 
-In drivers/gpu/drm/amd/display/dc/core/dc.c:copy_surface_update_to_plane(),
-DC mutates surface->time under dm->dc_lock:
+	analogix_dp_init_dp(dp);
+	...
+}
 
-	surface->time.time_elapsed_in_us[surface->time.index] =3D
-		(unsigned int)(srf_update->flip_addr->flip_timestamp_in_us -
-			surface->time.prev_update_time_in_us);
-	surface->time.prev_update_time_in_us =3D
-		(unsigned int)srf_update->flip_addr->flip_timestamp_in_us;
-	surface->time.index++;
-	if (surface->time.index >=3D DC_PLANE_UPDATE_TIMES_MAX)
-		surface->time.index =3D 0;
+On Rockchip, dp->plat_data->power_on() calls rockchip_dp_poweron() ->
+rockchip_dp_pre_init(), which asserts and deasserts dp->rst and dp->apbrst,
+wiping all controller registers.
 
-If a second commit (Commit 2) that resets the plane enters
-amdgpu_dm_atomic_check() while Commit 1's commit_work is still waiting on
-fences or executing copy_surface_update_to_plane(), amdgpu_dm_atomic_check()
-calls dm_update_plane_state() before calling do_aquire_global_lock():
+On all platforms, analogix_dp_init_dp() then resets the controller and clea=
+rs
+all pending interrupts:
 
-  amdgpu_dm_atomic_check() {
-      ...
-      for_each_oldnew_plane_in_descending_zpos(...) {
-          ret =3D dm_update_plane_state(dc, state, plane,
-                                      old_plane_state,
-                                      new_plane_state,
-                                      true,
-                                      &needs_dc_state_realloc,
-                                      &is_top_most_overlay);
-          ...
-      }
-      ...
-      if (needs_dc_state_realloc) {
-          ...
-          ret =3D do_aquire_global_lock(dev, state);
-      }
-  }
+drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:analogix_dp_init_dp() {
+	analogix_dp_reset(dp);
 
-Because dm_update_plane_state() reads dm_old_plane_state->dc_state->time
-without holding dm->dc_lock and before do_aquire_global_lock() waits for
-Commit 1's hw_done and flip_done:
+	analogix_dp_swreset(dp);
 
-1. If Commit 1 is currently in copy_surface_update_to_plane(), the unlocked
-   struct assignment races with the writes to surface->time.
-2. If Commit 1 is still waiting on fences before acquiring dm->dc_lock,
-   dm_update_plane_state() snapshots the pre-Commit-1 flip time (which is a=
-ll
-   zeroes if Commit 1 also reset or enabled the plane, or Commit 0's timest=
-amp
-   otherwise). Then do_aquire_global_lock() blocks until Commit 1 finishes
-   updating dm_old_plane_state->dc_state->time and signals flip_done, allow=
-ing
-   even a non-blocking Commit 2 to pass stall_checks() in
-   drm_atomic_helper_setup_commit() and commit with the stale dc_new_plane_=
-state->time.
+	analogix_dp_init_analog_param(dp);
+	analogix_dp_init_interrupt(dp);
+	...
+	analogix_dp_init_hpd(dp);
+	analogix_dp_init_aux(dp);
+}
 
-Would it be safer to copy or update the flip timing in commit_tail (for
-example inside amdgpu_dm_commit_planes() under dm->dc_lock after the previo=
-us
-commit has completed), or after synchronizing with the previous commit?
+Both analogix_dp_init_interrupt() and analogix_dp_init_hpd() explicitly cle=
+ar
+ANALOGIX_DP_COMMON_INT_STA_4 and ANALOGIX_DP_INT_STA. By the time
+pm_runtime_resume_and_get() returns to analogix_dp_irq_thread(),
+analogix_dp_get_irq_type() reads cleared registers (0), so irq_type is 0 and
+the hotplug event is silently dropped. Note that the later commit in this
+series ("drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD
+pin detection") only keeps runtime PM active across bind/unbind on
+RK3576_EDP and RK3588_EDP, leaving EXYNOS_DP, RK3288_DP, RK3399_EDP, and
+other configurations susceptible to runtime suspend while the IRQ is enable=
+d.
+
+Conversely, when dp->hpd_gpiod is used, analogix_dp_get_irq_type() (as well
+as analogix_dp_get_plug_in_status() in commit "drm/bridge: analogix_dp:
+Declare DRM_BRIDGE_OP_HPD for hotplug reporting") only reads the GPIO level
+via gpiod_get_value(dp->hpd_gpiod) and never touches DP controller MMIO
+registers. Does analogix_dp_irq_thread() need to call
+pm_runtime_resume_and_get() when dp->hpd_gpiod is present, since doing so
+powers on, resets, and reinitializes the DP controller and PHY on every GPIO
+HPD interrupt while the display is off?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-freesync-p=
-lane-reset-time-v1-0-bb43b501faf4@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027132810.1746=
+118-1-damon.ding@rock-chips.com?part=3D14
