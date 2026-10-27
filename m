@@ -2,50 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F3B606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 07:47:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD38606A320
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 07:50:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=eldrP/xP
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=HkZ4V1IB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C40210E1FC;
-	Tue, 27 Oct 2026 07:47:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21EAD10E31C;
+	Tue, 27 Oct 2026 07:50:40 +0000 (UTC)
 Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42B3510E1FC
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 07:47:47 +0000 (UTC)
-Received: from mors-relay8204.netcup.net (localhost [127.0.0.1])
- by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4jDMzN6HmYz8tt6;
- Tue, 27 Oct 2026 07:47:44 +0000 (UTC)
+ [185.244.194.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF1E610E31C
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 07:50:33 +0000 (UTC)
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+ by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jDN2M2bgnz9Vp6;
+ Tue, 27 Oct 2026 08:50:19 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1793087264;
- bh=jvH5rmcNh//J8ryzh9aICY7L0QAJcN8DwFIlF0b0dRs=;
+ s=key2; t=1793087419;
+ bh=csswwopQr0L6Iq80y+T2GffvxU9tazEIvHHPF/uJQv0=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=eldrP/xPXhDKLrDwUdZmFUxTy5je/eM7Mk7uPx1hMxzejC/E+/kQqkEZnV4YjvWF6
- NAfOr+NEpCmWCVig/1w/P8OxFBgkW4VQvTM67ogv63cipqMJuuhyI3JmFZlZgdCUPj
- tui5X3n75IWjPe70/OYu8lGPIDqNAklbVoyhXCllwOtiQHGcNo3XSQ+e8vVL4tK7oi
- UzjY8V/cLogqxx+NogI5D0X7/F786u7sm0T60bmoxjVwOKGJfh07J5E5nR7HmtMyeT
- DaP/kKljpIcrZzrpkcGLApoBOsHuw/OByzuPS5UoxflqIphYqC/88aHahDQXLmnUh1
- 2nOkL16SayRhA==
+ b=HkZ4V1IBXdbR8zIBbXo0biyKDXITZj3lEUomkG8fLcUGk6y8uJFdNlqNeWnHr2wfh
+ jwjIEjA/8pY66iUUCzX4TCsKM7EQXVwqvFqIir4wcOUq6yvwazRrLoC4TpA6XRMWAe
+ Hdbb07jovHsIT/ojDa0yxSzVpO/47Emx+8tG3dNS/QloU8wZCGfn+PkcEy7Gn4cnGz
+ Ml8Y4bcuZYI3g8cI8iSEj2/t/9DkfraTyrYBkpmV/2b+Vt/B75/XGtEhZFUN5fBYrX
+ Z3GbqqbEKWhU5Rpg8RzRcay56rXb3GkhUXUZMXdy/EKAV83ubGQ8gdwoPAD+iI0lSA
+ hsD/3Ey4Y6chQ==
 Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay8204.netcup.net (Postfix) with ESMTPS id 4jDMzN5YPnz8tt1;
- Tue, 27 Oct 2026 07:47:44 +0000 (UTC)
+ by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jDN151s5pz7wqj;
+ Tue, 27 Oct 2026 08:49:13 +0100 (CET)
 Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jDMzM0cMgz8sZN;
- Tue, 27 Oct 2026 08:47:42 +0100 (CET)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jDN150GL9z8svC;
+ Tue, 27 Oct 2026 08:49:13 +0100 (CET)
 Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
  [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 56B0E5FA40;
- Tue, 27 Oct 2026 08:47:35 +0100 (CET)
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 168085F98B;
+ Tue, 27 Oct 2026 08:49:08 +0100 (CET)
 Authentication-Results: mxe9fb;
  spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
  smtp.mailfrom=regressions@leemhuis.info
  smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
 Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <b9284046-be28-4f80-81e9-d800e2d4204a@leemhuis.info>
-Date: Tue, 27 Oct 2026 08:47:34 +0100
+Message-ID: <7f21f160-f637-4b63-aa15-066d7b18e2ed@leemhuis.info>
+Date: Tue, 27 Oct 2026 08:49:07 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
@@ -74,10 +74,10 @@ Content-Language: de-DE, en-US
 In-Reply-To: <d106ad8a-78d4-45be-95da-0222c44107c5@suse.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179308725599.897684.6626675984855169399@mxe9fb.netcup.net>
+X-PPP-Message-ID: <179308734871.898318.4642876887831960881@mxe9fb.netcup.net>
 X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 56B0E5FA40
-X-NC-CID: M6CcPbjGK/UHjI05l20YNEahmWfau3KE3EWN7F4qWvaP7iQOPC0=
+X-Rspamd-Queue-Id: 168085F98B
+X-NC-CID: 03+Wsu/eo55EKoo4FpYSMVEN9eFUU4u2SjKgZFAKQ8+/Avnxn6c=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,9 +120,15 @@ On 9/14/26 13:00, Thomas Zimmermann wrote:
 > 
 > I've now sent out an update with minor changes.
 
-Many thx again. But the thing is: it still s	
+Many thx again. But the thing is: it still sits on the list waiting for
+review afaics:
 
+https://lore.kernel.org/all/20260914110004.211027-1-tzimmermann@suse.de/
 
+Can you maybe prod the right people to finally get this resolved? Or
+what should be do instead?
+
+Ciao, Thorsten
 
 >>>>> So this is not really a problem. drm_WARN_ON_ONCE was ok for that. You
 >>>>> can also use a regular DRM print macro. But instead of drm_dbg_kms()
