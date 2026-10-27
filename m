@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FD7606A320
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:51:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0E0606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:52:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MWOqY/JL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mtCYy4YC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D517510F55E;
-	Tue, 27 Oct 2026 13:51:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85F5710F54D;
+	Tue, 27 Oct 2026 13:52:09 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D53DF10F552
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:51:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D40A10F558
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:52:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 40D2443870;
- Tue, 27 Oct 2026 13:51:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A481F031E0;
- Tue, 27 Oct 2026 13:51:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E9F4F43250;
+ Tue, 27 Oct 2026 13:52:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17F21F031E1;
+ Tue, 27 Oct 2026 13:52:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793109062;
- bh=P2v0gHjY9zAAWw1CFgnJ759d38hfc3tu3TD+M1hb/Ec=;
+ s=k20260515; t=1793109122;
+ bh=+eNsy5l3T92AvOMKs4cBhRYlEoTtdEVq4bpNZqdJHuI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MWOqY/JL95KVu5wNOZXs1+MAVPx6wb/1wiIPu91mGtell92MMtSufMUr6aJxY9Dox
- oRTiVrJr26/7jWdnuKYqLx1BtHE85rWf/PWsfcJ5wcXfnetESWo4AQnpZC2NCHHEoh
- eZ1d98esyAiPoT8dOqmznblCBl9hhZVualtuq4adpA9aGsskfeGxlUlNlZjQdEhz5x
- PPQGF83mqQoP3i3JgfJJel28zDu1hERPkVBynfTkKrj3pBrn8kdgqW39HxrYxkijnJ
- K+my9iyG7ub+HmBO4B7imckKsIOpv4+8jfBmunlJWZIm8Cy9XLIYnPMjpp5KpzTAON
- VaJ4Z0s3Uhi+Q==
-Message-ID: <sashiko-outbox-186668@kernel.org>
+ b=mtCYy4YC7zVSpdK880/ukycTYHrsiV4fBTj/Mie+5TyIc7pbBe3dpPp7gsXaVE+zo
+ J7JQJcbUolzdMhMF3OI4tkr3p5CUQchoC+1rS024Ed5mL3p8ZegZEE2v5goByEuMxN
+ brCpz/7rTgCU7XW8CAIT+Mon0E07Fgll7u4qLdJrJdqj4B/xZE8Fkg4jUihtSwwdP3
+ 03/NTfpjarqxr4eU+YDc2Q5Rig8Pb/8Tun3G8pitXg6yFi+GNSo5SYRDxB6RgJX7Ma
+ JZ+M80MYRmQHD5DRpAfSpQSY3Wx3s9iIsuzX9yV/5MI57svMWI/Xi4XiHtptWXmMrw
+ h/9aPJmlMlUKQ==
+Message-ID: <sashiko-outbox-186669@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] misc: fastrpc: fix use-after-free of fastrpc_user in
- dma_buf release
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261027-fastrpc-fix-v1-1-4610a10a2901@oss.qualcomm.com>
-References: <20261027-fastrpc-fix-v1-1-4610a10a2901@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] drm/amd/display: Keep FreeSync flip timing across
+ plane resets
+To: "Davey Hughes" <davidralphhughes@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261027-freesync-plane-reset-time-v1-1-bb43b501faf4@gmail.com>
+References: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
+ <20261027-freesync-plane-reset-time-v1-1-bb43b501faf4@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 13:51:01 +0000
+Date: Tue, 27 Oct 2026 13:52:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,120 +61,113 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] misc: fastrpc: reference cycle between fastrpc_user and dma_buf
+- [Medium] drm/amd/display: race and stale flip time copy in dm_update_plan=
+e_state()
 --
 
-commit dec722bc667a70cb2ae899023a7e5c5a5ba8d6fb
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+commit ab38a8475d9a38b0920f07d4b8cd8a1171060e9b
+Author: Davey Hughes <davidralphhughes@gmail.com>
 
-misc: fastrpc: fix use-after-free of fastrpc_user in dma_buf release
+drm/amd/display: Keep FreeSync flip timing across plane resets
 
-This commit fixes a use-after-free of struct fastrpc_user during dma_buf
-release by taking a reference on fl in fastrpc_dmabuf_alloc() and dropping =
-it
-in fastrpc_release().
+This commit preserves the DC plane flip timing across plane resets when the
+plane remains on the same CRTC, preventing FreeSync below-the-range (BTR) or
+fixed-refresh paths from seeing a zeroed flip history on color management
+updates.
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index af18ff1992eed..36722ed66edff 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -796,8 +796,10 @@ static void fastrpc_unmap_dma_buf(struct dma_buf_att=
-achment *attach,
->  static void fastrpc_release(struct dma_buf *dmabuf)
->  {
->  	struct fastrpc_buf *buffer =3D dmabuf->priv;
-> +	struct fastrpc_user *fl =3D buffer->fl;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index bdabb4bf14dab..a69e28685857f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -6076,6 +6076,11 @@ dm_update_plane_state(struct dc *dc,
+>  			goto out;
+>  		}
 > =20
->  	fastrpc_buf_free(buffer);
-> +	fastrpc_user_put(fl);
->  }
-> =20
->  static int fastrpc_dma_buf_attach(struct dma_buf *dmabuf,
-> @@ -1802,10 +1804,12 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_us=
-er *fl, char __user *argp)
->  	exp_info.size =3D bp.size;
->  	exp_info.flags =3D O_RDWR;
->  	exp_info.priv =3D buf;
-> +	fastrpc_user_get(fl);
->  	buf->dmabuf =3D dma_buf_export(&exp_info);
->  	if (IS_ERR(buf->dmabuf)) {
->  		err =3D PTR_ERR(buf->dmabuf);
->  		fastrpc_buf_free(buf);
-> +		fastrpc_user_put(fl);
->  		return err;
->  	}
+> +		/* FreeSync times each frame from the plane's previous flip. */
+> +		if (dm_old_plane_state->dc_state &&
+> +		    old_plane_crtc =3D=3D new_plane_crtc)
+> +			dc_new_plane_state->time =3D dm_old_plane_state->dc_state->time;
 
-[Severity: High]
-Does taking a reference on fl for the lifetime of the exported dma_buf crea=
-te
-a circular reference that leaks fl, map, and the coherent DMA buffer when a
-dma_buf allocated by fastrpc_dmabuf_alloc() is mapped into the same
-fastrpc_user session?
+[Severity: Medium]
+Can copying dm_old_plane_state->dc_state->time here in dm_update_plane_stat=
+e()
+race with an in-flight non-blocking commit or copy stale flip timestamps?
 
-When userspace maps an exported dma_buf into the session (for example via
-fastrpc_init_create_process() -> fastrpc_map_create() -> fastrpc_map_attach=
-(),
-fastrpc_req_mem_map() -> fastrpc_map_create(), or fastrpc_internal_invoke()=
- ->
-fastrpc_get_args() -> fastrpc_create_maps()), fastrpc_map_attach() acquires=
- a
-reference on the dma_buf and places the map on fl->maps:
+When userspace submits a non-blocking commit (Commit 1),
+drm_atomic_helper_swap_state() installs Commit 1's plane state into
+plane->state and queues commit_work before dropping drm_modeset_locks.
 
-drivers/misc/fastrpc.c:fastrpc_map_attach() {
-	...
-	map->fl =3D fl;
-	map->fd =3D fd;
-	map->buf =3D dma_buf_get(fd);
-	...
-	spin_lock(&fl->lock);
-	list_add_tail(&map->node, &fl->maps);
-	spin_unlock(&fl->lock);
-}
+Commit 1's worker then runs asynchronously without holding drm_modeset_lock=
+s:
 
-In paths such as fastrpc_init_create_process() (or when a process exits
-without calling fastrpc_req_mem_unmap()), that map remains on fl->maps until
-the session is torn down.
+  amdgpu_dm_atomic_commit_tail()
+    -> amdgpu_dm_commit_planes()
+      -> drm_atomic_helper_wait_for_fences()
+      -> mutex_lock(&dm->dc_lock)
+      -> update_planes_and_stream_adapter()
+        -> dc_update_planes_and_stream()
+          -> update_planes_and_stream_state()
+            -> copy_surface_update_to_plane()
 
-However, fastrpc_device_release() only frees fl->sctx and drops the file's
-reference on fl without draining fl->maps:
+In drivers/gpu/drm/amd/display/dc/core/dc.c:copy_surface_update_to_plane(),
+DC mutates surface->time under dm->dc_lock:
 
-drivers/misc/fastrpc.c:fastrpc_device_release() {
-	...
-	fastrpc_session_free(cctx, fl->sctx);
-	file->private_data =3D NULL;
-	/* Release the reference taken in fastrpc_device_open */
-	fastrpc_user_put(fl);
+	surface->time.time_elapsed_in_us[surface->time.index] =3D
+		(unsigned int)(srf_update->flip_addr->flip_timestamp_in_us -
+			surface->time.prev_update_time_in_us);
+	surface->time.prev_update_time_in_us =3D
+		(unsigned int)srf_update->flip_addr->flip_timestamp_in_us;
+	surface->time.index++;
+	if (surface->time.index >=3D DC_PLANE_UPDATE_TIMES_MAX)
+		surface->time.index =3D 0;
 
-	return 0;
-}
+If a second commit (Commit 2) that resets the plane enters
+amdgpu_dm_atomic_check() while Commit 1's commit_work is still waiting on
+fences or executing copy_surface_update_to_plane(), amdgpu_dm_atomic_check()
+calls dm_update_plane_state() before calling do_aquire_global_lock():
 
-Because fl->maps is only drained in fastrpc_user_free() when fl->refcount
-reaches zero:
+  amdgpu_dm_atomic_check() {
+      ...
+      for_each_oldnew_plane_in_descending_zpos(...) {
+          ret =3D dm_update_plane_state(dc, state, plane,
+                                      old_plane_state,
+                                      new_plane_state,
+                                      true,
+                                      &needs_dc_state_realloc,
+                                      &is_top_most_overlay);
+          ...
+      }
+      ...
+      if (needs_dc_state_realloc) {
+          ...
+          ret =3D do_aquire_global_lock(dev, state);
+      }
+  }
 
-drivers/misc/fastrpc.c:fastrpc_user_free() {
-	...
-	list_for_each_entry_safe(map, m, &fl->maps, node)
-		fastrpc_map_put(map);
-}
+Because dm_update_plane_state() reads dm_old_plane_state->dc_state->time
+without holding dm->dc_lock and before do_aquire_global_lock() waits for
+Commit 1's hw_done and flip_done:
 
-and fastrpc_free_map() is what calls dma_buf_put(map->buf) to trigger
-fastrpc_release(), fl->refcount cannot reach zero until fastrpc_release()
-calls fastrpc_user_put(fl), while fastrpc_release() cannot run until
-fastrpc_user_free() drops the map on fl->maps.
+1. If Commit 1 is currently in copy_surface_update_to_plane(), the unlocked
+   struct assignment races with the writes to surface->time.
+2. If Commit 1 is still waiting on fences before acquiring dm->dc_lock,
+   dm_update_plane_state() snapshots the pre-Commit-1 flip time (which is a=
+ll
+   zeroes if Commit 1 also reset or enabled the plane, or Commit 0's timest=
+amp
+   otherwise). Then do_aquire_global_lock() blocks until Commit 1 finishes
+   updating dm_old_plane_state->dc_state->time and signals flip_done, allow=
+ing
+   even a non-blocking Commit 2 to pass stall_checks() in
+   drm_atomic_helper_setup_commit() and commit with the stale dc_new_plane_=
+state->time.
 
-Additionally, even if the dma_buf is not in fl->maps (for instance, when it=
- is
-held open by another process after the fastrpc device fd is closed), keeping
-fl alive until fastrpc_release() delays fastrpc_user_free() past
-fastrpc_device_release(), leaving fl->init_mem, fl->maps, and fl->mmaps
-allocated in the SMMU context bank after fastrpc_session_free() has already
-released fl->sctx for reuse by another client.
-
-Since fastrpc_buf_free(), fastrpc_dma_buf_attach(), and fastrpc_mmap() only
-dereference buf->fl->cctx for fastrpc_ipa_to_dma_addr(), could struct
-fastrpc_buf store a pointer (and reference, if needed) to struct
-fastrpc_channel_ctx instead of pinning struct fastrpc_user?
+Would it be safer to copy or update the flip timing in commit_tail (for
+example inside amdgpu_dm_commit_planes() under dm->dc_lock after the previo=
+us
+commit has completed), or after synchronizing with the previous commit?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-fastrpc-fi=
-x-v1-1-4610a10a2901@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-freesync-p=
+lane-reset-time-v1-0-bb43b501faf4@gmail.com?part=3D1
