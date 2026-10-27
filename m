@@ -2,129 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD046606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 05:46:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E18606A32E
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 07:14:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UwFNZ2Un
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VD8MBHxx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F18410E28A;
-	Tue, 27 Oct 2026 05:46:40 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013058.outbound.protection.outlook.com
- [40.93.196.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F076C10E1F9;
- Tue, 27 Oct 2026 05:46:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=euDw0Vfwn8cLkGnm/1+5S8qx7GiqrSx2fJWBqMXAK3cgjz5fn014t78BNaUVDpqmmXRero/2huRN3kMXhys+geckfA1c8phi3pwXKfbfv0mn03O9Mkac/Qnj08sgDDoUazU85FWtiRykydjROp63xdOhUaUK8rbcRbasp4XolkhFrs/PtN28rhFVm039aLYsMI+dfKEHsj5p2JhB9oXMGHzpM0DAL89FE+p6lUhOhiQcJaeFOaVNOtC7Ra3bSFLcHrCjBy7G/7rANm4m7JGZF+Dq7Et1NpUWpxSuFUUyWS/x5TILJNssOx5tr++oAJctvFpXKw5vRfSlndkkOHWlOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=orew0HFCOjG6QeMy39zxQad9wZITCwtfKZiHsv0QIYE=;
- b=rp9qFOtSbWbGv0H5b3rrG+sFzc2BjxdEjyUsps83qqo2PSMGxeAf8A3O9tZ+oPHP9UhDUbKU7c05zv/U27GxoIypHcjDh+vaXIy+uO8g7Mdn+RNYEaR5EDDy0HxmeR8MVy2VkAOT+PqPW6EHRmX0V6ZfJltV+EDhcVPYk70EkRZggDnBgPjwdNjo48kX13RhuYKY+ExB7S6ti0aNNojamDYTqtXX+xY1cccCP1EruijzqQEfgUMLv1mCo5ma0LF9NP6S5o4jk6zAmo1An40KD6Jf9nks24XqHtw+0ohIAJLNDqIom1W+6xztyK/1lrTtw3wF61givFrOwC1jppO8yQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=orew0HFCOjG6QeMy39zxQad9wZITCwtfKZiHsv0QIYE=;
- b=UwFNZ2Un2+2zbdghrUhERdBLcyw8OljZI5xVocfvqbjHRBusO3w9e96XFKIL4VW8Y5jA18aVfQ4H++CWocPmMhiV0+WOYBe/nYyJ3h3DGyFvWapyq5vINLAfrKxWImPyssTYFdoeNagBq2qcv8ZUQHkwc+ZcxSNcxKu29pTAlUIVyaF0dHbU4vSz5MYet7brK7XndMYQFCb6xCuTksxRKaZhmyftOkBwnrQOllMivmM5Iqf44ZGJ9EcGByPJak+9+V6ALFbOrI8UwtwrV5+ahMr2VkoL63KS2dEAluL9KLNhemLTuFGYPrPI8E/XfGeuGZVRreie2ZBwsJn6ifsmEg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14) by CY5PR12MB6645.namprd12.prod.outlook.com
- (2603:10b6:930:42::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 05:46:28 +0000
-Received: from SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
- ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 05:46:28 +0000
-Date: Tue, 27 Oct 2026 16:46:22 +1100
-From: Alistair Popple <apopple@nvidia.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com, 
- sumit.semwal@linaro.org, jgg@nvidia.com, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>, 
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>, 
- Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, 
- Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, 
- iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, 
- treding@nvidia.com, jhubbard@nvidia.com
-Subject: Re: [PATCH 05/26] dma-buf: Let the exporter select mapping type at
- pin/map
-Message-ID: <auA0XzHv9lgImZLP@nvdebian.thelocal>
-References: <20261026053623.202642-1-apopple@nvidia.com>
- <20261026053623.202642-6-apopple@nvidia.com>
- <at8IQZ34wkHQ_5PL@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <at8IQZ34wkHQ_5PL@gmail.com>
-X-ClientProxiedBy: SY6PR01CA0002.ausprd01.prod.outlook.com
- (2603:10c6:10:e8::7) To SA3PR12MB598757.namprd12.prod.outlook.com
- (2603:10b6:806:52d::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 208D710E13A;
+	Tue, 27 Oct 2026 07:14:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7C9210E0FF;
+ Tue, 27 Oct 2026 07:14:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7D61943EB2;
+ Tue, 27 Oct 2026 07:14:43 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1793085283;
+ b=cxVk2iw+BjhQAZXRrjtcoOjSMPT694W3ANnEb6azAvb+c29vXfL4Wtiv1kyzar1m6HLw
+ g7lO7zlxGCrUL0+cbTuK6b3j2YjEd9Pd3d8xtRm5/pnlDebl4PORKGXIuUJmoI4gDQdmL
+ fW88RU3H0gBEVD9SfxwzX3W1QFTzs8/zS5uViO2a0FtaGkfsPlDp4g0oPObYbhhOj8hB+
+ hhxwEa/5We8yaoqkvFJWKzL6hvZAnzw3Kv47aCCW/+d1ZAYcbx4PzuVcvFTK56/pqmSA6
+ EDbluGLVfMjrltWuoJU+CcAJ0JbgpxfMQ/tiB6eeCKwEaRdUiRNMIcQ3vg5zIDj5UoQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1793085283;
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=gGOh7Uvc1b3c0b141ReNVWkdt5p3Fs2/ZfHADi9PyBg=;
+ b=esTuESw6kCQQzmT9ypD43unAfSgi9Yfsao/LnvQ6y/vzCekPZJ6XU2BcrzqpgsEgZQfW
+ 6I4zuQ3CXnTwAmpNqYALKnQgNZVvbmERZMdZmABbqdFF7PgB8LbZjNkoHBYHgcMxGvNm1
+ eqiny8yzPONVZMot4uS2fG4zlwMyH/0oNlvOBsxjBcv2KytOW0oi5j664rBP1ZB8w6Flo
+ gVrtzf6iI6xod301Q2Sk/OlU9eCyBDriBulHm2ACYz403JZq2FskZKj/+yII5ux0gSlCE
+ 1MgMQqc1jM/sk3R04xeT/kxPgQPQquDHNN45u6qTRZynPZI0vSWqZaz5xlfQw8Dlg+A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 865F11F01825;
+ Tue, 27 Oct 2026 07:14:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793085283;
+ bh=gGOh7Uvc1b3c0b141ReNVWkdt5p3Fs2/ZfHADi9PyBg=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=VD8MBHxxJhum4DH25eynpROBjsPb7AT3P594g1CtcmQVoQSVwjsYmbvSpk6pNdbwe
+ cGIpF/SFEIlzXlJKPQIQJodkpFAF2wRX/OJ3vhdvsLY8DPEV+e7peAhd6UrODrx5Ue
+ l7G4N/E/wzdk8xWwLryBXA158jkl4nWN+ftDjfet1SmXm2Yxg3z+SqtUCCDjizWqLK
+ l37MhoUzDepRZM2AlKnQe4AjAw3ZerKB8N2ym72YRnyVSx0H2DsnuIe16ysQfnx2No
+ CVCwem8nbzKr7OkxDL0AlQ+gYiU3SIS9ASWHoyLWKdgaqB5MgMX1pa2eLIkHZskm3o
+ QikRnvpGO+Lrw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 09E8E45008;
+ Tue, 27 Oct 2026 07:14:42 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Subject: [PATCH v4 0/5] drm/msm/adreno: Add Adreno 620
+Date: Tue, 27 Oct 2026 12:44:33 +0530
+Message-Id: <20261027-adreno-a620-v4-0-b0095e028c76@brar.si>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CY5PR12MB6645:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9759392c-6858-4783-3821-08df33eda533
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|7416014|22082099003|18002099003|261026121527099003|261022075727099003|56012099006|5023799004|11063799006|4143699003|10067099003|261009223027099003|261022105027099003|261021121427099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: znck1QSyz04bugkYl6we+im5AaNhJVC+eyT6b1RfHtlbr1gQxYLeiztucY7dxkJAY78m2wdoS2UOALZyloWMKn5q4orfqQFuNl0TvSt4/BAeSAZLPPnpjRSjn2QyiNM9umIOTItcxfDajU1E+ku0cdr6w6TGuH2vFnOWTSI1DNzBjKAYv8KNUNEkaN7TXkoxsKSb3JKpo0AiBWrwzxttpmDYm5xzxvhaTWV9yj/+7DCANFqYpAl65048TsgTASgM/BAnVxtk4Xy07iTl+2NpQ1RPT4Sw6ypHjtOdatcGf7uH1PSQM4fSd7R1QZm4ij1rgv7W4H9AJUST1X6gT8dO6OQp3dkMV5DuDn6c6U5HZSZARMVtyKUqDo3i5cVzx2X6XKxPK5CiO57Z16g1VIYs8JV2K2qIVzjFXAA9YqHGkJO7YuYCgkUOC4Uh+9JRjWqUmRGo3X6Amcm/T6ZQqBPgDPXKeNEVRAmtEW3b0R2egwsaVwQIkI8sMV4SBYGm5b2lqonslRzm2T3Wk3gucFHO7TQzZPz7IDg68bpv5jbQ1eOEq5DZhLDW5vpfdix4FYPH4XfI49W+8VlFtUVpRxj1XAZ9u+558AciAm+GSpuV6q/F1Cjs1qgrvVapCOGu9ILI1/FGcYDDbo6VVaY5W1exhmSE10djTt5QZ3XyQx1fWzw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(22082099003)(18002099003)(261026121527099003)(261022075727099003)(56012099006)(5023799004)(11063799006)(4143699003)(10067099003)(261009223027099003)(261022105027099003)(261021121427099003)(261026140227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0YAxFUJ8cEEBfare/UyqRza9a9mnEpSKgQYBzt3Z63o/Z+eCVHkStkO/nYL4?=
- =?us-ascii?Q?jzN8ajZIwouaoTyCn5psMDrjjEa3mkL0En4ZKjx1bXFz0hU7816XQA6MS+F7?=
- =?us-ascii?Q?LCQhPtFyiCEeMic+c39W+xBhpSrQoFT4PJHJit6sSxNHgWKxha6KFjMggywO?=
- =?us-ascii?Q?ckdvwJZ6p3EqvM6qNcsq+ligzaIJ3BtO38jf3ZvSIs9iy3F/Trz+Uydu7qO0?=
- =?us-ascii?Q?kioclCJJl4x/hGlQQvndRVRDAqqwIdMLhTsgZlNit94y1mRRyKxOBQ7YacxP?=
- =?us-ascii?Q?LAus0Il0QCHeQU5qEEM0xJSU2NjRAL5I6r8X2GLJJGNfg2xEkVxY/5+nC1bG?=
- =?us-ascii?Q?K3Qdez28BBbLUCJ5fVzc+Sg72VXx57c7y0Zospjvcj/prt47HTNcXXaJnoB7?=
- =?us-ascii?Q?akGAWO53UQaizfaM2j7wLbu1uRClAutDzWRrOwAKX+a1M1BuhmXGjgr76Fmw?=
- =?us-ascii?Q?th5qAE9BwG0EYRbLqt1aNqfLaMSRo53M6dYzuawkViCO36bq4ALX11dcJs1q?=
- =?us-ascii?Q?jlEeVsnjS+PvZz5ivPRR4+MJbIBe28nc34Xc8ry2u6Iulq8SjGH0UeuC58g7?=
- =?us-ascii?Q?FCCzHCAAjZqnyuA8i3azouptiGYzrTtnPkJ+lXSsq02DzVoW509qesQWB3Sh?=
- =?us-ascii?Q?4vqJithTLjAQe0N3lIP9CuQ+mXLseD9yNSLQZymIg1NxV7Bulil2FmMydvgz?=
- =?us-ascii?Q?MEoPY9f6cE/lV38UxygjM4mPMYJKM4tBTB7U7A41kkDlOB9A8iPa10S9ldM0?=
- =?us-ascii?Q?jAzi4GofzotDpZjwm92jCmTOMacqfwF/NOsChtUjEA5RtyOaTYdZEnd3Kdya?=
- =?us-ascii?Q?RX7dtJ7tVhpeZMkO4aOOhbdj4mdT7HfpqgvmM94eJHGdeIF162m9Zm1/Pctb?=
- =?us-ascii?Q?HckSclrVyXxC25Cirvk8EHnQkRm+MXwWfJOk22+q7Keu7/HoXulwKzvKGZEB?=
- =?us-ascii?Q?DF/hZhWd940jRFhiGFMXYAJGgm3j0HRgdBmzFPBEAidOX5ghNWl4TiWJiouW?=
- =?us-ascii?Q?Oy02wtdF901Znb1KAlG7GvTc5faM0PuGDTfFkDRx+yfSjyKigs2mxVEftpt+?=
- =?us-ascii?Q?hWaBYFlO7uBpsAqT7MmQorIzbhTIH3A6xUoXa3KsiGyKuqbpA+wyIJPNr54b?=
- =?us-ascii?Q?97wY0Bhpzw+wD/dSzuluekon6mvOrSDLYBM/lSVGYn0ubdfvBh2ceisYFOWQ?=
- =?us-ascii?Q?xdHGtev1xTEtZ3WDY7HxdT256w83V1d0tI8K+Sh9SZ5Y8Pyz1Cc8bg90k78c?=
- =?us-ascii?Q?1NHziSgOdrYzyIsSIL2h3S4xJ2/8MSflb7N/ClOs7oCwhaBeeZSfTseAciuK?=
- =?us-ascii?Q?QwJxx+MbhYZrVgTJ4Jfdw+c8cY93orHh/Q6b7tkdf7aSw7t8P8RYMu9kxH7z?=
- =?us-ascii?Q?EmmN3PTbCn2SwWthFTEAJIgW/LDKfjLX68OI61ILprj6KBJUmHOKsXpsPCn3?=
- =?us-ascii?Q?RRpq1Z2tDHPVjQdd0mOKGK0QGJQJR7UBv4XNcE/hvrgc0OIIvjNBKyc1itmB?=
- =?us-ascii?Q?U/tQtRTbTfEXaY0nhlVip8pxPSiexo2MaW3h225KAqnrZOeTHAvQZcxJ8NRo?=
- =?us-ascii?Q?HmlR0k+UJbEpN0388MvOX5srilU4bq3avzEWZBK6JN0AxIxQRQSnlemKnjAx?=
- =?us-ascii?Q?rZeoGyj6xNqu4IGBaRQ9q94g6su74OU3SrFKcrnbCWLF56jSxV+jB/rRt8Lv?=
- =?us-ascii?Q?WqvQpt16RmLvDyTSpwVqbKb+/IF9iosbLyBJyYZAlO7rXaWx6/s2KHDy0GEb?=
- =?us-ascii?Q?2f8nu4A8/g=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9759392c-6858-4783-3821-08df33eda533
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 05:46:28.3993 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lSNEgZ5vxiyFMECzjOFPBjAJ92nBZUhaWxcFiok652GeudCENXfbzY0gJ82CX76zY60igr4zCsXf+t5wDy0G/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6645
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ7CIBCF4as0rMXAUKi68h7GBe1MLS5aA5Vom
+ t5dqAttYly+ZL5/JhbIOwrsUEzMU3TBDX0a5aZgTWf7C3GHaTMQYKSQhlv01A/cGhC8tURmv6/
+ VDlqWxM1T6x5L7XR+73Cvr9SMOZEvOhfGwT+Xd1Hmu9/lKLngpa0IDUiBFR5rb/02OJa7Eb4kq
+ LWEJCUaXTaq1YB6LdUfqZIElKiNIU1SfeQ8zy/yclACKgEAAA==
+X-Change-ID: 20261016-adreno-a620-faee699b382f
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Ishu Brar <patches@brar.si>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793085280; l=7044;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=UZuWL8I8AUCMf4WOo/yxkZDn4vGNt2zk+67Y7dvKnNk=;
+ b=2ccy2JF/uZuSGR4dghp3kall8zPnga0maLNT7hhM7FrmSdNrv3bi8Fuy9KnyKerUXwXZ9maZ9
+ RPdjkDmhD7FDcvnxoQftmR6adkPjd1wVbz6YEKwLuGIuvxgUTtKLeZM
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,79 +105,144 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: patches@brar.si
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-14.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-10-26 at 19:03 +1100, Karl Mehltretter <kmehltretter@gmail.com> wrote...
-> On Mon, Oct 26, 2026 at 04:35:56PM +0100, Alistair Popple wrote:
-> > +struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
-> > +					enum dma_data_direction direction)
-> > +{
-> > +	struct sg_table *sg_table;
-> > +	int ret;
-> > +
-> > +	might_sleep();
-> > +
-> > +	if (WARN_ON(!attach || !attach->dmabuf))
-> > +		return ERR_PTR(-EINVAL);
-> > +
-> > +	dma_resv_assert_held(attach->dmabuf->resv);
-> > +
-> > +	ret = dma_buf_mapping_select(attach);
-> > +	if (ret)
-> > +		return ERR_PTR(ret);
-> > +
-> > +	sg_table = __dma_buf_sgt_map_attachment(attach, direction);
-> > +	if (IS_ERR(sg_table))
-> > +		/* Nothing was established, so the choice may be made afresh */
-> > +		attach->selected = false;
-> > +
-> > +	return sg_table;
-> > +}
-> 
-> The map-failure report from Sashiko [1] reproduces with a KUnit test
-> against the full series:
-> 
->   pin selects B -> map returns -EIO -> selected is cleared
->                 -> retry selects A, with the original pin still held
-> 
-> The exporter pin count stays at 1. Preserving selected when it was true
-> on entry makes the test pass. Patch 7 needs the same fix.
+This adds the Adreno 620 GPU found in the Qualcomm SM7250 (Snapdragon
+765/765G/768G) to the msm driver. It is an A650 derivative using the a650
+SQE/GMU firmware and a620_zap.mbn. On top of the catalog entry it needs
+one A620 specific GMU change: the A620 has no PDC setup from AOP, so the
+PDC sequencer is programmed from the driver (xo/mx/cx addresses from
+cmd-db). Without it the RSC never acks the second power-up and the device
+hangs. The last patch reserves a range of GMU registers in the A650
+protect list, which A620 and A650 share.
 
-Agreed, thanks for looking. A failed map shouldn't undo a previous selection.
+Tested on a OnePlus Nord (a 7.3 based tree): the GPU, GMU and Vulkan work.
+This needs the SM7250 SMMU series [1], otherwise the device is reset when
+the first per-process pagetable is created. It also needs the SM7250
+interconnect series [2]: the GPU OPP table gets its bandwidth levels from
+those providers and the GMU bandwidth table is generated from them and the
+BCM list of the catalog entry. Without bandwidth levels the GMU falls back
+to the generic A630 table, whose BCM addresses do not exist on SM7250, and
+the first GX performance vote times out. The GMU clock and the GPU power
+domains come from the SM7250 graphics clock controller series [3].
+The GPU also needs the SM7250 UBWC configuration [4]: without it
+qcom_ubwc_config_get_data() fails and the GPU does not probe.
+The SoC devicetree nodes are not part of this series; they will be sent
+separately once the SoC dtsi is accepted.
 
-> Could dma_buf_mapping_select() report whether it made a new selection?
-> Then the error path could undo only that choice, without dropping one
-> established by an earlier pin or map.
+[1] https://lore.kernel.org/all/20261023-smmu-sm7250-v2-0-8bb881ce19f5@brar.si/
+[2] https://lore.kernel.org/all/20261026-icc-sm7250-v3-0-aa303226298c@brar.si/
+[3] https://lore.kernel.org/all/20261027-gpucc-sm7250-v2-0-773056e4043e@brar.si/
+[4] https://lore.kernel.org/all/20261027-ubwc-sm7250-v1-1-e766b1e264cf@brar.si/
 
-We could do. At one stage I had a prototype of this returning the old match, but
-that got complicated. We do need to undo in the error path though, so will fix
-this for v2.
+---
+Changes in v4:
+- Patch 1: add Krzysztof Kozlowski's Reviewed-by from v1, which was
+  missing in v3 (noticed by Rob Herring). The patch itself is unchanged.
+- Patch 2: no code change. I compared the PDC commands with the downstream
+  kgsl driver of the platform: for A620 it writes the same mx, cx and xo
+  commands and, when cmd-db has the vrm.soc resource, the VRM command at
+  vrm.soc + 4, in both TCS1 and TCS3, all with msgid 0x10108 (Konrad
+  Dybcio). The VRM commands are only written when cmd-db has vrm.soc, as
+  downstream does. The entry is there on the OnePlus Nord (vrm.soc at
+  0x43400), so they are written on that phone.
+- New patch 5: protect the GMU registers in 0x1c800-0x1e7ff (Konrad
+  Dybcio). The downstream kgsl protect table of the OnePlus Nord has no
+  entry for this range, so the patch relies on the register list in its
+  message.
+- Testing: patch 5 was tested on the OnePlus Nord (a 7.3 based tree with
+  the line added, not msm-next): vkcube ran 900 frames in a Wayland
+  session across GPU frequency changes, with no protect, fault or GMU
+  errors in the kernel log. I did not test a write into the range being
+  rejected, and A650 and the other users of the table (A621, A623, A702,
+  A704) are not tested.
+- Updated the interconnect link [2] to v3 and added the graphics clock
+  controller series [3] and the UBWC configuration [4] as dependencies.
+- Link to v3: https://patch.msgid.link/20261023-adreno-a620-v3-0-2d1d566e5e13@brar.si
 
-> On the Sashiko failed-pin report:
-> ("Because the attachment is not pinned, the exporter may migrate the
-> buffer elsewhere without invalidating it")
-> 
-> I don't think this follows from the documented contract.
-> select_mapping() requires the exporter to keep the recorded type
-> servable and invalidate before an incompatible move. That obligation
-> still applies if ops->pin() fails.
+Changes in v3:
+- Dropped the bandwidth table patch: the GMU table is generated from the
+  BCM list in the catalog entry, which needs bandwidth levels in the OPP
+  table, provided by the interconnect series [2] (Konrad Dybcio).
+- Moved adreno_is_a620() to the PDC patch, its only user.
+- New patch: factor the common BCM list out of the A690 entry into a
+  shared array; the A620 entry refers to it (Konrad Dybcio).
+- Reworded the catalog patch message accordingly.
+- Testing: the generated-table path is the one tested for v2 on the
+  OnePlus Nord, unchanged here; the shared BCM list refactor was build
+  tested.
+- Link to v2: https://patch.msgid.link/20261023-adreno-a620-v2-0-1d654c3f52d5@brar.si
 
-Yes, I think that statement is correct.
+Changes in v2:
+- Patch 3: also program the VRM command (vrm.soc + 4) in TCS1 and TCS3
+  when cmd-db has it, as the downstream driver does (Konrad Dybcio).
+- Patch 4: GMU clock gating mode is 0x00020202 as downstream (was
+  0x00020200); add the SH0/MC0/ACV BCM list for the generic bandwidth
+  table. The bus widths are the ones the other A6xx/A7xx parts use.
+- Patch 2 is kept for now: the generic table is only used when the OPP
+  table has bandwidth levels, which needs the SM7250 interconnect driver
+  and DT that are not upstream yet. Without it the A620 would fall back to
+  the A630 table.
+- Testing: v2 was re-tested on the OnePlus Nord (these changes on top of
+  my 7.3-rc7 port tree, not on msm-next), with the interconnect path and
+  OPP bandwidth levels in the GPU node. Vulkan workloads ran across GPU
+  power cycles and all four GPU frequencies; each frequency selected its
+  own bandwidth level, the generated BCM votes scale linearly with the OPP
+  bandwidth and the GMU accepted the table. I could not read back the
+  resulting DDR frequency.
+- Protect map (patch 4 follow-up suggested by Konrad Dybcio): not included
+  yet, waiting for the downstream reference of the 0x1c800 range.
+- Link to v1: https://patch.msgid.link/20261016-adreno-a620-v1-0-4a7ed6210d7d@brar.si
 
-> Is retaining the selection after a failed pin intentional? If so, this
-> can be added as a test documenting that alongside the map-failure
-> regression test.
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+To: Abhinav Kumar <abhinav.kumar@linux.dev>
+To: Jessica Zhang <jesszhan0024@gmail.com>
+To: Sean Paul <sean@poorly.run>
+To: Marijn Suijten <marijn.suijten@somainline.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-No, that was not intentional. As noted about I think if the first pin/map of an
-attachment failed it should effectively go back to the selected = false state.
+---
+Ishu Brar (5):
+      dt-bindings: display: msm: Document Adreno 620 and its GMU
+      drm/msm/a6xx: Program the PDC sequencer on Adreno 620
+      drm/msm/a6xx: Factor out the common BCM list
+      drm/msm/adreno: Add Adreno 620
+      drm/msm/a6xx: Protect the 0x1c800-0x1e7ff GMU range on A620 and A650
 
- - Alistair
+ .../devicetree/bindings/display/msm/gmu.yaml       |  2 +
+ .../devicetree/bindings/display/msm/gpu.yaml       |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 49 +++++++++++++++++-----
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 35 +++++++++++++---
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  5 +++
+ 5 files changed, 76 insertions(+), 16 deletions(-)
+---
+base-commit: d024361c631b3f020a26c07d683e5103404b0fbf
+change-id: 20261016-adreno-a620-faee699b382f
 
-> Thanks,
-> Karl
+Best regards,
+--  
+Ishu Brar <patches@brar.si>
+
+
