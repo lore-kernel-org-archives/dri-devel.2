@@ -2,88 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD806606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:55:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A3D606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:58:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NXTVZYhQ
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=orL2Va6C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A40810F567;
-	Tue, 27 Oct 2026 13:55:16 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B005510F585
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:55:09 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-6aa8d04fcddso782616a12.0
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 06:55:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793109308; x=1793714108; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=GVkvb7RyNltb2aNxqylXfnad8kaMLOY9LcxHWp3fmdQ=;
- b=NXTVZYhQVht2Rj8IdmWdzQMZTVo07sJhMAo4qIqXzqCI57nPoShWYgNclqH+U+EOem
- sAlxIbxMUFQ4yrD1Lhgh7XOVOYeJ+xbVYdQBTLHY2huAov4udLs5hJV2/AGu6z/5zsTo
- MvVT1Q85BEt6zzTcFTEUteWVHJiIn+Fa0LVp/4FAg12MRouUzgh7ed1j5cew7Dbd3VPP
- js5YVVqLeHWWZEX7+4VkM83Ze2Eo3MnxcYFV9k+hF7kh2SC0ibi4TRTPTDbmEohDFEfp
- 61mTe3E8qmNQ7hKjohEtDhynwodVIFLwdDR9HNLNiAEMP7GFOmqb63Tc/MznIYRkW47Y
- Mw0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793109308; x=1793714108;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=GVkvb7RyNltb2aNxqylXfnad8kaMLOY9LcxHWp3fmdQ=;
- b=q8UpoOjtCvLT+lw93FH55yDVbuCMf2mAbNgr5yvSs/BS0nVu406lDEeoMiyBb7Twhb
- S1i3L+1HOnRvOKIrleStN9pQvKxvpffYMuP2aw8bjt5zVxlFZqQOFEu/QdANGSTrSYFv
- /8FcrTMgTETSSpV4pAPuS4/dj8JJ1FtorzAfK6gfvEggFL8ZZTg7pUK3vLpMtggN/qHU
- A02woq5woEwrKpZin+yxlLiHUIMqK9AHKDYFefyRHN2r4Kb5g2JfLCuzzxjTO+8RKok/
- aIDyAKs6xr2g3c9h2pUDKdvi73Fz4r9hXKpym5rb6r5lAg2s/BIUsyeX3qV6udow+wD4
- ANkA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx2DPfcAhqRvRIm7w5RrX3ma3UnRUWBm/oiJE0oBGZPZwNd9pqjl9llbQdpKo9xhY53xv/eJkgweBw=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL/uPy63EiAL0wrBjl+G2LeQ6qO+ASw+ORfz7BSon7hSoZXGmw5
- dVOGrobh7Gav98xv5YIYQK8i2fzZYVPktREPyIl0HNL0x62k44ivyWNc
-X-Gm-Gg: AYBFou3/TP8dtJnmoVLUsEDyWIo5km2d5DmtFU6yl765cEOTlEoypdGTGvA7Mn6jDlW
- Rya+mFfZmJ47wQ+UENcafZOyTwN5lbdEgqroxxLzdY+QlhkLx91uNt5/9FGqpttXbthv7SURxji
- 3LZviLDPyLxx01kEQ3gl1c0i9ICDUUVhqQ5nF2p99f7TsnolP/LV0/Lnnm8SJpjAMnRgkOnNcgC
- UMorwPe1tum8/rIxnAVqmD+dAb7hCdWyOscXd2Qe5MCsSjf21ynqRZ4Lv8xmLgX2IOTB/3M5byk
- qkxeR1ltSNjM1TNoPDBf7mJLa5WsFbMClb4GdKfaBfaRlGvd0InL/XxnifXDhls39claURsEFB7
- V0m7A8IhW32k/bLi5kN3QOdDcqjMSr+Gjsge78nITq9DUoH4iTAi+9gSq3IxFYHyhaVeEiykAGT
- bNiZt+XfxGRkqpy6mjBrLFfT6ttlCK7udTPw74mycTRVy5SI655jtJjbT/RLBsxS+QIfL9XcsP4
- GZoEBmLutTGS45uvTi4zVPMSmXopUusbevkhEdPr3qrPdKzKQQIU8NkUZD0RdVbVQBWhhYMXRAA
- +aipaU4qBEw22MiQEIXG4DDlwFjfW1JR/a+WaB+gt5SKGkjPhzxjNEM7/Nlc5bKXYD696xg5sZ7
- taVZIV1Ke3Sj93+g4ueCrAJqF8xdG
-X-Received: by 2002:a05:6402:c4d6:10b0:6b4:8b1e:2866 with SMTP id
- 4fb4d7f45d1cf-6b48b1e2b36mr688570a12.16.1793109307845; 
- Tue, 27 Oct 2026 06:55:07 -0700 (PDT)
-Received: from [10.54.182.141] (82-132-213-26.dab.02.net. [82.132.213.26])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b49640c339sm63568a12.17.2026.10.27.06.55.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Oct 2026 06:55:06 -0700 (PDT)
-Message-ID: <749e9437-85a6-45fa-b984-b155a1eeddaf@gmail.com>
-Date: Tue, 27 Oct 2026 13:54:57 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72AC210F585;
+	Tue, 27 Oct 2026 13:58:45 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3391F10F585
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:58:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=ZNW8maKSOmUQrE7ECbKlMR017leMZ50Z6p2INihyCQg=; b=orL2Va6CVyWuXhBJbyCqstSITZ
+ QSTVM/zkNxD5Kg2MQ0tcgDb5tD/EmTmbWrmGlSrO9OLn3dxw/mZD0pGZULiT9tlsC8pmmEFvSJslX
+ rvayo6wkCMlFOpKXHaUHv26z0Rpd1jwzGw+H1RAyoJ8TZrtE6IwvtidtvqgHhRNOypqz7UDySRrkY
+ P7SveV1TXDx2WLiPlknYJgMHIFkuuhEejiZtsLGNKX1vtc739ikTxo7zQjwrMXiTBiTwdio6EOBAY
+ jpSMBirFZjC9MOgoP4oBSAFZRLkCUX/7a7jUDMYuW8oKvh5OVwDpuQ9y8xq2/lEbCIUB1O9SDBdN3
+ i9lDh/lA==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xLhh2-00BqVl-QM; Tue, 27 Oct 2026 14:58:25 +0100
+Message-ID: <a054e9e4-304a-427c-b78f-973fd06f1199@igalia.com>
+Date: Tue, 27 Oct 2026 10:58:18 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 0/1] misc: fgds: introduce GPU-File direct I/O via
- dma-buf
-To: Li Wang <liwang@kylinos.cn>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260908131545.105987-1-liwang@kylinos.cn>
- <20261027090853.30099-1-liwang@kylinos.cn>
+Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS
+ clock starts
+To: Lucas Tanure <lucas.tanure@neat.no>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Dom Cobley <popcornmix@gmail.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261026164028.78792-1-lucas.tanure@neat.no>
+ <at_4EgWZFghkRHzH@collabws.localdomain>
+ <a8b9450f-af4b-47bf-b7b1-3b326ed52dfc@igalia.com>
+ <CALt7t=Ef9LS5vNOZq7JGZ1n-L5rgMk7mXBGE66jicfdkqAC35g@mail.gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261027090853.30099-1-liwang@kylinos.cn>
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <CALt7t=Ef9LS5vNOZq7JGZ1n-L5rgMk7mXBGE66jicfdkqAC35g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,96 +87,107 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hey Li,
+Hi Lucas,
 
-On 10/27/26 09:08, Li Wang wrote:
-> This patch introduces a driver named fgds that allows moving data between
-> a GPU dma-buf and a regular file on NVME without staging it through the
-> page cache. This is particularly useful for LLM workloads, such as model
-> loading, KV cache offloading, and checkpointing. The fgds device
-> corresponds one-to-one with the PCIe GPU on the machine. The usage is
-> straightforward: an application first calls ioctl on the corresponding
-> fgds device with REGISTER_BUF, passing the target GPU memory buffer
-> address (represented as a dma-buf fd). Subsequently, the application can
-> perform direct data transfer between a regular file on NVMe and GPU memory
-> by invoking ioctl on the fgds device with READ/WRITE, passing the file
-> descriptor and the handle returned by REGISTER_BUF.
+On 27/10/26 10:53, Lucas Tanure wrote:
+> On Tue, Oct 27, 2026 at 1:07 PM Maíra Canal <mcanal@igalia.com> wrote:
+>>
+>> Hi Cristian,
+>>
+>> On 26/10/26 22:23, Cristian Ciocaltea wrote:
+>>> Hi Lucas,
+>>>
+>>> On 2026/10/26, Lucas Tanure wrote:
+>>>> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
+>>>> the TMDS clock is stopped and to start the clock at least 1 ms later.
+>>>> vc4 writes the bit, and enables the scrambler, at the end of the enable
+>>>> sequence, long after the PHY has started, and clears it before the PHY
+>>>> stops. A sink that samples the bit when the clock appears never locks
+>>>> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
+>>>> order work on the same sink.
+>>>>
+>>>> Patch 3 is the fix. Patch 1 is needed on BCM2712, where phy_disable()
+>>>> was an empty stub upstream, so the PHY kept running after disable; the
+>>>> Raspberry Pi tree has carried this since 2024. Patch 2 fixes a
+>>>> pre-existing race in the scrambling work cancel that the fix would
+>>>> otherwise make easier to hit.
+>>>>
+>>>> v1 was tested on a Raspberry Pi 5 running the Raspberry Pi 6.18 kernel
+>>>> with the same change applied, against the sink that showed the
+>>>> problem: plain enable at 4K60, 1080p60 to 4K60, 4K30 to 4K60, a sink
+>>>> reset and a sink power cycle all lock with zero character errors. v2
+>>>> and v3 carry the same code; the hardware test of the final form is
+>>>> still pending and will be reported in this thread. Mainline was not
+>>>> booted on the Pi 5. The BCM2711 path is unchanged except for the
+>>>> enable order; I have no Pi 4 at hand.
+>>>
+>>> While converting vc4 to the common HDMI 2.0 scrambling infrastructure, I
+>>> ran several tests on the Raspberry Pi 5 and didn't notice any (obvious)
+>>> issues.
+>>>
+>>> Hence, could you please verify whether your problem reproduces with a
+>>> recent mainline kernel?  If it does, could you also give [1] a try and
+>>> report back the actual behavior?
+>>>
+>>
+>> I suspect you didn't hit this on mainline because vc6_hdmi_phy_disable()
+>> is a stub, so the TMDS clock never stops between disable and enable.
+>>
+>> Best regards,
+>> - Maíra
+>>
+>>> [1] https://protect.checkpoint.com/v2/r02/___https://lore.kernel.org/lkml/20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com/___.YzJlOm5lYXQ6YzpnOmQ1ODUyMWJlOGIwNzJjNjNmOWRiMDk3ZmFmYWFkNDliOjc6YTM1MTpiMzBiNzY3ODAyMzBkOGM2M2U0ZjRjMTY2MzE5ZjVhZWZjY2QxYmRjZDBlOWI4MzI0MGYxMjkyNjQ1Y2NkNzJiOnA6VDpG
+>>>
+>>> Regards,
+>>> Cristian
+>>
+>>
+> Hi Cristian, Maíra,
 > 
-> This solution allows both applications and the fgds device to work
-> seamlessly with GPUs from different vendors without any modifications.
-> Furthermore, applications no longer need to call vendor-specific
-> proprietary APIs (such as NVIDIA's cuFile API) or install vendor-specific
-> kernel modules (such as NVIDIA's nvidia-fs.ko) for different GPU vendors.
-> We have tested fgds on NVDIA and AMD GPU cards, and theoretically, it also
-> works on GPUs from other vendors that support exporting GPU memory via
-> dma-buf. Some performance test results can be found in [1].
+> Tested on a Raspberry Pi 5 with the Raspberry Pi 7.3 tree [1] as base
+> (pure mainline panics at boot on this board). That tree carries
+> vc6_hdmi_phy_disable() implemented, so the clock does stop on disable.
 > 
-> This implementation offers several advantages:
-> - Simplicity and Efficiency: It provides a lightweight and intuitive
->    interface. The single ioctl call mimics the parameter structure of
->    pread/pwrite, and its return value semantics are fully compatible with
->    pread/pwrite
-> - Isolation and Security: The interface is independent and has a minimal
->    impact scope. This isolation facilitates fine-grained permission control
->    on the device node, enhancing security management
+> 1. plain rpi-7.3.y: 4K60 never locks.
+> 2. 7.3 + my patches: all lock.
+> 3. 7.3 + the 7.4 scrambling infrastructure + Cristian's 9 patches: same
+>     failures as in 1.
+> 4. same as 3 + drm_connector_hdmi_enable_scrambling() moved before
+>     phy_init() and drm_connector_hdmi_disable_scrambling() after
+>     phy_disable(): all lock, zero errors, picture on the panel.
 > 
-> Changes since v1:
-> - Refactor implementation per Christian's feedback, on top of Pavel's
->    DMA-buf support for io_uring [2]
+> Maíra, I also tried 3 with vc6_hdmi_phy_disable() emptied again, as on
+> mainline: same failures as in 1. So the stub is not what hides this.
+> Cristian did not see it because his sink re-evaluates
+> TMDS_Bit_Clock_Ratio after the clock is running and forgives the late
+> write, as most TVs do. Ours samples the bit when the clock first
+> appears and never again. So to reproduce the issue you need a strict
+> HDMI input.
+> 
+> Happy to send a v4 on top of Cristian's series, with the two helper
+> calls moved and patch 2 dropped since the common helper already cancels
+> synchronously, if that is the preferred order.
+> 
 
-People already replied, but I'm going to elaborate a bit. That series
-[2] already exposes a uapi via io_uring, it's device agnostic and all
-that. The framework was made to allow multiple users, perhaps folks
-have some kernel-internal users in mind, but a completely new
-read/write uAPI looks unnecessary, especially an ioctl() based one.
-It sounds like [1] is already using io_uring, so it doesn't sound
-like a problem that the entire uapi is io_uring based(?).
+As your patches are fixes, I'd prefer to push them to drm-misc-fixes and
+then Cristian's would rebase on top of your patches, as their patches
+will go to drm-misc-next.
 
-> - Add validation checks in the XFS I/O submission path to ensure that
->    bios with the REQ_DMABUF flag are only processed via direct I/O, and
->    prevents the kernel from attempting to fall back to buffered I/O, which
->    is incompatible with DMA-buf backed GPU memory regions. While currently
->    supports only XFS, the underlying mechanism is filesystem-agnostic and
->    can be adapted for other filesystems with similar minor changes
+Are you okay with this plan, Cristian?
 
-xfs support it a it orthogonal to the uapi question, but it should be
-implemented in xfs and not side stepped. There is an RFC on the mailing
-list from Anuj and Nitesh that is trying to do that.
+Best regards,
+- Maíra
 
-> - Address the comments from Greg and the Sashiko AI
+> [1] https://github.com/raspberrypi/linux/tree/rpi-7.3.y
 > 
-> [1] https://github.com/Storage-and-OS-for-AI/fgds
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git/
->      tag/?h=for-7.4/io_uring-dmabuf-20261023
-> 
-> Mengmeng Zhao (1):
->    misc: fgds: introduce GPU-File direct I/O via dma-buf
-> 
->   .../userspace-api/ioctl/ioctl-number.rst      |   2 +
->   drivers/dma-buf/dma-buf-io.c                  |   3 +
->   drivers/misc/Kconfig                          |  16 +
->   drivers/misc/Makefile                         |   1 +
->   drivers/misc/fgds.c                           | 506 ++++++++++++++++++
->   fs/iomap/buffered-io.c                        |  11 +
->   fs/iomap/direct-io.c                          |  23 +-
->   fs/xfs/xfs_file.c                             |   4 +
->   include/linux/iov_iter.h                      |   4 +
->   include/uapi/linux/fgds.h                     | 124 +++++
->   lib/iov_iter.c                                |   1 +
->   mm/filemap.c                                  |  22 +-
->   12 files changed, 713 insertions(+), 4 deletions(-)
->   create mode 100644 drivers/misc/fgds.c
->   create mode 100644 include/uapi/linux/fgds.h
-> 
-
--- 
-Pavel Begunkov
+> Thanks,
+> Lucas Tanure
 
