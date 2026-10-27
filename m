@@ -2,60 +2,106 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A94606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:19:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796D960A2637
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:22:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=X4h2WWV5
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N3HapJ2f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87FF910E487;
-	Tue, 27 Oct 2026 20:19:32 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 507AA10E487
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 20:19:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793132363;
- bh=vDPdrRiyUL1FypybXVAL8Ck06MvORvilMP3KlioLSSM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=X4h2WWV5chjNCHuyEK1C1CGNB/yeF6RYj/nwHXe06ltvBfsN8Eye7OebM7xzJptka
- Y/UZw2bu1lLtQbMlefkZQp2sd3swGsoETh6pw8bK5sYKfs1U4OabEQcGUDxFbMF0KA
- qvNge9ddk59MjHSluO0ZJb3ZYcHzTAWpprT5fnVnGgI3eOMhrBwq7LkGLrE8sbfK2i
- dcbDgw9qV2e9eBLnSyKsShUhmMrvEDRpB5PDL36dr8PnLsujeo4HxZdYMy/ePUUaNf
- ishCEu8VFkPYyQ5eDByWNaSpZdVBxLMyvHxcruxxFJe10aand8a7emX5ZHjS5FprTm
- MKDtfP52Dd2CA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C468917E03FF;
- Tue, 27 Oct 2026 21:19:22 +0100 (CET)
-Message-ID: <f534555a-b62f-4bf9-96cf-ebd74b4b30f0@collabora.com>
-Date: Tue, 27 Oct 2026 22:19:22 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id D798A10F7D1;
+	Tue, 27 Oct 2026 20:22:18 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 149C110E00E
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 20:22:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1B9216022F;
+ Tue, 27 Oct 2026 20:22:11 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1793132530;
+ b=EWZC22WEaQU51J58IcLuBHUOLKlAASB9LI35uKu8D6DTXdkSxMbajdev5jAwwyCgQ8AP
+ sU2b1djgJhksff27klYhUjpncbiz7PNG7xvz0U95sIXI5vtTSyzzL24+KJ4ur9eP9WTGM
+ jyLpZL5ig2g9RD3KQ3fYUx9ATa/6mEjA6zy6adCg0l3qmNyt6VD7ZqZwlU97e3QXHAVxA
+ AcRGSV3/NN2WUBquWTZcMoCDpnaW1tc33njH/k4BRymJkkHOxJzvspGSdEQDlmLKH//Qp
+ 56/5qmHQRhfuLm2E78oqJJIpuaKCBuZzNEi6Y/cthpSx4IPuueFxGVROZRSj3nrMH5A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1793132530;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=eNbUTGE4iSA32nWe/S568aDGz8kAgMHCOwq3b3eGgaE=;
+ b=hsqAMtoyFY7nuDQAnWenwz5I3vqLkzr3uWYc1VeTeTYHAv++EBhvveAWAgH7i/RY9ftL
+ IMdVTUaQF5AD5iy7DZHCQl1OEfxUCxuOfTw+4AIFEgFQS0Qgurz4LrbmufL1WXjo2vokW
+ fNZxO+V5RtIp+g9BjqCFzwXOBs3MuxvfMMVwX3YFEgRH3NfMMvTjfX7C7j25UkTXWXYde
+ XkrkYa0Y4a/ne9FXYC65Lc83H4FZ0kSUPnwQx8hxkVkJZcFG4BtAE845RzZ9V7Drimi5t
+ Itf48Vogude42yaOzqBLc+WK9soHhJ+BZaXja3t8F1ZE3q1XfeQOiF7MJ+ZYbl2lrXA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 308451F01828;
+ Tue, 27 Oct 2026 20:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793132530;
+ bh=eNbUTGE4iSA32nWe/S568aDGz8kAgMHCOwq3b3eGgaE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=N3HapJ2fbzCS85B3rok2hRCgd7zkipjLYtUW3v3UMcNM54r5/Es8HGM9jpePI1tLe
+ fwZb/bx+37PVuJ1qoNmCUAF9TLs0pahpBvY9yfhyGUYmxNiX99LHuVwQ6FIpGdSzG9
+ ONjofovPKKip54Lo7J28wS9ezivKiBFJGJBeldv/DHRyfHWi+gmaB/QIRKM+2Kticg
+ HZnH8fcT5gGOtQ3y9XtWXU6mHJdQLCVj+V8o9j/vE6UyAVmApHTUcgWcvZw4FUL4jH
+ OjYD0MjoD/ihHBp9W/kC/XQu3ZVj/q5c7aenoFRjwZjMiqOLQOmNRa1z2Kj+2VlFwC
+ a86ioXwJDHAnA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id ADB44451FD;
+ Tue, 27 Oct 2026 20:22:09 +0000 (UTC)
+From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
+Date: Tue, 27 Oct 2026 14:22:03 -0600
+Subject: [PATCH v13 03/39] vmlinux.lds.h: drop unused HEADERED_SECTION* macros
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS
- clock starts
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Lucas Tanure <lucas.tanure@neat.no>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Dom Cobley <popcornmix@gmail.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261026164028.78792-1-lucas.tanure@neat.no>
- <at_4EgWZFghkRHzH@collabws.localdomain>
- <a8b9450f-af4b-47bf-b7b1-3b326ed52dfc@igalia.com>
- <CALt7t=Ef9LS5vNOZq7JGZ1n-L5rgMk7mXBGE66jicfdkqAC35g@mail.gmail.com>
- <a054e9e4-304a-427c-b78f-973fd06f1199@igalia.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <a054e9e4-304a-427c-b78f-973fd06f1199@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-dd-cmap-part2-clean-v13-3-9267923be612@gmail.com>
+References: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
+In-Reply-To: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
+To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Jonathan Corbet <corbet@net.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ John Ogness <john.ogness@linutronix.de>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+ "Jason A. Donenfeld" <Jason@zx2c4.com>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=1428;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=+Qnp7GmBGhxUf7BnWtOhBW1ycfqvD4UBWUm58PMJxJU=;
+ b=Lkizb67hB5HUobqhhQfE3LJEkLk1XV2kLlvsK5XlQIH+h8FJzA/WsMungFxLnUmXUbIOBuQIK
+ lvvI81jftZFBqtzQzuT2kd9LLcm6oZjHi6RKC82FIDDPrKLd8jwbHCU
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
+ auth_id=958
+X-Original-From: Jim Cromie <jim.cromie@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,132 +112,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: jim.cromie@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Maíra, Lucas,
+From: Jim Cromie <jim.cromie@gmail.com>
 
-On 10/27/26 3:58 PM, Maíra Canal wrote:
-> Hi Lucas,
-> 
-> On 27/10/26 10:53, Lucas Tanure wrote:
->> On Tue, Oct 27, 2026 at 1:07 PM Maíra Canal <mcanal@igalia.com> wrote:
->>>
->>> Hi Cristian,
->>>
->>> On 26/10/26 22:23, Cristian Ciocaltea wrote:
->>>> Hi Lucas,
->>>>
->>>> On 2026/10/26, Lucas Tanure wrote:
->>>>> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
->>>>> the TMDS clock is stopped and to start the clock at least 1 ms later.
->>>>> vc4 writes the bit, and enables the scrambler, at the end of the enable
->>>>> sequence, long after the PHY has started, and clears it before the PHY
->>>>> stops. A sink that samples the bit when the clock appears never locks
->>>>> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
->>>>> order work on the same sink.
->>>>>
->>>>> Patch 3 is the fix. Patch 1 is needed on BCM2712, where phy_disable()
->>>>> was an empty stub upstream, so the PHY kept running after disable; the
->>>>> Raspberry Pi tree has carried this since 2024. Patch 2 fixes a
->>>>> pre-existing race in the scrambling work cancel that the fix would
->>>>> otherwise make easier to hit.
->>>>>
->>>>> v1 was tested on a Raspberry Pi 5 running the Raspberry Pi 6.18 kernel
->>>>> with the same change applied, against the sink that showed the
->>>>> problem: plain enable at 4K60, 1080p60 to 4K60, 4K30 to 4K60, a sink
->>>>> reset and a sink power cycle all lock with zero character errors. v2
->>>>> and v3 carry the same code; the hardware test of the final form is
->>>>> still pending and will be reported in this thread. Mainline was not
->>>>> booted on the Pi 5. The BCM2711 path is unchanged except for the
->>>>> enable order; I have no Pi 4 at hand.
->>>>
->>>> While converting vc4 to the common HDMI 2.0 scrambling infrastructure, I
->>>> ran several tests on the Raspberry Pi 5 and didn't notice any (obvious)
->>>> issues.
->>>>
->>>> Hence, could you please verify whether your problem reproduces with a
->>>> recent mainline kernel?  If it does, could you also give [1] a try and
->>>> report back the actual behavior?
->>>>
->>>
->>> I suspect you didn't hit this on mainline because vc6_hdmi_phy_disable()
->>> is a stub, so the TMDS clock never stops between disable and enable.
->>>
->>> Best regards,
->>> - Maíra
->>>
->>>> [1] https://protect.checkpoint.com/v2/r02/___https://lore.kernel.org/lkml/20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com/___.YzJlOm5lYXQ6YzpnOmQ1ODUyMWJlOGIwNzJjNjNmOWRiMDk3ZmFmYWFkNDliOjc6YTM1MTpiMzBiNzY3ODAyMzBkOGM2M2U0ZjRjMTY2MzE5ZjVhZWZjY2QxYmRjZDBlOWI4MzI0MGYxMjkyNjQ1Y2NkNzJiOnA6VDpG
->>>>
->>>> Regards,
->>>> Cristian
->>>
->>>
->> Hi Cristian, Maíra,
->>
->> Tested on a Raspberry Pi 5 with the Raspberry Pi 7.3 tree [1] as base
->> (pure mainline panics at boot on this board). 
+These macros are unused, no point in carrying them any more.
 
-I recall encountering this issue a while ago and spent significant time
-bisecting.  The faulty commit was d87773de9efe1
-("clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when running
-VHE"), introduced in v7.2-rc1.  Reverting it restored the normal boot.  
+NB: these macros were just moved to bounded_sections.lds.h, from
+vmlinux.lds.h, which is the known entity, and therefore more
+meaningful in the 1-line summary, so thats what I used as the topic.
 
-Note this was later addressed via commit 94f39e4c017e
-("clocksource/drivers/arm_arch_timer: Workaround bcm2712 broken EL2 virtual
-timer"), part of the v7.2 kernel release. 
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/asm-generic/bounded_sections.lds.h | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-Which is the mainline version you've tried?
+diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
+index 8c29293ca7fb..268cdc34389b 100644
+--- a/include/asm-generic/bounded_sections.lds.h
++++ b/include/asm-generic/bounded_sections.lds.h
+@@ -18,19 +18,4 @@
+ 
+ #define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
+ 
+-#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_HDR_##_label_	= .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_label_##_HDR_ = .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_BY(_sec_, _label_)				\
+-	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+-
+-#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
+-
+ #endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
 
->> That tree carries
->> vc6_hdmi_phy_disable() implemented, so the clock does stop on disable.
->>
->> 1. plain rpi-7.3.y: 4K60 never locks.
->> 2. 7.3 + my patches: all lock.
->> 3. 7.3 + the 7.4 scrambling infrastructure + Cristian's 9 patches: same
->>     failures as in 1.
->> 4. same as 3 + drm_connector_hdmi_enable_scrambling() moved before
->>     phy_init() and drm_connector_hdmi_disable_scrambling() after
->>     phy_disable(): all lock, zero errors, picture on the panel.
+-- 
+2.56.0
 
-Thanks for testing all this.
 
->> Maíra, I also tried 3 with vc6_hdmi_phy_disable() emptied again, as on
->> mainline: same failures as in 1. So the stub is not what hides this.
->> Cristian did not see it because his sink re-evaluates
->> TMDS_Bit_Clock_Ratio after the clock is running and forgives the late
->> write, as most TVs do. Ours samples the bit when the clock first
->> appears and never again. So to reproduce the issue you need a strict
->> HDMI input.
-
-Yeah, that's probably why this issue went unnoticed - most displays are pretty
-tolerant and don't require 100% spec conformance.
-
->>
->> Happy to send a v4 on top of Cristian's series, with the two helper
->> calls moved and patch 2 dropped since the common helper already cancels
->> synchronously, if that is the preferred order.
->>
-> 
-> As your patches are fixes, I'd prefer to push them to drm-misc-fixes and
-> then Cristian's would rebase on top of your patches, as their patches
-> will go to drm-misc-next.
-> 
-> Are you okay with this plan, Cristian?
-
-Yes, but sadly I will not be able to reproduce the issue and confirm my rebase
-will not regress.  Hence I'd appreciate if Lucas could recheck this after I send
-that series out.
-
-Also, Maíra, could you please let me know when you apply the fixes? 
-
-I guess I then need to wait for drm-misc-fixes to get merged into drm-misc-next
-before I can proceed with the rebase.
-
-Kind regards,
-Cristian
