@@ -2,58 +2,139 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7594A606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:18:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3C260A2609
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=iVCr79NK
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=t0mkpAPd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D498A10F4D3;
-	Tue, 27 Oct 2026 13:18:29 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C22C10F4D3;
- Tue, 27 Oct 2026 13:18:23 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jDWJr2jMBzKpLX;
- Tue, 27 Oct 2026 14:18:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1793107100; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=PWeOBryevCm8q/A7sxlX/iP0oFz7HX9qKQxKArV12Iw=;
- b=iVCr79NK6XGQ6EgNpNOD2bIXbXL4I31nNsALqsgJRAan4PCZUas/ziri01k+UiVvLsQycr
- jEGy6QljBosVW5Jqu3A3FRH9PvEPpuR1SGd/VF9yKM8tiw3qKMJDMTnIN61hfHzO9OAalg
- +R4lzNj7N3ZHiyQkid3xUbPsvyYN6df7DO+vf2+mhbILym7f7VNh7w6qtP3E8pLywHmgky
- PNA+zG+e/z3TjI0CHMJMq+oEv4xqQ4um8e04VeTmBtozNA74R3z1gtrHt5WAgK+sTPgwlY
- jVLHV3f1canVotp7+7KSY9bxJDhgRLuFMtxsVimGTIwXsp7syZC2oZLllN1x6w==
-Message-ID: <fd9cc070b3a4e28316ad2ffce942227e33974016.camel@mailbox.org>
-Subject: Re: [PATCH] drm/amdgpu: Harden against potential deadlock
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Felix
- Kuehling <felix.kuehling@amd.com>, Philipp Stanner <phasta@kernel.org>,
- Alex Deucher	 <alexander.deucher@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Date: Tue, 27 Oct 2026 14:18:16 +0100
-In-Reply-To: <1ed5c075-c66a-4144-b23b-a9d80e1fc2c1@amd.com>
-References: <20261026141541.469727-2-phasta@kernel.org>
- <bcd63af3-d2ce-488c-ab96-2b11536cd50c@amd.com>
- <1ed5c075-c66a-4144-b23b-a9d80e1fc2c1@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB4C10F4D5;
+	Tue, 27 Oct 2026 13:18:36 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011041.outbound.protection.outlook.com [52.101.62.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58B8710F4D5;
+ Tue, 27 Oct 2026 13:18:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C3z9meoGaMzFC8BklbAXKC+hCR6relLgHcAEooE2LLRfCKhmKC+IVQ5PIl5qCP2ctKI2z8QYTGFJCu3ICXYBWIPnaIRb7tWjVFAzEEJTaZezCVjgl+6EoWRZ/ogVWsA6MhX749HW52RGRP93J5GbH0iw1QL8byG94PZaUn/VVh2HKA8B46R9CVJ52Y+JgJgbUt3bQVT8qiObWwAP/h64Z6n1p9K3D50TyRKq8IJpDIM5oxhaAAlEN1Fbm9kS8sxxcw8/6Nf/NDL4NpWkPp0HO5YaVJ9mJYJXhZHLqDKN1JcjQxws4RnBqIg0UJ6K++py/0C4vcAIIjp7a4+nwmPStw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qVc7aJ/FLgHe8RzKaxEZe7c3vRMP4oiOukOZ2uiwvhc=;
+ b=cr5cMe+TyTxnjqwgA3ynB0JwmnmVCbcrqZ79ybpJC7OzI/YP6LctRK5EyBQtF20Jy5ilWA3OfySo7gS/EY9eKkCH0aV3kaBkvnYmGDNkwk8tC4Yub14hBUsDR/wJmf41JieYk7lUSFR+JVsBX1ZfGO64ekDZ7pBLAd4E5RiMga1a0GWhuHv9Pj6akWLCXwVD70AwYsurILM8A1JeDXYY991bvQb55pZEeSDy16qWwBWxl6xj+jelt3g+/cAc26zFQxNMBwfAkvvb26AwT+DxNjajx+bdBsJQbx/yYYWi5s+iMrLHKIu5FiEqKfnDpFXgaItAMofIJXhAlyfmijSYkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qVc7aJ/FLgHe8RzKaxEZe7c3vRMP4oiOukOZ2uiwvhc=;
+ b=t0mkpAPdnm2iZie4bKooOEJywyX2k6PWTi3NO5Hjp6LtMZ85i7JaWSlh5qI8x+bhVJBoM0fXbJv+X5F2wwJry1k563CDGTj79NrdxJqdauzVzGy4OOGN30VHxNRPJvMkOBu8YsRaCs82YgZ1cp5zxslCnDiChRXG4mYDhJDgQro=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA3PR12MB8000.namprd12.prod.outlook.com (2603:10b6:806:31f::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 13:17:26 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 13:17:25 +0000
+Message-ID: <3a09ef96-45a6-486f-b482-fd34c27415af@amd.com>
+Date: Tue, 27 Oct 2026 14:17:16 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to
+ dma_buf_sgt_attach()
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ sumit.semwal@linaro.org, =?UTF-8?Q?Thomas_Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
+ jhubbard@nvidia.com
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-24-apopple@nvidia.com>
+ <27307d58-9ca9-4624-a564-6e35fb4befb5@amd.com>
+ <20261027123859.GE1671235@nvidia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261027123859.GE1671235@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR03CA0061.namprd03.prod.outlook.com
+ (2603:10b6:208:329::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: buiiipye989ra698z48roho9cbycqgfu
-X-MBO-RS-ID: 7b35dd1fa6a48d1be36
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB8000:EE_
+X-MS-Office365-Filtering-Correlation-Id: 173ae5ad-f690-43ae-6d03-08df342ca42c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|22082099003|18002099003|261026140227099003|56012099006|11063799006|4143699003|261021121427099003|10067099003|261022105027099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info: bfWwPUC+F8vxijDrWkh3g2l2iXHWwcZ5LvE4ceB03Ew3v26OT2EkPReRIwFxEVG8u0EACcos7Q9fNgjRYCTMiX313m6JUFfwH9uKTpDgU9AkwlfOZKFEyK1qE5PgGXP4SVMxR+8d+ISc5jNoTZJb6P8quUD+BcJHbuvjzb8xa3VmbQ1xCYUAjxDLLGyA627n3zznVBYRFIrVTCoTnB96nn6xCYZemBFZlogbtDA2djYK2YGFlQUY/rT8gPAma8KT2Dd5ts7m1Fd+j4fDP2A0GSD9F+UCuHpqZTuEleS6fpf7/fML9WE4NRgOb3Nomq0bOPLcRW3hwfOG282wmlQKlyk11ZQqeKdDGn9SK87/fW38jwCaaujffDL8yL9vNOhGNuAvjLWC4JKkxhkrpyTTDsAz4GhJHJ+zerlQryt/g7jOt+48nW8Iyi919TxyaX3V0BpYV3YNg0vevllBStS02zp5GL8j5rtyZ3UMxflf01tBWqt+6rH4nU387nWWe0TBE0xLTVY5SV5JT57OKOeq3RTRXpkCtMU2aFueOqxqSN8BrAgBEcAjwVo2AE2/GK0fVGlwHXVWzhk1j1Hji1H+yy3zNkebM4UxTL7v2zszWKtFjU4r2Ps5hlrkB8PFbJPeCdDDShK93SZ/vEMs20B7tgmXKkwqgb0oL/M4zN41g9k=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(261026140227099003)(56012099006)(11063799006)(4143699003)(261021121427099003)(10067099003)(261022105027099003)(261026121527099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnBISzRkdzRSOVdNV0w4VWNISS9WV1FHZmkyUE91Tm1ndUZxTnZUdlVxQ1du?=
+ =?utf-8?B?YklIU0Yva053WENoUE9HbHRHNFFib21yQ1JWREZXUmFnWmZ1Tjh6bHVJdVp5?=
+ =?utf-8?B?NGFrbVJXWFhCSHdDK2xJK3JqMVNhR0l0VmZuU2Y4dk81ZVZ1ZmtJOE1wdlVZ?=
+ =?utf-8?B?dDgvMjlIWXF0M3F1clFGSG5EZmg0TVdUazFNdEJoMWJZMlNjOXAxU1NadVFF?=
+ =?utf-8?B?UlJMUHB1S1E5R2s1WWhWcHhmUks4VEJaVWpMcEUzQjRWeTgwcG9ZQkU3dnVo?=
+ =?utf-8?B?VVB5YWcrMlRoNkdHZ0p4N0UvWkN5RVp5TXUvM0hHY2FmRU1ZdDlrYTlYZ1BS?=
+ =?utf-8?B?L3RSQklBYUhmcmJZYkk5czI4Z3hJeWZCclBqTVdkT3hOUkw0SURTeWp1ZEdL?=
+ =?utf-8?B?SWxHZE5tNnpvWWVaWmJDY21QTFJXdEFvV1dxWFl0Q2JVdy9mWVNBUXhzYm9Z?=
+ =?utf-8?B?NEtFMm5EbWJHQ2l5QnZ3WnpmU3FNTmk4L1Z5eE5QTFd6MzRQQlFDM1Y5a3h0?=
+ =?utf-8?B?Rnk1OUdXek5IL0xscXFMeUpHdmQzQzk4Vnh3dG1NK1ozNEN4Wm56Um5rZTht?=
+ =?utf-8?B?UnlvNVlaUFAvTS83d2hCWC9aai85Y1BxMDBsNkNiNmhmQVdlUWNHdnVRL2th?=
+ =?utf-8?B?L1cydGZDd1ZqWG9oZjJwVERBR3ZvTklFRDY2Ym5oeVhoWE5tQUM0WWx5OFVP?=
+ =?utf-8?B?ZmowczRSTksxWUVZb1pIQVNId2NubmRvdmo1TWNvRmd2aDUyMytnajdNMURB?=
+ =?utf-8?B?SjluU3ZFT1hWbWtrbWRsNmVwTkV5RUxEQytZTFA2TnptMkNEcWtObDlTMDAv?=
+ =?utf-8?B?S3NFblVWOHZtY2F3VjgxMGc5ZWh0WVdjNXprTEc2SmxPOTB4eXZkTHhBT1JJ?=
+ =?utf-8?B?aEtyMDErMUY0YXFOMGVQL0dCY1hTY0d5UHZtNHowRXZFTzJNWkFKdTlvbWgx?=
+ =?utf-8?B?RkRqbG8wMlhmV1lWVi9Tc1E4QkpNRDlEZW5lcVA0eDJzWmlTRXhvaFFIcVd4?=
+ =?utf-8?B?ay9BSkc5d09MS2lqeXBGQnV5Yml3WEJ4d2RJUzc0bVpMS3k4U280Sk5vaE9J?=
+ =?utf-8?B?akxYZDI0MDlrb2F2cW1za1lIM21CMzdXQzdFNFFlREVEQ3BEUmY2SW1lNlNK?=
+ =?utf-8?B?cjRTbGdsTm1iclZBSTRnMWMzNDhCdEhzc0ZoTjF0N1FCekFrN25iTDVKak90?=
+ =?utf-8?B?dzdJendHbUltbFRTYWlObEJTT0RqYUd4QTQ2WElzM1A4RHpPazZnbkd0VFI2?=
+ =?utf-8?B?aEhMS3JDRWcvTmo5ZEhONVNKTXBjeERsRzBBZERjR081Q2thZElXK3V1VEhD?=
+ =?utf-8?B?MGwzb0tnRHV5RVZzWmtwUXozak5JODBhT3hCYXRTckhNdFlZOU5EVUt1SXdQ?=
+ =?utf-8?B?OG1iT3BpeHA1djBYNUFQRHdMOHZNb3dqL3VvZ01lMVhqcjJtMmJkYmRlMnlw?=
+ =?utf-8?B?N2pGMmJWRGFkb2lLbGRrZDVMZEhzc2FWRHRMMWN2dDZ0UWRrYmxRTjZ6eXJS?=
+ =?utf-8?B?c1V2aVhTNnVmTExDVmZKUW5sZnRWYkdqVHZGYUtSSzNNYTNpcnE1YnRWRXEr?=
+ =?utf-8?B?RHM1eUFMQStsMStaMlF4VlVOTk56eEsyN1hVY2dLdDJJYnNrMUorTFAyaDZm?=
+ =?utf-8?B?VlozWEo4UVNSZmxiR25KRzVVNmJ2eExTRUcxVkxhUE1XRHd2OGNNNElrOGJm?=
+ =?utf-8?B?cHM0dEhsc2ozM05qeUVXa1VBMXkxcFJPTVZLUHhxK1NJbXFXN0c1Q0hyK0dW?=
+ =?utf-8?B?Tm1UaytOajk4a3pBQ0xucUtSTlRoS1ZkdVMzb3lBeGF2L1V4NEF2ZzRWRlho?=
+ =?utf-8?B?dW9YMnh0OU9QM1hlRmNjOXdCcWg4emVRU3UrNnYrbmduVVR6SHFyTWk1TVE1?=
+ =?utf-8?B?Z0JHanNJS0dIdlNocHBjNTNkYUE5KzU1bEEzNFM1ak1nQ3ZISWdKWEcyZ3hG?=
+ =?utf-8?B?b2VQTllnaVV4Ri9CNXZCTjFyU3REWG5rVytNRWNiR1pmUG5QaHdJZ2hSdGhN?=
+ =?utf-8?B?MWdidnVUKytNN3Jha1c3SXQ2bGpGVWo0cnIxQlE1KzdCYTUzUHRueDFlRXc2?=
+ =?utf-8?B?dVNhNnRKK2VPdnpEbXZuWXhkVlNVQlRpaHR4M2lYNkdNb25jVDduSHFHendB?=
+ =?utf-8?B?aEVhV1lhQ2RzOW9YL3JmRERmeEtzNnlqRmExSE51NEtuQWE5c3prZFJuRUxp?=
+ =?utf-8?B?em5qTy9BZDdYMk9CNEwySWhRWEs5QWNwZmUzbHcrWHUxVlNXY0NSV1NYV3lW?=
+ =?utf-8?B?emQ5N1Jpa0xod2RndlpDNmpvYlRKcWZhaFZWZ045TGs4M0kxWEx2aE1zWGVV?=
+ =?utf-8?Q?QG/kn5yl8qzOTkSJ45?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 173ae5ad-f690-43ae-6d03-08df342ca42c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:17:24.8809 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 49IhY6W+4wNODHOl5++jxYzs4scw3BTnYBPOIRwAoap/oeMI1YRt3433jK48/86u
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,38 +145,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 2026-10-27 at 12:51 +0100, Christian K=C3=B6nig wrote:
-> On 10/26/26 19:31, Felix Kuehling wrote:
-> > We don't implement ops->signaled, and we explicitly signal the
-> > fence from SW with dma_fence_signal or dma_fence_check_and_signal.
-> > So the signaled flag should be the only thing that needs to be
-> > checked. The flag is only set while holding the fence lock, and
-> > checked while holding the fence lock. So in theory, relying on the
-> > check in __dma_fence_enable_signaling should be safe.
->=20
-> I actually had a patch to remove that one send out month ago already,
-> it was just never merged.
->=20
-> The call absolutely doesn't make sense since the ops->signaled
-> callback isn't implemented and the bit tested before the enable
-> signaling callback called.
->=20
-> I can take care and push the removal to amd-staging-drm-next when I
-> find time.
+On 10/27/26 13:38, Jason Gunthorpe wrote:
+> On Tue, Oct 27, 2026 at 01:07:36PM +0100, Christian König wrote:
+>> On 10/26/26 06:36, Alistair Popple wrote:
+>>> From: Jason Gunthorpe <jgg@nvidia.com>
+>>>
+>>> This attach function always creates a SGT mapping type importer.
+>>
+>> Yeah that is a clear NO-GO. The attachment should be the same for
+>> the new interface as well.
+> 
+> Not sure I understand this comment...
+> 
+> This was intended as a helper so that existing drivers can run through
+> the sgt based mapping type flow without having to open code it. It is
+> hardwired to only do sgt like this. If you want to use more than sgt
+> as your mapping type don't use this function
+> 
+> The point was to create a clear distinction in the API names when
+> things were in a SGT-only flow vs using the newer negotiable flow.
 
+Well that is my point, the dma_buf_attach() or rather dynamic_attach() function should still be part of the new flow.
 
-OK, but put me on Cc please. I could need that change for my other
-dma_fence-ish work. I would post the removal as a v2, too, if I don't
-hear from you mid-term
+The only difference is that the importer ops given to the dynamic_attach() functions now also contain the information necessary for the negotiation.
 
-Greetings,
-Philipp
+Regards,
+Christian.
+
+> 
+>>> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> 
+> Alistair since you rebased it you should put your SOB on every
+> patch...
+> 
+> Regards,
+> Jason
+
