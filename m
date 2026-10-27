@@ -2,67 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78AB60A381F
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 12:02:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDA9606A332
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 12:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XlEtH5aB
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZbCWbErq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4715C10F41A;
-	Tue, 27 Oct 2026 12:02:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5702E10F41F;
+	Tue, 27 Oct 2026 12:02:07 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4147010F41F
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 12:01:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA9EC10F41E
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 12:01:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 84D4860232;
+ by tor.source.kernel.org (Postfix) with ESMTP id 03A166022F;
  Tue, 27 Oct 2026 12:01:51 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793102511;
- b=u7TS03UhmkoK5z0qffu3vDcXH5qwoOdX3UMCWlJMW8cgGBAW+h5ZWQErrDu0j94SUpoS
- eBTBRSteyYvI6BlwNC3cEftVKSx8J4/bzSEL+x6axRPU4TgpvEIK0WCo/8ox8ssgbtl4v
- 5g+S1lhOAlB2eUMywpbBP39TantL5/+K/ZybkuE8mNeO7sWjhnQzTQYAh+icA2vQ4hBrG
- 9aP7IB13aeZD+y4DuLBYad1c5Qd2EkSZ+xCuGHUDcqn1AngMnbjtJ+CmY9E78EjXZsm2f
- kzIJaSDe8L9JZscl+40qZ2XClpj2y077mLkAUWj3j71uSqlmz1li/4C87JfetE4lKNQ==
+ t=1793102510;
+ b=m3OrX8O+oxKtiYsWAMfxu66pk39ZFR6LpOkBLzLXiw1x4Sq0n/qkYzLEJ47E4LNOtUcI
+ X3TFWVNiBsYEclJquqRAlkNbHQOQNwNRrIKI/OFyQ6X9yRuclAOKNNqJ6ikK281Zmta+y
+ Gj1J0oy2J1oYfmzbRA4ZLH/iM1wgbbDa5MXt+kRDRM/voDBd34fMUmHZYOgjxd35UaXi7
+ PEjWJmEXKyizTLgwT0fAVCbGn8jg5tVm7iGLmaGto2RzFohYdF/V/EIshz1yXW8KbpQ+7
+ CPdxpXvIJaK5DQ//QzT9n47ReKLGSJw5H+C7yPiUV19IZznrGIGsTQpROVnQhOdwI0A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793102511;
+ c=relaxed/relaxed; t=1793102510;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=9PKoT2dIlJjvHTGxbwsQtrc6PkpA5XS+xE62DA1tMf8=;
- b=eUuDoWn21FvOTmLsdsLn/kaS3RD08/U+hrcuO5E+8FvvGAhbjSajaJL3wEQno5RKeoB5
- FVGpo5CoyO4lWCnjDL2Unr4vpW1Zs87YPac8XV+zEhDkrc7s5gZ14M1LPvblVbTBCZRIq
- 42figRPtgVUp6X+FiX+N/A0FO8Nlk1nwdsiNrz026PrmMnTU35fkTEBuu7vwwbUbq5GAK
- JAiyNXuYeh8UwZLLhmFb6EWuitqBBLztBYQ9AtYxSjeIxGIAoAQkA4C7NBNDnTDoGZzjO
- 45enb+MkOYgd+uNwy/FOjItCB8VZPjgreg0s6nPfsas6MfZxx+42XByC6YQJLIYQ7SA==
+ bh=ZzIvaYPSNTegF6XvVvXRI6A1kD3Cxh242SgobesGmXs=;
+ b=IxpMAzBs0uSNEQus6wgl6qKQEe3bvLdzZ5k6uWCZ68vNVp71C0I3+lMSJd8kQ74aAZzY
+ ugpwNMHdGKYcrdfePjzBNx7y1wDNrRcKEkq/QczZH306UEwd4SkAYajOW7/f1YAt544YW
+ Lm9QO2Mhtn1ji7IouBu9Xe21Kh22KfpDe8bU3OURa6wzx2Y7SdUBJ/0XgPI+A+1OSCpcq
+ 7Gr0E4fGrZCPE3ki5ULvdTtwF2csJ8PP+B5u9gSUKHf20+XZC0gbDwiTJ+KvhzdGkLAHC
+ wgfoZLolNNSBo9+OJI3665fNPvbaQsgvnnZhzcY0yMEvuwTupb6TDBLTF+BrQKIfGQQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 8DD881F01244;
+ by smtp.kernel.org (Postfix) with ESMTPS id 8022E1F01243;
  Tue, 27 Oct 2026 12:01:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793102511;
- bh=9PKoT2dIlJjvHTGxbwsQtrc6PkpA5XS+xE62DA1tMf8=;
+ s=k20260515; t=1793102510;
+ bh=ZzIvaYPSNTegF6XvVvXRI6A1kD3Cxh242SgobesGmXs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=XlEtH5aBTOcIcxQsLqDWZ60DYPqcIzCiM2EzxX0ul8hkxGKe91qKNVAmkXRtzrafD
- c7MYncU6sKdPCMMG+OmdVB6Q9iiNXwSufwPmqowb8PbM6BY4luQ58majTAptmV8Nff
- o1rIIhecgr+pHaxQikYg5Zn2sCluc3x9eRbQZLUQYnIGFOhDam+u/NqKo65jdwu1Am
- sZXIVPa4vSr5Q5KvpF/wNGE19652DuysTTVAtWlqEWK23L3EknWoaItmIKi9ffIWW2
- 3/82edMSeqKJcRmCBx8ZWYlk0NYnuNGjIU0XY/lkZeZq7XufdPGRbnDr9unOebiUP9
- vORj1VZShRSiw==
+ b=ZbCWbErq3mNQ1I5jP14j1p2ZuMpyJ1fLMPVE6iBF8Zl395XOMRkVdyQgu4zBHz14d
+ Ixj/en76LnrV6b0/UzzTsmwxjwSrDeM+3Trh4BKmt6kGs/rj1sOxIA/5nApmWZVkJZ
+ mLRHEw3dhzzIZ0A5OSnqmiEQprgXPGsEhN70K1CDkqkOcb8lMmVbB8m/JJTw2aW4dQ
+ FJcHHRm3VVvnm9iwfoWRbb0cl+R/x/2qJNev96M7UCQd6NVEAUYok/hdZdV8gIG4rW
+ 6McpeYUWpKVSoZixgju2DGXHv5dJ6pGcAsDSk0cq7TQLt6pTXSKVP5qxdGjFbG0LS4
+ uIWWUA2hh7uQA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 19A3A450C0;
+ by lkml.kernel.org (Postfix) with ESMTP id 0DDA4450BC;
  Tue, 27 Oct 2026 12:01:49 +0000 (UTC)
 From: Alexandre Marquet via B4 Relay <devnull+tb.a-marquet.fr@kernel.org>
-Date: Tue, 27 Oct 2026 13:01:44 +0100
-Subject: [PATCH 3/3] drm/panel_edp: Add SEC LTL101DL02-002 panel
+Date: Tue, 27 Oct 2026 13:01:43 +0100
+Subject: [PATCH 2/3] drm/exynos: exynos_dp: change poweron/off to encoder
+ enable/disable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
+Message-Id: <20261027-drm-misc-next-manta-auxbus-v1-2-3a45c3cf531d@a-marquet.fr>
 References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
 In-Reply-To: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -87,11 +88,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Henrik Grimler <henrik@grimler.se>, Hendrik Noack <hendrik-noack@gmx.de>, 
  Alexandre Marquet <tb@a-marquet.fr>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793102508; l=1407;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793102508; l=3149;
  i=tb@a-marquet.fr; s=20261023; h=from:subject:message-id;
- bh=4fctdAPZww1iVpPpwL2XCKsDWQyA0MaebiMf6gEsHbQ=;
- b=o3A1Ojwx5Tfs8ZqshJEniFaiuo4fpm96yAtfpomYTagxOiFN/Aj/7xsp+e0gp6OkNJjnZ7YW9
- ED3dMu2pOFfA+VHKoZ0ZfcyGqxEBS+XvTS8mz7I2OZfGQwjbqBh1wcq
+ bh=niciPhHYJMxmPiaLdY+j6FZWFXq5DN1CObPsB/9SrOs=;
+ b=W3oDPujpfRAKf7/x7WSPSc9GAbQ8GiBn1glOfFzN8eiBh04Wrgc4gBWJ25Z4sRJbPyYzcbcvr
+ oMRsCO0EwzkBu3vR4EGr7MhPT3QF/7aomVTJK+mslMOTFzRjBNM3q0a
 X-Developer-Key: i=tb@a-marquet.fr; a=ed25519;
  pk=zVRSO6FDK46rqmeA2GuzAhM24eFlUq1QpmXi9/KCFyk=
 X-Endpoint-Received: by B4 Relay for tb@a-marquet.fr/20261023 with auth_id=1334
@@ -119,38 +120,92 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Alexandre Marquet <tb@a-marquet.fr>
 
-Add an entry for the eDP SEC LTL101DL02-002 panel used in
-google-manta.
-
-Raw EDID dump:
-
-00 ff ff ff ff ff ff 00 4c a3 0f 9c 00 00 00 00
-05 0e 01 03 80 21 19 78 0a 87 fe 98 57 51 8c 27
-21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 14 69 00 a0 a0 40 2e 60 30 20
-36 00 1e d6 10 00 00 19 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9e
+Current functions exynos_dp_poweron()/exynos_dp_poweroff(), that
+supposedly powers on/off the device, actually only enable the encoder
+clock. This cause issues where poweron() calls fail silently in
+analogix_dp_probe(), leading in some cases to a state were the encoder
+is never enabled but the rest of the driver assumes that it is.
 
 Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
 ---
- drivers/gpu/drm/panel/panel-edp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/exynos/exynos_dp.c | 40 +++++++++++++-------------------------
+ 1 file changed, 13 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 94bc54c3833a..c92985363093 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2198,6 +2198,8 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0778, &delay_200_500_e200_d200, "134WT1"),
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x07fe, &delay_200_500_e200_d200, "LP116WHA-SPB1"),
+diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
+index 82c238829921..16b00aacd55b 100644
+--- a/drivers/gpu/drm/exynos/exynos_dp.c
++++ b/drivers/gpu/drm/exynos/exynos_dp.c
+@@ -43,39 +43,27 @@ struct exynos_dp_device {
+ 	struct analogix_dp_plat_data plat_data;
+ };
  
-+	EDP_PANEL_ENTRY('S', 'E', 'C', 0x9c0f, &delay_200_500_e50, "LTL101DL02-002"),
-+
- 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x1511, &delay_200_500_e50, "LQ140M1JW48"),
- 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x1523, &delay_80_500_e50, "LQ140M1JW46"),
- 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x153a, &delay_200_500_e50, "LQ140T1JH01"),
+-static int exynos_dp_crtc_clock_enable(struct analogix_dp_plat_data *plat_data,
+-				bool enable)
+-{
+-	struct exynos_dp_device *dp = to_dp(plat_data);
+-	struct drm_encoder *encoder = &dp->encoder;
+-
+-	if (!encoder->crtc)
+-		return -EPERM;
+-
+-	exynos_drm_pipe_clk_enable(to_exynos_crtc(encoder->crtc), enable);
+-
+-	return 0;
+-}
+-
+-static int exynos_dp_poweron(struct analogix_dp_plat_data *plat_data)
++static void exynos_dp_mode_set(struct drm_encoder *encoder,
++			       struct drm_display_mode *mode,
++			       struct drm_display_mode *adjusted_mode)
+ {
+-	return exynos_dp_crtc_clock_enable(plat_data, true);
+ }
+ 
+-static int exynos_dp_poweroff(struct analogix_dp_plat_data *plat_data)
++static void exynos_dp_crtc_clock_enable(struct drm_encoder *encoder,
++					bool enable)
+ {
+-	return exynos_dp_crtc_clock_enable(plat_data, false);
++	if (encoder->crtc)
++		exynos_drm_pipe_clk_enable(to_exynos_crtc(encoder->crtc), enable);
+ }
+ 
+-static void exynos_dp_mode_set(struct drm_encoder *encoder,
+-			       struct drm_display_mode *mode,
+-			       struct drm_display_mode *adjusted_mode)
++static void exynos_dp_enable(struct drm_encoder *encoder)
+ {
++	exynos_dp_crtc_clock_enable(encoder, true);
+ }
+ 
+-static void exynos_dp_nop(struct drm_encoder *encoder)
++static void exynos_dp_disable(struct drm_encoder *encoder)
+ {
+-	/* do nothing */
++	exynos_dp_crtc_clock_enable(encoder, false);
+ }
+ 
+ static const struct drm_encoder_funcs exynos_dp_encoder_funcs = {
+@@ -84,8 +72,8 @@ static const struct drm_encoder_funcs exynos_dp_encoder_funcs = {
+ 
+ static const struct drm_encoder_helper_funcs exynos_dp_encoder_helper_funcs = {
+ 	.mode_set = exynos_dp_mode_set,
+-	.enable = exynos_dp_nop,
+-	.disable = exynos_dp_nop,
++	.enable = exynos_dp_enable,
++	.disable = exynos_dp_disable,
+ };
+ 
+ static int exynos_dp_bind(struct device *dev, struct device *master, void *data)
+@@ -171,8 +159,6 @@ static int exynos_dp_probe(struct platform_device *pdev)
+ 
+ 	/* The remote port can be either a panel or a bridge */
+ 	dp->plat_data.dev_type = EXYNOS_DP;
+-	dp->plat_data.power_on = exynos_dp_poweron;
+-	dp->plat_data.power_off = exynos_dp_poweroff;
+ 	dp->plat_data.ops = &exynos_dp_ops;
+ 
+ 	dp->adp = analogix_dp_probe(dev, &dp->plat_data);
 
 -- 
 2.43.0
