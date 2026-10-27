@@ -2,137 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFA5606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:43:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF308606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:50:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jRvhxt0C
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QOtA1Msu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5A7810F545;
-	Tue, 27 Oct 2026 13:43:40 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010034.outbound.protection.outlook.com [52.101.85.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A17C10F541;
- Tue, 27 Oct 2026 13:43:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QOQgnjvekEMJlwIeXCP3LxbCykDPDe3bRInJuzcpNpJZof3mzqaF2X3up4ZF9ElgZMs9MfdOTUFPwjitg71iHp8vFB8AANrvi53k4tY/0G4l2/4fC0mKftk3adZHUOU/h5IHD+tgMTEa2YZbMG+HTzoDJtzT3T4yj5JLsDEn1vNZ5TLkzGqh0ra7SYqqGKXO0Oz/7MdH2eWkKUGhzRexjTITGXO7mPmFe8kuVMTV5ed3Uy/V6j+2jcYjKEW7Pg+i9hCs1PrzH8aR5VrPVL93Y3GiEz/d1HStK0bk7fsEVK+LR6Ae7l3/9zM64ediw1buSNJyxrMFmGwufx7DGTD9qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UjdwSN+oDNQxx1eqCxnif8nncHXZexKX3t0nAwz3luM=;
- b=phaomx1VQ9xIHsMqmlD1zhOMtPDOqtAjW8dirp2shrszZLDYULsctp1kznO33cYMTSWGb6e8dTfwSFYRUcadyNN+8MdAV6jn65QDnNoWW0y89KgyslaUv0xt7iKqq51oQuvkeZFAKKvzVHPOyJkOS+GP/MKZEy1iv5ut7Ef1Cq8v+Nag83q5ggzloxWX7iOa0wVGM9vflH65qDKJ6kNXfF2zrLGTN+nZeBVOy0pnBfSWZ+a1Ov8daEracL7kmkiKlX/piGS/FNaSNEmmhTTYtYPsbhiyg5EWoUSd2r/RkeFIpVhSh9OQ0OWYRrig+jGVtQLgf4tza5WTzwfg+/uCdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UjdwSN+oDNQxx1eqCxnif8nncHXZexKX3t0nAwz3luM=;
- b=jRvhxt0Cr5ousrbyTvymJZbWiqCdz0WRm/uboTngaOrIWUn+KmuUJSowEpBaO9Hwuq4wxXUmQ74LNHqTZS+GY2Ic+aSPcZGuXQtnBIXEPtpK7nYKqHjmlOXeFH3d59cOhZIRS5vHRaNAFGBMjLEvzZW86KbnAdlNr5A+BnuVd8I=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV3PR12MB9168.namprd12.prod.outlook.com (2603:10b6:408:19a::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 13:43:30 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 13:43:30 +0000
-Message-ID: <2d530a22-8817-459c-89f7-66aacfd64792@amd.com>
-Date: Tue, 27 Oct 2026 14:43:23 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to
- dma_buf_sgt_attach()
-To: Mikko Perttunen <mperttunen@nvidia.com>, linux-rdma@vger.kernel.org
-Cc: Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
- sumit.semwal@linaro.org, =?UTF-8?Q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
- Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
- <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com,
- Karl Mehltretter <kmehltretter@gmail.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
- <jB0baKUEStaR7DFEykw_Qw@nvidia.com> <20261027123308.GC1671235@nvidia.com>
- <Rajx42GMRO6ivDcA4gzBaQ@nvidia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <Rajx42GMRO6ivDcA4gzBaQ@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0428.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d1::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV3PR12MB9168:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82f8fd8e-8d24-4b87-1c03-08df3430496c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|7416014|376014|261021123027099003|261022075727099003|261021121427099003|261022105027099003|10067099003|56012099006|261026140227099003|6133799003|18002099003|22082099003|261026121527099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: ZDviRu5NoPC+UoNMAl65C7GMnmbjchsv4Rh34czYFMGb6ipxr2A7W3EGAY1DT4M8qOT+gqAW4+6QhfhEvV9mct9rlL1cbwMSej24WJaYdpw5knAuZh3fe1TQipO6v6dcZNw63zBiotnier4bt6cWZgp2nBHht3dKvtCFJv1FxCylC4Fi+lD7CO0QyNvuk070Lb8Ytwenezmk/9ZCA92poGUNrHlzqWGGSrzuXLn3SDOPKtQOWaoWxEOJ/U9Q40zm41SJvRyuPY2tnt4KTbYsvHDQgANU0f1cI+6LYmH0r0Ea7TD/gchcp64SvDgCu8MQ2mnolvUHdYsHZiSHn2fSIBCvkblN+NkIv9lJqfNZWCnJ4jH9NyujRRQXO31rcZ6DhzSP0CM/EfX7N0AStsx/FD5pew0cDwvFj2+4J0Tuokfw3D6cR3a6DsyWFg5S0GyJulJzKWJ0UVvCOQl0P+6zmFRCWdnoji3Pu6iTsfQXfENOnmEv2h4Fg/IDseeGCEdhS3FY7zYdj6BsDejZYKo7w2v8ImFE+rkvNuj5zxSod/B/G7a+9rJQbLCxk1tZZ6OC1COKOUiDzdDPjRvK9aJ6y1TMJqRBMebaNIqCNinI7JVFsIJNNF+oRGDruqa6IB4iZwhgq+T7lW5oEw8nirlGk/HRYzknIh3qNaxtkfmw+iY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(261021123027099003)(261022075727099003)(261021121427099003)(261022105027099003)(10067099003)(56012099006)(261026140227099003)(6133799003)(18002099003)(22082099003)(261026121527099003)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Um5SK3dtbllod3E2OWl2a0V6NmRLVEE0V3VCL1BFeDhkck5FWGdjSGo2cHVK?=
- =?utf-8?B?SzRQWGdtbHBYRGxmNlA4WU1yOVBnSEtOZFhQeG1sb2hOUGZQQzNCdDRoVFB4?=
- =?utf-8?B?OGx6cUxhM2lLL29tYTV1dXhueWIwTThnNlFUbjcrcTJreC9rTnNscW4xYmxP?=
- =?utf-8?B?bzBmMmZzMldVMHhwOTA3SkNmRlppbmRVQkJtODJBN0dMZktIZENBSVh3d3FV?=
- =?utf-8?B?MkNmb1pXaWp6YWpybVpzcW0zVnJ6UklpbGdkNlNJeVppdGJsdXZrUEF0bUR6?=
- =?utf-8?B?a1l5M0lzZ1FKeUJZM01tMnJBYmM1dE4vQmRTV3RJZWREV3lWWDQzUlI5RTN0?=
- =?utf-8?B?S1FCTnFJSlRtcWxDemVQYzlweGk5TlZjZHI3ZHJFWGxDaktsWkxvQXdOZmQ3?=
- =?utf-8?B?U1lGQTM3TWZsYkowZTRZRTBvNjh3cmhaRnkwbW1MUk9LUG1jblhXNHV4YzVQ?=
- =?utf-8?B?QVBCc1BsSkNUUjcwVWp4TVhWU2k3d0xkdHBFUUFRTFF4ZUNjTnF0UEZtWmRD?=
- =?utf-8?B?ckNQTGlNSGV4SlJOenllMWJLYjJ6cHdMNE5uYTNOSFRib0NoUXJwdXlZejIy?=
- =?utf-8?B?S1JvQXhqWmZrclVkeWh5Y0RNNHJQZjhWQUtsV1FrSTFsNjVhQ0F1YUphMVZW?=
- =?utf-8?B?RTlQSFcwM3VycjIvQVNiQ2R5cWVXOC9HdGNCQUtkOG9Ib2pIQzY3bU5aOHV1?=
- =?utf-8?B?TkJaZzlBMGJ3TCtvSFNBRWxWcmpBR3ZNNjVaS0VWenhMOXdERVRWWXJkYWhM?=
- =?utf-8?B?M2JFc3BZY0NaeitVdFJKeE1ZVXdKeGRIZXlpcDVZRnArekdJdXdNZG5LZGNo?=
- =?utf-8?B?ZkZJWkZObkNsMEpNRmQzbWFMMDVqTVN3T3ZPSkNyQkxGYmpPckltNmI2Y3dS?=
- =?utf-8?B?ZVM4YURxRDQzdFZrUXkrWkNmcFBDSGpFNkhhaldiMmdxUkFQd21LQ0xOSlhI?=
- =?utf-8?B?TWlWOHpQNk5mNlk2a3Z3WVVjdWF3L3UraWRHbkd4aC9IVWJzVHNKRXlvV01B?=
- =?utf-8?B?dm4vWGRXeGhDeTdKUVhTbmJoWXg1Qk4rRzlHMG1wQUtBVTJKY2o3aWtaUFI5?=
- =?utf-8?B?SXdHR0ptbVBWOXYxdkhVVDN2eFgyczR6YmtZZXBxWjBFOFF6Vnh5Z0t2a2pU?=
- =?utf-8?B?QzJUMXNJam44MEJYd0xiUDhCOS93bXh2RGh6eWZnNVJ4VTZFeGVRSWRiRFR6?=
- =?utf-8?B?dlVLMTY3YzFQTXgzZ2Q5S21nZXo3ZHpCSzByNlcwaTB4eWtHMFRVb0U2WTUz?=
- =?utf-8?B?YWhYU0owZTBMMWNxdXpzMnl6Tm9XQ2cyQVdNZEhGOG5IbXVWekJVKzV2L0hp?=
- =?utf-8?B?WlZCUnV4TXZFU3ZXdnJjTG5ONkFiWWhZcUNxMjlpa0k1UkNkUmNncHkyN3RF?=
- =?utf-8?B?ZFJBSWRGbzZaWUdiK01XQ05mb05oU1g4cU00czNOU0pPcGdNUDI5TmlrSDZ3?=
- =?utf-8?B?N3pibXIrZm4xcEJIQlJ2c3pUTFpLVEpCTEgrUHMxbDQyUUdhK0xrYUQxdG0v?=
- =?utf-8?B?Si84MWlVcDhHVVZrSmRDN0hqUEgrUUZDNWduY3NHTTNGRXhFWHZSRmUwK3lN?=
- =?utf-8?B?cWlHNUE0UngzOU5LSTVDcFlQQmxCdzBTL2hLcXJxUzIvOWFoMDQ4dzR4cS92?=
- =?utf-8?B?TkVLT0s5NEpkaVF6a1FBVllqaVV5amJPTnpmRXMvOXZ3cGpLQTlVNUpKNzNC?=
- =?utf-8?B?azhqQzFpSEdYMFU2UzRMZHNLak1UWEdIdjJSZlVQcVRTSXQxYjlnWkpwaFlX?=
- =?utf-8?B?TVdqNXRGbXhKdnJaNm1uSTdQcURyUUZ2OVhSVUlXWTVLZE12WlR4QkxhV1g5?=
- =?utf-8?B?ZFA5eE96M3hkckhLTHZueWdNTXJXb3lLNmdtcDBYZjVnMWptNmFhRDMzdFds?=
- =?utf-8?B?U1VMbHlqVllEZEpDbTlvQ0tsS1VnbzRhak9WeTREYUxORkFzdlhsT1pFK21s?=
- =?utf-8?B?M0N6cWdoc1FLblg2QzFQSE01L3A5K0hWV2hMNkViOVBISDRGbklzZEo1cGhU?=
- =?utf-8?B?TFVucENjcWFtUGhDNlhiazRDRGNyYkJxd05KcklnV3lrQmkzdmJQOCtnUytK?=
- =?utf-8?B?THFqd3ZKdVhNTUFVTUNQaDR3c3ZYWWlRZm9vMmJBN1ZLL0liZDVBOWRIQXkw?=
- =?utf-8?B?VU5TYlhyTURMR2lHV2U2Smh3MklzZk1INTdzWUtWOUJMVGVJNTV5NmFJajhw?=
- =?utf-8?B?ZDhPNzNrN09QZ251SDVyc2d0Zjh4bFdLM2RSYmZoNVRla3NIbVEzYVJ3ZzJk?=
- =?utf-8?B?ckpaRlF1eUtVcTM2NTZrb3VGeURZdmdGNGxJbXRRNlJIcC8waGhUZ3JaRDNG?=
- =?utf-8?Q?klnG/tKJr8D0Q2GcV8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82f8fd8e-8d24-4b87-1c03-08df3430496c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:43:30.6362 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XF8ovOZAWGozEZwTeWaFPEpdnB1g2wg9OwFEzxzSx3jvx4ZdpA9+W/jtWyyn58hM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9168
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2293510F547;
+	Tue, 27 Oct 2026 13:50:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7658310F547
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:50:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8B605601FE;
+ Tue, 27 Oct 2026 13:50:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B19A1F01825;
+ Tue, 27 Oct 2026 13:50:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793109016;
+ bh=35S9i99xSjmbkcw11JZGMrWUDoyfNY2Zx3y4KVe5tbA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=QOtA1MsumN1ym/AwrHCTcYhgayLZLyfnpR+2iTpXjxpyQg5UzMR15z2XI0FPFbLh7
+ ZZ1tZGGVG2My/b5POOR10jxBanQ/uTg3RuFQnKsO4X6Z7Ml5yS5/OA+HZdai7tI8mv
+ YcBFY6XJ39IZxPQtPZccFrjXUZqh4LlcJqRy5WIx7eUEEcmUmm2V+a5MHhcoQREN9V
+ oOzmmftgumiBMfF9hfTq5Qu1jrxuhJ7x/4bpQ5QGBw69PrJG15sRj/ZnX8N3PQTKdX
+ AbMmaBsc7p2f/Uje2IsgxRfVrNMW59o9Wx7fPonmBA0nlbxYtAxhg+hhEbnboAhyWO
+ kKq8Mca/NW4ig==
+Message-ID: <sashiko-outbox-186667@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 16/18] drm/bridge: analogix_dp: Declare
+ DRM_BRIDGE_OP_HPD for hotplug reporting
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261027132810.1746118-17-damon.ding@rock-chips.com>
+References: <20261027132810.1746118-1-damon.ding@rock-chips.com>
+ <20261027132810.1746118-17-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 27 Oct 2026 13:50:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,53 +49,154 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 10/27/26 14:34, Mikko Perttunen wrote:
-> On Tuesday, October 27, 2026 9:33 PM Jason Gunthorpe wrote:
->> On Tue, Oct 27, 2026 at 12:42:32PM +0900, Mikko Perttunen wrote:
->>
->>>> This page-side use predates the series, so the fault is not itself a v2
->>>> regression. Is dma_buf_sgt_attach() valid for this call site, or does Tegra
->>>> need a page/physical mapping type first?
->>>
->>> Sounds like a bug in TegraDRM; we should be using the DMA addr/length 
->>> for the explicit IOMMU mapping as the sgt attachment is for the dummy 
->>> DRM device explicitly intended to give us physical addresses.
->>
->> No, you cannot connect dmabuf to an iommu_domain. It is 100% always
->> illegal. DMABUF does not support this. Do not pass sg_dma to iommu
->> functions either.
-> 
-> Sure, I agree -- so let's say it's a bug on top of the baseline crimes 
-> TegraDRM commits :)
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/bridge: analogix_dp: analogix_dp_irq_thread() ignores force_co=
+nnected_mode
+- [Medium] drm/bridge: analogix_dp: unconditional DRM_BRIDGE_OP_HPD breaks =
+polling
+--
 
-Well the initial crime was to abuse sgt to transport dma addresses, don't document how all of this works and then be surprised when everything blew up.
+commit 38abbb3331a9d5db0a9b89496e297a81a0f82400
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-But yeah don't touch the pages in sgt exposed by DMA-buf, that is pretty much one of the most fundamental rules we have now.
+drm/bridge: analogix_dp: Declare DRM_BRIDGE_OP_HPD for hotplug reporting
 
-Regards,
-Christian.
+This commit declares DRM_BRIDGE_OP_HPD on the Analogix DP bridge, adds no-op
+.hpd_enable and .hpd_disable callbacks, and switches analogix_dp_irq_thread=
+()
+from drm_helper_hpd_irq_event() to drm_bridge_hpd_notify().
 
-> 
->>
->>> I'm currently in the process of removing the whole explicit IOMMU path 
->>> so if this only occurs with CONFIG_DMABUF_DEBUG enabled, I don't think 
->>> there's a pressing need to fix this before then.
->>
->> Yes I think this is probably the only way to fix it :| You have to
->> always use the DMA API
->>
->> Jason
->>
-> 
-> 
-> 
-> 
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index fdf3edfd298a2..44d431a89ff6f 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
 
+[ ... ]
+
+> @@ -741,9 +740,13 @@ static irqreturn_t analogix_dp_irq_thread(int irq, v=
+oid *arg)
+>  		hpd_detected =3D (irq_type & DP_IRQ_TYPE_HP_CABLE_IN) ||
+>  			       (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT);
+>  	if (hpd_detected) {
+> +		enum drm_connector_status status;
+> +
+>  		dev_dbg(dp->dev, "Detected cable status changed!\n");
+> -		if (dp->drm_dev)
+> -			drm_helper_hpd_irq_event(dp->drm_dev);
+> +
+> +		status =3D analogix_dp_get_plug_in_status(dp) =3D=3D 0 ? connector_sta=
+tus_connected :
+> +								   connector_status_disconnected;
+> +		drm_bridge_hpd_notify(&dp->bridge, status);
+>  	}
+
+[Severity: High]
+Does reporting raw analogix_dp_get_plug_in_status() via
+drm_bridge_hpd_notify() here bypass dp->force_connected_mode and
+dp->force_hpd?
+
+Previously, drm_helper_hpd_irq_event() routed through
+analogix_dp_bridge_detect(), which honours both flags:
+
+drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:analogix_dp_bridge_detec=
+t() {
+	if (dp->force_connected_mode)
+		return connector_status_connected;
+
+	ret =3D pm_runtime_resume_and_get(dp->dev);
+	if (ret)
+		return connector_status_unknown;
+
+	if (!analogix_dp_detect_hpd(dp))
+		status =3D connector_status_connected;
+	...
+}
+
+In contrast, drm_bridge_hpd_notify() calls drm_bridge_connector_handle_hpd(=
+),
+which directly overwrites connector->status without calling .detect():
+
+drivers/gpu/drm/display/drm_bridge_connector.c:drm_bridge_connector_handle_=
+hpd() {
+	mutex_lock(&dev->mode_config.mutex);
+	connector->status =3D status;
+	mutex_unlock(&dev->mode_config.mutex);
+
+	drm_bridge_connector_hpd_notify(connector, status);
+
+	drm_kms_helper_connector_hotplug_event(connector);
+}
+
+On boards where the bridge chain ends with a fixed panel (where
+dp->force_connected_mode is true) and HPD is wired up, powering down the
+panel or downstream bridge (such as nxp,ptn3460 or parade,ps8625) during DP=
+MS
+off or after ptn3460_edid_read() drops the HPD line. When
+analogix_dp_irq_thread() runs, won't it report connector_status_disconnected
+for the built-in panel and, on PTN3460 boards, trigger a continuous hotplug
+and EDID read loop?
+
+[ ... ]
+
+> @@ -1611,7 +1624,8 @@ int analogix_dp_bind(struct analogix_dp_device *dp,=
+ struct drm_device *drm_dev)
+>  		return ret;
+>  	}
+> =20
+> -	bridge->ops =3D DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
+> +	bridge->ops =3D DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT |
+> +		      DRM_BRIDGE_OP_HPD;
+
+[Severity: Medium]
+What happens on platforms where hardware HPD interrupts cannot fire while t=
+he
+DP controller is runtime-suspended if DRM_BRIDGE_OP_HPD is set
+unconditionally?
+
+In drm_bridge_connector_init(), setting DRM_BRIDGE_OP_HPD switches
+connector->polled from DRM_CONNECTOR_POLL_CONNECT |
+DRM_CONNECTOR_POLL_DISCONNECT to DRM_CONNECTOR_POLL_HPD, which disables
+periodic polling in output_poll_execute():
+
+drivers/gpu/drm/display/drm_bridge_connector.c:drm_bridge_connector_init() {
+	if (bridge_connector->bridge_hpd)
+		connector->polled =3D DRM_CONNECTOR_POLL_HPD;
+	else if (bridge_connector->bridge_detect)
+		connector->polled =3D DRM_CONNECTOR_POLL_CONNECT
+				  | DRM_CONNECTOR_POLL_DISCONNECT;
+}
+
+However, without dp->hpd_gpiod, the Analogix DP controller requires its clo=
+cks
+and PHY power to remain active to generate native HPD interrupts, and
+analogix_dp_bind() only holds a runtime PM reference when
+analogix_dp_require_pm_for_hpd_irq() is true:
+
+drivers/gpu/drm/bridge/analogix/analogix_dp_core.c:analogix_dp_require_pm_f=
+or_hpd_irq() {
+	return (dp->plat_data->dev_type =3D=3D RK3576_EDP || dp->plat_data->dev_ty=
+pe =3D=3D RK3588_EDP) &&
+	       !dp->hpd_gpiod && !dp->force_hpd && !dp->force_connected_mode;
+}
+
+On RK3288_DP, RK3399_EDP, and EXYNOS_DP without hpd-gpios (or when
+dp->force_hpd is set), the device stays runtime-suspended when idle and can=
+not
+raise HPD interrupts. Won't advertising DRM_BRIDGE_OP_HPD unconditionally
+stop hotplug detection from working on those configurations?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027132810.1746=
+118-1-damon.ding@rock-chips.com?part=3D16
