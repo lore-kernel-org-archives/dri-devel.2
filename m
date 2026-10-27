@@ -2,56 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F43606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8FE606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asmblr.net header.i=@asmblr.net header.a=rsa-sha256 header.s=1706450368.internal header.b=Kv8UBPlD
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PY4pBa7B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B40AC112055;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE5C3112058;
 	Thu, 29 Oct 2026 07:59:14 +0000 (UTC)
-X-Greylist: delayed 580 seconds by postgrey-1.36 at gabe;
- Tue, 27 Oct 2026 19:45:51 UTC
-Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl
- [85.128.243.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3E510E46A;
- Tue, 27 Oct 2026 19:45:51 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new using ClamAV (26)
-X-Spam-Score: 3.374
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
- s=1706450368.internal; t=1793129767;
- bh=GXZiXxLaCT6zNJxqGPpsw8ftIxUw0oJV+4UMcKmAg9g=;
- h=From:To:Cc:Subject:Date;
- b=Kv8UBPlDRuya9W/HtAuHl4iEbOXKZ3H6dcFBOK7RxJizWbG8bgHpq9BD+8LyVOPZz
- 4R8YWrA+kzyPpPsUR0U9cgD5q9aN5vDwBPPcjkrqiA/DFq6QeE2np2mYbx+TesOOn9
- rffwEwwMdmLPyz0N3EXCQ5RkcII23/SJH+WtKEnI4ixqAW3SGIhaaI1EYlDshM/EMO
- 92nJ4/PaEg4DCgaFm3Pk3pbSsnzl/d6t3IokfqIv6r15wYKsYQZQtt3MSGmOY8LuuF
- FsH3HjYab3CucrX0fPS+5fdGCq6cZi7Ru2w4La6r0eksZJ93L0V8BcJQZZUIOlMZCv
- P6L4Bd61JQNzA==
-Received: from milkyway (91-150-220-230.dynamic.play.pl [91.150.220.230])
- by server753313.nazwa.pl (Postfix) with ESMTP id D4CAA1BD892;
- Tue, 27 Oct 2026 20:36:06 +0100 (CET)
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>
-Subject: [PATCH 1/2] drm/amdgpu: Prevent debugfs nullptr dereference
-Date: Tue, 27 Oct 2026 20:35:58 +0100
-Message-ID: <20261027193559.28474-1-amade@asmblr.net>
-X-Mailer: git-send-email 2.56.0
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BDF910F5E6
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 14:35:36 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-6afa651700eso5964825a12.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 07:35:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793111733; cv=none;
+ d=google.com; s=arc-20260327;
+ b=T6hlEFH9XBod1jP9C0QSUWG6uqFzxZh6dO6FQz/4dwhipSfkfLcJdU/2c7EuC2HoXA
+ Q762x25J6zz68eq9tVIQExGGAZP2Gz3MsYdi2KLSj9XDjpE2p7fKtRItoBe57XavEylx
+ OSybPoRKEYGmeDDTEDisCQgp2WxBrxzNtC1C+vFZuy5Sr6SGdcWcJSFxcrkyB9wApTRp
+ PI6UjhWdOW7xP0z6FErLYGCa1vZf3WoykPgJe/0SNKpaetfdHyaYOr/y1NoKyMnvPDJv
+ iV7OviZdAhkl0Gr6I7URfD62SIjcW6Ntnh6R4UnFdh3Qhg1xuLWzP80ufySm4klASEUj
+ oiZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=R4PvwjpIeFOLVCtuRNnnzwQtCCwBRvOOzElq7eLGth0=;
+ fh=Rka+eBT7YbH1W9a/HgET10N8vLttfi0iX45InCsCQ8c=;
+ b=Rz9IM/Nj79wwLOM0CnTQrrkaGrxDPBa8bTjVuW3sC1cH5uDsSg95z/DQj8iznSXVkN
+ H/jcsVI0UFLD2zydK+gmAS49QNvUYDQZsaQ8XLFHc9tiRjaWOV+U6/qHm4sv3XSkyfuE
+ IHfGnPaSGWKxObI/ddYnr+0MMuP6chNAXkIfClUgnqhcxVBGYbUuaSXpNA6roAyLE4ht
+ jLVA4NbFR16H94N+F0TO+JdGZRbL9K40fHP3bKcmZa8kyESNJwbBsK35BUfck0WtJhSq
+ tebm7gWpFsDg9WRKDak6MAdlbEfblAyNxV8MA/Rv7r6KDA+PbkMj238Mt49pjnVYeSuB
+ 59Bw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793111733; x=1793716533; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=R4PvwjpIeFOLVCtuRNnnzwQtCCwBRvOOzElq7eLGth0=;
+ b=PY4pBa7Br1ST217j9XwmnQ0X3ByFMQLAp9U9X6QViWBP+4uAXO7m2e8meLVxc5YpY4
+ 2vvkilz6VyIeXXstd18KnDCS3Jw0/EYeIEEI1+NbKXlt3goqCWVPIoUZtQd8tiGyTQZE
+ f9lmkfvwCHNcYw7sq/Eb5QS7E1jvu2onFyfDFT6TMMoQlFgVaZ9IJOYdftNkUqJ6wswK
+ pTzV8yobIlWc7NZHf0l+afuvqJ/IdaVtGmT8quB0UFe1vFyOwHazTE3Qi9/Z+r5xsv+m
+ QJi1NBbvGFFRIjId3UONNpxWk54Zxas3+xgDHBI4q/bZVyRCU6RHJ+qeSweFUUlqz7yN
+ DNBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793111733; x=1793716533;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=R4PvwjpIeFOLVCtuRNnnzwQtCCwBRvOOzElq7eLGth0=;
+ b=GEJwxYW53atFdOc0EtEzvaTAqzIK1LZDdn2fs7xq6Pd4BlyfTXj2HYC3HFBYqcwMCy
+ 5HPj5ivLcgNmNDpw7C4oh8aE/qfSOdMvvy+t/TzwfQjvgG+Ulop/aku55RxFr6YnjBB/
+ 7VX+c4gSg6NigI0/D0i8XBNF/LNEltDsB2tDessCSfSHvuCZvlR+FDoACrDPFg9bdbMl
+ Z0V0rjvY5pT9nl+ORNqnRAzWOECS9QH2kv78Isu9EtJdi29xgEb6p9kUL7BQI6S6lkN4
+ qxD/tNC12tI+eHyw+KhKBSdI0RJpAVjJcnRGnxGSkCmNX8qEN+/37AFevPV3wme4Owz6
+ gJCA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBysUCwVjMj5TzjjJSSboxuPeqXbAPDkrC/Q/DmMaqvmDl6soTcG8cQjpone9/a7pbIqyNgGj9c7YMc=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIGDbylSnGeKT1nKyW/6hW/EhVf1/tdf5hcBI0Pt3KUz7phf/UK
+ 79qrTr+EfFhbAfTMDw/6Mt2GZR+Q5GrRx4PzX+spT2dh3fktfahUFB82KesnzxYeSsLR+TDquc5
+ dF2efTsx8ikmcWZfhdY6HlvYLfVHY174=
+X-Gm-Gg: AYBFou0p9MzEvMyc9yt9A4EW8wqfDXmUZUaST9hXJuEkV+62RduCOUFo9f29SBMqPFV
+ dPNHQ3bbE4vQhTyZYwoYnMhMtDMXfMT/QKsEvzz7z6k2MWMKy+nwjY6Fm9VGDYIaf+7mvYjLIS0
+ IyEgrsBMURMR9g+/TuJ6ibw2R8WZdeeiYxl7xWofW5VkxcoLQSP5yPe81c3ILzCTVMwdSs1ur4R
+ KiGrXyvRhV5mnogCo9wcCcM/PQN+BqeJ0J4SwF7TIQuFi/+c7ts8JYjhCK9wSJkVAlq8aSijUGl
+ Dewrh3WOkTmx5kE+W5qn3QSeWBIwlv4ekhYWchCNAh0vmC6VOQWKAy7XIIsz+CwmfRGv0ZPHI4C
+ L/GiAMAWRivkBzH25Kf+D/N8m/CDADA1XWtpqAw==
+X-Received: by 2002:aa7:d48c:0:b0:6b1:c7d9:b61e with SMTP id
+ 4fb4d7f45d1cf-6b442fe0840mr7297104a12.22.1793111733086; Tue, 27 Oct 2026
+ 07:35:33 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Felipe Agger <felipeaggger@gmail.com>
+Date: Tue, 27 Oct 2026 11:35:21 -0300
+X-Gm-Features: AclHuK-GHLEyqr6KB_kfCjwvu3tRikc3hEyilqurJguoavY6ZDCGH81xmKudJ-c
+Message-ID: <CAETh984mtGx=sJciwk0Gdfa54FXpBgE1S-0XZ-eg=BHLDveFtg@mail.gmail.com>
+Subject: Re: [PATCH v2] rust: impl_flags: add conversions for raw flag
+ representations
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Felipe Agger <felipeaggger@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Felipe Agger <felipe_life@live.com>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,59 +108,20 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+X-Spam-Status: No, score=-1.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Running
-cat /sys/kernel/debug/dri/0/psp_spirom_dump
-with amdgpu card that doesn't support it leads to nullptr dereference.
-Add checks to prevent that.
+Hi Andreas,
 
-Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 2 +-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+Thanks for pointing this out. I hadn't seen your patch when I was
+working on this.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 82a2684dbd2e..627c74f16914 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -5381,6 +5381,9 @@ static int psp_read_spirom_debugfs_open(struct inode *inode, struct file *filp)
- 	struct spirom_bo *bo_triplet;
- 	int ret;
- 
-+	if (!adev->psp.funcs || !adev->psp.funcs->dump_spirom)
-+		return -EOPNOTSUPP;
-+
- 	/* serialize the open() file calling */
- 	if (!mutex_trylock(&adev->psp.mutex))
- 		return -EBUSY;
-@@ -5473,6 +5476,9 @@ void amdgpu_psp_debugfs_init(struct amdgpu_device *adev)
- #if defined(CONFIG_DEBUG_FS)
- 	struct drm_minor *minor = adev_to_drm(adev)->primary;
- 
-+	if (!adev->psp.funcs || !adev->psp.funcs->dump_spirom)
-+		return;
-+
- 	debugfs_create_file_size("psp_spirom_dump", 0444, minor->debugfs_root,
- 				 adev, &psp_dump_spirom_debugfs_ops, AMD_VBIOS_FILE_MAX_SIZE_B * 2);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index a4ec60f6c317..975d12359358 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -574,7 +574,7 @@ struct amdgpu_psp_funcs {
- 	(psp)->funcs->update_spirom((psp), fw_pri_mc_addr) : -EINVAL)
- 
- #define psp_dump_spirom(psp, fw_pri_mc_addr) \
--	((psp)->funcs->dump_spirom ? \
-+	(((psp)->funcs && (psp)->funcs->dump_spirom) ? \
- 	(psp)->funcs->dump_spirom((psp), fw_pri_mc_addr) : -EINVAL)
- 
- #define psp_vbflash_status(psp) \
+I will use your patch as a base and send a new version (v3) of my
+patch set building on top of it,
+adjusting the missing pieces.
 
-base-commit: 83f32c773255720a661aa45d83e36278135f23f5
--- 
-2.56.0
-
+Filipe
