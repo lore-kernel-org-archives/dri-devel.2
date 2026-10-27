@@ -2,56 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4533E606A325
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 01:24:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0A3606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 01:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=L/XmS78J
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RUBbrT/U
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A208310E033;
-	Tue, 27 Oct 2026 01:24:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38DBC10E12F;
+	Tue, 27 Oct 2026 01:49:24 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1C210E033
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 01:24:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0544710E12F
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 01:49:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793064243;
- bh=GUNzZfSn47QjR6+3HlGnMBktD45Xq2bwEqIQm3r4QF0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=L/XmS78JSeNbSM0WkCRl140w6lDTbPs3lfozlZFm8BwqrzVuH3NChgQ9yB+0U4JlC
- 43pfHnIRWaNVTQ9StdKqHcfPkdJwPHr/K/CKbsEuBZld4Kz6st7yUCsoTzreyGXKs8
- pyOyhZarS+hMtfl5iymgpzJZ08anN1V38p8ZKUej2b1a0SqsnUy2ArD8liDPNACYeX
- ipgejZcT6xPVYBy5eCAPb1M7amd+UFffavzrVoSicdyAjQpf3yw9kYomnCMpRQXyfy
- 2wuxGBnU3Y1yX/fS8wIpHGtmmLMuc72TaoV/JdEbr2Fx+ZVHWYsD5918IP1jJWQIig
- hY/shSv8EmZfQ==
-Received: from localhost (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 65C8217E013E;
- Tue, 27 Oct 2026 02:24:03 +0100 (CET)
-Date: Tue, 27 Oct 2026 03:23:45 +0200
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Lucas Tanure <lucas.tanure@neat.no>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Dom Cobley <popcornmix@gmail.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS
- clock starts
-Message-ID: <at_4EgWZFghkRHzH@collabws.localdomain>
-References: <20261026164028.78792-1-lucas.tanure@neat.no>
+ s=mail; t=1793065756;
+ bh=Wbi3NY9WnYJfeKXoxOhR70QLmxw4mM2jPoXXqAXFUT4=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=RUBbrT/UfeZQyQKecbvscc15wRIqp19C98IasaXLYH8nwqeGEVK2ly52sqBdShAbG
+ RM0EUZRbamZfZAFyxfRo/GCdoaE9O1Ekzt3c3tTkwBNnwaBl89uypfNFRoughodKqi
+ b4cbG+OXQXPJOjb1EWwGNkO1k9vjiBpDH9nVUUdtC+4y+OI0O/WPGxfK9tpgCmg/xY
+ 3mLRlzRDuiHf9Yw3oJU7DKAR1aag5Z8fcc09wG7Rsfg+DjaQIPD7kUNSGDEM+OxYhv
+ IMrH6ueghpO9jyuI/GhvUg4hyfT+IETKiI2R3HpDpdKdxgHVuqiTXu60a0CbCpInPW
+ eErCLtqHNyskw==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D429B17E0254;
+ Tue, 27 Oct 2026 02:49:15 +0100 (CET)
+Message-ID: <a6314959-1287-4381-88a0-2fbc3edbe3b2@collabora.com>
+Date: Tue, 27 Oct 2026 03:49:15 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261026164028.78792-1-lucas.tanure@neat.no>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/9] drm/vc4: hdmi: Convert to common HDMI 2.0
+ scrambling infrastructure
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,48 +62,41 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Lucas,
+Hi Dave, Maira,
 
-On 2026/10/26, Lucas Tanure wrote:
-> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
-> the TMDS clock is stopped and to start the clock at least 1 ms later.
-> vc4 writes the bit, and enables the scrambler, at the end of the enable
-> sequence, long after the PHY has started, and clears it before the PHY
-> stops. A sink that samples the bit when the clock appears never locks
-> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
-> order work on the same sink.
->
-> Patch 3 is the fix. Patch 1 is needed on BCM2712, where phy_disable()
-> was an empty stub upstream, so the PHY kept running after disable; the
-> Raspberry Pi tree has carried this since 2024. Patch 2 fixes a
-> pre-existing race in the scrambling work cancel that the fix would
-> otherwise make easier to hit.
->
-> v1 was tested on a Raspberry Pi 5 running the Raspberry Pi 6.18 kernel
-> with the same change applied, against the sink that showed the
-> problem: plain enable at 4K60, 1080p60 to 4K60, 4K30 to 4K60, a sink
-> reset and a sink power cycle all lock with zero character errors. v2
-> and v3 carry the same code; the hardware test of the final form is
-> still pending and will be reported in this thread. Mainline was not
-> booted on the Pi 5. The BCM2711 path is unchanged except for the
-> enable order; I have no Pi 4 at hand.
+On 10/14/26 4:03 AM, Cristian Ciocaltea wrote:
+> This series includes patches 42-48 from "[PATCH v11 00/74] Add HDMI 2.0
+> support to DW HDMI QP TX" [1], which convert the VC4 HDMI driver to the
+> common HDMI 2.0 scrambling infrastructure as a proof of concept for
+> reusing the shared code.  It adopts the shared TMDS character rate
+> constants, switches to drm_hdmi_mode_needs_scrambling() and force_ctx(),
+> fixes -EDEADLK handling, and replaces the driver-local scrambling
+> implementation with the common SCDC scrambling helpers.
+> 
+> The infrastructure patches have been merged and there are no remaining
+> dependencies, so the vc4 patches are now sent as a separate series,
+> rebased on top of the latest drm-misc-next.
+> 
+> Tested on a Raspberry Pi 5 Model B Rev 1.1 (BCM2712 D0).
+> 
+> [1] https://lore.kernel.org/all/20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com/
 
-While converting vc4 to the common HDMI 2.0 scrambling infrastructure, I
-ran several tests on the Raspberry Pi 5 and didn't notice any (obvious)
-issues.
+This series is the only remaining blocker to finalize the infrastructure
+cleanup. 
 
-Hence, could you please verify whether your problem reproduces with a
-recent mainline kernel?  If it does, could you also give [1] a try and
-report back the actual behavior?
+Therefore, may I kindly ask if we could get this merged, so that I can prepare
+and (re)submit the last part of the original (large) series?
 
-[1] https://lore.kernel.org/lkml/20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com/
+The only patches that haven't been reviewed/acked yet are 7 and 8. Those are not
+critical, and I'd rather send them separately (together with patch 9) if that
+would let us move forward sooner.
 
-Regards,
+Thanks,
 Cristian
