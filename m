@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCE2606A31B
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:26:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B99606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:26:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbbJ3LPo
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=THsDkX3X
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38E2210F50A;
-	Tue, 27 Oct 2026 13:25:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF91C10F519;
+	Tue, 27 Oct 2026 13:26:04 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC7D710F50A;
- Tue, 27 Oct 2026 13:25:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5C910F511;
+ Tue, 27 Oct 2026 13:25:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CC78E60219;
- Tue, 27 Oct 2026 13:25:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 66FD3601FE;
+ Tue, 27 Oct 2026 13:25:48 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793107547;
- b=bRduIq07ypo9LaZDejjOBol9m/1962dwdsvP2zmkn0maM9GKYItFRO0C5g40KQK/MqF4
- ppvytMdXQA0LrMJFWLWKQ+L4Fm+wRKNpr9LpFdQfXJrHbfGyxQRiTjg0RGr7XXkkFQLO+
- wIM4DBor3/D2vRxmAiw2Asn/D1HICEMsO6BK1PVA24kBxDnwItfFxCd5yDuoiTOkY0SYT
- TsjGzFPnnyzg4fN/MdIAtRwdAjpdWBrASPl1tLFoKCurDnGSXwke5VP15WWlQk5Vj68br
- EQXCnaWBi9YySm9VaZbdbc77IDcz9/8b80PEE+uujn03KUrKEtrPpTdbZHK+L5Kq70Q==
+ t=1793107548;
+ b=thQCKuBPgSKCnoIN3m65nfF4vliTt7sC/P0ssqeAcLK3zfRNj7XnVGKy85IIVBMhY6Pb
+ qH7TkDrEzVUQ0zUu0LnAmP5CZSyZkQCef9I1uTZ1Whlx97ZXKZ3HY7v/NmzgA8ltK8KJt
+ AI9+04axi+ESYHDBwUH76O5a86qaTkvNCvZ7fvXsPsskM3Vy2SyrIYlYy/5urwLuiNA7x
+ 6okhD/7QAB6PqZDCMhz0SFvEDuumJ46MaUzZxmBNNGnAndysEz1FaNAhjk+VmA1IEYSl+
+ zsX/o0hcCBDMpvW1CuB4zzvWhOmBW0rfM+0ZzokHGl03qnhbNHAxtl9yHIi9hiDn9jg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793107547;
+ c=relaxed/relaxed; t=1793107548;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=s40smEMW0f5Ma4VaCr4Bts4wYLNWEamsEgEfivrNgUA=;
- b=hgyr0aj2dFHNUSxYPqohteKKIfbCkAFMsgB/mTMZW1IeSH8BnamqL1MpYHD6uaVOOSnX
- NGKZKYa5rgge5Dsjiki1ZjZzGpeInzWDwYBrfbGAYWxpEmS0hpOUQ3STZZBG92JbXS/Q+
- UDvB+viwu/K7tc1FdiC6nf5DXwQeVlL3zK1QwAwAzN5nixdE8rvw0x2ZYayRVAsjGbZcQ
- 1B6IMstCng0setSkg/XEXxjugJWIb3j3aaC1VHuA6akkUnuyXciaGMjt4nIFXbtT3KtM8
- 8woi5pd4VLOiwXPjZdQTEs20hOvrppdEcnbR1CzMAC+3HajkIf7RAFzuTameD2Bf65Q==
+ bh=fsVyneAuwCCRnbMVOLuO3iFk91hXl4euBvA3bqTOW9E=;
+ b=KpIwvyRZv6NugPgomWTVJ3x3tlCTJkhIzeb2/QhXBin/W5sG25znvyno7jTy33N0CvFR
+ ySnDin9gbMfJAWTJvGnbh94Jnet0b3gXoJEBFC0G/VXkh1p4R3OA5JLckobHqXWgqZJE7
+ gliohYIJlVWV1j+Yqo5v0vsc5/g6AP0iOi2CauBbmsPMzR9jx9Y3gYqMxxn73PHjzP4Q0
+ oOC1HT7Vu06lJ+/eYlbfm0Oo8/g8WR8UYiT2loRuOoRmS2EWOM31hHYNsf2OcwxraRicl
+ 2p/akINW6Qf30amY0O2+LLgdfJWyCsPRwcGNnVOYWDnNqbUCSSEN7pIPILba4MRq19Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 0AEA11F031E0;
+ by smtp.kernel.org (Postfix) with ESMTPS id 0A82F1F01829;
  Tue, 27 Oct 2026 13:25:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793107547;
- bh=s40smEMW0f5Ma4VaCr4Bts4wYLNWEamsEgEfivrNgUA=;
+ s=k20260515; t=1793107548;
+ bh=fsVyneAuwCCRnbMVOLuO3iFk91hXl4euBvA3bqTOW9E=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=BbbJ3LPo2ATptI+PnwR5XkyoUe2k14ajR1X/RiCuKrLj8dKa27ztuHnTjYHOjc8wa
- ZYnGxImAHPhN/6oZOqMdhke6v9xSIaDOGOyHM/vkdMxCYMRH2UdNIMRo9wiJyLznLf
- e8p5+knnhYUtWAS72+vpdACH4kZKahmpAsH4GGriteV54FAnpoolv6h4ZrxP+hK/GJ
- MKATi4cvLcuFdClBhyA4isKFkgmCdEaptxcHvT3KGua/mF0HFVX4DQKqOEc13KZLk9
- iyB45DNFfJ03EJ+HEL83qYJpNYpP93XJ+nlUMcg4/WQscuAS4pZz1FVUz91zMZrqHr
- OyGL2TRU1CEKw==
+ b=THsDkX3XCJban8bFO7xfDnhaAH5GxmeTOk4jtRYgUYnQvGefHPvYdmZBgk2Me0O7n
+ GdGLvFV4/PQRc4SVYIxdvpMorTQbrR16YDDM7XPUdHdHUv+HW4ultO1zkE+ONFDlqn
+ 86Xw7Xaq8PA+1m4Dw+12wwwYMm7e/y2RTMg86qwIEGW/5xhaeD6nvnKp19p1zQffCg
+ 4oZXTjDU9LGJGdrwmGqmrubjbHzGRu/gVZIlSZdeJT4ds/EnfeL2/Y4f5BRDVOJlBS
+ 378fo7Kw8KJUKvrfKJRE/QE8DhKgzDHYsKLtHtH+Q8NMcJBOieiqMeC4S/S8iaU0e6
+ 9OzFui8vlk41w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 766D1450DA;
+ by lkml.kernel.org (Postfix) with ESMTP id 8125A450F7;
  Tue, 27 Oct 2026 13:25:46 +0000 (UTC)
 From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 06:25:42 -0700
-Subject: [PATCH 1/2] drm/amd/display: Keep FreeSync flip timing across
+Date: Tue, 27 Oct 2026 06:25:43 -0700
+Subject: [PATCH 2/2] drm/amd/display: Test FreeSync flip timing across
  plane resets
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-freesync-plane-reset-time-v1-1-bb43b501faf4@gmail.com>
+Message-Id: <20261027-freesync-plane-reset-time-v1-2-bb43b501faf4@gmail.com>
 References: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
 In-Reply-To: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -73,14 +73,13 @@ To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Davey Hughes <davidralphhughes@gmail.com>
+ linux-kernel@vger.kernel.org, Davey Hughes <davidralphhughes@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793107546; l=2469;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793107546; l=11037;
  i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
- bh=w8smsIu+a5d74TM+0w5js6HnzbIYeWoiUunZBo70U9A=;
- b=XuQhEr5d/ly0qNmqbPSFTSRSyE921S+L8DE/BhEQghgfzDXAh6up4MrcGTnI84ugUZDc7qI6u
- uC8VuTaDBF+AwvtgkFbXTH28q9/Ynmh+1D0ZsIeGqEPvBlIcBe66sCF
+ bh=noQfQHHG6kH0mVBBbepkfdjvsuqRN4qDLINdKPj4CHU=;
+ b=2cl7Nd3zslu2tZjleGBfmU2sZwGvAX4dO1xxGCadiGc5raBrd1GgBflDn5V3kXaPf06JgHaXZ
+ ngrNrima+q3D258gd0XR3q6nJ++2BVBceG9GKIS5JsBhOH56eyxqwwE
 X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
  pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
 X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
@@ -109,56 +108,291 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Davey Hughes <davidralphhughes@gmail.com>
 
-dm_update_plane_state() replaces the DC plane with a newly allocated one
-whenever the plane is reset. The new plane's flip timing is zero, and
-mod_freesync_handle_preflip() runs before DC stores the new plane's
-first flip timestamp, so FreeSync takes the 32-bit microsecond timestamp
-itself as the last render time: the uptime modulo about 71.6 minutes.
+KUnit can't reach the plane enable path of dm_update_plane_state(), so
+the flip timing copy there is untested.
 
-On a panel with below-the-range compensation (BTR), that engages BTR and
-pins the frame time at the BTR mid-point (13.447 ms on a 48-165 Hz
-panel). A panel without BTR (max refresh below twice the min) goes
-through the fixed refresh path instead and locks to its max refresh
-after six frames.
+Move the copy into dm_plane_inherit_flip_time() and expose it to KUnit.
+Test that a plane reset on the same CRTC keeps its flip timing, and that
+a newly enabled plane or one moved to another CRTC starts over.
 
-It takes a reset on every flip to keep the panel there, and color
-management changes reset the plane. DRM sets color_mgmt_changed whenever
-a color property is given a different blob, even one with the same
-contents, and KWin with HDR enabled and its color accuracy setting at
-"Prefer efficiency" sets a new GAMMA_LUT blob on every commit. Plane
-resets for CRTC color changes, added by
-commit 7316c4ad2996 ("drm/amd/display: Reset planes for color management
-changes"), and later for plane color properties and colorops, made this
-reachable on every flip.
+Also flip a reset plane one 60 Hz frame after its last flip on a
+48-165 Hz panel with BTR. With the inherited timing BTR stays off;
+without it FreeSync engages BTR.
 
-Copy the flip timing from the old DC plane into the new one when the
-plane stays on the same CRTC. This covers both the BTR and the fixed
-refresh path. A plane that is newly enabled or moved to another CRTC
-still starts without history.
-
-Fixes: 180db303ff46 ("drm/amd/display: Add below the range support for FreeSync")
-Cc: stable@vger.kernel.org
 Signed-off-by: Davey Hughes <davidralphhughes@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  20 ++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   3 +
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   | 190 +++++++++++++++++++++
+ 3 files changed, 209 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bdabb4bf14da..a69e28685857 100644
+index a69e28685857..d1c1b01584ae 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6076,6 +6076,11 @@ dm_update_plane_state(struct dc *dc,
+@@ -5966,6 +5966,20 @@ STATIC_IFN_KUNIT bool should_reset_plane(struct drm_atomic_commit *state,
+ }
+ EXPORT_IF_KUNIT(should_reset_plane);
+ 
++/* FreeSync times each frame from the plane's previous flip. */
++STATIC_IFN_KUNIT void
++dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
++			   struct drm_plane_state *old_plane_state,
++			   struct drm_plane_state *new_plane_state)
++{
++	struct dc_plane_state *old_dc_plane_state =
++		to_dm_plane_state(old_plane_state)->dc_state;
++
++	if (old_dc_plane_state && old_plane_state->crtc == new_plane_state->crtc)
++		dc_plane_state->time = old_dc_plane_state->time;
++}
++EXPORT_IF_KUNIT(dm_plane_inherit_flip_time);
++
+ STATIC_IFN_KUNIT int
+ dm_update_plane_state(struct dc *dc,
+ 		      struct drm_atomic_commit *state,
+@@ -6076,10 +6090,8 @@ dm_update_plane_state(struct dc *dc,
  			goto out;
  		}
  
-+		/* FreeSync times each frame from the plane's previous flip. */
-+		if (dm_old_plane_state->dc_state &&
-+		    old_plane_crtc == new_plane_crtc)
-+			dc_new_plane_state->time = dm_old_plane_state->dc_state->time;
-+
+-		/* FreeSync times each frame from the plane's previous flip. */
+-		if (dm_old_plane_state->dc_state &&
+-		    old_plane_crtc == new_plane_crtc)
+-			dc_new_plane_state->time = dm_old_plane_state->dc_state->time;
++		dm_plane_inherit_flip_time(dc_new_plane_state, old_plane_state,
++					   new_plane_state);
+ 
  		drm_dbg_atomic(new_plane_crtc->dev, "Enabling DRM plane: %d on DRM crtc %d\n",
  				 plane->base.id, new_plane_crtc->base.id);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 594d275918d5..18dce8244af1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1266,6 +1266,9 @@ int dm_update_plane_state(struct dc *dc,
+ 			  bool enable,
+ 			  bool *lock_and_validation_needed,
+ 			  bool *is_top_most_overlay);
++void dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
++				struct drm_plane_state *old_plane_state,
++				struct drm_plane_state *new_plane_state);
+ int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 			   struct drm_atomic_commit *state);
+ void amdgpu_dm_mod_power_update_streams(struct drm_atomic_commit *state,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+index a497cce332bb..4bdb9831f508 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+@@ -34,6 +34,7 @@
+ #include "atom.h"
+ #include "amdgpu_dm.h"
+ #include "amdgpu_dm_audio.h"
++#include "amdgpu_dm_freesync.h"
+ #include "amdgpu_dm_hdcp.h"
+ #include "amdgpu_dm_mst_types.h"
+ #include "amdgpu_dm_kunit_test_helpers.h"
+@@ -3271,6 +3272,190 @@ static void dm_test_update_plane_state_detached(struct kunit *test)
+ 	KUNIT_EXPECT_NULL(test, new_plane_state->dc_state);
+ }
  
++/* Tests for dm_plane_inherit_flip_time() */
++
++struct dm_test_flip_time_ctx {
++	struct dm_plane_state *old_plane_state;
++	struct dm_plane_state *new_plane_state;
++	struct dc_plane_state *dc_plane_state;
++};
++
++/*
++ * A plane reset on one CRTC: the old DC plane has FreeSync flip history and
++ * the new one is freshly created.
++ */
++static struct dm_test_flip_time_ctx *
++dm_test_flip_time_ctx_alloc(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx;
++	struct dc_plane_state *old_dc;
++	struct drm_crtc *crtc;
++
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	ctx->old_plane_state = kunit_kzalloc(test, sizeof(*ctx->old_plane_state),
++					     GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->old_plane_state);
++	ctx->new_plane_state = kunit_kzalloc(test, sizeof(*ctx->new_plane_state),
++					     GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->new_plane_state);
++	ctx->dc_plane_state = kunit_kzalloc(test, sizeof(*ctx->dc_plane_state),
++					    GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->dc_plane_state);
++	old_dc = kunit_kzalloc(test, sizeof(*old_dc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, old_dc);
++	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, crtc);
++
++	old_dc->time.time_elapsed_in_us[0] = 16667;
++	old_dc->time.index = 1;
++	old_dc->time.prev_update_time_in_us = 1234567;
++	ctx->old_plane_state->dc_state = old_dc;
++	ctx->old_plane_state->base.crtc = crtc;
++	ctx->new_plane_state->base.crtc = crtc;
++
++	return ctx;
++}
++
++static void dm_test_flip_time_inherit(struct dm_test_flip_time_ctx *ctx)
++{
++	dm_plane_inherit_flip_time(ctx->dc_plane_state,
++				   &ctx->old_plane_state->base,
++				   &ctx->new_plane_state->base);
++}
++
++/**
++ * dm_test_flip_time_same_crtc - Test a reset plane keeps its flip history
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_same_crtc(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++
++	dm_test_flip_time_inherit(ctx);
++
++	KUNIT_EXPECT_MEMEQ(test, &ctx->dc_plane_state->time,
++			   &ctx->old_plane_state->dc_state->time,
++			   sizeof(ctx->dc_plane_state->time));
++}
++
++/**
++ * dm_test_flip_time_crtc_changed - Test a plane moved between CRTCs starts over
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_crtc_changed(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
++	struct drm_crtc *other_crtc;
++
++	other_crtc = kunit_kzalloc(test, sizeof(*other_crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, other_crtc);
++	ctx->new_plane_state->base.crtc = other_crtc;
++
++	dm_test_flip_time_inherit(ctx);
++
++	KUNIT_EXPECT_EQ(test, time->prev_update_time_in_us, 0);
++	KUNIT_EXPECT_EQ(test, time->index, 0);
++}
++
++/**
++ * dm_test_flip_time_no_old_dc_state - Test a newly enabled plane starts over
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_no_old_dc_state(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
++
++	ctx->old_plane_state->dc_state = NULL;
++
++	dm_test_flip_time_inherit(ctx);
++
++	KUNIT_EXPECT_EQ(test, time->prev_update_time_in_us, 0);
++	KUNIT_EXPECT_EQ(test, time->index, 0);
++}
++
++/*
++ * Flip the reset plane one 60 Hz frame after the old plane's last flip on a
++ * 48-165 Hz panel with below-the-range compensation, and report whether
++ * FreeSync engaged BTR.
++ */
++static bool dm_test_flip_time_btr_active(struct kunit *test,
++					 struct dm_test_flip_time_ctx *ctx)
++{
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
++	struct dm_crtc_state *crtc_state;
++	struct mod_vrr_params *vrr;
++	struct amdgpu_crtc *acrtc;
++	u32 flip_time_in_us;
++
++	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, acrtc);
++	crtc_state = kunit_kzalloc(test, sizeof(*crtc_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, crtc_state);
++	adev->dm.adev = adev;
++	/* Only pre-AI flips dereference the module, so a stub will do. */
++	adev->family = AMDGPU_FAMILY_NV;
++	adev->dm.freesync_module = kunit_kzalloc(test, sizeof(struct mod_freesync),
++						 GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, adev->dm.freesync_module);
++
++	/* 165 Hz nominal */
++	stream->ctx = dm_kunit_alloc_dc_with_ctx(test)->ctx;
++	stream->timing.pix_clk_100hz = 4083750;
++	stream->timing.h_total = 2200;
++	stream->timing.v_total = 1125;
++
++	crtc_state->base.crtc = &acrtc->base;
++	crtc_state->base.vrr_enabled = true;
++	crtc_state->stream = stream;
++	crtc_state->vrr_supported = true;
++	crtc_state->freesync_config.min_refresh_in_uhz = 48000000;
++	crtc_state->freesync_config.max_refresh_in_uhz = 165000000;
++	crtc_state->freesync_config.btr = true;
++
++	amdgpu_dm_update_stream_irq_parameters(&adev->dm, crtc_state);
++
++	vrr = &acrtc->dm_irq_params.vrr_params;
++	KUNIT_ASSERT_EQ(test, (int)vrr->state, (int)VRR_STATE_ACTIVE_VARIABLE);
++	KUNIT_ASSERT_TRUE(test, vrr->btr.btr_enabled);
++	KUNIT_ASSERT_FALSE(test, vrr->btr.btr_active);
++
++	flip_time_in_us =
++		ctx->old_plane_state->dc_state->time.prev_update_time_in_us + 16667;
++	amdgpu_dm_update_freesync_state_on_stream(&adev->dm, crtc_state, stream,
++						  ctx->dc_plane_state,
++						  flip_time_in_us);
++
++	return vrr->btr.btr_active;
++}
++
++/**
++ * dm_test_flip_time_btr_inherited - Test a reset plane's next flip stays out of BTR
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_btr_inherited(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++
++	dm_test_flip_time_inherit(ctx);
++
++	KUNIT_EXPECT_FALSE(test, dm_test_flip_time_btr_active(test, ctx));
++}
++
++/**
++ * dm_test_flip_time_btr_no_history - Test a plane without flip history enters BTR
++ * @test: The KUnit test context
++ */
++static void dm_test_flip_time_btr_no_history(struct kunit *test)
++{
++	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
++
++	KUNIT_EXPECT_TRUE(test, dm_test_flip_time_btr_active(test, ctx));
++}
++
+ /**
+  * dm_test_mod_power_update_streams_empty - Test an empty commit updates no streams
+  * @test: The KUnit test context
+@@ -5361,6 +5546,11 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_aquire_global_lock_waits_commit),
+ 	KUNIT_CASE(dm_test_update_crtc_state_unchanged),
+ 	KUNIT_CASE(dm_test_update_plane_state_detached),
++	KUNIT_CASE(dm_test_flip_time_same_crtc),
++	KUNIT_CASE(dm_test_flip_time_crtc_changed),
++	KUNIT_CASE(dm_test_flip_time_no_old_dc_state),
++	KUNIT_CASE(dm_test_flip_time_btr_inherited),
++	KUNIT_CASE(dm_test_flip_time_btr_no_history),
+ 	KUNIT_CASE(dm_test_mod_power_update_streams_empty),
+ 	KUNIT_CASE(dm_test_mod_power_update_streams_no_modeset),
+ 	KUNIT_CASE(dm_test_mod_power_update_streams_enable),
 
 -- 
 2.56.0
