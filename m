@@ -2,20 +2,20 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3282460A5BC1
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:28:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A059060A5BE0
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:28:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=bAg33LpD
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=kcO5vXQ8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE0B810F508;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA42310F50E;
 	Tue, 27 Oct 2026 13:28:36 +0000 (UTC)
-Received: from mail-m17195.xmail.ntesmail.com (mail-m17195.xmail.ntesmail.com
- [45.195.17.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ADC710F506
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:28:24 +0000 (UTC)
+Received: from mail-m81143.xmail.ntesmail.com (mail-m81143.xmail.ntesmail.com
+ [156.224.81.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFA2410F4F7
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:28:21 +0000 (UTC)
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 528777a29;
- Tue, 27 Oct 2026 21:28:19 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 528777a26;
+ Tue, 27 Oct 2026 21:28:17 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -36,26 +36,26 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
  linux-rockchip@lists.infradead.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v5 04/18] drm/bridge: analogix_dp: Return bitmask from
- analogix_dp_get_irq_type()
-Date: Tue, 27 Oct 2026 21:27:56 +0800
-Message-Id: <20261027132810.1746118-5-damon.ding@rock-chips.com>
+Subject: [PATCH v5 03/18] drm/bridge: analogix_dp: Restrict forced connected
+ status to panel endpoints
+Date: Tue, 27 Oct 2026 21:27:55 +0800
+Message-Id: <20261027132810.1746118-4-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261027132810.1746118-1-damon.ding@rock-chips.com>
 References: <20261027132810.1746118-1-damon.ding@rock-chips.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa17d8c25f203a8kunm87c266213d56e7
+X-HM-Tid: 0aa17d8c20f403a8kunm87c266213d56e0
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTk4YVkMdS0pKHx0eGkpLGlYVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTE0ZVkhDTRpLHk4fTR0fSVYVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
  pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=bAg33LpDFYn3KE8maaNTh2wgt5U7Osc1aM3q6T4K9cq0VLsPx3cV9VtCswaxXvdFCwCsaaTpr68RTKMfVa9A96Z1Z1Kg7JyL8W/2uJjiOaIr5nRpQkFFnXEtBiKj3MjBT6MT8kGsjxyM4/BICY6S0z9Q3+o5bMHAr+k5Ai6TYBU=;
+ b=kcO5vXQ8yssbBA1/7VOjo1+VKqKcsjtbpe3wcPwShKN/Mi55bmuBBYHfp4FCtAzOItRj3BdJWRGKy09NrRu7YkkGVFMLx3Ioa+uY2z1Ia4sW5HBCvVBx3lBD9+jwnTqKBLiarVC67ybXPL4hybQfaGM+iqCuWaCOTNNefPL3xd4=;
  c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=at23V6Sm/XEj5AgVEMGbCOh2EcYhRO0VbXl1RJdkTdo=;
+ bh=z7IlOPVDz65xHvVhnircAjPuEYNDnAd/2ppdOAW4azo=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,132 +76,129 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Analogix DP controllers support two sets of interrupts for hotplug
-detection: HOTPLUG_CHG, and the pair PLUG / HPD_LOST.  The current
-driver logic relies on PLUG/HPD_LOST only, and
-analogix_dp_get_irq_type() returns on the first matched interrupt
-flag, so the hardirq handler unconditionally mutes all HPD
-interrupts, including HOTPLUG_CHG and INT_HPD.
+Limit the forced connected status so that it only applies when the
+bridge chain ends with a panel and no downstream bridge supports
+DRM_BRIDGE_OP_DETECT, which is tracked by the new
+&analogix_dp_device.force_connected_mode.  For all the other cases,
+rely on analogix_dp_detect_hpd() to report the accurate hotplug
+state.
 
-To prepare fine-grained interrupt handling, convert the return type
-from enum dp_irq_type to a u32 bitmask, accumulate all pending
-interrupt flags instead of returning early, add detection for
-DP_IRQ_TYPE_IRQ_HPD, and use zero instead of the DP_IRQ_TYPE_UNKNOWN
-sentinel to indicate no pending interrupts.
+Background for the special handling:
+- If the chain ends with a DP connector bridge, the connector relies
+  on Analogix DP to perform detection. We must avoid hardcoding
+  connected status here.
+- For intermediate bridges such as PS8625 / PTN3460 without detect
+  support [1], historically the bridge connector defaults to connected
+  via drm_helper_probe_detect() when no per-bridge detect callback
+  exists.
 
+[1] https://lore.kernel.org/all/4939d55e-b560-4235-8295-adf8e48d9b74@samsung.com/
+
+Reported-by: Heiko Stuebner <heiko@sntech.de>
+Link: https://lore.kernel.org/all/5209243.oAaWjsssbx@diego/
 Tested-by: Heiko Stuebner <heiko@sntech.de>
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
+Changes in v3:
+- Add missing drm_bridge_put() after drm_bridge_chain_get_last_bridge()
+  to fix a reference count leak. (Sashiko)
+- Report panel endpoints as always connected from
+  analogix_dp_get_plug_in_status() via newly added
+  &analogix_dp_device.force_connected_mode.
+
 Changes in v4:
 - Add Tested-by tag.
 
 Changes in v5:
-- Simplify the commit msg.
+- Move the force_connected_mode check from
+  analogix_dp_get_plug_in_status() to analogix_dp_bridge_detect(), as
+  the hardware status reader is also used by the force HPD fallback
+  and the AUX HPD waiting paths. (Sashiko)
+- Hold a runtime PM reference in analogix_dp_bridge_detect(), since
+  analogix_dp_detect_hpd() may access the registers while the device
+  is runtime suspended. (Sashiko)
 ---
- .../gpu/drm/bridge/analogix/analogix_dp_core.c |  8 ++++----
- .../gpu/drm/bridge/analogix/analogix_dp_core.h |  4 ++--
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c  | 18 ++++++++++--------
- 3 files changed, 16 insertions(+), 14 deletions(-)
+ .../drm/bridge/analogix/analogix_dp_core.c    | 37 ++++++++++++++++++-
+ .../drm/bridge/analogix/analogix_dp_core.h    |  1 +
+ 2 files changed, 37 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 35b273a803a0..a3871f28b835 100644
+index 19f3cec5a691..35b273a803a0 100644
 --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
 +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -704,10 +704,10 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
+@@ -904,16 +904,42 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
  {
- 	struct analogix_dp_device *dp = arg;
- 	irqreturn_t ret = IRQ_NONE;
--	enum dp_irq_type irq_type;
-+	u32 irq_type;
+ 	struct analogix_dp_device *dp = to_dp(bridge);
+ 	enum drm_connector_status status = connector_status_disconnected;
++	int ret;
  
- 	irq_type = analogix_dp_get_irq_type(dp);
--	if (irq_type != DP_IRQ_TYPE_UNKNOWN) {
-+	if (irq_type) {
- 		analogix_dp_mute_hpd_interrupt(dp);
- 		ret = IRQ_WAKE_THREAD;
- 	}
-@@ -718,7 +718,7 @@ static irqreturn_t analogix_dp_hardirq(int irq, void *arg)
- static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- {
- 	struct analogix_dp_device *dp = arg;
--	enum dp_irq_type irq_type;
-+	u32 irq_type;
+-	if (dp->bridge.next_bridge)
++	if (dp->force_connected_mode)
+ 		return connector_status_connected;
  
- 	irq_type = analogix_dp_get_irq_type(dp);
- 	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
-@@ -728,7 +728,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- 			drm_helper_hpd_irq_event(dp->drm_dev);
++	ret = pm_runtime_resume_and_get(dp->dev);
++	if (ret)
++		return connector_status_unknown;
++
+ 	if (!analogix_dp_detect_hpd(dp))
+ 		status = connector_status_connected;
+ 
++	pm_runtime_mark_last_busy(dp->dev);
++	pm_runtime_put_autosuspend(dp->dev);
++
+ 	return status;
+ }
+ 
++static bool analogix_dp_bridge_force_connected(struct analogix_dp_device *dp)
++{
++	struct drm_bridge *last_bridge;
++	bool force_connected = false;
++
++	drm_for_each_bridge_in_chain_from(dp->bridge.next_bridge, bridge) {
++		if (bridge->ops & DRM_BRIDGE_OP_DETECT)
++			return false;
++	}
++
++	last_bridge = drm_bridge_chain_get_last_bridge(dp->encoder);
++	if (last_bridge)
++		force_connected = drm_bridge_is_panel(last_bridge);
++	drm_bridge_put(last_bridge);
++
++	return force_connected;
++}
++
+ static int analogix_dp_bridge_attach(struct drm_bridge *bridge,
+ 				     struct drm_encoder *encoder,
+ 				     enum drm_bridge_attach_flags flags)
+@@ -933,6 +959,15 @@ static int analogix_dp_bridge_attach(struct drm_bridge *bridge,
+ 			dev_err(dp->dev, "failed to attach following panel or bridge (%d)\n", ret);
+ 			return ret;
+ 		}
++
++		/*
++		 * Only assume connected when the bridge chain ends with a panel.
++		 * Panel bridges lack a detect callback and historically rely on
++		 * this shortcut. For other next bridge types (e.g., DP connector
++		 * bridges), fall back to analogix_dp_detect_hpd() to report
++		 * accurate hotplug state.
++		 */
++		dp->force_connected_mode = analogix_dp_bridge_force_connected(dp);
  	}
  
--	if (irq_type != DP_IRQ_TYPE_UNKNOWN) {
-+	if (irq_type) {
- 		analogix_dp_clear_hotplug_interrupts(dp);
- 		analogix_dp_unmute_hpd_interrupt(dp);
- 	}
+ 	return 0;
 diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-index 64aaba67e669..dc189f0b7a19 100644
+index 4560597604ad..64aaba67e669 100644
 --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
 +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-@@ -120,7 +120,7 @@ enum dp_irq_type {
- 	DP_IRQ_TYPE_HP_CABLE_IN  = BIT(0),
- 	DP_IRQ_TYPE_HP_CABLE_OUT = BIT(1),
- 	DP_IRQ_TYPE_HP_CHANGE    = BIT(2),
--	DP_IRQ_TYPE_UNKNOWN      = BIT(3),
-+	DP_IRQ_TYPE_IRQ_HPD      = BIT(3),
- };
+@@ -170,6 +170,7 @@ struct analogix_dp_device {
+ 	bool			force_hpd;
+ 	bool			fast_train_enable;
+ 	bool			psr_supported;
++	bool			force_connected_mode;
  
- struct video_info {
-@@ -196,7 +196,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
- void analogix_dp_init_hpd(struct analogix_dp_device *dp);
- void analogix_dp_force_hpd(struct analogix_dp_device *dp);
--enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp);
-+u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp);
- void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp);
- void analogix_dp_reset_aux(struct analogix_dp_device *dp);
- void analogix_dp_init_aux(struct analogix_dp_device *dp);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index c1344a3f013a..49c1961e4326 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -412,8 +412,9 @@ void analogix_dp_force_hpd(struct analogix_dp_device *dp)
- 	writel(reg, dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
- }
- 
--enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp)
-+u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp)
- {
-+	u32 irq_type = 0;
- 	u32 reg;
- 
- 	if (dp->hpd_gpiod) {
-@@ -425,17 +426,18 @@ enum dp_irq_type analogix_dp_get_irq_type(struct analogix_dp_device *dp)
- 	} else {
- 		/* Parse hotplug interrupt status register */
- 		reg = readl(dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
--
- 		if (reg & PLUG)
--			return DP_IRQ_TYPE_HP_CABLE_IN;
--
-+			irq_type |= DP_IRQ_TYPE_HP_CABLE_IN;
- 		if (reg & HPD_LOST)
--			return DP_IRQ_TYPE_HP_CABLE_OUT;
--
-+			irq_type |= DP_IRQ_TYPE_HP_CABLE_OUT;
- 		if (reg & HOTPLUG_CHG)
--			return DP_IRQ_TYPE_HP_CHANGE;
-+			irq_type |= DP_IRQ_TYPE_HP_CHANGE;
-+
-+		reg = readl(dp->reg_base + ANALOGIX_DP_INT_STA);
-+		if (reg & INT_HPD)
-+			irq_type |= DP_IRQ_TYPE_IRQ_HPD;
- 
--		return DP_IRQ_TYPE_UNKNOWN;
-+		return irq_type;
- 	}
- }
+ 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
  
 -- 
 2.34.1
