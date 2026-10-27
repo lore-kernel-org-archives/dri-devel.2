@@ -2,50 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E482A606A320
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 19:03:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.a=rsa-sha256 header.s=20260906 header.b=dI0nJB0o
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695AB606A321
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 19:04:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1906110E494;
-	Tue, 27 Oct 2026 19:03:08 +0000 (UTC)
-X-Greylist: delayed 497 seconds by postgrey-1.36 at gabe;
- Tue, 27 Oct 2026 19:03:02 UTC
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 663D310E494;
- Tue, 27 Oct 2026 19:03:02 +0000 (UTC)
-Received: from abreu (unknown [185.238.219.51])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 063D04C1A256EE;
- Tue, 27 Oct 2026 19:54:21 +0100 (CET)
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Wentao Liang <vulab@iscas.ac.cn>, Alex Hung <alex.hung@amd.com>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Don't warn about vendor infoframe for
- non-infoframe sinks
-Date: Tue, 27 Oct 2026 19:54:13 +0100
-Message-ID: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
-X-Mailer: git-send-email 2.55.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EDEA10F7A9;
+	Tue, 27 Oct 2026 19:04:11 +0000 (UTC)
+Received: from aposti.net (aposti.net [185.119.170.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD36E10F7A9
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 19:04:09 +0000 (UTC)
+Message-ID: <270ef5220fdd5ec3e0b88ba5c4ce044992fca41a.camel@crapouillou.net>
+Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
+ controller
+From: Paul Cercueil <paul@crapouillou.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Olivier Louvignes
+ <olivier@mgcrea.io>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Neil
+ Armstrong	 <neil.armstrong@linaro.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter	 <simona@ffwll.ch>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley	 <conor+dt@kernel.org>, "H . Nikolaus Schaller"
+ <hns@goldelico.com>, 	dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 	linux-mips@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 27 Oct 2026 20:04:00 +0100
+In-Reply-To: <20261027-hospitable-apricot-scallop-166448@quoll>
+References: <20261025191640.13592-1-olivier@mgcrea.io>
+ <20261025191640.13592-3-olivier@mgcrea.io>
+ <20261027-hospitable-apricot-scallop-166448@quoll>
+Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
+ keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
+ LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
+ FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
+ z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
+ +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
+ 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
+ 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
+ 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
+ dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
+ 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
+ rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
+ lBwgAhlGy6nqP7O3u7q23hRU=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de;
- s=20260906; t=1793127263; 
- h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding;
- bh=4aG9p3Chmdw2Uvqo6sRKdBC6007ynLccNNDb6g2oQZ8=; 
- b=dI0nJB0o5kLbZ7MZDpxH5+wDkkUpl0UfZIj5R5+cfOgB5Dpf5Vw8wziwa+uOlOZ66Gxf3uLnHtRK
- /nLcvyz8SZNurt0mOaFYVckC4bkpE73yibUoY/ibYsPMZgGWFclcopsPuSHnBPBV6evTqJn/YHqmaX
- OSiSnjP1reFn0Xu9sf9rW4+04GaesQsMOD5w5nCjwegltJGW75sfeERX2lurmaP9/ssRFjd6P7w61a
- 58bRQCS/5X72QN0pXGiP6r957AEik9jSigsWq61elnuvSx8+Ve94z2KvRH4skHNUvRZkju+trIoBuZ
- AjLrwn2p4NeqQOcKp7Tdw+6HUA0bg7Ww==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,68 +58,107 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-With an EIZO EV2781 connected over HDMI to an AMD Ryzen 3 2200G (Raven)
-on an MSI B350M MORTAR (MS-7A37), Linux logs at every boot since v6.16:
+Hi Krzysztof,
 
-    amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
+Le mardi 27 octobre 2026 =C3=A0 12:00 +0100, Krzysztof Kozlowski a =C3=A9cr=
+it=C2=A0:
+> On Sun, Oct 25, 2026 at 08:16:37PM +0100, Olivier Louvignes wrote:
+> > The X1600's display controller fetches frames through descriptors
+> > and
+> > keeps its interface and timings in register blocks of their own
+> > (X1600
+> > programming manual, chapter 10), so it shares nothing with the
+> > controllers ingenic,lcd.yaml describes. Its registers are those of
+> > the
+> > X2000's display controller without the composer.
+> >=20
+> > Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> > ---
+> > =C2=A0.../bindings/display/ingenic,x1600-lcd.yaml=C2=A0=C2=A0 | 70
+> > +++++++++++++++++++
+> > =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ |=C2=A0 5 ++
+> > =C2=A02 files changed, 75 insertions(+)
+> > =C2=A0create mode 100644
+> > Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
+> >=20
+> > diff --git
+> > a/Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
+> > b/Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
+> > new file mode 100644
+> > index 000000000000..171536c78f4b
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/display/ingenic,x1600-
+> > lcd.yaml
+> > @@ -0,0 +1,70 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/display/ingenic,x1600-lcd.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Ingenic X1600 LCD controller
+> > +
+> > +maintainers:
+> > +=C2=A0 - Olivier Louvignes <olivier@mgcrea.io>
+> > +
+> > +description:
+> > +=C2=A0 The display controller of the Ingenic X1600 SoC. It fetches
+> > frames through
+> > +=C2=A0 descriptors in memory and drives a parallel RGB panel or a smar=
+t
+> > panel;
+> > +=C2=A0 its registers have nothing in common with the controllers
+> > described in
+> > +=C2=A0 ingenic,lcd.yaml.
+> > +
+> > +properties:
+> > +=C2=A0 $nodename:
+> > +=C2=A0=C2=A0=C2=A0 pattern: "^lcd-controller@[0-9a-f]+$"
+>=20
+> Individual device schemas do not need to enforce naming, you can drop
+> nodename.
+>=20
+> > +
+> > +=C2=A0 compatible:
+> > +=C2=A0=C2=A0=C2=A0 const: ingenic,x1600-lcd
+> > +
+> > +=C2=A0 reg:
+> > +=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > +
+> > +=C2=A0 interrupts:
+> > +=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > +
+> > +=C2=A0 clocks:
+> > +=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: The pixel clock, whose g=
+ate also gates the
+> > controller
+> > +
+> > +=C2=A0 clock-names:
+> > +=C2=A0=C2=A0=C2=A0 items:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: lcd
+>=20
+> ... and drop clock-names, since it is the same as device name.
+>=20
+> > +
+> > +=C2=A0 port:
+> > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/port
+> > +=C2=A0=C2=A0=C2=A0 description: The output, to the panel or bridge.
+>=20
+> No port for IPU?
 
-Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and
-vendor infoframe setup function") started to log the return value of
-drm_hdmi_vendor_infoframe_from_display_mode(). With `frame` and `mode`
-being non-NULL, the helper only fails with -EINVAL, if the sink does
-not support HDMI infoframes, that means, if
-`connector->display_info.has_hdmi_infoframe` is false, and its
-kernel-doc says, that this error can be safely ignored.
-drm_parse_hdmi_vsdb_video() only sets `has_hdmi_infoframe`, if the HDMI
-VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets
-it for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
-HDMI_Video_present, triggers the warning, although nothing failed.
+No IPU on the X1600 - the display IP is completely different there
+(hence the new binding).
 
-The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only
-seven bytes (source physical address, Supports_AI, and a maximum TMDS
-clock of 250 MHz), so the byte with HDMI_Video_present is absent, and
-the EDID has no HF-SCDB:
-
-    67 03 0c 00 10 00 80 32
-
-Only warn, if the sink supports HDMI infoframes. The infoframe setup
-itself is unchanged.
-
-Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and vendor infoframe setup function")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5025
----
-
-Notes:
-
-claude-opus-5-5 (Claude Code) assisted in analysis, code change and
-commit message.
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index ded8e21897f1c..636dd2dedd73d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -941,7 +941,8 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
- 		err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
- 								  (struct drm_connector *)connector,
- 								  mode_in);
--		if (err < 0)
-+		/* Sinks without HDMI infoframe support make it fail with -EINVAL. */
-+		if (err < 0 && info->has_hdmi_infoframe)
- 			drm_warn_once(connector->dev, "Failed to setup vendor infoframe on connector %s: %zd\n",
- 				      connector->name, err);
- 		timing_out->hdmi_vic = hv_frame.vic;
-
-base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
--- 
-2.54.0
-
+Cheers,
+-Paul
