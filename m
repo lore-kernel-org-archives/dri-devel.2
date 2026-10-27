@@ -2,56 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAE1606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 22:59:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF64A606A31D
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 23:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VDMWFg11
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmZebDL8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C14210E3B6;
-	Tue, 27 Oct 2026 22:59:41 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B8D510E3B6;
- Tue, 27 Oct 2026 22:59:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793141974; x=1824677974;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=EIbFAeSjRAQfntQmVjRWLxsMGMOqy4PbMnghhVcKLBI=;
- b=VDMWFg11g4Ym3EfHolgqqAZVIuo5kTrlKi/vV5oSwf718pgll9FoA1nm
- J8t1PI6dmqc363/miHp3D21HlxD4sB5zGDNfUxEGzNlSIozHxeg60eSFJ
- Tfxytv9qZxfx+x2ReYkhxC1BNXTB6lFzu2FNfuZeLXf0LHskyjmEQPFy/
- XgKVljv/mULJv35VvcSia6pw4WuhBJfTgTMmvtBSunsgP4qrEtCXaabV0
- vgnR/m+pqIJP9RjU5mxthdstqDRxrboePqfh8fEaBz2Wke9CUVMXYXfyk
- YRm6OuRTNBMLALsRpkUJsid+Alc3ze15M7XVdFbObeVLk3b/AVfYbTVFC Q==;
-X-CSE-ConnectionGUID: FFvkzV2/TTi0+3xwjYkkew==
-X-CSE-MsgGUID: c7+4wEHBTlCdfGK4nKZuTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1843012"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1843012"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2026 15:59:34 -0700
-X-CSE-ConnectionGUID: F24MA8+rQX6X18VsYehDbg==
-X-CSE-MsgGUID: 7ne9XpyWS4OuBAiex7Ku0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="5013321"
-Received: from aalteres-desk1.fm.intel.com ([10.121.64.173])
- by fmviesa001.fm.intel.com with ESMTP; 27 Oct 2026 15:59:34 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
-Subject: [PATCH 1/1] drm/xe/guc: Add WA 14028709524 to disable PRL from VF
-Date: Tue, 27 Oct 2026 15:59:29 -0700
-Message-ID: <20261027225932.337738-2-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13FD510F877;
+	Tue, 27 Oct 2026 23:00:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8249210F87B;
+ Tue, 27 Oct 2026 23:00:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 88A76600C8;
+ Tue, 27 Oct 2026 23:00:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133671F01825;
+ Tue, 27 Oct 2026 23:00:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793142044;
+ bh=xdcwz2J0ViafkvJlhahLT/XzWeMevy88xwVh6TrPYbc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=lmZebDL8yRqLM+Wh/deQQ76tvi8l8JU1S5SVzREGnKnCGkYrs8CFKQPbV7gBuyyRZ
+ 74IkyIL+66EnqWwbU1AzUGlaIvq8+IWUw5SkeVPl3PcsJRtpv4pDee4cO/eq2xiS4V
+ y/RR/5ihw4wzrT0BHjxLQONiMLWKrfUpnqwXA/XAYM2ReGp3nFzrFdwZXOwVFPcVfo
+ bavBhn9rhhvOeWv7/Ptgu8NvBgAEUVFYEDgBr3vAfzBE9gS+E5hXtV0NFop/nXyzsn
+ ZnqrMiAx6J9uT9VDTh8fD/UPivifim82POVYIJ9mKgCed3urVNWgzCkpG6F9Hquocu
+ 6UsNpJAhLlb8A==
+Date: Tue, 27 Oct 2026 18:00:42 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ Andre Eikmeyer <dev@deq.rocks>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
+ <linux-kernel@vger.kernel.org>, 
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>
+Subject: Re: [PATCH 02/13] PCI: Disable pcie port and access on D3 on
+ specific amd devices
+Message-ID: <20261027230042.GA516670@bhelgaas>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261025040046.1602-3-atharvatiwarilinuxdev@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,52 +67,132 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-For NVL-P, hardware and firmware support for Page Reclaim
-List assistance is disabled when running in VF mode.
+On Sat, Oct 24, 2026 at 11:59:38PM -0400, Atharva Tiwari wrote:
+> As mentioned in the previous commit, PWRD turns off the entire
+> bridge, and if we read/write anything to the config space
+> or the PCIE space when the bridge is dead, the CPU CATERR's,
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
----
- drivers/gpu/drm/xe/xe_guc.c        | 8 ++++++--
- drivers/gpu/drm/xe/xe_wa_oob.rules | 1 +
- 2 files changed, 7 insertions(+), 2 deletions(-)
+Reading or writing to PCI devices in D3cold is a problem on every
+system and we should avoid it in generic ways.  I don't know what's
+special about these MacBooks.
 
-diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-index b1f4e132fa0c..613ea9b073c8 100644
---- a/drivers/gpu/drm/xe/xe_guc.c
-+++ b/drivers/gpu/drm/xe/xe_guc.c
-@@ -795,8 +795,12 @@ int xe_guc_init(struct xe_guc *guc)
- 	if (!xe_uc_fw_is_enabled(&guc->fw))
- 		return 0;
- 
--	/* Disable page reclaim if GuC FW does not support */
--	if (GUC_SUBMIT_VER(guc) < MAKE_GUC_VER(1, 14, 0))
-+	/*
-+	 * Disable page reclaim hw assist if GuC FW does not support it
-+	 * yet or a hw WA requires disabling it in VF mode.
-+	 */
-+	if (GUC_SUBMIT_VER(guc) < MAKE_GUC_VER(1, 14, 0) ||
-+	    (IS_SRIOV_VF(xe) && XE_GT_WA(gt, 14028709524)))
- 		xe->info.has_page_reclaim_hw_assist = false;
- 
- 	/* Disable indirect_ring_state if missing GuC 70.53+ WA 14025515070. */
-diff --git a/drivers/gpu/drm/xe/xe_wa_oob.rules b/drivers/gpu/drm/xe/xe_wa_oob.rules
-index 63d695f40214..2971dd5b372c 100644
---- a/drivers/gpu/drm/xe/xe_wa_oob.rules
-+++ b/drivers/gpu/drm/xe/xe_wa_oob.rules
-@@ -76,3 +76,4 @@
- 14025941587	GRAPHICS_VERSION_RANGE(2001, 3511), FUNC(xe_rtp_match_not_sriov_vf)
- 		MEDIA_VERSION_RANGE(1301, 3503), FUNC(xe_rtp_match_not_sriov_vf)
- 16030224309	GRAPHICS_VERSION_RANGE(3510, 3511)
-+14028709524	GRAPHICS_VERSION(3510)
+> so to avoid interaction when the bridge is dead,
+> we remove pcieport support for the bridges, and we restrict
+> access to those bridges when the bridge is dead.
+> 
+> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> ---
+>  arch/x86/pci/fixup.c       | 30 ++++++++++++++++++++++++++++++
+>  drivers/pci/access.c       | 18 ++++++++++++++++++
+>  drivers/pci/pcie/portdrv.c |  2 +-
+>  include/linux/pci.h        |  7 +++++++
+>  4 files changed, 56 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
+> index 795d81c7a..66829941e 100644
+> --- a/arch/x86/pci/fixup.c
+> +++ b/arch/x86/pci/fixup.c
+> @@ -1094,6 +1094,35 @@ static void asus_disable_nvme_d3cold(struct pci_dev *pdev)
+>  }
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x9a09, asus_disable_nvme_d3cold);
+>  
+> +static const struct dmi_system_id quirk_disable_pcie_port_dmi_table[] = {
+> +	{
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
+> +		},
+> +	},
+> +	{
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
+> +		},
+> +	},
+> +	{}
+> +};
+> +
+> +static void quirk_disable_pcie_port(struct pci_dev *pdev)
+> +{
+> +	struct pci_dev *upstream = pdev;
+> +
+> +	if (dmi_check_system(quirk_disable_pcie_port_dmi_table)) {
+> +		while ((upstream = pci_upstream_bridge(upstream))) {
+> +			upstream->no_pcie_port = 1;
+> +			upstream->ignore_access_d3 = 1;
+> +		}
+> +	}
+> +}
+> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x7340, quirk_disable_pcie_port);
+> +
+>  #ifdef CONFIG_SUSPEND
+>  /*
+>   * Root Ports on some AMD SoCs advertise PME_Support for D3hot and D3cold, but
+> @@ -1179,4 +1208,5 @@ static void quirk_tuxeo_rp_d3(struct pci_dev *pdev)
+>  	}
+>  }
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1502, quirk_tuxeo_rp_d3);
+> +
+>  #endif /* CONFIG_SUSPEND */
+> diff --git a/drivers/pci/access.c b/drivers/pci/access.c
+> index b123da16b..5e9513067 100644
+> --- a/drivers/pci/access.c
+> +++ b/drivers/pci/access.c
+> @@ -559,6 +559,9 @@ EXPORT_SYMBOL(pcie_capability_clear_and_set_dword);
+>  
+>  int pci_read_config_byte(const struct pci_dev *dev, int where, u8 *val)
+>  {
+> +	if (pci_dev_ignore_access(dev))
+> +		return PCIBIOS_SUCCESSFUL;
 
-base-commit: adaeb3881f12295309596acf2387c3f00b3050bb
--- 
-2.43.0
+This doesn't seem like something we should do for a few special
+systems.
 
+> +++ b/drivers/pci/pcie/portdrv.c
+> @@ -688,7 +688,7 @@ static int pcie_portdrv_probe(struct pci_dev *dev,
+>  	int type = pci_pcie_type(dev);
+>  	int status;
+>  
+> -	if (!pci_is_pcie(dev) ||
+> +	if (!pci_is_pcie(dev) || dev->no_pcie_port ||
+>  	    ((type != PCI_EXP_TYPE_ROOT_PORT) &&
+>  	     (type != PCI_EXP_TYPE_UPSTREAM) &&
+>  	     (type != PCI_EXP_TYPE_DOWNSTREAM) &&
+
+Nor does this.  I don't know what the purpose of this is.
+
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d31a8d107..8835b1c82 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -420,6 +420,8 @@ struct pci_dev {
+>  	unsigned int	no_d1d2:1;	/* D1 and D2 are forbidden */
+>  	unsigned int	no_d3cold:1;	/* D3cold is forbidden */
+>  	unsigned int	bridge_d3:1;	/* Allow D3 for bridge */
+> +	unsigned int	no_pcie_port:1; /* PCIE Port driver is forbidden */
+> +	unsigned int	ignore_access_d3:1;	/* Ignore access when device is in D3Cold */
+>  	unsigned int	d3cold_allowed:1;	/* D3cold is allowed by user */
+>  	unsigned int	mmio_always_on:1;	/* Disallow turning off io/mem
+>  						   decoding during BAR sizing */
+> @@ -2747,6 +2749,11 @@ static inline bool pci_dev_is_disconnected(const struct pci_dev *dev)
+>  	return READ_ONCE(dev->error_state) == pci_channel_io_perm_failure;
+>  }
+>  
+> +static inline bool pci_dev_ignore_access(const struct pci_dev *dev)
+> +{
+> +	return dev->ignore_access_d3 && dev->current_state == PCI_D3cold;
+> +}
+> +
+>  void pci_request_acs(void);
+>  bool pci_acs_enabled(struct pci_dev *pdev, u16 acs_flags);
+>  bool pci_acs_path_enabled(struct pci_dev *start,
+> -- 
+> 2.55.0
+> 
