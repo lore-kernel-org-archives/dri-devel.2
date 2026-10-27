@@ -2,128 +2,129 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AEB606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 04:41:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD046606A31B
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 05:46:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ByZVhisO
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UwFNZ2Un
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 939FD10E350;
-	Tue, 27 Oct 2026 04:41:48 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013031.outbound.protection.outlook.com
- [40.93.201.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 862BE10E218;
- Tue, 27 Oct 2026 04:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F18410E28A;
+	Tue, 27 Oct 2026 05:46:40 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013058.outbound.protection.outlook.com
+ [40.93.196.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F076C10E1F9;
+ Tue, 27 Oct 2026 05:46:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R6dRIAeCTGp1YCDM+EkZOgT4SV8sAHz9XB9Aua7/aGSPzhYm+0YmzbwrXZ1/deS3c0G4NMsKNImbvh8w1c6C46W6jZY8O8cb2s0HhDqi3fu63h9Fxnqv50oaxIzX51bgDOkYC+eLr1ImxT4KboYuz1fRRsP+phyMdpkgV3MGH34uf2HFzYvmyG6RvSWA2NvCpXQRifTl1atMvBlkn5NNP/TiUJfm91++A9EYwjjvtu8rfjP3bTcCCW7NOZ2qmfC8j7YPCGPVyWc5RQk1vLhk4s2/xdbhpbNkbxnptCIDtkgPfxWdU+9THwH1x6RCWotVP5wrw978pwtQjGin7pMQyw==
+ b=euDw0Vfwn8cLkGnm/1+5S8qx7GiqrSx2fJWBqMXAK3cgjz5fn014t78BNaUVDpqmmXRero/2huRN3kMXhys+geckfA1c8phi3pwXKfbfv0mn03O9Mkac/Qnj08sgDDoUazU85FWtiRykydjROp63xdOhUaUK8rbcRbasp4XolkhFrs/PtN28rhFVm039aLYsMI+dfKEHsj5p2JhB9oXMGHzpM0DAL89FE+p6lUhOhiQcJaeFOaVNOtC7Ra3bSFLcHrCjBy7G/7rANm4m7JGZF+Dq7Et1NpUWpxSuFUUyWS/x5TILJNssOx5tr++oAJctvFpXKw5vRfSlndkkOHWlOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SVK/bV1B3kvBJC10uWIJEZvjX8nNtALCrupE7TaYsME=;
- b=xpDtB+Nn//o6usppo1l2FxhBI6yGICaHtgyp/dXdNUNG8mnT+nCSVDdXtub1wdGjZAltpJbPjYMG46hYR+UFWLsgJ5+OT4nIXQBuFGpJ3TShhtjlfuTHKjdcte69E57yNo7JuAKZJR6Yj5/UsyTyoLkFdAEOp0Jk+DSA/QnSZq9B4680M0GYdYa+YZUi2yTbyaEeZAS5DxAH5OOyUPQIcXqO/8d5wSm+wY/f4RzPxkeRMpc7K1LJsmSJv03gAuQ8183lZ+24XHnQs37gGka8W5kGeVuOvwh0SJNUuWsH6FKjIXK7vA0F9hCROZaLn1ikKPaSh2RHT3xF+HsrUsZuhA==
+ bh=orew0HFCOjG6QeMy39zxQad9wZITCwtfKZiHsv0QIYE=;
+ b=rp9qFOtSbWbGv0H5b3rrG+sFzc2BjxdEjyUsps83qqo2PSMGxeAf8A3O9tZ+oPHP9UhDUbKU7c05zv/U27GxoIypHcjDh+vaXIy+uO8g7Mdn+RNYEaR5EDDy0HxmeR8MVy2VkAOT+PqPW6EHRmX0V6ZfJltV+EDhcVPYk70EkRZggDnBgPjwdNjo48kX13RhuYKY+ExB7S6ti0aNNojamDYTqtXX+xY1cccCP1EruijzqQEfgUMLv1mCo5ma0LF9NP6S5o4jk6zAmo1An40KD6Jf9nks24XqHtw+0ohIAJLNDqIom1W+6xztyK/1lrTtw3wF61givFrOwC1jppO8yQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SVK/bV1B3kvBJC10uWIJEZvjX8nNtALCrupE7TaYsME=;
- b=ByZVhisOnCbUByZW66biup2EA0IXrAi2Ym/eKK3thct+gCJDNNO7mx5dp0fQzYptMEg//YI1AsYwZ16zeiaDtxzT89jAfpj/cOC4NRguphbFW5kwt43x0VpUxEnd+HOi9JpZFv8Mx9EF8XTk/cxrmOmRcSQueQqKOUci6YHlsUo=
+ bh=orew0HFCOjG6QeMy39zxQad9wZITCwtfKZiHsv0QIYE=;
+ b=UwFNZ2Un2+2zbdghrUhERdBLcyw8OljZI5xVocfvqbjHRBusO3w9e96XFKIL4VW8Y5jA18aVfQ4H++CWocPmMhiV0+WOYBe/nYyJ3h3DGyFvWapyq5vINLAfrKxWImPyssTYFdoeNagBq2qcv8ZUQHkwc+ZcxSNcxKu29pTAlUIVyaF0dHbU4vSz5MYet7brK7XndMYQFCb6xCuTksxRKaZhmyftOkBwnrQOllMivmM5Iqf44ZGJ9EcGByPJak+9+V6ALFbOrI8UwtwrV5+ahMr2VkoL63KS2dEAluL9KLNhemLTuFGYPrPI8E/XfGeuGZVRreie2ZBwsJn6ifsmEg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by CH0PR12MB8552.namprd12.prod.outlook.com (2603:10b6:610:18e::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by CY5PR12MB6645.namprd12.prod.outlook.com
+ (2603:10b6:930:42::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 04:41:38 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 04:41:38 +0000
-Message-ID: <bb135cd6-5e36-4330-9635-885bb26576e3@amd.com>
-Date: Tue, 27 Oct 2026 10:11:31 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] PCI: Preserve the initial bus number in pci_bus
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-Cc: Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20261026-vfct-regression-v3-0-fe9586ed6978@amd.com>
- <20261026-vfct-regression-v3-1-fe9586ed6978@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20261026-vfct-regression-v3-1-fe9586ed6978@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1PR01CA0183.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::6) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+ 2026 05:46:28 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 05:46:28 +0000
+Date: Tue, 27 Oct 2026 16:46:22 +1100
+From: Alistair Popple <apopple@nvidia.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com, 
+ sumit.semwal@linaro.org, jgg@nvidia.com, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, 
+ iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, 
+ treding@nvidia.com, jhubbard@nvidia.com
+Subject: Re: [PATCH 05/26] dma-buf: Let the exporter select mapping type at
+ pin/map
+Message-ID: <auA0XzHv9lgImZLP@nvdebian.thelocal>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-6-apopple@nvidia.com>
+ <at8IQZ34wkHQ_5PL@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <at8IQZ34wkHQ_5PL@gmail.com>
+X-ClientProxiedBy: SY6PR01CA0002.ausprd01.prod.outlook.com
+ (2603:10c6:10:e8::7) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CH0PR12MB8552:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23c04c03-5065-405b-eaee-08df33e49643
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|CY5PR12MB6645:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9759392c-6858-4783-3821-08df33eda533
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|261009223027099003|261022105027099003|261022075727099003|261021121427099003|10067099003|56012099006|261026121527099003|3023799007|22082099003|18002099003|4143699003|11063799006|261026140227099003;
-X-Microsoft-Antispam-Message-Info: AG+i+YcszxkaC6OmkGKQSXyP7RyELYAxo0s+ED+FzdIyv/gcl4UqrS1X40L2j3oCnK4KSkTQOHCCZ8GZ9bOIhLe8gWDkiiXfcQ+lniRtoDpKUS0BSlHtxAPpst0vXmyJnExPkNtZeAvxa5RS2oatLhBxh3/8sNIbEZL+aJlVspvWi+/4DTlfeCXQ4fP5aVLOWzwW0sNlapQpiKsJkORlQAAOMmEIMQzN0ibeFDAiFdtB+BqyVp7RqNg5gyVtU9fEznHPt92ujgRf4rg/jD/WVhqTyglXUIQG5lzHHeukavApn5X1Tfk2gUrGn+0U4HSdlTi4XkbgSEXtnVEdNb3voZuYnEquiSPFZq+wLjdfUplfRBnX3jhipQBuuTm4zn/SHp9VBUbcT8bCeRvAvVreUakHXbeA4kAfuXCvqjJjx1EfkenhP5Z8rWyOM9mRUzLsQQR9CJfFDfjs0sIdCr2F7wk+y2z5QqRbY8AB1Nt8q7JAEGbc+P4C8EOG+Y7lpbCJiUjLDfoOc4eiUXD5pU+eNlGzWqpMOUmWVT1z2lhzZUI48qPJ6ZAG9+yn+/9nli6u3tUI/UO1sz+MjPW/lX5GseozQjwZ2L7AuiOC9X/oPBW/AI6oiZjFeSFMsTWZRflz2IOab1hNkFkghFouSB/wd4MvXBQXr5dyXsaMx4pTUkE=
+ ARA:13230040|23010399003|366016|376014|1800799024|7416014|22082099003|18002099003|261026121527099003|261022075727099003|56012099006|5023799004|11063799006|4143699003|10067099003|261009223027099003|261022105027099003|261021121427099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: znck1QSyz04bugkYl6we+im5AaNhJVC+eyT6b1RfHtlbr1gQxYLeiztucY7dxkJAY78m2wdoS2UOALZyloWMKn5q4orfqQFuNl0TvSt4/BAeSAZLPPnpjRSjn2QyiNM9umIOTItcxfDajU1E+ku0cdr6w6TGuH2vFnOWTSI1DNzBjKAYv8KNUNEkaN7TXkoxsKSb3JKpo0AiBWrwzxttpmDYm5xzxvhaTWV9yj/+7DCANFqYpAl65048TsgTASgM/BAnVxtk4Xy07iTl+2NpQ1RPT4Sw6ypHjtOdatcGf7uH1PSQM4fSd7R1QZm4ij1rgv7W4H9AJUST1X6gT8dO6OQp3dkMV5DuDn6c6U5HZSZARMVtyKUqDo3i5cVzx2X6XKxPK5CiO57Z16g1VIYs8JV2K2qIVzjFXAA9YqHGkJO7YuYCgkUOC4Uh+9JRjWqUmRGo3X6Amcm/T6ZQqBPgDPXKeNEVRAmtEW3b0R2egwsaVwQIkI8sMV4SBYGm5b2lqonslRzm2T3Wk3gucFHO7TQzZPz7IDg68bpv5jbQ1eOEq5DZhLDW5vpfdix4FYPH4XfI49W+8VlFtUVpRxj1XAZ9u+558AciAm+GSpuV6q/F1Cjs1qgrvVapCOGu9ILI1/FGcYDDbo6VVaY5W1exhmSE10djTt5QZ3XyQx1fWzw=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(261009223027099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(56012099006)(261026121527099003)(3023799007)(22082099003)(18002099003)(4143699003)(11063799006)(261026140227099003);
+ IPV:NLI; SFV:NSPM; H:SA3PR12MB598757.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(22082099003)(18002099003)(261026121527099003)(261022075727099003)(56012099006)(5023799004)(11063799006)(4143699003)(10067099003)(261009223027099003)(261022105027099003)(261021121427099003)(261026140227099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N3J1ZHR4UmY2cVNUK09Tbi8wbE5JWFF6OVc1cEtQWU1XMVhZdHBYWjlsTFQz?=
- =?utf-8?B?citRSVU1bjlRYjVGUkdLZTFyM1RRS21nZXFLQzg2VXg0M3pIMjgxZTZsdU9M?=
- =?utf-8?B?WnFHejdlT0xKOTg0eTlnczBzSGVMY3Z4MXZBOWFQckMxOWhXYmdPNzBtdzJI?=
- =?utf-8?B?TDZDSEUzczdiWkZuczl5ekZzSmlBT1dlZVBTTGxYcklxNnYxdVdTSk56Z0Jl?=
- =?utf-8?B?Q05qRG53NlljVW5yQmROelpZVjdkOEhCeGpWMDFmK3RpZWdQRlNrS3BKZkZF?=
- =?utf-8?B?WjJ6WE12ZUlVQUpKbDNialFtYmtrLzZ0bXRyVTZhbGFYSHZZY2k5QmViQVZH?=
- =?utf-8?B?cS9JV2dOVWczTnZtY0dCaU5GOGZBbW1GWkpHZFd1V3VtNk1LTUJjZmJVbGJP?=
- =?utf-8?B?NXFudmlzUVdWaTRENDlXOXBTbEw1NGFGSzBnTXhoT3Z2MXJmM0hwQ2x0ZDVa?=
- =?utf-8?B?emE0akR3eEtMWjJNQzdTRzVPNkdxNmJtK1JYS0JDaTBSOUtncEx5MzlSRmpo?=
- =?utf-8?B?TE82TlRqeGZNTWd4YWY0T3dFQ2xQbGVrQkVBNmRpNnJVa0pqb3dObXpDcGJz?=
- =?utf-8?B?ZUxLQXcxYndGdFg1QnNrVVYwanVtY1I1YUpCT0hNcG0zTUlRVFJzSVFoUU13?=
- =?utf-8?B?ZVd4K2tRRFE2Rmx0NDJzOHkwWXJsVllGUnNqTWREVFBOZzNJVUFvN3RPdUZU?=
- =?utf-8?B?Ui84UlJTbWhDZlFoSS81NUt0Q1l3ZTNoODFMV0d0bVZ2ZFdJTE8xZ3YveWk5?=
- =?utf-8?B?U2I2bkl6K0lvZzNWRlVVbWFLbnA5RmovWk1JZzFRQzI0YmlZZ21SWDFPdUtS?=
- =?utf-8?B?Vy91UDRIcVZLNFNYdUczNUpIR1V4S281OFNMdkJJVDBBNWxsM3hPN0RUb2I4?=
- =?utf-8?B?ajFqbXdiM3ZJNzhDYjVHVGYzQWtjMlczcGl2d1REQVRDT3o0Z1hWbS9FTVdX?=
- =?utf-8?B?UnFud3VYNUdRRVlRSzNmOVQwU25EVGJpRms1MXdpbzFMSmp4N3R3aXpkMHJp?=
- =?utf-8?B?MU1CaDNyQnlxSnpDalFzeWN2eWpYYXBoeFk0Y3lHbytOQm1OUjkwUjQrN0Jj?=
- =?utf-8?B?TitUMU9sdGlhN1NmeUNLZ29vcGVlQmpwdVBFa2NFa0pPUmd3QndMZVdlMW9Y?=
- =?utf-8?B?NFVnakd2WnoydmJaNTFoZWJ1OEJHUUdXU2tSV1diRng0b1BYWTJnalZkZ2RD?=
- =?utf-8?B?azNxd2V1L1VUbHlaWUlObjdYd2cvSFU3RnFpa1U0YjNzSXIzOUgrQ25NV0hS?=
- =?utf-8?B?Q1M3THNyMFlXMUkrS2FLZVJ2OUt4c3RtN1JSTVp1b3RYbzYvQllFWFlxbEEv?=
- =?utf-8?B?Nm9Dd1MzOEZJVHhnNlpMQzdJZHdjRlBUK0FvMFBVOUNPRHFmU3ZCN1ZKZGR3?=
- =?utf-8?B?b0k3dk5iczBGWktCZUg5aHl3dk83QUpKSXZ6Q3NqUTRvRUl4dE1iRkxjZDdp?=
- =?utf-8?B?VmhtMEVOREhHUUFNbU1SdXEwM01wZnk5SWxDRk9GYVp5V0V4Ukx4Qlpab0dD?=
- =?utf-8?B?VGhJeHdEaUJrTjhabHpZSmJ6ZlBCcTVObXZySEJJbllHK0F2QmpQbHRtOEtQ?=
- =?utf-8?B?d01qakJQWmg0dGJ3RDBybndMVWRJMCtXTzVQdEk3azlGd25DeEFreFJhb3ZQ?=
- =?utf-8?B?dFFMSDRJQWhtV3FTK3JvZVJuUFFOcTd0TDdCQ2JPUnJPa2VUVU4vYWRleWhp?=
- =?utf-8?B?dHpaQ1VMc3JTdEpZVVVRMVc0Tm01aWlaYk05L3ZWQVBHSlRwdFMvZGpjdlBH?=
- =?utf-8?B?V1dHOXZCLytsajRhaStHeElhY0xJNHd2eSs2WktwWUdreFkya1ZlMkw4RzV6?=
- =?utf-8?B?ZnhwRTlGWmF2akM5d1VWditqRXVuc0xnOGQwc1Z6c0ExYnlDRU5qdmhWQlJi?=
- =?utf-8?B?VEo0dStNSTVhQnVaeGZpVVQrMEtoUEx3d24xM1ZQQWorTUNaMjJzZzhQbTFw?=
- =?utf-8?B?ZHNSVUJYbmlNT2NuWTk3aFE4K2VtdXR0UXJnRXlacmpoNVpHZ1NuRUJLRVN3?=
- =?utf-8?B?Rlc2eGVSd25pQmg1bG5QclJtelpydzliQkV3R1pObW1Rc1l4RGphdU01UjFZ?=
- =?utf-8?B?M3VJL25hUWtuVFovaGtmVnJTL2xRcURxYkw3TGZoMDNIS2Q3cjZuUUw5dVdQ?=
- =?utf-8?B?RW9JeUZSeFM3L3pWbElPSFNydXllSDMwbjN1aE9GMHloV3BkS2F6cTJYcGNO?=
- =?utf-8?B?SWNWV3FwclpzQTNMckRsOXgydzVtd0F5RkhVT3lRYk8wTXdweWVzUXdtRTVj?=
- =?utf-8?B?NytCS2kxTG5QUUVVdkZhUW9rTHpHak94YXFNdDYyU2VjVmh3QmxNYUFQdm9K?=
- =?utf-8?Q?Ot8GVEb45Fi9tE4x/Y?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23c04c03-5065-405b-eaee-08df33e49643
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0YAxFUJ8cEEBfare/UyqRza9a9mnEpSKgQYBzt3Z63o/Z+eCVHkStkO/nYL4?=
+ =?us-ascii?Q?jzN8ajZIwouaoTyCn5psMDrjjEa3mkL0En4ZKjx1bXFz0hU7816XQA6MS+F7?=
+ =?us-ascii?Q?LCQhPtFyiCEeMic+c39W+xBhpSrQoFT4PJHJit6sSxNHgWKxha6KFjMggywO?=
+ =?us-ascii?Q?ckdvwJZ6p3EqvM6qNcsq+ligzaIJ3BtO38jf3ZvSIs9iy3F/Trz+Uydu7qO0?=
+ =?us-ascii?Q?kioclCJJl4x/hGlQQvndRVRDAqqwIdMLhTsgZlNit94y1mRRyKxOBQ7YacxP?=
+ =?us-ascii?Q?LAus0Il0QCHeQU5qEEM0xJSU2NjRAL5I6r8X2GLJJGNfg2xEkVxY/5+nC1bG?=
+ =?us-ascii?Q?K3Qdez28BBbLUCJ5fVzc+Sg72VXx57c7y0Zospjvcj/prt47HTNcXXaJnoB7?=
+ =?us-ascii?Q?akGAWO53UQaizfaM2j7wLbu1uRClAutDzWRrOwAKX+a1M1BuhmXGjgr76Fmw?=
+ =?us-ascii?Q?th5qAE9BwG0EYRbLqt1aNqfLaMSRo53M6dYzuawkViCO36bq4ALX11dcJs1q?=
+ =?us-ascii?Q?jlEeVsnjS+PvZz5ivPRR4+MJbIBe28nc34Xc8ry2u6Iulq8SjGH0UeuC58g7?=
+ =?us-ascii?Q?FCCzHCAAjZqnyuA8i3azouptiGYzrTtnPkJ+lXSsq02DzVoW509qesQWB3Sh?=
+ =?us-ascii?Q?4vqJithTLjAQe0N3lIP9CuQ+mXLseD9yNSLQZymIg1NxV7Bulil2FmMydvgz?=
+ =?us-ascii?Q?MEoPY9f6cE/lV38UxygjM4mPMYJKM4tBTB7U7A41kkDlOB9A8iPa10S9ldM0?=
+ =?us-ascii?Q?jAzi4GofzotDpZjwm92jCmTOMacqfwF/NOsChtUjEA5RtyOaTYdZEnd3Kdya?=
+ =?us-ascii?Q?RX7dtJ7tVhpeZMkO4aOOhbdj4mdT7HfpqgvmM94eJHGdeIF162m9Zm1/Pctb?=
+ =?us-ascii?Q?HckSclrVyXxC25Cirvk8EHnQkRm+MXwWfJOk22+q7Keu7/HoXulwKzvKGZEB?=
+ =?us-ascii?Q?DF/hZhWd940jRFhiGFMXYAJGgm3j0HRgdBmzFPBEAidOX5ghNWl4TiWJiouW?=
+ =?us-ascii?Q?Oy02wtdF901Znb1KAlG7GvTc5faM0PuGDTfFkDRx+yfSjyKigs2mxVEftpt+?=
+ =?us-ascii?Q?hWaBYFlO7uBpsAqT7MmQorIzbhTIH3A6xUoXa3KsiGyKuqbpA+wyIJPNr54b?=
+ =?us-ascii?Q?97wY0Bhpzw+wD/dSzuluekon6mvOrSDLYBM/lSVGYn0ubdfvBh2ceisYFOWQ?=
+ =?us-ascii?Q?xdHGtev1xTEtZ3WDY7HxdT256w83V1d0tI8K+Sh9SZ5Y8Pyz1Cc8bg90k78c?=
+ =?us-ascii?Q?1NHziSgOdrYzyIsSIL2h3S4xJ2/8MSflb7N/ClOs7oCwhaBeeZSfTseAciuK?=
+ =?us-ascii?Q?QwJxx+MbhYZrVgTJ4Jfdw+c8cY93orHh/Q6b7tkdf7aSw7t8P8RYMu9kxH7z?=
+ =?us-ascii?Q?EmmN3PTbCn2SwWthFTEAJIgW/LDKfjLX68OI61ILprj6KBJUmHOKsXpsPCn3?=
+ =?us-ascii?Q?RRpq1Z2tDHPVjQdd0mOKGK0QGJQJR7UBv4XNcE/hvrgc0OIIvjNBKyc1itmB?=
+ =?us-ascii?Q?U/tQtRTbTfEXaY0nhlVip8pxPSiexo2MaW3h225KAqnrZOeTHAvQZcxJ8NRo?=
+ =?us-ascii?Q?HmlR0k+UJbEpN0388MvOX5srilU4bq3avzEWZBK6JN0AxIxQRQSnlemKnjAx?=
+ =?us-ascii?Q?rZeoGyj6xNqu4IGBaRQ9q94g6su74OU3SrFKcrnbCWLF56jSxV+jB/rRt8Lv?=
+ =?us-ascii?Q?WqvQpt16RmLvDyTSpwVqbKb+/IF9iosbLyBJyYZAlO7rXaWx6/s2KHDy0GEb?=
+ =?us-ascii?Q?2f8nu4A8/g=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9759392c-6858-4783-3821-08df33eda533
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 04:41:37.9871 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 05:46:28.3993 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F1fP2TmBLKnJl5SwaRDLwgY1XS2y1foF+gv2lNyqlhnf2YpG5eEXSDanEBI+cyxu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8552
+X-MS-Exchange-CrossTenant-UserPrincipalName: lSNEgZ5vxiyFMECzjOFPBjAJ92nBZUhaWxcFiok652GeudCENXfbzY0gJ82CX76zY60igr4zCsXf+t5wDy0G/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6645
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,106 +136,78 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-
-On 26-Oct-26 9:18 PM, Mario Limonciello wrote:
-> Bridges that need bus reassignment are scanned in two passes. Save
-> the firmware secondary bus number during the first pass, before the
-> bridge is disabled, and carry it to the bus created in the second
-> pass. Drivers can then match firmware records against the bus number
-> from before PCI bus renumbering.
+On 2026-10-26 at 19:03 +1100, Karl Mehltretter <kmehltretter@gmail.com> wrote...
+> On Mon, Oct 26, 2026 at 04:35:56PM +0100, Alistair Popple wrote:
+> > +struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+> > +					enum dma_data_direction direction)
+> > +{
+> > +	struct sg_table *sg_table;
+> > +	int ret;
+> > +
+> > +	might_sleep();
+> > +
+> > +	if (WARN_ON(!attach || !attach->dmabuf))
+> > +		return ERR_PTR(-EINVAL);
+> > +
+> > +	dma_resv_assert_held(attach->dmabuf->resv);
+> > +
+> > +	ret = dma_buf_mapping_select(attach);
+> > +	if (ret)
+> > +		return ERR_PTR(ret);
+> > +
+> > +	sg_table = __dma_buf_sgt_map_attachment(attach, direction);
+> > +	if (IS_ERR(sg_table))
+> > +		/* Nothing was established, so the choice may be made afresh */
+> > +		attach->selected = false;
+> > +
+> > +	return sg_table;
+> > +}
 > 
-> The initial number belongs to the bus, so consumers can use the
-> pci_bus value directly without copying it into every pci_dev.
+> The map-failure report from Sashiko [1] reproduces with a KUnit test
+> against the full series:
 > 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->   drivers/pci/probe.c | 9 +++++++++
->   include/linux/pci.h | 2 ++
->   2 files changed, 11 insertions(+)
+>   pin selects B -> map returns -EIO -> selected is cleared
+>                 -> retry selects A, with the original pin still held
 > 
-> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> index 27008e2ea5afc..9950a9dd1db1f 100644
-> --- a/drivers/pci/probe.c
-> +++ b/drivers/pci/probe.c
-> @@ -1012,6 +1012,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
->   	bus->sysdata = bridge->sysdata;
->   	bus->ops = bridge->ops;
->   	bus->number = bus->busn_res.start = bridge->busnr;
-> +	bus->number_initial = bus->number;
->   #ifdef CONFIG_PCI_DOMAINS_GENERIC
->   	if (bridge->domain_nr == PCI_DOMAIN_NR_NOT_SET)
->   		bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
-> @@ -1232,6 +1233,7 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
->   
->   	/* Set up the primary, secondary and subordinate bus numbers */
->   	child->number = child->busn_res.start = busnr;
-> +	child->number_initial = busnr;
->   	child->primary = parent->busn_res.start;
->   	child->busn_res.end = 0xff;
->   
-> @@ -1470,6 +1472,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->   			child = pci_add_new_bus(bus, dev, secondary);
->   			if (!child)
->   				goto out;
-> +			child->number_initial = secondary;
->   			child->primary = primary;
->   			pci_bus_insert_busn_res(child, secondary, subordinate);
->   			child->bridge_ctl = bctl;
-> @@ -1491,6 +1494,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->   		 * do in the second pass.
->   		 */
->   		if (!pass) {
-> +			if (!dev->secondary_busnr)
-> +				dev->secondary_busnr = secondary;
->   			if (pcibios_assign_all_busses() || broken)
->   
->   				/*
-> @@ -1529,6 +1534,10 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
->   			pci_bus_insert_busn_res(child, next_busnr,
->   						bus->busn_res.end);
->   		}
-> +		if (dev->secondary_busnr) {
-> +			child->number_initial = dev->secondary_busnr;
-> +			dev->secondary_busnr = 0;
-> +		}
->   		max++;
->   		if (available_buses)
->   			available_buses--;
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 5ffcf5ce8c966..75a5fd2374acb 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -363,6 +363,7 @@ struct pci_dev {
->   	struct pci_slot	*slot;		/* Physical slot this device is in */
->   
->   	unsigned int	devfn;		/* Encoded device & function index */
-> +	u8		secondary_busnr;	/* Original secondary bus number */
+> The exporter pin count stays at 1. Preserving selected when it was true
+> on entry makes the test pass. Patch 7 needs the same fix.
 
-This doesn't make sense for end point devices. Is it possible to keep 
-under bus itself?
+Agreed, thanks for looking. A failed map shouldn't undo a previous selection.
 
-Thanks,
-Lijo
+> Could dma_buf_mapping_select() report whether it made a new selection?
+> Then the error path could undo only that choice, without dropping one
+> established by an earlier pin or map.
 
->   	unsigned short	vendor;
->   	unsigned short	device;
->   	unsigned short	subsystem_vendor;
-> @@ -724,6 +725,7 @@ struct pci_bus {
->   	struct proc_dir_entry *procdir;	/* Directory entry in /proc/bus/pci */
->   
->   	unsigned char	number;		/* Bus number */
-> +	unsigned char	number_initial;	/* Bus number before reassignment */
->   	unsigned char	primary;	/* Number of primary bridge */
->   	unsigned char	max_bus_speed;	/* enum pci_bus_speed */
->   	unsigned char	cur_bus_speed;	/* enum pci_bus_speed */
+We could do. At one stage I had a prototype of this returning the old match, but
+that got complicated. We do need to undo in the error path though, so will fix
+this for v2.
+
+> On the Sashiko failed-pin report:
+> ("Because the attachment is not pinned, the exporter may migrate the
+> buffer elsewhere without invalidating it")
 > 
+> I don't think this follows from the documented contract.
+> select_mapping() requires the exporter to keep the recorded type
+> servable and invalidate before an incompatible move. That obligation
+> still applies if ops->pin() fails.
 
+Yes, I think that statement is correct.
+
+> Is retaining the selection after a failed pin intentional? If so, this
+> can be added as a test documenting that alongside the map-failure
+> regression test.
+
+No, that was not intentional. As noted about I think if the first pin/map of an
+attachment failed it should effectively go back to the selected = false state.
+
+ - Alistair
+
+> Thanks,
+> Karl
