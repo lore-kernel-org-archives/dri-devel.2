@@ -2,93 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE88606A32C
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 00:16:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF705606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 00:26:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h3uzm3Z9
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fM/2mr+x
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54C1110EDAC;
-	Tue, 27 Oct 2026 00:15:55 +0000 (UTC)
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9081F10F1DE
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 00:15:49 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-8b0dba37a7fso29963917b3.0
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 17:15:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793060148; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7FEC10E025;
+	Tue, 27 Oct 2026 00:26:51 +0000 (UTC)
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
+ [74.125.224.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A3B110E025
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 00:26:45 +0000 (UTC)
+Received: by mail-yx1-f44.google.com with SMTP id
+ 956f58d0204a3-676804a3a22so3568823d50.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 17:26:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793060804; cv=none;
  d=google.com; s=arc-20260327;
- b=WtcEZ0ZCgt3z47FAgNtBYGlBAZDliwe2C9h0voNG8QUvOiaUDkJJmbPqsLsjS1WD9r
- Hwh2vjGvEfyXt/qvaiulCzeOWTfFsYkHifZaFY/Wtt5klQJNSh+/pa/KSoIzdNyvAgtO
- 10vDUs31PwXy1Y3Rr+PRjR5LoDIhDPLZoTRODhdIaa0/dRgBhCej9z2O0HwV93D1Gy+m
- b7B0QuMbPYszj3tSW5VgVYHUnLv060ST7d6bLs8GhZIxIRciBmw3c7laYONAXqeVlItc
- t80zqIDVVSJCx8klIWg8IHL5KA4BwK4xrMC91tFUIeXcSEJEo/r+xvuRaZfIw4GQUpZw
- IgvQ==
+ b=eSfkbTGtf5xM0Op0IYqQZ/ASEgOxAfbrR77EKRjvpWOgWnQGWEhyR/w3kNIwhUK9p+
+ ze9raxCxmsmho13WfPywTGzajwrZvm24Yu5EDEFIaX3exZRlyYxeTx4YqR7CUAhcO8P2
+ Sec+ao6DFBZ7h7sB6l2f0tefymq4swGZYRAWZt0spQXXx4GlXlF3nqGX3vyKOASo855D
+ hWtNPWryqVOWO2ThREy78jTnofMxN1wArvPXhZdwujONlQvpRljz8LRsgShOBKiUQ8ZY
+ BJN4OSWvavzFWtYFiVJ6qegrdwJJpZaA5lwpu4jaY3aseGB+sCfmr5EoCDzGJWh+bSqb
+ NGwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=qKeQmKdHS147YBCUhe6/TQHxqYO/kgxJinnL8fZRSJA=;
- fh=h9tpSRPjWnGwVMrKsGZeOJaxHZ1sfEXZeW8uVOI0Mho=;
- b=GrYUaac76JkB99rlEoFSndzd4G8aBRtx6Bcaj90XUK1ecySwuagJv2KCyv1E++KPYn
- LKNzLZbtcXHEGM1DtW//T3pB4O5YJNE+SDnJ+aCPMT6YpaXarzxJy97lvcaxU3l6iCLQ
- LcU2lfz2V0RUNpEDYaWt12kLwW2RVfh6JCcWSkSnfibF5U9dMzCAp0QG02NHnKGvnOH/
- odrqZ1zaiE7M5G6j5Zca6nF3r8Z7uLM56zTqIgpOLvLtPo1QvLqRf6+mmbz9KqFbgB9N
- qyB31pDBR2d2ljbWbtL+DcoPkq+uF8gJ8s/DB54IMr1kUSiM+eY/OKfwRCFkgMZCnuco
- MmOA==; darn=lists.freedesktop.org
+ bh=eybqDydWM/qmE6WTUncvgQt2QyS6Zq7ps/uXBzvWlWc=;
+ fh=Ex586fU952q6bqj+23e9vlTuyE+DwyugdtpR7aQkQFA=;
+ b=Vz4HQthK+oFG4OA0czgIelwcTgpaTNVSaIGasz+5t/UusE/Q37f//LSAo7IBf9rcJ7
+ 3L7I589eCNrMzpPbI9p10fiNyots3Kry8sbilzYPIellSnMFqaVWVyezT0i/s+/xeIzT
+ xox5i5pVEf8Ar6P1oKDfng/up7ysqLNQzs2H+zf81ULnhrrbWbUpDG+I+sdQiRC/Heet
+ fDgnB6xV+saURldJzSnAcmOL/7uIwm3sOAhc7wJ230Y9/tV4xliqP2pFgPncjFVSBPnN
+ ye08cl6HdPrHOATcQzdILubjbtvSlqohTiKH3d4pnfhccRasWfP1ESdwCzsRE/geu3rK
+ /ryw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793060148; x=1793664948; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1793060804; x=1793665604; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=qKeQmKdHS147YBCUhe6/TQHxqYO/kgxJinnL8fZRSJA=;
- b=h3uzm3Z9LPvmyPmgKXSlsEQd3ItgJ1e+p2vPnwDa8l2vkhpNE1FPAA5tHJ9WRzu0JX
- 5Gj8LQt1bkh9b0H3RzrCvSeHcPPHb1hBQE0wTiMvZfVX37/MdxffEjDoJJDGKO+SD0Yt
- oEATAsAcWYAjrn/9tBHgN+Gho8wjoZeO3ARzIKKqndgWF0RFwAA/vvI1ZCm3RBQD/atT
- HLH82zzaW0rFw4An8elvvO8734mLrnhh8cpSKY1L/mnNJ/BRWOZZNVlXOZHbtN0ULKZ+
- OFuZW92QQXpqM+AoBrqYbCBnKUK6LtxrabHnbs//T/UEpZPHNIyRJ85c77O9v7qlwzVy
- y/TA==
+ bh=eybqDydWM/qmE6WTUncvgQt2QyS6Zq7ps/uXBzvWlWc=;
+ b=fM/2mr+xG6JMX76y0E1PyBH1eSVeF2kHg4gXDB1BJK60YzvkzYMZwOtV8cM9o1fctA
+ QwoYKX94xj+yP/yolN5CXd4TQs4np6IVlRGFZd4p1B/xWJ9qKtLo8kNIqOD/qJ117Jfk
+ S+UyJY4vAJrtO6V4oIywl8ea6qPEjTGBqeh62sD0jgVNu8IA5F91CMYaxQ0KE1MtAU7t
+ 6D/FvGuAQs/73+y2T24PsBRfMIpIjSQzRRl4HeqwvHDZ7V0fXT3wgtzufia2M/WeTscH
+ xmeF1K+v5EfmD19fiPjdjpHmEFQdColbcv6fXomMoILWynhbm2a3DFUdqYBkKnVPZnTe
+ hbQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793060148; x=1793664948;
+ d=1e100.net; s=20260707; t=1793060804; x=1793665604;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=qKeQmKdHS147YBCUhe6/TQHxqYO/kgxJinnL8fZRSJA=;
- b=Vo1rSLwzvy54aX5D8FhGsUA/gb+2EU98nIE4+/zELefytnwyt3WXjZsdTcpRwqAXSZ
- TmGl5pG2Cr4PteFnEsu+hrifejVg2WVFCgipv3Jr5BTTdWcvshaFesdbfotDDZfYvUZ2
- mvnzLoItBaQyFBqoxtAjfnFL0C+SLt2HxIBzNNE62Yan4HbokG1FHlniYG/QSAVnIk1v
- A3JSXUrdnlOA7xjDQMi7WPau4GyukW55RKteHzyaHPsigynvbPNzlno/J7X6crVoqM6C
- xn0xqm5+Gspyh5HkVsqC/4POTYN/c7j1XJyAVrvBzGIMAlwXubtNRWpNNT6wVWKO9ZKl
- dbow==
+ bh=eybqDydWM/qmE6WTUncvgQt2QyS6Zq7ps/uXBzvWlWc=;
+ b=UnsdqeJIu+kPySboywVHGkX/GI3mlEmQCFpq1JT/ns4FlEITckQBXYOIAV2CUIIhAU
+ vkTnGP3y82qsKf2QPNYSRO2+I0AfdvMVvebvkKihFUnCb8NOlcc0g8roSjx5n+9ABSYN
+ /5xN7qCEWwEzMu78CcivokmPYNpb48qIX0UIxStYVP8tJoxF+BZHVfTSTJEKONUkEmTC
+ SUQfCtma39+lDq4ZuVbQ7f3d0Fg93wmPziwSJRcCir1GBahdYBzCoeebC906Hr+Ngc9K
+ cV+4Fy7EBaHZ6KJpEjRBt5jQfNaJZrBMW15xOibj3ugnt7v5L/VY/nQLDeFnv1ih51nl
+ +48A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzJgjJKiYGoTPZSJNWEkYG6j6db5Zd82tLl1EDzEuVo49zyBwpULOPuP62XuMYGFhbHBUh8kPphL3g=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIjrE9sVCLnqo3HjFA+huG6FxvEW/RCNB9tj9x1RwYDp92FSx2O
- uVTA5kJnhF0I7YJIaPjP1BKZ2o9t9OtvBDh+I3B15AnQfzLCN6kcqdUUwsC8rmYp2yb9XYpahDw
- WM4ef8dWNh+XX7aCkhXogAYiaLeyP5Mk=
-X-Gm-Gg: AYBFou3NeqzogUv4so+kHTlBB4dFVqis6XYXxu1S+bOaINqh2CqApLknnVWvd2LNiIM
- rih24+ywuzZAjLan+PzqcsxQ/+kkSga5GhB0464+Is8BTyN53lC1w+/ESzSAOicWMIpWLnzYO/m
- otRlfCZzPkSo546ZoX4vau6qgHlTikX0GWjaAZUbZ4Q0za7WY0xu05TjISVv3I3rbvgmcsWzsFD
- Xc7T1syh+WRuQ8Ue9klqmGsTiXflgM0RMLgICvWo5/bUx+vypbvH/MuzehKIPEsaaF4NWzGIh4e
- fI+DcgmBJbyCPi7kxpCZ4L+LT1KCmdoziwaRl7EZUXUtWgtevBSFcFTlyJBxmogGIdsuzqgPOb6
- 2dqju9mWvMKiMe5YZIK7mTR6rNMPKUhRGOx2aaPppTqx6czfkurDelkpPsJkMCvFBVE/SW2rj9R
- 6IZSDjztVRgGCUpjM=
-X-Received: by 2002:a05:690e:150f:b0:679:c803:98d1 with SMTP id
- 956f58d0204a3-67a45496c6cmr4080476d50.152.1793060148265; Mon, 26 Oct 2026
- 17:15:48 -0700 (PDT)
+ AKwUvByyhRyACk3RrG5dffcEnBsSRaU7HZmWug5mZ28xrUJ77ds7pBYCiMllToBzJzMSn16FlH1UEdBKKwY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJqhWYciruho4+AH/i4H4ChfeFTUMjCRuy/uCVqDXbB9i5OlfCv
+ WNIOc9dW0+wFNU+W5qpNSyR90sOo4SFHN+gN7pQjY/Fby8JDW/TkV9tKPon7ENSELPg8o0grQyg
+ iJiCeIJZaIdhc1NPxQTthh+ctjCZdjtk=
+X-Gm-Gg: AYBFou1YATZe75RS6Y6Z57Rix4JWC86z0JBZkWjKdnyQgK7gAGzoj870mVIN1cu4Z10
+ OMBndFpHHzxXeU9V9D5gyMpZ6PAWpzWrjNlaJsbGlxQRQu0m0bcR0JM5k9iPjj7VDO2Tj6lyBjR
+ vTqrLxWBGZWVNASoXc3RTwTR6+xg1vc9HXmL/ffRa5rDo1z/Vl67IsGzPxTguFSMg+kQieATeyz
+ R5+9Y1ueiLhqWerSEnt7xELnmXzYD7tb35RDqwMQf+fUgCAWX9nGWqK5QA1nd1fYwcR0POIfG5Q
+ 5J4urDPU0dkqofaAn0EbwLO+Skjc9GNZJgBAV3T8K/DxHdcozguj6jBaJlKw+h2tKQqRrEc2uE6
+ VcVwLph+mtvNOJeurj/Bn7MxMKwKPc6oBX4TXrs7reZIXnieIRvaeX5LItXc2ccqhsbot4bs2Wt
+ 0AxqwHgO5fEGjaElg=
+X-Received: by 2002:a05:690e:450e:10b0:677:ca67:98f4 with SMTP id
+ 956f58d0204a3-67a453de253mr3907194d50.45.1793060804234; Mon, 26 Oct 2026
+ 17:26:44 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
- <20261012-dd-cmap-part2-clean-v12-33-3c8cc5725def@gmail.com>
- <as4W9hToBqAvbzJ-@pathway.suse.cz>
-In-Reply-To: <as4W9hToBqAvbzJ-@pathway.suse.cz>
+ <20261012-dd-cmap-part2-clean-v12-10-3c8cc5725def@gmail.com>
+ <sashiko-outbox-170703@kernel.org>
+In-Reply-To: <sashiko-outbox-170703@kernel.org>
 From: jim.cromie@gmail.com
-Date: Mon, 26 Oct 2026 18:15:21 -0600
-X-Gm-Features: AclHuK9LH_u23sCYiYKMz0I-9md-phfbwb6JA9KZbhXjHlVRGYmTapsg8H2JBYc
-Message-ID: <CAJfuBxw-cq3AYXKZ07Y3732tDM-NYxt+rs8Fz6S=P7+1TF5WNA@mail.gmail.com>
-Subject: Re: [PATCH v12 33/40] dyndbg: Ignore additional arguments from pr_fmt
-To: Petr Mladek <pmladek@suse.com>
+Date: Mon, 26 Oct 2026 18:26:18 -0600
+X-Gm-Features: AclHuK_jv-lTnu6VYS2062o39f_E507yFRpnLLpthRIG1YaVwpNMuyVZmZdMW28
+Message-ID: <CAJfuBxwNEG2ukJbPyVqdu0jKN4_CGh_ZR1pYj1z6AJTErfLakg@mail.gmail.com>
+Subject: Re: [PATCH v12 10/40] dyndbg-API: remove
+ DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+To: sashiko-reviews@lists.linux.dev
 Cc: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
  Andrew Morton <akpm@linux-foundation.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -105,14 +106,12 @@ Cc: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
  Randy Dunlap <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
  Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
  Jonathan Corbet <corbet@lwn.net>, 
- Steven Rostedt <rostedt@goodmis.org>, John Ogness <john.ogness@linutronix.de>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ John Ogness <john.ogness@linutronix.de>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
  =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Philipp Hahn <phahn-oss@avm.de>
+ dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, Louis Chauvet <louis.chauvet@bootlin.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -133,142 +132,60 @@ X-Spam-Status: No, score=-7.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 13, 2026 at 5:33=E2=80=AFAM Petr Mladek <pmladek@suse.com> wrot=
-e:
+On Tue, Oct 13, 2026 at 8:36=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 >
-> On Mon 2026-10-12 20:37:04, Jim Cromie via B4 Relay wrote:
-> > From: Philipp Hahn <phahn-oss@avm.de>
-> >
-> > pr_fmt can be used to add a common prefix to any output from a module:
-> >       #define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
-> >
-> > But adding additional arguments breaks dynamic debug:
-> > > error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 arguments, =
-but takes just 3
-> > > |         pr_debug_ratelimited("%s", "Hello world!");
-> > > |                                                  ^
-> > > note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
-> > > | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)       \
-> > > |
-> > > error: =E2=80=98DEFINE_DYNAMIC_DEBUG_METADATA_CLS=E2=80=99 undeclared=
- (first use in this function)
-> > > |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT=
-, fmt)
-> > > |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Low] dyndbg: documentation references future struct _ddebug_class_map
+> --
 >
-> I wonder what this error about undeclared macro means.
+> commit 4edbf52dcd2e7bd06805f06e89c8d2ce8672c81b
+> Author: Jim Cromie <jim.cromie@gmail.com>
 >
-> > > note: in expansion of macro =E2=80=98DEFINE_DYNAMIC_DEBUG_METADATA=E2=
-=80=99
-> > > |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));    =
-     \
-> > > |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > > note: in expansion of macro =E2=80=98pr_debug_ratelimited=E2=80=99
-> > > |         pr_debug_ratelimited("%s", "Hello world!");
-> > > |         ^~~~~~~~~~~~~~~~~~~~
-> >
-> > Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to slurp
-> > any additional argument, which `pr_fmt` might add.
-> >
+> dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+>
+> This commit removes the unused DD_CLASS_TYPE_DISJOINT_NAMES and
+> DD_CLASS_TYPE_LEVEL_NAMES classmap types and their corresponding code.
+> It also renames enum class_map_type to enum ddebug_class_map_type.
+>
+> > diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debu=
+g.h
+> > index a10adac8e8f00..9607121c3072e 100644
 > > --- a/include/linux/dynamic_debug.h
 > > +++ b/include/linux/dynamic_debug.h
-> > @@ -351,7 +351,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor=
-,
-> >               dump_stack();                                   \
-> >  }
+>
+> [ ... ]
+>
+> > @@ -119,8 +109,8 @@ struct ddebug_class_param {
 > >
-> > -#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)    \
-> > +#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)       \
-> >       static struct _ddebug  __aligned(8)                     \
-> >       __section("__dyndbg_descs") name =3D {                    \
-> >               .modname =3D KBUILD_MODNAME,                      \
-> > diff --git a/include/linux/printk.h b/include/linux/printk.h
-> > index f594c1266bfd..5d701952e739 100644
-> > --- a/include/linux/printk.h
-> > +++ b/include/linux/printk.h
-> > @@ -742,7 +742,7 @@ do {                                               =
-                       \
-> >       static DEFINE_RATELIMIT_STATE(_rs,                              \
-> >                                     DEFAULT_RATELIMIT_INTERVAL,       \
-> >                                     DEFAULT_RATELIMIT_BURST);         \
-> > -     DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));         \
-> > +     DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, fmt);         \
+> >  /**
+> >   * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
+> > - * @_var:   a struct ddebug_class_map, passed to module_param_cb
+> > - * @_type:  enum class_map_type, chooses bits/verbose, numeric/symboli=
+c
+> > + * @_var:   a struct _ddebug_class_map, passed to module_param_cb
 >
-> IMHO, this changes the existing behavior. The prefix added by
-> pr_fmt() will no longer be stored in DEFINE_DYNAMIC_DEBUG_METADATA().
-> Is this intentional, please?
+> [Severity: Low]
+> This isn't a bug, but does this documentation reference a struct that doe=
+sn't
+> exist yet?
 >
+> The comment here refers to struct _ddebug_class_map (with an underscore),
+> but the macro DECLARE_DYNDBG_CLASSMAP currently instantiates struct
+> ddebug_class_map. Is it intentional to document the future name before th=
+e
+> actual struct rename occurs in a later patch?
 
-yes, its intentional.
-
-515a9adce0f0 ("include/linux/printk.h: include pr_fmt in pr_debug_ratelimit=
-ed")
-added pr-fmt to both the METADATA macro call, and to the printk() just belo=
-w it.
-The commit-msg was clearly about adding it to the __dynamic_pr_debug() itse=
-lf,
-the METADATA addition was overzealous.
-
-Removing it brings pr_debug_ratelimited() into conformance with the other
-*_pr_debug_* calls:
-    dynamic_pr_debug, dev_dbg_ratelimited, net_dbg_ratelimited.
-
-and as you noted, this makes the ... variadic unnecessary.
-
-Ive added the Fixes: tag accordingly.
-
-thanks for the review & pushback.
-and apologies for the delay, I picked up a FLU shortly after sending v12.
+yes, intentional.
+using future-name avoids having to fix it later.
 
 
-
-
-> Anyway, if we do not longer pass pr_fmt(fmt) then we should not
-> need to add "..." into DEFINE_DYNAMIC_DEBUG_METADATA_CLS().
 >
-> By other words, we newly pass just the format "fmt" without the parametes=
-.
-> The 4th parameter was added by pr_fmt().
+> > + * @_maptype: enum ddebug_class_map_type, chooses bits/verbose
+> >   * @_base:  offset of 1st class-name. splits .class_id space
+> >   * @classes: class-names used to control class'd prdbgs
+> >   */
 >
->
-> IMHO, the right solution is to keep pr_fmt(fmt) here and extend both
-> BEFINE_DYNAMIC_DEBUG_METADATA() and
-> DEFINE_DYNAMIC_DEBUG_METADATA_CLS()
-> to accept var args. I would expect something like:
->
-> #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)  \
-> ...
->
-> #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt, ...)           \
->         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt,=
- ##__VA_ARGS__)
->
->
-> or maybe, we could "eat" the extra parameters in
-> DEFINE_DYNAMIC_DEBUG_METADATA. It would mean to keep
-> DEFINE_DYNAMIC_DEBUG_METADATA_CLS() as is and just add the "..." into
-> DEFINE_DYNAMIC_DEBUG_METADATA(), aka
->
-> #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt, ...)           \
->         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
->
->
-> Or do I miss something, please?
->
-> It is possible that the macros work another way. Or this depends
-> on another change. I checked only this patch...
->
-> Best Regards,
-> Petr
->
-> PS: I was curious what Sashiko says about this change and it seems
->     that it does not review this patchset from some reasons.
-
-I checked shortly after sending, it was "embargoed" for 24 hrs,
-perhaps cuz it was so soon after rc7
-
->
-> >       if (DYNAMIC_DEBUG_BRANCH(descriptor) &&                         \
-> >           __ratelimit(&_rs))                                          \
-> >               __dynamic_pr_debug(&descriptor, pr_fmt(fmt), ##__VA_ARGS_=
-_);    \
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-dd-cmap-=
+part2-clean-v12-0-3c8cc5725def@gmail.com?part=3D10
