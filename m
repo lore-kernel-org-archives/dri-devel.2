@@ -2,84 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC23606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:28:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A45F60A2605
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:28:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lBy+oZfl;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BB2Oshde
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=COSfLb3J;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LcMpCL7J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F96E10F65D;
-	Tue, 27 Oct 2026 15:28:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 962A010F674;
+	Tue, 27 Oct 2026 15:28:45 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C149010F65D
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:28:28 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2A8C10F676
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:28:32 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69RFLHk33086670
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:28:27 GMT
+ 69RFKtnI1521233
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:28:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=j11pQ2O0YT41mdxr21xy8gY+VUqxGKTMnbt
- rD9kSBmE=; b=lBy+oZflsvqtslCvzxtqG0c4xqH7dnJJhmMPkws2GM54rtmXjgc
- rTmyT0qxzT1t5EYzEkX6wjtNSg/Mhm4C/6WkBi55R4hnUhbqGE7+F3XGvfKXtaRo
- 02phNg0ttJLlDC3fMAgYq7TXj6eMBnpBOfY6Au+gJBv94F2gbP0Yjn02q8rG9Kkb
- D0x0aLsL14PzGcI0mrhVOyxNhqEWOQ0Eo0bnA+kt5W7LRX/mFND5t3JbHCz/OaZy
- eOPGkQpU71kCwarIs4Mfpt5+Uh130y6mOl6iLn67RloI6bap3dq5uRTe5KfEzR53
- TkLwLc06N0IrPcw1ZY8y/lHFlFy/0i1meHg==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjjbtb17g-1
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=Y11jEpRTQq1
+ C4+GXBtkJEfxP2mZ+Qxz7cGDzmFaJGPI=; b=COSfLb3JVphph+skhdIQP71lFsL
+ RyXpX52qfgDkm6eHHlfi+tlNM1p1yn7+jtl7Hc/9rEaerYEgRjuvI5rX+gnnGmAi
+ MSVBlB3uKeLkYwiOORmraX2lzQOooSkfSH05V+uwmlrpgzKWTsXPGhQ2LPGXN8Aj
+ akDWSeTHL6KVBJrNJlD2gTxzn4VLetSyRyPWzmQL4x6mQOvbLcIrAwpUGq8+r2wk
+ fJ79k4vjYfVtIpTXR+AAtULvRQb7UbLSropy/4g4R2Fz5STRFydxK5i2V5PsMpZX
+ D5xr3L7ptzgwW2PgYMI3t6avJxRfQ9aCch5+Ny54UM5zV+lgEBycs+HU51A==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjux98swk-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:28:27 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-8a59717b0c0so5385b3a.3
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 08:28:27 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:28:31 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2e818ca61bfso44647925ad.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 08:28:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793114906; x=1793719706;
+ d=oss.qualcomm.com; s=google; t=1793114911; x=1793719711;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=j11pQ2O0YT41mdxr21xy8gY+VUqxGKTMnbtrD9kSBmE=;
- b=BB2Oshde24B0yyg+9bW5EAFJI5jbMszmCFX2X4AkokTNVXp60qGdH92EovtiYJFxPA
- ou+KFDS3vhXdpXYGA5rLo9fE3Xf7o59n6i6cCYPpiXr5WmdrAV2YMcFK1+4IlNj5LAez
- s3KIMVd8D1XSD7TsVJA7hprre7KHMuCDFbKjZhTeQgRTrAeAo0S/niY4LkHl48yXpdYC
- yCYOCR60OyHNWhVklvEsN9HzjQc9DxHptWLB0mu8eWF4eYY01DAm4tI5Qn4EbUka6UD6
- 08HojqBlevF11SRg/xcLerv61qMkQgYjoO1HMc6cQGHjmHRletR8f2k+KGcFDLz/vt+7
- yrGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793114906; x=1793719706;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=j11pQ2O0YT41mdxr21xy8gY+VUqxGKTMnbtrD9kSBmE=;
- b=OefXFJT4zd9JWbAalOiuJ4Ekq97W7M/SLY1vD5dT25o6gdqFzJPLY8ptFyRj3wMsn+
- f91popy5DBFHT6vDUjzKkuMM22khfDgEylFTpUrf1FDWSFj/yeCk/lzHOLxzQTYiojfL
- cz1r8LuDXACwRiAACMEBgPVz294Wvgap63LiDIu0xuID9ReMF2vDUforRwBRBpo+jOk0
- r8+Fw+D3Ox7/RJxGkNIUVxm3eXEpvqcpt3st7otIpDUGj+nvK0t5AGjwhiXXF5ehoMrQ
- F9p8mXUVSFhBmLYmo/3QsN7wtERCXNApyIV6cQBAnPt12K3bTcRxa0Kx06FE0WRlXaTR
- aHhA==
-X-Gm-Message-State: AFq9FYKLe4NMD6Cu6j4f+ZSgwax8GbWjBJGWz/udaNGoQAbUFp1PUAeN
- sOkigowcatIGP+E+cItCHP425pvBQlAL6IuUKuuJrzG7gAVdcCrSoCpv0eWEI8Eu3jDSKICIFxi
- XgKj7WtMQ/eIEeRD/S4GZCZ3WYhpzzJrSUH9OwOj5+VyipBfJ5hj8Op0jkBlG01Yd9DJ8ANFSwM
- 9greY=
-X-Gm-Gg: AYBFou1SZp0wkHGdiAUQ2KbaqRaJJpzwoN+YfgAVe8L2S7wFXAvPJHyQJMfcD94abrg
- umaAS5DBWLabW0W+eENNPR/DhjyF0AcMshbPwK7HQNGgDEPwsUacyBDx5ZNmaMumzU2HsBYTJ5r
- zU3RH1xDSm7X9kSZWNRlKUjQo/eQ2N8ULrgnfluyQ+lS5cC7+epwetDepRH63xEwj9qN3k1Ab5y
- xoLOnNdDyKkXrWIJopRSNtyN/76vdm31RnLhn6ECKD5wfmPDqG7DE7qplZH8yM9ZjUGHDmXU412
- Xe6WQoImcYnEXaDh1uNXCE8denptpjD0scdS+cyHIHL0tr+AfRTXSUjlI4MlAYMNlk91KghLh18
- NdW3AXoETOjXSdngJtqJMuKblJPsSZhgI++JoRZn41Y9qZlxgEQ==
-X-Received: by 2002:a05:6a20:9c17:b0:3e2:26fc:2e1c with SMTP id
- adf61e73a8af0-3e7bfa9cea9mr7731255637.39.1793114906393; 
- Tue, 27 Oct 2026 08:28:26 -0700 (PDT)
-X-Received: by 2002:a05:6a20:9c17:b0:3e2:26fc:2e1c with SMTP id
- adf61e73a8af0-3e7bfa9cea9mr7731232637.39.1793114905906; 
- Tue, 27 Oct 2026 08:28:25 -0700 (PDT)
+ bh=Y11jEpRTQq1C4+GXBtkJEfxP2mZ+Qxz7cGDzmFaJGPI=;
+ b=LcMpCL7Jw47i0I+tahFHYyeG4azlm6L/Azqg9mIw/ZQ1cPrfZuAX0VUSZYrkJDiV+w
+ aIJXRdoWKTjnWvPEoGowm5izufcp1TpXXuzlulu0N9xxuJ85PgZaAt/kWaX57qbxfhyb
+ T2290O4IuGiMc9toE6ztPOxKOMwzi9y4tFmXY3GUDJWO5yLKW1oseM6ToeLUl/tR52or
+ KWvilRxQZomqgeQPHM/kn1G73B9MCWFFmYdHa/OCXdj8JTfu4UpL1FIjv8qucK8TMEcJ
+ tt3kgfahR5+cLGIvCL/6wtZEy9kk7Qte5Kmy4WRWaQDk7onDnTrSIhl//1jLZUPDVDEy
+ eBNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793114911; x=1793719711;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Y11jEpRTQq1C4+GXBtkJEfxP2mZ+Qxz7cGDzmFaJGPI=;
+ b=eOMvxegZ+jmZe1ufqhCM/QkepOgm7ss1i4kPhjRqqkEM1bxfeJFcC/ea0jZGVNXVnk
+ SBKBGmPIaNZaWlz19FQnLU/rYnobLhwsQlvKhaOK47Sqc5ll71YrBDopI0l1Mpc85jNI
+ R5JugPLiyql+eQptLQNE+dQVt7c6Tu9Gsb96k9C12Wul0Eye9CtbjZ8wQes9LeAr+Hvm
+ 1RIutJCyr6jx3o1Mdleo6RUWoC8pnjOTz5woZlzBwy5QQ2eyeIHJoNiK8cir2qppZm2w
+ dy4QV8TNazH4wXFh2cpuwuubC7GDrmX5zHNYVmqUcUttfDb6T20dJE6VE8cUzYf7t8Al
+ Pqjg==
+X-Gm-Message-State: AFq9FYJ8chMgy08dt5QiQtQ2nOKfb4mliq61q/C9hMYYCe3NoXPhWP2A
+ qJflUvAMbfSdHvv0a8izCVlDHaJDNk4j8FynaQ1OxmaMaBVhKqyPwlkI7fUL+0IjM4hmppqUYkG
+ aq7z/LnEk6xONaP74G1K7wvVPoKxYbCNue6C1LdVgt5ZM/VXy0R5tPTECETaoNfMosiqOVCSSXK
+ fGtWY=
+X-Gm-Gg: AYBFou2BgtIyFdk/gZ0vxY/yzvEUud274FL16kracpiIDctHoXX/zcUob6uUd9DmFxl
+ U7OT91/PJaH8VNKG53CjOKRfbw7+HR13DKW8hp0SBp7wgsbS3U00VEBXCsyNHF6P8PB+XSh4xMI
+ zIoSxeWRcbWIIDlUx5i3XcgL2ZhVDG6xJdX+0E808aixzrJG09NDZCmHvFvXDlP6ONYFEjsGwH4
+ FiutDVPBIDOPiuEIS2I2TyuaMIDVMaGNtEdRDW3rv3iE8fM+Mbn5OIgkeLWmd38BI1ccQ3mqBJ+
+ owOXmTs/G4jXV5paH+PRWIy/pV6+tMFb3OS4s4/WfhVwyYmSRLb2Ve9Fa/O6qsk4YT2Ho75jpdf
+ RDS8Rc3mEWNhxhOzv9FMhHbPBDeikGpqdx2Jn+VXUixbJ81w8brlM+J4rVt6TpFtr+qH9Tx+Oe0
+ I2mIJn+qfcofDsR9KXS4MkHXw=
+X-Received: by 2002:a17:903:26c3:b0:2e9:8510:6acf with SMTP id
+ d9443c01a7336-2ea9c8194a1mr83268035ad.25.1793114910462; 
+ Tue, 27 Oct 2026 08:28:30 -0700 (PDT)
+X-Received: by 2002:a17:903:26c3:b0:2e9:8510:6acf with SMTP id
+ d9443c01a7336-2ea9c8194a1mr83267805ad.25.1793114909957; 
+ Tue, 27 Oct 2026 08:28:29 -0700 (PDT)
 Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
  [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cdad33b99b2sm985434a12.26.2026.10.27.08.28.25
+ d9443c01a7336-2eae6b768ffsm11619545ad.24.2026.10.27.08.28.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Oct 2026 08:28:25 -0700 (PDT)
+ Tue, 27 Oct 2026 08:28:29 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -87,45 +89,46 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, David Airlie <airlied@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- linux-kernel@vger.kernel.org (open list),
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
- Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v2 0/5] drm/msm: DMABUF_DEBUG fixes
-Date: Tue, 27 Oct 2026 08:28:14 -0700
-Message-ID: <20261027152821.51144-1-robin.clark@oss.qualcomm.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2 3/5] drm/msm: Extract out map/unmap helpers
+Date: Tue, 27 Oct 2026 08:28:17 -0700
+Message-ID: <20261027152821.51144-4-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261027152821.51144-1-robin.clark@oss.qualcomm.com>
+References: <20261027152821.51144-1-robin.clark@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfX4f3/dKqHKhZZ
- dLs/JtVOv1bN8DDbHO3SRC0gYXZzklKSBbBeT3eZPUhJl30rOPMb1VeTby0Z4ufhqm2uFRi8ppC
- wXZAH8c2ei16UN+NPiIpho61Xl0vwr4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfX79Z7oPe/rGQN
- ky3GIsAftuhVMkpY5GT9r3rdKoZPpOxMfRWePsrcPPLNwqukImIB62Oq3XiJgY5CrSRH6/tPiTB
- 9FJbGqe2vnnLkMA4lKtsglmQbl4mKxoe+BzZd3qo0fjXF5yeabF6YmuVHydRRlBjFG6BLaiFCrC
- u9qy7aoGLjaYGVrNroNN5pVsCnGIV5t5om++gTQGY1CvvgJhC5fS8YofX/58aXXLnuplGP79rEF
- Js/6EFrMC9biKwnxjE8g5DLsiKtNpLUW8bGdQrILiZAkhUK7w0LZ/EHn5RMNIg5spqlZfxwcriD
- 2nXGPblCpZENt19jS7karaP4zMzPG6NEABt0elV5elxWRvMAKBGsVTcA5WOTtz1hX6iQFMwQWXP
- o0l0IRV2J9YtGzqiShs1K0XKGTJCKjACwiQpgPUt7qQsEAnsmNztA2LYOskrbXScV2LIxsR91Rg
- f5L78/cgKpH9yuhyDUQ==
-X-Proofpoint-ORIG-GUID: wmU7pXtVeQMYxCim8I8kzVR9Zj4Bl0fJ
-X-Proofpoint-GUID: wmU7pXtVeQMYxCim8I8kzVR9Zj4Bl0fJ
-X-Authority-Analysis: v=2.4 cv=XaIcX455 c=1 sm=1 tr=0 ts=6ae0c31b cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+X-Authority-Analysis: v=2.4 cv=GYyCDgXL c=1 sm=1 tr=0 ts=6ae0c31f cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=puu_XB033Gd1UDA3wS8A:9 a=2VI0MkxyNR6bbpdq8BZq:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=R8jjkeD1lhB8w9RMBGIA:9 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: bzR0WDGrDeAjv3tKRHTudZozYfX0Q91F
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfX9o1myx8fFQ/h
+ 94MYtbKr/mhL7QWlrIUcmNCWkBKXB+6XikR0wB9/FuEDon4rw27kTazea6/hyssRXd3ixYO0kXy
+ S93Xyk95P5dc9u8TnpV0KqpYbN90hTCXjAV04oUgNMN9v5+hdrPZOWMil+DPShWGhxtQTxpNW3u
+ lUjbD5EdLa4RvYFq9EYfay0xRCm1xy2UnBpMyw5B+hRG0+HRxjcg8BCtHUC1ox9TyzvvSAzmlYX
+ oe/qbTgOz2BWt0PlOj6InXwXZ4hjXxrnWqt0+eNXkP/MAIkA70lLhtrdKTcCSfwQkZDsz5govWR
+ LGuFElmgJ+egquCDKVGDmEq0iHY0UOmiBV+LyP0fa3pwHPf/87wvhcMUha93PrCHWkvmEX3qOjZ
+ CfHfWCDqf3OVFqFgl1xWtL8y9Ak5mUxbxAKotj0kM39Cq/dPRSLNjSDz4Y5CE03/Gp+LXFBVJv6
+ BNY7w482ioKTv+pPjaQ==
+X-Proofpoint-GUID: bzR0WDGrDeAjv3tKRHTudZozYfX0Q91F
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfXxQHDy0dRKks0
+ iolalJjxKZussRi5FDoUXZrsNGTFFbMlx2cdPXLqgbYsqxv3EdhnDFXo3V6cqM1EfMiwA9tIiR3
+ y7Rni/i/dR7XRcFU1gxT1nJs1TF2ek0=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 lowpriorityscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270061
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ malwarescore=0 impostorscore=0 phishscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270061
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,50 +140,242 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-With DMABUF_DEBUG=y, the page information is stripped from the sgt that
-we get for an externally allocated buffer that is dma-buf imported (as
-opposed to an exported GEM buffer that is re-imported).  This is a bit
-unfortunate, since we need that information for mapping the buffer in
-both paths:
+We're going to re-use these in the next commit.  No functional changes,
+just some ugly callbacks.
 
-1. Userspace GPU pgtables (TTBR0), where we use io_pgtable directly.
-   Fortunately this we can fix ourselves easily.
+Tested-by: Jianfeng Liu <liujianfeng1994@gmail.com> # x1e78100 (Acer SFA14-11), v7.3-rc5 + this series, CONFIG_DMABUF_DEBUG=y
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/msm_iommu.c | 155 +++++++++++++++++++++-----------
+ 1 file changed, 101 insertions(+), 54 deletions(-)
 
-2. Iommu managed pgtables (scanout, kernel GPU buffers (TTBR1)).  In
-   normal usage that iommu subsystem envisions the dma-mapping and
-   iommu-mapping are combined.  We can't really work around this but
-   we can stop trying to pretend to be a normal iommu user and just
-   go directly to the iommu_domain_ops.
-
-This all depends on being dma_map_direct() for the dma_map_sgtable()
-to work.  This should be the case on modern things that use arm-smmu.
-It's less clear when it comes to older pre-arm-smmu hw.  It's possible
-that this series causes those things to catch fire.  If so, look to
-commit 0e764a01015d ("iommu/arm-smmu: Allow client devices to select
-direct mapping") for inspiration.
-
-v2:
-- Fix missing tlb flushes in error paths
-- Link to v1: https://lore.kernel.org/all/20261006131000.81501-1-robin.clark@oss.qualcomm.com/
-
-Rob Clark (5):
-  drm/msm: Cleanup if pages_to_sg() fails
-  drm/msm/gem: dma_map/unmap_sgtable()
-  drm/msm: Extract out map/unmap helpers
-  drm/msm: Convert iommu map/unmap to helpers
-  drm/msm: Convert map helper to use dma-address
-
- drivers/gpu/drm/msm/msm_gem.c   |  57 +++++++---
- drivers/gpu/drm/msm/msm_iommu.c | 190 +++++++++++++++++++++-----------
- 2 files changed, 165 insertions(+), 82 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+index da6782fca6bd..78c82f4a01b9 100644
+--- a/drivers/gpu/drm/msm/msm_iommu.c
++++ b/drivers/gpu/drm/msm/msm_iommu.c
+@@ -52,9 +52,8 @@ static struct msm_iommu_pagetable *to_pagetable(struct msm_mmu *mmu)
+ }
+ 
+ /* based on iommu_pgsize() in iommu.c: */
+-static size_t calc_pgsize(struct msm_iommu_pagetable *pagetable,
+-			   unsigned long iova, phys_addr_t paddr,
+-			   size_t size, size_t *count)
++static size_t calc_pgsize(unsigned long pgsize_bitmap, unsigned long iova,
++			  phys_addr_t paddr, size_t size, size_t *count)
+ {
+ 	unsigned int pgsize_idx, pgsize_idx_next;
+ 	unsigned long pgsizes;
+@@ -62,7 +61,7 @@ static size_t calc_pgsize(struct msm_iommu_pagetable *pagetable,
+ 	unsigned long addr_merge = paddr | iova;
+ 
+ 	/* Page sizes supported by the hardware and small enough for @size */
+-	pgsizes = pagetable->pgsize_bitmap & GENMASK(__fls(size), 0);
++	pgsizes = pgsize_bitmap & GENMASK(__fls(size), 0);
+ 
+ 	/* Constrain the page sizes further based on the maximum alignment */
+ 	if (likely(addr_merge))
+@@ -78,7 +77,7 @@ static size_t calc_pgsize(struct msm_iommu_pagetable *pagetable,
+ 		return pgsize;
+ 
+ 	/* Find the next biggest support page size, if it exists */
+-	pgsizes = pagetable->pgsize_bitmap & ~GENMASK(pgsize_idx, 0);
++	pgsizes = pgsize_bitmap & ~GENMASK(pgsize_idx, 0);
+ 	if (!pgsizes)
+ 		goto out_set_count;
+ 
+@@ -107,24 +106,27 @@ static size_t calc_pgsize(struct msm_iommu_pagetable *pagetable,
+ 	return pgsize;
+ }
+ 
+-static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
+-		size_t size)
++typedef size_t (*unmap_fn)(void *arg, u64 iova, size_t pgsize, size_t count);
++typedef int (*map_fn)(void *arg, phys_addr_t paddr, u64 iova, size_t pgsize,
++		      size_t pgcount, int prot, size_t *mapped);
++
++static inline int
++__do_unmap(unsigned long pgsize_bitmap, u64 iova, size_t size,
++	   void *arg, unmap_fn unmap)
+ {
+-	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
+-	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
+ 	int ret = 0;
+ 
+ 	while (size) {
+ 		size_t pgsize, count;
+ 		ssize_t unmapped;
+ 
+-		pgsize = calc_pgsize(pagetable, iova, iova, size, &count);
++		pgsize = calc_pgsize(pgsize_bitmap, iova, iova, size, &count);
+ 
+-		unmapped = ops->unmap_pages(ops, iova, pgsize, count, NULL);
++		unmapped = unmap(arg, iova, pgsize, count);
+ 		if (unmapped <= 0) {
+ 			ret = -EINVAL;
+ 			/*
+-			 * Continue attempting to unamp the remained of the
++			 * Continue attempting to unmap the remained of the
+ 			 * range, so we don't end up with some dangling
+ 			 * mapped pages
+ 			 */
+@@ -135,6 +137,83 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
+ 		size -= unmapped;
+ 	}
+ 
++	return ret;
++}
++
++static inline int
++__do_map(unsigned long pgsize_bitmap, u64 iova, struct sg_table *sgt, size_t off,
++	 size_t len, int prot, void *arg, map_fn map, unmap_fn unmap)
++{
++	struct scatterlist *sg;
++	u64 addr = iova;
++	unsigned int i;
++
++	for_each_sgtable_sg (sgt, sg, i) {
++		size_t size = sg->length;
++		phys_addr_t phys = sg_phys(sg);
++
++		if (!len)
++			break;
++
++		if (size <= off) {
++			off -= size;
++			continue;
++		}
++
++		phys += off;
++		size -= off;
++		size = min_t(size_t, size, len);
++		off = 0;
++
++		while (size) {
++			size_t pgsize, count, mapped = 0;
++			int ret;
++
++			pgsize = calc_pgsize(pgsize_bitmap, addr, phys, size, &count);
++
++			ret = map(arg, phys, addr, pgsize, count, prot, &mapped);
++
++			/* map_pages could fail after mapping some of the pages,
++			 * so update the counters before error handling.
++			 */
++			phys += mapped;
++			addr += mapped;
++			size -= mapped;
++			len  -= mapped;
++
++			if (ret) {
++				__do_unmap(pgsize_bitmap, iova, addr - iova, arg, unmap);
++				return -EINVAL;
++			}
++		}
++	}
++
++	return 0;
++}
++
++static size_t
++__unmap_pgtable(void *arg, u64 iova, size_t pgsize, size_t pgcount)
++{
++	struct io_pgtable_ops *ops = arg;
++	return ops->unmap_pages(ops, iova, pgsize, pgcount, NULL);
++}
++
++static int
++__map_pgtable(void *arg, phys_addr_t paddr, u64 iova, size_t pgsize,
++	      size_t pgcount, int prot, size_t *mapped)
++{
++	struct io_pgtable_ops *ops = arg;
++	return ops->map_pages(ops, iova, paddr, pgsize, pgcount, prot, GFP_KERNEL, mapped);
++}
++
++static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova, size_t size)
++{
++	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
++	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
++	int ret = 0;
++
++	ret = __do_unmap(pagetable->pgsize_bitmap, iova, size, ops, __unmap_pgtable);
++
+ 	iommu_flush_iotlb_all(to_msm_iommu(pagetable->parent)->domain);
+ 
+ 	return ret;
+@@ -176,55 +255,23 @@ static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
+ {
+ 	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
+ 	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
+-	struct scatterlist *sg;
+-	u64 addr = iova;
+-	unsigned int i;
++	int ret;
+ 
+ 	if (!sgt)
+ 		return msm_iommu_pagetable_map_prr(mmu, iova, len, prot);
+ 
+-	for_each_sgtable_sg(sgt, sg, i) {
+-		size_t size = sg->length;
+-		phys_addr_t phys = sg_phys(sg);
+-
+-		if (!len)
+-			break;
+-
+-		if (size <= off) {
+-			off -= size;
+-			continue;
+-		}
+-
+-		phys += off;
+-		size -= off;
+-		size = min_t(size_t, size, len);
+-		off = 0;
+-
+-		while (size) {
+-			size_t pgsize, count, mapped = 0;
+-			int ret;
+-
+-			pgsize = calc_pgsize(pagetable, addr, phys, size, &count);
+-
+-			ret = ops->map_pages(ops, addr, phys, pgsize, count,
+-					     prot, GFP_KERNEL, &mapped);
+-
+-			/* map_pages could fail after mapping some of the pages,
+-			 * so update the counters before error handling.
+-			 */
+-			phys += mapped;
+-			addr += mapped;
+-			size -= mapped;
+-			len  -= mapped;
++	ret = __do_map(pagetable->pgsize_bitmap, iova, sgt, off, len, prot,
++		       ops, __map_pgtable, __unmap_pgtable);
+ 
+-			if (ret) {
+-				msm_iommu_pagetable_unmap(mmu, iova, addr - iova);
+-				return -EINVAL;
+-			}
+-		}
++	if (ret) {
++		/*
++		 * If the map failed mid-way, it will have triggered an
++		 * unmap, so we need to flush the TLB:
++		 */
++		iommu_flush_iotlb_all(to_msm_iommu(pagetable->parent)->domain);
+ 	}
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static void msm_iommu_pagetable_destroy(struct msm_mmu *mmu)
 -- 
 2.56.0
 
