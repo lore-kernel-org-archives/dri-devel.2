@@ -2,96 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BC2606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 08:55:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F82A606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 09:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OCpHcXiN
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=aZ7C36FF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82BFD10E194;
-	Tue, 27 Oct 2026 08:55:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C62D810E220;
+	Tue, 27 Oct 2026 09:00:35 +0000 (UTC)
 Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
  [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DA8A10E194
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 08:55:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC7110F2D1
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 09:00:30 +0000 (UTC)
 Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4a35db1f202so21201105e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 01:55:38 -0700 (PDT)
+ 5b1f17b1804b1-4a5720b0a57so4303455e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 02:00:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793091337; x=1793696137; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ho9s6p1VYtelviR5lwhrV0eO33rHviRLYIfI2vUHdcc=;
- b=OCpHcXiNMT5ZoQyFuWh8Xokt+bX5mTOE31+MNauIK5zfUyV6R372dquYaNPasv7wd9
- ktY29dT73H+9NtCUjvrkswkSRkLOsxxf0BpgxIk8QbzGEy7R/FXHfTpy66xhNXi3t8bP
- 03H9RS43OaXv/JxbZxYFRAOwNq2rznmM2HvUdKpI9JV6cSTw61m2NzFIlTyGtw9vXGuv
- eXdOkm6uA2Nd2/b/uQGb33Un26pvBUjUIS2UCtkT5du62GbS5Eb4Ibm0zIG+PrrPF0UH
- D3tUjPSt6Wu71LAolN65j1ZX39IDPtV2QFjhYCE+1xmkDU7DmLFl1yYzCRHG4paC2x9y
- BE8g==
+ d=suse.com; s=google; t=1793091628; x=1793696428; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=9WCkf6QzTLTdkFQ4qPzTcHJh7ncWmxtj0NsBOYpx7Cs=;
+ b=aZ7C36FFG9nPmZhb4/dAHJJp+heY4/QMMojiOZ8kjEjvLlBxJ3qKujY17Vnz2wRsMI
+ NpTGJUSQRTyF1hfFo2XB64oQGI2iWP4gvK9Y5m41jPchnX+pX2jR2acFoDkvQRUAbqnv
+ sTqpxvvPNwPsR9IHXc1srfODQKw6ha06aw4Db6IJt1XtlurI2OqqOmB7MgGPDQLOJCsl
+ TFB/ksjhTF1LfGSQfEKyvgF1/zsNJzgavp3mNz1c9kKC7L+e1rnlLAnL4fZuCELiuU1m
+ eC5Kri8WnHIBRzyxZz4spyYCLMnIbl7aMpW4fSTOks5sob4FuUmtOH6EJpyW2KlUCjVr
+ JORw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793091337; x=1793696137;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ho9s6p1VYtelviR5lwhrV0eO33rHviRLYIfI2vUHdcc=;
- b=1h1y/d9IGpQH7QoJOVAp6iyNy1t8IpLJjcDiaqhAvBDh3yL8X9ab0V7QZRiiVT7c8S
- evl5RSxzPf6TOH64LWiG9njZUtoJmqv9BqkrO7esKJ8wHWqKRnK5m03loH/d80TNMIFB
- 9OhrcXnXPmC7hJ7t8w64nldZWdXTWZpxziE3t7KZBkRQah6Bf4/JvX40iw3LkPQLKYBD
- muItviTaJGpI3tjPCCU8dX51dRtM5Vn7DpiIXT7XBe3EsI4Ag1pJlHdk+4PqXKpSg0UX
- 1zM5B7I2DiKtZ53YyX+V33x3zWD3HJqO7fKxAIJoC7kvjBR656AEGcsUK3fsD7dR2Udu
- I25w==
+ d=1e100.net; s=20260707; t=1793091628; x=1793696428;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=9WCkf6QzTLTdkFQ4qPzTcHJh7ncWmxtj0NsBOYpx7Cs=;
+ b=YvEMOAvjqUP/QVdFonh1ctJ10AU4gOEFJfThoNISm4xk9LpL/GaIv5nQKVwMYaFZLN
+ t2GZ4SE85w/Q81ApYnqQjDMvIUWM9EOG/bBg+2EnHntO94I2OxMfTQDh/rnihyo1j+pt
+ BndRftCI6E5W3AULmSyY4K4cWbyXwfJjRwUTbKE/pJ5QuRpLsEPUtij1BGxCgxlwOjXs
+ ZtLFWUVT3EUHPaFU/s/ZNknmyATUc/Zr3HZ+tHGgo496fexWbkcgxqU5Orjd7UnLTBXw
+ ZmVMpe9h5P10EVs3TUFc0TDBEpxFdIerSNMmjB2+SR2Ai7wE/11b4dp8hLnE3wDquum2
+ 1NVQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz8pVAcGCLTNUjEtHKfRCo+N4KmNkebrToSU4EhiE8hdRutsBsmrm9JR2vPym62lSCj2pmp+YiN1rY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLpnFgNJ+USR2gZvHrkLZAouvN2qDx20E9Qk1pOIuKvcg5YljfK
- PKOtrL1EClxlE8wNs7L1XAzatBsLIPiq4+mw/VKmPfsu+GWTrUy7S6Z2
-X-Gm-Gg: AYBFou2X+sRBBwk9g3npRwnLptvE0rjT38SvJcLHmMBd/QsJXUv6BSZOf5RRBwNhhAW
- h0h4Ykljr4iAFhqJiqjre8hCkGaAfobWg2KN7ByTecnrKQLmxu3b60Rnsi73KjjjRWa3n/Ydx4P
- 1khe54e420/jvC1h9xKvko/g8Y7H8TX05qI//6rM8vgxZIQTxY+3a2jQuiG7T9Tich1b9HPsPSv
- lDZAAyngxqt8qILFdGFqldTzADCHQ/zzt3SBXL1qRqrKQMEYDxIRiqwVyLnrqBEHjf0duGI/n9v
- D1KR7cMluzPsNEj3wmIuKGJs118cr7XEe6B1vIGsaSCp+clL7br2vRh5PAMynfObpc+NbAEFAl7
- gt4X7gvWrRO+7458q8xiCbic4w60ct5qlma6bB7eiUP42n80RXqA+2PCixhDYOTznqUr3T1uoQ8
- NnA36Ep9wJmQplc7pYZ9qXnb/O2+5A4gdfg7ZfxdIr9GdXolBGeJiIGaTUMGn02XCcLwZYxINQN
- L/DDlq9qy2hKFkq9cObaNwjo6gYZtkudi2j1Ypk9+dhqFzN8nszkn00cqynZDzlvte+CNfFOc2Z
- N+sagWQm
-X-Received: by 2002:a05:600c:3544:b0:49f:fd40:80fa with SMTP id
- 5b1f17b1804b1-4a35acc6b74mr187900455e9.34.1793091336983; 
- Tue, 27 Oct 2026 01:55:36 -0700 (PDT)
-Received: from ingenieria31.oficinasStQ.local ([79.117.46.175])
+ AKwUvBxzE8cDmZWqOcN+1yH0rb8MM/zJlTPro/K70XDS28pplGSeyNfaKL5HG2c2CmTZx+vV2EYdeENEhqI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIFJruQJP+KtEWOm39eodafkIXHmvYzr7Z7LBnnRF3Ryc43pddQ
+ xI3PZerHjR3zl8l1h4rDNsDYGOqsXbnpAsNpvO/WBIxFbh6NKb3YT75t+XhbM+3cC/M=
+X-Gm-Gg: AYBFou3Fnc/ryW6bIMGKKWLxrjQd9KYdOUo4+qlz9U87uxm7zNV/I6QkvH6KwFl9SQJ
+ LXULrD82vxMH5rbxxAzEvb0lI2WGWGxpwONpEtiBjKKTj3pe8+Ej7VeXLYfOGXVPp8jLHmfYRsK
+ T/KrcUW1ce/PM211jhQtMC2+/Gc0R0J4xJodGaVotpKf7/HTe+NpDT8JMV4pggmv+XGzfUfWH0a
+ UNHQkEfIaZogYO3ImplBq57wtAFvsHbCsgyVghdSSDyhVK0AF4eA5j3HAzVjI/0opgxMywMm9EC
+ 6Ih4NJy25l/uLFbj8UNA3uksLIgsxUlm1sdDWi9YSvm6LD1C64BLKhDg6dtwhOnxHyQU5xHSGlR
+ WD6PB6bgtzgT9G5OaloOZRSudpEWhiAdnjdsT0PN39qa0o1R0aySDIZAQDlMtpm+wUNDPP3KHkh
+ MblDlJyaVc8ul/sqYUFuJ2bHmC/wZZ3kwJH+l/g8V/Fb4dpUa5PpMco64hAAmCnGE81tStBY5ON
+ 04xoQje82ozJnSAwsP4K804EF/OL91bzpnUvUvtmGIDk4fRFDManruPYijL417HSYF0c/gkH+ky
+ vg==
+X-Received: by 2002:a05:600c:34cb:b0:4a8:a341:2377 with SMTP id
+ 5b1f17b1804b1-4a8a34123eemr7244685e9.3.1793091628213; 
+ Tue, 27 Oct 2026 02:00:28 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53?
+ ([2001:af0:8000:1409:193:86:92:181])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a35a09434esm249835425e9.0.2026.10.27.01.55.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Oct 2026 01:55:36 -0700 (PDT)
-From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Francesco Valla <francesco@valla.it>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 03/13] drm: client: add splash client
-Date: Tue, 27 Oct 2026 09:55:34 +0100
-Message-Id: <20261027085534.1746021-1-maximpedraza@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <645c1c2b-9aa8-44b4-8a67-dcd7bfbe8fbd@suse.de>
-References: <20261013093243.505776-1-maximpedraza@gmail.com>
- <20261013093243.505776-4-maximpedraza@gmail.com>
- <fafa7327-e624-49f2-98b2-83fd602a0ad7@suse.de>
- <20261021005006.2341200-2-maximpedraza@gmail.com>
- <645c1c2b-9aa8-44b4-8a67-dcd7bfbe8fbd@suse.de>
+ 5b1f17b1804b1-4a359fbb725sm251375205e9.0.2026.10.27.02.00.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Oct 2026 02:00:27 -0700 (PDT)
+Message-ID: <3e3b9652-7de5-4391-8b5d-122f00c4b585@suse.com>
+Date: Tue, 27 Oct 2026 10:00:25 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/fbdev: Replace __MODULE_STRING() with __stringify()
+To: Thomas Zimmermann <tzimmermann@suse.de>, Sasha Levin <sashal@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, dri-devel@lists.freedesktop.org,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261022175543.1831620-1-sashal@kernel.org>
+ <2a9b1325-386b-4460-8651-13fc43dca6c6@suse.de>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <2a9b1325-386b-4460-8651-13fc43dca6c6@suse.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -105,42 +94,51 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Thomas,
+On 10/23/26 10:51 AM, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 22.10.26 um 19:55 schrieb Sasha Levin:
+>> Commit 08abfa5a161e ("drivers: Replace __MODULE_STRING() with
+>> __stringify()") converted the drm_fbdev_overalloc parameter description
+>> in drm_fb_helper.c ahead of the removal of __MODULE_STRING().
+>>
+>> Commit 6b5a66fd9f21 ("drm/fbdev: Move fbdev module parameters next to
+>> module init") moved that parameter into drm_kms_helper_common.c while it
+>> still used __MODULE_STRING(), so the conversion never reached the moved
+>> code. drm_kms_helper_common.c is now the last user of the macro, and
+>> removing the macro breaks the build with CONFIG_DRM_FBDEV_EMULATION=y:
+>>
+>>    drivers/gpu/drm/drm_kms_helper_common.c:46:18: error: expected ')' before '__MODULE_STRING'
+>>
+>> Use __stringify() instead. The parameter description is unchanged.
+>>
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> 
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> 
+>> ---
+>> This depends on 6b5a66fd9f21 in drm-next and 08abfa5a161e in
+>> modules-next, both queued for 7.4. Petr plans to remove
+>> __MODULE_STRING() once his conversions are in mainline, so this needs to
+>> land first, either through drm-misc after 7.4-rc1 or together with the
+>> removal patch.
+> 
+> Dave, could we put this patch directly into drm-next? It seems like this fixes a broken merge commit.
+It looks like Linus took care of this. Merge commit 5b0764a53235 ("Merge
+tag 'drm-next-2026-10-21' of https://gitlab.freedesktop.org/drm/kernel")
+updated drivers/gpu/drm/drm_kms_helper_common.c to use __stringify()
+instead of __MODULE_STRING(). The current mainline has no remaining uses of
+__MODULE_STRING().
 
-Am 23.10.26 um 13:26 schrieb Thomas Zimmermann:
-> Please drop the parameters for now. If we want to give status messages
-> from boot loader to kernel, we should first evaluate how to do that
-> correctly.
+-- 
+Thanks,
+Petr
 
-Fair enough. They are all gone in v6: the colour and the BMP's name
-are set in Kconfig only, and the patch that let the command line win
-over the device tree is dropped.
-
-> Oh, I just noticed that my comment got truncated. I meant to that "i
-> should likely by unsigned int as well".
-
-It is in v6.
-
-> At some point I'd like to have a nice, shared drawing interface that all
-> the clients can use easily.
-
-The image is drawn in two steps in v6, as you suggested on patch 9:
-the BMP into an XRGB8888 buffer, then that into the framebuffer's
-format. The second step should move onto such an interface without
-much change once there is one.
-
-> It's probably ok to address things in small steps.
-
-Thanks. v6 rebuilds the scanouts on every hotplug and keeps the old
-ones on screen until the new ones are committed. I will send it
-shortly.
-
-Best regards,
-Màxim
