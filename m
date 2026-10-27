@@ -2,143 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75408606BA81
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:01:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B97D60A260C
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:03:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=IST9eWKg
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Otgn/Mfr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B01B510E42A;
-	Tue, 27 Oct 2026 15:01:51 +0000 (UTC)
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011012.outbound.protection.outlook.com [52.101.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A747610E42A
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:01:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sZ6rWYm9XminyT2oz3KZbaZ+Kuh0PY6c9NZ2Jy796RlHS5+k+eU9R8D5pwtGL20Vd7mQU6fzad7+iJK9W1CnqhySEmCrNU15/cdZgHZ4qCASiqzQ0zZ7NrhrzIafW84hIV4loy0+Lipxrg4Y6iiuIgwaS6f1v7y2vrHU1YcCmx5dVp3VVWOciGV7ISXDmAm1kGDel7KvVvMTXT/K/J7DGoc6l0GGTcWYzhVYRG9PPxHLtZdmgFdI5eu88im5Todz2INcMa++RJfCFRxTyQIJ5sJxliqwugX0G113FnG7OyeTxFFdRB0FCemu0uWvH573vcBfRLV/Ftdmdmq0wXBJdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kysnL/15gvVbTr0oQVSARe5TPxGIPhOFfFCvtZzcj2o=;
- b=pteFloKq5lMk8brNCQtv+DRNbr7DLZtOptPIeXbE67K/7pMERsRm1NfDFlKzgShnMI6y0cl8J1qGF4v21R72TRAxxYglZwWeB33t62qCi36Le5YI/x59QOIrMmJJ7Re0E44O7PBOTsq+duV+Owv0Q5bQuUfaljp9xFDB+phoa7pvGboC6cZ5IdLzMD2YaCX2lbvg+kSc6vIvXAJD4oWg74b2zYQBuOcgU3++63Q3BKkb55dyASG/uyx84yHQZZ/x/kDoTTCtm2qjsVGasFnZ9g0YNw+OaW2R7R1ZPvCJeivEtAJ7uaHMptRyCoNOwiTmaJrTH8wiPJ5/a1VWRfXpiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kysnL/15gvVbTr0oQVSARe5TPxGIPhOFfFCvtZzcj2o=;
- b=IST9eWKgRzRuN1zgtK2o+qJVXVksjQF+hZdDZ/2NFycL8bnp4nqv3rmOmPMMXEP9zLVIy80xxF5F/wO19QoUlAu0A8+hw5rE9HgKqhMiTsSWAV3ZyzNJVWolENNsGmvriJHM/PCYS2s0r2Mem/lCDAk5C3yIk9LrNidprnw5Ynp51fT79zRIhbjv92shsBnfyJi9eMB2jqvC2L9yxj/KtvS3d+yV46wq6AYLRIvi6SUpk1ZmN6z4zNcEOQx4zML6RWmKVTiIL5B2x/QbFuj9DGO9w+cs+7qb+feileU9fc86gqCDjbJHt0S1+SzNwgRmko8FHGWbw+GZsB9hKKUgGA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DB9PR04MB8445.eurprd04.prod.outlook.com (2603:10a6:10:2cf::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 15:01:38 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 15:01:38 +0000
-From: Frank.Li@oss.nxp.com
-Date: Tue, 27 Oct 2026 11:00:59 -0400
-Subject: [PATCH v5 7/7] arm64: dts: imx8dxl-evk: add lcdif overlay
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-dxl_lcdif-v5-7-3a974e4b94b2@nxp.com>
-References: <20261027-dxl_lcdif-v5-0-3a974e4b94b2@nxp.com>
-In-Reply-To: <20261027-dxl_lcdif-v5-0-3a974e4b94b2@nxp.com>
-To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Robert Chiras <robert.chiras@nxp.com>, 
- Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793113256; l=4378;
- i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=cznw0+gvX2eBglvDDWmnGej0Yi3JXP5ffGghoqsMvqI=;
- b=ay5SM7cfueON4YnzBmylChN/keEEaL5No1h5W6vTMYYlUSEwvuzoQoavmednguFCmlMfpVkoi
- lJsZKwwNt2UBlbwlk3Bah5ZFQBupaZFvf9GcvYmgFvQ7Y1JhgC/rZTm
-X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
- pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
-X-ClientProxiedBy: DS7PR03CA0106.namprd03.prod.outlook.com
- (2603:10b6:5:3b7::21) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 622E210F633;
+	Tue, 27 Oct 2026 15:03:28 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9748610F608
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:03:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1793113400;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=aOf0mUhnEWGXt/wT5adZbPR4knhMHoXNhBntHVrI1Yw=;
+ b=Otgn/Mfr25iVb/sVwiz5J1aXVYH8MvhUZkXhlcusTo/NhohcoNpqmMucItUiIOrl08en3b
+ tMT0gIe38frSRnIU9XsrzfId/eXfHyg/PpaUCHsnmTuODEpOJMSRQP8PzYSHPDa93BQ8QC
+ LuLDa9rY3yAswEskeHTdQqLXZDVKJ2w=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-630-UjIdhJ72O6-uXk9AZAUySw-1; Tue,
+ 27 Oct 2026 11:03:16 -0400
+X-MC-Unique: UjIdhJ72O6-uXk9AZAUySw-1
+X-Mimecast-MFC-AGG-ID: UjIdhJ72O6-uXk9AZAUySw_1793113392
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id DFCFA18009F0; Tue, 27 Oct 2026 15:03:09 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb
+ (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id D01D018002B1; Tue, 27 Oct 2026 15:02:59 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v3 0/8] memcg: dma-buf cgroup accounting and charge
+ transfer
+Date: Tue, 27 Oct 2026 16:02:43 +0100
+Message-Id: <20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB8445:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3153c910-f98e-42a0-4067-08df343b335c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|19092799006|1800799024|7416014|376014|261009223027099003|261022105027099003|261021121427099003|10067099003|56012099006|261026121527099003|22082099003|18002099003|921020|261026140227099003|11063799006;
-X-Microsoft-Antispam-Message-Info: fMZC0hOlxGg5q4xvDtzXB3FD0GzkRasCGbFblO3CYDgX+w12LmooaGWfi6xQKdui/oyGp2sDG2wTM1c5q6r2sjTXXboQi42LzdzcjogGASjAgEKbbEOuETc+VoLdXDip5bSgfKVdvI2zpY8j5aKPqmahqaFKlOnwDF0SKJqM40IXGZa7RtaqFzAxqq2mQJ3qfDfUlTJTj8MNEAfjY5q6kYZaS8GYtsTWSmp5BqmFUAhvK5KjXS+ojQwH/qd4+8mp0LGtvNsiWuhHxsHMWeLmoN/fB8L6stHrakL9x8ioMV6t4man3EOQUoEijDs/qgIYEGT86iW1zkcCnA7kFQ505VsPSiwAq3ATYfHWQBhKleqfaCIsqT4Cd9s6AXeONxR459P3iUMRkDQ+i0oQKQMHcVwpjUa2F1RPXVB0ml1UBkxizIFMrGIDbFZPhoO/I0sw1FZVX4Izbmt9NaySd8KeGvRNHu6F7NLeBrkNSuQ8AdEtuuUU7zwlHGS+Yz6evMbBZPz+yiWx9C1LPkNu3LTav9Z7OEIM3tjAfMfqW6ktpmoEjNlFRitK8MN9Lriz9DiMnNFD2y7OYPupatajAoj1j4uJg95btj7geToLo9bPjJjsJk4QEUaxZ5NVuzHhlDf7h7Q3gbhKYYLpEUGG5KxuYRAzy2qze3FxeV2OlqoujG8gWGfFb3KjluQzncqkA4KQsGQlQkknWNr+DSTg/UuFoA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(19092799006)(1800799024)(7416014)(376014)(261009223027099003)(261022105027099003)(261021121427099003)(10067099003)(56012099006)(261026121527099003)(22082099003)(18002099003)(921020)(261026140227099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bnZMNk5UNWN3d2xpSVpVRm85cWY1RnROUUh5Tnp5dXNnMGoyVWVtdlExR2F5?=
- =?utf-8?B?cWlGZmtpMUZWZzBKWUtJYUJGZmNHaHpUcHp1OEZBWFZVek5Lemw0QkdDRlRj?=
- =?utf-8?B?VGxabWU2M0R1T0dyMVlHWlhaald6QXBVRERTUEY4Snp4QXlmODNnNnBPWnlT?=
- =?utf-8?B?UW9abjRwWWpEdkp3UzRiN1Fib2NoV3J5aFdhdlZYZFh2OHdBYVQyWDN0WGxU?=
- =?utf-8?B?ZU1BVVlaRW4xVmczR1BOb3AwM0xqa05FVFdMVGVxbDZaTnIzTG1pd3RsaXZ2?=
- =?utf-8?B?TGpZZ0JQWFFrUW5zVkZrZUZzQ293Sndpd3FJaGY0Ui81MnNYS01NR3Z2NTFo?=
- =?utf-8?B?OThPZmNuWGFWTE1OR2d4c01FK0RIMUQrMDkwTXVUNjlGdG03K3A5ajQwT0RI?=
- =?utf-8?B?VWcrWkd0VTNYOUdIcml3ZzFvWXp1RVZMN1VFbnEwZmgvZUpuNU5KRnNOYlc0?=
- =?utf-8?B?MU0wcnBQd09KTFNiMGFJd0I5U29NS0dNYkwyOUJreGpRZDl6azludVFOSXIz?=
- =?utf-8?B?QzRPMVdEMDlXbGdHWGNnU3ZkR0F5aGRQWlJSUlplbXRaeUMxU1VxZXUzR3po?=
- =?utf-8?B?TzY5Q1lPS2VTeUVsNlg3Z1drUzduQ3c4VFRUK3EyTUVtMk0vb29LK1poMzdM?=
- =?utf-8?B?SjJQQ2xUTGNuQWFHL0JUeitjYmFaUWlJSERTTmRtWFhwNWt0Vk5XNk1EUGZV?=
- =?utf-8?B?dHMrVkpqdmRITWdxbXBtR0J3YTAycG5VYnpUQUthS05IU0RSdnQ5R1l5Y0tG?=
- =?utf-8?B?ODdPR2pRMGo2UDg0NUQ2dnE5ZVViSS81aGpDZDJRWnBkc2FCZjRBMEljcEVo?=
- =?utf-8?B?RndKVlRlWHlFOGlicTFPWkp2ejZ6UU9aNjFDZmtUVm1BQ25sNmJYNUQybm1j?=
- =?utf-8?B?cmljQmJOcjRmM091TTZFS0hWUTR4azEzeE9VMnh4dVZIZlpwS2t0V2tFb1hQ?=
- =?utf-8?B?dFZETzU2bUIxdUVWZDBOaXBJb3Zac0JwZjNWYUdBNTA1U2dWQVI3bkM2UVRK?=
- =?utf-8?B?SUdYRUc5Mkx3elpWSHkwYWFGQjdQZCtPTlNVWlAraDJlTWYyeXNFZHRWK1pT?=
- =?utf-8?B?Y0tGNWRxSmZuVEs3eFZFamgyYUtFWlZrMVc5cU9Rdmh0UTBhUnpyUlJnanBZ?=
- =?utf-8?B?NVJXZXgrMUhVRTRVOFVQYXpvbVZjUDI1M3hlNnpXcEIyQUt1L0dMQVBKN3ZH?=
- =?utf-8?B?dVJNM1BaMUVoUWxWaHBRVnNVa0phSnJvL2x6NUdPSGNVNnJWNG1zYmgzeWpB?=
- =?utf-8?B?VVlmUzJHVVFqbmFqU3hqKzhNUWtaSnJvdjZOcmtYdHNUU2ZJTFhBSFFhcUdV?=
- =?utf-8?B?dG03dStTdFVnbFpDVFdLK0o5cDlqWmRWMFBCcEhVZTlpVC9hNHBpZ0MzSWpV?=
- =?utf-8?B?SEtwTmpYaUpTQ0VDdHZIYk92UGs1aFEwN3FiVTBPQUpqQlhOMDFLMXo1ek9u?=
- =?utf-8?B?QXBhcVhjQmNIaTVQWndEZi9qMmMzV0hSVkRjckk0ZDlXTVFZVlpaTS9UK2FO?=
- =?utf-8?B?Vzc1a1ROMEJ3MDd2dkxpSlhqWG9IOWVaaFR3VWlIaHpLWGFCU3IyYkJ5N0FG?=
- =?utf-8?B?MVZON0hlZXRIdVAvM0I2OHBiSkU3U0l2dERsTm1rbHN5N2tQREhGdG5waERq?=
- =?utf-8?B?Q3dMMk10YmNGM2cwVDd2QUZvaTUrOGRHUno2dm5ZeXoxalZYeUpVK2ZhRjBq?=
- =?utf-8?B?UXBMRXRQemRLWG5PWXdUS29MZ3JGWG1RV0FOeEtndXNWYzF0SHIza1MwdURi?=
- =?utf-8?B?cXNGZm1DZDR3NWdySGpnNTNQdnFiK3FkWjM5SGdZa2JDYmY3VVE1UTEyNUcz?=
- =?utf-8?B?SFJlWlJ2SEtqN2NaNUxnbEJUNFVjQ0lzYzJNenRDRVVxbGpMUkNHbmsxcUlY?=
- =?utf-8?B?Rm5PdGFIYjUyUWtWMTRyUXdCVDE0L1RmMXU3UDRQZnEySWJZMVBneksrS3ZJ?=
- =?utf-8?B?TjJRSnZTSWIyVmlFdmVvSS9RQ0k2QnQxQ2ZZbkJBT3E3VHovQnRuN2EvR25p?=
- =?utf-8?B?U0JGSWlsbGdPYWduRUVZSnJ6TDZrN20rRVZhMlpUUE42WndiUTZrR2dzSzFN?=
- =?utf-8?B?cVlBbTQ3c0RRNFM0MVA2dEYvakFwVHB5cmZvNkdHcjE5dWR1NVJQWDJRVGZX?=
- =?utf-8?B?ZEZwMUVhUmljc3FFSkxKYnBKOGtvYlV5YTZDalI1bWltYjdQUFd4b3FWdjVm?=
- =?utf-8?B?T2F3dTB1T1ZkWTVJR25Hb2NBdjRhcU5xamp0cmo3UkNPWjlzUmllUWRlYlQ5?=
- =?utf-8?B?RzloU3B0eERjVWlpS2U4U2NOVVkyZkZkQkJVRnVWZzB5WDZaYitjUCtiWngy?=
- =?utf-8?B?L1NJNlRSckN5ZHAzVUdkZ0lYS1ozZ2Vqd0ZESUwveHFHS1liU3ZGanE2TTMz?=
- =?utf-8?Q?DLRmvcDqyAIp04coTnTSktuEt3PiFfSfkFxRR?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3153c910-f98e-42a0-4067-08df343b335c
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 15:01:38.0040 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BudVuu9VBjX8mmXAehpjx8jEQhITtc+kwDOOzJXvyzZ0PuFEZQbBZuDeHOc1EBQlTVjvtHMONK4sb5zh7VqDDyILswZxJXcokO8m3NPQ1cw1HeGMD/2LfmiJ9nvRQAF4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8445
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NQQrCMBAF0KuUrI1kJm2srryHSKnppI3YRpISl
+ NK7mxYRXOlu/nx4f2KBvKXADtnEPEUbrBtSkJuM6a4eWuK2SZmhQCUKUfKIVbqlAJTVeO3Ja0u
+ +ap1rb1Rp13OT50abC6hCCpaYuydjH+vE6ZxyZ8Po/HNdjLB83zjgbzwCF1xJVDsBWqo9HD01X
+ T1uU8kWPeJHBIHwh4hJJKOIsGlKXegvcZ7nF8pnAWwjAQAA
+X-Change-ID: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>, 
+ echanude@redhat.com, mripard@kernel.org
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793113379; l=6757;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=SbSaiBkIq+YUC6r+fSuC8xTCAnJdm8Vr2zNeXnNL3ao=;
+ b=rMh42d3K7ZdvbxPJmt30LjOl76ZkQ62Z6Ul1YgWdi/7V4axPrJSy681qwSjEcG3Y17eHAsv1y
+ +LmSEK2BvnsDaNYSlWiHuv0bXrBqtI3n02cWTu6Y6kXEFNbK6b8jRpu
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: z-_b4pHubJm653t5XsDPNNVp7BrXznBoacwlx3YjPsw_1793113392
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,176 +100,142 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Frank Li <Frank.Li@nxp.com>
+Shared-memory allocator services (e.g., Android's gralloc)
+allocate dma-bufs on behalf of client processes in different
+cgroups. Today those allocations are charged to the allocator's
+own cgroup, leaving client cgroups with no visibility into their
+actual memory consumption and defeating resource limits.
 
-Add lcd panel (waiken,101wx001-wct) support. This panel is only used at
-imx8dxl evk boards. And evk board only supports one panel.
+This series adds memory cgroup accounting for dma-buf allocations,
+building on T.J. Mercier's earlier series [1] and incorporating
+feedback from previous versions and LPC discussions [2].
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Patch 1 introduces the MEMCG_DMABUF stat and reserve/commit/cancel
+and uncharge helpers. Rather than charging at the page level via
+__GFP_ACCOUNT (which would require every dma-buf exporter to implement
+charging, and makes cross-cgroup transfer impractical without access
+to backing pages), we track charges externally on struct dma_buf via
+a MEMCG_DMABUF stat counter and route all accounting through a single
+path, removing the __GFP_ACCOUNT flag from system-heap allocations
+to avoid double counting.
+
+Patch 2 adds a charge_fd field to DMA_HEAP_IOCTL_ALLOC, accepting
+either a pidfd or a cgroupfd to identify the target cgroup at
+allocation time. If the target cgroup cannot accommodate the charge,
+the allocation returns -ENOMEM.
+
+Patches 3-6 add access control for cross-cgroup charging. Letting
+userspace decide who to charge needs to be a privileged operation
+because it has material impact on OOM decission and resource limits.
+We gate it via LSM hooks for the two charge_fd flavours:
+security_dma_buf_charge_task() gates the pidfd path (target
+identified by task credentials) and security_dma_buf_charge_cgroup()
+gates the cgroupfd path (target identified by cgroup directory label),
+with SELinux implementations under a dma_buf object class.
+
+Patch 7 adds DMA_BUF_IOCTL_XFER_CHARGE, a general ioctl on any
+dma-buf fd to transfer charges post-allocation. This covers the
+double-hop allocator case (SurfaceFlinger -> gralloc -> kernel)
+and works for buffers from any exporter (DRM, V4L2, etc.). A new
+memcg_account flag is added for dma_buf_export() to ensure that
+transfer/charge is only applied for buffers backed by reclaimable
+system memory. If the receiving cgroup lacks capacity for the charge,
+the ioctl returns -ENOMEM and the original charge is preserved.
+
+Patch 8 adds selftests.
+
+Known limitations:
+
+- Single-owner model: a dma-buf carries one memcg charge regardless
+  of how many processes share it.
+- Only memcg accounting. CMA heaps would additionally need dmem
+  controller integration.
+- If a transfer of an uncharged buffer fails, it remains uncharged.
+  The allocator (userspace) is expected to handle this (retry, free, ...).
+- The LSM hooks are intentionally narrow. Broader cgroup access controls
+  (e.g. for the memfd/kexec handover case [2]) could be a separate effort
+  reusing the same pattern.
+- Only system heap sets memcg_account today. Other exporters
+  (DRM, V4L2, etc.) can opt in by setting the flag, but are not
+  covered by this series.
+
+[1] https://lore.kernel.org/cgroups/20230109213809.418135-1-tjmercier@google.com/
+[2] https://lpc.events/event/20/contributions/2416/
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
-Change in v4
-- use full name 10wx001_wct
+Changes in v3:
+- Split mem_cgroup_charge_dmabuf() into reserve/commit/cancel three-phase API
+- Extract mem_cgroup_get_from_fd() helper shared by allocate and xfer paths
+- Rename __padding to flags in struct dma_buf_transfer_charge
+- Fix UAF race: move mod_memcg_state() before cmpxchg in transfer
+- Add memcg_account opt-in flag; xfer returns -EOPNOTSUPP if unset
+- Wrap dma_buf_charge_cgroup hook in #ifdef CONFIG_CGROUPS
+- Fix TOCTOU in SELinux charge_cgroup xattr length handling
+- Link to v2: https://lore.kernel.org/r/20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com
 
-Change in v3
-- add panel info at overlay file.
-- add bus-width = <18>, which only connect 18 lines.
-- rename to waiken,101wx001-wct
+Changes in v2:
+- Move charge_pid_fd to charge_fd, accepting cgroupfd in addition
+  to pidfd per Christian König.
+- New DMA_BUF_IOCTL_XFER_CHARGE ioctl for post-allocation charge
+  transfer on any dma-buf, not just dma-heap buffers per Christian König
+  and T.J. Mercier.
+- Moved __GFP_ACCOUNT removal to patch 1 per Barry Song.
+- dma-buf charge/uncharge helpers take struct dma_buf * directly
+  to avoid the need for caller to manage size calculations.
+- Added test_xfer_charge_cgroupfd_self to dmabuf-heap selftests.
+- Added LSM and SELinux hooks for cgroupfd-based charging.
+- Rebased to v7.3-rc7.
+- Link to v1: https://lore.kernel.org/r/20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com
 
-change in v2
-- remove iomux hog (sashiko)
-- add power-supply
 ---
- arch/arm64/boot/dts/freescale/Makefile             |   3 +
- .../freescale/imx8dxl-evk-lcdif-101wx001-wct.dtso  | 119 +++++++++++++++++++++
- 2 files changed, 122 insertions(+)
+Albert Esteve (7):
+      dma-heap: charge dma-buf memory via explicit memcg
+      security: dma-buf: Add dma_buf_charge_task LSM hook
+      security: dma-buf: Add dma_buf_charge_cgroup LSM hook
+      selinux: Restrict cross-cgroup dma-buf charging
+      selinux: Restrict dma-buf direct cgroup charging
+      dma-buf: transfer memcg charges via DMA_BUF_IOCTL_XFER_CHARGE
+      selftests/dmabuf-heaps: Add dma-buf memcg accounting tests
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index a80cccf34eb56..a722484e2378a 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -113,6 +113,9 @@ dtb-$(CONFIG_ARCH_MXC) += imx8dx-colibri-iris-v2.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8dx-colibri-iris.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8dxl-evk.dtb
- 
-+imx8dxl-evk-lcdif-101wx001-wct-dtbs += imx8dxl-evk.dtb imx8dxl-evk-lcdif-101wx001-wct.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8dxl-evk-lcdif-101wx001-wct.dtb
-+
- imx8dxl-evk-pcie-ep-dtbs += imx8dxl-evk.dtb imx-pcie0-ep.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8dxl-evk-pcie-ep.dtb
- DTC_FLAGS_imx8dxl-hummingboard-telematics := -@
-diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001-wct.dtso b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001-wct.dtso
-new file mode 100644
-index 0000000000000..39abf9b3884ea
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk-lcdif-101wx001-wct.dtso
-@@ -0,0 +1,119 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2026 NXP.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/pads-imx8dxl.h>
-+
-+&{/} {
-+	lcd_backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&pca6416_1 5 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	lcd-panel {
-+		compatible = "waiken,101wx001-wct";
-+		backlight = <&lcd_backlight>;
-+		power-supply = <&reg_lcd_3v3>;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&lcdif_out>;
-+			};
-+		};
-+	};
-+
-+	reg_lcd_3v3: regulator-lcd-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "lcd3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+};
-+
-+&acm {
-+	status = "disabled";
-+};
-+
-+&adma_lcdif {
-+	pinctrl-0 = <&pinctrl_lcdif>, <&lcd_0_fun>, <&lcd_1_fun>, <&lcd_2_fun>, <&lcd_3_fun>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	port {
-+		lcdif_out: endpoint {
-+			bus-width = <18>;
-+			remote-endpoint = <&panel_in>;
-+		};
-+	};
-+};
-+
-+&cm40_lpuart {
-+	status = "disabled";
-+};
-+
-+&eqos {
-+	status = "disabled";
-+};
-+
-+&iomuxc {
-+	pinctrl_lcdif: lcdifgrp {
-+		fsl,pins = <
-+			IMX8DXL_SPI3_SCK_ADMA_LCDIF_D00			0xe8000023
-+			IMX8DXL_SPI3_SDO_ADMA_LCDIF_D01			0xe8000023
-+			IMX8DXL_SPI3_SDI_ADMA_LCDIF_D02			0xe8000023
-+			IMX8DXL_ENET1_RGMII_TXD3_ADMA_LCDIF_D03		0xd0000023
-+			IMX8DXL_UART1_TX_ADMA_LCDIF_D04			0xe8000023
-+			IMX8DXL_UART1_RX_ADMA_LCDIF_D05			0xe8000023
-+			IMX8DXL_UART1_RTS_B_ADMA_LCDIF_D06		0xe8000023
-+			IMX8DXL_UART1_CTS_B_ADMA_LCDIF_D07		0xe8000023
-+			IMX8DXL_SPI0_SCK_ADMA_LCDIF_D08			0xe8000023
-+			IMX8DXL_SPI0_SDI_ADMA_LCDIF_D09			0xe8000023
-+			IMX8DXL_SPI0_SDO_ADMA_LCDIF_D10			0xe8000023
-+			IMX8DXL_SPI0_CS1_ADMA_LCDIF_D11			0xe8000023
-+			IMX8DXL_SPI0_CS0_ADMA_LCDIF_D12			0xe8000023
-+			IMX8DXL_ADC_IN1_ADMA_LCDIF_D13			0xe8200003
-+			IMX8DXL_ADC_IN0_ADMA_LCDIF_D14			0xe8200003
-+			IMX8DXL_ADC_IN3_ADMA_LCDIF_D15			0xe8200003
-+			IMX8DXL_ADC_IN2_ADMA_LCDIF_D16			0xe8200003
-+			IMX8DXL_ADC_IN5_ADMA_LCDIF_D17			0xe8200003
-+			IMX8DXL_SPI3_CS0_ADMA_LCDIF_HSYNC		0xd0000023
-+			IMX8DXL_SPI3_CS1_ADMA_LCDIF_RESET		0xd0000023
-+			IMX8DXL_MCLK_IN1_ADMA_LCDIF_EN			0xd0000023
-+			IMX8DXL_MCLK_IN0_ADMA_LCDIF_VSYNC		0xd0000023
-+			IMX8DXL_MCLK_OUT0_ADMA_LCDIF_CLK		0xd0000023
-+		>;
-+	};
-+};
-+
-+&lpspi3 {
-+	status = "disabled";
-+};
-+
-+&lpuart1 {
-+	status = "disabled";
-+};
-+
-+&sai0 {
-+	status = "disabled";
-+};
-+
-+&sai1 {
-+	status = "disabled";
-+};
-+
-+&wm8960_1 {
-+	status = "disabled";
-+};
-+
-+&wm8960_2 {
-+	status = "disabled";
-+};
-+
-+&wm8960_3 {
-+	status = "disabled";
-+};
+T.J. Mercier (1):
+      memcg: Add MEMCG_DMABUF accounting infrastructure
 
+ Documentation/admin-guide/cgroup-v2.rst            |   5 +
+ drivers/dma-buf/dma-buf.c                          |  46 ++++
+ drivers/dma-buf/dma-heap.c                         |  28 +-
+ drivers/dma-buf/heaps/cma_heap.c                   |   3 +-
+ drivers/dma-buf/heaps/system_heap.c                |  22 +-
+ drivers/tee/tee_heap.c                             |   3 +-
+ include/linux/dma-buf.h                            |   9 +
+ include/linux/dma-heap.h                           |   3 +-
+ include/linux/lsm_hook_defs.h                      |   4 +
+ include/linux/memcontrol.h                         |  52 ++++
+ include/linux/security.h                           |  18 ++
+ include/uapi/linux/dma-buf.h                       |  26 ++
+ include/uapi/linux/dma-heap.h                      |   7 +
+ mm/memcontrol.c                                    | 192 ++++++++++++++
+ security/security.c                                |  34 +++
+ security/selinux/hooks.c                           |  44 ++++
+ security/selinux/include/classmap.h                |   1 +
+ tools/testing/selftests/cgroup/Makefile            |   2 +-
+ tools/testing/selftests/cgroup/test_memcontrol.c   | 290 ++++++++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/config        |   1 +
+ tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 227 +++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/vmtest.sh     | 226 ++++++++++++++++
+ 22 files changed, 1228 insertions(+), 15 deletions(-)
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+
+Best regards,
 -- 
-2.43.0
+Albert Esteve <aesteve@redhat.com>
 
