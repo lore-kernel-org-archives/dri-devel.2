@@ -2,66 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232F460A6F74
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:54:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B19C606AA0D
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:54:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K5CsclHg
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wJMSpyVt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81B4710F579;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8151210F577;
 	Tue, 27 Oct 2026 13:54:09 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF51910F572
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:53:54 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-48bbb06e746so2217047f8f.3
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 06:53:54 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDF0810F572
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:54:01 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-48af4d4e61fso2666252f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 06:54:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793109233; x=1793714033; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793109240; x=1793714040; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=HFwDNLv3n+wl+JreLzg2KvEaj4Ho3mAm9pShsdfkSdI=;
- b=K5CsclHgL2g+YUut6xwxAQ9vMv1nGf8UhH1utKX6FwbtfwnF4Tp47JD8aygJjQGTd4
- fV9+wa9qIpwk11v5Ye5jXmOxFUywzwHNEppmpGq2WoFyV9drse0fq+VuqjVUuuUP/nR1
- BkG3/FUwcB8d9iLFBbe1v0nUnnCib1HmEHuoF3HfqLR3yVgIw2BRy1MmxhVlE20kZIvP
- 1cQFZR243Iw13Z3CvdRdwFwpQ9LcKFty5h+WAgUJpHkFlbxN4AMp1/AaYK90hI6Hp0eX
- nUNAMeJM/uAAa61nzVAkSWiIMZcb6GlBNjHKZAHZGVMRzaWxBEncpy5Q8ID6J+BdDoLW
- +FrA==
+ bh=udMEtEpdximcj4tmN6XEoXZYcbf6JGtTIKRmg964qrM=;
+ b=wJMSpyVt/qJQ3VldcVyWzoOFeg75xladJN/lR3msqkA11S8HddAw9uN4jQ92Yj0OkK
+ uI6nY0K20YgXzVkDBmx9N54ohzynLg28MzJWXzFhP115jXeQsbkYnLBHdimJu1UpNF7L
+ uyzKNiDj8/gd4Zkm6zHOACUZgbof9B0gBotansR3cv0SGCKDDxcelN/KpicaVjfzFT1S
+ boE1b/36FlOTMWOQXq35f3O5psJGCMFwzj+hz3VG40SWdrxSKj6nbkhceCQiLh0Kz0iE
+ KxcArclr5KajrESSLVPR3hjK1PDjwELZjNm6IqUBoLtHvvnSBCGFTUu9w1E47WLsyR0d
+ yamA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793109233; x=1793714033;
+ d=1e100.net; s=20260707; t=1793109240; x=1793714040;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=HFwDNLv3n+wl+JreLzg2KvEaj4Ho3mAm9pShsdfkSdI=;
- b=AIkRn/RITXTvel9/ojv2iPW1YPW5zrV6r0Yc8RAwp71Dw8HVMv6Sblh6BofUeDqmY/
- uv1ofgZ7AytUcTaQNtVN82Ur+xM7T3BTtPtHghY2P0l7E9n6MVpAYzWgjyukX2R1Li91
- HjzrIXYlZF3V30WByOsXc5QHRJC9vttPZeDbL5bkbWIQr7Z5xM/Bw/w5i6W/f9W/zKEE
- +f5uPVsujLBy54iJEx6kseMgvjK3G5QH53aUIyEiOyyLcEdQ7bv5CmtE7Vn9NTPfgmHl
- c3TnOxYkP1A88s8tO2Wh2caHTBbWzylOT6yxqz8eC6cBrAg5Pm34+CzeoFpN/soFPr4i
- UbEQ==
+ bh=udMEtEpdximcj4tmN6XEoXZYcbf6JGtTIKRmg964qrM=;
+ b=cJx94JFg5TDD26l3EHq3Ia5eDinlh3CZDkFNp0xc81kzEyjaBO5aAZVIhw1SA9LH+j
+ 9gjO0E0qrUQoS66v/Wwpq+cwXTVv4fv811MnuLq2YSDgxyD00Ovor779M/jONQNtuoEJ
+ fsmk3iRuGm2MxCgO36MGw44xPvJbDqe3/Uz9NCv6QpYBwyVjAaH2OKLxuRqNcZ8a8Fxa
+ +vHPnxCtq+vnQNP2CLAONHys1QXm/9UwxbHGQh+Y+yrsfD2N4l2bdO+anGUS8C0h9rVA
+ fpYqBxA03yr8HmbaVei7fy6rrOF6BpQ3rswpNyxY9imGcSkNuvE7e0nHC5YB/Kthpz5b
+ t50g==
 X-Forwarded-Encrypted: i=1;
- AKwUvByUSVj6u2xKvlxi9WzM8lD917NVIdJU5st7rbdScHfUgIoniATmvxpmWAcdX4m2Luh7A/pG6z4CAD8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI8NoP1Wkw0+PlXW3hbpgB0oP9TrFUmR8awoB4pY1UMYMCRzXWz
- TioS0W/2ZAVwMomb2pr6Jn+VjDlGznoEthRLjKzIA/eOv/n4/vinccnS
-X-Gm-Gg: AYBFou3RnPB2XQU0iegZdqIciu8lmbnKP9ojzgXDiH/Fk7B2nAOj8D/zohjW7dpE68P
- 6HUtRDJcyR2/S5xvx5/tEVn38e59GwDv1HudyTNz/GA2tvtRAKt2yLqUkAL+S51MEQWINIOUFx6
- X8JnJgfH3nXjmAtyPOKOGYYDURH3Q7tEQOdYZlSGn1vijn+zXOEPH0PCtD4ytFT14b1moPL3cxm
- U9x7HmCFx6tmHCnN0H8J5JC/g/jqcyHgY8eAjXtZXNt4DAU+bZEUA5tx63sBRLInxPwE6pSW7s/
- 7NNo8U3lfkWy2ChAS3TQ8PI++ofQfkem1ftb9NEQ5aCi1DeoBicbKSoFcUxVLkezFJiWy6ythgw
- cZDMM0UDgbvsw0fiKk/fe4XlrqBVaEp7i2Bw4QZPFjJ0mtF2A9QZyf4ixGKcmI21RhGe7oSmer7
- ectuDGU40NwmDld0/KY7ROOV0U0+VJDD7Rz4ZuWfRZR//eNNcZCqpMyYWhKEIXcCYBSFHi2/WrJ
- fQ/E+QU6yrJO1UydAPQXoydXjTpCfNJxadN3xqCikhcrUgXc67KWyqTdIX3krdxODwkw4DJQD/3
- izcDJQw=
-X-Received: by 2002:a5d:6f08:0:b0:48d:f034:7fcd with SMTP id
- ffacd0b85a97d-48e3eba1207mr20313170f8f.51.1793109232976; 
- Tue, 27 Oct 2026 06:53:52 -0700 (PDT)
+ AKwUvBxFf/l8GwLQ0yboWME9xSOwMz0g+kBX3dQ47c1+lmOrZKDhF/w8qUeuinAzjxH3JbgWtqoyy6CTthE=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKMULtlqRjRTvpkbMVMIJyYVplrHsqqbbGmZ3Y6gwjS5IAnEJv/
+ +JwqVUG2CazCL69mZA/mkKn/tnDacjiwCqt1C7Rh5TXCTNOSU9m7+GHT
+X-Gm-Gg: AYBFou0w+gaHunoOduNxZSFSfff6+WZ0OiU+XF1Ph73XQ/1ltNulEv1hrek+BsmQBaB
+ sABP0BjxJpHkh2voVcJ/dTDoKevgR2ePlfAJUBGAO1ZknYQCa3terCNjGcNvKygECZpSE7BlQqn
+ moUCFhIn9Ld6rshO0XkdxXThJK1haBvu32L6KOb31k75SwtQulQbQdrLPOjyrO6RRH/0ELgvm6P
+ ++QIBSlHOBm2DPOBgxuS6P0rb5j2JoEdYKRurTCCurV5iOCDUjQNB8MCqAA0s7C8Q4rGSQWYECW
+ S+qQyoF1N9RRwisuaGAtcwxki/Xx5l42XKpy70h4Qkux7QXbkq/7HESt/dL98K/jADslmOJc8X4
+ 8zbgyKsLzniqt1BekYvj46WzT5uCYEugR0nULEdhg1EPAQCNJwrX7MBlI/9HOTB9eXUpVcmUuM7
+ /GF6kgoVI/tT3dR7sA87VHvSx60l+tJovJX2hgz7VH1TCJeDPAJ6t1AwgT6PUV82PKA0m5iNjxm
+ 3PLPSK4wS4yQ/gurgLH4F/V/5eKGX2OWC6umsN8u9xwBJSjmjUGvxkv51yQOzY0bQiZn6TAOq1K
+ fR9Fd/qNmU2MnZ43iKZIdPZOBcnU
+X-Received: by 2002:a5d:5e8a:0:b0:48d:f56d:be56 with SMTP id
+ ffacd0b85a97d-48e3eb7642cmr19483905f8f.13.1793109240024; 
+ Tue, 27 Oct 2026 06:54:00 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.117.46.175])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3ebcb846sm23128058f8f.25.2026.10.27.06.53.49
+ ffacd0b85a97d-48e3ebcb846sm23128058f8f.25.2026.10.27.06.53.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Oct 2026 06:53:51 -0700 (PDT)
+ Tue, 27 Oct 2026 06:53:59 -0700 (PDT)
 From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -82,9 +82,9 @@ Cc: Francesco Valla <francesco@valla.it>,
  devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
  linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-embedded@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v6 03/15] fbdev: efifb: move the BMP headers to <video/bmp.h>
-Date: Tue, 27 Oct 2026 14:53:30 +0100
-Message-Id: <20261027135342.2003632-4-maximpedraza@gmail.com>
+Subject: [PATCH v6 06/15] drm: docs: remove bootsplash from TODO
+Date: Tue, 27 Oct 2026 14:53:33 +0100
+Message-Id: <20261027135342.2003632-7-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261027135342.2003632-1-maximpedraza@gmail.com>
 References: <20261027135342.2003632-1-maximpedraza@gmail.com>
@@ -111,185 +111,45 @@ X-Spam-Status: No, score=-14.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DRM splash client parses the same BMP headers as efifb. Rather than
-keep a second copy of the structures, move them to include/video/bmp.h
-with the magic number.
+From: Francesco Valla <francesco@valla.it>
 
-BMP is little endian whatever the CPU, so the header gives the fields
-as __le16 and __le32, and efifb now reads them with
-get_unaligned_le16() and get_unaligned_le32(). Width and height are
-read signed, as the format has them. No change on the little endian
-systems EFI runs on.
+Now that a splash client exists, remove the bootsplash task from the
+TODO list for the DRM subsystem.
 
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Francesco Valla <francesco@valla.it>
 Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
 ---
+ Documentation/gpu/todo.rst | 17 -----------------
+ 1 file changed, 17 deletions(-)
 
-Notes:
-    TODO for the efifb maintainers, not changed here so that this patch
-    only moves the headers: the bound check
-    
-    	if ((bitmap_offset + bmp_pitch * bmp_height) > bgrt_image_size)
-    
-    is done in u32 and can wrap with a crafted BGRT image, for instance
-    with a bitmap_offset close to 4 GiB, and so can round_up(3 * bmp_width,
-    4) and the product with a huge width; image_offset_x + bmp_width against
-    lfb_width is a u32 sum too. efifb_copy_bmp() would then read outside the
-    mapped image. The DRM splash client checks the same headers with
-    check_add_overflow() and check_mul_overflow(). I can send a separate fix
-    if wanted.
-
- drivers/video/fbdev/efifb.c | 49 ++++++++++++++-----------------------
- include/video/bmp.h         | 40 ++++++++++++++++++++++++++++++
- 2 files changed, 58 insertions(+), 31 deletions(-)
- create mode 100644 include/video/bmp.h
-
-diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
-index 3411be06d3e6..fd348a72f780 100644
---- a/drivers/video/fbdev/efifb.c
-+++ b/drivers/video/fbdev/efifb.c
-@@ -16,32 +16,13 @@
- #include <linux/platform_device.h>
- #include <linux/printk.h>
- #include <linux/sysfb.h>
-+#include <linux/unaligned.h>
-+#include <video/bmp.h>
- #include <video/vga.h>
- #include <asm/efi.h>
- #include <drm/drm_connector.h>  /* For DRM_MODE_PANEL_ORIENTATION_* */
- #include <drm/drm_panel_quirks.h> /* For drm_get_panel_orientation_quirk */
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index e6d36f8da086..5e987e18bfcd 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -756,23 +756,6 @@ See drivers/gpu/drm/amd/display/TODO for tasks.
  
--struct bmp_file_header {
--	u16 id;
--	u32 file_size;
--	u32 reserved;
--	u32 bitmap_offset;
--} __packed;
+ Contact: Harry Wentland, Alex Deucher
+ 
+-Bootsplash
+-==========
 -
--struct bmp_dib_header {
--	u32 dib_header_size;
--	s32 width;
--	s32 height;
--	u16 planes;
--	u16 bpp;
--	u32 compression;
--	u32 bitmap_size;
--	u32 horz_resolution;
--	u32 vert_resolution;
--	u32 colors_used;
--	u32 colors_important;
--} __packed;
+-There is support in place now for writing internal DRM clients making it
+-possible to pick up the bootsplash work that was rejected because it was written
+-for fbdev.
 -
- static bool use_bgrt = true;
- static bool request_mem_succeeded = false;
- static u64 mem_flags = EFI_MEMORY_WC | EFI_MEMORY_UC;
-@@ -145,9 +126,10 @@ static bool efifb_bgrt_sanity_check(const struct screen_info *si, u32 bmp_width)
+-- [v6,8/8] drm/client: Hack: Add bootsplash example
+-  https://patchwork.freedesktop.org/patch/306579/
+-
+-- [RFC PATCH v2 00/13] Kernel based bootsplash
+-  https://lore.kernel.org/r/20171213194755.3409-1-mstaudt@suse.de
+-
+-Contact: Sam Ravnborg
+-
+-Level: Advanced
+-
+ Brightness handling on devices with multiple internal panels
+ ============================================================
  
- static void efifb_show_boot_graphics(struct fb_info *info, const struct screen_info *si)
- {
--	u32 bmp_width, bmp_height, bmp_pitch, dst_x, y, src_y;
-+	u32 bmp_width, bmp_height, bmp_pitch, bitmap_offset, dst_x, y, src_y;
- 	struct bmp_file_header *file_header;
- 	struct bmp_dib_header *dib_header;
-+	s32 width, height;
- 	void *bgrt_image = NULL;
- 	u8 *dst = info->screen_base;
- 
-@@ -186,20 +168,25 @@ static void efifb_show_boot_graphics(struct fb_info *info, const struct screen_i
- 		goto error;
- 
- 	file_header = bgrt_image;
--	if (file_header->id != 0x4d42 || file_header->reserved != 0)
-+	if (get_unaligned_le16(&file_header->id) != BMP_FILE_MAGIC_ID ||
-+	    get_unaligned_le32(&file_header->reserved) != 0)
- 		goto error;
-+	bitmap_offset = get_unaligned_le32(&file_header->bitmap_offset);
- 
- 	dib_header = bgrt_image + sizeof(*file_header);
--	if (dib_header->dib_header_size != 40 || dib_header->width < 0 ||
--	    dib_header->planes != 1 || dib_header->bpp != 24 ||
--	    dib_header->compression != 0)
-+	width = get_unaligned_le32(&dib_header->width);
-+	height = get_unaligned_le32(&dib_header->height);
-+	if (get_unaligned_le32(&dib_header->dib_header_size) != 40 ||
-+	    width < 0 || get_unaligned_le16(&dib_header->planes) != 1 ||
-+	    get_unaligned_le16(&dib_header->bpp) != 24 ||
-+	    get_unaligned_le32(&dib_header->compression) != 0)
- 		goto error;
- 
--	bmp_width = dib_header->width;
--	bmp_height = abs(dib_header->height);
-+	bmp_width = width;
-+	bmp_height = abs(height);
- 	bmp_pitch = round_up(3 * bmp_width, 4);
- 
--	if ((file_header->bitmap_offset + bmp_pitch * bmp_height) >
-+	if ((bitmap_offset + bmp_pitch * bmp_height) >
- 				bgrt_image_size)
- 		goto error;
- 
-@@ -222,12 +209,12 @@ static void efifb_show_boot_graphics(struct fb_info *info, const struct screen_i
- 
- 		src_y = y - bgrt_tab.image_offset_y;
- 		/* Positive header height means upside down row order */
--		if (dib_header->height > 0)
-+		if (height > 0)
- 			src_y = (bmp_height - 1) - src_y;
- 
- 		memset(dst, 0, bgrt_tab.image_offset_x * 4);
- 		dst_x = bgrt_tab.image_offset_x;
--		efifb_copy_bmp(bgrt_image + file_header->bitmap_offset +
-+		efifb_copy_bmp(bgrt_image + bitmap_offset +
- 					    src_y * bmp_pitch,
- 			       (u32 *)dst + dst_x, bmp_width, si);
- 		dst_x += bmp_width;
-diff --git a/include/video/bmp.h b/include/video/bmp.h
-new file mode 100644
-index 000000000000..8aa249f2302f
---- /dev/null
-+++ b/include/video/bmp.h
-@@ -0,0 +1,40 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _VIDEO_BMP_H
-+#define _VIDEO_BMP_H
-+
-+#include <linux/types.h>
-+
-+/* "BM", the first two bytes of a BMP file */
-+#define BMP_FILE_MAGIC_ID 0x4d42
-+
-+/*
-+ * The headers at the start of a BMP file. Every field is little endian,
-+ * whatever the CPU, and the headers need not be aligned in memory: read them
-+ * with get_unaligned_le16() and get_unaligned_le32().
-+ */
-+struct bmp_file_header {
-+	__le16 id;
-+	__le32 file_size;
-+	__le32 reserved;
-+	__le32 bitmap_offset;
-+} __packed;
-+
-+/*
-+ * BITMAPINFOHEADER. Width and height are signed: a negative width means
-+ * nothing, and a negative height that the rows go top to bottom.
-+ */
-+struct bmp_dib_header {
-+	__le32 dib_header_size;
-+	__le32 width;
-+	__le32 height;
-+	__le16 planes;
-+	__le16 bpp;
-+	__le32 compression;
-+	__le32 bitmap_size;
-+	__le32 horz_resolution;
-+	__le32 vert_resolution;
-+	__le32 colors_used;
-+	__le32 colors_important;
-+} __packed;
-+
-+#endif /* _VIDEO_BMP_H */
 -- 
 2.39.5
 
