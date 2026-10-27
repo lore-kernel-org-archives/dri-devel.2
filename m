@@ -2,133 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3F6606A325
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 08:02:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BB5606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 08:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MYbvhtfl
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HJWT1wOo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7570110F2C2;
-	Tue, 27 Oct 2026 08:01:56 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011046.outbound.protection.outlook.com [52.101.57.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEFB10F2C2;
- Tue, 27 Oct 2026 08:01:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iEfMxrUuAx5Coz1Gdhp3k1tICL4W8nLfZzM/LcAGw1ZomeVnr3GfjmVVWtVmH4W1NaQD0DjMuf63Ou5HpqYiqhKfwkIZkga0mArq5Wb27YATiQZTCTYtSmZLjQUC8+aWjqW8bRMBVEPetjVURzOjqMHhDjBrG+tbf4nQ+BB3xMY8kXHqIPbeSRasgZiwJ3GX1bK/335A7C5YLq0chfgaA+ZqdnQD3mqs5mm3K050NKTuvZcCKpZHautipJAn5uvTimtl/ly7d4tqYxgi1alECyHlL50j8D3XrUZOD3TMp/XfgRRR2Ckjs1M/gNIv4rDVVEaPXjgggizmcXNRxaf64g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y61Sbqy0fqJ7uPcPqzjvwLUWsxXIkkNfEEbjMBRS80s=;
- b=qyhTtD5Tzo8O1RHpPzBA5Cowp+GsIyuDmuSepWDfOGS4PZ6JD7FhpCuzNPyXEkXHXcZKoZJo6EFbqJp/oZtjZLN/oaV+gtj5NQ5hUJCzbXPOxKRvK1YqB46GA6jPBuIcaaUbZZinLy6wqnaiY/jX9V9viIB+qbSSHBPMbLdgvo0p9wUvSLTGhVagc6FeuOVtmy+KWY5eNlbznYJvo+4vPKjq9WhDEqfx9DtgM7cVFMnXXw3NLujT0W3IfAw4YEUFCuRv1v8DogdJGoII4BD72cGvbwrDddMyEYLw+dNl4OYQV3CAgbPQrH/HU+shLGq36NBivXmVcOO/rVm2dgYlUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y61Sbqy0fqJ7uPcPqzjvwLUWsxXIkkNfEEbjMBRS80s=;
- b=MYbvhtflKWtZ9eOq+karAeshCb4h23IQ/7y5TlKw11PCG13OC9U2iFjYUxoShJh2egLjmxTGOpwlyJyr0J06ra+OXOL3V6uCRKvqX7Q+r1uP8VpMb6/qhWRYFMHXBNujJhnay8wHcR9MKt5czwT7F7VbhoAVRkdWkBA0pGMeM9PqW8RzPeRy9pQMTzPGxoYSxqwesXtvg1BuSDR0ccaGhxjUtqRc6e20Y0LlGDXE1M4EuRDmU1ra1oj6uc/VcTZhtpP0ImsfZrA9AYZdozCR2mPE68vtUFL3fcw5piZADrMdKpAsB1JyrH3QykqiC/8F3WIZMMNASgCvfN8UKKGKhQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- PH7PR12MB6659.namprd12.prod.outlook.com (2603:10b6:510:210::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.22; Tue, 27 Oct 2026 08:01:44 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0546.016; Tue, 27 Oct 2026
- 08:01:43 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 27 Oct 2026 17:01:40 +0900
-Message-Id: <DMFGOLKMN5B5.2R9D11QN25WPS@nvidia.com>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v6 11/15] gpu: nova-core: gsp: cmdq: do not sleep when
- waiting for a message with timeout 0
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
- <20261027-cmdq-rpc-v6-11-bed9669724ba@nvidia.com>
-In-Reply-To: <20261027-cmdq-rpc-v6-11-bed9669724ba@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0065.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:371::7) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65CAC10F2C7;
+	Tue, 27 Oct 2026 08:06:47 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8532010F2C5
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 08:06:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1793088399;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vfmt4Rc5J4gF2KexiwvuKzoZFNtTnsgovk9um/e8UYE=;
+ b=HJWT1wOo+c5XA90GV3L4R89iJiuuqKCGwSsj6sHBJ3it39rl7lCk0vxPjdY9ADJ0LdsfQq
+ yTekCcyzw6sysPgLzIFYvSYjZhWkJIyyq1BS+EAuW3975/5LLNvG1O9tet0n5CNgv/XWTu
+ R+qm+t+TOhMU+T302C+tzJ7engZjgi4=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-551-iPEDIyB_O2KoebfRu4gkXQ-1; Tue, 27 Oct 2026 04:06:32 -0400
+X-MC-Unique: iPEDIyB_O2KoebfRu4gkXQ-1
+X-Mimecast-MFC-AGG-ID: iPEDIyB_O2KoebfRu4gkXQ_1793088391
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-48b0a199b20so3413044f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 01:06:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793088391; x=1793693191;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=vfmt4Rc5J4gF2KexiwvuKzoZFNtTnsgovk9um/e8UYE=;
+ b=L1mKEf12nYxJm2QjMhO/WctLLE9v0jIiTGv+U53EEES0+Hq/am7gOZF1ACyjOH+V+9
+ LgKFohBCGu80wTzrg/j784Y3zBss+p1MHc93L+HM7gu8pnDCqZCn56DpLhbwIK39k2Eo
+ isWaqt4J7+z2x4M9CFA0beeqgDhy9ejolpC11C5h+AXIYDb4zkPFRZEtnFeW5+o+gqWP
+ MmUFpJq1AvRS9G+bN1pcRvgeWz55Hy4z2Ll3KBDgrBOfMpuP3r/57AkRQ7SP2J1sjAqS
+ erWaVVtFJ6tiF+sp7gpCUDky1E1kbX4ogipt/XTMX3wtgXtBC/TP4EbkVbjJEn1QGSg/
+ QJfA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzNezugJLdz+e55oTYfq515jOije6lPYaLfkTgefLU63vRyy7WkZt0fWUdDlECBOL4ZSM1qMRx2F+E=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIlFLkmY27Mj2E5T1z/BlrYPDkaIV522wfHhAFrYPjio+Bd8j1a
+ tNbpYN1wwSzhFRDRKlhwi9LTTxxxV7mVdB8Foq8dLUXjF8WeomHXK/st86BoMwj1qbOayN9rGUG
+ av6u4mbP1XVBJ4GxX+zjURXPzCLPE727WS62o2A3XX8ZfEXsPaN9PHWdkGw/r1ZVZz7n8ew==
+X-Gm-Gg: AYBFou1HjdtDUYuycdpu7EqLjV5oLzNfUfA1ILukYsUt+lses17hd31rRBjCTnevTlk
+ n0LBUGI5Lrsnio09p2zKaHKo5bOKtNFkPmfKmxCfL2h3XUC0rPVnB/KpsObNI/Rd0sCeKKFmcc6
+ QlmkPAiMc27zB9UlC6WDqlojI/kT0ktEqfDNVhMSq8kTXRZsQSwQpWkGjbzVCwUoGrZ3Chj5zX2
+ dSrFZTCcv2e+KcvIP3t0qnRfIRhBugB7lENmOxqcaP0aOgKFbTjcq5OMhODSF/VyxRRVCr1wkX1
+ hQ5CYaLwqXVewQLRmuUWZ2oZBCE9LXQBfAxfuLSDcz2g2x0/pr1YZH7B2DLo4llPR9U=
+X-Received: by 2002:a05:6000:27c9:10b0:48e:1299:663f with SMTP id
+ ffacd0b85a97d-48e3ebbc92bmr12279659f8f.56.1793088390985; 
+ Tue, 27 Oct 2026 01:06:30 -0700 (PDT)
+X-Received: by 2002:a05:6000:27c9:10b0:48e:1299:663f with SMTP id
+ ffacd0b85a97d-48e3ebbc92bmr12279608f8f.56.1793088390519; 
+ Tue, 27 Oct 2026 01:06:30 -0700 (PDT)
+Received: from localhost ([46.6.57.114]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e3ebd47basm23211838f8f.32.2026.10.27.01.06.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Oct 2026 01:06:29 -0700 (PDT)
+Date: Tue, 27 Oct 2026 09:06:28 +0100
+From: Albert Esteve <aesteve@redhat.com>
+To: John Harrison <John.Harrison@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Mattia Tadini <info@mtsistemi.it>,
+ Roman Li <roman.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Alex Hung <alex.hung@amd.com>, George Zhang <george.zhang@amd.com>,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Leo Li <sunpeng.li@amd.com>,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Geoffrey McRae <geoffrey.mcrae@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Add null DC check to hpd init
+Message-ID: <auBbhHo5SQNt_jK9@aesteve-thinkpadp1gen8.rmtes.csb>
+References: <20261022173154.2318054-1-John.Harrison@Igalia.com>
+ <atsRYJ7XTBY987fr@aesteve-thinkpadp1gen8.rmtes.csb>
+ <e076014e-b461-4e27-8220-709722b73ceb@Igalia.com>
+ <ee303a21-32f9-42ed-a351-35a23d6de202@Igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB6659:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a9eeeea-03a1-49a7-b742-08df34008a56
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|10070799003|1800799024|23010399003|366016|22082099003|18002099003|261026121527099003|56012099006|11063799006|4143699003|10067099003|261021123027099003|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: CJoo/AwNEgDs2BwLE+8jPe53sLk7LggqrI3c3+qmLWYQPmVZMlO60OH8KceU3akY9nNdxzaiWBpSvyTRQ0avdLy2JBO64oRQhPB4o0bjFayotySvJV7v96SKS7RzGWvm3AB2WfRkEvUjUM+/c58sljULRSKDPJ45tJJXubKuLdFPOl2qMALUySnkhhOzq6rmun1/c0vK2wHwKJKlX/RSjLN9YB/LvnkBS+XBo9+3BtWl5MAWBPzmrj8Q0jl6piXa4le8IjfvfY26AkGWcqwnYyIlpMsVADErT/uVF8i6Nhn48Q8p6cdHwmocrFYVvwAxcChhH0muHpz4YQ/ZdzTsrSiyM3bpkjgJShr4SXvic22nkhUwApLcxI41YLDAy84EREv23/5UkeUxknB5mdupiSuvBe+dapYglJbqtkT3+qddha2ygTsGuQVrm6H4LkMzU8kACVFGrHE8qPeBL2oxWOQZczEWp3QsCdxYvMTRI33rAt3nYGKYBtWQUFTlwI2LeZHYAIRjrnOYGhqUYaqQqoLSZTxhTeDlT39qwoB1irRP3v5PPqJ6GZBufoYeTG1AGE0QNeE3d69VUocoHGYLVWyn5y+/suVdj6yZd2X/c5QKWMLL9/Gg2Sef+j8hZjs2XYtGy73cbKek7d+Cfm2MmaXSl+EG3vDTynQdcj2hRU8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6413.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(261026121527099003)(56012099006)(11063799006)(4143699003)(10067099003)(261021123027099003)(261022105027099003)(261026140227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUdsQzlkU2wwTUhrYUdraDFIMFFJZkV2YjN4SUN5RDJZQStpeEloYmp3T3FS?=
- =?utf-8?B?NzR2Szg0N3pvdjJaSzY0WEdKc1Mwb0RLZ2ZJa2pIcUdla1lGS1NQemhPU3BX?=
- =?utf-8?B?eG1QYThGZFAvUlpVNGpHcVdqQXlVYlFjUzJXSkdSUWFGVzlSYjFjdmdjNXBQ?=
- =?utf-8?B?L0VucFpjQjRiRU8ybXd4ZDBKa3Q3OW1SalZOWnpmbHBOakNlY1EwOERFdkJL?=
- =?utf-8?B?VHNyaWljU3cybTRZMFFCemdFd0dicGxaQVYzQ2lWdXZsK3dPanJzVDUzVUVa?=
- =?utf-8?B?T0UxOWJoYWR6NHd6aFljMmZPT09jRGhQNTlvRVNmQ2l5K0NyWDNhZlNyRHZ1?=
- =?utf-8?B?MFlZdXVFczkwYXE2UTRmNHdBNkZMRVAxQ3pwVzlMU0xwVUlrVXpFRkQwa3pT?=
- =?utf-8?B?dWpMN0oxa1BxbHF0V1lrOTB2Rmo1dm1wU2FBamk5cGdvTCszNTFUUWt6elVC?=
- =?utf-8?B?NDUvRHZzY280czZvS2tTejRkTytOZFRUU2NPYmovWTJxM01Rdy84SFQ4ZGlw?=
- =?utf-8?B?cEdFN040RHoxaUZnRmlEbDd4dTcxaW1XeWpNWG5vVk1hKy9JSGoyZE9BcWUv?=
- =?utf-8?B?dFhkcStTbkJTNmhJdWFZNjBGOWhFVjhTRFlKWG4wY25LbUx1THJCeGx3VlY4?=
- =?utf-8?B?WHZKdml3QUVmdDVTTHI1bHl1S1M2R2N6MFR1TzYrWlkwQ3lTYUZQcDNNZzN5?=
- =?utf-8?B?MkhsQThUcWNXK3hkeGpqaWRQQmM1cUxYZkRNSG9HOThuOVBkN1pxZjNGeWRO?=
- =?utf-8?B?KysxTkM1VkVvY3pMdjQ2UFRzak42QVpXK3VUZlVJK0NINFoyU3dQRDUzakxF?=
- =?utf-8?B?QlNmUFhrWmpGcml0OFlzM2hTUmJzMjdEM25ZUkF2Y1B1QUo0ZXBxMTRLRjkz?=
- =?utf-8?B?M3ZKaFVGMTZST2FOcFJZc09qODMyeDJCZU9jMEkwOC8wMkF2MTExZXJ3d0pO?=
- =?utf-8?B?TzZ2alU2dmhZcmxQUE55cmhZQzROSjVyQ0RmU3M0cGIwaXovdXZYWGZFUGwy?=
- =?utf-8?B?UFNzUHE5d0FVVkEwYWQ1dUNoeGg0SkZ4QWs0UXRBaURnWmdFNmpscGpEL1ZG?=
- =?utf-8?B?RFBWekh6YW4xWGVaRkxST0IraWI3NStLTGpQUGxwR09kTkEvM1dsay95K1lp?=
- =?utf-8?B?ZW9aNlFjZWEzZ3gySFhLbXMycGljY2xCa0RXL0tIcnltaDNIYnZXMkRDSkVm?=
- =?utf-8?B?SEZvN2hmNncwMjJJb3pFTU5vSVV4SWRJcEFDeWRIZERhakJ4TlZzYmJhdkFN?=
- =?utf-8?B?MDh0Q29VUnhvejkzVG96NmR4OFA5NDRtYzAvMllLeEx0ZFhwV2dxdStnWjNQ?=
- =?utf-8?B?cXpTSTBuRG45NzJ3Y2ozWFRuL2l3Z1NrRnRNQkd2MU1za0czc2lDMlVhMWdZ?=
- =?utf-8?B?RVZUYUgwY2h3ZGp4bUhKaGhaT1Nvcmg5VWs1RlFJS3Q5MFJwU3A4dHlubTRE?=
- =?utf-8?B?VW13Z2xlbnNDYVMxOEt6aDlXTVByb3BNOTl3UXJuVW5vTlRTNDlWeFhURHd5?=
- =?utf-8?B?OXlTUUZwMW5WdzZ6Ym5JTE0zSjIxbW4ralh5SUV6dW1oQTZXZFdleFRFYksr?=
- =?utf-8?B?N0NoQytlUXpVQ3hiZ00vc0lIUHVjU0U5Q1hKQXJPUXFENG5hNHhtM3FXMS9H?=
- =?utf-8?B?Slo5T2ViOW1GeUt4aHNpSkJLY3BMaDZIaElTa2pBaXlGclBXNjFIdGdVck81?=
- =?utf-8?B?YVU4cW5pRGEyOUtwQ0Y3VUVwaVJ1M2twSnRzRTRlWlByaFJoSlBON2MrT0R4?=
- =?utf-8?B?N0FHYUtjdWdZcTR1dnUzR2pJV3prbS9hc0huZXpkK0psTW5TRXNHUWR1TGdv?=
- =?utf-8?B?bzIraHl0bDFlNzZGa3B0NDUxeFh3Tkk4dk9JSHB0NkdlODNZQ2hUNmFrS1hD?=
- =?utf-8?B?MmFrL2UrazV5cXV4QnVPY0xKU3h5d0l0WGJiODRMaHo3Ynl5djNJd2dIcTZD?=
- =?utf-8?B?SlNDSTZ1a3dqSDJyNnovdUwwbzdhM01ndXJ4Qm9ZWEdzTk9nZzJ6dFhCeUQ3?=
- =?utf-8?B?OEtobVZ6eCs3L01qZEk0MjBLQkZrVlNEdDVaTlVEWEVhU1VxU21RUDUwY3RU?=
- =?utf-8?B?N3FLK3hKOWg0azVWVytQemczcEM0bHpVc2wxSHkvNytORUVvZWNXbHovTGZt?=
- =?utf-8?B?OXlOQ2RzckdoZS9oa0I0QTQwaGFEcWk0TzFFWm5PWUpwRVJMQVljaTJDRDFT?=
- =?utf-8?B?RHdibnd0WXpGK0hlTnI0UmlKdW9zYkdZWjFHZFM2YVhDejAyZ0FEVnZGWnVr?=
- =?utf-8?B?eHNaOVhlTWs2OXBMaGdqTXFjY1p1NGlXY3RvaXVQQXR4SnlnTnl1eUd0VjRY?=
- =?utf-8?B?am0rUVZQOFZXc2c2Z281ZDgwVWNBNFVWaUFXa2JJMHRqamVuNkZzMnFva05o?=
- =?utf-8?Q?uVs+9P9Cnd6hEIrzS/F9TIloJR7PkesoOoMax1o18jF7N?=
-X-MS-Exchange-AntiSpam-MessageData-1: OVL5KP58HRi1Nw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a9eeeea-03a1-49a7-b742-08df34008a56
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 08:01:43.6759 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4DOPUk7wb0LKM8ArI+2Vf2PDqmpEPehXlJ9ZdG/r/uHf2ej7ygco+0Wh470XJr/WqXMV6bEwvKqkRRcIcyIKpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6659
+In-Reply-To: <ee303a21-32f9-42ed-a351-35a23d6de202@Igalia.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: ui5CuttrOn8xcKffzKPcbqslJCd0RwY6_ooWYYJTfQk_1793088391
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,26 +104,161 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue Oct 27, 2026 at 4:35 PM JST, Alexandre Courbot wrote:
-> `read_poll_timeout` can potentially sleep for the specified
-> `sleep_delta` if `timeout_delta` is `Delta::ZERO` and the system clock
-> is coarse enough to not register a tick between the time the function
-> has been called and the time the loop test is done. `wait_for_msg` has a
-> short test condition and is particularly vulnerable to this condition.
->
-> Add a dedicated branch when `timeout` is `Delta::ZERO` to perform the
-> test without calling `read_poll_timeout` and avoid potentially sleeping
-> for 1ms.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+On Mon, Oct 26, 2026 at 01:16:34PM -0700, John Harrison wrote:
+> On 10/26/26 11:57, John Harrison wrote:
+> > On 10/23/26 00:48, Albert Esteve wrote:
+> > > Hi John,
+> > > 
+> > > On Thu, Oct 22, 2026 at 10:31:54AM -0700, John Harrison wrote:
+> > > > A bunch of the KUNIT tests (dm_test_hpd_init_*) expect that the init
+> > > > function can be called with adev->dm.dc set to null. Indeed, the
+> > > > dm_test_hpd_init_fini_with_connectors test has a comment explicitly
+> > > > saying that the null is intentional. Unfortunately, since the patch
+> > > > mentioned below, the first thing that the init function does is access
+> > > > adev->dm.dc->link_count. Thus it is a null pointer dereference and a
+> > > > boom (at least if running with KASAN).
+> > > > 
+> > > > I'm not sure if a null DC can ever occur outside of the KUNIT tests,
+> > > > but there is presumably a reason for the KUNITs explicitly testing it.
+> > > > So add a null check around the link_count loop.
+> > > This feels backwards reasoning. The tests assume in comments that
+> > > "a NULL dc that fallback is a safe no-op", which isn't true after
+> > > commit e38159437a91. Also, in amdgpu_dm_init() the DC is created and
+> > > checked, and if it is NULL errors out. Thus, DC is never NULL at
+> > > amdgpu_dm_hpd_init() in production.
+> > > 
+> > > The fix should be in the tests, maybe allocating a stub with
+> > > link_count 0?
+> > I was meaning the later comment "DC is absent (NULL), so the HW writes
+> > are NULL-safe no-ops.". To me that reads as the test is explicitly
+> > checking that a NULL DC is safe. Also, the
+> > dm_test_hpd_init_empty_connectors test says "init must complete without
+> > touching the DC". Which also seems to be saying that a null DC is a
+> > valid thing to happen and must be allowed.
+> > 
+> > If you are certain that there is never a possibility nor a reason for
+> > having a null DC in reality, then sure, the tests can be updated
+> > instead. This is not code I am especially familiar with - I'm just
+> > trying to run the tests to ensure that other changes don't break
+> > existing drivers. I just don't want to go removing test coverage simply
+> > because a driver change breaks a test - that is generally the backwards
+> > direction!
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+I am as certain as the code exploration allowed me to be, which means to a
+limited extent... Also, not wanting to remove test coverage is a
+valid point. I mean, to me changing production code just because a test
+needs fixing tickles my spidy sense so I questioned it...
+
+> > 
+> > John.
+> I'm finding more and more tests that explicitly test a null DC. Also, a stub
+> DC with a link_count of zero is not sufficient. All the IRQ code goes boom
+> trying to configure interrupts because dc->res_pool->irqs is
+> dc->[null]->[null]. Hacking up a fake res_pool and a fake irq structure
+> would presumably be possible but then the driver will be attempting to
+> enable interrupts in a non-hardware kunit test. I haven't gone further than
+> that to see if anything else goes boom with a partial DC yet.
+> 
+> It seems like trying to force a fake DC is an unravelling thread that will
+> mean a lot of changes to a lot of tests and maybe to the driver too.
+> 
+> As the driver currently stands, the tests explode with null pointer
+> dereferences. Fixing up the one patch that broke a fundamental requirement
+> of so many tests by adding a simple null-pointer check and returning the
+> original functionality seems like a sensible first step. We get the test
+> coverage back with no real downside to the driver. If the people that really
+> know this code want to do a more involved fix then that is up to them to
+> decide how it should be done.
+
+... but you are right here. Checking for NULL is a defensive check with no
+real downside. Plus all the problems you raised with changing the test.
+Thanks for exploring that further.
+
+Reviewed-by: Albert Esteve <aesteve@redhat.com>
+
+Thanks!
+Albert
+
+> 
+> John.
+> 
+> > 
+> > > BR,
+> > > Albert
+> > > 
+> > > > Fixes: e38159437a91 ("drm/amd/display: only clear the hotplug
+> > > > sources the ASIC has")
+> > > > Cc: Mattia Tadini <info@mtsistemi.it>
+> > > > Cc: Roman Li <roman.li@amd.com>
+> > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > Cc: Alex Hung <alex.hung@amd.com>
+> > > > Cc: George Zhang <george.zhang@amd.com>
+> > > > Cc: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+> > > > Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>
+> > > > Cc: Leo Li <sunpeng.li@amd.com>
+> > > > Cc: "Timur Kristóf" <timur.kristof@gmail.com>
+> > > > Cc: Albert Esteve <aesteve@redhat.com>
+> > > > Cc: Geoffrey McRae <geoffrey.mcrae@amd.com>
+> > > > Cc: Harry Wentland <harry.wentland@amd.com>
+> > > > Signed-off-by: John Harrison <John.Harrison@Igalia.com>
+> > > > ---
+> > > >   .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 26
+> > > > ++++++++++---------
+> > > >   1 file changed, 14 insertions(+), 12 deletions(-)
+> > > > 
+> > > > diff --git
+> > > > a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> > > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> > > > index 5b4ff079cd55..427f7bba343d 100644
+> > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> > > > @@ -989,18 +989,20 @@ void amdgpu_dm_hpd_init(struct
+> > > > amdgpu_device *adev)
+> > > >        * has rather than over the whole enum: the unused slots
+> > > > of the DC
+> > > >        * interrupt table hold dummy handlers that assert when touched.
+> > > >        */
+> > > > -    for (i = 0; i < adev->dm.dc->link_count; i++) {
+> > > > -        const struct dc_link *link = adev->dm.dc->links[i];
+> > > > -
+> > > > -        if (link->irq_source_hpd != DC_IRQ_SOURCE_INVALID &&
+> > > > -            !amdgpu_dm_irq_set(adev, link->irq_source_hpd, false))
+> > > > -            drm_err(dev, "Failed to clear hpd source=%d on init\n",
+> > > > -                link->irq_source_hpd);
+> > > > -
+> > > > -        if (link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID &&
+> > > > -            !amdgpu_dm_irq_set(adev, link->irq_source_hpd_rx, false))
+> > > > -            drm_err(dev, "Failed to clear hpdrx source=%d on init\n",
+> > > > -                link->irq_source_hpd_rx);
+> > > > +    if (adev->dm.dc) {
+> > > > +        for (i = 0; i < adev->dm.dc->link_count; i++) {
+> > > > +            const struct dc_link *link = adev->dm.dc->links[i];
+> > > > +
+> > > > +            if (link->irq_source_hpd != DC_IRQ_SOURCE_INVALID &&
+> > > > +                !amdgpu_dm_irq_set(adev, link->irq_source_hpd, false))
+> > > > +                drm_err(dev, "Failed to clear hpd source=%d on
+> > > > init\n",
+> > > > +                    link->irq_source_hpd);
+> > > > +
+> > > > +            if (link->irq_source_hpd_rx != DC_IRQ_SOURCE_INVALID &&
+> > > > +                !amdgpu_dm_irq_set(adev,
+> > > > link->irq_source_hpd_rx, false))
+> > > > +                drm_err(dev, "Failed to clear hpdrx source=%d
+> > > > on init\n",
+> > > > +                    link->irq_source_hpd_rx);
+> > > > +        }
+> > > >       }
+> > > >         drm_connector_list_iter_begin(dev, &iter);
+> > > > -- 
+> > > > 2.43.0
+> > > > 
+> > 
+> 
 
