@@ -2,55 +2,94 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0A3606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 01:49:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFFF606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 02:16:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RUBbrT/U
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bvRE8z8J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38DBC10E12F;
-	Tue, 27 Oct 2026 01:49:24 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0544710E12F
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 01:49:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1793065756;
- bh=Wbi3NY9WnYJfeKXoxOhR70QLmxw4mM2jPoXXqAXFUT4=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=RUBbrT/UfeZQyQKecbvscc15wRIqp19C98IasaXLYH8nwqeGEVK2ly52sqBdShAbG
- RM0EUZRbamZfZAFyxfRo/GCdoaE9O1Ekzt3c3tTkwBNnwaBl89uypfNFRoughodKqi
- b4cbG+OXQXPJOjb1EWwGNkO1k9vjiBpDH9nVUUdtC+4y+OI0O/WPGxfK9tpgCmg/xY
- 3mLRlzRDuiHf9Yw3oJU7DKAR1aag5Z8fcc09wG7Rsfg+DjaQIPD7kUNSGDEM+OxYhv
- IMrH6ueghpO9jyuI/GhvUg4hyfT+IETKiI2R3HpDpdKdxgHVuqiTXu60a0CbCpInPW
- eErCLtqHNyskw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D429B17E0254;
- Tue, 27 Oct 2026 02:49:15 +0100 (CET)
-Message-ID: <a6314959-1287-4381-88a0-2fbc3edbe3b2@collabora.com>
-Date: Tue, 27 Oct 2026 03:49:15 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BEEA10E27B;
+	Tue, 27 Oct 2026 02:16:16 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A84F510E05F
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 02:16:09 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-48e47347279so1466851f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 19:16:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1793067368; x=1793672168; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=213hVxaY8zz7NJ3gzXzSYUeeO0Hb0kJ1MH6CZUy6aio=;
+ b=bvRE8z8JdFeO0qKr8ktC/A2Nk10bzaVEmThAY27UWQFk6MuvuajSOvVg4WgBx0OTPB
+ HQ6VJhSc3APTyl/LGLOF+UU5z7h5GyIjPibKR5cdqxMN32xbGUgeaaZI0nOIHXJoIl/m
+ 3/Ooec7CvyardFoU/y/9uH/5js/K1HAM81Zm5tXt36XgIlM7xdNsfn2zCHpOjScc38bI
+ U4DrXulN6+n9R0gAhJngM3UF/tDBjDp1P/hY8OxBX/+W7frLM9fcZTyDTwiWE54E8OrV
+ Gufxwe2BhIc3Io4FHt9dnbGGh2WKqC1VAR/JY9FOe9zKQfVFWyEiCHKLfZq0ZTXRK1bH
+ 7dmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793067368; x=1793672168;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=213hVxaY8zz7NJ3gzXzSYUeeO0Hb0kJ1MH6CZUy6aio=;
+ b=JEjbuOTx7w9L1hYFxe6pJSoFcvSlFGpwpR2qrwwt37qh47kSZdGEgjV4R09k4W1UUt
+ +3w7MtJJqYFHzERoTIV/LroX5RbvCRI6DcJTq4xPEHeDzE9Re5Mq1pEIsfJUjTrMgVn6
+ lwiW5/a8sXiBWw2PSkWB7evXx+cZj0rTbWUJGBqR2QQVLTJSti7afrojOn+QpOXS9EV5
+ zsBo+xrLEo1avpXPTdMHWHFwq0viJFfyJ5ZEVh+aoUVJZZB4MxTKZKQj7iGa0Fl/nBTM
+ 6CoaZIloWQVf3zk8x1m2qCArb0cS4ParT4nb4MFEsau5r2DXMWYsihC4ihfJwMxPvDIz
+ xjMg==
+X-Gm-Message-State: AFq9FYI5UC2gWflZp4Xm1Q811UceaWSDrEzxxcJi6R+bb1uW9N+2OTLU
+ zAleesTXRJyy9bbUkzBELfhVBBQkxsc3NbNdT9jxmsCEGPW7NfZeTxsY
+X-Gm-Gg: AYBFou1HtYuBbP9ndl7Rzd2K+vIo3QMslo4D0zixfSLERR/eW+krWh8XNIHTFBezjCY
+ H67mcfOKWyhQyj7hiifUYpgxUlffvySOoHzhA3ppDPs60jL5kVJEaaOkYgMdF9f+LPp14lXXHfK
+ QRjp6X6XG4ZOjDZ1wH9sAsSwyURurAtBWxbMEGa4wVULSCh9X6gYmk65UPBr09Uxt7rZnDgcPQu
+ mP8sqPQtBO+i4vUix6GEN/wmcvz3QlkHR/WlRasH+gGOveKr08VmeqOlZZBgmWbNkEkgnF2uh2v
+ oMiYpinmoxHYhb/foi17xWMqZJHM7TuzArJ7kwqaWMMYio7hE9vmvzxqCO5louKr6ybNoCpgyEX
+ MW3hZLwE5tmti1vl6uHlkhv+tSnYw4n6XCvjxj8rL1g0YJ90f3bWHfzk/8N1LHVS9i85MTLtj+7
+ zEUT8/+rxSc+wvls3PpJoMntFD9a78rMTQhs0/EgV7OYbNxh4Ok+8hW9dD2XuIaQiHU2nzDgqKb
+ 205OP9b91Gxow1w/ZJw9IwSV3nHMGiLR4nutaYN9RA2dT+eeWII5OOJnyDeiFBt3YnPSLj2FXen
+ ZhZP8Rt6jUGsMBMKByZI0Me4UlDoU3PizXRx+xwYXEzDLHpBvyyasJ4fbwTOv3Z8V2DaD36kH41
+ DvhF9vfsVkGPZpoGrKVy8IOC92Wt43JWpBjrVR09E
+X-Received: by 2002:a5d:6406:0:b0:48e:202:6718 with SMTP id
+ ffacd0b85a97d-48e3eb8bbe9mr13317253f8f.25.1793067367758; 
+ Mon, 26 Oct 2026 19:16:07 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain
+ (dynamic-095-117-118-122.95.117.pool.telefonica.de. [95.117.118.122])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e3ebc3dcbsm19591505f8f.14.2026.10.26.19.16.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Oct 2026 19:16:07 -0700 (PDT)
+Date: Tue, 27 Oct 2026 03:15:34 +0100
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Alistair Popple <apopple@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com, 
+ sumit.semwal@linaro.org, jgg@nvidia.com, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>, 
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, 
+ iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, 
+ treding@nvidia.com, jhubbard@nvidia.com
+Subject: Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to
+ dma_buf_sgt_attach()
+Message-ID: <auAIO0y09SXk34CN@gmail.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-24-apopple@nvidia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] drm/vc4: hdmi: Convert to common HDMI 2.0
- scrambling infrastructure
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026053623.202642-24-apopple@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,41 +101,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Dave, Maira,
+On Mon, Oct 26, 2026 at 04:36:14PM +0100, Alistair Popple wrote:
 
-On 10/14/26 4:03 AM, Cristian Ciocaltea wrote:
-> This series includes patches 42-48 from "[PATCH v11 00/74] Add HDMI 2.0
-> support to DW HDMI QP TX" [1], which convert the VC4 HDMI driver to the
-> common HDMI 2.0 scrambling infrastructure as a proof of concept for
-> reusing the shared code.  It adopts the shared TMDS character rate
-> constants, switches to drm_hdmi_mode_needs_scrambling() and force_ctx(),
-> fixes -EDEADLK handling, and replaces the driver-local scrambling
-> implementation with the common SCDC scrambling helpers.
-> 
-> The infrastructure patches have been merged and there are no remaining
-> dependencies, so the vc4 patches are now sent as a separate series,
-> rebased on top of the latest drm-misc-next.
-> 
-> Tested on a Raspberry Pi 5 Model B Rev 1.1 (BCM2712 D0).
-> 
-> [1] https://lore.kernel.org/all/20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com/
+Testing the series on a Jetson Nano exposed this path. A 3 MiB system-heap
+buffer was imported into Tegra DRM and scanned out over HDMI. With
+CONFIG_DMABUF_DEBUG=y the PRIME import succeeded, but scanout immediately
+produced display SMMU faults starting at 0x300000.
 
-This series is the only remaining blocker to finalize the infrastructure
-cleanup. 
+Tracing the fault led here:
 
-Therefore, may I kindly ask if we could get this merged, so that I can prepare
-and (re)submit the last part of the original (large) series?
+> @@ -475,7 +475,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_device *drm,
+>  	 * domain, map it first to the DRM device to get an sgt.
+>  	 */
+>  	if (tegra->domain) {
+> -		attach = dma_buf_attach(buf, drm->dev);
+> +		attach = dma_buf_sgt_attach(buf, drm->dev);
 
-The only patches that haven't been reviewed/acked yet are 7 and 8. Those are not
-critical, and I'd rather send them separately (together with patch 9) if that
-would let us move forward sooner.
+tegra_bo_import() passes the attachment SGT to iommu_map_sgtable(), which
+uses sg_phys() and sg->length. The SGT mapping contract only guarantees the
+DMA address and length fields. The debug wrapper clears the page-side fields,
+so iommu_map_sgtable() maps zero bytes. 
 
-Thanks,
-Cristian
+Tegra only treats negative returns as errors and keeps the reserved
+IOVA, which scanout then faults on.
+
+This page-side use predates the series, so the fault is not itself a v2
+regression. Is dma_buf_sgt_attach() valid for this call site, or does Tegra
+need a page/physical mapping type first?
+
+Karl
