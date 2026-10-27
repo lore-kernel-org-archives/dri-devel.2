@@ -2,105 +2,106 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57CA0606A325
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 14:39:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09539606A31D
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 14:39:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhtq+G06
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AsGCZShs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B94F910F5F0;
-	Tue, 27 Oct 2026 14:39:36 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB7FE10F5EE
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 14:39:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DAD446021A;
- Tue, 27 Oct 2026 14:39:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2A1C1F01828;
- Tue, 27 Oct 2026 14:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793111968;
- bh=zWKNZJvS98TaYn91gneC8TBH6IkytbETY3YYVo94WFg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=mhtq+G06kqC3xeB4k1jE+dmZEllYWsCyHRkDYVcdsaBoV8aW199hq1GaHjzFYOz0p
- vuNdJJUHYSi/oKO4hOgIQ3k/DhuVPlx0CBSsPodt2GfXNCg7s9rnCI9x6Mo3k5rJNx
- 3pbyLKia5J4YIOawICwO5EcvkwibwoPe39YF4zpytydfEtNzz1POphpsG/gvK95orM
- v25QLAFQvhgys9n5rsJWOHakEo+VPMg7kbTE2WMa3hJ4FIPb4m9GY1TSA9t5Z8EviY
- k0HqoCHaAfyCbhzNVUM2rosDzTzE+etBEveMz1+Silpow9WeNMVmUBMK6f8Q6m7mt+
- M6g8TfrvFDmrQ==
-Message-ID: <8c164738-8025-482f-828a-3f919150a930@kernel.org>
-Date: Tue, 27 Oct 2026 15:39:20 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6733610F5F4;
+	Tue, 27 Oct 2026 14:39:49 +0000 (UTC)
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com
+ [209.85.217.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEA3E10F5F1
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 14:39:42 +0000 (UTC)
+Received: by mail-vs1-f50.google.com with SMTP id
+ ada2fe7eead31-7cc074a653cso197051137.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 07:39:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793111982; cv=none;
+ d=google.com; s=arc-20260327;
+ b=O8PXtXq+p6CDrG29L/25EsZYHDnkKUDSYWn8Tdk1ye9k0B51cUynyZ+WHTwi6PHZj8
+ fL5K0bJh11TTYXu5LVoUOUIQ/apYJpO7/9SZN4/PpyKCs5wpG2LyM5CMuBa7ZUoW6jYe
+ LQ484NNWGq2yyRGzi3EJBeCrzAfUa5Q9P73oxMg1A3yhuJKh2uHzf1UHGJPWwdOE06uH
+ CQKGU463cT2jlD+gKB8rqrBjcPhN8BTN16qE1OK0YYWudJXqBne3MN4RM0sJFA5nSXLz
+ Pn0Hn6J6gyjNrdOROujBV8IdF8IaBPJ794I4pMaJLNPrPmXLGLNzU6GlnEyDhthishCk
+ RdTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=EPrxV4E3cA8qmso3bBNM8N5Yygid8H6mmV3NvCJ0NcY=;
+ fh=ANmB8mpNtiZGTZfmiTjiovsETFY/EbDvN4T/Gd9jLS4=;
+ b=eEq2xl2V4IBVsoYFJHRMdg+VquGZfPXlKyWENN1V3rh/JzqVz8TQaap7LXtbP+yi5P
+ jkDB9Lk/I/89u2IYWNt8t76qfKZ8ZeqfNCPyrF9Ohsrv8kkovGclxEnjUo/02w9yxMwe
+ ejkFuQ+2CrnUx3Nn4x2n9Lnmwbn5lTD4+BOIomUEoeyiQk7KRfOlvGbyX3BiiqlDmsRT
+ yqLqxVJtV7njpe6hR/rgC38WgiuWY4l/N/iFsjWFGw9dIQ6nyvr0vkofQi7LnVgu8C29
+ nFwJdGXHaugh65KG6VdNuUbnL3RtCznFPG+19wNS6CmuPdMWRREwl4r6liM66EOxamir
+ BRaA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793111982; x=1793716782; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=EPrxV4E3cA8qmso3bBNM8N5Yygid8H6mmV3NvCJ0NcY=;
+ b=AsGCZShsSWfv555+Uqazg5tPKeFsPI/s/hGFS469F6fbE1ROQRPrJhYArmcVpYxAcH
+ 2VnU96v6ZBlzoMrF2RSOPbomCED2g9Ya+Hz1TapqWtkJBa1x/ar3wTEa10S4RLuAeJgm
+ UgCT1tvN2tjeaPJJSiJXkheWOckm2N9oIZdmEcmzSgdbdafNvePkIYDICbseCDhhI1O1
+ slz2ekP/wYoHuNg4kM0qHifC2NZTWm/jGbylYW/7uhom+I8UVBnMNI1H5vIZrcnBLnJs
+ 8uh57CxxvoxlJ8Z6B+apRRL+7xdjxZqlCBTfXBU7i1pzp42H2IjPYwzbghMYzZdj2SIU
+ zPAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793111982; x=1793716782;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=EPrxV4E3cA8qmso3bBNM8N5Yygid8H6mmV3NvCJ0NcY=;
+ b=mRQ6RnvmlQH8bx6p9ko0KU1a+KWoWlvI88LcD/LT5TSrQbvx//RaAyt/BZW+pOxIDu
+ PDiYtWB3R+pxWvf9GWh5EW8XHkRDAohbsgwYZhdKjJS3aipXbgwYI+mt2VPn2wCqLlQd
+ /n/CfcowikFNLe467ITSO0BjwuW3iKhRaotYX8a0Sk5E+c8pAI9HugVpRlJXa/oU9qqj
+ bhe/xNEyr9FH11rx/z9BHQCNDOKa5K7prvtvOockLQpWGM4dEx9Vn5MS+efaBOX4ySum
+ T0lARpkr0AKsEwp2+pN8xHQwjrZlyv+RI1ANBKTOIYugbSo31zlRfirgU5GTjjdMz8EM
+ 7bWQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwIJTSmaG8bWpul/0zR1/OkjC9GabgPgAIqSF9y++rEEqFp8bl4vrdrfqidSQybOqy+d4v8xv12hIw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIerR7q+VhQL37W0VVNTS3svYvPNmQkKCfmRTiW4ScszsplpE2q
+ g0g2mwI1JBLTc8mT5bC8GJTKGPi3o5QrCQdmtd0S/iHGV2howdX5t+JSct1w1r+OjnLl5cWkKOr
+ n8E5WkaLZPfe+5C1+lMBKQHQ89dDZt2A=
+X-Gm-Gg: AYBFou0gdnBnVY64uBxsI2SK91l08rQB4/ZzZxhQdYSpj/9gl6yktKLKpX36ScIqXXi
+ rrRJ82S97jajMcPr+3Za5/CqgtQmVKX17fjm68va2q2CWCgT96rFCFfPQgc34H3WRFQTyWMv7Jo
+ oK+A7wfjB3xanmIrO4FA1WfkqQMlVH5BgYmAodzYF6KpBY08Ml9jmHngcGSFP+yKpEMlN7OeT7W
+ 2uAbIx64CovaV4fBHivG2l7sxlMULhwJCTK7hWnCFJtOQxco/CYJJl05J8bXeD0RBQWQpPOIwht
+ 1jCUvz6XAh9V6JKxDf5xHtJ6nmL22TkAfqXZ843V03I4i4KPKYhdnbPcGvHlRwek8rNPsKXpt2C
+ O9WNCp+A2rhvzsqCbC9eIeihqHWk8ARHXdmKglaYGdvQZULUod/6+kbcDDEDVRvxB9HYr493oZ+
+ Y9fUDCs7t99FaU6dc2nky1+OI=
+X-Received: by 2002:a05:6102:868b:20b0:7b4:f1cd:80dd with SMTP id
+ ada2fe7eead31-7ce5ca0ced9mr3651871137.1.1793111981697; Tue, 27 Oct 2026
+ 07:39:41 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] mm/huge_memory: copy file THPs at fork like
- copy_present_ptes() does
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
- <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-2-66f00b7a564c@virtuozzo.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-2-66f00b7a564c@virtuozzo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261022114754.865669-1-mptagliari@gmail.com>
+ <20261022114754.865669-2-mptagliari@gmail.com>
+ <88c61950-125e-4109-955e-ce09ebaab7af@amd.com>
+ <0c7e45a13fb78064390818bb501e754b62f16f6e.camel@gmail.com>
+ <20261027001506.27266-1-mptagliari@gmail.com>
+ <6e0b5af2-692a-4b2f-ae20-9c164e7e42ed@amd.com>
+ <d451b9a185817c576ebb7943a604fd1952470412.camel@gmail.com>
+In-Reply-To: <d451b9a185817c576ebb7943a604fd1952470412.camel@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 27 Oct 2026 10:39:28 -0400
+X-Gm-Features: AclHuK9s3CHTU3bFA1ccuwGnhC7tFGFBKddQ8ABnYXLC2ngK0GiJr07BAJIqJaM
+Message-ID: <CADnq5_OGgbFOJtBu7SwvvnaN01F=RSqtxZgBhJ1fty4pwBHmVg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/radeon: process the VCE interrupt on SI and
+ Trinity
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Matheus Tagliari <mptagliari@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,129 +113,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/21/26 22:36, Konstantin Khorenko wrote:
-> This fixes no bug: it makes fork copy a PMD the way copy_present_ptes()
-> copies a PTE. Until now copy_huge_pmd() skipped every folio PMD of a
-> non-anonymous VMA and left the child to fault them in again, while the
-> PTEs of the same VMA are copied.
-> 
-> Treat file folios as the PTE path does: take a reference, duplicate the
-> rmap and account them. fork then pays a reference and an rmap update
-> per PMD, and saves the child a fault per PMD it touches. The next patch
-> sends PFN mappings through the same tail.
-> 
-> That covers the VMAs vma_needs_copy() sends here:
-> 
-> - private file mappings with an anon_vma;
-> - VM_COPY_ON_FORK ones: uffd-wp and uffd-rwp, VM_MIXEDMAP (fuse DAX),
->   and VM_MAYBE_GUARD, which shared shmem, file and DAX mappings get
->   from a guard region.
-> 
-> The DAX huge zero PMD is copied too, with a reference taken by
-> mm_get_huge_zero_folio() as for anonymous VMAs. A migration entry of a
-> file folio is copied and accounted like copy_nonpresent_pte() does, and
-> made read-only in both processes only in a CoW mapping.
-> 
-> The copy then gets the same tail as __copy_present_ptes(): write
-> protect both sides in a CoW mapping, mark the child's copy clean in a
-> shared one, and drop the uffd-wp bit where the child is not armed. An
-> anonymous THP is now write protected only when its PMD is writable, as
-> a PTE is.
-> 
-> A page table is deposited under the copy where the fault paths deposit
-> one: in anonymous VMAs, and wherever the architecture needs one.
-> 
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-> ---
->  mm/huge_memory.c | 60 ++++++++++++++++++++++++++++++++++----------------------
->  1 file changed, 37 insertions(+), 23 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 1e5d68acf62a5..13e3674fb6115 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1898,12 +1898,13 @@ static void copy_huge_non_present_pmd(
->  		pmd_t pmd, pgtable_t pgtable)
->  {
->  	softleaf_t entry = softleaf_from_pmd(pmd);
-> -	struct folio *src_folio;
-> +	struct folio *src_folio = softleaf_to_folio(entry);
->  
->  	VM_WARN_ON_ONCE(!pmd_is_valid_softleaf(pmd));
->  
-> -	if (softleaf_is_migration_write(entry) ||
-> -	    softleaf_is_migration_read_exclusive(entry)) {
-> +	if ((softleaf_is_migration_write(entry) ||
-> +	     softleaf_is_migration_read_exclusive(entry)) &&
-> +	    vma_is_cow_mapping(src_vma)) {
->  		entry = make_readable_migration_entry(swp_offset(entry));
->  		pmd = softleaf_to_pmd(entry);
->  		if (pmd_swp_soft_dirty(*src_pmd))
+On Tue, Oct 27, 2026 at 10:31=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@=
+gmail.com> wrote:
+>
+> On Tue, 2026-10-27 at 11:21 +0100, Christian K=C3=B6nig wrote:
+> > On 10/27/26 01:15, Matheus Tagliari wrote:
+> > > Hi Timur, Christian,
+> > >
+> > > Thanks for the input, Timur.
+> > >
+> > > To be clear, I'm not opposed to a backport. Fixing VCE1 for people
+> > > stuck
+> > > on the radeon driver with an LTS kernel is exactly the case that
+> > > made me
+> > > look into this in the first place. But my goal is only to help, and
+> > > as I
+> > > said before, I do not want to push a change you don't want.
+> > >
+> > > Christian, if you'd rather keep this out of stable, I'll drop the
+> > > "Cc: stable" tag in v3 and leave the decision to you. If there is a
+> > > specific concern behind it (risk of regressions on other SI/Trinity
+> > > parts, say), I'd be glad to hear it. I can also try to address it,
+> > > for
+> > > example with more testing, so that a backport can be reconsidered
+> > > later.
+> >
+> > I was part of the Trinity bringup back (I still have the engineering
+> > sample here :) and I filled a full swear jar bringing VCE up on that
+> > HW.
+> >
+> > Interrupts were definitely not working correctly back then.
+> >
+> > I have no idea when they were fixed but I want to avoid that people
+> > start streaming that this change made their system not boot any more
+> > and we are forced to revert a patch on stable kernels everywhere.
+>
+> @Christian
+> Are you saying that you are worried about the backport because it may
+> regress Trinity?
+>
+> @Matheus
+> Would it be possible to only use the interrupt on SI and not on Trinity
+> so as to alleviate Christian's worry?
 
+I've committed the patches already.  I don't think the stable really
+matters that much.  If there is a problem, we can revert.
 
-Any reason we're not adding the vma_is_cow_mapping() check on the
-softleaf_is_device_private_write() path as well?
-
-(I think they are all anonymous ... just for consistency)
-
-
-Is the fallthrough:
-
-	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR)
-
-really expected?
-
-
-> @@ -1927,7 +1928,6 @@ static void copy_huge_non_present_pmd(
->  			set_pmd_at(src_mm, addr, src_pmd, pmd);
->  		}
->  
-> -		src_folio = softleaf_to_folio(entry);
->  		VM_WARN_ON(!folio_test_large(src_folio));
->  
->  		folio_get(src_folio);
-> @@ -1939,9 +1939,11 @@ static void copy_huge_non_present_pmd(
->  					    dst_vma, src_vma);
->  	}
->  
-> -	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
-> -	mm_inc_nr_ptes(dst_mm);
-> -	pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-> +	add_mm_counter(dst_mm, mm_counter(src_folio), HPAGE_PMD_NR);
-> +	if (pgtable) {
-> +		mm_inc_nr_ptes(dst_mm);
-> +		pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-> +	}
->  	if (!userfaultfd_protected(dst_vma))
->  		pmd = pmd_swp_clear_uffd(pmd);
->  	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
-> @@ -1957,6 +1959,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  	pmd_t pmd;
->  	pgtable_t pgtable = NULL;
->  	int ret = -ENOMEM;
-> +	bool writable;
-
-Why do we need this variable?
-
-[...]
-
-> +		goto copy_pmd;
->  	}
-
-Likely we should clean this up later to avoid the gotos.
-
-
-
--- 
-Cheers,
-
-David
+Alex
