@@ -2,87 +2,143 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3C6606A323
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 14:08:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCD460A2614
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 14:08:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLH/Tvkc
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=J+TMQsxP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE19210F570;
-	Tue, 27 Oct 2026 14:08:33 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FDEC10F570
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 14:08:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4DCE04134E;
- Tue, 27 Oct 2026 14:08:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F901F01828;
- Tue, 27 Oct 2026 14:08:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793110107;
- bh=CbvGWJmf9YwWN00g1u/NHLatne7a6bJt0jiNry4VqD8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=mLH/TvkcbPJ5pX+EjBJOwjRTX74u6eNmAvjU9QfleDiVHjaVjQW/UQou30MulrOxj
- jToXXyijxOB6MGesqEn7wu9ky5T8zw86VlRcsgKAnpYqYNkDKNrV6WE/Z8nbpCvEfZ
- lO19Saq3/9HbIkvTIRHU901td+3nILEzJ/Gr/WAPBSpbxNJbFujf3z9Br1/D4YByki
- 3RRrOcQ4fNSbdoc4nJ2hs6Lf7+NnSiUPF3Tb2rYJ6ge5fQSMQ80AyBQhDFy+VhWIJu
- 8TL/npIiy1WUyq4OObCMLtpqBEnh8iql8u0bu3P4zLEUlretOIC4LadBPf4u1zanll
- OH7d9xyxmpb/w==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfauth.ams.internal (Postfix) with ESMTP id 263961980047;
- Tue, 27 Oct 2026 10:08:20 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Tue, 27 Oct 2026 10:08:24 -0400
-X-ME-Sender: <xms:U7DgavnxdSNtUxqaNd3ZPHA-GgqWp0ak_-5ObLq_rxP4hAiTlHOoKg>
- <xme:U7DgahvkmRPPsHyleWajOnL83T8ou18ct43iD-MVEmfDhiGNYWj7adNpuXMgzcSvL
- h-Aib8Gkk3fFuJtkkdHHLlzGDYFt5FEMK9Xn7XjtbUpLHkRz6o9QzU>
-X-ME-Received: <xmr:U7DgamDt0DMoMRD9ALRRPZ69IGo-7jn5OsY2yyrJLpMhj7CGSymFsXIejhg>
-X-ME-Proxy-Cause: dmFkZTEaZA2PaW1k67BxuO7K43FLH0AXzaKFjjKJfwu/KpGOFsmjjz9GSuR+5Cg+oI7dZA
- 8BXp96hrgxr8G83eICbVIuq3GGRRXyrwDLmbW5B80ASp3E45NdoC/6iVPRbMkGsI5q7/3F
- T/g200QQfYlzbcx2nKjkpGdEmX7ucWHHKtmchRf9OkWPEt+EEpay6nygL4fJYyKb7W+qAI
- nnRokAmwK7V8GxQtulk6RfB7RjPcJAnuFWyVrb3qEDbKJeUsNsxtS0j+Q49GQ8esgGy3V4
- ZmsVBdUTtK1knjxzJbTbkJX1GHETc68pBeGN/x1WbGSyB4OKk1yN7DYa2iMaIpVnzTIslT
- 7aA4dhG3GVMCk4eZnUELWNFF4UCcuoeVpQmaHUKgefcK9w4C4Fz6Xfyz1MXvkM+/i/gpv/
- wBnbicRBljlVlfuS5RDXoX/VTYAjKsd0JUJl0skwrZ0+MYdjfRy9CTdoATnXysrrO8qD48
- ApJmhXkDd/lBtfES8tOCo1i9zCfzVj450Dq23/37fF1tv1GUAZLrsktJHSdjL7zr28Z1ac
- S4BhWxDe++Qv8LvAK0GnXF9RoJFURWADYIzEd52HXcM6KX9aBC7rpJZnJZNEdRNln4q3+U
- PMKz0qtlHCAmXs1bZFdjhJBbn8eFOnfdZUQFqf5iyvcczuw2MU6juU0LijUg
-X-ME-Proxy: <xmx:U7Dgasla_gR8q-sI-JNR1LqZkQT_nTfLQl1cHRv6T4W4Ake79iTPUg>
- <xmx:U7Dgavj3xzu4vBZbB51HVdp4cr7W5e3S-oo_c-kw6mfh46R1sa5L_A>
- <xmx:U7Dgalty37v8Eg1mkg7bNhiCDj1BSRmb1trVWEo2bwPQFkPmtlNaOg>
- <xmx:U7DgamBSPtDBwLyo5fZ2kF7cR9JCXEkjyH8DP8ww1lZzUQy3zWuzTA>
- <xmx:U7DgagVwQ30ZdR7dUwwj3cSK-abW5nEmNfwTYvWuLxrxaHMCSBiyglPP>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 10:08:18 -0400 (EDT)
-Date: Tue, 27 Oct 2026 14:08:17 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Konstantin Khorenko <khorenko@virtuozzo.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
- Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?utf-8?B?TG/Dr2M=?= Molinari <loic.molinari@collabora.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linuxppc-dev@lists.ozlabs.org,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v4 2/4] mm/huge_memory: copy file THPs at fork like
- copy_present_ptes() does
-Message-ID: <auCwHD83jRCtt8Xo@thinkstation>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
- <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-2-66f00b7a564c@virtuozzo.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E985E10F594;
+	Tue, 27 Oct 2026 14:08:45 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010056.outbound.protection.outlook.com
+ [52.101.193.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4052710F594;
+ Tue, 27 Oct 2026 14:08:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A7LXzlN9E7Q7p+l4u+GoiDp5c3Xf70TyYr2FbTboY6xH6CpWaVyzousoNbOLAwjLQlt/ZYOZ7up5DlyXsr5kdZ625N7UNTHoO6yw6UxwaKtsV50r0HAY82lOc0cf6EMl/9URx9E7JJZSA3rphUgltW31OWsyI0+KyiJSmH7Pd+e5ba7sr7fqct5gFUS63i5xmNBGN88vr1Sjb6YlFzp/QCYBpZd4nb6TxWEP9OT7xbQqsgWCgiw9jnef74bGwi/xVJgzGVBA/XhcniWLA8I7S1KKU8Q4ZsOq2F2aLtFFDvSptXnHDyf55+xjUJal2HxbD8/1hfsXEOmu+ZH0pf/5TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sVce+Q3LSqIo/cT7isK8P02KtriRmZPK2cj8jOTrFEI=;
+ b=GaZIL7eLOn3FecFfLDQYlWH/k7eiVqIL7Iq4gc2bNONpc+QUA8GvuhXEOKJD5KjG7KqL3kqyG6Ty44JHXPjPYvUDV1pFMmDT7H51GLXMZt1JFzLW6+G4dzDx2B6r5ZEhEBAhAhTBb3W9rJkb2Bc+nTKJduwLiVFc6NbJEXznVssPUuXi/ZAxNH5czKRau5yIZ2cX76m5vbhEqK42VNQ0EWwcLAo08CWkjg9FsJ14yHtFNtJPEX6lMKN1p3TeHRtxnqS13w7dCF81fjtoNHdI56XuUnh2FtZsoZh9IPf1lkEu8zKh213p6KFM5puBYDYHn9mVJBfoQwUa/gaXbGCCsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sVce+Q3LSqIo/cT7isK8P02KtriRmZPK2cj8jOTrFEI=;
+ b=J+TMQsxPk9a9Ow77/nmBwphbOQmdZV2iaJ7PxALDMY486XUKKurXfXiXcrbyFJX/j9GC8U1RuYUXAkMzYp0h0+6uz70vlbVHhNZKn5+SzMhDnlAlWjVkRx1FMxOA7FZeIw2VSrup+xjXS4jhi/XhquPzOxFjT1LR/ouGy1GEjZQlcf86psT8luMH5xlQada0UljSz7L9k/4qjx/0Pc11tlPdekgDCYcGsPSM7iTL6YpX1EZnQGLkAiNgBDtOmVJgKMlojZgQQVtoaAoB+XO9BNgO3EsGmo9i3IIRDiVv77HRSg+AKjV31YSLpCcWSHpajnxHMV+XNNFQL6gdYKnWjg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by LV2PR12MB5798.namprd12.prod.outlook.com
+ (2603:10b6:408:17a::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 14:08:32 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 14:08:32 +0000
+Date: Tue, 27 Oct 2026 11:08:31 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
+ sumit.semwal@linaro.org,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+ treding@nvidia.com, jhubbard@nvidia.com
+Subject: Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to
+ dma_buf_sgt_attach()
+Message-ID: <20261027140831.GA2338330@nvidia.com>
+References: <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-24-apopple@nvidia.com>
+ <27307d58-9ca9-4624-a564-6e35fb4befb5@amd.com>
+ <20261027123859.GE1671235@nvidia.com>
+ <3a09ef96-45a6-486f-b482-fd34c27415af@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3a09ef96-45a6-486f-b482-fd34c27415af@amd.com>
+X-ClientProxiedBy: YT4PR01CA0421.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10b::23) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-2-66f00b7a564c@virtuozzo.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|LV2PR12MB5798:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c9fefe3-9fd1-4ddd-0007-08df3433c848
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|23010399003|376014|1800799024|366016|261026140227099003|5023799004|4143699003|11063799006|56012099006|261022105027099003|261021121427099003|10067099003|18002099003|22082099003|261026121527099003|6133799003;
+X-Microsoft-Antispam-Message-Info: Kj0giZxU+6VCefLeuCgKVNasXtGrPqIa5KzTNXS4ZaZdEWJ/QDoKLBHiDyhlyQHoE7M+FFXREdffL70m9NQHI+Io3pOYZ1ADsB8io/JtslAvWh/RKEBUl+Ewldh+VdHS4qG3pOnLxZx5M3tS3LV3vI6qNzG7pqzn8bbEp3uHuBqPuxrjm3uoCZg0Rdcd+MQCO3ftTNne47IG/dkCaGZI1EE4aWF9nWheTjEmQUgxznYUVkF4dwyfyPVXNnvwJMKFfwdLjQm67bRsoDSqm6pZiSPW4URxoaJmbWwVQM8kZS/JOCjVGIqZf+ECnP0zIRy2rFURqEnkf6aZ3qxSMuL6SMN1yeUUU5devSMnilCVegOCP155BcV58/UvxpgDrE6KBhdEyQBuTQn4A+GaBk5Thyscfb8vqMrmoSq89TyiBiB2bCYWc3TzYj4ac3dKdRLWf34+mZBvom3WLZj/ppUMNfFOM7yviZPuphmwYGfCFrJQOln2WTuaAYOF23B6Runjf+ZR/qI1psVxdPhkYhRWr+U7w6RK5xB1tofQXMqViGuwQHf61niQrX7xEkXHFNoEpYGvsRSX515NXzZD/DptZiwtRQogQT092PV45YoEqXuZKDwU1jb3Z6bR7Mev3RsS/HMpQ6lsXU8j2soVRDkfsP2w0rbrKBLCRDImdBBDYYw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CHBPR12MB731189.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(261026140227099003)(5023799004)(4143699003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(261026121527099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NWsraERlTTVZN0d3SXhsZVlIMjFXdHZ2ODhmdG1McUhranRRWU5WaUM3emhm?=
+ =?utf-8?B?c1UzUVh6WEVoUWdrSUM3b09PWkxqU0FKZGhDclp2UmhWUENxMHFMT1loWWYy?=
+ =?utf-8?B?UXBlVGVmcG01MVlraVMrdmRkaE9GanQvVDE5QzRLRk5GSEs2TFk0T1NCSXY1?=
+ =?utf-8?B?VXNna3NxTHZZQXNmMGNObG14UHg1amxHS1g5V3VDVlBXRForQWdqcFBiM3py?=
+ =?utf-8?B?MHV1bG1Fb0pwUUxyN2RXU2V1VnNGTEczcVF3VmxmSmpSc2o1bjJneUQxcGZ5?=
+ =?utf-8?B?MmJ3dEZXdzVCQ1hja0ZYejBEd1J0SHRFN0NhYlpEZFpGVW1QWW5uVkQ0OHZu?=
+ =?utf-8?B?TVQwK2FqZmwxaUhFb0pKNnJvUWFPYjJYeC9vc1BvWGNsV25ST1lpUHU5MDlE?=
+ =?utf-8?B?czU0bCs1WjRxY21IMTFENDdBdTgwMTJwRWRMeWtpd3kzeThId2JTQkFiK0Ez?=
+ =?utf-8?B?RWdrVHBFRm1PWnNXZ1lnMElqY25PNDJEbUtjNncyWXAwNm8zdi90SGhrY1BL?=
+ =?utf-8?B?MHowUFVvTUc0b3NiZWpFUUgzZDl3L0JGY0piTTI2enFJaThxOVFmVVFqYXFT?=
+ =?utf-8?B?MEpXWVV3YW5VOHpsWVJ2QTRaZ2FycStocG1oNE8zSG9sakkyd1Rub0pPcVlI?=
+ =?utf-8?B?azgxSUtPRHlCdmt4QlkwSDZrZUx3QlBMVG5UMEh4N2pCTVpoQ0wxZlJpeWtY?=
+ =?utf-8?B?SWkyZklVZHFsbzRZT3pEYWFGdFNyd0w1NjRLNHhGL09FbzNGUEJwa2ppbnNH?=
+ =?utf-8?B?a2xESE1lRXVldVE0a2ZjUm50dld5ZnBLUDdXdXd6dEFNYVN0cVRhVHBwNnY1?=
+ =?utf-8?B?bUNrS2tEd3Q4N2ZabTR5YVRQY3hTUGQ0WFA3Qy9uNk1obERETTREU3ZENG5Z?=
+ =?utf-8?B?YUlacS9uU2pXanpQdUJWVTN1QjcrZjFVeHMzeW1KK0hpTGZwTXAxOXdmZTVO?=
+ =?utf-8?B?TXpwUHdNdXlLdG55YU9ad2lSYVhBRGlkOVJ4OGlobUV2ODBORnpFYkM4Z2ZK?=
+ =?utf-8?B?MWpzR01NR3g1N0dwMGxxejR3bWRIelZKVy92aTlMRzZQSUtJYjdHQmtGWGNU?=
+ =?utf-8?B?R1ZBclJpMDQ1RDd5dXZoZU1rK0hOc0dudFRMeHhGQWZWUG1YYlZUMEY2eW56?=
+ =?utf-8?B?QXZYQm9LakxCOWYvZTkyM1F6OW5yQUJ3Rm5KRHQwK0p1MW1aTkJZbG9Jangz?=
+ =?utf-8?B?ZDc1dCs0RDVQMnI1L0M0NVZRREdoMXJuQUg0OXI4T0RPUTkwbHNCTHZzeVRa?=
+ =?utf-8?B?T1lIMDMzMDk4Y21UeHFzOWpnclVyajdEQUVnZUJIUjRUMlBybG8wTWZNcXpl?=
+ =?utf-8?B?NCtiY1hCaE1uNmZqMnRWQTU5UmtGUGp0YzRoaWVQYVpvTDFwU0NJY09tZHQz?=
+ =?utf-8?B?SlhQdS9RWkhhN25KOUZ1VDdaRzRMRDd4NzRmNDNkZGY1MGFlSWxhZTNOd2N1?=
+ =?utf-8?B?TGcreG1mT3BIZlFiTTBMV3VCU3hsdVU3NGJJdUxvUHA0MWZMQUEyZXZkL0oz?=
+ =?utf-8?B?WFZXYVpETy9TalZqQkcyL0pOK1hlejR6YnROR0Fna2dNdjhHMW1ML3B1VllK?=
+ =?utf-8?B?SnNUeldUWjNZUzU0T0NjcjNud2s5ei9WcnA2VnFVZURjUUR5UkJVeFdEZCt0?=
+ =?utf-8?B?L2JjZGo5eFhVZld4OFl6VjQ3eTZXRjAyNDZRQlYyaTNBekFISkZreU5TUkJi?=
+ =?utf-8?B?T1lkZHcwKzRnYWpRLy9yQTlFVllKTTBFekFiL3k4Z3dJNkpZSWNDMDEzMEhU?=
+ =?utf-8?B?czA2UFlPMXJNa2V5N1ZnMWdHQ1RzTXFxSHZEOGJVVzhYcldRTU5oa2RoSjNz?=
+ =?utf-8?B?K0o5RkZIcHBaL1V3M3VhT2V0MTU4WDlqbmNFR2dYL2VKaHRDUTdiRUlab0l3?=
+ =?utf-8?B?Vlh0bVZmR25TbzEwN1k3Z0ZuejNJUFN2SHFVQjhaNHVrM1V1bkxsQkM5dHZD?=
+ =?utf-8?B?ZEoxTkF6K0FoTTVXSk9RVmlLdHVZZG5ENHQ1cFR4eVhhTlA0TndKUUZheS9L?=
+ =?utf-8?B?NkhMdndldkVZeElRa0pJdkwwRG5Rdmt6UkxpUTh3enNLdEJRWTBKV05nZFd5?=
+ =?utf-8?B?YStTQ0ZaeG02M295dzcvZnRvUDRaQ05iTlpKUWFGOG9veGVCbHpsRFRubUU3?=
+ =?utf-8?B?cDdjTWxsTStCREUxMnUzM2dhdXY0d0ZBb09XcktnUTVoSTMzQlRqVUpLZko0?=
+ =?utf-8?B?WjJxYnpvdVhjY252bGhDZTlTQkhHSHVmMHptTWxMTWxyZ2hKVjBNdlhpME1V?=
+ =?utf-8?B?U1lzT2RjdzJENlI2TXlpbE92Y2diVWR1enYrRjVoQTVUYzE2MHpSMW1kMXZz?=
+ =?utf-8?Q?0Ehu0oBDLf2IMKoZS6?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c9fefe3-9fd1-4ddd-0007-08df3433c848
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 14:08:31.9180 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6SdbjAl/IIUl2wTA44SMOQDrEQho0W8sTD6wV4dcIbDr5LIdJ7EiAau8MJaFdLGm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5798
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,51 +150,41 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-6.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Oct 21, 2026 at 10:36:01PM +0200, Konstantin Khorenko wrote:
-> This fixes no bug: it makes fork copy a PMD the way copy_present_ptes()
-> copies a PTE. Until now copy_huge_pmd() skipped every folio PMD of a
-> non-anonymous VMA and left the child to fault them in again, while the
-> PTEs of the same VMA are copied.
+On Tue, Oct 27, 2026 at 02:17:16PM +0100, Christian König wrote:
+> On 10/27/26 13:38, Jason Gunthorpe wrote:
+> > On Tue, Oct 27, 2026 at 01:07:36PM +0100, Christian König wrote:
+> >> On 10/26/26 06:36, Alistair Popple wrote:
+> >>> From: Jason Gunthorpe <jgg@nvidia.com>
+> >>>
+> >>> This attach function always creates a SGT mapping type importer.
+> >>
+> >> Yeah that is a clear NO-GO. The attachment should be the same for
+> >> the new interface as well.
+> > 
+> > Not sure I understand this comment...
+> > 
+> > This was intended as a helper so that existing drivers can run through
+> > the sgt based mapping type flow without having to open code it. It is
+> > hardwired to only do sgt like this. If you want to use more than sgt
+> > as your mapping type don't use this function
+> > 
+> > The point was to create a clear distinction in the API names when
+> > things were in a SGT-only flow vs using the newer negotiable flow.
 > 
-> Treat file folios as the PTE path does: take a reference, duplicate the
-> rmap and account them. fork then pays a reference and an rmap update
-> per PMD, and saves the child a fault per PMD it touches. The next patch
-> sends PFN mappings through the same tail.
-> 
-> That covers the VMAs vma_needs_copy() sends here:
-> 
-> - private file mappings with an anon_vma;
-> - VM_COPY_ON_FORK ones: uffd-wp and uffd-rwp, VM_MIXEDMAP (fuse DAX),
->   and VM_MAYBE_GUARD, which shared shmem, file and DAX mappings get
->   from a guard region.
-> 
-> The DAX huge zero PMD is copied too, with a reference taken by
-> mm_get_huge_zero_folio() as for anonymous VMAs. A migration entry of a
-> file folio is copied and accounted like copy_nonpresent_pte() does, and
-> made read-only in both processes only in a CoW mapping.
-> 
-> The copy then gets the same tail as __copy_present_ptes(): write
-> protect both sides in a CoW mapping, mark the child's copy clean in a
-> shared one, and drop the uffd-wp bit where the child is not armed. An
-> anonymous THP is now write protected only when its PMD is writable, as
-> a PTE is.
-> 
-> A page table is deposited under the copy where the fault paths deposit
-> one: in anonymous VMAs, and wherever the architecture needs one.
-> 
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> Well that is my point, the dma_buf_attach() or rather
+> dynamic_attach() function should still be part of the new flow.
 
-Okay, I see benefit of aligning it to copy_present_ptes().
+It is, this is just a helper wrapper effectively to run the flow
+exactly as it is right now wired to only do sgt.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Unless you want to see that open coded in ever driver using the more
+general functions, I'm not sure I see the alternative?
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Jason
