@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4CC606D944
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:45:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90EA607351C
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:48:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TYT9Qv7T
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gBef+ldf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09B2910F6A4;
-	Tue, 27 Oct 2026 15:45:03 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E72F10F6A3
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:44:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC9A10F6A9;
+	Tue, 27 Oct 2026 15:48:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CBA510F5CD
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:47:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4709043EF8;
- Tue, 27 Oct 2026 15:44:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A1E1F01287;
- Tue, 27 Oct 2026 15:44:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D021E60A8C;
+ Tue, 27 Oct 2026 15:47:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6973B1F01147;
+ Tue, 27 Oct 2026 15:47:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793115895;
- bh=qo8Fk6tc/v1ysWx4BNEEPKSATUhDczHOGVD1o8MuzgQ=;
+ s=k20260515; t=1793116077;
+ bh=kdztsirRHY2cmeIGfuJBYbtzmLZFIzGx9YQE2NB+KFs=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=TYT9Qv7TKaOcomlv34HnjhesxQxOaUk/eqtVRQ128YOk76QXExzk4htRRMFnDafGz
- ZSnPC9SbLf23goz+iSVaptE5ZK2wD7R1m4CoXrqaWgu4FhY5p7lJcTbcjPTXV7RWeH
- /MNnnlilxUs7FiLvIaUzqR9N6KrNWJ0J80XKVoQ3O30WnaETLn9kze1/Lkdy9YseQU
- nUBnqHT3Nej62hpu9716UFEvi2FaXWdwb4OUVJ/ZjBs/LblVok0gIWGCIMUOl+UqlP
- /T8qEscGTJcbvypLzMpWx3n7XDYhsqVckVjtiqjvh/ftb+sj6FojdokPjDKVGse3iy
- YnwerhzqkLAQA==
-Message-ID: <sashiko-outbox-186864@kernel.org>
+ b=gBef+ldfmctw4TXpJ9L3Pe9f76uBjHCHLkzIxx6I32i43+v8cOvTEMtKYkWC21prH
+ cWif/0ln4XbTryx5mKi9bgQgvwb3c2CkfpfxLMZAjUWKpbVQaZXqQx3gFMoDNsQXQc
+ Q4jLtnsAHGl4rmsOS6hz9cUR5TqXMjbUrUk7ufPFuewByQFHZG+NsUPOLd5t8J9ByW
+ kKPurBI0p4p94xqatrmBhrF/sy/pcexLT+t/VRSeRTBX2r4pXpBdQvOP9R1t4Q0IyV
+ hWGfF1lUiGtgDeirrt8axkR9st6YtVAPnBFuNdu7X+B1IDYXGn5JC7Rc4rAnnHj2Km
+ pVd3vllYFaRFA==
+Message-ID: <sashiko-outbox-186868@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] drm/msm: Convert iommu map/unmap to helpers
+Subject: Re: [PATCH v2 2/5] drm/msm/gem: dma_map/unmap_sgtable()
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261027152821.51144-5-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20261027152821.51144-3-robin.clark@oss.qualcomm.com>
 References: <20261027152821.51144-1-robin.clark@oss.qualcomm.com>
- <20261027152821.51144-5-robin.clark@oss.qualcomm.com>
+ <20261027152821.51144-3-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 15:44:54 +0000
+Date: Tue, 27 Oct 2026 15:47:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,176 +57,133 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] drm/msm: skipped leaf IOTLB invalidation in msm_iommu_unmap()
-- [High] drm/msm: missing IOTLB flush on error rollback in msm_iommu_map()
-- [High] drm/msm: missing iotlb_sync_map call in msm_iommu_map()
+- [High] drm/msm: NULL deref in get_pages() error path via drm_prime_gem_de=
+stroy()
+- [High] drm/msm: double dma_map/unmap_sgtable() in get_pages() and put_pag=
+es()
 --
 
-commit 65df32b670bbcd4a7d2a95abeebac540248b0bbd
+commit 5b4a3d83276519e9cb8831bdfa37a513b1d334a3
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm: Convert iommu map/unmap to helpers
+drm/msm/gem: dma_map/unmap_sgtable()
 
-This commit converts msm_iommu_map() and msm_iommu_unmap() to use the
-__do_map() and __do_unmap() helpers with callbacks that invoke
-domain->ops->map_pages() and domain->ops->unmap_pages() directly.
+This commit adds dma_map_sgtable() and dma_unmap_sgtable() calls in
+get_pages() and put_pages() to populate the sgtable's dma_address and
+dma_len fields for setting up pagetable mappings.
 
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_io=
-mmu.c
-> index 78c82f4a01b92..435736c8d7150 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> @@ -731,12 +731,27 @@ static void msm_iommu_detach(struct msm_mmu *mmu)
->  	iommu_detach_device(iommu->domain, mmu->dev);
->  }
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 181b9ad326729..72e3cd8bb1e7c 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -219,6 +219,15 @@ static struct page **get_pages(struct drm_gem_object=
+ *obj)
+>  			goto error;
+>  		}
 > =20
-> +static size_t
-> +__unmap_iommu(void *arg, u64 iova, size_t pgsize, size_t pgcount)
-> +{
-> +	struct iommu_domain *domain =3D arg;
-> +	return domain->ops->unmap_pages(domain, iova, pgsize, pgcount, NULL);
-> +}
+> +		ret =3D dma_map_sgtable(drm_dev_dma_dev(obj->dev),
+> +				      msm_obj->sgt,
+> +				      DMA_BIDIRECTIONAL,
+> +				      DMA_ATTR_SKIP_CPU_SYNC);
+> +		if (ret) {
+> +			DRM_DEV_ERROR(dev->dev, "could not map sgtable: %d\n", ret);
+> +			goto error;
+> +		}
 > +
-> +static int
-> +__map_iommu(void *arg, phys_addr_t paddr, u64 iova, size_t pgsize,
-> +	    size_t pgcount, int prot, size_t *mapped)
-> +{
-> +	struct iommu_domain *domain =3D arg;
-> +	return domain->ops->map_pages(domain, iova, paddr, pgsize, pgcount,
-> +				      prot, GFP_KERNEL, mapped);
-> +}
-> +
->  static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
->  			 struct sg_table *sgt, size_t off, size_t len,
->  			 int prot)
->  {
-> -	struct msm_iommu *iommu =3D to_msm_iommu(mmu);
-> -	ssize_t ret;
-> +	struct iommu_domain *domain =3D to_msm_iommu(mmu)->domain;
+>  		update_device_mem(dev->dev_private, obj->size);
 > =20
->  	WARN_ON(off !=3D 0);
+>  		/* For non-cached buffers, ensure the new pages are clean
+> @@ -233,6 +242,8 @@ static struct page **get_pages(struct drm_gem_object =
+*obj)
+>  	return msm_obj->pages;
 > =20
-> @@ -744,23 +759,23 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint6=
-4_t iova,
->  	if (iova & BIT_ULL(48))
->  		iova |=3D GENMASK_ULL(63, 49);
-> =20
-> -	ret =3D iommu_map_sgtable(iommu->domain, iova, sgt, prot);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return (ret =3D=3D len) ? 0 : -EINVAL;
-> +	return __do_map(domain->pgsize_bitmap, iova, sgt, off, len, prot,
-> +			domain, __map_iommu, __unmap_iommu);
->  }
+>  error:
+> +	if (!IS_ERR(msm_obj->sgt))
+> +		drm_prime_gem_destroy(obj, msm_obj->sgt);
 
 [Severity: High]
-Does msm_iommu_map() miss an IOTLB flush when __do_map() fails mid-way?
+Will calling drm_prime_gem_destroy() here dereference a NULL pointer and
+leak msm_obj->sgt when dma_map_sgtable() fails?
 
-If __map_iommu() fails after some pages have already been mapped,
-__do_map() unwinds the partial mappings by calling __do_unmap() with
-__unmap_iommu():
+At the start of get_pages(), imported DMA-BUF objects are rejected:
 
-drivers/gpu/drm/msm/msm_iommu.c:__do_map() {
-    ...
-			if (ret) {
-				__do_unmap(pgsize_bitmap, iova, addr - iova, arg, unmap);
-				return -EINVAL;
-			}
-    ...
+drivers/gpu/drm/msm/msm_gem.c:get_pages()
+	if (drm_WARN_ON_ONCE(obj->dev, drm_gem_is_imported(obj)))
+		return ERR_PTR(-EINVAL);
+
+Because get_pages() only runs on native GEM objects, obj->import_attach is
+always NULL and msm_obj->sgt is allocated via drm_prime_pages_to_sg().
+
+If dma_map_sgtable() fails and jumps to error, drm_prime_gem_destroy() is
+called with a valid msm_obj->sgt, which then dereferences attach (NULL) at
+attach->dmabuf while obj->resv is held, and fails to free msm_obj->sgt:
+
+drivers/gpu/drm/drm_prime.c:drm_prime_gem_destroy()
+	attach =3D obj->import_attach;
+	if (sg)
+		dma_buf_unmap_attachment_unlocked(attach, sg, DMA_BIDIRECTIONAL);
+	dma_buf =3D attach->dmabuf;
+
+Should the error path instead free msm_obj->sgt with
+sg_free_table(msm_obj->sgt) and kfree(msm_obj->sgt) to match put_pages()?
+
+>  	msm_obj->sgt =3D NULL;
+> =20
+>  	drm_gem_put_pages(obj, msm_obj->pages, false, false);
+> @@ -260,6 +271,11 @@ static void put_pages(struct drm_gem_object *obj)
+>  		if (msm_obj->flags & MSM_BO_WC)
+>  			sync_for_cpu(msm_obj);
+> =20
+> +		dma_unmap_sgtable(drm_dev_dma_dev(obj->dev),
+> +				  msm_obj->sgt,
+> +				  DMA_BIDIRECTIONAL,
+> +				  DMA_ATTR_SKIP_CPU_SYNC);
+
+[Severity: High]
+Does this map and unmap msm_obj->sgt twice whenever MSM_BO_WC is set?
+
+In get_pages(), right after dma_map_sgtable() maps msm_obj->sgt with
+DMA_ATTR_SKIP_CPU_SYNC, objects with MSM_BO_WC call sync_for_device():
+
+drivers/gpu/drm/msm/msm_gem.c:get_pages()
+		if (msm_obj->flags & MSM_BO_WC)
+			sync_for_device(msm_obj);
+
+And in put_pages(), before the new dma_unmap_sgtable() call, MSM_BO_WC
+objects call sync_for_cpu(). However, sync_for_device() and sync_for_cpu()
+themselves call dma_map_sgtable() and dma_unmap_sgtable() on the same
+msm_obj->sgt and device:
+
+drivers/gpu/drm/msm/msm_gem.c:
+static void sync_for_device(struct msm_gem_object *msm_obj)
+{
+	struct device *dev =3D msm_obj->base.dev->dev;
+
+	dma_map_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
 }
 
-Because __unmap_iommu() passes NULL for the iotlb_gather parameter to
-domain->ops->unmap_pages() and __do_unmap() does not flush the IOTLB,
-stale translations for the rolled-back pages can remain cached in the
-IOTLB after msm_iommu_map() returns an error.
+static void sync_for_cpu(struct msm_gem_object *msm_obj)
+{
+	struct device *dev =3D msm_obj->base.dev->dev;
 
-In comparison, msm_iommu_pagetable_map() in the same file explicitly
-flushes the IOTLB on error:
-
-drivers/gpu/drm/msm/msm_iommu.c:msm_iommu_pagetable_map() {
-    ...
-	if (ret) {
-		/*
-		 * If the map failed mid-way, it will have triggered an
-		 * unmap, so we need to flush the TLB:
-		 */
-		iommu_flush_iotlb_all(to_msm_iommu(pagetable->parent)->domain);
-	}
-    ...
+	dma_unmap_sgtable(dev, msm_obj->sgt, DMA_BIDIRECTIONAL, 0);
 }
 
-Also, by replacing iommu_map_sgtable() with direct calls to
-domain->ops->map_pages() via __map_iommu(), msm_iommu_map() no longer
-invokes domain->ops->iotlb_sync_map().
+On platforms where the top-level DRM device uses IOMMU DMA ops or SWIOTLB,
+the second dma_map_sgtable() call in sync_for_device() overwrites
+sg_dma_address and sg_dma_len, leaking the first IOVA or bounce mapping,
+while put_pages() unmaps and frees the second range twice. With
+CONFIG_DMA_API_DEBUG enabled, this also triggers overlapping mapping and
+double unmap warnings.
 
-On platforms using drivers/iommu/msm_iommu.c (such as APQ8064),
-msm_iommu_ops defines .iotlb_sync_map =3D msm_iommu_sync_map to flush the
-IOTLB after mapping pages. Without calling iotlb_sync_map, will those
-platforms miss required IOTLB synchronization on map?
-
-> =20
->  static int msm_iommu_unmap(struct msm_mmu *mmu, uint64_t iova, size_t le=
-n)
->  {
-> -	struct msm_iommu *iommu =3D to_msm_iommu(mmu);
-> +	struct iommu_domain *domain =3D to_msm_iommu(mmu)->domain;
-> +	int ret;
-> =20
->  	if (iova & BIT_ULL(48))
->  		iova |=3D GENMASK_ULL(63, 49);
-> =20
-> -	iommu_unmap(iommu->domain, iova, len);
-> +	ret =3D __do_unmap(domain->pgsize_bitmap, iova, len, domain, __unmap_io=
-mmu);
-> =20
-> -	return 0;
-> +	iommu_flush_iotlb_all(domain);
-> +
-> +	return ret;
->  }
-
-[Severity: Critical]
-Can replacing iommu_unmap() with __do_unmap() and iommu_flush_iotlb_all()
-skip leaf IOTLB invalidations on SoCs using qcom_iommu?
-
-Here, msm_iommu_unmap() calls __do_unmap() with __unmap_iommu(), which
-passes a NULL iotlb_gather pointer to domain->ops->unmap_pages().
-
-In __arm_lpae_unmap() in drivers/iommu/io-pgtable-arm.c, per-page leaf TLB
-invalidations are only issued when gather is non-NULL:
-
-drivers/iommu/io-pgtable-arm.c:__arm_lpae_unmap() {
-    ...
-		if (gather && !iommu_iotlb_gather_queued(gather))
-			for (int j =3D 0; j < i; j++)
-				io_pgtable_tlb_add_page(iop, gather, iova + j * size, size);
-    ...
-}
-
-When msm_iommu_unmap() subsequently calls iommu_flush_iotlb_all(domain),
-qcom_iommu_flush_iotlb_all() in drivers/iommu/arm/arm-smmu/qcom_iommu.c
-only issues a TLBSYNC without issuing a context-wide TLBIASID invalidation:
-
-drivers/iommu/arm/arm-smmu/qcom_iommu.c:qcom_iommu_flush_iotlb_all() {
-	struct qcom_iommu_domain *qcom_domain =3D to_qcom_iommu_domain(domain);
-	struct io_pgtable *pgtable =3D container_of(qcom_domain->pgtbl_ops,
-						  struct io_pgtable, ops);
-	if (!qcom_domain->pgtbl_ops)
-		return;
-
-	pm_runtime_get_sync(qcom_domain->iommu->dev);
-	qcom_iommu_tlb_sync(pgtable->cookie);
-	pm_runtime_put_sync(qcom_domain->iommu->dev);
-}
-
-Because gather is NULL during unmap_pages() (skipping
-qcom_iommu_tlb_add_page() and its ARM_SMMU_CB_S1_TLBIVAL writes) and
-qcom_iommu_flush_iotlb_all() only syncs prior invalidations, wouldn't leaf
-IOTLB entries remain uninvalidated after unmapping buffers?
+Should sync_for_device() and sync_for_cpu() use dma_sync_sgtable_for_device=
+()
+and dma_sync_sgtable_for_cpu() (or fold the CPU sync attribute into the map
+and unmap calls in get_pages() and put_pages()) instead of mapping and
+unmapping msm_obj->sgt a second time?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027152821.5114=
-4-1-robin.clark@oss.qualcomm.com?part=3D4
+4-1-robin.clark@oss.qualcomm.com?part=3D2
