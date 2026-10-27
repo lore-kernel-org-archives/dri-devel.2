@@ -2,116 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46800606A325
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 22:40:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467CE606A31D
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 22:41:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hp+QEddd
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By9twM0k
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1DC10F874;
-	Tue, 27 Oct 2026 22:39:56 +0000 (UTC)
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
- [74.125.82.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58F3910F85C
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 22:39:37 +0000 (UTC)
-Received: by mail-dy1-f197.google.com with SMTP id
- 5a478bee46e88-359b81ad4e8so403118eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:39:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1793140777; x=1793745577;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=36a0/HoL8yXBAoRB1lx62HZinWx8I5wnTQwOiZ4VBGs=;
- b=hp+QEdddeMx4npjATatDUKBgxUZ/1iZCT9zNuWFSnarBDKpllHiZ1qKy5O1GHOU8IX
- UzYPnC703keqhOAJFtTLs3TDiHoF3dYN+KAF1dAQ8t/EZcjSm3dlhegNZN/VgrUPxC2N
- N9BfWMTMDOU+KHgRXyFMdg55bHQPMvk3Q7mtUd1kMlqbpY3VHcmDIyfsuvZDyswNc9zJ
- YH2mDQYk4XVR6kve3Tp+K3/VPiVpwyQkg3WDX6HqkqvJahK/osraH7kgSaSYCmsSyG/D
- e1axdPwTooOpFyRBxzOYg9oAryXpd0yjoknUEyiOJdrHLzYEdBsdWeaxHmmVrAkMeFj1
- 2rTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793140777; x=1793745577;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=36a0/HoL8yXBAoRB1lx62HZinWx8I5wnTQwOiZ4VBGs=;
- b=cUgOp/TRgKTncrAfsbUOab6XEbHX3MZl4L6+Qa+ybvMx3ogV1E637mJDqqUfJFOiNw
- PDGJsFo8Si0SvidEAjGBdqN+TJg88QUK/Jnaj2jtR+lV7jyBqp9AotEaalu8X3b7Auj6
- VThzjBWM0bsto4Am0Gv3d0I9l1a1l4FyetTlfg3/RhwpYmb2XXHc5tUhrtl1YVCY9u8r
- clpa4SrPaJvSJE7oUPoHbsWUoHtnDr2xdZTWrqk5V57DihBWgtrsttmHaeJvgEX4u49L
- tpx0mw6z11FnkVxW5Y7a/KNm0TJnxUK7CbXsC93g4hk4q3TJJRLtlh9xO+ZZ+2qgNEPy
- ILgw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw71LmcczvVPB/qbVMbiGmcjkcweiQWHNO/3Zz/SgpCa7qw8on+nHAnK2lgBQQoO4tZkzGs+aZGOZw=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJBrtPkOXApqiZAHFKW2bzSSMbggEKaMUrz+mIOH+JBJVVs3u87
- D686LUwp/7qrXriP+XrXe48URM4qjObz5yDuzx6ALM+CpQRFNRnKJz/wkrVbjA+GrA87FqUUbU2
- beREqFcXVEg==
-X-Received: from dycna22.prod.google.com
- ([2002:a05:7300:ea96:b0:369:de3f:acf9])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:d101:b0:369:5583:bf4c
- with SMTP id 5a478bee46e88-36a200c8c63mr1046676eec.28.1793140775931; Tue, 27
- Oct 2026 15:39:35 -0700 (PDT)
-Date: Tue, 27 Oct 2026 15:38:44 -0700
-In-Reply-To: <20261027223847.652884-1-irogers@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B2348992E;
+	Tue, 27 Oct 2026 22:41:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6533810F869;
+ Tue, 27 Oct 2026 22:41:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EEC9B415FF;
+ Tue, 27 Oct 2026 22:41:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F4B1F01825;
+ Tue, 27 Oct 2026 22:41:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793140891;
+ bh=36BYKCF164tXZn3FsLSkOB63KBQCKvHjKoR2T7jC1As=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=By9twM0khKiyjXxV0Yx0gmrjtdC4XEQPzMwUDl+Una0jfLlAUEm4jYcbm08BVHjQY
+ PMAyhJ6MSrn6qWfGAs7OSIniRe1vJyzSMUnCSK4+sS5ogCsGxex4xW2wCncWk1TDyg
+ m8erVmAzhMyDwbkh79AxfmDf5nW9diszeWU8Y4rFPEYVAWXRmn+b+1GTscQ6BDSEJR
+ Gzpcv6o3EfAnCPBJuhgsgdwENi2BnGngjQBdQgaHjZJhtdY1fiQjW9aW60lQO+G8TN
+ XVp3gfycemxjRqdGKuh6aNkpOLLXvGqAdyxszYvU7NO4z5Qv6nzzzD8iqeLTTu6HPG
+ gTBIGzJ+M/neQ==
+Date: Tue, 27 Oct 2026 17:41:30 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Oz Tiram <oz@shift-computing.de>, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>
+Subject: Re: [PATCH v4 1/3] PCI: Preserve the initial bus number in pci_bus
+Message-ID: <20261027224130.GA511803@bhelgaas>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-References: <20261027223847.652884-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261027223847.652884-10-irogers@google.com>
-Subject: [PATCH v2 9/9] kobject: Require explicit initialization of struct
- kobj_type::release
-From: Ian Rogers <irogers@google.com>
-To: Kees Cook <kees@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, 
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
- "=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>, 
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Sumanth Korikkar <sumanthk@linux.ibm.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- driver-core@lists.linux.dev, 
- llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
- linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
- xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Len Brown <lenb@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Nelson Escobar <neescoba@cisco.com>,
- Satish Kharat <satishkh@cisco.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, 
- Linus Walleij <linusw@kernel.org>, Sebastian Reichel <sre@kernel.org>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Huisong Li <lihuisong@huawei.com>, Gao Xiang <xiang@kernel.org>,
- Chao Yu <chao@kernel.org>, 
- Yue Hu <zbestahu@gmail.com>, Jingbo Xu <jefflexu@163.com>, 
- Sandeep Dhavale <dhavale@google.com>, Hongbo Li <hongbohbli@tencent.com>, 
- Chunhai Guo <guochunhai@vivo.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
- Mark Fasheh <mark@fasheh.com>, 
- Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>, 
- Heming Zhao <heming.zhao@suse.com>, Johan Hovold <johan@kernel.org>, 
- linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org, 
- linux-rdma@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linux-omap@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-erofs@lists.ozlabs.org, linux-f2fs-devel@lists.sourceforge.net, 
- ocfs2-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-vfct-regression-v4-1-0e7190e39c2c@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,420 +53,108 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-26.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Documentation/core-api/kobject.rst states:
+[+cc Lijo]
 
-  "One important point cannot be overstated: every kobject must have a
-  release() method, and the kobject must persist (in a consistent state)
-  until that method is called. If these constraints are not met, the code
-  is flawed. Note that the kernel will warn you if you forget to provide
-  a release() method. Do not try to get rid of this warning by providing
-  an \"empty\" release function."
+On Tue, Oct 27, 2026 at 11:22:25AM -0500, Mario Limonciello wrote:
+> Bridge scans are split into two passes when bus numbers need reassigning.
+> Save the firmware secondary bus number on the bridge in pass 0, before it
+> is disabled. Use it to initialize number_initial when the child bus is
+> created in pass 1, before bus registration callbacks run.
+> 
+> Keep the saved secondary number on the bridge so a later rescan does not
+> replace the child's initial number with its reassigned runtime number.
+> 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/pci/probe.c | 6 ++++++
+>  include/linux/pci.h | 3 +++
+>  2 files changed, 9 insertions(+)
+> 
+> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> index 27008e2ea5afc..3c03ac22223d9 100644
+> --- a/drivers/pci/probe.c
+> +++ b/drivers/pci/probe.c
+> @@ -1012,6 +1012,7 @@ static int pci_register_host_bridge(struct pci_host_bridge *bridge)
+>  	bus->sysdata = bridge->sysdata;
+>  	bus->ops = bridge->ops;
+>  	bus->number = bus->busn_res.start = bridge->busnr;
+> +	bus->number_initial = bus->number;
+>  #ifdef CONFIG_PCI_DOMAINS_GENERIC
+>  	if (bridge->domain_nr == PCI_DOMAIN_NR_NOT_SET)
+>  		bus->domain_nr = pci_bus_find_domain_nr(bus, parent);
+> @@ -1232,6 +1233,8 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
+>  
+>  	/* Set up the primary, secondary and subordinate bus numbers */
+>  	child->number = child->busn_res.start = busnr;
+> +	child->number_initial = bridge && bridge->bridge_secondary_busnr ?
+> +		bridge->bridge_secondary_busnr : busnr;
+>  	child->primary = parent->busn_res.start;
+>  	child->busn_res.end = 0xff;
+>  
+> @@ -1418,6 +1421,8 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  
+>  	pci_dbg(dev, "scanning [bus %02x-%02x] behind bridge, pass %d\n",
+>  		secondary, subordinate, pass);
+> +	if (!pass && !dev->bridge_secondary_busnr)
+> +		dev->bridge_secondary_busnr = secondary;
 
-Annotate struct kobj_type::release with __must_init
-so the compiler diagnoses any struct kobj_type initializer that omits
-.release.
+I think I was mistaken to suggest that pci_bus was the right place to
+store this.
 
-For the remaining legacy struct kobj_type definitions where the kobject
-is static, per-CPU, permanent firmware structures, or embedded inside a
-devm- or parent-managed structure rather than freed by kobject_put(),
-explicitly initialize .release = NULL with a comment documenting why no
-release callback is provided.
+It seems like we definitely need something in the pci_dev because we
+may clear the initial bus numbers in the first pass, so we need to
+stash the secondary bus number somewhere until the second pass
+allocates the pci_bus and we can save it here.
 
-Where the existing teardown is not safe with CONFIG_DEBUG_KOBJECT_RELEASE,
-because the kobject's memory can be freed or cleared while the delayed
-kobject cleanup is still pending (ioat, kunpeng_hccs and omapfb display),
-the comment says so. Fixing those is left to follow-up patches; this
-change does not alter their behavior.
+Since we have to have it in the pci_dev, I suspect maybe it would be
+enough to have it *only* there.  Maybe it could be set in
+pci_read_bridge_windows(), and drivers could find it via
+pdev->bus->self?
 
-Link: https://lpc.events/event/20/contributions/2392/
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- arch/arm64/kernel/cpuinfo.c                   |  5 +++++
- drivers/acpi/sysfs.c                          |  2 ++
- drivers/dma/ioat/sysfs.c                      |  7 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |  5 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       | 10 +++++++++
- drivers/infiniband/hw/hfi1/sysfs.c            |  5 +++++
- drivers/infiniband/hw/usnic/usnic_ib_sysfs.c  |  2 ++
- drivers/parisc/pdc_stable.c                   |  5 +++++
- drivers/power/supply/ab8500_fg.c              |  5 +++++
- drivers/s390/char/sclp_mem.c                  |  2 ++
- drivers/soc/hisilicon/kunpeng_hccs.c          | 21 +++++++++++++++++++
- .../fbdev/omap2/omapfb/dss/display-sysfs.c    |  7 +++++++
- .../fbdev/omap2/omapfb/dss/manager-sysfs.c    |  5 +++++
- .../fbdev/omap2/omapfb/dss/overlay-sysfs.c    |  5 +++++
- fs/erofs/sysfs.c                              | 10 +++++++++
- fs/f2fs/sysfs.c                               | 15 +++++++++++++
- fs/ocfs2/cluster/masklog.c                    |  5 +++++
- include/linux/kobject.h                       |  2 +-
- 18 files changed, 117 insertions(+), 1 deletion(-)
+>  	if (!primary && (primary != bus->number) && secondary && subordinate) {
+>  		pci_warn(dev, "Primary bus is hard wired to 0\n");
+> @@ -1470,6 +1475,7 @@ static int pci_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
+>  			child = pci_add_new_bus(bus, dev, secondary);
+>  			if (!child)
+>  				goto out;
+> +			child->number_initial = secondary;
+>  			child->primary = primary;
+>  			pci_bus_insert_busn_res(child, secondary, subordinate);
+>  			child->bridge_ctl = bctl;
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index 5ffcf5ce8c966..c607818a98a87 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -363,6 +363,8 @@ struct pci_dev {
+>  	struct pci_slot	*slot;		/* Physical slot this device is in */
+>  
+>  	unsigned int	devfn;		/* Encoded device & function index */
+> +	/* Firmware secondary bus number saved across bridge scan passes */
+> +	u8		bridge_secondary_busnr;
 
-diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
-index 94e6cd211d70..7a4ac8dd0b86 100644
---- a/arch/arm64/kernel/cpuinfo.c
-+++ b/arch/arm64/kernel/cpuinfo.c
-@@ -295,6 +295,11 @@ const struct seq_operations cpuinfo_op = {
- 
- 
- static const struct kobj_type cpuregs_kobj_type = {
-+	/*
-+	 * Pre-existing: info->kobj is embedded in per-CPU cpu_data;
-+	 * cpuid_cpu_offline() only calls kobject_del().
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops,
- };
- 
-diff --git a/drivers/acpi/sysfs.c b/drivers/acpi/sysfs.c
-index a99373547126..1948b80e8a4a 100644
---- a/drivers/acpi/sysfs.c
-+++ b/drivers/acpi/sysfs.c
-@@ -973,6 +973,8 @@ static struct attribute *hotplug_profile_attrs[] = {
- ATTRIBUTE_GROUPS(hotplug_profile);
- 
- static const struct kobj_type acpi_hotplug_profile_ktype = {
-+	/* Pre-existing: hotplug->kobj is embedded in static struct acpi_scan_hotplug objects. */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops,
- 	.default_groups = hotplug_profile_groups,
- };
-diff --git a/drivers/dma/ioat/sysfs.c b/drivers/dma/ioat/sysfs.c
-index e796ddb5383f..5ba44876eb96 100644
---- a/drivers/dma/ioat/sysfs.c
-+++ b/drivers/dma/ioat/sysfs.c
-@@ -167,6 +167,13 @@ static const struct attribute *const ioat_attrs[] = {
- ATTRIBUTE_GROUPS(ioat);
- 
- const struct kobj_type ioat_ktype = {
-+	/*
-+	 * Pre-existing: ioatdma_chan is freed by release_ioatdma(), not
-+	 * by kobject_put(). With CONFIG_DEBUG_KOBJECT_RELEASE the delayed
-+	 * kobject cleanup queued by ioat_kobject_del() may run after
-+	 * that kfree(), a use-after-free.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &ioat_sysfs_ops,
- 	.default_groups = ioat_groups,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 17888cf54447..c2cccd924b03 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -885,6 +885,11 @@ static const struct attribute_group ualink_xcp_info_group = {
- };
- 
- static const struct kobj_type ualink_xcp_info_ktype = {
-+	/*
-+	 * Pre-existing: xcp->ualink.kobj is embedded in struct amdgpu_xcp_mgr
-+	 * rather than freed individually by kobject_put().
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index ab14079d1c42..0847134a1391 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -797,6 +797,11 @@ static const struct sysfs_ops xcp_cfg_res_sysfs_ops = {
- };
- 
- static const struct kobj_type xcp_cfg_res_sysfs_ktype = {
-+	/*
-+	 * Pre-existing: xcp_res is embedded in struct amdgpu_xcp_cfg
-+	 * rather than freed individually by kobject_put().
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &xcp_cfg_res_sysfs_ops,
- 	.default_groups = xcp_cfg_res_sysfs_groups,
- };
-@@ -1061,6 +1066,11 @@ static const struct attribute_group amdgpu_xcp_attrs_group = {
- };
- 
- static const struct kobj_type xcp_sysfs_ktype = {
-+	/*
-+	 * Pre-existing: xcp is embedded in struct amdgpu_xcp_mgr
-+	 * rather than freed individually by kobject_put().
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops,
- };
- 
-diff --git a/drivers/infiniband/hw/hfi1/sysfs.c b/drivers/infiniband/hw/hfi1/sysfs.c
-index 372cfd13dc61..5a1aca06b542 100644
---- a/drivers/infiniband/hw/hfi1/sysfs.c
-+++ b/drivers/infiniband/hw/hfi1/sysfs.c
-@@ -608,6 +608,11 @@ static const struct sysfs_ops sde_sysfs_ops = {
- };
- 
- static struct kobj_type sde_ktype = {
-+	/*
-+	 * Pre-existing: sdma_engine is embedded in dd->per_sdma array
-+	 * rather than freed by kobject_put().
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &sde_sysfs_ops,
- };
- 
-diff --git a/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c b/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c
-index fdb63a8fb997..df0e48070c2e 100644
---- a/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c
-+++ b/drivers/infiniband/hw/usnic/usnic_ib_sysfs.c
-@@ -245,6 +245,8 @@ static struct attribute *usnic_ib_qpn_default_attrs[] = {
- ATTRIBUTE_GROUPS(usnic_ib_qpn_default);
- 
- static struct kobj_type usnic_ib_qpn_type = {
-+	/* Pre-existing: usnic_ib_qp_grp is embedded in RDMA core-managed struct usnic_ib_qp_grp. */
-+	.release = NULL,
- 	.sysfs_ops = &usnic_ib_qpn_sysfs_ops,
- 	.default_groups = usnic_ib_qpn_default_groups,
- };
-diff --git a/drivers/parisc/pdc_stable.c b/drivers/parisc/pdc_stable.c
-index 6b567a74fc2c..2f530e8c6757 100644
---- a/drivers/parisc/pdc_stable.c
-+++ b/drivers/parisc/pdc_stable.c
-@@ -484,6 +484,11 @@ ATTRIBUTE_GROUPS(paths_subsys);
- 
- /* Specific kobject type for our PDC paths */
- static const struct kobj_type ktype_pdcspath = {
-+	/*
-+	 * Pre-existing: pdcspath_entry instances are static; lifetime
-+	 * is not controlled by kobject_put().
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &pdcspath_attr_ops,
- 	.default_groups = paths_subsys_groups,
- };
-diff --git a/drivers/power/supply/ab8500_fg.c b/drivers/power/supply/ab8500_fg.c
-index e6b5efdf5dc9..d62411e4f535 100644
---- a/drivers/power/supply/ab8500_fg.c
-+++ b/drivers/power/supply/ab8500_fg.c
-@@ -2531,6 +2531,11 @@ static struct attribute *ab8500_fg_attrs[] = {
- ATTRIBUTE_GROUPS(ab8500_fg);
- 
- static const struct kobj_type ab8500_fg_ktype = {
-+	/*
-+	 * Pre-existing: fg_kobject is embedded in devm-allocated struct
-+	 * ab8500_fg; ab8500_fg_sysfs_exit() only calls kobject_del().
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &ab8500_fg_sysfs_ops,
- 	.default_groups = ab8500_fg_groups,
- };
-diff --git a/drivers/s390/char/sclp_mem.c b/drivers/s390/char/sclp_mem.c
-index 6df1926d4c62..2fb7271dce36 100644
---- a/drivers/s390/char/sclp_mem.c
-+++ b/drivers/s390/char/sclp_mem.c
-@@ -305,6 +305,8 @@ static ssize_t sclp_memmap_on_memory_store(struct kobject *kobj, struct kobj_att
- }
- 
- static const struct kobj_type ktype = {
-+	/* Pre-existing: permanent firmware kobjects, never freed */
-+	.release = NULL,
- 	.sysfs_ops = &kobj_sysfs_ops,
- };
- 
-diff --git a/drivers/soc/hisilicon/kunpeng_hccs.c b/drivers/soc/hisilicon/kunpeng_hccs.c
-index 0cc2953d59a5..da7a64c95058 100644
---- a/drivers/soc/hisilicon/kunpeng_hccs.c
-+++ b/drivers/soc/hisilicon/kunpeng_hccs.c
-@@ -1038,6 +1038,13 @@ static struct attribute *hccs_port_default_attrs[] = {
- ATTRIBUTE_GROUPS(hccs_port_default);
- 
- static const struct kobj_type hccs_port_type = {
-+	/*
-+	 * Pre-existing: hccs_port_info is allocated via devm_kzalloc()
-+	 * rather than freed by kobject_put(). With
-+	 * CONFIG_DEBUG_KOBJECT_RELEASE the delayed kobject cleanup may run
-+	 * after devm frees it on unbind, a use-after-free.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &hccs_comm_ops,
- 	.default_groups = hccs_port_default_groups,
- };
-@@ -1110,6 +1117,13 @@ static struct attribute *hccs_die_default_attrs[] = {
- ATTRIBUTE_GROUPS(hccs_die_default);
- 
- static const struct kobj_type hccs_die_type = {
-+	/*
-+	 * Pre-existing: hccs_die_info is allocated via devm_kzalloc()
-+	 * rather than freed by kobject_put(). With
-+	 * CONFIG_DEBUG_KOBJECT_RELEASE the delayed kobject cleanup may run
-+	 * after devm frees it on unbind, a use-after-free.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &hccs_comm_ops,
- 	.default_groups = hccs_die_default_groups,
- };
-@@ -1213,6 +1227,13 @@ static struct attribute *hccs_chip_default_attrs[] = {
- ATTRIBUTE_GROUPS(hccs_chip_default);
- 
- static const struct kobj_type hccs_chip_type = {
-+	/*
-+	 * Pre-existing: hccs_chip_info is allocated via devm_kzalloc()
-+	 * rather than freed by kobject_put(). With
-+	 * CONFIG_DEBUG_KOBJECT_RELEASE the delayed kobject cleanup may run
-+	 * after devm frees it on unbind, a use-after-free.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &hccs_comm_ops,
- 	.default_groups = hccs_chip_default_groups,
- };
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c b/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c
-index ae937854403b..452920a4e2a9 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/display-sysfs.c
-@@ -304,6 +304,13 @@ static const struct sysfs_ops display_sysfs_ops = {
- };
- 
- static struct kobj_type display_ktype = {
-+	/*
-+	 * Pre-existing: dssdev->kobj is embedded in struct omap_dss_device
-+	 * and zeroed in display_uninit_sysfs() right after kobject_put().
-+	 * With CONFIG_DEBUG_KOBJECT_RELEASE that memset() clobbers the
-+	 * pending delayed kobject cleanup.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &display_sysfs_ops,
- 	.default_groups = display_sysfs_groups,
- };
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c b/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c
-index 1b644be5fe2e..40ec750f4315 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/manager-sysfs.c
-@@ -496,6 +496,11 @@ static const struct sysfs_ops manager_sysfs_ops = {
- };
- 
- static struct kobj_type manager_ktype = {
-+	/*
-+	 * Pre-existing: mgr->kobj is embedded in static managers[] and
-+	 * zeroed in dss_manager_kobj_uninit().
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &manager_sysfs_ops,
- 	.default_groups = manager_sysfs_groups,
- };
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c b/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c
-index 1da4fb1c77b4..4d333031b18d 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/overlay-sysfs.c
-@@ -429,6 +429,11 @@ static const struct sysfs_ops overlay_sysfs_ops = {
- };
- 
- static struct kobj_type overlay_ktype = {
-+	/*
-+	 * Pre-existing: ovl->kobj is embedded in static overlays[];
-+	 * dss_overlay_kobj_uninit() drops the kobject ref.
-+	 */
-+	.release = NULL,
- 	.sysfs_ops = &overlay_sysfs_ops,
- 	.default_groups = overlay_sysfs_groups,
- };
-diff --git a/fs/erofs/sysfs.c b/fs/erofs/sysfs.c
-index dfcec9376cd5..2ea6773cd98f 100644
---- a/fs/erofs/sysfs.c
-+++ b/fs/erofs/sysfs.c
-@@ -238,6 +238,11 @@ static const struct kobj_type erofs_sb_ktype = {
- static const struct kobj_type erofs_ktype = {
- 	.default_groups = erofs_groups,
- 	.sysfs_ops	= &erofs_attr_ops,
-+	/*
-+	 * Pre-existing: erofs_root is a static struct kset; lifetime
-+	 * is not controlled by kobject_put().
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kset erofs_root = {
-@@ -247,6 +252,11 @@ static struct kset erofs_root = {
- static const struct kobj_type erofs_feat_ktype = {
- 	.default_groups = erofs_feat_groups,
- 	.sysfs_ops	= &erofs_attr_ops,
-+	/*
-+	 * Pre-existing: erofs_feat is a static struct kobject; lifetime
-+	 * is not controlled by kobject_put().
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kobject erofs_feat = {
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index 430356e500af..6e15695cb75f 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -1683,6 +1683,11 @@ static const struct kobj_type f2fs_sb_ktype = {
- 
- static const struct kobj_type f2fs_ktype = {
- 	.sysfs_ops	= &f2fs_attr_ops,
-+	/*
-+	 * Pre-existing: f2fs_kset is a static struct kset; lifetime
-+	 * is not controlled by kobject_put().
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kset f2fs_kset = {
-@@ -1697,6 +1702,11 @@ static const struct sysfs_ops f2fs_feat_attr_ops = {
- static const struct kobj_type f2fs_feat_ktype = {
- 	.default_groups = f2fs_feat_groups,
- 	.sysfs_ops	= &f2fs_feat_attr_ops,
-+	/*
-+	 * Pre-existing: f2fs_feat is a static struct kobject; lifetime
-+	 * is not controlled by kobject_put().
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kobject f2fs_feat = {
-@@ -1711,6 +1721,11 @@ static const struct sysfs_ops f2fs_tune_attr_ops = {
- static const struct kobj_type f2fs_tune_ktype = {
- 	.default_groups = f2fs_tune_groups,
- 	.sysfs_ops	= &f2fs_tune_attr_ops,
-+	/*
-+	 * Pre-existing: f2fs_tune is a static struct kobject; lifetime
-+	 * is not controlled by kobject_put().
-+	 */
-+	.release	= NULL,
- };
- 
- static struct kobject f2fs_tune = {
-diff --git a/fs/ocfs2/cluster/masklog.c b/fs/ocfs2/cluster/masklog.c
-index 563881ddbf00..ff8a1cf51e72 100644
---- a/fs/ocfs2/cluster/masklog.c
-+++ b/fs/ocfs2/cluster/masklog.c
-@@ -147,6 +147,11 @@ static const struct sysfs_ops mlog_attr_ops = {
- static struct kobj_type mlog_ktype = {
- 	.default_groups = mlog_default_groups,
- 	.sysfs_ops      = &mlog_attr_ops,
-+	/*
-+	 * Pre-existing: mlog_kset is a static struct kset; lifetime
-+	 * is not controlled by kobject_put().
-+	 */
-+	.release        = NULL,
- };
- 
- static struct kset mlog_kset = {
-diff --git a/include/linux/kobject.h b/include/linux/kobject.h
-index 55e37a5d405e..8a1332030884 100644
---- a/include/linux/kobject.h
-+++ b/include/linux/kobject.h
-@@ -114,7 +114,7 @@ void kobject_get_ownership(const struct kobject *kobj, kuid_t *uid, kgid_t *gid)
- char *kobject_get_path(const struct kobject *kobj, gfp_t flag);
- 
- struct kobj_type {
--	void (*release)(struct kobject *kobj);
-+	void (*release)(struct kobject *kobj) __must_init;
- 	const struct sysfs_ops *sysfs_ops;
- 	const struct attribute_group **default_groups;
- 	const struct kobj_ns_type_operations *(*child_ns_type)(const struct kobject *kobj);
--- 
-2.56.0.313.g2479322e68-goog
+I think you're right to use "secondary" here so we don't perpetuate
+the "subordinate" misuse.  Maybe also include "initial" and make it
+"unsigned char" so it's the same as pci_bus.number?
 
+>  	unsigned short	vendor;
+>  	unsigned short	device;
+>  	unsigned short	subsystem_vendor;
+> @@ -724,6 +726,7 @@ struct pci_bus {
+>  	struct proc_dir_entry *procdir;	/* Directory entry in /proc/bus/pci */
+>  
+>  	unsigned char	number;		/* Bus number */
+> +	unsigned char	number_initial;	/* Bus number before reassignment */
+>  	unsigned char	primary;	/* Number of primary bridge */
+>  	unsigned char	max_bus_speed;	/* enum pci_bus_speed */
+>  	unsigned char	cur_bus_speed;	/* enum pci_bus_speed */
+> 
+> -- 
+> 2.43.0
+> 
