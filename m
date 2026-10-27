@@ -2,63 +2,140 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2182606A322
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 10:37:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DC6606A31B
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 10:57:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=muHUo6CB
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k1/6mUXN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QssmhxTV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 017E910E3D5;
-	Tue, 27 Oct 2026 10:37:21 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8384010F3A0
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 10:37:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail; t=1793097249; x=1793356449;
- bh=lZWQDrAmoiw6SBLgex16MiXr1FeSMl0JItqbKleN6Mg=;
- h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=muHUo6CBdB8jAn3g3QcV5Uvtkq9GAAmeasq7kZe2NHZY7/LADAnhT9fbgOi01JTpc
- hYD9xh/J78O+Pcsj+D+p32OnsRsgyoGhfvlApTR7aa9bQvG6to1mLedIAT+tm7kfRc
- hHp0lxEQD9sm8aiGtmFQ73v8isZtmEau5Gy+KOX9erHWZehCCguTCncLQqod6xb9eR
- YjePshm33kn2owlrZ0QPfzWapTk/o039NdGwJ7wiXuoLBRf7Q4VBpUBNsGg+S5Lsmi
- bHkCrfcmCRkzSdLjOhQId2QJkncRxKx7G+FtJcbnbyoYVJhBIpZB/nL5L8iNcHpfH7
- GgD2GNiZRdhAg==
-X-Pm-Submission-Id: 4jDRgL36l0z1DF5K
-From: Esben Haabendal <esben@geanix.com>
-Date: Tue, 27 Oct 2026 11:33:52 +0100
-Subject: [PATCH v5 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI horizontal
- sync timing
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5707F10E179;
+	Tue, 27 Oct 2026 10:57:31 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E206A10E179
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 10:57:19 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69RAe9f13026372
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 10:57:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=6Xs7gTw0KvqYciU+Kau1HiI8
+ SAmkgSoonHql5kcru7s=; b=k1/6mUXNIgFhNYWqNZoqANg+0ig/u1xWRNSyuVej
+ XRQar8CaJAP3chXDH4ger/M175PrTQbAFr256q7GkNvpfPKxJChrwSkwzp5LbOre
+ dM2gZZaL7Fcoyfz5snUxxFYGRAIFH3R42Chio1Zan72Agh+9L7yIyaJhEc2GNHHT
+ fSVY1fArNbdhpdI1VeKWrCNmRICZzqSaohodEZOFwAlV/e/W7oOZ0L9buVdCZYOm
+ 97EdESnmayAtt8801jagnQ7drcjxqyEZNKTwPVHBlxuJvY8uxSQ4QaxnzooghZ4N
+ dJGDoi9NTZ6jCYMNBlg6DCQFiz8JqNYYsznBsWNI+cPH+Q==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjh91a3k9-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 10:57:19 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-86f102230eeso430034b3a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 03:57:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793098634; x=1793703434;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=6Xs7gTw0KvqYciU+Kau1HiI8SAmkgSoonHql5kcru7s=;
+ b=QssmhxTVfxdRCYSirDH7g/IIrVjdfeGwvFvNHN+sz6/J42Ws+vdKkli2z96LLJ10bA
+ PnjK4+qbB6aID6884JCgXLNxjG7PZUbSWjER02s1WOnuWdwQopXhtQ+oo4fILbPuvSr5
+ pYJPl28HUfOTHh4U72ekqefzcwRIoLPoDBMIhxKs7mu7TD9937VD2ZZFkqF+Fr/UTjQd
+ WOiCfBhaCU0znLO0vGS9TBRIrk+kTnXKb631x5Ecb/KrEjZW06gi2P+pS8DChuplV7xY
+ 50+QVpKMV/0wT2c0MOPSkUz/3vYOK4T9QtyZw/XpJ7JE94x3UfdXJC3ZbrV5AqeKrbeU
+ 4WbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793098634; x=1793703434;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=6Xs7gTw0KvqYciU+Kau1HiI8SAmkgSoonHql5kcru7s=;
+ b=AtXQgPB92VMy5aqMH1htdaXjgqDRkzGAY2r9c0OlmrbHDvU9uHjfG4EttqOiHCS27m
+ OBdukK/g9OKYLMr3doRrLTvGqr7xfQQeIhAHKENZIhuKyVUzBPsHAydZEqw0d7GuHqSr
+ fpRSHwH0+NoTYz0DViYt8GMw91znJ5KXHbjYLm2caUjBmUTQRnm2eI+Y8amZrH4oCCuW
+ 77epjShfJgDEtdTARwkiseuXna+zCGVbX5eL995Cz0tWa4yHCiel0bxL1X/1xkLkQnkq
+ xPOJ8ZLiSXYGREwpnlZ3VunaLmkyQVRjrrIgUaS0YcjkmE1XOFd4fleWJ2Izx5A//VuN
+ MFkA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxttnQKro4z4c8tLrXqM+Ca7+rLWqYCi76T/gx9uQYG3FLy4/JmZUewNPubeiV+oYQcH4JxtIbyR7c=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYICmjY6Z/79iGgIgSfypTEfznqJN7/2LUS7yRb6+SA4OJJuXPDO
+ lOdFd/SaY4cCjAc3XO/39N84vEurq7RLTG5YJsOdMfqIIUe01gpJ7EPAtRuGR8m4EgW+mnE0oHK
+ 9I31zVW6f85XWn/Dh27wwiItdjFcRuKAboVOb/dyEWpA/9AJ49x+d8nKC8MEMy/OC6Q6opPI=
+X-Gm-Gg: AYBFou32COpZ1QvRwQquoVoo4KFyyKyB+GhhFYDYvZKUNgIH5NdEv3+dGEezkETREjv
+ iLMycQAcbMcvuwjJFyOxnFU0jPYmtBOzM5qkH6K59068/xxlHxeizbBLvGPLMQ/O3XDVqfQC/UN
+ hUfo0r2htWopcNyLl9FpHQWCatQJorvUnwgUDOaQzJMfhlh6d+0tg2Gz2JfaCQTXjPehZIV9I+p
+ eJeubvtOKuYvn6bmo8OeqJ+B68zTSFjh6HSyQzvM/1OpC+9qyQ8AgsIX++EJyLJvd79xqjn9qvA
+ JZW/AkuIJPs9bDNIfOghdeZp7zO+3CNAnWqfpLK4F0cPDiYJgopdHBoUhT/QbT/bNuAN0xhAYFF
+ L0NLd8d6fspvdgF9IOI9IXL9bFQIVua2bSo/MVtANrvzB3d77SmcoZGIVu4BqUtRJNQGvU5aCEE
+ MftD2aGrGip8PIgfyMnvZPQkXXYP/cYbbnFqFBtcKqa9R86CK9zPeM
+X-Received: by 2002:a05:6a00:348d:b0:8a5:866d:d5b with SMTP id
+ d2e1a72fcca58-8a5866d0dcamr9445079b3a.1.1793098633651; 
+ Tue, 27 Oct 2026 03:57:13 -0700 (PDT)
+X-Received: by 2002:a05:6a00:348d:b0:8a5:866d:d5b with SMTP id
+ d2e1a72fcca58-8a5866d0dcamr9445059b3a.1.1793098633216; 
+ Tue, 27 Oct 2026 03:57:13 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8a36bf0f4dcsm2190344b3a.44.2026.10.27.03.57.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Oct 2026 03:57:12 -0700 (PDT)
+Date: Tue, 27 Oct 2026 16:27:05 +0530
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com
+Subject: Re: [PATCH] dt-bindings: display: panel: ilitek,ili7807s: Allow
+ backlight property
+Message-ID: <auCDgewe04WKbamD@hu-vishsain-blr.qualcomm.com>
+References: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
+ <20261027-fantastic-benevolent-boobook-272a9a@quoll>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-nwl-dsi-fixes-v5-4-b6d1d3d2d356@geanix.com>
-References: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
-In-Reply-To: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Fabio Estevam <festevam@gmail.com>, Robert Chiras <robert.chiras@nxp.com>, 
- Sam Ravnborg <sam@ravnborg.org>, imx@lists.linux.dev
-Cc: Esben Haabendal <esben@geanix.com>, Frank.Li@kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- "Oliver F. Brown" <oliver.brown@oss.nxp.com>, 
- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>, 
- Liu Ying <victor.liu@nxp.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793097237; l=4569;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=BPl/W4P4TrdcCjFEm+Lx0MMHf20hrmW0utgAkepjgi4=;
- b=Ihcv8FGi4DIdFuSdBeE1cuHcHTTvyNGzsH8MCTHaJUVWuqTWFRhufbqlExjx2CYC1aeHPF27V
- 1cuYF2GVsacAbdAbUgnoRVsRDNj6FMXUeR/ZWg5+lW7bCY5NErsxumj
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fantastic-benevolent-boobook-272a9a@quoll>
+X-Proofpoint-ORIG-GUID: fFrf2BRI_RIwD3R_4AVkZv1PTS0bgyV2
+X-Proofpoint-GUID: fFrf2BRI_RIwD3R_4AVkZv1PTS0bgyV2
+X-Authority-Analysis: v=2.4 cv=TuxzFzXh c=1 sm=1 tr=0 ts=6ae0838f cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=a2tH-4IN5IZEDPfwvVoA:9 a=CjuIK1q_8ugA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0MyBTYWx0ZWRfX1Lehj4TBNYAo
+ 1t7rgT1cBuB5cUnXY604y7uf29YXU0IfW+D4sKhb7pRRz0WJtzaQ1uEvvuzwIm4+u+Yfvb1volG
+ k+6JjYgUEIpMYVJtmJ/NcgL4f84MydlmWki6m4n95Qaq5blAWSQfpbSnPUkAzGvbJ1qaDQPFkJg
+ nKJ3o4wSMpzji4YU8DF5cYm1ALYDkfMDZSO9gahNmJgJYmUoqGsRzgqbdy6dqtO200SwFJUid3p
+ HP8O6yFX+ub3ZIGO1XG5HwJLwse/gLICtCVPvse9Pue2X4qDNIZ42LDyBabgRIcXQO7EhYE5wvP
+ h7D1gHRYgAUoZEl6JGarGmnFqWr93bKNf67keE/ASbs0abu/pJ44Pej/xlCLjsc7t1A/kdw3dgW
+ Ff3s5/PcfTjjRWderzbG4ASH5ZqRCj1XS+OeKte8dXGNNsn20C+sGvHKTkUGnUAg4lzJJEwUOHO
+ spk0Y3SXB5UHi/4cGPg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0MyBTYWx0ZWRfX6ruGroDpPHlt
+ iyGnzToXYFjHeemBN5DFHfayzXJupZe9hlU01iRbaoNE9mdMj3AQsjPZP5919bToQ/7+FD6zvUe
+ Ff3uXNK1Exkfd0ni7/qd2Ksc2n5ymok=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270043
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,129 +147,29 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The NWL MIPI Host controller registers specifies the horizontal front
-porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
-not in pixel clocks).
-
-The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
-the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
-Manual (rev. 3.1). The formula shown there does not take packet header size
-into account though.
-
-The formula implemented here converts the hfp, hsa, and hbp to DSI packet
-bytes and then subtracts the number of packet header bytes.
-
-It is worth noting that these values only needs to match approximately,
-according to the reference manual.
-
-Based on commit in NXP vendor tree
-commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
-
-Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
-Cc: Robert Chiras <robert.chiras@nxp.com>
-Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
-Tested-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-Acked-by: Liu Ying <victor.liu@nxp.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/gpu/drm/bridge/nwl-dsi.c | 60 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 57 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index f3f4334136c0..870a308589cd 100644
---- a/drivers/gpu/drm/bridge/nwl-dsi.c
-+++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -13,6 +13,7 @@
- #include <linux/math64.h>
- #include <linux/mfd/syscon.h>
- #include <linux/media-bus-format.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/mux/consumer.h>
- #include <linux/of.h>
-@@ -264,6 +265,9 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
- 	bool burst_mode;
- 	int hfront_porch, hback_porch, vfront_porch, vback_porch;
- 	int hsync_len, vsync_len;
-+	int hfp, hbp, hsa;
-+	u64 hs_clk_rate, pclk_rate;
-+	int h_blank, pkt_hdr_len, pkt_len;
- 
- 	hfront_porch = dsi->mode.hsync_start - dsi->mode.hdisplay;
- 	hsync_len = dsi->mode.hsync_end - dsi->mode.hsync_start;
-@@ -317,9 +321,59 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
- 			      dsi->mode.hdisplay);
- 	}
- 
--	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
--	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
--	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
-+	hs_clk_rate = dsi->phy_cfg.mipi_dphy.hs_clk_rate;
-+	pclk_rate = (u64)dsi->mode.clock * 1000;
-+	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_clk_rate: %llu Hz\n", hs_clk_rate);
-+
-+	/*
-+	 * Calculate the bytes needed, according to the RM formula:
-+	 * Time of DPI event = time to transmit x number of bytes on the DSI interface
-+	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period / num_lanes
-+	 * ===>
-+	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes / (8 * hs_bit_period)
-+	 * ===> (substituting period = 1 / rate)
-+	 * dsi_bytes = dpi_event_size * num_lanes * hs_clk_rate / (8 * dpi_pclk_rate)
-+	 */
-+	hfp = DIV64_U64_ROUND_UP((u64)hfront_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-+	hbp = DIV64_U64_ROUND_UP((u64)hback_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-+	hsa = DIV64_U64_ROUND_UP((u64)hsync_len * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-+
-+	/* Make sure horizontal blanking values are even numbers */
-+	hfp = roundup(hfp, 2);
-+	hbp = roundup(hbp, 2);
-+	hsa = roundup(hsa, 2);
-+
-+	/*
-+	 * We need to subtract the packet header length: 32
-+	 * In order to make sure we don't get negative values,
-+	 * subtract a proportional value to the total length of the
-+	 * horizontal blanking duration.
-+	 */
-+	h_blank = hfp + hbp + hsa;
-+
-+	if (h_blank) {
-+		pkt_len = min(hfp, roundup(((hfp * 100 / h_blank) * 32) / 100, 2));
-+		pkt_hdr_len = pkt_len;
-+		hfp -= pkt_len;
-+
-+		pkt_len = min(hbp, roundup(((hbp * 100 / h_blank) * 32) / 100, 2));
-+		pkt_hdr_len += pkt_len;
-+		hbp -= pkt_len;
-+
-+		pkt_len = min(hsa, 32 - pkt_hdr_len);
-+		pkt_hdr_len += pkt_len;
-+		hsa -= pkt_len;
-+		if (pkt_hdr_len != 32)
-+			dev_warn(dsi->dev,
-+				 "Unable to subtract packet header length fully: %d left\n",
-+				 32 - pkt_hdr_len);
-+	}
-+
-+	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
-+
-+	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
-+	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
-+	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
- 
- 	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
- 	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
-
--- 
-2.56.0
-
+On Tue, Oct 27, 2026 at 09:12:27AM +0100, Krzysztof Kozlowski wrote:
+> On Sun, Oct 25, 2026 at 12:18:17PM +0530, Vishnu Saini wrote:
+> > The DLC0697 panel is lit by a separate backlight device, which is
+> > referenced from the panel node through the common 'backlight'
+> > property.
+> > 
+> > Declare 'backlight: true' so the property is explicitly allowed by the
+> > schema.
+> 
+> Why do you need to explicitly allow it? Since when?
+> 
+> I see no benefit of this patch and commit msg does not explain me what
+> that benefit would be.
+It is required for below DLC panel, when enabling backlight using gpio-backlight driver,
+Apologies, missed to add this in dependency there.
+https://lore.kernel.org/all/20261021-shikra_display_overlays-v1-2-adaea735999f@oss.qualcomm.com/
+> Best regards,
+> Krzysztof
+> 
