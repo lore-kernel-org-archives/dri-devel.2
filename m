@@ -2,68 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195D3607101D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3CC6071027
 	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:22:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MmdUdjye
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UW8SQd30
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C76010E4B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4839E10F7D2;
 	Tue, 27 Oct 2026 20:22:52 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DF2010E4B3
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3A9A10F7D2
  for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 20:22:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D3C4F43E0E;
- Tue, 27 Oct 2026 20:22:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BC04243FC5;
+ Tue, 27 Oct 2026 20:22:13 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793132532;
- b=N4iEXoynLsDIVGtAn2cw7rr+ypTMJfINLRq+tSF43GnAuiftQB26M9gRqKrq/U09bJWH
- TrWqQ+qh1IBr3zuTpOZIfzd+oVdFOH5AihWAIsn5tGn8LNUTuy+jqAYGGkvoUB243+HBB
- UJ06B3mxNPlJzal/Pem0WYdtOyy43ASPLYhEwNXsvs+sZA8iLkKhHLh3kDS9500UmNH23
- io4BSFr/7sOZ2/QRAp2EHSXFheaSFdfd8hGGlBrRATwFwEjjaUw5jcpI5Yk7vadUBNz4a
- 0/ej6CQ+FXNS5rc4SEJkuL9BBO1lhYVsKUhTHZXBuf3/ca1KL7ARigd4wVT1jXTxCjg==
+ t=1793132533;
+ b=Vk1Mt/xLiobDJz1URboEVtBDeT7vDgnV0v7XO9aTsL+hazovudT/Nuv2ZWPdXTW2HEbL
+ HeBBgQGbmBkDFGroHz+yGPnOpQsm620fSuDhyrb/MO5pjN9zFb1BQhCr07zZnXQ6ezH7J
+ OBluHwtUNC5R8FQeTqO6aI9I07bjRwx9njUxqAKfJnOCaKwDX6pcGjwIfucfLffoX9+yU
+ DWrs/ag9XaDuPZZplTspBUbSxj+QH1rBIAPkSxvaGSCYiHq6YTWUNrrsjFkMmtUHH+etN
+ KTzsHC/SbPUagzxoaFoPq+kDbn9qThhTNBT5G0AMyETffoV7JvdHcEclJvFcIy5rHxA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793132532;
+ c=relaxed/relaxed; t=1793132533;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=NC9qvcyyabYBeEaWH7GJHJeHZrorUabfraI24jDZ6iY=;
- b=i7E9/fqTH/6gCBCjiBgWbcMHbhaZhWYG8IujCH2VMha9ueEVjuPB1gNP6aJoIwGUGCMa
- RcGECtQu9rnzAZXVKVcy+n0xivsKLadXI1Xf4OwksQLkcxzGyIJMIoQFwuFbUCPiWI0p6
- 17lnqy+HapT5L/1aRge1M9bgP8MU9MR0d3xgn5OrQ8YZv6gzwNNMaQiQzQFkebPlToGFH
- khVlBSoVeNXxEzgUmugJlGgO6NbbApT1TsQe14ZG63Ymfx1a2kNRj3fgcVxclyQ5ld+xK
- AjAnq8XZZQn4bJ/1umj289HBwYGT6zCNxttC0lurTbISsF5VoeKgkeIASW79ktr1Ovw==
+ bh=p8OLfPjJJxghmVweXow3lGp05o2c//rUSd8L9sTgH9M=;
+ b=gDPFKq5aHQoT+NEEV0h3fpFtvrS1kFtcJCX8jNl6tJkicBiouBeimFeIm+YnUYInzpBC
+ uXBLNkHIpFaKq8Q2hZZzcqV2E8XCqWflt3v1umnxcf9bfRtSeQELOAk1OAAfDQ5NufEwl
+ ev5XsWfEENi45xK1HUyAi6BGeXpQ+gFUcelsIomVWKl95bhVB9N/QYi58/UrEcQh2wOwY
+ Z3TwOuuHqTX56diGxEDsHf1OKIpxIZC9e3HKQTDQUUspdgQWMja0NyucS5ma3WGide9yr
+ orU5vvAbjNFKg34m31LPHUpG03RQ99p0MMPIW081Filew5+/LVlD6MlTl9VxyrrxZKQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 691541F031E3;
- Tue, 27 Oct 2026 20:22:11 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 556CF1F031E4;
+ Tue, 27 Oct 2026 20:22:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793132532;
- bh=NC9qvcyyabYBeEaWH7GJHJeHZrorUabfraI24jDZ6iY=;
+ s=k20260515; t=1793132533;
+ bh=p8OLfPjJJxghmVweXow3lGp05o2c//rUSd8L9sTgH9M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=MmdUdjyeKMle6Lr+ZR8Yay6rEpvrPf+VYi9XHckuwvyoL4ZAct3+TrIqKcHR56g9K
- u4QPYrUgjCuDlbM8KwPRcO4nBJBaJFWguvUGUdL1KIuW7axhhp+uejLzvSyxhXqZn3
- OoT/NH9ZUA8wlX9rFtkPp8Eq3NrsFDl+dUeM7T1/K3L8fiTtiqvdnnZzA645LINM0K
- /yxn6uZWEADgrrdlVa2SX8I8UD9Vz7moa1QKgzV9Ynnt02zqd1aaqHC134W8CSL/A6
- QiAY54mS4LPdn768VltI83yWWDN/lUwlAc2/HZdR0M7Oivwk1ctb2M6Ve+N08o3xlD
- 8iPibG+rwGEIg==
+ b=UW8SQd30kqgnY5kGH4WIw6rnXJkqaKizcXwXOiIPV9I/YEoejLZVUMEXVV3qFwaJA
+ QwGgEbWERnDv/lhlAwMZ1DEa1o4RP55ej58NSZV6JWcYBceKLAhCvtxkbkqET0pQq/
+ WNABAhQeIUGHronuz+AdJ+WELGN5wO9LAghPKczJg7jeZDIIU9ZB30BvMTaL4xmyiv
+ ISq+Q5fDHyGKPalyEzeXm3H5ujQcZOd8klMdQfdbVttkeTH7S9BIy5ye5a3bElBkwx
+ tgo/C8tysa5sGvj6YgM0zjwK2mbJzHXTtQTtBftT9gvDaygVILo5CQEHD1PBtmo5n6
+ juNsYg674hDPw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id CFC0C45209;
+ by lkml.kernel.org (Postfix) with ESMTP id E59BE45211;
  Tue, 27 Oct 2026 20:22:09 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 14:22:06 -0600
-Subject: [PATCH v13 06/39] dyndbg.lds.S: fix lost dyndbg sections in
- modules
+Date: Tue, 27 Oct 2026 14:22:08 -0600
+Subject: [PATCH v13 08/39] dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-dd-cmap-part2-clean-v13-6-9267923be612@gmail.com>
+Message-Id: <20261027-dd-cmap-part2-clean-v13-8-9267923be612@gmail.com>
 References: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 In-Reply-To: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -92,11 +91,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
  Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=5098;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=3163;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=eZWQ3goXmct9svzcYam5cB2wbeXp5w4fDAcHi11IsRs=;
- b=rr9GdMdGpAwS7pPzsye5nsxCNnBuN4B9La/NcNeJke1xHgp7JBr4sUh4Iqk4O54hSCcy09Nnz
- hFNDd7f3vkuC0tWXMUaeZvy3FcVMpPXxpXVPGKcdCdPl66f9Ilajy2s
+ bh=SVpwWYWapDOMkXkjrEEN6bsp08Xgp+vSqsY5/WDA3N0=;
+ b=N4vorS3MgiGRVy7XkNmxHoVIAqr3We2GyVw6SRWJxbaj4zDmrrNT++T2yaWHpUSelC/R3+Yrh
+ t9lObO0SZH7A48uWGVuaBEInpDbalTDhdoeNa2RoNwtRmpz+bkF4hwx
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -125,148 +124,83 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-With CONFIG_DRM_USE_DYNAMIC_DEBUG=y, several build configs had
-problems with __dyndbg* sections getting lost in drm drivers.  Fix
-this by following the model demonstrated in codetag.lds.h.
+Add the stub macro for !DYNAMIC_DEBUG builds, after moving the
+original macro-defn down under the big ifdef.  Do it now so future
+changes have a cleaner starting point.
 
-Introduce include/asm-generic/dyndbg.lds.h, to bundle dynamic-debug's
-multiple sections together, into 2 macros:
-
-vmlinux.lds.h DATA_DATA: move the 2 BOUNDED_SECTION_BY(__dyndbg*)
-calls into dyndbg.lds.h DYNDBG_SECTIONS(). vmlinux.lds.h now includes
-the new file and calls the new macro.
-
-MOD_DYNDBG_SECTIONS keeps the 2 sections by name, aligns them and sets
-the output address to 0 when the sections are empty.
-
-dyndbg.lds.h includes (reuses) bounded-section.lds.h
-
-scripts/module.lds.S: now calls MOD_DYNDBG_SECTIONS right before the
-CODETAG macro (consistent with their placements in vmlinux.lds.h), and
-also includes dyndbg.lds.h
-
-This isolates vmlinux.lds.h from further __dyndbg section additions.
-
-CC: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
-v3: move #includes to top, drop extra ALIGN(8) in DYNDBG_SECTIONS, add RvBy
+ include/linux/dynamic_debug.h | 43 ++++++++++++++++++++++---------------------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
 
-v2: Address linker script review feedback for relocatable modules.
-
-MOD_DYNDBG_SECTIONS() used the BOUNDED_SECTION_BY() macro, which
-proved problematic for kernel modules for two reasons:
-
-1. Unwanted Empty Sections:
-   BOUNDED_SECTION_BY() automatically generates `__start` and `__stop`
-   symbols. When applied to `MOD_DYNDBG_SECTIONS()`, the linker assumes
-   the sections are populated due to the symbol definitions, forcing an
-   empty `__dyndbg` and `__dyndbg_classes` output section in every
-   compiled module, even those without dynamic debug configuration.
-   Since the module loader uses `section_objs()` to locate data via
-   ELF headers instead of relying on `__start`/`__stop` symbols, these
-   assignments are completely unnecessary.
-
-2. Non-zero Output Addresses:
-   During relocatable linking (e.g., `ld.bfd -r`), omitting an explicit
-   base address causes the section to inherit the current location
-   counter. This results in non-zero sh_addr values in `.ko` files,
-   which is confusing, degrades compressibility, and can cause issues
-   with external tools parsing the ELF.
-
-Fix both issues by dropping `BOUNDED_SECTION_BY()` in favor of a simple
-`KEEP(*(...))` constraint and explicitly defining the sections with a `0`
-base address: `__dyndbg 0 : ALIGN(8) { ... }`.
-
-fixup-inc-vml
----
- MAINTAINERS                       |  1 +
- include/asm-generic/dyndbg.lds.h  | 18 ++++++++++++++++++
- include/asm-generic/vmlinux.lds.h |  6 ++----
- scripts/module.lds.S              |  2 ++
- 4 files changed, 23 insertions(+), 4 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 942a93e21d75..9fee1d699164 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9259,6 +9259,7 @@ DYNAMIC DEBUG
- M:	Jason Baron <jbaron@akamai.com>
- M:	Jim Cromie <jim.cromie@gmail.com>
- S:	Maintained
-+F:	include/asm-generic/dyndbg.lds.h
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
- F:	lib/test_dynamic_debug.c
-diff --git a/include/asm-generic/dyndbg.lds.h b/include/asm-generic/dyndbg.lds.h
-new file mode 100644
-index 000000000000..9d8951bef688
---- /dev/null
-+++ b/include/asm-generic/dyndbg.lds.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_DYNDBG_LDS_H
-+#define __ASM_GENERIC_DYNDBG_LDS_H
-+
-+#include <asm-generic/bounded_sections.lds.h>
-+#define DYNDBG_SECTIONS()					\
-+	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
-+	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)
-+
-+#define MOD_DYNDBG_SECTIONS()						\
-+	__dyndbg 0 : ALIGN(8) {						\
-+		KEEP(*(__dyndbg))					\
-+	}								\
-+	__dyndbg_classes 0 : ALIGN(8) {					\
-+		KEEP(*(__dyndbg_classes))				\
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 05743900a116..a10adac8e8f0 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -93,27 +93,6 @@ struct ddebug_class_map {
+ 	enum class_map_type map_type;
+ };
+ 
+-/**
+- * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
+- * @_var:   a struct ddebug_class_map, passed to module_param_cb
+- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
+- * @_base:  offset of 1st class-name. splits .class_id space
+- * @classes: class-names used to control class'd prdbgs
+- */
+-#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
+-	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
+-	static struct ddebug_class_map __aligned(8) __used		\
+-		__section("__dyndbg_classes") _var = {			\
+-		.mod = THIS_MODULE,					\
+-		.mod_name = KBUILD_MODNAME,				\
+-		.base = _base,						\
+-		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
+-		.class_names = _var##_classnames,			\
+-	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+-
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+ struct _ddebug_info {
+ 	struct _ddebug *descs;
+@@ -138,6 +117,27 @@ struct ddebug_class_param {
+ #if defined(CONFIG_DYNAMIC_DEBUG) || \
+ 	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
+ 
++/**
++ * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
++ * @_var:   a struct ddebug_class_map, passed to module_param_cb
++ * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
++ * @_base:  offset of 1st class-name. splits .class_id space
++ * @classes: class-names used to control class'd prdbgs
++ */
++#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
++	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
++	static struct ddebug_class_map __aligned(8) __used		\
++		__section("__dyndbg_classes") _var = {			\
++		.mod = THIS_MODULE,					\
++		.mod_name = KBUILD_MODNAME,				\
++		.base = _base,						\
++		.map_type = _maptype,					\
++		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.class_names = _var##_classnames,			\
 +	}
++#define NUM_TYPE_ARGS(eltype, ...)				\
++	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
 +
-+#endif /* __ASM_GENERIC_DYNDBG_LDS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index c3376665d027..48f00c5e8762 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -52,6 +52,7 @@
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
  
- #include <asm-generic/bounded_sections.lds.h>
- #include <asm-generic/codetag.lds.h>
-+#include <asm-generic/dyndbg.lds.h>
+@@ -314,6 +314,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
  
- #ifndef LOAD_OFFSET
- #define LOAD_OFFSET 0
-@@ -344,10 +345,7 @@
- 	*(.data..do_once)						\
- 	STRUCT_ALIGN();							\
- 	*(__tracepoints)						\
--	/* implement dynamic printk debug */				\
--	. = ALIGN(8);							\
--	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
--	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)				\
-+	DYNDBG_SECTIONS()						\
- 	CODETAG_SECTIONS()						\
- 	LIKELY_PROFILE()		       				\
- 	BRANCH_PROFILE()						\
-diff --git a/scripts/module.lds.S b/scripts/module.lds.S
-index d0f200428957..5950ff8edc31 100644
---- a/scripts/module.lds.S
-+++ b/scripts/module.lds.S
-@@ -5,6 +5,7 @@
-  */
+ #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) false
++#define DECLARE_DYNDBG_CLASSMAP(...)
  
- #include <asm-generic/codetag.lds.h>
-+#include <asm-generic/dyndbg.lds.h>
- 
- SECTIONS {
- 	/DISCARD/ : {
-@@ -56,6 +57,7 @@ SECTIONS {
- 		*(.rodata..L*)
- 	}
- 
-+	MOD_DYNDBG_SECTIONS()
- 	MOD_SEPARATE_CODETAG_SECTIONS()
- }
- 
+ #define dynamic_pr_debug(fmt, ...)					\
+ 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
 
 -- 
 2.56.0
