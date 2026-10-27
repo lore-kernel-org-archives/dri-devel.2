@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7A0606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 10:58:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB29606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 11:00:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fsJE9jML
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G5zwOaWg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D52910F3C5;
-	Tue, 27 Oct 2026 10:58:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E65B10E384
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 10:58:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9F0D10E39D;
+	Tue, 27 Oct 2026 11:00:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9475A10E3D0
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 11:00:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E753B40489;
- Tue, 27 Oct 2026 10:58:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16AD01F01825;
- Tue, 27 Oct 2026 10:58:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 61B7F60136;
+ Tue, 27 Oct 2026 11:00:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608D01F01828;
+ Tue, 27 Oct 2026 11:00:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793098698;
- bh=t2rRGjis0tX3mVaRPFtnMjzTG3I2WSVMvjKzLMjEe8o=;
+ s=k20260515; t=1793098814;
+ bh=SWXAoeNX30DTt8Lwb9xNTpNWhLrvEfMFFNzLFwCHSRg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=fsJE9jMLq8OFD4KXLiAX+9c4xeC8pJCmA0DcxoyOE0E/vIUAdOGjHE/oC7pYCZj7z
- GlfD2yaO7j1Fm/xru2hu+VOCINZQk3tqcX16kriIRn2utAQwFvbtkhXw1d4UqLwFp4
- u6IPkNYa+vuk/FUKW+XrELP21x604V54XY/NNq1OR4h0Oi4/BEjf5sYuUr6RRnepZT
- X8bU2lucOR3altcjmmBPEAh6ZX4xC2IGJ53ZuEuGtWsvspjhgW8u891VRLhDccuCCR
- cpiuGVOM3lF90FzL2xc+yWTVtttmND3Fgt/Id4IIPPb6zPN3WEK34My1421KPNxyWb
- WzVvReZAaqwyA==
-Date: Tue, 27 Oct 2026 11:58:15 +0100
+ b=G5zwOaWgTw5opPtN1sFkyh3X9BzzzLQYrTGEWmh7NFV3Nu312WAVVI91cg1lii5Bp
+ +uPnmatGkX5FFvlJNhPrXjPc4eTTnptaDr6kHGhun24wMacEnnEym40NT/624rJWlq
+ 6Rj4VjiT1ykvhvMq8zJFpFIPQMLhM1mksLa/+kbUWxW/elMaguKtTpJd29WQV09nNT
+ C+Q93fPrGriFNrrqDl/RhtXjZfDw41xRX/ghz044xVs5RugrNwFW8BeBHYBRYeZmnR
+ QB9/gpnmXaOL+OmapM/wsTKHoQ6jTBreTVB2+RRAogk3Mf1GK1vBFJrhWxbG9zyFwE
+ pajhuEss+u3iQ==
+Date: Tue, 27 Oct 2026 12:00:10 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Olivier Louvignes <olivier@mgcrea.io>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -39,15 +39,16 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  "H . Nikolaus Schaller" <hns@goldelico.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, 
  linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: vendor-prefixes: Add HiBy
-Message-ID: <20261027-controversial-astute-leopard-5b353d@quoll>
+Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
+ controller
+Message-ID: <20261027-hospitable-apricot-scallop-166448@quoll>
 References: <20261025191640.13592-1-olivier@mgcrea.io>
- <20261025191640.13592-2-olivier@mgcrea.io>
+ <20261025191640.13592-3-olivier@mgcrea.io>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261025191640.13592-2-olivier@mgcrea.io>
+In-Reply-To: <20261025191640.13592-3-olivier@mgcrea.io>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,15 +67,76 @@ X-Spam-Status: No, score=-16.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sun, Oct 25, 2026 at 08:16:36PM +0100, Olivier Louvignes wrote:
-> HiBy makes digital audio players, among them the R1.
+On Sun, Oct 25, 2026 at 08:16:37PM +0100, Olivier Louvignes wrote:
+> The X1600's display controller fetches frames through descriptors and
+> keeps its interface and timings in register blocks of their own (X1600
+> programming manual, chapter 10), so it shares nothing with the
+> controllers ingenic,lcd.yaml describes. Its registers are those of the
+> X2000's display controller without the composer.
 > 
 > Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 > ---
->  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+>  .../bindings/display/ingenic,x1600-lcd.yaml   | 70 +++++++++++++++++++
+>  MAINTAINERS                                   |  5 ++
+>  2 files changed, 75 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml b/Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
+> new file mode 100644
+> index 000000000000..171536c78f4b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/ingenic,x1600-lcd.yaml
+> @@ -0,0 +1,70 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/ingenic,x1600-lcd.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Ingenic X1600 LCD controller
+> +
+> +maintainers:
+> +  - Olivier Louvignes <olivier@mgcrea.io>
+> +
+> +description:
+> +  The display controller of the Ingenic X1600 SoC. It fetches frames through
+> +  descriptors in memory and drives a parallel RGB panel or a smart panel;
+> +  its registers have nothing in common with the controllers described in
+> +  ingenic,lcd.yaml.
+> +
+> +properties:
+> +  $nodename:
+> +    pattern: "^lcd-controller@[0-9a-f]+$"
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Individual device schemas do not need to enforce naming, you can drop
+nodename.
+
+> +
+> +  compatible:
+> +    const: ingenic,x1600-lcd
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: The pixel clock, whose gate also gates the controller
+> +
+> +  clock-names:
+> +    items:
+> +      - const: lcd
+
+... and drop clock-names, since it is the same as device name.
+
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/properties/port
+> +    description: The output, to the panel or bridge.
+
+No port for IPU?
 
 Best regards,
 Krzysztof
