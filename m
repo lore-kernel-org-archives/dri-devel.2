@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9B2606D972
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:44:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EE5606A327
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:44:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfWSo6hV
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRCE5OfD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1AA710E426;
-	Tue, 27 Oct 2026 15:44:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 063D410F69D;
+	Tue, 27 Oct 2026 15:44:30 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 872DE10E426;
- Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3160810F68A;
+ Tue, 27 Oct 2026 15:44:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D9D0E440B8;
- Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7F31F01829;
- Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 795B043F0C;
+ Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C031F031F4;
+ Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793115853;
- bh=KzGA3Z1wHw/pEoG+sL3nupeeb8x6YGTMS4RDHQzgvgY=;
+ s=k20260515; t=1793115854;
+ bh=fpo83JJokXYjEujj6r4TMCvSFPUafgC/gibglk3KIJo=;
  h=Date:From:To:Cc:Subject:References;
- b=AfWSo6hVC8lFb2WltHtSejhRNb8UVs4QhxXiq9vQdf1BIByfe9oE6+YTcNLAIj/ij
- 3gpWorjlfL03ffDe/a0Y7zrHwNXVdr1DR/zvjYR4BpAak7GpvDRWT4ox+fq1KeA0qZ
- +WGKSFcSgYCjnPSZerKO5mRsxr8GKU6SWwT2XhPZCzwR6uNubRVKWAWTnDFYdBJf1Z
- zjqlXN1fpTmDt8g1X9LtEpEsz+J0GOuyGwQ8YvurX3hCaxpzEsdVHMSLEB+A3VZuD3
- yNTB+rSiUQQwCZ4Tx07KoB4EjjXu+sClnPzBaDmhQjDD3Wc9fmInB+d1UCt6ifIqzI
- 3oU5XNtcbw1LA==
+ b=dRCE5OfDYXBgtk7dnfD1xuKrA7mtXKGbWDZc2l5bgSltXOnLKtL5O94PrcC1+w2nX
+ mrfpPSfkYE5jIaO0gEX2OfLARGnOE7JoPLNa8tK7YDbCvx5NX24LiQHtjHb2CdNmTL
+ WyyDzMMJKgjtdgVcmCIkBLVWuiS/oaldsrvG+V710MKSt8wtxll4vys7tH9SOL2zsD
+ E9FyKgeWCnJd0NxfgfSVeo7Uf/+nYxMJqYhpLGAgq+T8kFi9Kk/sVJjPpIJYxVU+De
+ VCIcMdrlzZmaP16CqcZ4AMUqRTmDxoOkkk6SvY7bdjEA85piOfEnjkP2ng4Vc3YAAl
+ lAq5Kv48fwh/Q==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
- (envelope-from <rostedt@kernel.org>) id 1xLjLR-000000078gI-05dC;
+ (envelope-from <rostedt@kernel.org>) id 1xLjLR-000000078hw-2W0c;
  Tue, 27 Oct 2026 11:44:13 -0400
-Message-ID: <20261027154412.834382801@kernel.org>
+Message-ID: <20261027154413.428706632@kernel.org>
 User-Agent: quilt/0.69
-Date: Tue, 27 Oct 2026 11:37:00 -0400
+Date: Tue, 27 Oct 2026 11:37:03 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
@@ -76,8 +76,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
  linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
  linux-sctp@vger.kernel.org, netdev@vger.kernel.org
-Subject: [PATCH 2/9] accel/habanalabs: Use trace_call__##name() at guarded
- tracepoint call sites
+Subject: [PATCH 5/9] drm: Use trace_call__##name() at guarded tracepoint call
+ sites
 References: <20261027153658.703730257@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -115,89 +115,75 @@ Parts of the original v2 series have already been merged in mainline.
 This patch is being reposted as a follow-up cleanup for the remaining
 unmerged pieces.
 
-Link: https://patch.msgid.link/20260515135914.2238789-1-vineeth@bitbyteword.org
+Link: https://patch.msgid.link/20260515135932.2238842-1-vineeth@bitbyteword.org
 Suggested-by: Steven Rostedt <rostedt@goodmis.org>
 Suggested-by: Peter Zijlstra <peterz@infradead.org>
 Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
 Assisted-by: Claude:claude-sonnet-4-6
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- drivers/accel/habanalabs/common/device.c  | 9 +++++----
- drivers/accel/habanalabs/common/mmu/mmu.c | 3 ++-
- drivers/accel/habanalabs/common/pci/pci.c | 6 ++++--
- 3 files changed, 11 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   | 4 ++--
+ drivers/gpu/drm/scheduler/sched_entity.c | 5 +++--
+ 3 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/accel/habanalabs/common/device.c b/drivers/accel/habanalabs/common/device.c
-index 09b27bac3a31..68c6f973d53f 100644
---- a/drivers/accel/habanalabs/common/device.c
-+++ b/drivers/accel/habanalabs/common/device.c
-@@ -132,8 +132,9 @@ static void *hl_dma_alloc_common(struct hl_device *hdev, size_t size, dma_addr_t
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 5558e7330cf4..8873e28f526f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1025,7 +1025,7 @@ static void trace_amdgpu_cs_ibs(struct amdgpu_cs_parser *p)
+ 		struct amdgpu_job *job = p->jobs[i];
+ 
+ 		for (j = 0; j < job->num_ibs; ++j)
+-			trace_amdgpu_cs(p, job, &job->ibs[j]);
++			trace_call__amdgpu_cs(p, job, &job->ibs[j]);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 2bd07007def4..f10e443e1ebe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1425,7 +1425,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+ 
+ 	if (trace_amdgpu_vm_bo_mapping_enabled()) {
+ 		list_for_each_entry(mapping, &bo_va->valids, list)
+-			trace_amdgpu_vm_bo_mapping(mapping);
++			trace_call__amdgpu_vm_bo_mapping(mapping);
  	}
  
- 	if (trace_habanalabs_dma_alloc_enabled() && !ZERO_OR_NULL_PTR(ptr))
--		trace_habanalabs_dma_alloc(&(hdev)->pdev->dev, (u64) (uintptr_t) ptr, *dma_handle,
--						size, caller);
-+		trace_call__habanalabs_dma_alloc(&(hdev)->pdev->dev,
-+						 (u64) (uintptr_t) ptr,
-+						 *dma_handle, size, caller);
+ error_free:
+@@ -2189,7 +2189,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket)
+ 				continue;
+ 		}
  
- 	return ptr;
- }
-@@ -2656,7 +2657,7 @@ inline u32 hl_rreg(struct hl_device *hdev, u32 reg)
- 	u32 val = readl(hdev->rmmio + reg);
- 
- 	if (unlikely(trace_habanalabs_rreg32_enabled()))
--		trace_habanalabs_rreg32(&(hdev)->pdev->dev, reg, val);
-+		trace_call__habanalabs_rreg32(&(hdev)->pdev->dev, reg, val);
- 
- 	return val;
- }
-@@ -2674,7 +2675,7 @@ inline u32 hl_rreg(struct hl_device *hdev, u32 reg)
- inline void hl_wreg(struct hl_device *hdev, u32 reg, u32 val)
- {
- 	if (unlikely(trace_habanalabs_wreg32_enabled()))
--		trace_habanalabs_wreg32(&(hdev)->pdev->dev, reg, val);
-+		trace_call__habanalabs_wreg32(&(hdev)->pdev->dev, reg, val);
- 
- 	writel(val, hdev->rmmio + reg);
- }
-diff --git a/drivers/accel/habanalabs/common/mmu/mmu.c b/drivers/accel/habanalabs/common/mmu/mmu.c
-index 6c7c4ff8a8a9..dd8b6fb3aa1f 100644
---- a/drivers/accel/habanalabs/common/mmu/mmu.c
-+++ b/drivers/accel/habanalabs/common/mmu/mmu.c
-@@ -263,7 +263,8 @@ int hl_mmu_unmap_page(struct hl_ctx *ctx, u64 virt_addr, u32 page_size, bool flu
- 		mmu_funcs->flush(ctx);
- 
- 	if (trace_habanalabs_mmu_unmap_enabled() && !rc)
--		trace_habanalabs_mmu_unmap(&hdev->pdev->dev, virt_addr, 0, page_size, flush_pte);
-+		trace_call__habanalabs_mmu_unmap(&hdev->pdev->dev, virt_addr, 0,
-+						 page_size, flush_pte);
- 
- 	return rc;
- }
-diff --git a/drivers/accel/habanalabs/common/pci/pci.c b/drivers/accel/habanalabs/common/pci/pci.c
-index 81cbd8697d4c..12663e8e12e0 100644
---- a/drivers/accel/habanalabs/common/pci/pci.c
-+++ b/drivers/accel/habanalabs/common/pci/pci.c
-@@ -123,7 +123,8 @@ int hl_pci_elbi_read(struct hl_device *hdev, u64 addr, u32 *data)
- 		pci_read_config_dword(pdev, mmPCI_CONFIG_ELBI_DATA, data);
- 
- 		if (unlikely(trace_habanalabs_elbi_read_enabled()))
--			trace_habanalabs_elbi_read(&hdev->pdev->dev, (u32) addr, val);
-+			trace_call__habanalabs_elbi_read(&hdev->pdev->dev,
-+							 (u32) addr, val);
- 
- 		return 0;
+-		trace_amdgpu_vm_bo_cs(mapping);
++		trace_call__amdgpu_vm_bo_cs(mapping);
  	}
-@@ -186,7 +187,8 @@ static int hl_pci_elbi_write(struct hl_device *hdev, u64 addr, u32 data)
+ }
  
- 	if ((val & PCI_CONFIG_ELBI_STS_MASK) == PCI_CONFIG_ELBI_STS_DONE) {
- 		if (unlikely(trace_habanalabs_elbi_write_enabled()))
--			trace_habanalabs_elbi_write(&hdev->pdev->dev, (u32) addr, val);
-+			trace_call__habanalabs_elbi_write(&hdev->pdev->dev,
-+							  (u32) addr, val);
- 		return 0;
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 7be0387bac3c..ddf161a47742 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -500,7 +500,8 @@ static bool drm_sched_entity_add_dependency_cb(struct drm_sched_entity *entity,
+ 
+ 	if (trace_drm_sched_job_unschedulable_enabled() &&
+ 	    !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &entity->dependency->flags))
+-		trace_drm_sched_job_unschedulable(sched_job, entity->dependency);
++		trace_call__drm_sched_job_unschedulable(sched_job,
++							entity->dependency);
+ 
+ 	if (!dma_fence_add_callback(entity->dependency, &entity->cb,
+ 				    drm_sched_entity_wakeup))
+@@ -630,7 +631,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 		unsigned long index;
+ 
+ 		xa_for_each(&sched_job->dependencies, index, entry)
+-			trace_drm_sched_job_add_dep(sched_job, entry);
++			trace_call__drm_sched_job_add_dep(sched_job, entry);
  	}
- 
+ 	atomic_inc(entity->rq->sched->score);
+ 	WRITE_ONCE(entity->last_user, current->group_leader);
 -- 
 2.53.0
