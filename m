@@ -2,101 +2,144 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B53606A31D
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 18:27:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE13606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 18:55:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hTSoZx0g
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vb57pl2t;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CZ+GwYC+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E94410E476;
-	Tue, 27 Oct 2026 18:27:16 +0000 (UTC)
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com
- [209.85.217.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96B2810F56B
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 18:27:10 +0000 (UTC)
-Received: by mail-vs1-f49.google.com with SMTP id
- ada2fe7eead31-7cc18f754f1so9877137.2
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 11:27:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793125629; cv=none;
- d=google.com; s=arc-20260327;
- b=WWeV2DswN4yVD3kF/0qr0bPKHc4gKucyjyL7biCs6rcjZ0H/yGy+gNYV7EDlNy2FdE
- f28lXHd0EtSYm8OkRKrGrfdjKCh9XyvjSPJGob686+f6NkBPi/9w+Vqm1E98SPryrbVF
- rqvw2k3/5L6OQP/7xL4eu67pOSTwDm3l2fSepzCVIAMeTWx1QFj0VG+5q6t/pv/w5czt
- 9cFn5NzNHBnawnx5TQFVmOSg+nkKSvJdaRbkfAzuhNX6chSSH0/EIN/wqKpEr0QTvujH
- GtBIVDKpKmiviHQ61aFozbmyF7qxL4gZMxtrd7wMwHu4OHdaHqXNXeNDJ+CAYfHQwJbN
- chag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Vw76Aew22t/uqoyjfMPtUUfN6vLBI7u4FwkWnSbrmwo=;
- fh=90y6KM2KQ296CJEGxgb0WL2JLcg9VNR7tjHciLyh2RI=;
- b=hu8zJ2SWEC8VNbH3GZ383EGuDr6SZHTR3R7/F1nrESoKkgKruN4JboEZzDG0gWg3Gh
- hsiernDBO6B9rFJcFnF3aKXlBmOfnJnYvu8HRpwg8BlW1KjQU8k259gwrQq2YGZiDyJe
- qiv96l/B1o2yLmIvIfyaYF1lp2CIdx448907TVtCBzY/Dt7OksE0tRW8qVCrJwY/d2FC
- vv2x4f1d5C8387PacYEL4zj2MCjfN5ds7VoFH9TRt3PnSMxUWE946MbvsEKSuhRun+q3
- d9olVOYHNN/4+C3/iMNdHm6FXXUquCxrCMFTd9vbyDWgo7ArQ90+1bh5ZLS+DQtgU1TI
- fP8w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 836E310E466;
+	Tue, 27 Oct 2026 18:55:25 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8A0C10E466
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 18:55:14 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69RIHEbR2087944
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 18:55:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=fqBmnY8T0CqGP0cX8wFwCoHF
+ xWCAuxU3CcoqNGTy3Js=; b=Vb57pl2tMbv6ai+TSzye1rjbv9idcPtDHHdFNQpQ
+ pZE/q4OMfAicpWV+ah2+wQabqYkuCVjJYeW+B/icdqgkBm/3zI7d5ozIXIde4oeD
+ AcTbekr2Ky4CeOb6XU3tSKfVRyqYfU2Cm4pbsUa1pEE333URuBqxaJkLE1ZQYB+5
+ gvcH3AAdrapWLPLFPBlj8iIFgFIxguwSeFN2knlUxfZ268DwZtclZ+db5Be4YS2h
+ GxDHh5O+LruCzwzrb5KU3Mjty5BQOsxAWaJ85BABikYlzMI8dv521HCPfJ9xSWyL
+ 6RcC1sW5cVcbVhCUHr6mcu61e2Et4JCwS8+Davs7sVzySQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjp2tb79a-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 18:55:14 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-34edae32c04so17237eec.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 11:55:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793125629; x=1793730429; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=oss.qualcomm.com; s=google; t=1793127313; x=1793732113;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Vw76Aew22t/uqoyjfMPtUUfN6vLBI7u4FwkWnSbrmwo=;
- b=hTSoZx0g5EsYJMw9efBzwbgP6Z6j6fad+zKdnUfm0V9Z6xEBCsFQTLFBmLpbEbYu6Q
- wAsQSw2RnbTRLS6mZ1jo3gJfwaaqwoBfGrviA6EGwJHCItWrB0U2LF2GrMvPd1B4EWpB
- QRYTABi/OROxfR9h9tmReK4mWWTSpUhwLYc4TJrEzn9u9OvkMZm2FSc5Q3Qkc3em5Evo
- pTgD25FHyo8jAs3PGEVYoCgOenLamtGxatbByexpb3DGVcaVt2VP6lD2MEpf3Yj6gsKK
- B4nYD2kFFxDxfcTuyTUNH0f+fX4qzRJMNuPV4edHJSBfIdH4vsUxJ/EVlbLkBHuH3yVN
- 9FBA==
+ bh=fqBmnY8T0CqGP0cX8wFwCoHFxWCAuxU3CcoqNGTy3Js=;
+ b=CZ+GwYC+y2+5lJOJO/oPZt6yn4jxaCoPUzCQODPzvKEO5eCnW8FJf+CSMfaEq3HGx4
+ 7QLPk/ijwgP7HJLLXMVW9LqWJjKxqZiPA1v8CWNEw2PtL+V3a9qjv7LerX0hq5uaL9jd
+ CX8ytnvJq7q/Lj1fNFtSJHmmUjdmcvCTrIE3x07/T7rY4PA7iI7W0mlRtbdx8ubKsrxD
+ rP+byZcZSEmRj6bAuL/gLePIkmFqGp2yNBizr/0oNv12bBcth2y2vSfAQ9XETruB5qlJ
+ fdrOmX8FqOiZlkJse1dZnxY+jrnesAa8xGqStQ1sMrOVxDd6l3Wkp87GLlvQN6gEmBLt
+ 1EsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793125629; x=1793730429;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20260707; t=1793127313; x=1793732113;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Vw76Aew22t/uqoyjfMPtUUfN6vLBI7u4FwkWnSbrmwo=;
- b=DZFqV4m5XYvemk34wV9WTbejaD+9Fd7CCiaI9LRUsGLGr76koSwHY41AC+AwpsmnR4
- QljPdL2woZCbsASmnyn1SS1lJcoQCLpn4BbE3LspaTRvo2rUyJGD4Wb+5sDY8tGGUX/x
- X2gKAT2L4rmuQFFAeeFUKLZ89R5Bv0pjXmOBtHPQauosHgLO04YT/GZWxKqyVzylEwER
- PDAIsPJk+EzM27EzbbEk2yrfB8BXfJZrSqIvs+IcT+tnRi6xWmOAtaztlTzBl08I8Lln
- JRrN7HNk7mxavNyvBvQNUUehiVZquIlM0A/XIFzbnqmrUuAqZrpQgTwnj68QceWrAtxF
- rYvw==
+ bh=fqBmnY8T0CqGP0cX8wFwCoHFxWCAuxU3CcoqNGTy3Js=;
+ b=Ee92p5694iyohoCNt5OKbkeal1dFKb//3ZyvgskIZKHTZPM96XCDGiD84HpfVSutoF
+ U4G+OiCParHW2onS10Qng8WHdGqzAKXjoPkEEpQk1AGTmSfWUZ4nGoQJiWvop+3K1fq9
+ tuToxbXQTVymlfZv+16zZOYDmp+kteSmeayt/wDVQgwgFfynmGuu6vKcF2OIHmU4s2BQ
+ 8pipJeQpYVEienUh6lPpxzP2NawZDPh8dwe4gvhdox32tdCJS05c+57VgG47ZnXAqq1Q
+ NRFm/pBhhH7nlkYXKEbUe87uQHqBF0aYuVm1enemBcigCoe9USU+/vu2KRctXScByOwJ
+ IVUw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw2APg5VpAeM+vNW/9VdubVhfJRDW6httIMvTMTZc7gnqYhtwj8V74EO68KYosz0zgRGlHi9SdPPrw=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKh1ITQ/IYHXT9hICzh6shwOlKdsDzec0Rd/ESroCW1SRUzWsOo
- OBnbm6tsjr0UbTuNZPy8oQofKAZYV2v2YoGru28zxaCBeIPrBcOSMPxw5lXl+bFdS1kPcbIaytC
- 9DZXJuy7as423cTxM+pB8L8KICzm1+sQ=
-X-Gm-Gg: AYBFou1iTZFiHEHWg6SeuIw2YoFHtXAYywnwsO+GU6HjQApXTLEonNkPLgiezitZrRa
- RtImCgTcEl1RAs14v3v+Xz9Gh7yloWsqySOmUxDol2WjnRKddxh5HHJpkLHIvuMRHBeL5xSbR7/
- xjVcgFUzejCQbqkHsRd/c9xlzYEc2neVkXWHdG83Djswdp1rW2Xi2/plXeoRW46DvOhUvuixw6y
- zLPqbtDM0JSqc2YSO/Jj7zS/Cy7K9E7BG/SgqFEAn56B6hMHjQ/7phhOG23iE92ryxbHmvuSaaB
- KON8JEyBEZkAQhEcgvejnRzXxJyGqZ8go8Y1sOhOYkh6y/nl7JaMHaYUendQVnwFvl/JWUSmPdD
- QfVefbnu6itNzGW3WlLdgUmOltROM5TUb4U+2ptP9qoEgYacIJmuyy+NaEm0Vt+ymAiDYRS9x03
- EoCByVlQP/GIYCvCoksWiO9bw=
-X-Received: by 2002:a67:f28e:0:b0:7c8:3b8c:82ae with SMTP id
- ada2fe7eead31-7d03a4e9c8emr64081137.2.1793125629415; Tue, 27 Oct 2026
- 11:27:09 -0700 (PDT)
+ AKwUvByCB7xwvRTz39YKejo086PFtIoHn0rCusqaDUUEhemTVdEPY54Fq9IH58OpeE4OMkMKXemxOO8Aij8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI6+R6fd5YrMnSH9KbssVdwLA9LKysBbCuGttNrjafUOVR4agSR
+ 3+kZt6pqBZyXzUq6bgO3Jomv18HLd8OiffJmRoEJ2RhA4NTh9IdQYew0rXWkb0w/UPytzelrX01
+ z/gNxIGUFdwvKjngA9Mz1uAeIgrcty8UDPjn9rjEkxepkDXXnMeZ9+Atu4Fa4VFPGl9d/bps=
+X-Gm-Gg: AYBFou34KGydGDXEXJ/lVzrEgEOkx9mc79Ihr5jlgSQpKCbytywAVC076jbs4aIg9Nk
+ vL1ImQ+entWR+cxSU/SPAd3okW6pVk5yrZO6Y5mxIuAmO9cLyySGT3zw+xouDyBvLKuEfoYeVwq
+ UjtUwHa/EZ2JCNPxvDKSwA6DYG28nToDh+w7ZI9y6kzcscZV8lfMJYq94EwriNYcWTmsx4VBr5g
+ bz158bjDB5EI0mnEwg2zwuAUyqo+HU7arK61mKxE+ANfMOw/tVol+Qfrzib94U4lYzwelP0alVL
+ cy/Bm3lnAFQRxUOmqZPIAJNKD/NqMdO+lhh5vsJF+csntYH3aAc4JVyrkpZenUJLJvT4xSSwSpU
+ Kv08PCZYoFRenBhpal6ofWjo2hFrBXWNG3BFJnZ1lgkNeTIlxdhrmLTxyQWzsWz/U1Lz4DbmtXd
+ HGcQiYi6/fa9t7uBXQZ2vD7CnEYOTFNpIVryY9PnTocyeSkMpOBrYQNyDtpm0TQebqjwSUQL28H
+ +L2Oi/qK1ELwAOfFhEdKGt2D22ppg==
+X-Received: by 2002:a05:7300:148f:b0:368:5521:612f with SMTP id
+ 5a478bee46e88-36a1ffb195fmr1204190eec.0.1793127312902; 
+ Tue, 27 Oct 2026 11:55:12 -0700 (PDT)
+X-Received: by 2002:a05:7300:148f:b0:368:5521:612f with SMTP id
+ 5a478bee46e88-36a1ffb195fmr1204066eec.0.1793127312021; 
+ Tue, 27 Oct 2026 11:55:12 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36a005c0188sm23309209eec.9.2026.10.27.11.55.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Oct 2026 11:55:11 -0700 (PDT)
+Date: Wed, 28 Oct 2026 00:25:04 +0530
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com
+Subject: Re: [PATCH] dt-bindings: display: panel: ilitek,ili7807s: Allow
+ backlight property
+Message-ID: <auDziHHv7Z7k4xyO@hu-vishsain-blr.qualcomm.com>
+References: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
+ <20261027-fantastic-benevolent-boobook-272a9a@quoll>
+ <auCDgewe04WKbamD@hu-vishsain-blr.qualcomm.com>
+ <c58c89cd-94a5-4776-b186-44c4b1b3c3ab@kernel.org>
+ <auDrCTMk3oCLa91X@hu-vishsain-blr.qualcomm.com>
+ <97ffe608-a69d-4f88-9e1c-fe991a36aa1d@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <3ff4ef96-9c59-4e8d-a0da-92a1ac6f5ba1@gmail.com>
-In-Reply-To: <3ff4ef96-9c59-4e8d-a0da-92a1ac6f5ba1@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Oct 2026 14:26:56 -0400
-X-Gm-Features: AclHuK_aiFzsLGIkoZq8NQtZC7JMp_ex6BpnMJZTO84Fyg8IpU6xOsXcoFUrrY4
-Message-ID: <CADnq5_Nn7+baU=Rdaa8QzOCo64H=ch9HeDaEwtmbQwW0kP00nQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amd/display: report synced Apple 5K tiles to
- PowerPlay for MCLK switch
-To: Richard Lane <richardlanedev@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <97ffe608-a69d-4f88-9e1c-fe991a36aa1d@kernel.org>
+X-Authority-Analysis: v=2.4 cv=AJjzCM5L c=1 sm=1 tr=0 ts=6ae0f392 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=d80Fkh-WlB0DjQDMt3cA:9 a=CjuIK1q_8ugA:10 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: FlB_EKhFt5MylOTqIZi4A_z5PPAvJ5mf
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA3NSBTYWx0ZWRfXxCQrcmCP0iu1
+ 0xc+mPj0E8d5+JOwCd1W3cSuZH2fftkyjQXfqQOPOlOLvIAMXew/yBjU7EfpGda8MgGeTG9BOU+
+ oyMiAvyn7ptFTntNHPhTHVgsUIY2b7Y=
+X-Proofpoint-ORIG-GUID: FlB_EKhFt5MylOTqIZi4A_z5PPAvJ5mf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA3NSBTYWx0ZWRfXz0K5hZc4D2Ex
+ txm0g6WKfn6l6utpgmq1tUGqBpC5SHTE61ltjmqIiGReBcSYc+8RgI4+maGFoZ+koupd7zu2ely
+ dFskcSBfAhD3v+O69RzEitAMhwqL3I60T5Bqbze6336/Yie7PQyHgGCg8xuEESVsZz2kdZdc107
+ n/tmmLNJyy4pg8WDY0/l6qChw9g70qUomHBknz3qriQQPuoAiSjOG4c9P/ZnfyFvyHU2qEsEM2S
+ PoQmBnoV41RF2ExyEMIARdQHwTbLbMSouGL0hCyVJ3QoEK3KDE2ihMHKgdE8v5frS6R/w42dApp
+ OqCwRVaQxOt+fB88ZDicZxMqEnfNxWWG2GGQwifb5bkkFf1aeBJnQeXcfG7sE420rAZhr3Ob6i/
+ B5j5hGdpNfd0RX4Irz7ZYj78k0jFH4CivdTJguj9D9+GAk/PV1Cq89wpuiXqmCWKtQSFlf8QpRD
+ zChr9xuLuoC3EyIL6VQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270075
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,71 +151,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 27, 2026 at 5:41=E2=80=AFAM Richard Lane <richardlanedev@gmail.=
-com> wrote:
->
-> When driving both 2560x2880 tiles of an Apple 5K iMac panel, Display
-> Core's program_timing_sync() already aligns both CRTCs in hardware
-> during dc_commit_streams() because the two streams share identical
-> timings.
->
-> However, on DCE < 12 (iMac15,1 through Polaris-based iMac19,1), Display
-> Core leaves pp_display_cfg.all_displays_in_sync unset. Because PowerPlay
-> is not informed that the two streams have synchronized vertical blanking
-> intervals, SMU7 prevents MCLK switching at idle or causes modeset
-> underflows.
->
-> Report all_displays_in_sync =3D true to PowerPlay after committing both
-> tiled streams so SMU7 knows the tiles blank simultaneously and can
-> safely downclock MCLK at idle.
->
-> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 548f975c7324..384a81371f80 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4788,6 +4788,19 @@ static void amdgpu_dm_commit_streams(struct drm_at=
-omic_commit *state,
->         mutex_lock(&dm->dc_lock);
->         dc_exit_ips_for_hw_access(dm->dc);
->         WARN_ON(!dc_commit_streams(dm->dc, &params));
-> +       /*
-> +        * DCE < 12 leaves all_displays_in_sync unset; report synchronize=
-d
-> +        * Apple 5K tiles to PowerPlay after commit so SMU7 can downclock=
- MCLK
-> +        * at idle without modeset underflows.
-> +        */
-> +       if (params.stream_count =3D=3D 2 &&
-> +           params.streams[0]->link->tiled_peer =3D=3D params.streams[1]-=
->link) {
-
-This should be made generic for any combination of displays with
-identical timings.
-
-Alex
-
-> +               struct dm_pp_display_configuration *pp_cfg =3D
-> +                       &dm->dc->current_state->pp_display_cfg;
-> +
-> +               pp_cfg->all_displays_in_sync =3D true;
-> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
-> +       }
->
->         bool frl_stream_found =3D false;
->
-> --
-> 2.55.0
+On Tue, Oct 27, 2026 at 07:24:08PM +0100, Krzysztof Kozlowski wrote:
+> On 27/10/2026 19:18, Vishnu Saini wrote:
+> >>>>> Declare 'backlight: true' so the property is explicitly allowed by the
+> >>>>> schema.
+> >>>>
+> >>>> Why do you need to explicitly allow it? Since when?
+> >>>>
+> >>>> I see no benefit of this patch and commit msg does not explain me what
+> >>>> that benefit would be.
+> >>> It is required for below DLC panel, when enabling backlight using gpio-backlight driver,
+> >>
+> >> How is it required? You did not really answer, so again:
+> >>
+> >> Why do you need to explicitly allow it?
+> >>
+> >> Answer starts "because ... " and you provide technical arguments, not
+> >> wishes.
+> > Because the DLC panel node references an external gpio-backlight device through the
+> > backlight property, but the current DLC binding does not allow this property.
+> > As a result, adding the backlight phandle to the panel node causes a dtbs_check validation error.
+> 
+> Thanks, but that's confusing or we looked at different source code,
+> because to my eyes it clearly lists backlight already. Can you show me
+> how can I reproduce the dtbs_check error?
+You are right. I was looking at an older version of the binding which used additionalProperties: false.
+The current binding uses unevaluatedProperties: false and references panel-common.yaml,
+where the backlight property is already defined.
+Therefore, I cannot reproduce the dtbs_check error with the current binding.
+Thanks for pointing this out. This patch is redundent.
+ 
+> 
+> Best regards,
+> Krzysztof
