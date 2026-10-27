@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75991606A31D
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 23:18:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A85606A31E
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 23:24:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZP2VHaAk
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTJk+ArN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D20CB10F88A;
-	Tue, 27 Oct 2026 23:18:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 328EA10F8AB;
+	Tue, 27 Oct 2026 23:24:39 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9221310F88A
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 23:18:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2529F10F8C5
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 23:24:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A5DA560098;
- Tue, 27 Oct 2026 23:18:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B94F1F01825;
- Tue, 27 Oct 2026 23:18:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 68DC9600C8;
+ Tue, 27 Oct 2026 23:24:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0163D1F01825;
+ Tue, 27 Oct 2026 23:24:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793143108;
- bh=aBkI2p0jqb58qlc/qUeuZVOxAAvfchvZjXh/y/P9dXs=;
+ s=k20260515; t=1793143472;
+ bh=CZKIw0dojf3t3xPnWe1cEhW2hshBITFEjzke6gVN4MY=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=ZP2VHaAk3yMD8Hk+16oFpY235azy/+cJG2YoTDN3JRiN/ZnkZcF0YkmXaSi5DeSvI
- TXwHdYBKFaPKDnpFD4/6zqNAX+R+OD+vk0x+PptGbPFwZ5tDgFoz+wU3G6K+q7XlW2
- 1c2z8udfKsVWKbaUlHF99THJlnTw+5Y8YyuA6qbUrkf0O2a+QcjRQOkXJdzg9om5Vs
- GlLwcnVzqGZL4282gGONpgx6LllbikufJiHOQG2bvsbXF/dmmUJEncdWE1OL+Iue4U
- bPOp8NdwjkvBrY6sbBTFiWNcpHx8dInfywoRGf9s2BLrYkgWvOrRGMDq6vyRmCoPqu
- 5ainPTQaLY2Xw==
-Message-ID: <sashiko-outbox-187204@kernel.org>
+ b=iTJk+ArNJDUXTLpId66G7/nAvSOwm9lHIFsqk5yLbsP6rBovOVStls4iiRIC0tpTU
+ nU2PHT/uZZzUto/OUgR40fMm20SJtDIvNQ1frm0z6dkYYHHGTegs4d5m3tuj8LMT3V
+ 2qzKnHqbf3BRbdLNL3lfIqu1ZmbbJcwH3ssHtxTCeTMQWOIumxK+DEZqgyo9WnhdPG
+ i1sgzz3M+nfNMn85fVmnqR02xlb0yD/ho+icxazjdBzrhaKWw8K7ZMxr8J0noQHqRk
+ MCF9wWh7b2GcczUdf6zrEX1LplLLObfrKh3R82uTqScG3kS4qycBPekuOthKTCTWXB
+ 69eM+gZX/M8uQ==
+Message-ID: <sashiko-outbox-187205@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/6] drm/msm: Convert iommu map/unmap to helpers
+Subject: Re: [PATCH v3 2/6] drm/msm/gem: dma_map/unmap_sgtable()
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261027230452.130031-5-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20261027230452.130031-3-robin.clark@oss.qualcomm.com>
 References: <20261027230452.130031-1-robin.clark@oss.qualcomm.com>
- <20261027230452.130031-5-robin.clark@oss.qualcomm.com>
+ <20261027230452.130031-3-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 23:18:27 +0000
+Date: Tue, 27 Oct 2026 23:24:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,193 +59,140 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] drm/msm: missing leaf IOTLB invalidation in __unmap_iommu() on=
- qcom_iommu
-- [High] drm/msm: bypassed iommu_sync_map() and core IOMMU API in msm_iommu=
-_map()
+- [High] drm/msm: NULL pointer dereference in get_pages() on dma_map_sgtabl=
+e() error
+- [High] drm/msm/gem: dma_map_sgtable() maps via iommu-dma when ddev->dev h=
+as iommus
 --
 
-commit efc83727eef15680f9e495c695cd848cb428e1a7
+commit 4102c003f615c93e1ee62bff745ef3edfcbebd16
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm: Convert iommu map/unmap to helpers
+drm/msm/gem: dma_map/unmap_sgtable()
 
-This commit converts msm_iommu_map() and msm_iommu_unmap() in
-drivers/gpu/drm/msm/msm_iommu.c to use the __do_map() and __do_unmap()
-helpers via domain->ops->map_pages() and domain->ops->unmap_pages().
+This commit replaces the cache sync helpers in msm_gem with unconditional
+dma_map_sgtable() and dma_unmap_sgtable() calls in get_pages() and
+put_pages() to populate scatterlist dma addresses and lengths. It also adds
+sgtable cleanup to the error path in get_pages().
 
-> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_io=
-mmu.c
-> index 5c13ad6d5a366..479e5450a4dcd 100644
-> --- a/drivers/gpu/drm/msm/msm_iommu.c
-> +++ b/drivers/gpu/drm/msm/msm_iommu.c
-> @@ -731,12 +731,38 @@ static void msm_iommu_detach(struct msm_mmu *mmu)
->  	iommu_detach_device(iommu->domain, mmu->dev);
->  }
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index 181b9ad326729..c97395e4ea2be 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+
+[ ... ]
+
+> @@ -219,13 +192,20 @@ static struct page **get_pages(struct drm_gem_objec=
+t *obj)
+>  			goto error;
+>  		}
 > =20
-> +static size_t
-> +__unmap_iommu(void *arg, u64 iova, size_t pgsize, size_t pgcount)
-> +{
-> +	struct iommu_domain *domain =3D arg;
-> +	return domain->ops->unmap_pages(domain, iova, pgsize, pgcount, NULL);
-> +}
-> +
-> +static int
-> +__map_iommu(void *arg, phys_addr_t paddr, u64 iova, size_t pgsize,
-> +	    size_t pgcount, int prot, size_t *mapped)
-> +{
-> +	struct iommu_domain *domain =3D arg;
-> +	return domain->ops->map_pages(domain, iova, paddr, pgsize, pgcount,
-> +				      prot, GFP_KERNEL, mapped);
-> +}
-> +
-> +static void
-> +__flush_iommu(void *arg)
-> +{
-> +	struct iommu_domain *domain =3D arg;
-> +	iommu_flush_iotlb_all(domain);
-> +}
-
-[Severity: Critical]
-Does passing NULL for the gather parameter in __unmap_iommu() paired with
-iommu_flush_iotlb_all() in __flush_iommu() leave stale leaf IOTLB entries
-on platforms using qcom_iommu?
-
-Previously, msm_iommu_unmap() called iommu_unmap(), which passed a valid
-struct iommu_iotlb_gather to domain->ops->unmap_pages() and then called
-iommu_iotlb_sync().
-
-With gather set to NULL in __unmap_iommu(), __arm_lpae_unmap() in
-drivers/iommu/io-pgtable-arm.c skips per-page TLB invalidation:
-
-drivers/iommu/io-pgtable-arm.c:__arm_lpae_unmap() {
-    ...
-		if (gather && !iommu_iotlb_gather_queued(gather))
-			for (int j =3D 0; j < i; j++)
-				io_pgtable_tlb_add_page(iop, gather, iova + j * size, size);
-    ...
-}
-
-On SoCs using drivers/iommu/arm/arm-smmu/qcom_iommu.c, skipping
-io_pgtable_tlb_add_page() means qcom_iommu_tlb_add_page() is never called
-to write ARM_SMMU_CB_S1_TLBIVAL. When __do_unmap() then calls
-__flush_iommu() -> iommu_flush_iotlb_all(), qcom_iommu_flush_iotlb_all()
-only issues a TLBSYNC barrier without invalidating the context bank by
-ASID (qcom_iommu_tlb_inv_context()):
-
-drivers/iommu/arm/arm-smmu/qcom_iommu.c:qcom_iommu_flush_iotlb_all() {
-	struct qcom_iommu_domain *qcom_domain =3D to_qcom_iommu_domain(domain);
-	struct io_pgtable *pgtable =3D container_of(qcom_domain->pgtbl_ops,
-						  struct io_pgtable, ops);
-	if (!qcom_domain->pgtbl_ops)
-		return;
-
-	pm_runtime_get_sync(qcom_domain->iommu->dev);
-	qcom_iommu_tlb_sync(pgtable->cookie);
-	pm_runtime_put_sync(qcom_domain->iommu->dev);
-}
-
-As a result, unmapping leaf pages in msm_iommu_unmap() (or during error
-rollback in __do_map()) issues no hardware TLB invalidation on qcom_iommu,
-allowing the GPU or display engine to continue accessing unmapped and freed
-GEM pages via stale IOTLB entries.
-
-> +
-> +static const struct map_ops iommu_ops =3D {
-> +	__unmap_iommu, __map_iommu, __flush_iommu
-> +};
-> +
->  static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
->  			 struct sg_table *sgt, size_t off, size_t len,
->  			 int prot)
->  {
-> -	struct msm_iommu *iommu =3D to_msm_iommu(mmu);
-> -	ssize_t ret;
-> +	struct iommu_domain *domain =3D to_msm_iommu(mmu)->domain;
-> =20
->  	WARN_ON(off !=3D 0);
-> =20
-> @@ -744,23 +770,18 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint6=
-4_t iova,
->  	if (iova & BIT_ULL(48))
->  		iova |=3D GENMASK_ULL(63, 49);
-> =20
-> -	ret =3D iommu_map_sgtable(iommu->domain, iova, sgt, prot);
-> -	if (ret < 0)
-> -		return ret;
+> -		update_device_mem(dev->dev_private, obj->size);
 > -
-> -	return (ret =3D=3D len) ? 0 : -EINVAL;
-> +	return __do_map(domain->pgsize_bitmap, iova, sgt, off, len, prot,
-> +			domain, &iommu_ops);
->  }
-> =20
->  static int msm_iommu_unmap(struct msm_mmu *mmu, uint64_t iova, size_t le=
-n)
->  {
-> -	struct msm_iommu *iommu =3D to_msm_iommu(mmu);
-> +	struct iommu_domain *domain =3D to_msm_iommu(mmu)->domain;
-> =20
->  	if (iova & BIT_ULL(48))
->  		iova |=3D GENMASK_ULL(63, 49);
-> =20
-> -	iommu_unmap(iommu->domain, iova, len);
-> -
-> -	return 0;
-> +	return __do_unmap(domain->pgsize_bitmap, iova, len, domain, &iommu_ops);
->  }
+> -		/* For non-cached buffers, ensure the new pages are clean
+> -		 * because display controller, GPU, etc. are not coherent:
+> -		 */
+> +		/* For non-cached buffers, ensure the new pages are clean. */
+>  		if (msm_obj->flags & MSM_BO_WC)
+> -			sync_for_device(msm_obj);
+> +			map_attrs =3D 0;
+> +
+> +		ret =3D dma_map_sgtable(drm_dev_dma_dev(obj->dev),
+> +				      msm_obj->sgt,
+> +				      DMA_BIDIRECTIONAL,
+> +				      map_attrs);
 
 [Severity: High]
-What happens on platforms that require .iotlb_sync_map or use generic_pt
-when msm_iommu_map() and msm_iommu_unmap() bypass the core IOMMU API and
-call domain->ops->map_pages() and domain->ops->unmap_pages() directly?
+Does calling dma_map_sgtable() on drm_dev_dma_dev(obj->dev) always take the
+dma-direct path when dma_map_ops is null?
 
-1. Previously, msm_iommu_map() called iommu_map_sgtable() ->
-   iommu_map_sg(), which calls iommu_sync_map() after mapping the
-   scatterlist:
+In kernel/dma/mapping.c:dma_go_direct(), use_dma_iommu(dev) is checked befo=
+re
+testing whether ops is null:
 
-   drivers/iommu/iommu.c:iommu_map_sg() {
-       ...
-	ret =3D iommu_sync_map(domain, iova, mapped);
-	if (ret)
-		goto out_err;
-       ...
-   }
+kernel/dma/mapping.c:dma_go_direct() {
+	if (use_dma_iommu(dev))
+		return false;
 
-   __do_map() only calls __map_iommu() -> domain->ops->map_pages() and
-   never invokes domain->ops->iotlb_sync_map. On APQ8064/MSM8960
-   (drivers/iommu/msm_iommu.c), the IOMMU driver relies on
-   .iotlb_sync_map =3D msm_iommu_sync_map to flush the IOTLB for newly mapp=
-ed
-   ranges via __flush_iotlb_range(), which is now skipped.
+	if (likely(!ops))
+		return true;
+    ...
+}
 
-2. In drivers/iommu/iommu.c:iommu_map_nosync() and __iommu_unmap(),
-   domains converted to generic_pt (iommupt) use pt->ops->map_range and
-   pt->ops->unmap_range and leave domain->ops->map_pages and
-   domain->ops->unmap_pages as NULL:
+On platforms where the iommus property in device tree is attached directly =
+to
+the mdp device (obj->dev->dev) rather than the parent mdss node (as handled
+in drivers/gpu/drm/msm/msm_kms.c:msm_kms_init_vm() when checking
+device_iommu_mapped(mdp_dev)), such as qcom_iommu platforms (msm8916,
+msm8939, msm8953, etc.) and qcom,mdp5 arm-smmu-qcom platforms (msm8996,
+sdm630, sdm660) that are not matched in qcom_smmu_client_of_match[], the
+iommu core allocates a default dma domain and sets DEV_FLAG_DMA_IOMMU on
+obj->dev->dev.
 
-   drivers/iommu/iommu.c:iommu_map_nosync() {
-       ...
-	if (pt)
-		ret =3D pt->ops->map_range(pt, iova, paddr, size, prot, gfp,
-					 &mapped);
-	else
-		ret =3D __iommu_map_domain_pgtbl(domain, iova, paddr, size, prot,
-					       gfp, &mapped);
-       ...
-   }
+When msm_iommu_new() later attaches an unmanaged domain via
+iommu_attach_device(), DEV_FLAG_DMA_IOMMU and group->default_domain remain =
+on
+the device. As a result, get_pages() -> dma_map_sgtable() ->
+__dma_map_sg_attrs() -> iommu_dma_map_sg() maps every buffer into the unused
+default_domain and populates sg_dma_address(sg) with default_domain dma
+addresses instead of physical addresses.
 
-   Directly dereferencing domain->ops->map_pages and
-   domain->ops->unmap_pages in __map_iommu() and __unmap_iommu() will
-   dereference NULL on any IOMMU driver using generic_pt.
+When paired with the subsequent change in this series ("drm/msm: Convert map
+helper to use dma-address") where __do_map() passes sg_dma_address(sg) as t=
+he
+physical address to pgtable->map(), won't this program the gpu and display
+page tables with default_domain dma addresses instead of cpu physical
+addresses on those platforms?
 
-3. On arm-smmu, replacing iommu_unmap() (which uses struct
-   iommu_iotlb_gather for range-targeted ARM_SMMU_CB_S1_TLBIVAL
-   invalidations followed by iommu_iotlb_sync()) with
-   domain->ops->unmap_pages(..., NULL) and iommu_flush_iotlb_all() forces a
-   full ASID invalidation (ARM_SMMU_CB_S1_TLBIASID) on every unmap,
-   evicting all TLB entries for active display scanout buffers and shared
-   GPU mappings.
+> +		if (ret) {
+> +			DRM_DEV_ERROR(dev->dev, "could not map sgtable: %d\n", ret);
+> +			goto error;
+> +		}
+> +
+> +		update_device_mem(dev->dev_private, obj->size);
+> =20
+>  		update_lru(obj);
+>  	}
+> @@ -233,6 +213,8 @@ static struct page **get_pages(struct drm_gem_object =
+*obj)
+>  	return msm_obj->pages;
+> =20
+>  error:
+> +	if (!IS_ERR(msm_obj->sgt))
+> +		drm_prime_gem_destroy(obj, msm_obj->sgt);
+
+[Severity: High]
+Will calling drm_prime_gem_destroy() in the get_pages() error path cause a
+null pointer dereference and leak msm_obj->sgt when dma_map_sgtable() fails?
+
+At the start of drivers/gpu/drm/msm/msm_gem.c:get_pages(), imported objects
+are rejected:
+
+	if (drm_WARN_ON_ONCE(obj->dev, drm_gem_is_imported(obj)))
+		return ERR_PTR(-EINVAL);
+
+so obj->import_attach is always null here, and msm_obj->sgt is allocated via
+drm_prime_pages_to_sg().
+
+If dma_map_sgtable() fails and jumps to error, drm_prime_gem_destroy() is
+called with a valid msm_obj->sgt pointer on a non-imported object:
+
+drivers/gpu/drm/drm_prime.c:drm_prime_gem_destroy() {
+	struct dma_buf_attachment *attach;
+	struct dma_buf *dma_buf;
+
+	attach =3D obj->import_attach;
+	if (sg)
+		dma_buf_unmap_attachment_unlocked(attach, sg, DMA_BIDIRECTIONAL);
+	dma_buf =3D attach->dmabuf;
+    ...
+}
+
+Since attach is null, dma_buf_unmap_attachment_unlocked() triggers a warning
+and attach->dmabuf dereferences a null pointer while leaving msm_obj->sgt
+unfreed. Should this error path free msm_obj->sgt using sg_free_table() and
+kfree() as done in put_pages()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027230452.1300=
-31-1-robin.clark@oss.qualcomm.com?part=3D4
+31-1-robin.clark@oss.qualcomm.com?part=3D2
