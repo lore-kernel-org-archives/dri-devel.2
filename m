@@ -2,68 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFE760A6F7D
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 12:02:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78AB60A381F
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 12:02:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2sP1Nwp
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XlEtH5aB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4308310F417;
-	Tue, 27 Oct 2026 12:01:57 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACBFF10F417
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 12:01:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4715C10F41A;
+	Tue, 27 Oct 2026 12:02:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4147010F41F
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 12:01:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4BE3343BAF;
- Tue, 27 Oct 2026 12:01:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 84D4860232;
+ Tue, 27 Oct 2026 12:01:51 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793102510;
- b=MXlvWZEomAVTpgBJAhvfl/qvIrJ4sOeR2d6ZKOfny9YWritwUhBQ3XhGAOy4QClwmH7L
- xVnX9OEk7ZiWgsRX+EEkDx58IG38MGPbKquNpuc0VA4WC3J6QbhPaeLPEu5KoHjThq2ow
- 4v2ct0JSqImyCNuHRlt0Atifq6l9s1D2whbdvJrCC0aYSqHpwGWaNUexwllAnDnr0UAJd
- +67uKn4J6lAVlz0xMdLJZbrxVBBBTFc1awFoAFqiSATi6RDPd0NcgigOEbWhvGzngxsPe
- QElXV6NfZvc3SDzHjA/oC786RqLRoPsZgQAc9HmFp7EhogWC5QtWe9WftQ5Akolyeog==
+ t=1793102511;
+ b=u7TS03UhmkoK5z0qffu3vDcXH5qwoOdX3UMCWlJMW8cgGBAW+h5ZWQErrDu0j94SUpoS
+ eBTBRSteyYvI6BlwNC3cEftVKSx8J4/bzSEL+x6axRPU4TgpvEIK0WCo/8ox8ssgbtl4v
+ 5g+S1lhOAlB2eUMywpbBP39TantL5/+K/ZybkuE8mNeO7sWjhnQzTQYAh+icA2vQ4hBrG
+ 9aP7IB13aeZD+y4DuLBYad1c5Qd2EkSZ+xCuGHUDcqn1AngMnbjtJ+CmY9E78EjXZsm2f
+ kzIJaSDe8L9JZscl+40qZ2XClpj2y077mLkAUWj3j71uSqlmz1li/4C87JfetE4lKNQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793102510;
+ c=relaxed/relaxed; t=1793102511;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=zqJI2dfXZF9d7B4udVpGK9vuvnRf2AkQaNV2frtpzOA=;
- b=bwts3hVor18X3WhDgWgyy6EBg+B8LpLfHLBnWQLYOm+hfqAzy0ayDWtV7n4i9nIoT8L/
- yNODwxCWm+L5ffRAHVil6wHCRdacMLWM5t/a50n5E5Ryqcruc9v4s17Bp31qTUFWWZIB4
- jiyhxcHkNpZwwLpvyUbaEN87XvhUoxB5v/ZyQk8akaVVRG2WwWcRPzhUmWz7Oh0FqFG3m
- TwwDU5GDyxmQ7q5/j4URIhM5MAIMu/VKq4Gt20LwFXM10SB1N0n//kfwiIcC2U+4pfEBx
- C1DfIpIfnYkiVHADkcLCMvuxMpSdm6++2AwPUEMOIY6KvcnH1ty+7al+c2wH9XJUS0A==
+ bh=9PKoT2dIlJjvHTGxbwsQtrc6PkpA5XS+xE62DA1tMf8=;
+ b=eUuDoWn21FvOTmLsdsLn/kaS3RD08/U+hrcuO5E+8FvvGAhbjSajaJL3wEQno5RKeoB5
+ FVGpo5CoyO4lWCnjDL2Unr4vpW1Zs87YPac8XV+zEhDkrc7s5gZ14M1LPvblVbTBCZRIq
+ 42figRPtgVUp6X+FiX+N/A0FO8Nlk1nwdsiNrz026PrmMnTU35fkTEBuu7vwwbUbq5GAK
+ JAiyNXuYeh8UwZLLhmFb6EWuitqBBLztBYQ9AtYxSjeIxGIAoAQkA4C7NBNDnTDoGZzjO
+ 45enb+MkOYgd+uNwy/FOjItCB8VZPjgreg0s6nPfsas6MfZxx+42XByC6YQJLIYQ7SA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 7CAF71F01242;
+ by smtp.kernel.org (Postfix) with ESMTPS id 8DD881F01244;
  Tue, 27 Oct 2026 12:01:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793102510;
- bh=zqJI2dfXZF9d7B4udVpGK9vuvnRf2AkQaNV2frtpzOA=;
+ s=k20260515; t=1793102511;
+ bh=9PKoT2dIlJjvHTGxbwsQtrc6PkpA5XS+xE62DA1tMf8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=H2sP1NwpadDkSF/T/wPTiAPS5LiNzI4w8slcALqrAQVD8ry7ETA6wWX2yjigKEARK
- /9e8LiZ5imPzrt6L6UGrnsNj6Msk05msUKsB4rRQOphzNgxNcE8R9jUQlfbrZIC4sd
- nEvgy2K7wfi8O2bu9q9kA5iUJjf7i25gIzNeU28quQ47vIOQy5KafXNkqPSeQWaVsu
- NGd+RQaJmjm1nsB0tKQUVnny+l4FmKkmtA3BXNqtfoWRqccav1zFXPN6E8Ol9J4Q8t
- bMt+QxLDvI63zAbgenjKSyqVUuVHgE2NG3Brq69hrqEs6IN5vVsG5BenncdAfff+gx
- 5QGJqcszPQWYQ==
+ b=XlEtH5aBTOcIcxQsLqDWZ60DYPqcIzCiM2EzxX0ul8hkxGKe91qKNVAmkXRtzrafD
+ c7MYncU6sKdPCMMG+OmdVB6Q9iiNXwSufwPmqowb8PbM6BY4luQ58majTAptmV8Nff
+ o1rIIhecgr+pHaxQikYg5Zn2sCluc3x9eRbQZLUQYnIGFOhDam+u/NqKo65jdwu1Am
+ sZXIVPa4vSr5Q5KvpF/wNGE19652DuysTTVAtWlqEWK23L3EknWoaItmIKi9ffIWW2
+ 3/82edMSeqKJcRmCBx8ZWYlk0NYnuNGjIU0XY/lkZeZq7XufdPGRbnDr9unOebiUP9
+ vORj1VZShRSiw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id F4060450A4;
- Tue, 27 Oct 2026 12:01:48 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 19A3A450C0;
+ Tue, 27 Oct 2026 12:01:49 +0000 (UTC)
 From: Alexandre Marquet via B4 Relay <devnull+tb.a-marquet.fr@kernel.org>
-Date: Tue, 27 Oct 2026 13:01:42 +0100
-Subject: [PATCH 1/3] drm/bridge: analogix_dp: deassert DP_PHY_PD on
- power-on for exynos
+Date: Tue, 27 Oct 2026 13:01:44 +0100
+Subject: [PATCH 3/3] drm/panel_edp: Add SEC LTL101DL02-002 panel
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-drm-misc-next-manta-auxbus-v1-1-3a45c3cf531d@a-marquet.fr>
+Message-Id: <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
 References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
 In-Reply-To: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -88,11 +87,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Henrik Grimler <henrik@grimler.se>, Hendrik Noack <hendrik-noack@gmx.de>, 
  Alexandre Marquet <tb@a-marquet.fr>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793102508; l=3293;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793102508; l=1407;
  i=tb@a-marquet.fr; s=20261023; h=from:subject:message-id;
- bh=nz55NJx/Uu4x8f9w96Y5Aa8FlPatjRYi6gKldhgQyRY=;
- b=BDjAFMaKETqfYfJDRQJpBK7xZFOxJgEGoGMJlMGVBvYhrnwcpZ9mpeTxzvfsuuFikzLLrsANn
- tOK2NDejgz7ArsLISEgxDV35PlcTAfDn3TCjdD1oERf5G+PMKd04fCS
+ bh=4fctdAPZww1iVpPpwL2XCKsDWQyA0MaebiMf6gEsHbQ=;
+ b=o3A1Ojwx5Tfs8ZqshJEniFaiuo4fpm96yAtfpomYTagxOiFN/Aj/7xsp+e0gp6OkNJjnZ7YW9
+ ED3dMu2pOFfA+VHKoZ0ZfcyGqxEBS+XvTS8mz7I2OZfGQwjbqBh1wcq
 X-Developer-Key: i=tb@a-marquet.fr; a=ed25519;
  pk=zVRSO6FDK46rqmeA2GuzAhM24eFlUq1QpmXi9/KCFyk=
 X-Endpoint-Received: by B4 Relay for tb@a-marquet.fr/20261023 with auth_id=1334
@@ -120,99 +119,38 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Alexandre Marquet <tb@a-marquet.fr>
 
-On exynos platforms at least, calling
-analogix_dp_set_analog_power_down() to power on (with enable=false) CH0
-to CH3 or the AUX bus currently produces no effect, unless the function
-is first called to power on everything (by setting block to POWER_ALL or
-ANALOG_TOTAL). The reason for this is that DP_PHY_PD being asserted
-(which is its default state) renders every other register bit
-ineffective.
+Add an entry for the eDP SEC LTL101DL02-002 panel used in
+google-manta.
 
-This is particularly an issue for AUX bus initialization, that tends to
-happen before anything else (e.g., to request EDID), and thus, before
-anything has any chance to request a power on of the whole analog
-section of the chip.
+Raw EDID dump:
 
-This commit allows analogix_dp_set_analog_power_down() to power on any
-block, by deasserting DP_PHY_PD if needed.
+00 ff ff ff ff ff ff 00 4c a3 0f 9c 00 00 00 00
+05 0e 01 03 80 21 19 78 0a 87 fe 98 57 51 8c 27
+21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 14 69 00 a0 a0 40 2e 60 30 20
+36 00 1e d6 10 00 00 19 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9e
 
 Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
 ---
- drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/panel/panel-edp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index c1344a3f013a..9f634d4e4793 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -256,6 +256,19 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
- 		phy_pd_addr = ANALOGIX_DP_PD;
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 94bc54c3833a..c92985363093 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2198,6 +2198,8 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0778, &delay_200_500_e200_d200, "134WT1"),
+ 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x07fe, &delay_200_500_e200_d200, "LP116WHA-SPB1"),
  
-+	reg = readl(dp->reg_base + phy_pd_addr);
++	EDP_PANEL_ENTRY('S', 'E', 'C', 0x9c0f, &delay_200_500_e50, "LTL101DL02-002"),
 +
-+	if (dp->plat_data && (dp->plat_data->dev_type == EXYNOS_DP)) {
-+		/* On exynos, register AUX_PD and CH[0-3]_PD have no effect if
-+		 * DP_PHY_PD is asserted. So, when powering any of them up, we
-+		 * need to deassert DP_PHY_PD first.
-+		 */
-+		if (!enable && (reg & DP_PHY_PD)) {
-+			reg &= ~DP_PHY_PD;
-+			reg |= AUX_PD | CH0_PD | CH1_PD | CH2_PD | CH3_PD;
-+		}
-+	}
-+
- 	switch (block) {
- 	case AUX_BLOCK:
- 		if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
-@@ -263,7 +276,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 		else
- 			mask = AUX_PD;
- 
--		reg = readl(dp->reg_base + phy_pd_addr);
- 		if (enable)
- 			reg |= mask;
- 		else
-@@ -272,7 +284,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 		break;
- 	case CH0_BLOCK:
- 		mask = CH0_PD;
--		reg = readl(dp->reg_base + phy_pd_addr);
- 
- 		if (enable)
- 			reg |= mask;
-@@ -282,7 +293,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 		break;
- 	case CH1_BLOCK:
- 		mask = CH1_PD;
--		reg = readl(dp->reg_base + phy_pd_addr);
- 
- 		if (enable)
- 			reg |= mask;
-@@ -292,7 +302,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 		break;
- 	case CH2_BLOCK:
- 		mask = CH2_PD;
--		reg = readl(dp->reg_base + phy_pd_addr);
- 
- 		if (enable)
- 			reg |= mask;
-@@ -302,7 +311,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 		break;
- 	case CH3_BLOCK:
- 		mask = CH3_PD;
--		reg = readl(dp->reg_base + phy_pd_addr);
- 
- 		if (enable)
- 			reg |= mask;
-@@ -321,7 +329,6 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 		else
- 			mask = DP_PHY_PD;
- 
--		reg = readl(dp->reg_base + phy_pd_addr);
- 		if (enable)
- 			reg |= mask;
- 		else
+ 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x1511, &delay_200_500_e50, "LQ140M1JW48"),
+ 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x1523, &delay_80_500_e50, "LQ140M1JW46"),
+ 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x153a, &delay_200_500_e50, "LQ140T1JH01"),
 
 -- 
 2.43.0
