@@ -2,90 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B99606A31E
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B95460A2614
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:28:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=THsDkX3X
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=L9ulkoWj
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF91C10F519;
-	Tue, 27 Oct 2026 13:26:04 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5C910F511;
- Tue, 27 Oct 2026 13:25:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 66FD3601FE;
- Tue, 27 Oct 2026 13:25:48 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793107548;
- b=thQCKuBPgSKCnoIN3m65nfF4vliTt7sC/P0ssqeAcLK3zfRNj7XnVGKy85IIVBMhY6Pb
- qH7TkDrEzVUQ0zUu0LnAmP5CZSyZkQCef9I1uTZ1Whlx97ZXKZ3HY7v/NmzgA8ltK8KJt
- AI9+04axi+ESYHDBwUH76O5a86qaTkvNCvZ7fvXsPsskM3Vy2SyrIYlYy/5urwLuiNA7x
- 6okhD/7QAB6PqZDCMhz0SFvEDuumJ46MaUzZxmBNNGnAndysEz1FaNAhjk+VmA1IEYSl+
- zsX/o0hcCBDMpvW1CuB4zzvWhOmBW0rfM+0ZzokHGl03qnhbNHAxtl9yHIi9hiDn9jg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793107548;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=fsVyneAuwCCRnbMVOLuO3iFk91hXl4euBvA3bqTOW9E=;
- b=KpIwvyRZv6NugPgomWTVJ3x3tlCTJkhIzeb2/QhXBin/W5sG25znvyno7jTy33N0CvFR
- ySnDin9gbMfJAWTJvGnbh94Jnet0b3gXoJEBFC0G/VXkh1p4R3OA5JLckobHqXWgqZJE7
- gliohYIJlVWV1j+Yqo5v0vsc5/g6AP0iOi2CauBbmsPMzR9jx9Y3gYqMxxn73PHjzP4Q0
- oOC1HT7Vu06lJ+/eYlbfm0Oo8/g8WR8UYiT2loRuOoRmS2EWOM31hHYNsf2OcwxraRicl
- 2p/akINW6Qf30amY0O2+LLgdfJWyCsPRwcGNnVOYWDnNqbUCSSEN7pIPILba4MRq19Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 0A82F1F01829;
- Tue, 27 Oct 2026 13:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793107548;
- bh=fsVyneAuwCCRnbMVOLuO3iFk91hXl4euBvA3bqTOW9E=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=THsDkX3XCJban8bFO7xfDnhaAH5GxmeTOk4jtRYgUYnQvGefHPvYdmZBgk2Me0O7n
- GdGLvFV4/PQRc4SVYIxdvpMorTQbrR16YDDM7XPUdHdHUv+HW4ultO1zkE+ONFDlqn
- 86Xw7Xaq8PA+1m4Dw+12wwwYMm7e/y2RTMg86qwIEGW/5xhaeD6nvnKp19p1zQffCg
- 4oZXTjDU9LGJGdrwmGqmrubjbHzGRu/gVZIlSZdeJT4ds/EnfeL2/Y4f5BRDVOJlBS
- 378fo7Kw8KJUKvrfKJRE/QE8DhKgzDHYsKLtHtH+Q8NMcJBOieiqMeC4S/S8iaU0e6
- 9OzFui8vlk41w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 8125A450F7;
- Tue, 27 Oct 2026 13:25:46 +0000 (UTC)
-From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 06:25:43 -0700
-Subject: [PATCH 2/2] drm/amd/display: Test FreeSync flip timing across
- plane resets
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1BB10F4E5;
+	Tue, 27 Oct 2026 13:28:26 +0000 (UTC)
+Received: from mail-m81162.xmail.ntesmail.com (mail-m81162.xmail.ntesmail.com
+ [156.224.81.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D92A710F4E5
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:28:19 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 528777a1d;
+ Tue, 27 Oct 2026 21:28:14 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jingoo Han <jingoohan1@gmail.com>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Heiko Stuebner <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v5 00/18] Add HPD support for Rockchip Analogix DP
+Date: Tue, 27 Oct 2026 21:27:52 +0800
+Message-Id: <20261027132810.1746118-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-freesync-plane-reset-time-v1-2-bb43b501faf4@gmail.com>
-References: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
-In-Reply-To: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Davey Hughes <davidralphhughes@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793107546; l=11037;
- i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
- bh=noQfQHHG6kH0mVBBbepkfdjvsuqRN4qDLINdKPj4CHU=;
- b=2cl7Nd3zslu2tZjleGBfmU2sZwGvAX4dO1xxGCadiGc5raBrd1GgBflDn5V3kXaPf06JgHaXZ
- ngrNrima+q3D258gd0XR3q6nJ++2BVBceG9GKIS5JsBhOH56eyxqwwE
-X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
- pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
-X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
- with auth_id=1335
-X-Original-From: Davey Hughes <davidralphhughes@gmail.com>
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa17d8c118e03a8kunm87c266213d56d1
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSx5LVkIdH0JCSk8YTkxLSlYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+ pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=L9ulkoWju2I9Qsb6IThoAIQODAjvNaPbC2jEkO/xjfw+PDDX80/12B86nm7qg6bnO4y0jaaQk5uXCDHqADYCq7gdfuXDLfWQuqgVEPndiGmjbzQ0T5ir23Tu1UIkz8C9lCjkZAXwCnQ6WfMwyYtPxymR/+YKjwT0dm79DgtXyt8=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=PJNmddl5n2TxVGqmRtvT5dewxyqqKvr1WFhlUGMg4pw=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,305 +64,210 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: davidralphhughes@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Davey Hughes <davidralphhughes@gmail.com>
+This series improves the HPD (Hotplug Detect) interrupt handling in
+the Analogix DP driver to enable reliable native HPD pin detection on
+Rockchip platforms, and introduces platform-specific HPD detection
+schemes with fine-grained interrupt control.
 
-KUnit can't reach the plane enable path of dm_update_plane_state(), so
-the flip timing copy there is untested.
+On Rockchip platforms, the Analogix DP native HPD pin IRQ requires the
+DP controller to remain powered, clocked and initialized to generate
+plug/unplug interrupts. The previous driver enabled/disabled IRQ during
+bridge enable/disable, which left no HPD detection when the display
+pipeline was inactive. Additionally, the interrupt mute/unmute/clear
+routines operated on all HPD interrupt bits unconditionally, lacking
+the granularity needed for per-event control.
 
-Move the copy into dm_plane_inherit_flip_time() and expose it to KUnit.
-Test that a plane reset on the same CRTC keeps its flip timing, and that
-a newly enabled plane or one moved to another CRTC starts over.
+The series reorganizes IRQ and pm_runtime management into bind/unbind,
+adds IRQF_ONESHOT to eliminate read-modify-write races on interrupt
+mask registers between hardirq and threaded handlers, converts the
+interrupt type detection to a bitmask-based scheme for fine-grained
+mute/unmute/clear operations, and configures Rockchip platforms to use
+the HOTPLUG_CHG interrupt with a 2ms HPD deglitch setting for better
+stability.
 
-Also flip a reset plane one 60 Hz frame after its last flip on a
-48-165 Hz panel with BTR. With the inherited timing BTR stays off;
-without it FreeSync engages BTR.
+Furthermore, the next bridge is now resolved into bridge->next_bridge
+instead of the platform data field, the forced connected-status logic
+is restricted to panel endpoints based on the bridge chain, and HPD
+events from downstream bridges (e.g. display-connector with hpd-gpios)
+are handled through the .hpd_notify callback.
 
-Signed-off-by: Davey Hughes <davidralphhughes@gmail.com>
+Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
+
+Native HPD pin mode:
+
+  &edp {
+      status = "okay";
+      pinctrl-names = "default";
+      pinctrl-0 = <&edp_txm0_pins>;
+  };
+
+GPIO HPD mode:
+
+  &edp {
+      status = "okay";
+      pinctrl-names = "default";
+      pinctrl-0 = <&edp0_hpd>;
+      hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+  };
+
+  &pinctrl {
+      edp {
+          edp0_hpd: edp0-hpd {
+              rockchip,pins = <4 RK_PC1 0 &pcfg_pull_none>;
+          };
+      };
+  };
+
+Display-connector mode (DP connector without HPD GPIO):
+
+  &edp_out_conn {
+      remote-endpoint = <&dp_con_in>;
+  };
+
+  dp-con {
+      compatible = "dp-connector";
+      label = "DP OUT";
+      type = "full-size";
+
+      port {
+          dp_con_in: endpoint {
+              remote-endpoint = <&edp_out_conn>;
+          };
+      };
+  };
+
+Display-connector mode (DP connector with HPD GPIO):
+
+  dp-con {
+      compatible = "dp-connector";
+      label = "DP OUT";
+      type = "full-size";
+      pinctrl-0 = <&edp0_hpd>;
+      pinctrl-names = "default";
+      hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+
+      port {
+          dp_con_in: endpoint {
+              remote-endpoint = <&edp_out_conn>;
+          };
+      };
+  };
+
+All four configurations detect cable plug/unplug events correctly.
+
+Damon Ding (18):
+  drm/bridge: Select VIDEOMODE_HELPERS for DRM_OF_DISPLAY_MODE_BRIDGE
+  drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data
+    field
+  drm/bridge: analogix_dp: Restrict forced connected status to panel
+    endpoints
+  drm/bridge: analogix_dp: Return bitmask from
+    analogix_dp_get_irq_type()
+  drm/bridge: analogix_dp: Check all negative return values for
+    &analogix_dp_device.irq
+  drm/bridge: analogix_dp: Add IRQF_ONESHOT and simplify IRQ handling
+  drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ
+    bitmask
+  drm/bridge: analogix_dp: Extend mute/unmute HPD interrupts to accept
+    irq bitmask
+  drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
+  drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
+  drm/bridge: analogix_dp: Skip native HPD interrupt ops for GPIO HPD
+  drm/rockchip: analogix_dp: Unbind bridge when connector init fails
+  drm/exynos: exynos_dp: Unbind bridge when connector init fails
+  drm/bridge: analogix_dp: Move IRQ enable/disable to bind/unbind
+  drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin
+    detection
+  drm/bridge: analogix_dp: Declare DRM_BRIDGE_OP_HPD for hotplug
+    reporting
+  drm/bridge: analogix_dp: Handle HPD notification from downstream
+    bridge
+  MAINTAINERS: Add entry for Analogix DP controller bridge
+
+ MAINTAINERS                                   |  11 +
+ drivers/gpu/drm/bridge/Kconfig                |   1 +
+ drivers/gpu/drm/bridge/analogix/Kconfig       |   1 +
+ .../drm/bridge/analogix/analogix_dp_core.c    | 221 +++++++++++++-----
+ .../drm/bridge/analogix/analogix_dp_core.h    |  15 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 153 +++++++-----
+ drivers/gpu/drm/exynos/Kconfig                |   1 -
+ drivers/gpu/drm/exynos/exynos_dp.c            |  16 +-
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   |   1 +
+ include/drm/bridge/analogix_dp.h              |   1 -
+ 10 files changed, 291 insertions(+), 130 deletions(-)
+
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  20 ++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   3 +
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   | 190 +++++++++++++++++++++
- 3 files changed, 209 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a69e28685857..d1c1b01584ae 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5966,6 +5966,20 @@ STATIC_IFN_KUNIT bool should_reset_plane(struct drm_atomic_commit *state,
- }
- EXPORT_IF_KUNIT(should_reset_plane);
- 
-+/* FreeSync times each frame from the plane's previous flip. */
-+STATIC_IFN_KUNIT void
-+dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
-+			   struct drm_plane_state *old_plane_state,
-+			   struct drm_plane_state *new_plane_state)
-+{
-+	struct dc_plane_state *old_dc_plane_state =
-+		to_dm_plane_state(old_plane_state)->dc_state;
-+
-+	if (old_dc_plane_state && old_plane_state->crtc == new_plane_state->crtc)
-+		dc_plane_state->time = old_dc_plane_state->time;
-+}
-+EXPORT_IF_KUNIT(dm_plane_inherit_flip_time);
-+
- STATIC_IFN_KUNIT int
- dm_update_plane_state(struct dc *dc,
- 		      struct drm_atomic_commit *state,
-@@ -6076,10 +6090,8 @@ dm_update_plane_state(struct dc *dc,
- 			goto out;
- 		}
- 
--		/* FreeSync times each frame from the plane's previous flip. */
--		if (dm_old_plane_state->dc_state &&
--		    old_plane_crtc == new_plane_crtc)
--			dc_new_plane_state->time = dm_old_plane_state->dc_state->time;
-+		dm_plane_inherit_flip_time(dc_new_plane_state, old_plane_state,
-+					   new_plane_state);
- 
- 		drm_dbg_atomic(new_plane_crtc->dev, "Enabling DRM plane: %d on DRM crtc %d\n",
- 				 plane->base.id, new_plane_crtc->base.id);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 594d275918d5..18dce8244af1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1266,6 +1266,9 @@ int dm_update_plane_state(struct dc *dc,
- 			  bool enable,
- 			  bool *lock_and_validation_needed,
- 			  bool *is_top_most_overlay);
-+void dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
-+				struct drm_plane_state *old_plane_state,
-+				struct drm_plane_state *new_plane_state);
- int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			   struct drm_atomic_commit *state);
- void amdgpu_dm_mod_power_update_streams(struct drm_atomic_commit *state,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index a497cce332bb..4bdb9831f508 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -34,6 +34,7 @@
- #include "atom.h"
- #include "amdgpu_dm.h"
- #include "amdgpu_dm_audio.h"
-+#include "amdgpu_dm_freesync.h"
- #include "amdgpu_dm_hdcp.h"
- #include "amdgpu_dm_mst_types.h"
- #include "amdgpu_dm_kunit_test_helpers.h"
-@@ -3271,6 +3272,190 @@ static void dm_test_update_plane_state_detached(struct kunit *test)
- 	KUNIT_EXPECT_NULL(test, new_plane_state->dc_state);
- }
- 
-+/* Tests for dm_plane_inherit_flip_time() */
-+
-+struct dm_test_flip_time_ctx {
-+	struct dm_plane_state *old_plane_state;
-+	struct dm_plane_state *new_plane_state;
-+	struct dc_plane_state *dc_plane_state;
-+};
-+
-+/*
-+ * A plane reset on one CRTC: the old DC plane has FreeSync flip history and
-+ * the new one is freshly created.
-+ */
-+static struct dm_test_flip_time_ctx *
-+dm_test_flip_time_ctx_alloc(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx;
-+	struct dc_plane_state *old_dc;
-+	struct drm_crtc *crtc;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
-+	ctx->old_plane_state = kunit_kzalloc(test, sizeof(*ctx->old_plane_state),
-+					     GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->old_plane_state);
-+	ctx->new_plane_state = kunit_kzalloc(test, sizeof(*ctx->new_plane_state),
-+					     GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->new_plane_state);
-+	ctx->dc_plane_state = kunit_kzalloc(test, sizeof(*ctx->dc_plane_state),
-+					    GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->dc_plane_state);
-+	old_dc = kunit_kzalloc(test, sizeof(*old_dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, old_dc);
-+	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, crtc);
-+
-+	old_dc->time.time_elapsed_in_us[0] = 16667;
-+	old_dc->time.index = 1;
-+	old_dc->time.prev_update_time_in_us = 1234567;
-+	ctx->old_plane_state->dc_state = old_dc;
-+	ctx->old_plane_state->base.crtc = crtc;
-+	ctx->new_plane_state->base.crtc = crtc;
-+
-+	return ctx;
-+}
-+
-+static void dm_test_flip_time_inherit(struct dm_test_flip_time_ctx *ctx)
-+{
-+	dm_plane_inherit_flip_time(ctx->dc_plane_state,
-+				   &ctx->old_plane_state->base,
-+				   &ctx->new_plane_state->base);
-+}
-+
-+/**
-+ * dm_test_flip_time_same_crtc - Test a reset plane keeps its flip history
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_same_crtc(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_MEMEQ(test, &ctx->dc_plane_state->time,
-+			   &ctx->old_plane_state->dc_state->time,
-+			   sizeof(ctx->dc_plane_state->time));
-+}
-+
-+/**
-+ * dm_test_flip_time_crtc_changed - Test a plane moved between CRTCs starts over
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_crtc_changed(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
-+	struct drm_crtc *other_crtc;
-+
-+	other_crtc = kunit_kzalloc(test, sizeof(*other_crtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, other_crtc);
-+	ctx->new_plane_state->base.crtc = other_crtc;
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_EQ(test, time->prev_update_time_in_us, 0);
-+	KUNIT_EXPECT_EQ(test, time->index, 0);
-+}
-+
-+/**
-+ * dm_test_flip_time_no_old_dc_state - Test a newly enabled plane starts over
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_no_old_dc_state(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
-+
-+	ctx->old_plane_state->dc_state = NULL;
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_EQ(test, time->prev_update_time_in_us, 0);
-+	KUNIT_EXPECT_EQ(test, time->index, 0);
-+}
-+
-+/*
-+ * Flip the reset plane one 60 Hz frame after the old plane's last flip on a
-+ * 48-165 Hz panel with below-the-range compensation, and report whether
-+ * FreeSync engaged BTR.
-+ */
-+static bool dm_test_flip_time_btr_active(struct kunit *test,
-+					 struct dm_test_flip_time_ctx *ctx)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+	struct dm_crtc_state *crtc_state;
-+	struct mod_vrr_params *vrr;
-+	struct amdgpu_crtc *acrtc;
-+	u32 flip_time_in_us;
-+
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-+	crtc_state = kunit_kzalloc(test, sizeof(*crtc_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, crtc_state);
-+	adev->dm.adev = adev;
-+	/* Only pre-AI flips dereference the module, so a stub will do. */
-+	adev->family = AMDGPU_FAMILY_NV;
-+	adev->dm.freesync_module = kunit_kzalloc(test, sizeof(struct mod_freesync),
-+						 GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, adev->dm.freesync_module);
-+
-+	/* 165 Hz nominal */
-+	stream->ctx = dm_kunit_alloc_dc_with_ctx(test)->ctx;
-+	stream->timing.pix_clk_100hz = 4083750;
-+	stream->timing.h_total = 2200;
-+	stream->timing.v_total = 1125;
-+
-+	crtc_state->base.crtc = &acrtc->base;
-+	crtc_state->base.vrr_enabled = true;
-+	crtc_state->stream = stream;
-+	crtc_state->vrr_supported = true;
-+	crtc_state->freesync_config.min_refresh_in_uhz = 48000000;
-+	crtc_state->freesync_config.max_refresh_in_uhz = 165000000;
-+	crtc_state->freesync_config.btr = true;
-+
-+	amdgpu_dm_update_stream_irq_parameters(&adev->dm, crtc_state);
-+
-+	vrr = &acrtc->dm_irq_params.vrr_params;
-+	KUNIT_ASSERT_EQ(test, (int)vrr->state, (int)VRR_STATE_ACTIVE_VARIABLE);
-+	KUNIT_ASSERT_TRUE(test, vrr->btr.btr_enabled);
-+	KUNIT_ASSERT_FALSE(test, vrr->btr.btr_active);
-+
-+	flip_time_in_us =
-+		ctx->old_plane_state->dc_state->time.prev_update_time_in_us + 16667;
-+	amdgpu_dm_update_freesync_state_on_stream(&adev->dm, crtc_state, stream,
-+						  ctx->dc_plane_state,
-+						  flip_time_in_us);
-+
-+	return vrr->btr.btr_active;
-+}
-+
-+/**
-+ * dm_test_flip_time_btr_inherited - Test a reset plane's next flip stays out of BTR
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_btr_inherited(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_FALSE(test, dm_test_flip_time_btr_active(test, ctx));
-+}
-+
-+/**
-+ * dm_test_flip_time_btr_no_history - Test a plane without flip history enters BTR
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_btr_no_history(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+
-+	KUNIT_EXPECT_TRUE(test, dm_test_flip_time_btr_active(test, ctx));
-+}
-+
- /**
-  * dm_test_mod_power_update_streams_empty - Test an empty commit updates no streams
-  * @test: The KUnit test context
-@@ -5361,6 +5546,11 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_aquire_global_lock_waits_commit),
- 	KUNIT_CASE(dm_test_update_crtc_state_unchanged),
- 	KUNIT_CASE(dm_test_update_plane_state_detached),
-+	KUNIT_CASE(dm_test_flip_time_same_crtc),
-+	KUNIT_CASE(dm_test_flip_time_crtc_changed),
-+	KUNIT_CASE(dm_test_flip_time_no_old_dc_state),
-+	KUNIT_CASE(dm_test_flip_time_btr_inherited),
-+	KUNIT_CASE(dm_test_flip_time_btr_no_history),
- 	KUNIT_CASE(dm_test_mod_power_update_streams_empty),
- 	KUNIT_CASE(dm_test_mod_power_update_streams_no_modeset),
- 	KUNIT_CASE(dm_test_mod_power_update_streams_enable),
+Changes in v2:
+- Split IRQ enable/disable logic, handle native HPD pin and
+  GPIO/force-HPD modes separately to avoid unbalanced enable_irq()
+  calls. (Sashiko)
+- Add separate patch for IRQF_ONESHOT to resolve interrupt mask issues
+  triggered by interrupt preemption. (Sashiko)
+- Update commit messages to align with newly added IRQF_ONESHOT related
+  commit.
+- Move ANALOGIX_DP_HPD_DEGLITCH_L/ANALOGIX_DP_HPD_DEGLITCH_H configs to
+  analogix_dp_reset().
+- Add new patch to restrict the forced connected-status shortcut to
+  panel endpoints only, allowing DP connector bridges to rely on HPD
+  detection. (Reported by Heiko Stuebner)
+- Add new patch to handle HPD notification from downstream bridges
+  (e.g., display-connector with hpd-gpios).
+
+Changes in v3:
+- Reorder the series: convert the IRQ handling to a bitmask and add
+  IRQF_ONESHOT before moving IRQ enable/disable to bind/unbind.
+- Add new patch to check all negative return values for
+  &analogix_dp_device.irq and propagate the actual error code. (Sashiko)
+- Rename macro HPD_IRQ to HPD_IRQ_ALL to avoid confusion with the
+  DP specification IRQ_HPD, extract the irq_type-to-register bit
+  mapping into a shared helper, and drop the unused
+  COMMON_INT_4_HPD_IRQ macro.
+- Simplify commit messages across the series.
+- Add new patch to use bridge->next_bridge instead of the plat_data
+  field, resolving the next bridge in
+  analogix_dp_aux_done_probing(). (Suggested by Heiko Stuebner)
+- Report panel endpoints as always connected from
+  analogix_dp_get_plug_in_status() via force_connected_mode, computed
+  from the bridge chain at attach time.
+- Determine the hpd notify mode from DRM_BRIDGE_OP_HPD on downstream
+  bridges that lack DRM_BRIDGE_OP_DETECT.
+- Add a MAINTAINERS entry for the Analogix DP controller bridge.
+
+Changes in v4:
+- Add Tested-by tag from Heiko.
+- Rebase onto latest tree, picking up the two related patch series [0][1].
+
+[0] https://lore.kernel.org/all/20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com/
+[1] https://lore.kernel.org/all/20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com/
+
+Changes in v5:
+- Add four new patches:
+  - Select VIDEOMODE_HELPERS for DRM_OF_DISPLAY_MODE_BRIDGE to fix
+    the undefined references for non-Exynos users.
+  - Unbind the bridge when drm_bridge_connector_init() fails on the
+    Rockchip and Exynos platforms.
+  - Declare DRM_BRIDGE_OP_HPD on the Analogix DP bridge and report
+    the hotplug events via drm_bridge_hpd_notify().
+- Move the next_bridge resolving patch and the forced connected
+  status restriction to the front of the series.
+- Use a pure threaded IRQ handler and hold runtime PM references in
+  the IRQ thread and the detect paths. (Sashiko)
+- Limit the runtime PM holding to the RK3576/RK3588 platforms and
+  exclude the boards with a fixed panel. (Sashiko)
+- Fix the display timings leak in analogix_dp_aux_done_probing().
+  (Sashiko)
+- Change the type of &analogix_dp_device.irq to int to fix the dead
+  dp->irq < 0 check. (Sashiko)
+- Rebase onto the latest drm-misc-next.
 
 -- 
-2.56.0
-
-
+2.34.1
