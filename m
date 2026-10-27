@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0D860A3826
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:44:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D977060A261A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 15:44:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h/Uk7vit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KWKvxb0P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC8FB10F6A5;
-	Tue, 27 Oct 2026 15:44:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B39B710F6A6;
+	Tue, 27 Oct 2026 15:44:31 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 151B210E44D;
- Tue, 27 Oct 2026 15:44:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A13A10F68F;
+ Tue, 27 Oct 2026 15:44:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 201F84450F;
+ by sea.source.kernel.org (Postfix) with ESMTP id D82FF405B1;
  Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01891F031E1;
- Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A80BC1F031E5;
+ Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793115854;
- bh=7V1o3THBsVPSIJpnHm1gJN2cks+b9EypDUR8GPnuLtM=;
+ bh=Sqrwxska1pJf5RJ9nDvLNAM3+XgodcmyKlBOM1kgm4U=;
  h=Date:From:To:Cc:Subject:References;
- b=h/Uk7vitfWDO/h1gJuB0QkLG4PxV5tWVEb27yPYN65h4Tuaoei/grvaUBxVVMaHpT
- ECZRcGLBcA8tsHZ1Fg0HbWzH3tvYNGZNUFTnMqDhRcUnj/LF12BfyD9p+X+VeV1OXE
- GRS81++tpZ0ZP1HADog9dU47GF50lPCuK/FARBHKbo7psDms+0UG641cVxGQMtspRe
- qlZYy9mcbwEP6ZqTPFAOeFvBl8M5EuMHBeVOmqyrU+eAVEAud/29omvbUdgBIh93sR
- /60UR+yFCX6azSPyOkLAzCIAB5xs38NRMv2lIQfq2Ko6ujhOtAzKpZUsTeyW3TlBSX
- uauGVrji6eK8w==
+ b=KWKvxb0PF0Z8atNP5cI08N1vgaMfCtAZoVHzzExHoVgxLqp3sCUeJyEK1yt8D9p+v
+ KViwbqpylH005cALulkKaMqye2teyyYZGweVKwHQK4lpE6zhd+8lL+Vre1f8+X9Xgt
+ qKK6Ljk5w/dsLOgX0/FMmT/p7Q+ydvCAg4ZLZFx7zQEsoY0gBrjXxe+FakaLVzKjzm
+ 9Pprzoj7rddGZJcE7wY90qnWpW2tUGlTyC7Z/XVKPlwNwtZjpT51UboUvNttoBM1Nn
+ ORqxmABvPO7RZuImlBqZYzeFDHvGRT7pGtW7ER57ZGEUAioylY4BbkZXkWAXalxCaY
+ 186al6GQ5BwKw==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
- (envelope-from <rostedt@kernel.org>) id 1xLjLR-000000078gq-0u2O;
+ (envelope-from <rostedt@kernel.org>) id 1xLjLR-000000078j5-47DU;
  Tue, 27 Oct 2026 11:44:13 -0400
-Message-ID: <20261027154413.039021489@kernel.org>
+Message-ID: <20261027154413.807515174@kernel.org>
 User-Agent: quilt/0.69
-Date: Tue, 27 Oct 2026 11:37:01 -0400
+Date: Tue, 27 Oct 2026 11:37:05 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
@@ -76,8 +76,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
  linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
  linux-sctp@vger.kernel.org, netdev@vger.kernel.org
-Subject: [PATCH 3/9] devfreq: Use trace_call__##name() at guarded tracepoint
- call sites
+Subject: [PATCH 7/9] net: devlink: Use trace_call__##name() at guarded
+ tracepoint call sites
 References: <20261027153658.703730257@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -115,28 +115,28 @@ Parts of the original v2 series have already been merged in mainline.
 This patch is being reposted as a follow-up cleanup for the remaining
 unmerged pieces.
 
-Link: https://patch.msgid.link/20260515135920.2238808-1-vineeth@bitbyteword.org
+Link: https://patch.msgid.link/20260515135953.2238907-1-vineeth@bitbyteword.org
 Suggested-by: Steven Rostedt <rostedt@goodmis.org>
 Suggested-by: Peter Zijlstra <peterz@infradead.org>
 Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
 Assisted-by: Claude:claude-sonnet-4-6
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- drivers/devfreq/devfreq.c | 2 +-
+ net/devlink/trap.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
-index 82dd9a43dc62..9f71d9dc4a70 100644
---- a/drivers/devfreq/devfreq.c
-+++ b/drivers/devfreq/devfreq.c
-@@ -370,7 +370,7 @@ static int devfreq_set_target(struct devfreq *devfreq, unsigned long new_freq,
- 	 * change order of between devfreq device and passive devfreq device.
- 	 */
- 	if (trace_devfreq_frequency_enabled() && new_freq != cur_freq)
--		trace_devfreq_frequency(devfreq, new_freq, cur_freq);
-+		trace_call__devfreq_frequency(devfreq, new_freq, cur_freq);
+diff --git a/net/devlink/trap.c b/net/devlink/trap.c
+index 793ffc66dc11..d99427f3b953 100644
+--- a/net/devlink/trap.c
++++ b/net/devlink/trap.c
+@@ -1497,7 +1497,7 @@ void devlink_trap_report(struct devlink *devlink, struct sk_buff *skb,
  
- 	freqs.new = new_freq;
- 	devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
+ 		devlink_trap_report_metadata_set(&metadata, trap_item,
+ 						 in_devlink_port, fa_cookie);
+-		trace_devlink_trap_report(devlink, skb, &metadata);
++		trace_call__devlink_trap_report(devlink, skb, &metadata);
+ 	}
+ }
+ EXPORT_SYMBOL_GPL(devlink_trap_report);
 -- 
 2.53.0
