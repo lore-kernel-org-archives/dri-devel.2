@@ -2,67 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB352606A324
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92997606A324
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:25:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AkOkJj1c
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h/dqxJuX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1874410F814;
-	Tue, 27 Oct 2026 20:24:54 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7470010E00E
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 20:22:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A25CC10F815;
+	Tue, 27 Oct 2026 20:24:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3723F10F7DB
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 20:22:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E55B360A7A;
- Tue, 27 Oct 2026 20:22:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1951743F9B;
+ Tue, 27 Oct 2026 20:22:20 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793132548;
- b=qAiDMk/bPEgAMQgIi/OV4I0wqoVpC040jvPNjLataPcSxdB/uF5+Qn03Abo2KxFa4syI
- ie6nvq0LkVoLPJWlGuqf4y/mS8AS0fWnW0qJ4MWDfijMgyNSgPx5Wqp121FM2g6oKYkYA
- AcWfEwWFn8O2p6YqmRnURMnIStrf10mtVR5yqvvM7CtTEki8fXCYrG5G9+tm3uk1XUxnS
- k1ZfSAK2UlObm2AVC31XR4rZz7XFaODJggdfm0JCTivuP2dRbc1CuoZpry0nnY3WWFbgw
- j8ZZ5uackF+Xz4pI4SPcew2um0WIv8ZCrKeOdw9V/Bdanl9rOrUTfhmEfAIufFhrVdg==
+ t=1793132540;
+ b=H4Mx0EicxVfnkCHKzlSIXp9tWQnrddkPW6pwS3SmbfedWVYYsJa4bEoS20C85DyTPe65
+ siAHBTmg2Br0p+ongRMB0nnctVUykZM3z8T/CpxT0mZpJqC/eeWmglWgGkZC+NKTsmBZJ
+ btcqvtf/zMpUomQ0MNIjRi1zFKbLHKVijwEnAYfvvAjN2s03b1ljMx4cPV7H6hLyXkWF6
+ q3cDxPSjeuNULVv4RkO9nb/LeNtJkI/Jy3N+T7S0CTN1dGekqTKT+lq06VsL2HCU1c8l1
+ LucP0sAl2SU8BIrrghQFFApsoWLdwO0B0sMO0Y4R65TpFrnWBsTHB6SjKBZScEpeNKQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793132548;
+ c=relaxed/relaxed; t=1793132540;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=CumA5wja+462jEhi0a3U0wA6ylj10YfDNF6b/OlvitE=;
- b=wDdSnbi7v5Ank04nGQGCs6i1Cz2nehM9N6rle3XAYPbpPyoMzzpdZOa9ZniDPmEIFZxA
- eO+Q0RsIpZzjRbClPCQO+5QX3e7g9TMvF8MnwZNxoRkfhoeW72UzdCrEUQKmtem8ENL4x
- zx5ADRoX1y/IjQDXcj23wNEt4qaFoandzYhXvWROnKFGaGjT2d2A5B207OlN5iTR0gsom
- 4SLhRdl4Awl3kTVvaTYWfRb9BeZXRg+5s0E39EoyJ7m2oV1Cn/jpZ0gX/u+TcN0HHViWA
- UC1ONcf1kpcqh1vzbWpjCAwTdOVNYJ5XEUwoDDfWB7zql/zEAUrNS1W7MnqU0NvuXCw==
+ bh=SiRDDQbSFKecHeqs5M4sWJpuVW3XhZpV6pnWJJyKwXU=;
+ b=tw6lDsWSzrbzZhBMxhiZjl/sT6EoiuE6Vul6/4MtJL8c3SRzbfkNVMUXdd8/MsMWxtl/
+ MzmhN/sJZagYdr89oljYUb9O744+SQCW7Phz0F+JFEx9KivoS6Ue3zUeG6NpSRQXBQlB4
+ ZesKGQhO0BIBqhZjsENtJvBfTLFf+1NpEjLCT5o3/GnpGi5MSViRfBbOtyKV+6h3rmGmU
+ kQ6xtgLTEq7B+iP9v6Gdm2Fow/BYP1kzdnkDAa38QbhXJPk2LOa1VduX4d7N2V8dtpl0+
+ dcU94VxUTl1Y4SWErWuEot5CpOiHwJqynl4WGb/Ltklbkx5c9OE6PwrXyTYfvxa/zpg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id DE9201F01146;
- Tue, 27 Oct 2026 20:22:24 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 58AD61F031E7;
+ Tue, 27 Oct 2026 20:22:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793132548;
- bh=CumA5wja+462jEhi0a3U0wA6ylj10YfDNF6b/OlvitE=;
+ s=k20260515; t=1793132539;
+ bh=SiRDDQbSFKecHeqs5M4sWJpuVW3XhZpV6pnWJJyKwXU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=AkOkJj1c7Ey9wifQItVmmXN8+F9FG5snzrAc0J0rh5PVOu6zJVY9fsIeg4c/P/vPJ
- PsuGJOLVYUc6W7adm37lCmLM/DAiywTkb5rIN0qSVj81bjAXWqLpn4t62+y5pOfBO8
- UdevwrFWeIHujsK6hxPnwcSGeuNL+UODWxp+7/XjrxDhRayuRhPUZCt85mcmuFYgA6
- llpTloSfPQVLt6/kUcg2MuwptWMHWUSu1bVPm+gxZzrk/fthuf7oqmgrhXNziCCcdw
- nbkvmIamUZGYIZF8GVgOb4CiEAAoUW5uT5VG5d+2+t4vuRdnCTnUNfB5zUrKGXxMOH
- biFcM5wNVncAQ==
+ b=h/dqxJuXfpgrNLE5nq2ZW+9RH9/nDZIfPwJMsafeAVVCTuo5TLikoiJt1tS0gvIvQ
+ UsLJzahUyyfrVntYsXzsnR/47BAKWW27nRPOGAis/t7OyjcQ9j0rW4tvbEOSD/QGCB
+ W8aR8mFZc5Fw+BgJJEMToz4iyYiUW96V1UWRuQ1bv1xKVi0vPkM9l2qjkxK5KnPUUi
+ sNonpyxvPLwQhf+Q0ryE7fu2oHBXTSRf97Ku4HwdplTDtfTFiTOxVYIopKRAQYMohf
+ AHHDYEvYnVIp2ttAvyzgIu9C+Dq74ZyjfmQT+uIwpZFflR0TdK/3Goq6GPiXnmiZBz
+ o5c1d53k9fOlQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 76FF24528C;
- Tue, 27 Oct 2026 20:22:11 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 28C2745221;
+ Tue, 27 Oct 2026 20:22:10 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 14:22:39 -0600
-Subject: [PATCH v13 39/39] drm: Mark __drm_debug as __read_mostly
+Date: Tue, 27 Oct 2026 14:22:12 -0600
+Subject: [PATCH v13 12/39] dyndbg: bump num-tokens in a query-cmd from 9 to 15
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-dd-cmap-part2-clean-v13-39-9267923be612@gmail.com>
+Message-Id: <20261027-dd-cmap-part2-clean-v13-12-9267923be612@gmail.com>
 References: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 In-Reply-To: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -91,11 +91,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
  Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=1613;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=3086;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=t+nRtOhFy0vKw6kQ27p3cuieeS36YDxQ0XXNRXZWkUg=;
- b=f5HxtzzpGBAtoIjrGk99drDPUwR9c509I4kbOa/UvLUvVSU/1Ym+S3Zc4ZQq7x1BvvmPGB9Rm
- Y0okPVIzszEA9IDtp+xPo+JJyW8Kn7/HOaJh88Ct0eGqz1QL/OnW11t
+ bh=2qWyi6+YSKFFZjxBlAqzRhGNiwVTqFgEdchNvFaIvH0=;
+ b=BC2GesekFZXLHrTHTPw1Y6gMtxIIayR435lkYJPtxWrjcCGVKmhB/ROJB49r8wTCFCv8e4WUw
+ PwWcdo+OZ0RAOrpgFsJpRCLCr3Y5di5G0b6qimpQfGUcdK/SklT48H2
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -124,43 +124,67 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Dyndbg classmaps converts ~5,700 DRM debug callsites into static keys,
-yielding 0-off-cost NOOPs that never touch memory. However, several
-call patterns do not fit the direct drm_dbg() macro model; notably
-open-coded drm_debug_enabled() guard blocks, drm_dbg_printer(), and
-ratelimited helpers.
-
-In upstream, the linker places __drm_debug in the same 64-byte
-cacheline as hot writers: drm_lease_idr_object, drm_global_mutex.
-Writes to those locks issue Request-For-Ownership (RFO) invalidations
-across cores, leaving those residual bit-tests to suffer 7
-false-sharing hazards and continuous cache bouncing during active
-rendering (e.g. 12 concurrent vkcube clients). In contrast, writes to
-__drm_debug occur almost never, only when userspace updates
-"/sys/module/drm/parameters/debug".
-
-So mark __drm_debug with __read_mostly.  This isolates it from the 7
-writable symbols it currently shares a cache-line with, eliminating
-those invalidations.
+Current MAXWORDS in ddebug_exec_query() is too small to accept a legal
+query-command using all 6 keywords.  We *need* 13, but this adds a few
+extra to allow certain errors to fail on subsequent, more meaningful
+grammar checks.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_print.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ lib/dynamic_debug.c                                      |  2 +-
+ tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh | 12 ++++++------
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 794417c62097..1ec139c8f06f 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -40,7 +40,7 @@
-  * __drm_debug: Enable debug output.
-  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
-  */
--u32 __drm_debug;
-+u32 __drm_debug __read_mostly;
- EXPORT_SYMBOL(__drm_debug);
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index a39144fd7c8c..a0723343e2a7 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -558,7 +558,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ {
+ 	struct flag_settings modifiers = {};
+ 	struct ddebug_query query = {};
+-#define MAXWORDS 9
++#define MAXWORDS 15
+ 	int nwords, nfound;
+ 	char *words[MAXWORDS];
  
- MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index c1475c755542..5e52d957e2fd 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -320,8 +320,8 @@ function GOLDEN_RECORDS {
+ #K= b9a397e807148d13ba07da7db7e69817 FT_grammar_errs.2
+ #K= 5abefa504937a329f974504f1896e368 FT_grammar_errs.3
+ #K= 1d94d0f239bf40bf51280caeab499de0 FT_grammar_errs.4
+-#K= 135035c8a17ae100cc4ec954c4d75b2f FT_grammar_errs.5
+-#K= a9cc14244f91a12d3174ad1314144a8e FT_grammar_errs.6
++#K= 9a5e1c1856f1ebbe57a4afdfc4c9703a FT_grammar_errs.5
++#K= b3809a6f9f643f049f1ef30827d4b001 FT_grammar_errs.6
+ #K= 5d400aad1a7d71f548b6b81274d00a55 FT_grammar_errs.7
+ #K= 61cd359b10f9051862d3745eda07a295 FT_grammar_errs.8
+ #K= 567379f4f4d099f00f37d1469d9370bd FT_grammar_errs.9
+@@ -340,8 +340,8 @@ function GOLDEN_RECORDS {
+ #K= 1f6fedfe222af475211b3bfc6d08bc63 FT_grammar_errs.22
+ #K= c67dfeca97697b707acdd70672816dff FT_grammar_errs.23
+ #K= 9574dbfdac063409b41a44e6251fbcd9 FT_grammar_errs.24
+-#K= 644b81753949ac1285e38ac995eeba46 FT_grammar_errs.25
+-#K= 1bf2a93a39961f40e0c2dd4c5e2edc6d FT_grammar_errs.26
++#K= 3c694a0ee2cf3a1d39f2ca8a9f3b9094 FT_grammar_errs.25
++#K= c23be05426c8727be833ff055944aa96 FT_grammar_errs.26
+ #K= cdddf4ffd7fde3c12eb0c73770b872bf FT_grammar_errs.27
+ #K= cdf7a2e2740ec007efbd29feda478420 FT_grammar_errs.28
+ #K= f6650d69963cef433c50e1f2acb899fc FT_grammar_errs.29
+@@ -360,8 +360,8 @@ function GOLDEN_RECORDS {
+ #K= 1a402ada248d0d50cec13a1af150ea33 FT_grammar_errs.42
+ #K= 5b46a8eb0d74009462f74cf7553e3228 FT_grammar_errs.43
+ #K= 546e440044828d86135dd63f1eb9ed17 FT_grammar_errs.44
+-#K= 644b81753949ac1285e38ac995eeba46 FT_grammar_errs.45
+-#K= 1bf2a93a39961f40e0c2dd4c5e2edc6d FT_grammar_errs.46
++#K= 3c694a0ee2cf3a1d39f2ca8a9f3b9094 FT_grammar_errs.45
++#K= 37b7ab754e579683a28ce086c470cdc9 FT_grammar_errs.46
+ #K= 3e3acfb800cfb1bcb0cc07f33b75830a FT_grammar_errs.47
+ #K= 42dc6cb4fe938bb82b64c82924ef28d8 FT_grammar_errs.48
+ #K= cf9320d2188f5b48d508d610d95298b2 FT_grammar_errs.49
 
 -- 
 2.56.0
