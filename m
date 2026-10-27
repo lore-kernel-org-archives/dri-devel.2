@@ -2,84 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0821E606A329
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 09:32:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10FE2606A332
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 09:32:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AkmM/X18
+	dkim=pass (2048-bit key, unprotected) header.d=slax.org header.i=@slax.org header.a=rsa-sha256 header.s=google header.b=mua3JHWI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D47A010F33D;
-	Tue, 27 Oct 2026 09:32:17 +0000 (UTC)
-Received: from mail-wr2-f7.google.com (mail-wr2-f7.google.com [74.125.225.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D559210F1B2
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 22:49:11 +0000 (UTC)
-Received: by mail-wr2-f7.google.com with SMTP id
- ffacd0b85a97d-48e0c9bc8f9so1674396f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 15:49:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8571810F33C;
+	Tue, 27 Oct 2026 09:32:18 +0000 (UTC)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+ [209.85.208.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18CD510E05F
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 02:25:34 +0000 (UTC)
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-3a75f960be3so32273391fa.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 26 Oct 2026 19:25:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793067933; cv=none;
+ d=google.com; s=arc-20260327;
+ b=aR7WQ+ZGyuxtI0SEBYq1KWTp2eV6Ns1BInSdjaix410rYFcwotOro1CuWd4UpF1E7O
+ GO3VTSfjcS700NQo+BCojACzKat0wSfWE3GvoXKadyV7uyS4UJBBKEhIiyd2J/AvmDR2
+ 2AndfLkPm74gOzoO0OqHIt1lHqjtc6q4nm4qZYPGUX8zqotZOPQTePILQkuceWraN7L3
+ RPp/4FILfh6UqQJl8hRhFR8Uo6f3UhqtxIg/MB/mPT1Uj/Iynxl9EK0wAY9vQqnXGrup
+ vbM616yB+P976TcyvgHpPqolPD8AjJm4DA5BAigA6SCc4+Bg+c/GUWtSnBm+is0cDUpJ
+ qrjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :dkim-signature;
+ bh=YgY4OQeeCYS2rB2B7n046hbM3eMAPMynIOiWENkrKig=;
+ fh=6zpupYmTXy6A1Xb8djqmje0ZuZInodkMBscBOat38B0=;
+ b=S2sjRNBfqJ74B5S2fyhB/CvDj/1QbR8jyjQbENx8VSIMqznrcWVfAjY4MGiAkRhT40
+ lkMRwKrRtF37PlLQtt8mBITXw0DgNuThfN6+6gDeXzvxhn8jdJBVwtbSQDpHHptsntAL
+ 6ukR11ec0xhVqiBl178Ak20/+w5C+IhEVxKGilflIXniNeBp7BNPGSpgbgTMxxzagvqe
+ ZtcJOnnOhSr1B2DnhN1WiuJzoZ1dxBYrMFowTDUdO/sbW4KpCR+FtjS8CfTxZv2vOp/u
+ Z7RMPsNSG7m7PuB8mjRQPcSi78tvk9CgXoqotHjgdM459oyoy+zTm4D5dVGLFwf50ODX
+ 7/2w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793054950; x=1793659750; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=kKstMhy7XYdWlOxfLVVB+n9yotypUq8kAPAlGnHm/EA=;
- b=AkmM/X18/GcI0rTLzX73RgSrogQEgwkaWkcvu9vTcVD77Rg8sjQMCl8o9/gjHwIftb
- JL/3UU3jpXHCbgLcU+gJqt8U77DU3VYL6PdsEGa1DP85WO2D4IcG1r0F7tMijuHvNabI
- pWVQowPmnvo5leDRF2h5iIJzfkUovcQQAPJHv9X8o1/5g664UG71ZjPvmxqzPHJmhjFK
- SawbVTBeKISrAueGEl2I/pGZ0xFt7TDSHWPYYb60G2kNiAOBIilGsnoBYy9Oww48Ux3O
- OHJIkLDQYppSLvomBmk3pWy95jDYvrMtUzhecmB/HzyzFH87i7k/ll+jZvKWlbyQFhVk
- TbVQ==
+ d=slax.org; s=google; t=1793067933; x=1793672733; darn=lists.freedesktop.org; 
+ h=content-type:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=YgY4OQeeCYS2rB2B7n046hbM3eMAPMynIOiWENkrKig=;
+ b=mua3JHWIFD2RqpD39i6OSGbSBGMADSUnn5Nb1bUmeXSeYrUw0L0xIxQ4BeMApix2G+
+ DZm7t+eTATW8kgDQMY9cnQ4Z+9nx0b6p3xSo6Up6StIOxUFNxvc/XyhRf/P/njsgCw55
+ Gaf7dJ44dw6EnjDUfOtOyIjrwmLxTbGQNhJtyjy+KWOw50lGV63Iw1c2dqymJH5HBtA4
+ ct6NntWEOKiZJ40u/5l8l9GEwgYNuR2lsRJTuQyTk4prvs5IV19c0P6oSdN1+FpOHuy9
+ YF8x5vv9CnF48TcEzxG0sLSlSOXRCUJ2u+s44j2oiHCcTbC+WU8LNQTeYLcziqhKHotp
+ 5N6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793054950; x=1793659750;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kKstMhy7XYdWlOxfLVVB+n9yotypUq8kAPAlGnHm/EA=;
- b=2VpUHmWvs0G/bdmIs8ZDlT0gX1Ht/gTc5Gansvi7rd73PXBOmtMutdqTtKHjASwRkN
- yhLsTyrQ5Oe+6pplPA+KfFeLlVLsBPr8E7vbKZ/g3+1NFw/GmAHfNT9CJP00gHEThDiU
- N+BLAUY1CtIPXsAFfMttTFQgC4rcSM7qLP0ubeTs3s3jSWdJ5OK7DhIC81z2ihcJkveN
- iISSiVKXQ10Z1BkMuWcji6ZTmhdK17NXY9dZ6vtbqYAZvEAbHDxXmud/vUbRbl+Hr1Y5
- j+jJwWG96LYI8hDv/ZGLMQnTTODt3Kt8jT3az5KuUGXr00kVv6YGy2Wuue5H2nbsWSaP
- JFww==
+ d=1e100.net; s=20260707; t=1793067933; x=1793672733;
+ h=content-type:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=YgY4OQeeCYS2rB2B7n046hbM3eMAPMynIOiWENkrKig=;
+ b=eityfQ598qcl/nHP/5RztsZs5buvqfGCe4K09DI8SgXh6tw1iuilHQvNrP2bEPRrAF
+ XKR1OIP+NTif+HGHxsr1O1NWL6GdvBvb8mkVoIH9ppdLXrcA4am3mCfmiTOXGlDEY103
+ oCRgtO2lRhfrAj3tOh6mAT/c5JrILfZVw0i9BZmvceR7QCqX9PCD9MGkz7FO+6Y/aL0r
+ xlnRIdG7qhKBseQU4DrjI4BMP7RfyZXDw+PCle2vqbtF7MiRGbF5rgOeKlcenWpw5550
+ N/q1NGQ7MJ5qlErIBVJQir2/PkNRaAMoBlrLu5aGkQ9PrqIaYZuV94XPZMnOfH0GX0b1
+ yk0w==
 X-Forwarded-Encrypted: i=1;
- AKwUvByrvLhcR7skDXigTM2LxGJ9mV/f1sRznE1J/gMVNrG/pAaZ/DuBtuMTHmP4x6GEKfaPZCuhCF5/vhs=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJgJLWnYLnp3n1SaW6WFm+aJVZ22vCYrwnZVEH6+WqpcJdq56R1
- QY8iSQ9sx3jbCb1rCL32KZXz5fQWS2HWUCInHXcBdgg2OwrpD6xgW0H1
-X-Gm-Gg: AYBFou1c/WT5F8z6RlW2n/ox2TaOtnMH9u10v0qWYw4voY4+5dgPwHM0iwtz0XUgmhO
- GUsd2l0bP8qfVNB3t1dF9QuEVxVY7tTr0gONwngDVXS7AOwc4B4emJ/RVsa6cblVCSYwNuYFbvY
- 4rKb0V9b+mYs+iXhwzmQABUcJrUUVd356yOC5D3Xpq5UnB9k2AcqbJGx9wDq5HG04t9QqQAtJWc
- r5cD9Q8xo1X46i1PVit/2ujHFtrVm3PWUfwN3Qu3xM/zKUfrUyfdxMXJPtQJ1YwaOLIkrTctBXX
- whZRk9DXUIE4oWky6KBWCFDdLLflqFC9vQ3iyEgtk7kT2QVT3xankTRjOHRfQebY3OOSJrIJcly
- Xj9FGHB0gYlHdm4lHNATovlmXygrQdkBQSr7/60LH1lQ3FytzC3Gu9FSpzl0Ig/4c6i3f5sbAY1
- oguE4TY9T5d6LOBb1syyePY9BPToQNRPn5GFGuyVG0LRtO9WMC737MeITD2r2wDKvjzEhFciZwL
- 84VaIbmnrNIFoTQ7LnDqEQQCfIi9pHdHppcz4rVe3YWeELw
-X-Received: by 2002:a05:600c:8114:b0:4a1:dec1:4e1 with SMTP id
- 5b1f17b1804b1-4a35aca4ab5mr129489045e9.22.1793054950146; 
- Mon, 26 Oct 2026 15:49:10 -0700 (PDT)
-Received: from [192.168.1.12] ([31.94.68.191])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4a35a04ad39sm587066755e9.1.2026.10.26.15.49.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Oct 2026 15:49:09 -0700 (PDT)
-Message-ID: <3ff4ef96-9c59-4e8d-a0da-92a1ac6f5ba1@gmail.com>
-Date: Mon, 26 Oct 2026 22:49:08 +0000
+ AKwUvBzFAqhYgGH77uCVOgo0WhDFJSQfKdsQ/YymQ3ru5E4SvY58aXJSxX2C9xfLCYpQCe5U2ycISlvY9jk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJERHUVHQ+NRxv29E4B9Y9Ad+BDL+JnJmLYKIqItVB8iizem1rC
+ euHDIcUYrgRDCQZsPTTnc+ODedTByXI/I3w3tNiNx0VETYuRVVT1TauOiR1HgM3PArLRNjCpH5i
+ u11kx1wdfNoKsQcO2D5zANBnN71UVmZEx8QnQ6y0x9A==
+X-Gm-Gg: AYBFou1aIrrchqnnmQ9vHfJcvODJav6ExpLg9JGmpuuacrjSXH3ZfJBHGJ9+5kKxwlb
+ w0FCywu1Z9eNu3gDOnVBN/5RhUrAqFhTZhgi9oRcBNCr9TMYMrFlxM+W3NJKL3JO4BNl06fHvcK
+ OWO4LdAu3t8KIe4WjuzKWDIGor2rJzIi58soNBM4Dn4uERfRQBBPg/9k2R/U3Fu13WtK6+A5+Uv
+ U4RkYK0B1G3G1APgGgcCfMkNwMaZlnX1GcxoMLOOeRy9+/Fi61xelwo+4GK8Ewf3wqkCGwabSfd
+ O4VJtq5N8DOWh6DM2Nmyy/nMubL0mDroafsH0j8aPaOkI9W+hD+zvf7fGucB1u95oZy79DTZ4P+
+ 21pGuOkaKEd4olclSNojT9AUyCGx02nUhZqx1ox8r1S535DywVPTgSSJ+mCzzuDKn65E=
+X-Received: by 2002:a2e:a99f:0:b0:3a5:dfd3:41b9 with SMTP id
+ 38308e7fff4ca-3ac6fcff2e2mr21287791fa.14.1793067932516; Mon, 26 Oct 2026
+ 19:25:32 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Richard Lane <richardlanedev@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH 3/3] drm/amd/display: report synced Apple 5K tiles to
- PowerPlay for MCLK switch
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAL1oBhpCSzXmPDRLeyJW443ocXyZizkFnzDLQz44BRPPTv0reg@mail.gmail.com>
+In-Reply-To: <CAL1oBhpCSzXmPDRLeyJW443ocXyZizkFnzDLQz44BRPPTv0reg@mail.gmail.com>
+From: Tomas M <tomas@slax.org>
+Date: Tue, 27 Oct 2026 03:24:55 +0100
+X-Gm-Features: AclHuK_fisuPv-N_6mgnIsTCfUXDsjNd6sK-D6Pg4klZAd2hAeo3dmdc-fcVIdQ
+Message-ID: <CAL1oBhoT+F+On=d5m=Jofmee81kPsFv5mc8z1-rst1krCX71EA@mail.gmail.com>
+Subject: Fwd: [BUG] drm/vmwgfx: GB_ONLY cursor updates ignore legacy Xorg
+ hotspot
+To: Ian Forbes <ian.forbes@broadcom.com>, dri-devel@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="0000000000002d3333065ec92946"
 X-Mailman-Approved-At: Tue, 27 Oct 2026 09:31:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,57 +98,113 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When driving both 2560x2880 tiles of an Apple 5K iMac panel, Display
-Core's program_timing_sync() already aligns both CRTCs in hardware
-during dc_commit_streams() because the two streams share identical
-timings.
+--0000000000002d3333065ec92946
+Content-Type: text/plain; charset="UTF-8"
 
-However, on DCE < 12 (iMac15,1 through Polaris-based iMac19,1), Display
-Core leaves pp_display_cfg.all_displays_in_sync unset. Because PowerPlay
-is not informed that the two streams have synchronized vertical blanking
-intervals, SMU7 prevents MCLK switching at idle or causes modeset
-underflows.
+Hi,
 
-Report all_displays_in_sync = true to PowerPlay after committing both
-tiled streams so SMU7 knows the tiles blank simultaneously and can
-safely downclock MCLK at idle.
+I found a cursor hotspot regression in vmwgfx while testing Slax
+with Linux 7.2.9.
 
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Environment:
+- VirtualBox 7.1.10, VMSVGA, 3D acceleration disabled
+- Debian 13 userspace
+- xserver-xorg-core 21.1.16
+- xf86-video-vmware 13.4.0
+- Hardware cursors enabled through normal driver autodetection
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 548f975c7324..384a81371f80 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4788,6 +4788,19 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
- 	mutex_lock(&dm->dc_lock);
- 	dc_exit_ips_for_hw_access(dm->dc);
- 	WARN_ON(!dc_commit_streams(dm->dc, &params));
-+	/*
-+	 * DCE < 12 leaves all_displays_in_sync unset; report synchronized
-+	 * Apple 5K tiles to PowerPlay after commit so SMU7 can downclock MCLK
-+	 * at idle without modeset underflows.
-+	 */
-+	if (params.stream_count == 2 &&
-+	    params.streams[0]->link->tiled_peer == params.streams[1]->link) {
-+		struct dm_pp_display_configuration *pp_cfg =
-+			&dm->dc->current_state->pp_display_cfg;
-+
-+		pp_cfg->all_displays_in_sync = true;
-+		dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
-+	}
- 
- 	bool frl_stream_found = false;
- 
--- 
-2.55.0
+Resize cursors appear displaced from the pointer position. For
+example, a horizontal resize cursor with hotspot (13, 6) is drawn
+13 pixels to the right and 6 pixels below the expected position.
+
+The theme file and XFixesGetCursorImage both report the correct
+hotspot (13, 6), but VirtualBox's VMSVGA diagnostics report (0, 0).
+
+Code inspection points to the GB_ONLY branch introduced by:
+
+  eef295a85082 ("drm/vmwgfx: Restore Guest-Backed only cursor plane support")
+
+In vmw_cursor_plane_atomic_update(), this branch passes only
+vps->base.hotspot_x/y to vmw_send_define_cursor_cmd().
+
+However, xf86-video-vmware supplies the hotspot through
+DRM_VMW_CURSOR_BYPASS, which stores it in
+vps->cursor.legacy.hotspot_x/y.
+
+The position calculation adds both hotspot components, and the
+LEGACY and MOB image paths also include both. Only the GB_ONLY
+image path omits the legacy component.
+
+The attached patch uses the same combined hotspot for the GB_ONLY
+image and its position. It fixes the displacement in our VM.
+Additional tests with custom cursors, bypassing the cursor theme
+and window manager, confirmed that hotspots (13,6), (6,13), (9,9)
+and (7,11) reach the virtual hardware correctly with the fix.
+
+For completeness, this setup also encounters the separately
+reported zero SVGA_REG_CURSOR_MAX_DIMENSION issue:
+
+https://patchew.org/linux/20260830151619.2452307-1-yunfeng.li.nb@gmail.com/
+
+To make hardware cursors visible for these tests, our kernel also
+has a local workaround that retains a 64px limit specifically for
+GB_ONLY when that register returns zero. MOB validation is unchanged.
+
+Could you review the hotspot fix and consider applying it upstream?
+I can provide further diagnostics if helpful.
+
+Thanks,
+Tomas M
+
+--0000000000002d3333065ec92946
+Content-Type: application/x-patch; name="vmwgfx-legacy-cursor-hotspot.patch"
+Content-Disposition: attachment; 
+	filename="vmwgfx-legacy-cursor-hotspot.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mvq29g580>
+X-Attachment-Id: f_mvq29g580
+
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfY3Vyc29yX3BsYW5lLmMKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfY3Vyc29yX3BsYW5lLmMKQEAgLTgwMyw2ICs4
+MDMsMTAgQEAKIAkJcmV0dXJuOwogCX0KIAorCS8qIEluY2x1ZGUgbGVnYWN5IFhvcmcgY3Vyc29y
+LWJ5cGFzcyBvZmZzZXRzIGluIHRoZSBpbWFnZSBhbmQgcG9zaXRpb24uICovCisJaG90c3BvdF94
+ID0gdnBzLT5jdXJzb3IubGVnYWN5LmhvdHNwb3RfeCArIG5ld19zdGF0ZS0+aG90c3BvdF94Owor
+CWhvdHNwb3RfeSA9IHZwcy0+Y3Vyc29yLmxlZ2FjeS5ob3RzcG90X3kgKyBuZXdfc3RhdGUtPmhv
+dHNwb3RfeTsKKwogCXN3aXRjaCAodnBzLT5jdXJzb3IudXBkYXRlX3R5cGUpIHsKIAljYXNlIFZN
+V19DVVJTT1JfVVBEQVRFX0xFR0FDWToKIAkJdm13X2N1cnNvcl9wbGFuZV91cGRhdGVfbGVnYWN5
+KGRldl9wcml2LCB2cHMpOwpAQCAtODE2LDggKzgyMCw3IEBACiAJCQl2bXdfc2VuZF9kZWZpbmVf
+Y3Vyc29yX2NtZChkZXZfcHJpdiwgYm8tPm1hcC52aXJ0dWFsLAogCQkJCQkJICAgdnBzLT5iYXNl
+LmNydGNfdywKIAkJCQkJCSAgIHZwcy0+YmFzZS5jcnRjX2gsCi0JCQkJCQkgICB2cHMtPmJhc2Uu
+aG90c3BvdF94LAotCQkJCQkJICAgdnBzLT5iYXNlLmhvdHNwb3RfeSk7CisJCQkJCQkgICBob3Rz
+cG90X3gsIGhvdHNwb3RfeSk7CiAJCWJyZWFrOwogCWNhc2UgVk1XX0NVUlNPUl9VUERBVEVfTk9O
+RToKIAkJLyogZG8gbm90aGluZyAqLwpAQCAtODI5LDkgKzgzMiw2IEBACiAJICovCiAJY3Vyc29y
+X3ggPSBuZXdfc3RhdGUtPmNydGNfeCArIGR1LT5zZXRfZ3VpX3g7CiAJY3Vyc29yX3kgPSBuZXdf
+c3RhdGUtPmNydGNfeSArIGR1LT5zZXRfZ3VpX3k7Ci0KLQlob3RzcG90X3ggPSB2cHMtPmN1cnNv
+ci5sZWdhY3kuaG90c3BvdF94ICsgbmV3X3N0YXRlLT5ob3RzcG90X3g7Ci0JaG90c3BvdF95ID0g
+dnBzLT5jdXJzb3IubGVnYWN5LmhvdHNwb3RfeSArIG5ld19zdGF0ZS0+aG90c3BvdF95OwogCiAJ
+dm13X2N1cnNvcl91cGRhdGVfcG9zaXRpb24oZGV2X3ByaXYsIHRydWUsIGN1cnNvcl94ICsgaG90
+c3BvdF94LAogCQkJCSAgIGN1cnNvcl95ICsgaG90c3BvdF95KTsK
+--0000000000002d3333065ec92946
+Content-Type: application/x-patch; name="vmwgfx-legacy-cursor-limit.patch"
+Content-Disposition: attachment; filename="vmwgfx-legacy-cursor-limit.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mvq29g5o1>
+X-Attachment-Id: f_mvq29g5o1
+
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfY3Vyc29yX3BsYW5lLmMKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfY3Vyc29yX3BsYW5lLmMKQEAgLTc0OCw2ICs3
+NDgsMTAgQEAKIAkJdTMyIGN1cnNvcl9tYXhfZGltID0KIAkJCXZtd19yZWFkKHZtdywgU1ZHQV9S
+RUdfQ1VSU09SX01BWF9ESU1FTlNJT04pOwogCisJCS8qIE9sZGVyIGhvc3RzIGxhY2sgdGhlIE1P
+QiBjdXJzb3IgbGltaXQgcmVnaXN0ZXI7IHJldGFpbiB0aGUgNjRweCBsaW1pdC4gKi8KKwkJaWYg
+KCFjdXJzb3JfbWF4X2RpbSAmJiB1cGRhdGVfdHlwZSA9PSBWTVdfQ1VSU09SX1VQREFURV9HQl9P
+TkxZKQorCQkJY3Vyc29yX21heF9kaW0gPSBWTVdfQ1VSU09SX1NOT09QX1dJRFRIOworCiAJCWlm
+IChuZXdfc3RhdGUtPmNydGNfdyA+IGN1cnNvcl9tYXhfZGltIHx8CiAJCSAgICBuZXdfc3RhdGUt
+PmNydGNfaCA+IGN1cnNvcl9tYXhfZGltKSB7CiAJCQlkcm1fd2Fybigmdm13LT5kcm0sCg==
+--0000000000002d3333065ec92946--
