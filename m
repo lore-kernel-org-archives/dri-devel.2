@@ -2,102 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A78606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 12:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB88F606A326
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 13:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OijH8ZWb
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=oX4gxBvx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 028F210F474;
-	Tue, 27 Oct 2026 12:58:09 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB2910F474
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 12:58:03 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2d01548ac96so6213215ad.3
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 05:58:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793105882; cv=none;
- d=google.com; s=arc-20260327;
- b=YccXSioScgtt0YkWe8evvIvTjj22B2Ai9PTGdDFNrxZsnVBARMpsYzF2EWI6sbaUZm
- WOO4o6E9WIXggLEoy/X5/inmwO4pK8qKncmW7UWayM/Wsy8rY4afbFOrxPFFX2sPW57s
- SXTsaEWjnEV0WwAu5jWcEx81uDpECsCQW8LGPbR6d4NJKUNgKKTqM+K+KJ5GUwUWYVQ8
- ViLkEFgxSPyGc2C3pFMI4TeBDwEo/iYuLffOxX9N0kNwApKh1wt5H7Xh9cQvykDes4Cz
- 4YgDreeB0HyVmuNtsqCg2L0LYHL2UqGBZQUEEMzgr9zWm5HwQUguyJ+YV94GGRnP1OUG
- KAdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=5cFHz19Fl8DmCi1uIfI6RDZnDxd7w5JrqZ9wd9VXgCk=;
- fh=1HfbT71AeD90oKOuSZfAjsA85I+aLLPGIIOjjiv4msU=;
- b=cRdB2jIyS02tyDXuBw45/fsaq3cVbsDrpjj7EjVCUsPvW9jw+irsWg1E6vkWT9By39
- +Wj1Z5/xqU13QNO9qYjAwhAYIZ/7ljPtRkeFsJWOsrWm3H/Y0lIDH0Om4dWTboDrRTde
- MSDdVWkNbN2AX8Q1xF8vpiJAO23Shw0fBZ3t68anwHbZUFmqyblS3W+u9qsPnyI2R0gm
- PNSelk9MUMC0rWb9JxU9NpImwRVa8b5Ir5f+EBS2bSlLquy4J6dT7557eyLL3GOA56a+
- 4A4lktl2N+9Hd9WAsAhkh99yOLEMqPGjSZZZziB/mowZEj79gYofuDI0HaKw9y4vardd
- fYMA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F7110E1A0;
+	Tue, 27 Oct 2026 13:03:37 +0000 (UTC)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5B7110F487
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 13:03:31 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-3645f0f3fcdso7465852eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 06:03:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1793105882; x=1793710682; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=5cFHz19Fl8DmCi1uIfI6RDZnDxd7w5JrqZ9wd9VXgCk=;
- b=OijH8ZWb3IRxYYp73go0LVGqeHC4xrZZvSFMXL4RWOGtcns7/RkmVl3VDFvHW4Q4pu
- iYyBDJxrOEJWiXDkoC/PeeK1fTkmtFQmN52FbNSDBTgMGlGoGEgx1eyzzic6uMmKiRrH
- OLfbCcZnmELtPvN/eiMhnV89L9uF/su8Bhdlxm+hMHtNkeh3gSBaLrS0qC7yJB1olHdZ
- /gBW5isrODvzG90bM+C/Mip7IgcfFcJUVI47PilW0q61r2NEWwrTtJwi1Nh41eNwgMyp
- /kmN5+E9g2X1JrWS7CG/e8dPXYAXLOexZUJHCBZUF3oNqWnuySWaiTMsrxOpcgwDfMvN
- VAlg==
+ d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1793106211; x=1793711011;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ReSdqMrGBGnsTnwVh5aa3vwJIfFSFewN0arb4MIegpw=;
+ b=oX4gxBvxiEQLtrh4EawBE/YMX2BmJvvKXk1yhMUhJc6n50pjOonCa1aI3ld4SPfR1M
+ lPIgKnSdsZIc85L16s3uCXijIFlrkdRtGPh448YPSRIcHN8VqVMI9f4A31cqNqffD3QT
+ 06b5N7YoxXbwT2US8dbWJ4T68YA9fTzQ1qrJ7XV/hKR7rRjK06HoB87SYFRiHHutsWlN
+ BHLpdDmA3RXCvNK+3SyUaRZpP0WxKKhZl7vnrcCWet1WnOAdDM4xVftZi+qsgh5p98iK
+ oHXPHCZdxlyYCs8RhO3YXOPzdBwI7FPzrS1intBZzT+AAQHPUktfTJN75kPqgnsAj+nk
+ ufwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793105882; x=1793710682;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=5cFHz19Fl8DmCi1uIfI6RDZnDxd7w5JrqZ9wd9VXgCk=;
- b=WV+5PtrlWpb8Xqr7f3+9vKNv6UKpMZUNj4fYrqE/1O4FdvRgNWWLf/rjvyqemCUgvF
- J5w9+qr0lrNPDokz4R41jHfJB90mgHUr5Xwg/WD0Yf96KoIdMZ5OLMNtgK+rfjB7yk7T
- PmR4w47ugnbmxDqde7cTkk+tqoVOgtHVNlW84o6LueljI99KH2P0tdbulOx2jpOPcVs5
- pHyOpkM9W0TZmFf4iiWubS4pXHKwdANO+6MXHWpb4kEefSJsAu6cGr9tRkarHue4aNev
- e2qqhIP0Yx3D/A1aog/olLWbkmz9hrbV+CJnQQBXbMesizdgNWZX2TtfEwegfD63qcLz
- CUDg==
+ d=1e100.net; s=20260707; t=1793106211; x=1793711011;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ReSdqMrGBGnsTnwVh5aa3vwJIfFSFewN0arb4MIegpw=;
+ b=Tob8ZTsT/LCsTIGdJuJQqvvVHMrOpjhxd9s0z90QoNpw75VC6NKrmUvRiej+9WfRl9
+ KQwKhuHUna+kXGTCmz2sqeF1TaCupJbIfHzKAhuyWwGHNpR1l1AMWXKpzGjTCGYtITFb
+ /aby4sgtvBxMu17U95JaXDL1v8bBNxVH5h5XMGQZWIeZa6hLyUm/9jlXCciqL7l/2665
+ WH+5MOvIgZiQb9ajT4purm5Ojv0mYSJ8TUaAPiQr2CMAbY6yHnmVhmgyKF0IXY/k7VcK
+ hL0nsO5IIqNMaq8b8rBOcQKhSKHw58jlNkbk7E3lvAJlqWcSuYgZhw1PTm0WMS3V8N1y
+ /K2w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwWaBFZ2aQWAc99PnlUySapNSfPJsyAWgiHJRRI7WMpP3CM2PmD0Subnpzlfcr7vnz9P6yrack4GiA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ+IB3uPmLropbjZmR9MG5dC2ETLcerDnSHmdgHhp5KPx7C5wT3
- zKlmjhsfhb/skE6yKG3u3sE+dqYCSOgU0SM5GInaHbdxs9X/ND31KrtGOY6G0awxufPI39S4UTW
- 3aXEhhHeDLW7CYlgX7ph5wOUwIff8AOPAbve+HnI=
-X-Gm-Gg: AYBFou1L7OpnLx9wiWAO4GPWv3LwZSE7EbNGDaOzfY953QXAePjB1/z76S2qs0bNVAX
- h4c4lLZUduIjDU6YbGE2SSMoI/PViLtjOtvfPwlCfu/PK+u6wcYApexAOdqGSg/tRuM+feloTw9
- EDtfrmlzBhYrOYTzgILVtb3bn/+d8rHcgH7kuWv9i/L7/N9WmQbGDbMx4rYo7CGQCuDozpX+zaU
- Offg3lkW/UMwGevI0WVYD7WtDJ4+M0e1aghRQJ+zn7eK11drjk+KfqUzAEncrnTXGhZcmDPCs1d
- A6NVk40XxsYH/PslUZBMLIbtpC5r680AZgym73e95d1KvoRXV+vKTV5YzWaVXFR0gYlkD4YPlvy
- mRDpmnmoos3R/SHMXaP7LUyQi2RCZVvFBbJZpaDiVHrTgAHPcV0NXqAeSxceJ//Wf5ntRW5A7c9
- AS9qZGZEKgnqFF5Zw3dnuKPC0=
-X-Received: by 2002:a17:903:1246:b0:2e9:53b1:a3c8 with SMTP id
- d9443c01a7336-2ea9b8cedd9mr139799795ad.0.1793105882570; Tue, 27 Oct 2026
- 05:58:02 -0700 (PDT)
+ AKwUvBzqxnrILpbFLKlZPVFhthnuO99947GcxMQknl3ft/zPS0FSQ/cd5SYf2EE8S9zVkm2Lt6kMA9034Z4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJd13FFyibh5ytTLQ79Fz78AvAfFinyzN0xSUTjr+rBno71V9QW
+ BN7q5Lf2/S75VjYa13RnUQnXLEsb7rsXQ/iIxGel3HBtwUrX7Lhz4tGXQg+6UlW6KK0=
+X-Gm-Gg: AYBFou011AH5+1pBQ8hW0y5S1cBDZ9J/dDuhBe1V6DMyMS/vcKIneYplHhtVQtj7RQY
+ 9sxfMX6BfK2IzIZMuopeBJbqkZ4PeVcpd6iLn4cLJXYB7fNcNpCbtNgxUhP5petNIGop/afpt8N
+ 8Qr8aOm8WIuELKQ/k1pajKXl7OWMYeAgOpuON1wI1bR9BG1X38oKMbv6Qpbe6skAOs5AuFbWCnh
+ Dc3VVtGjt+BR02Cy8NgPDrEkdoH+bpVCAnsBFqd1QE+RKkGQDPgODVIHUyE5qP/0nF8dnyRnLGH
+ VurWLq5KwH7C/D/kuUAA25StyI+JzF+RjnfiM10fxJvpDmHRtSwCMuBhp9C5rNk78wpmgikQcem
+ XqpJ7/IvdjrSwP+ugmFt2tx3uJY0vtTG8ZE4mmEO0LYEXuMLFet1YSh1PSegVvRQQb+zHcUhlaA
+ olzgcg7wy8rkwIaNPsO3Zwtc3TMUbrFstVoHY+wnK2sa/3IMNAen742MYeNZX8QOGab34n3nKqD
+ kUP5vhhV9kiQVZGzEex+kfLkCkg6EmN6jW95CyzBxO8/bmaQe5eKIWLaChEsSsJb9QFKZ3VgG+C
+ PgrOT3o6BTI2ya7RATQWbXPAft9MQU7nLswmMqM=
+X-Received: by 2002:a05:7301:77cc:b0:36a:168a:96c4 with SMTP id
+ 5a478bee46e88-36a168a9865mr1879705eec.1.1793106210431; 
+ Tue, 27 Oct 2026 06:03:30 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-369e8db7b23sm46576346eec.19.2026.10.27.06.03.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Oct 2026 06:03:29 -0700 (PDT)
+Message-ID: <f92baf52-bc4b-432b-bc0a-f39f59483805@kernel.dk>
+Date: Tue, 27 Oct 2026 07:03:29 -0600
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
- <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
-In-Reply-To: <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Oct 2026 08:57:51 -0400
-X-Gm-Features: AclHuK92ggwXiFq1nRRsvD9VvQPc9NQzHHjBp1wqrlbElWtCAuab7SLZN1uuWeE
-Message-ID: <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K
- iMac
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Richard Lane <richardlanedev@gmail.com>, amd-gfx@lists.freedesktop.org, 
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 1/1] misc: fgds: introduce GPU-File direct I/O via
+ dma-buf
+To: Li Wang <liwang@kylinos.cn>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pavel Begunkov <asml.silence@gmail.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20260908131545.105987-1-liwang@kylinos.cn>
+ <20261027090853.30099-1-liwang@kylinos.cn>
+ <20261027090853.30099-2-liwang@kylinos.cn>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261027090853.30099-2-liwang@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,77 +97,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 27, 2026 at 8:21=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 10/26/26 23:46, Richard Lane wrote:
-> > Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
-> > VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated EFI
-> > framebuffer.
-> >
-> > Override the stolen VGA memory allocation size to 64 MiB when matching
-> > PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
-> > framebuffer corruption during boot handover.
->
-> Hacks like those are usually a big no-go.
->
-> Why is that framebuffer handling not working with DC out of the box?
+On 10/27/26 3:08 AM, Li Wang wrote:
+> From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+> 
+> This patch introduces a driver that allows moving data between a GPU
+> dma-buf and a regular file on NVME without staging it through the page 
+> cache. Userspace registers the GPU dma-buf with the device, then issues 
+> read and write requests via the device's ioctls. Each transfer is direct 
+> I/O: an ITER_DMABUF_MAP iterator is passed to the file's read_iter or
+> write_iter, and the filesystem's iomap path submits REQ_DMABUF bios that
+> already carry the dma addresses.
+> 
+> Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+> Signed-off-by: Li Wang <liwang@kylinos.cn>
+> ---
+>  .../userspace-api/ioctl/ioctl-number.rst      |   2 +
+>  drivers/dma-buf/dma-buf-io.c                  |   3 +
+>  drivers/misc/Kconfig                          |  16 +
+>  drivers/misc/Makefile                         |   1 +
+>  drivers/misc/fgds.c                           | 506 ++++++++++++++++++
+>  fs/iomap/buffered-io.c                        |  11 +
+>  fs/iomap/direct-io.c                          |  23 +-
+>  fs/xfs/xfs_file.c                             |   4 +
+>  include/linux/iov_iter.h                      |   4 +
+>  include/uapi/linux/fgds.h                     | 124 +++++
+>  lib/iov_iter.c                                |   1 +
+>  mm/filemap.c                                  |  22 +-
+>  12 files changed, 713 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/misc/fgds.c
+>  create mode 100644 include/uapi/linux/fgds.h
 
-The GMC IP code reserves the memory used by the display hardware from
-the pre-OS console.  The gmc get_vbios_fb_size() callback looks to see
-what display viewport was set by the pre-OS environment.  If the Macs
-need a workaround, that's where it should go.  Since these displays
-require multiple display pipes, my guess is you need to double the
-allocation in that case since the current code just checks the first
-pipe.
+What's the point of this, when you can just use io_uring to do
+the same?!
 
-Alex
+-- 
+Jens Axboe
 
->
-> Regards,
-> Christian.
->
-> >
-> > Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gmc.c
-> > index 4204c3c750a8..8b196fbfa724 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struct amd=
-gpu_device *adev)
-> >         } else {
-> >                 size =3D amdgpu_gmc_get_vbios_fb_size(adev);
-> >
-> > -               if (adev->mman.keep_stolen_vga_memory)
-> > +               /*
-> > +                * Apple 5K iMacs report one 2560x2880 tile in VIEWPORT=
-_SIZE
-> > +                * while scanning out up to 64M across the relocated EF=
-I
-> > +                * framebuffer.
-> > +                */
-> > +               if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_A=
-PPLE &&
-> > +                   size =3D=3D (2560 * 2880 * 4))
-> > +                       size =3D 64U * 1024 * 1024;
-> > +               else if (adev->mman.keep_stolen_vga_memory)
-> >                         size =3D max(size, (unsigned)AMDGPU_VBIOS_VGA_A=
-LLOCATION);
-> >         }
-> >
-> > --
-> > 2.55.0
->
