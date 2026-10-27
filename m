@@ -2,51 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27027606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:31:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC0E606A322
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:31:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ePRJ3xib
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JhMFDt8v
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7092310F81B;
-	Tue, 27 Oct 2026 20:31:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 101B010F825;
+	Tue, 27 Oct 2026 20:31:25 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F1E610F81B;
- Tue, 27 Oct 2026 20:31:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F02E410F81C;
+ Tue, 27 Oct 2026 20:31:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1793133079; x=1824669079;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Q+a0KRkWbPKPPXbj5S0Roto3SXW+vy8mMj3iYqdK9kM=;
- b=ePRJ3xiblpE+MHeyibSiGciI74YJO5N/902YOOKXFO38+dtzDKbrt3xv
- evSsq8UTUdyRQej7Oz4cgHGAf61E4gBmNA5UTqzFP5AMgRSJWA6PuDlXa
- cjjtp+7fnplS5+BWQoB3FTpj3Oc9jZ3kZvzRAfVbOIJkBt6yzVodmpU/8
- Hmt1FCtha7UvQpSvfaay3ziFberpDhEAPcyxycx99EwkCzeaK+NkTf5iK
- BWhBZoMg9WARQQesQY4aUp7S4T2fDSzWTSrkyymz8ofGdbj2sFlsGdiRI
- 4bsXPmQDv4SyPLvtb8/vl0Lb8o+2V9KrxtK75caTBGotRiz5Un1sQjcWP w==;
-X-CSE-ConnectionGUID: ddXy1wVRSLG8hLipBo5x4g==
-X-CSE-MsgGUID: +Qzj2H5TSEeFAhzTNRblMQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1832109"
+ bh=GW2kF11vWqhivxgbUlfhS/HVJlaG083+rjMFU4YGYfc=;
+ b=JhMFDt8veV5OinXXuiOB/1e1Sqc8VTJP8y+p5MHFevkYGwSQ22TAW8Wk
+ fDrcDb0wvaKqeqZjAQdHRquCdJS+4fIlL8AWV5Bey0sxTz9nkcAHmTEvF
+ KE+Rw7Fsnepkup2iFHUHWqOGmAJcGmbB38O6LDpo1deZxFv2ZK3N+I4mc
+ xU6Syo7tsn60flUPqvy/KgPN5pL24N8JYHF/P0mtYbB/WMMfZHs6ct7+i
+ PMRvADExJ7a894WBxubB7eFXqNEEz/gvO/U0lGDF0yGF5QNzyyp9Fb5il
+ I7e4+dLpsAHX4Fz4jHbbAJW33ev9wiRlMHrB8RLb2VzxepopYiH0TywQI g==;
+X-CSE-ConnectionGUID: KCtugxAERium3F73MnUYcQ==
+X-CSE-MsgGUID: uNpKoR41T/2g+wPKKwW0jg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1832108"
 X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1832109"
+   d="scan'208";a="1832108"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Oct 2026 13:31:13 -0700
-X-CSE-ConnectionGUID: ThtH9Jn0TNCUNzQ8DMEVrg==
-X-CSE-MsgGUID: EypYGttBRuusvE0PWToYYA==
+X-CSE-ConnectionGUID: dxTLM5B7T7mei87/Mwe23A==
+X-CSE-MsgGUID: WhLH/2IcTbGtleMiqTmoSg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="5035065"
+   d="scan'208";a="5035064"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Oct 2026 13:31:13 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH v5 2/3] drm/ttm: Allow skipping to the next priority in the bo
- LRU cursor
-Date: Tue, 27 Oct 2026 13:31:06 -0700
-Message-Id: <20261027203107.1065800-3-matthew.brost@intel.com>
+Subject: [PATCH v5 1/3] drm/xe: Bump the LRU on a successful page fault
+Date: Tue, 27 Oct 2026 13:31:05 -0700
+Message-Id: <20261027203107.1065800-2-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261027203107.1065800-1-matthew.brost@intel.com>
 References: <20261027203107.1065800-1-matthew.brost@intel.com>
@@ -71,148 +70,44 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Drivers walking a manager's LRU with ttm_bo_lru_for_each_reserved_guarded()
-may decide that the rest of the current priority isn't worth walking,
-for example when the priority is roughly age ordered and the walk hit
-a BO that is still too hot to evict. Today the only option is to stop
-the walk altogether, which also gives up on the remaining priorities.
+Servicing a page fault validates the VMA's backing store and binds it,
+making the BO part of the VM's active working set, but unlike exec it
+never moves anything on the TTM LRU. In fault mode, where a VM may run
+for a long time without a single exec, the BOs the GPU actually touches
+therefore drift towards the LRU head and are picked by eviction and by
+the shrinker ahead of genuinely cold BOs.
 
-Add ttm_resource_manager_next_priority() to move a resource cursor to
-the start of the next priority, and ttm_bo_lru_cursor_skip_priority()
-to make the next ttm_bo_lru_cursor_next() use it.
+Bump the BO's LRU on a successful page fault.
 
-While at it, stop incrementing the cursor priority past the last valid
-priority once the iteration is done.
-
-Assisted-by: LLM
+Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/ttm/ttm_bo_util.c  |  3 +++
- drivers/gpu/drm/ttm/ttm_resource.c | 35 ++++++++++++++++++++++++++----
- include/drm/ttm/ttm_bo.h           | 19 ++++++++++++++++
- include/drm/ttm/ttm_resource.h     |  2 ++
- 4 files changed, 55 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/xe_pagefault.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index f9458a4d5a09..d626f014e61f 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -997,6 +997,9 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
- 		if (first) {
- 			res = ttm_resource_manager_first(&curs->res_curs);
- 			first = false;
-+		} else if (curs->skip_priority) {
-+			res = ttm_resource_manager_next_priority(&curs->res_curs);
-+			curs->skip_priority = false;
- 		} else {
- 			res = ttm_resource_manager_next(&curs->res_curs);
- 		}
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 4e6d3d658d85..e631507d7aa1 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -674,6 +674,17 @@ ttm_resource_cursor_check_bulk(struct ttm_resource_cursor *cursor,
- 	}
- }
- 
-+static bool ttm_resource_cursor_next_priority(struct ttm_resource_cursor *cursor)
-+{
-+	if (cursor->priority + 1 >= TTM_MAX_BO_PRIORITY)
-+		return false;
+diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
+index 5247321c805e..7d363160103a 100644
+--- a/drivers/gpu/drm/xe/xe_pagefault.c
++++ b/drivers/gpu/drm/xe/xe_pagefault.c
+@@ -201,6 +201,8 @@ static int xe_pagefault_handle_vma(struct xe_gt *gt, struct xe_vma *vma,
+ 		xe_validation_ctx_init(&ctx, &vm->xe->val, &exec,
+ 				       (struct xe_val_flags) {});
+ 		drm_exec_until_all_locked(&exec) {
++			struct xe_bo *bo = xe_vma_bo(vma);
 +
-+	list_move(&cursor->hitch.link, &cursor->man->lru[++cursor->priority]);
-+	ttm_resource_cursor_clear_bulk(cursor);
-+
-+	return true;
-+}
-+
- /**
-  * ttm_resource_manager_first() - Start iterating over the resources
-  * of a resource manager
-@@ -723,16 +734,32 @@ ttm_resource_manager_next(struct ttm_resource_cursor *cursor)
+ 			err = xe_pagefault_begin(&exec, vma, tile->mem.vram,
+ 						 needs_vram == 1);
+ 			drm_exec_retry_on_contention(&exec);
+@@ -221,6 +223,9 @@ static int xe_pagefault_handle_vma(struct xe_gt *gt, struct xe_vma *vma,
+ 				xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_VMA_REBIND);
+ 				break;
  			}
++
++			if (bo)
++				ttm_bo_move_to_lru_tail(&bo->ttm);
  		}
- 
--		if (++cursor->priority >= TTM_MAX_BO_PRIORITY)
-+		if (!ttm_resource_cursor_next_priority(cursor))
- 			break;
--
--		list_move(&cursor->hitch.link, &man->lru[cursor->priority]);
--		ttm_resource_cursor_clear_bulk(cursor);
- 	}
- 
- 	return NULL;
- }
- 
-+/**
-+ * ttm_resource_manager_next_priority() - Skip the rest of the current
-+ * priority and continue iterating at the next one
-+ * @cursor: cursor to record the position
-+ *
-+ * Return: the first resource of the next non-empty priority, or NULL if
-+ * there is none.
-+ */
-+struct ttm_resource *
-+ttm_resource_manager_next_priority(struct ttm_resource_cursor *cursor)
-+{
-+	lockdep_assert_held(&cursor->man->bdev->lru_lock);
-+
-+	if (!ttm_resource_cursor_next_priority(cursor))
-+		return NULL;
-+
-+	return ttm_resource_manager_next(cursor);
-+}
-+
- /**
-  * ttm_lru_first_res_or_null() - Return the first resource on an lru list
-  * @head: The list head of the lru list.
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 32791c4db2a9..2fc517dbf03d 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -507,10 +507,29 @@ struct ttm_bo_lru_cursor {
- 	 * unlock before the next iteration or after loop exit.
- 	 */
- 	bool needs_unlock;
-+	/**
-+	 * @skip_priority: Continue at the next LRU priority on the next
-+	 * iteration. See ttm_bo_lru_cursor_skip_priority().
-+	 */
-+	bool skip_priority;
- 	/** @arg: Pointer to common BO LRU walk arguments. */
- 	struct ttm_lru_walk_arg *arg;
- };
- 
-+/**
-+ * ttm_bo_lru_cursor_skip_priority() - Skip the rest of the current priority
-+ * @curs: The cursor.
-+ *
-+ * Make the next ttm_bo_lru_cursor_next() skip the remaining buffer objects
-+ * of the current LRU priority and continue at the next priority, for
-+ * example when the caller decides the rest of the priority isn't worth
-+ * walking.
-+ */
-+static inline void ttm_bo_lru_cursor_skip_priority(struct ttm_bo_lru_cursor *curs)
-+{
-+	curs->skip_priority = true;
-+}
-+
- void ttm_bo_lru_cursor_fini(struct ttm_bo_lru_cursor *curs);
- 
- struct ttm_bo_lru_cursor *
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index 714c533622c2..8cd70d1e5481 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -499,6 +499,8 @@ struct ttm_resource *
- ttm_resource_manager_first(struct ttm_resource_cursor *cursor);
- struct ttm_resource *
- ttm_resource_manager_next(struct ttm_resource_cursor *cursor);
-+struct ttm_resource *
-+ttm_resource_manager_next_priority(struct ttm_resource_cursor *cursor);
- 
- struct ttm_resource *
- ttm_lru_first_res_or_null(struct list_head *head);
+ 		xe_validation_ctx_fini(&ctx);
+ 	} while (err == -EAGAIN);
 -- 
 2.34.1
 
