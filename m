@@ -2,138 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52433606A321
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 03:42:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429AA606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 03:47:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BOndQ1Hm
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWOC2jz1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B198E10E197;
-	Tue, 27 Oct 2026 03:42:47 +0000 (UTC)
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9714810E07D;
- Tue, 27 Oct 2026 03:42:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K1bENl+UGN4TfrQI45+YBe0se/6GR7zvWF7f7itucI5C4u9mXPrS87aFi96zFVLh4qUJOv8/QJodQcXbjXfemjT3350PiLInJwG242a4x9E58kqWPRvWv/Z+oFrPeKLFokCy9iHNUJ9zEJQIqIQaD2dvDxXMW/10kR94BvWv6NgX9xxc2GF0ufU3PRADrU5Y8b4B7nRXSYSH6N3IzZFSBWub6AshHKNEqbxCNw0jYHWrACe/HcjcAQaoEoR1AUPeCVxqy5KTQfYfGu+89tnWApb8KLZCF9mOc8w+8O6zcuKmyeOEX/5ha3f3VGh4UDcqmDKwDOZgt3w5QVg0hxgIjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bIr823/UzfsG9CRAeLIu2WbktM8BknLKIBPc+Dr9qXU=;
- b=fnPJyGgsBkuIngJvzosgiDbHqs/IpTpRpGlAsdayo4jTDPMtSunaUQfIviiWGx17zIl66g2uLRYFAf1+XfnSgHTEZ+FAxm8HyxdAYlZW4FaGn5Tf/SyT3j1txmFSY9I0zRiVh1UYvX18M1VMAb76zw1LdYyiVww0aAH+ZyG4fx1FU86io+MDCI3KpEEQnjTbuDqDk6TqSOnUWuFYwqSQ+iZz5YAZBZEPdkck/JtjR54HU1bzqYKjJF4iktiKhqi35wilBvZgnplMUA6vgiQd5PEvZLnbPqmk/M1uchf78cI7F+kQVmFMeaMQr3F8G+7/Yd7IQf2wvXFr83FXy5j6gQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bIr823/UzfsG9CRAeLIu2WbktM8BknLKIBPc+Dr9qXU=;
- b=BOndQ1HmuhqJ7eMDjkK6G8BbGEXMo50YlznzoGH+4VUINexj/O2WLcHYP+Nj2fS/NPddkOKiM8pJK98/YhVed6VKicGzLCj7UN86nRPSLWEgNLGpTYHktg19+ofthrVVV1G9CMyPbVqD98SVfK8fBYPw5KrGbVzLOrInmex1ymUGY//fUIlcrXLUhS+UyyHPjxurl669KpVgm7L0ilFHm4cYAhyHZ+1EGBFVSeLPmoTh8rCRMQglaRDrRStmT1A0WAbNYqrGs3mRqWaQLhJ5Id0HVpzkGi8QHO8CI+pmMMX9OlW2lUoj+ZiH//g4XsEa+BOPlxypz0tcvbTtahyzBA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by LV8PR12MB9665.namprd12.prod.outlook.com (2603:10b6:408:297::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 03:42:36 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 03:42:36 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Alistair Popple <apopple@nvidia.com>, linux-rdma@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
- sumit.semwal@linaro.org, jgg@nvidia.com,
- Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
- Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, 
- treding@nvidia.com, jhubbard@nvidia.com,
- Karl Mehltretter <kmehltretter@gmail.com>
-Subject: Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to
- dma_buf_sgt_attach()
-Date: Tue, 27 Oct 2026 12:42:32 +0900
-Message-ID: <jB0baKUEStaR7DFEykw_Qw@nvidia.com>
-In-Reply-To: <auAIO0y09SXk34CN@gmail.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
- <20261026053623.202642-24-apopple@nvidia.com> <auAIO0y09SXk34CN@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2FD310E126;
+	Tue, 27 Oct 2026 03:47:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1A3F10E126
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 03:47:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 21CC043C06;
+ Tue, 27 Oct 2026 03:47:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEC851F01825;
+ Tue, 27 Oct 2026 03:46:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793072820;
+ bh=h1tidh/yIhqxpvkjGvySUHNRK44lMB4l4tHWk1Gq+a0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JWOC2jz1zLVfci40uq1GVADM4eWoPodNeFhQt2wsAHOloRC7CCTImfZgQHmFPwAIY
+ YeX0/LKoxptR65NaWwOTXwJ3FYkKQzyg5z/GUA1zg6/xFr7DU/3IL8QZQp1BHoL0UR
+ c+gDGs71bXU8yW/LE/tp2VkGRd4Wji09kFDQbwExOedrBmAeyd3sK4w9nF0J6R685V
+ GKyg5lCbp139dmJCQUff1+rEo+/WfU2zi+DYeh/BZtORcRBdEZ82sWwW4fFfiLK1FX
+ u1gG81N3oUPdNSznmGDx7RTxm5m5rVvxLgHyc8QQXXVPj3dCvWuzULB/SbqFDqAT2d
+ 8PxVLTjG53XNQ==
+Message-ID: <sashiko-outbox-186057@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] fbcon: Avoid cancel_delayed_work_sync() in atomic
+ context
+To: "Yao Yiqi" <yyaqia@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261027033422.585328-1-yyaqia@gmail.com>
+References: <20261027033422.585328-1-yyaqia@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYCPR01CA0161.jpnprd01.prod.outlook.com
- (2603:1096:400:2b1::11) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|LV8PR12MB9665:EE_
-X-MS-Office365-Filtering-Correlation-Id: e798faec-de9f-4ce4-ce5b-08df33dc572f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|10070799003|1800799024|366016|23010399003|261026121527099003|4143699003|11063799006|56012099006|261021121427099003|261022105027099003|261022075727099003|10067099003|22082099003|18002099003|6133799003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: btsvxWYuKcB1hzxqjl/79VqPSfsRwqK9UwoaSlZSLHuP7MeEbTB0he+ds3tuuKGl6FeogV50eOVCMyRt+z++7Y5151nz4ZBRa9e66eJk8x+7ESHsf3YUt2wHEFMbureRlelkL8PyK3mvNNqNaFdjQZpIuYd8I8+vkC01lv2nBoL+XlTrBCPJNc7Sbeb4x/xPx6upo/ZgceciUweUzfuzYrjNnBtHpYRDcolMggRpgQC6Z+cJ+J3XQIvI8DHi7Jw/BD9pJA2QKvYrDzNvFTKOEVbpEVoB6mV+zkuE794hztNtFWRtNEam4n3oPboHNxPcv8w4sRqBpIK0yPk70ufUiKjaIrq+PEjvSqd5rlrUbzARImJEnOnrhT9QDBb1TlvYhsdM9/Yy6/N+P0JjL1Lt+0hRAW5PcJgduAkh5XiJQ+IkjYxqXeBJ8Fe+sPwp7JaxuvDpb9PIuKkDy+DPXFwaTQdvuYIV4QSpyT7BDJbLot4MQfk40P3lKF50SaAN2AfgdBOYVCAoyhvv8KDsvgGe4EyNsF1CeaI2k255I0t03vVHTgGlcnJ6rD5RBGPUdFcUi3ah4tSV5g+0wYtHdRN/ST6opYFrpavQsHXR0zTY8DkuWqm3vWwU4qH7Ipms0L4RpRfhtSfZqicZp8HPIb1v11LZ/wVX9Ch9suE2oizqVP0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(366016)(23010399003)(261026121527099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0NKSlpaNElMMGpBN2J4aC8yRElZcmlNVDNLN3dyRFVXRmx2U2VTL3dkdkRF?=
- =?utf-8?B?YUVWRG8zNEJITGtZTzMwRmV0TGorNHFDdWJZTURiTWk2MHhqcERQVzJqaW5k?=
- =?utf-8?B?eUdIL05iUnlZdm8wVGZGRUcraXdTTEk0Y0pTNm14ejFFQzJkVTN5Skl6N1I5?=
- =?utf-8?B?WnAxRXg0bDVFUWVKV3JWY0pZRldVMkRTVUd5U01zazVBM1JjZ1NkWE4rbisy?=
- =?utf-8?B?R3JvVnpTWkdmZmZSa0cxbGdaNWJUS0NzNDI0TUZSaEtEV3VIK043anJjVTJY?=
- =?utf-8?B?UnNvUGlCUE1UZWZLWTFpK3FGU01QUjZsRFRhbmo2S2dYMmpWMkhOVURGRytB?=
- =?utf-8?B?YW1qMlljRGhSSENYSThOMjVSa0o5cExIeGlUR2wzRm1KQVhsbllCamlkeXhK?=
- =?utf-8?B?enhTVk9ueXZQL1ZwSW9lL05RKytZSFBSTThIOElTTFFGM25iK0tiM2FkdTd5?=
- =?utf-8?B?VlBXSWR2bDNqMER4STJNMnI3L1VGbmRsQ1hRRjhseDJxM21maXJDaVB2L2tl?=
- =?utf-8?B?M1lJK2VpSFB5ZmtCaU90bnlHSWpUSlB5aVNSTWZVY0dzUjFEK1JTTHBkcHY4?=
- =?utf-8?B?dU1Wb2ZZb0lSd0RQUElaV2oyWHhpTk82aTBGekE0Sklxb1dFYUFqTFRGQmZn?=
- =?utf-8?B?a3R6dGlWdDdkdEM3M1Q2V1JNY0J2eHh2SzNBRUxNalhCcVovOFBaUGNLZVpv?=
- =?utf-8?B?Yi9xeGk3RndCRUlGdWhrdEp5ZHBRYWJIdVRkTHg0MEZUdlhWNUh2dzZtL3Az?=
- =?utf-8?B?VnJsTDcxK1NkS25TYzJRai82OW9hK2lRU3EvYVkxTzc0N1VWb2NTbmFJUGdO?=
- =?utf-8?B?QWxCdTZkeENaQzJOL3BDSkIyby9GQlV5MnFsY2lEWklxMUx3Tk1LYWV1Rm1S?=
- =?utf-8?B?aGFIN0VuazJOckRXZ1ZYWjlIZmhUbG5UQ25PYXFsODluVlRrdGIyc1hKWlBi?=
- =?utf-8?B?d1Rvc1RWbTZKR3ZlN0JIUnBzSGlKb1VTVml1VkVxOGsrYXFTVG1FSWdkeVdO?=
- =?utf-8?B?aGdBSHJjMGhUTXZiTUdzbDBYTzRZSmpDcGlkU3ppanNJT0FuMlh6bW05RXA5?=
- =?utf-8?B?UTFGckcwZkRJMkRDN0RSTGRKM1hiUWdReWR4VVZCeFN4d1FMcTBxNWxJL0s0?=
- =?utf-8?B?ZjFDQklFMjdzWU5GMXB2VlpiaUllRXRNV0twcXZIVGlIWFJNc3ptRUtXS2gx?=
- =?utf-8?B?TDdnK1NBcThHOWVmeG8vL3FuTzlnL1AwcGsrNXVuZ0p5ZVBRWkZrVlh1ajNy?=
- =?utf-8?B?WHpZYUhneGRLR2lGcUdwVVlaVktna0tYeVNjZU4xOThWVWhvWVg5dVRDdkha?=
- =?utf-8?B?bGQ5bnc5WmZsanl4enFWVGlveDErMHpDajliZWxhYk5RemlVTjhkYVl5ZC8x?=
- =?utf-8?B?WDZ3YWpidjMrZHJiTGdKWnlDOHJKRVVCSnJVekxLZCt6a2FXQkRoZEpaOVZi?=
- =?utf-8?B?aXdTTkt3N0VWdGdhSjhNTEdqR29HTDZmeXhaSXRXUVdaK1lJcU1ud2NvSWVj?=
- =?utf-8?B?VzRnU2x1VUFHRnVoSGE2ZHJXMmpyT3doSUJTNnBrL0dWNllmdG51M2tzTkVD?=
- =?utf-8?B?Zmhna203c1FScUtubmUyZWVhandJdGVZOEFLTkhtUEFGMFdCd2drNTlUbmRz?=
- =?utf-8?B?cEgzbThQS1dUS1U3ZCtkcEZ4NTBzSFZ5SFhIL1lxNmxid2JPcTNXaUlPN2JE?=
- =?utf-8?B?UWxOZGJFaS9KdzZoalRXeFN1SEd4a1ZDY0hVQVllaGNQdWRydTFjL2ZGcFVV?=
- =?utf-8?B?L2IwMEdVUHZIVmh1VHNPRnU2eXhVUEkxSDhEMFpsMXIwb0tGUVhydTVCMVVM?=
- =?utf-8?B?OWtyQU13czBQVlNEU05RT3hNVFhRUWJLQjFJekdRV0QwL3c3b01nZThhVy9F?=
- =?utf-8?B?NmVTb0h0bmRKS2IvUkxJMnc2ci90VDhVeHZuamh0TnR2UEtaSnY2NHppWWEr?=
- =?utf-8?B?MDZBNWNBaUFqRkdXak8vemVmRmovMHJHQnUyaGJnZkhVSjk4SU1FTUJNRlQz?=
- =?utf-8?B?dnFtOWNBZGhvaHpHK2RNVmY5NTVBUmlNM1RONnhXRWVhQUVVQ09VUG1wWkxa?=
- =?utf-8?B?ZnhNQ3pOZkVJRWFHdXRVZDNtaFh0YmZTN0pZbnIvMGdIYzZ5eFMzMng4U0t0?=
- =?utf-8?B?RUNhZm1odmVzN3BFdVcvYTIvWFM0elhxR2dkM25HbWVCRXFGNEh0dlJMR29C?=
- =?utf-8?B?ZERRWG1QSDE5UEE4cmtVMzEyVnh1UUxZSU90SVJZN2htQzFLSzZQWDNIUWNj?=
- =?utf-8?B?WWV4Vmp5Tnk4WDVUM2lYTUdpL1BNUDk1c2hhTzcyWGpueGNoOTIzK0F6TjFI?=
- =?utf-8?B?Q1FvQ1pRVkxCdVJDTFJ0WFhZcTBrMEJBbjdVcGVBQ2ZkMyszOG1CVngrV3VN?=
- =?utf-8?Q?uANqSSZEUqFWtcBq8Ox16qaVfwSc5NZ+gifCVn95cDkna?=
-X-MS-Exchange-AntiSpam-MessageData-1: B/HnEOwHuQxkxQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e798faec-de9f-4ce4-ce5b-08df33dc572f
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 03:42:36.0242 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D3s6wqKZeX4bA7FOhFSdvS3A1TGPcl/LsJ0vjFKi3aOCjPhaGCTF+RQBlVebaL5anjN68m1lUY8y1YO9lc7NAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9665
+Date: Tue, 27 Oct 2026 03:46:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,62 +48,115 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Tuesday, October 27, 2026 11:15=E2=80=AFAM Karl Mehltretter wrote:
-> On Mon, Oct 26, 2026 at 04:36:14PM +0100, Alistair Popple wrote:
->=20
-> Testing the series on a Jetson Nano exposed this path. A 3 MiB system-hea=
-p
-> buffer was imported into Tegra DRM and scanned out over HDMI. With
-> CONFIG_DMABUF_DEBUG=3Dy the PRIME import succeeded, but scanout immediate=
-ly
-> produced display SMMU faults starting at 0x300000.
->=20
-> Tracing the fault led here:
->=20
-> > @@ -475,7 +475,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_=
-device *drm,
-> >  	 * domain, map it first to the DRM device to get an sgt.
-> >  	 */
-> >  	if (tegra->domain) {
-> > -		attach =3D dma_buf_attach(buf, drm->dev);
-> > +		attach =3D dma_buf_sgt_attach(buf, drm->dev);
->=20
-> tegra_bo_import() passes the attachment SGT to iommu_map_sgtable(), which
-> uses sg_phys() and sg->length. The SGT mapping contract only guarantees t=
-he
-> DMA address and length fields. The debug wrapper clears the page-side fie=
-lds,
-> so iommu_map_sgtable() maps zero bytes.=20
->=20
-> Tegra only treats negative returns as errors and keeps the reserved
-> IOVA, which scanout then faults on.
->=20
-> This page-side use predates the series, so the fault is not itself a v2
-> regression. Is dma_buf_sgt_attach() valid for this call site, or does Teg=
-ra
-> need a page/physical mapping type first?
->=20
-> Karl
->=20
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] fbcon: race in fbcon_del_cursor_work() lets fb_flashcursor() re-=
+arm work
+--
 
-Sounds like a bug in TegraDRM; we should be using the DMA addr/length=20
-for the explicit IOMMU mapping as the sgt attachment is for the dummy=20
-DRM device explicitly intended to give us physical addresses.
+commit e9056993ba6eca270987e2b77d6a3977beffec71
+Author: Yao Yiqi <yaoyiqi3@huawei.com>
 
-I'm currently in the process of removing the whole explicit IOMMU path=20
-so if this only occurs with CONFIG_DMABUF_DEBUG enabled, I don't think=20
-there's a pressing need to fix this before then.
+fbcon: Avoid cancel_delayed_work_sync() in atomic context
 
-Thanks for the bug report!
-Mikko
+This commit replaces cancel_delayed_work_sync() with cancel_delayed_work() =
+in
+fbcon_del_cursor_work() to avoid sleeping in atomic console printing contex=
+ts,
+while adding fbcon_del_cursor_work_sync() for teardown in fbcon_release() a=
+nd
+moving the delayed work requeue in fb_flashcursor() inside console_lock.
 
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
+fbcon.c
+> index 7720dfc80c165..066cd974ea3bb 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
+> @@ -422,10 +422,14 @@ static void fb_flashcursor(struct work_struct *work)
+>  	par->bitops->cursor(vc, info, enable,
+>  			    get_fg_color(vc, info, c),
+>  			    get_bg_color(vc, info, c));
+> -	console_unlock();
+> =20
+> +	/*
+> +	 * Re-arm under console_lock so that a concurrent
+> +	 * fbcon_del_cursor_work() cannot race with this requeue.
+> +	 */
+>  	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
+>  			   par->cur_blink_jiffies);
+> +	console_unlock();
+>  }
+> =20
+>  static void fbcon_add_cursor_work(struct fb_info *info)
+> @@ -437,10 +441,30 @@ static void fbcon_add_cursor_work(struct fb_info *i=
+nfo)
+>  				   par->cur_blink_jiffies);
+>  }
+> =20
+> +/*
+> + * Stop the cursor blink.
+> + *
+> + * Does not wait for a callback that is already running, so it is safe to
+> + * call from any context.
+> + *
+> + * console_lock serializes this with the requeue in fb_flashcursor();
+> + * otherwise a running callback could re-arm the work.
+> + */
+>  static void fbcon_del_cursor_work(struct fb_info *info)
+>  {
+>  	struct fbcon_par *par =3D info->fbcon_par;
+> =20
+> +	cancel_delayed_work(&par->cursor_work);
+> +}
 
+[Severity: Medium]
+Can fb_flashcursor() still race with fbcon_del_cursor_work() and re-arm
+par->cursor_work after blinking has been stopped?
 
+When par->cursor_work expires, process_one_work() clears
+WORK_STRUCT_PENDING_BIT before invoking fb_flashcursor(). If a caller holdi=
+ng
+console_lock (such as cursor_blink_store(), fbcon_blank(), fbcon_switch(),
+fbcon_deinit(), or fbcon_cursor() with CUR_SW) runs fbcon_del_cursor_work()
+after WORK_STRUCT_PENDING_BIT is cleared, but before the worker executes
+console_trylock() in fb_flashcursor():
+
+CPU0 (holding console_lock)          CPU1 (worker thread)
+                                     process_one_work()
+                                       /* clears WORK_STRUCT_PENDING_BIT */
+                                       fb_flashcursor()
+fbcon_del_cursor_work()
+  cancel_delayed_work(&par->cursor_work)
+  /* returns false without waiting */
+console_unlock()
+                                         ret =3D console_trylock();
+                                         /* succeeds */
+
+Because fb_flashcursor() only checks:
+
+	if (!vc || !con_is_visible(vc) ||
+	    fbcon_info_from_console(vc->vc_num) !=3D info ||
+	    vc->vc_deccm !=3D 1) {
+		console_unlock();
+		return;
+	}
+
+and does not verify whether blinking is still supposed to be active (for
+example fbcon_cursor_blink, vc->vc_cursor_type & CUR_SW,par->graphics /
+KD_GRAPHICS, par->blank_state, or par->initialized), won't it draw the curs=
+or
+and call queue_delayed_work() to perpetually re-arm par->cursor_work?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027033422.5853=
+28-1-yyaqia@gmail.com?part=3D1
