@@ -2,68 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3976607355E
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:22:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DD96071F4B
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:23:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NbJ2Gdtt
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nh9+N96I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E66E210F7E0;
-	Tue, 27 Oct 2026 20:22:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D18E10F7E1;
+	Tue, 27 Oct 2026 20:22:53 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A28110E491
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 20:22:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00E1D10E491
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 20:22:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D0F8140630;
- Tue, 27 Oct 2026 20:22:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 30B3B444FF;
+ Tue, 27 Oct 2026 20:22:17 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793132531;
- b=Pa4IBJawAp1KbDVw9780Y4zlob+LaiB3nIB+fUJ9zAHZ3BPjugFbGWVI/HU5p8nMmGu/
- KW+arMEHuQl77mE5mslf8cFl0k6Ppe8ExBFLVOWmYbQlqSY/YBiPJOrPMZ8DOjiOHPbjF
- 17SJrYY2xre30fDhr8mCrR7lWgSn3dqpAJfu+SV1FCviCdJXjhzINainFEfO9vOdkEpAb
- LY9I87zKvliGLpL0K1G/Vvic816wv2sIxNJQYXUBtUlJ1SVV3OQNaf4FyMTWinniChxry
- pkEYbjM1Cxy/xOLRqDY1pWd5OejuFG00S860us9xAcLJ6LePwu+47/rdcS+/Ni/382A==
+ t=1793132537;
+ b=kJDE0s8e0udPdsdBUtEHsZdh2J+KlGL/O06vnVgBof+K1HCKH9iwdq3TUVX1EHs4g0r4
+ ZsynOVSLRwugXN1eoezfad0aiDaSkXBaVn1Ysmiz4jaXoJRtNGKN744RoZwmfUTBTHjf7
+ 2p7vfLUrxhxL66pguyHmYPmnEW/K/UUU3vJ64UOZwCcL1zLKkiGcFxMuahjIQEJuB+kQa
+ oaEORZal6dRSSX3H1OkBT0MtmepMXc7MFAJ0Pul0DJRk9ogilc8/RtHcTuBSa4YFfTVlb
+ dtz7yr83g8s5LXlFnshPCZHUY7NTAIuVEp69Km0gAyjPLzeWK32vskEdqKUSvqf8RFQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793132531;
+ c=relaxed/relaxed; t=1793132537;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=VREWUN8AJAKPAW/PnLTB+3AyrdUA3Tp3MbNPAyF7VCQ=;
- b=ve+9T4sywEgs6x7Zg3/vVL2iqtYyDlU+t1cpnX74vIUnMobGqoIgvC57hAXKrxbSQ22b
- IldyoAf/16x/RY3tk3Ke5hNZGKTI1fZQ9nB8KfBZUzW+4ORtbbFdRhEkNozXLZnITne7z
- g/ghLDXP2pClNRIt7pvt5F8pdCB3E5LvUpbyW76hwc7crAbRbTwLzKrcLs1PLC2kURqQc
- MwBla9Bkk8LgczWRAPKoYE0i1hzulUJ1CzDC3BYmZ4rhPqj8F8Wz7d7/3PdYy/PsFUAMR
- IoYhbR5fVARso8/oris1nn/IZE1DuaSbrqo1uSBmIPhoPFUcpVTvRBsv5MORGE+4iJg==
+ bh=DjUqwwg/6H1VCZmUcd6Vj/N8zfhZJvg5LLqYUZ/uGqU=;
+ b=cgmSFcttpvP46b2ES8JVFc8dKcXMNYwJa+UMpIO1EZVIlsSQrASIQVBmNuBokTvb7Cx9
+ 4QeUefAkJHCOhbb3dnv/1q01I8HVogDpdU5e5VighctZ9cpDtBoEg5EdiMUIFGRtlXAws
+ Kjl5/ve8S67O3XA3+y4921G7mqlq76zroJtjmwDHanr5ClNy0IArl59gU/X4/05NrD6QV
+ eyZTgyWazX8fcwA+6kWz1sKRV5bBnu3b2GZGADl7kV+Keylhlv65vsP2gEIgcsa16GOLd
+ SO5QFDVPiEWHc+IdtmJKy7UTtGi1Gohb0NX2wYFTkMGrlplYsqEdtapYD993fiIvpvg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 319211F031E0;
- Tue, 27 Oct 2026 20:22:10 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 126C81F01825;
+ Tue, 27 Oct 2026 20:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793132531;
- bh=VREWUN8AJAKPAW/PnLTB+3AyrdUA3Tp3MbNPAyF7VCQ=;
+ s=k20260515; t=1793132537;
+ bh=DjUqwwg/6H1VCZmUcd6Vj/N8zfhZJvg5LLqYUZ/uGqU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=NbJ2Gdtt+lOeO1ifDsEbtpPS83ECI7A+LgmN9TKOTK7qhqulaa9D0RQh5TD/U15vQ
- 9yDB9BuSIm9S/7WoSls6YiFiLkVYU5JhEjPiYUlJ+qOfxV+tUdhYAUOxMROo4ekd4P
- n0fb9qmnIWeJCXwAq5rDrPcRCY8vuEos5Fx/+M7SqvYjTWMg5SP+a9uE+XQb6uqkB7
- qWdwzw11MvgV2rknaALWlPNKvf7mEHS4wEdowklrf40IUFFnaAUlgt+1LuyAI1E4MU
- OS98PguGIad+NyQPJEFPna1WMSFS7Wy2EfDz3MSeIVpcN9w2SD9sHLGYGubazj6Ccr
- Wwd5hvMv6mjXA==
+ b=Nh9+N96I5FyTfincOTfkoSWyYRhdacFkEq5Z8rgAwDFfBIRMCf9HDvRuMbIq7HMLz
+ l6yXp0S9NdzRCUFZKmJt20ijbCWVCg23S/qJOsceNWoG/TaC5BvX4NEbRUUlONHqq2
+ wsUrs1PLDVMXi1CuYMBM1iIDHTDOYrtgg7/BsQZcbLiyqWQzFqmTzoknXoAokEEDG1
+ 7kyMEwNCfEZ4qn3iXVhGC3S6CGkyyDhiYNkwafhDLyCgmk2ULV2HwG0bdQw8XBTtZT
+ tj7RJXroL3xguEf9HmJl3HW55ru1gAaPK877dzrSoNHfr+HoI6QYmQWGrygW0EYT4w
+ rXeomoINCd1EQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 9E34A451F9;
- Tue, 27 Oct 2026 20:22:09 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 54D204522D;
+ Tue, 27 Oct 2026 20:22:10 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 14:22:02 -0600
-Subject: [PATCH v13 02/39] vmlinux.lds.h: refactor BOUNDED_SECTION_* macros
- into bounded_sections.lds.h
+Date: Tue, 27 Oct 2026 14:22:15 -0600
+Subject: [PATCH v13 15/39] dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-dd-cmap-part2-clean-v13-2-9267923be612@gmail.com>
+Message-Id: <20261027-dd-cmap-part2-clean-v13-15-9267923be612@gmail.com>
 References: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 In-Reply-To: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -90,13 +89,14 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>
+ Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=4249;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=2921;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=IfyJDb7+5IpRdexBxlsmGvn/hmtnbKQYugc2kC3D/aw=;
- b=KHNS94dyrwfUat3rUowp1hXeRfJ9tQHVm49+4mt1JUQ+Ulw1bpwgpZJfujitxyqWgrTJ3hc8w
- 5Efbg3SSImBCMnWdZv+nV2yl8DL4IQcndfox2Jen4LrML51uBm9g+Di
+ bh=/ldqEzrdqv/2hMCb93qXE9vZgTc7aNl6mn82Odto4jg=;
+ b=Naivmj7iHff3W9xlYHYhUfepZztBzB/dwidid1c5ax/g1RujYJqnm4PXRiXapL5NWsjyRpSFl
+ k20hhpyh85NBXXnLyCvoIFSuvB42l8RJWMRLDfFp/miCjidzX+jcMJP
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -125,122 +125,78 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Move BOUNDED_SECTION_* macros to a new helper file:
-include/asm-generic/bounded_sections.lds.h and include it back into
-vmlinux.lds.h.  This allows its reuse later to fix a failure to keep
-dyndbg sections in some circumstances.
+old_bits arg is currently a pointer to the input bits, but this could
+allow inadvertent changes to the input by the fn.  Disallow this.
+And constify new_bits while here.
 
-NOTES:
-
-These macros are only for use in vmlinux.lds.h, where the _start &
-_end symbols are needed.  Modules keep sections separate in ELF
-sections, with their boundaries known, so the _start and _end are not
-useful, and may confuse tools not expecting them.
-
-This patch ignores a checkpatch warning, because new file is covered
-by "GENERIC INCLUDE/ASM HEADER FILES" in MAINTAINERS
-
-CC: Arnd Bergmann <arnd@arndb.de>
-CC: linux-arch@vger.kernel.org
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v3: move include to top
+v2: move RvB after SoB
 ---
- include/asm-generic/bounded_sections.lds.h | 36 ++++++++++++++++++++++++++++++
- include/asm-generic/vmlinux.lds.h          | 31 +------------------------
- 2 files changed, 37 insertions(+), 30 deletions(-)
+ lib/dynamic_debug.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
-new file mode 100644
-index 000000000000..8c29293ca7fb
---- /dev/null
-+++ b/include/asm-generic/bounded_sections.lds.h
-@@ -0,0 +1,36 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
-+#define _ASM_GENERIC_BOUNDED_SECTIONS_H
-+
-+#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	_BEGIN_##_label_ = .;						\
-+	KEEP(*(_sec_))							\
-+	_END_##_label_ = .;
-+
-+#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	_label_##_BEGIN_ = .;						\
-+	KEEP(*(_sec_))							\
-+	_label_##_END_ = .;
-+
-+#define BOUNDED_SECTION_BY(_sec_, _label_)				\
-+	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
-+
-+#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
-+
-+#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
-+	_HDR_##_label_	= .;						\
-+	KEEP(*(.gnu.linkonce.##_sec_))					\
-+	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
-+
-+#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
-+	_label_##_HDR_ = .;						\
-+	KEEP(*(.gnu.linkonce.##_sec_))					\
-+	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
-+
-+#define HEADERED_SECTION_BY(_sec_, _label_)				\
-+	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
-+
-+#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
-+
-+#endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index b2988aa12f66..b4ece391f7b1 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -50,6 +50,7 @@
-  *               [__nosave_begin, __nosave_end] for the nosave data
-  */
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index bbe32fab74e8..474df0dbedc1 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -620,7 +620,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
  
-+#include <asm-generic/bounded_sections.lds.h>
- #include <asm-generic/codetag.lds.h>
+ /* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     unsigned long *new_bits, unsigned long *old_bits,
++				     const unsigned long *new_bits,
++				     const unsigned long old_bits,
+ 				     const char *query_modname)
+ {
+ #define QUERY_SIZE 128
+@@ -629,12 +630,12 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
  
- #ifndef LOAD_OFFSET
-@@ -211,36 +212,6 @@
- # endif
- #endif
+-	if (*new_bits != *old_bits)
++	if (*new_bits != old_bits)
+ 		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
+-			  *old_bits, query_modname ?: "'*'");
++			  old_bits, query_modname ?: "'*'");
  
--#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
--	_BEGIN_##_label_ = .;						\
--	KEEP(*(_sec_))							\
--	_END_##_label_ = .;
--
--#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
--	_label_##_BEGIN_ = .;						\
--	KEEP(*(_sec_))							\
--	_label_##_END_ = .;
--
--#define BOUNDED_SECTION_BY(_sec_, _label_)				\
--	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
--
--#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
--
--#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
--	_HDR_##_label_	= .;						\
--	KEEP(*(.gnu.linkonce.##_sec_))					\
--	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
--
--#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
--	_label_##_HDR_ = .;						\
--	KEEP(*(.gnu.linkonce.##_sec_))					\
--	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
--
--#define HEADERED_SECTION_BY(_sec_, _label_)				\
--	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
--
--#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
--
- #ifdef CONFIG_TRACE_BRANCH_PROFILING
- #define LIKELY_PROFILE()						\
- 	BOUNDED_SECTION_BY(_ftrace_annotated_branch, _annotated_branch_profile)
+ 	for (bi = 0; bi < map->length; bi++) {
+-		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
++		if (test_bit(bi, new_bits) == test_bit(bi, &old_bits))
+ 			continue;
+ 
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+@@ -646,9 +647,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
+-	if (*new_bits != *old_bits)
++	if (*new_bits != old_bits)
+ 		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
+-			  *old_bits, query_modname ?: "'*'");
++			  old_bits, query_modname ?: "'*'");
+ 
+ 	return matches;
+ }
+@@ -690,7 +691,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 		}
+ 		old_val = READ_ONCE(*dcp->bits);
+ 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, &old_val, mod_name);
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, old_val, mod_name);
+ 		WRITE_ONCE(*dcp->bits, inrep);
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+@@ -704,7 +705,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 		old_bits = CLASSMAP_BITMASK(old_val);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_name);
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, mod_name);
+ 		WRITE_ONCE(*dcp->lvl, inrep);
+ 		break;
+ 	default:
 
 -- 
 2.56.0
