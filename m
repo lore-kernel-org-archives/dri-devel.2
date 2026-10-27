@@ -2,42 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D098B606A31A
-	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:50:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABF5606A31A
+	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 20:51:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=USerJRNk
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WvMSQOH8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EEA910F827;
-	Tue, 27 Oct 2026 20:50:53 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEB6B10F827;
- Tue, 27 Oct 2026 20:50:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BCD1C60211;
- Tue, 27 Oct 2026 20:50:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4083B1F01825;
- Tue, 27 Oct 2026 20:50:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793134245;
- bh=TuaeLEOpigXbx6pmjWGhDvzeqZvPeg2WYFOPoPESNYk=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=USerJRNkopE4a5HArO8y1BBiVg8XPnfkRlXJD+AwIYcLs0gtFEsIampmuWTXKo7vO
- wCu7SwTgF6zuHS71vzuOjJ2L6jNjQ6U7/fgUWFmvWDJH1I8YsJaG/8ERFAvaFaOSzw
- LenXN+XrIIL0M9ja2zYaRRjFmFAwKS6J0OvAgPdnzQW3nXhn52NjE0fwwMxQrt5y7x
- apEazV62/3hxnLgWw2gINQCA8gqsHiETxVGyZWdsrcVWFjWT9o/fdm+/Wk7r2pbtWg
- c21fHhlsJGpBF/ZON5psy4q2+xCDcBk1+UcBSUHT84zqRCNdBhQ1Kv55N7Kiyyf3+m
- SUabpYzSnMcRg==
-Message-ID: <sashiko-outbox-187101@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/3] drm/xe: Add a minimum age gate to the shrinker
-To: "Matthew Brost" <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261027203107.1065800-4-matthew.brost@intel.com>
-References: <20261027203107.1065800-1-matthew.brost@intel.com>
- <20261027203107.1065800-4-matthew.brost@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 20:50:44 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA4B10F82F;
+	Tue, 27 Oct 2026 20:50:59 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012012.outbound.protection.outlook.com
+ [40.93.195.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1D9010F823;
+ Tue, 27 Oct 2026 20:50:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o3OjRihc/9g/C/jmT16v27W23pZ7GpYGZZ8gL7WB+cPiqJtFMNKsc1YPWEVWvCsuvaMI36lCpVxrAQWM45/AGAs9xVNyZ9BZvCMS+GLuyJVAgIOgMrNvwH8IJaoviMFdC7JMR3TEV6CeKVi/wUCc+H9u8BiHaDfe9gIBqFgmckuqH1n+bIElbKTk8SWqaaSBA4yET8rtthgwWgjmV+eGEtnHOeVAgHO6BzjVSJkGOEB7/0azG6RpZ393ZQuRuodQWHg1dtzwoIcfGl6quIhNGf6Q3SypepkA1y17yQMo4qT3xJh4v6+jUmIKRYQ/PePtjt2YZtWVIQTvMShBoyLQ9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ghVknt/XXqH4uDdnh7fnbY7iSaomlTGIgQYIHHjE9gQ=;
+ b=vTgKzv0E9FLsOXOGnwK24QtWeDrKg+LVMtXywcmjJG7R9tSbHQtL70G1iQ9daJNKUz/HqNoLcm2rmCoxX/vZ+GkD0J6Vveb74g4A7RjKfd1asxCnTsSS0H/zul5sEwEfRauImA47pZ/o4Cc7bZ1mFUuGrDs4E0aT1B9WR1ZUvSBM+HAG0jVlQ5uFqDPAcGrelktg1R8iAnraruMkfLE2mki4BA2lAmBSYSuLXSbZjskT+34HP3G4Lqz+mv5Ng7V/+Fs7RdI7LiYvnaNsB9Hn9x4TrNj+bIeBy17PnL21DjNOU4mz4UzM4E5ttddn7cytTujZOseZnNC1dvXcGp8OUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ghVknt/XXqH4uDdnh7fnbY7iSaomlTGIgQYIHHjE9gQ=;
+ b=WvMSQOH8C5N5fwRrDW6BYSKc4JFHyr6PN7vJALv/3UHueedVHVkwlh7c7qe1OZbLTHD/9b0Qsehfqy+kc2AjuOQjUEh2md18XOiqvdFLaL4i5dDLvRPk8UUrY9FXfyehVSx/VLvOJLFjq8FxikWekbJTuoP6JHpOPYsy0PAvHn0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
+ by IA1PR12MB9061.namprd12.prod.outlook.com (2603:10b6:208:3ab::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 20:48:49 +0000
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 20:48:48 +0000
+Message-ID: <ba77a6b8-f79c-496f-ad45-9314ac8f8a46@amd.com>
+Date: Tue, 27 Oct 2026 15:48:46 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Don't warn about vendor infoframe for
+ non-infoframe sinks
+Content-Language: en-US
+To: Paul Menzel <pmenzel@molgen.mpg.de>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Wentao Liang <vulab@iscas.ac.cn>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA1P222CA0184.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c4::29) To PH7PR12MB9174.namprd12.prod.outlook.com
+ (2603:10b6:510:2ed::9)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|IA1PR12MB9061:EE_
+X-MS-Office365-Filtering-Correlation-Id: 57b2f081-44c1-441d-4b57-08df346bb336
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|921020|261026121527099003|261009223027099003|11063799006|56012099006|5023799004|261022105027099003|261021121427099003|261021123027099003|10067099003|22082099003|18002099003|6133799003|261026140227099003;
+X-Microsoft-Antispam-Message-Info: H9Gb+fIa/jIYkcj9wQnNcXveXAIXVnCG7HB8+5u59Aj7mGvY06aYtpI4T6yelC/NnTuSSJJVU5EjhHmUfvqakUyVXjQ7KQbIHe9KeLoFudxsp8R5nCq1iRhyVDCjFA+uj35wWSMNlLoIVrnBUdaxVQLY0KuZYgGLcMJCI6UVjN3rqYLPG2YopZoFVjo37/D8u3VNL4NkNBzlIWGXMzXE1m1+5/wjPTYV7gQHodJZkn2m9wC6cbimnRzlot4NB45gFYUXPpW6Ix7Vje/HIxVQjScdF/Nm2WBgOQVR4nbSa4TJoj8uyQGCgc3yfkB5JBlgeumiwOV+3qNen2zpAK06t74uWHjmmlb0+BFsMOesFmWk56JMt26bY95RpQhGvLEexoWpwOBvAKfFbi3nc31KThjetbwAcSow/5THi1IVUrJn1uE2jDGONC3QrVAaP0sQxAslGRFFSoCmTEweP6gliu9SbqST5TVE3uprttKJUnPy9ReFvCf4ILQaww7NSqCNTUVXKk2WuI+PQMNVf8xTRxv0ojBUBeloU+vh0o5Wen7X9nhkeAq07AmogWLg1FUxxrfLvmPvmGJQyIZUxQ90WcCsOvzlqJ7KPQFqx4Kj+COy6DXSQ9g0xIsf9nB5Vf4xhIuol5Ps7ZXimaqAL8v+q0oveCkv13/lHyGEJJ2XA4I=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB9174.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(921020)(261026121527099003)(261009223027099003)(11063799006)(56012099006)(5023799004)(261022105027099003)(261021121427099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmdoV3pyMkJSeVVBYTNmMDRXZk9wK2hITXlNa1pKVkg4cThnZjdXUDZNQ0NR?=
+ =?utf-8?B?V0wrakMvU2M5Q1A2Tm5KeUZndjZIQU9iMWhRZnRvTjlwckVzTHJ0ODJMQVZB?=
+ =?utf-8?B?S1VkMVJoc05KTWxBU2RiWnkzY2dHdk5WY3FYYXo4cG0wR1hOa08vMzhLSGFa?=
+ =?utf-8?B?bUZDSit2Mlk2cG43QXdnU05aU0RnYjcxcEhCK0swcHAvaUZwUmcvOE51VzU1?=
+ =?utf-8?B?cnQvRmxmQ3ZuV0todG1hdVQ2TWJ0WWNkTDk4ci9SSEo4cHpwT0RrYmVxU1Vu?=
+ =?utf-8?B?eGoxUzlHblJ0TmN6azY3eFFmNjgxYzhLQWhmc0FzS1dsK0ZVTlY5UDR0Q2Jz?=
+ =?utf-8?B?cVQySmcyK0RJWGdoNytOYXVxRlNqcGlYZmZZVTdqd2UzWEpjeDBhYzF4S3Q3?=
+ =?utf-8?B?M1BQQ05zbFQzSnBSZEI1VDV3UjUydlRaUWFiYUt5djM0SExLckNPZm96SWFt?=
+ =?utf-8?B?U0oveTE4Q2RyeFJ5VE9QQ0pYcnNTcE9jRVozTEIzVnVucVJqemhQUWQ1a0R2?=
+ =?utf-8?B?eVNTMitabVIzTS9RN2U3NnVIT1huVDJiTVlQVjNIZVVmaHVrNGVEd2FiWWhN?=
+ =?utf-8?B?bjNaTlloZUJvQ0hQZDRuSjMwWUlFb29mMElncHk3aG5WNkZpSlU1UjVkbGZR?=
+ =?utf-8?B?b29mb3dqdmpVbVhYVmYzbXE0Wmx1dGN0RVRFRVM0KysveXFzaVdtOURsWUpa?=
+ =?utf-8?B?M2QrOTVhK0x2UDVzK0pZRU53RTFuN0NVa1pBVEZoVlJKQlBUdkpIMUtuM3N6?=
+ =?utf-8?B?UWlvWXB4Q2NoTUl6aTJRVnl1Mzd5bU5wL3JJRXZtYTNWSWlRL3c3dmlXc2JJ?=
+ =?utf-8?B?TXQ1RzVZa21rbkhLamd6b1poVWlYdDNMYndFcnIrMmJxbkprQ0tiaCtlRFF4?=
+ =?utf-8?B?K21nM0VvM3JtVUN2c2lpc3lMZkNCZlNKSUxrZkljSnAvWGtUQ0NUY01lc1pH?=
+ =?utf-8?B?VlRIcVIyaE5NS3BzN2N4S2NyNFczT1JtNUU3YUxWcWFNZHp0QmliZlRnWWdK?=
+ =?utf-8?B?VVFUZktPWFRwZnd2ODM5Y08yYmZpb2NyeDVwTUE5OGEzbjVOUHNvd3NkcWc0?=
+ =?utf-8?B?UnNndUZqNFh3b0JPcWlxSUZlbzRkUS9FUUM3UDRwVjFyREpzMEJtNmVuVGtN?=
+ =?utf-8?B?Um1zbE92eWxkaUtlcTEySFBzWDRiSXhGRUhIQkRmY0lKTkdoREFoUWZjeWhB?=
+ =?utf-8?B?aDE3K2VYQTBKa0xqUjJMSmlFUUFPUnhsUkUwWEpLbXlzSFcwSUJJVk5Md3hN?=
+ =?utf-8?B?UW1BYkpqMnJnc1BTQXpJeGZkbXlZWUZieHQyMlhrdm5xTUVNekRnSWtNTG1P?=
+ =?utf-8?B?K1lkTDZhSFZUSXVKMGZPMVNCdUFPUFJycklNSkkzeHk3aGdHeGRDbHdHOVJS?=
+ =?utf-8?B?cCsvVGVheEhHSitlNWVlS0F6WHFmZDl6YnBpcGh6S3dOazExYUxpeWx5SFpj?=
+ =?utf-8?B?ZzJ2anVXRmlNcFdnaGI1L1YwQitaYTRWdERwMDJUMHlMLytQODJGK0p1TmNP?=
+ =?utf-8?B?NkdodGRnY1B3dVhnZnFQYmJGcm9VbEhicWhWZ21EdW1NbVllRzVoRzkzS3Q0?=
+ =?utf-8?B?ei8zalhwUURvclVwUlM4MFBkQndxTFJVNjdtTm1OK2ZvY1JxRnRZUFN5T1FS?=
+ =?utf-8?B?dk9QSUdUQTlDUmpQVlVMVEFxQzJpZGVyVHdnWkhnZDdVVWpsVEVuWmxta1JL?=
+ =?utf-8?B?a3pUZFFhQ1JxRVJrYjVXbHE2NUp4cmdoeTlDMkNRc3M1ZzJ4aFVKWXpQL0xw?=
+ =?utf-8?B?UkRyYVZoRytvSmtvWHV0M2xSLy9VNGtSeTFqbDhod0Q0dTFNMDZ5M1B4UkxN?=
+ =?utf-8?B?dkgvNmlJdGJsNFI2TXY4SThiUTVFZGx1Ym5WTmh6N0JTYjVjQ1hCS25YeXJh?=
+ =?utf-8?B?NWJNT0t1Z2J2d1VQQ2M1cGRQeVZqSmpIQnBRdXUwWll5N3p1Z0s5VnFGL2VO?=
+ =?utf-8?B?ME5yUmhKQ01HRmMrVjdVSlRhYktJZW5QQVJjVm5VbFZwVWNYOHpnNDljUk5z?=
+ =?utf-8?B?Z3dzMkQ3U1UraTVEK2ZmVTZRWVgwd0pPck84TGFyRnhaWWRUSzFRRzI5c21O?=
+ =?utf-8?B?UlVlWkk5QlR6alptOTVudHY4UWw5UDBITDVERGt2c09MQVhKRHZnblh4bTNW?=
+ =?utf-8?B?aVFkSEl4a1JiRnY5TWdiUG5rUG51c2VCc0t5WXJqejFmdHdjOEVyLzJ4Y2lK?=
+ =?utf-8?B?TVhyLzcyaEQ1ZGwvNDBmYmEyL041YXNaczd6eW1lZjEveVY2bmdDR1RFbDRB?=
+ =?utf-8?B?WFgyeG1yR0FJbkF0V0tRZXE1ZHdmR01GQ052L3NqbjdNY0JzdnlqVlo0c3Nq?=
+ =?utf-8?B?MW10NlFnS3pBd0NudFVhUzcrZnd4L3ZBK256TWdYeG9oZFdWU2FzQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57b2f081-44c1-441d-4b57-08df346bb336
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 20:48:48.6412 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kpkxh+X/DWfCKATZeCdhIH6joFjT3xeFlcgOFX9SFSlrny1xiyDrddzGM0xV4UieaYBr1yaYjL9KUU15G1kIJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9061
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,154 +136,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/xe: missing lru_lock around xe_bo_bump_lru_locked() in pagefau=
-lt
-- [Medium] drm/xe: __xe_shrinker_walk() fails to skip priority on GPU-busy =
-young BOs
---
 
-commit b66983cf80f56fab6416b52fa5320ec4dd988b90
-Author: Matthew Brost <matthew.brost@intel.com>
 
-drm/xe: Add a minimum age gate to the shrinker
+On 10/27/26 13:54, Paul Menzel wrote:
+> With an EIZO EV2781 connected over HDMI to an AMD Ryzen 3 2200G (Raven)
+> on an MSI B350M MORTAR (MS-7A37), Linux logs at every boot since v6.16:
+> 
+>      amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
+> 
+> Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and
+> vendor infoframe setup function") started to log the return value of
+> drm_hdmi_vendor_infoframe_from_display_mode(). With `frame` and `mode`
+> being non-NULL, the helper only fails with -EINVAL, if the sink does
+> not support HDMI infoframes, that means, if
+> `connector->display_info.has_hdmi_infoframe` is false, and its
+> kernel-doc says, that this error can be safely ignored.
+> drm_parse_hdmi_vsdb_video() only sets `has_hdmi_infoframe`, if the HDMI
+> VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets
+> it for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
+> HDMI_Video_present, triggers the warning, although nothing failed.
+> 
+> The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only
+> seven bytes (source physical address, Supports_AI, and a maximum TMDS
+> clock of 250 MHz), so the byte with HDMI_Video_present is absent, and
+> the EDID has no HF-SCDB:
+> 
+>      67 03 0c 00 10 00 80 32
+> 
+> Only warn, if the sink supports HDMI infoframes. The infoframe setup
+> itself is unchanged.
+> 
+> Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and vendor infoframe setup function")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5025
+> ---
+> 
+> Notes:
+> 
+> claude-opus-5-5 (Claude Code) assisted in analysis, code change and
+> commit message.
+> 
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index ded8e21897f1c..636dd2dedd73d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -941,7 +941,8 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+>   		err = drm_hdmi_vendor_infoframe_from_display_mode(&hv_frame,
+>   								  (struct drm_connector *)connector,
+>   								  mode_in);
+> -		if (err < 0)
+> +		/* Sinks without HDMI infoframe support make it fail with -EINVAL. */
+> +		if (err < 0 && info->has_hdmi_infoframe)
+>   			drm_warn_once(connector->dev, "Failed to setup vendor infoframe on connector %s: %zd\n",
+>   				      connector->name, err);
+>   		timing_out->hdmi_vic = hv_frame.vic;
+> 
+> base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
 
-This commit adds a minimum age gate to the non-purgeable BO shrinker,
-configured via Kconfig and a per-device shrinker_min_age_ms sysfs attribute.
-BOs and VM bulk moves are timestamped when their LRU positions are updated =
-so
-the shrinker can skip backing up recently used BOs.
+The actual change looks reasonable to me.  But a few things about your 
+commit message you'll need to change.
 
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 42a6aa1a2e4a0..a4c0c6284a24d 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -1357,9 +1357,92 @@ static int xe_bo_move(struct ttm_buffer_object *tt=
-m_bo, bool evict,
+1) You are missing a S-o-b [1]
+2) Disclosing LLM should currently be done by
+"Assisted-by: LLM" [2]
 
-[ ... ]
+https://docs.kernel.org/process/coding-assistants.html#signed-off-by-and-developer-certificate-of-origin 
+[1]
+https://docs.kernel.org/process/coding-assistants.html#attribution [2]
 
-> +/**
-> + * xe_bo_bump_lru_locked() - Bump a BO on the LRU and stamp its last use
-> + * @bo: The buffer object, reserved by the caller.
-> + *
-> + * Move @bo to the tail of its LRU and record the time for the shrinker's
-> + * minimum age gate. Only meaningful for BOs outside a bulk move, since a
-> + * BO in one is anchored inside its range and is bumped, and aged, with =
-it.
-> + * The caller must hold the device LRU lock.
-> + */
-> +void xe_bo_bump_lru_locked(struct xe_bo *bo)
-> +{
-> +	WRITE_ONCE(bo->lru_stamp, jiffies);
-> +	ttm_bo_move_to_lru_tail(&bo->ttm);
-> +}
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pa=
-gefault.c
-> index 7d363160103ab..8e25bc67772e4 100644
-> --- a/drivers/gpu/drm/xe/xe_pagefault.c
-> +++ b/drivers/gpu/drm/xe/xe_pagefault.c
-> @@ -225,7 +225,7 @@ static int xe_pagefault_handle_vma(struct xe_gt *gt, =
-struct xe_vma *vma,
->  			}
-> =20
->  			if (bo)
-> -				ttm_bo_move_to_lru_tail(&bo->ttm);
-> +				xe_bo_bump_lru_locked(bo);
-
-[Severity: High]
-Does xe_pagefault_handle_vma() need to hold vm->xe->ttm.lru_lock around
-xe_bo_bump_lru_locked(bo)?
-
-While the pre-existing ttm_bo_move_to_lru_tail() call here also lacked
-lru_lock, xe_bo_bump_lru_locked() requires the caller to hold the device LRU
-lock because the call chain:
-
-  xe_pagefault_handle_vma()
-    xe_bo_bump_lru_locked()
-      ttm_bo_move_to_lru_tail()
-        ttm_resource_move_to_lru_tail()
-
-asserts lockdep_assert_held(&bo->bdev->lru_lock) and mutates the shared LRU
-lists via list_move_tail(). Without acquiring vm->xe->ttm.lru_lock, servici=
-ng
-a GPU page fault on a BO-backed VMA will trigger a lockdep warning and race
-with concurrent TTM LRU operations.
-
-> diff --git a/drivers/gpu/drm/xe/xe_shrinker.c b/drivers/gpu/drm/xe/xe_shr=
-inker.c
-> index c86455ea08d18..c650726ff6ded 100644
-> --- a/drivers/gpu/drm/xe/xe_shrinker.c
-> +++ b/drivers/gpu/drm/xe/xe_shrinker.c
-
-[ ... ]
-
-> @@ -139,6 +143,16 @@ static int __xe_shrinker_walk(struct xe_shrinker *sh=
-rinker,
->  			if (!ttm_bo_shrink_suitable(ttm_bo, ctx))
->  				continue;
-> =20
-> +			/*
-> +			 * Each LRU priority is roughly age ordered, so the
-> +			 * rest of this priority is most likely young too.
-> +			 * Move on to the next priority.
-> +			 */
-> +			if (xe_bo_shrink_too_young(ttm_bo, min_age)) {
-> +				ttm_bo_lru_cursor_skip_priority(&curs);
-> +				continue;
-> +			}
-
-[Severity: Medium]
-Should the xe_bo_shrink_too_young() check in __xe_shrinker_walk() happen
-before ttm_bo_shrink_suitable(), or otherwise not depend on ctx->no_wait_gp=
-u?
-
-In xe_shrinker_walk(), the first pass (and the only pass during direct
-reclaim when ttm_bo_shrink_avoid_wait() is true) forces ctx->no_wait_gpu to
-true:
-
-  swap(no_wait_gpu, ctx->no_wait_gpu);
-  save_flags.writeback =3D false;
-  ret =3D __xe_shrinker_walk(shrinker, ctx, save_flags, min_age,
-                           to_scan, scanned, freed);
-  swap(no_wait_gpu, ctx->no_wait_gpu);
-
-When ctx->no_wait_gpu is true, ttm_bo_shrink_suitable() returns false for a=
-ny
-BO with unsignaled GPU fences:
-
-  bool ttm_bo_shrink_suitable(struct ttm_buffer_object *bo,
-                              struct ttm_operation_ctx *ctx)
-  {
-          return bo->ttm && ttm_tt_is_populated(bo->ttm) && !bo->pin_count =
-&&
-                  (!ctx->no_wait_gpu ||
-                   dma_resv_test_signaled(bo->base.resv,
-                                          DMA_RESV_USAGE_BOOKKEEP));
-  }
-
-Because BOs that were recently moved into TT or bumped by an exec are likely
-to still have active GPU fences, they will fail ttm_bo_shrink_suitable() and
-hit continue before reaching xe_bo_shrink_too_young(). Won't that prevent
-ttm_bo_lru_cursor_skip_priority(&curs) from triggering and cause
-__xe_shrinker_walk() to walk every busy young BO in the priority list witho=
-ut
-advancing *scanned?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027203107.1065=
-800-1-matthew.brost@intel.com?part=3D3
