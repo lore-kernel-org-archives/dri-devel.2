@@ -2,50 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0E3606AD87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0904606AD8B
 	for <dri-devel@archiver.kernel.org>; Tue, 27 Oct 2026 07:37:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JYx+z8Bf
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nl/AD/bv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2BBD10E363;
-	Tue, 27 Oct 2026 07:36:56 +0000 (UTC)
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011068.outbound.protection.outlook.com [40.107.208.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38B0E10F2B6
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 07:36:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3684C10F2B6;
+	Tue, 27 Oct 2026 07:36:57 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010041.outbound.protection.outlook.com [52.101.85.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C646F10F2B5
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 07:36:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LQkPVyKvdSIOuD9uq+WX1SHSbr4QzifdP5hUM9yQ6BNDJ8xETgKTxnT080dMH0pWOkLlyzywcz4hGGge8A42l7rgtlWiTWBU2gV+p1ZlNmRZAcpPjSzQHy06Q8nddraNom/sOOaZFk8+QY/7esRAr6ZwXnF5UITjPV9IvcxXwM+62dpfVAkPSVZRw5gbZDOlRskAdPbsoMiJuV4zvgg2/d3Nm8Q3VudRTUPhOTNMCwmG/a0MYNgbVGPcgHyuZ4mQ3KvN3RTE/wx/2E3gbtfbwcMk/5VkR8iWprdHLfVQUAGx0iHV6MyY9u5Re4H4OGLCKji0Tt2ruor7EBYWD66h+w==
+ b=fuTrgEJvvtAmn1aheeWx8IMxX3OKlJ2IkejaLzy0CQOJG1deE2hSyvXj3FzrFV3APtFI8ovuEvfJjZPgbuNc1ChNp3JiYeFWcdHLnU36DxuiPheuTf2v7Wi3K/m0WTLCy0b9r7G6kMdmuqw1RUnZz8zIWS55uNU0KJQf/oAhDTfCzTO2lv/JrhsprCIc06IkYZOO5dKr83zsR/arkhrAhWK7cpWAZlsMw3uaRUHn0SeFO665gGTCGYUpr89Q847ibellner+na+6RBmjscXhdHPDjmW2g9CBivvw390WlMLa9at1+46aqtSOszroJo3uVNSL9rboqs2667saOrpqBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CdG0IXJZWSOrsOTR7rYgAaIaeM+smqaWUjxIbFeVr1s=;
- b=ifdD+SUKtPjXGe5AAZ+NeWtDR3T1Wf+2iV22AuGbM1cELq8EWmv4HyjKHjkMswzCuYN78IoGsE6E+XtUqLpXMh6XiA59XSxG6UpLJoTxdJxUlaJdvidu0UdC21y0QsWm/giBH++nFXMBIdfuyI3wszUlEDJa65/aRAsOhWnVch8CNqN2PPEhUlxYpClj7oexhEyTlRorYiq+eaCJ7FhzkdjJoGwN0NUFf/pWXU6e2FaSbI/FDL440yw6xT2NArOOeEL3iD2mtM9vP5bB7ByMfUaHnLglXwSxZFtbmRuJj8SAnAF7SFKc4ey7vcT2oQsuWWrpC7emv54Tr2GPhQUXPw==
+ bh=k5qnArfsYkEPr9Oc7MS4hkZaCEaeK4LjfRwj4bb3Yw4=;
+ b=oYjB6+sDe1B2kEQPdIJAq0sBXia9OS1/sc9g2v3rcHd2mwFT+1iWcYXpZhuOPuqmf45C6urT5I3aOyl/Ii5twFb4ypmSM+1fBA/le6NdCSFCNXcKm382iEpdFo4mdjj1V/aeJb7Apd8aSiRuw83tZBPccDAjionV9WOh5wss4i/0DoCPt8g8Buza2J8RIOScKCuHPaJj0nNl3l08wLbhV/3v1Gyo9tWmUq/p1yU3mK58yQLsB5h8VZzw/FX9L+8/Q7Dz19VLUtAlm3egFQQ68Ex8biBQONsBEI+ZQ5PMlgI78M2XYmAKlq52AbZq8cjGAxPcT17eaDR9M8Hx82vvBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CdG0IXJZWSOrsOTR7rYgAaIaeM+smqaWUjxIbFeVr1s=;
- b=JYx+z8BfeqXNU7+bQlS9jhbno99x81qH9cgiNjsdUY0Mb+xAap3KC4AoUFgdLksGln2iOMvo9YE6PsTy/Bhwo7aeeJDUTxCmCDI7hbj43T6uamoG8iy4NgkmkG83Cc/tLqTp5nUP9k/4dO2M9HTZl3K3OsIzyRka/zVcFYM5JozzeAAj0j2xA9lVIZOsYqLX89u8VD6dTqQwXsQV5UvgS54xFtjEz1xVE2WRFx4dG/htFd2CGcaUGzrZyUPXbgeL9L/A42Diz1KQO9pImGBM3ZLCocndmPcFX1Q5FVyjVB0gQ5aalCMgFxdrGzPp199BFn6RnpAe73/JTTmAYcszxg==
+ bh=k5qnArfsYkEPr9Oc7MS4hkZaCEaeK4LjfRwj4bb3Yw4=;
+ b=nl/AD/bv+ie59zgxgmUpZLAySJqr4zrJ9rroPVfLpx94PihZ1XForAl5jCSJ5YAQnJ14WqDStrFsHlmseDy1IdFTKBRompDtPNhgLVmxzTk8SVozSiii+WqC9OVzuhNhix54HmsdXfBlulNtf5tTqYS/TOQJJbLU1swQqV1wcX4JkfeTKtpApxZ7NOkz4sd5kMbgSyxjGc1VcY655eIkJIRmNlAET9vJgx4SvSuR7tbwxI55K0ki/jOl1k0krMnF9R31yViSkiruADDoaHb0L1CR6ijDKPrS5uDyuL1kFmMDbplKUezuMaFIdhjEXd39EeLic44oyzS2VGixbRKLhw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
  by DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 07:36:30 +0000
+ 2026 07:36:33 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 07:36:29 +0000
+ 07:36:33 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 27 Oct 2026 16:35:56 +0900
-Subject: [PATCH v6 13/15] gpu: nova-core: gsp: cmdq: move the RPC code into
- a sub-module
+Date: Tue, 27 Oct 2026 16:35:57 +0900
+Subject: [PATCH v6 14/15] gpu: nova-core: gsp: move the RPC commands into a
+ sub-module
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-cmdq-rpc-v6-13-bed9669724ba@nvidia.com>
+Message-Id: <20261027-cmdq-rpc-v6-14-bed9669724ba@nvidia.com>
 References: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
 In-Reply-To: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
 To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -58,74 +58,74 @@ Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCPR01CA0208.jpnprd01.prod.outlook.com
- (2603:1096:405:7a::16) To MW4PR12MB6873.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4P286CA0028.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b0::10) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM4PR12MB8451:EE_
-X-MS-Office365-Filtering-Correlation-Id: 790c920f-2bb3-49c3-e0dc-08df33fd03f0
+X-MS-Office365-Filtering-Correlation-Id: d07d3d6c-3a75-4491-8063-08df33fd05eb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|261026121527099003|261021123027099003|5023799004|56012099006|11063799006|261021135927099003|261022105027099003|261009223027099003|261022075727099003|261022113327099003|261021121427099003|10067099003|22082099003|18002099003|6133799003|261026140227099003|3023799007;
-X-Microsoft-Antispam-Message-Info: q8aaXNxPah6BjxDfuwhB5zqfsrB2V6bIqr+jvyKphVzZUgX6dC9oLIwXPoUjWR4MXHD6BI1ScOE51Uhm/cJAs2cmZIT+mcZsZooumHMm8AMj323ybLNo+Uyy5hIS+bdCYHgQxhhKFZ7CSIcUtK7bXS/EV2MiRfp3ZOlj+Q5UpQjSq46D9DN1kx0OE/YxG6hOLYcF9/H+c/fR/sHgEsoAT9x/G6JcsOc5HYv1rtcCbtXQ93oAZ7SgX9NW7bEz57cIn6f2x2pmyVSfmchTSNJ7r2Ml9EvPyX0K+2gpUrQRM5O1/lF6zCx2fUPw9xQPnXV2dObTxKvu21A0qNtOle7VUkYiSMhuStVHGLScPzSNzis17TEy3Qo77Yvp088NqVC5CLIt2c/f1wS0sr1i5oQDMcwK0d/qIh/0ALOftAw+0MdSB1Imj58vq1y/CtsnncmMMeJt0CAtSCCVQYzoVgUUs8pLBwPHDkm/j+xnebgg6zkdMNB0iJ1w9Vy3mCtJQwHOprn51lDHWlOtfNcCT87cl6t42dyHSzFeItNiDTICKOVgdEnGYAx+VWXyJIph5wIA3J9gRkwjnG+Kv4o0II5AZAaOL7G3a2DNP4U/eg4v2cZJL4oGz3Y76jOvT0lK7jhLcAg9yXSwG0cxPa6rmDpiOP043IRM7MjLSpg74zqevaY=
+ ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|261026121527099003|261021123027099003|56012099006|11063799006|261022105027099003|261009223027099003|261022075727099003|261022113327099003|261021121427099003|10067099003|22082099003|18002099003|6133799003|261026140227099003|3023799007;
+X-Microsoft-Antispam-Message-Info: ZeO8f2sa5hkEqGpwIPFGR2JmVfzNProlvQ1RlaSYuX1sUpeDhVHYkS3EvxotOu6RhMr8Iea5G/XoifqViBypkpRgE5kp0zOGSGISlFWMkC2oruhEvycCOAHWwJ5kjXVcpu7siNXjJvvzdITFqUUMTB0+FbggDvMAiJf3wPNPTeIpNlCAneVkB7VPkE2n82mTA6Gw269Ea/mDtnhg1pkhQLsd+1OpIcEN8ElsqY5yTp92weThk5r9z6KbkBzgmNBwDjjvjiVbW89SS6eRNbN+WUoazP2NRK8O1u8kJA5CJN4r3R3I8bQ4fyhj602z3Hcl4YYmwPQrZYGWwbHBAiTaRGN9lpZoloKf3h4FMzXrIGZWbfnJqWn95qTjhxpaMnTBczWNjxcKQuhmNgGJ2pMybxYUeyH3I1itnHuYEQRFZStd78q4TkOnrptDD1JG98s7UmOuks5W8P5DRKR9+3YcuQymDp/1lRd9YLVX/7FZhWJ0cyjpc2UrVklqK0UHVbcaILkS4lOw3ffqBsvzylniYn+wvBqfi59NxxCIQAvVIyGP3TH93IbaUx8+TNvshbQygUe7AFredqAza4HuqkE9xLzPeqzRuAjmWXN1t3A5ed4upl3oJnd79rqboe3o7GrO7E9T//BhlxkGLj2mxI8oLC+w2f904oyvxea+jVBaljc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(261026121527099003)(261021123027099003)(5023799004)(56012099006)(11063799006)(261021135927099003)(261022105027099003)(261009223027099003)(261022075727099003)(261022113327099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003)(3023799007);
+ SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(261026121527099003)(261021123027099003)(56012099006)(11063799006)(261022105027099003)(261009223027099003)(261022075727099003)(261022113327099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R1B5cmhWbEYwQkQwSGpNQ3M3TVlyQVphSUZyL1VQMVFuOXMvbUdFV2pwSVVJ?=
- =?utf-8?B?b2NRTmhxUjBxQmtOaSsvN1JhUzE2STJDaWdQRHViclNrRUsyejNqRm1mMVlY?=
- =?utf-8?B?VlNvZDlYcHFlVHNMTVNNclVXekZzRlh5TWRId0EyTVBHYnJ6UE41ekJnK3NT?=
- =?utf-8?B?QURBNTdpcW9QVmVOS3RWNitnOUZ2STVxOFQ3OEt5RjJCQjU5d0YxelRBSkI2?=
- =?utf-8?B?cUswRCtYMFpxYmQyS2UzbFZZY25kSmtRYms1YSs0ZWhTVy8ramNIVGZQeFYr?=
- =?utf-8?B?ZExBUzY5am91VHNvS3VDNkdNWEh5YVZJZUNMN0RYTW1ZdmpSUmFKU0pRS1M0?=
- =?utf-8?B?WUhrNnEzbG1Udks0L1hZR3ROcFZKMzVzTHlteHd6akFoRU1DQjlDWnFJdFRv?=
- =?utf-8?B?LzdrNWNLRGNRNnQvVzNSNC91RWJCbmMwaXd2YU8rUDVCdW1lalF6QTl4NThS?=
- =?utf-8?B?ckovTGh4UEZjVGs0aEV1MWdEaGZ1bmVvZkRyb2dqbUM3VWhsaHhkQWhJUkJS?=
- =?utf-8?B?d2JjMHRObGVSRVo5VkxMbm5CRDV3TUloYmRHQ0MxUlBuNDYrQ3NUd2lMcU1y?=
- =?utf-8?B?eWhDNlYvOUdQNE9aMTA3S2lKdnBzSW1kWFcxTUhVbUtLUnU5ZnpGeWNlakYr?=
- =?utf-8?B?SU9vU3JxSzlSR0JBRHJCU2JHL2xBWUtWcUFJdXhHUXZRS1NGMmdpeHRQei9y?=
- =?utf-8?B?MUxONHZ6QW02RE4zbHBTaXFCUWVaL0NZYnhBRjNIaW1qeTJsd1RBaW0zY3Iz?=
- =?utf-8?B?SjZId21EcUtpb09KYlFwcWJGRVdXeWlsTWF3c1FvSnR4cnRXSklIMGxxa1dW?=
- =?utf-8?B?MjhaS2lGZ2pOblA5MXoyNzFYQWFhRVpmeUVaY2RscStrNkZ0NWZGNld3UzlO?=
- =?utf-8?B?SCs2cDgyeWM3REozSkN4a0tlTVpKUGVaTUtOTEFaVmMvd0k2VUQ4TzFqKzdM?=
- =?utf-8?B?bTB3Rlg4SWJRTFM2QTAyQk1kNDlGdjdYZXAwVlNsYkV1S0lsdVBaYzk5ZEp3?=
- =?utf-8?B?a3NTLzY0cDJsZTVVWURISFFSQ1h5SHlTdTh5bGhhUzNJVXhVWXVRTE9Dcysx?=
- =?utf-8?B?bFVMSVJFaWJIWFZRZmM2SEZ1U1kvUU9jUXdhWTNyL2RKWkJKVi9XWUZhRnVJ?=
- =?utf-8?B?SzVqNkhxdEtxNm51ZVpVMnpLWm9NVklHcUtPY2thNFBtdGx6SFV1Tm5GeHlS?=
- =?utf-8?B?R1F3SnZHR2ZjZWlncjRkMVFLVmlwNVlpTnlreDNvNXJnNUptMGpXakJjKzRr?=
- =?utf-8?B?Rng2NlIrWG1vZzVPY3QwdlgvMEhUYVMzazBBMjl1UXlxYU1DWW11ck5MU3pi?=
- =?utf-8?B?L3NBbmEzdXQwdGQ0UjFsVkFMS2lDV2FwUDNnaFFyUUhhdEx1N09RNGtPcGd6?=
- =?utf-8?B?enBtSlY5SnIzL2E1WWNXbUpMTEdMR3FoWFNkY0JkcjBLOVMraGhuNjVSYXhX?=
- =?utf-8?B?UjZRTDJhQVNnWURTMUU0RHppOVA4Y2NaQWFsaC9aTnRIL0NJWktWakVhLzZZ?=
- =?utf-8?B?cjhTbTdnK1Z5eVU1ejhUSDY3YTVqMHVHVjJKbUplOHFRckNsb1k5dzR5ckRV?=
- =?utf-8?B?Y0tQb1FoK09lRDZHVmFkeVdac01hYUFFR0x6bkcxZThRd2xCSlNWM0JCd1Nw?=
- =?utf-8?B?Y2M5MHRLZyt2dEtvNitYZ05oZTNGNXU5L1VsRHJxWkVjWis3NWpieXNhdUNQ?=
- =?utf-8?B?SkhWbHFjcks2MDh6UFRKWVl0OGU4V0cvOERSMnhsajYyb2U1Z09uUnMrUW55?=
- =?utf-8?B?ZzIxUmkvdkZieHVTM3hRc0c5azQ1NkhjSElQRnhIT09DWlgvKzZ0USs1enlz?=
- =?utf-8?B?SjJKTE1rZFZyc2FiUERaOWhJQy9SQzh2MlRyZXhQeXVQbk1CazZzeERudWlt?=
- =?utf-8?B?UGFMNzdrUHJZSmpOQWZ3SjhwQ3U0TjhUaVJwYlN0M3BEbEdGMmlqRFhINlRL?=
- =?utf-8?B?MnVRMGxZay9VZmRQeUQyeGFtSTFlVlBrbkxKQ3orVVg4a01qVndPSXdxSVhO?=
- =?utf-8?B?Vkh3U0FLNE44cEx3RnRRUFRONzl4MXRVNktLeURnMW1pOUF5TVNINEFTdXVR?=
- =?utf-8?B?MDVQaFdCTlg2aURCT0crZjlhN3I4V2swQmR6NUFDNW1YdFhaNGF3YUgxYmlD?=
- =?utf-8?B?bUNXN2lGK3NtVUkwamhNbDF3V0lQeTUzaGtTMUxZSG02Q2YyajByV1BMeDQ0?=
- =?utf-8?B?Y1dTYUVvaWRObW9NVmxTZXlpU1l5K1daWVY4RkNLY1ZQWjladGJWdVRRQkZQ?=
- =?utf-8?B?Qk9IRDNqQ3NGZG5LVCt3Q0NNcHNkWjZITGpheUFvSEMzR2UxakJTc3BsaE40?=
- =?utf-8?B?MDhLUDZONE9mSUIyUUxEc2tBMHAwQU9DSXdLNUVjMy9aTkJ4MXNFTWlXUjE0?=
- =?utf-8?Q?NkOAc06wGMH16dFQcVJcJgLAx8SPM+7lFEwuNaS1Sd5TJ?=
-X-MS-Exchange-AntiSpam-MessageData-1: BLYkJj7TdcfN/g==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WTREVHdEU1RyVjB4c1I3bnlkN3hnc1FWUkJPWE1nR3pEdlZPL1l4VzIzdmZ5?=
+ =?utf-8?B?aTFqVS9MV2ZCelI3bVQ4TEdGamVoMzUwYUFzOUx1c0lrSDltVGtaN2xMczhM?=
+ =?utf-8?B?TWJDTVU2RVB6WThqWDJNOERzQlZFdnhJV3JXNHBEZnpKdEZQOUFiOVFvTjNJ?=
+ =?utf-8?B?aldjb1IrYXFkd3VJUHZrcHVzTVhaekxPdDRXd3A3a0U0WmhJdlQ2em9aZUJj?=
+ =?utf-8?B?MHM5MWFNWmJEQS9wNTAzK1h4YjhHVVJDdkJodzVHamxXT3NiSmxtK3dmTWtJ?=
+ =?utf-8?B?MTg2NzlVQzZVYVlSeWNkcEpPenlLNDFpaVFvUHVmNTdEUFZpTDFNdUFzeVFs?=
+ =?utf-8?B?emRienhmdXRRajF0MmxSOTFObHFIVWtFd3hJUGpwakIwOWhoVTdoRCtZcUVQ?=
+ =?utf-8?B?R3p3ZE9HVUZvZzR6NGZoMlRsdWU1aWFNWVc1aUs5bm1QRkltbXBZbmIrcGl0?=
+ =?utf-8?B?bUVqT0tPYmlOOTA4VFptb29zUzRCcE4yQ2hRUmxqVjdVMkRDallUd3NXVmJY?=
+ =?utf-8?B?b3hOMDc5L0lMcUVPYnltSEl1THlpb1lYUFp1d0RRYXJjVTVQV3lHRWJKamUw?=
+ =?utf-8?B?U21hbHZtQVhkMDdSTWdQcnM5Y2g2SkQwOEk3NlNTYXFPb3UzdTBQN21YbnlL?=
+ =?utf-8?B?UHBnTy9oY09LV0lFbVQyYkorckZheG5pUTh3VlAwd1B2WlZhWWx2U2lybm91?=
+ =?utf-8?B?R1J2enRCZG8xSS85cFFEVStGVHZrTUJuMk9FSVlCbEZBa3RPQjhhclU4cVBh?=
+ =?utf-8?B?MHlSVVRqN1RicXRaV01KWkNucWtrbmZpWVpoa2c5TmFKNUN2eVhZL3BZeGZu?=
+ =?utf-8?B?VlpTT2U5ckJPNHpiZ1JwM0hDc2FFeDBkTU0wcW91WWhmb2pGQzFPTmJNUFV1?=
+ =?utf-8?B?R2tLby84SzQ4YjNwRXhXazRFbzhOVnF1Z3RmZk5mM3R1d2VaSkJyR2RrcWNT?=
+ =?utf-8?B?bk92VEp1bXNQVlcyT2dmenp5MFlVZ3V3TU92QUcxbkFLMGVZeEh6WXZUc2xI?=
+ =?utf-8?B?UzVsLzRVdm9iTUh4cElibitHYlhOT0thTlRSenIwTVg3eVQ2MjZRR0RMak5S?=
+ =?utf-8?B?UVdYb2ZQUHNZK0cvM1BsZzkweW8xS0UxbE5kSVp4aXE4WFJOUFVDb1lOdnlS?=
+ =?utf-8?B?SmJHMFhRd3VidXF4QjZVYnhyTGZidUx3Tk40cFBIYm9QWTYzOEJ5V1c3V0dU?=
+ =?utf-8?B?M1YvNStZaTVvR3dicHBLbmZzTm03L1BOVndrSU84clV1TU8xNVduRit1VG9U?=
+ =?utf-8?B?RDFRWjZmMDh3UnZvbWpvNEVldHQ3KzZHT2F1WmxhMzJNdzRQbnJuVFljWEdB?=
+ =?utf-8?B?b2NmWTBsV1ZDWWpCaldHeXdqcXkwUmJzS21LNjJ4SFhiVHVnMWFsZC9KWEdH?=
+ =?utf-8?B?cjd1clNrdUpwVHBmekFrYmJtVlU3ZVBvV2RSTllXVldrc1diTEF6YUhBVjkr?=
+ =?utf-8?B?UmZpR2p6OGRuSXRqN2ZQVVl5T05JUkphKzFOdnhVTWpwbmNRakpjUWZKZE5N?=
+ =?utf-8?B?cmR2aURJYWN4YzBWVkI5OExGa01tQTF5RkQraVQwSVVnc200empQM2MrWGVi?=
+ =?utf-8?B?MHFQVlBGRkVVbkkweE5Hbk1XSGVEYU1oUEgwRCtDNFVWZDZWUDhLSTh3aDRD?=
+ =?utf-8?B?M3MrQVhFTmFkRHhkYUpjZU80MTFGOHhGdVk4M2JOTG1NVk5LTDhJemJnYllV?=
+ =?utf-8?B?SzNDelZSZWVEL2ZLZzdFdU1pNWtvQ0FlYTdsM0FSU1c0MittMW53L1NuY0dL?=
+ =?utf-8?B?bVZ4MERpaXI5RXlPRHRvSWRZelV6SHNBNUVyTVVSTEJ2bE1UNmt3SnpTc2N3?=
+ =?utf-8?B?dG56MWVpNG13Y0tKb25JM2taTzZQQk92T0dJM3FWb21nR1NOU0dhRzNYdGZT?=
+ =?utf-8?B?eUdyY3U2RnMwNTJXcTFLYytwS05qNjB0NG16Z200ckhvSThhNXdGZFZqV3Mz?=
+ =?utf-8?B?cFQ3STdoalNrK0x1NitKdDJXVkJPazFLU0pzQ0xHNitUZmJNN3NpNTJRd0Rl?=
+ =?utf-8?B?aDNsQ2V6ekpPbVlYRm5zTEJOMUpTbkN0aTB2WEZ5Ym15MzJmWUpRWE9jc0gr?=
+ =?utf-8?B?eHZ2Z2MxWk05V3d4ZjRZVVJ6aDNHMUF0b1JxdldMQjV0ZDV5ME5zUGZPdVp5?=
+ =?utf-8?B?SVhVa3lUd0ZaUzkwMVNNbndOT1BFcjRNOXRDenQ3TjBiWjNkWXk1bjhQaFp2?=
+ =?utf-8?B?UTQrcmhDaStLTm84MW9KSmhnTEF0aUNhV0JsWnQ4MjhOaE5zQ1Y4OFlZRHQ0?=
+ =?utf-8?B?bXNZQjVHN1BJNk9leDhCTkJxaUFSeXkzMHZuTFdGekt5Rlpxd1dyVjNFYUVk?=
+ =?utf-8?B?SUU4Um80aWpyZm9HYTRMVDF3dWpnY1g2OTE1RXV5cGhJV2N3RlhJZkxGZU0v?=
+ =?utf-8?Q?w6plwcnjHScZpUKvJ0LCSAE99jh/Q7IPJtpSQ1NnlguMY?=
+X-MS-Exchange-AntiSpam-MessageData-1: /ZpZJvqphOhIrQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 790c920f-2bb3-49c3-e0dc-08df33fd03f0
+X-MS-Exchange-CrossTenant-Network-Message-Id: d07d3d6c-3a75-4491-8063-08df33fd05eb
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 07:36:29.8112 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 07:36:33.1348 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +b+dR38IqEXW8k4oR7Uantx3O9aDyRFmFMAIVYw/EXtiOmofGyfuWQQMIGFdAOSacSe1OMKgzM7AHepKXjLyVw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: fSK4aEw8theoJ/CPtwijyUR83dYdmqomU95gNsaEXJ20oDaAvfgx6Hh5hdYj7OT+2XBa2eRQ/dWtsmLluQLTmg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8451
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,936 +146,789 @@ X-Spam-Status: No, score=-19.1 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Move the types and code related to sending and receiving RPC commands
-and messages into the `rpc` sub-module. The methods are still declared
-as members of `CmdqInner` and `Cmdq`; they just live in their own
-sub-module now.
+Move the types and code related to RPC commands into the
+`rpc` sub-module, and update their users to reference them from their
+new location.
 
 This is a pure move commit, with no functional change intended.
 
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs                  | 385 +------------------
- drivers/gpu/nova-core/gsp/cmdq/rpc.rs              | 415 +++++++++++++++++++++
- .../nova-core/gsp/cmdq/{ => rpc}/continuation.rs   |   0
- drivers/gpu/nova-core/gsp/commands.rs              |   6 +-
- drivers/gpu/nova-core/gsp/sequencer.rs             |   4 +-
- 5 files changed, 426 insertions(+), 384 deletions(-)
+ drivers/gpu/nova-core/api.rs              |   2 +-
+ drivers/gpu/nova-core/gpu.rs              |   2 +-
+ drivers/gpu/nova-core/gsp.rs              |   4 +-
+ drivers/gpu/nova-core/gsp/boot.rs         |  12 +-
+ drivers/gpu/nova-core/gsp/commands.rs     | 331 +----------------------------
+ drivers/gpu/nova-core/gsp/commands/rpc.rs | 333 ++++++++++++++++++++++++++++++
+ 6 files changed, 344 insertions(+), 340 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index cbdd05385e83..ddf3f6256222 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- 
--mod continuation;
-+pub(super) mod rpc;
- 
- use core::mem;
- 
-@@ -39,8 +40,6 @@
-     },
+diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
+index 29207c4bb743..eec69aace3b2 100644
+--- a/drivers/gpu/nova-core/api.rs
++++ b/drivers/gpu/nova-core/api.rs
+@@ -18,7 +18,7 @@
+ use crate::{
+     driver,
+     gpu::Gpu,
+-    gsp::commands::GetGspStaticInfoReply, //
++    gsp::commands::rpc::GetGspStaticInfoReply, //
  };
  
--use continuation::SplitState;
--
- use pin_init::pin_init_scope;
- 
- use crate::{
-@@ -48,10 +47,8 @@
+ /// API handle for the auxiliary bus child drivers to interact with nova-core.
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 4e59072cab50..ac5305d7ff5e 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -35,7 +35,7 @@
      gsp::{
-         fw::{
-             GspMsgElement,
--            MsgFunction,
-             MsgqRxHeader,
-             MsgqTxHeader,
--            RpcMessageHeader,
-             GSP_MSG_QUEUE_ELEMENT_SIZE_MAX, //
-         },
-         PteArray,
-@@ -81,149 +78,6 @@ trait CommandElement {
-     fn write(&self, dev: &device::Device, seq: u32, dst: &mut GspCommand<'_>) -> Result;
+         self,
+         cmdq::Cmdq,
+-        commands::GetGspStaticInfoReply,
++        commands::rpc::GetGspStaticInfoReply,
+         Gsp,
+         GspBootContext, //
+     },
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index dda58095f40b..75a3ba7d50f4 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -220,8 +220,8 @@ pub(crate) fn new(
+     }
+ 
+     /// Query the GSP for the static GPU information.
+-    pub(crate) fn get_static_info(&self) -> Result<commands::GetGspStaticInfoReply> {
+-        self.cmdq.send_command(commands::GetGspStaticInfo)
++    pub(crate) fn get_static_info(&self) -> Result<commands::rpc::GetGspStaticInfoReply> {
++        self.cmdq.send_command(commands::rpc::GetGspStaticInfo)
+     }
  }
  
--/// Trait implemented by types representing a command to send to the GSP.
--///
--/// The main purpose of this trait is to provide [`Cmdq`] with the information it needs to send
--/// a given command.
--///
--/// [`CommandToGsp::init`] in particular is responsible for initializing the command directly
--/// into the space reserved for it in the command queue buffer.
--///
--/// Some commands may be followed by a variable-length payload. For these, the
--/// [`CommandToGsp::variable_payload_len`] and [`CommandToGsp::init_variable_payload`] need to be
--/// defined as well.
--pub(crate) trait CommandToGsp {
--    /// Function identifying this command to the GSP.
--    const FUNCTION: MsgFunction;
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 4fb1b69ac9d5..8e446ad1eac2 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -43,9 +43,9 @@ pub(crate) fn boot(
+         let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset), GFP_KERNEL)?;
+ 
+         self.cmdq
+-            .send_command_no_wait(commands::SetSystemInfo::new(pdev, chipset))?;
++            .send_command_no_wait(commands::rpc::SetSystemInfo::new(pdev, chipset))?;
+         self.cmdq
+-            .send_command_no_wait(commands::SetRegistry::new(ctx.vgpu.state())?)?;
++            .send_command_no_wait(commands::rpc::SetRegistry::new(ctx.vgpu.state())?)?;
+ 
+         // Perform the chipset-specific boot sequence, and retrieve the unload bundle.
+         let unload_bundle = hal.boot(&self, &mut ctx, &gsp_fw)?.or_else(|| {
+@@ -79,7 +79,7 @@ pub(crate) fn boot(
+         hal.post_boot(&self, ctx, &gsp_fw)?;
+ 
+         // Wait until GSP is fully initialized.
+-        commands::wait_gsp_init_done(&self.cmdq)?;
++        commands::rpc::wait_gsp_init_done(&self.cmdq)?;
+ 
+         Ok(unload_guard.dismiss().1)
+     }
+@@ -88,10 +88,10 @@ pub(crate) fn boot(
+     fn shutdown_gsp(
+         cmdq: &Cmdq<'_>,
+         gsp_falcon: &Falcon<'_, Gsp>,
+-        mode: commands::PowerStateLevel,
++        mode: commands::rpc::PowerStateLevel,
+     ) -> Result {
+         // Command to shut the GSP down.
+-        cmdq.send_command(commands::UnloadingGuestDriver::new(mode))?;
++        cmdq.send_command(commands::rpc::UnloadingGuestDriver::new(mode))?;
+ 
+         // Wait until GSP signals it is suspended.
+         const LIBOS_INTERRUPT_PROCESSOR_SUSPENDED: u32 = bits::bit_u32(31);
+@@ -118,7 +118,7 @@ pub(crate) fn unload(
+         let mut res = Self::shutdown_gsp(
+             &self.cmdq,
+             ctx.gsp_falcon,
+-            commands::PowerStateLevel::Level0,
++            commands::rpc::PowerStateLevel::Level0,
+         )
+         .inspect_err(|e| dev_err!(dev, "GSP shutdown failed: {:?}\n", e));
+ 
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index ceac0b0f9423..5f1c944678be 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -1,333 +1,4 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ 
+-use core::{
+-    array,
+-    convert::Infallible,
+-    ffi::FromBytesUntilNulError,
+-    ops::Range,
+-    str::Utf8Error, //
+-};
 -
--    /// Type generated by [`CommandToGsp::init`], to be written into the command queue buffer.
--    type Command: FromBytes + AsBytes;
+-use kernel::{
+-    device,
+-    pci,
+-    prelude::*,
+-    transmute::{
+-        AsBytes,
+-        FromBytes, //
+-    }, //
+-};
 -
--    /// Type of the reply expected from the GSP, or [`NoReply`] for commands that don't
--    /// have a reply.
--    type Reply;
+-use crate::{
+-    gpu::Chipset,
+-    gsp::{
+-        cmdq::{
+-            rpc::{
+-                CommandToGsp,
+-                MessageFromGsp, //
+-            },
+-            Cmdq,
+-            NoReply, //
+-        },
+-        fw::{
+-            self,
+-            MsgFunction, //
+-        },
+-    },
+-    sbuffer::SBufferIter,
+-    vgpu::VgpuState, //
+-};
 -
--    /// Error type returned by [`CommandToGsp::init`].
--    type InitError;
+-/// The `GspSetSystemInfo` command.
+-pub(crate) struct SetSystemInfo<'a> {
+-    pdev: &'a pci::Device<device::Bound>,
+-    chipset: Chipset,
+-}
 -
--    /// In-place command initializer responsible for filling the command in the command queue
--    /// buffer.
--    fn init(&self) -> impl Init<Self::Command, Self::InitError>;
--
--    /// Size of the variable-length payload following the command structure generated by
--    /// [`CommandToGsp::init`].
--    ///
--    /// Most commands don't have a variable-length payload, so this is zero by default.
--    fn variable_payload_len(&self) -> usize {
--        0
--    }
--
--    /// Method initializing the variable-length payload.
--    ///
--    /// The command buffer is circular, which means that we may need to jump back to its beginning
--    /// while in the middle of a command. For this reason, the variable-length payload is
--    /// initialized using a [`SBufferIter`].
--    ///
--    /// This method will receive a buffer of the length returned by
--    /// [`CommandToGsp::variable_payload_len`], and must write every single byte of it. Leaving
--    /// unwritten space will lead to an error.
--    ///
--    /// Most commands don't have a variable-length payload, so this does nothing by default.
--    fn init_variable_payload(
--        &self,
--        _dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
--    ) -> Result {
--        Ok(())
--    }
--
--    /// Total size of the command (including its variable-length payload) without the
--    /// [`GspMsgElement`] header.
--    fn size(&self) -> usize {
--        size_of::<Self::Command>() + self.variable_payload_len()
+-impl<'a> SetSystemInfo<'a> {
+-    /// Creates a new `GspSetSystemInfo` command using the parameters of `pdev`.
+-    pub(crate) fn new(pdev: &'a pci::Device<device::Bound>, chipset: Chipset) -> Self {
+-        Self { pdev, chipset }
 -    }
 -}
 -
--/// Wrapper type for sending a RPC command as a command queue element.
--///
--/// [`CommandElement`] cannot be directly implemented for all [`CommandToGsp`] with a blanket
--/// implementation as it would conflict with other future command types.
--struct RpcCommandElement<M>(M);
+-impl<'a> CommandToGsp for SetSystemInfo<'a> {
+-    const FUNCTION: MsgFunction = MsgFunction::GspSetSystemInfo;
+-    type Command = fw::commands::GspSetSystemInfo;
+-    type Reply = NoReply;
+-    type InitError = Error;
 -
--impl<M> CommandElement for RpcCommandElement<M>
--where
--    M: CommandToGsp,
--    Error: From<M::InitError>,
--{
--    fn size(&self) -> usize {
--        self.0.size()
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        Self::Command::init(self.pdev, self.chipset)
 -    }
+-}
 -
--    fn write(&self, dev: &device::Device, seq: u32, dst: &mut GspCommand<'_>) -> Result {
--        let command = &self.0;
--        let size_in_bytes = command.size();
--        // Extract area for the command itself. The GSP message header and the command header
--        // together are guaranteed to fit entirely into a single page, so it's ok to only look
--        // at `dst.contents.0` here.
--        let (cmd, payload_1) = M::Command::from_bytes_mut_prefix(dst.contents.0).ok_or(EIO)?;
--        let rpc_header_init = RpcMessageHeader::init(size_in_bytes, M::FUNCTION);
--        // SAFETY: `dst.header.rpc_header_mut()` is a valid reference, and is not touched if the
--        // initializer fails.
--        unsafe {
--            pin_init::raw_try_init(
--                core::ptr::from_mut(dst.header.rpc_header_mut()),
--                rpc_header_init,
+-struct RegistryEntry {
+-    key: &'static str,
+-    value: u32,
+-}
+-
+-/// The `SetRegistry` command.
+-pub(crate) struct SetRegistry {
+-    entries: KVec<RegistryEntry>,
+-}
+-
+-impl SetRegistry {
+-    /// Creates a new `SetRegistry` command, using a set of hardcoded entries.
+-    pub(crate) fn new(vgpu_state: VgpuState) -> Result<Self> {
+-        let mut entries = KVec::new();
+-
+-        // RMSecBusResetEnable - enables PCI secondary bus reset
+-        entries.push(
+-            RegistryEntry {
+-                key: "RMSecBusResetEnable",
+-                value: 1,
+-            },
+-            GFP_KERNEL,
+-        )?;
+-
+-        // RMForcePcieConfigSave - forces GSP-RM to preserve PCI configuration registers on
+-        // any PCI reset.
+-        entries.push(
+-            RegistryEntry {
+-                key: "RMForcePcieConfigSave",
+-                value: 1,
+-            },
+-            GFP_KERNEL,
+-        )?;
+-
+-        // RMDevidCheckIgnore - allows GSP-RM to boot even if the PCI dev ID is not found
+-        // in the internal product name database.
+-        entries.push(
+-            RegistryEntry {
+-                key: "RMDevidCheckIgnore",
+-                value: 1,
+-            },
+-            GFP_KERNEL,
+-        )?;
+-
+-        if matches!(vgpu_state, VgpuState::Enabled { .. }) {
+-            // RMSetSriovMode - required when vGPU is enabled.
+-            entries.push(
+-                RegistryEntry {
+-                    key: "RMSetSriovMode",
+-                    value: 1,
+-                },
+-                GFP_KERNEL,
 -            )?;
 -        }
--        // SAFETY: `cmd` is a valid reference, and is not touched if the initializer fails.
--        unsafe {
--            pin_init::raw_try_init(core::ptr::from_mut(cmd), command.init())?;
--        }
 -
--        // Fill the variable-length payload, which may be empty.
--        let mut sbuffer = SBufferIter::new_writer([&mut payload_1[..], &mut dst.contents.1[..]]);
--        command.init_variable_payload(&mut sbuffer)?;
--
--        if !sbuffer.is_empty() {
--            return Err(EIO);
--        }
--
--        dev_dbg!(
--            dev,
--            "GSP RPC: send: seq# {}, function={:?}, length=0x{:x}\n",
--            seq,
--            M::FUNCTION,
--            size_in_bytes,
--        );
--
--        Ok(())
+-        Ok(Self { entries })
 -    }
 -}
 -
--/// Trait representing messages received from the GSP.
--///
--/// A reply that [`Cmdq::send_command`] waits for, or an event that [`Cmdq::await_msg`] waits for.
--/// The receiver matches a message's function code against [`Self::FUNCTION`] and decodes the
--/// message with [`Self::read`].
--pub(crate) trait MessageFromGsp: Sized {
--    /// Function identifying this message from the GSP.
--    const FUNCTION: MsgFunction;
+-impl CommandToGsp for SetRegistry {
+-    const FUNCTION: MsgFunction = MsgFunction::SetRegistry;
+-    type Command = fw::commands::PackedRegistryTable;
+-    type Reply = NoReply;
+-    type InitError = Infallible;
 -
--    /// Error type returned by [`MessageFromGsp::read`].
--    type InitError;
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        Self::Command::init(self.entries.len() as u32, self.size() as u32)
+-    }
 -
--    /// Type containing the raw message to be read from the message queue.
--    type Message: FromBytes;
+-    fn variable_payload_len(&self) -> usize {
+-        let mut key_size = 0;
+-        for entry in self.entries.iter() {
+-            key_size += entry.key.len() + 1; // +1 for NULL terminator
+-        }
+-        self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>() + key_size
+-    }
 -
--    /// Method reading the message from the message queue and returning it.
--    ///
--    /// From a `Self::Message` and a [`SBufferIter`], constructs an instance of `Self` and returns
--    /// it.
+-    fn init_variable_payload(
+-        &self,
+-        dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
+-    ) -> Result {
+-        let string_data_start_offset = size_of::<Self::Command>()
+-            + self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>();
+-
+-        // Array for string data.
+-        let mut string_data = KVec::new();
+-
+-        for entry in self.entries.iter() {
+-            dst.write_all(
+-                fw::commands::PackedRegistryEntry::new(
+-                    (string_data_start_offset + string_data.len()) as u32,
+-                    entry.value,
+-                )
+-                .as_bytes(),
+-            )?;
+-
+-            let key_bytes = entry.key.as_bytes();
+-            string_data.extend_from_slice(key_bytes, GFP_KERNEL)?;
+-            string_data.push(0, GFP_KERNEL)?;
+-        }
+-
+-        dst.write_all(string_data.as_slice())
+-    }
+-}
+-
+-/// Message type for GSP initialization done notification.
+-struct GspInitDone;
+-
+-// SAFETY: `GspInitDone` is a zero-sized type with no bytes, therefore it
+-// trivially has no uninitialized bytes.
+-unsafe impl FromBytes for GspInitDone {}
+-
+-impl MessageFromGsp for GspInitDone {
+-    const FUNCTION: MsgFunction = MsgFunction::GspInitDone;
+-    type InitError = Infallible;
+-    type Message = ();
+-
+-    fn read(
+-        _msg: &Self::Message,
+-        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError> {
+-        Ok(GspInitDone)
+-    }
+-}
+-
+-/// Waits for GSP initialization to complete.
+-pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
+-    cmdq.await_msg::<GspInitDone>().map(|_| ())
+-}
+-
+-/// The `GetGspStaticInfo` command.
+-pub(crate) struct GetGspStaticInfo;
+-
+-impl CommandToGsp for GetGspStaticInfo {
+-    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+-    type Command = fw::commands::GspStaticConfigInfo;
+-    type Reply = GetGspStaticInfoReply;
+-    type InitError = Infallible;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        Self::Command::init_zeroed()
+-    }
+-}
+-
+-/// The reply from the GSP to the [`GetGspStaticInfo`] command.
+-pub struct GetGspStaticInfoReply {
+-    gpu_name: [u8; 64],
+-    gpu_short_name: [u8; 64],
+-    /// The 16-byte SHA-1 based GPU identifier (GID) reported by GSP-RM.
+-    pub gpu_gid: [u8; 16],
+-    /// BAR1 Page Directory Entry base address.
+-    pub(crate) bar1_pde_base: u64,
+-    /// Usable FB (VRAM) regions for driver memory allocation.
+-    pub(crate) usable_fb_regions: KVec<Range<u64>>,
+-    /// Exclusive end of the FB physical address space.
+-    pub(crate) total_fb_end: u64,
+-}
+-
+-impl MessageFromGsp for GetGspStaticInfoReply {
+-    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+-    type Message = fw::commands::GspStaticConfigInfo;
+-    type InitError = Error;
+-
 -    fn read(
 -        msg: &Self::Message,
--        sbuffer: &mut SBufferIter<core::array::IntoIter<&[u8], 2>>,
--    ) -> Result<Self, Self::InitError>;
--}
--
- /// Number of GSP pages making the [`Msgq`].
- pub(crate) const MSGQ_NUM_PAGES: u32 = 0x3f;
- 
-@@ -559,96 +413,10 @@ struct GspMessage<'a> {
-     contents: (&'a [u8], &'a [u8]),
- }
- 
--/// A RPC message ready to be processed from the message queue.
--struct RpcMessage<'a> {
--    // Reference to the RPC header of the message.
--    header: &'a RpcMessageHeader,
--    // Slices to the contents of the message. The second slice is empty unless the message loops
--    // over the message queue.
--    contents: (&'a [u8], &'a [u8]),
--}
--
--impl<'a> RpcMessage<'a> {
--    /// Validate the RPC layer of `element` and returns its RPC header and its contents trimmed down
--    /// to the RPC payload.
--    ///
--    /// # Errors
--    ///
--    /// - `EIO` if the element is shorter than the payload length advertised by the RPC header.
--    fn parse(dev: &device::Device, element: GspMessage<'a>) -> Result<RpcMessage<'a>> {
--        let GspMessage {
--            header,
--            contents: (slice_1, slice_2),
--        } = element;
--
--        let rpc_header = header.rpc_header();
--        let payload_length = rpc_header.rpc_length();
--
--        dev_dbg!(
--            dev,
--            "GSP RPC: receive: seq# {}, function={:?}, length=0x{:x}\n",
--            rpc_header.sequence(),
--            rpc_header.function(),
--            payload_length,
--        );
--
--        // Check that the driver read area is large enough for the message.
--        if slice_1.len() + slice_2.len() < payload_length {
--            return Err(EIO);
+-        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError> {
+-        let mut usable_fb_regions = KVec::new();
+-        for region in msg.usable_fb_regions() {
+-            usable_fb_regions.push(region, GFP_KERNEL)?;
 -        }
+-        let total_fb_end = msg.total_fb_end().ok_or(EINVAL)?;
 -
--        // Cut the message slices down to the actual length of the message.
--        let (slice_1, slice_2) = if slice_1.len() > payload_length {
--            // PANIC: we checked above that `slice_1` is at least as long as `payload_length`.
--            (slice_1.split_at(payload_length).0, &slice_2[0..0])
--        } else {
--            (
--                slice_1,
--                // PANIC: we checked above that `slice_1.len() + slice_2.len()` is at least as
--                // large as `payload_length`.
--                slice_2.split_at(payload_length - slice_1.len()).0,
--            )
--        };
--
--        Ok(RpcMessage {
--            header: rpc_header,
--            contents: (slice_1, slice_2),
+-        Ok(GetGspStaticInfoReply {
+-            gpu_name: msg.gpu_name_str(),
+-            gpu_short_name: msg.gpu_short_name_str(),
+-            gpu_gid: msg.gpu_gid(),
+-            bar1_pde_base: msg.bar1_pde_base(),
+-            usable_fb_regions,
+-            total_fb_end,
 -        })
 -    }
+-}
 -
--    /// Logs an event, meaning a message that no caller was waiting for.
+-/// Error type for [`GetGspStaticInfoReply::gpu_name`].
+-#[derive(Debug)]
+-pub enum GpuNameError {
+-    /// The GPU name string does not contain a null terminator.
+-    NoNullTerminator(FromBytesUntilNulError),
+-
+-    /// The GPU name string contains invalid UTF-8.
+-    InvalidUtf8(Utf8Error),
+-}
+-
+-impl GetGspStaticInfoReply {
+-    /// Returns the name of the GPU as a string.
 -    ///
--    /// An OS error or robust-channel record is logged at error level and an unknown function code
--    /// at warning level. Other events are not logged.
--    fn log(&self, dev: &device::Device) {
--        let function = self.header.function();
--        let seq = self.header.sequence();
+-    /// Returns an error if the string given by the GSP does not contain a null terminator or
+-    /// contains invalid UTF-8.
+-    pub fn gpu_name(&self) -> Result<&str, GpuNameError> {
+-        CStr::from_bytes_until_nul(&self.gpu_name)
+-            .map_err(GpuNameError::NoNullTerminator)?
+-            .to_str()
+-            .map_err(GpuNameError::InvalidUtf8)
+-    }
 -
--        match function {
--            Ok(MsgFunction::OsErrorLog) => {
--                dev_err!(dev, "GSP reported an OS error (seq {})\n", seq);
--            }
--            Ok(MsgFunction::RcTriggered) => {
--                dev_err!(dev, "GSP triggered robust-channel recovery (seq {})\n", seq);
--            }
--            // Nothing to do for the remaining known function codes.
--            Ok(_) => {}
--            Err(raw) => {
--                dev_warn!(
--                    dev,
--                    "unknown GSP message function {:#x} (seq {})\n",
--                    raw,
--                    seq
--                );
--            }
--        }
+-    /// Returns the short name of the GPU as a string.
+-    ///
+-    /// Returns an error if the string given by the GSP does not contain a null terminator or
+-    /// contains invalid UTF-8.
+-    pub fn gpu_short_name(&self) -> core::result::Result<&str, GpuNameError> {
+-        CStr::from_bytes_until_nul(&self.gpu_short_name)
+-            .map_err(GpuNameError::NoNullTerminator)?
+-            .to_str()
+-            .map_err(GpuNameError::InvalidUtf8)
+-    }
+-
+-    /// Returns the total usable VRAM size in bytes, i.e. the summed lengths of all usable FB
+-    /// regions.
+-    pub fn vram_size(&self) -> u64 {
+-        self.usable_fb_regions.iter().fold(0, |size, region| {
+-            size.saturating_add(region.end - region.start)
+-        })
 -    }
 -}
 -
- /// A message whose protocol layer has been parsed and validated.
- enum GspParsedMessage<'a> {
--    /// A [RPC message](RpcMessage).
--    Rpc(RpcMessage<'a>),
-+    /// A [RPC message](rpc::RpcMessage).
-+    Rpc(rpc::RpcMessage<'a>),
- }
- 
- impl GspParsedMessage<'_> {
-@@ -731,73 +499,6 @@ fn notify_gsp(bar: Bar0<'_>) {
-         bar.write_reg(regs::NV_PGSP_QUEUE_HEAD::zeroed().with_address(0u32));
-     }
- 
--    /// Sends `command` to the GSP and waits for the reply.
--    ///
--    /// Events that arrive before the reply are logged and consumed.
--    ///
--    /// The queue is locked for the entire send+receive cycle to ensure that no other command can
--    /// be interleaved.
--    ///
--    /// # Errors
--    ///
--    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply does
--    ///   not arrive within [`Self::RECEIVE_TIMEOUT`] of the send, however many events arrive
--    ///   while waiting.
--    /// - `EIO` if the variable payload requested by the command has not been entirely
--    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
--    ///
--    /// Error codes returned by the command and reply initializers are propagated as-is.
--    pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
--    where
--        M: CommandToGsp,
--        M::Reply: MessageFromGsp,
--        Error: From<M::InitError>,
--        Error: From<<M::Reply as MessageFromGsp>::InitError>,
--    {
--        let mut inner = self.inner.lock();
--        inner.send_command(command)?;
+-pub(crate) use fw::commands::PowerStateLevel;
 -
--        inner.await_msg()
+-/// The `UnloadingGuestDriver` command, used to shut down the GSP.
+-///
+-/// Only used within the `gsp` module.
+-pub(super) struct UnloadingGuestDriver {
+-    level: PowerStateLevel,
+-}
+-
+-impl UnloadingGuestDriver {
+-    /// Creates a new `UnloadingGuestDriver` command for the given [`PowerStateLevel`].
+-    pub(super) fn new(level: PowerStateLevel) -> Self {
+-        Self { level }
 -    }
+-}
 -
--    /// Sends `command` to the GSP without waiting for a reply.
--    ///
--    /// # Errors
--    ///
--    /// - `ETIMEDOUT` if space does not become available within the timeout.
--    /// - `EIO` if the variable payload requested by the command has not been entirely
--    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
--    ///
--    /// Error codes returned by the command initializers are propagated as-is.
--    pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
--    where
--        M: CommandToGsp<Reply = NoReply>,
--        Error: From<M::InitError>,
--    {
--        self.inner.lock().send_command(command)
+-impl CommandToGsp for UnloadingGuestDriver {
+-    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
+-    type Command = fw::commands::UnloadingGuestDriver;
+-    type Reply = UnloadingGuestDriverReply;
+-    type InitError = Infallible;
+-
+-    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+-        fw::commands::UnloadingGuestDriver::new(self.level)
 -    }
+-}
 -
--    /// Waits for an unsolicited GSP event of type `M`. Events that arrive before it are logged and
--    /// consumed.
--    ///
--    /// The queue mutex is held for the whole wait, up to [`Self::RECEIVE_TIMEOUT`], so no other
--    /// caller can send a command or consume an event meanwhile.
--    ///
--    /// # Errors
--    ///
--    /// - `ETIMEDOUT` if the event does not arrive within [`Self::RECEIVE_TIMEOUT`] of the call,
--    ///   however many other events arrive while waiting.
--    /// - `EIO` if a message fails framing or checksum validation.
--    ///
--    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
--    pub(crate) fn await_msg<M: MessageFromGsp>(&self) -> Result<M>
--    where
--        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
--        Error: From<M::InitError>,
--    {
--        self.inner.lock().await_msg()
+-/// The reply from the GSP to the [`UnloadingGuestDriver`] command.
+-pub(super) struct UnloadingGuestDriverReply;
+-
+-impl MessageFromGsp for UnloadingGuestDriverReply {
+-    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
+-    type InitError = Infallible;
+-    type Message = ();
+-
+-    fn read(
+-        _msg: &Self::Message,
+-        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+-    ) -> Result<Self, Self::InitError> {
+-        Ok(UnloadingGuestDriverReply)
 -    }
--
-     /// Logs and consumes every message the GSP has already posted, and returns without waiting for
-     /// more.
-     ///
-@@ -871,36 +572,6 @@ fn send_command_element<E: CommandElement>(&mut self, command: E) -> Result {
-         Ok(())
-     }
- 
--    /// Sends `command` to the GSP.
--    ///
--    /// The command may be split into multiple messages if it is large.
--    ///
--    /// # Errors
--    ///
--    /// - `ETIMEDOUT` if space does not become available within the timeout.
--    /// - `EIO` if the variable payload requested by the command has not been entirely
--    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
--    ///
--    /// Error codes returned by the command initializers are propagated as-is.
--    fn send_command<M>(&mut self, command: M) -> Result
--    where
--        M: CommandToGsp,
--        Error: From<M::InitError>,
--    {
--        match SplitState::new(command)? {
--            SplitState::Single(command) => self.send_command_element(RpcCommandElement(command)),
--            SplitState::Split(command, mut continuations) => {
--                self.send_command_element(RpcCommandElement(command))?;
--
--                while let Some(continuation) = continuations.next() {
--                    self.send_command_element(RpcCommandElement(continuation))?;
--                }
--
--                Ok(())
--            }
--        }
--    }
--
-     /// Wait for a message to become available on the message queue.
-     ///
-     /// This works purely at the transport layer and does not interpret or validate the message
-@@ -985,7 +656,7 @@ fn consume_element<R>(
-             })?;
- 
-         // RPC is the only type of message supported for now.
--        let message = GspParsedMessage::Rpc(RpcMessage::parse(self.dev, message)?);
-+        let message = GspParsedMessage::Rpc(rpc::RpcMessage::parse(self.dev, message)?);
- 
-         let res = f(message);
- 
-@@ -1025,52 +696,6 @@ fn await_msg_with<R>(&mut self, f: impl Fn(GspParsedMessage<'_>) -> Result<R>) -
-         }
-     }
- 
--    /// Receives a message of type `M`, waiting up to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
--    ///
--    /// Any other message that arrives first is logged as an event and does not extend the
--    /// deadline.
--    ///
--    /// # Errors
--    ///
--    /// - `ETIMEDOUT` if no message of type `M` arrives before the deadline, however many other
--    ///   messages arrive while waiting.
--    /// - `EIO` if a message fails framing or checksum validation.
--    ///
--    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
--    fn await_msg<M: MessageFromGsp>(&mut self) -> Result<M>
--    where
--        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
--        Error: From<M::InitError>,
--    {
--        let f = |message: GspParsedMessage<'_>| {
--            let GspParsedMessage::Rpc(rpc_message) = message;
--            let function = rpc_message.header.function();
--            if matches!(function, Ok(f) if f == M::FUNCTION) {
--                let (cmd, contents_1) =
--                    M::Message::from_bytes_prefix(rpc_message.contents.0).ok_or(EIO)?;
--                let mut sbuffer = SBufferIter::new_reader([contents_1, rpc_message.contents.1]);
--
--                M::read(cmd, &mut sbuffer)
--                    .map_err(|e| e.into())
--                    .inspect(|_| {
--                        if !sbuffer.is_empty() {
--                            dev_warn!(
--                                self.dev,
--                                "GSP message {:?} has unprocessed data\n",
--                                M::FUNCTION
--                            );
--                        }
--                    })
--            } else {
--                rpc_message.log(self.dev);
--
--                Err(ENOMSG)
--            }
--        };
--
--        self.await_msg_with(f)
--    }
--
-     /// Logs and consumes every message the queue holds.
-     ///
-     /// # Errors
-diff --git a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
+-}
++pub(crate) mod rpc;
+diff --git a/drivers/gpu/nova-core/gsp/commands/rpc.rs b/drivers/gpu/nova-core/gsp/commands/rpc.rs
 new file mode 100644
-index 000000000000..13baf4398632
+index 000000000000..54c40f29e367
 --- /dev/null
-+++ b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
-@@ -0,0 +1,415 @@
++++ b/drivers/gpu/nova-core/gsp/commands/rpc.rs
+@@ -0,0 +1,333 @@
 +// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++// SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 +
-+//! Support for the RPC message type on the GSP command queue.
-+
-+mod continuation;
++use core::{
++    array,
++    convert::Infallible,
++    ffi::FromBytesUntilNulError,
++    ops::Range,
++    str::Utf8Error, //
++};
 +
 +use kernel::{
 +    device,
++    pci,
 +    prelude::*,
 +    transmute::{
 +        AsBytes,
 +        FromBytes, //
-+    },
++    }, //
 +};
-+
-+use continuation::SplitState;
 +
 +use crate::{
++    gpu::Chipset,
 +    gsp::{
 +        cmdq::{
-+            GspCommand,
-+            NoReply, //
-+        },
-+        fw::{
-+            MsgFunction,
-+            RpcMessageHeader, //
-+        },
-+    },
-+    sbuffer::SBufferIter,
-+};
-+
-+use super::{
-+    Cmdq,
-+    CmdqInner,
-+    CommandElement,
-+    GspMessage,
-+    GspParsedMessage, //
-+};
-+
-+/// Trait implemented by types representing a command to send to the GSP.
-+///
-+/// The main purpose of this trait is to provide [`Cmdq`] with the information it needs to send
-+/// a given command.
-+///
-+/// [`CommandToGsp::init`] in particular is responsible for initializing the command directly
-+/// into the space reserved for it in the command queue buffer.
-+///
-+/// Some commands may be followed by a variable-length payload. For these, the
-+/// [`CommandToGsp::variable_payload_len`] and [`CommandToGsp::init_variable_payload`] need to be
-+/// defined as well.
-+pub(crate) trait CommandToGsp {
-+    /// Function identifying this command to the GSP.
-+    const FUNCTION: MsgFunction;
-+
-+    /// Type generated by [`CommandToGsp::init`], to be written into the command queue buffer.
-+    type Command: FromBytes + AsBytes;
-+
-+    /// Type of the reply expected from the GSP, or [`NoReply`] for commands that don't
-+    /// have a reply.
-+    type Reply;
-+
-+    /// Error type returned by [`CommandToGsp::init`].
-+    type InitError;
-+
-+    /// In-place command initializer responsible for filling the command in the command queue
-+    /// buffer.
-+    fn init(&self) -> impl Init<Self::Command, Self::InitError>;
-+
-+    /// Size of the variable-length payload following the command structure generated by
-+    /// [`CommandToGsp::init`].
-+    ///
-+    /// Most commands don't have a variable-length payload, so this is zero by default.
-+    fn variable_payload_len(&self) -> usize {
-+        0
-+    }
-+
-+    /// Method initializing the variable-length payload.
-+    ///
-+    /// The command buffer is circular, which means that we may need to jump back to its beginning
-+    /// while in the middle of a command. For this reason, the variable-length payload is
-+    /// initialized using a [`SBufferIter`].
-+    ///
-+    /// This method will receive a buffer of the length returned by
-+    /// [`CommandToGsp::variable_payload_len`], and must write every single byte of it. Leaving
-+    /// unwritten space will lead to an error.
-+    ///
-+    /// Most commands don't have a variable-length payload, so this does nothing by default.
-+    fn init_variable_payload(
-+        &self,
-+        _dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
-+    ) -> Result {
-+        Ok(())
-+    }
-+
-+    /// Total size of the command (including its variable-length payload) without the
-+    /// [`GspMsgElement`] header.
-+    fn size(&self) -> usize {
-+        size_of::<Self::Command>() + self.variable_payload_len()
-+    }
-+}
-+
-+/// Wrapper type for sending a RPC command as a command queue element.
-+///
-+/// [`CommandElement`] cannot be directly implemented for all [`CommandToGsp`] with a blanket
-+/// implementation as it would conflict with other future command types.
-+struct RpcCommandElement<M>(M);
-+
-+impl<M> CommandElement for RpcCommandElement<M>
-+where
-+    M: CommandToGsp,
-+    Error: From<M::InitError>,
-+{
-+    fn size(&self) -> usize {
-+        self.0.size()
-+    }
-+
-+    fn write(&self, dev: &device::Device, seq: u32, dst: &mut GspCommand<'_>) -> Result {
-+        let command = &self.0;
-+        let size_in_bytes = command.size();
-+        // Extract area for the command itself. The GSP message header and the command header
-+        // together are guaranteed to fit entirely into a single page, so it's ok to only look
-+        // at `dst.contents.0` here.
-+        let (cmd, payload_1) = M::Command::from_bytes_mut_prefix(dst.contents.0).ok_or(EIO)?;
-+        let rpc_header_init = RpcMessageHeader::init(size_in_bytes, M::FUNCTION);
-+        // SAFETY: `dst.header.rpc_header_mut()` is a valid reference, and is not touched if the
-+        // initializer fails.
-+        unsafe {
-+            pin_init::raw_try_init(
-+                core::ptr::from_mut(dst.header.rpc_header_mut()),
-+                rpc_header_init,
-+            )?;
-+        }
-+        // SAFETY: `cmd` is a valid reference, and is not touched if the initializer fails.
-+        unsafe {
-+            pin_init::raw_try_init(core::ptr::from_mut(cmd), command.init())?;
-+        }
-+
-+        // Fill the variable-length payload, which may be empty.
-+        let mut sbuffer = SBufferIter::new_writer([&mut payload_1[..], &mut dst.contents.1[..]]);
-+        command.init_variable_payload(&mut sbuffer)?;
-+
-+        if !sbuffer.is_empty() {
-+            return Err(EIO);
-+        }
-+
-+        dev_dbg!(
-+            dev,
-+            "GSP RPC: send: seq# {}, function={:?}, length=0x{:x}\n",
-+            seq,
-+            M::FUNCTION,
-+            size_in_bytes,
-+        );
-+
-+        Ok(())
-+    }
-+}
-+
-+/// Trait representing messages received from the GSP.
-+///
-+/// A reply that [`Cmdq::send_command`] waits for, or an event that [`Cmdq::await_msg`] waits for.
-+/// The receiver matches a message's function code against [`Self::FUNCTION`] and decodes the
-+/// message with [`Self::read`].
-+pub(crate) trait MessageFromGsp: Sized {
-+    /// Function identifying this message from the GSP.
-+    const FUNCTION: MsgFunction;
-+
-+    /// Error type returned by [`MessageFromGsp::read`].
-+    type InitError;
-+
-+    /// Type containing the raw message to be read from the message queue.
-+    type Message: FromBytes;
-+
-+    /// Method reading the message from the message queue and returning it.
-+    ///
-+    /// From a `Self::Message` and a [`SBufferIter`], constructs an instance of `Self` and returns
-+    /// it.
-+    fn read(
-+        msg: &Self::Message,
-+        sbuffer: &mut SBufferIter<core::array::IntoIter<&[u8], 2>>,
-+    ) -> Result<Self, Self::InitError>;
-+}
-+
-+/// A RPC message ready to be processed from the message queue.
-+pub(super) struct RpcMessage<'a> {
-+    // Reference to the RPC header of the message.
-+    header: &'a RpcMessageHeader,
-+    // Slices to the contents of the message. The second slice is empty unless the message loops
-+    // over the message queue.
-+    contents: (&'a [u8], &'a [u8]),
-+}
-+
-+impl<'a> RpcMessage<'a> {
-+    /// Validate the RPC layer of `element` and returns its RPC header and its contents trimmed down
-+    /// to the RPC payload.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `EIO` if the element is shorter than the payload length advertised by the RPC header.
-+    pub(super) fn parse(dev: &device::Device, element: GspMessage<'a>) -> Result<RpcMessage<'a>> {
-+        let GspMessage {
-+            header,
-+            contents: (slice_1, slice_2),
-+        } = element;
-+
-+        let rpc_header = header.rpc_header();
-+        let payload_length = rpc_header.rpc_length();
-+
-+        dev_dbg!(
-+            dev,
-+            "GSP RPC: receive: seq# {}, function={:?}, length=0x{:x}\n",
-+            rpc_header.sequence(),
-+            rpc_header.function(),
-+            payload_length,
-+        );
-+
-+        // Check that the driver read area is large enough for the message.
-+        if slice_1.len() + slice_2.len() < payload_length {
-+            return Err(EIO);
-+        }
-+
-+        // Cut the message slices down to the actual length of the message.
-+        let (slice_1, slice_2) = if slice_1.len() > payload_length {
-+            // PANIC: we checked above that `slice_1` is at least as long as `payload_length`.
-+            (slice_1.split_at(payload_length).0, &slice_2[0..0])
-+        } else {
-+            (
-+                slice_1,
-+                // PANIC: we checked above that `slice_1.len() + slice_2.len()` is at least as
-+                // large as `payload_length`.
-+                slice_2.split_at(payload_length - slice_1.len()).0,
-+            )
-+        };
-+
-+        Ok(RpcMessage {
-+            header: rpc_header,
-+            contents: (slice_1, slice_2),
-+        })
-+    }
-+
-+    /// Logs an event, meaning a message that no caller was waiting for.
-+    ///
-+    /// An OS error or robust-channel record is logged at error level and an unknown function code
-+    /// at warning level. Other events are not logged.
-+    pub(super) fn log(&self, dev: &device::Device) {
-+        let function = self.header.function();
-+        let seq = self.header.sequence();
-+
-+        match function {
-+            Ok(MsgFunction::OsErrorLog) => {
-+                dev_err!(dev, "GSP reported an OS error (seq {})\n", seq);
-+            }
-+            Ok(MsgFunction::RcTriggered) => {
-+                dev_err!(dev, "GSP triggered robust-channel recovery (seq {})\n", seq);
-+            }
-+            // Nothing to do for the remaining known function codes.
-+            Ok(_) => {}
-+            Err(raw) => {
-+                dev_warn!(
-+                    dev,
-+                    "unknown GSP message function {:#x} (seq {})\n",
-+                    raw,
-+                    seq
-+                );
-+            }
-+        }
-+    }
-+}
-+
-+impl Cmdq<'_> {
-+    /// Sends `command` to the GSP and waits for the reply.
-+    ///
-+    /// Events that arrive before the reply are logged and consumed.
-+    ///
-+    /// The queue is locked for the entire send+receive cycle to ensure that no other command can
-+    /// be interleaved.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if space does not become available to send the command, or if the reply does
-+    ///   not arrive within [`Self::RECEIVE_TIMEOUT`] of the send, however many events arrive
-+    ///   while waiting.
-+    /// - `EIO` if the variable payload requested by the command has not been entirely
-+    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-+    ///
-+    /// Error codes returned by the command and reply initializers are propagated as-is.
-+    pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
-+    where
-+        M: CommandToGsp,
-+        M::Reply: MessageFromGsp,
-+        Error: From<M::InitError>,
-+        Error: From<<M::Reply as MessageFromGsp>::InitError>,
-+    {
-+        let mut inner = self.inner.lock();
-+        inner.send_command(command)?;
-+
-+        inner.await_msg()
-+    }
-+
-+    /// Sends `command` to the GSP without waiting for a reply.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if space does not become available within the timeout.
-+    /// - `EIO` if the variable payload requested by the command has not been entirely
-+    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-+    ///
-+    /// Error codes returned by the command initializers are propagated as-is.
-+    pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
-+    where
-+        M: CommandToGsp<Reply = NoReply>,
-+        Error: From<M::InitError>,
-+    {
-+        self.inner.lock().send_command(command)
-+    }
-+
-+    /// Waits for an unsolicited GSP event of type `M`. Events that arrive before it are logged and
-+    /// consumed.
-+    ///
-+    /// The queue mutex is held for the whole wait, up to [`Self::RECEIVE_TIMEOUT`], so no other
-+    /// caller can send a command or consume an event meanwhile.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if the event does not arrive within [`Self::RECEIVE_TIMEOUT`] of the call,
-+    ///   however many other events arrive while waiting.
-+    /// - `EIO` if a message fails framing or checksum validation.
-+    ///
-+    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
-+    pub(crate) fn await_msg<M: MessageFromGsp>(&self) -> Result<M>
-+    where
-+        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
-+        Error: From<M::InitError>,
-+    {
-+        self.inner.lock().await_msg()
-+    }
-+}
-+
-+impl CmdqInner<'_> {
-+    /// Sends `command` to the GSP.
-+    ///
-+    /// The command may be split into multiple messages if it is large.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if space does not become available within the timeout.
-+    /// - `EIO` if the variable payload requested by the command has not been entirely
-+    ///   written to by its [`CommandToGsp::init_variable_payload`] method.
-+    ///
-+    /// Error codes returned by the command initializers are propagated as-is.
-+    fn send_command<M>(&mut self, command: M) -> Result
-+    where
-+        M: CommandToGsp,
-+        Error: From<M::InitError>,
-+    {
-+        match SplitState::new(command)? {
-+            SplitState::Single(command) => self.send_command_element(RpcCommandElement(command)),
-+            SplitState::Split(command, mut continuations) => {
-+                self.send_command_element(RpcCommandElement(command))?;
-+
-+                while let Some(continuation) = continuations.next() {
-+                    self.send_command_element(RpcCommandElement(continuation))?;
-+                }
-+
-+                Ok(())
-+            }
-+        }
-+    }
-+
-+    /// Receives a message of type `M`, waiting up to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
-+    ///
-+    /// Any other message that arrives first is logged as an event and does not extend the
-+    /// deadline.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if no message of type `M` arrives before the deadline, however many other
-+    ///   messages arrive while waiting.
-+    /// - `EIO` if a message fails framing or checksum validation.
-+    ///
-+    /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
-+    fn await_msg<M: MessageFromGsp>(&mut self) -> Result<M>
-+    where
-+        // This allows all error types, including `Infallible`, to be used for `M::InitError`.
-+        Error: From<M::InitError>,
-+    {
-+        let f = |message: GspParsedMessage<'_>| {
-+            let GspParsedMessage::Rpc(rpc_message) = message;
-+            let function = rpc_message.header.function();
-+            if matches!(function, Ok(f) if f == M::FUNCTION) {
-+                let (cmd, contents_1) =
-+                    M::Message::from_bytes_prefix(rpc_message.contents.0).ok_or(EIO)?;
-+                let mut sbuffer = SBufferIter::new_reader([contents_1, rpc_message.contents.1]);
-+
-+                M::read(cmd, &mut sbuffer)
-+                    .map_err(|e| e.into())
-+                    .inspect(|_| {
-+                        if !sbuffer.is_empty() {
-+                            dev_warn!(
-+                                self.dev,
-+                                "GSP message {:?} has unprocessed data\n",
-+                                M::FUNCTION
-+                            );
-+                        }
-+                    })
-+            } else {
-+                rpc_message.log(self.dev);
-+
-+                Err(ENOMSG)
-+            }
-+        };
-+
-+        self.await_msg_with(f)
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/gsp/cmdq/continuation.rs b/drivers/gpu/nova-core/gsp/cmdq/rpc/continuation.rs
-similarity index 100%
-rename from drivers/gpu/nova-core/gsp/cmdq/continuation.rs
-rename to drivers/gpu/nova-core/gsp/cmdq/rpc/continuation.rs
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index cdbb13674f08..ceac0b0f9423 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -23,9 +23,11 @@
-     gpu::Chipset,
-     gsp::{
-         cmdq::{
 +            rpc::{
 +                CommandToGsp,
 +                MessageFromGsp, //
 +            },
-             Cmdq,
--            CommandToGsp,
--            MessageFromGsp,
-             NoReply, //
-         },
-         fw::{
-diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-core/gsp/sequencer.rs
-index 250adc9fe74f..9f5ab08def2c 100644
---- a/drivers/gpu/nova-core/gsp/sequencer.rs
-+++ b/drivers/gpu/nova-core/gsp/sequencer.rs
-@@ -28,8 +28,8 @@
-     },
-     gsp::{
-         cmdq::{
--            Cmdq,
--            MessageFromGsp, //
-+            rpc::MessageFromGsp,
-+            Cmdq, //
-         },
-         fw,
-         GspBootContext,
++            Cmdq,
++            NoReply, //
++        },
++        fw::{
++            self,
++            MsgFunction, //
++        },
++    },
++    sbuffer::SBufferIter,
++    vgpu::VgpuState, //
++};
++
++/// The `GspSetSystemInfo` command.
++pub(crate) struct SetSystemInfo<'a> {
++    pdev: &'a pci::Device<device::Bound>,
++    chipset: Chipset,
++}
++
++impl<'a> SetSystemInfo<'a> {
++    /// Creates a new `GspSetSystemInfo` command using the parameters of `pdev`.
++    pub(crate) fn new(pdev: &'a pci::Device<device::Bound>, chipset: Chipset) -> Self {
++        Self { pdev, chipset }
++    }
++}
++
++impl<'a> CommandToGsp for SetSystemInfo<'a> {
++    const FUNCTION: MsgFunction = MsgFunction::GspSetSystemInfo;
++    type Command = fw::commands::GspSetSystemInfo;
++    type Reply = NoReply;
++    type InitError = Error;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        Self::Command::init(self.pdev, self.chipset)
++    }
++}
++
++struct RegistryEntry {
++    key: &'static str,
++    value: u32,
++}
++
++/// The `SetRegistry` command.
++pub(crate) struct SetRegistry {
++    entries: KVec<RegistryEntry>,
++}
++
++impl SetRegistry {
++    /// Creates a new `SetRegistry` command, using a set of hardcoded entries.
++    pub(crate) fn new(vgpu_state: VgpuState) -> Result<Self> {
++        let mut entries = KVec::new();
++
++        // RMSecBusResetEnable - enables PCI secondary bus reset
++        entries.push(
++            RegistryEntry {
++                key: "RMSecBusResetEnable",
++                value: 1,
++            },
++            GFP_KERNEL,
++        )?;
++
++        // RMForcePcieConfigSave - forces GSP-RM to preserve PCI configuration registers on
++        // any PCI reset.
++        entries.push(
++            RegistryEntry {
++                key: "RMForcePcieConfigSave",
++                value: 1,
++            },
++            GFP_KERNEL,
++        )?;
++
++        // RMDevidCheckIgnore - allows GSP-RM to boot even if the PCI dev ID is not found
++        // in the internal product name database.
++        entries.push(
++            RegistryEntry {
++                key: "RMDevidCheckIgnore",
++                value: 1,
++            },
++            GFP_KERNEL,
++        )?;
++
++        if matches!(vgpu_state, VgpuState::Enabled { .. }) {
++            // RMSetSriovMode - required when vGPU is enabled.
++            entries.push(
++                RegistryEntry {
++                    key: "RMSetSriovMode",
++                    value: 1,
++                },
++                GFP_KERNEL,
++            )?;
++        }
++
++        Ok(Self { entries })
++    }
++}
++
++impl CommandToGsp for SetRegistry {
++    const FUNCTION: MsgFunction = MsgFunction::SetRegistry;
++    type Command = fw::commands::PackedRegistryTable;
++    type Reply = NoReply;
++    type InitError = Infallible;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        Self::Command::init(self.entries.len() as u32, self.size() as u32)
++    }
++
++    fn variable_payload_len(&self) -> usize {
++        let mut key_size = 0;
++        for entry in self.entries.iter() {
++            key_size += entry.key.len() + 1; // +1 for NULL terminator
++        }
++        self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>() + key_size
++    }
++
++    fn init_variable_payload(
++        &self,
++        dst: &mut SBufferIter<core::array::IntoIter<&mut [u8], 2>>,
++    ) -> Result {
++        let string_data_start_offset = size_of::<Self::Command>()
++            + self.entries.len() * size_of::<fw::commands::PackedRegistryEntry>();
++
++        // Array for string data.
++        let mut string_data = KVec::new();
++
++        for entry in self.entries.iter() {
++            dst.write_all(
++                fw::commands::PackedRegistryEntry::new(
++                    (string_data_start_offset + string_data.len()) as u32,
++                    entry.value,
++                )
++                .as_bytes(),
++            )?;
++
++            let key_bytes = entry.key.as_bytes();
++            string_data.extend_from_slice(key_bytes, GFP_KERNEL)?;
++            string_data.push(0, GFP_KERNEL)?;
++        }
++
++        dst.write_all(string_data.as_slice())
++    }
++}
++
++/// Message type for GSP initialization done notification.
++struct GspInitDone;
++
++// SAFETY: `GspInitDone` is a zero-sized type with no bytes, therefore it
++// trivially has no uninitialized bytes.
++unsafe impl FromBytes for GspInitDone {}
++
++impl MessageFromGsp for GspInitDone {
++    const FUNCTION: MsgFunction = MsgFunction::GspInitDone;
++    type InitError = Infallible;
++    type Message = ();
++
++    fn read(
++        _msg: &Self::Message,
++        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        Ok(GspInitDone)
++    }
++}
++
++/// Waits for GSP initialization to complete.
++pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
++    cmdq.await_msg::<GspInitDone>().map(|_| ())
++}
++
++/// The `GetGspStaticInfo` command.
++pub(crate) struct GetGspStaticInfo;
++
++impl CommandToGsp for GetGspStaticInfo {
++    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
++    type Command = fw::commands::GspStaticConfigInfo;
++    type Reply = GetGspStaticInfoReply;
++    type InitError = Infallible;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        Self::Command::init_zeroed()
++    }
++}
++
++/// The reply from the GSP to the [`GetGspStaticInfo`] command.
++pub struct GetGspStaticInfoReply {
++    gpu_name: [u8; 64],
++    gpu_short_name: [u8; 64],
++    /// The 16-byte SHA-1 based GPU identifier (GID) reported by GSP-RM.
++    pub gpu_gid: [u8; 16],
++    /// BAR1 Page Directory Entry base address.
++    pub(crate) bar1_pde_base: u64,
++    /// Usable FB (VRAM) regions for driver memory allocation.
++    pub(crate) usable_fb_regions: KVec<Range<u64>>,
++    /// Exclusive end of the FB physical address space.
++    pub(crate) total_fb_end: u64,
++}
++
++impl MessageFromGsp for GetGspStaticInfoReply {
++    const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
++    type Message = fw::commands::GspStaticConfigInfo;
++    type InitError = Error;
++
++    fn read(
++        msg: &Self::Message,
++        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        let mut usable_fb_regions = KVec::new();
++        for region in msg.usable_fb_regions() {
++            usable_fb_regions.push(region, GFP_KERNEL)?;
++        }
++        let total_fb_end = msg.total_fb_end().ok_or(EINVAL)?;
++
++        Ok(GetGspStaticInfoReply {
++            gpu_name: msg.gpu_name_str(),
++            gpu_short_name: msg.gpu_short_name_str(),
++            gpu_gid: msg.gpu_gid(),
++            bar1_pde_base: msg.bar1_pde_base(),
++            usable_fb_regions,
++            total_fb_end,
++        })
++    }
++}
++
++/// Error type for [`GetGspStaticInfoReply::gpu_name`].
++#[derive(Debug)]
++pub enum GpuNameError {
++    /// The GPU name string does not contain a null terminator.
++    NoNullTerminator(FromBytesUntilNulError),
++
++    /// The GPU name string contains invalid UTF-8.
++    InvalidUtf8(Utf8Error),
++}
++
++impl GetGspStaticInfoReply {
++    /// Returns the name of the GPU as a string.
++    ///
++    /// Returns an error if the string given by the GSP does not contain a null terminator or
++    /// contains invalid UTF-8.
++    pub fn gpu_name(&self) -> Result<&str, GpuNameError> {
++        CStr::from_bytes_until_nul(&self.gpu_name)
++            .map_err(GpuNameError::NoNullTerminator)?
++            .to_str()
++            .map_err(GpuNameError::InvalidUtf8)
++    }
++
++    /// Returns the short name of the GPU as a string.
++    ///
++    /// Returns an error if the string given by the GSP does not contain a null terminator or
++    /// contains invalid UTF-8.
++    pub fn gpu_short_name(&self) -> core::result::Result<&str, GpuNameError> {
++        CStr::from_bytes_until_nul(&self.gpu_short_name)
++            .map_err(GpuNameError::NoNullTerminator)?
++            .to_str()
++            .map_err(GpuNameError::InvalidUtf8)
++    }
++
++    /// Returns the total usable VRAM size in bytes, i.e. the summed lengths of all usable FB
++    /// regions.
++    pub fn vram_size(&self) -> u64 {
++        self.usable_fb_regions.iter().fold(0, |size, region| {
++            size.saturating_add(region.end - region.start)
++        })
++    }
++}
++
++pub(crate) use fw::commands::PowerStateLevel;
++
++/// The `UnloadingGuestDriver` command, used to shut down the GSP.
++///
++/// Only used within the `gsp` module.
++pub(crate) struct UnloadingGuestDriver {
++    level: PowerStateLevel,
++}
++
++impl UnloadingGuestDriver {
++    /// Creates a new `UnloadingGuestDriver` command for the given [`PowerStateLevel`].
++    pub(crate) fn new(level: PowerStateLevel) -> Self {
++        Self { level }
++    }
++}
++
++impl CommandToGsp for UnloadingGuestDriver {
++    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
++    type Command = fw::commands::UnloadingGuestDriver;
++    type Reply = UnloadingGuestDriverReply;
++    type InitError = Infallible;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        fw::commands::UnloadingGuestDriver::new(self.level)
++    }
++}
++
++/// The reply from the GSP to the [`UnloadingGuestDriver`] command.
++pub(crate) struct UnloadingGuestDriverReply;
++
++impl MessageFromGsp for UnloadingGuestDriverReply {
++    const FUNCTION: MsgFunction = MsgFunction::UnloadingGuestDriver;
++    type InitError = Infallible;
++    type Message = ();
++
++    fn read(
++        _msg: &Self::Message,
++        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        Ok(UnloadingGuestDriverReply)
++    }
++}
 
 -- 
 2.56.0
