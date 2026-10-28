@@ -2,143 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34B6606A322
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 12:55:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0196E606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 13:18:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U6u90Gqi;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SzI9eGSu
+	dkim=pass (1024-bit key, unprotected) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.a=rsa-sha256 header.s=google header.b=C5W7MAC4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2052C10FBE8;
-	Wed, 28 Oct 2026 12:55:11 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E3FF10E60B
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 12:55:00 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69SBe6qg1053356
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 12:55:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- oBGX3wEUWU/zL8/JcUQMeSMNE0OdIiQmKuQoXCX4P/I=; b=U6u90GqiFQG1SvVe
- b/7ZAEfeyt6CT2fIbV2taQhsmuDKtZVKiz+x4u8dTDvceG6TIDdV2tT8aOPWbaY9
- jqbfr0uNY3ipYT4UkfAWN1h3GRkfxdBS/nkSgUmAPciCC+KCd7LXpuNraJFMvmJ2
- vD5HVicr0NH/Gs8pc0hO0dgfypEX6JmpOi8sVeqY3U8GZ80eL8S5OZA5wRN9APfW
- KxCj/L4uZnPS6n3D3AQnz9JKlsC25nHSFwJ+VZBQvfSjOZOBr2o+EeKCgQif8OW1
- buV4B8HQPc/a7Z2r3SVMHh070uTuWpxodJFKgzq8oPBoqcBnOkmIBMWc00AghWfG
- qHZ8/A==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
- [209.85.221.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkbhw9f61-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 12:54:59 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id
- 71dfb90a1353d-5eaad898904so47685e0c.1
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 05:54:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 166A110E07B;
+	Wed, 28 Oct 2026 13:18:36 +0000 (UTC)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1093510E3C3
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 13:18:30 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-c4301e334ceso72569466b.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 06:18:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793192099; x=1793796899;
+ d=amarulasolutions.com; s=google; t=1793193508; x=1793798308;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=oBGX3wEUWU/zL8/JcUQMeSMNE0OdIiQmKuQoXCX4P/I=;
- b=SzI9eGSuiCgxDTejtu4EWBOCSYyx+AKHAr23ut7gDWXudRtuMEFsKb41SkRDjttt1i
- MW81vdYH4TOy6M1i7V+knte4KRsBb6jFavd09ZZhVUjqQFP2b0lL2lfFuySJhAUl5H3I
- 7RXuyMiykhXg1njcW/s+KzV+5KV2hnhnmFZB8OD4wLTVqYZgnXrgBPSt1s9K3u4qlsXh
- 9DwqIFBsLITU5D8MiiKYWPELctrW4lSQLvelj7OP1+yakx0iIA8mDnO3iqdyHiorx1M3
- qCNNbs0XZhwRqQ6/odu1lqkAmDXVJZ9yl5KUSHIkrFY2k0vgPC1rsLsVkrMSEcGr7Xl3
- KqJg==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=fJDTYkE2YZ8PG/A+DXCn/A9p4GFLWYNYpfuX/w3z+V0=;
+ b=C5W7MAC4I3Nk/kOyK0o7SieSPiLGFNPnqBr4/OvHGXr7Qylj6iza5SX2tG7AiZkrpL
+ HfR/joonWz3eZO2tKZgE/m6ElAuqJtcfCf+qxIL/ib/X/fpJu1UBSlxnE1Ep/u6/fIjN
+ CK0Flq2jgw3UYT1u9Vlc5zJKisPBC7AbDDKQ0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793192099; x=1793796899;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1793193508; x=1793798308;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=oBGX3wEUWU/zL8/JcUQMeSMNE0OdIiQmKuQoXCX4P/I=;
- b=YlCKTqY8ARCEnHa3gMg728voJ/mqkRZoGWPXUTZBu+M04D5bC98ynUelztvh5GaF3w
- A/Gk9EEV5TodwPBBcR20HPIwUb8W1W0Is1cqpdhKxAlsLDpLJNvnICCFr5Nn93Pr6Tbm
- 6etq63Iff0CRVC8xggbM8vfSXpWFYS4A/hcFIJgD1UHjKr9LZSblbGBfHvxDEvZOHDtP
- njDEUOkOyViU3ODfl62fS3WtMEqQVLBKYO1Pe2MTA8DjYjm/CUf0TiNHmXiavS+ShH60
- Q9Ee047ShX9Su34GIuSeGiABF88/iBtJ52TiWUCYLhlgY2LJZa/xDgiMpp/SQLKcs5io
- rFXg==
+ bh=fJDTYkE2YZ8PG/A+DXCn/A9p4GFLWYNYpfuX/w3z+V0=;
+ b=AsQ9XLNZF+HnV5aaVPFUi6YjRzlBNmeRLV7V7KRrO+GMrC7MiiEErs4OGHizfNR3mw
+ fL5JxohL5NqVNFcNf/E29673aLgtDEwidnJhsN0bOBbZ4ZFkbRllsdDoE6thY7qH+r73
+ gsrCogsRWMUjrVDA4YkhTYDfdBVe9xgCZTcj0AF48QboYnQpRRKvtNCncA/Dhm/A+udO
+ PnnASFnKtS+4oAtCaw9zrQOs8jYKkONIxC83G1X+Nxl4M4Y2oT1cs75CBkOouWUEGMBH
+ X1DqQFYZlNImS5VIstaj7455OutT0Ja4qqX3CnaMUdYMB9TcA+EJ2x9AO6cclJxro0M7
+ 8gTQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvByTpVxKY1KaoWrAo/uSngUXucpD4z5/TWRHkWEqnOOroS/s6EzudA8ZN/SvMYwg9UUK9/ThozgJ3JU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK/rpNqPqFro4cbSyU4uw9QdtN5uXTBfRwt6gaQjfUKFenafta/
- gbCQ8GFbhGCAZ6CxGK7xxP14cACLdtBlARNnZTzjnUUXJd565R+ckbr7uz8g6PtkH99NF9mRfnK
- pxvE5793JKZjH9C3L7UqOaLxyQLJ2XLNJYRgbZ0Wsk1M7VDBD7pdh1aBvJrVFwZb/UHwHEGc=
-X-Gm-Gg: AYBFou3ufJTlfZ7rQMCFad8hxe9H19p7VOAIOKUYXauZlutG7Sb6HtONGo2yAaFUHip
- YNBfaCY3XVOLQsrgnFygNod8/fDK/IbHLh6KfgFY/hdMyyoqg8lS/zLlwXvXOHhyyZyapjTzO3R
- MXDAFqssYaLlnVeE3PWUOO09gbEbJ7kdrQeamggpxGRzlNyqked+96TkXqpPWeuE6s2u+utXT6l
- LBOz+zw59f1aOJwvqOZPAsDxz3UdeeDNsqzqwgaeQR8pVx/w/W0dDCjhVSGI2AKbiuEf1KEICK1
- hHyouVxavX202CJHQ7bsmUvG3Geu+CdMe5CWgIb1UFumbZuKj29fN2AE2Z2ixxYV9b3QZIUwpVd
- acnbibQSvQQwcAyi0G49bxz/gAuJRk+vlgVEGIjVMO5h4szVYQcJbJ1F7jqbJLsXytBHPq/Q=
-X-Received: by 2002:a05:6102:8483:10b0:7ae:545d:f97c with SMTP id
- ada2fe7eead31-7d03a54962emr695022137.3.1793192098819; 
- Wed, 28 Oct 2026 05:54:58 -0700 (PDT)
-X-Received: by 2002:a05:6102:8483:10b0:7ae:545d:f97c with SMTP id
- ada2fe7eead31-7d03a54962emr694977137.3.1793192098370; 
- Wed, 28 Oct 2026 05:54:58 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
+ AKwUvBz209mm9gMi2gGAALN9XDp8YvXnRCceBWC9qsJoNgkif152Oku4lL6fZroGDUd8xHMnYLQOE18kmwI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ9NHOzIgKWsL6ziun/wfl0G8I5hl5/osvLbxKBYqELWLITYtX7
+ MLQ75WSBTqVO3KYbgsNDZFh7v3IKysmynWDvI/v7cEYdehp1rfkdGf6S+visCAK2+CU=
+X-Gm-Gg: AYBFou0WM+6m2BlQSoXKW9bapYmmwADRkj31lA2m+I0W9ScFuZgvjUbnJWfjgJHUwf+
+ QiWPnCpR/OV3I8V3a5qhG70qcaGiCpKDIJ5KlkAqypMp5LbWe1SgkqrqM5dkGw7My4M07Wl0DHo
+ VAsLAG+GFb40wri7cquXx6MrNznsfv6xAEaNLZjKy0RUgXk26IAUbiUdtHKj33CwRMI89PPoQdP
+ jNk2G9R7JjNcg/GdfJPv+DNWcdUd862iXsxwShloo6i+1R0y/E1D1EVqAlUcDLi/OEQI8UaQQHL
+ S/Om4PfM+rdVWjvtCFXLU5sBv60BdfBJQPb7oQYWQ/haOnfKJHFUtZMeaoTyNohNtbchGsWViw5
+ hgo8s8i6TNZoQCOVsOMLZcz7yrMZN7YAcf8CrLo7oVKIKIrL5TRgAuC460ocOTZyV9G6/VAEXr8
+ p2qqSDP0YEENzQO1dkRI6Eec5D4Lsioslj0N8Hy/Nt7Grcjg01+RxjvHn33/K+tojiOS7OsVdQ+
+ YOrwNuYD+urqK/mKnLDrxuIzvOMtVQ5mdP3tuDUEFDXau2Y6zQkUrhTly6teXpaEqwd9ExvWLYK
+ msOUb1EeB2cQPH3OHhYEtzTgSAfsm3nGtSsn+b16ocwQl16wKgj2jnakLGR1gzXkmeU6Pv8EMru
+ /sp0r8OfxvAA7YInj6SPBfOyS1eJAjnV4NMZsFyZJSHPYS4cM
+X-Received: by 2002:a17:907:80d:b0:c45:b99:f282 with SMTP id
+ a640c23a62f3a-c49bdda6ee2mr203173666b.7.1793193508300; 
+ Wed, 28 Oct 2026 06:18:28 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.39])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6b4964601f2sm1405843a12.37.2026.10.28.05.54.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Oct 2026 05:54:57 -0700 (PDT)
-Message-ID: <465b774e-b62c-475c-84fe-da4fabc38b10@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 13:54:54 +0100
+ a640c23a62f3a-c46bd650a56sm602252766b.50.2026.10.28.06.18.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Oct 2026 06:18:27 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>
+Cc: michael@amarulasolutions.com, linux-amarula@amarulasolutions.com,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Daniel Stone <daniels@collabora.com>, David Airlie <airlied@gmail.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH] drm/stm: ltdc: create blend mode property
+Date: Wed, 28 Oct 2026 14:18:18 +0100
+Message-ID: <20261028131823.2649142-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] arm64: dts: qcom: qcm6490-idp: Describe the panel
- bias enable GPIO
-To: Vladimir Zapolskiy <vz@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org
-References: <20261028095151.1682096-1-vz@kernel.org>
- <20261028095151.1682096-9-vz@kernel.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261028095151.1682096-9-vz@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: lVBze3RaeaIS8F6Br1tLJjYiPYJYvWLs
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1MSBTYWx0ZWRfX2x7WsajAPfNv
- YTH9TQTTV/9sUsmuDymr7SDWNr3R3cbJ4k3yKr74NA8dYX8HXx9N5WL1Sr26kXRBkE5O1XXCOK9
- nTAuTX6+KNLtHdz3fNp3wBBOt9Ydoag=
-X-Authority-Analysis: v=2.4 cv=V+joQuni c=1 sm=1 tr=0 ts=6ae1f0a3 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=T9w7Rm2z-0zB3deyQ8AA:9 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-ORIG-GUID: lVBze3RaeaIS8F6Br1tLJjYiPYJYvWLs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1MSBTYWx0ZWRfX3FNHhy7eVZdO
- HT0KdK3l9d76Q998ALMhiifKWokmaurfNgzkvM3LftabMcQtzPogGbIFGFaSRQkcn9478thlqMK
- FqngP7JXdVssAlxpoZSNE3wfatFsneHjJhr9o3q/zgKsUEVKucNa1ixSyqib4/u+GmHHMMVnYG3
- k+EQ9KtZ2s7rLP7pLNGptG2xWrYIDJLO8FpW3lijN4PkcshD7c0/EQJcv1kknHwaRa9VIMjDXtm
- gN8rA/bHlPhmHl+9LcMYHBo1xnlcOZpOES/yFEnsqwsbL1Y2BhNETISZrMFdXWvVhYG91eq+EbX
- ZKVzcfXwHdJ8In34OPV5FDSZ+9YuOaa+U2uf3NcWA116aMSUXOuBxaRiZYhKaK9l5hzPDE/a66I
- yXMucWUwaD3i4f/zLjVBFoSLlmWG50aESM8YHRaYXL/k1S2OrJmXL83N1+I8777bKY8Dy1c7eIZ
- Zp1fLZUbG/aOnNimIFg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 clxscore=1015 bulkscore=0
- phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280051
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,29 +93,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/28/26 10:51 AM, Vladimir Zapolskiy wrote:
-> The positive and negative bias supplies of the NT36672E panel on the
-> QCM6490 IDP board are switched on by the PM7250B GPIO2 bias enable
-> signal, which is described as a single fixed regulator supplying both
-> AVDD and AVEE bias supplies of the panel. The fixed regulator does not
-> describe the hardware, it can not supply a positive and a negative
-> voltage at the same time, and apparently bias supplies are generated
-> right on the display panel module.
-> 
-> Since the panel binding supports the bias enable GPIO, describe the
-> signal as such, and remove the oddly described and used fixed regulator.
-> 
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
-> ---
+After commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+format with alpha exposed") we get warnings at boot:
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+stm32-display 48010000.display-controller: [drm] [PLANE:37:plane-0] pixel format with alpha exposed but blend mode not setup. Please fix.
 
-Konrad
+The LTDC blends the pixel formats with alpha by straight alpha, the
+only mode implemented in the driver. Create the blend mode property
+with DRM_MODE_BLEND_COVERAGE only.
+
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+
+---
+
+ drivers/gpu/drm/stm/ltdc.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 5311e0b3e8dc..3b6e680c1c61 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -1642,6 +1642,7 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
+ 	drm_plane_helper_add(plane, &ltdc_plane_helper_funcs);
+ 
+ 	drm_plane_create_alpha_property(plane);
++	drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_COVERAGE));
+ 
+ 	drm_dbg_driver(plane->dev, "plane:%d created\n", plane->base.id);
+ 
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+branch: stm32-ltdc-blend-mode
+
+-- 
+2.43.0
+
