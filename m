@@ -2,102 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF16606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:57:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163F5606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:59:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W2HHLBXt
+	dkim=pass (2048-bit key, unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=GGaWa+Mw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAC6210FD13;
-	Wed, 28 Oct 2026 14:57:43 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E2810FD13
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:57:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 29DE9602C2
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:57:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3F71F031ED
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:57:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793199455;
- bh=mIGs1095/pi5A3phf200bT5vD03Lp1U81y8sX9m5/iA=;
- h=From:In-Reply-To:References:Date:Subject:To:Cc;
- b=W2HHLBXt6yBVAcplFhzpJ6jtmHOuCp53by4m98jBMIziA5t6rtB1YlnGlq/AWRlr1
- FQCh8fULMVw/6c1o5lmtjYYX1FdF3w72Vhh92y18FIUEBg0iAf6b+hQSp3YxO7o3w2
- NQLLEEEfBL2s7t9h24eEfYn4v1g4zC2nlqA6M7EuEQI6Z/6RdZsFX+guKD90fItizi
- a5xwC9YeA2FjWj8rfFo0XC4Al+7AXrBxYs7rFrO7GZB83wfNqD7ZuWZjpWyVfYaV++
- N/jtBDuxvPA74FBRxmYZeLCP5ayrbJBci8gmbYKVr5V6NwlSuhUqDS5ZcWnGUFJWgu
- d4cwa2zYelD2A==
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-3a98fc80925so12202521fa.0
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 07:57:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBxwCqx21UjkEasNXlFgQgudBRhtoEKbckMGodHvYlNpZQ3E1o80Dp4KeGSvdvf5YkZdiKh39vTwBls=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKOB07m6kzcT8I7S9PqeF4B/wBYcigWro3BMVkKgGl94MwCOfBi
- +xXloOHofkw2AhGX1/bgk2hmIGXYQT592nsDs+OTjHvy8S1rF72uEg1CJ/tws6nZQmVgFxWl1au
- a85pR3AMtDTkyG9i9sWCo8I+w0+HJaS0wDytsyxBdQw==
-X-Received: by 2002:a05:651c:1543:b0:3a9:d756:bfdd with SMTP id
- 38308e7fff4ca-3ac9cf1d2cdmr6179361fa.7.1793199454407; Wed, 28 Oct 2026
- 07:57:34 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 07:57:32 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 07:57:32 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261028120216.2657397-1-robh@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DE1210FD2A;
+	Wed, 28 Oct 2026 14:59:36 +0000 (UTC)
+Received: from dormouse.ash.relay.mailchannels.net
+ (dormouse.ash.relay.mailchannels.net [23.83.222.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 335DF10FD21
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:59:30 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+ by relay.mailchannels.net (Postfix) with ESMTP id B933742AA0;
+ Wed, 28 Oct 2026 14:59:28 +0000 (UTC)
+Received: from pdx1-sub0-mail-a220.dreamhost.com
+ (trex-green-7.trex.outbound.svc.cluster.local [100.96.16.126])
+ (Authenticated sender: dreamhost)
+ by relay.mailchannels.net (Postfix) with ESMTPA id 4EEF042727;
+ Wed, 28 Oct 2026 14:59:28 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Tank-Harmony: 78d2f747042e4d5d_1793199568528_2959092911
+X-MC-Loop-Signature: 1793199568528:3909109401
+X-MC-Ingress-Time: 1793199568528
+Received: from pdx1-sub0-mail-a220.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+ by 100.96.16.126 (trex/8.0.2); Wed, 28 Oct 2026 14:59:28 +0000
+Received: from offworld (unknown [76.167.199.67])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: dave@stgolabs.net)
+ by pdx1-sub0-mail-a220.dreamhost.com (Postfix) with ESMTPSA id 4jF9W359VYzYD; 
+ Wed, 28 Oct 2026 07:59:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+ s=dreamhost; t=1793199568;
+ bh=XE3Je+ocroISKFHAV5JHSwDyP53+LTrgvXdNFl0b/Vo=;
+ h=Date:From:To:Cc:Subject:Content-Type:Content-Transfer-Encoding;
+ b=GGaWa+MwRpGj+V0CBz4xbroyakBCHQenmvHnq/o7cQqoJrgM1qLdgSG9hhmj31gQb
+ VG2lJrz6tgCacbSb49HP9NlBVrDdKfbK/yNf+qiog+J9XS2GDK3G3EwtMKV/Vna+fP
+ 67BgL4Rcd5b8XWWgG8fkEz2R8s/+zhyX//YLt/840k6U+4rXBhMPSLxVEg/RMocTYu
+ ApIo5WpF5WO81u+Kz1OHrVlTdM92edipvDrBC9Rwuqp74L6ROIwDjUhdCC+OnyXCPI
+ p5k5HrNcPS0Vl1IxgVp5iLANMmcsDtu2CX5R56JsnULeMwkYNVtFEbmIHANr2XkODq
+ ZjxpCnl4cXSoA==
+Date: Wed, 28 Oct 2026 07:59:24 -0700
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Christian =?utf-8?B?S8Ovwr/CvW5pZw==?= <christian.koenig@amd.com>
+Cc: sumit.semwal@linaro.org, phasta@kernel.org,
+ benjamin.gaignard@collabora.com, jstultz@google.com,
+ tjmercier@google.com, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 0/2] dma-buf: system_heap: 2MB chunks on x86
+Message-ID: <20261028145924.5gcjfjbjd2ejgozt@offworld>
+References: <20260928195850.1982569-1-dave@stgolabs.net>
+ <20261007120745.bvhqqa6cowqnt3jc@offworld>
+ <52a82bea-3105-4bb5-a6e0-b1a0e3b808b3@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261028120216.2657397-1-robh@kernel.org>
-Date: Wed, 28 Oct 2026 07:57:32 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Md2xhYPdUEQ2SeqiGq9uG1qcc9Hi77T4k3ta_wmd56BhQ@mail.gmail.com>
-X-Gm-Features: AclHuK-L3iqt92WsRHLJE8OI5aNBBhyNCiN5RHrPr_WcVOO_RomVfpU-3_RxU7E
-Message-ID: <CAMRc=Md2xhYPdUEQ2SeqiGq9uG1qcc9Hi77T4k3ta_wmd56BhQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Fix property name typos in if/then schemas
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- freedreno@lists.freedesktop.org, imx@lists.linux.dev, 
- dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
- Yinbo Zhu <zhuyinbo@loongson.cn>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Tiffany Lin <tiffany.lin@mediatek.com>, 
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
- Yunfei Dong <yunfei.dong@mediatek.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Ryder Lee <ryder.lee@mediatek.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Christian Marangi <ansuelsmth@gmail.com>, Eric Anholt <eric@anholt.net>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, Peng Fan <peng.fan@nxp.com>, 
- Aakarsh Jain <aakarsh.jain@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <52a82bea-3105-4bb5-a6e0-b1a0e3b808b3@amd.com>
+User-Agent: NeoMutt/20220429
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,31 +79,22 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 28 Oct 2026 13:02:12 +0100, "Rob Herring (Arm)" <robh@kernel.org> said:
-> Property names within if/then schemas currently go unchecked whether
-> they have a type defined or match what's in the top-level schema. Adding
-> a check finds a number of instances of typos. The typos result in the
-> schema having no effect on constraints.
->
-> With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
-> exposed by the name correction.
->
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../devicetree/bindings/clock/qcom,kpss-gcc.yaml     |  2 +-
->  .../bindings/display/brcm,bcm2711-hdmi.yaml          |  2 +-
->  .../bindings/display/msm/dp-controller.yaml          |  2 +-
->  .../devicetree/bindings/display/msm/hdmi.yaml        |  4 ++--
->  Documentation/devicetree/bindings/dma/fsl,edma.yaml  |  2 +-
->  .../devicetree/bindings/gpio/loongson,ls-gpio.yaml   |  2 +-
+On Wed, 28 Oct 2026, Christian K=EF=BF=BDnig wrote:
 
-For GPIO:
+>I've just pushed patch #1 to drm-misc-fixes.
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Thanks.
+
+>
+>I'm still wondering if #2 is actually optimal. From what I've heard only 2=
+MiB should be used and especially 64k doesn't make sense any more on modern=
+ HW.
+
+I have no problem removing the 64k for x86 in v3.
