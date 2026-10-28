@@ -2,42 +2,106 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B246606A324
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 10:11:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9C8606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 10:11:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUt0Cozx
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=pChEflxN;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=b1HaBzP2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D111210E5DF;
-	Wed, 28 Oct 2026 10:11:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C02DF10E5DF
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 10:11:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B7162601FA;
- Wed, 28 Oct 2026 10:11:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C03D1F01825;
- Wed, 28 Oct 2026 10:11:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793182279;
- bh=wKAjcb7WscKylN3dM3agjz60NMabSDUoSZkp5VOu6bI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fUt0CozxOUvHEOTHKmO4C4dpGO5Df+TZH8Tc26NLczy9Pr+z1NvFSzY3bu8KdCh+X
- JoIjC62u6DdHwA0+dzZoniE5h7nFbEYDdz1sQtWi1ooVTigCYkX3Lc+M8K1yiGFeev
- Q8GJc/vrCrUc1Y8lLdWrm1fcXFD2kzkb5fLKpElXxKMbTNmDb9d7ZqwLj5uilQAaYE
- qBYz6BLMaFC7m/Ao8YvqA/bfT/P4NTmmouphAUHgi90vSusSDCuo0Jo7/2Km6gg5bU
- 2WB1oZrSAQDK84IJ4iPlS/pwljM2rGkR0kc0z84DvNcx4kB+Q9DfubgWYKshwf7Xm4
- kytzKC2DTuA3w==
-Message-ID: <sashiko-outbox-187730@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] PCI/VGA: Fix boot device detection after framebuffer
- relocation
-To: wuqianhai@loongson.cn
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261028094634.766723-1-wuqianhai@loongson.cn>
-References: <20261028094634.766723-1-wuqianhai@loongson.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0263A10FB04;
+	Wed, 28 Oct 2026 10:11:41 +0000 (UTC)
+Received: from flow-b5-smtp.messagingengine.com
+ (flow-b5-smtp.messagingengine.com [202.12.124.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A709D10E609
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 10:11:29 +0000 (UTC)
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+ by mailflow.stl.internal (Postfix) with ESMTP id 012151301DC3
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 06:11:28 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-10.internal (MEProxy); Wed, 28 Oct 2026 06:11:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1793182287;
+ x=1793189487; bh=PwX2l7DQwhc1EiN42vI8HhHIEcNBT4Ba7NmGw7MSolo=; b=
+ pChEflxNaTIn1Q06U4R2K6YLC1Mm5avWd+wqNue1MZJTTSh6fUbvf0w847MkLbUy
+ fFmgbA54GoI++qN+mZt6e7kqFRY6jUcSwSGhJwGVdvgPRci7wC7iSw39IbKmIBDg
+ Y3Bln8cAhYWOwV4tBCurbd6IPo00hqSGPltvzAcRmqGkj0Zjckob9hQrtDA2NZEW
+ fgwxuuujP8iKlk4Xr2cESD8C/ycTIRFBAJzVnLd3m6z4slRqMX/2WOFQemGU36s4
+ BTpusu2yBLQ7J3s9WHQiFRoy/2FO0Pxsh3lHdSvhzYrjKdJ3g5pstnT+3jtKAHPC
+ nzzu4GW1KX5rNYL8D07Tqg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793182287; x=
+ 1793189487; bh=PwX2l7DQwhc1EiN42vI8HhHIEcNBT4Ba7NmGw7MSolo=; b=b
+ 1HaBzP2Lj9cc8EYGYnxrdlVJ/RFFufuAg6lh7/rR4yklydF1UWo9vxyNE+TQFRdN
+ TKnqrWg4lvxSecZ/nusuUrAsqJliQzdBWDNoF8Zy9wsDbBQVvc/cLhRpgZudXsQe
+ fEnCZyxyeo7UiDim8UcKPr0a3zW9VuXq0LBVW8519Q4JV4Qd/WiEl2KmWDOf+AYJ
+ TQgvQeaQUQ9uNKY9miMQQ5sdpvYZWo469TEWaTqFm/wXL8Kqvplr7XF6QY6Kqf76
+ ZJY6iTMcFwZtAQaBumVFcdDQtrFXtyQtOKmA3q6euottFEEgaxeEK2gH9rbAE9Or
+ 8Xgq0wnkXp11z4y4qJAxw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+ repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+ action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793182287; d=kroah.com;
+ mf=PGdyZWdAa3JvYWguY29tPg==;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
+ s=fm2:rsa-sha256:E42D+bw7ke9FUJek6R10ktZ121Yz7aDMXAwp2hzhplkgvE2
+ +yFbrZbMK8RjdO+tXDqZQKvs2k7YGdrJ57hy7eq2lkI/YkzNRT1wy1250tHIquaV
+ FdM+OTQ9bBxOvldaRlSbq7eiFzMVQEvCyxRX+Gj4uIf4KRFfs9ilHDHZeTRGR/io
+ 4QdX/HaaKGQJSvT6PBs1D9lNmPOlJRRHnwxkoZQdhWLG8J4KcU5vJn364/dn3BmW
+ 2ZUT5U44Ppah82zgYdZfv2p4DruL/vAwyYcLu6THdEIZAjws3Sr4zUJ6pxcqb17k
+ 6q61o2Qm73jyIPETlOE3BNKgqJ5dM+4CRIWAkYw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+ repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+ action=mi-m=1; hc=13;
+ hn=cc,content-disposition,content-transfer-encoding,
+ content-type,date,feedback-id,from,in-reply-to,message-id,
+ mime-version,references,subject,to;
+Message-Instance: m=1;
+ h=sha256:SdlbCx/WwWPIYeG2Omf5foQWK6pxguuPtqSJN7Gg9J8=:fIJ+eLprzTB89kLRXhW3xJoTh+PmkUO6luZzkLNiY74=;
+X-ME-Sender: <xms:TsrhalU2H6s6CmFC0mo9Pish3o2cG7JQD5pKISpZTDzFRYYvICwiGg>
+ <xme:Tsrhaqdzx7UDvo80wunzyiwQu0VW4aPzsRWAdzXsrryHqCX4yH8oNeBq5jOvN_Vyx
+ 8AUR2ryeHijIzBltfNMlRmor3A5gKwlyAUuxbrnrc25ZbK_5LE>
+X-ME-Received: <xmr:Tsrhau9Y9F9fs2iV6X3PzS9vRfUorvcexXXNflRa_Bcaa7dcvFSMmCkqr4-PkaA-VUAdG2ZyAPNFxPJNILgyEhBmMabziJUMLsdCA15A>
+X-ME-Proxy-Cause: dmFkZTGiAoHe+ZTg9VS4DGzOZJVQZXq069YDfXN4FAWMZzX0cTphdbUHmVXHgMasuW75lM
+ rkmH4qK1YylYy3X3vMziTf0j3G4WKGZ1LZzv6Z1zUxrwiQVfzdqnbKWgCfulC12J9V0LHv
+ qcPdFAYB+nwQpm0fOQLkA4pE0WvGQ8VQ/5ouQj695NE662wMBDo4kuJUd7Bi0ynZ7x8thV
+ zkZl7yAqZ5PmApHkWyFTgk60tMJ3GFFPEbZtwkRIK9tuiVn/w+6Lwv40xCJv8bldz9TSXh
+ HAHQpKXhALMcUhLFOFwuPTpwn0su9zKnxzVFUvca2A2Le20TapqQJBCP9ChiDZPkIcMDj8
+ msadEET3RT67/X3W4tT5ymOOM1DzzrZHLtL53LzgthytcsXp4sVWpc+OFYUtc59MiYtTDg
+ kC2VXlFRvQvZeOfrXc1TmjH6TZjawD0AmzQwh8Zc1O+Iq49Y5vkPAD2ombYVfsD02aK7xC
+ 8D1Qz9YBOU/0s6ADoVnFcWTGTfCXRwmOCp+tPMoIxImPWV6q0dmQsWD0nQ5qZsbv7DgLOH
+ fcmD3QVwQq/G2TZ9cluKPtxLKtqYgidnr/9wAT1A/kDc6R1HsjtRiU1T/oQW35pqU9hXgG
+ AFmvrA7kimhu4dLwkvcgS3dd/rV2A1Vqci7uT+2KOcp136lD3uQ+VQ0KDQzA
+X-ME-Proxy: <xmx:TsrhaqZn563ElQWPsg4ymvhpc6Vn5nSIF_-IWf8zonClPyRnKxcBZA>
+ <xmx:Tsrhauue9g_LcneG6NlSFE4z1URxd_gaaDyquUbpHkoNZHNenEVAZA>
+ <xmx:TsrhanYTl3f2NTDfgCPjhFxeMDFUQjeO30t0FMLM2kdn-EQqx5hNXA>
+ <xmx:TsrhaiSNVDQx797pT2vHpCQrSEwb6ssPHIuLpn23o0inmVCa-okOLg>
+ <xmx:T8rhaob8Y6NKPG4PiEhGj_2pleZc1LrAmXidktuTtOeNL9rG-gsd-GpP>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 28 Oct 2026 06:11:26 -0400 (EDT)
+Date: Wed, 28 Oct 2026 11:11:24 +0100
+From: Greg KH <greg@kroah.com>
+To: =?utf-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
+Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ security@kernel.org
+Subject: Re: NULL TTM backing in the PRIME import callback
+Message-ID: <2026102854-spry-unhidden-7b28@gregkh>
+References: <ANIAPQCBLHZReocA2eIWZ4rb.1.1793179941502.Hmail.242270054@hdu.edu.cn>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 10:11:18 +0000
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ANIAPQCBLHZReocA2eIWZ4rb.1.1793179941502.Hmail.242270054@hdu.edu.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,160 +112,25 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] PCI/VGA: premature and duplicate screen_info_apply_fixups() in vga=
-_arb_device_init()
-- [Medium] PCI/VGA: undefined reference to screen_info_apply_fixups() when =
-!SCREEN_INFO
---
+On Wed, Oct 28, 2026 at 05:32:21PM +0800, 潘煜杭 wrote:
+> 
+> 
+> Hello,
+> 
+> GPT-6-Luna assisted with the initial analysis and drafting the proposed fix.
+> I am responsible for this report.
 
-commit da40d2d05299ef123ed4789d2ecb58829165fbe3
-Author: wuqianhai <wuqianhai@loongson.cn>
+Great, then please turn this into a patch that can be applied as you
+sent this in public and it would probably be good to get it resolved.
 
-PCI/VGA: Fix boot device detection after framebuffer relocation
+thanks,
 
-This commit calls screen_info_apply_fixups() in vga_arb_device_init() so th=
-at
-screen_info's lfb_base is updated before VGA devices are registered and
-checked by vga_is_firmware_default().
-
-> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> index 3e58b2c05c854..aca594651f580 100644
-> --- a/drivers/pci/vgaarb.c
-> +++ b/drivers/pci/vgaarb.c
-> @@ -1527,6 +1527,14 @@ static int __init vga_arb_device_init(void)
->  	int rc;
->  	struct pci_dev *pdev;
-> =20
-> +	/*
-> +	 * PCI resource assignment may have relocated the firmware
-> +	 * framebuffer BAR. Update screen_info's lfb_base so that
-> +	 * vga_is_firmware_default() can match it against the boot
-> +	 * device's relocated resource.
-> +	 */
-> +	screen_info_apply_fixups();
-
-[Severity: Medium]
-Will calling screen_info_apply_fixups() unconditionally in
-vga_arb_device_init() fail to link when CONFIG_PCI=3Dy, CONFIG_VGA_ARB=3Dy,=
- and
-CONFIG_SCREEN_INFO=3Dn?
-
-In drivers/pci/Kconfig, VGA_ARB only selects SCREEN_INFO on x86:
-
-drivers/pci/Kconfig:
-	config VGA_ARB
-		bool "VGA Arbitration" if EXPERT
-		default y
-		depends on !S390
-		select SCREEN_INFO if X86
-
-which matches the CONFIG_X86 guard in vga_is_firmware_default():
-
-drivers/pci/vgaarb.c:vga_is_firmware_default() {
-#if defined CONFIG_X86
-	return pdev =3D=3D screen_info_pci_dev(&sysfb_primary_display.screen);
-#else
-	return false;
-#endif
-}
-
-However, include/linux/screen_info.h declares screen_info_apply_fixups() as=
- an
-external function whenever CONFIG_PCI is enabled, while
-drivers/video/Makefile only builds screen_info_pci.o when CONFIG_SCREEN_INFO
-is enabled:
-
-include/linux/screen_info.h:
-#if defined(CONFIG_PCI)
-void screen_info_apply_fixups(void);
-struct pci_dev *screen_info_pci_dev(const struct screen_info *si);
-#else
-static inline void screen_info_apply_fixups(void)
-{ }
-
-drivers/video/Makefile:
-obj-$(CONFIG_SCREEN_INFO)         +=3D screen_info.o
-...
-screen_info-$(CONFIG_PCI)         +=3D screen_info_pci.o
-
-On non-x86 architectures with CONFIG_PCI=3Dy, CONFIG_VGA_ARB=3Dy, and
-CONFIG_SCREEN_INFO=3Dn, doesn't this result in an undefined reference to
-screen_info_apply_fixups()?
-
-[Severity: High]
-Also, is subsys_initcall_sync(vga_arb_device_init) the right place in the
-initcall sequence to call screen_info_apply_fixups()?
-
-Upstream vga_is_firmware_default() in drivers/pci/vgaarb.c only calls
-screen_info_pci_dev() under CONFIG_X86. On x86, subsys_initcall(pci_subsys_=
-init)
-runs pcibios_resource_survey() -> pcibios_allocate_dev_resources(). When the
-firmware framebuffer BAR has a resource conflict and awaits reassignment,
-pcibios_allocate_dev_resources() saves the firmware address and resets
-r->start to 0 while keeping resource_size(r) intact:
-
-arch/x86/pci/i386.c:pcibios_allocate_dev_resources() {
-	...
-	/* We'll assign a new address later */
-	pcibios_save_fw_addr(dev, idx, r->start);
-	r->end -=3D r->start;
-	r->start =3D 0;
-	...
-}
-
-The new BAR address on x86 is not assigned until
-fs_initcall(pcibios_assign_resources) -> pci_assign_unassigned_resources(),
-which runs after subsys_initcall_sync(vga_arb_device_init).
-
-When screen_info_apply_fixups() runs at subsys_initcall_sync while a
-conflicting BAR has pr->start =3D=3D 0, pr->start !=3D screen_info_lfb_res_=
-start is
-true and __screen_info_relocation_is_valid(si, pr) succeeds because
-resource_size(pr) is unchanged:
-
-drivers/video/screen_info_pci.c:screen_info_apply_fixups() {
-	if (screen_info_lfb_pdev) {
-		struct resource *pr =3D &screen_info_lfb_pdev->resource[screen_info_lfb_b=
-ar];
-
-		if (pr->start !=3D screen_info_lfb_res_start) {
-			if (__screen_info_relocation_is_valid(si, pr)) {
-				__screen_info_set_lfb_base(si, pr->start + screen_info_lfb_offset);
-				pr_info("Relocating firmware framebuffer to offset %pa[d] within %pr\n",
-					&screen_info_lfb_offset, pr);
-			}
-			...
-		}
-	}
-}
-
-Wouldn't this clobber si->lfb_base to 0 + screen_info_lfb_offset with a
-[mem 0x00000000-...] message before fs_initcall(pcibios_assign_resources)
-assigns the actual BAR address, while still failing to match in
-vga_is_firmware_default()?
-
-Similarly, for PCI host bridges probed at device_initcall via
-pci_host_probe(), vga_arb_device_init() runs before the PCI bus is scanned
-and before VGA devices are added via pci_notify().
-
-Finally, since screen_info_apply_fixups() does not update
-screen_info_lfb_res_start or clear screen_info_lfb_pdev after applying the
-fixup, won't calling it in both vga_arb_device_init() and
-device_initcall(sysfb_init) in drivers/firmware/sysfb.c cause the relocation
-and log messages to run twice?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028094634.7667=
-23-1-wuqianhai@loongson.cn?part=3D1
+greg k-h
