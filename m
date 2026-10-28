@@ -2,82 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A33F606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AA4606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jB6VIFln
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=s1G4iNj7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78338112070;
-	Thu, 29 Oct 2026 07:59:24 +0000 (UTC)
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9F910FD93
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 16:46:18 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-33bf40b0c8bso66724eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:46:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793205977; x=1793810777; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=B4aeA1JDhDSlavAe3QtN317ZVxvJh8xk7OKR4/iEpbs=;
- b=jB6VIFlnN0M1j0WmXzo+LRMXeCP07A2SP3ROQFJ8Cfd/eZB9FRJCiaLfmKwMxkHm/O
- Rz8LeNaanDJouPTc0cOOI6EjyO9yQrrttdNPYbk+/jj1QY2PcZM/N8Z6aJ8QYbfycC7f
- YFyEk31XpWoe8j1ZXIKfx5G4Ous0BkmcF3Q3bu8F0OeSzdnZJjFQcltEeqeUT1COKb9Q
- BDBuAYNbSezDGuz6ntz9q4mhgD1Y30FnX9MwXcZpR/jjmdtWpwg6Rb56SyhI2csGdY43
- lQYDm9L23b2KUfu9SI3DEJFR/ZUr1+wZauEZItBuaJOtaGKGdHhz7+DBD3CJy1ryjHDe
- WvLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793205977; x=1793810777;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=B4aeA1JDhDSlavAe3QtN317ZVxvJh8xk7OKR4/iEpbs=;
- b=xr9zJafSRlqbPENuDer0oC0GHASNxjW3O+p9M4hjDmVjWVlEBm+n522jtga3L6Z8tQ
- chrI0gmdPiY1EiJScIrwL1xMTAwE20vAiMhzlY49v+YP9xDVd8DfClu61CRgjvH/WRtD
- rWS5M1E2gWHd3RQctCb5Je1uFgKoa46ca5PmHvhL4gEu5LxNbL/KCImZkO6u3NH9wDqI
- GbIamUQ3ayFr5ScBGaTyE3ECTWKhGGia+OLnGI5f7wyiV1Lwh0WIXQofNGJd/4QVCGdQ
- 8gtWvhcoV94wl/X5wHWZsLAZjSBZCZ7uUSIZcUN00/LKnAH8JZBq6K8V7tWaSt6jSaA9
- oxAw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxbv4BgBjxC01vN+q+wwD4YK05JH/RHCI7nEMbrBfeIk0goPYQhR/enLGyokDMLzXSe7HEqqNxDiF8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIa/+kLX6FKb1JT2h85+azIU9k675cMcT1H0wOk7XzJpwZDeK4o
- o/fGl9VK3STyuWJIMnz52eRjiG1YP0lQ+J/UUIVpEqNz95BoNh8Vkoa+
-X-Gm-Gg: AYBFou24PoRw73LRczDRrW3eWhMI43EYgX9erbgPLoT76+P0Xz0p4wn71sOnJ+0ayQu
- IwMV1RBnhKPozkNvXmLybduMm8cHURp5m0oc1W5ZCZxWx4jcqa6n9FwU+7+9p96bgqlbQjtMXAu
- h92DK7Ht/vMNKFIwPUwWfc6WuRsZQPzX6CkjmhjGup2jZya8Jf8WyxqywIhDKijD3bpVJcS07vB
- qn1IZLc14p9G898NrNenvAMBBh2vuHsj2OkCa7uX5TyXtj6oPDJ++V+B6OfhPQHCsN53jqK4rNZ
- eFBV1AWGZ32zLQCcGqfj8fFRPfsqq1bCQf7MbMe0eodXkmH1mGFUbJG/gFbysxIARgPCyyMIJHl
- crrCIcSAG+9K3UAukyXg00i14qHKg+1BdLAgsIfGwggqB0irS4qoXD64MfhdGdmQ+y0QNP8zWhX
- 5+PSHGBPrmtrjXP/A1o/M5Lmt8UKlyzWAPKvpYNbSLLLmYND0j0VsAorbuTMiC2IDi6pYD+EGmU
- SaTlx4jdIFddtzSLSg0cATq8OhSnFFVa4dpxOUPsEbofZ4SNlP8xQj3uZoZJpMst+fnwVsAwq3b
- RXsAkPeC/ok7BP6N3hLccaRTlo1nQhcQaZANMZsXc3kSMR9lFw4GC0UMOQceyC6MVeokId7OxPn
- QcGS0iFBurEfBQ1bS
-X-Received: by 2002:a05:7301:4d08:b0:360:905a:7c27 with SMTP id
- 5a478bee46e88-36a20417e00mr3738593eec.26.1793205977381; 
- Wed, 28 Oct 2026 09:46:17 -0700 (PDT)
-Received: from localhost.localdomain ([136.126.251.209])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36a23908449sm7821964eec.11.2026.10.28.09.46.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Oct 2026 09:46:16 -0700 (PDT)
-From: Henry Zhang <henryzhang62@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Henry Zhang <henryzhang62@gmail.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F90C112072;
+	Thu, 29 Oct 2026 07:59:26 +0000 (UTC)
+Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE57E10E5C4;
+ Wed, 28 Oct 2026 08:30:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
+ s=mail; t=1793175635;
+ bh=DLae2gx4aGYIpiU/bvQJfKJhKs4nNCXiSW/qMDyeW24=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=s1G4iNj7/OxMe3QEsIAEnZ0bhFm524AJi+UtsiJDNZZkymmDz57s/cSBMC+SkARw3
+ i3VKwlDdDVQAtn3D0ok4bdXGCRiRr75QTXzaZRCjPUoxQd2Dwf/537SkAttNRm5m+i
+ dIZin/56CDIf1Rz1jHjqkNsZ3h7kYtj+ZQxQXxGI=
+Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
+ (Authenticated sender: d@ilvokhin.com)
+ by mail.ilvokhin.com (Postfix) with ESMTPSA id 67144FBCF7;
+ Wed, 28 Oct 2026 08:20:35 +0000 (UTC)
+From: Dmitry Ilvokhin <d@ilvokhin.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>,
+ Billy Tsai <billy_tsai@aspeedtech.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 3/5] drm/vc4: dsi: Rate-limit error interrupt messages
-Date: Wed, 28 Oct 2026 09:45:28 -0700
-Message-ID: <20261028164539.3471833-4-henryzhang62@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028164539.3471833-1-henryzhang62@gmail.com>
-References: <20261028164539.3471833-1-henryzhang62@gmail.com>
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Dmitry Ilvokhin <d@ilvokhin.com>
+Subject: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 08:19:44 +0000
+Message-ID: <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
+References: <cover.1793027261.git.d@ilvokhin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -93,46 +71,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The error interrupts (contention, sequence and timeout errors) are
-always enabled and each one is logged with drm_err() from the interrupt
-handler. When a peripheral leaves the data lanes in a bad state, the
-same error is raised again as soon as it is acknowledged. On a
-Raspberry Pi 4 a "data lane 0 sequence error" was seen at more than
-50000 interrupts per second; printing every one of them, mostly to a
-serial console, starved the rest of the system to the point that the
-SD card driver timed out and the board had to be reset.
+Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+nonnull") added the macro __nonnull_args() to wrap raw compiler
+attribute.
 
-Use drm_err_ratelimited() so that the errors stay visible without
-taking the system down.
+Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+nonnull attribute usage across the tree and keep the attribute's quirks
+in one place rather than open-coded at every call site.
 
-Signed-off-by: Henry Zhang <henryzhang62@gmail.com>
+Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 ---
- drivers/gpu/drm/vc4/vc4_dsi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
+ drivers/gpu/drm/i915/i915_request.h        | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index 1eea60aec..be9caaf50 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -1487,8 +1487,8 @@ static void dsi_handle_error(struct vc4_dsi *dsi,
- 	if (!(stat & bit))
- 		return;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index a2f4b6758a65..648d0b4139cf 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -127,7 +127,7 @@ __deprecated
+ struct drm_gem_object *
+ drm_gem_object_lookup(struct drm_file *file, u32 handle);
  
--	drm_err(dsi->bridge.dev, "DSI%d: %s error\n", dsi->variant->port,
--		type);
-+	drm_err_ratelimited(dsi->bridge.dev, "DSI%d: %s error\n",
-+			    dsi->variant->port, type);
- 	*ret = IRQ_HANDLED;
+-__attribute__((nonnull))
++__nonnull_args()
+ static inline struct drm_i915_gem_object *
+ i915_gem_object_get(struct drm_i915_gem_object *obj)
+ {
+@@ -135,7 +135,7 @@ i915_gem_object_get(struct drm_i915_gem_object *obj)
+ 	return obj;
  }
  
+-__attribute__((nonnull))
++__nonnull_args()
+ static inline void
+ i915_gem_object_put(struct drm_i915_gem_object *obj)
+ {
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index b09135301f39..f559203c332d 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -437,12 +437,12 @@ void i915_request_cancel(struct i915_request *rq, int error);
+ long i915_request_wait_timeout(struct i915_request *rq,
+ 			       unsigned int flags,
+ 			       long timeout)
+-	__attribute__((nonnull(1)));
++	__nonnull_args(1);
+ 
+ long i915_request_wait(struct i915_request *rq,
+ 		       unsigned int flags,
+ 		       long timeout)
+-	__attribute__((nonnull(1)));
++	__nonnull_args(1);
+ #define I915_WAIT_INTERRUPTIBLE	BIT(0)
+ #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
+ #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
 -- 
-2.47.3
+2.53.0-Meta
 
