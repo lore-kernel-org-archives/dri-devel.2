@@ -2,132 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FA9606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 08:50:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056F8606A31D
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 08:59:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=hz2SpUDM
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jjLS567F
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A676710E5C1;
-	Wed, 28 Oct 2026 08:50:03 +0000 (UTC)
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013021.outbound.protection.outlook.com
- [40.107.162.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A37F110E5C1
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 08:49:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rCt7atnGE8ZpE4JN/xBXyU0kiBeRTL/9F3cm5CJKW8G+Kbow8h9+5IGrb0rNYlqMwYWfaszenjEHI/EHPGCWIoRxmrutwKF0G90OoH02Mhl+EUpMhB9zChRMV1O1m/D4QnmAw4ILmlaenJAiXv3rtWAyaeMF1CQ6GIKNdiIV6gW9jU2/cQ665UIzdQT5fvfzgyV1p22Tc4tjsJLEAUgm++NncR7qn5N9mJwa2IqluOIQB2lc7gXd2GsWOm7RZtOZRzz69rRv7yq/N37NVsPKm5B+lS+OPRajLFyPRKw4nRU06ngs3IEM+YOtp0djvvKb0wxUCeYYIq7SDOCH7FRR4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6MGvXSXbpCjZ2LJJCfzgKocecungLghm1VuD7v3RxTc=;
- b=o6jNIU1gIDBHGb06h/v1aQ7Qx3eCxQAUrzY2DJmPD+okkie0Vmv3884Um7Nt9IMX5nAXvxl4xOFpebsbjjb8Xp4ERBnEvjF/rhlrRGGhf/AjFryLv6Ua/HXEjTE4sNTMRRixZEcHZn9PM8y/JYHbdGSayB1VY07aELlrsjzwFZ1l7tASn5JZFG4FIb06vL4HNDTeBuN8B7qEh7+3ab8XJLp+lXYYYnFLK4m7wYVLs586kw+S6qvce21jTIqvu6VhIKQ3F92N5R9pwUzfoDcbTGDOWBjct0GabvuyKK6Dkuehz9xlGp01vLPJSSvVcGZobaftq6o2TCYluX7gcn/CWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6MGvXSXbpCjZ2LJJCfzgKocecungLghm1VuD7v3RxTc=;
- b=hz2SpUDMwAacLEzA+av16tECvHWC8q1k8oBxUp6VeT9f+vHX+r01WPTvwYxEsDnV5XaIWIZvmuLMwJSuQjkZyuRed6Igs/yCgu3MkB/g1E7CCJYyzj2DOu9+FRdED4Qe9vneT6kvTGwlrI8KAOSRBYojQAca9nc5m3c6ncwuWyFkRq1G8Nw0KIFkixUw1QyT5ra0FTWAER0/7kmbX66beqRJWUVEX/8ZrYMoagif/1OT1kSOGUuSXSqOqaWpnYZj1iYfX39XYxxxGbLKKzJl7MkGHuUGWm7AIK1OGrDNQG5ok029DlKZYNW9Rvl6J6TakazLY0MVKcD3Y3fKgWC6oQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by DB9PR04MB8364.eurprd04.prod.outlook.com
- (2603:10a6:10:24c::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 08:49:53 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 08:49:53 +0000
-Date: Wed, 28 Oct 2026 10:49:48 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Frank.Li@oss.nxp.com
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 
- Robert Chiras <robert.chiras@nxp.com>, Liu Ying <victor.liu@nxp.com>,
- Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v5 5/7] arm64: dts: imx8dxl-evk: Add onboard GPIO mux
- controller
-Message-ID: <auG12nh5bsNQZzyW@vm>
-References: <20261027-dxl_lcdif-v5-0-3a974e4b94b2@nxp.com>
- <20261027-dxl_lcdif-v5-5-3a974e4b94b2@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-dxl_lcdif-v5-5-3a974e4b94b2@nxp.com>
-X-ClientProxiedBy: FR2P281CA0119.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::15) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61AE910FA9B;
+	Wed, 28 Oct 2026 08:59:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 119F010FA9B
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 08:59:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793177980; x=1824713980;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=A+xmCDm3grjanoQL4eOougIuNTSABEXSkjHQQ27pt+M=;
+ b=jjLS567F61arl9ucHJarKINijqtjyKN5yyjC9wnWbZMuemppa0t7XNhG
+ ovS7fN0mQcallL+J2vd4kA8EvgSIOyVieucu0DYGuiuNa4/ZdL1U6Pmb0
+ aZ7AOB4MqkSrjmu+9fJBFX7FRCSjsFHSts/OkoNS0xDQpCkNs3qy0SXLJ
+ +AC/spJE+V+9NOscCbbYTtXO1QVS0xn4mwid3Ijk7/6cFs+OUzLxwtmO6
+ 3nJd004mP9uqFyxsiFqfblbxYFGndFj1S6hXSwckMbMvoE55CE8EHnnOD
+ hBaXu0m9Rx9Wchd7pRCji8anaFx6zNDCoJ+QeHMqYswJLMb8HUEAFro3y A==;
+X-CSE-ConnectionGUID: kuPAvsSHTVSvloOyaHGjtg==
+X-CSE-MsgGUID: V9REgYZmQNyM/FQfy2JhoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1785059"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1785059"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 01:59:40 -0700
+X-CSE-ConnectionGUID: CGedlxR4QMqyZHk/Hgt7hg==
+X-CSE-MsgGUID: JlJWFMHzT3WAKu09Y1rhmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="5307373"
+Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.114])
+ ([10.217.180.114])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 01:59:38 -0700
+Message-ID: <1d24db8a-1251-4fbf-933a-97b908660576@linux.intel.com>
+Date: Wed, 28 Oct 2026 09:59:36 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|DB9PR04MB8364:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00aab431-e421-4b73-150c-08df34d06f2f
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|7416014|376014|366016|19092799006|261026140227099003|4143699003|10067099003|261009223027099003|11063799006|56012099006|261022105027099003|261021121427099003|261021123027099003|261022075727099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: VaX/Lg3WgRabxgEANrfnbLEpDWZNzJSUpHFjJ42WIqVo/D7edWwyzYEleC+GcwrcmziY1l51LnVgueGaD9wm9op1wn72+jxj3J17zARQodesPTizlLS0LPzHlDmtvwQl18czQDf72+vsxO6HRvK/JU2+4TjDQGM81EJtjhBIZ2GhlcbuUntwY0w/XSnoqUCi6kkulyTrsequUZq0uVYDMrgaq/NQEu6R054dfaC/xyIzsWy8yz12+BrF3JeJLLwOzgClxDZTtMja0iuGCuzx9FevIXmYdaLCkgiRAg3KlY8L16+FcD+y0WusU8BNLrl20hPbAFhDYSzAedNhePuXNqnaGEM4hbX08mXoI3pMko48NgTyO0l31CIuXcQ6mxrcH40boe6iUeKymCgbMANXXYmsZWHAtWsqpVx1zqTOlfwGCHOTR6L6ZIwaGNXKHlYeW1oPDbSlPtdRXqWz5JZwlMUtdIpN7cM2mrar8zfG2rhyWrGGOlZAYVKxsiHSA6QiBB0yLvUXTaZSC76xn+qvrruZGMHNlgVlyRsoiJINbgvrye/qZykWMlta2d2+WNj6/EDlPXOjq6zqClwtXyYZcRH4Y1nHnOEjdJB/gQhwakm9R4mHEkGJYhYil5LTR8PVQ5cAPsPRkEJp2XABAOvmGwu7fAebXiJDUbYWhN9hr3k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(19092799006)(261026140227099003)(4143699003)(10067099003)(261009223027099003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7NiBu5tB5PTm4HfDTU/F/MzfQyBN9h4UTE9mVrx6CLXdIfmplTYPPmYj84aq?=
- =?us-ascii?Q?5MHvwtwXtO4IlB35+G2p3fAt2EyovU6TNeqNGFTr7EeuFpSAbc9ilM/n7qse?=
- =?us-ascii?Q?AsNlB/uuwGHlLNygPsYm/7CNtllynB4DxgwB6XAFMhQZmEZxsDsmHo5B/AOW?=
- =?us-ascii?Q?AvbDbfCPU9iQc7o27PWyH01x2PRbzr3tVYKTI0Ne1MDczWJSDq8n+vHO+6D3?=
- =?us-ascii?Q?YjxWOf+3QiGR5Sn6z/lHHvBxiURCbhtFsQ/1+r4dqgv9Gw2v2kcd18oZKEgA?=
- =?us-ascii?Q?RZ27Xgr7PrjS3L7Vvi80QuSUfeLRbF+mbiH8I3biisIqSCKgeR+fl09fu8Pk?=
- =?us-ascii?Q?pVVEuh1fDDNCErStZoZT8gQ7WYpPaCq/fSlqKoTqwnMrbp04oGJqi2gjgtk+?=
- =?us-ascii?Q?xaf/W6O+1p5yLB4dysBOBm0k049110sQzTxqmWH+WhrtCfjZQzok741D9/YX?=
- =?us-ascii?Q?9pFc3nvLg73+1AdS9UUztxgzKQ6hPfe/kwLRkHauVbgIphdXBkTirmSnVyv2?=
- =?us-ascii?Q?LXb78SM9bMfOEmAcvBmdAWRGjVm84RUOpkiDRWGNBuWskH4PwwspeOURsguY?=
- =?us-ascii?Q?Xi5L+wB//SXyYLjTgUtADm7n0eeQrCm9rmGfynuJjOFyI4dHUsByaKcKO4z9?=
- =?us-ascii?Q?WLUjIQWutkQlADlWuj/83lyQp3JenXBq7oImdWlg9enmeuKT3lQzNDiMQjBa?=
- =?us-ascii?Q?HXPoaaH3AN8SrGLe1HacE+Uv5G4slx1hAnAofe/ppm45MptW8BSXkoSdneFA?=
- =?us-ascii?Q?/IYFhBDLV3Y0PYPpDVFxRh9e5i218xnyfMLK3tTh5mSZVK3s1xZid5fg6Z8/?=
- =?us-ascii?Q?w48+s6sghIcrSktHxQdwwcgD7+SJmVMk2LnvcgLD74Eevd+5ipf6T/KtOGPH?=
- =?us-ascii?Q?ZWax51P7jdJVlF2I7HuADYSmuLWLNJ4b4Q4PzOaiYO6JXf2P6geW4+Fg0DR4?=
- =?us-ascii?Q?KczpAgmDoqzceD7aGKJgzHD5JL70Fd0DMnEODEZ8NYXIjuzw8sj12PBDpp+5?=
- =?us-ascii?Q?6G/E5AUSVpFPx82/XatapzFc/zJZXN8DaoWGlpQD4I8p8VSp2OI+DWkdjX5A?=
- =?us-ascii?Q?WYWdTu9tpWBl0BGd0mRIEhqsWPCcfIZocnE2FK+MBzOIfxiGRi2tOl2lY1bo?=
- =?us-ascii?Q?jkxS9OAesmPzpHqj666OMWltcRkb2LGbLlGOijdetjVfYOX70ZpOmYCmrCwb?=
- =?us-ascii?Q?GLveJvVt/8g4q7ryA5iM/why1n8MabC/Wg0O89IYTpATgTkA2Mlq25MUvJlB?=
- =?us-ascii?Q?27ODh4ET1BxGdgoiXGkePsHwDmcbd02r83eUU8gE7HUYq3nGSGzobfkifpc8?=
- =?us-ascii?Q?oLqBeZMhoGS8PzKBxsLv7cqmzCbCBZs3tWosYLl+Z5WScEke8qBMn+M+1SwF?=
- =?us-ascii?Q?FOesbxK3PP3bQa0VFEfrpl3j4zGKzw7ugKkkxtthGfBCUS+T/vAOcFvMNtRG?=
- =?us-ascii?Q?V0zIvATw8bRv71seeyeeexkhmcJ05KJJejakKFvjBEhZ/35cQfZ0Yi9dN837?=
- =?us-ascii?Q?YqTLzjYgrEKr3aNvmzzdDsdMv7xmOwSLvt2YCOZo4m+YC0u967eAfc4VpfD+?=
- =?us-ascii?Q?J6e0ZPSzW/n0s0opourtrrO7RycYmjL8+t2V3fSfBrcctuNBPEmo+t2bc4Cy?=
- =?us-ascii?Q?9A+lQ5tH7Z08ratF/xA5eld9657DofrLcpSK1lRpvOOvgfy4kiBIWlxI3POA?=
- =?us-ascii?Q?6rWfLm+qaij1adRqo28+8IULiwn3k/md9DNVkT1QXDyYhUCHBxRcA0+Fe/1B?=
- =?us-ascii?Q?QTSk6u6oQ9XIp1X7IB3vIzsgp4RNQzU=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00aab431-e421-4b73-150c-08df34d06f2f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 08:49:53.5263 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Cqd/ngDz4Fa8dsSfutKvwoSK3TKvwwfJP8waY2pBrhYowEFrDXB2njJFqeqnWtRPd0KpQV33oGYqXgye69JTQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8364
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/ivpu: Read preemption buffer size from boot
+ params
+To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ dawid.osuchowski@linux.intel.com
+References: <20261027164529.295791-1-andrzej.kacprowski@linux.intel.com>
+Content-Language: en-US
+From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
+In-Reply-To: <20261027164529.295791-1-andrzej.kacprowski@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,128 +69,415 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 27, 2026 at 11:00:57AM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+On 27-Oct-26 17:45, Andrzej Kacprowski wrote:
+> The optimal preemption buffer size depends on the hardware and firmware
+> configuration, which is best known to the firmware. Newer firmware
+> reports the required size in the preemption_buffer_size field of the
+> boot params, which it writes before signaling cold boot completion.
 > 
-> Add a GPIO mux controller to describe the onboard signal multiplexer.
-> Previously, the device tree relied on the hardware reset defaults to
-> select the mux state. Now that the kernel supports the pinctrl-multiplexer
-> framework, describe the onboard mux explicitly and let the kernel configure
-> the required routing.
+> Read the size from the boot params once, after the initial cold boot
+> during device initialization, as the firmware does not update it
+> afterwards. Use it as the primary preemption buffer size and skip
+> allocating the secondary buffer. A size outside of the [2 MiB, 32 MiB]
+> range is treated as a firmware error and fails probe. If the firmware
+> does not report the size, keep using the sizes from the firmware image
+> header to preserve compatibility with older firmware.
 > 
-> Prepare for additional device tree overlays that require different mux
-> configurations.
+> The preemption buffer sizes in the image header are deprecated in
+> favor of the boot params, meaning the boot params size takes
+> precedence when available. Firmware still provides valid sizes in the
+> image header so that older kernels keep working, so the image header
+> sizes are always validated and used until the boot params are read.
 > 
-> Remove the regulator-m2uart1sel node, which incorrectly modeled the board
-> mux as a regulator.
+> Simplify the image header size selection: use the max sizes for both
+> buffers when preemption_buffer_1_max_size is set, otherwise use the
+> regular sizes. All known firmware versions that set
+> preemption_buffer_1_max_size also set preemption_buffer_2_max_size, so
+> selecting each buffer size separately is not needed.
 > 
-> There are no backward compatibility concerns, as the affected functions
-> (lpuart1 for Bluetooth, spi3, and m4_lpuart) are not used by existing other
-> users such as U-Boot.
+> Move initialization of the trace and DVFS defaults to
+> ivpu_fw_preboot_init().
 > 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> Update the FW boot API header to version 3.39.1:
+> - Add the VPU_GOV_ON_DEMAND_PER_PRIORITY and VPU_GOV_ON_DEMAND_QOS
+>    DVFS governors
+> - Add the preemption_buffer_size field to struct vpu_boot_params
+> - Mark the preemption buffer sizes in the image header as deprecated
+>    in favor of preemption_buffer_size
+> 
+> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+
+Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+
 > ---
-> change in v4
-> - add idle-state = <1> (sashiko AI)
-> - ref to spi0_fun for sai0
-> ---
->  arch/arm64/boot/dts/freescale/imx8dxl-evk.dts | 80 +++++++++++++++++++++++----
->  1 file changed, 68 insertions(+), 12 deletions(-)
+> Changes in v2:
+> - Commit message only, no code changes
+> - Clarify that all known firmware versions setting
+>    preemption_buffer_1_max_size also set preemption_buffer_2_max_size,
+>    so selecting each buffer size separately is not needed
+> - Clarify that the image header sizes are deprecated in favor of the
+>    boot params size, but are still valid so older kernels keep working
 > 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts b/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-> index 71eff3efa6d32..f21ac208bf00e 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-evk.dts
-> @@ -97,14 +97,70 @@ vdev0buffer: vdev0buffer@90400000 {
->  		};
->  	};
->  
-> -	m2_uart1_sel: regulator-m2uart1sel {
-> -		compatible = "regulator-fixed";
-> -		regulator-min-microvolt = <3300000>;
-> -		regulator-max-microvolt = <3300000>;
-> -		regulator-name = "m2_uart1_sel";
-> -		gpio = <&pca6416_1 6 GPIO_ACTIVE_HIGH>;
-> -		enable-active-high;
-> -		regulator-always-on;
-> +	m4_debug_mux: mux-controller-0 {
-> +		compatible = "gpio-mux";
-> +		#mux-control-cells = <0>;
-> +		#mux-state-cells = <1>;
-> +		idle-state = <1>;
-> +		mux-gpios = <&pca6416_1 3 GPIO_ACTIVE_HIGH>;
-> +	};
+>   drivers/accel/ivpu/ivpu_drv.c     | 11 +++-
+>   drivers/accel/ivpu/ivpu_drv.h     |  2 +-
+>   drivers/accel/ivpu/ivpu_fw.c      | 91 +++++++++++++++++++++++--------
+>   drivers/accel/ivpu/ivpu_fw.h      |  1 +
+>   drivers/accel/ivpu/ivpu_job.c     |  3 +
+>   drivers/accel/ivpu/ivpu_pm.c      |  2 +-
+>   drivers/accel/ivpu/vpu_boot_api.h | 36 +++++++++---
+>   7 files changed, 112 insertions(+), 34 deletions(-)
+> 
+> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+> index 61149b7c30c2..b60430dcf168 100644
+> --- a/drivers/accel/ivpu/ivpu_drv.c
+> +++ b/drivers/accel/ivpu/ivpu_drv.c
+> @@ -506,11 +506,12 @@ static int ivpu_hw_sched_init(struct ivpu_device *vdev)
+>   /**
+>    * ivpu_boot() - Start VPU firmware
+>    * @vdev: VPU device
+> + * @device_init: Indicates if this is the initial boot during device initialization
+>    *
+>    * This function is paired with ivpu_shutdown() but it doesn't power up the
+>    * VPU because power up has to be called very early in ivpu_probe().
+>    */
+> -int ivpu_boot(struct ivpu_device *vdev)
+> +int ivpu_boot(struct ivpu_device *vdev, bool device_init)
+>   {
+>   	int ret;
+>   
+> @@ -547,6 +548,12 @@ int ivpu_boot(struct ivpu_device *vdev)
+>   	if (ivpu_test_mode & IVPU_TEST_MODE_FW_TEST)
+>   		return 0;
+>   
+> +	if (device_init) {
+> +		ret = ivpu_fw_postboot_init(vdev);
+> +		if (ret)
+> +			goto err_disable_ipc;
+> +	}
 > +
-> +	spi3_mux: mux-controller-1 {
-> +		compatible = "gpio-mux";
-> +		#mux-control-cells = <0>;
-> +		#mux-state-cells = <1>;
-> +		idle-state = <1>;
-> +		mux-gpios = <&pca6416_1 4 GPIO_ACTIVE_HIGH>;
-> +	};
+>   	if (!ivpu_fw_is_warm_boot(vdev)) {
+>   		ret = ivpu_pm_dct_init(vdev);
+>   		if (ret)
+> @@ -841,7 +848,7 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
+>   
+>   	ivpu_pm_init(vdev);
+>   
+> -	ret = ivpu_boot(vdev);
+> +	ret = ivpu_boot(vdev, true);
+>   	if (ret)
+>   		goto err_ipc_fini;
+>   
+> diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
+> index ea5b8dc612d1..70fab9c649d2 100644
+> --- a/drivers/accel/ivpu/ivpu_drv.h
+> +++ b/drivers/accel/ivpu/ivpu_drv.h
+> @@ -243,7 +243,7 @@ extern int ivpu_test_mode;
+>   struct ivpu_file_priv *ivpu_file_priv_get(struct ivpu_file_priv *file_priv);
+>   void ivpu_file_priv_put(struct ivpu_file_priv **link);
+>   
+> -int ivpu_boot(struct ivpu_device *vdev);
+> +int ivpu_boot(struct ivpu_device *vdev, bool device_init);
+>   int ivpu_shutdown(struct ivpu_device *vdev);
+>   void ivpu_prepare_for_reset(struct ivpu_device *vdev);
+>   bool ivpu_is_capable(struct ivpu_device *vdev, u32 capability);
+> diff --git a/drivers/accel/ivpu/ivpu_fw.c b/drivers/accel/ivpu/ivpu_fw.c
+> index 96f5be23a867..6607a5da1934 100644
+> --- a/drivers/accel/ivpu/ivpu_fw.c
+> +++ b/drivers/accel/ivpu/ivpu_fw.c
+> @@ -19,8 +19,13 @@
+>   
+>   #define FW_SHAVE_NN_MAX_SIZE	SZ_2M
+>   #define FW_FILE_IMAGE_OFFSET	(VPU_FW_HEADER_SIZE + FW_VERSION_HEADER_SIZE)
+> -#define FW_PREEMPT_BUF_MIN_SIZE SZ_4K
+> -#define FW_PREEMPT_BUF_MAX_SIZE SZ_32M
 > +
-> +	uart1_mux: mux-controller-2 {
-> +		compatible = "gpio-mux";
-> +		#mux-control-cells = <0>;
-> +		#mux-state-cells = <1>;
-> +		mux-gpios = <&pca6416_1 6 GPIO_ACTIVE_HIGH>;
-> +	};
+> +/* Size limits for preemption buffer sizes from image header */
+> +#define FW_PREEMPT_BUF_MIN_SIZE		SZ_4K
+> +#define FW_PREEMPT_BUF_MAX_SIZE		SZ_32M
+> +/* Size limits for preemption buffer size from boot parameters */
+> +#define FW_PREEMPT_BUF_BP_MIN_SIZE	SZ_2M
+> +#define FW_PREEMPT_BUF_BP_MAX_SIZE	SZ_32M
+>   
+>   #define WATCHDOG_MSS_REDIRECT	32
+>   #define WATCHDOG_NCE_REDIRECT	33
+> @@ -160,35 +165,31 @@ ivpu_fw_sched_mode_select(struct ivpu_device *vdev)
+>   static void
+>   ivpu_preemption_config_parse(struct ivpu_device *vdev, const struct vpu_firmware_header *fw_hdr)
+>   {
+> -	struct ivpu_fw_info *fw = vdev->fw;
+>   	u32 primary_preempt_buf_size, secondary_preempt_buf_size;
+>   
+> -	if (fw_hdr->preemption_buffer_1_max_size)
+> +	if (fw_hdr->preemption_buffer_1_max_size) {
+>   		primary_preempt_buf_size = fw_hdr->preemption_buffer_1_max_size;
+> -	else
+> -		primary_preempt_buf_size = fw_hdr->preemption_buffer_1_size;
+> -
+> -	if (fw_hdr->preemption_buffer_2_max_size)
+>   		secondary_preempt_buf_size = fw_hdr->preemption_buffer_2_max_size;
+> -	else
+> +	} else {
+> +		primary_preempt_buf_size = fw_hdr->preemption_buffer_1_size;
+>   		secondary_preempt_buf_size = fw_hdr->preemption_buffer_2_size;
+> -
+> -	ivpu_dbg(vdev, FW_BOOT, "Preemption buffer size, primary: %u, secondary: %u\n",
+> -		 primary_preempt_buf_size, secondary_preempt_buf_size);
+> +	}
+>   
+>   	if (primary_preempt_buf_size < FW_PREEMPT_BUF_MIN_SIZE ||
+>   	    secondary_preempt_buf_size < FW_PREEMPT_BUF_MIN_SIZE) {
+> -		ivpu_warn(vdev, "Preemption buffers size too small\n");
+> +		ivpu_warn(vdev, "Preemption buffers size too small, primary %u, secondary %u\n",
+> +			  primary_preempt_buf_size, secondary_preempt_buf_size);
+>   		return;
+>   	}
+>   
+>   	if (primary_preempt_buf_size > FW_PREEMPT_BUF_MAX_SIZE ||
+>   	    secondary_preempt_buf_size > FW_PREEMPT_BUF_MAX_SIZE) {
+> -		ivpu_warn(vdev, "Preemption buffers size too big\n");
+> +		ivpu_warn(vdev, "Preemption buffers size too big, primary %u, secondary %u\n",
+> +			  primary_preempt_buf_size, secondary_preempt_buf_size);
+>   		return;
+>   	}
+>   
+> -	if (fw->sched_mode != VPU_SCHEDULING_MODE_HW)
+> +	if (vdev->fw->sched_mode != VPU_SCHEDULING_MODE_HW)
+>   		return;
+>   
+>   	if (ivpu_test_mode & IVPU_TEST_MODE_MIP_DISABLE)
+> @@ -196,6 +197,9 @@ ivpu_preemption_config_parse(struct ivpu_device *vdev, const struct vpu_firmware
+>   
+>   	vdev->fw->primary_preempt_buf_size = ALIGN(primary_preempt_buf_size, PAGE_SIZE);
+>   	vdev->fw->secondary_preempt_buf_size = ALIGN(secondary_preempt_buf_size, PAGE_SIZE);
 > +
-> +	spi0_mux: mux-controller-3 {
-> +		compatible = "gpio-mux";
-> +		#mux-control-cells = <0>;
-> +		#mux-state-cells = <1>;
-> +		mux-gpios = <&pca6416_1 7 GPIO_ACTIVE_HIGH>;
-> +	};
+> +	ivpu_dbg(vdev, FW_BOOT, "Preemption buffer size, primary: %u, secondary: %u\n",
+> +		 vdev->fw->primary_preempt_buf_size, vdev->fw->secondary_preempt_buf_size);
+>   }
+>   
+>   static int ivpu_fw_parse(struct ivpu_device *vdev)
+> @@ -318,18 +322,10 @@ static int ivpu_fw_parse(struct ivpu_device *vdev)
+>   	fw->shave_nn_size = PAGE_ALIGN(fw_hdr->shave_nn_fw_size);
+>   	fw->cold_boot_entry_point = fw_hdr->entry_point;
+>   
+> -	fw->trace_level = min(ivpu_fw_log_level, IVPU_FW_LOG_FATAL);
+> -	fw->trace_destination_mask = VPU_TRACE_DESTINATION_VERBOSE_TRACING;
+> -	fw->trace_hw_component_mask = -1;
+> -
+> -	fw->dvfs_mode = 0;
+> -
+>   	fw->sched_mode = ivpu_fw_sched_mode_select(vdev);
+>   	ivpu_info(vdev, "Scheduler mode: %s\n", fw->sched_mode ? "HW" : "OS");
+>   
+>   	ivpu_preemption_config_parse(vdev, fw_hdr);
+> -	ivpu_dbg(vdev, FW_BOOT, "Mid-inference preemption %s supported\n",
+> -		 ivpu_fw_preempt_buf_size(vdev) ? "is" : "is not");
+>   
+>   	if (fw_hdr->ro_section_start_address &&
+>   	    !ivpu_is_within_range(fw_hdr->ro_section_start_address, fw_hdr->ro_section_size,
+> @@ -363,6 +359,16 @@ static void ivpu_fw_release(struct ivpu_device *vdev)
+>   	release_firmware(vdev->fw->file);
+>   }
+>   
+> +static void ivpu_fw_preboot_init(struct ivpu_device *vdev)
+> +{
+> +	struct ivpu_fw_info *fw = vdev->fw;
 > +
-> +	pinctrl-gpiomux {
-> +		compatible = "pinctrl-multiplexer";
+> +	/* Let the firmware decide optimal DVFS mode */
+> +	fw->dvfs_mode = 0;
+> +	fw->trace_level = min(ivpu_fw_log_level, IVPU_FW_LOG_FATAL);
+> +	fw->trace_destination_mask = VPU_TRACE_DESTINATION_VERBOSE_TRACING;
+> +	fw->trace_hw_component_mask = -1;
+> +}
+>   
+>   static void ivpu_fw_mem_fini(struct ivpu_device *vdev)
+>   {
+> @@ -469,6 +475,8 @@ int ivpu_fw_init(struct ivpu_device *vdev)
+>   	if (ret)
+>   		goto err_fw_release;
+>   
+> +	ivpu_fw_preboot_init(vdev);
 > +
-> +		m4_debug_fun: cm4-uart-grp {
-> +			mux-states = <&m4_debug_mux 1>;
-> +		};
+>   	ret = ivpu_fw_mem_init(vdev);
+>   	if (ret)
+>   		goto err_fw_release;
+> @@ -710,3 +718,40 @@ void ivpu_fw_boot_params_setup(struct ivpu_device *vdev, struct vpu_boot_params
+>   
+>   	ivpu_fw_boot_params_print(vdev, boot_params);
+>   }
 > +
-> +		spi0_fun: spi0-grp {
-> +			mux-states = <&spi0_mux 1>;
-> +		};
+> +int ivpu_fw_postboot_init(struct ivpu_device *vdev)
+> +{
+> +	struct vpu_boot_params *boot_params = ivpu_bo_vaddr(vdev->fw->mem_bp);
+> +	u32 preempt_buf_size = boot_params->preemption_buffer_size;
 > +
-> +		spi3_fun: spi3-grp {
-> +			mux-states = <&spi3_mux 1>;
-> +		};
+> +	ivpu_dbg(vdev, FW_BOOT, "Post boot init\n");
 > +
-> +		uart1_fun: uart1-grp {
-> +			mux-states = <&uart1_mux 1>;
-> +		};
+> +	if (vdev->fw->sched_mode == VPU_SCHEDULING_MODE_OS ||
+> +	    ivpu_test_mode & IVPU_TEST_MODE_MIP_DISABLE) {
+> +		drm_WARN_ON(&vdev->drm, ivpu_fw_preempt_buf_size(vdev));
+> +		ivpu_dbg(vdev, FW_BOOT, "Preemption disabled!\n");
+> +		return 0;
+> +	}
 > +
-> +		lcd_0_fun: lcd0-grp {
-> +			mux-states = <&spi0_mux 0>;
-> +		};
+> +	if (preempt_buf_size) {
+> +		/* Preemption buffer size provided in boot parameters */
+> +		if (preempt_buf_size < FW_PREEMPT_BUF_BP_MIN_SIZE ||
+> +		    preempt_buf_size > FW_PREEMPT_BUF_BP_MAX_SIZE) {
+> +			ivpu_err(vdev, "Invalid preemption buffer size in boot params: %u, expected range [%u, %u]\n",
+> +				 preempt_buf_size,
+> +				 FW_PREEMPT_BUF_BP_MIN_SIZE,
+> +				 FW_PREEMPT_BUF_BP_MAX_SIZE);
+> +			/* Be strict about invalid preemption buffer size in boot params */
+> +			return -EINVAL;
+> +		}
+> +		vdev->fw->primary_preempt_buf_size = ALIGN(preempt_buf_size, PAGE_SIZE);
+> +		vdev->fw->secondary_preempt_buf_size = 0;
+> +	}
 > +
-> +		lcd_1_fun: lcd1-grp {
-> +			mux-states = <&spi3_mux 0>;
-> +		};
+> +	ivpu_dbg(vdev, FW_BOOT, "Preemption buffer size: %u\n", ivpu_fw_preempt_buf_size(vdev));
 > +
-> +		lcd_2_fun: lcd2-grp {
-> +			mux-states = <&uart1_mux 0>;
-> +		};
+> +	if (!ivpu_fw_preempt_buf_size(vdev))
+> +		ivpu_warn(vdev, "Hardware scheduling without preemption buffer!\n");
 > +
-> +		lcd_3_fun: lcd3-grp {
-> +			mux-states = <&m4_debug_mux 0>;
-> +		};
+> +	return 0;
+> +}
+> diff --git a/drivers/accel/ivpu/ivpu_fw.h b/drivers/accel/ivpu/ivpu_fw.h
+> index 45a705431f22..2fcedb6c3e7d 100644
+> --- a/drivers/accel/ivpu/ivpu_fw.h
+> +++ b/drivers/accel/ivpu/ivpu_fw.h
+> @@ -57,6 +57,7 @@ int ivpu_fw_init(struct ivpu_device *vdev);
+>   void ivpu_fw_fini(struct ivpu_device *vdev);
+>   int ivpu_fw_load(struct ivpu_device *vdev);
+>   void ivpu_fw_boot_params_setup(struct ivpu_device *vdev, struct vpu_boot_params *boot_params);
+> +int ivpu_fw_postboot_init(struct ivpu_device *vdev);
+>   
+>   static inline bool ivpu_fw_is_warm_boot(struct ivpu_device *vdev)
+>   {
+> diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
+> index bfdee29cd91c..6a1307ee2e19 100644
+> --- a/drivers/accel/ivpu/ivpu_job.c
+> +++ b/drivers/accel/ivpu/ivpu_job.c
+> @@ -45,6 +45,9 @@ static int ivpu_preemption_buffers_create(struct ivpu_device *vdev,
+>   		return -ENOMEM;
+>   	}
+>   
+> +	if (vdev->fw->secondary_preempt_buf_size == 0)
+> +		return 0;
+> +
+>   	cmdq->secondary_preempt_buf = ivpu_bo_create(vdev, &file_priv->ctx, &vdev->hw->ranges.dma,
+>   						     vdev->fw->secondary_preempt_buf_size,
+>   						     DRM_IVPU_BO_WC);
+> diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
+> index cd4eff72f76c..8a6062bb101c 100644
+> --- a/drivers/accel/ivpu/ivpu_pm.c
+> +++ b/drivers/accel/ivpu/ivpu_pm.c
+> @@ -100,7 +100,7 @@ static int ivpu_resume(struct ivpu_device *vdev)
+>   		goto err_power_down;
+>   	}
+>   
+> -	ret = ivpu_boot(vdev);
+> +	ret = ivpu_boot(vdev, false);
+>   	if (ret)
+>   		goto err_mmu_disable;
+>   
+> diff --git a/drivers/accel/ivpu/vpu_boot_api.h b/drivers/accel/ivpu/vpu_boot_api.h
+> index 06c092d5e675..c0da9e9cba62 100644
+> --- a/drivers/accel/ivpu/vpu_boot_api.h
+> +++ b/drivers/accel/ivpu/vpu_boot_api.h
+> @@ -1,6 +1,6 @@
+>   /* SPDX-License-Identifier: MIT */
+>   /*
+> - * Copyright (c) 2020-2025, Intel Corporation.
+> + * Copyright (c) 2020-2026, Intel Corporation.
+>    */
+>   
+>   /**
+> @@ -36,12 +36,12 @@
+>    * Minor version changes when API backward compatibility is preserved.
+>    * Resets to 0 if Major version is incremented.
+>    */
+> -#define VPU_BOOT_API_VER_MINOR 29
+> +#define VPU_BOOT_API_VER_MINOR 39
+>   
+>   /**
+>    * API header changed (field names, documentation, formatting) but API itself has not been changed
+>    */
+> -#define VPU_BOOT_API_VER_PATCH 5
+> +#define VPU_BOOT_API_VER_PATCH 1
+>   
+>   /**
+>    * Index in the API version table
+> @@ -74,6 +74,10 @@ struct vpu_firmware_header {
+>   	/** Size of memory require for firmware execution */
+>   	u32 runtime_size;
+>   	u32 shave_nn_fw_size;
+> +	/*
+> +	 * Preemption buffer sizes in image header are deprecated post NPU50xx.
+> +	 * Use vpu_boot_params::preemption_buffer_size instead.
+> +	 */
+>   	/**
+>   	 * Size of primary preemption buffer, assuming a 2-job submission queue.
+>   	 * NOTE: host driver is expected to adapt size accordingly to actual
+> @@ -199,7 +203,7 @@ struct vpu_boot_l2_cache_config {
+>    * Macros to enable various power profiles within the NPU.
+>    * To be defined as part of 32 bit mask.
+>    */
+> -#define POWER_PROFILE_SURVIVABILITY 0x1
+> +#define POWER_PROFILE_SURVIVABILITY BIT(0)
+>   
+>   /**
+>    * Enum for dvfs_mode boot param.
+> @@ -209,7 +213,9 @@ enum vpu_governor {
+>   	VPU_GOV_MAX_PERFORMANCE = 1, /** Maximum performance governor */
+>   	VPU_GOV_ON_DEMAND = 2, /** On Demand frequency control governor */
+>   	VPU_GOV_POWER_SAVE = 3, /** Power save governor */
+> -	VPU_GOV_ON_DEMAND_PRIORITY_AWARE = 4 /** On Demand priority based governor */
+> +	VPU_GOV_ON_DEMAND_PRIORITY_AWARE = 4, /** On Demand priority based governor */
+> +	VPU_GOV_ON_DEMAND_PER_PRIORITY = 5, /** On Demand frequency per-priority governor */
+> +	VPU_GOV_ON_DEMAND_QOS = 6 /** On Demand QOS based governor */
+>   };
+>   
+>   struct vpu_boot_params {
+> @@ -239,8 +245,20 @@ struct vpu_boot_params {
+>   	 * On VPU2.7 HW this address must be within 2GB range starting from L2C_PAGE_TABLE base
+>   	 */
+>   	u64 shave_nn_fw_base;
+> -	u64 save_restore_ret_address; /** stores the address of FW's restore entry point */
+> -	u32 reserved_4[43];
+> +	/**
+> +	 * Firmware restore entry point used to resume from D0i3.
+> +	 * Set before entering D0i3 and cleared during the resume sequence.
+> +	 * Deprecated on NPU60xx and later; boot_type selects the warmboot path.
+> +	 */
+> +	u64 save_restore_ret_address;
+> +	/**
+> +	 * Required preemption buffer size in bytes.
+> +	 * Firmware writes this before signaling cold-boot completion to the host;
+> +	 * it is not updated afterward.
+> +	 * Available since NPU50xx.
+> +	 */
+> +	u32 preemption_buffer_size;
+> +	u32 reserved_4[42];
+>   	/** IRQ re-direct numbers: 0x200 - 0x2FF */
+>   	s32 watchdog_irq_mss;
+>   	s32 watchdog_irq_nce;
+> @@ -268,6 +286,10 @@ struct vpu_boot_params {
+>   	 * TODO: EISW-33556: Move log level definition (mvLog_t) to this file.
+>   	 */
+>   	u32 default_trace_level;
+> +	/**
+> +	 * Boot mode requested by the host: VPU_BOOT_TYPE_COLDBOOT or
+> +	 * VPU_BOOT_TYPE_WARMBOOT. Used by the boot loader on NPU60xx+.
+> +	 */
+>   	u32 boot_type;
+>   	u64 punit_telemetry_sram_base;
+>   	u64 punit_telemetry_sram_size;
 
-A lot of fun above! :) Joke aside, wouldn't it be more appropriate to replace
-'fun' with 'func' in those label suffixes above? 
-
-Otherwise:
-Acked-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-
--- 
-Thanks,
-Laurentiu
