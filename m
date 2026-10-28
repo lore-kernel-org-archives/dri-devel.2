@@ -2,98 +2,149 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BA7606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 21:44:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2800C606A31D
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 22:07:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=GBukKlMq
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G2/f6C1X
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9803B10E700;
-	Wed, 28 Oct 2026 21:44:52 +0000 (UTC)
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013043.outbound.protection.outlook.com
- [40.107.201.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D29A210E700;
- Wed, 28 Oct 2026 21:44:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FC1310E708;
+	Wed, 28 Oct 2026 22:07:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8770210FE8E;
+ Wed, 28 Oct 2026 22:07:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793225249; x=1824761249;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=nms7+Rp5/x22HPOUSB8PJ9iPwGilg9yRVtfNy6JKxKQ=;
+ b=G2/f6C1XpEII1zoRKJj53H2DY0mWDsDuOuyKibsDBfwghZq/7dWgUBjK
+ ijS3s63hVkslk0+VFcsKeKiWSxA0Y1IAZY4+zrNqaTfVrDWwmLnFy0Ivz
+ ZGNoAJmakHazzZVIypyAFBYWiJHrsCaUjFEF6+rEc45FdZHcALLQR25AY
+ /OA6U4cO7ikWqOZw4FXkmEeF8484xfNa07y9T3YNvrfQch1Y6hoADGug0
+ HZ2avQyn7cJCSVr0C1jHTfiulMOVXStAl3pCnU9CbHpTrH3T6K7qZSsyr
+ r+FX+nlCxdHYrtwuCZDesEId/3Ou6CLxWBfSALZN9Rdgtssvf+GAeGCCx g==;
+X-CSE-ConnectionGUID: 0MSm7d5pTq2S90LjKbTPXw==
+X-CSE-MsgGUID: ridCfUqZRPSEk5GrNVZReg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1843926"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1843926"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 15:07:28 -0700
+X-CSE-ConnectionGUID: GTVaDU2HQOexVGaFfEvnUg==
+X-CSE-MsgGUID: Ytc6LZTGT8qXaFdhu22ywg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="4873822"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 15:07:29 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 28 Oct 2026 15:07:27 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 15:07:27 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.34) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 28 Oct 2026 15:07:27 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dAv2aVOe6pF3aj7oSdbeQ+ezHBvvBEZqcJroLRcl1xFZJNM1jNWcggIzn5r6XCRgYE8SfOYMnpgpMvN7z6QduijhRPE2v35qT0gP4xqY/J7F5z4eBx1UMFs3LmE2lsagevHj8Uue9GKOQbq+e83YoGn54FnQ1CO0+LH4e4gAaxJN1G0gKwsHpUOyMfOGn377OOp1Vjbjm/1Px3BFupBYg8pHD4CniZE5PUgn9BoU1wO5pWTPjkKj4Y/bCvdTrkxrv7bQVTajOSrSVEFjNYu43j84OAgBxojDXukn8/Ank6mKw3grk89dHMX7lWRUEukHVOLk6owOMsMsX4FlsXGqzA==
+ b=Dny6e7FzEvQarJcRerChoNDcIQdmdguess4harZvjz2c6ZQssz4lJBJNYko+ORiSQAB7LuXpFhI3V1gYSgX3qzOyzH86nuO8dW4Rj1q5Upr110m/SiJL25zjFrO1t66gc1ng6MtD+KKptPZgZCMBA7Ey5G+JtdLSR/cDHUPS1fnUohFaxi4GZoFzib7xeS7UwLePhp1g0ZofN4lcOcjYIcTzUkQd7d7Q21Alw6MOL4CnT8D/jHLJgkaFJnJDEz1flqfKm3FJoXinpCVS49uWY1/oaV9yFIpkDEZWDeMMr60qSl7rfcWJ5Nc1qiZuEUgJVT6Tqx2eC41oWOVG70ROhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k1w27nX9Govz+9iuOs1vbDhzIJ5R+GtIezk0qgXNSVA=;
- b=NAV5pCnw8Wb6T2lHwTSi3CPxyx0MSxEc40OH9vOwsWUj4vNZ8PVEFSFiNOrV9zMO77B9i2rQoc4OaKLZ8VX/YyQ7HbcMwKOrgp8lKwKFVkDYHxINPLoPUNYvPZhrczL8qDgKk4+HVVoWA96BCmgf3bcXovo++7lzmAW90fss3M3Jacs63wQhD4LYwWGhmIsIAPTWqm83GxJ5fTlhU702fGBfVg/DClAshaOPGH5N3Q21pfH4liSfQNTRGomqh8jAoyfBW+Ey3Lp+JS027xj+ghXMWXXi++daOiiIHKbKm7wF5tRpmTu/x0EDN4wVAM4bMohu3WVPLCT8QDhxFjPnhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k1w27nX9Govz+9iuOs1vbDhzIJ5R+GtIezk0qgXNSVA=;
- b=GBukKlMqj6TsXONaKHFmgWaUaZRdJOqOyQe+OvyyM6Osn3/V9njBWYvcf9eGIVjPClwj5GEPCKIzQirw4DDkxwR/eYHVmWnyU1saGKlT5GpAZZ9ZnckUOSobAiLcoLvfjBIQuqjNUXEK0WOGtAqU0fvLG5dWZTmPbHLjvYUsvtw=
-Received: from MW4PR03CA0259.namprd03.prod.outlook.com (2603:10b6:303:b4::24)
- by BL1PR12MB5705.namprd12.prod.outlook.com (2603:10b6:208:384::5)
+ bh=qMm/m5VKXOsu0x/qyIX4PkVyuIQHTVEqvKbjhq81oPw=;
+ b=ow4pEKEfaJ8NVJUiSRUVoYUkU6txXC78317mdc0vgPjMgQwPmtthLSVekXcGdIvNgdxlvoankJfpj8mBKGvjz6qg5TdSvt/R3BZEHJxie+jRTPEK2pvBZdRV7/l+PC0qUO6PSsXxAP191ivCfy7ktrYrHmMyiRy1ul/L4c9McVpL3M4cOQlLQbP+eNI1ORoss9rpu4hvoKIh8Z0WpJ7Gnds2ERit/OJsO8emZqyf8Ltpq+2nMOSEJCzDHmjnexlW9JgIrlf6Q/F1v9n8U7eJHBMQrzmdHbbRG1njSxTnLHeLSt6CCrjfKPDejDnuqcXXtIhUSqqtK/xhdShTvPbU1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by DS6PR11MB701697.namprd11.prod.outlook.com (2603:10b6:8:4c6::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 21:44:34 +0000
-Received: from SJ5PEPF00000203.namprd05.prod.outlook.com
- (2603:10b6:303:b4:cafe::5f) by MW4PR03CA0259.outlook.office365.com
- (2603:10b6:303:b4::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Wed,
- 28 Oct 2026 21:44:34 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF00000203.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Wed, 28 Oct 2026 21:44:34 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
- 2026 16:44:33 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Wed, 28 Oct 2026 16:44:33 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-next-fixes-7.4
-Date: Wed, 28 Oct 2026 17:44:23 -0400
-Message-ID: <20261028214423.1295475-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.56.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 22:07:18 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
+ 22:07:17 +0000
+Date: Wed, 28 Oct 2026 15:07:15 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Natalie Vock <nat@pixelcluster.dev>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v6 2/3] drm/ttm: Allow skipping to the next priority in
+ the bo LRU cursor
+Message-ID: <auJyEzVcU0/MwSrp@gsse-cloud1.jf.intel.com>
+References: <20261027224902.1085762-1-matthew.brost@intel.com>
+ <20261027224902.1085762-3-matthew.brost@intel.com>
+ <21c4abe0-7923-436f-b35c-6e07e6342930@pixelcluster.dev>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <21c4abe0-7923-436f-b35c-6e07e6342930@pixelcluster.dev>
+X-ClientProxiedBy: MW4PR03CA0272.namprd03.prod.outlook.com
+ (2603:10b6:303:b5::7) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000203:EE_|BL1PR12MB5705:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b337311-92d4-49e1-05ee-08df353ca806
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DS6PR11MB701697:EE_
+X-MS-Office365-Filtering-Correlation-Id: d989b0ed-3f95-471c-7cd7-08df353fd450
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|261028144727099003|11063799006|56012099006|261009223027099003|261026121527099003|261026140227099003|10067099003|261022105027099003|261021121427099003|261021123027099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info: r5K1lQc+6qdQWbWXesUwBHkHJgc+VGqsRfpD+P5V599xrtSI7dsW+UM9lOVqD1UP5BgQU1xAakqIee1nElo76iP+UM0tCZvJJyZGL0/pFOiv+dhxqYpAI3tSyFLKh3s/QYQTazD3pNyz5N62m+KGB2yv9S8+VPxRDAADinfY3BCS4889NF97tzW8FErikooTEMYSHKrFtZT5GGyrvFX/MHba7UZTPoAxjRR8cA9eBru+sadq4iJ9Nw9m7EkJs3LDqXdIDd0Gj6SrLbkaioytnakh8JNJagmz8gWUGP6mI9V3UlMhZD6PvJDbUHwYedlUpldc2I4YZfIGml2gTQSLf7zwztIhhW2ObaANqCIXUmTgHaNJEqQyaWvWGT74eO2jGohZ7DWY+jmMLPrHs41QXwaJCEsvN9K+pymKWDnmttwv78X/uKc0V1IpiRQLZ+scedwzep7BkvMUad4k1Mc/cyYdM4VxFSaiQx5CovVRgvEwN/W2+M702WIGWPOVEXj2gSWXI16MaxqS0H8pCxXaLSPLzmiS+26zXowFC8sa74BR0XmhHLbgjnwtZe2lerBj9lEIWENxlxShbU9y0NASi9ruoPFCZyArt7VNAsNp5TSMEKbByApuzH1IC7h5EqL4zt4EUMHVtyZWIiB78pC0Pg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(261028144727099003)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261026140227099003)(10067099003)(261022105027099003)(261021121427099003)(261021123027099003)(18002099003)(13003099007);
+ ARA:13230040|376014|1800799024|23010399003|366016|261026140227099003|261028144727099003|5023799004|11063799006|261009221227099003|4143699003|56012099006|261022105027099003|261021123027099003|261021121427099003|261009223027099003|10067099003|22082099003|261026121527099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 6EJL94OzRhaIQEeC1L6oA9bFZ6FoSR0cpn0R7rm6GzNQOGxBn+vuf+ajo350QW1AEYFHDHpVDUzfYO8VynLLKKV3A2F0aMOxvhJzXRzRTFSHiVsYecQf7P0HeQWLkMCY5NKDL8CFPLOo1+57wA/sGzA0tRfbXksz5IDkjgA5fa1U0JhpbDzch7eDuxth6+DzQ9Ae832dGORianRkuZxV2TluaJtEzz2CrAcMazUz2gYkeMK0/DbptnYGEtbZ8n8ibuCdwP1JS6gr3bkUmcjKdiazMkwasJYO8e0JrX384Ryvb6JDDJ06aeQQ2moKclK2+LLvoIebs7+M3PIs4GL20aZvg5TZnEMNeJlDwQ4RyAeve5hDZemu5DjkKTRc0DlCMLYLV+c3DdiSKTADfNGBrYNz1jmbi2shHho+MSGquPQ6lgqJIS6DUc30spwzS7hWlviCpTwQDseoljlyyNVtfAeJUe+kU9VurGGIywsl13s6LzfkAAhQBxpd1n9v0Px8Riprr1iyuUEdiAvPE9iJtf0c0hslFCnTu67hWQEQ1PGHao4nu4pEMmzu9kO74nQl55YP4FH/JI3ksRkuInoca5QFjWUty46HOZK5NEKeEeCqkT3F5DnWJSoHpWY6bxWlZ3gTDyl3V15UayWK5BE+n1FpnVdOI24q8sevaIRwvHE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(261026140227099003)(261028144727099003)(5023799004)(11063799006)(261009221227099003)(4143699003)(56012099006)(261022105027099003)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(22082099003)(261026121527099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 15yW3odueRVY1ZHwLfamRI4kyuqi7v23He/KIeG5b1LTzzSjEp5bEpBro0JF7MqHeo1VS0Rr3xYpITKhsGM3PrPG0tQ3o0GEmc/lQhy96TVmxzJUK0dXQNRq8qxtv7/xZMf62JS2/vH8diniPI4FLYaMu+sM48RqJNum4vgoRB6dhJv4E62hsQ2OFvy/Kvo1qkWqvtW6/1gW4Mq6BLqOyc65W+zHGS7xFLtjkuU2k5aIwOgZmbFfDAr1Q/CvnydAeXocAHL+nPWKZ4XaqY9vWpcUrljOYIdYdxnBSAOIrg+pJXqiwuZ7V/RZHM4KeCnQTf4NmGWMiPpn3vF6WLNDd2wvz16xGMH7gYExOHuS0a9B1Cyiwg+6rHJIVTsx+lWcrSXSZ4sm+aAcN5N1qzWXelkUfGXZTCtJtsPyKkn/+Ts9p63eutu6S1OQdZ8sVEye
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 21:44:34.2184 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b337311-92d4-49e1-05ee-08df353ca806
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000203.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5705
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?NzQGmQSKU/4h/SeV9B6/4cV/lenS6ydkDR6lXJ/DjcKBisXLP0OgjSnyODXv?=
+ =?us-ascii?Q?XsGFG7NXlVh642yiyWDOMs7xx7vi0HDD/G6SNk1dU/5XsyPg+HQykVd0l7aZ?=
+ =?us-ascii?Q?kf+zG97jCCjpaXhJfmH9/CHikm2vdgqzziVgWbR6uGOzw0KhkwNurSgVxfij?=
+ =?us-ascii?Q?ZGv9lkoCBnxENFZlI9zL2yf2/J9MKs/RpKJpnMSSPk/BN/tQvhmgUbxblDbp?=
+ =?us-ascii?Q?pLNWz/+xWEx27fPz8aKXAfJZbFHU+d5bMj4byMGmf1cMo7ZfnVVIxJufabjs?=
+ =?us-ascii?Q?OiDAI/8sAAozU7Gsmc5QZKTdDBCqUOtTtUvzIFxs+93juRFzstLaLvXfUTea?=
+ =?us-ascii?Q?vM1xwNVUFlpXP+vkGJmZnk/QmBxDXTSiMe7Z6VxvnawVgqp7WSiMa3m+UoPd?=
+ =?us-ascii?Q?l5Lt7MgHhWCVUNP0LJPlLLSCbm9Fkq3E0IP0k6T+XvN004/uCg1xA5P+cVO9?=
+ =?us-ascii?Q?CeusAdI+GMR3TPJcWvlGJ7R/lPt/vjCqg10DELYpGRKCJtZIXvmw4JfPSMko?=
+ =?us-ascii?Q?dE6HvqTWoOEKFx1BiBlJuDiEskPNGKdiYdwvgYOuUzseaA10UWLP7fE2QLI1?=
+ =?us-ascii?Q?zvcpGfpv5UyguBbSlViEkDo3cqfhuPvdy4RzP8XZHb4/GTMXeCn+6kyFOenN?=
+ =?us-ascii?Q?CS5TXnCRN+IqNYPDmFCVXEubAyVYLBbELDbwUimfZ6I4RVHeN3KcTedYrtMe?=
+ =?us-ascii?Q?T4tgxxYyDkVrwDuktrK7u7y70OGNaE8DuxUA1CdQTz4VeZrfZJzjhAIFp5sF?=
+ =?us-ascii?Q?tazXi9xNQOtvUA2yLqy22n7fv1LIFLmQ9I/nKnObsJ2OMCyxX88NcdB4ekDG?=
+ =?us-ascii?Q?JIKOR3Afmp5iRivHYoM6fQ+s3R3UVJHFIbyWSEj9mUBlA8E24jHt7MIfwtLL?=
+ =?us-ascii?Q?n5HJee9ipFoPDR4HtMqYE4ga6tHNyuv7FB+bEbkQDjzimk9knB8w0ffvNUSP?=
+ =?us-ascii?Q?BvwbQQghNJyMVrqEjeU5/Frr6YU2+zGvIetdmnaIveYKhFS7vCSdyGASiEuz?=
+ =?us-ascii?Q?ylUiqPIh4e/djwF6yinlBzf4KqgIRB6TsgjZOG4CZS1hQThcb2WNCEOPrHEE?=
+ =?us-ascii?Q?UGn/fXI/iScWsP0q4x2ub2VArI9mJS8zdZQIMynBS40NWYbSOmPrdxGS97Nn?=
+ =?us-ascii?Q?kD8vwDnRtFxbsbjGAqUigSxmFTJgsmm2nfHlJ04dR2DPtSCm6NpVXnerVUqM?=
+ =?us-ascii?Q?XaKXssRiPZ2YITpVZqiKEOdZQcgBpBVc0om7n4jeGaQTaLtggzqvjvdKyZ25?=
+ =?us-ascii?Q?yBN4GbUBpUretqtJbFiR3h8HYmrzOwsUISzoxoGMtLIxpAH5Q1/FVblZ6AQ7?=
+ =?us-ascii?Q?XJo+l8chgjH8wshbE3bCmkU7f7exMOtDobTuhSwWsXpc3PSjsJigmOPGhX0H?=
+ =?us-ascii?Q?nZi8OpTALjdpV6aYiEBs6VpHVmD0CzVydvTDhIWl3NwbhsikeTLyI25Ci625?=
+ =?us-ascii?Q?ZjEqqLGbWGJzrVXY2xELlQXokgcj8APeWzkzaq/uRAv5FhpOZW6PIKMhV2pf?=
+ =?us-ascii?Q?FCmBdN3vIARTx+jmi+IpxvsZjbjjjEFpJc555DNM1w35HkOjPafHwDCnt/L+?=
+ =?us-ascii?Q?2bIncR0p/NJsCOZmN82h4R5M4ytFsIkFocHUkmAPCj8Bir2bDKASHGu8K3Hn?=
+ =?us-ascii?Q?aYMESznE/DE+egeOLfDzqTBDIiiQiighi4QlPwh4XoyAnuHJ1PaiAOSVZd1L?=
+ =?us-ascii?Q?PqmP3LvV1Xf9XrAU/6ZQVPCYRJOUIt9HFTqvqevx6zD0qba4K6NANrFlHXcq?=
+ =?us-ascii?Q?1YknuRxftgBbF7MotxtgGNIjsolYPtA=3D?=
+X-Exchange-RoutingPolicyChecked: dNN0JDgTW6rU7SMtQLu0Ph1qh5o/DSO5V5mnDObpih68VIvrF0d/qqOAdSF1N0EpffJoLT8ee/efQpCVO+5Xa7hCen+Fxk5/qytqofGLV7+IL03rlaeazLj1l7p/hvXzFyAUyU2WfEZs0AoQdjeSqZrJHEHM/Ckrq2hNGqCU1N3cgS5KXhxu69V+Ef6p4r0DVHA/jVqp2eWv7dRBorXTv/3PAeVRZezauzbQKFAsxHLXjlZm7s1S2DeHATLfwEpcHX1GLt0uMaAgFF9UsejkvTrL6c9PovbI9udjPPbpvp0KLY+r2kAfJINiIYL6TENvMrxXth972UFXeU9xVeR2CQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d989b0ed-3f95-471c-7cd7-08df353fd450
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 22:07:17.4567 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vQ1tAZz2kGaQx0w3lY0kJnLcBOT4FNr/KP9ntKzos/tKcD0hG619g2uOmu/e1lxv9i3eg1vLPdTcavg1qlbvNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB701697
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,117 +156,181 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Dave, Simona,
+On Wed, Oct 28, 2026 at 12:33:51PM +0100, Natalie Vock wrote:
+> Hi,
+> 
+> On 10/27/26 23:49, Matthew Brost wrote:
+> > Drivers walking a manager's LRU with ttm_bo_lru_for_each_reserved_guarded()
+> > may decide that the rest of the current priority isn't worth walking,
+> > for example when the priority is roughly age ordered and the walk hit
+> > a BO that is still too hot to evict. Today the only option is to stop
+> > the walk altogether, which also gives up on the remaining priorities.
+> > 
+> > Add ttm_resource_manager_next_priority() to move a resource cursor to
+> > the start of the next priority, and ttm_bo_lru_cursor_skip_priority()
+> > to make the next ttm_bo_lru_cursor_next() use it.
+> > 
+> > While at it, stop incrementing the cursor priority past the last valid
+> > priority once the iteration is done.
+> > 
+> > Assisted-by: LLM
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > ---
+> >  drivers/gpu/drm/ttm/ttm_bo_util.c  |  3 +++
+> >  drivers/gpu/drm/ttm/ttm_resource.c | 35 ++++++++++++++++++++++++++----
+> >  include/drm/ttm/ttm_bo.h           | 19 ++++++++++++++++
+> >  include/drm/ttm/ttm_resource.h     |  2 ++
+> >  4 files changed, 55 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> > index f9458a4d5a09..d626f014e61f 100644
+> > --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> > +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> > @@ -997,6 +997,9 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
+> >  		if (first) {
+> >  			res = ttm_resource_manager_first(&curs->res_curs);
+> >  			first = false;
+> > +		} else if (curs->skip_priority) {
+> > +			res = ttm_resource_manager_next_priority(&curs->res_curs);
+> > +			curs->skip_priority = false;
+> >  		} else {
+> >  			res = ttm_resource_manager_next(&curs->res_curs);
+> >  		}
+> > diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+> > index 4e6d3d658d85..e631507d7aa1 100644
+> > --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> > +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+> > @@ -674,6 +674,17 @@ ttm_resource_cursor_check_bulk(struct ttm_resource_cursor *cursor,
+> >  	}
+> >  }
+> >  
+> > +static bool ttm_resource_cursor_next_priority(struct ttm_resource_cursor *cursor)
+> > +{
+> > +	if (cursor->priority + 1 >= TTM_MAX_BO_PRIORITY)
+> > +		return false;
+> > +
+> > +	list_move(&cursor->hitch.link, &cursor->man->lru[++cursor->priority]);
+> > +	ttm_resource_cursor_clear_bulk(cursor);
+> > +
+> > +	return true;
+> > +}
+> > +
+> >  /**
+> >   * ttm_resource_manager_first() - Start iterating over the resources
+> >   * of a resource manager
+> > @@ -723,16 +734,32 @@ ttm_resource_manager_next(struct ttm_resource_cursor *cursor)
+> >  			}
+> >  		}
+> >  
+> > -		if (++cursor->priority >= TTM_MAX_BO_PRIORITY)
+> > +		if (!ttm_resource_cursor_next_priority(cursor))
+> >  			break;
+> > -
+> > -		list_move(&cursor->hitch.link, &man->lru[cursor->priority]);
+> > -		ttm_resource_cursor_clear_bulk(cursor);
+> >  	}
+> >  
+> >  	return NULL;
+> >  }
+> >  
+> > +/**
+> > + * ttm_resource_manager_next_priority() - Skip the rest of the current
+> > + * priority and continue iterating at the next one
+> > + * @cursor: cursor to record the position
+> > + *
+> > + * Return: the first resource of the next non-empty priority, or NULL if
+> > + * there is none.
+> > + */
+> > +struct ttm_resource *
+> > +ttm_resource_manager_next_priority(struct ttm_resource_cursor *cursor)
+> > +{
+> > +	lockdep_assert_held(&cursor->man->bdev->lru_lock);
+> > +
+> > +	if (!ttm_resource_cursor_next_priority(cursor))
+> > +		return NULL;
+> > +
+> > +	return ttm_resource_manager_next(cursor);
+> > +}
+> > +
+> >  /**
+> >   * ttm_lru_first_res_or_null() - Return the first resource on an lru list
+> >   * @head: The list head of the lru list.
+> > diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> > index 32791c4db2a9..2fc517dbf03d 100644
+> > --- a/include/drm/ttm/ttm_bo.h
+> > +++ b/include/drm/ttm/ttm_bo.h
+> > @@ -507,10 +507,29 @@ struct ttm_bo_lru_cursor {
+> >  	 * unlock before the next iteration or after loop exit.
+> >  	 */
+> >  	bool needs_unlock;
+> > +	/**
+> > +	 * @skip_priority: Continue at the next LRU priority on the next
+> > +	 * iteration. See ttm_bo_lru_cursor_skip_priority().
+> > +	 */
+> > +	bool skip_priority;
+> >  	/** @arg: Pointer to common BO LRU walk arguments. */
+> >  	struct ttm_lru_walk_arg *arg;
+> >  };
+> >  
+> > +/**
+> > + * ttm_bo_lru_cursor_skip_priority() - Skip the rest of the current priority
+> > + * @curs: The cursor.
+> > + *
+> > + * Make the next ttm_bo_lru_cursor_next() skip the remaining buffer objects
+> > + * of the current LRU priority and continue at the next priority, for
+> > + * example when the caller decides the rest of the priority isn't worth
+> > + * walking.
+> > + */
+> > +static inline void ttm_bo_lru_cursor_skip_priority(struct ttm_bo_lru_cursor *curs)
+> > +{
+> > +	curs->skip_priority = true;
+> 
+> Hm. I wonder if you could instead call ttm_bo_lru_cursor_cleanup_bo() here and
+> then increment the priority (with proper checks). Then the normal LRU iteration
+> should also select the first item on the proper priority's LRU.
+> 
 
-Fixes for 7.4.
+I don't think that quite works but agree getting ride of the bool should
+be doable.
 
-The following changes since commit 9131cc85d0dedd8ba4cae60dbe5985d081551f30:
+I think we need to grab the lru spin lock here and move the hitch to end
+of the priority band and the next call to __ttm_bo_lru_cursor_next
+figures everything out with any modification or an extra bool.
 
-  drm/amdkfd: correct vram_available calculation (2026-10-20 12:10:23 -0400)
+Let me try this out.
 
-are available in the Git repository at:
+Matt
 
-  https://gitlab.freedesktop.org/drm/amdgpu/kernel.git tags/amd-drm-next-fixes-7.4-2026-10-28
-
-for you to fetch changes up to fbb201890156e04b062c4488d1b500de52367684:
-
-  drm/amd/display: refresh cached HDMI FreeSync state (2026-10-27 17:06:02 -0400)
-
-----------------------------------------------------------------
-amd-drm-next-fixes-7.4-2026-10-28:
-
-amdgpu:
-- VCE/UVD sched teardown fix
-- Display runpm reference fix
-- Display TD-LUT fix
-- SMU 13.x fixes
-- SMU 14.x fixes
-- Gang submit fix
-- Passive DVI sink fix
-- USB4 tunnel fix
-- Freesync fix
-
-amdkfd:
-- Bounds checking fixes
-- Hotplug fixes
-- SVM fixes
-- CRIU fixes
-- GFX12 fix
-
-----------------------------------------------------------------
-Avi Weiss (1):
-      drm/amd/display: Initialize missing TD-LUT programming inputs
-
-Fangzhi Zuo (3):
-      drm/amd/display: Poll passive DVI sinks for EDID readiness
-      drm/amd/display: Cap DSC bpp for USB4 DP tunnels
-      drm/amd/display: refresh cached HDMI FreeSync state
-
-Harkirat Gill (1):
-      drm/amdgpu: re-enable GFXOFF for compute on GFX12
-
-Jesse Zhang (5):
-      drm/amdgpu: reject CS chunks too large for kvmalloc()
-      drm/amdkfd: split vram_pages of SVM ranges prefetched without a GPU mapping
-      drm/amdkfd: send SMI process and VM fault events only to allowed clients
-      drm/amdgpu: drop the gang leader reference when freeing gang jobs
-      drm/amdkfd: evict the queues only once for CRIU PROCESS_INFO
-
-Jiale Yao (1):
-      drm/amdkfd: validate SRAT subtables before parsing
-
-Kenneth Feng (1):
-      drm/amd/pm: add zero fan stop temperature support on smu 14.0.2
-
-Kevin Wang (2):
-      drm/amd/pm: preserve committed OD features for SMU 13.0.0/13.0.7
-      drm/amd/pm: preserve committed OD features for SMU 14.0.2
-
-Luigi Lauro (1):
-      drm/amd/display: take a runtime PM reference only when a CRTC turns on
-
-Olivier Kaloudoff (3):
-      drm/amdkfd: tear down KFD processes before early fini_sw on disconnect
-      drm/amdkfd: stop restore retries on device unplug
-      drm/amdgpu: guard VCE/UVD sched entity teardown on failed probe
-
-William Palacek (1):
-      drm/amdkfd: Validate the control stack of a restored queue
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  18 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   6 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  24 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            |   3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  15 +-
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |  35 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device.c            |   9 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h       |   9 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    |   2 +
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  30 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |  60 +++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  21 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  15 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |   9 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  22 ++
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  17 +-
- .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c     |   2 +
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 193 ++++++++++----
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   | 193 ++++++++++----
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 283 ++++++++++++++++-----
- 28 files changed, 734 insertions(+), 255 deletions(-)
+> It sort of conflicts the other refactoring you did, but doing things this way
+> avoids adding more boolean flags and complexity in __ttm_bo_lru_cursor_next
+> (which I'm not a huge fan of).
+> 
+> Best,
+> Natalie
+> 
+> > +}
+> > +
+> >  void ttm_bo_lru_cursor_fini(struct ttm_bo_lru_cursor *curs);
+> >  
+> >  struct ttm_bo_lru_cursor *
+> > diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+> > index 714c533622c2..8cd70d1e5481 100644
+> > --- a/include/drm/ttm/ttm_resource.h
+> > +++ b/include/drm/ttm/ttm_resource.h
+> > @@ -499,6 +499,8 @@ struct ttm_resource *
+> >  ttm_resource_manager_first(struct ttm_resource_cursor *cursor);
+> >  struct ttm_resource *
+> >  ttm_resource_manager_next(struct ttm_resource_cursor *cursor);
+> > +struct ttm_resource *
+> > +ttm_resource_manager_next_priority(struct ttm_resource_cursor *cursor);
+> >  
+> >  struct ttm_resource *
+> >  ttm_lru_first_res_or_null(struct list_head *head);
+> 
