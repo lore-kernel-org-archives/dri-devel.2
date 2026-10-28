@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B606606A31D
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 15:51:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11D1606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 15:52:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bw7HXkHU
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uqAleGlA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F5F10E688;
-	Wed, 28 Oct 2026 15:51:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E02210E635;
+	Wed, 28 Oct 2026 15:52:08 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id DADFC10E688
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 15:51:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3FD2510E635
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 15:52:02 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2309F1756
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 08:51:09 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AE6A81756
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 08:51:58 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 098D63F673
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 08:51:11 -0700 (PDT)
+ A19DA3F673
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 08:52:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1793202672; bh=QHIk/uWzcHH5EhNGbfwfN7gO5R91eIxjJbKUe2LX8Uc=;
+ t=1793202721; bh=oHHZ8DhzfXs4MUGZ9+6PoZi4Xb1MrhxkebKog/hBHfw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bw7HXkHUqW+g+r78yBdcnPIblKzh4FaILf60hIJexG9vce8gjjN9dGXXtdMxG31Mj
- oQ7rSFVQL2bERimAnLUZ4z6WsUZdGg3FM/u+9I00UeznQKIPUyMfnGC8LltL4DiEbl
- OCalmm/N70Dz320VCgd4tV59rdzcuyGbFy71inWw=
-Date: Wed, 28 Oct 2026 15:51:10 +0000
+ b=uqAleGlAJVU35waDTS+u+V3LZbzVJGo7mbeLERvB4E7lRlDpE3lDR3+IOVpne8Z60
+ pY8AfaLw5FSj6W9QylOY34xTrco/TMhbUNm+cdQRXjtLa2/bhepz7j4zIDW8uINh79
+ eIVoOFKrTNesN45sc9sHI+hSnHD7ua0MamdWN9vU=
+Date: Wed, 28 Oct 2026 15:52:00 +0000
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Karunika Choo <karunika.choo@arm.com>
 Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
@@ -34,19 +34,18 @@ Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: Re: [PATCH v1 01/27] drm/panthor: Ignore -EOPNOTSUPP for
- shader-present nvmem lookup
-Message-ID: <auIZ7rtnOPVXnFHw@e142607>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH v1 02/27] drm/panthor: Move register access helpers out
+ of panthor_device.h
+Message-ID: <auIaIHhUtJDgqmB7@e142607>
 References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-2-karunika.choo@arm.com>
+ <20260922204535.2850094-3-karunika.choo@arm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922204535.2850094-2-karunika.choo@arm.com>
+In-Reply-To: <20260922204535.2850094-3-karunika.choo@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,47 +64,215 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Sep 22, 2026 at 09:44:55PM +0100, Karunika Choo wrote:
-> When CONFIG_NVMEM is disabled, reading the optional "shader-present"
-> nvmem cell can return -EOPNOTSUPP.
+On Tue, Sep 22, 2026 at 09:44:56PM +0100, Karunika Choo wrote:
+> Move register access helpers out of panthor_device.h to allow reuse by
+> other panthor drivers that will be added to enable v15 support.
 > 
-> Treat this the same as the cell being absent so panthor can continue
-> probing on platforms that do not provide shader-present fuses through
-> nvmem.
-> 
-> Fixes: c40b50c3cfbe ("drm/panthor: Implement reading shader_present from nvmem")
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Steven Price <steven.price@arm.com>
 > Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 
 Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-I will probably pick some fixes from this series and apply them regardless.
 
 Best regards,
 Liviu
 
 > ---
 > v1:
-> - Picked up R-bs from Boris and Steve
-> - Added Fixes tag
+> - Includes "panthor_device_io.h" directly in "panthor_device.h" instead
+>   of peppering multiple files with the header.
 > 
->  drivers/gpu/drm/panthor/panthor_hw.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/panthor/panthor_device.h    | 74 +-----------------
+>  drivers/gpu/drm/panthor/panthor_device_io.h | 83 +++++++++++++++++++++
+>  2 files changed, 85 insertions(+), 72 deletions(-)
+>  create mode 100644 drivers/gpu/drm/panthor/panthor_device_io.h
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-> index 7e315708ca7ca..4c96573b649a1 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -182,7 +182,7 @@ static int overload_shader_present(struct panthor_device *ptdev)
->  					      &contents);
->  	if (!ret)
->  		ptdev->gpu_info.shader_present = contents;
-> -	else if (ret == -ENOENT)
-> +	else if (ret == -ENOENT || ret == -EOPNOTSUPP)
->  		return 0;
->  	else
->  		return dev_err_probe(ptdev->base.dev, ret,
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index b55a3f9edd414..54031c5252473 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -6,7 +6,6 @@
+>  #ifndef __PANTHOR_DEVICE_H__
+>  #define __PANTHOR_DEVICE_H__
+> 
+> -#include <linux/atomic.h>
+>  #include <linux/io-pgtable.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/pm_runtime.h>
+> @@ -19,6 +18,8 @@
+>  #include <drm/gpu_scheduler.h>
+>  #include <drm/panthor_drm.h>
+> 
+> +#include "panthor_device_io.h"
+> +
+>  struct panthor_csf;
+>  struct panthor_csf_ctx;
+>  struct panthor_device;
+> @@ -495,77 +496,6 @@ panthor_exception_is_fault(u32 exception_code)
+>  const char *panthor_exception_name(struct panthor_device *ptdev,
+>  				   u32 exception_code);
+> 
+> -static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
+> -{
+> -	writel(data, iomem + reg);
+> -}
+> -
+> -static inline u32 gpu_read(void __iomem *iomem, u32 reg)
+> -{
+> -	return readl(iomem + reg);
+> -}
+> -
+> -static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
+> -{
+> -	return readl_relaxed(iomem + reg);
+> -}
+> -
+> -static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
+> -{
+> -	gpu_write(iomem, reg, lower_32_bits(data));
+> -	gpu_write(iomem, reg + 4, upper_32_bits(data));
+> -}
+> -
+> -static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
+> -{
+> -	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
+> -}
+> -
+> -static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
+> -{
+> -	return (gpu_read_relaxed(iomem, reg) |
+> -		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
+> -}
+> -
+> -static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+> -{
+> -	u32 lo, hi1, hi2;
+> -	do {
+> -		hi1 = gpu_read(iomem, reg + 4);
+> -		lo = gpu_read(iomem, reg);
+> -		hi2 = gpu_read(iomem, reg + 4);
+> -	} while (hi1 != hi2);
+> -	return lo | ((u64)hi2 << 32);
+> -}
+> -
+> -#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> -	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
+> -			  iomem, reg)
+> -
+> -#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> -				     timeout_us)				\
+> -	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
+> -				 false, iomem, reg)
+> -
+> -#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> -	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
+> -			  iomem, reg)
+> -
+> -#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> -				       timeout_us)				\
+> -	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
+> -				 false, iomem, reg)
+> -
+> -#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
+> -					     timeout_us)			\
+> -	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
+> -				 timeout_us, false, iomem, reg)
+> -
+> -#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
+> -					timeout_us)				\
+> -	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
+> -			  false, iomem, reg)
+> -
+>  #define INT_RAWSTAT 0x0
+>  #define INT_CLEAR   0x4
+>  #define INT_MASK    0x8
+> diff --git a/drivers/gpu/drm/panthor/panthor_device_io.h b/drivers/gpu/drm/panthor/panthor_device_io.h
+> new file mode 100644
+> index 0000000000000..2287a0d9f86c2
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panthor/panthor_device_io.h
+> @@ -0,0 +1,83 @@
+> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
+> +/* Copyright 2026 ARM Limited. All rights reserved. */
+> +
+> +#ifndef __PANTHOR_DEVICE_IO_H__
+> +#define __PANTHOR_DEVICE_IO_H__
+> +
+> +#include <linux/atomic.h>
+> +#include <linux/io.h>
+> +
+> +
+> +static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
+> +{
+> +	writel(data, iomem + reg);
+> +}
+> +
+> +static inline u32 gpu_read(void __iomem *iomem, u32 reg)
+> +{
+> +	return readl(iomem + reg);
+> +}
+> +
+> +static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
+> +{
+> +	return readl_relaxed(iomem + reg);
+> +}
+> +
+> +static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
+> +{
+> +	gpu_write(iomem, reg, lower_32_bits(data));
+> +	gpu_write(iomem, reg + 4, upper_32_bits(data));
+> +}
+> +
+> +static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
+> +{
+> +	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
+> +}
+> +
+> +static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
+> +{
+> +	return (gpu_read_relaxed(iomem, reg) |
+> +		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
+> +}
+> +
+> +static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+> +{
+> +	u32 lo, hi1, hi2;
+> +	do {
+> +		hi1 = gpu_read(iomem, reg + 4);
+> +		lo = gpu_read(iomem, reg);
+> +		hi2 = gpu_read(iomem, reg + 4);
+> +	} while (hi1 != hi2);
+> +	return lo | ((u64)hi2 << 32);
+> +}
+> +
+> +#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> +	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
+> +			  iomem, reg)
+> +
+> +#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> +				     timeout_us)				\
+> +	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
+> +				 false, iomem, reg)
+> +
+> +#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> +	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
+> +			  iomem, reg)
+> +
+> +#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> +				       timeout_us)				\
+> +	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
+> +				 false, iomem, reg)
+> +
+> +#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
+> +					     timeout_us)			\
+> +	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
+> +				 timeout_us, false, iomem, reg)
+> +
+> +#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
+> +					timeout_us)				\
+> +	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
+> +			  false, iomem, reg)
+> +
+> +
+> +#endif /* __PANTHOR_DEVICE_IO_H__ */
 > --
 > 2.43.0
 > 
