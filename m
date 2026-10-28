@@ -2,43 +2,48 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56347606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCFF606A31A
 	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:03:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+CW8md1
+	dkim=pass (1024-bit key, unprotected) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=IAszxEV9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E53CB112029;
-	Thu, 29 Oct 2026 08:03:12 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0378510E0E7
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:02:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B32C643B97
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:02:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7944E1F01828;
- Thu, 29 Oct 2026 08:02:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793260946;
- bh=1zLrculFnAqOhAhJid8B+gx4HmStbujp5/3ZlhKBvqo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=D+CW8md1hBttNCQHq/qNKpSyM5WxqtuAwWgv2eY7qy1Tqw0Hmlia/MEIrmVSCa39C
- 26qhIxk6l1tiQwjPOSSFHsg+vit8jsegBgjpdjW3W2hnQOCcJ7lLU7YyUNsuCBu7lq
- cBbDHjiP+sQ7EYXtbi+9BCNfNPQ4BpnGOkm578a5HIXX7tBGAQr9PSspmu1GrwYzvE
- uN+Mpw5BI1M3TfpaiaptiGK0zu6g05ovqvKJdyK2UQWn0W4blYywwXj1tjAkkMLfQt
- LqIQRZoHqXZyCYuHwm2/qowF/Ze4HxinD/H7Yh+FAudm90/aeznLtpBqYtHjb00dfj
- lbPs5QbJyhb2w==
-Message-ID: <sashiko-outbox-188935@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 17/34] drm/atomic_sro: Provide helpers to implement
- hardware state readout
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029-drm-state-readout-v7-17-25e5163d75c3@kernel.org>
-References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
- <20261029-drm-state-readout-v7-17-25e5163d75c3@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 08:02:26 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 049E511202B;
+	Thu, 29 Oct 2026 08:03:13 +0000 (UTC)
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Wed, 28 Oct 2026 11:54:16 UTC
+Received: from mail-m25471.xmail.ntesmail.com (mail-m25471.xmail.ntesmail.com
+ [103.129.254.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3CF310FBDF;
+ Wed, 28 Oct 2026 11:54:16 +0000 (UTC)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Message-ID: <AEIA0AB-LKtSXDTFfmaW4Kox.1.1793188150804.Hmail.242270054@hdu.edu.cn>
+To: airlied@redhat.com, kraxel@redhat.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Subject: =?UTF-8?B?ZHJtL3F4bDogemVyby1pbml0aWFsaXplIHJlbGVhc2Ugb2JqZWN0cw==?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Received: from 242270054@hdu.edu.cn( [218.75.123.175] ) by ajax-webmail (
+ [127.0.0.1] ) ; Wed, 28 Oct 2026 19:49:10 +0800 (GMT+08:00)
+From: =?UTF-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
+Date: Wed, 28 Oct 2026 19:49:10 +0800 (GMT+08:00)
+X-HM-Tid: 0aa18255b2fad45akusyefe39ad210ecd
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTRpDVkNISUNPGUNISkNDQ1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVTE5VSklIVUpMTllXWRYaDxIVHRRZQVlLVUtVS1
+ VLWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=IAszxEV9w4pGN/PPzdD1i8eDJ88Q6G1Ph9ahjMhNl3vbCdW34V9X767KMOmNO+QzMlfBdS5SSeo1/k8TlZia5coqmvPAbtm489uEoll4gFzAypJR+KK/iNE0GloA5FiHk7SJQDi9GO0AqtI5pxsVrYCPVkW15kW7Ps3IdfPQysA=;
+ c=relaxed/relaxed; s=default; d=hdu.edu.cn; v=1; 
+ bh=HW1cRM+/8/4aOaG8BOtkLla4CpvN2SZPj37SR2pxNxg=;
+ h=date:mime-version:subject:message-id:from;
+X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,276 +54,115 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Medium] drm/atomic_sro: unexported drm_atomic_helper_colorop_create_stat=
-e() call
-- [Medium] drm/atomic_sro: missing EXPORT_SYMBOL() on per-object readout he=
-lpers
-- [Medium] drm/atomic_sro: colorop state leak in drm_atomic_helper_sro_read=
-out_state()
-- [Medium] drm/atomic_sro: missing fallback state when object readout hook =
-is absent
-- [Medium] drm/atomic_sro: bridge readout WARN_ON() on partial commit conne=
-ctor state
---
-
-commit dadf54d14092f977607e2034fd03f065196831b7
-Author: Maxime Ripard <mripard@kernel.org>
-
-drm/atomic_sro: Provide helpers to implement hardware state readout
-
-This commit introduces helper functions in drm_kms_helper to iterate over K=
-MS
-objects, allocate pristine states, and invoke their hardware state readout
-callbacks, along with top-level helpers to build and install the initial
-readout state.
-
-> diff --git a/drivers/gpu/drm/drm_atomic_state_readout_helper.c b/drivers/=
-gpu/drm/drm_atomic_state_readout_helper.c
-> new file mode 100644
-> index 0000000000000..a0b0337df2a00
-> --- /dev/null
-> +++ b/drivers/gpu/drm/drm_atomic_state_readout_helper.c
-> @@ -0,0 +1,681 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +#include <drm/drm_atomic.h>
-> +#include <drm/drm_atomic_state_readout.h>
-> +#include <drm/drm_atomic_state_readout_helper.h>
-> +#include <drm/drm_bridge.h>
-> +#include <drm/drm_colorop.h>
-> +#include <drm/drm_connector.h>
-> +#include <drm/drm_crtc.h>
-> +#include <drm/drm_encoder.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
-> +#include <drm/drm_plane.h>
-> +#include <drm/drm_print.h>
-> +
-> +#include <linux/gfp.h>
-> +#include <linux/sched/mm.h>
-> +
-> +static int
-> +drm_atomic_helper_sro_readout_plane_state(struct drm_device *dev,
-> +					  struct drm_atomic_sro_state *state,
-> +					  struct drm_plane *plane)
-> +{
-> +	const struct drm_plane_funcs *plane_funcs =3D plane->funcs;
-> +	struct drm_plane_state *plane_state;
-> +	int ret;
-> +
-> +	if (!plane_funcs->atomic_sro_readout_state) {
-> +		drm_warn(dev, "No plane readout implementation.");
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-When atomic_readout is set to DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT,
-drm_atomic_sro_device_can_readout() allows readout to proceed even if some
-objects do not implement atomic_sro_readout_state.
-
-If drm_atomic_helper_sro_readout_plane_state() (and the corresponding CRTC,
-connector, bridge, and private object helpers below) returns 0 here without
-allocating a default state via atomic_create_state() and storing it in stat=
-e,
-drm_atomic_helper_sro_readout_state() will succeed and cause
-drm_mode_config_create_initial_state() to skip drm_mode_config_create_state=
-():
-
-drivers/gpu/drm/drm_mode_config.c:drm_mode_config_create_initial_state() {
-	if (dev->mode_config.funcs->atomic_sro_readout_state) {
-		ret =3D dev->mode_config.funcs->atomic_sro_readout_state(dev);
-		if (!ret)
-			goto out;
-	}
-
-	ret =3D drm_mode_config_create_state(dev);
-}
-
-Won't that leave any object lacking atomic_sro_readout_state with a NULL
-state pointer after initialization (and also trigger WARN_ON(!conn_state) in
-find_connector_state_for_encoder() during bridge readout if a connector was
-skipped)?
-
-> +
-> +	drm_dbg_kms(dev, "Initializing Plane %s state.\n", plane->name);
-> +
-> +	plane_state =3D plane_funcs->atomic_create_state(plane);
-> +	if (drm_WARN_ON(dev, IS_ERR(plane_state)))
-> +		return PTR_ERR(plane_state);
-> +
-> +	ret =3D plane_funcs->atomic_sro_readout_state(plane, state,
-> +						    plane_state);
-> +	if (drm_WARN_ON(dev, ret)) {
-> +		plane_funcs->atomic_destroy_state(plane, plane_state);
-> +		return ret;
-> +	}
-> +
-> +	drm_atomic_sro_set_plane_state(state, plane, plane_state);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +int
-> +drm_atomic_helper_sro_readout_planes_state(struct drm_device *dev,
-> +					   struct drm_atomic_sro_state *state,
-> +					   struct drm_atomic_commit *commit)
-> +{
-> +	struct drm_plane *plane;
-> +	int ret;
-> +
-> +	might_alloc(GFP_KERNEL);
-> +
-> +	if (commit)
-> +		return drm_atomic_helper_sro_readout_commit_planes_state(dev, state, c=
-ommit);
-> +
-> +	drm_for_each_plane(plane, dev) {
-> +		ret =3D drm_atomic_helper_sro_readout_plane_state(dev, state, plane);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should drm_atomic_helper_sro_readout_planes_state() and the other four
-per-object helpers (drm_atomic_helper_sro_readout_crtcs_state(),
-drm_atomic_helper_sro_readout_connectors_state(),
-drm_atomic_helper_sro_readout_bridges_state(), and
-drm_atomic_helper_sro_readout_private_objs_state()) have EXPORT_SYMBOL()?
-
-They are declared in include/drm/drm_atomic_state_readout_helper.h and pull=
-ed
-into Documentation/gpu/drm-kms-helpers.rst via :export:, but without
-EXPORT_SYMBOL() modular drivers implementing a custom atomic_sro_build_state
-callback will fail to link at modpost.
-
-[ ... ]
-
-> +static int
-> +drm_atomic_helper_sro_readout_commit_connectors_state(struct drm_device =
-*dev,
-> +						      struct drm_atomic_sro_state *state,
-> +						      struct drm_atomic_commit *commit)
-> +{
-> +	struct drm_connector_state *new_connector_state;
-> +	struct drm_connector *connector;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (!commit)
-> +		return -EINVAL;
-> +
-> +	for_each_new_connector_in_state(commit, connector, new_connector_state,=
- i) {
-> +		ret =3D drm_atomic_helper_sro_readout_connector_state(dev, state, conn=
-ector);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-When drm_atomic_helper_sro_build_state() is called with a non-NULL commit t=
-hat
-only includes a subset of the device's connectors,
-drm_atomic_helper_sro_readout_commit_connectors_state() only populates
-connector states in state for the connectors in that commit.
-
-Later in drm_atomic_helper_sro_build_state(),
-drm_atomic_helper_sro_readout_bridges_state() reads out the bridges for the
-committed connectors' encoders. For bridges using
-drm_bridge_atomic_readout_priv_state(), this calls
-find_connector_state_for_encoder() in drivers/gpu/drm/drm_bridge.c:
-
-	drm_for_each_connector_iter(connector, &conn_iter) {
-		struct drm_connector_state *conn_state =3D
-			drm_atomic_sro_get_connector_state(state, connector);
-
-		if (WARN_ON(!conn_state))
-			continue;
-
-Doesn't this trigger WARN_ON(!conn_state) for every connector on the device
-that was not part of the commit?
-
-[ ... ]
-
-> +int drm_atomic_helper_sro_readout_state(struct drm_device *dev)
-> +{
-> +	const struct drm_mode_config_helper_funcs *funcs =3D
-> +		dev->mode_config.helper_private;
-> +	struct drm_atomic_sro_state *state;
-> +	struct drm_colorop *colorop;
-> +
-> +	if (!drm_atomic_sro_device_can_readout(dev)) {
-> +		drm_info(dev, "Device doesn't support hardware state readout.");
-> +		return -ENOTSUPP;
-> +	}
-> +
-> +	state =3D funcs->atomic_sro_build_state(dev, NULL);
-> +	if (IS_ERR(state))
-> +		return PTR_ERR(state);
-> +
-> +	/* TODO: Add colorop state readout support */
-> +	drm_for_each_colorop(colorop, dev) {
-> +		struct drm_colorop_state *colorop_state;
-> +
-> +		colorop_state =3D drm_atomic_helper_colorop_create_state(colorop);
-
-[Severity: Medium]
-Does this build when CONFIG_DRM_KMS_HELPER=3Dm?
-
-drm_atomic_state_readout_helper.o is linked into drm_kms_helper.ko in
-drivers/gpu/drm/Makefile, while drm_atomic_helper_colorop_create_state() is
-defined in drivers/gpu/drm/drm_colorop.c (part of drm.ko) without
-EXPORT_SYMBOL(), which causes a modpost undefined symbol error.
-
-> +		if (IS_ERR(colorop_state)) {
-> +			drm_atomic_sro_state_free(state);
-> +			return PTR_ERR(colorop_state);
-> +		}
-> +
-> +		colorop->state =3D colorop_state;
-> +	}
-
-[Severity: Medium]
-Can this loop leak colorop->state?
-
-The drm_plane_colorop_*_init() helpers in drivers/gpu/drm/drm_colorop.c call
-drm_colorop_reset(), which allocates and populates colorop->state during
-initialization. In drivers/gpu/drm/drm_mode_config.c,
-drm_mode_config_create_state() skips colorops that already have a state:
-
-	drm_for_each_colorop(colorop, dev) {
-		struct drm_colorop_state *colorop_state;
-
-		if (colorop->state)
-			continue;
-
-		colorop_state =3D drm_atomic_helper_colorop_create_state(colorop);
-
-Assigning colorop->state unconditionally here without checking or destroying
-an existing colorop->state (and without cleaning up earlier iterations if a
-later drm_atomic_helper_colorop_create_state() call fails) appears to leak =
-the
-previously allocated struct drm_colorop_state.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-drm-state-=
-readout-v7-0-25e5163d75c3@kernel.org?part=3D17
+CgpIZWxsbywKCkkgd291bGQgbGlrZSB0byByZXBvcnQgYSByZXByb2R1Y2libGUga2VybmVsIE5V
+TEwgcG9pbnRlciBkZXJlZmVyZW5jZSBpbiB0aGUKUVhMIERSTSBkcml2ZXIncyByZWxlYXNlL2Zl
+bmNlIGNsZWFudXAgcGF0aC4gSSByZXByb2R1Y2VkIGl0IG9uIGEgTGludXgKNy4xLjUtYmFzZWQg
+eDg2XzY0IGtlcm5lbCBpbiBRRU1VLgoKU3VtbWFyeQo9PT09PT09CgpBIHVzZXJzcGFjZSBEUk1f
+SU9DVExfUVhMX0VYRUNCVUZGRVIgcmVxdWVzdCBjYW4gbWFrZSBxeGxfcHJvY2Vzc19zaW5nbGVf
+Y29tbWFuZCgpCmFsbG9jYXRlIGEgcXhsX3JlbGVhc2UgYW5kIHRoZW4gZmFpbCB3aGlsZSBsb29r
+aW5nIHVwIGEgcmVsb2NhdGlvbidzIEdFTSBoYW5kbGUuClRoZSBlcnJvciBwYXRoIGNhbGxzIHF4
+bF9yZWxlYXNlX2ZyZWUoKSBiZWZvcmUgZG1hX2ZlbmNlX2luaXQoKSBoYXMgcnVuLiBJbiB0aGUK
+YWZmZWN0ZWQgY29kZSwgcXhsX3JlbGVhc2VfYWxsb2MoKSBhbGxvY2F0ZXMgdGhlIG9iamVjdCB3
+aXRoIGttYWxsb2MoKSBhbmQgb25seQppbml0aWFsaXplcyBzZWxlY3RlZCBmaWVsZHMuIHF4bF9y
+ZWxlYXNlX2ZyZWUoKSB0aGVuIGNhbGxzCmRtYV9mZW5jZV93YXNfaW5pdGlhbGl6ZWQoKSwgd2hp
+Y2ggcmVhZHMgdGhlIHVuaW5pdGlhbGl6ZWQgZmVuY2UgZmxhZ3MuIFdoZW4KdGhlIHN0YWxlIElO
+SVRJQUxJWkVEIGJpdCBpcyBzZXQsIGNsZWFudXAgdHJlYXRzIHRoZSBmZW5jZSBhcyBpbml0aWFs
+aXplZCBhbmQKY2FsbHMgZG1hX2ZlbmNlX3NpZ25hbCgpLiBUaGUgZmVuY2UgbG9jayBzZWxlY3Rp
+b24gY2FuIHRoZW4gcmV0dXJuIHRoZQp1bmluaXRpYWxpemVkIE5VTEwgZXh0ZXJuX2xvY2ssIGxl
+YWRpbmcgdG8gYSBOVUxMIGRlcmVmZXJlbmNlIGluCl9yYXdfc3Bpbl9sb2NrX2lycXNhdmUoKS4K
+ClRyaWdnZXIgYW5kIGNhbGwgcGF0aAo9PT09PT09PT09PT09PT09PT09PT0KClRoZSByZXByb2R1
+Y2luZyB1c2Vyc3BhY2Ugc2VxdWVuY2Ugb3BlbnMgL2Rldi9kcmkvY2FyZDAsIGlzc3VlcwpEUk1f
+SU9DVExfUVhMX0FMTE9DLCB0aGVuIGlzc3VlcyBEUk1fSU9DVExfUVhMX0VYRUNCVUZGRVIgd2l0
+aCBhIFFYTF9DTURfRFJBVwpjb21tYW5kIGFuZCBhIEJPIHJlbG9jYXRpb24gd2hvc2Ugc3JjX2hh
+bmRsZSBkb2VzIG5vdCBleGlzdCAodGhlIHRlc3QgdXNlZAoweGRlYWRiZWVmKS4gVGhlIGNvbW1h
+bmQgYW5kIHJlbG9jYXRpb24gbGVuZ3Rocy90eXBlcyBhcmUgb3RoZXJ3aXNlIHZhbGlkLgpUaGUg
+aW52YWxpZCBoYW5kbGUgbWFrZXMgdGhlIEdFTSBsb29rdXAgcmV0dXJuIC1FSU5WQUwgYW5kIHRh
+a2VzIHRoZSBub3JtYWwKZXJyb3ItY2xlYW51cCBwYXRoOgoKICBpb2N0bChEUk1fSU9DVExfUVhM
+X0VYRUNCVUZGRVIpCiAgICAtPiBxeGxfZXhlY2J1ZmZlcl9pb2N0bCgpCiAgICAtPiBxeGxfcHJv
+Y2Vzc19zaW5nbGVfY29tbWFuZCgpCiAgICAtPiBxeGxfYWxsb2NfcmVsZWFzZV9yZXNlcnZlZCgp
+CiAgICAtPiBxeGxod19oYW5kbGVfdG9fYm8oKSBbaW52YWxpZCBHRU0gaGFuZGxlLCByZXR1cm5z
+IC1FSU5WQUxdCiAgICAtPiBxeGxfcmVsZWFzZV9mcmVlKCkgW2JlZm9yZSBkbWFfZmVuY2VfaW5p
+dCgpXQogICAgLT4gZG1hX2ZlbmNlX3dhc19pbml0aWFsaXplZCgpIFtyZWFkcyB1bmluaXRpYWxp
+emVkIGZsYWdzXQogICAgLT4gZG1hX2ZlbmNlX3NpZ25hbCgpCiAgICAtPiBkbWFfZmVuY2Vfc3Bp
+bmxvY2soKSBbc2VsZWN0cyBOVUxMIGV4dGVybl9sb2NrXQogICAgLT4gX3Jhd19zcGluX2xvY2tf
+aXJxc2F2ZShOVUxMKQoKUmVsZXZhbnQgc291cmNlIGNvZGUKPT09PT09PT09PT09PT09PT09PT0K
+CnF4bF9yZWxlYXNlX2FsbG9jKCkgYWxsb2NhdGVzIHRoZSByZWxlYXNlIHdpdGgga21hbGxvYygp
+IGFuZCBpbml0aWFsaXplcyBvbmx5CnNlbGVjdGVkIGZpZWxkczsgdGhlIGVtYmVkZGVkIGRtYV9m
+ZW5jZSBzdGF0ZSBpcyBub3QgemVyb2VkOgoKICByZWxlYXNlID0ga21hbGxvYyhzaXplLCBHRlBf
+S0VSTkVMKTsKICBpZiAoIXJlbGVhc2UpCiAgICAgICAgICByZXR1cm4gLUVOT01FTTsKICByZWxl
+YXNlLT5iYXNlLm9wcyA9IE5VTEw7CiAgcmVsZWFzZS0+dHlwZSA9IHR5cGU7CiAgcmVsZWFzZS0+
+cmVsZWFzZV9vZmZzZXQgPSAwOwogIHJlbGVhc2UtPnN1cmZhY2VfcmVsZWFzZV9pZCA9IDA7CiAg
+SU5JVF9MSVNUX0hFQUQoJnJlbGVhc2UtPmJvcyk7CgpJbiBxeGxfcHJvY2Vzc19zaW5nbGVfY29t
+bWFuZCgpLCBhIG1pc3NpbmcgR0VNIGhhbmRsZSBtYWtlcwpxeGxod19oYW5kbGVfdG9fYm8oKSBy
+ZXR1cm4gLUVJTlZBTC4gVGhlIGNhbGxlciBqdW1wcyB0byBjbGVhbnVwIGJlZm9yZSByZWFjaGlu
+ZwpxeGxfcmVsZWFzZV9mZW5jZV9idWZmZXJfb2JqZWN0cygpLCB0aGUgbGF0ZXIgY29kZSBwYXRo
+IHRoYXQgY2FuIGluaXRpYWxpemUgdGhlCmZlbmNlIHdpdGggZG1hX2ZlbmNlX2luaXQoKToKCiAg
+cmV0ID0gcXhsaHdfaGFuZGxlX3RvX2JvKGZpbGVfcHJpdiwgcmVsb2Muc3JjX2hhbmRsZSwgcmVs
+ZWFzZSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgJnJlbG9jX2luZm9baV0uc3JjX2JvKTsK
+ICBpZiAocmV0KQogICAgICAgICAgZ290byBvdXRfZnJlZV9ib3M7CgogIC4uLgogIHF4bF9yZWxl
+YXNlX2ZlbmNlX2J1ZmZlcl9vYmplY3RzKHJlbGVhc2UpOwoKb3V0X2ZyZWVfYm9zOgpvdXRfZnJl
+ZV9yZWxlYXNlOgogIGlmIChyZXQpCiAgICAgICAgICBxeGxfcmVsZWFzZV9mcmVlKHFkZXYsIHJl
+bGVhc2UpOwoKVGhlIGxvb2t1cCByZXR1cm5zIC1FSU5WQUwgd2hlbiBkcm1fZ2VtX29iamVjdF9s
+b29rdXAoKSBjYW5ub3QgZmluZCB0aGUgaGFuZGxlOgoKICBnb2JqID0gZHJtX2dlbV9vYmplY3Rf
+bG9va3VwKGZpbGVfcHJpdiwgaGFuZGxlKTsKICBpZiAoIWdvYmopCiAgICAgICAgICByZXR1cm4g
+LUVJTlZBTDsKClRoZSBjbGVhbnVwIGRlY2lzaW9uIGlzIHRoZSBjcml0aWNhbCBidWcuIGRtYV9m
+ZW5jZV93YXNfaW5pdGlhbGl6ZWQoKSB0ZXN0cwpvbmx5IGEgYml0IGluIGZlbmNlLT5mbGFncywg
+YW5kIHF4bF9yZWxlYXNlX2ZyZWUoKSB1c2VzIHRoYXQgcmVzdWx0IHRvIGRlY2lkZQp3aGV0aGVy
+IHRvIHNpZ25hbCB0aGUgZmVuY2U6CgogIGlmIChkbWFfZmVuY2Vfd2FzX2luaXRpYWxpemVkKCZy
+ZWxlYXNlLT5iYXNlKSkgewogICAgICAgICAgcXhsX3JlbGVhc2VfZnJlZV9saXN0KHJlbGVhc2Up
+OwogICAgICAgICAgZG1hX2ZlbmNlX3NpZ25hbCgmcmVsZWFzZS0+YmFzZSk7CiAgICAgICAgICBk
+bWFfZmVuY2VfcHV0KCZyZWxlYXNlLT5iYXNlKTsKICB9IGVsc2UgewogICAgICAgICAgcXhsX3Jl
+bGVhc2VfZnJlZV9saXN0KHJlbGVhc2UpOwogICAgICAgICAga2ZyZWUocmVsZWFzZSk7CiAgfQoK
+VGhlIGhlbHBlciBpdHNlbGYgaXMgb25seSBhIGJpdCB0ZXN0OyBpdHMga2VybmVsIGNvbW1lbnQg
+c2F5cyB0aGlzIGlzIHZhbGlkCm9ubHkgd2hlbiB0aGUgZmVuY2UgYmFja2luZyBtZW1vcnkgd2Fz
+IHplcm8taW5pdGlhbGl6ZWQ6CgogIHJldHVybiBmZW5jZSAmJgogICAgICAgICB0ZXN0X2JpdChE
+TUFfRkVOQ0VfRkxBR19JTklUSUFMSVpFRF9CSVQsICZmZW5jZS0+ZmxhZ3MpOwoKT25jZSBkbWFf
+ZmVuY2Vfc2lnbmFsKCkgcnVucywgaXQgb2J0YWlucyB0aGUgbG9jayBmcm9tIHRoZSBmZW5jZSBm
+aWVsZHM6CgogIHJldHVybiB0ZXN0X2JpdChETUFfRkVOQ0VfRkxBR19JTkxJTkVfTE9DS19CSVQs
+ICZmZW5jZS0+ZmxhZ3MpID8KICAgICAgICAgJmZlbmNlLT5pbmxpbmVfbG9jayA6IGZlbmNlLT5l
+eHRlcm5fbG9jazsKCkluIHRoZSByZXByb2R1Y2luZyBydW4sIHN0YWxlIGZsYWdzIG1hZGUgdGhl
+IGZpcnN0IGJyYW5jaCBydW4gYWx0aG91Z2ggdGhlCmZlbmNlIGhhZCBuZXZlciBiZWVuIGluaXRp
+YWxpemVkLiBJdHMgZXh0ZXJuX2xvY2sgd2FzIE5VTEwsIHNvCmRtYV9mZW5jZV9zaWduYWwoKSBy
+ZWFjaGVkIHRoZSBOVUxMIGxvY2sgb3BlcmF0aW9uIGluIHRoZSBjcmFzaCB0cmFjZS4KClRoZSBy
+ZWxldmFudCB1c2Vyc3BhY2Ugb3BlcmF0aW9ucyB3ZXJlOgoKICBvcGVuYXQoQVRfRkRDV0QsICIv
+ZGV2L2RyaS9jYXJkMCIsIE9fUkRXUikKICBpb2N0bChmZCwgRFJNX0lPQ1RMX1FYTF9BTExPQywg
+Li4uKQogIGlvY3RsKGZkLCBEUk1fSU9DVExfUVhMX0VYRUNCVUZGRVIsIC4uLikKCkNyYXNoIGV2
+aWRlbmNlCj09PT09PT09PT09PT09CgpJbW1lZGlhdGVseSBiZWZvcmUgdGhlIGZhaWx1cmUsIHRo
+ZSBkaWFnbm9zdGljIHZhbHVlcyB3ZXJlOgoKICByZWxlYXNlPWZmMTEwMDAxMDBhM2ZiNDAgYmFz
+ZT1mZjExMDAwMTAwYTNmYjQwCiAgb3BzPTAwMDAwMDAwMDAwMDAwMDAgZmxhZ3M9MQogIGV4dGVy
+bl9sb2NrPTAwMDAwMDAwMDAwMDAwMDAgc2VsZWN0ZWRfbG9jaz0wMDAwMDAwMDAwMDAwMDAwCiAg
+cWRldl9sb2NrPWZmMTEwMDAxMDE1NWYyZjAKClRoZSBrZXJuZWwgcmVwb3J0ZWQ6CgogIEJVRzog
+a2VybmVsIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSwgYWRkcmVzczogMDAwMDAwMDAwMDAwMDAw
+MAogICNQRjogc3VwZXJ2aXNvciB3cml0ZSBhY2Nlc3MgaW4ga2VybmVsIG1vZGUKICBSSVA6IF9y
+YXdfc3Bpbl9sb2NrX2lycXNhdmUrMHg3My8weGMwCiAgQ1IyOiAwMDAwMDAwMDAwMDAwMDAwCiAg
+Q2FsbCBUcmFjZToKICAgIGRtYV9mZW5jZV9zaWduYWwKICAgIHF4bF9yZWxlYXNlX2ZyZWUKICAg
+IHF4bF9leGVjYnVmZmVyX2lvY3RsCiAgICBkcm1faW9jdGxfa2VybmVsCiAgICBkcm1faW9jdGwK
+ICAgIF9feDY0X3N5c19pb2N0bAoKVGhpcyBpcyBhIGtlcm5lbCBPb3BzLCBub3QgbWVyZWx5IGFu
+IGlvY3RsIHJldHVybmluZyBhbiBlcnJvci4gUmVwbGFjaW5nIHRoZQpyZWxlYXNlIGFsbG9jYXRp
+b24gd2l0aCBremFsbG9jKCkgaW4gbXkgUUVNVSB0ZXN0IGNhdXNlZCB0aGUgc2FtZSBpbnZhbGlk
+CmhhbmRsZSByZXF1ZXN0IHRvIHJldHVybiAtRUlOVkFMIHdpdGhvdXQgdGhlIE5VTEwgZGVyZWZl
+cmVuY2UuIEkgaGF2ZSBub3QKdmVyaWZpZWQgdGhpcyByZXByb2R1Y2VyIG9uIHBoeXNpY2FsIFFY
+TCBoYXJkd2FyZS4KClByb3Bvc2VkIGZpeAo9PT09PT09PT09PT0KClRoZSBmb2xsb3dpbmcgY2hh
+bmdlIHplcm8taW5pdGlhbGl6ZXMgdGhlIHJlbGVhc2Ugb2JqZWN0IHNvIHRoYXQgdGhlCnByZS1p
+bml0aWFsaXphdGlvbiBjbGVhbnVwIHBhdGggY2Fubm90IG1pc3Rha2Ugc3RhbGUgZmVuY2UgZmxh
+Z3MgZm9yIGFuCmluaXRpYWxpemVkIGRtYV9mZW5jZToKCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9x
+eGwvcXhsX3JlbGVhc2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcXhsL3F4bF9yZWxlYXNlLmMK
+QEAgLTkxLDggKzkxLDggQEAgcXhsX3JlbGVhc2VfYWxsb2Moc3RydWN0IHF4bF9kZXZpY2UgKnFk
+ZXYsIGludCB0eXBlLAogICAgICAgIGludCBoYW5kbGU7CiAgICAgICAgc2l6ZV90IHNpemUgPSBz
+aXplb2YoKnJlbGVhc2UpOwogCi0gICAgICAgcmVsZWFzZSA9IGttYWxsb2Moc2l6ZSwgR0ZQX0tF
+Uk5FTCk7CisgICAgICAgcmVsZWFzZSA9IGt6YWxsb2Moc2l6ZSwgR0ZQX0tFUk5FTCk7CiAgICAg
+ICAgaWYgKCFyZWxlYXNlKSB7CiAgICAgICAgICAgICAgICBEUk1fRVJST1IoIk91dCBvZiBtZW1v
+cnlcbiIpOwogICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07CgpHUFQtNi1MdW5hIGFzc2lz
+dGVkIHdpdGggdGhlIGluaXRpYWwgYW5hbHlzaXMgYW5kIGRyYWZ0aW5nIHRoaXMgcHJvcG9zZWQg
+Zml4LgpJIGFtIHJlc3BvbnNpYmxlIGZvciB0aGUgcmVwb3J0IGFuZCBpdHMgdGVjaG5pY2FsIGNs
+YWltcy4gSSBjYW4gcHJvdmlkZSB0aGUKY29tcGxldGUgcmVwcm9kdWNlciBhbmQgZnVsbCBrZXJu
+ZWwgbG9nIGRpcmVjdGx5IGlmIG5lZWRlZC4KClJlZ2FyZHMsCgpZdWhhbmcgUGFuCjI0MjI3MDA1
+NEBoZHUuZWR1LmNuCgo=
