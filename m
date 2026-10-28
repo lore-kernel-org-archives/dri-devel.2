@@ -2,70 +2,162 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E9E60A2628
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:23:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A0F606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=NI+VBiwT
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=iWAMacif
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 418A210E342;
-	Wed, 28 Oct 2026 14:23:22 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 554AB10E644
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=W+W+DUD43y8pQnK02FKiOjRqW2u16luQB/v+aklZIK8=; b=NI+VBiwTxfDml2qGZfbUjLz4ZQ
- Ts/EuseKyJUTdKO5FGNSWaYHlKg6O51TFDoa5QHxBuTkisEpbTm0DKFGrxsADhbTeUhQXJ+Rqwcor
- DbrQzWO3rwZiSBQq6etJWilVHFFcke77S7Tm7Eylqv7qUssykEa0OQtye44uF406lQAp48rNwrftQ
- rVUt9w98vVYHehD6uwJ/ibqJrYirmN54h91D8q97M1nM+k85uV1yQFtgPU+mRuKgH9jj1J4NmW8v3
- LQV2J3n6JFbxecbNX35NXrcZlWsDbcmbwpR1QX2J2H4RaKuMXSH+wbl2HIXPCvxU+qxb5ftMNTu42
- PrBLLblA==;
-Received: from [179.105.94.163] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xM4Ya-00Cwqz-Cq; Wed, 28 Oct 2026 15:23:12 +0100
-Message-ID: <25e3d341-91d9-4080-8975-a5622b84726f@igalia.com>
-Date: Wed, 28 Oct 2026 11:23:08 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 773AD10E0C8;
+	Wed, 28 Oct 2026 14:26:50 +0000 (UTC)
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11011044.outbound.protection.outlook.com
+ [40.107.130.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07E1910E0C8;
+ Wed, 28 Oct 2026 14:26:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EUzwkxM+5U4c4djubNdkw5RXK63QafpWqgHpEtrm0fB5uAsxWrwmazQpKzNwQxPUVBDDCz6BVTiAqFuNGaF8kLJqDzY2LFJlU3nSjFHYvJr9yRgfZG83AcuyjjEcnrg/l/G1o98ikYXsdXWpHZH2H7sqB9fFXfT4zEVf0Bkd8NhNGUW8WwEABmVD7f4ZP6hNtRSWsXVJycIzu9zNS+llo/+5yhFGnH3xnpOP8N/brtbFQefVDOlYH6fBCuooh9Vccb79i/9BGUwIL2ofT+0zg0QAfav/N7B2U3+VD6+PyzUQZ+PVdyin/3eT1UH4BANC/CqW+yKQ+gDCwhr4DMu7yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PugH5ADTgWBNgCzo2c+KFwnk0r1PS5zDUpNv2SsWnUo=;
+ b=JQVpgOrqGZHrVNs3QTVt/HbATgeZfHtJ9PnI3eXo63FfaG6+8FrdQTiFPYg9VGIBUlEakFTMP9UR90QodP8KS5UHgXtd7Ob7HqWex7BJxFX7aSiU1hYdQZtXuXiojj9SkELkMEIiY7EjLNuuuYx0sKb0qYcjMHiCiQH6KZUh2lWMC7JOrB1WDJumNTw5O6Run61xTI7YDuNNSnB5iTDiaPP/nyDEcYig1v0fmAkTbvm+Uut1w7ZPLC16CwFUA9JLCbauy1lv4jGFp8xE0hbUpP5nASzwvBaQ/CL9R62TRQnNg+8/7OOks+hmeIyGJ7UHtOmfWUHEXedfEze41eOEug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PugH5ADTgWBNgCzo2c+KFwnk0r1PS5zDUpNv2SsWnUo=;
+ b=iWAMacifbwocz+lHil0qO84MTMkMOvglnubW7bzl47kSj8aDd/2iJBVrA0AMZXLeOWpYpL1FngTp/a/DVauU9sHv2cwkDIQdvc/zSe96Vv9BV7o5/ztL7qeb5o9UGh+CfwlLY1c24Y8s7sq2ClColacayPq6oRGDMU9Lsf+cau0+iTPd+NvPDgt+1oYH2DgFfb9rLGSMx2lVizp8slVdtYwuEYnppE13e2paZvpU4TJvtAPC5NjcJTe6682OuHhdu3nO070j3rAwPrnlkd786Z/ryrx31b9WrEDMMwSZIj5V/aX7fYfMPVWNVnI2ffGsXF9IO+d1moDU4MP68ODO3g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PAXPR04MB9186.eurprd04.prod.outlook.com (2603:10a6:102:232::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
+ 2026 14:26:37 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 14:26:36 +0000
+Date: Wed, 28 Oct 2026 09:26:13 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+ Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Tiffany Lin <tiffany.lin@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Ryder Lee <ryder.lee@mediatek.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Christian Marangi <ansuelsmth@gmail.com>, Eric Anholt <eric@anholt.net>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Peng Fan <peng.fan@nxp.com>,
+ Aakarsh Jain <aakarsh.jain@samsung.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ freedreno@lists.freedesktop.org, imx@lists.linux.dev,
+ dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: Fix property name typos in if/then schemas
+Message-ID: <auIGBc2Wo21H6Rdm@SMW015318>
+References: <20261028120216.2657397-1-robh@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028120216.2657397-1-robh@kernel.org>
+X-ClientProxiedBy: PH7PR02CA0020.namprd02.prod.outlook.com
+ (2603:10b6:510:33d::28) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2] drm/v3d: add write-back BO mappings and cache sync
-To: =?UTF-8?B?7J207J6s7ZuI?= <dlwognsdc6100@gmail.com>,
- Melissa Wen <mwen@igalia.com>
-Cc: Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org,
- linux-api@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <CAE5fF3jr6A=UiC6vMv1q=JM4Fjm1n+eX4xCsRBQycxybk2oWAg@mail.gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <CAE5fF3jr6A=UiC6vMv1q=JM4Fjm1n+eX4xCsRBQycxybk2oWAg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB9186:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee112b64-b16e-4703-361e-08df34ff7912
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|19092799006|7416014|1800799024|261026140227099003|11063799006|56012099006|261026121527099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: PJnUc1WGA8a9fo4wsN9yLiJ6vA5jbebBB+U2liGAOGkTaLqzc0fWb10tCiLjM+PF0yRnGzgQiNOWoSMDuKujWM3xjbJA6IVi9NRE/dO5lLDsDFuBmfACI3ffyL0XkEZ/xlItnJ67Y4Ha0xSMz9+FYO0EpiSULbJdz/HyuG0CHYgCAxnr4Mpq7eK5DldLlG6ieUrgtIR+peeX/B3VHg7e/A6NrJrtluh4szGpg8NRmKHyLVPL61pUHNX5Gmq8iNNZVCT+UXLonwxybLqKBxSLIvqujHrPfMcceSIYn2HOBlQz4CTjRrRYPon1QgttoLy1ZOmYYrAHGFtWRctZ1DwxXgyrOLR+EC1kNPbXDd1asyBBYGRzFd9nOQN9aXi8d19wiphqDemPt7KMbMTgM10sA9zsZ1bpULDbGdFUEumnzPVJ4XRWuzz6/uUnn7XATiPeOMe9S9SKsfeo+DkambXEmRxt9Xutj2bpMe1WTI26z33ni/vrf/C+03GWnXzx5HHB5AlnOukvwgpf12LTEPc6ORhOOsAuP9B4tAco03CEg2JxkLhdgRJ14QjDKGfY+TFR1QfhL63l6W84q2EkVc0dfKIrj2kTvrHW5XzY+YbjrDcLTlERuxAdA85BwC1U6GdzJNCOULrhRJuWV6xFpK49Vjn0HpJwA67A9d14uN5sMao=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(19092799006)(7416014)(1800799024)(261026140227099003)(11063799006)(56012099006)(261026121527099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yhoz00PVsJqtF9EPEGywCcxhtZzWfcPJ2a+fSI+CijO6DYTWCvNdLXi+bPrn?=
+ =?us-ascii?Q?ZeKh1fIb0GP+Ummi+pEAjQls/FlH+Ad7FEMSo092qWc02Bak1tfgK/u2V3ka?=
+ =?us-ascii?Q?BDo1wVM+Ol2lHwOpGD4BijqT9l5cuKnZsRg4oPOaOrkpq/Sx/x3pX22AFbGb?=
+ =?us-ascii?Q?lNwJ58LQgM3x/PYjuCD7uOIVk1KalCYg2NWMjEWhDboCjEcYi04A8K865dbG?=
+ =?us-ascii?Q?YrQiocw+U3/PvvEiHkxs8l4Wkpc4cyoWB0OBhcnjXO9TCs3R4t7kW3Pn0nJO?=
+ =?us-ascii?Q?YbLS8uJsgFmoiP5kM8mCvXrg7yG9KQQvYtnVuMLRiU0juAaOnmFvxGdR9N2B?=
+ =?us-ascii?Q?Ghhx05bRvwK8vxSiry9NEJW0ZSx0yRNrmSkfTv9g9FbnDNYwz+DTZe2QNyL1?=
+ =?us-ascii?Q?B7radpUCui8gAMsbtKAgrWpPGimcDJqjj5osDs2/PUGyGqLM0YVkCY3DbGxp?=
+ =?us-ascii?Q?2dtRofJqYRg84QCxQvk2VrVVEA/WBrgJgkIMytJB5x3wX5Q3MNHYjwwBYnfk?=
+ =?us-ascii?Q?2ALEbNV3i+KzF0Pj0eqydxYwWMm3UTzim1htmPTLKchI+OP2HKDGvQ+Ohwla?=
+ =?us-ascii?Q?w6lTA15BaP46alY0xfFr2SGNX1gGfQP6RAmPwHf2jOyS1I3gUDQyfxuAb/ub?=
+ =?us-ascii?Q?KxWOW/7WXvJJJRWyERMjyxjPrJ5F0SpGo7kzY8ktCDOEgxp2l68VyFNdN8Ej?=
+ =?us-ascii?Q?icQufBWl9ibG5SXMJS1l5Xv7B4nxGD4B/zM0+1I53UtU+A3AEuKIeBju2id2?=
+ =?us-ascii?Q?X47vCHaO6QON+9yxQUAkUA60GlsiyUZEdOGywnDVTAlP5JRWsYTAdUSw09K9?=
+ =?us-ascii?Q?eV0gJw+s7LdP/SPj5AvY0nbMAREN5L/hKf/GdB9eniNOtQ3qCluDNDjshpTi?=
+ =?us-ascii?Q?K832WPxVIQ2eNy2mJZ2TPH52cGmKm+/wZwMPGyi2uHd2um1lvM4rQZ2FNZ5X?=
+ =?us-ascii?Q?swyeD1c1MXhKbMiJEYAKcItRhVC/94cauWDUVVWujZbfMieGv4sDJRPtLjGl?=
+ =?us-ascii?Q?n/66c7UWc/k5hUjIUV/7NnyznpkJ97C502iOz2eU1ZOK3l6qsEaH/HwbUh6g?=
+ =?us-ascii?Q?TdTmie/iU8eKDSd2N3xtL+h00IStPlZND/eem85Y/zJFxK4G0R5LreUL3ANp?=
+ =?us-ascii?Q?yQSzyyTvJW9ltrGUVpTjDDdr1drGRKjIuhexOF1b/bFBJExTrUUjnJcDcKGS?=
+ =?us-ascii?Q?9xDz59VM3PapXAL6dE3vd5iDby3TZzJtNAFdHsJ/j4NVkHYS4pvclaeW+mx7?=
+ =?us-ascii?Q?rynV/rKj2Kqz/rLdbRLnWUD2DyW7gsfZzF5it0yVFQI4DhTlKkLus8K9xh/t?=
+ =?us-ascii?Q?Loxo1CYtDQEir6vQEzA5Fkq53rihfyDYPgpM0vSLCTC4QL+oZ7dJ1h2cFRNO?=
+ =?us-ascii?Q?AsLLXWCovcCX+0cSQa32ja0rSe1XjONdqIcrCyBJQjsy13618dMiKIp0DoHv?=
+ =?us-ascii?Q?kdHcr9J/e348pElrKJzUgXNv2UZvnGFZaJ19sBWCbop2tasK/bapL7iXMrP3?=
+ =?us-ascii?Q?/Tc+e6sH84p7OHRrxFZj2bHZs9E4ANbG5Khv0PZ7RwpT+BjfDBLSoZht3Qok?=
+ =?us-ascii?Q?TMwmGoggaCWkowZNqzQ0+ZNvXKZz12AWOMN9XIjkDNn05/3dDRPFgjRJNvRT?=
+ =?us-ascii?Q?+6moCkdl500/4XQUaE28rAzSkv9AvzOJ4q2IXjLCzvNxXovL5KmDTCuiLMPH?=
+ =?us-ascii?Q?uxjOrKGHTFDcdB57snUoBua/nYypyM/OCICX2xm5Ypq/RAksaW+hbBxYxlF2?=
+ =?us-ascii?Q?JiVQzMzKGVIAAUNgBLWs8LmwMuHZdZ8rUDcuVFV5SXN7t1QhNkQv?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee112b64-b16e-4703-361e-08df34ff7912
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 14:26:36.4955 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZH/uQIX74lyS4VQF0juYZ9Pq0oADROx4SlEDjn+RN7+ybXxf6O0CUlCrijxHFlbr6RQysbMT6euZyhNsqJNUkY84246+IuBVQr6rei29eBcSZtkNXqcpcgdGna8PnrEF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9186
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,433 +169,239 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi JaeHoon,
-
-Thanks for your patch. See my comments below:
-
-On 25/10/26 09:09, 이재훈 wrote:
-> From: JaeHoon Lee <dlwognsdc610@gmail.com>
-> 
-> Add V3D_BO_WB_MMAP to request WB CPU mappings. Keep WC as the default.
-
-This needs to cover dma-buf export. v3d doesn't implement .export, so a
-WB BO gets exported with the generic drm_gem_prime_dmabuf_ops. Those
-have no begin_cpu_access/end_cpu_access, so DMA_BUF_IOCTL_SYNC does
-nothing and an importer has no way to keep the CPU view coherent.
-
-For example, Panfrost has a custom dma-buf implementation, implemented
-in commit 3ae6637378e6 ("drm/panfrost: Provide a custom dma_buf
-implementation").
-
-I'm not sure if you tested this implementation, but at the moment, cache
-maintaince won't work.
-
-I believe we should invest in a more generic approach that both V3D and
-Panfrost can make use of. I just worked on a draft of this
-implementation and I'll share the result here in the next few days. Then
-you can base your userspace implementation on it.
-
-Best regards,
-- Maíra
-
-> Set map_wc before getting the BO pages, and use WB for the kernel mapping
-> only when the BO is native and uses WB.
-> 
-> Add V3D_SYNC_BO, based on Panfrost's BO sync API. It takes a list of BO
-> ranges and supports cache flush or flush and invalidate. Reject imported
-> BOs and invalid ranges or sync types.
-> 
-> Indirect CSD uses a CPU job to read three 32-bit workgroup counts. Sync
-> this 12-byte input range before the CPU reads it from a WB BO.
-> 
-> Signed-off-by: JaeHoon Lee <dlwognsdc610@gmail.com>
-> Assisted-by: LLM
+On Wed, Oct 28, 2026 at 07:02:12AM -0500, Rob Herring (Arm) wrote:
+> Property names within if/then schemas currently go unchecked whether
+> they have a type defined or match what's in the top-level schema. Adding
+> a check finds a number of instances of typos. The typos result in the
+> schema having no effect on constraints.
+>
+> With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
+> exposed by the name correction.
+>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 > ---
-> Sorry, the wrong version of the email was sent without my Signed-off-by
-> trailer. I also forgot to Cc Iago Toral.
-> Please use this version instead.
-> 
-> This is an RFC for the V3DV host-cached memory work. The Mesa changes are
-> on this branch:
-> https://gitlab.freedesktop.org/yserrr/mesa/-/commits/v3dv-host-cached
-> 
-> V3DV uses WB for native HOST_CACHED memory. Internal BOs, including the
-> uniform BO, still use WC. Shared allocations, images and TRANSFER_DST
-> buffers also use WC. TRANSFER_DST needs cache sync in the CPU jobs that
-> copy query results.
-> 
-> Hardware tests were run on a Raspberry Pi 5 with a backport to
-> 6.18.34 and a rebuilt V3DV driver. Native BO creation and
-> mapping, sync batches, and checks for invalid inputs passed.
-> 
-> If I have missed anything, please let me know so I can fix it.
-> 
-> Base: drm-misc-next cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
-> 
-> 
->   drivers/gpu/drm/v3d/v3d_bo.c    | 127 ++++++++++++++++++++++++++++++++++++++--
->   drivers/gpu/drm/v3d/v3d_drv.c   |   1 +
->   drivers/gpu/drm/v3d/v3d_drv.h   |   3 +
->   drivers/gpu/drm/v3d/v3d_sched.c |  16 +++++
->   include/uapi/drm/v3d_drm.h      |  52 +++++++++++++++-
->   5 files changed, 192 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
-> index db95a2fac..1eaa57c64 100644
-> --- a/drivers/gpu/drm/v3d/v3d_bo.c
-> +++ b/drivers/gpu/drm/v3d/v3d_bo.c
-> @@ -16,6 +16,8 @@
->    */
-> 
->   #include <linux/dma-buf.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/uaccess.h>
->   #include <linux/vmalloc.h>
-> 
->   #include <drm/drm_print.h>
-> @@ -147,8 +149,8 @@ v3d_bo_create_finish(struct drm_gem_object *obj)
->          return 0;
->   }
-> 
-> -struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file
-> *file_priv,
-> -                            size_t unaligned_size)
-> +static struct v3d_bo *v3d_bo_create_flags(struct drm_device *dev,
-> +                                         size_t unaligned_size, u32 flags)
->   {
->          struct drm_gem_shmem_object *shmem_obj;
->          struct v3d_bo *bo;
-> @@ -159,6 +161,12 @@ struct v3d_bo *v3d_bo_create(struct drm_device
-> *dev, struct drm_file *file_priv,
->                  return ERR_CAST(shmem_obj);
->          bo = to_v3d_bo(&shmem_obj->base);
->          bo->vaddr = NULL;
-> +       /*
-> +        * Use map_wc=true for WC by default.
-> +        * V3D_BO_WB_MMAP sets map_wc=false for WB.
-> +        * WB memory needs explicit cache sync.
-> +        */
-> +       bo->base.map_wc = !(flags & V3D_BO_WB_MMAP);
-> 
->          ret = v3d_bo_create_finish(&shmem_obj->base);
->          if (ret)
-> @@ -171,6 +179,12 @@ struct v3d_bo *v3d_bo_create(struct drm_device
-> *dev, struct drm_file *file_priv,
->          return ERR_PTR(ret);
->   }
-> 
-> +struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file
-> *file_priv,
-> +                            size_t unaligned_size)
-> +{
-> +       return v3d_bo_create_flags(dev, unaligned_size, 0);
-> +}
-> +
->   struct drm_gem_object *
->   v3d_prime_import_sg_table(struct drm_device *dev,
->                            struct dma_buf_attachment *attach,
-> @@ -195,9 +209,13 @@ v3d_prime_import_sg_table(struct drm_device *dev,
->   void v3d_get_bo_vaddr(struct v3d_bo *bo)
->   {
->          struct drm_gem_shmem_object *obj = &bo->base;
-> +       pgprot_t prot = pgprot_writecombine(PAGE_KERNEL);
-> +
-> +       if (!drm_gem_is_imported(&obj->base) && !obj->map_wc)
-> +               prot = PAGE_KERNEL;
-> 
->          bo->vaddr = vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,
-> -                        pgprot_writecombine(PAGE_KERNEL));
-> +                        prot);
->   }
-> 
->   void v3d_put_bo_vaddr(struct v3d_bo *bo)
-> @@ -213,12 +231,12 @@ int v3d_create_bo_ioctl(struct drm_device *dev,
-> void *data,
->          struct v3d_bo *bo = NULL;
->          int ret;
-> 
-> -       if (args->flags != 0) {
-> +       if (args->flags & ~V3D_BO_WB_MMAP) {
->                  drm_dbg(dev, "unknown create_bo flags: %d\n", args->flags);
->                  return -EINVAL;
->          }
-> 
-> -       bo = v3d_bo_create(dev, file_priv, PAGE_ALIGN(args->size));
-> +       bo = v3d_bo_create_flags(dev, PAGE_ALIGN(args->size), args->flags);
->          if (IS_ERR(bo))
->                  return PTR_ERR(bo);
-> 
-> @@ -230,6 +248,105 @@ int v3d_create_bo_ioctl(struct drm_device *dev,
-> void *data,
->          return ret;
->   }
-> 
-> +int v3d_bo_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size)
-> +{
-> +       struct drm_gem_shmem_object *shmem = &to_v3d_bo(obj)->base;
-> +       struct sg_table *sgt;
-> +       struct scatterlist *sg;
-> +       unsigned int i;
-> +
-> +       if (offset + size < offset)
-> +               return -EINVAL;
-> +
-> +       if (offset + size > obj->size)
-> +               return -EINVAL;
-> +
-> +       if (drm_gem_is_imported(obj))
-> +               return -EINVAL;
-> +
-> +       if (type != V3D_BO_SYNC_CPU_CACHE_FLUSH &&
-> +           type != V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
-> +               return -EINVAL;
-> +
-> +       if (shmem->map_wc)
-> +               return 0;
-> +
-> +       if (!size)
-> +               return 0;
-> +
-> +       sgt = drm_gem_shmem_get_pages_sgt(shmem);
-> +       if (IS_ERR(sgt))
-> +               return PTR_ERR(sgt);
-> +
-> +       for_each_sgtable_dma_sg(sgt, sg, i) {
-> +               dma_addr_t addr = sg_dma_address(sg);
-> +               size_t len = sg_dma_len(sg);
-> +
-> +               if (!size)
-> +                       break;
-> +
-> +               if (offset >= len) {
-> +                       offset -= len;
-> +                       continue;
-> +               }
-> +
-> +               addr += offset;
-> +               len -= offset;
-> +               len = min_t(size_t, len, size);
-> +               size -= len;
-> +               offset = 0;
-> +
-> +               dma_sync_single_for_device(obj->dev->dev, addr, len,
-> DMA_TO_DEVICE);
-> +               if (type == V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
-> +                       dma_sync_single_for_cpu(obj->dev->dev, addr,
-> len, DMA_FROM_DEVICE);
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
-> +                     struct drm_file *file_priv)
-> +{
-> +       struct drm_v3d_sync_bo *args = data;
-> +       struct drm_v3d_bo_sync_op *ops;
-> +       struct drm_gem_object *obj;
-> +       unsigned int i;
-> +       int ret = 0;
-> +
-> +       if (args->pad)
-> +               return -EINVAL;
-> +
-> +       if (!args->op_count)
-> +               return 0;
-> +
-> +       ops = kvmalloc_objs(*ops, args->op_count);
-> +       if (!ops)
-> +               return -ENOMEM;
-> +
-> +       if (copy_from_user(ops, u64_to_user_ptr(args->ops),
-> +                          args->op_count * sizeof(*ops))) {
-> +               ret = -EFAULT;
-> +               goto out;
-> +       }
-> +
-> +       for (i = 0; i < args->op_count; i++) {
-> +               obj = drm_gem_object_lookup(file_priv, ops[i].handle);
-> +               if (!obj) {
-> +                       ret = -ENOENT;
-> +                       goto out;
-> +               }
-> +
-> +               ret = v3d_bo_sync(obj, ops[i].type, ops[i].offset, ops[i].size);
-> +               drm_gem_object_put(obj);
-> +               if (ret)
-> +                       goto out;
-> +       }
-> +
-> +out:
-> +       kvfree(ops);
-> +       return ret;
-> +}
-> +
->   int v3d_mmap_bo_ioctl(struct drm_device *dev, void *data,
->                        struct drm_file *file_priv)
->   {
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-> index 8d914dbc3..0fcf6ceed 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.c
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.c
-> @@ -264,6 +264,7 @@ static const struct drm_ioctl_desc v3d_drm_ioctls[] = {
->          DRM_IOCTL_DEF_DRV(V3D_SUBMIT_CPU, v3d_submit_cpu_ioctl,
-> DRM_RENDER_ALLOW | DRM_AUTH),
->          DRM_IOCTL_DEF_DRV(V3D_PERFMON_GET_COUNTER,
-> v3d_perfmon_get_counter_ioctl, DRM_RENDER_ALLOW),
->          DRM_IOCTL_DEF_DRV(V3D_PERFMON_SET_GLOBAL,
-> v3d_perfmon_set_global_ioctl, DRM_RENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(V3D_SYNC_BO, v3d_sync_bo_ioctl, DRM_RENDER_ALLOW),
->   };
-> 
->   static const struct drm_driver v3d_drm_driver = {
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-> index 7c7bdf6e5..d5db64bf5 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.h
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
-> @@ -595,10 +595,13 @@ struct v3d_bo *v3d_bo_create(struct drm_device
-> *dev, struct drm_file *file_priv,
->                               size_t size);
->   void v3d_get_bo_vaddr(struct v3d_bo *bo);
->   void v3d_put_bo_vaddr(struct v3d_bo *bo);
-> +int v3d_bo_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size);
->   int v3d_create_bo_ioctl(struct drm_device *dev, void *data,
->                          struct drm_file *file_priv);
->   int v3d_mmap_bo_ioctl(struct drm_device *dev, void *data,
->                        struct drm_file *file_priv);
-> +int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
-> +                     struct drm_file *file_priv);
->   int v3d_get_bo_offset_ioctl(struct drm_device *dev, void *data,
->                              struct drm_file *file_priv);
->   int v3d_wait_bo_ioctl(struct drm_device *dev, void *data,
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-> index 1924e3440..17648a913 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -396,6 +396,22 @@
-> v3d_rewrite_csd_job_wg_counts_from_indirect(struct v3d_cpu_job *job)
->          struct drm_v3d_submit_csd *args = &indirect_csd->job->args;
->          struct v3d_dev *v3d = job->base.v3d;
->          u32 num_batches, *wg_counts;
-> +       int ret;
-> +
-> +       /*
-> +        * WB memory needs cache sync before the CPU reads the three counts.
-> +        * The GPU job that wrote them must finish first.
-> +        */
-> +       if (!drm_gem_is_imported(&bo->base.base)) {
-> +               ret = v3d_bo_sync(&bo->base.base,
-> +                                V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE,
-> +                                indirect_csd->offset, 3 * sizeof(*wg_counts));
-> +               if (ret) {
-> +                       dma_fence_set_error(job->base.done_fence, ret);
-> +
-> dma_fence_set_error(indirect_csd->job->base.done_fence, ret);
-> +                       return;
-> +               }
-> +       }
-> 
->          v3d_get_bo_vaddr(bo);
->          v3d_get_bo_vaddr(indirect);
-> diff --git a/include/uapi/drm/v3d_drm.h b/include/uapi/drm/v3d_drm.h
-> index d9b01f4c3..ca7352e96 100644
-> --- a/include/uapi/drm/v3d_drm.h
-> +++ b/include/uapi/drm/v3d_drm.h
-> @@ -44,6 +44,7 @@ extern "C" {
->   #define DRM_V3D_SUBMIT_CPU                        0x0b
->   #define DRM_V3D_PERFMON_GET_COUNTER               0x0c
->   #define DRM_V3D_PERFMON_SET_GLOBAL                0x0d
-> +#define DRM_V3D_SYNC_BO                           0x0e
-> 
->   #define DRM_IOCTL_V3D_SUBMIT_CL           DRM_IOWR(DRM_COMMAND_BASE +
-> DRM_V3D_SUBMIT_CL, struct drm_v3d_submit_cl)
->   #define DRM_IOCTL_V3D_WAIT_BO             DRM_IOWR(DRM_COMMAND_BASE +
-> DRM_V3D_WAIT_BO, struct drm_v3d_wait_bo)
-> @@ -64,6 +65,8 @@ extern "C" {
->                                                     struct
-> drm_v3d_perfmon_get_counter)
->   #define DRM_IOCTL_V3D_PERFMON_SET_GLOBAL  DRM_IOW(DRM_COMMAND_BASE +
-> DRM_V3D_PERFMON_SET_GLOBAL, \
->                                                     struct
-> drm_v3d_perfmon_set_global)
-> +#define DRM_IOCTL_V3D_SYNC_BO             DRM_IOWR(DRM_COMMAND_BASE +
-> DRM_V3D_SYNC_BO, \
-> +                                                  struct drm_v3d_sync_bo)
-> 
->   #define DRM_V3D_SUBMIT_CL_FLUSH_CACHE             0x01
->   #define DRM_V3D_SUBMIT_EXTENSION                 0x02
-> @@ -237,11 +240,13 @@ struct drm_v3d_wait_bo {
->          __u64 timeout_ns;
->   };
-> 
-> +/* WB BOs require explicit cache sync. */
-> +#define V3D_BO_WB_MMAP 4
-> +
->   /**
->    * struct drm_v3d_create_bo - ioctl argument for creating V3D BOs.
->    *
-> - * There are currently no values for the flags argument, but it may be
-> - * used in a future extension.
-> + * The flags argument may request V3D_BO_WB_MMAP for a write-back CPU mapping.
->    */
->   struct drm_v3d_create_bo {
->          __u32 size;
-> @@ -278,6 +283,49 @@ struct drm_v3d_mmap_bo {
->          __u64 offset;
->   };
-> 
-> +/* Valid flags to pass to drm_v3d_bo_sync_op */
-> +#define V3D_BO_SYNC_CPU_CACHE_FLUSH                    0
-> +#define V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE     1
-> +
-> +/**
-> + * struct drm_v3d_bo_sync_op - BO map sync op
-> + */
-> +struct drm_v3d_bo_sync_op {
-> +       /** Handle of the buffer object to sync. */
-> +       __u32 handle;
-> +
-> +       /** Type of sync operation. */
-> +       __u32 type;
-> +
-> +       /**
-> +        * Offset into the BO at which the sync range starts.
-> +        *
-> +        * This will be rounded down to the nearest cache line as needed.
-> +        */
-> +       __u32 offset;
-> +
-> +       /**
-> +        * Size of the range to sync
-> +        *
-> +        * size + offset will be rounded up to the nearest cache line as
-> +        * needed.
-> +        */
-> +       __u32 size;
-> +};
-> +
-> +/**
-> + * struct drm_v3d_sync_bo - ioctl argument for syncing BO maps
-> + */
-> +struct drm_v3d_sync_bo {
-> +       /** Array of struct drm_v3d_bo_sync_op */
-> +       __u64 ops;
-> +
-> +       /** Number of BO sync ops */
-> +       __u32 op_count;
-> +
-> +       __u32 pad;
-> +};
-> +
->   enum drm_v3d_param {
->          DRM_V3D_PARAM_V3D_UIFCFG,
->          DRM_V3D_PARAM_V3D_HUB_IDENT1,
+>  .../devicetree/bindings/clock/qcom,kpss-gcc.yaml     |  2 +-
+>  .../bindings/display/brcm,bcm2711-hdmi.yaml          |  2 +-
+>  .../bindings/display/msm/dp-controller.yaml          |  2 +-
+>  .../devicetree/bindings/display/msm/hdmi.yaml        |  4 ++--
+>  Documentation/devicetree/bindings/dma/fsl,edma.yaml  |  2 +-
+>  .../devicetree/bindings/gpio/loongson,ls-gpio.yaml   |  2 +-
+>  .../bindings/iio/adc/amlogic,meson-saradc.yaml       |  2 +-
+>  .../bindings/media/mediatek,vcodec-encoder.yaml      | 12 ++++--------
+>  .../devicetree/bindings/media/samsung,s5p-mfc.yaml   |  2 +-
+>  .../devicetree/bindings/pci/mediatek-pcie.yaml       | 12 ++++++------
+>  10 files changed, 19 insertions(+), 23 deletions(-)
 
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+> index 88b7672123a0..ed347096df46 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+> @@ -62,7 +62,7 @@ then:
+>      - '#clock-cells'
+>  else:
+>    properties:
+> -    clock: false
+> +    clocks: false
+>      clock-names: false
+>      '#clock-cells': false
+>
+> diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+> index c1cefd547391..fd4d598f6ff8 100644
+> --- a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+> @@ -145,7 +145,7 @@ allOf:
+>              - description: CEC stuck at low interrupt
+>              - description: Hotplug connected interrupt
+>              - description: Hotplug removed interrupt
+> -        interrupts-names:
+> +        interrupt-names:
+>            items:
+>              - const: cec-tx
+>              - const: cec-rx
+> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> index 094a6383bb77..f72d1b354007 100644
+> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+> @@ -304,7 +304,7 @@ allOf:
+>          clocks:
+>            minItems: 6
+>            maxItems: 6
+> -        clocks-names:
+> +        clock-names:
+>            minItems: 6
+>            maxItems: 6
+>
+> diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> index dfec6c3480f3..02d27ccad024 100644
+> --- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> +++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+> @@ -113,7 +113,7 @@ allOf:
+>              - const: core
+>              - const: master_iface
+>              - const: slave_iface
+> -        core-vcc-supplies: false
+> +        core-vcc-supply: false
+>
+>    - if:
+>        properties:
+> @@ -136,7 +136,7 @@ allOf:
+>              - const: core
+>              - const: alt_iface
+>              - const: extp
+> -        hdmi-mux-supplies: false
+> +        hdmi-mux-supply: false
+>
+>    - if:
+>        properties:
+> diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> index f609038e35ae..0260d177c7d0 100644
+> --- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> +++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> @@ -172,7 +172,7 @@ allOf:
+>              const: fsl,imx7ulp-edma
+>      then:
+>        properties:
+> -        clock:
+> +        clocks:
+>            minItems: 2
+>            maxItems: 2
+>          clock-names:
+> diff --git a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+> index 69852444df23..07c8b233c6bd 100644
+> --- a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+> @@ -80,7 +80,7 @@ allOf:
+>          - resets
+>      else:
+>        properties:
+> -        "#interrupts-cells": false
+> +        "#interrupt-cells": false
+>          interrupt-controller: false
+>          resets: false
+>
+> diff --git a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+> index 70ab4e140e71..535213ba0c5e 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+> @@ -92,7 +92,7 @@ allOf:
+>      else:
+>        properties:
+>          nvmem-cells: false
+> -        mvmem-cel-names: false
+> +        nvmem-cell-names: false
+>          clocks:
+>            minItems: 4
+>          clock-names:
+> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> index 4505e66876a2..52f471a070d5 100644
+> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+> @@ -110,19 +110,15 @@ allOf:
+>
+>      then:
+>        properties:
+> -        clock:
+> -          items:
+> -            minItems: 1
+> -            maxItems: 1
+> +        clocks:
+> +          maxItems: 1
+>          clock-names:
+>            items:
+>              - const: venc_lt_sel
+>      else:
+>        properties:
+> -        clock:
+> -          items:
+> -            minItems: 1
+> -            maxItems: 1
+> +        clocks:
+> +          maxItems: 1
+>          clock-names:
+>            items:
+>              - const: venc_sel
+> diff --git a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+> index b46cc780703c..4488d5ca9b9c 100644
+> --- a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+> +++ b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+> @@ -174,7 +174,7 @@ allOf:
+>              - const: mfc
+>          iommus:
+>            maxItems: 2
+> -        iommus-names: false
+> +        iommu-names: false
+>
+>  examples:
+>    - |
+> diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+> index c009a7a52bc6..7c40361f95ec 100644
+> --- a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+> @@ -127,7 +127,7 @@ allOf:
+>          phy-names:
+>            const: pcie-phy1
+>
+> -        power-domain: false
+> +        power-domains: false
+>
+>        required:
+>          - resets
+> @@ -150,7 +150,7 @@ allOf:
+>            minItems: 2
+>            maxItems: 2
+>
+> -        reset: false
+> +        resets: false
+>
+>          reset-names: false
+>
+> @@ -171,7 +171,7 @@ allOf:
+>          clocks:
+>            minItems: 6
+>
+> -        reset: false
+> +        resets: false
+>
+>          reset-names: false
+>
+> @@ -193,7 +193,7 @@ allOf:
+>          clocks:
+>            minItems: 6
+>
+> -        reset: false
+> +        resets: false
+>
+>          reset-names: false
+>
+> @@ -215,7 +215,7 @@ allOf:
+>          clock-names:
+>            maxItems: 1
+>
+> -        reset: false
+> +        resets: false
+>
+>          reset-names: false
+>
+> @@ -223,7 +223,7 @@ allOf:
+>
+>          phy-names: false
+>
+> -        power-domain: false
+> +        power-domains: false
+>
+>          mediatek,pbus-csr: false
+>
+> --
+> 2.53.0
+>
+>
