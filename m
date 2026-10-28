@@ -2,96 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8190B606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:07:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E9E60A2628
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:23:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=x1spWNaU
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=NI+VBiwT
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E43AE10E0A1;
-	Wed, 28 Oct 2026 14:07:53 +0000 (UTC)
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA76110E342;
- Wed, 28 Oct 2026 14:07:46 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69SBfTKE4126552; Wed, 28 Oct 2026 14:07:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=HriYq/cXZ5+DmILzZE86B6+
- ze9X9+NsjTnNn5cxJXao=; b=x1spWNaUMsHPe2ZlTPgNh4aSnR7zkoyOjyqpwza
- pCu2k8B0UXF0WDGkPUfcNbE7YFoT6DBxx+afNQz9QnrZWtiq09vOH+rh2zLFHyMx
- GcK8gExrG2oSsTm9+wBxLZp3rrmxRMSvtoe3+MFOD2114qNhusI3GpITrOmuHTwe
- 916FjC/DRrttWOgi66DXLBJ5kvW5nL9ZqNnPpOLzvl++kJpepscM+89h6NDGw/+v
- tik0F6K19CvQ3QIdJkOQYHztEoILqWSv1q0zByG8nHmAYgcZ1uGtgRI3UB1Uqsyc
- L0tAX7P7Gi0n10gJ+MMDmWRHFtmjN6FhqNw2Tp0AVUndmwg==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hk414gjwk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 Oct 2026 14:07:37 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.128.158) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 28 Oct
- 2026 14:07:33 +0000
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Wed, 28 Oct 2026 19:37:21 +0530
-Subject: [PATCH v4] drm/imagination: Support for querying Firmware information
+	by gabe.freedesktop.org (Postfix) with ESMTP id 418A210E342;
+	Wed, 28 Oct 2026 14:23:22 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 554AB10E644
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=W+W+DUD43y8pQnK02FKiOjRqW2u16luQB/v+aklZIK8=; b=NI+VBiwTxfDml2qGZfbUjLz4ZQ
+ Ts/EuseKyJUTdKO5FGNSWaYHlKg6O51TFDoa5QHxBuTkisEpbTm0DKFGrxsADhbTeUhQXJ+Rqwcor
+ DbrQzWO3rwZiSBQq6etJWilVHFFcke77S7Tm7Eylqv7qUssykEa0OQtye44uF406lQAp48rNwrftQ
+ rVUt9w98vVYHehD6uwJ/ibqJrYirmN54h91D8q97M1nM+k85uV1yQFtgPU+mRuKgH9jj1J4NmW8v3
+ LQV2J3n6JFbxecbNX35NXrcZlWsDbcmbwpR1QX2J2H4RaKuMXSH+wbl2HIXPCvxU+qxb5ftMNTu42
+ PrBLLblA==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xM4Ya-00Cwqz-Cq; Wed, 28 Oct 2026 15:23:12 +0100
+Message-ID: <25e3d341-91d9-4080-8975-a5622b84726f@igalia.com>
+Date: Wed, 28 Oct 2026 11:23:08 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261028-fwversion-v4-1-aca85735a2b7@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAJgB4moC/3WMQQ7CIBBFr9KwFgNDacWV9zAugA4ti7YGGtQ0v
- bu0qxp1MYs3+e/NJGLwGMm5mEnA5KMfhwzloSC200OL1DeZCTCoeD7qHgnDuqJK6hNoxZ1yNcn
- 7e0Dnn1vresvc+TiN4bWlE1+/vyqJU04FNry2lTSutBfftxPaox17smYS/FUhq8YwkFYJzUr9p
- Yq9Wu9VkVUnKtGgVMCk+VCXZXkDuZ9EEhkBAAA=
-X-Change-ID: 20261026-fwversion-95a82a91f9f7
-To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Frank Binns <frank.binns@imgtec.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Brajesh Gupta <brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7072;
- i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
- bh=PBe/ElyLM4LLJ8TWnq9rpZAyYxE5IbXjDwTLu0bzHd0=;
- b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBq4gGlUDKcMFixrBWBqWYtG6MD+xZjweOC4a65z
- k3RIJ4JzA2JAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCauIBpQAKCRDQJndZfgLx
- cDPBEACQLAgH1VQGtCDSUvm9MUfUdz27a11LndocuqDUnEKV95B26uhzpJp/cJ+9TOpr3EOSlMw
- GjZVznGkKM8fCxrlhJo0P6/F/C+nnl651wo9+OJU72d7xhaKZJ5iBRC+kOkeSdnJp+tGnTyHBhO
- uR9ITqfReWdWrTjuP7lmZo2tLGqyrNyTHVo713LN/QI0Rpc2YfWv3vexjF70oDZB1PsTQh7pANI
- NdPP1e79XwptaIqSqmZkKSjOWlwYsner+PjZ/8TAvitHQIrQlt9V1pEnBpKiO5N/UGclewx1R8C
- S48Of3fAwcwgbKp5NhDfl/4P94YmGmg3cJA3hBBnSOuyEmWk/LfpRuNnZ5zxkIknh6EJUaqFRlD
- 1Mw/kxah5ASnfd9iET9P3EuCXiPjB8Vosvjo3pRCvy7xFbQSdi7R7TT29/S4zXLTW658apbbdtV
- c+KGfEU299B1YV/VwuM5Zbq+GQQ2dJLo1oFo2oWeAfj7GuORUumiTrGU3+dspJIUXZgNxmSP3Zq
- M6UkZVIKiPgtdqTxNhIxIWcwOTUr7Fy4NAGuyWGXfsS4iNEy6dJA8n7pbzB+d14dMYQUpadgbDV
- GJJC/HueL1SrdcvaAUGWh/Opig4RW2jyEiGrZDixCjrI3qV2/qoua7Tc6t1XRxneTm0S8ZV4Q8G
- bYpCpJZZUb5/4Tw==
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
- fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1NiBTYWx0ZWRfX6tWuU2XlI62C
- AlKgt6SL7n82SXwg+27WeloOmr3VzazD66aSFNU3AecL4PEWCK83+RkbvrPsNoq3ESJlzsvhhU8
- skm7QCtfFIEBNhOemVEylS7RrFvtBy0=
-X-Authority-Analysis: v=2.4 cv=AMk9Hd7f c=1 sm=1 tr=0 ts=6ae201a9 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=x1VBDH5lXswA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8
- a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=7UFbgRoScb10X7_jHdcA:9 a=QEXdDO2ut3YA:10
- a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: MX3avM-2iFDS0L1VF_oA-_BiBj1Fo4ei
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1NiBTYWx0ZWRfX6VIFWAR5cKcA
- PRIUhBDVOaIy0N+wlmTIj+iucxXrMQsJYtWBzt5QjHDSH24GFyA4PPhKwVszxiyezyQP4hw8Xh/
- 15ywKvJUlrcpjSCsvEVsohilea1YWwLiFG+ag4XMh1OV4NNzyy9eMvb1mHQUYmp7X1ONUATAgEK
- j/ZlUIK2xsWPVrn3StDfM09x84MobxviJSp8xLaauBDsdQA03RqVShHiblIjEwH/gKAtviKTk1g
- 3/DVvkJjdp4dt5//In/2HquS/Mn13gLlln0rumfGiAMraDctNGCRiPl+oBrBS9NRECJNRD4Dw/c
- qU01UShE5h8GWylm0iQm29waiyxsGBo8wAHXkyn/myLzriZ/DivIwZCJNJjoMLc3co1hBVo+N4d
- auDcypIpjqHeSiZ8hSV+dfCrwYHHpqQBwgvY/8mX1ySgSOo7mUB+3NFiXCw/AfUk+Bno+ErYmWy
- b2qjElJ4JgdrHfkzqJw==
-X-Proofpoint-GUID: MX3avM-2iFDS0L1VF_oA-_BiBj1Fo4ei
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2] drm/v3d: add write-back BO mappings and cache sync
+To: =?UTF-8?B?7J207J6s7ZuI?= <dlwognsdc6100@gmail.com>,
+ Melissa Wen <mwen@igalia.com>
+Cc: Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org,
+ linux-api@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <CAE5fF3jr6A=UiC6vMv1q=JM4Fjm1n+eX4xCsRBQycxybk2oWAg@mail.gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <CAE5fF3jr6A=UiC6vMv1q=JM4Fjm1n+eX4xCsRBQycxybk2oWAg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,217 +77,433 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a new subtype DRM_PVR_DEV_QUERY_FW_INFO_GET under
-DRM_IOCTL_PVR_DEV_QUERY to query Firmware information. This allows the
-userspace to detect any bug fixes and features present in the Firmware
-and take appropriate action.
-Currently it supports querying major and minor version of the Firmware.
+Hi JaeHoon,
 
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
----
-Changes in v4:
-- Add description for the new interface introduced.
-- Link to v3: https://patch.msgid.link/20261027-fwversion-v3-1-f363de59205b@imgtec.com
+Thanks for your patch. See my comments below:
 
-Changes in v3:
-- Add missed check for padding field added in v2.
-- Link to v2: https://lore.kernel.org/r/20261026-fwversion-v2-1-bb025c93a04a@imgtec.com
+On 25/10/26 09:09, 이재훈 wrote:
+> From: JaeHoon Lee <dlwognsdc610@gmail.com>
+> 
+> Add V3D_BO_WB_MMAP to request WB CPU mappings. Keep WC as the default.
 
-Changes in v2:
-- Add padding field to align new FW query struct to 64-bit.
-- Link to v1: https://patch.msgid.link/20261026-fwversion-v1-1-3ed17c65bf4c@imgtec.com
+This needs to cover dma-buf export. v3d doesn't implement .export, so a
+WB BO gets exported with the generic drm_gem_prime_dmabuf_ops. Those
+have no begin_cpu_access/end_cpu_access, so DMA_BUF_IOCTL_SYNC does
+nothing and an importer has no way to keep the CPU view coherent.
 
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/imagination/pvr_drv.c |  5 ++++
- drivers/gpu/drm/imagination/pvr_drv.h |  4 ++-
- drivers/gpu/drm/imagination/pvr_fw.c  | 46 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_fw.h  |  3 +++
- include/uapi/drm/pvr_drm.h            | 21 ++++++++++++++++
- 5 files changed, 78 insertions(+), 1 deletion(-)
+For example, Panfrost has a custom dma-buf implementation, implemented
+in commit 3ae6637378e6 ("drm/panfrost: Provide a custom dma_buf
+implementation").
 
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 5c965ef0274f..2d522a8e46ad 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -6,6 +6,7 @@
- #include "pvr_device.h"
- #include "pvr_drv.h"
- #include "pvr_free_list.h"
-+#include "pvr_fw.h"
- #include "pvr_gem.h"
- #include "pvr_hwrt.h"
- #include "pvr_job.h"
-@@ -658,6 +659,10 @@ pvr_ioctl_dev_query(struct drm_device *drm_dev, void *raw_args,
- 	case DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET:
- 		ret = pvr_static_data_areas_get(pvr_dev, args);
- 		break;
-+
-+	case DRM_PVR_DEV_QUERY_FW_INFO_GET:
-+		ret = pvr_fw_info_get(pvr_dev, args);
-+		break;
- 	}
- 
- 	drm_dev_exit(idx);
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
-index 7fa147312dd1..4e058a6fdd5c 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.h
-+++ b/drivers/gpu/drm/imagination/pvr_drv.h
-@@ -13,9 +13,10 @@
- /*
-  * Driver interface version:
-  *  - 1.0: Initial interface
-+ *  - 1.1: Add DRM_PVR_DEV_QUERY_FW_INFO_GET query
-  */
- #define PVR_DRIVER_MAJOR 1
--#define PVR_DRIVER_MINOR 0
-+#define PVR_DRIVER_MINOR 1
- #define PVR_DRIVER_PATCHLEVEL 0
- 
- int pvr_get_uobj(u64 usr_ptr, u32 usr_size, u32 min_size, u32 obj_size, void *out);
-@@ -68,6 +69,7 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
- 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_heap_info, heaps) \
- 	PVR_UOBJ_DECL(struct drm_pvr_static_data_area, offset) \
- 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_static_data_areas, static_data_areas) \
-+	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, _padding_4) \
- 	)
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index c6c77b152342..d014a34b4f1f 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -4,6 +4,7 @@
- #include "pvr_ccb.h"
- #include "pvr_device.h"
- #include "pvr_device_info.h"
-+#include "pvr_drv.h"
- #include "pvr_fw.h"
- #include "pvr_fw_info.h"
- #include "pvr_fw_startstop.h"
-@@ -1496,3 +1497,48 @@ pvr_fw_hard_reset(struct pvr_device *pvr_dev)
- 
- 	return 0;
- }
-+
-+/**
-+ * pvr_fw_info_get()
-+ * @pvr_dev: Device pointer.
-+ * @args: [IN] Device query arguments containing a pointer to a userspace
-+ *        struct drm_pvr_dev_query_fw_info.
-+ *
-+ * If the query object pointer is NULL, the size field is updated with the
-+ * expected size of the query object.
-+ *
-+ * Returns:
-+ *  * 0 on success, or if size is requested using a NULL pointer, or
-+ *  * -%EINVAL if args contained non-zero reserved fields or
-+ *    if the input object is smaller than the minimum required, or
-+ *  * -%EFAULT if local memory could not be copied to userspace.
-+ */
-+int
-+pvr_fw_info_get(const struct pvr_device *pvr_dev,
-+		struct drm_pvr_ioctl_dev_query_args *args)
-+{
-+	struct drm_pvr_dev_query_fw_info fw_info = {0};
-+	int err;
-+
-+	if (!args->pointer) {
-+		args->size = sizeof(struct drm_pvr_dev_query_fw_info);
-+		return 0;
-+	}
-+
-+	err = PVR_UOBJ_GET(fw_info, args->size, args->pointer);
-+	if (err < 0)
-+		return err;
-+	if (fw_info._padding_4)
-+		return -EINVAL;
-+
-+	fw_info.major_version = pvr_dev->fw_version.major;
-+	fw_info.minor_version = pvr_dev->fw_version.minor;
-+
-+	err = PVR_UOBJ_SET(args->pointer, args->size, fw_info);
-+	if (err < 0)
-+		return err;
-+
-+	if (args->size > sizeof(fw_info))
-+		args->size = sizeof(fw_info);
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 4b25291135b6..7e18f3e7d4be 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -496,4 +496,7 @@ int
- pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
- 				  u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr);
- 
-+int
-+pvr_fw_info_get(const struct pvr_device *pvr_dev, struct drm_pvr_ioctl_dev_query_args *args);
-+
- #endif /* PVR_FW_H */
-diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
-index ccf6c2112468..1179c1e7d92d 100644
---- a/include/uapi/drm/pvr_drm.h
-+++ b/include/uapi/drm/pvr_drm.h
-@@ -434,6 +434,21 @@ struct drm_pvr_dev_query_static_data_areas {
- 	struct drm_pvr_obj_array static_data_areas;
- };
- 
-+/**
-+ * struct drm_pvr_dev_query_fw_info - Container used to fetch information
-+ * about the GPU Firmware like its version.
-+ */
-+struct drm_pvr_dev_query_fw_info {
-+	/** @major_version: Major version of the Firmware. */
-+	__u16 major_version;
-+
-+	/** @minor_version: Minor version of the Firmware. */
-+	__u16 minor_version;
-+
-+	/** @_padding_4: Reserved. This field must be zeroed. */
-+	__u32 _padding_4;
-+};
-+
- /**
-  * enum drm_pvr_dev_query - For use with &drm_pvr_ioctl_dev_query_args.type to
-  * indicate the type of the receiving container.
-@@ -476,6 +491,12 @@ enum drm_pvr_dev_query {
- 	 * a pointer to &struct drm_pvr_dev_query_static_data_areas.
- 	 */
- 	DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET,
-+
-+	/**
-+	 * @DRM_PVR_DEV_QUERY_FW_INFO_GET: The dev query args contain
-+	 * a pointer to &struct drm_pvr_dev_query_fw_info.
-+	 */
-+	DRM_PVR_DEV_QUERY_FW_INFO_GET,
- };
- 
- /**
+I'm not sure if you tested this implementation, but at the moment, cache
+maintaince won't work.
 
----
-base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
-change-id: 20261026-fwversion-95a82a91f9f7
+I believe we should invest in a more generic approach that both V3D and
+Panfrost can make use of. I just worked on a draft of this
+implementation and I'll share the result here in the next few days. Then
+you can base your userspace implementation on it.
 
 Best regards,
---  
-Brajesh Gupta <brajesh.gupta@imgtec.com>
+- Maíra
+
+> Set map_wc before getting the BO pages, and use WB for the kernel mapping
+> only when the BO is native and uses WB.
+> 
+> Add V3D_SYNC_BO, based on Panfrost's BO sync API. It takes a list of BO
+> ranges and supports cache flush or flush and invalidate. Reject imported
+> BOs and invalid ranges or sync types.
+> 
+> Indirect CSD uses a CPU job to read three 32-bit workgroup counts. Sync
+> this 12-byte input range before the CPU reads it from a WB BO.
+> 
+> Signed-off-by: JaeHoon Lee <dlwognsdc610@gmail.com>
+> Assisted-by: LLM
+> ---
+> Sorry, the wrong version of the email was sent without my Signed-off-by
+> trailer. I also forgot to Cc Iago Toral.
+> Please use this version instead.
+> 
+> This is an RFC for the V3DV host-cached memory work. The Mesa changes are
+> on this branch:
+> https://gitlab.freedesktop.org/yserrr/mesa/-/commits/v3dv-host-cached
+> 
+> V3DV uses WB for native HOST_CACHED memory. Internal BOs, including the
+> uniform BO, still use WC. Shared allocations, images and TRANSFER_DST
+> buffers also use WC. TRANSFER_DST needs cache sync in the CPU jobs that
+> copy query results.
+> 
+> Hardware tests were run on a Raspberry Pi 5 with a backport to
+> 6.18.34 and a rebuilt V3DV driver. Native BO creation and
+> mapping, sync batches, and checks for invalid inputs passed.
+> 
+> If I have missed anything, please let me know so I can fix it.
+> 
+> Base: drm-misc-next cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
+> 
+> 
+>   drivers/gpu/drm/v3d/v3d_bo.c    | 127 ++++++++++++++++++++++++++++++++++++++--
+>   drivers/gpu/drm/v3d/v3d_drv.c   |   1 +
+>   drivers/gpu/drm/v3d/v3d_drv.h   |   3 +
+>   drivers/gpu/drm/v3d/v3d_sched.c |  16 +++++
+>   include/uapi/drm/v3d_drm.h      |  52 +++++++++++++++-
+>   5 files changed, 192 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
+> index db95a2fac..1eaa57c64 100644
+> --- a/drivers/gpu/drm/v3d/v3d_bo.c
+> +++ b/drivers/gpu/drm/v3d/v3d_bo.c
+> @@ -16,6 +16,8 @@
+>    */
+> 
+>   #include <linux/dma-buf.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/uaccess.h>
+>   #include <linux/vmalloc.h>
+> 
+>   #include <drm/drm_print.h>
+> @@ -147,8 +149,8 @@ v3d_bo_create_finish(struct drm_gem_object *obj)
+>          return 0;
+>   }
+> 
+> -struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file
+> *file_priv,
+> -                            size_t unaligned_size)
+> +static struct v3d_bo *v3d_bo_create_flags(struct drm_device *dev,
+> +                                         size_t unaligned_size, u32 flags)
+>   {
+>          struct drm_gem_shmem_object *shmem_obj;
+>          struct v3d_bo *bo;
+> @@ -159,6 +161,12 @@ struct v3d_bo *v3d_bo_create(struct drm_device
+> *dev, struct drm_file *file_priv,
+>                  return ERR_CAST(shmem_obj);
+>          bo = to_v3d_bo(&shmem_obj->base);
+>          bo->vaddr = NULL;
+> +       /*
+> +        * Use map_wc=true for WC by default.
+> +        * V3D_BO_WB_MMAP sets map_wc=false for WB.
+> +        * WB memory needs explicit cache sync.
+> +        */
+> +       bo->base.map_wc = !(flags & V3D_BO_WB_MMAP);
+> 
+>          ret = v3d_bo_create_finish(&shmem_obj->base);
+>          if (ret)
+> @@ -171,6 +179,12 @@ struct v3d_bo *v3d_bo_create(struct drm_device
+> *dev, struct drm_file *file_priv,
+>          return ERR_PTR(ret);
+>   }
+> 
+> +struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file
+> *file_priv,
+> +                            size_t unaligned_size)
+> +{
+> +       return v3d_bo_create_flags(dev, unaligned_size, 0);
+> +}
+> +
+>   struct drm_gem_object *
+>   v3d_prime_import_sg_table(struct drm_device *dev,
+>                            struct dma_buf_attachment *attach,
+> @@ -195,9 +209,13 @@ v3d_prime_import_sg_table(struct drm_device *dev,
+>   void v3d_get_bo_vaddr(struct v3d_bo *bo)
+>   {
+>          struct drm_gem_shmem_object *obj = &bo->base;
+> +       pgprot_t prot = pgprot_writecombine(PAGE_KERNEL);
+> +
+> +       if (!drm_gem_is_imported(&obj->base) && !obj->map_wc)
+> +               prot = PAGE_KERNEL;
+> 
+>          bo->vaddr = vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,
+> -                        pgprot_writecombine(PAGE_KERNEL));
+> +                        prot);
+>   }
+> 
+>   void v3d_put_bo_vaddr(struct v3d_bo *bo)
+> @@ -213,12 +231,12 @@ int v3d_create_bo_ioctl(struct drm_device *dev,
+> void *data,
+>          struct v3d_bo *bo = NULL;
+>          int ret;
+> 
+> -       if (args->flags != 0) {
+> +       if (args->flags & ~V3D_BO_WB_MMAP) {
+>                  drm_dbg(dev, "unknown create_bo flags: %d\n", args->flags);
+>                  return -EINVAL;
+>          }
+> 
+> -       bo = v3d_bo_create(dev, file_priv, PAGE_ALIGN(args->size));
+> +       bo = v3d_bo_create_flags(dev, PAGE_ALIGN(args->size), args->flags);
+>          if (IS_ERR(bo))
+>                  return PTR_ERR(bo);
+> 
+> @@ -230,6 +248,105 @@ int v3d_create_bo_ioctl(struct drm_device *dev,
+> void *data,
+>          return ret;
+>   }
+> 
+> +int v3d_bo_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size)
+> +{
+> +       struct drm_gem_shmem_object *shmem = &to_v3d_bo(obj)->base;
+> +       struct sg_table *sgt;
+> +       struct scatterlist *sg;
+> +       unsigned int i;
+> +
+> +       if (offset + size < offset)
+> +               return -EINVAL;
+> +
+> +       if (offset + size > obj->size)
+> +               return -EINVAL;
+> +
+> +       if (drm_gem_is_imported(obj))
+> +               return -EINVAL;
+> +
+> +       if (type != V3D_BO_SYNC_CPU_CACHE_FLUSH &&
+> +           type != V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
+> +               return -EINVAL;
+> +
+> +       if (shmem->map_wc)
+> +               return 0;
+> +
+> +       if (!size)
+> +               return 0;
+> +
+> +       sgt = drm_gem_shmem_get_pages_sgt(shmem);
+> +       if (IS_ERR(sgt))
+> +               return PTR_ERR(sgt);
+> +
+> +       for_each_sgtable_dma_sg(sgt, sg, i) {
+> +               dma_addr_t addr = sg_dma_address(sg);
+> +               size_t len = sg_dma_len(sg);
+> +
+> +               if (!size)
+> +                       break;
+> +
+> +               if (offset >= len) {
+> +                       offset -= len;
+> +                       continue;
+> +               }
+> +
+> +               addr += offset;
+> +               len -= offset;
+> +               len = min_t(size_t, len, size);
+> +               size -= len;
+> +               offset = 0;
+> +
+> +               dma_sync_single_for_device(obj->dev->dev, addr, len,
+> DMA_TO_DEVICE);
+> +               if (type == V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE)
+> +                       dma_sync_single_for_cpu(obj->dev->dev, addr,
+> len, DMA_FROM_DEVICE);
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
+> +                     struct drm_file *file_priv)
+> +{
+> +       struct drm_v3d_sync_bo *args = data;
+> +       struct drm_v3d_bo_sync_op *ops;
+> +       struct drm_gem_object *obj;
+> +       unsigned int i;
+> +       int ret = 0;
+> +
+> +       if (args->pad)
+> +               return -EINVAL;
+> +
+> +       if (!args->op_count)
+> +               return 0;
+> +
+> +       ops = kvmalloc_objs(*ops, args->op_count);
+> +       if (!ops)
+> +               return -ENOMEM;
+> +
+> +       if (copy_from_user(ops, u64_to_user_ptr(args->ops),
+> +                          args->op_count * sizeof(*ops))) {
+> +               ret = -EFAULT;
+> +               goto out;
+> +       }
+> +
+> +       for (i = 0; i < args->op_count; i++) {
+> +               obj = drm_gem_object_lookup(file_priv, ops[i].handle);
+> +               if (!obj) {
+> +                       ret = -ENOENT;
+> +                       goto out;
+> +               }
+> +
+> +               ret = v3d_bo_sync(obj, ops[i].type, ops[i].offset, ops[i].size);
+> +               drm_gem_object_put(obj);
+> +               if (ret)
+> +                       goto out;
+> +       }
+> +
+> +out:
+> +       kvfree(ops);
+> +       return ret;
+> +}
+> +
+>   int v3d_mmap_bo_ioctl(struct drm_device *dev, void *data,
+>                        struct drm_file *file_priv)
+>   {
+> diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
+> index 8d914dbc3..0fcf6ceed 100644
+> --- a/drivers/gpu/drm/v3d/v3d_drv.c
+> +++ b/drivers/gpu/drm/v3d/v3d_drv.c
+> @@ -264,6 +264,7 @@ static const struct drm_ioctl_desc v3d_drm_ioctls[] = {
+>          DRM_IOCTL_DEF_DRV(V3D_SUBMIT_CPU, v3d_submit_cpu_ioctl,
+> DRM_RENDER_ALLOW | DRM_AUTH),
+>          DRM_IOCTL_DEF_DRV(V3D_PERFMON_GET_COUNTER,
+> v3d_perfmon_get_counter_ioctl, DRM_RENDER_ALLOW),
+>          DRM_IOCTL_DEF_DRV(V3D_PERFMON_SET_GLOBAL,
+> v3d_perfmon_set_global_ioctl, DRM_RENDER_ALLOW),
+> +       DRM_IOCTL_DEF_DRV(V3D_SYNC_BO, v3d_sync_bo_ioctl, DRM_RENDER_ALLOW),
+>   };
+> 
+>   static const struct drm_driver v3d_drm_driver = {
+> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+> index 7c7bdf6e5..d5db64bf5 100644
+> --- a/drivers/gpu/drm/v3d/v3d_drv.h
+> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
+> @@ -595,10 +595,13 @@ struct v3d_bo *v3d_bo_create(struct drm_device
+> *dev, struct drm_file *file_priv,
+>                               size_t size);
+>   void v3d_get_bo_vaddr(struct v3d_bo *bo);
+>   void v3d_put_bo_vaddr(struct v3d_bo *bo);
+> +int v3d_bo_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size);
+>   int v3d_create_bo_ioctl(struct drm_device *dev, void *data,
+>                          struct drm_file *file_priv);
+>   int v3d_mmap_bo_ioctl(struct drm_device *dev, void *data,
+>                        struct drm_file *file_priv);
+> +int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
+> +                     struct drm_file *file_priv);
+>   int v3d_get_bo_offset_ioctl(struct drm_device *dev, void *data,
+>                              struct drm_file *file_priv);
+>   int v3d_wait_bo_ioctl(struct drm_device *dev, void *data,
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+> index 1924e3440..17648a913 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -396,6 +396,22 @@
+> v3d_rewrite_csd_job_wg_counts_from_indirect(struct v3d_cpu_job *job)
+>          struct drm_v3d_submit_csd *args = &indirect_csd->job->args;
+>          struct v3d_dev *v3d = job->base.v3d;
+>          u32 num_batches, *wg_counts;
+> +       int ret;
+> +
+> +       /*
+> +        * WB memory needs cache sync before the CPU reads the three counts.
+> +        * The GPU job that wrote them must finish first.
+> +        */
+> +       if (!drm_gem_is_imported(&bo->base.base)) {
+> +               ret = v3d_bo_sync(&bo->base.base,
+> +                                V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE,
+> +                                indirect_csd->offset, 3 * sizeof(*wg_counts));
+> +               if (ret) {
+> +                       dma_fence_set_error(job->base.done_fence, ret);
+> +
+> dma_fence_set_error(indirect_csd->job->base.done_fence, ret);
+> +                       return;
+> +               }
+> +       }
+> 
+>          v3d_get_bo_vaddr(bo);
+>          v3d_get_bo_vaddr(indirect);
+> diff --git a/include/uapi/drm/v3d_drm.h b/include/uapi/drm/v3d_drm.h
+> index d9b01f4c3..ca7352e96 100644
+> --- a/include/uapi/drm/v3d_drm.h
+> +++ b/include/uapi/drm/v3d_drm.h
+> @@ -44,6 +44,7 @@ extern "C" {
+>   #define DRM_V3D_SUBMIT_CPU                        0x0b
+>   #define DRM_V3D_PERFMON_GET_COUNTER               0x0c
+>   #define DRM_V3D_PERFMON_SET_GLOBAL                0x0d
+> +#define DRM_V3D_SYNC_BO                           0x0e
+> 
+>   #define DRM_IOCTL_V3D_SUBMIT_CL           DRM_IOWR(DRM_COMMAND_BASE +
+> DRM_V3D_SUBMIT_CL, struct drm_v3d_submit_cl)
+>   #define DRM_IOCTL_V3D_WAIT_BO             DRM_IOWR(DRM_COMMAND_BASE +
+> DRM_V3D_WAIT_BO, struct drm_v3d_wait_bo)
+> @@ -64,6 +65,8 @@ extern "C" {
+>                                                     struct
+> drm_v3d_perfmon_get_counter)
+>   #define DRM_IOCTL_V3D_PERFMON_SET_GLOBAL  DRM_IOW(DRM_COMMAND_BASE +
+> DRM_V3D_PERFMON_SET_GLOBAL, \
+>                                                     struct
+> drm_v3d_perfmon_set_global)
+> +#define DRM_IOCTL_V3D_SYNC_BO             DRM_IOWR(DRM_COMMAND_BASE +
+> DRM_V3D_SYNC_BO, \
+> +                                                  struct drm_v3d_sync_bo)
+> 
+>   #define DRM_V3D_SUBMIT_CL_FLUSH_CACHE             0x01
+>   #define DRM_V3D_SUBMIT_EXTENSION                 0x02
+> @@ -237,11 +240,13 @@ struct drm_v3d_wait_bo {
+>          __u64 timeout_ns;
+>   };
+> 
+> +/* WB BOs require explicit cache sync. */
+> +#define V3D_BO_WB_MMAP 4
+> +
+>   /**
+>    * struct drm_v3d_create_bo - ioctl argument for creating V3D BOs.
+>    *
+> - * There are currently no values for the flags argument, but it may be
+> - * used in a future extension.
+> + * The flags argument may request V3D_BO_WB_MMAP for a write-back CPU mapping.
+>    */
+>   struct drm_v3d_create_bo {
+>          __u32 size;
+> @@ -278,6 +283,49 @@ struct drm_v3d_mmap_bo {
+>          __u64 offset;
+>   };
+> 
+> +/* Valid flags to pass to drm_v3d_bo_sync_op */
+> +#define V3D_BO_SYNC_CPU_CACHE_FLUSH                    0
+> +#define V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE     1
+> +
+> +/**
+> + * struct drm_v3d_bo_sync_op - BO map sync op
+> + */
+> +struct drm_v3d_bo_sync_op {
+> +       /** Handle of the buffer object to sync. */
+> +       __u32 handle;
+> +
+> +       /** Type of sync operation. */
+> +       __u32 type;
+> +
+> +       /**
+> +        * Offset into the BO at which the sync range starts.
+> +        *
+> +        * This will be rounded down to the nearest cache line as needed.
+> +        */
+> +       __u32 offset;
+> +
+> +       /**
+> +        * Size of the range to sync
+> +        *
+> +        * size + offset will be rounded up to the nearest cache line as
+> +        * needed.
+> +        */
+> +       __u32 size;
+> +};
+> +
+> +/**
+> + * struct drm_v3d_sync_bo - ioctl argument for syncing BO maps
+> + */
+> +struct drm_v3d_sync_bo {
+> +       /** Array of struct drm_v3d_bo_sync_op */
+> +       __u64 ops;
+> +
+> +       /** Number of BO sync ops */
+> +       __u32 op_count;
+> +
+> +       __u32 pad;
+> +};
+> +
+>   enum drm_v3d_param {
+>          DRM_V3D_PARAM_V3D_UIFCFG,
+>          DRM_V3D_PARAM_V3D_HUB_IDENT1,
 
