@@ -2,42 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89389606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:02:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2247606A31D
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:03:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJSe+mjL
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wNxjDQ/E
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E463D10FCA2;
-	Wed, 28 Oct 2026 14:02:22 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF9B410FCEA
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:02:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DC4B36020A;
- Wed, 28 Oct 2026 14:02:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F60F1F01825;
- Wed, 28 Oct 2026 14:02:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793196129;
- bh=3H8BI2LFf6f0BdxDXU8zUV0CwMCvi64uAcJ3leq5mmw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IJSe+mjL0BOxaNdc8HWlBJRXpeQRsmCQF6nfViCI4lfTa74HStSCmRAHMAPJlZdSl
- a+fxtYY4wRFN60OGKskcM4FX4Fyj5qHArocPFTRvDj1E5hV2v21F5XAHQ4jOuGbOUS
- YzygMNGQQri2BWU+7SsctLSskm8xgENBB8+/JeqU9UzGhrxUGDJ1/MH7zAq56gLObM
- F8li+xKYGx/dTzjlxFY+ejTI2DoP2JqwRl8x5xow/y3D9Mo72zWpVVfUcDQqSYKarb
- BoAYy7dzf09P7t/zt7jkpSbtZgGKeb6t06rThE+0NnvJTiNhXKGExsAcZRvVOdrZlH
- V2Tl4i6assyeA==
-Message-ID: <sashiko-outbox-187952@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/tiny: add driver for Valkyrie USB LCD displays
-To: "ZiAo Wang" <ziaowang2007@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261028132536.375927-4-ziaowang2007@gmail.com>
-References: <20261028132536.375927-1-ziaowang2007@gmail.com>
- <20261028132536.375927-4-ziaowang2007@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 14:02:08 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DBF110E101;
+	Wed, 28 Oct 2026 14:03:23 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013044.outbound.protection.outlook.com
+ [40.93.196.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4F410E101
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:03:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ninfdi4xIbyOUU8rbx4J98tNMfP77ik2zWdAZPNjKmTPDBtxFlasH/QDEyu8+XhdDRpkxH1C9AKU0+leTAh8zIFKMwK6JSmb0tG9v6TyplY1J/4r/th1Q47KRQWC+8l5ehTveLt+FRdzmOE3RYZwTHgttdSVtq5e/71WW22nUJSFv60YjmElrCCmB6zzYN5VZTTBrEzHX6dgM0U2qbg7jC9meKIWBC6FqrOBDERtTtADF1u1Da4mIg0MouyEzXriIH2hkWkQBz8v0JObQ9gMW5nUcaLTdkRs7WBYiFh9YFhTNk3YYvkbrGHhklKtK9wuqP34PfjDY/i3l0YH4jsyKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fBRHM/dYBJXFpqQucE3MolM3R+rfLw6UNPmgzLOD6Rc=;
+ b=N9O3mqvnbHVgjgFjKXJfqzhUC20PsZzMMDKP1WbFwLTBtySu874vVBJdGnmgbtfyWTrYr98B3MA0rA0PIgzIDLXOWESs65dEFvRZ53I6xi1y94RCVFmdubgaPyr07fHwkmPFBx2P+0bzABMs2bwMLQFOlII2f6PA0P6Os1YjTyTYxSPR15FW9JcNeORnTJ8pAr8PGtVxMYE+/oXL0wvz7pMAW4cl15oLyxbYlhyaxSEdiIqbsmInJflXNL2M8fKC+2XBI+5Oc6t3pEDcGVDTFU1SMnf1IjYdGxk7EQxm1a8aljUGoavLQo+San62GO+HIGLK9iKHt4kiX9GwLDlJmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fBRHM/dYBJXFpqQucE3MolM3R+rfLw6UNPmgzLOD6Rc=;
+ b=wNxjDQ/EoEXqpgCWfa4lAx308Z/Ta/2a/LJ8eArImuDmNzIArquUyR8nhBkSyw+Zw/MuDjlA+vgTeqthNIGEgDqVOl+KdwIcsiSdjGs2S6NLBx7hIohVchiJ2EidDnzkb+3sHSdsveKmItuZi0u+BFvo8unKJiC4ug+g7zykPoQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH4PR12MB590718.namprd12.prod.outlook.com (2603:10b6:610:50f::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 14:03:13 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
+ 14:03:13 +0000
+Message-ID: <52a82bea-3105-4bb5-a6e0-b1a0e3b808b3@amd.com>
+Date: Wed, 28 Oct 2026 15:03:07 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] dma-buf: system_heap: 2MB chunks on x86
+To: Davidlohr Bueso <dave@stgolabs.net>, sumit.semwal@linaro.org,
+ phasta@kernel.org
+Cc: benjamin.gaignard@collabora.com, jstultz@google.com,
+ tjmercier@google.com, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <20260928195850.1982569-1-dave@stgolabs.net>
+ <20261007120745.bvhqqa6cowqnt3jc@offworld>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261007120745.bvhqqa6cowqnt3jc@offworld>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0067.namprd13.prod.outlook.com
+ (2603:10b6:208:2b8::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH4PR12MB590718:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f0053df-54fe-4498-005b-08df34fc3448
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|11063799006|4143699003|5023799004|56012099006|261009223027099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022075727099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Lr3qCr3FT2Cb6OFmehfKG+E92mOPGJOO5GnroUr9rSGcbdw8lqoYMVs3C3x7IxuZkCGRqNgi4tF1bdI1T89oIPpTWCsbiy1kGWSydT/6rOUIjXBm6UD5oxbc6mMCdyYVbeR0B21lPOqmSX/4vnsxVgba7KA+Gbo7G0ShGYkg7Avk6JZcF9z1SXio3S+EyhLKljcdY1RFS4EEZpBCuWKDqNXG6rt16OGt2qYNJfJLgIcJ9Ntz1IIwSvRE5mwPuphn+jL8UQJW79cdv2Ww5Dgn2OfsAE+kFgjeqgiIUTaD1eFk0AqY2YlKnsyBhqFOBXrpYprGeRbuy96hSl0IZXGsRS6wyRe8KJcQASh6IBrnyXjaGh96Nn56SW+o1JVUmbSAvI6Uz8IkuzoK3wl06pBFKWkNCMmQg8jMtARB2kukyElhfLJdmd7qXCIK+TvaenstVu2L12vEhw+irU2q5yqkxyt2jPcbLYb9OXrpQfLNjRJxQFyFD49HwD6EtucXkeLywKbvQLjebPrnIuYC5fMVrBH+gFqeqNhGavOMrJJmUW7G2RGJDk2+Wp5KiBWzVw7BPbGulyfmn+N9g6lMfeXYcm/tL7VW01YPiEu7JoI79E//GlAZJ/VMosvkuPSdu43b
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(4143699003)(5023799004)(56012099006)(261009223027099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022075727099003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1BORDkwV1ZDMG9ld3hVSjEyNFQ1cGZhZzhCS1o2c2huOUZ1VGRseW52SGpJ?=
+ =?utf-8?B?V3FJNUkrWEJlekk2Q2pJMXZyMmJLU0VQZk9tZVdxeC9VankvWXZ5TlYrQ0N3?=
+ =?utf-8?B?dThJZmhGYm9jZk5WeHNvaytZbktJL3ZSa1VmbHRoMU5JNnRZMUZXMUQxR1BM?=
+ =?utf-8?B?UkhqN3RJaWdVSjM3Z21rWmR6QzN3Q1VYMGdkVTNFcWFMN0VJYmlsOFBMaFRL?=
+ =?utf-8?B?WVBJcTg2d0FDRmNqbHkrQjg0UTIrYkkzR1JvYlNFMGMycUhoaGl3bHg3NTFS?=
+ =?utf-8?B?Y2p5enJ6dFpwQkxsNG0xbVpDMHNSYkdnRzJMbURpVS9NYWFnKytjNG1Lbndm?=
+ =?utf-8?B?ako2VTU3UWF2MjBwNmJ0QlI4RmpKeU9nNm5nSy9ScTFpelVHSmFUdTZ1TGgy?=
+ =?utf-8?B?dWFUYWExcHBVSS83ckQ3ZW92Y29BMUh3aXN3eHlOa2FhdUtDSXppTGw3ZUZL?=
+ =?utf-8?B?K0lTWG80RDJtOFJZQ21uSHdGZUhRU2N1OGcvUlpEajhwR29WR25JcjJYZHJ6?=
+ =?utf-8?B?L0h5S1ZRUnZtc3grRnZ1ZGVZZENDaHN6eWF3SmhDc0lhWlRNTFBULzZldEZs?=
+ =?utf-8?B?VThrZ1VBZ3ZyUXFVQ1NWMmR4R0RxUWJ3THptWUhnOVhsOWJYb281dU5RVnVt?=
+ =?utf-8?B?cU9pTlBDR0FUMjRCbng4cDJubm80Nmx6eUJmWVE2aHlzSXJxUTlabUVBakpM?=
+ =?utf-8?B?QnV3OGt0SkdyRFlNeTFWaGtEeXVFUGpCTGRvVC91MGZuQkRlNDRsbjFpS3Np?=
+ =?utf-8?B?bE5LdkVManp2SUYxMjQ3VGN5ZlRpelNPYzhkSmp2UzBzMkJ1bWZFMTYyYWR2?=
+ =?utf-8?B?SEZBV1BheUF5a3lEVitPZnJXUVhDUEZOOWtaeHlxcjR5L3B6aUQ5Uiswdk1q?=
+ =?utf-8?B?OUx2cUViZTRVNXFrbndENHIxQ0w1TkVvZ0Vmc0dyK2E5YW1hcGhjbFJLS2tG?=
+ =?utf-8?B?OXFqK0JvdnIreVhzUnZzM3JHU0cybmNiZ054aG9ZYTM2VG1kQTJxakpad3N1?=
+ =?utf-8?B?UE9lWXpDMWt6STBxaVcwdE43andVWGlabi9IMlhBT3ZUUjRkbVAydzNsbFlt?=
+ =?utf-8?B?UEdJS3dCMFB1MExMUGlXYkhNQWZEVVl5aWRmSWc5RUg1WE9yeTkrZko0TzIy?=
+ =?utf-8?B?dnZ1cU9ZQi9KYU9Jd0xJRzhTdlBkK1N4T28xZjJCSExpTkRrU0RLWUZ0R3ZO?=
+ =?utf-8?B?dkJuL202L285ZTdhcHY2YytmTnFNamthaXpiMFp1VjZ5Y0h6Um1LblpRVFpI?=
+ =?utf-8?B?U25obTNqSW5WdHFkVXVmbDlISlR0dm9mRDJvZ1BGUU9WTEdWUVd2UTJwaFIz?=
+ =?utf-8?B?d2t1VUVKSmdWd1ZYQllMM0FUN3p1SHU3Y2ovNzdrMktFc2dIbi9vc0lIVVhB?=
+ =?utf-8?B?VWw5NGFtc20xVXRZaldwdzRvVDNES3ZvSC9MVlBuTjE4b1hzYW5MV2NFSHZX?=
+ =?utf-8?B?UlR4MEZDM0tHU0Y4WWdKbFF4QnFxeCtmMnlhUUZ1aWhTTnNZdGN5azJDOFpB?=
+ =?utf-8?B?MVdkZTE3M1haVlVOaGNkN05PaUY5OHhPaGVIcVU0ZWhGdHJqM3NJQjNKblpY?=
+ =?utf-8?B?TFFIUlRJcks4eVFBRkg0VFVJUlBnZW5vUXJUMjY3RTh6Nm9MZWZ1OVNYZlVO?=
+ =?utf-8?B?OWR0YnV6ZjF4N3A4cjE5Q3hidTdVTlRuRzlNNmtsR0htOWxtekJVRVY1ZFZz?=
+ =?utf-8?B?a1lHWkp0YW9lNDRidlViTG0vUzdCeXZnRG10dEpxekNrVjdXb3R1ZGU1QUpC?=
+ =?utf-8?B?N0NZZklwUHdaSzF5VUVTczAwM1RNdTZ6dnREekxjbm9wQ1hxQkJZUmxGWWxO?=
+ =?utf-8?B?UUNtbU1KM0c0OGtVSlM3K3FMdkI3UzV6Vk52bXgwd2x1d2dUV29iM0V5dUVk?=
+ =?utf-8?B?YkRXeXptTW5aNWZSRFVFdlZVTE1keGJqQTgvbXc0aGRmU0NzN1VYcklxUGtk?=
+ =?utf-8?B?eS9lYU9qNnJONzFDRkg4Z1phYm1CUnNyTW1pUldON0ttUVNDSG13MDJKdFZR?=
+ =?utf-8?B?eVBBelhqK1hhYVhDay9nVHZtRElFMHZHV1BxL0tIVWxZc1ZmRlg3cWpmc3Ix?=
+ =?utf-8?B?MVRXR1YrUTRoOC9ZTVN5WkZhcGZabDBVNEhlalR5OVVvcmh2VmpacVZNQnRM?=
+ =?utf-8?B?cHkrNWxrRTJzU25BKzM5RmZqVEtWSWQrSFUxTnlGVkZLeHp5ZjBiaGhoaG85?=
+ =?utf-8?B?Y3hLWGhhei9ZVHM3dkJGYjlzdU5wOXhJWlZjL1Z1MUgvZGlFN2VTWGdYSkpX?=
+ =?utf-8?B?WE8rS013enozcnJBM1pGM2xJcHpJaGUyWVUyUUcveHhhMWdwY3R1eU5rLzFp?=
+ =?utf-8?Q?IN8VybB3qGAPuoy8/2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f0053df-54fe-4498-005b-08df34fc3448
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 14:03:13.3585 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jfgcBLij+YElZtsLDZtikNZ/MTbGCC46vJJb2TLWKhc654BXo96SfMmfv4MrA0fp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB590718
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,336 +132,53 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] drm/tiny: missing drm_atomic_helper_shutdown() in vk_disconnect()
-- [Medium] drm/tiny: missing drm_dev_set_dma_dev() in vk_probe()
-- [Medium] drm/tiny: vk_crtc_atomic_check() skips validation when CRTC is i=
-nactive
-- [Medium] drm/tiny: vk_device_enable_pre() leaves device_state true on fai=
-lure
-- [Medium] drm/tiny: valkyrie-lcd: broken resume recovery when drm suspend =
-fails
---
+I've just pushed patch #1 to drm-misc-fixes.
 
-commit 172f750ba1a198c982441dc0256107aec140e020
-Author: ZiAo Wang <ziaowang2007@gmail.com>
+I'm still wondering if #2 is actually optimal. From what I've heard only 2MiB should be used and especially 64k doesn't make sense any more on modern HW.
 
-drm/tiny: add driver for Valkyrie USB LCD displays
+Regards,
+Christian.
 
-This commit adds a DRM/KMS driver for Valkyrie USB LCD displays (320x240 and
-360x960 variants) using GEM shmem buffers, atomic modesetting, USB control
-transfers for panel initialization, and bulk OUT transfers for UYVY frame
-streaming.
+On 10/7/26 14:07, Davidlohr Bueso wrote:
+> ping? if nothing else patch 1 should be picked up.
+> 
+> Thanks,
+> Davidlohr
+> 
+> On Mon, 28 Sep 2026, Davidlohr Bueso wrote:
+> 
+>> Hello,
+>>
+>> Changes from v1 (https://lore.kernel.org/all/20260914212258.2657788-1-dave@stgolabs.net/)
+>>
+>> - The bug fix is now patch 1, unchanged from v1, picked up tags.
+>> - Removed patch that adjusts per base page size (arm).
+>> - The 2MB order is x86 only, so Arm keeps what it has. Left other platforms
+>>  as is as well to reduce the change impact. (Christian)
+>> - The orders and the fragmentation trade-off are documented, both in the
+>>  code and in the userspace heap documentation. (Christian)
+>>
+>> Thanks!
+>>
+>> Davidlohr Bueso (2):
+>>  dma-buf: validate the attachment before asserting its reservation lock
+>>  dma-buf: system_heap: allocate 2MB chunks on x86
+>>
+>> Documentation/userspace-api/dma-buf-heaps.rst |  4 ++++
+>> drivers/dma-buf/dma-buf-mapping.c             |  4 ++--
+>> drivers/dma-buf/heaps/system_heap.c           | 24 ++++++++++++++-----
+>> 3 files changed, 24 insertions(+), 8 deletions(-)
+>>
+>> -- 
+>> 2.39.5
+>>
 
-> diff --git a/drivers/gpu/drm/tiny/valkyrie-lcd.c b/drivers/gpu/drm/tiny/v=
-alkyrie-lcd.c
-> new file mode 100644
-> index 0000000000000..6478e9246263b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/valkyrie-lcd.c
-[ ... ]
-> +static int vk_plane_atomic_check(struct drm_plane *plane,
-> +				 struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *new_plane_state =3D
-> +		drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_crtc_state *new_crtc_state;
-> +	int ret;
-> +
-> +	if (!new_plane_state->fb)
-> +		return 0;
-> +
-> +	if (!new_plane_state->crtc)
-> +		return -EINVAL;
-> +	new_crtc_state =3D
-> +		drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
-> +	if (!new_crtc_state)
-> +		return -EINVAL;
-> +
-> +	ret =3D drm_atomic_helper_check_plane_state(new_plane_state,
-> +						  new_crtc_state,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  DRM_PLANE_NO_SCALING, false,
-> +						  false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (new_plane_state->rotation !=3D DRM_MODE_ROTATE_0) {
-> +		drm_dbg_kms(plane->dev, "Unsupported plane rotation %#x\n",
-> +			    new_plane_state->rotation);
-> +		return -EINVAL;
-> +	}
-> +	return 0;
-> +}
-[ ... ]
-> +static int vk_crtc_atomic_check(struct drm_crtc *crtc,
-> +				struct drm_atomic_commit *state)
-> +{
-> +	struct vk_driver *drv =3D container_of(crtc->dev, struct vk_driver, drm=
-);
-> +	struct drm_crtc_state *new_crtc_state =3D
-> +		drm_atomic_get_new_crtc_state(state, crtc);
-> +	struct drm_plane *plane =3D &drv->plane;
-> +	struct vk_connector_driver *connector_drv =3D drv->connector;
-> +	struct drm_plane_state *new_plane_state;
-> +
-> +	if (!new_crtc_state->enable || !new_crtc_state->active)
-> +		return 0;
-> +
-> +	if (new_crtc_state->plane_mask !=3D drm_plane_mask(plane) ||
-> +	    new_crtc_state->connector_mask !=3D
-> +		    drm_connector_mask(&connector_drv->connector)) {
-> +		drm_dbg_kms(crtc->dev,
-> +			    "Active CRTC requires the primary plane and USB connector\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	new_plane_state =3D drm_atomic_get_new_plane_state(state, plane);
-> +	if (!new_plane_state)
-> +		new_plane_state =3D plane->state;
-> +	if (!new_plane_state || new_plane_state->crtc !=3D crtc ||
-> +	    !new_plane_state->fb) {
-> +		drm_dbg_kms(crtc->dev,
-> +			    "Active CRTC has no framebuffer on its primary plane\n");
-> +		return -EINVAL;
-> +	}
-
-[Severity: Medium]
-Should vk_crtc_atomic_check() only return early when !new_crtc_state->enabl=
-e,
-rather than also skipping validation when !new_crtc_state->active?
-
-According to the struct drm_crtc_state documentation, drivers must not cons=
-ult
-new_crtc_state->active in atomic_check to decide whether shared resources a=
-re
-required because userspace expects a subsequent DPMS ON transition to succe=
-ed.
-
-When the CRTC is enabled but inactive (enable is true, active is false),
-returning early here allows userspace (for example via DRM_IOCTL_MODE_RMFB =
-or
-DRM_IOCTL_MODE_SETPLANE) to detach the primary plane and its framebuffer wh=
-ile
-leaving the CRTC enabled with plane_mask =3D=3D 0. Any subsequent commit se=
-tting
-active back to true will then fail in vk_crtc_atomic_check() with -EINVAL.
-
-Also, in vk_plane_atomic_check(), returning 0 before calling
-drm_atomic_helper_check_plane_state() when !new_plane_state->fb skips clear=
-ing
-new_plane_state->visible to false when disabling the plane.
-
-[ ... ]
-> +	if (!new_enable) {
-> +		if (drv->device_state)
-> +			ret =3D vk_device_disable(drv);
-> +	} else {
-> +		bool enabling =3D !drv->device_state;
-> +
-> +		/* Testing found a ~10-second timeout; refresh every 3 seconds. */
-> +		mod_delayed_work(system_dfl_wq, &crtc_drv->timeout_flush,
-> +				 msecs_to_jiffies(VK_TIMEOUT_FLUSH_INTERVAL_MS));
-> +		if (enabling)
-> +			ret =3D vk_device_enable_pre(drv);
-> +		ret2 =3D vk_scan_frame(crtc_drv, connector_drv,
-> +				     to_drm_shadow_plane_state(new_plane_state));
-> +		ret =3D ret ? ret : ret2;
-> +		if (enabling) {
-> +			ret2 =3D vk_device_enable_post(drv);
-> +			ret =3D ret ? ret : ret2;
-> +		}
-> +	}
-
-[Severity: Medium]
-What happens in vk_crtc_atomic_flush() if vk_device_enable_pre(),
-vk_scan_frame(), or vk_device_enable_post() fails when enabling is true?
-
-In vk_device_enable_pre():
-
-	drv->device_state =3D true;
-	return vk_a604_switch(drv, true);
-
-drv->device_state is unconditionally set to true before vk_a604_switch() and
-the rest of the enable sequence succeed. If a transient USB error or poll
-timeout occurs during vk_device_enable_pre(), vk_crtc_atomic_flush() still
-proceeds to call vk_scan_frame() and vk_device_enable_post(), and leaves
-drv->device_state set to true. Because drv->device_state stays true,
-subsequent page flips and 3-second timeout_flush refreshes will see enabling
-as false and will never retry the enable sequence.
-
-Similarly, in vk_device_reset(), vk_device_enable_pre() is called
-unconditionally even when vk_device_bootstrap() returns an error.
-
-[ ... ]
-> +static int vk_probe(struct usb_interface *intf, const struct usb_device_=
-id *id)
-> +{
-> +	struct vk_driver *drv =3D devm_drm_dev_alloc(&intf->dev, &vk_drm_driver,
-> +						   struct vk_driver, drm);
-> +	int ret;
-> +
-> +	if (IS_ERR(drv))
-> +		return dev_err_probe(&intf->dev, PTR_ERR(drv),
-> +				     "Failed to allocate DRM device\n");
-> +	mutex_init(&drv->io_lock);
-> +
-> +	ret =3D vk_init_usb(drv, intf);
-> +	if (ret)
-> +		goto fail;
-
-[Severity: Medium]
-Does vk_probe() need to configure the DMA device on drv->drm via
-usb_intf_get_dma_device(intf) and drm_dev_set_dma_dev()?
-
-vk_drm_driver uses DRM_GEM_SHMEM_DRIVER_OPS, which wires up PRIME DMA-BUF
-import via drm_gem_prime_import() -> drm_gem_prime_import_dev(dev, dma_buf,
-drm_dev_dma_dev(dev)). Because drv->drm is allocated with &intf->dev as its
-parent and a struct usb_interface device has no dma_mask, importing a DMA-B=
-UF
-via DRM_IOCTL_PRIME_FD_TO_HANDLE will pass &intf->dev to
-dma_buf_map_attachment(), triggering a WARN_ON_ONCE(!dev->dma_mask) and
-failing with -EINVAL.
-
-[ ... ]
-> +static void vk_disconnect(struct usb_interface *intf)
-> +{
-> +	struct vk_driver *drv =3D usb_get_intfdata(intf);
-> +	int ret;
-> +
-> +	drm_dbg_driver(&drv->drm, "Disconnecting display\n");
-> +
-> +	drm_dev_get(&drv->drm);
-> +	drm_dev_unplug(&drv->drm);
-> +
-> +	mutex_lock(&drv->io_lock);
-> +	drv->io_blocking =3D true;
-> +	mutex_unlock(&drv->io_lock);
-> +
-> +	cancel_delayed_work_sync(&drv->crtc->timeout_flush);
-> +
-> +	if (drv->drm.mode_config.suspend_state) {
-> +		drm_atomic_commit_put(drv->drm.mode_config.suspend_state);
-> +		drv->drm.mode_config.suspend_state =3D NULL;
-> +	}
-> +
-> +	drm_dev_put(&drv->drm);
-
-[Severity: High]
-Can skipping drm_atomic_helper_shutdown(&drv->drm) in vk_disconnect() leak =
-the
-active shadow-plane vmap and pinned shmem pages on unplug?
-
-When the display is active, drm_gem_begin_shadow_fb_access() vmaps the
-framebuffer (incrementing shmem->vmap_use_count, shmem->pages_pin_count, and
-shmem->pages_use_count), and vk_crtc_atomic_enable() enables the CRTC vblank
-timer. The shadow-plane vmap is only released by drm_gem_end_shadow_fb_acce=
-ss()
-when a subsequent atomic commit disables or replaces the plane state.
-
-Because vk_disconnect() never calls drm_atomic_helper_shutdown(&drv->drm), =
-if
-the active framebuffer is not explicitly removed by drm_mode_rmfb() before =
-the
-final drm_dev_put() (for example when a compositor has called
-DRM_IOCTL_MODE_CLOSEFB on its frontbuffer, or when fbdev emulation is not
-enabled), drm_mode_config_cleanup() destroys the active shadow_plane_state =
-via
-drm_gem_destroy_shadow_plane_state() without calling
-drm_gem_end_shadow_fb_access(). When the framebuffer is freed,
-drm_gem_shmem_release() hits drm_WARN_ONs for non-zero vmap_use_count,
-pages_use_count, and pages_pin_count, leaking the kernel vmap and backing
-pages, and drm_vblank_init_release() also warns that vblank->enabled is sti=
-ll
-set.
-
-In addition, if vk_timeout_atomic_submit() queued a non-blocking atomic com=
-mit
-just before cancel_delayed_work_sync(&drv->crtc->timeout_flush), its
-commit_work is not drained without drm_atomic_helper_shutdown() before
-vk_device_reset() and teardown run.
-
-[ ... ]
-> +static int __vk_resume_device(struct usb_interface *intf, bool rebootstr=
-ap,
-> +			      bool reidentify)
-> +{
-> +	struct vk_driver *drv =3D usb_get_intfdata(intf);
-> +	int ret =3D 0;
-[ ... ]
-> +	drv->io_blocking =3D false;
-> +	mutex_unlock(&drv->io_lock);
-> +
-> +	if (drv->drm_suspended) {
-> +		ret =3D drm_mode_config_helper_resume(&drv->drm);
-> +		drv->drm_suspended =3D false;
-> +		if (ret)
-> +			drm_err(&drv->drm, "Failed to restore DRM state: %d\n",
-> +				ret);
-> +	} else {
-> +		drm_dbg_driver(&drv->drm,
-> +			       "No saved DRM state; scheduling an immediate refresh\n");
-> +		schedule_delayed_work(&drv->crtc->timeout_flush, 0);
-> +	}
-[ ... ]
-> +static int __vk_suspend_device(struct usb_interface *intf, bool force)
-> +{
-> +	struct vk_driver *drv =3D usb_get_intfdata(intf);
-> +	int ret =3D 0;
-> +
-> +	drm_dbg_driver(&drv->drm,
-> +		       "Suspending display (force=3D%d, DRM suspended=3D%d)\n",
-> +		       force, drv->drm_suspended);
-> +
-> +	if (!drv->drm_suspended) {
-> +		ret =3D drm_mode_config_helper_suspend(&drv->drm);
-> +		if (ret)
-> +			drm_err(&drv->drm, "Failed to suspend DRM state: %d\n",
-> +				ret);
-> +		if (ret && !force)
-> +			return ret;
-> +		if (!ret)
-> +			drv->drm_suspended =3D true;
-> +	}
-> +
-> +	mutex_lock(&drv->io_lock);
-> +	drv->io_blocking =3D true;
-> +	mutex_unlock(&drv->io_lock);
-> +	cancel_delayed_work_sync(&drv->crtc->timeout_flush);
-> +	drm_dbg_driver(&drv->drm, "Display I/O suspended\n");
-> +	return ret;
-> +}
-
-[Severity: Medium]
-In __vk_suspend_device(), if force is true (from vk_suspend()) and
-drm_mode_config_helper_suspend() fails while the display is active, can the
-display recover on vk_resume()?
-
-When drm_mode_config_helper_suspend() fails, vk_device_disable() is not
-called, so the panel remains enabled with drv->device_state =3D=3D true and
-drv->drm_suspended =3D=3D false while timeout_flush is cancelled across sus=
-pend.
-Once the panel's ~10-second hardware watchdog expires during suspend and
-resets the device, vk_resume() calls __vk_resume_device(intf, false, false)
-and takes the !drv->drm_suspended fallback branch to schedule timeout_flush.
-However, when timeout_flush runs vk_crtc_atomic_flush(), drv->device_state =
-is
-still true, so enabling (!drv->device_state) is false and neither
-vk_device_bootstrap() nor vk_device_enable_pre() / vk_device_enable_post() =
-is
-executed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028132536.3759=
-27-1-ziaowang2007@gmail.com?part=3D3
