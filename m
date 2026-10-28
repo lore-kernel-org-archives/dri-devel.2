@@ -2,50 +2,112 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E6160A6F59
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 16:06:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E69B606A322
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 16:09:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=FHNxKLWs
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DntK3Q+k
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C65010E6A9;
-	Wed, 28 Oct 2026 16:06:40 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id E66AA10E692
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 16:06:33 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 58C071756
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:06:30 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 47DBC3F59E
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:06:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1793203593; bh=3qcnl684PVu1J+bPAecWbEqHH7JxoBDU9tDfr23e3yI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FHNxKLWsB+zVDpH+yw6HxWJq5aFV8cyT6/tnW6mdRh+/zGkO3GJrqeHx9Za8nMaKH
- PusqMlHh8HlgZbmBopuVcK7td3vlFQoHra3z5sA8D7U1oQN4FddYI/m4ZBhjrXEg5s
- zyU2B22E9dzQ75mSgJleYMDE4mAfMihGKCPfgm1c=
-Date: Wed, 28 Oct 2026 16:06:13 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v1 06/27] drm/panthor: Derive MMU AS register addresses
- from base and stride
-Message-ID: <auIdddtRvEYNH88u@e142607>
-References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-7-karunika.choo@arm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5A9A10E011;
+	Wed, 28 Oct 2026 16:09:53 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 317FA10E0A6
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 16:09:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1793203787;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=imaDU6OqxxyB3WUul5kus+HSiegxiNA7Olof0Bywi2g=;
+ b=DntK3Q+kVqQXPqspGbDdcaO+jV/mLAATIhNRGTfw0T8WNt+EJCFg4SjCqDQ3J+XwJIO9IG
+ 4IcZlapj62bqOvlUMHgsh6kyZQNhp0j5T14Fp6eQFCKTZ4IqiTskOsPp4IUp8uM+ShHXXI
+ lVcKnnEQxL+ucYaWGCr27QFNwXkDftg=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-390-n_3VUspaPmuuXW63UFtxrA-1; Wed, 28 Oct 2026 12:09:43 -0400
+X-MC-Unique: n_3VUspaPmuuXW63UFtxrA-1
+X-Mimecast-MFC-AGG-ID: n_3VUspaPmuuXW63UFtxrA_1793203782
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-49febef74e3so15063015e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:09:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793203782; x=1793808582;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=imaDU6OqxxyB3WUul5kus+HSiegxiNA7Olof0Bywi2g=;
+ b=eSgxLwG9RiNBVmSHStoo39ppeQU7pwstYz5Cp0Gw/4k6AaFS6bDPRYmCEavZjlFH4s
+ mAQzlErZXbZSfj3wZRuYrZ1JX3FGN2r4E0fm0tq9owSnr/idOikplfsWErIfGjjQLX0F
+ TYeowLM0el4YfONf/a4HsM7O7jw6VakPaDQRetj2VET/5y3upGZxzOhHc4rg9mkfVG2d
+ F2W67Jp6PLPOirWjfltpxo3bMwTz2V1Jz4QMCSjSSKbqrl9cgdZbYU/eSf+OEXzF8NFw
+ hy1vpIEOQoBtNpQEIVFg3loAWkbv5UDlFPJ72c5kjH1LkuT0ddqSRcYsk120WLOGRdyp
+ 36BA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxTBhCBeBrVg3Vt0Zg6FVrGfPV7Vc/+mpMoakNkhxhAdrv8f25zPIaw0l90wQqF91GHHEyfVwXv3vA=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKW/dAjCVRIUTRY+6Mte1ZnMS1YNLAsAsDcVNPKSLXmIw1fVm9+
+ spnqB9IDmpyx20EgVbtK7FEM7mNJo0x81fqAJeJv1KjF3NIFNFqlHrWu+8A6WMqjn1iJJCCqvye
+ tkgH6v+pb/1TTQdzDGx/aQlyqg4hzLT2IGBnd9/lU3OR+9iFK7RYOZunXPnidvh3AB2tRVw==
+X-Gm-Gg: AYBFou0iRkGHcvAn5pSio4P5XkuzzFplEUgNsJYYu9dHbzP/WcKA7jMPifedbOTzn65
+ Xd8RaZ+4NVmkIwt4rVkCTdjYJt1FabaFvXe/Fw2rpzO4MWQqw5qX2MLUBSh4dIYIeNHli7cPe7S
+ XA80fv0KcDjvbOhy0ON26WgSOb4eOT7IpqiaZGshPA26Jo//8JwTfOcS8aAKNWNEwAWgoqtsmIs
+ xHIT+wlqlx7gQmrlbUFz8EBFMUZWPdiLfEA7Q01lwEcAE3LdNNcJb1Tn89q2Xa2VYJqRaTbdnQO
+ IlflIODGfwK5VHCV5l8hnz58a5t0paeRDCvCj8dgAK4mDYAlhVRrpMWkbx9NGOdfYSdbQgU6wh8
+ Ysms0Tf3clvwWI1GpQ31ZZxPnpIwOlicAFYMP6yw4N8E=
+X-Received: by 2002:a05:600c:4f84:b0:4a7:72b1:c8bd with SMTP id
+ 5b1f17b1804b1-4aa8823d762mr103945e9.15.1793203779458; 
+ Wed, 28 Oct 2026 09:09:39 -0700 (PDT)
+X-Received: by 2002:a05:600c:4f84:b0:4a7:72b1:c8bd with SMTP id
+ 5b1f17b1804b1-4aa8823d762mr103225e9.15.1793203778959; 
+ Wed, 28 Oct 2026 09:09:38 -0700 (PDT)
+Received: from localhost ([139.47.30.142]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4aa7c5063e3sm3064185e9.0.2026.10.28.09.09.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Oct 2026 09:09:38 -0700 (PDT)
+Date: Wed, 28 Oct 2026 17:09:37 +0100
+From: Albert Esteve <aesteve@redhat.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian Brauner <brauner@kernel.org>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>,
+ Jens Wiklander <jenswi@kernel.org>,
+ Sumit Garg <sumit.garg@kernel.org>, cgroups@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org,
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ echanude@redhat.com, mripard@kernel.org
+Subject: Re: [PATCH v3 7/8] dma-buf: transfer memcg charges via
+ DMA_BUF_IOCTL_XFER_CHARGE
+Message-ID: <auIeQU0nAnOLdKUB@aesteve-thinkpadp1gen8.rmtes.csb>
+References: <20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com>
+ <20261027-v2_20230123_tjmercier_google_com-v3-7-78d2c4cb8647@redhat.com>
+ <d76d8bfe-e955-4e90-9f5f-e3e914c0869c@amd.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <d76d8bfe-e955-4e90-9f5f-e3e914c0869c@amd.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: aeYWXy4q-NKja8XSsxLFZhF6tJk6fHgY0nQDohFr3E0_1793203782
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922204535.2850094-7-karunika.choo@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,289 +119,321 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Sep 22, 2026 at 09:45:00PM +0100, Karunika Choo wrote:
-> Move the MMU address-space register layout into the hardware description
-> by storing the MMU_AS base offset and per-AS stride in the Panthor HW
-> map.
+On Wed, Oct 28, 2026 at 10:08:19AM +0100, Christian K�nig wrote:
+> On 10/27/26 16:02, Albert Esteve wrote:
+> > dma-heap already supports charging a specific cgroup at allocation
+> > time via charge_fd in DMA_HEAP_IOCTL_ALLOC. However, dma-bufs can
+> > originate from any exporter (DRM, V4L2, etc.), and the allocator may
+> > not know the final owner at allocation time.
+> > 
+> > Add DMA_BUF_IOCTL_XFER_CHARGE to transfer a dma-buf's memcg charge
+> > to a different cgroup after allocation. The target is identified by
+> > charge_fd, which may be a cgroupfd or a pidfd.
+> > 
+> > The transfer charges the new cgroup before uncharging the old one,
+> > preserving the original charge on failure. An atomic cmpxchg on
+> > dmabuf->memcg prevents races with concurrent transfers.
+> > 
+> > Not all dma-buf exporters back their buffers with reclaimable system
+> > memory. Some represent device registers, VRAM, or carved-out pools
+> > where size is not a meaningful memory cost. Add a memcg_account flag
+> > to dma_buf_export_info that exporters set when their buffers should
+> > participate in memcg accounting. The xfer ioctl returns -EOPNOTSUPP
+> > for buffers that do not set the flag. Currently only the system heap
+> > sets it, other exporters can opt in as needed.
+> > 
+> > Usage example:
+> >   int cg_fd = open("/sys/fs/cgroup/clients/app1", O_RDONLY | O_DIRECTORY);
+> > 
+> >   struct dma_buf_transfer_charge xfer = {
+> >       .charge_fd = cg_fd,
+> >   };
+> >   ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
+> >   /* charge now on app1's cgroup */
+> >   close(cg_fd);
+> > 
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  drivers/dma-buf/dma-buf.c           | 43 +++++++++++++++++++++++++++++++++++++
+> >  drivers/dma-buf/heaps/system_heap.c |  1 +
+> >  include/linux/dma-buf.h             |  5 +++++
+> >  include/linux/memcontrol.h          |  9 ++++++++
+> >  include/uapi/linux/dma-buf.h        | 26 ++++++++++++++++++++++
+> >  mm/memcontrol.c                     | 41 +++++++++++++++++++++++++++++++++++
+> >  6 files changed, 125 insertions(+)
+> > 
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index f31f49ebd0af..07513ecedc10 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -540,6 +540,45 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
+> >  }
+> >  #endif
+> >  
+> > +/* Transfer a dma-buf's memcg charge; see struct dma_buf_transfer_charge */
+> > +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
+> > +				const void __user *user_data)
+> > +{
+> > +	struct dma_buf_transfer_charge arg;
+> > +	struct mem_cgroup *memcg;
+> > +	int ret = 0;
+> > +
+> > +	if (copy_from_user(&arg, user_data, sizeof(arg)))
+> > +		return -EFAULT;
+> > +
+> > +	if (!IS_ENABLED(CONFIG_MEMCG))
+> > +		return 0;
+> > +
+> > +	if (arg.flags != 0)
+> > +		return -EINVAL;
+> > +
+> > +	if (!dmabuf->memcg_account)
+> > +		return -EOPNOTSUPP;
+> > +
+> > +	memcg = mem_cgroup_get_from_fd(arg.charge_fd);
+> > +	if (IS_ERR(memcg))
+> > +		return PTR_ERR(memcg);
+> > +
+> > +	if (dmabuf->memcg == memcg)
+> > +		goto skip_transfer;
+> > +
+> > +	if (!mem_cgroup_transfer_dmabuf_charge(dmabuf, memcg)) {
+> > +		ret = -ENOMEM;
+> > +		goto skip_transfer;
+> > +	}
+> > +
+> > +	return 0;
+> > +
+> > +skip_transfer:
+> > +	mem_cgroup_put(memcg);
+> > +	return ret;
+> > +}
+> > +
+> >  static long dma_buf_ioctl(struct file *file,
+> >  			  unsigned int cmd, unsigned long arg)
+> >  {
+> > @@ -590,6 +629,9 @@ static long dma_buf_ioctl(struct file *file,
+> >  		return dma_buf_import_sync_file(dmabuf, (const void __user *)arg);
+> >  #endif
+> >  
+> > +	case DMA_BUF_IOCTL_XFER_CHARGE:
+> > +		return dma_buf_xfer_charge(dmabuf, (const void __user *)arg);
+> > +
+> >  	default:
+> >  		return -ENOTTY;
+> >  	}
+> > @@ -750,6 +792,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
+> >  	dmabuf->size = exp_info->size;
+> >  	dmabuf->exp_name = exp_info->exp_name;
+> >  	dmabuf->owner = exp_info->owner;
+> > +	dmabuf->memcg_account = exp_info->memcg_account;
 > 
-> Use those values to compute the iomem pointer for each AS slot and make
-> the MMU AS register definitions relative to the per-slot register window
-> instead of hard-coding the slot offset in every register macro.
+> The initial charging should probably be done here as well.
 > 
-> This prepares the MMU code for GPUs where the MMU AS register region is
-> not at a fixed offset while keeping the existing register accesses
-> scoped to a single AS window.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+> This way DMA-buf heaps only needs to pass in the charge_fd and we can re-use the functionality for other DMA-buf exporters as well.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+The problem with doing the charge here is that it happens too late.
+That is the reasoning for this proposal to move all the charging logic
+into heap allocators before pages are allocated.
 
-Best regards,
-Liviu
+What we could do is fill the dmabuf->memcg field when the flag is set
+(i.e., committing into the dmabuf in the patch semantics). But for that
+we'd need adding the memcg we want to charge it to into exp_info in
+order to support charging to cgroups other than the allocator's (for
+the common case would be simpler as we can just look at current).
+Maybe that's what you meant?
 
-> ---
-> v1:
-> - align with updated panthor_hw_regbank structure.
-> - moved AS iomem tracking into panthor_as_slot and introduced as_iomem()
->   to retrieve it.
 > 
->  drivers/gpu/drm/panthor/panthor_hw.c       |  8 ++++
->  drivers/gpu/drm/panthor/panthor_hw.h       |  3 ++
->  drivers/gpu/drm/panthor/panthor_mmu.c      | 45 ++++++++++++++--------
->  drivers/gpu/drm/panthor/panthor_mmu_regs.h | 23 +++++------
->  4 files changed, 50 insertions(+), 29 deletions(-)
+> >  	spin_lock_init(&dmabuf->name_lock);
+> >  	init_waitqueue_head(&dmabuf->poll);
+> >  	dmabuf->cb_in.poll = dmabuf->cb_out.poll = &dmabuf->poll;
+> > diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+> > index adeea8cd328b..a764167167ba 100644
+> > --- a/drivers/dma-buf/heaps/system_heap.c
+> > +++ b/drivers/dma-buf/heaps/system_heap.c
+> > @@ -479,6 +479,7 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+> >  	exp_info.size = buffer->len;
+> >  	exp_info.flags = fd_flags;
+> >  	exp_info.priv = buffer;
+> > +	exp_info.memcg_account = true;
+> >  	dmabuf = dma_buf_export(&exp_info);
+> >  	if (IS_ERR(dmabuf)) {
+> >  		ret = PTR_ERR(dmabuf);
+> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> > index 23ec0ff23fba..ac0ec88cab93 100644
+> > --- a/include/linux/dma-buf.h
+> > +++ b/include/linux/dma-buf.h
+> > @@ -433,6 +433,9 @@ struct dma_buf {
+> >  
+> >  	/** @memcg: the cgroup to which this buffer is currently attributed */
+> >  	struct mem_cgroup *memcg;
+> > +
+> > +	/** @memcg_account: account buffer memory to cgroup */
+> > +	bool memcg_account;
+> >  };
+> >  
+> >  /**
+> > @@ -505,6 +508,7 @@ struct dma_buf_attachment {
+> >   * @flags:	mode flags for the file
+> >   * @resv:	reservation-object, NULL to allocate default one
+> >   * @priv:	Attach private data of allocator to this buffer
+> > + * @memcg_account:	account buffer memory to cgroup
+> >   *
+> >   * This structure holds the information required to export the buffer. Used
+> >   * with dma_buf_export() only.
+> > @@ -517,6 +521,7 @@ struct dma_buf_export_info {
+> >  	int flags;
+> >  	struct dma_resv *resv;
+> >  	void *priv;
+> > +	bool memcg_account;
+> >  };
+> >  
+> >  /**
+> > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> > index 6b30baa79fa9..36fddafbef4e 100644
+> > --- a/include/linux/memcontrol.h
+> > +++ b/include/linux/memcontrol.h
+> > @@ -679,6 +679,9 @@ bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t gfp,
+> >  void mem_cgroup_commit_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
+> >  			      unsigned int nr_pages);
+> >  
+> > +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
+> > +				       struct mem_cgroup *new_memcg);
+> > +
+> >  void __mem_cgroup_uncharge(struct folio *folio);
+> >  
+> >  /**
+> > @@ -1206,6 +1209,12 @@ static inline void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg,
+> >  {
+> >  }
+> >  
+> > +static inline bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
+> > +						     struct mem_cgroup *new_memcg)
+> > +{
+> > +	return true;
+> > +}
+> > +
+> >  static inline void mem_cgroup_uncharge(struct folio *folio)
+> >  {
+> >  }
+> > diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
+> > index e827c9d20c5d..ea957f4b1d38 100644
+> > --- a/include/uapi/linux/dma-buf.h
+> > +++ b/include/uapi/linux/dma-buf.h
+> > @@ -168,6 +168,31 @@ struct dma_buf_import_sync_file {
+> >  	__s32 fd;
+> >  };
+> >  
+> > +/**
+> > + * struct dma_buf_transfer_charge - Transfer a dma-buf's memcg charge
+> > + *
+> > + * Any holder of a dma-buf file descriptor can perform a
+> > + * DMA_BUF_IOCTL_XFER_CHARGE to attribute the buffer's memory
+> > + * cost to a specific cgroup, or move it from one cgroup to
+> > + * another.  The ioctl charges the new cgroup before uncharging
+> > + * the old one atomically.  On failure the original charge is
+> > + * preserved.  If the buffer has no existing charge, a new
+> > + * charge is established.
+> > + */
+> > +struct dma_buf_transfer_charge {
+> > +	/** @flags: Reserved, must be zero */
+> > +	__u32 flags; /* unused for now */
+> > +	/**
+> > +	 * @charge_fd: File descriptor identifying the target cgroup.
+> > +	 *
+> > +	 * May be either a pidfd, in which case the charge moves to the
+> > +	 * memory cgroup of the referenced process, or a cgroupfd obtained
+> > +	 * by opening a cgroup v2 directory, in which case the charge moves
+> > +	 * directly to that cgroup's memory controller.
+> > +	 */
+> > +	__u32 charge_fd;
+> > +};
+> > +
+> >  #define DMA_BUF_BASE		'b'
+> >  #define DMA_BUF_IOCTL_SYNC	_IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
+> >  
+> > @@ -179,5 +204,6 @@ struct dma_buf_import_sync_file {
+> >  #define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
+> >  #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2, struct dma_buf_export_sync_file)
+> >  #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct dma_buf_import_sync_file)
+> > +#define DMA_BUF_IOCTL_XFER_CHARGE	_IOW(DMA_BUF_BASE, 4, struct dma_buf_transfer_charge)
+> >  
+> >  #endif
+> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> > index 7b841b905759..3adc84fe6668 100644
+> > --- a/mm/memcontrol.c
+> > +++ b/mm/memcontrol.c
+> > @@ -5786,6 +5786,47 @@ void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg, unsigned int nr_pages)
+> >  		refill_stock(memcg, nr_pages);
+> >  }
+> >  
+> > +/**
+> > + * mem_cgroup_transfer_dmabuf_charge - move a dma-buf charge
+> > + * @dmabuf: buffer to transfer charge
+> > + * @new_memcg: target memcg; caller must hold a reference
+> > + *
+> > + * Transfers the charge for @dmabuf to @new_memcg and, on
+> > + * success, stores @new_memcg in @dmabuf->memcg.
+> > + * Returns %true on success, %false if the charge against @new_memcg
+> > + * failed or a concurrent transfer raced on @dmabuf->memcg.
+> > + * On failure the caller retains its reference to @new_memcg.
+> > + */
+> > +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
+> > +				       struct mem_cgroup *new_memcg)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-> index 2ca5a334f5817..13090ff6db7b5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -44,6 +44,10 @@ static struct panthor_hw panthor_hw_arch_v10 = {
->  		.mcu_control = {
->  			.offset = 0x700,
->  		},
-> +		.mmu_as_control = {
-> +			.offset = 0x2400,
-> +			.stride = 0x40,
-> +		},
->  	},
->  };
->  
-> @@ -63,6 +67,10 @@ static struct panthor_hw panthor_hw_arch_v14 = {
->  		.pwr_control = {
->  			.offset = 0x800,
->  		},
-> +		.mmu_as_control = {
-> +			.offset = 0x2400,
-> +			.stride = 0x40,
-> +		},
->  	},
->  };
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
-> index 9231c18af94d1..68627f0df7f95 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.h
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
-> @@ -48,6 +48,9 @@ struct panthor_hw_regs_layout {
->  
->  	/** @mcu_control: MCU_CONTROL register bank layout */
->  	struct panthor_hw_regbank mcu_control;
-> +
-> +	/** @mmu_as_control: MMU_AS_CONTROL register bank layout */
-> +	struct panthor_hw_regbank mmu_as_control;
->  };
->  
->  /**
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index d75d575473da4..169550413a1a5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -35,6 +35,7 @@
->  #include "panthor_gpu.h"
->  #include "panthor_gpu_regs.h"
->  #include "panthor_heap.h"
-> +#include "panthor_hw.h"
->  #include "panthor_mmu.h"
->  #include "panthor_mmu_regs.h"
->  #include "panthor_sched.h"
-> @@ -49,15 +50,15 @@ struct panthor_vm;
->  struct panthor_as_slot {
->  	/** @vm: VM bound to this slot. NULL is no VM is bound. */
->  	struct panthor_vm *vm;
-> +
-> +	/** @iomem: CPU mapping for MMU_AS_CONTROL iomem region */
-> +	void __iomem *iomem;
->  };
->  
->  /**
->   * struct panthor_mmu - MMU related data
->   */
->  struct panthor_mmu {
-> -	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
-> -	void __iomem *iomem;
-> -
->  	/** @irq: The MMU irq. */
->  	struct panthor_irq irq;
->  
-> @@ -533,6 +534,11 @@ static void free_pt(void *cookie, void *data, size_t size)
->  	kmem_cache_free(pt_cache, data);
->  }
->  
-> +static void __iomem *as_iomem(struct panthor_mmu *mmu, u32 as_nr)
-> +{
-> +	return mmu->as.slots[as_nr].iomem;
-> +}
-> +
->  static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
->  {
->  	struct panthor_mmu *mmu = ptdev->mmu;
-> @@ -542,7 +548,7 @@ static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
->  	/* Wait for the MMU status to indicate there is no active command, in
->  	 * case one is pending.
->  	 */
-> -	ret = gpu_read_relaxed_poll_timeout_atomic(mmu->iomem, AS_STATUS(as_nr), val,
-> +	ret = gpu_read_relaxed_poll_timeout_atomic(as_iomem(mmu, as_nr), AS_STATUS, val,
->  						   !(val & AS_STATUS_AS_ACTIVE), 10, 100000);
->  
->  	if (ret) {
-> @@ -560,7 +566,7 @@ static int as_send_cmd_and_wait(struct panthor_device *ptdev, u32 as_nr, u32 cmd
->  	/* write AS_COMMAND when MMU is ready to accept another command */
->  	status = wait_ready(ptdev, as_nr);
->  	if (!status) {
-> -		gpu_write(ptdev->mmu->iomem, AS_COMMAND(as_nr), cmd);
-> +		gpu_write(as_iomem(ptdev->mmu, as_nr), AS_COMMAND, cmd);
->  		status = wait_ready(ptdev, as_nr);
->  	}
->  
-> @@ -609,9 +615,9 @@ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
->  	panthor_irq_enable_events(&ptdev->mmu->irq,
->  				  panthor_mmu_as_fault_mask(ptdev, as_nr));
->  
-> -	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
-> -	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
-> -	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), transcfg);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSTAB, transtab);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_MEMATTR, memattr);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSCFG, transcfg);
->  
->  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
->  }
-> @@ -647,9 +653,9 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
->  	if (recycle_slot)
->  		return 0;
->  
-> -	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), 0);
-> -	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
-> -	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSTAB, 0);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_MEMATTR, 0);
-> +	gpu_write64(as_iomem(mmu, as_nr), AS_TRANSCFG, AS_TRANSCFG_ADRMODE_UNMAPPED);
->  
->  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
->  }
-> @@ -1808,7 +1814,7 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
->  	mutex_lock(&ptdev->mmu->as.slots_lock);
->  	if (vm->as.id >= 0 && size) {
->  		/* Lock the region that needs to be updated */
-> -		gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id),
-> +		gpu_write64(as_iomem(ptdev->mmu, vm->as.id), AS_LOCKADDR,
->  			    pack_region_range(ptdev, &start, &size));
->  
->  		/* If the lock succeeded, update the locked_region info. */
-> @@ -1871,8 +1877,8 @@ static void panthor_mmu_irq_handler(struct panthor_irq *pirq, u32 status)
->  		u32 access_type;
->  		u32 source_id;
->  
-> -		fault_status = gpu_read(mmu->iomem, AS_FAULTSTATUS(as));
-> -		addr = gpu_read64(mmu->iomem, AS_FAULTADDRESS(as));
-> +		fault_status = gpu_read(as_iomem(mmu, as), AS_FAULTSTATUS);
-> +		addr = gpu_read64(as_iomem(mmu, as), AS_FAULTADDRESS);
->  
->  		/* decode the fault status */
->  		exception_type = fault_status & 0xFF;
-> @@ -3388,8 +3394,11 @@ static void panthor_mmu_info_init(struct panthor_device *ptdev)
->  int panthor_mmu_init(struct panthor_device *ptdev)
->  {
->  	u32 va_bits = GPU_MMU_FEATURES_VA_BITS(ptdev->gpu_info.mmu_features);
-> +	unsigned long as_present_mask = ptdev->gpu_info.as_present;
-> +	struct panthor_hw_regbank *regbank = &ptdev->hw->regs.mmu_as_control;
->  	struct panthor_mmu *mmu;
->  	int ret, irq;
-> +	u32 as_id;
->  
->  	panthor_mmu_info_init(ptdev);
->  
-> @@ -3408,7 +3417,13 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  	if (ret)
->  		return ret;
->  
-> -	mmu->iomem = ptdev->iomem + MMU_AS_BASE;
-> +	for_each_set_bit(as_id, &as_present_mask, MAX_AS_SLOTS) {
-> +		u64 offset = regbank->offset + (regbank->stride * as_id);
-> +
-> +		guard(mutex)(&mmu->as.slots_lock);
-> +		mmu->as.slots[as_id].iomem = ptdev->iomem + offset;
-> +	}
-> +
->  	ptdev->mmu = mmu;
->  
->  	irq = platform_get_irq_byname(to_platform_device(ptdev->base.dev), "mmu");
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> index 4e32ab931949c..9d3747601e698 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> @@ -10,13 +10,8 @@
->  
->  /* AS_COMMAND register commands */
->  
-> -#define MMU_AS_BASE					0x2400
-> -
-> -#define MMU_AS_SHIFT					6
-> -#define MMU_AS(as)					((as) << MMU_AS_SHIFT)
-> -
-> -#define AS_TRANSTAB(as)					(MMU_AS(as) + 0x0)
-> -#define AS_MEMATTR(as)					(MMU_AS(as) + 0x8)
-> +#define AS_TRANSTAB					0x0
-> +#define AS_MEMATTR					0x8
->  #define   AS_MEMATTR_AARCH64_INNER_ALLOC_IMPL		(2 << 2)
->  #define   AS_MEMATTR_AARCH64_INNER_ALLOC_EXPL(w, r)	((3 << 2) | \
->  							 ((w) ? BIT(0) : 0) | \
-> @@ -28,8 +23,8 @@
->  #define   AS_MEMATTR_AARCH64_INNER_OUTER_NC		(1 << 6)
->  #define   AS_MEMATTR_AARCH64_INNER_OUTER_WB		(2 << 6)
->  #define   AS_MEMATTR_AARCH64_FAULT			(3 << 6)
-> -#define AS_LOCKADDR(as)					(MMU_AS(as) + 0x10)
-> -#define AS_COMMAND(as)					(MMU_AS(as) + 0x18)
-> +#define AS_LOCKADDR					0x10
-> +#define AS_COMMAND					0x18
->  #define   AS_COMMAND_NOP				0
->  #define   AS_COMMAND_UPDATE				1
->  #define   AS_COMMAND_LOCK				2
-> @@ -37,16 +32,16 @@
->  #define   AS_COMMAND_FLUSH_PT				4
->  #define   AS_COMMAND_FLUSH_MEM				5
->  #define   AS_LOCK_REGION_MIN_SIZE			(1ULL << 15)
-> -#define AS_FAULTSTATUS(as)				(MMU_AS(as) + 0x1C)
-> +#define AS_FAULTSTATUS					0x1C
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_MASK		(0x3 << 8)
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_ATOMIC		(0x0 << 8)
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_EX			(0x1 << 8)
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_READ		(0x2 << 8)
->  #define  AS_FAULTSTATUS_ACCESS_TYPE_WRITE		(0x3 << 8)
-> -#define AS_FAULTADDRESS(as)				(MMU_AS(as) + 0x20)
-> -#define AS_STATUS(as)					(MMU_AS(as) + 0x28)
-> +#define AS_FAULTADDRESS					0x20
-> +#define AS_STATUS					0x28
->  #define   AS_STATUS_AS_ACTIVE				BIT(0)
-> -#define AS_TRANSCFG(as)					(MMU_AS(as) + 0x30)
-> +#define AS_TRANSCFG					0x30
->  #define   AS_TRANSCFG_ADRMODE_UNMAPPED			(1 << 0)
->  #define   AS_TRANSCFG_ADRMODE_IDENTITY			(2 << 0)
->  #define   AS_TRANSCFG_ADRMODE_AARCH64_4K		(6 << 0)
-> @@ -64,6 +59,6 @@
->  #define   AS_TRANSCFG_DISABLE_AF_FAULT			BIT(34)
->  #define   AS_TRANSCFG_WXN				BIT(35)
->  #define   AS_TRANSCFG_XREADABLE				BIT(36)
-> -#define AS_FAULTEXTRA(as)				(MMU_AS(as) + 0x38)
-> +#define AS_FAULTEXTRA					0x38
->  
->  #endif /* __PANTHOR_MMU_REGS_H__ */
-> -- 
-> 2.43.0
+> I would make that more generic instead of dmabuf specific. E.g. something like this:
+> 
+> bool mem_cgroup_transfer_charge(struct struct mem_cgroup **ptr_memcg, struct mem_cgroup *new_memcg, enum memcg_stat_item item, unsigned int nr_pages)
+
+Ah yes, I like this generalization. And the implementation remains
+mostly the same. Thanks!
+
+> 
+> > +{
+> > +	struct mem_cgroup *old_memcg = READ_ONCE(dmabuf->memcg);
+> 
+> > +	unsigned int nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
+> 
+> This way we can also document in the DMA-buf caller that this conversation must be ok when memcg_account is true.
+> 
+> Regards,
+> Christian.
+> 
+> > +
+> > +	if (mem_cgroup_disabled())
+> > +		return true;
+> > +
+> > +	if (!mem_cgroup_reserve_dmabuf(new_memcg, GFP_KERNEL, nr_pages))
+> > +		return false;
+> > +
+> > +	mod_memcg_state(new_memcg, MEMCG_DMABUF, nr_pages);
+> > +
+> > +	if (cmpxchg(&dmabuf->memcg, old_memcg, new_memcg) != old_memcg) {
+> > +		mod_memcg_state(new_memcg, MEMCG_DMABUF, -nr_pages);
+> > +		mem_cgroup_cancel_dmabuf(new_memcg, nr_pages);
+> > +		return false;
+> > +	}
+> > +
+> > +	if (old_memcg) {
+> > +		/* Uncharge old cgroup */
+> > +		mod_memcg_state(old_memcg, MEMCG_DMABUF, -nr_pages);
+> > +		mem_cgroup_cancel_dmabuf(old_memcg, nr_pages);
+> > +		mem_cgroup_put(old_memcg);
+> > +	}
+> > +
+> > +	return true;
+> > +}
+> > +
+> >  /**
+> >   * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
+> >   * @dmabuf: buffer to uncharge
+> > 
 > 
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
