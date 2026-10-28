@@ -2,92 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B3E606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C407F606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=SXSoVBju
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=j5OtIRou
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 705C8112059;
-	Thu, 29 Oct 2026 07:59:15 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6061110E4A0
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 22:09:20 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-48e0d1da913so303750f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 15:09:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7A5411205B;
+	Thu, 29 Oct 2026 07:59:16 +0000 (UTC)
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1373A10E299
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 11:57:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793138958; x=1793743758;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=/PLmL+V/SYmlIq7ZPKJzSVA7G2MVgEzQyQAcifW2km0=;
- b=SXSoVBjuFJD97B4PNC4Cl0kLq13iB+rneR6qL5gziPb8j9VlXFCOEKrww7e97DZ74L
- J5u+ib8H/ozIlAy7RUYJgS9/AdVga5U9NjWEigfSbF5IXt8Diq+AQX5FAQARSUjU1IqT
- 82eenQ5ctGTG2D5KT2cN2torqOD9RCdDhp7zacxLFfLlfEalGI22Os2lmMx3kTonevEh
- Zt6oNwQXxvs7Inmpgxx4aZ/VYmy195kRA+EH46V8djv9B4DDE/FeIy+YBIj2tLtbypXr
- pKJdfz0N7KPVe38DyIYvy4XvwP6MbLT5qzPmooAfoUHxI1D4vTzbNTjcEs+8/FjQ58LQ
- swtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793138958; x=1793743758;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=/PLmL+V/SYmlIq7ZPKJzSVA7G2MVgEzQyQAcifW2km0=;
- b=Iru2dFhdvPPde2yJn4wMQ5FbwlyleeZA3BIUyzrqvLkRHWyoUXmpDZ7UbUQlaPzlKj
- vfHgHDCZPn7KJtQ/WjPvMAJ13vslfH2E5tgs2qoKXk4x4bK3r1tVlPBK6S3DPpkAAY4W
- S7sW/sQZwMssvco2TkCswQE2JZiX4Dg25LXx1WT9kS8AqlvCF99LbDoBuHKHVijLOApi
- ySnIlaxIym/m5eEzzkQbfAt3i8fD3oJV2PEGI32+xx8ic6yaJBzQIqWfyC97AD4qK4Sh
- w3i/OVGTt9Xnb6lOmk+zyDfRbL8E0iHfFHELkqymAxkbELUywJykcz65s/RxDvWNCJTf
- Pm2w==
-X-Forwarded-Encrypted: i=1;
- AKwUvByFRt/TweHTCvs//yerAkIyd5n/HOIluud7k9TLdRRUGGQe+JYosiEPLp4tbBKwWr3/fWKYbfJD5Oo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJXEUKtMoam3WM5pZWmxa9tKUeTf6awzIuefMm2jGQ7feMRE9hn
- uwdMw7cDR8eM2vRQP10ngwrhwQFfceRpB/GDlHadw0ChIsdJWnx/EYWKpWvl8MNZH+c=
-X-Gm-Gg: AYBFou1DZwi3AtjoZR867CWlRxlN44fESG9VsujjvBI84HIuyfo2lQhAMezuFM+e5Ie
- Ny1ZLEqljTP9sxTMJDMdU33Af2mgr1oy+ympFRnFMeP5U7npjM0OwIZYy8jvVz+iI4uITmyvE9F
- VZBTulf9QPUBnliuabhlkgrq2+sfU0Al4ABbtPCHhG4wdJtAr+Bwtm1Fi/EZoRTAf1GS33NW/GO
- 6SphYVdZK+HWes+DXn/mD3o23RuWIj9sSe4lCNMDx9YPBQJ88K0F4SbyR9sAutnqRJmw9NKH+hv
- OF+1FPaE+U/wmeb/8Mm26fgNo21CLs8ElZf/poY4TcKZGjSzGk5xL7M0BB3tIzWRCSXKyhCMKgm
- c1kC37pIyKvZOPlcmWUN/6z4iTaiHErnlsBS6OtY/E5mMZuVkdHFC4WumGqf7UTeaoRfVwye9NN
- etADOqttX301pwB3/XZ7KrxTnRh4rAT15dW5poA4IRi/8IKlRk4PKCr/FuHWSWLd3OpYqGaee0B
- 6DgAuM/QYglBXIIAOuuVWxJXWlfPRITjTY6ocPW5ucpYbTYmlLRHfTFtEgrzfuRA7M2vYMSOD/R
- jNCTHE1NTtHf
-X-Received: by 2002:a05:6000:46c6:b0:48e:6f:19b2 with SMTP id
- ffacd0b85a97d-48e55a51a7dmr5924445f8f.25.1793138958515; 
- Tue, 27 Oct 2026 15:09:18 -0700 (PDT)
-Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5cfb:af57:9834:741b])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3ebcb958sm25306661f8f.21.2026.10.27.15.09.17
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Tue, 27 Oct 2026 15:09:17 -0700 (PDT)
-From: Olivier Louvignes <olivier@mgcrea.io>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Paul Cercueil <paul@crapouillou.net>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "H. Nikolaus Schaller" <hns@goldelico.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- Olivier Louvignes <olivier@mgcrea.io>
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
- controller
-Date: Tue, 27 Oct 2026 23:08:02 +0100
-Message-ID: <20261027220802.56348-1-olivier@mgcrea.io>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <465cb935-2648-458b-9cfc-9b7fd5dc53c5@kernel.org>
-References: <270ef5220fdd5ec3e0b88ba5c4ce044992fca41a.camel@crapouillou.net>
- <465cb935-2648-458b-9cfc-9b7fd5dc53c5@kernel.org>
+ d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-ID:In-Reply-To:References:Content-Type:
+ Content-Transfer-Encoding:MIME-Version; bh=SIzXsF2cSOwvj4zqSccNZ
+ xhOlsxGaf+jUqImNxmEMvo=; b=j5OtIRou5pxx8OXpqnpffa/sdOzjFs4VnYkiT
+ 58imOHjSX2FiuCcGYWiC3Z1MghEwI1YQVyVf78hcGHzCsaRyUf+4xMpfLUUQkmNX
+ zuyb6ISlVnflNwywTcbXRkw4oGZ816/TP0JuA+CAtuBd/bx9Lt+kgiCClL68Zj6j
+ rcpbVE=
+Received: from [127.0.1.1] (unknown [114.214.180.23])
+ by mailimap2024 (Coremail) with SMTP id 3pYKCgB3_kI84+Fq3M1YAA--.876S2;
+ Wed, 28 Oct 2026 19:57:48 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Taniya Das <taniya.das@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
+Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
+Subject: Re: [RFC PATCH] clk: qcom: dispcc-sm8750: reset the MDSS blocks at
+ probe when the bootloader left them running
+Date: Wed, 28 Oct 2026 19:57:48 +0800
+Message-ID: <179318866835.88849.1485640983989491497@mail.ustc.edu.cn>
+In-Reply-To: <22a87c51-4f8c-49c0-a13a-c11767f10e85@oss.qualcomm.com>
+References: <20261022140811.469417-1-xiaqinghuan@mail.ustc.edu.cn>
+ <22a87c51-4f8c-49c0-a13a-c11767f10e85@oss.qualcomm.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:57 +0000
+X-CM-TRANSID: 3pYKCgB3_kI84+Fq3M1YAA--.876S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CFWUCF15WFWkuFWkXw4ktFb_yoW8tr4xpa
+ 1agF4rCrnFk34SvF4xAr40vay8C395KF43Jr98G343Z345trySvrZ3tw4YgrWqkrs7Xw1j
+ yr1Ivw4UA3Wvva7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r1q6r43MxkI
+ ecxEwVAFwVW8KwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+ 02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_
+ GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+ CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+ 6r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvj
+ xUgmhwUUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREOB2rg+9ZfJwBfsZ
+X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,24 +71,60 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Krzysztof,
+Hi Taniya,
 
-No, it does not. The X1600's controller fetches its frames from memory
-itself, through its own descriptors and DMA (programming manual,
-section 10.3.1 and Figure 10-1: AXI -> DMA -> async FIFO -> TFT/SLCD),
-and the manual has no IPU or other block in front of it.
+Thanks, that is a clear answer and I will drop the clock-side shape.
 
-So the only link in its datapath is the output, to the panel or bridge,
-which the binding's port describes.
+Taking your two points at face value:
 
-Will send a v3 with your other points after -rc1.
+- the resets belong to the display side, not to dispcc probe;
+- resetting the whole block after the PLLs are configured will flicker.
+
+So the RFC as posted is withdrawn. I will not resend it in that form.
+
+Where I think the replacement lands, and where I would like your opinion
+before spending time on it:
+
+The reset already exists on the display side. msm_mdss_reset() in
+drivers/gpu/drm/msm/msm_mdss.c asserts the mdss reset, sleeps 20 ms and
+deasserts it, and sm8750.dtsi already points that reset at
+DISP_CC_MDSS_CORE_BCR. The "hold it for one frame" timing is not new
+either, that function carries the same comment upstream today. So the
+mechanism is there; my patch only moved it earlier, into dispcc probe.
+
+The reason I moved it is ordering. On this SoC mdss consumes dispcc
+clocks and MDSS_GDSC, so dispcc probes first and the dispcc PLLs are
+programmed inside disp_cc_sm8750_probe(). msm_mdss_reset() then runs
+after that, so resetting there would take down PLLs that were just
+configured - which is the flicker you describe, and quite possibly the
+same failure I was trying to avoid in the first place.
+
+So my open question is narrower than the original RFC: given that
+ordering, where should a board that is handed over with a live display
+block put the reset? Three shapes I can see:
+
+1. keep only the single CORE_BCR reset that DT already describes, and
+   let the clock framework reprogram the PLLs after it;
+2. drop the block reset entirely and do a per-encoder reset in the
+   DPU/DSI enable path, so the PLL section is never touched;
+3. leave it to the bootloader - the vendor loader has a DisableDisplayHW
+   knob for exactly this - and carry nothing in the kernel.
+
+I am not asking you to design it. I would just like to know which of
+those three you would not reject outright, so I do not spend a cycle on
+the wrong one. If the answer is "none of them, this is a bootloader
+problem", that is a useful answer too and I will write it up that way.
+
+No date attached - this is a background item for me, and I would rather
+come back with measurements than with a schedule.
 
 Thanks,
-Olivier
+Qianhui Xu
+
