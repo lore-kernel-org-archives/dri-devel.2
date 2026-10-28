@@ -2,27 +2,27 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DA4606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBB3606A31D
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=iyuSnZld
+	dkim=pass (1024-bit key, unprotected) header.d=ilvokhin.com header.i=@ilvokhin.com header.a=rsa-sha256 header.s=mail header.b=csUWtQzw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3948B112038;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 412FC11203E;
 	Thu, 29 Oct 2026 07:58:58 +0000 (UTC)
 Received: from mail.ilvokhin.com (mail.ilvokhin.com [178.62.254.231])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1F610FA4D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1F010FA45;
  Wed, 28 Oct 2026 08:30:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ilvokhin.com;
- s=mail; t=1793175633;
- bh=SMf0dV4x3xb+DslLmuw7FBFheVT29/cwuNdKSpo2QkE=;
+ s=mail; t=1793175638;
+ bh=7iGwC/zgOWLrxX4ANiv2xF58zogBn71EZM14tRgOJbE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=iyuSnZldpZjUpO/QwNk+P5YouZek0N2mycnUxbkQccvDC4YJ19S4/mULi0aeehza5
- 68UlH00B7Uiw50tvUL0mmPirCWsysK2dNqpdy84iHfp+1EmJSSkCPH4nrPYKSc8ftb
- VX/gnIntc+RIw7VOplejxDi+mip28Hr6aXN6ETg8=
+ b=csUWtQzwD2E/XlWZClH8qe1DSNmkf/BxgxVrI21nciRCwiVBnNkgR/QmWPWiXgOFf
+ r7hvwbXh1TI+dwN3mfeJxPnh+wv9MNKw/OzT9SWuYLztFyR/10iP2qfxQuy6XpjkYc
+ swD9LFS71C2gJ4LZM8Rqw6CkTpFxgtqHX1iTdRcg=
 Received: from localhost.localdomain (shell.ilvokhin.com [138.68.190.75])
  (Authenticated sender: d@ilvokhin.com)
- by mail.ilvokhin.com (Postfix) with ESMTPSA id 65638FBCE4;
- Wed, 28 Oct 2026 08:20:33 +0000 (UTC)
+ by mail.ilvokhin.com (Postfix) with ESMTPSA id 91086FBD11;
+ Wed, 28 Oct 2026 08:20:37 +0000 (UTC)
 From: Dmitry Ilvokhin <d@ilvokhin.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -50,16 +50,16 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
  Dmitry Ilvokhin <d@ilvokhin.com>
-Subject: [PATCH 01/10] docs: xforms_lists: support __nonnull_args()
-Date: Wed, 28 Oct 2026 08:19:40 +0000
-Message-ID: <fd33c32bb1f1cf80721887b6e9bfa49749e03d20.1793027261.git.d@ilvokhin.com>
+Subject: [PATCH 09/10] soc: aspeed: lpc-snoop: Switch to __nonnull_args() macro
+Date: Wed, 28 Oct 2026 08:19:48 +0000
+Message-ID: <6b82201d601c23bf8545f8d581fd6632c36cd208.1793027261.git.d@ilvokhin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793027261.git.d@ilvokhin.com>
 References: <cover.1793027261.git.d@ilvokhin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:57 +0000
+X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,29 +79,42 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Avoid kernel-doc warnings by supporting __nonnull_args()
-as a function transform.
+Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+nonnull") added the macro __nonnull_args() to wrap raw compiler
+attribute.
 
-This is a preparatory change for the treewide migration from
-__attribute__((nonnull)) to __nonnull_args() macro.
+Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+nonnull attribute usage across the tree and keep the attribute's quirks
+in one place rather than open-coded at every call site.
 
+Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
 Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 ---
- tools/lib/python/kdoc/xforms_lists.py | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/soc/aspeed/aspeed-lpc-snoop.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
-index 320f977c5bac..a8c47ede8637 100644
---- a/tools/lib/python/kdoc/xforms_lists.py
-+++ b/tools/lib/python/kdoc/xforms_lists.py
-@@ -108,6 +108,7 @@ class CTransforms:
-         (CMatch("__attribute__"), ""),
-         (CMatch("STATIC_IFN_KUNIT"), ""),
-         (CMatch("INLINE_IFN_KUNIT"), ""),
-+        (CMatch("__nonnull_args"), ""),
+diff --git a/drivers/soc/aspeed/aspeed-lpc-snoop.c b/drivers/soc/aspeed/aspeed-lpc-snoop.c
+index b09dca34099f..ee84a06a035e 100644
+--- a/drivers/soc/aspeed/aspeed-lpc-snoop.c
++++ b/drivers/soc/aspeed/aspeed-lpc-snoop.c
+@@ -226,7 +226,7 @@ static int aspeed_lpc_snoop_config_irq(struct aspeed_lpc_snoop *lpc_snoop,
+ 	return 0;
+ }
  
-         #
-         # HACK: this is similar to process_export() hack. It is meant to
+-__attribute__((nonnull))
++__nonnull_args()
+ static int aspeed_lpc_enable_snoop(struct device *dev,
+ 				    struct aspeed_lpc_snoop *lpc_snoop,
+ 				    struct aspeed_lpc_snoop_channel *channel,
+@@ -279,7 +279,7 @@ static int aspeed_lpc_enable_snoop(struct device *dev,
+ 	return rc;
+ }
+ 
+-__attribute__((nonnull))
++__nonnull_args()
+ static void aspeed_lpc_disable_snoop(struct aspeed_lpc_snoop *lpc_snoop,
+ 				     struct aspeed_lpc_snoop_channel *channel)
+ {
 -- 
 2.53.0-Meta
 
