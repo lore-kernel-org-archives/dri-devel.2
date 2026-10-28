@@ -2,34 +2,34 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED0B606A320
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 15:04:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EFD60A2621
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 15:04:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkxBsnFF
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FGUhQnEI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4965210FD21;
-	Wed, 28 Oct 2026 15:04:41 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EED810FD21
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 15:04:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58B2A10FD28;
+	Wed, 28 Oct 2026 15:04:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7394410FD26
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 15:04:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1147B60236;
+ by sea.source.kernel.org (Postfix) with ESMTP id 0BD55413AA;
+ Wed, 28 Oct 2026 15:04:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412E71F01828;
  Wed, 28 Oct 2026 15:04:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D381F031E1;
- Wed, 28 Oct 2026 15:04:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793199873;
- bh=+Rsc9g24MtPLpVFEqmviyx5L0j/Yg5yRWd8d0hmWbnc=;
+ s=k20260515; t=1793199875;
+ bh=C7gQDIGtka4M6gFdPtyAUJTEmbG7HdtUcr2lveZNTbo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZkxBsnFFHC/9gTRrdBEknTJoTVZswKRDlPDucehz4Dm8MSiKl46eCXT1gByUpUafd
- jnnLlwddU9v1iqiS4g5eIh2DqyeNhaseMSbKOJPzpRj4Y1cPELGRH+v/WQSuCyAhWh
- f/dC/tZ4EdQ13mxHFfYgAV+Y1a527tVWVLT/liknT+QPmlmamJuQQYsp9NHiqPq7xK
- DuwaHnmvGLSZ5yhpngyULqUh69y5/4tUeRPI/7ZillyArv5BpnnLfZQPdBwRXlAS8o
- tt8eHigoxeUfc/bo9NX5aRFDlx2pFDSsoLSIQdUALqDrV29y4gIKDqfCikxAeAVEg0
- zeS8UrUwPaGyA==
-Message-ID: <sashiko-outbox-188027@kernel.org>
+ b=FGUhQnEI+RbAgshoSt9xu8P3vWredhcl377LgGwqtfoX3wn5xpg3pFBp+vxuSigfm
+ ZayPAsFGhzsDUdUEZHH3n/ZhwRISu8XF1pC0ItBWCTnESEGavXhgpgzipXn+EHWzvQ
+ Akuj0EKJEF9R83wVj8+keQjFL+c1V0vGNwZ/SI7OJ3yi5fEcgHKlzbAm/dgigrMGLw
+ 1oRjmNabb4Bn0U6x1KMQbbSfx9YiCqrKV3gap5VEtC9UrJDcQnX7IYDzDDpo5VqXDQ
+ /gY6sk0QmG7CG5UwE26nMddVlxPpf3Xr3adyn8dxs46aPGhX8nqIGj7nsC4V+pmzhc
+ 3fC+wcXctU+gg==
+Message-ID: <sashiko-outbox-188028@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/8] dma-heap: charge dma-buf memory via explicit memcg
+Subject: Re: [PATCH v3 3/8] security: dma-buf: Add dma_buf_charge_task LSM hook
 To: "Albert Esteve" <aesteve@redhat.com>, "Tejun Heo" <tj@kernel.org>,
  "Johannes Weiner" <hannes@cmpxchg.org>,
  =?utf-8?b?TWljaGFsIEtvdXRuw70=?= <mkoutny@suse.com>, "Jonathan
@@ -53,12 +53,12 @@ Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
  linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
  op-tee@lists.trustedfirmware.org, echanude@redhat.com, mripard@kernel.org,
  media-ci@linuxtv.org
-In-Reply-To: <20261027-v2_20230123_tjmercier_google_com-v3-2-78d2c4cb8647@redhat.com>
+In-Reply-To: <20261027-v2_20230123_tjmercier_google_com-v3-3-78d2c4cb8647@redhat.com>
 References: <20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com>
- <20261027-v2_20230123_tjmercier_google_com-v3-2-78d2c4cb8647@redhat.com>
+ <20261027-v2_20230123_tjmercier_google_com-v3-3-78d2c4cb8647@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 15:04:31 +0000
+Date: Wed, 28 Oct 2026 15:04:33 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,268 +79,110 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] dma-heap: missing permission check in mem_cgroup_get_from_fd()
-- [High] dma-buf: system_heap: 32-bit nr_pages truncation in system_heap_al=
-locate()
-- [Medium] mm: memcontrol: missing EXPORT_SYMBOL_GPL() on dmabuf memcg help=
-ers
-- [Medium] mm: memcontrol: mem_cgroup_get_from_fd() returns NULL when memcg=
- is disabled
+- [High] memcg: task cred and mm->owner mismatch in mem_cgroup_get_from_fd()
 --
 
-commit 961ee31303129349ee7fa6988bef4bc244f22a61
+commit 6c6031732d7f42644e3d99679d750fcc12907447
 Author: Albert Esteve <aesteve@redhat.com>
 
-dma-heap: charge dma-buf memory via explicit memcg
+security: dma-buf: Add dma_buf_charge_task LSM hook
 
-This commit adds a charge_fd field to struct dma_heap_allocation_data so
-DMA_HEAP_IOCTL_ALLOC can resolve a target cgroup from a pidfd or cgroupfd v=
-ia
-mem_cgroup_get_from_fd() and charge system heap allocations to that memcg.
-
-[ ... ]
-
-> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/=
-system_heap.c
-> index c8959eadc71d1..adeea8cd328b8 100644
-> --- a/drivers/dma-buf/heaps/system_heap.c
-> +++ b/drivers/dma-buf/heaps/system_heap.c
-> @@ -17,6 +17,7 @@
->  #include <linux/err.h>
->  #include <linux/highmem.h>
->  #include <linux/mem_encrypt.h>
-> +#include <linux/memcontrol.h>
->  #include <linux/mm.h>
->  #include <linux/set_memory.h>
->  #include <linux/module.h>
-> @@ -388,8 +389,6 @@ static struct page *alloc_largest_available(unsigned =
-long size,
->  		if (max_order < orders[i])
->  			continue;
->  		flags =3D order_flags[i];
-> -		if (mem_accounting)
-> -			flags |=3D __GFP_ACCOUNT;
->  		page =3D alloc_pages(flags, orders[i]);
->  		if (!page)
->  			continue;
-> @@ -401,11 +400,13 @@ static struct page *alloc_largest_available(unsigne=
-d long size,
->  static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
->  					    unsigned long len,
->  					    u32 fd_flags,
-> -					    u64 heap_flags)
-> +					    u64 heap_flags,
-> +					    struct mem_cgroup *memcg)
->  {
->  	struct system_heap_buffer *buffer;
->  	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
->  	unsigned long size_remaining =3D len;
-> +	unsigned int nr_pages =3D PAGE_ALIGN(len) >> PAGE_SHIFT;
-
-[Severity: High]
-Can nr_pages truncate on 64-bit systems when a caller passes a large
-heap_allocation->len via DMA_HEAP_IOCTL_ALLOC?
-
-In dma_heap_ioctl_allocate(), heap_allocation->len is page-aligned into a
-size_t len and only checked for zero before being passed to
-system_heap_allocate() as an unsigned long:
-
-drivers/dma-buf/dma-heap.c:dma_heap_ioctl_allocate() {
-	...
-	len =3D PAGE_ALIGN(heap_allocation->len);
-	if (!len) {
-		mem_cgroup_put(memcg);
-		return ERR_PTR(-EINVAL);
-	}
-
-	dmabuf =3D heap->ops->allocate(heap, len, heap_allocation->fd_flags,
-				     heap_allocation->heap_flags, memcg);
-}
-
-In system_heap_allocate(), size_remaining keeps the full 64-bit len, while
-nr_pages is stored in a 32-bit unsigned int. Because __GFP_ACCOUNT is remov=
-ed
-from alloc_largest_available(), cgroup enforcement now relies solely on
-mem_cgroup_reserve_dmabuf(memcg, GFP_KERNEL, nr_pages).
-
-If userspace passes len >=3D (1ULL << (32 + PAGE_SHIFT)) (for example, 16 T=
-iB
-with 4 KiB pages), nr_pages wraps to 0 (or a small value), so
-mem_cgroup_reserve_dmabuf() succeeds without charging the cgroup while the
-while (size_remaining > 0) loop continues allocating uncharged physical pag=
-es
-until global memory exhaustion. In addition, values of nr_pages in
-[0x80000000U, 0xffffffffU] are passed by mem_cgroup_commit_dmabuf() to
-mod_memcg_state(), which takes a signed int val and would corrupt
-MEMCG_DMABUF statistics.
-
->  	unsigned int max_order =3D orders[0];
->  	struct system_heap_priv *priv =3D dma_heap_get_drvdata(heap);
->  	bool cc_shared =3D priv->cc_shared;
-> @@ -416,10 +417,15 @@ static struct dma_buf *system_heap_allocate(struct =
-dma_heap *heap,
->  	struct page *page, *tmp_page;
->  	int i, ret =3D -ENOMEM;
-> =20
-> -	buffer =3D kzalloc_obj(*buffer);
-> -	if (!buffer)
-> +	if (!mem_cgroup_reserve_dmabuf(memcg, GFP_KERNEL, nr_pages))
->  		return ERR_PTR(-ENOMEM);
-> =20
-> +	buffer =3D kzalloc_obj(*buffer);
-> +	if (!buffer) {
-> +		ret =3D -ENOMEM;
-> +		goto cancel_charge;
-> +	}
-> +
->  	INIT_LIST_HEAD(&buffer->attachments);
->  	mutex_init(&buffer->lock);
->  	buffer->heap =3D heap;
-> @@ -478,6 +484,9 @@ static struct dma_buf *system_heap_allocate(struct dm=
-a_heap *heap,
->  		ret =3D PTR_ERR(dmabuf);
->  		goto free_pages;
->  	}
-> +
-> +	mem_cgroup_commit_dmabuf(dmabuf, memcg, nr_pages);
-> +
->  	return dmabuf;
-> =20
->  free_pages:
-> @@ -498,6 +507,8 @@ static struct dma_buf *system_heap_allocate(struct dm=
-a_heap *heap,
->  	list_for_each_entry_safe(page, tmp_page, &pages, lru)
->  		__free_pages(page, compound_order(page));
->  	kfree(buffer);
-> +cancel_charge:
-> +	mem_cgroup_cancel_dmabuf(memcg, nr_pages);
-
-[Severity: Medium]
-Will building with CONFIG_DMABUF_HEAPS_SYSTEM=3Dm and CONFIG_MEMCG=3Dy fail=
- at
-modpost with undefined symbol errors for mem_cgroup_reserve_dmabuf(),
-mem_cgroup_commit_dmabuf(), and mem_cgroup_cancel_dmabuf()?
-
-In drivers/dma-buf/heaps/Kconfig, DMABUF_HEAPS_SYSTEM is tristate, so
-drivers/dma-buf/heaps/system_heap.c can be compiled as a loadable module
-(system_heap.ko). However, mem_cgroup_reserve_dmabuf(),
-mem_cgroup_commit_dmabuf(), and mem_cgroup_cancel_dmabuf() in mm/memcontrol=
-.c
-do not have EXPORT_SYMBOL_GPL() annotations.
-
-Should those symbols be exported (or should the reservation/commit/cancel
-calls live in the built-in drivers/dma-buf/dma-heap.c layer as described in
-the commit message)?
-
-[ ... ]
+This commit adds the security_dma_buf_charge_task() LSM hook and calls it
+in mem_cgroup_get_from_fd() when resolving a pidfd, allowing security
+modules to mediate cross-process dma-buf cgroup charging.
 
 > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index bbd46ba40350b..f66254f52b999 100644
+> index f66254f52b999..ad195cfd1b5f6 100644
 > --- a/mm/memcontrol.c
 > +++ b/mm/memcontrol.c
-> @@ -5661,6 +5661,53 @@ void mem_cgroup_flush_workqueue(void)
->  	flush_workqueue(memcg_wq);
->  }
+[ ... ]
+> @@ -5698,6 +5701,14 @@ struct mem_cgroup *mem_cgroup_get_from_fd(int fd)
+>  	if (IS_ERR(task))
+>  		return ERR_CAST(task);
 > =20
-> +/**
-> + * mem_cgroup_get_from_fd - resolve a memcg from a cgroupfd or pidfd
-> + * @fd: file descriptor (cgroupfd or pidfd)
-> + *
-> + * Tries @fd as a cgroupfd first; if that fails, tries it as a pidfd.
-> + * On success returns a referenced memcg pointer. On failure returns
-> + * an ERR_PTR.
-> + */
-> +struct mem_cgroup *mem_cgroup_get_from_fd(int fd)
-> +{
-> +	struct cgroup_subsys_state *css;
-> +	struct mem_cgroup *memcg;
-> +	struct cgroup *cgrp;
-> +	struct task_struct *task;
-> +	struct mm_struct *mm;
-> +	unsigned int pidfd_flags;
-> +
-> +	cgrp =3D cgroup_get_from_fd(fd);
-> +	if (!IS_ERR(cgrp)) {
-> +		rcu_read_lock();
-> +		css =3D cgroup_css(cgrp, &memory_cgrp_subsys);
-> +		if (!css || !css_tryget_online(css)) {
-> +			rcu_read_unlock();
-> +			cgroup_put(cgrp);
-> +			return ERR_PTR(-ENOENT);
-> +		}
-> +
-> +		memcg =3D mem_cgroup_from_css(css);
-> +		rcu_read_unlock();
-> +		cgroup_put(cgrp);
-> +		return memcg;
+> +	tcred =3D get_task_cred(task);
+> +	ret =3D security_dma_buf_charge_task(current_cred(), tcred);
+> +	put_cred(tcred);
+> +	if (ret) {
+> +		put_task_struct(task);
+> +		return ERR_PTR(ret);
 > +	}
 > +
-> +	task =3D pidfd_get_task(fd, &pidfd_flags);
-> +	if (IS_ERR(task))
-> +		return ERR_CAST(task);
-> +
-> +	mm =3D get_task_mm(task);
-> +	put_task_struct(task);
-> +	if (!mm)
-> +		return ERR_PTR(-ESRCH);
-> +
-> +	memcg =3D get_mem_cgroup_from_mm(mm);
-> +	mmput(mm);
-> +	return memcg;
-> +}
+>  	mm =3D get_task_mm(task);
+>  	put_task_struct(task);
+>  	if (!mm)
 
-[Severity: Critical]
-What prevents an unprivileged user with access to a dma-heap device from
-passing a cgroupfd (opened with O_RDONLY | O_DIRECTORY or O_PATH on any
-world-readable /sys/fs/cgroup directory) or a pidfd (via pidfd_open() on
-PID 1 or another user's process) as charge_fd to DMA_HEAP_IOCTL_ALLOC?
+[Severity: High]
+Can the cgroup returned by mem_cgroup_get_from_fd() diverge from the task
+credentials checked by security_dma_buf_charge_task()?
 
-Through dma_heap_ioctl_allocate() -> mem_cgroup_get_from_fd() and
-system_heap_allocate() -> mem_cgroup_reserve_dmabuf() -> try_charge_memcg(),
-charging to the root cgroup (where mem_cgroup_is_root(memcg) skips page
-counter charging) allows a restricted process to bypass its own memory.max
-and memory.high limits, while charging to another cgroup allows exhausting
-that victim cgroup's quota and triggering mem_cgroup_oom() kills inside it.
+Here security_dma_buf_charge_task() validates get_task_cred(task), and then
+mem_cgroup_get_from_fd() resolves the target mem_cgroup via get_task_mm(tas=
+k)
+and get_mem_cgroup_from_mm(mm):
 
-Later patches in the series ("security: dma-buf: Add dma_buf_charge_task LSM
-hook", "security: dma-buf: Add dma_buf_charge_cgroup LSM hook", "selinux:
-Restrict cross-cgroup dma-buf charging", and "selinux: Restrict dma-buf
-direct cgroup charging") add LSM hooks and SELinux checks, but there are no
-baseline DAC, capability, ptrace_may_access(), or cgroup write permission
-checks when CONFIG_SECURITY is disabled, when SELinux is not active, or when
-a cgroup directory has no explicit security.selinux xattr (where
-selinux_dma_buf_charge_cgroup() returns 0 on -ENODATA).
+mm/memcontrol.c:mem_cgroup_get_from_fd() {
+	...
+	mm =3D get_task_mm(task);
+	put_task_struct(task);
+	if (!mm)
+		return ERR_PTR(-ESRCH);
 
-Also, when charging a remote memcg via try_charge_memcg() breaches that
-target cgroup's memory.high limit, try_charge_memcg() increments
-current->memcg_nr_pages_over_high and calls __mem_cgroup_handle_over_high(),
-which resolves get_mem_cgroup_from_mm(current->mm) and reclaims from the
-allocating process's own cgroup rather than the remotely charged memcg.
-Should remote charging require appropriate permissions over the target task=
- or
-cgroup, and how should memory.high reclaim be handled when charging a forei=
-gn
-memcg?
+	memcg =3D get_mem_cgroup_from_mm(mm);
+	mmput(mm);
+	return memcg;
+}
 
-[Severity: Medium]
-In mem_cgroup_get_from_fd(), what happens on the pidfd path when
-CONFIG_MEMCG=3Dy and memory cgroups are disabled at boot via
-cgroup_disable=3Dmemory?
+However, get_mem_cgroup_from_mm() resolves the mem_cgroup from mm->owner
+rather than from task, and falls back to root_mem_cgroup when mm->owner is
+NULL:
 
-When mem_cgroup_disabled() is true, get_mem_cgroup_from_mm(mm) returns NULL,
-so mem_cgroup_get_from_fd() returns NULL instead of an ERR_PTR as documented
-in its kernel-doc comment.
+mm/memcontrol.c:get_mem_cgroup_from_mm() {
+	...
+	rcu_read_lock();
+	do {
+		memcg =3D mem_cgroup_from_task(rcu_dereference(mm->owner));
+		if (unlikely(!memcg))
+			memcg =3D root_mem_cgroup;
+	} while (!css_tryget(&memcg->css));
+	rcu_read_unlock();
+	return memcg;
+}
 
-In dma_heap_ioctl_allocate() (and in dma_buf_ioctl_xfer_charge() later in t=
-he
-series), IS_ERR(memcg) is false for NULL, so a pidfd charge_fd silently fal=
-ls
-through while a cgroupfd charge_fd fails with -ENOENT (because cgroup_css()
-returns NULL when the subsystem is disabled). Should the pidfd path also
-return an ERR_PTR when get_mem_cgroup_from_mm(mm) returns NULL?
+If task exits after get_task_mm(task) increments mm->mm_users but before
+get_mem_cgroup_from_mm(mm) runs, exit_mm() -> mm_update_next_owner() finds
+no live owner with mm_users > 1 and clears mm->owner:
+
+kernel/exit.c:mm_update_next_owner() {
+	...
+	/*
+	 * We found no owner yet mm_users > 1: this implies that we are
+	 * most likely racing with swapoff (try_to_unuse()) or /proc or
+	 * ptrace or page migration (get_task_mm()).  Mark owner as NULL.
+	 */
+	WRITE_ONCE(mm->owner, NULL);
+	...
+}
+
+In that case, get_mem_cgroup_from_mm(mm) returns root_mem_cgroup, where
+try_charge() skips charging via mem_cgroup_is_root(memcg). A confined
+caller in DMA_HEAP_IOCTL_ALLOC or DMA_BUF_IOCTL_XFER_CHARGE could fork a
+short-lived helper child with matching credentials to pass
+security_dma_buf_charge_task() and race its exit to charge allocations to
+root_mem_cgroup, escaping its own cgroup memory limit.
+
+Similarly, if task shares an mm_struct with another task via clone(CLONE_VM)
+that has different credentials or cgroup membership, mm->owner can refer to
+that other task while security_dma_buf_charge_task() only checks task's
+credentials.
+
+Would it make sense to resolve the task and its credentials from mm->owner
+(or look up the mem_cgroup directly from task) so that the LSM check and the
+mem_cgroup lookup operate on the same task and cannot fall back to
+root_mem_cgroup when mm->owner is cleared?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-v2_2023012=
-3_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com?part=3D2
+3_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com?part=3D3
