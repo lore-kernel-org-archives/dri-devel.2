@@ -2,126 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2247606A31D
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:03:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8190B606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:07:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wNxjDQ/E
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=x1spWNaU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DBF110E101;
-	Wed, 28 Oct 2026 14:03:23 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013044.outbound.protection.outlook.com
- [40.93.196.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4F410E101
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:03:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ninfdi4xIbyOUU8rbx4J98tNMfP77ik2zWdAZPNjKmTPDBtxFlasH/QDEyu8+XhdDRpkxH1C9AKU0+leTAh8zIFKMwK6JSmb0tG9v6TyplY1J/4r/th1Q47KRQWC+8l5ehTveLt+FRdzmOE3RYZwTHgttdSVtq5e/71WW22nUJSFv60YjmElrCCmB6zzYN5VZTTBrEzHX6dgM0U2qbg7jC9meKIWBC6FqrOBDERtTtADF1u1Da4mIg0MouyEzXriIH2hkWkQBz8v0JObQ9gMW5nUcaLTdkRs7WBYiFh9YFhTNk3YYvkbrGHhklKtK9wuqP34PfjDY/i3l0YH4jsyKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fBRHM/dYBJXFpqQucE3MolM3R+rfLw6UNPmgzLOD6Rc=;
- b=N9O3mqvnbHVgjgFjKXJfqzhUC20PsZzMMDKP1WbFwLTBtySu874vVBJdGnmgbtfyWTrYr98B3MA0rA0PIgzIDLXOWESs65dEFvRZ53I6xi1y94RCVFmdubgaPyr07fHwkmPFBx2P+0bzABMs2bwMLQFOlII2f6PA0P6Os1YjTyTYxSPR15FW9JcNeORnTJ8pAr8PGtVxMYE+/oXL0wvz7pMAW4cl15oLyxbYlhyaxSEdiIqbsmInJflXNL2M8fKC+2XBI+5Oc6t3pEDcGVDTFU1SMnf1IjYdGxk7EQxm1a8aljUGoavLQo+San62GO+HIGLK9iKHt4kiX9GwLDlJmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fBRHM/dYBJXFpqQucE3MolM3R+rfLw6UNPmgzLOD6Rc=;
- b=wNxjDQ/EoEXqpgCWfa4lAx308Z/Ta/2a/LJ8eArImuDmNzIArquUyR8nhBkSyw+Zw/MuDjlA+vgTeqthNIGEgDqVOl+KdwIcsiSdjGs2S6NLBx7hIohVchiJ2EidDnzkb+3sHSdsveKmItuZi0u+BFvo8unKJiC4ug+g7zykPoQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH4PR12MB590718.namprd12.prod.outlook.com (2603:10b6:610:50f::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 14:03:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 14:03:13 +0000
-Message-ID: <52a82bea-3105-4bb5-a6e0-b1a0e3b808b3@amd.com>
-Date: Wed, 28 Oct 2026 15:03:07 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] dma-buf: system_heap: 2MB chunks on x86
-To: Davidlohr Bueso <dave@stgolabs.net>, sumit.semwal@linaro.org,
- phasta@kernel.org
-Cc: benjamin.gaignard@collabora.com, jstultz@google.com,
- tjmercier@google.com, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260928195850.1982569-1-dave@stgolabs.net>
- <20261007120745.bvhqqa6cowqnt3jc@offworld>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261007120745.bvhqqa6cowqnt3jc@offworld>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0067.namprd13.prod.outlook.com
- (2603:10b6:208:2b8::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E43AE10E0A1;
+	Wed, 28 Oct 2026 14:07:53 +0000 (UTC)
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA76110E342;
+ Wed, 28 Oct 2026 14:07:46 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69SBfTKE4126552; Wed, 28 Oct 2026 14:07:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=HriYq/cXZ5+DmILzZE86B6+
+ ze9X9+NsjTnNn5cxJXao=; b=x1spWNaUMsHPe2ZlTPgNh4aSnR7zkoyOjyqpwza
+ pCu2k8B0UXF0WDGkPUfcNbE7YFoT6DBxx+afNQz9QnrZWtiq09vOH+rh2zLFHyMx
+ GcK8gExrG2oSsTm9+wBxLZp3rrmxRMSvtoe3+MFOD2114qNhusI3GpITrOmuHTwe
+ 916FjC/DRrttWOgi66DXLBJ5kvW5nL9ZqNnPpOLzvl++kJpepscM+89h6NDGw/+v
+ tik0F6K19CvQ3QIdJkOQYHztEoILqWSv1q0zByG8nHmAYgcZ1uGtgRI3UB1Uqsyc
+ L0tAX7P7Gi0n10gJ+MMDmWRHFtmjN6FhqNw2Tp0AVUndmwg==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hk414gjwk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Oct 2026 14:07:37 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.128.158) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 28 Oct
+ 2026 14:07:33 +0000
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Date: Wed, 28 Oct 2026 19:37:21 +0530
+Subject: [PATCH v4] drm/imagination: Support for querying Firmware information
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH4PR12MB590718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f0053df-54fe-4498-005b-08df34fc3448
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|11063799006|4143699003|5023799004|56012099006|261009223027099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022075727099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Lr3qCr3FT2Cb6OFmehfKG+E92mOPGJOO5GnroUr9rSGcbdw8lqoYMVs3C3x7IxuZkCGRqNgi4tF1bdI1T89oIPpTWCsbiy1kGWSydT/6rOUIjXBm6UD5oxbc6mMCdyYVbeR0B21lPOqmSX/4vnsxVgba7KA+Gbo7G0ShGYkg7Avk6JZcF9z1SXio3S+EyhLKljcdY1RFS4EEZpBCuWKDqNXG6rt16OGt2qYNJfJLgIcJ9Ntz1IIwSvRE5mwPuphn+jL8UQJW79cdv2Ww5Dgn2OfsAE+kFgjeqgiIUTaD1eFk0AqY2YlKnsyBhqFOBXrpYprGeRbuy96hSl0IZXGsRS6wyRe8KJcQASh6IBrnyXjaGh96Nn56SW+o1JVUmbSAvI6Uz8IkuzoK3wl06pBFKWkNCMmQg8jMtARB2kukyElhfLJdmd7qXCIK+TvaenstVu2L12vEhw+irU2q5yqkxyt2jPcbLYb9OXrpQfLNjRJxQFyFD49HwD6EtucXkeLywKbvQLjebPrnIuYC5fMVrBH+gFqeqNhGavOMrJJmUW7G2RGJDk2+Wp5KiBWzVw7BPbGulyfmn+N9g6lMfeXYcm/tL7VW01YPiEu7JoI79E//GlAZJ/VMosvkuPSdu43b
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(4143699003)(5023799004)(56012099006)(261009223027099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022075727099003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1BORDkwV1ZDMG9ld3hVSjEyNFQ1cGZhZzhCS1o2c2huOUZ1VGRseW52SGpJ?=
- =?utf-8?B?V3FJNUkrWEJlekk2Q2pJMXZyMmJLU0VQZk9tZVdxeC9VankvWXZ5TlYrQ0N3?=
- =?utf-8?B?dThJZmhGYm9jZk5WeHNvaytZbktJL3ZSa1VmbHRoMU5JNnRZMUZXMUQxR1BM?=
- =?utf-8?B?UkhqN3RJaWdVSjM3Z21rWmR6QzN3Q1VYMGdkVTNFcWFMN0VJYmlsOFBMaFRL?=
- =?utf-8?B?WVBJcTg2d0FDRmNqbHkrQjg0UTIrYkkzR1JvYlNFMGMycUhoaGl3bHg3NTFS?=
- =?utf-8?B?Y2p5enJ6dFpwQkxsNG0xbVpDMHNSYkdnRzJMbURpVS9NYWFnKytjNG1Lbndm?=
- =?utf-8?B?ako2VTU3UWF2MjBwNmJ0QlI4RmpKeU9nNm5nSy9ScTFpelVHSmFUdTZ1TGgy?=
- =?utf-8?B?dWFUYWExcHBVSS83ckQ3ZW92Y29BMUh3aXN3eHlOa2FhdUtDSXppTGw3ZUZL?=
- =?utf-8?B?K0lTWG80RDJtOFJZQ21uSHdGZUhRU2N1OGcvUlpEajhwR29WR25JcjJYZHJ6?=
- =?utf-8?B?L0h5S1ZRUnZtc3grRnZ1ZGVZZENDaHN6eWF3SmhDc0lhWlRNTFBULzZldEZs?=
- =?utf-8?B?VThrZ1VBZ3ZyUXFVQ1NWMmR4R0RxUWJ3THptWUhnOVhsOWJYb281dU5RVnVt?=
- =?utf-8?B?cU9pTlBDR0FUMjRCbng4cDJubm80Nmx6eUJmWVE2aHlzSXJxUTlabUVBakpM?=
- =?utf-8?B?QnV3OGt0SkdyRFlNeTFWaGtEeXVFUGpCTGRvVC91MGZuQkRlNDRsbjFpS3Np?=
- =?utf-8?B?bE5LdkVManp2SUYxMjQ3VGN5ZlRpelNPYzhkSmp2UzBzMkJ1bWZFMTYyYWR2?=
- =?utf-8?B?SEZBV1BheUF5a3lEVitPZnJXUVhDUEZOOWtaeHlxcjR5L3B6aUQ5Uiswdk1q?=
- =?utf-8?B?OUx2cUViZTRVNXFrbndENHIxQ0w1TkVvZ0Vmc0dyK2E5YW1hcGhjbFJLS2tG?=
- =?utf-8?B?OXFqK0JvdnIreVhzUnZzM3JHU0cybmNiZ054aG9ZYTM2VG1kQTJxakpad3N1?=
- =?utf-8?B?UE9lWXpDMWt6STBxaVcwdE43andVWGlabi9IMlhBT3ZUUjRkbVAydzNsbFlt?=
- =?utf-8?B?UEdJS3dCMFB1MExMUGlXYkhNQWZEVVl5aWRmSWc5RUg1WE9yeTkrZko0TzIy?=
- =?utf-8?B?dnZ1cU9ZQi9KYU9Jd0xJRzhTdlBkK1N4T28xZjJCSExpTkRrU0RLWUZ0R3ZO?=
- =?utf-8?B?dkJuL202L285ZTdhcHY2YytmTnFNamthaXpiMFp1VjZ5Y0h6Um1LblpRVFpI?=
- =?utf-8?B?U25obTNqSW5WdHFkVXVmbDlISlR0dm9mRDJvZ1BGUU9WTEdWUVd2UTJwaFIz?=
- =?utf-8?B?d2t1VUVKSmdWd1ZYQllMM0FUN3p1SHU3Y2ovNzdrMktFc2dIbi9vc0lIVVhB?=
- =?utf-8?B?VWw5NGFtc20xVXRZaldwdzRvVDNES3ZvSC9MVlBuTjE4b1hzYW5MV2NFSHZX?=
- =?utf-8?B?UlR4MEZDM0tHU0Y4WWdKbFF4QnFxeCtmMnlhUUZ1aWhTTnNZdGN5azJDOFpB?=
- =?utf-8?B?MVdkZTE3M1haVlVOaGNkN05PaUY5OHhPaGVIcVU0ZWhGdHJqM3NJQjNKblpY?=
- =?utf-8?B?TFFIUlRJcks4eVFBRkg0VFVJUlBnZW5vUXJUMjY3RTh6Nm9MZWZ1OVNYZlVO?=
- =?utf-8?B?OWR0YnV6ZjF4N3A4cjE5Q3hidTdVTlRuRzlNNmtsR0htOWxtekJVRVY1ZFZz?=
- =?utf-8?B?a1lHWkp0YW9lNDRidlViTG0vUzdCeXZnRG10dEpxekNrVjdXb3R1ZGU1QUpC?=
- =?utf-8?B?N0NZZklwUHdaSzF5VUVTczAwM1RNdTZ6dnREekxjbm9wQ1hxQkJZUmxGWWxO?=
- =?utf-8?B?UUNtbU1KM0c0OGtVSlM3K3FMdkI3UzV6Vk52bXgwd2x1d2dUV29iM0V5dUVk?=
- =?utf-8?B?YkRXeXptTW5aNWZSRFVFdlZVTE1keGJqQTgvbXc0aGRmU0NzN1VYcklxUGtk?=
- =?utf-8?B?eS9lYU9qNnJONzFDRkg4Z1phYm1CUnNyTW1pUldON0ttUVNDSG13MDJKdFZR?=
- =?utf-8?B?eVBBelhqK1hhYVhDay9nVHZtRElFMHZHV1BxL0tIVWxZc1ZmRlg3cWpmc3Ix?=
- =?utf-8?B?MVRXR1YrUTRoOC9ZTVN5WkZhcGZabDBVNEhlalR5OVVvcmh2VmpacVZNQnRM?=
- =?utf-8?B?cHkrNWxrRTJzU25BKzM5RmZqVEtWSWQrSFUxTnlGVkZLeHp5ZjBiaGhoaG85?=
- =?utf-8?B?Y3hLWGhhei9ZVHM3dkJGYjlzdU5wOXhJWlZjL1Z1MUgvZGlFN2VTWGdYSkpX?=
- =?utf-8?B?WE8rS013enozcnJBM1pGM2xJcHpJaGUyWVUyUUcveHhhMWdwY3R1eU5rLzFp?=
- =?utf-8?Q?IN8VybB3qGAPuoy8/2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f0053df-54fe-4498-005b-08df34fc3448
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 14:03:13.3585 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jfgcBLij+YElZtsLDZtikNZ/MTbGCC46vJJb2TLWKhc654BXo96SfMmfv4MrA0fp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB590718
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261028-fwversion-v4-1-aca85735a2b7@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAJgB4moC/3WMQQ7CIBBFr9KwFgNDacWV9zAugA4ti7YGGtQ0v
+ bu0qxp1MYs3+e/NJGLwGMm5mEnA5KMfhwzloSC200OL1DeZCTCoeD7qHgnDuqJK6hNoxZ1yNcn
+ 7e0Dnn1vresvc+TiN4bWlE1+/vyqJU04FNry2lTSutBfftxPaox17smYS/FUhq8YwkFYJzUr9p
+ Yq9Wu9VkVUnKtGgVMCk+VCXZXkDuZ9EEhkBAAA=
+X-Change-ID: 20261026-fwversion-95a82a91f9f7
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Frank Binns <frank.binns@imgtec.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Brajesh Gupta <brajesh.gupta@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7072;
+ i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
+ bh=PBe/ElyLM4LLJ8TWnq9rpZAyYxE5IbXjDwTLu0bzHd0=;
+ b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBq4gGlUDKcMFixrBWBqWYtG6MD+xZjweOC4a65z
+ k3RIJ4JzA2JAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCauIBpQAKCRDQJndZfgLx
+ cDPBEACQLAgH1VQGtCDSUvm9MUfUdz27a11LndocuqDUnEKV95B26uhzpJp/cJ+9TOpr3EOSlMw
+ GjZVznGkKM8fCxrlhJo0P6/F/C+nnl651wo9+OJU72d7xhaKZJ5iBRC+kOkeSdnJp+tGnTyHBhO
+ uR9ITqfReWdWrTjuP7lmZo2tLGqyrNyTHVo713LN/QI0Rpc2YfWv3vexjF70oDZB1PsTQh7pANI
+ NdPP1e79XwptaIqSqmZkKSjOWlwYsner+PjZ/8TAvitHQIrQlt9V1pEnBpKiO5N/UGclewx1R8C
+ S48Of3fAwcwgbKp5NhDfl/4P94YmGmg3cJA3hBBnSOuyEmWk/LfpRuNnZ5zxkIknh6EJUaqFRlD
+ 1Mw/kxah5ASnfd9iET9P3EuCXiPjB8Vosvjo3pRCvy7xFbQSdi7R7TT29/S4zXLTW658apbbdtV
+ c+KGfEU299B1YV/VwuM5Zbq+GQQ2dJLo1oFo2oWeAfj7GuORUumiTrGU3+dspJIUXZgNxmSP3Zq
+ M6UkZVIKiPgtdqTxNhIxIWcwOTUr7Fy4NAGuyWGXfsS4iNEy6dJA8n7pbzB+d14dMYQUpadgbDV
+ GJJC/HueL1SrdcvaAUGWh/Opig4RW2jyEiGrZDixCjrI3qV2/qoua7Tc6t1XRxneTm0S8ZV4Q8G
+ bYpCpJZZUb5/4Tw==
+X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
+ fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1NiBTYWx0ZWRfX6tWuU2XlI62C
+ AlKgt6SL7n82SXwg+27WeloOmr3VzazD66aSFNU3AecL4PEWCK83+RkbvrPsNoq3ESJlzsvhhU8
+ skm7QCtfFIEBNhOemVEylS7RrFvtBy0=
+X-Authority-Analysis: v=2.4 cv=AMk9Hd7f c=1 sm=1 tr=0 ts=6ae201a9 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=x1VBDH5lXswA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8
+ a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=7UFbgRoScb10X7_jHdcA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-ORIG-GUID: MX3avM-2iFDS0L1VF_oA-_BiBj1Fo4ei
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1NiBTYWx0ZWRfX6VIFWAR5cKcA
+ PRIUhBDVOaIy0N+wlmTIj+iucxXrMQsJYtWBzt5QjHDSH24GFyA4PPhKwVszxiyezyQP4hw8Xh/
+ 15ywKvJUlrcpjSCsvEVsohilea1YWwLiFG+ag4XMh1OV4NNzyy9eMvb1mHQUYmp7X1ONUATAgEK
+ j/ZlUIK2xsWPVrn3StDfM09x84MobxviJSp8xLaauBDsdQA03RqVShHiblIjEwH/gKAtviKTk1g
+ 3/DVvkJjdp4dt5//In/2HquS/Mn13gLlln0rumfGiAMraDctNGCRiPl+oBrBS9NRECJNRD4Dw/c
+ qU01UShE5h8GWylm0iQm29waiyxsGBo8wAHXkyn/myLzriZ/DivIwZCJNJjoMLc3co1hBVo+N4d
+ auDcypIpjqHeSiZ8hSV+dfCrwYHHpqQBwgvY/8mX1ySgSOo7mUB+3NFiXCw/AfUk+Bno+ErYmWy
+ b2qjElJ4JgdrHfkzqJw==
+X-Proofpoint-GUID: MX3avM-2iFDS0L1VF_oA-_BiBj1Fo4ei
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,52 +103,217 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-I've just pushed patch #1 to drm-misc-fixes.
+Add a new subtype DRM_PVR_DEV_QUERY_FW_INFO_GET under
+DRM_IOCTL_PVR_DEV_QUERY to query Firmware information. This allows the
+userspace to detect any bug fixes and features present in the Firmware
+and take appropriate action.
+Currently it supports querying major and minor version of the Firmware.
 
-I'm still wondering if #2 is actually optimal. From what I've heard only 2MiB should be used and especially 64k doesn't make sense any more on modern HW.
+Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+---
+Changes in v4:
+- Add description for the new interface introduced.
+- Link to v3: https://patch.msgid.link/20261027-fwversion-v3-1-f363de59205b@imgtec.com
 
-Regards,
-Christian.
+Changes in v3:
+- Add missed check for padding field added in v2.
+- Link to v2: https://lore.kernel.org/r/20261026-fwversion-v2-1-bb025c93a04a@imgtec.com
 
-On 10/7/26 14:07, Davidlohr Bueso wrote:
-> ping? if nothing else patch 1 should be picked up.
-> 
-> Thanks,
-> Davidlohr
-> 
-> On Mon, 28 Sep 2026, Davidlohr Bueso wrote:
-> 
->> Hello,
->>
->> Changes from v1 (https://lore.kernel.org/all/20260914212258.2657788-1-dave@stgolabs.net/)
->>
->> - The bug fix is now patch 1, unchanged from v1, picked up tags.
->> - Removed patch that adjusts per base page size (arm).
->> - The 2MB order is x86 only, so Arm keeps what it has. Left other platforms
->>  as is as well to reduce the change impact. (Christian)
->> - The orders and the fragmentation trade-off are documented, both in the
->>  code and in the userspace heap documentation. (Christian)
->>
->> Thanks!
->>
->> Davidlohr Bueso (2):
->>  dma-buf: validate the attachment before asserting its reservation lock
->>  dma-buf: system_heap: allocate 2MB chunks on x86
->>
->> Documentation/userspace-api/dma-buf-heaps.rst |  4 ++++
->> drivers/dma-buf/dma-buf-mapping.c             |  4 ++--
->> drivers/dma-buf/heaps/system_heap.c           | 24 ++++++++++++++-----
->> 3 files changed, 24 insertions(+), 8 deletions(-)
->>
->> -- 
->> 2.39.5
->>
+Changes in v2:
+- Add padding field to align new FW query struct to 64-bit.
+- Link to v1: https://patch.msgid.link/20261026-fwversion-v1-1-3ed17c65bf4c@imgtec.com
+
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/imagination/pvr_drv.c |  5 ++++
+ drivers/gpu/drm/imagination/pvr_drv.h |  4 ++-
+ drivers/gpu/drm/imagination/pvr_fw.c  | 46 +++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/imagination/pvr_fw.h  |  3 +++
+ include/uapi/drm/pvr_drm.h            | 21 ++++++++++++++++
+ 5 files changed, 78 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
+index 5c965ef0274f..2d522a8e46ad 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.c
++++ b/drivers/gpu/drm/imagination/pvr_drv.c
+@@ -6,6 +6,7 @@
+ #include "pvr_device.h"
+ #include "pvr_drv.h"
+ #include "pvr_free_list.h"
++#include "pvr_fw.h"
+ #include "pvr_gem.h"
+ #include "pvr_hwrt.h"
+ #include "pvr_job.h"
+@@ -658,6 +659,10 @@ pvr_ioctl_dev_query(struct drm_device *drm_dev, void *raw_args,
+ 	case DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET:
+ 		ret = pvr_static_data_areas_get(pvr_dev, args);
+ 		break;
++
++	case DRM_PVR_DEV_QUERY_FW_INFO_GET:
++		ret = pvr_fw_info_get(pvr_dev, args);
++		break;
+ 	}
+ 
+ 	drm_dev_exit(idx);
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
+index 7fa147312dd1..4e058a6fdd5c 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.h
++++ b/drivers/gpu/drm/imagination/pvr_drv.h
+@@ -13,9 +13,10 @@
+ /*
+  * Driver interface version:
+  *  - 1.0: Initial interface
++ *  - 1.1: Add DRM_PVR_DEV_QUERY_FW_INFO_GET query
+  */
+ #define PVR_DRIVER_MAJOR 1
+-#define PVR_DRIVER_MINOR 0
++#define PVR_DRIVER_MINOR 1
+ #define PVR_DRIVER_PATCHLEVEL 0
+ 
+ int pvr_get_uobj(u64 usr_ptr, u32 usr_size, u32 min_size, u32 obj_size, void *out);
+@@ -68,6 +69,7 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
+ 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_heap_info, heaps) \
+ 	PVR_UOBJ_DECL(struct drm_pvr_static_data_area, offset) \
+ 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_static_data_areas, static_data_areas) \
++	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, _padding_4) \
+ 	)
+ 
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index c6c77b152342..d014a34b4f1f 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -4,6 +4,7 @@
+ #include "pvr_ccb.h"
+ #include "pvr_device.h"
+ #include "pvr_device_info.h"
++#include "pvr_drv.h"
+ #include "pvr_fw.h"
+ #include "pvr_fw_info.h"
+ #include "pvr_fw_startstop.h"
+@@ -1496,3 +1497,48 @@ pvr_fw_hard_reset(struct pvr_device *pvr_dev)
+ 
+ 	return 0;
+ }
++
++/**
++ * pvr_fw_info_get()
++ * @pvr_dev: Device pointer.
++ * @args: [IN] Device query arguments containing a pointer to a userspace
++ *        struct drm_pvr_dev_query_fw_info.
++ *
++ * If the query object pointer is NULL, the size field is updated with the
++ * expected size of the query object.
++ *
++ * Returns:
++ *  * 0 on success, or if size is requested using a NULL pointer, or
++ *  * -%EINVAL if args contained non-zero reserved fields or
++ *    if the input object is smaller than the minimum required, or
++ *  * -%EFAULT if local memory could not be copied to userspace.
++ */
++int
++pvr_fw_info_get(const struct pvr_device *pvr_dev,
++		struct drm_pvr_ioctl_dev_query_args *args)
++{
++	struct drm_pvr_dev_query_fw_info fw_info = {0};
++	int err;
++
++	if (!args->pointer) {
++		args->size = sizeof(struct drm_pvr_dev_query_fw_info);
++		return 0;
++	}
++
++	err = PVR_UOBJ_GET(fw_info, args->size, args->pointer);
++	if (err < 0)
++		return err;
++	if (fw_info._padding_4)
++		return -EINVAL;
++
++	fw_info.major_version = pvr_dev->fw_version.major;
++	fw_info.minor_version = pvr_dev->fw_version.minor;
++
++	err = PVR_UOBJ_SET(args->pointer, args->size, fw_info);
++	if (err < 0)
++		return err;
++
++	if (args->size > sizeof(fw_info))
++		args->size = sizeof(fw_info);
++	return 0;
++}
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
+index 4b25291135b6..7e18f3e7d4be 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.h
++++ b/drivers/gpu/drm/imagination/pvr_fw.h
+@@ -496,4 +496,7 @@ int
+ pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
+ 				  u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr);
+ 
++int
++pvr_fw_info_get(const struct pvr_device *pvr_dev, struct drm_pvr_ioctl_dev_query_args *args);
++
+ #endif /* PVR_FW_H */
+diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
+index ccf6c2112468..1179c1e7d92d 100644
+--- a/include/uapi/drm/pvr_drm.h
++++ b/include/uapi/drm/pvr_drm.h
+@@ -434,6 +434,21 @@ struct drm_pvr_dev_query_static_data_areas {
+ 	struct drm_pvr_obj_array static_data_areas;
+ };
+ 
++/**
++ * struct drm_pvr_dev_query_fw_info - Container used to fetch information
++ * about the GPU Firmware like its version.
++ */
++struct drm_pvr_dev_query_fw_info {
++	/** @major_version: Major version of the Firmware. */
++	__u16 major_version;
++
++	/** @minor_version: Minor version of the Firmware. */
++	__u16 minor_version;
++
++	/** @_padding_4: Reserved. This field must be zeroed. */
++	__u32 _padding_4;
++};
++
+ /**
+  * enum drm_pvr_dev_query - For use with &drm_pvr_ioctl_dev_query_args.type to
+  * indicate the type of the receiving container.
+@@ -476,6 +491,12 @@ enum drm_pvr_dev_query {
+ 	 * a pointer to &struct drm_pvr_dev_query_static_data_areas.
+ 	 */
+ 	DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET,
++
++	/**
++	 * @DRM_PVR_DEV_QUERY_FW_INFO_GET: The dev query args contain
++	 * a pointer to &struct drm_pvr_dev_query_fw_info.
++	 */
++	DRM_PVR_DEV_QUERY_FW_INFO_GET,
+ };
+ 
+ /**
+
+---
+base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
+change-id: 20261026-fwversion-95a82a91f9f7
+
+Best regards,
+--  
+Brajesh Gupta <brajesh.gupta@imgtec.com>
 
