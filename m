@@ -2,72 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFA3606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B231D606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s5ajHXxy
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bC/Pmr2j
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAA2111207A;
-	Thu, 29 Oct 2026 07:59:31 +0000 (UTC)
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 289FB10E12B
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 17:46:32 +0000 (UTC)
-Received: by mail-dy2-f9.google.com with SMTP id
- 5a478bee46e88-3678f64d078so1591211eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 10:46:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97B4410E7CA;
+	Thu, 29 Oct 2026 08:03:12 +0000 (UTC)
+Received: from mail-wr2-f1.google.com (mail-wr2-f1.google.com [74.125.225.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A27610E720
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 23:39:01 +0000 (UTC)
+Received: by mail-wr2-f1.google.com with SMTP id
+ ffacd0b85a97d-48e3465b262so518838f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 16:39:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793209591; x=1793814391; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=OE8OEA2joPPITRGS+av4AQ4EjtvJjhIqiZj/74OJ5qU=;
- b=s5ajHXxy6bnkyjl8CYMes85J8yAYCfYcmCZ6mTAqUunH15eKvKCLbiz0JtLBd25G7/
- FCHpnY0ChWqUx33HytG2kG1bIfxYmv5KKJEVtycIWmd7zyJkjeZgPRAAZiUQUfUPDMdg
- cDBfiXCzlXvpf8rfkL8cIYtDs4QwfgEHwfag26QgQNqMNW65D4Fo2qjjFS/U+A5QKmjo
- jTeJ9heD3bGTP1FMlAKfLEvlj6m6NgLJMg3XxBsHAD2PDYuPdDnVbx1TZNTv+qnHo51U
- Dw1dqK3ezBsLfLikr+Intf6e0Ko4A5+d/ZqYRQ570Ez1HaKv1xaQCjt6nFBxHKBVeBd0
- nH2A==
+ d=gmail.com; s=20260707; t=1793230739; x=1793835539; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=mUL9IvXJL2MT47NNFUWayhQpuNRP/QLpFWYDoVd8+3Y=;
+ b=bC/Pmr2joeJoeC+gKP0Y4XfoQ1/g7BpLuTk5G85vEIwOOxu6Elp3AWR44fWvZFtRsy
+ NiBC1zudoqfVydEnoTTEpE2Lcbej3O437KDxd1XaOTWco5rPttRmGBwEMyCkqi9pvu4K
+ I/KwNI7RTS/M6NJ+V5Hf056tTRX/a5D9xwWgsxykj3kakMEnt+GX1mCRM11Wpi5jGcEC
+ yoXTJ6Auzjdl4iu3XTdmMajXqH4LP/nMQpE+p3Q4/qzfjtoEGb1NAGthHQkeuv38wECU
+ KzSrzUj90NwVYilP13xXN3u9Yx0PJSvtiDMeNPUOIqObcfeHi9nXbTDidGRGz0YibyIr
+ zMGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793209591; x=1793814391;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1793230739; x=1793835539;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=OE8OEA2joPPITRGS+av4AQ4EjtvJjhIqiZj/74OJ5qU=;
- b=pGjfO6HdyiZbala2j98FSj9EdeR6vRUjpqXiZdJ3kl791AjcDaCegHG18AH1JpWTmR
- Ui5fptNbwOhe4GcFRiPhLqDcZgJy8SrwPBm2Dm8XSZRKfzMN7RW+lErdPspZXlIoDVTM
- Cg71ixCH5aIPVD90uMwzD10kaMNBkf4VYQ5351rydT2t+LxHhzAbYZ0c5xM8+Wk63Fvx
- IgignV6qoCykODt8Mc6p3FdKUqK55iXWps6f4LeoHD07rpOhB2Ond79OeeS9qYAgDhrj
- f1kOridQ04jTKi3OhK7ol59Lufi19eayx2NLufOiG0Z7q5y7qT2Qms4RK02sH7Xietp8
- A7Wg==
-X-Gm-Message-State: AFq9FYKAo92cDF0oLfmy+vQiSxP/kI609mV/SU+oAv9i4/wr/fVIG9jL
- hd4TXyZO2vahZ+S5QpJBUMVymUKpVAohEO0Eodylg0LsKQgUrZL66YEi3ud8EhkZvqxiHg==
-X-Gm-Gg: AYBFou271XhogaSQyc95rrCzZfdSEp85/SnvDNLB4o4QrhWK9/mMvChb6h6umd/SOau
- Gn9gscWnKowFkeK47YtJa7eoN9Sa8JkVKw/rWoQEVALodAFi6b7sjkEa+SJlyEscBmKP0ghnHKC
- AhoC8a/Y0zZvvfTOW92SD08zA7HHNhtOIhLCzayRHj846kB2OHwUWsWZwJxI73lcGETSZSMsRis
- JvQ1JZZytfQ1sIqpSgvLWYfsqrMfqnASmgLVLrM2d1v7BpVPc4Tjva8HGFEVHejKk/9ja6wYT95
- irf/QuLcFHT3wcWlBwgpZACKegyHXVQiGPCZ99f2zZNYbEX7xq7nTRNjFftID7eiSoWsofzszVY
- rio7GHozl6vD8U8UkGlJHIM9EA53avxw+pQ0x48WXCEvDFNJPtlt1MoiSqpOMKxce6KVjfITu8q
- u+bqlkPgVRa3mksNr2MYcGOyvdIEMlqb8jmCC/ksNbkFRCS9S7sHoUfCw5mQZjK1c5P+nvJlGvm
- dvhN+ohTtrYl6tGjD4XLmUt5oCnxpt1nO1j/XAzOh9THNoJO2GFlOiDVSh3oOCtYrMyxKGqtuDi
- WKK441qDxsFQo9y+mCHcy2j3CH9IRyv34nrJ3sjo97kXmCM6IstNnloTOoOolY52DIZn
-X-Received: by 2002:a05:693c:2411:b0:36a:1bd4:628a with SMTP id
- 5a478bee46e88-36a203abe0bmr4120169eec.9.1793209590886; 
- Wed, 28 Oct 2026 10:46:30 -0700 (PDT)
-Received: from toolbx (2607-8700-5500-3d9a-0000-0000-0000-0003.16clouds.com.
- [2607:8700:5500:3d9a::3]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36a237be80csm17883633eec.2.2026.10.28.10.46.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Oct 2026 10:46:30 -0700 (PDT)
-From: ZiAo Wang <ziaowang2007@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org,
- Ho Jie Feng <hjf3108@gmail.com>, ZiAo Wang <ziaowang2007@gmail.com>
-Subject: [PATCH v2 0/2] Add support for Valkyrie USB LCD displays
-Date: Thu, 29 Oct 2026 01:44:23 +0800
-Message-ID: <20261028174425.21704-1-ziaowang2007@gmail.com>
-X-Mailer: git-send-email 2.56.0
+ bh=mUL9IvXJL2MT47NNFUWayhQpuNRP/QLpFWYDoVd8+3Y=;
+ b=M7BXvPdaQ2SsuH+9KIl4p2u04F6rtcOv3fTmbqxTExTb6pLBD8nn9WO3staNqeXFf8
+ UAIDmwZG/UJP8f2lj7AH6TDIWj7OYsQd4QmcpZRLUnla9Ws6y7PtrFpFMYKcWQjzRlZR
+ dVn8QbVba8lKeTaPKeAV+GyCBjDB6PICETmYwvcLplJAOmM6cOjEAxAtqwnf+BplVF2n
+ J4O1yC/K5/mhkh22OsDF2LlwE6LPyKfuI+hDr5TXIJFQRw/5orNa+z5Gpd5aI2bOLuIg
+ Jtr5PbroXFbqHx7dkGzb5r/xxq8wCrW7YME4So6MonNk/GehoQUrz/+flWLt3+KkvuSH
+ /ztQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzC72KAc6XYaIvB2tUngDxHlJ3UJdJYwf71CrbFLYnN6GpwwxwO8Vil/xZ+hHVTco8vuaObvWrkDdw=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLmg9TD+hyKoLK1bg0q0RcyzUlycNneyecw/gOe8IZlRRcU8NRP
+ uepnZ5FnZFXFy7avQJOmFpIixiuEo/z3xFwxO+Sd4+oDtO+wpvtvzbvD
+X-Gm-Gg: AYBFou3VAeJqn/SFpIGNVIa8E+7+vq6iB516Cf8s48k/7/5S5b9NFULYGTjLAFama94
+ MUVcrikFLkfeccRe7GCi4Z4wzG+5pf/LugGp/hM7MkYigSHyFcm4d46ofnXjQ2cL7gr8PTOk3WR
+ inOZuGxVChcH2ETfCoGGMLut05Sbnn/ntuCSlooh0MAFPwDgay35NYfwLSL/vlKeEQwU1sG07dw
+ PjqJ/kMWcdwvHIWighUrGjA7+mhesBS6fcpQlbnuMQzcCkzteIfrAYDAgtA0PSJW4w9n4RCna80
+ dm0lCnbMYZsR5xIIwV1APJZW/frhC2ctSl+J0FxCGfwMf1qtlXK7tYUGvwj+/6uSOe0nW5nHMxP
+ Xj8ltLcH/FZwT1Dn7XHsGOiev1mdYHpe48uA/KW+ODoJs+xQ5kgMLmer29lW9mWQKWaqDHAP8ge
+ AYWVyjv1dFxHbZ3AT2ik3AwBIP+8fY3mcKwMsDC9tiOsCtbvLSM2r+7iYSueZVAbh/7e1pA11BL
+ I8Ocy8Q5WKXGSxBxadAPB9EoTOTW9lk4C0I+v2RlRLCTMXMhEA2mPgmUJQyeQrUnhlGy0Aa9JIW
+ eV9jZE1S7AF93tgnWJKJXr6WmosMo1e527iX
+X-Received: by 2002:a05:6000:26d0:b0:487:baa:aa6b with SMTP id
+ ffacd0b85a97d-48e5d5df440mr7815534f8f.43.1793230739292; 
+ Wed, 28 Oct 2026 16:38:59 -0700 (PDT)
+Received: from [192.168.1.12] ([31.94.68.191])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e3ebcb90dsm29192908f8f.22.2026.10.28.16.38.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Oct 2026 16:38:57 -0700 (PDT)
+Message-ID: <86cccaa4-62ac-4834-bc74-1755436b5be2@gmail.com>
+Date: Wed, 28 Oct 2026 23:38:55 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm/amd/display: report synced Apple 5K tiles to
+ PowerPlay for MCLK switch
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <3ff4ef96-9c59-4e8d-a0da-92a1ac6f5ba1@gmail.com>
+ <CADnq5_Nn7+baU=Rdaa8QzOCo64H=ch9HeDaEwtmbQwW0kP00nQ@mail.gmail.com>
+Content-Language: en-US
+From: Richard Lane <richardlanedev@gmail.com>
+In-Reply-To: <CADnq5_Nn7+baU=Rdaa8QzOCo64H=ch9HeDaEwtmbQwW0kP00nQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,67 +95,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On 27/10/2026 18:26, Alex Deucher wrote:
+> On Tue, Oct 27, 2026 at 5:41 AM Richard Lane <richardlanedev@gmail.com> wrote:
+>>
+>> When driving both 2560x2880 tiles of an Apple 5K iMac panel, Display
+>> Core's program_timing_sync() already aligns both CRTCs in hardware
+>> during dc_commit_streams() because the two streams share identical
+>> timings.
+>>
+>> However, on DCE < 12 (iMac15,1 through Polaris-based iMac19,1), Display
+>> Core leaves pp_display_cfg.all_displays_in_sync unset. Because PowerPlay
+>> is not informed that the two streams have synchronized vertical blanking
+>> intervals, SMU7 prevents MCLK switching at idle or causes modeset
+>> underflows.
+>>
+>> Report all_displays_in_sync = true to PowerPlay after committing both
+>> tiled streams so SMU7 knows the tiles blank simultaneously and can
+>> safely downclock MCLK at idle.
+>>
+>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+>> ---
+>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++++
+>>  1 file changed, 13 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index 548f975c7324..384a81371f80 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -4788,6 +4788,19 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
+>>         mutex_lock(&dm->dc_lock);
+>>         dc_exit_ips_for_hw_access(dm->dc);
+>>         WARN_ON(!dc_commit_streams(dm->dc, &params));
+>> +       /*
+>> +        * DCE < 12 leaves all_displays_in_sync unset; report synchronized
+>> +        * Apple 5K tiles to PowerPlay after commit so SMU7 can downclock MCLK
+>> +        * at idle without modeset underflows.
+>> +        */
+>> +       if (params.stream_count == 2 &&
+>> +           params.streams[0]->link->tiled_peer == params.streams[1]->link) {
+> 
+> This should be made generic for any combination of displays with
+> identical timings.
+> 
+> Alex
+> 
 
-This series adds a DRM/KMS driver for Valkyrie USB LCD displays.
+I have changed it to the following to make it generic:
 
-Vendor website here:
-https://www.my-valkyrie.com
+	if (params.stream_count > 1 &&
+	    dm->dc->current_state->stream_status[0].timing_sync_info.group_size ==
+	    params.stream_count) {
 
-This driver is devloped from scratch via black-box analysis on
-vendor software. Currently only supports two variants, I'm sure
-there are more variants, but I don't have them.
+Richard
 
-The devices use a vendor-specific USB protocol. The driver exposes
-them as standard DRM outputs and converts XRGB8888 framebuffer data
-to UYVY, the only format device accepts.
-
-Patch 1 was authored by Ho Jie Feng and provides the XRGB8888-to-UYVY
-conversion helper used by the driver. It was previously posted but
-was not merged because it lacked an in-tree user. It is included
-here without changes to the original code, with my Signed-off-by
-added as the submitter. Ho Jie Feng is CC'd on this series.
-
-Original posting:
-https://lore.kernel.org/lkml/20261019154820.68659-2-hjf3108@gmail.com/
-
-Patch 2 adds the Valkyrie DRM driver.
-
-I wish merging this series through the DRM tree.
-
-I tested both supported variants on physical hardware using the
-Sway compositor and verified that rendering, suspend, and reset
-work correctly on all of them.
-
-Thanks,
-ZiAo Wang
-
-Ho Jie Feng (1):
-  drm/format-helper: Add XRGB8888 to UYVY conversion
-
-ZiAo Wang (1):
-  drm/tiny: Add driver for Valkyrie USB LCD displays
-
- MAINTAINERS                           |    7 +
- drivers/gpu/drm/drm_format_helper.c   |   73 ++
- drivers/gpu/drm/drm_format_internal.h |   21 +
- drivers/gpu/drm/tiny/Kconfig          |   15 +
- drivers/gpu/drm/tiny/Makefile         |    1 +
- drivers/gpu/drm/tiny/valkyrie-lcd.c   | 1416 +++++++++++++++++++++++++
- include/drm/drm_format_helper.h       |    4 +
- 7 files changed, 1537 insertions(+)
- create mode 100644 drivers/gpu/drm/tiny/valkyrie-lcd.c
-
-
-base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
--- 
-2.56.0
+>> +               struct dm_pp_display_configuration *pp_cfg =
+>> +                       &dm->dc->current_state->pp_display_cfg;
+>> +
+>> +               pp_cfg->all_displays_in_sync = true;
+>> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
+>> +       }
+>>
+>>         bool frl_stream_found = false;
+>>
+>> --
+>> 2.55.0
 
