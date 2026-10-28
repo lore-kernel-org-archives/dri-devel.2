@@ -2,40 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4423A606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 10:01:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B246606A324
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 10:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUt0Cozx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2D4310FB19;
-	Wed, 28 Oct 2026 10:01:20 +0000 (UTC)
-Received: from aposti.net (aposti.net [185.119.170.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6C9E10FB19
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 10:01:19 +0000 (UTC)
-Message-ID: <b4572f2ab818da900ee417b8356f55d3ddfdbd1a.camel@crapouillou.net>
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
- controller
-From: Paul Cercueil <paul@crapouillou.net>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Olivier Louvignes
- <olivier@mgcrea.io>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Neil
- Armstrong	 <neil.armstrong@linaro.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter	 <simona@ffwll.ch>, Jessica Zhang <jesszhan0024@gmail.com>,
- Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley	 <conor+dt@kernel.org>, "H . Nikolaus Schaller"
- <hns@goldelico.com>, 	dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 	linux-mips@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 28 Oct 2026 11:01:10 +0100
-In-Reply-To: <465cb935-2648-458b-9cfc-9b7fd5dc53c5@kernel.org>
-References: <20261025191640.13592-1-olivier@mgcrea.io>
- <20261025191640.13592-3-olivier@mgcrea.io>
- <20261027-hospitable-apricot-scallop-166448@quoll>
- <270ef5220fdd5ec3e0b88ba5c4ce044992fca41a.camel@crapouillou.net>
- <465cb935-2648-458b-9cfc-9b7fd5dc53c5@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id D111210E5DF;
+	Wed, 28 Oct 2026 10:11:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C02DF10E5DF
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 10:11:20 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B7162601FA;
+ Wed, 28 Oct 2026 10:11:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C03D1F01825;
+ Wed, 28 Oct 2026 10:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793182279;
+ bh=wKAjcb7WscKylN3dM3agjz60NMabSDUoSZkp5VOu6bI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fUt0CozxOUvHEOTHKmO4C4dpGO5Df+TZH8Tc26NLczy9Pr+z1NvFSzY3bu8KdCh+X
+ JoIjC62u6DdHwA0+dzZoniE5h7nFbEYDdz1sQtWi1ooVTigCYkX3Lc+M8K1yiGFeev
+ Q8GJc/vrCrUc1Y8lLdWrm1fcXFD2kzkb5fLKpElXxKMbTNmDb9d7ZqwLj5uilQAaYE
+ qBYz6BLMaFC7m/Ao8YvqA/bfT/P4NTmmouphAUHgi90vSusSDCuo0Jo7/2Km6gg5bU
+ 2WB1oZrSAQDK84IJ4iPlS/pwljM2rGkR0kc0z84DvNcx4kB+Q9DfubgWYKshwf7Xm4
+ kytzKC2DTuA3w==
+Message-ID: <sashiko-outbox-187730@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] PCI/VGA: Fix boot device detection after framebuffer
+ relocation
+To: wuqianhai@loongson.cn
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261028094634.766723-1-wuqianhai@loongson.cn>
+References: <20261028094634.766723-1-wuqianhai@loongson.cn>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+Date: Wed, 28 Oct 2026 10:11:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,33 +48,160 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] PCI/VGA: premature and duplicate screen_info_apply_fixups() in vga=
+_arb_device_init()
+- [Medium] PCI/VGA: undefined reference to screen_info_apply_fixups() when =
+!SCREEN_INFO
+--
 
-Le mardi 27 octobre 2026 =C3=A0 20:50 +0100, Krzysztof Kozlowski a =C3=A9cr=
-it=C2=A0:
-> On 27/10/2026 20:04, Paul Cercueil wrote:
-> > > > +
-> > > > +=C2=A0 port:
-> > > > +=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/port
-> > > > +=C2=A0=C2=A0=C2=A0 description: The output, to the panel or bridge=
-.
-> > >=20
-> > > No port for IPU?
-> >=20
-> > No IPU on the X1600 - the display IP is completely different there
-> > (hence the new binding).
->=20
-> But even if it is different, don't you need to represent the datapath?
-> Your LCD controller does not need IPU?
+commit da40d2d05299ef123ed4789d2ecb58829165fbe3
+Author: wuqianhai <wuqianhai@loongson.cn>
 
-There is no IPU.
+PCI/VGA: Fix boot device detection after framebuffer relocation
 
-Cheers,
--Paul
+This commit calls screen_info_apply_fixups() in vga_arb_device_init() so th=
+at
+screen_info's lfb_base is updated before VGA devices are registered and
+checked by vga_is_firmware_default().
+
+> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+> index 3e58b2c05c854..aca594651f580 100644
+> --- a/drivers/pci/vgaarb.c
+> +++ b/drivers/pci/vgaarb.c
+> @@ -1527,6 +1527,14 @@ static int __init vga_arb_device_init(void)
+>  	int rc;
+>  	struct pci_dev *pdev;
+> =20
+> +	/*
+> +	 * PCI resource assignment may have relocated the firmware
+> +	 * framebuffer BAR. Update screen_info's lfb_base so that
+> +	 * vga_is_firmware_default() can match it against the boot
+> +	 * device's relocated resource.
+> +	 */
+> +	screen_info_apply_fixups();
+
+[Severity: Medium]
+Will calling screen_info_apply_fixups() unconditionally in
+vga_arb_device_init() fail to link when CONFIG_PCI=3Dy, CONFIG_VGA_ARB=3Dy,=
+ and
+CONFIG_SCREEN_INFO=3Dn?
+
+In drivers/pci/Kconfig, VGA_ARB only selects SCREEN_INFO on x86:
+
+drivers/pci/Kconfig:
+	config VGA_ARB
+		bool "VGA Arbitration" if EXPERT
+		default y
+		depends on !S390
+		select SCREEN_INFO if X86
+
+which matches the CONFIG_X86 guard in vga_is_firmware_default():
+
+drivers/pci/vgaarb.c:vga_is_firmware_default() {
+#if defined CONFIG_X86
+	return pdev =3D=3D screen_info_pci_dev(&sysfb_primary_display.screen);
+#else
+	return false;
+#endif
+}
+
+However, include/linux/screen_info.h declares screen_info_apply_fixups() as=
+ an
+external function whenever CONFIG_PCI is enabled, while
+drivers/video/Makefile only builds screen_info_pci.o when CONFIG_SCREEN_INFO
+is enabled:
+
+include/linux/screen_info.h:
+#if defined(CONFIG_PCI)
+void screen_info_apply_fixups(void);
+struct pci_dev *screen_info_pci_dev(const struct screen_info *si);
+#else
+static inline void screen_info_apply_fixups(void)
+{ }
+
+drivers/video/Makefile:
+obj-$(CONFIG_SCREEN_INFO)         +=3D screen_info.o
+...
+screen_info-$(CONFIG_PCI)         +=3D screen_info_pci.o
+
+On non-x86 architectures with CONFIG_PCI=3Dy, CONFIG_VGA_ARB=3Dy, and
+CONFIG_SCREEN_INFO=3Dn, doesn't this result in an undefined reference to
+screen_info_apply_fixups()?
+
+[Severity: High]
+Also, is subsys_initcall_sync(vga_arb_device_init) the right place in the
+initcall sequence to call screen_info_apply_fixups()?
+
+Upstream vga_is_firmware_default() in drivers/pci/vgaarb.c only calls
+screen_info_pci_dev() under CONFIG_X86. On x86, subsys_initcall(pci_subsys_=
+init)
+runs pcibios_resource_survey() -> pcibios_allocate_dev_resources(). When the
+firmware framebuffer BAR has a resource conflict and awaits reassignment,
+pcibios_allocate_dev_resources() saves the firmware address and resets
+r->start to 0 while keeping resource_size(r) intact:
+
+arch/x86/pci/i386.c:pcibios_allocate_dev_resources() {
+	...
+	/* We'll assign a new address later */
+	pcibios_save_fw_addr(dev, idx, r->start);
+	r->end -=3D r->start;
+	r->start =3D 0;
+	...
+}
+
+The new BAR address on x86 is not assigned until
+fs_initcall(pcibios_assign_resources) -> pci_assign_unassigned_resources(),
+which runs after subsys_initcall_sync(vga_arb_device_init).
+
+When screen_info_apply_fixups() runs at subsys_initcall_sync while a
+conflicting BAR has pr->start =3D=3D 0, pr->start !=3D screen_info_lfb_res_=
+start is
+true and __screen_info_relocation_is_valid(si, pr) succeeds because
+resource_size(pr) is unchanged:
+
+drivers/video/screen_info_pci.c:screen_info_apply_fixups() {
+	if (screen_info_lfb_pdev) {
+		struct resource *pr =3D &screen_info_lfb_pdev->resource[screen_info_lfb_b=
+ar];
+
+		if (pr->start !=3D screen_info_lfb_res_start) {
+			if (__screen_info_relocation_is_valid(si, pr)) {
+				__screen_info_set_lfb_base(si, pr->start + screen_info_lfb_offset);
+				pr_info("Relocating firmware framebuffer to offset %pa[d] within %pr\n",
+					&screen_info_lfb_offset, pr);
+			}
+			...
+		}
+	}
+}
+
+Wouldn't this clobber si->lfb_base to 0 + screen_info_lfb_offset with a
+[mem 0x00000000-...] message before fs_initcall(pcibios_assign_resources)
+assigns the actual BAR address, while still failing to match in
+vga_is_firmware_default()?
+
+Similarly, for PCI host bridges probed at device_initcall via
+pci_host_probe(), vga_arb_device_init() runs before the PCI bus is scanned
+and before VGA devices are added via pci_notify().
+
+Finally, since screen_info_apply_fixups() does not update
+screen_info_lfb_res_start or clear screen_info_lfb_pdev after applying the
+fixup, won't calling it in both vga_arb_device_init() and
+device_initcall(sysfb_init) in drivers/firmware/sysfb.c cause the relocation
+and log messages to run twice?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028094634.7667=
+23-1-wuqianhai@loongson.cn?part=3D1
