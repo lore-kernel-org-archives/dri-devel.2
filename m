@@ -2,173 +2,107 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0AF606A31D
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:44:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46704606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:53:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=U/99MFU3;
-	dkim=pass (1024-bit key, unprotected) header.d=IMGTecCRM.onmicrosoft.com header.i=@IMGTecCRM.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-IMGTecCRM-onmicrosoft-com header.b=LMdGxbzJ
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SjGrl1at
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD2310E1E9;
-	Wed, 28 Oct 2026 14:43:57 +0000 (UTC)
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69CF810E1E9
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:43:46 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69SBfTLW4126552; Wed, 28 Oct 2026 14:43:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-id:content-transfer-encoding:content-type:date:from
- :in-reply-to:message-id:mime-version:references:subject:to; s=
- dk201812; bh=OCJqv+DIKpuKc9BnGvApId/10OI0r/ejGyw+byjBego=; b=U/9
- 9MFU3hqGBeDqUUNlrOLLg1ISid9CrhEaI0hhcumzTr8NwzLHN/n64s7YDVaZUpuC
- CViTYo+4N1KTLz9LmQgPC7unbG7bIw2hOVMapL5PYayptw4eblP2oE3R4FM07xrD
- wAuV8H+tpNvpq0jDGvCSXgOnzUAQDuL+PTJNei66EtXVqpXZiFIsn9BRT1jlbjjK
- sRJxe4kFuql0NBdbeIMUz1adELqQWPzJz1Lrnl3o/BEM1UFRd9x/2ptTBDPWc8r8
- ljSRub/4Fx4/XD7FoYh/O00JVZ+7DMIpeXydkCTbqIhNj0JRafUz88nsdHWmBEH7
- VxKP5IC971amzDUSA4w==
-Received: from cwxp265cu009.outbound.protection.outlook.com
- (mail-ukwestazon11021077.outbound.protection.outlook.com [52.101.100.77])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hk414gkxe-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 28 Oct 2026 14:43:35 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lc1AT4YD7Vr0bBQ1RfqWq8nFBgMn59nbQc/ehHeC6LxzVHc7LOoBdwQugfVNvt3i8q9XbEguNl6p9EBHkmsOsr+umR6UGQNn0noa8nyvUYwZU0Q4sJh6cxkbwPmz/hO8Ifp/tXUfshVV7MnNois+m4oQsyEd/Rntny4RiuqQ1GEDAOjQMEL2yqsEgDVwy/zw6mSW0CzBgAltaolGFTtU98loBy6e/db6WeBbgr5s4E0CbUbRgiJp6gFH7pa+NILWBRKhEutpKta8tIZIVmMADm5Rq5zWYkXD0CRG7QZkaXzc3ORK66LWioS1yNHXQDwyNPw4TrmW3IsBx3JQMuDl1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OCJqv+DIKpuKc9BnGvApId/10OI0r/ejGyw+byjBego=;
- b=ZkHdUS7i5/Wp0j3g51kzZXMmRBb246HeoPAWvP5sC0Zyax3Vj3yIEZHSR1XLxOgCtC3eql758bGQWCgY6LBqamWjS6E1kEdo+lv1rtXlNqXkDmKsL0R7dhQ8o5bOlBfcNC4ky/pAENXPNYc7KWyJOF/jyQkAyMy6A5WUhDceBil2EcWvmZ4o51eCE7/KjiHwX2T1QyNaBbHrM232Fd4BFX7l/1ptNnWp5J5LIrjZUy+XQt2qEYPNW2XIsN29YuLa8JaZyVYGEmE7aHJcmP+665/pJ13W6mAnyLW6IN384KcBDUxsI2E8c6EClQcaTxjx4mfzVuCgXKItAaPrNBbHXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=imgtec.com; dmarc=pass action=none header.from=imgtec.com;
- dkim=pass header.d=imgtec.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 875FD10FD1E;
+	Wed, 28 Oct 2026 14:53:42 +0000 (UTC)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02E8810FD11
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:53:36 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-36a1467ca93so133025eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 07:53:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793199215; cv=none;
+ d=google.com; s=arc-20260327;
+ b=J3Y4SEVgJqQF5rZZ0nnzaG/fNZ/PRD+hiFk9hjNL9R0Yvcev0NjidOp6vOgAlbam9A
+ 1SsesgIQJFbboMEV5fLFbwmP8ufVzOYHjmsb/DDgMoBgB3RwiUe82i/VaaKBqYgehHTg
+ n9J1OAydTYbef+MPfqVb95d1qdbEHbHFdgNwAUqT9ZM+GNhS9N/6+l4MwtGeAqJyAqaZ
+ bK3JdEJF5lhK1W/KSqgvydJ7i54SjfrmiPed5mveweeohoDuUEqnTsRrgbqv8UHxPFpm
+ E6+bGV3HGGwUmvVoMR3WCrWM432k/bORNteB2fssrpSkP0Xe3Q3WEtK7wFroTsqKVRFq
+ +xAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
+ fh=4dPjuPipZtW0W542O1PpVDrF1XiBkSGJuuZByhiZPOU=;
+ b=kW5AajguxfLX5h6FiB3Sat+mkTEU9w7EJP5KOeHmODX2DamWY2aIYyZaWX6TFu9CET
+ h/sEZmsgAGZz/gxfmyhpaWFea2KIVWjrr/x9p8aHGO38LMgXT75+wOjRHq5M20fKHCGS
+ DoTF6MU3A8il2jUftG2l22cjmZSfqOyZJTrW9jvjEfgO6AnhYN/nbMSxmZ55QzkjyJKv
+ Pv/tAqvOa5IgbVFVThUCnjfk34S1J6T8l3DcSB3C4Yy80PmkEbzJFKWyMoOoRLobEAH7
+ p/y1JcTq5A6wgl0uM+t39rFdwqn2qSaj5u1imMc5uh+G4M+gKYG+aVUL3RFqH3vw4PzW
+ 1EDg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=IMGTecCRM.onmicrosoft.com; s=selector2-IMGTecCRM-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OCJqv+DIKpuKc9BnGvApId/10OI0r/ejGyw+byjBego=;
- b=LMdGxbzJTPYMj05a1jOb8WBen0JvMA08TZE7m6L1EX0hgr9fu13ln4RS8C+dBqlBNS/CkNPv2t7DX93C6OIX3ZjD2dpefJ8lwSxZEBCwlLacKg8dg3H/Cd5tInamKmoDjOJa9u+YFRnOOORshHf/7HLUJT/NhFvoIlik72pgMW0=
-Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ee::7)
- by LOYP265MB2078.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:11c::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 14:43:32 +0000
-Received: from LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
- ([fe80::3ee9:8c49:ba94:4237]) by LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
- ([fe80::3ee9:8c49:ba94:4237%7]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
- 14:43:32 +0000
-From: Alessio Belle <Alessio.Belle@imgtec.com>
-To: "m.wilczynski@samsung.com" <m.wilczynski@samsung.com>
-CC: "lkp@intel.com" <lkp@intel.com>, Luigi Santivetti
- <Luigi.Santivetti@imgtec.com>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, Frank Binns <Frank.Binns@imgtec.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "airlied@gmail.com"
- <airlied@gmail.com>
-Subject: Re: [PATCH v3] drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
-Thread-Topic: [PATCH v3] drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
-Thread-Index: AQHdZuq0oiwGfS5Mg0W9ppeKNRxLig==
-Date: Wed, 28 Oct 2026 14:43:32 +0000
-Message-ID: <29ed7e87285e39dfcb87c07d3c8a17361277f878.camel@imgtec.com>
-References: <CGME20260810102037eucas1p2f68492f185b4e411aafa83d5d15d0499@eucas1p2.samsung.com>
- <20260810-fix_imagination-v3-1-e512359722fc@samsung.com>
-In-Reply-To: <20260810-fix_imagination-v3-1-e512359722fc@samsung.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=imgtec.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LO0P265MB7076:EE_|LOYP265MB2078:EE_
-x-ms-office365-filtering-correlation-id: c58d87ef-f8e5-4113-5984-08df3501d6db
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|261022105027099003|261021121427099003|261021123027099003|261009223027099003|261022075727099003|261022115727099003|10067099003|56012099006|261026140227099003|22082099003|18002099003|261026121527099003|4143699003|38070700021;
-x-microsoft-antispam-message-info: cxa0J4y2EOsuejg32h8SJs5ToyoO7Dd2t/fmMsybLaZO9PIXwVM2AEgvsygaPMNmpluIRydbjtsnln8p7IcCOE/M9pXGBaQlFzmjjdn11MU3QgvEs9vO00WOUqiTUtlyOFMY3YnxkPJSPFTxHtbjlfveM9yHbCaHK8SJh3TBIhhuNoZIvZmMeYeWXIoLfs/lu2B4ml2pKmvfpfYgUo1NfkdAfqHiKUsXNCpcnVyipglF4ZfIp/iRqkJw2EGdlLw+8f9He7O8RPLbwgp0iNPzj7koIQBL+Hs7VBthhCzIXeZnwGMqarS5/nD5GxIsaR/eu5t7yClUlwGhMJQf6/g4ZADzttJ/AYdmtgmhzYBaXHzCJ8TsJvnefWeBsDaIhGJXLsAuj6hiBDMQlllrfo6nr5S/336c7rjHpPpJy+dsMXRQu9+ifas3aPeIWL2jbqxDpSnbwbF42Ke2OwfOZ+lBd5ogS6vbKSKknNC2puIhSJgByaReF8wAHjhvGbXOKfCqGaqP383kOfyxWDP1gFeGmDIZvSF87MaeI/O2p8fWE1XUXyflUk7Z1FB+uBrFYGds0CyCjcOkVZ5oGilDW/C7wwjlMdIVWThDJueEh7pA+rUnvK6e0CEAZKsbWyfQUppUWWcYoxe1sfMTZguZ+XLy2x46YjVsyWZA+1P3hZFuC3c=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(261022105027099003)(261021121427099003)(261021123027099003)(261009223027099003)(261022075727099003)(261022115727099003)(10067099003)(56012099006)(261026140227099003)(22082099003)(18002099003)(261026121527099003)(4143699003)(38070700021);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TUxOMVBSU2lBK1phQzlscEtaTCtIZCtxNCtKM3ZVdTVsQ2M4VE9hVEliNVhG?=
- =?utf-8?B?YUo3UCtMRFlNNFBmcEVRNXZhUlFUbk5sQ2hwcXEvVU1nWUZlQ2w3OEh1RE5S?=
- =?utf-8?B?MWVMQ2ZTRVVzUkt4dnBLUmJmdXQ5UmNybTBiSzRQWTNEdmViYkRqd3BjUktD?=
- =?utf-8?B?Z1lSc3pkcmZnTmxwaElKVVY0citsMVBjNUk5MDVWTWZpdXh0REN3bzExeTFF?=
- =?utf-8?B?bWlML096T3d5VGtCYmordkwzUHFCVUxsMVQ3UEhJdnVqMTVMeUV3SER3YUJK?=
- =?utf-8?B?enFDOHNsVWczcEJZNlZXTWlUNVRJQW9uZ1ZLUUNGbXQyc1NoZGdXdGtySFBG?=
- =?utf-8?B?K3g2aDJtMW5Pdjd0WDNDMlVPeVRCQTEyK1JadVdyK1V1YThxUlpyU3d3KzRw?=
- =?utf-8?B?N3QrRnlzbUxweWRoQk4rNVpRTHdYY0VNZlRwL3l3TC9ZY2thY1REb20rTHhp?=
- =?utf-8?B?aEt0dHBoaUdWdzdjWm13NEh3MFVhMzBab0tHRXd1d09ZYzUvZCtxVG1udE1v?=
- =?utf-8?B?WVYvc2VUQzEzSFduVHdYQlUvUnQrMVplK00zYXo0UmNiaFMxckJKRlV5cEhs?=
- =?utf-8?B?SG5wSDNITUlCR0NOanhmNWFBci9GV1R6MUdkR0hsTHJBSlFRNWhNOXhWNHJw?=
- =?utf-8?B?eElSL2lGQ2p6K1RVak05L3ZLc1c0dG5oR2sxNVFwMEltVko3SWt1M0w2RTZp?=
- =?utf-8?B?ZjBQOWcvenpsbk1YSnVrL0RaOGtXS1ZsWFZ6NWRibXpDblBuZW5yeWxPeVhH?=
- =?utf-8?B?d3AzZGFIK1ozTHAwMGd1RjZIbFQvOTdMaHRFM0t2ZzRJNEVueXlzOU9JOUtS?=
- =?utf-8?B?WnNoZ0RVcm9Da3dYaGZJNzFLR2lsQjNsRXNxbEZkVWpLZWJBRmVFc3FPMHMr?=
- =?utf-8?B?OXd0VFJUdWdaeHpyQzFUenJTUFZmU1BobnRoQ2lDNnY3S2M2ZjFITHo2NnNO?=
- =?utf-8?B?aitFV2diczNGUUhOWGRlUkJFRGVqMFdHZTVTMTh1Q0NZb0gvelhnNFhGK2dZ?=
- =?utf-8?B?Qy9lYzZqSHJDN2xNbFBlUkhlNzNPdzRMYVkvODM0bHpoK1ArdTZrU1lNUUpt?=
- =?utf-8?B?ODhMYmc3MG80cHJQQ2s4Mk1vaXJOUE1mTHFSZ0dzVG41NUFhMStPTUNScGlu?=
- =?utf-8?B?SEViSzJIeE1ET1pXYTFsZGcySXltVUc0Ty9pVklwN2dmV3I4Rnp0dVErMGF3?=
- =?utf-8?B?OHQyamVoamVQTFVObGl5NmFvRGlJMGl0Z1RCTVlOQTlhaGhDa1ZhS29Ma1Jr?=
- =?utf-8?B?VnFvczFqZG1ZbHNJNmQrK0NYc0RJRXl3QkpzVW5PUjNzUzFhL3E0WkVrajcy?=
- =?utf-8?B?RmtwZitmTnRqWXArU3RsRW1IZ3pxL1d6N2RIMEJ0ak1vSVZEWXBQYnp2a1lW?=
- =?utf-8?B?MkFwMGVETnFQNWh3Y0dRUU9CNkV0SE5Ebzl4d3AvQlhrT0RVWFk2OTNYRjNH?=
- =?utf-8?B?ZDdnT0FVbjlrZTFpaCtMVHJiWGQ3M0JSWTRjdVBLMUg4SXg0MHpiSVdMOHFq?=
- =?utf-8?B?MVM3Q2UybEo3SnhHWmtaSHE1TXdQQ1dMK1RKZm92VnFsemp4cmpRUDkzZ1ox?=
- =?utf-8?B?bWFJNHpmN0dXQnpIWGNzNDM1RkNTZGM3cWF0OTZGMU8xNjlGV2F1SmFqZjBB?=
- =?utf-8?B?bEcxVlBUOGI2K1haaWc5WkNyOU01dldvaytGR09IRWg5dEZKVWUvb2w3aEt3?=
- =?utf-8?B?Tk13R0JWblQ4VE9JZW1OR3YrOWh3dVNwME8zR1lVbGNpT3pCaFdSMmt4UXFB?=
- =?utf-8?B?THJJdGZ6cU1IWkVaUW9RRWRoRDRla1FqVFp0Rm8zUUdZYmFkbm5iMVZqeldC?=
- =?utf-8?B?VXY4Z1MzazJaU3dTR2NhYnFkMGVoeDVrY0ZxamR5OWRRS0ZhbCt3UytHVlhE?=
- =?utf-8?B?aE9Rc3pUUHI5QlRXZkNXM2I5SXZPRjFHaDluckxlZ2hSSTBPSktSR0FnaGcx?=
- =?utf-8?B?VURTN0wzK2RSeS9LdU1kR1BBbEpRTEg3V0tRMDBFV1l1RjJWdml1ZmJKYjNL?=
- =?utf-8?B?aEdtWE1KL0FCTGNQTzhYMXVPMU5NMmM3NlU0WnJrRkxkYVFUeDJvdTBGOG5H?=
- =?utf-8?B?bUE2Nyt2NzFBcy96T1dod2prRVNGRGMwbDZDb0xIUG9raEt4LzZnSnBiQVly?=
- =?utf-8?B?Z2d1b0hsVVMzYm5oSkh5VGdlakVUeXAvTlFRbVhXU2JqNWlGWDFDL1BDWER3?=
- =?utf-8?B?cUk0NXRHdHlhaFl6dHYwZXF0bksyUURDbGplTFpUN1loRFQ1eU5NbVVib090?=
- =?utf-8?B?WEI5ZzFzT0VKS09rN295dFAxLysrd1BEM1BnY3AzVGgyV0RXOFNTU1M2SlJE?=
- =?utf-8?B?RWtLMjhoU1NmS1Y5d0xnLzM2aTJsV004cTFrWFVMNlpOSVYzb28rN3E3V0py?=
- =?utf-8?Q?V0CgDwJls0iPO0sI=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C67A938AFB8DD64C8180611C1E721BB7@GBRP265.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: base64
+ d=gmail.com; s=20260707; t=1793199215; x=1793804015; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
+ b=SjGrl1atV/X8tqQkgNjZXLb0LYpR0T9I1821he4KratI2COeNo2QVPA9e8+wqhVCxI
+ O9XGEkUkcyDlmQbKk4vvpY54VskJH5POtRKTOFm884RZg5OISQgJP5psNMsNzGjJVqNE
+ DzLiiiczeegrZ7XuQKNQ6NwToQT5eZ6kcRal/neLlI3dRGCf0WA+8Yje8erv+BK19vUI
+ XmWnFcCZ/OURY/hv8GwtR9yZrdHfUtbCGmuSHs5aZn81maKtuPDj9a8RECyVtUzXrhBO
+ D3VXKPa8CXD2G7Rs00UEhHuVTlWmVAWKC9iKaEzjrX9apnHxUTaAp5xRYTfxxAHMJKlm
+ qRqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793199215; x=1793804015;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=hHpZdOuRh3k05zToFRnsSy2dvYFiJ6TeIqmJJw0GgYg=;
+ b=kUZ3QKxL5wgTK3bHaKpMDveLILS+5wIU5AGoI9Diw1U54CNHluJ2HhNIAOo7BjCkH9
+ aMR6YOAiAUuvV/gKGS7TCllasgCT1mji7ZPdmFUk1ysTstUcbb0T9mzfUVvPUow/luD9
+ uWpcxDSZFIvde5qrhooyAffhqPCqHilwkP8tNSWN0o7bcY/cFcCTOSHcrsRolI5C1+km
+ FsCbG5jh4NQLspttQbg5iN/O4GZIb9UFKP8afVKX+k1VbqQrg0kJfBFk8YXqU96m/d6j
+ pbpWyIzUm8jtcm4WhLSd92b8yCeav9M1hD7wf78Mcjr55fTBkfbbgIIwycgAtgn5grH7
+ TQQw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzYzjbw5QhHEZOaeRH71koIRtvmv0Psh58w4UizZ6qRgoMBnBRlsat3VYrw5jU89Lzt2j4m6UXI0vc=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ/V7N6TY6Y46Q+e39sqe8rxdF4jOXLR3hVOxXFvqjP0rTICUVS
+ P0+PVa1XAY2JfpTKyQvXoxUeqA6EjWXV7MZGgRw6QDqHvVjz6w7qHHckTMFQcupABDmZi9zTEtH
+ Nv1WrsyphdeNOFPulFZDVPK3TcyhjUMA=
+X-Gm-Gg: AYBFou0jnSDQTw0qVm42EcEB9s23/tu12PTQUoy75gk6KfMJosDygcy3mxLVcBXuLvb
+ DmR/ATL6H3k3jdZzIwROZJgcXx7gWH0FIOfN289vMuyiRNRxaC1EcAPDwiNQ94U7/o44j0J7Nvk
+ SONkk6M2KKmdlRBrC8JLCA6idwWqCwLJa1VOs62zFuB10/+IU64BjNJOHiCydqiKQqlAg8TVlv7
+ /E0ijs8juRDded3CosnslgcxoiIayMpGtdn0Ddz055umGcktphRzxRkmGRJFWDTc+DwXfguCKRN
+ gFf0vQe9AmDyD48T8vqpBu9w6dFCDNR/eKyS8cxp4r9RfMsThBERklBdcf4kHpHHLy18ffqSe84
+ Mba5HY7B/gFZqWfIQc0Qpdll8F55XjZTyieLYPtRUZ4eI5HNiOV+gz6R6f0ndBZzLKm5g5SDQrM
+ M3ozX+NFV7etpeUuRX4fA60aQ5Sk8BtI1c3/Nay8igSFrv
+X-Received: by 2002:a05:7301:1a8c:b0:369:ffc5:6767 with SMTP id
+ 5a478bee46e88-36a1ffc100fmr5213282eec.2.1793199215122; Wed, 28 Oct 2026
+ 07:53:35 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: x96BBufTkRELE2MNcPsjDUvXTC+9+tBJg3zRK3nc0O6xHQ7BLgeUitUwDUcKQM7avevzppe0jhSVLX0jnKHc0RY0Q2HH7lMlRtnMEbjJXevjX1O4pZP3nKfCLt4v3ilRWsOfOygHnnk/3hFWsZLvMDzIcuu0TX6+khep6uX8jSyZs38yXaBSLOpjTdXI5oA0pEPoY9JsbkxisHmfUyWvDOL+Sf7B17iq4pOUix4gLhVFEmBYwkyXhrdPcCMmfuRn2ho2tpThbtehCv6zL216OsP/RSmo7HxQ1cgUWJGVQbiLaAY2kgVBUhEmm+/kQPHU3yaj+EslOpu0URFZ2dYrwA==
-X-OriginatorOrg: imgtec.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LO0P265MB7076.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: c58d87ef-f8e5-4113-5984-08df3501d6db
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2026 14:43:32.5024 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0d5fd8bb-e8c2-4e0a-8dd5-2c264f7140fe
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BJtmyWY5A5KlqLt72H+xQHRZDy0aqaT0YBQ8pcLzmIy2Sou5IBr3DKPZ37fbVWNhtY+/RAbvIO1FdsnNlfMvG84P82gvRhKNsTPk4tV/X/c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2078
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1OCBTYWx0ZWRfX966ru/74tKWs
- YWUkR/g+TohoA7geyXS8Jsax+07UgkOIFXjEqhAtjFZGh3MILj+MFA4DHK0Am3sH8O6rNTz69hQ
- vHGMG/HrSY9ZK5igVYWhXB9iv5TGvps=
-X-Authority-Analysis: v=2.4 cv=AMk9Hd7f c=1 sm=1 tr=0 ts=6ae20a17 cx=c_pps
- a=FLlyU76OtWfqjC5ipmjW8g==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=NgoYpvdbvlAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22 a=VwQbUJbxAAAA:8
- a=QyXUC8HyAAAA:8 a=r_1tXGB3AAAA:8 a=hD80L64hAAAA:8 a=Us2G9mFh6sP1UL_tPTwA:9
- a=QEXdDO2ut3YA:10 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: y5qGHp6wCL-PpijzV0gRDOfIFi2ID5t8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1OCBTYWx0ZWRfX9xDMGQYYC04x
- x2GVc0h/WHq10psnGKsl4NITxDsRTewdFmKWK7atrwuEoLeN3B91o4SVdeBad0/M7OAqEXAsvNJ
- bQYDlhV53ccmP1vaj0FsgP2K2IrrJNiugG7s5p/rG5rOaUljIe05IPH928mxOLloDsELjyKmsKM
- ihjn3bRKCBoFhLUZgrUguqlkfmlYy2K1UYClqaW+bJ8+Z9hVkDJlaBy14uvWDrD0+WeSwuSEude
- DExslKqARgVJfWW/Uj/h/MZ9VrXrJ2lMzwFwCxT0EVSktfoQ8qD471xtaMBG21+s/5cElvkDQ1e
- 3EoKWZyPF7eUtLpQzXoScC8rEucnXCHh3bz7Wifa6QU/a8BJqlHeSRXQc3fEg/sothtR0owo490
- P76QfScWL2h+Hcz2v3lhJrzZ7ouVSS2COyQMGzrsJvBh0yJSUz9yoN9FIwfggaYviVOZUFpCpZh
- no5Kda007xow2krk8Tw==
-X-Proofpoint-GUID: y5qGHp6wCL-PpijzV0gRDOfIFi2ID5t8
+References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
+ <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
+ <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
+ <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
+ <CADnq5_OTLQuD3B6-VUgZv6wGjhFNY_U77wqdv5Y+e25+O0B2ZA@mail.gmail.com>
+ <138497f6-2271-4229-87f1-4e42e9d2b581@gmail.com>
+ <76b577d9-e8ce-45d5-9330-564411cc099d@amd.com>
+In-Reply-To: <76b577d9-e8ce-45d5-9330-564411cc099d@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 28 Oct 2026 10:53:22 -0400
+X-Gm-Features: AclHuK9PGvqElJiJ4JkJ6TDlP1xlfh9iqAhttNXCNmpg8zpVdT6TtOWjX57qcnA
+Message-ID: <CADnq5_NUKVeF_UNqx=8KfPQ8ntvkT5iv_Tfgp5v9r9ADv8go9g@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K
+ iMac
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Richard Lane <richardlanedev@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -180,61 +114,238 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-SGkgTWljaGFsLA0KDQpPbiBNb24sIDIwMjYtMDgtMTAgYXQgMTI6MjAgKzAyMDAsIE1pY2hhbCBX
-aWxjenluc2tpIHdyb3RlOg0KPiBUaGUgYnVpbGQgZmFpbHMgb24gUklTQy1WIHVzaW5nIEdDQyBi
-ZWNhdXNlIGBTSVpFX0NIRUNLKHN0cnVjdA0KPiByb2d1ZV9md2lmX2h3cnRkYXRhLCAzODQpYCBl
-eHBlY3RzIDM4NCBieXRlcywgYnV0IHRoZSBjb21waWxlciBnZW5lcmF0ZXMNCj4gYSAzMzYtYnl0
-ZSBzdHJ1Y3R1cmUuDQo+IA0KPiBUaGlzIGlzIGR1ZSB0byBhbiBhbGlnbm1lbnQgY29uZmxpY3Q6
-IHRoZSBpbm5lciBtZW1iZXIgYGNsZWFudXBfc3RhdGVgDQo+IHJlcXVpcmVzIDY0LWJ5dGUgYWxp
-Z25tZW50LCBidXQgdGhlIG91dGVyIHN0cnVjdCBpcyBleHBsaWNpdGx5IG1hcmtlZA0KPiBgX19h
-bGlnbmVkKDgpYC4NCj4gDQo+IFdoaWxlIEdDQyBvbiBBUk02NCBpbXBsaWNpdGx5IHBhZHMgdGhl
-IHNpemUgdG8gYSBtdWx0aXBsZSBvZiA2NCwgR0NDIG9uDQo+IFJJU0MtViBzdHJpY3RseSByZXNw
-ZWN0cyB0aGUgOC1ieXRlIG91dGVyIGFsaWdubWVudCwgcmVzdWx0aW5nIGluIGEgc2l6ZQ0KPiBt
-aXNtYXRjaC4NCj4gDQo+IEZpeCB0aGlzIGJ5IGFsaWduaW5nIHRoZSBlbnRpcmUgc3RydWN0dXJl
-IHRvIDY0IGJ5dGVzLCB3aGljaCByZXNvbHZlcw0KPiB0aGUgY29udHJhZGljdGlvbiBhbmQgZm9y
-Y2VzIHRoZSBjb3JyZWN0IDM4NCBieXRlIHNpemUgb24gYWxsDQo+IGFyY2hpdGVjdHVyZXMuDQo+
-IA0KPiBGaXhlczogYTI2ZjA2N2ZlYWMxICgiZHJtL2ltYWdpbmF0aW9uOiBBZGQgRldJRiBoZWFk
-ZXJzIikNCj4gUmVwb3J0ZWQtYnk6IGtlcm5lbCB0ZXN0IHJvYm90IDxsa3BAaW50ZWwuY29tPg0K
-PiBDbG9zZXM6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL29lLWtidWlsZC1hbGwvMjAyNTEyMTMx
-ODUxLjFXTlhrM0JDLWxrcEBpbnRlbC5jb20vDQo+IFJldmlld2VkLWJ5OiBMdWlnaSBTYW50aXZl
-dHRpIDxsdWlnaS5zYW50aXZldHRpQGltZ3RlYy5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IE1pY2hh
-bCBXaWxjenluc2tpIDxtLndpbGN6eW5za2lAc2Ftc3VuZy5jb20+DQo+IC0tLQ0KPiBDaGFuZ2Vz
-IGluIHYzOg0KPiAtIENsZWFuZWQgdXAgdGhlIGNoYW5nZWxvZyBzZWN0aW9uIGJ5IHJlbW92aW5n
-IHRoZSBhY2NpZGVudGFsIGI0DQo+ICAgIkVESVRNRSIgdGVtcGxhdGUgZnJvbSB2Mi4NCj4gLSBO
-byBjaGFuZ2VzIHRvIHRoZSBjb2RlIG9yIGNvbW1pdCBtZXNzYWdlLg0KPiAtIFJlYmFzZWQgcGF0
-Y2ggb24gbGF0ZXN0IG1hc3Rlci4NCj4gDQo+IENoYW5nZXMgaW4gdjI6DQo+IC0gRXhwYW5kZWQg
-dGhlIGNvbW1pdCBtZXNzYWdlIHRvIHByb3Blcmx5IGV4cGxhaW4gdGhlIHJvb3QgY2F1c2Ugb2Yg
-dGhlDQo+ICAgR0NDIGFsaWdubWVudCBjb25mbGljdCBvbiBSSVNDLVYgdnMgQVJNNjQsIGJhc2Vk
-IG9uIHYxIGZlZWRiYWNrLg0KDQpTb3JyeSB0byBib3RoZXIgYWdhaW4gb24gdGhpcy4gQWxsIHZl
-cnNpb25zIGhhdmUgdGhlIHNhbWUgY29tbWl0IG1lc3NhZ2UgYXMgdGhlDQpvcmlnaW5hbC4gRG8g
-eW91IHN0aWxsIGhhdmUgdGhlIHVwZGF0ZWQgbWVzc2FnZSB0aGF0IEkgdGhpbmsgd2FzIG1lYW50
-IHRvIGJlDQpzZW50IGluIHYyPyBPciBhcmUgeW91IGZpbmUgd2l0aCBtZSBtYWtpbmcgdGhlc2Ug
-Y2hhbmdlcyB0byB0aGUgY29tbWl0IG1lc3NhZ2UNCigrIHJld3JhcCkgYmVmb3JlIGFwcGx5aW5n
-IHRoaXM/DQoNCi0gIlRoZSBidWlsZCBmYWlscyBvbiBSSVNDLVYgdXNpbmcgR0NDIiAtPiAiU3Bh
-cnNlIChXPTEpIGJ1aWxkcyBmYWlsIg0KLSAiV2hpbGUgR0NDIG9uIEFSTTY0IiAtPiAiV2hpbGUg
-YSBub24tc3BhcnNlIGJ1aWxkIg0KLSAiR0NDIG9uIFJJU0MtViBzdHJpY3RseSByZXNwZWN0cyIg
-LT4gImEgc3BhcnNlIGJ1aWxkIHN0cmljdGx5IHJlc3BlY3RzIg0KLSAib24gYWxsIGFyY2hpdGVj
-dHVyZXMiIC0+ICJvbiBhbGwgYnVpbGRzIg0KDQpUaGFua3MsDQpBbGVzc2lvDQoNCj4gLSBObyBj
-aGFuZ2VzIHRvIHRoZSBjb2RlLg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pbWFnaW5hdGlv
-bi9wdnJfcm9ndWVfZndpZi5oIHwgMiArLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
-KCspLCAxIGRlbGV0aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2lt
-YWdpbmF0aW9uL3B2cl9yb2d1ZV9md2lmLmggYi9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24v
-cHZyX3JvZ3VlX2Z3aWYuaA0KPiBpbmRleCA1ZDU5MGM0YzI1NjYzZTQzMTYwMWRkMjY5NDQ0NjVi
-NjJjMzE1MjZiLi4yZjhkYWE5M2M5ZTY4MzJiYmVlYzc0NjAyNzVjNGI4MDM3OTJjYjAyIDEwMDY0
-NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX3JvZ3VlX2Z3aWYuaA0K
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaW1hZ2luYXRpb24vcHZyX3JvZ3VlX2Z3aWYuaA0KPiBA
-QCAtMjE3NCw3ICsyMTc0LDcgQEAgc3RydWN0IHJvZ3VlX2Z3aWZfaHdydGRhdGEgew0KPiAgCWJv
-b2wgZ2VvbV9jYWNoZXNfbmVlZF96ZXJvaW5nIF9fYWxpZ25lZCg0KTsNCj4gIA0KPiAgCXN0cnVj
-dCByb2d1ZV9md2lmX2NsZWFudXBfY3RsIGNsZWFudXBfc3RhdGUgX19hbGlnbmVkKDY0KTsNCj4g
-LX0gX19hbGlnbmVkKDgpOw0KPiArfSBfX2FsaWduZWQoNjQpOw0KPiAgDQo+ICAvKg0KPiAgICoq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKg0KPiANCj4gLS0tDQo+IGJhc2UtY29tbWl0OiBkYjJkZGI4NzE0
-MzUxOWUyMGE5NWFhMzZjNjBiMzYxMDdiNzM2YTU4DQo+IGNoYW5nZS1pZDogMjAyNTEyMjItZml4
-X2ltYWdpbmF0aW9uLThlZjBjOTQxMjJjNA0KPiANCj4gQmVzdCByZWdhcmRzLA0KDQo=
+On Tue, Oct 27, 2026 at 10:14=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+>
+>
+> On 10/27/26 18:59, Richard Lane wrote:
+> > On 27/10/2026 13:37, Alex Deucher wrote:
+> >> On Tue, Oct 27, 2026 at 9:16=E2=80=AFAM Mario Limonciello
+> >> <mario.limonciello@amd.com> wrote:
+> >>>
+> >>>
+> >>>
+> >>> On 10/27/26 07:57, Alex Deucher wrote:
+> >>>> On Tue, Oct 27, 2026 at 8:21=E2=80=AFAM Christian K=C3=B6nig
+> >>>> <christian.koenig@amd.com> wrote:
+> >>>>>
+> >>>>> On 10/26/26 23:46, Richard Lane wrote:
+> >>>>>> Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
+> >>>>>> VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated=
+ EFI
+> >>>>>> framebuffer.
+> >>>>>>
+> >>>>>> Override the stolen VGA memory allocation size to 64 MiB when matc=
+hing
+> >>>>>> PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
+> >>>>>> framebuffer corruption during boot handover.
+> >>>>>
+> >>>>> Hacks like those are usually a big no-go.
+> >>>>>
+> >>>>> Why is that framebuffer handling not working with DC out of the box=
+?
+> >>>>
+> >>>> The GMC IP code reserves the memory used by the display hardware fro=
+m
+> >>>> the pre-OS console.  The gmc get_vbios_fb_size() callback looks to s=
+ee
+> >>>> what display viewport was set by the pre-OS environment.  If the Mac=
+s
+> >>>> need a workaround, that's where it should go.  Since these displays
+> >>>> require multiple display pipes, my guess is you need to double the
+> >>>> allocation in that case since the current code just checks the first
+> >>>> pipe.
+> >>>
+> >>>
+> >>> Could this also be a logic error in that callback?  Would it be worth
+> >>> double checking all the register values in that callback for this sys=
+tem?
+> >>>
+> >>> I know for example there are a few different IP specific implementati=
+ons
+> >>> in gmc_v9_0_get_vbios_fb_size().
+> >>
+> >> Not likely.  I suspect the issue is that these systems use two display
+> >> pipes so we only reserve enough memory to cover half of the display.
+> >> On PCs the vbios never sets up MST.
+> >>
+> >> Alex
+> >>
+> >
+> > I tested doubling the allocation in gmc_v8_0_get_vbios_fb_size():
+> >
+> >       if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APPLE &&
+> >           size =3D=3D (2560 * 2880 * 4))
+> >               size *=3D 2;
+> >
+> > That eliminated the corruption across the middle (45-60%) of the screen=
+,
+> > but still left a band of corruption along the very bottom (95-100%) of
+> > the screen.
+> >
+> > Dumping the DCE registers inside gmc_v8_0_get_vbios_fb_size() on the
+> > iMac17,1 showed:
+> >
+> >    vram_start =3D 0xf400000000, d1vga =3D 0x0
+> >    CRTC0: grph_en=3D0x1 surf_hi=3D0xf4 surf_lo=3D0x300000 pitch=3D5120 =
+vp_size=3D2560x2880
+> >    CRTC1: grph_en=3D0x80000000 surf_hi=3D0x0 surf_lo=3D0x0 pitch=3D0 vp=
+_size=3D0x0
+> >
+> > Even though only CRTC0 is active at EFI boot with a 2560x2880 viewport,
+> > Apple's EFI allocates a full 5120-pixel stride surface (mmGRPH_PITCH) a=
+nd places
+> > mmGRPH_PRIMARY_SURFACE_ADDRESS at a 3 MiB offset (0x300000) from
+> > vram_start.
+> >
+> > Because CRTC0 scans out 2880 lines at a 5120-pixel pitch starting at
+> > offset 3 MiB, the active pre-OS scanout spans [3 MiB, 59.25 MiB) in VRA=
+M:
+> > - Reserving 2560 * 2880 * 4 (28.125 MiB) places permanent driver BOs at
+> >    ~28.125..32 MiB, corrupting the middle (40-60%) of the screen.
+> > - Reserving 2 * 2560 * 2880 * 4 (56.25 MiB) places those BOs at
+> >    ~56.25..59.25 MiB, leaving the final 3 MiB exposed due to the 0x3000=
+00
+> >    surface offset and corrupting the bottom (95-100%) of the screen.
+> > - Accounting for the 5120 pitch and the 0x300000 surface offset reserve=
+s
+> >    the full 59.25 MiB span and eliminates the corruption completely.
+> >
+> > For v2 of the patch, which of the following two approaches in both
+> > gmc_v7_0/v8_0_get_vbios_fb_size() would you prefer? Both tested working=
+.
+>
+> My feeling is that Option A is less magical.  I'd actually wonder if we
+> should be doing this more widely.  I'd *think* the same problem could
+> happen on a non-Apple display that behaves similarly.
+
+I had discussions with the vbios teams when this code was added.  They
+said the display base was always put at the start of VRAM.  The only
+area I have a concern about is adding the surface address.  It works
+ok if the the displays are put near the start of VRAM, but if not
+(e.g., the pre-OS environment puts then at the top of VRAM), we'll end
+up reserving most or all of VRAM.  I think the right solution is to
+add an offset to the reservation and then use the surface address as
+the offset.  That's more work however so maybe it would be better as a
+follow up clean up.
+
+Alex
+
+>
+> >
+> > Option A (change whole function):
+> >
+> >   static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev=
+)
+> >   {
+> >       u32 d1vga_control =3D RREG32(mmD1VGA_CONTROL);
+> >       unsigned size;
+> >
+> >       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE=
+)) {
+> >               size =3D AMDGPU_VBIOS_VGA_ALLOCATION;
+> >       } else {
+> >               u32 viewport =3D RREG32(mmVIEWPORT_SIZE);
+> > -             size =3D (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT=
+_HEIGHT) *
+> > -                     REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_W=
+IDTH) * 4);
+> > +             size =3D REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_=
+HEIGHT) *
+> > +                    RREG32(mmGRPH_PITCH) * 4;
+> > +             if (size)
+> > +                     size +=3D RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) =
+-
+> > +                             lower_32_bits(adev->gmc.vram_start);
+> >       }
+> >
+> >       return size;
+> >   }
+> >
+> > Option B (add Apple 5K iMacs quirk):
+> >
+> >   static unsigned gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev=
+)
+> >   {
+> >       u32 d1vga_control =3D RREG32(mmD1VGA_CONTROL);
+> >       unsigned size;
+> >
+> >       if (REG_GET_FIELD(d1vga_control, D1VGA_CONTROL, D1VGA_MODE_ENABLE=
+)) {
+> >               size =3D AMDGPU_VBIOS_VGA_ALLOCATION;
+> >       } else {
+> >               u32 viewport =3D RREG32(mmVIEWPORT_SIZE);
+> >               size =3D (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT=
+_HEIGHT) *
+> >                       REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_W=
+IDTH) * 4);
+> > +
+> > +             if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_APP=
+LE &&
+> > +                 size =3D=3D (2560 * 2880 * 4))
+> > +                     size =3D size * 2 + RREG32(mmGRPH_PRIMARY_SURFACE=
+_ADDRESS);
+> >       }
+> >
+> >       return size;
+> >   }
+> >
+> >
+> > Richard
+> >
+> >>>
+> >>>>
+> >>>> Alex
+> >>>>
+> >>>>>
+> >>>>> Regards,
+> >>>>> Christian.
+> >>>>>
+> >>>>>>
+> >>>>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+> >>>>>> ---
+> >>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
+> >>>>>>    1 file changed, 9 insertions(+), 1 deletion(-)
+> >>>>>>
+> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_gmc.c
+> >>>>>> index 4204c3c750a8..8b196fbfa724 100644
+> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> >>>>>> @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struc=
+t amdgpu_device *adev)
+> >>>>>>           } else {
+> >>>>>>                   size =3D amdgpu_gmc_get_vbios_fb_size(adev);
+> >>>>>>
+> >>>>>> -               if (adev->mman.keep_stolen_vga_memory)
+> >>>>>> +               /*
+> >>>>>> +                * Apple 5K iMacs report one 2560x2880 tile in VIE=
+WPORT_SIZE
+> >>>>>> +                * while scanning out up to 64M across the relocat=
+ed EFI
+> >>>>>> +                * framebuffer.
+> >>>>>> +                */
+> >>>>>> +               if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR=
+_ID_APPLE &&
+> >>>>>> +                   size =3D=3D (2560 * 2880 * 4))
+> >>>>>> +                       size =3D 64U * 1024 * 1024;
+> >>>>>> +               else if (adev->mman.keep_stolen_vga_memory)
+> >>>>>>                           size =3D max(size, (unsigned)AMDGPU_VBIO=
+S_VGA_ALLOCATION);
+> >>>>>>           }
+> >>>>>>
+> >>>>>> --
+> >>>>>> 2.55.0
+> >>>>>
+> >>>
+> >
+>
