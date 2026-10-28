@@ -2,89 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D978C606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 07:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46243606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 07:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Gahk2t55;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rFQ8+4Vk;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pU0U549X;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GdTxAQ38
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0jzJmEB6;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLbG6QWT;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=F1yVvb+2;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=SgB2qKBt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4799210F9E7;
-	Wed, 28 Oct 2026 07:29:27 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 034FA10E5A9
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 07:29:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BEB110E5A9;
+	Wed, 28 Oct 2026 07:32:56 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08CC810E5A9
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 07:32:45 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4253422110;
- Wed, 28 Oct 2026 07:29:12 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DAFCA1FB2F;
+ Wed, 28 Oct 2026 07:32:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793172553; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793172763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xEyUiDbs57VMvjOsVlOUL+HLpqecXjWm92Zq/661skY=;
- b=Gahk2t550nnHTa+Yb0Ab+Y+NiCiG20O7teZg7eg5Vu5o2uUtX7PTvHKJHuwqxZi2DpUUAN
- tYYko3pGYGIutrEfeUHu3FZnB308nOtFHIpDo92/BxuXzWhCAibyaUGKpGxuzEAx6IyKFA
- T/curIajhUb6M1JwRujKvFadGsLjxYo=
+ bh=OgQ00LMkKOEf/w7KG8UarNJ4BLmuw00CCH60+a7Qn+A=;
+ b=0jzJmEB6QvbuGKv1vnM2PFtVpyMbsqG00A96jcewZwkPxhoPbvCK9uWLJ2jUQU25k70Jdm
+ bxQjpNf1h9KT05nraMQ+FTW5GAHy6IT358uVW+x19Z1ntTwaBH7tBlmoww6NkB0lJu1Uay
+ ZjUqFgCx5V+sVLWkwSn43U9jHtGUaYM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793172553;
+ s=susede2_ed25519; t=1793172763;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xEyUiDbs57VMvjOsVlOUL+HLpqecXjWm92Zq/661skY=;
- b=rFQ8+4VkCUcXufLOxABvEAl4KWbg9fwFBCWKjPun2lfivrx7oC96jH6/7Rvh9hVp05wtSc
- thmU3gIjnjNVihCQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pU0U549X;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=GdTxAQ38
+ bh=OgQ00LMkKOEf/w7KG8UarNJ4BLmuw00CCH60+a7Qn+A=;
+ b=ZLbG6QWToacLlT++K/QaWyARob2NTe0MWJaPplmvY5m6c1ChJh5FMmRUVyY1J/+OaJfxJk
+ 9Z31vzWHOIT6DJAg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=F1yVvb+2;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=SgB2qKBt
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793172552; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793172761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xEyUiDbs57VMvjOsVlOUL+HLpqecXjWm92Zq/661skY=;
- b=pU0U549XMf2JVailgjj3Z/7wp7FSimRaPbpywFDbsfDqtYRmg3Nhc7cHw4Gi5GSWX9h6oz
- sDFLkRRN/sVXATmVrf32wKHtrJKNAbdIQviJOAB2L4bkacepBNK/gDfjb+ROSLgtzfHMvE
- hPSOltoBBPPCCBSqvYtWs11a5bI8jEQ=
+ bh=OgQ00LMkKOEf/w7KG8UarNJ4BLmuw00CCH60+a7Qn+A=;
+ b=F1yVvb+2xRt8UJKSMny32GR8Ma70Z3fAGsLr2YUNi6wWESJvJv+8tAowRqqqCOrXf2Nlfz
+ LKiPluglj5vJPWcvstE8CMxBadKoF5swMFKOYGjRm8Se3LBqmPnRaM5lEiyhQXfWZhGGrv
+ Jkw4SzBHwv4HkG7r7g+PZFXRbHplKpY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793172552;
+ s=susede2_ed25519; t=1793172761;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xEyUiDbs57VMvjOsVlOUL+HLpqecXjWm92Zq/661skY=;
- b=GdTxAQ38H3MDo38QCYCgs+OCtHtFihKS17m1368yqvnCfsYKocjNPrD7DHuQvoKNXM5PEz
- dve4Pr9ZO6+eE7Cg==
+ bh=OgQ00LMkKOEf/w7KG8UarNJ4BLmuw00CCH60+a7Qn+A=;
+ b=SgB2qKBtgqD6FIP6h72D3bnS/oY20OEDtm/8cvb4mEO6pSF42SwkNYy+1ih9n+5SaopPSY
+ b5obocv/SYtICzCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C28B01321C;
- Wed, 28 Oct 2026 07:29:11 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7E32B1321C;
+ Wed, 28 Oct 2026 07:32:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id bowwG0ek4Wo3QQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 28 Oct 2026 07:29:11 +0000
-Message-ID: <bd3c0c3a-1452-4667-b99d-96af0087af3f@suse.de>
-Date: Wed, 28 Oct 2026 08:29:11 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id S6OLDhml4WqoRAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 28 Oct 2026 07:32:41 +0000
+Message-ID: <5bde0cb8-6e5a-4df7-af7d-3e67dd27130e@suse.de>
+Date: Wed, 28 Oct 2026 08:32:40 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/vblank: Don't arm vblank timer with invalid frame
- duration
-To: me@romanilin.is, louis.chauvet@bootlin.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, javierm@redhat.com, dmitry.osipenko@collabora.com,
- ville.syrjala@linux.intel.com, regressions@leemhuis.info,
- peter.m.arnesen@gmail.com
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev
-References: <20260914110004.211027-1-tzimmermann@suse.de>
+Subject: Re: [PATCH RESEND] drm/udl: fail fast on stalled URB pool
+To: oushixiong1025@163.com
+Cc: Dave Airlie <airlied@redhat.com>, Sean Paul <sean@poorly.run>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+References: <20261028061328.395798-1-oushixiong1025@163.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -111,37 +109,34 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260914110004.211027-1-tzimmermann@suse.de>
+In-Reply-To: <20261028061328.395798-1-oushixiong1025@163.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-12.00 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Rspamd-Queue-Id: DAFCA1FB2F
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
+ XM_UA_NO_VERSION(0.01)[]; MX_GOOD(-0.01)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[163.com]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCPT_COUNT_TWELVE(0.00)[14];
- FREEMAIL_TO(0.00)[romanilin.is,bootlin.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,collabora.com,leemhuis.info];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_NONE(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[redhat.com,poorly.run,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,kylinos.cn];
+ MID_RHS_MATCH_FROM(0.00)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, romanilin.is:email, suse.com:url, suse.de:email,
- suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -12.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 4253422110
+ RCPT_COUNT_SEVEN(0.00)[10]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.com:url,
+ imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo, kylinos.cn:email]
+X-Spam-Score: -13.50
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,216 +156,189 @@ X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi
 
-Ping. Please review!
+Am 28.10.26 um 07:13 schrieb oushixiong1025@163.com:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
+>
+> A stalled device never returns its URBs, so every allocation waited
+> out the full timeout and stalled the display stack on each operation.
+> Flag the stall and fail fast until an URB comes back; give damage a
+> short timeout and keep the long one for modeset.
 
-Am 14.09.26 um 12:57 schrieb Thomas Zimmermann:
-> From: Roman Ilin <me@romanilin.is>
+I'm not comfortable with merging this change. It's nigh impossible to 
+test.  It could also break a working set up if there's some temporary 
+contention on the USB.
+
+Best regards
+Thomas
+
+
 >
-> When a CRTC's display mode carries a too small pixel clock,
-> drm_calc_timestamping_constants() computes a frame duration that
-> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
-> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
-> interval, after which vblank events are no longer delivered. Pending
-> page flips never complete and the display appears frozen.
->
-> This could be triggered on virtio-gpu guests that have dynamic resolution
-> enabled: when the SPICE agent or the X server resizes the output, it
-> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
->
->      clock = 406 kHz, htotal = 3152, vtotal = 2148
->
->      framedur_ns = 3152 * 2148 * 1000000 / 406 = 16675852216 ns (~16.7 s)
->
-> 16675852216 does not fit into an int and wraps to roughly -504000000.
-> ns_to_ktime() then yields a negative interval and the timer stops working.
->
-> Found by bisection, which pointed at commit a036f5fceedb ("drm/virtgpu:
-> Use vblank timer"). That commit merely made virtio-gpu use the vblank
-> timer and thereby exposed the pre-existing problem in the timer setup
-> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
->
-> To fix this, modify drm_calc_timestamping_constants() to use u64 for
-> calculations, check for INT_MAX overflows, and return an error code.
-> drm_crtc_vblank_start_timer() will then propagate the error, enabling
-> the driver to fall back to immediate vblank events. Valid modes are
-> unaffected, and the timer self-heals on the next mode with a sane clock.
->
-> v4:
-> - avoid log spamming with drm_warn_once()
->
-> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
-> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Signed-off-by: Roman Ilin <me@romanilin.is>
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 > ---
-> I took Roman's patch from [1] and replaced the error messages with
-> warn_once, as suggestde in my review.
+>   drivers/gpu/drm/udl/udl_drv.h      | 14 +++++++++++++-
+>   drivers/gpu/drm/udl/udl_main.c     | 30 +++++++++++++++++++++++++-----
+>   drivers/gpu/drm/udl/udl_modeset.c  |  6 +++---
+>   drivers/gpu/drm/udl/udl_transfer.c |  2 +-
+>   4 files changed, 42 insertions(+), 10 deletions(-)
 >
-> [1] https://lore.kernel.org/dri-devel/20260702181027.98526-1-me@romanilin.is/
-> ---
->   drivers/gpu/drm/drm_vblank.c | 73 +++++++++++++++++++++++-------------
->   include/drm/drm_vblank.h     |  4 +-
->   2 files changed, 49 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-> index f90fb2d13e42..72b543bca9e3 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-> @@ -631,45 +631,54 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
->    * drm_crtc_vblank_helper_get_vblank_timestamp(). They are derived from
->    * CRTC's true scanout timing, so they take things like panel scaling or
->    * other adjustments into account.
-> + *
-> + * Returns:
-> + * 0 on success, or a negative errno code otherwise.
->    */
-> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> -				     const struct drm_display_mode *mode)
-> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> +				    const struct drm_display_mode *mode)
->   {
->   	struct drm_device *dev = crtc->dev;
->   	unsigned int pipe = drm_crtc_index(crtc);
->   	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
-> -	int linedur_ns = 0, framedur_ns = 0;
-> +	u64 linedur_ns, framedur_ns;
->   	int dotclock = mode->crtc_clock;
-> +	unsigned int frame_size;
+> diff --git a/drivers/gpu/drm/udl/udl_drv.h b/drivers/gpu/drm/udl/udl_drv.h
+> index 145bb95ccc48..43cff97e12f7 100644
+> --- a/drivers/gpu/drm/udl/udl_drv.h
+> +++ b/drivers/gpu/drm/udl/udl_drv.h
+> @@ -11,6 +11,7 @@
+>   #ifndef UDL_DRV_H
+>   #define UDL_DRV_H
 >   
->   	if (!drm_dev_has_vblank(dev))
-> -		return;
-> +		return 0;
+> +#include <linux/jiffies.h>
+>   #include <linux/mm_types.h>
+>   #include <linux/usb.h>
 >   
->   	if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
-> -		return;
-> +		return -EINVAL;
+> @@ -46,6 +47,7 @@ struct urb_list {
+>   	int available;
+>   	int count;
+>   	size_t size;
+> +	bool wedged;
+>   };
 >   
-> -	/* Valid dotclock? */
-> -	if (dotclock > 0) {
-> -		int frame_size = mode->crtc_htotal * mode->crtc_vtotal;
-> +	if (dotclock <= 0) {
-> +		drm_err_once(dev, "crtc %u: Can't calculate constants, dotclock = %d!\n",
-> +			     crtc->base.id, dotclock);
-> +		goto error;
+>   struct udl_device {
+> @@ -72,7 +74,17 @@ static inline struct usb_device *udl_to_usb_device(struct udl_device *udl)
+>   int udl_modeset_init(struct udl_device *udl);
+>   struct drm_connector *udl_connector_init(struct drm_device *dev);
+>   
+> -struct urb *udl_get_urb(struct udl_device *udl);
+> +/*
+> + * How long to wait for a free URB before giving up.  The damage path runs
+> + * on every atomic update, so keep its timeout short: a stalled device never
+> + * returns its URBs and the wait would otherwise stall the whole display
+> + * stack on every operation.  Modeset is low-frequency and worth waiting
+> + * longer for.  Once the pool is flagged wedged, neither path blocks at all.
+> + */
+> +#define UDL_GET_URB_TIMEOUT_DAMAGE	msecs_to_jiffies(100)
+> +#define UDL_GET_URB_TIMEOUT_MODESET	msecs_to_jiffies(2000)
+> +
+> +struct urb *udl_get_urb(struct udl_device *udl, long timeout);
+>   
+>   int udl_submit_urb(struct udl_device *udl, struct urb *urb, size_t len);
+>   void udl_sync_pending_urbs(struct udl_device *udl);
+> diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
+> index 17950fe3a0ec..b92cd5300030 100644
+> --- a/drivers/gpu/drm/udl/udl_main.c
+> +++ b/drivers/gpu/drm/udl/udl_main.c
+> @@ -169,6 +169,7 @@ void udl_urb_completion(struct urb *urb)
+>   	spin_lock_irqsave(&udl->urbs.lock, flags);
+>   	list_add_tail(&unode->entry, &udl->urbs.list);
+>   	udl->urbs.available++;
+> +	udl->urbs.wedged = false;
+>   	spin_unlock_irqrestore(&udl->urbs.lock, flags);
+>   
+>   	wake_up(&udl->urbs.sleep);
+> @@ -213,6 +214,7 @@ static int udl_alloc_urb_list(struct udl_device *udl, int count, size_t size)
+>   	init_waitqueue_head(&udl->urbs.sleep);
+>   	udl->urbs.count = 0;
+>   	udl->urbs.available = 0;
+> +	udl->urbs.wedged = false;
+>   
+>   retry:
+>   	udl->urbs.size = size;
+> @@ -265,16 +267,34 @@ static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout)
+>   
+>   	assert_spin_locked(&udl->urbs.lock);
+>   
+> +	/* A device that stopped completing transfers will never wake us up:
+> +	 * fail fast instead of stalling callers for the full timeout on every
+> +	 * call.  Allocations for teardown (MAX_SCHEDULE_TIMEOUT) still wait,
+> +	 * since the USB core returns all URBs on disconnect.
+> +	 */
+> +	if (udl->urbs.wedged && timeout != MAX_SCHEDULE_TIMEOUT) {
+> +		if (list_empty(&udl->urbs.list))
+> +			return NULL;
+> +		goto take;
 > +	}
->   
-> -		/*
-> -		 * Convert scanline length in pixels and video
-> -		 * dot clock to line duration and frame duration
-> -		 * in nanoseconds:
-> -		 */
-> -		linedur_ns  = div_u64((u64) mode->crtc_htotal * 1000000, dotclock);
-> -		framedur_ns = div_u64((u64) frame_size * 1000000, dotclock);
-> +	frame_size = (unsigned int)mode->crtc_htotal * (unsigned int)mode->crtc_vtotal;
->   
-> -		/*
-> -		 * Fields of interlaced scanout modes are only half a frame duration.
-> -		 */
-> -		if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-> -			framedur_ns /= 2;
-> -	} else {
-> -		drm_err(dev, "crtc %u: Can't calculate constants, dotclock = 0!\n",
-> -			crtc->base.id);
-> +	/*
-> +	 * Convert scanline length in pixels and video dot clock to line duration
-> +	 * and frame duration in nanoseconds.
-> +	 */
-> +	linedur_ns  = div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
-> +	framedur_ns = div_u64((u64)frame_size * 1000000, dotclock);
 > +
-> +	/*
-> +	 * Fields of interlaced scanout modes are only half a frame duration.
-> +	 */
-> +	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-> +		framedur_ns /= 2;
-> +
-> +	if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
-> +		drm_err_once(dev, "crtc %u: Can't calculate constants, mode clock too small!\n",
-> +			     crtc->base.id);
-> +		goto error;
+>   	/* Wait for an in-flight buffer to complete and get re-queued */
+>   	if (!wait_event_lock_irq_timeout(udl->urbs.sleep,
+>   					 !udl->urbs.count ||
+>   					 !list_empty(&udl->urbs.list),
+>   					 udl->urbs.lock, timeout)) {
+> -		DRM_INFO("wait for urb interrupted: available: %d\n",
+> -			 udl->urbs.available);
+> +		if (timeout == MAX_SCHEDULE_TIMEOUT) {
+> +			DRM_INFO("wait for urb interrupted: available: %d\n",
+> +				 udl->urbs.available);
+> +		} else {
+> +			udl->urbs.wedged = true;
+> +			drm_warn_ratelimited(&udl->drm,
+> +				"no URB returned within %u ms (available %d); device stalled, dropping frames\n",
+> +				jiffies_to_msecs(timeout), udl->urbs.available);
+> +		}
+>   		return NULL;
 >   	}
+> -
+> +take:
+>   	if (!udl->urbs.count)
+>   		return NULL;
 >   
-> -	vblank->linedur_ns  = linedur_ns;
-> +	vblank->linedur_ns = linedur_ns;
->   	vblank->framedur_ns = framedur_ns;
->   	drm_mode_copy(&vblank->hwmode, mode);
->   
-> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct drm_crtc *crtc,
->   		     crtc->base.id, mode->crtc_htotal,
->   		     mode->crtc_vtotal, mode->crtc_vdisplay);
->   	drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
-> -		     crtc->base.id, dotclock, framedur_ns, linedur_ns);
-> +		     crtc->base.id, dotclock,
-> +		     vblank->framedur_ns, vblank->linedur_ns);
-> +
-> +	return 0;
-> +
-> +error:
-> +	vblank->linedur_ns = 0;
-> +	vblank->framedur_ns = 0;
-> +	drm_mode_copy(&vblank->hwmode, mode);
-> +	return -EINVAL;
+> @@ -285,12 +305,12 @@ static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout)
+>   	return unode->urb;
 >   }
->   EXPORT_SYMBOL(drm_calc_timestamping_constants);
 >   
-> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
->   	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
->   	struct drm_vblank_crtc_timer *vtimer = &vblank->vblank_timer;
->   	unsigned long flags;
-> +	int ret;
+> -struct urb *udl_get_urb(struct udl_device *udl)
+> +struct urb *udl_get_urb(struct udl_device *udl, long timeout)
+>   {
+>   	struct urb *urb;
 >   
->   	if (!vtimer->crtc) {
->   		/*
-> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
->   			hrtimer_try_to_cancel(&vtimer->timer);
->   	}
+>   	spin_lock_irq(&udl->urbs.lock);
+> -	urb = udl_get_urb_locked(udl, HZ * 2);
+> +	urb = udl_get_urb_locked(udl, timeout);
+>   	spin_unlock_irq(&udl->urbs.lock);
+>   	return urb;
+>   }
+> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
+> index 289711035b67..c907846048f8 100644
+> --- a/drivers/gpu/drm/udl/udl_modeset.c
+> +++ b/drivers/gpu/drm/udl/udl_modeset.c
+> @@ -218,7 +218,7 @@ static int udl_handle_damage(struct drm_framebuffer *fb,
+>   		return ret;
+>   	log_bpp = ret;
 >   
-> -	drm_calc_timestamping_constants(crtc, &crtc->mode);
-> +	ret = drm_calc_timestamping_constants(crtc, &crtc->mode);
-> +	if (ret)
-> +		return ret;
+> -	urb = udl_get_urb(udl);
+> +	urb = udl_get_urb(udl, UDL_GET_URB_TIMEOUT_DAMAGE);
+>   	if (!urb)
+>   		return -ENOMEM;
+>   	cmd = urb->transfer_buffer;
+> @@ -342,7 +342,7 @@ static void udl_crtc_helper_atomic_enable(struct drm_crtc *crtc, struct drm_atom
+>   	if (!drm_dev_enter(dev, &idx))
+>   		return;
 >   
->   	spin_lock_irqsave(&vtimer->interval_lock, flags);
->   	vtimer->interval = ns_to_ktime(vblank->framedur_ns);
-> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
-> index 2fcef9c0f5b1..d99772dfa034 100644
-> --- a/include/drm/drm_vblank.h
-> +++ b/include/drm/drm_vblank.h
-> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
->   u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
->   void drm_crtc_vblank_restore(struct drm_crtc *crtc);
+> -	urb = udl_get_urb(udl);
+> +	urb = udl_get_urb(udl, UDL_GET_URB_TIMEOUT_MODESET);
+>   	if (!urb) {
+>   		drm_err_ratelimited(dev, "get urb failed when enabling crtc\n");
+>   		goto out;
+> @@ -377,7 +377,7 @@ static void udl_crtc_helper_atomic_disable(struct drm_crtc *crtc, struct drm_ato
+>   	if (!drm_dev_enter(dev, &idx))
+>   		return;
 >   
-> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> -				     const struct drm_display_mode *mode);
-> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
-> +				    const struct drm_display_mode *mode);
->   wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
->   void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
->   				   u32 max_vblank_count);
->
-> base-commit: 06576c2b43750d990297b8ff1989b94ac72e855f
-> prerequisite-patch-id: 6729bb10d5e338678e78ccda2dd24f232a13cd22
-> prerequisite-patch-id: 9d94d20bd45967493b4dc339b58082e1c8da0f4f
-> prerequisite-patch-id: 6ac8d22df34db9e7d467b1ab95ad30f94841d5db
-> prerequisite-patch-id: f548dbde3f944ca3415c808be628719acebe898a
-> prerequisite-patch-id: 2ae91ee8e2bbcd33b8325be046e7214185aba6aa
-> prerequisite-patch-id: f97bbde08a9996d7c62ca3e3ebfcd387e50bc5c3
-> prerequisite-patch-id: ecc3c825277bc9978c6979455517249a074c0cb1
-> prerequisite-patch-id: 0449925cca36664b566f614bfb7d573a11f0575f
-> prerequisite-patch-id: 9fb2c2787244e9621847af09bea03e575e6276c7
-> prerequisite-patch-id: eb4384d581805e1178d22e7df45f134223c38305
-> prerequisite-patch-id: 1a7a529e4b2864abe8071aa44598d28ce72483f4
-> prerequisite-patch-id: 844a85f4c2fe2f72209b82d46614004c3cfe4123
-> prerequisite-patch-id: 13f7cb22114c648d35f8c9fa74e9165656ce31eb
-> prerequisite-patch-id: 20ee46bd6fdd91e39f71d22f52ef6682a4e41512
-> prerequisite-patch-id: 1d26c0ff91796ff1e62d3831d00bee18723788ef
-> prerequisite-patch-id: 007f6ea0d09bef54b689bae0eb5abeb497bdfaad
-> prerequisite-patch-id: 2d89c1507c909520adf9bfb1a137d458a819ae8f
-> prerequisite-patch-id: d90dc4134468870ab8ccbd71547c9552dff74fbd
-> prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-> prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
-> prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
-> prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
+> -	urb = udl_get_urb(udl);
+> +	urb = udl_get_urb(udl, UDL_GET_URB_TIMEOUT_MODESET);
+>   	if (!urb)
+>   		goto out;
+>   
+> diff --git a/drivers/gpu/drm/udl/udl_transfer.c b/drivers/gpu/drm/udl/udl_transfer.c
+> index 7d670b3a5293..bfff17bba58d 100644
+> --- a/drivers/gpu/drm/udl/udl_transfer.c
+> +++ b/drivers/gpu/drm/udl/udl_transfer.c
+> @@ -202,7 +202,7 @@ int udl_render_hline(struct udl_device *udl, int log_bpp, struct urb **urb_ptr,
+>   			int ret = udl_submit_urb(udl, urb, len);
+>   			if (ret)
+>   				return ret;
+> -			urb = udl_get_urb(udl);
+> +			urb = udl_get_urb(udl, UDL_GET_URB_TIMEOUT_DAMAGE);
+>   			if (!urb)
+>   				return -EAGAIN;
+>   			*urb_ptr = urb;
 
 -- 
 --
