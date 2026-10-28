@@ -2,108 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6105C606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 16:42:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C74A606A32F
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 17:19:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JxcYmwp2
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akryjx38
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD8AE10E658;
-	Wed, 28 Oct 2026 16:41:54 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88EE510E658
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 16:41:48 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5bfc3292d90so953488e87.1
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:41:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1793205706; x=1793810506;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=8aqqOJYr4Hmv6RgN8CmHQlYy+DEU2NSLFnHtd0L0hA4=;
- b=JxcYmwp2tDqGxkwBGSSB+NHH8xeJk6qPVd7lGhEeYWINsEDFc4rI5nI2e6WgaeNAjW
- wQ14SKrr81XXiJIA+e6SSsn+PQCRMeH8pz9oQEbDFY1G35cZU3jC0AUrZWLQQCgAZHnn
- FulOXZJHUqhJF5i4ExKBgTwcK3wS+a9mogsJk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793205706; x=1793810506;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=8aqqOJYr4Hmv6RgN8CmHQlYy+DEU2NSLFnHtd0L0hA4=;
- b=DM040SGbQ6GjA4iggvV9h2plOGLM9S0hjYfFgz2j0e2r9HjHVkXhH13JpfpLpZFLPB
- afhn9jhpDLkUEylvvED9TwUbiNsdEaeerTbueZwIYGVT8QX44P5Bfk/MukmVffa2XG39
- CU3NImS9emB6T/tRtDsEGUnWy318GoU+79AZ4peIOkEO/JoNGzgwGYLYMm03MwJ931xM
- Z1rJVWOksPFIiB/Ivvj6XSvDInOdXPReV3xoE7lTpbHgwRD3CVk9hRdR79PI4p3G04M1
- UKsBcZck/Rp/fgpHGGjEytaeI52Fh/sH7pFxLl3C0b6W4/lHiWJXnOeGxvnYIt8zlEOJ
- qNAg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBysnOMwOo2oKIyFgR3Om5/iemp81rb0lcbPA4x6Y27QrBaswpF8vY5haRYv8bbDvXxcMmnYDDz9Ogc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKjMPdDrGc56oDAJEubAwLreNqlHEgxSQBP73ewf85fx+RbsAHU
- uHTWP5JNVKDO2UtB9UdpxqQ2xJKYUinL1LFO24ync3C94twndWEvSPzHXsoqVGuURO06enVXWBr
- vEVrVh63R
-X-Gm-Gg: AYBFou1J13tLBSEFoX8QlHE3iF80T5/bzSZytXJwhD0OWTMmLSzS5boM+GzaTwA1HEK
- OQ4E3YxsetiPs9c2y+Uk26zI66wTQnnoInfZqgvz8o7jQNeC/TTSeJgdPSC4MJwUJXnybye4dUj
- fxaYjlytOfrXrfNM6rY4b06m2EqP5x00KrluK1EKwn7DfNgNGgtZjuoc6I0FdEKfZl9/xYoOcpN
- wQGVNmHXNWhNwh71Cd2HoGMzWrCsy77ifrgUsCAeO9Cbr4UPWWwVkBiro7+JWojfkdHOJPZAM85
- 35g9vaqhlURkgmOiOvv6X9bxbMGY2vHGf2R29bQ8jNb+QJRI95s8zTy5fTRZn9qXbMgq/iIt3kA
- r8XP5AQXrQuGgvh/SSv37l8kt9SwvsXVU9kTVPlAMyFJuqIgwirifz8Gz9LlVSCMtECV0eRUDhG
- zq85bMDU/h9LKnrURL8sB5GyE82iRXD1ohhuPEu1FMzYmTY11IEnj+cd7ufWIWXoWipSEBjoUOm
- FjnxfuMBdH4ZfahtGdp5L/+7pRGLjdjXDvFcOwXx51ZGDZuJt27QBZFsbU4I/5CwPBdP/UXXL8t
- 5390QZie3n8UjGIFfEHGFZfbSJEO7DP24OWPJPLRMeivrlROBwfCrIsGTst3QRSvIruP6I+StrT
- o1VORPK2VtI5nIQ==
-X-Received: by 2002:a05:6512:1327:b0:5bc:ebbc:c80d with SMTP id
- 2adb3069b0e04-5bfcad2b4d1mr1146010e87.4.1793205706164; 
- Wed, 28 Oct 2026 09:41:46 -0700 (PDT)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com.
- [209.85.167.44]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ac70a2b576sm31758451fa.31.2026.10.28.09.41.45
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Oct 2026 09:41:46 -0700 (PDT)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-5bfc3292d90so953477e87.1
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:41:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBz+Puulx1+fwpadaCt9f5jXhh2/Ratl0U1KI+55cFu3TRnQnuspjG9ZZOuqABpDADL/O6swOY8lJkY=@lists.freedesktop.org
-X-Received: by 2002:a5d:5f07:0:b0:48b:9d2:1a6a with SMTP id
- ffacd0b85a97d-48e5d45a3c2mr6625980f8f.1.1793205267445; Wed, 28 Oct 2026
- 09:34:27 -0700 (PDT)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
- <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
-In-Reply-To: <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 28 Oct 2026 09:34:15 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XmfYM8diBOh3UidN7xEuB3n+n9oAm_zhopfFLERC2QpQ@mail.gmail.com>
-X-Gm-Features: AclHuK_LwyJo9CN0zxlkO30oKOFraZ6PCLD3VchvtC_WbqyDogSG-WeDzg__Frs
-Message-ID: <CAD=FV=XmfYM8diBOh3UidN7xEuB3n+n9oAm_zhopfFLERC2QpQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/panel_edp: Add SEC LTL101DL02-002 panel
-To: tb@a-marquet.fr
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Lukas Timmermann <linux@timmermann.space>, Henrik Grimler <henrik@grimler.se>, 
- Hendrik Noack <hendrik-noack@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8C3410E6B1;
+	Wed, 28 Oct 2026 17:19:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6988610E6B1
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 17:19:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 874786020A;
+ Wed, 28 Oct 2026 17:19:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162DB1F01829;
+ Wed, 28 Oct 2026 17:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793207943;
+ bh=0uw5b5WJ/frCjF1BWA9yHZlqikkZI7ppytPBUj5YA6o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=akryjx38nvSKvmFQmsM4FgfANs+xzizq8t8ADxLTQXD7fdbD5jVBWqanWmCwOD6io
+ EO/3F+59FRmOERJq/FedOjkzAphAO4WSIAUSu595ONgDTOSSzdNI+RR11/8Yw5xjRg
+ cg5hteDVrlw+g6psMlAdIJo+c+j4hGYqGzglVZwdTmDGW6enenVxns7UaY6l1UWK9I
+ NMjs347zCJe2ITdzscfGS1HUM5tPtEOTEUwdLxyVinG3qG1j7k7xGTvyFxpuRQS3gC
+ +Ok70jLCpDKo8p0ZUoi6ZZxZMYNEd5AfeZ2RiavJORBFyKuQPNr+tePllxlByiqZDc
+ LGz9oUM73iHzg==
+Message-ID: <sashiko-outbox-188230@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 5/5] drm/vc4: dsi: Recover from a timed-out transfer
+To: "Henry Zhang" <henryzhang62@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261028164539.3471833-6-henryzhang62@gmail.com>
+References: <20261028164539.3471833-1-henryzhang62@gmail.com>
+ <20261028164539.3471833-6-henryzhang62@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Oct 2026 17:19:02 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,64 +48,166 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/vc4: dsi: race on reg_dma_mem before disable_irq() in vc4_dsi_=
+host_transfer()
+--
 
-On Tue, Oct 27, 2026 at 5:01=E2=80=AFAM Alexandre Marquet via B4 Relay
-<devnull+tb.a-marquet.fr@kernel.org> wrote:
->
-> From: Alexandre Marquet <tb@a-marquet.fr>
->
-> Add an entry for the eDP SEC LTL101DL02-002 panel used in
-> google-manta.
->
-> Raw EDID dump:
->
-> 00 ff ff ff ff ff ff 00 4c a3 0f 9c 00 00 00 00
-> 05 0e 01 03 80 21 19 78 0a 87 fe 98 57 51 8c 27
-> 21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-> 01 01 01 01 01 01 14 69 00 a0 a0 40 2e 60 30 20
-> 36 00 1e d6 10 00 00 19 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 9e
->
-> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 2 ++
->  1 file changed, 2 insertions(+)
+commit 748a80df1fc43dd3d1d753f275003873696caaaf
+Author: Henry Zhang <henryzhang62@gmail.com>
 
-nit: subject doesn't quite fit the pattern of recent commits (_ vs -).
+drm/vc4: dsi: Recover from a timed-out transfer
 
+This commit recovers the VC4 DSI block after a transfer timeout by resetting
+the DSI controller and its analog front end, then restoring the hardware
+configuration from pre_enable while holding the interrupt disabled.
 
-> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
-nel-edp.c
-> index 94bc54c3833a..c92985363093 100644
-> --- a/drivers/gpu/drm/panel/panel-edp.c
-> +++ b/drivers/gpu/drm/panel/panel-edp.c
-> @@ -2198,6 +2198,8 @@ static const struct edp_panel_entry edp_panels[] =
-=3D {
->         EDP_PANEL_ENTRY('L', 'G', 'D', 0x0778, &delay_200_500_e200_d200, =
-"134WT1"),
->         EDP_PANEL_ENTRY('L', 'G', 'D', 0x07fe, &delay_200_500_e200_d200, =
-"LP116WHA-SPB1"),
->
-> +       EDP_PANEL_ENTRY('S', 'E', 'C', 0x9c0f, &delay_200_500_e50, "LTL10=
-1DL02-002"),
+> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
+> index 3ee6e8e86a147..6edda74e1117c 100644
+> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+
+[ ... ]
+
+> @@ -1374,6 +1378,120 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_=
+dsi_host *host,
+>  	return ret;
+>  }
+> =20
+> +/*
+> + * Reset the DSI block and its analog front end, then restore the
+> + * configuration done in pre_enable. Resetting the FIFOs alone does not
+> + * clear the state the block can be left in after a transfer timed out
+> + * (e.g. on an LP receive timeout): every following transfer then times
+> + * out as well, until the next modeset.
+> + */
+> +static void vc4_dsi_reset_and_restore(struct vc4_dsi *dsi)
+> +{
+> +	u32 en =3D dsi->variant->port ? DSI1_CTRL_EN : DSI0_CTRL_CTRL0;
+> +	u32 ctrl =3D DSI_PORT_READ(CTRL);
+
+[ ... ]
+
+> +	/* Ungate the block. */
+> +	DSI_PORT_WRITE(CTRL, ctrl);
+> +	/* Bring AFE out of reset. */
+> +	DSI_PORT_WRITE(PHY_AFEC0, afec0 & ~DSI_PORT_BIT(PHY_AFEC0_RESET));
+> +	DSI_PORT_WRITE(DISP0_CTRL, disp0);
 > +
+> +	DSI_PORT_WRITE(INT_STAT, DSI_PORT_READ(INT_STAT));
+> +	DSI_PORT_WRITE(INT_EN, DSI_PORT_BIT(INTERRUPTS_ALWAYS_ENABLED));
+> +}
+> +
+> +static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
+> +				     const struct mipi_dsi_msg *msg)
+> +{
+> +	struct vc4_dsi *dsi =3D host_to_dsi(host);
+> +	u32 disp0_ctrl;
+> +	ssize_t ret;
+> +
+> +	guard(mutex)(&dsi->transfer_lock);
+> +
+> +	ret =3D vc4_dsi_transfer(dsi, msg);
+> +	/* Only a running block can be reset and restored. */
+> +	if (ret !=3D -ETIMEDOUT || !dsi->enabled)
+> +		return ret;
+> +
+> +	/*
+> +	 * Leave the block usable for the next transfer. The message is not
+> +	 * resent: it may already have reached the peripheral, and only the
+> +	 * caller knows whether it is safe to repeat.
+> +	 */
+> +	disp0_ctrl =3D DSI_PORT_READ(DISP0_CTRL);
+> +	dev_warn(&dsi->pdev->dev,
+> +		 "transfer timed out (stat 0x%08x), resetting DSI\n",
+> +		 DSI_PORT_READ(STAT));
+> +	/*
+> +	 * Keep the interrupt handler out until the block is restored and
+> +	 * INT_STAT is cleared. The error interrupts are still enabled, and
+> +	 * a handler running during the reset could complete the next
+> +	 * transfer, or race with the register writes on DSI1 of the
+> +	 * BCM2835, where both go through the DMA workaround. disable_irq()
+> +	 * also waits for a late completion interrupt of the timed-out
+> +	 * transfer.
+> +	 */
+> +	disable_irq(dsi->irq);
+> +	vc4_dsi_reset_and_restore(dsi);
+> +	DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
+> +	enable_irq(dsi->irq);
 
-It would also be good to note in the commit message where you got the
-timings from. Datasheet? Downstream code? Guessing?
+[Severity: High]
+Can a late or error interrupt race on dsi->reg_dma_mem in vc4_dsi_transfer()
+before disable_irq(dsi->irq) is reached in vc4_dsi_host_transfer(),
+corrupting DSI1_CTRL before vc4_dsi_reset_and_restore() saves and restores
+it?
 
-I had my AI agent take a look for itself. It found evidence suggesting
-the enable delay should be 97ms, not 50ms. The other ones seem to be
-OK.
+When wait_for_completion_timeout() times out in vc4_dsi_transfer(),
+dsi->irq and INT_EN are still enabled while vc4_dsi_transfer() performs
+five register writes before returning -ETIMEDOUT:
 
--Doug
+drivers/gpu/drm/vc4/vc4_dsi.c:vc4_dsi_transfer() {
+	...
+	DSI_PORT_WRITE(INT_EN, DSI_PORT_BIT(INTERRUPTS_ALWAYS_ENABLED));
+
+	if (ret)
+		goto reset_fifo_and_return;
+	...
+reset_fifo_and_return:
+	drm_err(drm, "DSI transfer failed, resetting: %d\n", ret);
+
+	DSI_PORT_WRITE(TXPKT1C, DSI_PORT_READ(TXPKT1C) & ~DSI_TXPKT1C_CMD_EN);
+	udelay(1);
+	DSI_PORT_WRITE(CTRL,
+		       DSI_PORT_READ(CTRL) |
+		       DSI_PORT_BIT(CTRL_RESET_FIFOS));
+
+	DSI_PORT_WRITE(TXPKT1C, 0);
+	DSI_PORT_WRITE(INT_EN, DSI_PORT_BIT(INTERRUPTS_ALWAYS_ENABLED));
+	return ret;
+}
+
+On BCM2835 DSI1 (where broken_axi_workaround is enabled), DSI_PORT_WRITE()
+calls dsi_dma_workaround_write(), which writes the value into the single
+shared buffer *dsi->reg_dma_mem and submits a DMA transfer from
+dsi->reg_dma_paddr:
+
+drivers/gpu/drm/vc4/vc4_dsi.c:dsi_dma_workaround_write() {
+	...
+	*dsi->reg_dma_mem =3D val;
+
+	tx =3D chan->device->device_prep_dma_memcpy(chan,
+						  dsi->reg_paddr + offset,
+						  dsi->reg_dma_paddr,
+						  4, 0);
+	...
+}
+
+If the threaded handler vc4_dsi_irq_handler() runs concurrently (for
+example on an LPRX/TA timeout error interrupt or a late completion
+interrupt) and calls DSI_PORT_WRITE(INT_STAT, stat), it overwrites
+*dsi->reg_dma_mem =3D stat without any lock.
+
+If that happens during the read-modify-write of CTRL in
+reset_fifo_and_return, the DMA transfer can write stat into DSI1_CTRL.
+When vc4_dsi_reset_and_restore() then runs under disable_irq(dsi->irq), it
+snapshots the corrupted register via u32 ctrl =3D DSI_PORT_READ(CTRL) and
+writes it back at the end of the reset, leaving DSI1_CTRL corrupted (for
+example with DSI1_CTRL_EN cleared so the block remains gated).
+
+Should disable_irq(dsi->irq) be called in vc4_dsi_transfer() before the
+post-timeout register writes (or before reset_fifo_and_return)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028164539.3471=
+833-1-henryzhang62@gmail.com?part=3D5
