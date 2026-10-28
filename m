@@ -2,46 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50695606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DAF606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.a=rsa-sha256 header.s=default header.b=HVBdxcbk
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fZG+Oo4J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA5111206B;
-	Thu, 29 Oct 2026 07:59:21 +0000 (UTC)
-Received: from mail-m127171.xmail.ntesmail.com
- (mail-m127171.xmail.ntesmail.com [115.236.127.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5155B10FFF2
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:40:23 +0000 (UTC)
-Content-Type: multipart/mixed;
- BOUNDARY="=_Part_241365_1302080189.1793259618800"
-Message-ID: <AKoAagBcLENWUVxRNA4*KqoJ.1.1793259618800.Hmail.242270054@hdu.edu.cn>
-To: zack.rusin@broadcom.com
-Cc: gregkh@linuxfoundation.org, bcm-kernel-feedback-list@broadcom.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- security@kernel.org
-Subject: =?UTF-8?B?MDAwMS1kcm0tdm13Z2Z4LXVucGluLUJPcy13aXRob3V0LXJldmFsaWRhdGluZy1wbGFjZW1lbnQ=?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77846112069;
+	Thu, 29 Oct 2026 07:59:22 +0000 (UTC)
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 795AB10E12B
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 17:46:38 +0000 (UTC)
+Received: by mail-dy2-f6.google.com with SMTP id
+ 5a478bee46e88-33e48934fa8so492414eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 10:46:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793209598; x=1793814398; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=RlnCbRvexhlS7txTUBEsp7/jaaL1UDYI5JCGeL/IEcw=;
+ b=fZG+Oo4Jpz89iSeYLtI4nFqYL2CMVR9SOGZJ9MjtSd+AWGDw7Z8zUaMjeIo2nQu0oS
+ pgHXoveHe3pddq4BaxH60s5jGvZ8i5PIBlIZqf14t3/lnv92+Ec6b5FN1iwt0SXz6UJ2
+ sIk2gHgC+2dfbBmpR8tnOkc8WpAQXm8vn9GCvxZQ5lhBslTPzWVmGleIBbqG1EPaXk/C
+ jkWpjJkYBbw4CaHGtGag9eUomesm+lyC7Zt+UHFHB5LxN+6Tzf6thJsLBEqPxI8jGuzk
+ 6+Oh5UbuYZEfvF4MODTwIcmHEtDG1o7jlojG2BPJL/IqJzT6aVSWB31Iv3RT1AQFTFZE
+ 8Q6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793209598; x=1793814398;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=RlnCbRvexhlS7txTUBEsp7/jaaL1UDYI5JCGeL/IEcw=;
+ b=LEbH6cvUljwr3YjwLu/b/KIOYrtm8ESl6mTdYGoS9dOV0wlmmxR8Aqb54ZwtSyIlbY
+ cBG7acxaXNSfXVuus1gP//5vKsNEsFRm7K60m9pcB3MzB52G85Fh0ks1IwuCx1EG9twC
+ fQIZs3TDw6/JVdBcpaUNLhb96dOZY4YW4yaIWGW4drRbJ4BO3p7qVKIh4JEtluYjV5hn
+ Zdlrh/z7MOWenAA+jPvS6PSjOgfe3ZxrQC06YdKHmBTKOQHOlsslrAWsJzKkaxl7rRV4
+ XiurdjWR6KgyRQCcovoFl8xxPPEDlxFlrA4s0CE0TOOkFP1lou3/INvgapIW2C5gxESr
+ HZ1A==
+X-Gm-Message-State: AFq9FYLMF0KH7s+djTGkzz/zEQ18Ix4bDCbUzteApOKeyAlABvvC/os3
+ Ho0YxmCyAfewn7S34OLDoG+ZpxtAhw51oSb6EaQtsUF8WIa2k4k2eXxY63U3+R+PZP7VfQ==
+X-Gm-Gg: AYBFou0aEaFVIJL49LQLvJmgtvAZqv+NQBBMfLudjlFNIekAjfK2LnBXQbwk32IS97F
+ NXQaOS+qoNan+1xfA/Z2PtQsDaBTO1WReT0biZPQNjgdhBgKzwMKeg2nSMySI2+oFT3SYFNcuPn
+ WKcDGr2oyOIwmUvCt4g+HAk6WUwFk+Jnd0O1JMcPvwJCYm7/6uL8CrVdRb01zIJiO2exHxxbzbF
+ KbtENUeck4oCqZ51ps7SxDBO4YRfZ3UpTycmtfn+rSsXG1SeE7gQ2UW/Pn55TKr8eAG2cTArnzi
+ 7pC/R71D2KrN3HgKoAFv5C0PH25fj1BFGP7G+B6RmnoleI+2dT2LQTDzLrRgO/ciBNwc7FzFJoI
+ 9UjV7OKHYrXxUcj4FgUDp4YFZVGdPlXqOw03BSVe4zdl6Gd9dLk+XglBBebIQPSVtFpVNn4t+/x
+ 5/od3390ghfsNyFDkFD8aUYLn1F7SqQYBzt5OKt/1xHmxP34PnC5Vb4ijYpCBX10TA4wFtmNqib
+ uhyk4/IJnimgC7T/v4ATsjBObrdEScdpUwxlO0gI41HDR/mQx+XJZxiHoRGYvL38cPOrvGfXYU/
+ S0cheSXUSMwkYpFEXSvwVF1iiYmHCjdKM1NkkDH4SZJ+1nS2rpH6SDFyxhus0hgZIgr9
+X-Received: by 2002:a05:693c:400f:b0:34e:c001:1486 with SMTP id
+ 5a478bee46e88-36a20112bbamr5023862eec.8.1793209597279; 
+ Wed, 28 Oct 2026 10:46:37 -0700 (PDT)
+Received: from toolbx (2607-8700-5500-3d9a-0000-0000-0000-0003.16clouds.com.
+ [2607:8700:5500:3d9a::3]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36a237be80csm17883633eec.2.2026.10.28.10.46.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Oct 2026 10:46:36 -0700 (PDT)
+From: ZiAo Wang <ziaowang2007@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org,
+ Ho Jie Feng <hjf3108@gmail.com>, ZiAo Wang <ziaowang2007@gmail.com>
+Subject: [PATCH v2 2/2] drm/tiny: Add driver for Valkyrie USB LCD displays
+Date: Thu, 29 Oct 2026 01:44:25 +0800
+Message-ID: <20261028174425.21704-3-ziaowang2007@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028174425.21704-1-ziaowang2007@gmail.com>
+References: <20261028174425.21704-1-ziaowang2007@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Received: from 242270054@hdu.edu.cn( [218.75.123.175] ) by ajax-webmail (
- [127.0.0.1] ) ; Thu, 29 Oct 2026 15:40:18 +0800 (GMT+08:00)
-From: =?UTF-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
-Date: Thu, 29 Oct 2026 15:40:18 +0800 (GMT+08:00)
-X-HM-Tid: 0aa18697ae86d45akusyc200b53312b64
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTk9JVh5KHkgYTB9MSB5JH1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVTE5VSklIVUpMTllXWRYaDxIVHRRZQVlPS0hVSk
- tJQkNDTFVKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
- b=HVBdxcbkQiJJECvfi314fptrDmETAIAFfFxg07kwYTU66TXXsSd7/evUZQQj/2PengzyuU4CvGmknUYZaA1a+8q444PxA9YcjRlVedCyNRFsLI8hTMnvBLlfgZQ3DgAM2HO5ZrDwJJisLKkRXEAjKNcJ+A14cDw258aMJ976OWo=;
- c=relaxed/relaxed; s=default; d=hdu.edu.cn; v=1; 
- bh=LGTpghQxspzpHKGvq5Z+5cFFe4TNoDyu7ZD1pv2EJSA=;
- h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,308 +84,1544 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---=_Part_241365_1302080189.1793259618800
-Content-Type: multipart/alternative; BOUNDARY="=_Part_241366_1314740488.1793259618800"
+Valkyrie USB LCD displays rely on vendor-specific Windows software
+to display images and do not expose a standard display interface,
+preventing them from being used as regular displays on Linux.
 
---=_Part_241366_1314740488.1793259618800
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Add a DRM/KMS driver developed from scratch by reverse-engineering
+the vendor's software and USB protocol. The driver exposes these
+devices as standard DRM display outputs with fixed native modes,
+initially supporting the 320x240 and 360x960 variants.
 
-SGVsbG8sCgpUaGFuayB5b3UgZm9yIHRoZSByZXZpZXcgYW5kIGZvciBwb2ludGluZyBvdXQgdGhl
-IGtlcm5lbC12ZXJzaW9uLApwYXRjaC1mb3JtYXQsIGFuZCBtYWludGFpbmVyLUNDIGlzc3Vlcy4K
-CkkgcmV0ZXN0ZWQgdGhlIEJPLXVucGluIHJlcHJvZHVjZXIgdXNpbmcgYSBMaW51eCA3LjMtYmFz
-ZWQga2VybmVsIGluIHRoZSBzYW1lClFFTVUgZW52aXJvbm1lbnQuIFRoZSBzYW1lIGZhaWx1cmUg
-c3RpbGwgb2NjdXJzIGR1cmluZyBQUklNRS9HRU0gY2xlYW51cDoKdm13X2JvX3Bpbl9yZXNlcnZl
-ZCgpIGlzIGNhbGxlZCB3aXRoIHBpbj1mYWxzZSwgdHRtX2JvX3ZhbGlkYXRlKCkgcmV0dXJucwot
-RUlOVkFMLCBhbmQgdGhlIGZvbGxvd2luZyBCVUdfT04oKSBjYXVzZXMgYSBrZXJuZWwgQlVHLiBU
-aGUgcmVsZXZhbnQgNy4zCmtlcm5lbCByZXBvcnQgZXhjZXJwdCBpcyBpbmNsdWRlZCBiZWxvdyAo
-cG9pbnRlciB2YWx1ZXMgb21pdHRlZCk6CgpbIDcyLjkxMDU3NV0gW0JPX1BJTl9UUkFDRV0gZW50
-ZXIgLi4uIHBpbj0xIHBpbl9jb3VudD0wIC4uLiBtZW1fdHlwZT0wIHBsYWNlbWVudD0weDEwClsg
-NzIuOTEwNjI0XSBbQk9fUElOX1RSQUNFXSBiZWZvcmUtdmFsaWRhdGUgcGluPTEgb2xkX21lbV90
-eXBlPTAgdGFyZ2V0X21lbV90eXBlPTAgZmxhZ3M9MHgxMApbIDcyLjkxMDY1Ml0gW0JPX1BJTl9U
-UkFDRV0gYWZ0ZXItdmFsaWRhdGUgcmV0PTAgb2xkX21lbV90eXBlPTAgbmV3X21lbV90eXBlPTAg
-Li4uClsgNzIuOTEwNjgwXSBbQk9fUElOX1RSQUNFXSBkb25lIHBpbj0xIHBpbl9jb3VudD0xIG1l
-bV90eXBlPTAKWyA3Mi45MTYwNzFdIFtCT19QSU5fVFJBQ0VdIGVudGVyIC4uLiBwaW49MCBwaW5f
-Y291bnQ9MSAuLi4gbWVtX3R5cGU9MCBwbGFjZW1lbnQ9MHgxMApbIDcyLjkxNjE0N10gW0JPX1BJ
-Tl9UUkFDRV0gYmVmb3JlLXZhbGlkYXRlIHBpbj0wIG9sZF9tZW1fdHlwZT0wIHRhcmdldF9tZW1f
-dHlwZT0wIGZsYWdzPTB4MTAKWyA3Mi45MTYyMDFdIFtCT19QSU5fVFJBQ0VdIGFmdGVyLXZhbGlk
-YXRlIHJldD0tMjIgb2xkX21lbV90eXBlPTAgbmV3X21lbV90eXBlPTAgLi4uClsgNzIuOTE4ODE4
-XSAtLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0tLS0tLS0KWyA3Mi45MTg4NDFdIGtlcm5l
-bCBCVUcgYXQgZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfYm8uYzozNDIhClsgNzIuOTE4
-ODkyXSBPb3BzOiBpbnZhbGlkIG9wY29kZTogMDAwMCBbIzFdIFNNUCBOT1BUSQpbIDcyLjkzMzI5
-Ml0gQ1BVOiAxIFVJRDogMCBQSUQ6IDM0NiBDb21tOiByZXByb192bXdnZnhfYm8gTm90IHRhaW50
-ZWQgNy4zLjAtZGlydHkgIzIgUFJFRU1QVChsYXp5KQpbIDcyLjkzNzkxMl0gUklQOiAwMDEwOnZt
-d19ib19waW5fcmVzZXJ2ZWQrMHgzNmQvMHgzODAKWyA3Mi45NDcyMzVdIFJCUDogMDAwMDAwMDBm
-ZmZmZmZlYQpDYWxsIFRyYWNlOgp2bXdfZ2VtX29iamVjdF91bnBpbgpkcm1fZ2VtX21hcF9kZXRh
-Y2gKZG1hX2J1Zl9kZXRhY2gKZHJtX3ByaW1lX2dlbV9kZXN0cm95CmRybV9nZW1fc2htZW1fcmVs
-ZWFzZQpkcm1fZ2VtX29iamVjdF9oYW5kbGVfcHV0X3VubG9ja2VkCmRybV9nZW1fb2JqZWN0X3Jl
-bGVhc2VfaGFuZGxlCmlkcl9mb3JfZWFjaApkcm1fZ2VtX3JlbGVhc2UKZHJtX2ZpbGVfZnJlZQpk
-cm1fY2xvc2VfaGVscGVyCmRybV9yZWxlYXNlCl9fZnB1dApfX19fZnB1dAp0YXNrX3dvcmtfcnVu
-CmRvX2V4aXQKZG9fZ3JvdXBfZXhpdApfX3g2NF9zeXNfZXhpdF9ncm91cApbIDcyLjk5MDI1NF0g
-Rml4aW5nIHJlY3Vyc2l2ZSBmYXVsdCBidXQgcmVib290IGlzIG5lZWRlZCEKClRoZSBjb3JyZXNw
-b25kaW5nIHVzZXJzcGFjZSBwcm9ncmFtIGhhZCBzdWNjZXNzZnVsbHkgb3BlbmVkIHRoZSBEUk0g
-bm9kZXMsCmNyZWF0ZWQgYSBkdW1iIEdFTSBidWZmZXIsIGV4cG9ydGVkL2ltcG9ydGVkIGl0cyBQ
-UklNRSBmZCwgcGVyZm9ybWVkIHRoZSBHRU0KZmxpbmsvb3Blbi9jbG9zZSBvcGVyYXRpb25zLCBh
-bmQgdGhlbiBleGl0ZWQuIFRoZSBmaW5hbCBgZXhpdF9ncm91cCgpYCB0ZWFyZG93bgpyZWxlYXNl
-ZCB0aGUgcmVtYWluaW5nIEdFTS9QUklNRSByZWZlcmVuY2VzIGFuZCBlbnRlcmVkIHRoZSBjbGVh
-bnVwIHN0YWNrCnNob3duIGFib3ZlLgoKVGhlIHRocmVlIGF0dGFjaGVkIHBhdGNoZXMgYWRkcmVz
-cyB0aHJlZSBkaXN0aW5jdCB2bXdnZnggZmFpbHVyZXM6CgoxLiBgMDAwMS1kcm0tdm13Z2Z4LXVu
-cGluLUJPcy13aXRob3V0LXJldmFsaWRhdGluZy1wbGFjZW1lbnQucGF0Y2hgIGZpeGVzIHRoZQpy
-ZXByb2R1Y2VkIGNsZWFudXAgQlVHIGFib3ZlLiBEdXJpbmcgUFJJTUUgZGV0YWNoLCB0aGUgR0VN
-IHVucGluIGNhbGxiYWNrCmNhbGxzIHZtd19ib19waW5fcmVzZXJ2ZWQoLi4uLCBmYWxzZSk7IHRo
-ZSBmdW5jdGlvbiB1bm5lY2Vzc2FyaWx5IGNhbGxzCnR0bV9ib192YWxpZGF0ZSgpLCBnZXRzIC1F
-SU5WQUwsIGFuZCB0dXJucyBpdCBpbnRvIGEga2VybmVsIEJVRyB3aXRoCkJVR19PTigpLiBUaGUg
-cGF0Y2ggc2tpcHMgcmV2YWxpZGF0aW9uIGZvciB1bnBpbiBhbmQga2VlcHMgaXQgZm9yIHBpbi4K
-Mi4gYDAwMDItZHJtLXZtd2dmeC12YWxpZGF0ZS1GSUZPLXN0YXRlLWJlZm9yZS1yZXNlcnZpbmct
-Y29tbS5wYXRjaGAgYWRkcmVzc2VzCkZJRk8tcmVzZXJ2YXRpb24gY3Jhc2hlczogYSBtaXNzaW5n
-IGxvY2FsIEZJRk8gc3RhdGUgY2FuIGJlIGRlcmVmZXJlbmNlZCwKb3IgaW52YWxpZCBkZXZpY2Ut
-cHJvdmlkZWQgTUlOL01BWC9ORVhUX0NNRC9TVE9QIG9mZnNldHMgY2FuIGJlIHVzZWQgaW4gcmlu
-Zwphcml0aG1ldGljIHRvIGZvcm0gYW4gaW52YWxpZCBGSUZPIHBvaW50ZXIuIFRoZSBwYXRjaCBj
-aGVja3MgdGhlIHN0YXRlIGFuZApvZmZzZXRzIGJlZm9yZSBjb21wdXRpbmcvcmV0dXJuaW5nIHRo
-ZSBjb21tYW5kIHBvaW50ZXIuIFRoaXMgaXNzdWUgaGFzIG5vdApiZWVuIHJlcHJvZHVjZWQgb24g
-dGhlIDcuMyB0ZXN0IGtlcm5lbC4KMy4gYDAwMDMtZHJtLXZtd2dmeC1yZWplY3QtUFJJTUUtZXhw
-b3J0LXdpdGhvdXQtVFRNLWJhY2tpbmcucGF0Y2hgIGFkZHJlc3Nlcwp0aGUgUFJJTUUgZ2V0X3Nn
-X3RhYmxlIE5VTEwgZGVyZWZlcmVuY2UuIER1cmluZyBQUklNRSBmZC10by1oYW5kbGUgaW1wb3J0
-LAp0aGUgbWFwLWF0dGFjaG1lbnQgcGF0aCByZWFjaGVzIHZtd19nZW1fb2JqZWN0X2dldF9zZ190
-YWJsZSgpOyBpZiBiby0+dHRtIGlzCk5VTEwsIGNvbnRhaW5lcl9vZigpIHlpZWxkcyBhIE5VTEwt
-YmFzZWQgdm13X3R0bV90dCBhbmQgcmVhZGluZyB2c2d0LnNndApmYXVsdHMgYXQgTlVMTCsweDg4
-LiBUaGUgcGF0Y2ggcmV0dXJucyAtRUlOVkFMIHdoZW4gdGhlIFRUTSBiYWNraW5nIGlzCmFic2Vu
-dC4gVGhpcyBpc3N1ZSBoYXMgbm90IGJlZW4gcmVwcm9kdWNlZCBvbiB0aGUgNy4zIHRlc3Qga2Vy
-bmVsLgoKUmVnYXJkcywKWXVoYW5nIFBhbgoyNDIyNzAwNTRAaGR1LmVkdS5jbgoKCgoK
---=_Part_241366_1314740488.1793259618800
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+The driver initializes and controls the displays through USB
+control transfers, and converts and streams framebuffer contents
+as UYVY data over a USB bulk OUT endpoint in chunks of up to
+65536 bytes.
 
-PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
-Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXYgc3R5bGU9ImNvbG9yOiAjM2IzYjNiO2JhY2tncm91bmQt
-Y29sb3I6ICNmZmZmZmY7Zm9udC1mYW1pbHk6ICdEcm9pZCBTYW5zIE1vbm8nLCBtb25vc3BhY2U7
-Zm9udC13ZWlnaHQ6IG5vcm1hbDtmb250LXNpemU6IDE0cHg7bGluZS1oZWlnaHQ6IDE5cHg7d2hp
-dGUtc3BhY2U6IHByZTsiPjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+SGVsbG8s
-PC9zcGFuPjwvZGl2Pjxicj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPlRoYW5r
-IHlvdSBmb3IgdGhlIHJldmlldyBhbmQgZm9yIHBvaW50aW5nIG91dCB0aGUga2VybmVsLXZlcnNp
-b24sPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+cGF0Y2gt
-Zm9ybWF0LCBhbmQgbWFpbnRhaW5lci1DQyBpc3N1ZXMuPC9zcGFuPjwvZGl2Pjxicj48ZGl2Pjxz
-cGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPkkgcmV0ZXN0ZWQgdGhlIEJPLXVucGluIHJlcHJv
-ZHVjZXIgdXNpbmcgYSBMaW51eCA3LjMtYmFzZWQga2VybmVsIGluIHRoZSBzYW1lPC9zcGFuPjwv
-ZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+UUVNVSBlbnZpcm9ubWVudC4g
-VGhlIHNhbWUgZmFpbHVyZSBzdGlsbCBvY2N1cnMgZHVyaW5nIFBSSU1FL0dFTSBjbGVhbnVwOjwv
-c3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPnZtd19ib19waW5f
-cmVzZXJ2ZWQoKSBpcyBjYWxsZWQgd2l0aCBwaW49ZmFsc2UsIHR0bV9ib192YWxpZGF0ZSgpIHJl
-dHVybnM8L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6ICMzYjNiM2I7Ij4tRUlO
-VkFMLCBhbmQgdGhlIGZvbGxvd2luZyBCVUdfT04oKSBjYXVzZXMgYSBrZXJuZWwgQlVHLiBUaGUg
-cmVsZXZhbnQgNy4zPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNi
-OyI+a2VybmVsIHJlcG9ydCBleGNlcnB0IGlzIGluY2x1ZGVkIGJlbG93IChwb2ludGVyIHZhbHVl
-cyBvbWl0dGVkKTo8L3NwYW4+PC9kaXY+PGJyPjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2Iz
-YjNiOyI+ICBbICAgNzIuOTEwNTc1XSBbQk9fUElOX1RSQUNFXSBlbnRlciAuLi4gcGluPTEgcGlu
-X2NvdW50PTAgLi4uIG1lbV90eXBlPTAgcGxhY2VtZW50PTB4MTA8L3NwYW4+PC9kaXY+PGRpdj48
-c3BhbiBzdHlsZT0iY29sb3I6ICMzYjNiM2I7Ij4gIFsgICA3Mi45MTA2MjRdIFtCT19QSU5fVFJB
-Q0VdIGJlZm9yZS12YWxpZGF0ZSBwaW49MSBvbGRfbWVtX3R5cGU9MCB0YXJnZXRfbWVtX3R5cGU9
-MCBmbGFncz0weDEwPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNi
-OyI+ICBbICAgNzIuOTEwNjUyXSBbQk9fUElOX1RSQUNFXSBhZnRlci12YWxpZGF0ZSByZXQ9MCBv
-bGRfbWVtX3R5cGU9MCBuZXdfbWVtX3R5cGU9MCAuLi48L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBz
-dHlsZT0iY29sb3I6ICMzYjNiM2I7Ij4gIFsgICA3Mi45MTA2ODBdIFtCT19QSU5fVFJBQ0VdIGRv
-bmUgcGluPTEgcGluX2NvdW50PTEgbWVtX3R5cGU9MDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0
-eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgWyAgIDcyLjkxNjA3MV0gW0JPX1BJTl9UUkFDRV0gZW50
-ZXIgLi4uIHBpbj0wIHBpbl9jb3VudD0xIC4uLiBtZW1fdHlwZT0wIHBsYWNlbWVudD0weDEwPC9z
-cGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICBbICAgNzIuOTE2
-MTQ3XSBbQk9fUElOX1RSQUNFXSBiZWZvcmUtdmFsaWRhdGUgcGluPTAgb2xkX21lbV90eXBlPTAg
-dGFyZ2V0X21lbV90eXBlPTAgZmxhZ3M9MHgxMDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxl
-PSJjb2xvcjogIzNiM2IzYjsiPiAgWyAgIDcyLjkxNjIwMV0gW0JPX1BJTl9UUkFDRV0gYWZ0ZXIt
-dmFsaWRhdGUgcmV0PS0yMiBvbGRfbWVtX3R5cGU9MCBuZXdfbWVtX3R5cGU9MCAuLi48L3NwYW4+
-PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6ICMzYjNiM2I7Ij4gIFsgICA3Mi45MTg4MThd
-IC0tLS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLTwvc3Bhbj48L2Rpdj48ZGl2Pjxz
-cGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgWyAgIDcyLjkxODg0MV0ga2VybmVsIEJVRyBh
-dCBkcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9iby5jOjM0MiE8L3NwYW4+PC9kaXY+PGRp
-dj48c3BhbiBzdHlsZT0iY29sb3I6ICMzYjNiM2I7Ij4gIFsgICA3Mi45MTg4OTJdIE9vcHM6IGlu
-dmFsaWQgb3Bjb2RlOiAwMDAwIFsjMV0gU01QIE5PUFRJPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4g
-c3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICBbICAgNzIuOTMzMjkyXSBDUFU6IDEgVUlEOiAwIFBJ
-RDogMzQ2IENvbW06IHJlcHJvX3Ztd2dmeF9ibyBOb3QgdGFpbnRlZCA3LjMuMC1kaXJ0eSAjMiBQ
-UkVFTVBUKGxhenkpPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNi
-OyI+ICBbICAgNzIuOTM3OTEyXSBSSVA6IDAwMTA6dm13X2JvX3Bpbl9yZXNlcnZlZCsweDM2ZC8w
-eDM4MDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgWyAg
-IDcyLjk0NzIzNV0gUkJQOiAwMDAwMDAwMGZmZmZmZmVhPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4g
-c3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICBDYWxsIFRyYWNlOjwvc3Bhbj48L2Rpdj48ZGl2Pjxz
-cGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgICB2bXdfZ2VtX29iamVjdF91bnBpbjwvc3Bh
-bj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgICBkcm1fZ2VtX21h
-cF9kZXRhY2g8L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6ICMzYjNiM2I7Ij4g
-ICAgZG1hX2J1Zl9kZXRhY2g8L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6ICMz
-YjNiM2I7Ij4gICAgZHJtX3ByaW1lX2dlbV9kZXN0cm95PC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4g
-c3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICAgIGRybV9nZW1fc2htZW1fcmVsZWFzZTwvc3Bhbj48
-L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgICBkcm1fZ2VtX29iamVj
-dF9oYW5kbGVfcHV0X3VubG9ja2VkPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9y
-OiAjM2IzYjNiOyI+ICAgIGRybV9nZW1fb2JqZWN0X3JlbGVhc2VfaGFuZGxlPC9zcGFuPjwvZGl2
-PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICAgIGlkcl9mb3JfZWFjaDwvc3Bh
-bj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgICBkcm1fZ2VtX3Jl
-bGVhc2U8L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6ICMzYjNiM2I7Ij4gICAg
-ZHJtX2ZpbGVfZnJlZTwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2Iz
-YjsiPiAgICBkcm1fY2xvc2VfaGVscGVyPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNv
-bG9yOiAjM2IzYjNiOyI+ICAgIGRybV9yZWxlYXNlPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5
-bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICAgIF9fZnB1dDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0
-eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgICBfX19fZnB1dDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFu
-IHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgICB0YXNrX3dvcmtfcnVuPC9zcGFuPjwvZGl2Pjxk
-aXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICAgIGRvX2V4aXQ8L3NwYW4+PC9kaXY+
-PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6ICMzYjNiM2I7Ij4gICAgZG9fZ3JvdXBfZXhpdDwvc3Bh
-bj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgICBfX3g2NF9zeXNf
-ZXhpdF9ncm91cDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsi
-PiAgWyAgIDcyLjk5MDI1NF0gRml4aW5nIHJlY3Vyc2l2ZSBmYXVsdCBidXQgcmVib290IGlzIG5l
-ZWRlZCE8L3NwYW4+PC9kaXY+PGJyPjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+
-VGhlIGNvcnJlc3BvbmRpbmcgdXNlcnNwYWNlIHByb2dyYW0gaGFkIHN1Y2Nlc3NmdWxseSBvcGVu
-ZWQgdGhlIERSTSBub2Rlcyw8L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6ICMz
-YjNiM2I7Ij5jcmVhdGVkIGEgZHVtYiBHRU0gYnVmZmVyLCBleHBvcnRlZC9pbXBvcnRlZCBpdHMg
-UFJJTUUgZmQsIHBlcmZvcm1lZCB0aGUgR0VNPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9
-ImNvbG9yOiAjM2IzYjNiOyI+Zmxpbmsvb3Blbi9jbG9zZSBvcGVyYXRpb25zLCBhbmQgdGhlbiBl
-eGl0ZWQuIFRoZSBmaW5hbCBgZXhpdF9ncm91cCgpYCB0ZWFyZG93bjwvc3Bhbj48L2Rpdj48ZGl2
-PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPnJlbGVhc2VkIHRoZSByZW1haW5pbmcgR0VN
-L1BSSU1FIHJlZmVyZW5jZXMgYW5kIGVudGVyZWQgdGhlIGNsZWFudXAgc3RhY2s8L3NwYW4+PC9k
-aXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6ICMzYjNiM2I7Ij5zaG93biBhYm92ZS48L3NwYW4+
-PC9kaXY+PGJyPjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+VGhlIHRocmVlIGF0
-dGFjaGVkIHBhdGNoZXMgYWRkcmVzcyB0aHJlZSBkaXN0aW5jdCB2bXdnZnggZmFpbHVyZXM6PC9z
-cGFuPjwvZGl2Pjxicj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPjEuIGAwMDAx
-LWRybS12bXdnZngtdW5waW4tQk9zLXdpdGhvdXQtcmV2YWxpZGF0aW5nLXBsYWNlbWVudC5wYXRj
-aGAgZml4ZXMgdGhlPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNi
-OyI+ICAgcmVwcm9kdWNlZCBjbGVhbnVwIEJVRyBhYm92ZS4gRHVyaW5nIFBSSU1FIGRldGFjaCwg
-dGhlIEdFTSB1bnBpbiBjYWxsYmFjazwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xv
-cjogIzNiM2IzYjsiPiAgIGNhbGxzIHZtd19ib19waW5fcmVzZXJ2ZWQoLi4uLCBmYWxzZSk7IHRo
-ZSBmdW5jdGlvbiB1bm5lY2Vzc2FyaWx5IGNhbGxzPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5
-bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICAgdHRtX2JvX3ZhbGlkYXRlKCksIGdldHMgLUVJTlZBTCwg
-YW5kIHR1cm5zIGl0IGludG8gYSBrZXJuZWwgQlVHIHdpdGg8L3NwYW4+PC9kaXY+PGRpdj48c3Bh
-biBzdHlsZT0iY29sb3I6ICMzYjNiM2I7Ij4gICBCVUdfT04oKS4gVGhlIHBhdGNoIHNraXBzIHJl
-dmFsaWRhdGlvbiBmb3IgdW5waW4gYW5kIGtlZXBzIGl0IGZvciBwaW4uPC9zcGFuPjwvZGl2Pjxk
-aXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+Mi4gYDAwMDItZHJtLXZtd2dmeC12YWxp
-ZGF0ZS1GSUZPLXN0YXRlLWJlZm9yZS1yZXNlcnZpbmctY29tbS5wYXRjaGAgYWRkcmVzc2VzPC9z
-cGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICAgRklGTy1yZXNl
-cnZhdGlvbiBjcmFzaGVzOiBhIG1pc3NpbmcgbG9jYWwgRklGTyBzdGF0ZSBjYW4gYmUgZGVyZWZl
-cmVuY2VkLDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAg
-IG9yIGludmFsaWQgZGV2aWNlLXByb3ZpZGVkIE1JTi9NQVgvTkVYVF9DTUQvU1RPUCBvZmZzZXRz
-IGNhbiBiZSB1c2VkIGluIHJpbmc8L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6
-ICMzYjNiM2I7Ij4gICBhcml0aG1ldGljIHRvIGZvcm0gYW4gaW52YWxpZCBGSUZPIHBvaW50ZXIu
-IFRoZSBwYXRjaCBjaGVja3MgdGhlIHN0YXRlIGFuZDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0
-eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgIG9mZnNldHMgYmVmb3JlIGNvbXB1dGluZy9yZXR1cm5p
-bmcgdGhlIGNvbW1hbmQgcG9pbnRlci4gVGhpcyBpc3N1ZSBoYXMgbm90PC9zcGFuPjwvZGl2Pjxk
-aXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICAgYmVlbiByZXByb2R1Y2VkIG9uIHRo
-ZSA3LjMgdGVzdCBrZXJuZWwuPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9yOiAj
-M2IzYjNiOyI+My4gYDAwMDMtZHJtLXZtd2dmeC1yZWplY3QtUFJJTUUtZXhwb3J0LXdpdGhvdXQt
-VFRNLWJhY2tpbmcucGF0Y2hgIGFkZHJlc3Nlczwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxl
-PSJjb2xvcjogIzNiM2IzYjsiPiAgIHRoZSBQUklNRSBnZXRfc2dfdGFibGUgTlVMTCBkZXJlZmVy
-ZW5jZS4gRHVyaW5nIFBSSU1FIGZkLXRvLWhhbmRsZSBpbXBvcnQsPC9zcGFuPjwvZGl2PjxkaXY+
-PHNwYW4gc3R5bGU9ImNvbG9yOiAjM2IzYjNiOyI+ICAgdGhlIG1hcC1hdHRhY2htZW50IHBhdGgg
-cmVhY2hlcyB2bXdfZ2VtX29iamVjdF9nZXRfc2dfdGFibGUoKTsgaWYgYm8tJmd0O3R0bSBpczwv
-c3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAgIE5VTEwsIGNv
-bnRhaW5lcl9vZigpIHlpZWxkcyBhIE5VTEwtYmFzZWQgdm13X3R0bV90dCBhbmQgcmVhZGluZyB2
-c2d0LnNndDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJjb2xvcjogIzNiM2IzYjsiPiAg
-IGZhdWx0cyBhdCBOVUxMKzB4ODguIFRoZSBwYXRjaCByZXR1cm5zIC1FSU5WQUwgd2hlbiB0aGUg
-VFRNIGJhY2tpbmcgaXM8L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6ICMzYjNi
-M2I7Ij4gICBhYnNlbnQuIFRoaXMgaXNzdWUgaGFzIG5vdCBiZWVuIHJlcHJvZHVjZWQgb24gdGhl
-IDcuMyB0ZXN0IGtlcm5lbC48L3NwYW4+PC9kaXY+PGJyPjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9y
-OiAjM2IzYjNiOyI+UmVnYXJkcyw8L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iY29sb3I6
-ICMzYjNiM2I7Ij5ZdWhhbmcgUGFuPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9ImNvbG9y
-OiAjM2IzYjNiOyI+MjQyMjcwMDU0QGhkdS5lZHUuY248L3NwYW4+PC9kaXY+PC9kaXY+PHA+PGJy
-PjwvcD48L2Rpdj4=
---=_Part_241366_1314740488.1793259618800--
+Use GEM shmem buffers and atomic modesetting to integrate with
+the DRM subsystem, and provide fbdev emulation for compatibility
+with legacy framebuffer applications.
 
---=_Part_241365_1302080189.1793259618800
-Content-Disposition: attachment; filename="=?UTF-8?B?MDAwMS1kcm0tdm13Z2Z4LXVucGluLUJPcy13aXRob3V0LXJldmFsaWRhdGluZy1wbGFjZW1lbnQucGF0Y2g=?="
-Content-Transfer-Encoding: base64
-Content-Type: text/x-patch; name="=?UTF-8?B?MDAwMS1kcm0tdm13Z2Z4LXVucGluLUJPcy13aXRob3V0LXJldmFsaWRhdGluZy1wbGFjZW1lbnQucGF0Y2g=?="; charset="utf-8"
+Signed-off-by: ZiAo Wang <ziaowang2007@gmail.com>
+---
+v2:
+- Drop patch 2 which add device into HID_IGNORE list
+  Thank for Jie Feng points out that this VID/PID is an common one.
 
-RnJvbSAwNDZjYjRhNDIxODA3NWY4YjNkOGMyOTBmZWRlNjU5MTQzZTZmOThkIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBZdWhhbmcgUGFuIDwyNDIyNzAwNTRAaGR1LmVkdS5jbj4KRGF0
-ZTogVGh1LCAyOSBPY3QgMjAyNiAxNToxNjo1MSArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIGRybS92
-bXdnZng6IHVucGluIEJPcyB3aXRob3V0IHJldmFsaWRhdGluZyBwbGFjZW1lbnQKClVucGlubmlu
-ZyBhIGJ1ZmZlciBvYmplY3QgZG9lcyBub3QgY2hhbmdlIGl0cyBwbGFjZW1lbnQuIEF2b2lkIGNh
-bGxpbmcKdHRtX2JvX3ZhbGlkYXRlKCkgb24gdGhlIHVucGluIHBhdGgsIHdoZXJlIGEgcGxhY2Vt
-ZW50IHZhbGlkYXRpb24gZmFpbHVyZQpjdXJyZW50bHkgdHJpZ2dlcnMgQlVHX09OKCkgYW5kIGNy
-YXNoZXMgdGhlIGtlcm5lbCBkdXJpbmcgUFJJTUUgY2xlYW51cC4KCktlZXAgdmFsaWRhdGlvbiBv
-biB0aGUgcGluIHBhdGgsIHdoZXJlIGl0IGlzIG5lZWRlZCB0byBlc3RhYmxpc2ggdGhlCnJlcXVl
-c3RlZCBwbGFjZW1lbnQgYmVmb3JlIHBpbm5pbmcuCgpTaWduZWQtb2ZmLWJ5OiBZdWhhbmcgUGFu
-IDwyNDIyNzAwNTRAaGR1LmVkdS5jbj4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dm
-eF9iby5jIHwgMTAgKysrKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwg
-NCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dm
-eF9iby5jIGIvZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfYm8uYwppbmRleCA5YzdhNzNj
-Li4xNGQyOGUyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9iby5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X2JvLmMKQEAgLTMwOCw2ICszMDgs
-MTEgQEAgdm9pZCB2bXdfYm9fcGluX3Jlc2VydmVkKHN0cnVjdCB2bXdfYm8gKnZibywgYm9vbCBw
-aW4pCiAJaWYgKHBpbiA9PSAhIWJvLT5waW5fY291bnQpCiAJCXJldHVybjsKIAorCWlmICghcGlu
-KSB7CisJCXR0bV9ib191bnBpbihibyk7CisJCXJldHVybjsKKwl9CisKIAlwbC5mcGZuID0gMDsK
-IAlwbC5scGZuID0gMDsKIAlwbC5tZW1fdHlwZSA9IGJvLT5yZXNvdXJjZS0+bWVtX3R5cGU7CkBA
-IC0zMjEsMTAgKzMyNiw3IEBAIHZvaWQgdm13X2JvX3Bpbl9yZXNlcnZlZChzdHJ1Y3Qgdm13X2Jv
-ICp2Ym8sIGJvb2wgcGluKQogCiAJQlVHX09OKHJldCAhPSAwIHx8IGJvLT5yZXNvdXJjZS0+bWVt
-X3R5cGUgIT0gb2xkX21lbV90eXBlKTsKIAotCWlmIChwaW4pCi0JCXR0bV9ib19waW4oYm8pOwot
-CWVsc2UKLQkJdHRtX2JvX3VucGluKGJvKTsKKwl0dG1fYm9fcGluKGJvKTsKIH0KIAogLyoqCg==
---=_Part_241365_1302080189.1793259618800
-Content-Disposition: attachment; filename="=?UTF-8?B?MDAwMi1kcm0tdm13Z2Z4LXZhbGlkYXRlLUZJRk8tc3RhdGUtYmVmb3JlLXJlc2VydmluZy1jb21tLnBhdGNo?="
-Content-Transfer-Encoding: base64
-Content-Type: text/x-patch; name="=?UTF-8?B?MDAwMi1kcm0tdm13Z2Z4LXZhbGlkYXRlLUZJRk8tc3RhdGUtYmVmb3JlLXJlc2VydmluZy1jb21tLnBhdGNo?="; charset="utf-8"
+- Switch vblank event send to using existing helper
+- Adds an extra log about disconnect issue
 
-RnJvbSBkOTJkNTU1MjUwZGNkMzU2MGYwOGZhNDNhNTQ4YjI0ZWU0NjBmNzllIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBZdWhhbmcgUGFuIDwyNDIyNzAwNTRAaGR1LmVkdS5jbj4KRGF0
-ZTogVGh1LCAyOSBPY3QgMjAyNiAxNToxNjo1MSArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIGRybS92
-bXdnZng6IHZhbGlkYXRlIEZJRk8gc3RhdGUgYmVmb3JlIHJlc2VydmluZyBjb21tYW5kcwoKUmVq
-ZWN0IG1pc3NpbmcgRklGTyBzdGF0ZSBhbmQgaW52YWxpZCByaW5nIG9mZnNldHMgYmVmb3JlIHVz
-aW5nIGRldmljZQpwcm92aWRlZCBGSUZPIHBvc2l0aW9ucyB0byBjb25zdHJ1Y3QgYSBjb21tYW5k
-IHBvaW50ZXIuCgpTaWduZWQtb2ZmLWJ5OiBZdWhhbmcgUGFuIDwyNDIyNzAwNTRAaGR1LmVkdS5j
-bj4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9jbWQuYyB8IDE0ICsrKysrKysr
-KysrKy0tCiAxIGZpbGUgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9jbWQuYyBiL2RyaXZl
-cnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X2NtZC5jCmluZGV4IGQ5MzJlMzguLjAyOTg3ZDMgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X2NtZC5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X2NtZC5jCkBAIC0yODIsMTUgKzI4MiwyMiBAQCBzdGF0
-aWMgdm9pZCAqdm13X2xvY2FsX2ZpZm9fcmVzZXJ2ZShzdHJ1Y3Qgdm13X3ByaXZhdGUgKmRldl9w
-cml2LAogCXVpbnQzMl90IG1heDsKIAl1aW50MzJfdCBtaW47CiAJdWludDMyX3QgbmV4dF9jbWQ7
-Ci0JdWludDMyX3QgcmVzZXJ2ZWFibGUgPSBmaWZvX3N0YXRlLT5jYXBhYmlsaXRpZXMgJiBTVkdB
-X0ZJRk9fQ0FQX1JFU0VSVkU7CisJdTMyIHJlc2VydmVhYmxlOwogCWludCByZXQ7CiAKKwlpZiAo
-dW5saWtlbHkoIWZpZm9fc3RhdGUgfHwgIWZpZm9fbWVtKSkKKwkJcmV0dXJuIE5VTEw7CisJcmVz
-ZXJ2ZWFibGUgPSBmaWZvX3N0YXRlLT5jYXBhYmlsaXRpZXMgJiBTVkdBX0ZJRk9fQ0FQX1JFU0VS
-VkU7CiAJbXV0ZXhfbG9jaygmZmlmb19zdGF0ZS0+Zmlmb19tdXRleCk7CiAJbWF4ID0gdm13X2Zp
-Zm9fbWVtX3JlYWQoZGV2X3ByaXYsIFNWR0FfRklGT19NQVgpOwogCW1pbiA9IHZtd19maWZvX21l
-bV9yZWFkKGRldl9wcml2LCBTVkdBX0ZJRk9fTUlOKTsKIAluZXh0X2NtZCA9IHZtd19maWZvX21l
-bV9yZWFkKGRldl9wcml2LCBTVkdBX0ZJRk9fTkVYVF9DTUQpOwogCi0JaWYgKHVubGlrZWx5KGJ5
-dGVzID49IChtYXggLSBtaW4pKSkKKwlpZiAodW5saWtlbHkobWluIDwgUEFHRV9TSVpFIHx8IG1p
-biA+PSBtYXggfHwKKwkJICAgICBtYXggPiBkZXZfcHJpdi0+Zmlmb19tZW1fc2l6ZSB8fAorCQkg
-ICAgIG5leHRfY21kIDwgbWluIHx8IG5leHRfY21kID49IG1heCB8fAorCQkgICAgICgobWluIHwg
-bWF4IHwgbmV4dF9jbWQpICYgMykgfHwKKwkJICAgICBieXRlcyA+PSAobWF4IC0gbWluKSkpCiAJ
-CWdvdG8gb3V0X2VycjsKIAogCUJVR19PTihmaWZvX3N0YXRlLT5yZXNlcnZlZF9zaXplICE9IDAp
-OwpAQCAtMzAzLDYgKzMxMCw5IEBAIHN0YXRpYyB2b2lkICp2bXdfbG9jYWxfZmlmb19yZXNlcnZl
-KHN0cnVjdCB2bXdfcHJpdmF0ZSAqZGV2X3ByaXYsCiAJCWJvb2wgbmVlZF9ib3VuY2UgPSBmYWxz
-ZTsKIAkJYm9vbCByZXNlcnZlX2luX3BsYWNlID0gZmFsc2U7CiAKKwkJaWYgKHVubGlrZWx5KHN0
-b3AgPCBtaW4gfHwgc3RvcCA+PSBtYXggfHwgKHN0b3AgJiAzKSkpCisJCQlnb3RvIG91dF9lcnI7
-CisKIAkJaWYgKG5leHRfY21kID49IHN0b3ApIHsKIAkJCWlmIChsaWtlbHkoKG5leHRfY21kICsg
-Ynl0ZXMgPCBtYXggfHwKIAkJCQkgICAgKG5leHRfY21kICsgYnl0ZXMgPT0gbWF4ICYmIHN0b3Ag
-PiBtaW4pKSkpCg==
---=_Part_241365_1302080189.1793259618800
-Content-Disposition: attachment; filename="=?UTF-8?B?MDAwMy1kcm0tdm13Z2Z4LXJlamVjdC1QUklNRS1leHBvcnQtd2l0aG91dC1UVE0tYmFja2luZy5wYXRjaA==?="
-Content-Transfer-Encoding: base64
-Content-Type: text/x-patch; name="=?UTF-8?B?MDAwMy1kcm0tdm13Z2Z4LXJlamVjdC1QUklNRS1leHBvcnQtd2l0aG91dC1UVE0tYmFja2luZy5wYXRjaA==?="; charset="utf-8"
+- Fix: missing drm_atomic_helper_shutdown() in vk_disconnect()
 
-RnJvbSAzZDcxOWEwZDcwOGQzYzI2ODUyZDZjZmIyODM4ZjRmYThmNWFhZmRiIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBZdWhhbmcgUGFuIDwyNDIyNzAwNTRAaGR1LmVkdS5jbj4KRGF0
-ZTogVGh1LCAyOSBPY3QgMjAyNiAxNToxNjo1MSArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIGRybS92
-bXdnZng6IHJlamVjdCBQUklNRSBleHBvcnQgd2l0aG91dCBUVE0gYmFja2luZwoKVGhlIFBSSU1F
-IGdldF9zZ190YWJsZSBjYWxsYmFjayByZXF1aXJlcyB2bXdnZnggVFRNIGJhY2tpbmcuIFJldHVy
-biBhbgplcnJvciB3aGVuIHRoZSBiYWNraW5nIHRyYW5zbGF0aW9uIHRhYmxlIGlzIGFic2VudCBp
-bnN0ZWFkIG9mIGRlcml2aW5nIGEKdm13X3R0bV90dCBwb2ludGVyIGZyb20gTlVMTC4KClNpZ25l
-ZC1vZmYtYnk6IFl1aGFuZyBQYW4gPDI0MjI3MDA1NEBoZHUuZWR1LmNuPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS92bXdnZngvdm13Z2Z4X2dlbS5jIHwgOCArKysrKystLQogMSBmaWxlIGNoYW5nZWQs
-IDYgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vdm13Z2Z4L3Ztd2dmeF9nZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4
-X2dlbS5jCmluZGV4IDM5ZjhjNDYuLmRkMWU2YjcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS92bXdnZngvdm13Z2Z4X2dlbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4
-X2dlbS5jCkBAIC03MCw4ICs3MCwxMiBAQCBzdGF0aWMgdm9pZCB2bXdfZ2VtX29iamVjdF91bnBp
-bihzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaikKIHN0YXRpYyBzdHJ1Y3Qgc2dfdGFibGUgKnZt
-d19nZW1fb2JqZWN0X2dldF9zZ190YWJsZShzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaikKIHsK
-IAlzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvID0gZHJtX2dlbV90dG1fb2ZfZ2VtKG9iaik7
-Ci0Jc3RydWN0IHZtd190dG1fdHQgKnZtd190dCA9Ci0JCWNvbnRhaW5lcl9vZihiby0+dHRtLCBz
-dHJ1Y3Qgdm13X3R0bV90dCwgZG1hX3R0bSk7CisJc3RydWN0IHZtd190dG1fdHQgKnZtd190dDsK
-KworCWlmICh1bmxpa2VseSghYm8tPnR0bSkpCisJCXJldHVybiBFUlJfUFRSKC1FSU5WQUwpOwor
-CisJdm13X3R0ID0gY29udGFpbmVyX29mKGJvLT50dG0sIHN0cnVjdCB2bXdfdHRtX3R0LCBkbWFf
-dHRtKTsKIAogCWlmICh2bXdfdHQtPnZzZ3Quc2d0KQogCQlyZXR1cm4gdm13X3R0LT52c2d0LnNn
-dDsK
---=_Part_241365_1302080189.1793259618800--
+- Fix: vk_crtc_atomic_check() skips validation when CRTC is inactive
+  Split crtc enable and crtc active condition in two different stage, and
+  reorder checks in vk_crtc_plane_atomic_check
+
+- Fix: vk_device_enable_pre() leaves device_state true on failure
+  Take device_state resetting out of device functions, make the lifetime
+  more clear.
+
+- Fix: valkyrie-lcd: broken resume recovery when drm suspend fails
+  Now driver will always try to re-bootstrap device when resuming.
+
+- Not adding drm_dev_set_dma_dev, as this driver don't use PRIME framebuffer
+
+v1:
+https://lore.kernel.org/linux-input/20261028132536.375927-4-ziaowang2007@gmail.com
+
+ MAINTAINERS                         |    7 +
+ drivers/gpu/drm/tiny/Kconfig        |   15 +
+ drivers/gpu/drm/tiny/Makefile       |    1 +
+ drivers/gpu/drm/tiny/valkyrie-lcd.c | 1416 +++++++++++++++++++++++++++
+ 4 files changed, 1439 insertions(+)
+ create mode 100644 drivers/gpu/drm/tiny/valkyrie-lcd.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 365bec8eb7..1b91f813bb 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8815,6 +8815,13 @@ S:	Supported
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	drivers/gpu/drm/udl/
+ 
++DRM DRIVER FOR VALKYRIE USB LCD DISPLAYS
++M:	ZiAo Wang <ziaowang2007@gmail.com>
++L:	dri-devel@lists.freedesktop.org
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	drivers/gpu/drm/tiny/valkyrie-lcd.c
++
+ DRM DRIVER FOR VIRTUAL KERNEL MODESETTING (VKMS)
+ M:	Louis Chauvet <louis.chauvet@bootlin.com>
+ R:	Haneen Mohammed <hamohammed.sa@gmail.com>
+diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
+index f0e72d4b6a..1e4be6d72c 100644
+--- a/drivers/gpu/drm/tiny/Kconfig
++++ b/drivers/gpu/drm/tiny/Kconfig
+@@ -98,6 +98,21 @@ config DRM_PIXPAPER
+ 
+ 	  If M is selected, the module will be built as pixpaper.ko.
+ 
++config DRM_VALKYRIE_LCD
++	tristate "DRM support for Valkyrie USB LCDs"
++	depends on DRM && USB && MMU
++	select DRM_CLIENT_SELECTION
++	select DRM_KMS_HELPER
++	select DRM_GEM_SHMEM_HELPER
++	help
++	  Enable support for Valkyrie USB LCD displays with USB ID 345f:9132.
++	  The driver provides DRM/KMS output for the 320x240 and 360x960
++	  display variants. It supports native UYVY and software-converted
++	  XRGB8888 framebuffers.
++
++	  To compile this driver as a module, choose M here. The module
++	  will be called valkyrie-lcd.
++
+ config TINYDRM_HX8357D
+ 	tristate "DRM support for HX8357D display panels"
+ 	depends on DRM && SPI
+diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/Makefile
+index 48d30bf615..e768abb4dc 100644
+--- a/drivers/gpu/drm/tiny/Makefile
++++ b/drivers/gpu/drm/tiny/Makefile
+@@ -7,6 +7,7 @@ obj-$(CONFIG_DRM_CIRRUS_QEMU)		+= cirrus-qemu.o
+ obj-$(CONFIG_DRM_GM12U320)		+= gm12u320.o
+ obj-$(CONFIG_DRM_PANEL_MIPI_DBI)	+= panel-mipi-dbi.o
+ obj-$(CONFIG_DRM_PIXPAPER)              += pixpaper.o
++obj-$(CONFIG_DRM_VALKYRIE_LCD)		+= valkyrie-lcd.o
+ obj-$(CONFIG_TINYDRM_HX8357D)		+= hx8357d.o
+ obj-$(CONFIG_TINYDRM_ILI9163)		+= ili9163.o
+ obj-$(CONFIG_TINYDRM_ILI9225)		+= ili9225.o
+diff --git a/drivers/gpu/drm/tiny/valkyrie-lcd.c b/drivers/gpu/drm/tiny/valkyrie-lcd.c
+new file mode 100644
+index 0000000000..6271fba203
+--- /dev/null
++++ b/drivers/gpu/drm/tiny/valkyrie-lcd.c
+@@ -0,0 +1,1416 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/module.h>
++#include <linux/errno.h>
++#include <linux/mutex.h>
++#include <linux/stddef.h>
++#include <linux/math.h>
++#include <linux/gfp_types.h>
++#include <linux/minmax.h>
++#include <linux/slab.h>
++#include <linux/workqueue.h>
++#include <linux/jiffies.h>
++#include <linux/unaligned.h>
++#include <linux/container_of.h>
++#include <linux/array_size.h>
++#include <linux/delay.h>
++#include <linux/completion.h>
++#include <linux/types.h>
++#include <linux/err.h>
++#include <linux/atomic.h>
++#include <linux/lockdep.h>
++
++#include <linux/usb.h>
++#include <linux/usb/ch9.h>
++#include <linux/hid.h>
++#include <linux/hiddev.h>
++
++#include <drm/drm_drv.h>
++#include <drm/drm_device.h>
++#include <drm/drm_managed.h>
++#include <drm/drm_print.h>
++#include <drm/drm_fourcc.h>
++#include <drm/drm_probe_helper.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_framebuffer.h>
++#include <drm/drm_format_helper.h>
++#include <drm/drm_gem.h>
++#include <drm/drm_gem_atomic_helper.h>
++#include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_gem_framebuffer_helper.h>
++#include <drm/drm_fbdev_shmem.h>
++#include <drm/drm_modeset_helper_vtables.h>
++#include <drm/drm_vblank.h>
++#include <drm/drm_vblank_helper.h>
++#include <drm/clients/drm_client_setup.h>
++#include <drm/drm_plane.h>
++#include <drm/drm_crtc.h>
++
++#define VK_VENDOR_ID 0x345f
++#define VK_PRODUCT_ID 0x9132
++
++#define VK_FRAME_EP_NUMBER 0x04
++#define VK_SERIAL_ADDR 0x001fe0
++
++#define VK_A6_POLL_INTERVAL_US 1000
++#define VK_A6_POLL_MAX 100
++
++#define VK_SEND_CHUNK_TIMEOUT 1000
++#define VK_SEND_BUF_SIZE 65536
++
++#define VK_FRAME_FORMAT DRM_FORMAT_UYVY
++
++#define VK_TIMEOUT_FLUSH_INTERVAL_MS 3000
++
++MODULE_AUTHOR("ZiAo Wang");
++MODULE_DESCRIPTION("Valkyrie USB LCD DRM driver");
++MODULE_LICENSE("GPL");
++
++struct vk_lcd_device_info {
++	/* Identification data */
++	u8 serial[32] __nonstring;
++	u8 label_0030[2];
++	u8 label_f000[3];
++
++	/* Panel parameters */
++	u32 width, height, fps;
++	u32 width_mm, height_mm;
++	u16 video_code;
++	u16 complex_switch_addr;
++	u8 complex_switch_mask;
++	bool complex_switch_active_high;
++	u8 frame_header[8], frame_trailer[8];
++};
++
++static const struct vk_lcd_device_info vk_lcd_devices[];
++
++struct vk_driver {
++	struct usb_interface *intf;
++	struct usb_device *dev;
++	struct usb_endpoint_descriptor *frame_epd;
++	const struct vk_lcd_device_info *device_info;
++
++	/* Serializes all USB I/O and protects io_blocking and device_state. */
++	struct mutex io_lock;
++	bool io_blocking;
++	bool device_state;
++
++	struct drm_device drm;
++	bool drm_suspended;
++	struct drm_plane plane;
++	struct drm_encoder encoder;
++	struct vk_crtc_driver *crtc;
++	struct vk_connector_driver *connector;
++};
++
++/* On success, return with io_lock held; on failure, release it. */
++static inline bool vk_io_start(struct vk_driver *drv)
++{
++	mutex_lock(&drv->io_lock);
++	if (drv->io_blocking) {
++		mutex_unlock(&drv->io_lock);
++		return false;
++	}
++	return true;
++}
++
++static inline void vk_io_end(struct vk_driver *drv)
++{
++	lockdep_assert_held(&drv->io_lock);
++	mutex_unlock(&drv->io_lock);
++}
++
++static int vk_probe(struct usb_interface *intf, const struct usb_device_id *id);
++static void vk_disconnect(struct usb_interface *intf);
++static int vk_suspend(struct usb_interface *intf, pm_message_t message);
++static int vk_resume(struct usb_interface *intf);
++static int vk_reset_resume(struct usb_interface *intf);
++static int vk_pre_reset(struct usb_interface *intf);
++static int vk_post_reset(struct usb_interface *intf);
++static const struct usb_device_id vk_usb_ids[] = {
++	{ USB_DEVICE_INTERFACE_NUMBER(VK_VENDOR_ID, VK_PRODUCT_ID, 3) },
++	{}
++};
++MODULE_DEVICE_TABLE(usb, vk_usb_ids);
++
++static struct usb_driver vk_usb_driver = {
++	.name = "valkyrie_lcd",
++	.id_table = vk_usb_ids,
++	.probe = vk_probe,
++	.disconnect = vk_disconnect,
++	.supports_autosuspend = 0,
++	.suspend = vk_suspend,
++	.resume = vk_resume,
++	.reset_resume = vk_reset_resume,
++	.pre_reset = vk_pre_reset,
++	.post_reset = vk_post_reset,
++};
++module_usb_driver(vk_usb_driver);
++
++DEFINE_DRM_GEM_FOPS(vk_drm_fops);
++static struct drm_driver vk_drm_driver = {
++	.name = "valkyrie_lcd",
++	.desc = "Valkyrie LCD DRM driver",
++	.major = 1,
++	.minor = 0,
++	.patchlevel = 0,
++	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
++	DRM_GEM_SHMEM_DRIVER_OPS,
++	DRM_FBDEV_SHMEM_DRIVER_OPS,
++	.fops = &vk_drm_fops,
++};
++
++static const u32 vk_plane_formats[] = {
++	DRM_FORMAT_XRGB8888,
++	DRM_FORMAT_UYVY,
++};
++
++static const struct drm_mode_config_funcs vk_mode_config_funcs = {
++	.fb_create = drm_gem_fb_create_with_dirty,
++	.atomic_check = drm_atomic_helper_check,
++	.atomic_commit = drm_atomic_helper_commit
++};
++
++static const struct drm_plane_funcs vk_plane_funcs = {
++	.update_plane = drm_atomic_helper_update_plane,
++	.disable_plane = drm_atomic_helper_disable_plane,
++	DRM_GEM_SHADOW_PLANE_FUNCS,
++	.destroy = drm_plane_cleanup
++};
++
++static int vk_plane_atomic_check(struct drm_plane *plane,
++				 struct drm_atomic_commit *state);
++static void vk_plane_atomic_update(struct drm_plane *plane,
++				   struct drm_atomic_commit *state)
++{
++	// All work is done in vk_crtc_atomic_flush
++}
++
++static const struct drm_plane_helper_funcs vk_plane_helper_funcs = {
++	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
++	.atomic_check = vk_plane_atomic_check,
++	.atomic_update = vk_plane_atomic_update
++};
++
++struct vk_send_chunk {
++	struct urb urb;
++	void *buf;
++	int errno;
++	struct completion flight;
++};
++
++static int vk_send_chunk_init(struct drm_device *drm,
++			      struct vk_send_chunk *chunk)
++{
++	init_completion(&chunk->flight);
++	usb_init_urb(&chunk->urb);
++	chunk->buf = drmm_kzalloc(drm, VK_SEND_BUF_SIZE, GFP_KERNEL);
++	if (!chunk->buf)
++		return -ENOMEM;
++	return 0;
++}
++
++struct vk_crtc_driver {
++	struct drm_crtc crtc;
++	struct delayed_work timeout_flush;
++
++	struct vk_send_chunk send_chunk[2];
++};
++
++static const struct drm_crtc_funcs vk_crtc_funcs = {
++	.set_config = drm_atomic_helper_set_config,
++	.page_flip = drm_atomic_helper_page_flip,
++	.atomic_create_state = drm_atomic_helper_crtc_create_state,
++	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
++	DRM_CRTC_VBLANK_TIMER_FUNCS
++};
++
++static enum drm_mode_status
++vk_crtc_mode_valid(struct drm_crtc *crtc, const struct drm_display_mode *mode);
++static int vk_crtc_atomic_check(struct drm_crtc *crtc,
++				struct drm_atomic_commit *state);
++static void vk_crtc_atomic_flush(struct drm_crtc *crtc,
++				 struct drm_atomic_commit *state);
++static void vk_crtc_atomic_enable(struct drm_crtc *crtc,
++				  struct drm_atomic_commit *state)
++{
++	drm_crtc_vblank_on(crtc);
++}
++
++static void vk_crtc_atomic_disable(struct drm_crtc *crtc,
++				   struct drm_atomic_commit *state)
++{
++	drm_crtc_vblank_off(crtc);
++}
++
++static const struct drm_crtc_helper_funcs vk_crtc_helper_funcs = {
++	.mode_valid = vk_crtc_mode_valid,
++	.atomic_check = vk_crtc_atomic_check,
++	.atomic_flush = vk_crtc_atomic_flush,
++	.atomic_enable = vk_crtc_atomic_enable,
++	.atomic_disable = vk_crtc_atomic_disable,
++};
++
++struct vk_connector_driver {
++	struct drm_connector connector;
++
++	struct usb_device *usb_dev;
++	unsigned int data_pipe;
++	const struct vk_lcd_device_info *device_info;
++};
++
++static const struct drm_connector_funcs vk_connector_funcs = {
++	.atomic_create_state = drm_atomic_helper_connector_create_state,
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state
++};
++
++static int vk_connector_get_modes(struct drm_connector *connector);
++static const struct drm_connector_helper_funcs vk_connector_helper_funcs = {
++	.get_modes = vk_connector_get_modes,
++};
++
++static const struct drm_encoder_funcs vk_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
++static int vk_device_info_find_or_verify(struct vk_driver *drv);
++static int vk_device_bootstrap(struct vk_driver *drv);
++static int vk_device_enable_pre(struct vk_driver *drv);
++static int vk_device_enable_post(struct vk_driver *drv);
++static int vk_device_disable(struct vk_driver *drv);
++static int vk_device_reset(struct vk_driver *drv);
++
++static int vk_plane_atomic_check(struct drm_plane *plane,
++				 struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *new_plane_state =
++		drm_atomic_get_new_plane_state(state, plane);
++	struct drm_crtc_state *new_crtc_state = NULL;
++	int ret;
++
++	if (new_plane_state->crtc)
++		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
++
++	ret = drm_atomic_helper_check_plane_state(new_plane_state,
++						  new_crtc_state,
++						  DRM_PLANE_NO_SCALING,
++						  DRM_PLANE_NO_SCALING, false,
++						  false);
++	if (ret)
++		return ret;
++
++	if (new_plane_state->rotation != DRM_MODE_ROTATE_0) {
++		drm_dbg_kms(plane->dev, "Unsupported plane rotation %#x\n",
++			    new_plane_state->rotation);
++		return -EINVAL;
++	}
++	return 0;
++}
++
++static enum drm_mode_status
++vk_crtc_mode_valid(struct drm_crtc *crtc, const struct drm_display_mode *mode)
++{
++	struct vk_driver *drv = container_of(crtc->dev, struct vk_driver, drm);
++	struct drm_display_mode preferred = {
++		DRM_MODE_INIT(drv->device_info->fps,
++			      drv->device_info->width,
++			      drv->device_info->height,
++			      drv->device_info->width_mm,
++			      drv->device_info->height_mm)
++	};
++
++	return drm_crtc_helper_mode_valid_fixed(crtc, mode, &preferred);
++}
++
++static int vk_crtc_atomic_check(struct drm_crtc *crtc,
++				struct drm_atomic_commit *state)
++{
++	struct vk_driver *drv = container_of(crtc->dev, struct vk_driver, drm);
++	struct drm_crtc_state *new_crtc_state =
++		drm_atomic_get_new_crtc_state(state, crtc);
++	struct drm_plane *plane = &drv->plane;
++	struct vk_connector_driver *connector_drv = drv->connector;
++	struct drm_plane_state *new_plane_state;
++
++	if (!new_crtc_state->enable)
++		return 0;
++
++	if (new_crtc_state->plane_mask != drm_plane_mask(plane) ||
++	    new_crtc_state->connector_mask !=
++		    drm_connector_mask(&connector_drv->connector)) {
++		drm_dbg_kms(crtc->dev,
++			    "Active CRTC requires the primary plane and USB connector\n");
++		return -EINVAL;
++	}
++
++	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++	if (!new_plane_state)
++		new_plane_state = plane->state;
++
++	if (!new_crtc_state->active)
++		return 0;
++
++	if (!new_plane_state->fb) {
++		drm_dbg_kms(crtc->dev,
++			    "Active CRTC has no framebuffer on its primary plane\n");
++		return -EINVAL;
++	}
++
++	if (new_plane_state->crtc_w != connector_drv->device_info->width ||
++	    new_plane_state->crtc_h != connector_drv->device_info->height) {
++		drm_dbg_kms(crtc->dev,
++			    "Unsupported scanout size %ux%u (expected %ux%u)\n",
++			    new_plane_state->crtc_w, new_plane_state->crtc_h,
++			    connector_drv->device_info->width,
++			    connector_drv->device_info->height);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int vk_connector_get_modes(struct drm_connector *connector)
++{
++	struct vk_connector_driver *drv =
++		container_of(connector, struct vk_connector_driver, connector);
++	struct drm_display_mode mode = {
++		DRM_MODE_INIT(drv->device_info->fps,
++			      drv->device_info->width,
++			      drv->device_info->height,
++			      drv->device_info->width_mm,
++			      drv->device_info->height_mm)
++	};
++	return drm_connector_helper_get_modes_fixed(connector, &mode);
++}
++
++static void vk_timeout_atomic_submit(struct work_struct *work)
++{
++	struct vk_crtc_driver *crtc_drv =
++		container_of(to_delayed_work(work), struct vk_crtc_driver,
++			     timeout_flush);
++	struct drm_crtc *crtc = &crtc_drv->crtc;
++	struct drm_device *drm = crtc->dev;
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_atomic_commit *state;
++	struct drm_crtc_state *crtc_state;
++	int ret = 0;
++
++	drm_modeset_acquire_init(&ctx, 0);
++
++	state = drm_atomic_commit_alloc(drm);
++	if (!state) {
++		ret = -ENOMEM;
++		goto fail_alloc;
++	}
++
++	state->acquire_ctx = &ctx;
++	state->allow_modeset = false;
++
++	do {
++		crtc_state = drm_atomic_get_crtc_state(state, crtc);
++		if (IS_ERR(crtc_state))
++			ret = PTR_ERR(crtc_state);
++		else if (crtc_state->active)
++			ret = drm_atomic_nonblocking_commit(state);
++		else
++			break;
++
++		if (ret != -EDEADLK)
++			break;
++		drm_atomic_commit_clear(state);
++		ret = drm_modeset_backoff(&ctx);
++	} while (!ret);
++	drm_atomic_commit_put(state);
++
++fail_alloc:
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++
++	if (ret == -EBUSY)
++		return;
++
++	if (ret)
++		drm_warn_ratelimited(crtc->dev, "Timeout refresh commit failed: %d\n", ret);
++}
++
++static int vk_scan_frame(struct vk_crtc_driver *crtc_drv,
++			 struct vk_connector_driver *connector_drv,
++			 struct drm_shadow_plane_state *plane);
++static void vk_crtc_atomic_flush(struct drm_crtc *crtc,
++				 struct drm_atomic_commit *state)
++{
++	struct vk_driver *drv = container_of(crtc->dev, struct vk_driver, drm);
++	struct vk_crtc_driver *crtc_drv = drv->crtc;
++	struct drm_crtc_state *old_crtc_state =
++		drm_atomic_get_old_crtc_state(state, crtc);
++	struct drm_crtc_state *new_crtc_state =
++		drm_atomic_get_new_crtc_state(state, crtc);
++	struct drm_plane *plane = &drv->plane;
++	struct vk_connector_driver *connector_drv = drv->connector;
++	struct drm_plane_state *new_plane_state =
++		drm_atomic_get_new_plane_state(state, plane);
++	int ret = 0;
++	int enter_idx;
++	bool new_enable = new_crtc_state->enable && new_crtc_state->active,
++	     old_enable = old_crtc_state->enable && old_crtc_state->active;
++
++	if (!new_plane_state)
++		new_plane_state = plane->state;
++
++	if (!drm_dev_enter(crtc->dev, &enter_idx))
++		goto drm_fail;
++	if (!vk_io_start(drv)) {
++		drm_dbg_ratelimited(crtc->dev,
++				    "Skipping CRTC update while display I/O is blocked\n");
++		goto vkio_fail;
++	}
++
++	if (new_enable != old_enable)
++		drm_dbg_kms(crtc->dev, "CRTC active state: %d -> %d\n",
++			    old_enable, new_enable);
++
++	if (!new_enable) {
++		if (drv->device_state) {
++			drv->device_state = false;
++			ret = vk_device_disable(drv);
++		}
++	} else {
++		bool enabling = !drv->device_state;
++
++		/* Testing found a ~10-second timeout; refresh every 3 seconds. */
++		mod_delayed_work(system_dfl_wq, &crtc_drv->timeout_flush,
++				 msecs_to_jiffies(VK_TIMEOUT_FLUSH_INTERVAL_MS));
++		if (enabling)
++			ret = vk_device_enable_pre(drv);
++		if (ret)
++			goto fail;
++
++		ret = vk_scan_frame(crtc_drv, connector_drv,
++				    to_drm_shadow_plane_state(new_plane_state));
++		if (ret)
++			goto fail;
++
++		if (enabling)
++			ret = vk_device_enable_post(drv);
++		if (ret)
++			goto fail;
++
++		drv->device_state = true;
++	}
++fail:
++	if (ret && ret != -ENODEV && ret != -ESHUTDOWN)
++		drm_err_ratelimited(crtc->dev,
++				    "Display update failed (active=%d): %d\n",
++				    new_enable, ret);
++	vk_io_end(drv);
++vkio_fail:
++	drm_dev_exit(enter_idx);
++drm_fail:
++	drm_crtc_vblank_atomic_flush(crtc, state);
++}
++
++static int vk_init_drm(struct vk_driver *drv)
++{
++	int ret;
++	struct drm_device *drm = &drv->drm;
++	struct drm_mode_config *mode_config = &drm->mode_config;
++	struct vk_connector_driver *connector;
++	struct vk_crtc_driver *crtc;
++
++	drm_dbg_driver(drm, "Initializing DRM resources\n");
++
++	ret = drmm_mode_config_init(drm);
++	if (ret)
++		return ret;
++
++	mode_config->funcs = &vk_mode_config_funcs;
++	mode_config->max_height = drv->device_info->height;
++	mode_config->min_height = drv->device_info->height;
++	mode_config->max_width = drv->device_info->width;
++	mode_config->min_width = drv->device_info->width;
++	mode_config->preferred_depth = 24;
++	mode_config->prefer_shadow = true;
++
++	ret = drm_universal_plane_init(drm, &drv->plane, BIT(0),
++				       &vk_plane_funcs, vk_plane_formats,
++				       ARRAY_SIZE(vk_plane_formats), NULL,
++				       DRM_PLANE_TYPE_PRIMARY, NULL);
++	if (ret)
++		return ret;
++	drm_plane_helper_add(&drv->plane, &vk_plane_helper_funcs);
++	drm_plane_enable_fb_damage_clips(&drv->plane);
++
++	crtc = drmm_crtc_alloc_with_planes(drm, struct vk_crtc_driver, crtc,
++					   &drv->plane, NULL, &vk_crtc_funcs,
++					   NULL);
++	if (IS_ERR(crtc))
++		return PTR_ERR(crtc);
++	drm_crtc_helper_add(&crtc->crtc, &vk_crtc_helper_funcs);
++	INIT_DELAYED_WORK(&crtc->timeout_flush, vk_timeout_atomic_submit);
++	drv->crtc = crtc;
++	for (size_t i = 0; i < ARRAY_SIZE(crtc->send_chunk); i++) {
++		ret = vk_send_chunk_init(drm, &crtc->send_chunk[i]);
++		if (ret)
++			return ret;
++	}
++
++	ret = drm_encoder_init(drm, &drv->encoder, &vk_encoder_funcs,
++			       DRM_MODE_ENCODER_NONE, NULL);
++	if (ret)
++		return ret;
++	drv->encoder.possible_crtcs = drm_crtc_mask(&crtc->crtc);
++
++	connector = drmm_kzalloc(drm, sizeof(struct vk_connector_driver),
++				 GFP_KERNEL);
++	if (!connector)
++		return -ENOMEM;
++	ret = drmm_connector_init(drm, &connector->connector,
++				  &vk_connector_funcs, DRM_MODE_CONNECTOR_USB,
++				  NULL);
++	if (ret)
++		return ret;
++	drm_connector_helper_add(&connector->connector,
++				 &vk_connector_helper_funcs);
++	connector->usb_dev = drv->dev;
++	connector->data_pipe =
++		usb_sndbulkpipe(drv->dev, drv->frame_epd->bEndpointAddress);
++	connector->device_info = drv->device_info;
++	ret = drm_connector_attach_encoder(&connector->connector,
++					   &drv->encoder);
++	if (ret)
++		return ret;
++	drv->connector = connector;
++
++	ret = drm_vblank_init(drm, 1);
++	if (ret)
++		return ret;
++
++	return drm_mode_config_create_initial_state(drm);
++}
++
++static int vk_init_usb(struct vk_driver *drv, struct usb_interface *intf)
++{
++	struct usb_host_interface *altsetting = intf->cur_altsetting;
++
++	drv->intf = intf;
++	usb_set_intfdata(intf, drv);
++
++	drv->dev = interface_to_usbdev(intf);
++
++	for (size_t i = 0; i < altsetting->desc.bNumEndpoints; i++) {
++		struct usb_endpoint_descriptor *epd =
++			&altsetting->endpoint[i].desc;
++		if (usb_endpoint_num(epd) == VK_FRAME_EP_NUMBER &&
++		    usb_endpoint_is_bulk_out(epd)) {
++			drv->frame_epd = epd;
++			break;
++		}
++	}
++	if (!drv->frame_epd) {
++		drm_err(&drv->drm, "Bulk OUT endpoint %u not found\n",
++			VK_FRAME_EP_NUMBER);
++		return -ENODEV;
++	}
++
++	drm_dbg_driver(&drv->drm,
++		       "Using bulk OUT endpoint %#x (max packet %u)\n",
++		       drv->frame_epd->bEndpointAddress,
++		       usb_endpoint_maxp(drv->frame_epd));
++
++	return 0;
++}
++
++static void vk_deinit_usb(struct vk_driver *drv)
++{
++	usb_set_intfdata(drv->intf, NULL);
++}
++
++static int vk_probe(struct usb_interface *intf, const struct usb_device_id *id)
++{
++	struct vk_driver *drv = devm_drm_dev_alloc(&intf->dev, &vk_drm_driver,
++						   struct vk_driver, drm);
++	int ret;
++
++	if (IS_ERR(drv))
++		return dev_err_probe(&intf->dev, PTR_ERR(drv),
++				     "Failed to allocate DRM device\n");
++	mutex_init(&drv->io_lock);
++
++	ret = vk_init_usb(drv, intf);
++	if (ret)
++		goto fail;
++
++	mutex_lock(&drv->io_lock);
++
++	ret = vk_device_info_find_or_verify(drv);
++	if (ret) {
++		drm_err(&drv->drm, "Failed to identify display: %d\n", ret);
++		goto fail_io;
++	}
++	drm_info(&drv->drm, "Detected %ux%u Valkyrie USB LCD (%u Hz)\n",
++		 drv->device_info->width, drv->device_info->height,
++		 drv->device_info->fps);
++
++	ret = vk_device_bootstrap(drv);
++	if (ret) {
++		drm_err(&drv->drm, "Failed to initialize display: %d\n", ret);
++		goto fail_io;
++	}
++
++	drv->io_blocking = false;
++	mutex_unlock(&drv->io_lock);
++
++	ret = vk_init_drm(drv);
++	if (ret) {
++		drm_err(&drv->drm, "Failed to initialize DRM resources: %d\n",
++			ret);
++		goto fail;
++	}
++	ret = drm_dev_register(&drv->drm, 0);
++	if (ret) {
++		drm_err(&drv->drm, "Failed to register DRM device: %d\n", ret);
++		goto fail;
++	}
++	drm_client_setup(&drv->drm, NULL);
++
++	return 0;
++fail_io:
++	drv->io_blocking = true;
++	mutex_unlock(&drv->io_lock);
++fail:
++	vk_deinit_usb(drv);
++	return ret;
++}
++
++static void vk_disconnect(struct usb_interface *intf)
++{
++	struct vk_driver *drv = usb_get_intfdata(intf);
++	int ret;
++
++	drm_dbg_driver(&drv->drm, "Disconnecting display\n");
++
++	drm_dev_get(&drv->drm);
++	drm_dev_unplug(&drv->drm);
++
++	mutex_lock(&drv->io_lock);
++	drv->io_blocking = true;
++	mutex_unlock(&drv->io_lock);
++
++	cancel_delayed_work_sync(&drv->crtc->timeout_flush);
++
++	drm_atomic_helper_shutdown(&drv->drm);
++
++	if (drv->drm.mode_config.suspend_state) {
++		drm_atomic_commit_put(drv->drm.mode_config.suspend_state);
++		drv->drm.mode_config.suspend_state = NULL;
++	}
++
++	drm_dev_put(&drv->drm);
++
++	mutex_lock(&drv->io_lock);
++	drv->io_blocking = true;
++	/* Re-enable the display so its observed ~10-second timeout resets it. */
++	ret = vk_device_reset(drv);
++	if (ret)
++		drm_dbg_driver(&drv->drm,
++			       "Display reset during disconnect failed: %d\n",
++			       ret);
++	drm_dbg_driver(&drv->drm,
++		       "Device watchdog reset may take approximately 10 seconds\n");
++	mutex_unlock(&drv->io_lock);
++	vk_deinit_usb(drv);
++}
++
++static int __vk_resume_device(struct usb_interface *intf, bool reidentify)
++{
++	struct vk_driver *drv = usb_get_intfdata(intf);
++	int ret = 0;
++
++	drm_dbg_driver(&drv->drm,
++		       "Resuming display (reidentify=%d, DRM suspended=%d)\n",
++		       reidentify, drv->drm_suspended);
++
++	mutex_lock(&drv->io_lock);
++
++	if (reidentify) {
++		ret = vk_device_info_find_or_verify(drv);
++		if (ret) {
++			drm_err(&drv->drm,
++				"Failed to verify display after USB reset: %d\n",
++				ret);
++			goto fail;
++		}
++	}
++
++	/* Ok to call here, device can handle bootstrap command even during working. */
++	ret = vk_device_bootstrap(drv);
++	if (ret) {
++		drm_err(&drv->drm,
++			"Failed to initialize display after USB reset: %d\n",
++			ret);
++		goto fail;
++	}
++
++	drv->io_blocking = false;
++	mutex_unlock(&drv->io_lock);
++
++	if (drv->drm_suspended) {
++		ret = drm_mode_config_helper_resume(&drv->drm);
++		drv->drm_suspended = false;
++		if (ret)
++			drm_err(&drv->drm, "Failed to restore DRM state: %d\n",
++				ret);
++	} else {
++		drm_dbg_driver(&drv->drm,
++			       "No saved DRM state; scheduling an immediate refresh\n");
++		schedule_delayed_work(&drv->crtc->timeout_flush, 0);
++	}
++
++	if (!ret)
++		drm_dbg_driver(&drv->drm, "Display I/O resumed\n");
++
++	return ret;
++
++fail:
++	drv->io_blocking = true;
++	mutex_unlock(&drv->io_lock);
++	return ret;
++}
++
++static int __vk_suspend_device(struct usb_interface *intf, bool force)
++{
++	struct vk_driver *drv = usb_get_intfdata(intf);
++	int ret = 0;
++
++	drm_dbg_driver(&drv->drm,
++		       "Suspending display (force=%d, DRM suspended=%d)\n",
++		       force, drv->drm_suspended);
++
++	if (!drv->drm_suspended) {
++		ret = drm_mode_config_helper_suspend(&drv->drm);
++		if (ret)
++			drm_err(&drv->drm, "Failed to suspend DRM state: %d\n",
++				ret);
++		if (ret && !force)
++			return ret;
++		if (!ret)
++			drv->drm_suspended = true;
++	}
++
++	mutex_lock(&drv->io_lock);
++	drv->io_blocking = true;
++	mutex_unlock(&drv->io_lock);
++	cancel_delayed_work_sync(&drv->crtc->timeout_flush);
++	drm_dbg_driver(&drv->drm, "Display I/O suspended\n");
++	return ret;
++}
++
++static int vk_suspend(struct usb_interface *intf, pm_message_t message)
++{
++	return __vk_suspend_device(intf, true);
++}
++
++static int vk_resume(struct usb_interface *intf)
++{
++	return __vk_resume_device(intf, false);
++}
++
++static int vk_reset_resume(struct usb_interface *intf)
++{
++	return __vk_resume_device(intf, true);
++}
++
++static int vk_pre_reset(struct usb_interface *intf)
++{
++	return __vk_suspend_device(intf, false);
++}
++
++static int vk_post_reset(struct usb_interface *intf)
++{
++	return __vk_resume_device(intf, true);
++}
++
++static void
++__vk_conv_to_buf(struct vk_send_chunk *curr,
++		 struct drm_shadow_plane_state *plane_state, size_t *i,
++		 unsigned long *x, unsigned long *y,
++		 const struct vk_lcd_device_info *device_info,
++		 const struct drm_format_info *src_format_info,
++		 const struct drm_format_info *dst_format_info)
++{
++	struct drm_rect clip;
++	struct iosys_map dst;
++	unsigned int dst_pitch = device_info->width * dst_format_info->cpp[0];
++
++	while (*y < device_info->height && *i < VK_SEND_BUF_SIZE) {
++		size_t line_avail = device_info->width - *x,
++		       buf_avail = DIV_ROUND_DOWN_ULL(VK_SEND_BUF_SIZE - *i,
++						      dst_format_info->cpp[0]);
++		/* UYVY encodes pixels in pairs, so round down to an even count. */
++		size_t pixs_to_send = ALIGN_DOWN(min(line_avail, buf_avail),
++						 2);
++		size_t bytes_to_send = pixs_to_send * dst_format_info->cpp[0];
++
++		if (!bytes_to_send)
++			return;
++
++		clip.y1 = *y;
++		clip.y2 = *y + 1;
++		clip.x1 = *x;
++		clip.x2 = *x + pixs_to_send;
++		iosys_map_set_vaddr(&dst, curr->buf + *i);
++
++		switch (src_format_info->format) {
++		case DRM_FORMAT_XRGB8888:
++			drm_fb_xrgb8888_to_uyvy(&dst, &dst_pitch,
++						&plane_state->data[0],
++						plane_state->base.fb, &clip,
++						&plane_state->fmtcnv_state);
++			break;
++		case DRM_FORMAT_UYVY:
++			drm_fb_memcpy(&dst, &dst_pitch, &plane_state->data[0],
++				      plane_state->base.fb, &clip);
++			break;
++		}
++		*i += bytes_to_send;
++		if (clip.x2 != device_info->width) {
++			*x = clip.x2;
++		} else {
++			*x = 0;
++			(*y)++;
++		}
++	}
++}
++
++static void __vk_urb_finish_callback(struct urb *urb)
++{
++	struct vk_send_chunk *curr =
++		container_of(urb, struct vk_send_chunk, urb);
++	curr->errno = 0;
++	if (urb->transfer_buffer_length != urb->actual_length)
++		curr->errno = -EIO;
++	if (urb->status)
++		curr->errno = urb->status;
++	complete_all(&curr->flight);
++}
++
++static int __vk_wait_chunk_complete(struct vk_send_chunk *chunk,
++				    unsigned long timeout)
++{
++	int ret = 0;
++
++	if (!wait_for_completion_timeout(&chunk->flight, timeout)) {
++		ret = ret ? ret : -ETIMEDOUT;
++		usb_kill_urb(&chunk->urb);
++		complete_all(&chunk->flight);
++	}
++	if (chunk->errno)
++		ret = ret ? ret : chunk->errno;
++	return ret;
++}
++
++static int vk_scan_frame(struct vk_crtc_driver *crtc_drv,
++			 struct vk_connector_driver *connector_drv,
++			 struct drm_shadow_plane_state *plane_state)
++{
++	const struct vk_lcd_device_info *device_info =
++		connector_drv->device_info;
++	struct vk_send_chunk *curr = &crtc_drv->send_chunk[0],
++			     *next = &crtc_drv->send_chunk[1];
++	struct drm_device *drm = crtc_drv->crtc.dev;
++	struct drm_framebuffer *fb = plane_state->base.fb;
++	const struct drm_format_info *src_format_info = fb->format;
++	const struct drm_format_info *dst_format_info =
++		drm_get_format_info(drm, VK_FRAME_FORMAT,
++				    DRM_FORMAT_MOD_LINEAR);
++	unsigned long x = 0, y = 0;
++	const unsigned long wait_timeout =
++		msecs_to_jiffies(VK_SEND_CHUNK_TIMEOUT);
++	size_t i;
++	bool adding_header = true;
++	size_t trailer_i = 0;
++	int ret = 0;
++	int ret2 = 0;
++
++	lockdep_assert_held(&container_of(drm, struct vk_driver, drm)->io_lock);
++	curr->errno = 0;
++	next->errno = 0;
++	complete_all(&curr->flight);
++	complete_all(&next->flight);
++
++	ret = drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
++	if (ret) {
++		drm_dbg_ratelimited(drm,
++				    "Failed to begin CPU access to framebuffer %u: %d\n",
++				    fb->base.id, ret);
++		return ret;
++	}
++
++	while (trailer_i < ARRAY_SIZE(device_info->frame_trailer)) {
++		swap(curr, next);
++		i = 0;
++
++		if (adding_header) {
++			memcpy(curr->buf, device_info->frame_header,
++			       sizeof(device_info->frame_header));
++			i += sizeof(device_info->frame_header);
++			adding_header = false;
++		}
++		__vk_conv_to_buf(curr, plane_state, &i, &x, &y, device_info,
++				 src_format_info, dst_format_info);
++
++		if (y == device_info->height) {
++			size_t append_trailer_len =
++				min(ARRAY_SIZE(device_info->frame_trailer) -
++					    trailer_i,
++				    VK_SEND_BUF_SIZE - i);
++			memcpy(curr->buf + i,
++			       &device_info->frame_trailer[trailer_i],
++			       append_trailer_len);
++			i += append_trailer_len;
++			trailer_i += append_trailer_len;
++		}
++
++		usb_fill_bulk_urb(&curr->urb, connector_drv->usb_dev,
++				  connector_drv->data_pipe, curr->buf, i,
++				  __vk_urb_finish_callback, NULL);
++		ret = __vk_wait_chunk_complete(next, wait_timeout);
++		if (ret) {
++			drm_dbg_ratelimited(drm,
++					    "Bulk OUT transfer failed (%d/%d bytes): %d\n",
++					    next->urb.actual_length,
++					    next->urb.transfer_buffer_length, ret);
++			break;
++		}
++		reinit_completion(&curr->flight);
++		ret = usb_submit_urb(&curr->urb, GFP_KERNEL);
++		if (ret) {
++			drm_dbg_ratelimited(drm,
++					    "Failed to submit bulk OUT transfer (%zu bytes): %d\n",
++					    i, ret);
++			curr->errno = ret;
++			complete_all(&curr->flight);
++			break;
++		}
++	}
++	ret2 = __vk_wait_chunk_complete(curr, wait_timeout);
++	if (ret2)
++		drm_dbg_ratelimited(drm, "Last frame chunk failed (%d/%d bytes): %d\n",
++				    curr->urb.actual_length,
++				    curr->urb.transfer_buffer_length, ret2);
++	ret = ret ? ret : ret2;
++
++	/* The device expects a zero-length bulk transfer to terminate each frame. */
++	reinit_completion(&curr->flight);
++	usb_fill_bulk_urb(&curr->urb, connector_drv->usb_dev,
++			  connector_drv->data_pipe, NULL, 0,
++			  __vk_urb_finish_callback, NULL);
++	ret2 = usb_submit_urb(&curr->urb, GFP_KERNEL);
++	if (ret2) {
++		drm_dbg_ratelimited(drm, "Failed to submit frame terminator: %d\n", ret2);
++		curr->errno = ret2;
++		complete_all(&curr->flight);
++	}
++	ret2 = __vk_wait_chunk_complete(curr, wait_timeout);
++	if (ret2)
++		drm_dbg_ratelimited(drm, "Frame terminator failed: %d\n", ret2);
++	ret = ret ? ret : ret2;
++
++	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
++	return ret;
++}
++
++/*
++ * Feature reports carry 8-byte commands. The helpers below encode observed
++ * register reads/writes and command-completion polling, including the
++ * big-endian address fields. The meaning of several command fields remains
++ * unknown.
++ */
++static int vk_feature_report(struct vk_driver *drv, const u8 request[8],
++			     u8 response[8])
++{
++	int ret;
++
++	lockdep_assert_held(&drv->io_lock);
++
++	ret = usb_control_msg_send(drv->dev, 0, HID_REQ_SET_REPORT,
++				   USB_DIR_OUT | USB_TYPE_CLASS |
++					   USB_RECIP_INTERFACE,
++				   HID_REPORT_TYPE_FEATURE << 8, 0, request, 8,
++				   USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
++	if (ret) {
++		drm_dbg_ratelimited(&drv->drm, "SET_REPORT %8ph failed: %d\n",
++				    request, ret);
++		return ret;
++	}
++
++	if (response) {
++		ret = usb_control_msg_recv(drv->dev, 0, HID_REQ_GET_REPORT,
++					   USB_DIR_IN | USB_TYPE_CLASS | USB_RECIP_INTERFACE,
++					   HID_REPORT_TYPE_FEATURE << 8, 0, response, 8,
++					   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
++		if (ret)
++			drm_dbg_ratelimited(&drv->drm,
++					    "GET_REPORT for %8ph failed: %d\n",
++					    request, ret);
++	}
++
++	return ret;
++}
++
++static inline int vk_b5_read(struct vk_driver *drv, u16 addr, u8 *val)
++{
++	u8 buf[8] = { 0xB5, 0 };
++	u8 ans[8];
++	int ret;
++
++	put_unaligned_be16(addr, buf + 1);
++
++	ret = vk_feature_report(drv, buf, ans);
++	if (ret)
++		return ret;
++
++	if (memcmp(buf, ans, 3)) {
++		drm_dbg_ratelimited(&drv->drm,
++				    "Unexpected response reading register %#06x: %8ph\n",
++				    addr, ans);
++		return -EIO;
++	}
++
++	if (val)
++		*val = ans[3];
++	return 0;
++}
++
++static inline int vk_b6_write(struct vk_driver *drv, u16 addr, u8 val)
++{
++	u8 buf[8] = { 0xB6, 0 };
++
++	put_unaligned_be16(addr, buf + 1);
++	buf[3] = val;
++
++	return vk_feature_report(drv, buf, NULL);
++}
++
++static inline int vk_f5_read(struct vk_driver *drv, u32 addr, u8 val[8])
++{
++	u8 buf[8] = { 0xF5, 0 };
++
++	if (addr > 0xFFFFFF)
++		return -EINVAL;
++	put_unaligned_be32(addr, buf);
++	buf[0] = 0xF5;
++
++	return vk_feature_report(drv, buf, val);
++}
++
++static inline int vk_a6_command(struct vk_driver *drv, u8 cmd[8], u16 poll,
++				unsigned long poll_delay_us)
++{
++	int ret;
++
++	ret = vk_feature_report(drv, cmd, NULL);
++	if (ret)
++		return ret;
++
++	fsleep(poll_delay_us);
++
++	for (uint i = 0; i < VK_A6_POLL_MAX; i++) {
++		u8 val;
++
++		ret = vk_b5_read(drv, poll, &val);
++		if (ret)
++			return ret;
++		if (!val)
++			return 0;
++		fsleep(VK_A6_POLL_INTERVAL_US);
++	}
++
++	drm_dbg_ratelimited(&drv->drm,
++			    "Command %#04x timed out polling register %#06x\n",
++			    cmd[1], poll);
++	return -ETIMEDOUT;
++}
++
++static inline int vk_a601_set_screen(struct vk_driver *drv)
++{
++	u8 buf[8] = { 0xa6, 0x01, 0, 0, 0, 0, 0x22, 0x00 };
++
++	put_unaligned_be16(drv->device_info->width, buf + 2);
++	put_unaligned_be16(drv->device_info->height, buf + 4);
++
++	return vk_a6_command(drv, buf, 0xc555, 10 * 1000);
++}
++
++static inline int vk_a602_set_screen(struct vk_driver *drv)
++{
++	u8 buf[8] = { 0xa6, 0x02, 0 };
++
++	put_unaligned_be16(drv->device_info->video_code, buf + 2);
++	put_unaligned_be16(drv->device_info->width, buf + 4);
++	put_unaligned_be16(drv->device_info->height, buf + 6);
++
++	return vk_a6_command(drv, buf, 0xc557, 20 * 1000);
++}
++
++static inline int vk_a603_command(struct vk_driver *drv)
++{
++	u8 buf[8] = { 0xa6, 0x03, 0x03, 0 };
++
++	return vk_a6_command(drv, buf, 0xc558, 10 * 1000);
++}
++
++static inline int vk_a604_switch(struct vk_driver *drv, bool on)
++{
++	u8 buf[8] = { 0xa6, 0x04, on ? 1 : 0, 0 };
++	int ret;
++
++	ret = vk_a6_command(drv, buf, 0xc555, 10 * 1000);
++	if (ret)
++		return ret;
++
++	if (on) {
++		u8 f242;
++
++		ret = vk_b6_write(drv, 0xf24e, 0);
++		if (ret)
++			return ret;
++
++		ret = vk_b5_read(drv, 0xf242, &f242);
++		if (ret)
++			return ret;
++		if (f242 & BIT(3)) {
++			drm_warn_once(&drv->drm,
++				      "Reads %#04x in register 0xf242, device maybe bugged\n",
++				      f242);
++			return -EIO;
++		}
++	}
++
++	return 0;
++}
++
++static inline int vk_a605_switch(struct vk_driver *drv, bool on)
++{
++	u8 buf[8] = { 0xa6, 0x05, on ? 1 : 0, 0 };
++
++	return vk_a6_command(drv, buf, 0xc555, 10 * 1000);
++}
++
++static inline int vk_a607_switch(struct vk_driver *drv, bool on)
++{
++	u8 buf[8] = { 0xa6, 0x07, on ? 1 : 0, 0x02, 0 };
++	int ret;
++
++	if (on) {
++		ret = vk_b6_write(drv, 0xdeee, 1);
++		if (ret)
++			return ret;
++	}
++
++	return vk_a6_command(drv, buf, 0xc454, 100 * 1000);
++}
++
++static int vk_complex_switch(struct vk_driver *drv, bool on)
++{
++	int ret;
++	u8 val;
++
++	ret = vk_b5_read(drv, drv->device_info->complex_switch_addr, &val);
++	if (ret)
++		return ret;
++
++	if (drv->device_info->complex_switch_active_high ^ on)
++		val &= ~drv->device_info->complex_switch_mask;
++	else
++		val |= drv->device_info->complex_switch_mask;
++
++	return vk_b6_write(drv, drv->device_info->complex_switch_addr, val);
++}
++
++/*
++ * The sequence and ordering here follow the observed initialization and
++ * enable protocol. The purpose of some device-specific commands is unknown.
++ */
++static int vk_device_bootstrap(struct vk_driver *drv)
++{
++	int ret;
++
++	drm_dbg_driver(&drv->drm, "Initializing %ux%u display\n",
++		       drv->device_info->width, drv->device_info->height);
++
++	drv->device_state = false;
++
++	ret = vk_a603_command(drv);
++	if (ret)
++		return ret;
++
++	ret = vk_a607_switch(drv, true);
++	if (ret)
++		return ret;
++
++	ret = vk_a605_switch(drv, false);
++	if (ret)
++		return ret;
++
++	ret = vk_complex_switch(drv, false);
++	if (ret)
++		return ret;
++
++	ret = vk_a604_switch(drv, false);
++	if (ret)
++		return ret;
++
++	ret = vk_a603_command(drv);
++	if (ret)
++		return ret;
++
++	ret = vk_a601_set_screen(drv);
++	if (ret)
++		return ret;
++
++	return vk_a602_set_screen(drv);
++}
++
++static int vk_device_enable_pre(struct vk_driver *drv)
++{
++	drm_dbg_driver(&drv->drm, "Enabling display\n");
++	return vk_a604_switch(drv, true);
++}
++
++static int vk_device_enable_post(struct vk_driver *drv)
++{
++	int ret;
++
++	ret = vk_complex_switch(drv, true);
++	if (ret)
++		return ret;
++
++	return vk_a605_switch(drv, true);
++}
++
++static int vk_device_disable(struct vk_driver *drv)
++{
++	int ret;
++
++	drm_dbg_driver(&drv->drm, "Disabling display\n");
++
++	ret = vk_a605_switch(drv, false);
++	if (ret)
++		return ret;
++
++	ret = vk_complex_switch(drv, false);
++	if (ret)
++		return ret;
++
++	return vk_a604_switch(drv, false);
++}
++
++static int vk_device_reset(struct vk_driver *drv)
++{
++	int ret = 0;
++
++	/*
++	 * The device has no observed shutdown command. Enable it and let its
++	 * timeout reset it later; this function does not wait for that reset.
++	 * Here, we re-execute the bootstrap even if device is bootstraped, as
++	 * the tested path does.
++	 */
++	ret = vk_device_bootstrap(drv);
++	if (ret)
++		return ret;
++
++	ret = vk_device_enable_pre(drv);
++	if (ret)
++		return ret;
++
++	return vk_device_enable_post(drv);
++}
++
++/* Known panel identification data and observed frame markers. */
++static const struct vk_lcd_device_info vk_lcd_devices[] = {
++	{ .serial = "\x5a\xa5\x1aMCVKA080320*0240S244613682\xff\xff\xff",
++	  .label_0030 = { 0x02, 0x05 },
++	  .label_f000 = { 0xb7, 0x16, 0x0a },
++
++	  .width = 320,
++	  .height = 240,
++	  .fps = 30,
++	  .width_mm = 39,
++	  .height_mm = 28,
++	  .video_code = 0x9400,
++	  .complex_switch_addr = 0xf507,
++	  .complex_switch_mask = BIT(1),
++	  .complex_switch_active_high = false,
++	  .frame_header = { 0xff, 0x00, 0x00, 0x00, 0x00, 0x14, 0x00, 0xf0 },
++	  .frame_trailer = { 0xff, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
++	{ .serial = "\x5a\xa5\x1aMCVKC030360*0960S252309025\xff\xff\xff",
++	  .label_0030 = { 0x02, 0x06 },
++	  .label_f000 = { 0xb7, 0x16, 0x0a },
++
++	  .width = 360,
++	  .height = 960,
++	  .fps = 30,
++	  .width_mm = 54,
++	  .height_mm = 144,
++	  .video_code = 0xa000,
++	  .complex_switch_addr = 0xf005,
++	  .complex_switch_mask = BIT(4),
++	  .complex_switch_active_high = true,
++	  .frame_header = { 0xff, 0x00, 0x00, 0x00, 0x00, 0x16, 0x83, 0xc0 },
++	  .frame_trailer = { 0xff, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
++};
++
++static int vk_device_info_find_or_verify(struct vk_driver *drv)
++{
++	u8 serial[32] __nonstring;
++	u8 label_0030[2];
++	u8 label_f000[3];
++	int ret;
++
++	for (size_t i = 0; i < 2; i++) {
++		ret = vk_b5_read(drv, 0x0030 + i, &label_0030[i]);
++		if (ret)
++			return ret;
++	}
++	for (size_t i = 0; i < 3; i++) {
++		ret = vk_b5_read(drv, 0xf000 + i, &label_f000[i]);
++		if (ret)
++			return ret;
++	}
++	for (size_t i = 0; i < 4; i++) {
++		ret = vk_f5_read(drv, VK_SERIAL_ADDR + (i * 8),
++				 serial + (i * 8));
++		if (ret)
++			return ret;
++	}
++
++	drm_dbg_driver(&drv->drm,
++		       "Panel ID: 0030=%2ph f000=%3ph identification=%32ph\n",
++		       label_0030, label_f000, serial);
++
++	for (size_t i = drv->device_info ? drv->device_info - vk_lcd_devices :
++					   0;
++	     i < ARRAY_SIZE(vk_lcd_devices); i++) {
++		if (memcmp(vk_lcd_devices[i].label_0030, label_0030,
++			   sizeof(label_0030)) ||
++		    memcmp(vk_lcd_devices[i].label_f000, label_f000,
++			   sizeof(label_f000)) ||
++		    memcmp(vk_lcd_devices[i].serial, serial, sizeof(serial))) {
++			if (drv->device_info) {
++				drm_dbg_driver(&drv->drm,
++					       "Panel identification changed after USB reset\n");
++				return -ENODEV;
++			}
++		} else {
++			drv->device_info = &vk_lcd_devices[i];
++			return 0;
++		}
++	}
++	drm_dbg_driver(&drv->drm, "Unsupported panel identification\n");
++	return -ENODEV;
++}
+-- 
+2.56.0
+
