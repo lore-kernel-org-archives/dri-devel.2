@@ -2,162 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077C1606A31F
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:02:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89389606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 14:02:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LAn+Pjhq
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJSe+mjL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F2FC10FCCA;
-	Wed, 28 Oct 2026 14:02:14 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3365F10E101;
- Wed, 28 Oct 2026 14:02:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793196129; x=1824732129;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=usfeySVEYy8nc1SPBma0C8CTIptfuNu7Z+/2+pYwmAA=;
- b=LAn+Pjhqpy7JprowDMoI42jHG0gndfJFoFWCsySistVcnN2WQ95kbT6Z
- ryP15g7Gqq81m1BXcpLYmKhjXALtRlaweN5yVIpfT4y5WkTQ/gs+XiwT8
- +HIDbN2UjYBj1uIiypU8or7Hy5Cqd6NhmjLEzQICNYtCVm3A+lTYwtZpz
- qKe+R+YuDsWDEfCfcEDhrhgZc2KuHlKygRUXj1NiSD1qWcPO0EbyeHoSJ
- DzkVQPaHUPk3wEQC59LndBPwZU8GbMMKu6k9Vl4wzojqgQXY/qs7qUF3J
- LwTZX78Bmj7Y6JnPyz+NdLp7kl/ChKoc2upOEyGrqkHnoyk0RtNp8Fgjp A==;
-X-CSE-ConnectionGUID: cf9EcRAxQC6GHwu/cTtA9Q==
-X-CSE-MsgGUID: /AlOdSI4TlyCXLmP48w5CQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1907481"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1907481"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 07:01:55 -0700
-X-CSE-ConnectionGUID: BjccmJMyTAetusKv/G7LCQ==
-X-CSE-MsgGUID: vdAOXRSGSmKcRXLrDMAauQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="6620899"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 07:01:54 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 28 Oct 2026 07:01:54 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 07:01:54 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.4) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 28 Oct 2026 07:01:54 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U3y6lrlwQFdER9ixlxgD10EFh5JerSEIMjeYpxm97BIib4+D61PFVhNkmpMnbO+eiuaKUkec/qbC1J16OiC0iWYhCRwLbfYiY2nCXA97RZEAr6XBWTHmD51X3S1cK1PMR1rPIRpnWS04mbUQtVeRuAB38DR3MWUTuW11WGN7y/4uzIgYb5f9u+qQirI6I0+46XP8FtDgmfBlzSLF6kmKxzOTVoE3lKmfFQxejkj1E1sAhP7ZOBK+peztl3aM8G/k6OvTVcdtEAUr9pxAaLEOxPPlt8sUVoo2C9/LJ0UNQ7MhdJnMmpdm3xW/DvAnZGHRBXcfw2xLf33lT2yD+jrZMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=av9bCDmCDJl1xX9uWD2JFhyhhjnIhf5mUdRuc11iY5Y=;
- b=h82RNMsRPia7tQ9X6T2TMJC+/FPbNMHsZYF3x6QbTdZPmmxOjElnSdRji1jxJ+DoXQEct1cEMtiAD154U6w3Ctr7JE+yf+E+3XAi2ef40QXou05/A6lS+p+OkJVTRc4SSS3XXhy7U/bxqwku52ID81wrXHWWzEd8JXqgdWyyW1oV9zO8onGyyYh0sDq4jShJXTwAIZvBDRtpPcZwq/sni0vGVNm5s82lO+/2aBDtCrqBbR8rEAR2lG2CfH+zAfmHwOz92Qlycf5PltIbxLfSwhqNx7gA1UWA7pqtKAH3KDggqHHH2hNUbix9hMlfnupOSM1YdqMi2AgJwG32vT77uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8208.namprd11.prod.outlook.com (2603:10b6:8:165::18)
- by DS4PPFAC42FDD50.namprd11.prod.outlook.com (2603:10b6:f:fc02::46) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 14:01:52 +0000
-Received: from DS0PR11MB8208.namprd11.prod.outlook.com
- ([fe80::ecb0:7475:84de:ca9c]) by DS0PR11MB8208.namprd11.prod.outlook.com
- ([fe80::ecb0:7475:84de:ca9c%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 14:01:52 +0000
-Message-ID: <88084c20-7981-4d44-94db-fbee2c355f50@intel.com>
-Date: Wed, 28 Oct 2026 19:31:44 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] drm/xe: Defer VM teardown until exec queue cleanup
- completes
-To: Arvind Yadav <arvind.yadav@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-CC: <rodrigo.vivi@intel.com>, <matthew.brost@intel.com>,
- <himal.prasad.ghimiray@intel.com>, <thomas.hellstrom@linux.intel.com>
-References: <20261028122125.3772832-1-arvind.yadav@intel.com>
- <20261028122125.3772832-5-arvind.yadav@intel.com>
-Content-Language: en-US
-From: "Yadav, Sanjay Kumar" <sanjay.kumar.yadav@intel.com>
-In-Reply-To: <20261028122125.3772832-5-arvind.yadav@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0152.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ac::16) To DS0PR11MB8208.namprd11.prod.outlook.com
- (2603:10b6:8:165::18)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8208:EE_|DS4PPFAC42FDD50:EE_
-X-MS-Office365-Filtering-Correlation-Id: de6f88cd-a7d7-4bb5-0ddb-08df34fc049c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|11063799006|4143699003|56012099006|261009223027099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022075727099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: C9GK+px7l+HZBakUFurnr8MNQGWCPM6LK9OerwZa72phjIi/RPYRieVdG9E0I7EHIcrbaTVYb9b70hHz+vC3Z00OeWRWoaVuMyH0QfYd3ybcgASraQ9WP6LBclTRHgoeiqLAAMNteWmoCvBo6YtBOkiC+0S03Qqmy4Mg0jvVj1C25CX8Ee/IQwrN/x2goPMbIFjeevL9lNju4uLRmBq8TJuVD3O3khsJ4qAmvNi2C4rbCHOwVnvlYNu1gVStZJiWwG41WTfd4YZJLjQSEebtCH6SIxW642Bnt1w1QrFCD9oPWaJWff3ZXnvtCK4l9kgRpoIHQ2eDZaZPJO7Zs7AfytfKHzMEv1pbwKgVpx17JYSwFnUsM0Xa9V26DBxWTSmOl6S3z6mSdIavLsvE3rrtK8NAV51SGV//YETf0B9YQkzrcVyy5i6WrnoMhPf9b3waAvVO6EC2V38ZZjRDIuNpYdNASWPijWxPq4eHtLjTJ+QZHcacl6XJtjhjC4KefQmp/+riif7HMFvsZBIBFsEtkRELAR3xCxidm8xmHSQaJ0yKD0kV8wn9/rAigkcV0MQ3XXpIqNz3YLLfEvkCSJlqq11cFgh6P9T2XEepcZzBDqyvFXLEy2cVMGEmiZZNY0eX+e6MxwMz8XeXs1w5SPfBr5gGgX9YatoopoiklNTqPgg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB8208.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(4143699003)(56012099006)(261009223027099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022075727099003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ajlSbG1jWEowSjRoays5RHdyQkl6S3d4WFljdGhXUWVvblBidC90VFhCRzRl?=
- =?utf-8?B?elRBZnVCU1Y3ZFZzanpvSkRkTzhzRFA4cmozR0dsdDhoS0NWOVRLZzlXY3BY?=
- =?utf-8?B?eGErcmU4dUliRWJsZUVlWC9wY3lkV0JXbkRDdWZYM09SQU1HZkdSdEE0bTRi?=
- =?utf-8?B?cDlZajNlSEwzUUxURzVhL3h3a1EzQ0NGbHVRbm0zYjZycG0rTUVyRElxaDRw?=
- =?utf-8?B?YWtyWHFYQU9sOEl6UUhLc281aDJIWk5YaUk2UjFNZFlEcFZudGI1bFRmUUFv?=
- =?utf-8?B?cFBYYUNKenpncStQNWdzZDlnSUhuMkUyZlFsa3RFUEpQKzFVRitMNzZFaGxW?=
- =?utf-8?B?U2Q3M2dGR0tadTVtTVRvZlcweTdBcE5STmswcWxISWx2UGQ5YndOYXhNWExz?=
- =?utf-8?B?RUFwL0o0amtPdVQ2aWlya0t3Y1hEN1NMejYzUS9vdFZjMi9ja2hGY1NmTjRO?=
- =?utf-8?B?c25TeXorM3kvNDNGZ2c1WnVXQUJFdGtHMWkvS1pibzZqdW9neVNkb2x0cUU1?=
- =?utf-8?B?OUdTbzVKOUdMaW9JeldKVGlZbVFLWm1JRDJILzk3d0Q1d3NjODFQa1QzNWhT?=
- =?utf-8?B?RHBsTVZZTEFGY29PT1c2aFAzM0hOSVBPQllhcStnT3hQc0tpWWFiZzhDYTRy?=
- =?utf-8?B?dGo0ODBhVnUwZ2RpSW9LakNtUzV0eXhMTEJJbm5sbTVSeGVDL0FCRUJEQ0Yw?=
- =?utf-8?B?R2ZwOXFFT3htKzI4VVpBaWhGcE5DWmF3UGhua1JJenFaalZyN2pwTmNOS2VC?=
- =?utf-8?B?QVdyVVhVWnFKTitqUEJNaXBlRXpmZm9TcW04c3RtRXNoTWxWQno3RU9uZ2xK?=
- =?utf-8?B?enllOWpjcDhGeDNxczRDanhmRzYzN243S3ptaFd4M25vMXJFZW1ieVMzQk9k?=
- =?utf-8?B?bzQ5RU9QTmtxaUZ6SnlzdzNnV1IzTUxjMWVWTzNXVzRUaXRpWGRkbDd1b0JI?=
- =?utf-8?B?RlZNSzAzYW1udzh4cTJhOWNJa0pUQ052TnA0SFJSVTRUSURzZi85YnJySEo5?=
- =?utf-8?B?enFUb1dxYWdEak9rckZHeHJ4cGpNUVpCeVYzQ2FDVjUvOTRKc0NjeW5qejdH?=
- =?utf-8?B?ZjNVZzFyVE5iMTg2c1BDQU1lUUJNRUx1dEFpbmxtNXZFRXZZaW5sMnZlMy9W?=
- =?utf-8?B?WVIyUlVWYVhSQ3cvREpQT1l1MmZBeTdaQ3B6a2UyNC9oTEtBU0hrNzBGRDkr?=
- =?utf-8?B?Ym1CaGUwVjhzQWpna2xkMlcwM3BXNVlGTllhZXZrdmVpYWY2UHhoQ0MyaWtC?=
- =?utf-8?B?bHE1UHJ0aDFqM3ppV1FIK3lBSDRVdXIxVkZnTHhRSC9VaTgwNTN1RWZySXZa?=
- =?utf-8?B?cU1UNlNtTGNRQ2dZbTh4OTY4eTdZeVQvanZhY29OM1VBOG9Bc1VTZmpNSVJ3?=
- =?utf-8?B?dVgwVzZhL2IyVTdoQU5kNW9sNk9Ic05sRmZvNW5SU0xLK3RHR3d0bjJzK2pH?=
- =?utf-8?B?ZjMyK3NCL0orVlhNdWZsbHdpSSt6c2hhZW9CaC91bFRYRDVlWGQvL2d2NHYw?=
- =?utf-8?B?MkhuVGpCdHNZOVBDYXFlcVh0VFgvTW1tTzlQZDlKZGZjY0NxdGxhVlArMVcv?=
- =?utf-8?B?UW1NZEQ5N25oY29ITDZJY0NwU3hRV2xFZ2dLUEtueElLalRPUUgrL3VNRldr?=
- =?utf-8?B?am5VeGh3R21CTUtUL2wvdUJMZkp4L0l6TzgrMVNxSDFyK1I5RGpnbnprRy96?=
- =?utf-8?B?aGJvSFBJSVlaZXlHQTNUeWRodjVaL2gwanQyUTdYOEhkR0k3N3hGaGZYSzJL?=
- =?utf-8?B?b3U0TTBqSHZVZjgvUjl5TGVnMVhZZld4V2NjYndRc1VRTmMvUUUyYVAwWHBH?=
- =?utf-8?B?dVJDM3grN2JVWEdhZTJuT2RqRlJpc0lRT3VjV2phMVIyRnBuemlrYW13alAx?=
- =?utf-8?B?cFZZZ1NiU1I1T3AxakQ3U0ZkL1ZoVXhveGRieDNWVElJQzZWY3FCSTJ6RDQ2?=
- =?utf-8?B?MXl1RGh4bFhxNGQ3UGRQMENRUXJaUjJrMEpGUzE1U29LZVVvd2plYU14YWl1?=
- =?utf-8?B?aDlLRUZWUGZzbjYxd0FaRGtMYThHZkc2Z0NXdWhpSVJ3VWNrS2ZGQ0lzcnI1?=
- =?utf-8?B?cmd2QXlpTE5POTBHcmwxcm1SNzg1UkIyeW5ULzd5Vkpjd3VqTnhVZ3NxVytv?=
- =?utf-8?B?emZLNVV5ZEErQk9BWDB4anFSbUhxQUkvc09TMDNaUjhmR2hHR2RTK3BMalUy?=
- =?utf-8?B?UXd1NEtYYXQxYkM4REpTMldjMTBzdXBBbVhnTDhhWXc3TjE3WnAwd1M2QVBr?=
- =?utf-8?B?UllKMnVZbGgwclJ1NzFVR21aN1BOK1pGSzZHWUw0RE9EanRTYzB2SFJtWlZ6?=
- =?utf-8?B?eUhBaVlqUjVHTWFKZFU5TndZMmNlVEUyNkhOSFlDM0dpR2V0Tmt2ZVFDZzdz?=
- =?utf-8?Q?+Wu19s2znZMhHaoo=3D?=
-X-Exchange-RoutingPolicyChecked: Gdh51jPX4C/36R2YGybHmrVt7eBz2eNt0fQk1OiZrD7LreOQ2efwL903gxKvkZZrNkhi5kL9daMBYzEFKkaS+nCG6POWS9794ymz4/CHbjPbUwJCYjfLIjJ6M0YdQbxKNpnmnU8uikzWaKstUGX232RkcOstgDqBo/QjAH2G+w/EvYIny8/9cTM4hCUAypc7FQuTiqrKHQJgYPo5kcqklE3lVUf/dnCnCpeEj/SjFf+G4Udo5bfEa82GvcS9qR5JjyZCFfk5Z2H8TParFyxfQ9+gKt9m1i7BqfZOfF1YJMgOlLNMSllztb4X2xREWnC/2LWvJyVKga/be6TELR+5Ig==
-X-MS-Exchange-CrossTenant-Network-Message-Id: de6f88cd-a7d7-4bb5-0ddb-08df34fc049c
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8208.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 14:01:52.5158 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gxymAHPEbheHxr3ccOhIp65wnsWKjfz15jvuFTHE6/3KaEXX7hyuvHu+Qt7uCeMfVdZp1NlIcdTX0TuGQVxsIReAxD/HFxWzouOBtUHfNT0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFAC42FDD50
-X-OriginatorOrg: intel.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id E463D10FCA2;
+	Wed, 28 Oct 2026 14:02:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF9B410FCEA
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 14:02:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DC4B36020A;
+ Wed, 28 Oct 2026 14:02:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F60F1F01825;
+ Wed, 28 Oct 2026 14:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793196129;
+ bh=3H8BI2LFf6f0BdxDXU8zUV0CwMCvi64uAcJ3leq5mmw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IJSe+mjL0BOxaNdc8HWlBJRXpeQRsmCQF6nfViCI4lfTa74HStSCmRAHMAPJlZdSl
+ a+fxtYY4wRFN60OGKskcM4FX4Fyj5qHArocPFTRvDj1E5hV2v21F5XAHQ4jOuGbOUS
+ YzygMNGQQri2BWU+7SsctLSskm8xgENBB8+/JeqU9UzGhrxUGDJ1/MH7zAq56gLObM
+ F8li+xKYGx/dTzjlxFY+ejTI2DoP2JqwRl8x5xow/y3D9Mo72zWpVVfUcDQqSYKarb
+ BoAYy7dzf09P7t/zt7jkpSbtZgGKeb6t06rThE+0NnvJTiNhXKGExsAcZRvVOdrZlH
+ V2Tl4i6assyeA==
+Message-ID: <sashiko-outbox-187952@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] drm/tiny: add driver for Valkyrie USB LCD displays
+To: "ZiAo Wang" <ziaowang2007@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20261028132536.375927-4-ziaowang2007@gmail.com>
+References: <20261028132536.375927-1-ziaowang2007@gmail.com>
+ <20261028132536.375927-4-ziaowang2007@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 28 Oct 2026 14:02:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,420 +48,336 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] drm/tiny: missing drm_atomic_helper_shutdown() in vk_disconnect()
+- [Medium] drm/tiny: missing drm_dev_set_dma_dev() in vk_probe()
+- [Medium] drm/tiny: vk_crtc_atomic_check() skips validation when CRTC is i=
+nactive
+- [Medium] drm/tiny: vk_device_enable_pre() leaves device_state true on fai=
+lure
+- [Medium] drm/tiny: valkyrie-lcd: broken resume recovery when drm suspend =
+fails
+--
 
-On 28-10-2026 17:51, Arvind Yadav wrote:
-> Exec queue destruction is asynchronous. Closing a VM immediately after
-> killing its queues can remove mappings before GuC cleanup has finished.
->
-> Track the queues using each VM and keep the bind queue's user_vm
-> reference until final queue destruction. Start queue cleanup before
-> removing the VM mappings.
->
-> The count includes VM-owned bind queues. Release the VM's references
-> to these queues before waiting for their asynchronous cleanup.
->
-> During file close, use one five-second wait budget across all VMs.
-> If queues remain, defer VM close until the last queue is removed.
-> The existing runtime-PM reference remains held during this wait.
->
-> VM destroy does not wait for queue cleanup. If user exec queues still
-> reference the VM, its mappings remain after the ioctl returns until
-> those queues finish cleanup. Userspace must destroy the remaining queue
-> handles or close the DRM file to release them.
->
-> The five-second budget limits the new queue wait, not the lifetime of
-> the retained mappings. Recovery continues through the existing GuC
-> reset and teardown paths.
->
-> Run deferred close and final VM destruction on the module-lifetime
-> destroy workqueue. Hold an extra VM reference until the close worker
-> has released its PM and unplug guards. Final VM destruction retains
-> the device reference until cleanup finishes.
->
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Assisted-by: LLM
-> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
-Tested-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
-> ---
->   drivers/gpu/drm/xe/xe_device.c     |  21 +++-
->   drivers/gpu/drm/xe/xe_exec_queue.c |  22 ++--
->   drivers/gpu/drm/xe/xe_vm.c         | 162 ++++++++++++++++++++++++++---
->   drivers/gpu/drm/xe/xe_vm.h         |   5 +
->   drivers/gpu/drm/xe/xe_vm_types.h   |  15 +++
->   5 files changed, 202 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-> index 7b4913d7665d..6cf0ce293738 100644
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-> @@ -8,6 +8,7 @@
->   #include <linux/aperture.h>
->   #include <linux/delay.h>
->   #include <linux/fault-inject.h>
-> +#include <linux/jiffies.h>
->   #include <linux/units.h>
->   
->   #include <drm/drm_client.h>
-> @@ -177,6 +178,8 @@ static void xe_file_close(struct drm_device *dev, struct drm_file *file)
->   	struct xe_file *xef = file->driver_priv;
->   	struct xe_vm *vm;
->   	struct xe_exec_queue *q;
-> +	bool close_deferred = false;
-> +	unsigned long deadline;
->   	unsigned long idx;
->   
->   	guard(xe_pm_runtime)(xe);
-> @@ -197,8 +200,24 @@ static void xe_file_close(struct drm_device *dev, struct drm_file *file)
->   		xe_exec_queue_kill(q);
->   		xe_exec_queue_put(q);
->   	}
-> +
-> +	/* Start all bind queue teardown before spending the shared wait budget. */
->   	xa_for_each(&xef->vm.xa, idx, vm)
-> -		xe_vm_close_and_put(vm);
-> +		xe_vm_kill_bind_queues(vm);
-> +
-> +	deadline = jiffies + HZ * 5;
-> +	xa_for_each(&xef->vm.xa, idx, vm) {
-> +		unsigned long now = jiffies;
-> +		unsigned long timeout =
-> +			time_before(now, deadline) ? deadline - now : 0;
-> +
-> +		close_deferred |=
-> +			xe_vm_close_and_put_deferred(vm, timeout);
-> +	}
-> +
-> +	if (close_deferred)
-> +		drm_dbg(&xe->drm,
-> +			"VM teardown deferred while exec queues are being stopped\n");
->   
->   	scoped_guard(mutex, &xef->mmio_gem.lock) {
->   		if (xef->mmio_gem.pci_barrier) {
-> diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
-> index 9a8efa2bf2bf..4bb773dc9543 100644
-> --- a/drivers/gpu/drm/xe/xe_exec_queue.c
-> +++ b/drivers/gpu/drm/xe/xe_exec_queue.c
-> @@ -154,9 +154,16 @@ static void __xe_exec_queue_free(struct xe_exec_queue *q)
->   
->   	if (q->vm) {
->   		xe_vm_remove_exec_queue(q->vm, q);
-> +		if (q->vm->xef)
-> +			xe_vm_remove_close_queue(q->vm);
->   		xe_vm_put(q->vm);
->   	}
->   
-> +	if (q->user_vm) {
-> +		xe_vm_remove_close_queue(q->user_vm);
-> +		xe_vm_put(q->user_vm);
-> +	}
-> +
->   	if (q->xef)
->   		xe_file_put(q->xef);
->   
-> @@ -252,8 +259,12 @@ static struct xe_exec_queue *__xe_exec_queue_alloc(struct xe_device *xe,
->   		}
->   	}
->   
-> -	if (vm)
-> +	if (vm) {
->   		q->vm = xe_vm_get(vm);
-> +		/* vm->xef stays unchanged until final VM destruction. */
-> +		if (vm->xef)
-> +			xe_vm_add_close_queue(vm);
-> +	}
->   
->   	if (extensions) {
->   		/*
-> @@ -619,8 +630,10 @@ struct xe_exec_queue *xe_exec_queue_create_bind(struct xe_device *xe,
->   			return ERR_PTR(err);
->   		}
->   
-> -		if (user_vm)
-> +		if (user_vm) {
->   			q->user_vm = xe_vm_get(user_vm);
-> +			xe_vm_add_close_queue(user_vm);
-> +		}
->   	}
->   
->   	return q;
-> @@ -652,11 +665,6 @@ void xe_exec_queue_destroy(struct kref *ref)
->   	for_each_tlb_inval(q, i)
->   		xe_exec_queue_tlb_inval_last_fence_put_unlocked(q, i);
->   
-> -	if (q->user_vm) {
-> -		xe_vm_put(q->user_vm);
-> -		q->user_vm = NULL;
-> -	}
-> -
->   	q->ops->destroy(q);
->   }
->   
-> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-> index 6e548fd8a809..f9bb677bcab4 100644
-> --- a/drivers/gpu/drm/xe/xe_vm.c
-> +++ b/drivers/gpu/drm/xe/xe_vm.c
-> @@ -1622,6 +1622,7 @@ static const struct xe_pt_ops xelp_pt_ops = {
->   	.pde_encode_bo = xelp_pde_encode_bo,
->   };
->   
-> +static void vm_close_work_func(struct work_struct *w);
->   static void vm_destroy_work_func(struct work_struct *w);
->   
->   /**
-> @@ -1765,6 +1766,10 @@ struct xe_vm *xe_vm_create(struct xe_device *xe, u32 flags, struct xe_file *xef)
->   	ttm_lru_bulk_move_init(&vm->lru_bulk_move);
->   
->   	INIT_WORK(&vm->destroy_work, vm_destroy_work_func);
-> +	atomic_set(&vm->close.num_exec_queues, 0);
-> +	init_waitqueue_head(&vm->close.wq);
-> +	spin_lock_init(&vm->close.lock);
-> +	INIT_WORK(&vm->close.work, vm_close_work_func);
->   
->   	INIT_LIST_HEAD(&vm->preempt.exec_queues);
->   	for (id = 0; id < XE_MAX_TILES_PER_DEVICE * XE_MAX_GT_PER_TILE; ++id)
-> @@ -2010,19 +2015,7 @@ void xe_vm_close_and_put(struct xe_vm *vm)
->   	if (xe_vm_in_fault_mode(vm))
->   		xe_svm_close(vm);
->   
-> -	if (vm->q) {
-> -		int i;
-> -
-> -		down_write(&vm->lock);
-> -		xe_exec_queue_last_fence_put(vm->q, vm);
-> -		for_each_tlb_inval(vm->q, i)
-> -			xe_exec_queue_tlb_inval_last_fence_put(vm->q, vm, i);
-> -		up_write(&vm->lock);
-> -
-> -		xe_exec_queue_kill(vm->q);
-> -		xe_exec_queue_put(vm->q);
-> -		vm->q = NULL;
-> -	}
-> +	xe_vm_kill_bind_queues(vm);
->   
->   	down_write(&vm->lock);
->   	xe_vm_lock(vm, false);
-> @@ -2092,6 +2085,140 @@ void xe_vm_close_and_put(struct xe_vm *vm)
->   	xe_vm_put(vm);
->   }
->   
-> +static void vm_close_work_func(struct work_struct *w)
+commit 172f750ba1a198c982441dc0256107aec140e020
+Author: ZiAo Wang <ziaowang2007@gmail.com>
+
+drm/tiny: add driver for Valkyrie USB LCD displays
+
+This commit adds a DRM/KMS driver for Valkyrie USB LCD displays (320x240 and
+360x960 variants) using GEM shmem buffers, atomic modesetting, USB control
+transfers for panel initialization, and bulk OUT transfers for UYVY frame
+streaming.
+
+> diff --git a/drivers/gpu/drm/tiny/valkyrie-lcd.c b/drivers/gpu/drm/tiny/v=
+alkyrie-lcd.c
+> new file mode 100644
+> index 0000000000000..6478e9246263b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tiny/valkyrie-lcd.c
+[ ... ]
+> +static int vk_plane_atomic_check(struct drm_plane *plane,
+> +				 struct drm_atomic_commit *state)
 > +{
-> +	struct xe_vm *vm = container_of(w, struct xe_vm, close.work);
-> +	struct xe_device *xe = vm->xe;
-> +	int idx;
+> +	struct drm_plane_state *new_plane_state =3D
+> +		drm_atomic_get_new_plane_state(state, plane);
+> +	struct drm_crtc_state *new_crtc_state;
+> +	int ret;
 > +
-> +	/* Keep the VM and device alive until the PM and unplug guards unwind. */
-> +	xe_vm_get(vm);
+> +	if (!new_plane_state->fb)
+> +		return 0;
 > +
-> +	if (drm_dev_enter(&xe->drm, &idx)) {
-> +		xe_pm_runtime_get(xe);
-> +		xe_vm_close_and_put(vm);
-> +		xe_pm_runtime_put(xe);
-> +		drm_dev_exit(idx);
+> +	if (!new_plane_state->crtc)
+> +		return -EINVAL;
+> +	new_crtc_state =3D
+> +		drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
+> +	if (!new_crtc_state)
+> +		return -EINVAL;
+> +
+> +	ret =3D drm_atomic_helper_check_plane_state(new_plane_state,
+> +						  new_crtc_state,
+> +						  DRM_PLANE_NO_SCALING,
+> +						  DRM_PLANE_NO_SCALING, false,
+> +						  false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (new_plane_state->rotation !=3D DRM_MODE_ROTATE_0) {
+> +		drm_dbg_kms(plane->dev, "Unsupported plane rotation %#x\n",
+> +			    new_plane_state->rotation);
+> +		return -EINVAL;
+> +	}
+> +	return 0;
+> +}
+[ ... ]
+> +static int vk_crtc_atomic_check(struct drm_crtc *crtc,
+> +				struct drm_atomic_commit *state)
+> +{
+> +	struct vk_driver *drv =3D container_of(crtc->dev, struct vk_driver, drm=
+);
+> +	struct drm_crtc_state *new_crtc_state =3D
+> +		drm_atomic_get_new_crtc_state(state, crtc);
+> +	struct drm_plane *plane =3D &drv->plane;
+> +	struct vk_connector_driver *connector_drv =3D drv->connector;
+> +	struct drm_plane_state *new_plane_state;
+> +
+> +	if (!new_crtc_state->enable || !new_crtc_state->active)
+> +		return 0;
+> +
+> +	if (new_crtc_state->plane_mask !=3D drm_plane_mask(plane) ||
+> +	    new_crtc_state->connector_mask !=3D
+> +		    drm_connector_mask(&connector_drv->connector)) {
+> +		drm_dbg_kms(crtc->dev,
+> +			    "Active CRTC requires the primary plane and USB connector\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	new_plane_state =3D drm_atomic_get_new_plane_state(state, plane);
+> +	if (!new_plane_state)
+> +		new_plane_state =3D plane->state;
+> +	if (!new_plane_state || new_plane_state->crtc !=3D crtc ||
+> +	    !new_plane_state->fb) {
+> +		drm_dbg_kms(crtc->dev,
+> +			    "Active CRTC has no framebuffer on its primary plane\n");
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Should vk_crtc_atomic_check() only return early when !new_crtc_state->enabl=
+e,
+rather than also skipping validation when !new_crtc_state->active?
+
+According to the struct drm_crtc_state documentation, drivers must not cons=
+ult
+new_crtc_state->active in atomic_check to decide whether shared resources a=
+re
+required because userspace expects a subsequent DPMS ON transition to succe=
+ed.
+
+When the CRTC is enabled but inactive (enable is true, active is false),
+returning early here allows userspace (for example via DRM_IOCTL_MODE_RMFB =
+or
+DRM_IOCTL_MODE_SETPLANE) to detach the primary plane and its framebuffer wh=
+ile
+leaving the CRTC enabled with plane_mask =3D=3D 0. Any subsequent commit se=
+tting
+active back to true will then fail in vk_crtc_atomic_check() with -EINVAL.
+
+Also, in vk_plane_atomic_check(), returning 0 before calling
+drm_atomic_helper_check_plane_state() when !new_plane_state->fb skips clear=
+ing
+new_plane_state->visible to false when disabling the plane.
+
+[ ... ]
+> +	if (!new_enable) {
+> +		if (drv->device_state)
+> +			ret =3D vk_device_disable(drv);
 > +	} else {
-> +		/*
-> +		 * The device is gone. Drop the VM without a runtime PM reference.
-> +		 * xe_vm_close() guards its own register access.
-> +		 */
-> +		xe_vm_close_and_put(vm);
+> +		bool enabling =3D !drv->device_state;
+> +
+> +		/* Testing found a ~10-second timeout; refresh every 3 seconds. */
+> +		mod_delayed_work(system_dfl_wq, &crtc_drv->timeout_flush,
+> +				 msecs_to_jiffies(VK_TIMEOUT_FLUSH_INTERVAL_MS));
+> +		if (enabling)
+> +			ret =3D vk_device_enable_pre(drv);
+> +		ret2 =3D vk_scan_frame(crtc_drv, connector_drv,
+> +				     to_drm_shadow_plane_state(new_plane_state));
+> +		ret =3D ret ? ret : ret2;
+> +		if (enabling) {
+> +			ret2 =3D vk_device_enable_post(drv);
+> +			ret =3D ret ? ret : ret2;
+> +		}
+> +	}
+
+[Severity: Medium]
+What happens in vk_crtc_atomic_flush() if vk_device_enable_pre(),
+vk_scan_frame(), or vk_device_enable_post() fails when enabling is true?
+
+In vk_device_enable_pre():
+
+	drv->device_state =3D true;
+	return vk_a604_switch(drv, true);
+
+drv->device_state is unconditionally set to true before vk_a604_switch() and
+the rest of the enable sequence succeed. If a transient USB error or poll
+timeout occurs during vk_device_enable_pre(), vk_crtc_atomic_flush() still
+proceeds to call vk_scan_frame() and vk_device_enable_post(), and leaves
+drv->device_state set to true. Because drv->device_state stays true,
+subsequent page flips and 3-second timeout_flush refreshes will see enabling
+as false and will never retry the enable sequence.
+
+Similarly, in vk_device_reset(), vk_device_enable_pre() is called
+unconditionally even when vk_device_bootstrap() returns an error.
+
+[ ... ]
+> +static int vk_probe(struct usb_interface *intf, const struct usb_device_=
+id *id)
+> +{
+> +	struct vk_driver *drv =3D devm_drm_dev_alloc(&intf->dev, &vk_drm_driver,
+> +						   struct vk_driver, drm);
+> +	int ret;
+> +
+> +	if (IS_ERR(drv))
+> +		return dev_err_probe(&intf->dev, PTR_ERR(drv),
+> +				     "Failed to allocate DRM device\n");
+> +	mutex_init(&drv->io_lock);
+> +
+> +	ret =3D vk_init_usb(drv, intf);
+> +	if (ret)
+> +		goto fail;
+
+[Severity: Medium]
+Does vk_probe() need to configure the DMA device on drv->drm via
+usb_intf_get_dma_device(intf) and drm_dev_set_dma_dev()?
+
+vk_drm_driver uses DRM_GEM_SHMEM_DRIVER_OPS, which wires up PRIME DMA-BUF
+import via drm_gem_prime_import() -> drm_gem_prime_import_dev(dev, dma_buf,
+drm_dev_dma_dev(dev)). Because drv->drm is allocated with &intf->dev as its
+parent and a struct usb_interface device has no dma_mask, importing a DMA-B=
+UF
+via DRM_IOCTL_PRIME_FD_TO_HANDLE will pass &intf->dev to
+dma_buf_map_attachment(), triggering a WARN_ON_ONCE(!dev->dma_mask) and
+failing with -EINVAL.
+
+[ ... ]
+> +static void vk_disconnect(struct usb_interface *intf)
+> +{
+> +	struct vk_driver *drv =3D usb_get_intfdata(intf);
+> +	int ret;
+> +
+> +	drm_dbg_driver(&drv->drm, "Disconnecting display\n");
+> +
+> +	drm_dev_get(&drv->drm);
+> +	drm_dev_unplug(&drv->drm);
+> +
+> +	mutex_lock(&drv->io_lock);
+> +	drv->io_blocking =3D true;
+> +	mutex_unlock(&drv->io_lock);
+> +
+> +	cancel_delayed_work_sync(&drv->crtc->timeout_flush);
+> +
+> +	if (drv->drm.mode_config.suspend_state) {
+> +		drm_atomic_commit_put(drv->drm.mode_config.suspend_state);
+> +		drv->drm.mode_config.suspend_state =3D NULL;
 > +	}
 > +
-> +	xe_vm_put(vm);
-> +}
-> +
-> +/**
-> + * xe_vm_kill_bind_queues() - Kill and release the VM bind queue
-> + * @vm: The VM whose bind queue should be stopped
-> + *
-> + * Callers must serialize teardown of @vm. Later calls are harmless because
-> + * the first call clears the VM bind queue pointer.
-> + */
-> +void xe_vm_kill_bind_queues(struct xe_vm *vm)
+> +	drm_dev_put(&drv->drm);
+
+[Severity: High]
+Can skipping drm_atomic_helper_shutdown(&drv->drm) in vk_disconnect() leak =
+the
+active shadow-plane vmap and pinned shmem pages on unplug?
+
+When the display is active, drm_gem_begin_shadow_fb_access() vmaps the
+framebuffer (incrementing shmem->vmap_use_count, shmem->pages_pin_count, and
+shmem->pages_use_count), and vk_crtc_atomic_enable() enables the CRTC vblank
+timer. The shadow-plane vmap is only released by drm_gem_end_shadow_fb_acce=
+ss()
+when a subsequent atomic commit disables or replaces the plane state.
+
+Because vk_disconnect() never calls drm_atomic_helper_shutdown(&drv->drm), =
+if
+the active framebuffer is not explicitly removed by drm_mode_rmfb() before =
+the
+final drm_dev_put() (for example when a compositor has called
+DRM_IOCTL_MODE_CLOSEFB on its frontbuffer, or when fbdev emulation is not
+enabled), drm_mode_config_cleanup() destroys the active shadow_plane_state =
+via
+drm_gem_destroy_shadow_plane_state() without calling
+drm_gem_end_shadow_fb_access(). When the framebuffer is freed,
+drm_gem_shmem_release() hits drm_WARN_ONs for non-zero vmap_use_count,
+pages_use_count, and pages_pin_count, leaking the kernel vmap and backing
+pages, and drm_vblank_init_release() also warns that vblank->enabled is sti=
+ll
+set.
+
+In addition, if vk_timeout_atomic_submit() queued a non-blocking atomic com=
+mit
+just before cancel_delayed_work_sync(&drv->crtc->timeout_flush), its
+commit_work is not drained without drm_atomic_helper_shutdown() before
+vk_device_reset() and teardown run.
+
+[ ... ]
+> +static int __vk_resume_device(struct usb_interface *intf, bool rebootstr=
+ap,
+> +			      bool reidentify)
 > +{
-> +	struct xe_exec_queue *q;
-> +	int i;
+> +	struct vk_driver *drv =3D usb_get_intfdata(intf);
+> +	int ret =3D 0;
+[ ... ]
+> +	drv->io_blocking =3D false;
+> +	mutex_unlock(&drv->io_lock);
 > +
-> +	if (!vm->q)
-> +		return;
-> +
-> +	down_write(&vm->lock);
-> +	q = vm->q;
-> +	vm->q = NULL;
-> +	xe_exec_queue_last_fence_put(q, vm);
-> +	for_each_tlb_inval(q, i)
-> +		xe_exec_queue_tlb_inval_last_fence_put(q, vm, i);
-> +	up_write(&vm->lock);
-> +
-> +	xe_exec_queue_kill(q);
-> +	xe_exec_queue_put(q);
-> +}
-> +
-> +/**
-> + * xe_vm_add_close_queue() - Track an exec queue using the VM
-> + * @vm: The VM used by the exec queue
-> + *
-> + * The queue is tracked until its asynchronous destruction completes.
-> + */
-> +void xe_vm_add_close_queue(struct xe_vm *vm)
-> +{
-> +	atomic_inc(&vm->close.num_exec_queues);
-> +}
-> +
-> +/**
-> + * xe_vm_remove_close_queue() - Stop tracking an exec queue
-> + * @vm: The VM used by the exec queue
-> + *
-> + * If this is the last tracked queue and VM close was deferred, schedule
-> + * the deferred VM close.
-> + */
-> +void xe_vm_remove_close_queue(struct xe_vm *vm)
-> +{
-> +	bool queue_close = false;
-> +
-> +	if (!atomic_dec_and_test(&vm->close.num_exec_queues))
-> +		return;
-> +
-> +	wake_up_all(&vm->close.wq);
-> +
-> +	spin_lock(&vm->close.lock);
-> +	if (vm->close.deferred) {
-> +		vm->close.deferred = false;
-> +		queue_close = true;
+> +	if (drv->drm_suspended) {
+> +		ret =3D drm_mode_config_helper_resume(&drv->drm);
+> +		drv->drm_suspended =3D false;
+> +		if (ret)
+> +			drm_err(&drv->drm, "Failed to restore DRM state: %d\n",
+> +				ret);
+> +	} else {
+> +		drm_dbg_driver(&drv->drm,
+> +			       "No saved DRM state; scheduling an immediate refresh\n");
+> +		schedule_delayed_work(&drv->crtc->timeout_flush, 0);
 > +	}
-> +	spin_unlock(&vm->close.lock);
-> +
-> +	if (queue_close)
-> +		xe_destroy_wq_queue(&vm->close.work);
-> +}
-> +
-> +/**
-> + * xe_vm_close_and_put_deferred() - Close a VM immediately or defer the close
-> + * @vm: The VM reference to consume
-> + * @timeout: Maximum time to wait for VM queues, in jiffies
-> + *
-> + * The VM must already be marked closing, and callers must serialize teardown.
-> + * Release the VM-owned bind queues before waiting for queue cleanup. Callers
-> + * may release them earlier to start cleanup for several VMs before waiting.
-> + *
-> + * If queues remain after @timeout, keep the mappings and finish VM close
-> + * after the last tracked queue is freed. This consumes the caller's VM
-> + * reference on both the immediate and deferred paths.
-> + *
-> + * Return: %true if VM close was deferred, or %false if it completed now.
-> + */
-> +bool xe_vm_close_and_put_deferred(struct xe_vm *vm, unsigned long timeout)
+[ ... ]
+> +static int __vk_suspend_device(struct usb_interface *intf, bool force)
 > +{
-> +	bool queue_close = false;
+> +	struct vk_driver *drv =3D usb_get_intfdata(intf);
+> +	int ret =3D 0;
 > +
-> +	/* Drop VM-owned queue references before waiting for their final free. */
-> +	xe_vm_kill_bind_queues(vm);
+> +	drm_dbg_driver(&drv->drm,
+> +		       "Suspending display (force=3D%d, DRM suspended=3D%d)\n",
+> +		       force, drv->drm_suspended);
 > +
-> +	if (!atomic_read(&vm->close.num_exec_queues) ||
-> +	    wait_event_timeout(vm->close.wq,
-> +			       !atomic_read(&vm->close.num_exec_queues),
-> +			       timeout)) {
-> +		xe_vm_close_and_put(vm);
-> +		return false;
+> +	if (!drv->drm_suspended) {
+> +		ret =3D drm_mode_config_helper_suspend(&drv->drm);
+> +		if (ret)
+> +			drm_err(&drv->drm, "Failed to suspend DRM state: %d\n",
+> +				ret);
+> +		if (ret && !force)
+> +			return ret;
+> +		if (!ret)
+> +			drv->drm_suspended =3D true;
 > +	}
 > +
-> +	spin_lock(&vm->close.lock);
-> +	vm->close.deferred = true;
-> +	if (!atomic_read(&vm->close.num_exec_queues)) {
-> +		vm->close.deferred = false;
-> +		queue_close = true;
-> +	}
-> +	spin_unlock(&vm->close.lock);
-> +
-> +	if (queue_close)
-> +		xe_destroy_wq_queue(&vm->close.work);
-> +
-> +	return true;
+> +	mutex_lock(&drv->io_lock);
+> +	drv->io_blocking =3D true;
+> +	mutex_unlock(&drv->io_lock);
+> +	cancel_delayed_work_sync(&drv->crtc->timeout_flush);
+> +	drm_dbg_driver(&drv->drm, "Display I/O suspended\n");
+> +	return ret;
 > +}
-> +
->   static void vm_destroy_work_func(struct work_struct *w)
->   {
->   	struct xe_vm *vm =
-> @@ -2138,7 +2265,7 @@ static void xe_vm_free(struct drm_gpuvm *gpuvm)
->   	drm_dev_get(&vm->xe->drm);
->   
->   	/* To destroy the VM we need to be able to sleep */
-> -	queue_work(vm->xe->destroy_wq, &vm->destroy_work);
-> +	xe_destroy_wq_queue(&vm->destroy_work);
->   }
->   
->   struct xe_vm *xe_vm_lookup(struct xe_file *xef, u32 id)
-> @@ -2284,7 +2411,12 @@ int xe_vm_destroy_ioctl(struct drm_device *dev, void *data,
->   
->   	if (!err) {
->   		xe_vm_close_start(vm);
-> -		xe_vm_close_and_put(vm);
-> +
-> +		/*
-> +		 * User exec queues can outlive the VM handle. Do not wait for
-> +		 * queues which this ioctl does not destroy.
-> +		 */
-> +		xe_vm_close_and_put_deferred(vm, 0);
->   	}
->   
->   	return err;
-> diff --git a/drivers/gpu/drm/xe/xe_vm.h b/drivers/gpu/drm/xe/xe_vm.h
-> index a8b33cb2b559..028c17ed1df7 100644
-> --- a/drivers/gpu/drm/xe/xe_vm.h
-> +++ b/drivers/gpu/drm/xe/xe_vm.h
-> @@ -221,6 +221,11 @@ int xe_vm_get_property_ioctl(struct drm_device *dev, void *data,
->   
->   void xe_vm_close_and_put(struct xe_vm *vm);
->   void xe_vm_close_start(struct xe_vm *vm);
-> +bool xe_vm_close_and_put_deferred(struct xe_vm *vm, unsigned long timeout);
-> +void xe_vm_kill_bind_queues(struct xe_vm *vm);
-> +
-> +void xe_vm_add_close_queue(struct xe_vm *vm);
-> +void xe_vm_remove_close_queue(struct xe_vm *vm);
->   
->   static inline bool xe_vm_in_fault_mode(struct xe_vm *vm)
->   {
-> diff --git a/drivers/gpu/drm/xe/xe_vm_types.h b/drivers/gpu/drm/xe/xe_vm_types.h
-> index 6ca9ef9d0c0b..6ebc6714534b 100644
-> --- a/drivers/gpu/drm/xe/xe_vm_types.h
-> +++ b/drivers/gpu/drm/xe/xe_vm_types.h
-> @@ -14,6 +14,7 @@
->   #include <linux/kref.h>
->   #include <linux/mmu_notifier.h>
->   #include <linux/scatterlist.h>
-> +#include <linux/wait.h>
->   
->   #include "xe_device_types.h"
->   #include "xe_pt_types.h"
-> @@ -314,6 +315,20 @@ struct xe_vm {
->   	 */
->   	struct work_struct destroy_work;
->   
-> +	/** @close: State used to defer VM teardown until exec queues are gone. */
-> +	struct {
-> +		/** @close.num_exec_queues: Queues which can access this VM. */
-> +		atomic_t num_exec_queues;
-> +		/** @close.wq: Waitqueue for exec queue teardown. */
-> +		wait_queue_head_t wq;
-> +		/** @close.lock: Protects deferred and work scheduling. */
-> +		spinlock_t lock;
-> +		/** @close.deferred: VM close is waiting for queue teardown. */
-> +		bool deferred;
-> +		/** @close.work: Completes a deferred VM close. */
-> +		struct work_struct work;
-> +	} close;
-> +
->   	/**
->   	 * @rftree: range fence tree to track updates to page table structure.
->   	 * Used to implement conflict tracking between independent bind engines.
+
+[Severity: Medium]
+In __vk_suspend_device(), if force is true (from vk_suspend()) and
+drm_mode_config_helper_suspend() fails while the display is active, can the
+display recover on vk_resume()?
+
+When drm_mode_config_helper_suspend() fails, vk_device_disable() is not
+called, so the panel remains enabled with drv->device_state =3D=3D true and
+drv->drm_suspended =3D=3D false while timeout_flush is cancelled across sus=
+pend.
+Once the panel's ~10-second hardware watchdog expires during suspend and
+resets the device, vk_resume() calls __vk_resume_device(intf, false, false)
+and takes the !drv->drm_suspended fallback branch to schedule timeout_flush.
+However, when timeout_flush runs vk_crtc_atomic_flush(), drv->device_state =
+is
+still true, so enabling (!drv->device_state) is false and neither
+vk_device_bootstrap() nor vk_device_enable_pre() / vk_device_enable_post() =
+is
+executed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028132536.3759=
+27-1-ziaowang2007@gmail.com?part=3D3
