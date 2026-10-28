@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82ED3606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 09:52:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84ED4606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 09:53:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jcfm1IlZ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C0gZ2rkh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D43D410FB0B;
-	Wed, 28 Oct 2026 09:52:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC51C10FB0D;
+	Wed, 28 Oct 2026 09:52:56 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFE9810FB04
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:52:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5334910FB0A
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:52:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C8DFD43E6F;
- Wed, 28 Oct 2026 09:52:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0559D1F01825;
- Wed, 28 Oct 2026 09:52:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3C5E342AF0;
+ Wed, 28 Oct 2026 09:52:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8562F1F01825;
+ Wed, 28 Oct 2026 09:52:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793181148;
- bh=vVaENIb3gi4a6qUYmV+6bMnHz0LQhnnIMRxjrtMOFDE=;
+ s=k20260515; t=1793181161;
+ bh=HjrIAyJJFe+6a0dza+cAUoe0VKgjH+kUdZDN0GgbES8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Jcfm1IlZnLUVGHKM1UGQMB4TyYId8HGB9mr3U3D3JtG6YB0TK0kPfENOSH+arBb8i
- x57wwbKwrx2sy7JXYRgQsACynci0jvQHoXADO9TU/RwLJxuMqD3NvMDXFYPGlNkFpW
- LpQuaW93PrA4OKrlDQi4+qmA3k8rY1uhr1q4VPh/HK9tcIWYL+950I+zTjfEQdz/96
- fnD3RXsEkqNoUBWIkIwKhf25eGnqLVTCKe1Gzbzk0knjrdvwjgTfB0UbYGoGb5JYKk
- GqANUqulFWkKwYYba1h2nmA4/YbQR3QFr7s5Q1oQMDCeFBg75/AGKWnXDBFNYzWVuF
- qhLkNwNvhPBDQ==
+ b=C0gZ2rkhtTRpPCHOsNuQz5RR/ra/DUYkw1wrPBdhtWrNz9gZPMPOewd0tBOo49TL6
+ +ZZfaCIYI13zvh0OnjpoOCNoEKErT3YjKgPfUNAEmh5Z7IPpC1uX4vOGKvhRMxUeVj
+ Ra6+Fgiz2dcFBBl0NNT8fDmPA1ADmBHRqzN0+hMhqmJX8EPUu0VTo5aJ8hrt7xvpJy
+ ZV2tNX9RUDZG6WHMEFYcOFOi/nOZgc9m36s9gNOryYjROixGCfA0KxT9wIEC1S+jiG
+ WGK+L3vZfn37D3PmnvtvGrSXRvy7LzwMisxqzjcRNbqEPJlI1rcEUGyFVyaWYWVSyz
+ L71CFMZxKL4Cg==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -40,10 +40,10 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
  Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org
-Subject: [PATCH 5/8] drm/panel: novatek-nt36672e: Verify the number of D-PHY
- data lanes
-Date: Wed, 28 Oct 2026 11:51:48 +0200
-Message-ID: <20261028095151.1682096-6-vz@kernel.org>
+Subject: [PATCH 8/8] arm64: dts: qcom: qcm6490-idp: Describe the panel bias
+ enable GPIO
+Date: Wed, 28 Oct 2026 11:51:51 +0200
+Message-ID: <20261028095151.1682096-9-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261028095151.1682096-1-vz@kernel.org>
 References: <20261028095151.1682096-1-vz@kernel.org>
@@ -69,87 +69,63 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The NT36672E panel in the MIPI D-PHY mode is connected over 4 data lanes,
-a mismatching device tree description results in a panel, which won't work.
+The positive and negative bias supplies of the NT36672E panel on the
+QCM6490 IDP board are switched on by the PM7250B GPIO2 bias enable
+signal, which is described as a single fixed regulator supplying both
+AVDD and AVEE bias supplies of the panel. The fixed regulator does not
+describe the hardware, it can not supply a positive and a negative
+voltage at the same time, and apparently bias supplies are generated
+right on the display panel module.
 
-Get the PHY type of the DSI link from the PHY of the DSI host, and get
-the number of data lanes from the DSI host endpoint to check the match.
+Since the panel binding supports the bias enable GPIO, describe the
+signal as such, and remove the oddly described and used fixed regulator.
 
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- .../gpu/drm/panel/panel-novatek-nt36672e.c    | 37 +++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ arch/arm64/boot/dts/qcom/qcm6490-idp.dts | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-index 0a2d54ee8069..33676e334b9f 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-@@ -5,14 +5,18 @@
- #include <linux/gpio/consumer.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
+index af7821e02fdb..98bbe662bd3b 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
+@@ -51,17 +51,6 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
  
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_modes.h>
-+#include <drm/drm_of.h>
- #include <drm/drm_panel.h>
+-	lcd_disp_bias: regulator-lcd-disp-bias {
+-		compatible = "regulator-fixed";
+-		regulator-name = "lcd_disp_bias";
+-		regulator-min-microvolt = <5500000>;
+-		regulator-max-microvolt = <5500000>;
+-		gpio = <&pm7250b_gpios 2 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-		pinctrl-0 = <&lcd_disp_bias_en>;
+-		pinctrl-names = "default";
+-	};
+-
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
  
- #include <video/mipi_display.h>
+@@ -653,14 +642,16 @@ panel@0 {
+ 		compatible = "novatek,nt36672e";
+ 		reg = <0>;
  
-+#include <dt-bindings/phy/phy.h>
-+
- static const struct regulator_bulk_data nt36672e_supplies[] = {
- 	{ .supply = "vddi", .init_load_uA = 62000 },
- };
-@@ -536,6 +540,30 @@ static const struct drm_panel_funcs nt36672e_drm_funcs = {
- 	.get_modes = nt36672e_panel_get_modes,
- };
++		enable-gpios = <&pm7250b_gpios 2 GPIO_ACTIVE_HIGH>;
+ 		reset-gpios = <&tlmm 44 GPIO_ACTIVE_HIGH>;
  
-+/*
-+ * Get the PHY type of the DSI link from the PHY of the DSI host, MIPI D-PHY
-+ * is the default, if the PHY type is not specified.
-+ */
-+static u32 nt36672e_get_dsi_phy_type(struct device *dev)
-+{
-+	struct device_node *host, *phy;
-+	u32 phy_type = PHY_TYPE_DPHY;
-+
-+	host = of_graph_get_remote_node(dev->of_node, 0, 0);
-+	if (!host)
-+		return phy_type;
-+
-+	phy = of_parse_phandle(host, "phys", 0);
-+	of_node_put(host);
-+	if (!phy)
-+		return phy_type;
-+
-+	of_property_read_u32(phy, "phy-type", &phy_type);
-+	of_node_put(phy);
-+
-+	return phy_type;
-+}
-+
- static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
- {
- 	struct device *dev = &dsi->dev;
-@@ -598,6 +626,15 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
- 	dsi->format = ctx->desc->format;
- 	dsi->mode_flags = ctx->desc->mode_flags;
+ 		vddi-supply = <&vreg_l8c_1p62>;
+-		avdd-supply = <&lcd_disp_bias>;
+-		avee-supply = <&lcd_disp_bias>;
  
-+	/* A MIPI D-PHY link to the panel shall have exactly 4 data lanes */
-+	if (nt36672e_get_dsi_phy_type(dev) == PHY_TYPE_DPHY) {
-+		ret = drm_of_get_data_lanes_count_remote(dev->of_node, 0, -1, 1, 4);
-+		if (ret > 0 && ret != 4)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "%d D-PHY data lanes described, 4 required\n",
-+					     ret);
-+	}
+ 		backlight = <&pm8350c_pwm_backlight>;
+ 
++		pinctrl-0 = <&lcd_disp_bias_en>;
++		pinctrl-names = "default";
 +
- 	ret = drm_panel_of_backlight(&ctx->panel);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ 		port {
+ 			panel0_in: endpoint {
+ 				remote-endpoint = <&mdss_dsi0_out>;
 -- 
 2.51.0
 
