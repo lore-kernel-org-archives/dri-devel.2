@@ -2,61 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE426606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 12:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E0A606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 12:28:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Cji3LAsZ
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=FKHAZOFZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87A9C10FBFA;
-	Wed, 28 Oct 2026 12:21:57 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45B5D10FBF2;
- Wed, 28 Oct 2026 12:21:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793190111; x=1824726111;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Uu2Pvu4jg6+G4YfMxue3nAgfuQUKvivHwn9FlW3bqeI=;
- b=Cji3LAsZ6IRp9nizIMtJGMr+R94k7F3eHKDwFcFjQ3uBmvsydjmxvasp
- jmmzYnZmIOqx8ogqWBOzCjs847/YSFDXH9G8zzUipX1QLpd+6Jq7Ciztj
- OTu+EenjJ51VyOvFGCY6Co/k8DIkEVC4I5PgXigNxSndHYCsHqxD/sa1L
- 0k85fKY2Px9n1B+ISb8543+6+69Piz46XUP0We53/u0X1U+Y+V9McinGX
- kbtd71VPIOZO9DLxYCKQxQBnYZ1MpTx8hozlr0qhuieE6dPkBCZlvPlWQ
- PoWXtEVL2P0BGyQFRu1cXOtW3Vfn11jde0xAQndafavefuyNOIq8gFwwG w==;
-X-CSE-ConnectionGUID: aVAkPsCwRsCZ+JxCHAYFlw==
-X-CSE-MsgGUID: zx+xc9BrQGuZBYmlruLlQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1939037"
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1939037"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 05:21:51 -0700
-X-CSE-ConnectionGUID: 6dXWQKbjTeuLmQ/Mn2PvKg==
-X-CSE-MsgGUID: /k8CX4xDRg+ZWNZ5lZwiWA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="4838544"
-Received: from varungup-desk.iind.intel.com ([10.190.238.71])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 05:21:49 -0700
-From: Arvind Yadav <arvind.yadav@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: rodrigo.vivi@intel.com, matthew.brost@intel.com,
- himal.prasad.ghimiray@intel.com, thomas.hellstrom@linux.intel.com,
- sanjay.kumar.yadav@intel.com
-Subject: [PATCH v2 4/4] drm/xe: Defer VM teardown until exec queue cleanup
- completes
-Date: Wed, 28 Oct 2026 17:51:25 +0530
-Message-ID: <20261028122125.3772832-5-arvind.yadav@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028122125.3772832-1-arvind.yadav@intel.com>
-References: <20261028122125.3772832-1-arvind.yadav@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B0F510FC03;
+	Wed, 28 Oct 2026 12:28:44 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010033.outbound.protection.outlook.com
+ [52.101.193.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF6F910FBE8
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 12:28:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eodD6+PfSxQhdUvoSeQ+U2IIBxDrLE8ylS5b4618b/A/0DfVXZgCpfFAsoJl9FXGhlpOZkflOfDSc8vwNbempQDXggp+ua8X3faNM46ccjgzFhd2e+3qND7UCvt5eSNfGeFXZhTVwSYGGL6iEvt81pPpVX2kAiWLY98WYKIVuJAHkQXjuhpa44H+ZIXaPoKIfJMuasahz5MhV8wAYJ81WB7bLAMB2V+fi9cIA+lIS6yXOyz/EDRFw10gG06WYL1ITJB9ZuCGDMkk8DCQLIXcPjXaGLkAcqXe6LXkobezauWS6J3F26K/7fcdWNSSzFyfsGVYctBV4vtSl3sqa6lPkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ECxB1aQT1B9AaFeds2rQI5oKocTJuBjNQhzyeSNJZYY=;
+ b=jCNIlIh1f/1xGgmVO4qkuVoxz0QTFxl/fAj6snGpYy/Y3KlP4YQa97r2RoJ2QV/s9z/MjSlqCMFH7WgdAdjzoF1G1CioHWI0S4jx01beVd8hPyGjuDJuczF2+yOj0nJVVoHRmi59WNcTjYoa3vLDcF5wmIw85G/21VnXXP1yItyyG0Vpaczg5IypMWvvHfdCoxjJyIha6/+WvPxd37OoZV6HaYbGGpJAobHjqfQJtREtGe5C7kvcQtMgLHjAfAiIS52XglM02u80rmQR4qTAiRRyXXuI7g2i1LOdz6FShgZryf7lTyhILhA/A7njXNaRm9dWnDtY3MsHledgWehDUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ECxB1aQT1B9AaFeds2rQI5oKocTJuBjNQhzyeSNJZYY=;
+ b=FKHAZOFZr+2Li3eTPToApWAULVoSXGKzEUXmcZds5WJK0Ov266kMVututD+Vd7/aj3uPMDljX9UrUiO/jdTRkQUmnVQs/ZfYzEwoq/yap3cMMSehi2Tsm/Z7KZO+6XJJx0r2OZg4kr61eAHYHsBLwGYDbXa73VBFkw0/KJSrb6me6swxR4+eQd3de6CiAlYOpzpfZmyaKeqJIlIEI1nG1Kt1ROD2DXCh3FdRTUH7hjBEM08vcYfxc2yFWrRwP6oqJ9SxLvdJw3S/FnLNhagoVhBwAftS8hKSrhR8XoYznto6hQBhO3/djTwgGeJnPpGiSpfLQD40FLIMp1DQR5aeSw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by SJ1PR12MB6241.namprd12.prod.outlook.com (2603:10b6:a03:458::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
+ 2026 12:28:31 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0569.007; Wed, 28 Oct 2026
+ 12:28:31 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 28 Oct 2026 21:28:28 +0900
+Message-Id: <DMGGZF1N5CM8.38XZQHRGOG7UE@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v6 00/15] gpu: nova-core: gsp: prepare the command queue
+ for r000 dual-message types
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+References: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
+ <c9e88fe3-24da-48bf-8a84-1afe22949021@nvidia.com>
+In-Reply-To: <c9e88fe3-24da-48bf-8a84-1afe22949021@nvidia.com>
+X-ClientProxiedBy: TY6P301CA0013.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3be::11) To PH7PR12MB6858.namprd12.prod.outlook.com
+ (2603:10b6:510:1b4::20)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ1PR12MB6241:EE_
+X-MS-Office365-Filtering-Correlation-Id: f52a1950-f6ca-473d-9388-08df34eef9ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|7416014|10070799003|1800799024|18002099003|22082099003|4143699003|11063799006|56012099006|261022075727099003|261022105027099003|261026121527099003|261021135927099003|261021123027099003|261026140227099003|261009223027099003|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info: l+V31xgMzZDxNCXh6Pv0yrTI5tzsTd1ZuhVdFsa9uL/TK+6BH2csq4cZqAtLordpJN9PT0ohvv7zj/9RNrxAqK+bo/bzn4AP5c5vI9W3/zNbJOiobxLJ3AKH4m+pIBT8vl7HqDznGhwZF9uKv9AhrzYw2jbuFcq2ZOqRbBDSBMK7wm+6/4LarhYUjXQxWs5WbgL56v1uysiiRgOTrviJoj/bnWpkdv+LmDkASBdU4gcv0GXyzT8h5F/AyhYpGSariZqkg00T+s5BoyNgRWfJbz6BmRo317zJdUVn+cL8PZ5Ob8cnZiGMdL3veGK1S9eifAS7eDhOurbwgOabf4Mhhrbbyn04hAxHj1diJNEHbgdcMX7j0cIkW65FXEW8SwZ0CsUNknAaFb9KmKlfZsffvqC7dbErLcD2sRKiA9XmGaWVEu3aELGAtaXYquV9LMqUoSdLQAqaxgH2QiGYfL6sA5O/FVGtLk4pWbs3OUpGm8TbOwLgiPsGrU5pB1Jbe8lmvBL4+eeaFeKw3nhFz5M0Rk7pPaB2y1O2P1BcO98x+VcSExjutmVQHfQEsC9arB4pxcXC6R4Nfg4xbj5TESkfMjtwJxP1+hkTfwOw1ydzZR4yPPWe0Q0N6N2tV2gaWsUzqNgn4wtiKcy+irChkkJ4YUiani9osc6y9HtjAV20zSI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(7416014)(10070799003)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(261022075727099003)(261022105027099003)(261026121527099003)(261021135927099003)(261021123027099003)(261026140227099003)(261009223027099003)(10067099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVgxc0tKMm1Jc3hEam9oQ2E3aS9kVVNHY3JHNVVQdWVTNmUxb0JyL2pYMmx2?=
+ =?utf-8?B?cW12bGk4Tis0alR5ZjdNZXJ3RHY4VzlLUnp4bTRrdjU3bDdlUWFCNlJ1R2dy?=
+ =?utf-8?B?TlQvV2NvRkJsU2w4VHc1SDhxZ1E1TFVuQ0hyeFdoRkNEMzBpVUdOZHFycktm?=
+ =?utf-8?B?bTZwd3kyakJXYVkySmw3STY1TWRzdVlSVmhSRkd2cEVzY09nbUgrNUlYTG5D?=
+ =?utf-8?B?MFM3N1ZPWHJxcE0vVWxhY1pQZDgxQmt1Wk5JWlFWV0kzOHFqcFc1Q1dQYXNW?=
+ =?utf-8?B?dkM4ZXNsNmtlV2tqeHpUTFJBeEFXYzQrL2h3OWxFUU41SVk1NHNhRE9QV2RO?=
+ =?utf-8?B?Ymg2UlJFazVtZ1ovQjVKMHNlOGN5ZjluTWpoOWpuK1JYZlN3UUg0eS9PcEU0?=
+ =?utf-8?B?dk1UMXBiL3U3UW5xTEhqdHNmNEFZOXpVODFlUWZaVjVtR1cvQjRhand1OFRH?=
+ =?utf-8?B?MjBGdUFIS2JxVldYSkJEMkRrMXpaZGRzQ3l6ZzRpK2JrQ2VPSy84QUFkKzNq?=
+ =?utf-8?B?Nnk0ZDhaYldNL2sweTMwSGkxUStnL1lXTG91YjAzZWdCK0ViT2RUWWpwbThU?=
+ =?utf-8?B?RTJUKzhNUlJaMnk0ckgwZ1VKRklRWHAxeXVjSGwyUmNWWWJNN3d6YlFhK2RS?=
+ =?utf-8?B?YUUxVGRMMklDZGk2cms4UC95a0xwLzR4QmpUbVhoY1FPQkZheWl0WmFkTE9y?=
+ =?utf-8?B?eFk0R1NUemZvWGVRVDRJcVVIYy96ZXJJWU5NM2l0aUNXQ3U4NVJDU2xRTzBw?=
+ =?utf-8?B?cnAvOTZrZytpajZrTndyMjBybVhVMzRVZCtSRXU4cDVJd1B6bHlMOHJXbVFu?=
+ =?utf-8?B?cGNNdElpTkttSlIxbTJ5b0Fod09OWm53cmZYZWo0ajhrZnR3WWhreGtCUWtX?=
+ =?utf-8?B?d2FJSTdRVUhyRTBkdGZnTGFCRnIyRzVhR3ZJeStKSTRRcHRzcDc1R2w2MW5P?=
+ =?utf-8?B?OTIzNzdiV3dPWWVqSEkrbWdMY3h1NDkyTHgybHdBMVpKeGRCZGQzeU5jMFVZ?=
+ =?utf-8?B?T2dueHRpVEwyY2FiVmZxbmFEWm5oY3FDdzBKU3Q0VXM0UlRnc2NNU2RIVTRC?=
+ =?utf-8?B?Sm54TzBiL1dNNlN1V01EeWNIeGtrTGRLbWRWbkNWdmc0TG94c3cxSTBwdEgy?=
+ =?utf-8?B?NStqODZaSzBBd3FYVWIvemVLcUVhL0UzWkpRT0pzZ0NyNWg3Q2ZGSi9IUG54?=
+ =?utf-8?B?MGdDejRQMks3cE05VGxWZTQ1a3pyYWtwT0FLSE1LT1k0S1pMMHRjT05QOG5B?=
+ =?utf-8?B?YkJyUzhrVGc4MFpYYVRNN2piMmxFRmlZZ2VqWDBRSTdpeWQwNWtUNjJIbTIr?=
+ =?utf-8?B?d0Y0eTgxTkpod1lXM3NHYzFiZHFmcnRYS0RDeG04UVhKT2FvK3ExWm1OeENG?=
+ =?utf-8?B?dEZwa0NMZGV6TTZFMDRKM0oya3RkY1pGcFhMRkRtSkpMZkxSb0dxZTRhZWh1?=
+ =?utf-8?B?Znh3R1FxdExQZWNNOW9xYVpURUJ0WWFiNksvTXVYb283YXd4MTFvTzIxKzhl?=
+ =?utf-8?B?cjkzdkZ5Q015amQrQ1BJUUVDUW1zYlRmVjBEUXR3ck91T3FzbGc1VThTU0VM?=
+ =?utf-8?B?cEY2bmpta2xyWUtNZi9wT2owb0V2STF1RW9rNGoxOE5UYXNLemlsd0xpS25p?=
+ =?utf-8?B?TVdGbE5qMDZrdnRCbXJ0Zkw2M1Zkc1VVMnAzTmx5ZzB4S1N6Z1FUUm16ektJ?=
+ =?utf-8?B?UWVqdjFOcW1ubjRDMTF6cGNJcy9OaXo1OVpZcmY0VU5QaTBWRkU3R295aHlj?=
+ =?utf-8?B?RGpUWGNZb3hhTEpCMXNGNEhxVU9kcWVuZlMzM2hVb1FJbUNkVU91S0hvbDBw?=
+ =?utf-8?B?TXJIMUhiZkZsSkxOaGVvSGh5QmNiNk9KdTJHMzFxVGc2RmREVmpjc1BMWjdI?=
+ =?utf-8?B?Q2d6aHV2bmZCMi9tL3dwM0tIMVpIaFZaWk9iNzhsY3craGgyQUszYVZXYUdW?=
+ =?utf-8?B?NFJqbzdTb2JBa0RnYWcyamE2TVBwYTZVMHZQVi90TzQzQXhpWm1VbU4ySFhx?=
+ =?utf-8?B?cWxUS01JdnBON1h0YU5VYXZCeXloSHlhZEtteXVvdHF1SG1EMHdGNEhGYjE5?=
+ =?utf-8?B?bldpdWpzcTFRWGJ0VXJXVk1JM0pMWWxLR3M1S1poVklEOEdPT0NUWXBjTGl6?=
+ =?utf-8?B?UXcyU0dPWTVMMkFoY3N3L2lsRHhCemhNL0tJbi9IV1JYWU5FcjdFUDdacXdu?=
+ =?utf-8?B?a3J4TkJGRW1tMXlpMWpidHJUU29ZS2k5MWp0QWRFZXk5aTVTVzNKcW02b0Ro?=
+ =?utf-8?B?eEZ1ZnRjMStUZnJ2NWliaGlzMkpNeEpaNEtyOFBIWXZPMktKRXRMcStnYXB2?=
+ =?utf-8?B?bjJkRElyZ3d6ZjEwK3JDMlRhWG1Gb01rQ2E1WXN2NVJIdXdhUXp1L2lXUWlB?=
+ =?utf-8?Q?ZveLQcqxcj9RvdKo+RILTpo3B30JmcG8D+zKDbqelxLmU?=
+X-MS-Exchange-AntiSpam-MessageData-1: eGtN/F6dt5gUIg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f52a1950-f6ca-473d-9388-08df34eef9ac
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6858.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 12:28:31.5955 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iXQSe2slttqOmVFT3v+DK6VR0XzU61U4oeFx+z6aLXAUVBDeuuqsES3OS869Z9GnNDhX4lrMLwGf3wjqO4suaQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6241
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,418 +139,77 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Exec queue destruction is asynchronous. Closing a VM immediately after
-killing its queues can remove mappings before GuC cleanup has finished.
+On Wed Oct 28, 2026 at 11:31 AM JST, John Hubbard wrote:
+> On 10/27/26 12:35 AM, Alexandre Courbot wrote:
+>> The upcoming r000 firmware support [1] introduces a new type of command
+>> named GMC alongside the existing and already supported RPC command type.
+>>=20
+>> Since RPC was the only command type supported so far, it was embedded
+>> into the lowest command queue level: the message header actually
+>> includes the RPC header and the code considers them as one.
+>>=20
+>> This makes the r000/GMC support difficult to land without a refactor,
+>> with the result of transport layer code being duplicated between the two
+>> message types, and no clear separation between the RPC and GMC code
+>> which are mixed together in the command queue. Merging the code that way
+>> would introduce quite some technical debt.
+>>=20
+>> Thus, this series prepares a proper landing ground for a new message
+>> type by extracting all the RPC layer code and moving it into its own
+>> sub-modules, making the `cmdq` module completely agnostic of the type of
+>> message it transports.
+>>=20
+>> With the transport and message layers properly separated, support for
+>> GMC can be added into sibling modules of `rpc`, and the transport layer
+>> can be converted once when doing the switch to r000.
+>>=20
+>> This moves quite a bit of code around, but most of it is moved verbatim.
+>> No significant functional change is intended.
+>>=20
+>> For the r000 series, this essentially means the following:
+>>=20
+>> - Its patch 7 making `allocate_command` generic can be dropped as the
+>>   transport layer makes no assumption about the message type.
+>> - Patches adding GMC support will do it in dedicated `gmc` sub-modules,
+>>   following the model set by RPC. These `gmc` sub-modules will start as
+>>   `dead_code` as they are being built.
+>> - The "switch to r000" patch will essentially operate on the transport
+>>   layer level, i.e. `cmdq.rs`.
+>> - There should be no need for extra post-switch RPC fixing, as the
+>>   transport layer code will already be shared with GMC.
+>>=20
+>> Overall, this should make the r000 series much easier to review and
+>> eventually land, while not creating new technical debt.
+>>=20
+>> This revision fixes the latest nits while addressing a couple more
+>> issues found by Sashiko.
+>>=20
+>> This series is based on `drm-rust-next`.
+>>=20
+>> [1] https://lore.kernel.org/all/20260918010719.1176945-1-jhubbard@nvidia=
+.com/
+>>=20
+>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>> ---
+>> Changes in v6:
+>> - Add comment to `consume_element`'s documentation to disambiguate it.
+>>   (Eliot)
+>> - Add a patch to avoid sleeping in `drain` when reaching the end of the
+>>   queue. (Sashiko)
+>> - Fix badly-formatted import block. (Sashiko)
+>> - Link to v5: https://patch.msgid.link/20261020-cmdq-rpc-v5-0-dceeb8f360=
+ec@nvidia.com
+>
+> Hi Alex, looks like it is converging, are you planning to merge soon?
+> Or do you need more reviewers to weigh in?
 
-Track the queues using each VM and keep the bind queue's user_vm
-reference until final queue destruction. Start queue cleanup before
-removing the VM mappings.
-
-The count includes VM-owned bind queues. Release the VM's references
-to these queues before waiting for their asynchronous cleanup.
-
-During file close, use one five-second wait budget across all VMs.
-If queues remain, defer VM close until the last queue is removed.
-The existing runtime-PM reference remains held during this wait.
-
-VM destroy does not wait for queue cleanup. If user exec queues still
-reference the VM, its mappings remain after the ioctl returns until
-those queues finish cleanup. Userspace must destroy the remaining queue
-handles or close the DRM file to release them.
-
-The five-second budget limits the new queue wait, not the lifetime of
-the retained mappings. Recovery continues through the existing GuC
-reset and teardown paths.
-
-Run deferred close and final VM destruction on the module-lifetime
-destroy workqueue. Hold an extra VM reference until the close worker
-has released its PM and unplug guards. Final VM destruction retains
-the device reference until cleanup finishes.
-
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Assisted-by: LLM
-Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
----
- drivers/gpu/drm/xe/xe_device.c     |  21 +++-
- drivers/gpu/drm/xe/xe_exec_queue.c |  22 ++--
- drivers/gpu/drm/xe/xe_vm.c         | 162 ++++++++++++++++++++++++++---
- drivers/gpu/drm/xe/xe_vm.h         |   5 +
- drivers/gpu/drm/xe/xe_vm_types.h   |  15 +++
- 5 files changed, 202 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index 7b4913d7665d..6cf0ce293738 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -8,6 +8,7 @@
- #include <linux/aperture.h>
- #include <linux/delay.h>
- #include <linux/fault-inject.h>
-+#include <linux/jiffies.h>
- #include <linux/units.h>
- 
- #include <drm/drm_client.h>
-@@ -177,6 +178,8 @@ static void xe_file_close(struct drm_device *dev, struct drm_file *file)
- 	struct xe_file *xef = file->driver_priv;
- 	struct xe_vm *vm;
- 	struct xe_exec_queue *q;
-+	bool close_deferred = false;
-+	unsigned long deadline;
- 	unsigned long idx;
- 
- 	guard(xe_pm_runtime)(xe);
-@@ -197,8 +200,24 @@ static void xe_file_close(struct drm_device *dev, struct drm_file *file)
- 		xe_exec_queue_kill(q);
- 		xe_exec_queue_put(q);
- 	}
-+
-+	/* Start all bind queue teardown before spending the shared wait budget. */
- 	xa_for_each(&xef->vm.xa, idx, vm)
--		xe_vm_close_and_put(vm);
-+		xe_vm_kill_bind_queues(vm);
-+
-+	deadline = jiffies + HZ * 5;
-+	xa_for_each(&xef->vm.xa, idx, vm) {
-+		unsigned long now = jiffies;
-+		unsigned long timeout =
-+			time_before(now, deadline) ? deadline - now : 0;
-+
-+		close_deferred |=
-+			xe_vm_close_and_put_deferred(vm, timeout);
-+	}
-+
-+	if (close_deferred)
-+		drm_dbg(&xe->drm,
-+			"VM teardown deferred while exec queues are being stopped\n");
- 
- 	scoped_guard(mutex, &xef->mmio_gem.lock) {
- 		if (xef->mmio_gem.pci_barrier) {
-diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
-index 9a8efa2bf2bf..4bb773dc9543 100644
---- a/drivers/gpu/drm/xe/xe_exec_queue.c
-+++ b/drivers/gpu/drm/xe/xe_exec_queue.c
-@@ -154,9 +154,16 @@ static void __xe_exec_queue_free(struct xe_exec_queue *q)
- 
- 	if (q->vm) {
- 		xe_vm_remove_exec_queue(q->vm, q);
-+		if (q->vm->xef)
-+			xe_vm_remove_close_queue(q->vm);
- 		xe_vm_put(q->vm);
- 	}
- 
-+	if (q->user_vm) {
-+		xe_vm_remove_close_queue(q->user_vm);
-+		xe_vm_put(q->user_vm);
-+	}
-+
- 	if (q->xef)
- 		xe_file_put(q->xef);
- 
-@@ -252,8 +259,12 @@ static struct xe_exec_queue *__xe_exec_queue_alloc(struct xe_device *xe,
- 		}
- 	}
- 
--	if (vm)
-+	if (vm) {
- 		q->vm = xe_vm_get(vm);
-+		/* vm->xef stays unchanged until final VM destruction. */
-+		if (vm->xef)
-+			xe_vm_add_close_queue(vm);
-+	}
- 
- 	if (extensions) {
- 		/*
-@@ -619,8 +630,10 @@ struct xe_exec_queue *xe_exec_queue_create_bind(struct xe_device *xe,
- 			return ERR_PTR(err);
- 		}
- 
--		if (user_vm)
-+		if (user_vm) {
- 			q->user_vm = xe_vm_get(user_vm);
-+			xe_vm_add_close_queue(user_vm);
-+		}
- 	}
- 
- 	return q;
-@@ -652,11 +665,6 @@ void xe_exec_queue_destroy(struct kref *ref)
- 	for_each_tlb_inval(q, i)
- 		xe_exec_queue_tlb_inval_last_fence_put_unlocked(q, i);
- 
--	if (q->user_vm) {
--		xe_vm_put(q->user_vm);
--		q->user_vm = NULL;
--	}
--
- 	q->ops->destroy(q);
- }
- 
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 6e548fd8a809..f9bb677bcab4 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -1622,6 +1622,7 @@ static const struct xe_pt_ops xelp_pt_ops = {
- 	.pde_encode_bo = xelp_pde_encode_bo,
- };
- 
-+static void vm_close_work_func(struct work_struct *w);
- static void vm_destroy_work_func(struct work_struct *w);
- 
- /**
-@@ -1765,6 +1766,10 @@ struct xe_vm *xe_vm_create(struct xe_device *xe, u32 flags, struct xe_file *xef)
- 	ttm_lru_bulk_move_init(&vm->lru_bulk_move);
- 
- 	INIT_WORK(&vm->destroy_work, vm_destroy_work_func);
-+	atomic_set(&vm->close.num_exec_queues, 0);
-+	init_waitqueue_head(&vm->close.wq);
-+	spin_lock_init(&vm->close.lock);
-+	INIT_WORK(&vm->close.work, vm_close_work_func);
- 
- 	INIT_LIST_HEAD(&vm->preempt.exec_queues);
- 	for (id = 0; id < XE_MAX_TILES_PER_DEVICE * XE_MAX_GT_PER_TILE; ++id)
-@@ -2010,19 +2015,7 @@ void xe_vm_close_and_put(struct xe_vm *vm)
- 	if (xe_vm_in_fault_mode(vm))
- 		xe_svm_close(vm);
- 
--	if (vm->q) {
--		int i;
--
--		down_write(&vm->lock);
--		xe_exec_queue_last_fence_put(vm->q, vm);
--		for_each_tlb_inval(vm->q, i)
--			xe_exec_queue_tlb_inval_last_fence_put(vm->q, vm, i);
--		up_write(&vm->lock);
--
--		xe_exec_queue_kill(vm->q);
--		xe_exec_queue_put(vm->q);
--		vm->q = NULL;
--	}
-+	xe_vm_kill_bind_queues(vm);
- 
- 	down_write(&vm->lock);
- 	xe_vm_lock(vm, false);
-@@ -2092,6 +2085,140 @@ void xe_vm_close_and_put(struct xe_vm *vm)
- 	xe_vm_put(vm);
- }
- 
-+static void vm_close_work_func(struct work_struct *w)
-+{
-+	struct xe_vm *vm = container_of(w, struct xe_vm, close.work);
-+	struct xe_device *xe = vm->xe;
-+	int idx;
-+
-+	/* Keep the VM and device alive until the PM and unplug guards unwind. */
-+	xe_vm_get(vm);
-+
-+	if (drm_dev_enter(&xe->drm, &idx)) {
-+		xe_pm_runtime_get(xe);
-+		xe_vm_close_and_put(vm);
-+		xe_pm_runtime_put(xe);
-+		drm_dev_exit(idx);
-+	} else {
-+		/*
-+		 * The device is gone. Drop the VM without a runtime PM reference.
-+		 * xe_vm_close() guards its own register access.
-+		 */
-+		xe_vm_close_and_put(vm);
-+	}
-+
-+	xe_vm_put(vm);
-+}
-+
-+/**
-+ * xe_vm_kill_bind_queues() - Kill and release the VM bind queue
-+ * @vm: The VM whose bind queue should be stopped
-+ *
-+ * Callers must serialize teardown of @vm. Later calls are harmless because
-+ * the first call clears the VM bind queue pointer.
-+ */
-+void xe_vm_kill_bind_queues(struct xe_vm *vm)
-+{
-+	struct xe_exec_queue *q;
-+	int i;
-+
-+	if (!vm->q)
-+		return;
-+
-+	down_write(&vm->lock);
-+	q = vm->q;
-+	vm->q = NULL;
-+	xe_exec_queue_last_fence_put(q, vm);
-+	for_each_tlb_inval(q, i)
-+		xe_exec_queue_tlb_inval_last_fence_put(q, vm, i);
-+	up_write(&vm->lock);
-+
-+	xe_exec_queue_kill(q);
-+	xe_exec_queue_put(q);
-+}
-+
-+/**
-+ * xe_vm_add_close_queue() - Track an exec queue using the VM
-+ * @vm: The VM used by the exec queue
-+ *
-+ * The queue is tracked until its asynchronous destruction completes.
-+ */
-+void xe_vm_add_close_queue(struct xe_vm *vm)
-+{
-+	atomic_inc(&vm->close.num_exec_queues);
-+}
-+
-+/**
-+ * xe_vm_remove_close_queue() - Stop tracking an exec queue
-+ * @vm: The VM used by the exec queue
-+ *
-+ * If this is the last tracked queue and VM close was deferred, schedule
-+ * the deferred VM close.
-+ */
-+void xe_vm_remove_close_queue(struct xe_vm *vm)
-+{
-+	bool queue_close = false;
-+
-+	if (!atomic_dec_and_test(&vm->close.num_exec_queues))
-+		return;
-+
-+	wake_up_all(&vm->close.wq);
-+
-+	spin_lock(&vm->close.lock);
-+	if (vm->close.deferred) {
-+		vm->close.deferred = false;
-+		queue_close = true;
-+	}
-+	spin_unlock(&vm->close.lock);
-+
-+	if (queue_close)
-+		xe_destroy_wq_queue(&vm->close.work);
-+}
-+
-+/**
-+ * xe_vm_close_and_put_deferred() - Close a VM immediately or defer the close
-+ * @vm: The VM reference to consume
-+ * @timeout: Maximum time to wait for VM queues, in jiffies
-+ *
-+ * The VM must already be marked closing, and callers must serialize teardown.
-+ * Release the VM-owned bind queues before waiting for queue cleanup. Callers
-+ * may release them earlier to start cleanup for several VMs before waiting.
-+ *
-+ * If queues remain after @timeout, keep the mappings and finish VM close
-+ * after the last tracked queue is freed. This consumes the caller's VM
-+ * reference on both the immediate and deferred paths.
-+ *
-+ * Return: %true if VM close was deferred, or %false if it completed now.
-+ */
-+bool xe_vm_close_and_put_deferred(struct xe_vm *vm, unsigned long timeout)
-+{
-+	bool queue_close = false;
-+
-+	/* Drop VM-owned queue references before waiting for their final free. */
-+	xe_vm_kill_bind_queues(vm);
-+
-+	if (!atomic_read(&vm->close.num_exec_queues) ||
-+	    wait_event_timeout(vm->close.wq,
-+			       !atomic_read(&vm->close.num_exec_queues),
-+			       timeout)) {
-+		xe_vm_close_and_put(vm);
-+		return false;
-+	}
-+
-+	spin_lock(&vm->close.lock);
-+	vm->close.deferred = true;
-+	if (!atomic_read(&vm->close.num_exec_queues)) {
-+		vm->close.deferred = false;
-+		queue_close = true;
-+	}
-+	spin_unlock(&vm->close.lock);
-+
-+	if (queue_close)
-+		xe_destroy_wq_queue(&vm->close.work);
-+
-+	return true;
-+}
-+
- static void vm_destroy_work_func(struct work_struct *w)
- {
- 	struct xe_vm *vm =
-@@ -2138,7 +2265,7 @@ static void xe_vm_free(struct drm_gpuvm *gpuvm)
- 	drm_dev_get(&vm->xe->drm);
- 
- 	/* To destroy the VM we need to be able to sleep */
--	queue_work(vm->xe->destroy_wq, &vm->destroy_work);
-+	xe_destroy_wq_queue(&vm->destroy_work);
- }
- 
- struct xe_vm *xe_vm_lookup(struct xe_file *xef, u32 id)
-@@ -2284,7 +2411,12 @@ int xe_vm_destroy_ioctl(struct drm_device *dev, void *data,
- 
- 	if (!err) {
- 		xe_vm_close_start(vm);
--		xe_vm_close_and_put(vm);
-+
-+		/*
-+		 * User exec queues can outlive the VM handle. Do not wait for
-+		 * queues which this ioctl does not destroy.
-+		 */
-+		xe_vm_close_and_put_deferred(vm, 0);
- 	}
- 
- 	return err;
-diff --git a/drivers/gpu/drm/xe/xe_vm.h b/drivers/gpu/drm/xe/xe_vm.h
-index a8b33cb2b559..028c17ed1df7 100644
---- a/drivers/gpu/drm/xe/xe_vm.h
-+++ b/drivers/gpu/drm/xe/xe_vm.h
-@@ -221,6 +221,11 @@ int xe_vm_get_property_ioctl(struct drm_device *dev, void *data,
- 
- void xe_vm_close_and_put(struct xe_vm *vm);
- void xe_vm_close_start(struct xe_vm *vm);
-+bool xe_vm_close_and_put_deferred(struct xe_vm *vm, unsigned long timeout);
-+void xe_vm_kill_bind_queues(struct xe_vm *vm);
-+
-+void xe_vm_add_close_queue(struct xe_vm *vm);
-+void xe_vm_remove_close_queue(struct xe_vm *vm);
- 
- static inline bool xe_vm_in_fault_mode(struct xe_vm *vm)
- {
-diff --git a/drivers/gpu/drm/xe/xe_vm_types.h b/drivers/gpu/drm/xe/xe_vm_types.h
-index 6ca9ef9d0c0b..6ebc6714534b 100644
---- a/drivers/gpu/drm/xe/xe_vm_types.h
-+++ b/drivers/gpu/drm/xe/xe_vm_types.h
-@@ -14,6 +14,7 @@
- #include <linux/kref.h>
- #include <linux/mmu_notifier.h>
- #include <linux/scatterlist.h>
-+#include <linux/wait.h>
- 
- #include "xe_device_types.h"
- #include "xe_pt_types.h"
-@@ -314,6 +315,20 @@ struct xe_vm {
- 	 */
- 	struct work_struct destroy_work;
- 
-+	/** @close: State used to defer VM teardown until exec queues are gone. */
-+	struct {
-+		/** @close.num_exec_queues: Queues which can access this VM. */
-+		atomic_t num_exec_queues;
-+		/** @close.wq: Waitqueue for exec queue teardown. */
-+		wait_queue_head_t wq;
-+		/** @close.lock: Protects deferred and work scheduling. */
-+		spinlock_t lock;
-+		/** @close.deferred: VM close is waiting for queue teardown. */
-+		bool deferred;
-+		/** @close.work: Completes a deferred VM close. */
-+		struct work_struct work;
-+	} close;
-+
- 	/**
- 	 * @rftree: range fence tree to track updates to page table structure.
- 	 * Used to implement conflict tracking between independent bind engines.
--- 
-2.43.0
-
+I was planning to give this (hopefully final) a couple days on the list
+to check that the r000 rebase on it is viable (which it seems to be!),
+so unless someone screams I will merge it very soon.
