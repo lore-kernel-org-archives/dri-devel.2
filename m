@@ -2,35 +2,35 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3340606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 20:25:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8BE606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 20:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQD04rzr
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nfDkUCUv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29CDB10E210;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 384C710E69A;
 	Wed, 28 Oct 2026 20:25:24 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E674D10E103
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 20:25:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA66A10E134
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 20:25:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CE0BA40925;
- Wed, 28 Oct 2026 20:25:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C91C1F01828;
- Wed, 28 Oct 2026 20:25:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A086340DCF;
+ Wed, 28 Oct 2026 20:25:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8451F01828;
+ Wed, 28 Oct 2026 20:25:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793219117;
- bh=ETug3Ns56jIqzY5jZ8S5ct8zYWLqsuOrveyssHvmD8c=;
+ s=k20260515; t=1793219113;
+ bh=O6yGKa93TxFyAJGzdOzoN/pRr+EPCAQmQhZOkVtjIVM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bQD04rzrdh+3CbZYc61Ob5spt1NNCH6pJ9PIFta1bt58rWAS8mWc2dSqtVQmQpsAD
- sDnT29EcKpnY7OWWxGgLh7g/KYzs7CnpsiMfitOr1YYX1TtYWRIA8B8B6aVQFrOjbG
- KnKQL3coQbilMd2mBOJO+Ok1vJu9UrmWcIyJOd0bU8vH/EUUbqFJgomFnLE/++FhWZ
- Krcz/C5plq8WFTu0gNJva8szKGAn08YBngMjMuptumkKa9bETtxku5RvKM1FIV5gDZ
- A6FxuaBC3Uh2t2rbEdN833/X+UF81SucaybM6DJnLsOzQlojR9is1pBeVETx/xUQCP
- qogHZ7I6NPyTw==
-Message-ID: <sashiko-outbox-188402@kernel.org>
+ b=nfDkUCUvqI7Yw25/PD3RQNGFPhmATnA/ZvO1xoO0niGX++NvRSLVpoAJ3oBXZtwP5
+ KH5m2amr93fzCBLRLwfla+ykkWuPf4Jv4sLgQ0Gh9gMSz9LNatbcvizeFyZe3nW3oH
+ wleFiWW7f3mdcNncAhrRsuc9CH//0qvsYmypDkD7LsMeLGQe8ZlnytCfy71UT5a0xF
+ G8JMdBgr7wJdBLmSsvblhhx6BKOVD4MsdjZGOEngNzC+eRht1AkbYZGzTazMhMqQE5
+ Hjm9WGZi14Oj5gNfiecbEFYNMWo8jYn71ovQUpfMaokvgfwvJbDNKTnTEoISY4A287
+ pRLQvUOYatNCg==
+Message-ID: <sashiko-outbox-188395@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 26/39] dyndbg-test: add do_bulk testpoint, rename
- do_prints to do_classes
+Subject: Re: [PATCH v13 19/39] dyndbg,module: make proper substructs in
+ _ddebug_info
 To: "Jim Cromie" <jim.cromie@gmail.com>, "Jason Baron" <jbaron@akamai.com>,
  "Shuah
  Khan" <shuah@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>, "Maarten
@@ -53,13 +53,14 @@ To: "Jim Cromie" <jim.cromie@gmail.com>, "Jason Baron" <jbaron@akamai.com>,
  =?utf-8?b?VGhvbWFzIFdlacOfc2NodWg=?= <linux@weissschuh.net>, "Jason A.
  Donenfeld" <Jason@zx2c4.com>
 Cc: dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
- linux-kbuild@vger.kernel.org, "Jason Baron" <jbaron@redhat.com>
-In-Reply-To: <20261027-dd-cmap-part2-clean-v13-26-9267923be612@gmail.com>
+ linux-kbuild@vger.kernel.org, "Jason
+ Baron" <jbaron@redhat.com>, "Louis Chauvet" <louis.chauvet@bootlin.com>
+In-Reply-To: <20261027-dd-cmap-part2-clean-v13-19-9267923be612@gmail.com>
 References: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
- <20261027-dd-cmap-part2-clean-v13-26-9267923be612@gmail.com>
+ <20261027-dd-cmap-part2-clean-v13-19-9267923be612@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 20:25:15 +0000
+Date: Wed, 28 Oct 2026 20:25:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,187 +83,91 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dyndbg-test: early-boot infinite loop on negative repeat count i=
-n do_classes() and do_bulk()
+- [Medium] dyndbg: __UNIQUE_ID(_ddebug) prefix change breaks objtool klp di=
+ff
 --
 
-commit bf6fb515ebe31cab587b06b6c8aeb75be6f0a072
+commit 317df06d413f02902ba4470f9dd1320a81d15cee
 Author: Jim Cromie <jim.cromie@gmail.com>
 
-dyndbg-test: add do_bulk testpoint, rename do_prints to do_classes
+dyndbg,module: make proper substructs in _ddebug_info
 
-This commit renames do_prints to do_classes, adds a new do_bulk module
-parameter for generating high-volume debug output, and shares a common
-parameter callback that supports repeat counts and negative duration timeou=
-ts.
+This commit refactors struct _ddebug_info to group descriptor and class map
+vectors into struct _ddebug_descs and struct _ddebug_class_maps substructs,
+embeds struct _ddebug_info into struct ddebug_table, and renames the linker
+sections accordingly.
 
-> diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-> index 01ce07001d4c7..f78764025c441 100644
-> --- a/lib/test_dynamic_debug.c
-> +++ b/lib/test_dynamic_debug.c
-> @@ -28,25 +28,57 @@
->  #endif
-> =20
->  #include <linux/module.h>
-> +#include <linux/sched.h>
-> +#include <linux/sched/signal.h>
-> +#include <linux/jiffies.h>
-> =20
-> -/* re-gen output by reading or writing sysfs node: do_prints */
-> +#define TEST_MAX_REPEATS 10000
-> +#define TEST_MAX_SECONDS 60
-> =20
-> -static void do_prints(void); /* device under test */
-> -static int param_set_do_prints(const char *instr, const struct kernel_pa=
-ram *kp)
-> +/* re-trigger debug output by reading or writing sysfs nodes: do_classes=
- or do_bulk */
-> +static void do_classes(int); /* device under test */
-> +static void do_bulk(int);    /* device under test */
-> +
-> +static int param_set_do_repeats(const char *instr, const struct kernel_p=
-aram *kp)
->  {
-> -	do_prints();
-> +	int rc, ct;
-> +	void (*repeat_fn)(int) =3D kp->arg;
-> +
-> +	rc =3D kstrtoint(instr, 0, &ct);
-> +	if (rc) {
-> +		pr_err("expecting numeric input, using 1 instead\n");
-> +		ct =3D 1;
-> +	}
-> +	if (ct > TEST_MAX_REPEATS) {
-> +		pr_warn("%s: clamping %d to %d\n", kp->name, ct, TEST_MAX_REPEATS);
-> +		ct =3D TEST_MAX_REPEATS;
-> +	} else if (ct < -TEST_MAX_SECONDS) {
-> +		pr_warn("%s: clamping %d seconds to -%d\n",
-> +			kp->name, ct, TEST_MAX_SECONDS);
-> +		ct =3D -TEST_MAX_SECONDS;
-> +	}
-> +
-> +	repeat_fn(ct);
-> +
->  	return 0;
->  }
-> -static int param_get_do_prints(char *buffer, const struct kernel_param *=
-kp)
-> +
-> +static int param_get_do_repeats(char *buffer, const struct kernel_param =
-*kp)
->  {
-> -	do_prints();
-> -	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
-> +	void (*repeat_fn)(int) =3D kp->arg;
-> +
-> +	repeat_fn(1);
-> +
-> +	return scnprintf(buffer, PAGE_SIZE, "did 1 %s\n", kp->name);
->  }
-> -static const struct kernel_param_ops param_ops_do_prints =3D {
-> -	.set =3D param_set_do_prints,
-> -	.get =3D param_get_do_prints,
-> +
-> +static const struct kernel_param_ops param_ops_do_repeats =3D {
-> +	.set =3D param_set_do_repeats,
-> +	.get =3D param_get_do_repeats,
->  };
-> -module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
-> +
-> +module_param_cb(do_classes, &param_ops_do_repeats, do_classes, 0600);
-> +module_param_cb(do_bulk, &param_ops_do_repeats, do_bulk, 0600);
+> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+> index 36b7d341076db..b05dc843a1d8e 100644
+> --- a/include/linux/dynamic_debug.h
+> +++ b/include/linux/dynamic_debug.h
 
 [ ... ]
 
-> @@ -210,20 +247,85 @@ static void do_levels(void)
->  	prdbg(Vu5);
->  	prdbg(Vu6);
->  	prdbg(Vu7);
-> +	prdbg(Vu8);
->  #endif
->  }
+> @@ -245,7 +257,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+>   * macro.
+>   */
+>  #define _dynamic_func_call_cls(cls, fmt, func, ...)			\
+> -	__dynamic_func_call_cls(__UNIQUE_ID(ddebug), cls, fmt, func, ##__VA_ARG=
+S__)
+> +	__dynamic_func_call_cls(__UNIQUE_ID(_ddebug), cls, fmt, func, ##__VA_AR=
+GS__)
+>  #define _dynamic_func_call(fmt, func, ...)				\
+>  	_dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
 > =20
-> -static void do_prints(void)
-> +static void do_classes(int ct)
-> +{
-> +	if (ct < 0) {
-> +		unsigned long timeout =3D jiffies + (-ct) * HZ;
-> +
-> +		pr_debug("%s for %d seconds:\n", __func__, -ct);
-> +		while (time_before(jiffies, timeout)) {
-> +			if (signal_pending(current))
-> +				break;
-> +			do_cats();
-> +			do_levels();
-> +			cond_resched();
-> +		}
-> +		return;
-> +	}
-> +
-> +	pr_debug("do_classes %u times:\n", ct);
-> +	for (; ct; ct--) {
-> +		if (signal_pending(current))
-> +			break;
-> +		do_cats();
-> +		do_levels();
-> +		cond_resched();
-> +	}
-> +}
-> +
-> +static void do_bulk(int ct)
->  {
-> -	pr_debug("do_prints:\n");
-> -	do_cats();
-> -	do_levels();
-> +	unsigned int i;
-> +
-> +	if (ct < 0) {
-> +		unsigned long timeout =3D jiffies + (-ct) * HZ;
-> +
-> +		pr_debug("%s for %d seconds:\n", __func__, -ct);
-> +		for (i =3D 0; time_before(jiffies, timeout); i++) {
-> +			if (signal_pending(current))
-> +				break;
-> +			pr_debug("bulk msg %u.0\n", i + 1);
-> +			pr_debug("bulk msg %u.1\n", i + 1);
-> +			pr_debug("bulk msg %u.2\n", i + 1);
-> +			pr_debug("bulk msg %u.3\n", i + 1);
-> +			pr_debug("bulk msg %u.4\n", i + 1);
-> +			pr_debug("bulk msg %u.5\n", i + 1);
-> +			pr_debug("bulk msg %u.6\n", i + 1);
-> +			pr_debug("bulk msg %u.7\n", i + 1);
-> +			pr_debug("bulk msg %u.8\n", i + 1);
-> +			pr_debug("bulk msg %u.9\n", i + 1);
-> +			cond_resched();
-> +		}
-> +		return;
-> +	}
+> @@ -255,7 +267,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+>   * with precisely the macro's varargs.
+>   */
+>  #define _dynamic_func_call_cls_no_desc(cls, fmt, func, ...)		\
+> -	__dynamic_func_call_cls_no_desc(__UNIQUE_ID(ddebug), cls, fmt,	\
+> +	__dynamic_func_call_cls_no_desc(__UNIQUE_ID(_ddebug), cls, fmt,	\
+>  					func, ##__VA_ARGS__)
 
 [Severity: Medium]
-Can passing a negative value to do_classes or do_bulk on the kernel command
-line hang the boot when CONFIG_TEST_DYNAMIC_DEBUG=3Dy (or
-CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=3Dy)?
+Does changing __UNIQUE_ID(ddebug) to __UNIQUE_ID(_ddebug) in
+_dynamic_func_call_cls() and _dynamic_func_call_cls_no_desc() break livepat=
+ch
+builds with objtool klp diff?
 
-Both do_classes and do_bulk are registered with module_param_cb(), which se=
-ts
-the parameter level to -1:
+In include/linux/compiler.h, __UNIQUE_ID() already appends an underscore
+after __UNIQUE_ID_:
 
-include/linux/moduleparam.h:
-#define module_param_cb(name, ops, arg, perm) \
-	__module_param_call(MODULE_PARAM_PREFIX, name, ops, arg, perm, -1, 0)
+    /* Format: __UNIQUE_ID_<name>_<__COUNTER__> */
+    #define __UNIQUE_ID(name)					\
+	    __PASTE(__UNIQUE_ID_,				\
+	    __PASTE(name,					\
+	    __PASTE(_, __COUNTER__)))
 
-When the test driver is built-in, command-line parameters such as
-test_dynamic_debug.do_classes=3D-1 or test_dynamic_debug.do_bulk=3D-1 are p=
-arsed
-in start_kernel() -> parse_args() while local interrupts are disabled and
-before init_IRQ(), tick_init(), timers_init(), and time_init() have run.
+Passing _ddebug changes the generated static struct _ddebug descriptor symb=
+ol
+names from __UNIQUE_ID_ddebug_<N> to __UNIQUE_ID__ddebug_<N> (with a double
+underscore).
 
-At that stage of boot, param_set_do_repeats() calls do_classes(ct) or
-do_bulk(ct) with ct < 0, which loops waiting for time_before(jiffies,
-timeout) to become false. Since jiffies does not advance and
-signal_pending(current) on init_task never becomes true during early boot,
-will this loop spin forever?
+When CONFIG_JUMP_LABEL is enabled and a livepatched module function contain=
+s a
+dynamic debug callsite, tools/objtool/klp-diff.c checks for the single
+underscore prefix in validate_special_section_klp_reloc():
+
+    if (strstr(reloc->sym->name, "__UNIQUE_ID_ddebug_")) {
+	    WARN("%s: disabling unsupported pr_debug()",
+		 code_sym);
+	    ret =3D 1;
+	    continue;
+    }
+
+    ERROR("%s+0x%lx: unsupported static branch key %s.  Use static_key_enab=
+led() instead",
+	  code_sym, code_offset, reloc->sym->name);
+    return -1;
+
+With the extra underscore in __UNIQUE_ID__ddebug_<N>, strstr() will no long=
+er
+match and validate_special_section_klp_reloc() will fail with an unsupported
+static branch key error. Should this remain __UNIQUE_ID(ddebug), or should
+validate_special_section_klp_reloc() in tools/objtool/klp-diff.c be updated=
+ to
+match?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-dd-cmap-pa=
-rt2-clean-v13-0-9267923be612@gmail.com?part=3D26
+rt2-clean-v13-0-9267923be612@gmail.com?part=3D19
