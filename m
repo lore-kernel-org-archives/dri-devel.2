@@ -2,46 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9A6606A31C
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 11:28:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF05606A31D
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 11:34:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8xo1RPq
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JGKF85hm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B43E110E03F;
-	Wed, 28 Oct 2026 11:28:43 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E368510E03F
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 11:28:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8A79443A6D;
- Wed, 28 Oct 2026 11:28:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E8D1F031E1;
- Wed, 28 Oct 2026 11:28:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793186917;
- bh=iJThpt3wCaw21tvb3jioV8nU1M0htI/CM4Pk5Zc2xX0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=M8xo1RPq3m1el5NnQFxaMNYToKnJOouDD6hjkVmwaTEouQhhSn5TJqkJGFnBoOd7B
- jJo3D3ac51iHmLzrlyHvXYRqs6nOYjNtcRXSlNa6C40R4hlTST/PLMW4ELpiqMPeQM
- Ilmb5HzKvPsqnLNmpifl/qWsKjMbhztF1oalJ/97ITEw/338h3/9cDoGFqCdMv/mLx
- 7gEHfgaJK6x17g6y0IvJfY3fBlASqqgUm9D1fhwc5pCxSQS1zijx2JB+yNHCrw6/Bk
- KQJUGGBswXsaWexFfNYga5Gol/Sa3oVGf8TRjjqnzq91gM89bGaSuc2pbKTdk2gVrj
- CsL/tYrmrnwIQ==
-Message-ID: <sashiko-outbox-187817@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 11/11] arm64: dts: qcom: generalmobile-shamrock: new
- device
-To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- dmitry.torokhov@gmail.com
-In-Reply-To: <20261028-msm8952-initial-support-v6-11-e07ddd8bcf4c@mainlining.org>
-References: <20261028-msm8952-initial-support-v6-0-e07ddd8bcf4c@mainlining.org>
- <20261028-msm8952-initial-support-v6-11-e07ddd8bcf4c@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 11:28:36 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D92B10FBA4;
+	Wed, 28 Oct 2026 11:33:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D63C10FBB1;
+ Wed, 28 Oct 2026 11:33:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793187229; x=1824723229;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=z8y8XV24bROqh0zonAMNAjIZyMJbY12xpb+/fK8m0AI=;
+ b=JGKF85hmCVQ9pf9eXbOsC8wgPHWDavTdyCGWPRpxPC23gPTB9HurHR1u
+ WQIzCd0zwuTx3xDYu7R6x7Tug0u3cG2len/6bLyuT1Ba9nt2Ksz9lFv16
+ uWsDoRlbFOlyD/wV5bIxwsw3kIwHlbx+7870/Q08076xKsblgMcUIm7Xw
+ nkUIXIu5vX0mQFDdirfJv+J+GkeTU7aMk2olzE59xTR4u4jE9NpgRt9lo
+ j3gf2C66LaqLw0qU6mJ+rQfIH8X+Zwj6uep7ZyHB2nWJbxPDyFDqeTPXW
+ uH7NK1RnZY34FW9rSVNOCVg9/KCrbR1XNYeByeZKByf52EvDlzja4Tmz3 g==;
+X-CSE-ConnectionGUID: JyclsOj+S9yIfeGKLwuDbQ==
+X-CSE-MsgGUID: pcolIxavSSyp9/nfaS2Zsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1813626"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1813626"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 04:33:48 -0700
+X-CSE-ConnectionGUID: F9mrBK1+QXS8jOjCv8P8bQ==
+X-CSE-MsgGUID: KJ1QgI6jS6ey2L/RLS17LQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="6633584"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.146])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 04:33:40 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones
+ <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Joel Stanley
+ <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen
+ <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook
+ <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Matthew Wilcox
+ <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Andy
+ Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
+ Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Dmitry Ilvokhin <d@ilvokhin.com>
+Subject: Re: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
+In-Reply-To: <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+Date: Wed, 28 Oct 2026 13:33:37 +0200
+Message-ID: <3b839373c03f6b8aeafa8e4801a486ece68b0815@intel.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,109 +86,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: qcom: shamrock: missing color property on status LED=
-s breaks RGB
---
+On Wed, 28 Oct 2026, Dmitry Ilvokhin <d@ilvokhin.com> wrote:
+> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+> nonnull") added the macro __nonnull_args() to wrap raw compiler
+> attribute.
+>
+> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+> nonnull attribute usage across the tree and keep the attribute's quirks
+> in one place rather than open-coded at every call site.
+>
+> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 
-commit 8fec21f5539dc733f3dc08f3078a4a994d335e11
-Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-arm64: dts: qcom: generalmobile-shamrock: new device
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_object.h | 4 ++--
+>  drivers/gpu/drm/i915/i915_request.h        | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> index a2f4b6758a65..648d0b4139cf 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+> @@ -127,7 +127,7 @@ __deprecated
+>  struct drm_gem_object *
+>  drm_gem_object_lookup(struct drm_file *file, u32 handle);
+>  
+> -__attribute__((nonnull))
+> +__nonnull_args()
+>  static inline struct drm_i915_gem_object *
+>  i915_gem_object_get(struct drm_i915_gem_object *obj)
+>  {
+> @@ -135,7 +135,7 @@ i915_gem_object_get(struct drm_i915_gem_object *obj)
+>  	return obj;
+>  }
+>  
+> -__attribute__((nonnull))
+> +__nonnull_args()
+>  static inline void
+>  i915_gem_object_put(struct drm_i915_gem_object *obj)
+>  {
+> diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+> index b09135301f39..f559203c332d 100644
+> --- a/drivers/gpu/drm/i915/i915_request.h
+> +++ b/drivers/gpu/drm/i915/i915_request.h
+> @@ -437,12 +437,12 @@ void i915_request_cancel(struct i915_request *rq, int error);
+>  long i915_request_wait_timeout(struct i915_request *rq,
+>  			       unsigned int flags,
+>  			       long timeout)
+> -	__attribute__((nonnull(1)));
+> +	__nonnull_args(1);
+>  
+>  long i915_request_wait(struct i915_request *rq,
+>  		       unsigned int flags,
+>  		       long timeout)
+> -	__attribute__((nonnull(1)));
+> +	__nonnull_args(1);
+>  #define I915_WAIT_INTERRUPTIBLE	BIT(0)
+>  #define I915_WAIT_PRIORITY	BIT(1) /* small priority bump for the request */
+>  #define I915_WAIT_ALL		BIT(2) /* used by i915_gem_object_wait() */
 
-This commit adds initial device tree support for the Qualcomm MSM8952-based
-General Mobile GM 5 Plus (shamrock) smartphone.
-
-> diff --git a/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts =
-b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
-> new file mode 100644
-> index 0000000000000..26a269f0f7694
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
-> @@ -0,0 +1,439 @@
-[ ... ]
-> +	multi-led {
-> +		compatible =3D "leds-group-multicolor";
-> +		color =3D <LED_COLOR_ID_RGB>;
-> +		function =3D LED_FUNCTION_INDICATOR;
-> +		leds =3D <&red_status>, <&green_status>, <&blue_status>;
-> +	};
-[ ... ]
-> +	led-controller@68 {
-> +		compatible =3D "si-en,sn3193";
-> +		reg =3D <0x68>;
-> +
-> +		shutdown-gpios =3D <&tlmm 68 GPIO_ACTIVE_HIGH>;
-> +
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		red_status: led@1 {
-> +			reg =3D <1>;
-> +			label =3D "red:status";
-> +			led-max-microamp =3D <17500>;
-> +		};
-> +
-> +		green_status: led@2 {
-> +			reg =3D <2>;
-> +			label =3D "green:status";
-> +			led-max-microamp =3D <17500>;
-> +		};
-> +
-> +		blue_status: led@3 {
-> +			reg =3D <3>;
-> +			label =3D "blue:status";
-> +			led-max-microamp =3D <17500>;
-> +		};
-> +	};
-
-[Severity: Medium]
-Should the child LED nodes under led-controller@68 use the color and functi=
-on
-properties instead of the deprecated label property?
-
-When is31fl319x_probe() registers each child LED via
-devm_led_classdev_register_ext(), led_classdev_register_ext() in
-drivers/leds/led-class.c only populates led_cdev->color when the color
-property is present on the node:
-
-	if (fwnode_property_present(init_data->fwnode, "color"))
-		fwnode_property_read_u32(init_data->fwnode, "color",
-					 &led_cdev->color);
-
-Because red_status, green_status, and blue_status only specify label and om=
-it
-color, led_cdev->color remains 0 (LED_COLOR_ID_WHITE) for all three LEDs.
-
-When leds_gmc_probe() in drivers/leds/rgb/leds-group-multicolor.c subsequen=
-tly
-probes the multi-led node, it sets each channel's color_index from
-led_cdev->color:
-
-	for (i =3D 0; i < count; i++) {
-		struct led_classdev *led_cdev =3D priv->monochromatics[i];
-
-		subled[i].color_index =3D led_cdev->color;
-
-		/* Configure the LED intensity to its maximum */
-		subled[i].intensity =3D max_brightness;
-	}
-
-Without color =3D <LED_COLOR_ID_RED>, <LED_COLOR_ID_GREEN>, and
-<LED_COLOR_ID_BLUE> on led@1, led@2, and led@3, multi_index in sysfs reports
-"white white white" instead of "red green blue".
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028-msm8952-in=
-itial-support-v6-0-e07ddd8bcf4c@mainlining.org?part=3D11
+-- 
+Jani Nikula, Intel
