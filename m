@@ -2,91 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9068A606A323
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 22:54:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21407606A31C
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 23:03:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4jjRSzV
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FN3wXovS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A684210E72C;
-	Wed, 28 Oct 2026 22:54:30 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6909E10E6E7;
- Wed, 28 Oct 2026 22:54:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E9E2343FD3;
- Wed, 28 Oct 2026 22:54:18 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793228058;
- b=eSVk+012Bf233/qoNBE4RNk8GmzrOx0nUXzb4gvFp2VefY/ECO/mH5e0xM7d7InC7tj7
- pKaTRpcSFkHfiQYfasqkShJqohNObVlLE24Py0tm8UgJ/5HEdkaOyjRCFXmNiAbR6qy2D
- bsNe+ZtZwUln1CknVr+3RFyt7gIUumsQYL9dYvy4qI400V9gyMcwwROEUYrLE1xXkGOrj
- QZoHEqyvjTMKDypxv61GHh5ymm6WwOdX5ExmFEFOyIVgEok/oq1VtOlOnQBwBdImOoLVS
- AtDsIPZeeBq+o0jBqssNXrZedAjrMs8CJPbkhWzCB1ZYlcNm4DJNMHF+PEJpSqV4o+g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793228058;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=Uq+/t+HMdlaXNj5J1t80Jzrv51On5WqbU4UwEvAO3Xk=;
- b=nLBxnFe0cR76ufwTVzoCXNooUbWVGdKFswPj7vl3fVDycUCxvJJv92W5yNt06Pab8Y2T
- KDyQadryd74iu4BowSVJOdKBtn/l0rpTMRCy3aYewmGyvHDbw7yAGh+q5Os0rEnyapIpJ
- pLOCHVHRj0XrusvbZyjUGZtAc2+4Opv/vJItv4Kaj3JV7Aq3Ru8P9WQDHYH3js4pOVzzz
- M8f56eJtkPQZR8CYOAS9J1PVy40tRG08Ikw+E40BMk20mdtCVzx6yCNIaGCQ3O72A5HzA
- C8iJaRR+m+DVe7uE3CLcFltA5BvIiFphyppzi31BV9x/WZPgfAf4jcejet4KH6h6jPg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 2A45A1F01825;
- Wed, 28 Oct 2026 22:54:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793228058;
- bh=Uq+/t+HMdlaXNj5J1t80Jzrv51On5WqbU4UwEvAO3Xk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=V4jjRSzVm0oHhIh57B+DhbjJt7l8MAUAZfdKMcrF7c+2A9oDyXFt8fGV2jlp6Y0OU
- q78SFZ8R7fbjtOlRWOzT93N7yXKnk+jKaVag9e0yHkQ9YG/hLmv/rMLZylqGHJm8pB
- eD6oHhi2lJGnXUc3z7XdnWjUu5hX1CJ1NXerTZvpxOmiGp/4ltBhozgAAHeAZQVZyC
- n3MXSdTNw0b/m/OELzP0vQH/VYVD4frDa9Vgiis7EzfcBfWhQ2zF1Whm2eJ0tkhJUx
- kM46Bw5bus8KKZdrGIduT08V3qB16B6D0Gf0dMwlc6HXdQbTUZiGBysL7Ou5UrkR9Y
- U9iEh5cH7CXYQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id B22C1455F6;
- Wed, 28 Oct 2026 22:54:15 +0000 (UTC)
-From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
-Date: Wed, 28 Oct 2026 15:54:12 -0700
-Subject: [PATCH v2 1/2] drm/amd/display: Keep FreeSync flip timing across
- plane resets
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A84610E711;
+	Wed, 28 Oct 2026 23:03:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58C9810E2F8;
+ Wed, 28 Oct 2026 23:02:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793228577; x=1824764577;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=70+5liHePgcQKfx9vh3AKdUbRkrtVZQYaXIigCKndHc=;
+ b=FN3wXovSDCMAAFiRP+++PC5hUFhgOMZjfnfr3ZnljFpVmGKQ769O26ua
+ H6CJhHA9OmTgDiKuBwTT43C9Q1JLd6SO3IEwPzwO2nAXCf5AovfJvRWm5
+ +Ih3oryYa7SzUL8K8jbzNYQSY+jABYQ4Etkzcqg/hOa4SiMsbMBSMSVZz
+ vCoiUOcH/A6UowC2dYXgM0lLCzexvUxXsJNLft+ynSlET5rXV22vn0EFw
+ 7hPJzhRtSrqXnR0DsTjZDrPAToR35deJRC37inEmVJiUDFevatSxyMG1i
+ hfPNs1VMZ+okRfHl6AVJB7ggvtu8PzQIG+I0JQy2z9I8NtHqZWFW5JZHo A==;
+X-CSE-ConnectionGUID: 0YJrPMa4Qq+JKntRSr88vw==
+X-CSE-MsgGUID: W9Z2jrRLQKqwUz/BG54U7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1840893"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1840893"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 16:02:55 -0700
+X-CSE-ConnectionGUID: 6IjsOVvnQo+bJq51SP1GmQ==
+X-CSE-MsgGUID: yOoBrMvpQdyH+5cl8R0JTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="5054985"
+Received: from aalteres-desk1.fm.intel.com ([10.121.64.173])
+ by orviesa006.jf.intel.com with ESMTP; 28 Oct 2026 16:02:55 -0700
+From: Alan Previn <alan.previn.teres.alexis@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>
+Subject: [PATCH 1/1] drm/xe/mmio: Update xe_mmio_wait to use kernel polling
+ helpers
+Date: Wed, 28 Oct 2026 16:02:54 -0700
+Message-ID: <20261028230254.496501-2-alan.previn.teres.alexis@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261028-freesync-plane-reset-time-v2-1-545a0f9b17df@gmail.com>
-References: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
-In-Reply-To: <20261028-freesync-plane-reset-time-v2-0-545a0f9b17df@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Davey Hughes <davidralphhughes@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793228055; l=3815;
- i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
- bh=ja1BU9fsikeUf2TrYBZm4ugZRVrlmO4LmC6UBmc9kCU=;
- b=52jaZa7nAksrfqKCubKGFlIUTkSLslZ6JnrdzNfxz6/3Qjdx5UpHTyZGX4OcaDH7Zw/LHJiec
- gpzq4JEvxlXCJULbSWWJFPyJtD7xc+7qHezEzh52Gqmc7e+OULF6kcd
-X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
- pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
-X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
- with auth_id=1335
-X-Original-From: Davey Hughes <davidralphhughes@gmail.com>
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,7 +62,6 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: davidralphhughes@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
@@ -107,89 +71,110 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Davey Hughes <davidralphhughes@gmail.com>
+Refactor the current implementation os __xe_mmio_wait32 to use
+kernel poll_timeout_* helpers that scale across architecture
+and max timeouts while maintaining the exponential backoff looping
+to ensure no difference in latency experiened by callers.
 
-dm_update_plane_state() replaces the DC plane with a newly allocated one
-whenever the plane is reset. The new plane's flip timing is zero, and
-mod_freesync_handle_preflip() runs before DC stores the new plane's
-first flip timestamp, so FreeSync takes the 32-bit microsecond timestamp
-itself as the last render time: the monotonic clock modulo about 71.6
-minutes.
-
-On a panel with below-the-range compensation (BTR), that engages BTR and
-pins the frame time at the BTR mid-point (13.447 ms on a 48-165 Hz
-panel). A panel without BTR (max refresh below twice the min) goes
-through the fixed refresh path instead and locks to its max refresh
-after six frames.
-
-It takes a reset on every flip to keep the panel there, and color
-management changes reset the plane. DRM sets color_mgmt_changed whenever
-a color property is given a different blob, even one with the same
-contents, and KWin 6.8.1 with HDR enabled and its color accuracy setting
-at "Prefer efficiency" sets a new GAMMA_LUT blob on every commit
-(current KWin master no longer does). Plane resets for CRTC color
-changes, added by
-commit 7316c4ad2996 ("drm/amd/display: Reset planes for color management
-changes"), and later for plane color properties and colorops, made this
-reachable on every flip.
-
-Copy the flip timing from the old DC plane into the new one when the
-plane stays on the same CRTC. Do it in amdgpu_dm_commit_planes() before
-the preflip, after drm_atomic_helper_wait_for_dependencies() has waited
-for the previous commit, so the copy holds that commit's flip and does
-not race with DC writing it. This covers both the BTR and the fixed
-refresh path. A plane that is newly enabled or moved to another CRTC
-still starts without history.
-
-Fixes: 180db303ff46 ("drm/amd/display: Add below the range support for FreeSync")
-Cc: stable@vger.kernel.org
-Signed-off-by: Davey Hughes <davidralphhughes@gmail.com>
+Assisted-by: LLM
+Suggested-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/gpu/drm/xe/xe_mmio.c | 64 +++++++++++++-----------------------
+ 1 file changed, 23 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index bdabb4bf14da..7a0afe6d1b8a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3848,6 +3848,25 @@ STATIC_IFN_KUNIT void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *ac
+diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
+index 2674146ced76..e48b1c94a82b 100644
+--- a/drivers/gpu/drm/xe/xe_mmio.c
++++ b/drivers/gpu/drm/xe/xe_mmio.c
+@@ -5,8 +5,8 @@
+ 
+ #include "xe_mmio.h"
+ 
+-#include <linux/delay.h>
+ #include <linux/io-64-nonatomic-lo-hi.h>
++#include <linux/iopoll.h>
+ #include <linux/minmax.h>
+ #include <linux/pci.h>
+ 
+@@ -324,53 +324,35 @@ u64 xe_mmio_read64_2x32(struct xe_mmio *mmio, struct xe_reg reg)
+ 	return (u64)udw << 32 | ldw;
  }
- EXPORT_IF_KUNIT(dm_arm_vblank_event_pre_programming);
  
-+/*
-+ * FreeSync times each frame from the plane's previous flip, and a plane
-+ * reset gives the new DC plane zeroed flip timing, so copy it over. Do
-+ * this at commit time, not in atomic check: by then the previous commit
-+ * has finished writing it.
-+ */
-+static void
-+dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
-+			   struct drm_plane_state *old_plane_state,
-+			   struct drm_plane_state *new_plane_state)
-+{
-+	struct dc_plane_state *old_dc_plane_state =
-+		to_dm_plane_state(old_plane_state)->dc_state;
+-#define __XE_MMIO_WAIT_MAX_BACKOFF_100MS (100 * USEC_PER_MSEC)
++#define XE_MMIO_WAIT_MIN_US		10
++#define XE_MMIO_WAIT_MAX_DELAY_US	(MAX_UDELAY_MS * 1000)
++#define XE_MMIO_WAIT_MAX_SLEEP_US	(100 * 1000)
 +
-+	if (old_dc_plane_state && old_dc_plane_state != dc_plane_state &&
-+	    old_plane_state->crtc == new_plane_state->crtc)
-+		dc_plane_state->time = old_dc_plane_state->time;
-+}
-+
- static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 				    struct drm_device *dev,
- 				    struct amdgpu_display_manager *dm,
-@@ -3952,6 +3971,9 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 		if (!dc_plane)
- 			continue;
+ static int __xe_mmio_wait32(struct xe_mmio *mmio, struct xe_reg reg, u32 mask, u32 val,
+ 			    u32 timeout_us, u32 *out_val, bool atomic, bool expect_match)
+ {
+-	ktime_t cur = ktime_get_raw();
+-	const ktime_t end = ktime_add_us(cur, timeout_us);
+-	int ret = -ETIMEDOUT;
+-	s64 wait = 10;
++	u32 max_us = atomic ? XE_MMIO_WAIT_MAX_DELAY_US : XE_MMIO_WAIT_MAX_SLEEP_US;
++	/* a zero timeout means "never time out" to the iopoll helpers */
++	u32 left_us = timeout_us ?: 1;
++	u32 wait_us = XE_MMIO_WAIT_MIN_US;
++	u32 step_us;
+ 	u32 read;
+-	bool check;
+-
+-	for (;;) {
+-		read = xe_mmio_read32(mmio, reg);
+-
+-		check = (read & mask) == val;
+-		if (!expect_match)
+-			check = !check;
+-
+-		if (check) {
+-			ret = 0;
+-			break;
+-		}
+-
+-		cur = ktime_get_raw();
+-		if (!ktime_before(cur, end))
+-			break;
+-
+-		if (ktime_after(ktime_add_us(cur, wait), end))
+-			wait = ktime_us_delta(end, cur);
++	int ret;
  
-+		dm_plane_inherit_flip_time(dc_plane, old_plane_state,
-+					   new_plane_state);
-+
- 		bundle->surface_updates[planes_count].surface = dc_plane;
- 		if (new_pcrtc_state->color_mgmt_changed || new_plane_state->color_mgmt_changed) {
- 			bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
++	/* exponential backoff: each step polls at, and lasts for, twice the previous interval */
++	do {
++		step_us = min(wait_us, left_us);
+ 		if (atomic)
+-			udelay(min_t(s64, wait, (MAX_UDELAY_MS * 1000)));
++			ret = poll_timeout_us_atomic(read = xe_mmio_read32(mmio, reg),
++						     ((read & mask) == val) == expect_match,
++						     step_us, step_us, false);
+ 		else
+-			usleep_range(wait, wait << 1);
+-		wait = min_t(s64, wait << 1, __XE_MMIO_WAIT_MAX_BACKOFF_100MS);
+-	}
+-
+-	if (ret != 0) {
+-		read = xe_mmio_read32(mmio, reg);
+-
+-		check = (read & mask) == val;
+-		if (!expect_match)
+-			check = !check;
+-
+-		if (check)
+-			ret = 0;
+-	}
++			ret = poll_timeout_us(read = xe_mmio_read32(mmio, reg),
++					      ((read & mask) == val) == expect_match,
++					      step_us, step_us, false);
++		left_us -= step_us;
++		wait_us = min(wait_us << 1, max_us);
++	} while (ret && left_us);
+ 
+ 	if (out_val)
+ 		*out_val = read;
 
+base-commit: 81fce6ce260af07e3f7a1211b6fe813941cbd17b
 -- 
-2.56.0
-
+2.43.0
 
