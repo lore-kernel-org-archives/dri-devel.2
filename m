@@ -2,42 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1837A606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:04:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473AA606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:05:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Irb/vML0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jvluEQKI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B338112035;
-	Thu, 29 Oct 2026 08:04:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60A0210E0E7
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:03:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8C149601E4
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:03:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277E51F01825;
- Thu, 29 Oct 2026 08:03:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793260987;
- bh=G0sl9IHCRLdPJGG5Y7Edyboh+cqko7m++FjjzWH+BUQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Irb/vML0db5XN73zbXIUM50z+USnRF5UUqzrvH74yYbzdffWide/mL72xTmaSDqdX
- +NrAqxFKcIFRSnA+T6KG7hrKf/Wf+ouas3H7KUePhLPg8AE+y5S9mANRIaVal4qOQB
- IfC/MNn0aKwb6OzLZ+lf12EqrZnsWJb7XHCYkXbbvUUgEYOvKT6GOsSL59V6GP60qJ
- TFrCzoZLj10pJgyQMwlWK5zRXhypA9oCFg61LfgtvgNXLWMLZ/IqcZk7RIdddDhefs
- b6fFHMHCEIuz/pLBhZcWS3HRSOWlSGGA9jMwAa1kCNr32Ozb/ZwayoI4TKqoJgV3sO
- BTdM+UFN5HLUA==
-Message-ID: <sashiko-outbox-188936@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 25/34] drm/tests: Add tests for the atomic state readout
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029-drm-state-readout-v7-25-25e5163d75c3@kernel.org>
-References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
- <20261029-drm-state-readout-v7-25-25e5163d75c3@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 08:03:06 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62BD0112031;
+	Thu, 29 Oct 2026 08:05:02 +0000 (UTC)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28CD410E58C
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 22:25:07 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id
+ af79cd13be357-93f2f2edb19so130655885a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 15:25:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793226306; x=1793831106; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=aAFBHqSFELXCigxcRHp1sfmuof9NM3vLwNWTQKlbcIc=;
+ b=jvluEQKIMZ6ksmhk8OxTnRXzQcY4YsMFhxINyDSztQnr+D5byetShKZknpYy2kma/r
+ 4d3xlYIeE8hI5nZPseuYDXDEoYtDmGDeM68gstr4hB068pKZ/hZMSEEWMR6UUngKGTlp
+ tjZ8dOIir3uxvnoCmxgHObLw48Ul3QLfptsU+N0iFCqARDbuAraqzXBv/RWRAvTpAFFt
+ b4hFD4scnAxgpupYjLOOocm1tGOwPOZmUUm92G5kmUoWTlew5L8J+MIGzwfSJwwFYwku
+ KJlClurMbEmkf8ie7OdJL/e7E1MyUl538r1jg7lZeMhzRa18IAhZ8zxNIjuUvl7eEFJ6
+ azkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793226306; x=1793831106;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=aAFBHqSFELXCigxcRHp1sfmuof9NM3vLwNWTQKlbcIc=;
+ b=j+RentBZBouSHNlsxGCEVQTWcQI49PEqmQF87lOL0Cps8x9hq080n9xJUFO481hK3P
+ 8olGrFgtq3/+6gN2GK7v3nepqV7AcQEAAk1DO5mk3dTp/yLSZHn8S42hNaIgtJGV2VsT
+ hraQgGWb8/aUAtm2I3umByPexOJeC/QPNticXHNnC9zeQh40gFF2rElUSBRsHWwAqc4p
+ RasVJAhHnskpJKde7WdxfA9HwbAb4oXVA3Oi4xkk2Bh1kVky8g/RxvDCNQLguzBgYgTe
+ yG0lzcHSFJ3v27D4Immk/7m/nVoVM8Z1fWPZHDGDrPRSXrQL29XgbJ5ZpYLljRjnTJO8
+ 1I6Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByQjxziZQlXXCN+fiVLhkQmYNESo33coSVDlAcXJvB/pIBRqtDnAy7DghT36HhnT1wLB/qG8rgyJtg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLYuxMSOjbgy7LHZpK9hooKijjfl8kyr4bO6WR887wea6UCbh48
+ caUhKlniugjIsR+fb6LE+fmWDibDFUwqOkUnpSM5Ju0q4qUABQOd5IB8
+X-Gm-Gg: AYBFou3GAmi4aE8afMsNeAx8JTporqV343y+AAb3rplnnDKN7rNnmepS73T6rSE/F40
+ gmJA8jXV4LaITfsl80hTBTgcYm1pttmBUVqPFNC4BKp/fcdGWSMQZG2JMaaWApskQKAvnN0ESE+
+ 4H3mz3l3zF36k5Wj737MqY/JtzhltSu+XkeiwWEOimswOJbSjs7A31HVYCaLxBDPIOI73NYNZ/7
+ vt9iOP97/4dSeKFfl43lsSMbu9RW6JI/GCkgIJmprwPRSj96NP8jHA15MBtu4Y1+GGpNJv7gTli
+ FwjDnNmad6VJgI4yNoLLlYHs5BsX6q+KAfwzOBJrcYiB0BxDFRYdHZ2lwLz/BpCQI1Dwio8PAgj
+ +D4yw9PVlWy9JSmD//0gGAMbMQDUXkSRf09xBL244v2V8phMVti7mudfRPKMO4HOX6eW0vJoVg/
+ OUuJ/eUE7Fv10e0zcAIctFO/h0QPhk4dW26Rk6GeMt1HHOyvVnGfA4eppua4i0rlHEdodGG9g3r
+ Ti2ezYuHoHMlzcqCbcV/QTxzQTU90b+rhLN4zUoNFxvzww0i/JzsflRFUSvBry0rexc2Vy/6mNT
+ 4ROYC8uS4dtHfVHMIg==
+X-Received: by 2002:a05:620a:17ab:b0:93a:f9:614a with SMTP id
+ af79cd13be357-94408c91a29mr596917085a.34.1793226305765; 
+ Wed, 28 Oct 2026 15:25:05 -0700 (PDT)
+Received: from linux.. ([8.34.174.240]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91c47bd2110sm142981306d6.13.2026.10.28.15.25.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Oct 2026 15:25:05 -0700 (PDT)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, David Airlie <airlied@redhat.com>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] drm/virtio: Propagate errors from deferred blob mapping
+Date: Wed, 28 Oct 2026 18:25:00 -0400
+Message-ID: <20261028222500.2575769-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,307 +87,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] drm/tests: state leaks in drm_atomic_sro_compare KUnit tests
-- [Low] drm/tests: call to unexported drm_atomic_sro_state_get_device()
---
+virtio_gpu_vram_map_deferred() ignores errors from
+virtio_gpu_vram_map(). If mapping fails before RESOURCE_MAP_BLOB
+is queued, virtio_gpu_vram_mmap() still waits for a response
+that will never arrive.
 
-commit f4486adadf6731a0cd596ded17489fc32e1af61a
-Author: Maxime Ripard <mripard@kernel.org>
+This can happen when drm_mm_insert_node() finds no room in
+host_visible_mm. Since no command is sent, map_state remains
+STATE_INITIALIZING. The task then waits indefinitely while holding
+mmap_lock, and SIGKILL cannot terminate it. Any user with render
+node access can trigger this by mmapping a deferred-mapping blob
+larger than the host visible region.
 
-drm/tests: Add tests for the atomic state readout
+Propagate the error so mmap() returns instead of waiting.
 
-This commit adds a KUnit test suite for the DRM atomic state readout
-infrastructure, covering the drm_atomic_sro_state container API, state
-readout helpers, state comparison helpers, and initial state creation.
+Tested on Linux v7.3 with QEMU (virtio-gpu-gl, blob=true,
+hostmem=256M).
 
-> diff --git a/drivers/gpu/drm/tests/drm_atomic_state_readout_test.c b/driv=
-ers/gpu/drm/tests/drm_atomic_state_readout_test.c
-> new file mode 100644
-> index 0000000000000..ada512f7b32bb
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tests/drm_atomic_state_readout_test.c
+Fixes: 4c26e162947f ("drm/virtio: Extend blob UAPI with deferred-mapping hinting")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_drv.h  |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_vram.c | 14 ++++++++++----
+ 2 files changed, 11 insertions(+), 5 deletions(-)
 
-[ ... ]
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index f3bbbe4468bf..a3c52aa17ed8 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -561,7 +561,7 @@ struct sg_table *virtio_gpu_vram_map_dma_buf(struct virtio_gpu_object *bo,
+ void virtio_gpu_vram_unmap_dma_buf(struct device *dev,
+ 				   struct sg_table *sgt,
+ 				   enum dma_data_direction dir);
+-void virtio_gpu_vram_map_deferred(struct virtio_gpu_object_vram *vram);
++int virtio_gpu_vram_map_deferred(struct virtio_gpu_object_vram *vram);
+ 
+ /* virtgpu_submit.c */
+ int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vram.c b/drivers/gpu/drm/virtio/virtgpu_vram.c
+index 01241ce4d07c..7e0fab7fb2eb 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vram.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vram.c
+@@ -45,7 +45,9 @@ static int virtio_gpu_vram_mmap(struct drm_gem_object *obj,
+ 	if (!(bo->blob_flags & VIRTGPU_BLOB_FLAG_USE_MAPPABLE))
+ 		return -EINVAL;
+ 
+-	virtio_gpu_vram_map_deferred(vram);
++	ret = virtio_gpu_vram_map_deferred(vram);
++	if (ret)
++		return ret;
+ 
+ 	if (vram->map_state == STATE_INITIALIZING)
+ 		virtio_gpu_notify(vgdev);
+@@ -243,13 +245,17 @@ int virtio_gpu_vram_create(struct virtio_gpu_device *vgdev,
+ 	return ret;
+ }
+ 
+-void virtio_gpu_vram_map_deferred(struct virtio_gpu_object_vram *vram)
++int virtio_gpu_vram_map_deferred(struct virtio_gpu_object_vram *vram)
+ {
++	int ret = 0;
++
+ 	if (!(vram->base.blob_flags & VIRTGPU_BLOB_FLAG_USE_MAPPABLE))
+-		return;
++		return 0;
+ 
+ 	mutex_lock(&map_lock);
+ 	if (!drm_mm_node_allocated(&vram->vram_node))
+-		virtio_gpu_vram_map(&vram->base);
++		ret = virtio_gpu_vram_map(&vram->base);
+ 	mutex_unlock(&map_lock);
++
++	return ret;
+ }
 
-> +static void drm_test_sro_state_alloc_free(struct kunit *test)
-> +{
-> +	struct sro_test_priv *priv =3D mock_device_with_sro_create(test);
-> +	struct drm_atomic_sro_state *sro_state;
-> +
-> +	sro_state =3D drm_atomic_sro_state_alloc(&priv->drm);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, sro_state);
-> +
-> +	KUNIT_EXPECT_PTR_EQ(test, drm_atomic_sro_state_get_device(sro_state),
-> +			    &priv->drm);
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+-- 
+2.43.0
 
-[Severity: Low]
-Will building with CONFIG_DRM_KUNIT_TEST=3Dm fail at modpost here?
-
-In drivers/gpu/drm/drm_atomic_state_readout.c,
-drm_atomic_sro_state_get_device() is defined without EXPORT_SYMBOL(),
-unlike the other drm_atomic_sro_* functions:
-
-drivers/gpu/drm/drm_atomic_state_readout.c:
-struct drm_device *
-drm_atomic_sro_state_get_device(struct drm_atomic_sro_state *state)
-{
-	return state->dev;
-}
-
-When drm_atomic_state_readout_test is built as a module under
-CONFIG_DRM_KUNIT_TEST=3Dm, calling drm_atomic_sro_state_get_device() from
-drm_test_sro_state_alloc_free() results in an undefined symbol error.
-
-> +
-> +	drm_atomic_sro_state_free(sro_state);
-> +}
-
-[ ... ]
-
-> +static void drm_test_sro_compare_plane_identical(struct kunit *test)
-> +{
-> +	struct sro_test_priv *priv =3D mock_device_with_sro_create(test);
-> +	struct drm_plane_state *state1, *state2;
-> +	struct drm_printer *p;
-> +	bool identical;
-> +
-> +	p =3D drm_kunit_helper_printer(test, LOGLEVEL_ERR);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
-> +
-> +	state1 =3D priv->plane->funcs->atomic_create_state(priv->plane);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state1);
-> +
-> +	state2 =3D priv->plane->funcs->atomic_create_state(priv->plane);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state2);
-> +
-> +	identical =3D drm_atomic_helper_plane_compare_state(priv->plane, p,
-> +							  state1, state2);
-> +	KUNIT_EXPECT_TRUE(test, identical);
-> +}
-> +
-> +/*
-> + * Test that plane states differing by a single field compare as
-> + * different, and that the mismatching field is reported through the
-> + * printer.
-> + */
-> +static void drm_test_sro_compare_plane_mismatch(struct kunit *test)
-> +{
-> +	struct sro_test_priv *priv =3D mock_device_with_sro_create(test);
-> +	struct drm_plane_state *state1, *state2;
-> +	struct drm_printer *p;
-> +	bool identical;
-> +
-> +	p =3D drm_kunit_helper_printer(test, LOGLEVEL_ERR);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
-> +
-> +	state1 =3D priv->plane->funcs->atomic_create_state(priv->plane);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state1);
-> +
-> +	state2 =3D priv->plane->funcs->atomic_create_state(priv->plane);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state2);
-> +
-> +	state2->crtc =3D priv->crtc;
-> +
-> +	identical =3D drm_atomic_helper_plane_compare_state(priv->plane, p,
-> +							  state1, state2);
-> +	KUNIT_EXPECT_FALSE(test, identical);
-> +}
-> +
-> +/*
-> + * Test that two identical active CRTC states compare as equal.
-> + */
-> +static void drm_test_sro_compare_crtc_identical(struct kunit *test)
-> +{
-> +	struct sro_test_priv *priv =3D mock_device_with_sro_create(test);
-> +	struct drm_crtc_state *state1, *state2;
-> +	struct drm_printer *p;
-> +	bool identical;
-> +
-> +	p =3D drm_kunit_helper_printer(test, LOGLEVEL_ERR);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
-> +
-> +	state1 =3D priv->crtc->funcs->atomic_create_state(priv->crtc);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state1);
-> +
-> +	state2 =3D priv->crtc->funcs->atomic_create_state(priv->crtc);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state2);
-> +
-> +	state1->enable =3D true;
-> +	state1->active =3D true;
-> +	state2->enable =3D true;
-> +	state2->active =3D true;
-> +
-> +	identical =3D drm_atomic_helper_crtc_compare_state(priv->crtc, p,
-> +							 state1, state2);
-> +	KUNIT_EXPECT_TRUE(test, identical);
-> +}
-> +
-> +/*
-> + * Test that two inactive CRTCs compare as equal even though their
-> + * modes differ: the modes are meaningless while inactive and must not
-> + * be compared.
-> + */
-> +static void drm_test_sro_compare_crtc_inactive(struct kunit *test)
-> +{
-> +	struct sro_test_priv *priv =3D mock_device_with_sro_create(test);
-> +	struct drm_display_mode *mode1, *mode2;
-> +	struct drm_crtc_state *state1, *state2;
-> +	struct drm_printer *p;
-> +	bool identical;
-> +
-> +	p =3D drm_kunit_helper_printer(test, LOGLEVEL_ERR);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
-> +
-> +	state1 =3D priv->crtc->funcs->atomic_create_state(priv->crtc);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state1);
-> +
-> +	state2 =3D priv->crtc->funcs->atomic_create_state(priv->crtc);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state2);
-> +
-> +	/* Two different but valid modes */
-> +	mode1 =3D drm_kunit_display_mode_from_cea_vic(test, &priv->drm, 16);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode1);
-> +
-> +	mode2 =3D drm_kunit_display_mode_from_cea_vic(test, &priv->drm, 4);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode2);
-> +
-> +	/*
-> +	 * Both CRTCs are inactive: the modes are meaningless and must
-> +	 * not be compared.
-> +	 */
-> +	drm_mode_copy(&state1->mode, mode1);
-> +	drm_mode_copy(&state2->mode, mode2);
-> +
-> +	identical =3D drm_atomic_helper_crtc_compare_state(priv->crtc, p,
-> +							 state1, state2);
-> +	KUNIT_EXPECT_TRUE(test, identical);
-> +}
-> +
-> +/*
-> + * Test that an active CRTC and an inactive one compare as different.
-> + */
-> +static void drm_test_sro_compare_crtc_active_mismatch(struct kunit *test)
-> +{
-> +	struct sro_test_priv *priv =3D mock_device_with_sro_create(test);
-> +	struct drm_crtc_state *state1, *state2;
-> +	struct drm_printer *p;
-> +	bool identical;
-> +
-> +	p =3D drm_kunit_helper_printer(test, LOGLEVEL_ERR);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
-> +
-> +	state1 =3D priv->crtc->funcs->atomic_create_state(priv->crtc);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state1);
-> +
-> +	state2 =3D priv->crtc->funcs->atomic_create_state(priv->crtc);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state2);
-> +
-> +	state1->enable =3D true;
-> +	state1->active =3D true;
-> +
-> +	identical =3D drm_atomic_helper_crtc_compare_state(priv->crtc, p,
-> +							 state1, state2);
-> +	KUNIT_EXPECT_FALSE(test, identical);
-> +}
-> +
-> +/*
-> + * Test that two identical connector states compare as equal.
-> + */
-> +static void drm_test_sro_compare_connector_identical(struct kunit *test)
-> +{
-> +	struct drm_connector *connector;
-> +	struct sro_test_priv *priv;
-> +	struct drm_connector_state *state1, *state2;
-> +	struct drm_printer *p;
-> +	bool identical;
-> +
-> +	p =3D drm_kunit_helper_printer(test, LOGLEVEL_ERR);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
-> +
-> +	priv =3D mock_device_with_sro_create(test);
-> +	connector =3D &priv->connector;
-> +
-> +	state1 =3D connector->funcs->atomic_create_state(connector);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state1);
-> +
-> +	state2 =3D connector->funcs->atomic_create_state(connector);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state2);
-> +
-> +	identical =3D
-> +		drm_atomic_helper_connector_compare_state(connector, p,
-> +							  state1, state2);
-> +	KUNIT_EXPECT_TRUE(test, identical);
-> +}
-> +
-> +/*
-> + * Test that connector states whose CRTCs differ compare as different.
-> + */
-> +static void drm_test_sro_compare_connector_mismatch(struct kunit *test)
-> +{
-> +	struct drm_connector *connector;
-> +	struct sro_test_priv *priv;
-> +	struct drm_connector_state *state1, *state2;
-> +	struct drm_printer *p;
-> +	bool identical;
-> +
-> +	p =3D drm_kunit_helper_printer(test, LOGLEVEL_ERR);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
-> +
-> +	priv =3D mock_device_with_sro_create(test);
-> +	connector =3D &priv->connector;
-> +
-> +	state1 =3D connector->funcs->atomic_create_state(connector);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state1);
-> +
-> +	state2 =3D connector->funcs->atomic_create_state(connector);
-> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state2);
-> +
-> +	state2->crtc =3D priv->crtc;
-> +
-> +	identical =3D
-> +		drm_atomic_helper_connector_compare_state(connector, p,
-> +							  state1, state2);
-> +	KUNIT_EXPECT_FALSE(test, identical);
-> +}
-
-[Severity: Medium]
-Do these seven plane, CRTC, and connector comparison tests leak state1 and
-state2?
-
-In drm_test_sro_compare_plane_identical(),
-drm_test_sro_compare_plane_mismatch(),
-drm_test_sro_compare_crtc_identical(),
-drm_test_sro_compare_crtc_inactive(),
-drm_test_sro_compare_crtc_active_mismatch(),
-drm_test_sro_compare_connector_identical(), and
-drm_test_sro_compare_connector_mismatch(), state1 and state2 are allocated
-via ->atomic_create_state() (using unmanaged kzalloc_obj()) and are not
-installed on the objects or in a drm_atomic_sro_state container. Unlike
-drm_test_sro_compare_bridge_identical() and
-drm_test_sro_compare_bridge_mismatch() below, these tests return without
-calling ->atomic_destroy_state() on state1 and state2.
-
-Also, in drm_test_sro_compare_connector_mismatch(), state2->crtc is set
-to priv->crtc without taking a connector reference via
-drm_connector_get(connector). When destroying state2 via
-connector->funcs->atomic_destroy_state(connector, state2),
-__drm_atomic_helper_connector_destroy_state() will call
-drm_connector_put(state->connector) because state2->crtc is non-NULL, so
-either drm_connector_get(connector) should be called when setting
-state2->crtc or state2->crtc should be cleared before destroying state2.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-drm-state-=
-readout-v7-0-25e5163d75c3@kernel.org?part=3D25
