@@ -2,64 +2,134 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C53606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 15:05:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FA4606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 15:23:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ii2Cv1I1
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mlI1Fuyy;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c5fv+LLL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E36410FD2C;
-	Wed, 28 Oct 2026 15:05:02 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7738410FD26
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 15:04:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 833BF60252;
- Wed, 28 Oct 2026 15:04:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7631F01829;
- Wed, 28 Oct 2026 15:04:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793199881;
- bh=mSdqxz6Q37ONxr+q5PLgX5Mx5sgsbL1ZlDMhRwJ4tls=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ii2Cv1I1mFw6z0jUk6ND3vI1KQsc+cPLiCIZMvKnAo54Gp0s/gplwdGsTCOINjF3m
- Vyp8TPUP1c89LMrtNfl1SSCyLKR8iCzMdClXf8Ag22Q466Srn6wp0pPBEPe1niet9S
- ltmp6epcmx5o/iHtRObx0gat20oSI3vbNsnbdjdF1arYD08Zmh3aUxS6DVRKuWcEhE
- +D3p7ka5Cqbc2R7/WvOlKFR5jK2qoxxu/WaG77pXfVBFw+gw6l11JjB/aHP5om3QIg
- XPjWzyvY1HOBKSJdOvSWDFjmd3ugT+ApaWExa7poGt1jjmuxkJPlMjdXVPIc7LG6HW
- WCOxu4Wy9nCCA==
-Message-ID: <sashiko-outbox-188032@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/8] dma-buf: transfer memcg charges via
- DMA_BUF_IOCTL_XFER_CHARGE
-To: "Albert Esteve" <aesteve@redhat.com>, "Tejun Heo" <tj@kernel.org>,
- "Johannes Weiner" <hannes@cmpxchg.org>,
- =?utf-8?b?TWljaGFsIEtvdXRuw70=?= <mkoutny@suse.com>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Sumit
- Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?b?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, "Michal
- Hocko" <mhocko@kernel.org>, "Roman Gushchin" <roman.gushchin@linux.dev>,
- "Shakeel
- Butt" <shakeel.butt@linux.dev>, "Muchun Song" <muchun.song@linux.dev>, "Andrew
- Morton" <akpm@linux-foundation.org>,
- "Benjamin Gaignard" <benjamin.gaignard@collabora.com>, "Brian
- Starkey" <Brian.Starkey@arm.com>, "John Stultz" <jstultz@google.com>, "T.J.
- Mercier" <tjmercier@google.com>, "Christian Brauner" <brauner@kernel.org>,
- "Paul
- Moore" <paul@paul-moore.com>, "James Morris" <jmorris@namei.org>, "Serge E.
- Hallyn" <serge@hallyn.com>, "Stephen Smalley" <stephen.smalley.work@gmail.com>,
- "Shuah Khan" <shuah@kernel.org>, "Randy Dunlap" <rdunlap@infradead.org>,
- =?utf-8?b?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>,
- "Jens Wiklander" <jenswi@kernel.org>, "Sumit Garg" <sumit.garg@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, echanude@redhat.com, mripard@kernel.org,
- media-ci@linuxtv.org
-In-Reply-To: <20261027-v2_20230123_tjmercier_google_com-v3-7-78d2c4cb8647@redhat.com>
-References: <20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com>
- <20261027-v2_20230123_tjmercier_google_com-v3-7-78d2c4cb8647@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 15:04:39 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEFF910FD45;
+	Wed, 28 Oct 2026 15:22:56 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9877E10FD45
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 15:22:45 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69SFA17J2543023
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 15:22:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ReOuLokYGzfg7OSlJ/8q6NsD9cOCBs0tcN4dPswQ2dE=; b=mlI1FuyyX7z9hIH0
+ BkJjqO00UaHKCS/TPig9Al00nxWjc8pw8IFd7nr51S8iS1xtXejA5kyHo/872BP1
+ WKTcf91kLKB6unMI0r+BGU3BeLVjHtHhM5VEhnZHeJMsB9nR1gl2AzGgUHHYYqvA
+ 68ESmFe/ADJCHIc0NlvwjLhrif2Jkrpc/fW0en0qj+eErJAHfPuZbWXLGsvclrEd
+ G74d0Rz+I9O6KLE34sPqKs7mtXlWL+0BOrAn6GELr2y7QTRNTQGsd1ng24Ykja4j
+ EL4IV5Z0qtH0cZ/JVXdhHADgloUbAZXbndq20dqrVuM106hHGYiyHwdml8PUF3jW
+ 96g7tg==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkkehr27a-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 15:22:44 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id
+ 46e09a7af769-851f7cdfaefso1041643a34.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 08:22:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793200964; x=1793805764;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ReOuLokYGzfg7OSlJ/8q6NsD9cOCBs0tcN4dPswQ2dE=;
+ b=c5fv+LLLQqedywp0ngnh0G0Mc4Ixp6b0MgcuOSc7B9iXNHCLnkjvm8fAwvXt9C48Mu
+ uXV7eCvFAWF8qVsn11WQgj3ID333JleOwDC0dLgcL+DUFHALj/qs6LOubTMlAP43BHj2
+ tmOocxtlv3SSEvmEMxXHIEBic4B+YW9m6LfVhK2Gn+RuYOkfWKL8+i6M8UgCEIqkBlyw
+ j0zVTRWJINBGIC1D3BrL7LCeJZFgi9oT7Y9cPM5kFhlT59uW/S8pxpMFCZjTtXbqk3gJ
+ kLwLOXTfuI3Ho5R6KUBnzRTbf9vq/+kCbYSFk13AIcdS1mMBxufu5bvzyq20sw1p+L9o
+ ATMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793200964; x=1793805764;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ReOuLokYGzfg7OSlJ/8q6NsD9cOCBs0tcN4dPswQ2dE=;
+ b=mWld6seazG4VvOfw9mVaeavVRcKwyTkMr87CYLBnwmIWt3KNMY269P9OmpVe06jkPR
+ OX4BmURPq4Vt2gU/6dNjpqQjGBmcLNhq+y2M5J8ofkxaj1UQGP1sx1rI8uvJz+MfrxwS
+ OopzK1Y/rp6x2tANZxFyo992M7xQF/d0NrAdzbnfkWQjgnjGPrLvE6Q5Y4lrq4HzZFpt
+ kcueqPVYiPoOL3sJ3nX06h3GZfPI1WydO6qecsV2fvexQklIWOHnlqnByRJehr6FvSxW
+ g0R/5PRRwZ+VJiBQORrCBqsym36eiQnSYJFGS4wZW5ECEXn0R9MMTyocggabMQdmp+Ye
+ 2hSQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwtEuUpjXS8v6akFHMwEqPIy3BPQxY7XzqSl+DtPQd7bhpIhtuhCY1miKw09lblkLuzZzHfSUhqbO0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJeq+O9XQxddMyaNi9fhkAqJjICMw535O6E4wBw9YXGDyj6ZBRW
+ UTTkRSMfpFiS16nGenHNMbYeJzzDqXQVibuY51th6HTbFHKRLCOHMpM+aSt25SBdMvgPvQFCN3R
+ qAeJ//CaawmCycuMkKPw4R79jNNKQcCfSK3u6wzPIb0BDZNpOVeWvtxCAJSUEynmNEb53x/I=
+X-Gm-Gg: AYBFou3TuPXnNI9vSLQoQ7sByigSQINhxqMFTBpU+z9um3LSK3+sTNvM2/hbnltO/IN
+ RIbyrhINei9zicXyjYQHDw3WamGgfD4g8p36JWIlv5KC/O1HPjzBh8OeOLc2bdzfGkxIINUdqWV
+ Sj+7dTM5xSm6MPzPvjIKEpjeT2i/m31butXmQvCoSI5xg1jpxXyDQ1HukwPlOyVl1BGIg185gcm
+ 8jKvYMYjO+l/DaaK2oF3i4dp0SOC6rq1sRreacJ9Zjr5vApJPKanPQl+qGEPXVd+LzwYVWZLp3V
+ LsNpTNTKkruhQHdxG3jfQYfZrZZSig2p21d/H7Gt8s1DqwrenShpDtiZOhYy402qIkuw11PiXdr
+ EoCg8nM8Ured0yrjFROfnd/CwzUQ+ubVSQ7THzDjvBuoKArTPModcPd8V62+IlULHfZEmhaswmY
+ FenU1vXEUOtkX+TjWkZ4tJGSg=
+X-Received: by 2002:a05:6830:7196:b0:84e:4a6e:5ce6 with SMTP id
+ 46e09a7af769-85ac0709860mr2305167a34.17.1793200963850; 
+ Wed, 28 Oct 2026 08:22:43 -0700 (PDT)
+X-Received: by 2002:a05:6830:7196:b0:84e:4a6e:5ce6 with SMTP id
+ 46e09a7af769-85ac0709860mr2305107a34.17.1793200962549; 
+ Wed, 28 Oct 2026 08:22:42 -0700 (PDT)
+Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-85b1f8411f8sm2006041a34.11.2026.10.28.08.22.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Oct 2026 08:22:42 -0700 (PDT)
+Message-ID: <eecad0bc-1c70-485c-8a13-0459df71f5b3@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 09:22:40 -0600
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/ivpu: Read preemption buffer size from boot
+ params
+To: "Wachowski, Karol" <karol.wachowski@linux.intel.com>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, lizhi.hou@amd.com, dawid.osuchowski@linux.intel.com
+References: <20261027164529.295791-1-andrzej.kacprowski@linux.intel.com>
+ <1d24db8a-1251-4fbf-933a-97b908660576@linux.intel.com>
+Content-Language: en-US
+From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+In-Reply-To: <1d24db8a-1251-4fbf-933a-97b908660576@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: hMrmogM17m4Vl0fQbW5CiFq2kkUlClt5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2MSBTYWx0ZWRfX3syBlvSUECXF
+ /SFra0mBxjlDdq/jjK1FTYZQjzyh48aflSyBPKHe3C9YBYjS281yLLjHePHhsSuPwjVlTZv6P25
+ GRHDXGhBrIhQVcCUn8yZ1cRymCd1EYBZYOtB05W4Bd27id2KAjIqJVkTy53gmAK+jRhuzVK0VT1
+ C8xPKtxWGajzIDbSB/7yMb4JdCxkBJB71REOYQQCCuebUGzknR0XTKmpXkAXlBDHjy93Z/YWwd3
+ gxXIgOQn4alvwPs+khU5D90V1CWO0HMekQgO8g8gloco25lkn/XelsOAHe8gfvHDmFxYVwQLEGj
+ S+VhDuabXeXpDM/pULqH+KUs6m5nwHl9DSEzovDCq/aLHfeucjuw1P6PFxYPDLzJhZ6J4Awd89T
+ bkzXHqgWeqGpmYLyawgNfX0vGd+skh2w4sxEB7i2Pdqk0JkUmN5L43+W/300ZLLDKmAfdISASIx
+ G+lwLxVa8l4U6qz1abg==
+X-Proofpoint-GUID: hMrmogM17m4Vl0fQbW5CiFq2kkUlClt5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2MSBTYWx0ZWRfXwSvziNvCx5o0
+ iAa89TErNl2dPQAAvxVMb7uTOc/UqCld/6FQsATeOZ/Ywo3rCo6A0O/LsfgG3CoztBv0UO9zbM9
+ rxdsRxUurApJQ908X499EAY4skEMjn4=
+X-Authority-Analysis: v=2.4 cv=bYv+w+PB c=1 sm=1 tr=0 ts=6ae21344 cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=CR5PtVS8CFOCSW2HDbYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=EXS-LbY8YePsIyqnH6vw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280061
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,244 +140,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] dma-buf: unprivileged cgroup escape and OOM via dma_buf_xfer_charg=
-e()
-- [High] dma-buf: race in mem_cgroup_transfer_dmabuf_charge() double-charge=
-s memcg
-- [Medium] dma-buf: broken disabled-memcg handling in dma_buf_xfer_charge()
---
-
-commit 1660729e62b15fd915c69f26225530bd5ae30ce0
-Author: Albert Esteve <aesteve@redhat.com>
-
-dma-buf: transfer memcg charges via DMA_BUF_IOCTL_XFER_CHARGE
-
-This commit adds DMA_BUF_IOCTL_XFER_CHARGE to allow transferring a dma-buf's
-memory cgroup charge to a cgroup identified by a cgroupfd or pidfd after
-allocation. It also introduces a memcg_account flag in dma_buf_export_info =
-for
-exporters to opt in to memcg accounting, enabling it for the system heap.
-
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index f31f49ebd0af3..07513ecedc105 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -540,6 +540,45 @@ static long dma_buf_import_sync_file(struct dma_buf =
-*dmabuf,
->  }
->  #endif
-> =20
-> +/* Transfer a dma-buf's memcg charge; see struct dma_buf_transfer_charge=
- */
-> +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
-> +				const void __user *user_data)
-> +{
-> +	struct dma_buf_transfer_charge arg;
-> +	struct mem_cgroup *memcg;
-> +	int ret =3D 0;
-> +
-> +	if (copy_from_user(&arg, user_data, sizeof(arg)))
-> +		return -EFAULT;
-> +
-> +	if (!IS_ENABLED(CONFIG_MEMCG))
-> +		return 0;
-> +
-> +	if (arg.flags !=3D 0)
-> +		return -EINVAL;
-> +
-> +	if (!dmabuf->memcg_account)
-> +		return -EOPNOTSUPP;
-
-[Severity: Medium]
-When CONFIG_MEMCG is disabled, should dma_buf_xfer_charge() still validate
-arg.flags and dmabuf->memcg_account, or return -EOPNOTSUPP?
-
-Returning 0 before checking arg.flags !=3D 0 and !dmabuf->memcg_account cau=
-ses
-calls with invalid flags, non-accounting exporters, or invalid file
-descriptors to silently succeed under CONFIG_MEMCG=3Dn, while also leaving =
-the
-!CONFIG_MEMCG stubs for mem_cgroup_get_from_fd() (which returns
-ERR_PTR(-EOPNOTSUPP)) and mem_cgroup_transfer_dmabuf_charge() in
-include/linux/memcontrol.h unreachable.
-
-Also, when CONFIG_MEMCG=3Dy and cgroup_disable=3Dmemory is passed on the ke=
-rnel
-command line (so mem_cgroup_disabled() is true at runtime),
-mem_cgroup_get_from_fd() behaves inconsistently across its two branches:
-
-mm/memcontrol.c:mem_cgroup_get_from_fd() {
-	cgrp =3D cgroup_get_from_fd(fd);
-	if (!IS_ERR(cgrp)) {
-		rcu_read_lock();
-		css =3D cgroup_css(cgrp, &memory_cgrp_subsys);
-		if (!css || !css_tryget_online(css)) {
-			rcu_read_unlock();
-			cgroup_put(cgrp);
-			return ERR_PTR(-ENOENT);
-		}
-...
-	memcg =3D get_mem_cgroup_from_mm(mm);
-	mmput(mm);
-	return memcg;
-}
-
-For a cgroupfd, cgroup_css() is NULL and it returns ERR_PTR(-ENOENT), where=
-as
-for a pidfd, get_mem_cgroup_from_mm() returns NULL rather than an ERR_PTR, =
-so
-dma_buf_xfer_charge() returns 0 for pidfds and -ENOENT for cgroupfds.
-
-> +
-> +	memcg =3D mem_cgroup_get_from_fd(arg.charge_fd);
-> +	if (IS_ERR(memcg))
-> +		return PTR_ERR(memcg);
-> +
-> +	if (dmabuf->memcg =3D=3D memcg)
-> +		goto skip_transfer;
-> +
-> +	if (!mem_cgroup_transfer_dmabuf_charge(dmabuf, memcg)) {
-> +		ret =3D -ENOMEM;
-> +		goto skip_transfer;
-> +	}
-
-[Severity: High]
-Can an unprivileged holder of a dma-buf file descriptor use
-dma_buf_xfer_charge() to escape its own memory cgroup limit or trigger OOM
-kills in another cgroup?
-
-In the call chain:
-
-  dma_buf_ioctl()
-    -> dma_buf_xfer_charge()
-      -> mem_cgroup_get_from_fd()
-      -> mem_cgroup_transfer_dmabuf_charge()
-        -> mem_cgroup_reserve_dmabuf(new_memcg, GFP_KERNEL, nr_pages)
-          -> try_charge()
-
-neither dma_buf_xfer_charge() nor mem_cgroup_get_from_fd() checks DAC or
-cgroup delegation/write permissions (such as inode_permission() with MAY_WR=
-ITE
-or cgroup_procs_write_permission()), capabilities, or ptrace_may_access() on
-either the source cgroup (dmabuf->memcg) being uncharged or the target
-cgroup/task (new_memcg) being charged.
-
-Because /sys/fs/cgroup directories are normally world-readable (mode 0755, =
-so
-any user can open them with O_RDONLY | O_DIRECTORY) and pidfd_open() can op=
-en
-a pidfd for PID 1 or any visible process without privilege, an unprivileged
-process can resolve a handle to the root cgroup or to another cgroup on the
-system.
-
-When SELinux is not active, security_dma_buf_charge_cgroup() and
-security_dma_buf_charge_task() return 0. Even with SELinux enabled,
-selinux_dma_buf_charge_cgroup() returns 0 when the cgroup kernfs node has no
-explicit security.selinux xattr set:
-
-security/selinux/hooks.c:selinux_dma_buf_charge_cgroup() {
-	rc =3D kernfs_xattr_get(cgrp->kn, XATTR_NAME_SELINUX, NULL, 0);
-	if (rc =3D=3D -ENODATA)
-		return 0;
-}
-
-and neither hook checks permission to uncharge the existing dmabuf->memcg. =
-As
-a result, a confined client receiving a pre-charged dma-buf fd can move the
-charge to the root cgroup to bypass its own memory.max limit, or move the
-charge into a victim cgroup where mem_cgroup_reserve_dmabuf() with GFP_KERN=
-EL
-triggers direct reclaim and the memcg OOM killer.
-
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 7b841b9057594..3adc84fe6668d 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -5786,6 +5786,47 @@ void mem_cgroup_cancel_dmabuf(struct mem_cgroup *m=
-emcg, unsigned int nr_pages)
->  		refill_stock(memcg, nr_pages);
->  }
-> =20
-> +/**
-> + * mem_cgroup_transfer_dmabuf_charge - move a dma-buf charge
-> + * @dmabuf: buffer to transfer charge
-> + * @new_memcg: target memcg; caller must hold a reference
-> + *
-> + * Transfers the charge for @dmabuf to @new_memcg and, on
-> + * success, stores @new_memcg in @dmabuf->memcg.
-> + * Returns %true on success, %false if the charge against @new_memcg
-> + * failed or a concurrent transfer raced on @dmabuf->memcg.
-> + * On failure the caller retains its reference to @new_memcg.
-> + */
-> +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> +				       struct mem_cgroup *new_memcg)
-> +{
-> +	struct mem_cgroup *old_memcg =3D READ_ONCE(dmabuf->memcg);
-> +	unsigned int nr_pages =3D PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-> +
-> +	if (mem_cgroup_disabled())
-> +		return true;
-> +
-> +	if (!mem_cgroup_reserve_dmabuf(new_memcg, GFP_KERNEL, nr_pages))
-> +		return false;
-> +
-> +	mod_memcg_state(new_memcg, MEMCG_DMABUF, nr_pages);
-> +
-> +	if (cmpxchg(&dmabuf->memcg, old_memcg, new_memcg) !=3D old_memcg) {
-> +		mod_memcg_state(new_memcg, MEMCG_DMABUF, -nr_pages);
-> +		mem_cgroup_cancel_dmabuf(new_memcg, nr_pages);
-> +		return false;
-> +	}
-
-[Severity: High]
-What happens if two threads concurrently call DMA_BUF_IOCTL_XFER_CHARGE on =
-the
-same dma-buf?
-
-In dma_buf_xfer_charge(), dmabuf->memcg =3D=3D memcg is checked without
-synchronization before calling mem_cgroup_transfer_dmabuf_charge(), which t=
-hen
-re-reads old_memcg =3D READ_ONCE(dmabuf->memcg) without checking whether
-old_memcg =3D=3D new_memcg.
-
-If thread 1 transfers the buffer to new_memcg after thread 2 passes the
-dmabuf->memcg =3D=3D memcg check in dma_buf_xfer_charge() (or if both threa=
-ds
-concurrently transfer the buffer to the same new_memcg), thread 2 sees
-old_memcg =3D=3D new_memcg and still calls mem_cgroup_reserve_dmabuf(new_me=
-mcg,
-GFP_KERNEL, nr_pages) before uncharging old_memcg. That transiently charges
-2 * nr_pages against new_memcg for the same buffer, which can trigger recla=
-im,
-memcg OOM kills, or -ENOMEM in new_memcg even though the buffer is already
-charged to it.
-
-In addition, old_memcg is read before mem_cgroup_reserve_dmabuf(new_memcg,
-GFP_KERNEL, nr_pages), which can sleep in direct reclaim. If another thread
-updates dmabuf->memcg while mem_cgroup_reserve_dmabuf() is sleeping, the
-cmpxchg(&dmabuf->memcg, old_memcg, new_memcg) fails without retrying against
-the updated old_memcg and returns false, which dma_buf_xfer_charge() reports
-to userspace as -ENOMEM even though charging new_memcg succeeded.
-
-Finally, if mem_cgroup_transfer_dmabuf_charge() is called when
-mem_cgroup_disabled() is true, returning true at the top without storing
-new_memcg in dmabuf->memcg or dropping new_memcg's reference would leak the
- caller's reference to new_memcg, since callers only call mem_cgroup_put() =
-when
-this function returns false.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261027-v2_2023012=
-3_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com?part=3D7
+On 10/28/2026 2:59 AM, Wachowski, Karol wrote:
+> On 27-Oct-26 17:45, Andrzej Kacprowski wrote:
+>> The optimal preemption buffer size depends on the hardware and firmware
+>> configuration, which is best known to the firmware. Newer firmware
+>> reports the required size in the preemption_buffer_size field of the
+>> boot params, which it writes before signaling cold boot completion.
+>>
+>> Read the size from the boot params once, after the initial cold boot
+>> during device initialization, as the firmware does not update it
+>> afterwards. Use it as the primary preemption buffer size and skip
+>> allocating the secondary buffer. A size outside of the [2 MiB, 32 MiB]
+>> range is treated as a firmware error and fails probe. If the firmware
+>> does not report the size, keep using the sizes from the firmware image
+>> header to preserve compatibility with older firmware.
+>>
+>> The preemption buffer sizes in the image header are deprecated in
+>> favor of the boot params, meaning the boot params size takes
+>> precedence when available. Firmware still provides valid sizes in the
+>> image header so that older kernels keep working, so the image header
+>> sizes are always validated and used until the boot params are read.
+>>
+>> Simplify the image header size selection: use the max sizes for both
+>> buffers when preemption_buffer_1_max_size is set, otherwise use the
+>> regular sizes. All known firmware versions that set
+>> preemption_buffer_1_max_size also set preemption_buffer_2_max_size, so
+>> selecting each buffer size separately is not needed.
+>>
+>> Move initialization of the trace and DVFS defaults to
+>> ivpu_fw_preboot_init().
+>>
+>> Update the FW boot API header to version 3.39.1:
+>> - Add the VPU_GOV_ON_DEMAND_PER_PRIORITY and VPU_GOV_ON_DEMAND_QOS
+>>    DVFS governors
+>> - Add the preemption_buffer_size field to struct vpu_boot_params
+>> - Mark the preemption buffer sizes in the image header as deprecated
+>>    in favor of preemption_buffer_size
+>>
+>> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+> 
+> Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
