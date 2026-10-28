@@ -2,54 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84ED4606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 09:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90F5606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 09:59:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C0gZ2rkh
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jjOQxnt6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC51C10FB0D;
-	Wed, 28 Oct 2026 09:52:56 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5334910FB0A
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 09:52:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3C5E342AF0;
- Wed, 28 Oct 2026 09:52:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8562F1F01825;
- Wed, 28 Oct 2026 09:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793181161;
- bh=HjrIAyJJFe+6a0dza+cAUoe0VKgjH+kUdZDN0GgbES8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=C0gZ2rkhtTRpPCHOsNuQz5RR/ra/DUYkw1wrPBdhtWrNz9gZPMPOewd0tBOo49TL6
- +ZZfaCIYI13zvh0OnjpoOCNoEKErT3YjKgPfUNAEmh5Z7IPpC1uX4vOGKvhRMxUeVj
- Ra6+Fgiz2dcFBBl0NNT8fDmPA1ADmBHRqzN0+hMhqmJX8EPUu0VTo5aJ8hrt7xvpJy
- ZV2tNX9RUDZG6WHMEFYcOFOi/nOZgc9m36s9gNOryYjROixGCfA0KxT9wIEC1S+jiG
- WGK+L3vZfn37D3PmnvtvGrSXRvy7LzwMisxqzjcRNbqEPJlI1rcEUGyFVyaWYWVSyz
- L71CFMZxKL4Cg==
-From: Vladimir Zapolskiy <vz@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org
-Subject: [PATCH 8/8] arm64: dts: qcom: qcm6490-idp: Describe the panel bias
- enable GPIO
-Date: Wed, 28 Oct 2026 11:51:51 +0200
-Message-ID: <20261028095151.1682096-9-vz@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261028095151.1682096-1-vz@kernel.org>
-References: <20261028095151.1682096-1-vz@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CEA010FB13;
+	Wed, 28 Oct 2026 09:59:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30D6110FB18;
+ Wed, 28 Oct 2026 09:59:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793181569; x=1824717569;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=0vHXV9ObKhX13afcYiPJkTqBcSHLibfB6zlngUh0HlI=;
+ b=jjOQxnt6wy5LE27P70HYZxSIk8JNjVsea7DtWAUH5D9FOrKmGWLvyTgk
+ oi7nBX5CiQc9ZQ1P7Pu9xCLftmG83B6Kzcag/BDUS1CfoJMNm4MiopgIS
+ U+QDCSDhNBjN4pWnrAbB1Za4MOMcZ6R73xbhIE2u4qaSnIsIn/vBpkrAn
+ PHH+dzp+WrrQFYaQ4XkmyQjMTGvDDYoPNupFjfBVh3DSRdCynb0tZEgah
+ Qib9nn/PeBkzKfXrbC0+OV7Jgk1pa/zh469PJxq3i7MEhsyXQqP3H1/ag
+ h80NKhQwMiVb/ap3lFiGl/iX86ROB8dKoBU+tEcuYOp/AFGJgM/tRz+ZU Q==;
+X-CSE-ConnectionGUID: 5EyyqE9pSJW7k8Ku+qjofw==
+X-CSE-MsgGUID: TqvSK/iZR06ZJXFzYSZHkQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1909797"
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="1909797"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 02:59:29 -0700
+X-CSE-ConnectionGUID: iYC4SpshRwSCKVdOQ4dA2w==
+X-CSE-MsgGUID: QynQGQqPSBW8zIriNKoSAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
+   d="scan'208";a="4810184"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.244.196])
+ ([10.245.244.196])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 02:59:28 -0700
+Message-ID: <dcbb570b-0f53-4df2-9d17-62c66a80a8c4@intel.com>
+Date: Wed, 28 Oct 2026 09:59:26 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/3] drm/xe: Bump the LRU on a successful page fault
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20261027224902.1085762-1-matthew.brost@intel.com>
+ <20261027224902.1085762-2-matthew.brost@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20261027224902.1085762-2-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,71 +67,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The positive and negative bias supplies of the NT36672E panel on the
-QCM6490 IDP board are switched on by the PM7250B GPIO2 bias enable
-signal, which is described as a single fixed regulator supplying both
-AVDD and AVEE bias supplies of the panel. The fixed regulator does not
-describe the hardware, it can not supply a positive and a negative
-voltage at the same time, and apparently bias supplies are generated
-right on the display panel module.
+On 27/10/2026 22:49, Matthew Brost wrote:
+> Servicing a page fault validates the VMA's backing store and binds it,
+> making the BO part of the VM's active working set, but unlike exec it
+> never moves anything on the TTM LRU. In fault mode, where a VM may run
+> for a long time without a single exec, the BOs the GPU actually touches
+> therefore drift towards the LRU head and are picked by eviction and by
+> the shrinker ahead of genuinely cold BOs.
+> 
+> Bump the BO's LRU on a successful page fault.
+> 
+> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+>   drivers/gpu/drm/xe/xe_pagefault.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
+> index 5247321c805e..6828f81df50e 100644
+> --- a/drivers/gpu/drm/xe/xe_pagefault.c
+> +++ b/drivers/gpu/drm/xe/xe_pagefault.c
+> @@ -201,6 +201,8 @@ static int xe_pagefault_handle_vma(struct xe_gt *gt, struct xe_vma *vma,
+>   		xe_validation_ctx_init(&ctx, &vm->xe->val, &exec,
+>   				       (struct xe_val_flags) {});
+>   		drm_exec_until_all_locked(&exec) {
+> +			struct xe_bo *bo = xe_vma_bo(vma);
+> +
+>   			err = xe_pagefault_begin(&exec, vma, tile->mem.vram,
+>   						 needs_vram == 1);
+>   			drm_exec_retry_on_contention(&exec);
+> @@ -221,6 +223,11 @@ static int xe_pagefault_handle_vma(struct xe_gt *gt, struct xe_vma *vma,
+>   				xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_VMA_REBIND);
+>   				break;
+>   			}
+> +
+> +			if (bo) {
+> +				scoped_guard(spinlock, &vm->xe->ttm.lru_lock)
+> +					ttm_bo_move_to_lru_tail(&bo->ttm);
 
-Since the panel binding supports the bias enable GPIO, describe the
-signal as such, and remove the oddly described and used fixed regulator.
+Would it be cleaner to just use ttm_bo_move_to_lru_tail_unlocked() 
+without the scoped guard stuff?
 
-Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
----
- arch/arm64/boot/dts/qcom/qcm6490-idp.dts | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-index af7821e02fdb..98bbe662bd3b 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-@@ -51,17 +51,6 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	lcd_disp_bias: regulator-lcd-disp-bias {
--		compatible = "regulator-fixed";
--		regulator-name = "lcd_disp_bias";
--		regulator-min-microvolt = <5500000>;
--		regulator-max-microvolt = <5500000>;
--		gpio = <&pm7250b_gpios 2 GPIO_ACTIVE_HIGH>;
--		enable-active-high;
--		pinctrl-0 = <&lcd_disp_bias_en>;
--		pinctrl-names = "default";
--	};
--
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
-@@ -653,14 +642,16 @@ panel@0 {
- 		compatible = "novatek,nt36672e";
- 		reg = <0>;
- 
-+		enable-gpios = <&pm7250b_gpios 2 GPIO_ACTIVE_HIGH>;
- 		reset-gpios = <&tlmm 44 GPIO_ACTIVE_HIGH>;
- 
- 		vddi-supply = <&vreg_l8c_1p62>;
--		avdd-supply = <&lcd_disp_bias>;
--		avee-supply = <&lcd_disp_bias>;
- 
- 		backlight = <&pm8350c_pwm_backlight>;
- 
-+		pinctrl-0 = <&lcd_disp_bias_en>;
-+		pinctrl-names = "default";
-+
- 		port {
- 			panel0_in: endpoint {
- 				remote-endpoint = <&mdss_dsi0_out>;
--- 
-2.51.0
+> +			}
+>   		}
+>   		xe_validation_ctx_fini(&ctx);
+>   	} while (err == -EAGAIN);
 
