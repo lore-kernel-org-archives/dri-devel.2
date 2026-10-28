@@ -2,59 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC5E606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 12:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B68F606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 12:22:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aQva9aFT
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RWhfd01E
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96E6A10FBF9;
-	Wed, 28 Oct 2026 12:21:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0DC710FBF2;
+	Wed, 28 Oct 2026 12:21:56 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E295810FBF0;
- Wed, 28 Oct 2026 12:21:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6A4C10FBEA;
+ Wed, 28 Oct 2026 12:21:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793190109; x=1824726109;
+ t=1793190107; x=1824726107;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=fWiWE204ZDF7Pdlo06SKQfC4B2okcUUusSr+so0rGHY=;
- b=aQva9aFTDsaRJpG5NUieYfivI8Eqe20ycS2xqaD2cgSiLqrx41Tjz+pv
- 6tTFkRnXfq9pHlX5zgfAHM2224aD4UKIrxh+gXaRDac/rJ1FOt5Po8T6K
- PQyhttRsh48ntRZfg0lB5UsH1g7mDofKCxtALHnvijNAytDo/YCJQAHZ/
- m/VfYelAkNSxj43VuW2oZ+Da7FQJLlTlDwnYeHAaYdr3Q0ZZEQypDcqrr
- 0KQtvWRXb02bdhHyHHZ32BiReIyB5xSlDUDMSGKPBmNRI7dFx/Qq0zpon
- ZFKHgU1cSccO5pKg0Nz0fRJbY7VjF2E7nZoumBjLwrLYYpxcqknSjwNyQ w==;
-X-CSE-ConnectionGUID: UuuFWrtTQiCKf821POuzJw==
-X-CSE-MsgGUID: bvNLCCBrTfuJffyuhcacvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1939036"
+ bh=uSUVijMosttd3r+D74aa13BspI44MwWWarJwhBOXt5U=;
+ b=RWhfd01E9STHMQyglfXfa/oqJu1edTiRR/iUwQci8pewEQawvFnVBTZl
+ ZRRUUArXccVhyr8AFcKZFnFtL9F+Bj62fa1Zmy357fbfil2pcZy6GfJPz
+ ltJYnRmD+kwdBcn6gaQchzjHagfJAKoEMOfi78GhffKSyn8pXbmXJDhwE
+ g/Ti2jOMPYhi3p3QibKp5HdqXUrLTg965X9wFEMzE7cLMOxQJEG7XD0Uh
+ aMPfae/RXJuGvT/QGu3HYj1S0VSDQwaNQc7IFfoApZ8+hoeEUmptjJsHF
+ tAcN1C1kHXriNS/CVggVgiwBduHKztmEiE0vRaL7UDEjnmWBz2lKOe8ef A==;
+X-CSE-ConnectionGUID: fNAdd2dhTrietRBKQUdoog==
+X-CSE-MsgGUID: wNDChYEVRAa+rZW5/O0NYA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1939034"
 X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="1939036"
+   d="scan'208";a="1939034"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 05:21:48 -0700
-X-CSE-ConnectionGUID: KrEdYOy5TTy9G/OGIObyCQ==
-X-CSE-MsgGUID: TRXWuXBYQFSSgy8Vu7IN9g==
+ 28 Oct 2026 05:21:46 -0700
+X-CSE-ConnectionGUID: /yeMQ7fmR/CNActfP8WUuQ==
+X-CSE-MsgGUID: oSSwYHSKRYSH8vueI5o9ww==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,182,1787036400"; 
-   d="scan'208";a="4838525"
+   d="scan'208";a="4838505"
 Received: from varungup-desk.iind.intel.com ([10.190.238.71])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 05:21:47 -0700
+ 28 Oct 2026 05:21:44 -0700
 From: Arvind Yadav <arvind.yadav@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: rodrigo.vivi@intel.com, matthew.brost@intel.com,
  himal.prasad.ghimiray@intel.com, thomas.hellstrom@linux.intel.com,
- sanjay.kumar.yadav@intel.com
-Subject: [PATCH v2 3/4] drm/xe: Mark VMs as closing before queue cleanup
-Date: Wed, 28 Oct 2026 17:51:24 +0530
-Message-ID: <20261028122125.3772832-4-arvind.yadav@intel.com>
+ sanjay.kumar.yadav@intel.com, Wang Xin <x.wang@intel.com>,
+ Jia Yao <jia.yao@intel.com>, Jonathan Cavitt <jonathan.cavitt@intel.com>
+Subject: [PATCH v2 2/4] drm/xe: Disable scheduling early on FD close to avoid
+ CAT error cascade
+Date: Wed, 28 Oct 2026 17:51:23 +0530
+Message-ID: <20261028122125.3772832-3-arvind.yadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261028122125.3772832-1-arvind.yadav@intel.com>
 References: <20261028122125.3772832-1-arvind.yadav@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,161 +71,147 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Queue cleanup is asynchronous. New VM work can therefore race with file
-close or VM destroy while cleanup is starting.
+From: Matthew Brost <matthew.brost@intel.com>
 
-Add a closing state and set it before starting queue cleanup. Treat a
-closing VM as unavailable for new exec, bind, rebind and page-fault work.
+When an FD is closed with many exec queues, teardown relies on the TDR
+path to clean up scheduling. However, the TDR handling is serialized
+(i.e., only one exec queue is processed at a time), which can make it
+too slow compared to GuC scheduling activity.
 
-Keep vm->size valid while the VM is closing so SVM invalidation can still
-drain existing mappings.
+In this window, GuC may continue to schedule contexts backed by
+invalid page tables, leading to a cascade of CAT errors and repeated
+engine resets. This significantly increases recovery time and can
+degrade system stability.
 
-Also reject page faults on banned VMs, which cannot resume execution.
+To mitigate this, eagerly disable scheduling by sending a self-message
+outside of the TDR path. This prevents further scheduling of invalid
+contexts and avoids the CAT error/reset cascade.
 
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Assisted-by: LLM
+This change improves robustness and reduces recovery latency in
+multiple queue teardown scenarios.
+
+Cc: Wang Xin <x.wang@intel.com>
+Cc: Jia Yao <jia.yao@intel.com>
+Tested-by: Jia Yao <jia.yao@intel.com>
+Reviewed-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
 ---
- drivers/gpu/drm/xe/xe_device.c    |  4 ++++
- drivers/gpu/drm/xe/xe_pagefault.c |  2 +-
- drivers/gpu/drm/xe/xe_svm.c       |  3 ++-
- drivers/gpu/drm/xe/xe_vm.c        | 18 +++++++++++++++++-
- drivers/gpu/drm/xe/xe_vm.h        |  9 ++++++++-
- drivers/gpu/drm/xe/xe_vm_types.h  |  1 +
- 6 files changed, 33 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/xe_guc_exec_queue_types.h |  2 +-
+ drivers/gpu/drm/xe/xe_guc_submit.c           | 46 ++++++++++++++++++--
+ 2 files changed, 43 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index d3bb42e4d0d7..7b4913d7665d 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -181,6 +181,10 @@ static void xe_file_close(struct drm_device *dev, struct drm_file *file)
- 
- 	guard(xe_pm_runtime)(xe);
- 
-+	/* Block new VM work before starting asynchronous queue teardown. */
-+	xa_for_each(&xef->vm.xa, idx, vm)
-+		xe_vm_close_start(vm);
-+
- 	/*
- 	 * No need for exec_queue.lock here as there is no contention for it
- 	 * when FD is closing as IOCTLs presumably can't be modifying the
-diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
-index 5247321c805e..e1363bfbfbd9 100644
---- a/drivers/gpu/drm/xe/xe_pagefault.c
-+++ b/drivers/gpu/drm/xe/xe_pagefault.c
-@@ -291,7 +291,7 @@ static int xe_pagefault_service(struct xe_pagefault *pf)
- 
- 	down_read(&vm->lock);
- 
--	if (xe_vm_is_closed(vm)) {
-+	if (xe_vm_is_closed_or_banned(vm)) {
- 		err = -ENOENT;
- 		xe_pagefault_set_error(pf, XE_PAGEFAULT_ERROR_VM_CLOSED);
- 		goto unlock_vm;
-diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index 909a602d091e..3b71d9636296 100644
---- a/drivers/gpu/drm/xe/xe_svm.c
-+++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -219,7 +219,8 @@ xe_svm_range_notifier_event_end(struct xe_vm *vm, struct drm_gpusvm_range *r,
- 
- 	drm_gpusvm_unmap_pages(&vm->svm.gpusvm, &(to_xe_range(r)->pages),
- 			       drm_gpusvm_range_size(r) >> PAGE_SHIFT, &ctx);
--	if (!xe_vm_is_closed(vm) && mmu_range->event == MMU_NOTIFY_UNMAP)
-+	if (!xe_vm_is_closed(vm) && !xe_vm_is_closing(vm) &&
-+	    mmu_range->event == MMU_NOTIFY_UNMAP)
- 		xe_svm_garbage_collector_add_range(vm, to_xe_range(r),
- 						   mmu_range);
- }
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index a1a4eaf3165f..6e548fd8a809 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -1975,6 +1975,20 @@ static void xe_vm_close(struct xe_vm *vm)
- 		drm_dev_exit(idx);
+diff --git a/drivers/gpu/drm/xe/xe_guc_exec_queue_types.h b/drivers/gpu/drm/xe/xe_guc_exec_queue_types.h
+index 74b711abe257..89397e1e6546 100644
+--- a/drivers/gpu/drm/xe/xe_guc_exec_queue_types.h
++++ b/drivers/gpu/drm/xe/xe_guc_exec_queue_types.h
+@@ -36,7 +36,7 @@ struct xe_guc_exec_queue {
+ 	 * a message needs to sent through the GPU scheduler but memory
+ 	 * allocations are not allowed.
+ 	 */
+-#define MAX_STATIC_MSG_TYPE	4
++#define MAX_STATIC_MSG_TYPE	5
+ 	struct xe_sched_msg static_msgs[MAX_STATIC_MSG_TYPE];
+ 	/** @destroy_async: do final destroy async from this worker */
+ 	struct work_struct destroy_async;
+diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_guc_submit.c
+index 9e7c2778029c..a70a166cf2c9 100644
+--- a/drivers/gpu/drm/xe/xe_guc_submit.c
++++ b/drivers/gpu/drm/xe/xe_guc_submit.c
+@@ -2060,12 +2060,23 @@ static void __guc_exec_queue_process_msg_cgp_sync(struct xe_sched_msg *msg,
+ 		guc_exec_queue_send_cgp_sync(q, 0);
  }
  
-+void xe_vm_close_start(struct xe_vm *vm)
++static void __guc_exec_queue_process_msg_kill(struct xe_sched_msg *msg,
++					      bool bound)
 +{
-+	down_write(&vm->lock);
-+	if (xe_vm_in_fault_mode(vm))
-+		xe_svm_notifier_lock(vm);
++	struct xe_exec_queue *q = msg->private_data;
++	struct xe_exec_queue *primary = xe_exec_queue_multi_queue_primary(q);
 +
-+	/* Keep size valid so SVM invalidation still performs its full drain. */
-+	vm->flags |= XE_VM_FLAG_CLOSING;
-+
-+	if (xe_vm_in_fault_mode(vm))
-+		xe_svm_notifier_unlock(vm);
-+	up_write(&vm->lock);
++	if (exec_queue_enabled(primary) && bound)
++		disable_scheduling(primary, true);
 +}
 +
- void xe_vm_close_and_put(struct xe_vm *vm)
- {
- 	LIST_HEAD(contested);
-@@ -2268,8 +2282,10 @@ int xe_vm_destroy_ioctl(struct drm_device *dev, void *data,
- 		xa_erase(&xef->vm.xa, args->vm_id);
- 	mutex_unlock(&xef->vm.lock);
- 
--	if (!err)
-+	if (!err) {
-+		xe_vm_close_start(vm);
- 		xe_vm_close_and_put(vm);
-+	}
- 
+ #define CLEANUP				1	/* Non-zero values to catch uninitialized msg */
+ #define SET_SCHED_PROPS			2
+ #define SUSPEND				3
+ #define RESUME				4
+ #define SET_MULTI_QUEUE_PRIORITY	5
+ #define CGP_SYNC_MSG			6
++#define KILL				7
+ #define OPCODE_MASK	0xf
+ #define MSG_LOCKED	BIT(8)
+ #define MSG_HEAD	BIT(9)
+@@ -2099,6 +2110,9 @@ static void guc_exec_queue_process_msg(struct xe_sched_msg *msg)
+ 	case CGP_SYNC_MSG:
+ 		__guc_exec_queue_process_msg_cgp_sync(msg, bound);
+ 		break;
++	case KILL:
++		__guc_exec_queue_process_msg_kill(msg, bound);
++		break;
+ 	default:
+ 		XE_WARN_ON("Unknown message type");
+ 	}
+@@ -2225,8 +2239,19 @@ static int guc_exec_queue_init(struct xe_exec_queue *q)
  	return err;
  }
-diff --git a/drivers/gpu/drm/xe/xe_vm.h b/drivers/gpu/drm/xe/xe_vm.h
-index 351d08b3b378..a8b33cb2b559 100644
---- a/drivers/gpu/drm/xe/xe_vm.h
-+++ b/drivers/gpu/drm/xe/xe_vm.h
-@@ -59,6 +59,11 @@ static inline bool xe_vm_is_closed(struct xe_vm *vm)
- 	return !vm->size;
- }
  
-+static inline bool xe_vm_is_closing(struct xe_vm *vm)
-+{
-+	return vm->flags & XE_VM_FLAG_CLOSING;
-+}
++static bool guc_exec_queue_try_add_msg(struct xe_exec_queue *q,
++				       struct xe_sched_msg *msg,
++				       u32 opcode);
 +
- static inline bool xe_vm_is_banned(struct xe_vm *vm)
++#define STATIC_MSG_CLEANUP	0
++#define STATIC_MSG_SUSPEND	1
++#define STATIC_MSG_RESUME	2
++#define STATIC_MSG_CGP_SYNC	3
++#define STATIC_MSG_KILL		4
+ static void guc_exec_queue_kill(struct xe_exec_queue *q)
  {
- 	return vm->flags & XE_VM_FLAG_BANNED;
-@@ -67,7 +72,8 @@ static inline bool xe_vm_is_banned(struct xe_vm *vm)
- static inline bool xe_vm_is_closed_or_banned(struct xe_vm *vm)
- {
- 	lockdep_assert_held(&vm->lock);
--	return xe_vm_is_closed(vm) || xe_vm_is_banned(vm);
-+	return xe_vm_is_closed(vm) || xe_vm_is_banned(vm) ||
-+		xe_vm_is_closing(vm);
++	struct xe_sched_msg *msg = q->guc->static_msgs + STATIC_MSG_KILL;
++
+ 	trace_xe_exec_queue_kill(q);
+ 	set_exec_queue_killed(q);
+ 	/*
+@@ -2236,6 +2261,23 @@ static void guc_exec_queue_kill(struct xe_exec_queue *q)
+ 	 * stays set until the queue is torn down.
+ 	 */
+ 	suspend_wait_wake(q);
++
++	/*
++	 * We eagerly send a message to ourselves to disable scheduling, as the
++	 * TDR is serialized (i.e., only one exec queue is processed at a time).
++	 * If an FD is closed with many exec queues, the TDR can be slower than
++	 * the GuC scheduling contexts with invalid page tables, creating a
++	 * cascade of CAT errors and engine resets, which is quite slow. Avoid
++	 * this by immediately disabling scheduling outside of the TDR.
++	 */
++	if (kref_read(&q->refcount) && !exec_queue_wedged(q)) {
++		struct xe_gpu_scheduler *sched = &q->guc->sched;
++
++		xe_sched_msg_lock(sched);
++		guc_exec_queue_try_add_msg(q, msg, KILL);
++		xe_sched_msg_unlock(sched);
++	}
++
+ 	xe_guc_exec_queue_trigger_cleanup(q);
  }
  
- struct xe_vma *
-@@ -214,6 +220,7 @@ int xe_vm_get_property_ioctl(struct drm_device *dev, void *data,
- 			     struct drm_file *file);
+@@ -2288,10 +2330,6 @@ static bool guc_exec_queue_try_add_msg(struct xe_exec_queue *q,
+ 	return true;
+ }
  
- void xe_vm_close_and_put(struct xe_vm *vm);
-+void xe_vm_close_start(struct xe_vm *vm);
- 
- static inline bool xe_vm_in_fault_mode(struct xe_vm *vm)
+-#define STATIC_MSG_CLEANUP	0
+-#define STATIC_MSG_SUSPEND	1
+-#define STATIC_MSG_RESUME	2
+-#define STATIC_MSG_CGP_SYNC	3
+ static void guc_exec_queue_destroy(struct xe_exec_queue *q)
  {
-diff --git a/drivers/gpu/drm/xe/xe_vm_types.h b/drivers/gpu/drm/xe/xe_vm_types.h
-index fb9305124679..6ca9ef9d0c0b 100644
---- a/drivers/gpu/drm/xe/xe_vm_types.h
-+++ b/drivers/gpu/drm/xe/xe_vm_types.h
-@@ -286,6 +286,7 @@ struct xe_vm {
- #define XE_VM_FLAG_SET_TILE_ID(tile)	FIELD_PREP(GENMASK(7, 6), (tile)->id)
- #define XE_VM_FLAG_GSC			BIT(8)
- #define XE_VM_FLAG_NO_VM_OVERCOMMIT     BIT(9)
-+#define XE_VM_FLAG_CLOSING		BIT(10)
- 	unsigned long flags;
- 
- 	/**
+ 	struct xe_sched_msg *msg = q->guc->static_msgs + STATIC_MSG_CLEANUP;
 -- 
 2.43.0
 
