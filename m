@@ -2,42 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C74A606A32F
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 17:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akryjx38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD46606A32D
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 17:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8C3410E6B1;
-	Wed, 28 Oct 2026 17:19:10 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6988610E6B1
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 17:19:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 874786020A;
- Wed, 28 Oct 2026 17:19:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162DB1F01829;
- Wed, 28 Oct 2026 17:19:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793207943;
- bh=0uw5b5WJ/frCjF1BWA9yHZlqikkZI7ppytPBUj5YA6o=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=akryjx38nvSKvmFQmsM4FgfANs+xzizq8t8ADxLTQXD7fdbD5jVBWqanWmCwOD6io
- EO/3F+59FRmOERJq/FedOjkzAphAO4WSIAUSu595ONgDTOSSzdNI+RR11/8Yw5xjRg
- cg5hteDVrlw+g6psMlAdIJo+c+j4hGYqGzglVZwdTmDGW6enenVxns7UaY6l1UWK9I
- NMjs347zCJe2ITdzscfGS1HUM5tPtEOTEUwdLxyVinG3qG1j7k7xGTvyFxpuRQS3gC
- +Ok70jLCpDKo8p0ZUoi6ZZxZMYNEd5AfeZ2RiavJORBFyKuQPNr+tePllxlByiqZDc
- LGz9oUM73iHzg==
-Message-ID: <sashiko-outbox-188230@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/5] drm/vc4: dsi: Recover from a timed-out transfer
-To: "Henry Zhang" <henryzhang62@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261028164539.3471833-6-henryzhang62@gmail.com>
-References: <20261028164539.3471833-1-henryzhang62@gmail.com>
- <20261028164539.3471833-6-henryzhang62@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 28 Oct 2026 17:19:02 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82F3910FDD5;
+	Wed, 28 Oct 2026 17:24:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E347D10E6D4;
+ Wed, 28 Oct 2026 17:24:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793208271; x=1824744271;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=q+A7n6B0D9P/iULjXHA3ItLVVm9Rb0ZtxeZH8/sxmTU=;
+ b=DHnrWWXd4r710VQjDqxULgQnK9r+e5AMObnHI3OGeFqj8LEYsvIsARwa
+ FEWLEO0h9Wc9JxaxBZVrwMn7wu81ysquDdMP4JfX/x5ZNmK/Y7IZJkcjw
+ KwGW3693AslkcB1mkuf0H+FY0kWl2rcPYqQDyQszVb4RdCkWfAzohYjFb
+ xu0DI8GxqItRW/x8QDfdlu4BzH/K8ci1SXPW9Xp3TFguo1jOLrAk6RWQr
+ dePHa4FVkxTUhPPJ7YVXOHPwg3dQnV4Q+fJIqKeGmwCN3vVO9ByVCLqc1
+ MLNcQYjGPmi+0rocwF7z+j/49Idw3st+b5O2/gwvprUHJ1HW2E46BJL4O A==;
+X-CSE-ConnectionGUID: rHxVrhuzSDCh9rLJRjvauA==
+X-CSE-MsgGUID: QkQg5+UFThme+XIdTwORCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1941081"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1941081"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 10:24:30 -0700
+X-CSE-ConnectionGUID: 1lcKzMECQnOt5PTeph0HQQ==
+X-CSE-MsgGUID: R5o1uH+cTY+uAVQ3Sz3/cA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="5425749"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.146])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 10:24:27 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Ville
+ =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Dmytro Malovanyi
+ <dmitrymalovanyy@gmail.com>, Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH] drm/dp: Keep base enhanced framing cap from extended
+ DPCD caps
+In-Reply-To: <20261028162941.62762-1-dmitrymalovanyy@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261028162941.62762-1-dmitrymalovanyy@gmail.com>
+Date: Wed, 28 Oct 2026 19:24:25 +0200
+Message-ID: <77b574384ed695f8ea06a2ed142907e7d5f118d6@intel.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,166 +69,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/vc4: dsi: race on reg_dma_mem before disable_irq() in vc4_dsi_=
-host_transfer()
---
+On Wed, 28 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
+> Some sinks set DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT and advertise
+> DP_ENHANCED_FRAME_CAP in the base receiver caps, but clear it in the
+> extended receiver caps at 0x2200. drm_dp_read_extended_dpcd_caps()
+> replaces the base caps with the extended ones, so the link is trained
+> without enhanced framing.
+>
+> The Xiaomi Monitor A24i (P24FBA-RAGL) is one such sink:
+>
+>   base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
+>   extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
+>
+> Without enhanced framing all lanes train (0x202-0x204: 77 77 81), but
+> the sink never syncs to the stream (SINK_STATUS 0x205: 00) and shows
+> "No signal" until it is power cycled. The same monitor works on macOS.
+>
+> DP 1.4 section 2.9.3.1, as quoted in the commit that added extended
+> caps support, says the extended caps match the base caps except for
+> DPCD_REV, MAX_LINK_RATE and DOWN_STREAM_PORT_PRESENT. Keep the base
+> value of DP_ENHANCED_FRAME_CAP.
 
-commit 748a80df1fc43dd3d1d753f275003873696caaaf
-Author: Henry Zhang <henryzhang62@gmail.com>
+Thanks for the patch and explanation, refreshing clarity.
 
-drm/vc4: dsi: Recover from a timed-out transfer
+The display is obviously being silly.
 
-This commit recovers the VC4 DSI block after a transfer timeout by resetting
-the DSI controller and its analog front end, then restoring the hardware
-configuration from pre_enable while holding the interrupt disabled.
+Additionally, a DPRX with DPCD r1.2+ must indicate support for enhanced
+framing. The display is also in violation of the spec.
 
-> diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-> index 3ee6e8e86a147..6edda74e1117c 100644
-> --- a/drivers/gpu/drm/vc4/vc4_dsi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_dsi.c
+That said, the spec kind of says to use enhanced framing for DPRX with
+DPCD r1.2+. It's subtle, but it doesn't say check the capability
+anymore, just the DPCD revision. That's my reading of DP v1.1a, v1.2a,
+v1.3, v1.4a and v2.1a anyway.
 
-[ ... ]
+So I guess that might be the more appropriate fix, really. Even if it's
+slightly more work.
 
-> @@ -1374,6 +1378,120 @@ static ssize_t vc4_dsi_host_transfer(struct mipi_=
-dsi_host *host,
->  	return ret;
->  }
-> =20
-> +/*
-> + * Reset the DSI block and its analog front end, then restore the
-> + * configuration done in pre_enable. Resetting the FIFOs alone does not
-> + * clear the state the block can be left in after a transfer timed out
-> + * (e.g. on an LP receive timeout): every following transfer then times
-> + * out as well, until the next modeset.
-> + */
-> +static void vc4_dsi_reset_and_restore(struct vc4_dsi *dsi)
-> +{
-> +	u32 en =3D dsi->variant->port ? DSI1_CTRL_EN : DSI0_CTRL_CTRL0;
-> +	u32 ctrl =3D DSI_PORT_READ(CTRL);
+I think drm_dp_enhanced_frame_cap() should probably be:
 
-[ ... ]
-
-> +	/* Ungate the block. */
-> +	DSI_PORT_WRITE(CTRL, ctrl);
-> +	/* Bring AFE out of reset. */
-> +	DSI_PORT_WRITE(PHY_AFEC0, afec0 & ~DSI_PORT_BIT(PHY_AFEC0_RESET));
-> +	DSI_PORT_WRITE(DISP0_CTRL, disp0);
-> +
-> +	DSI_PORT_WRITE(INT_STAT, DSI_PORT_READ(INT_STAT));
-> +	DSI_PORT_WRITE(INT_EN, DSI_PORT_BIT(INTERRUPTS_ALWAYS_ENABLED));
-> +}
-> +
-> +static ssize_t vc4_dsi_host_transfer(struct mipi_dsi_host *host,
-> +				     const struct mipi_dsi_msg *msg)
-> +{
-> +	struct vc4_dsi *dsi =3D host_to_dsi(host);
-> +	u32 disp0_ctrl;
-> +	ssize_t ret;
-> +
-> +	guard(mutex)(&dsi->transfer_lock);
-> +
-> +	ret =3D vc4_dsi_transfer(dsi, msg);
-> +	/* Only a running block can be reset and restored. */
-> +	if (ret !=3D -ETIMEDOUT || !dsi->enabled)
-> +		return ret;
-> +
-> +	/*
-> +	 * Leave the block usable for the next transfer. The message is not
-> +	 * resent: it may already have reached the peripheral, and only the
-> +	 * caller knows whether it is safe to repeat.
-> +	 */
-> +	disp0_ctrl =3D DSI_PORT_READ(DISP0_CTRL);
-> +	dev_warn(&dsi->pdev->dev,
-> +		 "transfer timed out (stat 0x%08x), resetting DSI\n",
-> +		 DSI_PORT_READ(STAT));
-> +	/*
-> +	 * Keep the interrupt handler out until the block is restored and
-> +	 * INT_STAT is cleared. The error interrupts are still enabled, and
-> +	 * a handler running during the reset could complete the next
-> +	 * transfer, or race with the register writes on DSI1 of the
-> +	 * BCM2835, where both go through the DMA workaround. disable_irq()
-> +	 * also waits for a late completion interrupt of the timed-out
-> +	 * transfer.
-> +	 */
-> +	disable_irq(dsi->irq);
-> +	vc4_dsi_reset_and_restore(dsi);
-> +	DSI_PORT_WRITE(DISP0_CTRL, disp0_ctrl);
-> +	enable_irq(dsi->irq);
-
-[Severity: High]
-Can a late or error interrupt race on dsi->reg_dma_mem in vc4_dsi_transfer()
-before disable_irq(dsi->irq) is reached in vc4_dsi_host_transfer(),
-corrupting DSI1_CTRL before vc4_dsi_reset_and_restore() saves and restores
-it?
-
-When wait_for_completion_timeout() times out in vc4_dsi_transfer(),
-dsi->irq and INT_EN are still enabled while vc4_dsi_transfer() performs
-five register writes before returning -ETIMEDOUT:
-
-drivers/gpu/drm/vc4/vc4_dsi.c:vc4_dsi_transfer() {
-	...
-	DSI_PORT_WRITE(INT_EN, DSI_PORT_BIT(INTERRUPTS_ALWAYS_ENABLED));
-
-	if (ret)
-		goto reset_fifo_and_return;
-	...
-reset_fifo_and_return:
-	drm_err(drm, "DSI transfer failed, resetting: %d\n", ret);
-
-	DSI_PORT_WRITE(TXPKT1C, DSI_PORT_READ(TXPKT1C) & ~DSI_TXPKT1C_CMD_EN);
-	udelay(1);
-	DSI_PORT_WRITE(CTRL,
-		       DSI_PORT_READ(CTRL) |
-		       DSI_PORT_BIT(CTRL_RESET_FIFOS));
-
-	DSI_PORT_WRITE(TXPKT1C, 0);
-	DSI_PORT_WRITE(INT_EN, DSI_PORT_BIT(INTERRUPTS_ALWAYS_ENABLED));
-	return ret;
+static inline bool
+drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+{
+	return dpcd[DP_DPCD_REV] >= 0x12 || dpcd[DP_DPCD_REV] >= 0x11 &&
+		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
 }
 
-On BCM2835 DSI1 (where broken_axi_workaround is enabled), DSI_PORT_WRITE()
-calls dsi_dma_workaround_write(), which writes the value into the single
-shared buffer *dsi->reg_dma_mem and submits a DMA transfer from
-dsi->reg_dma_paddr:
+And the remaining direct references to DP_ENHANCED_FRAME_CAP should be
+migrated to use drm_dp_enhanced_frame_cap().
 
-drivers/gpu/drm/vc4/vc4_dsi.c:dsi_dma_workaround_write() {
-	...
-	*dsi->reg_dma_mem =3D val;
+> With this change the link uses enhanced framing (0x101: 84) and the
+> sink syncs (0x205: 03).
+>
+> Tested on i915 (Arrow Lake-U) through a USB4 dock.
+>
+> Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
+> Cc: stable@vger.kernel.org
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
+> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index e623ccb4c..205b6cc89 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -1219,6 +1219,9 @@ static int drm_dp_read_extended_dpcd_caps(struct drm_dp_aux *aux,
+>  
+>  	drm_dbg_kms(aux->drm_dev, "%s: Base DPCD: %*ph\n", aux->name, DP_RECEIVER_CAP_SIZE, dpcd);
+>  
+> +	/* Keep the base enhanced framing cap if the extended caps drop it */
+> +	dpcd_ext[DP_MAX_LANE_COUNT] |= dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP;
 
-	tx =3D chan->device->device_prep_dma_memcpy(chan,
-						  dsi->reg_paddr + offset,
-						  dsi->reg_dma_paddr,
-						  4, 0);
-	...
-}
+One of the main reasons I don't like this is that we have the logging
+for the base and extended caps, and this sneaks in a change without it
+being present in the logs.
 
-If the threaded handler vc4_dsi_irq_handler() runs concurrently (for
-example on an LPRX/TA timeout error interrupt or a late completion
-interrupt) and calls DSI_PORT_WRITE(INT_STAT, stat), it overwrites
-*dsi->reg_dma_mem =3D stat without any lock.
+And having the decision in drm_dp_enhanced_frame_cap() is explicit and
+same for everyone.
 
-If that happens during the read-modify-write of CTRL in
-reset_fifo_and_return, the DMA transfer can write stat into DSI1_CTRL.
-When vc4_dsi_reset_and_restore() then runs under disable_irq(dsi->irq), it
-snapshots the corrupted register via u32 ctrl =3D DSI_PORT_READ(CTRL) and
-writes it back at the end of the reset, leaving DSI1_CTRL corrupted (for
-example with DSI1_CTRL_EN cleared so the block remains gated).
+BR,
+Jani.
 
-Should disable_irq(dsi->irq) be called in vc4_dsi_transfer() before the
-post-timeout register writes (or before reset_fifo_and_return)?
+> +
+>  	memcpy(dpcd, dpcd_ext, sizeof(dpcd_ext));
+>  
+>  	return 0;
+>
+> base-commit: feaa32dc98090b2f45f7b6f179711a6640169c1a
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261028164539.3471=
-833-1-henryzhang62@gmail.com?part=3D5
+-- 
+Jani Nikula, Intel
