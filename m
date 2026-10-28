@@ -2,49 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD1C606A31D
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 11:57:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF88B606A31A
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 12:03:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qx/Q7UJo
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RRQVjpwH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E120010FBC6;
-	Wed, 28 Oct 2026 11:57:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37D0B10FBCE;
+	Wed, 28 Oct 2026 12:02:58 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC95310E62C;
- Wed, 28 Oct 2026 11:57:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B315210FBCE;
+ Wed, 28 Oct 2026 12:02:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D8EA760202;
- Wed, 28 Oct 2026 11:57:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED2991F01829;
- Wed, 28 Oct 2026 11:57:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BA6946022B;
+ Wed, 28 Oct 2026 12:02:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 282771F01828;
+ Wed, 28 Oct 2026 12:02:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793188662;
- bh=mN+5qMEhW+DgMKl4989EnlMC/0om5OMtt31qXEFkr5g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Qx/Q7UJoT+fKY/TYcWoed6xCKf6zmi0v1YrFVJafDl52sHNFZFV9ofPrK4kaFcMh/
- DhacaJjNYoMwvgir5Dm0ici3Ii5vt8bhQ5MtniIyvIxr2QQAraQJqj0A2XfhNUpFI3
- PBs/InLn7gq0VMdTAvT7/CjSvfMui0+9LapzIFfLmfsD7KUOzNmp+UJrn5oK2YeLaA
- iHtCyg+Tw8Hwg6XsKSg5k4X+ix/OcrzPNCssWyUJChx6De9t+Vgk08aXjDZIYB22G7
- N8yKwj2YWjRjK+h5v8JikrUnrCD0utrzfEYv0BD5VXHwsC1DR8h5ik37PCSirh1Q6Q
- jLPvlKxq+EDpg==
-Date: Wed, 28 Oct 2026 12:57:39 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Jia Yao <jia.yao@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Shuicheng Lin <shuicheng.lin@intel.com>, Matt Roper <matthew.d.roper@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Maciej Plewka <maciej.plewka@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Subject: Re: [PATCH v13] drm/i915/dg2: Add per-client control for
- Wa_22013059131
-Message-ID: <auHjA2kEBniSCTj3@zenone.zhora.eu>
-References: <20261016033102.529239-1-jia.yao@intel.com>
+ s=k20260515; t=1793188970;
+ bh=dsnhxVyCRsDB7IzLyR1PYJXVzOdADR8u2HKSk2GZFPk=;
+ h=From:To:Cc:Subject:Date;
+ b=RRQVjpwH4sY11i/17VHL7AM40KXNuiYJdRXnbyur+Nx1X6LRie4UMFncaXFYLvxoH
+ vEMx+GQHbHaIzp/LF1pxgiZjCGpoM593FiSdoC0oumS9cQ+QXTG2jrhbH/rMsMGOc4
+ ny46eU+ErXiBlXUO9wIGSiSWyJt1DtVl5MzqstZpNxbA3vh1urvuNEXUEs3XtTQKG5
+ 7Btj3/p7neZupn/jFjINQHb1iG9rUE+2UcStPVD07cRqNeLl1k7LTJk5b+1SSApV+8
+ TQK2keKsYvQ1wZP6bUVcqP55KiyxGZ4p7tUPGT59f84Fh951p+6KXMENhtAVhM6LuI
+ GcDn6NkyRpNOQ==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+ Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Tiffany Lin <tiffany.lin@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Ryder Lee <ryder.lee@mediatek.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Christian Marangi <ansuelsmth@gmail.com>, Eric Anholt <eric@anholt.net>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Peng Fan <peng.fan@nxp.com>,
+ Aakarsh Jain <aakarsh.jain@samsung.com>
+Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ freedreno@lists.freedesktop.org, imx@lists.linux.dev,
+ dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-mediatek@lists.infradead.org
+Subject: [PATCH] dt-bindings: Fix property name typos in if/then schemas
+Date: Wed, 28 Oct 2026 07:02:12 -0500
+Message-ID: <20261028120216.2657397-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016033102.529239-1-jia.yao@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,40 +96,234 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Jia,
+Property names within if/then schemas currently go unchecked whether
+they have a type defined or match what's in the top-level schema. Adding
+a check finds a number of instances of typos. The typos result in the
+schema having no effect on constraints.
 
-On Fri, Oct 16, 2026 at 03:31:02AM +0000, Jia Yao wrote:
-> Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0
-> at engine init, but this is known to cause GPU hangs in certain workloads.
-> Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
-> workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
-> kernel know bit 15 programming is not needed. The register is not
-> context-saved by hardware, so the value is programmed on context switch
-> via the indirect context batchbuffer, and the old unconditional write in
-> intel_workarounds.c is removed.
+With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
+exposed by the name correction.
 
-...
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../devicetree/bindings/clock/qcom,kpss-gcc.yaml     |  2 +-
+ .../bindings/display/brcm,bcm2711-hdmi.yaml          |  2 +-
+ .../bindings/display/msm/dp-controller.yaml          |  2 +-
+ .../devicetree/bindings/display/msm/hdmi.yaml        |  4 ++--
+ Documentation/devicetree/bindings/dma/fsl,edma.yaml  |  2 +-
+ .../devicetree/bindings/gpio/loongson,ls-gpio.yaml   |  2 +-
+ .../bindings/iio/adc/amlogic,meson-saradc.yaml       |  2 +-
+ .../bindings/media/mediatek,vcodec-encoder.yaml      | 12 ++++--------
+ .../devicetree/bindings/media/samsung,s5p-mfc.yaml   |  2 +-
+ .../devicetree/bindings/pci/mediatek-pcie.yaml       | 12 ++++++------
+ 10 files changed, 19 insertions(+), 23 deletions(-)
 
-> Bspec: 54833
-> Link: https://github.com/intel/compute-runtime/pull/919
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: Shuicheng Lin <shuicheng.lin@intel.com>
-> Cc: Matt Roper <matthew.d.roper@intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Maciej Plewka <maciej.plewka@intel.com>
-> Cc: Andi Shyti <andi.shyti@linux.intel.com>
-> Signed-off-by: Jia Yao <jia.yao@intel.com>
+diff --git a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+index 88b7672123a0..ed347096df46 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
+@@ -62,7 +62,7 @@ then:
+     - '#clock-cells'
+ else:
+   properties:
+-    clock: false
++    clocks: false
+     clock-names: false
+     '#clock-cells': false
+ 
+diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+index c1cefd547391..fd4d598f6ff8 100644
+--- a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
++++ b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
+@@ -145,7 +145,7 @@ allOf:
+             - description: CEC stuck at low interrupt
+             - description: Hotplug connected interrupt
+             - description: Hotplug removed interrupt
+-        interrupts-names:
++        interrupt-names:
+           items:
+             - const: cec-tx
+             - const: cec-rx
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index 094a6383bb77..f72d1b354007 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -304,7 +304,7 @@ allOf:
+         clocks:
+           minItems: 6
+           maxItems: 6
+-        clocks-names:
++        clock-names:
+           minItems: 6
+           maxItems: 6
+ 
+diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+index dfec6c3480f3..02d27ccad024 100644
+--- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
++++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
+@@ -113,7 +113,7 @@ allOf:
+             - const: core
+             - const: master_iface
+             - const: slave_iface
+-        core-vcc-supplies: false
++        core-vcc-supply: false
+ 
+   - if:
+       properties:
+@@ -136,7 +136,7 @@ allOf:
+             - const: core
+             - const: alt_iface
+             - const: extp
+-        hdmi-mux-supplies: false
++        hdmi-mux-supply: false
+ 
+   - if:
+       properties:
+diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+index f609038e35ae..0260d177c7d0 100644
+--- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
++++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+@@ -172,7 +172,7 @@ allOf:
+             const: fsl,imx7ulp-edma
+     then:
+       properties:
+-        clock:
++        clocks:
+           minItems: 2
+           maxItems: 2
+         clock-names:
+diff --git a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+index 69852444df23..07c8b233c6bd 100644
+--- a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
+@@ -80,7 +80,7 @@ allOf:
+         - resets
+     else:
+       properties:
+-        "#interrupts-cells": false
++        "#interrupt-cells": false
+         interrupt-controller: false
+         resets: false
+ 
+diff --git a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+index 70ab4e140e71..535213ba0c5e 100644
+--- a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
+@@ -92,7 +92,7 @@ allOf:
+     else:
+       properties:
+         nvmem-cells: false
+-        mvmem-cel-names: false
++        nvmem-cell-names: false
+         clocks:
+           minItems: 4
+         clock-names:
+diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+index 4505e66876a2..52f471a070d5 100644
+--- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+@@ -110,19 +110,15 @@ allOf:
+ 
+     then:
+       properties:
+-        clock:
+-          items:
+-            minItems: 1
+-            maxItems: 1
++        clocks:
++          maxItems: 1
+         clock-names:
+           items:
+             - const: venc_lt_sel
+     else:
+       properties:
+-        clock:
+-          items:
+-            minItems: 1
+-            maxItems: 1
++        clocks:
++          maxItems: 1
+         clock-names:
+           items:
+             - const: venc_sel
+diff --git a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+index b46cc780703c..4488d5ca9b9c 100644
+--- a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
++++ b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
+@@ -174,7 +174,7 @@ allOf:
+             - const: mfc
+         iommus:
+           maxItems: 2
+-        iommus-names: false
++        iommu-names: false
+ 
+ examples:
+   - |
+diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+index c009a7a52bc6..7c40361f95ec 100644
+--- a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
+@@ -127,7 +127,7 @@ allOf:
+         phy-names:
+           const: pcie-phy1
+ 
+-        power-domain: false
++        power-domains: false
+ 
+       required:
+         - resets
+@@ -150,7 +150,7 @@ allOf:
+           minItems: 2
+           maxItems: 2
+ 
+-        reset: false
++        resets: false
+ 
+         reset-names: false
+ 
+@@ -171,7 +171,7 @@ allOf:
+         clocks:
+           minItems: 6
+ 
+-        reset: false
++        resets: false
+ 
+         reset-names: false
+ 
+@@ -193,7 +193,7 @@ allOf:
+         clocks:
+           minItems: 6
+ 
+-        reset: false
++        resets: false
+ 
+         reset-names: false
+ 
+@@ -215,7 +215,7 @@ allOf:
+         clock-names:
+           maxItems: 1
+ 
+-        reset: false
++        resets: false
+ 
+         reset-names: false
+ 
+@@ -223,7 +223,7 @@ allOf:
+ 
+         phy-names: false
+ 
+-        power-domain: false
++        power-domains: false
+ 
+         mediatek,pbus-csr: false
+ 
+-- 
+2.53.0
 
-pushed to drm-intel-gt-next.
-
-Thanks,
-Andi
