@@ -2,69 +2,136 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F60D606A31A
-	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 00:23:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F30606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 28 Oct 2026 01:15:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gcGkZi72
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y+vSERIw;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FGidbLW3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D01DE10E4CA;
-	Wed, 28 Oct 2026 00:23:19 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1B6910E4CA
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 00:23:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793146990; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=X0B7Xl0LMMgR21Z7drvYafvTmTLkaqCaluNyUSjLkeJ3MtK07HrCeCdZ5KweNpm9My9yP2c/PpXolGe3n6Q61wt74UMtwqrNTEdUloTaC1ZAkwNYG9P92slzRW5oGf346Uu2u5oFzGlAytPdywpdHy5BdvcMul54RzD+gPX3W2s=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793146990;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=G87NbfcKNeQRzbkIa3d0PCr/P11QVVco9Q0gAw67V8o=; 
- b=c8aijzgu6zlB+VWbmyWO/ln6K0Xm3x7pihy2PLoMOMO5fLDZQ0KOEm7Oda28ziMg9QgBiUqwVjvay7lG+8qn+7U0jRkAP3OujbSjJG8LKUbYxa5F/GwH6ViTDc2Pgz7k07OMprIIh4dl7rP0gf39vOxLBxq2RB1n3QfNfgsUCoU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793146989; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=G87NbfcKNeQRzbkIa3d0PCr/P11QVVco9Q0gAw67V8o=;
- b=gcGkZi72n4iXSeDR1JzWMMk6u+hqZWtnXe7ihStj+/6649qJF0Dw72ATWDgr/7B/
- qqjqM7ZgOO9SAblZUjze5RGxhv21qssVcWHNzLpkko36+JZkf6Qaorvs8ER0kkD8aAk
- q4jAukYLhxGxhWPRWvGFpKFFpzm4hAQ12eEDQonc=
-Received: by smtp.zohomail.com with SMTPS id 1793146988395337.5007495887817;
- Tue, 27 Oct 2026 17:23:08 -0700 (PDT)
-Date: Tue, 27 Oct 2026 17:23:06 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Ke Sun <sunke@kylinos.cn>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Lyude Paul <lyude@redhat.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9861710E4F4;
+	Wed, 28 Oct 2026 01:15:08 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A4EF10E4DA
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 01:14:57 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69S0iuQG3274153
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 01:14:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=xZH3utzkTV32x5e3Qo7yc9QK
+ lSSV4XGUFUs3fU/VUmE=; b=Y+vSERIwAKZcDLiMG2qxIfjdEWYbo7A036dCT/dE
+ aug6zLuixgg+G0du54YZ8eLh8j66I4gk97XD2Ju3GXe/VsAKA8AAaZVJ/chcsu/K
+ p42DyppHFHITrha/JroAmgpwDTajQrLTqrooMQJ7isegPzIfFy3yurB8Atna+/yE
+ EXksK+X1LX10lKWuk6ROl+RyAxWROTJ2xjulw3WW2oEeG6Z6BSTu+esvkUgu53mJ
+ 5rnShGoN69TvP34c2p/SPVl/we9HgIejyQi5KgvmgnPSxIzfIzb+sWcJi40Vjwi4
+ C4tSe5W3pLHP/99fEgyQYWgcD8A4+GePfqYNBnId0E2vBg==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
+ [209.85.221.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjy6g1vfu-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 01:14:56 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id
+ 71dfb90a1353d-5ec21d5bf78so160522e0c.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 27 Oct 2026 18:14:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793150095; x=1793754895;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=xZH3utzkTV32x5e3Qo7yc9QKlSSV4XGUFUs3fU/VUmE=;
+ b=FGidbLW3rxbpBrVITlGeQGcGIqxz9SscWolAvREXBgwTcUkwTJr3btval75vLwx8/w
+ /2adDiplOh5L8gFfE9IPPW9WoGZY7487uL/VcPq5Yu4kXM/7FmKPTEDZ32O+vUEs6AwA
+ s05TIakV+RhlZbf2VxaPZ59XswX6dwKbUPNIaCCTcflGV93PIpmo5LOVhRwOQj7JAxn9
+ Xt+hJL/KX/auqe9ZsgwGAaqaaY3kM7TeIJo/CNZ2oMmMhtAYUG7eB+WDInGFBt2AZDJq
+ 6UX4t+yLhqtU1HQu4nlaIPvTs/M7PKXBgBLxWzOqSkZMYQQ8UTi47X50t3iPbk3niySO
+ tdpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793150095; x=1793754895;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=xZH3utzkTV32x5e3Qo7yc9QKlSSV4XGUFUs3fU/VUmE=;
+ b=gj+OEWftSjqbob0nvv0R4BdCxNbH7B2yxauQTqPXpdOqIFeNVIr1fZdtDPaz8RfTSO
+ QSLdjWjgB3vviCYy/2y8XAkNgj/9BYGwLyl+j+Ixg+TJEgFdNEQTHOt7l+UIXdHM39Y0
+ 4WJf1hGNXBf5jxSSuSUt9DJOR46S6uRJ0wdU638ZC5DABw8zLm3TwzYObV80P7HNVI0s
+ /o9WSCpCV7lAzcrwacTsrSEtOB4rNJepQQZzBsuAMjZepdXK/ssT3Xn9nazoV/u7mr1S
+ Km6ONG5MrRHeIzsNeYHaDtAujDaLmSDJ4BgBWzZUUDA44XiGcAfdHU4L7v6nc/SLx1Pi
+ Bf5w==
+X-Gm-Message-State: AFq9FYKj0LlHBcn4V/g6GBtDIERsPo8YMiKJUSYMcKEdGAbDlEvTy3kY
+ sit/mGRpIw5FCTt1u4n7P1GZ0ifDBL6cJrW5gK03n0bAc9lreukwvm/CXy+kZJAGJNh9UMTLUWg
+ m88RyJAK/5Sagv90obG97Za949UuM7fWe8jsrCp13luJnr/UVRG4afJot4XBqRNzmdaESt+0=
+X-Gm-Gg: AYBFou12dPnSJ5pvjl/4vfHanwUFloCxGbJhxJ3gTyzikPWLGLACAM8uCFNwr14plzF
+ /IqXyL0c2ByxlW5qjVZKzbYzeTzt1i/76DVkWyYV3g/k4ieBic6IcwsZEkKMfNSeqjc0Sm9YVgC
+ MPvPKaM9eXnlskp+B4Bq51PvNQEIBFTcJrxrfqxHQI6OL+jTES1Ch5olTHQXhht6C1+hSNgjSvv
+ CNO1DtTn7Ohir+3SCJXXb2CXJ21Li4GLHndRVMR2HxLpWqmWiQ0tKywJgddQvi/rBns9x3B3Msy
+ GZ7iNJ4jKrk/q6C9rCnxrOlkk0srH2Wh4dDNybQq7IdkNB88zUYtemJacuHBj/1MgRyLoVNI4Yb
+ SwHMER0hkhMMlEfrVHTuvn2OXhTbYm+PFyHd1dEqR9nC4GSVPRdHQupv2XJSVSJIvB6eVU2wgxO
+ 6tar+nffBNWJ1kiZjAxYGRKeSAySi7SaUHOSqDynN+NtuIgRvxvszyjKGLs2qI9Q==
+X-Received: by 2002:a05:6102:5688:b0:7cc:ccb:ce5a with SMTP id
+ ada2fe7eead31-7d03a5c5b97mr394304137.28.1793150095368; 
+ Tue, 27 Oct 2026 18:14:55 -0700 (PDT)
+X-Received: by 2002:a05:6102:5688:b0:7cc:ccb:ce5a with SMTP id
+ ada2fe7eead31-7d03a5c5b97mr394300137.28.1793150094940; 
+ Tue, 27 Oct 2026 18:14:54 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ac709f3d9esm27236441fa.26.2026.10.27.18.14.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Oct 2026 18:14:52 -0700 (PDT)
+Date: Wed, 28 Oct 2026 03:14:49 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Jianfeng Liu <liujianfeng1994@gmail.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>,
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- driver-core@lists.linux.dev, Alvin Sun <alvin.sun@linux.dev>
-Subject: Re: [PATCH v5 05/11] drm/tyr: add user and MCU VM specifications
-Message-ID: <auFAas_sCjDQkRmM@um790>
-References: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
- <20261027-tyr-ioctls-v5-5-59dfe98cb003@kylinos.cn>
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 5/6] drm/msm: Convert map helper to use dma-address
+Message-ID: <wxfx4nhwdx6dud4ahy3rfz3btfto4t2zor2pjbotlqpglvwolx@jhnm65bzecnq>
+References: <20261027230452.130031-1-robin.clark@oss.qualcomm.com>
+ <20261027230452.130031-6-robin.clark@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027-tyr-ioctls-v5-5-59dfe98cb003@kylinos.cn>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.134.36
+In-Reply-To: <20261027230452.130031-6-robin.clark@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDAwNCBTYWx0ZWRfX9IthgCudGcUZ
+ JP/5420weO15z/DQ/XEyE/dVKWWgyiCOepG1M7xxInhaho1jZSD8Cw1iht68aH8ru0mXcYv9LYS
+ E6BFFvQFKN4hBb2W7CKnETfeq+AnzjpyzZ2OsQURRmxccFT+AWa42UFoR5evPwv+s8sW6LYAp52
+ zjGaUiU+kG7YowHf4Qa/hZOlZAwDxlg0u75w6vJ1xidfm0XYLPaM+G81NU9+a/gC7OwTnwa0x+2
+ EykzM7W+d0pUwVu0tE9zN0yuvrZqe1zmSUysrNNgEmLbyc3WOMoABRJMnVpRiCUpBzXpUTaEPIZ
+ soVVjmVTleZOAnQ5yVfnM4pa3sVZm4oy+RSUKHbFMyZ6X2PalSOnT+Sphv9JBNVcz42aC8T6sdN
+ dk3yFViZe4DZNByMVhKuvtFWpEkQ9s7RD9YRF78vbl12z4qdIfIJ+fSFZ8pa0nv55ucfktCzNIk
+ iLFbac6xkAk3hxnfbyA==
+X-Proofpoint-GUID: oR-QRn82PtdQQ5NPvKhsLa4cBj1GOpyE
+X-Proofpoint-ORIG-GUID: oR-QRn82PtdQQ5NPvKhsLa4cBj1GOpyE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDAwNCBTYWx0ZWRfXzRVbFjhCx3Rt
+ vonzLJviB6fr7aWJSv6GQXc/qXsq57NGsRW624t+7KsiCLliy3arHd2VMQMGnK6enWq8/ElrruF
+ DfBSNeLh7jGuRDVwGTNuDA1ukyBdDz8=
+X-Authority-Analysis: v=2.4 cv=dKgzC+Zb c=1 sm=1 tr=0 ts=6ae14c90 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=Uw3JNNrttYxbrt0Y1o4A:9 a=CjuIK1q_8ugA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 spamscore=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280004
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,326 +146,63 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 27, 2026 at 12:40:58AM +0800, Ke Sun wrote:
-> From: Alvin Sun <alvin.sun@linux.dev>
+On Tue, Oct 27, 2026 at 04:04:48PM -0700, Rob Clark wrote:
+> Now that we have everything unified in one path, switch over to using
+> dma addresses for setting up the mapping.  This avoids issues with
+> CONFIG_DMABUF_DEBUG stripping the pages from the sgt.
 > 
-> The MCU and user VMs need different VA layouts. Give each a dedicated
-> constructor: new_for_fw() builds the kernel-only 4G layout, while
-> new_for_user() splits the address space by task_size or a user-provided
-> size, rejecting oversized requests rather than clamping. The resulting
-> user range is what VM_CREATE reports back as user_va_range.
-> 
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> Tested-by: Jianfeng Liu <liujianfeng1994@gmail.com> # x1e78100 (Acer SFA14-11), v7.3-rc5 + this series, CONFIG_DMABUF_DEBUG=y
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/tyr/fw.rs |  19 +++---
->  drivers/gpu/drm/tyr/vm.rs | 157 +++++++++++++++++++++++++++++++++++++++++-----
->  2 files changed, 151 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-> index aea151ff1f934..81e8103368bc2 100644
-> --- a/drivers/gpu/drm/tyr/fw.rs
-> +++ b/drivers/gpu/drm/tyr/fw.rs
-> @@ -51,7 +51,6 @@
->          KernelBoVaAlloc, //
->      },
->      gpu::GpuInfo,
-> -
->      mmu::Mmu,
->      regs::{
->          gpu_control::{
-> @@ -219,10 +218,10 @@ pub(crate) fn new(
->          mmu: ArcBorrow<'_, Mmu<'drm>>,
->          gpu_info: &GpuInfo,
->      ) -> Result<Firmware<'drm>> {
-> -        let vm = Vm::new(dev, ddev, mmu, gpu_info)?;
-> +        let vm = Vm::new_for_fw(dev, ddev, mmu, gpu_info)?;
->          vm.activate()?;
->  
-> -        let result = (|| {
-> +        let sections = (|| -> Result<KVec<Section<'drm>>> {
->              let (fw, parsed_sections) = Self::load(dev, ddev, gpu_info)?;
->              let mut sections = KVec::new();
->              for parsed in parsed_sections {
-> @@ -252,18 +251,18 @@ pub(crate) fn new(
->                  sections.push(Section { data, mem }, GFP_KERNEL)?;
->              }
->  
-> -            Ok(Firmware {
-> -                iomem,
-> -                vm: vm.clone(),
-> -                sections,
-> -            })
-> +            Ok(sections)
->          })();
->  
-> -        if result.is_err() {
-> +        if sections.is_err() {
->              vm.kill();
->          }
->  
-> -        result
-> +        Ok(Firmware {
-> +            iomem,
-> +            vm,
-> +            sections: sections?,
-> +        })
->      }
+>  drivers/gpu/drm/msm/msm_iommu.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 
-This refactoring of the closure is unrelated to the patch subject so
-could you either just drop it from this series and save it for later or
-put it into its own patch with an explanation of why it is helpful.
+This commit seems to break GPU on db410c (which uses qcom_iommu).
 
->  
->      pub(crate) fn boot(&self) -> Result {
-> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-> index 69b092a130883..b2fcda1e61073 100644
-> --- a/drivers/gpu/drm/tyr/vm.rs
-> +++ b/drivers/gpu/drm/tyr/vm.rs
-> @@ -8,6 +8,7 @@
->  //! mapped into hardware address space (AS) slots for GPU execution.
->  
->  use core::marker::PhantomData;
-> +use core::num::NonZeroU64;
->  use core::ops::Range;
->  
->  use kernel::{
-> @@ -45,6 +46,8 @@
->      num::casts::FromSafeCast,
->      prelude::*,
->      sizes::{
-> +        LargeSizeConstants,
-> +        SizeConstants,
->          SZ_1G,
->          SZ_2M,
->          SZ_4K, //
-> @@ -160,6 +163,90 @@ fn try_from(value: u32) -> Result<Self, Self::Error> {
->      }
->  }
->  
-> +/// User VA size request for a user VM.
-> +pub(crate) enum UserVaRequest {
-> +    /// Split based on `task_size()` and the GPU VA range.
-> +    Auto,
-> +    /// Caller-specified size; construction guarantees `> 0`.
-> +    Fixed(NonZeroU64),
-> +}
-> +
-> +impl UserVaRequest {
-> +    /// UAPI boundary normalization: `0` -> [`Auto`](Self::Auto).
-> +    #[expect(dead_code)]
-> +    pub(crate) fn from_uapi(v: u64) -> Self {
-> +        match NonZeroU64::new(v) {
-> +            Some(size) => Self::Fixed(size),
-> +            None => Self::Auto,
-> +        }
-> +    }
-> +}
-> +
-> +/// Final user/kernel VA layout for a VM.
-> +pub(crate) struct VmLayout {
-> +    /// Full GPU VA range covered by this VM.
-> +    pub(crate) full: Range<u64>,
-> +    /// User-accessible VA range. Empty for MCU VMs.
-> +    pub(crate) user: Range<u64>,
-> +}
-> +
-> +impl VmLayout {
-> +    /// Kernel VA range, reserved for future kernel object allocation.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn kernel(&self) -> Range<u64> {
-> +        self.user.end..self.full.end
-> +    }
-> +
-> +    /// Compute a user/kernel split for a user VM from the full GPU VA range and
-> +    /// a user request.
-> +    pub(crate) fn compute(full: Range<u64>, req: UserVaRequest) -> Result<Self> {
-> +        // Minimum VA space reserved for kernel objects (heaps, ring buffers, ...).
-> +        const MIN_KERNEL_VA: u64 = u64::SZ_256M;
-> +
-> +        if full.end <= MIN_KERNEL_VA {
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        let user_max = full.end - MIN_KERNEL_VA;
-> +
-> +        let user_end = match req {
-> +            UserVaRequest::Fixed(v) => {
-> +                let user_size = v.get();
-> +                if user_size > user_max {
-> +                    return Err(EINVAL);
-> +                }
-> +                user_size
-> +            }
-> +            UserVaRequest::Auto => {
-> +                let task_size = current!().task_size() as u64;
-> +                let candidate = if task_size < full.end {
-> +                    task_size
-> +                } else {
-> +                    // If the range exceeds 4G, split it in two so CPU and
-> +                    // GPU share the same addresses (SVM).
-> +                    if full.end > u64::SZ_4G {
-> +                        full.end / 2
-> +                    } else {
-> +                        user_max
-> +                    }
-> +                };
-> +                candidate.min(user_max)
-> +            }
-> +        };
-> +
-> +        let delta = full.end - user_end;
-> +        // Pick a kernel VA range that's a power of two, to have a clear split.
-> +        let kernel_va_range = 1u64 << delta.ilog2();
-> +        let kernel_va_start = full.end - kernel_va_range;
-> +        let full_start = full.start;
-> +
-> +        Ok(Self {
-> +            full,
-> +            user: full_start..kernel_va_start,
-> +        })
-> +    }
-> +}
-> +
->  /// Arguments for a virtual memory map operation.
->  struct VmMapArgs<'drm> {
->      /// Access permissions and caching behavior for the mapping.
-> @@ -335,26 +422,64 @@ pub(crate) struct Vm<'drm> {
->      /// Non-core part of the GPUVM. Can be used for stuff that doesn't modify the
->      /// internal mapping tree, like GpuVm::obtain()
->      gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
-> -    /// VA range for this VM.
-> -    va_range: Range<u64>,
-> +    /// VA layout for this VM.
-> +    pub(crate) layout: VmLayout,
->  }
->  
->  impl<'drm> Vm<'drm> {
-> -    /// Creates a new GPU virtual address space.
-> +    /// Creates the MCU/firmware VM.
->      ///
-> -    /// The VM is initialized with a page table configured according to the GPU's
-> -    /// address translation capabilities and registered with the GPUVM framework.
-> -    pub(crate) fn new(
-> +    /// The MCU VM is entirely kernel-managed: it has no user-accessible range.
-> +    pub(crate) fn new_for_fw(
-> +        dev: &'drm Device<Bound>,
-> +        ddev: &TyrDrmDevice,
-> +        mmu: ArcBorrow<'_, Mmu<'drm>>,
-> +        gpu_info: &GpuInfo,
-> +    ) -> Result<Arc<Vm<'drm>>> {
-> +        // As in panthor: the CSF MCU is a Cortex-M7 and can only address 4G.
-> +        let layout = VmLayout {
-> +            full: 0..u64::SZ_4G,
-> +            user: 0..0u64,
-> +        };
-> +        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
-> +    }
-> +
-> +    /// Creates a user VM, splitting the GPU VA range per `user_va`.
-> +    #[expect(dead_code)]
-> +    pub(crate) fn new_for_user(
->          dev: &'drm Device<Bound>,
->          ddev: &TyrDrmDevice,
->          mmu: ArcBorrow<'_, Mmu<'drm>>,
->          gpu_info: &GpuInfo,
-> +        user_va: UserVaRequest,
-> +    ) -> Result<Arc<Vm<'drm>>> {
-> +        let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
-> +        let va_bits = mmu_features.va_bits().get();
-> +        let range = 0..(1u64 << va_bits);
-> +
-> +        let layout = VmLayout::compute(range.clone(), user_va).inspect_err(|_| {
-> +            dev_dbg!(
-> +                dev,
-> +                "Failed to split GPU VA range {:#x}..{:#x} into user and kernel regions\n",
-> +                range.start,
-> +                range.end
-> +            );
-> +        })?;
-> +        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
-> +    }
-> +
-> +    /// Initializes a VM with the given layout.
-> +    fn new_internal(
-> +        dev: &'drm Device<Bound>,
-> +        ddev: &TyrDrmDevice,
-> +        mmu: ArcBorrow<'_, Mmu<'drm>>,
-> +        gpu_info: &GpuInfo,
-> +        layout: VmLayout,
->      ) -> Result<Arc<Vm<'drm>>> {
->          let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
->          let va_bits = mmu_features.va_bits().get();
->          let pa_bits = mmu_features.pa_bits().get();
->  
-> -        let range = 0..(1u64 << va_bits);
->          let reserve_range = 0..0u64;
->  
->          // dummy_obj is used to initialize the GPUVM tree.
-> @@ -366,7 +491,7 @@ pub(crate) fn new(
->              c"Tyr::GpuVm",
->              ddev,
->              &*dummy_obj,
-> -            range.clone(),
-> +            layout.full.clone(),
->              reserve_range,
->              GpuVmData::<'drm> {
->                  _phantom: PhantomData::<&()>,
-> @@ -386,7 +511,7 @@ pub(crate) fn new(
->                  mmu: mmu.into(),
->                  gpuvm,
->                  gpuvm_unique <- new_mutex!(gpuvm_unique),
-> -                va_range: range,
-> +                layout,
->              }),
->              GFP_KERNEL,
->          )?;
-> @@ -417,10 +542,12 @@ fn deactivate(&self) -> Result {
->  
->      /// Kills the VM by deactivating it and unmapping all regions.
->      pub(crate) fn kill(&self) {
-> -        // TODO: Turn the VM into a state where it can't be used.
->          let _ = self.deactivate();
->          let _ = self
-> -            .unmap_range(self.va_range.start, self.va_range.end - self.va_range.start)
-> +            .unmap_range(
-> +                self.layout.full.start,
-> +                self.layout.full.end - self.layout.full.start,
-> +            )
->              .inspect_err(|e| {
->                  dev_err!(self.dev, "Failed to unmap range during deactivate: {:?}", e);
->              });
-> @@ -557,14 +684,14 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
->  
->          let end = va.checked_add(size).ok_or(EINVAL)?;
->  
-> -        if va < self.va_range.start || end > self.va_range.end {
-> +        if va < self.layout.full.start || end > self.layout.full.end {
->              dev_err!(
->                  self.dev,
->                  "Unmap range {:#x}..{:#x} exceeds VM range {:#x}..{:#x}",
->                  va,
->                  end,
-> -                self.va_range.start,
-> -                self.va_range.end
-> +                self.layout.full.start,
-> +                self.layout.full.end
->              );
->              return Err(EINVAL);
->          }
-> @@ -574,7 +701,7 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
->              region: va..end,
->          };
->  
-> -        let full_vm = va == self.va_range.start && end == self.va_range.end;
-> +        let full_vm = va == self.layout.full.start && end == self.layout.full.end;
->  
->          let mut resources = VmOpResources {
->              preallocated_gpuvas: if full_vm {
+[  104.954564] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+to idle!
+[  104.954932] msm_mdp 1a01000.display-controller: [drm:adreno_load_gpu]
+*ERROR* gpu hw init failed: -22
+[  105.958559] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+to idle!
+[  109.082571] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+to idle!
+[  109.082670] msm_mdp 1a01000.display-controller: [drm:adreno_load_gpu]
+*ERROR* gpu hw init failed: -22
+[  110.086572] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+to idle!
+[  111.098576] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for GPU
+to idle!
+[  111.098674] msm_mdp 1a01000.display-controller: [drm:adreno_load_gpu]
+*ERROR* gpu hw init failed: -22
+c[  112.102576] [drm:a3xx_idle] *ERROR* 03000600: timeout waiting for
+GPU to idle!
 > 
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+> index 479e5450a4dc..c2950d32c507 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> @@ -153,9 +153,9 @@ __do_map(unsigned long pgsize_bitmap, u64 iova, struct sg_table *sgt, size_t off
+>  	u64 addr = iova;
+>  	unsigned int i;
+>  
+> -	for_each_sgtable_sg (sgt, sg, i) {
+> -		size_t size = sg->length;
+> -		phys_addr_t phys = sg_phys(sg);
+> +	for_each_sgtable_dma_sg (sgt, sg, i) {
+> +		size_t size = sg_dma_len(sg);
+> +		phys_addr_t phys = sg_dma_address(sg);
+>  
+>  		if (!len)
+>  			break;
 > -- 
-> 2.43.0
+> 2.56.0
 > 
+
+-- 
+With best wishes
+Dmitry
