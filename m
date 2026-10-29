@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028A8606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:25:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E5B606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:26:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTo5uL35
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FPZ80kof
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 675FE112341;
-	Thu, 29 Oct 2026 14:25:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE20C11234C;
+	Thu, 29 Oct 2026 14:26:08 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA74F112341
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:25:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE8D112368
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:26:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2DED160210
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:25:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFED91F01825;
- Thu, 29 Oct 2026 14:25:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D89236025A
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:26:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 746A81F01828;
+ Thu, 29 Oct 2026 14:26:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793283930;
- bh=79+rVxRtxlsemPcTzS1JEmywOExrPF2tczxAROLLj4g=;
+ s=k20260515; t=1793283961;
+ bh=xOebAHIgteBm/QdjMHIP+c4BDAPTpBSqCedBVwmcDHU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fTo5uL35B/sE4i1cB/vGiTY1gn9yNHTa//XbKt2Xsa5gC3FQWsrKBhtDgnm0thEUm
- HHuaN+Gz1LYt7PDSX9RVLK93Run8zjWTw+I14ZP+jlVbcfh26Es6moRKr3Jy56PK32
- JV/hbLCsSefgAX5tLOeggLGpFEtNfzRBXQnnDHpAUE4XAv36R2BkWwd4AT+3c7SaLa
- zYuR28JKWze7kHIWSAH1LUy3UgxdjxJ+3jascFNqZus2HKAV2BKaMdl3cV0QN25U4G
- dmirA3SYXXBsVum8lr7XI9UGy53M3FIDuYKI4CVL4ULugY1TtZkIPvbmIzvJ7hLpiS
- D1tR+eyd1NkQQ==
-Message-ID: <sashiko-outbox-189511@kernel.org>
+ b=FPZ80kofPTLAWGLGfLzlfl/K2PqPSsC04Igw9Si3Qw1DPPWJlGrX3WT7yhAiG7EES
+ d2/bYH/wmVnvXjg1pz3CoPhKn03kDOd4/92zB7UeEfFcFeDjlNkOeRmfGf7xXvURGt
+ vcEbWvu1UjGro0Dm/Z6/yplGSL1+0C7jSgU7znO+/b4nKV3dytCCf2Dsi1gr06ZHUe
+ cOUxyOayenOr1xmiPlr5JmvHroHt4+Cn0T4d9aOrQ8UwxVDomsWm95N5CCCKkabWvT
+ deNMRsvUJzeZaV6SLLY5rhs3bV9EmhV5J6eu+tdO7dNDOr6LG+5FjEiGoWLKij4nMN
+ 4fS3UuCoeZhQw==
+Message-ID: <sashiko-outbox-189512@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/31] accel: ethosu: Serialize job completion
+Subject: Re: [PATCH v4 09/31] accel: ethosu: Guard operations after unplug
 To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029-ethosu-fixes-v4-8-4aa25e22578e@kernel.org>
+In-Reply-To: <20261029-ethosu-fixes-v4-9-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-8-4aa25e22578e@kernel.org>
+ <20261029-ethosu-fixes-v4-9-4aa25e22578e@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 14:25:30 +0000
+Date: Thu, 29 Oct 2026 14:26:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,234 +58,233 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] accel: ethosu: broken reset error path in ethosu_job_timedout()
-- [High] accel: ethosu: synchronize_irq() after clock disable in ethosu_job=
-_timedout()
-- [Medium] accel: ethosu: race in ethosu_job_timedout() clears next job in_=
-flight_job
-- [Low] accel: ethosu: missing job_lock member in struct ethosu_device
+- [Medium] accel: ethosu: mixing __free() and scoped_guard() with goto clea=
+nup labels
 --
 
-commit a2791ceca00bb04bd66b56abb41eced27fba55c3
+commit cbd771f7e8b7995eaa7aedcd81a7cde35a4b6ada
 Author: Rob Herring (Arm) <robh@kernel.org>
 
-accel: ethosu: Serialize job completion
+accel: ethosu: Guard operations after unplug
 
-This commit adds spinlock helpers around in_flight_job updates and drains
-pending completion IRQs during timeout recovery so a late completion cannot
-overwrite the tracking pointer of a newly scheduled job.
+This commit guards ethosu device file open and private ioctl operations
+with drm_dev_enter() and drm_dev_exit(), and switches device removal from
+drm_dev_unregister() to drm_dev_unplug(). It also drops drm_dev_enter()
+from the BO wait ioctl so fence waits do not delay scheduler teardown.
 
-> diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/=
-ethosu_device.h
-> index 1eca8590e68d4..51d5bc5d6137d 100644
-> --- a/drivers/accel/ethosu/ethosu_device.h
-> +++ b/drivers/accel/ethosu/ethosu_device.h
-> @@ -7,6 +7,7 @@
->  #include <linux/bitfield.h>
->  #include <linux/bits.h>
->  #include <linux/mutex.h>
-> +#include <linux/spinlock.h>
->  #include <linux/types.h>
+> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/eth=
+osu_drv.c
+> index 6875ed17a004d..91b2c2ab0a03e 100644
+> --- a/drivers/accel/ethosu/ethosu_drv.c
+> +++ b/drivers/accel/ethosu/ethosu_drv.c
+[ ... ]
+> @@ -139,27 +132,34 @@ static int ethosu_ioctl_cmdstream_bo_create(struct =
+drm_device *ddev, void *data,
 > =20
->  #include <drm/drm_device.h>
+>  static int ethosu_open(struct drm_device *ddev, struct drm_file *file)
+>  {
+> -	int ret =3D 0;
+> +	struct ethosu_file_priv __free(kfree) * priv =3D NULL;
+> +	int cookie, ret;
+> =20
+>  	if (!try_module_get(THIS_MODULE))
+>  		return -EINVAL;
+> +	if (!drm_dev_enter(ddev, &cookie)) {
+> +		module_put(THIS_MODULE);
+> +		return -ENODEV;
+> +	}
+> =20
+> -	struct ethosu_file_priv __free(kfree) *priv =3D kzalloc_obj(*priv);
+> +	priv =3D kzalloc_obj(*priv);
+>  	if (!priv) {
+>  		ret =3D -ENOMEM;
+> -		goto err_put_mod;
+> +		goto err_dev_exit;
+>  	}
+>  	priv->edev =3D to_ethosu_device(ddev);
+> =20
+>  	ret =3D ethosu_job_open(priv);
+>  	if (ret)
+> -		goto err_put_mod;
+> +		goto err_dev_exit;
+> =20
+>  	ethosu_perfmon_open_file(priv);
+>  	file->driver_priv =3D no_free_ptr(priv);
+> +	drm_dev_exit(cookie);
+>  	return 0;
+> =20
+> -err_put_mod:
+> +err_dev_exit:
+> +	drm_dev_exit(cookie);
+>  	module_put(THIS_MODULE);
+>  	return ret;
+>  }
 
-[Severity: Low]
-Does this commit fail to build when CONFIG_DRM_ACCEL_ARM_ETHOSU is enabled?
+[Severity: Medium]
+In drivers/accel/ethosu/ethosu_drv.c, ethosu_open() declares priv with
+__free(kfree) =3D NULL at the top of the function before try_module_get() a=
+nd
+drm_dev_enter(), and then mixes __free(kfree) with goto err_dev_exit when
+kzalloc_obj() or ethosu_job_open() fails.
 
-This patch includes linux/spinlock.h in drivers/accel/ethosu/ethosu_device.h
-and uses dev->job_lock in ethosu_job_set_in_flight(),
-ethosu_job_clear_in_flight(), and ethosu_job_init(), but struct ethosu_devi=
-ce
-does not declare job_lock yet:
+Because scope-based cleanup runs when the function scope exits after the
+err_dev_exit label executes, drm_dev_exit(cookie) and
+module_put(THIS_MODULE) will run before kfree(priv), reversing the reverse
+acquisition (lifo) teardown order and mixing goto error handling with
+cleanup.h helpers.
 
-drivers/accel/ethosu/ethosu_device.h:
-	struct ethosu_job *in_flight_job;
-
-	/* For dma_fence */
-	spinlock_t fence_lock;
-
-The spinlock_t job_lock member declaration appears to have been placed in a
-later commit in the series, commit b4de18ee902b ("accel: ethosu: Keep
-scheduler after unplug"), which breaks compilation and git bisectability at
-this commit. Should the job_lock declaration in struct ethosu_device be mov=
-ed
-into this patch?
+Should ethosu_open() avoid mixing __free(kfree) and goto labels so that
+priv is freed before exiting the drm device section and dropping the module
+reference?
 
 > diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
 osu_job.c
-> index d418ae7961cff..f22cacb19e3dc 100644
+> index f22cacb19e3dc..8ffdc83d06f98 100644
 > --- a/drivers/accel/ethosu/ethosu_job.c
 > +++ b/drivers/accel/ethosu/ethosu_job.c
-> @@ -42,6 +42,25 @@ static const struct dma_fence_ops ethosu_fence_ops =3D=
- {
->  	.get_timeline_name =3D ethosu_fence_get_timeline_name,
->  };
-> =20
-> +static void ethosu_job_set_in_flight(struct ethosu_device *dev,
-> +				     struct ethosu_job *job)
-> +{
-> +	guard(spinlock)(&dev->job_lock);
-> +	dev->in_flight_job =3D job;
-> +}
-> +
-> +static struct ethosu_job *
-> +ethosu_job_clear_in_flight(struct ethosu_device *dev)
-> +{
-> +	struct ethosu_job *job;
-> +
-> +	guard(spinlock)(&dev->job_lock);
-> +	job =3D dev->in_flight_job;
-> +	dev->in_flight_job =3D NULL;
-> +
-> +	return job;
-> +}
-
 [ ... ]
-
-> @@ -311,11 +329,19 @@ static enum drm_gpu_sched_stat ethosu_job_timedout(=
-struct drm_sched_job *bad)
+> @@ -557,26 +558,34 @@ static int ethosu_ioctl_submit_job(struct drm_devic=
+e *dev, struct drm_file *file
+>  int ethosu_ioctl_submit(struct drm_device *dev, void *data, struct drm_f=
+ile *file)
+>  {
+>  	struct drm_ethosu_submit *args =3D data;
+> -	int ret =3D 0;
+> +	int cookie, ret =3D 0;
+>  	unsigned int i =3D 0;
 > =20
->  	drm_sched_stop(&dev->sched, bad);
+> +	if (!drm_dev_enter(dev, &cookie))
+> +		return -ENODEV;
+> +
+>  	struct drm_ethosu_job __free(kvfree) *jobs =3D
+>  		kvmalloc_objs(*jobs, args->job_count);
+> -	if (!jobs)
+> -		return -ENOMEM;
+> +	if (!jobs) {
+> +		ret =3D -ENOMEM;
+> +		goto out_dev_exit;
+> +	}
 > =20
-> -	WRITE_ONCE(dev->in_flight_job, NULL);
-> +	ethosu_job_clear_in_flight(dev);
+>  	if (copy_from_user(jobs,
+>  			   (void __user *)(uintptr_t)args->jobs,
+>  			   args->job_count * sizeof(*jobs))) {
+>  		drm_dbg(dev, "Failed to copy incoming job array\n");
+> -		ret =3D -EFAULT;
+> +		ret =3D -EFAULT;
+> +		goto out_dev_exit;
+>  	}
+> =20
+>  	for (i =3D 0; i < args->job_count; i++) {
+>  		ret =3D ethosu_ioctl_submit_job(dev, file, &jobs[i], args->perfmon_id);
+>  		if (ret)
+> -			return ret;
+> +			goto out_dev_exit;
+>  	}
+> =20
+> -	return 0;
+> +out_dev_exit:
+> +	drm_dev_exit(cookie);
+> +	return ret;
+>  }
+> diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu=
+/ethosu_perfmon.c
+> index 2a9b3cc1447bd..8d3635ba3347b 100644
+> --- a/drivers/accel/ethosu/ethosu_perfmon.c
+> +++ b/drivers/accel/ethosu/ethosu_perfmon.c
+[ ... ]
+> @@ -260,44 +289,54 @@ int ethosu_ioctl_perfmon_set_global(struct drm_devi=
+ce *dev, void *data,
+>  	struct ethosu_file_priv *ethosu_priv =3D file_priv->driver_priv;
+>  	struct drm_ethosu_perfmon_set_global *req =3D data;
+>  	struct ethosu_device *ethosu =3D to_ethosu_device(dev);
+> -	struct ethosu_perfmon *perfmon;
+> +	struct ethosu_perfmon *old =3D NULL, *perfmon;
+> +	int cookie, ret =3D 0;
+> =20
+> -	if (req->flags & ~DRM_ETHOSU_PERFMON_CLEAR_GLOBAL)
+> -		return -EINVAL;
+> +	if (!drm_dev_enter(dev, &cookie))
+> +		return -ENODEV;
+> +
+> +	if (req->flags & ~DRM_ETHOSU_PERFMON_CLEAR_GLOBAL) {
+> +		ret =3D -EINVAL;
+> +		goto out_dev_exit;
+> +	}
+> =20
+>  	perfmon =3D ethosu_perfmon_find(ethosu_priv, req->id);
+> -	if (!perfmon)
+> -		return -EINVAL;
+> +	if (!perfmon) {
+> +		ret =3D -EINVAL;
+> +		goto out_dev_exit;
+> +	}
+> =20
+>  	/* If the request is to clear the global performance monitor */
+>  	if (req->flags & DRM_ETHOSU_PERFMON_CLEAR_GLOBAL) {
+> -		struct ethosu_perfmon *old;
+> -
+>  		scoped_guard(mutex, &ethosu->perfmon_state.lock) {
+>  			old =3D ethosu->global_perfmon;
+> -			if (!old) {
+> -				ethosu_perfmon_put(perfmon);
+> -				return -EINVAL;
+> +			if (old) {
+> +				ethosu->global_perfmon =3D NULL;
+> +				ethosu_perfmon_stop_locked(ethosu, old, true);
+>  			}
+> +		}
+> =20
+> -			ethosu->global_perfmon =3D NULL;
+> -			ethosu_perfmon_stop_locked(ethosu, old, true);
+> +		ethosu_perfmon_put(perfmon);
+> +		if (!old) {
+> +			ret =3D -EINVAL;
+> +			goto out_dev_exit;
+>  		}
+> =20
+>  		ethosu_perfmon_put(old);
+> -		ethosu_perfmon_put(perfmon);
+> =20
+> -		return 0;
+> +		goto out_dev_exit;
+>  	}
+> =20
+>  	scoped_guard(mutex, &ethosu->perfmon_state.lock) {
+> -		if (ethosu->perfmon_state.active || ethosu->global_perfmon) {
+> -			ethosu_perfmon_put(perfmon);
+> -			return -EBUSY;
+> -		}
+> -
+> -		ethosu->global_perfmon =3D perfmon;
+> +		if (ethosu->perfmon_state.active || ethosu->global_perfmon)
+> +			ret =3D -EBUSY;
+> +		else
+> +			ethosu->global_perfmon =3D perfmon;
+>  	}
+> +	if (ret)
+> +		ethosu_perfmon_put(perfmon);
+> =20
+> -	return 0;
+> +out_dev_exit:
+> +	drm_dev_exit(cookie);
+> +	return ret;
+>  }
 
 [Severity: Medium]
-Can ethosu_job_timedout() still clear the next job's in_flight_job pointer
-and reset the NPU while a newly submitted job is running?
+Similarly, in drivers/accel/ethosu/ethosu_job.c, ethosu_ioctl_submit()
+mixes a mid-function __free(kvfree) declaration for jobs with goto
+out_dev_exit, which causes drm_dev_exit(cookie) to run before kvfree(jobs).
+In drivers/accel/ethosu/ethosu_perfmon.c, ethosu_ioctl_perfmon_set_global()
+also mixes scoped_guard(mutex, &ethosu->perfmon_state.lock) with goto
+out_dev_exit labels.
 
-When work_tdr calls drm_sched_job_timedout(), the timed-out job (bad) is
-removed from sched->pending_list before ethosu_job_timedout(bad) is invoked,
-while sched->submit_wq remains active until drm_sched_stop() is called:
-
-ethosu_job_timedout()
-  cmdaddr =3D readl_relaxed(dev->regs + NPU_REG_QREAD);
-  running =3D FIELD_GET(STATUS_STATE_RUNNING, ...);
-  if (running)
-    readl_relaxed_poll_timeout(...);
-  dev_err(...);
-  drm_sched_stop(&dev->sched, bad);
-  ethosu_job_clear_in_flight(dev);
-
-If bad completes just before NPU_REG_STATUS is read (so running is false) or
-right after readl_relaxed_poll_timeout() expires while dev_err() is running,
-ethosu_job_irq_handler_thread()->ethosu_job_handle_irq() clears
-dev->in_flight_job and signals bad->done_fence.
-
-Signaling bad->done_fence runs drm_sched_job_done_cb()->drm_sched_job_done(=
-),
-which decrements sched->credit_count and queues work_free_job and
-drm_sched_run_job_work(). Because drm_sched_stop() has not been called yet,
-drm_sched_run_job_work()->ethosu_job_run() can set dev->in_flight_job to the
-next job and submit it to the hardware.
-
-When ethosu_job_timedout() then calls drm_sched_stop(&dev->sched, bad) and
-ethosu_job_clear_in_flight(dev), wouldn't it unconditionally clear the new
-job's dev->in_flight_job pointer, reset the NPU underneath it, and cancel t=
-he
-new job during drm_sched_start(&dev->sched, 0)?
-
->  	/* Proceed with reset now. */
-> -	pm_runtime_force_suspend(dev->base.dev);
-> -	pm_runtime_force_resume(dev->base.dev);
-> +	ret =3D pm_runtime_force_suspend(dev->base.dev);
-> +	if (!ret)
-> +		ret =3D pm_runtime_force_resume(dev->base.dev);
-> +	if (ret) {
-> +		dev_err(dev->base.dev, "Failed to recover NPU: %d\n", ret);
-> +		return DRM_GPU_SCHED_STAT_ENODEV;
-> +	}
-
-[Severity: High]
-What happens on this error path if CONFIG_PM_SLEEP is disabled, or if
-pm_runtime_force_suspend() or pm_runtime_force_resume() fails?
-
-First, DRM_ACCEL_ARM_ETHOSU does not depend on CONFIG_PM_SLEEP. When
-CONFIG_PM_SLEEP is disabled, pm_runtime_force_resume() in
-include/linux/pm_runtime.h is a stub that unconditionally returns -ENXIO:
-
-static inline int pm_runtime_force_suspend(struct device *dev) { return 0; }
-static inline int pm_runtime_force_resume(struct device *dev) { return -ENX=
-IO; }
-
-When CONFIG_PM=3Dy and CONFIG_PM_SLEEP=3Dn, pm_runtime_force_suspend() disa=
-bles
-runtime PM and calls ethosu_device_suspend() to turn off the clocks, and th=
-en
-pm_runtime_force_resume() returns -ENXIO, causing every timeout recovery to
-fail with the NPU left suspended.
-
-Second, before this check, ethosu_job_timedout() calls
-drm_sched_stop(&dev->sched, bad), which removes &bad->cb from
-bad->s_fence->parent (job->done_fence) and sets bad->s_fence->parent =3D NU=
-LL.
-Returning DRM_GPU_SCHED_STAT_ENODEV here skips drm_sched_start(&dev->sched,=
- 0),
-which would otherwise see s_job->s_fence->parent =3D=3D NULL and call
-drm_sched_job_done(s_job, -ECANCELED) to signal bad->s_fence->finished
-(job->inference_done_fence).
-
-Even during subsequent teardown in ethosu_job_fini()->drm_sched_fini(),
-ethosu_job_cancel() only signals job->done_fence:
-
-static void ethosu_job_cancel(struct drm_sched_job *sched_job)
-{
-	struct ethosu_job *job =3D to_ethosu_job(sched_job);
-
-	if (dma_fence_was_initialized(job->done_fence) &&
-	    !dma_fence_is_signaled(job->done_fence)) {
-		dma_fence_set_error(job->done_fence, -ECANCELED);
-		dma_fence_signal(job->done_fence);
-	}
-}
-
-Because drm_sched_stop() already detached &bad->cb from job->done_fence,
-signaling job->done_fence will not signal bad->s_fence->finished. Wouldn't
-that leave bad->s_fence->finished permanently unsignaled, hanging callers in
-ethosu_ioctl_bo_wait() and drm_sched_entity_kill() and triggering a warning=
- in
-dma_fence_release() when ethosu_job_free() frees the job?
-
-> +
-> +	/* Drain a pending completion IRQ before a replacement job can run. */
-> +	synchronize_irq(dev->irq);
-
-[Severity: High]
-Is calling synchronize_irq(dev->irq) after pm_runtime_force_suspend() safe =
-if
-an IRQ is already in flight?
-
-Both ethosu_job_irq_handler() and
-ethosu_job_irq_handler_thread()->ethosu_job_handle_irq() read NPU_REG_STATUS
-from dev->regs:
-
-static void ethosu_job_handle_irq(struct ethosu_device *dev)
-{
-	u32 status =3D readl_relaxed(dev->regs + NPU_REG_STATUS);
-	struct ethosu_job *job;
-
-	if (status & (STATUS_BUS_STATUS | STATUS_CMD_PARSE_ERR)) {
-		dev_err(dev->base.dev, "Error IRQ - %x\n", status);
-		drm_sched_fault(&dev->sched);
-		return;
-	}
-
-In ethosu_job_timedout(), pm_runtime_force_suspend(dev->base.dev) runs
-ethosu_device_suspend()->clk_bulk_disable_unprepare() before
-synchronize_irq(dev->irq) is called (and synchronize_irq() is skipped entir=
-ely
-if the suspend/resume check returns early).
-
-If an interrupt fires concurrently with ethosu_job_timedout(), could
-ethosu_job_irq_handler() or ethosu_job_handle_irq() read NPU_REG_STATUS whi=
-le
-the NPU clocks are disabled during the window between
-pm_runtime_force_suspend() and pm_runtime_force_resume(), or call
-drm_sched_fault(&dev->sched) after drm_sched_stop() cancelled sched->work_t=
-dr?
+Per include/linux/cleanup.h, goto-based cleanup and scope-based cleanup
+helpers should not be mixed within the same function. Could these functions
+either use scope-based cleanup consistently or use explicit cleanup along
+the goto paths?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-ethosu-fix=
-es-v4-0-4aa25e22578e@kernel.org?part=3D8
+es-v4-0-4aa25e22578e@kernel.org?part=3D9
