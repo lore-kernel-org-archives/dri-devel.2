@@ -2,46 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B8E606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 05:42:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C659B606A32E
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 06:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=Vi2S0iv4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E944010E778;
-	Thu, 29 Oct 2026 05:42:45 +0000 (UTC)
-X-Greylist: delayed 2313 seconds by postgrey-1.36 at gabe;
- Thu, 29 Oct 2026 05:42:44 UTC
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com
- [185.226.149.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6506D10E778;
- Thu, 29 Oct 2026 05:42:44 +0000 (UTC)
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
- by mailtransmit05.runbox.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <martin.roukala@mupuf.org>)
- id 1xMIJ6-00GDZn-Rh; Thu, 29 Oct 2026 06:04:08 +0100
-Received: from [10.9.9.73] (helo=submission02.runbox)
- by mailtransmit03.runbox with esmtp (Exim 4.86_2)
- (envelope-from <martin.roukala@mupuf.org>)
- id 1xMIJ5-0002Xo-Jg; Thu, 29 Oct 2026 06:04:07 +0100
-Received: by submission02.runbox with esmtpsa [Authenticated ID (1057822)]
- (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.95) id 1xMIIs-00Gwma-JZ; Thu, 29 Oct 2026 06:03:54 +0100
-Message-ID: <1c76eb81-feac-419c-bcb8-bb505788e549@mupuf.org>
-Date: Thu, 29 Oct 2026 07:03:54 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29C9510E77F;
+	Thu, 29 Oct 2026 06:11:06 +0000 (UTC)
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
+ [91.207.212.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C72710E1E7;
+ Thu, 29 Oct 2026 06:10:59 +0000 (UTC)
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+ by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69T652WU3047993; Thu, 29 Oct 2026 06:10:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=skr222lx5y9b/nfDvYW96T8
+ hrnWFf4QPQl8CDYkFwS0=; b=Vi2S0iv4tRdjKQi4Xy04UPhBFwaYnmuFpZJ87o5
+ NVSlztk8x4ReyBGoi6KlTcPlRJJQYW/ITM2RB2vcGYENIdjasdSHZEEqKHXzDVeU
+ HwRJAw7/tSJ16x12r5Gj1QZkYGl4F3g/sQUeQMKfafLDn0fPkG56SglIPGkbWNQa
+ K1flGfeliB2Rvcez/hU5Hft2z5kMlnQCWQzb9qfdfpfUPOCBg61uGyh31u7piKmH
+ 7Ii/v0kvFJT9o5B+0remWVgj+nEL3Hz7f+J2AOOET9ga95aJa8bjWaDyoxx8JT8E
+ dYQj3PWvH+NKs1er+V/WfNTA6K58TVUOGwokE+ZGML+bM8w==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hkvd1048d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 29 Oct 2026 06:10:47 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 29 Oct
+ 2026 06:10:45 +0000
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Subject: [PATCH v4 0/4] drm/imagination: Clean up MIPS firmware interfaces
+Date: Thu, 29 Oct 2026 08:10:11 +0200
+Message-ID: <20261029-b4-simplify-mips-pte-defs-v4-0-9656041e040b@imgtec.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/nouveau/therm: mask the update bit when reading back
- the fan PWM duty
-To: Alex <xnderv@yandex.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261025101640.49779-1-xnderv@yandex.com>
-Content-Language: en-US
-From: Martin Roukala <martin.roukala@mupuf.org>
-In-Reply-To: <20261025101640.49779-1-xnderv@yandex.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEPj4moC/43NTQ6CMBAF4KuQrq1phwqNK+9hXNB2gDHyE4pEQ
+ ri7BTcYE+LyZd58b2IeO0LPztHEOhzIU1OHoA4Rs2VWF8jJhcxAQCKFVNwo7qlqH5SPvKLW87Z
+ H7jD3HMGgzBMZO6lY+G87zOm12tfbJ/unuaPtF3BplOT7phvX8UEuvX92BslFOGcuNSbRCHChq
+ ujRHm1TsWVogA0FsEdBoBBBCbAizpT5oeItlexRcaBOOhU6dToDrb6oeZ7fERaD3WsBAAA=
+X-Change-ID: 20261014-b4-simplify-mips-pte-defs-e2be1f613d14
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Paul Walmsley <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>
+CC: <linux-kernel@vger.kernel.org>, <imagination@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Alexandru Dadu
+ <alexandru.dadu@imgtec.com>, Matt Coster <opensource@mtcoster.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793254245; l=2906;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=EQXnezp83QvFn/h1J2Q0UeVY8jzdKMxbrdTfddfJYKA=;
+ b=G00SPfx+8iBU64Fl5ilmP53lWfBhbxlVjvUYZqZygshF4QdmGmh5kR1yp7XlKtmNIOalJ9baP
+ KpnNL0ndqA3AvCK+6rx4PuIG5gQdqZ/SMxi0M8hymTDBnPvtusAWzGC
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfX5GuO4tuiYm6X
+ wasAUgJDVgxW4abN3UFdUvbz9qpxNgXZHZCk5gser41n09OkRMN/yDEg2GSrihPYhoUJchmL9X/
+ I98yxyDoweLoiTcoZ2pH2cL4DkNGSR8rQM42D1u2I8g2cx63ylc1k72OhwJosyMoOBJR3Ytpy3I
+ oHHzxFibyJuNlZnrQxv+wZNwzkoeagT6uClg/q9tWfN/9yXYKiC7+1v5NNFTsGQsoR7FepnNKwo
+ 6AQuXhXj1a03uJzSSZM6YEIJ1POtymUPQJRd9yM5Pltr/EVUklmPiJE9cH9HSDNzFDRv0Gee9Vn
+ GeXZSN5mZQvgmpaZ5a7X6VJi5tyK094C0ggS+ss9L8d85ca8ZmOnxJjyYP/unN40tNf4UqSG0mB
+ uynphvruhWf3EW6Q10Jzz4EEPupVKObJp3y7dRCQSE/QMHl5MuOQqsf1GxgqVUrMpxiLbSbxWz7
+ b0S+YghuFqrpV2grjqA==
+X-Proofpoint-ORIG-GUID: nORf-4Qwieee6_x3WRlDZPJ-Ic0H1t79
+X-Authority-Analysis: v=2.4 cv=RdgFmFtv c=1 sm=1 tr=0 ts=6ae2e367 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=_O3DOGVWAAAA:8 a=e5mUnYsNAAAA:8 a=gXtLJ4WPg2CJrXxS_-4A:9
+ a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22
+ a=2TKV-7w1aU1AVAwN0oqT:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: nORf-4Qwieee6_x3WRlDZPJ-Ic0H1t79
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfX8MQxro7r6RAr
+ agYWprone4CD8JMZmS+liJjxHxGxq8qjNzWE38dGRBIB7EnVAyd4Y195q9gngf5tub7PaVXezuC
+ FhtszlpCpSmaMZ6JkRERP0bzgBiICyw=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,116 +97,78 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Alex,
+1. Limits access to the MIPS firmware interface, keeping its state
+   within the relevant implementation.
+2. Align MIPS firmware headers with the other processor headers and add
+   "_fw_" component to the headers filename.
+3. Improved logging in error paths.
+4. Simplify MIPS PTE definitions.
 
-On 25/10/2026 12:16, Alex wrote:
-> nv50_fan_pwm_set() and gf119_fan_pwm_set() write the fan duty cycle to
-> 0xe118 with bit 31 set.  Normally the bit reads back clear, but when
-> the register is read back shortly after such a write it can still be
-> set, and nv50_fan_pwm_get() and gf119_fan_pwm_get() return it as part
-> of the duty cycle.  nvkm_fanpwm_get() then takes divs = max(divs, duty),
-> so divs becomes 0x8000xxxx too, and duty * 100 wraps around in u32
-> (0x80000000 * 100 == 0 mod 2^32): the fan speed reads as 0%.
-> nvkm_fan_update() uses that as the current speed and steps up from it,
-> so it writes 3% to the fan and then ramps it back by 3% per bump
-> period.
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v4:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v3: https://patch.msgid.link/20261026-b4-simplify-mips-pte-defs-v3-0-587087d8a284@imgtec.com
 
-Ooops, I never saw the update bit being sticky! I thought this was a 
-write-only bit :s Anyway, the code is:
+Changes in v3:
+- Squash a commit that ads "_fw_" component to the MIPS firmware headers filename. 
+- Link to v2: https://patch.msgid.link/20261022-b4-simplify-mips-pte-defs-v2-0-ee2402c03a4b@imgtec.com
 
-    Acked-by: Martin Roukala <martin.roukala@mupuf.org>
+Changes in v2:
+- propagate the commit update to PVR_MIPSFW_TLB_GET_PA().
+- removed the RISC-V group from the target group of this update.
+- Link to v1: https://patch.msgid.link/20261014-b4-simplify-mips-pte-defs-v1-0-b4ad7bb68e22@imgtec.com
 
-Now, let's talk about the commit message: LLMs love to talk don't 
-they?Let's trim the commit message to the just the above as it provides 
-everything anyone bisecting to this change could ever want to know.
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 
-Whatever comes after (but not including the `Fixes:` and `Cc:` trailers) 
-could be sent outside of the commit message, just as part of the email. 
-It is valuable to the reviewer, as it allows us to see how you found the 
-issue, figured out how to fix it, and how you tested it.
+---
+Alessio Belle (2):
+      drm/imagination: Limit access to the MIPS firmware interface
+      drm/imagination: Make the MIPS firmware headers arch-independent
 
-Anyway, thanks for your contribution. I am happy that you are taking 
-over this old project of mine (back when I was contributing as Martin 
-Peres, before I took my now-wife's name) :)
+Matt Coster (2):
+      drm/imagination: Improve some logging in error paths
+      drm/imagination: Simplify MIPS PTE definitions
 
-Thanks,
-Martin Roukala
-> 
-> The reads that hit this come from the two therm timers.
-> nvkm_therm_alarm() (the 1 s poll) and nvkm_fan_alarm() (the bump
-> alarm) both call nvkm_fan_update(), which reads the duty cycle before
-> it writes a new one.  When the two alarms fire within microseconds of
-> each other, the second one reads 0xe118 right after the first one
-> wrote it.  On the board below the bump period is 500 ms, so this
-> happens again and again while the temperature target keeps moving.
-> 
-> Seen on a GeForce GTX 560 Ti (GF114, nv50 PWM path) while the
-> temperature changed quickly under load: a bpftrace probe on
-> nv50_fan_pwm_get() saw 7 of 239 reads in two minutes come 7-25 us after
-> the other timer's write with bit 31 still set (e.g. 0x800001e1 with
-> divs 0x21c), and each of them was followed by a drop to 3%.
-> 
-> gm107_fan_pwm_get() and the PTHERM path of gf119_fan_pwm_get() already
-> mask their duty reads; do the same for 0xe118.
-> 
-> Testing: with this change the same workload and probe gave no such
-> reads in 155 and no fan drops.  The board was running out-of-tree
-> reclocking patches; the therm and fan code was unmodified.  The gf119
-> hunk changes the same register in the same way but was not tested on
-> GF119 or later hardware.  Both files build without warnings.
-> 
-> The problem was found and analysed, the bpftrace probes were written,
-> and this fix and changelog were drafted with an AI assistant (Claude
-> Opus 5.5 by Anthropic) during an interactive debugging session.  I
-> reviewed the change and ran the tests on my card.
-> 
-> Fixes: cb9fa62671ac ("drm/nv50/pm: add support for pwm fan control")
-> Fixes: bc79202f4c8f ("nvd0/therm: implement more appropriate pwm fan control functions")
-> Cc: stable@vger.kernel.org
-> ---
->   drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c | 6 +++++-
->   drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c  | 6 +++++-
->   2 files changed, 10 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
-> index 684aff7..f56e763 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
-> @@ -74,7 +74,11 @@ gf119_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
->   	else if (indx < 2) {
->   		if (nvkm_rd32(device, 0x00d610 + (line * 0x04)) & 0x00000040) {
->   			*divs = nvkm_rd32(device, 0x00e114 + (indx * 8));
-> -			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8));
-> +			/*
-> +			 * Bit 31 is the update trigger set by pwm_set();
-> +			 * it can still read back as set after a write.
-> +			 */
-> +			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8)) & 0x7fffffff;
->   			return 0;
->   		}
->   	} else if (indx == 2) {
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
-> index 9cf16a7..9272256 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
-> @@ -72,7 +72,11 @@ nv50_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
->   
->   	if (nvkm_rd32(device, ctrl) & (1 << line)) {
->   		*divs = nvkm_rd32(device, 0x00e114 + (id * 8));
-> -		*duty = nvkm_rd32(device, 0x00e118 + (id * 8));
-> +		/*
-> +		 * Bit 31 is the update trigger set by pwm_set();
-> +		 * it can still read back as set after a write.
-> +		 */
-> +		*duty = nvkm_rd32(device, 0x00e118 + (id * 8)) & 0x7fffffff;
->   		return 0;
->   	}
->   
+ drivers/gpu/drm/imagination/pvr_fw.c               |   6 +-
+ drivers/gpu/drm/imagination/pvr_fw.h               |  11 +-
+ drivers/gpu/drm/imagination/pvr_fw_mips.c          |  79 +++--
+ drivers/gpu/drm/imagination/pvr_fw_mips.h          |  49 ---
+ drivers/gpu/drm/imagination/pvr_fw_mips_internal.h | 309 +++++++++++++++++++
+ .../drm/imagination/pvr_fw_mips_internal_check.h   |  35 +++
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c         |   1 -
+ drivers/gpu/drm/imagination/pvr_rogue_mips.h       | 335 ---------------------
+ drivers/gpu/drm/imagination/pvr_rogue_mips_check.h |  35 ---
+ drivers/gpu/drm/imagination/pvr_vm_mips.c          | 162 +++++++---
+ drivers/gpu/drm/imagination/pvr_vm_mips.h          |   2 +
+ 11 files changed, 519 insertions(+), 505 deletions(-)
+---
+base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
+change-id: 20261014-b4-simplify-mips-pte-defs-e2be1f613d14
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
