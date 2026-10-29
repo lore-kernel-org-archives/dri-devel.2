@@ -2,33 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F10606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:19:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1483606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ByWpXUDN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1345810E4D5;
-	Thu, 29 Oct 2026 13:19:31 +0000 (UTC)
-Received: from aposti.net (aposti.net [185.119.170.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8213C10E4D5
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:19:29 +0000 (UTC)
-Message-ID: <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
-Subject: Re: [PATCH] usb: gadget: f_fs: Remove deprecated dma_fence->ops
-From: Paul Cercueil <paul@crapouillou.net>
-To: Philipp Stanner <phasta@kernel.org>, Neill Kapron <nkapron@google.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Al Viro <viro@zeniv.linux.org.uk>, Nuno
- =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>, Sam Day <me@samcday.com>,
- Michael Bommarito	 <michael.bommarito@gmail.com>, Gabriel Prostitis
- <prostitisgabriel@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Date: Thu, 29 Oct 2026 14:19:23 +0100
-In-Reply-To: <20261029125143.1744481-2-phasta@kernel.org>
-References: <20261029125143.1744481-2-phasta@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48E3711228B;
+	Thu, 29 Oct 2026 13:21:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A632710E807;
+ Thu, 29 Oct 2026 13:21:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793280087; x=1824816087;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=tkpV40hGhO5XeSgRXjpBId5i/GBz5co0mYtfaR2uPHc=;
+ b=ByWpXUDNtE041PcxpjxWOiUscgxyB6wd6HHSHpTkfdqKrHt0nNRiVlNi
+ iGklM75b35IAYUuhXooKHYUmke4On3DONklwepMYt50Djjh06D7hR/Rex
+ esUsgPmXo0WZuKINjKwAM6b4UUGSGG7PK3uLp0KOwXMJ9Ve95Rq71K6ok
+ ZTbVwrJtQ3UAP5w6ouWkzPjbCO2HwwJ57OkdBxrphXE17pJpMMiUe3njz
+ NUk5U7n9eOiQY0ZCuPOO+1cX7gC1QAHtyYunBwh7eVVMghapDtlxlu7Qu
+ NlkGAblFP0nufHK66JBOIdzsfzqWVolsTSSd96UzdOwOj2C2cf5pu4X9r g==;
+X-CSE-ConnectionGUID: xAxVTxZPRS2H8FKEkOcdfQ==
+X-CSE-MsgGUID: S5lDBfYpQx+OaaW6GCmJqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1899932"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1899932"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 06:21:26 -0700
+X-CSE-ConnectionGUID: lcHCQ8oTT4+RWbV1aJm5jw==
+X-CSE-MsgGUID: gd6Ro2tCRA6pOUXdfheN3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5690610"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.129])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 06:21:17 -0700
+Date: Thu, 29 Oct 2026 15:21:15 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Dmitry Ilvokhin <d@ilvokhin.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>,
+ Billy Tsai <billy_tsai@aspeedtech.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Kees Cook <kees@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH 07/10] drm/gem: Switch to __nonnull_args() macro
+Message-ID: <auNIS5n2aUD9t7yB@ashevche-desk.local>
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
+ <fb3b6a24-74ca-4da8-8593-352afd515313@suse.de>
+ <CANiq72mMm75svCqevd8fHtVoczDpvpo4NwL0SC8=bWy030vQuQ@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANiq72mMm75svCqevd8fHtVoczDpvpo4NwL0SC8=bWy030vQuQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,70 +93,27 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Philipp,
+On Thu, Oct 29, 2026 at 02:00:28PM +0100, Miguel Ojeda wrote:
+> On Thu, Oct 29, 2026 at 8:32 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> >
+> > Should gem.h now include <linux/compiler_attributes.h> ?
+> 
+> No, it should be included for you (unless you are doing something
+> custom with the compiler flags etc.).
 
-Le jeudi 29 octobre 2026 =C3=A0 13:51 +0100, Philipp Stanner a =C3=A9crit=
-=C2=A0:
-> The dma_fence_ops function ops->release() has been deprecated because it
-> prevents drivers from unloading. f_fs's implementation merely frees the
-> fence. The dma_fence backend performs this deallocation automatically in
-> the correct manner if ops->release() is not implemented.
->=20
-> The backend simultaneously correctly frees struct ffs_dma_fence since
-> struct dma_fence is its base class.
+Usually it comes to the mere drivers via types.h, in rare cases (usually some
+more generic library headers, we do better granularity as it affects the almost
+entire kernel. Just double check that types.h is explicitly included.
 
-For context, this .release() callback was added to avoid the implicit free =
-of
-the base class, which IIRC was a request I got during the review process of=
- this
-change set.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-I'm personally fine with the change, but do we need a "keep this field at t=
-he
-top" comment for the base class in the ffs_dma_fence struct? Or what's the
-policy here?
 
-Cheers,
--Paul
-
->=20
-> Remove ops->release().
->=20
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
-> =C2=A0drivers/usb/gadget/function/f_fs.c | 9 ---------
-> =C2=A01 file changed, 9 deletions(-)
->=20
-> diff --git a/drivers/usb/gadget/function/f_fs.c
-> b/drivers/usb/gadget/function/f_fs.c
-> index c64a268e98a4..e8672b37e890 100644
-> --- a/drivers/usb/gadget/function/f_fs.c
-> +++ b/drivers/usb/gadget/function/f_fs.c
-> @@ -1479,18 +1479,9 @@ static const char *ffs_dmabuf_get_timeline_name(st=
-ruct
-> dma_fence *fence)
-> =C2=A0	return "";
-> =C2=A0}
-> =C2=A0
-> -static void ffs_dmabuf_fence_release(struct dma_fence *fence)
-> -{
-> -	struct ffs_dma_fence *dma_fence =3D
-> -		container_of(fence, struct ffs_dma_fence, base);
-> -
-> -	kfree(dma_fence);
-> -}
-> -
-> =C2=A0static const struct dma_fence_ops ffs_dmabuf_fence_ops =3D {
-> =C2=A0	.get_driver_name	=3D ffs_dmabuf_get_driver_name,
-> =C2=A0	.get_timeline_name	=3D ffs_dmabuf_get_timeline_name,
-> -	.release		=3D ffs_dmabuf_fence_release,
-> =C2=A0};
-> =C2=A0
-> =C2=A0static int ffs_dma_resv_lock(struct dma_buf *dmabuf, bool nonblock)
