@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5F4606DA49
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:37:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454B5606A324
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:37:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiDB9fTO
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mfd6s3A6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D990510E80F;
-	Thu, 29 Oct 2026 13:37:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9246810E7FC;
+	Thu, 29 Oct 2026 13:37:37 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41DFE11229D
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0325A1122B0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2B08C422C4;
- Thu, 29 Oct 2026 13:36:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C81B71F01825;
- Thu, 29 Oct 2026 13:36:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E0E8042D9D;
+ Thu, 29 Oct 2026 13:36:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8182B1F01825;
+ Thu, 29 Oct 2026 13:36:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793280990;
- bh=4QT94RyaHPw6EM3Dp1dEOIctJpO/QfGuObnPzpqRrVM=;
+ s=k20260515; t=1793280988;
+ bh=UY96nz1SrOKc6lMTmgOl71KWjiRDeKiEX/i+sjoZhIo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=RiDB9fTOrSaRqHtFvF8kb8jvU0IuHbukl2G2LT6CLD0sEQGFYVhbPuMjMGjLL9qYG
- jkXa0Qapa3t3c4DqmlehcIMEw2Nj7TtFjIpYyAS37YHL+9eZg+WvrvWx4CO96BJbaq
- rkJQo9/6dnY5mJaBD4fqbkNU5jXKQhlTqSIVqAcBUQKCgMYGYep+D/xTEQ6iAZBU9h
- Rj1SiWwcUHXmCXUdQV/TtYPOfI0T+Ufsya846mNO4YMUAI6r+2KyTlbKY1m3S+4MrN
- gNgX9sg840kO/1ySI5+82Y8CAWpYX36CNFpqp2BCALE2IXtIW83OUL81XNHbG3ks/T
- 3vf3adrWmFq3g==
+ b=Mfd6s3A6KjtX8WcXOWYoI7Ic2lPyFMxOnsJdvhqJUKIEKd7oMZ++A0c7UOTXVpSJO
+ 05ZDKnoAtXKszoPXQiDBWMhDPcfXj6XY0ADAufoUeknj+G6UL9NDwTRg/DtpsVtEgQ
+ d1MS20WXdIbgr+E0X/zU+D+K7BUCGRkfJCQDxuzkCwShkHInvtmOxZ5aDaw7FzC5r6
+ zhcfLpgmollfB9hVT2rLjo7Tib2W+TVgQso71BTaTcy6QRmqivDRzsZN5Czqvs+fCf
+ sjIK2pzGE3/zU0/UWwQbFo35guqNDHqRvXXDoi1VozLaiLDyIgFJJ4hMeRM9WkqwHE
+ OK2LR2NWjbpwQ==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:35:57 -0500
-Subject: [PATCH v4 10/31] accel: ethosu: Keep scheduler after unplug
+Date: Thu, 29 Oct 2026 08:35:56 -0500
+Subject: [PATCH v4 09/31] accel: ethosu: Guard operations after unplug
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-10-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-9-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -60,11 +60,14 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Open DRM files retain scheduling entities after the device is unbound.
-Defer scheduler teardown until the final DRM device reference is released.
+drm_dev_is_unplugged() only checks the device state and can race with
+removal. Use drm_dev_enter() around open and all private operations which
+access driver state, and use drm_dev_unplug() during removal to wait for
+them to complete.
 
-Track open scheduling entities so removal can stop each entity and signal
-the active job. Then leave the scheduler alive for postclose handling.
+Drop the drm_dev_enter() from the BO wait ioctl as that could
+unnecessarily delay stopping the scheduler by waiting on a BO fence
+signal timeout.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
@@ -73,317 +76,355 @@ Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 v4:
  - New patch
 ---
- drivers/accel/ethosu/ethosu_device.h |  4 ++
- drivers/accel/ethosu/ethosu_drv.c    | 12 ++---
- drivers/accel/ethosu/ethosu_drv.h    |  4 ++
- drivers/accel/ethosu/ethosu_job.c    | 98 +++++++++++++++++++++++++++++-------
- drivers/accel/ethosu/ethosu_job.h    |  5 +-
- 5 files changed, 98 insertions(+), 25 deletions(-)
+ drivers/accel/ethosu/ethosu_drv.c     |  28 ++++----
+ drivers/accel/ethosu/ethosu_job.c     |  21 ++++--
+ drivers/accel/ethosu/ethosu_perfmon.c | 117 ++++++++++++++++++++++------------
+ 3 files changed, 107 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index 51d5bc5d6137..1a90d0ebe5d9 100644
---- a/drivers/accel/ethosu/ethosu_device.h
-+++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -6,6 +6,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/list.h>
- #include <linux/mutex.h>
- #include <linux/spinlock.h>
- #include <linux/types.h>
-@@ -197,6 +198,8 @@ struct ethosu_device {
- 	struct drm_ethosu_npu_info npu_info;
- 
- 	struct ethosu_job *in_flight_job;
-+	/* Protects @in_flight_job. */
-+	spinlock_t job_lock;
- 
- 	/* For dma_fence */
- 	spinlock_t fence_lock;
-@@ -204,6 +207,7 @@ struct ethosu_device {
- 	struct drm_gpu_scheduler sched;
- 	/* For ethosu_job_do_push() */
- 	struct mutex sched_lock;
-+	struct list_head sched_entities;
- 	u64 fence_context;
- 	u64 emit_seqno;
- 
 diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 91b2c2ab0a03..ee50e7db36ad 100644
+index 6875ed17a004..91b2c2ab0a03 100644
 --- a/drivers/accel/ethosu/ethosu_drv.c
 +++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -271,7 +271,7 @@ static int ethosu_device_resume(struct device *dev)
- 	return ret;
- }
- 
--static int ethosu_device_suspend(struct device *dev)
-+int ethosu_device_suspend(struct device *dev)
+@@ -80,19 +80,12 @@ static int ethosu_ioctl_bo_wait(struct drm_device *ddev, void *data,
+ 				struct drm_file *file)
  {
- 	struct ethosu_device *ethosudev = dev_get_drvdata(dev);
+ 	struct drm_ethosu_bo_wait *args = data;
+-	int cookie, ret;
+ 	unsigned long timeout = drm_timeout_abs_to_jiffies(args->timeout_ns);
  
-@@ -377,7 +377,7 @@ static int ethosu_probe(struct platform_device *pdev)
+ 	if (args->pad)
+ 		return -EINVAL;
  
- 	ret = ethosu_init(ethosudev);
- 	if (ret)
--		goto err_job_fini;
-+		return ret;
- 
- 	ret = drm_dev_register(&ethosudev->base, 0);
- 	if (ret)
-@@ -389,20 +389,18 @@ static int ethosu_probe(struct platform_device *pdev)
- 	if (ethosudev->sram)
- 		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
- 			      ethosudev->npu_info.sram_size);
--err_job_fini:
--	ethosu_job_fini(ethosudev);
- 	return ret;
+-	if (!drm_dev_enter(ddev, &cookie))
+-		return -ENODEV;
+-
+-	ret = drm_gem_dma_resv_wait(file, args->handle, true, timeout);
+-
+-	drm_dev_exit(cookie);
+-	return ret;
++	return drm_gem_dma_resv_wait(file, args->handle, true, timeout);
  }
  
- static void ethosu_remove(struct platform_device *pdev)
+ static int ethosu_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data,
+@@ -139,27 +132,34 @@ static int ethosu_ioctl_cmdstream_bo_create(struct drm_device *ddev, void *data,
+ 
+ static int ethosu_open(struct drm_device *ddev, struct drm_file *file)
+ {
+-	int ret = 0;
++	struct ethosu_file_priv __free(kfree) * priv = NULL;
++	int cookie, ret;
+ 
+ 	if (!try_module_get(THIS_MODULE))
+ 		return -EINVAL;
++	if (!drm_dev_enter(ddev, &cookie)) {
++		module_put(THIS_MODULE);
++		return -ENODEV;
++	}
+ 
+-	struct ethosu_file_priv __free(kfree) *priv = kzalloc_obj(*priv);
++	priv = kzalloc_obj(*priv);
+ 	if (!priv) {
+ 		ret = -ENOMEM;
+-		goto err_put_mod;
++		goto err_dev_exit;
+ 	}
+ 	priv->edev = to_ethosu_device(ddev);
+ 
+ 	ret = ethosu_job_open(priv);
+ 	if (ret)
+-		goto err_put_mod;
++		goto err_dev_exit;
+ 
+ 	ethosu_perfmon_open_file(priv);
+ 	file->driver_priv = no_free_ptr(priv);
++	drm_dev_exit(cookie);
+ 	return 0;
+ 
+-err_put_mod:
++err_dev_exit:
++	drm_dev_exit(cookie);
+ 	module_put(THIS_MODULE);
+ 	return ret;
+ }
+@@ -398,7 +398,7 @@ static void ethosu_remove(struct platform_device *pdev)
  {
  	struct ethosu_device *ethosudev = dev_get_drvdata(&pdev->dev);
-+	bool clocks_disabled;
  
- 	drm_dev_unplug(&ethosudev->base);
--	ethosu_job_fini(ethosudev);
--
+-	drm_dev_unregister(&ethosudev->base);
++	drm_dev_unplug(&ethosudev->base);
+ 	ethosu_job_fini(ethosudev);
+ 
  	pm_runtime_barrier(&pdev->dev);
--	if (!pm_runtime_status_suspended(&pdev->dev))
-+	clocks_disabled = ethosu_job_stop(ethosudev);
-+	if (!clocks_disabled && !pm_runtime_status_suspended(&pdev->dev))
- 		ethosu_device_suspend(&pdev->dev);
- 
- 	if (ethosudev->sram)
-diff --git a/drivers/accel/ethosu/ethosu_drv.h b/drivers/accel/ethosu/ethosu_drv.h
-index f59c845c758b..6d4ef8ce9378 100644
---- a/drivers/accel/ethosu/ethosu_drv.h
-+++ b/drivers/accel/ethosu/ethosu_drv.h
-@@ -4,18 +4,22 @@
- #define __ETHOSU_DRV_H__
- 
- #include <linux/mutex.h>
-+#include <linux/list.h>
- #include <linux/xarray.h>
- #include <drm/gpu_scheduler.h>
- 
- struct ethosu_device;
-+struct device;
- struct drm_device;
- struct drm_file;
- 
- int ethosu_device_reset(struct ethosu_device *ethosudev);
-+int ethosu_device_suspend(struct device *dev);
- 
- struct ethosu_file_priv {
- 	struct ethosu_device *edev;
- 	struct drm_sched_entity sched_entity;
-+	struct list_head sched_entity_list;
- 	struct xarray perfmons;
- };
- 
 diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index 8ffdc83d06f9..ef95a8abd61e 100644
+index f22cacb19e3d..8ffdc83d06f9 100644
 --- a/drivers/accel/ethosu/ethosu_job.c
 +++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -6,6 +6,7 @@
- #include <linux/genalloc.h>
- #include <linux/interrupt.h>
- #include <linux/iopoll.h>
-+#include <linux/module.h>
- #include <linux/platform_device.h>
+@@ -10,6 +10,7 @@
  #include <linux/pm_runtime.h>
  
-@@ -13,6 +14,7 @@
- #include <drm/drm_drv.h>
+ #include <drm/drm_file.h>
++#include <drm/drm_drv.h>
  #include <drm/drm_gem.h>
  #include <drm/drm_gem_dma_helper.h>
-+#include <drm/drm_managed.h>
  #include <drm/drm_print.h>
- #include <drm/ethosu_accel.h>
- 
-@@ -149,6 +151,15 @@ static int ethosu_job_push(struct ethosu_job *job)
- 
- 	ret = pm_runtime_resume_and_get(job->dev->base.dev);
- 	if (!ret) {
-+		if (!try_module_get(THIS_MODULE)) {
-+			pm_runtime_put_autosuspend(job->dev->base.dev);
-+			ret = -ENODEV;
-+			goto out;
-+		}
-+
-+		drm_dev_get(&job->dev->base);
-+		job->keep_device = true;
-+
- 		guard(mutex)(&job->dev->sched_lock);
- 
- 		drm_sched_job_arm(&job->base);
-@@ -188,12 +199,19 @@ static void ethosu_job_cleanup(struct kref *ref)
+@@ -557,26 +558,34 @@ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ int ethosu_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *file)
  {
- 	struct ethosu_job *job = container_of(ref, struct ethosu_job,
- 						refcount);
-+	struct drm_device *ddev = &job->dev->base;
-+	bool keep_device = job->keep_device;
+ 	struct drm_ethosu_submit *args = data;
+-	int ret = 0;
++	int cookie, ret = 0;
+ 	unsigned int i = 0;
  
- 	pm_runtime_put_autosuspend(job->dev->base.dev);
- 
- 	dma_fence_put(job->inference_done_fence);
- 
- 	ethosu_job_err_cleanup(job);
++	if (!drm_dev_enter(dev, &cookie))
++		return -ENODEV;
 +
-+	if (keep_device) {
-+		drm_dev_put(ddev);
-+		module_put(THIS_MODULE);
+ 	struct drm_ethosu_job __free(kvfree) *jobs =
+ 		kvmalloc_objs(*jobs, args->job_count);
+-	if (!jobs)
+-		return -ENOMEM;
++	if (!jobs) {
++		ret = -ENOMEM;
++		goto out_dev_exit;
 +	}
- }
  
- static void ethosu_job_put(struct ethosu_job *job)
-@@ -357,6 +375,8 @@ static const struct drm_sched_backend_ops ethosu_sched_ops = {
- 	.cancel_job = ethosu_job_cancel,
- };
- 
-+static void ethosu_job_fini(struct drm_device *ddev, void *data);
-+
- int ethosu_job_init(struct ethosu_device *edev)
- {
- 	struct device *dev = edev->base.dev;
-@@ -372,7 +392,20 @@ int ethosu_job_init(struct ethosu_device *edev)
- 
- 	spin_lock_init(&edev->fence_lock);
- 	spin_lock_init(&edev->job_lock);
--	ret = devm_mutex_init(dev, &edev->sched_lock);
-+	ret = drmm_mutex_init(&edev->base, &edev->sched_lock);
-+	if (ret)
-+		return ret;
-+	INIT_LIST_HEAD(&edev->sched_entities);
-+
-+	edev->fence_context = dma_fence_context_alloc(1);
-+
-+	ret = drm_sched_init(&edev->sched, &args);
-+	if (ret) {
-+		dev_err(dev, "Failed to create scheduler: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = drmm_add_action_or_reset(&edev->base, ethosu_job_fini, edev);
- 	if (ret)
- 		return ret;
- 
-@@ -388,45 +421,76 @@ int ethosu_job_init(struct ethosu_device *edev)
- 	if (ret)
- 		return ret;
- 
--	edev->fence_context = dma_fence_context_alloc(1);
-+	return 0;
-+}
- 
--	ret = drm_sched_init(&edev->sched, &args);
--	if (ret) {
--		dev_err(dev, "Failed to create scheduler: %d\n", ret);
--		return ret;
--	}
-+static void ethosu_job_fini(struct drm_device *ddev, void *data)
-+{
-+	struct ethosu_device *dev = to_ethosu_device(ddev);
- 
--	return 0;
-+	(void)data;
-+	drm_sched_fini(&dev->sched);
- }
- 
--void ethosu_job_fini(struct ethosu_device *dev)
-+bool ethosu_job_stop(struct ethosu_device *dev)
- {
-+	struct ethosu_file_priv *priv;
-+	struct ethosu_job *job;
-+	bool clocks_disabled = false;
-+
-+	guard(mutex)(&dev->sched_lock);
- 	drm_sched_wqueue_stop(&dev->sched);
-+	disable_irq(dev->irq);
- 	cancel_delayed_work_sync(&dev->sched.work_tdr);
- 
--	if (READ_ONCE(dev->in_flight_job)) {
--		WRITE_ONCE(dev->in_flight_job, NULL);
--		ethosu_device_reset(dev);
-+	scoped_guard(mutex, &dev->perfmon_state.lock)
-+		ethosu_perfmon_stop_locked(dev, dev->perfmon_state.active, false);
-+
-+	list_for_each_entry(priv, &dev->sched_entities, sched_entity_list)
-+		drm_sched_entity_kill(&priv->sched_entity);
-+
-+	job = ethosu_job_clear_in_flight(dev);
-+	if (job && ethosu_device_reset(dev)) {
-+		ethosu_device_suspend(dev->base.dev);
-+		clocks_disabled = true;
+ 	if (copy_from_user(jobs,
+ 			   (void __user *)(uintptr_t)args->jobs,
+ 			   args->job_count * sizeof(*jobs))) {
+ 		drm_dbg(dev, "Failed to copy incoming job array\n");
+-		return -EFAULT;
++		ret = -EFAULT;
++		goto out_dev_exit;
  	}
  
--	synchronize_irq(dev->irq);
--	drm_sched_fini(&dev->sched);
-+	if (job)
-+		ethosu_job_cancel(&job->base);
-+
-+	/* Let drm-sched release the cancelled in-flight job. */
-+	drm_sched_wqueue_start(&dev->sched);
-+	flush_work(&dev->sched.work_free_job);
-+	drm_sched_wqueue_stop(&dev->sched);
-+
-+	return clocks_disabled;
+ 	for (i = 0; i < args->job_count; i++) {
+ 		ret = ethosu_ioctl_submit_job(dev, file, &jobs[i], args->perfmon_id);
+ 		if (ret)
+-			return ret;
++			goto out_dev_exit;
+ 	}
+ 
+-	return 0;
++out_dev_exit:
++	drm_dev_exit(cookie);
++	return ret;
  }
+diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
+index 2a9b3cc1447b..8d3635ba3347 100644
+--- a/drivers/accel/ethosu/ethosu_perfmon.c
++++ b/drivers/accel/ethosu/ethosu_perfmon.c
+@@ -10,6 +10,7 @@
+ #include <linux/uaccess.h>
  
- int ethosu_job_open(struct ethosu_file_priv *ethosu_priv)
- {
- 	struct ethosu_device *dev = ethosu_priv->edev;
- 	struct drm_gpu_scheduler *sched = &dev->sched;
-+	int ret;
+ #include <drm/drm_file.h>
++#include <drm/drm_drv.h>
+ #include <drm/drm_ioctl.h>
  
--	return drm_sched_entity_init(&ethosu_priv->sched_entity,
--				     DRM_SCHED_PRIORITY_NORMAL,
--				     &sched, 1, NULL);
-+	guard(mutex)(&dev->sched_lock);
-+	ret = drm_sched_entity_init(&ethosu_priv->sched_entity,
-+				    DRM_SCHED_PRIORITY_NORMAL,
-+				    &sched, 1, NULL);
-+	if (!ret)
-+		list_add(&ethosu_priv->sched_entity_list, &dev->sched_entities);
+ #include <uapi/drm/ethosu_accel.h>
+@@ -162,27 +163,36 @@ int ethosu_ioctl_perfmon_create(struct drm_device *dev, void *data,
+ 	struct ethosu_device *ethosu = to_ethosu_device(dev);
+ 	struct ethosu_perfmon *perfmon;
+ 	unsigned int i, event_max;
+-	int ret;
++	int cookie, ret;
+ 	u32 id;
+ 
++	if (!drm_dev_enter(dev, &cookie))
++		return -ENODEV;
 +
+ 	/* Number of monitored counters cannot exceed HW or UAPI limits. */
+ 	if (req->ncounters > ethosu->npu_info.pmu_counters ||
+-	    req->ncounters > DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS)
+-		return -EINVAL;
++	    req->ncounters > DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS) {
++		ret = -EINVAL;
++		goto out_dev_exit;
++	}
+ 
+ 	/* Make sure all counters are valid. */
+ 	event_max = ethosu_is_u65(ethosu) ? 433 : 671;
+ 	for (i = 0; i < req->ncounters; i++) {
+-		if (req->counters[i] > event_max)
+-			return -EINVAL;
++		if (req->counters[i] > event_max) {
++			ret = -EINVAL;
++			goto out_dev_exit;
++		}
+ 	}
+ 
+ 	/* Add 1 more counter for cycle counter */
+ 	req->ncounters++;
+ 
+ 	perfmon = kzalloc_flex(*perfmon, values, req->ncounters);
+-	if (!perfmon)
+-		return -ENOMEM;
++	if (!perfmon) {
++		ret = -ENOMEM;
++		goto out_dev_exit;
++	}
+ 
+ 	for (i = 0; i < req->ncounters - 1; i++)
+ 		perfmon->counters[i] = req->counters[i];
+@@ -196,12 +206,14 @@ int ethosu_ioctl_perfmon_create(struct drm_device *dev, void *data,
+ 
+ 	if (ret < 0) {
+ 		kfree(perfmon);
+-		return ret;
++		goto out_dev_exit;
+ 	}
+ 
+ 	req->id = id;
+ 
+-	return 0;
++out_dev_exit:
++	drm_dev_exit(cookie);
 +	return ret;
  }
  
- void ethosu_job_close(struct ethosu_file_priv *ethosu_priv)
- {
-+	struct ethosu_device *dev = ethosu_priv->edev;
- 	struct drm_sched_entity *entity = &ethosu_priv->sched_entity;
+ int ethosu_ioctl_perfmon_destroy(struct drm_device *dev, void *data,
+@@ -210,14 +222,22 @@ int ethosu_ioctl_perfmon_destroy(struct drm_device *dev, void *data,
+ 	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
+ 	struct drm_ethosu_perfmon_destroy *req = data;
+ 	struct ethosu_perfmon *perfmon;
++	int cookie, ret = 0;
++
++	if (!drm_dev_enter(dev, &cookie))
++		return -ENODEV;
  
-+	scoped_guard(mutex, &dev->sched_lock) {
-+		drm_sched_entity_kill(entity);
-+		list_del(&ethosu_priv->sched_entity_list);
+ 	perfmon = xa_erase(&ethosu_priv->perfmons, req->id);
+-	if (!perfmon)
+-		return -EINVAL;
++	if (!perfmon) {
++		ret = -EINVAL;
++		goto out_dev_exit;
 +	}
- 	drm_sched_entity_destroy(entity);
+ 
+ 	ethosu_perfmon_delete(ethosu_priv, perfmon);
+ 
+-	return 0;
++out_dev_exit:
++	drm_dev_exit(cookie);
++	return ret;
  }
  
-diff --git a/drivers/accel/ethosu/ethosu_job.h b/drivers/accel/ethosu/ethosu_job.h
-index 8988edd00eed..6d4622dfac43 100644
---- a/drivers/accel/ethosu/ethosu_job.h
-+++ b/drivers/accel/ethosu/ethosu_job.h
-@@ -29,13 +29,16 @@ struct ethosu_job {
- 	/* Fence to be signaled by IRQ handler when the job is complete. */
- 	struct dma_fence *done_fence;
+ int ethosu_ioctl_perfmon_get_values(struct drm_device *dev, void *data,
+@@ -227,19 +247,26 @@ int ethosu_ioctl_perfmon_get_values(struct drm_device *dev, void *data,
+ 	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
+ 	struct drm_ethosu_perfmon_get_values *req = data;
+ 	struct ethosu_perfmon *perfmon;
+-	int ret = 0;
++	int cookie, ret = 0;
  
-+	/* Keep driver state alive while a killed job waits on dependencies. */
-+	bool keep_device;
+-	if (req->pad != 0)
+-		return -EINVAL;
++	if (!drm_dev_enter(dev, &cookie))
++		return -ENODEV;
 +
- 	struct kref refcount;
- };
++	if (req->pad != 0) {
++		ret = -EINVAL;
++		goto out_dev_exit;
++	}
  
- int ethosu_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *file);
+ 	perfmon = ethosu_perfmon_find(ethosu_priv, req->id);
+-	if (!perfmon)
+-		return -EINVAL;
++	if (!perfmon) {
++		ret = -EINVAL;
++		goto out_dev_exit;
++	}
  
- int ethosu_job_init(struct ethosu_device *dev);
--void ethosu_job_fini(struct ethosu_device *dev);
-+bool ethosu_job_stop(struct ethosu_device *dev);
- int ethosu_job_open(struct ethosu_file_priv *ethosu_priv);
- void ethosu_job_close(struct ethosu_file_priv *ethosu_priv);
+ 	ret = pm_runtime_resume_and_get(dev->dev);
+ 	if (ret) {
+ 		ethosu_perfmon_put(perfmon);
+-		return ret;
++		goto out_dev_exit;
+ 	}
+ 	ethosu_perfmon_stop(ethosu, perfmon, true);
  
+@@ -251,6 +278,8 @@ int ethosu_ioctl_perfmon_get_values(struct drm_device *dev, void *data,
+ 
+ 	ethosu_perfmon_put(perfmon);
+ 
++out_dev_exit:
++	drm_dev_exit(cookie);
+ 	return ret;
+ }
+ 
+@@ -260,44 +289,54 @@ int ethosu_ioctl_perfmon_set_global(struct drm_device *dev, void *data,
+ 	struct ethosu_file_priv *ethosu_priv = file_priv->driver_priv;
+ 	struct drm_ethosu_perfmon_set_global *req = data;
+ 	struct ethosu_device *ethosu = to_ethosu_device(dev);
+-	struct ethosu_perfmon *perfmon;
++	struct ethosu_perfmon *old = NULL, *perfmon;
++	int cookie, ret = 0;
+ 
+-	if (req->flags & ~DRM_ETHOSU_PERFMON_CLEAR_GLOBAL)
+-		return -EINVAL;
++	if (!drm_dev_enter(dev, &cookie))
++		return -ENODEV;
++
++	if (req->flags & ~DRM_ETHOSU_PERFMON_CLEAR_GLOBAL) {
++		ret = -EINVAL;
++		goto out_dev_exit;
++	}
+ 
+ 	perfmon = ethosu_perfmon_find(ethosu_priv, req->id);
+-	if (!perfmon)
+-		return -EINVAL;
++	if (!perfmon) {
++		ret = -EINVAL;
++		goto out_dev_exit;
++	}
+ 
+ 	/* If the request is to clear the global performance monitor */
+ 	if (req->flags & DRM_ETHOSU_PERFMON_CLEAR_GLOBAL) {
+-		struct ethosu_perfmon *old;
+-
+ 		scoped_guard(mutex, &ethosu->perfmon_state.lock) {
+ 			old = ethosu->global_perfmon;
+-			if (!old) {
+-				ethosu_perfmon_put(perfmon);
+-				return -EINVAL;
++			if (old) {
++				ethosu->global_perfmon = NULL;
++				ethosu_perfmon_stop_locked(ethosu, old, true);
+ 			}
++		}
+ 
+-			ethosu->global_perfmon = NULL;
+-			ethosu_perfmon_stop_locked(ethosu, old, true);
++		ethosu_perfmon_put(perfmon);
++		if (!old) {
++			ret = -EINVAL;
++			goto out_dev_exit;
+ 		}
+ 
+ 		ethosu_perfmon_put(old);
+-		ethosu_perfmon_put(perfmon);
+ 
+-		return 0;
++		goto out_dev_exit;
+ 	}
+ 
+ 	scoped_guard(mutex, &ethosu->perfmon_state.lock) {
+-		if (ethosu->perfmon_state.active || ethosu->global_perfmon) {
+-			ethosu_perfmon_put(perfmon);
+-			return -EBUSY;
+-		}
+-
+-		ethosu->global_perfmon = perfmon;
++		if (ethosu->perfmon_state.active || ethosu->global_perfmon)
++			ret = -EBUSY;
++		else
++			ethosu->global_perfmon = perfmon;
+ 	}
++	if (ret)
++		ethosu_perfmon_put(perfmon);
+ 
+-	return 0;
++out_dev_exit:
++	drm_dev_exit(cookie);
++	return ret;
+ }
 
 -- 
 2.53.0
