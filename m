@@ -2,88 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDC9606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 21:56:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D26606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 21:57:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=LkQ/cbBb
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Nx3oFTba
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C93B10E156;
-	Thu, 29 Oct 2026 21:56:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B33CF10E1D2;
+	Thu, 29 Oct 2026 21:57:15 +0000 (UTC)
 Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com
  [209.85.216.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2F6910E156
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 21:56:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57F8210E1D2
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 21:57:09 +0000 (UTC)
 Received: by mail-pj1-f100.google.com with SMTP id
- 98e67ed59e1d1-3acdcfa2bd3so52648a91.3
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:56:10 -0700 (PDT)
+ 98e67ed59e1d1-3acb11973c3so45620a91.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:57:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793310970; x=1793915770;
+ d=1e100.net; s=20260707; t=1793311029; x=1793915829;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=d9XEeTWk87x2ImskMZFYpbUHdMyJkVEwO7nVEscXoGQ=;
- b=mG9CXAetDjDgZ4oGLmDgJVTCJ5qpojMNdG3dtWkY/MlJVpW5OVmolvb0dU6OsFaZcP
- V3YlVuBFl9oBmR3zIwuZNf4Id8U+W2J6BEEX4Y6U2IwNkoG2tkrVrFtX6SXnIkLAvC1L
- sOXjhn1qr/UqIcNXvagL8xsG+Tnqug/43CLJim6tmz+8EG5Ulh7B0tqppFDRx2yKL86t
- mkydlHK9UYmvrWoe5+J3//sTYIhOoaQNVptpnh8RsHTbEWA/s6CZ4MRqIwZSpYyDngqG
- 9c4O1gsihqB1Zxn0IscYVo47510MUuH0jnhM98M1KDQM1vfouN7VMZcPEuiEUEAiG6UW
- v0zA==
-X-Gm-Message-State: AFq9FYLF6w03+9mw/L+Kq9D5WLjnaJCvxDyMJgM94fItxF0zv5yVooHw
- XaLBEirLdZJlCQpQzR+2e5vTyEa7n8U+cb/M6rOzw8h5ix+olKndU330VJBt6NiPNi6Js52HnWm
- yZwDU5uKqp3LetYmY76xHdx8rMAK3M/FyKC+H3U1qOVuv5EtuvKPdqJLJSXZ017iPFURdIHp/4I
- 0BbvLLQSCuAuyW9WxgjEpMIZe6iigZKTmQm37xYUeV1KBmG4tuEo2X7bDxPNygQkpqFcI/zbk8M
- DB0PV1h1Q7XtwZ+djXj
-X-Gm-Gg: AYBFou36Vc8kkJI1pO7dXFNyAUxJY1Ce6oYCgOHJlqaJfCCP3QqJ11msKs/byAP24yo
- rM6YTQyAcLpdTsflU1/uTudeE8aEWN0J+LbeRbYT82OB1B/Gj/aRMWSUjKOlEGr8AHvT21wt3Tk
- Lg6bhG+T3/Vtr0+cKK345a2BVhPJJAqqBcZ4UyZVWnc8cb5z3Gbgr2Eh8kEMnxqrOr+HxtFyleT
- 1s2DBvH2aPPWiem5xgCcAqPVw1Ad7btQYXHlQ2vg9Z2WlvX+OdSKVuhcbsKVGjOEQAQkN1UvCkh
- b9MYCWGC3QQHIULpryWR6B89XO2FLr64eqWVNJ06JWbmUhRgx5vbLPQ7v9dnbhPA64R9RwmLpWY
- nQ9Yg0eZHpwGprnggqC8L6YE7jk9kZMuKUmb8V8MZ+2jK26+hbKhnxOxeYAIowE4MY+kJiDBegq
- mCGw8IvnOty2keNXeQbwrQGfHFoYo6idT3
-X-Received: by 2002:a17:90b:3b51:b0:3ac:450b:164c with SMTP id
- 98e67ed59e1d1-3ae89831c86mr236557a91.47.1793310970068; 
- Thu, 29 Oct 2026 14:56:10 -0700 (PDT)
+ bh=BtE8gEpGXXyQgany7PV79KzxRGZPRiw2gHz+ihjMaWE=;
+ b=YdO8dN3XvY3kw2m6NezkDbZrQCZNzaCM01PrDvMqL1IH6vMxw3rmxzRGRbBFb5d986
+ MPIL9IYeUc4irH+DDo6761q3QueGPx26HRagUvcrybBzm7W4K7OSx88aSJ+Lhc3tvfdd
+ 6C64wwL0DqJASUiCwOqWAs0mXDQrBN2aJGXAkHoFd7iSIzd8btjkvOStULK0xwtVKCFW
+ 7z4m1G4mEo0mrMiXhJfyTKhwOHQmtjd1N0D6l+hq8x7iq/lY+/XMP/eIYBZ4PhJonT8P
+ HKfb9KlfpW6Cj95pb0TT8/r0Ozo49+EJG7Z7f97NqkU64mnmjQJ9lLbmNcLQp7qhPp+h
+ yByg==
+X-Gm-Message-State: AFq9FYLBqA8eobpyVcohQhdHeuphwyZoQEhgfHtT2SkR9lHmgtaI40u0
+ vlNmex3y1c2b9DaEF6wVEN9qzBRYcewZyCD32SUOBbyuG1iWbWhVu8TAlUKTt6e7Uu/6TL/kFvL
+ uNq1nf1jzwyl3yJ+U24NQrw2lNJSzddBf17wdmLdtpoObAe2wu1Y8I89vNyboQINGuNVV+bm2Rt
+ Cca1GesY9tZx42rVAzi8s2OfjH1Yyr9Mkzz62wbO+bVmhAZTUgQdEKLbWTqrECHHp6YqaiqblN5
+ NLGW/tbjaIJF5G3tWmO
+X-Gm-Gg: AYBFou3/qvSRlYEFzTZz269aHUiqGPt7y1hPN4tH5WMm6jTlJB7iGa+JWazbQowT7as
+ ljwptVSZVSKjWbyQ2Pa3c584ze+Mtr1qZg3y+XHrrtEhraiQtbVDr/kteKQVuIlroulcBY7Z2XD
+ 1FJyTYkX6o+MPrtr3nh0sN8OqB992Ve8UCprECqivCYybcDYawh0O6AJndfGPxpiyfhffI5MQw2
+ 6KSOLabq1OjSZ7hbQoC9zu67UjBe9/vwNC59r5W+P7KvBihtfnsokA/TFWe9cLV7aJPmOKmBG4C
+ TT8Y4IFXlOEGg8WguGQcoHXMfLa85iPuYMLFXnKhV2liAf/hwcTh/+K6/hgTaIlV+0nAGPlBOoU
+ YfIP0H64vZrHaMn9ZLd1MV5gFpnF49fPzUZqh76R1S5nxogu77vrqvKBoKZM/679L+zxrbq1PMo
+ D0oBqaLYDyXSDZa4P+dujLj/cPHMM659um
+X-Received: by 2002:a17:90b:4d05:b0:3ac:7c4d:8be1 with SMTP id
+ 98e67ed59e1d1-3ae897f8a31mr219343a91.62.1793311028744; 
+ Thu, 29 Oct 2026 14:57:08 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+ (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
  by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-3ae85f87a56sm221637a91.1.2026.10.29.14.56.09
+ 98e67ed59e1d1-3ae845e849bsm689025a91.7.2026.10.29.14.57.08
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 29 Oct 2026 14:56:10 -0700 (PDT)
+ Thu, 29 Oct 2026 14:57:08 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dl1-f71.google.com with SMTP id
- a92af1059eb24-18eb2616974so146226c88.1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:56:09 -0700 (PDT)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-341eff9e381so329095eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:57:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1793310968; x=1793915768;
+ d=broadcom.com; s=google; t=1793311027; x=1793915827;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=d9XEeTWk87x2ImskMZFYpbUHdMyJkVEwO7nVEscXoGQ=;
- b=LkQ/cbBbQuzOf4GA/n2Anjhy7rw9A4vmTitwvu6fLFOVgzzwgBHXsxBCTZduLoJHcU
- S/paTJoaey8ehgp76ThFlzqxEgh+ueSImcJ5oEFMVT6yN1B/7RsOmW/O5pxg2hjH3wLu
- h+tD7EwZ742bmoH1PMKNgMvhtzSQ9oj0WlbZQ=
-X-Received: by 2002:a05:7022:1117:b0:195:49ee:94c7 with SMTP id
- a92af1059eb24-1ac5a0b579emr441361c88.8.1793310968055; 
- Thu, 29 Oct 2026 14:56:08 -0700 (PDT)
-X-Received: by 2002:a05:7022:1117:b0:195:49ee:94c7 with SMTP id
- a92af1059eb24-1ac5a0b579emr441301c88.8.1793310966865; 
- Thu, 29 Oct 2026 14:56:06 -0700 (PDT)
+ bh=BtE8gEpGXXyQgany7PV79KzxRGZPRiw2gHz+ihjMaWE=;
+ b=Nx3oFTbapD9LwBlsE+Z53OdFR+RK0Z8UlDR0QcVotUVNPRDy46gikzurTE9IdcDydw
+ HL+vO249oL1bMAffAXTAs7e69cLp8YojXPa8hVIkEcSxczbGWSw16kmeS9sweScdkPwB
+ KqbZq2C6aYtsK8Aleh0Rxy9D30HLq8sU3c6GE=
+X-Received: by 2002:a05:7301:618a:b0:351:68e8:4646 with SMTP id
+ 5a478bee46e88-36a424199bemr813216eec.37.1793311026764; 
+ Thu, 29 Oct 2026 14:57:06 -0700 (PDT)
+X-Received: by 2002:a05:7301:618a:b0:351:68e8:4646 with SMTP id
+ 5a478bee46e88-36a424199bemr813166eec.37.1793311025708; 
+ Thu, 29 Oct 2026 14:57:05 -0700 (PDT)
 Received: from vertex.localdomain
  (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1ac1b38ac58sm1297719c88.23.2026.10.29.14.56.05
+ 5a478bee46e88-36a42935b4asm1845188eec.16.2026.10.29.14.57.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2026 14:56:06 -0700 (PDT)
+ Thu, 29 Oct 2026 14:57:04 -0700 (PDT)
 From: Zack Rusin <zack.rusin@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
  maaz.mombasawala@broadcom.com, Zack Rusin <zack.rusin@broadcom.com>,
  stable@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: log missing primary planes only once
-Date: Thu, 29 Oct 2026 17:55:40 -0400
-Message-ID: <20261029215540.3008997-1-zack.rusin@broadcom.com>
+Subject: [PATCH] drm/vmwgfx: log MOB limits outside the manager spinlock
+Date: Thu, 29 Oct 2026 17:57:00 -0400
+Message-ID: <20261029215700.3009996-1-zack.rusin@broadcom.com>
 X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -108,36 +108,120 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Stop filling kernel logs due to something that's not even a bug. Some
-igt tests, e.g. kms_flip trigger this message ~17000 times which makes
-all the other diagnostics almost impossible to find.
+vmw_gmrid_man_get_node reports MOB limit expansion and allocation
+failures through vmw_host_printf while holding gman->lock. The helper
+formats its messages with GFP_KERNEL allocations, which may sleep.
 
-Just inform the user about this condition once and let it through
-afterward.
+KDE startup and desktop mode changes can reach this path, producing
+"BUG: sleeping function called from invalid context" from kvasprintf()
+while the manager spinlock is held. That's likely a separate bug
+because KDE shouldn't be using that much memory but to debug
+that properly stop filling kernel logs with warnings.
 
-Fixes: a60ccade88f9 ("drm/vmwgfx: Fix crtc's atomic check conditional")
+Defer both host messages until after dropping the spinlock. Capture the
+failed allocation's page limit and roll back its accounting while locked,
+then report the error and free the resource after unlocking. Use
+drm_warn for the guest messages so they identify the device.
+
+Fixes: cfdc3458db8a ("drm/vmwgfx: Be a lot more flexible with MOB limits")
 Cc: stable@vger.kernel.org
+Assisted-by: LLM
 Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_gmrid_manager.c | 55 ++++++++++++-------
+ 1 file changed, 34 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index 85228eb9c3e6..da2d3b62f75f 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -155,9 +155,8 @@ int vmw_du_crtc_atomic_check(struct drm_crtc *crtc,
- 	 * some actual rendering so give a clue as why it's blank.
- 	 */
- 	if (new_state->enable && !has_primary)
--		drm_dbg_driver(&vmw->drm,
--			       "CRTC without a primary plane will be blank.\n");
--
-+		drm_info_once(&vmw->drm,
-+			      "CRTC without a primary plane will be blank.\n");
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gmrid_manager.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gmrid_manager.c
+index d607452dff6a..cc580ce57797 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_gmrid_manager.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gmrid_manager.c
+@@ -54,8 +54,11 @@ static int vmw_gmrid_man_get_node(struct ttm_resource_manager *man,
+ 				  const struct ttm_place *place,
+ 				  struct ttm_resource **res)
+ {
++	struct vmw_private *vmw = vmw_priv_from_ttm(bo->bdev);
+ 	struct vmwgfx_gmrid_man *gman = to_gmrid_manager(man);
+-	int id;
++	u32 max_gmr_pages = 0;
++	bool mob_overflow = false;
++	int id, ret = 0;
  
- 	if (new_state->connector_mask != connector_mask &&
- 	    new_state->connector_mask != 0) {
+ 	*res = kmalloc_obj(**res);
+ 	if (!*res)
+@@ -85,43 +88,53 @@ static int vmw_gmrid_man_get_node(struct ttm_resource_manager *man,
+ 			const unsigned long max_graphics_pages = totalram_pages() / 2;
+ 			uint32_t new_max_pages = 0;
+ 
+-			DRM_WARN("vmwgfx: mob memory overflow. Consider increasing guest RAM and graphicsMemory.\n");
+-			vmw_host_printf("vmwgfx, warning: mob memory overflow. Consider increasing guest RAM and graphicsMemory.\n");
++			mob_overflow = true;
++			drm_warn(&vmw->drm,
++				 "vmwgfx: mob memory overflow. Consider increasing guest RAM and graphicsMemory.\n");
+ 
+ 			if (gman->max_gmr_pages > (max_graphics_pages / 2)) {
+-				DRM_WARN("vmwgfx: guest requires more than half of RAM for graphics.\n");
++				drm_warn(&vmw->drm,
++					 "vmwgfx: guest requires more than half of RAM for graphics.\n");
+ 				new_max_pages = max_graphics_pages;
+ 			} else
+ 				new_max_pages = gman->max_gmr_pages * 2;
+ 			if (new_max_pages > gman->max_gmr_pages && new_max_pages >= gman->used_gmr_pages) {
+-				DRM_WARN("vmwgfx: increasing guest mob limits to %u KiB.\n",
+-					 ((new_max_pages) << (PAGE_SHIFT - 10)));
++				drm_warn(&vmw->drm,
++					 "vmwgfx: increasing guest mob limits to %u KiB.\n",
++					 new_max_pages << (PAGE_SHIFT - 10));
+ 
+ 				gman->max_gmr_pages = new_max_pages;
+ 			} else {
+-				char buf[256];
+-				snprintf(buf, sizeof(buf),
+-					 "vmwgfx, error: guest graphics is out of memory (mob limit at: %u KiB).\n",
+-					 ((gman->max_gmr_pages) << (PAGE_SHIFT - 10)));
+-				vmw_host_printf(buf);
+-				DRM_WARN("%s", buf);
+-				goto nospace;
++				max_gmr_pages = gman->max_gmr_pages;
++				gman->used_gmr_pages -= PFN_UP((*res)->size);
++				ret = -ENOSPC;
++				goto out_unlock;
+ 			}
+ 		}
+ 	}
+ 
+ 	(*res)->start = id;
+ 
++out_unlock:
+ 	spin_unlock(&gman->lock);
+-	return 0;
+ 
+-nospace:
+-	gman->used_gmr_pages -= PFN_UP((*res)->size);
+-	spin_unlock(&gman->lock);
+-	ida_free(&gman->gmr_ida, id);
+-	ttm_resource_fini(man, *res);
+-	kfree(*res);
+-	return -ENOSPC;
++	/* Host logging allocates with GFP_KERNEL and must run unlocked. */
++	if (mob_overflow)
++		vmw_host_printf("%s",
++				"vmwgfx, warning: mob memory overflow. Consider increasing guest RAM and graphicsMemory.\n");
++	if (ret) {
++		char buf[256];
++
++		snprintf(buf, sizeof(buf),
++			 "vmwgfx, error: guest graphics is out of memory (mob limit at: %u KiB).\n",
++			 max_gmr_pages << (PAGE_SHIFT - 10));
++		vmw_host_printf("%s", buf);
++		drm_warn(&vmw->drm, "%s", buf);
++		ida_free(&gman->gmr_ida, id);
++		ttm_resource_fini(man, *res);
++		kfree(*res);
++	}
++	return ret;
+ }
+ 
+ static void vmw_gmrid_man_put_node(struct ttm_resource_manager *man,
 -- 
 2.53.0
 
