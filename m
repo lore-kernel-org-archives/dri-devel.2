@@ -2,74 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D20606A322
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:53:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D29660A2607
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:53:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=toT3Z7iq
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mmmXX+Gb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 385E11122FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91757112301;
 	Thu, 29 Oct 2026 13:53:48 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E2E31122FE
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:53:32 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-48afcfc4bf5so1785404f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 06:53:31 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A68711231F
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:53:34 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a1b07c3c5fso19776035e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 06:53:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793282010; x=1793886810; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793282012; x=1793886812; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=oLv91LE6Hr8ep188oveO3sPSclyk8z8F6MAQFei+jPI=;
- b=toT3Z7iq+dg0pcyl/yE2q+sehBkGvxRQJmmblSNz4HLhfMqgSsUkLSLpMsknTXp97x
- HVBX4y4Jr/mVloLBFjv0k1LcVNtNkcw9MrQZLSyYVDniblc7VtAwu70jbyeR09pbUJHP
- Oy5UjrYq4/32uOYErWCCGh4bH95ewoGUG21TS3my+25j1OZJ9kfc1xkj2G0A/G+Y6RHA
- DG8FVA7TPB2Qtno12ACaHbe/06Ec87XisTcTdoc46ZgDIsSFuddt4BLgfQjXflgRLeD0
- FR9A0/aBdJ270Z/w8c4n2uuq7VccZ4VPVkFifTdv/MRnD5i3wHQ51GBN2zP4FpKNU7Wp
- tihA==
+ bh=di8FFXt+7vH5gfYVYXteeo4wVuKU9N2jDIanPPy0lSg=;
+ b=mmmXX+GbYENc9EIAwxL0zz+W71WN+/JExl7tYxS0XR7PdBgtj07htc3Jz2CD/k/2bU
+ JpDxMElie6BVEB6BmdrTrrqwl2I2Tczbba61Lvp++Q8ZvnrgqAGZo3Er0MZUR/jFleao
+ O5agDr/pZpCyP+rMho08+Hpi7cmoKWi9CCbpNSFX4KeMpI2V6Gqaq5RM02T0uPu5aFzF
+ z0v8eCnxmkFXnLM+zyIxGiBUv9lzOS89dTp4UfR/sGN9nw23w2o9Z9pKnaEBnM9B3F8q
+ q79XuzgBC0AmEejZB2oY7ukSEEHYz5NzSe14QbRUSpRf+rzIay/inevC3v+uc67kl4h3
+ pwzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793282010; x=1793886810;
+ d=1e100.net; s=20260707; t=1793282012; x=1793886812;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=oLv91LE6Hr8ep188oveO3sPSclyk8z8F6MAQFei+jPI=;
- b=BYE2PTuxitOcNfKs4hBuT6rz84Kii7V0gE2TPNnw3vCPbOdSQVu2vxnzlONBL5WrO2
- 4AT2UPqkYd6d4DXohhfbmBN+mesjJRbYulfOrgJx864Fls10RSfgTu5HUmoq/HNcNBR/
- 5Yy7LjzcYJACzMLjGkCRJFsvKTR8VfTO2C9iG2t1KO+5wCIW9wl4zIjpPspiivat9mDV
- +t5sjqmAipE3NHuohdqaXdMfSPXHtA5Lt+CkHKtonY1ja8s9o6bdL1620x1V8jeyPDtU
- YwzaVDgLvtHbhUjs/Gcz+mjunkg78cnD/1uIV3ZCG0/RmrER7uHpdm7duQz0ZLNAx3Zl
- tiDg==
+ bh=di8FFXt+7vH5gfYVYXteeo4wVuKU9N2jDIanPPy0lSg=;
+ b=skSd2Wl/MUeOoMhE7N4QJ6PFHkgLICbsdAR3Empc42kHvisQcM6wi5VqfMeDvsPO2t
+ DnwUBEPaYbNpfDuiueavI0AMbxw7IsBpB1QMNhynWSzuX24hOBL+3uhVJAss376MFvKa
+ pfY/VWASGZKsmvKifPi0T20tUP7iy8fPxHDc0g9hb5zD/mvrqK1CnmEe9DtpdEn9luhl
+ azA/bVujmmtkR5cviAfZ9kp4zLvmSLNygrsczdMgE6wv7YnPLZTXtFyzHq1pIjiuMHXY
+ w9jdq0sEI/GGp2imM/1fh4WSmwwrhCVgepb1+fskFUbveVx76JabVpcckGshkrOZ4/yp
+ T/Og==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxUvsYU/zJRjVu6S/m+L2TjnoEhgPWMv0yLfHR/x47ExTCxOrcwzIP/N61dGG02pJDJRQB/zE+/v6s=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIGaXPU0dFcj0phPT0Fz+cWPekz9VBjQNpT8RC6ytV5LDyaM2zA
- IzB+u32m0zoNWM7geP0RV/mR0BsjdbLCoi56rMiRERxJFh5sA1Fc8TQ=
-X-Gm-Gg: AYBFou1xQA3AMpfaIOsOg4bS6Lusuxcyf8oxchFaWjXWT6O9AdNTHcIP+YG/xLCSroh
- Km+/L6uwjfYXrapx0/xo8ym2ZWIqHg/u4dUqZAgvSoNZpQxtYO6ZYmicB93uj9JPh7dYjs+Jfwu
- 2bb714yZ16VE2CQGIaEyHXYnEd9coEnhPWQfr8KGab3mFbpo4EyX3InGflHATKiVxFJ4RZ90EaO
- cPI5INBUTw485flFqzm6dcQ9NPvcyBnclDJhVao8bAPJHHp5pIXkBnpsinL75Go1UE2l+YXY1Hv
- d7YQzSvUEa+s3BJEJWSjRXYOJWyqIHIHh8FVuH/sJsp5A2fkNXJRQxS5apaeqt19Ar+2NBfC3C+
- kwId9x8x1mpzzCilJ1Bc6lI6Ry7Its5kU+mlsiVyt34lLkmrWVWEmY7reL1TdQH/1AI4ccCdPDP
- xjNcYK+MKiFGJ6ACcLal6lJNsvTvXxDKrGpvRPoX+Jia9/UY09yRFnL5ripH3U8rvDbc0JSV2bu
- uIdPDPurjyP6zkqPZRvtROVPoE9v40dPdfveLpjNJzs5rf9mI9cYh4ZrDwcgwrjNiwRKO9Oc2Oz
- vsFFhe03datXSrMAmLYI3DZUImXGj2/pAsMinN3t5/w02g==
-X-Received: by 2002:a5d:5e03:0:b0:48a:f354:aefe with SMTP id
- ffacd0b85a97d-48e5d468159mr13722390f8f.39.1793282010340; 
- Thu, 29 Oct 2026 06:53:30 -0700 (PDT)
+ AKwUvBw4Gx6DmTAtmiU6BTd/i/6sI7FB/43vMUl/4eExc//F/WgGQxQw9GE5LqNxrdyh34ChlWka4soDOOU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL1KSzBMIg6lppm9JM+8zE1EyX4fyUYCLjn+nVsmqjOvgReBPop
+ acuTtM/p7LAOXCAQVp2El08G0e05knZQ1ajkXcexxDs49dopnExpOXI=
+X-Gm-Gg: AYBFou3zNJ1//ti+rZo5EgdaT3mj7hOnEO4vjXEDHf22S5Cfkqxz+nba+8UIyvgWTr8
+ mOO4YTNDbWfN0E4qWqAwluDxV8CKJK2hxRPA6+VSy+UhqF8SKEO0/BLiIYhC58hj1x4uuyYG6bm
+ GQQXQAWnWGmB93Y3KB/xIyz82Y7iFaqnZF05c8EDK1xADJe08/CZOTF5LShCWuIQ/SSDgBtxsFw
+ 9w1MwVkL/iAsoGt4pEbA85GbEoOSL2r9LlBspvpDnTxXeHJoSUdklxaf/coEa6hgo+29xgDkYY8
+ AKRoDQGyn3OXGVUen6hnbYkMD7olVseiMEHPjmg9t7bubQFi62BvloWTL5rKHbenHWEu+9yJNBa
+ TdLd2pijg69Khq3/BjhHUUN78H3WG52aiCNGmLVrvJsn4QlCiqykI8Ed1MO4SyrGxxDmIX9dszb
+ FTmrmtAF3M/w+MkYBijP3+aOfpSQBLSAislJJFk74R2eUVn5KLIAs1MVJ+MVb8JlV80KU/HEqjc
+ s76olTApKpkdaPCXfsVcNpJOiVJWCqrMkGYMcyUla3jCqztQQ93rg+F09MJ6O1yPeO9TizBbIU4
+ bhnYfLDsTCK13dKvnF/a7ZACICGEP6oMn5IBrY+UepIhGA==
+X-Received: by 2002:a05:600c:8b38:b0:4a3:5a91:5f61 with SMTP id
+ 5b1f17b1804b1-4a966c4062fmr131340985e9.14.1793282012331; 
+ Thu, 29 Oct 2026 06:53:32 -0700 (PDT)
 Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.27
+ ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2026 06:53:29 -0700 (PDT)
+ Thu, 29 Oct 2026 06:53:31 -0700 (PDT)
 From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Thu, 29 Oct 2026 14:52:48 +0100
-Subject: [PATCH RFC v2 11/14] drm/msm: set ctxbank and asid based on ring
+Date: Thu, 29 Oct 2026 14:52:49 +0100
+Subject: [PATCH RFC v2 12/14] drm/msm: add lpac ring to devcoredump
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-descriptive-name-lpac-upstream-v2-11-a21a5c850961@gmail.com>
+Message-Id: <20261029-descriptive-name-lpac-upstream-v2-12-a21a5c850961@gmail.com>
 References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
@@ -91,11 +91,11 @@ Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=1658;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=2731;
  i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=JeZ/oDOWBrzzXnhSTsaX5dWsSADptm5HwF/DPV1Xv4k=;
- b=4M7VMbDwjOepIjZPrdycOsvEBkNuot2Ltb1yMKAeV6IZ8onsZj759zJ8VBrGw6EwZ2ETpsOXr
- 1DglU23L6d5AIGkk239c64rud6FZXnrAbBlSSiEjCojZ/rkF2k76XQ0
+ bh=SjlYjQ7B06EmsCE9KnnMd2bONmqc/uyNMNAcvp2x0Ec=;
+ b=Y4u2ENL4nkbD0aM3WvJ/ELGPfCSRXNJvoXA78hkmUU4GFxXHhBZNuc0iEh6bPVi314GSCwW/2
+ pbbFXwlzl23AkJnsI3vrmGEICHfTAEqdZf+4MgQRM3PA140b5G6lp9N
 X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
  pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,53 +109,83 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-qcom-arm-smmu always maps asid and ctxbank 1:1 and lpac is always 1
+Add the LPAC ring state to the devcoredump for debugging.
 
 Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 19 ++++++++++---------
+ drivers/gpu/drm/msm/msm_gpu.h           |  2 +-
+ 2 files changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index e82d0c0bc10f..57fc4035a753 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -247,7 +247,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
- 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
- 	phys_addr_t ttbr;
- 	bool is_lpac = ring == a6xx_gpu->base.base.lpac_rb;
--	u32 asid;
-+	u32 asid, ctxbank;
- 	u64 memptr = rbmemptr(ring, ttbr0);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 085e1b9044bc..1ce172e5f73a 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -785,25 +785,26 @@ int adreno_gpu_state_get(struct msm_gpu *gpu, struct msm_gpu_state *state)
  
- 	if (ctx->seqno == ring->cur_ctx_seqno)
-@@ -256,6 +256,9 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
- 	if (msm_iommu_pagetable_params(to_msm_vm(vm)->mmu, &ttbr, &asid))
- 		return;
+ 	ktime_get_real_ts64(&state->time);
  
-+	/* qcom-arm-smmu always maps asid and ctxbank 1:1 */
-+	ctxbank = asid = is_lpac;
-+
- 	if (adreno_gpu->info->family >= ADRENO_7XX_GEN1) {
- 		/* Wait for previous submit to complete before continuing: */
- 		OUT_PKT7(ring, CP_WAIT_TIMESTAMP, 4);
-@@ -313,7 +316,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
- 		CP_SMMU_TABLE_UPDATE_1_TTBR0_HI(upper_32_bits(ttbr)) |
- 		CP_SMMU_TABLE_UPDATE_1_ASID(asid));
- 	OUT_RING(ring, CP_SMMU_TABLE_UPDATE_2_CONTEXTIDR(0));
--	OUT_RING(ring, CP_SMMU_TABLE_UPDATE_3_CONTEXTBANK(0));
-+	OUT_RING(ring, CP_SMMU_TABLE_UPDATE_3_CONTEXTBANK(ctxbank));
+-	for (i = 0; i < gpu->nr_rings; i++) {
++	for (i = 0; i < gpu->nr_rings + !!gpu->lpac_rb; i++) {
++		struct msm_ringbuffer *ring = i < gpu->nr_rings ? gpu->rb[i] : gpu->lpac_rb;
+ 		int size = 0, j;
  
- 	/*
- 	 * Write the new TTBR0 to the memstore. This is good for debugging.
+-		state->ring[i].fence = gpu->rb[i]->memptrs->fence;
+-		state->ring[i].iova = gpu->rb[i]->iova;
+-		state->ring[i].seqno = gpu->rb[i]->fctx->last_fence;
+-		state->ring[i].rptr = get_rptr(adreno_gpu, gpu->rb[i]);
+-		state->ring[i].wptr = get_wptr(gpu->rb[i]);
++		state->ring[i].fence = ring->memptrs->fence;
++		state->ring[i].iova = ring->iova;
++		state->ring[i].seqno = ring->fctx->last_fence;
++		state->ring[i].rptr = get_rptr(adreno_gpu, ring);
++		state->ring[i].wptr = get_wptr(ring);
+ 
+ 		/* Copy at least 'wptr' dwords of the data */
+ 		size = state->ring[i].wptr;
+ 
+ 		/* After wptr find the last non zero dword to save space */
+ 		for (j = state->ring[i].wptr; j < MSM_GPU_RINGBUFFER_SZ >> 2; j++)
+-			if (gpu->rb[i]->start[j])
++			if (ring->start[j])
+ 				size = j + 1;
+ 
+ 		if (size) {
+-			state->ring[i].data = kvmemdup(gpu->rb[i]->start, size << 2, GFP_KERNEL);
++			state->ring[i].data = kvmemdup(ring->start, size << 2, GFP_KERNEL);
+ 			if (state->ring[i].data)
+ 				state->ring[i].data_size = size << 2;
+ 		}
+@@ -1004,7 +1005,7 @@ void adreno_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
+ 
+ 	drm_puts(p, "ringbuffer:\n");
+ 
+-	for (i = 0; i < gpu->nr_rings; i++) {
++	for (i = 0; i < gpu->nr_rings + !!gpu->lpac_rb; i++) {
+ 		drm_printf(p, "  - id: %d\n", i);
+ 		drm_printf(p, "    iova: 0x%016llx\n", state->ring[i].iova);
+ 		drm_printf(p, "    last-fence: %u\n", state->ring[i].seqno);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 877f88ef90d9..6b05c2d45bb3 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -640,7 +640,7 @@ struct msm_gpu_state {
+ 		void *data;
+ 		int data_size;
+ 		bool encoded;
+-	} ring[MSM_GPU_MAX_RINGS];
++	} ring[MSM_GPU_MAX_RINGS+1];
+ 
+ 	int nr_registers;
+ 	u32 *registers;
 
 -- 
 2.56.0
