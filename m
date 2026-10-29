@@ -2,41 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFCA606A329
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 11:00:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E156606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 11:24:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LY3DeJlJ
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YhheDy8E
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F4AE10E085;
-	Thu, 29 Oct 2026 11:00:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8518A10E085
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 11:00:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9ECC66025A;
- Thu, 29 Oct 2026 11:00:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E75B1F01829;
- Thu, 29 Oct 2026 11:00:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793271605;
- bh=2sWnbEOpGW5EkEfIlQl12AudwxLX2N1PAwGgGSIBR1U=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=LY3DeJlJaCUnbjmaFP55JTbodyYj3eWFIuOZIew5j/IIRjrwR7yi/k6e886nenk4x
- +cIXNswcQMl1ifxYxskNaC5RTQukO2cxuv8Lx7/6wcZeQF2bQGrbT4EXPbGRRgJbTV
- +zsoagqXeqjWX0Lhl3X4iyCfdUd00VSCSlvSOL9l+7VyzEcVcnkw7JkdE1+F7i4mam
- XEEU+uS/GaYkTYbIFH7BWjBB/craBibejpilOWFicUf1Yv7x4w0H4rVhcTHHuEC8tE
- e0B0QIMNzQApXc2aBYn6MHem+FxTOjPTz4yayJiPjTYn4agRanclRJroJJjC85MVy6
- Z10pSzlppLTiA==
-Message-ID: <sashiko-outbox-189160@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/gud: avoid divide error in gud_stats_debugfs
-To: "YuanZhe Liu" <25031212351@stu.xidian.edu.cn>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029080816.16800-1-25031212351@stu.xidian.edu.cn>
-References: <20261029080816.16800-1-25031212351@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0040E11220A;
+	Thu, 29 Oct 2026 11:23:55 +0000 (UTC)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32C0A112208;
+ Thu, 29 Oct 2026 11:23:50 +0000 (UTC)
+Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de
+ [IPv6:2a0a:edc0:0:900:1d::77])
+ (Authenticated sender: lst@pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 418BC2007F9;
+ Thu, 29 Oct 2026 12:23:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+ s=20260414; t=1793273028;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=s4uscHTSNNyFgyqCTfvm7pgyQFz42LzvHFK7u0x0Cw0=;
+ b=YhheDy8EfCQv89DyrUXN/Yqh1aav8HKOaPDt4/Y3XFIPfM2HQZksNK1Q4J8Xiva3N9Z1Am
+ tkP2eX7Gmfxohg3zXmJeyevXeiaQVGhGYtgf5DW7WiXDKCn+YIxVKqJUBhnT18fBqcR9od
+ pNUOxHrNlb/aeBZqcMinomv32QEtNIj5iOvnDLzi8UenUwl35U/mEBFZgBoAEnX3k3vgMh
+ WQOKG6XE+gjRy2dunur160DUflwOCoaEEllxXNkae4RdWnLlHPVfWZgcVG5KwuGlYdMS4j
+ K8l8J5jfGgLMMk0a9E7oE+GBGvUkDtPQtpWfP+urJK7Rg8cIfoftFRGLPfWCxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
+ s=20260414; t=1793273028;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=s4uscHTSNNyFgyqCTfvm7pgyQFz42LzvHFK7u0x0Cw0=;
+ b=YtyTqxntKVSuf0cXkpc84IWDjijQempbl/OM6z3jYncGCiwf/Ln99mK5+x8W0cyO9xO1gA
+ kZBUATT4teV385wTGMVEaT2ftHDv466XZMo/nCHJ+3VBjvaefh76HC4h6ZqGpVZBZzIif0
+ B0s67a7gzHS6sPKR61gN4QKr3LIKCsgfOapXu1CZ/XgwBY8WD5Dr2jHZMjCr5H6sThWMxU
+ MsRJbd3Mcfr33CLRmW8Bp3z2gPWqfmC5Y9O64Vqrjxd/mFXxtXsuyhRNEFalbt43sftG6G
+ xJ0leaBmncxO0k6VjKMNj5ycc2G3vyKocU53toT9hpLpEM+cmebxYVR8EEEN+Q==
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793273028; a=rsa-sha256;
+ cv=none;
+ b=CMz7Ii0BbFpIf3JOy1xOkUy1/GalemR2HX7An2NH4NYYc7nV9uA9ia33/CLwhOM5TIZVCO
+ r5SjbN1jtUnItbnYc85Z8xd4yR28RKXjpQwR04UflRreGYa/mpCLkcKsFkvwIJI+HcAAQT
+ e6tyb0XkfNDiCGGfk7D6jVoenCj3H0aH4beZaCr4Eu2G+Ql31BsMOvYsHkb91GsL5HKzlk
+ 3XcSZVASLqeWZ4KZWuMaxSYPs7oxi8oIKtwvZ2vU+4PLj3JdRq+wZ2/4S5M1ckb3lR6s7O
+ ZyHtIMqbdSoBMc5gGXlEKgsiCFaxc5lHEpetkI/HR6kfcn8G0LRnwE1RHAFQyQ==
+Message-ID: <d0610126883f23bec3472f41e528aae786f27c8c.camel@pengutronix.de>
+Subject: Re: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
+From: Lucas Stach <l.stach@pengutronix.de>
+To: phasta@kernel.org, Min Ma <mamin506@gmail.com>, Lizhi Hou
+ <lizhi.hou@amd.com>,  Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)"
+ <robh@kernel.org>, Tomeu Vizoso	 <tomeu@tomeuvizoso.net>, Karol Wachowski
+ <karol.wachowski@linux.intel.com>,  Andrzej Kacprowski
+ <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Russell King	
+ <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
+ <christian.gmeiner@gmail.com>,  Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alessio
+ Belle	 <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>,  Qiang Yu <yuq825@gmail.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov	 <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
+ <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Steven Price	 <steven.price@arm.com>,
+ =?ISO-8859-1?Q?Adri=E1n?= Larumbe	 <adrian.larumbe@collabora.com>, Liviu
+ Dudau <liviu.dudau@arm.com>, Dave Airlie	 <airlied@redhat.com>, Gerd
+ Hoffmann <kraxel@redhat.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Natalie Vock <nat@pixelcluster.dev>, Arun Pravin	
+ <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>,
+ Melissa Wen <mwen@igalia.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal	
+ <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance	 <kernel-list@raspberrypi.com>, Dmitry
+ Osipenko <dmitry.osipenko@collabora.com>,  Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
+ <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
+ <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding	
+ <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Cameron	 <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Sunil Khatri <sunil.khatri@amd.com>, Kees
+ Cook	 <kees@kernel.org>, Jesse Zhang <jesse.zhang@amd.com>, Timur
+ =?ISO-8859-1?Q?Krist=F3f?=	 <timur.kristof@gmail.com>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>,  Kexin Sun <kexinsun@smail.nju.edu.cn>,
+ Prike Liang <Prike.Liang@amd.com>, David Rosca	 <david.rosca@amd.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>, Marco Crivellari
+ <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
+ =?ISO-8859-1?Q?H=F6gander?=	 <jouni.hogander@intel.com>, Thadeu Lima de
+ Souza Cascardo <cascardo@igalia.com>,  Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes
+ <joelagnelf@nvidia.com>, Al Viro <viro@zeniv.linux.org.uk>,  Neill Kapron
+ <nkapron@google.com>, Michael Bommarito <michael.bommarito@gmail.com>, Sam
+ Day <me@samcday.com>,  Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
+ linux-usb@vger.kernel.org
+Date: Thu, 29 Oct 2026 12:23:45 +0100
+In-Reply-To: <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
+References: <20261029095542.1526750-3-phasta@kernel.org>
+ <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
+ <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 11:00:04 +0000
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,90 +136,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/gud: missing READ_ONCE() on stats_actual_length in gud_stats_d=
-ebugfs()
---
+Am Donnerstag, dem 29.10.2026 um 11:28 +0100 schrieb Philipp Stanner:
+> On Thu, 2026-10-29 at 11:23 +0100, Lucas Stach wrote:
+> > Hi Philipp, hi Christian,
+>=20
+> Jo Lucas
+>=20
+> >=20
+> > Am Donnerstag, dem 29.10.2026 um 10:55 +0100 schrieb Philipp Stanner:
+>=20
+> [=E2=80=A6]
+>=20
+> > I think we would all be interested in the actual use-case that's
+> > sensitive to this kind of latency.
+>=20
+> Me too.
+>=20
+> Let me use this opportunity to stress that in the future, in DRM,
+> whenever we have [to accept] a racy "optimization", both commit
+> messages and code comments must document why it exists and who
+> requested it with what proof.
+>=20
+I don't fully agree that this is a racy optimization. To me it seems
+the most critical issue here is that "fence is signaled" is under
+specified.
 
-commit c9d9a9652db7619eedb8feff2da3862c3012fe31
-Author: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Does it purely mean that the actual hardware operation that the fence
+is guarding is done? In that case the current implementation is fine,
+as the bit is only set after the HW told us that it is done. This is
+the interpretation I would assume was the original intent behind the
+current implementation.
 
-drm/gud: avoid divide error in gud_stats_debugfs
+Does it mean that the hardware is done and all registered callbacks
+have been run, even if the actual work is done in a (indefinitely)
+deferred worker? You mentioning explosions caused by the pure signal
+state check outside the lock would imply that some consumers of the
+fence took the signaled state to mean this interpretation.
 
-This commit copies gdrm->stats_actual_length into a local variable in
-gud_stats_debugfs() and skips the compression ratio division when it is zero
-to avoid a divide-by-zero error before the first framebuffer flush or during
-a concurrent counter wrap-around reset in gud_flush_rect().
+> Would save us lots of time when those things are discussed >5 years
+> later.
+>=20
+> >=20
+> > However, I wonder if this is even an issue anymore with the lock
+> > inlined into the fence structure.
+>=20
+> Almost no one uses inline-lock so far. So unfortunately, we might
+> regress old drivers, maybe.
+>=20
+> But sounds as if you're in favor of phasing the locklessness out :)
+>=20
+I'm in favor of ripping out hard to reason optimizations if they turn
+out to not provide any optimization after all. However, before going in
+either direction we need to clarify the fence signal state interface.=C2=A0
 
-> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-> index 680447f426f37..cec5d64e152bb 100644
-> --- a/drivers/gpu/drm/gud/gud_drv.c
-> +++ b/drivers/gpu/drm/gud/gud_drv.c
-> @@ -329,10 +329,17 @@ static int gud_stats_debugfs(struct seq_file *m, vo=
-id *data)
->  	seq_puts(m, "\n");
-> =20
->  	if (gdrm->compression) {
-> +		u64 actual_length =3D gdrm->stats_actual_length;
->  		u64 remainder;
-> -		u64 ratio =3D div64_u64_rem(gdrm->stats_length, gdrm->stats_actual_len=
-gth,
-> -					  &remainder);
-> -		u64 ratio_frac =3D div64_u64(remainder * 10, gdrm->stats_actual_length=
-);
-> +		u64 ratio, ratio_frac;
-> +
-> +		if (!actual_length) {
-> +			seq_puts(m, "Compression ratio: n/a\n");
-> +			return 0;
-> +		}
-> +
-> +		ratio =3D div64_u64_rem(gdrm->stats_length, actual_length, &remainder);
-> +		ratio_frac =3D div64_u64(remainder * 10, actual_length);
+Either we keep the (in my interpretation) original intent of the signal
+state only telling about HW progress state and thus declare some
+current uses as wrong usage of the interface, which need to be fixed.
+Or we need to include the SW callbacks too, but then your current lock
+approach only guards against code directly executed in the callback
+functions. If the implementation of the callback defers anything to a
+worker this may still be racy.
+And that's also my criticism to this patchset now that I thought a bit
+more about this: by simply putting things under the lock you serialized
+more of the SW state without actually better defining the guarantees
+that this changed fence interface provides or doesn't provide to the
+consumers.
 
-[Severity: High]
-Can the compiler reload gdrm->stats_actual_length from memory after the zero
-check?
-
-Neither gud_stats_debugfs() nor gud_flush_damage() -> gud_flush_rect() hold=
-s a
-shared lock when accessing gdrm->stats_actual_length:
-
-drivers/gpu/drm/gud/gud_pipe.c:gud_flush_rect() {
-	...
-	gdrm->stats_length +=3D len;
-	/* Did it wrap around? */
-	if (gdrm->stats_length <=3D len && gdrm->stats_actual_length) {
-		gdrm->stats_length =3D len;
-		gdrm->stats_actual_length =3D 0;
-	}
-	gdrm->stats_actual_length +=3D trlen;
-	...
-}
-
-Because actual_length is loaded in gud_stats_debugfs() via a plain C
-assignment without READ_ONCE(), the compiler is permitted to reload
-gdrm->stats_actual_length from memory when passing actual_length to
-div64_u64_rem() or div64_u64(). If gud_flush_rect() concurrently resets
-gdrm->stats_actual_length to 0, could the zero check observe a non-zero val=
-ue
-while the subsequent division reloads 0 and still triggers a divide error?
-
-Should gud_stats_debugfs() use READ_ONCE(gdrm->stats_actual_length) (or
-synchronize the stats counters between gud_flush_rect() and
-gud_stats_debugfs())?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029080816.1680=
-0-1-25031212351@stu.xidian.edu.cn?part=3D1
+Regards,
+Lucas
