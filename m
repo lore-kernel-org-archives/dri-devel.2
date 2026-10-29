@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159EA60A5BC4
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:36:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABAB60A5BD1
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:36:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YILUgJKv
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HFEOnoUd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7356B1122C1;
-	Thu, 29 Oct 2026 13:36:30 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9223E1122B0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 745A51122D5;
+	Thu, 29 Oct 2026 13:36:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CD6810E80F
  for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 73140444E6;
- Thu, 29 Oct 2026 13:36:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21F621F031E9;
- Thu, 29 Oct 2026 13:36:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 80B4B605D1;
+ Thu, 29 Oct 2026 13:36:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061091F031E3;
+ Thu, 29 Oct 2026 13:36:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793280980;
- bh=jbBxKv6txjlAVMjetzQTUJ/a8zC8R53gc/yB6G9RtL8=;
+ s=k20260515; t=1793280979;
+ bh=D4t+OAVjG6M5tU4SmWhkJ+1SJJ6e1CicZrtdCcJOq9c=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=YILUgJKv6arXTEuqnG0Uq+rJQ6ahwsEwQDcBrEi+SbKweaPv7h3ro/nKyupzvkcWd
- 21K3l/e+00a9l6DEI/rvAJTAExz8WfRHJMNWLKC1a/Jm/J+qIbbsmuurbCST2riQxb
- xpqFnQq/OpvPj/H6eHHhOwZ++4mxmcctyLlDWHE9iQVQbBWF5PzTVRf8J0oQVfgYGb
- TMym1osiWk3xIS1JtenihVcac0LsDGL1wCCJWt66AOTqvPaSTJLS+oaGU9ugvc20jF
- OwRqwXvhs+gl/UMsBiEkocnGxmNH8UajTnvlSAanZJrwmpNyqGW62W+mKHL8w0fX+P
- R5ZKtfJ+xa94Q==
+ b=HFEOnoUdBn6n6m+w0Rm5qLVQDSPjYXX7tfzRKEeI57PdJPcpbWe9Fysn78C9V/fPi
+ J2qF9XPxXuEWbdTtzCbpynBOgy+5HMczW/fjpxhOp6TN5PcF1PFOBuYTRadR4alyqQ
+ 8awUmPd/bpEGuhRKPW+Y4bs+DQyye1kqwRv294xmVSuSgQ2wAjcQIeDXy/9Em20qiA
+ MKMBxAUVW9zkMudxzr8xFKIfqHNov8RJ7W+Ij6/qqGJC17/zRCha1DgPabs/gMWIM+
+ oV1Glpe3utLQFNtdQf+Db1IpGPApnGRTrZxuH3GDxhWsXsFsdSDMyCAk3K+NHNijvc
+ qLYtYfPN+a0Dw==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:35:52 -0500
-Subject: [PATCH v4 05/31] accel: ethosu: Quiesce jobs before scheduler teardown
+Date: Thu, 29 Oct 2026 08:35:51 -0500
+Subject: [PATCH v4 04/31] accel: ethosu: Disable clocks on PM setup failure
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-5-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-4-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -60,113 +60,39 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-An NPU job can complete while driver removal tears down the scheduler. Its
-IRQ handler could then access scheduler state after it has been
-destroyed.
+ethosu_init() enables the clocks directly to reset and query the NPU
+before runtime PM takes over. If runtime-PM setup fails, the error path
+returns while those clocks remain enabled.
 
-Stop scheduler submission and timeout work, reset the NPU, and
-synchronize its IRQ before finalizing the scheduler. Add a cancel_job
-callback so drm_sched_fini() signals queued jobs with -ECANCELED; their
-runtime-PM references are then released during normal job cleanup.
+Disable the clocks before returning the setup error to balance the
+initial direct resume.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-v3:
- - Add dma_fence_was_initialized() check in job cancel (sashiko)
 v2:
  - new patch
 ---
- drivers/accel/ethosu/ethosu_drv.c |  4 ++--
- drivers/accel/ethosu/ethosu_drv.h |  2 ++
- drivers/accel/ethosu/ethosu_job.c | 23 ++++++++++++++++++++++-
- 3 files changed, 26 insertions(+), 3 deletions(-)
+ drivers/accel/ethosu/ethosu_drv.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 1a65e9eef562..6875ed17a004 100644
+index 9ee144c41550..1a65e9eef562 100644
 --- a/drivers/accel/ethosu/ethosu_drv.c
 +++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -216,7 +216,7 @@ static const struct drm_driver ethosu_drm_driver = {
- #define U85_MEM_ATTR0_CFG	0x00000000
- #define U85_MEM_ATTR2_CFG	0x000000b7
- 
--static int ethosu_reset(struct ethosu_device *ethosudev)
-+int ethosu_device_reset(struct ethosu_device *ethosudev)
- {
- 	int ret;
- 	u32 reg;
-@@ -263,7 +263,7 @@ static int ethosu_device_resume(struct device *dev)
- 	if (ret)
+@@ -311,8 +311,10 @@ static int ethosu_init(struct ethosu_device *ethosudev)
+ 	pm_runtime_set_autosuspend_delay(ethosudev->base.dev, 50);
+ 	pm_runtime_use_autosuspend(ethosudev->base.dev);
+ 	ret = devm_pm_runtime_set_active_enabled(ethosudev->base.dev);
+-	if (ret)
++	if (ret) {
++		ethosu_device_suspend(ethosudev->base.dev);
  		return ret;
- 
--	ret = ethosu_reset(ethosudev);
-+	ret = ethosu_device_reset(ethosudev);
- 	if (!ret)
- 		return 0;
- 
-diff --git a/drivers/accel/ethosu/ethosu_drv.h b/drivers/accel/ethosu/ethosu_drv.h
-index 2193bc51d425..f59c845c758b 100644
---- a/drivers/accel/ethosu/ethosu_drv.h
-+++ b/drivers/accel/ethosu/ethosu_drv.h
-@@ -11,6 +11,8 @@ struct ethosu_device;
- struct drm_device;
- struct drm_file;
- 
-+int ethosu_device_reset(struct ethosu_device *ethosudev);
-+
- struct ethosu_file_priv {
- 	struct ethosu_device *edev;
- 	struct drm_sched_entity sched_entity;
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index b7faa715b47e..d418ae7961cf 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -189,6 +189,17 @@ static void ethosu_job_free(struct drm_sched_job *sched_job)
- 	ethosu_job_put(job);
- }
- 
-+static void ethosu_job_cancel(struct drm_sched_job *sched_job)
-+{
-+	struct ethosu_job *job = to_ethosu_job(sched_job);
-+
-+	if (dma_fence_was_initialized(job->done_fence) &&
-+	    !dma_fence_is_signaled(job->done_fence)) {
-+		dma_fence_set_error(job->done_fence, -ECANCELED);
-+		dma_fence_signal(job->done_fence);
 +	}
-+}
-+
- static void
- ethosu_switch_perfmon(struct ethosu_device *ethosu, struct ethosu_job *job)
- {
-@@ -315,7 +326,8 @@ static enum drm_gpu_sched_stat ethosu_job_timedout(struct drm_sched_job *bad)
- static const struct drm_sched_backend_ops ethosu_sched_ops = {
- 	.run_job = ethosu_job_run,
- 	.timedout_job = ethosu_job_timedout,
--	.free_job = ethosu_job_free
-+	.free_job = ethosu_job_free,
-+	.cancel_job = ethosu_job_cancel,
- };
+ 	pm_runtime_get_noresume(ethosudev->base.dev);
  
- int ethosu_job_init(struct ethosu_device *edev)
-@@ -361,6 +373,15 @@ int ethosu_job_init(struct ethosu_device *edev)
- 
- void ethosu_job_fini(struct ethosu_device *dev)
- {
-+	drm_sched_wqueue_stop(&dev->sched);
-+	cancel_delayed_work_sync(&dev->sched.work_tdr);
-+
-+	if (READ_ONCE(dev->in_flight_job)) {
-+		WRITE_ONCE(dev->in_flight_job, NULL);
-+		ethosu_device_reset(dev);
-+	}
-+
-+	synchronize_irq(dev->irq);
- 	drm_sched_fini(&dev->sched);
- }
- 
+ 	ethosudev->npu_info.id = id = readl_relaxed(ethosudev->regs + NPU_REG_ID);
 
 -- 
 2.53.0
