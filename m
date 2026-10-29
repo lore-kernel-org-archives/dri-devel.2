@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371FA606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6EE606A31A
 	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:37:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S8C2G8yN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bqAHR3k/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E47110FFF0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 944E310FFF4;
 	Thu, 29 Oct 2026 07:37:11 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADE1010FFEA
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:36:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 754E410FFED
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:36:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 967FC408A0;
- Thu, 29 Oct 2026 07:36:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81001F031E0;
- Thu, 29 Oct 2026 07:36:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5E96343D85;
+ Thu, 29 Oct 2026 07:36:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C9A1F01828;
+ Thu, 29 Oct 2026 07:36:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793259373;
- bh=pWYehB7F2AvgnO/NSfXax94B1lAU+p/pyvoOBPwn//o=;
+ s=k20260515; t=1793259388;
+ bh=Yl3pr6Eobyegjz9P+f70i7o4gYXfZxqNCWeUAGaBEPU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=S8C2G8yNudmYHTrp8HMfKnybXTQqd4FS51xQGxyV9Hl5nkxTMgo/Gvu7hjsMbY3iv
- tBiF9t5wWCZLKag3KnKcoI4Ya2cTANi4M3525DiRQWfruKlBo1DaWFWD/KRv7Y0UH8
- 1XfokDYO+xWZUF93j/nRLbtsjs8enq5mK4I/XKmxe/BtASOSLBGJLTp5Zrms0Dw5AH
- 8xQ5mc+MFZ5edsPVpWFWbKb7OqzKuDiTgxvErNiCA145vWIYIlkzr9Ojn8fliy+9VU
- bi3ZuMnGpktSYnJzHOzHKoXgUb9hATqeTZuVORd8J2w+SsMVRagQx6dhOFveUTRBas
- gLukrat2PhkCw==
+ b=bqAHR3k/NwMabH8uCEzb+OsyVCIN3oBCWaPG8YZGIU79LHLw1aBUqNfqOt5x71QpX
+ L+QyzZCU+w2UgjrndgJtEVVN7NYQ1fKGFPNA/P+sMbKQGsMgFXcezGPj/UNBB1+IVz
+ xPLTzwJLcw9oU+U+xrj7nz/Vi+kZ8YrgoWAHoCJ/oZFD4zyH/4jEqKy8DnpWDVhdnj
+ dDNaKYl3BNMLrpgSRVey23lz6Frg5N+5YhjQMow3ccaY9MP+8E0m+soxQUDuVUVk3B
+ ph4J7Cp/Ai+ycMPXR2YwgNzCgY2SYQ4cHMG9jq+UFHdS/TsQBHR/XODtUjX843OGIG
+ 8ElRvAnfRhSbw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 29 Oct 2026 08:34:20 +0100
-Subject: [PATCH v7 30/34] drm/tidss: dispc: Improve mode checking logs
+Date: Thu, 29 Oct 2026 08:34:24 +0100
+Subject: [PATCH v7 34/34] drm/bridge: sii902x: Implement hw state readout
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-drm-state-readout-v7-30-25e5163d75c3@kernel.org>
+Message-Id: <20261029-drm-state-readout-v7-34-25e5163d75c3@kernel.org>
 References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 In-Reply-To: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +48,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4157; i=mripard@kernel.org;
- h=from:subject:message-id; bh=fO4TgHTsBREDTK8sYykcw0CQSVNmm8hXV/lPu01XX9E=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvv30kzN82Rb9sMn+swqDjram4+GWH8LLDWvecnIX7
- ri38Wd3x1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjI7HeMDX8v26ntb7srUbdL
- qPnjedOU4wtvzfkQ1m8nNvuCY6jz/VMnG5LUcwvZ/vM/u6sza/l1AcaGKR3Tqspr2Pb/uOt0LiA
- y76jcwVRxJ/bbAasP7xYKu9819ZGxrNWtD5e1+//FO8W3cy0FAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4407; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Je5P3Iu09DifxHWFM6fDYMDunp6l3UJAs11RSud++5s=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvv3O61815U68b6XciXzexNVuwcV7Y2wsF52JD9urw
+ 3F3+aRLHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAimrMYG9qvhfKWFtlqMs6f
+ oaE7/2/g9seWiuGytYlT5SZ0b9OoO51SV8hx9/jDnvmbUlkMoo8cZWy49EJutfCZF6rLxDgtzad
+ KnV0wmfnzvJlTzBWvTvvIH3nRtv/HmXXSE3i0Vn0ouD5zue4qAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,120 +74,129 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The dispc_vp_mode_valid() function checks whether a mode can be handled
-by the display controller.
-
-There's a whole bunch of criteria, and it's not clear when a rejection
-happens why it did. Add logs on each rejection criterion to make it
-clearer.
+Implement the hardware state readout for the sii902x bridge
+now that all the infrastructure is in place.
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c | 45 +++++++++++++++++++++++++++++--------
- 1 file changed, 36 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/bridge/sii902x.c | 91 +++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 90 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 2a0ec11a6c90..5943a5f25432 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -1305,4 +1305,6 @@ static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
- 			     unsigned long clock)
- {
-+	struct tidss_device *tidss = dispc->tidss;
-+	struct drm_device *dev = &tidss->ddev;
- 	unsigned long round_clock;
+diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
+index e067c0636e7f..ab5ffcf6882f 100644
+--- a/drivers/gpu/drm/bridge/sii902x.c
++++ b/drivers/gpu/drm/bridge/sii902x.c
+@@ -23,4 +23,6 @@
  
-@@ -1319,6 +1321,9 @@ static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
- 	 * use the same 5% check here.
- 	 */
--	if (dispc_pclk_diff(clock, round_clock) > 5)
-+	if (dispc_pclk_diff(clock, round_clock) > 5) {
-+		drm_dbg(dev, "Pixel clock %lu differs from rounded clock %lu by more than 5%%.",
-+			clock, round_clock);
- 		return -EINVAL;
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_state_readout.h>
++#include <drm/drm_atomic_state_readout_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_drv.h>
+@@ -538,4 +540,87 @@ sii902x_bridge_mode_valid(struct drm_bridge *bridge,
+ }
+ 
++static int
++sii902x_bridge_connector_readout(struct drm_bridge *bridge,
++				 struct drm_atomic_sro_state *state,
++				 struct drm_connector_state *conn_state)
++{
++	struct sii902x *sii902x = bridge_to_sii902x(bridge);
++	struct drm_connector *connector = conn_state->connector;
++	struct drm_crtc_state *crtc_state;
++	struct drm_encoder *encoder;
++	struct drm_crtc *crtc;
++	int ret;
++
++	ret = regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902X_SYS_CTRL_PWR_DWN);
++	/* I2C error */
++	if (ret < 0)
++		return ret;
++	/* Device is powered down, nothing to read out */
++	if (ret)
++		return 0;
++
++	encoder = bridge->encoder;
++	if (!encoder->funcs || !encoder->funcs->atomic_sro_get_current_crtc)
++		return -ENODEV;
++
++	crtc = encoder->funcs->atomic_sro_get_current_crtc(encoder);
++	if (!crtc)
++		return -ENODEV;
++
++	crtc_state = drm_atomic_sro_get_crtc_state(state, crtc);
++	if (!crtc_state)
++		return -ENODEV;
++
++	crtc_state->encoder_mask |= drm_encoder_mask(encoder);
++	crtc_state->connector_mask |= drm_connector_mask(connector);
++
++	/*
++	 * drm_atomic_set_crtc_for_connector() takes a connector reference
++	 * when setting the crtc pointer, which is later released by
++	 * __drm_atomic_helper_connector_destroy_state(). SRO readout
++	 * bypasses that path, so take the reference explicitly.
++	 */
++	drm_connector_get(connector);
++	conn_state->crtc = crtc;
++	conn_state->best_encoder = encoder;
++
++	return 0;
++}
++
++static int sii902x_bridge_readout_state(struct drm_bridge *bridge,
++					struct drm_atomic_sro_state *state,
++					struct drm_bridge_state *bridge_state,
++					struct drm_crtc_state *crtc_state,
++					struct drm_connector_state *conn_state)
++{
++	struct sii902x *sii902x = bridge_to_sii902x(bridge);
++	u32 input_format;
++
++	if (regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902X_SYS_CTRL_PWR_DWN))
++		return 0;
++
++	switch (sii902x->bus_width) {
++	case 16:
++		input_format = MEDIA_BUS_FMT_RGB565_1X16;
++		break;
++	case 18:
++		input_format = MEDIA_BUS_FMT_RGB666_1X18;
++		break;
++	case 24:
++		input_format = MEDIA_BUS_FMT_RGB888_1X24;
++		break;
++	default:
++		return -EINVAL;
 +	}
- 
- 	return 0;
-@@ -1329,4 +1334,6 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
- 					 const struct drm_display_mode *mode)
- {
-+	struct tidss_device *tidss = dispc->tidss;
-+	struct drm_device *dev = &tidss->ddev;
- 	u32 hsw, hfp, hbp, vsw, vfp, vbp;
- 	enum dispc_vp_bus_type bus_type;
-@@ -1334,12 +1341,18 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
- 	bus_type = dispc->feat->vp_bus_type[hw_videoport];
- 
--	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF))
-+	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF)) {
-+		drm_dbg(dev, "Invalid bus type.");
- 		return MODE_BAD;
-+	}
- 
--	if (mode->hdisplay > 4096)
-+	if (mode->hdisplay > 4096) {
-+		drm_dbg(dev, "Number of active horizontal pixels above hardware limits.");
- 		return MODE_BAD;
-+	}
- 
--	if (mode->vdisplay > 4096)
-+	if (mode->vdisplay > 4096) {
-+		drm_dbg(dev, "Number of active vertical lines above hardware limits.");
- 		return MODE_BAD;
-+	}
- 
- 	if (check_pixel_clock(dispc, hw_videoport, mode->clock * 1000))
-@@ -1347,6 +1360,8 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
- 
- 	/* TODO: add interlace support */
--	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
-+	if (mode->flags & DRM_MODE_FLAG_INTERLACE) {
-+		drm_dbg(dev, "Interlace modes not supported.");
- 		return MODE_NO_INTERLACE;
-+	}
- 
- 	/*
-@@ -1358,6 +1373,8 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
- 	 * But for simplicity we enforce that always.
- 	 */
--	if ((mode->hdisplay % 2) != 0)
-+	if ((mode->hdisplay % 2) != 0) {
-+		drm_dbg(dev, "Number of active horizontal pixels must be even.");
- 		return MODE_BAD_HVALUE;
-+	}
- 
- 	hfp = mode->hsync_start - mode->hdisplay;
-@@ -1371,10 +1388,18 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
- 	if (hsw < 1 || hsw > 256 ||
- 	    hfp < 1 || hfp > 4096 ||
--	    hbp < 1 || hbp > 4096)
-+	    hbp < 1 || hbp > 4096) {
-+		drm_dbg(dev,
-+			"Horizontal blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
-+			hfp, hsw, hbp);
- 		return MODE_BAD_HVALUE;
-+	}
- 
- 	if (vsw < 1 || vsw > 256 ||
--	    vfp > 4095 || vbp > 4095)
-+	    vfp > 4095 || vbp > 4095) {
-+		drm_dbg(dev,
-+			"Vertical blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
-+			vfp, vsw, vbp);
- 		return MODE_BAD_VVALUE;
-+	}
- 
- 	if (dispc->memory_bandwidth_limit) {
-@@ -1386,6 +1411,8 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
- 		bandwidth = div_u64(bandwidth, mode->htotal * mode->vtotal);
- 
--		if (dispc->memory_bandwidth_limit < bandwidth)
-+		if (dispc->memory_bandwidth_limit < bandwidth) {
-+			drm_dbg(dev, "Required memory bandwidth outside of hardware limits.");
- 			return MODE_BAD;
-+		}
- 	}
++
++	bridge_state->input_bus_cfg.format = input_format;
++	bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
++
++	/* The sii902x is a passthrough transmitter, output format equals input. */
++	bridge_state->output_bus_cfg.format = input_format;
++
++	return 0;
++}
++
+ static const struct drm_bridge_funcs sii902x_bridge_funcs = {
+ 	.attach = sii902x_bridge_attach,
+@@ -548,4 +633,7 @@ static const struct drm_bridge_funcs sii902x_bridge_funcs = {
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
++	.atomic_sro_readout_state = sii902x_bridge_readout_state,
++	.atomic_sro_connector_readout = sii902x_bridge_connector_readout,
+ 	.atomic_get_input_bus_fmts = sii902x_bridge_atomic_get_input_bus_fmts,
+ 	.atomic_check = sii902x_bridge_atomic_check,
+@@ -1134,5 +1222,6 @@ static int sii902x_init(struct sii902x *sii902x)
+ 	sii902x->bridge.of_node = dev->of_node;
+ 	sii902x->bridge.timings = &default_sii902x_timings;
+-	sii902x->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
++	sii902x->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
++			      DRM_BRIDGE_OP_CONNECTOR_HW_READOUT;
+ 	sii902x->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
  
 
 -- 
