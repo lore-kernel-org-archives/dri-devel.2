@@ -2,45 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A4C606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:30:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC87606A31F
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BN+vbkXU
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oViIK/3a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E9B21121CC;
-	Thu, 29 Oct 2026 10:30:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 469351121CC
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:30:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B03B1121CD;
+	Thu, 29 Oct 2026 10:30:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE4961121CD
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:30:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5AFF460211;
- Thu, 29 Oct 2026 10:30:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A811D1F01829;
- Thu, 29 Oct 2026 10:30:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 79D0E43952;
+ Thu, 29 Oct 2026 10:30:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D991F031E0;
+ Thu, 29 Oct 2026 10:30:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793269811;
- bh=AZC7Kq+rNbABpnx+qnFFaseVBAn2cBmm3lL+yoxx9VU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BN+vbkXUZxMvfKqEK4vfHBF3Zh23+Ao6r1kolOZus6Ff7M+SjPeiTopeWZ5OjX0lg
- BQ1JvCHkAQBTL5Ii5H82Kj6oEQGxWdZbkfujTRa82d2dw25VfdzVwR/gBdQNML8iv9
- iD/0n4ne1z7y1y2y4dhss5SJM17ldlzluVzvVTZN7BNGSd6bIcVqpPwELUz9BHvu7E
- mTBT48bD38m0++YDOUhpX7lDIKTE+JDnJPs80Vs8GOTzfdB7T9hi96dg32wbmRpufX
- 91Xz8qvEeoa/XZR7q/ffxSbxkbOb4dUhC5vEg1oPvEaoK0Vf7RZrDD7KpZqEBwTDQn
- /JYpNuGk/z88g==
-Message-ID: <sashiko-outbox-189134@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/4] arm64: dts: qcom: sc8280xp: enable PCIe ECAM and
- 64-bit memory
-To: "Xilin Wu" <sophon@radxa.com>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-In-Reply-To: <20261029-q8b-dts-v4-1-e8e7438f5545@radxa.com>
-References: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
- <20261029-q8b-dts-v4-1-e8e7438f5545@radxa.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 10:30:10 +0000
+ s=k20260515; t=1793269839;
+ bh=VcgPlgE6agKdSoEX7o8ZEBSDHZPyD8maBq9HFQn14+s=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=oViIK/3a1Q8yGtFgD32YBrch+a9sgt+lm9T+pDppylWeJk6ti7iOD7hzbxRvDmpiA
+ 2WQsPEODjwx3o+CioVsHCqIIGUTIjobutuhAcRLu8oRpUDfAiusIbFy/T9zt1pLwPn
+ 2NAkbOauJfE8QGLljzQFdksD5Xmv18Sl3nHH1lLYwMwjz/hg797tEgKjuLcqlqaBej
+ Ix3on8LNBb/j6BCa+ZCdutULurMQeFrYGSz/ReysEd5Ov7LZpxoQL/SFa9AzqjkFuI
+ ymVb48dtr5rfZutqhQ/tn8DaXHeSh5FuQBvY1XOTAj6GqgKQGLcVGPwLpc8e19ClfO
+ hdpeRJJnzDoNQ==
+Message-ID: <9e64390b-1c67-4a0d-b9f0-22c8de86bb6d@kernel.org>
+Date: Thu, 29 Oct 2026 12:30:33 +0200
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] dt-bindings: display: panel: novatek,nt36672e:
+ Document the reset GPIO polarity
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org
+References: <20261028095151.1682096-1-vz@kernel.org>
+ <20261028095151.1682096-2-vz@kernel.org>
+ <20261028-seagull-of-illegal-prestige-6cbbfa@quoll>
+ <07c2c10c-f442-480d-b545-666069c06e91@kernel.org>
+ <61e36fb1-6959-4c69-9afb-53264ff9331d@kernel.org>
+ <cb1b7f4e-f03d-4422-b4ae-4228fe9f86ab@kernel.org>
+ <20261029-calculating-imaginary-wolf-ccb2a2@quoll>
+From: Vladimir Zapolskiy <vz@kernel.org>
+In-Reply-To: <20261029-calculating-imaginary-wolf-ccb2a2@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,117 +68,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: sa8540p: missing reg and ranges on pcie2b, pcie3=
-b, pcie4
---
+On 10/29/26 11:49, Krzysztof Kozlowski wrote:
+> On Wed, Oct 28, 2026 at 10:27:35PM +0200, Vladimir Zapolskiy wrote:
+>> On 10/28/26 16:59, Krzysztof Kozlowski wrote:
+>>> On 28/10/2026 15:56, Vladimir Zapolskiy wrote:
+>>>>> We might fix it at some point, so not sure if it is worth documenting in
+>>>>> the binding. And what about usage of this binding in other projects
+>>>>> which implement it correctly?
+>>>>>
+>>>>
+>>>> In the upstream there is only one user qcm6490-idp.dts, and changing
+>>>> the polarity will be an ABI breaking change, unfortunately.
+>>>
+>>> And all other projects?
+>>>
+>>
+>> It might be a challenging task to check usage of "novatek,nt36672e"
+>> compatible display panels in all other projects. I've asked about it:
+>>
+>> * https://chatgpt.com/uc/6ae25571-2ef0-83ea-81e5-2522e70c4a93
+>>
+>> The check gives this info:
+>>
+>> 1. Linux kernel - invalid GPIO polarity in the driver and qcm6490-idp.dts,
+>> 2. Android - invalid GPIO polarity in the copied driver and qcm6490-idp.dts,
+>> 3. FreeBSD - invalid GPIO polarity in the copied qcm6490-idp.dts, no driver.
+>>
+>> Please let me know, if there are other projects to check. To my
+>> understanding the RESET_N polarity cannot be corrected anymore,
+>> and the best option is to clearly document a difference between
+>> the device and its dt-binding documentation.
+> 
+> It can be correct, just with impact so we choose not to, but
+> nevertheless hardware wants different polarity, so you should not state
+> in the binding the incorrect one.
+> 
+> This property corresponds to the hardware, not chosen SW implementation.
+> 
 
-commit 835660c7a888130654e80196f354e12277da4a3f
-Author: Xilin Wu <sophon@radxa.com>
+Here by the hardware do you mean a "novatek,nt36672e" compatible panel
+hardware, or a board hardware like sm8450-hdk?
 
-arm64: dts: qcom: sc8280xp: enable PCIe ECAM and 64-bit memory
+Its the panel hardware property to get a reset signal with the proper
+polarity (in the ideal world it's taken from the panel datasheet), then
+1) this description is missing in the panel dt bindings documentation,
+2) if added, this description would contradict to the panel datasheet.
 
-This commit updates the SC8280XP PCIe nodes to use 64-bit ECAM configuration
-spaces and adds 64-bit memory windows, while preserving the 32-bit address
-map on SA8540P for PCIe2a.
+It would make sense to document it, and that's the intention of this
+particular proposed change.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sa8540p.dtsi b/arch/arm64/boot/dts/=
-qcom/sa8540p.dtsi
-> index 23888029cc117..e5393a237497c 100644
-> --- a/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-> @@ -180,6 +180,15 @@ &gpu_smmu {
-> =20
->  &pcie2a {
->  	compatible =3D "qcom,pcie-sa8540p";
-> +	reg =3D <0x0 0x01c20000 0x0 0x3000>,
-> +	      <0x0 0x3c000000 0x0 0xf1d>,
-> +	      <0x0 0x3c000f20 0x0 0xa8>,
-> +	      <0x0 0x3c001000 0x0 0x1000>,
-> +	      <0x0 0x3c100000 0x0 0x100000>,
-> +	      <0x0 0x01c23000 0x0 0x1000>;
-> +
-> +	ranges =3D <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
-> +		 <0x02000000 0x0 0x3c300000 0x0 0x3c300000 0x0 0x1d00000>;
-
-[Severity: High]
-Should the legacy 32-bit reg and ranges properties also be preserved on
-&pcie2b, &pcie3b, and &pcie4 in arch/arm64/boot/dts/qcom/sa8540p.dtsi?
-
-This patch updates all five PCIe controllers in
-arch/arm64/boot/dts/qcom/sc8280xp.dtsi (pcie4, pcie3b, pcie3a, pcie2b, and
-pcie2a) to use the 64-bit ECAM config and MMIO address windows, but
-arch/arm64/boot/dts/qcom/sa8540p.dtsi only preserves the 32-bit windows for
-&pcie2a (and &pcie3a, which already overrides reg and ranges):
-
-arch/arm64/boot/dts/qcom/sa8540p.dtsi:
-    &pcie2b {
-        compatible =3D "qcom,pcie-sa8540p";
-
-        linux,pci-domain =3D <1>;
-
-        interrupts =3D <GIC_SPI 263 IRQ_TYPE_LEVEL_HIGH>;
-        interrupt-names =3D "msi";
-    };
-    ...
-    &pcie3b {
-        compatible =3D "qcom,pcie-sa8540p";
-
-        linux,pci-domain =3D <3>;
-
-        interrupts =3D <GIC_SPI 565 IRQ_TYPE_LEVEL_HIGH>;
-        interrupt-names =3D "msi";
-    };
-
-    &pcie4 {
-        compatible =3D "qcom,pcie-sa8540p";
-
-        linux,pci-domain =3D <4>;
-
-        interrupts =3D <GIC_SPI 518 IRQ_TYPE_LEVEL_HIGH>;
-        interrupt-names =3D "msi";
-    };
-
-Meanwhile, arch/arm64/boot/dts/qcom/sa8295p-adp.dts includes sa8540p.dtsi a=
-nd
-enables both &pcie3b and &pcie4 without overriding reg or ranges:
-
-arch/arm64/boot/dts/qcom/sa8295p-adp.dts:
-    &pcie3b {
-        pinctrl-names =3D "default";
-        pinctrl-0 =3D <&pcie3b_default>;
-
-        status =3D "okay";
-    };
-    ...
-    &pcie4 {
-        pinctrl-names =3D "default";
-        pinctrl-0 =3D <&pcie4_default>;
-
-        status =3D "okay";
-    };
-
-As noted in commit b8bf63f8eb72 ("arm64: dts: qcom: sa8540p-ride: enable PC=
-Ie
-support"), accessing unconfigured PCIe address windows on SA8540P/SA8295P
-TrustZone firmware causes the board to crash into ramdump mode. When
-qcom_pcie_probe() -> dw_pcie_host_init() runs on SA8295P-ADP (or any SA8540P
-board enabling pcie2b, pcie3b, or pcie4), won't those controllers inherit t=
-he
-SC8280XP 64-bit address ranges (0x4_00000000..0x4_ffffffff) and trigger a
-crash at boot?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-q8b-dts-v4=
--0-e8e7438f5545@radxa.com?part=3D1
+-- 
+Best wishes,
+Vladimir
