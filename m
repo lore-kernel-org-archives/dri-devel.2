@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE30C606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:38:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A6B606A324
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:38:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhAvuHMx
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPWT20Gu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FFDF1122EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50E331122EB;
 	Thu, 29 Oct 2026 13:38:02 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274C110E80F
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDD231122CC
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:37:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 108E243460;
- Thu, 29 Oct 2026 13:36:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47631F01825;
- Thu, 29 Oct 2026 13:36:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 87AEC435D9;
+ Thu, 29 Oct 2026 13:37:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3211B1F01825;
+ Thu, 29 Oct 2026 13:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793281018;
- bh=h7/WajsG/j4H6248wyjA9raYhJwLC+lNXG4AAfWTGD0=;
+ s=k20260515; t=1793281020;
+ bh=Ps5AXVGEkzhFdZfDreBUAkliDLIoFCykB99Kc4r+tnU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=EhAvuHMxgeGO4uFSEMqS118FMWo7aeMCv9ilrZoMZR4/30I4DY19G4aEbHviB2YM+
- Sm/xxCEaF3AK3uGm8MHpueMT1Q6/uZMAV0G3PsV0001DtbAGgz+26iIbl9K+JgWaqa
- GgjMqkbMenp/U6c3axnDUE31LPBs8vwIksocopYw8fs0Ot5xPWDYPVq48gZdP1/GIj
- EAHrICcGnWBtrNxHOreLp2wOqJLPBbHx+wHV7GAb5NWdHL/GQuI5XnOFwOGfMCPqjm
- x8fm768dz1O5U32lwPY9e4ilbL4zT6d71vDFJd/x2gViQv633iFrEGM63g65ju4pD5
- 7yGEqA3DyAvBg==
+ b=SPWT20GuXnP07sNiBsq4tRjfLR7XL6oQOUtA3wPDRkrh0WdhWS4kllqgLkejw94Na
+ NG3CwEropcqzDrPDJ4UqHy8/XByQPC6+o4r0ic4AFtyh6xGkCR20Lyo1UqRpNqOZwI
+ KZLRjs2pyyjbrUwY8Sxe03UQub7NtXedug/xnDT/zF9vwW4NLgjOX8/yLVcwe37oeB
+ u09yI/4zzvjlGRHn336Yd4QMvYj9dS8xjsVaxZ+0WsHbtE536Dg7mZNBgoxNbLUlWw
+ L4FZ42dtIeQ/2RSlZadoA60XLDApGlrbvdE80RgXvseOH6dCWxR5n9Jtz4YpL2Pi6E
+ nvTRktXDBkBTw==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:36:14 -0500
-Subject: [PATCH v4 27/31] accel: ethosu: Validate OFM transpose
+Date: Thu, 29 Oct 2026 08:36:16 -0500
+Subject: [PATCH v4 29/31] accel: ethosu: Ensure cmd stream is multiple of 4
+ bytes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-27-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-29-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -60,139 +61,33 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-U85 OFM dimensions are specified before transposition, while
-tile bases and strides address the transposed feature map. Permute
-the output endpoint before validating its tile and stride accesses.
+The command-stream validator consumes 32-bit words, so reject empty or
+unaligned streams at that boundary. This also prevents QSIZE from
+receiving an unvalidated trailing byte.
 
-Allow the defined U85 transpose encodings and reject the two
-reserved encodings.
-
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v4:
- - Allow only HWC, HCW, and CHW output layouts for elementwise ops
- - Don't allow 64-bit output precision and chained output storage
-
-v2:
- - no change
+ - New patch
 ---
- drivers/accel/ethosu/ethosu_device.h |  1 +
- drivers/accel/ethosu/ethosu_gem.c    | 69 ++++++++++++++++++++++++++++++++++--
- 2 files changed, 68 insertions(+), 2 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index d3df6720085d..c3789474fa7b 100644
---- a/drivers/accel/ethosu/ethosu_device.h
-+++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -92,6 +92,7 @@ struct gen_pool;
- #define NPU_OP_CONV_WEIGHTS_IFM2	BIT(0)
- #define NPU_KERNEL_DILATION_X		BIT(3)
- #define NPU_KERNEL_DILATION_Y		BIT(4)
-+#define NPU_OFM_TRANSPOSE_MASK		GENMASK(13, 11)
- 
- #define NPU_CMD_CTRL_CMD1		BIT(14)
- 
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 04c0de8336cd..fe6bf1a2f8cb 100644
+index 0b227664afc7..1935440fb815 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -422,6 +422,52 @@ static int feat_matrix_validate(struct ethosu_device *edev,
+@@ -965,6 +965,8 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
  
- 	return 0;
- }
-+
-+static int feat_matrix_permute(struct ethosu_device *edev,
-+			       struct feat_matrix *fm, u32 *x, u32 *y,
-+			       u32 *c, bool ofm)
-+{
-+	u32 width = *x;
-+	u32 height = *y;
-+	u32 depth = *c;
-+	u32 transpose;
-+
-+	if (ethosu_is_u65(edev) || !ofm)
-+		return 0;
-+
-+	transpose = FIELD_GET(NPU_OFM_TRANSPOSE_MASK, fm->precision);
-+
-+	switch (transpose) {
-+	case 0: /* HWC */
-+		break;
-+	case 1: /* WHC */
-+		*x = height;
-+		*y = width;
-+		break;
-+	case 2: /* HCW */
-+		*x = depth;
-+		*c = width;
-+		break;
-+	case 3: /* WCH */
-+		*x = depth;
-+		*y = width;
-+		*c = height;
-+		break;
-+	case 6: /* CHW */
-+		*x = height;
-+		*y = depth;
-+		*c = width;
-+		break;
-+	case 7: /* CWH */
-+		*y = depth;
-+		*c = height;
-+		break;
-+	default:
+ 	if (!info)
+ 		return -ENOMEM;
++	if (!size || size & 3)
 +		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
- static u64 feat_matrix_length(struct ethosu_device *edev,
- 			      struct ethosu_validated_cmdstream_info *info,
- 			      struct cmd_state *st, struct feat_matrix *fm,
-@@ -528,6 +574,9 @@ static int feat_matrix_size(struct ethosu_device *edev,
- 	int ret;
+ 	info->cmd_size = size;
  
- 	*max_len = 0;
-+	ret = feat_matrix_permute(edev, fm, &x, &y, &c, ofm);
-+	if (ret)
-+		return ret;
- 
- 	if (storage == 0) {
- 		ret = feat_matrix_check_location(edev, info, st, fm, type, 0, 0,
-@@ -900,6 +949,11 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 				return ret;
- 			break;
- 		case NPU_OP_ELEMENTWISE:
-+			if (!ethosu_is_u65(edev) &&
-+			    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st.ofm.precision) != 0 &&
-+			    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st.ofm.precision) != 2 &&
-+			    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st.ofm.precision) != 6)
-+				return -EINVAL;
- 			if (!ethosu_is_u65(edev) &&
- 			    !cmd_state_reg_is_set(&st, NPU_SET_IFM_BROADCAST))
- 				return -EINVAL;
-@@ -1000,8 +1054,19 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 		case NPU_SET_OFM_PRECISION:
- 			if (((param >> 6) & 0x3) > 1)
- 				return -EINVAL;
--			if (!ethosu_is_u65(edev) && (param & GENMASK(13, 11)))
--				return -EINVAL;
-+			if (!ethosu_is_u65(edev)) {
-+				u32 transpose = FIELD_GET(NPU_OFM_TRANSPOSE_MASK, param);
-+
-+				switch (transpose) {
-+				case 4:
-+				case 5:
-+					return -EINVAL;
-+				}
-+				if (transpose && ((param >> 1) & 0x3) == 3)
-+					return -EINVAL;
-+				if ((param >> 14) == 2 && transpose)
-+					return -EINVAL;
-+			}
- 			st.ofm.precision = param;
- 			break;
- 		case NPU_SET_OFM_REGION:
+ 	cmd_state_init(&st);
 
 -- 
 2.53.0
