@@ -2,127 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6870F606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CEB606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:12:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fJqSyjMR;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mT+3/vZE;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fJqSyjMR;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mT+3/vZE
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mWLFSnDC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C54DC11207E;
-	Thu, 29 Oct 2026 08:10:40 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 934D2112084
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:10:29 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1AB351F385;
- Thu, 29 Oct 2026 08:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793261428; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=5rBZ0kFvUh2i3PD86rsaq90lGhsDruIK+LJgf4TiufE=;
- b=fJqSyjMR123MaZQ++4XcOMlHl3DGd8R/7vEzojiPss9ZF4DefVlIxSzLA9+rKt9UfgFTNb
- LL7QBh/a6lsec0KelDwGMENnoJC2fUn3jaPCnJRCLt97g1ghdsT3fZsBM5dV+ek3nQjPSa
- pqGgft5un3mV+q0kVIpPNOwx6S96wMQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793261428;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=5rBZ0kFvUh2i3PD86rsaq90lGhsDruIK+LJgf4TiufE=;
- b=mT+3/vZEIfsBnC6J3GUTIoeq8FKF3UhUq5yQcaqSTDW/qVydR8OWHyyOdIeBbQuQse+1z3
- zweUVYwqht1iZsCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793261428; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=5rBZ0kFvUh2i3PD86rsaq90lGhsDruIK+LJgf4TiufE=;
- b=fJqSyjMR123MaZQ++4XcOMlHl3DGd8R/7vEzojiPss9ZF4DefVlIxSzLA9+rKt9UfgFTNb
- LL7QBh/a6lsec0KelDwGMENnoJC2fUn3jaPCnJRCLt97g1ghdsT3fZsBM5dV+ek3nQjPSa
- pqGgft5un3mV+q0kVIpPNOwx6S96wMQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793261428;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=5rBZ0kFvUh2i3PD86rsaq90lGhsDruIK+LJgf4TiufE=;
- b=mT+3/vZEIfsBnC6J3GUTIoeq8FKF3UhUq5yQcaqSTDW/qVydR8OWHyyOdIeBbQuQse+1z3
- zweUVYwqht1iZsCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1E8F13419;
- Thu, 29 Oct 2026 08:10:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id v4IaHnP/4mpvMgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 29 Oct 2026 08:10:27 +0000
-Message-ID: <905d902c-461f-4a0e-9ac2-0ad02fe9cabe@suse.de>
-Date: Thu, 29 Oct 2026 09:10:27 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PCI/VGA: Enable firmware default device detection on
- LoongArch
-To: wuqianhai@loongson.cn, bhelgaas@google.com
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- javierm@redhat.com, dri-devel@lists.freedesktop.org
-References: <20261028094634.766723-1-wuqianhai@loongson.cn>
- <20261029033440.973077-1-wuqianhai@loongson.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261029033440.973077-1-wuqianhai@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-0.998];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- ARC_NA(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_FIVE(0.00)[6]; FROM_EQ_ENVFROM(0.00)[];
- TO_DN_NONE(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- bootlin.com:url, loongson.cn:email]
-X-Spam-Score: -13.29
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83CEA11201C;
+	Thu, 29 Oct 2026 08:12:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFFDD11201C
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:12:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EC543600D1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:12:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 816EC1F01825;
+ Thu, 29 Oct 2026 08:12:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793261554;
+ bh=xFiw3q2XJSmE6+HSvlKGZlbAB2GSTJJVlN8Yf88idJE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mWLFSnDCsRmwx0d0jmcAIrVORcczQ/0QdHx+98TiniSPgyGExjn0jjiZiOs8mNasw
+ gpRk7dSPYg9dMXJF21ciercDdk1fN956AsMggtff9CR/D7vscfcUu3oIHqmpZJUGrz
+ zLcCaoRoiH1mJA0kKOwFzY+ux/OREyljqVLZkOJLhdphRoYtWyfD/HKb1/Q75GQ2g+
+ aeZnybXeNnh2vTcHeu2e30L2OPyPwBaUO7paF42IuonA7NzH6HaOitDTpfPhh2fEbg
+ XruDrf3knw2jfp+ojfgqHkYdRSvDbQ4120d6CFdUKeH8P03NJQ2eeG9mUJ2F5OLm6h
+ E4NY7UYL9grPw==
+Message-ID: <sashiko-outbox-188951@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 34/34] drm/bridge: sii902x: Implement hw state readout
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261029-drm-state-readout-v7-34-25e5163d75c3@kernel.org>
+References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
+ <20261029-drm-state-readout-v7-34-25e5163d75c3@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 08:12:34 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,111 +48,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi
-
-Am 29.10.26 um 04:34 schrieb wuqianhai@loongson.cn:
-> From: wuqianhai <wuqianhai@loongson.cn>
->
-> On LoongArch, PCI resource assignment completes during subsys_initcall
-> (acpi_init), before vga_arb_device_init() runs.  By that time the
-> firmware framebuffer BAR may already have been relocated, leaving
-> screen_info's lfb_base stale.  Enable vga_is_firmware_default() for
-> LoongArch and refresh screen_info in vga_arb_device_init() before the
-> boot device is matched.
->
-> Unlike x86, sysfb_primary_display is only defined when CONFIG_SYSFB is
-> enabled on LoongArch, so have VGA_ARB select SYSFB there.
->
-> Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
-> ---
-> Changes in v2:
-> - Add VGA_ARB's select of SYSFB for LoongArch to avoid an undefined
->    reference when CONFIG_SCREEN_INFO is not set.
-> - Restrict the screen_info_apply_fixups() call to CONFIG_LOONGARCH so
->    x86 and other architectures are unaffected.
-> - Enable vga_is_firmware_default() for LoongArch.
-> ---
->   drivers/pci/Kconfig  |  1 +
->   drivers/pci/vgaarb.c | 12 +++++++++++-
->   2 files changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
-> index 0c7408509ba2..55cc60f5d312 100644
-> --- a/drivers/pci/Kconfig
-> +++ b/drivers/pci/Kconfig
-> @@ -256,6 +256,7 @@ config VGA_ARB
->   	default y
->   	depends on !S390
->   	select SCREEN_INFO if X86
-> +	select SYSFB if LOONGARCH
->   	help
->   	  Some "legacy" VGA devices implemented on PCI typically have the same
->   	  hard-decoded addresses as they did on ISA. When multiple PCI devices
-> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> index 3e58b2c05c85..1b7e915629f9 100644
-> --- a/drivers/pci/vgaarb.c
-> +++ b/drivers/pci/vgaarb.c
-> @@ -566,7 +566,7 @@ EXPORT_SYMBOL(vga_put);
->   
->   static bool vga_is_firmware_default(struct pci_dev *pdev)
->   {
-> -#if defined CONFIG_X86
-> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
->   	return pdev == screen_info_pci_dev(&sysfb_primary_display.screen);
->   #else
->   	return false;
-> @@ -1527,6 +1527,16 @@ static int __init vga_arb_device_init(void)
->   	int rc;
->   	struct pci_dev *pdev;
->   
-> +#if defined(CONFIG_LOONGARCH)
-> +	/*
-> +	 * On LoongArch, PCI resource assignment completes during
-> +	 * subsys_initcall (acpi_init), before the VGA arbiter runs.  Refresh
-> +	 * screen_info so vga_is_firmware_default() can match the relocated
-> +	 * BAR.
-> +	 */
-> +	screen_info_apply_fixups();
-> +#endif
-
-No per-arch defines in generic code.  All the setup should work the same 
-on all architectures.  All global screen-info state should be maintained 
-by drivers/firmware/sysfb.c. Otherwise the framebuffer setup gets even 
-more convoluted than it already is.
-
-My question is why does vga_is_firmware_default() run before 
-sysfb_init()? [1] Does acpi_init call into it? [1] 
-https://elixir.bootlin.com/linux/v7.3/source/drivers/firmware/sysfb.c#L225
-
-
-Apart from that, we can decouple screen_info_apply_fixups() from 
-sysfb_init().  After relocation happens, the PCI code could call the 
-helper directly and let it update the global screen_info.
-
-Best regards
-Thomas
-
-
-> +
->   	rc = misc_register(&vga_arb_device);
->   	if (rc < 0)
->   		pr_err("error %d registering device\n", rc);
-
--- 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/bridge: sii902x: missing mutex lock in readout callbacks
+- [Medium] drm/bridge: sii902x: ignored regmap_test_bits() error in readout=
+_state()
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
+commit ce74a42cab42e6bb481c531e7732368f37a0e27c
+Author: Maxime Ripard <mripard@kernel.org>
 
+drm/bridge: sii902x: Implement hw state readout
+
+This commit implements hardware state readout callbacks for the sii902x
+bridge driver and enables DRM_BRIDGE_OP_CONNECTOR_HW_READOUT.
+
+> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/si=
+i902x.c
+> index e067c0636e7f5..ab5ffcf6882f2 100644
+> --- a/drivers/gpu/drm/bridge/sii902x.c
+> +++ b/drivers/gpu/drm/bridge/sii902x.c
+[ ... ]
+> @@ -537,6 +539,89 @@ sii902x_bridge_mode_valid(struct drm_bridge *bridge,
+>  	return MODE_OK;
+>  }
+> =20
+> +static int
+> +sii902x_bridge_connector_readout(struct drm_bridge *bridge,
+> +				 struct drm_atomic_sro_state *state,
+> +				 struct drm_connector_state *conn_state)
+> +{
+> +	struct sii902x *sii902x =3D bridge_to_sii902x(bridge);
+> +	struct drm_connector *connector =3D conn_state->connector;
+> +	struct drm_crtc_state *crtc_state;
+> +	struct drm_encoder *encoder;
+> +	struct drm_crtc *crtc;
+> +	int ret;
+> +
+> +	ret =3D regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902=
+X_SYS_CTRL_PWR_DWN);
+
+[Severity: High]
+Should sii902x_bridge_connector_readout() and sii902x_bridge_readout_state()
+hold sii902x->mutex around their regmap_test_bits() calls?
+
+In drivers/gpu/drm/bridge/sii902x.c, sii902x_regmap_config disables regmap's
+internal locking:
+
+static const struct regmap_config sii902x_regmap_config =3D {
+	.reg_bits =3D 8,
+	.val_bits =3D 8,
+	.disable_locking =3D true, /* struct sii902x mutex should be enough */
+	...
+};
+
+All other post-init regmap callers in this driver (such as
+sii902x_interrupt(), sii902x_detect(), sii902x_edid_read(),
+sii902x_bridge_mode_set(), and the audio callbacks) serialize access via
+sii902x->mutex.
+
+Without holding sii902x->mutex here, an unlocked regmap_test_bits() during
+initial state readout or post-commit drm_atomic_sro_readout_and_compare()
+can race with concurrent HPD interrupt handling, DDC operations, or ALSA
+audio callbacks and clobber regmap's shared map->work_buf or interleave I2C
+sequences.
+
+> +	/* I2C error */
+> +	if (ret < 0)
+> +		return ret;
+> +	/* Device is powered down, nothing to read out */
+> +	if (ret)
+> +		return 0;
+[ ... ]
+> +static int sii902x_bridge_readout_state(struct drm_bridge *bridge,
+> +					struct drm_atomic_sro_state *state,
+> +					struct drm_bridge_state *bridge_state,
+> +					struct drm_crtc_state *crtc_state,
+> +					struct drm_connector_state *conn_state)
+> +{
+> +	struct sii902x *sii902x =3D bridge_to_sii902x(bridge);
+> +	u32 input_format;
+> +
+> +	if (regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902X_SY=
+S_CTRL_PWR_DWN))
+> +		return 0;
+
+[Severity: Medium]
+What happens in sii902x_bridge_readout_state() if regmap_test_bits() fails
+with a negative error code?
+
+Because a negative errno is non-zero, the if condition evaluates to true and
+sii902x_bridge_readout_state() returns 0 as though the device were powered
+down, leaving bridge_state->input_bus_cfg and bridge_state->output_bus_cfg
+unpopulated.
+
+Should this check for ret < 0 and propagate the error like
+sii902x_bridge_connector_readout() does above?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-drm-state-=
+readout-v7-0-25e5163d75c3@kernel.org?part=3D34
