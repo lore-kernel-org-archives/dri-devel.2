@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC1E606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:29:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018B6606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:33:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxWCw2k6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OnWgn9kb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6C5C112350;
-	Thu, 29 Oct 2026 14:29:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F09C11234F;
+	Thu, 29 Oct 2026 14:33:28 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2420511235F
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:29:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4E0311234F
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:33:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E347C41B4B
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:29:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92D71F01825;
- Thu, 29 Oct 2026 14:29:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8899940808;
+ Thu, 29 Oct 2026 14:33:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324D21F01825;
+ Thu, 29 Oct 2026 14:33:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793284158;
- bh=B+ItxzyzcIhV1ISu+JHSDX0OiZQp7YxA1i2Lvp3D9a4=;
+ s=k20260515; t=1793284402;
+ bh=sZeo/FDHvRmMrSw89uBLRUSgC6xoljRlrhmh8tIp1DM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gxWCw2k6JOC5NaEUjbWh7AZ8EEJotLY/a91oS7clpVav2Srjx9h2lhtlLUY8s6JHk
- uYAuA5iMue/GXIisaOwoaj7g0GoLBE5fnY3hg9IWUz8EUR3g9EAPJb75oxmXy33WtL
- uY3rzjPdXoBjy+udWh69KENgx7nj7Lv/UD53bAvLh0LE2C/ZQ4W2LJuNXOeSfRVkKR
- d65PdeiXqI/XObbBx5ki2q2JJwdiFH7+68Kh2uG3VwZeeAMJXGj/pz4cl515SnJE3Q
- FbdYVuQOhv+w4E93gzLx/lzdW1S1JEze/bwp7Z6W3qo/6UYGXspT+Hhit7UyvM/DyT
- AgDnQTDLUlfsQ==
-Message-ID: <sashiko-outbox-189517@kernel.org>
+ b=OnWgn9kbRpQkIa8oJ2JQzhyU+CQe7e+RT3D4OIKvvunzCVtGxrwsJs2NgAS0jB1RC
+ 14SSzA2R8ahHPG2K9ZEtZeWqEZDWu0mvWkC3qXVl5tqCHi9xCv3CrhBci6/3fnB0vq
+ ABlyecjJwWtWF3DIJl02VxFZFPxk7th0DkRCDf7148w5Zzg07rJS6Aik2f4H4xgbM2
+ 5ZwpsWu6iY6TT7c5ulLOuoy/Sfd+Ys3vW/zMJ5/QsOmDhEqBd48oqapzJZnUGwHOYR
+ p3D/0TuI86P7lrz51yfSrjmHaLYnuaL77c5VL4j3a1Z8kmr+ds/ARTJTn6vRGdChsu
+ wgriXrynVp5sA==
+Message-ID: <sashiko-outbox-189527@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 10/31] accel: ethosu: Keep scheduler after unplug
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029-ethosu-fixes-v4-10-4aa25e22578e@kernel.org>
-References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-10-4aa25e22578e@kernel.org>
+Subject: Re: [PATCH RFC v2 09/14] drm/msm: initialize LPAC ring
+To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-9-a21a5c850961@gmail.com>
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-9-a21a5c850961@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 14:29:18 +0000
+Date: Thu, 29 Oct 2026 14:33:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,260 +53,240 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] accel: ethosu: race with work_tdr and pending_list leak in ethosu_=
-job_stop()
-- [High] accel: ethosu: double clock disable and RPM imbalance in ethosu_re=
-move()
-- [Medium] accel: ethosu: premature entity kill on file close in ethosu_job=
-_close()
+- [High] drm/msm: adreno_gpu_init() enables LPAC without checking lpac_pdev
+- [Medium] drm/msm/a6xx: shadow RPTR size and clear mismatch on preempt ini=
+t fallback
+- [Medium] drm/msm/a6xx: unhalted LPAC SQE in a6xx_recover() and a6xx_gpu_s=
+tate_get()
+- [Medium] drm/msm/a6xx: missing LPAC GX registers in A7xx IFPC/pwrup regli=
+sts
 --
 
-commit b4de18ee902b7d8141192389e4617bb0996bcadc
-Author: Rob Herring (Arm) <robh@kernel.org>
+commit 35ad03732804997c43b27fa187ec0be66e34e69c
+Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-accel: ethosu: Keep scheduler after unplug
+drm/msm: initialize LPAC ring
 
-This commit defers scheduler teardown until the final DRM device reference =
-is
-released and tracks open scheduling entities so device removal can stop each
-entity and cancel the in-flight job while leaving the scheduler alive for
-postclose handling.
+This commit programs the hardware registers required to start the LPAC ring
+and sends the CP initialization sequence. It also updates ringbuffer
+management, fence retirement, and scheduler suspend/resume paths to account
+for the live LPAC ring.
 
-> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/eth=
-osu_drv.c
-> index 91b2c2ab0a03e..ee50e7db36ad1 100644
-> --- a/drivers/accel/ethosu/ethosu_drv.c
-> +++ b/drivers/accel/ethosu/ethosu_drv.c
-[ ... ]
-> @@ -389,20 +389,18 @@ static int ethosu_probe(struct platform_device *pde=
-v)
-[ ... ]
->  static void ethosu_remove(struct platform_device *pdev)
->  {
->  	struct ethosu_device *ethosudev =3D dev_get_drvdata(&pdev->dev);
-> +	bool clocks_disabled;
-> =20
->  	drm_dev_unplug(&ethosudev->base);
-> -	ethosu_job_fini(ethosudev);
-> -
->  	pm_runtime_barrier(&pdev->dev);
-> -	if (!pm_runtime_status_suspended(&pdev->dev))
-> +	clocks_disabled =3D ethosu_job_stop(ethosudev);
-> +	if (!clocks_disabled && !pm_runtime_status_suspended(&pdev->dev))
->  		ethosu_device_suspend(&pdev->dev);
-
-[Severity: High]
-Can calling ethosu_device_suspend() directly here (or inside ethosu_job_sto=
-p()
-when ethosu_device_reset() fails) cause clk_bulk_disable_unprepare() to run=
- a
-second time during devres teardown?
-
-In ethosu_init(), the driver enables autosuspend and registers runtime PM
-cleanup via devm_pm_runtime_set_active_enabled().
-
-In ethosu_remove(), pm_runtime_barrier() is called before ethosu_job_stop().
-Inside ethosu_job_stop(), ethosu_perfmon_stop_locked() calls pm_runtime_put=
-(),
-and flushing work_free_job runs ethosu_job_cleanup() ->
-pm_runtime_put_autosuspend(), which drops usage_count and arms the autosusp=
-end
-timer while runtime_status remains RPM_ACTIVE.
-
-When ethosu_device_suspend() is then called directly, it disables and
-unprepares the clocks without updating runtime_status to RPM_SUSPENDED or
-disabling runtime PM. When ethosu_remove() returns and devres_release_all()
-runs pm_runtime_disable_action() -> pm_runtime_dont_use_autosuspend() ->
-rpm_idle() -> rpm_suspend() (or if the autosuspend timer fires first),
-runtime PM invokes ethosu_device_suspend() again on already-disabled clocks.
-
-In addition, for queued entity jobs killed via drm_sched_entity_kill() in
-ethosu_job_stop(), cleanup runs asynchronously via
-drm_sched_entity_kill_jobs_work(). Because ethosu_job_stop() does not wait =
-for
-those killed jobs (such as jobs waiting on external dependencies kept alive=
- via
-keep_device), won't they retain their pm_runtime_resume_and_get() usage_cou=
-nt
-references across ethosu_remove() and later call pm_runtime_put_autosuspend=
-()
-in ethosu_job_cleanup() after the device has been unbound?
-
-> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
-osu_job.c
-> index 8ffdc83d06f98..ef95a8abd61e2 100644
-> --- a/drivers/accel/ethosu/ethosu_job.c
-> +++ b/drivers/accel/ethosu/ethosu_job.c
-[ ... ]
-> @@ -388,45 +421,76 @@ int ethosu_job_init(struct ethosu_device *edev)
-[ ... ]
-> -void ethosu_job_fini(struct ethosu_device *dev)
-> +bool ethosu_job_stop(struct ethosu_device *dev)
->  {
-> +	struct ethosu_file_priv *priv;
-> +	struct ethosu_job *job;
-> +	bool clocks_disabled =3D false;
-> +
-> +	guard(mutex)(&dev->sched_lock);
->  	drm_sched_wqueue_stop(&dev->sched);
-> +	disable_irq(dev->irq);
->  	cancel_delayed_work_sync(&dev->sched.work_tdr);
-> =20
-> -	if (READ_ONCE(dev->in_flight_job)) {
-> -		WRITE_ONCE(dev->in_flight_job, NULL);
-> -		ethosu_device_reset(dev);
-> +	scoped_guard(mutex, &dev->perfmon_state.lock)
-> +		ethosu_perfmon_stop_locked(dev, dev->perfmon_state.active, false);
-> +
-> +	list_for_each_entry(priv, &dev->sched_entities, sched_entity_list)
-> +		drm_sched_entity_kill(&priv->sched_entity);
-> +
-> +	job =3D ethosu_job_clear_in_flight(dev);
-> +	if (job && ethosu_device_reset(dev)) {
-> +		ethosu_device_suspend(dev->base.dev);
-> +		clocks_disabled =3D true;
->  	}
-> =20
-> -	synchronize_irq(dev->irq);
-> -	drm_sched_fini(&dev->sched);
-> +	if (job)
-> +		ethosu_job_cancel(&job->base);
-> +
-> +	/* Let drm-sched release the cancelled in-flight job. */
-> +	drm_sched_wqueue_start(&dev->sched);
-> +	flush_work(&dev->sched.work_free_job);
-> +	drm_sched_wqueue_stop(&dev->sched);
-> +
-> +	return clocks_disabled;
->  }
-
-[Severity: High]
-What happens in ethosu_job_stop() if work_tdr (drm_sched_job_timedout() ->
-ethosu_job_timedout()) is already running or has previously failed recovery?
-
-First, drm_sched_wqueue_stop() and disable_irq() are called before
-cancel_delayed_work_sync(&dev->sched.work_tdr) and before killing entities =
-with
-drm_sched_entity_kill(). Since ethosu_job_timedout() does not take
-dev->sched_lock:
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_timedout() {
-	...
-	drm_sched_stop(&dev->sched, bad);
-
-	ethosu_job_clear_in_flight(dev);
-
-	/* Proceed with reset now. */
-	ret =3D pm_runtime_force_suspend(dev->base.dev);
-	if (!ret)
-		ret =3D pm_runtime_force_resume(dev->base.dev);
-	if (ret) {
-		dev_err(dev->base.dev, "Failed to recover NPU: %d\n", ret);
-		return DRM_GPU_SCHED_STAT_ENODEV;
-	}
-
-	/* Drain a pending completion IRQ before a replacement job can run. */
-	synchronize_irq(dev->irq);
-
-	/* Restart the scheduler */
-	drm_sched_start(&dev->sched, 0);
-	...
-}
-
-an in-progress ethosu_job_timedout() can finish recovery while
-ethosu_job_stop() is waiting in cancel_delayed_work_sync(&dev->sched.work_t=
-dr)
-and call drm_sched_start() -> drm_sched_wqueue_start() (as well as
-drm_sched_start_timeout_unlocked() in drm_sched_job_timedout()). When
-cancel_delayed_work_sync() returns, sched->pause_submit is false and
-work_run_job is queued while dev->sched_entities are not yet killed. Can
-drm_sched_run_job_work() then pop a job from an entity before
-drm_sched_entity_kill() reaches it, submit it to hardware via ethosu_job_ru=
-n()
-with IRQs already disabled, and re-arm work_tdr after
-cancel_delayed_work_sync() has completed?
-
-Second, if a prior timeout recovery in ethosu_job_timedout() failed at
-pm_runtime_force_suspend() or pm_runtime_force_resume() and returned
-DRM_GPU_SCHED_STAT_ENODEV, drm_sched_stop() has already placed the timed-out
-job back onto dev->sched.pending_list and detached its parent fence callbac=
-k,
-while ethosu_job_clear_in_flight() cleared dev->in_flight_job to NULL.
-
-Because ethosu_job_push() now takes a drm_dev_get() and try_module_get()
-reference on every pushed job until ethosu_job_cleanup(), and drm_sched_fin=
-i()
-(which calls drm_sched_cancel_remaining_jobs()) is deferred to the drmm act=
-ion
-ethosu_job_fini(), ethosu_job_stop() sees ethosu_job_clear_in_flight(dev) =
-=3D=3D
-NULL and never cancels the job left on dev->sched.pending_list. Doesn't this
-create a reference cycle where the unsignaled job on pending_list (and any
-entity jobs chained to entity->last_scheduled in drm_sched_entity_kill()) is
-never freed, leaking the drm_device, THIS_MODULE, GEM objects, and runtime =
-PM
-references?
-
-> =20
->  int ethosu_job_open(struct ethosu_file_priv *ethosu_priv)
->  {
->  	struct ethosu_device *dev =3D ethosu_priv->edev;
->  	struct drm_gpu_scheduler *sched =3D &dev->sched;
-> +	int ret;
-> =20
-> -	return drm_sched_entity_init(&ethosu_priv->sched_entity,
-> -				     DRM_SCHED_PRIORITY_NORMAL,
-> -				     &sched, 1, NULL);
-> +	guard(mutex)(&dev->sched_lock);
-> +	ret =3D drm_sched_entity_init(&ethosu_priv->sched_entity,
-> +				    DRM_SCHED_PRIORITY_NORMAL,
-> +				    &sched, 1, NULL);
-> +	if (!ret)
-> +		list_add(&ethosu_priv->sched_entity_list, &dev->sched_entities);
-> +
-> +	return ret;
->  }
-> =20
->  void ethosu_job_close(struct ethosu_file_priv *ethosu_priv)
->  {
-> +	struct ethosu_device *dev =3D ethosu_priv->edev;
->  	struct drm_sched_entity *entity =3D &ethosu_priv->sched_entity;
-> =20
-> +	scoped_guard(mutex, &dev->sched_lock) {
-> +		drm_sched_entity_kill(entity);
-> +		list_del(&ethosu_priv->sched_entity_list);
-> +	}
->  	drm_sched_entity_destroy(entity);
->  }
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/=
+msm/adreno/a6xx_catalog.c
+> index 3e6f409d13a2a..5ee00eead14c8 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1394,6 +1394,7 @@ static const u32 a750_ifpc_reglist_regs[] =3D {
+>  	REG_A6XX_SP_NC_MODE_CNTL,
+>  	REG_A6XX_CP_DBG_ECO_CNTL,
+>  	REG_A6XX_CP_PROTECT_CNTL,
+> +	REG_A6XX_CP_LPAC_PROTECT_CNTL,
 
 [Severity: Medium]
-Should ethosu_job_close() call drm_sched_entity_kill() unconditionally befo=
-re
-drm_sched_entity_destroy()?
+Should the other GX domain registers programmed for LPAC in hw_init() in
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c also be added to the A7xx IFPC and
+power-up restore lists?
 
-During normal operation when the device has not been unplugged,
-drm_sched_entity_destroy() calls drm_sched_entity_flush() to allow queued j=
-obs
-in entity->job_queue to be scheduled before drm_sched_entity_fini() kills t=
-he
-entity.
+Specifically, hw_init() configures these registers when gpu->lpac_rb is
+present:
 
-Because the scheduler has credit_limit =3D 1, if userspace submits multiple=
- jobs
-or a job waiting on dependencies and then closes the DRM file descriptor,
-calling drm_sched_entity_kill() first immediately sets entity->stopped =3D =
-true
-and aborts all unscheduled jobs in entity->job_queue with -ESRCH instead of
-flushing them in drm_sched_entity_destroy().
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c:hw_init() {
+	if (gpu->lpac_rb)
+		gpu_rmw(gpu, REG_A6XX_UCHE_DEBUG_CNTL_1, BIT(30), BIT(30));
+	...
+	if (gpu->lpac_rb) {
+		gpu_write(gpu, REG_A7XX_CP_LPAC_CHICKEN_DBG, 0x1);
+
+		gpu_write(gpu, REG_A7XX_SP_CHICKEN_BITS_2, BIT(4));
+		gpu_write(gpu, REG_A7XX_SP_LPAC_CHICKEN_BITS_2, BIT(4));
+	}
+}
+
+On IFPC-capable A7xx targets such as Adreno 750, the GX power domain
+collapses across IFPC without re-running hw_init(), and the CP only restores
+registers recorded in a750_ifpc_reglist_regs and a7xx_pwrup_reglist_regs by
+a7xx_patch_pwrup_reglist(). Because REG_A6XX_UCHE_DEBUG_CNTL_1,
+REG_A7XX_CP_LPAC_CHICKEN_DBG, REG_A7XX_SP_CHICKEN_BITS_2, and
+REG_A7XX_SP_LPAC_CHICKEN_BITS_2 are not in those lists, won't their LPAC
+settings revert to reset defaults after the first IFPC cycle?
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index 8b3bb2fd433ba..e7bc12de650ca 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+
+[ ... ]
+
+> @@ -1096,7 +1162,7 @@ static int a6xx_ucode_load(struct msm_gpu *gpu)
+>  	if ((adreno_gpu->base.hw_apriv || a6xx_gpu->has_whereami) &&
+>  	    !a6xx_gpu->shadow_bo) {
+>  		a6xx_gpu->shadow =3D msm_gem_kernel_new(gpu->dev,
+> -						      sizeof(u32) * gpu->nr_rings,
+> +						      sizeof(u32) * (gpu->nr_rings + !!gpu->lpac_rb),
+>  						      MSM_BO_WC | MSM_BO_MAP_PRIV,
+>  						      gpu->vm, &a6xx_gpu->shadow_bo,
+>  						      &a6xx_gpu->shadow_iova);
+
+[ ... ]
+
+> @@ -1451,7 +1533,10 @@ static int hw_init(struct msm_gpu *gpu)
+>  	if (a6xx_gpu->shadow_bo) {
+>  		gpu_write64(gpu, REG_A6XX_CP_RB_RPTR_ADDR,
+>  			shadowptr(a6xx_gpu, gpu->rb[0]));
+> -		for (unsigned int i =3D 0; i < gpu->nr_rings; i++)
+> +		if (gpu->lpac_rb)
+> +			gpu_write64(gpu, REG_A7XX_CP_LPAC_RB_RPTR_ADDR,
+> +				shadowptr(a6xx_gpu, gpu->lpac_rb));
+> +		for (unsigned int i =3D 0; i < (gpu->nr_rings + !!gpu->lpac_rb); i++)
+>  			a6xx_gpu->shadow[i] =3D 0;
+>  	}
+
+[Severity: Medium]
+Can a6xx_gpu->shadow[] be indexed past gpu->nr_rings + !!gpu->lpac_rb if
+a6xx_preempt_init() falls back to a single ring?
+
+During initialization in a6xx_gpu_init() -> adreno_gpu_init() ->
+msm_gpu_init(), gpu->lpac_rb is created with ring->id set to nr_rings (4 wh=
+en
+preemption is enabled):
+
+drivers/gpu/drm/msm/msm_gpu.c:msm_gpu_init() {
+	if (config->has_lpac) {
+		gpu->lpac_rb =3D msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs_iova);
+}
+
+After msm_gpu_init() returns, a6xx_gpu_init() calls a6xx_preempt_init(),
+which falls back to gpu->nr_rings =3D 1 on allocation failure without updat=
+ing
+gpu->lpac_rb->id:
+
+drivers/gpu/drm/msm/adreno/a6xx_preempt.c:a6xx_preempt_init() {
+fail:
+	/*
+	 * On failure to init preemption, fall back to a single
+	 * ring (ie. no preemption)
+	 */
+	a6xx_preempt_fini(gpu);
+	gpu->nr_rings =3D 1;
+}
+
+When adreno_load_gpu() then calls a6xx_ucode_load() and hw_init(),
+a6xx_gpu->shadow is sized for only 2 entries (gpu->nr_rings + !!gpu->lpac_r=
+b)
+and hw_init() only zeroes indices 0 and 1. However, shadowptr(a6xx_gpu,
+gpu->lpac_rb) and a6xx_get_rptr() still index a6xx_gpu->shadow[ring->id] at
+index 4:
+
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a6xx_get_rptr() {
+	if (adreno_gpu->base.hw_apriv || a6xx_gpu->has_whereami)
+		return a6xx_gpu->shadow[ring->id];
+}
+
+On subsequent hw_init() calls during runtime resume or GPU recovery, index 4
+is not zeroed and retains its stale RPTR value (8 from the 8-dword CP_ME_IN=
+IT
+packet in lpac_cp_init()), which causes adreno_idle() to see get_rptr() =3D=
+=3D
+wptr and return before the LPAC CP has drained CP_ME_INIT.
+
+> =20
+> @@ -1469,9 +1554,17 @@ static int hw_init(struct msm_gpu *gpu)
+>  	for (i =3D 0; i < gpu->nr_rings; i++)
+>  		gpu->rb[i]->cur_ctx_seqno =3D 0;
+> =20
+> +	if (gpu->lpac_rb)
+> +		gpu->lpac_rb->cur_ctx_seqno =3D 0;
+> +
+>  	/* Enable the SQE_to start the CP engine */
+>  	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 1);
+> =20
+> +	/* Enable the LPAC SQE_to start the CP engine */
+> +	//TODO is this needed? Doesn't fw do this at init?
+> +	if (gpu->lpac_rb)
+> +		gpu_write(gpu, REG_A6XX_CP_LPAC_SQE_CNTL, 1);
+
+[Severity: Medium]
+Now that REG_A6XX_CP_LPAC_SQE_CNTL is enabled here, should a6xx_recover() in
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c and a6xx_gpu_state_get() in
+drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c also halt the LPAC SQE by writi=
+ng
+3 to REG_A6XX_CP_LPAC_SQE_CNTL when gpu->lpac_rb is present?
+
+Currently, a6xx_recover() and a6xx_gpu_state_get() only halt
+REG_A6XX_CP_SQE_CNTL:
+
+drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c:a6xx_gpu_state_get() {
+	/* Halt SQE first */
+	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 3);
+}
+
+Leaving the LPAC SQE running while a6xx_gpu_state_get() reads indexed LPAC =
+CP
+registers (such as CP_LPAC_DRAW_STATE, CP_LPAC_ROQ_DBG, CP_SQE_AC_UCODE_DBG,
+CP_SQE_AC_STAT, and CP_LPAC_FIFO_DBG) and executes the crashdumper, or while
+a6xx_recover() prepares for reset, could result in inconsistent crash dump
+state or ongoing LPAC CP activity during recovery.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index 4389559e1d172..085e1b9044bc7 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+
+[ ... ]
+
+> @@ -1253,6 +1261,8 @@ int adreno_gpu_init(struct drm_device *drm, struct =
+platform_device *pdev,
+> =20
+>  	adreno_gpu_config.nr_rings =3D nr_rings;
+> =20
+> +	adreno_gpu_config.has_lpac =3D !!(config->info->quirks & ADRENO_QUIRK_L=
+PAC);
+
+[Severity: High]
+What happens on a target with ADRENO_QUIRK_LPAC when booting with an older
+Device Tree that lacks the qcom,lpac child node?
+
+Earlier in adreno_gpu_init(), gpu->lpac_pdev is only populated if the
+qcom,lpac child node exists:
+
+drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_gpu_init() {
+	lpac_node =3D of_get_compatible_child(pdev->dev.of_node, "qcom,lpac");
+	if (lpac_node)
+		gpu->lpac_pdev =3D of_find_device_by_node(lpac_node);
+}
+
+When gpu->lpac_pdev is NULL, adreno_iommu_create_vm() passes NULL for
+lpac_dev to msm_iommu_gpu_new(), so iommu->lpac_domain is never allocated or
+attached to SMMU context bank 1.
+
+If adreno_gpu_config.has_lpac is set based solely on ADRENO_QUIRK_LPAC
+without checking gpu->lpac_pdev (and adreno_hw_init() likewise calls
+qcom_scm_set_gpu_smmu_lpac_aperture(1) based only on ADRENO_QUIRK_LPAC),
+msm_gpu_init() will still create gpu->lpac_rb, hw_init() will initialize the
+LPAC ring, and msm_submitqueue_create() will allow userspace
+MSM_SUBMITQUEUE_LPAC submissions that switch to context bank 1 without an
+attached IOMMU domain.
+
+Should adreno_gpu_config.has_lpac require gpu->lpac_pdev !=3D NULL, and sho=
+uld
+adreno_hw_init() check gpu->lpac_rb before calling
+qcom_scm_set_gpu_smmu_lpac_aperture(1)?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-ethosu-fix=
-es-v4-0-4aa25e22578e@kernel.org?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
+e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D9
