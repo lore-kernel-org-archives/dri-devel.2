@@ -2,62 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B29606A33A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:29:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C577E606A329
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UbmeB+69
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dm/aCh2V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A53D41123DD;
-	Thu, 29 Oct 2026 15:29:50 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 688EE1123D5
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:29:36 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-c315869241fso360028266b.0
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:29:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 311A21123DC;
+	Thu, 29 Oct 2026 15:30:05 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 521931123D3
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:29:48 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-6b3dd83e779so4283854a12.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793287775; x=1793892575; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793287787; x=1793892587; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=6CPvjoYy7BE0WZR1WCFgrzG3A2OCzgKkq+RlO5AEapY=;
- b=UbmeB+696iQykrXNVHC5e5pF1Fep1QqLSpb0r6HxEKgFkl+iGsnOdRDqhbT7VUhd9n
- DYOpKcAZ4PiJH02TAzc03fQ8K0oAk0RsVNrNLMIozxVdhsHqiCskjNl+E9cQAZVnKoUZ
- QTKWv6iL4TwfA1N37G+sGL4zRYxqDRcglMq31/ZLq3txiL23+Wsx+vpe6e+AXSxX32eY
- /D6NFmOyYaBvgJC5LgRG0rr3ZbHOBfgLKy7xa2TUedHNs/wN5BhwPx6JPGFRVFyq3RGS
- ahvGFf7mnxWtAcmGMmWPiO5IMPlXanzRgvIcfU2pSxXPsljjcZzqL02smGoOf/jyx0Ca
- r+sA==
+ bh=wWQWFAQ/YeW0U3f8X8JNgjR9sIicTFidkftaJdNSKFk=;
+ b=dm/aCh2VJinv6ZVB8l2wsGkbhM12as4OrlBXnB/P0iOA8t4SmcGj7ZqZcVJQEuBUMj
+ 2jeR+hhlS84CSe8S+z1T/vcP7pxgTmff/eUd3O1NIY0nfkbn2CAFSlLBqSUNpwBWq4QE
+ xXYd27n8XODF3V/j7o7fTq4jYeO5VBzwdnpBQLrMgEUDzF9BvEhh9Pial62K+/dq3iEi
+ oQGiC4nUyHW2llcM/sBOOEDdB2KU0x4jBHqSiCwlpBEXOq7wBnKkWSuAdsGJZrvnWpeA
+ H63dN16W6kDntE5NH+rVZYFXKE37yzrFYe2ouZk+bLm+KEk5BUR7x8P5xzJAHdkxJ/Pj
+ WBDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793287775; x=1793892575;
+ d=1e100.net; s=20260707; t=1793287787; x=1793892587;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=6CPvjoYy7BE0WZR1WCFgrzG3A2OCzgKkq+RlO5AEapY=;
- b=B19ZkWy1I5+OpXHqF7ppz4vEELUGIzX+67a5Muxeo55ACF+eT1JJOVVTWh5aESoEre
- /Gt/0lKiFI8IiKLBqVq8Mt1T31R1Bt0NWvvmXAqaYcm22CzxWi8Yo5yvIRKTw+tyZ59O
- wV5LBYc0XsU0K35+z2zjIuoh0UUvnT48VyikdHOZMcPfimYqbhjmoApCtdgBuYNr8RgG
- aZG9bohzs44KNdBkx9b44jhRSKkhOLB9ZLJDLB3zWpioVwG057I3Oj6yGyrrygPDjT87
- QvCS+AODF2e2pf5yFGy6TNU8soiDoDdTigrUaqUFo6KiPtHKNGU9M/ou53r276ut8crk
- Bicg==
-X-Gm-Message-State: AFq9FYJ13Leu9lkSq54A7YOY8rUZyDLwVXMVnzQCJyQY/eZ6p/YKVOkd
- GNznycLo/snxYWu+5U/BR1P2pSmlJ7eP7N2OAzG7zo7IJp761UwFmpfD
-X-Gm-Gg: AYBFou3sWuFSzWziQjNGbXoo3zGbTDMRbqWdCzuil6n3hjMDhQ0iFE7wm8YIg05qiBe
- QXw8IN7zFFZSM6O8mnf5tzwtgVlUMoWM3U474v7WCbDWhP8PyemaZhGFHGyZ4LjgKvhwNHFTzlw
- mpdEQmq1QY9bNmG2EBMqC96oZPXu8qDAkrkj6ut+hVCoP7pBUw0F8LEaUBZRwFzVYhzKW+VmMsX
- Z094KGE9Kn9QMt0FwGIxEN9I+QgqSJYzBvQSajkrJg7GLQPe8YriBpHEaTdLMWvMLa0QI3wNttM
- KzLyET9E5Inx3W+sCRuYDkmRpDgRJg8SPJ+Yyqxl882wpgddGYJZWPo1uKUDklYdHdZiaGGjM6P
- dSnbYGc83SE79GwC5WrjnD9tB/swhnxTR4kvNMGsJX3q5po4ZYfToXh/B+TlbphDBRtx1vbA86S
- Uhohw8bafzgYfSiMiwj+IrJENx7o270ZyeBC4mGggkmWqdInKvwEnGiQbYpRHEMgDPreSYdk4m1
- Zu7eSfrfat7hMdYb0NjpKaraQRQJWB8BU3yu+SzsbULu4WfOxvM29FahspVug/rt93pXpC6yVcC
- fluNNN15gZm8ngM4cgkV/7OMLIiOyrBr3hK46n+eeq8SITkzdQ==
-X-Received: by 2002:a17:907:6e8f:b0:c46:7645:86c with SMTP id
- a640c23a62f3a-c49bdff352emr527006466b.47.1793287774682; 
- Thu, 29 Oct 2026 08:29:34 -0700 (PDT)
+ bh=wWQWFAQ/YeW0U3f8X8JNgjR9sIicTFidkftaJdNSKFk=;
+ b=zGzZWlT7tCyl2WZxN9mIzd125+gBzrYPO8PnGc3MXhWJcBTPSBLKOcT9SfN25Je7FY
+ V9sUWEN7cxFpEXK74g/AiEiFIkWdGtIqixREoZYFiIedbJKnR+yiUK7ZUtwngMmDsVlo
+ MG6pQjKJCJTE40vwwPXDWqeBDVKwwpnX9tYa0nnXOuy0Tbsv0giHR9DpqP/BHRaPZQHO
+ dD2Zcd0zW+cLqOsmVRrv7QaS0fXw5L5dzkLpV3oHVkUmsYGyak8iT5appvriwlAwfndD
+ hShhQnm4Y4vxzbsvRQbUrvIAS1gRkNxzYmehSSn+NXeCN9HRn8TTxr61dZB+AzrVRAuH
+ inhw==
+X-Gm-Message-State: AFq9FYJkf6h3wBHjqaG0ybyxfzbQsFctbFHyGsRXMFQMCeC1ftHF7EJB
+ jouJ1ZnUeD5F6mKKt6h5sg5ywqugNkrRc/Qm1FiF3Tj1lYgAVxUriYvO
+X-Gm-Gg: AYBFou2sh8RYOYnuBVOeTzGUWJW+T0XYg0RStHfbZ5O5Tid2pwnkXRabcIq8kedIpyD
+ vk2KelD5qyqYUKzL8/Y8el7zhKBwcdD8oVjLxW8oPKD0ITf681qJo+bLVUMOqe5U00FyvWDau34
+ RtVeMtXQx7ZHnXaAO+sw3p1g34ak5e213NysV4WKJJufcCCocdQhPUGa0Hj1LSHq5VAhqUa2HYV
+ AxcOTAFfl0WwDFF3rl6A2FAzI2V7RhAdNHLp2ymZAtGrH0Pz/qpk+DSV/Bj6qKBR1oUeB+kNnnN
+ BW3iHXKnUZizUx6sUrCtAqKkr6FmNnRPPZ7bcjxH1oSZhW9pzkU8CguUGumk0CAmQU0S/7fUsJ9
+ RfHQWYehlkiT+eqaCNxTcHQ6vShZ3g4GAvJzAzs241H474Cq0MyNhsCpH0QRAb7ej+yE2cFD/s4
+ WN6k3aGcBd1rTmy+S4FYRIerVvjdzN/oGWRKYaI4abO9gJgcKsvhEAEYRN2Wf3yFDWmA3fAyCi2
+ x0MqfJqlZloLEejuoLg6O9ChAHztC9XDjBmNZNagpuIlGuwt8MCRfYw7EqS9N+UawP+qJe00xhD
+ Zmc/iIXKNjJlPgBJnDZUwKYTPjfJgmKLT7R6I7qMlRFE+tqH7A==
+X-Received: by 2002:a17:907:7250:b0:c2a:b1cc:158d with SMTP id
+ a640c23a62f3a-c49bdf67b9emr532113866b.32.1793287786503; 
+ Thu, 29 Oct 2026 08:29:46 -0700 (PDT)
 Received: from xeon ([188.163.112.62]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4ca27984f8sm1252166b.80.2026.10.29.08.29.33
+ a640c23a62f3a-c4ca27984f8sm1252166b.80.2026.10.29.08.29.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2026 08:29:34 -0700 (PDT)
+ Thu, 29 Oct 2026 08:29:45 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
@@ -73,10 +73,10 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: [PATCH v5 02/11] dt-bindings: display: panel: Document Hitachi
- TX10D07VM0BAA and LG LH400WV3 panels
-Date: Thu, 29 Oct 2026 17:29:00 +0200
-Message-ID: <20261029152909.234584-3-clamor95@gmail.com>
+Subject: [PATCH v5 09/11] drm/tegra: rgb: Parameterize configuration based on
+ bus flags
+Date: Thu, 29 Oct 2026 17:29:07 +0200
+Message-ID: <20261029152909.234584-10-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261029152909.234584-1-clamor95@gmail.com>
 References: <20261029152909.234584-1-clamor95@gmail.com>
@@ -94,88 +94,101 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document Hitachi TX10D07VM0BAA and LG LH400WV3 MIPI DBI 4" WVGA panels
-found in LG Optimus 2X P990.
+Parameterize configuration based on bus flags passed from the bridge or
+panel. The list of supported flags includes now pixel clock polarity,
+display enable (DE) polarity, and data alignment.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../display/panel/hit,tx10d07vm0baa.yaml      | 58 +++++++++++++++++++
- 1 file changed, 58 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
+ drivers/gpu/drm/tegra/rgb.c | 39 +++++++++++++++++++++++++++++++++----
+ 1 file changed, 35 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml b/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
-new file mode 100644
-index 0000000000000..4642dc14c42eb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/hit,tx10d07vm0baa.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
+index 7dea0cac61233..d8f41d1ca350e 100644
+--- a/drivers/gpu/drm/tegra/rgb.c
++++ b/drivers/gpu/drm/tegra/rgb.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <linux/clk.h>
++#include <linux/media-bus-format.h>
+ #include <linux/of.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+@@ -106,6 +107,7 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
+ 	struct tegra_output *output = encoder_to_output(encoder);
+ 	struct tegra_rgb *rgb = to_rgb(output);
+ 	struct drm_connector_state *conn_state;
++	struct drm_bridge_state *bridge_state;
+ 	struct drm_crtc_state *crtc_state;
+ 	struct drm_connector *connector;
+ 	struct drm_display_mode *mode;
+@@ -117,12 +119,21 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
+ 	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
+ 	mode = &crtc_state->adjusted_mode;
+ 
++	/* Get but flags from the bridge state. */
++	bridge_state = drm_atomic_get_new_bridge_state(state, output->bridge);
++	if (bridge_state)
++		bus_flags = bridge_state->input_bus_cfg.flags;
++	else
++		bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
++			    DRM_BUS_FLAG_DE_HIGH |
++			    DRM_BUS_FLAG_DATA_MSB_TO_LSB;
 +
-+title: Hitachi/LG 4" WVGA TFT LCD panel
+ 	tegra_dc_write_regs(rgb->dc, rgb_enable, ARRAY_SIZE(rgb_enable));
+ 
+ 	value = DE_SELECT_ACTIVE | DE_CONTROL_NORMAL;
+ 	tegra_dc_writel(rgb->dc, value, DC_DISP_DATA_ENABLE_OPTIONS);
+ 
+-	/* configure H- and V-sync signal polarities */
++	/* configure H- and V-sync and pixel clock signal polarities */
+ 	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(1));
+ 
+ 	if (mode->flags & DRM_MODE_FLAG_NHSYNC)
+@@ -135,11 +146,31 @@ static void tegra_rgb_encoder_enable(struct drm_encoder *encoder,
+ 	else
+ 		value &= ~BIT(PIN_LVS);
+ 
++	if (bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
++		value &= ~BIT(PIN_LSC0);
++	else
++		value |= BIT(PIN_LSC0);
 +
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
+ 	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(1));
+ 
+-	/* XXX: parameterize? */
+-	value = DISP_DATA_FORMAT_DF1P1C | DISP_ALIGNMENT_MSB |
+-		DISP_ORDER_RED_BLUE;
++	/* configure DE signal polarities */
++	value = tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARITY(3));
 +
-+allOf:
-+  - $ref: panel-common.yaml#
++	if (bus_flags & DRM_BUS_FLAG_DE_LOW)
++		value |= BIT(PIN_LSPI);
++	else
++		value &= ~BIT(PIN_LSPI);
 +
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - hit,tx10d07vm0baa
-+          - lg,lh400wv3-sd04
++	tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(3));
 +
-+  avci-supply:
-+    description: Panel power supply
++	/* configure DATA order and alignment */
++	value = DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
 +
-+  iovcc-supply:
-+    description: I/O voltage supply
++	if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
++		value |= DISP_ALIGNMENT_LSB;
++	else
++		value &= ~DISP_ALIGNMENT_LSB;
 +
-+  reset-gpios: true
-+
-+  backlight: true
-+  port: true
-+
-+required:
-+  - compatible
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    panel {
-+        compatible = "lg,lh400wv3-sd04";
-+
-+        reset-gpios = <&gpio 175 GPIO_ACTIVE_LOW>;
-+
-+        avci-supply = <&vcc_2v8_lcd>;
-+        iovcc-supply = <&iovcc_1v8_lcd>;
-+
-+        backlight = <&backlight>;
-+
-+        port {
-+            endpoint {
-+                remote-endpoint = <&dbi_out>;
-+            };
-+        };
-+    };
-+...
+ 	tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONTROL);
+ 
+ 	tegra_dc_commit(rgb->dc);
 -- 
 2.53.0
 
