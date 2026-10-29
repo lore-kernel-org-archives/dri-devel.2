@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99B4606B784
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:19:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5C6606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:19:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=PjBK1IWl
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=opiy9NOu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E04AD1121B5;
-	Thu, 29 Oct 2026 10:19:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5896D1121B8;
+	Thu, 29 Oct 2026 10:19:27 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC1A1121A4
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:19:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90F201121B2
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:19:17 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id A3C83929;
- Thu, 29 Oct 2026 11:16:57 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5E28E1552;
+ Thu, 29 Oct 2026 11:17:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1793269018;
- bh=YhUarWvkFmo5BAU7y6W2c0/rlDRAPf7YwZkgeidtnY0=;
+ s=mail; t=1793269023;
+ bh=OZYSeepAIWcZMJ2STpTUzemap4QopjkzN7WS/XD4SPw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=PjBK1IWlqxPl565SY8k/Fk6uWiGjuOHjYOxbz8dQNajdIJy1qOQMghOyvrSP1SjD8
- aH6MWMdQlwcL+HXuH7fv38pwh6uQkPDvwgQAgwh/JSOUcWzOGjJqYa5hhwO46qywVT
- XMZd9J5TYRAXaQWiA2Hmigxn3ZF5LYUzjVc0kxo0=
+ b=opiy9NOuoZHew/XXBz1ELgeCbiS1UAH0uRykgjLDE4agJbvaPanounH54j4glXZDy
+ X6b0EHVHFGXG6j4UPMN8BUxL3r7qVlJgy9jom3RDSN24ZeAHk4iVOIkfxbA+5s+wLu
+ TVAZgxM2TeMcCPNhLYABYvgVZO5gz57wO48CDLPs=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 29 Oct 2026 12:18:49 +0200
-Subject: [PATCH v4 03/14] drm/tidss: Stop using vp_bus_type for directly
- connected panels
+Date: Thu, 29 Oct 2026 12:18:53 +0200
+Subject: [PATCH v4 07/14] drm/tidss: oldi: Fix wrong return value from
+ tidss_oldi_mode_valid()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-beagley-ai-display-v4-3-dc7f2b532478@ideasonboard.com>
+Message-Id: <20261029-beagley-ai-display-v4-7-dc7f2b532478@ideasonboard.com>
 References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 In-Reply-To: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,21 +48,21 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1460;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=967;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=YhUarWvkFmo5BAU7y6W2c0/rlDRAPf7YwZkgeidtnY0=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2WAngQ2+yyxc+nNGt0VaMvb+tX9kwxHQ4m7
- 6QU5zeNBdmJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlgAKCRD6PaqMvJYe
- 9ZUbEACczkH4P+K0PGpZmASXOjmy5o8O68zj7a6M5err0YVTSGPXA+tq8V2B25nnliuigC4Dn1E
- u8Zfez5MdSd9wJg8T46y0uTaMz6M8+M4RtCBIZDDAxOSEIaE96KUkUEH+UBjsGCv4+HEtEZSXUO
- qlppx04cTv0FOVNzf6+sFrJKbDCaGrNtKYUJDy5R8tlMBhUcQfiFyhEP78WZ1E/IOwwKApEGw9e
- oD++x9/CD46C4qS4sbwWZE9jxPTAkjXeUHIBRZkVeFkS70sfJWJmUroRHTYSTyZiiZPRmPpFheH
- nhQXt34mv8RuR3/8E2r70IoFhVgOxHgtM+4fenTa/+a0U1qgNyGaroH/dZkYVF6C9BfWPuHCN0C
- WACYj53lAyvUY3nYqRiO5xhy1FjiYNsUgE9wg1mJ6MpKEeudbpNiA42ezr7keh1cZvJfZ9/XsSa
- QwUtPGTTZsbZErs/4xQ30tDh5sWUfVv7kxAcg16AWncKu9ZuGnKBQK6TsUQ9u1Qxyh9qPn+amM3
- lGFlEPgQX9mGWAv3I00EtU3lqfQt7VQk8EvEu5BptpkUJsgRYXApLSGhZIw97P4DJisNYIy6RQF
- Z6GXvyqLbF/mDrl0judW/UF6x7ZrtzIVzrsySFJ0D/raPKpfvb6g5aFKe46Fpj2nNQF97u/QJ5y
- ASrP7p7hHOKEfRQ==
+ bh=OZYSeepAIWcZMJ2STpTUzemap4QopjkzN7WS/XD4SPw=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2Xbba05PnhzU/ShK3qQxyASekJkrlxJLK02
+ yhEX19haSKJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlwAKCRD6PaqMvJYe
+ 9Q+wEACQV41JZWtVhPslC96ShYfqZwRvnST6EO5qvaLlHsm8wjMkgFj4vV9cKC+vnV+wdOxeMSO
+ e1N9yIiepp+Y47mkzv4sz4DpUo/s/jom1HNlXFdO6MBngGr5yCosV9L291pt+0lP8yUYR9DCCwe
+ d4YWS+AEy49Zs5FZgLjhm3w9HnBF8tdo9i8D8ByVYT6ad7rL5k+OITh+b6ZcKV4llTho2i2QU8I
+ oE2ae203lvVmIisRT6ZkbRlkxZcl5ShjrIGRpbupENDB72lGt+BckOPbIGrFdhFquXuujy81dEp
+ I5mSnhG1NNMztfsITjUBHEw/uzW30WH6RAO4W6zvlNIVXFIy4351GZ8dTnlogxjFYpU5WjB6zq7
+ 5QOYuNUEnAItSwPVsz4Op8bCN4UfHHau3m5LSAnJnLdpjGrKqU///WPsu20S1DVDpGVTwVZPHEp
+ 33qztLmL8TR4kqcd5zUtNi2fnOL0831t3nqs1WDTAVJruiO20pgXBdLi6deWNIy2p7krgEkbK8k
+ ktPNzrc1qgsNdejoRGpg2QvmrxpGXI4xYfN3SO2wSju6PbsKM3r8LCIe1XZXcRmEVE3VkeykCVJ
+ XErp7yRvIteUfU59yqFvgjHNj6jp0vGeACOXULeDSdFWmqrqI4rKPS2p8/yHpugfXYu+RVUQYJ3
+ K359ty7O/ExjOnA==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,46 +84,33 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When a panel is connected directly to a video port,
-tidss_dispc_modeset_init() sets the encoder and connector types using
-the 'vp_bus_type' feat. DISPC_VP_DPI selects DPI and DISPC_VP_OLDI_AM65X
-selects LVDS. Any other type triggers a WARN and fails the probe.
+tidss_oldi_mode_valid() returns 'enum drm_mode_status', but the current
+code returns -EINVAL or 0.
 
-vp_bus_type is problematic and is going to be removed. Change
-tidss_dispc_modeset_init() to use dispc_vp_is_am65x_oldi() for detecting
-the OLDI case, and default to DPI.
+Fix it to return proper enum values.
 
+Fixes: 86db652fc22f ("drm/tidss: Move OLDI mode validation to OLDI bridge mode_valid hook")
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_kms.c | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/tidss/tidss_oldi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
-index e55e7532e2f7..8b9c5fa96e47 100644
---- a/drivers/gpu/drm/tidss/tidss_kms.c
-+++ b/drivers/gpu/drm/tidss/tidss_kms.c
-@@ -232,19 +232,12 @@ static int tidss_dispc_modeset_init(struct tidss_device *tidss)
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+index 82b059f85244..ae27ebc7306e 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.c
++++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+@@ -346,9 +346,9 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
+ 	 * we use the same 5% check here.
+ 	 */
+ 	if (dispc_pclk_diff(mode->clock * 7 * 1000, round_clock) > 5)
+-		return -EINVAL;
++		return MODE_CLOCK_RANGE;
  
- 			dev_dbg(dev, "Setting up panel for port %d\n", i);
+-	return 0;
++	return MODE_OK;
+ }
  
--			switch (feat->vp_bus_type[i]) {
--			case DISPC_VP_OLDI_AM65X:
-+			if (dispc_vp_is_am65x_oldi(feat, i)) {
- 				enc_type = DRM_MODE_ENCODER_LVDS;
- 				conn_type = DRM_MODE_CONNECTOR_LVDS;
--				break;
--			case DISPC_VP_DPI:
-+			} else {
- 				enc_type = DRM_MODE_ENCODER_DPI;
- 				conn_type = DRM_MODE_CONNECTOR_DPI;
--				break;
--			default:
--				WARN_ON(1);
--				ret = -EINVAL;
--				goto put_panel;
- 			}
- 
- 			if (panel->connector_type != conn_type) {
+ static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
 
 -- 
 2.43.0
