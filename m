@@ -2,42 +2,143 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CEB606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:12:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3C6606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mWLFSnDC
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=01TYH+QT;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9uaghDHq;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=01TYH+QT;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9uaghDHq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83CEA11201C;
-	Thu, 29 Oct 2026 08:12:41 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFFDD11201C
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:12:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EC543600D1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:12:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 816EC1F01825;
- Thu, 29 Oct 2026 08:12:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793261554;
- bh=xFiw3q2XJSmE6+HSvlKGZlbAB2GSTJJVlN8Yf88idJE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mWLFSnDCsRmwx0d0jmcAIrVORcczQ/0QdHx+98TiniSPgyGExjn0jjiZiOs8mNasw
- gpRk7dSPYg9dMXJF21ciercDdk1fN956AsMggtff9CR/D7vscfcUu3oIHqmpZJUGrz
- zLcCaoRoiH1mJA0kKOwFzY+ux/OREyljqVLZkOJLhdphRoYtWyfD/HKb1/Q75GQ2g+
- aeZnybXeNnh2vTcHeu2e30L2OPyPwBaUO7paF42IuonA7NzH6HaOitDTpfPhh2fEbg
- XruDrf3knw2jfp+ojfgqHkYdRSvDbQ4120d6CFdUKeH8P03NJQ2eeG9mUJ2F5OLm6h
- E4NY7UYL9grPw==
-Message-ID: <sashiko-outbox-188951@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 34/34] drm/bridge: sii902x: Implement hw state readout
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029-drm-state-readout-v7-34-25e5163d75c3@kernel.org>
-References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
- <20261029-drm-state-readout-v7-34-25e5163d75c3@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 08:12:34 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE1A210E7CC;
+	Thu, 29 Oct 2026 08:17:08 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBD5111209B
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:16:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3557F21E6D;
+ Thu, 29 Oct 2026 08:16:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793261816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
+ b=01TYH+QT+K9P7IciLxYb/PTJnHnaVP/rAQs0iC4eTqIpzCBqFmDvXBQ7h27P0wpnob7OUU
+ BGVms/L6IoXKvMVbfem7kuMwp/iDzDkBbXcRdnd4KMdQnOiSqGgLj6wG3uPZG8yjoA1gCt
+ Xak6z7Gta0G367FidtBydPTgIgSRAgo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793261816;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
+ b=9uaghDHqHd9lfhl9gL0T/iR2HdO0mjB3gy0Wzs6SXNwTJ4g537aFdfpa7WL0R3PljSge0l
+ TKuzhV1OkjhxXtCA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=01TYH+QT;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9uaghDHq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793261816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
+ b=01TYH+QT+K9P7IciLxYb/PTJnHnaVP/rAQs0iC4eTqIpzCBqFmDvXBQ7h27P0wpnob7OUU
+ BGVms/L6IoXKvMVbfem7kuMwp/iDzDkBbXcRdnd4KMdQnOiSqGgLj6wG3uPZG8yjoA1gCt
+ Xak6z7Gta0G367FidtBydPTgIgSRAgo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793261816;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
+ b=9uaghDHqHd9lfhl9gL0T/iR2HdO0mjB3gy0Wzs6SXNwTJ4g537aFdfpa7WL0R3PljSge0l
+ TKuzhV1OkjhxXtCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CE7E113419;
+ Thu, 29 Oct 2026 08:16:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Ca0mIfcA42pMOQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 29 Oct 2026 08:16:55 +0000
+Message-ID: <5e547172-ac10-4a28-a584-9a385dbe2b80@suse.de>
+Date: Thu, 29 Oct 2026 09:16:55 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] vga-switcheroo: Allow VGA_SWITCHEROO to be enabled on
+ LoongArch
+To: Tianrui Zhao <zhaotianrui@loongson.cn>, David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ chenhuacai@loongson.cn
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ wuqianhai@loongson.cn
+References: <20261029013618.3558115-1-zhaotianrui@loongson.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261029013618.3558115-1-zhaotianrui@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[loongson.cn,gmail.com,linux.intel.com,kernel.org,ffwll.ch]; 
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, bootlin.com:url, suse.de:dkim,
+ loongson.cn:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 3557F21E6D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,113 +149,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/bridge: sii902x: missing mutex lock in readout callbacks
-- [Medium] drm/bridge: sii902x: ignored regmap_test_bits() error in readout=
-_state()
+Hi
+
+Am 29.10.26 um 02:36 schrieb Tianrui Zhao:
+> LoongArch systems with hybrid graphics (integrated +
+> discrete GPU) can benefit from the same GPU switching
+> mechanism that x86 laptops use. Relax the dependency
+> to allow VGA_SWITCHEROO to be built on LoongArch,
+> consistent with the existing dependencies on ACPI,
+> PCI, and FB=y.
+>
+> Change-Id: I84d38fdfe5e1591495fb3681474a7f1f64281fa8
+
+Internal change ids should be remove before submitting patches.
+
+> Signed-off-by: Tianrui Zhao <zhaotianrui@loongson.cn>
+> ---
+>   drivers/gpu/vga/Kconfig | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/vga/Kconfig b/drivers/gpu/vga/Kconfig
+> index bad4bcee313..89edd1211aa 100644
+> --- a/drivers/gpu/vga/Kconfig
+> +++ b/drivers/gpu/vga/Kconfig
+> @@ -1,7 +1,7 @@
+>   # SPDX-License-Identifier: GPL-2.0-only
+>   config VGA_SWITCHEROO
+>   	bool "Laptop Hybrid Graphics - GPU switching support"
+> -	depends on X86
+> +	depends on X86 || LOONGARCH
+
+I'm a bit skeptical if that's all there is to do.  Does loongarch really 
+work with the existing handlers in the graphics drivers as-is?  See [1] 
+for the interface that implements the actual switching.
+
+[1] 
+https://elixir.bootlin.com/linux/v7.3/source/include/linux/vga_switcheroo.h#L93
+
+Best regards
+Thomas
+
+>   	depends on ACPI
+>   	depends on PCI
+>   	depends on FB=y
+
+-- 
 --
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-commit ce74a42cab42e6bb481c531e7732368f37a0e27c
-Author: Maxime Ripard <mripard@kernel.org>
 
-drm/bridge: sii902x: Implement hw state readout
-
-This commit implements hardware state readout callbacks for the sii902x
-bridge driver and enables DRM_BRIDGE_OP_CONNECTOR_HW_READOUT.
-
-> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/si=
-i902x.c
-> index e067c0636e7f5..ab5ffcf6882f2 100644
-> --- a/drivers/gpu/drm/bridge/sii902x.c
-> +++ b/drivers/gpu/drm/bridge/sii902x.c
-[ ... ]
-> @@ -537,6 +539,89 @@ sii902x_bridge_mode_valid(struct drm_bridge *bridge,
->  	return MODE_OK;
->  }
-> =20
-> +static int
-> +sii902x_bridge_connector_readout(struct drm_bridge *bridge,
-> +				 struct drm_atomic_sro_state *state,
-> +				 struct drm_connector_state *conn_state)
-> +{
-> +	struct sii902x *sii902x =3D bridge_to_sii902x(bridge);
-> +	struct drm_connector *connector =3D conn_state->connector;
-> +	struct drm_crtc_state *crtc_state;
-> +	struct drm_encoder *encoder;
-> +	struct drm_crtc *crtc;
-> +	int ret;
-> +
-> +	ret =3D regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902=
-X_SYS_CTRL_PWR_DWN);
-
-[Severity: High]
-Should sii902x_bridge_connector_readout() and sii902x_bridge_readout_state()
-hold sii902x->mutex around their regmap_test_bits() calls?
-
-In drivers/gpu/drm/bridge/sii902x.c, sii902x_regmap_config disables regmap's
-internal locking:
-
-static const struct regmap_config sii902x_regmap_config =3D {
-	.reg_bits =3D 8,
-	.val_bits =3D 8,
-	.disable_locking =3D true, /* struct sii902x mutex should be enough */
-	...
-};
-
-All other post-init regmap callers in this driver (such as
-sii902x_interrupt(), sii902x_detect(), sii902x_edid_read(),
-sii902x_bridge_mode_set(), and the audio callbacks) serialize access via
-sii902x->mutex.
-
-Without holding sii902x->mutex here, an unlocked regmap_test_bits() during
-initial state readout or post-commit drm_atomic_sro_readout_and_compare()
-can race with concurrent HPD interrupt handling, DDC operations, or ALSA
-audio callbacks and clobber regmap's shared map->work_buf or interleave I2C
-sequences.
-
-> +	/* I2C error */
-> +	if (ret < 0)
-> +		return ret;
-> +	/* Device is powered down, nothing to read out */
-> +	if (ret)
-> +		return 0;
-[ ... ]
-> +static int sii902x_bridge_readout_state(struct drm_bridge *bridge,
-> +					struct drm_atomic_sro_state *state,
-> +					struct drm_bridge_state *bridge_state,
-> +					struct drm_crtc_state *crtc_state,
-> +					struct drm_connector_state *conn_state)
-> +{
-> +	struct sii902x *sii902x =3D bridge_to_sii902x(bridge);
-> +	u32 input_format;
-> +
-> +	if (regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902X_SY=
-S_CTRL_PWR_DWN))
-> +		return 0;
-
-[Severity: Medium]
-What happens in sii902x_bridge_readout_state() if regmap_test_bits() fails
-with a negative error code?
-
-Because a negative errno is non-zero, the if condition evaluates to true and
-sii902x_bridge_readout_state() returns 0 as though the device were powered
-down, leaving bridge_state->input_bus_cfg and bridge_state->output_bus_cfg
-unpopulated.
-
-Should this check for ret < 0 and propagate the error like
-sii902x_bridge_connector_readout() does above?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-drm-state-=
-readout-v7-0-25e5163d75c3@kernel.org?part=3D34
