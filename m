@@ -2,42 +2,98 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADDC606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:46:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F8F606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:50:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f/cN9V+s
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SfseDEIt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF5661123E8;
-	Thu, 29 Oct 2026 15:46:45 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85B6F1123E8
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:46:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C7BA6600E4;
- Thu, 29 Oct 2026 15:46:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CBF1F01816;
- Thu, 29 Oct 2026 15:46:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793288799;
- bh=mWSCGWOHzZRQHZLP5E9ZGw6qJmIPmtBUrWvfaGYqUGM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=f/cN9V+swWJBu+evYkGR1PNBK9OIB3q2b5WY71FyB2vSVgxfLHxd5yGvoaV0dq0Mr
- N1WMqdM4sT2EBwLmcWCgHlf6TCMuOy0un22xeQ5T8jwI/DFw9lTXD1r60/j1Vm/qa9
- 4uCFDhXI16uVSbyAUQW5K/+FU7qOeSJYJUcoRDgKaiXGuv3gvFZ0epjucH9g76Qhap
- z/xlpIeEwLKVz4iMjHMpPmWOWp+4hIfDflN4s/317a50fOb1lwh8Xm+FZas99wzgeb
- zs1cEO3JczJTtlVgOQO7fsIle43EXB3bsZwOXLiOrDkcZiYCwIz/ixyZHEtxQI3QhI
- hfCOZR9pyqkjA==
-Message-ID: <sashiko-outbox-189639@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
-To: "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
-References: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
- <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 15:46:39 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF21E10E3A8;
+	Thu, 29 Oct 2026 15:50:50 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFD031123EE
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:50:43 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4a35ac4475dso17968405e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:50:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793289042; x=1793893842; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=iQbVa0edXFDC7cRO+byx8KLZb9+VOYhs4XsToamxi9I=;
+ b=SfseDEItpM3uiU6RQ82pSilWu0QCFU0B1F7wn+PPX1dAvgxRYELRPjErfoCraTouAg
+ AieFP3ZQLduPPk19vFxR8ewGv8n92W4cqZrJRQT+CfAx1BDo7ZhJK5xHZbh/eOK8Elgq
+ tLsza62ux7xi/xBqtNJZZmqYaN2TNsfjjZ7IX/9PQMViN3KnrWfTUoyDwv3A+BWtezE5
+ 4ppCkfvNtr9sqCXw0mJURUtcrZX14oCRVtKJoxNZ/QIyW3q3hFgWSTavxHzmeBmXnQo4
+ 1D8qDqFQJ3noO7r1Kl8ywKaZ3RH5SGuFInJQn3MtGneW3NMJsHXzC4FmKARvurZwxnvG
+ +1Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793289042; x=1793893842;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=iQbVa0edXFDC7cRO+byx8KLZb9+VOYhs4XsToamxi9I=;
+ b=m+xcMhbzK+JYuXFgvNnAIRpxTMIduHg5ysD1urxzU000iEw1RRsdGQpa1ryVUd8paw
+ nZemsl1HxDEReJ6AzULNjxphuUa6wxNPLZaCtfS+SumModzNlCxIKXKVsnA3s9niXeJQ
+ LCb55+KHbF9UY3Qm7QOraJVpBEs0XobeX91AydgBEWD3qa9HUPSRMrnaQrr9QP6gOY6L
+ R57UzbXk8EE74yddUUHqxMr2lj83w/TdW82haJ3Gt4UZ3axd0Eu0fSOfIIcZqCaiqAHy
+ ++ZB6J2D/gDlmYXal2ETWkvefotpcJUtPpWJux9QEG7sL9UEmpGo1CuCSwz0itX2pr8A
+ BJXQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByrN7JCRP5N9FuLaI30Uckm3k0Iq/kXUqobz9wFoLqzJ4CpNkE3RMCl+tGcsJ+HZrE38t8ZbClyJtY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKSviI8oCGqQOPB7XaFgY1TuIbJFFTiWkyKLmXigNRTEOUpWQVH
+ 3Z9cClG8wX0IAqUtWNmDSbwBU9ctK3BHF9vzSFMvniVs8I3H0WcYIgi54dDKjiYo
+X-Gm-Gg: AYBFou2vKTD7eg8vt7AbtZdJVP6kQ9Mx3ABATtfAvit5nCMBla+IexpZA12cH5jjAuO
+ qHIxj6/zJvkDo0qIgDlRE8sBHpFn39oCwHX7Ve3IBav1y4PCTH0OLODzsCn3P4kOu4ovBQ1XiGr
+ Ku/4iCJwcRP0Z4kJqdHOPPECwfVu2o/WM/mgKznmEbprxBOAakdLAYT88BIFoCUEbYGanC7L2FA
+ d+6i5NTQfy0fFmulk7MsXjw64cMLNKlGHOm+EgELiuEZ87DBidl8yE+adg37CGe5lWJzKDamP7T
+ SjjSa5yb0oelmG+rgSUzSUKXdhY/qMv8Dq9QOe6bSrgj+AeQ3IO6GUFglJa8+mbuaK9FNe4s0GZ
+ Bq4znIOetaTeJHE1fHpx4PHLUr4iw/e0wUZMC1f7s2clv+ioqLpTD9oQU12tSNHIyqm2bTALJEX
+ L8yDlfq+elqu5pQPOX248hfQbg5bWe8tZ+JOMywcblgstn/rzGMsyoSDWo10m73R0+85FQc6LLc
+ eyyYqfVANpbZMfDpuPnnZ2L7MFFtxQ8On/ZiSSMoCibQRDAnlYqeDBp2wvxtBHyAAkM8q5cBaKn
+ W182F8qO36DvEGfwZeoT1dBaxLk6bZmZ59GeNi5Y9iSCxN/JBlr92rEHsSnyvT5MuSTkI+o8E76
+ wFEUjZA/1vOShQdRgVCNAGOjaaG/kvshT3Vf1pc+uF3XhSCaoIK1SeTs=
+X-Received: by 2002:a05:600c:c106:b0:4a1:9078:911 with SMTP id
+ 5b1f17b1804b1-4a9674e80c8mr103774075e9.31.1793289041762; 
+ Thu, 29 Oct 2026 08:50:41 -0700 (PDT)
+Received: from ernest.hoecke-nb
+ (static-2a02-1368-6200-2fbc-d3e8-e0a5-7e8a-a15c.cust.swissbackbone.net.
+ [2a02:1368:6200:2fbc:d3e8:e0a5:7e8a:a15c])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e3ecd37f4sm42419806f8f.44.2026.10.29.08.50.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2026 08:50:40 -0700 (PDT)
+Date: Thu, 29 Oct 2026 16:50:39 +0100
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, tessolveupstream@gmail.com, 
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, 
+ simona@ffwll.ch, marex@denx.de, valentin@compulab.co.il, 
+ philippe.schenker@toradex.com, alexander.stein@ew.tq-group.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
+ stable LVDS output
+Message-ID: <sqilixoei4yw4z52r52vbwfggyjnhdzz62vz3vshrx6wbppa2v@izyujkfcrb6q>
+References: <7056b23b-ed81-4d79-b782-5cfcb0102ef7@gmail.com>
+ <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
+ <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
+ <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
+ <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
+ <1716be56-ac43-440b-a5df-58cbf571ba95@gmail.com>
+ <DINH3J2SM26P.3KE6GE9VPB1OC@bootlin.com>
+ <3hfae2i2i2toxbo7hg2if6pztaswgnfj65xfm2c4ofljc6jhua@slaqoewn4mxq>
+ <DLATMIFKDMHV.24XNMCRI2ZKBI@bootlin.com>
+ <20261024095405.GA5692@francesco-nb>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024095405.GA5692@francesco-nb>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,399 +104,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [Critical] drm/amdgpu: goto in amdgpu_gem_va_ioctl() skips cleanup guard =
-init
-- [High] drm/amdgpu: wedge_status and rpm ref leaked or cleared early on re=
-set
-- [High] drm/amdgpu: pci_clear_master() in amdgpu_job_timedout() breaks res=
-et
-- [High] drm/amdgpu: amdgpu_job_timedout() leaves other rings fences unsign=
-aled
-- [High] drm/amdkfd: NULL dereference in kfd_profiler_pmc() when GPU wedges
-- [High] drm/amdkfd: kfd_process_device_data_by_id() breaks unmap/free on w=
-edge
---
+Hi Francesco,
+Hi Luca,
 
-commit 567ed14b8d61a592e7054bc4f4ee30c73a041c70
-Author: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+On Sat, Oct 24, 2026 at 11:54:05AM +0200, Francesco Dolcini wrote:
+> Hello Luca, Ernest,
+> 
+> On Wed, Sep 09, 2026 at 03:30:53PM +0200, Luca Ceresoli wrote:
+> > On Fri Sep 4, 2026 at 2:02 PM CEST, Ernest Van Hoecke wrote:
+> > >> > Also, from our testing, when using:
+> > >> >
+> > >> > dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> > >> >           MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+> > >> >
+> > >> > we are not able to get display output.
+> > >>
+> > >> This is the case for the panel I worked on as well. In the practice we both
+> > >> observe that non-burst mode is what fixes the panel, but there is no clear
+> > >> explanation of the reason in the docs (that's what I hope to discover from
+> > >> TI).
+> > >>
+> > > I am testing a DSI panel on our Verdin iMX8MP module, and noticed that
+> > > this caused a regression.
+> 
+> [...]
+> 
+> > > I think we'll need to either revert this and later apply both together
+> > > when ready, or apply the second patch now as well. Right now, it broke
+> > > the DSI panel behind a TI sn65dsi83 bridge on v7.3-rc1.
+> > 
+> > Reverting is surely the last resort. If you can answer the above questions
+> > it would be good, maybe we find out reverting is not necessary, and worst
+> > case we'll revert with better understanding on what went wrong, and maybe
+> > come up with a new fix that doesn't regress.
+> 
+> What's the status of this regression?
+> 
+> Francesco
+> 
 
-drm/amdgpu: add wedge event implementation
+I still need to test and look into this, that will happen either in
+December as I'm off in November, or by someone else in the team. Sorry
+for the delay.
 
-This commit adds DRM wedge event support to amdgpu when GPU auto-recovery is
-disabled. On a job timeout without recovery, pending fences on the ring are
-force-signalled, runtime PM is held, and new work submissions and KFD looku=
-ps
-are rejected until the GPU is reset.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 3658e46141ada..c48a3c44e2545 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-[ ... ]
-> @@ -4405,6 +4406,9 @@ void amdgpu_device_fini_sw(struct amdgpu_device *ad=
-ev)
->  		amdgpu_sync_free(&adev->isolation[i].prev);
->  	}
-> =20
-> +	if (atomic_xchg(&adev->wedge_status, 0))
-> +		pm_runtime_put_autosuspend(adev->dev);
-> +
->  	amdgpu_reset_fini(adev);
-> =20
->  	/* free i2c buses */
-> @@ -5212,6 +5216,10 @@ int amdgpu_device_reinit_after_reset(struct amdgpu=
-_reset_context *reset_context)
->  	r =3D 0;
->  	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
->  		amdgpu_set_init_level(tmp_adev, init_level);
-> +
-> +		if (atomic_xchg(&tmp_adev->wedge_status, 0))
-> +			pm_runtime_put_autosuspend(tmp_adev->dev);
-> +
->  		if (full_reset) {
->  			/* post card */
->  			amdgpu_reset_set_dpc_status(tmp_adev, false);
-
-[Severity: High]
-Can this leave adev->wedge_status set and leak the runtime PM reference on
-ASICs that use reset_cntl handlers, or clear wedge_status too early during
-reset?
-
-In drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, amdgpu_do_asic_reset() calls
-amdgpu_reset_perform_reset() first and returns before reaching
-amdgpu_device_reinit_after_reset() whenever a reset handler is implemented:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:amdgpu_do_asic_reset() {
-	...
-	reset_context->reset_device_list =3D device_list_handle;
-	r =3D amdgpu_reset_perform_reset(tmp_adev, reset_context);
-	/* If reset handler not implemented, continue; otherwise return */
-	if (r =3D=3D -EOPNOTSUPP)
-		r =3D 0;
-	else
-		return r;
-	...
-}
-
-For all ASICs that register adev->reset_cntl in amdgpu_reset_init()
-(aldebaran, sienna_cichlid, smu_v13_0_10, and soc_v1_0), their
-restore_hwcontext callbacks never call amdgpu_device_reinit_after_reset().
-As a result, triggering a reset after a wedge leaves adev->wedge_status set=
- to
-1 (causing amdgpu_gmc_flush_gpu_tlb() during GART enable to skip TLB
-invalidation, amdgpu_job_run() to cancel all jobs with -ECANCELED, and ioct=
-ls
-and KFD lookups to fail) and leaks the runtime PM reference until driver
-unload.
-
-Even on ASICs that do reach amdgpu_device_reinit_after_reset(), clearing
-tmp_adev->wedge_status and calling pm_runtime_put_autosuspend() at the start
-of the loop happens before amdgpu_device_asic_init(), IP resume phases, and
-amdgpu_ib_ring_tests() succeed. Concurrent ioctls that do not acquire
-reset_domain->sem can observe wedge_status =3D=3D 0 while the hardware is
-mid-reset, and if reset fails, wedge_status remains 0 with the runtime PM
-reference already dropped.
-
-Additionally, on driver unbind (for example via DRM_WEDGE_RECOVERY_REBIND),
-amdgpu_device_fini_sw() only runs from drm_driver.release when the last open
-DRM file descriptor is closed, rather than synchronously in
-amdgpu_pci_remove() -> amdgpu_device_fini_hw(). If a userspace process keeps
-an fd open across unbind/rebind, won't the runtime PM reference on adev->dev
-stay held across the unbind and be dropped later on the newly bound device?
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index 2145211b25e7e..85406b0b0125c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-[ ... ]
-> @@ -948,6 +951,11 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void=
- *data,
->  		abo =3D NULL;
->  	}
-> =20
-> +	if (amdgpu_device_is_wedged(adev)) {
-> +		r =3D -ENODEV;
-> +		goto error_put_gobj;
-> +	}
-> +
->  	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
-> =20
->  	r =3D PM_RUNTIME_ACQUIRE_ERR(&lock);
-
-[Severity: Critical]
-Does this goto in amdgpu_gem_va_ioctl() jump over the initialization of the
-cleanup-managed lock variable?
-
-In drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c,
-PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock) declares lock with
-__cleanup(class_pm_runtime_active_auto_try_enabled_destructor). Jumping to
-error_put_gobj from before that macro enters the scope of lock without
-initializing it:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c:amdgpu_gem_va_ioctl() {
-	...
-	if (amdgpu_device_is_wedged(adev)) {
-		r =3D -ENODEV;
-		goto error_put_gobj;
-	}
-
-	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
-	...
-error_put_gobj:
-	drm_gem_object_put(gobj);
-	return r;
-}
-
-Aside from breaking the build under Clang (-Werror=3Djump-misses-init), whe=
-n the
-GPU is wedged and userspace calls DRM_IOCTL_AMDGPU_GEM_VA, returning from
-error_put_gobj invokes class_pm_runtime_active_auto_try_enabled_destructor()
-on the uninitialized stack variable lock, passing uninitialized stack conte=
-nts
-to pm_runtime_put_autosuspend().
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_job.c
-> index 70a9a7d4650fb..e6172a9684cad 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-[ ... ]
-> @@ -185,9 +186,35 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(s=
-truct drm_sched_job *s_job)
->  		if (r)
->  			dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
->  	} else {
-> -		drm_sched_suspend_timeout(&ring->sched);
-> -		if (amdgpu_sriov_vf(adev))
-> +		if (amdgpu_sriov_vf(adev)) {
-> +			drm_sched_suspend_timeout(&ring->sched);
->  			adev->virt.tdr_debug =3D true;
-> +		} else {
-> +			struct drm_gpu_scheduler *sched;
-> +			struct amdgpu_fence *guilty_fence;
-> +
-> +			/* Declare the device as wedged if it's not already. */
-> +			if (!atomic_xchg(&adev->wedge_status, 1)) {
-> +				/* This ref will be dropped in amdgpu_device_reinit_after_reset. */
-> +				pm_runtime_get_noresume(adev->dev);
-> +
-> +				pci_clear_master(adev->pdev);
-
-[Severity: High]
-Does calling pci_clear_master(adev->pdev) here in amdgpu_job_timedout() bre=
-ak
-subsequent GPU resets when the user later triggers recovery?
-
-When a Mode 1 reset runs later via amdgpu_device_mode1_reset() in
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c, it caches the current PCI
-configuration space before clearing bus master itself:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:amdgpu_device_mode1_reset() {
-	...
-	/* Cache the state before bus master disable. The saved config space
-	 * values are used in other cases like restore after mode-2 reset.
-	 */
-	amdgpu_device_cache_pci_state(adev->pdev);
-
-	/* disable BM */
-	pci_clear_master(adev->pdev);
-	...
-	amdgpu_device_load_pci_state(adev->pdev);
-	...
-}
-
-Because amdgpu_job_timedout() already cleared PCI_COMMAND_MASTER,
-amdgpu_device_cache_pci_state() overwrites adev->pci_state with bus masteri=
-ng
-disabled, and amdgpu_device_load_pci_state() restores it without bus
-mastering enabled during ASIC init, phase 1 resume, and PSP firmware loadin=
-g.
-
-In addition, amdgpu_device_pre_asic_reset() -> amdgpu_device_ip_suspend()
-runs with bus mastering disabled (affecting DMA during suspend, such as
-psp_suspend()), and Mode 2 reset paths that only resume GFX, MES, and SDMA
-without resuming IH:
-
-drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c:smu_v13_0_10_mode2_restore_ip() {
-	...
-	for (i =3D 0; i < adev->num_ip_blocks; i++) {
-		if (!(adev->ip_blocks[i].version->type =3D=3D
-			      AMD_IP_BLOCK_TYPE_GFX ||
-		      adev->ip_blocks[i].version->type =3D=3D
-			      AMD_IP_BLOCK_TYPE_MES ||
-		      adev->ip_blocks[i].version->type =3D=3D
-			      AMD_IP_BLOCK_TYPE_SDMA))
-			continue;
-		r =3D amdgpu_ip_block_resume(&adev->ip_blocks[i]);
-	...
-}
-
-never re-enable PCI bus mastering at all after reset.
-
-> +
-> +				drm_dev_wedged_event(&adev->ddev, DRM_WEDGE_RECOVERY_REBIND, info);
-> +			}
-> +
-> +			guilty_fence =3D to_amdgpu_job(s_job)->hw_fence;
-> +
-> +			sched =3D &ring->sched;
-> +
-> +			/* Prevent anybody else from touching the ring buffer. */
-> +			drm_sched_wqueue_stop(sched);
-> +
-> +			amdgpu_fence_driver_force_completion(ring, &guilty_fence->base);
-> +
-> +			/* Start the scheduler again */
-> +			drm_sched_wqueue_start(sched);
-> +		}
->  	}
-
-[Severity: High]
-What happens to in-flight fences on other rings when amdgpu_job_timedout()
-clears bus mastering for the whole device, and is drm_dev_wedged_event() se=
-nt
-before fences are signalled?
-
-In drivers/gpu/drm/amd/amdgpu/amdgpu_job.c, amdgpu_job_timedout() calls
-pci_clear_master(adev->pdev) and emits drm_dev_wedged_event() before stoppi=
-ng
-the scheduler or calling amdgpu_fence_driver_force_completion(), and only
-force-completes fences on the single timed-out ring.
-
-Once pci_clear_master() disables DMA writebacks and MSI interrupts across t=
-he
-entire PCI function:
-
-1. In-flight fences on rings without a finite scheduler timeout (such as
-   compute rings when lockup_timeout is 0, or KIQ/MES polling rings) cannot
-   signal via hardware writeback and are never force-completed, leaving fen=
-ce
-   waiters blocked indefinitely.
-2. In-flight jobs on other rings with finite timeouts are forced into
-   secondary TDR timeouts, which unconditionally call amdgpu_job_core_dump()
-   at the top of amdgpu_job_timedout() and overwrite the original hang's IP
-   state dump.
-3. Calling drm_dev_wedged_event() beforeamdgpu_fence_driver_force_completio=
-n()
-   notifies userspace before pending fences on the wedged device have been
-   signalled.
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-> index ac18c2be6ecb6..b95dddeaccc51 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -2424,8 +2424,12 @@ struct kfd_process_device *kfd_process_device_data=
-_by_id(struct kfd_process *p,
->  		for (i =3D 0; i < p->n_pdds; i++) {
->  			struct kfd_process_device *pdd =3D p->pdds[i];
-> =20
-> -			if (pdd->user_gpu_id =3D=3D gpu_id)
-> +			if (pdd->user_gpu_id =3D=3D gpu_id) {
-> +				if (amdgpu_device_is_wedged(pdd->dev->adev))
-> +					return NULL;
-> +
->  				return pdd;
-> +			}
->  		}
->  	}
->  	return NULL;
-
-[Severity: High]
-Can returning NULL from kfd_process_device_data_by_id() when the device wed=
-ges
-cause a NULL pointer dereference in kfd_profiler_pmc()?
-
-In drivers/gpu/drm/amd/amdkfd/kfd_chardev.c, kfd_profiler_pmc() first calls
-profile_lock_device(), which looks up pdd under p->mutex and then drops
-p->mutex. Afterward, kfd_profiler_pmc() re-acquires p->mutex and calls
-kfd_process_device_data_by_id() a second time without checking for NULL:
-
-drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:kfd_profiler_pmc() {
-	...
-	retval =3D profile_lock_device(p, args->gpu_id, args->lock);
-	if (retval < 0)
-		return retval;
-
-	/* Enable/disable perfcount if requested */
-	mutex_lock(&p->mutex);\n	pdd =3D kfd_process_device_data_by_id(p, args->gp=
-u_id);
-	dqm =3D pdd->dev->dqm;
-	mutex_unlock(&p->mutex);
-	...
-}
-
-Because adev->wedge_status is set asynchronously in amdgpu_job_timedout(), =
-if
-the GPU becomes wedged between the lookup in profile_lock_device() and the
-lookup in kfd_profiler_pmc(), pdd is NULL and pdd->dev->dqm dereferences NU=
-LL.
-Furthermore, if a process already locked the device for profiling before the
-wedge, subsequent calls to profile_lock_device() with op =3D=3D 0 or
-kfd_profiler_ptl_control() will fail with -EINVAL and be unable to release
-kfd->profiler_process or the PTL disable reference.
-
-[Severity: High]
-Does returning NULL from kfd_process_device_data_by_id() also break KFD mem=
-ory
-unmap, free, and SVM eviction paths when a GPU becomes wedged?
-
-Several KFD paths rely on kfd_process_device_data_by_id() to look up an
-existing pdd during cleanup or after waiting on fences:
-
-1. In drivers/gpu/drm/amd/amdkfd/kfd_chardev.c,
-   kfd_ioctl_unmap_memory_from_gpu() and kfd_ioctl_map_memory_to_gpu() look=
- up
-   peer_pdd in a first loop, wait in amdgpu_amdkfd_gpuvm_sync_memory(), and
-   then look up peer_pdd again in a second loop:
-
-drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:kfd_ioctl_unmap_memory_from_gpu() {
-	...
-	/* Flush TLBs after waiting for the page table updates to complete */
-	for (i =3D 0; i < args->n_devices; i++) {
-		peer_pdd =3D kfd_process_device_data_by_id(p, devices_arr[i]);
-		if (WARN_ON_ONCE(!peer_pdd))
-			continue;
-		if (flush_tlb)
-			kfd_flush_tlb(peer_pdd);
-
-		/* Remove dma mapping after tlb flush to avoid IO_PAGE_FAULT */
-		err =3D amdgpu_amdkfd_gpuvm_dmaunmap_mem(mem, peer_pdd->drm_priv);
-	...
-}
-
-   If the GPU wedges while waiting in amdgpu_amdkfd_gpuvm_sync_memory() (wh=
-ich
-   returns 0 once the fences are force-completed), the second lookup returns
-   NULL, triggering WARN_ON_ONCE(!peer_pdd) and skipping
-   amdgpu_amdkfd_gpuvm_dmaunmap_mem().
-2. Once wedged, kfd_ioctl_free_memory_of_gpu() and
-   kfd_ioctl_unmap_memory_from_gpu() fail with -EINVAL because
-   kfd_process_device_data_by_id() returns NULL, preventing userspace from
-   unmapping or freeing BOs on the wedged GPU (or freeing BOs on healthy GP=
-Us
-   that were peer-mapped to the wedged GPU).
-3. In drivers/gpu/drm/amd/amdkfd/kfd_svm.c, svm_range_get_node_by_id() calls
-   kfd_process_device_data_by_id(). When a GPU is wedged,
-   svm_range_best_prefetch_location() triggers WARN_ONCE(1, "failed to get
-   valid kfd node at id%x\n", best_loc), and TTM eviction in
-   svm_range_evict_svm_bo() -> svm_migrate_vram_to_ram() fails with -ENODEV
-   after prange has already been unlinked from svm_bo->range_list.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029152000.2200=
-1-1-pierre-eric.pelloux-prayer@amd.com?part=3D4
+Kind regards,
+Ernest
+ 
