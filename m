@@ -2,44 +2,114 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A74606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:41:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D485B606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:42:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jl19u8Gk
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=paP0fjVJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 622E71123E7;
-	Thu, 29 Oct 2026 15:41:25 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2708F1123E7
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:41:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 90EDF601F8;
- Thu, 29 Oct 2026 15:41:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D23B1F01816;
- Thu, 29 Oct 2026 15:41:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793288478;
- bh=Uy1BNptO6TGnwphFU2BzxiWuSm3igjfnH9DTXVn4OLA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Jl19u8GkF5P0R2oUznd2mGXgPKhrIk1tyTFCVTOP4tJaMcSepLyIJGZo8BiCGqmoj
- mnK2Fh3Bn7PPqbH5BWqcttnc8a/gs9FZ2WE290DBZTXM8PLRDA5x6xecfQD3xVju2r
- p2P4+fpjvsoc8k8x3/REpfCXHHbqbLl76UcOBZore8ZdvIQRf9EJTp0w5mjAAeM05u
- Vj1+1TyiIEoJdWSDbt+k6JVk4Kl9NP134gad7k3mnCnUQJjhbHtTkCgrkxhpEUQ507
- RTI+Pn6O5c57AyiuFwFQtH2X6Wq+F5vgEuCUOUxWPkrSLRbY3N03G7CE7ynxCC4JjR
- TLgeOqwlZdw1Q==
-Message-ID: <sashiko-outbox-189627@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/11] drm/tegra: Make panel parsing by
- tegra_output_probe() optional
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029152909.234584-8-clamor95@gmail.com>
-References: <20261029152909.234584-1-clamor95@gmail.com>
- <20261029152909.234584-8-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 15:41:17 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3997E10E12E;
+	Thu, 29 Oct 2026 15:42:38 +0000 (UTC)
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010021.outbound.protection.outlook.com [52.101.84.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF60610E12E
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:42:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YTsZ1DqrfXXVLnJyGER/4kJduwYbK570OzSkln3pFwx/YcN6laxzasev9CuKF/NrB/ae4ZAdfwZKtIZBUgFkVGTkz/5Sx8/eECaFWpn8ECQ0wG3CGxvXNw1W1OQeGz/V0c4Che3HuQ6lfRKYTx8nQ7hLKTwP5DczwUiAs8v3KRT3YrOSD9p5zf9SIXproBF+QaS0+iCZC5nBcOdccQRcF5VtKGnjot6U+5Ca3j33ems4hEFuYqMJwyBOQIaNobD/C0voQHGWzfU1rNwtBR6qsMTEebEmCoVunCwnGMtoIkYv8ybxLqOWUGDDbyZFf+h+0ALWNzhDbX1dQ34HsQADLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vM7dRLsF47Q2IpYGKtZy5xFISzX8e2vEP3w/em2MyAw=;
+ b=gqrggNNDo6wh/oxdqw0QSiXSS2qYbpevdff00TdakKYkt+1WMrVvYMbRfBRWbVtlVW2qPswvW0xGhXiYiZzTksie7lGzN+wqFWGxlx8riczTLcafHLh+u493NyP+FGib1rCmeb8NWD0YwsJPcIRx3/5eIchaJlDJrZs53ftZ4Rkc/RUw+f96wHrwKllelXulRCUGoXCkl/ouK55JZy10V67hVQTea4mvU+0K5HRJdh8Y3lfgmGxbHeTKFNS6jmLxxaHqLfIqo0cahYbZd9Dy6arZz7IjdlU69AYYEA5nZGYw6MzuVBVWUmZmu5EEm0mGOgCRHtIjI2PHLWF5tBEJag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vM7dRLsF47Q2IpYGKtZy5xFISzX8e2vEP3w/em2MyAw=;
+ b=paP0fjVJPCmFbRiRE9uVVl0AJMj7GO+G5MjtNkm5JHjqwrAN+rTFI08bg8B/sl7jEOjmODowbjkIidHQmLkp8TjixkSuUt4vlaTCLGMnN3f8yHObUudAPsAIVCTVZJRd4IKwh8ZeSaAlypP+RId98Aom22D2n2sw7lWj/t/haKO37KcLYVmEwoTe5PPCClH1azDnbj3dMY+5PCg6d8q3d7+LyVl3m3oKWQ4ANY5EMJobDdazuTXocX2M1+vHCVXNg7qMSqZxMPKy3s7+9tQ/LVH1jFjNoV/Sm7DBod724mfShQ4/h/H7KwuTa/Sl1SoiBwYRZ2R/+K+/FNupEFEpaw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI1PR04MB7023.eurprd04.prod.outlook.com (2603:10a6:800:12f::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 15:42:28 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 15:42:28 +0000
+Date: Thu, 29 Oct 2026 11:42:19 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 01/31] accel: ethosu: Suspend after initialization
+Message-ID: <auNpW5PRWjWPm8My@lizhi-Precision-Tower-5810>
+References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
+ <20261029-ethosu-fixes-v4-1-4aa25e22578e@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-ethosu-fixes-v4-1-4aa25e22578e@kernel.org>
+X-ClientProxiedBy: PH7P223CA0014.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:338::24) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB7023:EE_
+X-MS-Office365-Filtering-Correlation-Id: 587379a8-fda6-41e5-32ac-08df35d33c79
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|19092799006|4143699003|56012099006|261009221227099003|261009223027099003|261026121527099003|11063799006|261021121427099003|261021123027099003|261022075727099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: kJsanzG5oO5KYTZF+NfqSyz4qHIpe4GEj5xwBGZQMNfLXAMxcWI/ZkP2ElU7lnx8YUhK21OVGLLzpkuK9gSEgNui5RERT/xGS71iD+xDijJ7n8EDkcRgaVOaVWliU+yv6Qa4LA8nnugJrDDFATnPikEkqiDY0Mp3/pWahpC1T6AJRj8BeG1O7ghdcq6Z7S4L5ygyAR1+7CHc6vWBhdHyY/R3sJ1FJMH/N27BU+etUK1bv5gqm4vypZzujKF1LN7xumdN4Q5CxK7LJdc0EcT4uN71yewbA9B4Wi5isEgdZBlKo66NSnZ+BeZHxgF6lrHfZhbmTg8BxOPyQIFoGyxI41ZG4GyCmoM933gePdPQRTRYRgZJ7xTkIo+bBeCvndvr1xNVE9SOGbZxHteG30YBNdGhaxDNnB9td0a6hgZ7iQl0csOd/b1Iq1Kf+wOUGzrN+GuR9c5Rd1mjhjx5Shre9tsYLivu/6Cjj8X4fvSxBSnzNoxCcxpHpOLseF9suL8SNkxMMlcFHga1um2LPqeveTIWhv0dxsuZuTa+CydF4QDGehFWSnyrK468+C+iNuEJ74Vka3W3MlOnBYWkJv/8iaREszhSZ/xSfXwRSPUWhF2tkHztr5fTu/zvSLasv9viNsRSoqSy2omGzLAISNeeYCwHg3EZ1QNQp+lzMFgqLC0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(19092799006)(4143699003)(56012099006)(261009221227099003)(261009223027099003)(261026121527099003)(11063799006)(261021121427099003)(261021123027099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PB+OwRN0eG3ki69M8Bcg8Yo4AL6MZf7p1KPr9bi+b+zzyYTTZovQ5v3QP0/z?=
+ =?us-ascii?Q?dM/8q15RgbF2dj3GuQ3eaeH/10rCfVU9esPexMBAVr1sUgqXkZm67Cqt3CFz?=
+ =?us-ascii?Q?tTMJ9EsHTOvSUCy6Uqft1RGS45WYabh19lCjK1a01G9O81lPiW1MpNmKJnur?=
+ =?us-ascii?Q?YzHi8S+1j9TTRrwFFsRc+E1WTGCMlFgtO7cuGFa9ojIWaRirIAZPCF9+W+yx?=
+ =?us-ascii?Q?k3QNNXuO5akIcCKKv/Lv23jR6DoMoh3WifkZet9ymamqOfTEVXkw+Vt19Tlq?=
+ =?us-ascii?Q?ZNN8okfdI3P5u2t0tEffw1uWkkUw2uaReYHyQnawzMI/4tPaYu/Tc36IKACZ?=
+ =?us-ascii?Q?xGFGdclitHxLkVtglEfzWUvuENeQJCkUx8NGLPsO2TGz+UARmoWuDquBMOR7?=
+ =?us-ascii?Q?LA5+ZPKj7fPeaL/fhkfu2O2hRBGb53ZexIZn1cIdRPK8ApjEYGfa7dmE1LEY?=
+ =?us-ascii?Q?DOyu4makJ4lK/SenUjxHPjV9j2rM8MxrXyX1hzXRZ3xftrRi0R7Lw0Du5ekw?=
+ =?us-ascii?Q?I5Dgs2yAWqyO/2DWlIAzTODjz8w3Ax+7OiM4xv62/xaDHTvVMpNmwhSpMUaL?=
+ =?us-ascii?Q?ceq9FWVdKfmKv9t0FvrNpyKeIcpYCSfeGWOn3ikbQo8vlFkvqRF7tMeE3U5Q?=
+ =?us-ascii?Q?XgGSVCx9T8uEJ4ianqz4V9Eb1MNAnVoduZfZApK8rtQdhsfLSTxUQHnZ1Gi2?=
+ =?us-ascii?Q?AlyVGXVqRJZwXCxVMBY8Sl3v9M+L++urLC3tIJIWVoD4mFL1I4lf/X85fdZU?=
+ =?us-ascii?Q?Y/YMaz/y0TwSTW3nkBCj3ongt13e4ehCh29WrV4PcV6tNT2Lv7uJw+c15WFD?=
+ =?us-ascii?Q?S5fozZKjaHv7UMkMjn06ZKAuq0F0s6jzkHAga+ER6G6nw6xLaJq8LofO8MLD?=
+ =?us-ascii?Q?/3JpZRHz01TAMgx2OfS37NGDM93EHhicqYCjYg+yMNM3FI9xKuUR2xtiaWMk?=
+ =?us-ascii?Q?93gL0ZSwB7z1PDQZPB1H+78FC6LHyTGQzHwVjzgKbcMeOSePrWYyaftilycL?=
+ =?us-ascii?Q?zJ1aIZE2mQ4YDXLrtMMilTjjjCoPc0FQPFfh12oSUpgy6XcvI1HqXA1VMbRO?=
+ =?us-ascii?Q?FVAWL0EDhd3SS32AyXgy+xJwpPkFgwPpZNM/liSVS9H5DA1IJRzD3oqu7esK?=
+ =?us-ascii?Q?zkwVXLY3iOfUb4Z6goPJy6mQ3qQOAlid5P5AJ5ovSDCChLRprJnOeJB5/s5N?=
+ =?us-ascii?Q?1vxzLf9MGwGEI0La5v+g2QeXwZ8aWiLAadX2jjbNPbv9ThXd3bX3astsf+z1?=
+ =?us-ascii?Q?WLNG0eRkXXrG2FtC7Na5DAZLRrUc/eTlCKU6Lv5T350x/oPnnBxJ3pOti1RY?=
+ =?us-ascii?Q?ObsSN9xLVum7rEaHO2FDoKf5BXwXXJ4/NzqwKjvsW48Uq1trLDhl5HVHr/J7?=
+ =?us-ascii?Q?MiQblpGuM3ZyililA2VbHAvTZ9ng/FZw51/R2116IWUl+DsLzWLqa/hsXDGG?=
+ =?us-ascii?Q?lsOZH60WEk07HV+1D2qYyMdY6o3HYI9D4N325D9nE8SDIoahHdexC/dpO1vL?=
+ =?us-ascii?Q?bCSlIKCh939gOlRRaP31/TXg87A2eaC9W0WsARDd0PYN+InwXxYIMxV/2vA/?=
+ =?us-ascii?Q?+eJjw0xHs+Dj4/MEwsjqYwfDx0lACiDXALzWZkfVM0zqBT3lqt+PlakV4IdI?=
+ =?us-ascii?Q?7HW3jk1avt3LjQ/IRkjRaIAdiJ1vGWC17DuZjQeAHv3ljtYXSEYmbc3toqUb?=
+ =?us-ascii?Q?8qzq0ukUo3BSdc/dL1fbFIWGTMKOM6PxXILOXEsYi1IWk/aZ1GAU/d4iGByZ?=
+ =?us-ascii?Q?nX9Uu9Dn9HCBuktkFNL4Re+Wb0ho7fE=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 587379a8-fda6-41e5-32ac-08df35d33c79
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:42:28.0834 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: njRpOmS7vpYx5HiwHjdHBEZeNy1Ot33Y9r0BtNsIbVX1hdKiYKEaRwOBCqieG57ZT0l/0uRTz6Sfkzb1JbXkFwkiZT7csIV7EnTcmUgfEEgmZpuzPcVHcM/JOLOubqJT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7023
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,133 +120,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/tegra: skipped bridge lookup in tegra_output_probe() breaks HD=
-MI
---
+On Thu, Oct 29, 2026 at 08:35:48AM -0500, Rob Herring (Arm) wrote:
+> The initial runtime-PM reference is held only while initializing the
+> NPU. Release it synchronously from ethosu_init() after the final
+> hardware access, before registering the DRM device.
+>
+> This keeps the runtime-PM setup and initial reference handling together
+> and leaves the autosuspend configuration in place for subsequent jobs.
+>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
 
-commit 7887570371c7e1244731285458cba8facf234cb7
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-drm/tegra: Make panel parsing by tegra_output_probe() optional
-
-This commit adds a boolean get_panel parameter to tegra_output_probe() so
-callers can skip panel and bridge lookup in the common output probe path.
-It passes false from tegra_dsi_probe() and tegra_hdmi_probe(), and true
-from tegra_dc_rgb_probe() and tegra_sor_probe().
-
-> diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
-> index 0d2c0ab0a63e9..c0845bb45bb15 100644
-> --- a/drivers/gpu/drm/tegra/hdmi.c
-> +++ b/drivers/gpu/drm/tegra/hdmi.c
-> @@ -1855,7 +1855,7 @@ static int tegra_hdmi_probe(struct platform_device =
-*pdev)
-> =20
->  	hdmi->output.dev =3D &pdev->dev;
-> =20
-> -	err =3D tegra_output_probe(&hdmi->output);
-> +	err =3D tegra_output_probe(&hdmi->output, false);
->  	if (err < 0)
->  		return err;
-> =20
-> diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/outpu=
-t.c
-> index d0ba3bd0aab8f..ff2e28a1e00b7 100644
-> --- a/drivers/gpu/drm/tegra/output.c
-> +++ b/drivers/gpu/drm/tegra/output.c
-> @@ -94,7 +94,7 @@ static irqreturn_t hpd_irq(int irq, void *data)
->  	return IRQ_HANDLED;
+> v2:
+>  - new patch
+> ---
+>  drivers/accel/ethosu/ethosu_drv.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+> index 4a24bbd2bb61..38af57807cee 100644
+> --- a/drivers/accel/ethosu/ethosu_drv.c
+> +++ b/drivers/accel/ethosu/ethosu_drv.c
+> @@ -338,6 +338,8 @@ static int ethosu_init(struct ethosu_device *ethosudev)
+>  		 ethosudev->npu_info.sram_size / 1024,
+>  		 ethosudev->npu_info.pmu_counters);
+>
+> +	pm_runtime_put_sync_suspend(ethosudev->base.dev);
+> +
+>  	return 0;
 >  }
-> =20
-> -int tegra_output_probe(struct tegra_output *output)
-> +int tegra_output_probe(struct tegra_output *output, bool get_panel)
->  {
->  	struct device_node *ddc, *panel;
->  	const void *edid;
-> @@ -104,31 +104,33 @@ int tegra_output_probe(struct tegra_output *output)
->  	if (!output->of_node)
->  		output->of_node =3D output->dev->of_node;
-> =20
-> -	err =3D drm_of_find_panel_or_bridge(output->of_node, -1, -1,
-> -					  &output->panel, &output->bridge);
-> -	if (err && err !=3D -ENODEV)
-> -		return err;
+>
+> @@ -376,10 +378,6 @@ static int ethosu_probe(struct platform_device *pdev)
+>  		return ret;
+>
+>  	ret = drm_dev_register(&ethosudev->base, 0);
+> -	if (ret)
+> -		pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
 > -
-> -	panel =3D of_parse_phandle(output->of_node, "nvidia,panel", 0);
-> -	if (panel) {
-> -		/*
-> -		 * Don't mix nvidia,panel phandle with the graph in a
-> -		 * device-tree.
-> -		 */
-> -		WARN_ON(output->panel || output->bridge);
-> -
-> -		if (output->panel) {
-> -			drm_panel_put(output->panel);
-> -			output->panel =3D NULL;
-> -		}
-> -
-> -		output->panel =3D of_drm_find_panel(panel);
-> -		of_node_put(panel);
-> -
-> -		if (IS_ERR(output->panel)) {
-> -			err =3D PTR_ERR(output->panel);
-> -			output->panel =3D NULL;
-> +	if (get_panel) {
-> +		err =3D drm_of_find_panel_or_bridge(output->of_node, -1, -1,
-> +						  &output->panel, &output->bridge);
-> +		if (err && err !=3D -ENODEV)
->  			return err;
-
-[Severity: High]
-Does guarding drm_of_find_panel_or_bridge() behind get_panel in
-tegra_output_probe() while passing false from tegra_hdmi_probe() break
-HDMI outputs that use an OF graph bridge or connector?
-
-In tegra_output_probe(), drm_of_find_panel_or_bridge() populates both
-output->panel and output->bridge. Because tegra_output_probe() is the only
-place in the driver that resolves output->bridge from the device tree OF
-graph, calling tegra_output_probe(&hdmi->output, false) from
-tegra_hdmi_probe() leaves hdmi->output.bridge permanently NULL and skips
-probe deferral when a downstream bridge has not probed yet.
-
-When tegra_hdmi_init() later runs:
-
-drivers/gpu/drm/tegra/hdmi.c:tegra_hdmi_init() {
-	...
-	if (hdmi->output.bridge) {
-		err =3D drm_bridge_attach(&hdmi->output.encoder, hdmi->output.bridge,
-					NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-		...
-		connector =3D drm_bridge_connector_init(drm, &hdmi->output.encoder);
-		...
-	} else {
-		drm_connector_init_with_ddc(drm, &hdmi->output.connector,
-					    &tegra_hdmi_connector_funcs,
-					    DRM_MODE_CONNECTOR_HDMIA,
-					    hdmi->output.ddc);
-		...
-	}
-}
-
-the if (hdmi->output.bridge) branch becomes unreachable. On Tegra20,
-Tegra30, and Tegra114 boards that describe HDMI via an OF graph port
-connected to an hdmi-connector or external bridge (where DDC and HPD
-belong to the remote node rather than legacy properties on the HDMI node),
-falling back to the non-bridge connector path leaves output->ddc and
-output->hpd_gpio NULL, causing tegra_output_connector_detect() to
-permanently report connector_status_disconnected.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029152909.2345=
-84-1-clamor95@gmail.com?part=3D7
+> -	pm_runtime_put_autosuspend(ethosudev->base.dev);
+>  	return ret;
+>  }
+>
+>
+> --
+> 2.53.0
+>
