@@ -2,50 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06FE7606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:24:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C50B606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:28:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kKLvXNsL
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tFX1Ez7T
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB291123C7;
-	Thu, 29 Oct 2026 15:24:18 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 958C71123C7;
- Thu, 29 Oct 2026 15:24:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4BA6A4308B;
- Thu, 29 Oct 2026 15:24:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A261F01816;
- Thu, 29 Oct 2026 15:24:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793287452;
- bh=Lgd8fgwbirjHQ+5iAWJuOW0Yf9aVXUfWyvj9lr8cQT0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=kKLvXNsLO+fE5J0zqkf7bh1q34h/uaracZrMOO0K3Nnd4XGSdqCb674H9nak9UqR1
- f2+k+3yMnnw26oi4TIXUVgKiUAbM6rJVTtL+rQZlNQyIEAPv6BmrtA/IOtvNzIKrLf
- +UjYNgck5WIMGxfWcS4Bl+nnPwnuuQvYVFaYEQIVtw9CLC6o2D6+YweQUPFIN34tmw
- q231QBUuz9HvEfC0DE4+hsyd2wjaz+RNihWTtjKHofxaWFVsJiF5tpM4HAsR7KYGzv
- 1aafBlUMu0Eea93KWYMHvJ1lFokNIuf+mHx2f1r3eOGhCz+9jStDYXCF1GUoiJkeUM
- BjS7UdqmI3n1A==
-Message-ID: <8072db9e-0df4-4fc5-b86a-cc50ac7934a9@kernel.org>
-Date: Thu, 29 Oct 2026 10:24:08 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5A571123CD;
+	Thu, 29 Oct 2026 15:28:05 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010022.outbound.protection.outlook.com
+ [40.93.198.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79AF91123CB;
+ Thu, 29 Oct 2026 15:27:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uB7OUaYoylFOemoq9KcS/sX3VozjYIH96yoN3Mg3qZSp5jVuncCKnrhE2H0KeormKCEKY6WEsL4U63t795/OObGiOt/3ISqsFNodd0kqSVolYlyzAJmKs6nF3z2DU2+wGxqrzkprYDR20jaJ16M9anUiM7Sg4EZkJZfsQ5x2ECx2RSke6XilviW/yTM74rdIKkqO3EFa6jUsJPyGRG/S7E8MM56EtOdBzlY+62VoFzqkFxINhDbO/ibkAXgOpmPHt/Q+Zr/m/0XDyQg2P66oTbD59rb5OTT7kzIqHCyzEmHYd3YWgoSICl9uyjdEObxeTtZXzH1KONoUL/dm9eUopQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XDCZICIo9b5vofW88rzyu+LUCuQkDYOq7hnZ70g4eeo=;
+ b=J7wAsKKMRMuSEAKuXBF62SBzKYQaFStp6trCfsOM4JjEVNjWDlZqfVO9AhXJhste49UAdomFXkLdusOCa+7D0U5Gf1sPjfVukB/2ILYrEpoK3r7KJdrG47U6/xnDY0oMlw1/lgI7GDKDMu1svKGFa0Rv07FvvvxSfp6GRLrWJzm9QSrzfYG1DtZ0tEsl7+XVpUtuekJJy1Qk3huWMZqlKA5grLm1hyU0YSMkxZPJiq6XA2BPc0KBCDXt+4lxF8OjDoy6A4rnzX0rPmPtgPZNXyLMiX1P4Mh72qt6HABpWVH3QL3R00gyNAPpBhzHvP/h3Jsq3XrTyBiYuVbXM32xUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XDCZICIo9b5vofW88rzyu+LUCuQkDYOq7hnZ70g4eeo=;
+ b=tFX1Ez7T16tY3Cygn58+H1AHqoyo1jl/rvM9IXfGd32Z68Dp8y4DopQOdRk/ti1/okz/TjD5m8DM9SUTd8VDLcnyFh4F94/Py6XA6fHAk0/UDUF3bOMF7GiE9mm7g7xRnEOUhNkR+UMt/WyxrH5q3KtSA0opbE98k/BOmjSCmPM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA6PR12MB893085.namprd12.prod.outlook.com
+ (2603:10b6:208:601::18) by IA3PR12MB570242.namprd12.prod.outlook.com
+ (2603:10b6:208:715::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
+ 2026 15:27:57 +0000
+Received: from IA6PR12MB893085.namprd12.prod.outlook.com
+ ([fe80::3f4e:1f38:3db2:270a]) by IA6PR12MB893085.namprd12.prod.outlook.com
+ ([fe80::3f4e:1f38:3db2:270a%5]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 15:27:56 +0000
+Message-ID: <58ed0221-cbaf-4b87-b5a1-8306e45e601e@amd.com>
+Date: Thu, 29 Oct 2026 11:27:53 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] drm: Support HDMI 2.2 FRL rates from the sink
+To: Fangzhi Zuo <jerry.zuo@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>, Alex Hung <alex.hung@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20261029004457.40545-1-jerry.zuo@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20261029004457.40545-1-jerry.zuo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0153.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::26) To IA6PR12MB893085.namprd12.prod.outlook.com
+ (2603:10b6:208:601::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdgpu: handle broken dGPU hotplug GPE on ASUS
- ROG Strix G513QY
-Content-Language: en-US
-To: Mike Lothian <mike@fireburn.co.uk>, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261029151422.56791-1-mike@fireburn.co.uk>
- <20261029151422.56791-3-mike@fireburn.co.uk>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261029151422.56791-3-mike@fireburn.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA6PR12MB893085:EE_|IA3PR12MB570242:EE_
+X-MS-Office365-Filtering-Correlation-Id: e3994fe8-c580-4161-1be6-08df35d13540
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|11063799006|56012099006|261009223327099003|261009221727099003|261009221227099003|261009223027099003|261009220027099003|261026140227099003|261028144727099003|10067099003|261022105027099003|261021121427099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: nb+tA+ZHooZj4c1ZleemwXkwCo6oPds6I2BaSLyL2+9B/nurI5jLgYXK4rm3fs4JbVOjYj0oZrBWHS9UzdlihqhNws+xak3mr7JQ3XK96LjYu5m/cJ/Lma3pZWap6Zb09/WuymiovO+WZB6KwE24LTFrf2UlVGPaaMoXRd/7n28PlZ2TpwfKXtMCcets80yy3I5SLIfUcN2YjKPTit6eKVJ6T7YKOgSiy+ZYRASmAjGRJwOEhvz2Mgyj2k6H6jvpVpEVzyZSjL47f9gMuOJ952hYLk0Y5mJ29+i8/RkUyEg7pWCQUMsL3Iy19o/o1FkgeCxtamH8gYffI/NpB5e+DkoXTPfsRRvhZMz/tFsva8zurFXe+kyIRplvwL77TvHfDx86bE8+iaH1mL88tc3mZ+ll0M6DshCitkl+qNRKYTKPeFthOYbwM6AAFDXzmCMMSH5jiXQSZOGJv/npEv/8p87h3iW+axyVRPwlaDi+uTYqnvI5lRj1EY3AJ197aLJIYzECg9dN6eo1rzO5AcMrQ+Ina5WHUWNskxu/+XvW8txFXTao6O97Pzu8Y7yuqLyZLG5u1bhrYM/zVBRrSRy6HtY8fqirt81Oi66jEpFUIfzUZ6J75jG0xojjUNrDo6YUAbw1WtgV7WmT+9xvXUa983kFIlJzwj2JxWbGSOD2qi8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA6PR12MB893085.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(261009223327099003)(261009221727099003)(261009221227099003)(261009223027099003)(261009220027099003)(261026140227099003)(261028144727099003)(10067099003)(261022105027099003)(261021121427099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?citzbXd4TDQvdlhpbmR5OS9sTHkzbDV1djdzT2c5NFlOdENCeVkzYm9nV0lD?=
+ =?utf-8?B?cyt2N053emk0NEdydUhCQjhLQ0RHOWFYa3V1VG13U0I4dFZYRmRRSEkwL2Nw?=
+ =?utf-8?B?SWNRVzduWlUrOUlFTWdXRFRya3JFMGM1UHdHbzI4U1JVV0VPQWZjdEpoaVRr?=
+ =?utf-8?B?bUR1bVR5c1RBdTM2djNaaU14Z3c3OXhnWmt4MnEzQVh1Q0wwTCtvM2I0RzZU?=
+ =?utf-8?B?NVpEcEE1S1VSK0p3aWtTLy9MOXVCTVRjbEx5U0hhTjhHMWJLbzUxY2FvbTQx?=
+ =?utf-8?B?MlI3ZU9FWVprR2YrQUZsSVR1SGVZbXlNcXIwd0szTi9JZTAzb0d5VkZuNTdY?=
+ =?utf-8?B?ZUwrNTdYS1UwQlVGYjU5cGV1QkpHL09OWmljUkFRZWNwVDA0eHNsa3FYZFVC?=
+ =?utf-8?B?NE9zWjAzYzVSZTBmTjlaNkNINy94WWR5NGpVWm5sWHhyenliYWdYQVpoaCs3?=
+ =?utf-8?B?L3FpMUsxbmJ5VTZQeWhIckZQSnZxUzIya3RxdCswOVNmN2ZOVUFnbXhEdnY0?=
+ =?utf-8?B?cTg0TlhMS0pHSTh0TFNZc1B5eGxlRVVOQUJGOFR1dkk2WWNvak9CRjFqaUps?=
+ =?utf-8?B?OEhlSk9CUUV1Q3h2T2dCT3QzWEVQWFAyRTI1Nng1OE1LeFJFeExoZDV6QUNk?=
+ =?utf-8?B?ZGliM3VIWFViVUs4QWtVWjB6QjIxS080S1BreFFZMDZWZ2wxWjdEakM3V2Yw?=
+ =?utf-8?B?N1o0SExER0Z4cGJkQlRPN2ZDRFVBQzJRdDZFWnFqZHhVWHVDNDBmZzN4a1FW?=
+ =?utf-8?B?T01GdDlhcDQ5TjBvOHA0aGdDTnhTazRQbHdFR2RObHBSelFlc0M0bkdHMCtk?=
+ =?utf-8?B?SEg5Zy8vdGZ3UWtTaGVwY21oODd5aDAzNG9xaDFzRkpZdVZxNHFuQTZabG9n?=
+ =?utf-8?B?OWNTL054anRKTEVpOFhkcm5GM1YzanY0UGRVR20wUFptWXNXRXV2RkxIZXAx?=
+ =?utf-8?B?V0NmTE1VL3RMbVhOWkt5UVAyTlhNelM1dWdKeEcyWVovU292WjZYTTY0ejZZ?=
+ =?utf-8?B?ZXFFSGVnZjc4M1lyZ2xyc0FQQkRYUUJUYmJLQVlqdTN5a3BvNFBoWFZDZ3pH?=
+ =?utf-8?B?d2JVVkpDNm9Zb0RwRTRoTEhMZXE2T0VYZjFIaTV3V1ZrSlZoYXdld1VxWnZS?=
+ =?utf-8?B?UDhiOEw3TGxZNkZyRzhJK2cwWU9JYXFkS3VuUHFpRk0rRWhneVpPWEdpWW85?=
+ =?utf-8?B?TXdnaFpDTDNROEhKdnI3cEdSanpyaHFLMHFkc3o4ZURKK0xZTmw1eVZmbVEv?=
+ =?utf-8?B?SlJ0RjRnclIzSHFSLzFQVjZxZFVXZDlxdkthWW1GQlJiN0dBTTVkaXN0NkFP?=
+ =?utf-8?B?VXJhZ003VmpQNzNzODd6TFlxd0t5U2ZHWkxvR041cnpqMjByMWZOWVI3MjlZ?=
+ =?utf-8?B?ZFpsaDRLQXpCaGZ2TG5yNUdQYUljTzE5QUxRR3BrcWhxQ2hOS2JWRWlTY0tO?=
+ =?utf-8?B?N3RlanpVVGdaMjNaT3RPUXF3ZzVUS0tyNFpBMkVnd1BpaGZmMVgyb3VJRE5T?=
+ =?utf-8?B?ekpiZk94Sk1mTmh1UjRwS0ZIODl5ZXQ5ZTE0Wm5zRm95R1pRVzl5YnNpUFF3?=
+ =?utf-8?B?aThMcDczeVpONkkyZ3RvYUZLVnk3ZFZLRlNxNGV5Tm1UajZBWC9vcWlrcDlx?=
+ =?utf-8?B?aVdaTzdqeGZ6NUh4eHQxOFpSa2tGNzZzRXIxeHpndk05YzQ0SmtneTBkNk5u?=
+ =?utf-8?B?bHBBcjUvZ0lJdU1VM0hiQjJBeHovN2ZjVng4UlBXakMwRi9xZ1d6VjF1clpB?=
+ =?utf-8?B?TW9TQStCUmJKNW9qcUVSVXdtZ3NXNVlZTEJ3ZXhnaVpISUpVWlJpbk05QjBD?=
+ =?utf-8?B?YkxBSytwMWhWTDJoR1pDajQ0Z3pYdWtKS1hSRkw5ZlpxSTRQdG5CQVN4UkZE?=
+ =?utf-8?B?Q1luc1M5aHBoelFLeXpOWWpwcHU3VU9DZTJGOWt5NVh5RVhmN0VvRkltd2Jw?=
+ =?utf-8?B?NldJcDhlREtMT0gzV0h6MGRZN1VYVnlsWEN1ZWY1dC83VjRBMVIwaWdLVHYw?=
+ =?utf-8?B?YzZiUm9scEYxemVxV2JnVkdjMUVscGRJQmsyY0RMbEtORUtIRG1BY0dxWjlt?=
+ =?utf-8?B?dEROOHFBOWIrS1d1RjVDYmVMSFIxV1ZIN1MyaW8xQ3h0ZmlTb1JLVzVjQ0h3?=
+ =?utf-8?B?Snp4bFIyeVNiMDhiYnJNWmdlbGx6STZoTVUvMkJ1RFRoMm85OW1xaWc4UmVa?=
+ =?utf-8?B?REs4VUE3MnlSMEs4S2dmVzkrWTA1ZFZKMFZQcEtrRkJLRjRPM1RJSUlBVVdB?=
+ =?utf-8?B?L0xWSStuUEkycGdXT2NGdzZIT0Q5SEJxVkhWbkljck1QTXhnMXFwc3lzcFdC?=
+ =?utf-8?B?Qmt5eHhsRnZ5VVFCYWIxbmlTd3VhRnBTb0lkWnZyejdpQlpDTTV1dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3994fe8-c580-4161-1be6-08df35d13540
+X-MS-Exchange-CrossTenant-AuthSource: IA6PR12MB893085.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:27:56.8854 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cF37hf44IEoXZfhq6HJqFOb+24GKxuR0GDhzCMrP92P3E19GLivSnHDT6Iv1LYS2qPMb6Z/ekmwTv2L13b63yQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB570242
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,202 +143,33 @@ X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-+Rafael
 
-On 10/29/26 10:14, Mike Lothian wrote:
-> The AMD CPM D3cold table on the G513QY (BIOS 335) handles the dGPU
-> hotplug GPE with:
-> 
->    Method (_L05) { Notify (\_SB.PCI0.GPP0.VGA, 0x81) }
-> 
-> On this board the Navi 22 sits behind its on-package PCIe switch, so
-> the dGPU node is \_SB.PCI0.GPP0.SWUS.SWDS.VGA_ and every hotplug on the
-> USB-C DP alt mode port while the dGPU is in D3cold logs:
-> 
->    ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PCI0.GPP0.VGA], AE_NOT_FOUND
->    ACPI Error: Aborting method \_GPE._L05 due to previous error (AE_NOT_FOUND)
->    ACPI Error: AE_NOT_FOUND, while evaluating GPE method [_L05]
-> 
-> The notify is lost, the dGPU stays powered off and the external
-> displays stay dark. Masking the GPE (acpi_mask_gpe=0x05), the usual
-> workaround, removes the errors but also the hotplug.
-> 
-> On boards listed in a DMI table, and only when the notify target does
-> not resolve, install a handler for the GPE in place of the _Lxx method.
-> It requests a runtime resume of the dGPU, which re-detects all links and
-> sends a hotplug event, and re-arms the level-triggered GPE from a
-> delayed work so it cannot storm while the dGPU powers up. If the
-> firmware is fixed, or the path is supplied by an SSDT override, the
-> firmware method is left in charge.
-> 
-> Other boards using the same CPM table may need adding to the list.
-> 
-> Link: https://forum.endeavouros.com/t/boots-into-black-screen-unresponsive-amd/49430
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 
-Can you please post an acpidump to a kernel bugzilla or drm bug 
-associated with this issue?
-
-This generally feels like an ACPI interpreter issue to me.
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |   3 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 103 ++++++++++++++++++++++-
->   2 files changed, 105 insertions(+), 1 deletion(-)
+On 2026-10-28 20:44, Fangzhi Zuo wrote:
+> The HDMI 2.2 spec defines three new FRL rates - 16, 20 and 24 Gbps per
+> lane over 4 lanes (Max_FRL_Rate values 7, 8 and 9 in the HF-SCDB). The
+> current code stops at the HDMI 2.1 ceiling of 12 Gbps per lane, so a
+> sink that advertises an HDMI 2.2 rate is treated as having no FRL
+> support at all and the link ends up trained far below what the sink
+> actually supports.
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index deb63122828d..d8a7fea8be9a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -642,6 +642,9 @@ struct amdgpu_device {
->   	bool				accel_working;
->   	struct notifier_block		acpi_nb;
->   	bool				acpi_dgpu_notify;
-> +	bool				acpi_hpd_gpe_installed;
-> +	u32				acpi_hpd_gpe;
-> +	struct delayed_work		acpi_hpd_gpe_work;
->   	struct notifier_block		pm_nb;
->   	struct amdgpu_i2c_chan		*i2c_bus[AMDGPU_MAX_I2C_BUS];
->   	struct debugfs_blob_wrapper debugfs_vbios_blob;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index a4041f90b374..182791f4cc86 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -25,6 +25,7 @@
->   #include <linux/pci.h>
->   #include <linux/acpi.h>
->   #include <linux/backlight.h>
-> +#include <linux/dmi.h>
->   #include <linux/slab.h>
->   #include <linux/xarray.h>
->   #include <linux/power_supply.h>
-> @@ -1297,6 +1298,103 @@ static void amdgpu_acpi_dgpu_notify(acpi_handle handle, u32 event, void *data)
->   	pm_request_resume(adev->dev);
->   }
->   
-> +/*
-> + * Some AMD CPM D3cold tables handle the dGPU hotplug GPE with
-> + * Notify(\_SB.PCI0.GPP0.VGA, 0x81), but on boards where the dGPU sits behind
-> + * an on-package PCIe switch the node is \_SB.PCI0.GPP0.SWUS.SWDS.VGA_, so the
-> + * _Lxx method aborts with AE_NOT_FOUND and the dGPU is never woken. On those
-> + * boards take over the GPE and do what the notify would have done.
-> + */
-> +struct amdgpu_acpi_hpd_gpe_quirk {
-> +	const char *notify_path;
-> +	u32 gpe;
-> +};
-> +
-> +static const struct amdgpu_acpi_hpd_gpe_quirk g513qy_hpd_gpe = {
-> +	.notify_path = "\\_SB.PCI0.GPP0.VGA",
-> +	.gpe = 0x05,
-> +};
-> +
-> +static const struct dmi_system_id amdgpu_acpi_hpd_gpe_quirks[] = {
-> +	{
-> +		.ident = "ASUS ROG Strix G513QY",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-> +			DMI_MATCH(DMI_BOARD_NAME, "G513QY"),
-> +		},
-> +		.driver_data = (void *)&g513qy_hpd_gpe,
-> +	},
-> +	{}
-> +};
-> +
-> +/* GPE handlers run in interrupt context; the GPE stays disabled until the work re-arms it */
-> +static u32 amdgpu_acpi_hpd_gpe_handler(acpi_handle gpe_device, u32 gpe, void *data)
-> +{
-> +	struct amdgpu_device *adev = data;
-> +
-> +	pm_request_resume(adev->dev);
-> +	schedule_delayed_work(&adev->acpi_hpd_gpe_work, msecs_to_jiffies(500));
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Re-arm after a delay: the GPE is level triggered and may stay asserted
-> + * while the dGPU powers up, so this bounds the rate at which it refires.
-> + */
-> +static void amdgpu_acpi_hpd_gpe_work(struct work_struct *work)
-> +{
-> +	struct amdgpu_device *adev =
-> +		container_of(work, struct amdgpu_device, acpi_hpd_gpe_work.work);
-> +
-> +	acpi_finish_gpe(NULL, adev->acpi_hpd_gpe);
-> +}
-> +
-> +static void amdgpu_acpi_hpd_gpe_init(struct amdgpu_device *adev)
-> +{
-> +	const struct amdgpu_acpi_hpd_gpe_quirk *quirk;
-> +	const struct dmi_system_id *id;
-> +	acpi_handle handle;
-> +
-> +	id = dmi_first_match(amdgpu_acpi_hpd_gpe_quirks);
-> +	if (!id)
-> +		return;
-> +	quirk = id->driver_data;
-> +
-> +	/* Firmware (or a table override) already provides the notify target */
-> +	if (ACPI_SUCCESS(acpi_get_handle(NULL, quirk->notify_path, &handle)))
-> +		return;
-> +
-> +	adev->acpi_hpd_gpe = quirk->gpe;
-> +	INIT_DELAYED_WORK(&adev->acpi_hpd_gpe_work, amdgpu_acpi_hpd_gpe_work);
-> +	if (ACPI_FAILURE(acpi_install_gpe_handler(NULL, quirk->gpe,
-> +						  ACPI_GPE_LEVEL_TRIGGERED,
-> +						  amdgpu_acpi_hpd_gpe_handler,
-> +						  adev)))
-> +		return;
-> +	if (ACPI_FAILURE(acpi_enable_gpe(NULL, quirk->gpe))) {
-> +		acpi_remove_gpe_handler(NULL, quirk->gpe,
-> +					amdgpu_acpi_hpd_gpe_handler);
-> +		return;
-> +	}
-> +
-> +	adev->acpi_hpd_gpe_installed = true;
-> +	dev_info(adev->dev, "handling dGPU hotplug GPE 0x%02x (%s missing)\n",
-> +		 quirk->gpe, quirk->notify_path);
-> +}
-> +
-> +static void amdgpu_acpi_hpd_gpe_fini(struct amdgpu_device *adev)
-> +{
-> +	if (!adev->acpi_hpd_gpe_installed)
-> +		return;
-> +
-> +	acpi_disable_gpe(NULL, adev->acpi_hpd_gpe);
-> +	cancel_delayed_work_sync(&adev->acpi_hpd_gpe_work);
-> +	acpi_remove_gpe_handler(NULL, adev->acpi_hpd_gpe,
-> +				amdgpu_acpi_hpd_gpe_handler);
-> +	adev->acpi_hpd_gpe_installed = false;
-> +}
-> +
->   /* Call all ACPI methods here */
->   /**
->    * amdgpu_acpi_init - init driver acpi support
-> @@ -1343,12 +1441,14 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
->   	register_acpi_notifier(&adev->acpi_nb);
->   
->   	if (!(adev->flags & AMD_IS_APU) && ACPI_COMPANION(adev->dev) &&
-> -	    adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
-> +	    adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
->   		adev->acpi_dgpu_notify =
->   			!acpi_dev_install_notify_handler(ACPI_COMPANION(adev->dev),
->   							 ACPI_DEVICE_NOTIFY,
->   							 amdgpu_acpi_dgpu_notify,
->   							 adev);
-> +		amdgpu_acpi_hpd_gpe_init(adev);
-> +	}
->   
->   	return 0;
->   }
-> @@ -1369,6 +1469,7 @@ void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *caps)
->    */
->   void amdgpu_acpi_fini(struct amdgpu_device *adev)
->   {
-> +	amdgpu_acpi_hpd_gpe_fini(adev);
->   	if (adev->acpi_dgpu_notify) {
->   		acpi_dev_remove_notify_handler(ACPI_COMPANION(adev->dev),
->   					       ACPI_DEVICE_NOTIFY,
+> Patch 1 teaches the DRM EDID parser to decode the three new rates.
+> Patch 2 maps them back to the FRL rate index used by DC in amdgpu_dm
+> and extends the KUnit coverage.
+> 
+
+Series is
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+> Fangzhi Zuo (2):
+>   drm/edid: Parse HDMI 2.2 FRL rates from the SCDS
+>   drm/amd/display: Accept HDMI 2.2 FRL rates from the sink EDID
+> 
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  6 ++++
+>  .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c  | 30 +++++++++++++++++++
+>  drivers/gpu/drm/drm_edid.c                    | 12 ++++++++
+>  3 files changed, 48 insertions(+)
+> 
 
