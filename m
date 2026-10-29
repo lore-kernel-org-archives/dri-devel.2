@@ -2,42 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCC8606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:03:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19609606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfJSQshx
+	dkim=pass (2048-bit key, unprotected) header.d=fireburn-co-uk.20260707.gappssmtp.com header.i=@fireburn-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=mSLHjUL2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE0E91123A4;
-	Thu, 29 Oct 2026 15:03:35 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63FD4112390
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:03:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B2C3760219
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:03:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4130A1F01825;
- Thu, 29 Oct 2026 15:03:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793286208;
- bh=PzHnd//43ugYduCLk0TZonVsouUifb0pqSNzoJiNCQE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XfJSQshxdAaIdgc3pIfxY5+LKsk73meWhr0v0pX8QM/49GYie5ymz4jc3ctyKNNFT
- DFpjtXpTKnyauirRuc96xk4mdwAJrvxoBpLc50tEFGkMZtDlSX0FC0yLb3OFOqgieF
- RacC9uAjhkHpRU0MexMDlJOyxNM2Xx7svF239uC14xiPyoQUIc1vM2jgylcMn+UIle
- Z5bVal39aSQXtXN0WU69dcGpMhPb/B1lHESRYuGuRBIlCy9ryG/kFupQxI7/cNJ9Ny
- 3PRvsQLl7sb6SJ7HJJfHRKmiHe2Ctu70my4tYfnvCu/jcjjJg68jfc3kjftI4LBYIo
- IUzb+K4jAGn1g==
-Message-ID: <sashiko-outbox-189570@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 27/31] accel: ethosu: Validate OFM transpose
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029-ethosu-fixes-v4-27-4aa25e22578e@kernel.org>
-References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-27-4aa25e22578e@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 15:03:27 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF7D10E038;
+	Thu, 29 Oct 2026 15:14:38 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B142010E038
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:14:31 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4a5720b0a57so4866015e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:14:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20260707.gappssmtp.com; s=20260707; t=1793286870; x=1793891670;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=hfS5OIzHxiX0eHuVw19YiRz/YZ1IYKJf2EBJhe4l3W0=;
+ b=mSLHjUL2Cw73rfedlrml4mKRoFb1FGG/jlM8YERNY/kT+al2yz7gYZ4X+vK4wuDoxo
+ CrDSGOz66GYw3xMu80rjHHh8yF29R6yrL89OVLS/cQRgBqTaajL5LkMMrjuadXvvXoTf
+ EXelm+Mpe4XMDhxXuHL8pimbsfSNDVv893mVVF2J+7afdFVwE1usigjstYPlDB/6CGX/
+ dUvtLuLNctP4CPRKqM8Ti7YQ7y0A+4QDpRgZs+4RWfYc2gcD4yW37g26pURA7bdQPdGK
+ GZ5rCIeYR49O6RdB6zKFbntCRIGyGo8RfU2aDmH7az7kfxt/6NNRL+PKiNWrmsBkwwdI
+ 4KVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793286870; x=1793891670;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=hfS5OIzHxiX0eHuVw19YiRz/YZ1IYKJf2EBJhe4l3W0=;
+ b=PX43gnCjJ50LNT6ht6BHwTw0MoNS1SVCKc9XxFuraWo7nS4TrGYi9RGYXXI2BzzkzN
+ k6ww7qeHnG0rmhnKix9bHI6Ux3U8sso1gEIjrNsWiCFDWyR8SKmrybhj8G27Ly7WAJtA
+ cZ1Wq1rix70Wsxc/1san2BzkSaOkXPHiPU/WI0GqPlF71xxCjcOa9WBVpAxf14Kh3lHC
+ nQTtXwI8XO6ET3aR5TqbDfVBnX3xMDLXHs8KGJwJJ5qFdpl4PCBjFM+IY27qHkOtdslR
+ zMK5km678U+NMSRPraZVd+TsTBtYsG3qE/R/9cyYbR5u5XT21QybYYvmkLnxiSOUEPKJ
+ TeMQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw7YVT6jfT/wb7ay0/M0YnrW9AgTveOdaS7aS2eJCqZO1GNBGLdXN70TDp2/WMSfsUwpS6iX67wFMY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIQVdb4O5iCOcsmWdEjl3znakCsoUcDOBEemw7srmLftlBwJ6Lx
+ B3mxRDIORXdq8mQGpgIE4n2NuhSCzkWCu1gxVsJf9D7x6gt3XkhpjF49LrdBE9dNXtc2TyJYCM4
+ LDS1dszjA
+X-Gm-Gg: AYBFou1s+aXchgSI/MmiC9x32qj2Ll/2JODv6xS5R6LJiRc9ETXNk8BNRSOujaE8ifc
+ 5nn24xe7l2p/8cYkpNhyDpqPgyOki5Umw67PdmLiTlcb90IKo2WFCXiVQTYBkffIGPFSWZb7xDs
+ stcCvGVDB1CtnHgKtTMNXv84/Sw+pavztvN8rrzDkgsEBF/Pi9kxXrIbjNYzZnjq8NWYPW4XR3Z
+ UOmaqYZ9y9Krn4tvfMxJiRdiHfwBlqzJnJUJMuGMjf5PcxxAqJCXxACmtS0jXG9heAb33nIpsIc
+ 4Xoha28OM7tK7s1q8BIFcD+f3FtfxTOfFGQOVWM50a7TVe65ppxdT0fjNww5AR8KyjyTPFVdYeP
+ RXLuIdmZ27WEJpSPYujVxf7oROKVmyqwto34Hy6uTFoAGCq6SEaY9CgJqVzc37wm6zvGHxACuB0
+ yT5nXHOPbB9K1HFKuIRG8B9xBcRwKhS5X4XNqRwzELuQlggwukQ14M5BtEinwOnhcfr+D0Xavoy
+ Sc0kMd4Mn4kXQpE+XShh0FGGSXgteBGDwMhAQ8EZ6M0q3eHjWKrTOqRfmlcEdUZN5t7sPUkuTKu
+ 8OdAUtp/cQntGjyZmEnkqtl01GIg7SYRv73OG0bxbKXvJgZs0Nmec/4Rpp+TWR3XEsb+kCKzJKc
+ KT2xpHotIsLsjKVPHsJiWcQ==
+X-Received: by 2002:a05:6000:2805:b0:487:13a9:80d with SMTP id
+ ffacd0b85a97d-48e649658c1mr5331076f8f.10.1793286869865; 
+ Thu, 29 Oct 2026 08:14:29 -0700 (PDT)
+Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e3ebcb851sm30191373f8f.26.2026.10.29.08.14.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2026 08:14:29 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+Cc: superm1@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] drm/amdgpu: wake a powered-off dGPU on a dock hotplug
+ notify
+Date: Thu, 29 Oct 2026 15:14:20 +0000
+Message-ID: <20261029151422.56791-1-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,103 +86,32 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] accel: ethosu: missing NHCWB16 format rejection when OFM trans=
-pose is enabled
---
+On an ASUS ROG Strix G513QY the USB-C DP alt mode lanes are driven by the Navi 22, and the firmware signals a dock being attached with Notify(<dGPU node>, 0x81) from a level triggered GPE. Nothing in the kernel listens on the dGPU's own ACPI node, so with the dGPU in D3cold the notify is lost, no hotplug reaches userspace and the external displays stay dark
 
-commit aeae30d6b3e02156421eb2fa71edc03fce2b6adf
-Author: Rob Herring (Arm) <robh@kernel.org>
+1/2 adds a notify handler on the dGPU's ACPI companion for BOCO devices that requests a runtime resume. Runtime resume already re-detects every link and sends the hotplug event
 
-accel: ethosu: Validate OFM transpose
+2/2 handles a board where the firmware method cannot deliver the notify at all. The G513QY's CPM table notifies \_SB.PCI0.GPP0.VGA, which does not exist because the dGPU sits behind an on-package PCIe switch, so _L05 aborts with AE_NOT_FOUND. On a DMI match, and only if that path does not resolve, amdgpu takes over the GPE and does what the notify would have done
 
-This commit adds validation and dimension permutation for Ethos-U85 output
-feature map (OFM) transposition in the command stream validator.
+Tested on a G513QY with a USB-C dock: with both patches and no table override the displays come up after the dGPU has been left in D3cold, and the _L05 errors are gone. 2/2 is only a DMI entry and a handler, so other boards sharing the CPM table can be added to the list
 
-> diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/eth=
-osu_gem.c
-> index 04c0de8336cd1..fe6bf1a2f8cb2 100644
-> --- a/drivers/accel/ethosu/ethosu_gem.c
-> +++ b/drivers/accel/ethosu/ethosu_gem.c
+The patches were written with Claude Code assistance, as the Assisted-by tags say
 
-[ ... ]
+Mike Lothian (2):
+  drm/amdgpu: runtime resume dGPU on ACPI notify from its own node
+  drm/amdgpu: handle broken dGPU hotplug GPE on ASUS ROG Strix G513QY
 
-> @@ -1000,8 +1054,19 @@ static int ethosu_gem_cmdstream_copy_and_validate(=
-struct drm_device *ddev,
->  		case NPU_SET_OFM_PRECISION:
->  			if (((param >> 6) & 0x3) > 1)
->  				return -EINVAL;
-> -			if (!ethosu_is_u65(edev) && (param & GENMASK(13, 11)))
-> -				return -EINVAL;
-> +			if (!ethosu_is_u65(edev)) {
-> +				u32 transpose =3D FIELD_GET(NPU_OFM_TRANSPOSE_MASK, param);
-> +
-> +				switch (transpose) {
-> +				case 4:
-> +				case 5:
-> +					return -EINVAL;
-> +				}
-> +				if (transpose && ((param >> 1) & 0x3) =3D=3D 3)
-> +					return -EINVAL;
-> +				if ((param >> 14) =3D=3D 2 && transpose)
-> +					return -EINVAL;
-> +			}
->  			st.ofm.precision =3D param;
->  			break;
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h      |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 132 +++++++++++++++++++++++
+ 2 files changed, 136 insertions(+)
 
-[Severity: Critical]
-Should ethosu_gem_cmdstream_copy_and_validate() also reject non-zero
-transpose when the activation format in NPU_SET_OFM_PRECISION is NHCWB16
-(((param >> 6) & 0x3) =3D=3D 1)?
+-- 
+2.56.0
 
-On Ethos-U85, OFM transposition is only valid with the linear NHWC format.
-If a command stream specifies both NHCWB16 (((param >> 6) & 0x3) =3D=3D 1) =
-and
-a non-zero transpose in NPU_SET_OFM_PRECISION:
-
-1. feat_matrix_size() -> feat_matrix_permute() permutes x, y, and c into
-   the transposed coordinates.
-
-2. feat_matrix_length() -> feat_matrix_validate() checks:
-
-	format =3D (fm->precision >> 6) & 0x3;
-	stride_cmd =3D feat_matrix_base_cmd(type) + (format ? 6 : 4);
-	if (!cmd_state_reg_is_set(st, stride_cmd))
-		return -EINVAL;
-
-   which only requires NPU_SET_OFM_STRIDE_C to be set when format is 1,
-   leaving NPU_SET_OFM_STRIDE_X unvalidated.
-
-3. feat_matrix_length() then computes the region size using the NHCWB16
-   brick address calculation on the already-permuted x and c coordinates:
-
-	case 1: //nhcwb16:
-		element_size =3D BIT((fm->precision >> (ofm ? 1 : 2)) & 0x3);
-
-		/* NHCWB16 accesses the complete final channel brick. */
-		if (check_mul_overflow(c / 16, (u64)fm->stride_c, &offset) ||
-		    check_add_overflow(addr, offset, &addr) ||
-		    check_mul_overflow(16 * x + 15, element_size, &offset) ||
-		    check_add_overflow(addr, offset, &addr))
-			return U64_MAX;
-		break;
-
-Can this cause feat_matrix_length() to underestimate
-info->region_size[fm->region] (for example, by permuting a large width into
-c while fm->stride_c is 0) and allow out-of-bounds DMA writes past the end
-of the GEM buffer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-ethosu-fix=
-es-v4-0-4aa25e22578e@kernel.org?part=3D27
