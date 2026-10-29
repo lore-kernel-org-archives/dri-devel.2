@@ -2,43 +2,135 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63540606A31F
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 01:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCC2606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 01:51:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V6RjrfAK
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IdyJweug;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cPAHkPsi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1AE610FECA;
-	Thu, 29 Oct 2026 01:51:15 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF0610FECA;
- Thu, 29 Oct 2026 01:51:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D2F7640829;
- Thu, 29 Oct 2026 01:51:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FC411F01825;
- Thu, 29 Oct 2026 01:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793238668;
- bh=9FLRnWcPnz+Kd+94uiOQHxP9fhZKSyuISoi2tYrFQ6c=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=V6RjrfAKPN44RhB0L5aDf8bbT8+YlvcY3GHgX7n8QfaOH68k4CU0NwBgXunKdfwfd
- gV8eI0bv1JHBrUja5CAL3vjBDLcmOFPxpwb5ybBcSTicaMIkWlCIt2CgBdazn0weNW
- gehcO5tg8ZStRgc2aT3/iX0+O7a9EndZMbBdXKO2mnh89F1yG63Vo9DReEAKzegXOE
- aZFXF47QvBRuquEx+bXTJFX4tco8Tne3nPLqwZHdErN/guU0j5Q8JyFGsxsEsbWCoy
- rTl2XhlJ4jypiYwMiic3ztT7CK1FVB2/8v5c8EkKB/ORVexMsuIp4vcugPEac+A6Rg
- kzyY+ZkLfFqsA==
-Message-ID: <sashiko-outbox-188621@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC 5/5] drm/i915/selftests: Port selftests that access ggtt
- to work with multi-gt
-To: "Krzysztof Niemiec" <krzysztof.niemiec@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20261029014155.55865-6-krzysztof.niemiec@intel.com>
-References: <20261029014155.55865-1-krzysztof.niemiec@intel.com>
- <20261029014155.55865-6-krzysztof.niemiec@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 01:51:08 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0457F10FEEF;
+	Thu, 29 Oct 2026 01:51:43 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D54C610FEF1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 01:51:31 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69T1jb531340155
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 01:51:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Rk9+wkvXRNptLffy30oeFYSi
+ +1Wc6/AhSR14JPEURjY=; b=IdyJweugAsW4uikydO6c/JTsfdePltsT3KCRJr0o
+ /2xODwtQyCtF7ELQaWuhZqr/JujQRu21pKJmReRe+yl4W6skPiD5tx3bsGFiV6nO
+ 5nLrq81IzT0NoFvpANvQOlDxqapzsEm/yOhw3aKYUEbijg/xGEBSV9FH3fo0RMSO
+ xUgEeZ+aO/2RE/JVvG4t9oFWpUaHVEXEqG1R4mRTBJdQMmvwLHhg+ZZAYgDWJV3I
+ qDlOojq6nRnyfGLCRQaJqTvt9cBVxcCBj2TF5BuUjBX/2XZX6ICbPYey6il7IvhG
+ cvUW8a49ws6dd0ByQoPW9aH/uHV7cQEvsI2/qL9oB/jfkQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtnjtxy-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 01:51:31 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-5337b591609so24775901cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 18:51:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793238690; x=1793843490;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Rk9+wkvXRNptLffy30oeFYSi+1Wc6/AhSR14JPEURjY=;
+ b=cPAHkPsiZr5lZ3bUUj3bVrtTAwqaSrG0nIQIu9KewusJWzEye7xI9dXzPlBv8ltErA
+ M8MYJuF7eOzhgsTD11Ot/FQ2RjD45//RYysdNxws/qHT04+wLe71euCtmdcL9Q7reTax
+ M8AHfOz4VJoGQlzqfaeoAJY5NjQxeKiP2NPC9T18RmmO+08+gZXK1juM+CI3yESVxxvG
+ xdXGC1OcIlZlIhx0E1cTtnYTKCoqOn7YluopAVLc4TZU8ItJSxKPkofZsz8aT3Le0ZwV
+ CkId2kWeT609PnbMnFQAqjMv2vYwvyJT52l8WN/bxHZ6WvwPfLSmWFcFTnwkIyEOsM9J
+ mOHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793238690; x=1793843490;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Rk9+wkvXRNptLffy30oeFYSi+1Wc6/AhSR14JPEURjY=;
+ b=wLDChYyMbGq+if/iCXsnaDoX4HZDI+ujPIn11jJ2i85EwqOHkNesZLmXzbWKbAaBnL
+ Ch3lhHdFCtbXsHDWsBzhT1BLS4Qg8k6G5QnS4XZ4QQ6W4GLIQ9MgVg4Qevjav2YEA4Cn
+ O5jXzTp5F22ECyE5CWB9q6AZL3aHszzBAPbEszV3ohYHxNqTMR4QGWfFeJNxMqlPTP/c
+ 8esFa7NPfcRPTnZdIzKBbi4cu92JQ+zY5TN5t7P25Ii3Nvn0mqzxydMtUzYYTwDJJlTN
+ kxJZC7cQeQ50drPASdQdemyFvmG6glndKdB3NTWXdlHkNCVaTYEq+DJ0V+spc/dUfIZA
+ 0jWA==
+X-Gm-Message-State: AFq9FYLOfE7eRWExUwfIF4phL028P5/ubPVJ7juMDy73hkJXpA4+9V3R
+ OElveNj3hBQseABhs/KSLc9Tb4Y+c9q5iy1g+N1SuvTq0l2sO4rrHr6dv8OYYKlzFI5LiUFdPyG
+ vuJM1RUSoM30Oa/VxCOo7pvUdTlRFb1C2rM7a8XosNIUl+7hwJClwlLWtOoKEG5MIWAZx/q8=
+X-Gm-Gg: AYBFou1XSvGNP95gM/sSTqRnfYHybvP0MjYA4s4cAlIDJEJ9mwncOu+KC5bFP+guqjq
+ kAuRTzDb3jSwOrsQ9rT1ANZkEeen8RJ4su55jssCnx/+EL591VyxwNx2PYt4jv8KapGo/AdPT6m
+ yNL33fmFE3ksoMtTCf/zLMMnWW7LcTf7yujJHtyvnEqpElr+9YsahlKE+3gi5H+ihyheottKjCQ
+ mv5VhREtgyk9GkcMhtRZALLs5O/65WqOf2M1E3vsIYdrsyKEilbZzaKPCa5wZLPmeRttKhMsBDY
+ SaSc7gn4dDz3Kz6ZltV7GpBaF3OVw92Ro56nfgzCo+Qg3Kfuyoxl46zndp91J9UaRz5k+YP7Bo9
+ GXOrCVIkRX3FHBOLlHzEyayOYfzxVKPU4j/MaS1blSqGhjyKjT1gzFUEFyJBk2/gYkoSgbab4vD
+ ljB/CJnOK8KCz10EVG70oOcHkKEiDkaUNldZ20+zllWMKFUzvYvv1upudjZkdrHg==
+X-Received: by 2002:ac8:5987:0:b0:535:958:b9c1 with SMTP id
+ d75a77b69052e-53fc8bc2e33mr71787781cf.11.1793238690176; 
+ Wed, 28 Oct 2026 18:51:30 -0700 (PDT)
+X-Received: by 2002:ac8:5987:0:b0:535:958:b9c1 with SMTP id
+ d75a77b69052e-53fc8bc2e33mr71787621cf.11.1793238689674; 
+ Wed, 28 Oct 2026 18:51:29 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3ac709f33b5sm34356161fa.23.2026.10.28.18.51.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Oct 2026 18:51:27 -0700 (PDT)
+Date: Thu, 29 Oct 2026 03:51:24 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/msm/adreno: Soften no-firmware message
+Message-ID: <uoziyz2q5wmgxtlchecfm3bo5mzlmxczldxfq5lsutrst7nrdx@5dk5xtwft5sj>
+References: <20261029001601.82269-1-robin.clark@oss.qualcomm.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029001601.82269-1-robin.clark@oss.qualcomm.com>
+X-Proofpoint-GUID: oW6okDTcqDE-Ueg5oRmvhJ6bD1hTXinu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAwNyBTYWx0ZWRfX3/zsIbJrp1xG
+ 9DzgRzcBQqKMRwcexvz9qgG+gAxV5ib29s1Bt8EXL7JrzswejQsDsCb+rUQfWiq8ktISP50pYPZ
+ l8fygLTMuXCq1sPOgELR+h60SgUTARtZtDAvpu3sHYZCKB2I76CR8u70c7Hgh2j68K/t7iaNYzu
+ Q3wJpp8DVEIAp5JFv15grFPC4wQ/ePe2mgxnFPjZXoYcf48TKdQS1KWc7A9YH9dcX+aE9HDqjr6
+ zC6DXrlcOA222X4ZxhzB4GfiNfAYMlFXwDHhXgWzp+GcxIsddBgX8QaZQGKr3cm2RMm2L1GbA8P
+ Dkcmo4ffh7ssXws9fwv5OWS6nCrvXZiAqic+lFYkV1s7V/MBQj9vuPDzn2aRvYprVUCWyA3xtZC
+ zxplaEkeJqM7X01TtsCRHwr4+WuU+QwjPjcJSirgSFwlLPmLTbfbZk7mHCT6p+shB4mCqT6m9Lt
+ WjYrvjLnnZB9DmJ9rwA==
+X-Authority-Analysis: v=2.4 cv=c/A+0h9l c=1 sm=1 tr=0 ts=6ae2a6a3 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=jF9eNvnS1b8AvMrK6iMA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: oW6okDTcqDE-Ueg5oRmvhJ6bD1hTXinu
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAwNyBTYWx0ZWRfX/nJdjexSEr7A
+ ZQjsJeHNqi+FM6JJuBHe+CbEBkYe7jPRFqRNIRkjkp0VdHB7C0o5NMez+3FrzrfcY3h2TOwwwdD
+ 9J1luT1hc7fnkg/oy/3LHDtnwsygLYs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290007
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,200 +141,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] drm/i915/selftests: partial per-GT resume in igt_pm_resume()
-- [Medium] drm/i915/selftests: wrong GGTT pinned in igt_vma_remapped_gtt()
---
+On Wed, Oct 28, 2026 at 05:16:00PM -0700, Rob Clark wrote:
+> It isn't _necessarily_ an error, the driver will try again each time the
+> device file is opened.  But if you don't have GPU fw in the initrd, you
+> end up seeing this error message at least once.  Which seems to confuse
+> users.  So try to re-word it slightly.
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
 
-commit 8db2f33415f217cdf07f8583781cb2c2c4d93d25
-Author: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/i915/selftests: Port selftests that access ggtt to work with multi-gt
 
-This patch updates several i915 live selftests in i915_gem_client_blt.c,
-i915_gem.c, and i915_vma.c to iterate over each GT via for_each_gt() and
-intel_gt_live_subtests() instead of referencing to_gt(i915)->ggtt directly.
-
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_gem.c b/drivers/gpu/drm/=
-i915/selftests/i915_gem.c
-> index ad650f67114a6..8f72fd1af8d61 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_gem.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_gem.c
-
-[ ... ]
-
-> @@ -99,29 +100,29 @@ static int igt_pm_prepare(struct drm_i915_private *i=
-915)
->  	return 0;
->  }
-> =20
-> -static void igt_pm_suspend(struct drm_i915_private *i915)
-> +static void igt_pm_suspend(struct intel_gt *gt)
->  {
->  	intel_wakeref_t wakeref;
-> =20
-> -	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-> -		i915_ggtt_suspend(to_gt(i915)->ggtt);
-> -		i915_gem_suspend_late(i915);
-> +	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref) {
-> +		i915_ggtt_suspend(gt->ggtt);
-> +		i915_gem_suspend_late(gt->i915);
->  	}
->  }
-> =20
-> -static void igt_pm_hibernate(struct drm_i915_private *i915)
-> +static void igt_pm_hibernate(struct intel_gt *gt)
->  {
->  	intel_wakeref_t wakeref;
-> =20
-> -	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-> -		i915_ggtt_suspend(to_gt(i915)->ggtt);
-> +	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref) {
-> +		i915_ggtt_suspend(gt->ggtt);
-> =20
-> -		i915_gem_freeze(i915);
-> -		i915_gem_freeze_late(i915);
-> +		i915_gem_freeze(gt->i915);
-> +		i915_gem_freeze_late(gt->i915);
->  	}
->  }
-> =20
-> -static void igt_pm_resume(struct drm_i915_private *i915)
-> +static void igt_pm_resume(struct intel_gt *gt)
->  {
->  	intel_wakeref_t wakeref;
-> =20
-> @@ -129,17 +130,18 @@ static void igt_pm_resume(struct drm_i915_private *=
-i915)
->  	 * Both suspend and hibernate follow the same wakeup path and assume
->  	 * that runtime-pm just works.
->  	 */
-> -	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
-> -		i915_ggtt_resume(to_gt(i915)->ggtt);
-> -		if (GRAPHICS_VER(i915) >=3D 8)
-> -			setup_private_pat(to_gt(i915));
-> -		i915_gem_resume(i915);
-> +	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref) {
-> +		i915_ggtt_resume(gt->ggtt);
-> +		if (GRAPHICS_VER(gt->i915) >=3D 8)
-> +			setup_private_pat(gt);
-> +		i915_gem_resume(gt->i915);
->  	}
->  }
-
-[Severity: Medium]
-Does converting igt_gem_suspend() and igt_gem_hibernate() into per-GT
-subtests via intel_gt_live_subtests() leave non-target GTs with
-unconfigured private PAT registers and unresumed GGTT mappings while
-device-wide GEM suspend and resume still reset and submit work to all GTs?
-
-In igt_gem_suspend() and igt_gem_hibernate(), live_context(i915, file)
-creates a context with engines across all GTs, and switch_to_context(ctx)
-submits requests across every engine on all GTs.
-
-Similarly, the GEM suspend/resume helpers operate across all GTs on the
-device:
-
-  igt_pm_prepare()
-    -> i915_gem_suspend()
-      -> for_each_gt() intel_gt_suspend_prepare(gt)
-  igt_pm_suspend()
-    -> i915_gem_suspend_late()
-      -> for_each_gt() intel_gt_suspend_late(gt)
-  igt_pm_resume()
-    -> i915_gem_resume()
-      -> for_each_gt() intel_gt_resume(gt)
-
-However, igt_pm_suspend(), igt_pm_hibernate(), and igt_pm_resume() only
-call i915_ggtt_suspend(gt->ggtt), i915_ggtt_resume(gt->ggtt), and
-setup_private_pat(gt) on the single gt passed to the subtest. By contrast,
-i915_drm_resume() in drivers/gpu/drm/i915/i915_driver.c programs the
-private PAT for every GT before calling i915_gem_resume():
-
-  for_each_gt(gt, dev_priv, i)
-      if (GRAPHICS_VER(gt->i915) >=3D 8)
-          setup_private_pat(gt);
-
-On multi-GT platforms, sanitizing and resetting all GTs while only calling
-setup_private_pat(gt) and i915_ggtt_resume(gt->ggtt) on one GT leaves the
-other GTs without private PAT setup (and without GGTT/GuC mapping resume if
-the GTs have separate GGTTs) when i915_gem_resume() and
-switch_to_context(ctx) execute across all GTs.
-
-In addition, running i915_gem_live_selftests() in a for_each_gt() loop via
-intel_gt_live_subtests() only waits for idle on a single GT in
-__intel_gt_live_setup() and redundantly runs the GT-independent
-igt_gem_ww_ctx() test once per GT. Should i915_gem_live_selftests() remain
-a device-level i915_live_subtests() run and iterate for_each_gt() inside
-igt_pm_suspend(), igt_pm_hibernate(), igt_pm_resume(), and trash_stolen()
-instead?
-
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_vma.c b/drivers/gpu/drm/=
-i915/selftests/i915_vma.c
-> index fc068dab27f44..3231025a7b7fa 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_vma.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_vma.c
-> @@ -957,7 +957,8 @@ int i915_vma_mock_selftests(void)
-> =20
->  static int igt_vma_remapped_gtt(void *arg)
->  {
-> -	struct drm_i915_private *i915 =3D arg;
-> +	struct intel_gt *gt =3D arg;
-> +	struct drm_i915_private *i915 =3D gt->i915;
->  	const struct intel_remapped_plane_info planes[] =3D {
->  		{ .width =3D 1, .height =3D 1, .src_stride =3D 1 },
->  		{ .width =3D 2, .height =3D 2, .src_stride =3D 2 },
-> @@ -990,7 +991,7 @@ static int igt_vma_remapped_gtt(void *arg)
->  	intel_wakeref_t wakeref;
->  	int err =3D 0;
-> =20
-> -	if (!i915_ggtt_has_aperture(to_gt(i915)->ggtt))
-> +	if (!i915_ggtt_has_aperture(gt->ggtt))
->  		return 0;
-> =20
->  	obj =3D i915_gem_object_create_internal(i915, 10 * 10 * PAGE_SIZE);
-
-[Severity: Medium]
-In igt_vma_remapped_gtt(), the aperture check is updated to inspect
-gt->ggtt, but doesn't the body of the loop still pin into
-to_gt(i915)->ggtt?
-
-Later in igt_vma_remapped_gtt(), the object is pinned twice using
-i915_gem_object_ggtt_pin():
-
-  vma =3D i915_gem_object_ggtt_pin(obj, &view, 0, 0, PIN_MAPPABLE);
-  ...
-  vma =3D i915_gem_object_ggtt_pin(obj, NULL, 0, 0, PIN_MAPPABLE);
-
-i915_gem_object_ggtt_pin() calls i915_gem_object_ggtt_pin_ww() with
-ggtt =3D NULL, which defaults to to_gt(i915)->ggtt:
-
-  drivers/gpu/drm/i915/i915_gem.c:i915_gem_object_ggtt_pin_ww() {
-      struct drm_i915_private *i915 =3D to_i915(obj->base.dev);
-      struct i915_ggtt *ggtt =3D to_gt(i915)->ggtt;
-
-      if (_ggtt)
-          ggtt =3D _ggtt;
-      ...
-  }
-
-If a non-primary GT has its own GGTT, igt_vma_remapped_gtt() will still
-bind and map through to_gt(i915)->ggtt (or fail with -E2BIG if
-to_gt(i915)->ggtt has a smaller aperture than gt->ggtt). Should those two
-calls use i915_gem_object_ggtt_pin_ww(obj, NULL, gt->ggtt, ...) so that
-gt->ggtt is actually used?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029014155.5586=
-5-1-krzysztof.niemiec@intel.com?part=3D5
+-- 
+With best wishes
+Dmitry
