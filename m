@@ -2,128 +2,164 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12283606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 09:32:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E41B606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 09:38:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=FwjNfy1R
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m3TKCYfk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E2D010E7DF;
-	Thu, 29 Oct 2026 09:32:02 +0000 (UTC)
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11011066.outbound.protection.outlook.com
- [40.107.130.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 657FF112130
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 09:31:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E38D112145;
+	Thu, 29 Oct 2026 09:38:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A855112143;
+ Thu, 29 Oct 2026 09:38:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793266707; x=1824802707;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=yyKkdU01/ayouraxiF8wH0riCsg1tMHSvHsYbh5zK98=;
+ b=m3TKCYfk5tO8DoN+KevUa1YjLxDnv+Nj2tLdeXl2iyDDn6xbwBUgM7zL
+ vp6obLitH540umU4hxWxrKfdmaFNM/CvE8+ow9uSxgLUXYS7MwmwQ75dm
+ 2TG3xrb53yitGrtkt8p/WtCygA8Vk68oKHbeFBDTqxG5Dg7V862DPreBe
+ CGfNa2WttmzzBlrxr1qHhvzbgdBt6qfCDzx6hlpqA9iw+w5Fr7kKyESMO
+ Gh0j9WCOYzg3pmhNukxC4Vle8CYixzokcQktEXGth+hpEzAu2FugufMpM
+ WzSvFhEIOtuUpAaOgh142i1u7Q+OH0Mnl+xva2ehW5rXKQufW/ckdIKNQ Q==;
+X-CSE-ConnectionGUID: oFOGrKlZT3qPr8ZtjoxpIw==
+X-CSE-MsgGUID: iJu58d+rRKu6VRjqNI/zdQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1998154"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1998154"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 02:38:27 -0700
+X-CSE-ConnectionGUID: WIprxqtPT6qRC2VQDJN1/A==
+X-CSE-MsgGUID: l8e+Suk2SiOGZxpdmMYRfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5430530"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 02:38:27 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 02:38:26 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 02:38:26 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.66) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 02:38:26 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cRwg1Y96daMQ3bCtNZebBn021iMOMGllFgNTjTISvSy12YNra7MBGHwszTMQ42xomhX3/1fEd+Vw4LppZnn6tqBx+oBZpQ9Hl+Vl4DiyVnEfRbjSBSJhFRLF7yNrRd/aFnasYIiKUfdV+nzg9i/ZxlIz/W3wRYQ+hX8tvkOd4t146f+rEW7dhCHbW7JEfRb8dd8lnp17w740/9myvjo7792AuhGlAtIa7BsWBOQQNKg2w+0L+gt8x/egMoHAaRfBjmg/RPpESpAKRy5v/U7NRVoR4S6/AZDkj5pXEkRvZxwpTQI+DMw+9qIVVCr1FvbqcEekJUrl7UXTNKmYBg6pUw==
+ b=r0PVjwON96p/+NkNJiP9MK1rv/2XNidaNyn1+b+Ui4i7F9RUbh+d/hSyndgRcuInXXY9g2IBeQyJvqwAQ9ZWTDRi3NSg/82hXzqSpfLl6hspPpgh6IOHSquN2/bURlj9bnbhvw5Ft5ohPlMBxvPO34efOQp54ApVz1uRqseV8/3oGrs9e8KyCZ9QzH3tU6ZhqBeYmZqv7+6t7s6JbAe6Bk2KGb43XFUoSpWJP1QIjwSmmjTSezspY4F2OdDTT3N7ntUDFPzW2YILThUow4AXwn0EVDXRADN/zY+QASwJQBfPikaH4ILZgM982xK4PAVokO1IBn+RKTjv7bFTFUEYzA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QAQFBc0TLYt5u/BYmyU55KgM2FYKHfjEm2Jw+YBYZWU=;
- b=C103SWDuyDEkQK3nc4dgaVXPfv4KkTKaowVA8Qm3cm9OjGnLD88sc8KgG49jrOmxUagE+qi/VIOkjFsg+aWgluxW7aGKl2DWUfJOKitSOVC8OnNYS8wOgDuZflYT3CtnYvzN3GUu9HNGXZ/kEMlP8LLM8N9bxuKouhyrrYCGsDaJPz7nm1BVny840BJK9KhWusUd3kYOHY/BPti0BoBKRjHKb9Mb33d3JOp5qKmjyPkGKQOAOflPF837V8G0lCzKyVVsZbwjDQH1DSJPKo2is1O0Q6ADZ8J/y+GorDPh6NCrMFl1ho09lvz8914bwpuhZeGJZaVOpB2GDagTkHSrgw==
+ bh=4WchFdVowZX7goKXVDM9O3VxaCjHDKfk8NL2L50VBbk=;
+ b=XbsMsCj3RF3Wq8AmX17Q5Rh5nw+n78XrqU0EJWKj1mKqhoRzSK7UF59TpNdIdUdE1roJnM+SmL8P5eiS4XMOMdJ+453la+HwJJoxaqDY0UKTLr81BHRoDuPbLQcGbBRKA9yY2TEjMNTTq4+8QKYJcbvvfP3JVXtd378yK8YN9PrOIGJ89d+yjIXZNkEWAR/i/EflABkF14qUyLQ1yxOvcpgTflglQZuGQ+Xb4vGR8DwxtY2w5ljhNJYYvVuX7HgIS7hRhAmGnJGb2GxCebsO9Bwo9/Z1IK9KoSOroWj7KvZvOCLwuHS4+PUFOTeMU9as+mff4vCUCeU6UXd27raOeg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QAQFBc0TLYt5u/BYmyU55KgM2FYKHfjEm2Jw+YBYZWU=;
- b=FwjNfy1RxIfs7refv6FzWbwd3zWPsgUC50nZDUnRqf5ivt3E1Mf4vvukiBmXzBp3tQzj5pBUt0kDZmq3nniMN+ROjargd5yfR/P/QMOY4zu86IhJW3cx2CVEPrSOQrGwnyeIRARLHdW5Say3+JIlLCQf7WHe4X3HU1LWP5UTRJw1uS6q+++mGNpbWf0sMqcHEfF5ky+22iFSXbFk7wgxO6N8016Irhrwrr6jwhtENPp23cCvJNBlz66kubs+zCyPnbpO3kS3Y+gcQElcyXDi+J3s4MZe/+WgJ2/fVzWasq0e9mCG3BD37QW6PnMm6yfd2vrKVsln6CoPZPotU+F2zg==
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by GVXPR04MB10681.eurprd04.prod.outlook.com
- (2603:10a6:150:226::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 09:31:50 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
- 09:31:50 +0000
-Date: Thu, 29 Oct 2026 11:31:45 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v7 08/15] drm/imx: dc: Add DPR channel support
-Message-ID: <auIOl-0XRtRrhLcw@vm>
-References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
- <20261026-imx8-dc-prefetch-v7-8-a0b50cc4fc65@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-imx8-dc-prefetch-v7-8-a0b50cc4fc65@nxp.com>
-X-ClientProxiedBy: AS9PR05CA0330.eurprd05.prod.outlook.com
- (2603:10a6:20b:491::10) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
+ PH7PR11MB6428.namprd11.prod.outlook.com (2603:10b6:510:1f4::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
+ 2026 09:38:24 +0000
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
+ 09:38:24 +0000
+Message-ID: <63ba65de-4292-4f7a-9df3-f98fef5c88fe@intel.com>
+Date: Thu, 29 Oct 2026 15:08:17 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] drm/xe/survivability: broadcast dmesg when engaging
+ survivability
+To: Raag Jadav <raag.jadav@intel.com>, "Teres Alexis, Alan Previn"
+ <alan.previn.teres.alexis@intel.com>
+CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Roper,
+ Matthew D" <matthew.d.roper@intel.com>
+References: <20261023173625.601113-2-alan.previn.teres.alexis@intel.com>
+ <auFpdeRIafjgKSV9@black.igk.intel.com>
+ <f7f8745978c21de8687e1e539a15f0be9f9d4a6a.camel@intel.com>
+ <auLQCWmLV395IoS7@black.igk.intel.com>
+Content-Language: en-US
+From: "Tauro, Riana" <riana.tauro@intel.com>
+In-Reply-To: <auLQCWmLV395IoS7@black.igk.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0166.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ba::9) To DS0PR11MB7958.namprd11.prod.outlook.com
+ (2603:10b6:8:f9::19)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|GVXPR04MB10681:EE_
-X-MS-Office365-Filtering-Correlation-Id: 987dc362-a55b-451a-ab5d-08df359f75ca
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|PH7PR11MB6428:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61204ade-f14e-40d7-45e9-08df35a06093
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|366016|19092799006|11063799006|5023799004|4143699003|56012099006|261009223327099003|261009220027099003|261009221727099003|261009221227099003|261009223027099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: StGuu7WCP4j7Lf7WP4kAiNT5IewC/TFOJw+78yJi++LGP/8K94vO3k3XNEbEt1SL1rMrUxzYacpUk0KOcSNDTw2Ds3DB9MehJmsVNVBRrGbxj9IfQywvMD14vnNrMzjxCoqVaQcS6+wxgXpJY0H4Gskne/gUOl/Mr4am28WTVRkl04OrcPcXTY+ROEa7+FpJbdvIzwk7w1ViOE+hntMwzG5oE0pi1RLu6jQ/0h2WIALvKGZlUKKBYG8Bpf0ArKMuzkkkafNl/bUAJbvj3VlQ7UYahXUGj8k1NpGUvLdkyemTj1x/xu4DB5CnDdr1+RY70Kb8s9Y1+iMiwV75t7EaipYpKGqhEx5Y2cOwdn6Js7YbpOkV23tK28rUBR7+S8rjljQt6OyZ8ZdBd+vh29rBDJLF/4amNYRTzr3amrmkRfJV2I+S7pgSjd4sgsMiaWWP2qVukcQQcX9imp0JRB8PRS/Q78LWK6gsosU8kcuvseZNoyXtx6/7SunuiRL0GwEZozAf/aBAsC3NyWvZFiF/JegamtbjBQZtOflsgUl4ZhhuoaLI99HXTGIui3xgOdXqr5Cs5jf1obnBNnkbCiJSSMQ0cM15WRSd5oJjmS/KkTcqOci6o6MYAmDPpapkhPI676+CFW9xsyItGEJoPU6sXVrtufV1dNRge9nspxibwj0=
+ ARA:13230040|23010399003|1800799024|366016|376014|261022105027099003|261009223027099003|261021121427099003|261022075727099003|10067099003|56012099006|261026140227099003|261028144727099003|22082099003|18002099003|261026121527099003|11063799006|4143699003|5023799004;
+X-Microsoft-Antispam-Message-Info: rN7TeZU4PaI/aNNxxeKSeTyqGMkqAbT0igALG1wnOkUd7TJ5WOFTNWXRZCPVIzGE0o8F67iuabZ++CeYjanOR6gLbXnud6qxlMmFqiOt7k6TEsSuj1t4m3m2uouQZMS5ZYeYksnrOaG6q3iF4rvveX944WHJb7zkFD2IJTJ1Qi24RgutQ3kycJbDT7wEilRNuWLyxmdt5/dWDxYJTN0M9z2E6SkxEwgWm1wKKAynEd7wT+eCKXN3Eo+3tUp3Eh15TyYI3NeavEDhwVZi+DZfjLLJdwFc9EbNOPxi+VuZ6z45/x8XgvTo81IkUiN0ms4QtsSWtP/fNZKPxk2nxfrgiGUqqPHWvj6JgFEkRhbkLcDUc5qLEXtCqbRn4BNi0yaOG7Udkcf/jYf/wixIFCKKfkQBqZoUPRSYqscyVKuzOZBKNel82/tCykY9ndY1iwfaGGgzCYYaiUmSM7x1eHwxs0sQgxA3ixFqRztSS0hxRvdhHwTzzK8LiFsyZlMEtg/clnzFOD+nPlozQdDU2904t1DuIOqWApD5if2JmA6LOj4SvKfEDphPNYUrW/icGLqIUw57rd46k09mP8BML87TJ4xEMRsWde818E4LmtXutqa/xK4n13sxv661suL5y9RdqTnKkbojgb2wsW3lqQlLQ9V2ahBAfbxil8mQsjpxT3Y=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(19092799006)(11063799006)(5023799004)(4143699003)(56012099006)(261009223327099003)(261009220027099003)(261009221727099003)(261009221227099003)(261009223027099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003);
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(261022105027099003)(261009223027099003)(261021121427099003)(261022075727099003)(10067099003)(56012099006)(261026140227099003)(261028144727099003)(22082099003)(18002099003)(261026121527099003)(11063799006)(4143699003)(5023799004);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?o7VOJBE4qsFaiGqZLXZDJe0Bh0YT850WcdKAO2jhaV7SOSW+mXAOQqSdaea6?=
- =?us-ascii?Q?+xyPK+byr4NWISUeiuDvsWwQuDv9Anp3Jy662u0Q2aMneCMghn8ZFxFco7Rd?=
- =?us-ascii?Q?QMSO9NXmAvBmdV8y7bIUaNPw3yOo8F3ETb8K9RLcQnVowy7xgCJqkLKhJxfR?=
- =?us-ascii?Q?TFN8ln/pfT3riLxriJoJ5BeclLTZNeYdJoY/k+JK9Io8uY3uXRe+oWTOUJtY?=
- =?us-ascii?Q?ZkldzFcqe9n95LL7GZz3CZSkClW6uzBqB2mghQ/lkYYN2iozybQvofffi5jV?=
- =?us-ascii?Q?pnMzw1dSy6Ll7HMgHLwEkfI+ESyEQlUtPg1RIPmf63es3mYoqutsd/XP4ciC?=
- =?us-ascii?Q?qIR5Mmqjy4ZcXTGQNNKBPvAtNnXlM3RpOzBnVLDkix6WKl9ur9n2RO9iFLEh?=
- =?us-ascii?Q?qa+fbge3OFzEqNI+mB8eARvNDNfuGAjO+Wz53a9WVfSfXHo+dKeKZGR7mTcO?=
- =?us-ascii?Q?uo6YF/tI3YZXfNnmgK5W4CUiZZut+nnYxkGs4dFZo8ev7FwyYYWcgx08wabC?=
- =?us-ascii?Q?IjBaM1DbUBarGmvtdqJeut4e8HeTUrMl5IWSgVGManNU18RaxH0sRAU23ZtJ?=
- =?us-ascii?Q?DCyLyDnuL00DlmDA6YcR4WK6B2QVqPyB7miIZJVfmTSS58yMPaQz+blqk0ZX?=
- =?us-ascii?Q?G/LZu/Xw2C4/KL6D5Ya7d2ZveoY+NG3Xr6lUH5f/RCASOjCZHMLky+Eel5zh?=
- =?us-ascii?Q?6gSgOTQNGRCnnoLU46gP5ZdZKZ8qg8wTASOthttazvIlrp/BeBsnneHZBdiG?=
- =?us-ascii?Q?lCzmn52FGORRDzM0AGX0rZe7lxjrN+5PwbGTqQlt+I38bGdB6bFb6WObIjzb?=
- =?us-ascii?Q?7Z99KLFI1CgHYBEca2qvkogpZdFbm7QJX9im+E+hWSp3IzDwSrZ3Y48LRxx2?=
- =?us-ascii?Q?LN5MyIn08AjY4zzzjwAfnkkJ2xDZ89NHERuXus+xS/aeb+b6tmI5fRn54nA9?=
- =?us-ascii?Q?J2xfhse9VpyKGraHHNEklTuEi68eC4vYGQUoNmz1rtqB8JiCd0ZalVKKFzAx?=
- =?us-ascii?Q?vVcGLKB5xppUSY/w/RITqo2iPMt4VOhKLU4ZW1B4jy2F05sPzI6waX5Fdwk4?=
- =?us-ascii?Q?e0sfwew9RJvA49UvDvGUFS7gnsltCRwRkOUm6p5VTWlMc+0WOgf4ypfkwEt8?=
- =?us-ascii?Q?4lhu1LDHSQs37BupVVD2zXcNZ4DgoCbUax6UkEG/dujN0Q/PJBebvdOKm8M6?=
- =?us-ascii?Q?UdFfopFM+i1Ms48pzsQ+C/L/YZrDCZYDnNXg5vz4Ak3tUPSObxXoxx+YuuYv?=
- =?us-ascii?Q?GfVkcrnVwpCTSImWBnvtGJ8O4VR1CiZdqqWxYmrXOEW8/0BvJtQeVvcDvqm9?=
- =?us-ascii?Q?HKrC+6N6vH/xqT8U+uujSFP4JB9qbKyKLSMN4Uwg+a6vRvhKzsV0eHVsvtrY?=
- =?us-ascii?Q?9RKz+2t7OAZEHyX6xIW/GWHvgKXosXzUV5Iq32T2wWS6kMlJMCpKzu1s2K1q?=
- =?us-ascii?Q?x6cAh8Z2NkGJEyFGmC2sr+SoHNLKTPa2+hhmmhyYagUpEy2hEUsFrKv59P1J?=
- =?us-ascii?Q?qVwoznGiBLibOP9hItsWm3UBuP3uGU+6zIyWcU3cPmT2rZAJVcMiPcB1usmc?=
- =?us-ascii?Q?hdppDH+ASL/rgsJL2/rjXRC0eMtFWzfyU6Vhy2SCjl2DO5fCysyza/eeRA5a?=
- =?us-ascii?Q?1y/dT4oOxZ5k4s6LMcskGvkAtovxSum7SzrSqfWDDxqziplg7fA6QIbxcTS4?=
- =?us-ascii?Q?pgdt/1TKqdgJ7mumLe7qSJLFfvGvtM5b3fWYfVijmyTqHf3XhBQJ5fI4UmjQ?=
- =?us-ascii?Q?C4ITtyZjeRj+BeNxmmyzQnh4hK90opI=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 987dc362-a55b-451a-ab5d-08df359f75ca
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a3BmbmJlYW9XOE9ITnUxdFpZeU00QVVjNmhYL2NYVmxiTlovSnNyaktwWG8w?=
+ =?utf-8?B?TnVEMUk0cGlVOVZGZnY3bTVZQlJSdFJsaHV2MmhxVDNkYTBqT0dvem03WndO?=
+ =?utf-8?B?bDNGRE93elpQSkdpTHBYRUlxTjRLOFNSREJxbUpYWWpHZ0Z6MlZLdzBVeVhm?=
+ =?utf-8?B?Qm43UHVieUdMYXVxcGRCb0dnRklPUW1qMUlvcjhiQ01JOGI3MTQyQ1ViUWdh?=
+ =?utf-8?B?blJkTHNIMU5zcTFvdU83ZHVPY2JQUVdCbnQrMGRLLzVEenBseVVjYmhvQlhR?=
+ =?utf-8?B?NVBROERteCtYNzBkTU1hZjNYYnRuNDVMbEtsQlc0T0dVQWo3UEMrd2xyTFFo?=
+ =?utf-8?B?c09KMUw0V0tpWFJsbW9oVS9LRE4wenB3ZXZRTmppWGJOZHRLUThKZXYwWkxL?=
+ =?utf-8?B?M1JsbWZ5Y0RkMHJ3amdIcGZnNkdzdG1FaHFtWVc5UWM1d3JFN1Irbm1DQVl5?=
+ =?utf-8?B?N2FhUTE0QUNqdW1qdks0bWxkNGtsMkpHZXdPLzNTMVBIM1A2YUpPMDBaaFYz?=
+ =?utf-8?B?Tm43ZFNtVXBscm00dTl1VGRySlFVdHdveHpGaHR2OExVd04rYkR0VUk0MG9R?=
+ =?utf-8?B?NzF1V05EdndEMUsyOVRQY0o0ejZoYmhQOGpvMkg5S0tUTTk5U3pJMzNkc0dv?=
+ =?utf-8?B?Q3JyMytUNDVGZ0t1QXN5bk9RRnpDeXNReGhhUlVESHFVWWJWS1pTNmFjeXAz?=
+ =?utf-8?B?Vm5NYU1ZSEQxYzVNcnc4ZEdpZVBObWswaWZTY09BVm03eFRqa1ZkWHRWeE85?=
+ =?utf-8?B?cHFyUTVaa1RGaEQxRGhmamV6K0lHSmdhYklVZHF3Q212dEJ1THNVUU41dUpE?=
+ =?utf-8?B?OERNeGVYNWtLcUpQTmlpblNTdFl0cnhKaFlIakM5OEpTQldRQlAxSm40QUE0?=
+ =?utf-8?B?N00wR0t3Z3JMV1Izb2kxSCs4ZENVbzBhVHAwMDBwR2JHMktackIyYmJ0TlVp?=
+ =?utf-8?B?djBEYU5WUXdvWEZqdDl2dm9YZXhHRVlVekhWLzRhSkdSaGwvUTl3T0VyZXky?=
+ =?utf-8?B?UUprSzFick9ISkhhb3VhNzkzVm5MTW9Qenl5dW10amNqb013SmNKbmZEUFJz?=
+ =?utf-8?B?ZWZvRTY2My9jMGw4VWJSa0pFMVNPcDhmSStRSWs5bWhlMFdVbVRWcGthMG5j?=
+ =?utf-8?B?RENCbGMrdkw0ck93MEMyZTdNMkRpUnBGbWNwa2JXbXBIVGVYQnlXWUpkRmM2?=
+ =?utf-8?B?SldHNTZOVEJQRU9VOSt3ZDRiMFZKZDE1S2xRdml0MGRTUWdydlFNeGlWbCtM?=
+ =?utf-8?B?QTRxWDZqT1VxaWpIaEluRVJVL01ISHA1SXAxR1lNT2ZZc1hkRnFGbVV3eExl?=
+ =?utf-8?B?YVB0R3BEVzVQczNvOFF4a0tMT2c3ZktlaW5zT2VvazZhd3FoeWxrVUJmbHJE?=
+ =?utf-8?B?WncveVlRc0ZXMHAzWVkwQjIremliZ0YzYjUzTEZkcXRnTnRzeDRIaUplamtF?=
+ =?utf-8?B?TUM3dmxXUHZSQTBnOU9jQ1JRdGhXNFQxQVlubWlSTC9zMGJNM1RYU0lNNk8z?=
+ =?utf-8?B?Rzd1SGJjWEcxdFZtNUI1akRseUM3QnRld1NBQTFvMUxTdXFkUUxiT0JyN3dE?=
+ =?utf-8?B?ZVluVE1wbmJNazl3cnc1VUg2SjgycnRUZWZxQWdOc1JnSG1rR09EZWRrdThD?=
+ =?utf-8?B?M3VsTWdiTk1vQVFjYlh2SXF3MzN3V1BFNThCdmJCRGVMd2JpUFplaGQza1gw?=
+ =?utf-8?B?cEw5YjVwZXF0Rm1HaHF5K0s3UVYvb2lxbkliL1BmaEY5bDdKeDkvTDJheW5N?=
+ =?utf-8?B?MFp4aXE4WVVMRVYrTld0WkxpQnFlYW1GMnR0UXRaMzFueWpQRGtVcVpmblZt?=
+ =?utf-8?B?UHJOSERKcEI1S1NkNzlCbjhsdGpmUGJaUjJUU3NFa3ZEc2NONUpDTmNQaldX?=
+ =?utf-8?B?Y0lKQkhlWXhqVytaOWRlMWRMUmFhMEFBb2hXWVo5Y3FXVEIyekpFVDBub3Z2?=
+ =?utf-8?B?QXozSTJ1OUNlMDErQWhpbGZ4emR6WGtpMGtnTThZSjlCUHF5N3FwV25JSzRl?=
+ =?utf-8?B?Y0NFTXJWc0tFV0xWZ0o2cWJyQkpQS3ZCQVRaZFlocmtEekdjdEh2NFVUTDZ0?=
+ =?utf-8?B?ZXFxSDNHUERucUxRRTY0aWhSckRqbm9MaEwxUzhRN1BwUTR5QWE5a3A2QzNa?=
+ =?utf-8?B?Kzh2L21sOHlwUmhQb1hFVXlFTlYwUDNXT3B4bTlUWHB2ZHdOWjVkU0RocFBV?=
+ =?utf-8?B?VTcyLzY3clVIMEgydGpMT0FYb1F4empoeWYyMkFwaE0rbFFZUkttYzBpVURk?=
+ =?utf-8?B?M1BBak4yQnhLNzBwNGJjeENEbWo1dG1lMFNLTFdYVlUxamdjeXNvUVBpYVhI?=
+ =?utf-8?B?MHNrOCszSWdJZ1RYNmlEbG05NTVnVS8ramtsOEF4eFpDM2QvS2xZQT09?=
+X-Exchange-RoutingPolicyChecked: oeMySPGD//z8nY1Fj/sN5sgnd724F/Ftg3RAWFVma1UzJ0RUuirY+uvUXWOCjRhuwyGPlhfJ0NOEJ8SK3f5cDcr8cya52dWbHwjd0PUfei4PpBK+6KsT3lreatd4KVIeInf6sAnwwnrodUlu0vMskMX2PTdQjWprrEdciAW0nm72KUX1Mrfv652QvfJmYfhjZU2lWZYPdeMVLIWYd2gc7zJkVIYUr7PaIXdcS3rRH2TPupatqTYMqoPuIXnnXXAIL4EdQWox1wtqOgIt6U2qG2DL4JxN18eyqV+VJd0v6kNKL+W78YELMfMhsN6rcoYmI4P2leW6EmUXIcGNmS867g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61204ade-f14e-40d7-45e9-08df35a06093
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:31:50.3922 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:38:24.4468 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wPKyJmHjo4yGiAELaPTQa+1l9eROk0JOpB767tNyQi4jDoaGliiMIC2srTLYzdwrSzvBYoidOdVPkkfa5ylCxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10681
+X-MS-Exchange-CrossTenant-UserPrincipalName: SiQvEupWVAe+XJfHRCBxELhAQYaEzjjFZNYE3asevk90j/iP3AGzcasrmm0EFGbNeexg9pgAKzum0gteg0HvZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6428
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,195 +171,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 26, 2026 at 06:05:13PM +0800, Liu Ying wrote:
-> Display Prefetch Resolve Channel(DPRC) is a part of a prefetch engine.
-> It fetches display data, transforms it to linear format and stores it
-> to DPRC's RTRAM.  PRG, as the other part of a prefetch engine, acts as
-> a gasket between the RTRAM controller and a FetchUnit.  Add a platform
-> driver to support the DPRC.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> ---
-> v7:
-> - Collect Maxime's A-b tag.
-> - Fix dc_dprc_regmap_write_ranges[].  (Sashiko AI bot)
-> - Fix dc_dprc_wrap_irq_handler() return value.  (Sashiko AI bot)
-> - Check runtime PM status in dc_dprc_wrap_irq_handler().  (Sashiko AI bot)
-> - Fix DPU_DRPC_MAX_STRIDE macro.  (Sashiko AI bot)
-> - Support deferral probe if platform_get_irq_byname() fails.  (Sashiko AI bot)
-> - Avoid dangling prg->dprc by calling dc_prg_set_dprc() properly.
->   (Sashiko AI bot)
-> - Add dc_dprc_get() helper for consumer device to get DPRC properly.
-> - Set use_raw_spinlock flag in regmap configuration to avoid a potential
->   hard lockup because dc_dprc_disable_repeat_en() is supposed to be called
->   with local irq and preempt disabled.
-> 
-> v6:
-> - Include "dc-drv.h" to avoid build warning with C=1.
-> 
-> v3:
-> - Call dc_dprc_enable() only when start == true.  (Frank)
-> - Collect Frank's R-b tag.
-> 
-> v2:
-> - Manage clocks with bulk interfaces.  (Frank)
-> - Sort variables in probe function in reverse Christmas tree fashion.  (Frank)
-> ---
->  drivers/gpu/drm/imx/dc/Kconfig   |   1 +
->  drivers/gpu/drm/imx/dc/Makefile  |   6 +-
->  drivers/gpu/drm/imx/dc/dc-dprc.c | 522 +++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/imx/dc/dc-dprc.h |  37 +++
->  drivers/gpu/drm/imx/dc/dc-drv.c  |   1 +
->  drivers/gpu/drm/imx/dc/dc-drv.h  |   1 +
->  drivers/gpu/drm/imx/dc/dc-prg.c  |  12 +
->  drivers/gpu/drm/imx/dc/dc-prg.h  |   4 +
->  8 files changed, 581 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/imx/dc/Kconfig b/drivers/gpu/drm/imx/dc/Kconfig
-> index 415993207f2e..507dc9a92d96 100644
-> --- a/drivers/gpu/drm/imx/dc/Kconfig
-> +++ b/drivers/gpu/drm/imx/dc/Kconfig
-> @@ -1,6 +1,7 @@
->  config DRM_IMX8_DC
->  	tristate "Freescale i.MX8 Display Controller Graphics"
->  	depends on DRM && COMMON_CLK && OF && (ARCH_MXC || COMPILE_TEST)
-> +	depends on IMX_SCU
->  	select DRM_CLIENT_SELECTION
->  	select DRM_GEM_DMA_HELPER
->  	select DRM_KMS_HELPER
-> diff --git a/drivers/gpu/drm/imx/dc/Makefile b/drivers/gpu/drm/imx/dc/Makefile
-> index e3a06ee3ce1a..fd5d62783971 100644
-> --- a/drivers/gpu/drm/imx/dc/Makefile
-> +++ b/drivers/gpu/drm/imx/dc/Makefile
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
-> -imx8-dc-drm-objs := dc-cf.o dc-crtc.o dc-de.o dc-drv.o dc-ed.o dc-fg.o dc-fl.o \
-> -		    dc-fu.o dc-fw.o dc-ic.o dc-kms.o dc-lb.o dc-pe.o dc-prg.o  \
-> -		    dc-plane.o dc-tc.o
-> +imx8-dc-drm-objs := dc-cf.o dc-crtc.o dc-de.o dc-dprc.o dc-drv.o dc-ed.o \
-> +		    dc-fg.o dc-fl.o dc-fu.o dc-fw.o dc-ic.o dc-kms.o dc-lb.o \
-> +		    dc-pe.o dc-prg.o dc-plane.o dc-tc.o
->  
->  obj-$(CONFIG_DRM_IMX8_DC) += imx8-dc-drm.o
-> diff --git a/drivers/gpu/drm/imx/dc/dc-dprc.c b/drivers/gpu/drm/imx/dc/dc-dprc.c
-> new file mode 100644
-> index 000000000000..a8ddcd117a52
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dc/dc-dprc.c
-> @@ -0,0 +1,522 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Copyright 2025 NXP
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/firmware/imx/svc/misc.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/list.h>
-> +#include <linux/module.h>
 
-You can remove the include above. You're not using anything from module.h
-AFAIS.
+On 29-10-2026 10:18, Raag Jadav wrote:
+> On Thu, Oct 29, 2026 at 02:31:21AM +0530, Teres Alexis, Alan Previn wrote:
+>> On Wed, 2026-10-28 at 04:18 +0100, Jadav, Raag wrote:
+>>> On Fri, Oct 23, 2026 at 10:36:25AM -0700, Alan Previn wrote:
+>>>> Today, when the driver faces issues with early pcode errors
+>>>> and attempts to enter survivabilty (when explicitly requested)
+>>>> it may either succeed or fail (latter being possible due to
+>>>> underlying subsystem blockers). During this flow the driver remains
+>>>> loaded and completely silent. No messages indicate that it may need
+>>>> or it attempted and succeeded or it attempted and failed, to enter
+>>>> survivability mode. This patch adds some awareness in dmesg.
+>>> What case are you exactly hitting here? From what I understand both pcode
+>>> and survivability failures are logged inside their helpers.
+>>>
+>>> Raag
+>> I believe the issue couple of us observed was unexpected value in check_boot_failure
+>> called from xe_survivability_mode_is_requested. But as we went back up the stack we
+>> had absolutey zero indication there was any error. nothing indicated we were even
+>> in survivability mode. At least in that failure point case.
+>>
+>> I understand we have injected sigid code logging in the various other branches
+>> of downstream logic (from xe_device_probe_early->xe_pcode_probe_early /
+>> xe_survivability_mode_is_requested), however, I it would be more intuitive
+>> to put a single message at that top level to at least indicate some kind of
+>> survivability activity was directed, attempted and entered-or-failed-to-enter
+>>
+>> If you believe the correct fix should be to ONLY keep error logs at every
+>> subbranch instead at the top level, thats fine with me too too but i notice
+>> they currently don't actually convey the survivability state.
+>> We have messages like "Firmware flash required" or "Boot mode enabled"
+>> but nothing saying we are in survivability and the gpu isnt usable.
+>  From what I found both success and fail cases are logged here.
+>
+>          if (check_boot_failure(xe))
+>                  xe_log_err_fatal(pdev, SURVIVABILITY, 0, "Boot Mode enabled!\n");
+>          else
+>                  xe_log_info(pdev, SURVIVABILITY, "Boot Mode enabled!\n");
+>
+> These logs use SURVIVABILITY as a component which would appear in dmesg
+> (not a fan of it myself, but that's unfortunately the xe_log design).
+>
+> I do agree that we could log something like "Entering survivability mode"
+> somewhere if xe_survivability_mode_is_requested() were to return true,
+> unless Riana has a better idea.
 
-[...]
 
-> +
-> +bool dc_dprc_rtram_width_supported(struct dc_dprc *dprc, unsigned int width)
+If we are seeing a pcode init failure without boot status failed, then 
+that is a issue.
+The only other way to enable this is via configfs.
 
-You could probably get rid of dprc as well. You're not using it.
+SIGID logs do print survivability
 
-> +{
-> +	return width <= DPU_DPRC_MAX_RTRAM_WIDTH;
-> +}
-> +
-> +bool dc_dprc_stride_supported(struct dc_dprc *dprc,
-> +			      unsigned int stride, unsigned int width,
-> +			      const struct drm_format_info *format,
-> +			      dma_addr_t baddr)
-> +{
-> +	unsigned int prg_stride = width * format->cpp[0];
-> +
-> +	if (stride > DPU_DRPC_MAX_STRIDE)
-> +		return false;
-> +
-> +	if (!dc_prg_stride_supported(dprc->prg, prg_stride, baddr))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +struct dc_dprc *dc_dprc_get(struct device *dev, struct dc_dprc *dprc)
-> +{
-> +	struct dc_dprc *iter;
-> +
-> +	guard(mutex)(&dc_dprc_list_mutex);
-> +	list_for_each_entry(iter, &dc_dprc_list, list) {
-> +		if (iter == dprc) {
-> +			device_link_add(dev, dprc->dev,
-> +					DL_FLAG_AUTOREMOVE_CONSUMER);
-> +			return dprc;
-> +		}
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static int dc_dprc_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct device_node *np = dev->of_node;
-> +	struct resource *res;
-> +	struct dc_dprc *dprc;
-> +	void __iomem *base;
-> +	int ret, wrap_irq;
-> +
-> +	dprc = devm_kzalloc(dev, sizeof(*dprc), GFP_KERNEL);
-> +	if (!dprc)
-> +		return -ENOMEM;
-> +
-> +	ret = imx_scu_get_handle(&dprc->ipc_handle);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get SCU ipc handle\n");
-> +
-> +	base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	dprc->reg = devm_regmap_init_mmio(dev, base, &dc_dprc_regmap_config);
-> +	if (IS_ERR(dprc->reg))
-> +		return PTR_ERR(dprc->reg);
-> +
-> +	wrap_irq = platform_get_irq_byname(pdev, "dpr_wrap");
-> +	if (wrap_irq < 0)
-> +		return dev_err_probe(dev, wrap_irq, "failed to get dpr_wrap IRQ\n");
-> +
-> +	dprc->num_clks = devm_clk_bulk_get_all(dev, &dprc->clks);
-> +	if (dprc->num_clks < 0)
-> +		return dev_err_probe(dev, dprc->num_clks, "failed to get clocks\n");
-> +
-> +	ret = of_property_read_u32(np, "fsl,sc-resource", &dprc->sc_resource);
-> +	if (ret) {
-> +		dev_err(dev, "failed to get SC resource %d\n", ret);
-> +		return ret;
+<3>xe 0000:03:00.0: [drm] *ERROR* SIGID=103 FATAL SURVIVABILITY: Boot 
+Mode enabled!
 
-You could probably use 'return dev_err_probe()', to be consistent with the
-other places where you used the same.
+Agree with Raag here.  We can remove this log from 
+enable_boot_survivability_mode
+and add it in is_requested instead.
 
--- 
-Thanks,
-Laurentiu
+Thanks
+Riana
+
+
+>
+> Raag
