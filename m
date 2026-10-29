@@ -2,97 +2,170 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE9A606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 18:41:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AC5606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 18:41:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DfWmTCH4
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SCFzlAU8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40AD410E6E2;
-	Thu, 29 Oct 2026 18:41:12 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE1A910E6CD
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 18:41:05 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4a218c463d1so16834315e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 11:41:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793299264; x=1793904064; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=LUpSwjBbxYeRn7ub8UYBeulkTZ+U/k8zrV3eWbCBHIU=;
- b=DfWmTCH49Z8P9nVKlfpdLkvg2adMbC9OFyaImxLlK4WYCm5X6jQZgSwSTAMFlSERqq
- 9xFQLWooDftPSN1+81gHuJ4lTz5Zl99Y0BWHYtd2UFzfcoTXcQKOKooL+UzWYMhcL2oK
- /+elVPlFUvakzHQ6CCYx1Ij23b1vf7KXzTBDEvfqXIELiW2xhqlSN9IeE1hfLnlRgdQN
- Mtopfc7ssXv/XLLAQrMgG8J5eXI5Su6cM1kTE/oHsLn/V/yCWGren3vUj+pJE/GRtnk4
- srXsHm6V+Uc1rs+HqGLZJnBEqCwFRKVPS6qpVJNBYo9LzcKTJaVrv2wygrUYK0N1oZKa
- pRvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793299264; x=1793904064;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=LUpSwjBbxYeRn7ub8UYBeulkTZ+U/k8zrV3eWbCBHIU=;
- b=216XC3nAw/KqsSqtgE51UR3Jc5mc2E1wjOXPCmWN0RZuR3irMR9bTg26D6qJHti9xG
- L/0pLxBXTygQweYVwQF2gLuC2C3NU3LInbwplOamnXzA8ql9Gka33eTGEB8wnh5chfTw
- D4jXyBF+BvekIOb/P/nbjHkdYlo/asxxmh0gKznoFPiTAOuKMFT/jebo/OejJcS+utUc
- z88kb0qVCUNRmKGC0TKkyK5Gd42Ng273LEJY2zAFjdiB5AP72YJ+O2FS5WZbmbYDJ1oD
- 0KdKK/YXpq3fuhKzN5oO+i8cdCc4Ts0ih4GOvidNp9i5wI9f5Or9bV8KJO07EE9r+Rwk
- 4Kkw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwhLQeoIHG/nS/VLdVddrPG/H2OO58jmTa57r3m4Yc6yIa6z8aam0GBhKSoDMbJwOZ/UJxR466iSO4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJdpJy5PBQIt4d4uLSHSNoQj1t7cGriU/Kc0E30SFP9ttSgr+Zg
- uF4coqwSbBNvRd0oOMXPV72pD5RU4chfWBMbUwQVSZmYrEuSiXAhL6w=
-X-Gm-Gg: AYBFou0f11vJhcG1F6wg8YyAEDLQT03tkW5iOdKpn3LuHEL1pk9zlbp0a+LAzRWQy1i
- mwtvFGjsocVelh6U9OzwFpHdJg0QOFaCdSjJjurmpceHuW/4WLM+acojq95WwtW11pzt+MiOCUo
- +HGguQnLc9nCbsD4gmK04ugc6WeNog2+cOXMk89QlLgByBWTPqwqjuxen3xPEGiSJydyOMg3Thp
- bawj3uZzFaXYMYGWin0wVxbDvtFkSX05OPtuIid59I7Pztoz//KRqOs+POy5+Cwo8rQFe/V4UC4
- Lwwasb/6Lo5U3IljSq03Q4VZLmw/NQ4SQJi2ecDGAYYnBqqiacgpWObqgDCwjNUCtrHrUXzPJ38
- 6D2AOFwJkLOZrAjm2rA5S++8cBNKxeNSPwZTIHXby59LP/dLJ/xsvKazXoQa3SrsZ8YZ5BnaFzb
- 5f/9iVj2OEu+pNCXHc5+vOW8kqmD9i9TcSLN8kFpeHHgtbkqhRUZQx+Iufx7YlEUP+XrYhHLyV3
- GIsFtyO79DxBWpIsKBXQJzP57tZnRloXbjr8Ehp5x3wkHnjDyZLpVIlOvvPgzK33ADl5zHFJK5k
- b+/r5lHoBCPXrvvYgr/0/NQD/WwXeLJOMUJtGlphYWHHmg==
-X-Received: by 2002:a05:600c:e54a:20b0:4a2:18d4:f9e0 with SMTP id
- 5b1f17b1804b1-4a966f20a84mr96796665e9.25.1793299263948; 
- Thu, 29 Oct 2026 11:41:03 -0700 (PDT)
-Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4abf60f1076sm4072235e9.6.2026.10.29.11.41.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2026 11:41:03 -0700 (PDT)
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Thu, 29 Oct 2026 19:41:01 +0100
-Subject: [PATCH v2] drm/msm: preemption aware hangcheck
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F658112493;
+	Thu, 29 Oct 2026 18:41:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC24110E832;
+ Thu, 29 Oct 2026 18:41:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793299269; x=1824835269;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=8knBMaf6LJhxk+0LOZS/44coWPLvUx2NhfeO3cAshY8=;
+ b=SCFzlAU8fWCdhNr6T+479aL43rtjeZ0FWDvxAsWY3tXM9kFPppkfTwcn
+ TLoVQBIte5+aH7h0lPxCGMmEBJP6cel2HPBaAYLjRtg0g0UIp3HORazFy
+ Zrue6TnyQQBuPYx0z8Sk2dsi89PpQJIDCvdU26j059xFFwzz/HY33z6Sn
+ fAYaovgFKOB8sS9ji10UCShwK2hBG8/S03EfnZU/CTCjpJz2chyJODl0h
+ 96FggkDQLUPivxughiYDLMN1Nl7ifxx64qp8c0F62X56SJsyxCoHS3eTD
+ xILVvl+aqp9rT57u9u6+f9S7bd3aVAuQw9ePNpPcL1db5OgEW4M2B6aqz w==;
+X-CSE-ConnectionGUID: gXtb0PEBSLK7djZXLfpshA==
+X-CSE-MsgGUID: MBPg/hWxQU+3NKvJqwu/1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2078636"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2078636"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 11:41:08 -0700
+X-CSE-ConnectionGUID: QQy+TF+TSCiRXaDyrd8dcQ==
+X-CSE-MsgGUID: u0sxfvjzTAmcoHSoCGkJYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5368498"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 11:41:08 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 11:41:07 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 11:41:07 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.5) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 11:41:07 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q/jYv5Mn49BFjo8CW9We/1RYhqm3T8cJkYLOt11zDGKghPuIHNCR+377nRS42zbfJ9+b1oVhoAiNhw9zGFNfTLP+pyNQX/Lj3FoLXV30X2ZOk4rgPpcCeZLI5bMRgbe6n9pl7CwlQupagHqZnl67NnhyGvKLXYjJtxqvp9G8gJe2UW2E8VWddo91wSyygsovJg8e03UumXRk5syWf3OmgUJLliSJlYVA9MButSwLD4xEa6hBFhiDWqCf+Q13yC/uix8nopp0NP/M4AYxfwEPZrz/zntzTJQbbc6BQYQi+waiK27A1SuGybFA41dV/s8dDpBiRgtQTeNQArX6jRldtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8knBMaf6LJhxk+0LOZS/44coWPLvUx2NhfeO3cAshY8=;
+ b=EUEKV+nV7a5Yk66ldjbVQlLnro0tmgfFOgE+EsfVcNTNIYvFbJKztNlT2DRlcTzRiBikJGgBz24FchszN+WMIE7zhXMG1F2+jKCIpcLq7tUu3Ce7c6lDQVWT3sQxAkHwIVNKu7K2O2C248VQDs+JMyAb5B2LAE9PmVZ1X2BaBBxp4DUnuWQJ7yLHfr462yeRUADa9Fglq6XCD3tx7cTPgJxTjz7sUjSG9Z/F6HGYG4F9WN1c2ZIRPCFgLHsz3DrBixIdADqS7H8jNtIzaTarzebEfXRRos9IGFTcukFKwphEUU6tAU4sGZTpH/HpSNNYZaJktSki0yfOdp58uHKORw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from LVWPR11MB9883.namprd11.prod.outlook.com (2603:10b6:408:3c0::11)
+ by SA3PR11MB649961.namprd11.prod.outlook.com (2603:10b6:806:532::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 18:41:06 +0000
+Received: from LVWPR11MB9883.namprd11.prod.outlook.com
+ ([fe80::310:e83f:69b8:e11e]) by LVWPR11MB9883.namprd11.prod.outlook.com
+ ([fe80::310:e83f:69b8:e11e%4]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 18:41:06 +0000
+From: "Teres Alexis, Alan Previn" <alan.previn.teres.alexis@intel.com>
+To: "Tauro, Riana" <riana.tauro@intel.com>, "Jadav, Raag"
+ <raag.jadav@intel.com>
+CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Roper,
+ Matthew D" <matthew.d.roper@intel.com>
+Subject: Re: [PATCH 1/1] drm/xe/survivability: broadcast dmesg when engaging
+ survivability
+Thread-Topic: [PATCH 1/1] drm/xe/survivability: broadcast dmesg when engaging
+ survivability
+Thread-Index: AQHdYxUQrX/Q3sL74kOuQzp1gjK0A7cST8SAgAEpCACAAIJtgIAAURCAgACXpwA=
+Date: Thu, 29 Oct 2026 18:41:06 +0000
+Message-ID: <b5964a238b9677518cc46648a90a7c5c7034396f.camel@intel.com>
+References: <20261023173625.601113-2-alan.previn.teres.alexis@intel.com>
+ <auFpdeRIafjgKSV9@black.igk.intel.com>
+ <f7f8745978c21de8687e1e539a15f0be9f9d4a6a.camel@intel.com>
+ <auLQCWmLV395IoS7@black.igk.intel.com>
+ <63ba65de-4292-4f7a-9df3-f98fef5c88fe@intel.com>
+In-Reply-To: <63ba65de-4292-4f7a-9df3-f98fef5c88fe@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1.1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LVWPR11MB9883:EE_|SA3PR11MB649961:EE_
+x-ms-office365-filtering-correlation-id: 031ada24-76cb-4157-64db-08df35ec3110
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|38070700021|5023799004|11063799006|56012099006|261009223027099003|4143699003|261026140227099003|261026121527099003|261028144727099003|10067099003|261022105027099003|261021135927099003|261021121427099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: r0N6oJuz1d1ajD78KngudoJwO1tsf5eSsY1/0A+kg5FXKDHrhXPjNx1oIAxj4gykevWPDnLVQ8gJRibeKUs4rm2MjQ+T2IOrxGpuy49DMvu0lG87bBTnJQxp/x8I03dxa6Ka3Qtx0ERqY1UNxYp5r6KzLFJsMit+cHtqjTj2Lze3Dt8mPT66dJ5qyjm46jpEkMdSm2qTzEhqxVUovmUgCsDGZoDvEImqzVf7eZ53nWk0vxxlfwPqCvoab3qUwbdiqT6IK55z9xeTFyhSx2ZDnpzT+Gbj2DiE7DHZT56UWxR7mHNsriHGR7tzBMiKNLZ7TFPZ4Gm+KWrWvpKjAKrDZAWB3U3FXU1R//Ue5N352q5whYuBqz7HPLYYK38Z3MFQw3rjKaejjkQSb+0RXsCUSSN7sdv2x7V/0AbnrVGt6bp0xE1iA7cjHVmD4krwZaSv0T7ED8hOFiAsiZLmVq92JWAcuz4Q/TTbzr4My90AH6+ICum5lEYTo3Yw8+JhKVjbyelvVKX9zcfNURBzWajugcg6iK+6sj08z4ac88kgcddl7Iv2Tmg16bBNTxD86hy0+ixWU2x1dDBMTM3qMMccBGYu9h5mlzDZm3QeK1Q/JIY/ihnrZzyiO4yif27IPmYp7IRIG/tsXg+qxnXkF/i6Rv102wITnt6jYA1EOLErBeFCvqFI0f+Kl/uUgHm+7F0f0yRJMAlOYImi2grtmHkoFziHPTuLu9RMuxi4LfTGIgk=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LVWPR11MB9883.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(5023799004)(11063799006)(56012099006)(261009223027099003)(4143699003)(261026140227099003)(261026121527099003)(261028144727099003)(10067099003)(261022105027099003)(261021135927099003)(261021121427099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?emFySmFRNktKdXZWekIveHZZWjF0cHdVVU5VSDN1dWxaY2RQVzNTVjh5S0tZ?=
+ =?utf-8?B?MHphaUJiYjhSaUd5d2xpaTh6NE1LUVNEWVNUV29XMlNjcXplYjhVc0hndmYv?=
+ =?utf-8?B?aXhrN2pZNTdmcHRFbnhMUSswdlZjVU9sSHY2dHlEa1d2SGxiNzFneVJhM3ZU?=
+ =?utf-8?B?dVJrSUIzRWpjeGxyaVgwdjBiWEsxeHd0QS9Zd0JTSE9oK3hJc1BWaGFpY012?=
+ =?utf-8?B?VWg0Y0EyU1RLSnJ6NDBnczduNktYRnJQRHZoRmZYcC9pVDhoa0MzNXRxSytn?=
+ =?utf-8?B?bGttbk9sUjJrVENEL1NhMXI0VWEzZENQMXhDOVM4Uy9CWDdKS2Vta294Z3gw?=
+ =?utf-8?B?WVU4WFpnTTc1MmZra1hDM2FBQ3Y4ci8zUjFGbUJoVlhvNXVlNGphV1hENTU0?=
+ =?utf-8?B?OVBSd1BLc0VYYnhpR3krUXFwUVVJLy90d0c3QWFtVndCbVZNWTBJN21RNEw5?=
+ =?utf-8?B?NkF6TGZEMG1FWXRoZ2hnd0dCcXpKemIzYUNlZW1LRE1maDZLSWlRWUVYOStu?=
+ =?utf-8?B?YkpqczREZnZ3eVVuc2FWdUpmdUdOOU93ZWEvMFVqMFBudkwwR0NxVW1JWGo3?=
+ =?utf-8?B?Y3RBd1hOV3BHTzFpRU1RS2Y5NTNCNllpYTJpdEpRVk5uRVFwditHcTM3OEJ0?=
+ =?utf-8?B?WHhPSFcvcVZNUm9sbkNGU0F5eWFka1FGL1p2OXltbzBZZFZ2RjJuS1pReU9l?=
+ =?utf-8?B?KzhhK3RrZXE4S000QU5yMHp1aUZTdzdBWFVVbFdNUHZzZEFlcHhXTGlTRVJJ?=
+ =?utf-8?B?UFNpMnJGaUtFMytYbGJ1ZFQ5Q3FnaWY5aXlnRkE2LzFUOXBRM1R1K0FXYXQr?=
+ =?utf-8?B?Vzc2WTJoa0NpTTBzU0ZDSGZlY25ZVisxNGpGa01DRjdLcTNyREFjcDlSZ1Bn?=
+ =?utf-8?B?Y0ppd3NUb1c4Nk8yNnoxWEhiVjh4VG4xdW5Ib1EySUdsejJPcGhpbmh4MTM0?=
+ =?utf-8?B?T3ZERUROUVgzTTFIUEdJTVVGR3RRYmhwUXd5djlFMjY2TWo0QlI3M01QMVRm?=
+ =?utf-8?B?SmFFcnBrUWRoNGgzeFpkc0Fxb0hlbTVhd2NFVTlyQ2hIcW43Q3c5U2lHYnEy?=
+ =?utf-8?B?RkVnZTgvSVduVkluY2NEN1ZwWFBQMGYzVU5BZkxWckM0cTdpWnRQSzYwVWMx?=
+ =?utf-8?B?M2k4L1o3bzViNThiZjZLd1k4VjhFSDBtaXpWL2E3amY2N21BT0pLZms1WXJh?=
+ =?utf-8?B?L25HTXB5cHJNNmZyeVpTcXJ6RHIwbUxnYjFIZTBDNnV0bklzR0w1OWIyVEI0?=
+ =?utf-8?B?RmNYdEhoTVRNeXkwTU9IODVZYktKeGpvVldyK1JWcFpIMDNnNjVoMkFVcHJt?=
+ =?utf-8?B?TlZsaExkZXNLRHpRczZ5V0hBUUkvb0VwR1NjcHJiZ2plZ0pQS3p3UGpSWXhB?=
+ =?utf-8?B?TzVHWjcxdDJxd3JXRGc2a1o3Z0tvWjJsVjZHUUZXeTVmRDlYd3hiVE9KaUVG?=
+ =?utf-8?B?akYxOXRBdjBIZDNZOHpwbjRPNy96WWJQV3RNd3dObExGWFpkaUFHU0VqNU54?=
+ =?utf-8?B?bVRLdlp0YlZWQ281dUJ5QUd0bkh4M3hFRWNZNVZVdDhianVwTGNnNTRWOHY1?=
+ =?utf-8?B?eFNqd0FmanhJa2V1WEs0TEgwU1ZhMVZ1dUN0cEdzUzhEYnA0UE9vSW9kaWN3?=
+ =?utf-8?B?V2ZpcEFLV2tzQVBRNFA3RmorbjVrMU11d2ZIUDQxd0NtdGQ0UU42UWx2eklL?=
+ =?utf-8?B?ZnlmTTd2OGM2clVoQlRJVnZvN1UwanZ5cmVXK2hxdFpOSGFiWE5DQlJ0UEhX?=
+ =?utf-8?B?dVcvNE1GdzdiUS9jVGUvWktXcWE2MVc3ZHExbzhwRXRweHo2dWd1YkZZWHlQ?=
+ =?utf-8?B?ZG9KdnVCVTlabGFhYWZWSUg2bGtud214SFhhQjJBempNU29wZjlPekVvZFBs?=
+ =?utf-8?B?WjE1c2drOTFmUEpvY0kvVzFmRWFYU2lTbTIxOVJMWG54bEZPMEpjWUV4UnlV?=
+ =?utf-8?B?cGF3bHBFQ2pwVElsT3pUNU1tejU3ZndrVDB1UXRKc1Mxcnk4RDhpU2E3WllN?=
+ =?utf-8?B?TWJvZXRQRUNBWG5LZFFkQm1rdXprdFZuM0xxS3E1S3A0UU5SZ2IwdVNwbjY1?=
+ =?utf-8?B?cGtBRlV4MTRNVlB0aGhuT2VlS0FNVm9sRVhjYW1nSC8yU1E4bGZzTDF0aXBJ?=
+ =?utf-8?B?NWZkTkxnQTE0dnNnR1BaNkhhT1lyY0FzV05QUnE3ZVkwTU01Z0xMWnQvNkJ1?=
+ =?utf-8?B?SU9BNlhObHFXSGZvSHVqTVRGL1kyd3FXdlNkaENyMmx1WUFuR3k1cXl0b2J5?=
+ =?utf-8?B?K21nSWZqQjNFMWI0NlBhb3FlU1VDK3FjTUdyZ3E2ODhZV3NnTktwQ25ZL1lR?=
+ =?utf-8?B?a2NtK2hoakdMNDFwbUdFOVIyd0tuMGJDK1BOZm15WExjeFptL085QTNMeFJm?=
+ =?utf-8?Q?igoUJ8XPhI4DpL2Yrj5f0B9iy0r68DTywcCoF?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <26AB1C6552B98948AC2B2EEE0B98160A@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-preemption_aware_hangcheck-v2-1-be0056e1f02d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NWwqDMBBFtyLz3ZTEPkz86j6KSExHHVofJJK2S
- Pbe0RX0Z+BcDmdWCOgJA5TZCh4jBZpGhvyQgevt2KGgBzPkMr9Io5SYPeIwL6zV9m091pvlenR
- PoRvTnAqpsXUOOMBqS589fq+YewrL5L/7r6i29a9sVEIKU5y1Mrq48r11g6XX0U0DVCmlH1dud
- qzEAAAA
-X-Change-ID: 20250911-preemption_aware_hangcheck-8b9b3708efcc
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Anna Maniscalco <anna.maniscalco2000@gmail.com>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793299262; l=18166;
- i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=w4rMWgJJGYhmZQeXhVDyOb+nJAdb6VJQzy0ro8MoQAA=;
- b=LNfhIr0UcsI67JeNnj8/ywRmyiAONmKRG0lClDNEMQtvJKbE2x5kGZRuO8ZeAuFvAzfnoFIst
- lF77yPV98+ACQ8Mqr5EqLR78UKxaj2vTw7D+5sepCQE9AZkR4cgew/j
-X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
- pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
+X-Exchange-RoutingPolicyChecked: 1Og6CIyaX2FGXjtI2lwiTKg1KbWbJEZCeemTMuQP4dqNRljyhmqBbj39oWl3o7WgWqUtAyYeWVwAS4FPnR5E2L0KaXy1+v86tKmW9zwZzNSmNpXphYrGnqTB5UVkWm/z/sRus5NmLRUJtW0YIK3LHNUPJLsN0CCyPYZHB0cT8fmitOwslokgxFDvfecFuJdZq1DvmUqdFShxsktDhmCIJRuGaJ861G1D0RXhh6VSsuVJ5AT1qZaOkULcbnwYsor8wNZKEFQcX8XPnEibicXbNWqsss1hndnHC4kC320sDosMPc+xlt+0h4tZ4AWI5K4Uni0UX92EYNJdFGq+3Ciesw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LVWPR11MB9883.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 031ada24-76cb-4157-64db-08df35ec3110
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2026 18:41:06.1056 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: J+kuzZb07N9M6GnScEmKhzcvjAKcgxV7+i1/0lEP7d+kz+YkEKAfb+pZ/yz87qgNaSdLMBWxBnpJL6hZMehGhcDUSQBgOEo9EQK2x5uxzow26E95y4eKJCcDbKg1zHjI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB649961
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,505 +177,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Rework hangcheck code to work well toghether with preemption.
-
-Track the time a job has spent in a ring by storing timestamps of the
-`CP_ALWAYS_ON_CONTEXT` register at the beginning of a job and when
-switching rings as well as reading it back if the ring is currently
-active.
-
-Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
----
-Ever since we added support for preemption hangcheck has been somewhat
-broken as it is not aware of multiple rings.
-
-In some cases it might not recognize that one ring is stuck if the gpu
-switches in and out of it.
----
-Changes in v2:
-- Various fixes
-- Fix interaction with IFPC by using OOB vote
-- Link to v1: https://lore.kernel.org/r/20250911-preemption_aware_hangcheck-v1-0-974819876819@gmail.com
-
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Sean Paul <sean@poorly.run>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-To: Abhinav Kumar <abhinav.kumar@linux.dev>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c     |  5 +--
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c     |  6 +---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c     | 55 ++++++++++++++++++++++++-----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |  1 +
- drivers/gpu/drm/msm/adreno/a6xx_preempt.c | 28 ++++++++++-----
- drivers/gpu/drm/msm/adreno/adreno_gpu.c   |  3 +-
- drivers/gpu/drm/msm/msm_gpu.c             | 57 ++++++++++++++++++++++++-------
- drivers/gpu/drm/msm/msm_gpu.h             | 11 ++++++
- drivers/gpu/drm/msm/msm_ringbuffer.h      | 10 ++++++
- 9 files changed, 137 insertions(+), 39 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 16c7335c4b1f..8800352455df 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -1251,10 +1251,7 @@ static void a5xx_fault_detect_irq(struct msm_gpu *gpu)
- 		gpu_read64(gpu, REG_A5XX_CP_IB2_BASE),
- 		gpu_read(gpu, REG_A5XX_CP_IB2_BUFSZ));
- 
--	/* Turn off the hangcheck timer to keep it from bothering us */
--	timer_delete(&gpu->hangcheck_timer);
--
--	kthread_queue_work(gpu->worker, &gpu->recover_work);
-+	msm_trigger_recovery(gpu);
- }
- 
- #define RBBM_ERROR_MASK \
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 662f09bec9d5..7efcb8de67ba 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -28,11 +28,7 @@ static void a6xx_gmu_fault(struct a6xx_gmu *gmu)
- 	/* FIXME: add a banner here */
- 	gmu->hung = true;
- 
--	/* Turn off the hangcheck timer while we are resetting */
--	timer_delete(&gpu->hangcheck_timer);
--
--	/* Queue the GPU handler because we need to treat this as a recovery */
--	kthread_queue_work(gpu->worker, &gpu->recover_work);
-+	msm_trigger_recovery(gpu);
- }
- 
- static irqreturn_t a6xx_gmu_irq(int irq, void *data)
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 92e8c8abb86d..bcb177a99c67 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -519,6 +519,9 @@ static void a7xx_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, cpcycles_start));
- 	get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, index, alwayson_start));
- 
-+	get_stats_counter(ring, REG_A6XX_CP_ALWAYS_ON_CONTEXT,
-+		rbmemptr(ring, last_job_start_ctx));
-+
- 	OUT_PKT7(ring, CP_THREAD_CONTROL, 1);
- 	OUT_RING(ring, CP_SET_THREAD_BOTH);
- 
-@@ -1842,13 +1845,10 @@ static void a6xx_fault_detect_irq(struct msm_gpu *gpu)
- 		gpu_read64(gpu, REG_A6XX_CP_IB2_BASE),
- 		gpu_read(gpu, REG_A6XX_CP_IB2_REM_SIZE));
- 
--	/* Turn off the hangcheck timer to keep it from bothering us */
--	timer_delete(&gpu->hangcheck_timer);
--
- 	/* Turn off interrupts to avoid triggering recovery again */
- 	gpu_write(gpu, REG_A6XX_RBBM_INT_0_MASK, 0);
- 
--	kthread_queue_work(gpu->worker, &gpu->recover_work);
-+	msm_trigger_recovery(gpu);
- }
- 
- static void a7xx_sw_fuse_violation_irq(struct msm_gpu *gpu)
-@@ -1865,11 +1865,8 @@ static void a7xx_sw_fuse_violation_irq(struct msm_gpu *gpu)
- 	 * to legacy blending.
- 	 */
- 	if (status & (A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING |
--		      A7XX_CX_MISC_SW_FUSE_VALUE_LPAC)) {
--		timer_delete(&gpu->hangcheck_timer);
--
--		kthread_queue_work(gpu->worker, &gpu->recover_work);
--	}
-+		      A7XX_CX_MISC_SW_FUSE_VALUE_LPAC))
-+		msm_trigger_recovery(gpu);
- }
- 
- static void a6xx_gpu_keepalive_vote(struct msm_gpu *gpu, bool on)
-@@ -2297,6 +2294,43 @@ static u64 a6xx_get_timestamp(struct msm_gpu *gpu)
- 	return gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_COUNTER);
- }
- 
-+static int a6xx_get_ctx_timestamp(struct msm_ringbuffer *ring, uint64_t *value)
-+{
-+	struct msm_gpu *gpu = ring->gpu;
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-+	int ret = 0;
-+
-+	/* Inhibit IFPC while accessing registers: */
-+	if (gpu->funcs->sysprof_setup)
-+		gpu->funcs->sysprof_setup(gpu, true);
-+
-+	/*
-+	 * a6xx_gmu_set_oob cannot be called while holding a spinlock.
-+	 * Limit the scope.
-+	 */
-+	{
-+		guard(spinlock_irqsave)(&a6xx_gpu->eval_lock);
-+
-+		/*
-+		 * Make sure the GMU keeps the GPU on while we read the register
-+		 *
-+		 * This should normally not be waking up the gpu since the
-+		 * hangcheck timer shouldn't fire when the gpu is idle.
-+		 */
-+		if (a6xx_in_preempt(a6xx_gpu) || ring != a6xx_gpu->cur_ring)
-+			return -EBUSY;
-+
-+		*value = gpu_read64(gpu, REG_A6XX_CP_ALWAYS_ON_CONTEXT);
-+	}
-+
-+	/* Re-enable IFPC: */
-+	if (gpu->funcs->sysprof_setup)
-+		gpu->funcs->sysprof_setup(gpu, false);
-+
-+	return ret;
-+}
-+
- static struct msm_ringbuffer *a6xx_active_ring(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-@@ -2825,6 +2859,7 @@ const struct adreno_gpu_funcs a6xx_gpu_funcs = {
- 		.progress = a6xx_progress,
- 		.sysprof_setup = a6xx_gmu_sysprof_setup,
- 		.perfcntr_configure = a6xx_perfcntr_configure,
-+		.get_ctx_timestamp = a6xx_get_ctx_timestamp,
- 	},
- 	.init = a6xx_gpu_init,
- 	.get_timestamp = a6xx_gmu_get_timestamp,
-@@ -2859,6 +2894,7 @@ const struct adreno_gpu_funcs a6xx_gmuwrapper_funcs = {
- 		.get_rptr = a6xx_get_rptr,
- 		.progress = a6xx_progress,
- 		.perfcntr_configure = a6xx_perfcntr_configure,
-+		.get_ctx_timestamp = a6xx_get_ctx_timestamp,
- 	},
- 	.init = a6xx_gpu_init,
- 	.get_timestamp = a6xx_get_timestamp,
-@@ -2896,6 +2932,7 @@ const struct adreno_gpu_funcs a7xx_gpu_funcs = {
- 		.progress = a6xx_progress,
- 		.sysprof_setup = a6xx_gmu_sysprof_setup,
- 		.perfcntr_configure = a6xx_perfcntr_configure,
-+		.get_ctx_timestamp = a6xx_get_ctx_timestamp,
- 	},
- 	.init = a6xx_gpu_init,
- 	.get_timestamp = a6xx_gmu_get_timestamp,
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-index 79912a33e17c..0aec2e825090 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-@@ -105,6 +105,7 @@ struct a6xx_gpu {
- 	struct drm_gem_object *preempt_postamble_bo;
- 	void *preempt_postamble_ptr;
- 	uint64_t preempt_postamble_iova;
-+	uint64_t preempt_postamble_cntreset_end;
- 	uint64_t preempt_postamble_len;
- 	bool postamble_enabled;
- 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-index 1e599d4ddea1..263fec8e6e9b 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_preempt.c
-@@ -20,15 +20,18 @@ static void a6xx_preempt_timer(struct timer_list *t)
- 	if (!try_preempt_state(a6xx_gpu, PREEMPT_TRIGGERED, PREEMPT_FAULTED))
- 		return;
- 
--	dev_err(dev->dev, "%s: preemption timed out\n", gpu->name);
--	kthread_queue_work(gpu->worker, &gpu->recover_work);
-+	msm_trigger_recovery(gpu);
- }
- 
--static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu)
-+static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu, struct msm_ringbuffer *ring)
- {
- 	u32 *postamble = a6xx_gpu->preempt_postamble_ptr;
-+	uint64_t last_active_ctxcycles;
- 	u32 count = 0;
- 
-+	if (ring)
-+		last_active_ctxcycles = rbmemptr(ring, last_active_ctxcycles);
-+
- 	postamble[count++] = PKT7(CP_REG_RMW, 3);
- 	postamble[count++] = REG_A6XX_RBBM_PERFCTR_SRAM_INIT_CMD;
- 	postamble[count++] = 0;
-@@ -43,6 +46,15 @@ static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu)
- 	postamble[count++] = CP_WAIT_REG_MEM_4_MASK(0x1);
- 	postamble[count++] = CP_WAIT_REG_MEM_5_DELAY_LOOP_CYCLES(0);
- 
-+	a6xx_gpu->preempt_postamble_cntreset_end = count;
-+
-+	postamble[count++] = PKT7(ring ? CP_REG_TO_MEM : CP_NOP, 3);
-+	postamble[count++] = CP_REG_TO_MEM_0_REG(REG_A6XX_CP_ALWAYS_ON_CONTEXT) |
-+		CP_REG_TO_MEM_0_CNT(2) |
-+		CP_REG_TO_MEM_0_IS_64B;
-+	postamble[count++] = lower_32_bits(last_active_ctxcycles);
-+	postamble[count++] = upper_32_bits(last_active_ctxcycles);
-+
- 	a6xx_gpu->preempt_postamble_len = count;
- 
- 	a6xx_gpu->postamble_enabled = true;
-@@ -54,9 +66,9 @@ static void preempt_disable_postamble(struct a6xx_gpu *a6xx_gpu)
- 
- 	/*
- 	 * Disable the postamble by replacing the first packet header with a NOP
--	 * that covers the whole buffer.
-+	 * that skips the counters reset part.
- 	 */
--	*postamble = PKT7(CP_NOP, (a6xx_gpu->preempt_postamble_len - 1));
-+	*postamble = PKT7(CP_NOP, (a6xx_gpu->preempt_postamble_cntreset_end - 1));
- 
- 	a6xx_gpu->postamble_enabled = false;
- }
-@@ -263,8 +275,8 @@ void a6xx_preempt_trigger(struct msm_gpu *gpu)
- 	/* Enable or disable postamble as needed */
- 	sysprof = msm_gpu_sysprof_no_perfcntr_zap(gpu);
- 
--	if (!sysprof && !a6xx_gpu->postamble_enabled)
--		preempt_prepare_postamble(a6xx_gpu);
-+	if (!sysprof)
-+		preempt_prepare_postamble(a6xx_gpu, ring);
- 
- 	if (sysprof && a6xx_gpu->postamble_enabled)
- 		preempt_disable_postamble(a6xx_gpu);
-@@ -382,7 +394,7 @@ void a6xx_preempt_init(struct msm_gpu *gpu)
- 	if (IS_ERR(a6xx_gpu->preempt_postamble_ptr))
- 		goto fail;
- 
--	preempt_prepare_postamble(a6xx_gpu);
-+	preempt_prepare_postamble(a6xx_gpu, NULL);
- 
- 	timer_setup(&a6xx_gpu->preempt_timer, a6xx_preempt_timer, 0);
- 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index dadfe4c69438..9218fc567144 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -335,7 +335,8 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int flags,
- 		struct msm_gpu_fault_info fault_info = {};
- 
- 		/* Turn off the hangcheck timer to keep it from bothering us */
--		timer_delete(&gpu->hangcheck_timer);
-+		for (int i = 0; i < gpu->nr_rings; i++)
-+			timer_delete(&gpu->rb[i]->hangcheck_timer);
- 
- 		/* Let any concurrent GMU transactions know that the MMU may be
- 		 * blocked for a while and they should wait on us.
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 0c2c35636251..6417bef187b5 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -467,7 +467,9 @@ static void recover_worker(struct kthread_work *work)
- 	struct drm_device *dev = gpu->dev;
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_gem_submit *submit;
--	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
-+	struct msm_ringbuffer *cur_ring = gpu->hung_ring ?
-+		gpu->hung_ring : gpu->funcs->active_ring(gpu);
-+	gpu->hung_ring = NULL;
- 	char *comm = NULL, *cmd = NULL;
- 	unsigned int noreclaim_flag;
- 	struct task_struct *task;
-@@ -629,11 +631,11 @@ void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_
- 	mutex_unlock(&gpu->lock);
- }
- 
--static void hangcheck_timer_reset(struct msm_gpu *gpu)
-+static void hangcheck_ring_timer_reset(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- {
- 	struct msm_drm_private *priv = gpu->dev->dev_private;
--	mod_timer(&gpu->hangcheck_timer,
--			round_jiffies_up(jiffies + msecs_to_jiffies(priv->hangcheck_period)));
-+	mod_timer(&ring->hangcheck_timer,
-+			  round_jiffies_up(jiffies + msecs_to_jiffies(priv->hangcheck_period)));
- }
- 
- static bool made_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
-@@ -651,11 +653,32 @@ static bool made_progress(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 	return true;
- }
- 
--static void hangcheck_handler(struct timer_list *t)
-+static bool check_ring_timeout(struct msm_ringbuffer *ring, unsigned long timeout)
- {
--	struct msm_gpu *gpu = timer_container_of(gpu, t, hangcheck_timer);
-+	struct msm_gpu *gpu = ring->gpu;
-+	u64 start, end;
-+	int ret;
-+
-+	if (!gpu->funcs->get_ctx_timestamp)
-+		return !made_progress(gpu, ring);
-+
-+	start = ring->memptrs->last_job_start_ctx;
-+
-+	if (gpu->funcs->get_ctx_timestamp(ring, &end))
-+		end = ring->memptrs->last_active_ctxcycles;
-+
-+	if (end >= start)
-+		return (end - start) > timeout;
-+	else
-+		return false;
-+}
-+
-+static void hangcheck_worker(struct kthread_work *work)
-+{
-+	struct msm_ringbuffer *ring = container_of(work, struct msm_ringbuffer, hangcheck_work);
-+	struct msm_gpu *gpu = ring->gpu;
-+	struct msm_drm_private *priv = gpu->dev->dev_private;
- 	struct drm_device *dev = gpu->dev;
--	struct msm_ringbuffer *ring = gpu->funcs->active_ring(gpu);
- 	uint32_t fence = ring->memptrs->fence;
- 
- 	if (fence != ring->hangcheck_fence) {
-@@ -663,7 +686,7 @@ static void hangcheck_handler(struct timer_list *t)
- 		ring->hangcheck_fence = fence;
- 		ring->hangcheck_progress_retries = 0;
- 	} else if (fence_before(fence, ring->fctx->last_fence) &&
--			!made_progress(gpu, ring)) {
-+			check_ring_timeout(ring, priv->hangcheck_period * 192000)) {
- 		/* no progress and not done.. hung! */
- 		ring->hangcheck_fence = fence;
- 		ring->hangcheck_progress_retries = 0;
-@@ -674,17 +697,26 @@ static void hangcheck_handler(struct timer_list *t)
- 		DRM_DEV_ERROR(dev->dev, "%s:     submitted fence: %u\n",
- 				gpu->name, ring->fctx->last_fence);
- 
-+		gpu->hung_ring = ring;
- 		kthread_queue_work(gpu->worker, &gpu->recover_work);
- 	}
- 
- 	/* if still more pending work, reset the hangcheck timer: */
- 	if (fence_after(ring->fctx->last_fence, ring->hangcheck_fence))
--		hangcheck_timer_reset(gpu);
-+		hangcheck_ring_timer_reset(gpu, ring);
- 
- 	/* workaround for missing irq: */
- 	msm_gpu_retire(gpu);
- }
- 
-+static void hangcheck_handler(struct timer_list *t)
-+{
-+	struct msm_ringbuffer *ring = timer_container_of(ring, t, hangcheck_timer);
-+	struct msm_gpu *gpu = ring->gpu;
-+
-+	kthread_queue_work(gpu->worker, &ring->hangcheck_work);
-+}
-+
- /*
-  * Cmdstream submission/retirement:
-  */
-@@ -826,7 +858,7 @@ void msm_gpu_submit(struct msm_gpu *gpu, struct msm_gem_submit *submit)
- 	submit->ring->cur_ctx_seqno = submit->queue->ctx->seqno;
- 
- 	pm_runtime_put(&gpu->pdev->dev);
--	hangcheck_timer_reset(gpu);
-+	hangcheck_ring_timer_reset(gpu, submit->ring);
- }
- 
- /*
-@@ -923,8 +955,6 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	if (funcs->progress)
- 		priv->hangcheck_period /= 2;
- 
--	timer_setup(&gpu->hangcheck_timer, hangcheck_handler, 0);
--
- 	/* Map registers: */
- 	gpu->mmio = msm_ioremap(pdev, config->ioname);
- 	if (IS_ERR(gpu->mmio)) {
-@@ -1006,6 +1036,9 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 			goto fail;
- 		}
- 
-+		timer_setup(&gpu->rb[i]->hangcheck_timer, hangcheck_handler, 0);
-+		kthread_init_work(&gpu->rb[i]->hangcheck_work, hangcheck_worker);
-+
- 		memptrs += sizeof(struct msm_rbmemptrs);
- 		memptrs_iova += sizeof(struct msm_rbmemptrs);
- 	}
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index d27d54bdb7a7..98a64e18ab66 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -101,6 +101,7 @@ struct msm_gpu_funcs {
- 
- 	/* Flush perfcntrs before reading (optional): */
- 	void (*perfcntr_flush)(struct msm_gpu *gpu);
-+	int (*get_ctx_timestamp)(struct msm_ringbuffer *ring, uint64_t *value);
- };
- 
- /* Additional state for iommu faults: */
-@@ -241,6 +242,8 @@ struct msm_gpu {
- 	/* work for handling GPU recovery: */
- 	struct kthread_work recover_work;
- 
-+	struct msm_ringbuffer *hung_ring;
-+
- 	/** retire_event: notified when submits are retired: */
- 	wait_queue_head_t retire_event;
- 
-@@ -794,6 +797,14 @@ static inline void msm_gpu_crashstate_put(struct msm_gpu *gpu)
- 	mutex_unlock(&gpu->lock);
- }
- 
-+static inline void msm_trigger_recovery(struct msm_gpu *gpu)
-+{
-+	for (int i = 0; i < gpu->nr_rings; i++)
-+		timer_delete(&gpu->rb[i]->hangcheck_timer);
-+
-+	kthread_queue_work(gpu->worker, &gpu->recover_work);
-+}
-+
- void msm_gpu_fault_crashstate_capture(struct msm_gpu *gpu, struct msm_gpu_fault_info *fault_info);
- 
- /*
-diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.h b/drivers/gpu/drm/msm/msm_ringbuffer.h
-index 0bfb6b0f42fa..6209c2fd3e67 100644
---- a/drivers/gpu/drm/msm/msm_ringbuffer.h
-+++ b/drivers/gpu/drm/msm/msm_ringbuffer.h
-@@ -39,6 +39,9 @@ struct msm_rbmemptrs {
- 	volatile u32 context_idr;
- 
- 	volatile u32 perfcntr_fence;
-+
-+	volatile u64 last_job_start_ctx;
-+	volatile u64 last_active_ctxcycles;
- };
- 
- struct msm_cp_state {
-@@ -77,6 +80,13 @@ struct msm_ringbuffer {
- 	uint64_t memptrs_iova;
- 	struct msm_fence_context *fctx;
- 
-+	/* Hang and Inactivity Detection:
-+	 */
-+	struct timer_list hangcheck_timer;
-+
-+	/* work for handling GPU hangcheck: */
-+	struct kthread_work hangcheck_work;
-+
- 	/**
- 	 * hangcheck_progress_retries:
- 	 *
-
----
-base-commit: d024361c631b3f020a26c07d683e5103404b0fbf
-change-id: 20250911-preemption_aware_hangcheck-8b9b3708efcc
-
-Best regards,
---  
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
-
+PiA+ID4gSSBiZWxpZXZlIHRoZSBpc3N1ZSBjb3VwbGUgb2YgdXMgb2JzZXJ2ZWQgd2FzIHVuZXhw
+ZWN0ZWQgdmFsdWUgaW4gY2hlY2tfYm9vdF9mYWlsdXJlDQo+ID4gPiBjYWxsZWQgZnJvbSB4ZV9z
+dXJ2aXZhYmlsaXR5X21vZGVfaXNfcmVxdWVzdGVkLiBCdXQgYXMgd2Ugd2VudCBiYWNrIHVwIHRo
+ZSBzdGFjayB3ZQ0KPiA+ID4gaGFkIGFic29sdXRleSB6ZXJvIGluZGljYXRpb24gdGhlcmUgd2Fz
+IGFueSBlcnJvci4gbm90aGluZyBpbmRpY2F0ZWQgd2Ugd2VyZSBldmVuDQo+ID4gPiBpbiBzdXJ2
+aXZhYmlsaXR5IG1vZGUuIEF0IGxlYXN0IGluIHRoYXQgZmFpbHVyZSBwb2ludCBjYXNlLg0KPiA+
+ID4gDQo+ID4gPiBJIHVuZGVyc3RhbmQgd2UgaGF2ZSBpbmplY3RlZCBzaWdpZCBjb2RlIGxvZ2dp
+bmcgaW4gdGhlIHZhcmlvdXMgb3RoZXIgYnJhbmNoZXMNCj4gPiA+IG9mIGRvd25zdHJlYW0gbG9n
+aWMgKGZyb20geGVfZGV2aWNlX3Byb2JlX2Vhcmx5LT54ZV9wY29kZV9wcm9iZV9lYXJseSAvDQo+
+ID4gPiB4ZV9zdXJ2aXZhYmlsaXR5X21vZGVfaXNfcmVxdWVzdGVkKSwgaG93ZXZlciwgSSBpdCB3
+b3VsZCBiZSBtb3JlIGludHVpdGl2ZQ0KPiA+ID4gdG8gcHV0IGEgc2luZ2xlIG1lc3NhZ2UgYXQg
+dGhhdCB0b3AgbGV2ZWwgdG8gYXQgbGVhc3QgaW5kaWNhdGUgc29tZSBraW5kIG9mDQo+ID4gPiBz
+dXJ2aXZhYmlsaXR5IGFjdGl2aXR5IHdhcyBkaXJlY3RlZCwgYXR0ZW1wdGVkIGFuZCBlbnRlcmVk
+LW9yLWZhaWxlZC10by1lbnRlcg0KPiA+ID4gDQo+ID4gPiBJZiB5b3UgYmVsaWV2ZSB0aGUgY29y
+cmVjdCBmaXggc2hvdWxkIGJlIHRvIE9OTFkga2VlcCBlcnJvciBsb2dzIGF0IGV2ZXJ5DQo+ID4g
+PiBzdWJicmFuY2ggaW5zdGVhZCBhdCB0aGUgdG9wIGxldmVsLCB0aGF0cyBmaW5lIHdpdGggbWUg
+dG9vIHRvbyBidXQgaSBub3RpY2UNCj4gPiA+IHRoZXkgY3VycmVudGx5IGRvbid0IGFjdHVhbGx5
+IGNvbnZleSB0aGUgc3Vydml2YWJpbGl0eSBzdGF0ZS4NCj4gPiA+IFdlIGhhdmUgbWVzc2FnZXMg
+bGlrZSAiRmlybXdhcmUgZmxhc2ggcmVxdWlyZWQiIG9yICJCb290IG1vZGUgZW5hYmxlZCINCj4g
+PiA+IGJ1dCBub3RoaW5nIHNheWluZyB3ZSBhcmUgaW4gc3Vydml2YWJpbGl0eSBhbmQgdGhlIGdw
+dSBpc250IHVzYWJsZS4NCj4gPiAgRnJvbSB3aGF0IEkgZm91bmQgYm90aCBzdWNjZXNzIGFuZCBm
+YWlsIGNhc2VzIGFyZSBsb2dnZWQgaGVyZS4NCj4gPiANCj4gPiAgICAgICAgICBpZiAoY2hlY2tf
+Ym9vdF9mYWlsdXJlKHhlKSkNCj4gPiAgICAgICAgICAgICAgICAgIHhlX2xvZ19lcnJfZmF0YWwo
+cGRldiwgU1VSVklWQUJJTElUWSwgMCwgIkJvb3QgTW9kZSBlbmFibGVkIVxuIik7DQo+ID4gICAg
+ICAgICAgZWxzZQ0KPiA+ICAgICAgICAgICAgICAgICAgeGVfbG9nX2luZm8ocGRldiwgU1VSVklW
+QUJJTElUWSwgIkJvb3QgTW9kZSBlbmFibGVkIVxuIik7DQo+ID4gDQo+ID4gVGhlc2UgbG9ncyB1
+c2UgU1VSVklWQUJJTElUWSBhcyBhIGNvbXBvbmVudCB3aGljaCB3b3VsZCBhcHBlYXIgaW4gZG1l
+c2cNCj4gPiAobm90IGEgZmFuIG9mIGl0IG15c2VsZiwgYnV0IHRoYXQncyB1bmZvcnR1bmF0ZWx5
+IHRoZSB4ZV9sb2cgZGVzaWduKS4NCmFsYW46IHBlcnNvbmFsIG5vdGUgLSBpIHRoaW5rIGZvciB0
+aGVzZSBraW5kcyBvZiBnbG9iYWxseSBpbXBhY3RpbmcgZXZlbnQgbWVzc2FnZXMNCmkgdGhpbmsg
+aXQgbWFrZXMgc2Vuc2UgdG8gYmUgcHJlc2VudCBkbWVzZy4NCg0KPiA+IA0KPiA+IEkgZG8gYWdy
+ZWUgdGhhdCB3ZSBjb3VsZCBsb2cgc29tZXRoaW5nIGxpa2UgIkVudGVyaW5nIHN1cnZpdmFiaWxp
+dHkgbW9kZSINCj4gPiBzb21ld2hlcmUgaWYgeGVfc3Vydml2YWJpbGl0eV9tb2RlX2lzX3JlcXVl
+c3RlZCgpIHdlcmUgdG8gcmV0dXJuIHRydWUsDQo+ID4gdW5sZXNzIFJpYW5hIGhhcyBhIGJldHRl
+ciBpZGVhLg0KPiANCj4gDQo+IElmIHdlIGFyZSBzZWVpbmcgYSBwY29kZSBpbml0IGZhaWx1cmUg
+d2l0aG91dCBib290IHN0YXR1cyBmYWlsZWQsIHRoZW4gDQo+IHRoYXQgaXMgYSBpc3N1ZS4NCj4g
+VGhlIG9ubHkgb3RoZXIgd2F5IHRvIGVuYWJsZSB0aGlzIGlzIHZpYSBjb25maWdmcy4NCj4gDQo+
+IFNJR0lEIGxvZ3MgZG8gcHJpbnQgc3Vydml2YWJpbGl0eQ0KPiANCj4gPDM+eGUgMDAwMDowMzow
+MC4wOiBbZHJtXSAqRVJST1IqIFNJR0lEPTEwMyBGQVRBTCBTVVJWSVZBQklMSVRZOiBCb290IA0K
+PiBNb2RlIGVuYWJsZWQhDQo+IA0KPiBBZ3JlZSB3aXRoIFJhYWcgaGVyZS7CoCBXZSBjYW4gcmVt
+b3ZlIHRoaXMgbG9nIGZyb20gDQo+IGVuYWJsZV9ib290X3N1cnZpdmFiaWxpdHlfbW9kZQ0KPiBh
+bmQgYWRkIGl0IGluIGlzX3JlcXVlc3RlZCBpbnN0ZWFkLg0KPiANCj4gVGhhbmtzDQo+IFJpYW5h
+DQo+IA0KPiANCj4gPiANCj4gPiBSYWFnDQoNCg0Kc291bmRzIGdvb2QgLSB3aWxsIGFkZCBzaW5n
+bGUgeGVfbG9nX2luZm8gIHRvIF9pc19yZXF1ZXN0ZWQuDQo=
