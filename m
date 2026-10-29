@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F77606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:36:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40002606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:37:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l6cBokOQ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kh0+foJ+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F9710FFF1;
-	Thu, 29 Oct 2026 07:36:53 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61BD510FFD3
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:36:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4015410FFED;
+	Thu, 29 Oct 2026 07:37:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1E410FFD3
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:36:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 47DC740995;
- Thu, 29 Oct 2026 07:36:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A027D1F01829;
- Thu, 29 Oct 2026 07:36:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E159760211;
+ Thu, 29 Oct 2026 07:36:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AF571F01825;
+ Thu, 29 Oct 2026 07:36:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793259377;
- bh=67eLSmKsYFcKJxMSS4BXhtUb/OGpG1ajBX3mKLPCiO0=;
+ s=k20260515; t=1793259384;
+ bh=qG0gUMXNTLAjVBMHMniiZ1MGikNikgMpUD8ziq0I+Fs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=l6cBokOQkx2vhZ8TcWmpUXkDeDWF3950lzku0UNuYeWtoBo+3iFDICN+sSEsuGRDG
- BxCO8dWc7QEnJYxDWYgjDYb+tNUltG9CC2didhl7/KZ0S+J4CT/8TABBgO9E1nAsj6
- 7G8wEgOFTrAzaNEwcB65r9E++Pemb26WvvfrUHzfwKcY6H9Y8FH8XuzAZyQqa301Kw
- ycQ7O9VFag2xNaXwy0oiL7vY6PIG8FLPbNMWUxHqtB3aSwmDaPurTsjeiVazdGe78q
- c75M451VTrPIdM+FpZuIrm6W7EdP1bl+3ndgMt9OhGWwN8cVXiq2wQ1NbDnyMZKWPx
- lZr1aVAQcdRTg==
+ b=kh0+foJ+4iCwDV4e+TZvNtuQhHc5mhXIkkyJ+F1PGlKl/a247SyoUYN+cc+HzUVbo
+ iQ/k6t14lisi0Eb9yXlACffX6L0nduyp3cWCqw4q5XZdVjfbj5TQ1bxz9XaJiIvpVj
+ FeS4AIkOr9gORdoEzZHCc0cvLud0T14dimpRO9jeGkPZNf3fv+Ff6PemkTBj5s4WRx
+ Xq6vnubb2XmsKSCbGrXghHxyiT0UVWve6mhfyrR2JooyjMzmc2hHZvamQ/zbNvPUV3
+ W9wesEvfVFRxYvO9Ekkbt9lCXP3ueWRGa3VURIonAMxh3fDYMeuscqk7U/iYO/7IGr
+ Uc596FSxwhwfA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 29 Oct 2026 08:34:21 +0100
-Subject: [PATCH v7 31/34] drm/tidss: Implement hw_reset
+Date: Thu, 29 Oct 2026 08:34:23 +0100
+Subject: [PATCH v7 33/34] drm/tidss: encoder: Implement
+ atomic_sro_get_current_crtc
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-drm-state-readout-v7-31-25e5163d75c3@kernel.org>
+Message-Id: <20261029-drm-state-readout-v7-33-25e5163d75c3@kernel.org>
 References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 In-Reply-To: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2966; i=mripard@kernel.org;
- h=from:subject:message-id; bh=2uhvrG9xhWji3zvUxRmRCNn1JZCxn9iEeAA7P6X2LkE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvv1i2nb/m6KUm8WWWTvERDfEvZtqy6Ptp3mnxjlsk
- VtY6/6lHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAii7wZq9kPd+9Ti9jRojfP
- t1Ugt2fXP/2bt79Mzthd8brqncbaE39fclj0Se98fVBiTd2z42UPZzM2XPu/xVL9wYSusMs/a5n
- 3Hzgoue/PdSMrv/lhUpp1Nc53Y58c2LC9jGXHfrFVaq6en+48BAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1540; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=ai7JoIhfpveHCS6N0NMydFxCg8pvmQFkCNk35yx8neg=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvv3ON6rjeXHuWt3R5unp0tst7lds3bn3R99urZ2Sv
+ mtdVGfu7pjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQAT+dHLWJ9R/HJ1oaL89bNr
+ d9z8IOBp3hy0+9DphCldXomaj+xPBExQt7M5GSj6N51pia72k4VdfIwNbQX6uRq/XgR43lbZqLF
+ q08wgXw6ZDKNJF9UW5lRxfLhWlfHe683L+/N3bGTI6cwTi14LAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,87 +75,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The dispc hardware needs to be put in a known-good state when the
-driver starts. This was previously done unconditionally during
-dispc_init(), but it should only be performed on the reset path when
-implementing state readout.
+The tidss driver doesn't really implement anything with encoders, it
+just relies on simple encoders, bridges and drm_bridge_connector.
 
-Rename dispc_init_hw() to dispc_reset_hw(), export it, and remove
-the call from dispc_init(). Implement &drm_mode_config_funcs.hw_reset
-through tidss_hw_reset() which performs the dispc soft reset and then
-calls drm_mode_config_helper_hw_reset() to reset the rest of the
-objects.
+In order to figure out the CRTC -> connector association from the
+hardware state, we do need encoder support though, through the
+get_current_crtc callback.
+
+Since the tidss encoders are always connected to a single CRTC, we don't
+really need to read the hardware state though, we can simply return the
+one we know we are always connected to.
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c |  6 +-----
- drivers/gpu/drm/tidss/tidss_dispc.h |  1 +
- drivers/gpu/drm/tidss/tidss_kms.c   | 14 ++++++++++++++
- 3 files changed, 16 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/tidss/tidss_encoder.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 5943a5f25432..fd33edd80977 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -2910,5 +2910,5 @@ static int dispc_softreset(struct dispc_device *dispc)
- }
- 
--static int dispc_init_hw(struct dispc_device *dispc)
-+int dispc_reset_hw(struct dispc_device *dispc)
- {
- 	struct device *dev = dispc->dev;
-@@ -3060,8 +3060,4 @@ int dispc_init(struct tidss_device *tidss)
- 			     &dispc->memory_bandwidth_limit);
- 
--	r = dispc_init_hw(dispc);
--	if (r)
--		return r;
--
- 	tidss->dispc = dispc;
- 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index 2183254f1ab7..e51a2088b40c 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -146,4 +146,5 @@ void dispc_plane_enable(struct dispc_device *dispc, u32 hw_plane, bool enable);
- const u32 *dispc_plane_formats(struct dispc_device *dispc, unsigned int *len);
- 
-+int dispc_reset_hw(struct dispc_device *dispc);
- int dispc_init(struct tidss_device *tidss);
- void dispc_remove(struct tidss_device *tidss);
-diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
-index 70c14c3be10d..3b97c08c4f71 100644
---- a/drivers/gpu/drm/tidss/tidss_kms.c
-+++ b/drivers/gpu/drm/tidss/tidss_kms.c
-@@ -11,4 +11,5 @@
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
-+#include <drm/drm_print.h>
- #include <drm/drm_vblank.h>
- 
-@@ -117,8 +118,21 @@ static int tidss_atomic_check(struct drm_device *ddev,
- }
- 
-+static void tidss_hw_reset(struct drm_device *dev)
-+{
-+	struct tidss_device *tidss = to_tidss(dev);
-+	int ret;
-+
-+	ret = dispc_reset_hw(tidss->dispc);
-+	if (ret)
-+		drm_warn(dev, "Couldn't reset dispc");
-+
-+	drm_mode_config_helper_hw_reset(dev);
-+}
-+
- static const struct drm_mode_config_funcs mode_config_funcs = {
- 	.fb_create = drm_gem_fb_create,
- 	.atomic_check = tidss_atomic_check,
- 	.atomic_commit = drm_atomic_helper_commit,
-+	.hw_reset = tidss_hw_reset,
+diff --git a/drivers/gpu/drm/tidss/tidss_encoder.c b/drivers/gpu/drm/tidss/tidss_encoder.c
+index 5034e601ac86..1ca054a3cd87 100644
+--- a/drivers/gpu/drm/tidss/tidss_encoder.c
++++ b/drivers/gpu/drm/tidss/tidss_encoder.c
+@@ -124,5 +124,20 @@ static const struct drm_bridge_funcs tidss_bridge_funcs = {
  };
  
++static struct drm_crtc *tidss_encoder_get_current_crtc(struct drm_encoder *encoder)
++{
++	struct drm_crtc *crtc;
++
++	WARN_ON(hweight32(encoder->possible_crtcs) > 1);
++
++	drm_for_each_crtc(crtc, encoder->dev) {
++		if (encoder->possible_crtcs == (1 << drm_crtc_index(crtc)))
++			return crtc;
++	}
++
++	return NULL;
++}
++
+ static const struct drm_encoder_funcs tidss_encoder_funcs = {
++	.atomic_sro_get_current_crtc = tidss_encoder_get_current_crtc,
+ 	.destroy = drm_encoder_cleanup,
+ };
 
 -- 
 2.55.0
