@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564E460A5BFD
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BCD606B579
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPBcaMU/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fZ3hZQ27
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65A861122CF;
-	Thu, 29 Oct 2026 13:36:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32D8011229D
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09F9C10E642;
+	Thu, 29 Oct 2026 13:36:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF37310E80F
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AB02A605C5;
- Thu, 29 Oct 2026 13:36:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B96401F031E1;
- Thu, 29 Oct 2026 13:36:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A55BA43FEB;
+ Thu, 29 Oct 2026 13:36:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5533E1F01825;
+ Thu, 29 Oct 2026 13:36:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793280983;
- bh=QILDmtc+8nRjK20h4sM+a1liCuVnE6PjgyOAFWW5stY=;
+ s=k20260515; t=1793280993;
+ bh=hJYTrH+aur9SWWkX5ptStgA96ul/hKboEQv9ENEYer8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=aPBcaMU/wwLRX0GNiO22rqEM2EdpKXp+KioUQI73hp/O/xDd3ZSBd1QL0c6tG9H2D
- /sVuhWSH3XcXEB2QB3HraFCkkZ7Jf2UHjI8gvAI3/it9y17+whyYa8OCfWETHMRoyk
- 8wxfIL8iPJoaExXclyw7EHsCtfPo+gHivvZkZejyLPiEyp3qnKrbnvzOKXQj1K7U2/
- vrPohnI9EYUBemTSLR5vodLuvJqmnwMVUxbPQxgi9KiA0WrQiAISwncEDsHV4Pn1ks
- Mg4U8XljFNEcmDYuEK7XaHyO12hsTs0P4G8bpbXmpkudG67DBuQ/TnzEj6SaU3hnOn
- piA8+47/g+3JQ==
+ b=fZ3hZQ27jJv6PoU7yRKelGZvCmzVXIqCsUauLOz0zog2Nmd7hPp8xHyT4FFSFSuFK
+ N6vDGMLkfpbBaHBtMUr4Ojm4GnOkshZ1N7HHNeROCnnpIb4yJQZHE8KtuQgqG9P13x
+ f7afqpPIKnpEm3b45ODr1Hgv04cZCvLK75e6kaRNzyJDAh4ogpRoMc1R5/8pm5lbbm
+ J01uFOlemdFrGUFO6vbofBMzUgnwr9TzbNXBBgJzp0m6y8y7lVYVjUA8qKbl/MbCmD
+ 4qKIsXIiNad6hCO3X5hnnsnOc8pekWcuGgJX/Qx6Q9eIF8gYE5qa9H51W3RTJxUKuZ
+ AinyhM+qpOewQ==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:35:54 -0500
-Subject: [PATCH v4 07/31] accel: ethosu: Limit perfmon counters to UAPI
+Date: Thu, 29 Oct 2026 08:36:00 -0500
+Subject: [PATCH v4 13/31] accel: ethosu: Prevent command stream export
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-7-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-13-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -60,39 +60,54 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The perfmon creation UAPI has a fixed eight-entry counter array, but
-only the hardware counter count limits ncounters. A device reporting more
-than eight counters would allow out-of-bounds accesses to the request and
-perfmon counter arrays.
+Command stream BOs are validated at creation time, but the generic PRIME
+export path can expose their backing memory to a DMA-BUF importer. The
+importer can then modify the command stream before the NPU executes it.
 
-Reject counts exceeding the UAPI array bound.
+Reject PRIME export for validated command stream BOs while retaining
+generic export for data BOs.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-v4:
- - New patch
+v3:
+ - new patch
 ---
- drivers/accel/ethosu/ethosu_perfmon.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
-index 0ae2df3ceac8..2a9b3cc1447b 100644
---- a/drivers/accel/ethosu/ethosu_perfmon.c
-+++ b/drivers/accel/ethosu/ethosu_perfmon.c
-@@ -165,8 +165,9 @@ int ethosu_ioctl_perfmon_create(struct drm_device *dev, void *data,
- 	int ret;
- 	u32 id;
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 9afe2549ec84..c046aee42687 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -6,6 +6,7 @@
+ #include <linux/slab.h>
  
--	/* Number of monitored counters cannot exceed HW limits. */
--	if (req->ncounters > ethosu->npu_info.pmu_counters)
-+	/* Number of monitored counters cannot exceed HW or UAPI limits. */
-+	if (req->ncounters > ethosu->npu_info.pmu_counters ||
-+	    req->ncounters > DRM_ETHOSU_MAX_PERF_EVENT_COUNTERS)
- 		return -EINVAL;
+ #include <drm/ethosu_accel.h>
++#include <drm/drm_prime.h>
  
- 	/* Make sure all counters are valid. */
+ #include "ethosu_device.h"
+ #include "ethosu_gem.h"
+@@ -30,9 +31,18 @@ static int ethosu_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vm
+ 	return drm_gem_dma_object_mmap(obj, vma);
+ }
+ 
++static struct dma_buf *ethosu_gem_export(struct drm_gem_object *obj, int flags)
++{
++	if (to_ethosu_bo(obj)->info)
++		return ERR_PTR(-EPERM);
++
++	return drm_gem_prime_export(obj, flags);
++}
++
+ static const struct drm_gem_object_funcs ethosu_gem_funcs = {
+ 	.free = ethosu_gem_free_object,
+ 	.print_info = drm_gem_dma_object_print_info,
++	.export = ethosu_gem_export,
+ 	.get_sg_table = drm_gem_dma_object_get_sg_table,
+ 	.vmap = drm_gem_dma_object_vmap,
+ 	.mmap = ethosu_gem_mmap,
 
 -- 
 2.53.0
