@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3622F606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E167E606A31D
 	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:35:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNToh6hZ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOcg0LYV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DCF110FFE5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B4D110FFE6;
 	Thu, 29 Oct 2026 07:35:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C25BC10FFDE
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:35:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82C0A10FFDE
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:35:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AB3BE409CD;
- Thu, 29 Oct 2026 07:35:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15AF81F01825;
- Thu, 29 Oct 2026 07:35:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 05DBC600DA;
+ Thu, 29 Oct 2026 07:35:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3131F01828;
+ Thu, 29 Oct 2026 07:35:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793259314;
- bh=sWU1AmkZw7Da32gb/gs8zA5lzjtpXDFSEJ1my4ZljNg=;
+ s=k20260515; t=1793259321;
+ bh=O8nG501tz6nOL1D7+S0vDlAsbTxdcVxWvUpHXkejRDM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=hNToh6hZh9kc+2qxaV3Wa5233C2u+W/ZHO3eBh4xpOyrrZoUo3MHe32iYswOZpTHD
- dTg3SfVECrybqJW/WGoOtSo6uRLUYxH2XTtApCaJPctIiS+G03QBGVX4ZdPmOU87nE
- mkn8AzTuZbv34C0Zjk5qBbjFXxgxyNIHIOH7cchf9pPwMgNX8IXqADrjof3za17Wjh
- Puo7K2stv7yyo+D5xycImFT9m2hQPhk76xzQn4RJ0d43oiDiU7PwEzWYnytPMeWW+2
- nu8Ic3A1L5gypAOPSwIb+8JurW+Kxrq0Hn1xutz05eUb8FUVt/byUY1GPPBnOcalbH
- RJ+fKDQAwRfuw==
+ b=VOcg0LYVQGLcyiHH9vVKgQOzQ2UtlLUGwY+P3MBelttO0Ze8sSvdiPQhMjKuiYVVf
+ mopose7959U9eu57PepytHYo+Jje0s/e2/TogBs2LhEpfNL7miM0Wiyo/1CRmmQANr
+ teZfsRjXWPSEdPI1d0pAviGUG92jVrpzss5uJqRTkJVnDzLxSYURo9V+QoG6nBWyTm
+ l/hQyOFcl+NWZ/EzGW7A4lsc2Q/7FFSdVXgbZYSmzsFeOUFnzI6kzFVU2B2smNwL9i
+ VEVZZYcMVURuGZoogJAzjSyyV9czZXFtpRWAzhCztKStEMMV82rgdv3tJ+u6ToDrZN
+ /sU9pnmiF1pmA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 29 Oct 2026 08:34:04 +0100
-Subject: [PATCH v7 14/34] drm/atomic_sro: Create documentation
+Date: Thu, 29 Oct 2026 08:34:06 +0100
+Subject: [PATCH v7 16/34] drm/mode-config: Read out hardware state in
+ drm_mode_config_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-drm-state-readout-v7-14-25e5163d75c3@kernel.org>
+Message-Id: <20261029-drm-state-readout-v7-16-25e5163d75c3@kernel.org>
 References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 In-Reply-To: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3505; i=mripard@kernel.org;
- h=from:subject:message-id; bh=3P6xBCCCGXSqSWvHpG4U1kTfJgXPgndSWEdhfvEneVo=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvn2qsu7doubitebnpsycF05cQRHRWwzDXWXsnqo8r
- PzEME2jYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEykRZyx3sOCbWYQ7+o/E+we
- sZ9eP9HP9NrWyr9/2KTq13qeOWixYO7js+sdz7+penCX+/IhCyeGzYwNP2q2T2fvT/ZeLmPhL1X
- xy/J0ON+/oJY1QU53otbUH5q8/U9k7PZ7lXMOXey9ulPHc6UpAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4002; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=a/pJLqYsmzkI7USeSITPPy3+eBPK2Rmob7H1eHf7s/g=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvn0um6W6zMNWyo/vfbjgYV9WQa9Ku7JLqW/DVepUi
+ m0YbfM6prIwCHMyyIopsjyRCTu9vH1xlYP9yh8wc1iZQIYwcHEKwESMNRkbjmY5bC5ULBHme7og
+ /Um71XurcqUtL1Yr7a1nu7Ly9cQa58P/54u+L5Uo6VWO3HAu32QmY0PL4bg8XtYFWdu/fHu/6/q
+ ced8X8j9f25BQIC6wPcvd6n+lGPfXmHl6s6YH1qxla5NNvQgA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,91 +75,113 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The SRO infrastructure has grown to span multiple files and hooks
-but lacks an overview section explaining the overall design and how
-drivers should integrate with it.
+drm_mode_config_create_state() creates the initial state for all
+KMS objects at driver registration time.
 
-Add a DOC: overview section to drm_atomic_state_readout.c describing the
-various SRO phases and how drivers wire up the callbacks.
+Call the drm_mode_config_funcs.atomic_sro_readout_state hook from it
+so that the initial state is populated from the hardware rather than
+being left as a pristine default.
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- Documentation/gpu/drm-kms-helpers.rst      | 17 ++++++++++++++
- drivers/gpu/drm/drm_atomic_state_readout.c | 36 ++++++++++++++++++++++++++++++
- 2 files changed, 53 insertions(+)
+ drivers/gpu/drm/drm_mode_config.c | 70 ++++++++++++++++++++++++++++++---------
+ 1 file changed, 55 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
-index d64f941d34f5..b75bde712faf 100644
---- a/Documentation/gpu/drm-kms-helpers.rst
-+++ b/Documentation/gpu/drm-kms-helpers.rst
-@@ -83,4 +83,21 @@ Atomic State Helper Reference
-    :export:
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+index c1e993a78702..9f242e2654c8 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -25,4 +25,5 @@
  
-+.. _drm_atomic_sro:
-+
-+Atomic State Read-Out
-+---------------------
-+
-+.. kernel-doc:: drivers/gpu/drm/drm_atomic_state_readout.c
-+   :doc: overview
-+
-+Atomic State Read-Out Reference
-+--------------------------------
-+
-+.. kernel-doc:: include/drm/drm_atomic_state_readout.h
-+   :internal:
-+
-+.. kernel-doc:: drivers/gpu/drm/drm_atomic_state_readout.c
-+   :export:
-+
- GEM Atomic Helper Reference
- ---------------------------
-diff --git a/drivers/gpu/drm/drm_atomic_state_readout.c b/drivers/gpu/drm/drm_atomic_state_readout.c
-index a5bc77b3e492..413823579ed5 100644
---- a/drivers/gpu/drm/drm_atomic_state_readout.c
-+++ b/drivers/gpu/drm/drm_atomic_state_readout.c
-@@ -16,4 +16,40 @@
- #include "drm_crtc_internal.h"
+ #include <drm/drm_atomic.h>
++#include <drm/drm_atomic_state_readout.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_encoder.h>
+@@ -32,4 +33,5 @@
+ #include <drm/drm_mode_config.h>
+ #include <drm/drm_modeset_helper_vtables.h>
++#include <drm/drm_modeset_lock.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_colorop.h>
+@@ -323,19 +325,5 @@ void drm_mode_config_reset(struct drm_device *dev)
+ EXPORT_SYMBOL(drm_mode_config_reset);
  
+-/**
+- * drm_mode_config_create_initial_state - Allocates the initial state
+- * @dev: drm device
+- *
+- * This functions creates the initial state for all the objects. Drivers
+- * can use this in e.g. probe to initialize their software state.
+- *
+- * It has two main differences with drm_mode_config_reset(): the reset()
+- * hooks aren't called and thus the hardware will be left untouched, but
+- * also the &drm_private_obj structures will be initialized as opposed
+- * to drm_mode_config_reset() that skips them.
+- *
+- * Returns: 0 on success, negative error value on failure.
+- */
+-int drm_mode_config_create_initial_state(struct drm_device *dev)
++static int drm_mode_config_create_state(struct drm_device *dev)
+ {
+ 	struct drm_crtc *crtc;
+@@ -409,4 +397,56 @@ int drm_mode_config_create_initial_state(struct drm_device *dev)
+ 	return 0;
+ }
++
 +/**
-+ * DOC: overview
++ * drm_mode_config_create_initial_state - Allocates the initial state
++ * @dev: drm device
 + *
-+ * The atomic State Read-Out (SRO) infrastructure allows drivers to
-+ * initialize the KMS atomic state from the hardware state left by the
-+ * firmware at boot, rather than programming a new state. This enables
-+ * flicker-free boot (also called "fastboot" by i915): if the
-+ * firmware already configured the display, the first userspace
-+ * modeset can be skipped when the requested mode matches.
++ * This functions creates the initial state for all the objects. Drivers
++ * can use this in e.g. probe to initialize their state.
 + *
-+ * The SRO lifecycle has two phases. The first phase is the readout
-+ * itself: at driver registration time, each KMS object (CRTCs, planes,
-+ * connectors, bridges, private objects) has its
-+ * atomic_sro_readout_state hook called to populate a
-+ * &struct drm_atomic_sro_state from hardware registers.
++ * It creates the initial state in several steps. It first tries to
++ * read-out the initial state from the hardware for all objects if state
++ * read-out is enabled and the driver supports it. Then, if state
++ * read-out isn't supported or fails, it creates a new, pristine state
++ * using the objects atomic_create_state callback.
 + *
-+ * The hardware may have been programmed with a configuration that
-+ * the driver doesn't support. The readout hooks are then expected
-+ * to return a negative error code, and the state initialization
-+ * will fall back to the regular path.
++ * For historical reasons, drm_mode_config_reset() is similar, but
++ * doesn't support state read-out, and will always reset the hardware.
++ * It will also ignore all &drm_private_obj.
 + *
-+ * The second phase is the installation. Once all states have been read
-+ * out, drm_atomic_sro_install_state() walks through the
-+ * &struct drm_atomic_sro_state and assigns each readout state as the
-+ * object's current state. Before doing so, it calls the optional
-+ * atomic_sro_install_state hook on each object. This gives drivers a
-+ * chance to acquire the resources needed to keep the hardware state
-+ * active, such as power domains, clocks, or interrupts. This hook
-+ * cannot fail.
++ * The function holds all the modeset locks for the duration of the
++ * readout and the state creation, so drivers don't need to guarantee
++ * any kind of exclusivity themselves.
 + *
-+ * Drivers integrate with SRO by implementing the readout hooks in their
-+ * object funcs vtables and setting the
-+ * &drm_mode_config_funcs.atomic_sro_readout_state and
-+ * &drm_mode_config_helper_funcs.atomic_sro_build_state callbacks.
++ * Returns: 0 on success, negative error value on failure.
 + */
++int drm_mode_config_create_initial_state(struct drm_device *dev)
++{
++	struct drm_modeset_acquire_ctx ctx;
++	int ret;
 +
- enum drm_atomic_readout_status {
- 	DRM_ATOMIC_READOUT_DISABLED = 0,
++	/*
++	 * The initial state is usually created while the device is
++	 * being initialized and nothing can access it concurrently,
++	 * but holding all the modeset locks puts the readout, the
++	 * installation of its result and the creation of the pristine
++	 * states under the same locking contract as the regular
++	 * atomic paths.
++	 */
++	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
++
++	if (dev->mode_config.funcs->atomic_sro_readout_state) {
++		ret = dev->mode_config.funcs->atomic_sro_readout_state(dev);
++		if (!ret)
++			goto out;
++	}
++
++	ret = drm_mode_config_create_state(dev);
++
++out:
++	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
++
++	return ret;
++}
+ EXPORT_SYMBOL(drm_mode_config_create_initial_state);
+ 
 
 -- 
 2.55.0
