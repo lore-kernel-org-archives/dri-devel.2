@@ -2,66 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD6D606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:42:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28E2606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:45:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NLuNa/hV
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQYNAnJY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09707112354;
-	Thu, 29 Oct 2026 14:42:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C83F10E110;
- Thu, 29 Oct 2026 14:42:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793284926; x=1824820926;
- h=message-id:date:mime-version:from:to:cc:subject:
- content-transfer-encoding;
- bh=cPIpGwMsK40ZmgMXS8+Oc2H49uEAbyXDlCo7W73KXkk=;
- b=NLuNa/hVoc7mM3U0KTxCzLUTB962061VFB9bfJ999AOvp0PotWOpWxyv
- KHPZ/h4ko4JyoWacIyK8Zo5WsfC1yChYZ4oyXtyy/apTR4i8gekXiOYfj
- 737VQxY5dSyioPjtpHIdjqaNc3yrDqaUgZpVArr8Iq6hLmTyOz7Y3FX+H
- aTArv/1QrOIL88aP5F7OXrGe1MsH2xhiH4wpzO4Yz2uD43aRc62vQ/i7p
- oLC1KV1oBuqG+HHKmUHj7d2ldSDKfoRcqBA/mcNJnuDHIC7q1WgvWyZV5
- QcY+UEnp+I6VTiCQoEOtcaKdJB+P3e2Z7RXr78LD8+kElgnLN1wy7qWiX A==;
-X-CSE-ConnectionGUID: FPIyNHqqTjaFW0HUkUEU3A==
-X-CSE-MsgGUID: sjcJHf7OTuul/lSzuBITWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2046250"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2046250"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 07:42:05 -0700
-X-CSE-ConnectionGUID: io79ij54Ssq5FRNwxd05iw==
-X-CSE-MsgGUID: XrX1BiZ8Rb+Y70Emk1R/jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5052788"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.177])
- ([10.245.245.177])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 07:42:01 -0700
-Message-ID: <ba231556-17a6-4b2b-8ebc-3150f887db48@linux.intel.com>
-Date: Thu, 29 Oct 2026 15:41:54 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
-Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Oded Gabbay <ogabbay@kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Subject: [PULL] drm-misc-next
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3676B10E110;
+	Thu, 29 Oct 2026 14:45:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 870CD10E110
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:45:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 534F460267;
+ Thu, 29 Oct 2026 14:45:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C257F1F01825;
+ Thu, 29 Oct 2026 14:45:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793285146;
+ bh=81x5aK74MMU6tNiEEvQe7CPsj4CjFBEjZosxKN9Bl+o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=oQYNAnJYhj3UAsVTFrBnqld9blKPnE7WVbuat56mvI9UoVMgNEnxayZnLJ8IYMkz7
+ oAJZMVcc15o1+vIgbfL8SIpSGCMQjynNfaDtNMMSOlfoZUBGQweEj/UIiC32rpmcT5
+ rANKsXfC/H3LqX3qgdPG4bAMCQWGa+TiqxgI3joY6+mr/wDwboFCpfIfF+LHqeufjq
+ 993I04sVsG4IrJmYVhxqvIdaQgulGcfsGC2GCJnrzr54rW+Y7M0J0Q7znBh5soLSTN
+ SjTwvBhKcZm/csSFe1nmz7VADCpmREee9h70dSMAf2HgJ9xvYMHGwGPMePDIzF1C7A
+ Ci2Jwk/ybGe2Q==
+Message-ID: <sashiko-outbox-189545@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 14/14] drm/msm: enable LPAC on gen70900
+To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-14-a21a5c850961@gmail.com>
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-14-a21a5c850961@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 14:45:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,307 +49,326 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Dave, Sima,
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] drm/msm: LPAC enabled on gen70900 without checking lpac_pdev or SW=
+ fuse
+- [High] drm/msm: a6xx_active_ring() and suspend ignore lpac_rb when LPAC i=
+s enabled
+- [High] drm/msm: wrong runtime PM device checked for LPAC in msm_iommu_tlb=
+_flush_all()
+- [High] drm/msm: failed parent-to-child device link skips LPAC SMMU TLB fl=
+ushes
+- [Medium] drm/msm: LPAC not enabled on gen70900 due to enable_lpac default=
+ing to 0
+- [Medium] drm/msm: mismatched always-on counter reads for LPAC in a7xx_sub=
+mit()
+- [Medium] drm/msm/adreno: missing LPAC GX registers in A750 IFPC restore l=
+ists
+--
 
-Quiet drm-misc-next pull, but it seems the one from the 16th hasn't been pulled yet.
+commit 80cc6b84cce3401809bd7592d96a060ab6cb7da3
+Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-So I'm only adding the changelog compared to that one.
+drm/msm: enable LPAC on gen70900
 
-Kind regards,
-~Maarten Lankhorst
+This commit adds ADRENO_QUIRK_LPAC to the gen70900 (Adreno 750) GPU entry in
+a7xx_gpus[] so that LPAC is enabled on targets known to support it.
 
-drm-misc-next-2026-10-29:
-drm-misc-next for v7.5:
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/=
+msm/adreno/a6xx_catalog.c
+> index 5ee00eead14c8..cd1bdb54429d3 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+> @@ -1591,7 +1591,8 @@ static const struct adreno_info a7xx_gpus[] =3D {
+>  		.quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
+>  			  ADRENO_QUIRK_HAS_HW_APRIV |
+>  			  ADRENO_QUIRK_PREEMPTION |
+> -			  ADRENO_QUIRK_IFPC,
+> +			  ADRENO_QUIRK_IFPC |
+> +			  ADRENO_QUIRK_LPAC,
 
-UAPI Changes:
-- Add TFU constant color suport for v3d.
+[Severity: Medium]
+Does setting ADRENO_QUIRK_LPAC here actually enable LPAC by default on
+gen70900 when enable_lpac is not explicitly passed by the user?
 
-Core Changes:
-- tidss devicetree bindings updates.
+In drivers/gpu/drm/msm/adreno/adreno_device.c, enable_lpac is initialized to
+0 instead of -1:
 
-Driver Changes:
-- Assorted fixes and cleanups in panthor, arm/hdlcd, amdxdna, bridge/sii902x,
-  v3d, tidss, imagination, ivpu.
-- Add BOE NV116WH2-M32 V8.0, PNB601LS1-3 HW:1.2 panels.
-The following changes since commit db1de27aca30ebaad04aea74ac21e4c4fb531a37:
+    int enable_lpac =3D 0;
+    MODULE_PARM_DESC(enable_lpac, "Enable LPAC (A7xx+ only) (1=3Don , 0=3Dd=
+isable, -1=3Dauto (default))");
+    module_param(enable_lpac, int, 0600);
 
-  drm/adp: Switch to drm_atomic_helper_connector_create_state (2026-10-16 17:08:45 +0200)
+When adreno_gpu_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c sets:
 
-are available in the Git repository at:
+    adreno_gpu_config.has_lpac =3D !!(config->info->quirks & ADRENO_QUIRK_L=
+PAC);
 
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-2026-10-29
+msm_gpu_init() in drivers/gpu/drm/msm/msm_gpu.c allocates an extra
+msm_rbmemptrs slot for config->has_lpac, but then skips creating
+gpu->lpac_rb because enable_lpac is 0:
 
-for you to fetch changes up to 33ed26235db93162935d1719bc6f538c384a2fd8:
+    if (config->has_lpac && enable_lpac !=3D 0) {
+        gpu->lpac_rb =3D msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs=
+_iova);
 
-  accel/ivpu: Read preemption buffer size from boot params (2026-10-29 09:24:25 +0100)
+Meanwhile, adreno_hw_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c only
+checks the quirk rather than gpu->lpac_rb:
 
-----------------------------------------------------------------
-drm-misc-next for v7.5:
+    if (info->quirks & ADRENO_QUIRK_LPAC) {
+        ret =3D qcom_scm_set_gpu_smmu_lpac_aperture(1);
 
-UAPI Changes:
-- Add TFU constant color suport for v3d.
+so qcom_scm_set_gpu_smmu_lpac_aperture(1) is still called during hardware
+initialization even when LPAC is disabled. Additionally, because
+config->has_lpac only checks ADRENO_QUIRK_LPAC, passing enable_lpac=3D1 can=
+not
+force-enable LPAC on A7xx+ targets that do not set the quirk.
 
-Core Changes:
-- tidss devicetree bindings updates.
+Should enable_lpac be initialized to -1, and should adreno_hw_init() check
+gpu->lpac_rb instead of ADRENO_QUIRK_LPAC?
 
-Driver Changes:
-- Assorted fixes and cleanups in panthor, arm/hdlcd, amdxdna, bridge/sii902x,
-  v3d, tidss, imagination, ivpu.
-- Add BOE NV116WH2-M32 V8.0, PNB601LS1-3 HW:1.2 panels.
+[Severity: High]
+What happens when booting a kernel with ADRENO_QUIRK_LPAC enabled on an
+older SM8650 (gen70900) device tree that lacks the qcom,lpac child node, or
+on a device where firmware fuses off LPAC?
 
-----------------------------------------------------------------
-Alessio Belle (4):
-      drm/imagination: Improve logging of unknown freelist IDs
-      drm/imagination: Remove wrong soft reset code from GPU start sequence
-      drm/imagination: Add utility function to write and read back register
-      drm/imagination: Check virtual address space size only once
+In adreno_gpu_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c,
+gpu->lpac_pdev is looked up via of_get_compatible_child(pdev->dev.of_node,
+"qcom,lpac"). On an older DTB without that child node, gpu->lpac_pdev is
+NULL, and adreno_iommu_create_vm() passes NULL for lpac_dev:
 
-Alice Ryhl (1):
-      drm/gpuvm: skip setting kernel_alloc_node range on overflow
+    mmu =3D msm_iommu_gpu_new(&pdev->dev,
+                gpu->lpac_pdev ? &gpu->lpac_pdev->dev : NULL,
+                gpu, quirks);
 
-Andrzej Kacprowski (1):
-      accel/ivpu: Read preemption buffer size from boot params
+so iommu->lpac_domain (context bank 1) is never allocated and SID 1 remains
+attached to context bank 0.
 
-Aryan Sinha (1):
-      accel: ethosu: Fix kernel-doc for ethosu_gem_cmdstream_create()
+However, adreno_gpu_init() sets adreno_gpu_config.has_lpac solely from
+ADRENO_QUIRK_LPAC without checking gpu->lpac_pdev, and adreno_hw_init()
+unconditionally calls qcom_scm_set_gpu_smmu_lpac_aperture(1). When
+gpu->lpac_rb is created and userspace submits to MSM_SUBMITQUEUE_LPAC,
+a7xx_submit() -> a6xx_set_pagetable() in
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c executes:
 
-Daniel Stone (2):
-      drm/panthor: Add neural-engine presence and power bits for v14+
-      drm/panthor: Delegate neural power domain to CSF when present
+    /* qcom-arm-smmu always maps asid and ctxbank 1:1 */
+    ctxbank =3D asid =3D is_lpac;
 
-David Zhang (19):
-      accel/amdxdna: Rename NPU3 firmware files
-      accel/amdxdna: Remove mmap for doorbell
-      accel/amdxdna: Add CERT firmware version support
-      accel/amdxdna: Support firmware 6.0
-      accel/amdxdna: Add NPU3 classic device support
-      accel/amdxdna: Add AIE version query to aie4_get_info
-      accel/amdxdna: Add get and set power_mode for AIE4
-      accel/amdxdna: Add clock, DPM frequency, and resource info queries for AIE4
-      accel/amdxdna: Add context switch hysteresis with debugfs control
-      accel/amdxdna: Refactor AIE4 hardware initialization sequence
-      accel/amdxdna: Decouple AIE4 doorbell and MSI-X notify transport hooks
-      accel/amdxdna: Implement AIE4 kernel queue lifecycle and memory layout
-      accel/amdxdna: Prepare for AIE4 command submission
-      accel/amdxdna: Move HMM invalidate wait into common GEM code
-      accel/amdxdna: Make populate_range common for AIE2 and AIE4
-      accel/amdxdna: Implement AIE4 command packet building and submission
-      accel/amdxdna: Enable AIE4 firmware logging to DRAM
-      accel/amdxdna: Implement AIE4 suspend and resume
-      accel/amdxdna: Implement runtime suspend and resume support
+and emits CP_SMMU_TABLE_UPDATE targeting uninitialized context bank 1 while
+SID 1 still translates through context bank 0.
 
-Karl Mehltretter (1):
-      udmabuf: respect the device's maximum segment size
+Similarly, in a6xx_gmu_secure_init() in
+drivers/gpu/drm/msm/adreno/a6xx_gmu.c, REG_A7XX_CX_MISC_SW_FUSE_VALUE is
+read after qcom_scm_gpu_init_regs() to check
+A7XX_CX_MISC_SW_FUSE_VALUE_RAYTRACING, but A7XX_CX_MISC_SW_FUSE_VALUE_LPAC
+is not checked before hw_init() writes REG_A6XX_CP_LPAC_SQE_CNTL and runs
+lpac_cp_init(), which can trigger a7xx_sw_fuse_violation_irq() if firmware
+disables the LPAC software fuse.
 
-Lizhi Hou (1):
-      accel/amdxdna: Serialize HMM range faults on one umap
+Should LPAC enablement verify both that gpu->lpac_pdev is present and that
+A7XX_CX_MISC_SW_FUSE_VALUE_LPAC is set?
 
-Luke Macken (1):
-      drm/panel-edp: Add BOE NE140WUM-N41 (0x0d9b) panel
+[Severity: High]
+With ADRENO_QUIRK_LPAC enabled on gen70900 and gpu->lpac_rb exposed to
+userspace, how do hangcheck, fault recovery, and suspend handle the LPAC
+ring?
 
-Marek Szyprowski (1):
-      drm/arm/hdlcd: Attach the output bridge directly
+In drivers/gpu/drm/msm/adreno/a6xx_gpu.c, a6xx_active_ring() always returns
+a6xx_gpu->cur_ring (one of gpu->rb[0..gpu->nr_rings - 1]) and never returns
+gpu->lpac_rb:
 
-Matthew Auld (1):
-      gpu/buddy: do not pass caller list to __alloc_contig_try_harder()
+    static struct msm_ringbuffer *a6xx_active_ring(struct msm_gpu *gpu)
+    {
+        struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+        struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
 
-Matthew Brost (7):
-      accel/amdxdna: Wait uninterruptibly for jobs in the HMM invalidate callback
-      drm/gpuvm: allow locking external objects in two passes
-      drm/xe: lock the resident BOs of an exec last
-      drm/panthor: lock the resident BOs of a submit last
-      drm/msm: reject a submit_bo table on VM_BIND contexts
-      drm/msm: use DRM_GPUVM_RESV_PROTECTED for VM_BIND VMs
-      drm/msm: lock the resident BOs of a VM_BIND submit last
+        return a6xx_gpu->cur_ring;
+    }
 
-Max Zhen (1):
-      accel/amdxdna: Use compatible fdinfo engine key
+In drivers/gpu/drm/msm/msm_gpu.c, hangcheck_handler() only checks
+gpu->funcs->active_ring(gpu) for fence progress, so a hung submission on
+gpu->lpac_rb while the GFX rings are idle will not be detected by software
+hangcheck.
 
-Maxime Ripard (8):
-      drm/vmwgfx: Convert to atomic_create_state
-      drm/amdgpu: dm: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: sii902x: Switch to drm_atomic_helper_connector_create_state
-      drm/bridge: simple-bridge: Switch to drm_atomic_helper_connector_create_state
-      drm/msm: dpu1: Switch to drm_atomic_helper_connector_create_state
-      drm/stm: Switch to drm_atomic_helper_connector_create_state
-      drm/rcar-du: Convert to atomic_create_state
-      drm/ci: Add CI pipeline for drm-misc branches
+Furthermore, if hardware fault detection (a6xx_fault_detect_irq()) or
+a7xx_sw_fuse_violation_irq() triggers on an LPAC job, a6xx_fault_detect_irq=
+()
+deletes gpu->hangcheck_timer, masks all GPU interrupts by writing 0 to
+REG_A6XX_RBBM_INT_0_MASK, and queues gpu->recover_work. In recover_worker()
+in drivers/gpu/drm/msm/msm_gpu.c:
 
-Maíra Canal (4):
-      drm/panthor: Replace panthor_mmu_as_fault_mask() with a macro
-      drm/v3d: Validate the v71 fields of the TFU submit ioctl
-      drm/v3d: Only program TFU coefficients when used on V3D 7.x
-      drm/v3d: Add TFU constant colour support for V3D 7.x
+    struct msm_ringbuffer *cur_ring =3D gpu->funcs->active_ring(gpu);
+    ...
+    submit =3D find_submit(cur_ring, cur_ring->memptrs->fence + 1);
 
-Raag Jadav (1):
-      drm: Log recovery method with wedged event
+    if (!submit)
+        goto out_unlock;
 
-Rob Herring (Arm) (1):
-      drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u32
+If cur_ring is idle when LPAC faults, recover_worker() exits to out_unlock
+without calling gpu->funcs->recover(gpu) or restoring
+REG_A6XX_RBBM_INT_0_MASK, leaving GPU interrupts masked and the GPU wedged.
+If cur_ring has a concurrent GFX submission, recover_worker() blames that
+GFX submit, marks its VM unusable, advances cur_ring->memptrs->fence while
+leaving gpu->lpac_rb->memptrs->fence unadvanced:
 
-Rosen Penev (1):
-      drm/imagination: simplify pvr_fw_trace_seq_data
+    for (i =3D 0; i < gpu->nr_rings + !!gpu->lpac_rb; i++) {
+        struct msm_ringbuffer *ring =3D i < gpu->nr_rings ? gpu->rb[i] : gp=
+u->lpac_rb;
 
-Ryan Zhang (1):
-      drm/panthor: dummy read to discard the stale first GPU_TIMESTAMP read
+        uint32_t fence =3D ring->memptrs->fence;
 
-Terry Hsiao (1):
-      drm/panel-edp: Add BOE NV116WH2-M32 V8.0, PNB601LS1-3 HW:1.2
+        if (ring =3D=3D cur_ring)
+            ring->memptrs->fence =3D ++fence;
 
-Thomas Zimmermann (7):
-      drm/hyperv: Add missing include statements
-      drm/kms-helper: Remove struct drm_simple_display_pipe and helpers
-      drm/bridge: Do not include <drm/drm_simple_kms_helper.h>
-      drm/hisilicon/hibmc: Do not include <drm/drm_simple_kms_helper.h>
-      drm/tegra: Do not include <drm/drm_simple_kms_helper.h>
-      drm/verisilicon: Do not include <drm/drm_simple_kms_helper.h>
-      drm/vc4: Do not include <drm/drm_simple_kms_helper.h>
+        msm_update_fence(ring->fctx, fence);
+    }
 
-Tomi Valkeinen (10):
-      dt-bindings: display: ti: Move ti,am62l-dss binding to a new binding file
-      dt-bindings: display: ti,am65x-dss: Simplify binding
-      dt-bindings: display: ti,am625-oldi: Add optional power-domain for OLDI
-      drm/tidss: Remove extra pm_runtime_mark_last_busy
-      drm/tidss: oldi: Remove define for unused register OLDI_LB_CTRL
-      drm/tidss: Add mechanism to detect DPI output
-      drm/tidss: Add support for DPIENABLE bit
-      drm/tidss: oldi: Fix OLDI signal polarities
-      drm/tidss: Drop WARN_ON() from tidss_runtime_put()
-      drm/tidss: oldi: Fix missing of_node_put()s in error paths
+and then replays the hung LPAC submission.
 
- Documentation/accel/amdxdna/amdnpu.rst             |    2 +-
- .../bindings/display/ti/ti,am625-oldi.yaml         |    3 +
- .../bindings/display/ti/ti,am62l-dss.yaml          |  136 +++
- .../bindings/display/ti/ti,am65x-dss.yaml          |  149 +--
- Documentation/gpu/drm-mm.rst                       |    6 +
- Documentation/gpu/todo.rst                         |   17 -
- MAINTAINERS                                        |    1 +
- drivers/accel/amdxdna/aie.c                        |   33 +-
- drivers/accel/amdxdna/aie.h                        |   47 +-
- drivers/accel/amdxdna/aie2_ctx.c                   |   90 +-
- drivers/accel/amdxdna/aie2_message.c               |    4 +-
- drivers/accel/amdxdna/aie2_pci.c                   |   67 +-
- drivers/accel/amdxdna/aie2_pci.h                   |   40 +-
- drivers/accel/amdxdna/aie2_pm.c                    |   10 +-
- drivers/accel/amdxdna/aie4_ctx.c                   | 1139 ++++++++++++++++++--
- drivers/accel/amdxdna/aie4_host_queue.h            |   72 +-
- drivers/accel/amdxdna/aie4_message.c               |  245 +++++
- drivers/accel/amdxdna/aie4_msg_priv.h              |  149 ++-
- drivers/accel/amdxdna/aie4_pci.c                   |  818 +++++++++++++-
- drivers/accel/amdxdna/aie4_pci.h                   |  117 +-
- drivers/accel/amdxdna/aie4_sriov.c                 |   66 +-
- drivers/accel/amdxdna/amdxdna_ctx.c                |   72 +-
- drivers/accel/amdxdna/amdxdna_ctx.h                |   28 +-
- drivers/accel/amdxdna/amdxdna_debugfs.c            |    3 +
- drivers/accel/amdxdna/amdxdna_gem.c                |   89 +-
- drivers/accel/amdxdna/amdxdna_gem.h                |    2 +
- drivers/accel/amdxdna/amdxdna_pci_drv.c            |   50 +-
- drivers/accel/amdxdna/amdxdna_pci_drv.h            |   20 +-
- drivers/accel/amdxdna/amdxdna_pm.c                 |   26 +
- drivers/accel/amdxdna/amdxdna_pm.h                 |    2 +
- drivers/accel/amdxdna/amdxdna_sysfs.c              |    2 +-
- drivers/accel/amdxdna/npu1_regs.c                  |   19 +-
- drivers/accel/amdxdna/npu3_regs.c                  |  105 +-
- drivers/accel/amdxdna/npu4_regs.c                  |   30 +-
- drivers/accel/ethosu/ethosu_gem.c                  |    2 +-
- drivers/accel/ivpu/ivpu_drv.c                      |   11 +-
- drivers/accel/ivpu/ivpu_drv.h                      |    2 +-
- drivers/accel/ivpu/ivpu_fw.c                       |   91 +-
- drivers/accel/ivpu/ivpu_fw.h                       |    1 +
- drivers/accel/ivpu/ivpu_job.c                      |    3 +
- drivers/accel/ivpu/ivpu_pm.c                       |    2 +-
- drivers/accel/ivpu/vpu_boot_api.h                  |   36 +-
- drivers/dma-buf/udmabuf.c                          |   13 +-
- drivers/gpu/buddy.c                                |   20 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |    2 +-
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |    2 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |    7 +-
- .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |    2 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |    2 +-
- .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |    4 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |    2 +-
- drivers/gpu/drm/arm/Kconfig                        |    4 +-
- drivers/gpu/drm/arm/hdlcd_drv.c                    |   85 +-
- drivers/gpu/drm/arm/hdlcd_drv.h                    |    1 +
- drivers/gpu/drm/bridge/inno-hdmi.c                 |    1 -
- drivers/gpu/drm/bridge/microchip-lvds.c            |    1 -
- drivers/gpu/drm/bridge/sii902x.c                   |   22 +-
- drivers/gpu/drm/bridge/simple-bridge.c             |    2 +-
- drivers/gpu/drm/bridge/synopsys/dw-dp.c            |    1 -
- drivers/gpu/drm/bridge/tda998x_drv.c               |    1 -
- drivers/gpu/drm/ci/drm-misc-ci.yml                 |  147 +++
- drivers/gpu/drm/drm_drv.c                          |    4 +-
- drivers/gpu/drm/drm_gem_atomic_helper.c            |   92 --
- drivers/gpu/drm/drm_gpuvm.c                        |  518 ++++++++-
- drivers/gpu/drm/drm_simple_kms_helper.c            |  328 ------
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c     |    1 -
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c   |    1 -
- drivers/gpu/drm/hyperv/hyperv_drm.h                |    5 +
- drivers/gpu/drm/hyperv/hyperv_drm_drv.c            |    1 -
- drivers/gpu/drm/hyperv/hyperv_drm_proto.c          |    1 -
- drivers/gpu/drm/imagination/pvr_device.c           |   43 +-
- drivers/gpu/drm/imagination/pvr_device.h           |   28 +
- drivers/gpu/drm/imagination/pvr_free_list.c        |   13 +-
- drivers/gpu/drm/imagination/pvr_fw_meta.c          |    5 +-
- drivers/gpu/drm/imagination/pvr_fw_startstop.c     |   37 +-
- drivers/gpu/drm/imagination/pvr_fw_trace.c         |   25 +-
- drivers/gpu/drm/imagination/pvr_mmu.h              |    2 +-
- drivers/gpu/drm/imagination/pvr_vm.c               |   22 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      |    2 +-
- drivers/gpu/drm/msm/msm_gem_submit.c               |   90 +-
- drivers/gpu/drm/msm/msm_gem_vma.c                  |   16 +-
- drivers/gpu/drm/panel/panel-edp.c                  |    3 +
- drivers/gpu/drm/panthor/panthor_gpu.c              |    4 +
- drivers/gpu/drm/panthor/panthor_gpu_regs.h         |    1 +
- drivers/gpu/drm/panthor/panthor_hw.h               |    6 +
- drivers/gpu/drm/panthor/panthor_mmu.c              |   72 +-
- drivers/gpu/drm/panthor/panthor_mmu_regs.h         |    1 +
- drivers/gpu/drm/panthor/panthor_pwr.c              |   29 +-
- drivers/gpu/drm/panthor/panthor_pwr_regs.h         |    7 +
- .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    |   16 +-
- drivers/gpu/drm/stm/lvds.c                         |    2 +-
- drivers/gpu/drm/tegra/output.c                     |    1 -
- drivers/gpu/drm/tidss/tidss_crtc.c                 |   10 +-
- drivers/gpu/drm/tidss/tidss_crtc.h                 |    4 +-
- drivers/gpu/drm/tidss/tidss_dispc.c                |   28 +-
- drivers/gpu/drm/tidss/tidss_dispc.h                |    5 +-
- drivers/gpu/drm/tidss/tidss_dispc_regs.h           |    1 +
- drivers/gpu/drm/tidss/tidss_drv.c                  |    7 +-
- drivers/gpu/drm/tidss/tidss_kms.c                  |   70 +-
- drivers/gpu/drm/tidss/tidss_oldi.c                 |   46 +-
- drivers/gpu/drm/tidss/tidss_oldi.h                 |    1 -
- drivers/gpu/drm/v3d/v3d_drv.c                      |    3 +
- drivers/gpu/drm/v3d/v3d_regs.h                     |   19 +-
- drivers/gpu/drm/v3d/v3d_sched.c                    |   30 +-
- drivers/gpu/drm/v3d/v3d_submit.c                   |    9 +
- drivers/gpu/drm/vc4/vc4_dpi.c                      |    1 -
- drivers/gpu/drm/vc4/vc4_dsi.c                      |    1 -
- drivers/gpu/drm/vc4/vc4_hdmi.c                     |    1 -
- drivers/gpu/drm/vc4/vc4_vec.c                      |    1 -
- drivers/gpu/drm/verisilicon/vs_bridge.c            |    1 -
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                |   23 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                |    3 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |    2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |    2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |    2 +-
- drivers/gpu/drm/xe/xe_exec.c                       |   23 +-
- drivers/gpu/drm/xe/xe_vm.c                         |   43 +-
- drivers/gpu/drm/xe/xe_vm.h                         |    3 +-
- drivers/gpu/tests/gpu_buddy_test.c                 |    9 +
- drivers/staging/fbtft/TODO                         |    4 +-
- include/drm/drm_gem_atomic_helper.h                |   28 -
- include/drm/drm_gpuvm.h                            |  139 ++-
- include/drm/drm_simple_kms_helper.h                |   56 +-
- include/uapi/drm/v3d_drm.h                         |    5 +
- 124 files changed, 4693 insertions(+), 1389 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/ti/ti,am62l-dss.yaml
- create mode 100644 drivers/gpu/drm/ci/drm-misc-ci.yml
+Also, in a6xx_gmu_pm_suspend() and a6xx_pm_suspend() in
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c, the loop clearing a6xx_gpu->shadow[]
+only iterates up to gpu->nr_rings:
+
+    if (a6xx_gpu->shadow_bo)
+        for (i =3D 0; i < gpu->nr_rings; i++)
+            a6xx_gpu->shadow[i] =3D 0;
+
+leaving a6xx_gpu->shadow[gpu->nr_rings] for gpu->lpac_rb stale across
+suspend.
+
+Could hangcheck_handler(), recover_worker(), and the suspend shadow-clearing
+loops be updated to account for gpu->lpac_rb?
+
+[Severity: High]
+When LPAC submissions on gen70900 switch context bank 1 (ASID 1) to
+per-process TTBR0 pagetables via a6xx_set_pagetable(), will TLB invalidatio=
+ns
+on context bank 1 be skipped when those pagetables are unmapped or destroye=
+d?
+
+In msm_iommu_tlb_flush_all() and msm_iommu_tlb_flush_walk() in
+drivers/gpu/drm/msm/msm_iommu.c, the primary context bank flushes check
+pm_runtime_get_if_in_use(pagetable->iommu_dev), whereas the LPAC flushes
+check pagetable->parent->lpac_dev:
+
+    if (pagetable->parent->lpac_dev &&
+        pm_runtime_get_if_in_use(pagetable->parent->lpac_dev)) {
+        adreno_smmu =3D dev_get_drvdata(pagetable->parent->lpac_dev);
+
+        pagetable->tlb->tlb_flush_all((void *)adreno_smmu->cookie);
+
+        pm_runtime_put_autosuspend(pagetable->parent->lpac_dev);
+    }
+
+However, in adreno_gpu_init() in drivers/gpu/drm/msm/adreno/adreno_gpu.c:
+
+    if (gpu->lpac_pdev) {
+        pm_runtime_enable(&gpu->lpac_pdev->dev);
+        if (!device_link_add(&pdev->dev, &gpu->lpac_pdev->dev,
+                     DL_FLAG_PM_RUNTIME | DL_FLAG_AUTOREMOVE_CONSUMER))
+            dev_err(&gpu->lpac_pdev->dev, "failed to link to lpac device\n"=
+);
+    }
+
+Because gpu->lpac_pdev is populated from the child node under the GPU node =
+in
+arch/arm64/boot/dts/qcom/sm8650.dtsi via of_platform_populate(...,
+&pdev->dev), &pdev->dev is the parent of &gpu->lpac_pdev->dev. Calling
+device_link_add() with the parent (&pdev->dev) as consumer and its child
+(&gpu->lpac_pdev->dev) as supplier fails in device_is_dependent() because
+device_is_ancestor(consumer, supplier) is true.
+
+As a result, lpac_dev has no runtime PM link, no bound driver, and no
+autosuspend configuration, so it remains permanently in RPM_SUSPENDED with
+usage_count =3D=3D 0. Even if lpac_dev were suspended while pagetable->iomm=
+u_dev
+is active, the SMMU hardware still retains cached TLB entries for context
+bank 1. Because pm_runtime_get_if_in_use(pagetable->parent->lpac_dev) always
+returns 0, tlb_flush_all() and tlb_flush_walk() are never called for context
+bank 1 before page table pages are freed in msm_iommu_pagetable_destroy() or
+__arm_lpae_unmap().
+
+Should msm_iommu_tlb_flush_all() and msm_iommu_tlb_flush_walk() check
+pagetable->iommu_dev (or shouldn't the runtime PM handling for lpac_dev be
+fixed so context bank 1 TLBs are invalidated before freeing page tables)?
+
+[Severity: Medium]
+When LPAC is enabled on gen70900 alongside ADRENO_QUIRK_IFPC, are the LPAC =
+GX
+registers restored after an Inter-Frame Power Collapse (IFPC) cycle?
+
+During hw_init() in drivers/gpu/drm/msm/adreno/a6xx_gpu.c, when gpu->lpac_rb
+is present, the driver programs several GX-domain registers:
+
+    if (gpu->lpac_rb)
+        gpu_rmw(gpu, REG_A6XX_UCHE_DEBUG_CNTL_1, BIT(30), BIT(30));
+    ...
+    if (gpu->lpac_rb) {
+        gpu_write(gpu, REG_A7XX_CP_LPAC_CHICKEN_DBG, 0x1);
+
+        gpu_write(gpu, REG_A7XX_SP_CHICKEN_BITS_2, BIT(4));
+        gpu_write(gpu, REG_A7XX_SP_LPAC_CHICKEN_BITS_2, BIT(4));
+    }
+
+In drivers/gpu/drm/msm/adreno/a6xx_catalog.c, a750_ifpc_reglist_regs includ=
+es
+REG_A6XX_CP_LPAC_PROTECT_CNTL, but REG_A6XX_UCHE_DEBUG_CNTL_1,
+REG_A7XX_CP_LPAC_CHICKEN_DBG, REG_A7XX_SP_CHICKEN_BITS_2, and
+REG_A7XX_SP_LPAC_CHICKEN_BITS_2 are absent from both a750_ifpc_reglist_regs
+and a7xx_pwrup_reglist_regs, so their values will be lost when the GX domain
+collapses during IFPC.
+
+Should those four registers be added to the A750 IFPC / power-up register
+lists?
+
+>  		.funcs =3D &a7xx_gpu_funcs,
+
+[Severity: Medium]
+When gen70900 uses a7xx_gpu_funcs and submits LPAC jobs through
+a7xx_submit() in drivers/gpu/drm/msm/adreno/a6xx_gpu.c, does alwayson_end
+read from the wrong counter for LPAC?
+
+At the start of a7xx_submit(), alwayson_start is sampled from
+cp_always_on_counter when is_lpac is true:
+
+    if (is_lpac)
+        get_stats_counter(ring, cp_always_on_counter, rbmemptr_stats(ring, =
+index, alwayson_start));
+    else
+        get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, =
+index, alwayson_start));
+
+However, at the end of a7xx_submit(), alwayson_end is unconditionally
+sampled from cp_always_on_context:
+
+    get_stats_counter(ring, rbbm_perfctr_cp0, rbmemptr_stats(ring, index, c=
+pcycles_end));
+    get_stats_counter(ring, cp_always_on_context, rbmemptr_stats(ring, inde=
+x, alwayson_end));
+
+When retire_submit() in drivers/gpu/drm/msm/msm_gpu.c computes:
+
+    elapsed =3D (stats->alwayson_end - stats->alwayson_start) * 10000;
+
+it subtracts CP_ALWAYS_ON_COUNTER from CP_ALWAYS_ON_CONTEXT, corrupting the
+elapsed time, clock estimation, trace_msm_gpu_submit_retired(), and
+ctx->elapsed_ns for LPAC submissions (note also that a7xx_submit() has an
+unused local variable timestamp_iova).
+
+Should the alwayson_end sample in a7xx_submit() also branch on is_lpac to
+read cp_always_on_counter?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
+e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D14
