@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC983606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 06:34:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BC3606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 06:35:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chM2BVXp
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrzjCp8e
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9ADF10E774;
-	Thu, 29 Oct 2026 06:34:22 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40F8710E774
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 06:34:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A5CB10E795;
+	Thu, 29 Oct 2026 06:35:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53F8210E795
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 06:34:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6BA91600DA;
- Thu, 29 Oct 2026 06:34:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24941F01825;
- Thu, 29 Oct 2026 06:34:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ECC184336D;
+ Thu, 29 Oct 2026 06:34:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA48F1F01825;
+ Thu, 29 Oct 2026 06:34:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793255656;
- bh=YTb82r1SnKg8ltbh5vvd7ezpDkiikDp3aAeHZMwCZSE=;
+ s=k20260515; t=1793255696;
+ bh=CocfEAtZoZ8hXDbtZbwVWbae2AotZFcalk+tcoZRQ0g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=chM2BVXp8/7x1qpmWmU8izO0S0YFKXsTXiGLaSqqjs4dZwyUql/BYX7LGt9ID1GUx
- JzgjB+CcinT0D1mNrywAHSmwyXFsJkiJ9PSzQgwgJ33IDwT6g6uQQjp0Z58eCD6UFK
- XGEKgNWn4R2AX/2EM3KkR1vHW/rwfXCGAGuMbNHEwtp5llqeqSBEXsz8Uvh9rYb8XY
- 6GR+SJyQ3ZXxkVdVyJ4zEXtGWfoaSwzvEP1LFXnOT1fuZ3EoTVHiQUfgf0k5e7Okyo
- EsftA9aOI61hdwBigJHodC7r6CAR5lhweOpq/tvMQT2U01ZmaSAMW5SM8ClMe3hG7U
- I3I0tUk+7RKyA==
-Message-ID: <sashiko-outbox-188823@kernel.org>
+ b=JrzjCp8emiIXV/c6+bS/pvvShDyrCa+SeRfgTRKDOsIJElXoDt5VIphGcZmh1TEOW
+ jq+xw0T3g2XaMHm4+V2msZKmORjAfFJPrgUbi5/erBVPyGlU06iVIqShnUiknqj+rh
+ Iuiy3acZG/Sryi1NMcrcMM6AwbJGBijgjN0L5QA8pwjEs4iycRjMrz8S4CGgKSUGQ5
+ DJtEqCvgfPfrRGzsBw5rYmWwKEImkL11uAQw0DrgTLRp2ntPKr08gCGmZH5x8CmEjV
+ iqJrYrm5kkhua5CA3no9WeqPCZNxITMhGhEt20EE4U6ECDlL2+PpXVqQLgClgYBHJa
+ zCtqI2YpBdQVA==
+Message-ID: <sashiko-outbox-188824@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] drm/imagination: Make the RISC-V firmware header
- arch-independent
+Subject: Re: [PATCH v2 4/5] drm/imagination: Limit access to the META
+ firmware interface
 To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029-prep-meta-fw-arch-independent-v2-3-b9f5d69b7a52@imgtec.com>
+In-Reply-To: <20261029-prep-meta-fw-arch-independent-v2-4-b9f5d69b7a52@imgtec.com>
 References: <20261029-prep-meta-fw-arch-independent-v2-0-b9f5d69b7a52@imgtec.com>
- <20261029-prep-meta-fw-arch-independent-v2-3-b9f5d69b7a52@imgtec.com>
+ <20261029-prep-meta-fw-arch-independent-v2-4-b9f5d69b7a52@imgtec.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 06:34:15 +0000
+Date: Thu, 29 Oct 2026 06:34:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,69 +59,135 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] drm/imagination: leftover pvr_rogue_riscv_internal.h after header r=
-ename
+- [High] drm/imagination: inverted PVR_FEATURE_VALUE() check in layout_is_m=
+ars()
+- [High] drm/imagination: wrong default in must_wait_fw_idle_before_stop()
 --
 
-commit aa862385062c21d7cdb9dd94ddf176fd3c9475ba
+commit 37bd66d7d521adbf18d35a370cc34ba7ca02c2dd
 Author: Alessio Belle <alessio.belle@imgtec.com>
 
-drm/imagination: Make the RISC-V firmware header arch-independent
+drm/imagination: Limit access to the META firmware interface
 
-This commit introduces drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
-with architecture-independent PVR_RISCV* definitions and updates
-drivers/gpu/drm/imagination/pvr_fw_riscv.c to use them instead of the
-ROGUE_RISCV* definitions from pvr_rogue_riscv_internal.h.
+This commit abstracts META firmware-specific operations behind struct
+pvr_fw_defs callbacks and properties so that pvr_fw_startstop.c no longer
+accesses the META firmware interface directly. It also renames
+pvr_rogue_meta.h to pvr_rogue_meta_internal.h and removes pvr_fw_meta.h.
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm=
-/imagination/pvr_fw_riscv.c
-> index 0d4dd45520a9c..2b24c40bc20f9 100644
-> --- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-> +++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-> @@ -6,10 +6,10 @@
->  #include "pvr_fw_info.h"
->  #include "pvr_fw_mips.h"
->  #include "pvr_gem.h"
-> +#define PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
-> +#include "pvr_fw_riscv_internal.h"
-> +#undef PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
->  #include "pvr_rogue_cr_defs.h"
-> -#define PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
-> -#include "pvr_rogue_riscv_internal.h"
-> -#undef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
->  #include "pvr_vm.h"
+> diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagi=
+nation/pvr_fw.h
+> index 4b25291135b69..610406668bbb2 100644
+> --- a/drivers/gpu/drm/imagination/pvr_fw.h
+> +++ b/drivers/gpu/drm/imagination/pvr_fw.h
+> @@ -184,6 +184,23 @@ struct pvr_fw_defs {
+>  	 */
+>  	void (*irq_clear)(struct pvr_device *pvr_dev);
+> =20
+> +	/**
+> +	 * @must_wait_fw_idle: Check if the FW stop sequence should wait for ha=
+rdware
+> +	 *                     to report FW idle before proceeding.
+> +	 *
+> +	 * @pvr_dev: Target PowerVR device.
+> +	 * @wait[out]: Whether the FW stop sequence should wait for FW idle.
+> +	 *
+> +	 * This function is optional. The assumption is that we must always wait
+> +	 * for the firmware to reach idle; implement this function and return
+> +	 * %false to alter this behavior.
+> +	 *
+> +	 * Returns:
+> +	 *  * 0 on success.
+> +	 *  * Any appropriate error on failure.
+> +	 */
+> +	int (*must_wait_fw_idle)(struct pvr_device *pvr_dev, bool *wait);
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h b/driver=
-s/gpu/drm/imagination/pvr_fw_riscv_internal.h
-> new file mode 100644
-> index 0000000000000..abcbb4ef06fe1
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
-> @@ -0,0 +1,43 @@
-> +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-> +/* Copyright (c) 2024 Imagination Technologies Ltd. */
+> diff --git a/drivers/gpu/drm/imagination/pvr_fw_startstop.c b/drivers/gpu=
+/drm/imagination/pvr_fw_startstop.c
+> index 98ca2692239d0..9a617f78256ed 100644
+> --- a/drivers/gpu/drm/imagination/pvr_fw_startstop.c
+> +++ b/drivers/gpu/drm/imagination/pvr_fw_startstop.c
+
+[ ... ]
+
+> @@ -199,6 +197,30 @@ pvr_fw_start(struct pvr_device *pvr_dev)
+>  	return err;
+>  }
+> =20
+> +static inline bool layout_is_mars(struct pvr_device *pvr_dev)
+> +{
+> +	u64 layout_mars_value =3D 0;
 > +
-> +#ifndef PVR_FW_RISCV_INTERNAL_H
-> +#define PVR_FW_RISCV_INTERNAL_H
+> +	if (PVR_FEATURE_VALUE(pvr_dev, layout_mars, &layout_mars_value))
+> +		return layout_mars_value > 0;
+> +
+> +	return false;
+> +}
 
-[Severity: Low]
-The commit message states that this patch renames both the header file and
-its contents, and drivers/gpu/drm/imagination/pvr_fw_riscv.c (the sole user
-of pvr_rogue_riscv_internal.h) is updated to include
-pvr_fw_riscv_internal.h instead.
+[Severity: High]
+Is the PVR_FEATURE_VALUE() check inverted in layout_is_mars()?
 
-However, drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h is added as a
-new file while drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h
-(guarded by PVR_ROGUE_RISCV_INTERNAL_H) is left behind in the tree with no
-remaining users.
+In drivers/gpu/drm/imagination/pvr_device.h, PVR_FEATURE_VALUE() returns 0
+when the feature is present and -EINVAL when it is absent:
 
-Should drivers/gpu/drm/imagination/pvr_rogue_riscv_internal.h be removed in
-this commit as part of the rename?
+#define PVR_FEATURE_VALUE(pvr_dev, feature, value_out)             \
+	({                                                         \
+		struct pvr_device *_pvr_dev =3D pvr_dev;             \
+		int _ret =3D -EINVAL;                                \
+		if (_pvr_dev->features.has_##feature) {            \
+			*(value_out) =3D _pvr_dev->features.feature; \
+			_ret =3D 0;                                  \
+		}                                                  \
+		_ret;                                              \
+	})
+
+Prior to this change, pvr_fw_stop() checked PVR_FEATURE_VALUE(...) =3D=3D 0.
+Without the =3D=3D 0 comparison, layout_is_mars() returns false when
+has_layout_mars is true (since PVR_FEATURE_VALUE() returns 0), and also
+returns false when has_layout_mars is false (since layout_mars_value remains
+0).
+
+As a result, when pvr_fw_stop() calls layout_is_mars(), layout_mars is
+always false, causing pvr_fw_stop() on cores with the layout_mars feature to
+poll powered-down ROGUE_CR_SIDEKICK_IDLE and ROGUE_CR_SLC_IDLE registers and
+skip polling ROGUE_CR_MARS_IDLE before asserting ROGUE_CR_SOFT_RESET.
+
+> +
+> +static inline int must_wait_fw_idle_before_stop(struct pvr_device *pvr_d=
+ev)
+> +{
+> +	bool wait_fw_idle =3D false;
+> +	int err;
+> +
+> +	if (pvr_dev->fw_dev.defs->must_wait_fw_idle) {
+> +		err =3D pvr_dev->fw_dev.defs->must_wait_fw_idle(pvr_dev, &wait_fw_idle=
+);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	return wait_fw_idle;
+> +}
+
+[Severity: High]
+Should wait_fw_idle be initialized to true instead of false in
+must_wait_fw_idle_before_stop()?
+
+The kernel-doc for must_wait_fw_idle in struct pvr_fw_defs states that the
+callback is optional and that waiting for the firmware to reach idle is the
+default behavior when it is not implemented. Neither pvr_fw_defs_mips in
+drivers/gpu/drm/imagination/pvr_fw_mips.c nor pvr_fw_defs_riscv in
+drivers/gpu/drm/imagination/pvr_fw_riscv.c implements must_wait_fw_idle.
+
+Because wait_fw_idle defaults to false here, calling pvr_fw_stop() ->
+must_wait_fw_idle_before_stop() on MIPS or RISC-V devices returns 0, causing
+pvr_fw_stop() to skip polling ROGUE_CR_SIDEKICK_IDLE for
+ROGUE_CR_SIDEKICK_IDLE_GARTEN_EN before asserting ROGUE_CR_SOFT_RESET,
+whereas previously skip_garten_idle defaulted to false.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-prep-meta-=
-fw-arch-independent-v2-0-b9f5d69b7a52@imgtec.com?part=3D3
+fw-arch-independent-v2-0-b9f5d69b7a52@imgtec.com?part=3D4
