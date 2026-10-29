@@ -2,143 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3C6606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:17:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20CE606A31D
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=01TYH+QT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9uaghDHq;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=01TYH+QT;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9uaghDHq
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=VAObjPjS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE1A210E7CC;
-	Thu, 29 Oct 2026 08:17:08 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBD5111209B
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:16:57 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3557F21E6D;
- Thu, 29 Oct 2026 08:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793261816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
- b=01TYH+QT+K9P7IciLxYb/PTJnHnaVP/rAQs0iC4eTqIpzCBqFmDvXBQ7h27P0wpnob7OUU
- BGVms/L6IoXKvMVbfem7kuMwp/iDzDkBbXcRdnd4KMdQnOiSqGgLj6wG3uPZG8yjoA1gCt
- Xak6z7Gta0G367FidtBydPTgIgSRAgo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793261816;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
- b=9uaghDHqHd9lfhl9gL0T/iR2HdO0mjB3gy0Wzs6SXNwTJ4g537aFdfpa7WL0R3PljSge0l
- TKuzhV1OkjhxXtCA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=01TYH+QT;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9uaghDHq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793261816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
- b=01TYH+QT+K9P7IciLxYb/PTJnHnaVP/rAQs0iC4eTqIpzCBqFmDvXBQ7h27P0wpnob7OUU
- BGVms/L6IoXKvMVbfem7kuMwp/iDzDkBbXcRdnd4KMdQnOiSqGgLj6wG3uPZG8yjoA1gCt
- Xak6z7Gta0G367FidtBydPTgIgSRAgo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793261816;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
- b=9uaghDHqHd9lfhl9gL0T/iR2HdO0mjB3gy0Wzs6SXNwTJ4g537aFdfpa7WL0R3PljSge0l
- TKuzhV1OkjhxXtCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CE7E113419;
- Thu, 29 Oct 2026 08:16:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Ca0mIfcA42pMOQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 29 Oct 2026 08:16:55 +0000
-Message-ID: <5e547172-ac10-4a28-a584-9a385dbe2b80@suse.de>
-Date: Thu, 29 Oct 2026 09:16:55 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43B4911203D;
+	Thu, 29 Oct 2026 08:18:43 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB9B311205C
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:18:36 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20261029081835euoutp0157f0ab094dbd3d4a29f190999ebf93b4~i8jYJ5G8f0896808968euoutp01S
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:18:35 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20261029081835euoutp0157f0ab094dbd3d4a29f190999ebf93b4~i8jYJ5G8f0896808968euoutp01S
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1793261915;
+ bh=0lgHRoa196DEU+2U1lk70FoFCFplkDsDz1Bz0nF6vpc=;
+ h=From:Date:Subject:To:Cc:References:From;
+ b=VAObjPjS2TY/SX4X40nIReHrB6Gf9/nC4Ty+LHPFAbmqtDo9dIAStoadIx1rX4WhM
+ 2A+ZGkSpSIRYFfwvj2S6DG3xjde1aUoSqXQg+hflKlB3R2zcTLgqRudotEaNqj0IKQ
+ Ny6015+uRrXUr9ZjvVV5KVEe2dlUnJAadAz89DLI=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20261029081835eucas1p290190c4899f87b740d022b9db9bc361f~i8jX9Cv7L2606526065eucas1p2e;
+ Thu, 29 Oct 2026 08:18:35 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+ [106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20261029081834eusmtip19ac2ae38f3972126e7d077eeb848237a~i8jW-rEcn2949629496eusmtip1h;
+ Thu, 29 Oct 2026 08:18:34 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Thu, 29 Oct 2026 09:17:18 +0100
+Subject: [PATCH v4] drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vga-switcheroo: Allow VGA_SWITCHEROO to be enabled on
- LoongArch
-To: Tianrui Zhao <zhaotianrui@loongson.cn>, David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- chenhuacai@loongson.cn
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- wuqianhai@loongson.cn
-References: <20261029013618.3558115-1-zhaotianrui@loongson.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261029013618.3558115-1-zhaotianrui@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[loongson.cn,gmail.com,linux.intel.com,kernel.org,ffwll.ch]; 
- MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; DKIM_TRACE(0.00)[suse.de:+];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, bootlin.com:url, suse.de:dkim,
- loongson.cn:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 3557F21E6D
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-fix_imagination-v4-1-689745dd52ef@samsung.com>
+X-B4-Tracking: v=1; b=H4sIAA0B42oC/3XOSwrCMBAG4KuUrI1kJq1NXXkPEQkxabNoKkkNS
+ undnRYEpbj85/HNTCzZ6G1ix2Ji0Waf/BAolLuCmU6H1nJ/o8xQYAWIyJ1/Xn2vWx/0SLNcWSd
+ MU1LPlIy27tHSyCqeL5Q7n8YhvtYDGZbqfysDBy60UUKjcxLqU9J9eoR2b4aeLVrGj3AQSlRbA
+ UmoZQMapFENuK0gvwQQW0GSYOk/WTU1ojO/wjzPb4VZ0LQ0AQAA
+X-Change-ID: 20251222-fix_imagination-8ef0c94122c4
+To: Frank Binns <frank.binns@imgtec.com>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,  Donald Robson <donald.robson@imgtec.com>, 
+ Sarah Walker <sarah.walker@imgtec.com>,  Alessio Belle
+ <Alessio.Belle@imgtec.com>,  Matt Coster <opensource@mtcoster.net>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,  kernel
+ test robot <lkp@intel.com>,  Luigi Santivetti <luigi.santivetti@imgtec.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2756;
+ i=m.wilczynski@samsung.com; h=from:subject:message-id;
+ bh=JvFUP7flyqTbe0DcKzZ1qgU/tpsVC6tlbD1knLD9FIs=;
+ b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9ZowKeise9Fucc5e+ZeNaDomt8jlzd/wV3bmP1Tdui
+ 49gyDWFjlIWBjEOBlkxRZazG6ONJP8xPC0//vgXzBxWJpAhDFycAjCRx0sYGc6sSep53XNNnGdN
+ 6yqRnZY2DkVZM+ycdW3jxPU/J8Rq72ZkeNVZGVvwTa232VHkYMXZ55bL9v8rubFMYUb6pY8Pvin
+ 28wIA
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+ fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261029081835eucas1p290190c4899f87b740d022b9db9bc361f
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261029081835eucas1p290190c4899f87b740d022b9db9bc361f
+X-EPHeader: CA
+X-CMS-RootMailID: 20261029081835eucas1p290190c4899f87b740d022b9db9bc361f
+References: <CGME20261029081835eucas1p290190c4899f87b740d022b9db9bc361f@eucas1p2.samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,64 +83,79 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
+Sparse (W=1) builds fail because `SIZE_CHECK(struct rogue_fwif_hwrtdata,
+384)` expects 384 bytes, but the compiler generates a 336-byte
+structure.
 
-Am 29.10.26 um 02:36 schrieb Tianrui Zhao:
-> LoongArch systems with hybrid graphics (integrated +
-> discrete GPU) can benefit from the same GPU switching
-> mechanism that x86 laptops use. Relax the dependency
-> to allow VGA_SWITCHEROO to be built on LoongArch,
-> consistent with the existing dependencies on ACPI,
-> PCI, and FB=y.
->
-> Change-Id: I84d38fdfe5e1591495fb3681474a7f1f64281fa8
+This is due to an alignment conflict: the inner member `cleanup_state`
+requires 64-byte alignment, but the outer struct is explicitly marked
+`__aligned(8)`.
 
-Internal change ids should be remove before submitting patches.
+While a non-sparse build implicitly pads the size to a multiple of 64, a
+sparse build strictly respects the 8-byte outer alignment, resulting in
+a size mismatch.
 
-> Signed-off-by: Tianrui Zhao <zhaotianrui@loongson.cn>
-> ---
->   drivers/gpu/vga/Kconfig | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/vga/Kconfig b/drivers/gpu/vga/Kconfig
-> index bad4bcee313..89edd1211aa 100644
-> --- a/drivers/gpu/vga/Kconfig
-> +++ b/drivers/gpu/vga/Kconfig
-> @@ -1,7 +1,7 @@
->   # SPDX-License-Identifier: GPL-2.0-only
->   config VGA_SWITCHEROO
->   	bool "Laptop Hybrid Graphics - GPU switching support"
-> -	depends on X86
-> +	depends on X86 || LOONGARCH
+Fix this by aligning the entire structure to 64 bytes, which resolves
+the contradiction and forces the correct 384 byte size on all builds.
 
-I'm a bit skeptical if that's all there is to do.  Does loongarch really 
-work with the existing handlers in the graphics drivers as-is?  See [1] 
-for the interface that implements the actual switching.
+Fixes: a26f067feac1 ("drm/imagination: Add FWIF headers")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202512131851.1WNXk3BC-lkp@intel.com/
+Reviewed-by: Matt Coster <matt.coster@imgtec.com>
+Reviewed-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+---
+Changes in v4:
+- Reworded the commit message to state that the size mismatch is reported
+  by sparse (W=1) builds, not by regular GCC builds on RISC-V, as
+  requested in v3 review. The commit message rework announced for v2 was
+  never actually applied, so v2 and v3 went out with the v1 message.
+- Picked up Matt's Reviewed-by from v1.
+- No changes to the code.
+- Rebased on latest master.
+- Link to v3: https://lore.kernel.org/r/20260810-fix_imagination-v3-1-e512359722fc@samsung.com
 
-[1] 
-https://elixir.bootlin.com/linux/v7.3/source/include/linux/vga_switcheroo.h#L93
+Changes in v3:
+- Cleaned up the changelog section by removing the accidental b4
+  "EDITME" template from v2.
+- No changes to the code or commit message.
+- Rebased patch on latest master.
 
-Best regards
-Thomas
+Changes in v2:
+- Expanded the commit message to properly explain the root cause of the
+  GCC alignment conflict on RISC-V vs ARM64, based on v1 feedback.
+- No changes to the code.
+---
+ drivers/gpu/drm/imagination/pvr_rogue_fwif.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->   	depends on ACPI
->   	depends on PCI
->   	depends on FB=y
+diff --git a/drivers/gpu/drm/imagination/pvr_rogue_fwif.h b/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
+index 5d590c4c25663e431601dd26944465b62c31526b..2f8daa93c9e6832bbeec7460275c4b803792cb02 100644
+--- a/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
++++ b/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
+@@ -2174,7 +2174,7 @@ struct rogue_fwif_hwrtdata {
+ 	bool geom_caches_need_zeroing __aligned(4);
+ 
+ 	struct rogue_fwif_cleanup_ctl cleanup_state __aligned(64);
+-} __aligned(8);
++} __aligned(64);
+ 
+ /*
+  ******************************************************************************
 
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20251222-fix_imagination-8ef0c94122c4
+
+Best regards,
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+Michal Wilczynski <m.wilczynski@samsung.com>
 
