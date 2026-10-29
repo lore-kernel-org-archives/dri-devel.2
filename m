@@ -2,96 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0BF606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 16:55:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8B2606A31D
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 17:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RhlV2mA2
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=tEGik+hS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD784112459;
-	Thu, 29 Oct 2026 16:55:38 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8C16112459
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 16:55:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1793292931;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE63A10E072;
+	Thu, 29 Oct 2026 17:17:59 +0000 (UTC)
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04BEE10E32B;
+ Thu, 29 Oct 2026 17:12:24 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jFrPy5mnZz8t2h;
+ Thu, 29 Oct 2026 18:12:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1793293942;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TXB64NJFF4WXwJ9sa1LPJLwRXbNGHs0rY5npnlz1t+E=;
- b=RhlV2mA2079QE8KGFWHDWxyHgvTa1V7KLCMFbGfYjQLmoqrFLrDf6peIwYAp1I8z+dCkbM
- DVBfVI8E/JVazf33ezs84DVdIjzJKcY0AwZ9VukHGHxaJhR0rWb0+s00jGtvBlr+F2XirC
- XvmmUlheQvgshdurmcCGyEHgeJiFpTk=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-400-ZCpm9aZHPSqMrzaXZFIL5A-1; Thu, 29 Oct 2026 12:55:29 -0400
-X-MC-Unique: ZCpm9aZHPSqMrzaXZFIL5A-1
-X-Mimecast-MFC-AGG-ID: ZCpm9aZHPSqMrzaXZFIL5A_1793292929
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93f32050e72so555983185a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 09:55:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793292929; x=1793897729;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:mime-version:references:in-reply-to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=TXB64NJFF4WXwJ9sa1LPJLwRXbNGHs0rY5npnlz1t+E=;
- b=a6VUMxH8ikoDb1rDerg4I1zIjQ/zA6wvtA0kL/y6KrBZ+z9nzPf2cWaSZ6btqeleYk
- a5xS4RfF7M/Y7deeKZzDkFBYsThkgiBZ6FBnMOeOnURmTua4IxGQh0DDqRw6oo+fje7t
- nmXmN8GBkZB/VvLpKVzrXFEGdAvrmmS52w7KnhOjGI4l4Gbo53o4dXFGto+T7OzdP+8e
- 1H4apOdZIou1GBNk7se7Hx8kykj2gWKPLHIIa7dvQ9vUGwm09TFjbrzz2+KyFrKHZxWH
- l3/QGtGqjlCRcNEg4oY9XBHKk2HW/XceLmdH/ilkGJ8rdFQHJu5SBLycvJZmGB2WDbmG
- Resw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxAXTKMJKqlOgfRIns8lW2j3NxOvVVfULw9NC8jqPqVywZQhLmwvYKHmNrwsUccoqSmhT4kJA5fHrw=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJK7ft+fJOlGQDAhx/KbSi7M7x+GQpBQ3+JA/BP7JZ/sGxNdaWq
- HK1XxPe8c3zdjkKWA0G9h58TQQp2OEJCuI30+jfyiYBSzOqbh61MmfJp8Dax6WqBAMEMLcmfkiM
- INX8Nr/5hQCMOkZ/y7D2+hlf8inBKKXHCfhz7DMLd1FN5bcag1A10Zh/q31PTwf1EbHt2Cu96zt
- BzaAAHFQu8zWExBa4G16s2ryEen4uedWlRPCrBmlHpPVVa
-X-Gm-Gg: AYBFou3GDramCZz73OpMani/nD+unRU+KhJEpi8NEq3EvVQqhGcSOcVlZY4NJlkyiyz
- MYTS4uahm6plpybPlxBdQrl0aXxGVZVzRIQfbUo0Eb2Y6hJr9AfSi7lY2sGUhu94YqpiTjtAxxv
- zTepjP+Z5bogPMHj8VFOyPP2JT54mdkkD98jyKDuYZuVHQ4+HxhqYcODE=
-X-Received: by 2002:a05:620a:1a27:b0:93b:ef24:bc8c with SMTP id
- af79cd13be357-94408cde203mr957070085a.47.1793292929302; 
- Thu, 29 Oct 2026 09:55:29 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a27:b0:93b:ef24:bc8c with SMTP id
- af79cd13be357-94408cde203mr957065685a.47.1793292928789; Thu, 29 Oct 2026
- 09:55:28 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 29 Oct 2026 09:55:28 -0700
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 29 Oct 2026 09:55:28 -0700
-From: Sergio Lopez Pascual <slp@redhat.com>
-In-Reply-To: <18f0bae1-5cdb-460c-a147-33cd1fa2acdf@leemhuis.info>
-References: <20260804140403.16337-1-kfastov@gmail.com>
- <20260804162924.0268f80a@fedora-21.home>
- <CABWhNekebS6dt=Ft+74iG4YpCq-5ZcV1EvvERNxT612VUOC9Ww@mail.gmail.com>
- <18f0bae1-5cdb-460c-a147-33cd1fa2acdf@leemhuis.info>
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ZI8oBZ4Uaho6WlsNiZrLoETNN7kG7Z9PUgwQvfdi//Q=;
+ b=tEGik+hSAkWOHHvoqf/spJXGCCmx1KGGZp4z2gUPq0CvAzHDysXJo031pIvUqrHRMjESTG
+ 1QYx83GjrzySu7KGT14xJ11mco2yt1MkeWaVdRPITnOPnTxXbeO0bknedshTH6kVczrvxK
+ tzPJIEModTasRMVOyrg0vOKzkeWrMVlqDMgXUE+HntfjG6R+K4fJ3D7PDwdEsQ5gN9CQua
+ K3UtJaokPgEjkfkQINub2tKTHUMwZxOzbuT0tczoAIeKoU9quP2nKEHcsLLCsx4tPSNNpG
+ PJynqz5sG8k3/VDNqJZbLRGfODye2ESG/tDPuONjdQsROkpecz8i8h4BIikgjQ==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Ray Wu <ray.wu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ Alex Hung <alex.hung@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: Don't require DMUB PSR caps before DCN 3.0
+Date: Thu, 29 Oct 2026 17:12:19 +0000
+Message-ID: <20261029171219.2842014-1-hugo@hsal.es>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 29 Oct 2026 09:55:28 -0700
-X-Gm-Features: AclHuK-xgAN_fR_dbuTYNWejWEVdFE5MAwn_KoUGHzvKxdpt-_9FR1Wg7w13_Us
-Message-ID: <CAAiTLFXd=LK93e=f3PE1f6y5m15yVknqqVNBei5rLz2AnSJ4pQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/gem-shmem: Install writable PTEs for write faults
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- Konstantin Fastov <kfastov@gmail.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
- stable@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: JJMY_eklweKKGlrulRaROjhtsLjdPSjEO-NhszHpuIQ_1793292929
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jFrPy5mnZz8t2h
+X-Mailman-Approved-At: Thu, 29 Oct 2026 17:17:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,66 +63,131 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Thorsten Leemhuis <regressions@leemhuis.info> writes:
+Commit 3c108046e1d6 ("drm/amd/display: Add power module on Linux") made
+amdgpu_dm_set_psr_caps() return false unless dc->caps.dmub_caps.psr is
+set. DC fills dmub_caps from dc_dmub_srv_query_caps_cmd(), which only
+the DCN 3.0 and later hwseq init calls. On DCN 2.x the flag stays false,
+so DC_PSR_MASK in amdgpu.dcfeaturemask, the documented way to turn PSR
+on there, no longer does anything
 
-> [CCing Paolo and Sergio]
->
-> On 8/4/26 16:57, Konstantin Fastov wrote:
->> =D0=B2=D1=82, 4 =D0=B0=D0=B2=D0=B3. 2026=E2=80=AF=D0=B3. =D0=B2 17:29, B=
-oris Brezillon <boris.brezillon@collabora.com>:
->>> On Tue,  4 Aug 2026 17:04:03 +0300
->>> Konstantin Fastov <kfastov@gmail.com> wrote:
->>>
->>>> Since the introduction of dirty tracking, drm_gem_shmem_vm_ops has a
->>>> .pfn_mkwrite handler.  Its presence makes vma_wants_writenotify() true=
-,
->>>> so vma_set_page_prot() removes the write bit from vm_page_prot of
->>>> shared mappings, and the vmf_insert_pfn() call in the fault handler no=
-w
->>>> installs read-only PTEs even when serving a write fault.
->>>>
->>>> For regular CPU accesses this is transparent: the retried access fault=
-s
->>>> again on the present read-only PTE, goes through wp_pfn_shared() into
->>>> .pfn_mkwrite() and the PTE is upgraded to writable.  But consumers tha=
-t
->>>> resolve faults through fixup_user_fault() + follow_pfnmap_start()
->>>> perform no such retry.  In particular KVM's hva_to_pfn_remapped(),
->>>> after "successfully" handling a write fault, finds a present read-only
->>>> PTE, treats it as KVM_PFN_ERR_RO_FAULT and fails the vcpu run with
->>>> EFAULT.  Observed as AsahiLinux/linux#560: muvm/libkrun microVMs
->>>> mapping virtio-gpu blob resources die with EFAULT on first GPU access.
->>>> The traced failing sequence: [...]
->>>
->>> The same issue is being discussed here [1].
->>> [...]
->>> [1]https://lore.kernel.org/dri-devel/20260804120529.1730187-1-pbonzini@=
-redhat.com/
->>
->> Thanks, I missed that series, I searched dri-devel but not the kvm list.
->> Paolo's patches 1-2 are indeed the same fix (down to the same function
->> name), so please consider my patch superseded by his series. [...]
-> FWIW, it seems that series takes a while to get polished and mainlined:
-> https://lore.kernel.org/all/CABgObfYgZ87%3DW%2B6E%3DN%3DWwTuyYkaoKU3hqd84=
-JDTSAvT3_9dh6w@mail.gmail.com/
->
-> To quote: "It ballooned a bit and getting acks from everyone involved is
-> hard... Either I or Sergio will get back to it."
->
-> Is that something you/AsahiLinux/the world can live with?
+On a Cezanne laptop (DCN 2.1, DMUB firmware 0x0101002B) with
+amdgpu.dcfeaturemask=0xa, dmesg shows
+"eDP-1: PSR support 0, DC PSR ver -1, sink PSR ver 1 DPCD caps 0x0",
+although DC created a dmub_psr for the ASIC
 
-Asahi still ships their own kernel with downstream patches, and have
-backported Paolo's series. But for the rest of the world this is pretty
-bad, as it means anything that requires virtio-gpu with blob mappings
-(venus, native context, etc..) is broken.
+Sending the caps query on DCN 2.1 too doesn't help. That firmware
+answers it without error but reports psr as 0, and with the check
+skipped it runs PSR 1 fine: psr_state reaches 6 on an idle screen
 
-Since the proper fix is going to take a while, I think having some form
-of interim solution could be a good idea.
+Keep the check only from DCN 3.0 on, where every ASIC with a DMUB PSR
+engine queries the caps. DCN 3.01 skips the query, but it has no PSR
+engine either. Before that commit no ASIC needed dmub_caps.psr.
+edp_setup_psr() already returns false when the ASIC has neither a DMCU
+nor a DMUB PSR engine
+
+This needs "drm/amd/display: Take every stream out of self-refresh
+before a modeset" first. Without it, turning off or unplugging an
+external display while the eDP is in PSR hangs DMUB on DCN 2.1
+
+Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+Depends on:
+
+  https://lore.kernel.org/r/20261029165420.2255749-1-hugo@hsal.es
+
+Firmware 0x0101002B answers QUERY_FEATURE_CAPS with psr = 0 but still
+runs PSR 1 without trouble. Is that field just not filled in by the DCN
+2.1 firmware, and is there a version from which it can be trusted? If
+so, I can check the caps there as well
+
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  8 ++++-
+ .../amdgpu_dm/tests/amdgpu_dm_psr_test.c      | 35 +++++++++++++++++++
+ 2 files changed, 42 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+index dbad0a6d3a2b4..be95433624674 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c
+@@ -111,7 +111,13 @@ bool amdgpu_dm_set_psr_caps(struct dc_link *link, struct amdgpu_dm_connector *ac
+ 	/* Reset psr version first */
+ 	link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
+ 
+-	if (!dc->caps.dmub_caps.psr)
++	/*
++	 * Only DCN 3.0 and later ASICs with a DMUB PSR engine query the DMUB
++	 * feature caps. Older ASICs drive PSR through DMCU or DMUB without
++	 * that query, and edp_setup_psr() already bails out when neither
++	 * engine exists
++	 */
++	if (dc->ctx->dce_version >= DCN_VERSION_3_0 && !dc->caps.dmub_caps.psr)
+ 		return false;
+ 
+ 	if (!(link->connector_signal & SIGNAL_TYPE_EDP))
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
+index 0a484ea7c0e8e..4d23b1234921c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_psr_test.c
+@@ -239,6 +239,39 @@ static void dm_test_set_psr_caps_no_dmub_psr(struct kunit *test)
+ 			DC_PSR_VERSION_UNSUPPORTED);
+ }
+ 
++/**
++ * dm_test_set_psr_caps_pre_dcn30() - DMUB caps are not required before DCN 3.0.
++ * @test: KUnit test context.
++ */
++static void dm_test_set_psr_caps_pre_dcn30(struct kunit *test)
++{
++	struct dc_link *link = alloc_test_psr_caps_link(test);
++	struct amdgpu_dm_connector *aconnector = alloc_test_aconnector(test);
++
++	link->ctx->dce_version = DCN_VERSION_2_1;
++	link->ctx->dc->caps.dmub_caps.psr = false;
++
++	KUNIT_EXPECT_TRUE(test, amdgpu_dm_set_psr_caps(link, aconnector));
++	KUNIT_EXPECT_EQ(test, link->psr_settings.psr_version, DC_PSR_VERSION_1);
++}
++
++/**
++ * dm_test_set_psr_caps_dcn30_no_dmub_psr() - DCN 3.0 requires DMUB caps.
++ * @test: KUnit test context.
++ */
++static void dm_test_set_psr_caps_dcn30_no_dmub_psr(struct kunit *test)
++{
++	struct dc_link *link = alloc_test_psr_caps_link(test);
++	struct amdgpu_dm_connector *aconnector = alloc_test_aconnector(test);
++
++	link->ctx->dce_version = DCN_VERSION_3_0;
++	link->ctx->dc->caps.dmub_caps.psr = false;
++
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_set_psr_caps(link, aconnector));
++	KUNIT_EXPECT_EQ(test, link->psr_settings.psr_version,
++			DC_PSR_VERSION_UNSUPPORTED);
++}
++
+ /**
+  * dm_test_set_psr_caps_non_edp() - Only eDP links can enable PSR.
+  * @test: KUnit test context.
+@@ -712,6 +745,8 @@ static struct kunit_case dm_psr_test_cases[] = {
+ 	KUNIT_CASE(dm_test_set_psr_caps_null_link),
+ 	KUNIT_CASE(dm_test_set_psr_caps_null_connector),
+ 	KUNIT_CASE(dm_test_set_psr_caps_no_dmub_psr),
++	KUNIT_CASE(dm_test_set_psr_caps_pre_dcn30),
++	KUNIT_CASE(dm_test_set_psr_caps_dcn30_no_dmub_psr),
+ 	KUNIT_CASE(dm_test_set_psr_caps_non_edp),
+ 	KUNIT_CASE(dm_test_set_psr_caps_disconnected),
+ 	KUNIT_CASE(dm_test_set_psr_caps_no_dpcd_psr),
+
+base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
+prerequisite-message-id: <20261029165420.2255749-1-hugo@hsal.es>
+-- 
+2.56.0
 
