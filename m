@@ -2,93 +2,138 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D76606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:55:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E471F606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:55:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=GSyzrYJ6
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rwO5DcRV;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kv8yJ+Q1;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rwO5DcRV;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kv8yJ+Q1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEFF9112018;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 460BC112015;
 	Thu, 29 Oct 2026 07:55:02 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C97FB112009
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:54:25 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20261029075424euoutp01e0e469c5c76436885423a0db8879ed1d~i8OQ7SXHT1385013850euoutp01H;
- Thu, 29 Oct 2026 07:54:24 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20261029075424euoutp01e0e469c5c76436885423a0db8879ed1d~i8OQ7SXHT1385013850euoutp01H
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1793260464;
- bh=gYK/dE1PiupUwRUH2utBWTLymGN9VslKXGUiPm6oFks=;
- h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
- b=GSyzrYJ6ZyetPE+ItJyTnFOIQv+Pf3pLDwwIzVB+xfLfcMnlhI2vCAkBK5+n4khp2
- ZVp1ZV/D6Z8KnfppgnL6OwuRdPY+mxv09dsaSK24ypQvdiHtr4HUSTk1MfgKgandML
- o241S7ykJmMV/bsKeRJX81zyyj4i8e0A0XP1SVRE=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20261029075424eucas1p28bafc6e97bae9a01d4af728bbe7d690e~i8OQjt1sO2714827148eucas1p2n;
- Thu, 29 Oct 2026 07:54:24 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
- [106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20261029075422eusmtip149e8c871cf95effc7e9d7f7570722b1b~i8OOk0kQ91314413144eusmtip1I;
- Thu, 29 Oct 2026 07:54:22 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Thu, 29 Oct 2026 08:53:51 +0100
-Subject: [PATCH v6 17/18] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11890112011
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:54:32 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 762F0221D4;
+ Thu, 29 Oct 2026 07:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793260470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=K3XByBiW3+jKyzFXTjaHSqV/fmoFUufh/r9sKM80Yr8=;
+ b=rwO5DcRV1clxIt4F//zc/8Dbdx36/wVWGIoOYssBsvpV2XGU2enca2ExG5PxQ5lvGkCpCA
+ 2pcxSP+G3zwhETRkhRjwpz4BMlsIq1L1A0B9DC4hUX76etuUpnM7pI5A+65+r08KoVnKGG
+ mFWKqaY8D92ycw/jD2mLYowkVOuK1JQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793260470;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=K3XByBiW3+jKyzFXTjaHSqV/fmoFUufh/r9sKM80Yr8=;
+ b=kv8yJ+Q12LJcwzYIh+d5Ar9j32GFBtSQQdT+WXdPcVmOyrXKMopi82oZDKzeTQI/P1utQZ
+ 9ypvDVpXozv+XtCg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rwO5DcRV;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kv8yJ+Q1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793260470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=K3XByBiW3+jKyzFXTjaHSqV/fmoFUufh/r9sKM80Yr8=;
+ b=rwO5DcRV1clxIt4F//zc/8Dbdx36/wVWGIoOYssBsvpV2XGU2enca2ExG5PxQ5lvGkCpCA
+ 2pcxSP+G3zwhETRkhRjwpz4BMlsIq1L1A0B9DC4hUX76etuUpnM7pI5A+65+r08KoVnKGG
+ mFWKqaY8D92ycw/jD2mLYowkVOuK1JQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793260470;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=K3XByBiW3+jKyzFXTjaHSqV/fmoFUufh/r9sKM80Yr8=;
+ b=kv8yJ+Q12LJcwzYIh+d5Ar9j32GFBtSQQdT+WXdPcVmOyrXKMopi82oZDKzeTQI/P1utQZ
+ 9ypvDVpXozv+XtCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2077B13419;
+ Thu, 29 Oct 2026 07:54:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 5LGsMLX74mrwIQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 29 Oct 2026 07:54:29 +0000
+Message-ID: <43de9446-a682-46cd-a6da-c9f4362dcb9d@suse.de>
+Date: Thu, 29 Oct 2026 08:54:29 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-jh7110-clean-send-v6-17-759594e43acf@samsung.com>
-In-Reply-To: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,  Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
- <luca.ceresoli@bootlin.com>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
- <p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
- <hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
- Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
- <kuankuan.y@gmail.com>,  Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
- <m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
- <william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
- Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
- Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
- <maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
- Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>,  Byron Stanoszek <gandalf@winds.org>,
- OOHehir <oo.hehir@gmail.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9910;
- i=m.wilczynski@samsung.com; h=from:subject:message-id;
- bh=SQKV4RpzYQsKCKY6gdzg0+t19yUI74LIt468SfCBcdY=;
- b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9+t3jwqpTp3nwvcxckWlhXsXLWl63f8nluBdqIrF7g
- 0etW8qMjlIWBjEOBlkxRZazG6ONJP8xPC0//vgXzBxWJpAhDFycAjCRxg8M/5NsAt9t3bom91gO
- v7awj1O73Q6tg8Zv3GYtYbQw6P7pnsvIMENB5atK1PkTfbxvJi/9sa8uIkvOX0DldJJmwqEjhbs
- WMwAA
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
- fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261029075424eucas1p28bafc6e97bae9a01d4af728bbe7d690e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261029075424eucas1p28bafc6e97bae9a01d4af728bbe7d690e
-X-EPHeader: CA
-X-CMS-RootMailID: 20261029075424eucas1p28bafc6e97bae9a01d4af728bbe7d690e
-References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
- <CGME20261029075424eucas1p28bafc6e97bae9a01d4af728bbe7d690e@eucas1p2.samsung.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI/VGA: Fix boot device detection after framebuffer
+ relocation
+To: Bjorn Helgaas <helgaas@kernel.org>, wuqianhai@loongson.cn
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, javierm@redhat.com,
+ dri-devel@lists.freedesktop.org
+References: <20261028231514.GA577494@bhelgaas>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261028231514.GA577494@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 762F0221D4
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
+ RCVD_TLS_ALL(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[7];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:dkim];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -13.50
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,347 +145,116 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Activate the display subsystem by describing the video output subsystem,
-which the documentation calls dom_vout_top, as a bus node covering the
-whole 0x29400000 region, with dc8200, the HDMI block, the video output
-system controller and voutcrg as its children.
+Hi
 
-The subsystem node owns the resources its children share: the NoC display
-bus clock and reset that gate access to every register in the region, and
-the PD_VOUT power domain. Modelling it this way keeps a shared gate owned
-by the block that shares it, and lets dc8200 inherit dma-noncoherent for
-framebuffer DMA from the bus it sits on.
+Am 29.10.26 um 00:15 schrieb Bjorn Helgaas:
+> On Wed, Oct 28, 2026 at 05:46:34PM +0800, wuqianhai@loongson.cn wrote:
+>> From: wuqianhai <wuqianhai@loongson.cn>
+>>
+>> PCI resource assignment can relocate the firmware framebuffer BAR, which
+>> leaves the base address in screen_info stale.  The VGA arbiter then calls
+>> screen_info_pci_dev() from vga_is_firmware_default(), which fails to match
+>> the framebuffer against any PCI device's BARs.  As a result, the boot VGA
+>> device is not recognized and the arbiter may select the wrong default
+>> device.
+>>
+>> Fix this by calling screen_info_apply_fixups() in vga_arb_device_init()
+>> before adding the VGA devices.  This relocates lfb_base to the assigned
+>> BAR address so that vga_is_firmware_default() matches the boot device
+>> again.
+>>
+>> Tested on a LoongArch platform, with vga_is_firmware_default()
+>> additionally enabled for CONFIG_LOONGARCH via local changes.
+>>
+>> Fixes: 337bf13aa9ddab8ae47f2677ab75cf69ae33437b ("PCI/VGA: Replace vga_is_firmware_default() with a screen info check")
+>> Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
+>> ---
+>>   drivers/pci/vgaarb.c | 8 ++++++++
+>>   1 file changed, 8 insertions(+)
+>>
+>> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+>> index 3e58b2c05c85..aca594651f58 100644
+>> --- a/drivers/pci/vgaarb.c
+>> +++ b/drivers/pci/vgaarb.c
+>> @@ -1527,6 +1527,14 @@ static int __init vga_arb_device_init(void)
+>>   	int rc;
+>>   	struct pci_dev *pdev;
+>>   
+>> +	/*
+>> +	 * PCI resource assignment may have relocated the firmware
+>> +	 * framebuffer BAR. Update screen_info's lfb_base so that
+>> +	 * vga_is_firmware_default() can match it against the boot
+>> +	 * device's relocated resource.
+>> +	 */
+>> +	screen_info_apply_fixups();
+> I'm really confused about this.  vga_is_firmware_default() relies on
+> screen_info_pci_dev(&sysfb_primary_display.screen):
+>
+>    vga_is_firmware_default
+>      screen_info_pci_dev(&sysfb_primary_display.screen)
+>        numres = screen_info_resources(&sysfb_primary_display.screen, res, ...)
+>        for (i = 0; i < numres; ++i)
+>          pdev = __screen_info_pci_dev(&res[i])
+>
+> screen_info_resources() returns resource structs with PCI bus
+> addresses in them.  These are not valid CPU addresses, so that seems
+> broken on any system where bus addresses are not the same as CPU
+> addresses.
 
-The monolithic hdmi node is in turn modelled as a container with hdmi_phy
-and hdmi_controller children, which share its register window: the PHY
-takes only xin24m and provides the pixel clock and the phy, while the
-controller takes its clocks from voutcrg.
+What we get from the firmware for the framebuffer is a memory range.  
+  If the underlying PCI memory gets relocated during the boot, we need 
+to update the framebuffer data accordingly. This has worked well for the 
+last 20 yrs.
 
-voutcrg consumes the pixel clock from the &hdmi_phy node instead of the
-old fixed-clock, and dc8200 gets its pixel clocks from voutcrg's MUXes.
-The old, incorrect hdmitx0-pixel-clock fixed-clock node is removed.
 
-The HDMI controller gets a phandle to the video output system controller,
-which holds the mux selecting the DC8200 output that drives the HDMI
-transmitter.
+>
+> screen_info_fixup_lfb() and screen_info_apply_fixups() may fix the
+> issue you see, but I think the way this happens is questionable.
 
-CMA is enlarged and constrained to memory the display controller can
-address, because the default pool is too small for its framebuffers.
+>
+> screen_info_fixup_lfb() captures the framebuffer PCI bus address in
+> screen_info_lfb_res_start.  Then screen_info_apply_fixups() compares
+> that PCI bus address with the CPU address in pdev->resource[].  That's
+> broken on any system where bus addresses are not the same as CPU
+> addresses.  I think it's also broken because screen_info_lfb_res_start
+> may not be at the beginning of the BAR.
+>
+> I think screen_info_fixup_lfb() should only capture the pci_dev, the
+> BAR number, and the framebuffer offset into the BAR.  When we need the
+> CPU or bus address, we can always compute it from those values.
 
-Co-developed-by: Dominique Belhachemi <db@domibel.de>
-Signed-off-by: Dominique Belhachemi <db@domibel.de>
-Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Tested-by: Byron Stanoszek <gandalf@winds.org>
-Tested-by: OOHehir <oo.hehir@gmail.com>
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
- arch/riscv/boot/dts/starfive/jh7110-common.dtsi | 121 +++++++++++++++++++++++-
- arch/riscv/boot/dts/starfive/jh7110.dtsi        | 105 ++++++++++++++++----
- 2 files changed, 203 insertions(+), 23 deletions(-)
+This is not sufficient, I think. We did this until a while ago and got 
+problems with relocated bars. IIRC aarch64 had a number of affected 
+systems. See commit 2f29b5c23101 ("video: screen_info: Relocate 
+framebuffers behind PCI bridges") for details.
 
-diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-index a7a1c09a2c9075711f3a214a49618911fdc7b421..a4c3daf712a63b177f744e8c613416d22e0c9dbd 100644
---- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
-@@ -33,6 +33,27 @@ memory@40000000 {
- 		bootph-pre-ram;
- 	};
- 
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		/*
-+		 * The display controller allocates its framebuffers from CMA,
-+		 * and the default pool is too small for them. Keep the pool
-+		 * inside the range the controller can address; it fits in the
-+		 * memory every VisionFive 2 variant has.
-+		 */
-+		linux,cma {
-+			compatible = "shared-dma-pool";
-+			reusable;
-+			size = <0x0 0x20000000>;
-+			alignment = <0x0 0x1000>;
-+			alloc-ranges = <0x0 0x70000000 0x0 0x20000000>;
-+			linux,cma-default;
-+		};
-+	};
-+
- 	gpio-restart {
- 		compatible = "gpio-restart";
- 		gpios = <&sysgpio 35 GPIO_ACTIVE_HIGH>;
-@@ -73,12 +94,47 @@ codec {
- 			};
- 		};
- 	};
-+
-+	hdmi-connector {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi_con_in: endpoint {
-+				remote-endpoint = <&hdmi_out_con>;
-+			};
-+		};
-+	};
- };
- 
- &cpus {
- 	timebase-frequency = <4000000>;
- };
- 
-+&dc8200 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		dpu_port0: port@0 {
-+			reg = <0>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			dpu_out_dpi0: endpoint@0 {
-+				reg = <0>;
-+				remote-endpoint = <&hdmi_in>;
-+			};
-+		};
-+
-+		dpu_port1: port@1 {
-+			reg = <1>;
-+		};
-+	};
-+};
-+
- &dvp_clk {
- 	clock-frequency = <74250000>;
- };
-@@ -99,8 +155,31 @@ &gmac1_rmii_refin {
- 	clock-frequency = <50000000>;
- };
- 
--&hdmitx0_pixelclk {
--	clock-frequency = <297000000>;
-+&hdmi_controller {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&hdmi_pins>;
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+
-+			hdmi_in: endpoint {
-+				remote-endpoint = <&dpu_out_dpi0>;
-+			};
-+		};
-+
-+		hdmi_out_port: port@1 {
-+			reg = <1>;
-+
-+			hdmi_out_con: endpoint {
-+				remote-endpoint = <&hdmi_con_in>;
-+			};
-+		};
-+	};
- };
- 
- &i2srx_bclk_ext {
-@@ -351,6 +430,40 @@ &syscrg {
- };
- 
- &sysgpio {
-+	hdmi_pins: hdmi-0 {
-+		hdmi-cec-pins {
-+			pinmux = <GPIOMUX(14, GPOUT_SYS_HDMI_CEC_SDA,
-+					      GPOEN_SYS_HDMI_CEC_SDA,
-+					      GPI_SYS_HDMI_CEC_SDA)>;
-+			input-enable;
-+			bias-pull-up;
-+		};
-+
-+		hdmi-hpd-pins {
-+			pinmux = <GPIOMUX(15, GPOUT_LOW,
-+					      GPOEN_DISABLE,
-+					      GPI_SYS_HDMI_HPD)>;
-+			input-enable;
-+			bias-disable; /* external pull-up */
-+		};
-+
-+		hdmi-scl-pins {
-+			pinmux = <GPIOMUX(0, GPOUT_SYS_HDMI_DDC_SCL,
-+					     GPOEN_SYS_HDMI_DDC_SCL,
-+					     GPI_SYS_HDMI_DDC_SCL)>;
-+			input-enable;
-+			bias-pull-up;
-+		};
-+
-+		hdmi-sda-pins {
-+			pinmux = <GPIOMUX(1, GPOUT_SYS_HDMI_DDC_SDA,
-+					     GPOEN_SYS_HDMI_DDC_SDA,
-+					     GPI_SYS_HDMI_DDC_SDA)>;
-+			input-enable;
-+			bias-pull-up;
-+		};
-+	};
-+
- 	i2c0_pins: i2c0-0 {
- 		i2c-pins {
- 			pinmux = <GPIOMUX(57, GPOUT_LOW,
-@@ -629,3 +742,7 @@ &U74_3 {
- &U74_4 {
- 	cpu-supply = <&vdd_cpu>;
- };
-+
-+&voutcrg {
-+	status = "okay";
-+};
-diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-index 9c3e4598747eb5541effe697044484715569a285..bc2470963520eef30d7524370fcb013f0631f509 100644
---- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-@@ -290,12 +290,6 @@ gmac1_rmii_refin: gmac1-rmii-refin-clock {
- 		#clock-cells = <0>;
- 	};
- 
--	hdmitx0_pixelclk: hdmitx0-pixel-clock {
--		compatible = "fixed-clock";
--		clock-output-names = "hdmitx0_pixelclk";
--		#clock-cells = <0>;
--	};
--
- 	i2srx_bclk_ext: i2srx-bclk-ext-clock {
- 		compatible = "fixed-clock";
- 		clock-output-names = "i2srx_bclk_ext";
-@@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
- 		#clock-cells = <0>;
- 	};
- 
-+	xin24m: xin24m-clock {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <24000000>;
-+		clock-output-names = "xin24m";
-+	};
-+
- 	soc {
- 		compatible = "simple-bus";
- 		interrupt-parent = <&plic>;
-@@ -1199,22 +1200,84 @@ csi_phy: phy@19820000 {
- 			#phy-cells = <0>;
- 		};
- 
--		voutcrg: clock-controller@295c0000 {
--			compatible = "starfive,jh7110-voutcrg";
--			reg = <0x0 0x295c0000 0x0 0x10000>;
--			clocks = <&syscrg JH7110_SYSCLK_VOUT_SRC>,
--				 <&syscrg JH7110_SYSCLK_VOUT_TOP_AHB>,
--				 <&syscrg JH7110_SYSCLK_VOUT_TOP_AXI>,
--				 <&syscrg JH7110_SYSCLK_VOUT_TOP_HDMITX0_MCLK>,
--				 <&syscrg JH7110_SYSCLK_I2STX0_BCLK>,
--				 <&hdmitx0_pixelclk>;
--			clock-names = "vout_src", "vout_top_ahb",
--				      "vout_top_axi", "vout_top_hdmitx0_mclk",
--				      "i2stx0_bclk", "hdmitx0_pixelclk";
--			resets = <&syscrg JH7110_SYSRST_VOUT_TOP_SRC>;
--			#clock-cells = <1>;
--			#reset-cells = <1>;
-+		vout_subsystem: display-subsystem@29400000 {
-+			compatible = "starfive,jh7110-vout-subsystem";
-+			reg = <0x0 0x29400000 0x0 0x200000>;
-+			ranges;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			clocks = <&syscrg JH7110_SYSCLK_NOC_BUS_DISP_AXI>;
-+			dma-noncoherent;
- 			power-domains = <&pwrc JH7110_PD_VOUT>;
-+			resets = <&syscrg JH7110_SYSRST_NOC_BUS_DISP_AXI>;
-+
-+			dc8200: display@29400000 {
-+				compatible = "starfive,jh7110-dc8200", "verisilicon,dc";
-+				reg = <0x0 0x29400000 0x0 0x2800>;
-+				clocks = <&voutcrg JH7110_VOUTCLK_DC8200_CORE>,
-+					 <&voutcrg JH7110_VOUTCLK_DC8200_AXI>,
-+					 <&voutcrg JH7110_VOUTCLK_DC8200_AHB>,
-+					 <&voutcrg JH7110_VOUTCLK_DC8200_PIX0>,
-+					 <&voutcrg JH7110_VOUTCLK_DC8200_PIX1>;
-+				clock-names = "core", "axi", "ahb", "pix0", "pix1";
-+				assigned-clocks = <&voutcrg JH7110_VOUTCLK_DC8200_PIX0>,
-+						  <&voutcrg JH7110_VOUTCLK_DC8200_PIX1>;
-+				assigned-clock-parents = <&hdmi_phy>, <&hdmi_phy>;
-+				interrupts = <95>;
-+				resets = <&voutcrg JH7110_VOUTRST_DC8200_CORE>,
-+					 <&voutcrg JH7110_VOUTRST_DC8200_AXI>,
-+					 <&voutcrg JH7110_VOUTRST_DC8200_AHB>;
-+				reset-names = "core", "axi", "ahb";
-+			};
-+
-+			hdmi_subsystem: hdmi@29590000 {
-+				compatible = "starfive,jh7110-hdmi-subsystem";
-+				reg = <0x0 0x29590000 0x0 0x4000>;
-+
-+				hdmi_controller: controller {
-+					compatible =
-+						"starfive,jh7110-inno-hdmi-controller";
-+					clocks = <&voutcrg JH7110_VOUTCLK_HDMI_TX_SYS>,
-+						 <&voutcrg JH7110_VOUTCLK_HDMI_TX_MCLK>,
-+						 <&voutcrg JH7110_VOUTCLK_HDMI_TX_BCLK>,
-+						 <&hdmi_phy>;
-+					clock-names = "pclk", "mclk", "bclk", "pixel";
-+					interrupts = <99>;
-+					phys = <&hdmi_phy>;
-+					resets = <&voutcrg JH7110_VOUTRST_HDMI_TX_HDMI>;
-+					starfive,vout-syscon = <&vout_syscon>;
-+				};
-+
-+				hdmi_phy: phy {
-+					compatible = "starfive,jh7110-inno-hdmi-phy";
-+					clocks = <&xin24m>;
-+					#clock-cells = <0>;
-+					#phy-cells = <0>;
-+				};
-+			};
-+
-+			vout_syscon: syscon@295b0000 {
-+				compatible = "starfive,jh7110-vout-syscon", "syscon";
-+				reg = <0x0 0x295b0000 0x0 0x10000>;
-+			};
-+
-+			voutcrg: clock-controller@295c0000 {
-+				compatible = "starfive,jh7110-voutcrg";
-+				reg = <0x0 0x295c0000 0x0 0x10000>;
-+				clocks = <&syscrg JH7110_SYSCLK_VOUT_SRC>,
-+					 <&syscrg JH7110_SYSCLK_VOUT_TOP_AHB>,
-+					 <&syscrg JH7110_SYSCLK_VOUT_TOP_AXI>,
-+					 <&syscrg JH7110_SYSCLK_VOUT_TOP_HDMITX0_MCLK>,
-+					 <&syscrg JH7110_SYSCLK_I2STX0_BCLK>,
-+					 <&hdmi_phy>;
-+				clock-names = "vout_src", "vout_top_ahb",
-+					      "vout_top_axi", "vout_top_hdmitx0_mclk",
-+					      "i2stx0_bclk", "hdmitx0_pixelclk";
-+				power-domains = <&pwrc JH7110_PD_VOUT>;
-+				resets = <&syscrg JH7110_SYSRST_VOUT_TOP_SRC>;
-+				#clock-cells = <1>;
-+				#reset-cells = <1>;
-+			};
- 		};
- 
- 		pcie0: pcie@940000000 {
+I'm happy to improve that code though, if we can do something better.
+
+Best regards
+Thomas
+
+>
+>>   	rc = misc_register(&vga_arb_device);
+>>   	if (rc < 0)
+>>   		pr_err("error %d registering device\n", rc);
+>> -- 
+>> 2.34.1
+>>
 
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
