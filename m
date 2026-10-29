@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EACA606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:54:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A77606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:55:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVykdDrf
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE2rhqG2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC2B2112403;
-	Thu, 29 Oct 2026 15:54:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A01A11123F5;
+	Thu, 29 Oct 2026 15:55:16 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFC9112403
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:54:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BA4D1123F5
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:55:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 62AFD43A7C;
- Thu, 29 Oct 2026 15:54:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A1BE1F01816;
- Thu, 29 Oct 2026 15:54:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4D27243928;
+ Thu, 29 Oct 2026 15:55:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2BF1F01824;
+ Thu, 29 Oct 2026 15:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793289259;
- bh=TVXTcLuARKVOHMqiaBaVGpSiv3XNFB9+H0TG5U87tHM=;
+ s=k20260515; t=1793289310;
+ bh=1VwWsE71pD16ba6yYPb9TUUw7t3vs5NYGRM4gF9nz68=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YVykdDrfOIFbQRvfPTFNHdzkdfYgdetQ7ozh3hUtbXuLUONku1btNGw27wuKKXozX
- h52JNeb+c4SsGE7XRAk3IOWF+SQ7UBJ0KTiXMqgTq+aKviNFNXsbh0Ucxr8FIacZIS
- P/OmSpyN2NX8dwBNw6JH+GdQe3wlSGchnwtv01L5OCOqIsGRuTTZ+HP0XOwZwrEnMW
- rVKnbm1fKbclUw+UVQUHKtYRZGOrGSIhxVPJn6SezcQv5aKHURbN53mRWZrqJ0Kjz0
- gexsWX5j1wBNWDKXrV+mjU2/2P4bRoUbb2ra99d49uJTABlers3mm8N5zn44Vol0TU
- bYB58+XQCGDAg==
-Message-ID: <sashiko-outbox-189641@kernel.org>
+ b=aE2rhqG2R1Y6DeJ95AQAXaJKts97X+vNB2GErfpogbe6IjSOgFU9CbRdEXIrR8bVL
+ 5A6QPC2whK4EyAjVJ0hZYNFLmkOJUG9OgPGERzrXRkRijXE+Fsr7j1Hl27VmeaihO+
+ npizenWU7LNtbA58A7XqtEtwxchvt8tfR2l/0zDntbVADhaVQefvT6OztwrcQN6Nro
+ ZL2UL5cHDvzfYrRjYvgyM2nTIip7zEyaO2Z5R6D1DRMMe+tuFnAeIyb92uAyU3Ks8S
+ y5PA1y//CBrAE631D418adpN+JTXDwskhuI9XoTRxcmc17ykC0YYKLq2quUI8L27oW
+ k2W4Y8jVczbPw==
+Message-ID: <sashiko-outbox-189642@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/5] drm/amdgpu: introduce amdgpu_dev_enter / exit
-To: "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029152000.22001-5-pierre-eric.pelloux-prayer@amd.com>
-References: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
- <20261029152000.22001-5-pierre-eric.pelloux-prayer@amd.com>
+Subject: Re: [PATCH v5 11/11] drm/tegra: Add support for 8-bit CPU interface
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029152909.234584-12-clamor95@gmail.com>
+References: <20261029152909.234584-1-clamor95@gmail.com>
+ <20261029152909.234584-12-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 15:54:18 +0000
+Date: Thu, 29 Oct 2026 15:55:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,534 +53,422 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Critical] drm/amdgpu: UAF and resource leaks in amdgpu_drm_release() whe=
-n wedged
-- [High] drm/amdgpu: lockdep assert failure in amdgpu_dev_enter() during GP=
-U reset
-- [High] drm/amdgpu: unsignaled fences and job leak in amdgpu_job_timedout()
-- [High] drm/amdgpu: dangling stable_pstate_ctx pointer in amdgpu_ctx_fini()
-- [High] drm/amdgpu: amdgpu_dev_enter() skips VCPU save during wedged GPU r=
-eset
-- [High] drm/amdgpu: kernel memory leak to userspace in amdgpu_device_mm_ac=
-cess()
-- [High] drm/amdgpu: stale GART PTEs after reset due to amdgpu_dev_enter() =
-in amdgpu_gart_unbind()
-- [Medium] drm/amdgpu: MTRR and PAT WC memtype leak in amdgpu_bo_fini()
+- [High] drm/tegra: manual next_bridge calls in tegra_dbi_atomic_enable() b=
+reak disable
+- [High] drm/tegra: double drm_bridge_remove() and leak in tegra_dbi_host_a=
+ttach()
+- [High] drm/tegra: driver conflict and deferral deadlock in devm_tegra_dc_=
+dbi_init()
+- [Medium] drm/tegra: misconfigured pin select and mux in tegra_dbi_atomic_=
+enable()
+- [Low] drm/tegra: missing select DRM_MIPI_DBI causes link error in tegra_d=
+bi_probe()
 --
 
-commit 59cad41456cc693868134533055db79a86a51bc9
-Author: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+commit 38b0aba6a8c5c45d84b4bce85bd75f2063d5eedc
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-drm/amdgpu: introduce amdgpu_dev_enter / exit
+drm/tegra: Add support for 8-bit CPU interface
 
-This commit introduces amdgpu_dev_enter() and amdgpu_dev_exit() wrappers
-around drm_dev_enter() and drm_dev_exit() that also check
-amdgpu_device_is_wedged() and amdgpu_device_skip_hw_access(), and converts
-existing drm_dev_enter() callers across amdgpu to use them.
+This commit adds a MIPI DBI Type B host and DRM bridge driver to support the
+8-bit CPU interface on Tegra20/30 display controllers.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index c6e882b8eac57..22f6b8e88ecd6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -50,6 +50,7 @@
->  #include <drm/ttm/ttm_placement.h>
-> =20
->  #include <drm/amdgpu_drm.h>
-> +#include <drm/drm_drv.h>
->  #include <drm/drm_gem.h>
->  #include <drm/drm_ioctl.h>
-> =20
-> @@ -1388,4 +1389,20 @@ static inline bool amdgpu_device_is_wedged(struct =
-amdgpu_device *adev)
->  	return atomic_read(&adev->wedge_status);
->  }
-> =20
-> +static inline bool amdgpu_dev_enter(struct amdgpu_device *adev, int *idx)
+> diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makef=
+ile
+> index e399b40d64a1d..ae7fccb3d6421 100644
+> --- a/drivers/gpu/drm/tegra/Makefile
+> +++ b/drivers/gpu/drm/tegra/Makefile
+> @@ -18,6 +18,7 @@ tegra-drm-y :=3D \
+>  	hdmi.o \
+>  	mipi-phy.o \
+>  	dsi.o \
+> +	dbi.o \
+>  	sor.o \
+>  	dpaux.o \
+>  	gr2d.o \
+
+[Severity: Low]
+Can building tegra-drm fail with an undefined reference to
+devm_mipi_dbi_device_register() when CONFIG_DRM_MIPI_DBI is disabled or bui=
+lt
+as a module while CONFIG_DRM_TEGRA is built-in?
+
+Here dbi.o is unconditionally added to tegra-drm-y whenever CONFIG_DRM_TEGRA
+is enabled, and tegra_dbi_probe() in drivers/gpu/drm/tegra/dbi.c calls
+devm_mipi_dbi_device_register():
+
+	dbidev =3D devm_mipi_dbi_device_register(dev, &priv->dbi_host, np);
+
+However, devm_mipi_dbi_device_register() is defined in
+drivers/gpu/drm/drm_mipi_dbi_bus.c, which is only compiled when
+CONFIG_DRM_MIPI_DBI is enabled:
+
+	obj-$(CONFIG_DRM_MIPI_DBI) +=3D drm_mipi_dbi.o drm_mipi_dbi_bus.o
+
+and include/drm/drm_mipi_dbi_bus.h does not provide fallback stubs.
+
+Should config DRM_TEGRA in drivers/gpu/drm/tegra/Kconfig select
+DRM_MIPI_DBI alongside DRM_MIPI_DSI and DRM_PANEL?
+
+> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
+> new file mode 100644
+> index 0000000000000..e129be0f21da5
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tegra/dbi.c
+
+[ ... ]
+
+> +static int tegra_dbi_dbi_command(struct mipi_dbi *dbi, u8 *cmd, u8 *para=
+m, size_t num)
 > +{
-> +	if (amdgpu_device_is_wedged(adev))
-> +		return false;
+> +	struct tegra_dbi_priv *priv =3D mipi_dbi_to_tegra_dbi(dbi);
+> +	u8 command =3D *cmd;
 > +
-> +	if (amdgpu_device_skip_hw_access(adev))
-> +		return false;
+> +	/* Blocks all commands when interface is not active */
+> +	if (!priv->active)
+> +		return -ENODEV;
 > +
-> +	return drm_dev_enter(adev_to_drm(adev), idx);
+> +	tegra_dbi_write(priv, TEGRA_DBI_COMMAND, command);
+> +
+> +	for (int i =3D 0; i < num; i++)
+> +		tegra_dbi_write(priv, TEGRA_DBI_DATA, param[i]);
+> +
+> +	return 0;
+> +}
+> +
+> +static int tegra_dbi_host_attach(struct mipi_dbi_host *host, struct mipi=
+_dbi_device *dbidev)
+> +{
+> +	struct tegra_dbi_priv *priv =3D dbi_host_to_tegra_dbi(host);
+> +	struct device *dev =3D priv->dev;
+> +	struct drm_bridge *bridge;
+> +	struct device_node *ep;
+> +	int ret;
+> +
+> +	bridge =3D of_drm_get_bridge_by_endpoint(dev_of_node(dev), 1, -1);
+> +	if (IS_ERR(bridge))
+> +		return PTR_ERR(bridge);
+> +
+> +	bridge->type =3D DRM_MODE_CONNECTOR_DPI;
+> +	priv->next_bridge =3D bridge;
+> +
+> +	/* get input ep (port0/endpoint0) */
+> +	ret =3D -EINVAL;
+> +	ep =3D of_graph_get_endpoint_by_regs(dev_of_node(dev), 0, 0);
+> +	if (ep) {
+> +		ret =3D of_property_read_u32(ep, "bus-width", &priv->bus_width);
+> +		of_node_put(ep);
+> +	}
+> +
+> +	if (ret)
+> +		priv->bus_width =3D 24;
+> +
+> +	return devm_drm_bridge_add(dev, &priv->bridge);
+> +}
+> +
+> +static void tegra_dbi_host_detach(struct mipi_dbi_host *host, struct mip=
+i_dbi_device *dbidev)
+> +{
+> +	struct tegra_dbi_priv *priv =3D dbi_host_to_tegra_dbi(host);
+> +
+> +	drm_bridge_remove(&priv->bridge);
+> +	drm_bridge_put(priv->next_bridge);
 > +}
 
 [Severity: High]
-Will calling amdgpu_device_skip_hw_access() unconditionally inside
-amdgpu_dev_enter() trigger false-positive lockdep warnings when a GPU reset
-is running concurrently?
+Won't using devm_drm_bridge_add() in tegra_dbi_host_attach() alongside an
+explicit drm_bridge_remove() in tegra_dbi_host_detach() cause
+drm_bridge_remove() to run twice on priv->bridge during unbind, as well as
+leak priv->next_bridge if devm_drm_bridge_add() fails?
 
-In drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
-amdgpu_device_skip_hw_access() checks:
+In tegra_dbi_probe(), priv is allocated with devm_drm_bridge_alloc(), which
+initializes priv->bridge.refcount to 1 and registers a devres action on
+priv->dev to call drm_bridge_put_void(&priv->bridge).
 
-	if (in_task()) {
-		if (down_read_trylock(&adev->reset_domain->sem))
-			up_read(&adev->reset_domain->sem);
-		else
-			lockdep_assert_held(&adev->reset_domain->sem);
-	}
+When tegra_dbi_host_attach() calls devm_drm_bridge_add(dev, &priv->bridge),
+it increments priv->bridge.refcount to 2 and registers a devres action on
+priv->dev to call drm_bridge_remove_void(&priv->bridge).
 
-When a GPU reset thread holds the write lock on adev->reset_domain->sem
-(for example in amdgpu_device_gpu_recover() or
-amdgpu_device_ip_soft_reset()) while adev->no_hw_access is still false,
-down_read_trylock() fails and lockdep_assert_held(&adev->reset_domain->sem)
-fires for any task-context caller that does not already hold
-reset_domain->sem.
+When the DBI device or tegra-dbi unbinds, mipi_dbi_device_unregister()
+invokes:
 
-Several task-context callers converted by this patch do not hold
-reset_domain->sem when calling amdgpu_dev_enter(). For instance,
-amdgpu_gmc_flush_gpu_tlb() in drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c and
-amdgpu_gart_unbind() -> amdgpu_gart_invalidate_tlb() in
-drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c call amdgpu_dev_enter() before
-attempting down_read_trylock(&adev->reset_domain->sem) to bail out during an
-ongoing reset:
+mipi_dbi_device_unregister()
+  mipi_dbi_detach()
+    tegra_dbi_host_detach()
+      drm_bridge_remove(&priv->bridge)
 
-	if (!amdgpu_dev_enter(adev, &idx))
-		return;
-	...
-		if (!down_read_trylock(&adev->reset_domain->sem)) {
-			amdgpu_dev_exit(adev, idx);
-			return;
-		}
+which destroys bridge->hpd_mutex and bridge->hpd_state_mutex and drops
+priv->bridge.refcount from 2 to 1.
 
-Other task-context paths such as amdgpu_gem_fault(), amdgpu_drm_release(),
-amdgpu_ctx_fini(), amdgpu_device_delay_enable_gfx_off(), amdgpu_gart_map(),
-amdgpu_vm_update_pdes(), amdgpu_vm_update_range(), amdgpu_vm_pt_clear(), and
-amdgpu_ttm_access_memory_sdma() also enter amdgpu_dev_enter() without
-holding reset_domain->sem.
+When priv->dev's devres then runs drm_bridge_remove_void(&priv->bridge), it
+calls drm_bridge_remove(&priv->bridge) a second time, destroying both mutex=
+es
+again and dropping priv->bridge.refcount from 1 to 0, which frees priv via
+__drm_bridge_free(). Immediately afterward, the drm_bridge_put_void() devres
+action from devm_drm_bridge_alloc() runs on the already-freed priv->bridge.
 
-> +
-> +static inline void amdgpu_dev_exit(struct amdgpu_device *adev, int idx)
+Also, if devm_drm_bridge_add() fails in tegra_dbi_host_attach(), the
+reference on priv->next_bridge acquired by of_drm_get_bridge_by_endpoint() =
+is
+never released with drm_bridge_put(). Should tegra_dbi_host_attach() use
+drm_bridge_add() instead of devm_drm_bridge_add()?
+
+[ ... ]
+
+> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
+> +				    struct drm_atomic_commit *state)
 > +{
-> +	drm_dev_exit(idx);
+> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
+> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
+> +	struct tegra_dc *dc =3D priv->dc;
+> +	u32 value;
+
+[ ... ]
+
+> +	/* Unshadow to set up command and data pins */
+> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
+> +
+> +	if (priv->reg)
+> +		tegra_dbi_init_secondary_interface(priv);
+> +	else
+> +		tegra_dbi_init_primary_interface(priv);
+> +
+> +	priv->active =3D true;
+> +
+> +	/*
+> +	 * DBI requires that the next bridge be enabled here in order to
+> +	 * send DCS commands, since the interface pins will subsequently be
+> +	 * reconfigured for video data.
+> +	 */
+> +	if (next_bridge->funcs && next_bridge->funcs->atomic_enable)
+> +		next_bridge->funcs->atomic_enable(next_bridge, state);
+> +
+> +	tegra_dbi_pin_set(dc, &priv->index->cs, 0);
+> +
+> +	priv->active =3D false;
+> +
+> +	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
+> +
+> +	for (int i =3D 0; i <  ARRAY_SIZE(com_pin_output); i++)
+> +		tegra_dc_writel(dc, priv->com_pin_backup[i].value,
+> +				priv->com_pin_backup[i].offset);
+> +
+> +	tegra_dc_commit(dc);
+> +
+> +	/* Set LDC pin to V Pulse 1 */
+> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
+> +	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
+> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
+> +
+> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
+> +	value &=3D ~DISP_CTRL_MODE_MASK;
+> +	value |=3D DISP_CTRL_MODE_C_DISPLAY;
+> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
 > +}
 > +
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ctx.c
-> index 2f03492336956..3f1295c834441 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -426,14 +426,14 @@ void amdgpu_ctx_fini(struct kref *ref)
->  		}
->  	}
-> =20
-> -	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> +	if (amdgpu_dev_enter(adev, &idx)) {
->  		mutex_lock(&adev->pm.stable_pstate_ctx_lock);
->  		if (adev->pm.stable_pstate_ctx =3D=3D ctx) {
->  			__amdgpu_ctx_set_stable_pstate(ctx, ctx->stable_pstate);
->  			adev->pm.stable_pstate_ctx =3D NULL;
->  		}
->  		mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
-> -		drm_dev_exit(idx);
-> +		amdgpu_dev_exit(adev, idx);
->  	}
-> =20
->  	kfree(ctx);
+> +static void tegra_dbi_atomic_disable(struct drm_bridge *bridge,
+> +				     struct drm_atomic_commit *state)
+> +{
+> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
+> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
+> +	struct tegra_dc *dc =3D priv->dc;
+> +
+> +	for (int i =3D 0; i < ARRAY_SIZE(com_pin_output); i++)
+> +		priv->com_pin_backup[i].value =3D tegra_dc_readl(dc,
+> +			priv->com_pin_backup[i].offset);
+> +
+> +	tegra_dc_writel(dc, WRITE_MUX, DC_CMD_STATE_ACCESS);
+> +
+> +	if (priv->reg)
+> +		tegra_dbi_init_secondary_interface(priv);
+> +	else
+> +		tegra_dbi_init_primary_interface(priv);
+> +
+> +	priv->active =3D true;
+> +
+> +	/*
+> +	 * DBI requires that the next bridge be disabled here in order to
+> +	 * send DCS commands, since the interface pins will subsequently be
+> +	 * reconfigured for video data.
+> +	 */
+> +	if (next_bridge->funcs && next_bridge->funcs->atomic_disable)
+> +		next_bridge->funcs->atomic_disable(next_bridge, state);
+> +
+> +	priv->active =3D false;
+> +
+> +	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
+> +
+> +	for (int i =3D 0; i <  ARRAY_SIZE(com_pin_output); i++)
+> +		tegra_dc_writel(dc, priv->com_pin_backup[i].value,
+> +				priv->com_pin_backup[i].offset);
+> +
+> +	tegra_dc_commit(dc);
+> +}
 
 [Severity: High]
-If the device is wedged when amdgpu_ctx_fini() runs, doesn't skipping this
-block leave adev->pm.stable_pstate_ctx pointing to freed ctx memory after
-kfree(ctx)?
+Because tegra_dbi_attach() attaches priv->next_bridge to the encoder's
+bridge_chain via drm_bridge_attach(), won't the DRM bridge chain helpers
+already invoke next_bridge->funcs->atomic_enable() and atomic_disable(),
+causing panel DCS commands during disable to fail with -ENODEV?
 
-If the GPU is later recovered and unwedged, __amdgpu_ctx_set_stable_pstate()
-in drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c checks:
+When disabling the display, drm_atomic_bridge_chain_disable() iterates
+encoder->bridge_chain in reverse order, so it calls
+priv->next_bridge->funcs->atomic_disable() (for example,
+panel_bridge_atomic_disable() -> drm_panel_disable()) before
+tegra_dbi_atomic_disable() runs. At that point priv->active is still false
+and the DC pins are still in video mode, so every MIPI DCS command issued by
+the panel's disable callback is rejected by tegra_dbi_dbi_command() with
+-ENODEV, while drm_panel_disable() still marks panel->enabled =3D false.
 
-	current_ctx =3D adev->pm.stable_pstate_ctx;
-	if (current_ctx && current_ctx !=3D ctx)
-		return -EBUSY;
+When drm_atomic_bridge_chain_disable() subsequently calls
+tegra_dbi_atomic_disable(), it sets priv->active =3D true and manually calls
+next_bridge->funcs->atomic_disable(next_bridge, state) a second time, which
+sees panel->enabled =3D=3D false, logs "Skipping disable of already disabled
+panel", and returns without sending the panel's DCS disable sequence.
 
-Because adev->pm.stable_pstate_ctx was never cleared to NULL, subsequent
-attempts to set a stable pstate will either permanently fail with -EBUSY or
-falsely match if a newly allocated struct amdgpu_ctx reuses the same slab
-address.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index c48a3c44e2545..066aaed3830e2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -732,13 +732,13 @@ void amdgpu_device_mm_access(struct amdgpu_device *=
-adev, loff_t pos,
->  	uint64_t last;
->  	int idx;
-> =20
-> -	if (!drm_dev_enter(adev_to_drm(adev), &idx))
-> +	if (!amdgpu_dev_enter(adev, &idx))
->  		return;
-
-[Severity: High]
-Can returning early from amdgpu_device_mm_access() when the device is wedged
-leak uninitialized kernel heap and stack memory to userspace and corrupt
-devcoredumps?
-
-Because amdgpu_device_mm_access() returns void, callers cannot tell that no
-data was written into buf:
-
-1. In amdgpu_ttm_vram_read() in drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c, an
-uninitialized stack array is passed to amdgpu_device_vram_access() ->
-amdgpu_device_mm_access() and then copied to userspace:
-
-	while (size) {
-		size_t bytes =3D min(size, AMDGPU_TTM_VRAM_MAX_DW_READ * 4);
-		uint32_t value[AMDGPU_TTM_VRAM_MAX_DW_READ];
-
-		amdgpu_device_vram_access(adev, *pos, value, bytes, false);
-		if (copy_to_user(buf, value, bytes))
-			return -EFAULT;
-
-2. In amdgpu_ttm_access_memory() (wired to amdgpu_gem_vm_ops.access =3D
-ttm_bo_vm_access), amdgpu_ttm_access_memory_sdma() now returns -ENODEV on a
-wedged GPU and falls back to amdgpu_device_aper_access() and
-amdgpu_ttm_vram_mm_access() -> amdgpu_device_mm_access(). For invisible VRAM
-BOs, amdgpu_device_mm_access() returns without modifying buf while
-amdgpu_ttm_access_memory() still returns the read length, causing
-/proc/self/mem (mem_rw()) and ptrace(PTRACE_PEEKDATA)
-(generic_ptrace_peekdata()) to copy uninitialized kernel heap or stack
-memory to userspace.
-
-3. In amdgpu_job_timedout(), amdgpu_job_core_dump() schedules
-adev->coredump_work and then sets adev->wedge_status =3D 1 when recovery is
-disabled. When amdgpu_devcoredump_print_ibs() in
-drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c runs for
-AMDGPU_GEM_CREATE_NO_CPU_ACCESS VRAM IBs, it allocates ib_content with
-kvmalloc_array(..., GFP_KERNEL) without zeroing, calls
-amdgpu_device_mm_access(), and formats the uninitialized ib_content buffer
-into the devcoredump file.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 731fe8f9e9228..cb34ee6690c5b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -3042,13 +3042,13 @@ static int amdgpu_drm_release(struct inode *inode=
-, struct file *filp)
->  	struct drm_device *dev =3D file_priv->minor->dev;
->  	int idx;
-> =20
-> -	if (fpriv && drm_dev_enter(dev, &idx)) {
-> +	if (fpriv && amdgpu_dev_enter(drm_to_adev(dev), &idx)) {
->  		amdgpu_evf_mgr_shutdown(&fpriv->evf_mgr);
->  		amdgpu_userq_mgr_cancel_resume(&fpriv->userq_mgr);
->  		amdgpu_evf_mgr_flush_suspend(&fpriv->evf_mgr);
->  		amdgpu_userq_mgr_fini(&fpriv->userq_mgr);
->  		amdgpu_evf_mgr_fini(&fpriv->evf_mgr);
-> -		drm_dev_exit(idx);
-> +		amdgpu_dev_exit(drm_to_adev(dev), idx);
->  	}
-> =20
->  	return drm_release(inode, filp);
-
-[Severity: Critical]
-What happens when a process closes its DRM file descriptor while the GPU is
-wedged?
-
-When adev->wedge_status is non-zero, amdgpu_dev_enter() returns false in
-amdgpu_drm_release(), skipping amdgpu_evf_mgr_shutdown(),
-amdgpu_userq_mgr_cancel_resume(), amdgpu_evf_mgr_flush_suspend(),
-amdgpu_userq_mgr_fini(), and amdgpu_evf_mgr_fini(). Immediately afterwards,
-drm_release() invokes amdgpu_driver_postclose_kms() in
-drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c, which frees fpriv via kfree(fpriv).
-
-Wouldn't skipping that teardown before kfree(fpriv) cause use-after-free and
-leaks of the usermode queues and eviction fence manager resources?
-Specifically:
-
-- Pending work items (fpriv->evf_mgr.suspend_work,
-  fpriv->userq_mgr.resume_work, and fpriv->userq_mgr.reset_work) are not
-  cancelled or flushed before fpriv is freed.
-- Active struct amdgpu_usermode_queue objects in fpriv->userq_mgr.userq_xa
-  are not freed and remain registered in adev->userq_doorbell_xa with
-  dangling queue->userq_mgr and queue->vm pointers into the freed fpriv,
-  which are later dereferenced during GPU reset
-  (amdgpu_userq_mgr_cancel_reset_work(), amdgpu_userq_pre_reset(),
-  amdgpu_userq_post_reset()) or driver suspend/unbind
-  (amdgpu_userq_suspend()).
-- Pinned userq doorbell/MQD/proc_ctx_obj BOs, runtime PM references,
-  fpriv->userq_mgr.userq_xa entries, and fpriv->evf_mgr.ev_fence are leaked.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_gart.c
-> index c4c21dbbbdbf8..62e98e50bf35a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> @@ -318,7 +318,7 @@ void amdgpu_gart_unbind(struct amdgpu_device *adev, u=
-int64_t offset,
->  	if (!adev->gart.ptr)
->  		return;
-> =20
-> -	if (!drm_dev_enter(adev_to_drm(adev), &idx))
-> +	if (!amdgpu_dev_enter(adev, &idx))
->  		return;
-
-[Severity: High]
-Could skipping amdgpu_gart_unbind() when the device is wedged leave stale
-valid GART PTEs pointing to freed system memory after a subsequent GPU
-reset?
-
-When a GTT BO is freed while adev->wedge_status is 1,
-ttm_bo_cleanup_memtype_use() -> amdgpu_ttm_tt_unpopulate() ->
-amdgpu_ttm_backend_unbind() calls amdgpu_gart_unbind() and sets
-gtt->bound =3D false, after which the backing system RAM pages are unmapped
-and freed and amdgpu_gtt_mgr_del() removes the drm_mm_node from
-adev->mman.gtt_mgr.mm.
-
-If amdgpu_gart_unbind() returns early because amdgpu_dev_enter() fails on a
-wedged device, the PTEs in adev->gart.ptr are never cleared. When the GPU is
-subsequently reset via amdgpu_device_gpu_recover(),
-amdgpu_gtt_mgr_recover() in drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c only
-iterates over currently allocated nodes in mgr->mm:
-
-	spin_lock(&mgr->lock);
-	drm_mm_for_each_node(mm_node, &mgr->mm) {
-		if (mm_node->color =3D=3D GART_ENTRY_WITHOUT_BO_COLOR)
-			continue;
-
-		node =3D container_of(mm_node, typeof(*node), mm_nodes[0]);
-		amdgpu_ttm_recover_gart(node->base.bo);
-	}
-	spin_unlock(&mgr->lock);
-
-Any GART range that was freed while wedged is no longer in mgr->mm and its
-PTEs in adev->gart.ptr are not cleared during recovery (and Mode2 reset
-handlers do not call amdgpu_gtt_mgr_recover() at all), leaving valid PTEs
-pointing to freed system pages whenever adev->gart.ptr contents survive the
-reset.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_job.c
-> index e6172a9684cad..ef33472b14d8b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -96,7 +96,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(stru=
-ct drm_sched_job *s_job)
->  	bool can_reset =3D amdgpu_gpu_recovery && adev->gpu_recovery_enabled;
->  	int idx, r;
-> =20
-> -	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
-> +	if (!amdgpu_dev_enter(adev, &idx)) {
->  		dev_info(adev->dev, "%s - device unplugged skipping recovery on schedu=
-ler:%s",
->  			 __func__, s_job->sched->name);
-> =20
-
-[Severity: High]
-Won't replacing drm_dev_enter() with amdgpu_dev_enter() in
-amdgpu_job_timedout() prevent fence force-completion and leak timed-out jobs
-after the first ring timeout wedges the device?
-
-When GPU recovery is disabled (!amdgpu_device_should_recover_gpu(ring->adev=
-)),
-the first timed-out job wedges the device and force-completes the fences on
-that ring:
-
-			/* Declare the device as wedged if it's not already. */
-			if (!atomic_xchg(&adev->wedge_status, 1)) {
-				/* This ref will be dropped in amdgpu_device_reinit_after_reset. */
-				pm_runtime_get_noresume(adev->dev);
-
-				pci_clear_master(adev->pdev);
-
-				drm_dev_wedged_event(&adev->ddev, DRM_WEDGE_RECOVERY_REBIND, info);
-			}
-
-			guilty_fence =3D to_amdgpu_job(s_job)->hw_fence;
-
-			sched =3D &ring->sched;
-
-			/* Prevent anybody else from touching the ring buffer. */
-			drm_sched_wqueue_stop(sched);
-
-			amdgpu_fence_driver_force_completion(ring, &guilty_fence->base);
-
-Because adev->wedge_status is now 1, any subsequent timeout on another ring
-(or on the same ring) will fail amdgpu_dev_enter() at the top of
-amdgpu_job_timedout() and return DRM_GPU_SCHED_STAT_ENODEV instead of
-reaching amdgpu_fence_driver_force_completion() and returning
-DRM_GPU_SCHED_STAT_NO_HANG.
-
-In addition to leaving the other rings' fences unsignaled,
-drm_sched_job_timedout() in drivers/gpu/drm/scheduler/sched_main.c removes
-the job from sched->pending_list before calling timedout_job(job), and only
-reinserts it when status =3D=3D DRM_GPU_SCHED_STAT_NO_HANG:
-
-		list_del_init(&job->list);
-		spin_unlock(&sched->job_list_lock);
-
-		status =3D job->sched->ops->timedout_job(job);
-
-		if (sched->free_guilty) {
-			job->sched->ops->free_job(job);
-			sched->free_guilty =3D false;
-		}
-
-		if (status =3D=3D DRM_GPU_SCHED_STAT_NO_HANG)
-			drm_sched_job_reinsert_on_false_timeout(sched, job);
-
-Returning DRM_GPU_SCHED_STAT_ENODEV while the device is still present and
-schedulers are not torn down leaves the timed-out struct drm_sched_job
-unreferenced off pending_list and never freed.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_object.c
-> index 6aa895f63aeaf..e0c1a876d76ad 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1144,12 +1144,12 @@ void amdgpu_bo_fini(struct amdgpu_device *adev)
-> =20
->  	amdgpu_ttm_fini(adev);
-> =20
-> -	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> +	if (amdgpu_dev_enter(adev, &idx)) {
->  		if (!adev->gmc.xgmi.connected_to_cpu && !adev->gmc.is_app_apu) {
->  			arch_phys_wc_del(adev->gmc.vram_mtrr);
->  			arch_io_free_memtype_wc(adev->gmc.aper_base, adev->gmc.aper_size);
->  		}
-> -		drm_dev_exit(idx);
-> +		amdgpu_dev_exit(adev, idx);
->  	}
->  }
+Similarly, during enable, drm_atomic_bridge_chain_enable() calls
+tegra_dbi_atomic_enable(), which manually calls
+next_bridge->funcs->atomic_enable(next_bridge, state), and then
+drm_atomic_bridge_chain_enable() advances to priv->next_bridge in
+encoder->bridge_chain and calls next_bridge->funcs->atomic_enable() a second
+time while priv->active is false.
 
 [Severity: Medium]
-Does guarding arch_phys_wc_del() and arch_io_free_memtype_wc() with
-amdgpu_dev_enter() in amdgpu_bo_fini() leak the CPU MTRR and PAT
-write-combining reservation when unbinding a wedged device or rolling back a
-failed probe?
+In tegra_dbi_atomic_enable() and tegra_dbi_atomic_disable(), there also
+appear to be a couple of register configuration issues:
 
-In amdgpu_device_fini_sw() in drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
-amdgpu_device_ip_fini(adev) (which calls gmc_v*_0_sw_fini() ->
-amdgpu_bo_fini()) runs before adev->wedge_status is cleared:
+First, at the end of tegra_dbi_atomic_enable():
 
-	amdgpu_device_ip_fini(adev);
-	...
-	if (atomic_xchg(&adev->wedge_status, 0))
-		pm_runtime_put_autosuspend(adev->dev);
+	/* Set LDC pin to V Pulse 1 */
+	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
+	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
+	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
 
-Similarly, during probe failure rollback on SR-IOV when
-amdgpu_virt_request_full_gpu() sets adev->no_hw_access =3D true,
-amdgpu_dev_enter() will return false even though arch_phys_wc_del() and
-arch_io_free_memtype_wc() only clean up host CPU MTRR/PAT state and do not
-touch the GPU hardware.
+This unconditionally modifies PIN_LDC in DC_COM_PIN_OUTPUT_SELECT(6) without
+clearing PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDC) first, and without
+checking priv->reg. When the secondary interface (priv->reg =3D=3D 1) is us=
+ed,
+tegra_dbi_idx[1] uses PIN_LVP0 in DC_COM_PIN_OUTPUT_SELECT(4) as the D/C
+pin rather than PIN_LDC. Does the secondary interface need V_PULSE1 routed =
+to
+its own D/C pin instead of PIN_LDC?
 
-[ ... ]
+Second, tegra_dbi_atomic_disable() writes only WRITE_MUX to
+DC_CMD_STATE_ACCESS:
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_uvd.c
-> index cd35ff7ca8642..8668684e8e42b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -456,14 +456,14 @@ int amdgpu_uvd_prepare_suspend(struct amdgpu_device=
- *adev)
->  		if (!adev->uvd.inst[j].saved_bo)
->  			return -ENOMEM;
-> =20
-> -		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> +		if (amdgpu_dev_enter(adev, &idx)) {
->  			/* re-write 0 since err_event_athub will corrupt VCPU buffer */
->  			if (amdgpu_ras_intr_triggered())
->  				memset(adev->uvd.inst[j].saved_bo, 0, size);
->  			else
->  				memcpy_fromio(adev->uvd.inst[j].saved_bo, ptr, size);
-> =20
-> -			drm_dev_exit(idx);
-> +			amdgpu_dev_exit(adev, idx);
->  		}
->  	}
-> =20
-> @@ -495,9 +495,9 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
->  		ptr =3D adev->uvd.inst[i].cpu_addr;
-> =20
->  		if (adev->uvd.inst[i].saved_bo !=3D NULL) {
-> -			if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> +			if (amdgpu_dev_enter(adev, &idx)) {
->  				memcpy_toio(ptr, adev->uvd.inst[i].saved_bo, size);
-> -				drm_dev_exit(idx);
-> +				amdgpu_dev_exit(adev, idx);
->  			}
->  			kvfree(adev->uvd.inst[i].saved_bo);
->  			adev->uvd.inst[i].saved_bo =3D NULL;
+	tegra_dc_writel(dc, WRITE_MUX, DC_CMD_STATE_ACCESS);
+
+whereas tegra_dbi_atomic_enable() writes WRITE_MUX | READ_MUX before calling
+tegra_dbi_init_primary_interface() or tegra_dbi_init_secondary_interface().
+Without READ_MUX set, won't the tegra_dc_readl() calls in those init
+functions read from the shadowed assembly registers while tegra_dc_writel()
+writes to the active registers?
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_vcn.c
-> index 34e1242d66ea1..c286df7c6faf5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -332,9 +332,9 @@ static int amdgpu_vcn_save_vcpu_bo_inst(struct amdgpu=
-_device *adev, int i)
->  	if (!adev->vcn.inst[i].saved_bo)
->  		return -ENOMEM;
-> =20
-> -	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> +	if (amdgpu_dev_enter(adev, &idx)) {
->  		memcpy_fromio(adev->vcn.inst[i].saved_bo, ptr, size);
-> -		drm_dev_exit(idx);
-> +		amdgpu_dev_exit(adev, idx);
+> +static struct platform_driver tegra_dbi_driver =3D {
+> +	.driver.name =3D "tegra-dbi",
+> +	.probe =3D tegra_dbi_probe,
+> +};
+> +
+> +static void tegra_dbi_release(void *pdev)
+> +{
+> +	platform_device_unregister(pdev);
+> +	platform_driver_unregister(&tegra_dbi_driver);
+> +}
+> +
+> +int devm_tegra_dc_dbi_init(struct device *dev)
+> +{
+> +	struct device_node *dbi_np __free(device_node) =3D
+> +		of_get_available_child_by_name(dev_of_node(dev), "dbi");
+> +	struct platform_device_info dbi_info =3D { 0 };
+> +	struct platform_device *dbi;
+> +	int ret;
+> +
+> +	/* Missing node means that DBI is not used, continue */
+> +	if (!dbi_np)
+> +		return 0;
+> +
+> +	ret =3D platform_driver_register(&tegra_dbi_driver);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to register DBI driver\n");
+> +
+> +	dbi_info.parent =3D dev;
+> +	dbi_info.name =3D "tegra-dbi";
+> +	dbi_info.id =3D PLATFORM_DEVID_AUTO;
+> +	dbi_info.fwnode =3D of_fwnode_handle(dbi_np);
+> +	dbi_info.of_node_reused =3D true;
+> +
+> +	dbi =3D platform_device_register_full(&dbi_info);
+> +	if (IS_ERR(dbi)) {
+> +		platform_driver_unregister(&tegra_dbi_driver);
+> +		return dev_err_probe(dev, PTR_ERR(dbi),
+> +				     "Failed to create DBI device\n");
+> +	}
+> +
+> +	ret =3D devm_add_action_or_reset(dev, tegra_dbi_release, dbi);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+> index 5bbf2c028edd8..768cf82776632 100644
+> --- a/drivers/gpu/drm/tegra/dc.c
+> +++ b/drivers/gpu/drm/tegra/dc.c
+> @@ -3382,6 +3382,10 @@ static int tegra_dc_probe(struct platform_device *=
+pdev)
+>  		}
 >  	}
 > =20
->  	return 0;
-> @@ -383,9 +383,9 @@ int amdgpu_vcn_resume(struct amdgpu_device *adev, int=
- i)
->  	ptr =3D adev->vcn.inst[i].cpu_addr;
-> =20
->  	if (adev->vcn.inst[i].saved_bo !=3D NULL) {
-> -		if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> +		if (amdgpu_dev_enter(adev, &idx)) {
->  			memcpy_toio(ptr, adev->vcn.inst[i].saved_bo, size);
-> -			drm_dev_exit(idx);
-> +			amdgpu_dev_exit(adev, idx);
->  		}
->  		kvfree(adev->vcn.inst[i].saved_bo);
->  		adev->vcn.inst[i].saved_bo =3D NULL;
+> +	err =3D devm_tegra_dc_dbi_init(&pdev->dev);
+> +	if (err)
+> +		return dev_err_probe(&pdev->dev, err, "failed to init DBI\n");
+> +
+>  	err =3D tegra_dc_rgb_probe(dc);
+>  	if (err < 0 && err !=3D -ENODEV)
+>  		return dev_err_probe(&pdev->dev, err,
 
 [Severity: High]
-When recovering a wedged GPU via amdgpu_device_gpu_recover(), won't
-amdgpu_vcn_save_vcpu_bo_inst() and amdgpu_uvd_prepare_suspend() (as well as
-vce_v4_0_suspend()) skip saving the VCPU buffer and then overwrite VRAM with
-uninitialized memory on resume?
+Can devm_tegra_dc_dbi_init() deadlock on probe deferral if the child MIPI D=
+BI
+panel driver is not yet bound when tegra_dc_rgb_probe() runs, and also fail
+with -EBUSY if both display controllers have an available "dbi" child node?
 
-During a GPU reset of a wedged device, amdgpu_device_pre_asic_reset() calls
-amdgpu_device_ip_suspend() while adev->wedge_status is still 1 (it is only
-cleared later in amdgpu_device_reinit_after_reset()):
+In tegra_dc_probe(), devm_tegra_dc_dbi_init() is called immediately before
+tegra_dc_rgb_probe(dc). In tegra_dbi_probe(), devm_mipi_dbi_device_register=
+()
+creates the child mipi_dbi_device, but priv->bridge is only registered later
+in tegra_dbi_host_attach() when the panel driver binds to that DBI device a=
+nd
+calls devm_mipi_dbi_attach().
 
-1. amdgpu_vcn_save_vcpu_bo_inst() and amdgpu_uvd_prepare_suspend() allocate
-   saved_bo with kvmalloc(size, GFP_KERNEL) without __GFP_ZERO, and then
-   call amdgpu_dev_enter(adev, &idx). Because adev->wedge_status is 1,
-   amdgpu_dev_enter() returns false and skips memcpy_fromio(), leaving
-   saved_bo non-NULL and filled with uninitialized kernel memory (and
-   vce_v4_0_suspend() similarly skips saving into adev->vce.saved_bo).
-2. Later in amdgpu_do_asic_reset(), amdgpu_device_reinit_after_reset()
-   clears adev->wedge_status to 0 and runs amdgpu_device_ip_resume_phase2().
-3. amdgpu_vcn_resume(), amdgpu_uvd_resume(), and vce_v4_0_resume() see
-   saved_bo !=3D NULL and amdgpu_dev_enter(adev, &idx) =3D=3D true, and cop=
-y the
-   uninitialized saved_bo buffer into the VCPU BO in VRAM via memcpy_toio().
+If the panel driver is built as a module, has not registered yet, or defers
+its own probe (for example waiting on a regulator, GPIO, or backlight),
+devm_tegra_dc_dbi_init() still returns 0, and then tegra_dc_rgb_probe(dc) ->
+tegra_output_probe() -> drm_of_find_panel_or_bridge() returns -EPROBE_DEFER
+because priv->bridge has not been added yet. When tegra_dc_probe() fails wi=
+th
+-EPROBE_DEFER, devres on &pdev->dev runs tegra_dbi_release(), which
+unregisters the tegra-dbi platform device and destroys the child
+mipi_dbi_device. With the mipi_dbi_device removed, how can the panel driver
+ever bind to it and call tegra_dbi_host_attach() to resolve the deferral?
 
-Furthermore, on ASICs that use Mode2 reset handlers where
-amdgpu_do_asic_reset() returns directly from amdgpu_reset_perform_reset()
-without calling amdgpu_device_reinit_after_reset(), adev->wedge_status
-remains 1 during restore_hwcontext, causing amdgpu_dev_enter() to fail in
-amdgpu_gart_map*() and amdgpu_gmc_flush_gpu_tlb() during IP resume and ring
-tests.
+Additionally, tegra_dbi_driver is a single static platform_driver registered
+inside devm_tegra_dc_dbi_init(). If both display controllers on Tegra20/30
+have an available "dbi" child node, won't the second DC's call to
+platform_driver_register(&tegra_dbi_driver) fail with -EBUSY, and unbinding
+one DC unregister tegra_dbi_driver while the other DC is still using it?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029152000.2200=
-1-1-pierre-eric.pelloux-prayer@amd.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029152909.2345=
+84-1-clamor95@gmail.com?part=3D11
