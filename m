@@ -2,75 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06ADA60A5BE7
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:53:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3146960A5BD7
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:53:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NXwrfe2L
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s5mACiAU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A3D810E15F;
-	Thu, 29 Oct 2026 13:53:18 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 684E2112300
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:53:10 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-48e47347279so1475367f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 06:53:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A95411230E;
+	Thu, 29 Oct 2026 13:53:19 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82B3810E7FE
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:53:03 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a210470b49so17746385e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 06:53:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793281989; x=1793886789; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793281982; x=1793886782; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=hqI3xUsD2cNMA3OqjFeaiLeXLoIzktOWAoDJXR6bb7g=;
- b=NXwrfe2LAYcvcknS8hWP4b5zCvlhMq4p9phtE2QNEOpq8wYoWtwMttxu74exQAV/rk
- Voqy8y1kiGIJMdkM9WCZ9dkHwkdoHPvZC9xwy4RZ/MFvf173xY5f1GFILrQoSIbBhdmd
- 9GG5/KYzhuDfXyO5t1o3W0jMtB5jQVBY0bjjgB+KfCy5BMC69zmRAaL+gWcBQmdqptoG
- c9VHKHDwh8Uwjx3C+RHzAmem/YdELbO5XQ9wMrmIBfWmOnvblnVNk23u9y41XYpdJsud
- t2ODTT0MP4jpEOX53BsV9xQxUqigzL10LYBAaAtF/Q0h1KiKK63v5/vTAsnRG55NdRrR
- Yu3A==
+ bh=Rr4i7xRJAxgPG+93hBg/VQGAgwo9yxXU9tfEwt3+0E8=;
+ b=s5mACiAUCbbSmS682WRAwQkQdawAqMEUgvMl2ap5c9qzk4UH9awbwsHptyMi2N51BV
+ 6Q+M2/2fcNZq5qM1J0Tg/H3JGtTTzZwnTT88I9p8yOWAcJCZ8H24J11OJQr8fIBekCv6
+ KAc9NX0tAqbdpEgTKUGgiql9WBWN/zilVovhd487oYJhOBzuYo0ICDq3WyxInUUzCuCC
+ HGGLwJRSp2scgjH4+o+J+BLI5eKKMciEKN4ERaio0lvKncVnuIhehxHmPp6IT2P9ZoYJ
+ Gszfl5bsg7yAizMeZIcXBWJcmt0yWDIy+OIGmlb46vBqwwTEfzaRLZ7z6QZMhm1Qi9lB
+ jdCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793281989; x=1793886789;
+ d=1e100.net; s=20260707; t=1793281982; x=1793886782;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=hqI3xUsD2cNMA3OqjFeaiLeXLoIzktOWAoDJXR6bb7g=;
- b=PgEo5l/ZJ2vsr+pBusuND8OpgTg1Kxo5eoh9PmjqTUMxDTYHUjFhyG6IH9bKNQha9D
- 7XQKlG0QJRoIMpNxPtjNkqXLw7zGuKmcbi0p6iJH6t/h0U7ZV18lQu7b9Tsh4wusqLpR
- 5mA3IRE7rt7mQyOYTbecPFr/7NLhHXi3otz7jByjxNOZcgVuS/p5ln+4fa0cVQjg5UHV
- zB6nbetrB6diXiwJNdscPQnJeOESD2Zpl0Uv41NFnvfCtAuoDjYcbBSU6UMaTxn3g9Vc
- 1NJCNS9F1BjZuv3oJeWj7LacTk3oHVmjLsqNkvoetMnDF4l2iKMlw/EA6xBe1JPEYdYN
- IINg==
+ bh=Rr4i7xRJAxgPG+93hBg/VQGAgwo9yxXU9tfEwt3+0E8=;
+ b=qH0D8qyoHLL9BcZ1ygEXFTiJSyR7zeTyZNrM79kzVXTPu8XSU7Vzg2gV0K7QlkVWDG
+ X8DurZnMNyZJv/IZOzHCEp8QcKzlz5ZuKqI01A6Br4O9coodQHF8GfIF3yBRKPdHtb/X
+ 5KGs26Lhj3sLsR1bz8gYB8StpkvRbLd3zqgp/plec0MnEdslIuLVgzo5kuE0PVoBfsF3
+ FBx6Pd1kKwcL8jOF/8gtepuOPakLiT12pJqpz3rGx2uynZq/Vqz/N7jxSAyl4pAsKuyV
+ kcSA6VIKW27sx5CQqe27UAzmO76LUtLucCj7dYZl2Eh5ECMDll/xi8hfgVfJkBfHcoHr
+ yh1A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx1E6DnKgZzhXKfjmUYpMzSjP3AWG7KycOv+8eZ0DE7NooNWwlL4suDzQBb+DVz0IGn6y8t5udt+zo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK3dAtlChoyGhm+SSZSuZSrm/Yf0FBB2MEHfqizqABcU0SvoRAh
- 8NOY8oPD2AdxJPoJYkIQlbniRhNhNE5VzuH5rPE+15Egul8QcxQINOM=
-X-Gm-Gg: AYBFou3+dK+34uNHkVsh18DSjXIs8splez1rIES8mB9Hxnj/tvqFmOXTXafkwYZS0MB
- bpiRrhrp+4gBpOC8kz/A/AUUcK7UngiQj5T/dgZ0nBkX9q0LLxE9fK/viepHae6OVLO306FnALZ
- pxIxrjxdKWZYC8BN6+q5eSF0u6uXFmDPU+lkNIOu3UrnmZI7dVHLwy3I2xa2CU3k1UiTnF2ogoT
- hk4QJq53HnV9c+gWYsszhGAfFSPR2BGu9jiXKncBegOatlsOxRjFdZIRq0/zHSPoKz/UaLWpJdI
- DtCE0UyQ3vEo8B6IjIhoP39ziRjfoq7GC1SzUxFmfM+83VaJj+GieFU7H8Ul/5cqTpZ59zkTnEt
- zup+MNoR0BI04T3XLgNetGox6UDQQld1QTjhhNkyMq2K0OCY3lzOxbGDdFr76EnC06/qmIQpMuq
- MnzQwBF6/aPSIreBrdK5YE8pU6G1O1MQ2XJB3K5VYbPDGiO16Ta6zWFtKm7pEn3OVIWp4bRnfgP
- EzBvQDGsjHEofbdEn2+MbqdmjVSpx6j8+stkNS6qOI/baKKXf05R3rctjimHveBdU6dTD/ukf00
- JAj/nfqI3m9cX9F/Xqzai7KLgVEVkSz8DtW/7gXmPISpUw==
-X-Received: by 2002:a05:6000:2806:b0:48d:ff0d:cfa5 with SMTP id
- ffacd0b85a97d-48e5d5e237bmr9297013f8f.47.1793281988693; 
- Thu, 29 Oct 2026 06:53:08 -0700 (PDT)
+ AKwUvBz/u68cUdWYRCotSlBVpymiUkAPeewkqzIOI6JDuNE0kS4a+zXKE1LZ6UActhpIiL7Y0d6/qsi+zQU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ8SBB4czC0DFMIaSbPhpP/09Ry75uLhPer1SKAVHEzliv++A6r
+ 7pZTZDkccHoZr2jV2sLGCayWvHCFw64DJ4a9CDx/j8qOaIeLBfXizY4=
+X-Gm-Gg: AYBFou3tO2mkyTUsq33tMUqgkRVx1EgbF1/tTdLry8/yPPo5fhQRJ7RQfZJocT6MTcs
+ 92oe8Uc7peiTlIkWQ4XZ+fjTQce26BWZyx3hUDXuhGCwYs5yh/0zb32u0lBnkuZdDg+6V2OTIHY
+ tVmLkGbVoRttuURoWSmWkbm+6E3o2U8ktSCb7tVFOLBHlyO0u2GQZkarOK2xFCcCOBSwDhURcLU
+ WWqWzGV9DHZ5Dh9sU609w2VnbS3fY7Pk/aM6NRHnFLTTA6kxcYTbVgk62pHEoZ9IT8L+j6oZFOV
+ pTUgrQQ2kZ0u/uRmam9lZEC8S913wyRdL91yS2BgRnUhxGm6X1x0JDHOEWYiH2R5VwDVYPHF72j
+ v+SEVZK9Vsr4EdpLbThOo8l8Ex7QFivszH5roTJ+ewPUmQGBa+5kEXsQIXC98v9J4e0ov/uoLqu
+ NOjeyp9dUgbc4D2XcK/cxOvsV3A6IGGUlvVy7YeKCc5yQ014cMMEdb9wpCmw9Etzr75lWVrzNHv
+ h34Z/CJ2q4WbS7IAEWDJeRwwAIUdF2z6qmw5pmpHMg51Lt2KeEyKkmN//Za3gNrY9A0cqPMKXxQ
+ 4uvUHMpzfmLx+eL7Hvsb1FVSeEbRF1czJzPyJqOJNTPMLw==
+X-Received: by 2002:a05:600d:8496:20b0:4a1:992f:d0e7 with SMTP id
+ 5b1f17b1804b1-4a96677324cmr86595655e9.16.1793281981611; 
+ Thu, 29 Oct 2026 06:53:01 -0700 (PDT)
 Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.05
+ ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.52.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2026 06:53:07 -0700 (PDT)
+ Thu, 29 Oct 2026 06:53:01 -0700 (PDT)
 From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Thu, 29 Oct 2026 14:52:41 +0100
-Subject: [PATCH RFC v2 04/14] arm64: dts: qcom: sm8650: move smmu sid 1 to
- new lpac device
+Date: Thu, 29 Oct 2026 14:52:38 +0100
+Subject: [PATCH RFC v2 01/14] iommu: arm-smmu-qcom: Configure lpac device
+ with split address space
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-descriptive-name-lpac-upstream-v2-4-a21a5c850961@gmail.com>
+Message-Id: <20261029-descriptive-name-lpac-upstream-v2-1-a21a5c850961@gmail.com>
 References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
@@ -92,11 +92,11 @@ Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=1186;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=2309;
  i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=m8LjyZqlFLsxlRip5l3NXkwO7GG8cECPX+LNQd1tpmo=;
- b=ARxR4H9sfFo+nvh8rZ3WMz/5vBOcWptYc4QScQ6BwDzQQ9ZqJR17Rkbis3J/NCOw2T3Y+DXYV
- 1uradRrW6R5Bl+J4M4CED5l+9lrrUHdMAtWHma7WA0JnTxjPc/6/H28
+ bh=NJ73RVOWEiPlPH9Z7PnLGwHMRejJoPZBM69o25lxk5E=;
+ b=gj8sBR9N8QG04JyrcmUt5R2oXuziVAr6kQLdSMm6i0TlFKl87Gop8V8EHKny6NTxmbotiGmJc
+ fs65LYDtGd6Dd5piBIpN6ZzqbLECs9zGbUWlcBT96BceUkWcOkEDLhv
 X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
  pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -118,45 +118,66 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Previously both SID 0 and 1 where associated with the same domain.
-
-When LPAC is not used this is needed so firmware can acces memory when
-initializing using the same page table as GFX.
-
-To use LPAC however we need to move SID 1 to a different device.
+We want the context bank used by LPAC (Low Priority Async Compute) to
+use split address space just like GFX in order to be able to handle
+userspace submissions with per context page tables.
 
 Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index 1604bc8cff37..f47d1dbd06da 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -4144,8 +4144,7 @@ gpu: gpu@3d00000 {
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+index edd41b5a3b6a..48a590aaeb5e 100644
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+@@ -35,6 +35,8 @@
+ static const struct of_device_id qcom_smmu_actlr_client_of_match[] = {
+ 	{ .compatible = "qcom,adreno",
+ 			.data = (const void *) (PREFETCH_DEEP | CPRE | CMTLB) },
++	{ .compatible = "qcom,lpac",
++			.data = (const void *) (PREFETCH_DEEP | CPRE | CMTLB) },
+ 	{ .compatible = "qcom,adreno-gmu",
+ 			.data = (const void *) (PREFETCH_DEEP | CPRE | CMTLB) },
+ 	{ .compatible = "qcom,adreno-smmu",
+@@ -217,6 +219,7 @@ static void qcom_adreno_smmu_set_prr_addr(const void *cookie, phys_addr_t page_a
+ }
  
- 			interrupts = <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH 0>;
+ #define QCOM_ADRENO_SMMU_GPU_SID 0
++#define QCOM_ADRENO_SMMU_LPAC_SID 1
  
--			iommus = <&adreno_smmu 0 0x0>,
--				 <&adreno_smmu 1 0x0>;
-+			iommus = <&adreno_smmu 0 0x0>;
+ static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
+ {
+@@ -230,7 +233,8 @@ static bool qcom_adreno_smmu_is_gpu_device(struct device *dev)
+ 	for (i = 0; i < fwspec->num_ids; i++) {
+ 		u16 sid = FIELD_GET(ARM_SMMU_SMR_ID, fwspec->ids[i]);
  
- 			operating-points-v2 = <&gpu_opp_table>;
+-		if (sid == QCOM_ADRENO_SMMU_GPU_SID)
++		if (sid == QCOM_ADRENO_SMMU_GPU_SID ||
++		    sid == QCOM_ADRENO_SMMU_LPAC_SID)
+ 			return true;
+ 	}
  
-@@ -4158,6 +4157,12 @@ gpu: gpu@3d00000 {
+@@ -305,9 +309,9 @@ static int qcom_adreno_smmu_alloc_context_bank(struct arm_smmu_domain *smmu_doma
+ 	 */
+ 	if (qcom_adreno_smmu_is_gpu_device(dev)) {
+ 		start = 0;
+-		count = 1;
++		count = 2;
+ 	} else {
+-		start = 1;
++		start = 2;
+ 		count = smmu->num_context_banks;
+ 	}
  
- 			status = "disabled";
+@@ -394,6 +398,7 @@ static int qcom_adreno_smmu_init_context(struct arm_smmu_domain *smmu_domain,
  
-+			lpac: lpac {
-+				compatible = "qcom,lpac";
-+
-+				iommus = <&adreno_smmu 1 0x0>;
-+			};
-+
- 			gpu_zap_shader: zap-shader {
- 				memory-region = <&gpu_micro_code_mem>;
- 			};
+ static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
+ 	{ .compatible = "qcom,adreno" },
++	{ .compatible = "qcom,lpac" },
+ 	{ .compatible = "qcom,adreno-gmu" },
+ 	{ .compatible = "qcom,glymur-mdss" },
+ 	{ .compatible = "qcom,mdp4" },
 
 -- 
 2.56.0
