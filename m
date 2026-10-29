@@ -2,97 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B58F606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:13:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W/D9uE11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683DE606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:14:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0CC810E7B6;
-	Thu, 29 Oct 2026 10:13:03 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB0FC10E7B6
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:12:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 51E526021E;
- Thu, 29 Oct 2026 10:12:49 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793268769;
- b=mO3Tr3G9OXUXwNIXfyCAEtaB3mOpECKBzVTkSi98X4vPkBNG8Follpmhz/65jmP+EzVQ
- d8BiNXdOTugNMGXuiY4pLqPKRu0maETcjUiS7jW32u9fu+nW3xkQu6VbVhBSm/mPH3xIH
- x0WqtuANhSP8f5ub2QY3aYbr9pw45LLRbJWbAJXv2ZehNNIL1z2MVB9FlH0w00fHz/yLc
- Be6YeUZqW9X8OWZ0WS1Wfo++6alnHk2+qZPbsXHLf1EsDPiJVVjjHE49kenVqGnwjmxTD
- X96vNXAoMS69FpAaJ3TmhVx3YsxU8kg8pdwXU9fWMZRl3Og9wBi88QOfLIdGxi0KDqQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793268769;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=1mnm/NZlSVyZzbSpRIKTi6tihbkYb2bX2E0F19XyIko=;
- b=kCq+SDTQ8yjob/Kuh30CtQ2LJj2AJ5y/eqVAuUdqleFIa4VrE8pcEqW8VafyZb5/4rMY
- QpZbe7Yzk8i3bO+86QaeEkQDuUxVQmLW9T1nE5XM7czqO4X7rpjCC6kwQuIQSgcJ1ivb7
- lGUD9K1EjvyQ5pmZ86PjvQjc/lAk5wOeaqom/8jISk3igLYeG2WmRPP7M2Yqj2ZY5Rt78
- jwI/ZbDx9Cap41QisWhwOJjwBmqLkC0xan7PVF9D3kXwzSKSCA+OBlQNuAmLfKxPXUssz
- kN5G42UKLWqp6iAJ6q2rYTMA9f0glSEPz1M/rfPjjnQ2B4rQ1BI2atnldyMb1OdOm1Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 1752E1F01828;
- Thu, 29 Oct 2026 10:12:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793268769;
- bh=1mnm/NZlSVyZzbSpRIKTi6tihbkYb2bX2E0F19XyIko=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=W/D9uE11IBbBTDCJzGBFYPSZlKtK5bXAUk2r/OAKKK909jv99jjHu4Z3Jvnhlx5ZC
- MVh71NKc5dIHWhFzjaREpX9OkpH/uTWd1c6CrkHXUCOtvMEwnF+xJ7EfuHjt5A0D9y
- KTwoCRwPU6Ll/BCCYeqNeUKVEwKxzQHvyyrf2NUJf99QieL6P0zN25THUPndfmGgcl
- yrxKgo1T79NJyb54bAyMj9j4d4TMvEtHnAiIgUrTECoCzwceMHYXGmOYyD/iUmNBK1
- iIGGqaWeaBZOgrfMFf6TL+UftooFhW40bOej7zZfTH5vGOfcpG13fqSHxCO219UlA5
- 4JZPb11foiUBg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 887AE457F1;
- Thu, 29 Oct 2026 10:12:45 +0000 (UTC)
-From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Thu, 29 Oct 2026 18:12:31 +0800
-Subject: [PATCH v5 2/2] drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge
- driver
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCAD410E7D7;
+	Thu, 29 Oct 2026 10:14:03 +0000 (UTC)
+X-Greylist: delayed 1749 seconds by postgrey-1.36 at gabe;
+ Thu, 29 Oct 2026 10:14:02 UTC
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 163DB10E7D7
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:14:01 +0000 (UTC)
+X-QQ-mid: zesmtpip4t1793268831tcfcd0a9e
+X-QQ-Originating-IP: JWcGZpaxS2VvXr8ks7Aa0kMOHfyGgrDNgxaWqapRT/I=
+Received: from [192.168.30.244] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 29 Oct 2026 18:13:47 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6520119527471735759
+EX-QQ-RecipientCnt: 31
+From: Xilin Wu <sophon@radxa.com>
+Date: Thu, 29 Oct 2026 18:13:35 +0800
+Subject: [PATCH v4 1/4] arm64: dts: qcom: sc8280xp: enable PCIe ECAM and
+ 64-bit memory
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-upstream-6162-v5-2-8369f9e5afe6@ite.com.tw>
-References: <20261029-upstream-6162-v5-0-8369f9e5afe6@ite.com.tw>
-In-Reply-To: <20261029-upstream-6162-v5-0-8369f9e5afe6@ite.com.tw>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-q8b-dts-v4-1-e8e7438f5545@radxa.com>
+References: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
+In-Reply-To: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Pet.Weng@ite.com.tw, Kenneth.Hung@ite.com.tw, 
- Hermes Wu <Hermes.Wu@ite.com.tw>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hermes Wu <Hermes.wu@ite.com.tw>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793268764; l=52103;
- i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=5k+jNocU5hw9WeJjBetAQawMR+ItnXiGp4CSIP1AL2o=;
- b=bmUn/BwwsRm4FE4O0ewAfFqli8TXxWM/BiDvLwFwPp3UAMXbfhudZ1ADBUlnSq9tQ1TNdU9Sa
- vFpxslx27GcDzoMWAOiwZdVvnmJwY/6mj/q23sr19V0qnzvRnRsE/G6
-X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
- pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
-X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
- auth_id=310
-X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
-Content-Transfer-Encoding: 7bit
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
+ dragon@radxa.com, Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5116; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=ZKeyJhuJk5Q9HhRIB0I7m7yyN1y8Ot222NY5V9safMA=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmPZcJW59kGHrdytv2f433o+76pL7ufl69XbuZrnaPzi
+ SV3P+PTjlIWBjEuBlkxRRaFeIa57JW5156KlerBzGFlAhnCwMUpABN5zM3wh4dz974tTmcyfxnd
+ XPYiTXRzVeKONbm62W7X878/NL4pv5qR4Y9NudJulTxnwbpvcfYvCgJaP63l0tmx8OtiJsk9j1/
+ dZwYA
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OYcWkDQesdWF3SFjyfjWqBDVlG7cdsEGs82P87uGZA1iOYH2XrFHKoGa
+ QSbliJXmbJPhxyT0MxuO/WWARi3h6DSLO6IJBRz3D0Ez6cQ3/s33iUiGDCFaGS/8LigM+aV
+ o7BOVKZ36C76DhNuzWAos5tkZhDs8+YyNmQN4f7gVwefd3yzTxDk4oKApvOnH+s1Cg7plYG
+ hiDEcDcnTm1JOLkyUdWE2s7bfr35wpzOaUt5hk+vcFz3B4KpuX0hlKT5Hf6aKNZ7FSIBQLP
+ rKC6wRenUMRBqTmx/fPtwzV4lbWwBnC+3MAbutciWnXudUUiAlB22k9792hFzZ4UaDAMXvd
+ BrSpn/fuqCf14hOzgeQzx8d02xC+TmL6gTpSpAX2WW7aQTLzjfzw4M4P+o1gWkBS5K2MHOI
+ 0O6AKH8M3xGEMgT7Y+k1i0RqwqxVp8JVVF88aqSNRje9bzZNLUuEvAnGuq3HA+sFbeJM07o
+ 62JDzEFLlvdiZtyM7ImBCD0AZwmClcAnJzm2LwrfB9YscK5A8LYwjmJ9fbAO7Oe56Mc/6kv
+ rqVOLqPrde1auxVp/Ru2jdwZCzwsxsb1txHD3ZnZno/Rj+KdMaWwy/sMs85QKCZZTVCZsRP
+ l2vWJZIVpMBh4Jvr62CAfSMRCSYmrxD8zXmZBROcjICYoXhKL1sDjci1bpU43M0HXtxdM7h
+ iltxVrKhTrvb/+eZBjRhdhB9oySfJ+WQPgpxJSHcuz0gxd628JZG4QVCuqmozNL3oZOEUJ6
+ 4S3N+o+jfywnLXV0KcamVNodcpeWAOGukineObLh+u9vHMreY8ydOTxrVxeH/1PL0UYNJmD
+ fv+Eh1q2iyJ7TsEzPWcysGM0NRRtZmFZQxS06XePSSTDDOw8UmXclnLvb7tpj4jR3FQ55Ob
+ NC3cQCtpVPqK1Z2i/z8OoeCBvStJcslCgvPjiNNY0Tonm+uX9rR0bgzMYcVXjtJhbmSNsGq
+ XN7wWjxaZRsxWXFjOka6HOh2esHFcLTSRhN8QiiZl7hFsdIDNI6lWfFlRNK6MVHo1kKjQ/v
+ wj3E+ZGUKq4XUEn3JNXqWIN10egYWe2aoexoJFHvYNaz5GGkfZR+d/fPqZ+G6n39A6EzzDL
+ UmSmlpbUyOZSCqD6tgUWwozHeBDFNb7cvxE0MB0u5vSDJdZ3iTv/hI0AYc2VzifiA==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,1871 +90,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Hermes.wu@ite.com.tw
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Enable ECAM to avoid reprogramming iATU on every downstream configuration
+access, reducing latency and CPU utilization. Add 64-bit memory windows
+for devices with large BARs, such as discrete GPUs.
 
-Add support for the ITE IT6162 MIPI DSI to HDMI 2.0 bridge chip.
-The IT6162 is an I2C-controlled bridge that supports the following
-configurations:
+Preserve the SA8540P PCIe2a and PCIe3a address maps to avoid regressions
+due to firmware differences.
 
-  - Single MIPI DSI input: up to 4K @ 30Hz
-  - Dual MIPI DSI input (combined): up to 4K @ 60Hz
-
-The driver implements the DRM bridge and connector frameworks,
-including mode setting, EDID retrieval, and HPD support.
-
-Also add a MAINTAINERS entry for the newly introduced ITE IT6162 MIPI DSI
-to HDMI bridge driver, covering the driver source file and the
-device tree binding document.
-
-Assisted-by: Claude Opus 5.5
-Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- MAINTAINERS                         |    7 +
- drivers/gpu/drm/bridge/Kconfig      |   17 +
- drivers/gpu/drm/bridge/Makefile     |    1 +
- drivers/gpu/drm/bridge/ite-it6162.c | 1764 +++++++++++++++++++++++++++++++++++
- 4 files changed, 1789 insertions(+)
+ arch/arm64/boot/dts/qcom/sa8540p.dtsi  |  9 +++++++++
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 25 +++++++++++++++----------
+ 2 files changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 89ea35a35c6809e5066674cff3d5b7b129db4c49..0ebf58c322e1e2e8916aeba38a3828873374c1d4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13977,6 +13977,13 @@ W:	https://linuxtv.org
- Q:	http://patchwork.linuxtv.org/project/linux-media/list/
- F:	drivers/media/tuners/it913x*
+diff --git a/arch/arm64/boot/dts/qcom/sa8540p.dtsi b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
+index 23888029cc11..e5393a237497 100644
+--- a/arch/arm64/boot/dts/qcom/sa8540p.dtsi
++++ b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
+@@ -180,6 +180,15 @@ &gpu_smmu {
  
-+ITE IT6162 MIPI DSI TO HDMI BRIDGE DRIVER
-+M:	Hermes Wu <Hermes.wu@ite.com.tw>
-+L:	dri-devel@lists.freedesktop.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml
-+F:	drivers/gpu/drm/bridge/ite-it6162.c
+ &pcie2a {
+ 	compatible = "qcom,pcie-sa8540p";
++	reg = <0x0 0x01c20000 0x0 0x3000>,
++	      <0x0 0x3c000000 0x0 0xf1d>,
++	      <0x0 0x3c000f20 0x0 0xa8>,
++	      <0x0 0x3c001000 0x0 0x1000>,
++	      <0x0 0x3c100000 0x0 0x100000>,
++	      <0x0 0x01c23000 0x0 0x1000>;
 +
- ITE IT6263 LVDS TO HDMI BRIDGE DRIVER
- M:	Liu Ying <victor.liu@nxp.com>
- L:	dri-devel@lists.freedesktop.org
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c7da6b02d7b6b281f328fb3016ea2f167f8da093..59d4911222747a233cfd3fbe8394f0d1652e5c9d 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -106,6 +106,23 @@ config DRM_INNO_HDMI
- 	select DRM_DISPLAY_HELPER
- 	select DRM_KMS_HELPER
++	ranges = <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
++		 <0x02000000 0x0 0x3c300000 0x0 0x3c300000 0x0 0x1d00000>;
  
-+config DRM_ITE_IT6162
-+	tristate "iTE IT6162 DSI to HDMI bridge"
-+	depends on OF
-+	select REGMAP_I2C
-+	select DRM_MIPI_DSI
-+	select DRM_PANEL_BRIDGE
-+	select DRM_KMS_HELPER
-+	select DRM_HDMI_HELPER
-+	select DRM_DISPLAY_HDMI_HELPER
-+	select DRM_DISPLAY_HDCP_HELPER
-+	select DRM_DISPLAY_HELPER
-+	help
-+	  Driver for iTE IT6162 DSI to HDMI bridge
-+	  chip driver that converts DSI to HDMI signals
-+	  support up to 4k60 with 2 MIPI DSI
-+	  Please say Y if you have such hardware.
-+
- config DRM_ITE_IT6263
- 	tristate "ITE IT6263 LVDS/HDMI bridge"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index 15cc821d85b7ea6f3cdc313f3e521b028de567d7..2e082ec616d1119788be4deaf7e3436d52404237 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -11,6 +11,7 @@ tda998x-y := tda998x_drv.o
- obj-$(CONFIG_DRM_I2C_NXP_TDA998X) += tda998x.o
+ 	linux,pci-domain = <0>;
  
- obj-$(CONFIG_DRM_INNO_HDMI) += inno-hdmi.o
-+obj-$(CONFIG_DRM_ITE_IT6162) += ite-it6162.o
- obj-$(CONFIG_DRM_ITE_IT6263) += ite-it6263.o
- obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
- obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
-diff --git a/drivers/gpu/drm/bridge/ite-it6162.c b/drivers/gpu/drm/bridge/ite-it6162.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..5f83722ff4e61e4b6ccb27f53c30ff19328804f3
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/ite-it6162.c
-@@ -0,0 +1,1764 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright 2024 ITE Tech. Inc.
-+ */
-+#include <linux/bitfield.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/of_irq.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <drm/display/drm_hdcp_helper.h>
-+#include <drm/display/drm_hdmi_helper.h>
-+#include <drm/display/drm_hdmi_state_helper.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_bridge_connector.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_print.h>
-+#include <video/videomode.h>
-+#include <sound/hdmi-codec.h>
-+
-+#define DATA_BUFFER_DEPTH 32
-+
-+#define OFFSET_CHIP_ID_H 0x00
-+#define OFFSET_CHIP_ID_M 0x01
-+#define OFFSET_CHIP_ID_L 0x02
-+#define OFFSET_VERSION_H 0x03
-+#define OFFSET_VERSION_M 0x04
-+#define OFFSET_VERSION_L 0x05
-+
-+#define OFFSET_MIPI_CONFIG_L 0x06
-+#define MIPI_CLOCK_MODE_MASK BIT(6)
-+#define MIPI_PORT1_EN_MASK BIT(5)
-+#define MIPI_PORT0_EN_MASK BIT(4)
-+#define MIPI_LANE_SWAP_MASK BIT(3)
-+#define MIPI_PN_SWAP_MASK BIT(2)
-+#define MIPI_LANE_NUM_MASK 0x3
-+#define MIPI_PORT_EN_MASK (MIPI_PORT1_EN_MASK | MIPI_PORT0_EN_MASK)
-+
-+#define OFFSET_MIPI_CONFIG_H 0x07
-+#define OFFSET_TX_CONFIG 0x08
-+
-+#define OFFSET_TX_SETTING 0x09
-+#define TX_HDCP_VER_MASK 0xC0
-+#define TX_HDCP_ENCRYP_MASK BIT(5)
-+#define TX_STREAM_TYPE_MASK BIT(4)
-+
-+#define OFFSET_MIPI_STATUS 0x0A
-+#define OFFSET_TX_STATUS 0x0C
-+#define B_TX_STATUS_HPD 7
-+#define B_TX_STATUS_VIDEO_STB 6
-+#define B_TX_STATUS_HDCP 4
-+#define M_TX_STATUS_HDCP 0x30
-+
-+#define TX_VIDEO_STB BIT(B_TX_STATUS_VIDEO_STB)
-+#define TX_STATUS_HPD BIT(B_TX_STATUS_HPD)
-+
-+#define GET_TX_HPD_STATUS(x) (((x) & TX_STATUS_HPD) >> B_TX_STATUS_HPD)
-+#define GET_TX_VIDEO_STATUS(x) (((x) & TX_VIDEO_STB) >> B_TX_STATUS_VIDEO_STB)
-+#define GET_TX_HDCP_STATUS(x) (((x) & M_TX_STATUS_HDCP) >> B_TX_STATUS_HDCP)
-+
-+#define OFFSET_SINK_CAP 0x0D
-+#define B_SINK_CAP_HDCP_VER 4
-+#define M_SINK_CAP_HDCP_VER 0x30
-+
-+#define GET_SINK_CAP_HDCP_VER(x) (((x) & M_SINK_CAP_HDCP_VER) >> B_SINK_CAP_HDCP_VER)
-+
-+#define OFFSET_DRIVER_DATA 0x0E
-+
-+#define OFFSET_DATA_TYPE_IDX 0x0F
-+#define OFFSET_DATA_BUFFER 0x20
-+
-+#define OFFSET_AUDIO_CTRL0 0x3C
-+#define MASK_AUDIO_CHANNEL_NUM 0x0F
-+#define MASK_AUDIO_SELECT 0x30
-+#define MASK_AUDIO_TYPE 0xC0
-+
-+#define OFFSET_AUDIO_CTRL1 0x3D
-+#define OFFSET_AUDIO_CTRL2 0x3E
-+#define MASK_I2S_BUS_MODE 0x1F
-+#define MASK_I2S_WORD_LEN 0x60
-+#define MASK_I2S_VALID 0x80
-+
-+#define OFFSET_HOST_SET 0xFE
-+#define B_CONFIG_CHG BIT(7)
-+#define B_SET_CHG BIT(6)
-+#define HOST_SET_VIDEO_INFO (1)
-+#define HOST_SET_AUDIO_INFO (2)
-+#define HOST_SET_VIDEO_AUDIO_INFO (3)
-+#define HOST_SET_EDID_R (0x04)
-+#define HOST_SET_HDCP_R (0x05)
-+#define HOST_SET_CEA_INFOFRAME (0x0E)
-+
-+#define OFFSET_EVENT_CHG 0xFF
-+#define B_EVENT_CHG_BUFFER 4
-+#define M_EVENT_CHG_BUFFER_STS (0x30)
-+
-+#define B_EVENT_CHG 1
-+#define B_EVENT_IC_READY 0
-+
-+#define EVENT_CHG BIT(B_EVENT_CHG)
-+#define EVENT_READY BIT(B_EVENT_IC_READY)
-+
-+#define GET_BUFFER_STATUS(x) (((x) & M_EVENT_CHG_BUFFER_STS) >> B_EVENT_CHG_BUFFER)
-+
-+#define TIMEOUT_INFOBLOCK_MS 1800
-+
-+enum it6162_audio_select {
-+	I2S = 0,
-+	SPDIF,
-+};
-+
-+enum it6162_audio_word_length {
-+	WORD_LENGTH_16BIT = 0x0,
-+	WORD_LENGTH_18BIT = 0x1,
-+	WORD_LENGTH_20BIT = 0x2,
-+	WORD_LENGTH_24BIT = 0x3,
-+};
-+
-+enum it6162_audio_sample_rate {
-+	SAMPLE_RATE_32K = 0x3,
-+	SAMPLE_RATE_48K = 0x2,
-+	SAMPLE_RATE_64K = 0xB,
-+	SAMPLE_RATE_96K = 0xA,
-+	SAMPLE_RATE_192K = 0xE,
-+	SAMPLE_RATE_44_1K = 0x0,
-+	SAMPLE_RATE_88_2K = 0x8,
-+	SAMPLE_RATE_176_4K = 0xC,
-+};
-+
-+enum it6162_audio_type {
-+	LPCM = 0,
-+	NLPCM,
-+};
-+
-+enum data_buf_sts {
-+	NO_STS = 0x00,
-+	BUF_READY = 0x01,
-+	BUF_FAIL = 0x02,
-+};
-+
-+enum hdcp_state {
-+	HDCP_STATE_IDLE = 0x00,
-+	HDCP_STATE_AUTH_DONE = 0x01,
-+	HDCP_STATE_AUTH_FAIL = 0x02,
-+};
-+
-+enum hdcp_ver {
-+	HDCP_DISABLE = 0x0,
-+	HDCP_14 = 0x1,
-+	HDCP_23 = 0x2,
-+	HDCP_AUTO = 0x3,
-+};
-+
-+struct it6162_chip_info {
-+	u32 chip_id;
-+	u32 version;
-+};
-+
-+struct it6162_video_settings {
-+	u8 vic;
-+	u32 clock;
-+	u16 htotal;
-+	u16 hfp;
-+	u16 hsw;
-+	u16 hbp;
-+	u16 hdew;
-+	u16 vtotal;
-+	u16 vfp;
-+	u16 vsw;
-+	u16 vbp;
-+	u16 vdew;
-+	u8 hpol;
-+	u8 vpol;
-+	u8 prog;
-+	u16 v_aspect;
-+	u16 h_aspect;
-+	u8 pix_rep;
-+	u8 colorspace;
-+};
-+
-+enum sync_mode {
-+	SYNC_EVENT = 0x0,
-+	SYNC_PULSE = 0x1,
-+	SYNC_AUTO = 0x2,
-+};
-+
-+struct it6162_mipi_cfg {
-+	bool en_port[2];
-+	u8 lane_num;
-+	bool pn_swap;
-+	bool lane_swap;
-+	bool continuous_clk;
-+	enum sync_mode mode;
-+	enum mipi_dsi_pixel_format format;
-+	unsigned long mode_flags;
-+};
-+
-+struct it6162_hdcp_cfg {
-+	enum hdcp_ver hdcp_version;
-+	bool hdcp_encryption;
-+	u8 stream_ID;
-+};
-+
-+struct it6162_infoblock_msg {
-+	u8 action;
-+	int len;
-+	u8 msg[32];
-+};
-+
-+struct it6162 {
-+	struct drm_bridge bridge;
-+	struct device *dev;
-+	struct drm_connector *connector;
-+	enum drm_connector_status connector_status;
-+	struct drm_device *drm;
-+
-+	struct i2c_client *it6162_i2c;
-+	struct regmap *regmap;
-+
-+	struct regulator *pwr1833;
-+	struct regulator *ovdd;
-+	struct regulator *ivdd;
-+	struct gpio_desc *gpiod_reset;
-+
-+	bool hw_ready;
-+	bool en_hdcp;
-+
-+	/*lock the infoblock write setting and buffer access*/
-+	struct mutex lock;
-+
-+	enum data_buf_sts data_buf_sts;
-+	wait_queue_head_t data_buf_wait;
-+
-+	/* it6162 DSI RX related params */
-+	struct mipi_dsi_device *dsi;
-+	struct it6162_mipi_cfg mipi_cfg;
-+
-+	struct delayed_work hdcp_work;
-+
-+	/*
-+	 * HDCP content protection property update, protected by lock.
-+	 * hdcp_gen changes whenever the connector is set or cleared, so that
-+	 * updates from an ended session are not published.
-+	 * hdcp_prop_connector is non-NULL only while a queued, not yet
-+	 * started hdcp_prop_work owns a reference to it.
-+	 */
-+	u32 hdcp_gen;
-+	struct work_struct hdcp_prop_work;
-+	struct drm_connector *hdcp_prop_connector;
-+	u64 hdcp_prop_value;
-+	u32 hdcp_prop_gen;
-+
-+	enum hdcp_state hdcp_sts;
-+	enum hdcp_ver hdcp_version;
-+	struct it6162_hdcp_cfg hdcp_cfg;
-+
-+	unsigned int content_protection;
-+};
-+
-+static struct it6162 *bridge_to_it6162(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct it6162, bridge);
-+}
-+
-+static const struct regmap_config it6162_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0xff,
-+	.cache_type = REGCACHE_NONE,
-+};
-+
-+static inline int it6162_i2c_regmap_init(struct i2c_client *client,
-+					 struct it6162 *it6162)
-+{
-+	it6162->it6162_i2c = client;
-+	i2c_set_clientdata(client, it6162);
-+	it6162->regmap = devm_regmap_init_i2c(it6162->it6162_i2c,
-+					      &it6162_regmap_config);
-+	if (IS_ERR(it6162->regmap))
-+		return PTR_ERR(it6162->regmap);
-+
-+	return 0;
-+}
-+
-+static int it6162_wait_command_complete(struct it6162 *it6162)
-+{
-+	struct device *dev = it6162->dev;
-+	struct regmap *regmap = it6162->regmap;
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_read(regmap, OFFSET_HOST_SET, &val);
-+	if (ret < 0) {
-+		dev_err(dev, "read failed rx reg[0x%x]", OFFSET_HOST_SET);
-+		return ret;
-+	}
-+	return val;
-+}
-+
-+static int it6162_infoblock_trigger(struct it6162 *it6162, u8 setting)
-+{
-+	struct device *dev = it6162->dev;
-+	int status;
-+	int val;
-+
-+	regmap_write(it6162->regmap, OFFSET_HOST_SET, setting);
-+	/* OFFSET_HOST_SET is cleared by firmware when the command is processed */
-+	status = readx_poll_timeout(it6162_wait_command_complete, it6162, val,
-+				    val <= 0, 50 * 1000,
-+				    TIMEOUT_INFOBLOCK_MS * 1000);
-+	if (status < 0 || val != 0) {
-+		dev_err(dev, "infoblock command timeout: status=%d val=%d",
-+			status, val);
-+		return -ETIMEDOUT;
-+	}
-+
-+	return 0;
-+}
-+
-+static int it6162_infoblock_request_data(struct it6162 *it6162,
-+					 u8 request_type, u8 index, u8 *buf)
-+{
-+	struct device *dev = it6162->dev;
-+	int status;
-+
-+	it6162->data_buf_sts = NO_STS;
-+	regmap_write(it6162->regmap, OFFSET_DATA_TYPE_IDX, index);
-+	status = it6162_infoblock_trigger(it6162, request_type);
-+	if (status < 0)
-+		return status;
-+	/* data_buf_sts is updated asynchronously by the interrupt handler */
-+	if (wait_event_timeout(it6162->data_buf_wait,
-+			       it6162->data_buf_sts != NO_STS,
-+			       msecs_to_jiffies(TIMEOUT_INFOBLOCK_MS)) == 0) {
-+		dev_err(dev, "timeout waiting for data buffer");
-+		return -ETIMEDOUT;
-+	}
-+
-+	if (it6162->data_buf_sts != BUF_READY) {
-+		dev_err(dev, "data buffer not ready: sts=%d",
-+			it6162->data_buf_sts);
-+		return -EIO;
-+	}
-+
-+	return regmap_bulk_read(it6162->regmap, OFFSET_DATA_BUFFER, buf,
-+				DATA_BUFFER_DEPTH);
-+}
-+
-+static void it6162_mipi_disable(struct it6162 *it6162)
-+{
-+	guard(mutex)(&it6162->lock);
-+	regmap_update_bits(it6162->regmap, OFFSET_MIPI_CONFIG_L,
-+			   MIPI_PORT_EN_MASK, 0x00);
-+	it6162_infoblock_trigger(it6162, B_CONFIG_CHG);
-+}
-+
-+static void it6162_mipi_enable(struct it6162 *it6162)
-+{
-+	unsigned int cfg_val = 0;
-+
-+	cfg_val = FIELD_PREP(MIPI_PORT1_EN_MASK, it6162->mipi_cfg.en_port[1]) |
-+		  FIELD_PREP(MIPI_PORT0_EN_MASK, it6162->mipi_cfg.en_port[0]);
-+
-+	guard(mutex)(&it6162->lock);
-+	regmap_update_bits(it6162->regmap, OFFSET_MIPI_CONFIG_L,
-+			   MIPI_PORT_EN_MASK, cfg_val);
-+	it6162_infoblock_trigger(it6162, B_CONFIG_CHG);
-+}
-+
-+static void it6162_tx_hdcp_enable(struct it6162 *it6162,
-+				  struct it6162_hdcp_cfg *tx_out)
-+{
-+	int val;
-+	struct regmap *regmap = it6162->regmap;
-+
-+	guard(mutex)(&it6162->lock);
-+	it6162->hdcp_sts = HDCP_STATE_IDLE;
-+
-+	if (regmap_read(regmap, OFFSET_TX_SETTING, &val) < 0) {
-+		dev_err(it6162->dev, "failed to read tx setting");
-+		return;
-+	}
-+
-+	val &= 0x0F;
-+	val |= FIELD_PREP(TX_HDCP_VER_MASK, tx_out->hdcp_version) |
-+	       FIELD_PREP(TX_HDCP_ENCRYP_MASK, tx_out->hdcp_encryption) |
-+	       FIELD_PREP(TX_STREAM_TYPE_MASK, tx_out->stream_ID);
-+
-+	regmap_write(regmap, OFFSET_TX_SETTING, val);
-+	it6162_infoblock_trigger(it6162, B_SET_CHG);
-+}
-+
-+static void it6162_tx_hdcp_disable(struct it6162 *it6162)
-+{
-+	int val;
-+	struct regmap *regmap = it6162->regmap;
-+
-+	it6162->hdcp_sts = HDCP_STATE_IDLE;
-+	it6162->hdcp_version = HDCP_DISABLE;
-+
-+	guard(mutex)(&it6162->lock);
-+	if (regmap_read(regmap, OFFSET_TX_SETTING, &val) < 0) {
-+		dev_err(it6162->dev, "failed to read tx setting");
-+		return;
-+	}
-+
-+	regmap_write(it6162->regmap, OFFSET_TX_SETTING, val & 0x0F);
-+	it6162_infoblock_trigger(it6162, B_SET_CHG);
-+}
-+
-+static void
-+it6162_tx_hdcp_setup(struct it6162 *it6162, u8 ver, bool encryption)
-+{
-+	struct it6162_hdcp_cfg tx_out;
-+
-+	if (ver != HDCP_DISABLE) {
-+		tx_out.hdcp_version = ver;
-+		tx_out.hdcp_encryption = encryption;
-+		tx_out.stream_ID = 0;
-+		it6162_tx_hdcp_enable(it6162, &tx_out);
-+	} else {
-+		it6162_tx_hdcp_disable(it6162);
-+	}
-+}
-+
-+static void it6162_tx_enable(struct it6162 *it6162)
-+{
-+	if (it6162->en_hdcp)
-+		it6162->hdcp_version = it6162->hdcp_cfg.hdcp_version;
-+	else
-+		it6162->hdcp_version = HDCP_DISABLE;
-+}
-+
-+static void it6162_tx_disable(struct it6162 *it6162)
-+{
-+	cancel_delayed_work_sync(&it6162->hdcp_work);
-+	it6162_tx_hdcp_setup(it6162, HDCP_DISABLE, false);
-+}
-+
-+static inline void
-+it6162_pack_video_setting(struct it6162 *it6162,
-+			  struct it6162_video_settings *settings,
-+			  struct it6162_infoblock_msg *msg)
-+{
-+	msg->msg[0x00] = settings->hdew & 0xFF;
-+	msg->msg[0x01] = (settings->hdew >> 8) & 0x3F;
-+	msg->msg[0x02] = settings->vdew & 0xFF;
-+	msg->msg[0x03] = (settings->vdew >> 8) & 0x3F;
-+	msg->msg[0x04] = settings->clock  & 0xFF;
-+	msg->msg[0x05] = (settings->clock >> 8) & 0xFF;
-+	msg->msg[0x06] = (settings->clock >> 16) & 0xFF;
-+	msg->msg[0x07] = (settings->clock >> 24) & 0xFF;
-+	msg->msg[0x08] = settings->hfp & 0xFF;
-+	msg->msg[0x09] = (settings->hfp >> 8) & 0x3F;
-+	msg->msg[0x0A] = settings->hsw & 0xFF;
-+	msg->msg[0x0B] = (settings->hsw >> 8) & 0x3F;
-+	msg->msg[0x0C] = settings->hbp & 0xFF;
-+	msg->msg[0x0D] = (settings->hbp >> 8) & 0x3F;
-+	msg->msg[0x0E] = settings->vfp & 0xFF;
-+	msg->msg[0x0F] = (settings->vfp >> 8) & 0x3F;
-+	msg->msg[0x10] = settings->vsw & 0xFF;
-+	msg->msg[0x11] = (settings->vsw >> 8) & 0x3F;
-+	msg->msg[0x12] = settings->vbp & 0xFF;
-+	msg->msg[0x13] = (settings->vbp >> 8) & 0x3F;
-+	msg->msg[0x14] = (settings->prog << 2) |
-+			 (settings->vpol << 1) |
-+			  settings->hpol;
-+
-+	msg->msg[0x15] = settings->v_aspect;
-+	msg->msg[0x16] = settings->h_aspect & 0xFF;
-+	msg->msg[0x17] = settings->h_aspect >> 8;
-+	msg->msg[0x18] = settings->pix_rep;
-+	msg->msg[0x19] = settings->vic;
-+	msg->msg[0x1A] = settings->colorspace;
-+	msg->msg[0x1B] = 1;
-+
-+	msg->len = 0x1C;
-+	msg->action = HOST_SET_VIDEO_INFO;
-+}
-+
-+static void it6162_mipi_set_video_timing(struct it6162 *it6162,
-+					 struct it6162_video_settings *mode)
-+{
-+	struct it6162_infoblock_msg msg;
-+
-+	it6162_pack_video_setting(it6162, mode, &msg);
-+	guard(mutex)(&it6162->lock);
-+	regmap_bulk_write(it6162->regmap, OFFSET_DATA_BUFFER, &msg.msg,
-+			  msg.len);
-+	it6162_infoblock_trigger(it6162, msg.action);
-+}
-+
-+static int
-+it6162_hdcp_read_information(struct it6162 *it6162, u8 *status, u8 *bksv)
-+{
-+	u8 buf[DATA_BUFFER_DEPTH];
-+	int ret;
-+
-+	guard(mutex)(&it6162->lock);
-+	ret = it6162_infoblock_request_data(it6162, HOST_SET_HDCP_R, 0x00,
-+					    buf);
-+	if (ret < 0)
-+		return ret;
-+
-+	memcpy(status, buf, 2);
-+	memcpy(bksv, buf + 2, 5);
-+	return 0;
-+}
-+
-+static int it6162_hdcp_read_list(struct it6162 *it6162,
-+				 u8 *ksv_list,
-+				 int dev_count)
-+{
-+	u8 buf[DATA_BUFFER_DEPTH];
-+	int i, j, ret;
-+
-+	if (!ksv_list || dev_count <= 0)
-+		return -EINVAL;
-+
-+	guard(mutex)(&it6162->lock);
-+	for (i = 0; i < (dev_count / 6 + 1); i++) {
-+		ret = it6162_infoblock_request_data(it6162, HOST_SET_HDCP_R,
-+						    i + 1, buf);
-+		if (ret < 0)
-+			return ret;
-+
-+		for (j = 0; j < 30; j += 5) {
-+			if ((i * 6 + j / 5) >= dev_count)
-+				break;
-+
-+			memcpy(&ksv_list[(i * 6 + j / 5) * 5], &buf[j], 5);
-+		}
-+	}
-+	return dev_count;
-+}
-+
-+static void it6162_update_hdcp14(struct it6162 *it6162)
-+{
-+	struct drm_device *drm = it6162->drm;
-+	int dev_count;
-+	u8 bksv[5];
-+	u8 bstatus[2];
-+	u8 ksvlist[5 * 30];
-+	int ret;
-+
-+	ret = it6162_hdcp_read_information(it6162, bstatus, bksv);
-+	if (ret < 0) {
-+		drm_err(drm, "fail to read Bstatus");
-+		return;
-+	}
-+
-+	dev_count = DRM_HDCP_NUM_DOWNSTREAM(bstatus[0]);
-+	if (dev_count == 0)
-+		return;
-+
-+	if (DRM_HDCP_MAX_DEVICE_EXCEEDED(bstatus[0]) ||
-+	    DRM_HDCP_MAX_CASCADE_EXCEEDED(bstatus[1])) {
-+		drm_err(drm, "HDCP1.4 Max Topology Limit Exceeded");
-+		return;
-+	}
-+
-+	dev_count = dev_count > 30 ? 30 : dev_count;
-+	ret = it6162_hdcp_read_list(it6162, ksvlist, dev_count);
-+	if (ret < 0) {
-+		drm_err(drm, "fail to read KSV list");
-+		return;
-+	}
-+}
-+
-+static void it6162_update_hdcp23(struct it6162 *it6162)
-+{
-+	struct drm_device *drm = it6162->drm;
-+	int dev_count;
-+	u8 rxid[5];
-+	u8 rxinfo[2];
-+	u8 rxid_list[5 * 30];
-+	int ret;
-+
-+	ret = it6162_hdcp_read_information(it6162, rxinfo, rxid);
-+	if (ret < 0) {
-+		drm_err(drm, "fail to read Rxinfo");
-+		return;
-+	}
-+
-+	dev_count = (HDCP_2_2_DEV_COUNT_HI(rxinfo[0]) << 4 |
-+		     HDCP_2_2_DEV_COUNT_LO(rxinfo[1]));
-+	if (dev_count == 0)
-+		return;
-+
-+	if (HDCP_2_2_MAX_CASCADE_EXCEEDED(rxinfo[1]) ||
-+	    HDCP_2_2_MAX_DEVS_EXCEEDED(rxinfo[1])) {
-+		drm_err(drm, "HDCP2.3 Topology Max Size Exceeded");
-+		return;
-+	}
-+
-+	dev_count = dev_count > 30 ? 30 : dev_count;
-+	ret = it6162_hdcp_read_list(it6162, rxid_list, dev_count);
-+	if (ret < 0) {
-+		drm_err(drm, "fail to read RxID list");
-+		return;
-+	}
-+}
-+
-+static void it6162_update_hdcp(struct it6162 *it6162, u8 version)
-+{
-+	if (version == HDCP_23)
-+		it6162_update_hdcp23(it6162);
-+	else
-+		it6162_update_hdcp14(it6162);
-+}
-+
-+static void it6162_hdcp_queue_prop_update(struct it6162 *it6162, u64 value)
-+{
-+	guard(mutex)(&it6162->lock);
-+
-+	if (!it6162->connector)
-+		return;
-+
-+	it6162->hdcp_prop_value = value;
-+	it6162->hdcp_prop_gen = it6162->hdcp_gen;
-+
-+	if (it6162->hdcp_prop_connector)
-+		return;
-+
-+	it6162->hdcp_prop_connector = it6162->connector;
-+	drm_connector_get(it6162->hdcp_prop_connector);
-+	queue_work(system_wq, &it6162->hdcp_prop_work);
-+}
-+
-+static void it6162_hdcp_prop_work(struct work_struct *work)
-+{
-+	struct it6162 *it6162 = container_of(work, struct it6162,
-+					     hdcp_prop_work);
-+	struct drm_connector *connector;
-+	struct drm_modeset_lock *connection_mutex;
-+
-+	scoped_guard(mutex, &it6162->lock) {
-+		connector = it6162->hdcp_prop_connector;
-+		it6162->hdcp_prop_connector = NULL;
-+	}
-+
-+	if (!connector)
-+		return;
-+
-+	connection_mutex = &connector->dev->mode_config.connection_mutex;
-+	drm_modeset_lock(connection_mutex, NULL);
-+
-+	scoped_guard(mutex, &it6162->lock) {
-+		if (it6162->hdcp_prop_gen == it6162->hdcp_gen &&
-+		    it6162->connector == connector &&
-+		    connector->state->content_protection !=
-+		    DRM_MODE_CONTENT_PROTECTION_UNDESIRED)
-+			drm_hdcp_update_content_protection(connector,
-+							   it6162->hdcp_prop_value);
-+	}
-+
-+	drm_modeset_unlock(connection_mutex);
-+	drm_connector_put(connector);
-+}
-+
-+static void it6162_hdcp_handler(struct it6162 *it6162)
-+{
-+	struct regmap *regmap = it6162->regmap;
-+	unsigned int tx_status, sink_cap;
-+	enum hdcp_state hdcp_sts;
-+	struct it6162_hdcp_cfg *hdcp_cfg = &it6162->hdcp_cfg;
-+	u8 hdcp_ver;
-+	u64 cp_status = DRM_MODE_CONTENT_PROTECTION_DESIRED;
-+
-+	if (hdcp_cfg->hdcp_version == HDCP_DISABLE || !it6162->en_hdcp)
-+		return;
-+
-+	if (it6162->hdcp_version != HDCP_DISABLE) {
-+		if (regmap_read(regmap, OFFSET_TX_STATUS, &tx_status) < 0 ||
-+		    regmap_read(regmap, OFFSET_SINK_CAP, &sink_cap) < 0)
-+			return;
-+
-+		if (!GET_TX_VIDEO_STATUS(tx_status)) {
-+			drm_dbg(it6162->drm, "video not stable, skip hdcp check");
-+			return;
-+		}
-+
-+		hdcp_sts = GET_TX_HDCP_STATUS(tx_status);
-+		hdcp_ver = GET_SINK_CAP_HDCP_VER(sink_cap);
-+		if (it6162->hdcp_sts != hdcp_sts ||
-+		    it6162->hdcp_sts == HDCP_STATE_IDLE) {
-+			it6162->hdcp_sts = hdcp_sts;
-+			switch (hdcp_sts) {
-+			case HDCP_STATE_AUTH_DONE:
-+				it6162_update_hdcp(it6162, hdcp_ver);
-+				cp_status = DRM_MODE_CONTENT_PROTECTION_ENABLED;
-+				break;
-+			case HDCP_STATE_AUTH_FAIL:
-+				if (hdcp_ver == HDCP_23)
-+					it6162_tx_hdcp_setup(it6162, HDCP_14,
-+							     true);
-+				else
-+					it6162_tx_hdcp_disable(it6162);
-+
-+				break;
-+			default:
-+				it6162_tx_hdcp_setup(it6162,
-+						     it6162->hdcp_version,
-+						     true);
-+				break;
-+			}
-+			it6162_hdcp_queue_prop_update(it6162, cp_status);
-+		}
-+	}
-+}
-+
-+static void it6162_interrupt_handler(struct it6162 *it6162)
-+{
-+	unsigned int int_status, tx_status;
-+	enum drm_connector_status connector_status;
-+	struct device *dev = it6162->dev;
-+	struct regmap *regmap = it6162->regmap;
-+	int err;
-+
-+	err = regmap_read(regmap, OFFSET_EVENT_CHG, &int_status);
-+	if (err < 0) {
-+		dev_err(dev, "read failed rx reg[0x%x] err: %d",
-+			OFFSET_EVENT_CHG, err);
-+		return;
-+	}
-+
-+	regmap_write(it6162->regmap, OFFSET_EVENT_CHG, 0xFF);
-+
-+	if (!!GET_BUFFER_STATUS(int_status)) {
-+		regmap_write(it6162->regmap, OFFSET_DRIVER_DATA, int_status);
-+		it6162->data_buf_sts = GET_BUFFER_STATUS(int_status);
-+		wake_up(&it6162->data_buf_wait);
-+	}
-+
-+	if (!(int_status & EVENT_CHG))
-+		return;
-+
-+	err = regmap_read(regmap, OFFSET_TX_STATUS, &tx_status);
-+	if (err < 0) {
-+		dev_err(dev, "read failed rx reg[0x%x] err: %d",
-+			OFFSET_TX_STATUS, err);
-+		return;
-+	}
-+
-+	connector_status = GET_TX_HPD_STATUS(tx_status) ?
-+			   connector_status_connected :
-+			   connector_status_disconnected;
-+
-+	if (it6162->connector_status != connector_status) {
-+		it6162->connector_status = connector_status;
-+		drm_bridge_hpd_notify(&it6162->bridge,
-+				      it6162->connector_status);
-+	}
-+
-+	if (it6162->en_hdcp && GET_TX_VIDEO_STATUS(tx_status) &&
-+	    connector_status == connector_status_connected)
-+		queue_delayed_work(system_wq, &it6162->hdcp_work,
-+				   msecs_to_jiffies(2000));
-+}
-+
-+static int it6162_wait_ready_event(struct it6162 *it6162)
-+{
-+	unsigned int val;
-+	int ret;
-+	struct device *dev = it6162->dev;
-+	struct regmap *regmap = it6162->regmap;
-+
-+	ret = regmap_read(regmap, OFFSET_EVENT_CHG, &val);
-+	if (ret < 0) {
-+		dev_err(dev, "read failed rx reg[0x%x] err: %d",
-+			OFFSET_EVENT_CHG, ret);
-+		return ret;
-+	}
-+
-+	return val & EVENT_READY;
-+}
-+
-+static bool it6162_wait_mcu_ready(struct it6162 *it6162)
-+{
-+	int ret, val;
-+
-+	ret = readx_poll_timeout(it6162_wait_ready_event, it6162, val,
-+				 val == EVENT_READY, 100 * 1000, 1500 * 1000);
-+	if (ret) {
-+		dev_err(it6162->dev, "timeout waiting for MCU ready");
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+static void it6162_reset_init(struct it6162 *it6162)
-+{
-+	struct it6162_mipi_cfg *cfg = &it6162->mipi_cfg;
-+	u8 cfg_val = 0;
-+
-+	cfg_val = FIELD_PREP(MIPI_CLOCK_MODE_MASK, cfg->continuous_clk) |
-+		  FIELD_PREP(MIPI_LANE_SWAP_MASK, cfg->lane_swap) |
-+		  FIELD_PREP(MIPI_PN_SWAP_MASK, cfg->pn_swap) |
-+		  FIELD_PREP(MIPI_LANE_NUM_MASK, cfg->lane_num - 1);
-+
-+	guard(mutex)(&it6162->lock);
-+	regmap_write(it6162->regmap, OFFSET_MIPI_CONFIG_L, cfg_val);
-+	regmap_write(it6162->regmap, OFFSET_MIPI_CONFIG_H, cfg->mode);
-+	regmap_write(it6162->regmap, OFFSET_TX_CONFIG, 0x00);
-+	regmap_write(it6162->regmap, OFFSET_TX_SETTING, 0x00);
-+	it6162_infoblock_trigger(it6162, B_CONFIG_CHG | B_SET_CHG);
-+}
-+
-+static void it6162_hw_reset(struct it6162 *it6162)
-+{
-+	usleep_range(10000, 20000);
-+	gpiod_set_value_cansleep(it6162->gpiod_reset, 1);
-+	usleep_range(1000, 2000);
-+	gpiod_set_value_cansleep(it6162->gpiod_reset, 0);
-+	usleep_range(10000, 20000);
-+}
-+
-+static int it6162_regulator_disable(struct it6162 *it6162,
-+				    struct regulator *supply, const char *name)
-+{
-+	int err;
-+
-+	err = regulator_disable(supply);
-+	if (err)
-+		dev_err(it6162->dev, "failed to disable %s: %d", name, err);
-+
-+	return err;
-+}
-+
-+static int it6162_platform_set_power(struct it6162 *it6162)
-+{
-+	int err;
-+
-+	err = regulator_enable(it6162->ivdd);
-+	if (err)
-+		return err;
-+
-+	usleep_range(1000, 2000);
-+
-+	err = regulator_enable(it6162->pwr1833);
-+	if (err)
-+		goto err_disable_ivdd;
-+
-+	err = regulator_enable(it6162->ovdd);
-+	if (err)
-+		goto err_disable_pwr1833;
-+
-+	it6162_hw_reset(it6162);
-+
-+	return 0;
-+
-+err_disable_pwr1833:
-+	it6162_regulator_disable(it6162, it6162->pwr1833, "ovdd1833");
-+	usleep_range(1000, 2000);
-+err_disable_ivdd:
-+	it6162_regulator_disable(it6162, it6162->ivdd, "ivdd");
-+	return err;
-+}
-+
-+static int it6162_platform_clear_power(struct it6162 *it6162)
-+{
-+	int err, ret;
-+
-+	ret = it6162_regulator_disable(it6162, it6162->ovdd, "ovdd");
-+
-+	err = it6162_regulator_disable(it6162, it6162->pwr1833, "ovdd1833");
-+	ret = ret ?: err;
-+
-+	usleep_range(1000, 2000);
-+
-+	err = it6162_regulator_disable(it6162, it6162->ivdd, "ivdd");
-+
-+	return ret ?: err;
-+}
-+
-+static void it6162_power_off_action(void *data)
-+{
-+	it6162_platform_clear_power(data);
-+}
-+
-+static int it6162_detect_devices(struct it6162 *it6162)
-+{
-+	struct device *dev = it6162->dev;
-+	const struct it6162_chip_info *chip_info;
-+	u32 chip_id, version;
-+	u8 buf[6];
-+	int ret = -ENODEV;
-+
-+	chip_info = i2c_get_match_data(it6162->it6162_i2c);
-+	if (!chip_info)
-+		return -ENODEV;
-+
-+	if (it6162_platform_set_power(it6162) < 0)
-+		return -ENODEV;
-+
-+	/* Firmware must finish booting before register access is valid */
-+	if (!it6162_wait_mcu_ready(it6162))
-+		goto err_power_off;
-+
-+	ret = regmap_bulk_read(it6162->regmap, OFFSET_CHIP_ID_H, &buf[0], 6);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to read chip id: %d", ret);
-+		goto err_power_off;
-+	}
-+
-+	chip_id = (buf[0] << 16) | (buf[1] << 8) | (buf[2]);
-+	version = (buf[3] << 16) | (buf[4] << 8) | (buf[5]);
-+	if (chip_id != chip_info->chip_id || version < chip_info->version) {
-+		dev_err(dev, "chip mismatch: id=0x%06x ver=0x%06x",
-+			chip_id, version);
-+		ret = -ENODEV;
-+		goto err_power_off;
-+	}
-+
-+	return devm_add_action_or_reset(dev, it6162_power_off_action, it6162);
-+
-+err_power_off:
-+	it6162_platform_clear_power(it6162);
-+	return ret;
-+}
-+
-+static int it6162_hw_start(struct it6162 *it6162)
-+{
-+	it6162_hw_reset(it6162);
-+
-+	if (!it6162_wait_mcu_ready(it6162))
-+		return -ENODEV;
-+
-+	it6162->connector_status = connector_status_disconnected;
-+	it6162_reset_init(it6162);
-+	enable_irq(it6162->it6162_i2c->irq);
-+	it6162->hw_ready = true;
-+	return 0;
-+}
-+
-+static void it6162_config_default(struct it6162 *it6162)
-+{
-+	struct it6162_mipi_cfg *mipi_cfg = &it6162->mipi_cfg;
-+	struct it6162_hdcp_cfg *hdcp_cfg = &it6162->hdcp_cfg;
-+
-+	mipi_cfg->lane_num = 4;
-+	mipi_cfg->pn_swap = false;
-+	mipi_cfg->lane_swap = false;
-+	mipi_cfg->en_port[0] = false;
-+	mipi_cfg->en_port[1] = false;
-+	mipi_cfg->continuous_clk = true;
-+	mipi_cfg->mode = SYNC_EVENT;
-+	mipi_cfg->format = MIPI_DSI_FMT_RGB888;
-+	mipi_cfg->mode_flags = MIPI_DSI_MODE_VIDEO;
-+
-+	it6162->en_hdcp = false;
-+	hdcp_cfg->hdcp_version = HDCP_AUTO;
-+	hdcp_cfg->hdcp_encryption = true;
-+	hdcp_cfg->stream_ID = 0;
-+
-+	it6162->connector_status = connector_status_disconnected;
-+}
-+
-+static enum drm_connector_status it6162_detect(struct it6162 *it6162)
-+{
-+	struct regmap *regmap = it6162->regmap;
-+	unsigned int tx_status;
-+
-+	if (regmap_read(regmap, OFFSET_TX_STATUS, &tx_status) < 0)
-+		return connector_status_unknown;
-+
-+	return GET_TX_HPD_STATUS(tx_status) ? connector_status_connected :
-+					      connector_status_disconnected;
-+}
-+
-+static int it6162_get_edid_block(void *data, u8 *buf, unsigned int block,
-+				 size_t len)
-+{
-+	struct it6162 *it6162 = data;
-+	u8 chunk[DATA_BUFFER_DEPTH];
-+	unsigned int i, cnt;
-+	int ret;
-+	u8 config;
-+
-+	if (len > EDID_LENGTH)
-+		return -EINVAL;
-+
-+	guard(mutex)(&it6162->lock);
-+	for (i = 0, cnt = 0; i < len; i += DATA_BUFFER_DEPTH, cnt++) {
-+		config = (block << 2) | (cnt);
-+		ret = it6162_infoblock_request_data(it6162, HOST_SET_EDID_R,
-+						    config, chunk);
-+		if (ret < 0)
-+			return -EIO;
-+
-+		memcpy(buf + i, chunk, min_t(size_t, len - i, DATA_BUFFER_DEPTH));
-+	}
-+
-+	return 0;
-+}
-+
-+static int it6162_audio_update_hw_params(struct it6162 *it6162,
-+					 struct hdmi_codec_daifmt *fmt,
-+					 struct hdmi_codec_params *hparms)
-+{
-+	enum it6162_audio_select select;
-+	enum it6162_audio_sample_rate sample_rate;
-+	unsigned int sample_width;
-+	unsigned int val;
-+
-+	switch (hparms->sample_rate) {
-+	case 32000:
-+		sample_rate = SAMPLE_RATE_32K;
-+		break;
-+	case 44100:
-+		sample_rate = SAMPLE_RATE_44_1K;
-+		break;
-+	case 48000:
-+		sample_rate = SAMPLE_RATE_48K;
-+		break;
-+	case 88200:
-+		sample_rate = SAMPLE_RATE_88_2K;
-+		break;
-+	case 96000:
-+		sample_rate = SAMPLE_RATE_96K;
-+		break;
-+	case 176400:
-+		sample_rate = SAMPLE_RATE_176_4K;
-+		break;
-+	case 192000:
-+		sample_rate = SAMPLE_RATE_192K;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	switch (hparms->sample_width) {
-+	case 16:
-+		sample_width = WORD_LENGTH_16BIT;
-+		break;
-+	case 18:
-+		sample_width = WORD_LENGTH_18BIT;
-+		break;
-+	case 20:
-+		sample_width = WORD_LENGTH_20BIT;
-+		break;
-+	case 24:
-+		sample_width = WORD_LENGTH_24BIT;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	switch (fmt->fmt) {
-+	case HDMI_I2S:
-+		select = I2S;
-+		break;
-+	case HDMI_SPDIF:
-+		select = SPDIF;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	guard(mutex)(&it6162->lock);
-+	val = FIELD_PREP(MASK_AUDIO_CHANNEL_NUM, hparms->channels) |
-+	      FIELD_PREP(MASK_AUDIO_SELECT, select) |
-+	      FIELD_PREP(MASK_AUDIO_TYPE, LPCM);
-+	regmap_write(it6162->regmap, OFFSET_AUDIO_CTRL0, val);
-+	regmap_write(it6162->regmap, OFFSET_AUDIO_CTRL1, sample_rate);
-+
-+	val = FIELD_PREP(MASK_I2S_BUS_MODE, 0) |
-+	      FIELD_PREP(MASK_I2S_WORD_LEN, sample_width) |
-+	      FIELD_PREP(MASK_I2S_VALID, 1);
-+	regmap_write(it6162->regmap, OFFSET_AUDIO_CTRL2, val);
-+	return it6162_infoblock_trigger(it6162, HOST_SET_AUDIO_INFO);
-+}
-+
-+static void it6162_disable_audio(struct it6162 *it6162)
-+{
-+	guard(mutex)(&it6162->lock);
-+	regmap_write(it6162->regmap, OFFSET_AUDIO_CTRL0, 0x00);
-+	regmap_write(it6162->regmap, OFFSET_AUDIO_CTRL1, 0x00);
-+	regmap_write(it6162->regmap, OFFSET_AUDIO_CTRL2, 0x00);
-+	it6162_infoblock_trigger(it6162, HOST_SET_AUDIO_INFO);
-+}
-+
-+static irqreturn_t it6162_int_threaded_handler(int unused, void *data)
-+{
-+	struct it6162 *it6162 = data;
-+
-+	it6162_interrupt_handler(it6162);
-+	return IRQ_HANDLED;
-+}
-+
-+static void it6162_hdcp_work(struct work_struct *work)
-+{
-+	struct it6162 *it6162 = container_of(work, struct it6162,
-+					     hdcp_work.work);
-+
-+	it6162_hdcp_handler(it6162);
-+}
-+
-+static void it6162_cancel_work_action(void *data)
-+{
-+	struct it6162 *it6162 = data;
-+	struct drm_connector *connector = NULL;
-+
-+	cancel_delayed_work_sync(&it6162->hdcp_work);
-+
-+	if (cancel_work_sync(&it6162->hdcp_prop_work)) {
-+		scoped_guard(mutex, &it6162->lock) {
-+			connector = it6162->hdcp_prop_connector;
-+			it6162->hdcp_prop_connector = NULL;
-+		}
-+	}
-+
-+	if (connector)
-+		drm_connector_put(connector);
-+}
-+
-+static struct mipi_dsi_host *
-+it6162_of_get_dsi_host_by_port(struct it6162 *it6162, int port)
-+{
-+	struct device_node *of = it6162->dev->of_node;
-+	struct device_node *host_node;
-+	struct device_node *endpoint;
-+	struct mipi_dsi_host *dsi_host;
-+
-+	endpoint = of_graph_get_endpoint_by_regs(of, port, -1);
-+	if (!endpoint)
-+		return ERR_PTR(-ENODEV);
-+
-+	host_node = of_graph_get_remote_port_parent(endpoint);
-+	of_node_put(endpoint);
-+	if (!host_node)
-+		return ERR_PTR(-ENODEV);
-+
-+	dsi_host = of_find_mipi_dsi_host_by_node(host_node);
-+	of_node_put(host_node);
-+	if (!dsi_host)
-+		return ERR_PTR(-EPROBE_DEFER);
-+
-+	return dsi_host;
-+}
-+
-+static int it6162_of_get_dsi_host(struct it6162 *it6162)
-+{
-+	struct mipi_dsi_host *dsi_host;
-+	int port, host_count = 0;
-+
-+	for (port = 0; port < 2; port++) {
-+		dsi_host = it6162_of_get_dsi_host_by_port(it6162, port);
-+		if (IS_ERR(dsi_host)) {
-+			if (PTR_ERR(dsi_host) == -EPROBE_DEFER)
-+				return -EPROBE_DEFER;
-+			continue;
-+		}
-+
-+		host_count++;
-+	}
-+
-+	return host_count == 0 ? -ENODEV : 0;
-+}
-+
-+static int it6162_load_mipi_pars_from_port(struct it6162 *it6162, int port)
-+{
-+	struct device_node *of = it6162->dev->of_node;
-+	struct device_node *endpoint;
-+	struct it6162_mipi_cfg *mipicfg = &it6162->mipi_cfg;
-+	u32 data_lanes[4] = {1};
-+	u32 lane_polarities[5] = {0};
-+	int dsi_lanes;
-+
-+	endpoint = of_graph_get_endpoint_by_regs(of, port, -1);
-+	if (!endpoint)
-+		return 0;
-+
-+	dsi_lanes = drm_of_get_data_lanes_count(endpoint, 1, 4);
-+	if (dsi_lanes < 0) {
-+		of_node_put(endpoint);
-+		return dsi_lanes;
-+	}
-+
-+	mipicfg->lane_num = dsi_lanes;
-+
-+	of_property_read_u32_array(endpoint, "data-lanes", data_lanes,
-+				   dsi_lanes);
-+	/* only supports full reversal of all lanes, not arbitrary remapping */
-+	if (data_lanes[0] == 4)
-+		mipicfg->lane_swap  = true;
-+
-+	of_property_read_u32_array(endpoint, "lane-polarities",
-+				   lane_polarities, dsi_lanes + 1);
-+	/* applies Dp/Dn swap globally; mixing polarities across lanes is invalid */
-+	if (lane_polarities[0] != 0)
-+		mipicfg->pn_swap = true;
-+
-+	if (of_property_present(endpoint, "clock-noncontinuous")) {
-+		mipicfg->mode_flags |= MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+		mipicfg->continuous_clk = false;
-+	}
-+
-+	of_node_put(endpoint);
-+	return dsi_lanes;
-+}
-+
-+static int it6162_attach_dsi(struct it6162 *it6162)
-+{
-+	struct device *dev = it6162->dev;
-+	struct device_node *np = dev->of_node;
-+	const struct mipi_dsi_device_info info = {"it6162-mipi", 0, np};
-+	struct mipi_dsi_device *dsi;
-+	struct mipi_dsi_host *host;
-+	struct it6162_mipi_cfg *mipi_cfg = &it6162->mipi_cfg;
-+	int ret = 0;
-+
-+	it6162->dsi = NULL;
-+	for (int port = 0; port < 2; port++) {
-+		host = it6162_of_get_dsi_host_by_port(it6162, port);
-+		if (IS_ERR(host))
-+			continue;
-+
-+		mipi_cfg->en_port[port] = true;
-+
-+		dsi = devm_mipi_dsi_device_register_full(dev, host, &info);
-+		if (IS_ERR(dsi)) {
-+			dev_err(dev, "failed to create dsi device");
-+			return PTR_ERR(dsi);
-+		}
-+		/* uses a single DSI configuration for both ports in dual-link mode */
-+		if (!it6162->dsi) {
-+			ret = it6162_load_mipi_pars_from_port(it6162, port);
-+			if (ret <= 0)
-+				return ret;
-+			it6162->dsi = dsi;
-+		}
-+
-+		dsi->lanes = mipi_cfg->lane_num;
-+		dsi->format = mipi_cfg->format;
-+		dsi->mode_flags = mipi_cfg->mode_flags;
-+		ret = devm_mipi_dsi_attach(dev, dsi);
-+		if (ret) {
-+			dev_err(dev, "failed to attach dsi device %d", port);
-+			return ret;
-+		}
-+	}
-+
-+	return it6162_hw_start(it6162);
-+}
-+
-+static bool it6162_of_get_audio(struct it6162 *it6162)
-+{
-+	struct device_node *np = it6162->dev->of_node;
-+	struct device_node *audio_port;
-+
-+	audio_port = of_graph_get_port_by_id(np, 2);
-+	if (audio_port) {
-+		of_node_put(audio_port);
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+static int it6162_init_pdata(struct it6162 *it6162)
-+{
-+	struct device *dev = it6162->dev;
-+
-+	it6162->ivdd = devm_regulator_get(dev, "ivdd");
-+	if (IS_ERR(it6162->ivdd))
-+		return dev_err_probe(dev, PTR_ERR(it6162->ivdd),
-+				     "failed to get ivdd regulator");
-+
-+	it6162->pwr1833 = devm_regulator_get(dev, "ovdd1833");
-+	if (IS_ERR(it6162->pwr1833))
-+		return dev_err_probe(dev, PTR_ERR(it6162->pwr1833),
-+				     "failed to get ovdd1833 regulator");
-+
-+	it6162->ovdd = devm_regulator_get(dev, "ovdd");
-+	if (IS_ERR(it6162->ovdd))
-+		return dev_err_probe(dev, PTR_ERR(it6162->ovdd),
-+				     "failed to get ovdd regulator");
-+
-+	it6162->gpiod_reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(it6162->gpiod_reset))
-+		return dev_err_probe(dev, PTR_ERR(it6162->gpiod_reset),
-+				     "failed to get reset gpio\n");
-+
-+	return 0;
-+}
-+
-+static int it6162_bridge_attach(struct drm_bridge *bridge,
-+				struct drm_encoder *encoder,
-+				enum drm_bridge_attach_flags flags)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+	struct drm_device *drm = bridge->dev;
-+
-+	it6162->drm = drm;
-+	if (!drm_core_check_feature(drm, DRIVER_ATOMIC)) {
-+		drm_dbg(drm, "it6162 driver only copes with atomic updates");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	return 0;
-+}
-+
-+static enum drm_mode_status
-+it6162_bridge_mode_valid(struct drm_bridge *bridge,
-+			 const struct drm_display_info *info,
-+			 const struct drm_display_mode *mode)
-+{
-+	unsigned long long rate;
-+
-+	rate = drm_hdmi_compute_mode_clock(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444);
-+	if (rate == 0)
-+		return MODE_NOCLOCK;
-+
-+	return bridge->funcs->hdmi_tmds_char_rate_valid(bridge, mode, rate);
-+}
-+
-+static enum drm_connector_status
-+it6162_bridge_detect(struct drm_bridge *bridge,
-+		     struct drm_connector *connector)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return it6162->hw_ready ? it6162_detect(it6162) :
-+				connector_status_disconnected;
-+}
-+
-+static inline void
-+it6162_avi_to_video_setting(struct hdmi_avi_infoframe *avi_info,
-+			    struct it6162_video_settings *video)
-+{
-+	video->vic = avi_info->video_code;
-+
-+	switch (avi_info->picture_aspect) {
-+	case HDMI_PICTURE_ASPECT_4_3:
-+		video->h_aspect = 4;
-+		video->v_aspect = 3;
-+		break;
-+	case HDMI_PICTURE_ASPECT_16_9:
-+		video->h_aspect = 16;
-+		video->v_aspect = 9;
-+		break;
-+	case HDMI_PICTURE_ASPECT_64_27:
-+		video->h_aspect = 64;
-+		video->v_aspect = 27;
-+		break;
-+	case HDMI_PICTURE_ASPECT_256_135:
-+		video->h_aspect = 256;
-+		video->v_aspect = 135;
-+		break;
-+	default:
-+		video->h_aspect = 4;
-+		video->v_aspect = 3;
-+		break;
-+	}
-+
-+	video->pix_rep = avi_info->pixel_repeat + 1;
-+}
-+
-+static inline void
-+it6162_display_mode_to_settings(struct drm_display_mode *mode,
-+				struct it6162_video_settings *settings)
-+{
-+	settings->hpol = !!(mode->flags & DRM_MODE_FLAG_PHSYNC);
-+	settings->vpol = !!(mode->flags & DRM_MODE_FLAG_PVSYNC);
-+	settings->prog = !(mode->flags & DRM_MODE_FLAG_INTERLACE);
-+
-+	settings->clock = mode->clock;
-+	settings->hdew = mode->hdisplay;
-+	settings->hfp = mode->hsync_start - mode->hdisplay;
-+	settings->hsw = mode->hsync_end - mode->hsync_start;
-+	settings->hbp = mode->htotal - mode->hsync_end;
-+	settings->htotal = mode->htotal;
-+	settings->vdew = mode->vdisplay;
-+	settings->vfp = mode->vsync_start - mode->vdisplay;
-+	settings->vsw = mode->vsync_end - mode->vsync_start;
-+	settings->vbp = mode->vtotal - mode->vsync_end;
-+	settings->vtotal = mode->vtotal;
-+}
-+
-+static void it6162_bridge_atomic_enable(struct drm_bridge *bridge,
-+					struct drm_atomic_commit *state)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_connector_state *conn_state;
-+	struct drm_connector *connector;
-+	struct hdmi_avi_infoframe *avi;
-+	struct it6162_video_settings video_setting = {};
-+
-+	connector = drm_atomic_get_new_connector_for_encoder(state,
-+							     bridge->encoder);
-+	if (!connector)
-+		return;
-+
-+	conn_state = drm_atomic_get_new_connector_state(state, connector);
-+	if (!conn_state)
-+		return;
-+
-+	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	if (!crtc_state)
-+		return;
-+
-+	scoped_guard(mutex, &it6162->lock) {
-+		it6162->connector = connector;
-+		it6162->hdcp_gen++;
-+	}
-+
-+	it6162->content_protection = conn_state->content_protection;
-+
-+	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
-+	avi = &conn_state->hdmi.infoframes.avi.data.avi;
-+	video_setting.colorspace = avi->colorspace;
-+	it6162_avi_to_video_setting(avi, &video_setting);
-+	/*
-+	 * The firmware needs the HDMI output timing, i.e. the requested mode.
-+	 * The front porch widened by it6162_bridge_atomic_check() only
-+	 * applies to the MIPI input and lives in adjusted_mode.
-+	 */
-+	it6162_display_mode_to_settings(&crtc_state->mode, &video_setting);
-+
-+	it6162_mipi_set_video_timing(it6162, &video_setting);
-+	it6162_tx_enable(it6162);
-+	it6162_mipi_enable(it6162);
-+}
-+
-+static int it6162_bridge_atomic_check(struct drm_bridge *bridge,
-+				      struct drm_bridge_state *bridge_state,
-+				      struct drm_crtc_state *crtc_state,
-+				      struct drm_connector_state *conn_state)
-+{
-+	struct drm_display_mode *adj = &crtc_state->adjusted_mode;
-+	struct drm_display_mode *mode = &crtc_state->mode;
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+	u32 hfp, hsw, hbp;
-+	u32 clock;
-+	u32 hfp_check;
-+
-+	clock = mode->clock;
-+	hfp = mode->hsync_start - mode->hdisplay;
-+	hsw = mode->hsync_end - mode->hsync_start;
-+	hbp = mode->htotal - mode->hsync_end;
-+
-+	hfp_check = DIV_ROUND_UP(65 * clock, 1000000) + 4;
-+	if (hfp >= hfp_check)
-+		return 0;
-+
-+	if (hbp > hfp_check - hfp) {
-+		adj->hsync_start = adj->hdisplay + hfp_check;
-+		adj->hsync_end = adj->hsync_start + hsw;
-+		drm_dbg(it6162->drm, "adjusted hsync on MIPI bus: %u, %u",
-+			adj->hsync_start, adj->hsync_end);
-+	}
-+
-+	return 0;
-+}
-+
-+static void it6162_bridge_atomic_disable(struct drm_bridge *bridge,
-+					 struct drm_atomic_commit *state)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	scoped_guard(mutex, &it6162->lock) {
-+		it6162->connector = NULL;
-+		it6162->hdcp_gen++;
-+	}
-+
-+	it6162_tx_disable(it6162);
-+	it6162_mipi_disable(it6162);
-+}
-+
-+static const struct drm_edid *
-+it6162_bridge_read_edid(struct drm_bridge *bridge,
-+			struct drm_connector *connector)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return drm_edid_read_custom(connector, it6162_get_edid_block, it6162);
-+}
-+
-+static int it6162_bridge_hdmi_audio_prepare(struct drm_bridge *bridge,
-+					    struct drm_connector *connector,
-+					    struct hdmi_codec_daifmt *fmt,
-+					    struct hdmi_codec_params *params)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+	int ret;
-+
-+	ret = it6162_audio_update_hw_params(it6162, fmt, params);
-+	if (ret < 0)
-+		return ret;
-+
-+	return drm_atomic_helper_connector_hdmi_update_audio_infoframe(connector,
-+								       &params->cea);
-+}
-+
-+static void it6162_bridge_hdmi_audio_shutdown(struct drm_bridge *bridge,
-+					      struct drm_connector *connector)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
-+	it6162_disable_audio(it6162);
-+}
-+
-+static enum drm_mode_status
-+it6162_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
-+				 const struct drm_display_mode *mode,
-+				 unsigned long long tmds_rate)
-+{
-+	/*IT6162 hdmi supports HDMI2.0 600Mhz*/
-+	if (tmds_rate > 600000000)
-+		return MODE_CLOCK_HIGH;
-+
-+	return MODE_OK;
-+}
-+
-+static inline int
-+it6162_write_infoframe(struct it6162 *it6162, const u8 *buffer, size_t len)
-+{
-+	if (len > DATA_BUFFER_DEPTH)
-+		return -EINVAL;
-+
-+	guard(mutex)(&it6162->lock);
-+	regmap_bulk_write(it6162->regmap, OFFSET_DATA_BUFFER, buffer, len);
-+	regmap_write(it6162->regmap, OFFSET_DATA_TYPE_IDX, len);
-+	it6162_infoblock_trigger(it6162, HOST_SET_CEA_INFOFRAME);
-+
-+	return 0;
-+}
-+
-+static inline int it6162_clear_infoframe(struct it6162 *it6162, u8 type)
-+{
-+	guard(mutex)(&it6162->lock);
-+	regmap_write(it6162->regmap, OFFSET_DATA_TYPE_IDX, 3);
-+	regmap_write(it6162->regmap, OFFSET_DATA_BUFFER, type);
-+	regmap_write(it6162->regmap, OFFSET_DATA_BUFFER + 1, 0x00);
-+	regmap_write(it6162->regmap, OFFSET_DATA_BUFFER + 2, 0x00);
-+	it6162_infoblock_trigger(it6162, HOST_SET_CEA_INFOFRAME);
-+
-+	return 0;
-+}
-+
-+static int
-+it6162_bridge_hdmi_write_avi_infoframe(struct drm_bridge *bridge,
-+				       const u8 *buffer, size_t len)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return it6162_write_infoframe(it6162, buffer, len);
-+}
-+
-+static int
-+it6162_bridge_hdmi_clear_avi_infoframe(struct drm_bridge *bridge)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return it6162_clear_infoframe(it6162, HDMI_INFOFRAME_TYPE_AVI);
-+}
-+
-+static int
-+it6162_bridge_hdmi_write_audio_infoframe(struct drm_bridge *bridge,
-+					 const u8 *buffer, size_t len)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return it6162_write_infoframe(it6162, buffer, len);
-+}
-+
-+static int
-+it6162_bridge_hdmi_clear_audio_infoframe(struct drm_bridge *bridge)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return it6162_clear_infoframe(it6162, HDMI_INFOFRAME_TYPE_AUDIO);
-+}
-+
-+static int
-+it6162_bridge_hdmi_write_spd_infoframe(struct drm_bridge *bridge,
-+				       const u8 *buffer, size_t len)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return it6162_write_infoframe(it6162, buffer, len);
-+}
-+
-+static int
-+it6162_bridge_hdmi_clear_spd_infoframe(struct drm_bridge *bridge)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return it6162_clear_infoframe(it6162, HDMI_INFOFRAME_TYPE_SPD);
-+}
-+
-+static int
-+it6162_bridge_hdmi_write_hdmi_infoframe(struct drm_bridge *bridge,
-+					const u8 *buffer, size_t len)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return it6162_write_infoframe(it6162, buffer, len);
-+}
-+
-+static int
-+it6162_bridge_hdmi_clear_hdmi_infoframe(struct drm_bridge *bridge)
-+{
-+	struct it6162 *it6162 = bridge_to_it6162(bridge);
-+
-+	return it6162_clear_infoframe(it6162, HDMI_INFOFRAME_TYPE_VENDOR);
-+}
-+
-+static const struct drm_bridge_funcs it6162_bridge_funcs = {
-+	.attach = it6162_bridge_attach,
-+	.mode_valid = it6162_bridge_mode_valid,
-+	.detect = it6162_bridge_detect,
-+
-+	.atomic_enable = it6162_bridge_atomic_enable,
-+	.atomic_disable = it6162_bridge_atomic_disable,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-+	.atomic_check = it6162_bridge_atomic_check,
-+
-+	.edid_read = it6162_bridge_read_edid,
-+
-+	.hdmi_clear_hdmi_infoframe = it6162_bridge_hdmi_clear_hdmi_infoframe,
-+	.hdmi_write_hdmi_infoframe = it6162_bridge_hdmi_write_hdmi_infoframe,
-+	.hdmi_clear_avi_infoframe = it6162_bridge_hdmi_clear_avi_infoframe,
-+	.hdmi_write_avi_infoframe = it6162_bridge_hdmi_write_avi_infoframe,
-+	.hdmi_clear_spd_infoframe = it6162_bridge_hdmi_clear_spd_infoframe,
-+	.hdmi_write_spd_infoframe = it6162_bridge_hdmi_write_spd_infoframe,
-+	.hdmi_clear_audio_infoframe = it6162_bridge_hdmi_clear_audio_infoframe,
-+	.hdmi_write_audio_infoframe = it6162_bridge_hdmi_write_audio_infoframe,
-+
-+	.hdmi_tmds_char_rate_valid = it6162_hdmi_tmds_char_rate_valid,
-+	.hdmi_audio_prepare = it6162_bridge_hdmi_audio_prepare,
-+	.hdmi_audio_shutdown = it6162_bridge_hdmi_audio_shutdown,
-+};
-+
-+static int it6162_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct device_node *np = dev->of_node;
-+	struct it6162 *it6162;
-+	int ret;
-+
-+	it6162 = devm_drm_bridge_alloc(dev, struct it6162, bridge,
-+				       &it6162_bridge_funcs);
-+	if (IS_ERR(it6162))
-+		return PTR_ERR(it6162);
-+
-+	it6162->dev = dev;
-+
-+	ret = devm_mutex_init(dev, &it6162->lock);
-+	if (ret)
-+		return ret;
-+
-+	init_waitqueue_head(&it6162->data_buf_wait);
-+	INIT_DELAYED_WORK(&it6162->hdcp_work, it6162_hdcp_work);
-+	INIT_WORK(&it6162->hdcp_prop_work, it6162_hdcp_prop_work);
-+
-+	ret = it6162_of_get_dsi_host(it6162);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = it6162_i2c_regmap_init(client, it6162);
-+	if (ret != 0)
-+		return ret;
-+
-+	ret = it6162_init_pdata(it6162);
-+	if (ret)
-+		return ret;
-+
-+	it6162_config_default(it6162);
-+
-+	if (it6162_detect_devices(it6162) < 0)
-+		return -ENODEV;
-+
-+	if (!client->irq) {
-+		dev_err(dev, "Failed to get INTP IRQ");
-+		return -ENODEV;
-+	}
-+
-+	it6162->bridge.of_node = np;
-+	it6162->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
-+			     DRM_BRIDGE_OP_HDMI | DRM_BRIDGE_OP_MODES;
-+
-+	it6162->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
-+
-+	it6162->bridge.vendor = "ITE";
-+	it6162->bridge.product = "IT6162";
-+
-+	if (it6162_of_get_audio(it6162)) {
-+		it6162->bridge.ops |= DRM_BRIDGE_OP_HDMI_AUDIO;
-+		it6162->bridge.hdmi_audio_dev = dev;
-+		it6162->bridge.hdmi_audio_max_i2s_playback_channels = 8;
-+		it6162->bridge.hdmi_audio_dai_port = 2;
-+	}
-+
-+	/*
-+	 * devres releases in reverse order: the IRQ is freed and the HDCP
-+	 * works are cancelled before the bridge is removed, which destroys
-+	 * the HPD notification mutex, and before the supplies and the driver
-+	 * mutex are released.
-+	 */
-+	ret = devm_drm_bridge_add(dev, &it6162->bridge);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(dev, it6162_cancel_work_action, it6162);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_request_threaded_irq(&client->dev, client->irq, NULL,
-+					it6162_int_threaded_handler,
-+					IRQF_TRIGGER_LOW | IRQF_ONESHOT |
-+					IRQF_NO_AUTOEN,
-+					"it6162-intp", it6162);
-+	if (ret)
-+		return ret;
-+
-+	return it6162_attach_dsi(it6162);
-+}
-+
-+static const struct it6162_chip_info it6162_chip_info = {
-+	.chip_id = 0x616200,
-+	.version = 0x006500,
-+};
-+
-+static const struct of_device_id it6162_dt_ids[] = {
-+	{ .compatible = "ite,it6162", .data = &it6162_chip_info},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, it6162_dt_ids);
-+
-+static const struct i2c_device_id it6162_i2c_ids[] = {
-+	{ "it6162", (kernel_ulong_t)&it6162_chip_info },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(i2c, it6162_i2c_ids);
-+
-+static struct i2c_driver it6162_driver = {
-+	.driver = {
-+		.name = "it6162",
-+		.of_match_table = it6162_dt_ids,
-+	},
-+	.probe = it6162_probe,
-+	.id_table = it6162_i2c_ids,
-+};
-+module_i2c_driver(it6162_driver);
-+
-+MODULE_AUTHOR("Pet Weng <pet.weng@ite.com.tw>");
-+MODULE_AUTHOR("Hermes Wu <Hermes.Wu@ite.com.tw>");
-+MODULE_DESCRIPTION("it6162 MIPI to HDMI driver");
-+MODULE_LICENSE("GPL");
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+index d17475c3e66c..0c4abf60d1d2 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+@@ -2161,13 +2161,14 @@ pcie4: pcie@1c00000 {
+ 			      <0x0 0x30000000 0x0 0xf1d>,
+ 			      <0x0 0x30000f20 0x0 0xa8>,
+ 			      <0x0 0x30001000 0x0 0x1000>,
+-			      <0x0 0x30100000 0x0 0x100000>,
++			      <0x4 0x00000000 0x0 0x10000000>,
+ 			      <0x0 0x01c03000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x30200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x30300000 0x0 0x30300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x4 0x10000000 0x0 0x10000000>,
++				 <0x03000000 0x4 0x20000000 0x4 0x20000000 0x0 0x20000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
+@@ -2273,13 +2274,14 @@ pcie3b: pcie@1c08000 {
+ 			      <0x0 0x32000000 0x0 0xf1d>,
+ 			      <0x0 0x32000f20 0x0 0xa8>,
+ 			      <0x0 0x32001000 0x0 0x1000>,
+-			      <0x0 0x32100000 0x0 0x100000>,
++			      <0x4 0x40000000 0x0 0x10000000>,
+ 			      <0x0 0x01c0b000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x32200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x32300000 0x0 0x32300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x4 0x50000000 0x0 0x10000000>,
++				 <0x03000000 0x4 0x60000000 0x4 0x60000000 0x0 0x20000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
+@@ -2383,13 +2385,14 @@ pcie3a: pcie@1c10000 {
+ 			      <0x0 0x34000000 0x0 0xf1d>,
+ 			      <0x0 0x34000f20 0x0 0xa8>,
+ 			      <0x0 0x34001000 0x0 0x1000>,
+-			      <0x0 0x34100000 0x0 0x100000>,
++			      <0x4 0x80000000 0x0 0x10000000>,
+ 			      <0x0 0x01c13000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x34200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x34300000 0x0 0x34300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x4 0x90000000 0x0 0x10000000>,
++				 <0x03000000 0x4 0xa0000000 0x4 0xa0000000 0x0 0x20000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
+@@ -2496,13 +2499,14 @@ pcie2b: pcie@1c18000 {
+ 			      <0x0 0x38000000 0x0 0xf1d>,
+ 			      <0x0 0x38000f20 0x0 0xa8>,
+ 			      <0x0 0x38001000 0x0 0x1000>,
+-			      <0x0 0x38100000 0x0 0x100000>,
++			      <0x4 0xc0000000 0x0 0x10000000>,
+ 			      <0x0 0x01c1b000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x38200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x38300000 0x0 0x38300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x4 0xd0000000 0x0 0x10000000>,
++				 <0x03000000 0x4 0xe0000000 0x4 0xe0000000 0x0 0x20000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
+@@ -2606,13 +2610,14 @@ pcie2a: pcie@1c20000 {
+ 			      <0x0 0x3c000000 0x0 0xf1d>,
+ 			      <0x0 0x3c000f20 0x0 0xa8>,
+ 			      <0x0 0x3c001000 0x0 0x1000>,
+-			      <0x0 0x3c100000 0x0 0x100000>,
++			      <0x5 0x00000000 0x0 0x10000000>,
+ 			      <0x0 0x01c23000 0x0 0x1000>;
+ 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
+ 			#address-cells = <3>;
+ 			#size-cells = <2>;
+ 			ranges = <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
+-				 <0x02000000 0x0 0x3c300000 0x0 0x3c300000 0x0 0x1d00000>;
++				 <0x02000000 0x0 0x40000000 0x5 0x10000000 0x0 0x10000000>,
++				 <0x03000000 0x5 0x20000000 0x5 0x20000000 0x0 0xe0000000>;
+ 			bus-range = <0x00 0xff>;
+ 
+ 			dma-coherent;
 
 -- 
-2.34.1
-
+2.56.0
 
