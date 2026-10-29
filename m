@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55093606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 09:28:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3B6606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 09:30:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=QARfb+7T
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Z783y0Ur
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CDB910E7C1;
-	Thu, 29 Oct 2026 09:28:53 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013060.outbound.protection.outlook.com [40.107.159.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15C9410E7C1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 09:28:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DDF411211F;
+	Thu, 29 Oct 2026 09:30:23 +0000 (UTC)
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010035.outbound.protection.outlook.com [52.101.69.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EF9B11211F
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 09:30:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TZr03pmr5yLMVtW8/fwL8zSlNreu49zHS3S8d+4t548DLeGsmsSfJrjCrQNWVwJEX2o+9Eczy8urDj17I5K5RwRSP8h/u/nkpu7QbRs/rsPYKHWL2wKHmCGVCxnpv0Kk3gV/tR2Y8c9I50G2P/5EdtiEushg1hNSSpI2FUYtzcSc2cTJdgvXrJy/fBXstG55/k6dLxBFKpUZYlFqBkjKNQDOrtXtTXep1eFtp5r5sB60FTrhTPuy5tQV0doMRDz30LKrmWG8AyNfwtgvCkzT5U9hiCj+4TxUvTmqvGI8cqd0pIdNI+55Htgrb4VTYk/hoWn9DETg18tTMk2wzTXN+Q==
+ b=VQl3pX0/TbQN9Gs3sEtQjzZ0SWg4AuBkofSE2S4zG0LGlF9htQBuwqRJhSwm6WZdcYDrkXbPkPraIZCuRXNEH+EWJFV/h47L8dtQRXNneLBj9z/cpfMvjJuR5oesH6hazBfqmxG7E6iWsMEVIzAQpUC+G9foUJ31NRRDqwBTdO122bClhoQqvWNpqeDuZJN9qsAGltROgeIOprK69697z1ITeZ3ZLW0nKeXDj734xrbR30hpHhZUc85cincKb9zUm32Sw0qTYYDQbu4G3FNdBle9lVGDtaKvh2tP5EttHuN+YG0yOesp/WmAyaLg2X4PgRZQu0ipNJdRtrGaQsQQSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=huDiPeXuLYclu6b5diw/uWzYjoD1pbCq8RTMXuT7a/g=;
- b=QvsjX7yspaNZb4tbGGerUbfQ7rtVZ+rSP8WxrMpltnLbhsaI+Fh7tySsmQqWSwiP1HTh5Rcu2tuuBJ5vG4OSe5+4zO7sO0BlkXc7FeSnXVx4hkbCR03We2GP/1shQE2qyS1oL8V7Xrb3VHlKPZ4suuNzjrrO/OGzEJTnmD5FmOTVuN/MMubH7ACin1WfwkO670AcaS4tiIxRej8qNREC+IoWPicc0nvVG/mpgoPqysBDFd3zwfYNL5o1DRQhtq0gn7IzqVeMZ/2qfhCHdyYhCzWBqpA692mIOfBs6WPkfIoIMGrNV5E+p9O8GwbihZPXOumXx0O2koFLJYNXc5BAbA==
+ bh=oAvIMQ8H/D3oxxmnOvQd9GYwY3/xM503w36OU+LezXA=;
+ b=hdvtmzrO7NXBg3y081zJac9qjFUJk3XDHmEqGsrsA+mMi2El5yANCdxaZRgDrM5x+MKRDZ2WDGGCnyags366m/WTl0Pg26U5AW6oeF/KKwxRPmETP6AvSuiaPCDZec7DyEz72B283i82UGNte/yfEcJt62fzIvix6yLDMtk8d7DsjcsryMtEQ6Cx/kQT13Hsh2otatVTnIRl5YgYf2+KMtXEbOwPiEwJeT9THRIipUW2gst4TtEjPtNyjG5EPBVBQGKKFPSFSA2dI4shMwIuGj2Ll+79C2P9fpGtHzc3aTz2E8SuQKKGuZ0l0cR+/SRZ9BJD1xw18M+WKY0tQHqoig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=huDiPeXuLYclu6b5diw/uWzYjoD1pbCq8RTMXuT7a/g=;
- b=QARfb+7ToBDWeSxJlz86VzD34sO4BpQB7af67x8uo8POOQ2/k3KzUeaNgIVzK8HfW9BG5uGaPafntRiNXUzKBBPigXHbAxTVeuI1Hnro0WZGLxwCMPeWgnHEeapau20sBIzJhQnXXGHKJeeZtQMK7AkB2FK2x5J7TyYhixnF9/gU3sRomuAh8afU9dUyMwOxWy2WPXZYXq1PAumxcFSpBqZP+p75ZGvHyPVMbn9edxSVj0YVNS5DhZpwOBdIf/64bBpT/z0iCeJNzIYkrT00V+grFNh/wcId4NnBKIhSAhDFdDmjTovzclWMjyp9oKSp+6EOJdR8jv3uC/xTtfrHyQ==
+ bh=oAvIMQ8H/D3oxxmnOvQd9GYwY3/xM503w36OU+LezXA=;
+ b=Z783y0UrnF2K0CI0ARbLfzWlZYunYsVVbIaru2Vehn8Ikef7WPhLeqhfE9x5cT0Fvv+Bpm89pgcJj3ulM4Vokq54VQi1lIta/S/fOigiI9HarPEL2OXzdyF/5M9khZyMsxLtGnNblFyuaaWCNaPgbm9I1QyxaXWVl05JhsXId9nH5opmQFraCfBlH9XV7UYFgVmcXb1UsCFGyLhq+1khel/bfFYMF+G8EMcMaCDVqmDRfbLPh3SXwsS85tMCo0HJljD8WXAIX6YBSplpft1KDp+isqN1Jk29DxfZs3dM5jNZhu4VOOGO/CzphRY6QfZjNGDujY/wtUd74hEY6O1y3Q==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by BR0PR04MB935173.eurprd04.prod.outlook.com
- (2603:10a6:2c8:4d::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 09:28:43 +0000
+ (2603:10a6:150:32b::19) by GV4PR04MB11851.eurprd04.prod.outlook.com
+ (2603:10a6:150:2d7::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
+ 2026 09:30:12 +0000
 Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
  ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
  ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
- 09:28:43 +0000
-Date: Thu, 29 Oct 2026 11:28:37 +0200
+ 09:30:11 +0000
+Date: Thu, 29 Oct 2026 11:30:06 +0200
 From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 To: Liu Ying <victor.liu@nxp.com>
 Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
@@ -55,75 +55,74 @@ Cc: Philipp Zabel <p.zabel@pengutronix.de>,
  devicetree@vger.kernel.org, 
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>
-Subject: Re: [PATCH v7 05/15] drm/imx: dc: Flag CRTC status in
- GERNERALPURPOSE register
-Message-ID: <auH5iQyk6HBDvxiP@vm>
+ Alexander Stein <alexander.stein@ew.tq-group.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v7 06/15] drm/imx: dc-crtc: Disable at boot
+Message-ID: <auH8X0tITcU72fk5@vm>
 References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
- <20261026-imx8-dc-prefetch-v7-5-a0b50cc4fc65@nxp.com>
+ <20261026-imx8-dc-prefetch-v7-6-a0b50cc4fc65@nxp.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026-imx8-dc-prefetch-v7-5-a0b50cc4fc65@nxp.com>
-X-ClientProxiedBy: AS4P190CA0021.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d0::6) To GV2PR04MB12318.eurprd04.prod.outlook.com
+In-Reply-To: <20261026-imx8-dc-prefetch-v7-6-a0b50cc4fc65@nxp.com>
+X-ClientProxiedBy: AM0PR10CA0001.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:208:17c::11) To GV2PR04MB12318.eurprd04.prod.outlook.com
  (2603:10a6:150:32b::19)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|BR0PR04MB935173:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7b450fa-6d4c-4849-addb-08df359f062b
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|GV4PR04MB11851:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63a4d7ce-809e-45dd-4fe6-08df359f3ae6
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|7416014|19092799006|366016|4143699003|11063799006|56012099006|261009223327099003|261009220027099003|261026140227099003|261009223027099003|261009221227099003|261009221727099003|261026121527099003|261028144727099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: iDUAHBrIiQPMgW4+Z2+IFF1L4QAE6aaqxHHJy+ePkFGkkwud1wRF+nT0hreHSV+/77YILqxdnz08gq9ycPOuiQxJwbEueqp11F5zPan9Wn9b9ylZGzE3Xcmia7ntpaNAzDSiQmlA21L6ecMBkHqvwOb59hz1hMzgS0ciE6NUgYbZn+vttO2cUA5ub587TeQrcVUBLAhAfymzPsT1flGuc/uEBorCjWdXGUh4ULm6vhBkMq1EP5duL/IzNlpM3avJq0bmZJGUlo8c+O7QTsMOD4cLEconC3q4e5XCNEOjJjDV+CpnyVa+28C8MMCbKhFpJ6NhGlA+Dhdal5Oo9Zi8kZi4JZoFojoNiewh1zdoJFM1vE3Iep4tzSZjNnlnabBJxPEEtZKVXkcl1ZYVn8ye0DM+DSBW9wXRKX9F7ZrtBljwOg89AxxBevbTazYxaWN4sLkMO5ukKWb0gfdG7WmqwBzsIfTiWJ3l8EqIqaTBrmYwApGt2PL6Mj4tGQb6G5H6idf6UBtTTvEYaqQWzpI+Ocd0Z6uEbkZidAfmkStnOZIoI/sf90Ax4Cfqw4DwrijI0ESseT0wC1AWQ12Pg1d9X2BkGSKwq5yTwHoHBJEjGpuReyIa3foNUsXy6Jf+7VuNGGErQLQsz9GEgtXzFT2M7WYFVCgevVnrl63aGfqT0wg=
+ ARA:13230040|23010399003|19092799006|7416014|366016|376014|1800799024|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|10067099003|56012099006|261026140227099003|261028144727099003|18002099003|22082099003|261026121527099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: TZllY0jy5kfBXDzE1ViebP+lCNS/IqiHsw2nHFmjvYGsVoqmFtxUbgE6ohBh0ztoGIFHcNKaiI1rKoyfvH2x6j+BtXcIdPXA+fopAA5rfXOxoFzbWmrbp/n5TpHVvzm8fDO2SyVyvh9vDu59eVIBPshywJlBNmm94DHk+oxX/H0zOoVZNWY4My9ytuvHeL9Pp+MhmWMYNeRNdiELfuBI6KpKYmr4D8ulYEVZ2UBOHMVAHoaQS/A9aebuBKuPJouRIb2JOA6Rn2yeHdUKD/Pxz7R/FchVpUjUBbSJqP+LZQzMdbXBH0ANo01NU532NuS+2XpkKe3oS2lXn+rivgzrHWYEikvMxH0qtCxG7ZH521igwWHvtKhSSsFql2+1TFeQobiOB2J0p36HCyn6v3PQGuAucbQPrQT8QfgmOrjmwlaQDAOgSfdxMXu7mf5m0TnGsxAmoz75bX2u4Q6HqpkEvab5oaU4FgGx9BN3WJwdstrowFFitlH70eVAlgJXeQQE8wU7bW2gQdyshbKTtrllrNsobfJruSWND7w6vBmCSDggeyvz6eZLHFNMIclWB3LNlUyVfs25mIWfJK17Z6whOdqdhymT1XTWIzmZaKJHYAvWJ7P6NUX9gX44CEwEpMf38ViTGDgB2elezNM++MTig0tXu8zF+M0kYDH5DOVACb8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(19092799006)(366016)(4143699003)(11063799006)(56012099006)(261009223327099003)(261009220027099003)(261026140227099003)(261009223027099003)(261009221227099003)(261009221727099003)(261026121527099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(23010399003)(19092799006)(7416014)(366016)(376014)(1800799024)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(10067099003)(56012099006)(261026140227099003)(261028144727099003)(18002099003)(22082099003)(261026121527099003)(4143699003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?tP44GNQdrBWCNMuE0zoyOw9Zl+Qj2ZDzhH1jUSfFtc6Im41Y5b7jHb5LsgQE?=
- =?us-ascii?Q?8hhRwpVJ+m8KBMaPint23+Yu5cE7fyzpdwQXyXVYbFTqtKZKKcep+6D/3ikr?=
- =?us-ascii?Q?DbdK7I8vEaLuIkxKNpZ4rL9o5kDJ3buMif0F0+WWboOkNdTSUD4pyNOLfqSp?=
- =?us-ascii?Q?9FyOmVnLlE/26AGfICgx0M6CfhFwG/hc0Vyk99tqWYNctcCQr9m/livmGn9p?=
- =?us-ascii?Q?grDFPp53A81UZKe6795OOj6kOIN2xGe2UMqY5FbVcyH0FaQ8Nl171mib/A5O?=
- =?us-ascii?Q?JDsMQ76Vp8lo0OCI1oBSsFWapySzMJZBuuHwHErLI1CrgD/P1gNnw2L5QlAf?=
- =?us-ascii?Q?CRNBZuUjCPdqM/wnUwCztD8ObiXpJQBT08V5gunranaBaYIBIOgNAciNa1/p?=
- =?us-ascii?Q?1vq2jLaWcbmOriBbcqgyYw7xOGEdFX1peU07cNoZKR5VM/wJRDMZNUThh3bc?=
- =?us-ascii?Q?vpFcBg/ov5aPjSHSFjqlV/46YMWVIqKtKH8piTjOlOp45nDd71hPf+L2QzUN?=
- =?us-ascii?Q?9Dh2hNV5jjyoMC9FEVC5VW63/RACjmo4NByuyEd5s7K+oLExPNHUP+86Shx9?=
- =?us-ascii?Q?HGCQ3EKHBreyDhJpjVkgT9MWxb8BZH9W6TP4JO/DrskQWiFM0KJlHCx6Lcqm?=
- =?us-ascii?Q?IAmZ3Rad8E6PfWPKQzywsuUjtheSTYJCO+yy35zsJGVNXz1AISP7qlLgEs/v?=
- =?us-ascii?Q?7+nyIQ1mbXP524BqopoCijd6pENaGjZ0j2332TUMBTyLqcbHqP6SrfkfuW+5?=
- =?us-ascii?Q?vM9awO381i87GfNusjzZGrR68z1LcvxF2c4kB257oxZEZHpcoIryu/gWR/uQ?=
- =?us-ascii?Q?I9hG2Uw0/hBrF/YM7Hi+kqop7QNzuSwzNwsMG87I9jztw067FbdXsXo9d3Tb?=
- =?us-ascii?Q?2N7Ryj3tDHU2LQY8kIJ1rmUhRuZ9CawJYfeHImCjSk7364GdTZHKwy244eis?=
- =?us-ascii?Q?t4Rh9AelBCecBYQ9bqKYbTp5JRGlibXF406xLaATNgY6xwLKAx/DaO31aooj?=
- =?us-ascii?Q?0o9Cma8kC4bq8X8cbe2ehoT6/5wWfHUutIxVtggDO+/07f5kLtPAogFEbWGI?=
- =?us-ascii?Q?Cqhm/bUNW/6xchSWk5kzqOjqly2nekb7nF/8MAXudA9qgg71CSZylHRAA2or?=
- =?us-ascii?Q?8uweavAeFIySrymkUy39u5jCbsycpkDrTkQf42jsYEYmvR5wClXDQgvlnFcg?=
- =?us-ascii?Q?qPp13G0ICuz5SfHuGgLU5xpzyhlKUrIgdvEAuDlyI73jTV8cVlxYbkqDZ7OI?=
- =?us-ascii?Q?vrcO7fupHaem9MIQpXGPUk9V4hHgSJf8a5QMTKXj80q1lVDg0+fD3myCOMbx?=
- =?us-ascii?Q?HFGcbB4P+Z/YG54wtdnskiINo49scZulDMAk8Q2eKhbYGrqfRHDyiEytLJzb?=
- =?us-ascii?Q?TTWjcIsv4a20sbplFsP6TnMjor4AAONItNT0jsk3EVxV5yU7BAVp9ysE6D6e?=
- =?us-ascii?Q?Pcopx/R3xyJGwY22vehiuqkxmEDGp4Hy6wzBU7URx1LRdm4Jrsx89L/Lwx81?=
- =?us-ascii?Q?XGWn3oWKgWAHz1VzbG8PYLIUz3RFGi9XZ/Dga0SIsuXSxp6DX/s8oB4bsF/h?=
- =?us-ascii?Q?MW/PUwWqfZ2G7Tl4A9Sx0o3wXaPLN8evu0mN0GePbjyswBPcMtde1EIM51Lm?=
- =?us-ascii?Q?X56C1NisoPL5vGIWd4slpJwwBDq+qyP3xPclgsC6CtTfIFJMdbO8N2ph8lp/?=
- =?us-ascii?Q?NYVC/x5lKlXvtzaBavSDKfxXYwunwb8yNKTu9+Hfnll6Jrzt6034jN5ekUz2?=
- =?us-ascii?Q?QtePQ36ZR3SjjD5R5roLDUKO8K8KinA=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?41FTJzW38LH8zqTaW2ydOVSGVhhvGzi6cOZkNtkfgDbNyOdr41Y3BOlYcVrf?=
+ =?us-ascii?Q?brrMHWt8GKZtufsc//JgR/nkl7Oe7haaOvklIbOXeu+jqxn1gZjCw9ZsUZWZ?=
+ =?us-ascii?Q?+jyhNmQG/Ga1ZHpVVgPcVGIFoB0nOvznzCls7U8PD1gKuKr3AT3x1wn3B1zX?=
+ =?us-ascii?Q?UWcHAzhTbZdFvhyjluIa7AcmtPXlp8LkoaNCeEU7aRbhdxDRNOzDx+Eaa1PV?=
+ =?us-ascii?Q?zn2E0XgI2FG+EqoA2Mi4cyPlqcb4z5mKV6xD928FdMn6ZCrUCUoYctTHEGtG?=
+ =?us-ascii?Q?kRD8WbIn9kuQt2j8Yx6pHIrsIwiQdb0bulx95TQfMhv4+eH1iaCEYPMCKqWi?=
+ =?us-ascii?Q?e93J1+k8TH7kVQq6OT120SBDS53I+a3nPieei1WwheI2HkrcdJPs1KlFFMyY?=
+ =?us-ascii?Q?thtmqYaEbTnKTYa9vSdIJBFonMURbPwVfZ1TQyDt1iHheqUM7sHSxqvtkyaX?=
+ =?us-ascii?Q?09F4vdT5Hj0lIAqlUFwCtynVfBK9K2GSw7U1NjwnlYyXIRcN/fBOhn5JmHpf?=
+ =?us-ascii?Q?tpYbZas/gHw/ZGS0cV3RfD5wKrnHhILOrq9vYeHErZgptWZY98LalCrsLwS2?=
+ =?us-ascii?Q?ZoVbIIcJInxhzCRb5ytGdx5XGkxj2Wb9HIsXKC+ml89vMfw7RrK4B05aQYxo?=
+ =?us-ascii?Q?qifj47Fls6gUmFEUNFlGEIKm7XWrU0ajAGLRKoCF1LKAjbiQolevdweSzvvq?=
+ =?us-ascii?Q?7gE2aEM63BJAGZfDlx2IoRShUGXL77BX59WTMScqNqTRkRXVA0V7wyF8WhkF?=
+ =?us-ascii?Q?18+oV/6HRJix6+lhJQDobQ+/blrIVnPTW0eN+v5eDv1x0gjn79Lx9Ip5mfTF?=
+ =?us-ascii?Q?13vfeS9qjp6ck79sa1VcMBNYc3B9kncf7yM5NKL1OfYoo0QD1qpJxZvl9mZE?=
+ =?us-ascii?Q?GdVP/COvo7w+1gW2FFl2hWmQtV1jF406M7M6nkA+zqLLPI5dMqKYuZXC/Y/m?=
+ =?us-ascii?Q?SBtIUJJ2PW+i8E4zTE6A2vHPp9zubEM3azhJiVqNUbUSgu63lJlU22dU2S9n?=
+ =?us-ascii?Q?G2WDbd7O3+4xud7GXKyTQwx+vlFCWEFwh+HabEw3zi7unEzo1ddAgATfLsvC?=
+ =?us-ascii?Q?AC67nWwjVQxJjoVh7xyH0GYRseoxvmXZHgCzokH5NdcvLA/wOY+Qz+pNi2U5?=
+ =?us-ascii?Q?BVi5WuYaKJSM4WTuK9HjZ1ZQjWAs1SiyD2FsGvoiY2iypOEZAQt4MIrseSV6?=
+ =?us-ascii?Q?kEwLyhCs+eBFETxH6oPYeWkpMnkgSsZ1x8un+s9QdP+EQuqVO8YZ66IxkXNr?=
+ =?us-ascii?Q?aU31VmWxvgC7ziRHRUVOP5NEqAgUZO8wPvo1ddAKcEoqA4tHFy3L3v5jIoRX?=
+ =?us-ascii?Q?5wbkSfTlkiqPz9pKTdcGlQYvi01ZcFRf38ySiTK5lyiMSaRv9/vdbks+Rz7V?=
+ =?us-ascii?Q?Pu+PTrm5mhdwJkthzRcNDtuFJ2ffOPJ0zZ/8/SEgOBX8EQhVQvtNC6DvcJsA?=
+ =?us-ascii?Q?e5m7XG+29mBQl3zLynnvPUruEa2mT5dzV6ckpsiw8HIIgm+zYDE8QFYiKMVg?=
+ =?us-ascii?Q?g3lK98v6MQcfgIDwIzOsC69anXwvZ+BQm8ww7sd0NAATwhrla/XhfvvHZbJG?=
+ =?us-ascii?Q?NhE7ZrIEyavMsAhANgkoNMiylIsd88fVfKUcHPJZyqXzVVav2i5eUUeGO+5Q?=
+ =?us-ascii?Q?IUGi708rIyo7gDLJ7pH/Td4jwYJ2yfaFL4q+17C0ZLCCiX7fTtGnMXs3o1Nr?=
+ =?us-ascii?Q?mb3Gh4Gemzm/tAcdJ12LC3wuegIRDiMlUBL0sozYGasbnh73ozwGXgUcmhjq?=
+ =?us-ascii?Q?3ojP4Du/61Xa+yjiAj1JdjY2qRLZMxQ=3D?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7b450fa-6d4c-4849-addb-08df359f062b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63a4d7ce-809e-45dd-4fe6-08df359f3ae6
 X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:28:43.0873 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:30:11.5678 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e97aJSrxizXPxQ6mXnFihKhJaslmnuVlxz+nIMXn79DWKS3CWLu5oNsF9YFchEXcN2lzNi3S3TWMd7N/zxZeQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB935173
+X-MS-Exchange-CrossTenant-UserPrincipalName: nF8NbcA72qg6gyBLPspmGhI5Kw8tDYzWJv6qP+0aOugr/Nv0IN9jGpC3D9ZYUkTReGwLI3ievdHc/11bRiHLHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11851
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,138 +141,116 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Oct 26, 2026 at 06:05:10PM +0800, Liu Ying wrote:
-> Map Display Controller's register GERNERALPURPOSE at offset 0x100 and
-> create an MMIO regmap to access the register.  Create helpers
-> dc_drv_flag_crtc_{enable,disable}() with the 2 LSB bits in the register
-> to flag the CRTC enablement/disablement status.  Also, create a helper
-> dc_drv_crtc_was_enabled() so that the CRTC driver can use it to check
-> if the CRTC was enabled by a previous boot or not.  This is a preparation
-> for an upcoming patch to disable display controller at boot if the CRTC
-> was enabled by the driver during a previous boot instead of a bootloader.
+On Mon, Oct 26, 2026 at 06:05:11PM +0800, Liu Ying wrote:
+> CRTC(s) could still be running after the DRM device is unplugged by
+> calling drm_dev_unplug(), because the CRTC disablement logic is
+> protected and bypassed by the drm_dev_enter()/drm_dev_exit() pair.
+> Hence, Pixel Engine's AXI clock use count(managed by Pixel Engine
+> driver's runtime PM) and pixel clock use count could be inbalanced
+> after removing and re-installing the driver module.  To fix this,
+> add a helper dc_crtc_disable_at_boot() and call it to properly
+> disable all CRTCs before advertising DRM device to user-space by
+> calling drm_dev_register().
 > 
+> Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 > Signed-off-by: Liu Ying <victor.liu@nxp.com>
 > --
 > v7:
-> - Newly introduced in v7 as a preparation for fixing Sashiko AI bot's
->   comment on an upcoming patch.  (Sashiko AI bot)
-> ---
->  drivers/gpu/drm/imx/dc/dc-drv.c | 76 +++++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/imx/dc/dc-drv.h |  7 ++++
->  2 files changed, 83 insertions(+)
+> - Check CRTC status to ensure that clocks were enabled by a previous boot
+>   before disabling them in dc_crtc_disable_at_boot().  (Sashiko AI bot)
+> - Modify debug message in dc_crtc_disable_at_boot().
 > 
-> diff --git a/drivers/gpu/drm/imx/dc/dc-drv.c b/drivers/gpu/drm/imx/dc/dc-drv.c
-> index 13795a2ad735..ac1321adf1c8 100644
-> --- a/drivers/gpu/drm/imx/dc/dc-drv.c
-> +++ b/drivers/gpu/drm/imx/dc/dc-drv.c
-> @@ -13,6 +13,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/pm.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
+> v6:
+> - Rebase onto the latest drm-misc-next and resolve conflicts.
+> 
+> v3:
+> - Collect Frank's R-b tag.
+> ---
+>  drivers/gpu/drm/imx/dc/dc-crtc.c | 67 ++++++++++++++++++++++++++++++++++------
+>  drivers/gpu/drm/imx/dc/dc-drv.c  |  5 +++
+>  drivers/gpu/drm/imx/dc/dc-drv.h  |  3 ++
+>  3 files changed, 65 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc-crtc.c
+> index 0d64186a9901..c7dbe5f500b4 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-crtc.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
+> @@ -227,6 +227,7 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  	struct drm_crtc_state *new_crtc_state =
+>  				drm_atomic_get_new_crtc_state(state, crtc);
+>  	struct drm_display_mode *adj = &new_crtc_state->adjusted_mode;
+> +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+>  	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+>  	enum dc_link_id cf_link;
+>  	int idx, ret;
+> @@ -287,29 +288,37 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
 >  
->  #include <drm/clients/drm_client_setup.h>
->  #include <drm/drm_atomic_helper.h>
-> @@ -28,9 +29,21 @@
->  #include "dc-drv.h"
->  #include "dc-pe.h"
+>  	DC_CRTC_CHECK_FRAMEGEN_FIFO(dc_crtc->fg);
 >  
-> +/* General Purpose register offset used to flag driver usage. */
-> +#define GENERALPURPOSE		0x100
-> +#define  CRTC_ENABLED(x)	BIT(x)
+> +	dc_drv_set_crtc_enable(dc_drm, drm_crtc_index(crtc));
 > +
->  struct dc_priv {
->  	struct drm_device *drm;
->  	struct clk *clk_cfg;
-> +	struct regmap *gp_regmap;
-> +};
-> +
-> +static const struct regmap_config dc_gp_regmap_config = {
-> +	.reg_bits = 32,
-> +	.reg_stride = 4,
-> +	.val_bits = 32,
-> +	.max_register = 0,
->  };
+>  	drm_dev_exit(idx);
 >  
->  DEFINE_DRM_GEM_DMA_FOPS(dc_drm_driver_fops);
-> @@ -156,6 +169,8 @@ static int dc_probe(struct platform_device *pdev)
->  {
->  	struct component_match *match = NULL;
->  	struct dc_priv *priv;
-> +	struct resource *r;
-> +	void __iomem *base;
->  	int ret;
->  
->  	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> @@ -167,6 +182,28 @@ static int dc_probe(struct platform_device *pdev)
->  		return dev_err_probe(&pdev->dev, PTR_ERR(priv->clk_cfg),
->  				     "failed to get cfg clock\n");
->  
-> +	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!r)
-> +		return -EINVAL;
-> +
-> +	if (!devm_request_mem_region(&pdev->dev, r->start + GENERALPURPOSE, 4,
-> +				     dev_name(&pdev->dev))) {
-> +		dev_err(&pdev->dev, "failed to request memory region\n");
-> +		return -EBUSY;
-
-Use 'return dev_err_probe()'.
-
-> +	}
-> +
-> +	base = devm_ioremap(&pdev->dev, r->start + GENERALPURPOSE, 4);
-> +	if (!base) {
-> +		dev_err(&pdev->dev, "failed to do ioremap\n");
-> +		return -ENOMEM;
-
-Use 'return dev_err_probe()'.
-
-> +	}
-> +
-> +	priv->gp_regmap = devm_regmap_init_mmio(&pdev->dev, base,
-> +						&dc_gp_regmap_config);
-> +	if (IS_ERR(priv->gp_regmap))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(priv->gp_regmap),
-> +				     "failed to init General Purpose regmap\n");
-> +
->  	dev_set_drvdata(&pdev->dev, priv);
->  
->  	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
-> @@ -196,6 +233,45 @@ static void dc_remove(struct platform_device *pdev)
->  	component_master_del(&pdev->dev, &dc_drm_ops);
+>  out:
+>  	dc_crtc_queue_state_event(new_crtc_state);
 >  }
 >  
-> +void dc_drv_set_crtc_enable(struct dc_drm_device *dc_drm,
-> +			    unsigned int crtc_index)
-> +{
-> +	struct dc_priv *priv = dev_get_drvdata(dc_drm->base.dev);
-> +
-> +	if (WARN_ON(crtc_index > 1))
-> +		return;
-> +
-> +	regmap_set_bits(priv->gp_regmap, 0, CRTC_ENABLED(crtc_index));
+> -static void
+> -dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> +static inline void __dc_crtc_disable_fg(struct drm_crtc *crtc)
+>  {
+> -	struct drm_crtc_state *new_crtc_state =
+> -				drm_atomic_get_new_crtc_state(state, crtc);
+> -	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+>  	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+> -	int idx;
+> -
+> -	if (!drm_dev_enter(crtc->dev, &idx))
+> -		goto out;
+>  
+>  	enable_irq(dc_crtc->irq_dec_seqcomplete);
+>  	dc_fg_disable(dc_crtc->fg);
+>  	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
+>  	disable_irq(dc_crtc->irq_dec_seqcomplete);
 > +}
-> +
-> +void dc_drv_set_crtc_disable(struct dc_drm_device *dc_drm,
-> +			     unsigned int crtc_index)
+>  
+> +static void
+> +dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
 > +{
-> +	struct dc_priv *priv = dev_get_drvdata(dc_drm->base.dev);
+> +	struct drm_crtc_state *new_crtc_state =
+> +				drm_atomic_get_new_crtc_state(state, crtc);
+> +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+> +	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+> +	int idx;
 > +
-> +	if (WARN_ON(crtc_index > 1))
-> +		return;
+> +	if (!drm_dev_enter(crtc->dev, &idx))
+> +		goto out;
 > +
-> +	regmap_clear_bits(priv->gp_regmap, 0, CRTC_ENABLED(crtc_index));
-> +}
-> +
-> +bool dc_drv_crtc_was_enabled(struct dc_drm_device *dc_drm,
+> +	__dc_crtc_disable_fg(crtc);
+>  	dc_fg_disable_clock(dc_crtc->fg);
+>  
+>  	/* request pixel engine power-off as plane is off too */
+> @@ -318,8 +327,9 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  	/* request display engine power-off when CRTC is disabled */
+>  	pm_runtime_put(dc_crtc->de->dev);
+>  
+> -	drm_dev_exit(idx);
+> +	dc_drv_set_crtc_disable(dc_drm, drm_crtc_index(crtc));
+>  
+> +	drm_dev_exit(idx);
+>  out:
+>  	drm_crtc_vblank_off(crtc);
+>  
+> @@ -331,6 +341,43 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+>  	spin_unlock_irq(&crtc->dev->event_lock);
+>  }
+>  
+> +void dc_crtc_disable_at_boot(struct drm_crtc *crtc)
 
-I believe it would be better to rename this one to 'dc_drv_crtc_is_enabled'.
-After all, you're checking whether the crtc is enabled *now*. Reading those
-bits in GENERALPURPOSE show the current status, not a past one.
-
-With the above addressed:
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Shouldn't this function return int in order to propagate a potential error to
+dc_drm_bind()? For example, if pm_runtime_resume_and_get() fails, or frame
+index isn't moving, wouldn't it be better for dc_drm_bind() to fail as well?
 
 -- 
 Thanks,
