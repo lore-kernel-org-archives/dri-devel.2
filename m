@@ -2,41 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B9760A3808
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 20:45:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DD6606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 20:58:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyeS2DS8
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iQr6ehpA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A40B11255B;
-	Thu, 29 Oct 2026 20:45:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF05A10E1D8
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 20:45:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B98C36062D;
- Thu, 29 Oct 2026 20:45:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55CB21F01824;
- Thu, 29 Oct 2026 20:45:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793306711;
- bh=FhjLcQNDwiBN3Cg1HsolvBYVqfiaG1XpGSEGEsxi/MI=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=RyeS2DS8GlN/1OPwoyd5dOat5tfC6JchGkWWryHCtk+lgo0tJNO2oavAfZM2vwkjF
- wEvWEIuGK6VGIWbmKdwFLSWzAVRkcwxvUcTE+QcPoXSptQVPXtLVhOhpGyOStB+4ke
- ztAvY8sS69PzTlYvbREZS6dRIf01tQFQPB3hvFGRQBTavAko6uxNsdqPkbHPSBNHMj
- z5Yid8DRiqs8tOQZe2Z64skftDE+5COZmqEsDCGicIvQPNygfgfZPMo9q1G51ceWXh
- otT+Q2kIVuk3jRu1iLW6o0KV/PufnHpd6zcResB9NY1h1ljmJA/NJEb+kmOvcH2rEH
- /qmp74L810MOQ==
-Message-ID: <sashiko-outbox-189938@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 12/16] drm/msm/a8xx: devcoredump state capture support
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029201730.151754-13-robin.clark@oss.qualcomm.com>
-References: <20261029201730.151754-1-robin.clark@oss.qualcomm.com>
- <20261029201730.151754-13-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 20:45:10 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2026D10E5CB;
+	Thu, 29 Oct 2026 20:58:40 +0000 (UTC)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EDD710E4B4
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 20:58:33 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-53c4b82919fso35626301cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:58:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793307512; x=1793912312; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=vJc9UrlLUv+S95tnCqwn/5femZD84UlV/9ya3KCITd4=;
+ b=iQr6ehpACZiuvluXKQpdj4v93jo8PnYtMKgnCaeU8ehX8u7EV0vsw5Ht+vrXp9siMY
+ nbxV0JLGeuiiYpfwo9Q2ywkzsWB/deIqlYZdWVk3s8QuF2ZGwHNtzmHdWJ66SNdFrRga
+ iNpGR1MZdR9nbpch3u61c5WsNtEE84CMGv5MBD39oJNJ9EJGYomEnIiHDi9j+SeXnDB4
+ 7sc4/EiYZ4TjnXlk1u9xDKhuQvlH3ew4IBQFMbtiQk49pkuj0k4H5hz74JB/GtzzGFR/
+ PhKilal2Oo+z83nR8E/aAw231Cf23ATbRIHHbxdJPOfZa2qVLpqseKNXFHogiPuAiP9Q
+ 9pKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793307512; x=1793912312;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=vJc9UrlLUv+S95tnCqwn/5femZD84UlV/9ya3KCITd4=;
+ b=kkkRRpQQLb5wQyLYnoVGOmPfFQKhSEofr5tSeH0NAjipB/uLl0e+cTAGHcRdGLrqxJ
+ y6LYy/ai6KmcBMpFRf3hYUuH227pusMRkKekViUXF38F13dTtT3qdGzdF7pxQigcyveh
+ fRmPuUqGly6OnFFtK4MtJJu7lHQrLnE297AfRW50ixrZ9YftPIqBG0gI5Y/Kg+OQpYOQ
+ /AsuDNEItjHtmtWqsvwCYY6qy5Yn2Q/1gg3Y7JS4r9CDKAIHGrUWQI3wJkCCL723+jFH
+ +y54SmjWUame2nD80gyXjRpSYnwclfSgb9QDQQT6XAEsiNc2tnLbl0lkh0SV4AnqAE65
+ UobA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwthnvOC9X3s7bzg1nqef17+1TasOrpYZxe14T8+YvLW9c8x+kBZ5lTC4qJVcmMZDHp3LAunyI3IU4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIES3FJ4LZHFunPwFFQS3lOhLMBYN7s96UXSDv/SYryhhggchLZ
+ L+F2kh4AHNMFZ2qzqDKuiQbg4bwSGp3tn6YYdinKcOyhdXwSFlbRV5QL
+X-Gm-Gg: AYBFou0vCh5moiyHvzAGDDHQQSX8ReJHkONaSR4c9lLmI5uR0KhkJVA/aItZfpuy93v
+ RXT/dQjtVoisSYDmdP8yTXjon8aMUvUgiMZUNX+EmZuWHq9B8Nyr4nyXhoE8Konb47kkqL1iVu3
+ KtS18DkwFCFchjhOjggJdct0uZDJtvcPHWFW3sDxGCVR0sa2SesQCYFn4ZZ+bc75kK+8IpdhHu6
+ XDQFL+kO76F8Wx7L62qMeC/nCeD8o210LQrClzHxZqEVhxqZlTiaNnWWE5tGueUx7iNSD7/qIuT
+ M2IMgy/op8jjFwwCBWVHx6z41Yme0BXfDDKoFr0h/UreIurz6jlh08bWppQYAFAmtS96iawIjpA
+ JJUyUfbRMWiQLNIH0By2Zryt+FAM459Qf/qtwgRrMRKQldqwsAu7Wrxbc0zCMwOgnsZpsNFYvHN
+ kdo7jaBpV2cA7xfJ/N1AJorysuTRIhFWcU9qxXyKAjxgTDLDY1YB1aU0yeOUlvaj+z7FlFylm7T
+ HCvSbscoqnNtVcIvJHWGBzWSmLlXWNMiP901bj/yH71stTP2i0G5JaK+bzF4STeLUXcyWexwAFs
+ Jy0alI64TrflnU6KyK1QHIyMvm+2dfDyjBXFijCBl9HD4kDMUp6Ad+jTTLTya3cEs0OA
+X-Received: by 2002:a05:622a:50f:b0:536:71ce:5d0a with SMTP id
+ d75a77b69052e-542b83f1f2amr3961121cf.74.1793307511973; 
+ Thu, 29 Oct 2026 13:58:31 -0700 (PDT)
+Received: from holowork.tail3176d.ts.net ([71.104.86.121])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-91ca31032c9sm6006136d6.21.2026.10.29.13.58.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2026 13:58:28 -0700 (PDT)
+From: Fabio Piparo <holofermes@gmail.com>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Amit Barzilai <amit.barzilai22@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabio Piparo <holofermes@gmail.com>
+Subject: [PATCH 0/2] drm/ssd130x: Make the SSD1322 work
+Date: Thu, 29 Oct 2026 16:57:49 -0400
+Message-ID: <20261029205751.3513474-1-holofermes@gmail.com>
+X-Mailer: git-send-email 2.53.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,386 +89,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] drm/msm/a8xx: wrong GX power check and early GX read in a8xx_gpu_s=
-tate_get()
-- [High] drm/msm/a8xx: invalid slice 0 access and inner-only break in gen8_=
-snapshot_mempool()
-- [High] drm/msm/a8xx: UAF of preempt_bo[0] in a8xx_gpu_state_get() if pree=
-mpt init fails
-- [Medium] drm/msm/a8xx: dirty CP_APERTURE_CNTL_HOST state in a8xx_gpu_stat=
-e_get()
---
+The SSD1322 has been in the ssd130x match tables since the ssd132x
+family was added, but that family was brought up on an SSD1327. The two
+controllers share a RAM layout and many opcodes, but the SSD1322 takes
+command parameters on the data path and differs in several commands.
+This series gives the SSD1322 its own family, shaped like the ssd135x.
 
-commit 1f4e0c9ba2440c4987c100bc88fda75f8ca6244a
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
+Mario Limonciello's connector luminance series [1], not merged yet,
+sends the SSD130x contrast command to every family it does not know.
+The SSD1322 does not have that command, so whichever series lands
+second needs an SSD1322 case there.
 
-drm/msm/a8xx: devcoredump state capture support
+Testing:
 
-This commit adds GPU state capture and devcoredump support for Adreno A8xx
-GPUs, including crashdumper script execution and fallback AHB register and
-debugbus dumping.
+  - ZJY 3.12" 256x64 SSD1322 module on 4-wire SPI (mode 3) at 16 MHz,
+    Raspberry Pi 5, Raspberry Pi rpi-7.3.y kernel (7.3.0-v8-16k+) with
+    the ssd130x files from this series in tree. That tree also needed
+    commit 3dcb0564c509 from drm-misc-next.
+  - Without the series, a modeset and a full white frame leave the
+    panel dark. With it, the frame is white as expected.
+  - A KMS client at ~200 fps matches its rendered frames on the glass
+    through a camera harness, at the default clock and with
+    solomon,dclk-div = <1>.
+  - Backlight brightness 0, 64, 127 and 255 moves the contrast on the
+    glass.
+  - solomon,dclk-div = <3> is refused with an error and no init is sent.
 
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c b/drivers/gpu/dr=
-m/msm/adreno/a8xx_gpu_state.c
-> new file mode 100644
-> index 0000000000000..786812b6cda10
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
-> @@ -0,0 +1,1402 @@
+[1] https://lore.kernel.org/dri-devel/20261002190030.211356-22-mario.limonciello@amd.com/
 
-[ ... ]
+Thanks,
+Fabio
 
-> +static void gen8_legacy_snapshot_registers(struct msm_gpu *gpu,
-> +					   struct adreno_gpu_state *state,
-> +					   const struct gen8_reg_list *regs,
-> +					   u32 slice_id)
-> +{
-> +	int count;
-> +
-> +	/* Figure out how many registers we are going to dump */
-> +	count =3D adreno_snapshot_regs_count(regs->regs);
-> +
-> +	snapshot_sect (state, MVC_V3, 4 * count, {
-> +		.ctxt_id =3D 0,
-> +		.cluster_id =3D CLUSTER_NONE,
-> +		.pipe_id =3D PIPE_NONE,
-> +		.location_id =3D UINT_MAX,
-> +		.sp_id =3D UINT_MAX,
-> +		.usptp_id =3D UINT_MAX,
-> +		.slice_id =3D HEADER_SLICE_ID(regs->slice_region, slice_id),
-> +	}) {
-> +		unsigned long flags;
-> +
-> +		if (regs->sel)
-> +			gpu_write(gpu, regs->sel->host_reg, regs->sel->val);
-> +
-> +		if (regs->slice_region) {
-> +			u32 val =3D GEN8_CP_APERTURE_REG_VAL(slice_id, 0, 0, 0);
-> +			a8xx_aperture_acquire_raw(gpu, val, &flags);
-> +		}
-> +
-> +		/* Make sure the previous writes are posted before reading */
-> +		mb();
-> +
-> +		for (const u32 *ptr =3D regs->regs; ptr[0] !=3D UINT_MAX; ptr +=3D 2) {
-> +			snapshot_mvc_regs_v3_subheader(&sect, ptr);
-> +
-> +			for (int k =3D ptr[0]; k <=3D ptr[1]; k++) {
-> +				snapshot_sect_u32(&sect, reg_read(gpu, k));
-> +			}
-> +		}
-> +
-> +		if (regs->slice_region)
-> +			a8xx_aperture_release(gpu, flags);
-> +	}
-> +}
+Fabio Piparo (2):
+  dt-bindings: display: solomon,ssd132x: Add col-offset and dclk
+    properties for the SSD1322
+  drm/ssd130x: Add SSD1322_FAMILY and move the SSD1322 to it
 
-[Severity: Medium]
-Can this leave REG_A8XX_CP_APERTURE_CNTL_HOST and a6xx_gpu->cached_aperture
-with stale slice or cluster routing during and after state capture?
+ .../bindings/display/solomon,ssd132x.yaml     |  29 ++
+ drivers/gpu/drm/solomon/ssd130x-i2c.c         |   3 +-
+ drivers/gpu/drm/solomon/ssd130x-spi.c         |   6 +-
+ drivers/gpu/drm/solomon/ssd130x.c             | 277 +++++++++++++++++-
+ drivers/gpu/drm/solomon/ssd130x.h             |   4 +-
+ 5 files changed, 310 insertions(+), 9 deletions(-)
 
-Looking at drivers/gpu/drm/msm/adreno/a8xx_gpu.c, a8xx_aperture_acquire_raw=
-()
-takes a6xx_gpu->aperture_lock, writes REG_A8XX_CP_APERTURE_CNTL_HOST, and
-updates a6xx_gpu->cached_aperture, while a8xx_aperture_release() only drops
-aperture_lock without clearing the aperture register:
 
-drivers/gpu/drm/msm/adreno/a8xx_gpu.c:a8xx_aperture_release() {
-	struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-	struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
+base-commit: 21803a577cc692d01307102799f795a606871212
+-- 
+2.53.0
 
-	spin_unlock_irqrestore(&a6xx_gpu->aperture_lock, flags);
-}
-
-In gen8_legacy_snapshot_registers(), a8xx_aperture_acquire_raw() is only
-called when regs->slice_region is SLICE, and the aperture is not cleared on
-release or before UNSLICE reads. When iterating over b->pre_crashdumper_regs
-or b->reg_list (when dumper is NULL), SLICE entries are followed by UNSLICE
-entries, so subsequent UNSLICE blocks are read while
-REG_A8XX_CP_APERTURE_CNTL_HOST still has A8XX_CP_APERTURE_CNTL_HOST_USESLIC=
-EID
-and the previous slice_id programmed.
-
-Also in gen8_legacy_snapshot_registers(), regs->sel->host_reg is written
-before a8xx_aperture_acquire_raw(), outside aperture_lock and before the
-target slice aperture is selected (unlike gen8_legacy_snapshot_mvc() and the
-crashdumper path in gen8_reglist_snapshot()).
-
-Finally, at the out label of a8xx_gpu_state_get(), a8xx_aperture_clear(gpu)
-is not called. When dumper is NULL (such as on the SMMU stall-on-fault path
-where the GPU resumes after state capture without a reset) or if
-gen8_snapshot_mempool() is not reached, REG_A8XX_CP_APERTURE_CNTL_HOST and
-a6xx_gpu->cached_aperture remain left at the last slice/pipe/cluster/context
-value.
-
-Should gen8_legacy_snapshot_registers() program the aperture for both SLICE
-and UNSLICE regions before writing regs->sel->host_reg, and should
-a8xx_gpu_state_get() call a8xx_aperture_clear(gpu) at the out label?
-
-[ ... ]
-
-> +static bool gen8_snapshot_mempool(struct msm_gpu *gpu,
-> +				  struct adreno_gpu_state *state,
-> +				  struct adreno_crashdumper *dumper)
-> +{
-> +	const struct gen8_snapshot_block_list *b =3D block_list(gpu);
-> +	struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(to_adreno_gpu(gpu));
-> +	u32 slice_mask =3D a6xx_gpu->slice_mask;
-> +	u32 first_slice =3D a8xx_get_first_slice(a6xx_gpu);
-> +	bool ret =3D true;
-> +
-> +	for (int i =3D 0; i < b->mempool_index_registers_len; i++) {
-> +		const struct gen8_cp_indexed_reg *cp_indexed_reg =3D
-> +			&b->mempool_index_registers[i];
-> +		unsigned long flags;
-> +		u32 j;
-> +
-> +		FOR_EACH_SLICE (j, cp_indexed_reg->slice_region, slice_mask) {
-> +			u32 pipe_id =3D cp_indexed_reg->pipe_id;
-> +
-> +			/* Set CP_CHICKEN_DBG[StabilizeMVC] to stabilize it while dumping */
-> +			a8xx_aperture_acquire_raw(gpu,
-> +				GEN8_CP_APERTURE_REG_VAL_NS(first_slice, pipe_id, 0, 0),
-> +				&flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			a8xx_aperture_acquire_raw(gpu,
-> +				GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0),
-> +				&flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			ret =3D gen8_snapshot_indexed_registers(gpu, state, dumper,
-> +				cp_indexed_reg->addr,
-> +				cp_indexed_reg->data, 0,
-> +				cp_indexed_reg->size,
-> +				cp_indexed_reg->pipe_id,
-> +				HEADER_SLICE_ID(cp_indexed_reg->slice_region, j));
-> +
-> +			/* Reset CP_CHICKEN_DBG[StabilizeMVC] once we are done */
-> +			a8xx_aperture_acquire_raw(gpu,
-> +				GEN8_CP_APERTURE_REG_VAL_NS(first_slice, pipe_id, 0, 0),
-> +				&flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), 0);
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			a8xx_aperture_acquire_raw(gpu,
-> +				GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0),
-> +				&flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), 0);
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			if (!ret)
-> +				break;
-> +		}
-> +	}
-
-[Severity: High]
-What happens in gen8_snapshot_mempool() when cp_indexed_reg->slice_region is
-UNSLICE and slice 0 is fused off in slice_mask, or when
-gen8_snapshot_indexed_registers() fails?
-
-For UNSLICE entries in b->mempool_index_registers (such as
-CP_MEM_POOL_DBG_ADDR_PIPE), FIRST_SLICE(UNSLICE, slice_mask) sets j =3D 0:
-
-	#define FIRST_SLICE(_region, _slice_mask) \
-		((_region =3D=3D UNSLICE) ? 0 : NEXT_SLICE(0, _region, _slice_mask))
-
-Inside FOR_EACH_SLICE, gen8_snapshot_mempool() unconditionally programs
-GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0) (which sets
-A8XX_CP_APERTURE_CNTL_HOST_USESLICEID with slice 0) and RMWs the per-slice
-register REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE even when
-cp_indexed_reg->slice_region is UNSLICE. On ADRENO_8XX_GEN2+ parts with
-ADRENO_QUIRK_SOFTFUSE where slice 0 can be disabled in slice_mask (which is
-why first_slice is queried via a8xx_get_first_slice(a6xx_gpu) for
-REG_A8XX_CP_CHICKEN_DBG_PIPE), won't this access a fused-off slice 0?
-
-In addition, if gen8_snapshot_indexed_registers() returns false (for example
-on a crashdumper timeout), the break on !ret only exits the inner
-FOR_EACH_SLICE loop. The outer loop over b->mempool_index_registers_len
-continues to the remaining entries, performing further AHB accesses and
-crashdumper runs after the timeout and overwriting ret.
-
-Should REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE only be accessed when
-cp_indexed_reg->slice_region =3D=3D SLICE (and REG_A8XX_CP_CHICKEN_DBG_PIPE=
- when
-UNSLICE), and should a failure in gen8_snapshot_indexed_registers() break o=
-ut
-of the outer loop as well?
-
-[ ... ]
-
-> +struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu)
-> +{
-> +	const struct gen8_snapshot_block_list *b =3D block_list(gpu);
-> +	struct adreno_crashdumper _dumper =3D { 0 }, *dumper =3D NULL;
-> +	struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
-> +	struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
-> +	struct adreno_gpu_state *state;
-> +	// TODO need to get status from SMMU on some gen8..
-> +	bool stalled =3D !!(gpu_read(gpu, REG_A8XX_RBBM_MISC_STATUS) &
-> +			A8XX_RBBM_MISC_STATUS_SMMU_STALLED_ON_FAULT);
-> +
-> +	/*
-> +	 * GPU state snapshot is inherently single threaded.  All paths
-> +	 * are serialized on gpu->lock.  Make that clear, and prevent
-> +	 * future bugs:
-> +	 */
-> +	WARN_ON_ONCE(!mutex_is_locked(&gpu->lock));
-> +
-> +	if (!b)
-> +		return NULL;
-> +
-> +	state =3D kzalloc_obj(*state);
-> +	if (!state)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	INIT_LIST_HEAD(&state->objs);
-> +
-> +	/* Get the generic state from the adreno core */
-> +	adreno_gpu_state_get(gpu, &state->base);
-> +
-> +	adreno_snapshot_registers_v2(gpu, state, b->gmu_cx_unsliced_regs);
-> +
-> +	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.log, SNAPSHOT_GMU_MEM_LOG);
-> +	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.hfi, SNAPSHOT_GMU_MEM_HFI);
-> +	a8xx_snapshot_gmu_bo(state, &a6xx_gpu->gmu.debug, SNAPSHOT_GMU_MEM_DEBU=
-G);
-> +
-> +	a8xx_snapshot_gmu_hfi_history(gpu, state);
-> +
-> +	snapshot_sect (state, DEBUG, 4, {
-> +		.type =3D SNAPSHOT_DEBUG_SLICE_MASK,
-> +		.size =3D 1,
-> +	}) {
-> +		snapshot_sect_u32(&sect, a6xx_gpu->slice_mask);
-> +	}
-> +	gen8_snapshot_cx_debugbus(gpu, state);
-> +
-> +	/* If GX isn't on the rest of the data isn't going to be accessible */
-> +	if (!a6xx_gmu_gx_is_on(adreno_gpu))
-> +		return &state->base;
-
-[Severity: High]
-Could this cause unclocked GX/GMU register reads when GX is powered off, or
-misdetect GX power state on A8xx?
-
-First, at the top of a8xx_gpu_state_get(), REG_A8XX_RBBM_MISC_STATUS (in the
-GX domain) is read unconditionally via gpu_read() to initialize stalled
-before checking whether the GX domain is powered on, even though stalled is
-only used after the GX power check.
-
-Second, the GX power check calls a6xx_gmu_gx_is_on(adreno_gpu), which reads
-REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS and checks the A6xx bitfields:
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_gx_is_on() {
-	...
-	val =3D gmu_read(gmu, REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS);
-
-	if (adreno_is_a7xx(adreno_gpu))
-		return !(val &
-			(A7XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_GDSC_POWER_OFF |
-			A7XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
-
-	return !(val &
-		(A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_GDSC_POWER_OFF |
-		A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
-}
-
-On A8xx, a8xx_gpu_funcs.gx_is_on is wired to a8xx_gmu_gx_is_on(), which
-checks REG_A8XX_CX_MISC_GFX_PWR_CLK_STATUS on the A850 family (where GMU MX
-may be off) or REG_A8XX_GMU_PWR_CLK_STATUS on other A8xx GPUs:
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a8xx_gmu_gx_is_on() {
-	...
-	if (adreno_is_a850_family(adreno_gpu)) {
-		val =3D a6xx_cx_misc_read(a6xx_gpu, REG_A8XX_CX_MISC_GFX_PWR_CLK_STATUS);
-
-		return !(val &
-			(A8XX_CX_MISC_GFX_PWR_CLK_STATUS_GX_GDSC_POWER_OFF |
-			 A8XX_CX_MISC_GFX_PWR_CLK_STATUS_GX_CLK_OFF));
-	}
-
-	val =3D gmu_read(gmu, REG_A8XX_GMU_PWR_CLK_STATUS);
-
-	return !(val &
-		(A8XX_GMU_PWR_CLK_STATUS_GX_HM_GDSC_POWER_OFF |
-		 A8XX_GMU_PWR_CLK_STATUS_GX_HM_CLK_OFF));
-}
-
-Should a8xx_gpu_state_get() call a8xx_gmu_gx_is_on(adreno_gpu) (or
-adreno_gpu->funcs->gx_is_on(adreno_gpu)), and defer reading
-REG_A8XX_RBBM_MISC_STATUS until after verifying that GX is on?
-
-[ ... ]
-
-> +	/*
-> +	 * Capture preempt records after cp_clusters, to make this easier
-> +	 * to decode (ie. so we already know CP_CONTEXT_SWITCH_SMMU_INFO and
-> +	 * CP_CONTEXT_SWITCH_PRIV_NON_SECURE_RESTORE_ADDR) when crashdec sees
-> +	 * the logged GPU objs)
-> +	 */
-> +	for (unsigned i =3D 0; i < gpu->nr_rings; i++) {
-> +		a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_bo[i],
-> +				     a6xx_gpu->preempt_iova[i]);
-> +		a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_smmu_bo[i],
-> +				     a6xx_gpu->preempt_smmu_iova[i]);
-> +	}
-
-[Severity: High]
-Can this trigger a use-after-free on a6xx_gpu->preempt_bo[0] if
-a6xx_preempt_init() failed during GPU initialization?
-
-During a6xx_gpu_init(), A8xx GPUs start with gpu->nr_rings =3D 4 and call
-a6xx_preempt_init(gpu). If preempt_init_ring() succeeds for ring 0 (setting
-a6xx_gpu->preempt_bo[0] and a6xx_gpu->preempt_smmu_bo[0]) and a subsequent
-ring or postamble allocation fails, a6xx_preempt_init() cleans up and falls
-back to a single ring without failing GPU init:
-
-drivers/gpu/drm/msm/adreno/a6xx_preempt.c:a6xx_preempt_init() {
-	...
-fail:
-	/*
-	 * On any failure our adventure is over. Clean up and
-	 * set nr_rings to 1 to force preemption off
-	 */
-	a6xx_preempt_fini(gpu);
-	gpu->nr_rings =3D 1;
-}
-
-However, a6xx_preempt_fini() frees a6xx_gpu->preempt_bo[i] via
-msm_gem_kernel_put() without setting a6xx_gpu->preempt_bo[i] =3D NULL (and =
-does
-not free a6xx_gpu->preempt_smmu_bo[i]):
-
-drivers/gpu/drm/msm/adreno/a6xx_preempt.c:a6xx_preempt_fini() {
-	...
-	for (i =3D 0; i < gpu->nr_rings; i++)
-		msm_gem_kernel_put(a6xx_gpu->preempt_bo[i], gpu->vm);
-}
-
-When a8xx_gpu_state_get() later runs with gpu->nr_rings =3D=3D 1, this loop
-passes the freed non-NULL a6xx_gpu->preempt_bo[0] pointer to
-a8xx_snapshot_gpu_bo(), which dereferences bo->size and calls
-msm_gem_get_vaddr(bo).
-
-Should this loop be guarded by if (gpu->nr_rings > 1) like the other
-preemption paths, or should a6xx_preempt_fini() also release
-preempt_smmu_bo[i] and clear the pointers to NULL?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029201730.1517=
-54-1-robin.clark@oss.qualcomm.com?part=3D12
