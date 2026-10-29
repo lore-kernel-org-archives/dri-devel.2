@@ -2,77 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485BC606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:10:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6870F606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fJqSyjMR;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mT+3/vZE;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fJqSyjMR;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mT+3/vZE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A907911207C;
-	Thu, 29 Oct 2026 08:10:06 +0000 (UTC)
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com
- [209.85.221.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9528311207C
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:10:05 +0000 (UTC)
-Received: by mail-vk1-f173.google.com with SMTP id
- 71dfb90a1353d-5eac319a6c2so1974570e0c.0
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 01:10:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793261404; x=1793866204;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=j1N3C4wGR9ui6A1aTKEotaU/WbKyfzJohGbZeH+69Ss=;
- b=gnO17u9iIlsJBimy2c9aaYY70m4wCTOw38oYR8Evpr454lDjYnGpo9qGO6kNKKaxO0
- uUXmKNCK9HzL6Qz1Z0ZTk+PXV/B0A8TqdO1ezDhk11nURueiqLui67kpCMcurBAARhu4
- U+8mHlHOGNCAYI061mE0YpA3n0MYEXCqkPrCwqa5ABxj7vms0XQC33x9p4DOs+OSgK5z
- blZ3wVJvKpMrTEzReJPoVa2Lb8H9aRSgfr1M6pPaUxDYHUVSAtdS3lC8NxTgFvTvdGHv
- m8NnrQp1uVAxtBTnVKr0/XtsK9KExgv8g7HkVc+02mv9BLGBZr6iPWRPWzVh2Q1YLWPa
- qXyA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByoUnfw5K3CPolWVUGshnB9BJj3I3r1a3kk/mV9NAeWGDAxt2FZ7KBOKdmeYY3Jm9/6GZi0MtgECy4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ5VpzjQ3Jp2ADPSJoVam17dp+3iX5kcu2yu7BNcux5dqwLMyxj
- KwvlzPDVvefcpx2Jwa5e9mB1Dhu8n5LhZmbz9kT1A61JG4BDuXc1l0MvMWJ0pJGa
-X-Gm-Gg: AYBFou0lqiW/61wnqFVtijCpLJTyqIrNk+vTgtzzBCKwvp5FxT7+tJzFgs2uknnb7Jt
- +JAVebExvcDTle59Ade44P9F7QmZa2upvU7j4GAdbnII/lJ+s/K01+Rzz1qEt1tnG7hiX5Q77b6
- gZC0n5bqoAyY37XeOI8IgNN7cOYGUCG10xWMD1SnKeWTBgb2cCWwz95ZXpJHR+3BoDOAPFR3I+U
- DgsbU5N+u5PimbK2AT8fu5XywyyQYWiexzEIMvCrNnV0rZ6CirSfBi/7dzViDxEqk9LdeTIyfuj
- yflQYC5D1dESREMfZZeIAQFZYIk7R0jenGmoAMexPQ2SeAtJ/ZRHf8+hV417ban2bHPttDbAAIL
- 37ZlUERkwAL4ALMmZaSXLQNw4xhQ1i2yK1873sV9R1OQr2iUoN6b/fU0pf3GfYkxahcrqb5q22x
- OkZyrwDP6GWHyYeavJ3E32vMSDXgTd2+qygGaxBBRB8ZnEWa6Iilg973qhoM813Ha5ErHcoNPc+
- 6O3EFDh/RrKYXMH6J0Xrh7t2lePe5TrIhrPNStOAFTjocEwzjqh3LntwheTKOSV/shTE0Ost9ZZ
- e4dk+hFTWZ+RH5fc598G+179RWuOyh03xhPP4rO7DruigFUdLa2Dea31PR8KQylT13TyQZoH5ap
- nBcXV8kd7DSrU
-X-Received: by 2002:a05:6122:1804:b0:5ea:c6c8:7985 with SMTP id
- 71dfb90a1353d-5ec4caa70c3mr2277759e0c.3.1793261404241; 
- Thu, 29 Oct 2026 01:10:04 -0700 (PDT)
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com.
- [209.85.222.52]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5ec4f5cebbbsm4719361e0c.0.2026.10.29.01.10.02
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Oct 2026 01:10:02 -0700 (PDT)
-Received: by mail-ua1-f52.google.com with SMTP id
- a1e0cc1a2514c-990fbae94f5so1769924241.3
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 01:10:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBzNJxw2zyv2K35gwXZAjrimMYolKhVb+L4CeZGCpPFRrMpR4BOGp6INYuuA1B01I3qKNlnthPWw+ho=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:3eca:b0:7c3:f07c:f49c with SMTP id
- ada2fe7eead31-7d03a503c53mr2112556137.11.1793261402712; Thu, 29 Oct 2026
- 01:10:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C54DC11207E;
+	Thu, 29 Oct 2026 08:10:40 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 934D2112084
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:10:29 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1AB351F385;
+ Thu, 29 Oct 2026 08:10:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793261428; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5rBZ0kFvUh2i3PD86rsaq90lGhsDruIK+LJgf4TiufE=;
+ b=fJqSyjMR123MaZQ++4XcOMlHl3DGd8R/7vEzojiPss9ZF4DefVlIxSzLA9+rKt9UfgFTNb
+ LL7QBh/a6lsec0KelDwGMENnoJC2fUn3jaPCnJRCLt97g1ghdsT3fZsBM5dV+ek3nQjPSa
+ pqGgft5un3mV+q0kVIpPNOwx6S96wMQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793261428;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5rBZ0kFvUh2i3PD86rsaq90lGhsDruIK+LJgf4TiufE=;
+ b=mT+3/vZEIfsBnC6J3GUTIoeq8FKF3UhUq5yQcaqSTDW/qVydR8OWHyyOdIeBbQuQse+1z3
+ zweUVYwqht1iZsCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793261428; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5rBZ0kFvUh2i3PD86rsaq90lGhsDruIK+LJgf4TiufE=;
+ b=fJqSyjMR123MaZQ++4XcOMlHl3DGd8R/7vEzojiPss9ZF4DefVlIxSzLA9+rKt9UfgFTNb
+ LL7QBh/a6lsec0KelDwGMENnoJC2fUn3jaPCnJRCLt97g1ghdsT3fZsBM5dV+ek3nQjPSa
+ pqGgft5un3mV+q0kVIpPNOwx6S96wMQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793261428;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=5rBZ0kFvUh2i3PD86rsaq90lGhsDruIK+LJgf4TiufE=;
+ b=mT+3/vZEIfsBnC6J3GUTIoeq8FKF3UhUq5yQcaqSTDW/qVydR8OWHyyOdIeBbQuQse+1z3
+ zweUVYwqht1iZsCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1E8F13419;
+ Thu, 29 Oct 2026 08:10:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id v4IaHnP/4mpvMgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 29 Oct 2026 08:10:27 +0000
+Message-ID: <905d902c-461f-4a0e-9ac2-0ad02fe9cabe@suse.de>
+Date: Thu, 29 Oct 2026 09:10:27 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261027160914.3787276-1-bestswngs@gmail.com>
-In-Reply-To: <20261027160914.3787276-1-bestswngs@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 29 Oct 2026 09:09:51 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUBAFGH-YoF5iTSXuX=tFjXXQhXYyxnT=-XJ6qEGym7PQ@mail.gmail.com>
-X-Gm-Features: AclHuK98HJBR5jB_yT7cph-_YLUIP8WBWM3UvHpqvO4YtLNQFtBwwRQ_iZsfTT4
-Message-ID: <CAMuHMdUBAFGH-YoF5iTSXuX=tFjXXQhXYyxnT=-XJ6qEGym7PQ@mail.gmail.com>
-Subject: Re: [PATCH v3] fbdev: vfb: Validate framebuffer geometry and memory
- size
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- co+b0df61d49532b2ee@bugs.sh, Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PCI/VGA: Enable firmware default device detection on
+ LoongArch
+To: wuqianhai@loongson.cn, bhelgaas@google.com
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ javierm@redhat.com, dri-devel@lists.freedesktop.org
+References: <20261028094634.766723-1-wuqianhai@loongson.cn>
+ <20261029033440.973077-1-wuqianhai@loongson.cn>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261029033440.973077-1-wuqianhai@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-0.998];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[6]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_NONE(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ bootlin.com:url, loongson.cn:email]
+X-Spam-Score: -13.29
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,128 +134,110 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Weiming,
+Hi
 
-On Tue, 27 Oct 2026 at 17:16, Weiming Shi <bestswngs@gmail.com> wrote:
-> FBIOPUT_VSCREENINFO can supply a virtual width large enough to
-> overflow get_line_length()'s int multiplication and bypass the
-> video-memory limit, allowing fbcon to write past the framebuffer. The
-> offset additions can also wrap, while an excessive videomemorysize
-> module parameter can be truncated when PAGE_ALIGN() is assigned to
-> unsigned int.
+Am 29.10.26 um 04:34 schrieb wuqianhai@loongson.cn:
+> From: wuqianhai <wuqianhai@loongson.cn>
 >
-> Cap framebuffer geometry at 8192 x 8192 and video memory at 512 MiB,
-> keeping the stride, framebuffer-size, and generic fbdev drawing
-> calculations within their destination types.
+> On LoongArch, PCI resource assignment completes during subsys_initcall
+> (acpi_init), before vga_arb_device_init() runs.  By that time the
+> firmware framebuffer BAR may already have been relocated, leaving
+> screen_info's lfb_base stale.  Enable vga_is_firmware_default() for
+> LoongArch and refresh screen_info in vga_arb_device_init() before the
+> boot device is matched.
 >
-> KASAN reports:
+> Unlike x86, sysfb_primary_display is only defined when CONFIG_SYSFB is
+> enabled on LoongArch, so have VGA_ARB select SYSFB there.
 >
->   BUG: KASAN: vmalloc-out-of-bounds in sys_fillrect
->     drivers/video/fbdev/core/sysfillrect.c:24
->   Write of size 8 at addr ffa0000001671000 by task poc/198
->   sys_fillrect
->     drivers/video/fbdev/core/sysfillrect.c:24
->   bit_clear_margins
->     drivers/video/fbdev/core/bitblit.c:247
->   fbcon_clear_margins.constprop.0
->     drivers/video/fbdev/core/fbcon.c:1410
->   fbcon_switch
->     drivers/video/fbdev/core/fbcon.c:2261
->   redraw_screen
->     drivers/tty/vt/vt.c:994
->   fbcon_modechanged
->     drivers/video/fbdev/core/fbcon.c:2693
->   fbcon_update_vcs
->     drivers/video/fbdev/core/fbcon.c:2732
+> Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
+> ---
+> Changes in v2:
+> - Add VGA_ARB's select of SYSFB for LoongArch to avoid an undefined
+>    reference when CONFIG_SCREEN_INFO is not set.
+> - Restrict the screen_info_apply_fixups() call to CONFIG_LOONGARCH so
+>    x86 and other architectures are unaffected.
+> - Enable vga_is_firmware_default() for LoongArch.
+> ---
+>   drivers/pci/Kconfig  |  1 +
+>   drivers/pci/vgaarb.c | 12 +++++++++++-
+>   2 files changed, 12 insertions(+), 1 deletion(-)
 >
-> Cc: stable@vger.kernel.org
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: <co+b0df61d49532b2ee@bugs.sh>
-> Suggested-by: Helge Deller <deller@gmx.de>
-> Assisted-by: LLM
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+> index 0c7408509ba2..55cc60f5d312 100644
+> --- a/drivers/pci/Kconfig
+> +++ b/drivers/pci/Kconfig
+> @@ -256,6 +256,7 @@ config VGA_ARB
+>   	default y
+>   	depends on !S390
+>   	select SCREEN_INFO if X86
+> +	select SYSFB if LOONGARCH
+>   	help
+>   	  Some "legacy" VGA devices implemented on PCI typically have the same
+>   	  hard-decoded addresses as they did on ISA. When multiple PCI devices
+> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+> index 3e58b2c05c85..1b7e915629f9 100644
+> --- a/drivers/pci/vgaarb.c
+> +++ b/drivers/pci/vgaarb.c
+> @@ -566,7 +566,7 @@ EXPORT_SYMBOL(vga_put);
+>   
+>   static bool vga_is_firmware_default(struct pci_dev *pdev)
+>   {
+> -#if defined CONFIG_X86
+> +#if defined(CONFIG_X86) || defined(CONFIG_LOONGARCH)
+>   	return pdev == screen_info_pci_dev(&sysfb_primary_display.screen);
+>   #else
+>   	return false;
+> @@ -1527,6 +1527,16 @@ static int __init vga_arb_device_init(void)
+>   	int rc;
+>   	struct pci_dev *pdev;
+>   
+> +#if defined(CONFIG_LOONGARCH)
+> +	/*
+> +	 * On LoongArch, PCI resource assignment completes during
+> +	 * subsys_initcall (acpi_init), before the VGA arbiter runs.  Refresh
+> +	 * screen_info so vga_is_firmware_default() can match the relocated
+> +	 * BAR.
+> +	 */
+> +	screen_info_apply_fixups();
+> +#endif
 
-Thanks for your patch, which is now commit f93dd31db3e23e61 ("fbdev:
-vfb: Validate framebuffer geometry and memory size") in fbdev/for-next.
+No per-arch defines in generic code.  All the setup should work the same 
+on all architectures.  All global screen-info state should be maintained 
+by drivers/firmware/sysfb.c. Otherwise the framebuffer setup gets even 
+more convoluted than it already is.
 
-> --- a/drivers/video/fbdev/vfb.c
-> +++ b/drivers/video/fbdev/vfb.c
-> @@ -31,6 +31,9 @@
->       */
->
->  #define VIDEOMEMSIZE   (1*1024*1024)   /* 1 MB */
-> +#define MAX_VIDEOMEMSIZE       (512UL * 1024 * 1024)
+My question is why does vga_is_firmware_default() run before 
+sysfb_init()? [1] Does acpi_init call into it? [1] 
+https://elixir.bootlin.com/linux/v7.3/source/drivers/firmware/sysfb.c#L225
 
-Is there any point in having a larger limit than 256 MiB
-(i.e. MAX_XRES * MAX_YRES * 32 bpp)?
 
-> +#define MAX_XRES               8192U
-> +#define MAX_YRES               8192U
->
->  static void *videomemory;
->  static u_long videomemorysize = VIDEOMEMSIZE;
-> @@ -142,6 +145,10 @@ static int vfb_check_var(struct fb_var_screeninfo *var,
->                 var->xres = 1;
->         if (!var->yres)
->                 var->yres = 1;
-> +       var->xres = min(var->xres, MAX_XRES);
-> +       var->yres = min(var->yres, MAX_YRES);
-> +       var->xres_virtual = min(var->xres_virtual, MAX_XRES);
-> +       var->yres_virtual = min(var->yres_virtual, MAX_YRES);
+Apart from that, we can decouple screen_info_apply_fixups() from 
+sysfb_init().  After relocation happens, the PCI code could call the 
+helper directly and let it update the global screen_info.
 
-This violates fbdev API rounding rules:
-  1. If a value doesn't fit, it must be rounded up by the driver,
-  2. If a value is too large, -EINVAL must be returned.
+Best regards
+Thomas
 
->         if (var->xres > var->xres_virtual)
->                 var->xres_virtual = var->xres;
->         if (var->yres > var->yres_virtual)
-> @@ -159,6 +166,9 @@ static int vfb_check_var(struct fb_var_screeninfo *var,
->         else
->                 return -EINVAL;
->
-> +       var->xoffset = min(var->xoffset, MAX_XRES - var->xres);
-> +       var->yoffset = min(var->yoffset, MAX_YRES - var->yres);
-
-Likewise.
 
 > +
->         if (var->xres_virtual < var->xoffset + var->xres)
->                 var->xres_virtual = var->xoffset + var->xres;
->         if (var->yres_virtual < var->yoffset + var->yres)
-> @@ -434,9 +444,12 @@ static int __init vfb_setup(char *options)
->  static int vfb_probe(struct platform_device *dev)
->  {
->         struct fb_info *info;
-> -       unsigned int size = PAGE_ALIGN(videomemorysize);
-> +       unsigned int size;
->         int retval = -ENOMEM;
->
-> +       videomemorysize = min(videomemorysize, MAX_VIDEOMEMSIZE);
-> +       size = PAGE_ALIGN(videomemorysize);
+>   	rc = misc_register(&vga_arb_device);
+>   	if (rc < 0)
+>   		pr_err("error %d registering device\n", rc);
 
-Perhaps return -EINVAL, too?
-
-> +
->         /*
->          * For real video cards we use ioremap.
->          */
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
-
+-- 
 --
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
