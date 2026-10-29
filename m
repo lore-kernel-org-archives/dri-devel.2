@@ -2,114 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4505F606A335
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 16:38:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B465660A261E
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 16:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MKjSeZav
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hO3mPhkJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A0D710E43C;
-	Thu, 29 Oct 2026 16:38:29 +0000 (UTC)
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011070.outbound.protection.outlook.com [52.101.70.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E78211245C
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 16:38:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fiMB7aLxEYHYHWaxa5MubJOz5mpahzw1ZlZYRNMBK7t8GsHBPfYhiTKf36bm3/T77LB2BOyQfH1IuFD9A0RE1hhRyciXk98krjIf20uiVuO82p9xJazaoroAobdAG7j5ed6jHJNgvFKYx/8yrxjpO5b/VusBM20oc1YY4pLH0IkK7QchONklDUU7Rc9JNx80W3N/L+OF4ZeYxXkCBaACJSJaIi2JKs+ptoIkYGtQ2MLHwV8SDiZXpd4GwloBNkAFvieza97kAcWO11R8CJeX7VOsH08PPF1yJlu5+cMBlx7lPJ9dNu5qtcp/vIbHunp66iKTM2tIbQFZgBGDCWNRQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GS5w2MxkVcisEnmlDwbM2WgGmsF28i8wLsmkOVo/TuM=;
- b=SYUpEc6xY8orRwATDHvxYD3+Rw6AXPan4o1o7U6RcjgvDpun66wqZVpJrHtRyrqGg9pK0mo6cdFWRENGRN261GPcJpj3q2BuJNILMJDyp6KiKVxfk3HbJ6+u/oQ+5w2asd/60XckB8gr7vEdJ9VR3sNhwyOVdsy6WECSWqYgbFHBVv6LwR3nvWLLZoYDE+XruYe28PU6oeydJHt7tJEKhpSYSGIANZMjWIb+nbObtYtz09PTu0fJeJ1DTWjIIKExa9fOgTyQYcvEtUSEXHG6/5RzOZ70Mh+U1HmOad7Jj66fvMbH/N6ZcqwjZcwILGiwUYl9/SS6ay+9GDN/TMbDtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GS5w2MxkVcisEnmlDwbM2WgGmsF28i8wLsmkOVo/TuM=;
- b=MKjSeZavwE0mPofgqzxhBHFLVAVuSluY+aGGTG3eHCV3RtIV30hxKFJs+B8ax3TQf6B+gz1agRYYcRLqOmXBjMhZopjPopwwSO3EZBZ+HSW/+VOBgziThNn7a1yUIxCcgkSNXHef1ND0e6QnhJx0dGEqP+sVlghr1m5W6a4kdxZcjG4vW/yt6YKsKXOH7ZJHMABPpW6ovvpcruMltWZ2coIk/eTz7Rn+y86WtgRDrRISpPu+bfcIz7Vqm6fTmQ31k1GyykflZCu59o5E4vUkwWj129MqOpfMK+WLSQ3xwZG57ZMymiU0kHFrWezbgVqGsAH8r7A0uHeByq6ZD2gl7g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA1PR04MB11034.eurprd04.prod.outlook.com (2603:10a6:102:483::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 16:38:18 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 16:38:18 +0000
-Date: Thu, 29 Oct 2026 12:38:11 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 06/31] accel: ethosu: Fix runtime PM get error handling
-Message-ID: <auN2c20fmWdj1vtu@lizhi-Precision-Tower-5810>
-References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
-X-ClientProxiedBy: DS0PR17CA0016.namprd17.prod.outlook.com
- (2603:10b6:8:191::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE5B1112477;
+	Thu, 29 Oct 2026 16:54:32 +0000 (UTC)
+Received: from mail-pf1-f227.google.com (mail-pf1-f227.google.com
+ [209.85.210.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A454112459
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 16:54:26 +0000 (UTC)
+Received: by mail-pf1-f227.google.com with SMTP id
+ d2e1a72fcca58-8a0880a46e7so665421b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 09:54:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793292866; x=1793897666;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=guqN8L+wJ90DWa7rhPYEh5Wd1wQCdUdxW2JdkMgWnQY=;
+ b=ilJOnD6vTFQD2tyfIATWwdcRu2gJuFeym8c9YJ4I+LCW0nnaqeZPEWx6O4M+zw1YLr
+ ySO3dat2tcG+MoYX8uxG/jwzlbnLZQjqyGW+b+W962fjaRVidCcFNiHSwU5jJQ2H1qM8
+ xjdTdibg4fL14OUsCO2JxAP6JIy848aTedng75E7zK7U88MzmGNXL58Pk/+ZftTrm+5e
+ H6PxawUdXiTPQ+Aa0lmlnBXXwY46pdUZnZiqDPDUwaoOSfCMQTcEbaBBGu1ppgY1UgPe
+ +4/B7b7dVacLBr2GCCbLb4WPpnHO620+ziVlSdI4QfoyVhB+sPYaJBJgR92xsmCzTCT7
+ ZHNA==
+X-Gm-Message-State: AFq9FYKctwW1632I/Kc4ttBvaQb6kt+6bb+heCiKqalxl4+amiXgfEm+
+ 1fKEcPlr4CPP0L2ldtXVnSkT/wrvFg5jd/DqhjoTvKwaniJWpVfoJxOwVaTgY9cxIYdyc/Uho0a
+ TsakGlvtV1yGQHKZBTES6POHVJ5aa5SLBhJS2iqgHAFgG3vYIvYcLaLsqqSBvOANxhqnTin23Oz
+ Cq2qnvxA9D4R5Zgskm8zX4HZlbj7wgeKVMoq87fTwrO4diLILrpCEgXZs4gWuFnuD9FQbVL2v/s
+ S+fYINq+e5mCoBCyMBG
+X-Gm-Gg: AYBFou3yiN9gVx80lI4pAcfcQotV6QdsO+a+VI3oXh9iOPDIyR4QcT39M9uTgnXMg9t
+ bEhviAxH3lyH+UQ2ul7dYBPsubVJ3GSf2eZZMGDj6u6FJvr3Ivi2Q5KhcGvxHKTLS3l126S9Zbc
+ /c79lO4cLGXVt+Kbhxiu+PjoNq/5ZtoN1yCMM4O3PNgpLZUGoO5js59jVMRByrp5RH58yYSWiGa
+ nS412FL5sdWfCxN3T8QnpxzZAaqFzSCv3GCWGc1ckNYF8rymGQc/xXbaU+AjKKloaSys9GaAsja
+ pN7wpzm+AqhQEdEH9AStw5mwa6NJT2xhVFpDOyu8XhQ/g9Klmjj8uT6NTf4kjs4ILEK/vyuo1L7
+ x0pb2PgLWVd7U/dfB4k441xQF9pUjffVpAkGmjwauXZPN41z3yW/mdz+5+aRpot8byOClJrdhsu
+ Pu3kMxytakKdjo0BbiTJnDwhgByB7T7nkE
+X-Received: by 2002:a05:6a00:2449:b0:8a0:6417:8f9b with SMTP id
+ d2e1a72fcca58-8a83279df94mr2144468b3a.32.1793292865564; 
+ Thu, 29 Oct 2026 09:54:25 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+ by smtp-relay.gmail.com with ESMTPS id
+ d2e1a72fcca58-8a98c9f551bsm4767b3a.1.2026.10.29.09.54.25
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 29 Oct 2026 09:54:25 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-36a26fe9521so922287eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 09:54:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1793292864; x=1793897664;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=guqN8L+wJ90DWa7rhPYEh5Wd1wQCdUdxW2JdkMgWnQY=;
+ b=hO3mPhkJKoCdtDqiASzvIjnolHRCtwhRA2E+uwpDoW0SGEDwaTvNolM8s8J5TNmswn
+ bI58lBcukH9xKeHO/LvhBJEqpI00BoNiszJggwUdFPyDTIMeL4UuC29HZSi+avLqJd93
+ tZzFrDPeaQMqkK+z7MqIhWsFlgXuqlTDpkdUM=
+X-Received: by 2002:a05:7022:628d:b0:184:40db:6bb9 with SMTP id
+ a92af1059eb24-1a94876dbd0mr5647147c88.8.1793292863221; 
+ Thu, 29 Oct 2026 09:54:23 -0700 (PDT)
+X-Received: by 2002:a05:7022:628d:b0:184:40db:6bb9 with SMTP id
+ a92af1059eb24-1a94876dbd0mr5647083c88.8.1793292862254; 
+ Thu, 29 Oct 2026 09:54:22 -0700 (PDT)
+Received: from plasma.dhcp.broadcom.net ([192.19.144.250])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36a4104b2cesm423020eec.11.2026.10.29.09.54.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2026 09:54:21 -0700 (PDT)
+From: Ian Forbes <ian.forbes@broadcom.com>
+To: dri-devel@lists.freedesktop.org
+Cc: bcm-kernel-feedback-list@broadcom.com, zack.rusin@broadcom.com,
+ maaz.mombasawala@broadcom.com, Ian Forbes <ian.forbes@broadcom.com>
+Subject: [PATCH] drm/vmwgfx: Remove fence event code
+Date: Thu, 29 Oct 2026 11:54:17 -0500
+Message-ID: <20261029165417.249123-1-ian.forbes@broadcom.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA1PR04MB11034:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4044faff-87b5-4479-b4a0-08df35db09bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|19092799006|11063799006|4143699003|56012099006|261009223027099003|10067099003|261026121527099003|261021121427099003|261021123027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: lm/CJvNJRSiI6msyBdvtiJ7snW03PQYI6DQTgT4How2PI3kb7u+BywJlA3/CkW2+y4z/ird5dNEkJ6B+XTO+wnkdynMWCPyJMJP3RbgdSqqz0H+s7TPUC/F5rcculmWTWWrvMPg+sik2rvGgXqVLK4cTdIxw2xJexkk1vz2WZhf/CfWlTQdoBiZ3chvM8sfkb+YDTUd1p1IeHpoqnOqc8TUdTLR0VFEX95k33SuMG21VUCkZjJOAn+rVdKnazNYPnd5E69ROO1TvseBgRwpCacOnqAENCK+e3is11KgfKpV5ePbtryz6OKxRA/5/u9Jyty5TFlVAq2LcSrvTNzfyo80Pi7XLRugSNbCZQCm+z+0OqXgwBVCo13n3fcZmHGbLRM1XeOjVI2J7GetvENo6MUSQowpbUOy+Oa5ievNOcbZy6MLMdvDKFrSu5R16LMX0ydQhjAlsIj0tZOx5I4BxewMHElaxWoceLyb3+gwxVHEoWpHRiysKfbSKPuUieJOcIZqtZXzOGClizfHTnywuyaS1gWb6H0LOoTnzVVQ/qAK7IkIZUZoEixQYJ70N1sQGr/W1t0ZUhtaSf5AY8xiEwOPvn344UdulHZfaqjQ8taM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(261026121527099003)(261021121427099003)(261021123027099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XO+W7YpMuj1/u2MbBh+3K9TLD50c9/5yGeg2AKQIzEnHB4tHmFCJHYC1m8im?=
- =?us-ascii?Q?4HJ3hP+nO29AuucwNpJb2AkKFb6Pl7KYJYPuaGknSHsnPSncFuYPwz+AAS+n?=
- =?us-ascii?Q?rRcWlzHR2qO8Nez6CIRqTFLF8D/8xpKgjojja+gVWbGmIqu1OCBYpipAOELd?=
- =?us-ascii?Q?z0DMyjikOt6iAKIZ4D9ZrgGO2MgJeBGZTM9PMJJ2iJ+Prb75DzFQkwsyNFse?=
- =?us-ascii?Q?QFaqvzIJFrI94OPK1RCaonpMpuEQmmp8jVKZdbALOsLCBuc46cS52EmRCQXw?=
- =?us-ascii?Q?wWNCLsCsqxPH4zsKfYyRhvgyAQOYq77GlXJF3bAwGt1T+FYKOQJafjIiGhRn?=
- =?us-ascii?Q?oft1XJNBDCLFWia57XaQgvLGhxtIlZFPRhuP0vMgPeK0VS+dIE50Qld2Cncx?=
- =?us-ascii?Q?UpuO+3lhYqQRQ6mj2v40W0qrcMIbtBp+mlIizJMy0wNkrLdVuC+sB+I/dNEk?=
- =?us-ascii?Q?+hCdH01WYIclwQaHfSv0mBD+8v89f+w3/qAk9UCtd8A6wE48XNkpBVfBgqKq?=
- =?us-ascii?Q?m1fot9usnnaf0fj/8IEwJqhehknMo6+KvjyVHWds2kWL2XJxfEBumeEp9Kwj?=
- =?us-ascii?Q?s/lCNJCcMlvCpxz/RS9ZIyUUT5jZeSEDfOd6JBftCLchcNK4e7iD0y70tKrG?=
- =?us-ascii?Q?uTpoD/CKAX7GxnN6vrEjQCzh5uT5h8k+APeKHU5IVBUweH/dtrrs5nMatftY?=
- =?us-ascii?Q?znP7JF9DCazF7YZsINHSVmOGjYJRH5tjlDLPuOJvI0ruuyZEBvcYxnrsF9gn?=
- =?us-ascii?Q?FYNM5somCSTl+yPivQkv3YQ9Y0Y3y6+vZPCXeW97s7QyAKqPE+ezXTSKlgfg?=
- =?us-ascii?Q?BDnp0dG3XGCWMAwtr0kp4OrHQwBCS6iruh1+6+OAd18Z2vhKrZI2/+7/ska2?=
- =?us-ascii?Q?2Rm7++KVkQzNLxKhQOmaGyKJL/WEhn7CIJcx8oQL8sAhWzhGYi6++J3Rj7QK?=
- =?us-ascii?Q?Omx8fNOv6wK4piOtjSfNSbhkAtQFycnVnpWgPrzZpnQmqNiSD7AG1ZmNBBtE?=
- =?us-ascii?Q?bmi6LhjV3XXAMz1hiYwm2/qV603fuYfUGB7gsyDBdpRR0GE0lt6jEoQOg1lf?=
- =?us-ascii?Q?C9Jn2W/+UFsmiVQoUBuqlbhAE4wRWR/ZY+3SxupXTaNyCwa/Ap89yJ5Fs6N1?=
- =?us-ascii?Q?/aKaElkE3ub7R/2jvNDxp26HDK4uyG9hQaqwyWkMm5XmG59er+IN8ZCe9mYF?=
- =?us-ascii?Q?2FpCSrdqHQLvff00R3CXEYPVuBZ0rG1ThUoCAhhjlooZEOqHUrpYsau3TT5X?=
- =?us-ascii?Q?eNHhKv0PQAMqqHYdbMedJ7z1TpjGYkDj97p14TjAIJDHHdSUWbuIRnnO2ua+?=
- =?us-ascii?Q?59i6oUM2UHV6WvB2OPBlz7jpNNM+E3n5kF5eg2tqRbbQPZDOYqJwAp3K8VXl?=
- =?us-ascii?Q?0ZHJNvzqqFHdIsD5dEiNypCHnR+o9SyT54tS7qyHUs9FpzkXaF6K77fF03Tv?=
- =?us-ascii?Q?JihEfnyX1t5Fxx3RV2ohfAzbv1CAc1jTJzV7d23uXJzd7rTJpmnGtyiz0E84?=
- =?us-ascii?Q?CurPJaw5Ylhh995OBAIC/1XdtFdIMFLztDnXRBmQCbOTwNFrU94BpOPXQ1N5?=
- =?us-ascii?Q?QkcCSyZ3uxPCNT4o7Ti6OSgV472n8Gq0ENtcDNljjfq3KTa4ZZBz7eEyjiyu?=
- =?us-ascii?Q?2aP5+gVEQstPfVkWxgu6VFuuaSr+XIzcgRoTwObzBTHmUMn/EoWN3j/iL3d+?=
- =?us-ascii?Q?Y1NFbz3/yTNIygVquDx3T9rWzJ788DfB9PXGOkrWFnHQR2A76OvEKKq6NTis?=
- =?us-ascii?Q?gg5dr9x0v/51vwq1zyOnUqs3FMlv6xbEJK7m7Qlzft/iOWZOvS62?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4044faff-87b5-4479-b4a0-08df35db09bf
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:38:18.8305 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HlggWKS850LyVVuPp+0n7153rzgwYlsJn6fgExRw+lsmLCxazEEMP943VuxT71jHbEi6Z2FKy0qn4MRrva3oO2gqtTJENECqjBZBzUKkU12IVnv6wrz96P68+4D6ZvNU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11034
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,50 +98,304 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Oct 29, 2026 at 08:35:53AM -0500, Rob Herring (Arm) wrote:
-> pm_runtime_get_if_active() can return an error including for !CONFIG_PM.
-> Do not treat that as an active runtime-PM reference.
->
-> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> v4:
->  - new patch
-> ---
->  drivers/accel/ethosu/ethosu_perfmon.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
-> index 26f625374f9d..0ae2df3ceac8 100644
-> --- a/drivers/accel/ethosu/ethosu_perfmon.c
-> +++ b/drivers/accel/ethosu/ethosu_perfmon.c
-> @@ -71,7 +71,8 @@ void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perf
->
->  	ncounters = perfmon->ncounters - 1;
->
-> -	if (!pm_runtime_get_if_active(ethosu->base.dev)) {
+The last vmwgfx internal use of this code was removed in commit
+2e10cdc6e85d ("drm/vmwgfx: Remove explicit and broken vblank handling")
 
-This should be correct. I just post
-https://lore.kernel.org/imx/20261029163044.3062958-1-Frank.Li@oss.nxp.com/T/#u
+The vmw_fence_event ioctl was introduced in commit
+57c5ee79acba ("vmwgfx: Add fence events") which claimed it would be used
+by the xf86-video-vmware Xorg driver but the git history shows that it was
+never used in that driver; nor was it used by mesa.
 
-belong to Pattern A
+Remove this code as we've had a number of bug reports related to it.
 
-Frank
+Signed-off-by: Ian Forbes <ian.forbes@broadcom.com>
+---
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c | 241 +-------------------------
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.h |   6 -
+ 2 files changed, 1 insertion(+), 246 deletions(-)
 
-> +	if (IS_ENABLED(CONFIG_PM) &&
-> +	    pm_runtime_get_if_active(ethosu->base.dev) <= 0) {
->  		ethosu->perfmon_state.active = NULL;
->  		return;
->  	}
->
-> --
-> 2.53.0
->
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
+index 384c6736cf6b..004ed060cf54 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
+@@ -23,27 +23,6 @@ struct vmw_user_fence {
+ 	struct vmw_fence_obj fence;
+ };
+ 
+-/**
+- * struct vmw_event_fence_action - fence callback that delivers a DRM event.
+- *
+- * @base:  For use with dma_fence_add_callback(...)
+- * @event: A pointer to the pending event.
+- * @dev: Pointer to a struct drm_device so we can access the event stuff.
+- * @tv_sec: If non-null, the variable pointed to will be assigned
+- * current time tv_sec val when the fence signals.
+- * @tv_usec: Must be set if @tv_sec is set, and the variable pointed to will
+- * be assigned the current time tv_usec val when the fence signals.
+- */
+-struct vmw_event_fence_action {
+-	struct dma_fence_cb base;
+-
+-	struct drm_pending_event *event;
+-	struct drm_device *dev;
+-
+-	uint32_t *tv_sec;
+-	uint32_t *tv_usec;
+-};
+-
+ static struct vmw_fence_manager *
+ fman_from_fence(struct vmw_fence_obj *fence)
+ {
+@@ -524,226 +503,8 @@ int vmw_fence_obj_unref_ioctl(struct drm_device *dev, void *data,
+ 					 arg->handle);
+ }
+ 
+-/**
+- * vmw_event_fence_action_seq_passed
+- *
+- * @f: The struct dma_fence which provides timestamp for the action event
+- * @cb: The struct dma_fence_cb callback for the action event.
+- *
+- * This function is called when the seqno of the fence has passed
+- * and it is always called from atomic context.
+- * It queues the event on the submitter's event list.
+- */
+-static void vmw_event_fence_action_seq_passed(struct dma_fence *f,
+-					      struct dma_fence_cb *cb)
+-{
+-	struct vmw_event_fence_action *eaction =
+-		container_of(cb, struct vmw_event_fence_action, base);
+-	struct drm_device *dev = eaction->dev;
+-	struct drm_pending_event *event = eaction->event;
+-
+-	if (unlikely(event == NULL))
+-		return;
+-
+-	spin_lock_irq(&dev->event_lock);
+-
+-	if (likely(eaction->tv_sec != NULL)) {
+-		struct timespec64 ts;
+-
+-		ts = ktime_to_timespec64(f->timestamp);
+-		/* monotonic time, so no y2038 overflow */
+-		*eaction->tv_sec = ts.tv_sec;
+-		*eaction->tv_usec = ts.tv_nsec / NSEC_PER_USEC;
+-	}
+-
+-	drm_send_event_locked(dev, eaction->event);
+-	eaction->event = NULL;
+-	spin_unlock_irq(&dev->event_lock);
+-	dma_fence_put(f);
+-	kfree(eaction);
+-}
+-
+-/**
+- * vmw_event_fence_action_queue - Post an event for sending when a fence
+- * object seqno has passed.
+- *
+- * @file_priv: The file connection on which the event should be posted.
+- * @fence: The fence object on which to post the event.
+- * @event: Event to be posted. This event should've been alloced
+- * using k[mz]alloc, and should've been completely initialized.
+- * @tv_sec: If non-null, the variable pointed to will be assigned
+- * current time tv_sec val when the fence signals.
+- * @tv_usec: Must be set if @tv_sec is set, and the variable pointed to will
+- * be assigned the current time tv_usec val when the fence signals.
+- * @interruptible: Interruptible waits if possible.
+- *
+- * As a side effect, the object pointed to by @event may have been
+- * freed when this function returns. If this function returns with
+- * an error code, the caller needs to free that object.
+- */
+-
+-int vmw_event_fence_action_queue(struct drm_file *file_priv,
+-				 struct vmw_fence_obj *fence,
+-				 struct drm_pending_event *event,
+-				 uint32_t *tv_sec,
+-				 uint32_t *tv_usec,
+-				 bool interruptible)
+-{
+-	struct vmw_event_fence_action *eaction;
+-	struct vmw_fence_manager *fman = fman_from_fence(fence);
+-
+-	eaction = kzalloc_obj(*eaction);
+-	if (unlikely(!eaction))
+-		return -ENOMEM;
+-
+-	eaction->event = event;
+-	eaction->dev = &fman->dev_priv->drm;
+-	eaction->tv_sec = tv_sec;
+-	eaction->tv_usec = tv_usec;
+-
+-	vmw_fence_obj_reference(fence); // Dropped in CB
+-	if (dma_fence_add_callback(&fence->base, &eaction->base,
+-				   vmw_event_fence_action_seq_passed) < 0)
+-		vmw_event_fence_action_seq_passed(&fence->base, &eaction->base);
+-	return 0;
+-}
+-
+-struct vmw_event_fence_pending {
+-	struct drm_pending_event base;
+-	struct drm_vmw_event_fence event;
+-};
+-
+-static int vmw_event_fence_action_create(struct drm_file *file_priv,
+-				  struct vmw_fence_obj *fence,
+-				  uint32_t flags,
+-				  uint64_t user_data,
+-				  bool interruptible)
+-{
+-	struct vmw_event_fence_pending *event;
+-	struct vmw_fence_manager *fman = fman_from_fence(fence);
+-	struct drm_device *dev = &fman->dev_priv->drm;
+-	int ret;
+-
+-	event = kzalloc_obj(*event);
+-	if (unlikely(!event)) {
+-		DRM_ERROR("Failed to allocate an event.\n");
+-		ret = -ENOMEM;
+-		goto out_no_space;
+-	}
+-
+-	event->event.base.type = DRM_VMW_EVENT_FENCE_SIGNALED;
+-	event->event.base.length = sizeof(event->event);
+-	event->event.user_data = user_data;
+-
+-	ret = drm_event_reserve_init(dev, file_priv, &event->base, &event->event.base);
+-
+-	if (unlikely(ret != 0)) {
+-		DRM_ERROR("Failed to allocate event space for this file.\n");
+-		kfree(event);
+-		goto out_no_space;
+-	}
+-
+-	if (flags & DRM_VMW_FE_FLAG_REQ_TIME)
+-		ret = vmw_event_fence_action_queue(file_priv, fence,
+-						   &event->base,
+-						   &event->event.tv_sec,
+-						   &event->event.tv_usec,
+-						   interruptible);
+-	else
+-		ret = vmw_event_fence_action_queue(file_priv, fence,
+-						   &event->base,
+-						   NULL,
+-						   NULL,
+-						   interruptible);
+-	if (ret != 0)
+-		goto out_no_queue;
+-
+-	return 0;
+-
+-out_no_queue:
+-	drm_event_cancel_free(dev, &event->base);
+-out_no_space:
+-	return ret;
+-}
+-
+ int vmw_fence_event_ioctl(struct drm_device *dev, void *data,
+ 			  struct drm_file *file_priv)
+ {
+-	struct vmw_private *dev_priv = vmw_priv(dev);
+-	struct drm_vmw_fence_event_arg *arg =
+-		(struct drm_vmw_fence_event_arg *) data;
+-	struct vmw_fence_obj *fence = NULL;
+-	struct vmw_fpriv *vmw_fp = vmw_fpriv(file_priv);
+-	struct ttm_object_file *tfile = vmw_fp->tfile;
+-	struct drm_vmw_fence_rep __user *user_fence_rep =
+-		(struct drm_vmw_fence_rep __user *)(unsigned long)
+-		arg->fence_rep;
+-	uint32_t handle;
+-	int ret;
+-
+-	/*
+-	 * Look up an existing fence object,
+-	 * and if user-space wants a new reference,
+-	 * add one.
+-	 */
+-	if (arg->handle) {
+-		struct ttm_base_object *base =
+-			vmw_fence_obj_lookup(tfile, arg->handle);
+-
+-		if (IS_ERR(base))
+-			return PTR_ERR(base);
+-
+-		fence = &(container_of(base, struct vmw_user_fence,
+-				       base)->fence);
+-		(void) vmw_fence_obj_reference(fence);
+-
+-		if (user_fence_rep != NULL) {
+-			ret = ttm_ref_object_add(vmw_fp->tfile, base,
+-						 NULL, false);
+-			if (unlikely(ret != 0)) {
+-				DRM_ERROR("Failed to reference a fence "
+-					  "object.\n");
+-				goto out_no_ref_obj;
+-			}
+-			handle = base->handle;
+-		}
+-		ttm_base_object_unref(&base);
+-	}
+-
+-	/*
+-	 * Create a new fence object.
+-	 */
+-	if (!fence) {
+-		ret = vmw_execbuf_fence_commands(file_priv, dev_priv,
+-						 &fence,
+-						 (user_fence_rep) ?
+-						 &handle : NULL);
+-		if (unlikely(ret != 0)) {
+-			DRM_ERROR("Fence event failed to create fence.\n");
+-			return ret;
+-		}
+-	}
+-
+-	BUG_ON(fence == NULL);
+-
+-	ret = vmw_event_fence_action_create(file_priv, fence,
+-					    arg->flags,
+-					    arg->user_data,
+-					    true);
+-	if (unlikely(ret != 0)) {
+-		if (ret != -ERESTARTSYS)
+-			DRM_ERROR("Failed to attach event to fence.\n");
+-		goto out_no_create;
+-	}
+-
+-	vmw_execbuf_copy_fence_user(dev_priv, vmw_fp, 0, user_fence_rep, fence,
+-				    handle, -1);
+-	vmw_fence_obj_unreference(&fence);
+-	return 0;
+-out_no_create:
+-	if (user_fence_rep != NULL)
+-		ttm_ref_object_base_unref(tfile, handle);
+-out_no_ref_obj:
+-	vmw_fence_obj_unreference(&fence);
+-	return ret;
++	return -ENOTTY; // Never Used
+ }
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h
+index e897cccae1ae..24d7b279ca4b 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h
+@@ -101,10 +101,4 @@ extern int vmw_fence_obj_unref_ioctl(struct drm_device *dev, void *data,
+ 				     struct drm_file *file_priv);
+ extern int vmw_fence_event_ioctl(struct drm_device *dev, void *data,
+ 				 struct drm_file *file_priv);
+-extern int vmw_event_fence_action_queue(struct drm_file *filee_priv,
+-					struct vmw_fence_obj *fence,
+-					struct drm_pending_event *event,
+-					uint32_t *tv_sec,
+-					uint32_t *tv_usec,
+-					bool interruptible);
+ #endif /* _VMWGFX_FENCE_H_ */
+-- 
+2.56.0
+
