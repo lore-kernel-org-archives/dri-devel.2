@@ -2,98 +2,89 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E3B606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 21:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCFD606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 22:05:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sYS2WfiV
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=PZv18s2p
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 950A1112581;
-	Thu, 29 Oct 2026 21:58:08 +0000 (UTC)
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4FB011257C
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 21:58:01 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-1680a50e64eso383c88.2
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:58:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793311081; cv=none;
- d=google.com; s=arc-20260327;
- b=PZSWzM/qxXivX9Ca/UvZ/f3E5PpDRSFMVqyD96SzHD/RUzZrS7LmN/ZlZvgLJtNvNv
- qsURRjpKbXu0J2c3lapN7SCWB9iFDYjXsjXoem+PI2MU1K7X/4TOwYnFURhnEBU4GB6Z
- aEux3LB+EY+x2nLlssbDf2nYAsqTqzK5boU8CSS2XQdMhUnO9JJkpaLKpJFpKSKS8uoF
- N0nkoOSGzn0+8nEkP2i9KeSLkx7rrHQ/B6y2uX4MnrF8G5kUBf0sZenGttr3klD4/RgJ
- ziMaV/TkpJWdRJRoF9Upuj5ucNhYsodMmd5350d0SxL43aX08fC3v3BbMKquDi6wM9qE
- hXmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
- fh=dKkL6h4sEaAFldFW3RQ+rkqqqs5gnhQoAFio+WmvaUo=;
- b=VmuwuYiIJVdqUcfJLsn48/emqZCUUxtVrHSnxGiPBtwXdSTMiAxQ+2u2LPbYsdn7HW
- p0sVo9n40S3m4cBKqkZe6uHNQKt2by5B/k6zWlwnFM6/SFQ/XsuCTiwTve+sXQc3pioo
- 0JyI8dzzJGpZD3gpXAuls0se9OwIn7f4ViiYo4YCX5eZ9XNRe4Op71/X4LUUrC0P7lyD
- UDJheH6YUNn9X+c/UD/r66Cah9iCX5pBTxyWer4PzjO5ZjLmXpOto3HEBS3C4vbRRhIG
- gk9pDEDQonAdYlIThg7G3bB3QeI29OhKuvj4yJWh4ETdq2knh9msWh+Ze1ydNdhA3iFT
- 7PPQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793311081; x=1793915881; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
- b=sYS2WfiVVouqHex7HlXsj34i5akwOxwDXBq9MZ3PtQv/08HKLx2Ue5JVrdAPwB6191
- Rw0Zn8Y3NAeOrajmRYvl2PWu4xvPuaVf791GjVx9TQniBfXi95DtwuK8cEjPyR3FHY67
- CnkZ1PODUKpz22/kQUTNI3YBAZMGHDutLLc/Wd/dEbr1lrPu5eGUvnCX2BRWotQiuF4y
- ZLQXzf04QMrf3NJE9G8gS7yXhiyCNJkzhwlpD7osUVwga003IgUq09ukmkZmRhwAYlgw
- qe7zuyCFxX2P8z2dL71HlZfqZjmmH9kjfZWfbzzyX/cOXu/ioYwyaAdQYpXNoxIchq+W
- YCUA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D2C611258D;
+	Thu, 29 Oct 2026 22:05:16 +0000 (UTC)
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com
+ [209.85.216.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7703611258D
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 22:05:10 +0000 (UTC)
+Received: by mail-pj1-f98.google.com with SMTP id
+ 98e67ed59e1d1-3ace1f3897cso32360a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:05:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793311081; x=1793915881;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
- b=MhsLTHxxRqo6jgjG9VCIDyZ4JAyDM0r8g4DLDyimB00P60RcgipXgl6n47tokkqwWB
- hP3Li141JqCGexa7fF5UvecRVuCAqmoaDa/7ijinUlHqFfX3V23QyYQzcwnO03U99yOw
- 07B7Bssyh4xf02SPI5Tq2njghpcBEG2xXWIGspVKIQA/8SieYkSnazZSbLaNWoQQfdA7
- v512Rn/nKCA6yETumrVAK1N5wbNmLBm5eU7qD9yT2cUEQojlCeVhskS43oHcfS82NxUO
- qV7CW/OO4oQWRNDEQs192aLxtfIcXAYskuQEIayYnuwKO8BtusvKdaK/Ylb9CBtIf8hJ
- 3Eeg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxp4HyuvU7zwm6/kzcyF/KDAbE9/8N0thF51TvNtdC4BB+RK3/tnYArjG4ftC6dj0jEh5M3NMUU3Uk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJ9usO2zeXiOfWUNnQ//zUre6akGbKXHhvmwlWBicyxZZX028rt
- 7yi+xw6owaqLJjO3IaA1H0zihV3xGuN+ZSjXYYDuajAnogNFKfM5CKV3WFEW2wbZdNRSwwwdcCp
- KW4VAr3uxn2Qxz2HBupjzzZMKL/Lw4lc=
-X-Gm-Gg: AYBFou3dff3nq2Wald065K/YOvXj9Ldn8vL8Ah0iiW0RaafqPh9M5oEf3pX2q14l3a4
- vFTtoc110xsfsWNplP9oz0SydI29Nc/8o3v1SoeIYRIpOStsdYtO27j4CD0qtSmlxppj56Vkgdt
- u+p8Vu/wW7euHGmgtO+Dtnpy07BWUZqxZchaunp9H8fVvIsAmFSb3W/XWEhdyjxO21JSi7kQoEo
- ZZtxj4JXScIDnmPHhPwEtbuxysXn07XrgtE5om7F7BIJFGXbgpOC4noUYDMKpxx4WDDnji1ATDk
- IAO+riGTIxiwY0HdpeaISXePZc0UtEsUkwWGBXFOzqIXx0Sx2RwBvRuzNUj1zN+eTdLc6WHMyFi
- SLZCmU3lPE0aQ73MxMu4PfMmnonqnLHX3KQoVzes1ShoGvamJ/fb/LXrYPZDmwIGs9MUE6Y0gPL
- ca6ABQefGl9h/2fc2cXSkjIfs=
-X-Received: by 2002:a05:7022:c46:b0:1a1:9106:cfff with SMTP id
- a92af1059eb24-1ac5c45fd28mr645027c88.2.1793311081015; Thu, 29 Oct 2026
- 14:58:01 -0700 (PDT)
+ d=1e100.net; s=20260707; t=1793311510; x=1793916310;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=udQPo7L6Eus3UkHZSy/xKpMIrn2VrKa96HkxJUVFZIY=;
+ b=PbCw5R+2p0ICq8v4LGqVNO2MyDsuwqN7dL5BLrLAdmyxWa9sqHczeP64EELQEWWBtr
+ X3ALOqJfHQklw/EhnG75EXTPVb/P1etaPrHvAjMMMd+6z3iJc8fzDv6HvnEb5WNM6J/Q
+ O7nOo2PvW9dlQgME6t++yadnpiFMiyW5GEG3m+ZIX+kUYPukb4iObD4YGmjTLHn/sskE
+ oYbfMAzZzt3rHbx5AN6mvu7OjNDBgkS1xug+nXkrluApaq+poK3EFncNJaZ3Zc8epBV4
+ WrrCT4tGBfuKxFn5B1kpOV2z8JIaAFMvAmEGt5W+ZN7fWkKQZrth+xf2QK5+AyEhEF5w
+ Ppsw==
+X-Gm-Message-State: AFq9FYKGKmV0r9eKsfilHvxx5GG3Yed6VvzG1IkgMqKNkE7vnLDSVLpa
+ lzhv4ORy2zRrCOudNda4o15bxry+KTjGugfUzlNPuttbp4gaILg84C4NfgSRJCtOYzYIYMD68fI
+ qiCbF8ad8MYl0oVib19IOJR6PKF9E/sLmeQvnLUqLB7rhqmTlPWTPkW/44lPkZ1IO0226pMn2ae
+ noeVICBvtOa1hlPYT2BBr1mvWLQ/932IJV8Awhmlbnw2VZWfwU7LrCZb545+L1Df865/WHbMGQC
+ APd62PXaREdHnecH2aY
+X-Gm-Gg: AYBFou0XFRnWtKBRH1SF0E4oZf4HpGKjp4qEXNtFmfuCyCr8ez9pmmxtbRLHoFRkYvX
+ 9+Rqt5NSZsqRIl1Hg8a7C49vz/pqbvFwh63g11ha2Vx6nkl0YWF28/mk6q37x78bfssF5Y2mg1K
+ bPqPT07/RIGpR9IU9mvCkfrRzT9gJhwVrrr3+DdBjWz4NU5YAkkV0UCSt7R2Y93SmB84B9ExDEJ
+ Q1RTngomaTIShZQSJ+AzGf7Ajg2/9G43LDISOUlwrqal70Xg8NZSrol77MCKs7AhuYKsNf+o78P
+ JepjRydTxhoOgPAXPAlP9al4Q0sDBmte2W6hRT4jEAr4zwElnFdhulPhQZWzCAZ89GOs0KzMxBQ
+ 4KOoiVqdaTdcXsG41c92lv/VrL6CYbBnAYgE+hHZd/xSXM4ZFzfpBAC6iCEVp39RQqTTur9SR8t
+ NxAVEUWp8+oM1VbL+xdAZG9o+V18vnFcLJ
+X-Received: by 2002:a17:90a:da86:b0:39e:21a7:5df5 with SMTP id
+ 98e67ed59e1d1-3ae897f61aamr217052a91.24.1793311509672; 
+ Thu, 29 Oct 2026 15:05:09 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+ by smtp-relay.gmail.com with ESMTPS id
+ 98e67ed59e1d1-3ae845f21dasm682270a91.8.2026.10.29.15.05.09
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 29 Oct 2026 15:05:09 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lf1-f69.google.com with SMTP id
+ 2adb3069b0e04-5bcf39533ebso96330e87.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:05:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1793311507; x=1793916307;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=udQPo7L6Eus3UkHZSy/xKpMIrn2VrKa96HkxJUVFZIY=;
+ b=PZv18s2pQObKn++HaDaxkjrpMnf2YuSPxLcmhpaM8ekGEJzMe1IPs/llzretlsq2Nv
+ OAbnZ7GRuNxBxlVymRvr4FtB/9fU1CyXO2jhCg3Sk2zzyEQgGSwcj7+1Il5eCRU7OWvN
+ vBQD3ERgTSpM1dn58I502NnoCHeOeSU9/dwK4=
+X-Received: by 2002:a05:6512:3c8e:b0:5bf:9fc1:393f with SMTP id
+ 2adb3069b0e04-5bfd957cee8mr71775e87.52.1793311507456; 
+ Thu, 29 Oct 2026 15:05:07 -0700 (PDT)
+X-Received: by 2002:a05:6512:3c8e:b0:5bf:9fc1:393f with SMTP id
+ 2adb3069b0e04-5bfd957cee8mr71767e87.52.1793311506922; Thu, 29 Oct 2026
+ 15:05:06 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260916144014.879355-1-ed@aicharmers.com>
-In-Reply-To: <20260916144014.879355-1-ed@aicharmers.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Oct 2026 17:57:49 -0400
-X-Gm-Features: AclHuK9xVl7f8hieJPy2X3wLzEpfApxWnh2cKeKmKYYgIZ_iAsxEqlD0F7kalKA
-Message-ID: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-To: Ed Schofield <ed@aicharmers.com>, Andre Eikmeyer <dev@deq.rocks>
-Cc: amd-gfx@lists.freedesktop.org, Kenneth Feng <kenneth.feng@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20261029165417.249123-1-ian.forbes@broadcom.com>
+In-Reply-To: <20261029165417.249123-1-ian.forbes@broadcom.com>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Thu, 29 Oct 2026 18:04:53 -0400
+X-Gm-Features: AclHuK8p6wOpZ26sHQ6FXgcGf9QvZUCIaQz_Pboeu7Vs-qAQ90NAC_YO7-Zk2II
+Message-ID: <CABQX2QMPfqdXb1=0ne-=AxqqdEA3DfXau1OnNQY=B1ibiASQGw@mail.gmail.com>
+Subject: Re: [PATCH] drm/vmwgfx: Remove fence event code
+To: Ian Forbes <ian.forbes@broadcom.com>
+Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com, 
+ maaz.mombasawala@broadcom.com
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="00000000000065eab6065f01dfa4"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,308 +96,436 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-+ Andre
+--00000000000065eab6065f01dfa4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 10:51=E2=80=AFAM Ed Schofield <ed@aicharmers.com> w=
-rote:
+On Thu, Oct 29, 2026 at 12:54=E2=80=AFPM Ian Forbes <ian.forbes@broadcom.co=
+m> wrote:
 >
-> From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> The last vmwgfx internal use of this code was removed in commit
+> 2e10cdc6e85d ("drm/vmwgfx: Remove explicit and broken vblank handling")
 >
-> Some Apple Navi GPUs intermittently time out during SMU initialization
-> when EnableAllSmuFeatures includes UCLK DPM. Leave UCLK out of that early
-> request and enable it from Navi post-init, after display hardware init
-> and before the UMC workaround and UMD clock setup.
+> The vmw_fence_event ioctl was introduced in commit
+> 57c5ee79acba ("vmwgfx: Add fence events") which claimed it would be used
+> by the xf86-video-vmware Xorg driver but the git history shows that it wa=
+s
+> never used in that driver; nor was it used by mesa.
 >
-> Read back the enabled features before rebuilding the memory clock table
-> and sustainable clock limits. Also check the PPT memory states used by
-> display initialization before late enablement. Keep memory-voltage DPM
-> and respect the user's memory-DPM setting and the secure Navi 10 exclusio=
-n.
+> Remove this code as we've had a number of bug reports related to it.
 >
-> Limit this workaround to Apple 7340/0218 revision 41, 7340/0219, and
-> 731b/021a revision 40. Revisions and PCI IDs here are hexadecimal. The
-> underlying initialization dependency behind the timing sensitivity is
-> still unknown.
-
-@Andre Eikmeyer I think this patch should fix your system as well.
-@Atharva Tiwari are you ok with this patch?
-
-Thanks,
-
-Alex
-
->
-> This builds on Atharva Tiwari's submitted 0219 delayed-UCLK patch
-> and Guna's diagnosis. Ed Schofield moved the enable point into the
-> Navi callback, added state validation and clock-table refresh, and
-> extended the board matching.
-> Independent tests of the related T2 implementation support improved boot
-> reliability on 0219 and 021a; those are not tests of this exact AMD patch=
-.
->
-> Link: https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwari=
-linuxdev@gmail.com/
-> Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-56=
-37976466
-> Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-56=
-45652752
-> Assisted-by: Codex:GPT-6
-> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-> Co-developed-by: Ed Schofield <ed@aicharmers.com>
-> Signed-off-by: Ed Schofield <ed@aicharmers.com>
+> Signed-off-by: Ian Forbes <ian.forbes@broadcom.com>
 > ---
-> Hi Alex, hi Atharva,
+>  drivers/gpu/drm/vmwgfx/vmwgfx_fence.c | 241 +-------------------------
+>  drivers/gpu/drm/vmwgfx/vmwgfx_fence.h |   6 -
+>  2 files changed, 1 insertion(+), 246 deletions(-)
 >
-> Here is v4 of the delayed-UCLK workaround. Atharva is credited as the
-> author in `From:`, with my rework credited through `Co-developed-by:`.
-> The local development history starts from Atharva's original 0219
-> submission [1], followed by my move to the Navi post-init callback,
-> state validation, clock-table refresh and additional board support. This
-> export is a single replacement patch against AMD staging at `8a4e96cf2`;
-> it is not an incremental patch to apply on top of v2 or Atharva's
-> original patch. (V3 was a local revision that I didn't submit to this
-> list.)
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c b/drivers/gpu/drm/vmwg=
+fx/vmwgfx_fence.c
+> index 384c6736cf6b..004ed060cf54 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
+> @@ -23,27 +23,6 @@ struct vmw_user_fence {
+>         struct vmw_fence_obj fence;
+>  };
 >
-> Atharva, I agree that display initialization may explain the timing
-> dependency. This patch already enables UCLK after display hardware
-> initialization on the normal probe path. It is intended as a targeted
-> workaround for the reported boot failures; it does not establish the
-> underlying cause or address native 5K support. Could you share the exact
-> initialization-ordering diff, kernel version and GPU IDs from your
-> experiment? In the AMD staging tree used for this patch,
-> `dce_v10_0_early_init()` handles Tonga/Fiji, while these Navi boards use
-> the DCN path.
+> -/**
+> - * struct vmw_event_fence_action - fence callback that delivers a DRM ev=
+ent.
+> - *
+> - * @base:  For use with dma_fence_add_callback(...)
+> - * @event: A pointer to the pending event.
+> - * @dev: Pointer to a struct drm_device so we can access the event stuff=
+.
+> - * @tv_sec: If non-null, the variable pointed to will be assigned
+> - * current time tv_sec val when the fence signals.
+> - * @tv_usec: Must be set if @tv_sec is set, and the variable pointed to =
+will
+> - * be assigned the current time tv_usec val when the fence signals.
+> - */
+> -struct vmw_event_fence_action {
+> -       struct dma_fence_cb base;
+> -
+> -       struct drm_pending_event *event;
+> -       struct drm_device *dev;
+> -
+> -       uint32_t *tv_sec;
+> -       uint32_t *tv_usec;
+> -};
+> -
+>  static struct vmw_fence_manager *
+>  fman_from_fence(struct vmw_fence_obj *fence)
+>  {
+> @@ -524,226 +503,8 @@ int vmw_fence_obj_unref_ioctl(struct drm_device *de=
+v, void *data,
+>                                          arg->handle);
+>  }
 >
-> My goal is to stop the intermittent boot failures on my iMac (0218) and
-> other affected machines. Testing of my related T2 candidate in PR 61
-> [2], which was based on my local v3, is encouraging:
->
-> - Matt Olney's report on 021a [3] records internal-display boot success
->   improving from 2/10 to 10/10, with mixed restart types.
->   External-display results were 4/10 versus 4/5, with uncertain kernel
->   selection on the failed candidate attempt.
-> - Vivek Chauhan's report on 0219 [4] records boot success improving from
->   1/5 to 3/3.
->
-> These results are from the T2 implementation, not this exact AMD v4
-> export. The T2 patch stack also includes a separate correction to its
-> existing fixed allowed-feature mask on 0219, which clean AMD does not
-> need and this patch does not contain. The results support improved boot
-> reliability on these machines, but do not establish full performance or
-> reliability across all display configurations.
->
-> Compared with public v2, v4 adds 731b/021a revision 40, preserves the
-> existing secure-Navi-10 exclusion and generalizes the helper names. It
-> retains 7340/0218 revision 41 and 7340/0219. All IDs and revisions here
-> are hexadecimal.
->
-> Compared with my local v3 / T2 Linux PR #61, v4 excludes 020f: 3v3nFloW
-> reported that initialization completed but the machine subsequently hung
-> under load [5]. Their follow-up testing with a fixed memory-clock level
-> [6] suggests that memory-clock changes cause the hang, but doesn't
-> establish whether GPU load or display activity triggers it. I've also
-> excluded 021b from this version, which we don't yet have testing results
-> for.
->
-> Local build and host checks pass. I am currently travelling without my
-> iMac and have no new v4 hardware results, but I am submitting this
-> version for merging, with the workaround limited to the three board
-> matches supported by the existing evidence from the volunteer testers
-> mentioned above.
->
-> Alex, this patch replaces v2 and applies directly to the AMD staging
-> commit identified above.
->
-> Thanks,
-> Ed
->
-> [1] https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwarili=
-nuxdev@gmail.com/
-> [2] https://github.com/t2linux/linux-t2-patches/pull/61
-> [3] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5637=
-976466
-> [4] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5645=
-652752
-> [5] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
-139127
-> [6] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
-438512
->
-> v3 was local, not submitted. Since public v2: add the tested 021a/40
-> match, retain the secure-Navi-10 exclusion, and generalize helper names.
-> Since local v3: remove 020f (load hangs) and 021b (no testing evidence).
-> Base: 8a4e96cf2acd1e0340581df100b559f77ad7d855 (AMD staging).
-> This is a full replacement, not a patch to apply on top of v2.
->
->  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 100 ++++++++++++++++++
->  1 file changed, 100 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index f8ca5eb9a..3ac2a074c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -60,6 +60,37 @@
->
->  static int navi10_init_ppt_limits(struct smu_context *smu);
->
-> +static bool is_asic_secure(struct smu_context *smu);
-> +
-> +static bool navi10_apple_needs_late_uclk(struct smu_context *smu)
-> +{
-> +       struct amdgpu_device *adev =3D smu->adev;
-> +       struct pci_dev *pdev =3D adev->pdev;
-> +
-> +       if (pdev->vendor !=3D PCI_VENDOR_ID_ATI ||
-> +           pdev->subsystem_vendor !=3D PCI_VENDOR_ID_APPLE ||
-> +           !(adev->pm.pp_feature & PP_MCLK_DPM_MASK))
-> +               return false;
-> +
-> +       /* Preserve the existing secure Navi 10 memory-DPM exclusion. */
-> +       if (is_asic_secure(smu) &&
-> +           amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0,=
- 0) &&
-> +           adev->rev_id =3D=3D 0)
-> +               return false;
-> +
-> +       switch (pdev->device) {
-> +       case 0x7340:
-> +               return (pdev->subsystem_device =3D=3D 0x0218 &&
-> +                       pdev->revision =3D=3D 0x41) ||
-> +                      pdev->subsystem_device =3D=3D 0x0219;
-> +       case 0x731b:
-> +               return pdev->subsystem_device =3D=3D 0x021a &&
-> +                      pdev->revision =3D=3D 0x40;
-> +       default:
-> +               return false;
-> +       }
-> +}
-> +
->  static const struct smu_feature_bits navi10_dpm_features =3D {
->         .bits =3D {
->                 SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
-> @@ -356,6 +387,11 @@ navi10_init_allowed_features(struct smu_context *smu=
+> -/**
+> - * vmw_event_fence_action_seq_passed
+> - *
+> - * @f: The struct dma_fence which provides timestamp for the action even=
+t
+> - * @cb: The struct dma_fence_cb callback for the action event.
+> - *
+> - * This function is called when the seqno of the fence has passed
+> - * and it is always called from atomic context.
+> - * It queues the event on the submitter's event list.
+> - */
+> -static void vmw_event_fence_action_seq_passed(struct dma_fence *f,
+> -                                             struct dma_fence_cb *cb)
+> -{
+> -       struct vmw_event_fence_action *eaction =3D
+> -               container_of(cb, struct vmw_event_fence_action, base);
+> -       struct drm_device *dev =3D eaction->dev;
+> -       struct drm_pending_event *event =3D eaction->event;
+> -
+> -       if (unlikely(event =3D=3D NULL))
+> -               return;
+> -
+> -       spin_lock_irq(&dev->event_lock);
+> -
+> -       if (likely(eaction->tv_sec !=3D NULL)) {
+> -               struct timespec64 ts;
+> -
+> -               ts =3D ktime_to_timespec64(f->timestamp);
+> -               /* monotonic time, so no y2038 overflow */
+> -               *eaction->tv_sec =3D ts.tv_sec;
+> -               *eaction->tv_usec =3D ts.tv_nsec / NSEC_PER_USEC;
+> -       }
+> -
+> -       drm_send_event_locked(dev, eaction->event);
+> -       eaction->event =3D NULL;
+> -       spin_unlock_irq(&dev->event_lock);
+> -       dma_fence_put(f);
+> -       kfree(eaction);
+> -}
+> -
+> -/**
+> - * vmw_event_fence_action_queue - Post an event for sending when a fence
+> - * object seqno has passed.
+> - *
+> - * @file_priv: The file connection on which the event should be posted.
+> - * @fence: The fence object on which to post the event.
+> - * @event: Event to be posted. This event should've been alloced
+> - * using k[mz]alloc, and should've been completely initialized.
+> - * @tv_sec: If non-null, the variable pointed to will be assigned
+> - * current time tv_sec val when the fence signals.
+> - * @tv_usec: Must be set if @tv_sec is set, and the variable pointed to =
+will
+> - * be assigned the current time tv_usec val when the fence signals.
+> - * @interruptible: Interruptible waits if possible.
+> - *
+> - * As a side effect, the object pointed to by @event may have been
+> - * freed when this function returns. If this function returns with
+> - * an error code, the caller needs to free that object.
+> - */
+> -
+> -int vmw_event_fence_action_queue(struct drm_file *file_priv,
+> -                                struct vmw_fence_obj *fence,
+> -                                struct drm_pending_event *event,
+> -                                uint32_t *tv_sec,
+> -                                uint32_t *tv_usec,
+> -                                bool interruptible)
+> -{
+> -       struct vmw_event_fence_action *eaction;
+> -       struct vmw_fence_manager *fman =3D fman_from_fence(fence);
+> -
+> -       eaction =3D kzalloc_obj(*eaction);
+> -       if (unlikely(!eaction))
+> -               return -ENOMEM;
+> -
+> -       eaction->event =3D event;
+> -       eaction->dev =3D &fman->dev_priv->drm;
+> -       eaction->tv_sec =3D tv_sec;
+> -       eaction->tv_usec =3D tv_usec;
+> -
+> -       vmw_fence_obj_reference(fence); // Dropped in CB
+> -       if (dma_fence_add_callback(&fence->base, &eaction->base,
+> -                                  vmw_event_fence_action_seq_passed) < 0=
 )
->                 smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, F=
-EATURE_MEM_MVDD_SCALING_BIT);
->         }
->
-> +       /* Defer UCLK on the selected Apple boards until IP late init. */
-> +       if (navi10_apple_needs_late_uclk(smu))
-> +               smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
-> +                                          FEATURE_DPM_UCLK_BIT);
-> +
->         if (is_asic_secure(smu) &&
->             (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0=
-, 0)) &&
->             (adev->rev_id =3D=3D 0))
-> @@ -470,6 +506,25 @@ static int navi10_store_powerplay_table(struct smu_c=
-ontext *smu)
->         return 0;
->  }
->
-> +/* DCN20 consumes these PPT states before the post-init UCLK enable. */
-> +static int navi10_apple_check_uclk_states(struct smu_context *smu)
-> +{
-> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
-> +       unsigned int count, i;
-> +
-> +       if (!navi10_apple_needs_late_uclk(smu))
-> +               return 0;
-> +
-> +       count =3D ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
-> +       if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
-> +               return -EINVAL;
-> +       for (i =3D 0; i < count; i++) {
-> +               if (!ppt->FreqTableUclk[i])
-> +                       return -EINVAL;
-> +       }
-> +       return 0;
-> +}
-> +
->  static int navi10_setup_pptable(struct smu_context *smu)
+> -               vmw_event_fence_action_seq_passed(&fence->base, &eaction-=
+>base);
+> -       return 0;
+> -}
+> -
+> -struct vmw_event_fence_pending {
+> -       struct drm_pending_event base;
+> -       struct drm_vmw_event_fence event;
+> -};
+> -
+> -static int vmw_event_fence_action_create(struct drm_file *file_priv,
+> -                                 struct vmw_fence_obj *fence,
+> -                                 uint32_t flags,
+> -                                 uint64_t user_data,
+> -                                 bool interruptible)
+> -{
+> -       struct vmw_event_fence_pending *event;
+> -       struct vmw_fence_manager *fman =3D fman_from_fence(fence);
+> -       struct drm_device *dev =3D &fman->dev_priv->drm;
+> -       int ret;
+> -
+> -       event =3D kzalloc_obj(*event);
+> -       if (unlikely(!event)) {
+> -               DRM_ERROR("Failed to allocate an event.\n");
+> -               ret =3D -ENOMEM;
+> -               goto out_no_space;
+> -       }
+> -
+> -       event->event.base.type =3D DRM_VMW_EVENT_FENCE_SIGNALED;
+> -       event->event.base.length =3D sizeof(event->event);
+> -       event->event.user_data =3D user_data;
+> -
+> -       ret =3D drm_event_reserve_init(dev, file_priv, &event->base, &eve=
+nt->event.base);
+> -
+> -       if (unlikely(ret !=3D 0)) {
+> -               DRM_ERROR("Failed to allocate event space for this file.\=
+n");
+> -               kfree(event);
+> -               goto out_no_space;
+> -       }
+> -
+> -       if (flags & DRM_VMW_FE_FLAG_REQ_TIME)
+> -               ret =3D vmw_event_fence_action_queue(file_priv, fence,
+> -                                                  &event->base,
+> -                                                  &event->event.tv_sec,
+> -                                                  &event->event.tv_usec,
+> -                                                  interruptible);
+> -       else
+> -               ret =3D vmw_event_fence_action_queue(file_priv, fence,
+> -                                                  &event->base,
+> -                                                  NULL,
+> -                                                  NULL,
+> -                                                  interruptible);
+> -       if (ret !=3D 0)
+> -               goto out_no_queue;
+> -
+> -       return 0;
+> -
+> -out_no_queue:
+> -       drm_event_cancel_free(dev, &event->base);
+> -out_no_space:
+> -       return ret;
+> -}
+> -
+>  int vmw_fence_event_ioctl(struct drm_device *dev, void *data,
+>                           struct drm_file *file_priv)
 >  {
->         int ret =3D 0;
-> @@ -490,6 +545,10 @@ static int navi10_setup_pptable(struct smu_context *=
-smu)
->         if (ret)
->                 return ret;
->
-> +       ret =3D navi10_apple_check_uclk_states(smu);
-> +       if (ret)
-> +               return ret;
-> +
->         return navi10_init_ppt_limits(smu);
+> -       struct vmw_private *dev_priv =3D vmw_priv(dev);
+> -       struct drm_vmw_fence_event_arg *arg =3D
+> -               (struct drm_vmw_fence_event_arg *) data;
+> -       struct vmw_fence_obj *fence =3D NULL;
+> -       struct vmw_fpriv *vmw_fp =3D vmw_fpriv(file_priv);
+> -       struct ttm_object_file *tfile =3D vmw_fp->tfile;
+> -       struct drm_vmw_fence_rep __user *user_fence_rep =3D
+> -               (struct drm_vmw_fence_rep __user *)(unsigned long)
+> -               arg->fence_rep;
+> -       uint32_t handle;
+> -       int ret;
+> -
+> -       /*
+> -        * Look up an existing fence object,
+> -        * and if user-space wants a new reference,
+> -        * add one.
+> -        */
+> -       if (arg->handle) {
+> -               struct ttm_base_object *base =3D
+> -                       vmw_fence_obj_lookup(tfile, arg->handle);
+> -
+> -               if (IS_ERR(base))
+> -                       return PTR_ERR(base);
+> -
+> -               fence =3D &(container_of(base, struct vmw_user_fence,
+> -                                      base)->fence);
+> -               (void) vmw_fence_obj_reference(fence);
+> -
+> -               if (user_fence_rep !=3D NULL) {
+> -                       ret =3D ttm_ref_object_add(vmw_fp->tfile, base,
+> -                                                NULL, false);
+> -                       if (unlikely(ret !=3D 0)) {
+> -                               DRM_ERROR("Failed to reference a fence "
+> -                                         "object.\n");
+> -                               goto out_no_ref_obj;
+> -                       }
+> -                       handle =3D base->handle;
+> -               }
+> -               ttm_base_object_unref(&base);
+> -       }
+> -
+> -       /*
+> -        * Create a new fence object.
+> -        */
+> -       if (!fence) {
+> -               ret =3D vmw_execbuf_fence_commands(file_priv, dev_priv,
+> -                                                &fence,
+> -                                                (user_fence_rep) ?
+> -                                                &handle : NULL);
+> -               if (unlikely(ret !=3D 0)) {
+> -                       DRM_ERROR("Fence event failed to create fence.\n"=
+);
+> -                       return ret;
+> -               }
+> -       }
+> -
+> -       BUG_ON(fence =3D=3D NULL);
+> -
+> -       ret =3D vmw_event_fence_action_create(file_priv, fence,
+> -                                           arg->flags,
+> -                                           arg->user_data,
+> -                                           true);
+> -       if (unlikely(ret !=3D 0)) {
+> -               if (ret !=3D -ERESTARTSYS)
+> -                       DRM_ERROR("Failed to attach event to fence.\n");
+> -               goto out_no_create;
+> -       }
+> -
+> -       vmw_execbuf_copy_fence_user(dev_priv, vmw_fp, 0, user_fence_rep, =
+fence,
+> -                                   handle, -1);
+> -       vmw_fence_obj_unreference(&fence);
+> -       return 0;
+> -out_no_create:
+> -       if (user_fence_rep !=3D NULL)
+> -               ttm_ref_object_base_unref(tfile, handle);
+> -out_no_ref_obj:
+> -       vmw_fence_obj_unreference(&fence);
+> -       return ret;
+> +       return -ENOTTY; // Never Used
 >  }
->
-> @@ -3219,6 +3278,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu=
-_context *smu)
->                                                NULL);
->  }
->
-> +/* IP late init follows display hw_init; refresh clocks before UMC/UMD s=
-etup. */
-> +static int navi10_apple_late_uclk_enable(struct smu_context *smu)
-> +{
-> +       struct smu_11_0_dpm_context *dpm =3D smu->smu_dpm.dpm_context;
-> +       struct smu_dpm_table *table =3D &dpm->dpm_tables.uclk_table;
-> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
-> +       struct smu_feature_bits enabled;
-> +       int ret;
-> +
-> +       if (!navi10_apple_needs_late_uclk(smu))
-> +               return 0;
-> +
-> +       ret =3D smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT=
-, true);
-> +       if (ret)
-> +               return ret;
-> +       ret =3D smu_cmn_get_enabled_mask(smu, &enabled);
-> +       if (ret)
-> +               return ret;
-> +       if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
-> +               return -EIO;
-> +
-> +       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
-> +                                FEATURE_DPM_UCLK_BIT);
-> +       table->clk_type =3D SMU_UCLK;
-> +       ret =3D smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
-> +       if (ret)
-> +               return ret;
-> +       if (!table->count)
-> +               return -EINVAL;
-> +       if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
-> +               table->flags |=3D SMU_DPM_TABLE_FINE_GRAINED;
-> +
-> +       return smu_v11_0_init_max_sustainable_clocks(smu);
-> +}
-> +
->  static int navi10_post_smu_init(struct smu_context *smu)
->  {
->         struct amdgpu_device *adev =3D smu->adev;
-> @@ -3227,6 +3321,12 @@ static int navi10_post_smu_init(struct smu_context=
- *smu)
->         if (amdgpu_sriov_vf(adev))
->                 return 0;
->
-> +       ret =3D navi10_apple_late_uclk_enable(smu);
-> +       if (ret) {
-> +               dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n"=
-, ret);
-> +               return ret;
-> +       }
-> +
->         ret =3D navi10_run_umc_cdr_workaround(smu);
->         if (ret)
->                 dev_err(adev->dev, "Failed to apply umc cdr workaround!\n=
-");
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h b/drivers/gpu/drm/vmwg=
+fx/vmwgfx_fence.h
+> index e897cccae1ae..24d7b279ca4b 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.h
+> @@ -101,10 +101,4 @@ extern int vmw_fence_obj_unref_ioctl(struct drm_devi=
+ce *dev, void *data,
+>                                      struct drm_file *file_priv);
+>  extern int vmw_fence_event_ioctl(struct drm_device *dev, void *data,
+>                                  struct drm_file *file_priv);
+> -extern int vmw_event_fence_action_queue(struct drm_file *filee_priv,
+> -                                       struct vmw_fence_obj *fence,
+> -                                       struct drm_pending_event *event,
+> -                                       uint32_t *tv_sec,
+> -                                       uint32_t *tv_usec,
+> -                                       bool interruptible);
+>  #endif /* _VMWGFX_FENCE_H_ */
 > --
-> 2.43.0
+> 2.56.0
+>
+
+Yea, that's probably a good idea. Unused code is so hard to maintain
+in the llm age.
+Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
+
+z
+
+--00000000000065eab6065f01dfa4
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIL9+
+i+g0yIoOke5EbIGtrMNTDIu3bl6191MFcu8arX0sMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAyOTIyMDUwN1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAEiYBy095fOGoV6S02hvRDVW8MNUnmRt1KS9Ia2A
+zaqr/V4J5ruohKRx01mrFAUc7Iy7ihsQmJW9I4xAg7mxoYSh9ahZXa2+AHXJ7SBVtuk/X4wBOSVb
+947ZKP57iMtTjZfaX2gpXKu4I4Hlh0flj6PiQevE09Or7HkDV4TY5mg2b/Ojl9PMYMrzaDQczpvp
+GOvUPuZp/VhXmPUeKdo1Sumfi33vJ+77ubgeTlp2MdoyD9V8pooZFce0IRHsxGHteUzNaV/WaBwq
+Xixu6ml5N9UbM4IqrXEStKShWUJe4FbzzjaIJVCDOjgXiGcNu7megLWvhY6MjOTOAWwD1Rdok/g=
+--00000000000065eab6065f01dfa4--
