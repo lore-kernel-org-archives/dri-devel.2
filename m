@@ -2,40 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B2C606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:13:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69C4606A327
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:13:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lglaOQhg
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1i6nC60
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49A7411232B;
-	Thu, 29 Oct 2026 14:13:41 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C74AA11233D
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7BFF112336;
+	Thu, 29 Oct 2026 14:13:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD8EA11233B
  for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:13:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 204C76012A;
+ by sea.source.kernel.org (Postfix) with ESMTP id A64E841074;
  Thu, 29 Oct 2026 14:13:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884891F01825;
- Thu, 29 Oct 2026 14:13:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4BC1F01828;
+ Thu, 29 Oct 2026 14:13:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793283214;
- bh=M1aQfGDZ7Vb2nGSxetYuQ+UQaxnvNayTxfDWRbGrr0g=;
+ s=k20260515; t=1793283215;
+ bh=+pE9WiVmUOYqW50PCKiS/ra/HVGFNnSngvzlVshgGrA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lglaOQhgNX70H03nnqzFN8KoOikJZ8/sJ6xJW/X1r7zuRk5OxCPbgE2d1fpfUCCL7
- VulQhXF1NlSLFFSosKROt9x+0TGwKFIXGF7Rq49aOyOT1eI3AkJnl2Ws/fNIvAlWeZ
- QFZnONQ3uilq+DVqxFdDCJkeBpnwPrG059oCk7KymZR64fcQu6CO/9fiXhHkVoorAm
- 6FwzZRZgyLjYpCre05wF19ydlyBcgZunx7kSa3ZPv0LM2C2BgeGWUpkS6rpj9Zt/bH
- /L303SeaoJGMPwxcQ73zPl8ujUkfnPv9Lm2uU3R4alT0lLk+8HiywTQ1WG9Q6wFPS2
- W+POYnDTqvgPw==
-Message-ID: <sashiko-outbox-189486@kernel.org>
+ b=P1i6nC60DxADynjhMVLnkCFwX/ExF3rCfE7UVU8GHzCkzsRwr+2hFlbgOjDb+PV7N
+ vT6AGp6S654xehJSDyDGSwMofg04FVzYwXRpMb64iFa2JQ0qoKh0nhiqL2RxE7oVx+
+ 7ksDo/iPcjBv3EAETAJeoiApCFPAHy0xb3+Tn+VKvNWb4sGMFCzbcI+nGkjYLIYz3r
+ 8kmaWgeIQDcHl/F32dudUTpSOSm6JAduPn311MwLnTeOTYtfpXl7xYGKs3kGYEsX+u
+ r1xO0xaZCwT4rYyRSOTpUmq5GNlmlosHgsILsZRVeV93w+EhWGKR9f1aLbWH9CjmED
+ sKkVoeEIjIeIw==
+Message-ID: <sashiko-outbox-189487@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 08/14] temp: add LPAC regs
+Subject: Re: [PATCH RFC v2 07/14] iommu: arm-smmu-qcom: Fixed mapping
+ between sid and cb for gpu and lpac
 To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-8-a21a5c850961@gmail.com>
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-7-a21a5c850961@gmail.com>
 References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
- <20261029-descriptive-name-lpac-upstream-v2-8-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-7-a21a5c850961@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Thu, 29 Oct 2026 14:13:34 +0000
@@ -61,134 +62,109 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/msm: conflicting offsets and variants for LPAC regs in a6xx.=
-xml
+- [High] iommu/arm-smmu-qcom: unconditional CB 1 reservation for LPAC shift=
+s GMU CB
 --
 
-commit cffea449b0ea5b2e3282237ed9e0160eef7997c8
+commit 51e5e8227679664f11df23a51921048a054a1310
 Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-temp: add LPAC regs
+iommu: arm-smmu-qcom: Fixed mapping between sid and cb for gpu and lpac
 
-This commit adds LPAC and UCHE register definitions to the Adreno a6xx XML
-register database.
+This commit splits context bank allocation and initialization in
+arm-smmu-qcom so that the gpu device (stream id 0) is assigned context bank=
+ 0
+and the lpac device (stream id 1) is assigned context bank 1, while other
+devices start allocation from context bank 2.
 
-> diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml b/drivers/gpu/=
-drm/msm/registers/adreno/a6xx.xml
-> index 3349c01646e12..bb49f6a61a9af 100644
-> --- a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
-> +++ b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
-> @@ -276,6 +276,11 @@ by a particular renderpass/blit.
->  		<bitfield pos=3D"1" name=3D"ACCESS_FAULT_ON_VIOL_EN" type=3D"boolean"/>
->  		<bitfield pos=3D"0" name=3D"ACCESS_PROT_EN" type=3D"boolean"/>
->  	</bitset>
-> +	<reg32 offset=3D"0x0B09" name=3D"CP_LPAC_PROTECT_CNTL">
-> +		<bitfield pos=3D"3" name=3D"LAST_SPAN_INF_RANGE" type=3D"boolean"/>
-> +		<bitfield pos=3D"1" name=3D"ACCESS_FAULT_ON_VIOL_EN" type=3D"boolean"/>
-> +		<bitfield pos=3D"0" name=3D"ACCESS_PROT_EN" type=3D"boolean"/>
-> +	</reg32>
-> =20
->  	<reg32 offset=3D"0x084f" name=3D"CP_PROTECT_CNTL" type=3D"a6xx_cp_prote=
-ct_cntl" variants=3D"A6XX-A7XX"/>
->  	<bitset name=3D"a8xx_cp_protect_cntl" inline=3D"yes">
-> @@ -333,6 +338,11 @@ by a particular renderpass/blit.
->  	<reg32 offset=3D"0x0845" name=3D"CP_CRASH_DUMP_STATUS" variants=3D"A8XX=
--"/>
->  	<reg32 offset=3D"0x0908" name=3D"CP_SQE_STAT_ADDR" variants=3D"A6XX-A7X=
-X"/>
->  	<reg32 offset=3D"0x0909" name=3D"CP_SQE_STAT_DATA" variants=3D"A6XX-A7X=
-X"/>
-> +	<reg64 offset=3D"0x0b00" name=3D"CP_LPAC_RB_BASE" variants=3D"A7XX-"/>
-> +	<reg32 offset=3D"0x0b02" name=3D"CP_LPAC_RB_CNTL" variants=3D"A7XX-"/>
-> +	<reg64 offset=3D"0x0b04" name=3D"CP_LPAC_RB_RPTR_ADDR" variants=3D"A7XX=
--"/>
-> +	<reg32 offset=3D"0x0b06" name=3D"CP_LPAC_RB_RPTR" variants=3D"A7XX-"/>
-> +	<reg32 offset=3D"0x0b07" name=3D"CP_LPAC_RB_WPTR" variants=3D"A7XX-"/>
->  	<reg32 offset=3D"0x090a" name=3D"CP_DRAW_STATE_ADDR" variants=3D"A6XX-A=
-7XX"/>
->  	<reg32 offset=3D"0x090b" name=3D"CP_DRAW_STATE_DATA" variants=3D"A6XX-A=
-7XX"/>
->  	<reg32 offset=3D"0x090c" name=3D"CP_ROQ_DBG_ADDR" variants=3D"A6XX-A7XX=
-"/>
-> @@ -521,6 +531,7 @@ by a particular renderpass/blit.
->  	<reg32 offset=3D"0x0b29" name=3D"CP_SQE_AC_STAT_ADDR" variants=3D"A7XX"=
-/>
->  	<reg32 offset=3D"0x0b2a" name=3D"CP_SQE_AC_STAT_DATA" variants=3D"A7XX"=
-/>
-> =20
-> +	<reg32 offset=3D"0x0b30" name=3D"CP_LPAC_CHICKEN_DBG" variants=3D"A7XX-=
-"/>
->  	<reg32 offset=3D"0x0b31" name=3D"CP_LPAC_APRIV_CNTL" variants=3D"A7XX"/>
->  	<reg32 offset=3D"0x0b34" name=3D"CP_LPAC_PROG_FIFO_SIZE" variants=3D"A7=
-XX"/>
->  	<reg32 offset=3D"0x0b35" name=3D"CP_LPAC_ROQ_DBG_DATA" variants=3D"A7XX=
-"/>
-> @@ -1207,6 +1218,7 @@ by a particular renderpass/blit.
->  	<reg64 offset=3D"0x0E08" name=3D"UCHE_TRAP_BASE" variants=3D"A8XX-"/>
->  	<reg64 offset=3D"0x0E0B" name=3D"UCHE_GMEM_RANGE_MIN" variants=3D"A6XX-=
-A7XX"/>
->  	<reg64 offset=3D"0x0E0D" name=3D"UCHE_GMEM_RANGE_MAX" variants=3D"A6XX-=
-A7XX"/>
-> +	<reg32 offset=3D"0x0E12" name=3D"UCHE_DEBUG_CNTL_1" usage=3D"cmd"/>
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/a=
+rm/arm-smmu/arm-smmu-qcom.c
+> index ae6152bddf8fe..9413b748e79d1 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
 
-[Severity: Medium]
-Should these new register definitions specify narrower hardware variants to
-avoid colliding with existing A6XX, A7XX, and A8XX registers during header
-generation in drivers/gpu/drm/msm/registers/gen_header.py?
+[ ... ]
 
-First, UCHE_DEBUG_CNTL_1 is added at offset 0x0E12 with usage=3D"cmd" and no
-variants attribute, while leaving the existing definition for 0x0e12 on
-A6XX-A7XX in place and overlapping with UCHE_GBIF_GX_CONFIG on A8XX-:
+> @@ -313,12 +330,14 @@ static int qcom_adreno_smmu_alloc_context_bank(stru=
+ct arm_smmu_domain *smmu_doma
+>  	 */
+>  	if (qcom_adreno_smmu_is_gpu_device(dev)) {
+>  		start =3D 0;
+> -		count =3D 2;
+> +		count =3D start + 1;
+> +	} else if (qcom_adreno_smmu_is_lpac_device(dev)) {
+> +		start =3D 1;
+> +		count =3D start + 1;
+>  	} else {
+>  		start =3D 2;
+>  		count =3D smmu->num_context_banks;
+>  	}
+> -
+>  	return __arm_smmu_alloc_bitmap(smmu->context_map, start, count);
+>  }
 
-	<reg32 offset=3D"0x0e3a" name=3D"UCHE_GBIF_GX_CONFIG" variants=3D"A6XX-A7X=
-X"/>
-	<reg32 offset=3D"0x0e12" name=3D"UCHE_GBIF_GX_CONFIG" variants=3D"A8XX-"/>
-	...
-	<!-- always 0x03200000 ? -->
-	<reg32 offset=3D"0x0e12" name=3D"UCHE_UNKNOWN_0E12" variants=3D"A6XX-A7XX"=
- usage=3D"init"/>
+[Severity: High]
+Does unconditionally reserving context bank 1 for a separate lpac device and
+forcing all other devices into the else branch with start =3D 2 cause a
+regression on platforms without a separate qcom,lpac device node?
 
-Because UCHE_DEBUG_CNTL_1 has no variants restriction, dump_reg_usages() in
-gen_header.py emits 0x0e12 into CMD_REGS<A8XX> where that offset is
-UCHE_GBIF_GX_CONFIG, and leaves duplicate definitions for 0x0e12 on
-A6XX-A7XX.
+In drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c,
+qcom_adreno_smmu_alloc_context_bank() now assigns only context bank 0 when
+qcom_adreno_smmu_is_gpu_device(dev) is true, reserves context bank 1 for a
+separate device matching qcom_adreno_smmu_is_lpac_device(dev), and starts a=
+ll
+other allocations at context bank 2.
 
-Second, CP_LPAC_RB_BASE (0x0b00), CP_LPAC_RB_CNTL (0x0b02),
-CP_LPAC_RB_RPTR_ADDR (0x0b04), CP_LPAC_RB_RPTR (0x0b06), CP_LPAC_RB_WPTR
-(0x0b07), and CP_LPAC_CHICKEN_DBG (0x0b30) use open-ended variants=3D"A7XX-=
-",
-which includes A8XX. However, on A8XX- the LPAC ringbuffer registers are at
-0x080b-0x0812 and offsets 0x0b00-0x0b01 are reassigned:
+On platforms that do not have stream id 1 (such as sdm845, sc7180, sm8150, =
+and
+sm8250), or on platforms where both stream id 0 and stream id 1 are listed =
+on
+the main gpu node rather than a separate qcom,lpac child node (such as
+sc8280xp, sm8350, sc7280, sm8450, sm8550, x1e80100, or sm8650 with an older
+device tree), the main gpu device matches qcom_adreno_smmu_is_gpu_device(de=
+v)
+first and allocates context bank 0, leaving context bank 1 unallocated.
 
-	<reg64 offset=3D"0x080b" name=3D"CP_RB_BASE_LPAC" variants=3D"A8XX-"/>
-	<reg32 offset=3D"0x080d" name=3D"CP_RB_CNTL_LPAC" variants=3D"A8XX-"/>
-	<reg32 offset=3D"0x080e" name=3D"CP_RB_RPTR_WR_LPAC" variants=3D"A8XX-"/>
-	<reg64 offset=3D"0x080f" name=3D"CP_RB_RPTR_ADDR_LPAC" variants=3D"A8XX-"/>
-	<reg32 offset=3D"0x0811" name=3D"CP_RB_RPTR_LPAC" variants=3D"A8XX-"/>
-	<reg32 offset=3D"0x0812" name=3D"CP_RB_WPTR_LPAC" variants=3D"A8XX-"/>
-	...
-	<reg32 offset=3D"0x0b00" name=3D"CP_SLICE_MEM_POOL_DBG_ADDR_PIPE" variants=
-=3D"A8XX-"/>
-	<reg32 offset=3D"0x0b01" name=3D"CP_SLICE_MEM_POOL_DBG_DATA_PIPE" variants=
-=3D"A8XX-"/>
+When a6xx_gmu_memory_probe() -> msm_iommu_new() -> iommu_attach_device() ->
+arm_smmu_init_domain_context() -> qcom_adreno_smmu_alloc_context_bank()
+subsequently allocates a context bank for the qcom,adreno-gmu device (stream
+id 5), it falls into the else branch with start =3D 2 and receives cbndx =
+=3D 2
+instead of cbndx =3D 1. As noted in commit afc95681c306 ("iommu/arm-smmu-qc=
+om:
+Add missing GMU entry to match table"), having the gmu on cbndx =3D 2 inste=
+ad of
+cbndx =3D 1 on sc8280xp causes the smmu to wedge on gpu translation faults.
 
-Other A7XX LPAC registers in the 0x0b0a-0x0b40 range use variants=3D"A7XX" =
-or
-variants=3D"A6XX-A7XX".
+In addition, on platforms with only two context banks available to Linux,
+such as qcom,sdm630-smmu-v2:
 
-Finally, CP_LPAC_PROTECT_CNTL at offset 0x0B09 omits a variants attribute
-(exposing it on A8XX) and duplicates the bitfields inline instead of using
-type=3D"a6xx_cp_protect_cntl" defined immediately above it:
+drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c:qcom_adreno_smmuv2_cfg_probe() {
+	/* TZ protects several last context banks, hide them from Linux */
+	if (of_device_is_compatible(smmu->dev->of_node, "qcom,sdm630-smmu-v2") &&
+	    smmu->num_context_banks =3D=3D 5)
+		smmu->num_context_banks =3D 2;
+}
 
-	<bitset name=3D"a6xx_cp_protect_cntl" inline=3D"yes">
-		<bitfield pos=3D"3" name=3D"LAST_SPAN_INF_RANGE" type=3D"boolean"/>
-		<bitfield pos=3D"1" name=3D"ACCESS_FAULT_ON_VIOL_EN" type=3D"boolean"/>
-		<bitfield pos=3D"0" name=3D"ACCESS_PROT_EN" type=3D"boolean"/>
-	</bitset>
+entering the else branch passes start =3D 2 and count =3D 2 to
+__arm_smmu_alloc_bitmap(), which immediately fails even though context bank=
+ 1
+is free:
 
-	<reg32 offset=3D"0x084f" name=3D"CP_PROTECT_CNTL" type=3D"a6xx_cp_protect_=
-cntl" variants=3D"A6XX-A7XX"/>
+drivers/iommu/arm/arm-smmu/arm-smmu.h:__arm_smmu_alloc_bitmap() {
+	do {
+		idx =3D find_next_zero_bit(map, end, start);
+		if (idx =3D=3D end)
+			return -ENOSPC;
+	} while (test_and_set_bit(idx, map));
+}
+
+Could context bank 1 only be reserved when a separate lpac device is actual=
+ly
+present, or should the else branch still allow allocating from context bank=
+ 1
+when lpac is not used?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
-e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D8
+e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D7
