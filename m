@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0561606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 01:42:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D20606A320
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 01:42:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jlrK3Pzd
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UH/ksQ7z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03B0110FEDA;
-	Thu, 29 Oct 2026 01:42:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 675F110FEE7;
+	Thu, 29 Oct 2026 01:42:41 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 098F110E750;
- Thu, 29 Oct 2026 01:42:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB5310FEE7;
+ Thu, 29 Oct 2026 01:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793238148; x=1824774148;
+ t=1793238154; x=1824774154;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=W8e+lrjsOtIm8x6nggEevj8naZ3EJZq0qoNTruoYzyM=;
- b=jlrK3PzdxcS8edoPmu8C8cEI4xanZJVPAm5H35qEg/OrYlJAg8HIGf4w
- HqwQlHQcar4/TTsCKhRC+kE0EugQ1z4TtvI60RvYIVBT+nttuscTMASq4
- ti6So9vmnipeIt5G+szIiudZVchk3dSLHPY8TTB7LAWL657l8be5Kb7wD
- QE2w11mjDZrumnJRcWz4Ydyu2C9l6emrGdHZp0qGaj251DewCnejJlvtB
- u7DZexf1/xBhig9MqkFSP8KPnRb7H9m1fVNorUsB62f+VS7GVCZQ3789i
- ksiIXs6WQ1JFDjWSq8dgicI25p8i1IYl8e3m55/6t38oQrFYnPrecqABH A==;
-X-CSE-ConnectionGUID: dULgdK0eQyu9EcJ/ZtRfnw==
-X-CSE-MsgGUID: muvzABU3Q5OuhFWUMR02+g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2006026"
+ bh=erAxQWKLvVURhvSEdWyHJxnwUcJeJ/1Mxr55xxDGwMA=;
+ b=UH/ksQ7zVPH6ugvbH1CyauTxkm4xrnQ11jWyyR2R21oWbczaY5NHq8XY
+ MvhqBSCTGWH1tWwLq1cWV3U8lidnjuciZJPNMdfXCU03Ct3kLczSziQTD
+ dSjU+6t30RcwgqxC9VlR2x4jFET4dk7bbfgeLVazhiIM+y9lNzOO1gRnT
+ 8ASxye9Qg3d9QdYzARjpjqh4vn/Klm2aiU+qPTE0f27fBnww6YPqk5iIp
+ iOanJLhzqf7Zk3NFTXELKGcUWm1fSyer8SqWhTm0WnTYCKn7HUeLyHWYs
+ AARguk2lSpqM8tIkWjbfIIyc5r7STO9LI0EZoa4FRs00gjVb2XErgq097 w==;
+X-CSE-ConnectionGUID: Hwbxe1CeRJiZb0Vb2xg+hQ==
+X-CSE-MsgGUID: RDTEf2BpQXGVMOVM4uuypw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2006039"
 X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="2006026"
+   d="scan'208";a="2006039"
 Received: from fmviesa013.fm.intel.com ([10.60.135.153])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 18:42:28 -0700
-X-CSE-ConnectionGUID: KPqHRhMFS42UkFvRmQa+nA==
-X-CSE-MsgGUID: yT0DO2dmSxSD+QIMyVfHtA==
+ 28 Oct 2026 18:42:34 -0700
+X-CSE-ConnectionGUID: nVV8OuktQDi8rl6nvQ0D/w==
+X-CSE-MsgGUID: SX9cRXlkSM6wWTmhGZ1gtQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="6823206"
+   d="scan'208";a="6823214"
 Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
  ([10.245.245.30])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2026 18:42:26 -0700
+ 28 Oct 2026 18:42:31 -0700
 From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
@@ -49,10 +49,10 @@ Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
  Andi Shyti <andi.shyti@linux.intel.com>,
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: [RFC 3/5] drm/i915/selftests: Port i915_gem_gtt.c selftest file to
- multi-gt
-Date: Thu, 29 Oct 2026 02:41:53 +0100
-Message-ID: <20261029014155.55865-4-krzysztof.niemiec@intel.com>
+Subject: [RFC 4/5] drm/i915/sefltests: Port i915_gem_context.c selftest file
+ to multi-gt
+Date: Thu, 29 Oct 2026 02:41:54 +0100
+Message-ID: <20261029014155.55865-5-krzysztof.niemiec@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261029014155.55865-1-krzysztof.niemiec@intel.com>
 References: <20261029014155.55865-1-krzysztof.niemiec@intel.com>
@@ -78,114 +78,83 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Port the gtt selftets to test multiple GTs instead of just GT0. Mock
-device tests stay on the to_gt() macro, as the mock device is hard-coded
-to have a single gt at the point of writing the patch.
+the __igt_ctx_sseu() function iterates over the engines in a system, but
+only calls igt_global_reset_lock() on to_gt() (so GT0). Move the lock
+deeper into the function such that the call is done for a specific
+gt depending on which engine is currently being selected via engine->gt.
 
 Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 ---
 
-Another assumption I made: we don't know anything a priori about any
-shared GGTTs. This in truth is not really the case cause the multi-GT
-platforms we do have in i915 do share a GGTT across GTs (namely GT_MEDIA
-gets assigned GT0's GGTT). So the assumption can be strengthened at the
-loss of genericity.
+This is opinionated as stated in the cover letter, the alternative way
+to run this is to pass a GT to the test itself, and run it in a
+for_each_gt loop, and then skip on engines that don't belong to the
+currently processed GT.
 
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 32 +++++++++++++------
- 1 file changed, 22 insertions(+), 10 deletions(-)
+Also same assumption as in patch 2, using essentially || instead of &&
+for checking wedge.
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index e6bd06774816..a2b8c1753daf 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -152,7 +152,8 @@ fake_dma_object(struct drm_i915_private *i915, u64 size)
- 
- static int igt_ppgtt_alloc(void *arg)
- {
--	struct drm_i915_private *dev_priv = arg;
-+	struct intel_gt *gt = arg;
-+	struct drm_i915_private *dev_priv = gt->i915;
- 	struct i915_ppgtt *ppgtt;
- 	struct i915_gem_ww_ctx ww;
- 	u64 size, last, limit;
-@@ -163,7 +164,7 @@ static int igt_ppgtt_alloc(void *arg)
- 	if (!HAS_PPGTT(dev_priv))
+ .../drm/i915/gem/selftests/i915_gem_context.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index 9d405098f9e7..afa170a4c740 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -1249,9 +1249,6 @@ __igt_ctx_sseu(struct drm_i915_private *i915,
+ 	if (GRAPHICS_VER(i915) < 9)
  		return 0;
  
--	ppgtt = i915_ppgtt_create(to_gt(dev_priv), 0);
-+	ppgtt = i915_ppgtt_create(gt, 0);
- 	if (IS_ERR(ppgtt))
- 		return PTR_ERR(ppgtt);
+-	if (flags & TEST_RESET)
+-		igt_global_reset_lock(to_gt(i915));
+-
+ 	obj = i915_gem_object_create_internal(i915, PAGE_SIZE);
+ 	if (IS_ERR(obj)) {
+ 		ret = PTR_ERR(obj);
+@@ -1295,6 +1292,9 @@ __igt_ctx_sseu(struct drm_i915_private *i915,
+ 			goto out_put;
+ 		}
  
-@@ -1194,11 +1195,12 @@ static int misaligned_pin(struct i915_address_space *vm,
- 	return 0;
- }
++		if (flags & TEST_RESET)
++			igt_global_reset_lock(engine->gt);
++
+ 		ret = intel_context_pin(ce);
+ 		if (ret)
+ 			goto out_ce;
+@@ -1323,6 +1323,8 @@ __igt_ctx_sseu(struct drm_i915_private *i915,
+ 		intel_context_unpin(ce);
+ out_ce:
+ 		intel_context_put(ce);
++		if (flags & TEST_RESET)
++			igt_global_reset_unlock(engine->gt);
+ 	} while (!ret);
  
--static int exercise_ppgtt(struct drm_i915_private *dev_priv,
-+static int exercise_ppgtt(struct intel_gt *gt,
- 			  int (*func)(struct i915_address_space *vm,
- 				      u64 hole_start, u64 hole_end,
- 				      unsigned long end_time))
- {
-+	struct drm_i915_private *dev_priv = gt->i915;
- 	struct i915_ppgtt *ppgtt;
- 	IGT_TIMEOUT(end_time);
- 	struct file *file;
-@@ -1211,7 +1213,7 @@ static int exercise_ppgtt(struct drm_i915_private *dev_priv,
- 	if (IS_ERR(file))
- 		return PTR_ERR(file);
+ 	if (igt_flush_test(i915))
+@@ -1332,9 +1334,6 @@ __igt_ctx_sseu(struct drm_i915_private *i915,
+ 	i915_gem_object_put(obj);
  
--	ppgtt = i915_ppgtt_create(to_gt(dev_priv), 0);
-+	ppgtt = i915_ppgtt_create(gt, 0);
- 	if (IS_ERR(ppgtt)) {
- 		err = PTR_ERR(ppgtt);
- 		goto out_free;
-@@ -1280,12 +1282,12 @@ static int sort_holes(void *priv, const struct list_head *A,
- 		return 1;
- }
+ out_unlock:
+-	if (flags & TEST_RESET)
+-		igt_global_reset_unlock(to_gt(i915));
+-
+ 	if (ret)
+ 		pr_err("%s: Failed with %d!\n", name, ret);
  
--static int exercise_ggtt(struct drm_i915_private *i915,
-+static int exercise_ggtt(struct intel_gt *gt,
- 			 int (*func)(struct i915_address_space *vm,
- 				     u64 hole_start, u64 hole_end,
- 				     unsigned long end_time))
- {
--	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
-+	struct i915_ggtt *ggtt = gt->ggtt;
- 	u64 hole_start, hole_end, last = 0;
- 	struct drm_mm_node *node;
- 	IGT_TIMEOUT(end_time);
-@@ -1349,8 +1351,9 @@ static int igt_ggtt_page(void *arg)
- {
- 	const unsigned int count = PAGE_SIZE/sizeof(u32);
- 	I915_RND_STATE(prng);
--	struct drm_i915_private *i915 = arg;
--	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
-+	struct intel_gt *gt = arg;
-+	struct drm_i915_private *i915 = gt->i915;
-+	struct i915_ggtt *ggtt = gt->ggtt;
- 	struct drm_i915_gem_object *obj;
- 	intel_wakeref_t wakeref;
- 	struct drm_mm_node tmp;
-@@ -1976,8 +1979,17 @@ int i915_gem_gtt_live_selftests(struct drm_i915_private *i915)
- 		SUBTEST(igt_ggtt_page),
- 		SUBTEST(igt_ggtt_misaligned_pin),
+@@ -1908,9 +1907,13 @@ int i915_gem_context_live_selftests(struct drm_i915_private *i915)
+ 		SUBTEST(igt_shared_ctx_exec),
+ 		SUBTEST(igt_vm_isolation),
  	};
 +	struct intel_gt *gt;
-+	uint32_t id;
-+	int err;
++	unsigned int id;
  
--	GEM_BUG_ON(offset_in_page(to_gt(i915)->ggtt->vm.total));
+-	if (intel_gt_is_wedged(to_gt(i915)))
+-		return 0;
 +	for_each_gt(gt, i915, id) {
-+		GEM_BUG_ON(offset_in_page(gt->ggtt->vm.total));
- 
--	return i915_live_subtests(tests, i915);
-+		err = intel_gt_live_subtests(tests, gt);
-+		if (err)
-+			return err;
++		if (intel_gt_is_wedged(gt))
++			return 0;
 +	}
-+
-+	return 0;
+ 
+ 	return i915_live_subtests(tests, i915);
  }
 -- 
 2.55.0
