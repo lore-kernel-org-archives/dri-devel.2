@@ -2,62 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC87606A31F
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:30:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B549C606A31F
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oViIK/3a
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HAHrjgNa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B03B1121CD;
-	Thu, 29 Oct 2026 10:30:45 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE4961121CD
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:30:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 79D0E43952;
- Thu, 29 Oct 2026 10:30:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D991F031E0;
- Thu, 29 Oct 2026 10:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793269839;
- bh=VcgPlgE6agKdSoEX7o8ZEBSDHZPyD8maBq9HFQn14+s=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=oViIK/3a1Q8yGtFgD32YBrch+a9sgt+lm9T+pDppylWeJk6ti7iOD7hzbxRvDmpiA
- 2WQsPEODjwx3o+CioVsHCqIIGUTIjobutuhAcRLu8oRpUDfAiusIbFy/T9zt1pLwPn
- 2NAkbOauJfE8QGLljzQFdksD5Xmv18Sl3nHH1lLYwMwjz/hg797tEgKjuLcqlqaBej
- Ix3on8LNBb/j6BCa+ZCdutULurMQeFrYGSz/ReysEd5Ov7LZpxoQL/SFa9AzqjkFuI
- ymVb48dtr5rfZutqhQ/tn8DaXHeSh5FuQBvY1XOTAj6GqgKQGLcVGPwLpc8e19ClfO
- hdpeRJJnzDoNQ==
-Message-ID: <9e64390b-1c67-4a0d-b9f0-22c8de86bb6d@kernel.org>
-Date: Thu, 29 Oct 2026 12:30:33 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17DAE1121D0;
+	Thu, 29 Oct 2026 10:31:08 +0000 (UTC)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F14901121D0;
+ Thu, 29 Oct 2026 10:31:00 +0000 (UTC)
+Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de
+ [IPv6:2a0a:edc0:0:900:1d::77])
+ (Authenticated sender: lst@pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6E0F52000E3;
+ Thu, 29 Oct 2026 11:30:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+ s=20260414; t=1793269859;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vReinFyJuq/ESO/NM1w8p1Ykf2lFRhtp9bKhJhu9+p0=;
+ b=HAHrjgNadQOzCFzerIWjXpjCt0BxnmL7Iaxw+OXjvuGf6abeziszPqrl2pXQuWzUWjS+Gy
+ h6ocSJ+SirkfVvo568/YhOabEa7uEaYnsp4nEaLMnnQ8MF51DMtZKblfTwOkkm0jLnrjra
+ +0YYMqp1tgdoK8fhfV+aTFnHw2MrXeYq1DsJ9xnP7q6LLMLGlscW6015mNoOJqQVSEaa6l
+ EaeDPdckz96E0TGJghN2JE6dB0g3mo+2uA64ATN+X4WyOc1j7XfOFS/TIGlysxzGAn9Dyi
+ 7zIZQHZcvFegzaRPjahHkFn7ZxJrddTuIk6G+h9AcqpfmDx4asRSmnJq4bleuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
+ s=20260414; t=1793269859;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vReinFyJuq/ESO/NM1w8p1Ykf2lFRhtp9bKhJhu9+p0=;
+ b=KmQzt2pvfrQmPxV9buNk39KBsTE7geM+OZt6fyJi2g2INHwX56KCxa9C4DB+uVY3we5VrU
+ rLWdWPGNt3aM+jIAD3lNKeMufmOmx+eOLLbzHsKCN6Lt/IEbhlSvqvrVEMi6egXIMI9mr+
+ Zswb9+anneeVTCFjxjaMGIBGKvsICvX0NAyUiwfcSjDnin2Dhn4aNL8WmciXULrXejUB9u
+ tZR+/pnTDfkW6gtWS3DHAfmzpND4aIoAmpslzfcXDtivDLuBXdlvpouFnxZ1FEgJXiiG1s
+ 46LK8028OHAK0bUUKMqhdnfDK7EkX/tJ13CTIyQwvVCsnHlvm1L0eqGBUAamQw==
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793269859; a=rsa-sha256;
+ cv=none;
+ b=Kl6fF4e1rilfJxkycY7uZhMMx603SVYKOZTLapb7cXRbXt1nORdwD9gEiFhnUIvoNZgjWx
+ hDCWB8KjybiTFyKXcZmZ6uXj6JhbxjYvdmhKZragSymSMxHNNLI19rnBDYQ4vy68PlrFpF
+ UofZahKaaGl4BW6SluZzFIjTUkbahqDTwQqhwbU9mr41ijyDf4b/wr97I/iv38VDXbd/xA
+ UUD3+h46cvYVI5VY/axoYfGFTuES8eX5EQfkV+QY092tYXqqauYoEMLVBZZ8Jl8XlcHD7a
+ /yKdJJYs2wbw6qyogOY9JvCfjMdqvcmfW2UB4RxhZzdCDkq4/Vt3LspjDmquUQ==
+Message-ID: <4b9c47028821bfcc0969f8ca811360fce096a3d9.camel@pengutronix.de>
+Subject: Re: [PATCH 2/2] drm/etnaviv: Remove deprecated fence_ops->release()
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Philipp Stanner <phasta@kernel.org>, Russell King	
+ <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
+ <christian.gmeiner@gmail.com>,  David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Date: Thu, 29 Oct 2026 11:30:59 +0100
+In-Reply-To: <20261028103129.1036380-3-phasta@kernel.org>
+References: <20261028103129.1036380-2-phasta@kernel.org>
+ <20261028103129.1036380-3-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] dt-bindings: display: panel: novatek,nt36672e:
- Document the reset GPIO polarity
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org
-References: <20261028095151.1682096-1-vz@kernel.org>
- <20261028095151.1682096-2-vz@kernel.org>
- <20261028-seagull-of-illegal-prestige-6cbbfa@quoll>
- <07c2c10c-f442-480d-b545-666069c06e91@kernel.org>
- <61e36fb1-6959-4c69-9afb-53264ff9331d@kernel.org>
- <cb1b7f4e-f03d-4422-b4ae-4228fe9f86ab@kernel.org>
- <20261029-calculating-imaginary-wolf-ccb2a2@quoll>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <20261029-calculating-imaginary-wolf-ccb2a2@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,62 +81,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/29/26 11:49, Krzysztof Kozlowski wrote:
-> On Wed, Oct 28, 2026 at 10:27:35PM +0200, Vladimir Zapolskiy wrote:
->> On 10/28/26 16:59, Krzysztof Kozlowski wrote:
->>> On 28/10/2026 15:56, Vladimir Zapolskiy wrote:
->>>>> We might fix it at some point, so not sure if it is worth documenting in
->>>>> the binding. And what about usage of this binding in other projects
->>>>> which implement it correctly?
->>>>>
->>>>
->>>> In the upstream there is only one user qcm6490-idp.dts, and changing
->>>> the polarity will be an ABI breaking change, unfortunately.
->>>
->>> And all other projects?
->>>
->>
->> It might be a challenging task to check usage of "novatek,nt36672e"
->> compatible display panels in all other projects. I've asked about it:
->>
->> * https://chatgpt.com/uc/6ae25571-2ef0-83ea-81e5-2522e70c4a93
->>
->> The check gives this info:
->>
->> 1. Linux kernel - invalid GPIO polarity in the driver and qcm6490-idp.dts,
->> 2. Android - invalid GPIO polarity in the copied driver and qcm6490-idp.dts,
->> 3. FreeBSD - invalid GPIO polarity in the copied qcm6490-idp.dts, no driver.
->>
->> Please let me know, if there are other projects to check. To my
->> understanding the RESET_N polarity cannot be corrected anymore,
->> and the best option is to clearly document a difference between
->> the device and its dt-binding documentation.
-> 
-> It can be correct, just with impact so we choose not to, but
-> nevertheless hardware wants different polarity, so you should not state
-> in the binding the incorrect one.
-> 
-> This property corresponds to the hardware, not chosen SW implementation.
-> 
+Am Mittwoch, dem 28.10.2026 um 11:31 +0100 schrieb Philipp Stanner:
+> The dma_fence->ops->release() callback is deprecated because it prevents
+> drivers from unloading. All etnaviv does in its implementation is invoke
+> a kfree_rcu() on the fence.
+>=20
+> The fence backend by now also frees fences with kfree_rcu() if
+> ops->release() is not implemented.
+>=20
+> Remove the deprecated callback.
+>=20
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 
-Here by the hardware do you mean a "novatek,nt36672e" compatible panel
-hardware, or a board hardware like sm8450-hdk?
+Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
 
-Its the panel hardware property to get a reset signal with the proper
-polarity (in the ideal world it's taken from the panel datasheet), then
-1) this description is missing in the panel dt bindings documentation,
-2) if added, this description would contradict to the panel datasheet.
+Please take this through drm-misc or whatever tree is convenient.
 
-It would make sense to document it, and that's the intention of this
-particular proposed change.
+Regards,
+Lucas
 
--- 
-Best wishes,
-Vladimir
+> ---
+> Just compile-tested.
+> ---
+>  drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 8 --------
+>  1 file changed, 8 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etna=
+viv/etnaviv_gpu.c
+> index e51a310c8d70..e75dab5e407d 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+> @@ -1176,18 +1176,10 @@ static bool etnaviv_fence_signaled(struct dma_fen=
+ce *fence)
+>  	return (s32)(f->gpu->completed_fence - f->base.seqno) >=3D 0;
+>  }
+> =20
+> -static void etnaviv_fence_release(struct dma_fence *fence)
+> -{
+> -	struct etnaviv_fence *f =3D to_etnaviv_fence(fence);
+> -
+> -	kfree_rcu(f, base.rcu);
+> -}
+> -
+>  static const struct dma_fence_ops etnaviv_fence_ops =3D {
+>  	.get_driver_name =3D etnaviv_fence_get_driver_name,
+>  	.get_timeline_name =3D etnaviv_fence_get_timeline_name,
+>  	.signaled =3D etnaviv_fence_signaled,
+> -	.release =3D etnaviv_fence_release,
+>  };
+> =20
+>  static struct dma_fence *etnaviv_gpu_fence_alloc(struct etnaviv_gpu *gpu=
+)
