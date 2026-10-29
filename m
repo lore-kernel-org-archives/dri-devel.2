@@ -2,68 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3685606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:20:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCE4606A334
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:23:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=l1fyxFv7
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ql2h6Chx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4C6F1121CB;
-	Thu, 29 Oct 2026 10:20:09 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65BEA1121AF
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:19:22 +0000 (UTC)
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 28B601B39;
- Thu, 29 Oct 2026 11:17:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1793269028;
- bh=WUlZW1014EuhUxL6GPv1hrKSixrPeuChokLZAULZp4o=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=l1fyxFv7LS7uj5BIRYX6hs7sT84tmR727nx+zPxYV+sdzZVRKtYZyPfCX8qOwo7UD
- yOOEKhI1Rj/XQh8WCaPv7/BUAfnE5djwNJGDhgh74yAqCldumHjMf5cbsl5UHkLEys
- VZQ42LsKP7eRz6kpFyTFpkiIesJFiyi/6BMaEkEg=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 29 Oct 2026 12:18:57 +0200
-Subject: [PATCH v4 11/14] drm/tidss: oldi: Add power domain support
+	by gabe.freedesktop.org (Postfix) with ESMTP id E75B91121A6;
+	Thu, 29 Oct 2026 10:23:44 +0000 (UTC)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A47C710E4DE;
+ Thu, 29 Oct 2026 10:23:38 +0000 (UTC)
+Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de
+ [IPv6:2a0a:edc0:0:900:1d::77])
+ (Authenticated sender: lst@pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9E169200AD7;
+ Thu, 29 Oct 2026 11:23:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+ s=20260414; t=1793269416;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=h/NTq1WLBMPSLF6XFZgbhvzXQ8oYuf+0ZqChn7K5Lhk=;
+ b=Ql2h6ChxMtOcGZatguhKGOuEC+rmEILtn+if2SqEYCCbxsuZJ6Ru1gYHv8VOZp6Mh4UHgD
+ nqC+Abc2a38Cwsw0drk11FIo/o24C4d78/xhRP3/VTW8wljjZU8itJ+/kl8dIca91QxHTe
+ zvq2X5SIBOfNysNtdZi59WpQkG7l62333eKKoo1mxhb7lKFl0mbo4G2Zx6icW/xkO4bTTE
+ YLTxcS/jNobwPebe1QvNnKjEU9FWzz23p1+A9z4qKfS4d3UnGFoteuJK8i4EG/TbM+kgZm
+ 36EtXeEIB1VKZmg46ZE6J8JvC49oxRtIkz9PpvGhCuexji4WQBw+w9KH7UeaQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
+ s=20260414; t=1793269416;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=h/NTq1WLBMPSLF6XFZgbhvzXQ8oYuf+0ZqChn7K5Lhk=;
+ b=GGV5mVLTXHW8P1GM8MYEEw2sQLTe4MwdizvhP5Gb/W/2fDooOaBhx/Sa6fBxsgpigJrLiU
+ igwFXfs2zGARcG6oRLe3YbfOnTu/2cJUh7LRJrnnkQS9jz/1Y3UBwkh5VQ/POkNwIuxIT0
+ KQqycJPkCqfr8Rb3w+LWfxdHK9tZOIFSmALUHySLhH2nMw1ohIN5PV6epE7MfW9GnTgZiP
+ aB1o7tlQphCTr3i/eUUYsp9+VzsQAbIi7aed/Fs9CWQwqWGP3mh0SmpkOiff1MJ5KuNFqQ
+ /B16Le4NHB27ysqZuAH84XpNo3HERRJf+Gjr9xim0+G/tMzPUQcCR7egGl6w6w==
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793269416; a=rsa-sha256;
+ cv=none;
+ b=WpN8WUnDHqz9Mc+CuO1qqQ2s1JkX/YAqSIeMD64lYoC6u7e/Mf6zaDQORC81p8qVmhEOlB
+ Qyk2Tu3F5ZFoPi+6o3G5P8XatkbqSpZqIMxTmNYjN7iZ9PyGZF+UJ9ECFfr5xTsdvve48U
+ DwjbkCL6Gqu4fpyQEmvvgJ4MB8/2UNwQB3y97Tn6pks8uSBKkJNnVRBHkLNA79FYLoF/UQ
+ /Fka7A7sY843ZzZCE560WkHfHGLJkmQ0WFB126J4qtxaMZHhGGerIFlt07dEmX36MJuoaj
+ +Fi5x3cZiGZ8NviUZwVGZyTDLNtqw6kmMNQeZKWIuGV0RSo3ygqYDO8hsPjmKA==
+Message-ID: <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
+Subject: Re: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Philipp Stanner <phasta@kernel.org>, Min Ma <mamin506@gmail.com>, Lizhi
+ Hou	 <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>, "Rob Herring
+ (Arm)"	 <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Karol
+ Wachowski	 <karol.wachowski@linux.intel.com>, Andrzej Kacprowski	
+ <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Russell King	
+ <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
+ <christian.gmeiner@gmail.com>,  Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alessio
+ Belle	 <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>,  Qiang Yu <yuq825@gmail.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov	 <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
+ <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Steven Price	 <steven.price@arm.com>,
+ =?ISO-8859-1?Q?Adri=E1n?= Larumbe	 <adrian.larumbe@collabora.com>, Liviu
+ Dudau <liviu.dudau@arm.com>, Dave Airlie	 <airlied@redhat.com>, Gerd
+ Hoffmann <kraxel@redhat.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Natalie Vock <nat@pixelcluster.dev>, Arun Pravin	
+ <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>,
+ Melissa Wen <mwen@igalia.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal	
+ <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance	 <kernel-list@raspberrypi.com>, Dmitry
+ Osipenko <dmitry.osipenko@collabora.com>,  Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
+ <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
+ <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding	
+ <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Cameron	 <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Sunil Khatri <sunil.khatri@amd.com>, Kees
+ Cook	 <kees@kernel.org>, Jesse Zhang <jesse.zhang@amd.com>, Timur
+ =?ISO-8859-1?Q?Krist=F3f?=	 <timur.kristof@gmail.com>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>,  Kexin Sun <kexinsun@smail.nju.edu.cn>,
+ Prike Liang <Prike.Liang@amd.com>, David Rosca	 <david.rosca@amd.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>, Marco Crivellari
+ <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
+ =?ISO-8859-1?Q?H=F6gander?=	 <jouni.hogander@intel.com>, Thadeu Lima de
+ Souza Cascardo <cascardo@igalia.com>,  Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes
+ <joelagnelf@nvidia.com>, Al Viro <viro@zeniv.linux.org.uk>,  Neill Kapron
+ <nkapron@google.com>, Michael Bommarito <michael.bommarito@gmail.com>, Sam
+ Day <me@samcday.com>,  Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
+ linux-usb@vger.kernel.org
+Date: Thu, 29 Oct 2026 11:23:34 +0100
+In-Reply-To: <20261029095542.1526750-3-phasta@kernel.org>
+References: <20261029095542.1526750-3-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-beagley-ai-display-v4-11-dc7f2b532478@ideasonboard.com>
-References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
-In-Reply-To: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, 
- Devarsh Thakkar <devarsht@ti.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4490;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=WUlZW1014EuhUxL6GPv1hrKSixrPeuChokLZAULZp4o=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2ZTnfNJlvDGauGT6s+HBW6LD7kPSN687/Z4
- 1YauvRe52SJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdmQAKCRD6PaqMvJYe
- 9YQ9D/oC8ai1N1A9k1+N7VZSLhWA+7F/reAdar8CUjaE2AfCH6pQjCEcOo1qwf2PUaxDesA4VjA
- Bjhcrb0Q9zUhDem/YPnSIuvjQdqvwfY0+hQKjyOCNsjmPE49td6IZkGYm+gjyljZklvLFLJklLM
- r4c1TK1yx6UiD0a+qcpDj+MAhS9hsyo57zRzqUckLx7/zp0yeeDkmqBejXRsehawZ0cXb1CqdGw
- d72f17B24/pkZLxwekhsfCYPHRfulIOX6znqSOxUq9Z2EDhwBYXILcT/z8+wgzNejo/EYazKNMu
- JlK47Ougm9YhWaxt8GNzfqqhn9H4soPX2hdxZ99AxCbPk+e7ldfOoKi+AawHNLfRvs0y0yVHGOY
- CbxySR1PnOIUoCgDPg0/5fwwO8Yd++5YT/NkGKkVsUpXpRHKWIbJHUV1vSTQZjGw5DZi0o8/kpO
- UaiXgCTsYjuIPK+TnFBcGDZhtexW2wsmav1I6Rm7F1CCz8fd2JnuqXU3DtXMkABwxsE3GOd/Zm5
- Wcuuz6FUl0UPSYjqwQnKCFk9/jtp44lHalrCvRkB0vz5PQI0wIM+Lfbu7dXB2jL1bxKcM2ALWOt
- HXUZ+r+xs2PQ65quRGpWq2HKCILB2xdyhKVifGLk2PMe7NwlV6+Pg+tEEoZhuVWZW389QsGEiKa
- ZgkBd0aSG5aARFA==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,170 +135,133 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The OLDI TXes on AM62P and J722S have power domains of their own,
-described in the DT, unlike the earlier SoCs. The OLDI TX nodes are not
-real devices, so the driver core does not attach these power domains,
-and nothing in the core turns them on.
+Hi Philipp, hi Christian,
 
-Add support to attach the PDs with dev_pm_domain_attach_by_node(), and
-manage the power state of the returned virtual devices with runtime PM
-functions.
+Am Donnerstag, dem 29.10.2026 um 10:55 +0100 schrieb Philipp Stanner:
+> dma_fence_is_signaled() can return true *while* the fence is signaling.
+> This has caused explosions before and I guess we can agree that it's
+> just not ideal.
+>=20
+> The fundamental issue is that the fence-signaled-bit is set under lock
+> protection but read without it.
+>=20
+> So ideally, we would read it with the lock. This would not change the
+> relative order, i.e. the bit would still be true in the fence callbacks.
+>=20
+> Christian informs us that taking the lock causes people to complain
+> about performance regressions because the lock-taking shoots down copied
+> cache-lines. (which is weird since it would mean that someone is
+> repeatedly polling on fences instead of just registering a callback to
+> notify himself once it signals)
+>=20
+I think we would all be interested in the actual use-case that's
+sensitive to this kind of latency.
 
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- drivers/gpu/drm/tidss/tidss_oldi.c | 88 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 88 insertions(+)
+However, I wonder if this is even an issue anymore with the lock
+inlined into the fence structure. With the deprecated external lock you
+would potentially get two cacheline bounces/remote invalidations for
+the exclusive access: once for the lock and one for the
+test_and_set_bit atomic op on the flags field.
+Now with the inlined lock, the lock operation will bring the cacheline
+into exclusive state on the local CPU and the flag check would then
+operate on that same cacheline, so there should be only a very minimal
+penalty compared to the sole atomic op.
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index 5552c1c51074..df2326db3302 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -10,6 +10,8 @@
- #include <linux/of_graph.h>
- #include <linux/mfd/syscon.h>
- #include <linux/media-bus-format.h>
-+#include <linux/pm_domain.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- 
- #include <drm/drm_atomic_helper.h>
-@@ -35,6 +37,12 @@ struct tidss_oldi {
- 
- 	struct clk *serial;
- 	struct regmap *io_ctrl;
-+
-+	/*
-+	 * The power domains of this OLDI TX and, in dual-link mode, of its
-+	 * companion. NULL for an OLDI TX without a power domain of its own.
-+	 */
-+	struct device *pd_devs[2];
- };
- 
- struct oldi_bus_format {
-@@ -238,6 +246,22 @@ static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
- 	return 0;
- }
- 
-+static void tidss_oldi_power_get(struct tidss_oldi *oldi)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
-+		if (oldi->pd_devs[i])
-+			WARN_ON(pm_runtime_get_sync(oldi->pd_devs[i]) < 0);
-+	}
-+}
-+
-+static void tidss_oldi_power_put(struct tidss_oldi *oldi)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
-+		if (oldi->pd_devs[i])
-+			pm_runtime_put(oldi->pd_devs[i]);
-+	}
-+}
-+
- static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 					 struct drm_atomic_commit *state)
- {
-@@ -251,6 +275,8 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
- 	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
- 		return;
- 
-+	tidss_oldi_power_get(oldi);
-+
- 	connector = drm_atomic_get_new_connector_for_encoder(state,
- 							     bridge->encoder);
- 	if (WARN_ON(!connector))
-@@ -296,6 +322,8 @@ static void tidss_oldi_atomic_post_disable(struct drm_bridge *bridge,
- 
- 	/* Clear OLDI Config */
- 	tidss_disable_oldi(oldi->tidss, oldi->parent_vp);
-+
-+	tidss_oldi_power_put(oldi);
- }
- 
- #define MAX_INPUT_SEL_FORMATS	1
-@@ -468,6 +496,60 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
- 	return -ENODEV;
- }
- 
-+static void tidss_oldi_detach_pd(void *data)
-+{
-+	struct device *pd_dev = data;
-+
-+	dev_pm_domain_detach(pd_dev, true);
-+}
-+
-+static struct device *tidss_oldi_create_pd_dev(struct tidss_device *tidss,
-+					       struct device_node *oldi_tx)
-+{
-+	struct device *dev;
-+	int ret;
-+
-+	dev = dev_pm_domain_attach_by_node(tidss->dev, oldi_tx, 0);
-+	if (IS_ERR_OR_NULL(dev))
-+		return dev;
-+
-+	ret = devm_add_action_or_reset(tidss->dev, tidss_oldi_detach_pd, dev);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return dev;
-+}
-+
-+static int tidss_oldi_create_pd_devs(struct tidss_device *tidss,
-+				     struct tidss_oldi *oldi,
-+				     struct device_node *oldi_tx)
-+{
-+	struct device_node *companion;
-+	struct device *pd_dev;
-+
-+	pd_dev = tidss_oldi_create_pd_dev(tidss, oldi_tx);
-+	if (IS_ERR(pd_dev))
-+		return PTR_ERR(pd_dev);
-+
-+	oldi->pd_devs[0] = pd_dev;
-+
-+	if (oldi->companion_instance < 0)
-+		return 0;
-+
-+	companion = of_parse_phandle(oldi_tx, "ti,companion-oldi", 0);
-+	if (!companion)
-+		return -EINVAL;
-+
-+	pd_dev = tidss_oldi_create_pd_dev(tidss, companion);
-+	of_node_put(companion);
-+	if (IS_ERR(pd_dev))
-+		return PTR_ERR(pd_dev);
-+
-+	oldi->pd_devs[1] = pd_dev;
-+
-+	return 0;
-+}
-+
- void tidss_oldi_deinit(struct tidss_device *tidss)
- {
- 	for (int i = 0; i < tidss->num_oldis; i++) {
-@@ -610,6 +692,12 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
- 		}
- 	}
- 
-+	ret = tidss_oldi_create_pd_devs(tidss, oldi, oldi_tx);
-+	if (ret)
-+		return dev_err_probe(tidss->dev, ret,
-+				     "OLDI%u: Failed to set up the power domains.\n",
-+				     oldi_instance);
-+
- 	/* Register the bridge. */
- 	oldi->bridge.of_node = oldi_tx;
- 	oldi->bridge.driver_private = oldi;
+Regards,
+Lucas
 
--- 
-2.43.0
-
+> Let's accept the potential for regressions as true for now.
+> Nevertheless, I think I can propose a path towards removing the race:
+>=20
+> This series suggests taking the lock in dma_fence_is_signaled() *unless*
+> the driver explicitly asks for a check with a race-condition.
+>=20
+> As a preparation, I allow drivers to set flags when initializing fences.
+> Then, we add a flag with which the driver can switch locking off for
+> that particular function.
+>=20
+> By default, we let all drivers take the lock.
+>=20
+> Should we then, in the kernel release process get reports about
+> regressions, we can set the race-flag for the affected driver and
+> restore the old behavior.
+>=20
+> Should there be no reports, we could phase the flag out again after a
+> few releases, always taking the lock.
+>=20
+> New users would always see the lock.
+>=20
+> I put all potentially affected parties on Cc. Please point out if you
+> can already foresee your driver being negatively affected by this.
+>=20
+> P.
+>=20
+>=20
+> Philipp Stanner (6):
+>   dma-buf: dma-fence: Add flags parameter to dma_fence_init()
+>   dma-buf: dma-fence: Add flag for using 64-bit seqnos
+>   dma-buf: Port users of dma_fence_init64()
+>   dma-buf: dma-fence: remove dma_fence_init64()
+>   dma-buf: dma-fence: Close race in dma_fence_is_signaled() by default
+>   drm/nouveau: Remove hacky fence check
+>=20
+>  drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
+>  drivers/accel/ethosu/ethosu_job.c             |  2 +-
+>  drivers/accel/ivpu/ivpu_job.c                 |  2 +-
+>  drivers/accel/rocket/rocket_job.c             |  2 +-
+>  drivers/dma-buf/dma-fence-array.c             |  2 +-
+>  drivers/dma-buf/dma-fence-chain.c             |  4 +-
+>  drivers/dma-buf/dma-fence.c                   | 44 +++++------------
+>  drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
+>  drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
+>  drivers/dma-buf/st-dma-fence.c                |  2 +-
+>  drivers/dma-buf/st-dma-resv.c                 |  2 +-
+>  drivers/dma-buf/sw_sync.c                     |  2 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
+>  .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
+>  .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+>  drivers/gpu/drm/drm_crtc.c                    |  2 +-
+>  drivers/gpu/drm/drm_writeback.c               |  2 +-
+>  drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
+>  drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
+>  drivers/gpu/drm/i915/i915_request.c           |  2 +-
+>  drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
+>  drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
+>  .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
+>  drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
+>  drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
+>  drivers/gpu/drm/lima/lima_sched.c             |  2 +-
+>  drivers/gpu/drm/msm/msm_fence.c               |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 -----
+>  drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
+>  drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
+>  drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
+>  drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
+>  drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
+>  drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
+>  .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
+>  drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+>  .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+>  drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
+>  drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
+>  drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
+>  drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
+>  drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
+>  drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
+>  drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
+>  drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
+>  drivers/gpu/host1x/fence.c                    |  2 +-
+>  drivers/iio/industrialio-buffer.c             |  2 +-
+>  drivers/usb/gadget/function/f_fs.c            |  2 +-
+>  include/linux/dma-fence.h                     | 48 +++++++++++++++++--
+>  52 files changed, 115 insertions(+), 105 deletions(-)
