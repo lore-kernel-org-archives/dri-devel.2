@@ -2,62 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072DD606A32F
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:52:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B24606A31F
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:52:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PA4Zop6l
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ozyfDH3F
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29DCB1121C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E9861121CE;
 	Thu, 29 Oct 2026 10:51:58 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A21F41121A1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:18:30 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-c38ac26cc5dso314245766b.2
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 03:18:30 -0700 (PDT)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDD771121AE
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:18:33 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-c40f29667e6so251695966b.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 03:18:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793269109; x=1793873909; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=hPXRAqx03CWF4KTxZfjeshWKEYqjwFf9UJcm90FGUJk=;
- b=PA4Zop6lc4Y0kYBfPSbeWAY3q95w72m3C0ddOquLE218biaECm6ssDCry5uvj1Wnba
- yS5dTMXLDkptNTZd20npvoSjM7DcyqZqsrzPHopEOyQ732UKe5Rni1TDrH4UuxSW3be3
- RALyBeWq/vhoilt8lvIeA5zJOxfI6oEXlM+bh1aSwx0URrQgeW9U89uNhtkp4sO7Gujn
- jv8RMIMcpyxNHNKpXM/EK/pGF65RH0rS1+1bjBtYFZ+wjsHe/swchqW0AwGTjFN93V1N
- 1NsWYxS1/QMytHXUHSeOOhX8PJtfur6JlqBZQyfkQAGcfhiKQeYyxgKjrsohxXe7DUbH
- GEwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793269109; x=1793873909;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1793269112; x=1793873912; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=hPXRAqx03CWF4KTxZfjeshWKEYqjwFf9UJcm90FGUJk=;
- b=uJRl9kP3tkTwBgXWXYe14AEsVHvO7guLTituJKKa4rew9LlwPutDrG9Re61wEuHKjm
- pwXH1k8XGWkhRWB+wzRFZMSgjIusK3ULoUjd492kgaocmbDxcb7rvpFIo+C8Jb1wVhhV
- 9e2SIN3DpgO3xXd9bSPr/udS13ovj8ikx7nZbnm9/2MNzkZ8JN1sv9+JB5jkZZ7mE+QQ
- Bjc8Lspb0ThTGvbdufmdCuhBS6GQwncgGkk9I0/7ffA/R8wbX5RmqqMMwP015MxqkmDi
- RtmWX0JhOQigFDiNFpiYzwB9coc2MDxcUgxials5zCvX4J0ogQgluljmQnw2k3mr+S3A
- y+jw==
-X-Gm-Message-State: AFq9FYKnJL3Dn5jn8krn2aRriP9uiIPkBhXlLbfGRxnirHeQY04Mirk/
- RFMiYa4E5dcyk7vcHtxkU2ggICZqR23pr88jp1XdaihmMb8LhYu3asTTwIa18Z8V
-X-Gm-Gg: AYBFou009oR3TIK8zQM6tyJHGjT0jarPv0YEC7Vyws1AzuTNqxuHB9kXNQ0neU0LXh8
- viH0LxeX3FWJGJ4tC/HC9XUKKkbgfb4WiHL43CEA1g5mAcneZ6LCdXzw++q0LUUeAjpcJInqzG6
- v/kYvNG+pgYXCmdb3T3S+Ho7kbX5nMLuoA6g2suYaqjOGbuepISQHZlMXNzvuprk/NZJ+CeerWn
- IRC0GZfpxPshIjshEGbEWOquGaaDAX0oAt7YvkwYaTHtXACKi7ATHT1dcXF/FWN7FcgNBAYXIIu
- aBDndRWtg+FxORw8FpTXbfywdxziVwzUwztpbPslxdf7MAs2MFzQC8LIucl2CsDjyr7AUKlhu4n
- nxPs23OAxLktjVB0pYaO8GlGKrSIe6pj/F/3qj/1K0Qsz4biTFkM4tEmEsJn2d3ilW+MlBOoMbf
- VbjTJFPiCRo52bBHspsgC97XGrAZbx+euNEkjht8IC2T3+/uzY5FQLtTsw9lOhiVZI6g/EerHFL
- bFtaquxIB451CGXRgNT/eV7qrEAKxIvjsEaGUoIKviyPi0Ukt0Kt+yWWrggHcmR3lGhX+bxGd6F
- gNdR9j5Ca4mhdh0RmtfvJ/FidM2jeu2R6f1nLdCJH3HCewhk2jM8cYgzPuJ/73I=
-X-Received: by 2002:a17:906:730e:b0:c40:231:6eab with SMTP id
- a640c23a62f3a-c49bdf393b4mr415116466b.16.1793269108982; 
- Thu, 29 Oct 2026 03:18:28 -0700 (PDT)
+ bh=ZswYnDpjiPQQjT78JVpuuL0hR+s+VPAsr78sVKkNA/E=;
+ b=ozyfDH3FdbwDIpko2PaycEUgBDyeSZyfjretx9hffj0Q3mwFwWc91nL88u0IZX7p+8
+ VTA3mKyebO4QNXIO/dq6jM8lzdLXTdkBcVq9ZutXfn0N/vzp+v9QWnBaViz8BQuQBarO
+ T0YVnhHm3NxLoOO8A0VhbI1lDpHJf+T+Xer08doLcJi/eLieZufLPKEOMLjOx/AaJtml
+ KCC4rnv9kMptgbKA3+9g2HwNXfUpFq2/bZPTu3VGDmC0jylbO/8m4pTiNRnRVSF0gYd3
+ eBnlRllcJZWp9hFfT0q0nIyI3V3vBTlHcNKr86viXveAZPa4H15UJKLhf4gfmvsJ3Pq8
+ pgKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793269112; x=1793873912;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZswYnDpjiPQQjT78JVpuuL0hR+s+VPAsr78sVKkNA/E=;
+ b=b+k+WzrF9I8JAfbEiWcQrbX288SwULVqKLFGtE7gKO3nq9Jf4boLJkh5N4GNquCThv
+ iffkX23mZeXkRCRf4xg6kDxz40ZWH7i3rTLFQJ+z8d3tzpy4rqgBALF3DuR7m8goWhJo
+ l2XJAlokRz0RlR3uPn7Jiikph+vxcsMv73iap+xQbMStUpnpd2DM0Abb4LuVDkR8BJ7g
+ XhpeXE5KK7Ml8iMaepmA5a6v9mDv3b1JCZsLDbAMqwlpTRzHCHs1dKfC0Di4XwKK30Zk
+ PFxGBSd6v7tHgJ9NIQdUNKMNi6w+JdzJ9kyknzJ8CesBZpk/XWOJ0y/GOJ6vVvpmU4LW
+ DOzg==
+X-Gm-Message-State: AFq9FYIC+izw3VvmhXeFUNtWTfpTtkkwVW4/fb+vefBm+cWz5GYuiV02
+ vtwzJ6MEcHPrp+qQTNXHSDvRKpvuGcZwIZ+gJc4VvMVv9jdHFhZtzt8MgmiK3tRH
+X-Gm-Gg: AYBFou3g/lM1gYmeG6bZlUE84mAUdQ54WFWd2boBMUSLGD2JQfEI0vnc+ybX5zy/XA+
+ 1knsZ3bVYlZ8L34Dr/HrNTPvSBp617mkDwQvrQe8Wr0SUZOqp1wOY3+c+6UdnhNhJdYi2I/yDLr
+ 68YXyXATGdoIVPtR3kuJMR07L+v8Mlwh8xlJ/qkAl2YvM0MqRi1JaIf7N9sXKySdZy4ydodrABl
+ fkvpx4tX4B9pLcZvCX/EXzsXBkcDPxQmMSIlPFZivLBYiqJdLgGYF5U5PFp0cLdNofRViWKt4Hu
+ guz9+cyOb8vMmJzH7WxOs9SRXuJcB6SnNdgTUN55gmE1wsJ10O4IHqTvLBXe4H0sAnoGXljPjsb
+ mgeoCKe1k7A4EU7KokrvYKQPOon3b5lEmjBV0XxTKKMrKMqPeF9XBUYt68FHhotIXEw28QVpyxD
+ 9YA2dXty9ncZCxtKIOb7frcKnFsD/NZfo4DQxWo4G7Q57uUC6ou1CTAVXN2h6ocx4Ylo7aCgOvO
+ IXfYx7bfQVQ8sxvzgCt5zIUFJORjk77DuhsTfXGN5amoFHOqUqazaz3FEktS4d76FvoEgTlj/OH
+ 439cNFUMapXcwuzlwfAoiFkK30YIaf7cN1+IRx8EaH6VnMYdkUWsp/Mb2OKEIDM=
+X-Received: by 2002:a17:906:ef03:b0:c2d:c98f:4824 with SMTP id
+ a640c23a62f3a-c49bdf32b3emr416211766b.30.1793269111958; 
+ Thu, 29 Oct 2026 03:18:31 -0700 (PDT)
 Received: from localhost.localdomain ([46.205.195.0])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.27
+ a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.30
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 29 Oct 2026 03:18:28 -0700 (PDT)
+ Thu, 29 Oct 2026 03:18:31 -0700 (PDT)
 From: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -75,10 +76,13 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
  nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: [PATCH v2 0/5] drm/dp: Always use enhanced framing for DPCD r1.2+
-Date: Thu, 29 Oct 2026 11:18:21 +0100
-Message-ID: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+Subject: [PATCH v2 2/5] drm/bridge: cdns-mhdp8546: Use
+ drm_dp_enhanced_frame_cap()
+Date: Thu, 29 Oct 2026 11:18:23 +0100
+Message-ID: <20261029101826.72773-3-dmitrymalovanyy@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -94,66 +98,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The Xiaomi Monitor A24i clears DP_ENHANCED_FRAME_CAP in its extended
-receiver caps, and through a USB4 dock it does not sync without
-enhanced framing. v1 kept the bit from the base caps. As Jani pointed
-out, the spec says to enable enhanced framing for DPCD r1.2+ without
-looking at the bit, so v2 does that in drm_dp_enhanced_frame_cap() and
-converts the remaining direct users of DP_ENHANCED_FRAME_CAP.
+Use the helper instead of checking DP_ENHANCED_FRAME_CAP directly, so
+enhanced framing is used for all DPCD r1.2+ sinks as the spec requires.
 
-amdgpu DC, mediatek and hibmc already enable enhanced framing always,
-without checking the bit.
+Compile tested only.
 
-drm_dp_get_phy_test_pattern() still uses DP_ENHANCED_FRAME_CAP, but
-there it is a bit in DP_TEST_LANE_COUNT, so it is left alone.
+Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+---
+ drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-analogix_dp has its own copy of the check (DPCD_ENHANCED_FRAME_CAP()),
-I left it out, can do it as a follow up.
-
-Patch 1 is tested on i915 with the affected monitor, the rest is
-compile tested only.
-
-For nouveau I converted both dispnv50 and nvkm in one patch, so the
-watermark calculation and the enable stay in sync. Happy to change it
-if you prefer another way.
-
-v2:
-- Do it in drm_dp_enhanced_frame_cap() instead of patching the
-  extended caps (Jani)
-- Convert cdns-mhdp8546, it6505, gma500 and nouveau
-- Commit message: the sink only fails through the dock, directly
-  connected it works without enhanced framing
-
-v1: https://lore.kernel.org/all/20261028162941.62762-1-dmitrymalovanyy@gmail.com/
-
-Dmytro Malovanyi (5):
-  drm/dp: Always use enhanced framing for DPCD r1.2+
-  drm/bridge: cdns-mhdp8546: Use drm_dp_enhanced_frame_cap()
-  drm/bridge: it6505: Use drm_dp_enhanced_frame_cap()
-  drm/gma500: Use drm_dp_enhanced_frame_cap()
-  drm/nouveau: Use enhanced framing for DPCD r1.2+
-
- drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c   |  2 +-
- drivers/gpu/drm/bridge/ite-it6505.c                   |  2 +-
- drivers/gpu/drm/gma500/cdv_intel_dp.c                 |  8 ++------
- drivers/gpu/drm/nouveau/dispnv50/disp.c               |  2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c         |  2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h         | 11 +++++++++++
- drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c      |  2 +-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c    |  2 +-
- include/drm/display/drm_dp_helper.h                   |  4 ++++
- 9 files changed, 23 insertions(+), 12 deletions(-)
-
-
-base-commit: feaa32dc98090b2f45f7b6f179711a6640169c1a
+diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+index f47717bd1..8cab9a3e6 100644
+--- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
++++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+@@ -1375,7 +1375,7 @@ static int cdns_mhdp_link_up(struct cdns_mhdp_device *mhdp)
+ 	mhdp->link.rate = drm_dp_bw_code_to_link_rate(dpcd[1]);
+ 	mhdp->link.num_lanes = dpcd[2] & DP_MAX_LANE_COUNT_MASK;
+ 
+-	if (dpcd[2] & DP_ENHANCED_FRAME_CAP)
++	if (drm_dp_enhanced_frame_cap(dpcd))
+ 		mhdp->link.capabilities |= DP_LINK_CAP_ENHANCED_FRAMING;
+ 
+ 	dev_dbg(mhdp->dev, "Set sink device power state via DPCD\n");
 -- 
 2.50.1 (Apple Git-155)
 
