@@ -2,35 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683DE606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:14:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BF8606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:14:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCAD410E7D7;
-	Thu, 29 Oct 2026 10:14:03 +0000 (UTC)
-X-Greylist: delayed 1749 seconds by postgrey-1.36 at gabe;
- Thu, 29 Oct 2026 10:14:02 UTC
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 163DB10E7D7
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:14:01 +0000 (UTC)
-X-QQ-mid: zesmtpip4t1793268831tcfcd0a9e
-X-QQ-Originating-IP: JWcGZpaxS2VvXr8ks7Aa0kMOHfyGgrDNgxaWqapRT/I=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92D4110E7F1;
+	Thu, 29 Oct 2026 10:14:09 +0000 (UTC)
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 481A910E7F1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:14:08 +0000 (UTC)
+X-QQ-mid: zesmtpip4t1793268826ta0a5c79c
+X-QQ-Originating-IP: ev2Ej5asX813a6CgU0vqNzHqkbXxOv1EU01Mx6bLOL0=
 Received: from [192.168.30.244] ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 29 Oct 2026 18:13:47 +0800 (CST)
+ id ; Thu, 29 Oct 2026 18:13:38 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6520119527471735759
-EX-QQ-RecipientCnt: 31
+X-BIZMAIL-ID: 11110707060909330439
+EX-QQ-RecipientCnt: 33
 From: Xilin Wu <sophon@radxa.com>
-Date: Thu, 29 Oct 2026 18:13:35 +0800
-Subject: [PATCH v4 1/4] arm64: dts: qcom: sc8280xp: enable PCIe ECAM and
- 64-bit memory
+Subject: [PATCH v4 0/4] arm64: dts: qcom: Add support for Radxa Dragon Q8B
+Date: Thu, 29 Oct 2026 18:13:34 +0800
+Message-Id: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-q8b-dts-v4-1-e8e7438f5545@radxa.com>
-References: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
-In-Reply-To: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WPQW7DIBBFr2KxLtUABmOvco+qiwGGhqpxHHCsV
+ FHuXuJUrdXu5kv/zby5skI5UWFDc2WZllTScayhfWqY3+P4RjyFmpkEaaAHwU/W8TAXjgqj17F
+ 31klW21OmmC7rppfXRy5n905+vuPfjUyncz0xP2rMYSHuj4dDmodGaIFCtdiSIW9MNH1wttNQZ
+ wATtYQudtgHtlUbmlVMQ8eLt9LCZeKn88SnNPo5f3CNzmKVJKXjsCh2N9unMh/z5/ryIlaRf98
+ tggPvAoEz2KkAdpcxXPC5yq47FvnDCYD+l5OVo4BCkA6E1v3l1IaTG05VzmhtehMi+VZvudvt9
+ gVntevlqAEAAA==
+X-Change-ID: 20260901-q8b-dts-a3afc5f9b8b2
 To: Bjorn Helgaas <bhelgaas@google.com>, 
  Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
@@ -49,36 +51,39 @@ Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
  Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
- dragon@radxa.com, Xilin Wu <sophon@radxa.com>
+ dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Daniele Briguglio <hello@superkali.me>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5116; i=sophon@radxa.com;
- h=from:subject:message-id; bh=ZKeyJhuJk5Q9HhRIB0I7m7yyN1y8Ot222NY5V9safMA=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmPZcJW59kGHrdytv2f433o+76pL7ufl69XbuZrnaPzi
- SV3P+PTjlIWBjEuBlkxRRaFeIa57JW5156KlerBzGFlAhnCwMUpABN5zM3wh4dz974tTmcyfxnd
- XPYiTXRzVeKONbm62W7X878/NL4pv5qR4Y9NudJulTxnwbpvcfYvCgJaP63l0tmx8OtiJsk9j1/
- dZwYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5416; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=RgOmRQN8UXUUlOJ5kDJ8nDI75yvgfp9MJNYPBSQG7xo=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmPZYIvaEsuqfR5cIb9SuZE5SwxrwB1r4TVoVoyes//r
+ mjoOZ3cUcrCIMbFICumyKIQzzCXvTL32lOxUj2YOaxMIEMYuDgFYCK+/IwMU+cpn7Y8PnGDtaBL
+ UrnMww63NZcu9bQrLXv0eo/JlpreWkaGuxU301667rxpzso2LYR7/evnx3Z8mtFYbFaiOed3iO4
+ CJgA=
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OYcWkDQesdWF3SFjyfjWqBDVlG7cdsEGs82P87uGZA1iOYH2XrFHKoGa
- QSbliJXmbJPhxyT0MxuO/WWARi3h6DSLO6IJBRz3D0Ez6cQ3/s33iUiGDCFaGS/8LigM+aV
- o7BOVKZ36C76DhNuzWAos5tkZhDs8+YyNmQN4f7gVwefd3yzTxDk4oKApvOnH+s1Cg7plYG
- hiDEcDcnTm1JOLkyUdWE2s7bfr35wpzOaUt5hk+vcFz3B4KpuX0hlKT5Hf6aKNZ7FSIBQLP
- rKC6wRenUMRBqTmx/fPtwzV4lbWwBnC+3MAbutciWnXudUUiAlB22k9792hFzZ4UaDAMXvd
- BrSpn/fuqCf14hOzgeQzx8d02xC+TmL6gTpSpAX2WW7aQTLzjfzw4M4P+o1gWkBS5K2MHOI
- 0O6AKH8M3xGEMgT7Y+k1i0RqwqxVp8JVVF88aqSNRje9bzZNLUuEvAnGuq3HA+sFbeJM07o
- 62JDzEFLlvdiZtyM7ImBCD0AZwmClcAnJzm2LwrfB9YscK5A8LYwjmJ9fbAO7Oe56Mc/6kv
- rqVOLqPrde1auxVp/Ru2jdwZCzwsxsb1txHD3ZnZno/Rj+KdMaWwy/sMs85QKCZZTVCZsRP
- l2vWJZIVpMBh4Jvr62CAfSMRCSYmrxD8zXmZBROcjICYoXhKL1sDjci1bpU43M0HXtxdM7h
- iltxVrKhTrvb/+eZBjRhdhB9oySfJ+WQPgpxJSHcuz0gxd628JZG4QVCuqmozNL3oZOEUJ6
- 4S3N+o+jfywnLXV0KcamVNodcpeWAOGukineObLh+u9vHMreY8ydOTxrVxeH/1PL0UYNJmD
- fv+Eh1q2iyJ7TsEzPWcysGM0NRRtZmFZQxS06XePSSTDDOw8UmXclnLvb7tpj4jR3FQ55Ob
- NC3cQCtpVPqK1Z2i/z8OoeCBvStJcslCgvPjiNNY0Tonm+uX9rR0bgzMYcVXjtJhbmSNsGq
- XN7wWjxaZRsxWXFjOka6HOh2esHFcLTSRhN8QiiZl7hFsdIDNI6lWfFlRNK6MVHo1kKjQ/v
- wj3E+ZGUKq4XUEn3JNXqWIN10egYWe2aoexoJFHvYNaz5GGkfZR+d/fPqZ+G6n39A6EzzDL
- UmSmlpbUyOZSCqD6tgUWwozHeBDFNb7cvxE0MB0u5vSDJdZ3iTv/hI0AYc2VzifiA==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-XMAILINFO: NaxljGsqHyovZsgRx5c8kBfij5TCt4enoFe4zCl6cJsS4Ls7JNXSERmD
+ IWzloxP/07OvXeU2EFpCszGt7FqGnp0o1WFqkiZm5huia4bKZtD4wOp5Bn1vYMLAi5QAqzc
+ b0xy+8m0q7dRYTG1eNK+ibZSe1TbVRHGwv56GjEuFkbvnU2Xed/zWYKGOedlvsyPwsQVwZM
+ 9pDTfmtCYM1MP8+nkHPST0kd2x2AAOzf000ABjGjfb+YwHcZ4PXUxNNG36HxZtu/3U0GqQQ
+ EAtWmRLakzq5nhedLK4j3MYt/Hd3Y0ahBj6JXb+GODoBMrsNPYPlrDckumM1at++l6JuS4q
+ zbzohraLror/H0yoMBozQ4QxZc+28+Kj7G7o8d0EXICYiZUN8+JWVZZkbYXUaNo84Ul6DKd
+ UQEYQo3CjXDWLYPQ+SJP9OdhjA940jqHq1n8iErMCOf3CsiUmvUed7tnu8ea76N6Ityiu8p
+ pRzfS9QSxXIHgdZltKWHvQtMqVlKNgq/0EyocRzLGBXbEtM60Ru7ROKHDsAGc/rjeoYudE+
+ /1os7tLdfIRYEUtq1hff6CFRWqjB0mlVrYDnitTU96siScJ0yUXuPueJeSpExc5GIi9w6Lm
+ YKuV8hpKOks5HN0NYrgwkN3C6HPFXPe1KKZmuVHCm/dATmhwNVUR8dG7WTdfIW5BlnmjnPz
+ sBMKnb8F9+CuxygG3u3rmWc0+t24AM2xAAinymQDg4qaskqfruEPEVHW72zChisPcCsz71Z
+ /eWIn+ShYz4XbA53pZ04ZGxeOYertgGaz67KFwBFuO9JODcbIQXyEFFGqxVfW0fGaaTpZkp
+ ObOvm8cIlgR7MOd4zsDmV7qDG4FYZOwiks8krFLLC+ojjt4wxdxilw4hBhoehw2+hAVHyFH
+ Q/rTpQMB64xVBD2to9KIPDj2CDxSvPoujlyKBdcl17H3YUsPn3Y0bgQUpZ9Ve5CECkFanKp
+ Vq8LMn30EJHb+4i7clIQJg1mzxHcl11foILAsyXsCILw5ZmdRJL0ppLDwUOJf8VxbO4IYvP
+ tMFtqgakflt359m5hHcDwBp/THHaSxp4ZxMhRGHRbxtSGNt779RzmmIIYOy2HEHfmWQukdT
+ 6aza1qzvDogRFsZYonisUpjPZnoRayriwWh0SKQ896k/vAz2EG4Ja4pCyjwd2Xgr/w0Vf0d
+ KIBajTjpGxHz27YO7PaV3a5rEm/qp7e6/5nipx8mCW9ZO5k=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,129 +103,124 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Enable ECAM to avoid reprogramming iATU on every downstream configuration
-access, reducing latency and CPU utilization. Add 64-bit memory windows
-for devices with large BARs, such as discrete GPUs.
+Hi,
 
-Preserve the SA8540P PCIe2a and PCIe3a address maps to avoid regressions
-due to firmware differences.
+The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
+Snapdragon 8cx Gen 3 (SC8280XP) platform.
+
+The board provides UFS and microSD storage, two M.2 M-key slots, an M.2
+E-key slot, a QPS615/TC9563 PCIe switch, USB Type-C ports with DisplayPort
+alternate mode, USB Type-A ports, HDMI 2.1 output, headset audio and
+a 40-pin expansion header.
+
+This series adds the initial device tree support for the board. It
+describes the regulators, storage, PCIe topology, USB and display outputs,
+audio, remote processors, thermal sensors, RTC, EEPROM and expansion
+header. Build targets for both the regular and EL2 device trees are
+included.
+
+The TC9563 power-control driver powers off external downstream ports whose
+device tree nodes have status = "disabled". On the Dragon Q8B,
+config-space reads to these powered-off port functions raise an Arm SError
+instead of returning an all-ones PCI error response, preventing the board
+from completing boot.
+
+The PCI OF change to skip config-space reads for unavailable DT-described
+bridge functions has been split out into a separate two-patch series for
+the PCI tree. Disabled endpoint functions remain discoverable so PCI
+fixups can still be applied, while driver binding continues to be
+suppressed later.
+
+The onboard HDMI output is provided by a Chrontel CH7218A DisplayPort 1.4
+to HDMI 2.1 protocol converter. The device boots its firmware from on-chip
+flash and requires no host-side configuration.
+
+The PCIe ECAM and 64-bit memory windows are defined in the shared
+SC8280XP DTSI for all five controllers. The board DTS inherits these
+SoC resources.
+The SA8540P PCIe2a and PCIe3a address maps are kept unchanged.
+
+The series also documents the board compatible. The SC8280XP TLMM binding
+change allowing gpio-line-names has already been applied and is no longer
+included in this series.
+
+The PCI change is required before applying the board DTS patch; otherwise
+the disabled TC9563 downstream ports cause a boot-time SError.
 
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- arch/arm64/boot/dts/qcom/sa8540p.dtsi  |  9 +++++++++
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 25 +++++++++++++++----------
- 2 files changed, 24 insertions(+), 10 deletions(-)
+Changes in v4:
+- Add the missing pinctrl configuration for Bluetooth UART2. (Sashiko)
+- Link to v3: https://patch.msgid.link/20261029-q8b-dts-v3-0-655696dfec45@radxa.com
 
-diff --git a/arch/arm64/boot/dts/qcom/sa8540p.dtsi b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-index 23888029cc11..e5393a237497 100644
---- a/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sa8540p.dtsi
-@@ -180,6 +180,15 @@ &gpu_smmu {
- 
- &pcie2a {
- 	compatible = "qcom,pcie-sa8540p";
-+	reg = <0x0 0x01c20000 0x0 0x3000>,
-+	      <0x0 0x3c000000 0x0 0xf1d>,
-+	      <0x0 0x3c000f20 0x0 0xa8>,
-+	      <0x0 0x3c001000 0x0 0x1000>,
-+	      <0x0 0x3c100000 0x0 0x100000>,
-+	      <0x0 0x01c23000 0x0 0x1000>;
-+
-+	ranges = <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
-+		 <0x02000000 0x0 0x3c300000 0x0 0x3c300000 0x0 0x1d00000>;
- 
- 	linux,pci-domain = <0>;
- 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index d17475c3e66c..0c4abf60d1d2 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -2161,13 +2161,14 @@ pcie4: pcie@1c00000 {
- 			      <0x0 0x30000000 0x0 0xf1d>,
- 			      <0x0 0x30000f20 0x0 0xa8>,
- 			      <0x0 0x30001000 0x0 0x1000>,
--			      <0x0 0x30100000 0x0 0x100000>,
-+			      <0x4 0x00000000 0x0 0x10000000>,
- 			      <0x0 0x01c03000 0x0 0x1000>;
- 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			ranges = <0x01000000 0x0 0x00000000 0x0 0x30200000 0x0 0x100000>,
--				 <0x02000000 0x0 0x30300000 0x0 0x30300000 0x0 0x1d00000>;
-+				 <0x02000000 0x0 0x40000000 0x4 0x10000000 0x0 0x10000000>,
-+				 <0x03000000 0x4 0x20000000 0x4 0x20000000 0x0 0x20000000>;
- 			bus-range = <0x00 0xff>;
- 
- 			dma-coherent;
-@@ -2273,13 +2274,14 @@ pcie3b: pcie@1c08000 {
- 			      <0x0 0x32000000 0x0 0xf1d>,
- 			      <0x0 0x32000f20 0x0 0xa8>,
- 			      <0x0 0x32001000 0x0 0x1000>,
--			      <0x0 0x32100000 0x0 0x100000>,
-+			      <0x4 0x40000000 0x0 0x10000000>,
- 			      <0x0 0x01c0b000 0x0 0x1000>;
- 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			ranges = <0x01000000 0x0 0x00000000 0x0 0x32200000 0x0 0x100000>,
--				 <0x02000000 0x0 0x32300000 0x0 0x32300000 0x0 0x1d00000>;
-+				 <0x02000000 0x0 0x40000000 0x4 0x50000000 0x0 0x10000000>,
-+				 <0x03000000 0x4 0x60000000 0x4 0x60000000 0x0 0x20000000>;
- 			bus-range = <0x00 0xff>;
- 
- 			dma-coherent;
-@@ -2383,13 +2385,14 @@ pcie3a: pcie@1c10000 {
- 			      <0x0 0x34000000 0x0 0xf1d>,
- 			      <0x0 0x34000f20 0x0 0xa8>,
- 			      <0x0 0x34001000 0x0 0x1000>,
--			      <0x0 0x34100000 0x0 0x100000>,
-+			      <0x4 0x80000000 0x0 0x10000000>,
- 			      <0x0 0x01c13000 0x0 0x1000>;
- 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			ranges = <0x01000000 0x0 0x00000000 0x0 0x34200000 0x0 0x100000>,
--				 <0x02000000 0x0 0x34300000 0x0 0x34300000 0x0 0x1d00000>;
-+				 <0x02000000 0x0 0x40000000 0x4 0x90000000 0x0 0x10000000>,
-+				 <0x03000000 0x4 0xa0000000 0x4 0xa0000000 0x0 0x20000000>;
- 			bus-range = <0x00 0xff>;
- 
- 			dma-coherent;
-@@ -2496,13 +2499,14 @@ pcie2b: pcie@1c18000 {
- 			      <0x0 0x38000000 0x0 0xf1d>,
- 			      <0x0 0x38000f20 0x0 0xa8>,
- 			      <0x0 0x38001000 0x0 0x1000>,
--			      <0x0 0x38100000 0x0 0x100000>,
-+			      <0x4 0xc0000000 0x0 0x10000000>,
- 			      <0x0 0x01c1b000 0x0 0x1000>;
- 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			ranges = <0x01000000 0x0 0x00000000 0x0 0x38200000 0x0 0x100000>,
--				 <0x02000000 0x0 0x38300000 0x0 0x38300000 0x0 0x1d00000>;
-+				 <0x02000000 0x0 0x40000000 0x4 0xd0000000 0x0 0x10000000>,
-+				 <0x03000000 0x4 0xe0000000 0x4 0xe0000000 0x0 0x20000000>;
- 			bus-range = <0x00 0xff>;
- 
- 			dma-coherent;
-@@ -2606,13 +2610,14 @@ pcie2a: pcie@1c20000 {
- 			      <0x0 0x3c000000 0x0 0xf1d>,
- 			      <0x0 0x3c000f20 0x0 0xa8>,
- 			      <0x0 0x3c001000 0x0 0x1000>,
--			      <0x0 0x3c100000 0x0 0x100000>,
-+			      <0x5 0x00000000 0x0 0x10000000>,
- 			      <0x0 0x01c23000 0x0 0x1000>;
- 			reg-names = "parf", "dbi", "elbi", "atu", "config", "mhi";
- 			#address-cells = <3>;
- 			#size-cells = <2>;
- 			ranges = <0x01000000 0x0 0x00000000 0x0 0x3c200000 0x0 0x100000>,
--				 <0x02000000 0x0 0x3c300000 0x0 0x3c300000 0x0 0x1d00000>;
-+				 <0x02000000 0x0 0x40000000 0x5 0x10000000 0x0 0x10000000>,
-+				 <0x03000000 0x5 0x20000000 0x5 0x20000000 0x0 0xe0000000>;
- 			bus-range = <0x00 0xff>;
- 
- 			dma-coherent;
+Changes in v3:
+- Rebase onto next-20261027.
+- Drop tested-by tag in the dt binding patch
+- Drop CH7218A patches which have been applied
+- Mark vcc_5v_s regulator as boot on
+- Add the device to the QSEECOM allowlist
+- Move PCIe ECAM and 64-bit memory windows to a separate SoC DTSI patch
+  covering all five SC8280XP controllers; preserve the original SA8540P
+  PCIe2a and PCIe3a register and memory windows.
+- Format the board DTS with dtfmt and fix subnode and audio-routing layout.
+- Drop forced output states from the SBU pinctrl configurations.
+- Explain why full-pwr-cycle is needed to recover the SD card state left
+  by boot firmware.
+- Link to v2: https://patch.msgid.link/20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com
 
--- 
-2.56.0
+Changes in v2:
+- Describe the TC9563 embedded GPIO controller and use its GPIOs 2 and 3
+  for the external downstream port PERST# reset lines.
+- Drop "PCI: of: Avoid config reads for disabled bridge nodes"; split it
+  into a separate two-patch PCI series, including the kernel-doc fix.
+- Drop "dt-bindings: pinctrl: qcom,sc8280xp-tlmm: allow gpio-line-names"
+  because it has already been applied.
+- Link to v1: https://patch.msgid.link/20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com
+
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+
+---
+Xilin Wu (4):
+      arm64: dts: qcom: sc8280xp: enable PCIe ECAM and 64-bit memory
+      dt-bindings: arm: qcom: document Radxa Dragon Q8B
+      arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
+      firmware: qcom: scm: Allow QSEECOM for Radxa Dragon Q8B
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    2 +
+ arch/arm64/boot/dts/qcom/sa8540p.dtsi              |    9 +
+ .../boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts    | 2053 ++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi             |   25 +-
+ drivers/firmware/qcom/qcom_scm.c                   |    1 +
+ 6 files changed, 2081 insertions(+), 10 deletions(-)
+---
+base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
+change-id: 20260901-q8b-dts-a3afc5f9b8b2
+prerequisite-change-id: 20260507-sc8280xp-qup-pinctrl-5ab8af9be35f:v3
+prerequisite-patch-id: d799218553d1a8d44d83ab7d5c36a9ba7dd05e92
+
+Best regards,
+--  
+Xilin Wu <sophon@radxa.com>
 
