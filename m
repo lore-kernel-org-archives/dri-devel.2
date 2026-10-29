@@ -2,57 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A45606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 17:18:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAC5606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 17:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=lEyRdwXx
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=PMaRwV/c
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 003F810E6CE;
-	Thu, 29 Oct 2026 17:18:00 +0000 (UTC)
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6C4311247B;
- Thu, 29 Oct 2026 16:54:23 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jFr1B0QG0zKnGf;
- Thu, 29 Oct 2026 17:54:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
- t=1793292862;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=Ju225KbHIU2fp8N7PevdwnGpTaCG0uk/rmjsK0tlWc0=;
- b=lEyRdwXxW4OJWIXmuBPEw8XY+Z57bHrc6WDQQwp+sirchgsSn3uwKpy/jGj2+Q4+FRbWz4
- +nt7K3Rn1OVs+p24/MVl25dgOTOgCPWH3kbF4DmkEQ+rEDtd2F40hStK0glOdzOi/RLUsL
- RA8+f86wfEraBoPgmKdHlJz8eurAdlMvDVyqnnXlRg/oiHekAj9uOISRRlQXw4XNtCUHHD
- 4OsqfD0hsjQ9D2pnbCuukg3C5eM1EmEYOqKcMCOemKv01/jTyTOqPGRvBJVIpv4PEn1MmS
- VnGlwWacGdP+UlSDyT2zZQZ5wxBkbHqa5dbzdAcac3NhA0m3r5uVgxnUnicLrA==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
- 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Ray Wu <ray.wu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Roman Li <Roman.Li@amd.com>,
- Alex Hung <alex.hung@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE1810E301;
+	Thu, 29 Oct 2026 17:18:24 +0000 (UTC)
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9189A112262
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 12:32:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-ID:MIME-Version:Content-Transfer-Encoding; bh=rp9Bigau5B
+ UMff/pM8buWvBGYqS+HU6+1SI+AXy/AD0=; b=PMaRwV/c4NUQj3n75NNw27DTXo
+ mkZFxLDamEjPccuADtLzcaAjD2rQeU+FjMi1G0XMJQdm5mSfezPzmQBhRzvKaeyo
+ Wr4+W5D/JO90yGTJ5QwKbZzoX+CPTh90QZH6193MdHAru2znsc7nJoSXYcTzkeYS
+ 7Glb9PztSG/oGLmqo=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.224.240])
+ by mailimap2024 (Coremail) with SMTP id 3pYKCgCnHjPmPONqmPdgAA--.889S2;
+ Thu, 29 Oct 2026 20:32:38 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Taniya Das <taniya.das@oss.qualcomm.com>, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Take every stream out of self-refresh before
- a modeset
-Date: Thu, 29 Oct 2026 16:54:20 +0000
-Message-ID: <20261029165420.2255749-1-hugo@hsal.es>
-X-Mailer: git-send-email 2.56.0
+Subject: [PATCH v2 0/3] drm/msm/mdss: reset all MDSS block resets described in
+ DT
+Date: Thu, 29 Oct 2026 20:32:35 +0800
+Message-ID: <20261029123238.29877-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jFr1B0QG0zKnGf
+X-CM-TRANSID: 3pYKCgCnHjPmPONqmPdgAA--.889S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAw4xZrW5JF4ruFy3Ar1xGrg_yoW5WFy3pF
+ W3ta45tr1vgayIvw4xAa109ayFvws5tFW5Gr9xt34UAa15JF4xtFnIkws8tFW2gFZ7Z34Y
+ qF4I939I9F9FvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9mb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY
+ 04v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW5JwCF04k20xvY0x0EwIxGrwCFx2
+ IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+ 6r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+ AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
+ s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
+ 0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07bOYLPUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREPB2riTVZTsQBPsm
 X-Mailman-Approved-At: Thu, 29 Oct 2026 17:17:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,186 +73,65 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Commit 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-dropped amdgpu_dm_psr_disable_all() and amdgpu_dm_replay_disable_all()
-from amdgpu_dm_commit_streams(). Since then, a modeset only disables
-self-refresh on the CRTCs in the commit, so an eDP on another CRTC stays
-in PSR through dc_commit_streams()
+This is the replacement for the RFC sent on 2026-10-22, which Taniya Das
+correctly rejected: the MDSS block resets do not belong to the clock driver,
+and resetting the whole block from dispcc probe would also take the PLLs down.
 
-Commit 6ee90e88b976 ("drm/amd/display: PSR eDP p-state warning occurs
-intermittently after unplug DP") added that disable-all for this very
-case. With it gone, turning off or unplugging an HDMI monitor while the
-eDP is in PSR hangs DMUB on a Cezanne laptop (DCN 2.1), on the first
-try:
+The problem the RFC tried to solve is real.  On a board that enters Linux
+with the display block already running, the kernel later sees command DMA
+timeouts on the first DPMS enable and the panel never comes up; resetting the
+MDSS blocks before touching them fixes it, and it has to happen before the
+first commit, not in the middle of one.
 
-  dc_dmub_srv_log_diagnostic_data: DMCUB error
-  Error queueing DMUB command: status=2
+This version therefore leaves the clock driver completely alone and moves
+the resets to the display side, where they already live:
 
-The eDP then stays frozen until a GPU reset
+1/3 describes three block resets on the MDSS node instead of one.  minItems
+    is 1, so every existing device tree that describes only the core reset
+    keeps validating; the example in the SM8750 binding now shows all three.
+2/3 makes msm_mdss_reset() drive the whole array described in DT instead of
+    the first reset only.  Platforms with a single reset behave exactly as
+    before, which is why this is not gated on any board compatible.
+3/3 describes the three resets on the SM8750 MDSS node.
 
-Do the same through the power module's events. When a CRTC that is or
-was active needs a modeset, raise the PSR and Replay pause events on
-every stream mod_power tracks and wait for self-refresh to exit, before
-amdgpu_dm_mod_power_update_streams() changes the stream set. Clear them
-on the commit's streams after amdgpu_dm_mod_power_setup_streams(), since
-enabling a stream clears psr_feature_enabled until then. Use
-psr_event_pause and replay_event_pause rather than the hw_programming
-events, which a fast update on the eDP can clear in
-amdgpu_dm_enable_self_refresh() while the modeset is still running
+The reset is still held for 20 ms, the value upstream uses today, and the
+PLLs are untouched by it, so no flicker from reconfiguring them.
 
-Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-Tested on an ASUS ROG Flow X13 (Cezanne, DMUB 0x0101002B) with PSR 1 on
-the eDP. That's the only hardware I have, and PSR there needs
-DC_PSR_MASK and "drm/amd/display: Don't require DMUB PSR caps before
-DCN 3.0", which I'm sending next. With this patch, 50 HDMI unplugs in a
-row with the eDP in PSR went through without a DMUB error. The same
-kernel without it hung on the first
+Scope and status, stated plainly: this was built with W=1 and the binding was
+validated with dt-doc-validate, dt-validate (both with three resets and with
+one, to prove the old shapes still pass) and dt-check-style.  It has *not*
+yet been run on hardware, and the ordering is the one point where I would
+value review most: in the arm that was measured as good, the reset happened
+before the dispcc PLLs were programmed, whereas here it happens after, because
+mdss consumes dispcc clocks and must probe later.  I could not find a way to
+get the display side to probe earlier without reintroducing the clock-driver
+problem, and resetting only the block resets (not the PLLs themselves) is the
+part that I believe makes the later point harmless.  If you think that is not
+sound, say so and I will drop it rather than argue.
 
-Ray, Leo: 3c108046e1d6 doesn't say whether leaving the other CRTCs in
-self-refresh was intended. If newer DMUB firmware copes with an external
-link going away during PSR, I can limit this to DCN 2.1
+Only SM8750 is changed here; sc7180/sc7280/sc8280xp/sm6350/sm8150 also have an
+RSCC reset described in their dtsi, and sm8650 has the same three, but whether
+they want the same treatment is for their maintainers to decide.
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 101 ++++++++++++++++++
- 1 file changed, 101 insertions(+)
+Qianhui Xu (3):
+  dt-bindings: display: msm: mdss-common: describe additional block
+    resets
+  drm/msm/mdss: reset all block resets described in DT
+  arm64: dts: qcom: sm8750: describe all MDSS block resets
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index dfbc384fbbdb4..54eee9e2393fa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4443,6 +4443,105 @@ STATIC_IFN_KUNIT void dm_clear_writeback(struct amdgpu_display_manager *dm,
- }
- EXPORT_IF_KUNIT(dm_clear_writeback);
- 
-+static bool amdgpu_dm_self_refresh_pause_needed(struct drm_atomic_commit *state)
-+{
-+	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
-+	struct drm_crtc *crtc;
-+	int i;
-+
-+	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i)
-+		if (drm_atomic_crtc_needs_modeset(new_crtc_state) &&
-+		    (old_crtc_state->active || new_crtc_state->active))
-+			return true;
-+
-+	return false;
-+}
-+
-+static bool amdgpu_dm_is_new_modeset_stream(struct drm_atomic_commit *state,
-+					    const struct dc_stream_state *stream)
-+{
-+	struct drm_crtc_state *new_crtc_state;
-+	struct drm_crtc *crtc;
-+	int i;
-+
-+	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i)
-+		if (drm_atomic_crtc_needs_modeset(new_crtc_state) &&
-+		    to_dm_crtc_state(new_crtc_state)->stream == stream)
-+			return true;
-+
-+	return false;
-+}
-+
-+/*
-+ * A modeset CRTC may have no PSR or Replay, such as an HDMI output being
-+ * turned off, while an eDP on another CRTC is still in self-refresh. Pause
-+ * self-refresh on every stream mod_power tracks before
-+ * amdgpu_dm_mod_power_update_streams() changes the set: the old streams of
-+ * the CRTCs in the commit and the unchanged streams of the new state.
-+ * Unlike hw_programming, which a fast update on another CRTC clears, the
-+ * pause holds until amdgpu_dm_resume_self_refresh()
-+ */
-+static void amdgpu_dm_pause_self_refresh(struct drm_atomic_commit *state,
-+					 struct amdgpu_display_manager *dm,
-+					 struct dc_state *dc_state)
-+{
-+	struct drm_crtc_state *old_crtc_state;
-+	struct dc_stream_state *stream;
-+	struct drm_crtc *crtc;
-+	int i;
-+
-+	if (!amdgpu_dm_self_refresh_pause_needed(state))
-+		return;
-+
-+	guard(mutex)(&dm->dc_lock);
-+	dc_exit_ips_for_hw_access(dm->dc);
-+
-+	for_each_old_crtc_in_state(state, crtc, old_crtc_state, i) {
-+		stream = to_dm_crtc_state(old_crtc_state)->stream;
-+		if (!old_crtc_state->active || !stream)
-+			continue;
-+
-+		amdgpu_dm_psr_set_event(dm, stream, true, psr_event_pause, true);
-+		amdgpu_dm_replay_set_event(dm, stream, true, replay_event_pause, true);
-+	}
-+
-+	for (i = 0; i < dc_state->stream_count; i++) {
-+		stream = dc_state->streams[i];
-+		if (amdgpu_dm_is_new_modeset_stream(state, stream))
-+			continue;
-+
-+		amdgpu_dm_psr_set_event(dm, stream, true, psr_event_pause, true);
-+		amdgpu_dm_replay_set_event(dm, stream, true, replay_event_pause, true);
-+	}
-+}
-+
-+/*
-+ * Ends amdgpu_dm_pause_self_refresh() on the streams of the commit, which
-+ * mod_power tracks from amdgpu_dm_mod_power_update_streams() on, even if
-+ * dc_commit_streams() failed. mod_power keeps events across
-+ * mod_power_replace_stream(), so the replaced streams carry the pause too.
-+ * Runs after amdgpu_dm_mod_power_setup_streams(), since enabling a stream
-+ * clears psr_feature_enabled and replay_feature_enabled on its link until
-+ * then, and the set_event helpers skip a link without them
-+ */
-+static void amdgpu_dm_resume_self_refresh(struct drm_atomic_commit *state,
-+					  struct amdgpu_display_manager *dm,
-+					  struct dc_state *dc_state)
-+{
-+	int i;
-+
-+	if (!dc_state || !amdgpu_dm_self_refresh_pause_needed(state))
-+		return;
-+
-+	guard(mutex)(&dm->dc_lock);
-+	for (i = 0; i < dc_state->stream_count; i++) {
-+		amdgpu_dm_psr_set_event(dm, dc_state->streams[i], false,
-+					psr_event_pause, false);
-+		amdgpu_dm_replay_set_event(dm, dc_state->streams[i], false,
-+					   replay_event_pause, false);
-+	}
-+}
-+
- /**
-  * amdgpu_dm_mod_power_update_streams - update mod_power stream state
-  * @state: the drm atomic state
-@@ -4627,6 +4726,7 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
- 		acrtc->wb_enabled = false;
- 	}
- 
-+	amdgpu_dm_pause_self_refresh(state, dm, dc_state);
- 	amdgpu_dm_mod_power_update_streams(state, dm);
- 
- 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
-@@ -5370,6 +5470,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
- 	}
- 
- 	amdgpu_dm_mod_power_setup_streams(state, dm);
-+	amdgpu_dm_resume_self_refresh(state, dm, dc_state);
- 
- 	for_each_new_crtc_in_state(state, crtc, new_crtc_state, j)
- 		if (new_crtc_state->async_flip)
+ .../bindings/display/msm/mdss-common.yaml         |  5 ++++-
+ .../bindings/display/msm/qcom,sm8750-mdss.yaml    |  4 +++-
+ arch/arm64/boot/dts/qcom/sm8750.dtsi              |  4 +++-
+ drivers/gpu/drm/msm/msm_mdss.c                    | 15 ++++++++++++---
+ 4 files changed, 22 insertions(+), 6 deletions(-)
 
-base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
 -- 
-2.56.0
+2.53.0
 
