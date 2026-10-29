@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15EC606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:07:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9F4606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:08:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=es3jmm3y
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NAIa0M1o
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5AE11231F;
-	Thu, 29 Oct 2026 14:07:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AC2B11231F
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:07:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 409D111232C;
+	Thu, 29 Oct 2026 14:08:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE15A112320
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:08:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EA8A741829
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:07:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25AC1F01828;
- Thu, 29 Oct 2026 14:07:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E637860214;
+ Thu, 29 Oct 2026 14:08:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63E3E1F01825;
+ Thu, 29 Oct 2026 14:08:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793282838;
- bh=QvD7ngkujWRyKrZ5PZEz0HgN8VscJ7YILyZvwNx5MEI=;
+ s=k20260515; t=1793282914;
+ bh=FLBXHlCEs2kPIfWpcXVMdhfJTkUxBWWwKgf1Y8KgijQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=es3jmm3y/Eto0gV2jHc4+7mxCEF1oOSICWNp0wy+IZeALp2y/RatlXAv/Jh0xti3P
- A0jBQWxrxpd+6bdkbgg7Sg4F49XfaUjDnJ6JDnoLpa1sA1X3ICPPCkJL0MXIWCmqvw
- zvv8zARzmBbPZmWe26Ej14aOeMF8u139B5ycLrDPLsHYh0UMpsyrvw7SAubTnD//JB
- QZ1QFStaweTvkuMsV2kOXfoZqUvfWH5+IczP279eDf37T4NHcYWSQ9ZFjDd1KNl3+2
- ZEsZQtX16Y6/kwJuBPYtSOVsGFxc/3CprCjXJS9D8MNkStueBpfnGUZVEmnVZIRCmJ
- kIlO0sjJSvl6g==
-Message-ID: <sashiko-outbox-189474@kernel.org>
+ b=NAIa0M1oz5PurvDw4lZZMxKdkCSCWJubNZvfLN6XSS26BwnnDzneXzvyjxUk05M4h
+ Jlbmo+vKZZBEYqVsEOoztMJpHbsCd2iwrH9eyh5t1ZdudpABGD1b6Fc6ueRh0Wl02E
+ H9wKy0JoCL2mBlyFsu8tWQhpMAJ7itYMDAZm/xUQFOtppP+lnpBFGHlpLYBhLreQeJ
+ SqcOIudIMesjhQqeHXz051q4YTdZFWPMGZ2esC0YgUGma01Cig78U93oZzbdBoZmhR
+ HwV0A7gwVF+FoUr7ovNydmWCO5vRgr7Ll2cUTDiBcndpNrY1g6ROWBjXKNj/pYiuHQ
+ 0RfZtNeRsIKuA==
+Message-ID: <sashiko-outbox-189478@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 05/31] accel: ethosu: Quiesce jobs before scheduler
- teardown
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029-ethosu-fixes-v4-5-4aa25e22578e@kernel.org>
-References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-5-4aa25e22578e@kernel.org>
+Subject: Re: [PATCH RFC v2 05/14] firmware: qcom: scm: Configure LPAC aperture
+To: "Anna Maniscalco" <anna.maniscalco2000@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-5-a21a5c850961@gmail.com>
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-5-a21a5c850961@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 14:07:18 +0000
+Date: Thu, 29 Oct 2026 14:08:34 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,132 +53,143 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] accel: ethosu: wrong TDR and IRQ teardown order in ethosu_job_fini=
-()
+- [High] drm/msm/adreno: missing lpac_pdev check in adreno_hw_init()
+- [Low] firmware: qcom: scm: broken mask macro and unmasked context_bank ar=
+gument
 --
 
-commit 0cd4405bf9fa95eb128e9e0dbd76f0af4d652c5c
-Author: Rob Herring (Arm) <robh@kernel.org>
+commit ea6cfd100e49bc2229349870a3f6d5f6dfcedd94
+Author: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
-accel: ethosu: Quiesce jobs before scheduler teardown
+firmware: qcom: scm: Configure LPAC aperture
 
-This commit stops the scheduler workqueue and timeout work, resets the NPU =
-if
-a job is in flight, and synchronizes the IRQ before calling drm_sched_fini(=
-).
-It also adds a cancel_job callback so queued jobs are signaled with
--ECANCELED during scheduler teardown.
+This commit adds qcom_scm_set_gpu_smmu_lpac_aperture() to configure the
+SMMU LPAC aperture via SCM and calls it from adreno_hw_init() when
+ADRENO_QUIRK_LPAC is set.
 
-> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
-osu_job.c
-> index b7faa715b47e4..d418ae7961cff 100644
-> --- a/drivers/accel/ethosu/ethosu_job.c
-> +++ b/drivers/accel/ethosu/ethosu_job.c
-
-[ ... ]
-
-> @@ -361,6 +373,15 @@ int ethosu_job_init(struct ethosu_device *edev)
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
+m_scm.c
+> index 9b06a69d3a6d7..92093399f20d9 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
+> @@ -1204,6 +1204,7 @@ int qcom_scm_restore_sec_cfg(u32 device_id, u32 spa=
+re)
+>  EXPORT_SYMBOL_GPL(qcom_scm_restore_sec_cfg);
 > =20
->  void ethosu_job_fini(struct ethosu_device *dev)
+>  #define QCOM_SCM_CP_APERTURE_CONTEXT_MASK	GENMASK(7, 0)
+> +#define QCOM_SCM_LPAC_APERTURE_CONTEXT_MASK	GENMASK(7, 1)
+> =20
+>  bool qcom_scm_set_gpu_smmu_aperture_is_available(void)
 >  {
-> +	drm_sched_wqueue_stop(&dev->sched);
-> +	cancel_delayed_work_sync(&dev->sched.work_tdr);
-> +
-> +	if (READ_ONCE(dev->in_flight_job)) {
-> +		WRITE_ONCE(dev->in_flight_job, NULL);
-> +		ethosu_device_reset(dev);
-> +	}
-> +
-> +	synchronize_irq(dev->irq);
->  	drm_sched_fini(&dev->sched);
+> @@ -1229,6 +1230,23 @@ int qcom_scm_set_gpu_smmu_aperture(unsigned int co=
+ntext_bank)
 >  }
+>  EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_aperture);
+> =20
+> +int qcom_scm_set_gpu_smmu_lpac_aperture(unsigned int context_bank)
+> +{
+> +	struct qcom_scm_desc desc =3D {
+> +		.svc =3D QCOM_SCM_SVC_MP,
+> +		.cmd =3D QCOM_SCM_MP_CP_SMMU_APERTURE_ID,
+> +		.arginfo =3D QCOM_SCM_ARGS(4),
+> +		.args[0] =3D 0xffff0000 | (1 << 8 | context_bank),
+> +		.args[1] =3D 0xffffffff,
+> +		.args[2] =3D 0xffffffff,
+> +		.args[3] =3D 0xffffffff,
+> +		.owner =3D ARM_SMCCC_OWNER_SIP
+> +	};
+> +
+> +	return qcom_scm_call(__scm->dev, &desc, NULL);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_lpac_aperture);
+
+[Severity: Low]
+Should QCOM_SCM_LPAC_APERTURE_CONTEXT_MASK be dropped or defined as BIT(8),
+and should context_bank be masked with FIELD_PREP() in
+qcom_scm_set_gpu_smmu_lpac_aperture()?
+
+Currently QCOM_SCM_LPAC_APERTURE_CONTEXT_MASK is defined as GENMASK(7, 1)
+and never used, while qcom_scm_set_gpu_smmu_aperture() masks context_bank
+into bits 7:0:
+
+drivers/firmware/qcom/qcom_scm.c:qcom_scm_set_gpu_smmu_aperture() {
+	...
+	.args[0] =3D 0xffff0000 | FIELD_PREP(QCOM_SCM_CP_APERTURE_CONTEXT_MASK, co=
+ntext_bank),
+	...
+}
+
+In qcom_scm_set_gpu_smmu_lpac_aperture(), ORing an unmasked context_bank
+with (1 << 8) could clobber bit 8 or upper bits of args[0] if a caller
+passes a value larger than 0xff.
+
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index 1dedeb19946ec..65d34d0cfc380 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -658,6 +658,7 @@ struct drm_gem_object *adreno_fw_create_bo(struct msm=
+_gpu *gpu,
+>  int adreno_hw_init(struct msm_gpu *gpu)
+>  {
+>  	struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> +	const struct adreno_info *info =3D adreno_gpu->info;
+>  	int ret;
+> =20
+>  	VERB("%s", gpu->name);
+> @@ -668,6 +669,11 @@ int adreno_hw_init(struct msm_gpu *gpu)
+>  		ret =3D qcom_scm_set_gpu_smmu_aperture(0);
+>  		if (ret)
+>  			DRM_DEV_ERROR(gpu->dev->dev, "unable to set SMMU aperture: %d\n", ret=
+);
+> +		if (info->quirks & ADRENO_QUIRK_LPAC) {
+> +			ret =3D qcom_scm_set_gpu_smmu_lpac_aperture(1);
+> +			if (ret)
+> +				DRM_DEV_ERROR(gpu->dev->dev, "unable to set lpac SMMU aperture: %d\n=
+", ret);
+> +		}
+>  	}
 
 [Severity: High]
-Could the ordering of drm_sched_wqueue_stop(), cancel_delayed_work_sync(), =
-and
-IRQ synchronization here allow work_run_job or work_tdr to be re-queued dur=
-ing
-teardown?
+Does adreno_hw_init() also need to check gpu->lpac_pdev before calling
+qcom_scm_set_gpu_smmu_lpac_aperture(1)?
 
-First, drm_sched_wqueue_stop() is called before canceling dev->sched.work_t=
-dr.
-If dev->sched.work_tdr is already executing ethosu_job_timedout() when
-ethosu_job_fini() starts, cancel_delayed_work_sync() waits for it to finish:
+In adreno_gpu_init(), gpu->lpac_pdev is only populated when the device tree
+contains a qcom,lpac child node:
 
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_timedout() {
+drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_gpu_init() {
 	...
-	drm_sched_stop(&dev->sched, bad);
-
-	WRITE_ONCE(dev->in_flight_job, NULL);
-
-	/* Proceed with reset now. */
-	pm_runtime_force_suspend(dev->base.dev);
-	pm_runtime_force_resume(dev->base.dev);
-
-	/* Restart the scheduler */
-	drm_sched_start(&dev->sched, 0);
-
-	return DRM_GPU_SCHED_STAT_RESET;
-}
-
-At the end of ethosu_job_timedout(), drm_sched_start() calls
-drm_sched_wqueue_start(), which clears sched->pause_submit and queues
-work_run_job and work_free_job on sched->submit_wq. Once
-cancel_delayed_work_sync() returns, work_run_job can pop a queued job and c=
-all
-ethosu_job_run() -> ethosu_job_hw_submit(), setting dev->in_flight_job,
-submitting a new job to the NPU, and re-arming work_tdr via
-drm_sched_job_begin() concurrently with ethosu_device_reset() and
-synchronize_irq().
-
-Second, cancel_delayed_work_sync(&dev->sched.work_tdr) runs before
-ethosu_device_reset() and synchronize_irq(dev->irq). Before the NPU is reset
-and the IRQ is synchronized, ethosu_job_irq_handler_thread() ->
-ethosu_job_handle_irq() can still run and handle an error interrupt without
-checking dev->in_flight_job:
-
-drivers/accel/ethosu/ethosu_job.c:ethosu_job_handle_irq() {
-	...
-	if (status & (STATUS_BUS_STATUS | STATUS_CMD_PARSE_ERR)) {
-		dev_err(dev->base.dev, "Error IRQ - %x\n", status);
-		drm_sched_fault(&dev->sched);
-		return;
-	}
+	lpac_node =3D of_get_compatible_child(pdev->dev.of_node, "qcom,lpac");
+	if (lpac_node)
+		gpu->lpac_pdev =3D of_find_device_by_node(lpac_node);
 	...
 }
 
-Calling drm_sched_fault() schedules dev->sched.work_tdr again after
-cancel_delayed_work_sync() has already returned. That allows
-ethosu_job_timedout() to run concurrently with ethosu_device_reset() (where
-pm_runtime_force_suspend() disables the NPU clocks while ethosu_device_rese=
-t()
-polls MMIO registers and clears SRAM with memset_io()) as well as concurren=
-tly
-with drm_sched_fini().
+And adreno_iommu_create_vm() only creates the separate LPAC IOMMU domain
+(which allocates SMMU context bank 1) when gpu->lpac_pdev is non-NULL:
 
-Note that while a later commit in the series ("accel: ethosu: Keep scheduler
-after unplug") replaces this with ethosu_job_stop() and calls
-disable_irq(dev->irq) before cancel_delayed_work_sync(&dev->sched.work_tdr),
-it still calls drm_sched_wqueue_stop(&dev->sched) before
-cancel_delayed_work_sync(&dev->sched.work_tdr), which leaves the race where=
- an
-in-progress ethosu_job_timedout() calls drm_sched_start() and restarts
-work_run_job and work_free_job.
+drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_iommu_create_vm() {
+	...
+	mmu =3D msm_iommu_gpu_new(&pdev->dev,
+				gpu->lpac_pdev ? &gpu->lpac_pdev->dev : NULL,
+				gpu, quirks);
+	...
+}
 
-Should the IRQ be disabled or synchronized before canceling work_tdr, and
-should drm_sched_wqueue_stop() be called after cancel_delayed_work_sync() (=
-or
-after preventing ethosu_job_timedout() from calling drm_sched_start() during
-teardown)?
+When booting a GPU with ADRENO_QUIRK_LPAC on an existing DTB that does not
+have the qcom,lpac child node, gpu->lpac_pdev is NULL and context bank 1 is
+never allocated. Won't calling qcom_scm_set_gpu_smmu_lpac_aperture(1)
+unconditionally on ADRENO_QUIRK_LPAC configure the LPAC aperture to an
+unallocated context bank?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-ethosu-fix=
-es-v4-0-4aa25e22578e@kernel.org?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-descriptiv=
+e-name-lpac-upstream-v2-0-a21a5c850961@gmail.com?part=3D5
