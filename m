@@ -2,89 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F52E606A33A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e4wWbJFA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2336A606A31D
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:52:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FA441121DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21CD910E7EA;
 	Thu, 29 Oct 2026 10:51:58 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D86F1121A5
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:18:32 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c40e02b2ebaso305365566b.1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 03:18:32 -0700 (PDT)
+X-Greylist: delayed 2103 seconds by postgrey-1.36 at gabe;
+ Thu, 29 Oct 2026 08:08:31 UTC
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
+ (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 524E2112066
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:08:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793269111; x=1793873911; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=dOEmoLrkij3HmYBFR+Syf3gWz1S3EKgtiAPD6c4+pN8=;
- b=e4wWbJFADQ6Rvivr2M60Ktzft79PX6sD9r7BiEk23tKnM/lJC4bxGFG6e5bqR7Zb1D
- 8e0VJsmX/uWnvV+7UarkHy5TfvntmfZdv5aOkBXi27D9UzMkX6E3lh41pFj8kUTpW3BU
- O/eKK9Uh6XFzFPS6Y0ZgFZAb1WSFRehB1E0EztHs6VdKb/BevaK5l2xaWDV4PGtKW90l
- DQZkP0UU8dra08Cdt+TQtj+NAUFa2ZjNJhzv+H6ulfzfny28oFZFziuIdhk5GeYe1fhT
- FmCcL8d0E3nhPXy9z6AzO4nolFfxxc46OP5J+CSSaCBoTx/qz3Lb9I/iLp9eF52GFX5t
- A5zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793269111; x=1793873911;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=dOEmoLrkij3HmYBFR+Syf3gWz1S3EKgtiAPD6c4+pN8=;
- b=XLuFGQ27s0YIWIyF3tfIkRibIJ5SxJI0t3v1mUWfDJKgaRuk7hvglL53PiUrMQBzAN
- pdzpEyKdfCw9XD6/TJrLQfHIa+QBUMp/Rzn3rJP4T7IICkCosZOE6kKsstpedEh+ZbsL
- 2Z3ThNTBRLsRJ0vps+WP4Qn07JACKR5ArpDz8MHsF/WohUdbwG84GKNquPLhTyavkVWR
- cMklcf43aFbwIV+yI1scmgXckyLObBYEKoZk8gBM1Rbx2GglwEXOoEk05Q0pn4lSOeOX
- Y7O2Abjm8f2pDNdgd01eXOfLP+z8PGxiXcuXewQ2cmcxF3svWbwMaYyV2nQgM0URdh3E
- H/sg==
-X-Gm-Message-State: AFq9FYJmRPU13gECr10JlJ9Mt+6MJDAxuS5bFuhT9+Ntz1x63sDeehha
- Tg926eO4If4X+XGPYWZkuZbaxuakK00l7lZclnC8kEL9vA1tiCw5M2saLanLVIKc
-X-Gm-Gg: AYBFou3aPr5DrZXWh3dwSoIDnK2n/MnzjOz7WjnzjYBLG0BA9NUL5RhR0mXjut9+4Sf
- V9WmH2YKF5TzHa1uTlFatiZauKKuIUNa0moJa/fROayU8iBFGTcj16M78DoneIpwYpmCIWT85VS
- HnHUPdSWexj0mcJPj6btXIZmsfOszbIdibVYYCJZbqmKu7QhZM6sVCVfzxliY1sIrqM4vopz+K0
- mcvWfHFaPLUonJyU2NG6PuGUd2aLbyM2bTevn+hAq8c31+BmHBGp5s6+Rohvasuyrp2vWhqBhAa
- gbMgqUytNwjmljIh9n2gWayPbvydqnPmDN7O69puXueqrUxsYQr8nmvawJS+Y54dT3I3PStptjI
- 7CfqLr7WKLLjsciv48HzyRZiph7CF1N6sFwWEua9FyB5hMPAbwU4Ov736hDDT5HNE6dyqB5rPRR
- u1VNCB6clSZlcu/1dy6a98EzbEKqOugPyvYy145nubapba/N343hC789gi9y31A+mzn32ENjBci
- BxtELJOpsx68NkEiEpnMW2wvEHcxaE/X3oLdF7Jv13Gx1CDa+iyRzZ5E1pVtjvXYEHhGpvAy+yc
- iKkn8mkGn7nGBvViyGiqahSL649+o6dbp9/jhLiX1P2zS67h104Q5aPp45DUTzQ=
-X-Received: by 2002:a17:907:930a:b0:c46:a5bb:5740 with SMTP id
- a640c23a62f3a-c49bdb64c4dmr397674666b.5.1793269110523; 
- Thu, 29 Oct 2026 03:18:30 -0700 (PDT)
-Received: from localhost.localdomain ([46.205.195.0])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.29
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 29 Oct 2026 03:18:30 -0700 (PDT)
-From: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+ d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Subject:Date:
+ Message-Id:MIME-Version:Content-Transfer-Encoding; bh=n2h7Gd+pWS
+ ukG0+ZHwnfidKQ4JBvdEMorny+52dhSJ4=; b=geLuo30iOzYGcjqqJ7EaPdySRp
+ F2w5iYLW2zSGwl2a2dVDTOs+Wh6JMhYSavm2FUU14OJbWy2MpETrr97tB1FUBHsq
+ xHxrx3wsKPOgsnMzQ8NRM+tpbBZQCaWqxYbA0r6A2LVOf9/VFL9p6BcY9ww2UZFW
+ xTcdLL36oR24JdH8w=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
+ by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id
+ BbQMCkAGC_7w_uJq9uv7AA--.61434S2; 
+ Thu, 29 Oct 2026 16:08:17 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 To: dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: [PATCH v2 1/5] drm/dp: Always use enhanced framing for DPCD r1.2+
-Date: Thu, 29 Oct 2026 11:18:22 +0100
-Message-ID: <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
-References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+Subject: [PATCH] drm/gud: avoid divide error in gud_stats_debugfs
+Date: Thu, 29 Oct 2026 16:08:16 +0800
+Message-Id: <20261029080816.16800-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: BbQMCkAGC_7w_uJq9uv7AA--.61434S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw43KryDXF43ZF4fKr1fXrb_yoW8Zr4Upw
+ 43Ga4FyFW7X347Gw43AayIgFy5Za4kJFW8GrW8K34fuF45ZF1rua4YgFy0q34UJr1Iya9a
+ qF1qgrZrCrW2yFJanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+ C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+ 07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+ 18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+ r41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s
+ 026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+ JrI_JrWlx4CE17CEb7AF67AKxVWUJVWUXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+ v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+ j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+ W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0zwZ5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUBD2riEkGHTgAAsb
 X-Mailman-Approved-At: Thu, 29 Oct 2026 10:51:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,63 +63,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-DP 1.2 section 2.2.1.1 says "An upstream device interoperating with a
-downstream device with DPCD Revision of 1.2 or higher must enable
-Enhanced Framing Mode". So for r1.2+ the DPCD revision is enough, the
-DP_ENHANCED_FRAME_CAP bit does not need to be checked.
+gud_stats_debugfs() computes the compression ratio by dividing the
+accumulated uncompressed length by stats_actual_length. That counter is
+zero until the first framebuffer flush has completed, so reading the
+stats debugfs file on a display which negotiates LZ4 compression raises
+a divide error before any frame has been sent. The wrap-around reset in
+gud_flush_rect() also clears the counter for a moment, which a
+concurrent read can observe.
 
-Some sinks get this bit wrong. The Xiaomi Monitor A24i (P24FBA-RAGL)
-sets it in the base receiver caps, but clears it in the extended
-receiver caps at 0x2200, which are the ones we use:
+Copy the counter into a local variable and skip the ratio computation
+when it is zero.
 
-  base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
-  extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
-
-Through a USB4 dock (CalDigit Element 5) the link trains without
-enhanced framing (0x202-0x204: 77 77 81), but the sink never syncs to
-the stream (SINK_STATUS 0x205: 00) and shows "No signal". Forcing RBR
-does not change it. Connected directly to the laptop the same sink
-syncs without enhanced framing, at RBR, HBR and HBR2.
-
-Make drm_dp_enhanced_frame_cap() return true for DPCD r1.2+. This
-changes behaviour for every driver using the helper, but only for sinks
-which already violate the spec by not setting the bit.
-
-Tested on i915 (Arrow Lake-U), with the dock the link now uses enhanced
-framing (0x101: 84) and the sink syncs (0x205: 03).
-
-Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
+Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
 Cc: stable@vger.kernel.org
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
-Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
-Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- include/drm/display/drm_dp_helper.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/gud/gud_drv.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 5b05a7fbe..4f20f60db 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -160,6 +160,10 @@ drm_dp_max_lane_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- static inline bool
- drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- {
-+	/* DP 1.2 2.2.1.1: enhanced framing is mandatory for DPCD r1.2+ */
-+	if (dpcd[DP_DPCD_REV] >= 0x12)
-+		return true;
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 3a1b9e2a2eaa..85ddb302d2ba 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -329,10 +329,17 @@ static int gud_stats_debugfs(struct seq_file *m, void *data)
+ 	seq_puts(m, "\n");
+ 
+ 	if (gdrm->compression) {
++		u64 actual_length = gdrm->stats_actual_length;
+ 		u64 remainder;
+-		u64 ratio = div64_u64_rem(gdrm->stats_length, gdrm->stats_actual_length,
+-					  &remainder);
+-		u64 ratio_frac = div64_u64(remainder * 10, gdrm->stats_actual_length);
++		u64 ratio, ratio_frac;
 +
- 	return dpcd[DP_DPCD_REV] >= 0x11 &&
- 		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
- }
++		if (!actual_length) {
++			seq_puts(m, "Compression ratio: n/a\n");
++			return 0;
++		}
++
++		ratio = div64_u64_rem(gdrm->stats_length, actual_length, &remainder);
++		ratio_frac = div64_u64(remainder * 10, actual_length);
+ 
+ 		seq_printf(m, "Compression ratio: %llu.%llu\n", ratio, ratio_frac);
+ 	}
 -- 
-2.50.1 (Apple Git-155)
+2.34.1
 
