@@ -2,99 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED9B606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:05:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8572606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 08:05:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=comlore-com.20260707.gappssmtp.com header.i=@comlore-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VmeFi2/B
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NGIS4mGN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25F1211208D;
-	Thu, 29 Oct 2026 08:05:03 +0000 (UTC)
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
- [209.85.219.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0ADC10E78A
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 05:23:24 +0000 (UTC)
-Received: by mail-qv1-f41.google.com with SMTP id
- 6a1803df08f44-91c11468b5fso18365146d6.0
- for <dri-devel@lists.freedesktop.org>; Wed, 28 Oct 2026 22:23:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793251403; cv=none;
- d=google.com; s=arc-20260327;
- b=Y4fQGl+Y9Q/WtJ/e4B46Rxb2i/H6kfEk+NE8fwAsVmxIvwCnGjdztCjmGDDrLLAWVS
- gGezEPIRFsVLAIM37NK0Xscqu50iDNIB6P8UexUjNr+yEmq5xPU50M4HZKkpb28nxZA1
- Xb7OY3ihEYJ3uFL3pIQEtOxceKGcd4cKZDT7yFykwyJkZyi8RGpBX89k6RtkyhTtiv3F
- n8H1Aa4fKYT2ROjMm0UVg4FZfegxiUziE0+f74mTHT1X5120o4nFA9R0DQChPKdlX2wt
- LLUJWjwFISxitKJSQQRn1YfQHK1YV1CDXupzRkubZCBWFkuncXgmwqSStbVXjqYsUclk
- Vhbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=3Lg+FgJV09tVnv78E8W4PKyxu20xSS1d1mIdbRMTE4Q=;
- fh=Vjrz/t1aVe9Lo5numsjvVP4rGCpx9bez6uWlHvXT/tY=;
- b=VWLFT5s3v4m65AYt6VxLWjgjLwtf3pRHlgfq3aAFY1fLRqRK4a7Mksvl755Xg2yORX
- AVoGd55ZJ7C6WW5z4M+uMLGTGQkf9q3TjKHBHKhr6V6sluUqMZqxJI3t//OyHKfGhxdA
- AH2Vc/01PvOJVc3ukCXiiFAQJyhiRCR50QkBmm+xJzln9VuDCQowyzh7CMnmaemhyAyp
- MpqQKRtIhQTx3OTYZ2gsLMASsP5Cg8bbCRXGrWRiCCqexpHeZTcMFwAA4xoUS6GKS6ir
- 0mkS1jubsvM/o7hChayRd6Te8yBavTU+ECvDmxdVxZkKz2ZUBsfdMKf4NHYIwlbJpa+z
- SR6Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=comlore-com.20260707.gappssmtp.com; s=20260707; t=1793251403; x=1793856203;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=3Lg+FgJV09tVnv78E8W4PKyxu20xSS1d1mIdbRMTE4Q=;
- b=VmeFi2/B8AMEBZ6ox06nh85Gq3mWe9woZlNP0WKWibHvTyGLNM+3yort5EGi4KsyeX
- pA70WCDPOntPNS9xaUpVoWWF68JFp4eRKbmh2VsADvbL35VCsveutK1mbtLpDJgjUDY/
- C/Kejy2StpoLQpFRAGpfeG4jUrRVky3iG1SNfLg3GI2X6DtQxlgolpVgt+MgSGpSc5Uk
- 0BymlXkmhzT61kIIm+5YnLQ+htzTPhWcVmVeWg0ICQur13XfwaJoOa4VKwonyHZk8b5B
- tTsCa2I5s+o82NBvJe6OCuZbgrYtAdK/iX5AE3O382lNois+T7MKVNAIvrDNHatP772s
- AlnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793251403; x=1793856203;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=3Lg+FgJV09tVnv78E8W4PKyxu20xSS1d1mIdbRMTE4Q=;
- b=fJ7mXes/AoiRw23cDfKGGo2rJZVlFdFyzSK0XUWMNVRgzRroop7y+b1PQ2vxfpK9yL
- 1/z9GpmRZVmki8PRCbaGGmGjTv3hqRy2n1qD9D3KR+XVD7BpBPiiBiTR+mswsq/feoGi
- X3qMpMtE2bjq6cLLFyxk9Ytx22ksYWaV4r6sdeVNh9DUh7/a827hi1JAIQdgik2QEd9R
- G7TI9ihy55VbR4t2P9Fwo25JnXevG10QN4yQUwIQGE6eDsDZcA8QJebLcZCmzmIKPvMC
- WnvSY/UYIzKAULJkDsJ2OQSACqEOIZUwRLyCl0TiB3kiJWmdkcO1BWMD7yNN3FFt+5rr
- bVuA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwgMMfvRWCx7r68kEYnPfcE9SpCYlD3xYd83GAL3etlrOhyVO38OcifruUl6SuCfMAn5MWDHyqZ7mk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJBFqJHFTncdu+k+WagRbXbH9KTbszo9ZWZ9jrETw9Iq6G1kImI
- GwTfahu2tnwmCOV5iw7Upbr6esoxvwzJ+lRriVFEmu+kqXKhhs/aM/hvINhdjoO74F7BL4eoUs6
- OnNShz2RKQI5Ns4Wi/tc5uIdU0LSNIy/UOFSMMrMS
-X-Gm-Gg: AYBFou3VRc0EbUmyys4QxDxY1+deZ63rOmdOmgBXrCni/aERUwy9yV6mYTuuOWipRU0
- KFvxTfMFplqCnBEK1slH3MZWsItoSeiOho0Y51OQgMr3/H3dofGowPqBZHo2KfB7hdYq1Kq7Exf
- JBCOGmdcbuqdsk9I/sw7AwZsIhZVaISBtAoBLyfDDIIoc9JHiXfxvNA780gFUQuf9AZb42FH5Fu
- LCRFqidxdvomKNgzJCJw4YcZ4lia/JKoub5QVHGuoCN+ySdHSumb6qMgQf7Da3k+iaYPrSg2X3B
- Gg6P8OpWpIRRN92joiFI4+1Y0HpOQgmf+pEpNZPPJsWwtmlLToo3sWHpt323aThwhlCiWkkBFCR
- kfZGHfAA4U56ADRnHBxq83lhjd92nGCb2sBRIfAoqfFcd916oRneNP95f
-X-Received: by 2002:a05:6214:238d:b0:914:47db:4640 with SMTP id
- 6a1803df08f44-91c7cf96bb5mr75175836d6.19.1793251403564; Wed, 28 Oct 2026
- 22:23:23 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Thu, 29 Oct 2026 00:23:22 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Wed, 28 Oct 2026 22:23:06 -0700
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST; 
- Wed, 28 Oct 2026 22:20:28 -0700
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST; 
- Wed, 28 Oct 2026 22:14:21 -0700
-From: Ted Bullock <tbullock@comlore.com>
-Date: Thu, 29 Oct 2026 00:23:22 -0500
-X-Gm-Features: AclHuK_tNNj08QVgFsStypVC3FMQXg1t9_UmaQA8dmxpz6COnH-A2PgFV31jkL4
-Message-ID: <CAMwFX_CpeF-K1-9R38Fscu7EghETOOV5FmJvd=8No7YhapvL1w@mail.gmail.com>
-Subject: [RFC PATCH] drm/radeon: UVD GTT corruption and RV6xx coverage
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
- dri-devel@lists.freedesktop.org, airlied@gmail.com, simona@ffwll.ch, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 29 Oct 2026 07:58:56 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D34C11207F;
+	Thu, 29 Oct 2026 08:05:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42D6711207C
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:04:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2903643AC7
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:04:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1E51F01825;
+ Thu, 29 Oct 2026 08:04:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793261098;
+ bh=MGkWk+3v3aJ3oEqW4VfhWXyJ1zx4hnypMhWrIxpKJo4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=NGIS4mGNXwaTja7te7ZFeSr1PC1x5fwFFHGu72oOe9aQgwog6CbyB5z68LvgXeyut
+ YulJ3Ja0K46sdLOWY7i1h4BWoYUGCWDeiSaYFr/ZG077ekO1eJSS63giyYo9vypBuj
+ cl54UCfvv+E9AvduX6Nr7+2qtO7s19Bx+ub0fmr1uohtFJ/4+Po5dLYGGmv2N+7pBJ
+ 15RP2EYc9qBOU68hD3xXu7gLNxJJqRA4dQbdSu+z4+fnj7SUei4iE3+/NzYrGhKOp1
+ m3ynkIW+CkoJXbl4F/p4pCphm6L5OykUfKMBp8a3XXvhqFqFVOBX0fX93IIyxzbgid
+ 1+7o/y6OdfBbA==
+Message-ID: <sashiko-outbox-188941@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 28/34] drm/bridge_connector: Implement hw readout for
+ connector
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261029-drm-state-readout-v7-28-25e5163d75c3@kernel.org>
+References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
+ <20261029-drm-state-readout-v7-28-25e5163d75c3@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 08:04:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,59 +49,160 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-I investigated video corruption on my older iMac7,1 (RV610/M74,
-device ID 1002:94c8).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/bridge_connector: unconditional SRO hooks with no-op readout w=
+hen unsupported
+--
 
-When the decoder was reading compressed video from system memory while
-the GPU was drawing, it would corrupt video frames. Moving the input
-to VRAM allowed frames to decode correctly. Disabling graphics draws
-also stopped the corruption.
+commit b75d5f60d55bc26fbc8505149b2ac1fa7543a9a1
+Author: Maxime Ripard <mripard@kernel.org>
 
-Here is a proposal to keep UVD buffers in VRAM for this family of
-devices, as the driver already does for some other chips. The patch
-covers RV610, RV620, RV630, RV635 and RV670. These chips share the
-RV6xx decoder path and legacy R600 firmware, so I think they are
-likely to have the same hardware requirements. Someone with the
-other hardware would need to verify that.
+drm/bridge_connector: Implement hw readout for connector
 
-I tested this on Debian.
+This commit adds hardware state readout support to drm_bridge_connector by
+introducing DRM_BRIDGE_OP_CONNECTOR_HW_READOUT and the
+atomic_sro_connector_readout callback on drm_bridge_funcs.
 
-I used Codex to help with the investigation, testing and patch.
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
+/drm/display/drm_bridge_connector.c
+> index 81f3e26f6fdf5..45806ef077081 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
 
-Signed-off-by: Ted Bullock <tbullock@comlore.com>
----
- drivers/gpu/drm/radeon/radeon_cs.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+[ ... ]
 
-diff --git a/drivers/gpu/drm/radeon/radeon_cs.c
-b/drivers/gpu/drm/radeon/radeon_cs.c
-index 2db819a..9bfd3ea 100644
---- a/drivers/gpu/drm/radeon/radeon_cs.c
-+++ b/drivers/gpu/drm/radeon/radeon_cs.c
-@@ -125,11 +125,16 @@ static int radeon_cs_parser_relocs(struct
-radeon_cs_parser *p)
+> @@ -244,6 +253,26 @@ drm_bridge_connector_create_state(struct drm_connect=
+or *connector)
+>  	return conn_state;
+>  }
+> =20
+> +static int
+> +drm_bridge_connector_readout_state(struct drm_connector *connector,
+> +				   struct drm_atomic_sro_state *state,
+> +				   struct drm_connector_state *conn_state)
+> +{
+> +	struct drm_bridge_connector *bridge_connector =3D
+> +		to_drm_bridge_connector(connector);
+> +	struct drm_bridge *readout =3D
+> +		bridge_connector->bridge_connector_hw_readout;
+> +	int ret;
+> +
+> +	if (readout) {
+> +		ret =3D readout->funcs->atomic_sro_connector_readout(readout, state, c=
+onn_state);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static enum drm_connector_color_format
+>  drm_bridge_connector_color_format(const struct drm_connector_state *conn=
+_state)
+>  {
+> @@ -270,6 +299,8 @@ drm_bridge_connector_color_format(const struct drm_co=
+nnector_state *conn_state)
+>  static const struct drm_connector_funcs drm_bridge_connector_funcs =3D {
+>  	.fill_modes =3D drm_helper_probe_single_connector_modes,
+>  	.atomic_create_state =3D drm_bridge_connector_create_state,
+> +	.atomic_sro_readout_state =3D drm_bridge_connector_readout_state,
+> +	.atomic_sro_compare_state =3D drm_atomic_helper_connector_compare_state,
 
- 		/* The first reloc of an UVD job is the msg and that must be in
- 		 * VRAM, the second reloc is the DPB and for WMV that must be in
--		 * VRAM as well. Also put everything into VRAM on AGP cards and older
--		 * IGP chips to avoid image corruptions
-+		 * VRAM as well. Also put everything into VRAM on RV6xx, AGP cards
-+		 * and older IGP chips to avoid image corruptions
- 		 */
- 		if (p->ring == R600_RING_TYPE_UVD_INDEX &&
- 		    (i <= 0 || pci_find_capability(p->rdev->pdev, PCI_CAP_ID_AGP) ||
-+		     p->rdev->family == CHIP_RV610 ||
-+		     p->rdev->family == CHIP_RV620 ||
-+		     p->rdev->family == CHIP_RV630 ||
-+		     p->rdev->family == CHIP_RV635 ||
-+		     p->rdev->family == CHIP_RV670 ||
- 		     p->rdev->family == CHIP_RS780 ||
- 		     p->rdev->family == CHIP_RS880)) {
+[Severity: High]
+Does unconditionally setting .atomic_sro_readout_state and
+.atomic_sro_compare_state on drm_bridge_connector_funcs while returning 0 in
+drm_bridge_connector_readout_state() when bridge_connector_hw_readout is NU=
+LL
+cause a regression for bridge chains without DRM_BRIDGE_OP_CONNECTOR_HW_REA=
+DOUT?
+
+In drivers/gpu/drm/drm_atomic_state_readout.c, drm_atomic_sro_can_readout()
+and drm_atomic_sro_can_compare() determine whether a connector supports sta=
+te
+readout by checking whether its callbacks are populated:
+
+drivers/gpu/drm/drm_atomic_state_readout.c:drm_atomic_sro_can_readout() {
+	...
+	drm_connector_list_iter_begin(dev, &conn_iter);
+	drm_for_each_connector_iter(connector, &conn_iter) {
+		if (!connector->funcs->atomic_sro_readout_state) {
+			drm_dbg_atomic(dev, "Connector %s missing readout callback",
+				       connector->name);
+			drm_connector_list_iter_end(&conn_iter);
+			return false;
+		}
+	}
+	drm_connector_list_iter_end(&conn_iter);
+	...
+}
+
+Because drm_bridge_connector_funcs always defines both callbacks, every
+drm_bridge_connector is treated as supporting hardware state readout even w=
+hen
+no bridge in the chain sets DRM_BRIDGE_OP_CONNECTOR_HW_READOUT (leaving
+bridge_connector->bridge_connector_hw_readout NULL).
+
+When state readout runs on a pipeline where bridge_connector_hw_readout is
+NULL (for example, when bridges implement private state readout without any
+bridge setting DRM_BRIDGE_OP_CONNECTOR_HW_READOUT, on a multi-connector dev=
+ice
+where only one bridge chain supports connector readout, or when
+drm.atomic_readout is set to DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT),
+drm_bridge_connector_readout_state() silently returns 0 and leaves
+conn_state->crtc and conn_state->best_encoder set to NULL.
+
+During initial readout in drm_mode_config_create_initial_state() ->
+drm_atomic_helper_sro_readout_state() -> drm_atomic_helper_sro_build_state(=
+),
+this causes drm_bridge_atomic_readout_priv_state() in
+drivers/gpu/drm/drm_bridge.c to skip reading out all bridges on that encode=
+r's
+chain because find_connector_state_for_encoder() matches encoder against
+conn_state->best_encoder:
+
+drivers/gpu/drm/drm_bridge.c:drm_bridge_atomic_readout_priv_state() {
+	...
+	conn_state =3D find_connector_state_for_encoder(state, encoder);
+	if (!conn_state)
+		return 0;
+
+	if (!conn_state->crtc)
+		return 0;
+	...
+}
+
+It also installs an inconsistent atomic state via
+drm_atomic_sro_install_state() with an active CRTC (crtc_state->active =3D=
+=3D true
+and crtc_state->connector_mask =3D=3D 0) and a disconnected connector state
+instead of failing readout and falling back to hw_reset(). Furthermore, dur=
+ing
+post-commit verification in commit_tail() ->
+drm_atomic_sro_readout_and_compare(), every blocking commit enabling that
+connector compares the committed active state against the unpopulated reado=
+ut
+state via drm_atomic_helper_connector_compare_state(),
+drm_atomic_helper_crtc_compare_state(), and
+drm_atomic_helper_bridge_compare_state(), triggering state mismatch errors.
+
+Should drm_bridge_connector_init() only expose a drm_connector_funcs table
+with .atomic_sro_readout_state and .atomic_sro_compare_state when
+bridge_connector->bridge_connector_hw_readout is non-NULL (similar to how
+drm_bridge_attach() selects between drm_bridge_priv_state_funcs and
+drm_bridge_priv_state_funcs_with_sro)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-drm-state-=
+readout-v7-0-25e5163d75c3@kernel.org?part=3D28
