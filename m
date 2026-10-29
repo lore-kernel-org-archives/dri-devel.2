@@ -2,193 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7EA606A325
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:44:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA107606A335
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=kNKHDjEz
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=gmdlD1wN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DCB611230B;
-	Thu, 29 Oct 2026 13:44:24 +0000 (UTC)
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011061.outbound.protection.outlook.com [52.101.57.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A3E91122F8;
- Thu, 29 Oct 2026 13:44:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QdIiAqXAI+zWHrO16CJ5P0zhNYulxwjQYjPPM4Ui//BJ1bKvTnb72hqvnX+M2jOb+roky/Mc03bYLaohOOnKw0jo2BKS1mvPcILKupkX6qF6X9LbeFPfJZZ0mQ8PZuva7YvKhKkfUn9GTI3gAbXlkZsoPn6GJ2anQrbqiDJjK76xdfh1pGGPJztsqEmP58/MLvBJPd9NG4uV4xfnj1EMrzojTz83byf2bRMpWeUcXC4IcoVl05OP34uR3I7PhcL4lB1G3cvuV34h9YuzjGJYPArbepTzS3ADUKo/CeSiybHtEz/lOF3zRE+cT2Ztgs4tXJ0/gjaDcJd8IdC2w2bOuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1u4PYj+cvLRBRXYmD3Z/wuQ5LDXlcQvlgFzTpcHPDiw=;
- b=wuS9l1D4AnMuSuUcy7Albr01USOAb+dWlWdFnLvG5S3HrEJHdWh7CVOTegEyVRX2Cgu0vMPaRCHrPaVNpU8qmYa62oSZNZcFHACOh8idSjJNySBG9f4Ou8rzOXTWUx2oiO2zw6euXoc6sc4W2sRg1AAt4YijE1QWqR7OHympdSkFtujfFDRSqzGqCshkAclmIGFwFseeuY8tojvTxuUy0WeksFXqa2IhU3SMJkktc+1ua7QaiNkBoaQc3csa/XlAoPlfxWGmZ7BVsTK74rhZPQPXnwWs5wgbBLHGfM/sy7tPckhEndA9kZIty2CJP4FPPj43D+s8BDeCJso+5lcRvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1u4PYj+cvLRBRXYmD3Z/wuQ5LDXlcQvlgFzTpcHPDiw=;
- b=kNKHDjEzP3f325erIp5at/HZX5EzmIqaS3e8gWwC6h8mSUTFwtnxLMOft7AwC5ddFAC/MFnC47pvDYnfCpj4Lq9Bq6Qu1yJgozAe2UHtQMNC2xDSWWq5oXVw0ykLFlIWFgDHBWGZ78k/oX/qcqRc42fhrT6ju1IhKyBzzMicb4o=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB5716.namprd12.prod.outlook.com (2603:10b6:208:373::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 13:44:11 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
- 13:44:11 +0000
-Message-ID: <2db0f1b4-6628-465e-928e-d779b89f59dc@amd.com>
-Date: Thu, 29 Oct 2026 14:43:52 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
-To: phasta@kernel.org, Lucas Stach <l.stach@pengutronix.de>,
- Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>, Qiang Yu <yuq825@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, Lyude Paul
- <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Matthew Brost <matthew.brost@intel.com>,
- Natalie Vock <nat@pixelcluster.dev>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Melissa Wen <mwen@igalia.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sunil Khatri <sunil.khatri@amd.com>, Kees Cook <kees@kernel.org>,
- Jesse Zhang <jesse.zhang@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Kexin Sun <kexinsun@smail.nju.edu.cn>, Prike Liang <Prike.Liang@amd.com>,
- David Rosca <david.rosca@amd.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Marco Crivellari <marco.crivellari@suse.com>,
- Shixiong Ou <oushixiong@kylinos.cn>,
- =?UTF-8?Q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, Al Viro <viro@zeniv.linux.org.uk>,
- Neill Kapron <nkapron@google.com>,
- Michael Bommarito <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
- Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-usb@vger.kernel.org
-References: <20261029095542.1526750-3-phasta@kernel.org>
- <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
- <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1P223CA0025.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:2c4::30) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 466F7112316;
+	Thu, 29 Oct 2026 13:50:03 +0000 (UTC)
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 595071122FE
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:49:57 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jFlwL0qV8zMlfS;
+ Thu, 29 Oct 2026 14:49:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1793281794; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=axwW0A/5PYCIOuQ7ZqJPwr1VhkoJypT5+8pks0+szpM=;
+ b=gmdlD1wN7AGG6nQfxtq23dGCuMxmNrkZ+NrXKYNfVEL0xlliMv+IdjSR2N1Cm3L0ebA7Ex
+ a49o2Ord2frm0n5vrPCmgzzrEY6tcsO7HruzWv8gsdxI/I2DLI5s0RRiI6dNaGMCLZNk3g
+ v4BRv4gw0phbhr2SMiHJZbEfB85nvC0imGNuKGAQyU13rVb5Wys8EhLIXm4FMIrKfS9N1D
+ l/HB6KFi4v910J0tjwXRRHiPDCkEjMb4AjI7G9gozZ6rdiTzShW82Notr6YNkkMZgIhFl+
+ 1bbQwKh9uDQLkWCu279NGWJikwm8R1A1ENlTml5UpT4wyPy/ekFyOgMKeyUkNw==
+Message-ID: <e30a0a03cb7d393cbd88565bf81e156d2f38b293.camel@mailbox.org>
+Subject: Re: [PATCH] usb: gadget: f_fs: Remove deprecated dma_fence->ops
+From: Philipp Stanner <phasta@mailbox.org>
+To: Paul Cercueil <paul@crapouillou.net>, Philipp Stanner
+ <phasta@kernel.org>,  Neill Kapron <nkapron@google.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Al Viro
+ <viro@zeniv.linux.org.uk>, Nuno =?ISO-8859-1?Q?S=E1?=	
+ <nuno.sa@analog.com>, Sam Day <me@samcday.com>, Michael Bommarito	
+ <michael.bommarito@gmail.com>, Gabriel Prostitis
+ <prostitisgabriel@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Date: Thu, 29 Oct 2026 14:49:49 +0100
+In-Reply-To: <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
+References: <20261029125143.1744481-2-phasta@kernel.org>
+ <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB5716:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4f175a8-d876-4067-d914-08df35c2b66d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|7416014|921020|11063799006|4143699003|56012099006|261026121527099003|261026140227099003|261028144727099003|10067099003|261022105027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Lk286bQ5Rub5REwqftKLPts5rFVF0LYGEPbYRc0zyAUGxDspTrurJAog+OPthqT5Vht+kHe3ebOvp6Z643HNp4Dt37Z0Y1lHrfdGD0yH/ZYByx+UiURNiEeeuE8LSP6Erz4wrUfmP0SRL42fI/kKCWvgBHKy/7ml75lWCXUaDIA6zdv/2yVcwKA1kar0ikrLmH45bY+hNSCFh+d+xrk2LnCXG5kNh+eenz9uflwWXGfxF25I0GxBvxMvGQS2r8SLJSkwV6A2R3Vx2mTuVGL+PSPkHHuFHjlFt07t8gqeDy2AZslHHlTv9aRogsBhkep06jRL9NnElBrcIzD41LtOPL+t3PclZVVBSKe3X5WZQw0yagOX14G23m+IOuR5J7yk/Bu132jPhzColiDqRJ7dEpRfkioGKWAV45bR8T4v4kBPbXus63hLRkCkpzmI7rEkZWdokPxDBTmInl8bbp5+04KzU8Xae+5i2iAUOvJzNxgQhSPjFiFo4qIQ6I6yZxJouiJQZTuQNy7InhPg9bvJ0NxRuhWZ1DU4E2ES3osW7WkqHOXlSFrN6cS3JobXeOGJeqpVOHXYZQDyD7wYWrIhCz4kLEFDgz50w36REz/Expo3lZbq2Bf22NuOjk0DaLb/AeIAQOSCXem7zD4241MMacnIzoHk/k8HXuwC35YPT4cAbYNSQmJqxPTXsq/XDAl4DHmHWkL0j5CAqO3LayEuZA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(921020)(11063799006)(4143699003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(261022105027099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eE5rYmJWYkxBcGFYd2oxZWxRai9VNHI2dldqOUN0UnppZ1JuTGs5aFVNVkFH?=
- =?utf-8?B?Y0NuOFhhQU90NGh0M1BLc3U0eWlpa3hLT3RLK0pGU1pYMloxSDl2MUZuV3c2?=
- =?utf-8?B?cVp1eVUwbXZ1SjVoNlNpSGloZW4yOVNaSUpnaUxraEg0d3lsOFVRTEFJRVdD?=
- =?utf-8?B?YlZ6bU1FUGthZEZkclVGOWNyeThoWGkrM1M3S2FDRmxFc3FlSUNlbnBsSzF1?=
- =?utf-8?B?aUxXYXZxL0dTUVJZV0RIaHBaTEMrSWtKWEZoMXpRUTllVExzUFFSTUtVU1p1?=
- =?utf-8?B?U3pwM3dCWWtxZDVYRkJzenRRZlZiRFNFRWtrY1BpTHFtUDc1Q1B6UDIrb0tB?=
- =?utf-8?B?UlNmQ3ppcTMxZXFidFcyNzE4Q1ZGNHZwWFhXWWwyREFQU0JpK2NJU3I2TFVO?=
- =?utf-8?B?Ulp6NGFYeHNsNmUyOXJNSUxMeENRTHZHaVpZQ3Y0ZWdTanM3N0tOVjgxdHVw?=
- =?utf-8?B?VWZ5MnptK0ZpN3NLbGUrZmxtWVlmeXpISzV1OURxeTNvWGhZb2l1ckFnZU5J?=
- =?utf-8?B?R2o1Nk1wcklrNXBlNEdEdFdYRmx3U0hOU3dMRVlsMmh1RC95enQ4QytmYm85?=
- =?utf-8?B?alJCWlNoQ1NIbDU4TGZRbGs1Sy9MYlNJV2s0WGRvSGUvMlB3RjdMWm5YZkNH?=
- =?utf-8?B?bWRMZk1tcTRZWHg1eVNTWnl2OWhYcTVsRTN5Tkw0dHR5SG5nT0xRTmdsMzk3?=
- =?utf-8?B?UFAzVmhvREdzb21sK0ZsVU9JUCtEZ21UVm1NelE3QmZqMlpkcUZVR3ZzV2p0?=
- =?utf-8?B?eFR5K3gwT1ZialVZaVJjS3IvUjhjWGtXTm12aksxR1VhMkE4MG1XRng5d2FH?=
- =?utf-8?B?ckFZSFNTbktvNU9VRVlMV3E0M09GTG4rdFZWMFpTWDdITklmNzQwVDErLzlu?=
- =?utf-8?B?Um1GVWwrQklURy9UbnMwV0czQXNtTjZ3ZytiVnA2YmlsU1dqb3lXdk9QbWRq?=
- =?utf-8?B?YkJZVHZrR2NmMDlhUy8ybFZ6dDZSQkRud0pwM1p1RDNWUzZuak44ZTNmbEFD?=
- =?utf-8?B?WitwWXNCQzdxUW1tSm9FVnBJMm15Y1MyRTBkOEl3ejk5QmFyOHV5cTIzK3dV?=
- =?utf-8?B?RW1qcnVjNDBZWklCcDh0eDl6R3daMkZZWW0wWldMMDlxU1ljajlmU0RQRzZO?=
- =?utf-8?B?aHFuSWZKcHJCcmhKUXk2RWhDdDhkd0FPZTVtdWFhZ2F0d2tUYzhvWlZJZDBR?=
- =?utf-8?B?dG5UcUMrd25Fek1Da0pHMEt0eFJkb0RMOGxWSE02SXJmWjVyTFEvdUhacFkz?=
- =?utf-8?B?clI3eXJrUXU3eENrVHl2djRXRWtLOVhpUVVjVXNGbHVCTHVTeG0yOE1EM3dT?=
- =?utf-8?B?K2UzM1FVSkxkaVdvODFhQTQzUld2Z0dKYTZvSEJHZE5KclNmZ1pyK2hobE93?=
- =?utf-8?B?di9xRjRkT2pDS2lsaU5LN2NJTlhqdXh4a2xEaXdyMnJtQmNZMzB1MjBNdTNm?=
- =?utf-8?B?c21qWDl3S05mckdBWjRFejdmVkpmeW1pbWZ5ZENWa01xQUlQNDE3VmRtbVRE?=
- =?utf-8?B?Zm1oS2FTUmFrWDdHN3ozc25JWkVHMnZXZGZWNTVBYmxaTzhYcDFIRkdkeWNa?=
- =?utf-8?B?MThiQi9QK1h0aW02UW05MnZpOWhkV2U3Y211djNsN01WNkVrVmpQZXA3eUVu?=
- =?utf-8?B?NkQ1elN1NUJHVUxQUzJWS0had2YzR3NOeXNvRXdHa1lxNnFCOFJNcDk0ZWs5?=
- =?utf-8?B?NHJCK0xPY09HTmQ0VXVOemJVaENMeFhtS1RtYmVjQXB5NUgyQjgzS0c0K2Z3?=
- =?utf-8?B?eWNmaEJpMFYwOHB5bW11Y09TdFB3YjR2R0R4cEpqMlROak1nVkdUdXJRNnlQ?=
- =?utf-8?B?RHAzMWVib3hUM25nYWs1MHp5YXpGTUIzTEZqV2pVZmNGbWt3WW5UcTBVU3hk?=
- =?utf-8?B?WWpQNGx3aFN4S0lZaUphazc5M2NYdE9tVWhSZjdMMlB1TmUzcTlkNFByK2NW?=
- =?utf-8?B?cUdCcm9acUxVOUZhcjRWNnRUS1JDeTB3Z085OGxHelEyMEk2NGM4QTRvTU9q?=
- =?utf-8?B?WmhQUWovQzJ3R2UwNVBWamx2aVNxbWtxTGFoRHRlaWgyeEJna1A4SmUyazBr?=
- =?utf-8?B?aVNCTFF3WTR2UDdYdUkyZlprcytYL3NteXVkQ29LVDczMUtpRmtzb2Rhdkdt?=
- =?utf-8?B?cGpoZ1I0azYvSXBPcUpjZXY1cTAxNVo0My9hVll4d1ZsZGJNd3A2TlRlMnV6?=
- =?utf-8?B?STNlUGd4Zi82YnIxRHE3YU0xRVZIVUgydG1ZOURBYllzMVlmSkhwQ1F4VVFB?=
- =?utf-8?B?MHVWTjlCNC9VRzZxa2JXZnEvZk96eVdOQzRWZ21pOGhwZnB1clAxbDNjTWZF?=
- =?utf-8?Q?Wy8Zx8IkX+2cI+Z0ek?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4f175a8-d876-4067-d914-08df35c2b66d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 13:44:11.2221 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +LipB9l1rBDBHZrY4fr2AuoSMtG65tQoTqpUAuJYZCa5LAdiRjkpqEsPhln5Da+e
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5716
+X-MBO-RS-META: fsoima31pgmrfkhcj7aypxgy1bshnaqn
+X-MBO-RS-ID: 80be9851aa58a305405
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -199,62 +66,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi guys,
+Hi,
 
-On 10/29/26 11:28, Philipp Stanner wrote:
-> On Thu, 2026-10-29 at 11:23 +0100, Lucas Stach wrote:
->> Hi Philipp, hi Christian,
-> 
-> Jo Lucas
-> 
->>
->> Am Donnerstag, dem 29.10.2026 um 10:55 +0100 schrieb Philipp Stanner:
-> 
-> […]
-> 
->> I think we would all be interested in the actual use-case that's
->> sensitive to this kind of latency.
+On Thu, 2026-10-29 at 14:19 +0100, Paul Cercueil wrote:
+> Hi Philipp,
+>=20
+> For context, this .release() callback was added to avoid the implicit fre=
+e of
+> the base class, which IIRC was a request I got during the review process =
+of this
+> change set.
 
-Well everything which wants things to start as early as possible when the fence is signaled and not wait for the callbacks to run is affected.
+Can't say anything about the request you got, but fences are reference-
+counted and the ability to free itself exists since at least
+3c3b177a9369 (2014).
 
-If I'm not completely mistaken when we start to wait for the callbacks to finish in is_signaled we break more things than we fix because some people relied on timing here.
+From dma_fence's perspective it's certainly the desired canonical
+pattern since the release() ops prevents fences from the important
+feature of decoupling fence producer and consumer.
 
-> Me too.
-> 
-> Let me use this opportunity to stress that in the future, in DRM,
-> whenever we have [to accept] a racy "optimization", both commit
-> messages and code comments must document why it exists and who
-> requested it with what proof.
+>=20
+> I'm personally fine with the change, but do we need a "keep this field at=
+ the
+> top" comment for the base class in the ffs_dma_fence struct? Or what's th=
+e
+> policy here?
 
-That is a really good idea I think.
+When I got into the kernel I was told that it's common practice to
+always have the base class as the first element. That also allows for
+obtaining the parent class by a mere pointer-cast instead of
+container_of.
 
-> 
-> Would save us lots of time when those things are discussed >5 years
-> later.
-> 
->>
->> However, I wonder if this is even an issue anymore with the lock
->> inlined into the fence structure.
-> 
-> Almost no one uses inline-lock so far. So unfortunately, we might
-> regress old drivers, maybe.
-
-Considering that I still get bug reports even for the performance of radeon when we change things I fear that this is true.
+But the reality is also that some users are not aware of this rule. I
+can document it in a v2 if you like.
 
 Regards,
-Christian.
-
-> 
-> But sounds as if you're in favor of phasing the locklessness out :)
-> 
-> 
-> P.
-
+Philipp
