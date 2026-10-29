@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA272606A324
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:37:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A5C606A324
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:37:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qtq8rQJx
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOYtivVn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0DC71122F0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0DEB1122F1;
 	Thu, 29 Oct 2026 13:37:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0245A10E7FC
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F11201122D6
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DF82342AF1;
- Thu, 29 Oct 2026 13:36:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C7EC1F01825;
- Thu, 29 Oct 2026 13:36:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7493A60219;
+ Thu, 29 Oct 2026 13:36:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B9C1F01825;
+ Thu, 29 Oct 2026 13:36:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793281016;
- bh=cDQAl2kMTSRMOjLE3vtGkZN+Rhn2ibmxtT8V0e0lcOk=;
+ s=k20260515; t=1793281010;
+ bh=uDjNo4o/Fzvj7jDp1d0P2M1Ecp3UU3p7NgRlpibXB2Y=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Qtq8rQJxjTTbbxBhveFH/TUUesCAvF2JBgzho0xDiVHYoxMahVkNtM4bvyWG4riPh
- fAuUDE/gvFdlYyMOUi5ki5+6XRKUFGameiKLLfMmckuoa68CI+t+YQMEsTpMGMMjo7
- gRkB8ehwaNzC4EN/4lApllXy+Jk2w+5qWS7qIKcWSVdID9Bs6f1LmDRBiydYdhXuph
- lHpVNttfapsvB4aYxc6wxGEvy1SY135dEoZ4QYNGygpL1D8AOp1vcZWqD4yz6kDQ6I
- 4QgBmBcpLpB9OAUDvlNGdLKKuzcDxrbhdY8kEMI/eCJhqgsCgQgv/2Esr+3YbNnMTF
- 1AXj4jW5D+IpQ==
+ b=dOYtivVnG0AHZgfD/5Ugc+TwQqqZ3CLD3esOB5AmI5KsWGkPYH5PYutRmDI+kql2r
+ DQhXd+S2rIWp1PGCWHot2fbwbE6jafbpxSsy+H57Ite9x+TU0wjPFH0cL/SWraCWNl
+ N2vz+2BiuQ3bf46Vb2SWSgdKpZC54CoClhl0SqYFSicd/ymU4jA8P0twrS3eqx56+R
+ qZpeqSLjab2Ij8OerSEnxtKtPamQbRi/5crCOQH91se2Sunc7PEczIkmocZDswvqDP
+ Xl2XdNmxQCr0ZYEWyUtUyqgzdX3DeDSBkqwTsIpGeNpe6P2YmKnxXkFixBw12e69uX
+ E9/dt25d4ikvg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:36:13 -0500
-Subject: [PATCH v4 26/31] accel: ethosu: Split U65 and U85 DMA length
- validation
+Date: Thu, 29 Oct 2026 08:36:11 -0500
+Subject: [PATCH v4 24/31] accel: ethosu: Validate accumulator input
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-26-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-24-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -61,191 +60,114 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Ethos-U65 and Ethos-U85 have slightly different DMA programming models.
-The U65 has skip values added on to the size whereas U85 has signed
-stride values. The U65 shares the skip values for source and destination
-whereas the U85 has independent settings for source and destination.
-
-The current validation only correctly handles U65 constraints and only
-for source 2D/3D mode. Split the shared DMA length calculation into U65
-and U85 specific versions adding U65 destination 2D/3D mode and U85
-constraints.
+The U85 ACC_FORMAT command can select IFM2 as the accumulator
+input. This is used by null-pool operations and can also be used
+by convolution. Track this selection and validate the IFM2 feature
+map against the OFM extent before submitting the operation.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v4:
- - Only account for a skip/stride between transfers and not at the end of
-   last transfer
-
-v3:
- - Fix U65 destination stride/skip handling
+ - Accumulator input should not be checked for elementwise ops
 
 v2:
  - new patch
 ---
- drivers/accel/ethosu/ethosu_gem.c | 119 ++++++++++++++++++++++++++++++--------
- 1 file changed, 96 insertions(+), 23 deletions(-)
+ drivers/accel/ethosu/ethosu_device.h |  4 ++++
+ drivers/accel/ethosu/ethosu_gem.c    | 35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
 
+diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
+index 80cba318f773..d3df6720085d 100644
+--- a/drivers/accel/ethosu/ethosu_device.h
++++ b/drivers/accel/ethosu/ethosu_device.h
+@@ -127,6 +127,7 @@ enum ethosu_cmds {
+ 	NPU_SET_KERNEL_WIDTH_M1 = 0x120,
+ 	NPU_SET_KERNEL_HEIGHT_M1 = 0x121,
+ 	NPU_SET_KERNEL_STRIDE = 0x122,
++	NPU_SET_ACC_FORMAT = 0x124,
+ 	NPU_SET_WEIGHT_REGION = 0x128,
+ 	NPU_SET_SCALE_REGION = 0x129,
+ 	NPU_SET_DMA0_SRC_REGION = 0x130,
+@@ -181,6 +182,9 @@ enum ethosu_cmds {
+ 	NPU_SET_WEIGHT3_LENGTH = 0x4095,
+ };
+ 
++#define NPU_ACC_FORMAT_INPUT_MASK	GENMASK(5, 4)
++#define NPU_ACC_INPUT_IFM2		2
++
+ #define ETHOSU_SRAM_REGION	2	/* Matching Vela compiler */
+ 
+ struct ethosu_perfmon;
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 117046e5a61f..04c0de8336cd 100644
+index 15a4cab1b286..406e1c07246d 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -245,40 +245,97 @@ static bool dma_params_valid(struct ethosu_device *edev, struct cmd_state *st,
- 	return true;
+@@ -155,6 +155,7 @@ struct feat_matrix {
+ struct cmd_state {
+ 	DECLARE_BITMAP(cmd0, NPU_CMD0_REGS);
+ 	DECLARE_BITMAP(cmd1, NPU_CMD1_REGS);
++	bool acc_input_ifm2;
+ 	struct dma_state dma;
+ 	struct buffer scale[2];
+ 	struct buffer weight[4];
+@@ -534,6 +535,28 @@ static int feat_matrix_size(struct ethosu_device *edev,
+ 					  max_len);
  }
  
--static u64 dma_length(struct ethosu_device *edev,
--		      struct ethosu_validated_cmdstream_info *info,
--		      struct cmd_state *st, struct dma_state *dma_st,
--		      struct dma *dma, u16 region_cmd, u16 addr_cmd)
-+static u64 dma_length_finish(struct ethosu_validated_cmdstream_info *info,
-+			     const struct dma *dma, u64 len)
++static int
++calc_acc_input_size(struct drm_device *ddev,
++		    struct ethosu_validated_cmdstream_info *info,
++		    struct cmd_state *st)
 +{
-+	if (dma->region >= 0) {
-+		u64 end;
++	struct ethosu_device *edev = to_ethosu_device(ddev);
++	u64 len;
++	int ret;
 +
-+		if (check_add_overflow(len, dma->offset, &end))
-+			return U64_MAX;
-+		info->region_size[dma->region] =
-+			max(info->region_size[dma->region], end);
-+	}
++	if (!st->acc_input_ifm2)
++		return 0;
 +
-+	return len;
++	/* The accumulator has one input value for each OFM element. */
++	ret = feat_matrix_size(edev, info, st, &st->ifm2,
++			       FEAT_MATRIX_IFM2, st->ofm.width,
++			       st->ofm.height[2], st->ofm.depth, false, &len);
++	dev_dbg(ddev->dev, "ACC IFM2:%d:0x%llx-0x%llx\n",
++		st->ifm2.region, st->ifm2.base[0], len);
++
++	return ret;
 +}
 +
-+static u64 dma_length_u65(struct ethosu_validated_cmdstream_info *info,
-+			  struct dma_state *dma_st,
-+			  struct dma *dma)
- {
- 	s8 mode = dma->mode;
- 	u64 len = dma->len;
-+	u64 stride;
- 
--	if (!dma_params_valid(edev, st, dma_st, dma, region_cmd, addr_cmd))
--		return U64_MAX;
-+	if (mode >= 1) {
-+		if (check_mul_overflow(len, (u64)dma_st->size0, &len) ||
-+		    check_mul_overflow((u64)dma->stride[0],
-+				       (u64)dma_st->size0 - 1, &stride) ||
-+		    check_add_overflow(len, stride, &len))
-+			return U64_MAX;
-+	}
-+	if (mode == 2) {
-+		if (check_mul_overflow(len, (u64)dma_st->size1, &len) ||
-+		    check_mul_overflow((u64)dma->stride[1],
-+				       (u64)dma_st->size1 - 1, &stride) ||
-+		    check_add_overflow(len, stride, &len))
-+			return U64_MAX;
-+	}
-+
-+	return dma_length_finish(info, dma, len);
-+}
-+
-+static u64 dma_length_u85(struct ethosu_validated_cmdstream_info *info,
-+			  struct dma_state *dma_st,
-+			  struct dma *dma)
-+{
-+	s8 mode = dma->mode;
-+	s64 min = 0;
-+	u64 max = dma->len;
-+	s64 stride;
- 
- 	if (mode >= 1) {
--		if (dma->stride[0] < 0 && (u64)(-dma->stride[0]) > len)
-+		if (check_mul_overflow(dma->stride[0],
-+				       (s64)dma_st->size0 - 1, &stride))
- 			return U64_MAX;
--		len += dma->stride[0];
--		if (check_mul_overflow(len, (u64)dma_st->size0, &len))
-+		if (stride < 0) {
-+			if (check_add_overflow(min, stride, &min))
-+				return U64_MAX;
-+		} else if (check_add_overflow(max, (u64)stride, &max)) {
- 			return U64_MAX;
-+		}
- 	}
- 	if (mode == 2) {
--		if (dma->stride[1] < 0 && (u64)(-dma->stride[1]) > len)
-+		if (check_mul_overflow(dma->stride[1],
-+				       (s64)dma_st->size1 - 1, &stride))
- 			return U64_MAX;
--		len += dma->stride[1];
--		if (check_mul_overflow(len, (u64)dma_st->size1, &len))
-+		if (stride < 0) {
-+			if (check_add_overflow(min, stride, &min))
-+				return U64_MAX;
-+		} else if (check_add_overflow(max, (u64)stride, &max)) {
- 			return U64_MAX;
-+		}
- 	}
--	if (dma->region >= 0) {
--		u64 end;
- 
--		if (check_add_overflow(len, dma->offset, &end))
--			return U64_MAX;
--		info->region_size[dma->region] = max(info->region_size[dma->region], end);
--	}
-+	if (min < 0 && -(u64)min > dma->offset)
-+		return U64_MAX;
- 
--	return len;
-+	return dma_length_finish(info, dma, max);
-+}
-+
-+static u64 dma_length(struct ethosu_device *edev,
-+		      struct ethosu_validated_cmdstream_info *info,
-+		      struct cmd_state *st, struct dma_state *dma_st,
-+		      struct dma *dma, u16 region_cmd, u16 addr_cmd)
-+{
-+	if (!dma_params_valid(edev, st, dma_st, dma, region_cmd, addr_cmd))
-+		return U64_MAX;
-+
-+	if (ethosu_is_u65(edev))
-+		return dma_length_u65(info, dma_st, dma);
-+
-+	return dma_length_u85(info, dma_st, dma);
- }
- 
- static bool feat_matrix_chained(struct ethosu_device *edev, struct feat_matrix *fm)
-@@ -1083,16 +1140,32 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 			st.dma.size1 = param;
+ static int buffer_size(struct ethosu_validated_cmdstream_info *info,
+ 		       struct cmd_state *st, struct buffer *buf, s8 region,
+ 		       u16 region_cmd, u16 base_cmd, u16 length_cmd, bool optional)
+@@ -655,6 +678,9 @@ static int calc_sizes(struct drm_device *ddev,
+ 			       true, &len);
+ 	dev_dbg(ddev->dev, "op %d: OFM:%d:0x%llx-0x%llx\n",
+ 		op, st->ofm.region, st->ofm.base[0], len);
++	if (ret)
++		return ret;
++	ret = calc_acc_input_size(ddev, info, st);
+ 	if (ret)
+ 		return ret;
+ 	if (!feat_matrix_chained(edev, &st->ofm))
+@@ -842,6 +868,15 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 		case NPU_SET_KERNEL_STRIDE:
+ 			st.ifm.stride_kernel = param;
  			break;
- 		case NPU_SET_DMA0_SRC_STRIDE0:
--			st.dma.src.stride[0] = ((s64)addr << 24) >> 24;
-+			if (ethosu_is_u65(edev)) {
-+				st.dma.src.stride[0] = addr;
-+				st.dma.dst.stride[0] = addr;
-+			} else {
-+				st.dma.src.stride[0] = sign_extend64(addr, 39);
++		case NPU_SET_ACC_FORMAT:
++			if (!ethosu_is_u65(edev)) {
++				u32 acc_input = FIELD_GET(NPU_ACC_FORMAT_INPUT_MASK, param);
++
++				if (acc_input > NPU_ACC_INPUT_IFM2)
++					return -EINVAL;
++				st.acc_input_ifm2 = acc_input == NPU_ACC_INPUT_IFM2;
 +			}
++			break;
+ 		case NPU_SET_IFM_PAD_TOP:
+ 			st.ifm.pad_top = param & 0x7f;
  			break;
- 		case NPU_SET_DMA0_SRC_STRIDE1:
--			st.dma.src.stride[1] = ((s64)addr << 24) >> 24;
-+			if (ethosu_is_u65(edev)) {
-+				st.dma.src.stride[1] = addr;
-+				st.dma.dst.stride[1] = addr;
-+			} else {
-+				st.dma.src.stride[1] = sign_extend64(addr, 39);
-+			}
- 			break;
- 		case NPU_SET_DMA0_DST_STRIDE0:
--			st.dma.dst.stride[0] = ((s64)addr << 24) >> 24;
-+			if (!ethosu_is_u65(edev))
-+				st.dma.dst.stride[0] = sign_extend64(addr, 39);
-+			else
-+				return -EINVAL;
- 			break;
- 		case NPU_SET_DMA0_DST_STRIDE1:
--			st.dma.dst.stride[1] = ((s64)addr << 24) >> 24;
-+			if (!ethosu_is_u65(edev))
-+				st.dma.dst.stride[1] = sign_extend64(addr, 39);
-+			else
-+				return -EINVAL;
- 			break;
- 		case NPU_SET_DMA0_SRC:
- 			st.dma.src.offset = addr;
 
 -- 
 2.53.0
