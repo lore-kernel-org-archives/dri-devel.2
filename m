@@ -2,103 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7FFF606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 00:42:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B4A606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 01:42:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=U4vhPlcF
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jEFfocYz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4295710FEBA;
-	Thu, 29 Oct 2026 00:42:24 +0000 (UTC)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012024.outbound.protection.outlook.com
- [40.93.195.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FE1C10E746;
- Thu, 29 Oct 2026 00:42:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LTOcjqeYzswV5wUdN5/f1xDY4xtY3exh1oCotlP0ctYkqM5cmXlpLTeuTZcSIPAf9J9ApW2F4h3u56rQMvfYTQYEtUG431kMjuIpFsG6qsx/2LZDJc9qepOL+pXIZWc6smKrQ/Sz1444S9IzxnC+pg0xt3TZ90fNo8LaayGe9H52GUAL5eHhCxWO1qoZI6LWw5aac+EB9iDaQCOYMfxxnSmDx0d72PkJ60hU8GuBV61s7Fgtim4aeogRzedTIfB01yCvo/P70YdgmDchvQJ+qkyxspFH8n5iYDWhjVhumAcBxB0wkZumfN3N6Qa0h3px8RQ0lsUc+oi0WK4IUQqfWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kAdDS9MF42yYcSVdIDk4nT0i8Vh7R8eePjjPASzJHyk=;
- b=aHM9WxzpGf3MOewOaFZw60okvIqVC+67wppJep5GoUcv4ps3n4TD8dpo2crgfGK0rm/cKbtzffaFr05KeCdJhljI0izOVeRblM0ouKFZkgYgJzW1pWbeTDoZh8qdOS27vLpW+lj+fGK4Q6Kn1GdEt7z43wciEF+p978NDZ346Nm+ldvIv3P5lQWbVMWuc9p8lfkEqsHSFOEFOEk+Hcj/yTWHstqjFOKxkw5URG6aOlG/fTj7tDLl3qRttMXC9sINkMoSBd4qbBna6eW8hIvXbYNMl5c93gudfrVymydVCuGWmjq9izycJC2yYk9x7vFmSk959MPxLsDSpbkKuXN1yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kAdDS9MF42yYcSVdIDk4nT0i8Vh7R8eePjjPASzJHyk=;
- b=U4vhPlcFsx9DAVYrcy77AnQwmanZU+vxCvYx3ymQdM43ikirKDz7Q+d6E6Ip9kVaIv+B8b1YQfyiyY6gyUAGbjmFqdyfXiwf9dU7bBPClSy3+aFTfaG4BQhtalfxuDKY7gk82N1Ly1oBn1Uhl7uJhkFZ7en1eCj3WO8NvSD9yHQ=
-Received: from CH2PR14CA0047.namprd14.prod.outlook.com (2603:10b6:610:56::27)
- by PH0PR12MB7789.namprd12.prod.outlook.com (2603:10b6:510:283::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
- 2026 00:42:07 +0000
-Received: from CH01EPF000BE94F.namprd02.prod.outlook.com
- (2603:10b6:610:56:cafe::a2) by CH2PR14CA0047.outlook.office365.com
- (2603:10b6:610:56::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Thu,
- 29 Oct 2026 00:42:06 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH01EPF000BE94F.mail.protection.outlook.com (10.167.244.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 00:42:06 +0000
-Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 28 Oct
- 2026 19:42:03 -0500
-From: Fangzhi Zuo <jerry.zuo@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-CC: Rodrigo Siqueira <siqueira@igalia.com>, Alex Hung <alex.hung@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>
-Subject: [PATCH 0/2] drm: Support HDMI 2.2 FRL rates from the sink
-Date: Wed, 28 Oct 2026 20:44:55 -0400
-Message-ID: <20261029004457.40545-1-jerry.zuo@amd.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27A9B10E73A;
+	Thu, 29 Oct 2026 01:42:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3897410E173;
+ Thu, 29 Oct 2026 01:42:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793238130; x=1824774130;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kI+rIQ46Ui2Foc+Hy4QcTOcGm6ViOUJcvJFK4yI6ckA=;
+ b=jEFfocYzUwuj6dydgCgLmwPVtq8gi66GfnSDNnRWMLuWJW8/sOPjAD2T
+ +WZmWtDqMLh1HLqJoRTcNMZvTo1ipYTjJGueRxQcsaydJ51ro4kpFLHs+
+ 1wtux6DHyp8XbS//cUmOa3CCdVEJhW56+F9ZdjDDfuDL2/HAt7qxhdeob
+ cO/epl2G/GMZADV+Q/d+quXjxBozgdfVCtVW5uTzZ706um00JHJVfeq/c
+ y5HagthGqttH7rCOJp6cSms9y6DTtX60ayEa2uPOFs4amiv1du614qC0Z
+ 9nHk1lEhXN8ggBHHAEVc1k00CK9IyNMXQ7Z7m8he1GL65gz4j1otO1grL Q==;
+X-CSE-ConnectionGUID: RI2Z0Ia/S/WsYE96vdRCgA==
+X-CSE-MsgGUID: FCU8zi9fT2Wj2zCQ+T/QIA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2005997"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="2005997"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 18:42:10 -0700
+X-CSE-ConnectionGUID: 0LcEv9JTRsSknYVbUuRPXQ==
+X-CSE-MsgGUID: 6h+ygPUySnyCqP1ScN2IOQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="6823172"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.245.245.30])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2026 18:42:07 -0700
+From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: [RFC 0/5] Selftests fixes for multi-gt platforms in i915
+Date: Thu, 29 Oct 2026 02:41:50 +0100
+Message-ID: <20261029014155.55865-1-krzysztof.niemiec@intel.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE94F:EE_|PH0PR12MB7789:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22916a95-0296-491f-7280-08df35557509
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|23010399003|376014|82310400026|261009221227099003|261009220027099003|11063799006|56012099006|261009223027099003|261022105027099003|261009223327099003|261009221727099003|261021121427099003|10067099003|18002099003|261026140227099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info: V1LGnhRrEVbmrtyCtWibqm+OEB8ffysiIrXmSvrOADDPTCgP1jC0kNaRPtfH9yUFVGkQDXlDrBWK/FRLohMH+ixNoyOrwhz5pT0p3yGue99+eOeF3Ogr5ty9c083HKVxSA4FBcISCg6Lql2fwy57/oSpSXYEOD/PiDrVJOoEDxmmC70iAPMUMRXxasa4/LjpPueBWwH2ae9LyrGZzBGqVE7pyGbjSklfHzbh+hjyDpXOaARxSTNMO49tUxklqg++L8IoA2IuyUSe1O8hC5o9wZpoqQT8OTncc6eHYuyM1rsIU9URYPggKBvmlkG554PkweyZ9DA048BFlxgSJkFd+/EGab1fB6kRE9wzl3iyPytatidEGF7DG40sK445SQ/zrRwPIjzLDmK2NfUj25sWo7HP+XmKhvymUSCrPIMKDLabtsfnXmjImDdU8a2/PAd9QHL4g47Zsn0tsIHJrW3XBiSUNxpaRzdgU5DCtaHSZxAouElb6sG798mG2Mpb0b89wdOxfnGbMxgIj7tBpMefZQwcxpxK35l4F0OFBwYewi9XwyxIdLctzgZvu4SdZBpD1mLmzytQe3rpWdQM4ihU5w7YhDKD/2RS5tXEFLcScaSsP+lxhbrdJvEhOhw/WZI5odtlzePwtRcFh8O9e+tmzRsd90GTDYF/2jHzRCZmKQrG/d/yZeDpLa9a/2CqZQVtX5W2BZum+g5Se5H2tR2S/A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(82310400026)(261009221227099003)(261009220027099003)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261009223327099003)(261009221727099003)(261021121427099003)(10067099003)(18002099003)(261026140227099003)(261028144727099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 24me5P29Vi0/g7Eu3K+6lI7mz0yyen6I28G7xPFOcavNBJvQoOlOZfNRTk1E6rwN6TGJ0syUFmjU2cT9LnNTbRsgva2YlK/Xl3hLttAkb0sOnwEXMjGinBsXuDaBVaeLKW4AHZQxs+qSptVDW4jk3AZeH/304i5eXqhwEw51/vcUEX65k9qwccpeLBGzRA3/g5OTzcrBEM0Lnlx9dnMO97jO52jaYZP9llEW9uwSW4JEcRWC8fFGHuSeUInzz9Zk0rJizeSRd0V4TfpLLIr2TOj4oRdmibfJIQBLBZJ0F78Y/Zw18em0hfsiKzEpZFErmI+KKO9T/p7VKVR5hVDKK1+dbfYPH1rOfOVnw8JWTUqkS4lviYDAsKN+mXh3GLMi/wm6/W5M2moSV0FSQw68/jSKY40TGQLmh0lGqTTx5TOekT28ZiEw5c1SRguzb8d1
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 00:42:06.1381 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22916a95-0296-491f-7280-08df35557509
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH01EPF000BE94F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7789
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,26 +74,90 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The HDMI 2.2 spec defines three new FRL rates - 16, 20 and 24 Gbps per
-lane over 4 lanes (Max_FRL_Rate values 7, 8 and 9 in the HF-SCDB). The
-current code stops at the HDMI 2.1 ceiling of 12 Gbps per lane, so a
-sink that advertises an HDMI 2.2 rate is treated as having no FRL
-support at all and the link ends up trained far below what the sink
-actually supports.
+This series contains fixes in i915 selftests to make them work as
+intended on multi-gt platforms like MTL.
 
-Patch 1 teaches the DRM EDID parser to decode the three new rates.
-Patch 2 maps them back to the FRL rate index used by DC in amdgpu_dm
-and extends the KUnit coverage.
+Methodology to find these was: grep -R "to_gt()", and reading files that
+use it. Some resulting files were omitted by choice.
 
-Fangzhi Zuo (2):
-  drm/edid: Parse HDMI 2.2 FRL rates from the SCDS
-  drm/amd/display: Accept HDMI 2.2 FRL rates from the sink EDID
+The most notable example - gem/selftests/i915_gem_mman.c is ommited
+despite *heavy* usage of to_gt(), due to the fact that i915's
+implementation of GGTT mmap forces GT0 via to_gt(i915), so the way the
+selftest works actually reflects the usage.
 
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  6 ++++
- .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c  | 30 +++++++++++++++++++
- drivers/gpu/drm/drm_edid.c                    | 12 ++++++++
- 3 files changed, 48 insertions(+)
+Files that only use mock device are also omitted due to the fact that
+the mock device is hard-coded to have a single GT, so to_gt(i915) is
+correct in that case. My reasoning for omission is that single gt is a
+conscious, reasonable assumption to make when writing a mock device
+test, and updating the tests to handle mutli-gt mock devices is out of
+scope here and should be done IF there is ever a series adding multi-gt
+to mock devices at all.
+
+First two patches are "low-hanging fruits", where the tests already
+depend on the passed GT parameter fully, they have just been mechanically
+changed from i915->gt to to_gt(i915) when the multi-gt patches were
+applied.
+
+Patch 5 in the series (Port selftests that access ggtt) is written with
+the weak assumption that separate GTs imply separate GGTTs, which is to
+my knowledge not the case for example in MTL (where the media GT's
+->ggtt will just point to the primary GT's ggtt). The way it is now is
+generic and will work with separate GGTTs, however, if a stronger
+assumption is preferred by the community (aka all platforms we will ever
+run this on will have a single/shared GGTT), this patch can be dropped.
+
+Patch 3 is also written with this assumption in mind, however, the PPGTT
+part of the test should probably stay GT-specific, so it's not a simple
+drop.
+
+Patch 4 is opinionated in that there's two ways to accomplish the port:
+run the affected test for each GT separately and skip on engines not
+belonging on the currently processed GT, or run the test once, but
+modify the lock such that it happens after selecting the engine and
+affects engine->GT specifically. Patch 4 does latter right now.
+
+Krzysztof Niemiec (5):
+  drm/i915/selftests: Port GT-dependent selftests to work with multi-GT
+    (low-hanging fruits part 1)
+  drm/i915/selftests: Port GT-dependent selftests to work with multi-GT
+    (low-hanging fruits part 2)
+  drm/i915/selftests: Port i915_gem_gtt.c selftest file to multi-gt
+  drm/i915/sefltests: Port i915_gem_context.c selftest file to multi-gt
+  drm/i915/selftests: Port selftests that access ggtt to work with
+    multi-gt
+
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |  8 +-
+ .../i915/gem/selftests/i915_gem_client_blt.c  | 29 +++++--
+ .../drm/i915/gem/selftests/i915_gem_context.c | 19 +++--
+ .../drm/i915/gem/selftests/i915_gem_migrate.c | 11 ++-
+ drivers/gpu/drm/i915/gt/selftest_context.c    | 16 +++-
+ drivers/gpu/drm/i915/gt/selftest_engine.c     | 15 ++--
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c  | 15 +++-
+ .../drm/i915/gt/selftest_engine_heartbeat.c   | 22 ++++--
+ drivers/gpu/drm/i915/gt/selftest_execlists.c  | 19 +++--
+ drivers/gpu/drm/i915/gt/selftest_gt_pm.c      | 15 +++-
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c  | 24 +++---
+ drivers/gpu/drm/i915/gt/selftest_lrc.c        | 11 ++-
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    | 38 ++++++---
+ drivers/gpu/drm/i915/gt/selftest_mocs.c       | 11 ++-
+ drivers/gpu/drm/i915/gt/selftest_reset.c      | 20 +++--
+ .../drm/i915/gt/selftest_ring_submission.c    | 15 +++-
+ drivers/gpu/drm/i915/gt/selftest_timeline.c   | 15 +++-
+ .../gpu/drm/i915/gt/selftest_workarounds.c    | 15 +++-
+ drivers/gpu/drm/i915/gt/uc/selftest_guc.c     | 20 +++--
+ .../drm/i915/gt/uc/selftest_guc_hangcheck.c   | 20 +++--
+ .../drm/i915/gt/uc/selftest_guc_multi_lrc.c   | 20 +++--
+ drivers/gpu/drm/i915/selftests/i915_active.c  |  8 +-
+ drivers/gpu/drm/i915/selftests/i915_gem.c     | 79 +++++++++++--------
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   | 15 +++-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 32 +++++---
+ drivers/gpu/drm/i915/selftests/i915_perf.c    |  8 +-
+ drivers/gpu/drm/i915/selftests/i915_request.c |  8 +-
+ drivers/gpu/drm/i915/selftests/i915_vma.c     | 16 +++-
+ .../drm/i915/selftests/intel_memory_region.c  | 16 +++-
+ drivers/gpu/drm/i915/selftests/intel_uncore.c | 11 ++-
+ 30 files changed, 409 insertions(+), 162 deletions(-)
 
 -- 
-2.53.0
+2.55.0
 
