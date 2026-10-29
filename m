@@ -2,45 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1869D606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 11:58:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65664606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 12:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hCEgCh/B
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RcQFyetm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3506910E371;
-	Thu, 29 Oct 2026 11:58:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDCDB11223B;
+	Thu, 29 Oct 2026 12:01:16 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC14010E371;
- Thu, 29 Oct 2026 11:58:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D334811223B;
+ Thu, 29 Oct 2026 12:01:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793275125; x=1824811125;
+ t=1793275271; x=1824811271;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=i2ey7uKnBTF2PqloNxgHfVH5I2ULdNgzLR4UomlVJVE=;
- b=hCEgCh/BTa/Qzgmp+4HLQioOq5WHwB5VWc3hQ0aXHp3L7kbbr10u6jYH
- GnH9fCIp3T3nNhuncYyXqjaITEMpHcRldCDGwLzI1V6fJPW/fJgBNMzuv
- 6IxniOigI2OVzv96VJG40Tgs5qtI7cUSnvlmHSAsGcddQS651DnimrYYR
- s/dJdfVXpMzQpCNB3MmgtZBbwmCyDg107BZXI6i/a7Pv75ifGWeui+jve
- daZ7Lck+LldP8LBtktbd4WqK99HhxJYhgrbQL/2t4+nDknQAUkxhgN2jJ
- E4wFxDWL7bs+hUce2OMBxvGLr3n1Ry/S/iYpo1FBDAeMHaDmMaIj9BUux A==;
-X-CSE-ConnectionGUID: LOlbkZToT5OwpntOzmfSPg==
-X-CSE-MsgGUID: 7O3/ujWPRf+XIOFU3/2d0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1908641"
+ bh=Sg99qBSYPrQ/dvhBMnxG7AV2h/mgImJ/LtHy20Vj8R4=;
+ b=RcQFyetmjjAuZ89X/lZqjlnO/9AfaO3FSpcw2YzFyWJ3v+fZLwfAjuId
+ ysqEcSa2pAmhB8R0eS7fPPUPRyVUHggR1dmLbE6ZrnVtbIUNt1NDd1EQK
+ aDGvkYoclQuYFNzIadIvLhf3TyogorTItrpBgY584srh1yzdxM0UP1qXC
+ ARVHOTh9WHs1IrVtKQ0TBK8ERr7LBuCXz2aNjliyqJQqCAy+P7163p7xD
+ jyr1CljPoOpba31KQBbNXnyjhiTPHSdr6QBB5OmtjPa9D4/qJOTQ+1RGg
+ RTJP4dCgxVXuYKfmoYTPjr9T3gx9aXx+UU7SpJUjpd/gFJCALvnCornWY w==;
+X-CSE-ConnectionGUID: Qyr9sgxSSrO5MhtEJKZ4UQ==
+X-CSE-MsgGUID: tezwPZDjRL+CEGYxyG10Rw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1908944"
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1908641"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+   d="scan'208";a="1908944"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 04:58:44 -0700
-X-CSE-ConnectionGUID: c3VOsTDBQBC2683iNWsTgg==
-X-CSE-MsgGUID: NQ3qXX8fTMilynHkhUiSEQ==
+ 29 Oct 2026 05:01:10 -0700
+X-CSE-ConnectionGUID: 5EX7hURQSrqLzZCP6wxP0w==
+X-CSE-MsgGUID: c117/tVSTQiEeJx+aVTUhQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5462784"
+   d="scan'208";a="6889781"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.145])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2026 04:58:39 -0700
+ 29 Oct 2026 05:01:04 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
  dri-devel@lists.freedesktop.org
@@ -58,15 +58,14 @@ Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten
  Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dmytro
  Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: Re: [PATCH v2 2/5] drm/bridge: cdns-mhdp8546: Use
- drm_dp_enhanced_frame_cap()
-In-Reply-To: <20261029101826.72773-3-dmitrymalovanyy@gmail.com>
+Subject: Re: [PATCH v2 3/5] drm/bridge: it6505: Use drm_dp_enhanced_frame_cap()
+In-Reply-To: <20261029101826.72773-4-dmitrymalovanyy@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
- <20261029101826.72773-3-dmitrymalovanyy@gmail.com>
-Date: Thu, 29 Oct 2026 13:58:36 +0200
-Message-ID: <3d8c0987e3f9e4e099372475b2e0584963b6b71d@intel.com>
+ <20261029101826.72773-4-dmitrymalovanyy@gmail.com>
+Date: Thu, 29 Oct 2026 14:01:00 +0200
+Message-ID: <77d3b5f1643531134754303befe9ee2c3c13d5f6@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain
@@ -98,27 +97,26 @@ On Thu, 29 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
+Here too the driver should probably use drm_dp_read_dpcd_caps(), but
+again beyond the patch.
+
 > ---
->  drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 2 +-
+>  drivers/gpu/drm/bridge/ite-it6505.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> index f47717bd1..8cab9a3e6 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> @@ -1375,7 +1375,7 @@ static int cdns_mhdp_link_up(struct cdns_mhdp_device *mhdp)
->  	mhdp->link.rate = drm_dp_bw_code_to_link_rate(dpcd[1]);
->  	mhdp->link.num_lanes = dpcd[2] & DP_MAX_LANE_COUNT_MASK;
+> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
+> index e136ac71e..d798a3db7 100644
+> --- a/drivers/gpu/drm/bridge/ite-it6505.c
+> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
+> @@ -1651,7 +1651,7 @@ static void it6505_parse_link_capabilities(struct it6505 *it6505)
+>  	link->rate = drm_dp_bw_code_to_link_rate(it6505->dpcd[1]);
+>  	link->num_lanes = it6505->dpcd[2] & DP_MAX_LANE_COUNT_MASK;
 >  
-> -	if (dpcd[2] & DP_ENHANCED_FRAME_CAP)
-> +	if (drm_dp_enhanced_frame_cap(dpcd))
->  		mhdp->link.capabilities |= DP_LINK_CAP_ENHANCED_FRAMING;
-
-I note that the driver should probably also switch to
-drm_dp_read_dpcd_caps(), but that's beyond the patch at hand.
-
+> -	if (it6505->dpcd[2] & DP_ENHANCED_FRAME_CAP)
+> +	if (drm_dp_enhanced_frame_cap(it6505->dpcd))
+>  		link->capabilities = DP_ENHANCED_FRAME_CAP;
 >  
->  	dev_dbg(mhdp->dev, "Set sink device power state via DPCD\n");
+>  	DRM_DEV_DEBUG_DRIVER(dev, "DPCD Rev.: %d.%d",
 
 -- 
 Jani Nikula, Intel
