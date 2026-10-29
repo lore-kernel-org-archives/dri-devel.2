@@ -2,47 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09A5606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:34:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35B4606A334
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:34:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+Nwu2Vs
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kY5OvH6S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5ADD10FFD1;
-	Thu, 29 Oct 2026 07:34:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2841610FFCF
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:34:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6F2210FFCF;
+	Thu, 29 Oct 2026 07:34:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB5B110FFD0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:34:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2E44B600D1;
- Thu, 29 Oct 2026 07:34:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B401F01825;
- Thu, 29 Oct 2026 07:34:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 909D441823;
+ Thu, 29 Oct 2026 07:34:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF7D1F01825;
+ Thu, 29 Oct 2026 07:34:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793259263;
- bh=Xa1Kfj5/fFTEjLVQvCYCAjPC77lpM50kf7+aZxEumQs=;
- h=From:Subject:Date:To:Cc;
- b=T+Nwu2VsK+tspMjIiOFlbPzSR6vPgePiQKkaxTsdB4Rrl11XwKI+CiPv11z4TnDN7
- 6KsaS3RFj9UVULwa7JolIvvk6PfqYyag8zyjqa7ov31Jiy1iKSr+fljeK8VMInqVP+
- UZauVpK8vYEH/dumh1mhXC+uRWPH5YrF8ScbbuO5KubrjjgTm/b8OGjokDDllJaMqj
- WfNiTm6ne7iQr0mz+WG+o8aV1uTp+FMKzCpuetijF3dDWY+MvIEyzR7Dq5iXZ8IOwu
- jVUy/aIZxDVj/ZICPNhruZmJBoh34k3cp+c3H2gKn5SmhKSSZwWv4muNQkp3QfC3pa
- Lr1lK8EQ68XBw==
+ s=k20260515; t=1793259267;
+ bh=mhx3WJpMWE5zGWjK+95eg0scHdbDa7CUv35JfSGDykw=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=kY5OvH6S6oycNLyTAoi3Mav909P7E/KvvbCpI7b7WInUVvPGdM5MQPq/6laiNJYhj
+ PUNtnL+0d31POPGe/TlmNGXacyAsX80nrILiklkpq39XuYGE7HEs1GnmnICYnqBWJt
+ /DsbKIN6m2Ui59et6wuMR2dp/Dy5POS+HdzhbSB+SDSJ95gR2cojs+u35ScEjioVb2
+ xwjMJTg1JwfzVRx/io4X+49cjWGM5G5fVMJ20gpTFQthyqOf3CvNG1o437xNKFYA39
+ z+1V3UTIP6rOUHwRGouEuTlSVMjLFAbk+/uOAoqmRu3sFZJn0+bKiEoMk8yxpIC2S/
+ Wjz9s7ZvuKRrA==
 From: Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH v7 00/34] drm: Implement state readout support
-Date: Thu, 29 Oct 2026 08:33:50 +0100
-Message-Id: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
+Date: Thu, 29 Oct 2026 08:33:51 +0100
+Subject: [PATCH v7 01/34] drm/bridge-helper: Don't unlock the connection
+ mutex after a backoff
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/23P0W6DIBTG8VcxXPcsBxAUr/Yeyy4oHFuyqi1Q0
- 6Xpuy9qtnbRS0i+H3/uLFEMlFhT3FmkMaQw9Kwpql3B3NH2B4LgWVMwgUJhJRF87CBlmwkiWT9
- cM3CsW6yN404i2xXsHKkNt9n8+FzOkS7XkEJeLtneJgI3dF3ITTGBXUgOerplECg0cAQh2bQ9h
- pSH+D3njXwezyUGxUbJyAGBl9YryZW3sn3/otjT6W2Ih5kbxS+hsRRyixCAUKvStHXl9qaqV4R
- 8ElroLUICgle1UCSFMXZNlK+E2SJKQFBGa60qUyP5V2JXLFPDl9f7AbohEpxPtp+IRBlGBQitM
- ugFomyFWzWoZ4PBaqthIlRruXWVVbxcf0P/ERy52iI0IGjnUDjP0Zj/xOPx+AGRaeiDfwIAAA=
- =
-X-Change-ID: 20250730-drm-state-readout-108f089c1c30
+Message-Id: <20261029-drm-state-readout-v7-1-25e5163d75c3@kernel.org>
+References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
+In-Reply-To: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -52,17 +47,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jyri Sarha <jyri.sarha@iki.fi>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- Simona Vetter <simona.vetter@ffwll.ch>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9848; i=mripard@kernel.org;
- h=from:subject:message-id; bh=1zHA/UEE7dvErvTvEVz2sWfkztCHg+Y6VG2ML5OwzfA=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvr0oOFLjVc97fOX3D0Lsq84EPxN26xHf5GTFpjc5f
- ulu0xN+HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAii08zNsyw071ypmndnpga
- eU9H8Usdl2fvPi351nBS5pMppv83l//6YHnxsWjykZSWb0ye3QfvmjA2bFvSzCzkm39B6PK8roU
- v4nn2X/K9+zsz3lMm+1TnL36F3zUJbrKLHJQ2uEoLrmEp2u8EAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2982; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=20iJEHq+ZPkDdytuQKmTM/vU1ZvaIvKAZCNhPBwfs8I=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvr1dWt6ZMSnVpTJqzvEl25I/qBltO5iyeHdUT7rvh
+ dXNtz8e75jKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQAT2XedsYZ74zaGPdudJpYn
+ ce0v+bKL6+eN73xtk1xW62S+UV4/aafVimM7p+yf3Hsn4gQbQ1/oj1bGepfuZ11LbvYrS7DLmz9
+ JLpgdyS3/yV7Kcuvpu289Ul3DBFWaCnI9Jbs/bj572Sn7mT4bAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,203 +75,88 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+drm_bridge_helper_reset_crtc() takes the connection mutex using the
+acquire context provided by the caller, and then relies on
+drm_atomic_get_connector_for_encoder() and
+drm_atomic_helper_reset_crtc() that both use the same context.
 
-Here's a series that implement what i915 calls "fastboot", ie,
-initializing the initial KMS state from the hardware state at boot, to
-skip the first modeset if the firmware already set up the display.
+If either of those functions detects a deadlock, it backs off and drops
+every lock held by the context, including the connection mutex taken by
+drm_bridge_helper_reset_crtc() itself. The function however still
+unlocked the connection mutex unconditionally on its way out, unlocking
+a mutex it wasn't holding anymore.
 
-This series creates the infrastructure in KMS to create that state by
-relying on driver specific hooks. It also implements some infrastructure
-to check during non-blocking commits that the readout helpers work
-properly by reading out the state that was just committed and comparing
-it to what was supposed to be committed.
+The callers already have to release the context locks through
+drm_modeset_drop_locks() and to handle the -EDEADLK error, so we can
+leave the connection mutex release to them. We still need to take it
+back after drm_atomic_get_connector_for_encoder() returns, since it may
+have backed off, before looking at the connector state.
 
-This relies on another set of driver hooks to compare the entities
-states, with helpers providing the default implementation.
-
-It then implements the readout support in the TIDSS driver, and was
-tested with the SK-AM62 board. This board in particular is pretty
-interesting, since it relies on an DPI to HDMI bridge, and uses the
-drm_bridge_connector infrastructure.
-
-So the readout works with the current state of the art on embedded-ish
-platforms.
-
-Unlike the earlier RFCs, it now works fine: the state is picked up
-properly, doesn't trigger a modeset if what was programmed is the one
-the first modeset tries to pick as well, will switch properly if it
-isn't, etc.
-
-Let me know what you think,
-Maxime
-
+Fixes: 56ae62124177 ("drm/bridge: Add helper to reset bridge pipeline")
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Changes in v7:
-- Add kunit tests for state readout handling
-- Fix kunit test breakages
-- Fix sashiko reviews
-- Rename drm_atomic_sro.c to drm_atomic_state_readout.c
-- Improve documentation
-- Fix comparisons macros and functions
-- Improve tidss readout implementation
-- When committing after a commit, only readout and compare the objects
-  part of that commit (and we have the locks for)
-- Add kunit tests for the read-out logic
-- Improve tidss read-out implementation
-- Improve si902x read-out implementation
-- Link to v6: https://lore.kernel.org/r/20261015-drm-state-readout-v6-0-6cc02cd10998@kernel.org
+ drivers/gpu/drm/drm_bridge_helper.c | 35 +++++++++++++++++++++++------------
+ 1 file changed, 23 insertions(+), 12 deletions(-)
 
-Changes in v6:
-- Fix private_obj_init error handling
-- Fix bridge name lifetime
-- Show the bridge name in print_state
-- Rebase on current drm-misc-next
-- Link to v5: https://lore.kernel.org/r/20260907-drm-state-readout-v5-0-5fa1ac7a5148@kernel.org
+diff --git a/drivers/gpu/drm/drm_bridge_helper.c b/drivers/gpu/drm/drm_bridge_helper.c
+index 0a3c8fee66b3..6998e7c41d30 100644
+--- a/drivers/gpu/drm/drm_bridge_helper.c
++++ b/drivers/gpu/drm/drm_bridge_helper.c
+@@ -20,4 +20,8 @@
+  * apply.
+  *
++ * All the locks taken by this function use @ctx: the caller is
++ * responsible for releasing them with drm_modeset_drop_locks(), and
++ * for handling an -EDEADLK error with drm_modeset_backoff().
++ *
+  * Returns:
+  *
+@@ -34,4 +38,9 @@ int drm_bridge_helper_reset_crtc(struct drm_bridge *bridge,
+ 	int ret;
+ 
++	/*
++	 * Every lock taken with @ctx is released either by a backoff or
++	 * by the caller through drm_modeset_drop_locks(), so we must not
++	 * unlock the connection mutex ourselves.
++	 */
+ 	ret = drm_modeset_lock(&dev->mode_config.connection_mutex, ctx);
+ 	if (ret)
+@@ -39,20 +48,22 @@ int drm_bridge_helper_reset_crtc(struct drm_bridge *bridge,
+ 
+ 	connector = drm_atomic_get_connector_for_encoder(encoder, ctx);
+-	if (IS_ERR(connector)) {
+-		ret = PTR_ERR(connector);
+-		goto out;
+-	}
++	if (IS_ERR(connector))
++		return PTR_ERR(connector);
+ 
+-	if (!connector->state) {
+-		ret = -EINVAL;
+-		goto out;
+-	}
++	/*
++	 * drm_atomic_get_connector_for_encoder() may have backed off,
++	 * releasing the connection mutex in the process. Take it back
++	 * before looking at the connector state.
++	 */
++	ret = drm_modeset_lock(&dev->mode_config.connection_mutex, ctx);
++	if (ret)
++		return ret;
++
++	if (!connector->state)
++		return -EINVAL;
+ 
+ 	crtc = connector->state->crtc;
+-	ret = drm_atomic_helper_reset_crtc(crtc, ctx);
+ 
+-out:
+-	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+-	return ret;
++	return drm_atomic_helper_reset_crtc(crtc, ctx);
+ }
+ EXPORT_SYMBOL(drm_bridge_helper_reset_crtc);
 
-Changes in v5:
-- Implement readout for bridge/display-connector
-- Implement readout for tidss encoders
-- Fix sii902 readout implementation
-- Add atomic_print_state implementation to tidss crtc
-- Rebase over latest changes. In particular, the CRTC conversion to
-  atomic_create_state and the introduction of crtc's hw_reset made me
-  create a new helper and hook to trigger a device-wide hw_reset
-- Add a bunch of NULL pointer checks everywhere
-- Fix compare macros calls to __stringify
-- Create documentation section for sro
-- Fix error path in drm_atomic_sro_state_init
-- Improve bisectability
-- Link to v4: https://lore.kernel.org/r/20260629-drm-state-readout-v4-0-5966657980ed@kernel.org
-
-Changes in v4:
-- Dropped the HACK patch that went into the v3 resend
-- Hopefully the kernel.org smtp works this time
-- Link to v3: https://lore.kernel.org/r/20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org
-
-Changes in v3:
-- Rebase on top of the current drm-misc-next, with rename of
-  drm_atomic_state and the various preliminary series merged.
-- Use drm_printf_indent when possible
-- Change the access mode for the atomic_readout parameter from 000 to
-  400
-- Use drm_drv_uses_atomic_modeset() instead of drm_core_check_feature()
-- Introduce a hw_reset hook to deal with device hardware reset when
-  needed (ie, SRO fails or is disabled)
-- Improve mode flags readout
-- Fix plane alpha readout
-- Add sii902x state readout
-
-- Link to v2: https://lore.kernel.org/r/20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org
-
-Changes in v2:
-- Get rid of patches already applied
-- Rebase on top of the current atomic_create_state work
-- Use the SRO prefix everywhere
-- Create our own states container structure instead of trying to plumb
-  it into a drm_atomic_state
-- Make a lot more use of helpers
-- Add a hook to enable the hardware resources when the readout state
-  becomes active
-- Move all the tidss readout code into tidss_dispc.c
-- Write documentation
-- Add drm_private_obj and drm_bridge name for easier debugging
-- Add drm_private_obj_is_bridge()
-- Link to v1: https://lore.kernel.org/r/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org
-
----
-Maxime Ripard (34):
-      drm/bridge-helper: Don't unlock the connection mutex after a backoff
-      drm/tests: hdmi-state-helper: Handle EDEADLK in the 420-only test
-      drm/tests: hdmi-state-helper: Handle EDEADLK in the color format test
-      drm/atomic: Fix private obj error handling
-      drm/atomic: Add drm_private_obj name
-      drm/bridge: Switch print_state to use bridge name
-      drm/bridge: Add drm_private_obj_is_bridge()
-      drm/fb-dma-helper: Handle framebuffers without a GEM object
-      drm/atomic: Export drm_atomic_*_print_state
-      drm/atomic_sro: Create drm_atomic_sro_state container
-      drm/atomic_sro: Create kernel parameter to force or disable readout
-      drm/atomic_sro: Add atomic state readout infrastructure
-      drm/atomic_sro: Add function to install state into drm objects
-      drm/atomic_sro: Create documentation
-      drm/bridge: Handle bridges with hardware state readout
-      drm/mode-config: Read out hardware state in drm_mode_config_create_state
-      drm/atomic_sro: Provide helpers to implement hardware state readout
-      drm/mode-config: Introduce hw_reset hook
-      drm/modeset-helper: Add drm_mode_config_helper_hw_reset()
-      drm/atomic_helper: Compare actual and readout states once the commit is done
-      drm/atomic-state-helper: Provide comparison macros
-      drm/atomic-state-helper: Provide atomic_compare_state helpers
-      drm/atomic-helper: Document State Read-Out as a state initialization approach
-      drm/tests: kunit: Add a drm_printer helper
-      drm/tests: Add tests for the atomic state readout
-      drm/encoder: Create atomic_sro_get_current_crtc hook
-      drm/bridge: display-connector: Implement readout support
-      drm/bridge_connector: Implement hw readout for connector
-      drm/tidss: crtc: Add atomic_print_state implementation
-      drm/tidss: dispc: Improve mode checking logs
-      drm/tidss: Implement hw_reset
-      drm/tidss: Implement readout support
-      drm/tidss: encoder: Implement atomic_sro_get_current_crtc
-      drm/bridge: sii902x: Implement hw state readout
-
- Documentation/gpu/drm-kms-helpers.rst              |   26 +
- drivers/gpu/drm/Makefile                           |    2 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |    1 +
- .../drm/arm/display/komeda/komeda_private_obj.c    |    8 +
- drivers/gpu/drm/bridge/display-connector.c         |   69 +
- drivers/gpu/drm/bridge/sii902x.c                   |   91 +-
- drivers/gpu/drm/display/drm_bridge_connector.c     |   36 +
- drivers/gpu/drm/display/drm_dp_mst_topology.c      |    2 +-
- drivers/gpu/drm/display/drm_dp_tunnel.c            |    1 +
- drivers/gpu/drm/drm_atomic.c                       |   57 +-
- drivers/gpu/drm/drm_atomic_helper.c                |   45 +
- drivers/gpu/drm/drm_atomic_state_helper.c          |   20 +-
- drivers/gpu/drm/drm_atomic_state_readout.c         |  974 +++++++++++++
- drivers/gpu/drm/drm_atomic_state_readout_helper.c  |  974 +++++++++++++
- drivers/gpu/drm/drm_bridge.c                       |  131 +-
- drivers/gpu/drm/drm_bridge_helper.c                |   35 +-
- drivers/gpu/drm/drm_fb_dma_helper.c                |    8 +
- drivers/gpu/drm/drm_internal.h                     |   13 +
- drivers/gpu/drm/drm_mode_config.c                  |   76 +-
- drivers/gpu/drm/drm_modeset_helper.c               |   31 +
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |    1 +
- drivers/gpu/drm/ingenic/ingenic-ipu.c              |    1 +
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |    1 +
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |    1 +
- drivers/gpu/drm/omapdrm/omap_drv.c                 |    1 +
- drivers/gpu/drm/tegra/hub.c                        |    1 +
- drivers/gpu/drm/tests/Makefile                     |    1 +
- .../gpu/drm/tests/drm_atomic_state_readout_test.c  | 1501 ++++++++++++++++++++
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c |   30 +-
- drivers/gpu/drm/tests/drm_kunit_helpers.c          |   78 +
- drivers/gpu/drm/tidss/tidss_crtc.c                 |  101 ++
- drivers/gpu/drm/tidss/tidss_dispc.c                |  371 ++++-
- drivers/gpu/drm/tidss/tidss_dispc.h                |   19 +
- drivers/gpu/drm/tidss/tidss_encoder.c              |   57 +
- drivers/gpu/drm/tidss/tidss_kms.c                  |   20 +-
- drivers/gpu/drm/tidss/tidss_plane.c                |  178 +++
- drivers/gpu/drm/vc4/vc4_kms.c                      |    3 +
- include/drm/drm_atomic.h                           |   78 +-
- include/drm/drm_atomic_state_readout.h             |   59 +
- include/drm/drm_atomic_state_readout_helper.h      |  283 ++++
- include/drm/drm_bridge.h                           |   97 ++
- include/drm/drm_connector.h                        |   74 +
- include/drm/drm_crtc.h                             |   74 +
- include/drm/drm_encoder.h                          |   18 +
- include/drm/drm_kunit_helpers.h                    |    4 +
- include/drm/drm_mode_config.h                      |   54 +
- include/drm/drm_modeset_helper.h                   |    1 +
- include/drm/drm_modeset_helper_vtables.h           |   34 +
- include/drm/drm_plane.h                            |   74 +
- 49 files changed, 5749 insertions(+), 66 deletions(-)
----
-base-commit: 128013e9fec562672562dffd4ad468492f5915c8
-change-id: 20250730-drm-state-readout-108f089c1c30
-
-Best regards,
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.55.0
 
