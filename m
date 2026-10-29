@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB38606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDBC606A31E
 	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:19:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=DByi6SS2
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ujm4a+vS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 667D21121BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 680631121BB;
 	Thu, 29 Oct 2026 10:19:27 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 323461121B1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:19:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2E1F1121A2
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:19:11 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 00528177A;
- Thu, 29 Oct 2026 11:17:05 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7A6B9802;
+ Thu, 29 Oct 2026 11:16:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1793269027;
- bh=1ZJIk3MMYPkxcIUxoo1Dwfx/x1T1CMx2EcXxeO5F6nY=;
+ s=mail; t=1793269017;
+ bh=TEC0Tn18n1HeiWmbxdsliGWYWPY+kfyznyDz8yGCKEY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=DByi6SS28GMiBG6Np9slP84tQ4ND8PUcCgNdkTGTPyX0eSAdaULSRszbeHvRgkUFL
- BSdc5jyafBqSjEFJjFVHugSm2ci9MGDSOiSRhU3NQCofpA7pQog7in7ekE+W8P4XPV
- n1M9a14yL44eb/aTeOBhpZ5k9p5UWn3rBVrEWuuc=
+ b=ujm4a+vSrr7c8O/XChUC+V8GfxvXO71koRNk1MSqf6zyXeWFZQpHwTS4fR4B4on+R
+ +XnuXXSEone8MNfomMQdbQucTTPRyvF4iM1mQYJiRWVZ0/jMktXbuoE2SNhaXsPML0
+ /vDjtX91fIBY0VeDLuc2u3kO8l6rEd/QpknWCe2U=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 29 Oct 2026 12:18:56 +0200
-Subject: [PATCH v4 10/14] drm/tidss: oldi: Move the setup of one OLDI TX to
- its own function
+Date: Thu, 29 Oct 2026 12:18:48 +0200
+Subject: [PATCH v4 02/14] drm/tidss: Add helper to identify the AM65x OLDI
+ video port
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-beagley-ai-display-v4-10-dc7f2b532478@ideasonboard.com>
+Message-Id: <20261029-beagley-ai-display-v4-2-dc7f2b532478@ideasonboard.com>
 References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 In-Reply-To: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,21 +48,21 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10887;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3801;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=1ZJIk3MMYPkxcIUxoo1Dwfx/x1T1CMx2EcXxeO5F6nY=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2Y9U97DKAwivHLGBgoebK0ng7aV10CuUWvM
- PyhXMlEwcqJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdmAAKCRD6PaqMvJYe
- 9XLkEACcu4vR2Ura39GZ96u44s4ZYq9JZ8PDFS1bM/YDJ0I2FRkjIvmA05mvxf7AOvVUDI3Y8X9
- 7z7Wk3upqVrdBAsyS2HD6lpiLBaT+lGbHfmud2aKhGk1dLfY7NSMkXkTschQ6DmRCCrUHHUmKML
- NpHDoWHWYWeEEoCNRYwM5AOWKDPWTsfEkKs0bUEjVAsuf5iP5gpNAJE46Qpa+R7rBYwjOdJ1KQs
- giWCl3JV/E1zl+WPl74nRqm+ErrywD4/4/gt+IQu9QGGbBpLuMgnoAB1ScaiGAHbk001PeVXQRc
- QvcgjSNdWLpL3O/37GlnDIVwErjzHG0Hz3KnvCCPue+k0YaYaEAx+NxT+aN7OrYb72JHeJ8ka48
- Zv++AagLxs2Il1oO3gGYXTyRl9geC/mIEO4W1dsBRSRP5J5Z8jI6v7zeFqhmxh5BKMcp0PxsCAi
- msM8kZ1Pjh+7Rei+RBK7HkQ1OMPQDAfm0MYdgPO5mev+yukIomSjYZLiaCoLcGzAMRyJCKN/Aun
- NBd5dcv90zYZJw+2fUiUZ9b0Rko6g4OrsfsVpL/62cfPFZreOlBS+M5dD+Jp/9HHTv0pFIG4TI+
- V6lBvDMI1EDeLEQg6v0tCDBfaLlY8xaCZWjvw2/UCCPjmCeoHyU1jQ34xtBgw++sQesqBzb+sVd
- uiTPX72JwIUw2dQ==
+ bh=TEC0Tn18n1HeiWmbxdsliGWYWPY+kfyznyDz8yGCKEY=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2V/6l7VZLSSsmY02UwsTXwLCCdLd6CO0x9d
+ oZDJN8j1XqJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlQAKCRD6PaqMvJYe
+ 9WF9D/wJllN06e4ZQGxe4UcmfdlPI8/Timg3XLNgFCCS1VCU3zdpEQiYpCnFMHTf79p+UtQMR0y
+ 2xoZ6+GwZmvkean5cQeVZDZTwU+tjmroukxQnegVKE46u+dptfS/2Gt7Pu5odnV8/QEFZaUKEsO
+ cbXucskd/keBs1+1SP+dKoWi8mAXPlMoLRohngd8DVhPKZr7FI7l7lRcsvNQBlhmN4gBox7Gl4+
+ 1OhHGYEMF6GEjL5ldcaSIfM1bBqBVuaDk4EYPE7pjXAXM2HOOnvdkxdcoqyjhpZYZNHWo8GKK1Q
+ XlTbIA+IahUXCDnT19MPFy9rrhAVGS8y94g6RwB50AnQfqVLpE9aSLtz2CaauR2zR5Wvu5QLgJI
+ ecxqAlPHlX+SEBIMuVlMTNFu2ezJ/y3KdcUm4ZeK+f89S+7bQ2N3Tl7ggEPco3W+gVYM/6PjK6z
+ TWWpZZ+bVRvc2KSC9eYQYmCEdCVXWKrm8aAKpjfV+chq2O085jAQPpMGiz6iAK/S+Kq8KNmXVPl
+ XPwFhHf1gttdDvNFJ6OLkL6vBKMf777lTTj9aelclF7xSldQKmukHXWXLoWwnot9BnAZLAnq/p4
+ JJfOoYR43aael56tiQhCyA3L53emTXfbLnDb0bAsEV6VR3CD3e/lK/2NmChtdRGngLq1FDplme6
+ +anfnc8WZtuFXYQ==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,314 +84,95 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-tidss_oldi_init() sets up each OLDI TX inside its loop over the OLDI TX
-nodes, which is not a few lines of code and indents quite deeply. Clean
-up the code by separating the setup of a single OLDI TX into its own
-function.
+On AM65x the OLDI TX is modeled as a part of the DSS, not as a separate
+bridge as the newer SoCs do, and is fed by the first video port. To
+handle the AM65x OLDI, we check for it in multiple places using the
+feat's vp_bus_type.
+
+However, vp_bus_type is problematic concept and should be removed, so
+this commit adds a helper function to check for the AM65x OLDI by
+looking at the DSS subrevision and videoport number.
+
+No functional change.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_oldi.c | 264 +++++++++++++++++++------------------
- 1 file changed, 138 insertions(+), 126 deletions(-)
+ drivers/gpu/drm/tidss/tidss_dispc.c | 8 ++++----
+ drivers/gpu/drm/tidss/tidss_dispc.h | 7 +++++++
+ drivers/gpu/drm/tidss/tidss_kms.c   | 2 +-
+ 3 files changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index 7344d86e1f13..5552c1c51074 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -479,155 +479,167 @@ void tidss_oldi_deinit(struct tidss_device *tidss)
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+index e516f493d6d9..efdabf046d64 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.c
++++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+@@ -1034,7 +1034,7 @@ int dispc_vp_bus_check(struct dispc_device *dispc, u32 hw_videoport,
+ 		return -EINVAL;
  	}
- }
  
--int tidss_oldi_init(struct tidss_device *tidss)
-+static int tidss_oldi_init_one(struct tidss_device *tidss,
-+			       struct device_node *oldi_tx)
- {
- 	struct tidss_oldi *oldi;
--	struct device_node *child;
- 	struct drm_bridge *bridge;
- 	u32 parent_vp, oldi_instance;
- 	int companion_instance = -1;
- 	enum tidss_oldi_link_type link_type = OLDI_MODE_UNSUPPORTED;
--	struct device_node *oldi_parent;
--	int ret = 0;
--
--	tidss->num_oldis = 0;
--
--	oldi_parent = of_get_child_by_name(tidss->dev->of_node, "oldi-transmitters");
--	if (!oldi_parent)
--		/* Return gracefully */
--		return 0;
-+	int ret;
+-	if (dispc->feat->vp_bus_type[hw_videoport] != DISPC_VP_OLDI_AM65X &&
++	if (!dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport) &&
+ 	    fmt->is_oldi_fmt) {
+ 		drm_dbg(dev, "%s: %s is not OLDI-port\n",
+ 			__func__, dispc->feat->vp_name[hw_videoport]);
+@@ -1143,7 +1143,7 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
+ 	if (WARN_ON(!fmt))
+ 		return;
  
--	for_each_available_child_of_node(oldi_parent, child) {
--		ret = get_parent_dss_vp(child, &parent_vp);
--		if (ret) {
--			if (ret == -ENODEV) {
--				/*
--				 * ENODEV means that this particular OLDI node
--				 * is not connected with the DSS, which is not
--				 * a harmful case. There could be another OLDI
--				 * which may still be connected.
--				 * Continue to search for that.
--				 */
--				continue;
--			}
--			goto err_put_node;
-+	ret = get_parent_dss_vp(oldi_tx, &parent_vp);
-+	if (ret) {
-+		if (ret == -ENODEV) {
-+			/*
-+			 * ENODEV means that this particular OLDI node
-+			 * is not connected with the DSS, which is not
-+			 * a harmful case. There could be another OLDI
-+			 * which may still be connected.
-+			 * Continue to search for that.
-+			 */
-+			return 0;
- 		}
-+		return ret;
-+	}
+-	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X) {
++	if (dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport)) {
+ 		dispc_am65x_oldi_tx_power(dispc, true);
  
--		ret = of_property_read_u32(child, "reg", &oldi_instance);
--		if (ret)
--			goto err_put_node;
-+	ret = of_property_read_u32(oldi_tx, "reg", &oldi_instance);
-+	if (ret)
-+		return ret;
+ 		dispc_enable_am65x_oldi(dispc, hw_videoport, fmt);
+@@ -1186,7 +1186,7 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
+ 	align = true;
  
-+	/*
-+	 * Now that it's confirmed that OLDI is connected with DSS,
-+	 * let's continue getting the OLDI sinks ahead and other OLDI
-+	 * properties.
-+	 */
-+	bridge = devm_drm_of_get_bridge(tidss->dev, oldi_tx,
-+					OLDI_OUTPUT_PORT, 0);
-+	if (IS_ERR(bridge)) {
- 		/*
--		 * Now that it's confirmed that OLDI is connected with DSS,
--		 * let's continue getting the OLDI sinks ahead and other OLDI
--		 * properties.
-+		 * Either there was no OLDI sink in the devicetree, or
-+		 * the OLDI sink has not been added yet. In any case,
-+		 * return.
-+		 * We don't want to have an OLDI node connected to DSS
-+		 * but not to any sink.
- 		 */
--		bridge = devm_drm_of_get_bridge(tidss->dev, child,
--						OLDI_OUTPUT_PORT, 0);
--		if (IS_ERR(bridge)) {
--			/*
--			 * Either there was no OLDI sink in the devicetree, or
--			 * the OLDI sink has not been added yet. In any case,
--			 * return.
--			 * We don't want to have an OLDI node connected to DSS
--			 * but not to any sink.
--			 */
--			ret = dev_err_probe(tidss->dev, PTR_ERR(bridge),
--					    "no panel/bridge for OLDI%u.\n",
-+		ret = dev_err_probe(tidss->dev, PTR_ERR(bridge),
-+				    "no panel/bridge for OLDI%u.\n",
-+				    oldi_instance);
-+		return ret;
-+	}
-+
-+	link_type = get_oldi_mode(oldi_tx, &companion_instance);
-+	if (link_type == OLDI_MODE_UNSUPPORTED) {
-+		ret = dev_err_probe(tidss->dev, -EINVAL,
-+				    "OLDI%u: Unsupported OLDI connection.\n",
-+				    oldi_instance);
-+		return ret;
-+	} else if ((link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK) ||
-+		   (link_type == OLDI_MODE_CLONE_SINGLE_LINK)) {
-+		/*
-+		 * The OLDI driver cannot support OLDI clone mode
-+		 * properly at present.
-+		 * The clone mode requires 2 working encoder-bridge
-+		 * pipelines, generating from the same crtc. The DRM
-+		 * framework does not support this at present. If
-+		 * there were to be, say, 2 OLDI sink bridges each
-+		 * connected to an OLDI TXes, they couldn't both be
-+		 * supported simultaneously.
-+		 * This driver still has some code pertaining to OLDI
-+		 * clone mode configuration in DSS hardware for future,
-+		 * when there is a better infrastructure in the DRM
-+		 * framework to support 2 encoder-bridge pipelines
-+		 * simultaneously.
-+		 * Till that time, this driver shall error out if it
-+		 * detects a clone mode configuration.
-+		 */
-+		ret = dev_err_probe(tidss->dev, -EOPNOTSUPP,
-+				    "The OLDI driver does not support Clone Mode at present.\n");
-+		return ret;
-+	} else if (link_type == OLDI_MODE_SECONDARY_DUAL_LINK) {
-+		/*
-+		 * This is the secondary OLDI node, which serves as a
-+		 * companion to the primary OLDI, when it is configured
-+		 * for the dual-link mode. Since the primary OLDI will
-+		 * be a part of bridge chain, no need to put this one
-+		 * too. Continue onto the next OLDI node.
-+		 */
-+		return 0;
-+	}
-+
-+	oldi = devm_drm_bridge_alloc(tidss->dev, struct tidss_oldi, bridge,
-+				     &tidss_oldi_bridge_funcs);
-+	if (IS_ERR(oldi)) {
-+		ret = PTR_ERR(oldi);
-+		return ret;
-+	}
-+
-+	oldi->parent_vp = parent_vp;
-+	oldi->oldi_instance = oldi_instance;
-+	oldi->companion_instance = companion_instance;
-+	oldi->link_type = link_type;
-+	oldi->dev = tidss->dev;
-+	oldi->next_bridge = bridge;
-+
-+	/*
-+	 * Only the primary OLDI needs to reference the io-ctrl system
-+	 * registers, and the serial clock.
-+	 * We don't require a check for secondary OLDI in dual-link mode
-+	 * because the driver will not create a drm_bridge instance.
-+	 * But the driver will need to create a drm_bridge instance,
-+	 * for secondary OLDI in clone mode (once it is supported).
-+	 */
-+	if (link_type != OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK) {
-+		oldi->io_ctrl = syscon_regmap_lookup_by_phandle(oldi_tx,
-+								"ti,oldi-io-ctrl");
-+		if (IS_ERR(oldi->io_ctrl)) {
-+			ret = dev_err_probe(oldi->dev, PTR_ERR(oldi->io_ctrl),
-+					    "OLDI%u: syscon_regmap_lookup_by_phandle failed.\n",
- 					    oldi_instance);
--			goto err_put_node;
-+			return ret;
- 		}
+ 	/* always use DE_HIGH for OLDI */
+-	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X)
++	if (dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport))
+ 		ieo = false;
  
--		link_type = get_oldi_mode(child, &companion_instance);
--		if (link_type == OLDI_MODE_UNSUPPORTED) {
--			ret = dev_err_probe(tidss->dev, -EINVAL,
--					    "OLDI%u: Unsupported OLDI connection.\n",
-+		oldi->serial = devm_get_clk_from_child(tidss->dev, oldi_tx,
-+						       "serial");
-+		if (IS_ERR(oldi->serial)) {
-+			ret = dev_err_probe(oldi->dev, PTR_ERR(oldi->serial),
-+					    "OLDI%u: Failed to get serial clock.\n",
- 					    oldi_instance);
--			goto err_put_node;
--		} else if ((link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK) ||
--			   (link_type == OLDI_MODE_CLONE_SINGLE_LINK)) {
--			/*
--			 * The OLDI driver cannot support OLDI clone mode
--			 * properly at present.
--			 * The clone mode requires 2 working encoder-bridge
--			 * pipelines, generating from the same crtc. The DRM
--			 * framework does not support this at present. If
--			 * there were to be, say, 2 OLDI sink bridges each
--			 * connected to an OLDI TXes, they couldn't both be
--			 * supported simultaneously.
--			 * This driver still has some code pertaining to OLDI
--			 * clone mode configuration in DSS hardware for future,
--			 * when there is a better infrastructure in the DRM
--			 * framework to support 2 encoder-bridge pipelines
--			 * simultaneously.
--			 * Till that time, this driver shall error out if it
--			 * detects a clone mode configuration.
--			 */
--			ret = dev_err_probe(tidss->dev, -EOPNOTSUPP,
--					    "The OLDI driver does not support Clone Mode at present.\n");
--			goto err_put_node;
--		} else if (link_type == OLDI_MODE_SECONDARY_DUAL_LINK) {
--			/*
--			 * This is the secondary OLDI node, which serves as a
--			 * companion to the primary OLDI, when it is configured
--			 * for the dual-link mode. Since the primary OLDI will
--			 * be a part of bridge chain, no need to put this one
--			 * too. Continue onto the next OLDI node.
--			 */
--			continue;
-+			return ret;
- 		}
-+	}
+ 	dispc_vp_write(dispc, hw_videoport, DISPC_VP_POL_FREQ,
+@@ -1229,7 +1229,7 @@ void dispc_vp_unprepare(struct dispc_device *dispc, u32 hw_videoport)
+ 		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
+ 			       DISPC_VP_CONTROL_DPIENABLE_MASK);
  
--		oldi = devm_drm_bridge_alloc(tidss->dev, struct tidss_oldi, bridge,
--					     &tidss_oldi_bridge_funcs);
--		if (IS_ERR(oldi)) {
--			ret = PTR_ERR(oldi);
--			goto err_put_node;
--		}
-+	/* Register the bridge. */
-+	oldi->bridge.of_node = oldi_tx;
-+	oldi->bridge.driver_private = oldi;
+-	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X) {
++	if (dispc_vp_is_am65x_oldi(dispc->feat, hw_videoport)) {
+ 		dispc_vp_write(dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG, 0);
  
--		oldi->parent_vp = parent_vp;
--		oldi->oldi_instance = oldi_instance;
--		oldi->companion_instance = companion_instance;
--		oldi->link_type = link_type;
--		oldi->dev = tidss->dev;
--		oldi->next_bridge = bridge;
-+	tidss->oldis[tidss->num_oldis++] = oldi;
-+	tidss->is_ext_vp_clk[oldi->parent_vp] = true;
-+	oldi->tidss = tidss;
+ 		dispc_am65x_oldi_tx_power(dispc, false);
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
+index df3daccf3f31..3dff391d3fec 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.h
++++ b/drivers/gpu/drm/tidss/tidss_dispc.h
+@@ -96,6 +96,13 @@ struct dispc_features {
+ 	bool has_vp_control_dpienable;
+ };
  
--		/*
--		 * Only the primary OLDI needs to reference the io-ctrl system
--		 * registers, and the serial clock.
--		 * We don't require a check for secondary OLDI in dual-link mode
--		 * because the driver will not create a drm_bridge instance.
--		 * But the driver will need to create a drm_bridge instance,
--		 * for secondary OLDI in clone mode (once it is supported).
--		 */
--		if (link_type != OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK) {
--			oldi->io_ctrl = syscon_regmap_lookup_by_phandle(child,
--									"ti,oldi-io-ctrl");
--			if (IS_ERR(oldi->io_ctrl)) {
--				ret = dev_err_probe(oldi->dev, PTR_ERR(oldi->io_ctrl),
--						    "OLDI%u: syscon_regmap_lookup_by_phandle failed.\n",
--						    oldi_instance);
--				goto err_put_node;
--			}
--
--			oldi->serial = devm_get_clk_from_child(tidss->dev, child,
--							       "serial");
--			if (IS_ERR(oldi->serial)) {
--				ret = dev_err_probe(oldi->dev, PTR_ERR(oldi->serial),
--						    "OLDI%u: Failed to get serial clock.\n",
--						    oldi_instance);
--				goto err_put_node;
--			}
--		}
-+	drm_bridge_add(&oldi->bridge);
-+
-+	return 0;
++/* On AM65x the OLDI TX is a part of the DSS, on the first video port */
++static inline bool dispc_vp_is_am65x_oldi(const struct dispc_features *feat,
++					  u32 hw_videoport)
++{
++	return feat->subrev == DISPC_AM65X && hw_videoport == 0;
 +}
 +
-+int tidss_oldi_init(struct tidss_device *tidss)
-+{
-+	struct device_node *child;
-+	struct device_node *oldi_parent;
-+	int ret = 0;
+ extern const struct dispc_features dispc_k2g_feats;
+ extern const struct dispc_features dispc_am625_feats;
+ extern const struct dispc_features dispc_am62a7_feats;
+diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
+index eefe2221bdde..e55e7532e2f7 100644
+--- a/drivers/gpu/drm/tidss/tidss_kms.c
++++ b/drivers/gpu/drm/tidss/tidss_kms.c
+@@ -175,7 +175,7 @@ static bool tidss_is_dpi_output(struct tidss_device *tidss, u32 hw_videoport,
+ 	 * for the OLDI TX on AM65x, we cannot detect this from the DT data, and
+ 	 * have to special-case it here.
+ 	 */
+-	if (tidss->feat->subrev == DISPC_AM65X && hw_videoport == 0)
++	if (dispc_vp_is_am65x_oldi(tidss->feat, hw_videoport))
+ 		return false;
  
--		/* Register the bridge. */
--		oldi->bridge.of_node = child;
--		oldi->bridge.driver_private = oldi;
-+	tidss->num_oldis = 0;
- 
--		tidss->oldis[tidss->num_oldis++] = oldi;
--		tidss->is_ext_vp_clk[oldi->parent_vp] = true;
--		oldi->tidss = tidss;
-+	oldi_parent = of_get_child_by_name(tidss->dev->of_node, "oldi-transmitters");
-+	if (!oldi_parent)
-+		/* Return gracefully */
-+		return 0;
- 
--		drm_bridge_add(&oldi->bridge);
-+	for_each_available_child_of_node(oldi_parent, child) {
-+		ret = tidss_oldi_init_one(tidss, child);
-+		if (ret)
-+			goto err_put_node;
- 	}
- 
- 	of_node_put(child);
+ 	if (!bridge)
 
 -- 
 2.43.0
