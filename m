@@ -2,63 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92BB606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:52:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273C3606A31F
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 10:52:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sXPGn+aG
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oj3sQTgg
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B65C41121F4;
-	Thu, 29 Oct 2026 10:52:04 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45DB41121B1
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:18:35 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-c423b145922so274966866b.3
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 03:18:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 585BA10E7F2;
+	Thu, 29 Oct 2026 10:52:10 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18B7A1121A2
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 10:18:37 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-6b1f31c63ebso911334a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 03:18:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793269113; x=1793873913; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793269115; x=1793873915; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=7eDSUJln09vjqS6fT78Hrmt4ANao45wYJuBLIsNkp4w=;
- b=sXPGn+aG2RryGhoMzt8zWc7xFJYHTHCyiOkCC28xVH9zq+//HraZW39czAZhP9fDka
- QJGG5p1O544UTQeaDEHbMOAjuOxXs5G+0AT6KRfBUvo8gsQEB2E5DmxjCrB80msAkyS/
- jd6AoV6By1hXf/5s8xWhvv9YgvX6prnTTVkdVvSR/ZpV9SPKTLwqqWV4JoW40xXk85Be
- WGhDu6/rs983Nre1NMwLfG6WtGXQG425UQFXblA2XP6zuCvLfcXakky6GxSHrmiVwpP7
- bmnefCmPQwYyen6yNMOJwlA+CwjcZN0KLqtE9mQmj4DPmnc30AbRK7rNcxGp8qDvzV4v
- XKmg==
+ bh=tLSIccFHorX+6O5ooGIFQ+bO/vHG9UJYFlcd1fhhBi4=;
+ b=oj3sQTggVxBTQb+EwMR674xBEYVqrgeeYxBTMEmU40N2bhWvmCDOTsJtB+pT5EHg8D
+ SWHmView+pRyYj9pglW1CKjzTPotiynWyllf2XnFUs2yAGvLlJrsoecTY9/DHEGr0Rug
+ n080YjxOkGDc5bEwIvcBUqlnqenjnkaKK8noPAjflki6q1gFXMy393y50dnPoRPUGM0V
+ 21L8Pg9VoBK9kEwTI+AWnfZxKVsAn6gk96Zt/qFpGUkh4xQymtMWi7VrrmDCqV/ynaJm
+ LW6jWPftot8RtoxYaIyGQM+Q3hPLVPKaURl1WjXx62OM13yju1BTfR6wqF/D2e5CGbzN
+ +grQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793269113; x=1793873913;
+ d=1e100.net; s=20260707; t=1793269115; x=1793873915;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=7eDSUJln09vjqS6fT78Hrmt4ANao45wYJuBLIsNkp4w=;
- b=YwMcVT02ruOkoTQKaR9k4veffBfOIPS/2G+tyOKP6Do2Zs/htQdEeo0ULqjXTc5fqs
- QYVmzM5AyV4uJVcVzSYl7wFPsyzo5WescAFD2k5qpM8fcz/W+wpDPHUYQ15c9CUyjpn9
- zn9vDlA5URH2OzOG1asydoQ/v3bck9AX6wo9Q9kGXa08Zyme+tZmGOV6+aqbkRHZbpFL
- AsoDeDDham/YDtPFgZELWSf9SOb7jM1tWX6yQ18P9XxD4UXsA8HQ8E983smR/lznc7Nz
- Jr4hocVRjFeU9awBAFP1D4xlXblLEADB/P04rRdboSAsIhKCVa+ZNldXPlk1YqE2K+d9
- berg==
-X-Gm-Message-State: AFq9FYKtH+4B50wrAKCqxpNbt07zxVLEC2PYRbByD5NT3qB1CAst6Tmt
- +agxlInMgxmvFugel6NnMn+duzI1DkZa2hvAtbjCoZnjGcQ1qlIM4/jSEBe3ogSP
-X-Gm-Gg: AYBFou2FKCpnzjuvqjuI5EsKxWh8k3I8F6nBt0P6qrK93v8nVsy168eaXAPD28jziR1
- DvWG0zDK8+OnZCC7RSFrbaOvwRf4BckiE6Szf60M7OF7xH/NDsQUmN7LzaUHXXjN1jx++jzupuE
- FCs77roIg/DUhHQM3s/DfrxyA+8XmDHyH4hX1BkkHaDOlbCJaSWE7Bxj25UYPtFckOnKLH+4DYg
- 9fcLkGYvsuZ7ehu9f0WKiRuvWlqdroKH8JJ78ZBJa7c6oeSOm4DhaJldbPdjty4FN53ZEXxkRE5
- hOdOnXog7mg3ZCj0+mT+Oejd9WjlMIOTwKuK06sQ0K0vpGcgM18/qJndVUejxeGPPw42eJtB/xk
- oqgWtqHtjbgnI7SKWxj1r6hOk2xEDqGowycBGadACsIoXzPoLN2IhSreNhkihIHooWWuAz5DRhh
- 05LfbdS9iXXu9XqtLzeCuRIWbHLIywPTQXMwfxWZXi6epuISVZhS0LdyrH3GP2/BcgJ3e73ZyK0
- Z5/NWPuBiCRpMBe+UIA4aGtdi2APd7YwKsp51gKQke5c4fr160w3d5Q6y7iWfSGEAc4A3oa6L5D
- oHfOvr8oY8ZQIsHqsHlw8RRFPVAX+7PN0jNGi/TRF0xa8rh+iNn1ndIm9dCYYT0=
-X-Received: by 2002:a17:906:f581:b0:c49:8fa2:4a22 with SMTP id
- a640c23a62f3a-c49bdf569b3mr418814266b.41.1793269113505; 
- Thu, 29 Oct 2026 03:18:33 -0700 (PDT)
+ bh=tLSIccFHorX+6O5ooGIFQ+bO/vHG9UJYFlcd1fhhBi4=;
+ b=uGojBVXnK1jpLXY47n5KFh091iHCiqr2CQe/2WCzyDn4zw/kQeFg2A6i49ZPbR04J6
+ XMA9LoaRMp2vCSW8i269P00z5p2vM1sNsGmgsQgCmIDuVd/iYzuoVfNmStxMn+6xlM/T
+ ynw1oadSmXrDdBTlbtNMAONwonMJAjsm2xCX1SgDvrBYJq74elOPQVN6rVFm6oUgmI5a
+ N2DiTmXPMmPXUeKHvCUbcDxVufInZRpYxB2dQbaxsBkrbiKenAc8BelR3HAB9DgcG/g5
+ DAy9epba1KS+UQEr8jme/AsE2FWL+WjYCF7Bb2t/+tB6TmQRHgXRkdgW96e5fjxviErq
+ 3XGw==
+X-Gm-Message-State: AFq9FYJ714KlmrhCfd3XyWmruoT2kGksZXu6bqNvpGKCfPaHltwoVsf7
+ AoQzCp+RMBDSdL2uwll2P5r4abuse+d8Qo1s/w5NmSznrpXW6ZuhY0ZVgeSafghC
+X-Gm-Gg: AYBFou28yzH0lXnYVoQWEw3+8W54rjm6PqfjrIxRLvLw+W3HWaKXbV4olAOccgj6dQp
+ eunWV53WcAszBf0/ALvCQ4LgCT4ZXkDrpP9RRd3PajaRSki0KB+qXr8PR7AWxCVvqbkHYtstSXm
+ SyrbgBsZKx3cDQ5gtIcmP8ImcLLTgb3/A18v6fG0cMQdmpzK0igak1KC0iK9M2cZKLAOL+zZZd4
+ VjiRKbzYpHsqYfBvadrcFhJ1V50tWVh4AHEUpi0ykSu8qEbZsYewtwGPO14RiJrNJLtTs7mqicS
+ 3JBx+6ThQfpfdKH7zDRHrrfdntLdx/0KY4MqPFlFehnHg2dWLmIT2HzffT5bVgj/kNyl/NOHX9a
+ 4sqqqc+IuTau06aKwmpff+e5qY9wlrU/3NojXFC1lq+IA6g7BAdFMhHLAm52fBG8PC29NwQHUmP
+ wBbvyqhLjhmczLGvMJeU6YdPeazunPhuYvvShsruyTQVZfceH8MfBSDlVMyFBQkIaV6fhGRGBr6
+ IwEgSnSq6gMderaKsCHpPdTqUeGqkluziTO8sfd1dUM42kjCzHUA4GG3skFDJ0iWTQoTY+HIQuW
+ yxGLBFM0grJKVAC5VtPiBx5sDY7xtfMNXj/J98sOseMzlTZYDJoGxFP8ULLpAyk=
+X-Received: by 2002:a17:907:80e:b0:c2e:62af:b6fe with SMTP id
+ a640c23a62f3a-c49d11324e8mr178671366b.8.1793269115238; 
+ Thu, 29 Oct 2026 03:18:35 -0700 (PDT)
 Received: from localhost.localdomain ([46.205.195.0])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.32
+ a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.33
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 29 Oct 2026 03:18:33 -0700 (PDT)
+ Thu, 29 Oct 2026 03:18:34 -0700 (PDT)
 From: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -76,9 +76,9 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
  nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: [PATCH v2 3/5] drm/bridge: it6505: Use drm_dp_enhanced_frame_cap()
-Date: Thu, 29 Oct 2026 11:18:24 +0100
-Message-ID: <20261029101826.72773-4-dmitrymalovanyy@gmail.com>
+Subject: [PATCH v2 4/5] drm/gma500: Use drm_dp_enhanced_frame_cap()
+Date: Thu, 29 Oct 2026 11:18:25 +0100
+Message-ID: <20261029101826.72773-5-dmitrymalovanyy@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
 References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
@@ -105,29 +105,46 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Use the helper instead of checking DP_ENHANCED_FRAME_CAP directly, so
-enhanced framing is used for all DPCD r1.2+ sinks as the spec requires.
+Use the helper instead of open coding the check, so enhanced framing is
+used for all DPCD r1.2+ sinks as the spec requires.
+
+The helper takes DP_RECEIVER_CAP_SIZE bytes and gcc warns about reading
+past dpcd[4] (-Wstringop-overread), so read the full receiver caps like
+the other drivers do. That is 15 bytes, it fits in one AUX transfer.
 
 Compile tested only.
 
 Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
 ---
- drivers/gpu/drm/bridge/ite-it6505.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/gma500/cdv_intel_dp.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index e136ac71e..d798a3db7 100644
---- a/drivers/gpu/drm/bridge/ite-it6505.c
-+++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -1651,7 +1651,7 @@ static void it6505_parse_link_capabilities(struct it6505 *it6505)
- 	link->rate = drm_dp_bw_code_to_link_rate(it6505->dpcd[1]);
- 	link->num_lanes = it6505->dpcd[2] & DP_MAX_LANE_COUNT_MASK;
+diff --git a/drivers/gpu/drm/gma500/cdv_intel_dp.c b/drivers/gpu/drm/gma500/cdv_intel_dp.c
+index 8d0626ddf..0973598c7 100644
+--- a/drivers/gpu/drm/gma500/cdv_intel_dp.c
++++ b/drivers/gpu/drm/gma500/cdv_intel_dp.c
+@@ -262,7 +262,7 @@ struct cdv_intel_dp {
+ 	uint32_t color_range;
+ 	uint8_t link_bw;
+ 	uint8_t lane_count;
+-	uint8_t dpcd[4];
++	uint8_t dpcd[DP_RECEIVER_CAP_SIZE];
+ 	struct gma_encoder *encoder;
+ 	struct i2c_adapter adapter;
+ 	struct i2c_algo_dp_aux_data algo;
+@@ -1070,11 +1070,7 @@ cdv_intel_dp_mode_set(struct drm_encoder *encoder, struct drm_display_mode *mode
+ 	intel_dp->link_configuration[0] = intel_dp->link_bw;
+ 	intel_dp->link_configuration[1] = intel_dp->lane_count;
  
--	if (it6505->dpcd[2] & DP_ENHANCED_FRAME_CAP)
-+	if (drm_dp_enhanced_frame_cap(it6505->dpcd))
- 		link->capabilities = DP_ENHANCED_FRAME_CAP;
- 
- 	DRM_DEV_DEBUG_DRIVER(dev, "DPCD Rev.: %d.%d",
+-	/*
+-	 * Check for DPCD version > 1.1 and enhanced framing support
+-	 */
+-	if (intel_dp->dpcd[DP_DPCD_REV] >= 0x11 &&
+-	    (intel_dp->dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP)) {
++	if (drm_dp_enhanced_frame_cap(intel_dp->dpcd)) {
+ 		intel_dp->link_configuration[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
+ 		intel_dp->DP |= DP_ENHANCED_FRAMING;
+ 	}
 -- 
 2.50.1 (Apple Git-155)
 
