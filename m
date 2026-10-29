@@ -2,43 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C17A606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:32:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50781606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:37:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KLHfQ+BR
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BhRY32Y6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA6D61123D5;
-	Thu, 29 Oct 2026 15:32:13 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8DE51123D5
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:32:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A49CA41825
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:32:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6189F1F01816;
- Thu, 29 Oct 2026 15:32:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793287927;
- bh=GQaIeYELVZoFgCm7oajK9Ic1HDc4Wh3eeoO0zc4suSs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KLHfQ+BRar5MOXuSFWw3NzpkF+/6hJREqfA8EpmuzjlKsUCIK6klS9lgx6iVj3qBC
- QfrrsDGd0v3FnpjcdILI8bCl7/7AI3f+3E3cIhR9HlPDig4B0xOAX/KkbLNM85kYv5
- kAwGzyMRsTkvp0POR2xLNqVlJyil6G3jOyy7cYeyDd0e/r2rMW7UjhS9VE5OomgCgN
- RjoAPyOeJJy/sNQb8Q1uqunY1QYD1IOSbOyA8G7zGFYunnFxB/Bjydf62i39fUAFVn
- oafwckpIS54dgfhzoSbOqWTEdNWKKbZcRq6AwIyGAZvhDk/aZAHCRbpi7GGJujIx4G
- YXqpRvcmpn/Bw==
-Message-ID: <sashiko-outbox-189611@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 26/31] accel: ethosu: Split U65 and U85 DMA length
- validation
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029-ethosu-fixes-v4-26-4aa25e22578e@kernel.org>
-References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-26-4aa25e22578e@kernel.org>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0B4A10E533;
+	Thu, 29 Oct 2026 15:36:58 +0000 (UTC)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15B5A10E533
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:36:52 +0000 (UTC)
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-48e1291432aso1725409f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 08:36:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1793288210; x=1793893010;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:from:subject
+ :message-id:references:mime-version:in-reply-to:date:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=D6UUa2xNPRVirPhujwvkv6IdDdVKe4P8N23+MP1pK9Y=;
+ b=BhRY32Y6A9bVwtj5eVb34uEyy6gGXHOmKAr0q3GePEAZRmnz3HKijMaMaOJ810KrDc
+ +lmWj462TE2bGpx2jjm9/lmKii+spCvZBLh2Dxn5kC0eoY3DtnY/ziiWvQYOnkDdBrK6
+ IJ/60+9+KQ2KEzUJbTgZPw37aSr4IYBuX9BXvNTcGZLZ3CpR98MMR4GfZaPI75Qg++wi
+ isA3Cj/aPzSK+EmlXzBaqzAuiaVHELuCw7DXeH0n/78+nQYGnjNeNF5NSJ29PGiF3eZW
+ GW+VruNVpu4xaa972JUJ9W1v7XRmEE3pQoOOzGpt94d7gjRILpIVG6x6Ez1sWH/CO4HH
+ ahzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793288210; x=1793893010;
+ h=content-transfer-encoding:content-type:cc:to:from:subject
+ :message-id:references:mime-version:in-reply-to:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=D6UUa2xNPRVirPhujwvkv6IdDdVKe4P8N23+MP1pK9Y=;
+ b=sJzIxekQtgMG7rct7IgE1T3TyLPik7QOz+ImoZ+W8SMWAyxZx9AZ2tVsQwHR4iYwqJ
+ PaEvl4HzgbIJFZNvHdLCE9AyyHXBtqkNEf8W4Sf9o+VOMohvIqwj9aYlN6i4SXGITPT+
+ S6mdzBbAlxMzU3LiRPcNY1lfKtnvGXIeOKhVlLKLFEzIPbioFLPgxlqmDJgi13vVD/nr
+ E5xkPY0ji5ZgvD3Y9AN15DrQ9OkBKplH7MYXW7m3kHRVDt8Wml4+CMOrMhsbhukOzApS
+ x7+Z0jCSJCqaBMOYegov6Q1zfCueNmwX7w+30dEL//W0bQxaeBQ5XHX+nFI8FRiaE5ea
+ 8DbA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzrrbZOQNVB2mMsydb2t8TJGp5l9MW4V5fcpIlRwaqRyP4tfv5roIa0s5i2YHCXXH4fMVOcbZOGUhk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI7HK1ZbK24PS870xm+YJqyEjhdinhscE+EuXzUxKufMLZvVl6j
+ c6YR1SJTH3Ef+MnKTVJoqqwmvmvh6i9RpPPLlhMj54DTG/ISr0YP7ei70INzBS64xzr4sxb2Eh1
+ 0idHkwsUX6zgxvDjniQ==
+X-Received: from wmap17.prod.google.com ([2002:a7b:cc91:0:b0:4a5:9877:cd58])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:474f:b0:4a1:cd83:b23e with SMTP id
+ 5b1f17b1804b1-4a97452869cmr133905495e9.0.1793288203757; 
+ Thu, 29 Oct 2026 08:36:43 -0700 (PDT)
+Date: Thu, 29 Oct 2026 15:36:42 +0000
+In-Reply-To: <CAH5fLggAuPdmwOFiOMMRUCP+yLPjmdjYGGfBxZJ=7+bkGODJmQ@mail.gmail.com>
+X-Archived-By: <archiver.kernel.org>
+Mime-Version: 1.0
+References: <20261020-b4-gpu_info_intobytes-v5-0-3e0c7c93223c@collabora.com>
+ <20261020-b4-gpu_info_intobytes-v5-1-3e0c7c93223c@collabora.com>
+ <athToIRyTjSB_jVg@google.com>
+ <CANiq72nP1cXVOQp0xciGfBhZZfEfNP5hx8c+1ZPhXwrr=EOUGA@mail.gmail.com>
+ <CAH5fLggAuPdmwOFiOMMRUCP+yLPjmdjYGGfBxZJ=7+bkGODJmQ@mail.gmail.com>
+Message-ID: <auNoCpPLYfr6hBu8@google.com>
+Subject: Re: [PATCH v5 1/2] rust: add zerocopy to bindings and uapi
+From: Alice Ryhl <aliceryhl@google.com>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Deborah Brouwer <deborah.brouwer@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+ "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>,
+ Jesung Yang <y.j3ms.n@gmail.com>, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 15:32:06 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,173 +89,33 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] accel: ethosu: missing size0/size1 scaling for 1D side in mixed-mo=
-de DMA
---
+On Wed, Oct 21, 2026 at 01:44:12PM +0200, Alice Ryhl wrote:
+> On Wed, Oct 21, 2026 at 1:37=E2=80=AFPM Miguel Ojeda
+> <miguel.ojeda.sandonis@gmail.com> wrote:
+> >
+> > On Wed, Oct 21, 2026 at 7:54=E2=80=AFAM Alice Ryhl <aliceryhl@google.co=
+m> wrote:
+> > >
+> > > Miguel, is this something we can take through drm-rust-next? Or perha=
+ps
+> > > you want to take both through rust-next? Let me know what you prefer.
+> >
+> > Both sounds reasonable, so whatever it is easier -- do you think there
+> > will be lots of movement in the Tyr side?
+>=20
+> If we're able to land JobQueue soon, then yes, otherwise no. But I
+> think we've aligned on how to get it merged at LPC, so probably yes.
 
-commit 186c2e0ed128e4d62938b05418f963aa19e82266
-Author: Rob Herring (Arm) <robh@kernel.org>
+It sounds like Deborah does have other changes that depend on this that
+she'd like to land as well, so it'd be great if we could find a way to
+land both once the merge window is over.
 
-accel: ethosu: Split U65 and U85 DMA length validation
-
-This commit splits DMA length validation in the Ethos-U driver into separate
-functions for U65 and U85 to account for their different stride and skip
-models. It also updates the command stream validator to populate shared U65
-strides and sign-extended U85 strides for source and destination DMA.
-
-> diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/eth=
-osu_gem.c
-> index 117046e5a61f8..04c0de8336cd1 100644
-> --- a/drivers/accel/ethosu/ethosu_gem.c
-> +++ b/drivers/accel/ethosu/ethosu_gem.c
-> @@ -245,40 +245,97 @@ static bool dma_params_valid(struct ethosu_device *=
-edev, struct cmd_state *st,
->  	return true;
->  }
-> =20
-> -static u64 dma_length(struct ethosu_device *edev,
-> -		      struct ethosu_validated_cmdstream_info *info,
-> -		      struct cmd_state *st, struct dma_state *dma_st,
-> -		      struct dma *dma, u16 region_cmd, u16 addr_cmd)
-> +static u64 dma_length_finish(struct ethosu_validated_cmdstream_info *inf=
-o,
-> +			     const struct dma *dma, u64 len)
-> +{
-> +	if (dma->region >=3D 0) {
-> +		u64 end;
-> +
-> +		if (check_add_overflow(len, dma->offset, &end))
-> +			return U64_MAX;
-> +		info->region_size[dma->region] =3D
-> +			max(info->region_size[dma->region], end);
-> +	}
-> +
-> +	return len;
-> +}
-> +
-> +static u64 dma_length_u65(struct ethosu_validated_cmdstream_info *info,
-> +			  struct dma_state *dma_st,
-> +			  struct dma *dma)
->  {
->  	s8 mode =3D dma->mode;
->  	u64 len =3D dma->len;
-> +	u64 stride;
-> =20
-> -	if (!dma_params_valid(edev, st, dma_st, dma, region_cmd, addr_cmd))
-> -		return U64_MAX;
-> +	if (mode >=3D 1) {
-> +		if (check_mul_overflow(len, (u64)dma_st->size0, &len) ||
-> +		    check_mul_overflow((u64)dma->stride[0],
-> +				       (u64)dma_st->size0 - 1, &stride) ||
-> +		    check_add_overflow(len, stride, &len))
-> +			return U64_MAX;
-> +	}
-> +	if (mode =3D=3D 2) {
-> +		if (check_mul_overflow(len, (u64)dma_st->size1, &len) ||
-> +		    check_mul_overflow((u64)dma->stride[1],
-> +				       (u64)dma_st->size1 - 1, &stride) ||
-> +		    check_add_overflow(len, stride, &len))
-> +			return U64_MAX;
-> +	}
-> +
-> +	return dma_length_finish(info, dma, len);
-> +}
-> +
-> +static u64 dma_length_u85(struct ethosu_validated_cmdstream_info *info,
-> +			  struct dma_state *dma_st,
-> +			  struct dma *dma)
-> +{
-> +	s8 mode =3D dma->mode;
-> +	s64 min =3D 0;
-> +	u64 max =3D dma->len;
-> +	s64 stride;
-> =20
->  	if (mode >=3D 1) {
-> -		if (dma->stride[0] < 0 && (u64)(-dma->stride[0]) > len)
-> +		if (check_mul_overflow(dma->stride[0],
-> +				       (s64)dma_st->size0 - 1, &stride))
->  			return U64_MAX;
-> -		len +=3D dma->stride[0];
-> -		if (check_mul_overflow(len, (u64)dma_st->size0, &len))
-> +		if (stride < 0) {
-> +			if (check_add_overflow(min, stride, &min))
-> +				return U64_MAX;
-> +		} else if (check_add_overflow(max, (u64)stride, &max)) {
->  			return U64_MAX;
-> +		}
->  	}
->  	if (mode =3D=3D 2) {
-> -		if (dma->stride[1] < 0 && (u64)(-dma->stride[1]) > len)
-> +		if (check_mul_overflow(dma->stride[1],
-> +				       (s64)dma_st->size1 - 1, &stride))
->  			return U64_MAX;
-> -		len +=3D dma->stride[1];
-> -		if (check_mul_overflow(len, (u64)dma_st->size1, &len))
-> +		if (stride < 0) {
-> +			if (check_add_overflow(min, stride, &min))
-> +				return U64_MAX;
-> +		} else if (check_add_overflow(max, (u64)stride, &max)) {
->  			return U64_MAX;
-> +		}
->  	}
-> -	if (dma->region >=3D 0) {
-> -		u64 end;
-> =20
-> -		if (check_add_overflow(len, dma->offset, &end))
-> -			return U64_MAX;
-> -		info->region_size[dma->region] =3D max(info->region_size[dma->region],=
- end);
-> -	}
-> +	if (min < 0 && -(u64)min > dma->offset)
-> +		return U64_MAX;
-> =20
-> -	return len;
-> +	return dma_length_finish(info, dma, max);
-> +}
-
-[Severity: High]
-When ethosu_gem_cmdstream_copy_and_validate() handles NPU_OP_DMA_START in
-drivers/accel/ethosu/ethosu_gem.c, it validates the source and destination
-endpoints independently via dma_length():
-
-		case NPU_OP_DMA_START:
-			srclen =3D dma_length(edev, info, &st, &st.dma, &st.dma.src,
-					    NPU_SET_DMA0_SRC_REGION, NPU_SET_DMA0_SRC);
-			dstlen =3D dma_length(edev, info, &st, &st.dma, &st.dma.dst,
-					    NPU_SET_DMA0_DST_REGION, NPU_SET_DMA0_DST);
-
-What happens when a DMA operation uses mixed modes between source and
-destination, such as copying between a 1D contiguous buffer (mode =3D=3D 0)=
- and
-a 2D or 3D strided buffer (mode =3D=3D 1 or 2)?
-
-On U65 in particular, NPU_SET_DMA0_SRC_STRIDE0 and NPU_SET_DMA0_SRC_STRIDE1
-are shared between source and destination, so copying between a contiguous
-buffer and a strided buffer requires one side to use mode =3D=3D 0 while the
-other uses mode =3D=3D 1 or 2.
-
-Both dma_length_u65() and dma_length_u85() only inspect dma->mode of the
-endpoint currently being evaluated. When dma->mode =3D=3D 0 while the other
-endpoint has mode >=3D 1, the 1D endpoint's length is left as dma->len (a
-single 1D transfer) rather than being scaled by dma_st->size0 (and
-dma_st->size1 for 3D) to cover all transfers performed by the DMA engine.
-
-Could this under-compute info->region_size[dma->region] in
-dma_length_finish() for the 1D endpoint and allow out-of-bounds DMA reads or
-writes past the end of the backing GEM buffer object?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-ethosu-fix=
-es-v4-0-4aa25e22578e@kernel.org?part=3D26
+Alice
