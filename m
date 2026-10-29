@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE693606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A5E606A31C
 	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:35:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+M3hRU+
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/viTYv4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4CB210FFD0;
-	Thu, 29 Oct 2026 07:35:11 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CA0110FFD0
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:34:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A13810FFE1;
+	Thu, 29 Oct 2026 07:35:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B88710FFD0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:34:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6251543238;
- Thu, 29 Oct 2026 07:34:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C01081F01825;
- Thu, 29 Oct 2026 07:34:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C348360232;
+ Thu, 29 Oct 2026 07:34:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33AB1F01825;
+ Thu, 29 Oct 2026 07:34:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793259289;
- bh=EQI04VHpvv1WklkT5I2KF8b9QZzeTGSdFkez0v/w4oQ=;
+ s=k20260515; t=1793259296;
+ bh=OHTieHW2qhmJqkKAoM9GjqHbm6KoGrhXfOxczKiB1qc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=k+M3hRU+GmVLFJh/tRbH+O1VCQ8Npw6lUyjuRViDUO0UBWVQK91qvPvx4yOXqXvWj
- eKcoRkQXuzed6aMG5uFYzLekYC9TugPjLBbfnBv/YjwdyhhgdDrF0DwN2uBVV2UMU4
- iLuDRjNNFOGZ8yGFx5mH0yeea8Emrk7MM2ALsOrYL9pwtk/a18FpAdl7qHaUPzPv1J
- q/Ojqra8VxW6MCmonCy+G99FszumEeXmkBHes59bRgbEWFAXj/p9X0et6s3UIQZ4wA
- pVluJzED5D5mbn54MXSoUR7VTOOSAqX73tHQDbBM459cVv4TfmncCr08uTgsNXV5uI
- Vham7SoPTeDXg==
+ b=j/viTYv4oKLEXlOD61oWYB+Uqm+mdaJ6I4IGr3z0oz3Q2x0Yj0UNmD9OLPohlp5e/
+ HwEylZT/VK/LvE/gO7qN0ojjIZj456uu6ZnPmXZWL5Gu75wAhviiPAflQur3tcY4Vj
+ IsGlfRMrmkaJpGyJ5xFIpY9oUjVQuSY+XwNg8o3USQ8UX5pDuLDUnn1DShik9SiFpN
+ WxUxmvp6xCBtcVeH94Fa7dTLcA4UG/1HSXNrwDjdJAuOL2jN9IZK71YDQtNxLu56VV
+ xlT2/4NAuFBzy5jFF0Jx6vaSR9FjFB0wdFebLQld57QoMvQyEumXe2JDVxSpojBM1o
+ Z/5UyjJb/5T3A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 29 Oct 2026 08:33:57 +0100
-Subject: [PATCH v7 07/34] drm/bridge: Add drm_private_obj_is_bridge()
+Date: Thu, 29 Oct 2026 08:33:59 +0100
+Subject: [PATCH v7 09/34] drm/atomic: Export drm_atomic_*_print_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-drm-state-readout-v7-7-25e5163d75c3@kernel.org>
+Message-Id: <20261029-drm-state-readout-v7-9-25e5163d75c3@kernel.org>
 References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 In-Reply-To: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +48,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1785; i=mripard@kernel.org;
- h=from:subject:message-id; bh=RFO+tz+7yA7sDGQkmLk5CVUL2tZj94/guFNMVT9se9s=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvr03n1OtbifIkzg7jkP9QlrqPKVjbIafs/8wcXhJr
- rLZ9n9Wx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhI5A/Ghmnt1WoR5i94Dz5y
- 3rzq5uoJz5M+Bb3cvGtqYWTGicsPKhSKRf7eafbVPto1kbMkOs92K2OtlMEp/qz/WlazwwV+zVk
- isoY7P7pM5XlYz4e0zleTNRXTTa8c/Mq57evBdNa3nzZP1wsDAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3545; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=n8Z9B/nELFbnUNzbNrUE3jRJDONbahVmbf1UlU1Ip6M=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvn2ovZMfIZXmKlbj9rLMJH6D9YVybw3zGRvbV5c7c
+ wd2TZrXMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZy+RdjreQBaf7p93/WcX9W
+ M9tt+TKY4eGx6vQQhc+uKQXSjz7v7K+3bzt2jsm2fp3fpH2d6ve6GetduraqNf/b8iVdITDk5CL
+ DtbWcb1fq5zWuO2XT6su5PHS7+KUrC1oZmwV8Q2KYdX4tPg8A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,55 +74,93 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The SRO readout helpers need to distinguish bridge-backed private
-objects from other private objects, because bridges require special
-readout ordering through the encoder bridge chains.
+The drm_atomic_plane_print_state(), drm_atomic_crtc_print_state(),
+drm_atomic_connector_print_state(), and
+drm_atomic_private_obj_print_state() functions are currently static.
 
-Add drm_private_obj_is_bridge() which checks whether a private
-object's funcs pointer matches the bridge private state funcs.
+The SRO infrastructure needs to call them from
+drm_atomic_state_readout.c to print the readout state for debugging
+purposes. Make them available by dropping the static qualifier and
+declaring them in drm_internal.h.
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_bridge.c | 15 +++++++++++++++
- include/drm/drm_bridge.h     |  2 ++
- 2 files changed, 17 insertions(+)
+ drivers/gpu/drm/drm_atomic.c   | 16 ++++++++--------
+ drivers/gpu/drm/drm_internal.h | 13 +++++++++++++
+ 2 files changed, 21 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index e237366199a7..b2d77824e4be 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -589,4 +589,19 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
- };
- 
-+/**
-+ * drm_private_obj_is_bridge - check if a private object backs a bridge
-+ * @obj: private object to check
-+ *
-+ * RETURNS:
-+ *
-+ * True if @obj is the &drm_private_obj embedded in a &struct drm_bridge,
-+ * false otherwise.
-+ */
-+bool drm_private_obj_is_bridge(struct drm_private_obj *obj)
-+{
-+	return obj && obj->funcs == &drm_bridge_priv_state_funcs;
-+}
-+EXPORT_SYMBOL(drm_private_obj_is_bridge);
-+
- /**
-  * drm_bridge_attach - attach the bridge to an encoder's chain
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 54cf0d223bba..a22a0bdf3251 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1235,4 +1235,6 @@ drm_priv_to_bridge(struct drm_private_obj *priv)
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 039be737fd07..895b958c2901 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -548,6 +548,6 @@ static int drm_atomic_crtc_check(const struct drm_crtc_state *old_crtc_state,
  }
  
-+bool drm_private_obj_is_bridge(struct drm_private_obj *obj);
-+
- bool drm_bridge_enter(struct drm_bridge *bridge, int *idx);
- void drm_bridge_exit(int idx);
+-static void drm_atomic_crtc_print_state(struct drm_printer *p,
+-		const struct drm_crtc_state *state)
++void drm_atomic_crtc_print_state(struct drm_printer *p,
++				 const struct drm_crtc_state *state)
+ {
+ 	struct drm_crtc *crtc = state->crtc;
+@@ -947,6 +947,6 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+ }
+ 
+-static void drm_atomic_plane_print_state(struct drm_printer *p,
+-		const struct drm_plane_state *state)
++void drm_atomic_plane_print_state(struct drm_printer *p,
++				  const struct drm_plane_state *state)
+ {
+ 	struct drm_plane *plane = state->plane;
+@@ -1473,6 +1473,6 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+ EXPORT_SYMBOL(drm_atomic_get_connector_state);
+ 
+-static void drm_atomic_connector_print_state(struct drm_printer *p,
+-		const struct drm_connector_state *state)
++void drm_atomic_connector_print_state(struct drm_printer *p,
++				      const struct drm_connector_state *state)
+ {
+ 	struct drm_connector *connector = state->connector;
+@@ -2119,6 +2119,6 @@ int __drm_atomic_helper_set_config(struct drm_mode_set *set,
+ EXPORT_SYMBOL(__drm_atomic_helper_set_config);
+ 
+-static void drm_atomic_private_obj_print_state(struct drm_printer *p,
+-					       const struct drm_private_state *state)
++void drm_atomic_private_obj_print_state(struct drm_printer *p,
++					const struct drm_private_state *state)
+ {
+ 	struct drm_private_obj *obj = state->obj;
+diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
+index f893b1e3a596..815486557f51 100644
+--- a/drivers/gpu/drm/drm_internal.h
++++ b/drivers/gpu/drm/drm_internal.h
+@@ -40,13 +40,26 @@ struct dma_buf;
+ struct iosys_map;
+ struct drm_connector;
++struct drm_connector_state;
+ struct drm_crtc;
++struct drm_crtc_state;
+ struct drm_framebuffer;
+ struct drm_gem_object;
+ struct drm_master;
+ struct drm_minor;
++struct drm_plane_state;
+ struct drm_prime_file_private;
+ struct drm_printer;
++struct drm_private_state;
+ struct drm_vblank_crtc;
+ 
++/* drm_atomic.c */
++void drm_atomic_plane_print_state(struct drm_printer *p,
++				  const struct drm_plane_state *state);
++void drm_atomic_crtc_print_state(struct drm_printer *p,
++				 const struct drm_crtc_state *state);
++void drm_atomic_connector_print_state(struct drm_printer *p,
++				      const struct drm_connector_state *state);
++void drm_atomic_private_obj_print_state(struct drm_printer *p,
++					const struct drm_private_state *state);
+ /* drm_client_event.c */
+ #if defined(CONFIG_DRM_CLIENT)
 
 -- 
 2.55.0
