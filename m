@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19D160A2619
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:37:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738B160A3830
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:37:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SpPOYmaR
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lUJYcFEE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 782A71122EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B00301122EE;
 	Thu, 29 Oct 2026 13:37:01 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C929088BE3
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41B3F1122D6
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4DE7A605C8;
- Thu, 29 Oct 2026 13:36:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22261F01825;
- Thu, 29 Oct 2026 13:36:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B9409605C5;
+ Thu, 29 Oct 2026 13:36:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346751F01825;
+ Thu, 29 Oct 2026 13:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793281009;
- bh=b3OI7HIMTivy4Hm7qCSnXSUHSju2/Cp8Y4ZNFOoePyg=;
+ s=k20260515; t=1793280992;
+ bh=A1P82utl4Io0xsJbtO1DOGIXdrEc/LiH8oRZ1H4OV5o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=SpPOYmaRLfWyAuWl6w+dntYdw69RI1AtSYkhyMb9boGo9ncaOwKY00YNQEODKll5e
- HSv0o8ZTeYd5mmm1FK2MUUmpQtvV64Aj7ql23qe6iXcWak7DrSQRclGSVUMnpzNlWX
- YWVP7gJCG8CINiaz4rZs4k5uH9yLKMejs2aZRNyFcdjTl+g27AJ7DKRlOC6/lISBXN
- gp5wehMjvS6y8cO6syVJ9Mc9vfoTPpA8nOkBFZldKClkS3z6iMdi2armxTmWh7gBom
- jmwNq5sNO/J/ZuJ87dCaMZyAyVK7NWFm26961HvHo7jlRy7eY+gm4jrs017Z5J/tkK
- ARgk4vdRQsovQ==
+ b=lUJYcFEEsv4wWW+ZS18Lzdk8jR1BdOYu9JzYXW//+I0HEwD8g/LcLdGbWK50iyVEK
+ yuFxHD/06AlgEnqC43Pk1JV4WhxJEnn2sekTfE4mBkgcxhgHbBgrXeMphY3Uuxb8EE
+ yyRNnfCDBZJauNC/9nYC4NKFypMbk9OTH2akB1Uux3wvcWTdYflqttPrBvCnUJFw0S
+ 2gdzoZrVLN8lxo/no7MU1FJVgHNzqkCNapRI1SigcAYyZD5w5PoVknBBR1+u6/qTXv
+ /lhLjS6HRdjTb207UYYraaDxzcrrlyG5B+lWfpjQO9mOuMvk2rScfJTepDgGJNozC5
+ 74z6uAIJ+hdlA==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:36:10 -0500
-Subject: [PATCH v4 23/31] accel: ethosu: Account for kernel dilation in IFM
- size
+Date: Thu, 29 Oct 2026 08:35:59 -0500
+Subject: [PATCH v4 12/31] accel: ethosu: Validate timeout command offset
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-23-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-12-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -61,60 +60,52 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Kernel dilation increases the input feature-map area accessed by a
-kernel operation. Include the x and y dilation settings when
-calculating the required IFM bounds.
-
-Without this, a command stream using x2 dilation can access IFM
-memory past the range validated by the driver.
+QREAD is supplied by the NPU. Check that its command-stream offset is
+word aligned and within the validated command stream before using it to
+index the command buffer in the timeout diagnostic.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-v2:
- - new patch
+v4:
+ - New patch
 ---
- drivers/accel/ethosu/ethosu_device.h |  2 ++
- drivers/accel/ethosu/ethosu_gem.c    | 10 ++++++++--
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ drivers/accel/ethosu/ethosu_job.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index 61dec8ec23ea..80cba318f773 100644
---- a/drivers/accel/ethosu/ethosu_device.h
-+++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -90,6 +90,8 @@ struct gen_pool;
+diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+index 3976115902e8..77218bb17006 100644
+--- a/drivers/accel/ethosu/ethosu_job.c
++++ b/drivers/accel/ethosu/ethosu_job.c
+@@ -345,6 +345,8 @@ static enum drm_gpu_sched_stat ethosu_job_timedout(struct drm_sched_job *bad)
+ {
+ 	struct ethosu_job *job = to_ethosu_job(bad);
+ 	struct ethosu_device *dev = job->dev;
++	struct ethosu_validated_cmdstream_info *cmd_info =
++		to_ethosu_bo(job->cmd_bo)->info;
+ 	bool running;
+ 	int ret;
+ 	u32 *bocmds = to_drm_gem_dma_obj(job->cmd_bo)->vaddr;
+@@ -367,9 +369,15 @@ static enum drm_gpu_sched_stat ethosu_job_timedout(struct drm_sched_job *bad)
+ 			return DRM_GPU_SCHED_STAT_NO_HANG;
+ 	}
  
- #define NPU_DMA_REGION_INDEX_MODE	BIT(11)
- #define NPU_OP_CONV_WEIGHTS_IFM2	BIT(0)
-+#define NPU_KERNEL_DILATION_X		BIT(3)
-+#define NPU_KERNEL_DILATION_Y		BIT(4)
+-	dev_err(dev->base.dev, "NPU sched timed out: NPU %s, cmdstream offset 0x%x: 0x%x\n",
+-		running ? "running" : "stopped",
+-		cmdaddr, bocmds[cmdaddr / 4]);
++	if (!(cmdaddr & 3) && cmdaddr < cmd_info->cmd_size)
++		dev_err(dev->base.dev,
++			"NPU sched timed out: NPU %s, cmdstream offset 0x%x: 0x%x\n",
++			running ? "running" : "stopped", cmdaddr,
++			bocmds[cmdaddr / 4]);
++	else
++		dev_err(dev->base.dev,
++			"NPU sched timed out: NPU %s, invalid cmdstream offset 0x%x\n",
++			running ? "running" : "stopped", cmdaddr);
  
- #define NPU_CMD_CTRL_CMD1		BIT(14)
+ 	drm_sched_stop(&dev->sched, bad);
  
-diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 143021a3f9ed..15a4cab1b286 100644
---- a/drivers/accel/ethosu/ethosu_gem.c
-+++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -579,10 +579,16 @@ static int calc_sizes(struct drm_device *ddev,
- 			((st->ifm.stride_kernel >> 1) & 0x1) + 1;
- 		u32 stride_x = ((st->ifm.stride_kernel >> 5) & 0x2) +
- 			(st->ifm.stride_kernel & 0x1) + 1;
-+		u32 dilation_y = 1 + !!(st->ifm.stride_kernel &
-+					 NPU_KERNEL_DILATION_Y);
-+		u32 dilation_x = 1 + !!(st->ifm.stride_kernel &
-+					 NPU_KERNEL_DILATION_X);
- 		s32 ifm_height = st->ofm.height[2] * stride_y +
--			st->ifm.height[2] - (st->ifm.pad_top + st->ifm.pad_bottom);
-+			st->ifm.height[2] * dilation_y -
-+			(st->ifm.pad_top + st->ifm.pad_bottom);
- 		s32 ifm_width = st->ofm.width * stride_x +
--			st->ifm.width - (st->ifm.pad_left + st->ifm.pad_right);
-+			st->ifm.width * dilation_x -
-+			(st->ifm.pad_left + st->ifm.pad_right);
- 
- 		if (ifm_height < 0 || ifm_width < 0)
- 			return -EINVAL;
 
 -- 
 2.53.0
