@@ -2,45 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C45606A320
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:50:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B96606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:50:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ywY/1UxZ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBETD4Fy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB97910FFF7;
-	Thu, 29 Oct 2026 07:50:28 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2016210FFF7
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:50:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C37110FFF8;
+	Thu, 29 Oct 2026 07:50:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD4E10FFF8
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:50:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A92AC42D7C;
- Thu, 29 Oct 2026 07:50:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF45D1F031E0;
- Thu, 29 Oct 2026 07:50:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1793260222;
- bh=MV4ytUjkkUv8kGNfsO80EzlV4FKpsKt0v9OLD73l06w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ywY/1UxZ1aWD7wkfTUYfqOTPn8ouDyPikF8GbfMYtO+iZa4EBkkSuCL0cloborX4K
- 3JpIZWobFGX4dj00UT2r3F0vxt8sKDoV+vna4CgcwrlZRqNDiaXJbmcwEy+z8opHg+
- +zBa5GogV/n3GfSi/eYUagc1VDZss2ZMYD+39TZs=
-Date: Thu, 29 Oct 2026 08:50:19 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: =?utf-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
-Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- security@kernel.org
-Subject: Re: 0001-drm-vmwgfx-unpin-BOs-without-revalidating-placement
-Message-ID: <2026102910-prodigal-fraternal-0b7b@gregkh>
-References: <AKoAagBcLENWUVxRNA4*KqoJ.1.1793259618800.Hmail.242270054@hdu.edu.cn>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+ by tor.source.kernel.org (Postfix) with ESMTP id 6CD51600DA
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:50:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E6E1F01829;
+ Thu, 29 Oct 2026 07:50:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793260226;
+ bh=E4FDX7VxlTFVCyRAf7ekRC0yXvZ7SqTZ3zGnuH4z2So=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VBETD4FyGoshcz8gYjbai2fuJT+yguhwnYi3ZDUcizdZYvFl/yftR/K7/180GA4yt
+ TqrHlsti0w+uE6AExZTTXsfwnx9ADf6hPr350F+VN6e0Iy99eM4plAVfiwJ+0DNl0P
+ 7Gr0vJ+Czrn5Hkh0mJApG1URpwQRLsbtmOxsy9CeymEfVtqg4BS3uC+yFR1YnctCjX
+ 5odvWaIJ9hYlUVo+QzUVRMqyMCHEuKmg0NFLVBscxMc2yiQ6m59YFIFDDAlX9eglOr
+ DBVW1QHc/MIsS2CTESCyQDaglGPsi0qGJsMhhXRYvwyD/2wn6FF7AoWjnmlaOw4qc2
+ AOt/fjmxPtVLQ==
+Message-ID: <sashiko-outbox-188905@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 10/34] drm/atomic_sro: Create drm_atomic_sro_state
+ container
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261029-drm-state-readout-v7-10-25e5163d75c3@kernel.org>
+References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
+ <20261029-drm-state-readout-v7-10-25e5163d75c3@kernel.org>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <AKoAagBcLENWUVxRNA4*KqoJ.1.1793259618800.Hmail.242270054@hdu.edu.cn>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 07:50:25 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,26 +49,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Oct 29, 2026 at 03:40:18PM +0800, 潘煜杭 wrote:
-> Hello,
-> 
-> Thank you for the review and for pointing out the kernel-version,
-> patch-format, and maintainer-CC issues.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/atomic_sro: missing EXPORT_SYMBOL() on drm_atomic_sro_state_get=
+_device()
+--
 
-All of this was rejected by the public lists due to html in your message
-:(
+commit 272e19a2c59ccd440923a43421c7657b21dcc87e
+Author: Maxime Ripard <mripard@kernel.org>
 
-Please just send a normal patch, as documented, and it can be handled
-that way.  And as it's public, no need to get security@k.o involved.
+drm/atomic_sro: Create drm_atomic_sro_state container
 
-thanks,
+This commit introduces the struct drm_atomic_sro_state container to hold
+hardware readout states for planes, CRTCs, connectors, and private objects,
+along with helper functions to allocate, free, print, and access those
+states.
 
-greg k-h
+> diff --git a/drivers/gpu/drm/drm_atomic_state_readout.c b/drivers/gpu/drm=
+/drm_atomic_state_readout.c
+> new file mode 100644
+> index 0000000000000..2f8df00e993eb
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_atomic_state_readout.c
+> @@ -0,0 +1,475 @@
+
+[ ... ]
+
+> +/**
+> + * drm_atomic_sro_state_get_device - get the DRM device from an SRO state
+> + * @state: SRO state
+> + *
+> + * RETURNS:
+> + *
+> + * The &struct drm_device associated with the SRO state.
+> + */
+> +struct drm_device *
+> +drm_atomic_sro_state_get_device(struct drm_atomic_sro_state *state)
+> +{
+> +	return state->dev;
+> +}
+
+[Severity: Low]
+Should drm_atomic_sro_state_get_device() have an EXPORT_SYMBOL() here?
+
+struct drm_atomic_sro_state is an opaque structure defined privately in
+drivers/gpu/drm/drm_atomic_state_readout.c, and
+drm_atomic_sro_state_get_device() is declared in
+include/drm/drm_atomic_state_readout.h alongside the other public SRO state
+helpers. Unlike all of the other public functions in this file, it is not
+exported with EXPORT_SYMBOL(drm_atomic_sro_state_get_device).
+
+When a loadable module calls drm_atomic_sro_state_get_device(), such as the
+KUnit test in drivers/gpu/drm/tests/drm_atomic_state_readout_test.c when
+built with CONFIG_DRM_KUNIT_TEST=3Dm, will this cause a modpost undefined
+symbol failure?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-drm-state-=
+readout-v7-0-25e5163d75c3@kernel.org?part=3D10
