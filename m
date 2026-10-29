@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8200F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26D6606A31D
 	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:36:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jKCdPKv/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XKYcqwjZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8437710FFEB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDFA10FFEC;
 	Thu, 29 Oct 2026 07:36:20 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F002710FFEA
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:35:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE4D10FFEA
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:36:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 72B8D601F8;
- Thu, 29 Oct 2026 07:35:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB8A1F01828;
- Thu, 29 Oct 2026 07:35:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 13A5043045;
+ Thu, 29 Oct 2026 07:36:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728B61F01829;
+ Thu, 29 Oct 2026 07:36:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793259351;
- bh=W+UAE7RdU+t/tHW41gYppHRJjBKptcX7uZukmzhRmso=;
+ s=k20260515; t=1793259366;
+ bh=qhodRcwr03IcJnTYvWyyhcA6qXvQ2FylU8JYWOrbkCw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jKCdPKv/1k9h0OZvIcXccOG7+G0J0BbhrlS0DGrex9At62ZF/V2eeF60NIw+YCaYt
- jN9Ajrc3Y6syC0i0tmKFjNdEUeMYsbiJGXgdy26f7/EvwCDMl35T0nztIkcdqDHGke
- 9jf2BG8wa2wilr7RYntQ683vHTzlYKwrjjclQXOqTYlsh7MDlisnAVoVuYy0/esbfg
- 9EwjeQnGGvtAUMOxhZtIvkdYeI9okcu+1l6SXuOghv20yWURIQgs2oCjr3A9ywW9VW
- bU94ouSpIF9LOIOrbfOT3WzNlY64GmfNsr1GGpfC++RmPWUMhaIX0sry/Xj9+6h+xv
- FxZI486wCZwbQ==
+ b=XKYcqwjZ2WSKQ2fcdSq71PvC6htYZqjbVbRD16Sqfahwfl9F0fdMGJ6clD3NmkVF/
+ bownw5kfARi8lAdXhQhqe1U34PfyZ1v2il39+y1mR+eXOCCeBpMRnbcqkCKtiN2121
+ bYXQtci55Teo12PIaVTCKemK1G9bns11i6KZDO397ywyeQfka6rHKlXswAIe4v8165
+ pm8W7rr18xkVuRFwuUQNXnLysivaxIRAsfdWVrGC6YR/BnmtJ2ZVWp2wvoIlqyfhGP
+ 8C9MD7l4oama95NAXxFHcuK1zsejXK+H80DhcAa/1y+jszY6IPDzYJUGbcGBato+Qy
+ ilsoYhp3tgLEw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 29 Oct 2026 08:34:14 +0100
-Subject: [PATCH v7 24/34] drm/tests: kunit: Add a drm_printer helper
+Date: Thu, 29 Oct 2026 08:34:18 +0100
+Subject: [PATCH v7 28/34] drm/bridge_connector: Implement hw readout for
+ connector
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-drm-state-readout-v7-24-25e5163d75c3@kernel.org>
+Message-Id: <20261029-drm-state-readout-v7-28-25e5163d75c3@kernel.org>
 References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 In-Reply-To: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4110; i=mripard@kernel.org;
- h=from:subject:message-id; bh=UEdv2Z7oOyBWLKYjPFI8KnnKpNmLp7B7LI1tiXF/sUY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvn2fJt12Ys7i59PuvJyY/LDAJ0FR3FqXq6V5cW/vv
- an3E3Rfd0xlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJyP9jbPj8xyOCxzrRJC3c
- 71vTpZ4EOw6TqIytPQfXqR16dNy1g+tw9+xZhc5XnKJDo7c/v3L1O2N9zSbuKQvltL7a7qpXOL/
- obF+S8S255ds0c0MlZk7qYTBW1JkWneEW82I2S+rTNTZnGhsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5226; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=cNeKbhov1oxldqV0LfiYzvOiTPkzKiV4hwTuG53jiH0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvv28eb82w63mi93jd5PceAua09ZKrFr8Sqa9e7Vb1
+ vSutQ8OdUxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJ8HIyNnR7ZK7ic5n149/W
+ 71tnnlJbyXz3zaETj7kVZlY2fT+nX7nmseYC18U+YtunKXsECKZFWzE2LF6c6t4eO+O6Vn5MJsO
+ fHKF6a4ZLGrfy5fxXXLR5G5B8WOrxRSERNR6m0hcNO9nnBUYCAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,131 +75,141 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some DRM helpers report the state of an object through a drm_printer,
-most notably to report which fields of two states differ when comparing
-them.
+drm_bridge_connector allows to create a generic connector from a list of
+bridges.
 
-Tests exercising such code paths need to pass a drm_printer as well, and
-would rather have its output show up in the KTAP log of the test than
-anywhere else, so that a failure comes with the report that caused it.
+However, it's a somewhat virtual connector, and relies on the bridges to
+implement its various capabilities.
 
-Add drm_kunit_helper_printer() that returns a drm_printer whose messages
-are logged through kunit_log() at the LOGLEVEL_* level requested by the
-caller.
+What we actually want though is for the last bridge implementing
+hardware readout to fill the connector state from its own state.
 
+Thus, implement a new op for bridge_connector to allow just
+that.
+
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tests/drm_kunit_helpers.c | 78 +++++++++++++++++++++++++++++++
- include/drm/drm_kunit_helpers.h           |  4 ++
- 2 files changed, 82 insertions(+)
+ drivers/gpu/drm/display/drm_bridge_connector.c | 36 ++++++++++++++++++++++++++
+ include/drm/drm_bridge.h                       | 32 +++++++++++++++++++++++
+ 2 files changed, 68 insertions(+)
 
-diff --git a/drivers/gpu/drm/tests/drm_kunit_helpers.c b/drivers/gpu/drm/tests/drm_kunit_helpers.c
-index 63d024946500..fad911772ee5 100644
---- a/drivers/gpu/drm/tests/drm_kunit_helpers.c
-+++ b/drivers/gpu/drm/tests/drm_kunit_helpers.c
-@@ -9,4 +9,5 @@
- #include <drm/drm_kunit_helpers.h>
- #include <drm/drm_managed.h>
-+#include <drm/drm_print.h>
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 2202e6044444..13a0faa115e0 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -12,4 +12,5 @@
  
- #include <kunit/device.h>
-@@ -19,4 +20,81 @@
- #define KUNIT_DEVICE_NAME	"drm-kunit-mock-device"
+ #include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_atomic_state_readout_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
+@@ -68,4 +69,12 @@ struct drm_bridge_connector {
+ 	 */
+ 	struct drm_encoder *encoder;
++	/**
++	 * @bridge_connector_hw_readout:
++	 *
++	 * The last bridge in the chain (closest to the connector) that
++	 * provides hardware state readout support, if any (see
++	 * &DRM_BRIDGE_OP_CONNECTOR_HW_READOUT).
++	 */
++	struct drm_bridge *bridge_connector_hw_readout;
+ 	/**
+ 	 * @bridge_edid:
+@@ -245,4 +254,24 @@ drm_bridge_connector_create_state(struct drm_connector *connector)
+ }
  
-+struct drm_printer_ctx {
-+	struct drm_printer	p;
-+	int			level;
-+	struct kunit		*test;
-+};
-+
-+/*
-+ * kunit_log() is a macro that only accepts a compile-time log level,
-+ * so the level has to be dispatched to the matching kunit_log() call.
-+ */
-+static void drm_kunit_printf(struct drm_printer *p, struct va_format *vaf)
++static int
++drm_bridge_connector_readout_state(struct drm_connector *connector,
++				   struct drm_atomic_sro_state *state,
++				   struct drm_connector_state *conn_state)
 +{
-+	struct drm_printer_ctx *ctx = p->arg;
++	struct drm_bridge_connector *bridge_connector =
++		to_drm_bridge_connector(connector);
++	struct drm_bridge *readout =
++		bridge_connector->bridge_connector_hw_readout;
++	int ret;
 +
-+	switch (ctx->level) {
-+	case LOGLEVEL_EMERG:
-+		kunit_log(KERN_EMERG, ctx->test, "%pV", vaf);
-+		break;
-+	case LOGLEVEL_ALERT:
-+		kunit_log(KERN_ALERT, ctx->test, "%pV", vaf);
-+		break;
-+	case LOGLEVEL_CRIT:
-+		kunit_log(KERN_CRIT, ctx->test, "%pV", vaf);
-+		break;
-+	case LOGLEVEL_ERR:
-+		kunit_log(KERN_ERR, ctx->test, "%pV", vaf);
-+		break;
-+	case LOGLEVEL_WARNING:
-+		kunit_log(KERN_WARNING, ctx->test, "%pV", vaf);
-+		break;
-+	case LOGLEVEL_NOTICE:
-+		kunit_log(KERN_NOTICE, ctx->test, "%pV", vaf);
-+		break;
-+	case LOGLEVEL_DEBUG:
-+		kunit_log(KERN_DEBUG, ctx->test, "%pV", vaf);
-+		break;
-+	case LOGLEVEL_INFO:
-+	default:
-+		kunit_log(KERN_INFO, ctx->test, "%pV", vaf);
-+		break;
++	if (readout) {
++		ret = readout->funcs->atomic_sro_connector_readout(readout, state, conn_state);
++		if (ret)
++			return ret;
 +	}
++
++	return 0;
 +}
 +
-+/**
-+ * drm_kunit_helper_printer - Creates a &drm_printer logging into a KUnit test log
-+ * @test: The test context object
-+ * @level: The log level to log the messages at, one of the KERN_* constants
-+ *
-+ * Creates a &struct drm_printer that will log anything printed through
-+ * it, using kunit_log(), both to the kernel log at the @level log
-+ * level and to the log of the KUnit test @test.
-+ *
-+ * This is the KUnit counterpart of the drm_print.h printers like
-+ * drm_info_printer() or drm_err_printer(), and @level should be the
-+ * log level of the printer it replaces.
-+ *
-+ * Returns:
-+ * A pointer to the &drm_printer, or an ERR_PTR() otherwise.
-+ */
-+struct drm_printer *
-+drm_kunit_helper_printer(struct kunit *test, int level)
-+{
-+	struct drm_printer_ctx *ctx;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return ERR_PTR(-ENOMEM);
-+
-+	ctx->level = level;
-+	ctx->p.printfn = drm_kunit_printf;
-+	ctx->p.arg = ctx;
-+	ctx->test = test;
-+
-+	return &ctx->p;
-+}
-+EXPORT_SYMBOL_GPL(drm_kunit_helper_printer);
-+
- static const struct drm_mode_config_funcs drm_mode_config_funcs = {
- 	.atomic_check	= drm_atomic_helper_check,
-diff --git a/include/drm/drm_kunit_helpers.h b/include/drm/drm_kunit_helpers.h
-index e653bc7b1e40..d38614d87678 100644
---- a/include/drm/drm_kunit_helpers.h
-+++ b/include/drm/drm_kunit_helpers.h
-@@ -16,6 +16,10 @@ struct drm_device;
- struct drm_plane_funcs;
- struct drm_plane_helper_funcs;
-+struct drm_printer;
- struct kunit;
+ static enum drm_connector_color_format
+ drm_bridge_connector_color_format(const struct drm_connector_state *conn_state)
+@@ -271,4 +300,6 @@ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+ 	.atomic_create_state = drm_bridge_connector_create_state,
++	.atomic_sro_readout_state = drm_bridge_connector_readout_state,
++	.atomic_sro_compare_state = drm_atomic_helper_connector_compare_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+@@ -828,4 +859,5 @@ static void drm_bridge_connector_put_bridges(struct drm_device *dev, void *data)
+ 	struct drm_bridge_connector *bridge_connector = (struct drm_bridge_connector *)data;
  
-+struct drm_printer *drm_kunit_helper_printer(struct kunit *test,
-+					     int level);
++	drm_bridge_put(bridge_connector->bridge_connector_hw_readout);
+ 	drm_bridge_put(bridge_connector->bridge_edid);
+ 	drm_bridge_put(bridge_connector->bridge_hpd);
+@@ -897,4 +929,8 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 			connector->ycbcr_420_allowed = false;
+ 
++		if (bridge->ops & DRM_BRIDGE_OP_CONNECTOR_HW_READOUT) {
++			drm_bridge_put(bridge_connector->bridge_connector_hw_readout);
++			bridge_connector->bridge_connector_hw_readout = drm_bridge_get(bridge);
++		}
+ 		/*
+ 		 * Ensure the last bridge declares OP_EDID or OP_MODES or both.
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 436dfffb25ad..b73f3424ed62 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -943,4 +943,29 @@ struct drm_bridge_funcs {
+ 				    bool enable, int direction);
+ 
++	/**
++	 * @atomic_sro_connector_readout:
++	 *
++	 * This optional hook initializes the &struct drm_connector_state
++	 * based on hardware state.
++	 *
++	 * It is implemented by bridges that set the
++	 * %DRM_BRIDGE_OP_CONNECTOR_HW_READOUT flag in their
++	 * &drm_bridge.ops. When using drm_bridge_connector, the last
++	 * bridge in the chain with this flag set will have its hook
++	 * called to fill the connector state.
++	 *
++	 * Drivers are expected to return a negative error code if the
++	 * hardware was programmed with a configuration they don't
++	 * support. The framework will then abort the readout and fall
++	 * back to the regular initialization path.
++	 *
++	 * RETURNS:
++	 *
++	 * 0 on success, a negative error code otherwise.
++	 */
++	int (*atomic_sro_connector_readout)(struct drm_bridge *bridge,
++					    struct drm_atomic_sro_state *state,
++					    struct drm_connector_state *conn_state);
 +
- struct device *drm_kunit_helper_alloc_device(struct kunit *test);
- void drm_kunit_helper_free_device(struct kunit *test, struct device *dev);
+ 	/**
+ 	 * @debugfs_init:
+@@ -1083,4 +1108,11 @@ enum drm_bridge_ops {
+ 	 */
+ 	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME = BIT(10),
++	/**
++	 * @DRM_BRIDGE_OP_CONNECTOR_HW_READOUT: The bridge supports the
++	 * &drm_bridge_funcs.atomic_sro_connector_readout callback to
++	 * fill the connector state from the bridge's own hardware state
++	 * during state readout.
++	 */
++	DRM_BRIDGE_OP_CONNECTOR_HW_READOUT = BIT(11),
+ };
+ 
 
 -- 
 2.55.0
