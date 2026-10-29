@@ -2,74 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1B260A263A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D20606A322
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:53:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TG5pcZAX
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=toT3Z7iq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4DE611231E;
-	Thu, 29 Oct 2026 13:53:33 +0000 (UTC)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F360E10E15F
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:53:12 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-48e20ed3b9dso1692892f8f.2
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 06:53:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 385E11122FE;
+	Thu, 29 Oct 2026 13:53:48 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E2E31122FE
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:53:32 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-48afcfc4bf5so1785404f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 06:53:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793281991; x=1793886791; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793282010; x=1793886810; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=T/SMmhEanFf2ZRlLzrXMdAPzQTHRLaYYpOnEMjr9oaE=;
- b=TG5pcZAXDiSBZU9F7Smk2CFRIW4mz3VbPVS9xyK7jKk36tP5vpUvosSYQkdS0ipxOi
- IrrN4a+6Hgh9Izi8L8Jv1oHFHRNtRX1WXKtzpv1PDeEX6beN6RTxWsRVK4LeQa39PdNq
- KTTDFNFfTMdUPZdKW4mH2nUKvOFCHN4XjhkL660kmvtw2QwMAWIc8QVyR7A5eksNtxlb
- /HSMn18yaK98z0Krs4h2yLGu1xpJmMjis599cA9EWPwWgTk6lHp6qb3OX37LP0uOAvTV
- jPvss3Mhv3GCaWFcp8n1ox8M7JMVKm0k0vWSQTEg68z46ijJeqy2IZuj7yKF8txxyxjD
- FU0g==
+ bh=oLv91LE6Hr8ep188oveO3sPSclyk8z8F6MAQFei+jPI=;
+ b=toT3Z7iq+dg0pcyl/yE2q+sehBkGvxRQJmmblSNz4HLhfMqgSsUkLSLpMsknTXp97x
+ HVBX4y4Jr/mVloLBFjv0k1LcVNtNkcw9MrQZLSyYVDniblc7VtAwu70jbyeR09pbUJHP
+ Oy5UjrYq4/32uOYErWCCGh4bH95ewoGUG21TS3my+25j1OZJ9kfc1xkj2G0A/G+Y6RHA
+ DG8FVA7TPB2Qtno12ACaHbe/06Ec87XisTcTdoc46ZgDIsSFuddt4BLgfQjXflgRLeD0
+ FR9A0/aBdJ270Z/w8c4n2uuq7VccZ4VPVkFifTdv/MRnD5i3wHQ51GBN2zP4FpKNU7Wp
+ tihA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793281991; x=1793886791;
+ d=1e100.net; s=20260707; t=1793282010; x=1793886810;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=T/SMmhEanFf2ZRlLzrXMdAPzQTHRLaYYpOnEMjr9oaE=;
- b=P4iis3mZWExG9dmnToIRFQViz245wAiXQIcXHcRkGl3tz1rTCiAOVaSWLx32H3AWLQ
- 7vfNFnLf0Kx2VKP3DKSgIPab2Wv04IDJ8AU5wUs7szAQ8bLBZOvdKVQZLUduk8iyxo9r
- 9a9QlW0jZ1ue1LIHRbzog1QeC9bPkuxbk/TMjCVrwSsxmZSSHdbzuP/oN+AAEHV67oSs
- bLGBC5Ok3mU+PRpcSD0q75Qg6bnvsMlC2FmrWOSf1ODSF+9eLC30Nw3hAW+qK9VNwGST
- MFcw+HORGfb4hXAcgr9rw89u0heqh5iANpdH9Cx+xcqgT7QoUXFFYPnzScnOgMuBijML
- CB0w==
+ bh=oLv91LE6Hr8ep188oveO3sPSclyk8z8F6MAQFei+jPI=;
+ b=BYE2PTuxitOcNfKs4hBuT6rz84Kii7V0gE2TPNnw3vCPbOdSQVu2vxnzlONBL5WrO2
+ 4AT2UPqkYd6d4DXohhfbmBN+mesjJRbYulfOrgJx864Fls10RSfgTu5HUmoq/HNcNBR/
+ 5Yy7LjzcYJACzMLjGkCRJFsvKTR8VfTO2C9iG2t1KO+5wCIW9wl4zIjpPspiivat9mDV
+ +t5sjqmAipE3NHuohdqaXdMfSPXHtA5Lt+CkHKtonY1ja8s9o6bdL1620x1V8jeyPDtU
+ YwzaVDgLvtHbhUjs/Gcz+mjunkg78cnD/1uIV3ZCG0/RmrER7uHpdm7duQz0ZLNAx3Zl
+ tiDg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBz7fDk+0UAqdCtjzJghzjPtrRmWmhXL7BgVLi/rF2CHejvYVeVA3rK2jM1ldV7talWE/gWhhisnp9Q=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLvEx2+FuNfI8/JBIPH8J9m8H0KeNQ96wuyqMrBIkY9iglsIMA/
- IxUxawTLEYLAmXROCCbgx95+Oi2ujKGWijRY9zi4UIrCG7qBiR/zBHo=
-X-Gm-Gg: AYBFou3QB/mid9CRE70lJePgt7nYNVa4ZMP1eOefhM8wuEiGrhTKtE1Aovyyx6nmWkJ
- Jh8pZOyMZvfxnqyYOBctXKuRWsv0nQZu/jSJ5L98BCPX24D8N5i2JzYYJTTclrQaz07arFsEww8
- 3kaPsmsNZdg9Qma1Yp4VkZEh5F7hU3OVgjWZVDskxQ5bVWUdEAEkmJ6YK4Yio4YGe5Nm1t43s/L
- tFkvinWcqrI7UFsPr263AGs2wjhZxY0Otw1TJldSPZomqmXFafOgUlv4Qo97eWjb4oXxip5nP7Y
- McGqX6Q6iMWDLbvcMXTgwWOcqvr6u/5NwEapbMaM+o9n/EOaZhmOKs5KREkSpZ87YaNj+ZnRN6B
- 7JgwZEcTTokUGYjkxIKwWdD3L+WWEY8/aRWwW3jQ0/RDWQhNkZPbzqR0yOEpcVv+a/Xb2X5e3Kv
- 1cLGkAeemZaYpLZ0pLRn9aCFkgVvN2lBU85yQRVKkZr+KMSJqZlKJa6ie/h2zwPkSeYihjsGJwu
- r+x9R7VM1q1GovYWX3dK+C774bXPdYbo1Ww/jaAZ7S5XoVxqylPmCSXC1TtsT1MPcNzOhQU5/Ee
- vsLXBJazhEf+GYVnMT19I6vtSjLCwqnIZKUOf9n1IvSYvQ==
-X-Received: by 2002:a05:6000:989:b0:48b:123e:2f5c with SMTP id
- ffacd0b85a97d-48e5d2f2222mr13148384f8f.29.1793281991354; 
- Thu, 29 Oct 2026 06:53:11 -0700 (PDT)
+ AKwUvBxUvsYU/zJRjVu6S/m+L2TjnoEhgPWMv0yLfHR/x47ExTCxOrcwzIP/N61dGG02pJDJRQB/zE+/v6s=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIGaXPU0dFcj0phPT0Fz+cWPekz9VBjQNpT8RC6ytV5LDyaM2zA
+ IzB+u32m0zoNWM7geP0RV/mR0BsjdbLCoi56rMiRERxJFh5sA1Fc8TQ=
+X-Gm-Gg: AYBFou1xQA3AMpfaIOsOg4bS6Lusuxcyf8oxchFaWjXWT6O9AdNTHcIP+YG/xLCSroh
+ Km+/L6uwjfYXrapx0/xo8ym2ZWIqHg/u4dUqZAgvSoNZpQxtYO6ZYmicB93uj9JPh7dYjs+Jfwu
+ 2bb714yZ16VE2CQGIaEyHXYnEd9coEnhPWQfr8KGab3mFbpo4EyX3InGflHATKiVxFJ4RZ90EaO
+ cPI5INBUTw485flFqzm6dcQ9NPvcyBnclDJhVao8bAPJHHp5pIXkBnpsinL75Go1UE2l+YXY1Hv
+ d7YQzSvUEa+s3BJEJWSjRXYOJWyqIHIHh8FVuH/sJsp5A2fkNXJRQxS5apaeqt19Ar+2NBfC3C+
+ kwId9x8x1mpzzCilJ1Bc6lI6Ry7Its5kU+mlsiVyt34lLkmrWVWEmY7reL1TdQH/1AI4ccCdPDP
+ xjNcYK+MKiFGJ6ACcLal6lJNsvTvXxDKrGpvRPoX+Jia9/UY09yRFnL5ripH3U8rvDbc0JSV2bu
+ uIdPDPurjyP6zkqPZRvtROVPoE9v40dPdfveLpjNJzs5rf9mI9cYh4ZrDwcgwrjNiwRKO9Oc2Oz
+ vsFFhe03datXSrMAmLYI3DZUImXGj2/pAsMinN3t5/w02g==
+X-Received: by 2002:a5d:5e03:0:b0:48a:f354:aefe with SMTP id
+ ffacd0b85a97d-48e5d468159mr13722390f8f.39.1793282010340; 
+ Thu, 29 Oct 2026 06:53:30 -0700 (PDT)
 Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.08
+ ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2026 06:53:10 -0700 (PDT)
+ Thu, 29 Oct 2026 06:53:29 -0700 (PDT)
 From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Thu, 29 Oct 2026 14:52:42 +0100
-Subject: [PATCH RFC v2 05/14] firmware: qcom: scm: Configure LPAC aperture
+Date: Thu, 29 Oct 2026 14:52:48 +0100
+Subject: [PATCH RFC v2 11/14] drm/msm: set ctxbank and asid based on ring
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-descriptive-name-lpac-upstream-v2-5-a21a5c850961@gmail.com>
+Message-Id: <20261029-descriptive-name-lpac-upstream-v2-11-a21a5c850961@gmail.com>
 References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
@@ -91,11 +91,11 @@ Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=4016;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=1658;
  i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=ivUR5Pb7Po44Alwx0ZT6ubl1ZzDqmOPjsdTHTPY8+aE=;
- b=CzZBZhvXfsPR7VJKCtyL4sntORzIwyrw5dpz/xoNsZ5uORTwXp8jhcD9HDV0cCBFD+qYUv+9N
- gi7Oj1wgVHTBJ0bjH6egCOnjdXcy2F6zKpvCrmki17UM3EuffiJgPc1
+ bh=JeZ/oDOWBrzzXnhSTsaX5dWsSADptm5HwF/DPV1Xv4k=;
+ b=4M7VMbDwjOepIjZPrdycOsvEBkNuot2Ltb1yMKAeV6IZ8onsZj759zJ8VBrGw6EwZ2ETpsOXr
+ 1DglU23L6d5AIGkk239c64rud6FZXnrAbBlSSiEjCojZ/rkF2k76XQ0
 X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
  pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,110 +109,53 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In order to be able to update the SMMU registers from CP for page table
-updates we need to configure the LPAC aperture to include the context
-bank that will be associated with SID 1.
+qcom-arm-smmu always maps asid and ctxbank 1:1 and lpac is always 1
 
 Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 ---
- drivers/firmware/qcom/qcom_scm.c        | 18 ++++++++++++++++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.c |  6 ++++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h |  1 +
- include/linux/firmware/qcom/qcom_scm.h  |  1 +
- 4 files changed, 26 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 9b06a69d3a6d..92093399f20d 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -1204,6 +1204,7 @@ int qcom_scm_restore_sec_cfg(u32 device_id, u32 spare)
- EXPORT_SYMBOL_GPL(qcom_scm_restore_sec_cfg);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index e82d0c0bc10f..57fc4035a753 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -247,7 +247,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	phys_addr_t ttbr;
+ 	bool is_lpac = ring == a6xx_gpu->base.base.lpac_rb;
+-	u32 asid;
++	u32 asid, ctxbank;
+ 	u64 memptr = rbmemptr(ring, ttbr0);
  
- #define QCOM_SCM_CP_APERTURE_CONTEXT_MASK	GENMASK(7, 0)
-+#define QCOM_SCM_LPAC_APERTURE_CONTEXT_MASK	GENMASK(7, 1)
+ 	if (ctx->seqno == ring->cur_ctx_seqno)
+@@ -256,6 +256,9 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 	if (msm_iommu_pagetable_params(to_msm_vm(vm)->mmu, &ttbr, &asid))
+ 		return;
  
- bool qcom_scm_set_gpu_smmu_aperture_is_available(void)
- {
-@@ -1229,6 +1230,23 @@ int qcom_scm_set_gpu_smmu_aperture(unsigned int context_bank)
- }
- EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_aperture);
- 
-+int qcom_scm_set_gpu_smmu_lpac_aperture(unsigned int context_bank)
-+{
-+	struct qcom_scm_desc desc = {
-+		.svc = QCOM_SCM_SVC_MP,
-+		.cmd = QCOM_SCM_MP_CP_SMMU_APERTURE_ID,
-+		.arginfo = QCOM_SCM_ARGS(4),
-+		.args[0] = 0xffff0000 | (1 << 8 | context_bank),
-+		.args[1] = 0xffffffff,
-+		.args[2] = 0xffffffff,
-+		.args[3] = 0xffffffff,
-+		.owner = ARM_SMCCC_OWNER_SIP
-+	};
++	/* qcom-arm-smmu always maps asid and ctxbank 1:1 */
++	ctxbank = asid = is_lpac;
 +
-+	return qcom_scm_call(__scm->dev, &desc, NULL);
-+}
-+EXPORT_SYMBOL_GPL(qcom_scm_set_gpu_smmu_lpac_aperture);
-+
- int qcom_scm_iommu_secure_ptbl_size(u32 spare, size_t *size)
- {
- 	struct qcom_scm_desc desc = {
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 1dedeb19946e..65d34d0cfc38 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -658,6 +658,7 @@ struct drm_gem_object *adreno_fw_create_bo(struct msm_gpu *gpu,
- int adreno_hw_init(struct msm_gpu *gpu)
- {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	const struct adreno_info *info = adreno_gpu->info;
- 	int ret;
+ 	if (adreno_gpu->info->family >= ADRENO_7XX_GEN1) {
+ 		/* Wait for previous submit to complete before continuing: */
+ 		OUT_PKT7(ring, CP_WAIT_TIMESTAMP, 4);
+@@ -313,7 +316,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_gpu,
+ 		CP_SMMU_TABLE_UPDATE_1_TTBR0_HI(upper_32_bits(ttbr)) |
+ 		CP_SMMU_TABLE_UPDATE_1_ASID(asid));
+ 	OUT_RING(ring, CP_SMMU_TABLE_UPDATE_2_CONTEXTIDR(0));
+-	OUT_RING(ring, CP_SMMU_TABLE_UPDATE_3_CONTEXTBANK(0));
++	OUT_RING(ring, CP_SMMU_TABLE_UPDATE_3_CONTEXTBANK(ctxbank));
  
- 	VERB("%s", gpu->name);
-@@ -668,6 +669,11 @@ int adreno_hw_init(struct msm_gpu *gpu)
- 		ret = qcom_scm_set_gpu_smmu_aperture(0);
- 		if (ret)
- 			DRM_DEV_ERROR(gpu->dev->dev, "unable to set SMMU aperture: %d\n", ret);
-+		if (info->quirks & ADRENO_QUIRK_LPAC) {
-+			ret = qcom_scm_set_gpu_smmu_lpac_aperture(1);
-+			if (ret)
-+				DRM_DEV_ERROR(gpu->dev->dev, "unable to set lpac SMMU aperture: %d\n", ret);
-+		}
- 	}
- 
- 	for (int i = 0; i < gpu->nr_rings; i++) {
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 1f201322cb6e..ec234a483036 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -64,6 +64,7 @@ enum adreno_family {
- #define ADRENO_QUIRK_4GB_VA			BIT(6)
- #define ADRENO_QUIRK_IFPC			BIT(7)
- #define ADRENO_QUIRK_SOFTFUSE			BIT(8)
-+#define ADRENO_QUIRK_LPAC			BIT(9)
- 
- /* Helper for formating the chip_id in the way that userspace tools like
-  * crashdec expect.
-diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
-index 5747bd191bf1..70fb93e303e2 100644
---- a/include/linux/firmware/qcom/qcom_scm.h
-+++ b/include/linux/firmware/qcom/qcom_scm.h
-@@ -100,6 +100,7 @@ int qcom_scm_io_writel(phys_addr_t addr, unsigned int val);
- bool qcom_scm_restore_sec_cfg_available(void);
- int qcom_scm_restore_sec_cfg(u32 device_id, u32 spare);
- int qcom_scm_set_gpu_smmu_aperture(unsigned int context_bank);
-+int qcom_scm_set_gpu_smmu_lpac_aperture(unsigned int context_bank);
- bool qcom_scm_set_gpu_smmu_aperture_is_available(void);
- int qcom_scm_iommu_secure_ptbl_size(u32 spare, size_t *size);
- int qcom_scm_iommu_secure_ptbl_init(u64 addr, u32 size, u32 spare);
+ 	/*
+ 	 * Write the new TTBR0 to the memstore. This is good for debugging.
 
 -- 
 2.56.0
