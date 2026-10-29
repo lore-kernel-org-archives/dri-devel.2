@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EF1606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:35:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F14606A31D
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:36:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W912IYuw
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GvLhuIE8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C90410FFDE;
-	Thu, 29 Oct 2026 07:35:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB3B210FFEA;
+	Thu, 29 Oct 2026 07:36:19 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 599A910FFE3
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:35:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D13310FFEB
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:35:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3EA9F40F1C;
- Thu, 29 Oct 2026 07:35:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B781F01825;
- Thu, 29 Oct 2026 07:35:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4AB0843AB6;
+ Thu, 29 Oct 2026 07:35:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A56111F01828;
+ Thu, 29 Oct 2026 07:35:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793259329;
- bh=j8XesR0ShX9J3SXWxT0BQRpWfd5OvV9ljf2CN3+ugGY=;
+ s=k20260515; t=1793259340;
+ bh=8LEu7oSUjvH7MaJTOS4zJGquqYQOFtV+p1O7pqI6QL8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=W912IYuwy9SrNb8a0NKPbN6CNO/drPqQITRS3s+F7hkP2kS1vtRh56Wu/gsMw80lO
- B6EkB4kM6KSMc/xxJyP2Oh8EGTTVhsW1zUmo/qCl8FgRSHqAylMavyPqK0rhcEmj99
- c5Xj9H/FpFo8r0vaWU5JPuqqjL5eAxUgdt1/42gDMaCAoqwiXH9i8YiNoebolM0ekX
- U2elL4h0s+WS7hRINpT1sMhJ2SHzkJMW8OZCne3TQ3PLEHeb2KEN/HbFi1cFMA9lDZ
- LdsYH3BT4u+J8cEL5KtiSCR27gQIbZ3cK0W5gyuUmAT1Conmdxhs2UrzB2yNJDV9zQ
- /y4zVIBFg1olA==
+ b=GvLhuIE8NbbPokU7AQtx+xPLM0C7SYRE/k1o0JZXRfFvRcUNGDazLRBK0moj2/dk5
+ AzkBhtTeOw48t0AWdl4qD3YTobdRtKbzjFTql76RnF9oTLty2jJudiFiEuAD69wmXQ
+ DP2G+d1VwhYiNLHRdXonzazrvqh19sNKPWrgMu8D1C6EiejMia3+05lUuPG/d10nFS
+ 19o7TY+FDDe49dlUWAINxNCAYKdJM5CZ2m/WXwhuvA+WrNs6JeICZ1yJvn/iQMMhkc
+ FkWiyT3bITy6HgDw6ykX9eL6vgA62b2PpXbp/kg2EGkWYGONpvpOlhLCuDSnxLCWtg
+ YBu9lXXKeRu6w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 29 Oct 2026 08:34:08 +0100
-Subject: [PATCH v7 18/34] drm/mode-config: Introduce hw_reset hook
+Date: Thu, 29 Oct 2026 08:34:11 +0100
+Subject: [PATCH v7 21/34] drm/atomic-state-helper: Provide comparison
+ macros
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-drm-state-readout-v7-18-25e5163d75c3@kernel.org>
+Message-Id: <20261029-drm-state-readout-v7-21-25e5163d75c3@kernel.org>
 References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 In-Reply-To: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3924; i=mripard@kernel.org;
- h=from:subject:message-id; bh=P2T95rJCJxk/i+sWllfXptAZI7cObOEQW/d0Hbi8UfQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvn25VXouYcW5LTWfjrjzbyqeInNlXt82aZXNLgeND
- Mum32ZU7pjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATiXjP2HC0qbmpyjbunmhf
- Xlz7rfOpM46dSjgnm5OYFn3na8fn0uCaTJkPa1kDBDMc7NU7Rf58ZqxkfMcfq6nNcW+/9hVdY4c
- 1NnrPvhXV2HSy9t/5dtNP4etfrd8p8YfjNi3zfKYqc85kghAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10212; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=uXIF8CM9F6lX/r+fC2EZ80q9INjDyQpv1LMWRVXCs44=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvn1NyTXoLApcHMqS8oPlfJiQF9uSPy9f+vfLG+l8z
+ L529Gx3x1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIcBxjQ2fstTuNLnrywnyB
+ RgnZ/mc5p2VaP635FL22un7GLd3Val9jNKTn3N4ebXc63fkkv4MiY61Y/7tN1p+8fniJXLpjtKc
+ ycXGegEboKcWIot9RszZNFiudo8XKyhp6/lWyJJv0bmPtrwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,95 +75,290 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_mode_config_create_initial_state() tries to read out the current
-hardware state to build the initial atomic state. If state readout is
-disabled or fails, it falls back to creating pristine software state
-using the objects' atomic_create_state callbacks.
-
-However, creating pristine state without resetting the hardware leaves
-the hardware and software states out of sync. The legacy
-drm_mode_config_reset() handles this by calling per-object .reset
-callbacks that both reset the hardware and allocate new state, but these
-two concerns are intertwined and cannot be reused independently.
-
-Introduce a new hw_reset hook in drm_mode_config_funcs that only
-performs the hardware reset, without allocating any software state. Call
-it in drm_mode_config_create_initial_state() after state readout fails,
-right before falling back to drm_mode_config_create_state(). This
-separates the hardware reset from state creation, allowing drivers that
-implement state readout to share their reset logic with the fallback
-path.
+In order to make the implementation of atomic_sro_compare_state easier
+and reduce the boilerplate, introduce a set of STATE_CHECK_* macros to
+compare state field values depending on their type.
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_mode_config.c |  8 +++++++-
- include/drm/drm_mode_config.h     | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 39 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_atomic_state_readout_helper.c |  30 +++
+ include/drm/drm_atomic_state_readout_helper.h     | 220 ++++++++++++++++++++++
+ 2 files changed, 250 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index 9f242e2654c8..1b70a15765c6 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -408,5 +408,6 @@ static int drm_mode_config_create_state(struct drm_device *dev)
-  * read-out the initial state from the hardware for all objects if state
-  * read-out is enabled and the driver supports it. Then, if state
-- * read-out isn't supported or fails, it creates a new, pristine state
-+ * read-out isn't supported or fails, it resets the hardware using
-+ * &drm_mode_config_funcs.hw_reset() and creates a new, pristine state
-  * using the objects atomic_create_state callback.
-  *
-@@ -442,4 +443,9 @@ int drm_mode_config_create_initial_state(struct drm_device *dev)
- 	}
- 
-+	/* Reset the hardware first ... */
-+	if (dev->mode_config.funcs->hw_reset)
-+		dev->mode_config.funcs->hw_reset(dev);
+diff --git a/drivers/gpu/drm/drm_atomic_state_readout_helper.c b/drivers/gpu/drm/drm_atomic_state_readout_helper.c
+index a0b0337df2a0..33f0f78c9b26 100644
+--- a/drivers/gpu/drm/drm_atomic_state_readout_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_readout_helper.c
+@@ -680,2 +680,32 @@ int drm_atomic_helper_sro_readout_state(struct drm_device *dev)
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_sro_readout_state);
 +
-+	/* ... then allocate a new pristine state */
- 	ret = drm_mode_config_create_state(dev);
- 
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index dd555f8727ad..ce9e48824dee 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -110,4 +110,36 @@ struct drm_mode_config_funcs {
- 					   const struct drm_display_mode *mode);
- 
-+	/**
-+	 * @hw_reset:
-+	 *
-+	 * Optional hook for device-specific hardware reset.
-+	 *
-+	 * Unlike drm_mode_config_reset(), which both resets hardware
-+	 * and creates new software state through per-object .reset
-+	 * callbacks, this hook only resets the hardware to a known good
-+	 * state without touching the software state at all.
-+	 *
-+	 * This hook is called by
-+	 * drm_mode_config_create_initial_state() when the hardware
-+	 * state readout (atomic_sro_readout_state) is not supported
-+	 * or fails. The call sequence is:
-+	 *
-+	 * 1. Try atomic_sro_readout_state() to read the hardware state
-+	 * 2. If that fails, call hw_reset() to put the hardware in a
-+	 *    known state
-+	 * 3. Create pristine software state via atomic_create_state
-+	 *    callbacks
-+	 *
-+	 * Drivers that implement state readout and need a hardware
-+	 * reset on the fallback path should implement this hook.
-+	 * Drivers that don't implement state readout at all can keep
-+	 * using drm_mode_config_reset() instead.
-+	 *
-+	 * This hook is optional. If not provided, the fallback path
-+	 * will create software state without resetting the hardware
-+	 * first.
-+	 */
-+	void (*hw_reset)(struct drm_device *dev);
++/**
++ * drm_atomic_helper_print_state_mismatch - report a state comparison mismatch
++ * @p: printer to report through
++ * @name: human-readable name of the object (e.g. plane or CRTC name)
++ * @field: name of the mismatching field
++ * @format: printf-style format string describing the mismatch
++ *
++ * Helper used by atomic_sro_compare_state implementations and the
++ * STATE_CHECK_* macros to report a field-level mismatch between the
++ * committed state and the state read back from hardware.
++ */
++void __printf(4, 5)
++drm_atomic_helper_print_state_mismatch(struct drm_printer *p,
++				       const char *name,
++				       const char *field,
++				       const char *format, ...)
++{
++	struct va_format vaf;
++	va_list args;
 +
- 	/**
- 	 * @atomic_check:
++	va_start(args, format);
++	vaf.fmt = format;
++	vaf.va = &args;
++
++	drm_printf(p, "%s configuration mismatch in %s %pV\n", name, field, &vaf);
++
++	va_end(args);
++}
++EXPORT_SYMBOL(drm_atomic_helper_print_state_mismatch);
+diff --git a/include/drm/drm_atomic_state_readout_helper.h b/include/drm/drm_atomic_state_readout_helper.h
+index d685644ec25a..d4e941ab7452 100644
+--- a/include/drm/drm_atomic_state_readout_helper.h
++++ b/include/drm/drm_atomic_state_readout_helper.h
+@@ -4,7 +4,10 @@
+ #define DRM_ATOMIC_SRO_HELPER_H_
+ 
++#include <linux/string_choices.h>
++
+ struct drm_atomic_commit;
+ struct drm_atomic_sro_state;
+ struct drm_device;
++struct drm_printer;
+ 
+ int
+@@ -33,3 +36,220 @@ drm_atomic_helper_sro_build_state(struct drm_device *dev,
+ int drm_atomic_helper_sro_readout_state(struct drm_device *dev);
+ 
++void __printf(4, 5)
++drm_atomic_helper_print_state_mismatch(struct drm_printer *p,
++				       const char *name,
++				       const char *field,
++				       const char *format, ...);
++
++#define STATE_CHECK_BOOL(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, bool),			\
++			      __stringify(f) " is not a bool");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %s, got %s", \
++							       str_yes_no(sa->f), \
++							       str_yes_no(sb->f)); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_DISPLAY_MODE(r, p, n, sa, sb, f)			\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, struct drm_display_mode), \
++			      __stringify(f) " is not a drm_display_mode structure"); \
++		if (!drm_mode_equal(&sa->f, &sb->f)) {			\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected " DRM_MODE_FMT ", got " DRM_MODE_FMT, \
++							       DRM_MODE_ARG(&sa->f), \
++							       DRM_MODE_ARG(&sb->f)); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_INFOFRAME(r, p, n, sa, sb, f)			\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, union hdmi_infoframe), \
++			      __stringify(f) " is not an hdmi_infoframe union"); \
++		if (memcmp(&sa->f, &sb->f, sizeof(union hdmi_infoframe))) { \
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "infoframes don't match"); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_FORMAT_INFO(r, p, n, sa, sb, f)			\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, const struct drm_format_info *), \
++			      __stringify(f) " is not a drm_format_info pointer"); \
++		if (sa->f != sb->f) {			\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %p4cc, got %p4cc", \
++							       sa->f ? &sa->f->format : NULL, \
++							       sb->f ? &sb->f->format : NULL); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_PROPERTY_BLOB(r, p, n, sa, sb, f)			\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, struct drm_property_blob *), \
++			      __stringify(f) " is not a drm_property_blob pointer"); \
++		if (sa->f != sb->f &&					\
++		    (!sa->f || !sb->f ||				\
++		     sa->f->length != sb->f->length ||			\
++		     memcmp(sa->f->data, sb->f->data, sa->f->length))) { \
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "blobs don't match"); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_PTR(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %p, got %p",	\
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_S32(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (s32)0),		\
++			      __stringify(f) " is not an s32");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %d, got %d", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_S32_X(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (s32)0),		\
++			      __stringify(f) " is not an s32");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %x, got %x", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_U16(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (u16)0),		\
++			      __stringify(f) " is not a u16");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %u, got %u", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_U32(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (u32)0),		\
++			      __stringify(f) " is not a u32");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %u, got %u", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_U32_16_16(r, p, n, sa, sb, f)			\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (u32)0),		\
++			      __stringify(f) " is not a u32");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %d.%06u, got %d.%06u", \
++							       sa->f >> 16, ((sa->f & 0xffff) * 15625) >> 10, \
++							       sb->f >> 16, ((sb->f & 0xffff) * 15625) >> 10); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_U32_X(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (u32)0),		\
++			      __stringify(f) " is not a u32");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %08x, got %08x", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
++#define STATE_CHECK_U64(r, p, n, sa, sb, f)				\
++	do {								\
++		static_assert(__same_type(sa->f, sb->f),		\
++			      __stringify(f) " field types don't match"); \
++		static_assert(__same_type(sa->f, (u64)0),		\
++			      __stringify(f) " is not a u64");		\
++		if (sa->f != sb->f) {					\
++			drm_atomic_helper_print_state_mismatch(p,	\
++							       n,	\
++							       __stringify(f), \
++							       "expected %llu, got %llu", \
++							       sa->f, sb->f); \
++			r = false;					\
++		}							\
++	} while (0)
++
+ #endif /* DRM_ATOMIC_SRO_HELPER_H_ */
 
 -- 
 2.55.0
