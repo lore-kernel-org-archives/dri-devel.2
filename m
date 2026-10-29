@@ -2,43 +2,207 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A77606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 15:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F58606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 16:00:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE2rhqG2
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iw94y/1+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A01A11123F5;
-	Thu, 29 Oct 2026 15:55:16 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BA4D1123F5
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:55:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4D27243928;
- Thu, 29 Oct 2026 15:55:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2BF1F01824;
- Thu, 29 Oct 2026 15:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793289310;
- bh=1VwWsE71pD16ba6yYPb9TUUw7t3vs5NYGRM4gF9nz68=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aE2rhqG2R1Y6DeJ95AQAXaJKts97X+vNB2GErfpogbe6IjSOgFU9CbRdEXIrR8bVL
- 5A6QPC2whK4EyAjVJ0hZYNFLmkOJUG9OgPGERzrXRkRijXE+Fsr7j1Hl27VmeaihO+
- npizenWU7LNtbA58A7XqtEtwxchvt8tfR2l/0zDntbVADhaVQefvT6OztwrcQN6Nro
- ZL2UL5cHDvzfYrRjYvgyM2nTIip7zEyaO2Z5R6D1DRMMe+tuFnAeIyb92uAyU3Ks8S
- y5PA1y//CBrAE631D418adpN+JTXDwskhuI9XoTRxcmc17ykC0YYKLq2quUI8L27oW
- k2W4Y8jVczbPw==
-Message-ID: <sashiko-outbox-189642@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 11/11] drm/tegra: Add support for 8-bit CPU interface
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261029152909.234584-12-clamor95@gmail.com>
-References: <20261029152909.234584-1-clamor95@gmail.com>
- <20261029152909.234584-12-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 15:55:09 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2E7112413;
+	Thu, 29 Oct 2026 16:00:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4DDC11240A;
+ Thu, 29 Oct 2026 16:00:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793289636; x=1824825636;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=1s7rQPzBWfF3kY4Gi4Gs8o36uSP/gZ92/BBROqe3tUA=;
+ b=iw94y/1+GSa38QiXYO7iHgdQM1H1u+uV/uRXhLZ/qgBiL8xx52iOfeX2
+ irU6D2cIH0UUxN4ma4GWTitjgvCO5trpFP7L+f8wxytj7sRHs2jX6gRKW
+ hWdrHLNXfGLPoxAwZSPPevy4XoIvrYzKOULJoKCKuThb0VRI8kBxXC9D3
+ QuLZovFBYWlb8vf0T8qlxy8rf3c/pAuAF0Q2rSndx1JI4kTCr5FkzBQ6S
+ 4c6aC12tXma9PYuugXqgk1vUuPUouXEexyI3aaytW3A6F93wlNNmHP4ht
+ NEpPLs17elRcAOlzZ9lCuU+oSBse57XC/28/4AfK4mPNPjO6w0B2QEkqy w==;
+X-CSE-ConnectionGUID: KAWgxIBLQfKK9BkgWcs0fg==
+X-CSE-MsgGUID: Jb6HX69zTP+mA2vC/7wpew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1924331"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1924331"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 09:00:34 -0700
+X-CSE-ConnectionGUID: yvTkDk+tT+OTJ+A6TBHHyA==
+X-CSE-MsgGUID: uKa5PQb6QsebgeeX3ej9Ng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5275435"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2026 09:00:32 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 09:00:31 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 09:00:31 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.69) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 09:00:30 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N7dw55R7QH2y/o1H0Krg6QrDe1sXjJtyKa4F5Vrih1n4MfYxcWou3GRsTxhzRyq1iRE+3U1dit0gBpLt+bjF/XnCDvO54GVFGp/vqODW+nfWhVZAPEN5GEPpLXsKlLnuI955r62lE2WhqTKgZncFwenkqrTUa+P9a/nuxpt9Ny7YL1qJOJ2Hy8q8Hm8KRt8TS8NjVADzaji6eRRrZhVV7ZO2GJBQ5nx2oY73Hgp/t6zi825dhD7jK3PnAiI3XgubsA8pS9M7s/fJGYy7h4Wny4kGjK4FLVJInuP3OtGF77AI8S0Dgo/Rd60l0j/sOqtq5hgEQ7VNkPN4vWxE4sZ1rA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=++iK9zA7vdSqa2z9khUOayVv3ianUOElr3aNyLxohNs=;
+ b=w+WtNPFR1X0tRSrixPIJjnQVocHwPpYr+kD1XQQ9C9MSsG4uj5pNQpGLbuCXtLqD6/XoKFkUB/WZLoE8mpzxtymqFObJQDf2Kvp2EwQadVfzSphjiVSKVm+4MY91fnii4zIidg+2hYSBUxzYv8k6iE/z17e0UhbI0knZBKWzbEO9PRBrECndUs/Sowi0aErm+TuaD5u55rdEP8wriUof1yMR1vK/wqz5E3sxQVIL6w6Qde1yfgAKoHfq9G1ptd8/992NrCO/y2yxyZ5YwSmt2crMuHC13fc9sZQKfFcgFeEqzpLuye7VDR7Nlt2EkROPaKY1vIExt4lnJo2B2/VHXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by DS0PR11MB7999.namprd11.prod.outlook.com (2603:10b6:8:123::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 16:00:20 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
+ 16:00:19 +0000
+Date: Thu, 29 Oct 2026 09:00:15 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Philipp Stanner <phasta@kernel.org>
+CC: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>, Oded Gabbay
+ <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso
+ <tomeu@tomeuvizoso.net>, Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Christian =?iso-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
+ <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Alessio Belle
+ <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>,
+ Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ "Dmitry Baryshkov" <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul
+ <sean@poorly.run>, "Marijn Suijten" <marijn.suijten@somainline.org>, Lyude
+ Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>,
+ =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>, Liviu Dudau
+ <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann
+ <kraxel@redhat.com>, Natalie Vock <nat@pixelcluster.dev>, Arun Pravin
+ <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Melissa Wen <mwen@igalia.com>, =?iso-8859-1?Q?Ma=EDra?= Canal
+ <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, "Dmitry
+ Osipenko" <dmitry.osipenko@collabora.com>, Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
+ <zack.rusin@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding
+ <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Sunil
+ Khatri" <sunil.khatri@amd.com>, Kees Cook <kees@kernel.org>, Jesse Zhang
+ <jesse.zhang@amd.com>, Timur =?iso-8859-1?Q?Krist=F3f?=
+ <timur.kristof@gmail.com>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Kexin Sun <kexinsun@smail.nju.edu.cn>, "Prike
+ Liang" <Prike.Liang@amd.com>, David Rosca <david.rosca@amd.com>, "Krzysztof
+ Karas" <krzysztof.karas@intel.com>, Marco Crivellari
+ <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
+ =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>, "Thadeu Lima de Souza
+ Cascardo" <cascardo@igalia.com>, Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
+ Al Viro <viro@zeniv.linux.org.uk>, Neill Kapron <nkapron@google.com>,
+ "Michael Bommarito" <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
+ "Gabriel Prostitis" <prostitisgabriel@gmail.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <etnaviv@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <imagination@lists.freedesktop.org>, <lima@lists.freedesktop.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <nouveau@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+ <spice-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-tegra@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux-usb@vger.kernel.org>
+Subject: Re: [RFC PATCH 5/6] dma-buf: dma-fence: Close race in
+ dma_fence_is_signaled() by default
+Message-ID: <auNtj8zYrqwtnXdK@gsse-cloud1.jf.intel.com>
+References: <20261029095542.1526750-3-phasta@kernel.org>
+ <20261029095542.1526750-8-phasta@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261029095542.1526750-8-phasta@kernel.org>
+X-ClientProxiedBy: MW4PR04CA0044.namprd04.prod.outlook.com
+ (2603:10b6:303:6a::19) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|DS0PR11MB7999:EE_
+X-MS-Office365-Filtering-Correlation-Id: a6a3578e-fddd-4b58-297f-08df35d5babd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|23010399003|18002099003|22082099003|56012099006|11063799006|261026140227099003|4143699003|261021123027099003|261021121427099003|10067099003|261026121527099003|261009223027099003|261022075727099003|261022105027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info: GcA/mTp3EeoLjKo9kf4JRRrRKZLtSlDNaMmvaSH66FCOzpPQZSRs/U5CmyaOEfe85COboqUvFC/IS2XNvmWk0YNjCp1HRjR7+YfGdy5ApnRrM/c67DJNNNEETe1xJ4eXeyYxwYAyvGUWo49j9UYEXcCDfM7TNvUKl7+1BKpFhcPUIHZ7WvA6SMFestx7luxt2me4h/k0MXsnbwVSD6ymbV7F2E5m+M653Aqp6BGQ/Pmr95HLeX7h0n8ZEE8HYdhSLbfaGl/CwOTcphOULwPXNSdQPy6Q/WXlAzgTmEuGea3akpjRVedIkpewnHHLYyTpkxIO3+AhjibRAVaRUb886ft7MLrmdF7945T+lnLtzd/IG2y6aaE/e4VU3HxpkZiV2nWqgMqNc8VXwNa1uxVuRCJQJXU4Y0UObzf1xQsN7ybsDvu6JeegZWipNKVjD7jLbjKyELE0sA095YtYQoMnTWlbavtkL2ZKpCSJsDWUD0zWrlktPcoD/hPddvLuWDqtDsbPcoRuxqgLAOr3uXEK2eLLRbt/8PwA/bocggz5KnHWwSyGSdhUlnDNYwOuZxjvY75hmGX+BOX/YoS8JWi6Gh0w+1MmkT3mzO9G/Wvr9SaMJoNXrUqFSvfDl42XLZeLh0EqVr6DwAWHqeRFrz9VHEFrclPMlQO9kT1wIOCPWjw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB4787.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(261026140227099003)(4143699003)(261021123027099003)(261021121427099003)(10067099003)(261026121527099003)(261009223027099003)(261022075727099003)(261022105027099003)(261028144727099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yhF8AzJ4SOQZjKgwpgmtJEsmjJJJQZSmg7/qT2hQva1P3tFx5+K7Yuv0XDxE?=
+ =?us-ascii?Q?YGKyP6qm6UBfD/rfkSnzfmOttXOSXlYIgQEY3s/hDdvwREziNUYoATT3VAXg?=
+ =?us-ascii?Q?EyV1ZxkVWVmsB4bf2H1WrARuJ1BWkpzWKvU7vBjZxefHYHIKI9fathPH1BMg?=
+ =?us-ascii?Q?Mk8AL15M9nbE6rGhw7oNayZTS7ulj9k4xfkaWFXyzMAu4HCKl30YA7trp8qR?=
+ =?us-ascii?Q?jE7HPC18lS8DVACLGgnTvAtkJKYeYldgyP7/2baOmlVZJYZD4zmjEQF6QSqd?=
+ =?us-ascii?Q?6AG5+bexZyDihivIA/+1sqYcWy2ZsSKrtf2Sxg7ifGXqaLAO+DVmnpQYAY9u?=
+ =?us-ascii?Q?/0X5ieF1oXhQ5T46RrBIgTTGTU2/rS8fiDlgydqTCFa7GwWpITBfLq5XVMPO?=
+ =?us-ascii?Q?tuGFnYR5vwENoNvaBfimbbK8VFHzDgqWs9jH7vLZIh8JN4RM/3LbhFm0NlsP?=
+ =?us-ascii?Q?Bh/Ji3OtkT/HlQt8VnRQCL7Sa1pkviVpdXMyW63P4TLP4dpOJ/e+rIQps3sc?=
+ =?us-ascii?Q?gzIwLCo/A70cwZq4za64EOGuJYykb7JOEQev2O53+8iLbL0malpFKMc305wl?=
+ =?us-ascii?Q?M6QbbZX91ZcZYPaqYjIQsVkbLkQmuB0oZzvsnJZAUvt26nnRpc1kydEK/slq?=
+ =?us-ascii?Q?Og5hD3gWG0tHqDXZiVDtDYJ+A3NLPdDTX07EOWtGbaxmK8Rha/HeNsdRL7/K?=
+ =?us-ascii?Q?j2TNPOQP67Ce92OnO7VF+uUTKGnkedGKW/CUoArTGCjWOu75p5XfKj1gEqPl?=
+ =?us-ascii?Q?304SJqpFMsjiQkRPrybV2inV6ZIQxkq8thcDad8z+d7JaQw4/HpaiMFW3BPI?=
+ =?us-ascii?Q?Neo+pd7oiPbqwUOrRe/4Wj/uqkDldwF8+C4jPpxRHDcDr7SV2OAXR8DPsuaP?=
+ =?us-ascii?Q?FGZvPuF7Jf3IM7mBUWCev38v+otOOF6M6YCD3RepkIXNGX+mvvCuknak1PGI?=
+ =?us-ascii?Q?6t/URpwMQsZhbz9V5HTyaXIYqz3l4n5ZeaRmyiYnR1h566xM0KnX/+T4tDhC?=
+ =?us-ascii?Q?0+swB0C/53Ez5M8lOitNeERlB7rPLdqLpcENIdKp13fgv3W38Z/ee+MJkVlB?=
+ =?us-ascii?Q?JKKV15VqmaV3s0bu1aEufn8upTr8JsHkYTn4RjWI30HHUodW7Xj9Y8x5XCcD?=
+ =?us-ascii?Q?bScg1/3thW7vKQe5wngY3yBCkNKSJuhyKUoFNQVjFndmpGGpU79MUU56PlOu?=
+ =?us-ascii?Q?tNJCk6cpYJQBOuUan7AtIV8Q53o57SPua3K+laf4u6UsRhT5Egx1tCqG0XJk?=
+ =?us-ascii?Q?5cBrlRrfu0MM+TnKPzwRm3tbpqz/5hk0IwcyAXxs45t/lmMepkczpAbvEVJP?=
+ =?us-ascii?Q?T7Y7tanSinbMf0apgIhDdgGEygGUlX/u0zoCV03VYQFHM9lfHkaLnXNwMC9G?=
+ =?us-ascii?Q?rhBu6/NtP6w8OioKuV00NNXE7dKd2kYgjLklYSMSMlJTQ2HB8jUNBWlgyr0m?=
+ =?us-ascii?Q?OZ1/+zOUR0JwAlj2dSs4xV6HHZ2gHo+pTCZMQBIQ6z29M9SoIJMa7kC3HEWp?=
+ =?us-ascii?Q?ZxsMSwXPnI12wXgMvByM39w2Vafl2SJo3YdZIpnKGzrD7t/PqCyfPWpI+mEk?=
+ =?us-ascii?Q?mrYKJrNxoQPDpTvZPlGgmwyNMUUIsXtYRDjIm5XPzaNV0Q4+YEwCwXidBf2D?=
+ =?us-ascii?Q?znPX9w0PaoOE4qN7f8MBUF+ikYcHBjzyB18ztj7xUE9Cy7CzfcBNVaaZgdy9?=
+ =?us-ascii?Q?cAqGmr6juZ3Fq2qgbs0f0Nt5F1ZQplZE1fN+64VvSX205qGUiLFixjLme0zX?=
+ =?us-ascii?Q?T9a/l0vNZw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: dLchvVtnFtecCNNV+v+ZIIG05MtGLBr70qRjTdh1vTzrBkOTUKxwylRlWDjcLKwFLSJ56kKgUfTh2ISt5C7dnlfSI8QUelygsNRnwrA7w5ztxSoLpV4FeJzVnQ/+LKkP1gXlMiwGPYbVa3hM4F4Kndc+8hpYKSVMm/Z7iXQByCiaNgp2ptitmUZ/Sk5vegJH521FjaX6x4BPVfva0LiV79JFOG0bRAD3q36M+lFvhAvG6ctR5jjk8jmBJTFuUYZXGKbao5N3CIb1jMvbQBeuEgNy0nbDnhecn8RRqVD7zO76vaxATu4keJHpxP6tIWa9Xqa+DUGAEnb4BQDgohgw4g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6a3578e-fddd-4b58-297f-08df35d5babd
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:00:19.1318 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +5xI66ER351bw+NXujpvhxkFpRqgB+f3HwPJlr35TdqYCPpvwQDo7vWQUcbhQEiONluhg4IYvB+WQX47sagy2Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7999
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,426 +213,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] drm/tegra: manual next_bridge calls in tegra_dbi_atomic_enable() b=
-reak disable
-- [High] drm/tegra: double drm_bridge_remove() and leak in tegra_dbi_host_a=
-ttach()
-- [High] drm/tegra: driver conflict and deferral deadlock in devm_tegra_dc_=
-dbi_init()
-- [Medium] drm/tegra: misconfigured pin select and mux in tegra_dbi_atomic_=
-enable()
-- [Low] drm/tegra: missing select DRM_MIPI_DBI causes link error in tegra_d=
-bi_probe()
---
+On Thu, Oct 29, 2026 at 10:55:42AM +0100, Philipp Stanner wrote:
+> dma_fence_is_signaled() contains a lockless check of the signaled-bit,
+> which is set under lock protection. This is a race condition which makes
+> the API fragile and has caused at least two bugs already, addressed in:
+> 
+> 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+> 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
+> 
+> It has been argued by some that this race cannot be closed for the
+> entire kernel through locking because this would lead to a cache line
+> invalidation for all parties reading that fence. While it remains
+> unclear why these parties don't simply let themselves be notified about
+> the fence being signaled instead of checking this repeatedly manually,
+> there is a way to preserve this behavior in any case:
+> 
+> This patch adds a new flag for dma_fence_init(),
+> DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK. If this flag is not set, the
+> spinlock is taken and dma_fence_is_signaled() becomes perfectly
+> synchronized: it can only return true once signaling of the fence is
+> completed.
+> 
+> Disable the racy check for everyone by default. Should some parties
+> really experience severe performance degredations because of this, they
+> can trivially re-enable the race condition for their driver by setting
+> the flag in dma_fence_init().
+> 
 
-commit 38b0aba6a8c5c45d84b4bce85bd75f2063d5eedc
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+My 2 cents - anyone arguing about cachelines probably has broken code to
+begin with. I'd say don't give anyone an option to opt into a racey
+check, if this regressing some peoples code the answer is likely
+structurally fix your broken code.
 
-drm/tegra: Add support for 8-bit CPU interface
+Matt
 
-This commit adds a MIPI DBI Type B host and DRM bridge driver to support the
-8-bit CPU interface on Tegra20/30 display controllers.
-
-> diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makef=
-ile
-> index e399b40d64a1d..ae7fccb3d6421 100644
-> --- a/drivers/gpu/drm/tegra/Makefile
-> +++ b/drivers/gpu/drm/tegra/Makefile
-> @@ -18,6 +18,7 @@ tegra-drm-y :=3D \
->  	hdmi.o \
->  	mipi-phy.o \
->  	dsi.o \
-> +	dbi.o \
->  	sor.o \
->  	dpaux.o \
->  	gr2d.o \
-
-[Severity: Low]
-Can building tegra-drm fail with an undefined reference to
-devm_mipi_dbi_device_register() when CONFIG_DRM_MIPI_DBI is disabled or bui=
-lt
-as a module while CONFIG_DRM_TEGRA is built-in?
-
-Here dbi.o is unconditionally added to tegra-drm-y whenever CONFIG_DRM_TEGRA
-is enabled, and tegra_dbi_probe() in drivers/gpu/drm/tegra/dbi.c calls
-devm_mipi_dbi_device_register():
-
-	dbidev =3D devm_mipi_dbi_device_register(dev, &priv->dbi_host, np);
-
-However, devm_mipi_dbi_device_register() is defined in
-drivers/gpu/drm/drm_mipi_dbi_bus.c, which is only compiled when
-CONFIG_DRM_MIPI_DBI is enabled:
-
-	obj-$(CONFIG_DRM_MIPI_DBI) +=3D drm_mipi_dbi.o drm_mipi_dbi_bus.o
-
-and include/drm/drm_mipi_dbi_bus.h does not provide fallback stubs.
-
-Should config DRM_TEGRA in drivers/gpu/drm/tegra/Kconfig select
-DRM_MIPI_DBI alongside DRM_MIPI_DSI and DRM_PANEL?
-
-> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
-> new file mode 100644
-> index 0000000000000..e129be0f21da5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tegra/dbi.c
-
-[ ... ]
-
-> +static int tegra_dbi_dbi_command(struct mipi_dbi *dbi, u8 *cmd, u8 *para=
-m, size_t num)
-> +{
-> +	struct tegra_dbi_priv *priv =3D mipi_dbi_to_tegra_dbi(dbi);
-> +	u8 command =3D *cmd;
-> +
-> +	/* Blocks all commands when interface is not active */
-> +	if (!priv->active)
-> +		return -ENODEV;
-> +
-> +	tegra_dbi_write(priv, TEGRA_DBI_COMMAND, command);
-> +
-> +	for (int i =3D 0; i < num; i++)
-> +		tegra_dbi_write(priv, TEGRA_DBI_DATA, param[i]);
-> +
-> +	return 0;
-> +}
-> +
-> +static int tegra_dbi_host_attach(struct mipi_dbi_host *host, struct mipi=
-_dbi_device *dbidev)
-> +{
-> +	struct tegra_dbi_priv *priv =3D dbi_host_to_tegra_dbi(host);
-> +	struct device *dev =3D priv->dev;
-> +	struct drm_bridge *bridge;
-> +	struct device_node *ep;
-> +	int ret;
-> +
-> +	bridge =3D of_drm_get_bridge_by_endpoint(dev_of_node(dev), 1, -1);
-> +	if (IS_ERR(bridge))
-> +		return PTR_ERR(bridge);
-> +
-> +	bridge->type =3D DRM_MODE_CONNECTOR_DPI;
-> +	priv->next_bridge =3D bridge;
-> +
-> +	/* get input ep (port0/endpoint0) */
-> +	ret =3D -EINVAL;
-> +	ep =3D of_graph_get_endpoint_by_regs(dev_of_node(dev), 0, 0);
-> +	if (ep) {
-> +		ret =3D of_property_read_u32(ep, "bus-width", &priv->bus_width);
-> +		of_node_put(ep);
-> +	}
-> +
-> +	if (ret)
-> +		priv->bus_width =3D 24;
-> +
-> +	return devm_drm_bridge_add(dev, &priv->bridge);
-> +}
-> +
-> +static void tegra_dbi_host_detach(struct mipi_dbi_host *host, struct mip=
-i_dbi_device *dbidev)
-> +{
-> +	struct tegra_dbi_priv *priv =3D dbi_host_to_tegra_dbi(host);
-> +
-> +	drm_bridge_remove(&priv->bridge);
-> +	drm_bridge_put(priv->next_bridge);
-> +}
-
-[Severity: High]
-Won't using devm_drm_bridge_add() in tegra_dbi_host_attach() alongside an
-explicit drm_bridge_remove() in tegra_dbi_host_detach() cause
-drm_bridge_remove() to run twice on priv->bridge during unbind, as well as
-leak priv->next_bridge if devm_drm_bridge_add() fails?
-
-In tegra_dbi_probe(), priv is allocated with devm_drm_bridge_alloc(), which
-initializes priv->bridge.refcount to 1 and registers a devres action on
-priv->dev to call drm_bridge_put_void(&priv->bridge).
-
-When tegra_dbi_host_attach() calls devm_drm_bridge_add(dev, &priv->bridge),
-it increments priv->bridge.refcount to 2 and registers a devres action on
-priv->dev to call drm_bridge_remove_void(&priv->bridge).
-
-When the DBI device or tegra-dbi unbinds, mipi_dbi_device_unregister()
-invokes:
-
-mipi_dbi_device_unregister()
-  mipi_dbi_detach()
-    tegra_dbi_host_detach()
-      drm_bridge_remove(&priv->bridge)
-
-which destroys bridge->hpd_mutex and bridge->hpd_state_mutex and drops
-priv->bridge.refcount from 2 to 1.
-
-When priv->dev's devres then runs drm_bridge_remove_void(&priv->bridge), it
-calls drm_bridge_remove(&priv->bridge) a second time, destroying both mutex=
-es
-again and dropping priv->bridge.refcount from 1 to 0, which frees priv via
-__drm_bridge_free(). Immediately afterward, the drm_bridge_put_void() devres
-action from devm_drm_bridge_alloc() runs on the already-freed priv->bridge.
-
-Also, if devm_drm_bridge_add() fails in tegra_dbi_host_attach(), the
-reference on priv->next_bridge acquired by of_drm_get_bridge_by_endpoint() =
-is
-never released with drm_bridge_put(). Should tegra_dbi_host_attach() use
-drm_bridge_add() instead of devm_drm_bridge_add()?
-
-[ ... ]
-
-> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
-> +				    struct drm_atomic_commit *state)
-> +{
-> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
-> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
-> +	struct tegra_dc *dc =3D priv->dc;
-> +	u32 value;
-
-[ ... ]
-
-> +	/* Unshadow to set up command and data pins */
-> +	tegra_dc_writel(dc, WRITE_MUX | READ_MUX, DC_CMD_STATE_ACCESS);
-> +
-> +	if (priv->reg)
-> +		tegra_dbi_init_secondary_interface(priv);
-> +	else
-> +		tegra_dbi_init_primary_interface(priv);
-> +
-> +	priv->active =3D true;
-> +
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> ---
+>  drivers/dma-buf/dma-fence.c |  2 ++
+>  include/linux/dma-fence.h   | 22 ++++++++++++++++++++++
+>  2 files changed, 24 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index f7c084926ae6..1ae8c7aade39 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1119,6 +1119,8 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+>  	/* Mapp the init_flags to the fence-internal flags. */
+>  	if (test_bit(DMA_FENCE_INIT_FLAG_SEQNO64, &init_flags))
+>  		set_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence_flag_bits);
+> +	if (test_bit(DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK, &init_flags))
+> +		set_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT, &fence_flag_bits);
+>  
+>  	__dma_fence_init(fence, ops, lock, context, seqno, fence_flag_bits);
+>  }
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index 52e7ddfd2d06..ee6e8de3ebc6 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -115,6 +115,7 @@ enum dma_fence_flag_bits {
+>  	DMA_FENCE_FLAG_SIGNALED_BIT,
+>  	DMA_FENCE_FLAG_TIMESTAMP_BIT,
+>  	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+> +	DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
+>  
+>  	DMA_FENCE_FLAG_USER_BITS, /* must always be last member */
+>  };
+> @@ -124,9 +125,12 @@ enum dma_fence_flag_bits {
+>   * These flags can be passed in dma_fence_init().
+>   *
+>   * @DMA_FENCE_INIT_FLAG_SEQNO64: Use 64-bit sequence numbers.
+> + * @DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK:
+> + * Legacy flag. Enables a race condition in dma_fence_is_signaled().
+>   */
+>  enum dma_fence_init_flags {
+>  	DMA_FENCE_INIT_FLAG_SEQNO64,
+> +	DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK,
+>  
+>  	/* Must always be last member. */
+>  	DMA_FENCE_INIT_FLAG_NR_OF_FLAGs,
+> @@ -568,9 +572,27 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
+>  static inline bool
+>  dma_fence_is_signaled(struct dma_fence *fence)
+>  {
+> +	const bool racy_check = test_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
+> +					 &fence->flags);
+>  	const struct dma_fence_ops *ops;
+> +	bool signaled = false;
+> +	unsigned long flags;
+>  
 > +	/*
-> +	 * DBI requires that the next bridge be enabled here in order to
-> +	 * send DCS commands, since the interface pins will subsequently be
-> +	 * reconfigured for video data.
+> +	 * For legacy reasons, there is a race window here against parties
+> +	 * signaling the fence. They might still be doing that right now.
+> +	 *
+> +	 * For most users, this window shall be closed, but there are parties
+> +	 * for whom the cache-line invalidation by taking the lock might be so
+> +	 * significant that they prefer to accept the race at their own risk.
 > +	 */
-> +	if (next_bridge->funcs && next_bridge->funcs->atomic_enable)
-> +		next_bridge->funcs->atomic_enable(next_bridge, state);
-> +
-> +	tegra_dbi_pin_set(dc, &priv->index->cs, 0);
-> +
-> +	priv->active =3D false;
-> +
-> +	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
-> +
-> +	for (int i =3D 0; i <  ARRAY_SIZE(com_pin_output); i++)
-> +		tegra_dc_writel(dc, priv->com_pin_backup[i].value,
-> +				priv->com_pin_backup[i].offset);
-> +
-> +	tegra_dc_commit(dc);
-> +
-> +	/* Set LDC pin to V Pulse 1 */
-> +	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
-> +	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
-> +	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
-> +
-> +	value =3D tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
-> +	value &=3D ~DISP_CTRL_MODE_MASK;
-> +	value |=3D DISP_CTRL_MODE_C_DISPLAY;
-> +	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
-> +}
-> +
-> +static void tegra_dbi_atomic_disable(struct drm_bridge *bridge,
-> +				     struct drm_atomic_commit *state)
-> +{
-> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
-> +	struct drm_bridge *next_bridge =3D priv->next_bridge;
-> +	struct tegra_dc *dc =3D priv->dc;
-> +
-> +	for (int i =3D 0; i < ARRAY_SIZE(com_pin_output); i++)
-> +		priv->com_pin_backup[i].value =3D tegra_dc_readl(dc,
-> +			priv->com_pin_backup[i].offset);
-> +
-> +	tegra_dc_writel(dc, WRITE_MUX, DC_CMD_STATE_ACCESS);
-> +
-> +	if (priv->reg)
-> +		tegra_dbi_init_secondary_interface(priv);
-> +	else
-> +		tegra_dbi_init_primary_interface(priv);
-> +
-> +	priv->active =3D true;
-> +
-> +	/*
-> +	 * DBI requires that the next bridge be disabled here in order to
-> +	 * send DCS commands, since the interface pins will subsequently be
-> +	 * reconfigured for video data.
-> +	 */
-> +	if (next_bridge->funcs && next_bridge->funcs->atomic_disable)
-> +		next_bridge->funcs->atomic_disable(next_bridge, state);
-> +
-> +	priv->active =3D false;
-> +
-> +	tegra_dc_writel(dc, 0, DC_CMD_STATE_ACCESS);
-> +
-> +	for (int i =3D 0; i <  ARRAY_SIZE(com_pin_output); i++)
-> +		tegra_dc_writel(dc, priv->com_pin_backup[i].value,
-> +				priv->com_pin_backup[i].offset);
-> +
-> +	tegra_dc_commit(dc);
-> +}
-
-[Severity: High]
-Because tegra_dbi_attach() attaches priv->next_bridge to the encoder's
-bridge_chain via drm_bridge_attach(), won't the DRM bridge chain helpers
-already invoke next_bridge->funcs->atomic_enable() and atomic_disable(),
-causing panel DCS commands during disable to fail with -ENODEV?
-
-When disabling the display, drm_atomic_bridge_chain_disable() iterates
-encoder->bridge_chain in reverse order, so it calls
-priv->next_bridge->funcs->atomic_disable() (for example,
-panel_bridge_atomic_disable() -> drm_panel_disable()) before
-tegra_dbi_atomic_disable() runs. At that point priv->active is still false
-and the DC pins are still in video mode, so every MIPI DCS command issued by
-the panel's disable callback is rejected by tegra_dbi_dbi_command() with
--ENODEV, while drm_panel_disable() still marks panel->enabled =3D false.
-
-When drm_atomic_bridge_chain_disable() subsequently calls
-tegra_dbi_atomic_disable(), it sets priv->active =3D true and manually calls
-next_bridge->funcs->atomic_disable(next_bridge, state) a second time, which
-sees panel->enabled =3D=3D false, logs "Skipping disable of already disabled
-panel", and returns without sending the panel's DCS disable sequence.
-
-Similarly, during enable, drm_atomic_bridge_chain_enable() calls
-tegra_dbi_atomic_enable(), which manually calls
-next_bridge->funcs->atomic_enable(next_bridge, state), and then
-drm_atomic_bridge_chain_enable() advances to priv->next_bridge in
-encoder->bridge_chain and calls next_bridge->funcs->atomic_enable() a second
-time while priv->active is false.
-
-[Severity: Medium]
-In tegra_dbi_atomic_enable() and tegra_dbi_atomic_disable(), there also
-appear to be a couple of register configuration issues:
-
-First, at the end of tegra_dbi_atomic_enable():
-
-	/* Set LDC pin to V Pulse 1 */
-	value =3D tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
-	value |=3D PIN_OUTPUT_SELECT_F4(PIN_OUTPUT_SELECT_LDC);
-	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
-
-This unconditionally modifies PIN_LDC in DC_COM_PIN_OUTPUT_SELECT(6) without
-clearing PIN_OUTPUT_SELECT_MASK(PIN_OUTPUT_SELECT_LDC) first, and without
-checking priv->reg. When the secondary interface (priv->reg =3D=3D 1) is us=
-ed,
-tegra_dbi_idx[1] uses PIN_LVP0 in DC_COM_PIN_OUTPUT_SELECT(4) as the D/C
-pin rather than PIN_LDC. Does the secondary interface need V_PULSE1 routed =
-to
-its own D/C pin instead of PIN_LDC?
-
-Second, tegra_dbi_atomic_disable() writes only WRITE_MUX to
-DC_CMD_STATE_ACCESS:
-
-	tegra_dc_writel(dc, WRITE_MUX, DC_CMD_STATE_ACCESS);
-
-whereas tegra_dbi_atomic_enable() writes WRITE_MUX | READ_MUX before calling
-tegra_dbi_init_primary_interface() or tegra_dbi_init_secondary_interface().
-Without READ_MUX set, won't the tegra_dc_readl() calls in those init
-functions read from the shadowed assembly registers while tegra_dc_writel()
-writes to the active registers?
-
-[ ... ]
-
-> +static struct platform_driver tegra_dbi_driver =3D {
-> +	.driver.name =3D "tegra-dbi",
-> +	.probe =3D tegra_dbi_probe,
-> +};
-> +
-> +static void tegra_dbi_release(void *pdev)
-> +{
-> +	platform_device_unregister(pdev);
-> +	platform_driver_unregister(&tegra_dbi_driver);
-> +}
-> +
-> +int devm_tegra_dc_dbi_init(struct device *dev)
-> +{
-> +	struct device_node *dbi_np __free(device_node) =3D
-> +		of_get_available_child_by_name(dev_of_node(dev), "dbi");
-> +	struct platform_device_info dbi_info =3D { 0 };
-> +	struct platform_device *dbi;
-> +	int ret;
-> +
-> +	/* Missing node means that DBI is not used, continue */
-> +	if (!dbi_np)
-> +		return 0;
-> +
-> +	ret =3D platform_driver_register(&tegra_dbi_driver);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to register DBI driver\n");
-> +
-> +	dbi_info.parent =3D dev;
-> +	dbi_info.name =3D "tegra-dbi";
-> +	dbi_info.id =3D PLATFORM_DEVID_AUTO;
-> +	dbi_info.fwnode =3D of_fwnode_handle(dbi_np);
-> +	dbi_info.of_node_reused =3D true;
-> +
-> +	dbi =3D platform_device_register_full(&dbi_info);
-> +	if (IS_ERR(dbi)) {
-> +		platform_driver_unregister(&tegra_dbi_driver);
-> +		return dev_err_probe(dev, PTR_ERR(dbi),
-> +				     "Failed to create DBI device\n");
-> +	}
-> +
-> +	ret =3D devm_add_action_or_reset(dev, tegra_dbi_release, dbi);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-> index 5bbf2c028edd8..768cf82776632 100644
-> --- a/drivers/gpu/drm/tegra/dc.c
-> +++ b/drivers/gpu/drm/tegra/dc.c
-> @@ -3382,6 +3382,10 @@ static int tegra_dc_probe(struct platform_device *=
-pdev)
->  		}
->  	}
-> =20
-> +	err =3D devm_tegra_dc_dbi_init(&pdev->dev);
-> +	if (err)
-> +		return dev_err_probe(&pdev->dev, err, "failed to init DBI\n");
-> +
->  	err =3D tegra_dc_rgb_probe(dc);
->  	if (err < 0 && err !=3D -ENODEV)
->  		return dev_err_probe(&pdev->dev, err,
-
-[Severity: High]
-Can devm_tegra_dc_dbi_init() deadlock on probe deferral if the child MIPI D=
-BI
-panel driver is not yet bound when tegra_dc_rgb_probe() runs, and also fail
-with -EBUSY if both display controllers have an available "dbi" child node?
-
-In tegra_dc_probe(), devm_tegra_dc_dbi_init() is called immediately before
-tegra_dc_rgb_probe(dc). In tegra_dbi_probe(), devm_mipi_dbi_device_register=
-()
-creates the child mipi_dbi_device, but priv->bridge is only registered later
-in tegra_dbi_host_attach() when the panel driver binds to that DBI device a=
-nd
-calls devm_mipi_dbi_attach().
-
-If the panel driver is built as a module, has not registered yet, or defers
-its own probe (for example waiting on a regulator, GPIO, or backlight),
-devm_tegra_dc_dbi_init() still returns 0, and then tegra_dc_rgb_probe(dc) ->
-tegra_output_probe() -> drm_of_find_panel_or_bridge() returns -EPROBE_DEFER
-because priv->bridge has not been added yet. When tegra_dc_probe() fails wi=
-th
--EPROBE_DEFER, devres on &pdev->dev runs tegra_dbi_release(), which
-unregisters the tegra-dbi platform device and destroys the child
-mipi_dbi_device. With the mipi_dbi_device removed, how can the panel driver
-ever bind to it and call tegra_dbi_host_attach() to resolve the deferral?
-
-Additionally, tegra_dbi_driver is a single static platform_driver registered
-inside devm_tegra_dc_dbi_init(). If both display controllers on Tegra20/30
-have an available "dbi" child node, won't the second DC's call to
-platform_driver_register(&tegra_dbi_driver) fail with -EBUSY, and unbinding
-one DC unregister tegra_dbi_driver while the other DC is still using it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029152909.2345=
-84-1-clamor95@gmail.com?part=3D11
+> +	if (!racy_check)
+> +		dma_fence_lock_irqsave(fence, flags);
+>  	if (dma_fence_test_signaled_flag(fence))
+> +		signaled = true;
+> +	if (!racy_check)
+> +		dma_fence_unlock_irqrestore(fence, flags);
+> +	if (signaled)
+>  		return true;
+>  
+>  	rcu_read_lock();
+> -- 
+> 2.56.0
+> 
