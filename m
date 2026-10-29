@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED77606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:36:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1AF606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 07:36:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxAMMnaD
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LwlpAbUh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2DBF10E7B2;
-	Thu, 29 Oct 2026 07:36:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FFC210E7BD;
+	Thu, 29 Oct 2026 07:36:41 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1EA810FFD3
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:36:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB59A10FFEB
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:35:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CAB5C42DE0;
- Thu, 29 Oct 2026 07:36:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 290201F01825;
- Thu, 29 Oct 2026 07:36:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 96C5A42AC2;
+ Thu, 29 Oct 2026 07:35:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE2E1F01825;
+ Thu, 29 Oct 2026 07:35:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793259369;
- bh=CqEW+l+JGX99FGoMvZaZDEASwW5sAXd/JtdVOe9MMJY=;
+ s=k20260515; t=1793259347;
+ bh=BJrhIl9lc1uo2VthiMOMNBF4VZCwsSymlJd05G3lPyI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=jxAMMnaDlbZU6TVw+XNpHMNBUUVXqzlkCrGayyBlY0+Ohb87xL+k5XqhgUBT8ZhFx
- w/5Fe7L9QIy0tVrbfa2So7VC+oK/WW5P6rOeZY0D7MjsqaKB2rOFVk8jleKqMhd5/G
- tQN2yA8lLe9i+D9peI3NDx/O3kdrxh7BOKEGMWoMw6EE4qD4MmDRB67ce2ENHuK9sr
- Rbwp6auQbzYlSLy5i7s/71S5zkjuCmPSo10+6BwJ3Gxknt8ypj0/fQh31jUJpkySaP
- xAOz56r6IGJXJ2z/eBW4KILk/G/xGaLBMqVc93X3bvpKJwg8ej6lk5fiiel5KPtGqr
- GpcDOCOtmm4WQ==
+ b=LwlpAbUhUb80YGIzwN7m1ScQ6EzwZzIl74kpIuP+axDxwXjbIZhCKAe4sDpeKPobW
+ bbW80Y6iCPnCT84CKuh5Pdy/2LHTFIUCOVcz4kZda54RcIj+o71hjUzabjpC8PXAYj
+ HD4V2U8zr3rPxU3o8w/FZRxi0Pz4B/ePn19rTbgW2s4uwyda2ao1iqz8W5JjnaWZ/i
+ 3iqSP8pyuhM4bLN1xc4pWi758IW+9QV9o2Z7VK5p3IYfdZ6WO21zbmYKdRk1+aooNU
+ UH3JdeLJZZbhyfzr7IfJes5bq8T6Bg9Z6/12mTw5xy8I7JzF+8BQ4ZHp5kEKG0gtM7
+ eqeE9h2kUMPTw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 29 Oct 2026 08:34:19 +0100
-Subject: [PATCH v7 29/34] drm/tidss: crtc: Add atomic_print_state
- implementation
+Date: Thu, 29 Oct 2026 08:34:13 +0100
+Subject: [PATCH v7 23/34] drm/atomic-helper: Document State Read-Out as a
+ state initialization approach
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-drm-state-readout-v7-29-25e5163d75c3@kernel.org>
+Message-Id: <20261029-drm-state-readout-v7-23-25e5163d75c3@kernel.org>
 References: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 In-Reply-To: <20261029-drm-state-readout-v7-0-25e5163d75c3@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1636; i=mripard@kernel.org;
- h=from:subject:message-id; bh=OaT9z6vDW3jq70AjKFg3g9ZXb4d0z01fgQUVCdw5xBk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvv1kWLR36+bqMpaT62bPEHjj2fmk5M6iedURxxfXi
- 4tm73T52TGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQ2hItTACbytI6x4aX5W4PfMn3sEjd+
- P/LyjZjisotx9mbhJuOEdLZsy3viQr3tbv6Xjx9M/LjONbXFIVKLsd7teZ7XUbPFTin7H1yU3P0
- zeMPhvIraJdG90g82aNgx8JifsY38syTw+zmZldf+PbpXzgkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2403; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=WWzC9xSGufyQSCmd8v7k5n65ixi5WdpidAACEDn0mSM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmPvn3bvp/hT2ZSnNCbpyHvJr5wfaT2l5nZUOrWLHahS
+ s1Jny9u6pjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATMRdibDhesvTE5+dGO2SL
+ g6qvbP697knvCpaMI3saEqTUyv5kLZgt52n3ol1gqU7Tjq1d6j88HzM2fHP9e/OU2ebmDM8312q
+ +CAp0qTMJByxuOfss7KS2d+vq33JG71jrDpY/STh3K+NIfqsxAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,44 +75,52 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The tidss CRTC subclasses drm_crtc_state with bus_format and bus_flags
-fields that are set during atomic check and state readout. These fields
-are not visible in the standard atomic state dumps, making it harder to
-debug bus format negotiation issues.
+The "atomic state reset and initialization" DOC section describes the
+problem of needing correct atomic state at driver load and after
+suspend, but only mentions the reset approach and a vague reference to
+i915's read-out as an alternative.
 
-Add an atomic_print_state hook to expose them in debugfs and kernel log
-state dumps.
+Now that the State Read-Out (SRO) infrastructure provides a generic
+solution, update the documentation to describe both approaches and
+cross-reference the SRO section. Also mention
+drm_mode_config_create_initial_state() which combines both.
 
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tidss/tidss_crtc.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/drm_atomic_state_helper.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/tidss_crtc.c
-index 400329aa2200..3da49f77fa08 100644
---- a/drivers/gpu/drm/tidss/tidss_crtc.c
-+++ b/drivers/gpu/drm/tidss/tidss_crtc.c
-@@ -402,4 +402,13 @@ static void tidss_crtc_destroy(struct drm_crtc *crtc)
- }
- 
-+static void tidss_crtc_atomic_print_state(struct drm_printer *p,
-+					  const struct drm_crtc_state *state)
-+{
-+	const struct tidss_crtc_state *tstate = to_tidss_crtc_state(state);
-+
-+	drm_printf_indent(p, 1, "bus_format=0x%08x\n", tstate->bus_format);
-+	drm_printf_indent(p, 1, "bus_flags=0x%08x\n", tstate->bus_flags);
-+}
-+
- static const struct drm_crtc_funcs tidss_crtc_funcs = {
- 	.destroy = tidss_crtc_destroy,
-@@ -409,4 +418,5 @@ static const struct drm_crtc_funcs tidss_crtc_funcs = {
- 	.atomic_duplicate_state = tidss_crtc_duplicate_state,
- 	.atomic_destroy_state = tidss_crtc_destroy_state,
-+	.atomic_print_state = tidss_crtc_atomic_print_state,
- 	.enable_vblank = tidss_crtc_enable_vblank,
- 	.disable_vblank = tidss_crtc_disable_vblank,
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index 267f44330629..c5bf70e6ad53 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -48,11 +48,19 @@
+  * and correct atomic software state for all connectors, CRTCs and planes
+  * available. Which is a bit a problem on driver load and also after system
+- * suspend. One way to solve this is to have a hardware state read-out
+- * infrastructure which reconstructs the full software state (e.g. the i915
+- * driver).
++ * suspend. There are two ways to solve this:
+  *
+- * The simpler solution is to just reset the software state to everything off,
+- * which is easiest to do by calling drm_mode_config_reset(). To facilitate this
+- * the atomic helpers provide default reset implementations for all hooks.
++ * The first is to use the :ref:`State Read-Out (SRO) <drm_atomic_sro>`
++ * infrastructure to reconstruct the full software state from hardware
++ * registers. This enables flicker-free boot when the firmware already
++ * configured the display.
++ *
++ * The simpler alternative is to just reset the software state to everything
++ * off, which is easiest to do by calling drm_mode_config_reset(). To
++ * facilitate this the atomic helpers provide default reset implementations for
++ * all hooks.
++ *
++ * drm_mode_config_create_initial_state() combines both approaches: it tries
++ * SRO first, and falls back to a hardware reset followed by
++ * drm_mode_config_create_state().
+  *
+  * On the upside the precise state tracking of atomic simplifies system suspend
 
 -- 
 2.55.0
