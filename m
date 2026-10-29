@@ -2,105 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19F3606A31D
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:06:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15EC606A31D
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 14:07:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ccPKuG96
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=es3jmm3y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07093112303;
-	Thu, 29 Oct 2026 14:06:19 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC6FA112303
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:06:12 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-353804b591eso3341991eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 07:06:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793282772; cv=none;
- d=google.com; s=arc-20260327;
- b=YO8iF6J8ZMj0ZFqyiGmaO0kWOv/CBu3YiHD0LtKuowJaQpS6CGAXMqg+JitKke0hrv
- 4hlVHcJAjbfoKo19urDxdigG54Y2UO9mVNc7rTTmTxZoh8ww7I/fiRACsEBolf2Fp0q6
- qV8Jw8mzbvsDskTG6EPuZX2q5JmqkFhhqKDTMZPK7Mlr5fYzTK1Q5IyTamCfXf3mSIOm
- 1FIgbMhKewQXYj6HHtx6WP/geJRhs5ke67Dn0f4v5JHH7zRBjcg6gsDwoRLnP2wJe8mI
- sXkQk5H24SpHrK64lNkAgLGVCs2u0z1CbshA6rz6LV8mT6pLuO+pm5oNppv/tySsTebz
- elGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=5AFMA62x81Eod9qLhy82JE4hw8ngyRnLnh0416nT1Yg=;
- fh=tsx+9kNHUNf2kPX4aPTk447QhImsXpR/zGIb5L55U8o=;
- b=LDaGG1wYzdLvtjLnTHINx9rPHRlIiOe2xkZFmFeqHfwPt088TCIu7blE9PaLCQdOw7
- CzitZ9o7RgD3V9Drt6NnM39W2AYc46E4+7Cg3JpHG/66bvfOWAJyxzprTV3LGwrd5ldS
- Htn7RrGXsmHRS5kA7lQ/83whvmVVJOU8HLvK4sGZY2pNCycH/wuGWsRm2VmOAB7ZxdoL
- 4CI8MNFao90TvTQ/v56VEBWI2dgjxrjRdN3A11ktL1NgU5i55UR3XtfeHC6K4NVTHtj/
- gmNFwLuywI6LP7S783rNRbL4XcF92YEKwYlGpbw0B44LkFgq3iLuwVtUAYGvPwK/HQcz
- 0sNQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1793282772; x=1793887572;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=5AFMA62x81Eod9qLhy82JE4hw8ngyRnLnh0416nT1Yg=;
- b=ccPKuG96GNL7dExyfVZJvCK8kbUw3a5no9uA7PnUZpXOdoMzFx0baG+I6wshwX5X6G
- JgXxsDc69GBbH2sAGygI06RHvcCP8y3Sj/OlXjdh8QLp4KGt/d6sTU2MMGhZ6VkC39NG
- PSAVFDS09wFu2ZkwWdpwshK2ya8ccLUGcV/7V40RhVhqDvKGMaKUCivhQisM8kAI5aBP
- s2DBOWnVQ5ZQLcdUzdJqEUp1lP8Of4VbmsgtHnDmA6dE0UrnUPoNQPsgvgQMZRnNUYBV
- vyXWSeT7VYIXHSGbPrjGUSMdXzmHuZstECy7MDSki9ztvfucKC4bIXajKD1SkBOpktVC
- Hl1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793282772; x=1793887572;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=5AFMA62x81Eod9qLhy82JE4hw8ngyRnLnh0416nT1Yg=;
- b=fD6REO2phyWnwKVIvqWFIyXzWRGv56cq0b/NF9NcuT2lroEp4gV/i6TJ7w3ZGsPWuv
- sw0gZHkSeRMnbPCj0AIdlWjXTuowBqlTFTjN9XdF0SoLW3uem6H81vqGOc9+QH93Twmu
- J6ynskeb5SzinpqRLZFNAFf0LUsmDbcc/fYklSwqeL/34UH1gtqkQSMpl8wP+XBXxNrB
- vvC0dbW4TYp3xFQsZb8zCFhfK2mHATVJYC8VfKdzSdaCiRREUJMywchGwrRe5GvwUzze
- fvDoZEJXsdstqNXmNTkyYtP8lUpISYyMYV3W+jWtCPTeUkcWdqUVpfKPAeRuro/gCsVm
- sq7g==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwJBqSlapQSX59c87VGNgkQcHORxvdZ9QVXpR71SPa4QHZL1NDv5apW1UGh9AAvkNSFcWHPZAylrEw=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIt7sH0CsDCTO6g2g7KgBd+AGGSy1G5Acwui4o/yjLJ+DvKryu+
- B336P0xES8kut0igkM5Gz57iZ5cvlQWkmQtPEZsZBGbxhPOekcO9LgnJWvYNSRmm9Y8IstZ1w5r
- sw58mIEqwpQEmGep9OBzkiHRI4E3iN9cf9YXstUtv
-X-Gm-Gg: AYBFou3tdAx5kINa6RVGufqAkGBkghEYT0zaFC/u4v63IflgOMUBq8CbNfwAhBwKwZi
- eHe3tHfmdyQkQUgYg0291+N2lssiy1LlqqQvZgLuPFQ9dZKzEmUL4liTXhEkvNy5MGDW6r9ErEB
- BAWOjV2to0dC05oTAMvL+Q7URdaUwZKsezx2Hb0C/njSVVd4cz69rF+dKRzWlD2tb+x/SHwe7l6
- M5muzs+G0bQbbr24COVnngvAuON22EXT4ZnflvorLkDODkSqTYskQbKnGPZQfV+0SoCEBrLX4CB
- PhGjOUl/8ZDVqlIJ++/BLuYqjUJji/zoF0JJd/s0tFelK74rGWpq7TUMi5VGYx+Ju8bCVY7JA9C
- 83EBuQyqnj4m24oTGutYY3rHA3MQvFTnv0x+/UuMGxN5RzLpARiuBdxFRenNCCXHERmFicYSnay
- 6Dk43r9aMLWnUNqzoeSNhKREpyvPn/xQnwg5ZbPbOEaew2j3ewYl4e7WEzSo/gBwQw
-X-Received: by 2002:a05:693c:87d0:20b0:369:daea:812a with SMTP id
- 5a478bee46e88-36a203e04ebmr7980604eec.30.1793282771027; Thu, 29 Oct 2026
- 07:06:11 -0700 (PDT)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261022162116.2282295-2-phasta@kernel.org>
-In-Reply-To: <20261022162116.2282295-2-phasta@kernel.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Thu, 29 Oct 2026 15:05:53 +0100
-X-Gm-Features: AclHuK_SoizvoU1-Dr6Iy33-0wETUO3c6OG-X77GiKNsKuJD9voK4ASEhNNET7I
-Message-ID: <CAH5fLgiDRJuid2usngucBVNd4tP3R6Xavx-WWoKpN7xMQqv+zQ@mail.gmail.com>
-Subject: Re: [PATCH] rust: DmaFence: Implement Deref for FenceContext
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5AE11231F;
+	Thu, 29 Oct 2026 14:07:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AC2B11231F
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:07:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EA8A741829
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 14:07:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25AC1F01828;
+ Thu, 29 Oct 2026 14:07:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793282838;
+ bh=QvD7ngkujWRyKrZ5PZEz0HgN8VscJ7YILyZvwNx5MEI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=es3jmm3y/Eto0gV2jHc4+7mxCEF1oOSICWNp0wy+IZeALp2y/RatlXAv/Jh0xti3P
+ A0jBQWxrxpd+6bdkbgg7Sg4F49XfaUjDnJ6JDnoLpa1sA1X3ICPPCkJL0MXIWCmqvw
+ zvv8zARzmBbPZmWe26Ej14aOeMF8u139B5ycLrDPLsHYh0UMpsyrvw7SAubTnD//JB
+ QZ1QFStaweTvkuMsV2kOXfoZqUvfWH5+IczP279eDf37T4NHcYWSQ9ZFjDd1KNl3+2
+ ZEsZQtX16Y6/kwJuBPYtSOVsGFxc/3CprCjXJS9D8MNkStueBpfnGUZVEmnVZIRCmJ
+ kIlO0sjJSvl6g==
+Message-ID: <sashiko-outbox-189474@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 05/31] accel: ethosu: Quiesce jobs before scheduler
+ teardown
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261029-ethosu-fixes-v4-5-4aa25e22578e@kernel.org>
+References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
+ <20261029-ethosu-fixes-v4-5-4aa25e22578e@kernel.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 14:07:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,22 +49,136 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Oct 22, 2026 at 6:21=E2=80=AFPM Philipp Stanner <phasta@kernel.org>=
- wrote:
->
-> A FenceContext carries data, which the user should be able to access.
->
-> Implement Deref for FenceContext.
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] accel: ethosu: wrong TDR and IRQ teardown order in ethosu_job_fini=
+()
+--
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+commit 0cd4405bf9fa95eb128e9e0dbd76f0af4d652c5c
+Author: Rob Herring (Arm) <robh@kernel.org>
+
+accel: ethosu: Quiesce jobs before scheduler teardown
+
+This commit stops the scheduler workqueue and timeout work, resets the NPU =
+if
+a job is in flight, and synchronizes the IRQ before calling drm_sched_fini(=
+).
+It also adds a cancel_job callback so queued jobs are signaled with
+-ECANCELED during scheduler teardown.
+
+> diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/eth=
+osu_job.c
+> index b7faa715b47e4..d418ae7961cff 100644
+> --- a/drivers/accel/ethosu/ethosu_job.c
+> +++ b/drivers/accel/ethosu/ethosu_job.c
+
+[ ... ]
+
+> @@ -361,6 +373,15 @@ int ethosu_job_init(struct ethosu_device *edev)
+> =20
+>  void ethosu_job_fini(struct ethosu_device *dev)
+>  {
+> +	drm_sched_wqueue_stop(&dev->sched);
+> +	cancel_delayed_work_sync(&dev->sched.work_tdr);
+> +
+> +	if (READ_ONCE(dev->in_flight_job)) {
+> +		WRITE_ONCE(dev->in_flight_job, NULL);
+> +		ethosu_device_reset(dev);
+> +	}
+> +
+> +	synchronize_irq(dev->irq);
+>  	drm_sched_fini(&dev->sched);
+>  }
+
+[Severity: High]
+Could the ordering of drm_sched_wqueue_stop(), cancel_delayed_work_sync(), =
+and
+IRQ synchronization here allow work_run_job or work_tdr to be re-queued dur=
+ing
+teardown?
+
+First, drm_sched_wqueue_stop() is called before canceling dev->sched.work_t=
+dr.
+If dev->sched.work_tdr is already executing ethosu_job_timedout() when
+ethosu_job_fini() starts, cancel_delayed_work_sync() waits for it to finish:
+
+drivers/accel/ethosu/ethosu_job.c:ethosu_job_timedout() {
+	...
+	drm_sched_stop(&dev->sched, bad);
+
+	WRITE_ONCE(dev->in_flight_job, NULL);
+
+	/* Proceed with reset now. */
+	pm_runtime_force_suspend(dev->base.dev);
+	pm_runtime_force_resume(dev->base.dev);
+
+	/* Restart the scheduler */
+	drm_sched_start(&dev->sched, 0);
+
+	return DRM_GPU_SCHED_STAT_RESET;
+}
+
+At the end of ethosu_job_timedout(), drm_sched_start() calls
+drm_sched_wqueue_start(), which clears sched->pause_submit and queues
+work_run_job and work_free_job on sched->submit_wq. Once
+cancel_delayed_work_sync() returns, work_run_job can pop a queued job and c=
+all
+ethosu_job_run() -> ethosu_job_hw_submit(), setting dev->in_flight_job,
+submitting a new job to the NPU, and re-arming work_tdr via
+drm_sched_job_begin() concurrently with ethosu_device_reset() and
+synchronize_irq().
+
+Second, cancel_delayed_work_sync(&dev->sched.work_tdr) runs before
+ethosu_device_reset() and synchronize_irq(dev->irq). Before the NPU is reset
+and the IRQ is synchronized, ethosu_job_irq_handler_thread() ->
+ethosu_job_handle_irq() can still run and handle an error interrupt without
+checking dev->in_flight_job:
+
+drivers/accel/ethosu/ethosu_job.c:ethosu_job_handle_irq() {
+	...
+	if (status & (STATUS_BUS_STATUS | STATUS_CMD_PARSE_ERR)) {
+		dev_err(dev->base.dev, "Error IRQ - %x\n", status);
+		drm_sched_fault(&dev->sched);
+		return;
+	}
+	...
+}
+
+Calling drm_sched_fault() schedules dev->sched.work_tdr again after
+cancel_delayed_work_sync() has already returned. That allows
+ethosu_job_timedout() to run concurrently with ethosu_device_reset() (where
+pm_runtime_force_suspend() disables the NPU clocks while ethosu_device_rese=
+t()
+polls MMIO registers and clears SRAM with memset_io()) as well as concurren=
+tly
+with drm_sched_fini().
+
+Note that while a later commit in the series ("accel: ethosu: Keep scheduler
+after unplug") replaces this with ethosu_job_stop() and calls
+disable_irq(dev->irq) before cancel_delayed_work_sync(&dev->sched.work_tdr),
+it still calls drm_sched_wqueue_stop(&dev->sched) before
+cancel_delayed_work_sync(&dev->sched.work_tdr), which leaves the race where=
+ an
+in-progress ethosu_job_timedout() calls drm_sched_start() and restarts
+work_run_job and work_free_job.
+
+Should the IRQ be disabled or synchronized before canceling work_tdr, and
+should drm_sched_wqueue_stop() be called after cancel_delayed_work_sync() (=
+or
+after preventing ethosu_job_timedout() from calling drm_sched_start() during
+teardown)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-ethosu-fix=
+es-v4-0-4aa25e22578e@kernel.org?part=3D5
