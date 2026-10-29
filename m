@@ -2,44 +2,115 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6DC606A335
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 09:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30068606A33A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 09:58:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AOqBrbBi
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9blAECY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E6C6112162;
-	Thu, 29 Oct 2026 09:58:37 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82BD410E7C5
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 09:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6C7112165;
+	Thu, 29 Oct 2026 09:58:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9421411215D;
+ Thu, 29 Oct 2026 09:58:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 342BD601FE;
- Thu, 29 Oct 2026 09:58:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8444B1F01828;
- Thu, 29 Oct 2026 09:58:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4822D43B68;
+ Thu, 29 Oct 2026 09:58:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D52E1F01825;
+ Thu, 29 Oct 2026 09:58:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793267903;
- bh=Ehad/V6Xbh5JId3uEy79I5nAeDepddQdYNwUbSw35YQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AOqBrbBi1Cm+XWBBqmePq72TskRADhH1xnlA2zy1SJwy2BOYe828/clupJ1f81wDG
- DHWTpp3NJR5LSslc1nXspp/VraMBsqaycO3ZysDz3pw3vhcCUx9cJAUlojcmujKDew
- 6pqnYy2uQj00mtvaNYEH4Fsj0OyjIhngGsBsDGGH8e+nbrN83AxCnwPvqGz2krozw2
- ZmSq97eDnlQADoY6Yd/d2372rRVkkDVgmeXLzln8eTvrZe/pJsEI1eHFTynMBXU6a0
- FTE1amNS+rSJv5sR43XLMbR9t5jxSNSULfHMThivHt+cEwQrNtZDmjrrwI7mqjgVSg
- jb7Zmq9KEzLEQ==
-Message-ID: <sashiko-outbox-189075@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
-To: "Xilin Wu" <sophon@radxa.com>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-In-Reply-To: <20261029-q8b-dts-v3-3-655696dfec45@radxa.com>
-References: <20261029-q8b-dts-v3-0-655696dfec45@radxa.com>
- <20261029-q8b-dts-v3-3-655696dfec45@radxa.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 29 Oct 2026 09:58:23 +0000
+ s=k20260515; t=1793267915;
+ bh=pvyVptf34gNXi8Bay+Y0wQ1+su1zbi4JW/reYBgb1VQ=;
+ h=From:To:Cc:Subject:Date;
+ b=E9blAECYp6KG8AN9sCB1a35WZl4tql7Y8ZXp0RDyDE91uhItcOlCubJTDFxxfFQ1c
+ FQ1oLcDZUFCI5NNc2ysWVgB/YRzMjzSxsJmTuSY+45io7wuL8LjueztYWrgRcpOECH
+ VewapS1H9J02mVTfUi3oCFQKKGmnMRyzM3asO2oNSoHkcLOi0Td6e3tzSkHmyLmid0
+ hdfX9MCzFdHpolJc2F/hD/ot11Mq8ijC0ZN/oRoyiR3cb6617vJjq0MXOsWWjMlgvu
+ 0oeqVetAnnaBq4kfE+Rq5DaPVbXmQggZR+obBEtf/xce5dNpC92pf3UDffILLhhSf6
+ rLTIHQ1YDRYGA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
+ Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alessio Belle <alessio.belle@imgtec.com>,
+ Luigi Santivetti <luigi.santivetti@imgtec.com>,
+ Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, Natalie Vock <nat@pixelcluster.dev>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sunil Khatri <sunil.khatri@amd.com>, Kees Cook <kees@kernel.org>,
+ Jesse Zhang <jesse.zhang@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Kexin Sun <kexinsun@smail.nju.edu.cn>, Prike Liang <Prike.Liang@amd.com>,
+ David Rosca <david.rosca@amd.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Marco Crivellari <marco.crivellari@suse.com>,
+ Shixiong Ou <oushixiong@kylinos.cn>,
+ =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>, Al Viro <viro@zeniv.linux.org.uk>,
+ Neill Kapron <nkapron@google.com>,
+ Michael Bommarito <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
+ Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ imagination@lists.freedesktop.org, lima@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-usb@vger.kernel.org
+Subject: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
+Date: Thu, 29 Oct 2026 10:55:37 +0100
+Message-ID: <20261029095542.1526750-3-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,82 +121,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: qcom: missing pinctrl properties on uart2 in dragon-=
-q8b
---
+dma_fence_is_signaled() can return true *while* the fence is signaling.
+This has caused explosions before and I guess we can agree that it's
+just not ideal.
 
-commit 806aef47629e5a5fdf23480747e829d1b21764d6
-Author: Xilin Wu <sophon@radxa.com>
+The fundamental issue is that the fence-signaled-bit is set under lock
+protection but read without it.
 
-arm64: dts: qcom: sc8280xp: add Radxa Dragon Q8B
+So ideally, we would read it with the lock. This would not change the
+relative order, i.e. the bit would still be true in the fence callbacks.
 
-This commit adds initial device tree support for the Radxa Dragon Q8B
-single-board computer based on the Qualcomm Snapdragon 8cx Gen 3 SC8280XP
-platform.
+Christian informs us that taking the lock causes people to complain
+about performance regressions because the lock-taking shoots down copied
+cache-lines. (which is weird since it would mean that someone is
+repeatedly polling on fences instead of just registering a callback to
+notify himself once it signals)
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts b/arc=
-h/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts
-> new file mode 100644
-> index 0000000000000..fd1e29ce83b27
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8b.dts
-> @@ -0,0 +1,2049 @@
+Let's accept the potential for regressions as true for now.
+Nevertheless, I think I can propose a path towards removing the race:
 
-[ ... ]
+This series suggests taking the lock in dma_fence_is_signaled() *unless*
+the driver explicitly asks for a check with a race-condition.
 
-> +/* E-key Bluetooth */
-> +&uart2 {
-> +	uart-has-rtscts;
-> +	status =3D "okay";
-> +
-> +	port {
-> +		uart2_ep: endpoint {
-> +			remote-endpoint =3D <&wlan_uart_ep>;
-> +		};
-> +	};
-> +};
+As a preparation, I allow drivers to set flags when initializing fences.
+Then, we add a flag with which the driver can switch locking off for
+that particular function.
 
-[Severity: Medium]
-Should the &uart2 node in arch/arm64/boot/dts/qcom/sc8280xp-radxa-dragon-q8=
-b.dts
-include pinctrl-0 and pinctrl-names properties?
+By default, we let all drivers take the lock.
 
-In arch/arm64/boot/dts/qcom/sc8280xp.dtsi, the base uart2: serial@988000 no=
-de
-does not define default pinctrl properties:
+Should we then, in the kernel release process get reports about
+regressions, we can set the race-flag for the affected driver and
+restore the old behavior.
 
-    uart2: serial@988000 {
-        compatible =3D "qcom,geni-uart";
-        reg =3D <0 0x00988000 0 0x4000>;
-        ...
-        status =3D "disabled";
-    };
+Should there be no reports, we could phase the flag out again after a
+few releases, always taking the lock.
 
-Instead, the pin configuration state qup_uart2_default (for gpio121 CTS,
-gpio122 RTS, gpio123 TX, and gpio124 RX) is defined separately under &tlmm =
-in
-sc8280xp.dtsi for board device trees to reference.
+New users would always see the lock.
 
-When qcom_geni_serial probes uart2 for the M.2 E-key Bluetooth interface and
-activates resources via pinctrl_bind_pins() and geni_se_resources_on() ->
-pinctrl_pm_select_default_state(), the TLMM pins for UART2 will not be muxed
-to the qup2 function or configured by Linux without:
+I put all potentially affected parties on Cc. Please point out if you
+can already foresee your driver being negatively affected by this.
 
-    pinctrl-0 =3D <&qup_uart2_default>;
-    pinctrl-names =3D "default";
+P.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029-q8b-dts-v3=
--0-655696dfec45@radxa.com?part=3D3
+
+Philipp Stanner (6):
+  dma-buf: dma-fence: Add flags parameter to dma_fence_init()
+  dma-buf: dma-fence: Add flag for using 64-bit seqnos
+  dma-buf: Port users of dma_fence_init64()
+  dma-buf: dma-fence: remove dma_fence_init64()
+  dma-buf: dma-fence: Close race in dma_fence_is_signaled() by default
+  drm/nouveau: Remove hacky fence check
+
+ drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
+ drivers/accel/ethosu/ethosu_job.c             |  2 +-
+ drivers/accel/ivpu/ivpu_job.c                 |  2 +-
+ drivers/accel/rocket/rocket_job.c             |  2 +-
+ drivers/dma-buf/dma-fence-array.c             |  2 +-
+ drivers/dma-buf/dma-fence-chain.c             |  4 +-
+ drivers/dma-buf/dma-fence.c                   | 44 +++++------------
+ drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
+ drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
+ drivers/dma-buf/st-dma-fence.c                |  2 +-
+ drivers/dma-buf/st-dma-resv.c                 |  2 +-
+ drivers/dma-buf/sw_sync.c                     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+ drivers/gpu/drm/drm_crtc.c                    |  2 +-
+ drivers/gpu/drm/drm_writeback.c               |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
+ drivers/gpu/drm/i915/i915_request.c           |  2 +-
+ drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
+ drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
+ .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
+ drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
+ drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
+ drivers/gpu/drm/lima/lima_sched.c             |  2 +-
+ drivers/gpu/drm/msm/msm_fence.c               |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 -----
+ drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
+ drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
+ drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
+ drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+ drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
+ drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
+ drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
+ drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
+ drivers/gpu/host1x/fence.c                    |  2 +-
+ drivers/iio/industrialio-buffer.c             |  2 +-
+ drivers/usb/gadget/function/f_fs.c            |  2 +-
+ include/linux/dma-fence.h                     | 48 +++++++++++++++++--
+ 52 files changed, 115 insertions(+), 105 deletions(-)
+
+-- 
+2.56.0
+
