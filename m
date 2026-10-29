@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE57606AAC0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE30C606A324
 	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 13:38:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEQpulTX
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhAvuHMx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBF731122E0;
-	Thu, 29 Oct 2026 13:38:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FFDF1122EF;
+	Thu, 29 Oct 2026 13:38:02 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 084871122F0
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:37:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 274C110E80F
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 13:36:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E08F4419D4;
- Thu, 29 Oct 2026 13:37:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DE711F031E1;
- Thu, 29 Oct 2026 13:37:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 108E243460;
+ Thu, 29 Oct 2026 13:36:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47631F01825;
+ Thu, 29 Oct 2026 13:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793281022;
- bh=+BQMj/oKhcMC8TgSMsshaViV+aijzIdXAPY1rNUymVs=;
+ s=k20260515; t=1793281018;
+ bh=h7/WajsG/j4H6248wyjA9raYhJwLC+lNXG4AAfWTGD0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=nEQpulTXhvVYpRM8/4rrSnKIpnehGMYP0j+xmnQGn2djs3A7++X4ro/noDSKZG50m
- gsGwT59782LL0erQVJeq5j11AOhptSGOkpFLy4eg7T9hUECsIcpWr5w2xv2agO2djP
- 0RFohx3dDaM1s3Qqq1HSGEI+A3OUDigFaj+mYlNLwsAyudIlkN+IftazS1uf99wPLV
- IHLHiIJscMe5lfWac2vWuxJ0FTZvZ/LbjBAGZTZreHFGoBIGswJcR3e8MnEhaefqSp
- o0G0hzzlSN5a3a9lgjKAhKxzRWO/m4syXHDeqDm46q8OUXweQTx9n03meNIz8HGSr/
- qR/8DdYoTRG0A==
+ b=EhAvuHMxgeGO4uFSEMqS118FMWo7aeMCv9ilrZoMZR4/30I4DY19G4aEbHviB2YM+
+ Sm/xxCEaF3AK3uGm8MHpueMT1Q6/uZMAV0G3PsV0001DtbAGgz+26iIbl9K+JgWaqa
+ GgjMqkbMenp/U6c3axnDUE31LPBs8vwIksocopYw8fs0Ot5xPWDYPVq48gZdP1/GIj
+ EAHrICcGnWBtrNxHOreLp2wOqJLPBbHx+wHV7GAb5NWdHL/GQuI5XnOFwOGfMCPqjm
+ x8fm768dz1O5U32lwPY9e4ilbL4zT6d71vDFJd/x2gViQv633iFrEGM63g65ju4pD5
+ 7yGEqA3DyAvBg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:36:18 -0500
-Subject: [PATCH v4 31/31] accel: ethosu: Support U85 IFM upscaling
+Date: Thu, 29 Oct 2026 08:36:14 -0500
+Subject: [PATCH v4 27/31] accel: ethosu: Validate OFM transpose
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-31-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-27-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -60,122 +60,139 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Track the U85 IFM upscaling mode while validating command streams and
-adjust feature-map bounds for its 2x resampling modes.
+U85 OFM dimensions are specified before transposition, while
+tile bases and strides address the transposed feature map. Permute
+the output endpoint before validating its tile and stride accesses.
 
-Resize operations require no IFM upscaling, so reject a non-default
-mode there.
+Allow the defined U85 transpose encodings and reject the two
+reserved encodings.
 
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v4:
- - New patch
+ - Allow only HWC, HCW, and CHW output layouts for elementwise ops
+ - Don't allow 64-bit output precision and chained output storage
+
+v2:
+ - no change
 ---
- drivers/accel/ethosu/ethosu_device.h |  7 +++++++
- drivers/accel/ethosu/ethosu_gem.c    | 30 ++++++++++++++++++++++++++++++
- 2 files changed, 37 insertions(+)
+ drivers/accel/ethosu/ethosu_device.h |  1 +
+ drivers/accel/ethosu/ethosu_gem.c    | 69 ++++++++++++++++++++++++++++++++++--
+ 2 files changed, 68 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index f41a8e0e1e1b..1fec33d9917c 100644
+index d3df6720085d..c3789474fa7b 100644
 --- a/drivers/accel/ethosu/ethosu_device.h
 +++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -97,6 +97,12 @@ struct gen_pool;
+@@ -92,6 +92,7 @@ struct gen_pool;
+ #define NPU_OP_CONV_WEIGHTS_IFM2	BIT(0)
+ #define NPU_KERNEL_DILATION_X		BIT(3)
+ #define NPU_KERNEL_DILATION_Y		BIT(4)
++#define NPU_OFM_TRANSPOSE_MASK		GENMASK(13, 11)
  
  #define NPU_CMD_CTRL_CMD1		BIT(14)
  
-+enum ethosu_ifm_upscale_mode {
-+	NPU_IFM_UPSCALE_NONE,
-+	NPU_IFM_UPSCALE_NEAREST,
-+	NPU_IFM_UPSCALE_TRANSPOSE,
-+};
-+
- enum ethosu_cmds {
- 	NPU_OP_STOP = 0x0,
- 	NPU_OP_CONV = 0x2,
-@@ -113,6 +119,7 @@ enum ethosu_cmds {
- 	NPU_SET_IFM_PAD_BOTTOM = 0x103,
- 	NPU_SET_IFM_DEPTH_M1 = 0x104,
- 	NPU_SET_IFM_PRECISION = 0x105,
-+	NPU_SET_IFM_UPSCALE = 0x107, // U85 only
- 	NPU_SET_IFM_BROADCAST = 0x108,
- 	NPU_SET_IFM_WIDTH0_M1 = 0x10a,
- 	NPU_SET_IFM_HEIGHT0_M1 = 0x10b,
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 21458aacfcad..d82c9540e82a 100644
+index 04c0de8336cd..fe6bf1a2f8cb 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -165,6 +165,7 @@ struct cmd_state {
- 	DECLARE_BITMAP(cmd0, NPU_CMD0_REGS);
- 	DECLARE_BITMAP(cmd1, NPU_CMD1_REGS);
- 	bool acc_input_ifm2;
-+	u8 ifm_upscale;
- 	u8 parallel_mode;
- 	struct dma_state dma;
- 	struct buffer scale[2];
-@@ -718,6 +719,11 @@ static int calc_sizes_resize(struct drm_device *ddev,
- 	u64 len;
- 	int ret;
+@@ -422,6 +422,52 @@ static int feat_matrix_validate(struct ethosu_device *edev,
  
-+	if (st->ifm_upscale != NPU_IFM_UPSCALE_NONE ||
-+	    feat_matrix_chained(edev, &st->ofm) ||
-+	    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st->ofm.precision))
-+		return -EINVAL;
-+
- 	if (!cmd_state_reg_is_set(st, NPU_SET_KERNEL_WIDTH_M1) ||
- 	    !cmd_state_reg_is_set(st, NPU_SET_KERNEL_HEIGHT_M1) ||
- 	    !cmd_state_reg_is_set(st, NPU_SET_OFM_BLK_WIDTH_M1) ||
-@@ -790,6 +796,20 @@ static int weight_streams(struct ethosu_device *edev, struct cmd_state *st,
  	return 0;
  }
- 
-+static u32 ifm_upscale_coord(u32 coord, u8 mode)
++
++static int feat_matrix_permute(struct ethosu_device *edev,
++			       struct feat_matrix *fm, u32 *x, u32 *y,
++			       u32 *c, bool ofm)
 +{
-+	switch (mode) {
-+	case NPU_IFM_UPSCALE_NONE:
-+		return coord;
-+	case NPU_IFM_UPSCALE_NEAREST:
-+		return coord / 2;
-+	case NPU_IFM_UPSCALE_TRANSPOSE:
-+		return coord / 2;
++	u32 width = *x;
++	u32 height = *y;
++	u32 depth = *c;
++	u32 transpose;
++
++	if (ethosu_is_u65(edev) || !ofm)
++		return 0;
++
++	transpose = FIELD_GET(NPU_OFM_TRANSPOSE_MASK, fm->precision);
++
++	switch (transpose) {
++	case 0: /* HWC */
++		break;
++	case 1: /* WHC */
++		*x = height;
++		*y = width;
++		break;
++	case 2: /* HCW */
++		*x = depth;
++		*c = width;
++		break;
++	case 3: /* WCH */
++		*x = depth;
++		*y = width;
++		*c = height;
++		break;
++	case 6: /* CHW */
++		*x = height;
++		*y = depth;
++		*c = width;
++		break;
++	case 7: /* CWH */
++		*y = depth;
++		*c = height;
++		break;
++	default:
++		return -EINVAL;
 +	}
 +
 +	return 0;
 +}
-+
- static int buffer_size(struct ethosu_validated_cmdstream_info *info,
- 		       struct cmd_state *st, struct buffer *buf, s8 region,
- 		       u16 region_cmd, u16 base_cmd, u16 length_cmd, bool can_omit)
-@@ -856,6 +876,8 @@ static int calc_sizes(struct drm_device *ddev,
+ static u64 feat_matrix_length(struct ethosu_device *edev,
+ 			      struct ethosu_validated_cmdstream_info *info,
+ 			      struct cmd_state *st, struct feat_matrix *fm,
+@@ -528,6 +574,9 @@ static int feat_matrix_size(struct ethosu_device *edev,
+ 	int ret;
  
- 		if (ifm_height < 0 || ifm_width < 0)
- 			return -EINVAL;
-+		ifm_height = ifm_upscale_coord(ifm_height, st->ifm_upscale);
-+		ifm_width = ifm_upscale_coord(ifm_width, st->ifm_upscale);
+ 	*max_len = 0;
++	ret = feat_matrix_permute(edev, fm, &x, &y, &c, ofm);
++	if (ret)
++		return ret;
  
- 		ret = feat_matrix_size(edev, info, st, &st->ifm, FEAT_MATRIX_IFM,
- 				       ifm_width, ifm_height, st->ifm.depth, false,
-@@ -952,6 +974,8 @@ static int calc_sizes_elemwise(struct drm_device *ddev,
- 		height = st->ifm.broadcast & 0x1 ? 0 : st->ofm.height[2];
- 		width = st->ifm.broadcast & 0x2 ? 0 : st->ofm.width;
- 		depth = st->ifm.broadcast & 0x4 ? 0 : st->ofm.depth;
-+		height = ifm_upscale_coord(height, st->ifm_upscale);
-+		width = ifm_upscale_coord(width, st->ifm_upscale);
- 
- 		ret = feat_matrix_size(edev, info, st, &st->ifm, FEAT_MATRIX_IFM,
- 				       width, height, depth, false, &len);
-@@ -1168,6 +1192,12 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 				return -EINVAL;
- 			st.ifm.precision = param;
+ 	if (storage == 0) {
+ 		ret = feat_matrix_check_location(edev, info, st, fm, type, 0, 0,
+@@ -900,6 +949,11 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 				return ret;
  			break;
-+		case NPU_SET_IFM_UPSCALE:
-+			if (ethosu_is_u65(edev) ||
-+			    param > NPU_IFM_UPSCALE_TRANSPOSE)
+ 		case NPU_OP_ELEMENTWISE:
++			if (!ethosu_is_u65(edev) &&
++			    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st.ofm.precision) != 0 &&
++			    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st.ofm.precision) != 2 &&
++			    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st.ofm.precision) != 6)
 +				return -EINVAL;
-+			st.ifm_upscale = param;
-+			break;
- 		case NPU_SET_IFM_BROADCAST:
- 			st.ifm.broadcast = param;
+ 			if (!ethosu_is_u65(edev) &&
+ 			    !cmd_state_reg_is_set(&st, NPU_SET_IFM_BROADCAST))
+ 				return -EINVAL;
+@@ -1000,8 +1054,19 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 		case NPU_SET_OFM_PRECISION:
+ 			if (((param >> 6) & 0x3) > 1)
+ 				return -EINVAL;
+-			if (!ethosu_is_u65(edev) && (param & GENMASK(13, 11)))
+-				return -EINVAL;
++			if (!ethosu_is_u65(edev)) {
++				u32 transpose = FIELD_GET(NPU_OFM_TRANSPOSE_MASK, param);
++
++				switch (transpose) {
++				case 4:
++				case 5:
++					return -EINVAL;
++				}
++				if (transpose && ((param >> 1) & 0x3) == 3)
++					return -EINVAL;
++				if ((param >> 14) == 2 && transpose)
++					return -EINVAL;
++			}
+ 			st.ofm.precision = param;
  			break;
+ 		case NPU_SET_OFM_REGION:
 
 -- 
 2.53.0
