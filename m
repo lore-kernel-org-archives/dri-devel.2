@@ -2,103 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58977606A31A
-	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 22:09:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701B2606A31A
+	for <dri-devel@archiver.kernel.org>; Thu, 29 Oct 2026 22:10:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F7yjt7Rd
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iIedwWNr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACA1F11259C;
-	Thu, 29 Oct 2026 22:09:04 +0000 (UTC)
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 402C311259D
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 22:08:59 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-14388db1a6bso624c88.3
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 15:08:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793311738; cv=none;
- d=google.com; s=arc-20260327;
- b=KvF581L1yA48vHsDwWBIdMWmXkRQj3QwQT29ijQHIWXMk78a1mvGTVV5L4Thnioy33
- dtM22pCoaCMEjpwJRTqPq35obRktCcnabCrFF9LX0Tf16+54AzX1nsoI/T28vsAxRsV9
- D5KfWLHiMD8bnYRBkHALBgbiYvYF5TajFat4t6FCFYpRODt0xo77rJCK4kPEbDHK4GMc
- md3WsB2LVB3l4VHyOq4npgZRoYR/bDNmh/2f5MBVHtqWNom1RI51OL1HCYgsl+slSUKO
- +4epvg8A7fpQwKRCFwixhqBPB5m4WHbBsTvtMJt6pxvNkUKAWRgKSUNdLNJtNagEatIZ
- J24Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=BNBRkMvcPM5q+NH92pjwUamOJbPLuAm/rYF5XAa5e1c=;
- fh=fG7SK+DXTKv1gSr+ksxcVAn3pIsoYPRhRVf9h09GA3U=;
- b=L67z49glqOWFBm9dxnUH+ZATbJAoOsegmZ1mskT7g8CQdyNqc7bVwcD1CEi3g/clJB
- zmFNAkK0IxxGiOz8tgYiBa9lzBx7RWrafw99m5Y1K/WdxuV6+XXWrd8ve3Z38ndmvXeg
- l4rHFRRDZkqCYFmNsBoRT8sJbuxp22THRo/acfF+82olShX3dDW4e6CNHtVLkpA2qXcN
- eHNVBO6OSg4/wvHUrLCi/9xbhX+1hhkGHXDkTmgqLwZ49ZVDttEHk5YC70ChRfKTQFhy
- l2Ejd64DbkQalK8ezw+rgBxVUgK5o1LbQvX962eQOsWS4cW7fHcNueobzHJHOLBsSG2/
- e8ug==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793311738; x=1793916538; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=BNBRkMvcPM5q+NH92pjwUamOJbPLuAm/rYF5XAa5e1c=;
- b=F7yjt7RdF8TEPaHKN7GtYjAwHq0Xu06C4qqoTEDpCWxwIj0T2nNBF6VSixOi0OiSrN
- gWF15oUlmKpIdfDkyJA+uDo3PSLEYpb4DXUYK5qinU4b5vOIPaMm90j6o50Tm2vlpSaR
- WvFoGRtQLRVkqQaMFH50G8uM7hAi57QOg2c4OTz56z3xlrU0k1xd+uAtPYi+t3Ou3QoL
- cxi39OG/xiY6KywVkPED1+uyr8a7iLZG6svZHUjvc2ROGvM3Fa0Uc+wSSUhVr66rh71k
- dudAwfuORG18rLpfly0BPC9SagAvCePBgqfGgnrrL3duoDTJbUUpjmCT+6qYjXCpu4/j
- IrNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793311738; x=1793916538;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=BNBRkMvcPM5q+NH92pjwUamOJbPLuAm/rYF5XAa5e1c=;
- b=JcZA6siCVPkKSWMa+7pc4tWsI42GEhUhyb0JWLSAxDn4otOwTzgyRNLQKab0wNjyt6
- algZNMjK6SGQgUaTYR8i4KKAkTv7ikCLmCtuf9ziCmnKsbpv3vEtMoDUCZwB0bXbQr8i
- J/6bB0SJ+Tw/oWHML6YZqGE+PTx3dOEXgaMfScSYSm2eMxBpFBLIatDoc4pikasW7D07
- w1x2CbTgIPwx6EfQSm4QlPZJRAOWl11u4gjQI13kYH48+TD/7k5WDZNuwAx9CmZht40g
- SCiCAknnWbFKIpGsmw6KrjK5Q1NaZDjVqj3f8fL+iksqFl39b4hDIIQAbQRAqoqzvTD4
- QkWg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwTW9DqzfBnwHMXLuKi2OdCjq24hNPOBTPnrrC7Vz5I9YWcITbFxKrGhUp2at2cAn5RBW+rbFOYwEw=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJlWKcB+BEo7gH2z98JtRFHHRLtmB9yLbPBwHM6+h118s4ZqFNk
- H/gKX50iDpHx84JN/7BjVGdQa2pdfrcbIItEiPWQPHzEa2yz/J603GO08rWffsR10oeZYstyzO5
- UGGH3TBzZsSbym1A3gXGs24swdnP/4GA=
-X-Gm-Gg: AYBFou33fT8Q210NUAudIfJX95J31tVR8UMSy6up4SdIgfKWJjkGC/+G6DXbSNrZxnR
- Mc3btEixx/eVTgWwJjEZ5F6Wc5HRlUJ4J2TaDSzl9Cd4PWf0Z6mEatnqFDZHKZw8sSef0fFb0I5
- 2cIlwWw4vQQib7Zu5FFourTXt1kjPHW9h/8nz0ad6xTa04MsNDR5iMQn5V9aODDVFLWh8Y/2ujv
- VGN37ecrVOz7Ecg9N3++cKLPVtoUdaM2NLf7+VvxI2iMKY5m8kCpElKmI5V/dh7DYRSFjoyqM4i
- 6oTfc6rceTbvu+5w30LX37J9fd+idqPId7OIpdshEEuZccVffBst7lbbsA06kebw70YsFRPazrD
- C9s33aSbJ1PKypuPXhEtyEoG7PvT/+gZKZk/toH50tb0BroiTOKjYXXkUuwVctBHSEhXfA2PzaQ
- TxkFV/3FqpLNNyui58MqoQlCE=
-X-Received: by 2002:a05:7022:7e0c:b0:165:be2f:c56e with SMTP id
- a92af1059eb24-1ac5b7dcb2bmr780931c88.2.1793311738368; Thu, 29 Oct 2026
- 15:08:58 -0700 (PDT)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261027133727.748652-2-phasta@kernel.org>
- <54e6cd9f-57ca-402f-93b6-27fe2b15b29c@amd.com>
-In-Reply-To: <54e6cd9f-57ca-402f-93b6-27fe2b15b29c@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Oct 2026 18:08:46 -0400
-X-Gm-Features: AclHuK-38z0ojG634j8HTvYSqjvHDIGJv5-1HW3Xm4xmKYyn6vnp08A2upfv47I
-Message-ID: <CADnq5_M6s1TFgHgfiPeLS0bQ0iq+iJWzPKPbacyPvBGibUs_HA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: amdgpu_fence: remove ops->release()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Philipp Stanner <phasta@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Jesse Zhang <jesse.zhang@amd.com>, 
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Kexin Sun <kexinsun@smail.nju.edu.cn>, 
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id C95201125A1;
+	Thu, 29 Oct 2026 22:10:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0D41125A1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 22:10:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E2B294004A;
+ Thu, 29 Oct 2026 22:10:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CDF1F01816;
+ Thu, 29 Oct 2026 22:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793311821;
+ bh=cER8Rp0mkVj+HJCMph+6srnNJM6smXhNIXGmscx1YwU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=iIedwWNr6tCBfcz03QRbc75sNGsOaMj2hWA05O5TBAwYeNG5Jvg5GerXNZqK/dEdV
+ 0fr4fojBA8G2Pt423oZIl5848i8fn1vhhI1GSlhkhlISnVLv9v7wd3C9Axa/w07it1
+ PYKegdeyohjI81Z5xkGh7KzuEklcIbV4WFcg+decIGiDsmZgys/V1LvG+O8naGjHlU
+ u+l3DHiIO50zk5EPosjF5Hyj0994TMjkyaW3qzwrTQPDqTxJ0BX7OaaM1AJwvtDpFA
+ cCv05+Eodvqrl+MejBKrjzgftGwLgvAFwbpvFWmV6J+BJTIEJjypJQ0XHtJSo1daKw
+ p9aEdnNi5a6Hg==
+Message-ID: <sashiko-outbox-190050@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 09/11] arm64: dts: qcom: Add initial support for MSM8952
+To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
+Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-input@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ dmitry.torokhov@gmail.com
+In-Reply-To: <20261030-msm8952-initial-support-v7-9-ad748ace375d@mainlining.org>
+References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
+ <20261030-msm8952-initial-support-v7-9-ad748ace375d@mainlining.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 22:10:20 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,96 +51,302 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Applied.  thanks!
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: msm8952: CPU cooling-maps bound to hot trips
+- [High] arm64: dts: qcom: msm8952: MPM pin 53 collision between mdss and g=
+pio62
+- [High] arm64: dts: qcom: msm8952: missing bam_clk on cryptobam and usbbam
+- [High] arm64: dts: qcom: msm8952: missing TBU clocks on mdss_mdp and gpu_=
+iommu
+--
 
-On Tue, Oct 27, 2026 at 4:16=E2=80=AFPM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 10/27/26 14:37, Philipp Stanner wrote:
-> > amdgpu's fence implements the deprecated fence_ops->release() callback
-> > which prevents the driver from ever unloading robustly.
-> >
-> > amdgpu's implementation merely uses a call_rcu() that performs a kfree(=
-)
-> > on the fence - this functionality is already centrally implemented by
-> > the dma_fence backend.
-> >
-> > The dma_fence backend invokes a kfree_rcu() on the dma_fence, which is
-> > fine since this is always the first member of a struct amdgpu_fence.
-> > Thus, amdgpu's implementation is redundant.
-> >
-> > Remove fence_ops->release().
-> >
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
->
-> I have exactly the same patch in my pipeline as well.
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> > ---
-> > Just saw that this should be unnecessary? Don't have a setup for amdgpu
-> > testing right now, so please take a close look, just compile-tested.
-> >
-> > P.
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 29 -----------------------
-> >  1 file changed, 29 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_fence.c
-> > index 3043ad041bb4..3f8b2571d74a 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> > @@ -892,39 +892,10 @@ static bool amdgpu_fence_enable_signaling(struct =
-dma_fence *f)
-> >       return true;
-> >  }
-> >
-> > -/**
-> > - * amdgpu_fence_free - free up the fence memory
-> > - *
-> > - * @rcu: RCU callback head
-> > - *
-> > - * Free up the fence memory after the RCU grace period.
-> > - */
-> > -static void amdgpu_fence_free(struct rcu_head *rcu)
-> > -{
-> > -     struct dma_fence *f =3D container_of(rcu, struct dma_fence, rcu);
-> > -
-> > -     /* free fence_slab if it's separated fence*/
-> > -     kfree(to_amdgpu_fence(f));
-> > -}
-> > -
-> > -/**
-> > - * amdgpu_fence_release - callback that fence can be freed
-> > - *
-> > - * @f: fence
-> > - *
-> > - * This function is called when the reference count becomes zero.
-> > - * It just RCU schedules freeing up the fence.
-> > - */
-> > -static void amdgpu_fence_release(struct dma_fence *f)
-> > -{
-> > -     call_rcu(&f->rcu, amdgpu_fence_free);
-> > -}
-> > -
-> >  static const struct dma_fence_ops amdgpu_fence_ops =3D {
-> >       .get_driver_name =3D amdgpu_fence_get_driver_name,
-> >       .get_timeline_name =3D amdgpu_fence_get_timeline_name,
-> >       .enable_signaling =3D amdgpu_fence_enable_signaling,
-> > -     .release =3D amdgpu_fence_release,
-> >  };
-> >
-> >  /*
-> >
-> > base-commit: 731ba09867520c047c7de53f92e384808e0b638e
->
+commit 209938af6e516d37174e16e2a184d278eb7397c9
+Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
+
+arm64: dts: qcom: Add initial support for MSM8952
+
+This commit adds the initial device tree source include file for the
+Qualcomm MSM8952 SoC, including support for CPUs, RPM, MPM, QFPROM,
+TSENS, TLMM, GCC, MDSS, IOMMUs, SDHCI, BLSP, USB, and ADSP.
+
+> diff --git a/arch/arm64/boot/dts/qcom/msm8952.dtsi b/arch/arm64/boot/dts/=
+qcom/msm8952.dtsi
+> new file mode 100644
+> index 0000000000000..ee932f6b2a9c8
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/msm8952.dtsi
+> @@ -0,0 +1,2909 @@
+
+[ ... ]
+
+> +	rpm: remoteproc {
+> +		compatible =3D "qcom,msm8952-rpm-proc",
+> +			     "qcom,rpm-proc";
+> +
+> +		mpm: interrupt-controller {
+> +			compatible =3D "qcom,mpm";
+> +
+> +			interrupts =3D <GIC_SPI 171 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			mboxes =3D <&apcs1 1>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <2>;
+> +			#power-domain-cells =3D <0>;
+> +			interrupt-parent =3D <&intc>;
+> +			qcom,rpm-msg-ram =3D <&apss_mpm>;
+> +			qcom,mpm-pin-count =3D <64>;
+> +			qcom,mpm-pin-map =3D <2 184>, /* TSENS UPLOW */
+> +					   <49 140>, /* USB ASYNC */
+> +					   <53 72>, /* MDSS */
+> +					   <58 134>, /* USB */
+> +					   <62 190>; /* SPMI */
+> +		};
+
+[Severity: High]
+Does mapping MPM pin 53 to GIC SPI 72 in qcom,mpm-pin-map (and routing
+mdss through <&mpm 53 IRQ_TYPE_LEVEL_HIGH> below) collide with TLMM GPIO
+62?
+
+In drivers/pinctrl/qcom/pinctrl-msm8952.c, msm8952_mpm_map[] maps GPIO 62
+to MPM wakeup pin 53:
+
+	{ 45, 24 }, { 46, 25 }, { 48, 26 }, { 54, 14 }, { 58, 17 }, { 62, 53 },
+
+When an interrupt is requested on a wakeup-capable TLMM GPIO via
+msm_gpio_irq_domain_alloc() -> qcom_mpm_alloc(), drivers/irqchip/irq-qcom-m=
+pm.c
+checks whether the MPM pin is in qcom,mpm-pin-map:
+
+	map =3D get_mpm_gic_map(priv, pin);
+	if (map =3D=3D NULL)
+		return irq_domain_disconnect_hierarchy(domain->parent, virq);
+
+Because pin 53 is present in qcom,mpm-pin-map as <53 72>, get_mpm_gic_map()
+does not return NULL for GPIO 62, so qcom_mpm_alloc() fails to disconnect
+the GIC hierarchy and instead binds GPIO 62 to GIC SPI 72, colliding with
+mdss on both MPM pin 53 and GIC SPI 72.
+
+Since MDSS is in the collapsible MDSS_GDSC power domain rather than an
+always-on MPM wakeup source, should <53 72> be dropped from
+qcom,mpm-pin-map and mdss use interrupts =3D <GIC_SPI 72 IRQ_TYPE_LEVEL_HIG=
+H>
+directly?
+
+[ ... ]
+
+> +		cryptobam: dma-controller@704000 {
+> +			compatible =3D "qcom,bam-v1.7.0";
+> +			reg =3D <0x00704000 0x20000>;
+> +			interrupts =3D <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>;
+> +			#dma-cells =3D <1>;
+> +			num-channels =3D <16>;
+> +			qcom,ee =3D <1>;
+> +			qcom,num-ees =3D <4>;
+> +			qcom,controlled-remotely;
+> +		};
+
+[Severity: High]
+Could omitting clocks =3D <&gcc GCC_CRYPTO_AHB_CLK> and
+clock-names =3D "bam_clk" on cryptobam (and similarly omitting
+<&gcc GCC_USB_HS_AHB_CLK> on usbbam: dma-controller@78c4000 below) lead to
+unclocked MMIO accesses?
+
+When qcom,controlled-remotely is set without bam_clk in the DT node,
+bam_dma_probe() in drivers/dma/qcom/bam_dma.c sets bdev->bamclk to NULL via
+devm_clk_get_optional(bdev->dev, "bam_clk").
+
+For cryptobam, qce_crypto_probe() in drivers/crypto/qce/core.c requests the
+DMA channels and then autosuspends via qce_runtime_suspend(), gating off
+GCC_CRYPTO_AHB_CLK (or suspends immediately via the
+PM_RUNTIME_ACQUIRE_AUTOSUSPEND guard if probe fails after
+devm_qce_dma_request()). If the crypto device is later unbound or unwinds
+from a probe failure, qce_dma_release() -> dma_release_channel() ->
+bam_free_chan() resets the BAM channels and masks interrupts at 0x00704000
+while GCC_CRYPTO_AHB_CLK is disabled.
+
+Similarly, usbbam is enabled by default while usb@78db000 is disabled, so
+bam_dma_remove() will access 0x078c4000 with GCC_USB_HS_AHB_CLK gated off
+if usbbam is unbound.
+
+Should cryptobam and usbbam specify their respective AHB clocks as bam_clk?
+
+[ ... ]
+
+> +		mdss: display-subsystem@1a00000 {
+> +			compatible =3D "qcom,mdss";
+> +			reg =3D <0x01a00000 0x1000>,
+> +			      <0x01ac8000 0x3000>;
+> +			reg-names =3D "mdss_phys",
+> +				    "vbif_phys";
+> +
+> +			ranges;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+> +
+> +			power-domains =3D <&gcc MDSS_GDSC>;
+> +
+> +			clocks =3D <&gcc GCC_MDSS_AHB_CLK>,
+> +				 <&gcc GCC_MDSS_AXI_CLK>,
+> +				 <&gcc GCC_MDSS_VSYNC_CLK>;
+> +			clock-names =3D "iface",
+> +				      "bus",
+> +				      "vsync";
+> +
+> +			interrupts-extended =3D <&mpm 53 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <1>;
+> +
+> +			resets =3D <&gcc GCC_MDSS_BCR>;
+> +
+> +			status =3D "disabled";
+> +
+> +			mdss_mdp: display-controller@1a01000 {
+> +				compatible =3D "qcom,msm8952-mdp5",
+> +					     "qcom,mdp5";
+> +				reg =3D <0x01a01000 0x89000>;
+> +				reg-names =3D "mdp_phys";
+> +
+> +				interrupt-parent =3D <&mdss>;
+> +				interrupts =3D <0>;
+> +
+> +				clocks =3D <&gcc GCC_MDSS_AHB_CLK>,
+> +					 <&gcc GCC_MDSS_AXI_CLK>,
+> +					 <&gcc GCC_MDSS_MDP_CLK>,
+> +					 <&gcc GCC_MDSS_VSYNC_CLK>;
+> +				clock-names =3D "iface",
+> +					      "bus",
+> +					      "core",
+> +					      "vsync";
+> +
+> +				operating-points-v2 =3D <&mdp_opp_table>;
+> +				power-domains =3D <&gcc MDSS_GDSC>;
+> +
+> +				iommus =3D <&apps_iommu 0x17>;
+
+[Severity: High]
+Are mdss_mdp and gpu_iommu (iommu@1f08000 below) missing their TBU clocks?
+
+In drivers/clk/qcom/gcc-msm8952.c, gcc_mdp_tbu_clk (GCC_MDP_TBU_CLK) and
+gcc_gfx_tbu_clk (GCC_GFX_TBU_CLK) are registered as non-critical votable
+branch clocks:
+
+	static struct clk_branch gcc_gfx_tbu_clk =3D {
+		.halt_reg =3D 0x12010,
+		.halt_check =3D BRANCH_HALT_VOTED,
+		.clkr =3D {
+			.enable_reg =3D 0x4500c,
+			.enable_mask =3D BIT(3),
+	...
+	static struct clk_branch gcc_mdp_tbu_clk =3D {
+		.halt_reg =3D 0x1201c,
+		.halt_check =3D BRANCH_HALT_VOTED,
+		.clkr =3D {
+			.enable_reg =3D 0x4500c,
+			.enable_mask =3D BIT(4),
+
+Because neither clock is referenced in msm8952.dtsi, clk_disable_unused()
+will clear their vote bits at late_initcall. When mdss_mdp enables its
+clocks in mdp5_enable() or gpu_iommu enables its clocks in
+qcom_iommu_resume(), the MDP and GPU TBUs will remain unclocked during
+IOMMU translations.
+
+Should mdss_mdp include <&gcc GCC_MDP_TBU_CLK> with clock-names "tbu", and
+gpu_iommu include <&gcc GCC_GFX_TBU_CLK> with clock-names "tbu"?
+
+[ ... ]
+
+> +	thermal-zones {
+> +		qdsp-thermal {
+> +			thermal-sensors =3D <&tsens 2>;
+> +
+> +			trips {
+> +				qdsp_alert0: trip-point0 {
+> +					temperature =3D <75000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "hot";
+> +				};
+> +			};
+> +		};
+> +
+> +		cpu4-thermal {
+> +			thermal-sensors =3D <&tsens 5>;
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip =3D <&cpu4_alert1>;
+> +					cooling-device =3D <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> +				};
+> +			};
+> +
+> +			trips {
+> +				cpu4_alert0: trip-point0 {
+> +					temperature =3D <75000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "passive";
+> +				};
+> +
+> +				cpu4_alert1: trip-point1 {
+> +					temperature =3D <85000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "hot";
+> +				};
+> +
+> +				cpu4_crit: cpu-crit {
+> +					temperature =3D <110000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "critical";
+> +				};
+> +			};
+> +		};
+
+[Severity: High]
+In cpu4-thermal (as well as cpu5-thermal, cpu6-thermal, cpu7-thermal, and
+cpu0-3-thermal below), map0 binds the CPU cooling devices to cpuX_alert1
+(which has type =3D "hot") while leaving cpuX_alert0 (type =3D "passive")
+unbound, and omits polling-delay-passive.
+
+In the thermal framework, thermal governors ignore THERMAL_TRIP_HOT trips
+when managing cooling devices, for example in
+drivers/thermal/gov_step_wise.c:step_wise_manage():
+
+	for_each_trip_desc(tz, td) {
+		const struct thermal_trip *trip =3D &td->trip;
+
+		if (trip->temperature =3D=3D THERMAL_TEMP_INVALID ||
+		    trip->type =3D=3D THERMAL_TRIP_CRITICAL ||
+		    trip->type =3D=3D THERMAL_TRIP_HOT)
+			continue;
+
+		thermal_zone_trip_update(tz, td, td->threshold);
+	}
+
+In addition, without polling-delay-passive in these zones,
+tz->passive_delay_jiffies is 0, so monitor_thermal_zone() in
+drivers/thermal/thermal_core.c will not schedule periodic polling while a
+passive trip is active (and pid_controller() in
+drivers/thermal/gov_power_allocator.c divides by
+jiffies_to_msecs(tz->passive_delay_jiffies)).
+
+Should map0 in cpu4-thermal, cpu5-thermal, cpu6-thermal, cpu7-thermal, and
+cpu0-3-thermal reference the passive trip (cpuX_alert0) instead of
+cpuX_alert1 (or change cpuX_alert1 to type =3D "passive"), and define
+polling-delay-passive on those zones?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-msm8952-in=
+itial-support-v7-0-ad748ace375d@mainlining.org?part=3D9
