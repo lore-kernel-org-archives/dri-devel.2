@@ -2,63 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0015D606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 08:49:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30D3606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 08:49:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wfMNQsFl
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sikMJ2/v
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E25010E857;
-	Fri, 30 Oct 2026 08:49:25 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0CE610E857
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 08:49:19 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2ea19c28a50so1403685ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 01:49:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04C0D10E885;
+	Fri, 30 Oct 2026 08:49:31 +0000 (UTC)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEC7310E86A
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 08:49:22 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-cd6b9a2735fso28051a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 01:49:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793350159; x=1793954959; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=kKraBs2ABl72GsuXTCZX2vWgKGWo1rPo+MH8y/IARx8=;
- b=wfMNQsFlKTdjzOQvpkHiACmw5xn8dEq17v4vJjIQMKn0x1OrqpwvvdVxzwXZb1Kh5x
- NYDv7ZKcJwBDQfN1xZ/m1fAjUqiPZKRE94zqB9OyEiDvWKRVUsMlgzUNRsHn5/skoj7O
- O6ONnz0UDx+q+k+jxQxg1SWy/JKo4PnWeqAKhp0PWVdm2ixzNzNTLrCOmZm9B8CC99YB
- Zw/Hw98lb2nUgpIti/6HDlXcg0J1ExNskyXbgD7YkseElCh82tphFl9YkPNUi0rVl061
- tvppROeCaDds32MDroqaMHrUwosg4tr8kGzkHuGr+3NP/3/PQ03cwTafUBgdQXclslj8
- kuxg==
+ d=gmail.com; s=20260707; t=1793350162; x=1793954962; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=HW7rHhE169McYx8Jxy2QMfjdkASLa9iCRSpVlpE36RA=;
+ b=sikMJ2/v97VzJVIRXxrKQSzYdGOf3OKXpLm9TuHQxWZD2PGdXLS6FeYuBicEf7Mvu9
+ f4ogD88oiprlr3LlMUot/V90hiXfdN28OVtrrAjbWJNGweUD5rnTp/3Q6RlDraU7Eggh
+ 242oiHxoVjZIZ/acg5s0Rud6Ru/v3JCG7nxIrKw6pYep0R5uGgdClnyLE6k7LzWA5Z0L
+ uTGMGDfxCAA+2KKl9Lozg5TQ/EJqbtzUW8QV6CcMa1SNCqswhCB7upwbshBpemqrLrWR
+ 3GfHblFm4iUGlLWTmaDf9ZL+VFY6b+03JoNH22wG/qUk2pfldKPp9Np14BHxitYfgAp8
+ yi1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793350159; x=1793954959;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=kKraBs2ABl72GsuXTCZX2vWgKGWo1rPo+MH8y/IARx8=;
- b=gjZwR3dfMVlaQnbg8XAMUlN5d7Wen8Xz42r+1w/m2+opsNbPuAvDkC7BcwmT17iYE0
- O9P3AtYMzlfWiLuxI05DhPh4jZB/IlAa5AyB43dwqDyisE3uHBU1EB4gzBKwPznuxO4Q
- 4wxDaFOesdRwJBhlh7u4uBrWpE0WceExncCcWRr8aHzKYG+TOytdbMYbcqhyoLM28M52
- NWpVQtoDIHa31hd64SdGlUAk0FaJavzVtIUVQY/S+f/iNZ7iqErplHPl0Z3yxTso/0Wf
- SFEWVmzXZuDnjapuzXpq6hlgLovD4rdvxHRJOFeNn0QYfgRhqVu2F/B/9AXCVueko4ap
- esHA==
+ d=1e100.net; s=20260707; t=1793350162; x=1793954962;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HW7rHhE169McYx8Jxy2QMfjdkASLa9iCRSpVlpE36RA=;
+ b=HnA3w8IHe5mNc8SqbF6QE/T/lLlNO5o2ub0uubOQ3bV7yL++QCH0a2AF9ccEo3VWTE
+ xZCkzvaa8jZ0dKovYjRdqPU1Y32LHRmtsOgakf9rWk4Q1OzuVm0qEP40ANceUxWa0GLb
+ LECaDiex25dI3X22IImPzwKSUib5TzCzhcF5kXNYojz3AlsqZcL3QoA+AjEN6IMrWtx+
+ 37JsneL3h08YdjoxU5YPMXTmrNQvCyhAvw/ezJbsidr7apS/ZeUodvzWE0leG3fppNM9
+ dl07rnDlTaCZrXsBU4qPtk+Bjg06GnzxFTHvfxQ8UDVfZ6y3dbY21N2P88vQW+0uzYZ7
+ SM7w==
 X-Forwarded-Encrypted: i=1;
- AKwUvBylkGrLIuV4hoXNPDwLVFIXUuQ/Ek170dCXd1c+N1Bbxfn7vDrcn500A7pGPvrttyxK1T/J+JYbc+I=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLCc20MTDogAlGSX1YMu6AyoPUpay9CgA0T/uZWO45w17QTebsq
- 9MJqv2orgJXeS3WSFYybcbKcZQGRzguwgdoqn1L/6KKHzddPOEfnjBeKPMk4X7M3
-X-Gm-Gg: AYBFou35TU1mwfsIuHeVMl8fYl/Y4LiqIIKLUFdmMtWGaIoSVXGehwfHq7k66D+oKDC
- gQu5Cun/NragySxrBhPA38U7dAos/v6wtBGgoXtiIlqOSVWZSttEMHk9VPHBNKK6jWKEXn7aVjD
- b9C194U8RVUU5yzGrUFUrWPHuCkP8KLGhWnxNID9W7F4qrQz3kpgQ0tMuTC6fZ0OSlPAIjOr1oE
- 9NQ1CpMphLa8RqkiyLsvawcZzOxCJj7e5g9wMAU/NAWlmQok+1pWMqTGlcjuEIZo+4o9WmdHas5
- lcmwbcsn6ZGYTDS7OklGc/dJ5HHqlX3qg0TmHFXahcJyYStLdzDs0QLvfpjrUQhN5yLarMCl3v0
- D/Fz/5dwM4I1rPpvZIpC6SnhxYjY4UKraA6S38QaxWKrC8PxUH2nKD8A/wsNgXfoGpxEM5T50kj
- yXKqEq/fXPPsVpIeCQU7S0iiyPhIA4pbDyeu/SPfUJxRQ2W+grwfQaBl5LBvaBS/2L11MbCf2ki
- OkFk+i17UfDZpJKKii+99NvlHqSoT3CqDGnbZsUBGmG6B1j58sM1IjC4F+23O7HpvvXZpeu2dIb
- +3+qGbio3y/ISb/AQU5ZKg==
-X-Received: by 2002:a17:902:d502:b0:2e9:6788:937d with SMTP id
- d9443c01a7336-2eb364bbb77mr30486455ad.4.1793350159314; 
- Fri, 30 Oct 2026 01:49:19 -0700 (PDT)
+ AKwUvBzIb0EN6JpJbkLLgwdgOuN5EpcRHt15e7Lhjeleb1/frH0Bx8/sWV3svu7f42Ganf6gIWpH3BWI9Lg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLdYvKHHXVJXQh8hI9bLNVuCuG60oqMIQVhw7qRwfAfpToisjpC
+ WuiW9kFn5+IeFVaRTVUvOVhdm+l49lhM5F0A6KZbBrDpEY6I7zbIk4SL
+X-Gm-Gg: AYBFou2zJgc1PWyX2ha4VbqvgZPKvir5AhSzDKKaEtaqaxhWAKVbXFtaPQxQ7MM5d2R
+ urIIo2KWXUPorO6bgHtd554jWmQbzEHNabPQl8Gv5YXA5GT1Q33pwMSGEbLSBJewz+1e31XuZXW
+ jvoJVII/wwRILUu7bxeCUfBG76htaoXKsCqjeads8hr4JKORk81NaAQkVoR8ujKaQkFZJix1SLc
+ p/vmulubJL41GWX0zf8bVZ9NA8v8FjChB+8OyI5Rzys9sT5f/ucuyjVeh2q9DNCRC5kdAK6rhQd
+ 8X/zaKqBHKIQ5LBDhNfNw4V79ehJmYpGb8bLlXq4cneD1T9DbrixEPa8ybVEiUaDgHTlTX8A+YU
+ ZwDNjYClm5Xw0A3L4KSnRVJ285nQFPI7hIR4lqkD3jlialxT0hgtBEYRp0XC23vnv4vlr4FyWou
+ mgxHwQBYewgMIcYQqnfv1dkF9Cfh9CeW8NdMJvc3CK7WbcTsTq2cgyBLNebXYrqIuVQgbJREvPI
+ t2cVAIJC/Xu8M6MK2Yh/EelfX6jGrqWyFNB8Fm6ELrwGi7xv3+kxJ31wENYLPax+8gQlfpszZSR
+ 97lnpR/a1khAb+8NaOsCfQ==
+X-Received: by 2002:a17:90b:28c7:b0:3a7:fef3:8561 with SMTP id
+ 98e67ed59e1d1-3ae89822b55mr2355088a91.5.1793350162228; 
+ Fri, 30 Oct 2026 01:49:22 -0700 (PDT)
 Received: from marchy ([211.24.73.58]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2eb392b15f0sm4576265ad.73.2026.10.30.01.49.17
+ 98e67ed59e1d1-3ae845ae5b9sm3229716a91.12.2026.10.30.01.49.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 01:49:18 -0700 (PDT)
+ Fri, 30 Oct 2026 01:49:21 -0700 (PDT)
 From: Adam Azuddin <azuddinadam@gmail.com>
 To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
@@ -67,14 +68,15 @@ Cc: jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch,
  andersson@kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  azuddinadam@gmail.com
-Subject: [PATCH v5 0/2] drm/tiny: Add RAiO RA8875 display controller driver
- support
-Date: Fri, 30 Oct 2026 16:37:34 +0800
-Message-ID: <20261030083737.47188-1-azuddinadam@gmail.com>
+Subject: [PATCH v5 1/2] dt-bindings: display: panel: Add RAiO RA8875 display
+ controller
+Date: Fri, 30 Oct 2026 16:37:35 +0800
+Message-ID: <20261030083737.47188-2-azuddinadam@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261030083737.47188-1-azuddinadam@gmail.com>
+References: <20261030083737.47188-1-azuddinadam@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,130 +89,131 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series adds a new drm/tiny driver and matching dt-binding for the
-RAiO RA8875 SPI display controller. An fbtft driver for this chip
-currently exists at drivers/staging/fbtft/fb_ra8875.c, but fbtft is a
-legacy fbdev-based staging driver, and nothing in mainline DRM
-currently supports this controller.
+The RA8875 is an SPI-connected TFT display controller by RAiO
+Technology Inc. It supports display resolutions of up to 800x480.
 
-This driver does not use drm_mipi_dbi. The RA8875 SPI protocol is
-structurally incompatible with both Type C options drm_mipi_dbi supports.
-Type C1 encodes command/data as a 9th bit within a 9-bit SPI word. The
-RA8875 uses a full prefix byte (0x80 = command write, 0x00 = data write,
-0x40 = data read, 0xC0 = status read) sent as a separate 8-bit transaction.
-These are not the same thing and cannot be mapped to each other.
-Type C3 models two transfer types via a D/CX GPIO. The RA8875 has four
-transfer cycle types and no D/CX pin.
-
-My ER-TFTM050-3 board has RST tied NC, and VDD is a fixed supply
-set via an on-board solder jumper rather than software-controllable,
-so I couldn't test reset-gpios/vdd-supply myself, but added them
-as optional/required properties respectively per review feedback
-for boards that do need them.
-
-Tested on a Raspberry Pi 3B connected over SPI to an East Rising
-ER-TFTM050-3, a 5" 800x480 panel driven by the RA8875 in Linux 7.3.0-rc4.
-
-Based on drm-misc-next commit 73df79cceb8c ("drm/virtio: add ARGB8888 support for primary planes")
-
-Link to v1: https://lore.kernel.org/all/20260916175942.3186804-1-azuddinadam@gmail.com/
-Link to v2: https://lore.kernel.org/all/20260924145400.1385815-1-azuddinadam@gmail.com/
-Link to v3: https://lore.kernel.org/all/20261001144128.2336301-1-azuddinadam@gmail.com/
-Link to v4: https://lore.kernel.org/all/20261012064518.3497285-1-azuddinadam@gmail.com/
+Assisted-by: LLM
+Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
 ---
-Changes in v5:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
-- Drop the "Add YAML binding schema..." paragraph from the
-  commit message (Krzysztof)
-- Add interrupts property for the INT# pin
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Move bindings table to above ra8875_spi_driver definition
-
-Changes in v4:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
-- Drop the sentence in the description saying the binding covers only the
-  SPI-connected device (Conor).
-- Drop unused panel label
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Catch error value from ra8875_write_pixels
-- Use consistent include header format.
-- Return if fb is null in atomic_update
-- Drop unnecessary extra byte in pixel data spi write.
-
-drivers/gpu/drm/tiny/Kconfig:
-- Add depends on OF, which is caught by intel 0-day[3]
-
-Changes in v3:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml:
-- Add gpio.h include in example to pass dt_binding_check
-- Remove spi-max-frequency as there is no reference in datasheet
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Remove debug-only ra8875_read_reg function
-- Chunk large SPI transfers to 16 rows per chunk
-- Remove unnecessary includes and spi cs setups in probe
-- Create ra8875_write_pixels function for clear_screen and fb_dirty
-- Use 2 spi writes instead of 1 write with 2 transfers and cs_change in write_reg
-
-Changes in v2:
-
-Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml (review by Krzysztof Kozlowski):
-- Add hardware description to the binding
-- Drop the display-timings property, and instead require it in the required block
-- Add a required vdd-supply and an optional reset gpio property
-- Rename the example node to a more generic "panel: display@0"
-
-drivers/gpu/drm/tiny/Makefile and Kconfig:
-- Remove TINYDRM prefix from the config name (Thomas Zimmermann [1])
-
-drivers/gpu/drm/tiny/ra8875.c:
-- Reformat device_id table to match current convention (Krzysztof Kozlowski)
-- Drop unneeded linux/mod_devicetable.h include (Uwe Kleine-König)
-- Use drm_dev_unplug() instead of drm_dev_unregister() in remove callback
-- Move stack-allocated cmd/data buffers into ra8875_device struct
-- Add mode_valid() callback to validate height/width against panel maximum
-- Add optional reset gpio
-- Use dev_err_probe() in probe function
-- Remove connector detect callback
-- Remove unnecessary |= on register write return value in hw_init
-- Migrate from simple display pipe to manually-handled plane/crtc/encoder,
-  following the simple-KMS-helper removal effort [2]
-- Use defined constants instead of magic values where possible
-- Use drm_atomic_helper_damage_merged() and drm_fb_swab() in plane update
-
-[1] https://lore.kernel.org/all/fee2a743-d3e4-46b4-812f-05c3cc3a46ae@suse.de/
-[2] https://lore.kernel.org/all/20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com/
-[3] https://lore.kernel.org/all/202610042347.idGisdDW-lkp@intel.com/
-
-
-
-Adam Azuddin (2):
-  dt-bindings: display: panel: Add RAiO RA8875 display controller
-  drm/tiny: Add RAiO RA8875 display controller driver
-
- .../bindings/display/panel/raio,ra8875.yaml   |  87 +++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   6 +
- drivers/gpu/drm/tiny/Kconfig                  |  13 +
- drivers/gpu/drm/tiny/Makefile                 |   1 +
- drivers/gpu/drm/tiny/ra8875.c                 | 719 ++++++++++++++++++
- 6 files changed, 828 insertions(+)
+ .../bindings/display/panel/raio,ra8875.yaml   | 87 +++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ 2 files changed, 89 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
- create mode 100644 drivers/gpu/drm/tiny/ra8875.c
 
+diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+new file mode 100644
+index 000000000000..661398bda0ee
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+@@ -0,0 +1,87 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/raio,ra8875.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: RAiO RA8875 Display Controller
++
++maintainers:
++  - Adam Azuddin <azuddinadam@gmail.com>
++
++description:
++  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
++  It can be connected to the host via 8080/6800 parallel interface,
++  SPI or I2C.
++
++allOf:
++  - $ref: panel-common.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    const: raio,ra8875
++
++  reg:
++    maxItems: 1
++
++  vdd-supply:
++    description:
++      3.3 V supply for the IO pins, the oscillator IO pins, the ADC pins
++      and the internal LDO. The 1.8 V core rail is generated internally.
++
++  reset-gpios:
++    description:
++      GPIO connected to the active-low RST# pin. Optional, since the board
++      may instead use an RC reset circuit.
++    maxItems: 1
++
++  interrupts:
++    description:
++      INT# pin, active low. Signals RA8875 interrupt events such as touch
++      panel, key scan, DMA, BTE and font access completion. Optional, since
++      the host can poll the interrupt status register instead.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - display-timings
++  - vdd-supply
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        display@0 {
++            compatible = "raio,ra8875";
++            reg = <0>;
++            spi-max-frequency = <16000000>;
++            vdd-supply = <&vcc_3v3>;
++            reset-gpios = <&gpio 25 GPIO_ACTIVE_LOW>;
++            interrupt-parent = <&gpio>;
++            interrupts = <5 IRQ_TYPE_LEVEL_LOW>;
++
++            display-timings {
++                native-mode = <&timing0>;
++                timing0: timing0 {
++                    clock-frequency = <25000000>;
++                    hactive = <800>;
++                    vactive = <480>;
++                    hfront-porch = <40>;
++                    hsync-len = <40>;
++                    hback-porch = <40>;
++                    vfront-porch = <10>;
++                    vsync-len = <10>;
++                    vback-porch = <20>;
++                };
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..99d5113fb035 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1395,6 +1395,8 @@ patternProperties:
+     description: Radxa
+   "^raidsonic,.*":
+     description: RaidSonic Technology GmbH
++  "^raio,.*":
++    description: RAiO Technology Inc.
+   "^ralink,.*":
+     description: Mediatek/Ralink Technology Corp.
+   "^ramtron,.*":
 -- 
 2.55.0
 
