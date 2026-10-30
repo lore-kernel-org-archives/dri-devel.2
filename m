@@ -2,87 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0553606A336
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 21:38:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCC7606A333
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 21:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UOEBE8Gl
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y4x1V+MH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35BFA10E116;
-	Fri, 30 Oct 2026 21:38:14 +0000 (UTC)
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE2AE112A1E
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 21:38:07 +0000 (UTC)
-Received: by mail-qv1-f42.google.com with SMTP id
- 6a1803df08f44-917aca1aee5so14151436d6.2
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 14:38:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793396287; cv=none;
- d=google.com; s=arc-20260327;
- b=S8OoG43dytPn1VbwxSOtGe1gTEr+nY+ayyGnH1DcYx4Bs8RyTrrysUk3c8GqnEVv4T
- cte9BGhWEf2PJMwcWUVb8E+AfOsBZe5ShWkGnp42gQY5cmx7GZLEBIAEU3R/XKPWEuPb
- fnysy2tgHhuXZA6XZvERD+MBtdsXR/DYeOy36WdlMREYMqLOJgw5xW1aqqWZnm6uV54e
- kn6zOHasRuc293G66T+gu1XatyCDRA0PmaYQNKYFzWDZyNi3ZnawvuPqOddn76Wx2Mbc
- lBM0SVQ4PZxhu7SuS2zuMarV7wGUfM4t/BDlRjPSuiNezhM0XRb0O8w7wTXAvteuZhGc
- uVHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=VWIvYVNrTi7O7BpAsxKjHom4qcgseHjxHJ3UUC8R2UQ=;
- fh=HQwGS/tgfrjuEQ8NZOhWLiLZo088fJVbEezIgNGsHOo=;
- b=Nw3zQt/FT10rVUpOi0YBd+Zh9Umw6f+djAZc/x8rIrqqC7Xx/4XvR9n9TIaaxvovY9
- hO9M8JtwOQd7rbA2wP9Q1eZUSYHiaazuqDqOdlZObpl5DibfJeoBZfcIuPsI0+xPmrLz
- SMEl9BnFt6E65h3lX6g6UvdCkTlTSFl5febNwtFX9+25tlid4X2x/t2oxW4t2vHz6Rzn
- v8X+ruF39BimrMgokPiV2sbAYKoisnnNrcfkOXP3fPlR83C1QvCQBZzyu+CudoCbvyYE
- cDqgSodM2kJBY5syyHq2OonNgRvOM2PWQN36RzAqVbbxVsng6fy5Dgbokgp3YTYgS9QS
- kkrA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793396287; x=1794001087; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=VWIvYVNrTi7O7BpAsxKjHom4qcgseHjxHJ3UUC8R2UQ=;
- b=UOEBE8GllVaXhhnyOjJv5PMIydGxd88SQa5C4s54osp8RNi5HnrINTs5stjGdPVpRg
- LnnYj3qezwpAx5hkGlSernqCFPCHNvYoDQVuHo+Joa48r+O3u5iV9w6MOtIfUvgIOCeV
- QYo2pgp9M2QIZFltT4cm2syVWecv0lIhzV8EFhUdrlw3mE2ySH25UvKO4z5QAo+95Hov
- VBk7ac0x38aYQToWskBcBJuFhYIGmLaZEY8sXEoJjWmEX9klHU95sGPyGbK8NTiOzSlS
- Q9qEIWIeVBEX6kA/3tX/mvuPNZUDs2tLbkGMPznklpAqWXS3628wbIrWUtfMLRwHB2f7
- A27Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793396287; x=1794001087;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=VWIvYVNrTi7O7BpAsxKjHom4qcgseHjxHJ3UUC8R2UQ=;
- b=j/wC9eqCead7KLcFXmCn5LLK2/vVge13V5IvujGiVeNpjEuSsnkNlwlsfJJv7Pqtxb
- 3G0aSBFC+IUxRE3zRiEgJk6BBDslK81Ml1OJERErXM3b6kgOtABGAU9Kxzq2zpazkYIm
- 6RHv6AEClwzOb8u6hoNrD8dgKrpAcpeHrlzEEC5hjRRKji3/UILSnGItmIz8C3gKQD0G
- gP8SpHkiPxGWw9b9w1wnL1wpZoFPJeRWjiqlKYHxDoBdIjXHH0fHAthI4bAUhGTvhhv4
- kzX9i25y0DJO9OcRCVfa8YefIcW/PjzaGYvPz2TzCa2MLJZoXTmh7cJByMKCU+AAMynS
- jh+w==
-X-Gm-Message-State: AFq9FYIyanacqWBFD/gq6b2nkrHpiifwG79rzAW4fmmsE/oMk6gso9ev
- Eu2zTKwazPii0X1xNPWv9fvTxin6NUVsbCLY+ScxuKlaOJkcy8ikZGh5wnE9EWGr8aptY2xYGjw
- JwxGUNJ2m1W900kOxP4Mvhi/uGImx4W4=
-X-Gm-Gg: AYBFou1+NomhyTn9AQuUzuEDy44ywiiex/e6rMZWO/qLyXCzNlKvbaHtlDBRkG0/MuG
- KIgp9V2zyjeNR5KYI5pG2cS+O4h8iO1mqGAkjN2G/L3IyzEALyNgC2pG5C62OD3UBmiHtsm5tS6
- jgfLMsEn7QYoouOIl7oHrnJWs5kKbgY/AT/5GIq3sK0sCPholBwsmh0ryQ//zE2h+h8Gq3l6EIa
- Ki5WwUSk52Uvr9ee5VBz3nCjWFKuo2wEkCiiwNw6wEPTC50wjKANyZo5dNbQXsYunm44hlIk14q
- pWjpusrqVLGMv3gsiAo5tO8iZUzEiSKzX8PeMXJJ7aabqJM7tJxCMkhgG0cmV9h1/LgezTNGCU8
- HJaq+D16OOV0XnBgaI1vf4sgDywI0OJqjaWeTD37JBF45jAaUf/OwtK6u5FjdtBWiUySyrcFGQm
- qpGnBJNkz+U+bI8TGfHa3IfGI=
-X-Received: by 2002:a05:6214:4586:b0:91c:617a:16d1 with SMTP id
- 6a1803df08f44-91ca4b4709amr57040926d6.33.1793396286556; Fri, 30 Oct 2026
- 14:38:06 -0700 (PDT)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 31 Oct 2026 07:37:55 +1000
-X-Gm-Features: AclHuK9ybmELFwq_U08T2CsIgoOYjcy1Jz6f1yIFGxlfnvZsJDgvyERSVKXAdCA
-Message-ID: <CAPM=9txuHS0rd7POC2gReGGnD0gmA-NrPzh1Gy4QC9824Qc4sA@mail.gmail.com>
-Subject: [git pull] drm fixes for 7.4-rc1
-To: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51FBB10E260;
+	Fri, 30 Oct 2026 21:38:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8593310E291
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 21:38:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 81C7C609D0;
+ Fri, 30 Oct 2026 21:38:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128F81F000C1;
+ Fri, 30 Oct 2026 21:38:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793396297;
+ bh=4r83b8bKxz38jjuc81F/8EzX+49a9TPo+aCKEYcLO3Q=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=Y4x1V+MHMwgw3KE0Cz0n0KT76pzDTfR5zTByAEK3t4Y1WzAhbZ2npAs8jfG64JF9O
+ OXpz/AxZBNxTkOteWMfYIrsKwJNgCpSdWkKbk2eo1lp6ng/S06zipGSzPNMOPiMOnb
+ 3b0cerprsF9ayoAoVSzz4HuAAJ0UykJLUGJCL4HjGlQ/aL0kKu15RgZBrRGpoudgxG
+ cd9eCd7c6HG3G34Ug02VmOTVKem5vNAAdsiURPKopD+BLUndaNBKNn72rt5MhXPV1C
+ 3b0rqHsxvf6V/Xu5heT+Ao1oZsksdrXprrJzGRgag4hxaE5HJf/Q5iutmMT5jteL5K
+ fpONIywP/spAw==
+Message-ID: <sashiko-outbox-191537@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 12/19] drm/msm: Inhibit IFPC for state snapshot
+To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261030211928.45761-13-robin.clark@oss.qualcomm.com>
+References: <20261030211928.45761-1-robin.clark@oss.qualcomm.com>
+ <20261030211928.45761-13-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 21:38:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,292 +47,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Linus,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/msm: race re-enabling IFPC during gpu_state_get() in msm_gpu_o=
+pen()
+- [High] drm/msm: premature GMU_OOB_PERFCOUNTER_SET before msm_gpu_hw_init()
+--
 
-The final set of merge window fixes, from AMD mostly. with one set of
-panthor mmu fixes.
+commit 158363591a2450fd461587eb02116600b0d3c278
+Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-Regards,
-Dave.
+drm/msm: Inhibit IFPC for state snapshot
 
-drm-next-2026-10-31:
-drm fixes for 7.4-rc1
+This commit adds an ifpc_disable guard in msm_gpu_open() to keep the GPU
+awake while capturing a GPU state snapshot via debugfs.
 
-amdgpu:
-- UALink fixes
-- Runtime PM fixes
-- GPUVM fixes
-- Mac fixes
-- HDMI fixes
-- DP MST fix
-- Userptr fix
-- SMU fixes
-- DSC fix
-- VCE/UVD sched teardown fix
-- Display runpm reference fix
-- Display TD-LUT fix
-- SMU 13.x fixes
-- SMU 14.x fixes
-- Gang submit fix
-- Passive DVI sink fix
-- USB4 tunnel fix
-- Freesync fix
+> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_=
+debugfs.c
+> index e1b872576c7b1..14b588aeeb562 100644
+> --- a/drivers/gpu/drm/msm/msm_debugfs.c
+> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
+> @@ -81,6 +81,8 @@ static int msm_gpu_open(struct inode *inode, struct fil=
+e *file)
+>  		return -ENOMEM;
+> =20
+>  	scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
+> +		guard(ifpc_disable)(gpu);
+> +
+>  		scoped_cond_guard (mutex_intr, return PTR_ERR(scope.lock), &gpu->lock)=
+ {
+>  			msm_gpu_hw_init(gpu);
+>  			show_priv->state =3D gpu->funcs->gpu_state_get(gpu);
 
-amdkfd:
-- SVM fixes
-- Fix doorbell allocation race
-- GC 12.1 fix
-- GPU reset fix
-- Buffer accounting fixes
-- Bounds checking fixes
-- Hotplug fixes
-- SVM fixes
-- CRIU fixes
-- GFX12 fix
+[Severity: High]
+As reported by Sashiko on v3 [1], can concurrent callers clear the
+GMU_OOB_PERFCOUNTER_SET vote and re-enable IFPC while gpu_state_get() or
+sample_worker() is still reading GPU GX registers?
 
-panthor:
-- Fix bugs in MMU handling
-The following changes since commit fad06cfaf385787b9ffa2f73f049d42dbe1de57f:
+In drivers/gpu/drm/msm/msm_gpu.h, the ifpc_disable guard toggles
+ifpc_update() with a boolean rather than a reference count:
 
-  Merge tag 'drm-misc-next-2026-10-16' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-next
-(2026-10-21 11:03:26 +1000)
+DEFINE_GUARD(ifpc_disable, struct msm_gpu *,
+	     if (_T->funcs->ifpc_update) _T->funcs->ifpc_update(_T, true),
+	     if (_T->funcs->ifpc_update) _T->funcs->ifpc_update(_T, false));
 
-are available in the Git repository at:
+And in drivers/gpu/drm/msm/adreno/a6xx_gmu.c, a6xx_gmu_ifpc_update() tracks
+the OOB request with a single bit (GMU_STATUS_OOB_PERF_SET) in gmu->status:
 
-  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-10-31
+	if (force_on && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
+		a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+	else if (!force_on && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->st=
+atus))
+		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
 
-for you to fetch changes up to f94ed3d7cba3c83eef50b1a96d630d63cf54f69c:
+When sysprof is not active (refcount_read(&gpu->sysprof_active) =3D=3D 1),
+several paths can clear GMU_STATUS_OOB_PERF_SET and drop
+GMU_OOB_PERFCOUNTER_SET while another thread is inside gpu_state_get():
 
-  Merge tag 'amd-drm-next-fixes-7.4-2026-10-28' of
-https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-next
-(2026-10-29 16:01:40 +1000)
+1. Because guard(ifpc_disable)(gpu) in msm_gpu_open() runs outside
+   gpu->lock, a second process opening the debugfs file enters
+   guard(ifpc_disable)(gpu) (which is a no-op since GMU_STATUS_OOB_PERF_SET
+   is already set) and blocks on gpu->lock. If that waiter is interrupted by
+   a signal, or when the first caller unlocks gpu->lock and exits its
+   ifpc_disable guard after the second caller has entered gpu_state_get(),
+   a6xx_gmu_ifpc_update(gpu, false) clears GMU_OOB_PERFCOUNTER_SET while
+   gpu_state_get() is actively accessing GX registers.
 
-----------------------------------------------------------------
-drm fixes for 7.4-rc1
+2. sample_worker() in drivers/gpu/drm/msm/msm_perfcntr.c runs on gpu->worker
+   without gpu->lock and also uses guard(ifpc_disable)(gpu). When either
+   sample_worker() or msm_gpu_open() finishes first, its guard cleanup clea=
+rs
+   GMU_OOB_PERFCOUNTER_SET for the other.
 
-amdgpu:
-- UALink fixes
-- Runtime PM fixes
-- GPUVM fixes
-- Mac fixes
-- HDMI fixes
-- DP MST fix
-- Userptr fix
-- SMU fixes
-- DSC fix
-- VCE/UVD sched teardown fix
-- Display runpm reference fix
-- Display TD-LUT fix
-- SMU 13.x fixes
-- SMU 14.x fixes
-- Gang submit fix
-- Passive DVI sink fix
-- USB4 tunnel fix
-- Freesync fix
+3. msm_context_set_sysprof() in drivers/gpu/drm/msm/msm_submitqueue.c runs
+   without gpu->lock (including on every DRM fd close via msm_postclose())
+   and unconditionally calls gpu->funcs->ifpc_update(gpu, false), which also
+   clears GMU_OOB_PERFCOUNTER_SET mid-snapshot.
 
-amdkfd:
-- SVM fixes
-- Fix doorbell allocation race
-- GC 12.1 fix
-- GPU reset fix
-- Buffer accounting fixes
-- Bounds checking fixes
-- Hotplug fixes
-- SVM fixes
-- CRIU fixes
-- GFX12 fix
+4. On A8xx, hw_init() in drivers/gpu/drm/msm/adreno/a8xx_gpu.c sets
+   GMU_OOB_PERFCOUNTER_SET and GMU_STATUS_OOB_PERF_SET when
+   msm_gpu_sysprof_no_perfcntr_zap(gpu) is true (such as when
+   gpu->perfcntrs->stream is active with sysprof_active =3D=3D 1), whereas
+   a6xx_gmu_ifpc_update() only checks msm_gpu_sysprof_no_ifpc(gpu). Exiting
+   guard(ifpc_disable)(gpu) in msm_gpu_open() will then clear the active
+   perfcntr stream's OOB vote.
 
-panthor:
-- Fix bugs in MMU handling
+[Severity: High]
+Also in msm_gpu_open(), does placing guard(ifpc_disable)(gpu) before
+msm_gpu_hw_init(gpu) assert GMU_OOB_PERFCOUNTER_SET before the initial
+GMU_OOB_GPU_SET handshake when waking from runtime suspend?
 
-----------------------------------------------------------------
-Asad Kamal (5):
-      drm/amd/pm: Update smu_v15_0_8 PMFW headers
-      drm/amd/pm: Add set_npm_limit function
-      drm/amd/pm: Add NPM metrics reads and SetNpmLimit
-      drm/amd/pm: Add store npm limit function
-      drm/amd/pm: Notify node unload during driver unload
+When the GPU is runtime-suspended, entering scoped_guard(pm_runtime_active,
+&gpu->pdev->dev) runs a6xx_gmu_pm_resume(), which sets
+gpu->needs_hw_init =3D true and boots the GMU while deferring the
+GMU_OOB_GPU_SET (and legacy GMU_OOB_BOOT_SLUMBER) handshake until
+msm_gpu_hw_init(gpu).
 
-Avi Weiss (1):
-      drm/amd/display: Initialize missing TD-LUT programming inputs
+Calling guard(ifpc_disable)(gpu) before msm_gpu_hw_init(gpu) causes
+a6xx_gmu_ifpc_update(gpu, true) to set GMU_STATUS_OOB_PERF_SET and call
+a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET) while gpu->needs_hw_init is
+still true and before hw_init() has performed the GMU_OOB_GPU_SET handshake.
 
-Boris Brezillon (3):
-      drm/panthor: Don't invalidate OTHER caches
-      drm/panthor: Fully disable the AS even if it's going to be re-assigned
-      drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
+Furthermore, when msm_gpu_hw_init(gpu) subsequently calls hw_init() in
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c or
+drivers/gpu/drm/msm/adreno/a8xx_gpu.c while msm_gpu_sysprof_no_ifpc(gpu) or
+msm_gpu_sysprof_no_perfcntr_zap(gpu) is true:
 
-Daniel Phillips (1):
-      amdkfd: Fix memory availability double accounting of kfd pinned objects
+	if (!ret && msm_gpu_sysprof_no_ifpc(gpu)) {
+		ret =3D a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+		if (!ret)
+			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
+	}
 
-Dave Airlie (3):
-      Merge tag 'amd-drm-next-fixes-7.4-2026-10-21' of
-https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-next
-      Merge tag 'drm-misc-next-fixes-2026-10-23' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-next
-      Merge tag 'amd-drm-next-fixes-7.4-2026-10-28' of
-https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-next
+hw_init() does not check whether GMU_STATUS_OOB_PERF_SET is already set and
+calls a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET) a second time while the
+OOB bit is already asserted. Should guard(ifpc_disable)(gpu) be placed insi=
+de
+the gpu->lock scope after msm_gpu_hw_init(gpu)?
 
-Elena Sakhnovitch (1):
-      drm/amdgpu/gmc9: add extra type-2 TLB flush for gfx942/gfx950
+[1] https://lore.kernel.org/r/20261029201730.151754-12-robin.clark@oss.qual=
+comm.com
 
-Fangzhi Zuo (3):
-      drm/amd/display: Poll passive DVI sinks for EDID readiness
-      drm/amd/display: Cap DSC bpp for USB4 DP tunnels
-      drm/amd/display: refresh cached HDMI FreeSync state
-
-Harish Kasiviswanathan (1):
-      drm/amdkfd: fix NULL deref in SDMA HQD debugfs dump on GC 12.1
-
-Harkirat Gill (1):
-      drm/amdgpu: re-enable GFXOFF for compute on GFX12
-
-Henry Martin (1):
-      drm/amdkfd: fix doorbell allocation race creating duplicate allocations
-
-Horatio Zhang (1):
-      drm/amdgpu: skip the PASID TLB fence for the UALink NPA VM
-
-Ilya Bakoulin (2):
-      drm/amd/display: Fix HDMI FRL FFE compliance test
-      drm/amd/display: Adjust HDMI FRL LT timeout
-
-Jesse Zhang (9):
-      drm/amdgpu: wake the GPU for INFO queries that access the hardware
-      drm/amdgpu: fix the error path in amdgpu_vm_pt_alloc()
-      drm/amdgpu: reject ANONONLY userptrs that span multiple VMAs
-      drm/amdkfd: don't drop an SVM CWSR reference that was never taken
-      drm/amdgpu: reject CS chunks too large for kvmalloc()
-      drm/amdkfd: split vram_pages of SVM ranges prefetched without a
-GPU mapping
-      drm/amdkfd: send SMI process and VM fault events only to allowed clients
-      drm/amdgpu: drop the gang leader reference when freeing gang jobs
-      drm/amdkfd: evict the queues only once for CRIU PROCESS_INFO
-
-Jiale Yao (1):
-      drm/amdkfd: validate SRAT subtables before parsing
-
-John Fisher (1):
-      drm/amdgpu: wait for pending page table updates before switching
-a VM to CPU updates
-
-Keita Morisaki (1):
-      drm/amd/display: Fix swap in median3() for DSC rate control
-
-Kenneth Feng (2):
-      drm/amd/pm:restate all customized OD features on every table
-upload for smu 13.0.0/smu 14.0.2
-      drm/amd/pm: add zero fan stop temperature support on smu 14.0.2
-
-Kevin Wang (3):
-      drm/amd/pm: reapply umd profile state after recovery
-      drm/amd/pm: preserve committed OD features for SMU 13.0.0/13.0.7
-      drm/amd/pm: preserve committed OD features for SMU 14.0.2
-
-Luigi Lauro (2):
-      drm/amdgpu: require _PR3 for BOCO
-      drm/amd/display: take a runtime PM reference only when a CRTC turns on
-
-Maciej Kucharek (3):
-      drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
-      drm/amdgpu: reset CIK ASIC on Apple boards with VRAM at 0
-      drm/amdgpu: reset VI ASIC on Apple boards with VRAM at 0
-
-Mario Limonciello (1):
-      drm/amd/display: don't WARN when removing an unallocated MST payload
-
-Olivier Kaloudoff (3):
-      drm/amdkfd: tear down KFD processes before early fini_sw on disconnect
-      drm/amdkfd: stop restore retries on device unplug
-      drm/amdgpu: guard VCE/UVD sched entity teardown on failed probe
-
-Philip Yang (3):
-      drm/amdkfd: Fix svm_bo use after free in svm_range_clone
-      drm/amdgpu: Reject UALink source-identification address mode
-      drm/amdgpu: Enable remote TLB shootdown
-
-William Palacek (2):
-      drm/amdkfd: wait for a GPU reset before freeing a BO
-      drm/amdkfd: Validate the control stack of a restored queue
-
-Zhen Han (1):
-      drm/amdkfd: correct vram_available calculation
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  11 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |  19 ++
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c   |  44 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   | 105 +++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   6 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  17 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  14 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  24 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |  28 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  33 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c         |  21 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c          |  12 +-
- drivers/gpu/drm/amd/amdgpu/cik.c                   |  10 +
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  18 +-
- drivers/gpu/drm/amd/amdgpu/si.c                    |  10 +
- drivers/gpu/drm/amd/amdgpu/vi.c                    |  10 +
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  48 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |  35 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_device.c            |   9 +-
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   9 +
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c          |  23 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h       |   9 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |   4 +
- drivers/gpu/drm/amd/amdkfd/kfd_process.c           |   4 +-
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  30 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |  23 +-
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |  60 +++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  36 ++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  15 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |   9 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  24 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  17 +-
- drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h     |   4 +-
- .../gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c   |   2 +-
- .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c     |   2 +
- .../amd/display/dc/link/hwss/link_hwss_hpo_frl.c   |   3 +
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |   2 +
- .../amd/display/dc/link/protocols/link_hdmi_frl.c  | 129 +++++++---
- drivers/gpu/drm/amd/include/kgd_pp_interface.h     |   3 +
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c                | 103 ++++++++
- drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  33 ++-
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |   2 +
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |  33 ++-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          | 101 +++++++-
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   8 +
- .../amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_pmfw.h    |  12 +-
- .../amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_ppsmc.h   |   5 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |   4 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h       |   1 +
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 200 +++++++++++----
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   | 199 +++++++++++----
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 279 +++++++++++++++++----
- .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c   | 157 +++++++++++-
- .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h   |   4 +
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  26 ++
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h             |   2 +
- drivers/gpu/drm/panthor/panthor_mmu.c              |  45 ++--
- 68 files changed, 1660 insertions(+), 468 deletions(-)
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030211928.4576=
+1-1-robin.clark@oss.qualcomm.com?part=3D12
