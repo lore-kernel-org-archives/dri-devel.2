@@ -2,56 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F09C606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9F6606A32C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:16:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+RVl4Xv
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GoX8hjST
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1A0B1128B6;
-	Fri, 30 Oct 2026 15:15:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A04811289F
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:15:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF5841128AB;
+	Fri, 30 Oct 2026 15:15:56 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C531A1128A7
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:15:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2B3360252;
- Fri, 30 Oct 2026 15:15:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291C61F000C1;
- Fri, 30 Oct 2026 15:15:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AD284434F5;
+ Fri, 30 Oct 2026 15:15:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 107C31F000C1;
+ Fri, 30 Oct 2026 15:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793373320;
- bh=++GHg3Ey+M2qQoh/CfMwDgt5WdSfsnKEhV0rtbkHTmw=;
+ s=k20260515; t=1793373342;
+ bh=Vtr7CCZY9gMYHFcV5A2zkbb7Vy7y3t4AdShMheoRkiE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=i+RVl4XvtaCoIpr1VuJLU2hJfUrUO20DLU7ocKl3qXW9kkB+NjIv0eCXkwc0VXoqD
- mcIkRlopFPgTNQfPBRyAwgekkKnIuaPOIDJ1h+gCc0XX2r4BDpUqHaTJ7tRXTOPsK4
- Jfth1OuBJJx8nhyfNK2jvRmZPdsp4U979S3Rr4VdsYt68GxihJ3SRfxMiwx49paX+F
- a4F25+lPgwsrRilmGO+H6dTT38d6OGulKJ1jBPV9MiEfrJNhU9vLpAGaNjw1+tGd6U
- J7naqDlmc1noGBAod+C3rUal4xgTT87w/XF92u4EN4kF/qZcdqFSWnReNGw6S8PJKE
- lVDBTrEe2tqIQ==
+ b=GoX8hjSTEo0yPgoZOpuJCQiQe80In8uz4MkvqvLl86I7sMnbxGH1bWe42zDsY0j1O
+ d+ofvzlA6DN3Dd8PPnYHdaobloDzQnU000wHjSnWndwCcbMUE0yE3/ru5Gwduj2YPs
+ wX3i66WsnqjSyZ6ffl3dBcXiInc1bhP/nR3O01VmZ2fm3B208dcLb/s2W5yf+uk8AF
+ 13ueW+fkx5AjkSMGz4Z5KsrZksgX+P/qHccwtFumQL7BDkJxQH+9w0Vzf+M815AMMl
+ YY7KWHrLlfGGlujLskG8SHboVUub1qh4iAghGmc3X15iaXchA2GfkAZkqBKwYFWUGg
+ 1Nuc+ECjYm6QQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 16:13:54 +0100
-Subject: [PATCH v3 24/37] drm/vkms: Switch to
- drm_atomic_helper_connector_create_state
+Date: Fri, 30 Oct 2026 16:14:00 +0100
+Subject: [PATCH v3 30/37] drm/tests: hdmi: Convert to atomic_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-no-more-connector-reset-v3-24-30e71d92c327@kernel.org>
+Message-Id: <20261030-drm-no-more-connector-reset-v3-30-30e71d92c327@kernel.org>
 References: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 In-Reply-To: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Melissa Wen <melissa.srw@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1864; i=mripard@kernel.org;
- h=from:subject:message-id; bh=rn5bRJ9bh+nY8mhfj6LcjouIo4gf2+iZ7kX6VPKLL18=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtqi/+17LscF5qQlHy2QWF+88wUtrrp7aofE5rn0b0
- yHZR53XO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBETpUyNrysu9CS2ClfaTtn
- L8+q8z2O+46+dd14Iuxa3Ialx0/5GGn9ixW6NylwYX3Quem5vgqXyhkb1i9Iq3HPKlxxKn/l0e6
- 1Bj9evtm/7IZoftm+CQduhpvXbA9l7H+WfXNpns6hPQ7sWwVvAwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1893; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=yF3+E/K+zhyYaQcOQ4Aaoiwdwq+LlM/3c0QBb/i8U5w=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtmgtKVnfIJ8i9+DR5XXXdLX4bvKZTLfifnD6ay9/0
+ sH/LZLpHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiHxkZG3a/qd/4oD1m6wfd
+ 4iK7j2JSWfbtCSv/2gSHbxffae7bJHs6uoKzsv+efZPf49K15wr7GRsaT7Pfn/xZr9Mqt7U1qHX
+ xvbulSp/mu07axti3Kr9DcWMYh8IRCcWqbSUHjh2pOVPOFwoA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,43 +68,52 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The vkms connector implementation uses the deprecated
-drm_atomic_helper_connector_reset() as its reset hook.
+The test HDMI connector reset implementation creates a pristine
+state and initializes the HDMI state. It does not perform any
+hardware reset.
 
-Switch to drm_atomic_helper_connector_create_state() instead.
+Since this is equivalent to what atomic_create_state expects, convert
+the reset function to an atomic_create_state hook that returns the
+initialized state.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Melissa Wen <melissa.srw@gmail.com>
----
- drivers/gpu/drm/vkms/vkms_connector.c | 2 +-
- drivers/gpu/drm/vkms/vkms_writeback.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms/vkms_connector.c
-index b0a6b212d3f4..57138027966f 100644
---- a/drivers/gpu/drm/vkms/vkms_connector.c
-+++ b/drivers/gpu/drm/vkms/vkms_connector.c
-@@ -38,5 +38,5 @@ static const struct drm_connector_funcs vkms_connector_funcs = {
- 	.detect = vkms_connector_detect,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
--	.reset = drm_atomic_helper_connector_reset,
-+	.atomic_create_state = drm_atomic_helper_connector_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
-index ecf29a2c0c8e..858df1f89f66 100644
---- a/drivers/gpu/drm/vkms/vkms_writeback.c
-+++ b/drivers/gpu/drm/vkms/vkms_writeback.c
-@@ -27,5 +27,5 @@ static const u32 vkms_wb_formats[] = {
- static const struct drm_connector_funcs vkms_wb_connector_funcs = {
- 	.fill_modes = drm_helper_probe_single_connector_modes,
--	.reset = drm_atomic_helper_connector_reset,
-+	.atomic_create_state = drm_atomic_helper_connector_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+index 9953f5e661ce..336bb644cb7c 100644
+--- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+@@ -200,16 +200,24 @@ static const struct drm_connector_helper_funcs dummy_connector_helper_funcs = {
+ };
+ 
+-static void dummy_hdmi_connector_reset(struct drm_connector *connector)
++static struct drm_connector_state *
++dummy_hdmi_connector_create_state(struct drm_connector *connector)
+ {
+-	drm_atomic_helper_connector_reset(connector);
+-	__drm_atomic_helper_connector_hdmi_state_init(connector->state,
++	struct drm_connector_state *connector_state;
++
++	connector_state = drm_atomic_helper_connector_create_state(connector);
++	if (IS_ERR(connector_state))
++		return connector_state;
++
++	__drm_atomic_helper_connector_hdmi_state_init(connector_state,
+ 						      connector);
++
++	return connector_state;
+ }
+ 
+ static const struct drm_connector_funcs dummy_connector_funcs = {
++	.atomic_create_state	= dummy_hdmi_connector_create_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+ 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+ 	.fill_modes		= drm_helper_probe_single_connector_modes,
+-	.reset			= dummy_hdmi_connector_reset,
+ };
+ 
 
 -- 
 2.55.0
