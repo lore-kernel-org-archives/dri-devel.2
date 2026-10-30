@@ -2,42 +2,162 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3205606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:23:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9002F606A33E
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:27:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NnryI49d
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mtDTucYE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CBD910E87C;
-	Fri, 30 Oct 2026 10:23:52 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAD1510E87C
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:23:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8D85D42A92
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:23:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ADCA1F000C1;
- Fri, 30 Oct 2026 10:23:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793355825;
- bh=eKnxHaSozVTafc3nNXWlkr60/mOmEM0mALOMcy2tFRc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NnryI49dQ8lLwwbwLLuRbY03RYZfU5vDjkOuCqRjGNOQgYxLrtswyGUk4U9Q1de7S
- GBQXoSfAheS+Ei6F6UPj+uwX03tKT/7ywMlbKJeIjAV9VBJ4qO3CpD3scfYInjXbG3
- +y3RiHoQkPXwjGc0z/fhMKKWQHcn5sDDqhroit2ktiyIZ8Ek7fmt5auJVfN9WArKKz
- eAejkkBSuowMne1aH5lWrCBOAQL6aUA2bW2YKutY0SEDqYtkMGapT+tjplaKwDuko5
- A0J1/WgN2ArPmWHZJBnFg5X3JAGXypUtTaZiJjoLWoKYl/Y1x9suWF8L6otRn5QY+h
- +k6A3hO+nNanA==
-Message-ID: <sashiko-outbox-190826@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/8] drm/msm/a6xx: Add IFPC tables for Adreno 630
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261030-topic-a6xx_ifpc-v1-5-6992841a9a32@oss.qualcomm.com>
-References: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
- <20261030-topic-a6xx_ifpc-v1-5-6992841a9a32@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB8D112706;
+	Fri, 30 Oct 2026 10:27:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6082810E594;
+ Fri, 30 Oct 2026 10:27:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793356048; x=1824892048;
+ h=content-transfer-encoding:date:message-id:to:cc:subject:
+ from:references:in-reply-to:mime-version;
+ bh=xKDv1hdyulrc/McoXXCkjZbjVQEn/U91wqhE/uuwdgo=;
+ b=mtDTucYEFvAnBzn/Sg9zL8UC554KtnK0huJ7JZpyzwvFYdvOyJWesZXz
+ /KRcfaWAOaMThZzhKqqmXcQXGYn23kuVzFP/LXACXCbAUGU9UDuvzqkmZ
+ VF3kOFKcdqlJ7flTa/qBy1hxu9ipNXfY09j+X1JxuRs+YiMbk0Rc7pO79
+ zO7H5ruptv2IdtGaw6K06//DwkYVik6JMDuXl4vYMA92LTxDQAz5TrLKx
+ V1UaUnluhgnUto9xxHqdBa/WIfLwYO1B++o+SLmu6JiF373+qEz+v59f+
+ WdqkelnWJBMQZeuBwgioqVlrpZ+lOK0/PQkBuPtLizldpl1DmtDm76w8j Q==;
+X-CSE-ConnectionGUID: JxiJKvYpTmKufYFd2GNmBQ==
+X-CSE-MsgGUID: IdBY3sAfRWOifjc2gYkj6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2147970"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2147970"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 03:27:28 -0700
+X-CSE-ConnectionGUID: uySgdF4aSXugToZNgovHYg==
+X-CSE-MsgGUID: 3ke//nC7Tqas2rZR+kqnMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7221196"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 03:27:28 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 30 Oct 2026 03:27:27 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 30 Oct 2026 03:27:27 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.42)
+ by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 30 Oct 2026 03:27:27 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LvuqD7G5rBmwzFV8nJjtO7HIXLW2PJCoyObbpexxesMBZKlBIxhhBooi+zPAwq9/2XE+YQJg/1GHcFOAWzLqy72H53Qto36HJ2FB7zrJmj0YajOaF2Gc7ow5s0CZ9PfEIWcWJtKmUXnCLfojUx0bP7vFs8Y96Ke0vtM2H/AZNr1XnpwJOEFbp+PCUlAQDLtMvFPInSdYBdi2MUpEUzljZZzg4MhuxzE1ZeIQyBJhKx2gXvk349Vm1AAltk1WK+oa6HRd6NYJXMdVEZeo3U8Q9ZdbXfhBEl6D1fy8/fpvhkbw8TpEt2w/ZgX5pK5eym15dzHuZYz7h3LA+qOT7FD0yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QfS6wYejZmJh6V9+1uD4tqvFeQa/lgRw5AIuVY1HQwk=;
+ b=U/fe6uIfq0pXxy95kiUCF/6y3LPRg1LlzlGmRwRdeY7MH+AOaJTZNnDMP2jvcrNP0EvAouqMJ7dk62ZycBqb7tWTXy/NhdGvo1OnKO6HVD4NdyqKED5kGpexXw7CcGeLLQUmN+pbBLLi4hJb2yhbDGohrAWg/yUcrSM7SqIpXuRuj1GnQDYttdLXF3OL91n/EGVu0DaQ50A19S0itkEsFP/VsGif/hAKZmCgctSD4gyBiUw7nAhPxZZFG1nGN8rWQJJ6JSR9EKdotfcdH5KQC/DqSCdDk93qRF4kKdsO7rH9xdHY0XfWpxxUAMtu1WP81UcLag4Sss8nLVuAT7CaDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PR11MB134916.namprd11.prod.outlook.com (2603:10b6:8:4f0::21)
+ by PH7PR11MB7500.namprd11.prod.outlook.com (2603:10b6:510:275::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Fri, 30 Oct
+ 2026 10:27:19 +0000
+Received: from DS4PR11MB134916.namprd11.prod.outlook.com
+ ([fe80::87f6:b354:5770:3ad4]) by DS4PR11MB134916.namprd11.prod.outlook.com
+ ([fe80::87f6:b354:5770:3ad4%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 10:27:18 +0000
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 10:23:44 +0000
+Content-Type: text/plain; charset="UTF-8"
+Date: Fri, 30 Oct 2026 11:27:33 +0100
+Message-ID: <DMI3NXGAIUXR.2X9SS2F3OTOGY@intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+CC: Andi Shyti <andi.shyti@linux.intel.com>, Janusz Krzysztofik
+ <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH] drm/i915/gt: Use VCS instead of VECS for GuC error
+ capture on Gen 12
+From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+X-Mailer: aerc 0.22.0
+References: <20261030083948.131717-1-krzysztof.karas@intel.com>
+In-Reply-To: <20261030083948.131717-1-krzysztof.karas@intel.com>
+X-ClientProxiedBy: WA0P291CA0012.POLP291.PROD.OUTLOOK.COM (2603:10a6:1d0:1::7)
+ To DS4PR11MB134916.namprd11.prod.outlook.com
+ (2603:10b6:8:4f0::21)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PR11MB134916:EE_|PH7PR11MB7500:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48b96f11-a33e-4662-d2da-08df3670600e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|11063799006|5023799004|261009223027099003|56012099006|261026121527099003|261026140227099003|10067099003|261021121427099003|261022105027099003|261021123027099003|261022075727099003|22082099003|18002099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info: 6bVrdcTSEWr/tqcjyHLceZRW2AHIwYpMOtdcR4XmLT3bdGTGuHRBsee5uuFAvRzunAr4poEMOMgL5gSCb4C7eop9gGb73h4bGK3GOyWaJWchTPDel3h2bnQGu+fUrJjbh6rM2ULms2s9G5UQWsnRGETaiML8aqvpDBZIgLe7XtGFGRhO4VuQlHhcAUqOyw+iOnoBg+xIHRyOUyaNqaBR5KIT3wc98iie9YLV6vFaQzG89sFs/6uOmt2VOakjWEtECyHlkHbNjfkhmzS/yy9qJOXoEda7M3Imz/GGGRpi4O5oBi2nzE3APp1oka4z68DGIyKrEP3rseElVBE7pH02NTvqsp+kmbu4oPSMCaqJeDwXRTSiyqWbuHzce9YRcGjDVYhnDkRU5WOjH1jnrWj/1vqceC7J0XJPtQBUM45s+xO7gpBRw3GgV5dBnKRsz2DWe+KFzSipJoyL67DBRYIPn1Y+YJKOOxRltt21KCdCeiQATjuX4UYM7xUTzvY1WMne2x9Qjbmrcrng5GhJYLJAzY3uBL0mE6TdTVgFU4q6x4+qp4qg5WA/5pRsoMcAnec4wFqasv6i/iqaaP5beEIk/n+hhBcBryMAgYvuo+wLYzN8ryUTDalug1KvmhbRd+2C
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PR11MB134916.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(5023799004)(261009223027099003)(56012099006)(261026121527099003)(261026140227099003)(10067099003)(261021121427099003)(261022105027099003)(261021123027099003)(261022075727099003)(22082099003)(18002099003)(261028144727099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3hHMGVuQkhVQW15UkQvanAvOGlmYU8zL0FYVGhzdkhUVjRKTlZscktWRkoz?=
+ =?utf-8?B?WEFHa1FYMHhhNnYxdE9GMnpKM3JDMjhIWjhUVTY1azNiSno0amZFWEMzMzh0?=
+ =?utf-8?B?dHVUakk2eFo1UnR1K0hzRDRFM2xhbmpTUFpXaFdUOEZUVFd1V01YNzAzUUxY?=
+ =?utf-8?B?NDkxQkwveGZsUUU4TmwzR1J6YjBmVFdXUndMZzBkclpMczF5WnNpbXM5Z2RC?=
+ =?utf-8?B?d2NSYk9venVld2NPSis5eGV2N3pqU3gxL01RYnhsajlrZk96bzQrdTFFUkx3?=
+ =?utf-8?B?N1V5NTFrVlZVaTNUbnhSRE0ydWZWMytSWjVrZU5rWlRFKzFZZ202NHNzWWc0?=
+ =?utf-8?B?RWo0NTRabS9tWUtZNkpvQndud3hXTWhqeGpyUm9CVEV4UEhsYUhkdG51Yjda?=
+ =?utf-8?B?SlZvSnFGcmVrWVp5UXJibjJ2bnFZeGs1TEhoMjJSYnI3M1lWZ1VLSUt6MmR0?=
+ =?utf-8?B?bXhRd1VucGlVMGJmdGNJK1VhTmZ6QlVZNzZPWklFemhIYzkvNCszVmdQaVI3?=
+ =?utf-8?B?cGd3MENXZ2ZVSkpoYkxiOHhwdTlrYlEraWEzaVA0SDJVb2pzK244OXJ0azFK?=
+ =?utf-8?B?UVBvdEVOK012VmIxWFdKUTc5citXSE1seEM0R1NCeFJnblk1bHlqTm5teTJm?=
+ =?utf-8?B?TEl0bUozTXVFaTA5UDFMd1NsTThPa1Z4V2lCd3VaV0g1My81Y0RtRGRCRDdo?=
+ =?utf-8?B?MURUSnIzUHQrRTJQUzRucElQRnRJRDdwWS8rVGd4NTA4cVJLNkNZaElFMzJ4?=
+ =?utf-8?B?WWJYRkZuejltR2oxY3ZlaWVDSnJuYmNoVktqTWNBSFdCaWhoQUVxalZPUzd2?=
+ =?utf-8?B?RGNlRWxpMnRYTnJyUXcyTlZ6RHBuMVJKM3hMRjExb3ZYWC9BWDM1cDQzajdF?=
+ =?utf-8?B?dEpKN2NJeVk5bkVYUGdidWVUQXFveGVScDdxY3ZjZ1dZTFhjZ0w5Q201YU9O?=
+ =?utf-8?B?b096ZHllNFUrYzZPNU9Mc3Q0bjlISWQ1aDJEVWk2cU01Rmp2cm9BNFRaV1RS?=
+ =?utf-8?B?WDkyUlR6OFlTTmI4MG5jU2s1ckhxeXJkVjljSTNUOWE2L2RqZmJxVGk2Ym5m?=
+ =?utf-8?B?QlA1djVKZGRWU1BtV1hIMXlsemFXRkw5Y2VUdlJ2SGt6R1RNZXhobWp4aEFE?=
+ =?utf-8?B?TEU1ZzRmTCtIQ0s1K2xLZzJKTjNITVZ0WmhKeVo4bVdjV2t3b1QzMWtwNDNH?=
+ =?utf-8?B?eTNuKzNQdm5ZbUhvMFd5RGpaaDNMcks2elRjUzZ5dEtXUzZrYjFYL1dNU1g4?=
+ =?utf-8?B?UU1RL1VSQ1huTDJEV01QNU5RNlJBR01kd0Z6aHM2eXZVLzJyaWppSjRSVFJQ?=
+ =?utf-8?B?c0VKVE1va1N2MDk2ZGNPdFpVVXgwZ2NwVDdBWWRTdlZZbHFxTnkyVHorb0pR?=
+ =?utf-8?B?VjZLV3ZtUjlNWjRHbXFPS0tHdlo1dlY2QXJQcjQ5UExVWExJMTV3Mi9xditx?=
+ =?utf-8?B?QjVRYmhvSldFZTU5cTRCaFlqQ2dJeUdTTTVWUlJUTm1Ta0dOb3NtQlZYaUZX?=
+ =?utf-8?B?dFMvQWh6bkFvU3ZDMXVsQ094NkcyVEZweERqaDFsbm52Rk02Y2Q0K0FmWVJT?=
+ =?utf-8?B?MnFnbmE4bHlBcU5RZkdFUm93Y1RTY05kZlk3U1FiOVlmajZXL2hOOVArM09N?=
+ =?utf-8?B?aENXOU9ORGxCekw2RFpjR2d4Z0tiZ2NEODNhYlFCWi8wdTNLQk5PdENnRk9Z?=
+ =?utf-8?B?VmJ3dmVpcnlqK2diYzJ0YkhsUTNZaUZNQzVhTm5NTE83T0k4UVVsSmhnY0N1?=
+ =?utf-8?B?cVRPcmtoWlhHNmFMOGtZaDgxcEp6c3FENVlTdWZTODl5NjN0U2VoZjhjUG5H?=
+ =?utf-8?B?cXp3ZExMY2ZTaDNlSVdCeWdkQmRHejlXYXQ4OURBeVlLdjc5MGtsVEVabzhJ?=
+ =?utf-8?B?bXUyeWNzaUZJTUNtemd1djdFdmZ0TW1JUjJrL1orM0tqTUFPTXIzU2dQY0Z0?=
+ =?utf-8?B?dFFZK0RWTTVyWTBZMENCcDYzeHlEdDg1WFVvMCthVmRqdGxvRjYya2MrRjFt?=
+ =?utf-8?B?a0twanA0Y0VhMVJiNGplT1FYRTRKZFhmRXBjRUdZb0F1WUk1L2l4ZWtnYlhZ?=
+ =?utf-8?B?UkljZFBkSUhZeGhEdzFpSy9QT0tkUElVSHhQd0Qva3BVRmhudlBRTE9scWtS?=
+ =?utf-8?B?Zm44UitCN2hQaE5FOWgraWxhZndIbm9DZ0MvcmdzQjdtRXRtWDJqQzNFY3k4?=
+ =?utf-8?B?Zm5xWG5tSVkyWXlpMXVaZXNkS3cwUkdpdnNrc00wL3NmWm8rdTByRnJhZG9B?=
+ =?utf-8?B?TmxMcDZ5NXFwaXJabVRvYktvSklpekZIUnp0WHlMMzEzK3E2eEpieGp4d0Na?=
+ =?utf-8?B?dzJUY3JzRDdXUEhCVmFTeWdIWnBSSEUwcW8vNEJIUmV2eHRJS0Q0S1p1QXYx?=
+ =?utf-8?Q?fmc7P634r77bf7jM=3D?=
+X-Exchange-RoutingPolicyChecked: uSirOZVQBfCGpMgKwbVJBnpatNfaaUaAZMtUhS8+r5M5NCZMT9hcVxPoyiB10kNEkYdh9yAUkDPevG5XJ2SOgw4fWAPKCebiSKDkr3qgsmUT+sL4s033mjr7312/0pxxdskkuNnmOpsIbNpLRUfWi2EvctWsPxVQNiVgkiPisJBRJ2kk65nYAJp4xKZxMP35t9yR7rOEohyv32APkPX36KO6o7Me0HryaxvWY9Lts95wp1r0Ldtg7H/uV9LD8I8lPOaRGtK7gCz0OfW6MZMwLVjZpeMVLrpwh3nU0D0RCMtOHRh5QNeKA9W7LY+hRcUVVUhiu8FhBJ8SeE5E6TSKTg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48b96f11-a33e-4662-d2da-08df3670600e
+X-MS-Exchange-CrossTenant-AuthSource: DS4PR11MB134916.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 10:27:18.6566 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1fyt8Ud/QLDojQu08J9his7r4jxApEc+UYdZ22s0nWIbvnIKhsik/4fr2z8tvj2/wMfuEfT3pzPFcLqcuZuBD6SEMakpYSNrVf/MLC89qqo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7500
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,155 +168,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] drm/msm/a6xx: perfcntr select regs lost across IFPC on A630
-- [Medium] drm/msm/a6xx: shutdown idle timeout in a6xx_gmu_shutdown() on A6=
-30
---
+Hi Krzysztof,
 
-commit e4f747633a2babaf9194dc940b8cefe42bf15c0f
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-drm/msm/a6xx: Add IFPC tables for Adreno 630
-
-This commit adds the IFPC and power-up register list tables for Adreno 630
-and enables ADRENO_QUIRK_IFPC in its catalog entry.
-
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/=
-msm/adreno/a6xx_catalog.c
-> index 4ef2bd6e7ad26..5e1d91a73a4e1 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-
-[ ... ]
-
-> @@ -1014,7 +1092,8 @@ static const struct adreno_info a6xx_gpus[] =3D {
->  		},
->  		.gmem =3D SZ_1M,
->  		.quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
-> -			  ADRENO_QUIRK_4GB_VA,
-> +			  ADRENO_QUIRK_4GB_VA |
-> +			  ADRENO_QUIRK_IFPC,
-
-[Severity: Medium]
-Does enabling ADRENO_QUIRK_IFPC on Adreno 630 cause a6xx_gmu_shutdown() to
-time out waiting for idle when the GPU is runtime-resumed and suspended
-without running hw_init()?
-
-On Adreno 630 (ADRENO_6XX_GEN1), a6xx_gmu_init() sets gmu->legacy =3D true,=
- and
-with ADRENO_QUIRK_IFPC set it now also configures gmu->idle_level =3D
-GMU_IDLE_STATE_IFPC. When the GPU is resumed via
-a6xx_gmu_pm_resume() -> a6xx_gmu_resume() -> a6xx_gmu_fw_start(),
-a6xx_gmu_gfx_rail_on() asserts GMU_OOB_BOOT_SLUMBER:
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_gfx_rail_on() {
-	...
-	/* Let the GMU know the boot sequence has started */
-	return a6xx_gmu_set_oob(gmu, GMU_OOB_BOOT_SLUMBER);
-}
-
-Normally, GMU_OOB_BOOT_SLUMBER is cleared at the end of hw_init():
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:hw_init() {
-	...
-	if (a6xx_gpu->gmu.legacy) {
-		/* Take the GMU out of its special boot mode */
-		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_BOOT_SLUMBER);
-	}
-}
-
-However, if the GPU is woken without running msm_gpu_hw_init() (for example,
-when userspace queries MSM_PARAM_TIMESTAMP in adreno_get_param() or
-configures sysprof in msm_context_set_sysprof()), adreno_gpu->base.needs_hw=
-_init
-remains true when runtime suspend calls a6xx_gmu_shutdown():
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_shutdown() {
-	...
-	if (adreno_gpu->base.needs_hw_init) {
-		if (a6xx_gmu_set_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET))
-			goto force_off;
-
-		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
-	}
-
-	if (test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
-		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
-
-	ret =3D a6xx_gmu_wait_for_idle(gmu);
-	if (ret)
-		goto force_off;
-}
-
-Because a6xx_gmu_shutdown() does not clear GMU_OOB_BOOT_SLUMBER when
-needs_hw_init is true on a legacy GMU, the GX rail stays powered on while
-a6xx_gmu_wait_for_idle() -> a6xx_gmu_check_idle_level() polls for
-GMU_IDLE_STATE_IFPC and !adreno_gpu->funcs->gx_is_on(adreno_gpu), which tim=
-es
-out and falls back to force_off.
-
->  		.inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
->  		.funcs =3D &a6xx_gpu_funcs,
->  		.zapfw =3D "a630_zap.mdt",
-> @@ -1023,6 +1102,8 @@ static const struct adreno_info a6xx_gpus[] =3D {
->  			.protect =3D &a630_protect,
->  			.gmu_cgc_mode =3D 0x00020202,
->  			.prim_fifo_threshold =3D 0x00180000,
-> +			.ifpc_reglist =3D &a630_ifpc_reglist,
-> +			.pwrup_reglist =3D &a630_pwrup_reglist,
-
-[Severity: Medium]
-With IFPC enabled on Adreno 630, will performance counter select registers
-configured for global performance counter streaming (MSM_PERFCNTR_STREAM) be
-lost across IFPC power collapse?
-
-Commit 632ad5510114 ("drm/msm/a6xx: Restore perfcntr Selects on IFPC") chan=
-ged
-msm_gpu_sysprof_no_ifpc() to only check refcount_read(&gpu->sysprof_active)=
- > 1,
-allowing IFPC while gpu->perfcntrs->stream is active and relying on
-a6xx_perfcntr_configure() to append the configured select registers to
-pwrup_reglist so the CP restores them on IFPC exit.
-
-However, a6xx_perfcntr_configure() only populates reglist for ADRENO_7XX_GE=
-N1
-and newer:
-
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a6xx_perfcntr_configure() {
-	...
-	if (to_adreno_gpu(gpu)->info->family >=3D ADRENO_7XX_GEN1) {
-		WARN_ON(!a6xx_gpu->pwrup_reglist_emitted);
-
-		struct cpu_gpu_lock *lock =3D a6xx_gpu->pwrup_reglist_ptr;
-		int off =3D (2 * lock->ifpc_list_len) +
-			  (2 * lock->preemption_list_len) +
-			  (3 * a6xx_gpu->dynamic_sel_reglist_offset);
-
-		reglist =3D (uint32_t *)&lock->regs[0];
-		reglist +=3D off;
-		reglist_sel_start =3D reglist;
-		...
-	}
-}
-
-Similarly, a6xx_patch_pwrup_reglist() populates the A6xx 2-dword
-(offset, value) list in lock->list_length without tracking dynamic select
-register entries. On Adreno 630 (ADRENO_6XX_GEN1), reglist remains NULL in
-a6xx_perfcntr_configure(), so entering IFPC between sample intervals will
-reset the PERFCTR_*_SEL registers without restoring them on wakeup.
+On Fri Oct 30, 2026 at 9:39 AM CET, Krzysztof Karas wrote:
+> Initial, empty XE_LPD register list for Video-Enhance class was
+> introduced in [1] until [2] filled it out with debug SFC_DONE
+> entries, but it was never explained in any of those commits why
+> using those registers for VECS class specifically was chosen.
+> Furthermore, in current testing it leads to failures [3], as
+> gem_exec_capture@capture@vecs0-smem runs report partial captures
+> on DG1, DG2 and MTL [4].
+>
+> SFC_DONE resides in the VD forcewake domain and is available
+> only when the corresponding VCS engine is present (explanation
+> from [5]), but XE_LP capture table currently associates these
+> registers with VIDEOENHANCE. Move them to the VIDEO class so GuC
+> requests them for the class tied to VCS availability.
+>
+> [1] commit 24492514ccbd
+>     ("drm/i915/guc: Update GuC ADS size for error capture lists")
+> [2] commit 8b72c21618de
+>     ("drm/i915/guc: Add XE_LP static registers for GuC error capture.")
+> [3] https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16904
+> [4] https://intel-gfx-ci.01.org/tree/drm-tip/index.html?testfilter=3Digt@=
+gem_exec_capture@capture@vecs0-smem
+> [5] commit 24d032e2359e
+>     ("drm/i915: Only access SFC_DONE when media domain is not fused off")
+>
+> Fixes: 8b72c21618de ("drm/i915/guc: Add XE_LP static registers for GuC er=
+ror capture.")
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> ---
+> I could not verify when exactly the issue started happening,
+> because:
+> A) all recent reports are red on DG1, DG2 and MTL,
+> B) checking for "partial-capture" in IGT [6] was introduced way
+>    later than the driver code asking for SFC_DONE registers.
+> I assume it has been present for at least a few months, if not
+> from the very beginning.
+>
+> From empirical experiments, I was able to identify the classes
+> that report "partial-capture" during the test: VIDEOENHANCE and
+> BLITTER, while RENDER_COMPUTE, VIDEO and GSC_OTHER report
+> "full-capture" for SFC_DONE registers. I simply changed the
+> class of xe_lp_vec_class_regs inside
+> "static const struct __guc_mmio_reg_descr_group xe_lp_lists[]"
+> and ran the complete "capture" subtest mentioned above, so this
+> change should not (fingers crossed) explode anything.
+>
+> [6] commit 93d3b0e28d7d
+>     ("tests/intel/gem_exec_capture: Check for partial register captures")
+> ---
+>  drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu=
+/drm/i915/gt/uc/intel_guc_capture.c
+> index 865b61057566d..bbf5188ae46cd 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+> @@ -187,9 +187,9 @@ static const struct __guc_mmio_reg_descr_group xe_lp_=
+lists[] =3D {
+>  	MAKE_REGLIST(xe_lp_global_regs, PF, GLOBAL, 0),
+>  	MAKE_REGLIST(xe_lp_rc_class_regs, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CL=
+ASS_RENDER_COMPUTE),
+>  	MAKE_REGLIST(gen8_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_CAPTURE_LIST_C=
+LASS_RENDER_COMPUTE),
+> -	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_CLASS_=
+VIDEO),
+> +	MAKE_REGLIST(xe_lp_vec_class_regs, PF, ENGINE_CLASS, GUC_CAPTURE_LIST_C=
+LASS_VIDEO),
+Now the naming is inconsistent: xe_lp_vec_class_regs is CLASS_VIDEO,
+not CLASS_VIDEOENHANCE as its name suggests.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-topic-a6xx=
-_ifpc-v1-0-6992841a9a32@oss.qualcomm.com?part=3D5
+Best regards,
+Sebastian
+
