@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61AAF606C6E8
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:54:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6735F606A8CF
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:55:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GachvZ+G
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KcPfePkl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B75BD112747;
-	Fri, 30 Oct 2026 10:54:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC88D11274D;
+	Fri, 30 Oct 2026 10:55:03 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86711112752
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:53:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C23011274D
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:54:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6A0ED42211
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:53:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 334711F000C1;
- Fri, 30 Oct 2026 10:53:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2D7DB43DEE
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:54:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E661F0093A;
+ Fri, 30 Oct 2026 10:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793357636;
- bh=pe2slj1MW88HZ1hDpWVbzw0X1sXQAy8OkYOXye1YrDE=;
+ s=k20260515; t=1793357697;
+ bh=FHJwbqM8NpOiFofdF8o2KAT7+xwfvtVGOZ3JTl+kGvw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GachvZ+GYDlr5XcaYjTExAv/Mzy1x8SNtwmU+Pa9p5b24I4stW55LZ7vmH36y0r7m
- fw9/UrS3I4n2bDzL0CcOrHEjgZYBw4/BGJrOsQb2zfG7j/H50r/Qy4SivI6Qh7nTTH
- v/eae+JODa6C1pJIU8bWdL+FqS4YRc2e6wJmaVnbbxq1dUdKjP8C6wnObuuZahqxBm
- ViyHiaeAZNCiLW1nmHOMvbyKlhJM9pLew6NnRVbkG7K6F9/k/tBnaWf9y6vZ621v5a
- 9qtAmiynDGO1rrKl1Agq2riTkDT+Ir7dQeJ0osiCGEqQuNZqOKad67YsXYmwCXObVl
- RTvydYlehC0KA==
-Message-ID: <sashiko-outbox-190891@kernel.org>
+ b=KcPfePklkVdMgU1gf7jv4eqRBbKVazrXU6qgLAGvQ7gzxFkrl3sUlozDIx+3BUC0H
+ JHfBMkg1dwMsemCEISfoZTUTGz6yZDri4zqNxUNXxiNPK+BtveKR45r+PI8kJbbj/V
+ wYbY61LEhddsoKXpXlKAWnnL02CvpGVeZcNi+XfZjsNKSELPxFoRNcH1MiNtmlKU8a
+ FiWdo0KhcuiMp0OMPi+tK87My6vUzsfKW5ghPT6twhIpRhngRAXUXC3Wi0xYp+yICU
+ FFyoCegAlnIK4ByoMKEmxYgOh0qsezhrQPTGTUXaSH1dodS46pgBIuti9SgopQoAFl
+ BsUfY5q8vRcIw==
+Message-ID: <sashiko-outbox-190892@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/16] drm/atomic: Allow filling a commit with
- pristine object states
+Subject: Re: [PATCH v7 14/16] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261030-drm-reset-state-flag-v7-12-4e55eaeae683@kernel.org>
+In-Reply-To: <20261030-drm-reset-state-flag-v7-14-4e55eaeae683@kernel.org>
 References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
- <20261030-drm-reset-state-flag-v7-12-4e55eaeae683@kernel.org>
+ <20261030-drm-reset-state-flag-v7-14-4e55eaeae683@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 10:53:55 +0000
+Date: Fri, 30 Oct 2026 10:54:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,179 +60,173 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] drm/atomic: broken lease handling in drm_atomic_commit_fill_with_d=
-efaults()
-- [High] drm/atomic: uninitialized adjusted_mode on no-modeset reset commits
+- [High] drm/atomic: zeroed adjusted_mode on DRM_MODE_ATOMIC_RESET without =
+modeset
+- [High] drm/atomic: cross-lease state corruption and events on DRM_MODE_AT=
+OMIC_RESET
 --
 
-commit bec50b903063597d979230c48b9e1dfe0d54aa1f
-Author: Maxime Ripard <mripard@kernel.org>
+commit c819cce4a5454d4a632c82a26b77df3ff48e4432
+Author: Sebastian Wick <sebastian.wick@redhat.com>
 
-drm/atomic: Allow filling a commit with pristine object states
+drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
 
-This commit adds drm_atomic_commit_fill_with_defaults() to populate an
-atomic commit with pristine default states for all leased KMS objects in
-the device using their atomic_create_state() hooks.
+This commit introduces the DRM_MODE_ATOMIC_RESET flag and DRM_CAP_ATOMIC_RE=
+SET
+capability so userspace can reset all KMS object states to their defaults
+before applying the properties in an atomic commit. It also updates
+prepare_signaling() to avoid attaching page flip events to CRTCs that remain
+disabled across a reset commit.
 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 7a77051096c91..6bc0d6339f142 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-[ ... ]
-> +int drm_atomic_commit_fill_with_defaults(struct drm_file *file_priv,
-> +					 struct drm_atomic_commit *commit)
-> +{
-> +	struct drm_device *dev =3D commit->dev;
-> +	struct drm_mode_config *config =3D &dev->mode_config;
-> +	struct drm_crtc *crtc;
-> +	struct drm_plane *plane;
-> +	struct drm_connector *connector;
-> +	struct drm_connector_list_iter conn_iter;
-> +	struct drm_colorop *colorop;
-> +	int ret;
-> +
-> +	drm_WARN_ON(dev, !commit->acquire_ctx);
-> +
-> +	/*
-> +	 * Private objects are ignored because none have userspace
-> +	 * properties we might want to reset. atomic_check
-> +	 * implementations will derive or infer their private obj state
-> +	 * from the state that will end up being committed anyway.
-> +	 *
-> +	 * The CRTCs are handled before the planes and connectors so that,
-> +	 * when those pull the CRTC they are currently bound to into the
-> +	 * commit, a leased CRTC is already there with its pristine state
-> +	 * while an unleased one gets duplicated and keeps its current
-> +	 * state.
-> +	 */
-> +	drm_for_each_crtc(crtc, dev) {
-> +		struct drm_crtc_state *crtc_state;
-> +
-> +		if (!drm_lease_held(file_priv, crtc->base.id))
-> +			continue;
-> +
-> +		ret =3D drm_modeset_lock(&crtc->mutex, commit->acquire_ctx);
-> +		if (ret)
-> +			return ret;
-> +
-> +		crtc_state =3D crtc->funcs->atomic_create_state(crtc);
-> +		if (IS_ERR(crtc_state))
-> +			return PTR_ERR(crtc_state);
-[ ... ]
-> +		drm_atomic_commit_set_crtc_state(commit, crtc, crtc_state);
-> +	}
-> +
-> +	drm_for_each_plane(plane, dev) {
-> +		struct drm_plane_state *plane_state;
-> +
-> +		if (!drm_lease_held(file_priv, plane->base.id))
-> +			continue;
-> +
-> +		ret =3D drm_modeset_lock(&plane->mutex, commit->acquire_ctx);
-> +		if (ret)
-> +			return ret;
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 1eebcf6f5e05b..77d0713c7e2d6 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -1440,10 +1440,29 @@ static int prepare_signaling(struct drm_device *d=
+ev,
+> =20
+>  	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
+>  		s32 __user *fence_ptr;
+> +		bool page_flip_event;
+> =20
+>  		fence_ptr =3D get_out_fence_for_crtc(crtc_state->state, crtc);
+> =20
+> -		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT || fence_ptr) {
+> +		page_flip_event =3D arg->flags & DRM_MODE_PAGE_FLIP_EVENT;
 > +
 > +		/*
-> +		 * Make sure the CRTC the plane is currently enabled on is
-> +		 * part of the commit, like drm_atomic_set_crtc_for_plane()
-> +		 * does when userspace disables a plane. The atomic helpers
-> +		 * need the CRTC state to update planes_changed and track
-> +		 * the commit, and would dereference a NULL CRTC state
-> +		 * otherwise.
+> +		 * A commit with the DRM_MODE_ATOMIC_RESET flag contains
+> +		 * every CRTC of the device or lease, even the ones that are
+> +		 * disabled before and after the commit. Those can't report
+> +		 * a page flip, and drm_atomic_crtc_check() would reject the
+> +		 * whole commit, so don't attach any event to them.
 > +		 */
-> +		if (plane->state->crtc) {
-> +			struct drm_crtc_state *crtc_state;
+> +		if (page_flip_event && !fence_ptr &&
+> +		    (arg->flags & DRM_MODE_ATOMIC_RESET) &&
+> +		    !crtc_state->active) {
+> +			struct drm_crtc_state *old_crtc_state;
 > +
-> +			crtc_state =3D drm_atomic_get_crtc_state(commit,
-> +							       plane->state->crtc);
-> +			if (IS_ERR(crtc_state))
-> +				return PTR_ERR(crtc_state);
+> +			old_crtc_state =3D drm_atomic_get_old_crtc_state(state, crtc);
+> +			page_flip_event =3D old_crtc_state->active;
 > +		}
-> +
-> +		plane_state =3D plane->funcs->atomic_create_state(plane);
-> +		if (IS_ERR(plane_state))
-> +			return PTR_ERR(plane_state);
-[ ... ]
-> +		drm_atomic_commit_set_plane_state(commit, plane, plane_state);
-> +	}
-[ ... ]
-> +	drm_connector_list_iter_begin(dev, &conn_iter);
-> +	drm_for_each_connector_iter(connector, &conn_iter) {
-> +		struct drm_connector_state *connector_state;
-> +		struct drm_crtc_state *crtc_state;
-> +
-> +		if (!drm_lease_held(file_priv, connector->base.id)) {
-> +			/*
-> +			 * The connector isn't part of the lease so it keeps
-> +			 * its current state, but if it is bound to a CRTC
-> +			 * that is part of the commit, pull it in like
-> +			 * drm_atomic_add_affected_connectors() would do on a
-> +			 * regular commit, so that its routing and encoder
-> +			 * are properly handled.
-> +			 */
-> +			if (!connector->state->crtc)
-> +				continue;
-> +
-> +			if (!drm_atomic_get_new_crtc_state(commit,
-> +							   connector->state->crtc))
-> +				continue;
-> +
-> +			connector_state =3D drm_atomic_get_connector_state(commit,
-> +									 connector);
-> +			if (IS_ERR(connector_state)) {
-> +				drm_connector_list_iter_end(&conn_iter);
-> +				return PTR_ERR(connector_state);
-> +			}
-> +
-> +			continue;
-> +		}
-> +
-> +		/*
-> +		 * drm_atomic_implements_create_state() already checked
-> +		 * this, but connectors can be hotplugged between that
-> +		 * lockless check and the iteration here.
-> +		 */
-> +		if (!connector->funcs->atomic_create_state) {
-> +			drm_connector_list_iter_end(&conn_iter);
-> +			return -EOPNOTSUPP;
-> +		}
-> +
-> +		connector_state =3D connector->funcs->atomic_create_state(connector);
-> +		if (IS_ERR(connector_state)) {
-> +			drm_connector_list_iter_end(&conn_iter);
-> +			ret =3D PTR_ERR(connector_state);
-> +			return ret;
-> +		}
-> +
-> +		/*
-> +		 * best_encoder is a routing information maintained by the
-> +		 * atomic helpers rather than a userspace property, and it
-> +		 * is only carried over to a new state when that state is a
-> +		 * duplicate of the current one. Since
-> +		 * update_connector_routing() uses it to detect the commits
-> +		 * that keep the connector routing unchanged, let's carry
-> +		 * the encoder currently in use over so that a reset on
-> +		 * which userspace re-applies the exact same configuration
-> +		 * doesn't require a modeset.
-> +		 */
-> +		connector_state->best_encoder =3D connector->state->best_encoder;
 
 [Severity: High]
-When connector_state->best_encoder is carried over so that re-applying the
-same active configuration on a reset commit avoids a modeset, does
-new_crtc_state->adjusted_mode remain all zeroes?
+As reported by Sashiko on v6 [1], what happens when a DRM lessee calls
+drm_mode_atomic_ioctl() with DRM_MODE_ATOMIC_RESET while KMS objects are
+bound across the lease boundary?
 
-In drm_atomic_commit_fill_with_defaults(), crtc->funcs->atomic_create_state=
-()
-creates a pristine state with a zeroed adjusted_mode. If userspace then
-re-applies the current mode and connector routing in the same commit,
-drm_atomic_set_mode_prop_for_crtc() updates new_crtc_state->mode and sets
-new_crtc_state->enable =3D true, while both new_crtc_state->mode_changed and
-new_crtc_state->connectors_changed remain false in
-drm_atomic_helper_check_modeset().
+In drm_atomic_commit_fill_with_defaults(), when a leased plane or leased
+connector is currently bound to an unleased CRTC, the unleased CRTC is pull=
+ed
+into the commit with its current state duplicated:
 
-In drivers/gpu/drm/drm_atomic_helper.c:mode_fixup():
+drivers/gpu/drm/drm_atomic.c:drm_atomic_commit_fill_with_defaults() {
+    ...
+		if (plane->state->crtc) {
+			struct drm_crtc_state *crtc_state;
 
+			crtc_state =3D drm_atomic_get_crtc_state(commit,
+							       plane->state->crtc);
+			if (IS_ERR(crtc_state))
+				return PTR_ERR(crtc_state);
+		}
+
+		plane_state =3D plane->funcs->atomic_create_state(plane);
+    ...
+}
+
+Because prepare_signaling() iterates over all CRTCs in state without checki=
+ng
+drm_lease_held(file_priv, crtc->base.id), any active unleased CRTC pulled i=
+nto
+the commit has crtc_state->active set to true and will have a page flip eve=
+nt
+attached for the lessee's file_priv and increment c. Doesn't this leak vbla=
+nk
+events for an unleased CRTC to the lessee, allow a commit that leaves all of
+the lessee's own CRTCs disabled to bypass the c =3D=3D 0 check, and risk fa=
+iling
+with -EBUSY in stall_checks() if the lessor has a flip in flight on that CR=
+TC?
+
+In addition, when detaching a leased plane or connector from an unleased CR=
+TC
+via atomic_create_state(), drm_atomic_commit_fill_with_defaults() does not
+clear drm_plane_mask(plane) from crtc_state->plane_mask or
+drm_connector_mask(connector) from crtc_state->connector_mask on the
+duplicated unleased CRTC state. Conversely, if an unleased connector or pla=
+ne
+is bound to a leased CRTC that gets reset, the leased CRTC's connector_mask
+and plane_mask are zeroed while the unleased connector or plane state still
+points to that CRTC:
+
+drivers/gpu/drm/drm_atomic.c:drm_atomic_commit_fill_with_defaults() {
+    ...
+		if (!drm_lease_held(file_priv, connector->base.id)) {
+			if (!connector->state->crtc)
+				continue;
+
+			if (!drm_atomic_get_new_crtc_state(commit,
+							   connector->state->crtc))
+				continue;
+
+			connector_state =3D drm_atomic_get_connector_state(commit,
+									 connector);
+    ...
+}
+
+Won't these cross-lease bindings corrupt the CRTC state masks or cause
+drm_atomic_helper_check_modeset() and drm_atomic_helper_check_planes() to
+reject the lessee's reset commit with -EINVAL?
+
+[ ... ]
+
+> @@ -1688,6 +1715,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>  	fence_state =3D NULL;
+>  	num_fences =3D 0;
+> =20
+> +	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
+> +		if (!drm_atomic_implements_create_state(dev)) {
+> +			ret =3D -EOPNOTSUPP;
+> +			goto out;
+> +		}
+> +
+> +		ret =3D drm_atomic_commit_fill_with_defaults(file_priv, state);
+> +		if (ret)
+> +			goto out;
+> +	}
+
+[Severity: High]
+When userspace issues a commit with DRM_MODE_ATOMIC_RESET that re-applies t=
+he
+same mode and connector routing on an already-enabled CRTC, does
+new_crtc_state->adjusted_mode get left all-zeroed?
+
+In drm_atomic_commit_fill_with_defaults(), the fresh CRTC state is allocated
+via crtc->funcs->atomic_create_state(crtc) with adjusted_mode zeroed, while
+connector_state->best_encoder is preserved from connector->state->best_enco=
+der
+so that re-applying the current configuration avoids a modeset:
+
+drivers/gpu/drm/drm_atomic.c:drm_atomic_commit_fill_with_defaults() {
+    ...
+		crtc_state =3D crtc->funcs->atomic_create_state(crtc);
+    ...
+		connector_state->best_encoder =3D connector->state->best_encoder;
+    ...
+}
+
+When userspace supplies the existing MODE_ID, ACTIVE =3D 1, and CRTC_ID
+properties, new_crtc_state->mode and new_crtc_state->enable match
+old_crtc_state, and update_connector_routing() sees new_encoder =3D=3D
+new_connector_state->best_encoder, leaving both mode_changed and
+connectors_changed false. In drm_atomic_helper_check_modeset() -> mode_fixu=
+p(),
+copying mode into adjusted_mode is then skipped:
+
+drivers/gpu/drm/drm_atomic_helper.c:mode_fixup() {
+    ...
 	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
 		if (!new_crtc_state->mode_changed &&
 		    !new_crtc_state->connectors_changed)
@@ -241,93 +234,20 @@ In drivers/gpu/drm/drm_atomic_helper.c:mode_fixup():
 
 		drm_mode_copy(&new_crtc_state->adjusted_mode, &new_crtc_state->mode);
 	}
+    ...
+}
 
-Because neither flag is set, mode_fixup() skips copying mode into
-adjusted_mode. That leaves new_crtc_state->adjusted_mode zeroed (with
-crtc_clock =3D=3D 0) on an enabled crtc, passing a zeroed adjusted_mode to
-bridge, encoder, and crtc check hooks and causing
-drm_atomic_helper_calc_timestamping_constants() ->
-drm_calc_timestamping_constants() to warn and zero out vblank timing
-constants during commit.
+With new_crtc_state->adjusted_mode remaining all zeros on an enabled CRTC,
+won't subsequent checks and commit steps fail or crash=E2=80=94for example,=
+ dividing
+by zero on mode->htotal in vc4_crtc_atomic_check(), rejecting valid plane
+coordinates against adjusted_mode.hdisplay in omap_plane_atomic_check(), and
+corrupting vblank timing constants in
+drm_atomic_helper_calc_timestamping_constants()?
 
-Should crtc_state->adjusted_mode also be copied from
-crtc->state->adjusted_mode in drm_atomic_commit_fill_with_defaults(), or
-should mode_fixup() populate adjusted_mode when resetting?
-
-> +
-> +		ret =3D drm_atomic_commit_set_connector_state(commit, connector, conne=
-ctor_state);
-> +		if (ret) {
-> +			connector->funcs->atomic_destroy_state(connector, connector_state);
-> +			drm_connector_list_iter_end(&conn_iter);
-> +			return ret;
-> +		}
-> +
-> +		/*
-> +		 * Make sure the CRTC the connector is currently bound to
-> +		 * is part of the commit, like drm_atomic_get_connector_state()
-> +		 * does, so that the atomic helpers can update the CRTC
-> +		 * state and the connector routing.
-> +		 */
-> +		if (connector->state->crtc) {
-> +			crtc_state =3D drm_atomic_get_crtc_state(commit,
-> +							       connector->state->crtc);
-> +			if (IS_ERR(crtc_state)) {
-> +				drm_connector_list_iter_end(&conn_iter);
-> +				return PTR_ERR(crtc_state);
-> +			}
-> +		}
-> +	}
-
-[Severity: High]
-As reported by Sashiko on v6 [1], can resetting a subset of objects for a
-lessee leave crtc_state->plane_mask, crtc_state->connector_mask, and
-cross-lease object routing inconsistent in
-drm_atomic_commit_fill_with_defaults()?
-
-First, when a leased plane or leased connector is currently bound to an
-unleased crtc, drm_atomic_get_crtc_state() duplicates the unleased crtc's
-current state into the commit, keeping drm_plane_mask(plane) in
-crtc_state->plane_mask and drm_connector_mask(connector) in
-crtc_state->connector_mask. The leased plane or connector is then given a
-pristine state with crtc =3D NULL via atomic_create_state(), but unlike
-drm_atomic_set_crtc_for_plane() and drm_atomic_set_crtc_for_connector(),
-nothing clears those mask bits from the unleased crtc_state. In addition, if
-an unleased connector cloned onto that same unleased crtc is visited earlier
-in the connector loop than the leased connector,
-drm_atomic_get_new_crtc_state(commit, connector->state->crtc) returns NULL
-because the unleased crtc is only added to the commit later when the leased
-connector is processed.
-
-Second, when an unleased connector or unleased plane is currently bound to a
-leased crtc, the leased crtc receives a pristine state with enable =3D fals=
-e,
-plane_mask =3D 0, and connector_mask =3D 0. For an unleased connector bound=
- to
-that leased crtc, the !drm_lease_held() branch calls
-drm_atomic_get_connector_state(), duplicating connector->state with
-connector_state->crtc still pointing to the disabled pristine crtc while
-crtc_state->connector_mask is 0. In drm_atomic_helper_check_modeset(),
-update_connector_routing() keeps the connector routed to the disabled crtc,
-causing mode_valid() and mode_fixup() to validate against a zeroed mode or
-leaving crtc_state->connector_mask missing the unleased connector if the
-crtc is re-enabled. Likewise, an unleased plane bound to the leased crtc is
-skipped in the plane loop and later pulled in by
-drm_atomic_add_affected_planes() with its active state still bound to the
-reset crtc, failing drm_atomic_helper_check_plane_state() when the crtc is
-disabled or missing from crtc_state->plane_mask if re-enabled.
-
-Third, drm_lease_held() acquires and releases mode_config.idr_mutex on each
-individual call across the four loops (crtcs, planes, colorops, and
-connectors). If drm_mode_revoke_lease_ioctl() -> drm_lease_revoke() runs
-concurrently after the crtc loop has already inserted pristine disabled crtc
-states, the subsequent plane and connector loops see drm_lease_held() return
-false and treat the lessee's planes and connectors as unleased objects bound
-to those reset crtcs.
-
-[1] https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-11-f36d640b7=
+[1] https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-13-f36d640b7=
 e76@kernel.org
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-drm-reset-=
-state-flag-v7-0-4e55eaeae683@kernel.org?part=3D12
+state-flag-v7-0-4e55eaeae683@kernel.org?part=3D14
