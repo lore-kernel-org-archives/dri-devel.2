@@ -2,42 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6735F606A8CF
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:55:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C32606A334
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 11:15:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KcPfePkl
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O+dfijMb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC88D11274D;
-	Fri, 30 Oct 2026 10:55:03 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C23011274D
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:54:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2D7DB43DEE
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:54:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E661F0093A;
- Fri, 30 Oct 2026 10:54:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793357697;
- bh=FHJwbqM8NpOiFofdF8o2KAT7+xwfvtVGOZ3JTl+kGvw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KcPfePklkVdMgU1gf7jv4eqRBbKVazrXU6qgLAGvQ7gzxFkrl3sUlozDIx+3BUC0H
- JHfBMkg1dwMsemCEISfoZTUTGz6yZDri4zqNxUNXxiNPK+BtveKR45r+PI8kJbbj/V
- wYbY61LEhddsoKXpXlKAWnnL02CvpGVeZcNi+XfZjsNKSELPxFoRNcH1MiNtmlKU8a
- FiWdo0KhcuiMp0OMPi+tK87My6vUzsfKW5ghPT6twhIpRhngRAXUXC3Wi0xYp+yICU
- FFyoCegAlnIK4ByoMKEmxYgOh0qsezhrQPTGTUXaSH1dodS46pgBIuti9SgopQoAFl
- BsUfY5q8vRcIw==
-Message-ID: <sashiko-outbox-190892@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 14/16] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261030-drm-reset-state-flag-v7-14-4e55eaeae683@kernel.org>
-References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
- <20261030-drm-reset-state-flag-v7-14-4e55eaeae683@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 10:54:56 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A53A112752;
+	Fri, 30 Oct 2026 11:15:34 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6FD3112752;
+ Fri, 30 Oct 2026 11:15:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793358928; x=1824894928;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=g1ONnB+NbjvqgDLM112cAGMnNcTmZ7rBKsZD6MbICpk=;
+ b=O+dfijMbNWrVktolYv5LWvq6pMZV2+svLkpAWrjgaYdDZViBJSEjBuIz
+ S7e/IAoQlt3vZwDtCSnP0YWZ6zFy6QVM9Sc0NwTAJBAN6RcKMpdRGxXw5
+ dVeFuJW6UA3k6zal9Cg4SBeQhGm8SfP6CeAEJvlhqjw4vaQEE2eIlCy/K
+ D0o9KvLPyRgP5qR8+AsO/zuo+xmr73QrEhrv8pQSXBohcKcTXs4jNJLmm
+ iRWUHMR5iYdvbULa1FFnuSxLCJ5JeGSLXPCf3MZ9IayU5UbQwJ7n17Kv/
+ dSBCvTYb+BfkkjDPcdg/bA1QPdnGPnroVjjvEWGHOTzs4gfh/89anmNVQ w==;
+X-CSE-ConnectionGUID: XsRh6euLS8izAfdY3ic/xw==
+X-CSE-MsgGUID: N6ShC4TmSFqfT+PZgjqdpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2151547"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2151547"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 04:15:28 -0700
+X-CSE-ConnectionGUID: yb71Tav0Ss+85cfPI2AKuQ==
+X-CSE-MsgGUID: JVPkhtUUTAGAt9DyjE3lkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7202602"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.58])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 04:15:23 -0700
+Date: Fri, 30 Oct 2026 13:15:19 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] drm/dp: Always use enhanced framing for DPCD r1.2+
+Message-ID: <auR8R7G5S8hv5R0e@intel.com>
+References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+ <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,206 +82,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm/atomic: zeroed adjusted_mode on DRM_MODE_ATOMIC_RESET without =
-modeset
-- [High] drm/atomic: cross-lease state corruption and events on DRM_MODE_AT=
-OMIC_RESET
---
+On Thu, Oct 29, 2026 at 11:18:22AM +0100, Dmytro Malovanyi wrote:
+> DP 1.2 section 2.2.1.1 says "An upstream device interoperating with a
+> downstream device with DPCD Revision of 1.2 or higher must enable
+> Enhanced Framing Mode". So for r1.2+ the DPCD revision is enough, the
+> DP_ENHANCED_FRAME_CAP bit does not need to be checked.
+> 
+> Some sinks get this bit wrong. The Xiaomi Monitor A24i (P24FBA-RAGL)
+> sets it in the base receiver caps, but clears it in the extended
+> receiver caps at 0x2200, which are the ones we use:
+> 
+>   base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
+>   extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
+> 
+> Through a USB4 dock (CalDigit Element 5) the link trains without
+> enhanced framing (0x202-0x204: 77 77 81), but the sink never syncs to
+> the stream (SINK_STATUS 0x205: 00) and shows "No signal". Forcing RBR
+> does not change it. Connected directly to the laptop the same sink
+> syncs without enhanced framing, at RBR, HBR and HBR2.
+> 
+> Make drm_dp_enhanced_frame_cap() return true for DPCD r1.2+. This
+> changes behaviour for every driver using the helper, but only for sinks
+> which already violate the spec by not setting the bit.
+> 
+> Tested on i915 (Arrow Lake-U), with the dock the link now uses enhanced
+> framing (0x101: 84) and the sink syncs (0x205: 03).
+> 
+> Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
+> Cc: stable@vger.kernel.org
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
+> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+> ---
+>  include/drm/display/drm_dp_helper.h | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> index 5b05a7fbe..4f20f60db 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -160,6 +160,10 @@ drm_dp_max_lane_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+>  static inline bool
+>  drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+>  {
+> +	/* DP 1.2 2.2.1.1: enhanced framing is mandatory for DPCD r1.2+ */
 
-commit c819cce4a5454d4a632c82a26b77df3ff48e4432
-Author: Sebastian Wick <sebastian.wick@redhat.com>
+DP_ENHANCED_FRAME_CAP is also mandatory so I think this needs
+a bit more detailed explanation.
 
-drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
-
-This commit introduces the DRM_MODE_ATOMIC_RESET flag and DRM_CAP_ATOMIC_RE=
-SET
-capability so userspace can reset all KMS object states to their defaults
-before applying the properties in an atomic commit. It also updates
-prepare_signaling() to avoid attaching page flip events to CRTCs that remain
-disabled across a reset commit.
-
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index 1eebcf6f5e05b..77d0713c7e2d6 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -1440,10 +1440,29 @@ static int prepare_signaling(struct drm_device *d=
-ev,
-> =20
->  	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
->  		s32 __user *fence_ptr;
-> +		bool page_flip_event;
-> =20
->  		fence_ptr =3D get_out_fence_for_crtc(crtc_state->state, crtc);
-> =20
-> -		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT || fence_ptr) {
-> +		page_flip_event =3D arg->flags & DRM_MODE_PAGE_FLIP_EVENT;
+> +	if (dpcd[DP_DPCD_REV] >= 0x12)
+> +		return true;
 > +
-> +		/*
-> +		 * A commit with the DRM_MODE_ATOMIC_RESET flag contains
-> +		 * every CRTC of the device or lease, even the ones that are
-> +		 * disabled before and after the commit. Those can't report
-> +		 * a page flip, and drm_atomic_crtc_check() would reject the
-> +		 * whole commit, so don't attach any event to them.
-> +		 */
-> +		if (page_flip_event && !fence_ptr &&
-> +		    (arg->flags & DRM_MODE_ATOMIC_RESET) &&
-> +		    !crtc_state->active) {
-> +			struct drm_crtc_state *old_crtc_state;
-> +
-> +			old_crtc_state =3D drm_atomic_get_old_crtc_state(state, crtc);
-> +			page_flip_event =3D old_crtc_state->active;
-> +		}
+>  	return dpcd[DP_DPCD_REV] >= 0x11 &&
+>  		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
+>  }
+> -- 
+> 2.50.1 (Apple Git-155)
 
-[Severity: High]
-As reported by Sashiko on v6 [1], what happens when a DRM lessee calls
-drm_mode_atomic_ioctl() with DRM_MODE_ATOMIC_RESET while KMS objects are
-bound across the lease boundary?
-
-In drm_atomic_commit_fill_with_defaults(), when a leased plane or leased
-connector is currently bound to an unleased CRTC, the unleased CRTC is pull=
-ed
-into the commit with its current state duplicated:
-
-drivers/gpu/drm/drm_atomic.c:drm_atomic_commit_fill_with_defaults() {
-    ...
-		if (plane->state->crtc) {
-			struct drm_crtc_state *crtc_state;
-
-			crtc_state =3D drm_atomic_get_crtc_state(commit,
-							       plane->state->crtc);
-			if (IS_ERR(crtc_state))
-				return PTR_ERR(crtc_state);
-		}
-
-		plane_state =3D plane->funcs->atomic_create_state(plane);
-    ...
-}
-
-Because prepare_signaling() iterates over all CRTCs in state without checki=
-ng
-drm_lease_held(file_priv, crtc->base.id), any active unleased CRTC pulled i=
-nto
-the commit has crtc_state->active set to true and will have a page flip eve=
-nt
-attached for the lessee's file_priv and increment c. Doesn't this leak vbla=
-nk
-events for an unleased CRTC to the lessee, allow a commit that leaves all of
-the lessee's own CRTCs disabled to bypass the c =3D=3D 0 check, and risk fa=
-iling
-with -EBUSY in stall_checks() if the lessor has a flip in flight on that CR=
-TC?
-
-In addition, when detaching a leased plane or connector from an unleased CR=
-TC
-via atomic_create_state(), drm_atomic_commit_fill_with_defaults() does not
-clear drm_plane_mask(plane) from crtc_state->plane_mask or
-drm_connector_mask(connector) from crtc_state->connector_mask on the
-duplicated unleased CRTC state. Conversely, if an unleased connector or pla=
-ne
-is bound to a leased CRTC that gets reset, the leased CRTC's connector_mask
-and plane_mask are zeroed while the unleased connector or plane state still
-points to that CRTC:
-
-drivers/gpu/drm/drm_atomic.c:drm_atomic_commit_fill_with_defaults() {
-    ...
-		if (!drm_lease_held(file_priv, connector->base.id)) {
-			if (!connector->state->crtc)
-				continue;
-
-			if (!drm_atomic_get_new_crtc_state(commit,
-							   connector->state->crtc))
-				continue;
-
-			connector_state =3D drm_atomic_get_connector_state(commit,
-									 connector);
-    ...
-}
-
-Won't these cross-lease bindings corrupt the CRTC state masks or cause
-drm_atomic_helper_check_modeset() and drm_atomic_helper_check_planes() to
-reject the lessee's reset commit with -EINVAL?
-
-[ ... ]
-
-> @@ -1688,6 +1715,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
->  	fence_state =3D NULL;
->  	num_fences =3D 0;
-> =20
-> +	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
-> +		if (!drm_atomic_implements_create_state(dev)) {
-> +			ret =3D -EOPNOTSUPP;
-> +			goto out;
-> +		}
-> +
-> +		ret =3D drm_atomic_commit_fill_with_defaults(file_priv, state);
-> +		if (ret)
-> +			goto out;
-> +	}
-
-[Severity: High]
-When userspace issues a commit with DRM_MODE_ATOMIC_RESET that re-applies t=
-he
-same mode and connector routing on an already-enabled CRTC, does
-new_crtc_state->adjusted_mode get left all-zeroed?
-
-In drm_atomic_commit_fill_with_defaults(), the fresh CRTC state is allocated
-via crtc->funcs->atomic_create_state(crtc) with adjusted_mode zeroed, while
-connector_state->best_encoder is preserved from connector->state->best_enco=
-der
-so that re-applying the current configuration avoids a modeset:
-
-drivers/gpu/drm/drm_atomic.c:drm_atomic_commit_fill_with_defaults() {
-    ...
-		crtc_state =3D crtc->funcs->atomic_create_state(crtc);
-    ...
-		connector_state->best_encoder =3D connector->state->best_encoder;
-    ...
-}
-
-When userspace supplies the existing MODE_ID, ACTIVE =3D 1, and CRTC_ID
-properties, new_crtc_state->mode and new_crtc_state->enable match
-old_crtc_state, and update_connector_routing() sees new_encoder =3D=3D
-new_connector_state->best_encoder, leaving both mode_changed and
-connectors_changed false. In drm_atomic_helper_check_modeset() -> mode_fixu=
-p(),
-copying mode into adjusted_mode is then skipped:
-
-drivers/gpu/drm/drm_atomic_helper.c:mode_fixup() {
-    ...
-	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
-		if (!new_crtc_state->mode_changed &&
-		    !new_crtc_state->connectors_changed)
-			continue;
-
-		drm_mode_copy(&new_crtc_state->adjusted_mode, &new_crtc_state->mode);
-	}
-    ...
-}
-
-With new_crtc_state->adjusted_mode remaining all zeros on an enabled CRTC,
-won't subsequent checks and commit steps fail or crash=E2=80=94for example,=
- dividing
-by zero on mode->htotal in vc4_crtc_atomic_check(), rejecting valid plane
-coordinates against adjusted_mode.hdisplay in omap_plane_atomic_check(), and
-corrupting vblank timing constants in
-drm_atomic_helper_calc_timestamping_constants()?
-
-[1] https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-13-f36d640b7=
-e76@kernel.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-drm-reset-=
-state-flag-v7-0-4e55eaeae683@kernel.org?part=3D14
+-- 
+Ville Syrjälä
+Intel
