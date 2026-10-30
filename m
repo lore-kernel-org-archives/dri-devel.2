@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EEC606A339
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:28:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7EB60A3808
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTzTBEZC
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jn5BsOwB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B599112721;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B35D112722;
 	Fri, 30 Oct 2026 10:28:26 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C76E112723
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:28:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5BE11271B
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:27:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 249B841A5E;
- Fri, 30 Oct 2026 10:28:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7C21F000C1;
- Fri, 30 Oct 2026 10:28:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 843D960617;
+ Fri, 30 Oct 2026 10:27:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B066D1F00A02;
+ Fri, 30 Oct 2026 10:27:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793356100;
- bh=MnMXvzusoeoF9/Av5Lg+FeAyi2kBZMpvF5JpP2g3l24=;
+ s=k20260515; t=1793356077;
+ bh=bp8Sv56uWGNu5dzO8hoWLI+wBl8bSINfQ15wCZlMHhg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=kTzTBEZCEv36HGCT4HObpLXZYR1Zh0/M19mvMG+imYTzLxAaiysFhbSQhFQRI1uSQ
- MI/AjEEpQppTAA7P89FaYTjm6ow35W4OFEQ9K3eIArU9xcho5MhpqpPmxI9yyqA/tc
- nUR2QEuZiHIY4xuSWpJu7qkRiVjIgBwLp9itADdIhW4Qb7y8FQT7ABBVHL/eMlmGcT
- nqM3T9U+BOSjxHAtQiNjeUR3MnNdSPsmMwaPSgYMmZ/TFGdvsWMiYc1scNlnYzy21J
- po9+TZa7fXeAylXewLUbzN1ynIo/YOgMHkzeGH0RizsEdRHxac94Jkc8xOFOwy5peb
- Hn6Yqeg61owzg==
+ b=Jn5BsOwBaa7ZGUBOzwVlDte10ZHifykzg9wPsWl+gcAvDYa2XjovQ9wk4SHgaEn0t
+ N2eUajxt4ySosFNKDLZdSVEVVlC60QiZ6QfHYOW8gEcF/4Nolo5d7EHzBBiEih4czQ
+ Ko4mYZdB+UC0CjB4hDLkESorlcx7Y3I3E3qai3u9ZWpqPKEZ7aaCy3fgMWnd3njCbj
+ IwC3aY3yeOyGv69vLIzMOoujxIargMAxRX4chmK1dxGPSJEARGTPNLeeK6qNCOjkIV
+ aFUQDTaHlQc+5QccjYhqSVscgtTImb2cyQ12jcu/4BcelhPBfuwwnZLjnjP8R51qc1
+ /K1+odhRlXh8w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 11:27:41 +0100
-Subject: [PATCH v7 09/16] drm/atomic: Create function to insert private obj
- state into a commit
+Date: Fri, 30 Oct 2026 11:27:35 +0100
+Subject: [PATCH v7 03/16] drm/atomic: Switch to krealloc_array() in
+ drm_atomic_get_private_obj_state()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-reset-state-flag-v7-9-4e55eaeae683@kernel.org>
+Message-Id: <20261030-drm-reset-state-flag-v7-3-4e55eaeae683@kernel.org>
 References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3320; i=mripard@kernel.org;
- h=from:subject:message-id; bh=bz8WgYdyyKFKUw0Z8N3MeqXXAFbvhUkQzTihY9/0wRE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCqVPPmypuHI9KHXa/Ifq6zQ+1yzRnna//fLvvnvlN
- 6av0r79o2MqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBM5OlNxoYXHtrXxWc8T5kw
- 39W4/uw3cetw9X0Zf2Xv313zY9e3knlhci/TJ9srrq6R4W+z+j8peB9jfcEJ/qBlzX82Zl5O93L
- +ynf/5txdj+4feT5lN5+w5Rr7ffY/osuU4lOOSYuUT7jC13fsLwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1391; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=BzbEMPPA4chwGhrAev6Iwlnw4dYruoi/b+S/QBBvOnk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCiVM2uJ2r1vnICXVkFd+MYp505X6+d/L568yKkibG
+ BR8ZMK7jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARY37Gep94z7z/5avVFzDU
+ ZNmdY8xeE7i/1pf11oJDG67M4wpan317R0eCr9imfDlulshf/cdWMdZK597X6+4+dmB74a2ni5k
+ TJ000qba4GqfD/uLA1Xfz80QFpj15yvjfcJpNwvPZPC+ir58BAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,100 +81,39 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_get_private_obj_state() allocates a new private object
-state by duplicating the current one and inserts it into the atomic
-commit as a single operation.
+The drm_atomic_get_private_obj_state() function manually computes the
+allocation size by multiplying the element count by the element size
+before passing it to krealloc().
 
-However, a later change will need to insert a private object state
-into a commit without going through the full allocation and
-duplication path in drm_atomic_get_private_obj_state().
+krealloc_array() handles this multiplication internally and includes
+overflow checking. Switch to it and drop the now-unused size variable.
 
-Extract the state insertion logic, including the array reallocation,
-into a new static drm_atomic_commit_set_private_obj_state() helper,
-and convert drm_atomic_get_private_obj_state() to use it.
-
+Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 53 +++++++++++++++++++++++++++++---------------
- 1 file changed, 35 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 807b575ecc54..513e91ad2fdc 100644
+index 9bb761eda59f..aa47c647df31 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1096,4 +1096,33 @@ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- EXPORT_SYMBOL(drm_atomic_private_obj_fini);
- 
-+static int drm_atomic_commit_set_private_obj_state(struct drm_atomic_commit *commit,
-+						   struct drm_private_obj *obj,
-+						   struct drm_private_state *obj_state)
-+{
-+	struct __drm_private_objs_state *arr;
-+	int index, num_objs;
-+
-+	drm_modeset_lock_assert_held(&obj->lock);
-+
-+	num_objs = commit->num_private_objs + 1;
-+	arr = krealloc_array(commit->private_objs, num_objs,
-+			     sizeof(*commit->private_objs), GFP_KERNEL | __GFP_ZERO);
-+	if (!arr)
-+		return -ENOMEM;
-+
-+	commit->private_objs = arr;
-+	index = commit->num_private_objs;
-+
-+	commit->private_objs[index].state_to_destroy = obj_state;
-+	commit->private_objs[index].old_state = obj->state;
-+	commit->private_objs[index].new_state = obj_state;
-+	commit->private_objs[index].ptr = obj;
-+	obj_state->state = commit;
-+
-+	commit->num_private_objs = num_objs;
-+
-+	return 0;
-+}
-+
- /**
-  * drm_atomic_get_private_obj_state - get private object state
-@@ -1112,6 +1141,5 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 				 struct drm_private_obj *obj)
+@@ -1080,5 +1080,4 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
  {
--	int index, num_objs, ret;
--	struct __drm_private_objs_state *arr;
-+	int ret;
+ 	int index, num_objs, ret;
+-	size_t size;
+ 	struct __drm_private_objs_state *arr;
  	struct drm_private_state *obj_state;
+@@ -1096,6 +1095,6 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
  
-@@ -1127,24 +1155,13 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 		return ERR_PTR(ret);
- 
--	num_objs = state->num_private_objs + 1;
--	arr = krealloc_array(state->private_objs, num_objs,
--			     sizeof(*state->private_objs), GFP_KERNEL | __GFP_ZERO);
--	if (!arr)
--		return ERR_PTR(-ENOMEM);
--
--	state->private_objs = arr;
--	index = state->num_private_objs;
--
- 	obj_state = obj->funcs->atomic_duplicate_state(obj);
- 	if (!obj_state)
+ 	num_objs = state->num_private_objs + 1;
+-	size = sizeof(*state->private_objs) * num_objs;
+-	arr = krealloc(state->private_objs, size, GFP_KERNEL);
++	arr = krealloc_array(state->private_objs, num_objs,
++			     sizeof(*state->private_objs), GFP_KERNEL);
+ 	if (!arr)
  		return ERR_PTR(-ENOMEM);
- 
--	state->private_objs[index].state_to_destroy = obj_state;
--	state->private_objs[index].old_state = obj->state;
--	state->private_objs[index].new_state = obj_state;
--	state->private_objs[index].ptr = obj;
--	obj_state->state = state;
--
--	state->num_private_objs = num_objs;
-+	ret = drm_atomic_commit_set_private_obj_state(state, obj, obj_state);
-+	if (ret) {
-+		obj->funcs->atomic_destroy_state(obj, obj_state);
-+		return ERR_PTR(ret);
-+	}
- 
- 	drm_dbg_atomic(state->dev,
 
 -- 
 2.55.0
