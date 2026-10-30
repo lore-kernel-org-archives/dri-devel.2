@@ -2,53 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F905606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:15:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693A3606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TbkNi7X/
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akcVjEyq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7E651128AA;
-	Fri, 30 Oct 2026 15:15:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 164931128AC;
+	Fri, 30 Oct 2026 15:15:43 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8D810E5C2
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:14:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 801D811288C
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:15:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 23B09601EE;
- Fri, 30 Oct 2026 15:14:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E8A31F000C1;
- Fri, 30 Oct 2026 15:14:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 025E4601EE;
+ Fri, 30 Oct 2026 15:15:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CFFC1F000C1;
+ Fri, 30 Oct 2026 15:15:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793373262;
- bh=MaZpJx+Qe/72/3oMNa6zHNkc2W0kYMQAgnH7D8dXdck=;
+ s=k20260515; t=1793373309;
+ bh=fP5ZzG5BYOMroj/BMRw+mELsCATZtgVgFGFS4DYQl5A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=TbkNi7X/RbA7YO/CpBWydYf7xxx/Pk7vQKpugrWO2uRO7plb48LQii+Zcn0gLRkeF
- 7473Nr3EKl57AGA4G/9IfYLv/ehRhm3yHVej1IehS7hmSBPMBPryYGDgv7QHcMKmD1
- TpDGQRXLltopW19OjM+1pCMfM+ttU4AFvVvBCTW7fbR5cZ4I+psD6GXvovIA/G2qe1
- 3ooS7tgZBSEwfvvJhGnFAWCgo6vHy9aQEu/tLEi+PKe2tw4fUPDDGa8QE+0SB1t6o/
- J90P7dzJa0MyR6tLKP4+nn7kG5JYBGNGzmoXcizZo/ygESVqdM9770fXp0EFN1YBaS
- neCtQJb80j7PQ==
+ b=akcVjEyqRYmYJWvpX15ynBXRVBj7i/4Jdkd+5JsF0J/x//6lS2QuENNjheQPqNDQd
+ 36h7/JqoHDMdg3F7ELsb6BkfzcqaRvcSDmrLUgpasWBmngkuzwG/xT8J6/gofjSdqR
+ L/oPfoztTH0/rVQWwVeUl3RH5UVa2e+lcJdZAkrFrRJ4eU17O4H95yoS1rEJXlEg75
+ hnIlS7Im832UcCIlFJj53V8yAMcy5ewKt0Kpsi5mZ1ShD3pEnpHC7HDZqWkLjrmy6f
+ Y7ZOY7kf6y0QWi7jh1CFk0ZXtYIl2gM3/3S2bdNO3TPGZH1l9WPtgzbm4GJzConmx2
+ 9uzMiv6eUN0gw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 16:13:38 +0100
-Subject: [PATCH v3 08/37] drm/bridge: tc358767: Switch to
+Date: Fri, 30 Oct 2026 16:13:51 +0100
+Subject: [PATCH v3 21/37] drm/tiny: arcpgu: Switch to
  drm_atomic_helper_connector_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-no-more-connector-reset-v3-8-30e71d92c327@kernel.org>
+Message-Id: <20261030-drm-no-more-connector-reset-v3-21-30e71d92c327@kernel.org>
 References: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 In-Reply-To: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ Alexey Brodkin <abrodkin@synopsys.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1001; i=mripard@kernel.org;
- h=from:subject:message-id; bh=aU9tnOdAllgNbAZMQbuOGMrrYY65gktz9LK7WwgSGzk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtijI8bOqfNnPvLDGuS6ZScruQQhLnPbr0rMc5YGrj
- jLtXpTWMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbyPISxPrTH8My7+0bc1yKE
- r6l/23PmkHTrRJZS8YQZ7T8n5U5+c89LK3UZu6RSZOPziC0cMcfqGRsmPGIJjZUM5Tz+f9uCMj7
- X6CmLCpxOvFo2d9qE0GX7rvF3F3xhWfDHsVj4Me/5PVz/yyQA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1073; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=lRmM4tqeA3Vt8gf7dUtrCiy7xIkgvbo20a7VjxyAHLo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtqjdqOz6ac0gwrmgfJrttJn3Zybsq7wQbbrc9obv+
+ iy+VwdrOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBETs9hbHjLUWK/SIVxS/NU
+ /6zkmFOOG+4ps07fsMjYOiTTkm25d7HlyrrM6NdNjwRVObgC2SfeYmxocH2cENnAcLD30zODMMH
+ nLofLpkxUOtfp9uXM+ijxM3dl78/me71izm+HPkdv3qfP4ycDAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,24 +70,28 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The bridge: tc358767 connector implementation uses the deprecated
+The tiny: arcpgu connector implementation uses the deprecated
 drm_atomic_helper_connector_reset() as its reset hook.
 
 Switch to drm_atomic_helper_connector_create_state() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/tc358767.c | 2 +-
+Cc: Alexey Brodkin <abrodkin@synopsys.com>
+---
+ drivers/gpu/drm/tiny/arcpgu.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
-index 51f4baa62a53..5ea6d3726bee 100644
---- a/drivers/gpu/drm/bridge/tc358767.c
-+++ b/drivers/gpu/drm/bridge/tc358767.c
-@@ -1797,5 +1797,5 @@ static const struct drm_connector_funcs tc_connector_funcs = {
+diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
+index cdbf28db8fa1..32f6e98ba9c5 100644
+--- a/drivers/gpu/drm/tiny/arcpgu.c
++++ b/drivers/gpu/drm/tiny/arcpgu.c
+@@ -99,7 +99,7 @@ arcpgu_drm_connector_helper_funcs = {
+ 
+ static const struct drm_connector_funcs arcpgu_drm_connector_funcs = {
+-	.reset = drm_atomic_helper_connector_reset,
  	.fill_modes = drm_helper_probe_single_connector_modes,
  	.destroy = drm_connector_cleanup,
--	.reset = drm_atomic_helper_connector_reset,
 +	.atomic_create_state = drm_atomic_helper_connector_create_state,
  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
