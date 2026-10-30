@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8952C606A33E
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:40:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BB2606AA04
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:46:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B+Peb4HG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jR75QdVl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E70AA112741;
-	Fri, 30 Oct 2026 10:40:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E7D110E89E;
+	Fri, 30 Oct 2026 10:46:26 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1537F11274F
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:40:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A36E10E89E
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:46:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CF5A46025F
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:40:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F061F00A02;
- Fri, 30 Oct 2026 10:40:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 783F76022F
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:46:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10FB01F00A15;
+ Fri, 30 Oct 2026 10:46:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793356813;
- bh=zoL0kzYJ6/gfZGZRQ4OUAW+wQgL1MujI3THp3ZfA8pA=;
+ s=k20260515; t=1793357179;
+ bh=84qPjXWwBvUcyX4eaQoPMb0cx5SJeY+Q+prjA+9xvQY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=B+Peb4HGRgDpEVTrulNP3I7t4iI391EJqZU/z5E9DERPmJ5mesEwPh9zlD4wqwbyJ
- tk61EfW8fp3g6iQPg5oJv0Yzgs/IlfLU4fQY0Wj0fTPMyAW3ZLl9ESAYslQHjR8mNA
- QimenZbBSwiknHvqy0M5sdcqy243mTD9Ovq1+04UtgSUytH+R0dLix5e6HUsVOH0V9
- ondfaxcSwvDAUktzUL3Ahy8ox4uCqjBTU7aOTJxSuc7/ioi6tIWj/o67axThk4mPDk
- HTD2yB7ENYcCSs+ZUw0E0n5scGgstqYSM6RwaAXClWNMzH7gUHvQtK2Ex9d9fRHhMc
- tLrGDSoCkN8ig==
-Message-ID: <sashiko-outbox-190856@kernel.org>
+ b=jR75QdVlKTiA1E7tJoraRuTuPf3OU1PpUhNHtbMc6mVH22RPeVIzYBWeHAX348Wte
+ ZT9LTLTBKWuFua5vsbV6KzpCF+KI6GhpxjB701D6iw3clagU/g3MoeRLwQvqWCzW+N
+ 9xXhJl+bJhyPaeurb0B9UsX6edg6Fvq6PXpTYoal2htenmCjNjCOUpkwU6MPHTNUEr
+ g4PBA09Bw3pJC/Eyr+9FWqtSKVo6NNyXy5kvTJsnwRR0dbqBzby9KqB8QfXAAk6CB5
+ UtmCURsa9z7TwuaIWhKqQkb0c19mWbb1IU+St8i5o/PCuMJud6EzMSgqYhNa9n5+za
+ PFDxiirBpzYtg==
+Message-ID: <sashiko-outbox-190870@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 16/16] drm/vkms: Add driver-specific plane property
- for testing
-To: "Maxime Ripard" <mripard@kernel.org>
+Subject: Re: [PATCH 4/8] drm/msm/a6xx: Add A6xx IFPC support
+To: "Konrad Dybcio" <konradybcio@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261030-drm-reset-state-flag-v7-16-4e55eaeae683@kernel.org>
-References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
- <20261030-drm-reset-state-flag-v7-16-4e55eaeae683@kernel.org>
+In-Reply-To: <20261030-topic-a6xx_ifpc-v1-4-6992841a9a32@oss.qualcomm.com>
+References: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
+ <20261030-topic-a6xx_ifpc-v1-4-6992841a9a32@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 10:40:13 +0000
+Date: Fri, 30 Oct 2026 10:46:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,107 +58,142 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] drm/vkms: missing connector atomic_create_state breaks DRM_MODE_=
-ATOMIC_RESET
+- [High] drm/msm/a6xx: missing IFPC CP_SET_MARKER packets in a6xx_submit()
+- [Medium] drm/msm/a6xx: perfcntr SELECT regs lost on IFPC in a6xx_perfcntr=
+_configure()
 --
 
-commit dd5905026f6d7cc05c849f79e8c81bca404953ae
-Author: Maxime Ripard <mripard@kernel.org>
+commit bfad38c351383c6a537cd26f28ef21f13067df68
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-drm/vkms: Add driver-specific plane property for testing
+drm/msm/a6xx: Add A6xx IFPC support
 
-This commit adds a driver-specific "vkms-test-do-not-use-in-prod" range
-property to vkms planes to allow userspace to test DRM_MODE_ATOMIC_RESET
-without interfering with standard compositor properties.
+This commit adds A6xx-specific IFPC plumbing, including GMU WFI
+configuration, power-up register list patching, CP_ME_INIT register list
+programming, and skipping the A7xx HFI IFPC enable message on A6xx.
 
-> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkm=
-s_plane.c
-> index fd3d34dcf0fe5..42513cb462ace 100644
-> --- a/drivers/gpu/drm/vkms/vkms_plane.c
-> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index e7c3da5d3ac64..8ea9ab5b98861 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
 
 [ ... ]
 
-> @@ -85,7 +92,9 @@ static void vkms_plane_destroy_state(struct drm_plane *=
-plane,
+> @@ -878,6 +887,43 @@ static void a7xx_patch_pwrup_reglist(struct msm_gpu =
+*gpu)
+>  	a6xx_gpu->dynamic_sel_reglist_offset =3D dyn_pwrup_reglist_count;
+>  }
 > =20
->  static struct drm_plane_state *vkms_plane_create_state(struct drm_plane =
-*plane)
->  {
-> +	struct vkms_plane *vkms_plane =3D to_vkms_plane(plane);
->  	struct vkms_plane_state *vkms_state;
-> +	u64 val;
-> =20
->  	vkms_state =3D kzalloc_obj(*vkms_state);
->  	if (!vkms_state) {
-> @@ -95,14 +104,53 @@ static struct drm_plane_state *vkms_plane_create_sta=
-te(struct drm_plane *plane)
-> =20
->  	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
-> =20
-> +	if (!drm_object_property_get_default_value(&plane->base,
-> +						   vkms_plane->vkms_test_do_not_use_property,
-> +						   &val))
-> +		vkms_state->vkms_test_do_not_use_value =3D val;
+> +static void a6xx_patch_pwrup_reglist(struct msm_gpu *gpu)
+> +{
+> +	struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> +	struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
+> +	const struct adreno_reglist_list *reglist;
+> +	void *ptr =3D a6xx_gpu->pwrup_reglist_ptr;
+> +	struct cpu_gpu_lock *lock =3D ptr;
+> +	u32 *dest =3D (u32 *)&lock->regs[0];
+> +	int i;
+> +
+> +	lock->gpu_req =3D lock->cpu_req =3D lock->turn =3D 0;
+> +	lock->list_length =3D 0;
+> +
+> +	/* Static IFPC-only registers */
+> +	reglist =3D adreno_gpu->info->a6xx->ifpc_reglist;
+> +	if (reglist) {
+> +		for (i =3D 0; i < reglist->count; i++) {
+> +			*dest++ =3D reglist->regs[i];
+> +			*dest++ =3D gpu_read(gpu, reglist->regs[i]);
+> +		}
+> +		lock->list_length +=3D reglist->count * 2;
+> +	}
+> +
+> +	/* The CP sees IFPC-only and IFPC + preemption as one list from list_of=
+fset */
+> +	lock->list_offset =3D lock->list_length;
+> +
+> +	/* Static IFPC + preemption registers */
+> +	reglist =3D adreno_gpu->info->a6xx->pwrup_reglist;
+> +	if (reglist) {
+> +		for (i =3D 0; i < reglist->count; i++) {
+> +			*dest++ =3D reglist->regs[i];
+> +			*dest++ =3D gpu_read(gpu, reglist->regs[i]);
+> +		}
+> +		lock->list_length +=3D reglist->count * 2;
+> +	}
+> +}
 
 [Severity: Medium]
-As reported by Sashiko on v6 [1], can vkms_plane_create_state() actually be
-reached via DRM_MODE_ATOMIC_RESET while vkms connectors do not implement
-atomic_create_state?
+When a performance counter stream is configured via
+DRM_IOCTL_MSM_PERFCNTR_CONFIG, msm_gpu_sysprof_no_ifpc() allows the GPU to
+enter IFPC between samples under the assumption that a6xx_perfcntr_configur=
+e()
+appends the configured SELECT registers to pwrup_reglist_ptr.
 
-When userspace queries DRM_CAP_ATOMIC_RESET in drm_getcap() or submits an
-atomic commit with DRM_MODE_ATOMIC_RESET in drm_mode_atomic_ioctl(),
-drm_atomic_implements_create_state() and
-drm_atomic_commit_fill_with_defaults() check all connectors on the device:
+However, a6xx_perfcntr_configure() only populates pwrup_reglist_ptr when
+info->family >=3D ADRENO_7XX_GEN1:
 
-drivers/gpu/drm/drm_atomic.c:drm_atomic_implements_create_state() {
-    ...
-	drm_connector_list_iter_begin(dev, &conn_iter);
-	drm_for_each_connector_iter(connector, &conn_iter) {
-		if (!connector->funcs->atomic_create_state) {
-			drm_connector_list_iter_end(&conn_iter);
-			return false;
-		}
-	}
-	drm_connector_list_iter_end(&conn_iter);
-    ...
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a6xx_perfcntr_configure() {
+	if (to_adreno_gpu(gpu)->info->family >=3D ADRENO_7XX_GEN1) {
+		WARN_ON(!a6xx_gpu->pwrup_reglist_emitted);
+
+		struct cpu_gpu_lock *lock =3D a6xx_gpu->pwrup_reglist_ptr;
+		int off =3D (2 * lock->ifpc_list_len) +
+			  (2 * lock->preemption_list_len) +
+			  (3 * a6xx_gpu->dynamic_sel_reglist_offset);
+...
+
+On A6xx, a6xx_patch_pwrup_reglist() uses the A6xx cpu_gpu_lock layout
+(lock->list_length and lock->list_offset with register/value pairs) without
+recording the base static offset in dynamic_sel_reglist_offset, and
+a6xx_perfcntr_configure() leaves reglist as NULL.
+
+Will entering IFPC on A6xx while a performance counter stream is active lose
+the GX-domain performance counter SELECT registers when the GX power domain
+collapses?
+
+[ ... ]
+
+> @@ -1485,8 +1564,12 @@ static int hw_init(struct msm_gpu *gpu)
+>  	/* Enable the SQE_to start the CP engine */
+>  	gpu_write(gpu, REG_A6XX_CP_SQE_CNTL, 1);
+> =20
+> -	if (adreno_is_a7xx(adreno_gpu) && !a6xx_gpu->pwrup_reglist_emitted) {
+> -		a7xx_patch_pwrup_reglist(gpu);
+> +	if (!a6xx_gpu->pwrup_reglist_emitted) {
+> +		if (adreno_is_a7xx(adreno_gpu))
+> +			a7xx_patch_pwrup_reglist(gpu);
+> +		else
+> +			a6xx_patch_pwrup_reglist(gpu);
+> +
+>  		a6xx_gpu->pwrup_reglist_emitted =3D true;
+>  	}
+
+[Severity: High]
+In a7xx_submit(), the driver emits CP_SET_MARKER packets around command
+submissions to disable IFPC before indirect buffers execute and re-enable it
+after completion:
+
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a7xx_submit() {
+	...
+	OUT_PKT7(ring, CP_SET_MARKER, 1);
+	OUT_RING(ring, 0x101); /* IFPC disable */
+	...
+	OUT_PKT7(ring, CP_SET_MARKER, 1);
+	OUT_RING(ring, 0x100); /* IFPC enable */
 }
 
-In vkms, both connector function tables still set .reset instead of
-.atomic_create_state:
+However, a6xx_submit() in drivers/gpu/drm/msm/adreno/a6xx_gpu.c does not em=
+it
+these CP_SET_MARKER packets before the indirect buffer loop or after the
+CACHE_FLUSH_TS event write.
 
-drivers/gpu/drm/vkms/vkms_connector.c:
-static const struct drm_connector_funcs vkms_connector_funcs =3D {
-	.detect =3D vkms_connector_detect,
-	.fill_modes =3D drm_helper_probe_single_connector_modes,
-	.reset =3D drm_atomic_helper_connector_reset,
-	.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state,
-	.atomic_destroy_state =3D drm_atomic_helper_connector_destroy_state,
-};
-
-drivers/gpu/drm/vkms/vkms_writeback.c:
-static const struct drm_connector_funcs vkms_wb_connector_funcs =3D {
-	.fill_modes =3D drm_helper_probe_single_connector_modes,
-	.reset =3D drm_atomic_helper_connector_reset,
-	.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state,
-	.atomic_destroy_state =3D drm_atomic_helper_connector_destroy_state,
-};
-
-Because every valid vkms device requires at least one connector,
-drm_atomic_implements_create_state() returns false and DRM_MODE_ATOMIC_RESET
-commits fail with -EOPNOTSUPP before vkms_plane_create_state() can be invok=
-ed.
-
-Should vkms_connector_funcs and vkms_wb_connector_funcs also be converted to
-use .atomic_create_state =3D drm_atomic_helper_connector_create_state so th=
-is
-property can be used to test DRM_MODE_ATOMIC_RESET?
-
-[1] https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-15-f36d640b7=
-e76@kernel.org
+Should a6xx_submit() also emit CP_SET_MARKER(0x101) and CP_SET_MARKER(0x100)
+so that REG_A6XX_CP_CP2GMU_STATUS properly tracks IFPC eligibility across
+submissions on A6xx?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-drm-reset-=
-state-flag-v7-0-4e55eaeae683@kernel.org?part=3D16
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-topic-a6xx=
+_ifpc-v1-0-6992841a9a32@oss.qualcomm.com?part=3D4
