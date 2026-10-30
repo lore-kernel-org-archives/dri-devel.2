@@ -2,126 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC741606A31F
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 21:35:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0553606A336
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 21:38:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tky2fhWH
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UOEBE8Gl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35B60112A06;
-	Fri, 30 Oct 2026 21:34:57 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010057.outbound.protection.outlook.com [52.101.85.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90CCE112A06;
- Fri, 30 Oct 2026 21:34:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wh/t76O8DjTO2DKlSgJ5NXevUnQuFtV32wB6rh3aTJoW+tTYTAE60FHBoIiBYf3DuKmsnP2EEQ769W9t5erXmFatwP23Kv8rrpjLF9iMUygyGaSG+RT82WAAIYPLUxnT2r21rRUFiDV4W89wSkU+rrz0CPssPhoKXn0arrOHSRFQ8tDBniVf1Cc+dedxjkBJjqi3O0zbl5yp3JTi/+1FoKNvUS3Tnk6W5RaDuITjLXzFymxcN3fBX8M2Bufziq5Xs+wNDKypekbHgVuFBi+BKBk+73iMVRx/DiklDtIi2WVY9MJdTVZX7Bh7CsX4GgmaWZli8plIuaUoPGIv+7rZew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z8wukRfbvFkRV4Bl1RmMYZ9zArJacd0VgoFYlenbSY0=;
- b=rYXJrytiny58TFuvzht5yr4fIhbsUX9R+/3ZThYsMBySFEOytY1sFq2polEDwB8woitHJJYq+Gj7vKj42VjArnNIlAHZ16XENLYDLwsmdP9Wm2zU4GhcS5We+QLs7SQsq2XzujSVQD9yoSGJJXvX/AGl7bIcrxW0xAP4Uwx1k84EDDuHAUQzItiZfRjopFepfgGs5nVOEWmO/lyTs0bF9XQb9jyvvXXynrr42YU3RyeF6w5RxuIZ45gYKcKlvc7RFLrJjv+l2vh3y6z7HciG/uoFgyEu8JoTKPoGBch9QFx6LaT14La0mcmxHTDcemSIbw+YxIoSWfLvrEqQqDXY8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z8wukRfbvFkRV4Bl1RmMYZ9zArJacd0VgoFYlenbSY0=;
- b=tky2fhWHYF3IyVz1exVjhnoT70z3+b0l0pIMObvJtxP2WUKYIQsTXDLdceIqLdjLYnCe4DDDr8LFFm25XC8gsvwy+9JXTjPdUwqvtmrDwUTSBGje9FLxfV8E+ADcYKGYRVE7V+oaAO+gGGR/LKWxmfYsLzTbhqjCjXxnPFk4hgd8GsuXygc7VxHja7px3FGjuk2ZeJYOxaIbCFL7fuVL/eSsgZv6oAB3CcsXZWi5iS3/hF1jGo4gas1AiMTuv/Qitd0zRMSmAOhVSfq8PaFIGyuSlNjqVxdJgTiMvXTEaBGw0vP5IujPmdv9kJbMJFZ5f4IrYnFUS/Ec7FheVVABOw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
- by IA1PR12MB9523.namprd12.prod.outlook.com (2603:10b6:208:595::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 21:34:43 +0000
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 21:34:43 +0000
-Message-ID: <2fd5c42f-48b6-495b-a3a7-0696e6a53be1@nvidia.com>
-Date: Fri, 30 Oct 2026 14:34:42 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpu: nova-core: make pramin/buddy optional
-To: Eliot Courtney <ecourtney@nvidia.com>, airlied@redhat.com,
- Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- David Airlie <airlied@gmail.com>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- dri-devel <dri-devel-bounces@lists.freedesktop.org>
-References: <20261026-nova-pramin-option-v1-1-d073b3f047fc@redhat.com>
- <DMI0H1ZU5R4C.25MM4QF6UDWA2@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <DMI0H1ZU5R4C.25MM4QF6UDWA2@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY3PR10CA0010.namprd10.prod.outlook.com
- (2603:10b6:a03:255::15) To SA1PR12MB5614.namprd12.prod.outlook.com
- (2603:10b6:806:228::7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35BFA10E116;
+	Fri, 30 Oct 2026 21:38:14 +0000 (UTC)
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
+ [209.85.219.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE2AE112A1E
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 21:38:07 +0000 (UTC)
+Received: by mail-qv1-f42.google.com with SMTP id
+ 6a1803df08f44-917aca1aee5so14151436d6.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 14:38:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793396287; cv=none;
+ d=google.com; s=arc-20260327;
+ b=S8OoG43dytPn1VbwxSOtGe1gTEr+nY+ayyGnH1DcYx4Bs8RyTrrysUk3c8GqnEVv4T
+ cte9BGhWEf2PJMwcWUVb8E+AfOsBZe5ShWkGnp42gQY5cmx7GZLEBIAEU3R/XKPWEuPb
+ fnysy2tgHhuXZA6XZvERD+MBtdsXR/DYeOy36WdlMREYMqLOJgw5xW1aqqWZnm6uV54e
+ kn6zOHasRuc293G66T+gu1XatyCDRA0PmaYQNKYFzWDZyNi3ZnawvuPqOddn76Wx2Mbc
+ lBM0SVQ4PZxhu7SuS2zuMarV7wGUfM4t/BDlRjPSuiNezhM0XRb0O8w7wTXAvteuZhGc
+ uVHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=VWIvYVNrTi7O7BpAsxKjHom4qcgseHjxHJ3UUC8R2UQ=;
+ fh=HQwGS/tgfrjuEQ8NZOhWLiLZo088fJVbEezIgNGsHOo=;
+ b=Nw3zQt/FT10rVUpOi0YBd+Zh9Umw6f+djAZc/x8rIrqqC7Xx/4XvR9n9TIaaxvovY9
+ hO9M8JtwOQd7rbA2wP9Q1eZUSYHiaazuqDqOdlZObpl5DibfJeoBZfcIuPsI0+xPmrLz
+ SMEl9BnFt6E65h3lX6g6UvdCkTlTSFl5febNwtFX9+25tlid4X2x/t2oxW4t2vHz6Rzn
+ v8X+ruF39BimrMgokPiV2sbAYKoisnnNrcfkOXP3fPlR83C1QvCQBZzyu+CudoCbvyYE
+ cDqgSodM2kJBY5syyHq2OonNgRvOM2PWQN36RzAqVbbxVsng6fy5Dgbokgp3YTYgS9QS
+ kkrA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793396287; x=1794001087; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=VWIvYVNrTi7O7BpAsxKjHom4qcgseHjxHJ3UUC8R2UQ=;
+ b=UOEBE8GllVaXhhnyOjJv5PMIydGxd88SQa5C4s54osp8RNi5HnrINTs5stjGdPVpRg
+ LnnYj3qezwpAx5hkGlSernqCFPCHNvYoDQVuHo+Joa48r+O3u5iV9w6MOtIfUvgIOCeV
+ QYo2pgp9M2QIZFltT4cm2syVWecv0lIhzV8EFhUdrlw3mE2ySH25UvKO4z5QAo+95Hov
+ VBk7ac0x38aYQToWskBcBJuFhYIGmLaZEY8sXEoJjWmEX9klHU95sGPyGbK8NTiOzSlS
+ Q9qEIWIeVBEX6kA/3tX/mvuPNZUDs2tLbkGMPznklpAqWXS3628wbIrWUtfMLRwHB2f7
+ A27Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793396287; x=1794001087;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=VWIvYVNrTi7O7BpAsxKjHom4qcgseHjxHJ3UUC8R2UQ=;
+ b=j/wC9eqCead7KLcFXmCn5LLK2/vVge13V5IvujGiVeNpjEuSsnkNlwlsfJJv7Pqtxb
+ 3G0aSBFC+IUxRE3zRiEgJk6BBDslK81Ml1OJERErXM3b6kgOtABGAU9Kxzq2zpazkYIm
+ 6RHv6AEClwzOb8u6hoNrD8dgKrpAcpeHrlzEEC5hjRRKji3/UILSnGItmIz8C3gKQD0G
+ gP8SpHkiPxGWw9b9w1wnL1wpZoFPJeRWjiqlKYHxDoBdIjXHH0fHAthI4bAUhGTvhhv4
+ kzX9i25y0DJO9OcRCVfa8YefIcW/PjzaGYvPz2TzCa2MLJZoXTmh7cJByMKCU+AAMynS
+ jh+w==
+X-Gm-Message-State: AFq9FYIyanacqWBFD/gq6b2nkrHpiifwG79rzAW4fmmsE/oMk6gso9ev
+ Eu2zTKwazPii0X1xNPWv9fvTxin6NUVsbCLY+ScxuKlaOJkcy8ikZGh5wnE9EWGr8aptY2xYGjw
+ JwxGUNJ2m1W900kOxP4Mvhi/uGImx4W4=
+X-Gm-Gg: AYBFou1+NomhyTn9AQuUzuEDy44ywiiex/e6rMZWO/qLyXCzNlKvbaHtlDBRkG0/MuG
+ KIgp9V2zyjeNR5KYI5pG2cS+O4h8iO1mqGAkjN2G/L3IyzEALyNgC2pG5C62OD3UBmiHtsm5tS6
+ jgfLMsEn7QYoouOIl7oHrnJWs5kKbgY/AT/5GIq3sK0sCPholBwsmh0ryQ//zE2h+h8Gq3l6EIa
+ Ki5WwUSk52Uvr9ee5VBz3nCjWFKuo2wEkCiiwNw6wEPTC50wjKANyZo5dNbQXsYunm44hlIk14q
+ pWjpusrqVLGMv3gsiAo5tO8iZUzEiSKzX8PeMXJJ7aabqJM7tJxCMkhgG0cmV9h1/LgezTNGCU8
+ HJaq+D16OOV0XnBgaI1vf4sgDywI0OJqjaWeTD37JBF45jAaUf/OwtK6u5FjdtBWiUySyrcFGQm
+ qpGnBJNkz+U+bI8TGfHa3IfGI=
+X-Received: by 2002:a05:6214:4586:b0:91c:617a:16d1 with SMTP id
+ 6a1803df08f44-91ca4b4709amr57040926d6.33.1793396286556; Fri, 30 Oct 2026
+ 14:38:06 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|IA1PR12MB9523:EE_
-X-MS-Office365-Filtering-Correlation-Id: 254c7ad2-f64c-4c74-9c71-08df36cd9cd9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|261028144727099003|261022105027099003|4143699003|11063799006|261026121527099003|261026140227099003|261021121427099003|261009223027099003|10067099003|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 7im+Nudzpf/gdhuhagfYHrhC7qIcHUKk4L4TwzjrYMKUBWclWyCprX3+bAE8onaVm4qHl2i61Q+GO3lUNT/GsJdgwBZ4NYnRjsLs9cb9ZyT3st9ER+sgk/D1+ZJojKIYjTXzEAtRRx3u7ncH8GeFiARPAgxzXxzNhsh6k9yaZbkhF9v5sCLdg9UP4H7zvNZxef4vAAOwjGxt60y+HX7dKEhutM+W67zi3C9W/XZ8rlR4zHOdTUhoO9gPllF0NKm7A06jZ9HMG4rYgGajIYqJW+Vp1r+9TJ+g7R2QDverTSwFnrZbyRKg/RIdWRNWMs1TGInTB8/j9svUyn4kEBvCufN0yrjDrf9wvxuEeOu25GT/NFBB3aPkMhD8tz97wBnCQMe3u/i8RNk4hTuDHQ1fAUmyWSxgNSaMqOusVtHEWykcm+ICzmmgJjgy4FB2tS99pveIclo/2ZchB/6tz/NwezprzbGfD1KfV6GtqbVAHXEBatsJgtwUI+IXkpjl35oGFvCw1k9Uu6zdWMyvzamM7Z/4nL3woWw6QUPncOisIl2KUPktMfVxR7sZkYJpwLUJcuSQE8jQCapA+GL4+5D/kp/86DN/0GL6bAWaGQEMST1AGI8jQSJxWWPdjaEk5Tf3Lzhdnh/AaaW4aoqsWfYcN9Yl0EeNDFgZGxDP2OT2dHE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB5614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(261028144727099003)(261022105027099003)(4143699003)(11063799006)(261026121527099003)(261026140227099003)(261021121427099003)(261009223027099003)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akFQdXpGeFhxNW9uRVVkSUc5ZEZ6Z3FWaGRvT1JiVXRaS0JVMjNzUE5RaEpz?=
- =?utf-8?B?Y1hWOWpTa29OZ0hkUUVxNHBVd1oxVzQxa01XWllRdUtBbm5DQ05vajRkcWlK?=
- =?utf-8?B?ZUVxRkRhZmlEVW45Q1BaQ3dEVEJCWnByNVkySmpZZGFpVlNGczc1b1hZUnBz?=
- =?utf-8?B?bXVtNXdzdmVwWXFBL0N0L29ZYlZTMUdlV3haN21ZS2VHWjVCUUFyeFdPdUZi?=
- =?utf-8?B?blJpSDJTSkNzTW5VWlZaRXBqOUdONVRQOUN2bTNBS0dZREkvTDlXcXJzOWcy?=
- =?utf-8?B?aXFvRXl1dHhvUUFjNG9CZzlaZFR2STVaU0dvYjFGWXZScG93L1pjOGJIWVpM?=
- =?utf-8?B?bU9DWENpN0haeXNNRkJwN0hiaDRidEJHL3FOZWFaWVJ6RDRYWVJRWkVwNlFz?=
- =?utf-8?B?ZGx0b21zUVJkeXN5TG4xRThZeVpGQWZacUM2WHlpN3dXQ3BVRG5KdXZhWUk3?=
- =?utf-8?B?UnBpaUErWk9JRHRxQTNHdkIrVklCRTRlSzRKM2ZFSjN2U3FENWlpOEFEMjFj?=
- =?utf-8?B?SVFVRjY5cjFhOWVoaktTc3BHMlBMSFE1TENrWXk3YnQ0VzU2aWg1YVE3K3JV?=
- =?utf-8?B?STNYVmw2amJsQmtFR3lQUWF3ekc3UExWSFVLQ1Nwa2NGVnd1cjJZd0t1cmJF?=
- =?utf-8?B?NWtsbzhGWHJKOXRNU0YwV0VuNkJLUDdPdGtWZFhJS3E3bEhuL1A2bmVxNjB5?=
- =?utf-8?B?d1E5TlVvYTJ2L1ZzK2xqRlFPNWREMnM1QUwzT3N0cmxmN1ZxQmVaVnFBNlhW?=
- =?utf-8?B?YkNPRkJoSmFzcEc4ajZ6NFltU3NEKzVrdVBtUTkwcDZrTm00RnBtQ3FPVHYy?=
- =?utf-8?B?OWtTN0cvdDNoaE1UTVdWLzRmdTIwaDUxR2h4bGZoaUlnREFpeFNLS2V2dTg2?=
- =?utf-8?B?QTMwR3JqZERmV2RuUHREczc4VWM3VzVWSmw1ZVBQU1dVd21nRDhLbk9FMjg0?=
- =?utf-8?B?UlhxeHI1YkxkWGRMODBTT3hQL2F1V3QvUTVxUTQ0UVc2VHY5Zy8vMTVwZmxz?=
- =?utf-8?B?REhmbG1PcGFOZkxkVy9ybkpLV3Rtd3dSYWh3SEdrUXBOYWdXYkVPZXB1TVNK?=
- =?utf-8?B?dmdNMWY2dVBPMWJTTGFTSkxwQ2x5R0NWeUFEaktZb21Cb3kyeVZ2UkFXTGgz?=
- =?utf-8?B?UUNWL21ocUVrU09IU0JJY0JEL2RrT0xMcmFGT3U1a2MwTEkzTUxMbUFZd0tT?=
- =?utf-8?B?N05ldGJlVXFabldFTXFYbi9ickRLZlAxYjdybEdOZ2sxWnpCQ0xuNVVOaUtE?=
- =?utf-8?B?dlBwdHlOcGlBY1p4c0E2VVJLbFU4Ny85UTJuWTk5eC9RYWY2eW9qZ1NYYlNy?=
- =?utf-8?B?L28wUXhBOFlCSkFXQU8xOXoyblJ6cmpjYlpaMmg0OFBGQUI2QzhrYVk4SldE?=
- =?utf-8?B?MUs2T0VnYXc3QVhNdFAzaG5OMFRLSktaME5wcjJCUk5tYVU3SWFZU3ZXMmsz?=
- =?utf-8?B?UjlPcVZEZUtQYzRPNFNQZTZYT3NNWEhSRzFrT0VreGtEdXBKMnZpcjV6clY4?=
- =?utf-8?B?TkwyYXhkMGRTKzV1Vm85QWlYNUtwRE5TQldxS2dRZWNqT1B3N3BJbTE5UkRS?=
- =?utf-8?B?WUtMTUt2MFJmcHVRdEVUTzZsbk5ndlFjRjBFMEcyOVhlSGl2cVlaeFYwQVZF?=
- =?utf-8?B?QU5xY2NOL0hCc1RrMDZTUEh1YmlCM3J6QTAybDlZdGVNMjkyNnp3T0ZLRWk0?=
- =?utf-8?B?elVnL2pPdXljWlJ6U0dsNk9qSXFvT1VUbWYwM2J2bUY4Z1hUMUFBdjFwZ3BR?=
- =?utf-8?B?eGlReUFLUjJHbm5DVUVmWDdGUm9mZ25TVmV3dUVxYlV0YmhmdThHYXJ6RkE4?=
- =?utf-8?B?YmoxblBoU00vemgrY2grOUNWUFkvL283Z0tla2FpaU44QlN1NEhSRGlBcitp?=
- =?utf-8?B?cElaR1Y2N2IwVUpQWTh2UUhvaE8vY0JMMTBCYTBxd1dtZXFBVExXb3oyOVVR?=
- =?utf-8?B?WkF2bnlQamd4MXRRTU5naEw3MFBJSTlMblpFS0JXRWdtMDFLUjlhRUpEKzdr?=
- =?utf-8?B?UFdGQ09tLzh2ZHdYam5wTzRXT0pNekdjV21LbXZlLys2ODlSZHJjcENGTzBL?=
- =?utf-8?B?NXV5NWRPZVlvSXpwNUpBMlBESnZQbXZXRlJ1L3hhNXF6MGlHTmM1d0p2SHhG?=
- =?utf-8?B?VXU3U0EzSEVvOS9FQWl3YU56b2hYZkZCRDN5dm8ra1padEhQWWd2bEpRZ2lT?=
- =?utf-8?B?eUJVZHpxK3Axci9UcG0yWEFVVHNlTHpDYkVlMTlNdkdwdVFYWUNINGVCRnMr?=
- =?utf-8?B?cU9JZEpHM3doZlJ0SWhmaWt6OWJGMzVtNkJ0cmtYRS81enNuckJEUXVDNFZZ?=
- =?utf-8?B?RTQvZ21ENWpBSmUzRzBvcVBTT3pMejk2WWRjL0Vtc1RYWkJMSkdsZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 254c7ad2-f64c-4c74-9c71-08df36cd9cd9
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 21:34:43.8814 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i5qlD9RbE8/x4P2iDgLebLwumKMk8+Jf0iD8LrfLpGgzI+92e5wR6znNgqWHTMMICioT6bjEgcvZ/aYUJ+opRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9523
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 31 Oct 2026 07:37:55 +1000
+X-Gm-Features: AclHuK9ybmELFwq_U08T2CsIgoOYjcy1Jz6f1yIFGxlfnvZsJDgvyERSVKXAdCA
+Message-ID: <CAPM=9txuHS0rd7POC2gReGGnD0gmA-NrPzh1Gy4QC9824Qc4sA@mail.gmail.com>
+Subject: [git pull] drm fixes for 7.4-rc1
+To: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,51 +94,291 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,INCLUDES_PULL_REQUEST,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/30/26 12:57 AM, Eliot Courtney wrote:
-> On Mon Oct 26, 2026 at 1:24 PM JST, Dave Airlie via B4 Relay wrote:
->> From: Dave Airlie <airlied@redhat.com>
-...
->> +++ b/drivers/gpu/nova-core/gpu.rs
->> @@ -564,18 +564,19 @@ pub(crate) fn new<'a>(
->>  
->>              // Create GPU memory manager owning memory management resources.
->>              mm: {
->> -                let usable_vram = gsp_static_info.usable_fb_regions.first().ok_or(ENODEV)?;
->> -                let buddy_params = GpuBuddyParams {
->> -                    base_offset: usable_vram.start,
->> -                    size: usable_vram.end - usable_vram.start,
->> -                    chunk_size: Alignment::new::<SZ_4K>(),
->> -                };
->> +                let buddy_params = gsp_static_info.usable_fb_regions.first().map(|usable_vram| {
->> +                    GpuBuddyParams {
->> +                        base_offset: usable_vram.start,
->> +                        size: usable_vram.end - usable_vram.start,
->> +                        chunk_size: Alignment::new::<SZ_4K>(),
->> +                    }
->> +                });
-> 
-> We should probably add a helper method on e.g. Chipset to say which
-> chips we expect FB on vs not, instead of proceeding with no fb regions
-> here for ones where we expect there to be one.
+Hi Linus,
 
-Open RM does approximately that, although Alex's point about using a
-HAL instead does of course apply. In Open RM, "bGpuArchIsZeroFb" is a
-per-chip HAL constant, true only for the Tegra iGPUs (GB10B, GB10C,
-GB20B, GB20C in the current public source).
+The final set of merge window fixes, from AMD mostly. with one set of
+panthor mmu fixes.
 
-None of the chipsets that nova-core supports today is in that set, so an
-empty region list is still an error for all of them.
+Regards,
+Dave.
 
+drm-next-2026-10-31:
+drm fixes for 7.4-rc1
 
-thanks,
--- 
-John Hubbard
+amdgpu:
+- UALink fixes
+- Runtime PM fixes
+- GPUVM fixes
+- Mac fixes
+- HDMI fixes
+- DP MST fix
+- Userptr fix
+- SMU fixes
+- DSC fix
+- VCE/UVD sched teardown fix
+- Display runpm reference fix
+- Display TD-LUT fix
+- SMU 13.x fixes
+- SMU 14.x fixes
+- Gang submit fix
+- Passive DVI sink fix
+- USB4 tunnel fix
+- Freesync fix
 
+amdkfd:
+- SVM fixes
+- Fix doorbell allocation race
+- GC 12.1 fix
+- GPU reset fix
+- Buffer accounting fixes
+- Bounds checking fixes
+- Hotplug fixes
+- SVM fixes
+- CRIU fixes
+- GFX12 fix
+
+panthor:
+- Fix bugs in MMU handling
+The following changes since commit fad06cfaf385787b9ffa2f73f049d42dbe1de57f:
+
+  Merge tag 'drm-misc-next-2026-10-16' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-next
+(2026-10-21 11:03:26 +1000)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-10-31
+
+for you to fetch changes up to f94ed3d7cba3c83eef50b1a96d630d63cf54f69c:
+
+  Merge tag 'amd-drm-next-fixes-7.4-2026-10-28' of
+https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-next
+(2026-10-29 16:01:40 +1000)
+
+----------------------------------------------------------------
+drm fixes for 7.4-rc1
+
+amdgpu:
+- UALink fixes
+- Runtime PM fixes
+- GPUVM fixes
+- Mac fixes
+- HDMI fixes
+- DP MST fix
+- Userptr fix
+- SMU fixes
+- DSC fix
+- VCE/UVD sched teardown fix
+- Display runpm reference fix
+- Display TD-LUT fix
+- SMU 13.x fixes
+- SMU 14.x fixes
+- Gang submit fix
+- Passive DVI sink fix
+- USB4 tunnel fix
+- Freesync fix
+
+amdkfd:
+- SVM fixes
+- Fix doorbell allocation race
+- GC 12.1 fix
+- GPU reset fix
+- Buffer accounting fixes
+- Bounds checking fixes
+- Hotplug fixes
+- SVM fixes
+- CRIU fixes
+- GFX12 fix
+
+panthor:
+- Fix bugs in MMU handling
+
+----------------------------------------------------------------
+Asad Kamal (5):
+      drm/amd/pm: Update smu_v15_0_8 PMFW headers
+      drm/amd/pm: Add set_npm_limit function
+      drm/amd/pm: Add NPM metrics reads and SetNpmLimit
+      drm/amd/pm: Add store npm limit function
+      drm/amd/pm: Notify node unload during driver unload
+
+Avi Weiss (1):
+      drm/amd/display: Initialize missing TD-LUT programming inputs
+
+Boris Brezillon (3):
+      drm/panthor: Don't invalidate OTHER caches
+      drm/panthor: Fully disable the AS even if it's going to be re-assigned
+      drm/panthor: Move cache-flush after UPDATE(UNMAPPED)
+
+Daniel Phillips (1):
+      amdkfd: Fix memory availability double accounting of kfd pinned objects
+
+Dave Airlie (3):
+      Merge tag 'amd-drm-next-fixes-7.4-2026-10-21' of
+https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-next
+      Merge tag 'drm-misc-next-fixes-2026-10-23' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-next
+      Merge tag 'amd-drm-next-fixes-7.4-2026-10-28' of
+https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-next
+
+Elena Sakhnovitch (1):
+      drm/amdgpu/gmc9: add extra type-2 TLB flush for gfx942/gfx950
+
+Fangzhi Zuo (3):
+      drm/amd/display: Poll passive DVI sinks for EDID readiness
+      drm/amd/display: Cap DSC bpp for USB4 DP tunnels
+      drm/amd/display: refresh cached HDMI FreeSync state
+
+Harish Kasiviswanathan (1):
+      drm/amdkfd: fix NULL deref in SDMA HQD debugfs dump on GC 12.1
+
+Harkirat Gill (1):
+      drm/amdgpu: re-enable GFXOFF for compute on GFX12
+
+Henry Martin (1):
+      drm/amdkfd: fix doorbell allocation race creating duplicate allocations
+
+Horatio Zhang (1):
+      drm/amdgpu: skip the PASID TLB fence for the UALink NPA VM
+
+Ilya Bakoulin (2):
+      drm/amd/display: Fix HDMI FRL FFE compliance test
+      drm/amd/display: Adjust HDMI FRL LT timeout
+
+Jesse Zhang (9):
+      drm/amdgpu: wake the GPU for INFO queries that access the hardware
+      drm/amdgpu: fix the error path in amdgpu_vm_pt_alloc()
+      drm/amdgpu: reject ANONONLY userptrs that span multiple VMAs
+      drm/amdkfd: don't drop an SVM CWSR reference that was never taken
+      drm/amdgpu: reject CS chunks too large for kvmalloc()
+      drm/amdkfd: split vram_pages of SVM ranges prefetched without a
+GPU mapping
+      drm/amdkfd: send SMI process and VM fault events only to allowed clients
+      drm/amdgpu: drop the gang leader reference when freeing gang jobs
+      drm/amdkfd: evict the queues only once for CRIU PROCESS_INFO
+
+Jiale Yao (1):
+      drm/amdkfd: validate SRAT subtables before parsing
+
+John Fisher (1):
+      drm/amdgpu: wait for pending page table updates before switching
+a VM to CPU updates
+
+Keita Morisaki (1):
+      drm/amd/display: Fix swap in median3() for DSC rate control
+
+Kenneth Feng (2):
+      drm/amd/pm:restate all customized OD features on every table
+upload for smu 13.0.0/smu 14.0.2
+      drm/amd/pm: add zero fan stop temperature support on smu 14.0.2
+
+Kevin Wang (3):
+      drm/amd/pm: reapply umd profile state after recovery
+      drm/amd/pm: preserve committed OD features for SMU 13.0.0/13.0.7
+      drm/amd/pm: preserve committed OD features for SMU 14.0.2
+
+Luigi Lauro (2):
+      drm/amdgpu: require _PR3 for BOCO
+      drm/amd/display: take a runtime PM reference only when a CRTC turns on
+
+Maciej Kucharek (3):
+      drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
+      drm/amdgpu: reset CIK ASIC on Apple boards with VRAM at 0
+      drm/amdgpu: reset VI ASIC on Apple boards with VRAM at 0
+
+Mario Limonciello (1):
+      drm/amd/display: don't WARN when removing an unallocated MST payload
+
+Olivier Kaloudoff (3):
+      drm/amdkfd: tear down KFD processes before early fini_sw on disconnect
+      drm/amdkfd: stop restore retries on device unplug
+      drm/amdgpu: guard VCE/UVD sched entity teardown on failed probe
+
+Philip Yang (3):
+      drm/amdkfd: Fix svm_bo use after free in svm_range_clone
+      drm/amdgpu: Reject UALink source-identification address mode
+      drm/amdgpu: Enable remote TLB shootdown
+
+William Palacek (2):
+      drm/amdkfd: wait for a GPU reset before freeing a BO
+      drm/amdkfd: Validate the control stack of a restored queue
+
+Zhen Han (1):
+      drm/amdkfd: correct vram_available calculation
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |  19 ++
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c   |  44 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   | 105 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   6 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  17 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  14 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  24 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |  28 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  33 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c         |  21 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c          |  12 +-
+ drivers/gpu/drm/amd/amdgpu/cik.c                   |  10 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  18 +-
+ drivers/gpu/drm/amd/amdgpu/si.c                    |  10 +
+ drivers/gpu/drm/amd/amdgpu/vi.c                    |  10 +
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  48 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |  35 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c            |   9 +-
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   9 +
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c          |  23 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h       |   9 +
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   |   2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   |   2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   |   2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c |   2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |   2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    |   2 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |   4 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |   4 +-
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  30 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |  23 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |  60 +++--
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  36 ++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  15 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |   9 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  24 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  17 +-
+ drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h     |   4 +-
+ .../gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c   |   2 +-
+ .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c     |   2 +
+ .../amd/display/dc/link/hwss/link_hwss_hpo_frl.c   |   3 +
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |   2 +
+ .../amd/display/dc/link/protocols/link_hdmi_frl.c  | 129 +++++++---
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     |   3 +
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                | 103 ++++++++
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  33 ++-
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |   2 +
+ drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c   |  33 ++-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          | 101 +++++++-
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   8 +
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_pmfw.h    |  12 +-
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v15_0_8_ppsmc.h   |   5 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |   4 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h       |   1 +
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 200 +++++++++++----
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   | 199 +++++++++++----
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 279 +++++++++++++++++----
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c   | 157 +++++++++++-
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.h   |   4 +
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  26 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h             |   2 +
+ drivers/gpu/drm/panthor/panthor_mmu.c              |  45 ++--
+ 68 files changed, 1660 insertions(+), 468 deletions(-)
