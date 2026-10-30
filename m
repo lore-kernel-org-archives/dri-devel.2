@@ -2,96 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B32606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 09:12:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03324606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 09:12:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=niLedfBM
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xrvMpkzQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E588810E860;
-	Fri, 30 Oct 2026 09:12:48 +0000 (UTC)
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A6510E4BF
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 04:58:23 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-8ab395abf79so2928217b3.0
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 21:58:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793336302; cv=none;
- d=google.com; s=arc-20260327;
- b=S6ZoPdTvYEJ9loEfaxHWiG/RlKH5MM7sTHFYaz2S5r2W15WkL3qWV2QiZ0Xs2+RU6r
- VX1XBPrpbV32otCje+eU/IF7x9waiwDABBqsqg4Jv+wuo2qQvV19kb2AxrO2/1H3JU3j
- BlFP+BjWQcsFF1miINyh+9IPynNR5PH7kGOK7dncDqLknoj32GnqV/cIUTC0CShxOB3U
- 6yAbYpE7pqUmupioO/pVXHE/gNj054Acfxb7j+sPCJjpiUI2PBEhYF4i1aWBqhfq1U0S
- KrGs9wthRIzds+Oyp8jsJEOuuKkm9VBWnl8gyYJpg9vFrtWQkyC5jTff/Cuaj38NqtKS
- lJNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=iYl5XqgDhTI1HGfNSvWt4IYuO3IdVVfYnwA7yVxD4Pg=;
- fh=Dm/zL1tt/IMWzzTsD1hbE9hiUytAlNMOOC9D14Ehwt4=;
- b=p3Rz2wvSKnStHYFRBQfOPRMq8QHqC7r7foBqu/rdLGNe7RK3AUG4ME3xNasNE5NsgI
- rlyY7+YgxxSYSAEHH1UZWrCCm9xGrvecS3F32PRGNDSBxl1PyuRZ+xq+NnEx41vzY2JC
- IXZnNo7gr0tplnO5d9j8buN1jY25IspDcTOAoAXqiNHr9a1zdAlBjjaorRAab90lg2VE
- 76K1CrxMR0b97lotplkmB+bau1UwJResl+1RHdCtLZwyh3yEcsl8teQ1mEsDRh8tFwRE
- JsJmvqbRBJNvJBdFWMF2BAm5Pp+17tLqN4us2JZjbBMCu+WM8aBDaSvYCjvaWFhn3suk
- ZupA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2698A10E869;
+	Fri, 30 Oct 2026 09:12:49 +0000 (UTC)
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 045A3112642
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 03:55:54 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-8b06c0794cfso2998407b3.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 20:55:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793336302; x=1793941102; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=iYl5XqgDhTI1HGfNSvWt4IYuO3IdVVfYnwA7yVxD4Pg=;
- b=niLedfBM3zypca8gxtXzLrZ4E9K8SJkylDkR6EyC9aMHo50a9WuUQmdMM7pKIbfGLX
- zzsl+Wlo/GH8c5TAa88oRQNBpIa6FSd22hSBeqh6sbJV5pZIqAxd3M4x3yyPG5xzgi71
- +MllQk7scrJkCHUIvnK0e+gX/8H7KtttrYWremeWcsknG5aPtXU5hI+ed1gow2oj+PDl
- CADtwok+YS4e3ync/l4enyA94hiCox3DcdfGeBxlxFrZpAdp9cQ0QUKf2QsQ/HaLSDRO
- zDaRJOsqGfVbKHzRTtMyS9FfAZ5sAqkZYvUvppjEvzNg63AwRwaD9Sy+1v6I3oHyahYO
- FdHg==
+ d=gmail.com; s=20260707; t=1793332554; x=1793937354; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=5zugQx4flv62Sdzk9Wl3acRuLP/zK3sGN6owEqXiGh0=;
+ b=xrvMpkzQr80CH6QbH1KItV5qmkpGSxRMS/vzLiK64Qxi2SIqzWHfouje6f8bodEIap
+ /HGUu/nfYQ2dQQg6vUSR4lLHn3N9jk8gNYFFDX5md5fmsD/Qud23QF2RY96sIFwuRw20
+ dz/Iu2Ntwn9AJwB6ukhFOW5g9BufPKufQh3BnL4sv+5oGm5kqeoBcFByrLY3410zapqs
+ lsbMRJuXAQ4BbJtrctKuu2mo0F6Le/puBIfQcyOZ5mknLG2OYUU0y0hBmLkhpOd8r4K7
+ 1lvTU56CL/usdtSJWfakIv4mM+i6wrV1nrTxKbRnnKM9aXzdkRKtlk0Vz3mDvkbj9huX
+ /tzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793336302; x=1793941102;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=iYl5XqgDhTI1HGfNSvWt4IYuO3IdVVfYnwA7yVxD4Pg=;
- b=Oj/aJxKNDlMORFbCOBIlX+0iWX2fPy6mT8dnXcgWA0jxwwyg6MfJRFIhMNwRfj7Zum
- /DOUrbqv8H9vOd7HGVkB6nRLAbYy2J+vQDFsdl6+nZ2jy29gIYmvGvfLZIxxW+tJ9mdP
- 5Pm2bPy6T7oBQZnOPPXn73PBOtYS4/nCQxm1U62KzP0IVFOme1xxC1vSYdpAaCnx45ht
- +KV1/QYMFCoPqujNqvFvvgHGiY7zH5+98n35I4qCorU/CytntPKK73/3QpuS5mVN/zRF
- +J+JM1nKCFfDBBxCuyRsGheMLnWJZ2QZYXaRJv1Ga6thyq0b3UTxgnAj0dLA19PsIsAv
- K/gg==
+ d=1e100.net; s=20260707; t=1793332554; x=1793937354;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=5zugQx4flv62Sdzk9Wl3acRuLP/zK3sGN6owEqXiGh0=;
+ b=HCqZEH/URfRIU774VD9lF1R9vk+mhVowV18ACu2QfgJrrdoFx49rz+RkBLXrlRBKeI
+ s8Apj7XoFrLDAMHpj1JVuRYwmXYbHGIoXjjFSF2hiGPQcZexCBGHQz3QhVR8ehiLZoXF
+ YFCmLctJJHPySM39rl+iA+gxPNk7z9MRK6wRqrUEjaih2jpXjtDwQShads7YCi0SbUuq
+ JPb3+StrddshTOxwTmXKMGjW/j815XJLsjxfM3uk+V6HXzmstH7IT/mmls+0FeLRC5nx
+ tUJQEMnDbmObC2hpNlfEbOfG8dk1iwvMH3TNELRWuAu9QSfTuyGtXs/36k84e5z5Lh3M
+ lDTw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzAZPP5lLBcgPElna11g2Kaxyzw/+MvxQl1F+WBuAVHJ1PT8s8aRlwAZA4xvL2S+TL2o8rp7DvMpnA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYI8C/NLOGeDl0sciU0lTbHt5vxvwdDE+2DOxI2IK3vHGb0vcMsW
- eZsAHhTPb461nwHGW52I6mkumeyZuXZ7gBnB69owJ4F8SHv+nsXbgf3PhHY2stWyy7hgnbRRdw5
- 93rgudsCwwSkYaSCOArYrZRT2qx5hyoE=
-X-Gm-Gg: AYBFou3844vma/QiQsmTq6g1EUFTKQaXXM2WCbg6Fa2saHRwOyZ5Lg2VxDMPwigSY3b
- hxATH0g46RcOvDYOfYwDhKYkcJSFyRfCYZKXrta4CA3vIDbc7kz8pVlfxse5E+pui3AJwjDH96H
- 9hJcYWBDmrelFOdbrRm7Dduxppy0OniNWS5iFqOK6X9CmaBkAoIIhYT7whze64Y6JMxPdTFVpWn
- 5CgZFHjetyiaEXtxm2cPFrh13olBPB1mV5zJX/wPlY+t8oDHH9977aNaNyDbJTDm3VCGuFlu3lX
- 0xdKCETRcEZ9za3+SJT6ZYjIeNTEKTfigrd2I4mUBl5WSBdOZ89ySiOKREOlK1psDDspsO42xGq
- nsm7443fqEfHXhyFqN3aoVrNnMXoOwGArej9nmoogph/uWAZQ1dGfaf4bET8sxeSNfd1v5QRXIz
- 8BBi+Q/C9EdJ6+6csdFegfGr9qjR+8S8zEeO/bhA4PxhepldDVrFbOjFb3349QUdZtyvXR9yE+T
- 7WPlZV1T9XEeg==
-X-Received: by 2002:a05:690c:6d84:b0:8b1:7346:f1b0 with SMTP id
- 00721157ae682-8b2b66e405bmr8955237b3.18.1793336301825; Thu, 29 Oct 2026
- 21:58:21 -0700 (PDT)
+ AKwUvBy1D5WH5x/5kXXC4B4lDLX9XB55MD9GkyM1lZ5gdVVuio20LeoOziAKtpoGSUR6LsR+3xuHO9sBeo8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJM1rU9wSTq/yAOLAeLAIDjKtIDS7pGsd77LRlg7RB1cQ0wHqZ9
+ S25ab/qnJXRztRf4/6PikBuMyiepOSd+08dXe28rgZG1xjmME1ibyW8J
+X-Gm-Gg: AYBFou0TA1/gEYyXBn6S/5wEbVpdK7zLJ4zwFposeAWtydybHfSsFPKvqjHXaOyL2vW
+ QQ0BIQNJxACRSIYq7LJzuhcDYzYfKVq4DcSBKQfHHTbjJiOv2LMapXE3JQaUTrCaUGzj4pxEl0c
+ PYtqOAeVZq/chk3tzNwflxrtRIWdCCwDTwxEP81oxzRvIqO/YVVZYoeSvmybGJkLA+/YFpXQXao
+ LlwEBqJ4M2slUr0rHLlDvL+LHs9g8LoPBCFRhweFMtbfd/TchfcF+nc1BKOxnXI0w2Bo6x1ma4y
+ imJPwo5p+MFCLOE/OVwaHrZ7WuCHDU7IxtWcd5mEcvFe3B8lUl+nRGtvfZmKnmAcm5FT0A7fG4M
+ JvLnkdTcZHB9udwMeJAXM2Ps1G32jg8tDz0cjrXC9f/yCe8k/ixP2LNej3snwVjbyMpRT04lSrZ
+ qk/+3bZstBRfdFFHtCQoLzhVBzBpkD4y3lVGaiGjJ3JRZFHCLAbcCAgLmHmwguKDVLjHQ/37/XD
+ 5kePomNn/vlv4qiEGk6TgzxmqXXUmW+f9bLbdgTwwp9mhnaE1dkQSFxpCtLzxgLee0PHUk3VuL1
+ ctsXAWvNx+857KKMqHaMLJ0/Pxsd5emILQOauRGf8X3i6yDXuBZ9PMmZ5ROHKVlJTUHQuOGqzFs
+ i1hkSF5ML26s=
+X-Received: by 2002:a53:c08f:0:b0:679:b98d:9b65 with SMTP id
+ 956f58d0204a3-67ba4ff16damr696189d50.35.1793332553574; 
+ Thu, 29 Oct 2026 20:55:53 -0700 (PDT)
+Received: from KastenNixOS7700x.lan
+ (h191.160.142.40.dynamic.ip.windstream.net. [40.142.160.191])
+ by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-67ba73addf8sm309599d50.3.2026.10.29.20.55.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2026 20:55:53 -0700 (PDT)
+From: Josh Kasten <jkasten@gmail.com>
+To: calvin@wbinvd.org
+Cc: Jerry.Zuo@amd.com, airlied@gmail.com, alex.hung@amd.com,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ aurabindo.pillai@amd.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, george.zhang@amd.com,
+ harry.wentland@amd.com, linux-kernel@vger.kernel.org,
+ mikhail.v.gavrilov@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, Josh Kasten <jkasten@gmail.com>
+Subject: Re: [PATCH] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to
+ GTT"
+Date: Thu, 29 Oct 2026 23:54:18 -0400
+Message-ID: <20261030035423.37193-1-jkasten@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
+References: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261019051441.2835682-1-vk092kumar@gmail.com>
- <sashiko-outbox-176669@kernel.org>
-In-Reply-To: <sashiko-outbox-176669@kernel.org>
-From: Vivek Ray <vk092kumar@gmail.com>
-Date: Fri, 30 Oct 2026 10:28:10 +0530
-X-Gm-Features: AclHuK_hnhz2CzVs7OdfbB8bc-6aUdEE-HhUsy4r_fqXPmbNPE2yK5HWK8nVnqs
-Message-ID: <CAJD4gbs=VTwB4WWezjfyg=h-6yAkJA5x3_7DXTZQt5ZQ4Ceaow@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/msm/dp: allow eDP sinks without DP_SINK_COUNT
-To: sashiko-reviews@lists.linux.dev, Dmitry Baryshkov <lumag@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Vivek Kumar <vk092kumar@gmail.com>
-Content-Type: multipart/alternative; boundary="0000000000003bb2bd065f07a53a"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 30 Oct 2026 09:12:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,42 +96,100 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=0.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---0000000000003bb2bd065f07a53a
-Content-Type: text/plain; charset="UTF-8"
+I am able to reproduce this issue on kernel 7.3 on the AMD RX 7900 XT GPU.
+* XT is not a typo, however both XT & XTX variants are Navi 31 anyway.
+Never seen this issue on 7.2.8, 7.2.11, or 6.18.54.
 
->
-> Hi Dmitry,
->
-> Could you please take a look at this patch (V4)?  I have incorporated your
-> previous suggestions and tested the changes on my boards.
->
-> I'd appreciate any further feedback or suggestions you may have.
->
-> Thanks for your time.
->
-> Regards,
-> Vivek Ray
->
+### Conditions to reproduce banding issue
+#### 1. When sub-viewport (AKA SubVP) is enabled
+Check if it is enabled with the following command:
+`sudo sh -c 'head -v /sys/kernel/debug/dri/0000:*/amdgpu_dm_capabilities'`
 
---0000000000003bb2bd065f07a53a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I think the amdgpu driver is in control when SubVP is enabled. In my testing
+with a single active display this gets enabled when at 4K and it's frequency
+is 100hz to 120 hz, inclusive.
+Mikhail Gavrilov gave me this description for additional conditions if SubVP
+get enabled:
+> On DCN 3.2, SubVP itself is limited to:
 
-<div dir=3D"ltr"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex"><p>Hi Dmitry,</p><p>Could you please take a look at this=
- patch (V4)?=C2=A0 I have incorporated your previous suggestions and tested=
- the changes on my boards.</p><p>I&#39;d appreciate any further feedback or=
- suggestions you may have.</p><p>Thanks for your time.</p><p>Regards,<br>Vi=
-vek Ray</p>
-</blockquote></div>
-</div>
+> * refresh below 120 Hz; or 120–175 Hz for 3840x2160, 3440x1440, 2560x1440
+> and 1920x1080 without scaling, and then, on a single display, only with
+> FreeSync off;
+> * pixel rate up to 1800 MHz;
+> * no overlay planes and no rotation.
 
---0000000000003bb2bd065f07a53a--
+#### 2. Memory clock changes
+Make sure the video memory clocks are not locked as the banding only happens
+when the GPU changes it's memory frequency when the frame is being outputted.
+
+This happens more often if the GPU is mostly idle and you move a window or
+resize it in a desktop environment like KDE. I see it as often as a few times
+a second, but sometimes it takes up to 10 seconds of doing this.
+
+#### 3. 10x more often if amdgpu overdrive is enabled
+While I know AMD overdrive needs to be disabled before reporting a bug enabling
+it will allow you to reproduce the bug more often and faster. When 
+`amdgpu.ppfeaturemask=0xfffd7fff` is set I see this bug about 10x more often.
+
+### Confirmed revert of a637a140 fully fixes this
+I confirm on next-20261023 by reverting a637a140 I am no longer seeing this
+issue.
+
+The revert didn't go clean on kernel next-20261023, as there was some changes
+on top, so attached is the patch I generated for the revert of commit a637a140.
+
+### Summary
+
+I don't understand the optimization done in commit a637a140, or if there is
+another related commit that should also be reverted. However what I can say
+is I haven't notice any side effects after running with this revert for a few
+days so far. It might be worth considering reverting commit a637a140 in a 7.3.x
+patch release until a new fix can be tested in next.
+
+Hoping this gets resolved in a future kernel release soon, the banding gets
+to me sometimes and won't want this happing on other AMD GPUs. :(
+Let me know if I can help at all with any additional testing or information!
+
+Signed-off-by: Josh Kasten <jkasten@gmail.com>
+---
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+@@ -538,7 +538,6 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_CURSOR_OFFLOAD */
+ 	};
+ 	int r;
+-	int mem_domain = AMDGPU_GEM_DOMAIN_GTT;
+ 
+ 	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+ 	case IP_VERSION(2, 1, 0):
+@@ -675,19 +674,13 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 		return -EINVAL;
+ 	}
+ 
+-	/* Limit to allocate dmub to GTT on DCN32/1
+-	 * TODO: Other asics with GDDR7 may have worse latency
+-	 */
+-	if (dmub_asic != DMUB_ASIC_DCN32 &&
+-	    dmub_asic != DMUB_ASIC_DCN321)
+-		mem_domain |= AMDGPU_GEM_DOMAIN_VRAM;
+-
+ 	/*
+ 	 * Allocate a framebuffer based on the total size of all the regions.
+ 	 * TODO: Move this into GART.
+ 	 */
+ 	r = dmub_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZE,
+-				  mem_domain,
++				  AMDGPU_GEM_DOMAIN_VRAM |
++				  AMDGPU_GEM_DOMAIN_GTT,
+ 				  &adev->dm.dmub_bo,
+ 				  &adev->dm.dmub_bo_gpu_addr,
+ 				  &adev->dm.dmub_bo_cpu_addr);
+---
