@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69496606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 21:46:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97280606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 21:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XSTyLcSd
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8r/iYsd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9AD410E8EA;
-	Fri, 30 Oct 2026 21:46:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F102C10E08A;
+	Fri, 30 Oct 2026 21:49:59 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2F2510E8EA
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 21:46:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 147ED10E08A
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 21:49:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0E5FE601F8;
- Fri, 30 Oct 2026 21:46:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E46A1F000C1;
- Fri, 30 Oct 2026 21:46:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2327C601F8;
+ Fri, 30 Oct 2026 21:49:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985371F000C1;
+ Fri, 30 Oct 2026 21:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793396779;
- bh=6dSc5TCnRBZ4GFF7sqv7lufHqY+PPsKq4DtTqCUjU4U=;
+ s=k20260515; t=1793396992;
+ bh=Q5H+GHNQqU5OzIPql1TmW8O+jQjbNsr28QPZTiTGdMc=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=XSTyLcSdwJ9GWd0JLImKfiUv9Tkoo2r61agPeiNP2O707XJRe8IdNqD2A3zhaAR1s
- PW0Nxnf/KXBwBifUsmWGnyeHZq7tnTOgaKBWc6o2owgjdMo41kq1t8+WDa0gom1CM6
- prVAaZLpFdC1AQaTHEOVZ5AxzuMX5aMH84sbAqNV9baDxN1aSpmEBjD5jyBPSRCBpK
- hYArmDIH/mXsvcN0669IvjiijBSmHdhb/Ljt0qVkfqKWiXSXrfWcWwwGV7vX3qxIm1
- 8QeZPln5C4R4SCOZ2fPjF4dO8L2QNv1G5afv9e2RPMHQROEQldPeNPpsF2HbVM2trW
- ZseKPywcQcS7A==
-Message-ID: <sashiko-outbox-191551@kernel.org>
+ b=k8r/iYsd5bEhriNCkQrCaKpxaQ7ZwSnptH0Jcpg2dhZGtI3AAij45S2PpjunkjVv+
+ WB4SW54lvHsSjEdii/0GKpmdLcRFZ/pVUs/sLFv963a6fn77sTaExvxtvfuICt8glv
+ WZDTnS7Qc3uZ24tCRMOYQyqsO3Cv+KUlDT4j0oHx8j8RNmYygc8PEQHf17mujjKA3N
+ X2aINw/xuNknAIl3F3Q+BAIUg7gAeok5mauTvukWyD3vimtDbdkvHG7ynkBevdvhbH
+ pqJLdm+U311P1OgJT1t3jpUkVi+ci14Qi7GiVPR+t+IIxtgBjrW85Q3RSxMlXiXqzv
+ 6XiL/Tl3Nq89w==
+Message-ID: <sashiko-outbox-191553@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 15/19] drm/msm/a8xx: devcoredump state capture support
+Subject: Re: [PATCH v4 4/6] drm/msm: Convert iommu map/unmap to helpers
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261030211928.45761-16-robin.clark@oss.qualcomm.com>
-References: <20261030211928.45761-1-robin.clark@oss.qualcomm.com>
- <20261030211928.45761-16-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20261030213251.55365-5-robin.clark@oss.qualcomm.com>
+References: <20261030213251.55365-1-robin.clark@oss.qualcomm.com>
+ <20261030213251.55365-5-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 21:46:19 +0000
+Date: Fri, 30 Oct 2026 21:49:52 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,329 +57,190 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm/msm/a8xx: inverted BO check and UAF in a8xx_snapshot_gpu_bo()
-- [High] drm/msm/a8xx: wrong GX power check helper in a8xx_gpu_state_get()
-- [High] drm/msm/a8xx: invalid slice 0 access in gen8_snapshot_mempool()
-- [Medium] drm/msm/a8xx: dirty CP_APERTURE_CNTL_HOST state in a8xx_gpu_stat=
-e_get()
+- [Critical] drm/msm: missing leaf IOTLB invalidation in __unmap_iommu() on=
+ qcom_iommu
+- [High] drm/msm: bypassed iommu_sync_map() and core IOMMU API in msm_iommu=
+_map()
+- [Low] drm/msm: build failure in __map_iommu() when !CONFIG_IOMMU_API
 --
 
-commit 7da07b63ff0536a6ed00689438a2759bfa00dddf
+commit e0c13e8fe949f41860b8d6b287a4884b707293a0
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm/a8xx: devcoredump state capture support
+drm/msm: Convert iommu map/unmap to helpers
 
-This commit adds devcoredump GPU state capture and snapshot formatting
-support for Adreno Gen8 (A8xx) GPUs, including crashdumper script
-execution, register and shader block dumping, debugbus capture, and GMU
-state collection.
+This commit converts msm_iommu_map() and msm_iommu_unmap() to use the
+internal __do_map() and __do_unmap() helpers with callbacks that invoke
+iommu_domain_ops directly instead of calling iommu_map_sgtable() and
+iommu_unmap().
 
-> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c b/drivers/gpu/dr=
-m/msm/adreno/a8xx_gpu_state.c
-> new file mode 100644
-> index 0000000000000..3c696244cd663
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c
-> @@ -0,0 +1,1401 @@
-
-[ ... ]
-
-> +#define NEXT_SLICE(_slice, _region, _slice_mask) \
-> +	((_region =3D=3D UNSLICE) ? fls(_slice_mask) : next_slice(_slice, _slic=
-e_mask))
-> +
-> +#define FIRST_SLICE(_region, _slice_mask) \
-> +	((_region =3D=3D UNSLICE) ? 0 : NEXT_SLICE(0, _region, _slice_mask))
-> +
-> +#define FOR_EACH_SLICE(_slice, _region, _slice_mask) \
-> +	for (_slice =3D FIRST_SLICE(_region, _slice_mask); \
-> +	     _slice < fls(_slice_mask); \
-> +	     _slice =3D NEXT_SLICE(++(_slice), _region, _slice_mask))
-
-[ ... ]
-
-> +static void gen8_legacy_snapshot_registers(struct msm_gpu *gpu,
-> +					   struct adreno_gpu_state *state,
-> +					   const struct gen8_reg_list *regs,
-> +					   u32 slice_id)
+> diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_io=
+mmu.c
+> index 5c13ad6d5a366..479e5450a4dcd 100644
+> --- a/drivers/gpu/drm/msm/msm_iommu.c
+> +++ b/drivers/gpu/drm/msm/msm_iommu.c
+> @@ -731,12 +731,38 @@ static void msm_iommu_detach(struct msm_mmu *mmu)
+>  	iommu_detach_device(iommu->domain, mmu->dev);
+>  }
+> =20
+> +static size_t
+> +__unmap_iommu(void *arg, u64 iova, size_t pgsize, size_t pgcount)
 > +{
-> +	int count;
+> +	struct iommu_domain *domain =3D arg;
+> +	return domain->ops->unmap_pages(domain, iova, pgsize, pgcount, NULL);
+> +}
 > +
-> +	/* Figure out how many registers we are going to dump */
-> +	count =3D adreno_snapshot_regs_count(regs->regs);
-> +
-> +	snapshot_sect (state, MVC_V3, 4 * count, {
-> +		.ctxt_id =3D 0,
-> +		.cluster_id =3D CLUSTER_NONE,
-> +		.pipe_id =3D PIPE_NONE,
-> +		.location_id =3D UINT_MAX,
-> +		.sp_id =3D UINT_MAX,
-> +		.usptp_id =3D UINT_MAX,
-> +		.slice_id =3D HEADER_SLICE_ID(regs->slice_region, slice_id),
-> +	}) {
-> +		unsigned long flags;
-> +
-> +		if (regs->sel)
-> +			gpu_write(gpu, regs->sel->host_reg, regs->sel->val);
-> +
-> +		if (regs->slice_region) {
-> +			u32 val =3D GEN8_CP_APERTURE_REG_VAL(slice_id, 0, 0, 0);
-> +			a8xx_aperture_acquire_raw(gpu, val, &flags);
-> +		}
-> +
-> +		/* Make sure the previous writes are posted before reading */
-> +		mb();
-> +
-> +		for (const u32 *ptr =3D regs->regs; ptr[0] !=3D UINT_MAX; ptr +=3D 2) {
-> +			snapshot_mvc_regs_v3_subheader(&sect, ptr);
-> +
-> +			for (int k =3D ptr[0]; k <=3D ptr[1]; k++) {
-> +				snapshot_sect_u32(&sect, reg_read(gpu, k));
-> +			}
-> +		}
-> +
-> +		if (regs->slice_region)
-> +			a8xx_aperture_release(gpu, flags);
-> +	}
+> +static int
+> +__map_iommu(void *arg, phys_addr_t paddr, u64 iova, size_t pgsize,
+> +	    size_t pgcount, int prot, size_t *mapped)
+> +{
+> +	struct iommu_domain *domain =3D arg;
+> +	return domain->ops->map_pages(domain, iova, paddr, pgsize, pgcount,
+> +				      prot, GFP_KERNEL, mapped);
 > +}
 
-[Severity: Medium]
-As reported by Sashiko on v3 [1], does gen8_legacy_snapshot_registers()
-leave REG_A8XX_CP_APERTURE_CNTL_HOST and a6xx_gpu->cached_aperture with a
-stale slice configuration when transitioning from a SLICE entry to an
-UNSLICE entry?
+[Severity: Low]
+Does dereferencing domain->ops in __unmap_iommu() and __map_iommu() break t=
+he
+build when CONFIG_IOMMU_API is disabled?
 
-In drivers/gpu/drm/msm/adreno/a8xx_gpu.c, a8xx_aperture_acquire_raw() writes
-the aperture register and updates cached_aperture, while
-a8xx_aperture_release() only unlocks a6xx_gpu->aperture_lock without
-resetting the register:
+In drivers/gpu/drm/msm/Kconfig, DRM_MSM depends on IOMMU_SUPPORT and selects
+IOMMU_IO_PGTABLE, neither of which selects CONFIG_IOMMU_API. In
+include/linux/iommu.h, struct iommu_domain_ops is only forward-declared when
+CONFIG_IOMMU_API is not enabled, so dereferencing domain->ops->unmap_pages =
+and
+domain->ops->map_pages fails to compile with an incomplete type error under
+SOC_IMX5 or COMPILE_TEST configurations without an IOMMU driver that selects
+CONFIG_IOMMU_API.
 
-drivers/gpu/drm/msm/adreno/a8xx_gpu.c:a8xx_aperture_release() {
-	spin_unlock_irqrestore(&a6xx_gpu->aperture_lock, flags);
-}
-
-Because gen8_legacy_snapshot_registers() only calls
-a8xx_aperture_acquire_raw() when regs->slice_region is non-zero (SLICE) and
-does not clear the aperture on release or when regs->slice_region is
-UNSLICE, any UNSLICE entry that follows a SLICE entry in
-b->pre_crashdumper_regs or b->reg_list will be read while
-A8XX_CP_APERTURE_CNTL_HOST_USESLICEID and the previous slice_id are still
-active in REG_A8XX_CP_APERTURE_CNTL_HOST.
-
-In addition, gen8_legacy_snapshot_registers() writes regs->sel->host_reg
-before calling a8xx_aperture_acquire_raw(), so the selector register is
-programmed before the target slice aperture is selected and outside
-aperture_lock (unlike gen8_legacy_snapshot_mvc()).
-
-Similarly, at the out label in a8xx_gpu_state_get(), a8xx_aperture_clear()
-is not called before returning:
-
-drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c:a8xx_gpu_state_get() {
-    ...
-out:
-	gpu_write(gpu, REG_A8XX_RBBM_SNAPSHOT_STATUS, 0x0);
-
-	if (dumper)
-		msm_gem_kernel_put(dumper->bo, gpu->vm);
-}
-
-When dumper is NULL (such as during an SMMU stall-on-fault devcoredump where
-the GPU resumes without a reset) or on an early goto out path, can leaving
-REG_A8XX_CP_APERTURE_CNTL_HOST and cached_aperture programmed to the last
-cluster, pipe, slice, and context corrupt subsequent host AHB accesses?
-
-[ ... ]
-
-> +static bool gen8_snapshot_mempool(struct msm_gpu *gpu,
-> +				  struct adreno_gpu_state *state,
-> +				  struct adreno_crashdumper *dumper)
+> +
+> +static void
+> +__flush_iommu(void *arg)
 > +{
-> +	const struct gen8_snapshot_block_list *b =3D block_list(gpu);
-> +	struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(to_adreno_gpu(gpu));
-> +	u32 slice_mask =3D a6xx_gpu->slice_mask;
-> +	u32 first_slice =3D a8xx_get_first_slice(a6xx_gpu);
-> +	bool ret =3D true;
-> +
-> +	for (int i =3D 0; i < b->mempool_index_registers_len && ret; i++) {
-> +		const struct gen8_cp_indexed_reg *cp_indexed_reg =3D
-> +			&b->mempool_index_registers[i];
-> +		unsigned long flags;
-> +		u32 j;
-> +
-> +		FOR_EACH_SLICE (j, cp_indexed_reg->slice_region, slice_mask) {
-> +			u32 pipe_id =3D cp_indexed_reg->pipe_id;
-> +
-> +			/* Set CP_CHICKEN_DBG[StabilizeMVC] to stabilize it while dumping */
-> +			a8xx_aperture_acquire_raw(gpu,
-> +				GEN8_CP_APERTURE_REG_VAL_NS(first_slice, pipe_id, 0, 0),
-> +				&flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			a8xx_aperture_acquire_raw(gpu,
-> +				GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0),
-> +				&flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), BIT(2));
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			ret =3D gen8_snapshot_indexed_registers(gpu, state, dumper,
-> +				cp_indexed_reg->addr,
-> +				cp_indexed_reg->data, 0,
-> +				cp_indexed_reg->size,
-> +				cp_indexed_reg->pipe_id,
-> +				HEADER_SLICE_ID(cp_indexed_reg->slice_region, j));
-> +
-> +			/* Reset CP_CHICKEN_DBG[StabilizeMVC] once we are done */
-> +			a8xx_aperture_acquire_raw(gpu,
-> +				GEN8_CP_APERTURE_REG_VAL_NS(first_slice, pipe_id, 0, 0),
-> +				&flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_CHICKEN_DBG_PIPE, BIT(2), 0);
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			a8xx_aperture_acquire_raw(gpu,
-> +				GEN8_CP_APERTURE_REG_VAL(j, pipe_id, 0, 0),
-> +				&flags);
-> +			gpu_rmw(gpu, REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE, BIT(2), 0);
-> +			a8xx_aperture_release(gpu, flags);
-> +
-> +			if (!ret)
-> +				break;
-> +		}
-> +	}
-
-[Severity: High]
-As reported by Sashiko on v3 [2], when cp_indexed_reg->slice_region is
-UNSLICE in gen8_snapshot_mempool(), FIRST_SLICE(UNSLICE, slice_mask) sets j
-to 0 regardless of slice_mask.
-
-In that case, gen8_snapshot_mempool() still programs
-GEN8_CP_APERTURE_REG_VAL(0, pipe_id, 0, 0) (which sets
-A8XX_CP_APERTURE_CNTL_HOST_USESLICEID for slice 0) and performs a
-read-modify-write on the per-slice register
-REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE before and after
-gen8_snapshot_indexed_registers().
-
-On A8xx GPUs with partial slice configurations where slice 0 is fused off in
-slice_mask (which is why first_slice is queried via a8xx_get_first_slice()
-for REG_A8XX_CP_CHICKEN_DBG_PIPE), won't accessing
-REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE on slice 0 during UNSLICE iterations
-access a disabled slice and trigger an AHB/NoC bus error? Should
-REG_A8XX_CP_SLICE_CHICKEN_DBG_PIPE only be touched when
-cp_indexed_reg->slice_region =3D=3D SLICE (and REG_A8XX_CP_CHICKEN_DBG_PIPE=
- when
-cp_indexed_reg->slice_region =3D=3D UNSLICE)?
-
-[ ... ]
-
-> +static void a8xx_snapshot_gpu_bo(struct adreno_gpu_state *state,
-> +				 struct drm_gem_object *bo,
-> +				 uint64_t iova)
-> +{
-> +	if (!IS_ERR_OR_NULL(bo))
-> +		return;
-> +
-> +	snapshot_sect (state, GPU_OBJECT_V2, bo->size, {
-> +		.type =3D SNAPSHOT_GPU_OBJECT_GLOBAL,
-> +		.gpuaddr =3D iova,
-> +		.size =3D bo->size / 4,  /* dwords */
-> +	}) {
-> +		void *ptr =3D msm_gem_get_vaddr(bo);
-> +		snapshot_sect_data(&sect, ptr, bo->size);
-> +		msm_gem_put_vaddr(bo);
-> +	}
+> +	struct iommu_domain *domain =3D arg;
+> +	iommu_flush_iotlb_all(domain);
 > +}
 
-[Severity: High]
-As reported by Sashiko on v3 [3], is the IS_ERR_OR_NULL(bo) check inverted =
-in
-a8xx_snapshot_gpu_bo()?
+[Severity: Critical]
+As reported by Sashiko on v3 [1], does passing NULL for the gather parameter
+in __unmap_iommu() followed by iommu_flush_iotlb_all() in __flush_iommu() s=
+kip
+hardware IOTLB invalidation completely on platforms using qcom_iommu?
 
-With if (!IS_ERR_OR_NULL(bo)) return;, valid GEM buffer objects return early
-without being captured, while a NULL or ERR_PTR bo falls through and
-dereferences bo->size (for example, when preemption is disabled and
-a6xx_gpu->preempt_bo[0] and a6xx_gpu->preempt_smmu_bo[0] are NULL).
+When msm_iommu_unmap() (or the error rollback path in msm_iommu_map() ->
+__do_map()) calls __do_unmap(), __unmap_iommu() calls
+domain->ops->unmap_pages(domain, iova, pgsize, pgcount, NULL).
 
-Even with the condition fixed to if (IS_ERR_OR_NULL(bo)) return;,
-a8xx_gpu_state_get() calls a8xx_snapshot_gpu_bo() in a loop over
-gpu->nr_rings:
+On SoCs using drivers/iommu/arm/arm-smmu/qcom_iommu.c (such as MSM8916,
+MSM8953, and MSM8976 with Adreno A3xx/A4xx/A5xx and MDP5),
+qcom_iommu_init_domain() uses the ARM_32_LPAE_S1 page table format in
+drivers/iommu/io-pgtable-arm.c. In __arm_lpae_unmap(), per-page TLB
+invalidation via io_pgtable_tlb_add_page() -> qcom_iommu_tlb_add_page()
+(which writes ARM_SMMU_CB_S1_TLBIVAL) is skipped when gather is NULL:
 
-drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c:a8xx_gpu_state_get() {
-    ...
-	for (unsigned i =3D 0; i < gpu->nr_rings; i++) {
-		a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_bo[i],
-				     a6xx_gpu->preempt_iova[i]);
-		a8xx_snapshot_gpu_bo(state, a6xx_gpu->preempt_smmu_bo[i],
-				     a6xx_gpu->preempt_smmu_iova[i]);
-	}
+drivers/iommu/io-pgtable-arm.c:__arm_lpae_unmap() {
+	...
+		if (gather && !iommu_iotlb_gather_queued(gather))
+			for (int j =3D 0; j < i; j++)
+				io_pgtable_tlb_add_page(iop, gather, iova + j * size, size);
+	...
 }
 
-If a6xx_preempt_init() fails after allocating a6xx_gpu->preempt_bo[0], it
-calls a6xx_preempt_fini() and falls back to gpu->nr_rings =3D 1, but
-a6xx_preempt_fini() frees a6xx_gpu->preempt_bo[i] via msm_gem_kernel_put()
-without clearing the pointer to NULL. Should a8xx_gpu_state_get() guard this
-loop with if (gpu->nr_rings > 1), and should a8xx_snapshot_gpu_bo() also
-check IS_ERR(ptr) after msm_gem_get_vaddr(bo) before passing ptr to
-snapshot_sect_data() and calling msm_gem_put_vaddr(bo)?
+When __do_unmap() then finishes by calling __flush_iommu() ->
+iommu_flush_iotlb_all(domain), qcom_iommu_flush_iotlb_all() only issues a
+TLBSYNC barrier without invalidating the context bank by ASID:
 
-[ ... ]
+drivers/iommu/arm/arm-smmu/qcom_iommu.c:qcom_iommu_flush_iotlb_all() {
+	...
+	pm_runtime_get_sync(qcom_domain->iommu->dev);
+	qcom_iommu_tlb_sync(pgtable->cookie);
+	pm_runtime_put_sync(qcom_domain->iommu->dev);
+}
 
-> +struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu)
-> +{
+As a result, neither ARM_SMMU_CB_S1_TLBIVAL nor ARM_SMMU_CB_S1_TLBIASID is
+written during unmap, leaving stale TLB entries pointing to unmapped and fr=
+eed
+GEM buffer pages accessible to GPU and display DMA.
 
-[ ... ]
-
-> +	snapshot_sect (state, DEBUG, 4, {
-> +		.type =3D SNAPSHOT_DEBUG_SLICE_MASK,
-> +		.size =3D 1,
-> +	}) {
-> +		snapshot_sect_u32(&sect, a6xx_gpu->slice_mask);
-> +	}
-> +	gen8_snapshot_cx_debugbus(gpu, state);
 > +
-> +	/* If GX isn't on the rest of the data isn't going to be accessible */
-> +	if (!a6xx_gmu_gx_is_on(adreno_gpu))
-> +		return &state->base;
+> +static const struct map_ops iommu_ops =3D {
+> +	__unmap_iommu, __map_iommu, __flush_iommu
+> +};
+> +
+>  static int msm_iommu_map(struct msm_mmu *mmu, uint64_t iova,
+>  			 struct sg_table *sgt, size_t off, size_t len,
+>  			 int prot)
+>  {
+> -	struct msm_iommu *iommu =3D to_msm_iommu(mmu);
+> -	ssize_t ret;
+> +	struct iommu_domain *domain =3D to_msm_iommu(mmu)->domain;
+> =20
+>  	WARN_ON(off !=3D 0);
+> =20
+> @@ -744,23 +770,18 @@ static int msm_iommu_map(struct msm_mmu *mmu, uint6=
+4_t iova,
+>  	if (iova & BIT_ULL(48))
+>  		iova |=3D GENMASK_ULL(63, 49);
+> =20
+> -	ret =3D iommu_map_sgtable(iommu->domain, iova, sgt, prot);
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	return (ret =3D=3D len) ? 0 : -EINVAL;
+> +	return __do_map(domain->pgsize_bitmap, iova, sgt, off, len, prot,
+> +			domain, &iommu_ops);
+>  }
+> =20
+>  static int msm_iommu_unmap(struct msm_mmu *mmu, uint64_t iova, size_t le=
+n)
+>  {
+> -	struct msm_iommu *iommu =3D to_msm_iommu(mmu);
+> +	struct iommu_domain *domain =3D to_msm_iommu(mmu)->domain;
+> =20
+>  	if (iova & BIT_ULL(48))
+>  		iova |=3D GENMASK_ULL(63, 49);
+> =20
+> -	iommu_unmap(iommu->domain, iova, len);
+> -
+> -	return 0;
+> +	return __do_unmap(domain->pgsize_bitmap, iova, len, domain, &iommu_ops);
+>  }
 
 [Severity: High]
-As reported by Sashiko on v3 [4], should a8xx_gpu_state_get() call
-a8xx_gmu_gx_is_on(adreno_gpu) (or adreno_gpu->funcs->gx_is_on(adreno_gpu))
-here instead of a6xx_gmu_gx_is_on(adreno_gpu)?
+As reported by Sashiko on v3 [2], can bypassing the core IOMMU API in
+msm_iommu_map() and msm_iommu_unmap() cause missing IOTLB synchronization on
+map as well as regressions with arm-smmu and generic_pt domains?
 
-In drivers/gpu/drm/msm/adreno/a6xx_gmu.c, a6xx_gmu_gx_is_on() reads
-REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS and checks the A6xx GX power and clock
-bits because adreno_is_a7xx(adreno_gpu) is false on A8xx:
+First, replacing iommu_map_sgtable() with __do_map() -> __map_iommu() ->
+domain->ops->map_pages() never calls iommu_sync_map()
+(domain->ops->iotlb_sync_map) after mapping pages. On APQ8064/MSM8960
+(drivers/iommu/msm_iommu.c, used with MDP4 and Adreno 320),
+msm_iommu_ops.default_domain_ops relies on .iotlb_sync_map =3D
+msm_iommu_sync_map to flush the IOTLB range via __flush_iotlb_range() after
+mapping and leaves .flush_iotlb_all as NULL.
 
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_gx_is_on() {
-    ...
-	val =3D gmu_read(gmu, REG_A6XX_GMU_SPTPRAC_PWR_CLK_STATUS);
+Second, on arm-smmu, iommu_unmap() previously used struct iommu_iotlb_gather
+to perform VA-targeted leaf invalidations (ARM_SMMU_CB_S1_TLBIVAL) followed=
+ by
+iommu_iotlb_sync(). Calling domain->ops->unmap_pages() with a NULL gather
+followed by iommu_flush_iotlb_all() forces a full ASID invalidation
+(ARM_SMMU_CB_S1_TLBIASID) on every unmap, evicting all TLB entries for acti=
+ve
+display scanout buffers and GPU mappings sharing the ASID.
 
-	if (adreno_is_a7xx(adreno_gpu))
-		return !(val &
-			(A7XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_GDSC_POWER_OFF |
-			A7XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
+Third, in drivers/iommu/iommu.c (iommu_map_nosync() and __iommu_unmap()),
+domains converted to the generic page table library (domain->is_iommupt) use
+pt->ops->map_range and unmap_range and leave domain->ops->map_pages and
+unmap_pages as NULL, while core wrappers also handle iommu_debug_map() /
+iommu_debug_unmap_begin() and IOMMU tracepoints.
 
-	return !(val &
-		(A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_GDSC_POWER_OFF |
-		A6XX_GMU_SPTPRAC_PWR_CLK_STATUS_GX_HM_CLK_OFF));
-}
-
-On A8xx, GX power status is reported via REG_A8XX_CX_MISC_GFX_PWR_CLK_STATUS
-on the A850 family (where GMU MX may be off) or REG_A8XX_GMU_PWR_CLK_STATUS
-in a8xx_gmu_gx_is_on(). Can calling a6xx_gmu_gx_is_on() on A8xx misreport GX
-power status and allow unclocked GX register accesses when GX is powered
-off?
-
-[1] https://lore.kernel.org/r/20261029201730.151754-13-robin.clark@oss.qual=
-comm.com
-[2] https://lore.kernel.org/r/20261029201730.151754-13-robin.clark@oss.qual=
-comm.com
-[3] https://lore.kernel.org/r/20261029201730.151754-13-robin.clark@oss.qual=
-comm.com
-[4] https://lore.kernel.org/r/20261029201730.151754-13-robin.clark@oss.qual=
-comm.com
+[1] https://lore.kernel.org/r/20261027230452.130031-5-robin.clark@oss.qualc=
+omm.com
+[2] https://lore.kernel.org/r/20261027230452.130031-5-robin.clark@oss.qualc=
+omm.com
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030211928.4576=
-1-1-robin.clark@oss.qualcomm.com?part=3D15
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030213251.5536=
+5-1-robin.clark@oss.qualcomm.com?part=3D4
