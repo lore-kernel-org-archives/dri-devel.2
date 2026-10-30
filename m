@@ -2,101 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30425606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 04:06:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D90606A31D
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 04:43:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=FF14j15i
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LC2pTnXh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3812910E672;
-	Fri, 30 Oct 2026 04:06:01 +0000 (UTC)
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
- [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A7E10E672
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 04:05:54 +0000 (UTC)
-Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-3535bf8b3e0so519848eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 21:05:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1793333154; x=1793937954; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=9CvywPHpjrCT0zo2JhnH11M0JaZbySgNZTi9n8+NQFc=;
- b=FF14j15iGK85HqdFC1VkxUamU3mUO6agfTrsZkmMyla0ntcR4ZBxDjVfCgvrT2TwgY
- mn4VXxMqE0uVQEPAHuimSEE4UfDEuTBA2O1XdBbe9l3qySI5meEmH2xer8bPMiYwGSMw
- eg3gIJ1nXYTX8PeAqVsGs8iCgi9HwvwV3jvjxwMqu1VlgB0wF678/Xjho/Kfzt+eSEcb
- ECBeuPwKrDowtNu9avF7+/8eMbQgh7uVHNmnoVu+dVxtL0N9zw4mdsPJzCFlrmiYdh23
- aVFE0YKIurSdKWiXWvL3sFzh4ppy+uhk/gvVe90CGMJK9wt+KZVpwNAeNVJqVoPvME8m
- fB9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793333154; x=1793937954;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=9CvywPHpjrCT0zo2JhnH11M0JaZbySgNZTi9n8+NQFc=;
- b=jAwzLxZkejcZm8C+UUDZ2rFRIQZVNiW88WGYkXGbjErLhJoAgsg2bFwoIeFemW6FJu
- iLBetTOlyiaZYi0VfVJcJv7EtMn9nVARYBeBEKqxWDn0Cg259/qqJb2fXB7BR9LHZl2f
- bS6eaWfyOASuGofd9fVkiFnMxKqYXX5hgaK6LuXY2TLd8vwWL609jwmpDP0kCNr0znTK
- GoUJVbqyksf6A1k282DAwdKPTHfIaq5jwlnfimQrcTh/Xn+40AshTsVjVqlnfsU//08f
- uF87o73Q6+w2fjdmRJ9YwDmMrpbwtyKejGK82943RbRTTgxjk85snBgQh2qQ0N1YdWKb
- M9wQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwj5EhgwV/PeCYJ6EZvcGM8F+fYB5M/0tJt1xgO6qHASzTXY8g2NO3hb3FAuPG189EltNBtySfZ5gk=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIdfXYk0C1/0wsE7zNET7WsuR/LejSVlHy/7QKjtw0JEn468TK9
- FcebTRVTgdHJ2Hq+2zQdMw6s3i889zOHimgRSque/t29nZaLVKyoU1pQ7WEw2LqZNO0=
-X-Gm-Gg: AYBFou1VSaHNwHK7yNV1XcC6u1G19zWuOA41UOYeSrvBLcv60ZiOoJagN8CadQBKLqN
- fVqB3vSxqhFCyQ0JOV7G2wtpYIMuY+ba1YWkU89vaSn4vXi83Tu/dDmxxvr1WY5PtwmP/mDmgqv
- iC2ywgpy84sytzW2q4Frl9YToRFs7ZAZyRve4hoypbDEvLTBgfsVB08tFd9EupB4vtrR/1PwiRn
- vTISLo3F1lgGlw1iwKs2ZFOze9PoKSNdb14f4Hjogn2rxSgFW/65e3Ptgy2/pm1AkaRfcBRV2O5
- 6zpeu+u9duVqDTn/spQjqF0WkH5hAkPVUFVYnRE/OasV3svCu9LluNezO+VGmtkDBIDNCAzErNP
- tp+eKoZ+Qw2PEq3xrwEmRdZe7coAGYwlu0slFvccoyHht/gv81XojvGW+n0I/AWZJ+fksPUoWsZ
- eOlbTpi/k0TzX+L+TMf/jI4h7CUDgviVAi5v+mZVTn1yHftceNyUpAhrZLQCSpXUPDigKkoHCIf
- 8Fj1qbBRlTzfHdQuiCPZwL/Ir0kg+HHXCsOauZ7WDKsxFUQRYUwh2323oEvnvcMk+SLBPrRY773
- HZr3doRw61ud5CbWwJ+1Ree+kwIlHYc=
-X-Received: by 2002:a05:7301:53cb:b0:35c:e696:2d4a with SMTP id
- 5a478bee46e88-36a423ea99dmr1772736eec.24.1793333153319; 
- Thu, 29 Oct 2026 21:05:53 -0700 (PDT)
-Received: from localhost ([122.172.82.240]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36a4291e38fsm3512579eec.15.2026.10.29.21.05.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2026 21:05:52 -0700 (PDT)
-Date: Fri, 30 Oct 2026 09:35:49 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Kees Cook <kees@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Sumanth Korikkar <sumanthk@linux.ibm.com>,
- Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
- llvm@lists.linux.dev, linux-hardening@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
- linux-s390@vger.kernel.org, gfs2@lists.linux.dev,
- xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/9] cpufreq: governor: Initialize kobj_type release
- callback statically
-Message-ID: <auQXnep2xKpuNJOF@vireshk-B250M-D3H>
-References: <20261027223847.652884-1-irogers@google.com>
- <20261027223847.652884-5-irogers@google.com>
- <CAJZ5v0juvZ2ZVRBkY6FxBM=NhPt9vMA3+yRugXc5u=U1jO9AXg@mail.gmail.com>
- <CAP-5=fWVZ=7-qDRODiEQzRzhpQqribv9Morj=OoAXW_6uaW2dA@mail.gmail.com>
- <CAJZ5v0i0YoOW+ueh_aZJdYVS0etuCqfrf_S0NTKzCE9_6oKxPQ@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C99BD10E213;
+	Fri, 30 Oct 2026 04:43:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 120B310E591
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 04:43:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id AEB45412D5;
+ Fri, 30 Oct 2026 04:43:24 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1793335404;
+ b=HAc8dEAFwNZwomgI1GhZDMAIhnKdUtnBWmn1xv98uFpH8NQwRH/jAA3lmpv26RFpxz4q
+ DTHF0995VaP22MbD+zPevlDGCsELPJG0Yb3NlF9Ehq0qVFKTq4aYa3BcxfQhW2HH78bIY
+ 9Y+yBBJzd3tECH0+H4lyF0s5uw+ULLe1RSC1Z+IfPMv96V03l9xxZTDvBkSmpS2lRPJNF
+ cw9S9Fp4nurHN0wkLiunQsg/yK1/IRvk1zrW2srv53RlnIrBqp5A5ZZCaliR3tu8XkB72
+ Yw9p+8oqUDj9LXvu+aY2+E+nuVFa5X91Gj9OAkzuJYex1nRhoDwuD8Cs8/QFmtG1xdw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1793335404;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+ X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+ Content-Transfer-Encoding;
+ bh=E26z6EohDNNZFX2V92ZFn0EDYciqgngLpV4nScBKlDw=;
+ b=ypBiYy7aDF2mdnVcflFXkrlc7gq7ys5oJd+YaTDBWBgtiXxxaUOFyZcyHQ8b8wUfoZrp
+ 4nko/hKhNt8dkNQJJtHi9U8UdeCjinG/PRR0+rFc4rari8W28a5ekpiBDeX3xkHyixmmA
+ gmiTdVRhPNl1wGHBYR90WJramrD6D2jsmays+WwENPK9sgekhTmpC3IeNXhkOtLL5W7dQ
+ CEzgN8BxNiBkgCyQ7eVcvIkAwWvhbwfIMlqtn6nsxaGJFDwYaOrvgarDxHb6iod6WRcQe
+ TV1aITpwVRLAx+B9YAbPYqyNqLfqBT3GZ70+8O8mY/AAIQ37oYeFlMkoIyOWxWVQxig==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 266961F000C1;
+ Fri, 30 Oct 2026 04:43:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793335404;
+ bh=E26z6EohDNNZFX2V92ZFn0EDYciqgngLpV4nScBKlDw=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=LC2pTnXhaePv1dRwkEUaLsAswpQ0FHwasG4aH/j9/0mjuIYERX//yTJXPHe/v1k+5
+ qHV65vVEfaHmzzzj6tYDlOFFY95SlsiignsdJpzGOsJMTSw8tN5UwhqJ1148FieE05
+ N6/oOc70hZhsx5xZKztHbPoRHMMn/fsFM64MDQ+10KRzC3pkFQ7lMQe3vP/0kgyY5D
+ MjxfCI8aFKS6Nx43R7JraMlEEiPPGW/Th5e0bSn5IYPk0DjuIRN4pOYhm73HN31xR0
+ hcaQIU9jGzX9SMilF9HDdTtf6lSrzmwxejUxKcwSnwWAAPGBVQK0I3m99lYor/vMsO
+ SE71fL0LYyenQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id AAB0B43659;
+ Fri, 30 Oct 2026 04:43:23 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Fri, 30 Oct 2026 06:43:21 +0200
+Subject: [PATCH] drm/panfrost: Gate the RK3399 GPU clock in runtime suspend
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJZ5v0i0YoOW+ueh_aZJdYVS0etuCqfrf_S0NTKzCE9_6oKxPQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261030-panfrost-rk3399-pm-rt-v1-1-e94437159a9d@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAGgg5GoC/x3MQQqAIBBA0avErBvQhMKuEi1ExxoikzEiiO6et
+ HyL/x8oJEwFxuYBoYsLH6lCtw341aWFkEM1dKrrtTIKs0tRjnKibMZYi3lHOdGTM9HrwapgobZ
+ ZKPL9f6f5fT9c1dbTZwAAAA==
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Heiko Stuebner <heiko@sntech.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1888; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=aee4514usbOrnKBJFpIWBVeVFNuEk+tVTdQcWikAb04=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlPFLLOSB8ueTB1946dbsLytj3Moo8S1xtIW4sndIR+v
+ 7bd2nJWRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZjIhVkM//Q7npVszd0963Zd
+ 2oV1yvyt9yTsRLr/X5zN+ntr6snTzcmMDF9lnhourWM5pFXj6FZrvLLt5sZfk0p7bSNiTbL/x2a
+ YMwIA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,21 +99,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: iav@iav.lv
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 28-10-26, 16:39, Rafael J. Wysocki (Intel) wrote:
-> I'd expect the driver core to pick up the series as a whole then, so
-> please feel free to add
-> 
-> Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org> # cpufreq
+From: Igor Velkov <iav@iav.lv>
 
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+The RK3399 Mali-T860 matches arm,mali-t860 and gets default_data, so
+panfrost enables aclk_gpu at probe and keeps it enabled until unbind;
+runtime suspend powers the GPU off but leaves the clock on.
 
+On ROCK Pi 4A restore from hibernation hangs in genpd_restore_noirq()
+of the GPU while panfrost is bound. With the clock gated in runtime
+suspend, as on the Allwinner H616 and the Renesas parts, it restores.
+
+Match rockchip,rk3399-mali to default_pm_rt_data.
+
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested on ROCK Pi 4A, drm-misc-next 33ed26235db9 with the rkvdec fix [1]
+applied: hibernation with HDMI active restores 6 of 6 with this patch
+(once right after glmark2-es2-drm), and hangs 2 of 2 without it.
+[1] fixes the same kind of hang in rkvdec, which otherwise hits first.
+
+[1] https://lore.kernel.org/r/20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv
+---
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 7c348a0bf1ee..21a9a12abefc 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -983,6 +983,7 @@ static const struct of_device_id dt_match[] = {
+ 	  .data = &amlogic_data, },
+ 	{ .compatible = "renesas,r9a08g046-mali", .data = &default_pm_rt_data },
+ 	{ .compatible = "renesas,r9a09g047-mali", .data = &default_pm_rt_data },
++	{ .compatible = "rockchip,rk3399-mali", .data = &default_pm_rt_data },
+ 	{ .compatible = "arm,mali-t604", .data = &default_data, },
+ 	{ .compatible = "arm,mali-t624", .data = &default_data, },
+ 	{ .compatible = "arm,mali-t628", .data = &default_data, },
+
+---
+base-commit: 33ed26235db93162935d1719bc6f538c384a2fd8
+change-id: 20261030-panfrost-rk3399-pm-rt-cea3fc1790d9
+
+Best regards,
 -- 
-viresh
+Igor Velkov <iav@iav.lv>
+
+
