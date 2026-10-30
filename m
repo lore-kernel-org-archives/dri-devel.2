@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496FD606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 20:30:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06DCE606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 20:30:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKvgmAUt
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzDuWjil
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55EF410E0F8;
-	Fri, 30 Oct 2026 20:30:43 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB7D510E0F8
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 20:30:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6783310E208;
+	Fri, 30 Oct 2026 20:30:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B16A10E208
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 20:30:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5F51D4088C;
- Fri, 30 Oct 2026 20:30:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280571F000C1;
+ by tor.source.kernel.org (Postfix) with ESMTP id 270A8605CE;
+ Fri, 30 Oct 2026 20:30:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4D181F000C1;
  Fri, 30 Oct 2026 20:30:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1793392237;
- bh=u3iFkyS8003joF89HNTPECrGYvOMBInfKyP0kyoNdTU=;
+ bh=sRJYUBf+16vEk+dcbt1+sdlSFDQFkMyGXsdUv91ugFw=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=DKvgmAUtmVwFyWVBoEhihhXi0QICPzeIs4vieJ4tx7/nHFw3feYMvxFzToXDF9Gt6
- 7AyBdjivnFUIWamW04UXfmNOcvr7pbIZodoeVnuCKGxbi7DG1zTfl9nDqcQl2CzTUy
- K+dS6YOYSn0gXC13xW7aqufLJXSCuKXEWQISOpsUkRpOwASnDXkgYTiX7w6w9rMPDP
- FGXnYFjAfrlBbXNzvNktZ92f2PQBwNBZL6AAJghnr1wOA804soSsn4NF6SzmpZKf86
- krgP6hmaPyghob+Retqqt0LhZX0vMZeTHUWa2Vlfji4S6ipESWCuQAe2gCiOLdDPIN
- kI9ZvSw153LYA==
-Message-ID: <sashiko-outbox-191474@kernel.org>
+ b=dzDuWjilqGuz5SIKxjMLZs6XTCQftAuVNO1ODnB6k1DBtD+jxWQX+M0mZ0QnH8YII
+ 21RBX5eztF9PpYWKTzCBxhjMoShG7nWl5ZI8YUVdac77WbF/X6AYRm9KJtesiioUPh
+ EnFYu7+Hh9PKkBIbYRPZ587Fz8eOTXcniQ1JHgBSqImyH+oRV8QuW4MNqXnUmRQ4Q6
+ aZAjnKs9wRF5KcgDbL9TP9P0KvLe3xxc7n4xz9l1+wPpoUHwxN/YJRNKEn7vT4SGZy
+ cfJ5OqICVIfm7NBPWeFLf2XWfZI6qqnq1LpsdSsrTk4C77aQeuWA1iTMuxNieRmqSn
+ Ygy5InFMgDaPw==
+Message-ID: <sashiko-outbox-191475@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] drm/drm_ras: Extend DRM RAS interface to include
- telemetry nodes
+Subject: Re: [PATCH v2 3/3] accel/qaic: Add callbacks for DRM RAS netlink
+ telemetry
 To: "Zack McKevitt" <zachary.mckevitt@oss.qualcomm.com>,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20261029203000.1763447-3-zachary.mckevitt@oss.qualcomm.com>
+In-Reply-To: <20261029203000.1763447-4-zachary.mckevitt@oss.qualcomm.com>
 References: <20261029203000.1763447-1-zachary.mckevitt@oss.qualcomm.com>
- <20261029203000.1763447-3-zachary.mckevitt@oss.qualcomm.com>
+ <20261029203000.1763447-4-zachary.mckevitt@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 20:30:36 +0000
+Date: Fri, 30 Oct 2026 20:30:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,128 +59,381 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [High] drm/drm_ras: unsynchronized node lookup in telemetry netlink handl=
-ers
-- [Medium] drm/drm_ras: broken status handling and non-standard UAPI in tel=
-emetry ops
-- [Medium] drm/drm_ras: missing field validation in telemetry doit callbacks
-- [Low] drm/drm_ras: mismatched kernel-doc @field tag in drm_ras_telemetry_=
-field
+- [High] accel/qaic: NULL pointer dereference and race on qdev->tele_ch
+- [High] accel/qaic: missing dev_lock SRCU sync and tele_ch state check in =
+telemetry
+- [High] accel/qaic: missing tele_wq flush and drmm/devm mismatch in create=
+_qdev()
+- [Medium] accel/qaic: qaic_telemetry_get() and qaic_telemetry_set() drop s=
+tatus replies on error
+- [Medium] accel/qaic: silent u8 truncation of u32 telemetry field in telem=
+etry_request()
+- [Medium] accel/qaic: ignored qaic_telemetry_register() failure in qaic_in=
+it()
+- [Medium] accel/qaic: telemetry_request() drops completed response and lea=
+ks -ERESTARTSYS to netlink
 --
 
-commit dc8b379237033d84f80f290cec4514d0c3cc4442
+commit 089cd42088c5c813480c90b14aeb8fbd79e5ff35
 Author: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
 
-drm/drm_ras: Extend DRM RAS interface to include telemetry nodes
+accel/qaic: Add callbacks for DRM RAS netlink telemetry
 
-This commit adds a telemetry node type, netlink attribute set, and doit/dum=
-pit
-callbacks to the DRM RAS interface to support reading and writing device
-telemetry fields.
+This commit adds MHI telemetry channel support and registers a DRM RAS
+telemetry node during PCI probe so userspace can read and write device
+telemetry fields over Generic Netlink.
 
-> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/net=
-link/specs/drm_ras.yaml
-> index a88fdab7a1c74..a02aaed8772fc 100644
-> --- a/Documentation/netlink/specs/drm_ras.yaml
-> +++ b/Documentation/netlink/specs/drm_ras.yaml
+> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+> index 9e1e184efe0d1..e24a4f271a585 100644
+> --- a/drivers/accel/qaic/qaic_drv.c
+> +++ b/drivers/accel/qaic/qaic_drv.c
+> @@ -32,6 +32,7 @@
+>  #include "qaic_debugfs.h"
+>  #include "qaic_ras.h"
+>  #include "qaic_ssr.h"
+> +#include "qaic_telemetry.h"
+>  #include "qaic_timesync.h"
+>  #include "sahara.h"
+> =20
+> @@ -389,6 +390,7 @@ static void qaic_notify_reset(struct qaic_device *qde=
+v)
+>  	qdev->dev_state =3D QAIC_OFFLINE;
+>  	/* wake up any waiters to avoid waiting for timeouts at sync */
+>  	wake_all_cntl(qdev);
+> +	wake_all_telemetry(qdev);
+>  	for (i =3D 0; i < qdev->num_dbc; ++i)
+>  		wakeup_dbc(qdev, i);
+>  	synchronize_srcu(&qdev->dev_lock);
+> @@ -439,6 +441,9 @@ static struct qaic_device *create_qdev(struct pci_dev=
+ *pdev,
+>  	if (ret)
+>  		return NULL;
+>  	ret =3D drmm_mutex_init(drm, &qdev->bootlog_mutex);
+> +	if (ret)
+> +		return NULL;
+> +	ret =3D drmm_mutex_init(drm, &qdev->tele_mutex);
+>  	if (ret)
+>  		return NULL;
+> =20
+> @@ -451,6 +456,9 @@ static struct qaic_device *create_qdev(struct pci_dev=
+ *pdev,
+>  	qdev->ssr_wq =3D qaicm_wq_init(drm, "qaic_ssr");
+>  	if (IS_ERR(qdev->ssr_wq))
+>  		return NULL;
+> +	qdev->tele_wq =3D qaicm_wq_init(drm, "qaic_tele");
+> +	if (IS_ERR(qdev->tele_wq))
+> +		return NULL;
+
+[Severity: High]
+Can this cause a use-after-free of qdev if the PCI device is removed while a
+userspace process holds an open file descriptor to /dev/accel/accelN?
+
+In create_qdev(), qdev is allocated with devm_kzalloc(&pdev->dev, ...),
+whereas qdev->tele_mutex and qdev->tele_wq are managed by drmm on struct
+drm_device. If /dev/accel/accelN is open when qaic_pci_remove() runs:
+
+1. qaic_telemetry_mhi_remove() calls mhi_unprepare_from_transfer(qdev->tele=
+_ch)
+   without flushing qdev->tele_wq.
+2. When qaic_pci_remove() returns, devres_release_all(&pdev->dev) drops the
+   initial drm_device reference via devm_drm_dev_init_release(), but
+   drm_managed_release() does not run yet because the open file descriptor
+   still holds a reference on drm_device.
+3. devres_release_all() immediately frees the devm-allocated qdev.
+
+At that point, any pending resp_worker() work item on qdev->tele_wq will
+dereference freed qdev memory (qdev->tele_mutex and qdev->tele_xfer_list),
+and when the userspace file descriptor is finally closed,
+__drmm_mutex_release() will call mutex_destroy(&qdev->tele_mutex) on the
+already-freed qdev.
+
+Should qaic_telemetry_mhi_remove() flush qdev->tele_wq, and should the
+lifetime of qdev->tele_mutex and qdev->tele_wq match the devm lifetime of
+qdev?
 
 [ ... ]
 
-> @@ -100,6 +100,34 @@ attribute-sets:
->          name: error-value
->          type: u32
->          doc: Current value of the error counter.
-> +  -
-> +    name: telemetry-attrs
-> +    attributes:
-> +      -
-> +        name: node-id
-> +        type: u32
-> +        doc: >-
-> +             Unique identifier for the node.
-> +             Assigned dynamically by the DRM RAS core upon registration.
-> +      -
-> +        name: field
-> +        type: u32
-> +        doc:  Telemetry field to be read/written, e.g., SoC temp.
-> +      -
-> +        name: field-name
-> +        type: string
-> +        doc:  Name of the telemetry field defined by the device's uapi.
-> +      -
-> +        name: value
-> +        type: sint
-> +        doc: Value of telemetry field that was read/written.
-> +      -
-> +        name: status
-> +        type: s32
-> +        doc: >-
-> +             Status of the telemetry operation.
-> +             Populated by the device in response to the performed
-> +             telemetry operation. Errors may be hardware specific.
+> @@ -611,6 +620,13 @@ static int qaic_pci_probe(struct pci_dev *pdev, cons=
+t struct pci_device_id *id)
+>  		return ret;
+>  	}
 > =20
->  operations:
->    list:
-> @@ -198,6 +226,52 @@ operations:
->              - node-id
->              - error-id
->              - error-threshold
-> +    -
-> +      name: telemetry-get
-> +      doc: Perform a read of the specified telemetry field.
-> +      attribute-set: telemetry-attrs
-> +      do:
-> +        pre: drm-ras-nl-pre-telemetry
-> +        request:
-> +          attributes:
-> +            - node-id
-> +            - field
-> +        reply:
-> +          attributes:
-> +            - value
-> +            - status
-> +      dump:
-> +        request:
-> +          attributes:
-> +            - node-id
-> +        reply:
-> +          attributes: &telemetry-field-attrs
-> +            - field
-> +            - field-name
-> +    -
-> +      name: telemetry-set
-> +      doc: >-
-> +           Perform a write of the specified telemetry field.
-> +           Telemetry writes are device specific, and may be used to set
-> +           device limits or other capacities, for example.
-> +      attribute-set: telemetry-attrs
-> +      flags: [admin-perm]
-> +      do:
-> +        pre: drm-ras-nl-pre-telemetry
-> +        request:
-> +          attributes:
-> +            - node-id
-> +            - field
-> +            - value
-> +        reply:
-> +          attributes:
-> +            - status
-> +      dump:
-> +        request:
-> +          attributes:
-> +            - node-id
-> +        reply:
-> +          attributes: *telemetry-field-attrs
+> +	ret =3D qaic_drm_ras_register_node(qdev);
+> +	if (ret) {
+> +		qaic_mhi_free_controller(qdev->mhi_cntrl, link_up);
+> +		qaic_destroy_drm_device(qdev, QAIC_NO_PARTITION);
+> +		return ret;
+> +	}
+> +
+>  	return 0;
+>  }
+> =20
+> @@ -624,6 +640,7 @@ static void qaic_pci_remove(struct pci_dev *pdev)
+>  		return;
+> =20
+>  	qaic_dev_reset_clean_local_state(qdev);
+> +	qaic_drm_ras_unregister_node(qdev);
+>  	qaic_mhi_free_controller(qdev->mhi_cntrl, link_up);
+>  	qaic_destroy_drm_device(qdev, QAIC_NO_PARTITION);
+>  }
+
+[Severity: High]
+Does qaic_pci_remove() risk a use-after-free on qdev and qdev->ras_node if a
+netlink telemetry request is in flight during device removal or reset?
+
+In qaic_notify_reset() (called by qaic_dev_reset_clean_local_state()), the
+driver sets qdev->dev_state =3D QAIC_OFFLINE, calls wake_all_telemetry(qdev=
+),
+and then calls synchronize_srcu(&qdev->dev_lock) to wait for in-flight
+readers.
+
+However, unlike the control path in qaic_control.c, qaic_telemetry_get(),
+qaic_telemetry_set(), and telemetry_request() never acquire
+srcu_read_lock(&qdev->dev_lock) and never check whether qdev->dev_state is
+QAIC_ONLINE. In addition, qaic_pci_remove() runs
+qaic_dev_reset_clean_local_state(qdev) before qaic_drm_ras_unregister_node(=
+),
+and qaic_drm_ras_unregister_node() frees qdev->ras_node immediately after
+drm_ras_node_unregister().
+
+If a netlink caller is sleeping in
+wait_for_completion_interruptible_timeout(&elem.xfer_done, HZ) inside
+telemetry_request(), or enters telemetry_request() after wake_all_telemetry=
+()
+runs while qdev->ras_node is still registered, synchronize_srcu() will not
+wait for it. When the waiter wakes up after qaic_pci_remove() completes,
+telemetry_request() will call mutex_lock(&qdev->tele_mutex) and
+list_del(&elem.list) on freed qdev memory.
+
+Should qaic_drm_ras_unregister_node() be called before
+qaic_dev_reset_clean_local_state(), and should the telemetry callbacks guard
+access with srcu_read_lock(&qdev->dev_lock) and check qdev->dev_state?
+
+> @@ -860,6 +877,10 @@ static int __init qaic_init(void)
+>  		goto free_bootlog;
+>  	}
+> =20
+> +	ret =3D qaic_telemetry_register();
+> +	if (ret)
+> +		pr_debug("qaic: qaic_telemetry_register failed %d\n", ret);
+> +
+>  	return 0;
+> =20
+>  free_bootlog:
+> @@ -889,6 +910,7 @@ static void __exit qaic_exit(void)
+>  	 * reinitializing the link_up state after the cleanup is done.
+>  	 */
+>  	link_up =3D true;
+> +	qaic_telemetry_unregister();
+>  	qaic_ssr_unregister();
+>  	qaic_ras_unregister();
+>  	qaic_bootlog_unregister();
 
 [Severity: Medium]
-Is this Netlink uAPI structure and status attribute behavior intentional?
+If qaic_telemetry_register() fails in qaic_init(), qaic_init() logs a debug
+message and returns 0, leaving qaic_telemetry_mhi_driver unregistered
+(drv->p =3D=3D NULL). When the module is later unloaded, qaic_exit()
+unconditionally calls qaic_telemetry_unregister() -> mhi_driver_unregister()
+-> driver_unregister(), which triggers:
 
-In drm_ras_nl_telemetry_get_doit() and drm_ras_nl_telemetry_set_doit(), if
-node->telemetry_get() or node->telemetry_set() returns a non-zero value, the
-handler frees msg and returns ret directly without serializing
-DRM_RAS_A_TELEMETRY_ATTRS_STATUS:
+    WARN(1, "Unexpected driver unregister!\n");
+
+in drivers/base/driver.c:driver_unregister(). Should qaic_init() unwind and
+propagate the error when qaic_telemetry_register() fails, matching
+qaic_ssr_register()?
+
+> diff --git a/drivers/accel/qaic/qaic_telemetry.c b/drivers/accel/qaic/qai=
+c_telemetry.c
+> new file mode 100644
+> index 0000000000000..fdce7a71d3eba
+> --- /dev/null
+> +++ b/drivers/accel/qaic/qaic_telemetry.c
+
+[ ... ]
+
+> +int telemetry_request(struct qaic_device *qdev, u8 cmd, u8 cmd_type, s64=
+ *val)
+> +{
+> +	struct wrapper_msg *wrapper;
+> +	struct xfer_queue_elem elem;
+> +	struct telemetry_msg *resp;
+> +	struct telemetry_msg *req;
+> +	long ret =3D 0;
+> +
+> +	wrapper =3D kzalloc_obj(*wrapper);
+> +	if (!wrapper)
+> +		return -ENOMEM;
+> +
+> +	kref_init(&wrapper->ref_count);
+> +	req =3D &wrapper->msg;
+> +
+> +	ret =3D mutex_lock_interruptible(&qdev->tele_mutex);
+> +	if (ret)
+> +		goto free_req;
+> +
+> +	req->hdr.magic =3D cpu_to_le16(MAGIC);
+> +	req->hdr.ver =3D cpu_to_le16(VERSION);
+> +	req->hdr.seq_num =3D cpu_to_le32(qdev->tele_next_seq_num++);
+> +	req->hdr.type =3D MSG_REQ;
+> +	req->hdr.id =3D 0;
+> +	req->hdr.len =3D cpu_to_le16(sizeof(req->data));
+> +
+> +	req->data.cmd =3D cmd;
+> +	req->data.cmd_type =3D cmd_type;
+> +	req->data.status =3D 0;
+> +	if (cmd_type =3D=3D TYPE_READ)
+> +		req->data.val =3D cpu_to_le64(0);
+> +	else
+> +		req->data.val =3D cpu_to_le64(*val);
+> +
+> +	elem.seq_num =3D qdev->tele_next_seq_num - 1;
+> +	elem.buf =3D NULL;
+> +	init_completion(&elem.xfer_done);
+> +	if (likely(!qdev->tele_lost_buf)) {
+> +		resp =3D kzalloc_obj(*resp);
+> +		if (!resp) {
+> +			mutex_unlock(&qdev->tele_mutex);
+> +			ret =3D -ENOMEM;
+> +			goto free_req;
+> +		}
+> +
+> +		ret =3D mhi_queue_buf(qdev->tele_ch, DMA_FROM_DEVICE, resp, sizeof(*re=
+sp), MHI_EOT);
+> +		if (ret) {
+> +			mutex_unlock(&qdev->tele_mutex);
+> +			goto free_resp;
+> +		}
+> +	} else {
+> +		/*
+> +		 * we lost a buffer because we queued a recv buf, but then
+> +		 * queuing the corresponding tx buf failed. To try to avoid
+> +		 * a memory leak, lets reclaim it and use it for this
+> +		 * transaction.
+> +		 */
+> +		qdev->tele_lost_buf =3D false;
+> +	}
+> +
+> +	kref_get(&wrapper->ref_count);
+> +	ret =3D mhi_queue_buf(qdev->tele_ch, DMA_TO_DEVICE, req, sizeof(*req), =
+MHI_EOT);
+
+[Severity: High]
+What happens if telemetry_request() is called when qdev->tele_ch is NULL, or
+while qaic_telemetry_mhi_remove() is running concurrently?
+
+In qaic_pci_probe(), qaic_drm_ras_register_node(qdev) exposes the telemetry
+netlink callbacks immediately after qaic_create_drm_device() creates
+/dev/accel/accelN. However, qdev->tele_ch is only set asynchronously in
+qaic_telemetry_mhi_probe() once the device enters AMSS, and is reset to NULL
+in qaic_telemetry_mhi_remove().
+
+If userspace sends a DRM_RAS_CMD_TELEMETRY_GET or DRM_RAS_CMD_TELEMETRY_SET
+request before qaic_telemetry_mhi_probe() runs (or after
+qaic_telemetry_mhi_remove() clears qdev->tele_ch), telemetry_request() pass=
+es
+qdev->tele_ch =3D=3D NULL to mhi_queue_buf() -> mhi_queue(), which immediat=
+ely
+dereferences mhi_dev->mhi_cntrl and crashes.
+
+Furthermore, qaic_telemetry_mhi_probe() and qaic_telemetry_mhi_remove()
+modify qdev->tele_ch and qdev->tele_lost_buf and call
+mhi_unprepare_from_transfer(qdev->tele_ch) without holding qdev->tele_mutex,
+and qaic_telemetry_mhi_remove() does not wake waiters on
+qdev->tele_xfer_list. Should telemetry_request() check if (!qdev->tele_ch)
+under qdev->tele_mutex (returning -ENODEV), and should
+qaic_telemetry_mhi_probe() and qaic_telemetry_mhi_remove() serialize against
+qdev->tele_mutex and wake pending waiters?
+
+> +	if (ret) {
+> +		qdev->tele_lost_buf =3D true;
+> +		kref_put(&wrapper->ref_count, free_wrapper);
+> +		mutex_unlock(&qdev->tele_mutex);
+> +		goto free_req;
+> +	}
+> +
+> +	list_add_tail(&elem.list, &qdev->tele_xfer_list);
+> +	mutex_unlock(&qdev->tele_mutex);
+> +
+> +	ret =3D wait_for_completion_interruptible_timeout(&elem.xfer_done, HZ);
+> +	/*
+> +	 * not using _interruptable because we have to cleanup or we'll
+> +	 * likely cause memory corruption
+> +	 */
+> +	mutex_lock(&qdev->tele_mutex);
+> +	if (!list_empty(&elem.list))
+> +		list_del(&elem.list);
+> +	if (!ret && !elem.buf)
+> +		ret =3D -ETIMEDOUT;
+> +	else if (ret > 0 && !elem.buf)
+> +		ret =3D -EIO;
+> +	mutex_unlock(&qdev->tele_mutex);
+> +
+> +	resp =3D elem.buf;
+> +
+> +	if (ret < 0)
+> +		goto free_resp;
+
+[Severity: Medium]
+What happens here when wait_for_completion_interruptible_timeout() (or the
+earlier mutex_lock_interruptible()) is interrupted by a signal and returns
+-ERESTARTSYS?
+
+First, if resp_worker() already completed the transfer and set elem.buf
+before telemetry_request() acquired qdev->tele_mutex, ret is still
+-ERESTARTSYS, so if (ret < 0) branches to free_resp and discards the valid
+response (unlike msg_xfer() in qaic_control.c, which resets ret =3D 0 when
+elem.buf is present).
+
+Second, because telemetry_request() is called from Generic Netlink .doit
+callbacks (drm_ras_nl_telemetry_get_doit() and
+drm_ras_nl_telemetry_set_doit()), returning -ERESTARTSYS causes
+netlink_rcv_skb() -> netlink_ack() to serialize the kernel-internal
+-ERESTARTSYS (-512) value directly into the NLMSG_ERROR payload sent to
+userspace. Should this check for a completed elem.buf and translate any
+remaining -ERESTARTSYS to -EINTR?
+
+[ ... ]
+
+> +static int qaic_telemetry_get(struct drm_ras_node *ep, u32 *field, s64 *=
+value, s32 *status)
+> +{
+> +	struct qaic_device *qdev =3D ep->priv;
+> +
+> +	*status =3D (s32)telemetry_request(qdev, *field, TYPE_READ, value);
+> +
+> +	return *status;
+> +}
+> +
+> +static int qaic_telemetry_set(struct drm_ras_node *ep, u32 *field, s64 *=
+value, s32 *status)
+> +{
+> +	struct qaic_device *qdev =3D ep->priv;
+> +
+> +	*status =3D (s32)telemetry_request(qdev, *field, TYPE_WRITE, value);
+> +
+> +	return *status;
+> +}
+
+[Severity: Medium]
+In qaic_telemetry_get() and qaic_telemetry_set(), *field is a u32 coming fr=
+om
+the netlink DRM_RAS_A_TELEMETRY_ATTRS_FIELD attribute (which drm_ras does n=
+ot
+validate against telemetry_fields_gettable or telemetry_fields_settable in
+the doit path), whereas telemetry_request() takes u8 cmd.
+
+Doesn't passing *field directly to telemetry_request() silently truncate
+32-bit field IDs modulo 256 (for example, turning 0x101 into 1,
+QAIC_DEVINFO_THERMAL_SOC_MAX_TEMP) instead of rejecting out-of-range or
+unsupported field IDs?
+
+[Severity: Medium]
+Also in qaic_telemetry_get() and qaic_telemetry_set(), both functions assign
+the return value of telemetry_request() to *status and then return *status.
+Looking at drm_ras_nl_telemetry_get_doit() and
+drm_ras_nl_telemetry_set_doit() in drivers/gpu/drm/drm_ras.c:
 
 	ret =3D node->telemetry_get(node, &field, &value, &status);
 	if (ret) {
@@ -188,239 +441,15 @@ DRM_RAS_A_TELEMETRY_ATTRS_STATUS:
 		return ret;
 	}
 
-In the consumer patch "accel/qaic: Add callbacks for DRM RAS netlink
-telemetry", qaic_telemetry_get() and qaic_telemetry_set() assign *status fr=
-om
-telemetry_request() (which maps firmware errors to negative errno values) a=
-nd
-return *status directly. Consequently, whenever an error occurs, the reply =
-is
-aborted and DRM_RAS_A_TELEMETRY_ATTRS_STATUS is never sent, whereas wheneve=
-r a
-reply is sent, status is always 0. Conversely, if a driver returns 0 while
-setting a non-zero *status, drm_ras_nl_telemetry_get_doit() unconditionally
-serializes the uninitialized or zero DRM_RAS_A_TELEMETRY_ATTRS_VALUE and
-bypasses standard Netlink error reporting.
+	ret =3D nla_put_s32(msg, DRM_RAS_A_TELEMETRY_ATTRS_STATUS, status);
 
-In addition, telemetry-set attaches a dump operation to a SET command to li=
-st
-writable field descriptors, and telemetry-get returns different object
-representations in do ([value, status]) versus dump ([field, field-name]),
-unlike get-error-counter where do and dump return the same attributes.
-
-Finally, telemetry-attrs exposes opaque device-specific field IDs and unitl=
-ess
-values for thermal, power, and voltage sensors and limits (such as SoC/board
-temperatures and TDP in the qaic consumer). Should those metrics be exposed
-through hwmon rather than a device-specific key-value pass-through in DRM R=
-AS?
-
-> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-> index 4f4777060a4e8..5b9c00f28834b 100644
-> --- a/drivers/gpu/drm/drm_ras.c
-> +++ b/drivers/gpu/drm/drm_ras.c
-
-[ ... ]
-
-> @@ -617,6 +644,264 @@ int drm_ras_nl_set_error_threshold_doit(struct sk_b=
-uff *skb, struct genl_info *i
->  	return set_node_error_threshold(node_id, error_id, threshold);
->  }
-> =20
-> +/**
-> + * drm_ras_nl_pre_telemetry - Enforce permission checks
-> + * @ops: Generic netlink operations
-> + * @skb: Netlink message buffer
-> + * @info: Generic Netlink info containing attributes of the request
-> + *
-> + * Enforces a telemetry node's pre_doit conditions (if they exist).
-> + *
-> + * Returns 0 if no pre_doit is specified, otherwise returns the pre_doit.
-> + */
-> +int drm_ras_nl_pre_telemetry(const struct genl_split_ops *ops, struct sk=
-_buff *skb,
-> +			     struct genl_info *info)
-> +{
-> +	struct drm_ras_node *node;
-> +	u32 node_id;
-> +
-> +	if (!info->attrs || GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_TELEMETRY_ATTRS=
-_NODE_ID))
-> +		return -EINVAL;
-> +
-> +	node_id =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
-> +	node =3D xa_load(&drm_ras_xa, node_id);
-> +	if (!node)
-> +		return -ENOENT;
-> +
-> +	if (node->telemetry_pre)
-> +		return node->telemetry_pre(node);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-What prevents node from being unregistered and freed while
-drm_ras_nl_pre_telemetry(), drm_ras_nl_telemetry_get_doit(),
-drm_ras_nl_telemetry_get_dumpit(), drm_ras_nl_telemetry_set_doit(), or
-drm_ras_nl_telemetry_set_dumpit() is using it?
-
-The drm_ras Generic Netlink family sets .parallel_ops =3D true, and xa_load=
-()
-only holds rcu_read_lock() internally during the lookup, returning an unpin=
-ned
-struct drm_ras_node pointer without a lock or reference count.
-
-In drm_ras_nl_telemetry_get_doit() and drm_ras_nl_telemetry_set_doit(), the
-handler holds node across a sleeping genlmsg_new(..., GFP_KERNEL) allocation
-and a sleeping driver callback (such as qaic_telemetry_get() ->
-telemetry_request()), while drm_ras_node_unregister() only calls
-xa_erase(&drm_ras_xa, node->id) and returns immediately before the driver
-frees node and the underlying device structure.
-
-Furthermore, because drm_ras_nl_pre_telemetry() and the doit handlers perfo=
-rm
-separate unlocked xa_load(&drm_ras_xa, node_id) lookups instead of pinning =
-the
-validated node in pre_doit, can node_id be unregistered and reallocated to a
-different node between pre_doit and doit?
-
-[ ... ]
-
-> +int drm_ras_nl_telemetry_get_doit(struct sk_buff *skb, struct genl_info =
-*info)
-> +{
-> +	struct drm_ras_node *node;
-> +	struct sk_buff *msg;
-> +	struct nlattr *hdr;
-> +	u32 node_id, field;
-> +	s32 status =3D 0;
-> +	s64 value =3D 0;
-> +	int ret =3D 0;
-> +
-> +	if (!info->attrs ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID) ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_TELEMETRY_ATTRS_FIELD))
-> +		return -EINVAL;
-> +
-> +	field =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD]);
-> +	node_id =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
-> +
-> +	node =3D xa_load(&drm_ras_xa, node_id);
-> +	if (!node || !node->telemetry_get)
-> +		return -ENOENT;
-> +
-> +	msg =3D genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
-> +	if (!msg)
-> +		return -ENOMEM;
-> +
-> +	hdr =3D genlmsg_iput(msg, info);
-> +	if (!hdr) {
-> +		nlmsg_free(msg);
-> +		return -EMSGSIZE;
-> +	}
-> +
-> +	ret =3D node->telemetry_get(node, &field, &value, &status);
-
-[ ... ]
-
-> +int drm_ras_nl_telemetry_set_doit(struct sk_buff *skb, struct genl_info =
-*info)
-> +{
-> +	struct drm_ras_node *node;
-> +	struct sk_buff *msg;
-> +	struct nlattr *hdr;
-> +	u32 node_id, field;
-> +	s32 status =3D 0;
-> +	s64 value =3D 0;
-> +	int ret =3D 0;
-> +
-> +	if (!info->attrs ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID) ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_TELEMETRY_ATTRS_VALUE) ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_TELEMETRY_ATTRS_FIELD))
-> +		return -EINVAL;
-> +
-> +	value =3D nla_get_sint(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_VALUE]);
-> +	field =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_FIELD]);
-> +	node_id =3D nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
-> +
-> +	node =3D xa_load(&drm_ras_xa, node_id);
-> +	if (!node || !node->telemetry_set)
-> +		return -ENOENT;
-
-[ ... ]
-
-> @@ -631,14 +916,21 @@ int drm_ras_node_register(struct drm_ras_node *node)
->  	if (!node->device_name || !node->node_name)
->  		return -EINVAL;
-> =20
-> -	/* Currently, only Error Counter Endpoints are supported */
-> -	if (node->type !=3D DRM_RAS_NODE_TYPE_ERROR_COUNTER)
-> -		return -EINVAL;
-> -
-> -	/* Mandatory entries for Error Counter Node */
-> -	if (node->type =3D=3D DRM_RAS_NODE_TYPE_ERROR_COUNTER &&
-> -	    (!node->error_counter_range.last || !node->query_error_counter))
-> +	/* Currently, only Error Counter and Telemetry endpoints are supported =
-*/
-> +	switch (node->type) {
-> +	case DRM_RAS_NODE_TYPE_ERROR_COUNTER:
-> +		/* Mandatory entries for Error Counter Node */
-> +		if (!node->error_counter_range.last || !node->query_error_counter)
-> +			return -EINVAL;
-> +		break;
-> +	case DRM_RAS_NODE_TYPE_TELEMETRY:
-> +		/* Must provide telemetry_get, telemetry_set is optional */
-> +		if (!node->telemetry_get || !node->telemetry_fields_gettable)
-> +			return -EINVAL;
-> +		break;
-
-[Severity: Medium]
-Should drm_ras_nl_telemetry_get_doit() and drm_ras_nl_telemetry_set_doit()
-validate the user-supplied field ID against node->telemetry_fields_gettable
-and node->telemetry_fields_settable before invoking the driver callbacks?
-
-Unlike the error counter handlers, which check error_id against
-node->error_counter_range, drm_ras_nl_telemetry_get_doit() and
-drm_ras_nl_telemetry_set_doit() pass the untrusted u32 field directly to
-node->telemetry_get() and node->telemetry_set(). In the qaic consumer patch
-("accel/qaic: Add callbacks for DRM RAS netlink telemetry"),
-qaic_telemetry_get() and qaic_telemetry_set() pass *field directly to
-telemetry_request(struct qaic_device *qdev, u8 cmd, ...), which truncates t=
-he
-u32 value to u8 so out-of-range values like 0x101 alias to valid commands.
-
-Also, since the documentation comment states that settable telemetry fields
-are required when providing telemetry_set(), should drm_ras_node_register()
-reject a node that sets node->telemetry_set without
-node->telemetry_fields_settable, and should include/drm/drm_ras.h document
-that telemetry_fields_gettable and telemetry_fields_settable must be
-terminated by a NULL .name sentinel entry for telemetry_fields_dumpit()?
-
-> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
-> index 1765a3130b09b..fb10238999ddb 100644
-> --- a/include/drm/drm_ras.h
-> +++ b/include/drm/drm_ras.h
-> @@ -10,6 +10,16 @@
-> =20
->  #include <uapi/drm/drm_ras.h>
-> =20
-> +/**
-> + * struct drm_ras_telemetry_field - A descriptor of a telemetry field.
-> + */
-> +struct drm_ras_telemetry_field {
-> +	/** @name: The enum or macro name defined by the device uAPI. */
-> +	const char *name;
-> +	/** @field: The numerical value of the field. */
-> +	u32 value;
-> +};
-
-[Severity: Low]
-In struct drm_ras_telemetry_field, should the kernel-doc tag @field be @val=
-ue
-to match the struct member name?
+When telemetry_request() returns a non-zero error code (such as when the
+device returns a firmware status error in resp->data.status), returning
+*status from the callback causes drm_ras to free the reply message and abort
+before encoding DRM_RAS_A_TELEMETRY_ATTRS_STATUS. Is *status intended to be
+reported in the netlink reply when the device returns a status error (with
+the callback returning 0)?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261029203000.1763=
-447-1-zachary.mckevitt@oss.qualcomm.com?part=3D2
+447-1-zachary.mckevitt@oss.qualcomm.com?part=3D3
