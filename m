@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C4B606A33B
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:04:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084E7606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMatZvXN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m7yvG2V6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC04C1126EB;
-	Fri, 30 Oct 2026 10:04:43 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70E4D1126EB;
- Fri, 30 Oct 2026 10:04:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E4DA1126F4;
+	Fri, 30 Oct 2026 10:04:49 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15B4C1126F0;
+ Fri, 30 Oct 2026 10:04:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E6D7C60233;
+ by sea.source.kernel.org (Postfix) with ESMTP id D21A743A4F;
+ Fri, 30 Oct 2026 10:04:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FC181F00A15;
  Fri, 30 Oct 2026 10:04:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A38281F000C1;
- Fri, 30 Oct 2026 10:04:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793354676;
- bh=aHS0E61Kph6Q/pBaWFFnfGbAScHIciE+DUMVzM9neGU=;
+ s=k20260515; t=1793354680;
+ bh=fO0AO1ezML1ZvparvLGZsxHnWBCOQ1gQ8CStf/I59JA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ZMatZvXNKfx3UtI5ikQYTnZ/i8O5oILYs7JTEIL9qApIPufs1/jrUNWv+zgKYA/R+
- /Pt9CYU3OrwpuhE0nEgA2bKpa3gnp1bhsQX2xbNc3P9khYd5UZIf4acOe0Gpo8fEOI
- zwUf4HV54StUh1dTP+A4MAr5d4xDCqbDXZn5D71+47Kt/Fce8DijhRjs8vO3yGy/BJ
- QUVzYcNjy87p0EZyJ5Kuqk6gwhZM87LZnDqJG2c5Ih+pzl06G0myn4gJCX+XmnzAWe
- Nwv+KrtJQNZttr2t5RrbPcjBPtbl9Qw06S9FNCqCB0gkFRJLxKIdtCOpgQ+adwfSsw
- jzVrQ9ZZAw5xA==
+ b=m7yvG2V6a9LDM3vmUc2xqLggBPZCYSe5YZ9Sf6vOqZT4FnUEHaH/rT2r6FGVw1YS1
+ RDlNZtbaTAX8z8/DP9XcMZd85nMS9pkqEi8KuOGKUV8jCx5gqV4fI29N7gRTkVAf6a
+ Sw0xBjhFB8lRq8RRNA0U/H/X62nvWN+sI+WGQN7mhYm/WPoKVJzTYlR351Lfo+uptg
+ g+NQT9Ov/X1cRINLZEKybBo/Lo7BLHK003VktMyRm0+DQKEO3bM13qPyIOM4Bev/ph
+ FOoBQtmRiKOAuQDt/Zy80TUv8lPcwcf+U9AbwMvSulqMfk+5aolZ7k+VgRPVghyeDb
+ xCSQVJIfB8yTw==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 30 Oct 2026 11:03:57 +0100
-Subject: [PATCH 1/8] drm/msm/a6xx: Polish up the IFPC counter enable
+Date: Fri, 30 Oct 2026 11:03:58 +0100
+Subject: [PATCH 2/8] drm/msm/adreno: Register GPU debugfs only on the
+ primary minor
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-topic-a6xx_ifpc-v1-1-6992841a9a32@oss.qualcomm.com>
+Message-Id: <20261030-topic-a6xx_ifpc-v1-2-6992841a9a32@oss.qualcomm.com>
 References: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
 In-Reply-To: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
@@ -49,11 +50,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793354666; l=2054;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793354666; l=1617;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=zGQcK+J+SBHMgTyf0ctg/daR39bN/LxKk3PQqtasspk=;
- b=Kmux5S78PVK9IInJEBGACAy52ihHBk9ZBCDspTJwQBAurc+wVaaaFPf+0V3zCZsNmJqxy3g5a
- DhZMYtT2uZMBx16ngyx0A0rIP/0nLqJ0XpJnpylKGc9p1tHSG8lHMxm
+ bh=f0rysbieKC2sAalawNQh6GSoQOPxzKQ6TMGwbEHZnbM=;
+ b=rfHuaJLwKeVD9NfY3XbZbksMHnwfylga4ZO9Gim/sq9YaPlay8NioaPSXpd8xWM5ZSBvN5BlI
+ i7UxuBG2ayRBz3sWtmoNy1Jx+fqf7DTBwkn5WScAigZiN2AsH93gSpG
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,45 +78,43 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Extend it to all targets with a real GMU and use a rmw instead of a
-full write to preserve other things within that register.
+adreno_load_gpu() calls the GPU's debugfs_init hook for both the
+primary and the render minor. Since the DRM debugfs rework both minors
+share one debugfs root, so every file the hook creates is created
+twice, and the second attempt fails with "already exists".
+
+Since the DRM debugfs rework:(commit 0b30d57acafc ("drm/debugfs: rework
+debugfs directory creation v5")) both minors share one root, and
+commit e76e7ec8f162 ("drm/debugfs: drop debugfs_init() for the render
+and accel node v2") made the core call a driver's debugfs_init only for
+the primary minor. Adreno's second call predates that: commit
+331dc0bc195b ("drm/msm: add a5xx specific debugfs") added it in 2017,
+when each minor had its own debugfs root and the render node needed its
+own copy of the files.
+
+Remove the odd call to fix 'already exists' warnings.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c             | 6 +++---
- drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml | 1 +
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 92e8c8abb86d..48d3ee4d55d9 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1332,10 +1332,10 @@ static int hw_init(struct msm_gpu *gpu)
- 	/* Turn on performance counters */
- 	gpu_write(gpu, REG_A6XX_RBBM_PERFCTR_CNTL, 0x1);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 7108d4aa59b5..8154371e04eb 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -123,10 +123,8 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
+ 	pm_runtime_put_autosuspend(&pdev->dev);
  
--	if (adreno_is_a7xx(adreno_gpu)) {
-+	if (!adreno_has_gmu_wrapper(adreno_gpu)) {
- 		/* Turn on the IFPC counter (countable 4 on XOCLK4) */
--		gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_CX_GMU_POWER_COUNTER_SELECT_1,
--			  FIELD_PREP(GENMASK(7, 0), 0x4));
-+		gmu_rmw(&a6xx_gpu->gmu, REG_A6XX_GMU_CX_GMU_POWER_COUNTER_SELECT_1,
-+			GENMASK(7, 0), 0x4);
- 	}
+ #ifdef CONFIG_DEBUG_FS
+-	if (gpu->funcs->debugfs_init) {
++	if (gpu->funcs->debugfs_init)
+ 		gpu->funcs->debugfs_init(gpu, dev->primary);
+-		gpu->funcs->debugfs_init(gpu, dev->render);
+-	}
+ #endif
  
- 	/* Select CP0 to always count cycles */
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
-index b3082738c99d..4f934c194f73 100644
---- a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
-+++ b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
-@@ -83,6 +83,7 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
- 	<reg32 offset="0x1f84a" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_3_L"/>
- 	<reg32 offset="0x1f84b" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_3_H"/>
- 	<reg32 offset="0x1f84c" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_4_L"/>
-+	<reg32 offset="0x1fca8" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_4_L" variants="A8XX-"/>
- 	<reg32 offset="0x1f84d" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_4_H"/>
- 	<reg32 offset="0x1f84e" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_5_L"/>
- 	<reg32 offset="0x1f84f" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_5_H"/>
+ 	return gpu;
 
 -- 
 2.56.0
