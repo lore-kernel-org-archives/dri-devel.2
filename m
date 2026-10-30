@@ -2,126 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE14F606A322
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:16:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597FD606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:17:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=qWMrOsrQ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mBKfXyZs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EEA3112700;
-	Fri, 30 Oct 2026 10:16:49 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012042.outbound.protection.outlook.com [52.101.66.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 296F510E0FB
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:16:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xgvKyHb6Ei/Z+OiKPd/kPj24frDpRo25dpw1FJMQ2iwPIKXPRrm9ACNiLV9hqbfKiL1vnfeqeSSQAegMKRGEO+1p8fBUlX1WAr2hGYlUuGeNVz6yKxNJ/gt4J2aJ1C8WyDCEQ8dM1YPU9MLQ3ch0hmM90oNelPw1e29Jxwv/kuMxhDe3nF0AghNMdhx3NSDiA02WO2awexUYxvWJ8TjbUM66qN5vC+RBGQtyUN0X6HZ01kJf1c0FYLr+1DG8vGedh0BDdKBa2nod7VcPTAGxrY4WXxAftF3BeyQYDUukSoOgeyGqWRiiYvZxocJ9Am35g1uMwHLA0QvS9VomBNt+sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jKKR4S9AQhJDStSbuwGW0EWdZumlZVGx3b3Yu5Euvig=;
- b=XdnC7oyZoawqZDhqku7mGzBBcguOjufpIm6yNCztT1bjAZCEtwZC08D1nFl3yf8D/0tlPQ14BMA9eYgiR6NZZD81diNZDzM+KTO2glhB/SEh4ZTKbnWqR9LAk9bjHHnEBeYU2glBcbpwRm1mizB4fpZnbCIDlJJutVnnQxk1+1+0mgvFiJCm9kS0AZH+62+hYWQ+d4seSDjTNgQBjnON1L4uObAQ0/lmXnkPZQWEzXuiFYK54sjxvT1p+Kc5p3AuaK+ghQQreHKCkkUX6yzroHDNKDI7Kfc37aLrqdNJIVtbzIAbDwWH0QswSwgHEXlJxqrXS+yXRVxzKKszSTmD9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jKKR4S9AQhJDStSbuwGW0EWdZumlZVGx3b3Yu5Euvig=;
- b=qWMrOsrQDRxIRB1M7AB2GJJUI9BVoFR8nvi9OblMHvKKGIT2xcjC0/jkoG9xcd2MtjIO1rPLCGVYeyKxjIrEumZ3tKQAamScFl/4Oj2fNwgnv5CoBmTJhfjoiMdNRACT/xwKzcO4umK5U2T3YJJ+h8HELud2OYghHY/gd7uyAm/QQWVsB0y78b5sNsWwyheaiuF76pKfebZ9gDNuIv48En+f1VfK+is9q6mtHWOcZcQL3XfEuR9GXGoglZObmfM0CIUQmnQZrQNDarqeJoc5jIVr1zrk6AGSA4YXq6jVqYlkIlwMqEX0a8v3t+9nslz4Ksy0eDpgPBO6zluZFOvKZw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by VI0PR04MB12032.eurprd04.prod.outlook.com
- (2603:10a6:800:311::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 10:16:38 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 10:16:37 +0000
-Date: Fri, 30 Oct 2026 12:16:33 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Ying Liu <victor.liu@nxp.com>, Frank Li <frank.li@oss.nxp.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, linux-clk@vger.kernel.org, imx@lists.linux.dev,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v10 2/9] drm/bridge: fsl-ldb: Get the next non-panel bridge
-Message-ID: <auRsorXM4UQJzoWF@vm>
-References: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
- <20261006-dcif-upstreaming-v10-2-bcfb28de0aae@oss.nxp.com>
- <179334897994.680709.5849266352850173475.b4-review@b4>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179334897994.680709.5849266352850173475.b4-review@b4>
-X-ClientProxiedBy: FR4P281CA0321.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:eb::13) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|VI0PR04MB12032:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28724186-5cc2-4593-25f6-08df366ee1f3
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|6133799003|10067099003|22082099003|18002099003|56012099006|11063799006|4143699003|261026130827099003|261026140227099003|261026121527099003|261028144727099003|261021123027099003|261022075727099003|261021135927099003|261021130227099003|261022113327099003|261021121427099003|261022115727099003|261022105027099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: svlBkGyq0gktqEMXwglYLJEd2zAT4S8N8OHx30T3ocD7m9eT80Ai8ztRuQArHGIx8+d2x0fx7ku3ybSKk7HkyoVWNK/WdlU7bq/qaNqB4mWJp/AxA83oLbKc3mMge4a2kgEow8AiZvN/a9eS4sbBD8MpHMr4k0Q1Cim6ubwmqOlV7E96MN2h0QC0NzfHEO/QpDltwKx4eTYU+RkXz7yuopawlf4artuih2wLM5fbL2Vy6HWUh6kcBA2rQcssQM4ZNjUnSlol3XlLNKd7BNEC+6vWwD6395AXh9j5OleB/c+lsZVlqZt15SyCp1KltoCcYvgxodUhOC0BCZ7+ULbYboey4xou6O7PHNddTcDqn+nD3bBBB2O1Uj9hIpKJ0cgYMu6qSqVPWSNYBATNlspoSesVjAaffNwTihxjGVLUDAThQz80SjSJ+spHTRbSXAU2ic4vTv8J18QFyp/NHVFfvezypvAvpsrcUmX+GuVVCBF2MbioFSurX8vI28A3+9QiAss+qJXTDid3YXRvdy3tdkeMcRByOtd7l9vaCR/LDghm6ffZu02ZgLhyWAu5QL3SDnhFA5enNjVYbbQgtJb6RcclgNFkEg/Q0a9ZN1SiBXo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261026130827099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021123027099003)(261022075727099003)(261021135927099003)(261021130227099003)(261022113327099003)(261021121427099003)(261022115727099003)(261022105027099003)(261009223027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?mkQ2BZemnFPd4RGFmY6oRcpMwlFCV3IJnN5vqdFXikWI4LtGCjPJglqWLQVx?=
- =?us-ascii?Q?HBS0BEYtp12PsvBmdPZrDi6mCExfqFFCMeMVDTQyFEWuGkFheQdDAQFUTD/G?=
- =?us-ascii?Q?qhE9TrAGCEP86ic3DPkHUMakOWGtJT/8sSsrNOS/YXwgJu6PHAizpu6rQlIL?=
- =?us-ascii?Q?C+ridy24UVWnnSjXIrx8S1CVrX2D987ukNBBZNZ1Ku0PObBrAbfXBbdzt5Md?=
- =?us-ascii?Q?1dk+4g2Xz+RkD9CxrShevOuHE0KDcm9J8m9V5Ft3gB1AQi5e792JcYTQQbrT?=
- =?us-ascii?Q?PdEuGrNkpRoTtWcr7aGIUSTVt4d5ON2U2fnIWKcIgP78V7oo4o0sVVnmdvY5?=
- =?us-ascii?Q?dhup4NNX2cjPm5dW8sDk4rL2Lu4yh9eMTfh/IR5EIeLJfmHURb65uDWiHm0v?=
- =?us-ascii?Q?DNXtfTZIiX7bzfYb55FP5cAd+JaD+DeJokW3gDtSX22FN9IiQ4cwYRWQw6LE?=
- =?us-ascii?Q?VyXOxs8GWFIKLSYJVWd+IR/1a3gjaxScXuaIayJEw+kJO7NVsg2dXWWdy4UK?=
- =?us-ascii?Q?j7+Llk9n64/K6V/d7pYUfoZlZz0WfWBgHwLJu+BkwyviuXPbldre1uz9T2t8?=
- =?us-ascii?Q?whn7SCUapcOEyDzDwQ3Iyy9xrvwJUZo5URHKOePlVhe3yJ+pa+nDK/WU3E8E?=
- =?us-ascii?Q?5FpTSncUQrEBYB8UGGM53SuGZ7y/kAQHthL/C3EW5jpe5QS5Wj6EN1qVDARm?=
- =?us-ascii?Q?uNy77+khyUEwzU9USDJKRmgBmVhdJGIrJTZfT5MuCmTG7017QxfxCAY/y0HR?=
- =?us-ascii?Q?Ja7s4wgjoNMugcCWL/PRet63xo9Jqt+5qyAy5F+HtMeJ7U2knlVUfaxNXSRc?=
- =?us-ascii?Q?uNnN2UwTTrlcKF7Rmaz66NJPmv8cQx0CXb7b9ZHBAbdtHOvPvr5yCq/TaX+M?=
- =?us-ascii?Q?s8LieEbPKbqgtoBgYXinp7pc9fzpU1A8wDyTjas8WaDEr38J6rPfJbzwo4nr?=
- =?us-ascii?Q?H1db44HsHiW08kpXUsmzWl2xZiCSxrGn5+CTHiQl5UCVsjD43zabk0DVQ+qz?=
- =?us-ascii?Q?fqCVNe2S3XfnJhRhD3OgJTarnUj97PjUj2KulGu9rvbUMsi2XT/cUphvB1sc?=
- =?us-ascii?Q?DPPHe5Tk0Tz1lW1cbc45zOBT5oAyLcitPGPWenTyfJ3yYFjHG7Pl6A40akUL?=
- =?us-ascii?Q?R+7fY1C52CfkvsXMHtHfkaUBi1XjNudi7NvKhpqj1f6FeIgQDwp4wkLt+Wcl?=
- =?us-ascii?Q?aCmniLmQpG0uaGliEqMwNeiUtvZdZwRkICERWsxwz2YAPzLssGntUmWMjrln?=
- =?us-ascii?Q?M7/wvKQxio5LYl3d1OsFtFY7VyHpJAyy0WF5pRKablo5nwaGQbzWkkNI4Gpu?=
- =?us-ascii?Q?3zTyj/By7+JZJ4E7DlObuc9Rrsi9/C2VCv1AlZ9FJOv4zkbiDoJi97CkNT6y?=
- =?us-ascii?Q?3b3fcGmt4FPErO4YhJDYh5pZ4/FvGD6CI/OzXFVbgxBjDyxQgxfrr+vKY+7b?=
- =?us-ascii?Q?Klw59qEYA7DZZCZ0CoWSqA2QouhKQEcU/TK2IUoTvJNB8pEQwGoLBfg/c00Q?=
- =?us-ascii?Q?UsRlxZaDWbeDqF9OafoDHvF7aAp2VVv+gLsBmBZ1azAhayxuJtoweeUTy7Kw?=
- =?us-ascii?Q?XAneBWxrxFV1L/6zeKfigifD6WiM8K07hJXabnywSJ0NxIRT2Of/oZIt6cm6?=
- =?us-ascii?Q?dzwawba+hvFyWIFtioVv+GZq0Lob4bNOxsHCZMPyuuO/w+zRY4+ZLD0l9Cw/?=
- =?us-ascii?Q?Rue+pn9af0fggcBg3USI5d9NxnrLG8tF3FLSatG7ecQdZ48yn8ffFWDdh4j+?=
- =?us-ascii?Q?zTnt34g5IQ=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28724186-5cc2-4593-25f6-08df366ee1f3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 10:16:37.7081 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: s3WsjzDIIYyL/XM1DLF375O/gNLQcy4Mugo/YLX9mpLpAXKa7DHFZIve31C5lY+2t/9VnXUwW3Rpd6QVYDLhug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12032
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA2D210E0FB;
+	Fri, 30 Oct 2026 10:17:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDEB710E0FB
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:17:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 62D1041430;
+ Fri, 30 Oct 2026 10:17:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E752A1F000C1;
+ Fri, 30 Oct 2026 10:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793355466;
+ bh=Xt99qhXmHcYgZJZPXoeAanVBQP2/tUhVYuVGBuL6NY4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mBKfXyZsIIjr+qfR/Lnm8Va06KFfjZI8rA7kPJvyrpZi2p1T5IjPXWT17iEfsCUkv
+ 6n3LL0P6Fleem5q1GHLbZMJSxcvvqkSmRvV24+F7cqmcm6NWx8+ZqOCqIJg+Kruzvu
+ JxbnjXX9Cw07CMEJVlOEQgewlFI1MfQErxqEI/XzFuE+lfOZVxDI9lBGlDsILXSivi
+ uL4hPAFBMsFctXQUQ1Q6co3MfCA7rCgsw8wXyWD1FAGvAOZy/nMv4zBladLolMt4SD
+ bNJM3JvIBp37wqOQeU/hgRShP4Y6x/BgTjBhw+A/lz2Y8aQK02xhL7voY2doHNbuaD
+ 0rZqgHSb5XdVg==
+Message-ID: <sashiko-outbox-190821@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 08/15] drm/imx: dc: Add DPR channel support
+To: "Liu Ying" <victor.liu@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261030-imx8-dc-prefetch-v8-8-c4f81afd4533@nxp.com>
+References: <20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com>
+ <20261030-imx8-dc-prefetch-v8-8-c4f81afd4533@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 10:17:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,142 +49,317 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Luca,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/imx: dc-dprc: deadlock and invalid lock type in dc_dprc_disabl=
+e_repeat_en()
+- [High] drm/imx: dc-dprc: runtime PM race and leak in dc_dprc_wrap_irq_han=
+dler()
+- [Medium] drm/imx: dc-dprc: RPM reference leak and PRG imbalance in dc_dpr=
+c_configure()
+--
 
-Thanks for looking over this patch.
+commit 0da98ec378c5f86195b2badbfc2867b3e806cb34
+Author: Liu Ying <victor.liu@nxp.com>
 
-On Fri, Oct 30, 2026 at 09:29:39AM +0100, Luca Ceresoli wrote:
-> Hello Laurentiu,
-> 
-> > The next bridge in bridge chain could be a panel bridge or a non-panel
-> > bridge.  Use devm_drm_of_get_bridge() to replace the combination
-> > function calls of of_drm_find_panel() and devm_drm_panel_bridge_add()
-> > to get either a panel bridge or a non-panel bridge, instead of getting
-> > a panel bridge only.
-> 
-> Since commit b7797081ccfe ("drm/panel: embed a drm_bridge into every
-> drm_panel") there is no such thing as a panel_bridge. Now every panel just
-> embeds a bridge, and there is no reason to use the panel_bridge API. All
-> bridges/encoders/whoever needing to interact with "the next component, be
-> it a bridge or a panel" should just use the bridge API.
-> 
-> The old panel_bridge APIs are deprecated [0] and by now they are just
-> complicated wrappers to the bridge API.
-> 
-> I'm addressing the conversion to bridge API and eventual removal of the
-> deprecated panel_bridge API as time permits (but pathces would be
-> welcome). This driver has already been converted by commit 802372cf316a
-> ("drm/bridge: fsl-ldb: don't create a panel_bridge"), so this patch is
-> basically not changing anything: it's still getting a pointer to the next
-> bridge, but switches to a slightly more complicated implementation.
-> 
-> So I'd drop this patch.
+drm/imx: dc: Add DPR channel support
 
-Agreed
+This commit adds a platform driver for the Display Prefetch Resolve
+Channel (DPRC), which fetches display data, transforms it to linear
+format, and stores it in RTRAM alongside its associated PRG.
 
-> 
-> Still it's good to get rid of the obsolete "panel" wording because now we
-> don't interact with a panel aymore, see below.
+> diff --git a/drivers/gpu/drm/imx/dc/dc-dprc.c b/drivers/gpu/drm/imx/dc/dc=
+-dprc.c
+> new file mode 100644
+> index 0000000000000..29188fa72a327
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dc/dc-dprc.c
+[ ... ]
+> +void dc_dprc_configure(struct dc_dprc *dprc, unsigned int stream_id,
+> +		       unsigned int width, unsigned int height,
+> +		       unsigned int stride,
+> +		       const struct drm_format_info *format,
+> +		       dma_addr_t baddr, bool start)
+> +{
+> +	unsigned int prg_stride =3D width * format->cpp[0];
+> +	unsigned int bpp =3D format->cpp[0] * 8;
+> +	struct device *dev =3D dprc->dev;
+> +	unsigned int p1_w, p1_h;
+> +	u32 val;
+> +	int ret;
+> +
+> +	if (start) {
+> +		ret =3D pm_runtime_resume_and_get(dev);
+> +		if (ret < 0) {
+> +			dev_err(dev, "failed to get RPM: %d\n", ret);
+> +			return;
+> +		}
+> +
+> +		dc_dprc_set_stream_id(dprc, stream_id);
+> +	}
+> +
+> +	p1_w =3D round_up(width, format->cpp[0] =3D=3D 2 ? 32 : 16);
+> +	p1_h =3D round_up(height, 4);
+> +
+> +	regmap_write(dprc->reg, FRAME_CTRL0, PITCH(stride));
+> +	regmap_write(dprc->reg, FRAME_1P_CTRL0, BYTE_1K);
+> +	regmap_write(dprc->reg, FRAME_1P_PIX_X_CTRL, NUM_X_PIX_WIDE(p1_w));
+> +	regmap_write(dprc->reg, FRAME_1P_PIX_Y_CTRL, NUM_Y_PIX_HIGH(p1_h));
+> +	regmap_write(dprc->reg, FRAME_1P_BASE_ADDR_CTRL0, baddr);
+> +	regmap_write(dprc->reg, FRAME_PIX_X_ULC_CTRL, CROP_ULC_X(0));
+> +	regmap_write(dprc->reg, FRAME_PIX_Y_ULC_CTRL, CROP_ULC_Y(0));
+> +
+> +	regmap_write(dprc->reg, RTRAM_CTRL0, THRES_LOW(3) | THRES_HIGH(7));
+> +
+> +	val =3D LINE4 | BUF2;
+> +	switch (format->format) {
+> +	case DRM_FORMAT_XRGB8888:
+> +		/*
+> +		 * It turns out pixel components are mapped directly
+> +		 * without position change via DPR processing with
+> +		 * the following color component configurations.
+> +		 * Leave the pixel format to be handled by the
+> +		 * display controllers.
+> +		 */
+> +		val |=3D A_COMP_SEL(3) | R_COMP_SEL(2) |
+> +		       G_COMP_SEL(1) | B_COMP_SEL(0);
+> +		val |=3D PIX_SIZE_32BIT;
+> +		break;
+> +	default:
+> +		dev_err(dev, "unsupported format 0x%08x\n", format->format);
+> +		return;
+> +	}
+> +	regmap_write(dprc->reg, MODE_CTRL0, val);
+> +
+> +	if (start) {
+> +		/* software shadow load for the first frame */
+> +		val =3D SW_SHADOW_LOAD_SEL | SHADOW_LOAD_EN;
+> +		regmap_write(dprc->reg, SYSTEM_CTRL0, val);
+> +
+> +		/* and then, run... */
+> +		val |=3D RUN_EN | REPEAT_EN;
+> +		regmap_write(dprc->reg, SYSTEM_CTRL0, val);
+> +	}
+> +
+> +	dc_prg_configure(dprc->prg, width, height, prg_stride, bpp, baddr, star=
+t);
+> +
+> +	if (start)
+> +		dc_dprc_enable(dprc);
+> +
+> +	dc_dprc_reg_update(dprc);
 
-OK, I'll replace this patch with one addressing your comments below.
+[Severity: Medium]
+As reported by Sashiko on v7 [1], can dc_dprc_configure() leak the runtime
+PM reference on dprc->dev and leave dprc->prg->dev unbalanced or unclocked
+when start is true?
 
-> 
-> [0] https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/Documentation/gpu/todo.rst#remove-panel_bridge-api-functions
-> 
-> >
-> > Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> > Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> >
-> > diff --git a/drivers/gpu/drm/bridge/fsl-ldb.c b/drivers/gpu/drm/bridge/fsl-ldb.c
-> > index 7ec84c81cd78..52ae7f5b63c7 100644
-> > --- a/drivers/gpu/drm/bridge/fsl-ldb.c
-> > +++ b/drivers/gpu/drm/bridge/fsl-ldb.c
-> > @@ -294,8 +294,8 @@ static const struct drm_bridge_funcs funcs = {
-> >  static int fsl_ldb_probe(struct platform_device *pdev)
-> >  {
-> >  	struct device *dev = &pdev->dev;
-> > -	struct device_node *panel_node;
-> 
-> This could be renamed remote_bridge, or next_bridge_node, or the like.
-> 
-> >  	struct device_node *remote1, *remote2;
-> > +	struct drm_bridge *next_bridge;
-> >  	struct fsl_ldb *fsl_ldb;
-> >  	int dual_link;
-> >
-> > @@ -318,19 +318,16 @@ static int fsl_ldb_probe(struct platform_device *pdev)
-> >  	if (IS_ERR(fsl_ldb->regmap))
-> >  		return PTR_ERR(fsl_ldb->regmap);
-> >
-> > -	/* Locate the remote ports and the panel node */
-> > +	/* Locate the remote ports. */
-> 
-> This is OK.
-> 
-> >  	remote1 = of_graph_get_remote_node(dev->of_node, 1, 0);
-> >  	remote2 = of_graph_get_remote_node(dev->of_node, 2, 0);
-> >  	fsl_ldb->ch0_enabled = (remote1 != NULL);
-> >  	fsl_ldb->ch1_enabled = (remote2 != NULL);
-> > -	panel_node = of_node_get(remote1 ? remote1 : remote2);
-> 
-> I'd leave it as is, it's just less code (and more efficient FWIW)
-> than... see below (*)
-> 
-> >  	of_node_put(remote1);
-> >  	of_node_put(remote2);
-> >
-> > -	if (!fsl_ldb->ch0_enabled && !fsl_ldb->ch1_enabled) {
-> > -		of_node_put(panel_node);
-> > -		return dev_err_probe(dev, -ENXIO, "No panel node found");
-> > -	}
-> > +	if (!fsl_ldb->ch0_enabled && !fsl_ldb->ch1_enabled)
-> > +		return dev_err_probe(dev, -ENXIO, "No next bridge node found");
-> 
-> This can be simplified by using a clenaup action on panel_node (or whatever
-> the new name will be), so the of_node_put() would disappear. See for
-> example commit 23bc92902edd ("drm/mxsfb/lcdif: simplify ep pointer
-> management using __free").
-> 
-> 
-> > @@ -339,10 +336,14 @@ static int fsl_ldb_probe(struct platform_device *pdev)
-> >  	if (of_property_present(dev->of_node, "nxp,enable-termination-resistor"))
-> >  		fsl_ldb->use_termination_resistor = true;
-> >
-> > -	fsl_ldb->bridge.next_bridge = of_drm_find_and_get_bridge(panel_node);
-> > -	of_node_put(panel_node);
-> > -	if (!fsl_ldb->bridge.next_bridge)
-> > -		return -ENODEV;
-> > +	next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node,
-> > +						    fsl_ldb->ch0_enabled ? 1 : 2,
-> > +						    0);
-> 
-> (*) ...this code.
-> 
-> > +	if (IS_ERR(next_bridge))
-> > +		return dev_err_probe(dev, PTR_ERR(next_bridge),
-> > +				     "failed to get next bridge\n");
-> > +
-> > +	fsl_ldb->bridge.next_bridge = next_bridge;
-> >
-> >  	if (fsl_ldb_is_dual(fsl_ldb)) {
-> >  		struct device_node *port1, *port2;
-> 
-> Luca
-> 
-> -- 
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
-> 
+In dc_dprc_configure(), pm_runtime_resume_and_get(dev) is called when start
+is true before checking format->format. If format->format hits the default
+case, the function returns early without calling pm_runtime_put(dev) and
+before calling dc_prg_configure(). That leaks the runtime PM reference on
+dprc->dev and leaves dprc->prg->dev runtime-suspended; a subsequent call to
+dc_dprc_disable() -> dc_prg_disable() will then write to prg->reg while
+unclocked and underflow prg->dev's runtime PM usage count.
 
--- 
-Thanks,
-Laurentiu
+Similarly, when dc_dprc_configure() calls dc_prg_configure() with start
+set to true:
+
+drivers/gpu/drm/imx/dc/dc-prg.c:dc_prg_configure() {
+	if (start) {
+		ret =3D pm_runtime_resume_and_get(dev);
+		if (ret < 0) {
+			dev_err(dev, "failed to get RPM: %d\n", ret);
+			return;
+		}
+	}
+}
+
+Because dc_prg_configure() returns void on pm_runtime_resume_and_get()
+failure, dc_dprc_configure() proceeds unconditionally to dc_dprc_enable()
+-> dc_prg_enable() and dc_dprc_reg_update() -> dc_prg_reg_update(), writing
+to prg->reg while prg->clks are disabled and leaving the runtime PM
+references between dprc->dev and prg->dev unbalanced.
+
+> +
+> +	if (start)
+> +		dc_dprc_enable_ctrl_done_irq(dprc);
+> +
+> +	dev_dbg(dev, "w: %u, h: %u, s: %u, fmt: 0x%08x\n",
+> +		width, height, stride, format->format);
+> +}
+> +
+> +void dc_dprc_disable_repeat_en(struct dc_dprc *dprc)
+> +{
+> +	guard(spinlock)(&dprc->lock);
+> +	regmap_write(dprc->reg, IRQ_MASK + SET, IRQ_DPR_CRTL_DONE);
+> +
+> +	synchronize_hardirq(dprc->wrap_irq);
+> +
+> +	regmap_write(dprc->reg, SYSTEM_CTRL0 + CLR, REPEAT_EN);
+> +	dev_dbg(dprc->dev, "disable REPEAT_EN\n");
+> +}
+
+[Severity: High]
+As reported by Sashiko on v7 [1], won't holding dprc->lock across
+synchronize_hardirq(dprc->wrap_irq) in dc_dprc_disable_repeat_en()
+deadlock if dc_dprc_wrap_irq_handler() is concurrently running?
+
+In dc_dprc_disable_repeat_en(), guard(spinlock)(&dprc->lock) holds
+dprc->lock for the entire function scope, including while waiting in
+synchronize_hardirq(dprc->wrap_irq). If wrap_irq fires on another CPU (eith=
+er
+from DPRC before IRQ_MASK + SET takes effect, or from another device sharing
+the IRQF_SHARED interrupt line) and enters dc_dprc_wrap_irq_handler(),
+IRQD_IRQ_INPROGRESS is set before dc_dprc_wrap_irq_handler() attempts to
+acquire dprc->lock:
+
+CPU 0                                  CPU 1 (hardirq wrap_irq)
+dc_dprc_disable_repeat_en()            handle_irq_event()
+  guard(spinlock)(&dprc->lock)           /* sets IRQD_IRQ_INPROGRESS */
+  ...                                    dc_dprc_wrap_irq_handler()
+  synchronize_hardirq(dprc->wrap_irq)      scoped_guard(spinlock, &dprc->lo=
+ck)
+    /* waits for IRQD_IRQ_INPROGRESS */      /* spins waiting for dprc->loc=
+k */
+
+Also, if dc_dprc_disable_repeat_en() is ever called with local IRQs enabled,
+guard(spinlock) does not disable local interrupts, so wrap_irq on the same
+CPU can preempt and self-deadlock on dprc->lock.
+
+In addition, as noted in the comment on dc_dprc_regmap_config,
+dc_dprc_disable_repeat_en() is called with local IRQs and preemption
+disabled. However, dprc->lock is declared as spinlock_t rather than
+raw_spinlock_t, and dc_dprc_wrap_irq_handler() -> dc_dprc_ctrl_done_handle()
+-> dc_prg_shadow_enable() writes to prg->reg (whose dc_prg_regmap_config
+does not set use_raw_spinlock =3D true) from hardirq context. On PREEMPT_RT=
+ or
+with CONFIG_PROVE_RAW_LOCK_NESTING enabled, acquiring a non-raw spinlock_t
+in hardirq context or with local IRQs/preemption disabled triggers an
+invalid wait-context splat.
+
+Finally, because devm_request_irq() is called without IRQF_NO_THREAD,
+dc_dprc_wrap_irq_handler() is force-threaded under PREEMPT_RT or threadirqs.
+In that configuration, synchronize_hardirq() does not wait for the IRQ
+thread to complete, so dc_dprc_ctrl_done_handle() can still run concurrently
+and write REPEAT_EN back to SYSTEM_CTRL0 and SHADOW_EN to prg->reg after
+dc_dprc_disable_repeat_en() and dc_dprc_disable().
+
+> +
+> +/*
+> + * dc_dprc_disable_repeat_en() must be called beforehand to mask
+> + * IRQ_DPR_CRTL_DONE and synchronize wrap_irq.
+> + */
+> +void dc_dprc_disable(struct dc_dprc *dprc)
+> +{
+> +	dc_prg_disable(dprc->prg);
+> +
+> +	pm_runtime_put(dprc->dev);
+> +
+> +	dev_dbg(dprc->dev, "disable\n");
+> +}
+[ ... ]
+> +static irqreturn_t dc_dprc_wrap_irq_handler(int irq, void *data)
+> +{
+> +	struct dc_dprc *dprc =3D data;
+> +	struct device *dev =3D dprc->dev;
+> +	u32 mask =3D 0, status =3D 0;
+> +	irqreturn_t result;
+> +
+> +	pm_runtime_get_noresume(dev);
+> +	if (!pm_runtime_active(dev)) {
+> +		result =3D IRQ_NONE;
+> +		goto out;
+> +	}
+> +
+> +	scoped_guard(spinlock, &dprc->lock) {
+> +		/* cache valid IRQ status */
+> +		regmap_read(dprc->reg, IRQ_MASK, &mask);
+> +		regmap_read(dprc->reg, IRQ_MASK_STATUS, &status);
+> +		status &=3D ~mask;
+> +
+> +		/* mask the IRQ(s) being handled */
+> +		regmap_write(dprc->reg, IRQ_MASK + SET, status);
+> +
+> +		/* clear status register */
+> +		regmap_write(dprc->reg, IRQ_MASK_STATUS, status);
+> +	}
+> +
+> +	if (status =3D=3D 0) {
+> +		result =3D IRQ_NONE;
+> +		goto out;
+> +	}
+> +
+> +	if (status & DPR2RTR_FIFO_LOAD_BUF_RDY_UV_ERROR)
+> +		dev_err(dev, "DPR to RTRAM FIFO load UV buffer ready error\n");
+> +
+> +	if (status & DPR2RTR_FIFO_LOAD_BUF_RDY_YRGB_ERROR)
+> +		dev_err(dev, "DPR to RTRAM FIFO load YRGB buffer ready error\n");
+> +
+> +	if (status & DPR2RTR_UV_FIFO_OVFL)
+> +		dev_err(dev, "DPR to RTRAM FIFO UV FIFO overflow\n");
+> +
+> +	if (status & DPR2RTR_YRGB_FIFO_OVFL)
+> +		dev_err(dev, "DPR to RTRAM FIFO YRGB FIFO overflow\n");
+> +
+> +	if (status & IRQ_AXI_READ_ERROR)
+> +		dev_err(dev, "AXI read error\n");
+> +
+> +	if (status & IRQ_DPR_CRTL_DONE)
+> +		dc_dprc_ctrl_done_handle(dprc);
+> +
+> +	result =3D IRQ_HANDLED;
+> +out:
+> +	pm_runtime_put_noidle(dev);
+> +	return result;
+> +}
+
+[Severity: High]
+As reported by Sashiko on v7 [1], can dc_dprc_wrap_irq_handler() still race
+with runtime suspend or leak the active runtime PM state when wrap_irq is
+shared?
+
+Because wrap_irq is requested with IRQF_SHARED, another DPRC instance can
+trigger dc_dprc_wrap_irq_handler() at any time:
+
+1. In rpm_suspend(), after rpm_check_suspend_allowed() verifies usage_count
+   is 0, it sets runtime_status to RPM_SUSPENDING and drops dev->power.lock
+   to invoke dc_dprc_runtime_suspend(), which disables dprc->clks. Because
+   pm_runtime_get_noresume(dev) and pm_runtime_active(dev) in
+   dc_dprc_wrap_irq_handler() do not synchronize with dev->power.lock or
+   in-flight suspend, if dc_dprc_wrap_irq_handler() runs right before
+   RPM_SUSPENDING is set, it passes the pm_runtime_active(dev) check and
+   reads IRQ_MASK and IRQ_MASK_STATUS from dprc->reg while
+   dc_dprc_runtime_suspend() concurrently disables dprc->clks.
+
+2. pm_runtime_active(dev) returns true whenever dev->power.disable_depth > =
+0,
+   even if the device is runtime-suspended with its clocks off (for example,
+   during late system suspend after __device_suspend_late() disables runtime
+   PM, during devres teardown on unbind, or when CONFIG_PM is disabled). Any
+   shared IRQ during those windows will read dprc->reg with clocks disabled.
+
+3. If dc_dprc_wrap_irq_handler() increments usage_count from 1 to 2 via
+   pm_runtime_get_noresume(dev) while dc_dprc_disable() concurrently calls
+   pm_runtime_put(dprc->dev), dc_dprc_disable() drops usage_count from 2 to
+   1 without scheduling idle/suspend. When dc_dprc_wrap_irq_handler() then
+   calls pm_runtime_put_noidle(dev), usage_count drops from 1 to 0 without
+   triggering rpm_idle() or rpm_suspend(), leaving dprc->dev permanently
+   active with its clocks enabled.
+
+[1] https://lore.kernel.org/r/20261026-imx8-dc-prefetch-v7-8-a0b50cc4fc65@n=
+xp.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-imx8-dc-pr=
+efetch-v8-0-c4f81afd4533@nxp.com?part=3D8
