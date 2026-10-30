@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693A3606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD85606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akcVjEyq
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD/Ne4uY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 164931128AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 724B81128AF;
 	Fri, 30 Oct 2026 15:15:43 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 801D811288C
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:15:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1628111289F
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:15:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 025E4601EE;
- Fri, 30 Oct 2026 15:15:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CFFC1F000C1;
- Fri, 30 Oct 2026 15:15:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8A20D601EE;
+ Fri, 30 Oct 2026 15:15:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F301F000C1;
+ Fri, 30 Oct 2026 15:15:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793373309;
- bh=fP5ZzG5BYOMroj/BMRw+mELsCATZtgVgFGFS4DYQl5A=;
+ s=k20260515; t=1793373335;
+ bh=LUcl12gwkN8B7VfualkhTFi3SbBn5mj0wBC5eClpxhE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=akcVjEyqRYmYJWvpX15ynBXRVBj7i/4Jdkd+5JsF0J/x//6lS2QuENNjheQPqNDQd
- 36h7/JqoHDMdg3F7ELsb6BkfzcqaRvcSDmrLUgpasWBmngkuzwG/xT8J6/gofjSdqR
- L/oPfoztTH0/rVQWwVeUl3RH5UVa2e+lcJdZAkrFrRJ4eU17O4H95yoS1rEJXlEg75
- hnIlS7Im832UcCIlFJj53V8yAMcy5ewKt0Kpsi5mZ1ShD3pEnpHC7HDZqWkLjrmy6f
- Y7ZOY7kf6y0QWi7jh1CFk0ZXtYIl2gM3/3S2bdNO3TPGZH1l9WPtgzbm4GJzConmx2
- 9uzMiv6eUN0gw==
+ b=iD/Ne4uY7v+U5YAr0XbBd5Qow1l2PqW8dAcGe5ay+ik+lnKV/MS4S5GoYojyZesgq
+ YQHZJftdOBS+Xm/xprD9O9tUTYoJWYX80nLQd0IODJqD1luIShfl3gNnwvKSc9Ovbe
+ /7IxTGsPWmbAeg9ELNmhphsEsGTfBniMEBYAvmKgoeDZrMRhWEkxwJUa83YCt1wJgq
+ 4SqBHSyQDxrpS+nPV8DPrWQOVBCHudtOk1iLWJOWw5Ko5UBQr/4YRGsAKOlQaEPH86
+ uqVsm5QNo6osujXLkCuISRm5/mgR9Nkg2NXsmgVVArjKjXn5ttPeVnp5f8LuSVuQfU
+ 3Efaqwy0c80oQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 16:13:51 +0100
-Subject: [PATCH v3 21/37] drm/tiny: arcpgu: Switch to
- drm_atomic_helper_connector_create_state
+Date: Fri, 30 Oct 2026 16:13:58 +0100
+Subject: [PATCH v3 28/37] drm/sun4i: hdmi: Convert to atomic_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-no-more-connector-reset-v3-21-30e71d92c327@kernel.org>
+Message-Id: <20261030-drm-no-more-connector-reset-v3-28-30e71d92c327@kernel.org>
 References: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 In-Reply-To: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Alexey Brodkin <abrodkin@synopsys.com>
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ linux-sunxi@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1073; i=mripard@kernel.org;
- h=from:subject:message-id; bh=lRmM4tqeA3Vt8gf7dUtrCiy7xIkgvbo20a7VjxyAHLo=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtqjdqOz6ac0gwrmgfJrttJn3Zybsq7wQbbrc9obv+
- iy+VwdrOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBETs9hbHjLUWK/SIVxS/NU
- /6zkmFOOG+4ps07fsMjYOiTTkm25d7HlyrrM6NdNjwRVObgC2SfeYmxocH2cENnAcLD30zODMMH
- nLofLpkxUOtfp9uXM+ijxM3dl78/me71izm+HPkdv3qfP4ycDAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2001; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=w9nESPjYXbVij1sc0qXET6/o4C+Z94CFJROMxWaY4s4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtmh+X31hf9opsy+PGFm/MskJrL0UzT79le/fB7+/F
+ 6t3/Jkb1DGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmciSAsVbWPrFHf7dFzpIk
+ xsC09L6uA9tSRZL/3im/Zn7Darr9kUsyj6xereKRYlvA0/1wxRvbAsb6wPM5v9RiTuhEP03d/G3
+ j7/3ucyp14nRuPNZe/vObmfK0O/PFplt/FpJI6/c/0xMqGrIXAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,35 +66,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The tiny: arcpgu connector implementation uses the deprecated
-drm_atomic_helper_connector_reset() as its reset hook.
+The sun4i HDMI connector reset implementation creates a pristine
+state and initializes the HDMI state. It does not perform any
+hardware reset.
 
-Switch to drm_atomic_helper_connector_create_state() instead.
+Since this is equivalent to what atomic_create_state expects, convert
+the reset function to an atomic_create_state hook that returns the
+initialized state.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Cc: Alexey Brodkin <abrodkin@synopsys.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: linux-sunxi@lists.linux.dev
 ---
- drivers/gpu/drm/tiny/arcpgu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
-index cdbf28db8fa1..32f6e98ba9c5 100644
---- a/drivers/gpu/drm/tiny/arcpgu.c
-+++ b/drivers/gpu/drm/tiny/arcpgu.c
-@@ -99,7 +99,7 @@ arcpgu_drm_connector_helper_funcs = {
+diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+index 3084f6570c29..58626d0562ae 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
++++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+@@ -291,9 +291,17 @@ sun4i_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ }
  
- static const struct drm_connector_funcs arcpgu_drm_connector_funcs = {
--	.reset = drm_atomic_helper_connector_reset,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.destroy = drm_connector_cleanup,
-+	.atomic_create_state = drm_atomic_helper_connector_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+-static void sun4i_hdmi_connector_reset(struct drm_connector *connector)
++static struct drm_connector_state *
++sun4i_hdmi_connector_create_state(struct drm_connector *connector)
+ {
+-	drm_atomic_helper_connector_reset(connector);
+-	__drm_atomic_helper_connector_hdmi_state_init(connector->state,
++	struct drm_connector_state *connector_state;
++
++	connector_state = drm_atomic_helper_connector_create_state(connector);
++	if (IS_ERR(connector_state))
++		return connector_state;
++
++	__drm_atomic_helper_connector_hdmi_state_init(connector_state,
+ 						      connector);
++
++	return connector_state;
+ }
+ 
+@@ -302,5 +310,5 @@ static const struct drm_connector_funcs sun4i_hdmi_connector_funcs = {
+ 	.detect			= sun4i_hdmi_connector_detect,
+ 	.fill_modes		= drm_helper_probe_single_connector_modes,
+-	.reset			= sun4i_hdmi_connector_reset,
++	.atomic_create_state	= sun4i_hdmi_connector_create_state,
+ 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
 
 -- 
 2.55.0
