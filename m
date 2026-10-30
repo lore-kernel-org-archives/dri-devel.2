@@ -2,98 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45022606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:39:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA78606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Fnp7A4FP
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehLOq77s
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C3C8112730;
-	Fri, 30 Oct 2026 10:39:46 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3588C112730
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1793356779;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=qu13WNcpY/vZ07q359lLwvt6yOBB5yClJfHy+LokQkQ=;
- b=Fnp7A4FP7cKWqyHN26yrmDSn3V0lVOZG41ziwrWnOAyDZbrouxKbZIxsOQ2oALjp/9f6m9
- ChtbIW0l7NqQBqqB0DPjmvYZH5ExcPfCL4FsHulUTZQra7Jrv+wxzebqJQFsRVX+X7hk24
- bQA1bRuVQV1t8h1l5srE0BdnC4yyl9w=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-19-M2ntACNDMe6T-lIZ1FScNw-1; Fri, 30 Oct 2026 06:39:34 -0400
-X-MC-Unique: M2ntACNDMe6T-lIZ1FScNw-1
-X-Mimecast-MFC-AGG-ID: M2ntACNDMe6T-lIZ1FScNw_1793356773
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-4a009f82bedso3799525e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 03:39:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793356773; x=1793961573;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qu13WNcpY/vZ07q359lLwvt6yOBB5yClJfHy+LokQkQ=;
- b=wGbDxbw+7tdA0u+Kx8xNzbOIGPHFODzBKdJMeAGJPcWh6EEAM7mrnmxJXrabUsPsWX
- ylhNzfJr5xK97sIt7vCkYqlqzs9EviK82GLlAjEIz/7H45X56HZwwYFhs63YilHUu99t
- GaczKcXDGl8OiUFaelYtI2dKSEdMcuJc0al0ly4Bkcq7WfjL002Rf/dVNSZf7CUWJYzK
- EC5lN6zP0bKzmfvtB1B8cJuU1IowRz5+ub/25P2VZ9BCthBV1/JdDlBFTxRfZXxZSv0E
- KadxEOVQD0qk0OodUiqyV7+PsQkI4Or8/iOVAhDKSEukBGzx9BmcN+4o5pCb+sDVnMsw
- M6Mg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx0GGCJq/EYdyXglza6ShreqHE0Ta0ikJol9kTMS+gf+VWW/jn/d1G8qj2k9Ef/wUNOKWY0mg/t8nA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIIm+BT3H1UwbVnRUEEbSmvHT6zXLkwVVsChNYEoK2+NF8gCegR
- l3fb9zDND8iKaZ3mNUQlI3VVdNLjymVcesl8btq228VZXh+LlsyCFVHdKHZ8BQqUZQ87v03ug0c
- I42YfIIgB8awKQua0E3m9KOcYsWv5rIFxx5IYuY4WUiU+H7amVHBBqT8VANq08/ziotqyZg==
-X-Gm-Gg: AYBFou3cScgucUblLgUqD/m+muWylPENCKIelvvFUboRyZs77q+lMq4kvNjtHstpXX7
- hK9CImpXB38yyrHpdIYEZgHbiRnsoRWuA5va7JLECDN974feY2zFnqiEi4gAkG8i3gqikyOLfaj
- cP/ndswYVhdss8DIkD/orPKYE2yaOCI656+0kfN4LdeiVHqyU1IDx+hJ+toZec0YfgDnPUbUoLm
- hoSpq1N0VVdyqSB8lklZ6bDc64U8+I+jTwvm63Zm0xG0Nquw33IZ7P5c8IJLV5C+7JAukuWAoDy
- qd8138j6FqnI7MvFgLpEQfBna01X618egxMuFPLHS2Qnz8JABsLNteXVhiCrEeKgb34SwB8bQyn
- 0vwjq4QEa4xg0jI07cwFH3g4WG6WdDvP/s8sh5Rl602/NzTwPHMiaGac5N6JWOaC/kKf3i481df
- pfcK3XifRn7w8QjvncK2gBS0iupNPnRF8jV24O4ZE=
-X-Received: by 2002:a05:600c:8b63:b0:4a2:40:7f35 with SMTP id
- 5b1f17b1804b1-4ac18993232mr37255445e9.31.1793356773050; 
- Fri, 30 Oct 2026 03:39:33 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b63:b0:4a2:40:7f35 with SMTP id
- 5b1f17b1804b1-4ac18993232mr37255005e9.31.1793356772563; 
- Fri, 30 Oct 2026 03:39:32 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4aa813d2640sm126040245e9.6.2026.10.30.03.39.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 03:39:31 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, Haneen
- Mohammed <hamohammed.sa@gmail.com>, Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, Harry Wentland
- <harry.wentland@amd.com>, Jocelyn Falempe <jfalempe@redhat.com>, Jonas
- =?utf-8?Q?=C3=85dahl?= <jadahl@redhat.com>, Michel =?utf-8?Q?D=C3=A4nzer?=
- <mdaenzer@redhat.com>, Pekka
- Paalanen <pekka.paalanen@collabora.com>, Sebastian Wick
- <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, Victoria
- Brekenfeld <victoria@system76.com>, Xaver Hugl <xaver.hugl@kde.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Maxime
- Ripard <mripard@kernel.org>
-Subject: Re: [PATCH v7 02/16] drm/solomon: ssd130x: Drop the init-only
- assumption in ssd130x_crtc_create_state()
-In-Reply-To: <20261030-drm-reset-state-flag-v7-2-4e55eaeae683@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE90112732;
+	Fri, 30 Oct 2026 10:39:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 578F7112732
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:39:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 04AAE43A8A
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:39:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFB1C1F00A18;
+ Fri, 30 Oct 2026 10:39:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793356782;
+ bh=Nm7CfFzNaSpyTI8c+HfoFsC0wk5vMUeu0Nw6x+o1kR4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ehLOq77sD4iDItx/bgt76D5ZdJBb6+kQPBN1TLcrFUZNBCLVmVdgZ8lAidDb6oejZ
+ ckmEenYcvKB5XHykjTAE0D4DyjMHDuNqtG/kfGhRgI89g/R6PGN9UXVbR9dfya77jh
+ bYtnXgQto/DY6zrrVaCdMKbHN2hXhU+QXVgRny8fj+1G+DLKwrV9AeY7K+1Mf2doLP
+ raL6RtzwGGpjmKDBCaMaFrO7glC93+Sy2PLKAyuX2BgIJRTt2xfL12jvM3UWQdxNqe
+ fwgmNKBZI+J77ODFiPvOmveuTXxX1HW0c2GcwbTkIX3BAdfU2pSV9KJx5p4/8imb8c
+ FDeK8Vtx0F56w==
+Message-ID: <sashiko-outbox-190855@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 13/16] drm/tests: atomic: Add tests for
+ drm_atomic_commit_fill_with_defaults()
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261030-drm-reset-state-flag-v7-13-4e55eaeae683@kernel.org>
 References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
- <20261030-drm-reset-state-flag-v7-2-4e55eaeae683@kernel.org>
-Date: Fri, 30 Oct 2026 11:39:30 +0100
-Message-ID: <xlv1ik2jfp5p.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: wg3i2lBIJFPSBrbO8pUwpnKMPfHMhCsI7NVbaxTz-tU_1793356773
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+ <20261030-drm-reset-state-flag-v7-13-4e55eaeae683@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 10:39:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,46 +49,192 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Maxime Ripard <mripard@kernel.org> writes:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] drm/tests: missing atomic_create_state in drm_atomic_init_connec=
+tor_funcs
+- [Low] drm/tests: commit message does not match added tests in drm_atomic_=
+test.c
+--
 
-Hello Maxime,
+commit 0885e84f724b909721af519687158e094325a32c
+Author: Maxime Ripard <mripard@kernel.org>
 
-> The ssd130x_crtc_create_state() implementation warns when the CRTC
-> already has a state, assuming that atomic_create_state would only ever
-> be called at initialization time to allocate the initial state.
->
-> However, atomic_create_state is documented to have no side effect and
-> can be called at runtime, so that assumption doesn't hold and the WARN
-> is a side effect in itself.
->
-> Let's drop the WARN, along with the comment documenting that
-> assumption.
->
-> Fixes: 1345de7fe9114 ("drm/solomon: ssd130x: Convert to atomic_create_state")
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
->
-> ---
->
-> To: Javier Martinez Canillas <javierm@redhat.com>
-> ---
->  drivers/gpu/drm/solomon/ssd130x.c | 3 ---
->  1 file changed, 3 deletions(-)
->
+drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+This commit adds a KUnit test suite in drivers/gpu/drm/tests/drm_atomic_tes=
+t.c
+to exercise drm_atomic_commit_fill_with_defaults().
 
--- 
-Best regards,
+>     drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults=
+()
+>    =20
+>     drm_atomic_commit_fill_with_defaults() is used by the
+>     DRM_MODE_ATOMIC_RESET flag to bring all objects back to their pristine
+>     state. However, it has no dedicated test coverage.
+>    =20
+>     Add two tests that verify the reset cycle. The first enables a CRTC,
+>     plane, and connector, then calls drm_atomic_commit_fill_with_defaults=
+()
+>     and verifies all objects return to their disabled state: CRTC inactiv=
+e,
+>     plane disabled with no framebuffer, and connector unbound. The second
+>     goes further and commits the default-filled state to verify the
+>     init -> enable -> reset -> commit sequence completes without errors.
+>    =20
+>     Suggested-by: Daniel Stone <daniel@fooishbar.org>
+>     Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+[Severity: Low]
+This isn't a bug, but does the commit message match the tests added by this
+patch?
 
+The commit message states that two tests are added and that the first test
+enables a CRTC, plane, and connector. However, drm_atomic_fill_with_default=
+s_tests
+adds four test cases (also including drm_test_check_fill_with_defaults_colo=
+r_mgmt
+and drm_test_check_fill_with_defaults_no_modeset), and as noted in the comm=
+ent
+above drm_test_check_fill_with_defaults(), the test only enables the CRTC a=
+nd
+connector via drm_kunit_helper_enable_crtc_connector() without enabling the
+plane.
+
+> diff --git a/drivers/gpu/drm/tests/drm_atomic_test.c b/drivers/gpu/drm/te=
+sts/drm_atomic_test.c
+> index ea91bec6569e6..e8f18b8f6361e 100644
+> --- a/drivers/gpu/drm/tests/drm_atomic_test.c
+> +++ b/drivers/gpu/drm/tests/drm_atomic_test.c
+
+[ ... ]
+
+> @@ -140,13 +141,321 @@ static struct kunit_case drm_atomic_get_connector_=
+for_encoder_tests[] =3D {
+>  	{ }
+>  };
+> =20
+> -
+>  static struct kunit_suite drm_atomic_get_connector_for_encoder_test_suit=
+e =3D {
+>  	.name =3D "drm_test_atomic_get_connector_for_encoder",
+>  	.test_cases =3D drm_atomic_get_connector_for_encoder_tests,
+>  };
+> =20
+> -kunit_test_suite(drm_atomic_get_connector_for_encoder_test_suite);
+> +/*
+> + * Test that after enabling a CRTC and connector, filling with defaults
+> + * produces a state where all objects are disabled: CRTC is inactive,
+> + * plane is disabled, and connector is unbound.
+> + *
+> + * This is done without any lease, so all objects are expected to be
+> + * reset.
+> + *
+> + * The plane is not explicitly enabled with a framebuffer here, so
+> + * this validates that fill_with_defaults produces a consistent
+> + * disabled state rather than testing an active plane teardown.
+> + */
+> +static void drm_test_check_fill_with_defaults(struct kunit *test)
+> +{
+> +	struct drm_atomic_test_priv *priv;
+> +	struct drm_modeset_acquire_ctx ctx;
+> +	struct drm_connector_state *new_conn_state;
+> +	struct drm_crtc_state *new_crtc_state;
+> +	struct drm_plane_state *new_plane_state;
+> +	struct drm_atomic_commit *state;
+> +	struct drm_display_mode *mode;
+> +	struct drm_device *drm;
+> +	int ret;
+> +
+> +	priv =3D create_device(test);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
+> +
+> +	drm =3D &priv->drm;
+> +
+> +	mode =3D drm_kunit_display_mode_from_cea_vic(test, drm, 16);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
+> +
+> +	drm_modeset_acquire_init(&ctx, 0);
+> +
+> +retry_enable:
+> +	ret =3D drm_kunit_helper_enable_crtc_connector(test, drm,
+> +						     priv->crtc,
+> +						     &priv->connector,
+> +						     mode, &ctx);
+> +	if (ret =3D=3D -EDEADLK) {
+> +		ret =3D drm_modeset_backoff(&ctx);
+> +		if (!ret)
+> +			goto retry_enable;
+> +	}
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +	state =3D drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
+> +
+> +retry_fill:
+> +	ret =3D drm_atomic_commit_fill_with_defaults(NULL, state);
+> +	if (ret =3D=3D -EDEADLK) {
+> +		drm_atomic_commit_clear(state);
+> +		ret =3D drm_modeset_backoff(&ctx);
+> +		if (!ret)
+> +			goto retry_fill;
+> +	}
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+
+[Severity: Medium]
+As reported by Sashiko on v6 [1], won't drm_atomic_commit_fill_with_default=
+s()
+fail with -EOPNOTSUPP in all four tests here?
+
+Each test calls create_device(), which initializes priv->connector with
+drm_atomic_init_connector_funcs:
+
+drivers/gpu/drm/tests/drm_atomic_test.c:
+static const struct drm_connector_funcs drm_atomic_init_connector_funcs =3D=
+ {
+	.atomic_destroy_state	=3D drm_atomic_helper_connector_destroy_state,
+	.atomic_duplicate_state	=3D drm_atomic_helper_connector_duplicate_state,
+	.reset			=3D drm_atomic_helper_connector_reset,
+};
+
+Because .atomic_create_state is left NULL on drm_atomic_init_connector_func=
+s,
+drm_atomic_commit_fill_with_defaults() acquires the modeset locks on
+state->acquire_ctx and then returns -EOPNOTSUPP when iterating over connect=
+ors:
+
+drivers/gpu/drm/drm_atomic.c:drm_atomic_commit_fill_with_defaults()
+		if (!connector->funcs->atomic_create_state) {
+			drm_connector_list_iter_end(&conn_iter);
+			return -EOPNOTSUPP;
+		}
+
+This causes KUNIT_ASSERT_EQ(test, ret, 0) in drm_test_check_fill_with_defau=
+lts(),
+drm_test_check_fill_with_defaults_commit(),
+drm_test_check_fill_with_defaults_color_mgmt(), and
+drm_test_check_fill_with_defaults_no_modeset() to fail and abort the test
+before drm_modeset_drop_locks(&ctx) and drm_modeset_acquire_fini(&ctx) are
+reached, leaving the acquired modeset locks linked to the stack-allocated c=
+tx
+during KUnit device teardown.
+
+Should drm_atomic_init_connector_funcs set .atomic_create_state to
+drm_atomic_helper_connector_create_state?
+
+[1] https://lore.kernel.org/r/20261022-drm-reset-state-flag-v6-12-f36d640b7=
+e76@kernel.org
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030-drm-reset-=
+state-flag-v7-0-4e55eaeae683@kernel.org?part=3D13
