@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B347460A260F
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:28:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13ED4606A331
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:28:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iRmveH4x
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JPNvVh4I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB3A310E594;
-	Fri, 30 Oct 2026 10:28:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBCA112713;
+	Fri, 30 Oct 2026 10:28:14 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF3C11270C
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:28:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28FEE112713
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:28:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 381A9437A4;
- Fri, 30 Oct 2026 10:28:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 944BD1F00A02;
- Fri, 30 Oct 2026 10:28:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0902043F98;
+ Fri, 30 Oct 2026 10:28:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605B01F00A16;
+ Fri, 30 Oct 2026 10:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793356081;
- bh=hYIZ0Nxu3e4yHwGzd5Edo5K+65SxK/KdsxGn3Zo1Zf8=;
+ s=k20260515; t=1793356084;
+ bh=JWUMgHIC9UGBSIolOL6GZvlgSz5q9pcFRnOxAnmCYII=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=iRmveH4xAcSJdMTcNRwb6M8yTlIPGY5nAdLM+OFrBzmuufRbiAtxi31mm7n9NHTmw
- LaksTLoTMB3ulnyjIa/m3qieRaAnE8xAcedoK+IfvAPJrL6N/Fa4Uox80l8o6WKNB2
- ac8VuSbLyvswJ3wvXxYShvOsFIVbdnfrIYHfwRNWgc6WHQc9mEoZSn7AFnZQhZZlzt
- Qyb3eOaB7+0cyNoEJBKHW45tLRU1N6CXnEOkNCYzu5w/wZC3yytoQLqOtXiotc2l7i
- YJCLTQmQBiduh+Nb/aKxnpsUiMHsiY5PlPk23uIJzABWbqEGD3qrUIMdf8YZ5btOhz
- PvJWLXzYhQOLw==
+ b=JPNvVh4Ih/ELqgxdbt6v3NVNaVs1vG0gq2S0vJetMR3B99MMA6c6s+inDSo1EPlzh
+ d9GF7NtOIQI/dhET8QoPqiuvxii8vskFBPwGmdGZi7YwiAyPT2abmb/UOxLZAIpzSk
+ Umtujd6f4nA0WDEFWyiAv2OBAO2/C5Uo6Cc/VOHsLsG4w9/irbnyQSMRSJiuGyAoKH
+ qPtbqdwb8GVBGUiMYuR+5w5Fb1khlDk1hXhdyMpZUcMqyrqFTHAYzmCsHoHptPcgx3
+ e8HKXOmU+OmWPEfWtqtAst0iCQCyDDWY7QkW49xos/Dbz6rzHZn4DqNWQJDQHkm8by
+ v6+l2b2VOU3BQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 11:27:36 +0100
-Subject: [PATCH v7 04/16] drm/atomic: Use __GFP_ZERO instead of explicit
- memset in drm_atomic_get_private_obj_state()
+Date: Fri, 30 Oct 2026 11:27:37 +0100
+Subject: [PATCH v7 05/16] drm/atomic: Use __GFP_ZERO instead of explicit
+ memset in drm_atomic_get_connector_state()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-reset-state-flag-v7-4-4e55eaeae683@kernel.org>
+Message-Id: <20261030-drm-reset-state-flag-v7-5-4e55eaeae683@kernel.org>
 References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1481; i=mripard@kernel.org;
- h=from:subject:message-id; bh=/y0t9kvV8Kz+g1uKURCfaTtHcrjM3f6qXQBsVU8JRDM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCiXb5nvdMp1737qu8E/isrI4s4xpPu98UpzXS8uuK
- zZvcz/bMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbCU8nYsMKzxXraxdu3dreZ
- 8n3vLD/xc29gl8IJsVvsq9zqtx5Y9Da6bs9Oq3SW9PjatNhpM88sY6yVS59jk6GmGsG6/mZiqi/
- zLYsNH/nqmEOLz3qUW+xa57n1Q7fhh9g1PX+rVBi1y/eu+AoA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1374; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=LZbtPHVlMICiFBeZpJ8LPAkCVdWnWToVa7ZsZD+t1oo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCiXt1kp9mP5uppHHV9E5GrvXuzjoiP9/axli2ZP87
+ svyB+tOdExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJOLcyNqzx+9qYmyH93/zo
+ Boe7C3JSqgLnflrtZecic3P/8Zk3Lpefmfri3cESAxE1yR9L55sk/GJsWPdu7qxmuRDPIidt7Y2
+ rNaSDFtx9mzdjf+7m5Bj+2E/pHaHHFu89uOS/TfyhwBXNUUWVAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,12 +81,13 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The drm_atomic_get_private_obj_state() function allocates a new entry in
-the private_objs array using krealloc_array(), then zeroes the new entry
-with a separate memset() call.
+The drm_atomic_get_connector_state() function grows the connectors array
+with krealloc_array() when the requested connector index exceeds the
+current allocation, then zeroes the new entries with a separate memset()
+call.
 
-However, since krealloc_array() already supports the __GFP_ZERO flag to
-zero newly allocated memory, the explicit memset() is redundant.
+Since krealloc_array() supports the __GFP_ZERO flag to zero newly
+allocated memory, the explicit memset() is unnecessary.
 
 Pass __GFP_ZERO to krealloc_array() and drop the manual memset().
 
@@ -94,26 +95,27 @@ Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index aa47c647df31..43b58e9b25e4 100644
+index 43b58e9b25e4..80436adcfb7f 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1096,5 +1096,5 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 	num_objs = state->num_private_objs + 1;
- 	arr = krealloc_array(state->private_objs, num_objs,
--			     sizeof(*state->private_objs), GFP_KERNEL);
-+			     sizeof(*state->private_objs), GFP_KERNEL | __GFP_ZERO);
- 	if (!arr)
- 		return ERR_PTR(-ENOMEM);
-@@ -1102,5 +1102,4 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 	state->private_objs = arr;
- 	index = state->num_private_objs;
--	memset(&state->private_objs[index], 0, sizeof(*state->private_objs));
+@@ -1391,12 +1391,9 @@ drm_atomic_get_connector_state(struct drm_atomic_commit *state,
  
- 	obj_state = obj->funcs->atomic_duplicate_state(obj);
+ 		c = krealloc_array(state->connectors, alloc,
+-				   sizeof(*state->connectors), GFP_KERNEL);
++				   sizeof(*state->connectors), GFP_KERNEL | __GFP_ZERO);
+ 		if (!c)
+ 			return ERR_PTR(-ENOMEM);
+ 
+ 		state->connectors = c;
+-		memset(&state->connectors[state->num_connector], 0,
+-		       sizeof(*state->connectors) * (alloc - state->num_connector));
+-
+ 		state->num_connector = alloc;
+ 	}
 
 -- 
 2.55.0
