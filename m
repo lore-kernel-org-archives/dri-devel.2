@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1170606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EEC606A339
 	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:28:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KzWxOd9p
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTzTBEZC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01F30112720;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B599112721;
 	Fri, 30 Oct 2026 10:28:26 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8992111271F
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:28:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C76E112723
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:28:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4F0154403D;
- Fri, 30 Oct 2026 10:28:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC6D1F000C1;
- Fri, 30 Oct 2026 10:28:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 249B841A5E;
+ Fri, 30 Oct 2026 10:28:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7C21F000C1;
+ Fri, 30 Oct 2026 10:28:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793356096;
- bh=Ht4+C9dMEY772FpQRO+VRVQi2AMnCm63uPW871AMEho=;
+ s=k20260515; t=1793356100;
+ bh=MnMXvzusoeoF9/Av5Lg+FeAyi2kBZMpvF5JpP2g3l24=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=KzWxOd9pWJicRkZKCaP9M7Z22qg/TYawoFdlcwYEkYwCdH6eBER5JZ1nITrKiU+7X
- /4fzAzrABrmDBk4RHer28A0s0vVbaMImgghlZY4OAwzb0Zaqk3OXczohEY3j2GofKI
- PJB3O/jliiyhRR8nPWWopGbrRkAfnG6+Z5WM95YgPfW9XFkw+hv8jlItWCqUJcmwVB
- p2ZSryrkM6QXhYF1sPpSETuQ5Dor5OIqkxL3pbbeC1NTleTBzdSvfRi8hh2NzvSSPG
- eyI2RgTIJNdObfG2MBFGn56N7zbCGxwrZp87Udk3Z2GOn8NcGcT3+GXuwUNzItkbM6
- W7my78hP8vSgw==
+ b=kTzTBEZCEv36HGCT4HObpLXZYR1Zh0/M19mvMG+imYTzLxAaiysFhbSQhFQRI1uSQ
+ MI/AjEEpQppTAA7P89FaYTjm6ow35W4OFEQ9K3eIArU9xcho5MhpqpPmxI9yyqA/tc
+ nUR2QEuZiHIY4xuSWpJu7qkRiVjIgBwLp9itADdIhW4Qb7y8FQT7ABBVHL/eMlmGcT
+ nqM3T9U+BOSjxHAtQiNjeUR3MnNdSPsmMwaPSgYMmZ/TFGdvsWMiYc1scNlnYzy21J
+ po9+TZa7fXeAylXewLUbzN1ynIo/YOgMHkzeGH0RizsEdRHxac94Jkc8xOFOwy5peb
+ Hn6Yqeg61owzg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 11:27:40 +0100
-Subject: [PATCH v7 08/16] drm/atomic: Create function to insert colorop
+Date: Fri, 30 Oct 2026 11:27:41 +0100
+Subject: [PATCH v7 09/16] drm/atomic: Create function to insert private obj
  state into a commit
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-reset-state-flag-v7-8-4e55eaeae683@kernel.org>
+Message-Id: <20261030-drm-reset-state-flag-v7-9-4e55eaeae683@kernel.org>
 References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,12 +54,12 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2428; i=mripard@kernel.org;
- h=from:subject:message-id; bh=P0k8mj+gDqmFXtZ5SqhgfD1SldUjK4nLwH6NhSPh4sE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCqWexcRUFeY3X69+l3Do8qp5Hn464eeSi87U7+Wcc
- 3TBbUXhjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRWXyMDbtvSpVOmMkRrv4w
- 7+CBr+zx77Tn5p6dsMP3y9KYp5w2AlwWzuZTq7f9uhieYbH8cJuwKmO9q9SfTVMO1au8XbVV8cF
- rBnW+hftmXX7UaMW1rvVZo2v3gx1nq7cozlMJL1gXzZ/hePsyAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3320; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=bz8WgYdyyKFKUw0Z8N3MeqXXAFbvhUkQzTihY9/0wRE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCqVPPmypuHI9KHXa/Ifq6zQ+1yzRnna//fLvvnvlN
+ 6av0r79o2MqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBM5OlNxoYXHtrXxWc8T5kw
+ 39W4/uw3cetw9X0Zf2Xv313zY9e3knlhci/TJ9srrq6R4W+z+j8peB9jfcEJ/qBlzX82Zl5O93L
+ +ynf/5txdj+4feT5lN5+w5Rr7ffY/osuU4lOOSYuUT7jC13fsLwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,67 +81,100 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_atomic_get_colorop_state() allocates a new colorop state by
-duplicating the current one and inserts it into the atomic commit as
-a single operation.
+drm_atomic_get_private_obj_state() allocates a new private object
+state by duplicating the current one and inserts it into the atomic
+commit as a single operation.
 
-However, a later change will need to insert a colorop state into a
-commit without going through the full allocation and duplication path
-in drm_atomic_get_colorop_state().
+However, a later change will need to insert a private object state
+into a commit without going through the full allocation and
+duplication path in drm_atomic_get_private_obj_state().
 
-Extract the state insertion logic into a new static
-drm_atomic_commit_set_colorop_state() helper, and convert
-drm_atomic_get_colorop_state() to use it.
+Extract the state insertion logic, including the array reallocation,
+into a new static drm_atomic_commit_set_private_obj_state() helper,
+and convert drm_atomic_get_private_obj_state() to use it.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 53 +++++++++++++++++++++++++++++---------------
+ 1 file changed, 35 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index b26458ee98d8..807b575ecc54 100644
+index 807b575ecc54..513e91ad2fdc 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -705,4 +705,19 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
- EXPORT_SYMBOL(drm_atomic_get_plane_state);
+@@ -1096,4 +1096,33 @@ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
+ EXPORT_SYMBOL(drm_atomic_private_obj_fini);
  
-+static void drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit,
-+						struct drm_colorop *colorop,
-+						struct drm_colorop_state *colorop_state)
++static int drm_atomic_commit_set_private_obj_state(struct drm_atomic_commit *commit,
++						   struct drm_private_obj *obj,
++						   struct drm_private_state *obj_state)
 +{
-+	int index = drm_colorop_index(colorop);
++	struct __drm_private_objs_state *arr;
++	int index, num_objs;
 +
-+	drm_modeset_lock_assert_held(&colorop->plane->mutex);
++	drm_modeset_lock_assert_held(&obj->lock);
 +
-+	commit->colorops[index].state_to_destroy = colorop_state;
-+	commit->colorops[index].old_state = colorop->state;
-+	commit->colorops[index].new_state = colorop_state;
-+	commit->colorops[index].ptr = colorop;
-+	colorop_state->state = commit;
++	num_objs = commit->num_private_objs + 1;
++	arr = krealloc_array(commit->private_objs, num_objs,
++			     sizeof(*commit->private_objs), GFP_KERNEL | __GFP_ZERO);
++	if (!arr)
++		return -ENOMEM;
++
++	commit->private_objs = arr;
++	index = commit->num_private_objs;
++
++	commit->private_objs[index].state_to_destroy = obj_state;
++	commit->private_objs[index].old_state = obj->state;
++	commit->private_objs[index].new_state = obj_state;
++	commit->private_objs[index].ptr = obj;
++	obj_state->state = commit;
++
++	commit->num_private_objs = num_objs;
++
++	return 0;
 +}
 +
  /**
-  * drm_atomic_get_colorop_state - get colorop state
-@@ -724,5 +739,5 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
- 			     struct drm_colorop *colorop)
+  * drm_atomic_get_private_obj_state - get private object state
+@@ -1112,6 +1141,5 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
+ 				 struct drm_private_obj *obj)
  {
--	int ret, index = drm_colorop_index(colorop);
+-	int index, num_objs, ret;
+-	struct __drm_private_objs_state *arr;
 +	int ret;
- 	struct drm_colorop_state *colorop_state;
+ 	struct drm_private_state *obj_state;
  
-@@ -741,9 +756,5 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
+@@ -1127,24 +1155,13 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
+ 		return ERR_PTR(ret);
+ 
+-	num_objs = state->num_private_objs + 1;
+-	arr = krealloc_array(state->private_objs, num_objs,
+-			     sizeof(*state->private_objs), GFP_KERNEL | __GFP_ZERO);
+-	if (!arr)
+-		return ERR_PTR(-ENOMEM);
+-
+-	state->private_objs = arr;
+-	index = state->num_private_objs;
+-
+ 	obj_state = obj->funcs->atomic_duplicate_state(obj);
+ 	if (!obj_state)
  		return ERR_PTR(-ENOMEM);
  
--	state->colorops[index].state_to_destroy = colorop_state;
--	state->colorops[index].ptr = colorop;
--	state->colorops[index].old_state = colorop->state;
--	state->colorops[index].new_state = colorop_state;
--	colorop_state->state = state;
-+	drm_atomic_commit_set_colorop_state(state, colorop, colorop_state);
+-	state->private_objs[index].state_to_destroy = obj_state;
+-	state->private_objs[index].old_state = obj->state;
+-	state->private_objs[index].new_state = obj_state;
+-	state->private_objs[index].ptr = obj;
+-	obj_state->state = state;
+-
+-	state->num_private_objs = num_objs;
++	ret = drm_atomic_commit_set_private_obj_state(state, obj, obj_state);
++	if (ret) {
++		obj->funcs->atomic_destroy_state(obj, obj_state);
++		return ERR_PTR(ret);
++	}
  
- 	drm_dbg_atomic(colorop->dev, "Added [COLOROP:%d:%d] %p state to %p\n",
+ 	drm_dbg_atomic(state->dev,
 
 -- 
 2.55.0
