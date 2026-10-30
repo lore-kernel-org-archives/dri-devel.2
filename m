@@ -2,89 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91F0606A321
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 11:47:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2257D606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 11:48:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=i63g4w4V
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=hmz+u0nM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F37810E1BA;
-	Fri, 30 Oct 2026 11:47:47 +0000 (UTC)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEA1B10E1BA
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 11:47:40 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-3ab98332238so329435a91.3
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 04:47:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793360860; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A84010E23F;
+	Fri, 30 Oct 2026 11:48:47 +0000 (UTC)
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
+ [209.85.210.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83CAE10E23F
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 11:48:41 +0000 (UTC)
+Received: by mail-pf1-f170.google.com with SMTP id
+ d2e1a72fcca58-8a39e5161c1so371748b3a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 04:48:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793360921; cv=none;
  d=google.com; s=arc-20260327;
- b=no29aPOhfqY99mCCQgbtwD5IwC5Bs6uG6cPQci5K0VOneXqaKMP+GQH+g04fkW5+U6
- Jd4nl5pPNJhja62poMPyC3Puky2HKFtmt2KcozhVxLXu98/KK0c5OWP0bniaXbZqaIlZ
- a2v6/xUjrEW1XwYpeOUMfzGllr/zaMIRuGp2PnC5Cg+csESk7F08T+2YojqIy6zXe1A5
- Kz7lXzU3HJCJkln99VpPfUjsq7sBT+uE6Mf7hP8LvnBzupqCDd9Na+5vUARXJj4YOmtU
- xGIs3KnA15BQB60aYD0OfYjqHnoxQUMlOZmEfztyqkkyX5YGj1TtPLylgHoLSeHvcK9x
- 46fA==
+ b=rnBmbksMH5Li+mCJ6A3mg/akDgVVnh/bfGll9jMSODvopqzmRTjpaY3CqL2bmbuU53
+ Okzwiy9OrW0XS3GnQYnK+V+SHvZpVL8qAMxRfum3iDqAr0+rMIlkFtjTompnBxb9+BJM
+ iD0RksAGc2jsLpnFCNj9HWTtnAnm7Z0k1XXmVbA8UBCQCJEp25Q1gsrvXv1+AG8RHyjd
+ zfF9406iLK1G0I6KKggpLHRDuFLpCb+5QCNXccDPYOAppatT5Tcn57NBiMOLh9TaFx8A
+ 1CKwc6wbivnDcB0RP+MFbCO+0itJqgkEQ9MZYjoHWbzLpUcBfXkiP7y//iI3Z7njea6u
+ p+NA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=jhQMGcD15ceeh2wLMh9Atxq0/hg3i7fdihgYRv3Ypv8=;
- fh=eCHIQd9RH493mN5D3x0h206oeSLh8YmH7YvakzN9z9Y=;
- b=ZvgswRL3oSaKPHfp7cnkK6BfbMw3B6EV3IqXZkNzdVlU9txmxZlBWbdWDWLuqhNoIe
- G3r40AjZjgRo2mt1MesTJ/u0nO/i8Xdfy8v49Mr3ou+YMH5YwPkSA5nqKmgGFx63ZhgC
- q5MV3LWG/39iwNQb4bZbeA/PTIghPd7KqkU+EJxgv26SIs1iPSK6kajW1zRiemtYgwed
- WbxwM3dyC/LLpUAc4hEVfdud+0s6ldiAFWN7oWcoZVcA0+UnKLsqIOL2EZ8J1rj3dA5G
- p/krIXOK8iUp1IAg3Zw4kPQqbTPoKkN6ezdAYx6V+FX8F//th7i2yhdZSrymsF7VedF6
- JS0g==; darn=lists.freedesktop.org
+ bh=rytTxuDwmZaxUvmFDOrr2QKEaKAyu/0j3T9Yur/Ie+Q=;
+ fh=u2b5h55O+zBzMnjFpcYZThRe6PFJOc/Ipp/xU4Gj8X4=;
+ b=G8YXuMcgTkfz4wMx6NYDhrsZShCwtzE90GffPWYu/ZMpxzyZSMSr7S/RZsr1iiu5s1
+ o4wG3vbeiSCPJ0Bq9NzHIXGAmH8o0cdsJas1XzZd/twK0b46i14nK+TjcLjLsZZqhlYH
+ dRGJF4W1FNGU+9LSEpc1TH5LhWcYRqll4t2lhScpAkhsd0dVQdZjhAiT2sulgd98DF59
+ hwCROgcodbMANm030AzRJwuklNRD0hmv3pDr3JtVNn/dRqRKW6PPumR3mE3+wLTvdLGx
+ qg8rFULkhxpFF8o+pz6NbSOFQsjb1D+CKKbIlqd3LQKfE1e3UYxgKsTjluaQBzWBUKBU
+ u1Jw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1793360860; x=1793965660;
+ d=fooishbar.org; s=google; t=1793360921; x=1793965721;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jhQMGcD15ceeh2wLMh9Atxq0/hg3i7fdihgYRv3Ypv8=;
- b=i63g4w4VW2aOR54oTcQGlrq+QdchEg1ruUWW8I0yGa67BIbV4mWit6tp7vqXgSVimX
- 0qyNsIzUDf7+Slfq2jtADpU4MYYBHQt/g4FiShKcQ+Mk48VHQscTHJxmvXSnicD/q+zj
- ZL+0bQMJlftnQ9b/ymtM2+3sPxcGWUWsb2qjPxN1J0KKWOnv86w/yOWuAqyy+tJPBVu7
- EuMg1MlTl2KbTxtl6kW8mkzYU3JTlw5m+7O/FuXFfklPqlrVg6sCy0khUoNKRsns6BFo
- qQJNmNFZxVhi6K7zp3ATUoo8gUGpvb1E0XQ+CTijZIq9lLncGX+HFFP2WRHoYP/3z964
- Aevw==
+ :content-type; bh=rytTxuDwmZaxUvmFDOrr2QKEaKAyu/0j3T9Yur/Ie+Q=;
+ b=hmz+u0nMLaua4Fv8I5EXUXTCfhVMUEW87ChxSLQi1Vz6TOzhJ/P2AP9PR8PrKiE5Mj
+ pUFXdivUYUaysuS+WcjxvxNMcZj2iaMba6hGcdO4kbU/kSJE0+eTZB+gzilrlaSLJxqU
+ r+PW5U+omvcyL+u2QUWBdHp8V0ioSKmaBqdxtMtcIhYxyaeC1vLciPvR/vMgViySLgVA
+ iTKxGZvSfhiGvjABjQypeGV9DrFaLXL9I8RNOrF9pn8wd+IE2Eg3OD+l2yD+uJauap7p
+ Uf2fi4X6b81UwTlUwUsAOFARH4AReh/J9ZEN99JlOcrH6tHtFLs2SsgpEWr5DebDxvu3
+ UTAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793360860; x=1793965660;
+ d=1e100.net; s=20260707; t=1793360921; x=1793965721;
  h=content-type:cc:to:subject:message-id:date:from:in-reply-to
  :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=jhQMGcD15ceeh2wLMh9Atxq0/hg3i7fdihgYRv3Ypv8=;
- b=wo276v3reRPmxe4yectFp/qw5uk9BPFkFByAEWmzsYYrZhwCHys3yqyCupTNpbu8XL
- 1/6mv+0nhgNMxsHk0I0uS4tnYtH37qtqwMB2JzmW6OfV1d+/OJ07VKHSEKVmmlwunGKl
- oWB/H1oMQ8EAwwNAkWBNCcRHKGW5jUwFO5U9qaE81eyPX67IHbAiiEz18hKw7JK7DkD9
- oUZ8+ohVpk+HPagVjisveWRJeyZdk2KmvGebF8dl70pvh1gPDbmDF56dMu8ri/XbHb35
- doUOMEhw1Nr8kvTVRFTgbC/Kb8d55qAIYwTaQOkXFJ5tL5jVYDkv8Ax5VzZcNpUkISgI
- XmEw==
+ bh=rytTxuDwmZaxUvmFDOrr2QKEaKAyu/0j3T9Yur/Ie+Q=;
+ b=IS+pd4jiYSQsTqjkoUvRSON/xvDmV2FVX9juCj7qLxTBl4rkmD9TogxP1yNe0O/qmR
+ Vd9b4wHonhfR7uHbvSl4nn+ZqzHxWDStq2LLFLuYLnQE/ik6DgsLjr5UebDLJS0hQwLt
+ JsmFicvpxv8hxbspOIJUXiOIeqMvp9Qr0HAcal0vTQPhx7whYb4eE3vsnACil61jP5IK
+ wuCjx406/WPG+C3fDK91ggiCj2ffISceycZ86t4+8QuwVcOZ0DOH7Bclzm8fYjKi6wBG
+ ljjZxOhdbiEfZ10lvvI9q2imOXLoHL7/kZySmNrQJ9/IZS5X1jd/PY1zlf9VeLR2/v5A
+ uAug==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwARBQh970kfM9yffLF413biRpP5VVSB7lZg/0rz34+efks3IfwddII8JIU1iwcSSjR+4dkd+An4Rg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLf5iCYE09EvtQeIp/J85MuTZuCrDFyjBlBaz60F981ZybYu/ws
- HVtdEwo9SumxyxehENfFF++Jugs4SS+NtE++YqYzTa1DnhOAVvRWWZ2htjZ3pNwooJGo98gcOaX
- xFpWcT8BNwgBXJ7VEklkYwIzzWU/XrQ+SbHskNUTaIA==
-X-Gm-Gg: AYBFou3L2hiL6aBL/btkOJ0xFY3IHvGeq9R0YQb58N+I5retxcXyv/T+P7vXO3gn057
- TlzTOJFZSNcSvYAodYPr6NsnAyH16Ogqi4MvGW5d6WY5Izj6Y/zEULrOJPXRik239x4QbtX6icw
- 7dfMtm2Y8eAwHJ+YMXW0s/llcWhfQ6NvOG779n8atF0x2hO9Hgv6i2eM9bqaKah9ZEK03W0tHdY
- kHhFtudmM2qRx2nv/hMqBtzR+fVHqE5sfLksEmPeYt9HBF34Xt37YEIPHxIzGfJYKY8ILfIIi13
- 2M5LuzK5okdUb8U5CE1NBuNipUb8cTw+EMXkcXsN8fWc/V7b6lmjYN/qqDsz5TzcN69wreBb5H3
- eEbPHF+oEL5573I8IZkFuIvkSb9kM90Sv16ex
-X-Received: by 2002:a17:90b:4a46:b0:3aa:f2c4:12e9 with SMTP id
- 98e67ed59e1d1-3ae8953617fmr1788397a91.3.1793360860430; Fri, 30 Oct 2026
- 04:47:40 -0700 (PDT)
+ AKwUvBysnqUJnggRditvGQyoCwV3eYiXPakq3t5jJyISbrwEGdqtD/MlYlh1XPmozUGY3XHs8i+99Y4migg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKhIR69uatbI5DTBCtYvSk+anoPgvM8idmELACGLxOdrYTwaZbu
+ w++aZ5t4RipC3+VWiod7rmNRFSl5l5mIAw5UWClcMyQfGNe8FcDvtNb6bcp9qv65xPAQwlHKo12
+ Xuvl1sYSZNGY04Jo34UOgnOi8n82Dm4UDgIQs0gWfqg==
+X-Gm-Gg: AYBFou0Ifjyk21EVMzI6U63Yg7fWVLUCz8ChHekdxS34zV27LNJOLPKSkvREYGxvVZk
+ 1+g+7Dtw7le+M18nZ3C71uzelC+MoWBLbHE03A4jIBxgwJXbaNWouygbsCvTgS2RDv9UQm8f7YI
+ hCQ6NEMQaUbvj/sD3NE1v1HIB7Zfrl48rxfeRa4quUeMZ5wcQ3L9n65CfjX5z5B5sQSW6CsQO5E
+ DnlxtOvbXWzsJ4+7Zl+lyZklkeck88g/Anx8seT8zvEdBVefR2e/zfupGbDdSFMbRJ8sQvKdNgu
+ qnOx1QoHQvp26iWWRnjN2SyxMylct5ob3jhS9Z/B3f9w5JFxqz8/dqqrQoanRJO8Kv4MsTg/WiJ
+ 51UVLJXMpaJU+BzLd/0vmWyPrHsnCyH1qjkiO28nuJKOqLY3l24XOsM3UPA==
+X-Received: by 2002:a05:6a20:d10f:b0:3cd:3e77:1dcd with SMTP id
+ adf61e73a8af0-3e928a7e442mr2014372637.1.1793360921012; Fri, 30 Oct 2026
+ 04:48:41 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
- <20261014-dw-hdmi-qp-yuv-v5-10-6fab0fe43a9b@collabora.com>
-In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-10-6fab0fe43a9b@collabora.com>
+ <20261014-dw-hdmi-qp-yuv-v5-11-6fab0fe43a9b@collabora.com>
+In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-11-6fab0fe43a9b@collabora.com>
 From: Daniel Stone <daniel@fooishbar.org>
-Date: Fri, 30 Oct 2026 11:47:29 +0000
-X-Gm-Features: AclHuK94pfXkqJW650Ejw1KMr2XP085nv_elOXQBTTnf3Z6vJhDk_9RcSiJIx78
-Message-ID: <CAPj87rMMHpeE3WnPQp-M8KvAH9yZjT7goWU8dGtw+ykzvY1TGQ@mail.gmail.com>
-Subject: Re: [PATCH v5 10/15] drm/rockchip: vop2: Switch to enum vop_csc_format
+Date: Fri, 30 Oct 2026 11:48:28 +0000
+X-Gm-Features: AclHuK9bHaRXHNAR7u16We-RytuEmqtwRDDQT6RAcbrEMxFejcbNnPABR9ssHjo
+Message-ID: <CAPj87rN7RWfEa_YypQq+quER7V6pt2A3q4fYRuUXF3_Ch7yL8A@mail.gmail.com>
+Subject: Re: [PATCH v5 11/15] drm/bridge: dw-hdmi-qp: Log resolution and
+ refresh rate in atomic_enable()
 To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Cc: Sandy Huang <hjc@rock-chips.com>,
  =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
@@ -128,13 +129,17 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
 <cristian.ciocaltea@collabora.com> wrote:
-> Improve code readability in vop2_setup_csc_mode() by using enum
-> vop_csc_format for the csc_mode variable, as well as for the return type
-> of the vop2_convert_csc_mode() helper, which already returns CSC_*
-> enumerators.
+> The debug entry in the HDMI branch of dw_hdmi_qp_bridge_atomic_enable()
+> previously printed the literal string 'HDMI' as the mode field, giving
+> no information about the actual display timing being configured.
 >
-> While at it, replace the nonsensical 'csc_mode = false' assignment in
-> the no-conversion branch with the equivalent CSC_BT601L, which carries
-> the same value (0) but is type-correct.
+> Extend it to include the active resolution and refresh rate by
+> retrieving the CRTC mode from the incoming atomic state:
+>
+>   dw_hdmi_qp_bridge_atomic_enable mode=HDMI:1920x1080@50Hz fmt=RGB rate=185625000 bpc=10
+>
+> This makes the log line self-contained and directly useful when
+> debugging mode-setting issues, format negotiation, or TMDS rate
+> mismatches without having to cross-reference a separate mode dump.
 
 Reviewed-by: Daniel Stone <daniels@collabora.com>
