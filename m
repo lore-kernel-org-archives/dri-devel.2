@@ -2,44 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A48606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 07:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2599606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 07:09:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnJchf5w
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=Pxv3UV0B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDDD310E222;
-	Fri, 30 Oct 2026 07:07:27 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B820310E222
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 07:07:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 75292416FE;
- Fri, 30 Oct 2026 07:07:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82D81F0093A;
- Fri, 30 Oct 2026 07:07:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793344041;
- bh=bGQcWLDZKojn0AJiRpY1l3ycQc4C+6GY47OwFTdOD0E=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bnJchf5weX6f0HqfMFcnyjFneXn3fLTOa+YDstPEryH5iJFg4h9HqEk5j6NYw/2R7
- lzULUjmHg9YN8LCS6NbsljZC/jJuwJEz3VncW9y7wZbYfImYGvxiidIB7bIB5wlSMc
- wq0WRICtwrb782hKLL7fKsfn17cj6E6wf8eP3DhZFeTfft+W9+FS0XN8RrG9LeU/iL
- DzdTe0+VqT9KjWOqXbxtwxCGBNaR/roZYZHs8+NCDfAO5+xrpRPrke4uSlCypKjvWO
- IZJUIoZ3pb5FPmQdn4wTMmn8McHEjDg7yaaQzsW8X5EhW82Tw+uF7ODeh08UxwwoC9
- vAx9Ku9FRzlpg==
-Message-ID: <sashiko-outbox-190628@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/6] phy: rockchip: Add support for Naneng eDP phy
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org,
- vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261030064905.2248999-5-damon.ding@rock-chips.com>
-References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
- <20261030064905.2248999-5-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 07:07:20 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD2810E858;
+	Fri, 30 Oct 2026 07:09:25 +0000 (UTC)
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11011005.outbound.protection.outlook.com [40.107.130.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF63D10E858
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 07:09:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SDKEvzvFdxGu2Qgh7xCdMjs8D4/+xUfqRSZqVsrqikyS9mSGLgt+0XaGQuoKPtYLmOAMx8A/CYxQjYXBO21v+5GCVcJV930S9pPusJSJfSRhJM0zRGec9MqPgWpr27JGWIgsxiv1H3kMpu/+IFh3AX/vkwJbR24ayvu1IMJlGqII5OnTQFbBWnz1I51WPyt6eH0AJ4QO44Pdi+2odCwIGdeePITVlGby5G+IoNtKeU4qOAxKTpmfmPuCx0HXXyrCb/24IyYeu+vyiSafXf9VcCuVjvMfP8DMLu5z37AtK4biJty9yQJUj8M659Q9h0oUtMCHbup45Hl5Z2fxWnaL0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ios6e/ssWvn5GGMdu+G4ErLF0ZMyTTEaz9Lj8Wf5tRU=;
+ b=DXf75C6VHe1SBeuC5Jwd9f9W9KWnPLZ5id7m2mnSjwEg9Vs9og1nncM6yhp84YtFKJ2XuFbThK8J2RK8KlIp3c9QM6iCgYx+FlbbQrW+aKhAJZFBfb89Zaxnc3cuyasr3v98J8/VT7vPk84q/AU+YL0whdTfcxGEwzIUaJM3k00pqBSBgEcwm7ad5OrjZX6HeleOH8i2ErMuUce2V+ozr9EyAzDWlqB0f9jZF4zGX9fjN10vRIRSZ5VpBbvFnSmDrVgJxAD4IjFO9i3gvCTvigmyyem5Vrf5PGqOSkfVQEFS5GE6gUZSfiNqM4N/G5zNRkyo9vazlyjFWwEhjPn/ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ios6e/ssWvn5GGMdu+G4ErLF0ZMyTTEaz9Lj8Wf5tRU=;
+ b=Pxv3UV0BeI/tZOrMrdDc2HvXrjo7ktGaUxqGW7ZUQZBKTDFjS1zhfrUaud6LH8iC3HkXrtx1lL6s8cyDy5H8mE0U449Jfgg783sZKy3jHpkkDcrekefv20WZLO6hZfvpaJBPgnMQrTO0AFWZ7XEdNM/Sqt2tYn01TkQ/uIeVl+wL4oCtuzv7cFgPFvdIdLWl6ivvysnZ6UAVXq1k1bH4YAYKok808w7iEuuzch7XZfYHwWCilG0L+teKDWiRIGcZ6jXMSecZUxbhQhxw03jPa74zgic3ZF63XtD4fD98lhcRC0/SaktWjPUPy+awZhsMRWlhM7VIzJSAi4zr2Q4Mrg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by DBBPR04MB7898.eurprd04.prod.outlook.com (2603:10a6:10:1ed::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 07:09:14 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 07:09:14 +0000
+Date: Fri, 30 Oct 2026 15:10:51 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v7 07/15] drm/imx: dc: Add PRG support
+Message-ID: <auRC-xz5IYaHf_AP@raspi>
+References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+ <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
+ <auMIsiZ5ARIl-6N6@vm>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auMIsiZ5ARIl-6N6@vm>
+X-ClientProxiedBy: SG2P153CA0005.APCP153.PROD.OUTLOOK.COM (2603:1096::15) To
+ MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|DBBPR04MB7898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72a35c19-7909-4b2c-7097-08df3654b497
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|7416014|376014|1800799024|19092799006|56012099006|4143699003|11063799006|5023799004|261009223027099003|261009221227099003|261009223327099003|261009220027099003|261009221727099003|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261021123027099003|261022075727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 4A0spMOMoAFOLgp2t7ZKv65nBEgvbe4iLzDh7i9BEjbMfOwo8/EV5sfZTKe5fmSCBC55i3Oyac4qqIkQmSki8/63/L5gQ4mm6WjinbIq6AA/7KIiI/akh01hBJcguiJe6SlU8WqlU+C35JFOJRmMV9mgD+cUtMHc75wttA7+opejBlaxPFhe0qhrJ3gyKSVCKaDv26NjPLWV5zsM4m8Bb0onEkHeH+mG8BiJ6vDTF1srPMMIwU3yIAWWV8Ct8iuxoj+s5FN2AG7jRxX81zKGCqSCZKSp7lntmiaW94vG9bHfVSRbPWeYllSxkJbdclsqQ9KYQLlraLoiM6ukNykor5QhDSl51LQRB4fgUocWNsNrbtMqAF+qj9IQDFgbRa1MTnXIzgH7Mv+zzUgmGq/1B0wC/lpAezA7rreprLf1KWTbyPpWrm42pStr8DZ1zhpguIusD+KiXtxa6acByAdvtBnuWKusojP8poP1QPTB2Eiadvv1QEpBTi1JhMxuEJSP3E3VGh3mfie2NQKnZjqdGrEhzK7p3Ro/KII4FUBy5/u8nsKH5VtEBaCeKQ2j8z/CEC5cd9TP9ZEI6cvOo/6LLBX4xt95gWAFGeHIoXYLXrpV+eACtR0Q8mamqwB1LRmUecRyR3Gpuan/3Aie7f9s/A0SLcKzMECkAsB0AEisvL0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MI9PR04MB350878.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(19092799006)(56012099006)(4143699003)(11063799006)(5023799004)(261009223027099003)(261009221227099003)(261009223327099003)(261009220027099003)(261009221727099003)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261021123027099003)(261022075727099003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?z8HPl5MlixkQoEyv4OC+LvVrbl/fr2DTl7ixmk+Ex0fCCqs4vIr68mC/YhML?=
+ =?us-ascii?Q?dUEWXdScuUToByWgQsgAOgM/a6lUq0te69mF90vp40YXQMDL4noODxRrT/QQ?=
+ =?us-ascii?Q?X4cvOsR8PYWUbmULJgaxsccYycOOu0f/ZD1b0bGokh8MkRB4CHWJ+aE82GPP?=
+ =?us-ascii?Q?v/I6pSTkXKRp6zympVo39sPNWiyoHM9YWAf6SVAVP2PQvv4Jb7FLg/a0j1Nk?=
+ =?us-ascii?Q?TJSiWj/8eeKRu7u9amCRJuuzdaq4aq97fLiUvcccb6rOz0Xzq6SqUqbkWRI5?=
+ =?us-ascii?Q?uQZZgiIz3jwF/QBjqpimHoPUB3EeT3BxhqAg4sPDcGC2pzaDAGoj3ZJPp3L0?=
+ =?us-ascii?Q?/ldHi9GHF4wa5ll/5/JyFRB8K05liWGaHY+yh6NtxvtHdU320DeYghtm9/gn?=
+ =?us-ascii?Q?MMZQqSMHXYV0I1Mm4SivKaKmbkJ/vFhcRkbb6bbqfnHOarHaWCR0Meh2ksw5?=
+ =?us-ascii?Q?FA9eF3NjA9i8I2PpLBKYwMpSD2QHajUEfB1Kgi1o181BGmmjGDyVQX5GC+z6?=
+ =?us-ascii?Q?6766xTwK/Sa5u8ZkceoKGhY2DsnnYguo3kDh24ge6iJ1lqnufzz78PuSkOkA?=
+ =?us-ascii?Q?aRYWQ2eblMDtl0p0t28jXK2yhTeolxX363o6ax5JHOVtHqqRAexs7tn0IiIf?=
+ =?us-ascii?Q?VOPGABmMKIuc+3f89rHZ2DJP2GnWYn9DOLjzTbimOm23KRQeFZzCXYyJ7iEV?=
+ =?us-ascii?Q?lSHi47kuc4S4nxm8e4a9SP9mH4FE7BdMQ1W+JolDnsRiztcF0rkGls8smp6Y?=
+ =?us-ascii?Q?4RWOfs+kUK96y9+TALuZaVaX2ZlbPsJyH/lzB022alvzj/EUM4n5OYPdK/Uf?=
+ =?us-ascii?Q?BxPwDIsCb/QzgresDUES5a7N7JeupQ/QwRnG6u/Mhr0XQyxsY+Z2l47gmkha?=
+ =?us-ascii?Q?5X8hATwuqtZpoN9qpoBKC+H9mBfq8S1xObnXwA5x7E7ijWiGuoeGq69lTmMx?=
+ =?us-ascii?Q?hg1MB8hiRSGhVV/LeZxOI51l3GnZL0ozrGmZHXDJz006opWT3lqw29BQAG9i?=
+ =?us-ascii?Q?nhD/iLsirORvqZGxO7W3I/OwWgdn9cHTHw9hiWyRh2g5MAg3wjiwuwERpueB?=
+ =?us-ascii?Q?gjkh+Tp0ga3D8EeEQyendo+rwJZ4XQS39JoQU3iInZxgPAenh2blvzDesDEM?=
+ =?us-ascii?Q?td4843yIwaNs0K6YItKOJjSWfHfHaTrqKaeQOCp8XKrikWOmDctui53jfHMm?=
+ =?us-ascii?Q?5K03Dyy2JP9w5yJ7E0MsuV525JgRh+2FDr6RiOvzABsD/aTHHmxABqJH6hxq?=
+ =?us-ascii?Q?2+uALvgqA7u1EUhvtnlBM6UMubY8QECAc8H2/tQG+scpaOphvTHok941NNCF?=
+ =?us-ascii?Q?DMjxHnh0af5TXyBEBA6CDPbj5fLPS8NxeiyJHUCG8qir8jGwZH5/sUePswyF?=
+ =?us-ascii?Q?S9f19DyI1MxgcP9E8ew1L/Vtjr3xs5g8EXbwBbLPf4mnXf6i6HGrReRYa9Sg?=
+ =?us-ascii?Q?DBWSU1Z46HBcFc7ad1MklkbQ0KlMCpVhaVGWFRqygwTiC4z6dERmN8HlTd4u?=
+ =?us-ascii?Q?4meNVB3wsCG9OzdDWuzJ6bjDVfSZCl7/BNf8PaOf895k1qDNHfswxH2t3Xdd?=
+ =?us-ascii?Q?6U/v3agYL7vUIEmqx3K0W6VY8ayeYUm2wXZT2Z+LFzji+GFO6lJtq5EZV/t+?=
+ =?us-ascii?Q?lT1F9+tSaKA90XG+KNH67hXm1yIUpL7PqIVPuqC8QD2y/R/wN4HZW7Vn8Ew4?=
+ =?us-ascii?Q?5RTR3HvQGN29PA/LPiFT8BZ52RLx0pJBRsW5/mxNSh53RicYX0pAhbpvuntJ?=
+ =?us-ascii?Q?DP1OjTNgkQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72a35c19-7909-4b2c-7097-08df3654b497
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:09:14.7059 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dBNERc0X7mUt1BD+hbZvWNC+KeYP3WDrqDyO1WE39dWsE2siQArO+/nm8kL7nKg+H9DdJdj+HMm++EGwhcT4Bg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7898
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,213 +131,84 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] phy: rockchip: unclocked GRF register access in rockchip_edp_phy_p=
-robe()
-- [Medium] phy: rockchip: stale lane count in rockchip_edp_phy_verify_confi=
-g()
-- [Low] phy: rockchip: missing select REGMAP_MMIO for PHY_ROCKCHIP_NANENG_E=
-DP
---
+On Thu, Oct 29, 2026 at 11:30:55AM +0200, Laurentiu Palcu wrote:
+> On Mon, Oct 26, 2026 at 06:05:12PM +0800, Liu Ying wrote:
 
-commit fa6e3e07850c3a98df33755e8389b184ff441616
-Author: Damon Ding <damon.ding@rock-chips.com>
+[...]
 
-phy: rockchip: Add support for Naneng eDP phy
+> > diff --git a/drivers/gpu/drm/imx/dc/dc-prg.c b/drivers/gpu/drm/imx/dc/dc-prg.c
+> > new file mode 100644
+> > index 000000000000..43df5683b24d
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/imx/dc/dc-prg.c
+> > @@ -0,0 +1,314 @@
+> > +// SPDX-License-Identifier: GPL-2.0+
+> > +/*
+> > + * Copyright 2025 NXP
+> > + */
+> > +
+> > +#include <linux/bitfield.h>
+> > +#include <linux/bitops.h>
+> 
+> This header can be removed.
 
-This commit adds a generic PHY driver for the Rockchip NaNeng eDP
-transmitter PHY found on the RK3568 SoC, mapping its register window
-directly and supporting 1/2/4 lanes at 1.62 and 2.7 Gbps.
+Done.
 
-> diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
-> index 14698571b6075..202a6973e20ba 100644
-> --- a/drivers/phy/rockchip/Kconfig
-> +++ b/drivers/phy/rockchip/Kconfig
-> @@ -74,6 +74,16 @@ config PHY_ROCKCHIP_NANENG_COMBO_PHY
->  	  Enable this to support the Rockchip PCIe/USB3.0/SATA/QSGMII
->  	  combo PHY with NaNeng IP block.
-> =20
-> +config PHY_ROCKCHIP_NANENG_EDP
-> +	tristate "Rockchip Naneng eDP Transmitter PHY driver"
-> +	depends on ARCH_ROCKCHIP && OF
-> +	select GENERIC_PHY
+> 
+> > +#include <linux/bits.h>
+> > +#include <linux/cleanup.h>
+> > +#include <linux/clk.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/device.h>
+> > +#include <linux/list.h>
+> > +#include <linux/module.h>
+> 
+> This one too.
 
-[Severity: Low]
-Since rockchip_edp_phy_probe() in drivers/phy/rockchip/phy-rockchip-naneng-=
-edp.c
-calls devm_regmap_init_mmio(), can this fail to link when
-CONFIG_PHY_ROCKCHIP_NANENG_EDP is enabled without CONFIG_REGMAP_MMIO (or
-with CONFIG_PHY_ROCKCHIP_NANENG_EDP=3Dy and CONFIG_REGMAP_MMIO=3Dm), since
-ARCH_ROCKCHIP does not select REGMAP_MMIO? Should PHY_ROCKCHIP_NANENG_EDP
-select REGMAP_MMIO (or MFD_SYSCON if using the parent syscon regmap)?
+Done.
 
-[ ... ]
+> 
+> [...]
+> 
+> > +
+> > +void dc_prg_disable(struct dc_prg *prg)
+> > +{
+> > +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
+> > +
+> > +	pm_runtime_put(prg->dev);
+> 
+> I have a question about this. I see Sashiko also flagged an issue regarding the
+> unconditional put when the pm_runtime_resume_and_get() fails in
+> dc_prg_configure(). The resume is, probably, unlikely to fail.
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-edp.c b/drivers/phy=
-/rockchip/phy-rockchip-naneng-edp.c
-> new file mode 100644
-> index 0000000000000..8c247eda1dcf8
-> --- /dev/null
-> +++ b/drivers/phy/rockchip/phy-rockchip-naneng-edp.c
+Yes, dc_prg_configure() is only called at atomic commit stage which is supposed
+to run successfully without any error.  If pm_runtime_resume_and_get() fails
+there, something should be fixed, so I don't bother to handle the failing case.
 
-[ ... ]
+> But, I see a
+> situation where the dc_prg_configure() is never called: when the plane is
+> invisible. The dc_prg_disable() would still be called in flush() when the plane
+> is disabled, would it not?
 
-> +static int rockchip_edp_phy_verify_config(struct rockchip_edp_phy *edpph=
-y,
-> +					  struct phy_configure_opts_dp *dp)
-> +{
-> +	int i;
-> +
-> +	/* If changing link rate was required, verify it's supported. */
-> +	if (dp->set_rate) {
-> +		switch (dp->link_rate) {
-> +		case 1620:
-> +		case 2700:
-> +			/* valid bit rate */
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
-> +	if (dp->set_lanes) {
-> +		/* Verify lane count. */
-> +		switch (dp->lanes) {
-> +		case 1:
-> +		case 2:
-> +		case 4:
-> +			/* valid lane count. */
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
-> +	/*
-> +	 * If changing voltages is required, check swing and pre-emphasis
-> +	 * levels, per-lane.
-> +	 */
-> +	if (dp->set_voltages) {
-> +		/* Lane count verified previously. */
-> +		for (i =3D 0; i < edpphy->lanes; i++) {
-> +			if (dp->voltage[i] > 3 || dp->pre[i] > 3)
-> +				return -EINVAL;
-> +
-> +			/*
-> +			 * Sum of voltage swing and pre-emphasis levels cannot
-> +			 * exceed 3.
-> +			 */
-> +			if (dp->voltage[i] + dp->pre[i] > 3)
-> +				return -EINVAL;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
+Yes, patch 15 doesn't handle the invisible plane properly with the prefetch
+engine enabled.  I'll fix this in next version in patch 15.
 
-[Severity: Medium]
-In rockchip_edp_phy_configure(), rockchip_edp_phy_verify_config() runs
-before rockchip_edp_phy_set_lanes() updates edpphy->lanes:
+[...]
 
-rockchip_edp_phy_configure()
-  rockchip_edp_phy_verify_config()
-    if (dp->set_voltages)
-      for (i =3D 0; i < edpphy->lanes; i++)
-  rockchip_edp_phy_set_lanes()
-    edpphy->lanes =3D dp->lanes;
-  rockchip_edp_phy_set_voltages()
-    for (lane =3D 0; lane < edpphy->lanes; lane++)
-      rockchip_edp_phy_set_voltage()
+> > +bool dc_prg_stride_supported(struct dc_prg *prg,
+> 
+> It looks like you're not using prg. Can it be removed?
 
-If a caller sets both set_lanes and set_voltages in the same
-phy_configure() call when edpphy->lanes is 0 or smaller than dp->lanes,
-won't rockchip_edp_phy_verify_config() only validate up to the old
-edpphy->lanes count, allowing rockchip_edp_phy_set_voltage() to index
-swing_pre_emph_table[dp->voltage[lane]][dp->pre[lane]] out of bounds or
-write the -1 sentinel values to the PHY registers for the newly enabled
-lanes?
+dc_dprc_stride_supported() in patch 8 uses it, so it cannot be removed.
 
-Should rockchip_edp_phy_verify_config() check up to
-dp->set_lanes ? dp->lanes : edpphy->lanes instead?
-
-[ ... ]
-
-> +static int rockchip_edp_phy_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct rockchip_edp_phy *edpphy;
-> +	void __iomem *regs;
-> +	struct phy *phy;
-> +	struct phy_provider *phy_provider;
-> +
-> +	edpphy =3D devm_kzalloc(dev, sizeof(*edpphy), GFP_KERNEL);
-> +	if (!edpphy)
-> +		return -ENOMEM;
-> +
-> +	edpphy->dev =3D dev;
-> +
-> +	regs =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(regs))
-> +		return PTR_ERR(regs);
-> +
-> +	edpphy->regmap =3D devm_regmap_init_mmio(dev, regs, &rockchip_edp_phy_r=
-egmap_config);
-> +	if (IS_ERR(edpphy->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(edpphy->regmap),
-> +				     "Failed to init regmap\n");
-> +
-> +	edpphy->refclk =3D devm_clk_get(dev, "refclk");
-
-[Severity: High]
-In the device tree binding
-(Documentation/devicetree/bindings/phy/rockchip,rk3568-edp-phy.yaml), the
-APB clock PCLK_EDPPHY_GRF is attached to the parent edp_phy_grf syscon
-node, while the child phy@0 node only has refclk:
-
-      edp_phy_grf: syscon@fdcb0000 {
-        compatible =3D "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd=
-";
-        reg =3D <0x0 0xfdcb0000 0x0 0x8000>;
-        clocks =3D <&cru PCLK_EDPPHY_GRF>;
-        ...
-        edp_phy: phy@0 {
-          compatible =3D "rockchip,rk3568-edp-phy";
-          reg =3D <0x0 0x100>;
-          clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>;
-          clock-names =3D "refclk";
-          #phy-cells =3D <0>;
-        };
-      };
-
-In drivers/clk/rockchip/clk-rk3568.c, PCLK_EDPPHY_GRF is a normal gated
-clock and is not marked critical:
-
-	GATE(PCLK_EDPPHY_GRF, "pclk_edpphy_grf", "pclk_top", 0,
-			RK3568_CLKGATE_CON(34), 14, GFLAGS),
-
-Because simple-mfd does not enable the parent node's clocks, and the syscon
-driver only attaches and enables a syscon node's clock when a consumer
-looks up its regmap via syscon_node_to_regmap(), mapping the register
-window directly in rockchip_edp_phy_probe() with devm_regmap_init_mmio()
-means PCLK_EDPPHY_GRF is never prepared or enabled (and will be gated by
-clk_disable_unused()).
-
-Won't accessing edpphy->regmap in rockchip_edp_phy_power_on(),
-rockchip_edp_phy_configure(), and rockchip_edp_phy_power_off() while
-PCLK_EDPPHY_GRF is gated cause an APB bus hang or synchronous external
-abort?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030064905.2248=
-999-1-damon.ding@rock-chips.com?part=3D4
+-- 
+Regards,
+Liu Ying
