@@ -2,133 +2,70 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06557606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 08:36:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFED1606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 08:37:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MH7riAKZ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T4XFR15U
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bFLcJIuz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6684711268C;
-	Fri, 30 Oct 2026 08:36:13 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CED9611268C
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 08:35:59 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69U8F09T2721626
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 08:35:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6J7KmcYhp8MGRmEKR/ajQMu5IWDgP6+2nxjcEbK+xzU=; b=MH7riAKZSiGO2jEj
- XWVxCXJWjvOyDK46m8K/q/ILwUqX9k6gFaLTogXB/2J8GB79vCfCdnesV59nhls9
- L9MrX8TwCcYGAWDMrRXRsrgUfOwHKeWZmyRLd1Aj6JLLzVKD6r2FEMnQdiOpiCu7
- vYTQRXh5WHeDpg0AYvMZM0PVeyb/YKAE2EFzohUHHmLqpGZpYW+xj2WNsZElYPLG
- h/fthvX3S0HPUPOpNSdJJwT3Yyz+ULZaz61AHXj+u6HBZjnDm1ZdhhYCHQ55QoZv
- QB3BjlYVJQo5Q6nAmiL2N9lDmngunpWR+Gl1zbaccZ2A2qdYXzyoZVSMfLX7NSC7
- ge7BHg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qj184-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 08:35:58 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93e629c7b16so9567285a.1
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 01:35:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793349358; x=1793954158;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=6J7KmcYhp8MGRmEKR/ajQMu5IWDgP6+2nxjcEbK+xzU=;
- b=T4XFR15U/najpSNA7WqL6qTjvoQzN62u3XaUfbVcW6jxkuYuXEsRaZSPq/ee6EB9Mt
- yj/3LC0eSbj/foC7SYBrIc+AhcecOUz1W6COxWFQm70oqFittLfj33clyZax6P9GMJaf
- 3R//GC3ZAlB+GCiSJ3VLgLxAZiPL3xtYyZADwX+swjIzt8Rk52MUP0eJuL4iclX7OyeU
- nIrGJR/VhUZn/kGX0HaCq10OCDUwy94YtlauCjt4wdztnAdMiJfaShW+K3h3xqJKPBti
- /6r/SM69uT9odyQ3jfkQHUQWvRFE6iEvlm/oN2IcYlu+77B9TuePAXe2MoLqFSHinRP2
- aQDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793349358; x=1793954158;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6J7KmcYhp8MGRmEKR/ajQMu5IWDgP6+2nxjcEbK+xzU=;
- b=de5YeJ0vrrnqu5rf2Wn9LAjeGVXT7jB+5DAqf7hGR5Fxrxx7zdQoM8WXp+VXR388gX
- unO4PAvWKUw/825QAaE5+6Y3Zcx+O3nkD8d0a1IWX63h6m5Z48DwdTJlnGRIjqeAyHmQ
- FEHrMXsKqa3PdVIXNWjARHSFEFIr0lhw9HM8R+G4yeXfQW6+EaT1SSmxT6h+cJdclYPO
- fyzI/SYl+Fa6TtRM3X2pYBN008ANX7m1R9ihPMkMvwNVaRXInZjop4151WaCoQk42rJo
- BlpUd8ugBaXz8C8lJ0IsWRUMQjRzyCpAMiGleSDI0vTmyp4tXYgP6uU05yja0A1X1S+q
- TfJQ==
-X-Gm-Message-State: AFq9FYJnrk1oen9U16uflQltNL1CKxNlGeeCrXyt9MHegqXo4WWY/LHc
- KxtZP1tAnsFESaENCAExev36tuppzeLrxr3kkO5i/BpwygKH3XL1/qRNOQ+/SKQJUNrLUEJ7HdB
- XBUiwII5OX9TbE5gZpQAUOhMSlyyem5GcHkKVHxsJiKh/eIV36pVVUzFK9BbsZf7M4CW3Ywk=
-X-Gm-Gg: AYBFou1KN3hZzsKY47Re0At4ehcJvx1b1jQd9f8hQCBKbMS0yoMxsy5cWA9PVs9xjEe
- rphRT7hLmJYryFrltw0bJZfM9Uilj0Ks6s8XRLSEsaFdur6onetaVrGrkXed7QRHaiAixb0/YLL
- 6URnN0fWkL9imguW1GdapicZdy+n5LPz/A95EKHeI9vrHdqvIzmQB78EpzJg+AB/iab9+79Z8Cm
- f6AWCPLgHa2iPs1iZlsZza5rUC5Gr2JdMem58h3Xw4Deo25B0RdvtfaN2Xe0gBQ5VpDh1JrgfJq
- 0oI15WoueKgxdIE7OZQGHnDJDsmvnx12x882UgWwPKKrFgXvptsoBiwl8LTgXPme/n+l05x3Dd7
- RV8LuNTRWs4IadsEath3SKLxwptBlMjnl9aPN1L0v5654bmJEq6f+8xZVtZ6mwsBCZfSxG0w=
-X-Received: by 2002:a05:620a:870a:20b0:944:127d:f192 with SMTP id
- af79cd13be357-9442179be1fmr261458085a.5.1793349358229; 
- Fri, 30 Oct 2026 01:35:58 -0700 (PDT)
-X-Received: by 2002:a05:620a:870a:20b0:944:127d:f192 with SMTP id
- af79cd13be357-9442179be1fmr261455385a.5.1793349357748; 
- Fri, 30 Oct 2026 01:35:57 -0700 (PDT)
-Received: from [192.168.226.64] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4cabe0f504sm39083766b.36.2026.10.30.01.35.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Oct 2026 01:35:56 -0700 (PDT)
-Message-ID: <dc2c51b8-41cc-4abd-b52f-ef2072593d1e@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 09:35:55 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3028610E881;
+	Fri, 30 Oct 2026 08:37:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1B2910E87F;
+ Fri, 30 Oct 2026 08:37:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793349435; x=1824885435;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=IHJX3cw9JB2XTo1/s4O3fc6EUj3ibpEpcjIPZLJOlg4=;
+ b=bFLcJIuznBcbdbK7OiA+bZG6eBh4/MEQ63rkmJcXCxm4YSLjpTZint/5
+ NGOa4eci5CIRlNBarh4Wks4jwBaPG7NYY9oDxEek7fRlX7duGkLx1lwf3
+ NPk4q+oFb10pGJ1ZXp2RkEcTXa4nfEA15ZyWe4X9X7hQjG6vGVxBROly/
+ yPkDrRUkp4QosZDLwtutbVaJfkOLObrnq4N/k0cY7WFq54y6HlnH111ag
+ nq18B0dCmcnUIQOApk04+KnJMh8K5+PgBh99sKjoNT6S+YrLVD8zlrD6i
+ oFI+7Ivl8RChCXVf4KYwTlkYO7/tvDby5G16nzXB+bxh1PgPEexLtJqs8 w==;
+X-CSE-ConnectionGUID: /IWe+B40RiGQZw6GIaRp6Q==
+X-CSE-MsgGUID: qOr4tCMaQJGbv2o77zromg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2133090"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2133090"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 01:37:15 -0700
+X-CSE-ConnectionGUID: TW8odKQhTKKIfvCGK54oQA==
+X-CSE-MsgGUID: wI4aNNQ6TmKwNUCTeZif6A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5457931"
+Received: from aiddamse-mobl3.gar.corp.intel.com (HELO [10.247.212.48])
+ ([10.247.212.48])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 01:37:08 -0700
+Message-ID: <baf11ed8-6a40-495a-ae40-15df5ad50284@linux.intel.com>
+Date: Fri, 30 Oct 2026 14:07:06 +0530
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] iommu/msm: Use identity domain for GPU and display
-To: Rob Clark <robin.clark@oss.qualcomm.com>, iommu@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261029212344.346069-1-robin.clark@oss.qualcomm.com>
- <20261029212344.346069-3-robin.clark@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/2] drm/xe: Expose retired VRAM pages via drm-ras
+To: "Tauro, Riana" <riana.tauro@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Jakub Kicinski <kuba@kernel.org>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ simona.vetter@ffwll.ch, airlied@gmail.com, tejas.upadhyay@intel.com,
+ himal.prasad.ghimiray@intel.com, raag.jadav@intel.com,
+ joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
+ pratik.bari@intel.com, Hawking.Zhang@amd.com, tao.zhou1@amd.com,
+ YiPeng.Chai@amd.com, jinzhou.su@amd.com, cesun102@amd.com,
+ lijo.lazar@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
+References: <20261007080354.3072751-1-aravind.iddamsetty@linux.intel.com>
+ <20261007080354.3072751-2-aravind.iddamsetty@linux.intel.com>
+ <20261016154913.1af64e88@kernel.org> <atYFYbLXfSIPLTzA@intel.com>
+ <86fb7702-9b70-412c-a8a0-a2d78cb5fae2@intel.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261029212344.346069-3-robin.clark@oss.qualcomm.com>
+From: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
+In-Reply-To: <86fb7702-9b70-412c-a8a0-a2d78cb5fae2@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: _zjtZFkCXtauqHtEyvImSx1RCXcDIwbs
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfX7ox8id5pyTzw
- Yp73Cb7bYA2TYzVdTvG7KZtKN5i/uDy7M+yVEgfiWlMYEKwwZfOAgfDkCYvpaRtWCe3hu4Lq3Pp
- MyDnr7oWCZeZsW2lHmq6mEAnYu3Ze0k=
-X-Authority-Analysis: v=2.4 cv=DfSCOftW c=1 sm=1 tr=0 ts=6ae456ee cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=nPYanoZRiyYWTCGofB4A:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: _zjtZFkCXtauqHtEyvImSx1RCXcDIwbs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzNCBTYWx0ZWRfX+6WuYyje+6h1
- Um+EVR9xTFrk2Exe8RnaZmjR8hiu0kIbzYKW6SdpK9qEM7605nej89+U8BoNXi7hpeBg31yh1oC
- Q88ct/cCGiftgrfaaOZ6XHF8jjDRqYYfqHJfktiFbZCW/ShGWuPkBABT0h9gY52ZTdBxRmii9PW
- v2Iz+MZjlTpwPfJN/fYZmqtLM+FirLi70C6eFskQ0eiQ8QWcrJt8cRnolFenI/NSJZba2q7RapE
- 0NJeoYTcgxntpl4EwOkqfKRTNO3Ua24cHJjnoxGl3ObpPn08cdEAq8DFY4oLBmJDUiSjfb7rC8U
- 17ANL4U3v0EudSuE6Q7Ox5PhP9dnHqpL3gF7qqb76f/w1k/LFtGyNqVi/f/iisLvZcnbtPLx8it
- yhEpZUVH9jLhj3gesEy/hBt+U7Uca7/OeDxSQqOgQs5SDRsPZsDz3MzEZIUTp4aQr6yXj9lCiGO
- gberL2yh0/TLxZQX3Mg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300034
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,25 +77,119 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/29/26 10:23 PM, Rob Clark wrote:
-> Similar to commit 0e764a01015d ("iommu/arm-smmu: Allow client devices to
-> select direct mapping") for arm-smmu-qcom, match GPU and display compat
-> strings to pick identity domain time.
-> 
-> The drm/msm driver attaches it's own domain, which it manages directly,
-> so we don't want an iommu managed domain interfering.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+Hi Riana,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On 30-10-2026 11:46, Tauro, Riana wrote:
+> Hi Aravind/Rodrigo
+>
+> How about using a generic telemetry node for this series from
+> https://lore.kernel.org/dri-devel/20261029203000.1763447-1-zachary.mckevitt@oss.qualcomm.com/T/#t
+> instead of a dedicated node for vram-retired-pages?
+I don't think the telemetry node is a good fit for retired-resources,
+the two solve
+fairly different problems:
 
-Konrad
+Telemetry models a fixed, compile-time-known set of named scalar
+readings (temperature, voltage, power, ...), each a single s64
+value, read/written one field at a time via doit. The dump op only
+enumerates the field schema (field id + field-name), it does not
+bulk-return values.
+
+A retired VRAM page is a multi-attribute record (address, size,
+status), discovered at runtime when a page actually faults. There's
+no way to pre-enumerate a fixed "field id" per page the way
+QAIC_DEVINFO_* is enumerated at build time, and the count is
+unbounded  and grows over the life of the device.
+
+Trying to map retired pages onto telemetry fields would mean either:
+(a) registering a field per page per attribute ahead of time, which
+isn't possible since addresses aren't known until the fault
+happens, or
+(b) doing N doit round-trips (one per field) to read back what is
+already a single structured dump today.
+
+Our current get-retired-resources dump returns the full list
+(address/size/status, plus a leading max-pages summary) in one
+cursor-paginated sweep, with the cursor keyed by address so it stays
+correct if the list mutates concurrently (pages retiring mid-dump).
+Telemetry's dumpit walks a static array with an index cursor, which
+doesn't give us that property.
+
+So I'd prefer to keep DRM_RAS_NODE_TYPE_RETIRED_RESOURCES as its own
+node type rather than reusing telemetry for it.
+
+Also, RETIRED_RESOURCES is generic node not just limited to VRAM bad pages
+that can extended to support a new type of resource.
+
+Thanks,
+Aravind. 
+>
+> Thanks
+> Riana
+>
+> On 19-10-2026 17:26, Rodrigo Vivi wrote:
+>> On Fri, Oct 16, 2026 at 03:49:13PM -0700, Jakub Kicinski wrote:
+>>> On Wed,  7 Oct 2026 13:33:53 +0530 Aravind Iddamsetty wrote:
+>>>> +  -
+>>>> +    name: retired-resource-attrs
+>>>> +    attributes:
+>>>> +      -
+>>>> +        name: node-id
+>>>> +        type: u32
+>>>> +        doc: Node ID targeted by this retired resource operation.
+>>>> +      -
+>>>> +        name: vram-page
+>>>> +        type: nest
+>>>> +        nested-attributes: vram-page-attrs
+>>> why wrap attrs in a nest? Are you planning to add other resource types
+>>> (than a page)? It's a common anti-pattern in Netlink to over-wrap
+>>> stuff.
+>> we should indeed remove the wrap and have only the page info.
+>>
+>>>> +        doc: >-
+>>>> +             Type-specific payload. The resource type is
+>>>> identified by the
+>>>> +             node (its node-name); each node reports a single
+>>>> resource type.
+>>>> +  -
+>>>> +    name: vram-page-attrs
+>>>> +    attributes:
+>>>> +      -
+>>>> +        name: address
+>>>> +        type: u64
+>>>> +        doc: Device address of the retired VRAM page (e.g. DPA).
+>>>> +      -
+>>>> +        name: size
+>>>> +        type: u64
+>>> prefer uint
+>>>
+>>>> +        doc: Size of the retired VRAM page in bytes.
+>>>> +      -
+>>>> +        name: max-pages
+>>>> +        type: u32
+>>>> +        doc: >-
+>>>> +             Maximum VRAM pages that can be retired. Present only
+>>>> in the
+>>>> +             leading summary entry of the dump (no
+>>>> address/size/status).
+>>>> +      -
+>>>> +        name: status
+>>>> +        type: u32
+>>>> +        doc: Retirement status of the retired VRAM page.
+>>>> +        enum: retired-resource-status
+>>>> +      -
+>>>> +        name: pad
+>>>> +        type: pad
+>>> And then you won't need pad
+>> I noticed this in the review prompts, but I have some reservations here.
+>> We know for sure our value is always u64 because it is our hw
+>> definition.
+>> I don't see a good reason why not use the exact size that matches our
+>> hw.
