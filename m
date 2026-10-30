@@ -2,130 +2,138 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B38C606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 19:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D313606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 19:44:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RlvhKzhb;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XgukLkMM
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mg/YKwDX;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=akfvZlyv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7771510E174;
-	Fri, 30 Oct 2026 19:20:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 817A410E25C;
+	Fri, 30 Oct 2026 19:43:56 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB5210E25C
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 19:20:18 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D990810E1EF
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 19:43:44 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69UIjGZs3059911
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 19:20:17 GMT
+ 69UIhxnL4119664
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 19:43:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHG
- hNRMzRi8=; b=RlvhKzhbEf56zUtPosl2dI9UbSsdN7a8c4KbdUEHwlVuOGnDpuj
- Rpr4UoXTo2YZNUQUEQZDBpN1IphR6XgCfxie45mT7eb4iVsU5jKlkEx/4UGkJ3kz
- +CZvIAgFGfUfZT5D/WMby9HVqnlLapKvITGCm3iGgyM5nAO5cycQKDDpvnyM/9u5
- 88bdXuDzfpNPNLx0meOgusEVC3WAA9b2GTamzoiVRex4eJwg09gccg9+dNRDewq/
- OO7cs6b8LeT/mXTdSEc9I/+K8C8SxnLUcZqGpHRPq5op2o1ZK44XWGji6L4xzh+8
- pvTEJsJI2SatK3iB8CETxLU8NturAJuYb5g==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com
- [74.125.224.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn0sxg3hx-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ bGx6qJiXLm21UoHQs+MxjhyCVQP4Uyn4ufhGO58Vffk=; b=mg/YKwDXjNT4sPSS
+ zHJ/KjhTajfRCuh8o7XnjdPQKkn8VSnYjnIsnbyIEhg94zmXDIKiOPQJlUhTlE6K
+ 2JhR6X/Cbjws4VEztAiUqalx0ofpe/DOi9JcvImPuxNn2IO3nP6Hieu+c+OJGwWp
+ PS7i2yXjr2YyK2VM27vAVwD62WF0pyNU+YfYk5fgyOH6Eke8mCha8F7yF+OHx2TB
+ bDNO4IgKFiJv0cG2kfQES8MJs8kXeOfxaeiDG3qtoZ/U5I8+iB0BAx40hUEl06bt
+ NdF8TYkbdzHL91dV2SH917+kOcWvaie72JboesjUDflH4Kc7SBlu9ozhsfGd+cJT
+ GfmSzg==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn0sb85md-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 19:20:17 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id
- 956f58d0204a3-6790b1d3bc9so1763884d50.0
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 12:20:17 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 19:43:43 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id
+ a92af1059eb24-193b5eb133eso1217660c88.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 12:43:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793388017; x=1793992817;
+ d=oss.qualcomm.com; s=google; t=1793389422; x=1793994222;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHGhNRMzRi8=;
- b=XgukLkMMxDLFKvwbFmRf5ZzjvizUEIZT31reoHIyGIChQA20G0I+KruPJQRMZArH3h
- DynLJ0X0aJ3Ws/ziAhOqJaxs1TWl61fqZeVfwEUaAg832bx+8LzmkrOz2fp56Ty63SuE
- W5bd/gfe7sF6WDhJ4jLkq79FP3NyXpeqwyYYDMk2x2qWvtvf56hFf7wiSQsjCyCOdewG
- CaRQvDz14n/QjvXu/8ZwXDrRDQ0J71tsSzsTlCtrs1r9eY906MNbXIIqeKhKn6HnFw/n
- iQnMbjuj7+GLHnbKRkQ+KOSwnaf9Vclx90/ZQkhU6Z4twCgh8bGb7eslTNcSyNqrl7j/
- Jttg==
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=bGx6qJiXLm21UoHQs+MxjhyCVQP4Uyn4ufhGO58Vffk=;
+ b=akfvZlyvLy+y/LfDhRDOpAWNwM7zqet5NrZmiSo2QG17xcjwRtJjA9GiI18GX/hw53
+ Tl6VsqWe/J/9kq7ps+a8TFOcpOJtDLhnIUFhSQzlbacu7Jol9o1cJ/91YaGxa5ZH2zgg
+ GcBycKWVu9M3LIifmcjpPh1RG874SWaxAUXr21pWuD3JSBLNUcJGfvQoaKYBXJ82YPuE
+ k68PJyR5Mj5899Uuj/yi0ZQVTNyCGGgwh65Zf3jXGhGFMLo6WovkAgIoqJUXib4PIPa4
+ I9T2/41eOElzzUsAQJkaSV64tc25hKz+7bc/qmWhQ8Up5APa3uNGZD+MY58xUj7L7pQn
+ KzYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793388017; x=1793992817;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1793389422; x=1793994222;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHGhNRMzRi8=;
- b=JngsMH3S6ZyQtvZsocUzKokkBpdfIJxHOWKamzI1MdBh9E8aFw1csdU53HVr8y6+az
- 90s1Ev6f0eBDLxIV2cmecwXcLOe8NLsQFtQFB7xi2sr2AlDU0xh+x+39M7X/fsjHRcW1
- 4v91OAGLxHoSs9LJCamZ2Ny9pBQqDkxnXjdVfn12o3s5rRWbXumwWD8AOvbHAHboCVKY
- Su2jGcSJwvIwbpvhAMuDE+sppptS2tf2HWvCewvyYrt5DV62dm29QPRQ/zKk1E3NPvQF
- 0mC5Zl6uYA6yUZ3PU7S3eF3+h/hAeZxSoW/FJinSq4pRx1dUeUCPWzh+TigoK+hzeLQq
- nYLw==
+ bh=bGx6qJiXLm21UoHQs+MxjhyCVQP4Uyn4ufhGO58Vffk=;
+ b=Jrahif5qWfTegtpRFaurTE8Yspu5fQUoCxKiW52gKce9/0nITkjsWNNRmrkI+E1wk8
+ zOaY2AWbntAqhAkLLO9IIirf3vCGbdnBZZybBZZ8VP/U5LlxSAGAl81lzRnRvkoX5ogS
+ PNSLvLk67vyo54MYnzal0+hT69f/coHrMbZEPgF+W6vNPiosIb+k3z+uqKYy02ew7FKq
+ Z90QHuZjoLTinTCNHcyye80DtS3TNd14JD5B2y4dV8vO1m4dNnH3HKnZ6BOHP/mZmFUV
+ dJlfW79OnzQs5xfHZtKcEJfQ0W5bMLfH6jrhh+s667PUbchw/KKG2q8wRcGUiOElxe4p
+ lqcQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBw1iDkhh647KGHHXK4lK/jRqFMKpVfWscOmMi+9Qvo3SAk4PRa5ATTMz2eYL0MejiVVP3GwAjoPvbg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK55NkkfoCBCQlow8Xx968pyW2UYKwJLrGVeQaYYk41Rg8PMXYJ
- DTzrXmkF5GLgyH5FiSZhcJVWjEdQKYxM/hiC/Hd4tH+i6FbsyIeyj8ZXKB9nUtCAJZKPREXIrYC
- dM0ccFJFRxr5orIYst0twHqNtJ5C7lDflBDUmgEwpQ1HwrI5LIhirrndfWyf0/StyivbyZ+0=
-X-Gm-Gg: AYBFou2RywtH1m5TdT4L2DMElvzuXoJ0z8wujkS6X6SkM2WnSFE1ZtRzMzRq4eVn4PE
- 8rcyNzH5wCjEIZiMat6Tf/0+0+qgyVrkliqp/tS9+EZEVG6iez/yoke0eWZ2YODH7doNJCPpvcl
- z8w9x8SdxZ8N4hVj6kmaTZ06xrLmWmyUEVVgJ4oxSsV+6HusffR7IbZ00ATy+LMkgi3/Ro3Lbdd
- NYNQLP8StpoDYLB/NhoHYKxdF4A76raPZHljHQP4VqlpW3DFQdjot+uS1qbTfeMfDMo1IqsuC2d
- LLgdtSoW9jjdVUIH64ZlPQ9anEAvteZZIBWSzSbN/K0/RvB5lACR5fIE6GTPmyWNdid6rptCgre
- GqHi1jff0gOBJAHX50QSany1tldw63DtstbX5rkiaNBBdOG7MMtoykXi5UaWDjq10d5QETRipam
- WWaVd7F90O1QifcJAyPSih6qfhM41UJaLe5w==
-X-Received: by 2002:a05:690e:4141:b0:674:e0d2:7e12 with SMTP id
- 956f58d0204a3-67ba508d010mr2233316d50.109.1793388016794; 
- Fri, 30 Oct 2026 12:20:16 -0700 (PDT)
-X-Received: by 2002:a05:690e:4141:b0:674:e0d2:7e12 with SMTP id
- 956f58d0204a3-67ba508d010mr2233286d50.109.1793388016327; 
- Fri, 30 Oct 2026 12:20:16 -0700 (PDT)
-Received: from x2e.lan (108-208-224-205.lightspeed.gnbonc.sbcglobal.net.
- [108.208.224.205]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8b2b719d2d5sm13185767b3.40.2026.10.30.12.20.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 12:20:15 -0700 (PDT)
-From: Tyler Baker <tyler.baker@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/a6xx: fall back to MX when gmxc.lvl has no levels
-Date: Fri, 30 Oct 2026 15:20:14 -0400
-Message-ID: <20261030192014.694393-1-tyler.baker@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+ AKwUvBzRqr8nYJr24bGplvbRvN5ym6UmtUM6zu1Yv4pbS/mGjwIg2a9+1ysnZ1QB4xRwNtVhZmJDGkaBAIY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLiuDWsviRkBZOfGqmdLrWTHlIVebhqh1VfqnpQHEwgwUr6Z/Ed
+ D7KqdINtOQZI/TT9IlCdbln9w2HN1sn6FK9kGMekcibV49llqpMrUNYoS5u4iPI0XFIxCW19/lk
+ oZvD2wEA0U9N/cDzSDM3pdxKdOZLpHvJ0ZN79Vscqg0bZqeOzbeK4tO9x7zBKjv/M3ZB3ZBs=
+X-Gm-Gg: AYBFou0xshadTNmZpfy1VQVWPrxzylX5tvTLFawkF8wklxws+W9xFwtjML7sYImKCkS
+ 7SKkQFPhuXgJmZWECOovhrPd7z5+qTDr2rkbYmadsMfuuae7vZCMlmzBwHDKzWrmVxFE2PWAVMM
+ rtsvCGlBmfI/pd1Peg9+2e/dZV2CAlKtUiUluGMrzP8pGiRhWEylmjJiZ26dxevWKPlDnL4WXkj
+ INU9sPwJx3yKwzPEbbrQD/P59zbmnAuotNrmKHGBw+v28BHYh1iQTDSL3jSOHYpBppOm7mhvHl0
+ 4EmWWYAWmWDbotrGJj1rwWFNFaU1DXLzBVi6GCAOvv76TStJBiQ5IP/CcMINFruxqFc5MiR0qk4
+ yYqa2egcVO2z70ixfhWDDYmsYzwC/NBSFnuV/QWkdyf9Th7d+yvlqqxXjrMJkcxqqR8LxLIPZ2v
+ TOroEwU+b9NCA2YskhSJtSzOY=
+X-Received: by 2002:a05:701b:2052:20b0:18e:5292:2670 with SMTP id
+ a92af1059eb24-1ac5d88cae8mr4358379c88.23.1793389422494; 
+ Fri, 30 Oct 2026 12:43:42 -0700 (PDT)
+X-Received: by 2002:a05:701b:2052:20b0:18e:5292:2670 with SMTP id
+ a92af1059eb24-1ac5d88cae8mr4358362c88.23.1793389422005; 
+ Fri, 30 Oct 2026 12:43:42 -0700 (PDT)
+Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36a42a77c0dsm10965340eec.26.2026.10.30.12.43.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 30 Oct 2026 12:43:41 -0700 (PDT)
+Message-ID: <0f57c001-4c0a-4b35-8864-d83ed51d0abe@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 13:43:40 -0600
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA3NyBTYWx0ZWRfX5O3Nz+xcJ2Vt
- EYLkDKcIqbN+Hgjky2HZwo0lhKDi/uwAGxLFtMc2wmulGFrIdAkLpRtSY+5V2tnsi0QsgcIkvBJ
- l2UCPLm/elonr9YHvUCZtLT/Hzzqo6exc9UVAtEt/F1jhi3iDa1KD1iTwsBSqu1CiREGcg+T9PG
- r/HB70mXUREfeQrq+Ty5ykvjrfo2Nw6f/qUG1OYGXqOWKdOkRGJN70BbcgFOOlH1avDjEWqOOcR
- ukYSMvcwrgVpyfm55PyBlmONmqCp1e+S8zYrM56soGLXv6RrSe9rHP0giNGFBRM/CjfoHXG+1n0
- tbDJ+lYkELQmhciCgt7NCLhnbwn2mh9Zht0DLqsVxHIvPZYaQLzlPKuVs4BM+di+ZfUPQo9mUWb
- /+u0feoIg19T50S+3BNt5ToNvVUGtgEFzZC6bG4PZSYsQmaG7R32b2LlzUQfus7y1yX5LQ+PE9D
- lP245uhPxuypH08wb5w==
-X-Proofpoint-ORIG-GUID: cciQiq3Hpu58e8ULAZ0IJIXrRxDZVyzh
-X-Proofpoint-GUID: cciQiq3Hpu58e8ULAZ0IJIXrRxDZVyzh
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA3NyBTYWx0ZWRfX1PGXVnVeWrxz
- Cej/7qKnYUkuak1puwAEF6gHMrc95s19c+E2qsAu/cSrokpHpGv0h0pWaAULJiuJ+9LYkhc51fe
- lcEGIoHOg47d23/lGNfhc5aGQXVMPQ0=
-X-Authority-Analysis: v=2.4 cv=ap0nmiZV c=1 sm=1 tr=0 ts=6ae4edf1 cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=PFxtTy0squD/fJwW5Be2sw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=0bFHTkV68l4dVm3UfdEA:9 a=Epx66wHExT0cjJnnR-oj:22
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 2/7] bus: mhi: Move Sahara protocol driver under MHI
+ host client drivers
+To: Kishore Batta <kishore.batta@oss.qualcomm.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ mhi@lists.linux.dev
+References: <20261013-sahara_protocol_new_v2-v9-0-dc9f24357c4a@oss.qualcomm.com>
+ <20261013-sahara_protocol_new_v2-v9-2-dc9f24357c4a@oss.qualcomm.com>
+Content-Language: en-US
+From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+In-Reply-To: <20261013-sahara_protocol_new_v2-v9-2-dc9f24357c4a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: tpzc2nwRWsZi5AMf1ZnPJo-NjeXK_mXu
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA3OCBTYWx0ZWRfXwj4P1aSygKmW
+ mQ8KZKOO/fRH4LWxt+IEUU0i8yEoVCtXaGULE+3d7SxSNVrP8Z+piVkm0ozLUY+DWv6Q5rth1Dh
+ 0vv0f+KUeDzToQ1buOJBeiMghjly3k0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA3OCBTYWx0ZWRfX3esvJT4BtfWG
+ Tfx/MdxqLRdupdb7RQhL8GWJ4LVg1eOXk+mp9Pk/VWKCJyfEBjqX9zn6U9hw2ZN5o312ZYPR3a4
+ P5iOiqO/1O1JfbZoehd4KDb4ZCDP/TMRYvCsH39dYc7zla+ds8WF7tAlN8ZgZ+IlvWEw8XI15Fn
+ iAOzIU0RiMybJcUOgVQpBHYDwKbuLgHu60hhW6g7EuxkeNmHkw28jKlLPK68D94kK86ZyOVmXFJ
+ pauWGsg5AnFCaTt44rcqYzypfe/IuTKDT3a83a1lGXRBkfkgdVyp/vzfQhrcXcBvN0EAGu1b9qH
+ 5tYY7Axa8NEJDk5Z6tJctzhfSJGQmEj1HTMG8el1XpECHhVzANfhq5EcCDMFE03IrJq7ctC5Gbh
+ 87r4ezn2HojAZ9eQX924pAzZkoNiGScr6YhhiX8VhDOLRG32Ol74Ya1jf61FjQ/19yf1cVREIAS
+ Ovay0/mR6Nfq2QPXQ/A==
+X-Authority-Analysis: v=2.4 cv=JNKuIMKb c=1 sm=1 tr=0 ts=6ae4f36f cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=lJNEF0nvcUjEJBKM1O0A:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-GUID: tpzc2nwRWsZi5AMf1ZnPJo-NjeXK_mXu
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1011 malwarescore=0 bulkscore=0 impostorscore=0
- lowpriorityscore=0 priorityscore=1501 spamscore=0 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300077
+ suspectscore=0 phishscore=0 spamscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 lowpriorityscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300078
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,54 +145,44 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Eliza's command DB has a gmxc.lvl entry with an all-zero level table,
-though Eliza does not use a GMxC rail. a6xx_gmu_rpmh_votes_init() picks
-any gmxc.lvl entry as the GX secondary rail, so building the GX votes
-fails, a6xx_gmu_init() ignores the error and the GMU gets a zeroed GX
-vote table. On the A722 the first GX_BW_PERF_VOTE HFI then times out
-and the GPU stops responding. Before a6xx_gmu_rpmh_read_arc() began
-trimming trailing zero levels, every GX vote silently used level 0.
+On 10/13/2026 2:45 AM, Kishore Batta wrote:
+> +mhi_sahara-y := sahara.o
+> diff --git a/drivers/accel/qaic/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
+> similarity index 99%
+> rename from drivers/accel/qaic/sahara.c
+> rename to drivers/bus/mhi/host/clients/sahara/sahara.c
+> index c7c0b3eb4b65fb7776a6c724cb3105046cf6f7eb..75c0cf6010e1506fe661cfd110112bbb37465880 100644
+> --- a/drivers/accel/qaic/sahara.c
+> +++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
+> @@ -1,6 +1,8 @@
+>   // SPDX-License-Identifier: GPL-2.0-only
+> -
+> -/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. */
+> +/*
+> + * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+> + *
+> + */
 
-Read gmxc.lvl with a6xx_gmu_rpmh_read_arc(), which rejects an entry
-without levels, so the GX votes fall back to mx.lvl.
+You've been told multiple times (on v4 and v8) not to touch copyright, 
+yet here we are on v9 and you continue to do so.
 
-Fixes: b5269bf0e1ad ("drm/msm/a6xx: Factor out RPMh arc-vote helpers")
-Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+I'm stopping my review here. Between public and private versions this is 
+the 15th version? The 20th? I've looked at the majority of them and I 
+see you continue to make the same basic mistakes over and over. It does 
+not appear to be worth my time to continue to point out the same basic 
+issues version after version, and thus I think I've concluded there is 
+no point in continuing with this series as is.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 662f09bec9d52..c42e0d4fb946d 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1887,15 +1887,16 @@ static int a6xx_gmu_rpmh_votes_init(struct a6xx_gmu *gmu)
- 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
- 	const struct a6xx_info *info = adreno_gpu->info->a6xx;
- 	struct msm_gpu *gpu = &adreno_gpu->base;
-+	size_t gmxc_lvl_count;
- 	const char *sec_id;
- 	const u16 *gmxc;
- 	int ret;
- 
--	gmxc = cmd_db_read_aux_data("gmxc.lvl", NULL);
-+	gmxc = a6xx_gmu_rpmh_read_arc("gmxc.lvl", &gmxc_lvl_count);
- 	if (gmxc == ERR_PTR(-EPROBE_DEFER))
- 		return -EPROBE_DEFER;
- 
--	/* If GMxC is present, prefer that as secondary rail for GX votes */
-+	/* If GMxC has levels, prefer it as the secondary rail for GX votes */
- 	sec_id = IS_ERR_OR_NULL(gmxc) ? "mx.lvl" : "gmxc.lvl";
- 
- 	/* Build the GX votes */
--- 
-2.47.3
+For the entire series: Nacked-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+
+To proceed, I think someone else needs to take over ownership of this 
+series and address the open comments.
 
