@@ -2,158 +2,108 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B8A606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 07:59:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12788606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 08:00:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BfTk+8xh
+	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=OtVYgBfD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4887911267B;
-	Fri, 30 Oct 2026 07:59:48 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E22711267B
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 07:59:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793347182; x=1824883182;
- h=content-transfer-encoding:date:message-id:subject:from:
- to:cc:references:in-reply-to:mime-version;
- bh=3kiH+sWNDUszZM7MaOlpYfjCRAL9YO9aZWATWLY62UI=;
- b=BfTk+8xhNaLvrTyrpcepvImNhDNfPb99vi+DRjEYPJ0wiwwSuSIn0gBJ
- 64lYRgeVqelNDqGgFcCXikPZR4+sUy03jKhzthCf19U/trYrvOB91PHp0
- ZymdaC6JR1ZX9s/m7ReYBSGFm24wTO7CVvAw02ZYp9RqIN0J08PEqNMbU
- Bl7XW6pdfpbWz6xIF2g14oHolftne50guHwc/LwcVf0GCJDvvY2Do9ALE
- 2oF8JYKUW0tdx3ocXG9YKEdBTRkfWpCOCLX1exARwcbGUWomnMGUKEQgH
- j10hNSOLwRHbNYCKp4vndyDlmA07SRr9VHRdlayEnGwFiT83oryqW6QXG w==;
-X-CSE-ConnectionGUID: PDiei6WXTRGmyR54GDy9CA==
-X-CSE-MsgGUID: 6TzxO8dXTlu5wAdbEynh8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1991166"
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="1991166"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 00:59:40 -0700
-X-CSE-ConnectionGUID: V1hEKmqcQ66EC65+ciJyaw==
-X-CSE-MsgGUID: GbapV45cQUmNArLMQ88UMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="7159397"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 00:59:39 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 00:59:38 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 30 Oct 2026 00:59:38 -0700
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.2) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 00:59:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t0lgbdCN9XeAJxlBBpdbQCRajrVUOTfYFbACQwtFDOiGe/cyClw2naP26ahgFNHwF2kQi0EW3kPsnZT3agRzqee9YNCXeG2gtmN55ZabEMaWbVfSCPBL1vY31nBX8vGaFQllf5nivcnYUA/6BSdGvP19dKnXxPc9vUrxO5Ej2EVQEYBJ296Q8onDh8AOF/5LGLm28sRNxcBbQfg7iFCNHtNxcE3HGYu6ubumMLQPeR/vhGlI6IlPyjM2qgTn9zhL60b/mpn7hb6UD+6++4+H4s0sru2lrfcWSdNYXA4YHbrfCiQYBl/ToeeCPFSv+prF4igqstFahlLbaO0z43qGzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pdyIwm52hui9araRJyIjo/uWNwbs9ZbjGjYCjRjUltk=;
- b=q2RABWvq6z7eeZxrkHTy4z45cm0j8Nd4Vwoc+LvF+q1JB414ke3jQ9Rn7BMsqhGJB1yBMPaf3mEWDl+qw+XhUiQ5uUD5aXh6iOA70AcQj+utJ1nLNUu6Qr8oOq6LVgMuwInO9OyMJ64e/2jUI9fLzS95D2DZkYE51JCVqhIaBMX4szUsK+y1mt6PwDErE5cV7KaCtakvgSvek55dP+FizKZFpNUyYqmN4oAThArd8oiC1SYyGvXbslSHzHTflybqcTiFpjQ8/C8T5x87S57BLBYiqioBkbJUW9AS0T/jUtvgD3htcGUU6Dr/hfFuf5mAOMod4p0FlnyliqR67e9kdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PR11MB134916.namprd11.prod.outlook.com (2603:10b6:8:4f0::21)
- by LV3PR11MB8766.namprd11.prod.outlook.com (2603:10b6:408:212::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 07:59:35 +0000
-Received: from DS4PR11MB134916.namprd11.prod.outlook.com
- ([fe80::87f6:b354:5770:3ad4]) by DS4PR11MB134916.namprd11.prod.outlook.com
- ([fe80::87f6:b354:5770:3ad4%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 07:59:35 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Fri, 30 Oct 2026 08:59:50 +0100
-Message-ID: <DMI0ITWM0GVE.2KY7024QB9UPZ@intel.com>
-Subject: Re: [PATCH v2] drm/gem: Fix and enable CHANGE_HANDLE
-From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-To: David Francis <David.Francis@amd.com>, <dri-devel@lists.freedesktop.org>
-CC: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Christian Koenig
- <christian.koenig@amd.com>, Simona Vetter <simona.vetter@ffwll.ch>
-X-Mailer: aerc 0.22.0
-References: <20261007141043.2928048-1-David.Francis@amd.com>
-In-Reply-To: <20261007141043.2928048-1-David.Francis@amd.com>
-X-ClientProxiedBy: VIVP296CA0043.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:353::15) To DS4PR11MB134916.namprd11.prod.outlook.com
- (2603:10b6:8:4f0::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3DBB11267D;
+	Fri, 30 Oct 2026 08:00:11 +0000 (UTC)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6C21112686
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 08:00:05 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-c450ab1483cso59214266b.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 01:00:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793347204; cv=none;
+ d=google.com; s=arc-20260327;
+ b=d4/OIILGQzOgFNvkOroY347DLoTascj1t7nDFKsBaLrv3R6oZ7w//b60re5WxurBxR
+ dA4p1Voi2yL6Wdf3ZfLTYdiFPMBZhrgV0b5RvBqVgveYH2TI09+d07UOvhEdtt7qn4ab
+ GYxcbPzIfE9/+NAvPGrV3IklaUrXUgcJEbCM1Ia8X122GVhnmYgne+iIVjuNJDBCTTib
+ cI91vVN9JdHRcmTPnrEUYbVfEytRTt+VNDR8hmCSsuvvXldeXP3VDej1V+pc9R4Aor1A
+ LTbu8YnaopKgtQHNO5PMgzte2Zz5DeKqanssl5WqN1TrKxoCrObGZFMIGPLeOiDMTS7k
+ O4Xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Q/eIx/IUOdi7y2UVsh8BBzkkFOgj24Cn4YadoL10m2E=;
+ fh=8a6VOJw/eB22jbsCrSP/acKZnDekMflw4Kws8OAGS6Y=;
+ b=sW6VMXDCl6KG9cPJzdjO9bWNKrhfJ6YWiYUIVPZ3C9lyzq/9J9ajx4q1eoZMyFsCSg
+ lmVxpOY4tnd4hLYrJdGEzEDcPDn/ToGpO+9a0UivaodB3c1C2Od9JLC/Z2M78nap01WW
+ WXanjblfO6ftWXP2DFq4CwL9VNlYUVrFYY2ImDBQNOR5uZ3aIr/Yodx/zgNgWCgazSUC
+ c5ba0+S6sor7uvMAqlcPL5Ha5F2hE46LtjG7uLktrYifzi9ym9w9Zi0VY/0Vr6dLX3ag
+ +A1/ffRaceb61qIqXTwK/ovRlnZApSz7cXG0JQ0KqNeZogCMkHNCg+30APCa6HHLsDcg
+ LNmw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=flipper.net; s=google; t=1793347204; x=1793952004; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Q/eIx/IUOdi7y2UVsh8BBzkkFOgj24Cn4YadoL10m2E=;
+ b=OtVYgBfDGc+mQGBTsXLu+P9I01+6lG0bRfeHs2Lpgcid1fKERbnooV40l1JtszREsc
+ hi+zyLVS0PdkYjN8Xi+ex1K6aYIkC/QTQMxDjDcaG4o40E8swX+HnSYXGO0CSaXLHcqk
+ Oyi02dGrCIPOuGUfai0LVwqTdGdRvSor5OxPMEFVFny4ETmTcFRxJEniY66kDhyK188y
+ 18Zaln2tAoM/OEU65uwjyeu9+j3jJhQHOvAtpqL9ysMEwOXxXRY/C5anuEuIbXM+WqT1
+ p+AfVyf7O2LZ6Fejoxa0jm6K1G+xsazwwrwzjJzictuAIPR0F/Lt5XgHiShFq9UPIwsu
+ MpfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793347204; x=1793952004;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Q/eIx/IUOdi7y2UVsh8BBzkkFOgj24Cn4YadoL10m2E=;
+ b=WUvWuD2JBPlQqqpCGZ4LsbbUmQM8J2UdCkfS29/BSvj5FcRsIlIhyW0Wy2F+FBlW7a
+ yx57cF9lsESDqacPv5Sy0opyjPwVhl/QZ3D94JMlMDHiZNBnnYhen2QrkG3DRfIH3pIx
+ js8o/po1f6Gv2T8OZSZQljF9MRwtlyYggxg4BHQNczf0oIB8bsIm13JYc6PKRjdIeFNK
+ JwKuXQOy+YEiI+X/s/JCmh2yz4913WF3IKds0UkTRCKF5Aq8wAj7ggEGuV+iE2bl8AQb
+ Sfy0/9iCnpUySZ4FV683RdcQCzDyQntoi2/+vTXdPce24qOsrUOEfCiMF3KVM8JAtMK1
+ FAKw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxF5fxHDNB5zyAaavTMCXO89y40Yu2KFO4vHPT7ntPKyp5TFl5zAXLk0exPJFrJO52opJU9vF15+5s=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLl/MgmWAlShqRUhAlezNuGRWk+2pnPEm/oKl4e/lLSJAfroFbs
+ /EMDFWkiq38hBhOO9KP8CIrMOiDpgmOen0nKAPE9+tfm9AuKv9l5TOWB/O+AWFeXlbV4fbCzxis
+ idKooaR+MQLLc0NuLanZT1QK1Gy9Si7IP0p9KMHxqpA==
+X-Gm-Gg: AYBFou2rhUA7E++fQimUUvaphBAtQldBb13ImIIIA15ApLre/BPjJN6PK3EG6Erhr8g
+ +Fl7X4Ar9fZ9YnPR7w6KM+uyDi86b7xCJKPh9MBbDEj0IWHvV+kx03W3kN0XlrqRyxqHeXkk524
+ cLuO4dlffmx/RMvdtIwnkVDoH5Qh+ofKoMKCEkdAqxjVIvTInDgRPza0Sur8reIWLrgE2BM4WvA
+ Nf8499b1DdTXvSuGdA6P1YVfkqQHVOz+Ji9QGyMJ1742QJs0hNaqSnCJMwGIZnfP5lBM1oPfYj3
+ tSV9PZXZDI8ZnZNzF3kgC/g+OEjjscUEk822X1hPzZBr5YDXKwmnGg+7V/MWkhmH0wA28MWcVRb
+ 8QC2ZHboaVANd/XT02EdKCeN8VT6hw0PEB5ScsaIVvqspTwG+xPJdLGgiJy5BgI8hOxUYwA==
+X-Received: by 2002:a17:907:c23:b0:c49:cfcf:8d7f with SMTP id
+ a640c23a62f3a-c4ca7ae8ad6mr121607566b.46.1793347203897; Fri, 30 Oct 2026
+ 01:00:03 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PR11MB134916:EE_|LV3PR11MB8766:EE_
-X-MS-Office365-Filtering-Correlation-Id: b97906d8-2f27-40e6-b74e-08df365bbd09
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|18002099003|22082099003|11063799006|56012099006|261009223027099003|261009221227099003|261026121527099003|261022075727099003|10067099003;
-X-Microsoft-Antispam-Message-Info: 6Ym+17hlMrk+kY/msR1U2/A8MlFEblehbsYQ25Uq/aWGzTgZ6jIjFNntTXkYzn8LC6KwR7vNxsJz/1dAPg2FxCaUCBt61TqkImUk3nlyNkJAhTuHm/tBeEyOkg4R7vX9nzjAQcqACQ1QibqKBmHhYMz0vOUXMk3a5f+GnycuSP0FM/z+Nk4KxKGoptDOpGhrgPXiRTsuAhOAz9BLEGdbzae/nIN2hSed+PLwCRU4FT/WaV9a8BfB0F8VeB/ba9rO8JRqlzwkk+OBh32ggq4lfAKSSKURH6ywN1IHql0AtO4aBPfPLeoOlRbFhsF8DnV0ZlIiekB9/pSJ1+FlQk1+sP2JJ3UIBZ4WkNqyYTP/IrHl8WV6NYMRvWsxyFjjL9O2imhT980ETdIPgqyPJsgkOT0byR7LROBMFMHr2P7t4h/GiMWf7LujmkRY4IQR8LBPi/7Kd09WrjU98ZaOwtH8s19oM7zswYoiGsdYPXlSDFeHzwWIrU4JpD3RHm0puGGftRVroPlDW8LPNC7T3a5JKxa3rKMlyhRbnxlVoOdyhJHKWPrtNrTSTA0GM+Kfhr7ZmS4IsF7t73s+e2jj9QlSLnVXEQivm7fCHS4F9QRyul8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PR11MB134916.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(261009223027099003)(261009221227099003)(261026121527099003)(261022075727099003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2xpbU9sZjVtNlptSTBuUlc5Q1M0bm9jNmJ1aXcwbWpRK2R1SkNtOC81bWRM?=
- =?utf-8?B?Wi9GdHkzbHZjcENtdytnTDM3bC9iUmlHU0NrUloyVXRxbGZkcFNTS09HczZa?=
- =?utf-8?B?RnY1dE14eXhzaTBDMm5HZHpRcWMzcEF4WlJrcHJEVnNvWHd5dWxmYmJYMGMy?=
- =?utf-8?B?YjlzNE9saHg0T29HamRDL0c3UTZBTFVrSGo1d2tDMUV5NXloUlg1MXBkNGRF?=
- =?utf-8?B?eDYydG9ZSG40ejVRbHRYdjYybVJQd1lseFFwcXBKTlRCNlQ4Z2FDNXZYTTdv?=
- =?utf-8?B?TmZjSEk5cC90bEw5WTFXMGpoRjk1MEoyWG00cnBiY3ZzbEg4aXY0V0pQdlNQ?=
- =?utf-8?B?dE44dWtCc0lKTmRaMzFSQmYrdmlGdTJHSUJWbmdJamFwVmtubnpmVmlBaGI5?=
- =?utf-8?B?UVJ3TlM5UnkrNDNnT0ZhQ0hKMzZ3eFY3S3VjYjM5N21iOHFlcnlwVTMva2VB?=
- =?utf-8?B?Y0NCNXlqS3c5dDUxblBySTlPNFhIaHYwN2NYazlKYVNpQnJiNktwN05MT2lk?=
- =?utf-8?B?MDMzQUFrcTRwTmtQT0NHSE5xbVNFMXRqMk9NdTlpMmlEVTdCaXZsZElucWk5?=
- =?utf-8?B?cFFjNnVuOGl1NmlhWVVNNm9LTVNHRlpuWldiRCtTZDhkamVKQ1o0WGpOU09k?=
- =?utf-8?B?ZW5Vd2dHelp1ZzdVL0hBVkQ1UGtLSy9IUXpOWS9BeHZhejNjVDBCbEJBN3pU?=
- =?utf-8?B?WmJVb1hiclo3Nm1ueE9qTEFoZytnWE9ocVJVOU9FTzdvRHRGeUtIcmtOREZ3?=
- =?utf-8?B?QWlNRll2SUc5bFdOQmExajNjRmllMnFjN3loNlpiemJiSVVGRXYrdlcxZDEr?=
- =?utf-8?B?QkRmMjdYbkVYTDZaNzRzS0VJWlRKZ1pocmlUZWVManNJTVpaS2ZtYWRXaHJT?=
- =?utf-8?B?WUVEbnFuempLaGN1RmtoOE5WUVdxUmMyeExWaW5vakJPMjZ2dDMzY2pFeDU1?=
- =?utf-8?B?NmxROWJaWnl3aUtMd2R3WWw3SVcvK0p5TmFGeUtKWk9BQ2FmTHY3R2d3VkFn?=
- =?utf-8?B?eTc2MnRuSHNqOFpuSVRuTVpuSzl2YytxUG1uQytmb251OThuRjNWV1RSVmlR?=
- =?utf-8?B?Z0YxVlVaYlBkZE82OEpDVjQ3RWhMYW5VR0ZKbUVjcGFkVHcxd0IyeGMxWG81?=
- =?utf-8?B?NnhjS1pwNndVNmNSelc1RlJtbnJ6MTk0SVFtZDRTZlh4QVR5VlVoWnM3M1Z0?=
- =?utf-8?B?OUhMMFRSbWhMT1psaEM1MUozQUI3WXVqbmZGbjVqY0RiRVVtM25yU2h4NStN?=
- =?utf-8?B?TkV4Y3llYTh0VHJlMENoVGhxaytLTnptN01VcXRCUkxCQ1pFSzRKbG9BaFBE?=
- =?utf-8?B?THVibTBHRS9LSzNDdGQ1aWFhN3czVVVuanFTM3RnbFBqMXpONzdiWjZONHdG?=
- =?utf-8?B?QmR5Z2V3d0wrOWVjNkljRFdGS01lVWd6SUJxN1dicXpSYXBTOERGeFVrNjBh?=
- =?utf-8?B?UzBsRGI2RTI3bDNpczFaVWNqLzFObyszT0xNS2J6T0I3RmhOV2EyUjM2cjdt?=
- =?utf-8?B?Yk5YaFppY3IyeGhPcmRjcDZ5QjF2aWtzNnUwV09xdElPOWlrUzFDWTNXcjdC?=
- =?utf-8?B?aUlQM0g2aWsyTCs1eS9nL1BJZ3AvRE81ellNT0xVMGhOcGRvZ1o0QmtnMWFO?=
- =?utf-8?B?VjJuSWlTNUhqOTA5S0llc3dhMUN5MWZzN0JWYjZ5c004Zm1OZTJ3L2UxVzB3?=
- =?utf-8?B?bjdkN2pZZ040L2dmRGpTbnozWERBOVMvQVZQUTdFLzJQVWUzVGhYWEIzYkhn?=
- =?utf-8?B?R2dCOEhEM3dSMjhTUE1jaEFXckJwRnZNTVNJNE9OSFVOK0FHclVwclk5NkJR?=
- =?utf-8?B?ZkZxS3BVWjhOK25yeTFtQ0tBTmVpa0NrSXVQL1dGSWc2WWdlTHBnSXgyelFq?=
- =?utf-8?B?WUNqa2tPTFNPenNUV3Jma21hTTRGUEQwVnBKcWc1M1NCZVlESTYyRi9zV1BP?=
- =?utf-8?B?Rml4eUZISi8vREtUS1BnR05FVlk2Q1lBcGhuOUNJV3p3WEREdzd3WWhEeG4y?=
- =?utf-8?B?YW9rVmZJY3kzcjcvQnU3R1hkeHoxWVJyaU9KSEkzTHhnaGJoTzBzWTJGa3I0?=
- =?utf-8?B?VXpEVFJjckRRbFdNckZYWHlUVWROWFhqbkN4VnRFNjdFRjRDUHhRVlRORGJp?=
- =?utf-8?B?Ty9QS3VHSEpEVFQ1SVRtaDdZMjh0b0YwTVk1amdCMEp5bVV6Y2tNMTloZksy?=
- =?utf-8?B?bmIxWWtZK3FTMXBJamVqUUpGTXNmR0FzZ2FkNURPYm1jRnNFSjZKTXY0dm5u?=
- =?utf-8?B?OXh0ZTJ4dXZidFZPc0p5RzZpOGFodVBzc1hBLzNBbjEvdjFXeWFNaXp0Vkkw?=
- =?utf-8?B?cWZDcVcvcGJqWkludllqMFZXM2JjcWl1V1JMNkdYcDhPalVWcFV6RXhZNXp6?=
- =?utf-8?Q?nchxMiLnE0Vv8y+A=3D?=
-X-Exchange-RoutingPolicyChecked: W73tCSOfNRMeJynarEGNAy+wJgFjYiPjBYeZsaPWh0ulznXoyayaocHSauhiCtVx9u7KBKij7Uyknea85c1/CNuafw6+ljdNlmoS0TLeM1k5wKhcMssy1Y23YV7/kIV2rPq2HcVdwPS3V5Mfz8Dnk8aPa8w/YwcKDKfvEJWqOWKeIuf3uLliZJ4HLnHBOjr+MVAceVPswp756LSkOw5+BWEf78eD/m7CNEro2gc7fjZ6FH4kkm0d1/WNc699QJE7ZFe9wdcJ5f8ZrezhtqfF02OD1L5ZfP1QhqiJlpWOvdjsKw+C6iC00NK3bPEm2FsaEtMl+G1+Uf4q4envT6hNUQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b97906d8-2f27-40e6-b74e-08df365bbd09
-X-MS-Exchange-CrossTenant-AuthSource: DS4PR11MB134916.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 07:59:35.2208 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QrInzZcn2QvVZLxYM6yDgkq4nuhuYeeicOTaRDaL6DhreFC/+S2Zy5gToVjjlqdeVjuYBlzBLT89PQyPmhzRkZvUCE33G2eqeew91fYJEMo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR11MB8766
-X-OriginatorOrg: intel.com
+References: <20260901234351.190506-1-anarsoul@gmail.com>
+ <CAKTNdwFqSBt4QVCuYJxTyEDsxkW96JbUirFNAgJYWVLHzGpk4A@mail.gmail.com>
+ <CA+E=qVcizyQZytw8M6DA72YGrRDDNx_cCvYj565zf9wjMWh8tg@mail.gmail.com>
+ <CAKTNdwFQvKtHQA0JD-GAq3bgr5Brq2NyLfccenkHcrKcjeptwg@mail.gmail.com>
+ <CA+E=qVcwtnU_Gg6_oFmWqMpCEF8vOvB_G+H-ihfbiAr0PpFUJw@mail.gmail.com>
+ <CAKTNdwGTacFvn5BEN+iu0OBG2BUas7Vfj=YYF8OhAhNq-9kmyg@mail.gmail.com>
+ <CA+E=qVf=oBf9a=nrN-F2gGGY60+Gfuj3NMvuW4pWAdbU6NKceA@mail.gmail.com>
+In-Reply-To: <CA+E=qVf=oBf9a=nrN-F2gGGY60+Gfuj3NMvuW4pWAdbU6NKceA@mail.gmail.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Fri, 30 Oct 2026 11:59:55 +0400
+X-Gm-Features: AclHuK80eGfXzrhDU1BJmzUNyq0YUUcHy3czLcESvjD2RbRa1URB1Gh73rfRLng
+Message-ID: <CAKTNdwEiNjjX3DgBm5whH0HHvAfZQFgF4LhKf7PJ+1p7MJ=QJg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] clk: rockchip: rk3399: add 85.5 MHz rate to PLL rate
+ table
+To: Vasily Khoruzhick <anarsoul@gmail.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Heiko Stuebner <heiko@sntech.de>, 
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,90 +115,126 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi David,
+Hi Vasily,
 
-On Wed Oct 7, 2026 at 4:10 PM CEST, David Francis wrote:
-> Make the following changes to CHANGE_HANDLE
-> - reject new_handle =3D old_handle with EINVAL
-> - idr_preload before idr_alloc
-> - reject new_handle =3D 0 with EINVAL
+On Fri, Oct 30, 2026 at 9:01=E2=80=AFAM Vasily Khoruzhick <anarsoul@gmail.c=
+om> wrote:
 >
-> See also the igt patch
-> tests/intel: Add edge case and race condition tests for GEM_CHANGE_HANDLE
-> on igt-dev
+> On Sat, Sep 5, 2026 at 11:31=E2=80=AFPM Alexey Charkov <alchark@flipper.n=
+et> wrote:
+> > > > I believe something is hardcoding the divisor (or leaving it at the
+> > > > power-on default) in the actual DCLK of a VOP which the HDMI
+> > > > controller uses, instead of modelling it properly as a mux (frac/di=
+v)
+> > > > feeding off VPLL via another mux - both perfectly representable in =
+the
+> > > > clock framework and already envisaged in the clock driver, making t=
+he
+> > > > PLL table patching unnecessary.
+> > > >
+> > > > Can you please try re-pointing the "ref" clock at DCLK_VOP0 (or 1,
+> > > > depending on which one your HDMI controller uses)? Your clock summa=
+ry
+> > > > already shows that something is assigning its parent to DCLK_VOPx_D=
+IV
+> > > > and the latter's parent to PLL_VPLL, so rate changes the current
+> > > > driver code does on VPLL propagate to the muxed and divided downstr=
+eam
+> > > > consumer as a side-effect rather than as an actual rate request.
+> > >
+> > > I don't think it is a reasonable ask. Wrong clock for the HDMI encode=
+r
+> > > would just result in non-working HDMI output and no feasible way for
+> > > me to debug what is wrong.
+> >
+> > Hope you have a serial console or ssh connection to the board. If it
+> > doesn't work you'll know soon enough.
+> >
+> > What I'm pointing out is that the clock setup implied by the current
+> > dtsi doesn't make much sense: VOP's dclk is driven off VPLL via a mux
+> > and divisor. If the encoder's pixel clock is truly driven directly off
+> > VPLL then Rockchip designed the muxes and dividers for nothing, as
+> > they will always be no-ops. This doesn't square, so something must be
+> > wrong, and I believe it's the dtsi.
+> >
+> > I'll be happy to be proven wrong here.
 >
-> v2: new_handle =3D old_handle is EINVAL
+> Hey Alexey,
 >
-> cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> cc: Christian Koenig <christian.koenig@amd.com>
-> cc: Simona Vetter <simona.vetter@ffwll.ch>
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> ---
-I had a brief look at this series and it looks pretty good to me.
-I would improve the commit messages so they describe not only what was
-done, but also why. From my side, I ran the new tests on the try bot,
-and they all pass.
+> Sorry for the long delay - NVMe in my laptop died and I had to wait
+> for a warranty replacement to arrive. I would have bought a new one if
+> the price wasn't ridiculous :)
+>
+> The dtsi describes the hardware correctly. The HDMI PHY's reference
+> clock input (TRM Part 1, 1.1.11: "13.5-600MHz input reference clock")
+> is wired to VPLL with no mux or divider in between; it is not one of
+> the CRU clocks in the TRM's clock tree at all.
 
-https://patchwork.freedesktop.org/series/177021/#rev1
-(re run doesn't pick up the new tests for some reason, soplease look
-at rev1)
+The TRM unfortunately only says there is an input reference clock but
+gives no detail on how it's wired.
 
-New tests have been introduced between CI_DRM_19403_full and Trybot_177021v=
-1_full:
-New IGT tests (11)
+> That's exactly what the commit that introduced the "vpll" clock says,
+> from Rockchip's own engineers, see 5e3bc6d1ab48 ("drm/rockchip:
+> dw_hdmi: introduce the VPLL clock setting")
 
-    igt@gem_change_handle@change_prime:
-        Statuses : 6 pass(s)
-        Exec time: [0.01, 0.04] s
+That commit indeed mentions that there is no divider between the VPLL
+and HDMI PHY. Looks like it's our only evidence, but I believe we
+should trust the information in Mark Yao's commit message, given his
+Rockchip sign-off line.
 
-    igt@gem_change_handle@invalid_handle:
-        Statuses : 6 pass(s)
-        Exec time: [0.01, 0.05] s
+> This bug report itself is a solid proof of this wiring. With VPLL left
+> at 74.25 MHz and the VOP on GPLL/7 =3D 84.857 MHz, the monitor reported
+> the mode as 1195x768. 74.25/84.857 =3D 0.875, and 1366 * 0.875 =3D 1195.
+> The TMDS clock came from VPLL while the sync timing came from the VOP.
+> If the PHY were clocked from the dclk mux output, that mismatch could
+> not exist.
 
-    igt@gem_change_handle@new_handle_equals_old_handle:
-        Statuses : 4 pass(s)
-        Exec time: [0.01, 0.03] s
+Fair enough.
 
-    igt@gem_change_handle@new_handle_exceeds_int_max:
-        Statuses : 7 pass(s)
-        Exec time: [0.01, 0.04] s
+> The mux and dividers are not for nothing: there is one VPLL and two
+> VOPs, and each VOP can also drive eDP, MIPI DSI and DP, whose PHYs
+> have their own PLLs. When VOPB drives HDMI from VPLL/1, VOPL has to
+> run from CPLL or GPLL through the divider, and the fractional divider
+> exists for DSI panels with odd pixel clocks. For HDMI the divider is
+> legitimately 1.
+>
+> This is also why the PLL table patch is needed under any scheme: the
+> RK3399 PLL driver is table-only (rockchip_pll_determine_rate() snaps
+> to the nearest lower table entry), and the PHY reference has to be
+> 85.5 MHz exactly because nothing between VPLL and the PHY can divide
+> it.
+>
+> And the VOP patch doesn't hardcode a divisor. The VOP still makes a
+> real clk_set_rate() on its dclk at enable time. The bug was ordering:
+> mode_fixup() rounded the pixel clock through the dclk while VPLL was
+> still at its old rate, so the composite chose GPLL/7 and the encoder
+> then asked VPLL for 84.857 MHz, which the table snapped to 74.25 MHz.
+> With VPLL programmed first, the composite picks VPLL with divider 1
+> because it is the exact match.
 
-    igt@gem_change_handle@new_handle_taken:
-        Statuses : 6 pass(s)
-        Exec time: [0.01, 0.03] s
+Ack. Thanks a lot for double-checking all of these - it's great to
+have your explanations recorded on the mailing list for posterity!
 
-    igt@gem_change_handle@new_handle_zero:
-        Statuses : 6 pass(s)
-        Exec time: [0.01, 0.04] s
+Back to the patch itself. The new rate you're defining is consistent
+with the existing entry for RK3036_PLL_RATE(1368000000, 1, 57, 1, 1,
+1, 0), and the parameters are within spec (VCO rate of 1368000000
+falls within the documented range of 800 MHz to 3.2 GHz). Feel free to
+include my:
 
-    igt@gem_change_handle@race_change_change:
-        Statuses : 6 pass(s)
-        Exec time: [1.01, 1.04] s
+Reviewed-by: Alexey Charkov <alchark@flipper.net>
 
-    igt@gem_change_handle@race_change_create_close:
-        Statuses : 7 pass(s)
-        Exec time: [1.01, 1.04] s
+On the existing 1368000000 entry, I'm pretty sure it would produce
+less jitter as RK3036_PLL_RATE(1368000000, 1, 114, 2, 1, 1, 0), by the
+virtue of FVCO=3D2736MHz falling into the higher end of the allowed
+band. This won't apply to your 85.5MHz rate though, because the
+required divisors won't fit in two 3-bit registers.
 
-    igt@gem_change_handle@race_change_export_import:
-        Statuses : 6 pass(s)
-        Exec time: [1.01, 1.03] s
-
-    igt@gem_change_handle@sanity:
-        Statuses : 6 pass(s)
-        Exec time: [0.01, 0.03] s
-
-    igt@kms_cursor_crc@cursor-onscreen-64x64@pipe-c-hdmi-a-2:
-        Statuses : 1 pass(s)
-        Exec time: [2.23] s
-
---=20
 Best regards,
-Sebastian
-
+Alexey
