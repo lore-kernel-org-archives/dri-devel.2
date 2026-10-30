@@ -2,55 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A27606A31D
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 12:09:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B88606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 12:10:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCXqM3MR
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dna6AIgK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0311B1127C2;
-	Fri, 30 Oct 2026 12:09:23 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8DB1127C2
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 12:09:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B934F1127C4;
+	Fri, 30 Oct 2026 12:10:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12C4A1127C3;
+ Fri, 30 Oct 2026 12:10:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4AA59609D0;
- Fri, 30 Oct 2026 12:09:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CECF1F00A16;
- Fri, 30 Oct 2026 12:09:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D704441168;
+ Fri, 30 Oct 2026 12:10:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899661F000C1;
+ Fri, 30 Oct 2026 12:10:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793362156;
- bh=e/ifG3aJlgeryqjmhfgJsERZbxd/WJ6aLHD7syJgljY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=LCXqM3MR/ZIt2paBuHsNpEyJ2YAbBtXoJVoSL2kmhSkpHerihlzO5jP7kg3NpyZNI
- 9dFoxwwuDSGS8TI8OKIgW1Ko2OuX93Eb04SdiMzbYIfLxMK5DeSx9iA4cK4Uzx7I0k
- R6I2nkE33bjHOZKR0egB5nVDqt0OFelbKFn6DVW418lvJI4B6VsYJ3Na4CejKYfoYp
- E7LqHQ/Iyj+5nUH1e0c+/Q7iowpmUNhcJqV+7MmbttR3E+rq/duRTVUbXAhMgg9W6U
- DKds7xr0/3kRf0H42LAryDxgFNcZPOLsTLA6x2IAWCsP2LcMdgQu2SY9ZKRQsehhvk
- kzCfCDk5DUKJA==
-Date: Fri, 30 Oct 2026 13:09:13 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Icenowy Zheng <uwu@icenowy.me>,
- Han Gao <gaohan@iscas.ac.cn>
-Subject: Re: [PATCH 2/4] dt-bindings: ili9881c: add compatible string for
- Mingjun MJ070BI30IA2
-Message-ID: <20261030-arrogant-nano-raccoon-b67b70@quoll>
-References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
- <20261030-mj070bi30ia2-v1-2-a0f65b65c290@iscas.ac.cn>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+ s=k20260515; t=1793362232;
+ bh=bch0R+oEMa16mw2HdegHyo5A7yy7lGiYnDKRiIZwDx8=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=Dna6AIgK4wzF8kFOEbBASPGWf1pn/cTAQbh6rKC9Q8Iep0tuESD5oi5gHsva0Q1W4
+ FXp8PWR0nkBegpFPjsrveA18NVQgs002QXJP1MwH67Mf1ZGpnVhO8Mt89rNuf98tol
+ e8rebghiKqA/byZ66DvVOvqDvSp03IZLIMdEMfXkYhvrXILCCBLzXdsP50RoHY8kHv
+ orP1j3mouDOEUmustOAsn5H2QyIOo4a8/P4SS+U6iUXhTFuxJCvwvqgmKOfvFW9dcV
+ URthIvLrVkfGLb9dKRpvlusjYkAHrhsKQc08yjoJMCy0D9o+c0fpIfNphFIRSFJJtY
+ qLR3xEjaE+2YQ==
+Message-ID: <sashiko-outbox-190995@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 09/13] drm/i915/debugfs: pass struct drm_printer to
+ intel_{dp, dp_mst, hdmi}_crtc_info()
+To: "Jani Nikula" <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <fbe87ba2285dcc3c03b462202b3c66468c40ad3d.1793361738.git.jani.nikula@intel.com>
+References: <cover.1793361738.git.jani.nikula@intel.com>
+ <fbe87ba2285dcc3c03b462202b3c66468c40ad3d.1793361738.git.jani.nikula@intel.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030-mj070bi30ia2-v1-2-a0f65b65c290@iscas.ac.cn>
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 12:10:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,27 +49,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri, Oct 30, 2026 at 01:44:13PM +0800, Icenowy Zheng wrote:
-> Mingjun MJ070BI30IA2 is the LCD panel used by Sipeed Lichee Console 4A,
-> and its initialization sequence seems to match ILI9881C controller.
-> 
-> Add its compatible string to the ILI9881C binding.
-> 
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->  Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml | 1 +
->  1 file changed, 1 insertion(+)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] drm/i915/debugfs: commit subject names *_crtc_info() instead of *_i=
+nfo()
+--
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit cbb2b1bf881fc1a6e876fdc89f4b11f179ca6fee
+Author: Jani Nikula <jani.nikula@intel.com>
 
-Best regards,
-Krzysztof
+>     drm/i915/debugfs: pass struct drm_printer to intel_{dp, dp_mst, hdmi}=
+_crtc_info()
+>    =20
+>     Pass struct drm_printer to intel_dp_info(), intel_dp_mst_info(), and
+>     intel_hdmi_info().
+>    =20
+>     Prefer struct drm_printer * over struct seq_file * to unify and allow
+>     use of drm_printer helpers.
+>    =20
+>     Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
+[Severity: Low]
+This isn't a bug, but the commit subject references
+intel_{dp, dp_mst, hdmi}_crtc_info() whereas the functions modified in
+drivers/gpu/drm/i915/display/intel_display_debugfs.c (called from
+intel_connector_info()) are intel_dp_info(), intel_dp_mst_info(), and
+intel_hdmi_info(). Should the subject line refer to
+intel_{dp, dp_mst, hdmi}_info() instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793361738.gi=
+t.jani.nikula@intel.com?part=3D9
