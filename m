@@ -2,88 +2,134 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984BD606A31D
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:27:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876D9606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:33:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wbinvd.org header.i=@wbinvd.org header.a=rsa-sha256 header.s=wbinvd header.b=c2qin1NU
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=p/R+CCDg;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7bnqxcm7;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=08NcNPEs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6im3jhmF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B935A10E254;
-	Fri, 30 Oct 2026 15:27:08 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E641810E257
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:27:02 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2e5fb79ce82so5752185ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 08:27:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=wbinvd.org; s=wbinvd; t=1793374022; x=1793978822; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=rUR59C26+fvlbiQB0TxzW5qGZeRM/5x6JJF3AdPnsXA=;
- b=c2qin1NUyRlvA0plFO7MfoA11f+I3s2Ul+ApZP8Ru/4n7nuiczenjjMKslPhsZ7wLo
- omyjTFDcyA+0XyDK9+KgdOqP1F7i4KkO2gXWcNo7wI2i7p47Y1b2JAvppSpK4Te5V8Oe
- 5oNY353++TmptvUozRydFXDTLXiMvM8OOplDj0sKQ+9LiUDZj2RgfAWLr2w46fT0LwqM
- VRIdVNL+edoJSSB4ALUtQmRTED7xK+wd4oT2z3nxWEaQopXYZT6HobKGZmQlZIS3jM6Y
- yWV2pHF1GDwbE8YQCBSDkqSeYlh99woev67cp4XlCGNU7N4UHvpF6QxXT1k6D7UNM9zd
- fFBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793374022; x=1793978822;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=rUR59C26+fvlbiQB0TxzW5qGZeRM/5x6JJF3AdPnsXA=;
- b=Pt7870F/rvWGCAP00FPgI8WW8TqKNGv2WQ1cvxloY/+RlDy6prqeZGeFXib8yxUN7O
- 4abzd96s+xWAebX7Qc+GDiTC40Iakc7bgYkydcI6+pGwhM2dCs8CUp7j/7WRwHNWRVXg
- fDfJEDyFpY8ZyOemyxUfjJGCStHFzVFJFeZrf2D0Tep0CD1+7Zhn1n+y0J7Wkbug7jbI
- JrZP0i8md+3Bd6aTfRYvFKan9Shdirs5RiuNxUPH0SYTkK5V++i+hbMav100bukb2fJJ
- llgZ80S/ztsTRmWrbHQfHsNQWHdBCDsbB3O1ZeG0YtBSjjGvrjdROx3Q4NCASDC5R3IT
- iVpg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBztD2AwitHkDPusx2azVkcNfCSbB4iCXABykUExSE8Y1JpottuUaJO2921COR8xyny1kPyUeWqp/MA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIVNaGpcFbCoWU1BGH1JGhEbs3wr/NRJOJly6YsBCT8D0JIYAYK
- FKY6q9f/jleL721QsC1hMyZKUnLrF9OUWPAgNRcHSCth+Zs9fgxlr7rENSHcSIRStTA=
-X-Gm-Gg: AYBFou2w9doK8mIr/jvinYO9VibfWsN6qm9thOE3Wh5fjBBsqYCVHXLw5Sl2zzOyxyU
- 4ocjReTlJT53KPV/mG7DOcs2aUx9nZETrmkDuAd2+nmnqBLlTM1TN4Iz6XadsI5iGq5cQfj/Dbn
- /8uiplZxfdFnV3so0Iim8YXh2aBRJCzCc4oquJMA1K2vEDckugVTBNnT/w/ITP9hQsO+lWgEjKr
- luowF/7O4qp3jjG9m3MkCCc5SgFtTcfCbnpJJFN5A6a9fm9jArnL3AR+d+A0+ueZfqBCsWYFiaf
- sx1nwLgqlCE7E0rz3rp9Q0npta0mhhWrynr1OARh5hA13nP+jCTG3/J1ihsO8FH59yra1eklLCV
- Y6+bVSXYoiwpAoHLrK0ge4/WsqGxdi5eOsBDsyixqpRWmWkUMeL0i5Jd+gOlE5ZWIGLg1zqK5q/
- WUkMx47i4db2CgYHjWzQ/CQZSuzg9FenmerT7fdxk3qVYDvVlm0qjlZ349DwOLena19pU0+U5A/
- JUTwkKogORE5+NPLv8I9/t9EM5DVrz3MDeAjuIjCyvJ2zbA0skjVjd8OT45pgVbb+qq5u2twDha
- NCPrHTHocrInYBgZZ1k2sVPh3Hxt1MH0
-X-Received: by 2002:a17:903:948:b0:2e9:9522:ed3a with SMTP id
- d9443c01a7336-2eb364b8b8dmr28518335ad.22.1793374022240; 
- Fri, 30 Oct 2026 08:27:02 -0700 (PDT)
-Received: from mozart.vkv.me ([2001:5a8:468b:d015:25ca:cbda:d0bd:f452])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2eb3927e856sm8905135ad.50.2026.10.30.08.26.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 08:27:01 -0700 (PDT)
-Date: Fri, 30 Oct 2026 08:26:59 -0700
-From: Calvin Owens <calvin@wbinvd.org>
-To: linux-kernel@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, George Zhang <george.zhang@amd.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: Re: [PATCH] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to
- GTT"
-Message-ID: <auS3QzinEAmV-mtk@mozart.vkv.me>
-References: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4ED110E264;
+	Fri, 30 Oct 2026 15:33:39 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A6C710E257
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:33:28 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C5C3A20D27;
+ Fri, 30 Oct 2026 15:33:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793374407; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IYP01JhZVa5ugAr2uKMD9idrHqwuhB+ARU1Efs3ktAU=;
+ b=p/R+CCDgoRs1nWTAEQn2dh7DLWNgJh3hkUAtbaVA16cl3lPUiAp5AUyO03iZKVXc/z4BOJ
+ 8IV3wvIZN7+MJm+BHa73lsCL2pJ6Q+KCil1MDwKfJfUM7HQyt37bodOt5xs1yqlbr4Y36C
+ xYUfBBmBkMHes1DE0HAMH/uMttcTjAw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793374407;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IYP01JhZVa5ugAr2uKMD9idrHqwuhB+ARU1Efs3ktAU=;
+ b=7bnqxcm77ibeZ9IaOspvZAHV6szv5Y08AxI5RuJsNGviZbWKZykNP/w41/cT23ylLLxnRd
+ 0++TtmQfvv1mmpAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793374405; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IYP01JhZVa5ugAr2uKMD9idrHqwuhB+ARU1Efs3ktAU=;
+ b=08NcNPEsooeWE+/PaoDIA/jiEBhTxMNJ/jLjm9Szw6xv0ug4Gq+kf0/MdMKduLdWndz00M
+ Mnv04laFHxbOeSyWQ6VGl4gNIq/CY9nqNhfzaIAB/WUpW1QZLBy3hZUvfZUk/kNxyM1FVh
+ OZYABfqmMdJOLP+3t607gH3EB7wp/Y8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793374405;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IYP01JhZVa5ugAr2uKMD9idrHqwuhB+ARU1Efs3ktAU=;
+ b=6im3jhmFMNr+0rEqZ/2udW/fwxZqYH+aIq+cGB3XNoSSO37OuaZXUt8M/JxKruWK0oOKLR
+ m3oggdN8XA/1MNBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B64013432;
+ Fri, 30 Oct 2026 15:33:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kWoSN8S45Gq8XAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 30 Oct 2026 15:33:25 +0000
+Content-Type: multipart/mixed; boundary="------------m5N7pT1M0uTlmwV63O0Qzjrq"
+Message-ID: <c874d311-f7b1-4a24-ab75-b502ba1c5e58@suse.de>
+Date: Fri, 30 Oct 2026 16:33:24 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm/vblank: Don't arm vblank timer with invalid frame
+ duration
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: me@romanilin.is, louis.chauvet@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, javierm@redhat.com, dmitry.osipenko@collabora.com,
+ regressions@leemhuis.info, peter.m.arnesen@gmail.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20260914110004.211027-1-tzimmermann@suse.de>
+ <auIMt8XmmaVykZTC@intel.com> <2c2f33cf-da6f-4e31-84bb-768778d7b063@suse.de>
+ <auSIZNhP4DTj8Nb2@intel.com> <be8e41da-5ef1-4c37-a044-171ab1f32c6d@suse.de>
+ <auSgII_W-FJJz44W@intel.com> <f406b2f6-cad9-411f-941a-7e4f26af3947@suse.de>
+Content-Language: en-US
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <f406b2f6-cad9-411f-941a-7e4f26af3947@suse.de>
+X-Spam-Level: 
+X-Spamd-Result: default: False [-6.93 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_SPAM_LONG(2.76)[0.790];
+ SUSPICIOUS_RECIPS(1.50)[]; MIME_BASE64_TEXT_BOGUS(1.00)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-patch];
+ MIME_BASE64_TEXT(0.10)[]; XM_UA_NO_VERSION(0.01)[];
+ RCPT_COUNT_TWELVE(0.00)[14]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_TRACE(0.00)[0:+,1:+,2:+]; ARC_NA(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_CC(0.00)[romanilin.is,bootlin.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,collabora.com,leemhuis.info,lists.freedesktop.org,lists.linux.dev];
+ RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
+ HAS_ATTACHMENT(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[romanilin.is:email,
+ imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -6.93
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,107 +141,170 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tuesday 10/27 at 13:35 -0700, Calvin Owens wrote:
-> After commit a637a140ab860310 ("drm/amd/display: Allocate DCN32/1 dmub
-> memory to GTT"), a machine with a Radeon RX 7900 shows random garbage on
-> the screen. It reproduces sporadically, but at times it is so bad the
-> machine is more or less unusable.
-> 
-> The garbage is always horizontal bars extending across the entire
-> screen, always approximately 200 pixels tall on a 3840x2160 screen,
-> for what looks like a single frame. The bars are mostly black, but will
-> sometimes exhibit striping and periodic artifacts which smell like
-> non-framebuffer data is being rendered to the screen.
-> 
-> It took some patience on the "good" side, but I was able to nail it down
-> to commit a637a140ab860310818a14fb4d37e39e51a06be4 with this bisect:
-> 
->   bad: [cee9395acd8043be0644b25c34bfa86623f2b935] Linux 7.3-rc1
->   good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
->   good: [55ab7e14222e5f0b0fd9f7711ca391d2924b35e3] Merge tag 'for-7.3/block-20260819' of git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux
->   bad: [df51bdc5e80dae43cab81f6cc641e98638303c88] Merge tag 'mtd/for-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux
->   bad: [29daacacf4cd84e6917f09de6a99fb170071c14c] Merge tag 'drm-rust-next-2026-08-08' of https://gitlab.freedesktop.org/drm/rust/kernel into drm-next
->   good: [fff648aec5e2790d117a0ec5c849a284d9d33d70] drm/amdgpu: include amdgpu_video_codecs.h only where needed
->   bad: [336e0cd576817ac64a4b394ca2b3680029f3e37f] Revert "drm/amdgpu: fix aperture mapping leak"
->   bad: [789f7486a384ca58b9d7a76abba5efa0e80e8dab] drm/amd/display: Test plane colorop helper walkers
->   good: [e0e426f10ad653c5e9dd33fb4a76d55f06101992] drm/amd/display: Test helper_check_state rejects
->   bad: [982b2a43682b55e7d9800000f2592832ff2865ba] drm/amdgpu: Fix IP block NULL check during soft reset
->   bad: [9102b39fa924dcc3dc75a3137bfa9633c40b88c0] drm/amdgpu/userq: fix indefinite fence wait during GPU reset
->   bad: [b23470a026afe64de5c1df4ad181587b49c22923] drm/amd/display: Exit LS for ISHARP before coefficient write
->   bad: [f02b2e47355e9d381a7f34acc997e1c47879ca21] drm/amd/display: Add KUnit test for wb jobs
->   bad: [c6a13d145cc811b19c8a0620f25868cf7d5700c0] drm/amd/display: remove unused dcn42 socbb values
->   good: [1d8327353de6f1f34063840f362c208c84064f54] drm/amd/display: Fix VABC Init and OLED Support
->   bad: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Allocate DCN32/1 dmub memory to GTT
->   first 'bad' commit: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Allocate DCN32/1 dmub memory to GTT
-> 
-> Sure enough, reverting a637a140ab860310818a14fb4d37e39e51a06be4 on top
-> of v7.3 completely and totally eliminates the problem for me.
-> 
-> Mikhail has separately reported this regression:
-> 
->   https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-> 
-> ...but it seems to be much more consistent for me than for Mikhail, it's
-> never taken more than 30 minutes even when the machine is completely
-> idle. I've also never been able to reproduce any artifact one single
-> time without commit a637a140, despite a lot of effort.
-> 
-> I'm not sure reverting this is the right way forward, since presumably
-> this would re-regress the timing issue Fangzhi alluded to in the
-> original commit. But nobody has proposed anything concrete yet... so
-> let's start the discussion here.
-> 
-> I'm happy to help test other better ideas as well :)
+This is a multi-part message in MIME format.
+--------------m5N7pT1M0uTlmwV63O0Qzjrq
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Friendly ping.
 
-> Signed-off-by: Calvin Owens <calvin@wbinvd.org>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 11 ++---------
->  1 file changed, 2 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-> index 9ff25bc8ee5ae..870534b7cf46d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-> @@ -511,7 +511,6 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
->  		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_CURSOR_OFFLOAD */
->  	};
->  	int r;
-> -	int mem_domain = AMDGPU_GEM_DOMAIN_GTT;
->  
->  	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
->  	case IP_VERSION(2, 1, 0):
-> @@ -648,19 +647,13 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
->  		return -EINVAL;
->  	}
->  
-> -	/* Limit to allocate dmub to GTT on DCN32/1
-> -	 * TODO: Other asics with GDDR7 may have worse latency
-> -	 */
-> -	if (dmub_asic != DMUB_ASIC_DCN32 &&
-> -	    dmub_asic != DMUB_ASIC_DCN321)
-> -		mem_domain |= AMDGPU_GEM_DOMAIN_VRAM;
-> -
->  	/*
->  	 * Allocate a framebuffer based on the total size of all the regions.
->  	 * TODO: Move this into GART.
->  	 */
->  	r = amdgpu_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZE,
-> -				    mem_domain,
-> +				    AMDGPU_GEM_DOMAIN_VRAM |
-> +				    AMDGPU_GEM_DOMAIN_GTT,
->  				    &adev->dm.dmub_bo,
->  				    &adev->dm.dmub_bo_gpu_addr,
->  				    &adev->dm.dmub_bo_cpu_addr);
-> -- 
-> 2.47.3
-> 
+
+Am 30.10.26 um 15:25 schrieb Thomas Zimmermann:
+[...]
+> How about we add a dedicated mode_fixup helper for vblank validation? 
+> It would run after new CRTC's mode_fixup callback. [1] There we could 
+> try to adapt the CRTC's adjusted_mode.  Since we know the bug exactly, 
+> we can try to detect it, fix it, and document it.
+>
+
+The attached patch implements this idea. It does work in the sense that 
+it doesn't immediately break my testing setup.
+
+Thorsten (or anyone else) could you please test if this patch also 
+resolve the bug with SPICE?
+
+
+
+>>
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
+--------------m5N7pT1M0uTlmwV63O0Qzjrq
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-drm-vblank-Don-t-arm-vblank-timer-with-invalid-frame.patch"
+Content-Disposition: attachment;
+ filename*0="0001-drm-vblank-Don-t-arm-vblank-timer-with-invalid-frame.pa";
+ filename*1="tch"
+Content-Transfer-Encoding: base64
+
+RnJvbSAyYTc2ZDA0YmZjMzYzMGMxZDZiYjc5YjNkNjRlY2JjYWRmODYwMDkwIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBSb21hbiBJbGluIDxtZUByb21hbmlsaW4uaXM+CkRh
+dGU6IFRodSwgMiBKdWwgMjAyNiAyMToxMDoyNyArMDMwMApTdWJqZWN0OiBbUEFUQ0hdIGRy
+bS92Ymxhbms6IERvbid0IGFybSB2YmxhbmsgdGltZXIgd2l0aCBpbnZhbGlkIGZyYW1lCiBk
+dXJhdGlvbgoKV2hlbiBhIENSVEMncyBkaXNwbGF5IG1vZGUgY2FycmllcyBhIHRvbyBzbWFs
+bCBwaXhlbCBjbG9jaywKZHJtX2NhbGNfdGltZXN0YW1waW5nX2NvbnN0YW50cygpIGNvbXB1
+dGVzIGEgZnJhbWUgZHVyYXRpb24gdGhhdApleGNlZWRzIElOVF9NQVguIGRybV92Ymxhbmtf
+Y3J0Yy5mcmFtZWR1cl9ucyBiZWNvbWVzIG5lZ2F0aXZlLgpkcm1fY3J0Y192Ymxhbmtfc3Rh
+cnRfdGltZXIoKSB0aGVuIGFybXMgdGhlIHZibGFuayBocnRpbWVyIHdpdGggdGhpcwppbnRl
+cnZhbCwgYWZ0ZXIgd2hpY2ggdmJsYW5rIGV2ZW50cyBhcmUgbm8gbG9uZ2VyIGRlbGl2ZXJl
+ZC4gUGVuZGluZwpwYWdlIGZsaXBzIG5ldmVyIGNvbXBsZXRlIGFuZCB0aGUgZGlzcGxheSBh
+cHBlYXJzIGZyb3plbi4KClRoaXMgY291bGQgYmUgdHJpZ2dlcmVkIG9uIHZpcnRpby1ncHUg
+Z3Vlc3RzIHRoYXQgaGF2ZSBkeW5hbWljIHJlc29sdXRpb24KZW5hYmxlZDogd2hlbiB0aGUg
+U1BJQ0UgYWdlbnQgb3IgdGhlIFggc2VydmVyIHJlc2l6ZXMgdGhlIG91dHB1dCwgaXQKc3Vi
+bWl0cyBhIG1vZGUgd2hvc2UgcGl4ZWwgY2xvY2sgaXMgb2ZmIGJ5IGEgZmFjdG9yIG9mIDEw
+MDAsIGUuZy46CgogICAgY2xvY2sgPSA0MDYga0h6LCBodG90YWwgPSAzMTUyLCB2dG90YWwg
+PSAyMTQ4CgogICAgZnJhbWVkdXJfbnMgPSAzMTUyICogMjE0OCAqIDEwMDAwMDAgLyA0MDYg
+PSAxNjY3NTg1MjIxNiBucyAofjE2LjcgcykKCjE2Njc1ODUyMjE2IGRvZXMgbm90IGZpdCBp
+bnRvIGFuIGludCBhbmQgd3JhcHMgdG8gcm91Z2hseSAtNTA0MDAwMDAwLgpuc190b19rdGlt
+ZSgpIHRoZW4geWllbGRzIGEgbmVnYXRpdmUgaW50ZXJ2YWwgYW5kIHRoZSB0aW1lciBzdG9w
+cyB3b3JraW5nLgoKRm91bmQgYnkgYmlzZWN0aW9uLCB3aGljaCBwb2ludGVkIGF0IGNvbW1p
+dCBhMDM2ZjVmY2VlZGIgKCJkcm0vdmlydGdwdToKVXNlIHZibGFuayB0aW1lciIpLiBUaGF0
+IGNvbW1pdCBtZXJlbHkgbWFkZSB2aXJ0aW8tZ3B1IHVzZSB0aGUgdmJsYW5rCnRpbWVyIGFu
+ZCB0aGVyZWJ5IGV4cG9zZWQgdGhlIHByZS1leGlzdGluZyBwcm9ibGVtIGluIHRoZSB0aW1l
+ciBzZXR1cAphZGRlZCBieSBjb21taXQgNzRhZmViODEyODUwICgiZHJtL3ZibGFuazogQWRk
+IHZibGFuayB0aW1lciIpLgoKVG8gZml4IHRoaXMsIGludHJvZHVjZSBkcm1fY3J0Y192Ymxh
+bmtfbW9kZV9maXh1cCgpIHRvIGRldGVjdCBhbmQgYWRqdXN0CnRoZSBib2d1cyBwaXhlbCBj
+bG9jay4gVGhlIGhlbHBlciBydW5zIHVuY29uZGl0aW9uYWxseSBhdCB0aGUgYmVnaW5uaW5n
+Cm9mIHRoZSBtb2RlLWZpeHVwIGNvZGUuIERyaXZlcnMgc3RpbGwgaGF2ZSB0aGUgb3Bwb3J0
+dW5pdHkgdG8gZGV0ZWN0IGJvZ3VzCmFkanVzdG1lbnRzIGluIGxhdGVyIG1vZGUtZml4dXAg
+c3RlcHMuCgp2NToKLSBmaXggdXAgdGhlIGJyb2tlbiBwaXhlbCBjbG9jayBiZWZvcmVoYW5k
+IChWaWxsZSkKdjQ6Ci0gYXZvaWQgbG9nIHNwYW1taW5nIHdpdGggZHJtX3dhcm5fb25jZSgp
+CgpGaXhlczogNzRhZmViODEyODUwICgiZHJtL3ZibGFuazogQWRkIHZibGFuayB0aW1lciIp
+ClNpZ25lZC1vZmYtYnk6IFJvbWFuIElsaW4gPG1lQHJvbWFuaWxpbi5pcz4KCm1vZGVfZml4
+dXAKClJldmVydCAiZHJtL3ZibGFuazogRG9uJ3QgYXJtIHZibGFuayB0aW1lciB3aXRoIGlu
+dmFsaWQgZnJhbWUgZHVyYXRpb24iCgpUaGlzIHJldmVydHMgY29tbWl0IGYzY2E3ODY4MmE0
+Zjk2MDc0NDRhM2RhZmJlMTJhYjZhY2RiMWZhMmYuCi0tLQogZHJpdmVycy9ncHUvZHJtL2Ry
+bV9hdG9taWNfaGVscGVyLmMgfCAxMSArKysrKwogZHJpdmVycy9ncHUvZHJtL2RybV92Ymxh
+bmsuYyAgICAgICAgfCA2OCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogaW5jbHVk
+ZS9kcm0vZHJtX3ZibGFuay5oICAgICAgICAgICAgfCAgMiArCiAzIGZpbGVzIGNoYW5nZWQs
+IDgxIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0
+b21pY19oZWxwZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX2hlbHBlci5jCmlu
+ZGV4IDlkMDA2Zjk4NDEzYS4uNmEwZjA0YTcyMjkyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vZHJtX2F0b21pY19oZWxwZXIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0
+b21pY19oZWxwZXIuYwpAQCAtNDMyLDYgKzQzMiwxNyBAQCBtb2RlX2ZpeHVwKHN0cnVjdCBk
+cm1fYXRvbWljX2NvbW1pdCAqc3RhdGUpCiAJCQljb250aW51ZTsKIAogCQlkcm1fbW9kZV9j
+b3B5KCZuZXdfY3J0Y19zdGF0ZS0+YWRqdXN0ZWRfbW9kZSwgJm5ld19jcnRjX3N0YXRlLT5t
+b2RlKTsKKworCQlpZiAoIW5ld19jcnRjX3N0YXRlLT5lbmFibGUpCisJCQljb250aW51ZTsK
+KworCQlyZXQgPSBkcm1fY3J0Y192YmxhbmtfbW9kZV9maXh1cChjcnRjLCAmbmV3X2NydGNf
+c3RhdGUtPm1vZGUsCisJCQkJCQkgJm5ld19jcnRjX3N0YXRlLT5hZGp1c3RlZF9tb2RlKTsK
+KwkJaWYgKCFyZXQpIHsKKwkJCWRybV9kYmdfYXRvbWljKGNydGMtPmRldiwgIltDUlRDOiVk
+OiVzXSB2YmxhbmsgZml4dXAgZmFpbGVkXG4iLAorCQkJCSAgICAgICBjcnRjLT5iYXNlLmlk
+LCBjcnRjLT5uYW1lKTsKKwkJCXJldHVybiAtRUlOVkFMOworCQl9CiAJfQogCiAJZm9yX2Vh
+Y2hfbmV3X2Nvbm5lY3Rvcl9pbl9zdGF0ZShzdGF0ZSwgY29ubmVjdG9yLCBuZXdfY29ubl9z
+dGF0ZSwgaSkgewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5rLmMKaW5kZXggZjkwZmIyZDEzZTQyLi42ZTgy
+NmMzYjZjNDIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5rLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2RybV92YmxhbmsuYwpAQCAtNjIwLDYgKzYyMCw3NCBAQCB3
+YWl0X3F1ZXVlX2hlYWRfdCAqZHJtX2NydGNfdmJsYW5rX3dhaXRxdWV1ZShzdHJ1Y3QgZHJt
+X2NydGMgKmNydGMpCiB9CiBFWFBPUlRfU1lNQk9MKGRybV9jcnRjX3ZibGFua193YWl0cXVl
+dWUpOwogCitzdGF0aWMgaW50IGRybV92YmxhbmtfdmFsaWRhdGVfZG90Y2xvY2sodTE2IGNy
+dGNfaHRvdGFsLCB1MTYgY3J0Y192dG90YWwsIHUzMiBmbGFncywgaW50IGRvdGNsb2NrKQor
+eworCXVuc2lnbmVkIGludCBmcmFtZV9zaXplOworCXU2NCBsaW5lZHVyX25zLCBmcmFtZWR1
+cl9uczsKKworCWlmIChkb3RjbG9jayA8PSAwKQorCQlyZXR1cm4gLUVJTlZBTDsKKworCWZy
+YW1lX3NpemUgPSAodW5zaWduZWQgaW50KWNydGNfaHRvdGFsICogKHVuc2lnbmVkIGludClj
+cnRjX3Z0b3RhbDsKKworCS8qCisJICogQ29udmVydCBzY2FubGluZSBsZW5ndGggaW4gcGl4
+ZWxzIGFuZCB2aWRlbyBkb3QgY2xvY2sgdG8gbGluZSBkdXJhdGlvbgorCSAqIGFuZCBmcmFt
+ZSBkdXJhdGlvbiBpbiBuYW5vc2Vjb25kcy4KKwkgKi8KKwlsaW5lZHVyX25zICA9IGRpdl91
+NjQoKHU2NCljcnRjX2h0b3RhbCAqIDEwMDAwMDAsIGRvdGNsb2NrKTsKKwlmcmFtZWR1cl9u
+cyA9IGRpdl91NjQoKHU2NClmcmFtZV9zaXplICogMTAwMDAwMCwgZG90Y2xvY2spOworCisJ
+LyoKKwkgKiBGaWVsZHMgb2YgaW50ZXJsYWNlZCBzY2Fub3V0IG1vZGVzIGFyZSBvbmx5IGhh
+bGYgYSBmcmFtZSBkdXJhdGlvbi4KKwkgKi8KKwlpZiAoZmxhZ3MgJiBEUk1fTU9ERV9GTEFH
+X0lOVEVSTEFDRSkKKwkJZnJhbWVkdXJfbnMgLz0gMjsKKworCWlmIChsaW5lZHVyX25zID4g
+SU5UX01BWCB8fCBmcmFtZWR1cl9ucyA+IElOVF9NQVgpCisJCXJldHVybiAtRVJBTkdFOyAv
+KiBkb3QgY2xvY2sgdG9vIGxvdyAqLworCisJcmV0dXJuIDA7Cit9CisKK2Jvb2wgZHJtX2Ny
+dGNfdmJsYW5rX21vZGVfZml4dXAoc3RydWN0IGRybV9jcnRjICpjcnRjLCBjb25zdCBzdHJ1
+Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqbW9kZSwKKwkJCQlzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9k
+ZSAqYWRqdXN0ZWRfbW9kZSkKK3sKKwlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gY3J0Yy0+
+ZGV2OworCXVuc2lnbmVkIGludCBwaXBlID0gZHJtX2NydGNfaW5kZXgoY3J0Yyk7CisJaW50
+IGRvdGNsb2NrID0gYWRqdXN0ZWRfbW9kZS0+Y3J0Y19jbG9jazsKKwlpbnQgcmV0OworCisJ
+aWYgKCFkcm1fZGV2X2hhc192YmxhbmsoZGV2KSkKKwkJcmV0dXJuIHRydWU7CisKKwlpZiAo
+ZHJtX1dBUk5fT04oZGV2LCBwaXBlID49IGRldi0+bnVtX2NydGNzKSkKKwkJcmV0dXJuIGZh
+bHNlOworCisJcmV0ID0gZHJtX3ZibGFua192YWxpZGF0ZV9kb3RjbG9jayhhZGp1c3RlZF9t
+b2RlLT5jcnRjX2h0b3RhbCwKKwkJCQkJICAgYWRqdXN0ZWRfbW9kZS0+Y3J0Y192dG90YWws
+CisJCQkJCSAgIGFkanVzdGVkX21vZGUtPmZsYWdzLCBkb3RjbG9jayk7CisJaWYgKHJldCA9
+PSAtRVJBTkdFKSB7CisJCWludCBkb3RjbG9ja18xMDAwOworCisJCS8qCisJCSAqIFNQSUNF
+JyB2ZF9hZ2VudCBoYXMgYSBidWcgd2hlcmUgaXQgc3BlY2lmaWVzIHRoZSBkb3QgY2xvY2sg
+aW4ga0h6CisJCSAqIGluc3RlYWQgb2YgSHouIFNldHRpbmcgdXAgYSB2YmxhbmsgaW50ZXJy
+dXB0IG9yIHRpbWVyIGZvciBzdWNoIGEKKwkJICogbW9kZSBvdmVyZmxvd3MgdGhlIGNhbGN1
+bGF0aW9uIGluIGRybV9jYWxjX3RpbWVzdGFtcGluZ19jb25zdGFudHMoKS4KKwkJICogQW4g
+ZXJybm8gY29kZSBvZiBFUkFOR0Ugc3BlY2lmaWNhbGx5IHBvaW50cyB0byB0aGlzIHByb2Js
+ZW0uIFRyeQorCQkgKiBjb252ZXJ0aW5nIHRoZSBkb3QgY2xvY2sgdG8gSHogYW5kIHZhbGlk
+YXRlIGFnYWluLgorCQkgKi8KKwkJaWYgKGNoZWNrX211bF9vdmVyZmxvdyhkb3RjbG9jaywg
+MTAwMCwgJmRvdGNsb2NrXzEwMDApKSB7CisJCQlyZXQgPSBkcm1fdmJsYW5rX3ZhbGlkYXRl
+X2RvdGNsb2NrKGFkanVzdGVkX21vZGUtPmNydGNfaHRvdGFsLAorCQkJCQkJCSAgIGFkanVz
+dGVkX21vZGUtPmNydGNfdnRvdGFsLAorCQkJCQkJCSAgIGFkanVzdGVkX21vZGUtPmZsYWdz
+LCBkb3RjbG9ja18xMDAwKTsKKwkJCWlmICghcmV0KQorCQkJCWFkanVzdGVkX21vZGUtPmNy
+dGNfY2xvY2sgPSBkb3RjbG9ja18xMDAwOworCQl9CisJfQorCisJcmV0dXJuICFyZXQ7Cit9
+CitFWFBPUlRfU1lNQk9MKGRybV9jcnRjX3ZibGFua19tb2RlX2ZpeHVwKTsKIAogLyoqCiAg
+KiBkcm1fY2FsY190aW1lc3RhbXBpbmdfY29uc3RhbnRzIC0gY2FsY3VsYXRlIHZibGFuayB0
+aW1lc3RhbXAgY29uc3RhbnRzCmRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fdmJsYW5r
+LmggYi9pbmNsdWRlL2RybS9kcm1fdmJsYW5rLmgKaW5kZXggMmZjZWY5YzBmNWIxLi5hMzYy
+OGM0NzdmNTkgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL2RybV92YmxhbmsuaAorKysgYi9p
+bmNsdWRlL2RybS9kcm1fdmJsYW5rLmgKQEAgLTMxMSw2ICszMTEsOCBAQCB2b2lkIGRybV9j
+cnRjX3ZibGFua19vbihzdHJ1Y3QgZHJtX2NydGMgKmNydGMpOwogdTY0IGRybV9jcnRjX2Fj
+Y3VyYXRlX3ZibGFua19jb3VudChzdHJ1Y3QgZHJtX2NydGMgKmNydGMpOwogdm9pZCBkcm1f
+Y3J0Y192YmxhbmtfcmVzdG9yZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMpOwogCitib29sIGRy
+bV9jcnRjX3ZibGFua19tb2RlX2ZpeHVwKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywgY29uc3Qg
+c3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUsCisJCQkJc3RydWN0IGRybV9kaXNwbGF5
+X21vZGUgKmFkanVzdGVkX21vZGUpOwogdm9pZCBkcm1fY2FsY190aW1lc3RhbXBpbmdfY29u
+c3RhbnRzKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIAkJCQkgICAgIGNvbnN0IHN0cnVjdCBk
+cm1fZGlzcGxheV9tb2RlICptb2RlKTsKIHdhaXRfcXVldWVfaGVhZF90ICpkcm1fY3J0Y192
+Ymxhbmtfd2FpdHF1ZXVlKHN0cnVjdCBkcm1fY3J0YyAqY3J0Yyk7Ci0tIAoyLjU2LjAKCg==
+
+
+--------------m5N7pT1M0uTlmwV63O0Qzjrq--
