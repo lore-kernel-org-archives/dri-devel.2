@@ -2,38 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4CF606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 20:52:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D8B606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 20:52:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JMooBPN0
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VkPBLO3h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68ECC1129D3;
-	Fri, 30 Oct 2026 20:52:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99B541129CA;
+	Fri, 30 Oct 2026 20:52:38 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B1131129CA
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 20:52:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 636541129CA
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 20:52:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
  MIME-Version:Subject:Date:From:From:Reply-To;
- bh=L62gGkXMAWJrZGPw1k1pLLbN/lTLX7n+hDy39+FDLF8=; b=JMooBPN0e3NdyjGl+gN1opFUtQ
- nlWEbjV3N+tACtqLPpt4B9PkbpYZt0cZ4fgQ9Pk/2CV7ZL+PCfgLrR3AQQA4m2n+WYooerSnwFoI5
- XJ9Q+4lFotUhnNlHFV4xli7gSNeGrl6cyDlyC2ojws41d9TDOvxIQoVb9WcUUkYav9e+7rClXSqLq
- ppghZ5Ti3W/qEBS9NpOiV65lC9kWPFQ8QOk0xVGYJsNwqr68j2rYncH7qB3EvefwU6PtKmXqjZaLt
- 678sPchgrxL8kLZ1+ujEEH7G/49x4Lpe2j0oUbZY/NhuiUqi3PVXNfCDXNsEG8JWqiN3HDPJudYU9
- jB0Imiqg==;
+ bh=03G3x+uvAwP6+7mtotLf5DP/A6uExP9wIHtxQlf5KmU=; b=VkPBLO3hhNLhsQfjHCo+7+M208
+ Sx+Hcq/OoikM46CPnIYVFWYTGpTw9eEwAjoDCp9Im9quLvh4BfhTtdNv3xXjodJrbBC5rNCkPa4ef
+ Nb4S7imDZW8dPZ3uWob+ylJnL7YKmAsVIpeQ5xmm5yVfkq42c9Po75A+hMWyJtp18AeivrnZh6vVt
+ UTsPKo3JoUM5dbPO0LU50+Nt1X811mDz+f8azTuTMIcg94P501g7PXvam3PBbdOPyNx6UX6qrfQlo
+ IOmv5sLRNSGUXbk7zCGEGyHYjq+fe09m+cW2wgI6LaJocnAB9Yu1Cieah9+STt0U7hxf9+nP7Wjma
+ TF8RX7kQ==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xMta6-00FLiF-RC; Fri, 30 Oct 2026 21:52:11 +0100
+ id 1xMta2-00FLiF-FM; Fri, 30 Oct 2026 21:52:06 +0100
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Fri, 30 Oct 2026 17:50:29 -0300
-Subject: [PATCH RFC 11/12] drm/v3d: Add a DRM_IOCTL_V3D_SYNC_BO ioctl
+Date: Fri, 30 Oct 2026 17:50:28 -0300
+Subject: [PATCH RFC 10/12] drm/v3d: Add flag to map BOs write-back
+ cacheable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261030-v3d-cached-maps-v1-11-0a6a6b363382@igalia.com>
+Message-Id: <20261030-v3d-cached-maps-v1-10-0a6a6b363382@igalia.com>
 References: <20261030-v3d-cached-maps-v1-0-0a6a6b363382@igalia.com>
 In-Reply-To: <20261030-v3d-cached-maps-v1-0-0a6a6b363382@igalia.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,15 +51,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6545; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=ypSopMNr1FHNpuBUjqXnuefaemdRBkUhlptqmySJXFw=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq5QNEFPLsCfF7DT1T1CD8Ak9GxVoDPNJppD2E3
- C7tkRNV202JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCauUDRAAKCRA/8w6Kdoj6
- qsNdCACJalmFqW3OjD7kRpuuEQIlMWZjLuhsztnK1hcGvTqvvjQAF0wuSgzC6zAOtjpDBO9lsQT
- goS+TTFL0Q4SmTquy+99BF2x68LJFaVK8qV8hgsq+q37uqkqzMJgkBWl3vFMujYHfShbw35uAC1
- i1WTr72foAsipi6CP8mhj2ddTexDAakfT+yFtSKzjhic6+zQDxoheQvc33ZnkCT4nEu9zqBOHPl
- 5afhi94vBZWRhtAvtcCAeUX60hP8kAkLenAofR1HgCR5EfUEDA42Ma/EvEyR303PnCAPx5iCDX7
- DikghXGyfhNSU5vidfYo8aF8xex1jpWAhPajyUXJACmDE7z+
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4220; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=nptzUJcHzyUw3XUcFetUIOlLfPXaOqorCsudaP+6Tys=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq5QNDV5o4S3OMWOnOmQoZJ/nua058GzlDD3hIp
+ /OCW7SUb1uJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCauUDQwAKCRA/8w6Kdoj6
+ qnbHCADEjSyUiwF+pKsvljEjLCfyxvsTMo4wPBjrWH/DUwPitBiMhpqGSpbPA/xuMRAlr5Tn9MJ
+ d+R5S8hOwc8ldSAfb6rEic8H7V16RQJUqKZvJyoVAUJomSMvNOp1ba8yjzWMd0vToAdO5/rHOe1
+ HXFIMUcw9kTmQZ62IEIiQYtS4u3AJ2GDH2mUqWHoO0yeKAMjqWOwrPwlmQinsxcPkC/kNy/H40l
+ 8ZHGsd4IRCYO0Kddgs1xLoU3gP36TFje3BCB7hSCSdJDte3DOJMXFMw3QsdxomF9PZNhCGjoVx6
+ +viHr8XEyuUUptr9BfOSjUPu/kyeQPFbwjJfXaQaVfN0yy0e
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,197 +80,115 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-BOs mapped with DRM_V3D_BO_WB_MMAP require CPU cache maintenance around
-job execution. ARM64 userspace can do it through userspace cache
-operations, but AArch32 cache maintenance is privileged, even on an ARM64
-kernel, which means that 32-bit userspace can't do cache mainteinance.
-Without a kernel interface, a 32-bit userspace wouldn't be able to use
-cached BOs.
+All V3D BOs are mapped write-combined, which makes CPU reads slow.
+Buffers frequently read by the CPU, or with access patterns that make
+non-cacheable mappings inefficient, can benefit from cached mappings.
 
-Add an ioctl taking an array of sync operations, so userspace can flush or
-invalidate multiple BO ranges in a single call.
+Add DRM_V3D_BO_WB_MMAP to let userspace request a cached mapping. As
+V3D is not I/O coherent, userspace becomes responsible for CPU cache
+maintenance around the job execution. Note that this also includes CPU
+jobs, as the kernel accesses the BOs through write-combined mappings.
 
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/v3d/v3d_bo.c  | 64 +++++++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/v3d/v3d_drv.c |  1 +
- drivers/gpu/drm/v3d/v3d_drv.h |  2 ++
- include/uapi/drm/v3d_drm.h    | 48 ++++++++++++++++++++++++++++++++
- 4 files changed, 115 insertions(+)
+ drivers/gpu/drm/v3d/v3d_bo.c  | 11 ++++++-----
+ drivers/gpu/drm/v3d/v3d_drv.h |  3 +--
+ drivers/gpu/drm/v3d/v3d_irq.c |  2 +-
+ include/uapi/drm/v3d_drm.h    |  9 +++++++--
+ 4 files changed, 15 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
-index 0a5a056d4b26..78eb3a1cc794 100644
+index 803f3bbb7144..0a5a056d4b26 100644
 --- a/drivers/gpu/drm/v3d/v3d_bo.c
 +++ b/drivers/gpu/drm/v3d/v3d_bo.c
-@@ -280,6 +280,70 @@ int v3d_mmap_bo_ioctl(struct drm_device *dev, void *data,
+@@ -173,18 +173,19 @@ v3d_bo_create_finish(struct drm_gem_object *obj)
  	return 0;
  }
  
-+static int v3d_bo_sync(struct drm_gem_object *obj,
-+		       const struct drm_v3d_bo_sync_op *op)
-+{
-+	struct v3d_bo *bo = to_v3d_bo(obj);
-+	enum drm_gem_shmem_sync_type type;
-+
-+	switch (op->type) {
-+	case DRM_V3D_BO_SYNC_CPU_CACHE_FLUSH:
-+		type = DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH;
-+		break;
-+	case DRM_V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
-+		type = DRM_GEM_SHMEM_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return drm_gem_shmem_sync(&bo->base, op->offset, op->size, type);
-+}
-+
-+int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
-+		      struct drm_file *file_priv)
-+{
-+	struct drm_v3d_sync_bo *args = data;
-+	struct drm_v3d_bo_sync_op *ops;
-+	struct drm_gem_object *obj;
-+	int ret = 0;
-+
-+	if (args->pad)
-+		return -EINVAL;
-+
-+	if (!args->op_count)
-+		return 0;
-+
-+	/* Limits the number of sync operations requested by userspace. */
-+	if (args->op_count > SZ_64K) {
-+		drm_dbg(dev, "Too many sync ops: %u\n", args->op_count);
-+		return -EINVAL;
-+	}
-+
-+	ops = vmemdup_array_user(u64_to_user_ptr(args->ops), args->op_count,
-+				 sizeof(*ops));
-+	if (IS_ERR(ops))
-+		return PTR_ERR(ops);
-+
-+	for (u32 i = 0; i < args->op_count; i++) {
-+		obj = drm_gem_object_lookup(file_priv, ops[i].handle);
-+		if (!obj) {
-+			drm_dbg(dev, "Failed to look up GEM BO %d\n",
-+				ops[i].handle);
-+			ret = -ENOENT;
-+			break;
-+		}
-+
-+		ret = v3d_bo_sync(obj, &ops[i]);
-+		drm_gem_object_put(obj);
-+		if (ret)
-+			break;
-+	}
-+
-+	kvfree(ops);
-+	return ret;
-+}
-+
- int v3d_get_bo_offset_ioctl(struct drm_device *dev, void *data,
- 			    struct drm_file *file_priv)
+-struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file *file_priv,
+-			     size_t unaligned_size)
++struct v3d_bo *v3d_bo_create(struct drm_device *dev, size_t size, u32 flags)
  {
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-index 7d91c528c1e9..9e6e4f832eee 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.c
-+++ b/drivers/gpu/drm/v3d/v3d_drv.c
-@@ -267,6 +267,7 @@ static const struct drm_ioctl_desc v3d_drm_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(V3D_SUBMIT_CPU, v3d_submit_cpu_ioctl, DRM_RENDER_ALLOW | DRM_AUTH),
- 	DRM_IOCTL_DEF_DRV(V3D_PERFMON_GET_COUNTER, v3d_perfmon_get_counter_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(V3D_PERFMON_SET_GLOBAL, v3d_perfmon_set_global_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(V3D_SYNC_BO, v3d_sync_bo_ioctl, DRM_RENDER_ALLOW),
- };
+ 	struct drm_gem_shmem_object *shmem_obj;
+ 	struct v3d_bo *bo;
+ 	int ret;
  
- static const struct drm_driver v3d_drm_driver = {
+-	shmem_obj = drm_gem_shmem_create(dev, unaligned_size);
++	shmem_obj = drm_gem_shmem_create(dev, size);
+ 	if (IS_ERR(shmem_obj))
+ 		return ERR_CAST(shmem_obj);
++
+ 	bo = to_v3d_bo(&shmem_obj->base);
+ 	bo->vaddr = NULL;
++	bo->base.map_wc = !(flags & DRM_V3D_BO_WB_MMAP);
+ 
+ 	ret = v3d_bo_create_finish(&shmem_obj->base);
+ 	if (ret)
+@@ -239,12 +240,12 @@ int v3d_create_bo_ioctl(struct drm_device *dev, void *data,
+ 	struct v3d_bo *bo = NULL;
+ 	int ret;
+ 
+-	if (args->flags != 0) {
++	if (args->flags & ~DRM_V3D_BO_WB_MMAP) {
+ 		drm_dbg(dev, "unknown create_bo flags: %d\n", args->flags);
+ 		return -EINVAL;
+ 	}
+ 
+-	bo = v3d_bo_create(dev, file_priv, PAGE_ALIGN(args->size));
++	bo = v3d_bo_create(dev, PAGE_ALIGN(args->size), args->flags);
+ 	if (IS_ERR(bo))
+ 		return PTR_ERR(bo);
+ 
 diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index 4f32fc3ab1de..e5fb3a7b8d96 100644
+index e0eed4cfef61..4f32fc3ab1de 100644
 --- a/drivers/gpu/drm/v3d/v3d_drv.h
 +++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -602,6 +602,8 @@ int v3d_get_bo_offset_ioctl(struct drm_device *dev, void *data,
- 			    struct drm_file *file_priv);
- int v3d_wait_bo_ioctl(struct drm_device *dev, void *data,
- 		      struct drm_file *file_priv);
-+int v3d_sync_bo_ioctl(struct drm_device *dev, void *data,
-+		      struct drm_file *file_priv);
- struct drm_gem_object *v3d_prime_import_sg_table(struct drm_device *dev,
- 						 struct dma_buf_attachment *attach,
- 						 struct sg_table *sgt);
+@@ -591,8 +591,7 @@ struct v3d_submit_ext {
+ /* v3d_bo.c */
+ struct drm_gem_object *v3d_create_object(struct drm_device *dev, size_t size);
+ void v3d_free_object(struct drm_gem_object *gem_obj);
+-struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file *file_priv,
+-			     size_t size);
++struct v3d_bo *v3d_bo_create(struct drm_device *dev, size_t size, u32 flags);
+ void v3d_get_bo_vaddr(struct v3d_bo *bo);
+ void v3d_put_bo_vaddr(struct v3d_bo *bo);
+ int v3d_create_bo_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/v3d/v3d_irq.c b/drivers/gpu/drm/v3d/v3d_irq.c
+index 963d711dc16b..19315acf567a 100644
+--- a/drivers/gpu/drm/v3d/v3d_irq.c
++++ b/drivers/gpu/drm/v3d/v3d_irq.c
+@@ -43,7 +43,7 @@ v3d_overflow_mem_work(struct work_struct *work)
+ 	struct v3d_dev *v3d =
+ 		container_of(work, struct v3d_dev, overflow_mem_work);
+ 	struct drm_device *dev = &v3d->drm;
+-	struct v3d_bo *bo = v3d_bo_create(dev, NULL /* XXX: GMP */, 256 * 1024);
++	struct v3d_bo *bo = v3d_bo_create(dev, SZ_256K, 0);
+ 	struct v3d_queue_state *queue = &v3d->queue[V3D_BIN];
+ 	struct v3d_bin_job *bin_job;
+ 	struct drm_gem_object *obj;
 diff --git a/include/uapi/drm/v3d_drm.h b/include/uapi/drm/v3d_drm.h
-index 4221c7544d08..c2f7f1409ae4 100644
+index 2750a6fbb6b8..4221c7544d08 100644
 --- a/include/uapi/drm/v3d_drm.h
 +++ b/include/uapi/drm/v3d_drm.h
-@@ -44,6 +44,7 @@ extern "C" {
- #define DRM_V3D_SUBMIT_CPU                        0x0b
- #define DRM_V3D_PERFMON_GET_COUNTER               0x0c
- #define DRM_V3D_PERFMON_SET_GLOBAL                0x0d
-+#define DRM_V3D_SYNC_BO                           0x0e
- 
- #define DRM_IOCTL_V3D_SUBMIT_CL           DRM_IOWR(DRM_COMMAND_BASE + DRM_V3D_SUBMIT_CL, struct drm_v3d_submit_cl)
- #define DRM_IOCTL_V3D_WAIT_BO             DRM_IOWR(DRM_COMMAND_BASE + DRM_V3D_WAIT_BO, struct drm_v3d_wait_bo)
-@@ -64,6 +65,7 @@ extern "C" {
- 						   struct drm_v3d_perfmon_get_counter)
- #define DRM_IOCTL_V3D_PERFMON_SET_GLOBAL  DRM_IOW(DRM_COMMAND_BASE + DRM_V3D_PERFMON_SET_GLOBAL, \
- 						   struct drm_v3d_perfmon_set_global)
-+#define DRM_IOCTL_V3D_SYNC_BO             DRM_IOW(DRM_COMMAND_BASE + DRM_V3D_SYNC_BO, struct drm_v3d_sync_bo)
- 
- #define DRM_V3D_SUBMIT_CL_FLUSH_CACHE             0x01
- #define DRM_V3D_SUBMIT_EXTENSION		  0x02
-@@ -796,6 +798,52 @@ struct drm_v3d_perfmon_set_global {
- 	__u32 id;
+@@ -237,11 +237,16 @@ struct drm_v3d_wait_bo {
+ 	__u64 timeout_ns;
  };
  
-+/* Valid types to pass to drm_v3d_bo_sync_op */
-+#define DRM_V3D_BO_SYNC_CPU_CACHE_FLUSH                0
-+#define DRM_V3D_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE 1
-+
-+/**
-+ * struct drm_v3d_bo_sync_op - BO synchronization operation
++/*
++ * Map the BO CPU-cached instead of write-combined. Userspace is responsible
++ * for CPU cache maintenance.
 + */
-+struct drm_v3d_bo_sync_op {
-+	/** @handle: Handle of the buffer object to sync. */
-+	__u32 handle;
++#define DRM_V3D_BO_WB_MMAP			  0x01
 +
-+	/** @type: Type of sync operation, DRM_V3D_BO_SYNC_*. */
-+	__u32 type;
-+
-+	/**
-+	 * @offset: Offset into the BO at which the sync range starts.
-+	 *
-+	 * This will be rounded down to the nearest cache line as needed.
-+	 */
-+	__u32 offset;
-+
-+	/**
-+	 * @size: Size of the range to sync.
-+	 *
-+	 * @size + @offset will be rounded up to the nearest cache line as
-+	 * needed.
-+	 */
-+	__u32 size;
-+};
-+
-+/**
-+ * struct drm_v3d_sync_bo - ioctl argument for CPU cache maintenance on BOs
-+ *
-+ * Operations on write-combined BOs are no-ops, and imported BOs are rejected.
-+ */
-+struct drm_v3d_sync_bo {
-+	/** @ops: Pointer to an array of struct drm_v3d_bo_sync_op. */
-+	__u64 ops;
-+
-+	/** @op_count: Number of elements in @ops. */
-+	__u32 op_count;
-+
-+	/** @pad: MBZ. */
-+	__u32 pad;
-+};
-+
- #if defined(__cplusplus)
- }
- #endif
+ /**
+  * struct drm_v3d_create_bo - ioctl argument for creating V3D BOs.
+  *
+- * There are currently no values for the flags argument, but it may be
+- * used in a future extension.
++ * @flags is a mask of DRM_V3D_BO_* flags.
+  */
+ struct drm_v3d_create_bo {
+ 	__u32 size;
 
 -- 
 2.56.0
