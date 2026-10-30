@@ -2,81 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED63606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 01:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31343606A32C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 02:09:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v8GBSGj9
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=R402cb1w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39F6F10E667;
-	Fri, 30 Oct 2026 01:55:45 +0000 (UTC)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F41CF11260E
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 01:55:38 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-353804b591eso416473eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 18:55:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E91A11260A;
+	Fri, 30 Oct 2026 02:09:39 +0000 (UTC)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7B3711260A
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 02:09:33 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c445c95d553so20101166b.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 19:09:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793325338; x=1793930138; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Td2Xd1tYhRh3obhb+/yK2U8VEYj+IqVYRyJ5LgiIIoc=;
- b=v8GBSGj9m1AW1exgNwIAXXghN2uJ3lDjTrCfBT16zrx00p2Gm4eaS7Jl8wwBf3Xber
- xFhpIY/32zsBRYH/2RUC6dGqrh2EX8L6DHe6CQpcKo9nzatr6n8WIDk1XVURnScWYXGf
- ZOIV3XyJXVT4nQvF7j4a7bk3lyv5KmWJwVy3Bi7AaiBx7PAFp2JHOg4i4FxPF8E/X/b6
- 2Lz6RNvk9GprssVfMozujcYvhfkfxm289F6PQu/cNBk8d7cEFM+qDy9XRN2Pjbe8SGMy
- nxgwW6C51bOWb4gdTEgi3LHppFRpFcwangXCKDiR1J4CyOkjALJu5v1aaPTAP8MbVk7v
- DRsw==
+ d=chromium.org; s=google; t=1793326172; x=1793930972;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=3f8Alqi33WDsSDA97+17FwHsG2CjFesCRiSUJANPSrA=;
+ b=R402cb1wcWX0i5wXw8cVFg7HVZBO9ZnZDPsrfrgyPP6yqzjmY/A8p0pI6HzZ11m+lL
+ wJy+epwfBBXN9oOI1mRQzTguY6mE6vPUqEk2lB9htrFxd5qDoZLRINQ25r3TGtSxibP/
+ Iw2j7Msg+gDxC6HdmFmrUyi9s1QV4m9Z4YN54=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793325338; x=1793930138;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Td2Xd1tYhRh3obhb+/yK2U8VEYj+IqVYRyJ5LgiIIoc=;
- b=iS3lldPbfU6enGFHpGzSb6PkmZGvcY53iJHicSNZSF/VRvGv4ZwIOL19DG8/ithm5G
- SwyBj4plDsIgQXa0uBTqWlG1z7OXyZrsWBmHxbEq8Rd2vmryS1dLOOfNV3JkqAXaVNh+
- yexA3y9Ovh9tZxvun+mb/5Q8WA6cxxgRLhzcjBqJM4SGbZGhNgmL5H0LUvEvqJ4NEF9B
- QNFw1zUQfJYw7a/jNp/IuLete5hn4k1YxElwuWKkcQsJZlrOdya64c6PYSj2UadH+GP2
- t3+i//7D5ADHse4G4rEkfTT1yYnBljQWLmthReTA0p13XcfSqCWu8LO0NRNR4kN5mxOE
- rLRA==
+ d=1e100.net; s=20260707; t=1793326172; x=1793930972;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=3f8Alqi33WDsSDA97+17FwHsG2CjFesCRiSUJANPSrA=;
+ b=cPla3V2apjT5BdsNMHrzeXrOxCkPfJ05CEU4eaCeKa6nUDDDY5hMjOBMcYjdrzI0en
+ 1H1fRP5Ld4I6kR/ukO3y1cW2WEhCaXFfzBKujeSjxU321nNw6fLFGun05qd/GXp1ZYS5
+ sK/Ds5xJudKWDMRkdluDbrSz2/+uq9LO4sLhaeJyaPUJxoV2GHTeq/8A1SByxA7tQbFo
+ r8UQwyZTuIb9vduDT4bZ6OY4xiTBDbKSS1XCAp7+ZT6QF1ntQYi0sSJMpLf0sabSssF5
+ vHx1VHLZ4LQIUbTmxgb9nZfySCa/wZXi0UIxv4UskocfH80hX5DHMtqVLMsitBQ0w5Cd
+ sZpw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxn98Dses5wfcqsDp6h+8uoz7JP5uquqFw9pxv/S2ifeeIs33TJJnzr/+6B6qW3ALLH4VhP2sqpMeM=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK8UdX2vHJVd4E0EduJsU8ptls8cSvty35Fbj30ZsjTWfcAob+n
- a3Tp02YfuYdJbFx6byitqA0CkquS4/4aQeWlWShVcE2Jlqp9vBV/+54=
-X-Gm-Gg: AYBFou1Itoo+68bE2fKiuHFrYfBC8kH2DZRij9aaDX1ijf1FAff7g11NHzAVN7DV8qW
- 2KaeOAtRhCEujgs1RQd4jypIJz5BtcoIW/mceBt7NsjtAeRWXmX51e9sYFTmQ+nOTXbwKCck/H7
- Io1GnRoa4JVOA52ooByObscP2lziBYqqhsp+jTXyNrpJQ1dlbS82ZJPVUxWn3cTJC22mEeoHfj3
- lhkQfkhnWgrUSPhKxCHjfk6WT/xPqUox4aSdTmQ+btLPZy0EByvFR6gtsB32sTIoIAXsJ+WBXoq
- IuaMLuXaI6rCCwHPjVkAGreLFex08T+GNYx4vS3pMYs5rtH6O+F5qZo8IWybVCi6rSabdUxKauU
- 2B2W46w2RmpBPfSti/9WFRQDzhf5q7iHhpZ7SnTwQ0qvCV8iGo1IN3OwYyOGBdokDDGDbaK6puz
- hJ8wfMchdXzmfO1bM+jsfHOMdNZxzRDH8QV/TLfeXC1wl2MZg4l9810huFMsQH05wH/HWJwhRzd
- /HHCeWMG8aTblwr9t/iqF4bl3s9mJV0tksSoa9C3iRnKxth8vrHuLD4Pvr6/R7Uk/9xU4v5yKV9
- 1Q2G1EojOPfBmpR3POwUTci9roxt2yWyysX3EIc+F/eJLlA816bCgPvvyHrAbgMKbSo=
-X-Received: by 2002:a05:693c:895b:20b0:36a:1bac:6bf4 with SMTP id
- 5a478bee46e88-36a42389038mr1533637eec.18.1793325337872; 
- Thu, 29 Oct 2026 18:55:37 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.112.166])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36a42a77c0dsm2730757eec.26.2026.10.29.18.55.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2026 18:55:37 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: alexdeucher@gmail.com
-Cc: airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, atharvatiwarilinuxdev@gmail.com,
- christian.koenig@amd.com, dev@deq.rocks, dri-devel@lists.freedesktop.org,
- ed@aicharmers.com, kenneth.feng@amd.com, linux-kernel@vger.kernel.org,
- simona@ffwll.ch
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-Date: Thu, 29 Oct 2026 21:55:29 -0400
-Message-ID: <20261030015529.1686-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
-References: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
+ AKwUvBxhMxKh0B/e2bRecLtveBJ5WBpyGeoedlWBx2NQIPHzobIB+sTzadZadLtyCMAnmG04gaIF5T7RVFY=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJx2zLSNfMzItPzSeL1VTSmM1nFd+Tum4LCaPVbXSXScwgRiph7
+ 7tyRJiQ2H/+OfAhKvwAl+kS2L2fkFpl5THRNk5V6zN8mar08GlVfklFV5laVHBLZJp6L8UKX+Da
+ SaVnNPevI
+X-Gm-Gg: AYBFou1gPEa5jfiVMUTIze2wmLl+WNOv2sL6lhEPJwbVz8XwpMm3c65Lu7jWnR7mlno
+ 0ydKDxWdWLskpnpkt/0+G6o2BfuxfTp1ATxdu1j3wqoGsI0qBGDKbgDB4nH15S4q+xeuOtx2Gzl
+ nP7fQuWIztOoIl67YaOjngQGslmgrNL0lesTyxzvy1w+2ZBc418uSzVnDQKKx6yWZnEDbN3mchn
+ Lzmd2SExoaGdBi7SbCn6KggAvTgxjI/Ysp2yFvImzyTOxofn0lVGC3EVkN3OluBH2v4THcaAAl8
+ ojig3T3bfZhnjruREWXU6FGimYR0aZJctg0nxjqfrujcPRoETGQo8amM8wAvIqEUiy0fHWb13Vd
+ pBQ+/cQpVsW9UhuJdfRGVCweiWmXP6TbZEMUzjckkEm1XKw7NlKYQNsXLh5gT/Gru/F/VfNhylB
+ 4APx6q0tYLKhKO8Fkuh1/SDfOsi10wtMUNMyi9SYnouwqm8qewxmII/lgOW6lK4VAQpY4PEg8S7
+ 3j90xzrzWAZj3DnEq+6T1mBLuC29CnzbJh38ySE4Lzlw5SZ1U6/38hVgGfS5e/AsPsKP9gfZtXd
+ 7NDOiLRaWeEqKWoWydMt8U2FPuBwcueSXTr9m+AS5pur5M1VZsyqKJ2e9rivDwds7Usr
+X-Received: by 2002:a17:907:1ca4:b0:c24:adf4:5c73 with SMTP id
+ a640c23a62f3a-c4ca795d0cemr65224866b.1.1793326172287; 
+ Thu, 29 Oct 2026 19:09:32 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com.
+ [209.85.128.42]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6b4d7b1c592sm164368a12.25.2026.10.29.19.09.30
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Oct 2026 19:09:31 -0700 (PDT)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4a1b07c3c5fso1424665e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 19:09:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwZ5iMx/DSDjWlubMi+zp3NrCZpzIBP7Cfa2PUqH/EHY/d/dVVqtx7nKikEyDKKtD+Mmv1WJR41HOU=@lists.freedesktop.org
+X-Received: by 2002:a05:600c:811a:b0:4a8:c6a0:c08f with SMTP id
+ 5b1f17b1804b1-4ac18f529cdmr13893965e9.35.1793326169533; Thu, 29 Oct 2026
+ 19:09:29 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261012-mipi-multi-series-v1-0-6a29add1ec92@gmail.com>
+ <20261012-mipi-multi-series-v1-1-6a29add1ec92@gmail.com>
+In-Reply-To: <20261012-mipi-multi-series-v1-1-6a29add1ec92@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 29 Oct 2026 19:09:17 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UT-8tXiJ6pCDb5rNqYtjjt8O9BXSnq5_2KdcexypdGfg@mail.gmail.com>
+X-Gm-Features: AclHuK9Lk8qycxKtqnsrnc0uyYp-YXlQDmL0zIXeSRUqf8YmcBt7uHhJBX5-eAg
+Message-ID: <CAD=FV=UT-8tXiJ6pCDb5rNqYtjjt8O9BXSnq5_2KdcexypdGfg@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/panel: leadtek-ltk500hd1829: Use
+ mipi_dsi_*_multi()
+To: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Heiko Stuebner <heiko@sntech.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,28 +104,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-> @Andre Eikmeyer I think this patch should fix your system as well.
-> @Atharva Tiwari are you ok with this patch?
-> 
-> Thanks,
-> 
-> Alex
+Hi,
 
-No, as i said this is not the reason, and we've already fixed it properly
-You can see it here:
-https://github.com/t2linux/linux-t2-patches/blob/main/7003-amdgpu-add-support-for-5K.patch
-(Adds 5K support and fixes the boot issue).
+On Mon, Oct 12, 2026 at 9:35=E2=80=AFPM Akash Sukhavasi
+<akash.sukhavasi@gmail.com> wrote:
+>
+> @@ -535,27 +533,17 @@ static int ltk500hd1829_prepare(struct drm_panel *p=
+anel)
+>         /* tRT: >=3D 5ms */
+>         usleep_range(5000, 6000);
+>
+> -       for (i =3D 0; i < ctx->panel_desc->num_init; i++) {
+> -               ret =3D mipi_dsi_generic_write(dsi, &ctx->panel_desc->ini=
+t[i],
+> +       for (i =3D 0; i < ctx->panel_desc->num_init; i++)
+> +               mipi_dsi_generic_write_multi(&dsi_ctx, &ctx->panel_desc->=
+init[i],
+>                                              sizeof(struct ltk500hd1829_c=
+md));
+> -               if (ret < 0) {
+> -                       dev_err(panel->dev, "failed to write init cmds: %=
+d\n", ret);
+> -                       goto disable_iovcc;
+> -               }
+> -       }
+> -
+> -       ret =3D mipi_dsi_dcs_exit_sleep_mode(dsi);
+> -       if (ret < 0) {
+> -               dev_err(panel->dev, "failed to exit sleep mode: %d\n", re=
+t);
+> -               goto disable_iovcc;
+> -       }
+>
+> +       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>         /* 120ms to exit sleep mode */
+> -       msleep(120);
+> +       mipi_dsi_msleep(&dsi_ctx, 120);
+> +       mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+>
+> -       ret =3D mipi_dsi_dcs_set_display_on(dsi);
+> -       if (ret < 0) {
+> -               dev_err(panel->dev, "failed to set display on: %d\n", ret=
+);
+> +       if (dsi_ctx.accum_err) {
+> +               ret =3D dsi_ctx.accum_err;
+>                 goto disable_iovcc;
 
-And for the 16,1 issue (i assume), the only fix is
-https://lore.kernel.org/all/20261024162109.307247-1-dev@deq.rocks/
+nit: In the whole series, I probably would have removed the whole
+"disable_iovcc" label and then changed the above to:
 
-The PPTables provided uclk clock speeds is wrong, thats what causes the issue,
-initializing UCLK in post_init wont solve that.
+if (!dsi_ctx.accum_err)
+  return 0;
+
+That being said, it's a matter of style and what you have here is also fine=
+.
+
+The patch looks good to me.
+
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+Everything being equal, I'd land it in ~1 week or so.
