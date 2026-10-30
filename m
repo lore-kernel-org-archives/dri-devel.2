@@ -2,107 +2,141 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AE0606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 13:54:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E28606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 14:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y8/XYg2x
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D/0F0tJD;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LHM1dGcG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CDC510E228;
-	Fri, 30 Oct 2026 13:54:28 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6A1210E228
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:54:22 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4a1fbd52ab6so5331195e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 06:54:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EEBF10E0E9;
+	Fri, 30 Oct 2026 14:14:43 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD24112828
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 14:14:32 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69UDnVnc3431724
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 14:14:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 3Jaru/sr4U9yir9nA9QRFkdDdW1X3YADwZa6Fl4aEpI=; b=D/0F0tJDf2Lllyzr
+ dInXChbQXJBWuhLcixxOCSO7eYhukDPdCMVAkxA8qtVOsxa3CKmWdxLAvJsGHCgp
+ nDBP7gZmDpzxLPSGFaKxPbCSUM9UA/WV40YDEFB/R591WypnMfwNlVlBIf7p5rTc
+ CxAppIgwIDRAFjscogg7hw4I+KmIxEBI6ZpwMfnLWei7MuluFd2JmMIsoyHHhFbq
+ eFiQ8FOtlS9carTAf0rLsDlThzE4gDIdaiOGJErLoxS36tuFLMVkdsZ6X9UxhQlb
+ qRwvohziZCCTVJywMnEb1ZYmb7ng1uVN5n0+TbdcUHPUYynerYirq+IzgmToxfKY
+ GIn3+A==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
+ [209.85.221.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qkfcb-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 14:14:31 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id
+ 71dfb90a1353d-5eaad898904so30824e0c.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 07:14:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793368461; x=1793973261; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=/hIuaSXC/8qKVAwXvaUJ1vLVQZIbwa7mDnRwYchKUok=;
- b=y8/XYg2xUsFzZJeiIUK2kOuxCuovRezJyDy5MRQqV+ZO1CSFf/le4ISeYndJXeTeDX
- sH8sF6o7ka4bP31pvuGOnb7Dmu2o+NdiAt6+t2/MUo7ibyEdTwzQ4xavF+0OO0u1LT2u
- Gcv7LT2+CnBGLN+T4Uq0zYb6aJC9J4ujndfNqxi20Aww4CHgXDh9hNw62TMik6XBOltd
- efVix6+iH5tvM+LylC6l+1++SeDszfQAU/UTioipzrqpV7ubxsO5hUqo+eq0+TbP4L6G
- U475JaNiomIEjwLaV/ZpRihoPqgyok1z6fm3T4ubJjrxyDLiRW2lClk6nwp1S0W7a86p
- ZjoA==
+ d=oss.qualcomm.com; s=google; t=1793369670; x=1793974470;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=3Jaru/sr4U9yir9nA9QRFkdDdW1X3YADwZa6Fl4aEpI=;
+ b=LHM1dGcGclyKH045FXeG2nCg7/UYUJkMgcfSPscb8QNCEMKYvHZElYuDh3TJCJwy38
+ fq0wrpwrWlMSpPkkHk0M+d/MHcaqCWYqA4/PbKHcJ7mVM5S0rKZAKl60aGzy4g9vnuVO
+ Sf/1m5Hr4N7XF0sorXqIAIJTRVp2aiB3W8b9lKt957br5WPgFodVEA8AsouGX4vJ4AAJ
+ BWAvRUhM33dskporIvg2f2YaqYVKUtlDeNVOtfsZqXEfhUj4/ud+0wXCcuXyyvP4Z5kL
+ 1FFFnGjBEeIw1TsM/6DElqwsnQGXjXoXua0MMHrK2BOYFkhO9u/MovUOyNdHLxJkGSn/
+ GrUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793368461; x=1793973261;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/hIuaSXC/8qKVAwXvaUJ1vLVQZIbwa7mDnRwYchKUok=;
- b=U5n9WntHQJhFUz6qch3wQQh3mC9lUZPhmFsWVd9SXH5rqI1Bs0K+em/iOjRBHctjiK
- VCQe9TMXn8nrqz0977ol1/hGfmPPKQLjC1NZIgZIP7s+ET9PeR4q7f/RNuOpR/XNyrwB
- u6E5XBZx78+cxfJwgIgw5BL6j5sz+9VwG+15yyhe2MMfWi+gxk7qZBLQuIvFXFFormIZ
- jIo5oHlj6VtHqsGH0OiYgJ2vwjvs0g3nSQ5Q6HHkqGuWA5ZChOLuCwOndPKXo9drSdgX
- L+Cza2gumDazoXA6vQA4xPfHDmuBGUMr1LWtocY7JHPHk/HLnNT47Kd95Zpc2gpbyYL0
- m89A==
+ d=1e100.net; s=20260707; t=1793369670; x=1793974470;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3Jaru/sr4U9yir9nA9QRFkdDdW1X3YADwZa6Fl4aEpI=;
+ b=03bq2Cs2jE13tnL8g0mzOAC+iRTHVvfU1DwMMtq1q5dB1kLT2SHmoNqssYtVBsxO9y
+ UFB4q5Vs7+heFvxZDm0V4b7guNWgqbzfj4wvjOwC2gRbL0/Kd/lRaiSiciZjl+HBck/i
+ ZJdW5MEAX/D/JbWu8pcpkYyxLaS3VOT/DRy1nzyqb5DAM6H2tT7IWLVVTytvo6vSSjdP
+ tR1m0KdpixFuKs62gB+KIylsxHJAIdGJFrDZQgvKFa12GbITJfosY6ibEqab6Mys63RZ
+ BNVjhi/XkWc4vEOx+6w/3x03slNxwUyTjKByJi/Yy/rqHobv6iaQB5aV3HFCZaSjz42b
+ C7Ew==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxBaPRWjI9G2z2dWL2s42OBSLrr/nh9YpWNfzXmRSJKWSOlfru58VLDetdFw7HII1+zapXLpaBACEU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKBwergOYjsCXWSPf8kXiNtML3hdWen/Wm1nMKmnM+9Hg16oxpl
- v9jX33ztULbMMCE0dz2BzgvcJvQG62dxWUaZ5jY7JoKaQiCGGyw1U7p0
-X-Gm-Gg: AYBFou1pG22JxbcjTkx7d8E7MTlfiP1cLNzfVsN4/n3bh+L9nqCBCWmJNQNXHcfapzn
- +AoW0GNH/s+wHGVMIghmRYjKPTG6yz6lDQwjPVyljlZV5iX+TnfbOhzQwMPf0pTvuUdM1MdJ8YB
- lYn4u1MxyC3Q/fqrteTv4eNZACh4I1PdHFI527BQkQQOZmxC0q0vAI/bq42Wd8IdjlDFrUAi+9H
- lwexizU4UxfoSrhxzwBNIGypn3KYcHfodPzTFmva7aYv6kLITaZ8vMZigcpcRHUo4zrb2hWpA8q
- 3OAi2qD0Ys96jKAcyRMyzwbMcZLV3PyF4s/Wfvvf+1cG/hkZGapMId5M/vFN44aJRLl0BSNktnK
- OzM0xtrexs/w9xeiL92qJ7l2jWtgkOX3H42aoezLSpzmmSgjB/FctQ6JtjutXXvll8AYwJdwBr8
- o1UJEcRfgAZNER5ptttsgzymns/L96LboEwgS2tC6jZF2alg0M4+D5sW8SljFYUKj1v2v7hzjQd
- CnQ5vRCUPFl0d1QxbFhyQrWF96eqgIW3SZRE2Y5+JrzotkBLmyS89lwj0W/XQbgLEVW9dSucDrg
- eTd/4x/yTLP+S2yx9E3o+72VDrK3VZTjPkCB7Rc+Q8iUzzi+0PEcDMxuuSPWqSSQG6rrQfQoioC
- iRMG56KkbitggI2C1fGLxuFUo660ndniP472AvX767wf2EKoVoIfb9/NEhnCpO1IA99k=
-X-Received: by 2002:a05:600c:608c:b0:4a1:6c0c:ab93 with SMTP id
- 5b1f17b1804b1-4ac190497bamr46672575e9.28.1793368460933; 
- Fri, 30 Oct 2026 06:54:20 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ AKwUvBwlR+0uaneLJyPrsBGszm+rwMWbM3NqamQqB6Ay8KG4FLMhUaH0UvTCpmA9smqToXpbhfUakLCkOYQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJwzo3olJnagTWcG40cdtb6+2S48Uu6qonJoIwCoT3RYMHgUiDn
+ 2Ry61oh1P12yK3fVIhvyUr66+xS9iPyG2iapRy5Jr5DfzNfUlivcaKvVjo6VGsC7oNyGvfHaIr/
+ kOAsa26rk55P3RwPII8tmhcuWzgW6vDtINAUswdQ8W6wg2ZcB7+EmuWOHSY1mFtovm/Iijvs=
+X-Gm-Gg: AYBFou1w9U/5jD4ebfIBNDAh3De9We8hlbmNmtG1w3sNuRRll/GpjqhM4XQA/p66wWS
+ 6LB7J64Pj+hj42kbSfx7cuERkgrkQru5XsycruLMMrA7RZHuNLFPzFmvEga3n9Q0nAd4zLOODcz
+ YgNhIUt5c/bZPkiA88I2c7kL22zvoTOvZHE+2/1T+opIFeRMj+iooAq+BIwoFE0utr6HmAuhKiy
+ tSPah8X1m4IwgEx7o9a/DNdbVWUPXJcV89qErPFHmzu3pdNR71LnoytelkBnZfyYtUS0sLrXMQ3
+ NeSEq5pa3RvN+2Uy8BQJjehlyuAn2rmWR6t+7/p4cMZbOd1CVpflsXQK1alUzHRux6xdaCJCaBb
+ eFuLcXGroj/44iAZS84MaHwN7vEsQZdI14MigNcs6k10X/9dwojDBtKLYBJ0sPA/fbnvEY7Xa
+X-Received: by 2002:a05:6122:4a47:10b0:5ea:cc1d:173e with SMTP id
+ 71dfb90a1353d-5ec6851cd15mr1215910e0c.1.1793369670426; 
+ Fri, 30 Oct 2026 07:14:30 -0700 (PDT)
+X-Received: by 2002:a05:6122:4a47:10b0:5ea:cc1d:173e with SMTP id
+ 71dfb90a1353d-5ec6851cd15mr1215878e0c.1.1793369669938; 
+ Fri, 30 Oct 2026 07:14:29 -0700 (PDT)
+Received: from [192.168.226.248] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4ac0950d533sm34613455e9.3.2026.10.30.06.54.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 06:54:20 -0700 (PDT)
-Date: Fri, 30 Oct 2026 16:54:16 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Alex Elder <elder@ieee.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Frank.Li@oss.nxp.com,
- Frank Li <Frank.Li@nxp.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Karol Wachowski <karol.wachowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Guenter Roeck <linux@roeck-us.net>, Guan-Yu Lin <guanyulin@google.com>,
- Mathias Nyman <mathias.nyman@linux.intel.com>,
- linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- linux-staging@lists.linux.dev, netdev@vger.kernel.org,
- imx@lists.linux.dev, Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH 1/1] PM: runtime: change stub pm_runtime_get_if_active()
- return 1 when !CONFIG_PM
-Message-ID: <auShiOI6Hmla6XxR@stanley.mountain>
-References: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
- <auRb_r8ZSSU-eHZA@kekkonen.localdomain>
- <9207a52e-2d42-4e10-b777-2988e84d7dbe@ieee.org>
+ a640c23a62f3a-c4cabc18ed0sm70345466b.2.2026.10.30.07.14.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 30 Oct 2026 07:14:28 -0700 (PDT)
+Message-ID: <eb461324-2ae1-4e62-bced-e662a69b19ff@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 15:14:26 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9207a52e-2d42-4e10-b777-2988e84d7dbe@ieee.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 14/16] drm/msm/a8xx: Use CP_PROTECT_PIPE regs
+To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Alexander Koskovich <akoskovich@pm.me>,
+ Jie Zhang <jie.zhang@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261029201730.151754-1-robin.clark@oss.qualcomm.com>
+ <20261029201730.151754-15-robin.clark@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261029201730.151754-15-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 4E0LqMGcJZRR6KhUoSoc47AjMCthwChB
+X-Authority-Analysis: v=2.4 cv=KLzPn1Fo c=1 sm=1 tr=0 ts=6ae4a647 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=6Pdd9y4b2srEKQt70McA:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1NiBTYWx0ZWRfXxp7zEZxnPS2Z
+ GYfaQC9LyS0THnGZCAm6AJfyxD6ym76KW4uhCj+xC3D8OBTI1ZgcBDDTdd96XXdAnhtKx2FWsZC
+ wOu5W8cX0SyzOJiJAXcg3Gk5KGWpZbK6O+MfI/xzdMkYGKVELCRsVmvs9h4STJ6H2osgCVG3Ot7
+ tax1/h56ZA7FDm2cZDCbLBEbVCno+Y+XDcTw4DEYQSkwaQlCWf8z5SR85HDpJXL35uIDFwdbwN/
+ TvFhwIqVX8wWlUIyjxWJF27JC5gmS8D+ToAAkHiKqIJPsdmg8azZEH3W2CxspbLhhaPEa3HpnXE
+ fXmX2+8FjZT3jrtOe42MX/roE0T+qhCRzSbBughRzjmeobds00/sqTacbQBpkekBnG8dG+ChbfA
+ C3obMj9984HDG1zruw7zGhiN10yqYDMo6SpIpNxSy8ibo+EhFKeIrztBSyUE02YztUFa9fAdWxn
+ VBa7VfNppPq29m9tITQ==
+X-Proofpoint-ORIG-GUID: 4E0LqMGcJZRR6KhUoSoc47AjMCthwChB
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1NiBTYWx0ZWRfX51rWs/W0QbIC
+ EdRt+5RdQy8hl+PugyDeZsLz6L2p3rlnjeTAHqaBAzek9lFOWiuet9MMZU9CnDkSbwi+MiH9oAm
+ Cp1ujTEgRuVrM2m5x3Ml7szaTZt+wGs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ clxscore=1015 bulkscore=0 lowpriorityscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300056
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,51 +148,22 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 30, 2026 at 08:46:07AM -0500, Alex Elder wrote:
-> On 10/30/26 3:57 AM, Sakari Ailus wrote:
-> > Hi Frank,
-> > 
-> > Thanks for the patch.
-> > 
-> > On Thu, Oct 29, 2026 at 12:30:37PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > From: Frank Li <Frank.Li@nxp.com>
-> > > 
-> > > When CONFIG_PM is not enabled, all devices runtime PM state should be
-> > > treated as active.
-> > > 
-> > > __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
-> > > pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
-> > > stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
-> > > should return the same value as the stub pm_runtime_get(), which is 1.
-> > 
-> > Shouldn't the same change be done to pm_runtime_get_if_in_use()? It's
-> > otherwise the same, except that it requires also the use count to be
-> > non-zero.
-> I think "yes."
+On 10/29/26 9:16 PM, Rob Clark wrote:
+> If there are not enough global CP_PROTECT_GLOBAL regs, we can use
+> CP_PROTECT_PIPE regs for the extra spans.  We just need to configure
+> them the same on all pipes.
 > 
-> I think the logic for !CONFIG_PM should basically pretend runtime
-> PM is enabled for all devices, and they're all ACTIVE and effectively
-> in use.
-> 
-> That implies:
-> - disable_depth == 0, so usage accounting would (if enabled) be done
-> - runtime_status == RPM_ACTIVE (power is on, no delay)
-> - usage_count > 0
-> - runtime_error == 0
-> - Maybe ignore_children is false?
-> 
-> This might not be complete (and could be wrong!).
-> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
 
-We could add this kind of information as a comment somewhere?
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-regards,
-dan carpenter
-
+Konrad
