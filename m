@@ -2,43 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2EE606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:04:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C4B606A33B
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 10:04:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9rGDgA0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMatZvXN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5F6F1126EE;
-	Fri, 30 Oct 2026 10:04:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC04C1126EB;
+	Fri, 30 Oct 2026 10:04:43 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C14E10E87E;
- Fri, 30 Oct 2026 10:04:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70E4D1126EB;
+ Fri, 30 Oct 2026 10:04:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6948F601EE;
+ by tor.source.kernel.org (Postfix) with ESMTP id E6D7C60233;
+ Fri, 30 Oct 2026 10:04:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A38281F000C1;
  Fri, 30 Oct 2026 10:04:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE6D1F0093A;
- Fri, 30 Oct 2026 10:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793354671;
- bh=3BQbPBjnxmYsXRsWItc1yrkU2yPlu0N/qA44TC5mJA8=;
- h=From:Subject:Date:To:Cc;
- b=U9rGDgA0qmrS87bosvpSaLGBGa91Lf36b7BxcN0Rl8lNWfoCK4ab36umgEWpAOl5Q
- 9d1cepfSKxjmjnBURTvS6KawtldBxRNB0Iumcky0R2+fWOUtPBZklOuTTIKpL1Hr8Z
- fzepBnzPB7LU75fBuKq4pXU+zRGhyVVYlrNFs5oFvg/brCmS93jmt/dlJc9SlK28YG
- kvPjd6jok/juKb6pR+/cUYNX0Ceqp/0uNDcOPkii/701evpJ5zLTYOPFq6SPluc8fU
- 2sSXsfcRgCPb5/Mi3DuSvFIqdmKdvjzPMEgtMRaSyYdtLIYot8xEr18W3sYUFD60H5
- aW0W2wmM/BIIQ==
+ s=k20260515; t=1793354676;
+ bh=aHS0E61Kph6Q/pBaWFFnfGbAScHIciE+DUMVzM9neGU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=ZMatZvXNKfx3UtI5ikQYTnZ/i8O5oILYs7JTEIL9qApIPufs1/jrUNWv+zgKYA/R+
+ /Pt9CYU3OrwpuhE0nEgA2bKpa3gnp1bhsQX2xbNc3P9khYd5UZIf4acOe0Gpo8fEOI
+ zwUf4HV54StUh1dTP+A4MAr5d4xDCqbDXZn5D71+47Kt/Fce8DijhRjs8vO3yGy/BJ
+ QUVzYcNjy87p0EZyJ5Kuqk6gwhZM87LZnDqJG2c5Ih+pzl06G0myn4gJCX+XmnzAWe
+ Nwv+KrtJQNZttr2t5RrbPcjBPtbl9Qw06S9FNCqCB0gkFRJLxKIdtCOpgQ+adwfSsw
+ jzVrQ9ZZAw5xA==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Subject: [PATCH 0/8] IFPC support for A6xx
-Date: Fri, 30 Oct 2026 11:03:56 +0100
-Message-Id: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 11:03:57 +0100
+Subject: [PATCH 1/8] drm/msm/a6xx: Polish up the IFPC counter enable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDUp9ROuIiLVDsaCpi1pIu6uW
- H6L9y5waAkdtMkFFk9ytG8RWZqAWuQ2IyMdDTnPq4wLzvxuSDFZhTDQZBQrRSN0XWCpZQOxMhY
- nCt+x63+7Y1xR+XcD9/0Ajj2BI3MAAAA=
-X-Change-ID: 20261030-topic-a6xx_ifpc-5393d74e5da9
+Message-Id: <20261030-topic-a6xx_ifpc-v1-1-6992841a9a32@oss.qualcomm.com>
+References: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
+In-Reply-To: <20261030-topic-a6xx_ifpc-v1-0-6992841a9a32@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
  Konrad Dybcio <konradybcio@kernel.org>, 
  Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
@@ -51,11 +49,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793354666; l=1785;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793354666; l=2054;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=KvuRJ+6dTYV2h9bLdPaAtcG6oyVfNxQCJpgcwD/Os34=;
- b=FRfncf9Th7KT0Ihe++7DIKqdnVXzGKhlU5DyyCRmvuqL0T8//3iNHwsk841Fu56OUBhQyPP7U
- Fps0+WNAPD5CnnuIeKZp8xOzwfphMjszhc8bOJgxvXC+L0qR4gk83br
+ bh=zGQcK+J+SBHMgTyf0ctg/daR39bN/LxKk3PQqtasspk=;
+ b=Kmux5S78PVK9IInJEBGACAy52ihHBk9ZBCDspTJwQBAurc+wVaaaFPf+0V3zCZsNmJqxy3g5a
+ DhZMYtT2uZMBx16ngyx0A0rIP/0nLqJ0XpJnpylKGc9p1tHSG8lHMxm
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,42 +75,48 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series wires up IFPC on all A6xx GPUs (except 623/635/690 for
-which I had no good reference settings) that support it. I was able to
-validate it via a limited smoke test (kmscube not faulting + watching
-the newly added ifpc counter go up; I only have remote access to some
-of these) on SDM845 and SM8150.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Please give this a test on your boards - expected behavior is no change
-except lower power consumption.
+Extend it to all targets with a real GMU and use a rmw instead of a
+full write to preserve other things within that register.
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
-Konrad Dybcio (8):
-      drm/msm/a6xx: Polish up the IFPC counter enable
-      drm/msm/adreno: Register GPU debugfs only on the primary minor
-      drm/msm/a6xx: Expose GMU IFPC entry count in debugfs
-      drm/msm/a6xx: Add A6xx IFPC support
-      drm/msm/a6xx: Add IFPC tables for Adreno 630
-      drm/msm/a6xx: Add IFPC tables for Adreno 640/680
-      [RFT] drm/msm/a6xx: Add IFPC tables for Adreno 650 family
-      [RFT] drm/msm/a6xx: Wire up IFPC on A615-family GPUs
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c             | 6 +++---
+ drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/msm/Makefile                      |   1 +
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c         | 276 +++++++++++++++++++++-
- drivers/gpu/drm/msm/adreno/a6xx_debugfs.c         |  23 ++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c             | 133 ++++++++++-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h             |  10 +
- drivers/gpu/drm/msm/adreno/a6xx_hfi.c             |  11 +-
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c             |   9 +
- drivers/gpu/drm/msm/adreno/adreno_device.c        |   4 +-
- drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml |   2 +
- 9 files changed, 441 insertions(+), 28 deletions(-)
----
-base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
-change-id: 20261030-topic-a6xx_ifpc-5393d74e5da9
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 92e8c8abb86d..48d3ee4d55d9 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -1332,10 +1332,10 @@ static int hw_init(struct msm_gpu *gpu)
+ 	/* Turn on performance counters */
+ 	gpu_write(gpu, REG_A6XX_RBBM_PERFCTR_CNTL, 0x1);
+ 
+-	if (adreno_is_a7xx(adreno_gpu)) {
++	if (!adreno_has_gmu_wrapper(adreno_gpu)) {
+ 		/* Turn on the IFPC counter (countable 4 on XOCLK4) */
+-		gmu_write(&a6xx_gpu->gmu, REG_A6XX_GMU_CX_GMU_POWER_COUNTER_SELECT_1,
+-			  FIELD_PREP(GENMASK(7, 0), 0x4));
++		gmu_rmw(&a6xx_gpu->gmu, REG_A6XX_GMU_CX_GMU_POWER_COUNTER_SELECT_1,
++			GENMASK(7, 0), 0x4);
+ 	}
+ 
+ 	/* Select CP0 to always count cycles */
+diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
+index b3082738c99d..4f934c194f73 100644
+--- a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
++++ b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
+@@ -83,6 +83,7 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
+ 	<reg32 offset="0x1f84a" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_3_L"/>
+ 	<reg32 offset="0x1f84b" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_3_H"/>
+ 	<reg32 offset="0x1f84c" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_4_L"/>
++	<reg32 offset="0x1fca8" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_4_L" variants="A8XX-"/>
+ 	<reg32 offset="0x1f84d" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_4_H"/>
+ 	<reg32 offset="0x1f84e" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_5_L"/>
+ 	<reg32 offset="0x1f84f" name="GMU_CX_GMU_POWER_COUNTER_XOCLK_5_H"/>
 
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+-- 
+2.56.0
 
