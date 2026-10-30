@@ -2,42 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD9D606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:24:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30471606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LnZUalVh
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOXrHncf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 381F510E4CF;
-	Fri, 30 Oct 2026 17:24:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CEFC10E5E3;
+	Fri, 30 Oct 2026 17:24:45 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEAF710E4CF
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 17:23:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACBCD10E5E3;
+ Fri, 30 Oct 2026 17:24:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2D216605D0;
- Fri, 30 Oct 2026 17:23:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17431F00A1B;
- Fri, 30 Oct 2026 17:23:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2FF7560627;
+ Fri, 30 Oct 2026 17:24:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B404F1F00A02;
+ Fri, 30 Oct 2026 17:24:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793381036;
- bh=/OBhgDJo/YxDOnnvUsXiuggkit72jCn9CuAtTBfYXKw=;
+ s=k20260515; t=1793381078;
+ bh=ucmDNmRp4I0EnV1O5xCh+/IyZLsHQI/BklU8qdOxZyM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LnZUalVhR/sDIodZ2KDScA3+omFMed1GffxGGIvoAkh6J2aK49HyidvGiMm1h7hOV
- ITaf1numX4h7R+Xi2khEGSDqfNzDRNly6w7Pq4F9lkext7E6KknHQqjeYJDXFTPGCg
- ubjnZiX6bpYUWAAsNW2CmTQeCffqW0mxx03wtqjXUKEPuZe5uf7zVxF7pxtaisl+4s
- pU1DGaQ6efPr+beoIj9MFoCioikOMuHeSqXgmLu9/QfQwQFoiKeZOqfcvCOp0sCjh4
- 7TbFjO60iUaJdnGgMCfwqTKBkiVs0bVCafsrBFxPxNmja8X03EMXu466btGka4gwDv
- Vdcrwqg2XdLkA==
-Message-ID: <sashiko-outbox-191333@kernel.org>
+ b=fOXrHncf2LyStbkhg/Hfm44SOT4pjvF10K7C4GfLJtcGaWo0iYVLdF9A+aoYeYf7F
+ QTGEZqePrerB6DR64rXpLi3VjeApBLwUpxxbxAvIhPwlhhBfve2RLpVkUjIsYZmc1L
+ o01tt/O/Mn07TcIKvDkfGjPW8Cy9o7L64TArepl3mifeoHT0e8i59+2BqMK522SjsF
+ MlT9OoHv4Js14BuvNSPZ9R89NfxTcVRfWxsVtPbVoUOAHZs3FEZn2Ghpo+z/TEvD3G
+ ef0Q7jpFSv41Frzj8cLnF+ZEyY+pb8wGyvahfi8jv3UzlejF9RqQSufkRgY90Wp1wr
+ BmZj0w3Lcboaw==
+Message-ID: <sashiko-outbox-191334@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND] drm/amd/display: drop RGBA8888 from plane format
- lists
-To: "MuXian Chen" <a18165943161@gmail.com>
+Subject: Re: [PATCH 1/1] drm/xe/survivability: broadcast dmesg when engaging
+ survivability
+To: "Alan Previn" <alan.previn.teres.alexis@intel.com>,
+ intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261030171816.11610-1-a18165943161@gmail.com>
-References: <20261030171816.11610-1-a18165943161@gmail.com>
+In-Reply-To: <20261030171738.674775-2-alan.previn.teres.alexis@intel.com>
+References: <20261030171738.674775-2-alan.previn.teres.alexis@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 17:23:56 +0000
+Date: Fri, 30 Oct 2026 17:24:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,87 +61,112 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/amd/display: broken KUnit test dm_test_get_plane_formats()
+- [Medium] drm/xe: duplicate and false logs in xe_survivability_mode_is_req=
+uested()
 --
 
-commit 7e1267e34b886f02722f18cb9144a71e1afc6858
-Author: MuXian Chen <a18165943161@gmail.com>
+commit ba1b85f1f1a898ddfee38c1e881310a987970b44
+Author: Alan Previn <alan.previn.teres.alexis@intel.com>
 
-drm/amd/display: drop RGBA8888 from plane format lists
+drm/xe/survivability: broadcast dmesg when engaging survivability
 
-This commit removes DRM_FORMAT_RGBA8888 from rgb_formats[] and
-overlay_formats[] because DC has no surface pixel format for RGBA8888 and
-fails atomic commits in fill_dc_plane_info_and_addr() when compositors sele=
-ct
-it.
+This commit adds kernel log messages to xe_survivability_mode_is_requested()
+when boot survivability mode is requested via configfs or when PCODE_SCRATC=
+H(0)
+reports a boot failure.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5339
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 91398230d4083..6d5454fb5e379 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -49,11 +49,13 @@
->   * For future use cases we should either initialize them dynamically bas=
-ed on
->   * plane capabilities, or initialize this array to all formats, so inter=
-nal drm
->   * check will succeed, and let DC implement proper check
-> + *
-> + * DC has no surface format for DRM_FORMAT_RGBA8888, so it must not be
-> + * advertised here or in overlay_formats.
->   */
->  static const uint32_t rgb_formats[] =3D {
->  	DRM_FORMAT_XRGB8888,
->  	DRM_FORMAT_ARGB8888,
-> -	DRM_FORMAT_RGBA8888,
->  	DRM_FORMAT_XRGB2101010,
->  	DRM_FORMAT_XBGR2101010,
->  	DRM_FORMAT_ARGB2101010,
-> @@ -70,7 +72,6 @@ static const uint32_t rgb_formats[] =3D {
->  static const uint32_t overlay_formats[] =3D {
->  	DRM_FORMAT_XRGB8888,
->  	DRM_FORMAT_ARGB8888,
-> -	DRM_FORMAT_RGBA8888,
+> diff --git a/drivers/gpu/drm/xe/xe_survivability_mode.c b/drivers/gpu/drm=
+/xe/xe_survivability_mode.c
+> index 45d44ebe288b4..3eebb69728c3f 100644
+> --- a/drivers/gpu/drm/xe/xe_survivability_mode.c
+> +++ b/drivers/gpu/drm/xe/xe_survivability_mode.c
+> @@ -412,13 +412,19 @@ bool xe_survivability_mode_is_requested(struct xe_d=
+evice *xe)
+> =20
+>  	survivability_mode =3D xe_configfs_get_survivability_mode(pdev);
+>  	/* Enable survivability mode if set via configfs */
+> -	if (survivability_mode)
+> +	if (survivability_mode) {
+> +		xe_log_info(xe, SURVIVABILITY, "Boot mode requested.");
+>  		return true;
+> +	}
+> =20
+>  	data =3D xe_mmio_read32(mmio, PCODE_SCRATCH(0));
+>  	survivability->boot_status =3D REG_FIELD_GET(BOOT_STATUS, data);
+> =20
+> -	return check_boot_failure(xe);
+> +	if (check_boot_failure(xe)) {
+> +		xe_log_err_fatal(pdev, SURVIVABILITY, 0, "Boot Mode enabled!\n");
+> +		return true;
+> +	}
+> +	return false;
+>  }
 
 [Severity: Medium]
-Does removing DRM_FORMAT_RGBA8888 from rgb_formats[] and overlay_formats[] =
-in
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c break the KUnit test
-dm_test_get_plane_formats() in
-drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c?
+Does logging inside xe_survivability_mode_is_requested() cause duplicate and
+premature messages in dmesg?
 
-Because amdgpu_dm_plane_get_plane_formats() populates the format list by
-iterating over ARRAY_SIZE(rgb_formats) (reduced from 14 to 13) for primary =
-and
-universal planes and ARRAY_SIZE(overlay_formats) (reduced from 9 to 8) for
-overlay planes, running the amdgpu_dm_plane KUnit suite triggers failures in
-dm_test_get_plane_formats():
+During probe, xe_device_probe_early() calls
+xe_survivability_mode_is_requested() in the condition and then calls
+xe_survivability_mode_boot_enable(), which calls
+xe_survivability_mode_is_requested() a second time:
 
-	plane->type =3D DRM_PLANE_TYPE_PRIMARY;
-	KUNIT_EXPECT_EQ(test, amdgpu_dm_plane_get_plane_formats(plane, NULL, forma=
-ts, 32), 14);
+drivers/gpu/drm/xe/xe_device.c:xe_device_probe_early() {
+	...
+	err =3D xe_pcode_probe_early(xe);
+	if (err || xe_survivability_mode_is_requested(xe)) {
+		int save_err =3D err;
+		...
+		err =3D xe_survivability_mode_boot_enable(xe);
+}
 
-	cap->pixel_format_support.nv12 =3D true;
-	cap->pixel_format_support.p010 =3D true;
-	cap->pixel_format_support.fp16 =3D true;
-	KUNIT_EXPECT_EQ(test, amdgpu_dm_plane_get_plane_formats(plane, cap, format=
-s, 32), 20);
+drivers/gpu/drm/xe/xe_survivability_mode.c:xe_survivability_mode_boot_enabl=
+e() {
+	...
+	if (!xe_survivability_mode_is_requested(xe))
+		return 0;
+}
 
-	plane->type =3D DRM_PLANE_TYPE_OVERLAY;
-	KUNIT_EXPECT_EQ(test, amdgpu_dm_plane_get_plane_formats(plane, NULL, forma=
-ts, 32), 9);
+When xe_pcode_probe_early() returns 0 (for example, when survivability mode=
+ is
+enabled via configfs), xe_survivability_mode_is_requested() runs twice back=
+ to
+back and emits the log message twice. Also, "Boot mode requested." is missi=
+ng a
+trailing newline.
 
-	universal_cap->type =3D DC_PLANE_TYPE_DCN_UNIVERSAL;
-	KUNIT_EXPECT_EQ(test,
-			amdgpu_dm_plane_get_plane_formats(plane, universal_cap, formats, 32),
-			14);
+For the check_boot_failure(xe) path, enable_boot_survivability_mode() alrea=
+dy
+logs the exact same message once boot survivability mode has actually been
+initialized:
 
-Should these expected counts in dm_test_get_plane_formats() be updated to 1=
-3,
-19, 8, and 13 to match the new array sizes?
+drivers/gpu/drm/xe/xe_survivability_mode.c:enable_boot_survivability_mode()=
+ {
+	...
+	if (check_boot_failure(xe))
+		xe_log_err_fatal(pdev, SURVIVABILITY, 0, "Boot Mode enabled!\n");
+	else
+		xe_log_info(pdev, SURVIVABILITY, "Boot Mode enabled!\n");
+
+	return 0;
+
+failed:
+	xe_log_err_fatal(pdev, SURVIVABILITY, ret, "Failed to enable Boot Mode!\n"=
+);
+	survivability->mode =3D false;
+	return ret;
+}
+
+Logging "Boot Mode enabled!\n" inside xe_survivability_mode_is_requested() =
+not
+only duplicates the message in enable_boot_survivability_mode(), but also
+reports that boot mode is enabled before initialization has happened. If
+xe_survivability_mode_boot_enable() aborts with -ENXIO (when
+survivability->version < 2 and boot_status is CRITICAL_FAILURE) or if
+enable_boot_survivability_mode() fails in create_survivability_sysfs(),
+xe_nvm_init(), or xe_i2c_probe(), dmesg will falsely report "Boot Mode
+enabled!" before failing.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030171816.1161=
-0-1-a18165943161@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030171738.6747=
+75-2-alan.previn.teres.alexis@intel.com?part=3D1
