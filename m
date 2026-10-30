@@ -2,64 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C12606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 13:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WCV8YRTA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1BC606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 13:32:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB2D510E08F;
-	Fri, 30 Oct 2026 13:31:54 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 431CA10E07C;
- Fri, 30 Oct 2026 13:31:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793367108; x=1824903108;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=K3LqUgrUt5sXEXRZfXPc1i73J7NlU2UySFpN7w+81Go=;
- b=WCV8YRTAYgdM5tsa3kH0EtzyFFyx23LzwLdcyK/PjvvFSggWd4Pbzk0X
- obbKQP4y3O0xN7mBS66bD7Sw+4miZD9dxBAYZJoBwRJagyiLGWtp0vX8x
- sMeeMLd2R0UxOcskZfaThSVCjb87yFehK0A+Ojh6ec2byYkmWeR6sWTio
- w67d0tuVwVgmUAUDgB/CgOMwqcmvkZhn5sNlbzHN6O/GfgT/yTcw9pa14
- vthH7DPjdqgYIGfhBrfUWPZZjt7oNWDo3+BuAOGpYJnx1sN8K0PAk8PKA
- dyIGYdyvCxzJ2lw1wop5aOsLxiHSj+3bLCtXh+uwWiYfXxmOeUvMm1FgT A==;
-X-CSE-ConnectionGUID: jtDhANNiQCO9c5hpPiuf5w==
-X-CSE-MsgGUID: wCSWwG8RQ+eiadzaolAPMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2233443"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2233443"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 06:31:48 -0700
-X-CSE-ConnectionGUID: gLa8dUVNRqGTkmaFG+q/bw==
-X-CSE-MsgGUID: PfQWW32ERGyvW9XMQ9KBaQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5329817"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO [10.245.244.36])
- ([10.245.244.36])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 06:31:46 -0700
-Message-ID: <5a7d92b8-3752-4585-ba68-070857b89db0@intel.com>
-Date: Fri, 30 Oct 2026 13:31:44 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5041410E07C;
+	Fri, 30 Oct 2026 13:32:46 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0FB210E07C
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:32:44 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
+ by APP-03 (Coremail) with SMTP id rQCowAAXGzl1nORq+UwHDA--.23464S2;
+ Fri, 30 Oct 2026 21:32:37 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Joey Lu <a0987203069@gmail.com>, Han Gao <gaohan@iscas.ac.cn>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Icenowy Zheng <uwu@icenowy.me>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH RESEND 0/3] drm/verisilicon: misc fixes
+Date: Fri, 30 Oct 2026 21:32:30 +0800
+Message-ID: <20261030133233.197189-1-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] gpu/buddy: Prune exhausted subtrees in
- range-biased allocation
-To: Sanjay Yadav <sanjay.kumar.yadav@intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Joel Fernandes <joelagnelf@nvidia.com>
-References: <20261022051518.486064-4-sanjay.kumar.yadav@intel.com>
- <20261022051518.486064-5-sanjay.kumar.yadav@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20261022051518.486064-5-sanjay.kumar.yadav@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowAAXGzl1nORq+UwHDA--.23464S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruFWDWFW7Zr4fWrykGF17Wrg_yoW3CFX_WF
+ yv9r9rCw17KF98Ja47Cr1DZFy2kayDWFs5JFyUKw13t3srAr15Jr1UWr4fuw1UWa18tFWk
+ Gw1xuF4fZr47GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb3xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
+ 1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
+ cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
+ ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
+ 0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+ v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+ 1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+ AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
+ 42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvf
+ C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,194 +57,32 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 22/10/2026 06:15, Sanjay Yadav wrote:
-> __alloc_range_bias() walks the buddy tree depth-first, higher address
-> first, and descends every SPLIT block even when nothing below it is
-> free. Range allocations are placed top-down, so they pack below the
-> range end and each new one walks every block already allocated there:
-> O(N) per allocation and O(N^2) for N allocations, under the allocator
-> lock.
-> 
-> Track in each block the largest order of any FREE block in its subtree
-> (GPU_BUDDY_NO_FREE_ORDER if none), update it whenever a block changes
-> state, and skip subtrees that cannot satisfy the requested order.
-> gpu_buddy_block_trim() detaches the block while re-allocating inside
-> it, so recompute from the parent once it is reattached.
-> 
-> Skipped subtrees contain no FREE block of the requested order or
-> larger, so the old walk could neither split nor return anything there.
-> The remaining blocks are visited in the same order, so the selected
-> block and placement are unchanged.
-> 
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
-> Cc: Joel Fernandes <joelagnelf@nvidia.com>
-> Assisted-by: LLM
-> Signed-off-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
-> ---
->   drivers/gpu/buddy.c       | 31 +++++++++++++++++++++++++++++++
->   include/linux/gpu_buddy.h |  7 +++++++
->   2 files changed, 38 insertions(+)
-> 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index 28cff97d57dc..b77d7f621290 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -602,6 +602,7 @@ static struct gpu_buddy_block *gpu_block_alloc(struct gpu_buddy *mm,
->   	block->header = offset;
->   	block->header |= order;
->   	block->parent = parent;
-> +	block->subtree_max_free_order = GPU_BUDDY_NO_FREE_ORDER;
->   
->   	RB_CLEAR_NODE(&block->rb);
->   
-> @@ -717,6 +718,27 @@ static void rbtree_remove(struct gpu_buddy *mm,
->   	RB_CLEAR_NODE(&block->rb);
->   }
->   
-> +static void update_subtree_max_free_order(struct gpu_buddy_block *block)
-> +{
-> +	while (block) {
-> +		s8 max_free;
-> +
-> +		if (gpu_buddy_block_is_free(block))
-> +			max_free = gpu_buddy_block_order(block);
-> +		else if (gpu_buddy_block_is_split(block))
-> +			max_free = max(block->left->subtree_max_free_order,
-> +				       block->right->subtree_max_free_order);
-> +		else
-> +			max_free = GPU_BUDDY_NO_FREE_ORDER;
-> +
-> +		if (block->subtree_max_free_order == max_free)
-> +			break;
-> +
-> +		block->subtree_max_free_order = max_free;
-> +		block = block->parent;
-> +	}
-> +}
-> +
->   static void mark_allocated(struct gpu_buddy *mm,
->   			   struct gpu_buddy_block *block)
->   {
-> @@ -729,6 +751,7 @@ static void mark_allocated(struct gpu_buddy *mm,
->   	mm->used_scoreboard[gpu_buddy_block_order(block)]++;
->   
->   	rbtree_remove(mm, block);
-> +	update_subtree_max_free_order(block);
->   }
->   
->   static void __mark_free(struct gpu_buddy *mm,
-> @@ -750,6 +773,7 @@ static void __mark_free(struct gpu_buddy *mm,
->   	mm->free_scoreboard[gpu_buddy_block_order(block)]++;
->   
->   	rbtree_insert(mm, block);
-> +	update_subtree_max_free_order(block);
->   }
->   
->   static void mark_free(struct gpu_buddy *mm,
-> @@ -772,6 +796,7 @@ static void mark_split(struct gpu_buddy *mm,
->   	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
->   
->   	rbtree_remove(mm, block);
-> +	update_subtree_max_free_order(block);
->   }
->   
->   static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
-> @@ -869,6 +894,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
->   
->   	size = round_down(size, chunk_size);
->   
-> +	BUILD_BUG_ON(GPU_BUDDY_MAX_ORDER > S8_MAX);
-> +
->   	mm->size = size;
->   	mm->avail = size;
->   	mm->chunk_size = chunk_size;
-> @@ -1280,6 +1307,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
->   		if (gpu_buddy_block_order(block) < order)
->   			continue;
->   
-> +		if (block->subtree_max_free_order < (int)order)
-> +			continue;
-> +
+This patchset fixes several problems. Two of them are pointed out by
+Sashiko, and the remaining one is found when running the driver on some
+weird TH1520 firmware that does mode set but fixes to 800x600.
 
-If we do go with this, I think we can drop the 
-gpu_buddy_block_order(block) < order just before this?
+This patchset is re-sent because of forgetting to Cc the mailing list
+previously.
 
-Also, I think we can also drop the is_allocated()/is_free checks.
+Icenowy Zheng (2):
+  drm/verisilicon: disable the output before enabling it
+  drm/verisilicon: stop to reuse atomic_disable for invisible planes
 
-@@ -1304,9 +1304,6 @@ __alloc_range_bias(struct gpu_buddy *mm,
+Joey Lu (1):
+  drm/verisilicon: fix DC8200 primary plane disable clearing FB_EN
 
-                 list_del(&block->tmp_link);
+ drivers/gpu/drm/verisilicon/vs_bridge.c        |  8 ++++++++
+ drivers/gpu/drm/verisilicon/vs_cursor_plane.c  | 17 +++++++++++------
+ drivers/gpu/drm/verisilicon/vs_primary_plane.c | 15 ++++++++++-----
+ 3 files changed, 29 insertions(+), 11 deletions(-)
 
--               if (gpu_buddy_block_order(block) < order)
--                       continue;
--
-                 if (block->subtree_max_free_order < (int)order)
-                         continue;
-
-@@ -1316,9 +1313,6 @@ __alloc_range_bias(struct gpu_buddy *mm,
-                 if (!overlaps(start, end, block_start, block_end))
-                         continue;
-
--               if (gpu_buddy_block_is_allocated(block))
--                       continue;
--
-                 if (block_start < start || block_end > end) {
-                         u64 adjusted_start = max(block_start, start);
-                         u64 adjusted_end = min(block_end, end);
-@@ -1329,15 +1323,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
-                 }
-
-                 if (contains(start, end, block_start, block_end) &&
--                   order == gpu_buddy_block_order(block)) {
--                       /*
--                        * Find the free block within the range.
--                        */
--                       if (gpu_buddy_block_is_free(block))
--                               return block;
--
-+                   order == gpu_buddy_block_order(block))
-                         continue;
--               }
-
-
->   		block_start = gpu_buddy_block_offset(block);
->   		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
->   
-> @@ -1881,6 +1911,7 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
->   	}
->   
->   	block->parent = parent;
-> +	update_subtree_max_free_order(parent);
->   	return err;
->   }
->   EXPORT_SYMBOL(gpu_buddy_block_trim);
-> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-> index ddc4eca84175..8037f5a0feb1 100644
-> --- a/include/linux/gpu_buddy.h
-> +++ b/include/linux/gpu_buddy.h
-> @@ -141,8 +141,15 @@ struct gpu_buddy_block {
->   	unsigned int subtree_max_alignment;
->   	struct list_head tmp_link;
->   	bool has_clear;
-> +	/*
-> +	 * Largest order of any FREE block in this block's buddy subtree, or
-> +	 * GPU_BUDDY_NO_FREE_ORDER if none. Protected by the driver lock.
-> +	 */
-> +	s8 subtree_max_free_order;
->   };
->   
-> +#define GPU_BUDDY_NO_FREE_ORDER (-1)
-> +
->   /* Order-zero must be at least SZ_4K */
->   #define GPU_BUDDY_MAX_ORDER (63 - 12)
->   
+-- 
+2.56.0
 
