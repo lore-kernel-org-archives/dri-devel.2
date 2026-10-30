@@ -2,65 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94413606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 13:44:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1526F606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 13:45:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B6UVaXAz
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOb6zsoE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0768611281F;
-	Fri, 30 Oct 2026 13:44:39 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DEEB10E48B;
- Fri, 30 Oct 2026 13:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793367872; x=1824903872;
- h=message-id:date:mime-version:subject:from:to:cc:
- references:in-reply-to:content-transfer-encoding;
- bh=QHnpx9nAS7IZBbwYMWudYpx6uCf1NS+MXy1zWypziHs=;
- b=B6UVaXAzmhrsrLd3G8Ie9rzqkv5I+gJJQLJIfexuR88nL8TXF8K+SrgD
- Ic4Zj5y493qSdC/+rN7gHCIWXxf5nn2sCJ/KBoEKxoWAPeUmGGHxuTpo2
- 72poLOmwZOLNSzPmbj4nPomXY/mpYxzizHhP0pClKEY4CDXNcq8tHduUE
- 1zQcIoivRr/ggmMAnaWvNbl0Fkq6jnu+vthjkiAcdlgy8NF0UoDPDugc1
- vuQW7XFGFJ17+4FN5fM4zYyar9ZiRmsqQkNxmZ7q4h5BETBgqpoxZwMyZ
- QFLk0dZPc1T2Ai8v6W9ZGQfgUQYGR414mSU9nW0Ng2+dw/FZ09NGqEIC3 g==;
-X-CSE-ConnectionGUID: Cm9FqMnAQpuUa7C7aHm4xA==
-X-CSE-MsgGUID: 9vMewZFVShGy569svDQUAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2158735"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2158735"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 06:44:32 -0700
-X-CSE-ConnectionGUID: Vn+jx1HhQa2ui+BubepiKg==
-X-CSE-MsgGUID: Z8apDX3kR46X/VJ90riYCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="7261130"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO [10.245.244.36])
- ([10.245.244.36])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 06:44:31 -0700
-Message-ID: <bbd2abb4-c361-44e8-af2b-06048e5062a4@intel.com>
-Date: Fri, 30 Oct 2026 13:44:28 +0000
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] gpu/buddy: Prune exhausted subtrees in
- range-biased allocation
-From: Matthew Auld <matthew.auld@intel.com>
-To: Sanjay Yadav <sanjay.kumar.yadav@intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Joel Fernandes <joelagnelf@nvidia.com>
-References: <20261022051518.486064-4-sanjay.kumar.yadav@intel.com>
- <20261022051518.486064-5-sanjay.kumar.yadav@intel.com>
- <5a7d92b8-3752-4585-ba68-070857b89db0@intel.com>
-Content-Language: en-GB
-In-Reply-To: <5a7d92b8-3752-4585-ba68-070857b89db0@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BDCA10E48B;
+	Fri, 30 Oct 2026 13:45:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 303F210E48B
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:45:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E147E40163;
+ Fri, 30 Oct 2026 13:45:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82031F000C1;
+ Fri, 30 Oct 2026 13:45:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793367922;
+ bh=09y08Q9Y9BZQ0nkW0NvhxbsfTMAxo13TTiEHuW6Ap9w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hOb6zsoEGeIZfNBpS4cWncR+YztnqY6KdOglpqxI0/EWb9HloaE0jhwqHm+JVapAq
+ 6y788ic1wCEooO5DG7XcZOoW5vmJqvhQlqVXjgrGO2sQidj5Iv5UamC0IAMDj/yPGK
+ 3YVHDyTKJF4XtlAc7Sfd2I62WYpY+8dXBOiNaLMdIw6CGYwz0E0Eyrhkms7ahYH3UN
+ N61IRhLJUM4FLzH1TcsyCtmhWIWDchKdd0jVwH3RPhi2VjRvj4bchK8Oybkv+Jv839
+ SwcILZklOcxkpk57pUXXIwpKzlDwcM+IizB9a/nPDMeopQRvsBjOMnBik8V3chWjUX
+ 01UmHMtxsYjZw==
+Message-ID: <sashiko-outbox-191080@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND 3/3] drm/verisilicon: stop to reuse
+ atomic_disable for invisible planes
+To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261030133233.197189-4-zhengxingda@iscas.ac.cn>
+References: <20261030133233.197189-1-zhengxingda@iscas.ac.cn>
+ <20261030133233.197189-4-zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 13:45:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,186 +49,222 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 30/10/2026 13:31, Matthew Auld wrote:
-> On 22/10/2026 06:15, Sanjay Yadav wrote:
->> __alloc_range_bias() walks the buddy tree depth-first, higher address
->> first, and descends every SPLIT block even when nothing below it is
->> free. Range allocations are placed top-down, so they pack below the
->> range end and each new one walks every block already allocated there:
->> O(N) per allocation and O(N^2) for N allocations, under the allocator
->> lock.
->>
->> Track in each block the largest order of any FREE block in its subtree
->> (GPU_BUDDY_NO_FREE_ORDER if none), update it whenever a block changes
->> state, and skip subtrees that cannot satisfy the requested order.
->> gpu_buddy_block_trim() detaches the block while re-allocating inside
->> it, so recompute from the parent once it is reattached.
->>
->> Skipped subtrees contain no FREE block of the requested order or
->> larger, so the old walk could neither split nor return anything there.
->> The remaining blocks are visited in the same order, so the selected
->> block and placement are unchanged.
->>
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
->> Cc: Joel Fernandes <joelagnelf@nvidia.com>
->> Assisted-by: LLM
->> Signed-off-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
->> ---
->>   drivers/gpu/buddy.c       | 31 +++++++++++++++++++++++++++++++
->>   include/linux/gpu_buddy.h |  7 +++++++
->>   2 files changed, 38 insertions(+)
->>
->> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->> index 28cff97d57dc..b77d7f621290 100644
->> --- a/drivers/gpu/buddy.c
->> +++ b/drivers/gpu/buddy.c
->> @@ -602,6 +602,7 @@ static struct gpu_buddy_block 
->> *gpu_block_alloc(struct gpu_buddy *mm,
->>       block->header = offset;
->>       block->header |= order;
->>       block->parent = parent;
->> +    block->subtree_max_free_order = GPU_BUDDY_NO_FREE_ORDER;
->>       RB_CLEAR_NODE(&block->rb);
->> @@ -717,6 +718,27 @@ static void rbtree_remove(struct gpu_buddy *mm,
->>       RB_CLEAR_NODE(&block->rb);
->>   }
->> +static void update_subtree_max_free_order(struct gpu_buddy_block *block)
->> +{
->> +    while (block) {
->> +        s8 max_free;
->> +
->> +        if (gpu_buddy_block_is_free(block))
->> +            max_free = gpu_buddy_block_order(block);
->> +        else if (gpu_buddy_block_is_split(block))
->> +            max_free = max(block->left->subtree_max_free_order,
->> +                       block->right->subtree_max_free_order);
->> +        else
->> +            max_free = GPU_BUDDY_NO_FREE_ORDER;
->> +
->> +        if (block->subtree_max_free_order == max_free)
->> +            break;
->> +
->> +        block->subtree_max_free_order = max_free;
->> +        block = block->parent;
->> +    }
->> +}
->> +
->>   static void mark_allocated(struct gpu_buddy *mm,
->>                  struct gpu_buddy_block *block)
->>   {
->> @@ -729,6 +751,7 @@ static void mark_allocated(struct gpu_buddy *mm,
->>       mm->used_scoreboard[gpu_buddy_block_order(block)]++;
->>       rbtree_remove(mm, block);
->> +    update_subtree_max_free_order(block);
->>   }
->>   static void __mark_free(struct gpu_buddy *mm,
->> @@ -750,6 +773,7 @@ static void __mark_free(struct gpu_buddy *mm,
->>       mm->free_scoreboard[gpu_buddy_block_order(block)]++;
->>       rbtree_insert(mm, block);
->> +    update_subtree_max_free_order(block);
->>   }
->>   static void mark_free(struct gpu_buddy *mm,
->> @@ -772,6 +796,7 @@ static void mark_split(struct gpu_buddy *mm,
->>       mm->free_scoreboard[gpu_buddy_block_order(block)]--;
->>       rbtree_remove(mm, block);
->> +    update_subtree_max_free_order(block);
->>   }
->>   static inline bool overlaps(u64 s1, u64 e1, u64 s2, u64 e2)
->> @@ -869,6 +894,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, 
->> u64 chunk_size)
->>       size = round_down(size, chunk_size);
->> +    BUILD_BUG_ON(GPU_BUDDY_MAX_ORDER > S8_MAX);
->> +
->>       mm->size = size;
->>       mm->avail = size;
->>       mm->chunk_size = chunk_size;
->> @@ -1280,6 +1307,9 @@ __alloc_range_bias(struct gpu_buddy *mm,
->>           if (gpu_buddy_block_order(block) < order)
->>               continue;
->> +        if (block->subtree_max_free_order < (int)order)
->> +            continue;
->> +
-> 
-> If we do go with this, I think we can drop the 
-> gpu_buddy_block_order(block) < order just before this?
-> 
-> Also, I think we can also drop the is_allocated()/is_free checks.
-> 
-> @@ -1304,9 +1304,6 @@ __alloc_range_bias(struct gpu_buddy *mm,
-> 
->                  list_del(&block->tmp_link);
-> 
-> -               if (gpu_buddy_block_order(block) < order)
-> -                       continue;
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] drm/verisilicon: uninitialized dc and output in plane atomic_u=
+pdate()
+- [High] drm/verisilicon: plane visibility state mismatch with atomic_enabl=
+e()
+--
+
+commit 3080d00108f48782cd8c1c8ee016e9473b324e57
+Author: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+
+drm/verisilicon: stop to reuse atomic_disable for invisible planes
+
+This commit factors out helper functions to disable cursor and primary
+planes directly from their atomic_update callbacks when state->visible is
+false, avoiding a NULL CRTC dereference in the old plane state when calling
+atomic_disable.
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/=
+drm/verisilicon/vs_cursor_plane.c
+> index 1fa6b7578b27e..8dd6caadb7075 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> @@ -99,6 +99,15 @@ static void vs_cursor_plane_commit(struct vs_dc *dc, u=
+nsigned int output)
+>  			VSDC_CURSOR_CONFIG_IMG_UPDATE);
+>  }
+> =20
+> +static void vs_cursor_plane_disable(struct vs_dc *dc, unsigned int outpu=
+t)
+> +{
+> +	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+> +			   VSDC_CURSOR_CONFIG_FMT_MASK,
+> +			   VSDC_CURSOR_CONFIG_FMT_OFF);
+> +
+> +	vs_cursor_plane_commit(dc, output);
+> +}
+> +
+>  static void vs_cursor_plane_atomic_enable(struct drm_plane *plane,
+>  					   struct drm_atomic_commit *atomic_state)
+>  {
+> @@ -126,11 +135,7 @@ static void vs_cursor_plane_atomic_disable(struct dr=
+m_plane *plane,
+>  	unsigned int output =3D vcrtc->id;
+>  	struct vs_dc *dc =3D vcrtc->dc;
+> =20
+> -	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+> -			   VSDC_CURSOR_CONFIG_FMT_MASK,
+> -			   VSDC_CURSOR_CONFIG_FMT_OFF);
 > -
->                  if (block->subtree_max_free_order < (int)order)
->                          continue;
-> 
-> @@ -1316,9 +1313,6 @@ __alloc_range_bias(struct gpu_buddy *mm,
->                  if (!overlaps(start, end, block_start, block_end))
->                          continue;
-> 
-> -               if (gpu_buddy_block_is_allocated(block))
-> -                       continue;
+> -	vs_cursor_plane_commit(dc, output);
+> +	vs_cursor_plane_disable(dc, output);
+>  }
+> =20
+>  static void vs_cursor_plane_atomic_update(struct drm_plane *plane,
+> @@ -146,7 +151,7 @@ static void vs_cursor_plane_atomic_update(struct drm_=
+plane *plane,
+>  	dma_addr_t dma_addr;
+> =20
+>  	if (!state->visible) {
+> -		vs_cursor_plane_atomic_disable(plane, atomic_state);
+> +		vs_cursor_plane_disable(dc, output);
+>  		return;
+>  	}
+
+[Severity: Critical]
+Does vs_cursor_plane_atomic_update() pass uninitialized dc and output values
+to vs_cursor_plane_disable() when !state->visible is true?
+
+In drivers/gpu/drm/verisilicon/vs_cursor_plane.c, vcrtc, output, and dc are
+only initialized from state->crtc after the !state->visible early return:
+
+drivers/gpu/drm/verisilicon/vs_cursor_plane.c:vs_cursor_plane_atomic_update=
+() {
+	struct drm_crtc *crtc =3D state->crtc;
+	struct vs_dc *dc;
+	struct vs_crtc *vcrtc;
+	unsigned int output;
+	dma_addr_t dma_addr;
+
+	if (!state->visible) {
+		vs_cursor_plane_disable(dc, output);
+		return;
+	}
+
+	vcrtc =3D drm_crtc_to_vs_crtc(crtc);
+	output =3D vcrtc->id;
+	dc =3D vcrtc->dc;
+}
+
+When a cursor plane is updated while invisible, vs_cursor_plane_disable()
+will dereference the uninitialized pointer dc->regs and index
+VSDC_CURSOR_CONFIG(output) with an uninitialized output variable.
+
+[Severity: High]
+How does disabling the plane in hardware on !state->visible interact with
+vs_cursor_plane_atomic_enable() and subsequent visible updates?
+
+In drm_atomic_helper_commit_planes(), funcs->atomic_update() runs before
+funcs->atomic_enable(). When a previously unbound plane (old_plane_state->c=
+rtc
+is NULL) is bound to a CRTC while invisible (new_plane_state->crtc is
+non-NULL and new_plane_state->visible is false):
+
+1. vs_cursor_plane_atomic_update() calls vs_cursor_plane_disable() and
+   returns early without programming VSDC_CURSOR_ADDRESS(output), size, or
+   position registers.
+2. drm_atomic_plane_enabling() evaluates to true because !old_plane_state->=
+crtc
+   && new_plane_state->crtc, so drm_atomic_helper_commit_planes() immediate=
+ly
+   calls vs_cursor_plane_atomic_enable():
+
+drivers/gpu/drm/verisilicon/vs_cursor_plane.c:vs_cursor_plane_atomic_enable=
+() {
+	...
+	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+			   VSDC_CURSOR_CONFIG_FMT_MASK,
+			   VSDC_CURSOR_CONFIG_FMT_ARGB8888);
+
+	vs_cursor_plane_commit(dc, output);
+}
+
+Won't vs_cursor_plane_atomic_enable() unconditionally re-enable the plane in
+hardware without a valid framebuffer address or geometry configured?
+
+Conversely, if a plane that is already bound to a CRTC moves off-screen so
+state->visible becomes false, vs_cursor_plane_atomic_update() sets
+VSDC_CURSOR_CONFIG_FMT_OFF via vs_cursor_plane_disable(). When a later comm=
+it
+moves the plane back on-screen while remaining on the same CRTC
+(old_plane_state->crtc and new_plane_state->crtc are both non-NULL, and
+new_plane_state->visible becomes true), drm_atomic_plane_enabling() is fals=
+e,
+so vs_cursor_plane_atomic_enable() is not called and
+vs_cursor_plane_atomic_update() never restores VSDC_CURSOR_CONFIG_FMT_ARGB8=
+888.
+Will the cursor plane remain disabled in hardware?
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu=
+/drm/verisilicon/vs_primary_plane.c
+> index c12fe54096c33..56e4c0e168871 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> @@ -60,6 +60,14 @@ static void vs_primary_plane_commit(struct vs_dc *dc, =
+unsigned int output)
+>  			VSDC_FB_CONFIG_EX_COMMIT);
+>  }
+> =20
+> +static void vs_primary_plane_disable(struct vs_dc *dc, unsigned int outp=
+ut)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> +			  VSDC_FB_CONFIG_EX_FB_EN);
+> +
+> +	vs_primary_plane_commit(dc, output);
+> +}
+> +
+>  static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
+>  					   struct drm_atomic_commit *atomic_state)
+>  {
+> @@ -89,10 +97,7 @@ static void vs_primary_plane_atomic_disable(struct drm=
+_plane *plane,
+>  	unsigned int output =3D vcrtc->id;
+>  	struct vs_dc *dc =3D vcrtc->dc;
+> =20
+> -	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> -			  VSDC_FB_CONFIG_EX_FB_EN);
 > -
->                  if (block_start < start || block_end > end) {
->                          u64 adjusted_start = max(block_start, start);
->                          u64 adjusted_end = min(block_end, end);
-> @@ -1329,15 +1323,8 @@ __alloc_range_bias(struct gpu_buddy *mm,
->                  }
-> 
->                  if (contains(start, end, block_start, block_end) &&
-> -                   order == gpu_buddy_block_order(block)) {
-> -                       /*
-> -                        * Find the free block within the range.
-> -                        */
-> -                       if (gpu_buddy_block_is_free(block))
-> -                               return block;
-> -
-> +                   order == gpu_buddy_block_order(block))
->                          continue;
+> -	vs_primary_plane_commit(dc, output);
+> +	vs_primary_plane_disable(dc, output);
+>  }
+> =20
+>  static void vs_primary_plane_atomic_update(struct drm_plane *plane,
+> @@ -109,7 +114,7 @@ static void vs_primary_plane_atomic_update(struct drm=
+_plane *plane,
+>  	dma_addr_t dma_addr;
+> =20
+>  	if (!state->visible) {
+> -		vs_primary_plane_atomic_disable(plane, atomic_state);
+> +		vs_primary_plane_disable(dc, output);
+>  		return;
+>  	}
 
-return block;
+[Severity: Critical]
+Similarly, in drivers/gpu/drm/verisilicon/vs_primary_plane.c, doesn't
+vs_primary_plane_atomic_update() also call vs_primary_plane_disable(dc,
+output) before vcrtc, output, and dc are initialized from state->crtc,
+dereferencing uninitialized dc->regs and using an uninitialized output index
+in VSDC_FB_CONFIG_EX(output) when !state->visible?
 
-> -               }
-> 
-> 
->>           block_start = gpu_buddy_block_offset(block);
->>           block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
->> @@ -1881,6 +1911,7 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
->>       }
->>       block->parent = parent;
->> +    update_subtree_max_free_order(parent);
->>       return err;
->>   }
->>   EXPORT_SYMBOL(gpu_buddy_block_trim);
->> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
->> index ddc4eca84175..8037f5a0feb1 100644
->> --- a/include/linux/gpu_buddy.h
->> +++ b/include/linux/gpu_buddy.h
->> @@ -141,8 +141,15 @@ struct gpu_buddy_block {
->>       unsigned int subtree_max_alignment;
->>       struct list_head tmp_link;
->>       bool has_clear;
->> +    /*
->> +     * Largest order of any FREE block in this block's buddy subtree, or
->> +     * GPU_BUDDY_NO_FREE_ORDER if none. Protected by the driver lock.
->> +     */
->> +    s8 subtree_max_free_order;
->>   };
->> +#define GPU_BUDDY_NO_FREE_ORDER (-1)
->> +
->>   /* Order-zero must be at least SZ_4K */
->>   #define GPU_BUDDY_MAX_ORDER (63 - 12)
-> 
+[Severity: High]
+Does vs_primary_plane_atomic_update() have the same state mismatch with
+vs_primary_plane_atomic_enable()?
 
+When old_plane_state->crtc is NULL, new_plane_state->crtc is non-NULL, and
+new_plane_state->visible is false, vs_primary_plane_atomic_update() returns
+early without programming VSDC_FB_ADDRESS(output) or geometry registers, and
+then vs_primary_plane_atomic_enable() sets VSDC_FB_CONFIG_EX_FB_EN and
+commits the plane in hardware anyway.
+
+And if an already-bound primary plane transitions from visible to invisible
+(clearing VSDC_FB_CONFIG_EX_FB_EN in vs_primary_plane_disable()) and then
+back to visible on the same CRTC, neither vs_primary_plane_atomic_enable()
+nor vs_primary_plane_atomic_update() sets VSDC_FB_CONFIG_EX_FB_EN again.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030133233.1971=
+89-1-zhengxingda@iscas.ac.cn?part=3D3
