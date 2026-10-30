@@ -2,126 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9934B606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 06:59:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFA8606A32A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 07:04:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=izXGW7YM
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dSoY2mcq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF5CC11266A;
-	Fri, 30 Oct 2026 06:59:48 +0000 (UTC)
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010057.outbound.protection.outlook.com [52.101.69.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4787411266A
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 06:59:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mgUDo7/xZJBLgESW1nYl0zz+QdY+TPEZsLpo/YiQYRsoVPujiw58WEiXzL19J1VhHZDtQIpXZwyLSTDRjL3bbc6RTkscGx1yRK2kcCdx5L8BX/UhXT9HEd+OtvLKFe+asyK11Fs56AdV2MCSQnDsUvL3KpgcWuBi5CHHO67zpVPXRhZTaUDR+Hi8Pznekfi/69mOU2z58wOUmfqF/Y6K2H7RqbwUKdEOvrwNahIfAjdEn5j+zUr/BPxWyvB/VQtwiBbcNpxtynYoR7i/qqkGdr9Saov+23M+FEC3942l7ZgQ/cq0uSa8p1TR8qxgxrv5v+15UKG1Pg0SvrKeDjLJ/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MM67aKZa2k2c6bKq+gBbl3F1MAGEAQchHa0lPFGtDy8=;
- b=VY58Dl9m+yKtY1d9BS73IjJxQ9ST8Fbo7NDRFwinwsdW0GCAy+SC6IEHBodJnydAcCo88y3wcDdEu/ogBkbFJij1K7YbfTSHe9CVIWdswZMsHnvjL5TJf6p4065aXaLNr4K57SfVzGHzIYMWJ38KLt/6ie5OSlV7mIqAz8wb4iFhPVE/LnM4VzXny+CgWVdnbDDhuYHSfzf0Der11EpN8DaH08r+1LpMhvonJEvx4yNqOnfpTNKwcfUujnB0RS8lVfWCjuUSnPJrWWxymM82nHnrTWNouchay0rkuCnlJPt8HiSPJZhXM0AwLR2+hjsXPW+YzsR2QiRgbmul0J4F7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MM67aKZa2k2c6bKq+gBbl3F1MAGEAQchHa0lPFGtDy8=;
- b=izXGW7YM16KyQ9YvUM9Zgaye43hmLqqXvJtd7hVpHj9aNvhSYm9nxVFiC7XCA1E6jLfjYPTxbgPOYCPs8iJxEMm6hmiaF4chcfAS2Y2al+4xNgUZXE49Lk5YturtMURBOiWaBDsRzlL0yLT8yHFMugTx44jerIPSff+DGc8GqJN5u4WfyR0noTZKqLcB/5ccHSCwfEdlyhvGVq+nj/57f8wlLyHQnXZ0WIQ2jwWbZcDa0/qMQckVSFtO071MTnCd4GG7zULKrQYZs+fD2K1Z6LiJq2QGFD3Rl4b2xbYnVC/O3nuFaPrjbm077j6woPCrKuoFTvgNn24+j6dOoKFpVw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by AS8PR04MB8561.eurprd04.prod.outlook.com (2603:10a6:20b:420::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 06:59:38 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 06:59:38 +0000
-Date: Fri, 30 Oct 2026 15:01:15 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v7 06/15] drm/imx: dc-crtc: Disable at boot
-Message-ID: <auRAu8P3JDfSV7Sh@raspi>
-References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
- <20261026-imx8-dc-prefetch-v7-6-a0b50cc4fc65@nxp.com>
- <auH8X0tITcU72fk5@vm>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auH8X0tITcU72fk5@vm>
-X-ClientProxiedBy: SI3PR02CA0014.apcprd02.prod.outlook.com
- (2603:1096:4:295::6) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|AS8PR04MB8561:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ffa6725-6a7d-412a-7c7a-08df36535cef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|7416014|366016|1800799024|19092799006|4143699003|11063799006|56012099006|261009223027099003|261026140227099003|261028144727099003|261022105027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ZpzPkgIzuDwRuqMwx76dtHetOqSXl73p1M2tbpr2BH0NbfyQTyYjiYoEroUU2ZbsbgTc3OBAQm6sAAcFsXNPniA9OJxG3l4/9kPqCrUjHM7SdAKtqEpwkUNl5hGYSgZTx5TO8Mk18bJ90dCrO/f2r2UZ+DLMOtNw1aChdUV0r5s70rOE+9MgI7VOlRM3EXVOE72PN8v2AQKANzAdXtwLQDDS/IKD78fJOLm72unTei4kn5sInIjVFUVeGvo3iEGh8dVy/QKl1E+d1CoI09vHweD501hKkKmWoRAniYppfNaV9yFbtPMA7B9bq+nDor7AkQNzi3yAnFOEiBO1OvtB5CbsyivSNFrPOGw5JfKP1YQb3NfShdxxeseMVS5iPf2+umm8SPn/7TvEX9U4+0/J8RPM44Q8L7p90YQP2xTFUe+KP+qrpnyq5YVOIJmPkcFz6FsjlqpQIwuQFPrlFNlZDJA36Pe2iaIBNmsHQLg7uL5NqsVYQ5wz16Y5OeJcfUpIwmN/YKGavTEwwyNxkk4tkNKy/WywlJ3F5R1w+rhLPBsUTLhKzsLxQP/PfROmOJSOgcx1n3Ht6rvRYIqVuoklV92qSr7b5QFX/x/LP8nf/4jnP4mzKLztexZvnWsYNxCCfOJj4chCgX3UVqW4REVRBvGU731LvGdnOnoCHYD36Fw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MI9PR04MB350878.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(19092799006)(4143699003)(11063799006)(56012099006)(261009223027099003)(261026140227099003)(261028144727099003)(261022105027099003)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?LaVzPSQyzO4RtfUXS0bIPfnYi8sy3wGRKZDW22g+bK/rCKyu5WT/+JbmUiTI?=
- =?us-ascii?Q?4dt1ngs8mW+dqeDLgJwQCG6yVClx7I2Km4d64faF3FZlbRAtj39VU7zAOMoF?=
- =?us-ascii?Q?S8NHkmoH4uqO/Iu5vthW/yYVXnlYGw0MXws3N+1e+gmni9vJeK9IamagkwLb?=
- =?us-ascii?Q?iJ1uXW690Ukslca6l5dJIpyh/vMWpApWhls8OhZi8hUEMk50P7nf2h95RUV6?=
- =?us-ascii?Q?Z7x/rdUoRflXeipiJ/TjryksfxIVm9Yrw9CJ1ETkLnMmPqKkr91WFFuxM/1H?=
- =?us-ascii?Q?mHYs5jWkpSFWib8yJrb05PVtUUJ2fGm3OPMX/zjBpiD3gfom4NjeYDibRZJ2?=
- =?us-ascii?Q?fhJ8boZk9lLhxvi/VmyLTCKGMnYT2wEh+nKs42bpsI6VIo7OggXW+O5lZxhE?=
- =?us-ascii?Q?jyVx5GCp1Idgme46dGyVNJY2DyLA1FeoumiCj+rK2ihF+dUV746CY+7+5GLQ?=
- =?us-ascii?Q?5NCSjZNmrwK/tz2ISh/LZXJImnO+4uquUuERyeH2KjCO+U21JQBMH0iJ0N6L?=
- =?us-ascii?Q?GqCiRjm3eKz3kUEntKkr4nNBQ9FCE1eiqc3vVvqIqUIfvYcxdvUD8vq+eZLC?=
- =?us-ascii?Q?7hnF8EAtXsXksD1/XxarzaI21BQF7vC9+VgHhr06TfPfwqqaEGYFUAEHq+dO?=
- =?us-ascii?Q?qywTbPjGbl/ADni1GeXWkcKuLDw17I5yFA/8eKD8pVSiBttSNQpTsLw+ZtEo?=
- =?us-ascii?Q?znSgBesrmziTxgZyO99VarrAWTWDHadHQXzEF/WgfAAUu87+pQVghB4B2Uzx?=
- =?us-ascii?Q?Gl3Qc+ZoxC/Hq+7+tqafTQ3I/u3gkUleNoFkTVYL00F9uGh7YlonfMxKJfkB?=
- =?us-ascii?Q?xxUbqfLBOTvwugc5FPZoXkVTFz0v7mWtWosIngx5gVq8kXMAydFUa+faR5tW?=
- =?us-ascii?Q?yFp65sRcFAoAtDdlB7T+QJbDVK6IB4KtzFd4qp/reYbEuTmwCgcgRefgKhN3?=
- =?us-ascii?Q?wa5rOpAuf/xujpRWCLH+dk4lJ/B9y3jUwtbIJxE3ZzJEWm5HjOspKB4YKmT9?=
- =?us-ascii?Q?ujN5kNi1g8+blWZyHECJbgl09OQFatVeWlUBjVTnrL/R+3N95VlrwaI+JTlb?=
- =?us-ascii?Q?YkPC1mInt2G1CIZ6HqdtNGrlGWWcc6/sBuV69L20+wgW2L1ueCvB4pZy7MeH?=
- =?us-ascii?Q?11KyBaLRfHDbra4t4j71ZCJlyW1RgRacuF3hC8JIrNCS21SNP6V1icNx40xI?=
- =?us-ascii?Q?gfFKvt6vOmtsC2643yFtwqSjhV5WvGo2+gV8IWs+BU8bQNm/cZGIP9aMYLkD?=
- =?us-ascii?Q?JZB2mB+YVO687QWNYtRTh9zsxSBFdh+BGMwa/EIXSIlbVl+yO1qFCiy4FItJ?=
- =?us-ascii?Q?OFRwejL6qmW1dCXqRucqJfLZOOJXUUJAoXWaG0hQbYy0ggK6dQHngRk8++Ww?=
- =?us-ascii?Q?YGapudFVuhWnVeFTosM0Umz+zvtu7d+OE+pZCOGrIjjnvnmSCvBJbaE0sZt6?=
- =?us-ascii?Q?1aa+2tc9EhFjee5RCzNexe5IdHBf/a9WAFvgdqs0bsOlp4Vz2b3x2da1Ct0x?=
- =?us-ascii?Q?BI6R3LkITulylUHyjYhbpQ9AFoSeHn65vw3AQIlgJ33La0sTzvOcptX3w7En?=
- =?us-ascii?Q?88wX9sbIMSaENmaMCrnUh7wlvz6o4v5rcGfPC0yQapZ2w/TtmRWNJZNVJnU5?=
- =?us-ascii?Q?Nleexiy6ZE+MUzFfZdNjWLHoao30wlm8NaHfuP/dwiX5xNmFQ0QYVSDTkyyM?=
- =?us-ascii?Q?cOq/quLUlfyZAp6M/YIEbjV+nM8RJg57/Q2/m7N+Sd3SMRizA3N8lrtULnJN?=
- =?us-ascii?Q?zZQuXidj5w=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ffa6725-6a7d-412a-7c7a-08df36535cef
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 06:59:37.9905 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6xibwtnVSCEPJECvmDMjrgbgTfSl7QLuLFXsmVmqE3w/RQb4FI9Euodl5l2LgHwCG8kvvbRronut3M1PwQOMGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8561
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2101B10E849;
+	Fri, 30 Oct 2026 07:04:39 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B76D10E849
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 07:04:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C8B4F42E63;
+ Fri, 30 Oct 2026 07:04:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A94C1F000C1;
+ Fri, 30 Oct 2026 07:04:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793343872;
+ bh=AQViuW8zNNdDAkH107WPOx22iLQNlN+ChjPHckc5kic=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dSoY2mcqvqDL58RwSOhHCB5YpG++Rnuw+wuGxJW6GLLCmp+zxBEIkUeSBCfXXFTwF
+ i9yXIVDIipmzmiA2xPVuXOu0BBY4CBlA2jJ147qUO33Yr//TeyteBZ9jyZGQGFWV9Y
+ LoyH8uKCmLE7fKfC6z5d2sw9lmh+Pl7/r9hvspPWUA1pz/ELJ5OX0KrudtgH7lkUkP
+ F6xYUH0o0G0oXyGe+cFf56/Jfq1i3XjfL1bKtIrUNfbNkaO5XsgxgNtfwxV/woZUkk
+ TjJdk3Hc0zIF2ktnzbb8DGdi6IBxITdyLdiSSKbj08c6iW6O47y8cksTbLM8LkXTH4
+ 6NVDprYg2LTRg==
+Message-ID: <sashiko-outbox-190625@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 6/6] arm64: dts: rockchip: rk356x: Add eDP controller
+ and phy nodes
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org,
+ vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20261030064905.2248999-7-damon.ding@rock-chips.com>
+References: <20261030064905.2248999-1-damon.ding@rock-chips.com>
+ <20261030064905.2248999-7-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 07:04:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,27 +51,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Thu, Oct 29, 2026 at 11:30:06AM +0200, Laurentiu Palcu wrote:
-> On Mon, Oct 26, 2026 at 06:05:11PM +0800, Liu Ying wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] arm64: dts: rockchip: rk356x: PCLK_EDPPHY_GRF never enabled for ed=
+p_phy
+--
 
-[...]
+commit 4fc93be7caab95400abe782b268ff22b9c12b905
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-> > +void dc_crtc_disable_at_boot(struct drm_crtc *crtc)
-> 
-> Shouldn't this function return int in order to propagate a potential error to
-> dc_drm_bind()? For example, if pm_runtime_resume_and_get() fails, or frame
-> index isn't moving, wouldn't it be better for dc_drm_bind() to fail as well?
+arm64: dts: rockchip: rk356x: Add eDP controller and phy nodes
 
-Will make it return an integer.
+This commit adds the eDP PHY GRF syscon node, its child eDP PHY node, and
+the eDP controller node to the RK3566/RK3568 base device tree.
 
--- 
-Regards,
-Liu Ying
+> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk356x-base.dtsi
+> index a5832895bd392..7a5168548e55a 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> @@ -403,6 +403,24 @@ usb2phy1_grf: syscon@fdca8000 {
+>  		reg =3D <0x0 0xfdca8000 0x0 0x8000>;
+>  	};
+> =20
+> +	edp_phy_grf: syscon@fdcb0000 {
+> +		compatible =3D "rockchip,rk3568-edp-phy-grf", "syscon", "simple-mfd";
+> +		reg =3D <0x0 0xfdcb0000 0x0 0x8000>;
+> +		clocks =3D <&cru PCLK_EDPPHY_GRF>;
+> +		ranges =3D <0x0 0x0 0xfdcb0000 0x100>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +
+> +		edp_phy: phy@0 {
+> +			compatible =3D "rockchip,rk3568-edp-phy";
+> +			reg =3D <0x0 0x100>;
+> +			clocks =3D <&pmucru XIN_OSC0_EDPPHY_G>;
+> +			clock-names =3D "refclk";
+> +			#phy-cells =3D <0>;
+> +			status =3D "disabled";
+> +		};
+> +	};
+
+[Severity: High]
+With PCLK_EDPPHY_GRF placed on the parent edp_phy_grf node while edp_phy ma=
+ps
+its register window directly, will PCLK_EDPPHY_GRF ever get enabled before
+the PHY driver accesses the registers at 0xfdcb0000?
+
+In drivers/phy/rockchip/phy-rockchip-naneng-edp.c, rockchip_edp_phy_probe()
+maps the child reg window directly and creates its own MMIO regmap rather
+than looking up the parent syscon regmap, and only gets refclk:
+
+drivers/phy/rockchip/phy-rockchip-naneng-edp.c:rockchip_edp_phy_probe() {
+	...
+	regs =3D devm_platform_ioremap_resource(pdev, 0);
+	if (IS_ERR(regs))
+		return PTR_ERR(regs);
+
+	edpphy->regmap =3D devm_regmap_init_mmio(dev, regs, &rockchip_edp_phy_regm=
+ap_config);
+	if (IS_ERR(edpphy->regmap))
+		return dev_err_probe(dev, PTR_ERR(edpphy->regmap),
+				     "Failed to init regmap\n");
+
+	edpphy->refclk =3D devm_clk_get(dev, "refclk");
+	...
+}
+
+Because no consumer calls syscon_node_to_regmap() on edp_phy_grf (and even =
+if
+one did, syscon only attaches the clock to its own regmap), and simple-pm-b=
+us
+treats simple-mfd as ONLY_BUS without managing its clocks, nothing claims or
+enables PCLK_EDPPHY_GRF.
+
+In drivers/clk/rockchip/clk-rk3568.c, PCLK_EDPPHY_GRF is a gated clock that
+is not marked critical:
+
+	GATE(PCLK_EDPPHY_GRF, "pclk_edpphy_grf", "pclk_top", 0,
+			RK3568_CLKGATE_CON(34), 14, GFLAGS),
+
+Wouldn't clk_disable_unused() gate PCLK_EDPPHY_GRF off, causing unclocked
+MMIO accesses in rockchip_edp_phy_configure() and rockchip_edp_phy_power_on=
+()
+when an RK3566/RK3568 board enables edp and edp_phy?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030064905.2248=
+999-1-damon.ding@rock-chips.com?part=3D6
