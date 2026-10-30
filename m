@@ -2,136 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4C4606A32A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 20:40:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6FC606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 20:44:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=udCjAtck
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PjCVPXp9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5442F10E801;
-	Fri, 30 Oct 2026 20:40:32 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010068.outbound.protection.outlook.com
- [52.101.193.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67F1E10E801
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 20:40:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jrgp0p+NfnADOLfki3fZSzDWQHxJVRNXUgZXRbfl7pVuqENTtlpJBb39AvNqh1kHgholLM5MZm1OrCZ+xbV4Mu35Q5xEc3rz/akS413VXxpO8dQI8G+J66yom8nZxr7XZlkccRhw/NdYTRRLWz0+PkZCggDliZ/yC1c+To+qgU81NPQfjwEgVyq5rILDBPulOVjjPclJzJBbS4zCptkDXhObHBjSsYynOXAQ35TuGdKMzHSBt+5ME3F9tmJLoIQTBSehFQoPG7vn1iQZVqXLakw0CQ1bFsI/SSIePyCoH8fgqZf7As+lj7bqqK1eTsqMyCGDzgBY10/ieLUMvfHX5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zmlZ7aNxpgn0VjRrI0W6d9MsyiGPJdUvh/G1Mvp2jpk=;
- b=wd0mwxGxoHTpc6afve8VzpQ8pJsxHEaa5waNcO2f7StVUVEtcZPi25BaYlm3Kx1Mxz43vPNi/nAIm3E7PcFNpq7eYEgIpcMZrSJmaqt0ynDQ+3SZbLHh6G1se55FbtzxtGrOJxXSwdVzdl3VKx4EsyandWzDn/evfA2v76L+HQGbzhvlwhexkybhy4+qu77NOhn7VQbKyVJspJ9lyqnqeqTMwF7QDiZKZJrb8SJNjQWhCgtlQhi71/iNjUMaChH1ke5YsVgYfFRvSR7KR0ROErWJV3Y6TiA87xiSfxqni7PDmd7VEeu+dJOtDvdluwGOrsLd5x10qR7EES3EmK+6qA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zmlZ7aNxpgn0VjRrI0W6d9MsyiGPJdUvh/G1Mvp2jpk=;
- b=udCjAtckGhk6xtCRuF0hkVrB83LOG1KtnArjDb3NtdtX9sl3mouyY21OzXygn9ipO6QcGAKGZPxfibq/4jb+EvxUowqRbznKUHO8EslxvtOblRMKrFnah+/BAdd14TET3Z1CASE5QxNqDQs8LQ5+njlW6jYtimTYiJWkgaxVEjiR7x80kW8P743iwbvwA7xNrxbbeFLf6XZZjmO1CvnmTE1iucxKlxxfCilvfhhqgiNexuBDy853sym+Xrsj2TxG3h4u0uMhMfWJr5Impdw9zM8PiZA/1Hp8FAIrFSVP7MOZpJAi29IMMJzOtWfi9xoMgUT8gkY9jlmDyBAIbjBBvA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY5PR12MB6549.namprd12.prod.outlook.com (2603:10b6:930:43::6)
- by DS7PR12MB8346.namprd12.prod.outlook.com (2603:10b6:8:e5::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 20:40:15 +0000
-Received: from CY5PR12MB6549.namprd12.prod.outlook.com
- ([fe80::2cdd:a549:db13:202b]) by CY5PR12MB6549.namprd12.prod.outlook.com
- ([fe80::2cdd:a549:db13:202b%4]) with mapi id 15.21.0546.021; Fri, 30 Oct 2026
- 20:40:15 +0000
-Message-ID: <fe4b26ba-9854-4375-8caa-9d1b77f9e745@nvidia.com>
-Date: Fri, 30 Oct 2026 16:40:05 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/12] Rust VFIO PCI support and NVIDIA vGPU driver
-To: dakr@kernel.org, acourbot@nvidia.com, kvm@vger.kernel.org,
- rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.dev,
- linux-pci@vger.kernel.org
-Cc: alex@shazbot.org, jgg@nvidia.com, yishaih@nvidia.com,
- skolothumtho@nvidia.com, kevin.tian@intel.com, airlied@gmail.com,
- simona@ffwll.ch, ojeda@kernel.org, alex.gaynor@gmail.com,
- boqun.feng@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, jhubbard@nvidia.com, ecourtney@nvidia.com,
- cjia@nvidia.com, smitra@nvidia.com, kjaju@nvidia.com, alkumar@nvidia.com,
- ankita@nvidia.com, aniketa@nvidia.com, kwankhede@nvidia.com,
- targupta@nvidia.com, linux-kernel@vger.kernel.org, zhiwang@kernel.org,
- zhiw@nvidia.com, boqun@kernel.org, daniel.almeida@collabora.com,
- tamird@kernel.org, work@onurozkan.dev, jgg@ziepe.ca, bhelgaas@google.com,
- kwilczynski@kernel.org, dri-devel@lists.freedesktop.org, peter@colberg.org
-References: <20261023154009.2246627-1-xinmengs@nvidia.com>
-Content-Language: en-US
-From: Simon Song <xinmengs@nvidia.com>
-In-Reply-To: <20261023154009.2246627-1-xinmengs@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0176.namprd03.prod.outlook.com
- (2603:10b6:a03:338::31) To CY5PR12MB6549.namprd12.prod.outlook.com
- (2603:10b6:930:43::6)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8DB110E8F1;
+	Fri, 30 Oct 2026 20:44:19 +0000 (UTC)
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D7210E8F1
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 20:44:14 +0000 (UTC)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-351788121cfso5077139eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:44:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1793393053; x=1793997853;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:date:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=DSlnmf5Y/dE13YqistFiwJnejRPeyo3JQxaBXnk1KRU=;
+ b=PjCVPXp9r7uolmpTZi8lrWTT8QkI53RPqHPV+zADXxMRV0cCvoioA2sKXI8PLiFJzn
+ c84lHsob6sFo3CXLE1z8u4GZoN+hSmwJGL+nrlf9U2KF34VbdgLxG3p5D1y0dQrlqpJ2
+ XL8TDJHge97UjsN7nyVegqX5tHnA/VTbxSSgpCRlY2wNYXUW8VsRoXa12tGyu6OGMDBM
+ DDl6Ctiwhqtnz89AkfIP3iYvCjBLj/7J2alOd0yYABcSF9+VUBU+87pUxsIdjs4AVSJk
+ R/pi3vVf/G1C4mFflT/Ix4eiakBYq2CMrMCgHfY4CTfnS01U1XdLrMwhAO7CEIuPc6/E
+ TaZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793393053; x=1793997853;
+ h=content-type:cc:to:from:subject:message-id:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=DSlnmf5Y/dE13YqistFiwJnejRPeyo3JQxaBXnk1KRU=;
+ b=y9H8Qq1g3XP3X2Aq+P8ocSVXaL3NnTJBP0HxL4InuH6HPQq6B6aEZoIwRRf1Ht0WQC
+ Nq4i/VjRDU1byYZHC99dUdBRx+TdUkvD5yryo0xgWOfqMjpy3Qbr/WkvhZqwbldlXDj1
+ eUwgQxfBIcV7FU/x2aQTDe2WzPQIDls9uXoiPlBn+fDxO+Vm/4ieqxTvw8YI6DufdmQa
+ zSPtyqOmql8vY+JdWOkgMYIVijV0qA22o+T72tur77yuN9Bq8zwka9b/a5zkFmrHD/xU
+ 8gUSqURwXQ73NtkKB0Ydeb5g1yOZiXUXm4PrBxIgubdLyxDy/hzF10q3FSUGA7zMEsdI
+ jdvg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBytsirGpQcaoZFKlGxBDwTSvUa4Mem4fOqjrIba5BJx63a87g/Fn3t4b5GnfQTOPsZAOaJgzxB6ihM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLftwX5s0dYpo4Ig45B4czNsuI/UxJPerdcwnTDu6CdnW46z4Gi
+ vAJ7iuESTOKDZif7NiSheNzwBG+uWmFfqjvvR/pW62saN6BZH7p1Dkbz8jCuFzge/JX6PQqeBdD
+ 7+4avwFDV4Tm0jqGfoKHSzjA5B5sIUw==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6549:EE_|DS7PR12MB8346:EE_
-X-MS-Office365-Filtering-Correlation-Id: a51e5a4b-3250-4b0f-efbb-08df36c600b5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|23010399003|22082099003|18002099003|56012099006|11063799006|10067099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info: vKwloajxgMDQVTYMd3VGDql/ybHQzJgvGnoF8GS9tYAQyVu8nNgY5HvTXt3tzgW+5zyRvrsgFRzGyq/KhNmg9BZYo8Zb7IED/60QypdKnOG/Xx4paQGvr2+type53dscW+NoZbbsjoovOlLJ+2W0m+BJxdWaDiZMcynvRbLxw3mYp1UQWibAJgzhWlVCzhRqL01f80A6AoZZweQx2qYzuyIyK2/D8+Hwruq/pZQqnEWvH5U387zkqv/JxkApALSz5HoSqNrvdiFctGlkaKAzVctx/h+CQlGyfRZ9NISLT1JcidKg7kYKZLtfB/EKPa8L1GQ+tO5bTYb/uDemyU1qdRJdTsMVW7aD+fomow3SEGj0kjCktWiBDm6FStU9HGjvLreqnFUrUQ1lcIHFdqCAjD8j/dEhqdCqKRt9Xv5XyY1iIko8b0/kFBqcouNkRuHk9ay4PwOvv1zqNxouhWJxF5ERYExZO3DLUZgaQTRlWXQuzkABuBtBjMRsdtspc8LfA648lPJx9HtM4eTpObUNdyM0/RUp/m93y+if6JQHeGUling5/bb+XF6MsayP3CRUErZtCY5nY9l976TtXdFX/QoS3F+N7PjJwoQN42Nqk5HVc9K84eQNxSs3f1rYLrjBi8qQ3XvIRh/9fFJZ6CcUHNjnwH+BVyLWUwGNJYBYqzE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6549.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(261026121527099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0Z3QlJrMFhUQzJ2ZWFuV2k4WTlEZC9Gd212UUh1TFRIYzNDN3RaaEE3MFYz?=
- =?utf-8?B?SVFVOXNsU3RKcm82c0I4NHNPeXlJTnZnbnBONHNSRnJBOVNxaWFDVVR4RHQv?=
- =?utf-8?B?RTgzQnBDQTljYlhGczEydjdzQ2dPbXVRN09ZZ1lPZVpIRTB3K2MyQnNZTjdR?=
- =?utf-8?B?czQ0MjExQVBuYjlzbGVKTFovRmRqb1lzTE5WUlI4VHhoT2tNTEJ1QTFYNm05?=
- =?utf-8?B?OEVCWnVZRzJLM0x1NzVaWWRzWDFuQTN1N28yMWtreTRLR2xRbXp5VFZUTHZx?=
- =?utf-8?B?dlJlV2J0TzdvTVpic040RnphVGZ2K21NOFFCc2d0aURwS2tLRHVTVnhRL3dX?=
- =?utf-8?B?RDhVaHRMUFlIaFBLMFcwNUlaQm15RGdKKzdjM3NQZ3JLS3ZWdFRDVDFHbUR4?=
- =?utf-8?B?WThWK0RhNzh6bHRGVnNuOE80VTd6VnlDV2NVWCtvNTZRR1ZHb3hURkYybXZV?=
- =?utf-8?B?ZFlUQk1MZ2Z5MUJqem5pYzBaelZBWURWYXBzTXIrY2tGVm5GK2RHOUhXUVQv?=
- =?utf-8?B?NTF6eHBIa1NObTBFNVhZdVFod0FwRWFnNGpJUFAyM21EKzhNcEhNLzZmTHlu?=
- =?utf-8?B?SGxmSUdRTnZiOGVpa1VQZVozWmMxdHZuRExVU2dmOGwyYVpOeFUzQjMrUVNJ?=
- =?utf-8?B?WkQxRnJQeS9wYUxTYkpZd3F6NUZ3eUZPVHorWjFqU2h5a1JXbVF1dnpGMUtO?=
- =?utf-8?B?VmFkSy9GWU83ZEtqZHdlTXBjSCs2cDNldUNiaXBkQlNWckhUV2NYc0NVQW9m?=
- =?utf-8?B?aEQzWnliRGxYTWtLV2YwTWZieTZrRXhHMmV1blNQbzhJSTVobU9FTno4Ynpn?=
- =?utf-8?B?R2YxSmt6ZUhjYnhhNld0czM0aGg3VWpHc1ZibzdMODAyck9tZlgrL3JCNy8z?=
- =?utf-8?B?OWNyMWtRR0MyUHI1dmpJSjMrcmgxRjg0RXA4a3o3RE8xRHpYTitxNEY5dGhx?=
- =?utf-8?B?TGlObkVpZ2UxNVhQM3EvYldkUEt6VGx0bkJtVXVsbHFrditkNThYMkVscXJN?=
- =?utf-8?B?WFJnaHlaZjVwUnFQQnN2RUJtcUF2di90TDBScmdpQkd2TjRGZXFhYVgrNUVX?=
- =?utf-8?B?b3g5TDZjY2hxTjIrWUk5TTkxU05ZNnJwREI3d0c1S2xGWEhkTnlURHhvd1BW?=
- =?utf-8?B?T2Q4dS9QOWFvcGRnM1FDTDJqUVlNK3FXN0JnOTRKTk9aa05vc25OTVI1MlEz?=
- =?utf-8?B?bVFqNjlWRE0xM0VNUXZicDIwV2dWbHk4aDRLWjgvTDFiWVQ4aEpSLzNFdlMy?=
- =?utf-8?B?RUlIaVIrVmpHTUdkVUZOMmppcUZETndCcGxkdmh4VzY0WDNrU01pUXUxT3hF?=
- =?utf-8?B?RU5xNXM4dDE5cUpvUnhONEE2TS83ak44MWFSbjgzejNWVGc2dU1KOVpwbmRZ?=
- =?utf-8?B?T2NNWlNsWEwyUmpuNEh1b29JWlNncGxtaHVqVC8zYzZTYm9mdHBZUWJnUUpn?=
- =?utf-8?B?WlNqVG9oWXJkc3FCQ05XZ2pnNXEzakNFblM4dmlVVCtMVGwyQjdocEc5enU2?=
- =?utf-8?B?NEVQa0JEUnFNcmUrblhiOHRHWFhiRGlGdnUweVVBUU5FNnkyclFreFUzbTZj?=
- =?utf-8?B?Z2JwZnhKeVZrS3IyOUNVaDVOZFRnditrTGNQRHplQWNKa3Faa3ZTRWlSeEph?=
- =?utf-8?B?N2VsUW0vZHJVTy82ZHVJK3RUWUROMUh5dHpMTk4wbm5CRjBhS0ltT05ndnIv?=
- =?utf-8?B?RGlwMlBTSVpKUmdUcGtDZ1ViM2lwM2YrWjdnL09XN2hheHR0ZzlPWERYcmhH?=
- =?utf-8?B?eXcvRmNLcXdhRzMwa1VnV0dLanlJOUk2VHVKTHU5clBDR3NOdk84SmRMM1k5?=
- =?utf-8?B?OWhyc3dQVmlITExMcURQS3NhL0JpYTRFanRWZm1rUVpmb3lucjRSUXRuQ0JH?=
- =?utf-8?B?MHVFMTJJdjBwRnBHYjFqSW4xcVI0M0VJQ2JQYlRCQWJPa2lZQzBrWThGdUU5?=
- =?utf-8?B?Sks1cFIwNWpSbS84dUNPMTdydUljQTZsQ0lUajVsSzRVTDBZdGhTTkN2bG9W?=
- =?utf-8?B?WklaT290bW5jQ0FPa1hXaGlFME1IVmJDSDdvbUdlZnoyd2o0NVN6V0RWMTRW?=
- =?utf-8?B?dmg1cldWejZJVVdNOEhSVTRUM1pEUWFNTGFIUmVNdjhZYXNVWEJMSGo0NU5T?=
- =?utf-8?B?QkJrVFRoUlNxT3lhaUExekQyWk8zVG9rWDNpakxNdnRpdVNhYzR6Y3dVdkF1?=
- =?utf-8?B?ZHE5RzBSRTZyMWVpODFZSHphS0NSTFlyM2VQZDhLSUVDVS9mS0dDazN1SHVP?=
- =?utf-8?B?cWxUbk1qQmpIM1MwNU1NWEdINStVTmhsNk5DR1N3dnVJTlhmMTdoNnNLcFpD?=
- =?utf-8?B?Y2Y5TEZNRTBBbXBIQUNLSmZZaklYekJSMVc2VHJONm5JVVZzTHpyZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a51e5a4b-3250-4b0f-efbb-08df36c600b5
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6549.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 20:40:15.5551 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fi+EE1UKU8H1iyAtdNerniF9Xj52GgpNjwLW4Tkuj4/EKseZ10g2ypRg0ntzw25ftAhp5QaObET5S8/5uwPRxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8346
+X-Received: from dyaz18-n1.prod.google.com
+ ([2002:a05:693c:6392:10b0:36a:15cf:f589])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:88cb:20b0:343:9eb1:9940 with SMTP id
+ 5a478bee46e88-36a423e8150mr4993140eec.26.1793393052930; 
+ Fri, 30 Oct 2026 13:44:12 -0700 (PDT)
+Date: Fri, 30 Oct 2026 20:44:12 GMT
+Message-ID: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
+Subject: [PATCH] dma-buf: system_heap: Reject private mappings in
+ system_heap_mmap()
+From: Chris Wiseman <chriswiseman@google.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ "T.J. Mercier" <tjmercier@google.com>, John Stultz <jstultz@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Philipp Stanner <phasta@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,18 +79,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi All,
+When commit 381295758792 ("dma-buf: system_heap: Rework system heap to
+use sgtables instead of pagelists") stopped using heap_helpers.c and
+added a custom system_heap_mmap(), the check rejecting private mappings
+was dropped.
 
-Following up on this series, I will resolve Gary's documentation comment on patch 1 in the next revision.
+Other exporters and buffer allocators reject private or copy-on-write
+mappings in their mmap handlers: cma_heap_mmap() and mmap_udmabuf()
+check that VM_SHARED or VM_MAYSHARE is set, and drm_gem_shmem_mmap()
+and ttm_bo_mmap_obj() reject vma_is_cow_mapping(vma).
 
-Could I get some feedback on the changes in this v2 series?
+However, system_heap_mmap() omits this check and calls remap_pfn_range()
+even when userspace requests MAP_PRIVATE with PROT_WRITE. As a result,
+subsequent CPU writes to a MAP_PRIVATE mapping of a system heap buffer
+fault into do_wp_page() -> wp_page_copy(), silently allocating private
+anonymous copy-on-write pages whose writes never reach the underlying
+system heap buffer pages.
 
-Thanks,
-Simon
+Reject non-shared mappings in system_heap_mmap() with -EINVAL to match
+cma_heap_mmap() and mmap_udmabuf().
+
+Fixes: 381295758792 ("dma-buf: system_heap: Rework system heap to use sgtables instead of pagelists")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+---
+ drivers/dma-buf/heaps/system_heap.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+index 1ef1bb3acbf1..f668dc8cb54a 100644
+--- a/drivers/dma-buf/heaps/system_heap.c
++++ b/drivers/dma-buf/heaps/system_heap.c
+@@ -235,6 +235,9 @@ static int system_heap_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
+ 	pgprot_t prot;
+ 	int i, ret;
+ 
++	if ((vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) == 0)
++		return -EINVAL;
++
+ 	prot = vma->vm_page_prot;
+ 	if (cc_shared_buffer(buffer))
+ 		prot = pgprot_decrypted(prot);
+-- 
+2.56.0.317.g454f8302e1-goog
