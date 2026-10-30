@@ -2,67 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F50606A31D
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 07:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=WwbWQ6mq
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6909606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 07:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BBA110E578;
-	Fri, 30 Oct 2026 07:45:43 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A23F610E578
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 07:45:36 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20261030074534euoutp012bab26e7f352638d2d4299f4c66eb4fe~jPv10ylMx2699226992euoutp01N
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 07:45:34 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20261030074534euoutp012bab26e7f352638d2d4299f4c66eb4fe~jPv10ylMx2699226992euoutp01N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1793346334;
- bh=MGbJXiJFi31yIeTwiAlfmLLlnxlqKdJgzbKeOHsVxXA=;
- h=From:To:Cc:Subject:Date:References:From;
- b=WwbWQ6mqBQvVxMpf3yQqaR6FTOUU3uCOvtekSK+ajogjymL/LjiETl8STwe49QZlL
- OReU6srtrGwcu9JFHmClyypftgdcQfLlVzkzCUhKeIrF7ZyB7Yj1qqLo0EyFPz0FFe
- nsmeuGN6POf25CoSiZlf6uZcQVYUU2tyFA/f3CD4=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20261030074534eucas1p152cccb0576c7a59dc713845077353904~jPv1h4bJu0876108761eucas1p14;
- Fri, 30 Oct 2026 07:45:34 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20261030074533eusmtip1e981b5adbd76f64066708854250e130a~jPv0rz1Ek0978809788eusmtip1V;
- Fri, 30 Oct 2026 07:45:33 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-arm-msm@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
- Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Sam Ravnborg <sam@ravnborg.org>,
- Srinivas Kandagatla <srini@kernel.org>, Vinod Koul <vkoul@kernel.org>, Bjorn
- Andersson <andersson@kernel.org>, Hongyang Zhao
- <hongyang.zhao@thundersoft.com>
-Subject: [PATCH] drm/bridge: lt9611: Don't override ADDR strap when strapped
- low
-Date: Fri, 30 Oct 2026 08:45:17 +0100
-Message-ID: <20261030074518.516993-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C0D710E844;
+	Fri, 30 Oct 2026 07:48:20 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A835410E862
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 07:48:18 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
+ by APP-05 (Coremail) with SMTP id zQCowABn0TusS+RqhTm6DA--.1494S2;
+ Fri, 30 Oct 2026 15:47:57 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH 0/3] drm/bridge: add glue driver for T-Head TH1520 DW MIPI DSI
+Date: Fri, 30 Oct 2026 15:47:48 +0800
+Message-Id: <20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261030074534eucas1p152cccb0576c7a59dc713845077353904
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261030074534eucas1p152cccb0576c7a59dc713845077353904
-X-EPHeader: CA
-X-CMS-RootMailID: 20261030074534eucas1p152cccb0576c7a59dc713845077353904
-References: <CGME20261030074534eucas1p152cccb0576c7a59dc713845077353904@eucas1p1.samsung.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDQAxA0V+RrA1kUsZWf0VcVCfWFHwwsQ8Q/
+ 71jXZ7FvRuYRBWDKtsgyltN5ynB5Rl0w316CGpIBiYuHF0I18F5JgwfHHVRDKbobxR8y9eS+xJ
+ SuETp9fuf1s1pe7VP6dbjBPv+A7nOOaF2AAAA
+X-Change-ID: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ Icneowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>
+X-Mailer: b4 0.15.0
+X-CM-TRANSID: zQCowABn0TusS+RqhTm6DA--.1494S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tryfKw1fKr4rAFW7Gw4rKrg_yoW8Zr4kpa
+ nrGFy3AFykJrs29F9ayF48XFW3Jan5JFWrGrW7Gw1vvan8u3WrXrZFkFZ8WFy8Jrn7ZF42
+ vFWIg347WFnFv3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+ nIWIevJa73UjIFyTuYvjfUUo7KUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,105 +72,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-lt9611_sleep_setup() writes 0x8023 = 0x01, which overrides the ADDR
-strap and moves the chip to I2C address 0x3b, and then configures the
-ADDR pin as an output (0x8157/0x8149). On boards where the pin is
-strapped low (address 0x39, e.g. Thundercomm RUBIK Pi 3) the chip
-becomes unreachable as soon as the bridge is disabled: all further
-register accesses NACK and on resume the bridge fails with "power on
-failed", leaving HDMI dead until reboot.
+T-Head TH1520 contains a DesignWare MIPI DSI host controller paired with
+an internal DesignWare PHY, as a similar design (but with a different
+PHY) with the Rockchip DW MIPI DSI.
 
-Skip the address override and ADDR pin setup when the device sits at
-the low-strap address.
+The functionality to write to the PHY is shared between these two
+implementations of DW MIPI DSI, so it's extracted from the Rockchip
+driver to the common code. (The same sequence could be seen in the
+HiSilicon Kirin DRM driver, but that one hasn't been converted to common
+DW MIPI DSI.)
 
-While touching this driver, also fix the misleading error messages in
-atomic disable path.
+Tested on a Lichee Console 4A (with a Mingjun MJ070BI30IA2 panel) with
+further pending DT patches.
 
-Fixes: 23278bf54afe ("drm/bridge: Introduce LT9611 DSI to HDMI bridge")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+One question remains: I have to copy the extra lane bandwidth headroom
+from the Rockchip driver, otherwise the Mingjun panel cannot keep sync
+to the display signal; from my testing, changing the hardcoded
+PHY_STOP_WAIT_TIME from 0x20 to 0x2 (which is written by the vendor
+driver) can also make this panel to work w/o the extra headroom. I want
+some advice on whether to keep the extra headroom or changing the common
+code to make the PHY_STOP_WAIT_TIME parameter adjustable.
+
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
-The issue was analyzed and the patch was prepared with LLM assistance.
-The fix was tested on the real Thundercomm RubikPi3 board - the HDMI
-display now comes back after system suspend/resume cycle.
+Icenowy Zheng (3):
+      dt-bindings: display: bridge: document TH1520 MIPI DSI controller
+      drm/bridge: dw-mipi-dsi: add PHY write function
+      drm/bridge: add TH1520 DesignWare MIPI DSI host controller
 
-Best regards
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+ .../display/bridge/thead,th1520-dw-mipi-dsi.yaml   | 102 ++++
+ drivers/gpu/drm/bridge/Kconfig                     |  10 +
+ drivers/gpu/drm/bridge/Makefile                    |   1 +
+ drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c      |  21 +
+ drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c        | 530 +++++++++++++++++++++
+ drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c    |  86 ++--
+ include/drm/bridge/dw_mipi_dsi.h                   |   3 +
+ 7 files changed, 700 insertions(+), 53 deletions(-)
 ---
- drivers/gpu/drm/bridge/lontium-lt9611.c | 24 +++++++++++++++++++++---
- 1 file changed, 21 insertions(+), 3 deletions(-)
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261030-th1520-dw-mipi-dsi-580d5b2792f9
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
-index 2d1a28261037..9e4f45d9f6d3 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
-@@ -35,6 +35,9 @@
- 
- #define LT9611_4LANES	0
- 
-+/* I2C address with the ADDR pin strapped low */
-+#define LT9611_ADDR_LOW	0x39
-+
- struct lt9611 {
- 	struct device *dev;
- 	struct drm_bridge bridge;
-@@ -440,10 +443,13 @@ static void lt9611_sleep_setup(struct lt9611 *lt9611)
- {
- 	const struct reg_sequence sleep_setup[] = {
- 		{ 0x8024, 0x76 },
-+	};
-+	const struct reg_sequence addr_pin_setup[] = {
- 		{ 0x8023, 0x01 },
- 		{ 0x8157, 0x03 }, /* set addr pin as output */
- 		{ 0x8149, 0x0b },
--
-+	};
-+	const struct reg_sequence power_down[] = {
- 		{ 0x8102, 0x48 }, /* MIPI Rx power down */
- 		{ 0x8123, 0x80 },
- 		{ 0x8130, 0x00 },
-@@ -452,6 +458,18 @@ static void lt9611_sleep_setup(struct lt9611 *lt9611)
- 
- 	regmap_multi_reg_write(lt9611->regmap,
- 			       sleep_setup, ARRAY_SIZE(sleep_setup));
-+
-+	/*
-+	 * The ADDR pin selects the I2C address and addr_pin_setup overrides
-+	 * it to high (0x8023 bit 0), which moves a chip strapped low over
-+	 * to 0x3b and makes it unreachable. Skip it in that case.
-+	 */
-+	if (lt9611->client->addr != LT9611_ADDR_LOW)
-+		regmap_multi_reg_write(lt9611->regmap, addr_pin_setup,
-+				       ARRAY_SIZE(addr_pin_setup));
-+
-+	regmap_multi_reg_write(lt9611->regmap,
-+			       power_down, ARRAY_SIZE(power_down));
- 	lt9611->sleep = true;
- }
- 
-@@ -712,12 +730,12 @@ static void lt9611_bridge_atomic_disable(struct drm_bridge *bridge,
- 	/* Disable HDMI output */
- 	ret = regmap_write(lt9611->regmap, 0x8130, 0x6a);
- 	if (ret) {
--		dev_err(lt9611->dev, "video on failed\n");
-+		dev_err(lt9611->dev, "video off failed\n");
- 		return;
- 	}
- 
- 	if (lt9611_power_off(lt9611)) {
--		dev_err(lt9611->dev, "power on failed\n");
-+		dev_err(lt9611->dev, "power off failed\n");
- 		return;
- 	}
- }
--- 
-2.43.0
+Best regards,
+--  
+Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
