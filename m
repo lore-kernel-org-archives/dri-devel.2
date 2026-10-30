@@ -2,62 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C0F606A31F
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 18:32:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B38C606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 19:20:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=V4IqbMPt
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RlvhKzhb;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XgukLkMM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AB7410E71B;
-	Fri, 30 Oct 2026 18:31:58 +0000 (UTC)
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC1F10E71B
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 18:31:51 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 88D8D40E02B7; 
- Fri, 30 Oct 2026 18:31:49 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
- header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id fAISku3nizOb; Fri, 30 Oct 2026 18:31:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
- t=1793385106; bh=Pd4x6KX1MFlbuq4ED0KDljLa80KATn4gc4wWHX5+2d4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V4IqbMPt5+CJfLUEljqZ3/X9PwSKu+UW+l4hb9rDS7XlfiGavm1XLwtApelIy3wLu
- 0Lj0ZWrFqY+SleXYGaqkqSMrCYaK13hdQHEw5jao0Pqp8JC66p9aNC6yLVimFlO90S
- uoS/Egnu2Reooyp6zek21i+wEQYPQCCsKYFSh5a3YkQ8Gg82fzdaofMb0h0xHbAJxp
- oQ80pYzMBAD9bS6+wBZCV8XEP+9A9ABEGEiXmPp8EWEFuuarSICdVl2+cEoMF31nfE
- FaKB6JaSE772qou3SZBYnZJQG9oB8/xpdINd8Frmt0z3IsX8htM2c/+D+U5r20CJzs
- DhHEYBXab90Nvz+cSB9QA2yThsknJCJWlW4xPzhjy7rOISVC7RyEGkcrXeP45Uy+P9
- 4DLTbJ3wO5TUBEzBNPBhYRtSpp/oFiiRcD9tFDqA5BsWXIZ9PAcyoNNERbKIxz90F0
- 2TgqhXBCAfUkJHrx7CHIo90G2dhDYrqlPXRYUAYLQnOGQRdPI/El09nUIaND62WyLH
- 4qH7/uJZuF+Hn1CFdbNtz5SJRD2AZD20DzvNedZg0CRrOJEZK7F7jfFz0NJ1LI4mLt
- PoR+3ml7GXsN7THAuZc6z7ldVQNm21gAyeKOqqLlbmNkfCs4XlKqjd/QvUq4Ga51xQ
- BfmOBwsg2Gq1Z4NnMNYfrI7s=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D2DD140E029C;
- Fri, 30 Oct 2026 18:31:37 +0000 (UTC)
-Date: Fri, 30 Oct 2026 11:31:35 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: tzimmermann@suse.de, x86@kernel.org, mario.limonciello@amd.com,
- aaron.ma@canonical.com, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] x86/video: Preserve the default VGA fallback for legacy
- modes
-Message-ID: <20261030183135.GCauTih7l-cCDO96dz@fat_crate.local>
-References: <20261029162311.3389523-1-hengyul@cs.unc.edu>
- <4379fd92-ac4f-45c2-9f4a-eaabe4b7f981@suse.de>
- <20261030092422.300856-1-hengyul@cs.unc.edu>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7771510E174;
+	Fri, 30 Oct 2026 19:20:30 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB5210E25C
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 19:20:18 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69UIjGZs3059911
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 19:20:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHG
+ hNRMzRi8=; b=RlvhKzhbEf56zUtPosl2dI9UbSsdN7a8c4KbdUEHwlVuOGnDpuj
+ Rpr4UoXTo2YZNUQUEQZDBpN1IphR6XgCfxie45mT7eb4iVsU5jKlkEx/4UGkJ3kz
+ +CZvIAgFGfUfZT5D/WMby9HVqnlLapKvITGCm3iGgyM5nAO5cycQKDDpvnyM/9u5
+ 88bdXuDzfpNPNLx0meOgusEVC3WAA9b2GTamzoiVRex4eJwg09gccg9+dNRDewq/
+ OO7cs6b8LeT/mXTdSEc9I/+K8C8SxnLUcZqGpHRPq5op2o1ZK44XWGji6L4xzh+8
+ pvTEJsJI2SatK3iB8CETxLU8NturAJuYb5g==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com
+ [74.125.224.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn0sxg3hx-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 19:20:17 +0000 (GMT)
+Received: by mail-yx1-f69.google.com with SMTP id
+ 956f58d0204a3-6790b1d3bc9so1763884d50.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 12:20:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793388017; x=1793992817;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHGhNRMzRi8=;
+ b=XgukLkMMxDLFKvwbFmRf5ZzjvizUEIZT31reoHIyGIChQA20G0I+KruPJQRMZArH3h
+ DynLJ0X0aJ3Ws/ziAhOqJaxs1TWl61fqZeVfwEUaAg832bx+8LzmkrOz2fp56Ty63SuE
+ W5bd/gfe7sF6WDhJ4jLkq79FP3NyXpeqwyYYDMk2x2qWvtvf56hFf7wiSQsjCyCOdewG
+ CaRQvDz14n/QjvXu/8ZwXDrRDQ0J71tsSzsTlCtrs1r9eY906MNbXIIqeKhKn6HnFw/n
+ iQnMbjuj7+GLHnbKRkQ+KOSwnaf9Vclx90/ZQkhU6Z4twCgh8bGb7eslTNcSyNqrl7j/
+ Jttg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793388017; x=1793992817;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=/ShQl6WYAmClLLFczEcBV6XknRwLtOiivHGhNRMzRi8=;
+ b=JngsMH3S6ZyQtvZsocUzKokkBpdfIJxHOWKamzI1MdBh9E8aFw1csdU53HVr8y6+az
+ 90s1Ev6f0eBDLxIV2cmecwXcLOe8NLsQFtQFB7xi2sr2AlDU0xh+x+39M7X/fsjHRcW1
+ 4v91OAGLxHoSs9LJCamZ2Ny9pBQqDkxnXjdVfn12o3s5rRWbXumwWD8AOvbHAHboCVKY
+ Su2jGcSJwvIwbpvhAMuDE+sppptS2tf2HWvCewvyYrt5DV62dm29QPRQ/zKk1E3NPvQF
+ 0mC5Zl6uYA6yUZ3PU7S3eF3+h/hAeZxSoW/FJinSq4pRx1dUeUCPWzh+TigoK+hzeLQq
+ nYLw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBw1iDkhh647KGHHXK4lK/jRqFMKpVfWscOmMi+9Qvo3SAk4PRa5ATTMz2eYL0MejiVVP3GwAjoPvbg=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK55NkkfoCBCQlow8Xx968pyW2UYKwJLrGVeQaYYk41Rg8PMXYJ
+ DTzrXmkF5GLgyH5FiSZhcJVWjEdQKYxM/hiC/Hd4tH+i6FbsyIeyj8ZXKB9nUtCAJZKPREXIrYC
+ dM0ccFJFRxr5orIYst0twHqNtJ5C7lDflBDUmgEwpQ1HwrI5LIhirrndfWyf0/StyivbyZ+0=
+X-Gm-Gg: AYBFou2RywtH1m5TdT4L2DMElvzuXoJ0z8wujkS6X6SkM2WnSFE1ZtRzMzRq4eVn4PE
+ 8rcyNzH5wCjEIZiMat6Tf/0+0+qgyVrkliqp/tS9+EZEVG6iez/yoke0eWZ2YODH7doNJCPpvcl
+ z8w9x8SdxZ8N4hVj6kmaTZ06xrLmWmyUEVVgJ4oxSsV+6HusffR7IbZ00ATy+LMkgi3/Ro3Lbdd
+ NYNQLP8StpoDYLB/NhoHYKxdF4A76raPZHljHQP4VqlpW3DFQdjot+uS1qbTfeMfDMo1IqsuC2d
+ LLgdtSoW9jjdVUIH64ZlPQ9anEAvteZZIBWSzSbN/K0/RvB5lACR5fIE6GTPmyWNdid6rptCgre
+ GqHi1jff0gOBJAHX50QSany1tldw63DtstbX5rkiaNBBdOG7MMtoykXi5UaWDjq10d5QETRipam
+ WWaVd7F90O1QifcJAyPSih6qfhM41UJaLe5w==
+X-Received: by 2002:a05:690e:4141:b0:674:e0d2:7e12 with SMTP id
+ 956f58d0204a3-67ba508d010mr2233316d50.109.1793388016794; 
+ Fri, 30 Oct 2026 12:20:16 -0700 (PDT)
+X-Received: by 2002:a05:690e:4141:b0:674:e0d2:7e12 with SMTP id
+ 956f58d0204a3-67ba508d010mr2233286d50.109.1793388016327; 
+ Fri, 30 Oct 2026 12:20:16 -0700 (PDT)
+Received: from x2e.lan (108-208-224-205.lightspeed.gnbonc.sbcglobal.net.
+ [108.208.224.205]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-8b2b719d2d5sm13185767b3.40.2026.10.30.12.20.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2026 12:20:15 -0700 (PDT)
+From: Tyler Baker <tyler.baker@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm/a6xx: fall back to MX when gmxc.lvl has no levels
+Date: Fri, 30 Oct 2026 15:20:14 -0400
+Message-ID: <20261030192014.694393-1-tyler.baker@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030092422.300856-1-hengyul@cs.unc.edu>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA3NyBTYWx0ZWRfX5O3Nz+xcJ2Vt
+ EYLkDKcIqbN+Hgjky2HZwo0lhKDi/uwAGxLFtMc2wmulGFrIdAkLpRtSY+5V2tnsi0QsgcIkvBJ
+ l2UCPLm/elonr9YHvUCZtLT/Hzzqo6exc9UVAtEt/F1jhi3iDa1KD1iTwsBSqu1CiREGcg+T9PG
+ r/HB70mXUREfeQrq+Ty5ykvjrfo2Nw6f/qUG1OYGXqOWKdOkRGJN70BbcgFOOlH1avDjEWqOOcR
+ ukYSMvcwrgVpyfm55PyBlmONmqCp1e+S8zYrM56soGLXv6RrSe9rHP0giNGFBRM/CjfoHXG+1n0
+ tbDJ+lYkELQmhciCgt7NCLhnbwn2mh9Zht0DLqsVxHIvPZYaQLzlPKuVs4BM+di+ZfUPQo9mUWb
+ /+u0feoIg19T50S+3BNt5ToNvVUGtgEFzZC6bG4PZSYsQmaG7R32b2LlzUQfus7y1yX5LQ+PE9D
+ lP245uhPxuypH08wb5w==
+X-Proofpoint-ORIG-GUID: cciQiq3Hpu58e8ULAZ0IJIXrRxDZVyzh
+X-Proofpoint-GUID: cciQiq3Hpu58e8ULAZ0IJIXrRxDZVyzh
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA3NyBTYWx0ZWRfX1PGXVnVeWrxz
+ Cej/7qKnYUkuak1puwAEF6gHMrc95s19c+E2qsAu/cSrokpHpGv0h0pWaAULJiuJ+9LYkhc51fe
+ lcEGIoHOg47d23/lGNfhc5aGQXVMPQ0=
+X-Authority-Analysis: v=2.4 cv=ap0nmiZV c=1 sm=1 tr=0 ts=6ae4edf1 cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=PFxtTy0squD/fJwW5Be2sw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=0bFHTkV68l4dVm3UfdEA:9 a=Epx66wHExT0cjJnnR-oj:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_06,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1011 malwarescore=0 bulkscore=0 impostorscore=0
+ lowpriorityscore=0 priorityscore=1501 spamscore=0 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300077
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,36 +137,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 30, 2026 at 05:24:21AM -0400, Hengyu Liang wrote:
-> > Further below in that code is a call to pci_find_resource(). [1]  Why
-> > does it match with vkms?  Vkms is not even on a PCI device.
-> 
-> It doesn't match vkms. As you say, vkms isn't a PCI device, so
-> video_is_primary_device() returns false for it at the dev_is_pci() check.
-> 
-> The problem is on the bochs side. In text mode, screen_info_resources()
-> returns the legacy VGA ranges, pci_find_resource() doesn't find them in
-> the BARs, and the function returns false there as well. So no device is
-> primary, and fbcon stays on the first registered framebuffer. In this
-> setup that is vkms (fb0), so the console is never remapped to bochs (fb1).
-> 
-> vkms only makes the console part visible. Without vkms, tty1 has the same
-> size with and without the patch, but boot_display is still missing without
-> it.
+Eliza's command DB has a gmxc.lvl entry with an all-zero level table,
+though Eliza does not use a GMxC rail. a6xx_gmu_rpmh_votes_init() picks
+any gmxc.lvl entry as the GX secondary rail, so building the GX votes
+fails, a6xx_gmu_init() ignores the error and the GMU gets a zeroed GX
+vote table. On the A722 the first GX_BW_PERF_VOTE HFI then times out
+and the GPU stops responding. Before a6xx_gmu_rpmh_read_arc() began
+trimming trailing zero levels, every GX vote silently used level 0.
 
-Please update your commit message with this clarification.
+Read gmxc.lvl with a6xx_gmu_rpmh_read_arc(), which rejects an entry
+without levels, so the GX votes fall back to mx.lvl.
 
-Thx.
+Fixes: b5269bf0e1ad ("drm/msm/a6xx: Factor out RPMh arc-vote helpers")
+Signed-off-by: Tyler Baker <tyler.baker@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 662f09bec9d52..c42e0d4fb946d 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1887,15 +1887,16 @@ static int a6xx_gmu_rpmh_votes_init(struct a6xx_gmu *gmu)
+ 	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
+ 	const struct a6xx_info *info = adreno_gpu->info->a6xx;
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
++	size_t gmxc_lvl_count;
+ 	const char *sec_id;
+ 	const u16 *gmxc;
+ 	int ret;
+ 
+-	gmxc = cmd_db_read_aux_data("gmxc.lvl", NULL);
++	gmxc = a6xx_gmu_rpmh_read_arc("gmxc.lvl", &gmxc_lvl_count);
+ 	if (gmxc == ERR_PTR(-EPROBE_DEFER))
+ 		return -EPROBE_DEFER;
+ 
+-	/* If GMxC is present, prefer that as secondary rail for GX votes */
++	/* If GMxC has levels, prefer it as the secondary rail for GX votes */
+ 	sec_id = IS_ERR_OR_NULL(gmxc) ? "mx.lvl" : "gmxc.lvl";
+ 
+ 	/* Build the GX votes */
 -- 
-Regards/Gruss,
-    Boris.
+2.47.3
 
-https://people.kernel.org/tglx/notes-about-netiquette
