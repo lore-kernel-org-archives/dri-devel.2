@@ -2,53 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A209606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD26A606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T/HES7Fk
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z8mFDHE/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA7B1128B2;
-	Fri, 30 Oct 2026 15:15:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BF6D1128A7;
+	Fri, 30 Oct 2026 15:15:48 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED16B10E58D
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:15:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D39C11288C
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:15:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 55EE46025A;
- Fri, 30 Oct 2026 15:15:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80CC61F000C1;
- Fri, 30 Oct 2026 15:15:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D531D602CC;
+ Fri, 30 Oct 2026 15:15:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112531F0093A;
+ Fri, 30 Oct 2026 15:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793373306;
- bh=VC6Ubx2Z4OeuToc4z7H41lWwx7+ZCeULXWrvV7SNq9g=;
+ s=k20260515; t=1793373331;
+ bh=S8UiPcqQkHi6xVS+in3jZE5Rm7CqkpJsXtihlQt8oF0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=T/HES7Fk2Fxfh42of4YVOE3dOnWNds4bGUBkOQ8C8H8AV/+cYay+YHdv8SbRX6S+c
- mW/qsjszckQOxBJ47ngpd/4dn3KfRP47CMR4th66/s3lYn67u2WzzqHhUbYpg+1EY9
- aM33Hc3sAakLKryRf9dmzrXOEeOPScF3SusNTXqaC2feqip03HpFGL3j8YEzSrhvQ2
- TbkvMN6sOKVBVaJnEdNMGMNaQ0cK2CrRXJcmuQrPtrDQ0vwt7bo7s7Ck0kOwKmrTrg
- BGtl4Wp6PIh9m/8TwrA9DTIpw1TotiIAegLZYKT03MTsdQJ8KSs9v8ea4bRCWDurNB
- IvhWO9/OaAaZg==
+ b=Z8mFDHE/9BRhItfU5gT1EqXIUER9/2PJzjgA/9N9RnMKAeCgoAMr1ndTndPAD7O9C
+ 1PT7D/Jq1yH9h/oU2W1WZds6zG0+kDmfPBRkcv03+iSvbMBDQ0yY2AP9yK/+mDFFAL
+ D3d76s7QPLQX/Li8yrEYvpTUCxu3DCDR0kTrCPvsspU7475/NdsWxFhKnfJbVDWbsy
+ 1H3W9+vYPUOwhzOwTtfcPIERoEcIyvO0KmNZdMTekTimh55oBpnZqXv/cd+8x2OLN9
+ O3sBsvBGnuVSqqMvnrEV8jvPeCEzkxcNxc7Ahz6RrTXeiOGLu9/sDtCDJKFXiBiSnq
+ duQAZg3xE0hGw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 16:13:50 +0100
-Subject: [PATCH v3 20/37] drm/tests: Switch to
- drm_atomic_helper_connector_create_state
+Date: Fri, 30 Oct 2026 16:13:57 +0100
+Subject: [PATCH v3 27/37] drm/meson: Convert to atomic_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-no-more-connector-reset-v3-20-30e71d92c327@kernel.org>
+Message-Id: <20261030-drm-no-more-connector-reset-v3-27-30e71d92c327@kernel.org>
 References: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 In-Reply-To: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-amlogic@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3731; i=mripard@kernel.org;
- h=from:subject:message-id; bh=pZijsfE/ijrigKtK0Mj5UtabEIxo4Hd8uaJ4sqhlkHY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtqideR9enxO5Z8F9YfNdSz9bM9kWHjKKfKutfW6RV
- M2/sDV5HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiD1YzNkz+2+5Ut+vMX23V
- i9NPW3dY9/eLTV4x9/Z2XefYhDROQ76WiQoTTuq9C2dZ9MpENM/wCGPDRs00tVuP+dxKpmR+6Nr
- blnJDsSqlfOncKxuLfrcvUhI86iNmOD9U8emJU8fCuc89flUEAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1592; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=lLWvU5PeY16j7uLhvTnNxShHdF9JrvsjFJ+4rAws3vk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtmiWbry+f+p9sQdbsxMaGJquBrvIHtFa/f3gol3xx
+ krez7dwdUxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJXLjCWO+z1UlOLayTIdz1
+ 7YtkdyHWq2fOFD9IrJvjuHiddQ370g+dp49pz73zSUXEcU+VyMX/fxir2RZNVL057UcOx8RGJeW
+ Lr8QupLE2LApdMW9/+u9iXxnz6dYbd3CWyJ25N4VbaN71H7uYAQ==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,80 +71,46 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The tests connector implementation uses the deprecated
-drm_atomic_helper_connector_reset() as its reset hook.
+The meson HDMI encoder calls drm_atomic_helper_connector_reset()
+during connector creation to allocate an initial connector state
+needed by drm_connector_attach_max_bpc_property(). However, the
+driver only needs to allocate a pristine state, which is exactly
+what atomic_create_state provides.
 
-Switch to drm_atomic_helper_connector_create_state() instead.
+Convert to drm_atomic_helper_connector_create_state() with proper
+error handling.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tests/drm_atomic_commit_test.c | 2 +-
- drivers/gpu/drm/tests/drm_atomic_test.c        | 2 +-
- drivers/gpu/drm/tests/drm_connector_test.c     | 4 ++--
- drivers/gpu/drm/tests/drm_probe_helper_test.c  | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+Cc: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Kevin Hilman <khilman@baylibre.com>
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-amlogic@lists.infradead.org
+---
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_atomic_commit_test.c b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-index ff69bade19b8..6ccb001f6264 100644
---- a/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-+++ b/drivers/gpu/drm/tests/drm_atomic_commit_test.c
-@@ -52,7 +52,7 @@ static const struct drm_encoder_helper_funcs drm_atomic_test_encoder_funcs = {
+diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+index c4355c5cc340..eab2e969d791 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+@@ -449,5 +449,15 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+ 	 * connector to have a state.
+ 	 */
+-	drm_atomic_helper_connector_reset(meson_encoder_hdmi->connector);
++	if (!meson_encoder_hdmi->connector->state) {
++		struct drm_connector_state *conn_state;
++
++		conn_state = drm_atomic_helper_connector_create_state(meson_encoder_hdmi->connector);
++		if (IS_ERR(conn_state)) {
++			ret = PTR_ERR(conn_state);
++			goto err_put_node;
++		}
++
++		meson_encoder_hdmi->connector->state = conn_state;
++	}
  
- static const struct drm_connector_funcs dummy_connector_funcs = {
-+	.atomic_create_state	= drm_atomic_helper_connector_create_state,
- 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
--	.reset			= drm_atomic_helper_connector_reset,
- };
- 
-diff --git a/drivers/gpu/drm/tests/drm_atomic_test.c b/drivers/gpu/drm/tests/drm_atomic_test.c
-index ea91bec6569e..541a0062f143 100644
---- a/drivers/gpu/drm/tests/drm_atomic_test.c
-+++ b/drivers/gpu/drm/tests/drm_atomic_test.c
-@@ -24,7 +24,7 @@ static const struct drm_connector_helper_funcs drm_atomic_init_connector_helper_
- 
- static const struct drm_connector_funcs drm_atomic_init_connector_funcs = {
-+	.atomic_create_state	= drm_atomic_helper_connector_create_state,
- 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
--	.reset			= drm_atomic_helper_connector_reset,
- };
- 
-diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
-index 3368aedd4e66..2856294bafda 100644
---- a/drivers/gpu/drm/tests/drm_connector_test.c
-+++ b/drivers/gpu/drm/tests/drm_connector_test.c
-@@ -49,7 +49,7 @@ static const struct drm_connector_hdmi_funcs dummy_hdmi_funcs = {
- 
- static const struct drm_connector_funcs dummy_funcs = {
-+	.atomic_create_state	= drm_atomic_helper_connector_create_state,
- 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
--	.reset			= drm_atomic_helper_connector_reset,
- };
- 
-@@ -203,7 +203,7 @@ static struct kunit_suite drmm_connector_init_test_suite = {
- 
- static const struct drm_connector_funcs dummy_dynamic_init_funcs = {
-+	.atomic_create_state	= drm_atomic_helper_connector_create_state,
- 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
--	.reset			= drm_atomic_helper_connector_reset,
- 	.destroy		= drm_connector_cleanup,
- };
-diff --git a/drivers/gpu/drm/tests/drm_probe_helper_test.c b/drivers/gpu/drm/tests/drm_probe_helper_test.c
-index db0e4f5df275..ebc0392585e7 100644
---- a/drivers/gpu/drm/tests/drm_probe_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_probe_helper_test.c
-@@ -26,7 +26,7 @@ static const struct drm_connector_helper_funcs drm_probe_helper_connector_helper
- 
- static const struct drm_connector_funcs drm_probe_helper_connector_funcs = {
-+	.atomic_create_state	= drm_atomic_helper_connector_create_state,
- 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
- 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
--	.reset			= drm_atomic_helper_connector_reset,
- };
- 
+ 	if (meson_vpu_is_compatible(priv, VPU_COMPATIBLE_GXL) ||
 
 -- 
 2.55.0
