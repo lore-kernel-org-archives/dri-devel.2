@@ -2,43 +2,141 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1526F606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 13:45:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F03606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 13:45:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hOb6zsoE
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=maEvt2lI;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BjZLeOUw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BDCA10E48B;
-	Fri, 30 Oct 2026 13:45:29 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 303F210E48B
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:45:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E147E40163;
- Fri, 30 Oct 2026 13:45:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82031F000C1;
- Fri, 30 Oct 2026 13:45:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793367922;
- bh=09y08Q9Y9BZQ0nkW0NvhxbsfTMAxo13TTiEHuW6Ap9w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hOb6zsoEGeIZfNBpS4cWncR+YztnqY6KdOglpqxI0/EWb9HloaE0jhwqHm+JVapAq
- 6y788ic1wCEooO5DG7XcZOoW5vmJqvhQlqVXjgrGO2sQidj5Iv5UamC0IAMDj/yPGK
- 3YVHDyTKJF4XtlAc7Sfd2I62WYpY+8dXBOiNaLMdIw6CGYwz0E0Eyrhkms7ahYH3UN
- N61IRhLJUM4FLzH1TcsyCtmhWIWDchKdd0jVwH3RPhi2VjRvj4bchK8Oybkv+Jv839
- SwcILZklOcxkpk57pUXXIwpKzlDwcM+IizB9a/nPDMeopQRvsBjOMnBik8V3chWjUX
- 01UmHMtxsYjZw==
-Message-ID: <sashiko-outbox-191080@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 3/3] drm/verisilicon: stop to reuse
- atomic_disable for invisible planes
-To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261030133233.197189-4-zhengxingda@iscas.ac.cn>
-References: <20261030133233.197189-1-zhengxingda@iscas.ac.cn>
- <20261030133233.197189-4-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 13:45:22 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBDA6112822;
+	Fri, 30 Oct 2026 13:45:45 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 080E7112824
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:45:35 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69UBGJIM1527711
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:45:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Z7RefKSkci+uXJgzjfw4jQaFdMnrtYZxZse0l14l6vk=; b=maEvt2lI8k4WY84L
+ 2oduaH3eiBaN1PC8OirEJ8hnzMjqnOyAuNt+MLUTGW98VT5Z67r1tGFybH85QFO9
+ ALwXULMC3HpNpDZ02BRx2IHct13LbBeq/C1526AP7zf1fX+cjmmziAOYZIHxuuwX
+ ImJAG0dApv5lzacusWc5COfnRIzX4mh/pllhp87To4Qsib6jBHuTnPX/Kc2h1Wzn
+ Lvm1azLIYh4tm3+oG8L5GaaZgT8yCDJvDw4nkAlJfI6PZbKflo+PkUuIH4v01QF5
+ H0jp+1zXjSinDYbqQ/z/4Mnzv4jwN1ewQKZ5k8jRAdWvr/gBjUPR0ZBwOiqc/9Vt
+ R3oVfA==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
+ [209.85.217.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6pka0c-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:45:34 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id
+ ada2fe7eead31-7c100f6f8ffso22032137.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 06:45:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793367933; x=1793972733;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Z7RefKSkci+uXJgzjfw4jQaFdMnrtYZxZse0l14l6vk=;
+ b=BjZLeOUwUtmda+SevT8yaYvoUdTCigLPt8i3S/6rpfphkxJhhOGtmDcsmLEFjBMGqE
+ y7YchQH6gkwQg+sQfyulEmZ0thnJ3Fdh0jI4anzoWSDxhpwqsAePjtKNfTgScXV1RS5d
+ sGVJZqMEy+dp5Yj3XkJaddP/cscuuP3btfPfZsWwC1HDWxIYSDl9afIc5HilROV0m2Ay
+ 76myhbR1wgJcIXylSL/DXBkX3C8N8vPRevDIrLCMcu0oFzYPbKp8MzKiLmQjNSziUDhM
+ pUovQJhdJOUfNs5xPt2wt2RV/N/g25l5J8/koceD5aBXdbe1yWLb4gnHKwTazIJPFHHb
+ c9Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793367933; x=1793972733;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Z7RefKSkci+uXJgzjfw4jQaFdMnrtYZxZse0l14l6vk=;
+ b=0Mc2ksgjFX6Jpb3gchiI/eBYt9xW+R6DgJRaDWJTwlqopcyG9GaLmYuca9yWLFWxdJ
+ kBDo/Dl/gAgI6LkoDZEYOJp7GyWt3YjbECjcg2xHe8QMwnzWSQ8Y7utCFjqxi6jBwadf
+ Yx6L/N6NQGB6Qs7vFvv8uMS7LXcucUm6t4V+WgXHdoI/QDN2tAWcWvpsvJMdE0oZxpRW
+ XWoM9Xu4IcbWqRaigPBgCZ0lrBTWlYFGbjPxHkQ7ifg3xYBtJJqlcyfvOnoMo6GbojTM
+ LNJkt5G2tSgWSKc0XczO2AqkD7Q8n3J9IU9/ruTB3VxmfCxUcXUkQdzJ7/RhfsxrOBdJ
+ 96ag==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwLJqSq0amef8mnafuDO9tJT0GtPxwqGq3Fyf5pQFRfb1y6yusfwdft3AXI55ssSUb4v4ImmN+3om8=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJ6MZEoX9bj57S7o2/S5E4nSATVakS2aW0KSDRKrqDOuw2VgjGq
+ BtgcyCIuDZu3NyODoWlmBY46pdpELvc9xjubO4FD+oBnNmjjAWvNT1+OsGoHSoUseRbP+xrcM/Z
+ n8seJ1GSrm+5y4OEsbEZHVIVQLpVo/jZAZgH1ceUFllKECdzVUVxgobK9+CemTL+mmfhZO2w=
+X-Gm-Gg: AYBFou11lrBVZjjgniPysxnZ9cH9MBLg4Qo/lgVOOPCTsPEjoSpaHK2ypAinNHWPXiJ
+ vGMEwJ2vW4NCZUkUQpam21jzegJOtkd1tDYTyIGPs1VnEeXPRspWwA/6QD4bDii7sugI+YXUtJB
+ NBjZSCzibxGwUeNedc9ecSblrpsxUqe2uZ7uk1Pyuvckq4km/NW45m89HurbHW9Xz2yuu//M0q4
+ hqc575nvlyTZhnxkkWTGQqc3g3ycKHI5ekQcsN/YTaX+XifZrG3/nsXN/yj2FffPJbgFxWevb2E
+ XMwVwgt2TaelLMekgIjQ8e1DFDskEXo+UO0vTGz3Qlcq/xvO0MWRujTIUA/ldUqHyzuT3vxMWgx
+ MigOXvt2hi7Ik97W5FlqOY+hJwC34t7/3CXMof+9th5S9lhrreRLG7GKNBO6cKeHfyIokTLA5
+X-Received: by 2002:a05:6102:3570:b0:7c3:83a9:edb2 with SMTP id
+ ada2fe7eead31-7d072756011mr1169898137.1.1793367932857; 
+ Fri, 30 Oct 2026 06:45:32 -0700 (PDT)
+X-Received: by 2002:a05:6102:3570:b0:7c3:83a9:edb2 with SMTP id
+ ada2fe7eead31-7d072756011mr1169877137.1.1793367932304; 
+ Fri, 30 Oct 2026 06:45:32 -0700 (PDT)
+Received: from [192.168.226.248] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c4cabe4a9a1sm66267166b.58.2026.10.30.06.45.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 30 Oct 2026 06:45:31 -0700 (PDT)
+Message-ID: <842cc3c7-996e-4628-b5ec-736eeaab2e3b@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 14:45:28 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 08/16] drm/msm/adreno: Fix PROTECT span length
+To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Alexander Koskovich <akoskovich@pm.me>,
+ Jie Zhang <jie.zhang@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261029201730.151754-1-robin.clark@oss.qualcomm.com>
+ <20261029201730.151754-9-robin.clark@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261029201730.151754-9-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfXykFjuM9lvTeG
+ eCbwP+uC5eLNST1Ezf0QND6Ug3iBacFr56+AVs4ImmA6sfy0BIwnKjqyhiqyihvE3/kz8FlcwK9
+ Q2Q5frq83liGIGsRpO259eZzGQ5E6BxDzqBAdfeVeAbhTTr5IMeYU5QwV3C0Uvocts5Kmd5QJwf
+ M9iGoXE3Q1Ts5YbL9d5Ort5aOavnC+fzIohXzTiJJ0WAmJWPLAPj6fK6AtgvSS9lYIJmmZTIVxP
+ zrm6RGzd7bOoEUWii74Zfdkj6rSXW72aBpA16zxxyta1sS8A0GeBQWhy+dRV0ruaq0IaV4QB9rL
+ 0+0zKnilgnjn4MpZOYOwDZywa3qx9uJkeXdmsuVX6KGTl6FAE14AmY/tGCoKSbFvs9AWVSVYfh/
+ wArZJkkHlL5b1gx/z5X/odPeeFHhgVs6L7BJy+WbITJIPwAiyKD+j3LlXupXCgwi02oUoBIYZFr
+ ggF4008n9iec0Bu1K4w==
+X-Proofpoint-ORIG-GUID: SzLJnH58xVIgQde9YzJC6ihYYWF940qi
+X-Proofpoint-GUID: SzLJnH58xVIgQde9YzJC6ihYYWF940qi
+X-Authority-Analysis: v=2.4 cv=AJ83otAg c=1 sm=1 tr=0 ts=6ae49f7e cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=5KacoALlGbuERgKT6uUA:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfX0YbTVEm/VXtI
+ r6uaJc+J5Dzzw11sRkk9a2+jRaq9ZrMOYalagvF/JxIwKEBImm3k9t4G7pvDhiI/Metp3g5x11b
+ PPZx7uLc2DdQh2y2yfguZrFd4vDjuDU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 bulkscore=0 phishscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300054
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,222 +147,21 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] drm/verisilicon: uninitialized dc and output in plane atomic_u=
-pdate()
-- [High] drm/verisilicon: plane visibility state mismatch with atomic_enabl=
-e()
---
+On 10/29/26 9:16 PM, Rob Clark wrote:
+> Don't let the length bleed into b31.
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
 
-commit 3080d00108f48782cd8c1c8ee016e9473b324e57
-Author: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-drm/verisilicon: stop to reuse atomic_disable for invisible planes
-
-This commit factors out helper functions to disable cursor and primary
-planes directly from their atomic_update callbacks when state->visible is
-false, avoiding a NULL CRTC dereference in the old plane state when calling
-atomic_disable.
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/=
-drm/verisilicon/vs_cursor_plane.c
-> index 1fa6b7578b27e..8dd6caadb7075 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> @@ -99,6 +99,15 @@ static void vs_cursor_plane_commit(struct vs_dc *dc, u=
-nsigned int output)
->  			VSDC_CURSOR_CONFIG_IMG_UPDATE);
->  }
-> =20
-> +static void vs_cursor_plane_disable(struct vs_dc *dc, unsigned int outpu=
-t)
-> +{
-> +	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +			   VSDC_CURSOR_CONFIG_FMT_MASK,
-> +			   VSDC_CURSOR_CONFIG_FMT_OFF);
-> +
-> +	vs_cursor_plane_commit(dc, output);
-> +}
-> +
->  static void vs_cursor_plane_atomic_enable(struct drm_plane *plane,
->  					   struct drm_atomic_commit *atomic_state)
->  {
-> @@ -126,11 +135,7 @@ static void vs_cursor_plane_atomic_disable(struct dr=
-m_plane *plane,
->  	unsigned int output =3D vcrtc->id;
->  	struct vs_dc *dc =3D vcrtc->dc;
-> =20
-> -	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> -			   VSDC_CURSOR_CONFIG_FMT_MASK,
-> -			   VSDC_CURSOR_CONFIG_FMT_OFF);
-> -
-> -	vs_cursor_plane_commit(dc, output);
-> +	vs_cursor_plane_disable(dc, output);
->  }
-> =20
->  static void vs_cursor_plane_atomic_update(struct drm_plane *plane,
-> @@ -146,7 +151,7 @@ static void vs_cursor_plane_atomic_update(struct drm_=
-plane *plane,
->  	dma_addr_t dma_addr;
-> =20
->  	if (!state->visible) {
-> -		vs_cursor_plane_atomic_disable(plane, atomic_state);
-> +		vs_cursor_plane_disable(dc, output);
->  		return;
->  	}
-
-[Severity: Critical]
-Does vs_cursor_plane_atomic_update() pass uninitialized dc and output values
-to vs_cursor_plane_disable() when !state->visible is true?
-
-In drivers/gpu/drm/verisilicon/vs_cursor_plane.c, vcrtc, output, and dc are
-only initialized from state->crtc after the !state->visible early return:
-
-drivers/gpu/drm/verisilicon/vs_cursor_plane.c:vs_cursor_plane_atomic_update=
-() {
-	struct drm_crtc *crtc =3D state->crtc;
-	struct vs_dc *dc;
-	struct vs_crtc *vcrtc;
-	unsigned int output;
-	dma_addr_t dma_addr;
-
-	if (!state->visible) {
-		vs_cursor_plane_disable(dc, output);
-		return;
-	}
-
-	vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-	output =3D vcrtc->id;
-	dc =3D vcrtc->dc;
-}
-
-When a cursor plane is updated while invisible, vs_cursor_plane_disable()
-will dereference the uninitialized pointer dc->regs and index
-VSDC_CURSOR_CONFIG(output) with an uninitialized output variable.
-
-[Severity: High]
-How does disabling the plane in hardware on !state->visible interact with
-vs_cursor_plane_atomic_enable() and subsequent visible updates?
-
-In drm_atomic_helper_commit_planes(), funcs->atomic_update() runs before
-funcs->atomic_enable(). When a previously unbound plane (old_plane_state->c=
-rtc
-is NULL) is bound to a CRTC while invisible (new_plane_state->crtc is
-non-NULL and new_plane_state->visible is false):
-
-1. vs_cursor_plane_atomic_update() calls vs_cursor_plane_disable() and
-   returns early without programming VSDC_CURSOR_ADDRESS(output), size, or
-   position registers.
-2. drm_atomic_plane_enabling() evaluates to true because !old_plane_state->=
-crtc
-   && new_plane_state->crtc, so drm_atomic_helper_commit_planes() immediate=
-ly
-   calls vs_cursor_plane_atomic_enable():
-
-drivers/gpu/drm/verisilicon/vs_cursor_plane.c:vs_cursor_plane_atomic_enable=
-() {
-	...
-	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-			   VSDC_CURSOR_CONFIG_FMT_MASK,
-			   VSDC_CURSOR_CONFIG_FMT_ARGB8888);
-
-	vs_cursor_plane_commit(dc, output);
-}
-
-Won't vs_cursor_plane_atomic_enable() unconditionally re-enable the plane in
-hardware without a valid framebuffer address or geometry configured?
-
-Conversely, if a plane that is already bound to a CRTC moves off-screen so
-state->visible becomes false, vs_cursor_plane_atomic_update() sets
-VSDC_CURSOR_CONFIG_FMT_OFF via vs_cursor_plane_disable(). When a later comm=
-it
-moves the plane back on-screen while remaining on the same CRTC
-(old_plane_state->crtc and new_plane_state->crtc are both non-NULL, and
-new_plane_state->visible becomes true), drm_atomic_plane_enabling() is fals=
-e,
-so vs_cursor_plane_atomic_enable() is not called and
-vs_cursor_plane_atomic_update() never restores VSDC_CURSOR_CONFIG_FMT_ARGB8=
-888.
-Will the cursor plane remain disabled in hardware?
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu=
-/drm/verisilicon/vs_primary_plane.c
-> index c12fe54096c33..56e4c0e168871 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> @@ -60,6 +60,14 @@ static void vs_primary_plane_commit(struct vs_dc *dc, =
-unsigned int output)
->  			VSDC_FB_CONFIG_EX_COMMIT);
->  }
-> =20
-> +static void vs_primary_plane_disable(struct vs_dc *dc, unsigned int outp=
-ut)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			  VSDC_FB_CONFIG_EX_FB_EN);
-> +
-> +	vs_primary_plane_commit(dc, output);
-> +}
-> +
->  static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
->  					   struct drm_atomic_commit *atomic_state)
->  {
-> @@ -89,10 +97,7 @@ static void vs_primary_plane_atomic_disable(struct drm=
-_plane *plane,
->  	unsigned int output =3D vcrtc->id;
->  	struct vs_dc *dc =3D vcrtc->dc;
-> =20
-> -	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			  VSDC_FB_CONFIG_EX_FB_EN);
-> -
-> -	vs_primary_plane_commit(dc, output);
-> +	vs_primary_plane_disable(dc, output);
->  }
-> =20
->  static void vs_primary_plane_atomic_update(struct drm_plane *plane,
-> @@ -109,7 +114,7 @@ static void vs_primary_plane_atomic_update(struct drm=
-_plane *plane,
->  	dma_addr_t dma_addr;
-> =20
->  	if (!state->visible) {
-> -		vs_primary_plane_atomic_disable(plane, atomic_state);
-> +		vs_primary_plane_disable(dc, output);
->  		return;
->  	}
-
-[Severity: Critical]
-Similarly, in drivers/gpu/drm/verisilicon/vs_primary_plane.c, doesn't
-vs_primary_plane_atomic_update() also call vs_primary_plane_disable(dc,
-output) before vcrtc, output, and dc are initialized from state->crtc,
-dereferencing uninitialized dc->regs and using an uninitialized output index
-in VSDC_FB_CONFIG_EX(output) when !state->visible?
-
-[Severity: High]
-Does vs_primary_plane_atomic_update() have the same state mismatch with
-vs_primary_plane_atomic_enable()?
-
-When old_plane_state->crtc is NULL, new_plane_state->crtc is non-NULL, and
-new_plane_state->visible is false, vs_primary_plane_atomic_update() returns
-early without programming VSDC_FB_ADDRESS(output) or geometry registers, and
-then vs_primary_plane_atomic_enable() sets VSDC_FB_CONFIG_EX_FB_EN and
-commits the plane in hardware anyway.
-
-And if an already-bound primary plane transitions from visible to invisible
-(clearing VSDC_FB_CONFIG_EX_FB_EN in vs_primary_plane_disable()) and then
-back to visible on the same CRTC, neither vs_primary_plane_atomic_enable()
-nor vs_primary_plane_atomic_update() sets VSDC_FB_CONFIG_EX_FB_EN again.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030133233.1971=
-89-1-zhengxingda@iscas.ac.cn?part=3D3
+Konrad
