@@ -2,53 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4878C606A320
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:15:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2172C606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 15:15:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUVotT64
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MMzZyBmM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 837971128BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCB51128BB;
 	Fri, 30 Oct 2026 15:14:56 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A40E11289F
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:14:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7525E10E2B8
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 15:14:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C3320601EE;
- Fri, 30 Oct 2026 15:14:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29B61F000C1;
- Fri, 30 Oct 2026 15:14:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F24140394;
+ Fri, 30 Oct 2026 15:14:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2B91F00A18;
+ Fri, 30 Oct 2026 15:14:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793373284;
- bh=9YBzLehkWhn3M64oh9mKNENz6T/mnMNmdSeQLi1xGrs=;
+ s=k20260515; t=1793373277;
+ bh=ORkRJATMd0p9kraX8wdTcl7KMy5E5R01t/sVOb9WDIc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=FUVotT64v+Zr46ttSEA3fsGBXjMMruG0UHIheCHNKhHeyKhIrhGJeO44Gk71n+Vyb
- kmJIVA0tWxF7g2raBpdqElm0/nxH9ai67lYCcKh4jxW29KApCVD3EUUHa4dHFLlnJl
- K6dMifRDK5CWpFZpJPUr5CQWo35CvB1lB4cAm5wTYDfk5SfT6bRmVouMhbn8x9/kh7
- RCYvmqy7IjtTkXyL5Y0uG+nf63UsK5YXL6ny7rxPbaZKtLsSlZgZUtRM3cDVaNy1+F
- +s9jVccDPvrNT93XZAXmfdqkccrx1kFpftr52U+qqk9B/DroydENxOiNGbbFwn18fU
- taR5SWRxTMeTA==
+ b=MMzZyBmM40ChYiYBkzVpwzXMqCsGuNnNQIh8Ejh37+gAiFp9fQF3bi29AxQ4m2t3I
+ 4nQ71PgUSFvRCXm/keOH2GQ85Euwr79+/YyfJW1lBadrPnVpO3s73EDuszaU2ekqQH
+ AQgEul5LrWifcUfdeYqZbzcKRfffmTLlvRwBh82ZANrhzOZSGiUfO6M2Sb4r8QoLXv
+ WTgm8GDPQCqnfZgQzb9jwMeBUWK14JPQXjSocVzRNo+YnDFr+FANnC9y2vZYspcA9C
+ BuW2QJke5H95fOyF65nC3MYRl7RunqhrJwufZQGIqA/hgC2dLCVY+1jL87HsxSAvHM
+ kOsomVBFun6/w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 16:13:44 +0100
-Subject: [PATCH v3 14/37] drm/mipi-dbi: Switch to
+Date: Fri, 30 Oct 2026 16:13:42 +0100
+Subject: [PATCH v3 12/37] drm/fsl-dcu: Switch to
  drm_atomic_helper_connector_create_state
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-no-more-connector-reset-v3-14-30e71d92c327@kernel.org>
+Message-Id: <20261030-drm-no-more-connector-reset-v3-12-30e71d92c327@kernel.org>
 References: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 In-Reply-To: <20261030-drm-no-more-connector-reset-v3-0-30e71d92c327@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=975; i=mripard@kernel.org;
- h=from:subject:message-id; bh=t8mhbv5Zrzk9yERHNbGXZqPWVGWDKNUOMpWnKAIRKlg=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtignV9vpPVc5XsmwOaDX0mU/z/krwtOVXz0JFPh+n
- kmp+syZjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjAR90bGhp/ce0rDVx8yndF5
- y/Ke3LrZD0+wFqhfS1pTPcVpbprI5xPbD0atF0ru0VvK7pi9MHnHDMaGP0+eHuyev1JRrOyCx3T
- v6C+xkRut5zhtCUzJmsdd6vRk5o/0QmXFvPBdn3xePpHJ/GMHAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1213; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=vYO5EbWNjX3Rjt+ko7F2f/zMi/7Pa17ARYvAJ9LBf7A=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPtihFnbLU8rpjtPvhshkeq6KmlWUdd2vvvNjt+lb7z
+ PyyiwoPO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEFAwY69Q/B2kIduip9sSt
+ yA3X0qtZ/Fm07OhO+4qzX459jZt/1+rXg7kSz2+wNAvmx+jevtPwhrFhc3PjhhuvRPzXe0x2uXw
+ 4i3n+MdkHa4uMqrmfaXN/uif4Y/bxLyyXzpu5eyoGMnC8YF0HAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,28 +70,34 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The mipi-dbi connector implementation uses the deprecated
+The fsl-dcu connector implementation uses the deprecated
 drm_atomic_helper_connector_reset() as its reset hook.
 
 Switch to drm_atomic_helper_connector_create_state() instead.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- include/drm/drm_mipi_dbi.h | 2 +-
+Cc: Alison Wang <alison.wang@nxp.com>
+Cc: Stefan Agner <stefan@agner.ch>
+---
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/drm/drm_mipi_dbi.h b/include/drm/drm_mipi_dbi.h
-index d93e25fdc2e1..bb3296419910 100644
---- a/include/drm/drm_mipi_dbi.h
-+++ b/include/drm/drm_mipi_dbi.h
-@@ -258,6 +258,6 @@ void drm_mipi_dbi_crtc_helper_atomic_disable(struct drm_crtc *crtc,
+diff --git a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
+index c64264541fe2..9b5ca262d619 100644
+--- a/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
++++ b/drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c
+@@ -51,9 +51,9 @@ static void fsl_dcu_drm_connector_destroy(struct drm_connector *connector)
  
- #define DRM_MIPI_DBI_CONNECTOR_FUNCS \
--	.reset = drm_atomic_helper_connector_reset, \
- 	.fill_modes = drm_helper_probe_single_connector_modes, \
-+	.atomic_create_state = drm_atomic_helper_connector_create_state, \
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state, \
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state
+ static const struct drm_connector_funcs fsl_dcu_drm_connector_funcs = {
++	.atomic_create_state = drm_atomic_helper_connector_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+ 	.destroy = fsl_dcu_drm_connector_destroy,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+-	.reset = drm_atomic_helper_connector_reset,
+ };
+ 
 
 -- 
 2.55.0
