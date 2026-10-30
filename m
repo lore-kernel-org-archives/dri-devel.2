@@ -2,32 +2,32 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CB0606A326
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 12:09:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A27606A31D
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 12:09:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7UAC0b7
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LCXqM3MR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1411127C1;
-	Fri, 30 Oct 2026 12:09:11 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF6771127C1
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 12:09:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0311B1127C2;
+	Fri, 30 Oct 2026 12:09:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8DB1127C2
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 12:09:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8663141685;
- Fri, 30 Oct 2026 12:09:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85031F00A1A;
- Fri, 30 Oct 2026 12:09:03 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4AA59609D0;
+ Fri, 30 Oct 2026 12:09:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CECF1F00A16;
+ Fri, 30 Oct 2026 12:09:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793362144;
+ s=k20260515; t=1793362156;
  bh=e/ifG3aJlgeryqjmhfgJsERZbxd/WJ6aLHD7syJgljY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=D7UAC0b7L48KpLvUD05JLaAsirj5ksVOsXi1stFE13QefMe3BmP6nPxON3Mo0UZpz
- pYKfXI/qMaba/FVlHJKxVM3ngc4OdYRe+zwLiH8lPiHVunTd1vGZE4JslLyaSHOFtA
- NDq/aTJpoMbYdSoRiei+bUGfdY1WKMZvgp9QEAlDXpRKoquWm73eX1qCZiGGMBYe1T
- hiQ3jHLOVpXZQHD79GJAWSEroJL2kBM49kyOFkBgl5dVDdL0CYJsH97+jOAjCuwQNI
- 43eqpb0PZO4ccY5QFPslPz5D6ietREw1MwbvaF4Fi7TzHE5XybTPEn7MNZCTmfEzo0
- KxRGvDecU6Gxg==
-Date: Fri, 30 Oct 2026 13:09:01 +0100
+ b=LCXqM3MR/ZIt2paBuHsNpEyJ2YAbBtXoJVoSL2kmhSkpHerihlzO5jP7kg3NpyZNI
+ 9dFoxwwuDSGS8TI8OKIgW1Ko2OuX93Eb04SdiMzbYIfLxMK5DeSx9iA4cK4Uzx7I0k
+ R6I2nkE33bjHOZKR0egB5nVDqt0OFelbKFn6DVW418lvJI4B6VsYJ3Na4CejKYfoYp
+ E7LqHQ/Iyj+5nUH1e0c+/Q7iowpmUNhcJqV+7MmbttR3E+rq/duRTVUbXAhMgg9W6U
+ DKds7xr0/3kRf0H42LAryDxgFNcZPOLsTLA6x2IAWCsP2LcMdgQu2SY9ZKRQsehhvk
+ kzCfCDk5DUKJA==
+Date: Fri, 30 Oct 2026 13:09:13 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 Cc: Rob Herring <robh@kernel.org>, 
@@ -43,7 +43,7 @@ Cc: Rob Herring <robh@kernel.org>,
  Han Gao <gaohan@iscas.ac.cn>
 Subject: Re: [PATCH 2/4] dt-bindings: ili9881c: add compatible string for
  Mingjun MJ070BI30IA2
-Message-ID: <20261030-nostalgic-eccentric-dodo-0fed47@quoll>
+Message-ID: <20261030-arrogant-nano-raccoon-b67b70@quoll>
 References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
  <20261030-mj070bi30ia2-v1-2-a0f65b65c290@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
