@@ -2,53 +2,71 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A96D606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:17:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDEC606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:18:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U4ld8tPx
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0kmni+I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A261710E0A7;
-	Fri, 30 Oct 2026 17:17:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3029D10E0A7;
- Fri, 30 Oct 2026 17:17:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793380660; x=1824916660;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=DwTwSNt37ko0ZzpsS+HdByt1AHsSJoAoiLtZSJq22jo=;
- b=U4ld8tPxGS8QS56QKVs3lT0p8NCCuGkrFlNyvwVUP+l0q8n74fAVUUDy
- /K66YIN0EfwDsOVMxfgeRuGpY9ZfeL2q3V302xlEVUQWCilWZFKH2H9lt
- RAT/4cftNn2YTLK5FfM5ChNtmRyBnjwp02rCkpR/LacwQOhixfFHvoM1t
- WgzUlgg+MegwowJ9UY6bkdPWZkqpJNlzqRvDqBsb9zyIG3+4Knd2oPgR0
- cxLsBjvZbY3ZJUHCq4zoyXdlp7OI3ZKj1UjB46LUPc7v/ykXL3hfMlVWb
- clPrxE4YrKEzbXOZ+NWoLb7DUrWByX7qJZp+WUlIkCkPg5Q1XuLC36fhU w==;
-X-CSE-ConnectionGUID: WcpU2XviS8W7R77vechxkg==
-X-CSE-MsgGUID: pdkCik6XSUqt21Ua0C+MhA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2183087"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2183087"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 10:17:39 -0700
-X-CSE-ConnectionGUID: D9w3yjQKSjmosKm3LVEdsA==
-X-CSE-MsgGUID: inysc06uTs+Z1cgFZPqQww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5455494"
-Received: from aalteres-desk1.fm.intel.com ([10.121.64.173])
- by orviesa001.jf.intel.com with ESMTP; 30 Oct 2026 10:17:39 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
- Raag Jadav <raag.jadav@intel.com>, Riana Tauro <riana.tauro@intel.com>
-Subject: [PATCH 1/1] drm/xe/survivability: broadcast dmesg when engaging
- survivability
-Date: Fri, 30 Oct 2026 10:17:38 -0700
-Message-ID: <20261030171738.674775-2-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 792FC112944;
+	Fri, 30 Oct 2026 17:18:37 +0000 (UTC)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CC68112957
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 17:18:31 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-3ab752f6244so1392539a91.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 10:18:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793380711; x=1793985511; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bvi5ysW072lSJORWkYMVzsyAYOUWuxONOWbZatRvF7Q=;
+ b=t0kmni+I/cJiVoBqkLrTzjq0Vf4hsOCRvDxIvYRehk6jpFoNXvr/zI5nUnViAvROFr
+ sClPkxtQpfUn62N4PE7ogWS4/CaYx0V4nw89eiC3yfJKtFWpJNtA2HNP1nPUhSsARH9P
+ BNml0wuDoDMnEinJVLgSsZQ0wtPL8jRX8ad5q6rsCsXEDfHZ6Xp405F/ur+h/X61gr1r
+ FDvfzZ9UJbH627N3ZFMcL+LMvJfLO0YN8cgOyjOXIGBlMGz9g1GSuSt+MpFUBSnOIg/k
+ ECDpXYAwqSNJqfy45PjKth4KTbt+rpso9Q9fTwf8wjN/aCXU/HRgV4Jsdtarkjh4n0F7
+ Gmtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793380711; x=1793985511;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=bvi5ysW072lSJORWkYMVzsyAYOUWuxONOWbZatRvF7Q=;
+ b=O8hPHmGUQilDGtA/iygzrKBfmPG/3W0lGHhPT8zb5QMAhfhtaQkCJiwCxTAKa+qOW8
+ aQC3b1CSrby6K/mTJ65xUajVz/8W7sBVxi7ds+21h1jWujglO5vEPps6bPiqqztwLQbK
+ 1PDNEOUqj5ac0Kx+QD+K3W4kWLrEUGgV1UlyK/dfWu6hOh1mU0Ct4aEUFwWKCDZkwzjU
+ K530epCUhB/zCgZGfoYeLkh2l7IZ/BM22eieJmb/p1BiKTFX79eF92gxAW+cu8XZ1Edw
+ lhbABUU2i8wBET/wXUIXCdMJYeH5epaUdrufV25+F+4M3bvUYaVJjerOAD2SCd93Y6QT
+ ZrHg==
+X-Gm-Message-State: AFq9FYKVNXMizjUKLBQ5dF07TOe56/doWTEzN46lBkDRXEpnCDnKy2JW
+ 0LytS7B//BNSojAyEDiU3vE4nH6bVTWc/dzjBqbCCnCy7SilQuxpSkBN
+X-Gm-Gg: AYBFou1760bpb2h5Xtppsdb4O5E4wwd9B6t4nKVwW22QQCz2RzoS5xfKU8RPSWpDH0W
+ wsqy7yBAZSkAum2uLUwmV4TKPJHF18OwS5teE67bBn04nDBoyIhfD9g2g8tKcPhJiparKaM+oYw
+ hSrPYz2OhVEtYG5oEPheTnvJ6o0yb26CYWL6TknjicS0qpQ5WSiOHoojYjWXyv0EL5liuO1S/If
+ qKKtzyRcAGMhle1F3xdo4ZOXDXTeJj+ksAgY9Vz81IRyNkm+zmX85VR39ih6hGHcpLO4ZLXb+Ks
+ IO0EDMEW+sWxXDgOrnVLFMs1XpCEu+zVf6GKLc4LIGgz0rBG2C3EfpBoROr+bX2JlLD3vBRh4nV
+ IglUmV69nzoKORQ7B5RYf4AFnSOzmnFTzI4ZkpOzu+ofjqks5DFx2ZaLHJw8jHPT0f7zEW1eHto
+ 7bSJsysNDYo2cmf9DQc43UwpI3KjRM5Bk0HTadv/GhUojvQEucWN/pzQB2QQ+Hw4ZW4C7ygkmR5
+ nqhXS1Z0z0CYn+ZQbonm8xQ7WdHLFpYAMIr2QXHF/MOYqfLpj2RUdAiKUzb16UYjK0IfpS+yBOZ
+ dun3meW7PrTMvVw1t8jyGZUQQ/c=
+X-Received: by 2002:a17:90b:390c:b0:3ab:e588:c2a8 with SMTP id
+ 98e67ed59e1d1-3ae8985c4e4mr2415454a91.64.1793380710858; 
+ Fri, 30 Oct 2026 10:18:30 -0700 (PDT)
+Received: from DPBox.lan ([45.207.158.52]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ae845432e4sm4762387a91.3.2026.10.30.10.18.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2026 10:18:30 -0700 (PDT)
+From: MuXian Chen <a18165943161@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, simona@ffwll.ch,
+ MuXian Chen <a18165943161@gmail.com>
+Subject: [PATCH RESEND] drm/amd/display: drop RGBA8888 from plane format lists
+Date: Sat, 31 Oct 2026 01:18:16 +0800
+Message-ID: <20261030171816.11610-1-a18165943161@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -63,53 +81,66 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When user requests to enter survivabilty via configfs, or if
-check_boot_failure is hit inside xe_survivability_mode_is_requested,
-no indication is published. This patch adds some awareness in dmesg.
+DC's enum surface_pixel_format has no RGBA8888 (memory order A,B,G,R):
+fill_dc_plane_info_and_addr() has no case for it and returns -EINVAL.
+Yet rgb_formats[] and overlay_formats[] advertise DRM_FORMAT_RGBA8888, so
+compositors (KWin on Wayland) pick it for layers with alpha and every
+atomic commit fails once per frame, flooding dmesg with
 
- v3 : Limit message to xe_survivability_mode_is_requested. (Riana)
- v2 : Remove / modify messages to reflect underlying behavior. (Sashiko)
+  amdgpu 0000:06:00.0: [drm] *ERROR* Unsupported screen format RA24
+  little-endian (0x34324152)
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+and forcing a fallback to composition on every frame.
+
+Remove the two entries.  No working configuration is lost: a plane that
+advertises RGBA8888 can never convert it in fill_dc_plane_info_and_addr(),
+on any display generation.
+
+Tested on Raphael 610M (DCN 3.1.5): before, ~240 atomic commits per second
+failed with -EINVAL; after, the plane format list no longer contains RA24
+and dmesg is clean.
+
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5339
+Signed-off-by: MuXian Chen <a18165943161@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_survivability_mode.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_survivability_mode.c b/drivers/gpu/drm/xe/xe_survivability_mode.c
-index d73cdad0b3a9..344b402eb728 100644
---- a/drivers/gpu/drm/xe/xe_survivability_mode.c
-+++ b/drivers/gpu/drm/xe/xe_survivability_mode.c
-@@ -413,13 +413,19 @@ bool xe_survivability_mode_is_requested(struct xe_device *xe)
- 
- 	survivability_mode = xe_configfs_get_survivability_mode(pdev);
- 	/* Enable survivability mode if set via configfs */
--	if (survivability_mode)
-+	if (survivability_mode) {
-+		xe_log_info(xe, SURVIVABILITY, "Boot mode requested.");
- 		return true;
-+	}
- 
- 	data = xe_mmio_read32(mmio, PCODE_SCRATCH(0));
- 	survivability->boot_status = REG_FIELD_GET(BOOT_STATUS, data);
- 
--	return check_boot_failure(xe);
-+	if (check_boot_failure(xe)) {
-+		xe_log_err_fatal(pdev, SURVIVABILITY, 0, "Boot Mode enabled!\n");
-+		return true;
-+	}
-+	return false;
- }
- 
- /**
-
-base-commit: d8a353e238652bec29fd452babdaae0044d30b9b
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 9139823..6d5454f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -49,11 +49,13 @@
+  * For future use cases we should either initialize them dynamically based on
+  * plane capabilities, or initialize this array to all formats, so internal drm
+  * check will succeed, and let DC implement proper check
++ *
++ * DC has no surface format for DRM_FORMAT_RGBA8888, so it must not be
++ * advertised here or in overlay_formats.
+  */
+ static const uint32_t rgb_formats[] = {
+ 	DRM_FORMAT_XRGB8888,
+ 	DRM_FORMAT_ARGB8888,
+-	DRM_FORMAT_RGBA8888,
+ 	DRM_FORMAT_XRGB2101010,
+ 	DRM_FORMAT_XBGR2101010,
+ 	DRM_FORMAT_ARGB2101010,
+@@ -70,7 +72,6 @@ static const uint32_t rgb_formats[] = {
+ static const uint32_t overlay_formats[] = {
+ 	DRM_FORMAT_XRGB8888,
+ 	DRM_FORMAT_ARGB8888,
+-	DRM_FORMAT_RGBA8888,
+ 	DRM_FORMAT_XBGR8888,
+ 	DRM_FORMAT_ABGR8888,
+ 	DRM_FORMAT_RGB565,
 -- 
-2.43.0
+2.56.0
 
