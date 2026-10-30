@@ -2,71 +2,107 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47013606A321
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 13:48:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AE0606A31A
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 13:54:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n8MJwoIv
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y8/XYg2x
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9772411282C;
-	Fri, 30 Oct 2026 13:48:30 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D3311282C
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:48:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793368104; x=1824904104;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=lRE801LG5zFeShKamMVpX/KPV+Q7QsI/34y80GuciNQ=;
- b=n8MJwoIvNlJGpTdsk3/ApbPW0cANe4uXNgLm5tYXzFewbhIUaqGN9+Jr
- nEkWWgd3Aq/8ovkyYfvJw8cul7FLeqR7PGpDC3JF6t2AEOZp9jwFPncpZ
- CY/NuDkmzIEEemqSuSvyjgq6i3uWSXjVsgR+iXIEOd5escO01AkhJxRG7
- PErEQFIBIM5GM14p6+f8O3GohVq1SuUKZdVex3zgUlkx+1H7SiP/vJuuj
- a9BUvdM3caFOGJj/fFsEfaIuq1uIFeANyV/eVK6hfGRMU+cGGik6h/DZ5
- Rd9kSZBWEsObDBmLuAPVsOXRj79z1rHxj1hpAi7ccuhvbtKTSN4omQu1Y g==;
-X-CSE-ConnectionGUID: hXPlhL14QEeRyyuClVmnNw==
-X-CSE-MsgGUID: pLuoSe0OQnOxSbDH+wgJ3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2024010"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2024010"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 06:48:23 -0700
-X-CSE-ConnectionGUID: bJvCEOFWS8qQHDqp75BJhw==
-X-CSE-MsgGUID: QbNCNDPYQQSoKlfBHgeYVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5565207"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.58])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 06:48:21 -0700
-Date: Fri, 30 Oct 2026 15:48:16 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: me@romanilin.is, louis.chauvet@bootlin.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- airlied@gmail.com, simona@ffwll.ch, javierm@redhat.com,
- dmitry.osipenko@collabora.com, regressions@leemhuis.info,
- peter.m.arnesen@gmail.com, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux.dev, sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v4] drm/vblank: Don't arm vblank timer with invalid frame
- duration
-Message-ID: <auSgII_W-FJJz44W@intel.com>
-References: <20260914110004.211027-1-tzimmermann@suse.de>
- <auIMt8XmmaVykZTC@intel.com>
- <2c2f33cf-da6f-4e31-84bb-768778d7b063@suse.de>
- <auSIZNhP4DTj8Nb2@intel.com>
- <be8e41da-5ef1-4c37-a044-171ab1f32c6d@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CDC510E228;
+	Fri, 30 Oct 2026 13:54:28 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6A1210E228
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:54:22 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4a1fbd52ab6so5331195e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 06:54:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793368461; x=1793973261; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=/hIuaSXC/8qKVAwXvaUJ1vLVQZIbwa7mDnRwYchKUok=;
+ b=y8/XYg2xUsFzZJeiIUK2kOuxCuovRezJyDy5MRQqV+ZO1CSFf/le4ISeYndJXeTeDX
+ sH8sF6o7ka4bP31pvuGOnb7Dmu2o+NdiAt6+t2/MUo7ibyEdTwzQ4xavF+0OO0u1LT2u
+ Gcv7LT2+CnBGLN+T4Uq0zYb6aJC9J4ujndfNqxi20Aww4CHgXDh9hNw62TMik6XBOltd
+ efVix6+iH5tvM+LylC6l+1++SeDszfQAU/UTioipzrqpV7ubxsO5hUqo+eq0+TbP4L6G
+ U475JaNiomIEjwLaV/ZpRihoPqgyok1z6fm3T4ubJjrxyDLiRW2lClk6nwp1S0W7a86p
+ ZjoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793368461; x=1793973261;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/hIuaSXC/8qKVAwXvaUJ1vLVQZIbwa7mDnRwYchKUok=;
+ b=U5n9WntHQJhFUz6qch3wQQh3mC9lUZPhmFsWVd9SXH5rqI1Bs0K+em/iOjRBHctjiK
+ VCQe9TMXn8nrqz0977ol1/hGfmPPKQLjC1NZIgZIP7s+ET9PeR4q7f/RNuOpR/XNyrwB
+ u6E5XBZx78+cxfJwgIgw5BL6j5sz+9VwG+15yyhe2MMfWi+gxk7qZBLQuIvFXFFormIZ
+ jIo5oHlj6VtHqsGH0OiYgJ2vwjvs0g3nSQ5Q6HHkqGuWA5ZChOLuCwOndPKXo9drSdgX
+ L+Cza2gumDazoXA6vQA4xPfHDmuBGUMr1LWtocY7JHPHk/HLnNT47Kd95Zpc2gpbyYL0
+ m89A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxBaPRWjI9G2z2dWL2s42OBSLrr/nh9YpWNfzXmRSJKWSOlfru58VLDetdFw7HII1+zapXLpaBACEU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKBwergOYjsCXWSPf8kXiNtML3hdWen/Wm1nMKmnM+9Hg16oxpl
+ v9jX33ztULbMMCE0dz2BzgvcJvQG62dxWUaZ5jY7JoKaQiCGGyw1U7p0
+X-Gm-Gg: AYBFou1pG22JxbcjTkx7d8E7MTlfiP1cLNzfVsN4/n3bh+L9nqCBCWmJNQNXHcfapzn
+ +AoW0GNH/s+wHGVMIghmRYjKPTG6yz6lDQwjPVyljlZV5iX+TnfbOhzQwMPf0pTvuUdM1MdJ8YB
+ lYn4u1MxyC3Q/fqrteTv4eNZACh4I1PdHFI527BQkQQOZmxC0q0vAI/bq42Wd8IdjlDFrUAi+9H
+ lwexizU4UxfoSrhxzwBNIGypn3KYcHfodPzTFmva7aYv6kLITaZ8vMZigcpcRHUo4zrb2hWpA8q
+ 3OAi2qD0Ys96jKAcyRMyzwbMcZLV3PyF4s/Wfvvf+1cG/hkZGapMId5M/vFN44aJRLl0BSNktnK
+ OzM0xtrexs/w9xeiL92qJ7l2jWtgkOX3H42aoezLSpzmmSgjB/FctQ6JtjutXXvll8AYwJdwBr8
+ o1UJEcRfgAZNER5ptttsgzymns/L96LboEwgS2tC6jZF2alg0M4+D5sW8SljFYUKj1v2v7hzjQd
+ CnQ5vRCUPFl0d1QxbFhyQrWF96eqgIW3SZRE2Y5+JrzotkBLmyS89lwj0W/XQbgLEVW9dSucDrg
+ eTd/4x/yTLP+S2yx9E3o+72VDrK3VZTjPkCB7Rc+Q8iUzzi+0PEcDMxuuSPWqSSQG6rrQfQoioC
+ iRMG56KkbitggI2C1fGLxuFUo660ndniP472AvX767wf2EKoVoIfb9/NEhnCpO1IA99k=
+X-Received: by 2002:a05:600c:608c:b0:4a1:6c0c:ab93 with SMTP id
+ 5b1f17b1804b1-4ac190497bamr46672575e9.28.1793368460933; 
+ Fri, 30 Oct 2026 06:54:20 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4ac0950d533sm34613455e9.3.2026.10.30.06.54.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2026 06:54:20 -0700 (PDT)
+Date: Fri, 30 Oct 2026 16:54:16 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Alex Elder <elder@ieee.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Frank.Li@oss.nxp.com,
+ Frank Li <Frank.Li@nxp.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>, Guan-Yu Lin <guanyulin@google.com>,
+ Mathias Nyman <mathias.nyman@linux.intel.com>,
+ linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-staging@lists.linux.dev, netdev@vger.kernel.org,
+ imx@lists.linux.dev, Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH 1/1] PM: runtime: change stub pm_runtime_get_if_active()
+ return 1 when !CONFIG_PM
+Message-ID: <auShiOI6Hmla6XxR@stanley.mountain>
+References: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
+ <auRb_r8ZSSU-eHZA@kekkonen.localdomain>
+ <9207a52e-2d42-4e10-b777-2988e84d7dbe@ieee.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <be8e41da-5ef1-4c37-a044-171ab1f32c6d@suse.de>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <9207a52e-2d42-4e10-b777-2988e84d7dbe@ieee.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,102 +114,51 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 30, 2026 at 02:04:04PM +0100, Thomas Zimmermann wrote:
-> Hi
+On Fri, Oct 30, 2026 at 08:46:07AM -0500, Alex Elder wrote:
+> On 10/30/26 3:57 AM, Sakari Ailus wrote:
+> > Hi Frank,
+> > 
+> > Thanks for the patch.
+> > 
+> > On Thu, Oct 29, 2026 at 12:30:37PM -0400, Frank.Li@oss.nxp.com wrote:
+> > > From: Frank Li <Frank.Li@nxp.com>
+> > > 
+> > > When CONFIG_PM is not enabled, all devices runtime PM state should be
+> > > treated as active.
+> > > 
+> > > __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
+> > > pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
+> > > stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
+> > > should return the same value as the stub pm_runtime_get(), which is 1.
+> > 
+> > Shouldn't the same change be done to pm_runtime_get_if_in_use()? It's
+> > otherwise the same, except that it requires also the use count to be
+> > non-zero.
+> I think "yes."
 > 
-> Am 30.10.26 um 13:07 schrieb Ville Syrjälä:
-> > On Thu, Oct 29, 2026 at 12:35:52PM +0100, Thomas Zimmermann wrote:
-> >> Hi
-> >>
-> >> Am 28.10.26 um 15:54 schrieb Ville Syrjälä:
-> >>> On Mon, Sep 14, 2026 at 12:57:26PM +0200, Thomas Zimmermann wrote:
-> >>>> From: Roman Ilin <me@romanilin.is>
-> >>>>
-> >>>> When a CRTC's display mode carries a too small pixel clock,
-> >>>> drm_calc_timestamping_constants() computes a frame duration that
-> >>>> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
-> >>>> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
-> >>>> interval, after which vblank events are no longer delivered. Pending
-> >>>> page flips never complete and the display appears frozen.
-> >>>>
-> >>>> This could be triggered on virtio-gpu guests that have dynamic resolution
-> >>>> enabled: when the SPICE agent or the X server resizes the output, it
-> >>>> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
-> >>>>
-> >>>>       clock = 406 kHz, htotal = 3152, vtotal = 2148
-> >>> How about actually "fixing" the clock in the driver?
-> >> It's not a broken driver, but user space. There is a bug report open for
-> >> spice to replace the incorrect units with correct ones. [1] The fix here
-> >> is supposed to resolve the kernel problem this triggers.
-> > Life becomes much simpler if you don't let garbage userspace input
-> > past some initial sanity checks. So technically the driver should
-> > just reject these modes. But in this case since you need to keep
-> > the broken userspace working the driver should just fix it up,
-> > and do so early so you don't have to deal with it anywhere else.
+> I think the logic for !CONFIG_PM should basically pretend runtime
+> PM is enabled for all devices, and they're all ACTIVE and effectively
+> in use.
 > 
-> Not that I disagree, with the statement in general. But doing this here 
-> seems like whack-a-mole if we leave it to individual drivers.
-
-I think you're just trading that whack-a-mole for a worse one
-where you now have to make all kinds of low level functions
-deal with the garbage input.
-
-This particular function is never expected to fail, which is
-why it returns void. And where it gets called in i915 we
-can't even handle the failure, so changing the return type
-to int is making the whole thing confusing.
-
-One driver independent solution would be to have 
-drm_mode_validate_basic() validate the dotclock a bit hadder,
-but that will not work for this case because you need to keep
-allowing these bogus modes to reach the driver.
-
-Just the other day I was actually thinking of adding some basic
-frame duration checks into drm_mode_validate_basic(), but I guess
-I can't do that given this userspace bug.
-
-> And the 
-> userspace is already dis-functional, no need to keep supporting it, I think.
+> That implies:
+> - disable_depth == 0, so usage accounting would (if enabled) be done
+> - runtime_status == RPM_ACTIVE (power is on, no delay)
+> - usage_count > 0
+> - runtime_error == 0
+> - Maybe ignore_children is false?
 > 
-> And how would drivers know that the values are garbage before processing 
-> them? 
-
-That's why I added the device wide mode_valid hook. Drivers can
-use that to reject garbage before it reaches anything more
-sensitive. I have somewhat hard time believing a mode that is
-acceptable/reasonable to some real world hardware would fail 
-in the vblank calculations.
-
-Hmm, and I just realized that I haven't actually added any low limit
-for the dotclock in i915. I'll go do that now. I think ~10 MHz is
-probably a reasonable enough number I can use there.
-
-> Even if a driver could program them to hardware, the vblank 
-> helpers could still not process them correctly. Thus leaving the 
-> userspace dis-functional.
+> This might not be complete (and could be wrong!).
 > 
-> I see that we might want a common test function 
-> drm_vblank_check_display_mode() and put it in some central place in the 
-> atomic_check pipeline. At least we'd separate the testing from the 
-> calculation.
 
-Yeah, something like that could work. Though I still
-think it'd be better to do it from the driver's mode_valid
-hook to reject the bogus stuff even earlier.
+We could add this kind of information as a comment somewhere?
 
-That would also filter them out from the connectors' mode
-lists. But I suppose you could do the vblank check in
-the connector mode filtering unconditionally without
-having the driver do it. Or does the buggy userspace also
-need the kernel to return bogus modes from getconnector?
+regards,
+dan carpenter
 
--- 
-Ville Syrjälä
-Intel
