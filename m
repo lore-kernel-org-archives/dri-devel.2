@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8A3606A31D
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:30:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423B8606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:30:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VmCob3CH
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QjVphpUd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2B81112960;
-	Fri, 30 Oct 2026 17:30:03 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ACDD11295A
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 17:29:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9790311297A;
+	Fri, 30 Oct 2026 17:30:32 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 725C810E840
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 17:30:26 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id A3E7FC49F69;
- Fri, 30 Oct 2026 17:30:58 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 3BE4B1A13D6;
+ Fri, 30 Oct 2026 17:30:25 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B72E66076B;
- Fri, 30 Oct 2026 17:29:55 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 033BC6076B;
+ Fri, 30 Oct 2026 17:30:25 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7D79110328D09; Fri, 30 Oct 2026 18:29:25 +0100 (CET)
+ with ESMTPSA id 9F672103290EE; Fri, 30 Oct 2026 18:29:50 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1793381389; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1793381413; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=+OQOyjctkHWd22AE+L1UB1rxvcbvd88vFtEkPyFZKa0=;
- b=VmCob3CHvb+iwbC0qJ6823yg8UOQhQWqSrXJCAatngIzy50QlhnR6p45GW6C/0J+A9M6lZ
- BPwg0Ri0aV6j4446QGPlHXFxqCUEbk6LKBPvjrfO0ikT85YtBtEBJr/8zsI4E2hPYPUNH2
- wGBb+hfaqIClHBu28Q6UKzsu0fkVFuJFvWsTLv63ZenDUBXPI2juaebtlSmm45QKZZGZof
- rekIYI+EqQSiqTSOxGEGpu7QhXJOmLwmMx2FW6eityYy6tLYnTgz/GJY1eJ7RkKuyJgYTr
- nizspWk6oQtlTpy1HxE1H0lCi+OqMz05hixCqhx8EwPTKBmrt7oVGJzkXHhEHw==
+ bh=yR23MYAzm9nu9e+UxClXlafyk6GJTlNxflBbxLQ4EJk=;
+ b=QjVphpUdDm7/d06LDHw4hcwrMC8Ibpj23uslSsWJrSCRCpHN1gQ5BWg60sKKqnYIOCmsai
+ Bl4ynSBNrCxaW2ijnugQPXN2i501Fp3zob0N2j7GrsIyVNxqPFrfUgMLrTcjb6d/1evPGh
+ R5IESbuZv+JCn5Z6hAMB5d6JCnRzvagYIcRo1ik/uXhhgeTq3spu/dYMbJy40+jftAcWX1
+ UnhThk4+vSx/bkVDaWYOw72YrcreT89sjNos0KgTjrGRWHvoyyy6UiHDq+UPv30gd4+k/v
+ xlG/o9SYzme+7ZHr6Ky0VPpxR140xi28LbrsLvvbA8cJBIpA23zaSsR18SsPqA==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 03/35] drm/tidss: get the panel type from the embedded
- bridge
+Subject: Re: [PATCH 04/35] drm/bridge: lvds-codec: use
+ devm_drm_panel_bridge_add()
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Douglas Anderson <dianders@chromium.org>, 
@@ -110,11 +110,11 @@ Cc: Douglas Anderson <dianders@chromium.org>,
  linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
  linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-In-Reply-To: <20261026-drm-panel-funcs-v1-3-5e3070a3478f@oss.qualcomm.com>
+In-Reply-To: <20261026-drm-panel-funcs-v1-4-5e3070a3478f@oss.qualcomm.com>
 References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-3-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-4-5e3070a3478f@oss.qualcomm.com>
 Date: Fri, 30 Oct 2026 18:28:25 +0100
-Message-Id: <179338130511.3009485.16295897622839415971.b4-review@b4>
+Message-Id: <179338130512.3009485.15498623134248772053.b4-review@b4>
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -128,19 +128,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 26 Oct 2026 13:09:52 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> The connector type of a panel is also available as the type of the bridge
-> embedded into it. Use that one, so that drm_panel.connector_type can go
-> away.
+> The connector type passed to devm_drm_panel_bridge_add_typed() has been
+> ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
+> every drm_panel"), the bridge always has the type of the panel.
+>
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>
+> diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+> index f97c8586273d..d25d8d777191 100644
+> --- a/drivers/gpu/drm/bridge/lvds-codec.c
+> +++ b/drivers/gpu/drm/bridge/lvds-codec.c
+> @@ -154,8 +154,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+>  	}
+>
+>  	lvds_codec->panel_bridge =
+> -		devm_drm_panel_bridge_add_typed(dev, panel,
+> -						lvds_codec->connector_type);
+> +		devm_drm_panel_bridge_add(dev, panel);
+>  	drm_panel_put(panel);
+>  	if (IS_ERR(lvds_codec->panel_bridge))
+>  		return PTR_ERR(lvds_codec->panel_bridge);
+
+By now drm_of_find_panel_or_bridge() + devm_drm_panel_bridge_add_typed() is
+jsut a complicated wrapper to drm_bridge_get(), so this driver and those in
+the following commits could be simplified dramatically, without adding the
+deprecated devm_drm_panel_bridge_add().
+
+However devm_drm_panel_bridge_add_typed() is _more_ deprecated than
+devm_drm_panel_bridge_add(), so this is already a good step forward.
 
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+Luca
 
 -- 
 Luca Ceresoli, Bootlin
