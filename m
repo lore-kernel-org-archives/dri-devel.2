@@ -2,46 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B0D606A326
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 14:52:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C675606A320
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 14:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hIV366cj
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEDO1U0A
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B26E112874;
-	Fri, 30 Oct 2026 14:52:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 711C3112884;
+	Fri, 30 Oct 2026 14:56:02 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBBE2112872;
- Fri, 30 Oct 2026 14:52:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2793B112884;
+ Fri, 30 Oct 2026 14:55:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A5E9F44060;
- Fri, 30 Oct 2026 14:52:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89331F00A02;
- Fri, 30 Oct 2026 14:52:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0FEF141F9E;
+ Fri, 30 Oct 2026 14:55:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52A541F000C1;
+ Fri, 30 Oct 2026 14:55:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793371929;
- bh=IynCA/CXHHxpvBVvDUwuv5p+dERMEHS5aKDO2xZbSGI=;
+ s=k20260515; t=1793372155;
+ bh=UPDjS3wz2FnEuT+HHl36XN/pNdhynLSDtb+o3kgPntE=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=hIV366cjcNsvxIP7LxLTIg+RpNbiujGvx4EXw47fMFYNX+tjxcuEB+Mbt2xNJtb/6
- KuuSzmtIr0mrHfDyrMgLMdua+MtGvkCfI7/OSinyLYXuzV1r52JYt6l7zUGX5p7PXm
- mBpWGEilcuteN47a8ioT4ukPSCrp+sd00HICugXaSlYdjUOeL3lcSiSsk9Ns17vsNx
- SgkqzRD1KI2eeG7wwumI06PYgWF/8fWuXlLCorFRhnGNosYr2sy3Co4OGjaVuVl5Rk
- T/PIVxMiXGgd8PxnVP3O5KRBE+UVon3PdKiGpSR58R5sjmbMdO3OwXGd4H+kJJQChN
- CAgpMR8SPP+zA==
-Message-ID: <c018e549-6d31-40fc-9b82-05b53d4dac22@kernel.org>
-Date: Fri, 30 Oct 2026 09:52:08 -0500
+ b=OEDO1U0A9019x18y1u9ZJ2cuYYEETpk74W//i7K8221GcVf2WSzoUg1t8nIOE4w4i
+ x6vTbaac+4XzUTlgecLH8JjgDdRhpVry/XWyabbeXOwKh7l1GMffT/bWaNHZsY4xT2
+ 25nrsrEVMMEjlZ+DgEDboae2tDZvS1edWH9Tnb5NUg279jXWVYJWBjKNFlW8f7yFP5
+ k+r6tiJAZVzid1VKKI1b/QxqjVWLu4O+KdQV5vppDpw+6j6D6KNJMEHAe523zY3Rds
+ O+uoWMoPPkWdyBGyvkIB6bdyvmf6kIYQgOaznzxb40nPnwffHXKjSWQ2EXJAXuNKCU
+ 4hRZgu+kQ1sZw==
+Message-ID: <320e0bd0-fc6b-4b71-9024-55a6af558fa3@kernel.org>
+Date: Fri, 30 Oct 2026 09:55:52 -0500
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: runtime resume dGPU on ACPI notify from
- its own node
+Subject: Re: [PATCH 2/2] drm/amdgpu: handle broken dGPU hotplug GPE on ASUS
+ ROG Strix G513QY
 Content-Language: en-US
-To: Mike Lothian <mike@fireburn.co.uk>, Alex Deucher <alexdeucher@gmail.com>
+To: Mike Lothian <mike@fireburn.co.uk>, "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
  christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
  linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261030075735.356811-1-mike@fireburn.co.uk>
+References: <20261030075743.356835-1-mike@fireburn.co.uk>
 From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261030075735.356811-1-mike@fireburn.co.uk>
+In-Reply-To: <20261030075743.356835-1-mike@fireburn.co.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -63,42 +63,26 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 10/30/26 02:57, Mike Lothian wrote:
-> On Thu, 29 Oct 2026, Alex Deucher wrote:
->> I'm not sure about BACO.  In the BOCO case the OEM has a mux on the HPD
->> pins that redirects them to the EC when the dGPU is powered off.  For
->> BACO it's usually a PCIe add-in board so there is no way to redirect
->> the HPD pins.
+> On Thu, 29 Oct 2026, Mario Limonciello wrote:
+>> Can you please get an acpidump and put it on a kernel bugzilla or drm
+>> bug?  This generally feels like an ACPI interpreter issue to me.
 > 
-> Agreed, and I can't test BACO anyway, so I'll keep it BOCO only in v2
-> Mario, sorry, I'll leave your BACO suggestion out unless someone has a
-> board that needs it
-
-No problem.
-
+> Done: https://gitlab.freedesktop.org/drm/amd/-/work_items/6061
 > 
->> Mike Lothian does your system have ATIF?  This is already code to
->> handle this.  It sounds like it's just registering the wrong ACPI node.
->> You should be able to use the existing handler.
+> It has the errors and the tables from /sys/firmware/acpi/tables, minus my
+> local override SSDT.  I haven't got acpidump or iasl installed so it's the
+> raw files in a tarball rather than a real acpidump, I can redo it if you
+> want the proper format
 > 
-> It does, but only on the iGPU: ATIF is in SSDT7 under \_SB.PCI0.GP17.VGA_,
-> and the dGPU node (\_SB.PCI0.GPP0.SWUS.SWDS.VGA_) has none
-> 
-> What arrives here isn't an ATIF notification either.  _L05 in SSDT9 is
-> just Notify (\_SB.PCI0.GPP0.VGA, 0x81), and that path doesn't exist on
-> this board, so the interpreter aborts the method with AE_NOT_FOUND and no
-> Notify is delivered to anything.  I've put the tables and the errors in
-> a bug: https://gitlab.freedesktop.org/drm/amd/-/work_items/6061
-
-Yeah looking at the tables this does look like a BIOS bug.  So quirking 
-it somewhere feels appropriate.
-
-> 
-> What I haven't checked is whether the firmware would flag a dGPU display
-> event in the ATIF SBIOS requests if the Notify did arrive at the right
-> node.  If I alias the path so it resolves, I can turn on drm.debug and see
-> whether amdgpu_atif_handler() fires and what request flags come back, and
-> if ATIF_DGPU_DISPLAY_EVENT is set I'll use the existing handler rather
-> than add a new one.  I'll report back
+> On the interpreter question: _L05 is only Notify (\_SB.PCI0.GPP0.VGA,
+> 0x81), and \_SB.PCI0.GPP0.VGA doesn't exist on this board, the dGPU is
+> under GPP0.SWUS.SWDS.VGA_.  I don't know what the interpreter is meant to
+> do with a Notify to a path that doesn't resolve, which is why I put the
+> question in the bug.  Rafael, if there's a better place for it I'll move it
 > 
 > Mike
 
+I posted another approach for patch 2/2 to the bug where it's a quirk 
+outside of amdgpu (since this looks like a BIOS bug).
+
+I guess test that and then we can see where a quirk would best live.
