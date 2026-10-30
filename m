@@ -2,121 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E298606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:34:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98C4606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:38:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=epCP46ok
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YmO74CP3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B872F10E89F;
-	Fri, 30 Oct 2026 17:34:28 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 149E210E89F
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 17:34:22 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id AD9A41A13E8;
- Fri, 30 Oct 2026 17:34:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7394A603C2;
- Fri, 30 Oct 2026 17:34:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id A00FB10328D09; Fri, 30 Oct 2026 18:33:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1793381649; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=VICXlRZ14rhhanz6CJeMesIouFUKGkvUkT9t7FZfz4Q=;
- b=epCP46okpn+q9I/oAstY23ZTzc6zvOUk2WFw9lJqfdty423a8pNpW/0aljG/xZlBCNmILB
- cyxUtC4Wfa+XvawZp3CtmRabDu9CVIVe9kN0ajZf91nWEi3ETAzROUbH8oYfvgSeXOrBML
- kSFJubPKKVq4nsZfCM3ZQT0wjG1r8Klktwxywq8lJRUWthbTR+NTCH5bJ063MRv2DHiXr/
- 0VWkfSga6rWzqV0u1TpnoAmluCt0c44RsZshdtlqmUeqrBjGHZjKOHkU8N+JNLHP94NoAr
- JFyqeVp6OfbFsAyZ32AOvAJUvx9z6Gm5Bjv2rjQgetml1BE+johyjpnx6gtY1g==
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 13/35] drm/panel: remove the _typed() panel bridge
- functions
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>, 
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
- Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Purism Kernel Team <kernel@puri.sm>, 
- Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
- Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
- Michael Trimarchi <michael@amarulasolutions.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Casey Connolly <casey.connolly@linaro.org>, 
- Michael Tretter <m.tretter@pengutronix.de>, 
- Cristian Cozzolino <cristian_ci@protonmail.com>, 
- Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>, 
- Nickolay Goppen <setotau@mainlining.org>, 
- Stefan Mavrodiev <stefan@olimex.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Robert Chiras <robert.chiras@nxp.com>, 
- Alexander Koskovich <akoskovich@pm.me>, 
- Markuss Broks <markuss.broks@gmail.com>, 
- Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
- Dzmitry Sankouski <dsankouski@gmail.com>, 
- Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
- linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-In-Reply-To: <20261026-drm-panel-funcs-v1-13-5e3070a3478f@oss.qualcomm.com>
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-13-5e3070a3478f@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 18:28:25 +0100
-Message-Id: <179338130524.3009485.17598085708064235352.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0096D10E05E;
+	Fri, 30 Oct 2026 17:38:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5CA310E3AF;
+ Fri, 30 Oct 2026 17:38:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 673BE43ED5;
+ Fri, 30 Oct 2026 17:38:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF591F000C1;
+ Fri, 30 Oct 2026 17:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793381927;
+ bh=udmFjoOsxM4mdeL62v0g8SSAzeWF8y/AuyOsRoGgE5k=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YmO74CP3RNtkEBugm+ioCvqKSFO/q8mKpuNCjAYLxgQsojxAkyt5Yv1hLKpvMP3sP
+ sb0R9urt9aUhqgevlNMFFBhT2NhUhatUcfPejDUgyhDhCgiyrWiJBfWRIGGra3W2kN
+ hefNQhATxm0nbIokzPN8Hf/1C71JK9+1cPr63LtL5sh/japE33+bTvsunWqeRxN4Vn
+ 5Ibl6L9DnV7/XToXmUJs3b90t9wFE+DY4wbpeWsUsAthLj3B+yCbUBzAfRXB+/9/fu
+ 2dAhKtrHD2XKxZHXr+4MGao+7E3NuXQekjBJ+7UKK6QrW9ljfobWmm7cWGTN8GVgeW
+ ljDfAlA0Gx6WA==
+Message-ID: <sashiko-outbox-191350@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/1] drm/xe/pcode: Fix pcode_try_request polling delays
+To: "Alan Previn" <alan.previn.teres.alexis@intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261030173038.681250-2-alan.previn.teres.alexis@intel.com>
+References: <20261030173038.681250-2-alan.previn.teres.alexis@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 17:38:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,24 +48,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Mon, 26 Oct 2026 13:10:02 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> The connector type argument of drm_panel_bridge_add_typed() and
-> devm_drm_panel_bridge_add_typed() has been ignored since commit
-> b7797081ccfe ("drm/panel: embed a drm_bridge into every drm_panel"),
-> and they have no users left.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/xe/pcode: duplicate left shift of wait in pcode_try_request()
+- [High] drm/xe/pcode: uncapped wait added to slept in pcode_try_request()
+--
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+commit b0181a87e207629275e050ae1f5d781e540c4b82
+Author: Alan Previn <alan.previn.teres.alexis@intel.com>
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+drm/xe/pcode: Fix pcode_try_request polling delays
 
+This commit clamps the atomic udelay() argument in pcode_try_request() to
+MAX_UDELAY_MS * 1000 and adds a 100 ms upper bound to the exponential
+backoff wait interval.
+
+> diff --git a/drivers/gpu/drm/xe/xe_pcode.c b/drivers/gpu/drm/xe/xe_pcode.c
+> index 266deecbb100a..25d1a354ee369 100644
+> --- a/drivers/gpu/drm/xe/xe_pcode.c
+> +++ b/drivers/gpu/drm/xe/xe_pcode.c
+> @@ -146,6 +146,7 @@ int xe_pcode_read(struct xe_tile *tile, u32 mbox, u32=
+ *val0, u32 *val1)
+>  	return err;
+>  }
+> =20
+> +#define __XE_MMIO_WAIT_MAX_BACKOFF_100MS (100 * USEC_PER_MSEC)
+>  static int pcode_try_request(struct xe_tile *tile, u32 mbox,
+>  			     u32 request, u32 reply_mask, u32 reply,
+>  			     int *status, bool atomic, int timeout_us, bool locked)
+> @@ -165,10 +166,11 @@ static int pcode_try_request(struct xe_tile *tile, =
+u32 mbox,
+>  			return 0;
+> =20
+>  		if (atomic)
+> -			udelay(wait);
+> +			udelay(min_t(int, wait, (MAX_UDELAY_MS * 1000)));
+>  		else
+>  			usleep_range(wait, wait << 1);
+>  		wait <<=3D 1;
+> +		wait =3D min_t(int, wait << 1, __XE_MMIO_WAIT_MAX_BACKOFF_100MS);
+
+[Severity: High]
+Should the existing wait <<=3D 1 statement above be removed? Leaving both
+shifts in pcode_try_request() shifts wait left twice on every iteration,
+quadrupling wait at each step (10 -> 40 -> 160 -> 640 -> 2560 us) instead
+of doubling it.
+
+Because the loop header accumulates elapsed time via slept +=3D wait after
+the loop body finishes:
+
+drivers/gpu/drm/xe/xe_pcode.c:pcode_try_request() {
+	for (slept =3D 0; slept < timeout_us; slept +=3D wait) {
+
+slept also advances by 4x the delay just performed, causing
+xe_pcode_ready() and xe_pcode_request() to time out with -ETIMEDOUT before
+timeout_us has actually elapsed.
+
+[Severity: High]
+When atomic is true, udelay() is clamped to MAX_UDELAY_MS * 1000 (for
+example, 5000 us on x86 or 2000 us on arm64), but wait continues to grow
+up to __XE_MMIO_WAIT_MAX_BACKOFF_100MS (100000 us) and is added directly
+to slept in the loop header:
+
+drivers/gpu/drm/xe/xe_pcode.c:pcode_try_request() {
+	for (slept =3D 0; slept < timeout_us; slept +=3D wait) {
+
+When xe_pcode_request() retries with preemption disabled:
+
+drivers/gpu/drm/xe/xe_pcode.c:xe_pcode_request() {
+	preempt_disable();
+	ret =3D pcode_try_request(tile, mbox, request, reply_mask, reply, &status,
+				true, 50 * 1000, true);
+	preempt_enable();
+
+won't slept accumulate the unclamped wait value once wait exceeds
+MAX_UDELAY_MS * 1000, causing the 50 ms atomic retry to return -ETIMEDOUT
+after only a fraction of the intended 50 ms delay?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030173038.6812=
+50-2-alan.previn.teres.alexis@intel.com?part=3D1
