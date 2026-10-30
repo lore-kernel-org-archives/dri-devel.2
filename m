@@ -2,113 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7052F606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 11:42:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB01B606A327
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 11:44:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=GdLZOJ5d
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CYls7XT4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDA2E10E10A;
-	Fri, 30 Oct 2026 11:42:25 +0000 (UTC)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3074C10E10A
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 11:42:20 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-cc751eddf25so343784a12.3
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 04:42:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793360540; cv=none;
- d=google.com; s=arc-20260327;
- b=I2MphG+wDVmo6A5Vu6TS62Ct45FB03hX9A/wHILGKAD/CiCiuLT6w0AoDCpTY+EjWZ
- NaZpsHdJCsiYln0qtUH5prtGkaeYnF1Yy9FcWmNDgm7vkiuaFtHf7/uM3Ct3DHuWH3LS
- lJP7t6PTV5dlHiE0hLJKNrdvk6aPiIuYhfEMrNAiiuXIRH0QNKSC+zMgExaXJWPZ31ZN
- F2OdtuKYVtUAY0Zg8Ihh+MwULw38xs4Nv8Hq1GrzbyoA0vRH27Jr33osBTMkkDVEzRzl
- 3uzivRmS2jayW3I/zracN9sCI1hiYqoQN7Mcx6Px4m3NE8ukt1bi1zpokn6JdqJCoC9g
- /Gag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=4lcETnvcA1FO4VShSmFGhX4tA8WQyd2jA8DOJ8G3k5s=;
- fh=IqpjRqZRM1YwZ3Z+yZ3+kCvJHf/k6aS8Haxl4TU5OvY=;
- b=aGoMJ9x421uveOoV45fxhs8P8qZKG2YPNr+aj3PuvElQ7cfzEFm5+iLn7qk50kkx7h
- +B/72ieQK01ifAgpGXUWMussUW3dYwg6q+UWvoyFzjjRAH/M9arimeuh1b/AkBdVtmEW
- omyjTUHr2nTQD06PwsKF0axD0rfBTwIs6stI7S0YJljqFS394jVbOfx9UFXLMlFJq5dX
- yxukE8HYf2Ody8FX3ASmtzc8D0ETHJkoh1c3ohG8Vb4qwtzHgqeLxZqXQ7LAR/TGvnav
- OYCsa+Qw0VwjBBk8eb1XVqwOPugH5JKXrMmo20Taesr8CHJtuFRY3Wd4xfwdEBVvUksA
- n3xg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1793360540; x=1793965340;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=4lcETnvcA1FO4VShSmFGhX4tA8WQyd2jA8DOJ8G3k5s=;
- b=GdLZOJ5dD+sqan/zOVH306KJ4mXnKKF32FrrucfT2b3GUjEX7P0ZwHN8I181Fx6OuH
- 26LpPAiONffQDRdLVkkTzKbyTjLvKyY+5hF9Z8tffz1wUBDqQp+2D+5lMtuQk0KEDST9
- KzrRq5Gqti98PN3fzbkxcnZsKEO59VZhqbvVP4qK1tbxitWLM03GkbX6ZHhqw8ow8qtO
- xOb8eQjvguuONzklIr8GMijmnbFDD3jbgzBuvHoPNbd3Zqg8NJu1Cu/8GIEt7PF3kofE
- 7IXx56Ab77yvz01qepqr/yQbsJNEJttN1HoPXKXYFu5HSxMj1wLvIV8gBNSicskyzG8s
- twzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793360540; x=1793965340;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=4lcETnvcA1FO4VShSmFGhX4tA8WQyd2jA8DOJ8G3k5s=;
- b=DaBkZ9dMe/CKID97VbvwQ2sh5duwlE6Xu6V5O+bAHAjOmFYJ+d3OzRbWjUcm/mYK5b
- frUuIZtDOOD9daE2lOivezhFeJvcoHMKLlrvXlzmmZ9oZDhTq1T+KdYrhKkQl3OIRzsi
- 5YioeB9Q9e4qCo2bwV/isz8ptZlcWKlXcBrg2gW0mhcoyzCZPySaAE75aWU2cIReFLND
- qutQb9B4gFl3+TZvzGtuJlr+slPs6BUHL36QlvkwwW7t/fvSR89s/2yxq2YrOIQX0BXT
- JCbTWjfDYsXmeKcxdO8VJ8XAXkV24G/h/Ll5f2SW6wdOaVIf7/48FeuulpgRp7lPbY3n
- 9MLg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz8FV7/VNqCWFsN1b9FE1oaP2us22axecBBlwoUjsx698lSbDtAsQNwiLoYCMK6LltWBCcl2KlHn+c=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK+64fw4j9nSSUKYG8UqvAuiTdyG7b+SbwilTj2E9cnNS2icctF
- 0k87O5RezFWLnDox/uljhLLPL8duZ5gMy6el9fjmaplLAk0y+7hJkuFlC4FQ/7wwQH/q+97ip5C
- Ns5qOr4RvtIJy8uNdsYncY7hr4JCw/sC80VoBGHZWTA==
-X-Gm-Gg: AYBFou1BKeEzX3tdXaX+ZrSqIgeVQXcx5hoiQk8sqw9hT3rtlBi6OD2aSTcAbO8+42n
- zro5iugQDPq5ACeUaD/7uP3Iv2oO9TOlb9ll94IptV456LHGeB8/hUgCKcD/EEp91yfERGltNSC
- TbOlsGzRTWsnMrGNDS3X/RWFk0wZri5p6mwkDDC4DdXVkpedE21wXYTpyGZZuB+Iu30ZWDFPFv6
- t0e2nWGR2kOiueopMTiRryKNjSYGMrQ/t8bwjx9ERSUQXtinvIhzb0GWrZJSjT/3hpyge1IN60N
- eMujXNcxgqTH0NM2ArJTyv8zo7fSp3sw8csMZ3YS4td/2uwqGeHrLzklqgxo7zciNcRcjRN4GKZ
- A+Oi/oB6i7eGcsOA6Tm2EyvYEJq+rb+32vp1M
-X-Received: by 2002:a17:90b:570c:b0:3ac:8897:7ba9 with SMTP id
- 98e67ed59e1d1-3ae8985d52dmr1762888a91.56.1793360539713; Fri, 30 Oct 2026
- 04:42:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDD7810E279;
+	Fri, 30 Oct 2026 11:44:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E02E10E279;
+ Fri, 30 Oct 2026 11:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793360665; x=1824896665;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=x8TvwLzSHqdTbx1HgAAtb/ADR1txxIEQrI2u8aFySlM=;
+ b=CYls7XT4FtBzGSHj2wU9DbW89wIHZfPeVF5FqMgn8NqfUGEwU4Zd6hjC
+ rIXf0ZfZg+ynXS1skX35Ithc2FfytK0utj0Xkp2n9wv/KNImj3GE9XNSE
+ mxjSX8+FiAOZMUOOkXLKPHVOCxANiP1jGXJKNzmwKBiUilM3baluiKTN0
+ 9eXghTiBcmOjSZ/cwFv9XIIS8ylE9ygsFMlY5YBWfb+AXmSlL1N+/tMoF
+ q0qKGTq0aeqNlmfAtQlYeLIoqcWiy3vDAH42vxvB8kWTPLVZ5TeSuGaRp
+ mM80lQIXcIVLmOvg9dfUMOGN9ETy7py4tJQ6+NjkZeRTdFJzuCPETkB3t A==;
+X-CSE-ConnectionGUID: wPJlFmIyQmCr1QolONuI2w==
+X-CSE-MsgGUID: XqwjpKHXT/ivi0Z6SZhWnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2153576"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2153576"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 04:44:25 -0700
+X-CSE-ConnectionGUID: dUGh3GZZSfWnVLY/c5JscA==
+X-CSE-MsgGUID: GtI3xy5jTpm+UPu/72vcvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5755803"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.58])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 04:44:20 -0700
+Date: Fri, 30 Oct 2026 13:44:16 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] drm/dp: Always use enhanced framing for DPCD r1.2+
+Message-ID: <auSDEOoWZWcgbvzZ@intel.com>
+References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+ <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
+ <auR8R7G5S8hv5R0e@intel.com>
+ <59106a36510e33e851f76c877f41952b11a8c774@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
- <20261014-dw-hdmi-qp-yuv-v5-8-6fab0fe43a9b@collabora.com>
-In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-8-6fab0fe43a9b@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Fri, 30 Oct 2026 11:42:08 +0000
-X-Gm-Features: AclHuK-tK26BAq3qSwy7dk58hnLMShmnME05ES1MHznr_rkGJBFi7nJKvVCEwy4
-Message-ID: <CAPj87rPsh_cVQWtGEisDrXWiT+Zj6D6n5wXpmbuoFvMKtOi7TA@mail.gmail.com>
-Subject: Re: [PATCH v5 08/15] drm/rockchip: vop2: Avoid DCLK source switch for
- 10-bit YUV422 output
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
- Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Paunovic <royalnet026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <59106a36510e33e851f76c877f41952b11a8c774@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,33 +86,88 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On Fri, Oct 30, 2026 at 01:36:31PM +0200, Jani Nikula wrote:
+> On Fri, 30 Oct 2026, Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> > On Thu, Oct 29, 2026 at 11:18:22AM +0100, Dmytro Malovanyi wrote:
+> >> DP 1.2 section 2.2.1.1 says "An upstream device interoperating with a
+> >> downstream device with DPCD Revision of 1.2 or higher must enable
+> >> Enhanced Framing Mode". So for r1.2+ the DPCD revision is enough, the
+> >> DP_ENHANCED_FRAME_CAP bit does not need to be checked.
+> >> 
+> >> Some sinks get this bit wrong. The Xiaomi Monitor A24i (P24FBA-RAGL)
+> >> sets it in the base receiver caps, but clears it in the extended
+> >> receiver caps at 0x2200, which are the ones we use:
+> >> 
+> >>   base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
+> >>   extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
+> >> 
+> >> Through a USB4 dock (CalDigit Element 5) the link trains without
+> >> enhanced framing (0x202-0x204: 77 77 81), but the sink never syncs to
+> >> the stream (SINK_STATUS 0x205: 00) and shows "No signal". Forcing RBR
+> >> does not change it. Connected directly to the laptop the same sink
+> >> syncs without enhanced framing, at RBR, HBR and HBR2.
+> >> 
+> >> Make drm_dp_enhanced_frame_cap() return true for DPCD r1.2+. This
+> >> changes behaviour for every driver using the helper, but only for sinks
+> >> which already violate the spec by not setting the bit.
+> >> 
+> >> Tested on i915 (Arrow Lake-U), with the dock the link now uses enhanced
+> >> framing (0x101: 84) and the sink syncs (0x205: 03).
+> >> 
+> >> Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
+> >> Cc: stable@vger.kernel.org
+> >> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
+> >> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+> >> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+> >> ---
+> >>  include/drm/display/drm_dp_helper.h | 4 ++++
+> >>  1 file changed, 4 insertions(+)
+> >> 
+> >> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> >> index 5b05a7fbe..4f20f60db 100644
+> >> --- a/include/drm/display/drm_dp_helper.h
+> >> +++ b/include/drm/display/drm_dp_helper.h
+> >> @@ -160,6 +160,10 @@ drm_dp_max_lane_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+> >>  static inline bool
+> >>  drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+> >>  {
+> >> +	/* DP 1.2 2.2.1.1: enhanced framing is mandatory for DPCD r1.2+ */
+> >
+> > DP_ENHANCED_FRAME_CAP is also mandatory so I think this needs
+> > a bit more detailed explanation.
+> 
+> Commit message not enough?
 
-On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
-<cristian.ciocaltea@collabora.com> wrote:
->         if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
-> -               unsigned int bpc = vcstate->output_bpc ?: 8;
-> +               /*
-> +                * YUV422 always transmits two 12-bit components per clock
-> +                * cycle, regardless of the color depth, which from a rate
-> +                * perspective is equivalent to three 8-bit RGB components.
-> +                * Force 8 bpc here so the bandwidth check reflects the actual
-> +                * TMDS rate and avoids an unnecessary DCLK source switch.
-> +                */
-> +               unsigned int bpc = vcstate->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
-> +                                       8 : (vcstate->output_bpc ?: 8);
+On its face the check looks completely redundant, so without further
+justification someone is likely to just remove it.
 
-The nested ternary is pretty violent; please write it out explicitly.
-Either way, the equivalent clock adjustment for YUV420 is handled in
-the setup_intf_mux() handler, so would it be better for YUV422 to also
-live there, rather than mashed in with bpc here?
+> 
+> I think the wording in the specs suggest that with DPCD r1.2+ you should
+> just enable enhanced framing regardless of the cap.
+> 
+> BR,
+> Jani.
+> 
+> >
+> >> +	if (dpcd[DP_DPCD_REV] >= 0x12)
+> >> +		return true;
+> >> +
+> >>  	return dpcd[DP_DPCD_REV] >= 0x11 &&
+> >>  		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
+> >>  }
+> >> -- 
+> >> 2.50.1 (Apple Git-155)
+> 
+> -- 
+> Jani Nikula, Intel
 
-Cheers,
-Daniel
+-- 
+Ville Syrjälä
+Intel
