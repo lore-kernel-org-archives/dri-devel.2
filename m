@@ -2,42 +2,107 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C966606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 04:54:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001EF606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 05:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Auc7HiTU
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DkaS8cVk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9348510E5B4;
-	Fri, 30 Oct 2026 04:54:46 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39CFB10E558;
- Fri, 30 Oct 2026 04:54:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7149040543;
- Fri, 30 Oct 2026 04:54:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA4C1F00A02;
- Fri, 30 Oct 2026 04:54:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793336079;
- bh=HLX4JMGbdcq/aUwr4uUrex+io/pY0G+gzyhDb3ZhoxQ=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=Auc7HiTUhCKBaAKQj9XoeZijzTVy0xvM+uyvmquvVEKdJ+wWx12QGX029qz7+2ZXt
- HSX3LrgY+7zIAB9y28VywZEVudzJPB9CH8AaX3UVpAa0dyS4RtMzrDhDoRmBtFw475
- U0F1qGM7keBpSOZoMAADwK8g0vm/nY5SvHvnaPTRn9uAlKiD7cj1yEkOnh0CsP1PVd
- N0pCazAA3tAxQV8KLrUw4hT+pW7NK1R0z8nQ/BCx88b5XSdyqnVAfE9BDpJrexg/P/
- IDmCgmTmYlXqv0QbjVV8N33CpPTi45Iv4Bfv7cN17555xkmaqPoQ/A7eSY7ZA/pRRw
- FIis9EcoaFSGA==
-Message-ID: <sashiko-outbox-190525@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] drm/xe: Expose retired VRAM pages via drm-ras
-To: "Aravind Iddamsetty" <aravind.iddamsetty@linux.intel.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261007080354.3072751-2-aravind.iddamsetty@linux.intel.com>
-References: <20261007080354.3072751-1-aravind.iddamsetty@linux.intel.com>
- <20261007080354.3072751-2-aravind.iddamsetty@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DCD610E258;
+	Fri, 30 Oct 2026 05:01:10 +0000 (UTC)
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
+ [209.85.210.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F004710E258
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 05:01:03 +0000 (UTC)
+Received: by mail-ot1-f47.google.com with SMTP id
+ 46e09a7af769-82109f51565so157991a34.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 29 Oct 2026 22:01:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793336463; cv=none;
+ d=google.com; s=arc-20260327;
+ b=WgG3yTiuiO7+1reqc++mNuvHUgNrNcR7YtvIdhdUlMEKq8A/dfjc0Uk2Ed+Vrok/8C
+ u4osRT/iP1k8oKSj27MX6v5iH6jO3ZkzUo6TkKJfk/xng9T8xhAGlO+nYx5d+beakG2v
+ 1HYFg7ma5wxBvX0lS1bM+7LdawOim8DL1OZyt6Al3o7cpZ8x0oZE6UiiYhDsmlwOK/6w
+ 7QJ/quOlso1Nl1Ll2olrCvzjKsYnuC5Mh4wcAYA2PoECbHseivDvBHDjjCHUMX957+sE
+ 9lltI9HtQx6ZAqc0cdDlYQ2nHGXd9M6Z/lfBEJcVYFpkgf1yUpbNDwH6RO8zXZjIiswZ
+ F9Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=jVHkdup9h6VAyVXa9WHVnyDXMjAy2tnvxXwmB5v5HJk=;
+ fh=AcxL+9QJ6E8QRlcI419WrzZvP3+g+7wqfJS2wwfGjaQ=;
+ b=SdP63pDcJLCSqr5ncq3yw3H38fbJa6ua0PluHWrt0pEUsZSBBeXjM+d5cb6LFHZLvn
+ TDpR2b7KkTXkYg6xfVdqx5UALSm4W0Qi+4cxL0d+qveAshIWh/Hx71cpTuBhnFCQMTwa
+ HzhgS31Bt2/OCE0Dr5c65audBUvKTlG1N6ZtQNtnLc+cIfCPE04Ho+ekP3zAdYfeJTGx
+ jMWuohK/T9Q09K+A7BPQ7bCTGAOHksxZMoaF+7BVnVX8bilsJW1L4zas3n/IWUqrNHHc
+ /byM0X+8VkvMPvM7q+zpJ3MgKg/fZVtfJ//RvmE26QFghpZYtQWaEbjQlOHCnEcd+Qxa
+ N4qQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793336463; x=1793941263; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=jVHkdup9h6VAyVXa9WHVnyDXMjAy2tnvxXwmB5v5HJk=;
+ b=DkaS8cVkXgv7dP39bdEqV74L/68hW9SlopieYoh6BgjjH8jcJ7W8/wYxyT+TB/0nLB
+ YCDj0+wbb5Obs+d8p46jweX6/SbMbink1ri3wyk7IyWZkdJ9+3ksIaddD3HqWttw0ZSv
+ 7egu6fSkPMidoQqRfygCfky5Lnmh/QOKvijsPV2MJ3dQ9KzjKH0eRAeKb5IG4MBTj15F
+ T201OklynDg6ztHkPYaKd0A8Z7FPuKaaAbJtsp0RBAtgxXoSTE9gKevQPKzfR7L3GHty
+ TKzwwEyiG+nD3mxEfrFu8TzAI4S5Ozpf3ctzmtgOEWi99TDWxLYXkj/5Ic62dsQXWQte
+ KNeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793336463; x=1793941263;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=jVHkdup9h6VAyVXa9WHVnyDXMjAy2tnvxXwmB5v5HJk=;
+ b=qxC2I0F+tCtoivw773hSjMRLt2NoH0UeWZUAALJdW2YE07aMXYCNl6LoP+6C780bxg
+ 10rGHijLfGPPAawtdfxHnUwjHGgigHrOrPss/SgycQ5o2SDma/O9DsZ0H7xYagYlYZ0T
+ 7lC6uVQiHmzs4ACBnvd1cZp5vth6qkx95x52Z3ZV1XzGK0iRNEmTjSB33tc1tnb+U+1B
+ OfWhIA9D8rj9axnp/VcJWIagGauwQrquDrXjo+rbq1TyAEWF4r0DSxGmQLmr6Ni6sI9N
+ OgUQq/k/U8w8Vp4cK4NrTjRGPVMh7vItCd+Pw99ENW/h2ScZ/RcBZHGjvcH15SEyOrt8
+ zjgA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy0gspmBLcI7O/rffWc+VZISUsF32FLuuz7cutk8t7iZCBgPnO+Gy/j8IDCaMQ9ko5DGkEoVT1yfcc=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLrSEM58fdYLL9bzz4CfBKr+akQRyjDmT4dha+7qUeTnh3VZIPa
+ Hszpvt1QkTmxEn3QxHDZkJKn1mR8tTAtfYmtX/99IHjDv6PGxsipJFoj2ieOvm430+S6yN4iDJK
+ CbvuVIW3vKIBO15EPC+mmrZziOpiMg8g=
+X-Gm-Gg: AYBFou0YhHpZRqlMP4iwKo7yLP4KHr+VpkuZupqe8XLR7Qs01HFjrj5/IZbLuwftIm/
+ Gk+cLdfvPgbb+TOtPe2aIFlNagHPDiG56tY3Py9+EFpSsEnFRfpLc/YNJsMxRh1T90y4SCPeq8L
+ jjCgEi2WwwVm8ze+XD15QSQtgZy1RJa/LRoSUhc3I/BCyCFTsJgpaF+bQMxQIQ+ooRZ/vXrqWSu
+ N+dzipHdoz3tENeSR9IYVUtU0QOeMUBdqnvhh3vmhiGVef7OfcILj0vSC+iGgxAGCnGxCHLV5tA
+ kbmkHsTSDY6mOMhnjniVCrveRdhiLgtlU5TC4WOcxgu/eBWnlj8kyvLlK2+MGZ4cS8EDlLqLiCr
+ /vwGSFGiDcsvv5p1AM89Czb/z+2LdDeoEZLI387DsVGXP3Urq5FjKp/wbm2Pa7fGIeswt+g==
+X-Received: by 2002:a05:6808:c122:b0:55e:fa63:7001 with SMTP id
+ 5614622812f47-5640ddca9edmr954504b6e.36.1793336462734; Thu, 29 Oct 2026
+ 22:01:02 -0700 (PDT)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <20260901234351.190506-1-anarsoul@gmail.com>
+ <CAKTNdwFqSBt4QVCuYJxTyEDsxkW96JbUirFNAgJYWVLHzGpk4A@mail.gmail.com>
+ <CA+E=qVcizyQZytw8M6DA72YGrRDDNx_cCvYj565zf9wjMWh8tg@mail.gmail.com>
+ <CAKTNdwFQvKtHQA0JD-GAq3bgr5Brq2NyLfccenkHcrKcjeptwg@mail.gmail.com>
+ <CA+E=qVcwtnU_Gg6_oFmWqMpCEF8vOvB_G+H-ihfbiAr0PpFUJw@mail.gmail.com>
+ <CAKTNdwGTacFvn5BEN+iu0OBG2BUas7Vfj=YYF8OhAhNq-9kmyg@mail.gmail.com>
+In-Reply-To: <CAKTNdwGTacFvn5BEN+iu0OBG2BUas7Vfj=YYF8OhAhNq-9kmyg@mail.gmail.com>
+From: Vasily Khoruzhick <anarsoul@gmail.com>
+Date: Thu, 29 Oct 2026 22:00:36 -0700
+X-Gm-Features: AclHuK91Kq4AK7MRfCEoN-bxDWWEQLSESXtbozHlwJea6SWMh0uWvQ7bm47NBQ0
+Message-ID: <CA+E=qVf=oBf9a=nrN-F2gGGY60+Gfuj3NMvuW4pWAdbU6NKceA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] clk: rockchip: rk3399: add 85.5 MHz rate to PLL rate
+ table
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Heiko Stuebner <heiko@sntech.de>, 
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Oct 2026 04:54:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,230 +113,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] drm/ras: UAF in drm_ras_nl_get_retired_resources_dumpit() due to m=
-issing node lifetime management
-- [Medium] drm/xe: lockless sequential list traversal in xe_ttm_vram_get_re=
-tired_page skips moving entries
-- [Medium] xe: data race in xe_ttm_vram_get_retired_page due to lockless po=
-s->blocks traversal
-- [Low] netlink: use of u64 and pad attributes for new families instead of =
-uint
---
+On Sat, Sep 5, 2026 at 11:31=E2=80=AFPM Alexey Charkov <alchark@flipper.net=
+> wrote:
+> > > I believe something is hardcoding the divisor (or leaving it at the
+> > > power-on default) in the actual DCLK of a VOP which the HDMI
+> > > controller uses, instead of modelling it properly as a mux (frac/div)
+> > > feeding off VPLL via another mux - both perfectly representable in th=
+e
+> > > clock framework and already envisaged in the clock driver, making the
+> > > PLL table patching unnecessary.
+> > >
+> > > Can you please try re-pointing the "ref" clock at DCLK_VOP0 (or 1,
+> > > depending on which one your HDMI controller uses)? Your clock summary
+> > > already shows that something is assigning its parent to DCLK_VOPx_DIV
+> > > and the latter's parent to PLL_VPLL, so rate changes the current
+> > > driver code does on VPLL propagate to the muxed and divided downstrea=
+m
+> > > consumer as a side-effect rather than as an actual rate request.
+> >
+> > I don't think it is a reasonable ask. Wrong clock for the HDMI encoder
+> > would just result in non-working HDMI output and no feasible way for
+> > me to debug what is wrong.
+>
+> Hope you have a serial console or ssh connection to the board. If it
+> doesn't work you'll know soon enough.
+>
+> What I'm pointing out is that the clock setup implied by the current
+> dtsi doesn't make much sense: VOP's dclk is driven off VPLL via a mux
+> and divisor. If the encoder's pixel clock is truly driven directly off
+> VPLL then Rockchip designed the muxes and dividers for nothing, as
+> they will always be no-ops. This doesn't square, so something must be
+> wrong, and I believe it's the dtsi.
+>
+> I'll be happy to be proven wrong here.
 
-commit fb04233297e64629b7560f39b814687dd56470e6
-Author: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
+Hey Alexey,
 
-drm/xe: Expose retired VRAM pages via drm-ras
+Sorry for the long delay - NVMe in my laptop died and I had to wait
+for a warranty replacement to arrive. I would have bought a new one if
+the price wasn't ridiculous :)
 
-Add a proper userspace interface using the drm-ras generic netlink family
-for offlined VRAM pages.
+The dtsi describes the hardware correctly. The HDMI PHY's reference
+clock input (TRM Part 1, 1.1.11: "13.5-600MHz input reference clock")
+is wired to VPLL with no mux or divider in between; it is not one of
+the CRU clocks in the TRM's clock tree at all.
 
-> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/net=
-link/specs/drm_ras.yaml
-> index 4c2ac9a1ba3f5..42ab1cceaea73 100644
-> --- a/Documentation/netlink/specs/drm_ras.yaml
-> +++ b/Documentation/netlink/specs/drm_ras.yaml
-[ ... ]
-> @@ -100,6 +123,45 @@ attribute-sets:
->          name: error-value
->          type: u32
->          doc: Current value of the error counter.
-> +  -
-> +    name: retired-resource-attrs
-> +    attributes:
-[ ... ]
-> +      -
-> +        name: address
-> +        type: u64
-> +        doc: Device address of the retired VRAM page (e.g. DPA).
-> +      -
-> +        name: size
-> +        type: u64
-> +        doc: Size of the retired VRAM page in bytes.
-> +      -
-> +        name: max-pages
-> +        type: u32
-> +        doc: >-
-> +             Maximum VRAM pages that can be retired. Present only in the
-> +             leading summary entry of the dump (no address/size/status).
-> +      -
-> +        name: status
-> +        type: u32
-> +        doc: Retirement status of the retired VRAM page.
-> +        enum: retired-resource-status
-> +      -
-> +        name: pad
-> +        type: pad
+That's exactly what the commit that introduced the "vpll" clock says,
+from Rockchip's own engineers, see 5e3bc6d1ab48 ("drm/rockchip:
+dw_hdmi: introduce the VPLL clock setting")
 
-[Severity: Low]
-Does this new family attribute set need manual padding and fixed-width u64
-types?
+This bug report itself is a solid proof of this wiring. With VPLL left
+at 74.25 MHz and the VOP on GPLL/7 =3D 84.857 MHz, the monitor reported
+the mode as 1195x768. 74.25/84.857 =3D 0.875, and 1366 * 0.875 =3D 1195.
+The TMDS clock came from VPLL while the sync timing came from the VOP.
+If the PHY were clocked from the dclk mux output, that mismatch could
+not exist.
 
-The netlink guidelines recommend using the dynamically sized uint type inst=
-ead
-of u64 and manual padding for new attributes.
+The mux and dividers are not for nothing: there is one VPLL and two
+VOPs, and each VOP can also drive eDP, MIPI DSI and DP, whose PHYs
+have their own PLLs. When VOPB drives HDMI from VPLL/1, VOPL has to
+run from CPLL or GPLL through the divider, and the fractional divider
+exists for DSI panels with odd pixel clocks. For HDMI the divider is
+legitimately 1.
 
-> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-> index b099eb67836e7..46ee897a13c94 100644
-> --- a/drivers/gpu/drm/drm_ras.c
-> +++ b/drivers/gpu/drm/drm_ras.c
-[ ... ]
-> @@ -564,6 +577,148 @@ int drm_ras_nl_clear_error_counter_doit(struct sk_b=
-uff *skb,
-[ ... ]
-> +int drm_ras_nl_get_retired_resources_dumpit(struct sk_buff *skb,
-> +					    struct netlink_callback *cb)
-> +{
-> +	const struct genl_info *info =3D genl_info_dump(cb);
-> +	struct drm_ras_ctx *ctx =3D (void *)cb->ctx;
-> +	struct drm_ras_retired_resource res;
-> +	struct drm_ras_node *node;
-> +	struct nlattr *hdr;
-> +	u32 node_id;
-> +	u64 cursor;
-> +	int ret =3D 0;
-> +
-> +	if (!info->attrs ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NODE_ID))
-> +		return -EINVAL;
-> +
-> +	node_id =3D nla_get_u32(info->attrs[DRM_RAS_A_RETIRED_RESOURCE_ATTRS_NO=
-DE_ID]);
-> +
-> +	node =3D xa_load(&drm_ras_xa, node_id);
-> +	if (!node || node->type !=3D DRM_RAS_NODE_TYPE_RETIRED_RESOURCES ||
-> +	    !node->query_retired_resource)
-> +		return -ENOENT;
-> +
-> +	/* Leading type-specific capacity summary (e.g. max pages), emitted onc=
-e. */
-> +	if (!ctx->summary_sent && node->query_retired_summary) {
+This is also why the PLL table patch is needed under any scheme: the
+RK3399 PLL driver is table-only (rockchip_pll_determine_rate() snaps
+to the nearest lower table entry), and the PHY reference has to be
+85.5 MHz exactly because nothing between VPLL and the PHY can divide
+it.
 
-[Severity: High]
-Can the locklessly loaded node pointer be freed concurrently?
+And the VOP patch doesn't hardcode a divisor. The VOP still makes a
+real clk_set_rate() on its dclk at enable time. The bug was ordering:
+mode_fixup() rounded the pixel clock through the dclk while VPLL was
+still at its old rate, so the composite chose GPLL/7 and the encoder
+then asked VPLL for 84.857 MHz, which the table snapped to 74.25 MHz.
+With VPLL programmed first, the composite picks VPLL with divider 1
+because it is the exact match.
 
-The generic netlink interface runs without genl_mutex. xa_load() drops the
-RCU read lock before returning, and the node lacks any reference counting.
-
-If a device teardown concurrently removes the node via cleanup_node() and
-frees its memory, could accessing node->query_retired_summary() cause a
-use-after-free?
-
-> +		memset(&res, 0, sizeof(res));
-> +		ret =3D node->query_retired_summary(node, &res);
-> +		if (ret =3D=3D 0) {
-[ ... ]
-> diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe=
-_ttm_vram_mgr.c
-> index 9a514d983e90b..b56b543a56a24 100644
-> --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-> +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-[ ... ]
-> @@ -624,6 +626,123 @@ u64 xe_ttm_vram_get_avail(struct ttm_resource_manag=
-er *man)
-[ ... ]
-> +int xe_ttm_vram_get_retired_page(struct xe_device *xe, u64 min_addr,
-> +				 u64 *addr, u64 *size, u32 *status)
-> +{
-> +	struct xe_ttm_vram_offline_resource *pos;
-> +	struct ttm_resource_manager *man;
-> +	struct gpu_buddy_block *block;
-> +	struct xe_ttm_vram_mgr *mgr;
-> +	u64 best_addr =3D 0, best_size =3D 0;
-> +	struct xe_tile *tile;
-> +	u32 best_status =3D 0;
-> +	bool found =3D false;
-> +	u8 id;
-> +
-> +	for_each_tile(tile, xe, id) {
-> +		struct xe_vram_region *vr =3D tile->mem.vram;
-> +		u64 a, s;
-> +
-> +		man =3D ttm_manager_type(&xe->ttm, XE_PL_VRAM0 + id);
-> +		if (!man || !vr)
-> +			continue;
-> +		mgr =3D to_xe_ttm_vram_mgr(man);
-> +
-> +		rcu_read_lock();
-> +
-> +		list_for_each_entry_rcu(pos, &mgr->offlined_pages, offlined_link) {
-
-[Severity: Medium]
-Will this lockless sequential traversal skip entries if they are moving
-from queued_pages to offlined_pages?
-
-If xe_ttm_vram_retry_queued_pages() concurrently moves an element from
-queued_pages to offlined_pages after this loop has already scanned
-offlined_pages, the element would also be missing when the second loop
-scans queued_pages. This would cause the element to be permanently skipped
-during the dump.
-
-> +			block =3D list_first_entry_or_null(&pos->blocks,
-> +							 struct gpu_buddy_block, link);
-> +			if (block) {
-> +				a =3D gpu_buddy_block_offset(block) + vr->dpa_base;
-> +				s =3D gpu_buddy_block_size(&mgr->mm, block);
-
-[Severity: Medium]
-Is it safe to read pos->blocks and the block header locklessly here?
-
-If a page reservation is concurrently retried via
-xe_ttm_vram_retry_queued_pages(), xe_ttm_vram_buddy_alloc() dynamically
-allocates and appends a new block to pos->blocks using a plain list append.
-
-Because this traversal relies on RCU, could it observe an uninitialized
-gpu_buddy_block header, resulting in garbage address and size values being
-returned to userspace?
-
-> +			} else {
-> +				a =3D pos->addr + vr->dpa_base;
-> +				s =3D SZ_4K;
-> +			}
-> +
-> +			if (a >=3D min_addr && (!found || a < best_addr)) {
-> +				best_addr =3D a;
-> +				best_size =3D s;
-> +				best_status =3D DRM_RAS_RETIRED_RESOURCE_STATUS_RETIRED;
-> +				found =3D true;
-> +			}
-> +		}
-> +
-> +		list_for_each_entry_rcu(pos, &mgr->queued_pages, queued_link) {
-> +			block =3D list_first_entry_or_null(&pos->blocks,
-> +							 struct gpu_buddy_block, link);
-> +			if (block) {
-> +				a =3D gpu_buddy_block_offset(block) + vr->dpa_base;
-> +				s =3D gpu_buddy_block_size(&mgr->mm, block);
-> +			} else {
-> +				a =3D pos->addr + vr->dpa_base;
-> +				s =3D SZ_4K;
-> +			}
-> +
-> +			if (a >=3D min_addr && (!found || a < best_addr)) {
-> +				best_addr =3D a;
-> +				best_size =3D s;
-> +				best_status =3D pos->status =3D=3D XE_PAGE_RESERVE_FAIL ?
-> +					      DRM_RAS_RETIRED_RESOURCE_STATUS_FAILED :
-> +					      DRM_RAS_RETIRED_RESOURCE_STATUS_PENDING;
-> +				found =3D true;
-> +			}
-> +		}
-> +
-> +		rcu_read_unlock();
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007080354.3072=
-751-1-aravind.iddamsetty@linux.intel.com?part=3D1
+Regards,
+Vasily
