@@ -2,38 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4223F606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:31:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA70606A323
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 17:31:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=KAydOigx
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=BIGpS8NQ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96DBE112965;
-	Fri, 30 Oct 2026 17:30:57 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEE96112965
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 17:30:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B55C10E840;
+	Fri, 30 Oct 2026 17:31:25 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E546F10E840
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 17:31:18 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 994EC1A13D8;
- Fri, 30 Oct 2026 17:30:49 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 7BB4B4E413A6;
+ Fri, 30 Oct 2026 17:31:17 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 68E87603C2;
- Fri, 30 Oct 2026 17:30:49 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3EFA66076B;
+ Fri, 30 Oct 2026 17:31:17 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 47C441032912E; Fri, 30 Oct 2026 18:30:19 +0100 (CET)
+ with ESMTPSA id 4D41A103290EE; Fri, 30 Oct 2026 18:30:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1793381443; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1793381466; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=gh45HzhhJojiBAuuqgulA1khMEO7vPQ7xJgZRULDCo4=;
- b=KAydOigx5MLbYdBue8TMj5b2Qb0ciGtKQxxn2QnRFqD8sCS8d/6XQJS3RuhaUdQe7bX58I
- RGlJvuTccsgMZpizY1kqtdw6l6mrJ5sQNRaHA5hFKjfPStuDY5OJzT9yVwCSZzeQiNRcry
- fWEJ5FBtOZskem6RFeMGQX64ho+n/aT5kIrm4OuEWBENaoyKJq8bl6Pbx+hKnPzBSXZlyN
- 5t9wbfdveVjd/MOmkuE3l7P+Yfv85r6lAeXjUylvvAJ16hmHoI+zXQNl0WtW6HZ9KIJXOA
- JTjNYsQgWXVeGuVCjGhDuZkt7G6spb2Zf1n/PQrA9XNmDMOIkxh7mIDywLBNkA==
+ bh=lRmyLXcd0AekLQ/v2+PcTStGKOT1K2BsRAt76YP3cr8=;
+ b=BIGpS8NQIFv4zezi7Uhs6V3wAcwUdEh09Ku0BjPnOJ1z1RsTyC7v70zvo8jdKGTQdRmVZd
+ V/QDpL5cqLtk7+dsQaD7EHoV+O6r4K5Gt36QQP1lG/pkxL2bL+m6FJbT8Iq80kVfpgIy/z
+ n49DiPRYEW3MHcDqYuik9xlBty+YxlICHQC3XtS+68h63TjfPo/6h0bbA+j9iXEVw0p1BM
+ YHF+9HVOeOAAom1TCVdzPtuK/CxiY0l7QKsnPTZnX+IGOmrB1lS9uFMn0SlfswiHZG+OaR
+ 8E4/4tYqwJ9SnuxPoCojfMs99pGzOVaFBHEik5UiUWstDGISJOsISXeUfw2ViQ==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 05/35] drm/ingenic: use devm_drm_panel_bridge_add()
+Subject: Re: [PATCH 06/35] drm: mxsfb: use devm_drm_panel_bridge_add()
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Douglas Anderson <dianders@chromium.org>, 
@@ -109,11 +109,11 @@ Cc: Douglas Anderson <dianders@chromium.org>,
  linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
  linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-In-Reply-To: <20261026-drm-panel-funcs-v1-5-5e3070a3478f@oss.qualcomm.com>
+In-Reply-To: <20261026-drm-panel-funcs-v1-6-5e3070a3478f@oss.qualcomm.com>
 References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-5-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-6-5e3070a3478f@oss.qualcomm.com>
 Date: Fri, 30 Oct 2026 18:28:25 +0100
-Message-Id: <179338130513.3009485.13071545948370827734.b4-review@b4>
+Message-Id: <179338130515.3009485.7125694218038298027.b4-review@b4>
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -134,7 +134,7 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, 26 Oct 2026 13:09:54 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+On Mon, 26 Oct 2026 13:09:55 +0200, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
 > The connector type passed to devm_drm_panel_bridge_add_typed() has been
 > ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
 > every drm_panel"), the bridge always has the type of the panel.
