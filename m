@@ -2,53 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF36606A322
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 12:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3B4606A322
+	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 12:03:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PdP0WHmq
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f4d/vnuZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9786A11279C;
-	Fri, 30 Oct 2026 12:03:47 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 240F511279A;
- Fri, 30 Oct 2026 12:03:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEA1D1127A1;
+	Fri, 30 Oct 2026 12:03:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D16D01127A1;
+ Fri, 30 Oct 2026 12:03:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793361821; x=1824897821;
+ t=1793361825; x=1824897825;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=TOf+txYdXURYKe+LfQ/nZPkJphBAkSzz5B9A8E5IIMI=;
- b=PdP0WHmq+EOLbisLPwe+8pDuNJum1d+/5qDpWMjdFugFNbF3A+jusPOq
- Kz/vldfPyOi0E2X8fXc2sUdqfk++lEKN+DJOGbWSK4moSl8Pmaaeq1yoP
- DCx0Z6CHXHNHDGwFFscbf4sPFq8J7f0AOm4gk+oljKnmmkTc7yeahZu90
- flRLtY+RRYCq2od0NQyr5O3mz5sX1jbSnDQfiITQTsLJhOLmwzMdRTIU8
- 00KRiKQCcd6ZTZg9kARh89wmNcwu79zBdO2MIqXyak4psCByK6MuYw16P
- p+I0L0IftoE9sg6RdXLVInWBk9Sp8zIlD5kAkKSIm0qNmxhjcLDaSmLO/ g==;
-X-CSE-ConnectionGUID: T9ecmL1hSyazP4YymPA9bQ==
-X-CSE-MsgGUID: uEIwIhEeSJW9r9/k1qiZrw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2215184"
+ bh=gNv4PCPJ9VybhqfVmLXdXpMwPpyY+zQNoO/Dc5a7UaQ=;
+ b=f4d/vnuZyk0i6Bi0R0UpQbgUEK7uJwBXKxd5NtMaUXEDWpG7HSP1UF4g
+ kHZ04VYN24Z8cZsPJFsvknArNlMkfqchZF5ydyES53w1abp+50oE6DczU
+ O0eOS6FBy/BXm/dFc3Ehr5LKop8HL/WT7S359766jc06wGfB+RmxzNQ/i
+ 4MmWrrDKC/7lje8CZi2OR16B/HKVo3IUBKd+iGpGl6u8iS94T/oWJIgdg
+ m2u+3Rh2D870DjoA2Qk5YNVJZ3dDsRsIQK0IWZkhFybxQf6iVz4VKTiYq
+ i6B6UFjudvw3/HaJHYl3/+1Jb/Hsnu86U1AHZ3EABtuzcxiQ93eGxeovz g==;
+X-CSE-ConnectionGUID: eBwhOGluTcmqj3XTUZIrNg==
+X-CSE-MsgGUID: ltc+5Uf3TmyBvMj+QRCLhA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2226502"
 X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2215184"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 05:03:41 -0700
-X-CSE-ConnectionGUID: yOXQqCEdQBSxTUeNUmgSTg==
-X-CSE-MsgGUID: dGJoN7vWQAyQqS71kBgDMQ==
+   d="scan'208";a="2226502"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 05:03:45 -0700
+X-CSE-ConnectionGUID: Ir2K0uH8QHKCZ5xImJ3aBQ==
+X-CSE-MsgGUID: 27C8haaYQzqk51YKjUcVxw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5546187"
+   d="scan'208";a="7211055"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.13])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 05:03:39 -0700
+ 30 Oct 2026 05:03:43 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 05/13] drm/i915/debugfs: convert crtc_updates_info() to use
- drm_printf_indent()
-Date: Fri, 30 Oct 2026 14:03:08 +0200
-Message-ID: <fbe8dd4928f5b125511fa2e920a844a57e9497bf.1793361738.git.jani.nikula@intel.com>
+Subject: [PATCH 06/13] drm/i915/debugfs: pass struct drm_printer to
+ intel_scaler_info()
+Date: Fri, 30 Oct 2026 14:03:09 +0200
+Message-ID: <e1ce8bb290e2498f1b57c97b9250056ff858d9e9.1793361738.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1793361738.git.jani.nikula@intel.com>
 References: <cover.1793361738.git.jani.nikula@intel.com>
@@ -76,91 +76,63 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Passing the const char *hdr to crtc_updates_info() is only for the
-indent. Switch to passing the number of indentation tabs instead, and
-use drm_printf_indent(). It makes the actual strings more readable, and
-highlights the indented parts better in source.
+Pass struct drm_printer to intel_scaler_info().
+
+Prefer struct drm_printer * over struct seq_file * to unify and allow
+use of drm_printer helpers.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- .../drm/i915/display/intel_display_debugfs.c  | 28 +++++++++----------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_debugfs.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 507cd8528906..da70047f1449 100644
+index da70047f1449..7de84ac4323d 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -444,7 +444,7 @@ static void intel_scaler_info(struct seq_file *m, struct intel_crtc *crtc)
- #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_VBLANK_EVADE)
- static void crtc_updates_info(struct drm_printer *p,
- 			      struct intel_crtc *crtc,
--			      const char *hdr)
-+			      int indent)
- {
- 	u64 count;
- 	int row;
-@@ -452,7 +452,7 @@ static void crtc_updates_info(struct drm_printer *p,
- 	count = 0;
- 	for (row = 0; row < ARRAY_SIZE(crtc->debug.vbl.times); row++)
- 		count += crtc->debug.vbl.times[row];
--	drm_printf(p, "%sUpdates: %llu\n", hdr, count);
-+	drm_printf_indent(p, indent, "Updates: %llu\n", count);
- 	if (!count)
- 		return;
- 
-@@ -481,24 +481,24 @@ static void crtc_updates_info(struct drm_printer *p,
- 			columns[8 + x] = '\0';
- 		}
- 
--		drm_printf(p, "%s%s\n", hdr, columns);
-+		drm_printf_indent(p, indent, "%s\n", columns);
+@@ -412,7 +412,7 @@ static void intel_plane_info(struct drm_printer *p, struct intel_crtc *crtc)
  	}
- 
--	drm_printf(p, "%sMin update: %lluns\n",
--		   hdr, crtc->debug.vbl.min);
--	drm_printf(p, "%sMax update: %lluns\n",
--		   hdr, crtc->debug.vbl.max);
--	drm_printf(p, "%sAverage update: %lluns\n",
--		   hdr, div64_u64(crtc->debug.vbl.sum, count));
--	drm_printf(p, "%sOverruns > %uus: %u\n",
--		   hdr, VBLANK_EVASION_TIME_US, crtc->debug.vbl.over);
-+	drm_printf_indent(p, indent, "Min update: %lluns\n",
-+			  crtc->debug.vbl.min);
-+	drm_printf_indent(p, indent, "Max update: %lluns\n",
-+			  crtc->debug.vbl.max);
-+	drm_printf_indent(p, indent, "Average update: %lluns\n",
-+			  div64_u64(crtc->debug.vbl.sum, count));
-+	drm_printf_indent(p, indent, "Overruns > %uus: %u\n",
-+			  VBLANK_EVASION_TIME_US, crtc->debug.vbl.over);
  }
  
- static int crtc_updates_show(struct seq_file *m, void *data)
+-static void intel_scaler_info(struct seq_file *m, struct intel_crtc *crtc)
++static void intel_scaler_info(struct drm_printer *p, struct intel_crtc *crtc)
  {
- 	struct drm_printer p = drm_seq_file_printer(m);
+ 	const struct intel_crtc_state *crtc_state =
+ 		to_intel_crtc_state(crtc->base.state);
+@@ -421,7 +421,7 @@ static void intel_scaler_info(struct seq_file *m, struct intel_crtc *crtc)
  
--	crtc_updates_info(&p, m->private, "");
-+	crtc_updates_info(&p, m->private, 0);
+ 	/* Not all platforms have a scaler */
+ 	if (num_scalers) {
+-		seq_printf(m, "\tnum_scalers=%d, scaler_users=%x scaler_id=%d scaling_filter=%d sharpness_strength=%d",
++		drm_printf(p, "\tnum_scalers=%d, scaler_users=%x scaler_id=%d scaling_filter=%d sharpness_strength=%d",
+ 			   num_scalers,
+ 			   crtc_state->scaler_state.scaler_users,
+ 			   crtc_state->scaler_state.scaler_id,
+@@ -432,12 +432,12 @@ static void intel_scaler_info(struct seq_file *m, struct intel_crtc *crtc)
+ 			const struct intel_scaler *sc =
+ 				&crtc_state->scaler_state.scalers[i];
  
- 	return 0;
+-			seq_printf(m, ", scalers[%d]: use=%s, mode=%x",
++			drm_printf(p, ", scalers[%d]: use=%s, mode=%x",
+ 				   i, str_yes_no(sc->in_use), sc->mode);
+ 		}
+-		seq_puts(m, "\n");
++		drm_puts(p, "\n");
+ 	} else {
+-		seq_puts(m, "\tNo scalers available on this platform\n");
++		drm_puts(p, "\tNo scalers available on this platform\n");
+ 	}
  }
-@@ -539,7 +539,7 @@ static void crtc_updates_add(struct intel_crtc *crtc)
- #else
- static void crtc_updates_info(struct drm_printer *p,
- 			      struct intel_crtc *crtc,
--			      const char *hdr)
-+			      int indent)
- {
- }
  
-@@ -602,7 +602,7 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
- 		   str_yes_no(!crtc->cpu_fifo_underrun_disabled),
- 		   str_yes_no(!crtc->pch_fifo_underrun_disabled));
+@@ -577,7 +577,7 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+ 	seq_printf(m, "\tport_clock=%d, lane_count=%d\n",
+ 		   crtc_state->port_clock, crtc_state->lane_count);
  
--	crtc_updates_info(&p, crtc, "\t");
-+	crtc_updates_info(&p, crtc, 1);
- }
+-	intel_scaler_info(m, crtc);
++	intel_scaler_info(&p, crtc);
  
- static int i915_display_info(struct seq_file *m, void *unused)
+ 	if (DISPLAY_VER(display) >= 9) {
+ 		u32 background = crtc_state->hw.background_color;
 -- 
 2.47.3
 
