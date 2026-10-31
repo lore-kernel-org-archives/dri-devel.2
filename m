@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2E2606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 08:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30239606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 10:37:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mOWwqsrQ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOH7zf86
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8081710E058;
-	Sat, 31 Oct 2026 08:50:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6035410E01F;
+	Sat, 31 Oct 2026 10:37:17 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39E4110E058
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 08:50:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B903210E01F
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 10:37:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8ADFB41157;
- Sat, 31 Oct 2026 08:50:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510971F000C1;
- Sat, 31 Oct 2026 08:50:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 685544307E;
+ Sat, 31 Oct 2026 10:37:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EAD61F000C1;
+ Sat, 31 Oct 2026 10:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793436601;
- bh=KqU5jt1LhrgvdnbkCG2Lsjgv/TxzuB5piVjCOjV6LMY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mOWwqsrQh26fAki+25JjG4xo121E6AqhfdVTPVCcweDopa5fjB3LzaTU1/ui802GE
- +ENAaji/KnyIWyq7F+NquRu2STCDhgc/LesIp35glyalU30NEIqlI8I/7DZ7f1LKTp
- HhPbJVV5W3euFFwff/Vb6t8GBBX8SJu66oCqGEs83/PZEnA/5BkSiBzRlBcyO000kc
- mnbZ96mEHVjVmJzcKzg4w+6U65YRG1+07+QKFcEZfBS6hi30vaunwBSYNKwyuI42NW
- x0ABlakXHlhAnQsbkJr8S9FvYm94wHh5kfoMFsuVpwGApG21YCyEcDjzsNywfqoVUE
- ofQKAI7dyNeLA==
-Message-ID: <sashiko-outbox-191847@kernel.org>
+ s=k20260515; t=1793443031;
+ bh=Tub2aDYWl2iskU3hYVj15B9FXcvOtJ7Hu2yJfcxaPL8=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=fOH7zf86Z+O/2kPF/ILaZAWs2r6HSwuYe2EcRR2leAUEkm5PDYW2jy5Fkp22EV2K0
+ v3Y/qwd/nLCy3086Zjcf9suggbSOTlLe3LsPdsNqTvXglwnHSoH4rSHNBNS4Y689tc
+ LnRSyHwL3+fJ4tENui+Cko5+qMNBP4907TFqFkhvYZJ9OYkNCsSy1BtM9SbfOIFvHd
+ I+aAdgMD/GN0tPh2fzGwmRAQXvQBK5fv6hV55G1Duupc/PuxxlvyQx393TUkl+i4ww
+ yLzqs0AttY1PZgOBy2oQQQnquMtTYW5Yaf8m3MzljIF7bRwxqh+y9jPHvv/DONseTg
+ tjvNHJ1KFzYuQ==
+Message-ID: <sashiko-outbox-191902@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/rocket: Report per-core engine usage through fdinfo
-To: "Sidong Yang" <sidong.yang@furiosa.ai>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261031083642.1076356-1-sidong.yang@furiosa.ai>
-References: <20261031083642.1076356-1-sidong.yang@furiosa.ai>
+Subject: Re: [PATCH] drm/amdgpu: prefer exact bus match in VFCT VBIOS lookup
+To: "Matthias Kesenheimer" <m.kesenheimer@gmx.net>,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <6C5E74D6-8F98-48BC-9173-7E85D243B3D3@gmx.net>
+References: <6C5E74D6-8F98-48BC-9173-7E85D243B3D3@gmx.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 31 Oct 2026 08:50:00 +0000
+Date: Sat, 31 Oct 2026 10:37:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,124 +57,115 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] accel/rocket: out-of-bounds access on elapsed_ns[] when num_cores =
-changes
+- [Low] drm/amdgpu: unused variables in amdgpu_acpi_vfct_bios() break -Werr=
+or builds
+- [Low] drm/amdgpu: duplicated VFCT loop in amdgpu_acpi_vfct_bios() and dea=
+d code
 --
 
-commit 2905630551e831e7463221f4054336a62cdc4cc3
-Author: Sidong Yang <sidong.yang@furiosa.ai>
+commit 50a61733895d9903e897b70fe18231ffdb69f9ae
+Author: Matthias Kesenheimer <m.kesenheimer@gmx.net>
 
-accel/rocket: Report per-core engine usage through fdinfo
+drm/amdgpu: prefer exact bus match in VFCT VBIOS lookup
 
-This commit adds per-core engine usage accounting for client jobs on the
-Rocket NPU and exposes the per-core elapsed nanoseconds and BO memory stats
-through fdinfo.
+This commit updates amdgpu_acpi_vfct_bios() to perform two passes over the
+ACPI VFCT table, preferring an exact PCI bus match in the first pass before
+falling back to device-identity matching in the second pass.
 
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 8bbbce594883e..5b81d1ecc0e49 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_bios.c
+> index f9315e0472fe9..0cee0872100a5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> @@ -474,6 +474,8 @@ static bool amdgpu_acpi_vfct_bios(struct amdgpu_devic=
+e *adev)
+>  	UEFI_ACPI_VFCT *vfct;
+>  	unsigned int offset;
+>  	bool r =3D false;
+> +	GOP_VBIOS_CONTENT *fallback_vbios =3D NULL;
+> +	VFCT_IMAGE_HEADER *fallback_vhdr =3D NULL;
 
-[ ... ]
+[Severity: Low]
+Are fallback_vbios and fallback_vhdr left over from an earlier single-pass
+version of this patch? Neither pointer is referenced anywhere in
+amdgpu_acpi_vfct_bios(), which triggers -Wunused-variable warnings (and bre=
+aks
+builds with CONFIG_WERROR=3Dy or CONFIG_DRM_AMDGPU_WERROR=3Dy) when CONFIG_=
+ACPI is
+enabled.
 
-> @@ -86,10 +107,19 @@ rocket_open(struct drm_device *dev, struct drm_file =
-*file)
->  	}
 > =20
->  	rocket_priv->rdev =3D rdev;
+>  	if (!ACPI_SUCCESS(acpi_get_table("VFCT", 1, &hdr)))
+>  		return false;
+> @@ -486,6 +488,44 @@ static bool amdgpu_acpi_vfct_bios(struct amdgpu_devi=
+ce *adev)
+>  	vfct =3D (UEFI_ACPI_VFCT *)hdr;
+>  	offset =3D vfct->VBIOSImageOffset;
+> =20
+> +	/* First pass: look for exact bus match */
+> +	while (offset < tbl_size) {
+> +		GOP_VBIOS_CONTENT *vbios =3D (GOP_VBIOS_CONTENT *)((char *)hdr + offse=
+t);
+> +		VFCT_IMAGE_HEADER *vhdr =3D &vbios->VbiosHeader;
 > +
-> +	rocket_priv->engine_usage =3D kzalloc_flex(*rocket_priv->engine_usage,
-> +						 elapsed_ns, rdev->num_cores);
-> +	if (!rocket_priv->engine_usage) {
-> +		ret =3D -ENOMEM;
-> +		goto err_free;
+> +		offset +=3D sizeof(VFCT_IMAGE_HEADER);
+> +		if (offset > tbl_size) {
+> +			dev_info(adev->dev, "ACPI VFCT image header truncated,skipping\n");
+> +			goto out;
+> +		}
+> +
+> +		offset +=3D vhdr->ImageLength;
+> +		if (offset > tbl_size) {
+> +			dev_info(adev->dev, "ACPI VFCT image truncated,skipping\n");
+> +			goto out;
+> +		}
+> +
+> +		if (vhdr->ImageLength && vhdr->PCIBus =3D=3D adev->pdev->bus->number &&
+> +		    vhdr->VendorID =3D=3D adev->pdev->vendor &&
+> +		    vhdr->DeviceID =3D=3D adev->pdev->device &&
+> +		    vhdr->PCIDevice =3D=3D PCI_SLOT(adev->pdev->devfn) &&
+> +		    vhdr->PCIFunction =3D=3D PCI_FUNC(adev->pdev->devfn)) {
+> +			adev->bios =3D kmemdup(&vbios->VbiosContent,
+> +					     vhdr->ImageLength,
+> +					     GFP_KERNEL);
+> +
+> +			if (!check_atom_bios(adev, vhdr->ImageLength)) {
+> +				amdgpu_bios_release(adev);
+> +				goto out;
+> +			}
+> +			adev->bios_size =3D vhdr->ImageLength;
+> +			r =3D true;
+> +			goto out;
+> +		}
 > +	}
-> +	kref_init(&rocket_priv->engine_usage->kref);
-> +
->  	rocket_priv->domain =3D rocket_iommu_domain_create(rdev->cores[0].dev);
->  	if (IS_ERR(rocket_priv->domain)) {
->  		ret =3D PTR_ERR(rocket_priv->domain);
-> -		goto err_free;
-> +		goto err_put_engine_usage;
->  	}
 
-[ ... ]
+[Severity: Low]
+This isn't a bug, but the first pass duplicates the entire VFCT table walk,
+truncation checks, and VBIOS loading logic of the second pass, while also
+open-coding the VendorID, DeviceID, PCIDevice, and PCIFunction checks from
+amdgpu_acpi_vfct_match().
 
-> @@ -139,7 +172,29 @@ static const struct drm_ioctl_desc rocket_drm_driver=
-_ioctls[] =3D {
->  	ROCKET_IOCTL(FINI_BO, fini_bo),
->  };
-> =20
-> -DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
-> +static void rocket_show_fdinfo(struct drm_printer *p, struct drm_file *f=
-ile)
-> +{
-> +	struct rocket_device *rdev =3D to_rocket_device(file->minor->dev);
-> +	struct rocket_file_priv *rocket_priv =3D file->driver_priv;
-> +	unsigned int core;
-> +
-> +	/*
-> +	 * These are estimates: the time is taken around the whole period a job
-> +	 * occupies a core, so it also covers handling the completion interrupt
-> +	 * and, for a job made of several tasks, the gaps between them.
-> +	 */
-> +	for (core =3D 0; core < rdev->num_cores; core++)
-> +		drm_printf(p, "drm-engine-npu%u:\t%llu ns\n", core,
-> +			   rocket_priv->engine_usage->elapsed_ns[core]);
+Because any entry with a matching bus and device identity now jumps to out =
+in
+the first pass, the exact bus check in amdgpu_acpi_vfct_match() also becomes
+unreachable dead code during the second pass:
 
-[Severity: High]
-Can this read or write past the end of rocket_priv->engine_usage->elapsed_n=
-s[]
-if rdev->num_cores changes after rocket_open()?
-
-In rocket_probe(), the DRM device is registered via rocket_device_init() ->
-drm_dev_register() when the first core probes, and rdev->num_cores is then
-incremented one by one as each subsequent core probes:
-
-drivers/accel/rocket/rocket_drv.c:rocket_probe() {
-	if (rdev =3D=3D NULL) {
-		/* First core probing, initialize DRM device. */
-		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
-		...
-	}
-
-	unsigned int core =3D rdev->num_cores;
+drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c:amdgpu_acpi_vfct_match() {
 	...
-	rdev->cores[core].index =3D core;
-
-	rdev->num_cores++;
-}
-
-If userspace (for example systemd-udevd reacting to the drm_dev_register()
-uevent, or a client opening the device while remaining cores are still prob=
-ing
-or deferred) calls rocket_open() before all cores have finished probing,
-rocket_priv->engine_usage is allocated with the smaller rdev->num_cores cou=
-nt
-at that moment. Once the remaining cores finish probing and increment
-rdev->num_cores, calling rocket_show_fdinfo() will iterate up to the new
-rdev->num_cores and read past the end of elapsed_ns[].
-
-Similarly, if a lower-indexed core is unbound via rocket_remove(),
-rdev->num_cores is decremented while higher-indexed cores retain their
-original core->index. If a file is opened afterwards, rocket_job_handle_irq=
-()
-indexing engine_usage->elapsed_ns[core->index] can also write out of bounds:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
-	...
-	core->in_flight_job->engine_usage->elapsed_ns[core->index] +=3D
-		local_clock() - core->in_flight_job->start_ns;
+	/* Exact bus number match - preferred */
+	if (vhdr->PCIBus =3D=3D adev->pdev->bus->number)
+		return 0;
 	...
 }
 
-Would it make sense to record the total core count allocated for rdev->cores
-in rocket_device_init() (or store the allocated array length in struct
-rocket_engine_usage) so that the allocation size and bounds stay consistent?
+Would it be simpler to record the first device-identity match in
+fallback_vbios and fallback_vhdr during a single pass over the table (and l=
+oad
+it after the loop if no exact bus match was found), avoiding the duplicated
+table walk and keeping the matching logic in one place?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031083642.1076=
-356-1-sidong.yang@furiosa.ai?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/6C5E74D6-8F98-48BC-=
+9173-7E85D243B3D3@gmx.net?part=3D1
