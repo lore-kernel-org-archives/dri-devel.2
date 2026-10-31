@@ -2,94 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD27606A321
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 07:54:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF57606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 08:10:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U88o+8Wf
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JewtO0RC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 488B810E2EC;
-	Sat, 31 Oct 2026 07:53:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4362B10E02A;
+	Sat, 31 Oct 2026 08:10:41 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81F8410E26B;
- Sat, 31 Oct 2026 07:53:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2531110E02A
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 08:10:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 809E7605C6;
- Sat, 31 Oct 2026 07:53:42 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793433222;
- b=IcrQ8KVv8gQKi1KRFi2mDXk3jOEGXVnoYRVsvbo8bT9hBMEVnom7TGYMVwkaMbi0sc6J
- hDQWgFlM/5YjRTl68RfAXR20OokRby7E2+4DePkIcNCgEwAzlfxPrn78YynwEk6RXVhdR
- /BJ3bSi/uJrf1DB+bI6WEWXlPsiyWHYEoxzKrKvmzjeS3ZVUd0kqdHUVpzDOgHCwdLoJu
- QTA//hOWidhNNuI4S3B/LHP14j1PfkQcj+u/nCljni+1OvdbeNbUn4IHQ1BahCG2bgh5+
- 6A0xVez23O6+JYu8vk4igXpInJmldFFCZRhSU7ecSojfjvdYbSyxm6OYQPdN1LpsqRw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793433222;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=RC377F6Q8z5zRhi6tzzOZ9WrBx+Hhd5evmJ+C0Qr7vI=;
- b=u3vKBM47H1oxpljeWh9xb5YvIvV/nRxQo65Fd1AW079fOv75OKDhotniG7ohqhbUp4xS
- 0gyEomJ3h99t5yg304qpsckVIl9vZBJZxb7QzFu/hgNh1ICTJtYN5yFm1JobSttvNFJsK
- OzLcR9NXjDUWfWP8wUc9TyJP8BHCEFrZvJnjNFkRYPdYfUBOu8JuTBkB9vb+B3Ep4Q71J
- lvmyItXfpYRCZ0DP72XwqUr2yayoO0fQaY/gPZZFdBsMYoSvRwxOiDza3A3mTnzwLR6pz
- QsMrnHvwvBZ1nMb4rJtSYLELmHbX/+HxbHoo86ol/dpFp2GzNRiYHGXJdtyhkmgJK7w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id ACC5F1F00919;
- Sat, 31 Oct 2026 07:53:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 105E8600C8;
+ Sat, 31 Oct 2026 08:10:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5131F000C1;
+ Sat, 31 Oct 2026 08:10:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793433222;
- bh=RC377F6Q8z5zRhi6tzzOZ9WrBx+Hhd5evmJ+C0Qr7vI=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=U88o+8WfcJSUR8xIU/27yVby3tojBBaCKbeem1oOLL0oAvgspvNC05cnflw7vo9DX
- 00H1/0i+ZJcN/olknGaDqTzc2OErBxkDrg7vp380mL19HlrVNpFMXZUvokbT8BHEgk
- 33r0ELpXyXF8qmi5SWim16G2Fuv5+4jr8focV/yD0sH/eqMtqNp7H5Qwgsp0nwSm7n
- HwTiGwXHeBu12CAYmrY+5eG400eAEXE0WXg4fwwGZxAR/IDgcJ0BGTHxMXcdyhsCL1
- kFS/cgxodeDT+xTR8HIiR7gzTci5teWASbdSruXeYQyboj9YAavTNsGRIropTaJbiS
- 8sAboKkmKTvzQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 3E4B0442F6;
- Sat, 31 Oct 2026 07:53:41 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Sat, 31 Oct 2026 13:23:37 +0530
-Subject: [PATCH 1/5] dt-bindings: display/msm: dsi-controller-main: Add SM7250
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261031-dpu-sm7250-v1-1-159f403ec405@brar.si>
+ s=k20260515; t=1793434233;
+ bh=7eA8chfB+Xh27aL92koSgHTWRDI0JRvJKB98b8OjBiY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JewtO0RCEY4cMELGYaOn0QGj2w7K5cPVItLWaItD/Iog6BkQjGAqwpMz8kaMGub5g
+ 5V+qVfUq6G/YuhgZSUYNtTcf7aSrJ3o2IDoWljcsmeSCVk6lWJaut4Z8QGqySIhCaa
+ dOsgbkL6juaov/mL7Er950ndjLXkr/q78IrDd7xa62tQU+WItOOI03a6cESrfwi7zZ
+ KLdTFn0yMc4KahA06IhFy6MufvIxOm0e06n/MnvItOpWDJdbd6kWqBsw5G/IfjMzv6
+ 3ppO1d79LcBJRqEwyX6R6sAMwMBbEm682ip8UAi26XY+VxvO8z5lh4s2na/buspkoL
+ Et8yzFQNj8SSA==
+Message-ID: <sashiko-outbox-191820@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/5] drm/msm: mdss: Add SM7250 support
+To: "Ishu Brar" <patches@brar.si>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261031-dpu-sm7250-v1-5-159f403ec405@brar.si>
 References: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
-In-Reply-To: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Ishu Brar <patches@brar.si>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793433218; l=1468;
- i=patches@brar.si; h=from:subject:message-id;
- bh=6SbwGceVC9vKT2xEXfQ+/gx3XJ8s8yaQo74zaxUPzEQ=;
- b=/h9U/cBBx9rgDAzT27cbyYXjoOawQS9Ki4BjMGT4urFWhbTcumBQcszg8SAF3kcmwJndRzW5F
- d+bdSOpPyqrAxBTF33jnMvdAnkf8Hqv6+t1oRc8h/jgHhQSNKrxEWfK
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Content-Transfer-Encoding: 7bit
+ <20261031-dpu-sm7250-v1-5-159f403ec405@brar.si>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 31 Oct 2026 08:10:33 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,51 +49,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: patches@brar.si
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	T_SPF_TEMPERROR,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-From: Ishu Brar <patches@brar.si>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/msm: mdss: missing qcom,sm7250 UBWC config breaks msm_mdss_ini=
+t()
+--
 
-The SM7250 DSI controller is the same 6.x hardware as the SM8250 one,
-with the same six clocks, so add its compatible next to its SM7150 and
-SM8250 siblings in both the compatible list and the six-clock if/then
-block. No driver change is needed, the controller is matched through the
-generic qcom,mdss-dsi-ctrl fallback.
+commit 0057475d95677bf9a33c044b3beaf8c21ba53ed1
+Author: Ishu Brar <patches@brar.si>
 
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+drm/msm: mdss: Add SM7250 support
 
-diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-index e4fd1cbbd4e0..d447d7cc1a1e 100644
---- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
-@@ -39,6 +39,7 @@ properties:
-               - qcom,sm6350-dsi-ctrl
-               - qcom,sm6375-dsi-ctrl
-               - qcom,sm7150-dsi-ctrl
-+              - qcom,sm7250-dsi-ctrl
-               - qcom,sm8150-dsi-ctrl
-               - qcom,sm8250-dsi-ctrl
-               - qcom,sm8350-dsi-ctrl
-@@ -358,6 +359,7 @@ allOf:
-               - qcom,sm6375-dsi-ctrl
-               - qcom,sm6150-dsi-ctrl
-               - qcom,sm7150-dsi-ctrl
-+              - qcom,sm7250-dsi-ctrl
-               - qcom,sm8150-dsi-ctrl
-               - qcom,sm8250-dsi-ctrl
-               - qcom,sm8350-dsi-ctrl
+This commit adds the qcom,sm7250-mdss compatible entry to mdss_dt_match[]
+to enable MDSS support on SM7250 platforms.
 
--- 
-2.56.0
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mds=
+s.c
+> index e69b122f2687a..f619052bbb463 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -562,6 +562,7 @@ static const struct of_device_id mdss_dt_match[] =3D {
+>  	{ .compatible =3D "qcom,sm6350-mdss", .data =3D &data_76k8 },
+>  	{ .compatible =3D "qcom,sm6375-mdss", .data =3D &data_76k8 },
+>  	{ .compatible =3D "qcom,sm7150-mdss", .data =3D &data_76k8 },
+> +	{ .compatible =3D "qcom,sm7250-mdss", .data =3D &data_76k8 },
 
+[Severity: High]
+Will mdss_probe() and dpu_kms_hw_init() fail with -EINVAL on SM7250 because
+qcom,sm7250 is missing from qcom_ubwc_configs[]?
 
+During probe, mdss_probe() -> msm_mdss_init() requires a valid UBWC
+configuration:
+
+drivers/gpu/drm/msm/msm_mdss.c:msm_mdss_init() {
+	...
+	msm_mdss->mdss_data =3D qcom_ubwc_config_get_data();
+	if (IS_ERR(msm_mdss->mdss_data))
+		return ERR_CAST(msm_mdss->mdss_data);
+	...
+}
+
+Similarly, dpu_kms_hw_init() in drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+calls qcom_ubwc_config_get_data() and aborts on error:
+
+drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c:dpu_kms_hw_init() {
+	...
+	dpu_kms->mdss =3D qcom_ubwc_config_get_data();
+	if (IS_ERR(dpu_kms->mdss)) {
+		rc =3D PTR_ERR(dpu_kms->mdss);
+		DPU_ERROR("failed to get UBWC config data: %d\n", rc);
+		goto err_pm_put;
+	}
+	...
+}
+
+Because DRM_MSM selects QCOM_UBWC_CONFIG, qcom_ubwc_config_get_data() in
+drivers/soc/qcom/ubwc_config.c matches the root machine compatible against
+qcom_ubwc_configs[] via of_machine_get_match_data() and returns
+ERR_PTR(-EINVAL) when no entry is found.
+
+Currently, qcom_ubwc_configs[] only contains entries for qcom,sm7125,
+qcom,sm7150, qcom,sm7225, and qcom,sm7325 in the SM7xxx family:
+
+drivers/soc/qcom/ubwc_config.c:
+	{ .compatible =3D "qcom,sm7150", .data =3D &ubwc_2_0_hbb14, },
+	{ .compatible =3D "qcom,sm7225", .data =3D &ubwc_2_0_hbb14, },
+	{ .compatible =3D "qcom,sm7325", .data =3D &ubwc_3_1_hbb14, },
+
+Does qcom_ubwc_configs[] also need a qcom,sm7250 entry so that MDSS and DPU
+initialization can succeed on SM7250?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031-dpu-sm7250=
+-v1-0-159f403ec405@brar.si?part=3D5
