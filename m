@@ -2,49 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A015A606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 11:58:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B7C606A325
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 11:58:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=vpG1Wqh1
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=QSlnCPcH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BF0C10E9FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EEB810EA00;
 	Sun,  1 Nov 2026 11:58:19 +0000 (UTC)
-Received: from mta1.migadu.com (out-34.mta1.migadu.com [95.215.58.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4718810E193
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 04:25:06 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=W3RYCzdyOzDqvLgu9ozi/BTEzVvjp21rlibNduXqxDM=; 
- c=simple/simple; d=cwooper.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793420704; v=1; x=1794025504;
- b=vpG1Wqh1N27uurFMROnHvsUJU3KT2KzZKzfJZ3TTpo7H/z+Kf3h9mm2ibidcdWZmrHiR0bP4
- LtTgch/bPVFn3YGJ74tNVZcJigRsoHR2U7rqtRz8Z6DWIoNUeKfLcOdEYhCE3Qa3hLERrlu/S6s
- ATT3d8bJ/2sAvdGWxxoz9rcALBuDFYCa6kJYCj7R8vcxBSmfjVpJdzWJKBAaFpXTCcPgCEa/ucb
- vioxsxNSn0d/4P7HXKW9HhbMs/hM8MamSFeNzFcrN/YpJ4snSuVtTCla4K54YjsiWvAsL7YhbKX
- MVz2zMpT6AlrMXvWTBhoFL0ynQ/MsYlJGUERtQ9ax1+9Q==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id d31f048f24ec9d98;
- Sat, 31 Oct 2026 04:19:00 +0000
-X-Mizu-Trace-ID: d31f048f24ec9d98
-X-Migadu-Flow: FLOW_OUT
-From: Cooper Morgan <ext-github@cwooper.dev>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/amd/display: Saturate refresh rates in v1/v2 FreeSync
- infopackets
-Date: Fri, 30 Oct 2026 21:18:25 -0700
-Message-ID: <20261031041827.162730-2-ext-github@cwooper.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261031041827.162730-1-ext-github@cwooper.dev>
-References: <20261031041827.162730-1-ext-github@cwooper.dev>
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C748B10E147
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 15:03:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-ID:In-Reply-To:References:MIME-Version:
+ Content-Transfer-Encoding; bh=2uhe0ZTNhDovEz3zv7M2X1cfX3rzZq+Bt1
+ zZDJMVZJk=; b=QSlnCPcH3sIe30XJPJ9mpC4EXORVN6xIEG6fT7G9UMc7RMX7wA
+ qrFdOrt+TEwRppPRLY83C3BzCxmn22tEIj3Z/ZrceY+gHIEilBCXPSXSI29oSlFj
+ cAm0uJCxRizCBBwXtrsscZU2bPsCNN9B5osXVxSdFmmmROGS86zqgS3gY=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
+ by mailimap2024 (Coremail) with SMTP id 3pYKCgDHS0ApA+ZqqSNvAA--.5005S5;
+ Sat, 31 Oct 2026 23:03:09 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 3/5] drm/msm/dsi: route the bonded command path through host
+ ops
+Date: Sat, 31 Oct 2026 23:03:03 +0800
+Message-ID: <20261031150305.1107572-4-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: 3pYKCgDHS0ApA+ZqqSNvAA--.5005S5
+X-Coremail-Antispam: 1UD129KBjvAXoW3tF18WF48ZFWUCry5uF13twb_yoW8XFyfCo
+ WfX3yDXw1fK3Wqva4kt3WftFnF9F129r9xKrn8Gr4DCa1qqa4DJry3t3y3X3y3Xw1fGa1U
+ X3s7twnrKrW7Cr18n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+ AaLaJ3UjIYCTnIWjp_UUUO07k0a2IF6w4kM7kC6x804xWl14x267AKxVW5JVWrJwAFc2x0
+ x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87
+ I2jVAFwI0_JrWl82xGYIkIc2x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY
+ 1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20x
+ vEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280
+ aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzV
+ Aqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S
+ 6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
+ xEwVAFwVW5WwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+ F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw
+ 1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7Cj
+ xVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+ 4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU
+ vco2UUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FY0gwAIsR
 X-Mailman-Approved-At: Sun, 01 Nov 2026 11:58:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,150 +68,384 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The v1 and v2 FreeSync infopackets carry the minimum and maximum
-refresh rate in one byte each, and build_vrr_infopacket_data_v1() casts
-the rate in Hz to unsigned char. On a sink whose range goes above
-255 Hz the value wraps: a 320 Hz mode is advertised as a 64 Hz maximum.
+The manager called ten separate msm_dsi_host_bonded_* helpers to drive a
+bonded command transaction, so the broadcast engine's shape leaked into
+the manager and every helper needed a cross-file prototype.
 
-Sinks that treat the field as authoritative misbehave once the wrapped
-value lands inside their range. An MSI MAG 271QPX32 (48-320 Hz) over
-native DP looks like a ~720p image upscaled to the full screen at 320 Hz
-and runs its self-test pattern at 305-315 Hz, while 300 Hz (wrapping to
-44 Hz, below its minimum) is fine. Capping the EDID range at 255 Hz, so
-the packet says 255, gives a correct picture at 320 Hz.
+Expose the transaction as two host ops instead: .bonded_cmd_xfer runs one
+broadcast command against a peer host and .bonded_wait_video waits for
+the video engine to go idle. The implementation moves into dsi_host.c
+where the rest of the register-level code lives, and the ten helpers
+become file-static there; only the two entry points stay in dsi.h. The
+ops are only populated for the 6G v2.9 generation, which is the one
+SM8750 reports.
 
-Saturate the fields at 255 Hz instead of wrapping.
+The manager still picks the master by link id and the sequencing inside
+the transaction is unchanged, so behaviour is identical.
 
-Capping v1 at 255 as a fallback was suggested by oystersuki in the linked
-issue.
-
-Fixes: 98e6436d3af5 ("drm/amd/display: Refactor FreeSync module")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5988
-Cc: stable@vger.kernel.org
-Signed-off-by: Cooper Morgan <ext-github@cwooper.dev>
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 57 +++++++++++++++++++
- .../amd/display/modules/freesync/freesync.c   | 12 +++-
- 2 files changed, 66 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi.h         | 20 +++---
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c     |  3 +
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h     |  8 +++
+ drivers/gpu/drm/msm/dsi/dsi_host.c    | 90 +++++++++++++++++++++++----
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 64 ++++---------------
+ 5 files changed, 109 insertions(+), 76 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-index 710cdc7f4..b603516e2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-@@ -664,6 +664,62 @@ static void dm_test_update_freesync_state_pcon_default(struct kunit *test)
- 	dm_test_update_freesync_state_pcon_version(test, 0);
+diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
+index 199ec77129..667d233f7b 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi.h
++++ b/drivers/gpu/drm/msm/dsi/dsi.h
+@@ -53,12 +53,15 @@ int msm_dsi_manager_connector_init(struct msm_dsi *msm_dsi,
+ int msm_dsi_manager_cmd_xfer(int id, const struct mipi_dsi_msg *msg);
+ int msm_dsi_manager_cmd_xfer_trigger(int id, u32 dma_base, u32 len);
+ bool msm_dsi_manager_cmd_failed(void);
++void msm_dsi_manager_mark_cmd_failed(void);
+ int msm_dsi_manager_register(struct msm_dsi *msm_dsi);
+ void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi);
+ void msm_dsi_manager_tpg_enable(void);
+ 
+ /* dsi host */
+ struct msm_dsi_host;
++struct msm_dsi_host_cfg_ops;
++const struct msm_dsi_host_cfg_ops *msm_dsi_host_get_cfg_ops(struct mipi_dsi_host *host);
+ int msm_dsi_host_xfer_prepare(struct mipi_dsi_host *host,
+ 					const struct mipi_dsi_msg *msg);
+ void msm_dsi_host_xfer_restore(struct mipi_dsi_host *host,
+@@ -67,20 +70,11 @@ int msm_dsi_host_cmd_tx(struct mipi_dsi_host *host,
+ 					const struct mipi_dsi_msg *msg);
+ int msm_dsi_host_cmd_rx(struct mipi_dsi_host *host,
+ 					const struct mipi_dsi_msg *msg);
++/* bonded command path; registered in struct msm_dsi_host_cfg_ops */
++int msm_dsi_host_bonded_cmd_xfer(struct mipi_dsi_host *host,
++				 struct mipi_dsi_host *peer,
++				 const struct mipi_dsi_msg *msg);
+ void msm_dsi_host_bonded_wait_video(struct mipi_dsi_host *host);
+-int msm_dsi_host_bonded_xfer_prepare(struct mipi_dsi_host *host);
+-void msm_dsi_host_bonded_xfer_restore(struct mipi_dsi_host *host);
+-int msm_dsi_host_bonded_cmd_build(struct mipi_dsi_host *host,
+-				  const struct mipi_dsi_msg *msg,
+-				  u32 *dma_base, u32 *len);
+-void msm_dsi_host_bonded_cmd_init_trigger(struct mipi_dsi_host *host);
+-void msm_dsi_host_bonded_cmd_stage(struct mipi_dsi_host *host,
+-				   const struct mipi_dsi_msg *msg,
+-				   u32 dma_base, u32 len, bool master);
+-void msm_dsi_host_bonded_cmd_trigger(struct mipi_dsi_host *host);
+-int msm_dsi_host_bonded_cmd_arm_master(struct mipi_dsi_host *host);
+-int msm_dsi_host_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len);
+-int msm_dsi_host_bonded_cmd_poll_slave(struct mipi_dsi_host *host);
+ void msm_dsi_host_cmd_xfer_config(struct mipi_dsi_host *host,
+ 				  bool broadcast, bool master);
+ void msm_dsi_host_cmd_xfer_commit(struct mipi_dsi_host *host,
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+index 640ebe8244..aa44d9fcba 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+@@ -320,6 +320,9 @@ static const struct msm_dsi_host_cfg_ops msm_dsi_6g_v2_9_host_ops = {
+ 	.tx_buf_put = dsi_tx_buf_put_6g,
+ 	.dma_base_get = dsi_dma_base_get_6g,
+ 	.calc_clk_rate = dsi_calc_clk_rate_6g,
++	/* SM8750 is the bonded part on this generation; see sm8650_dsi_cfg. */
++	.bonded_cmd_xfer = msm_dsi_host_bonded_cmd_xfer,
++	.bonded_wait_video = msm_dsi_host_bonded_wait_video,
+ };
+ 
+ static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+index c8813a738b..4ab015fb82 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+@@ -82,6 +82,14 @@ struct msm_dsi_host_cfg_ops {
+ 	void (*tx_buf_put)(struct msm_dsi_host *msm_host);
+ 	int (*dma_base_get)(struct msm_dsi_host *msm_host, uint64_t *iova);
+ 	int (*calc_clk_rate)(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
++	/*
++	 * Bonded command path. Only filled for controllers that implement the
++	 * broadcast protocol; dsi_manager.c reaches them through these two ops.
++	 */
++	int (*bonded_cmd_xfer)(struct mipi_dsi_host *host,
++			       struct mipi_dsi_host *peer,
++			       const struct mipi_dsi_msg *msg);
++	void (*bonded_wait_video)(struct mipi_dsi_host *host);
+ };
+ 
+ struct msm_dsi_cfg_handler {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index a3e9882c22..5df0e775b1 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -2345,6 +2345,12 @@ void msm_dsi_host_bonded_wait_video(struct mipi_dsi_host *host)
+ 	dsi_wait4video_eng_busy(to_msm_dsi_host(host));
  }
  
-+/*
-+ * Build the VRR infopacket for a non-PCON, non-Replay sink with VRR inactive
-+ * over 48Hz to @mode_hz, the max that mod_freesync_build_vrr_params() clamps
-+ * to the mode's rate.
-+ */
-+static struct dc_info_packet
-+dm_test_freesync_packet(struct kunit *test, enum signal_type signal,
-+			u8 vsdb_version, int sink_max_hz, int mode_hz)
++const struct msm_dsi_host_cfg_ops *
++msm_dsi_host_get_cfg_ops(struct mipi_dsi_host *host)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_link *link = dm_kunit_alloc_link(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, link);
-+	struct amdgpu_dm_connector *aconnector;
-+	struct mod_vrr_params *vrr;
-+	struct amdgpu_crtc *acrtc;
-+	struct dm_crtc_state crtc_state = { 0 };
-+
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-+	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, aconnector);
-+	crtc_state.base.crtc = &acrtc->base;
-+	stream->timing.h_total = 2200;
-+	stream->timing.v_total = 1125;
-+	stream->signal = signal;
-+	stream->dm_stream_context = aconnector;
-+	aconnector->vsdb_info.amd_vsdb_version = vsdb_version;
-+	aconnector->max_vfreq = sink_max_hz;
-+	vrr = &acrtc->dm_irq_params.vrr_params;
-+	vrr->send_info_frame = true;
-+	vrr->state = VRR_STATE_INACTIVE;
-+	vrr->min_refresh_in_uhz = 48000000;
-+	vrr->max_refresh_in_uhz = mode_hz * 1000000;
-+	adev->dm.adev = adev;
-+
-+	amdgpu_dm_update_freesync_state_on_stream(&adev->dm, &crtc_state, stream, NULL, 0);
-+
-+	return crtc_state.vrr_infopacket;
++	return to_msm_dsi_host(host)->cfg_hnd->ops;
 +}
 +
-+/**
-+ * dm_test_update_freesync_state_dp_v2_saturates - Test v1 saturates above 255Hz
-+ * @test: The KUnit test context
-+ *
-+ * A VSDB v2 sink keeps the v1 packet, which cannot carry 320Hz.
-+ */
-+static void dm_test_update_freesync_state_dp_v2_saturates(struct kunit *test)
-+{
-+	struct dc_info_packet p =
-+		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 2, 320, 320);
-+
-+	KUNIT_EXPECT_EQ(test, p.hb3, 0x04);
-+	KUNIT_EXPECT_EQ(test, p.sb[7], 255);
-+	KUNIT_EXPECT_EQ(test, p.sb[8], 255);
-+}
-+
- /* Tests for amdgpu_dm_update_stream_irq_parameters() */
- 
- /**
-@@ -900,6 +956,7 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
- 	KUNIT_CASE(dm_test_update_freesync_state_pcon_v2),
- 	KUNIT_CASE(dm_test_update_freesync_state_pcon_v3),
- 	KUNIT_CASE(dm_test_update_freesync_state_pcon_default),
-+	KUNIT_CASE(dm_test_update_freesync_state_dp_v2_saturates),
- 	/* amdgpu_dm_update_stream_irq_parameters */
- 	KUNIT_CASE(dm_test_update_stream_irq_parameters_no_stream),
- 	KUNIT_CASE(dm_test_update_stream_irq_parameters_invalid_timing),
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index 4bd060e30..af7054668 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -571,6 +571,12 @@ static bool vrr_settings_require_update(struct core_freesync *core_freesync,
- 	return false;
+ static const struct msm_dsi_bonded_cfg *
+ dsi_bonded_cfg(struct msm_dsi_host *msm_host)
+ {
+@@ -2415,7 +2421,7 @@ static int dsi_cmd_link_clk_set_rate(struct msm_dsi_host *msm_host)
+ 	return msm_host->cfg_hnd->ops->link_clk_set_rate(msm_host);
  }
  
-+/* v1/v2 packets hold each rate in one byte; saturate instead of wrapping. */
-+static unsigned char vrr_refresh_hz_u8(unsigned int refresh_in_uhz)
-+{
-+	return min((refresh_in_uhz + 500000) / 1000000, 255U);
-+}
-+
- static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
- 		struct dc_info_packet *infopacket,
- 		bool freesync_on_desktop)
-@@ -614,15 +620,15 @@ static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
- 	/* PB7 = FreeSync Minimum refresh rate (Hz) */
- 	if (vrr->state == VRR_STATE_ACTIVE_VARIABLE ||
- 			vrr->state == VRR_STATE_ACTIVE_FIXED) {
--		infopacket->sb[7] = (unsigned char)((vrr->min_refresh_in_uhz + 500000) / 1000000);
-+		infopacket->sb[7] = vrr_refresh_hz_u8(vrr->min_refresh_in_uhz);
- 	} else {
--		infopacket->sb[7] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
-+		infopacket->sb[7] = vrr_refresh_hz_u8(vrr->max_refresh_in_uhz);
- 	}
- 
- 	/* PB8 = FreeSync Maximum refresh rate (Hz)
- 	 * Note: We should never go above the field rate of the mode timing set.
- 	 */
--	infopacket->sb[8] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
-+	infopacket->sb[8] = vrr_refresh_hz_u8(vrr->max_refresh_in_uhz);
+-int msm_dsi_host_bonded_xfer_prepare(struct mipi_dsi_host *host)
++static int dsi_bonded_xfer_prepare(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+@@ -2454,7 +2460,7 @@ int msm_dsi_host_bonded_xfer_prepare(struct mipi_dsi_host *host)
+ 	return ret;
  }
  
- static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
+-void msm_dsi_host_bonded_xfer_restore(struct mipi_dsi_host *host)
++static void dsi_bonded_xfer_restore(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
+@@ -2474,8 +2480,8 @@ void msm_dsi_host_bonded_xfer_restore(struct mipi_dsi_host *host)
+ 	pm_runtime_put_sync(&msm_host->pdev->dev);
+ }
+ 
+-int msm_dsi_host_bonded_cmd_build(struct mipi_dsi_host *host,
+-				  const struct mipi_dsi_msg *msg,
++static int dsi_bonded_cmd_build(struct mipi_dsi_host *host,
++				const struct mipi_dsi_msg *msg,
+ 				  u32 *dma_base, u32 *len)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+@@ -2514,7 +2520,7 @@ int msm_dsi_host_bonded_cmd_build(struct mipi_dsi_host *host,
+ 	return 0;
+ }
+ 
+-void msm_dsi_host_bonded_cmd_init_trigger(struct mipi_dsi_host *host)
++static void dsi_bonded_cmd_init_trigger(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	u32 schedule_line;
+@@ -2549,8 +2555,8 @@ void msm_dsi_host_bonded_cmd_init_trigger(struct mipi_dsi_host *host)
+ 	dsi_write(msm_host, REG_DSI_DMA_SCHEDULE_CTRL, val);
+ }
+ 
+-void msm_dsi_host_bonded_cmd_stage(struct mipi_dsi_host *host,
+-				   const struct mipi_dsi_msg *msg,
++static void dsi_bonded_cmd_stage(struct mipi_dsi_host *host,
++				 const struct mipi_dsi_msg *msg,
+ 				   u32 dma_base, u32 len, bool master)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+@@ -2589,14 +2595,14 @@ void msm_dsi_host_bonded_cmd_stage(struct mipi_dsi_host *host,
+ 	dsi_write(msm_host, REG_DSI_DMA_LEN, len & GENMASK(23, 0));
+ }
+ 
+-void msm_dsi_host_bonded_cmd_trigger(struct mipi_dsi_host *host)
++static void dsi_bonded_cmd_trigger(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 
+ 	dsi_write(msm_host, REG_DSI_TRIG_DMA, 1);
+ }
+ 
+-int msm_dsi_host_bonded_cmd_arm_master(struct mipi_dsi_host *host)
++static int dsi_bonded_cmd_arm_master(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 
+@@ -2609,7 +2615,7 @@ int msm_dsi_host_bonded_cmd_arm_master(struct mipi_dsi_host *host)
+ 		0 : -EIO;
+ }
+ 
+-int msm_dsi_host_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len)
++static int dsi_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	unsigned long completed;
+@@ -2640,7 +2646,7 @@ int msm_dsi_host_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len)
+ 	return -ETIMEDOUT;
+ }
+ 
+-int msm_dsi_host_bonded_cmd_poll_slave(struct mipi_dsi_host *host)
++static int dsi_bonded_cmd_poll_slave(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+ 	u32 timeout_us = dsi_bonded_cfg(msm_host)->poll_timeout_us;
+@@ -2660,6 +2666,68 @@ int msm_dsi_host_bonded_cmd_poll_slave(struct mipi_dsi_host *host)
+ 	return -ETIMEDOUT;
+ }
+ 
++int msm_dsi_host_bonded_cmd_xfer(struct mipi_dsi_host *host,
++				 struct mipi_dsi_host *peer,
++				 const struct mipi_dsi_msg *msg)
++{
++	struct msm_dsi_host *master_dsi = to_msm_dsi_host(host);
++	u32 dma_base, len;
++	int master_ret, peer_ret, ret;
++
++	if (!peer)
++		return -ENODEV;
++
++	if (msm_dsi_manager_cmd_failed())
++		return -EIO;
++
++	ret = dsi_bonded_xfer_prepare(host);
++	if (ret)
++		return ret;
++	ret = dsi_bonded_xfer_prepare(peer);
++	if (ret)
++		goto restore_master;
++
++	/* Per-generation: the video engine must be idle before staging. */
++	master_dsi->cfg_hnd->ops->bonded_wait_video(host);
++	to_msm_dsi_host(peer)->cfg_hnd->ops->bonded_wait_video(peer);
++	ret = dsi_bonded_cmd_build(host, msg, &dma_base, &len);
++	if (ret)
++		goto restore_pair;
++	dsi_bonded_cmd_init_trigger(host);
++	dsi_bonded_cmd_init_trigger(peer);
++	dsi_bonded_cmd_stage(host, msg, dma_base, len, true);
++	dsi_bonded_cmd_stage(peer, msg, dma_base, len, false);
++
++	/* Flush the packet and both descriptors before starting either engine. */
++	wmb();
++	dsi_bonded_cmd_trigger(peer);
++	master_ret = dsi_bonded_cmd_arm_master(host);
++	if (!master_ret) {
++		wmb(); /* Enable the completion interrupt before master kickoff. */
++		dsi_bonded_cmd_trigger(host);
++		master_ret = dsi_bonded_cmd_wait_master(host, len);
++	}
++	/* Resolve the peer even if the master's completion failed. */
++	peer_ret = dsi_bonded_cmd_poll_slave(peer);
++	ret = master_ret < 0 ? master_ret : peer_ret < 0 ? peer_ret : len;
++	if (ret < 0) {
++		/* Never reuse a packet buffer while either DMA engine is unresolved. */
++		msm_dsi_manager_mark_cmd_failed();
++		dev_err(&master_dsi->pdev->dev,
++			"bonded command DMA failed: master=%d peer=%d\n",
++			master_ret, peer_ret);
++		return ret;
++	}
++
++restore_pair:
++	dsi_bonded_xfer_restore(host);
++	dsi_bonded_xfer_restore(peer);
++	return ret;
++restore_master:
++	dsi_bonded_xfer_restore(host);
++	return ret;
++}
++
+ int msm_dsi_host_xfer_prepare(struct mipi_dsi_host *host,
+ 				const struct mipi_dsi_msg *msg)
+ {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 93d636220b..917e51a73f 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -11,6 +11,7 @@
+ 
+ #include "msm_kms.h"
+ #include "dsi.h"
++#include "dsi_cfg.h"
+ 
+ #define DSI_CLOCK_MASTER	DSI_0
+ #define DSI_CLOCK_SLAVE		DSI_1
+@@ -52,6 +53,11 @@ static bool dsi_mgr_uses_bonded_cmd(void)
+ 	return msm_dsim_glb.is_sm8750 && IS_BONDED_DSI();
+ }
+ 
++void msm_dsi_manager_mark_cmd_failed(void)
++{
++	WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
++}
++
+ bool msm_dsi_manager_cmd_failed(void)
+ {
+ 	return dsi_mgr_uses_bonded_cmd() &&
+@@ -601,9 +607,7 @@ static bool dsi_mgr_use_bonded_write(const struct mipi_dsi_msg *msg)
+ static int dsi_mgr_bonded_cmd_xfer(const struct mipi_dsi_msg *msg)
+ {
+ 	struct msm_dsi *master_dsi, *slave_dsi;
+-	struct mipi_dsi_host *master, *slave;
+-	u32 dma_base, len;
+-	int master_ret, slave_ret, ret;
++	const struct msm_dsi_host_cfg_ops *ops;
+ 
+ 	if (msm_dsim_glb.master_dsi_link_id < 0 ||
+ 	    msm_dsim_glb.master_dsi_link_id >= DSI_MAX)
+@@ -613,57 +617,13 @@ static int dsi_mgr_bonded_cmd_xfer(const struct mipi_dsi_msg *msg)
+ 	slave_dsi = dsi_mgr_get_other_dsi(msm_dsim_glb.master_dsi_link_id);
+ 	if (!master_dsi || !slave_dsi || !master_dsi->host || !slave_dsi->host)
+ 		return -ENODEV;
+-	master = master_dsi->host;
+-	slave = slave_dsi->host;
+-
+-	if (msm_dsi_manager_cmd_failed())
+-		return -EIO;
+-
+-	ret = msm_dsi_host_bonded_xfer_prepare(master);
+-	if (ret)
+-		return ret;
+-	ret = msm_dsi_host_bonded_xfer_prepare(slave);
+-	if (ret)
+-		goto restore_master;
+ 
+-	msm_dsi_host_bonded_wait_video(master);
+-	msm_dsi_host_bonded_wait_video(slave);
+-	ret = msm_dsi_host_bonded_cmd_build(master, msg, &dma_base, &len);
+-	if (ret)
+-		goto restore_pair;
+-	msm_dsi_host_bonded_cmd_init_trigger(master);
+-	msm_dsi_host_bonded_cmd_init_trigger(slave);
+-	msm_dsi_host_bonded_cmd_stage(master, msg, dma_base, len, true);
+-	msm_dsi_host_bonded_cmd_stage(slave, msg, dma_base, len, false);
+-
+-	/* Flush the packet and both descriptors before starting either engine. */
+-	wmb();
+-	msm_dsi_host_bonded_cmd_trigger(slave);
+-	master_ret = msm_dsi_host_bonded_cmd_arm_master(master);
+-	if (!master_ret) {
+-		wmb(); /* Enable the completion interrupt before master kickoff. */
+-		msm_dsi_host_bonded_cmd_trigger(master);
+-		master_ret = msm_dsi_host_bonded_cmd_wait_master(master, len);
+-	}
+-	/* Resolve the peer even if the master's completion failed. */
+-	slave_ret = msm_dsi_host_bonded_cmd_poll_slave(slave);
+-	ret = master_ret < 0 ? master_ret : slave_ret < 0 ? slave_ret : len;
+-	if (ret < 0) {
+-		/* Never reuse a packet buffer while either DMA engine is unresolved. */
+-		WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
+-		dev_err(&master_dsi->pdev->dev,
+-			"bonded command DMA failed: master=%d peer=%d\n",
+-			master_ret, slave_ret);
+-		return ret;
+-	}
++	/* Which hosts run the broadcast engine is per-generation knowledge. */
++	ops = msm_dsi_host_get_cfg_ops(master_dsi->host);
++	if (!ops || !ops->bonded_cmd_xfer)
++		return -EOPNOTSUPP;
+ 
+-restore_pair:
+-	msm_dsi_host_bonded_xfer_restore(master);
+-	msm_dsi_host_bonded_xfer_restore(slave);
+-	return ret;
+-restore_master:
+-	msm_dsi_host_bonded_xfer_restore(master);
+-	return ret;
++	return ops->bonded_cmd_xfer(master_dsi->host, slave_dsi->host, msg);
+ }
+ 
+ int msm_dsi_manager_cmd_xfer(int id, const struct mipi_dsi_msg *msg)
 -- 
-2.56.0
+2.53.0
 
