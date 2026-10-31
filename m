@@ -2,78 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BF5606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3716F606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:01:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yQ6ER1Lo
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=QuftJV5R
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF9F10EA0B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98CA510EA0C;
 	Sun,  1 Nov 2026 12:00:45 +0000 (UTC)
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D7A710E079
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 04:23:55 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-cd61cef87f1so570230a12.0
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 21:23:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793420635; x=1794025435; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=oyMiLoLSdUtmLwvkMWGKLcY+WxNb77Nh3Idx5n8lKi0=;
- b=yQ6ER1LouvJgcP+833e5QD8tlVb5b7PYGhNo26WEQZ9/Z2oJBEbgCaOowejQ9uEEg0
- iwiXYTGqPpyMoczR1A2aIh4NEMMsVeIVjH4AnsHhngUBBCBdUhC75xObQ7HeMCD+Kgwf
- 24r4tcTjgB5VLtdhyvi0lB61sKQsnRX9DMNlRyVcmn4sGUypBp0Oj4Z4LdfMWShSrJPe
- qod/3fTesOV75A0heZ6bU9XQyhUstmxDeftsrO+H7t6RMA3BZCvprs3l1pGIOEFm5Fqr
- RrA3Tl5esoNHBDxETqhHEDrBUXEpHatjZeicl0hTmjSsrHcc7hvE1uja17WCl6gbRWSW
- 9vqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793420635; x=1794025435;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=oyMiLoLSdUtmLwvkMWGKLcY+WxNb77Nh3Idx5n8lKi0=;
- b=ZcnGkOVBRWd9fTPf2Yo7dc2QmYS6q9bl0rlyGr10dbTGhBygOGdIg9jgVFy4Cr7f7X
- K8A2wXk7IiOU6iJsiVJQ4Gp9RwBH7Pfk/HdBYX5Hrk7o7CLeUv1RNthNi5LTwpzX4Dge
- RCdbReeTAhkagy/ZN281UcPBvRmYVvlULe4oa93NNaTQum4+4uwKd+dmqAkh0hw57MLG
- POrmY1yJ0DDKaiYuGJCgDrmxF1PxruJ3eXZd+9g86lDDc2wjIZrgCT9yaw9aebvkm1PP
- ruoFaztMu0U6STEg0jX0hdnqzNGoiih1V7Mu2hjmxTiTMRlUw9pyA3hKdaeg7wRvwjpW
- +K8w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz1P70AD5/Pn9zfSGN65wgEicsEjyuMgIwoiGOUPcdjNIoaeUxqrD5kJAwgKWx7Fz0LaySBRVOlTNg=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKReSvTklakMRZ+N1eUQUbYrqm0UQ8bX0YguuhtNY/L2QjFS4Mu
- WrMcMT4bsEoUiSJGso5AbAtYnXPXc3YfwvViV7dCy2fPCYcp1JhRGQ/4
-X-Gm-Gg: AYBFou0dVuVodrTNAVVjGpMD7AyE+W8Gdy8O4gv9mMrrMhuNcaEPAEl7XIliOB2vo7K
- dVo369vPx0pe1GS8HD8rpy5Nu7nkHKVAJgp+xflQBr2tjS2ark4lPSsa0/BE7L+lDt6Clcg4cVO
- CcibiGAEUyaZ6jhCMMCykKUU3D/8ibuvxsS0sYWlyB5UW4avfV6tYejJNnHPJdm0AYGRwOw5lR4
- PqSf/d76IYTgirbnQVgSIfR8dmGqXt6IbO1yOvu9Qa1mOrYV+dFqQobgVCFrw1fhaaF3yXtMxsH
- 8dr0DJvKbiyUqXe+mraaV5UDd58j5+tFD0rJ0Q9VlWxeGJaq75/O5e/X8RKnE3MD1inmv6QTtCq
- OZ3/PsAdabNMD0iRTt1pz3tJ1kxpG2lrUlMsx/WIEHEb/Osa9rMKR/xgzriT7ifEMK9bTqtyu5S
- XUqpN/YBV5/QQOicbtf0RydOoMpqSWMbpvK40GIaSnCzIQf0rFDeK7eEeTbaR4VVhY2qrP7uama
- DAzshts4czTTB+y9w6UO9kepHFwqvnOknsBkbo1B9Py9VZKnWwa4y50adFQeqCDZF+W+9Ivenyz
- ZYsOIQ80mfMLCgyZIMv1UUOdwdc+OzDBSy3hGYHjBiRTcnAMhwqWt7qEB7h4us7MnFE=
-X-Received: by 2002:a17:90b:3f84:b0:3ab:b39f:41da with SMTP id
- 98e67ed59e1d1-3ae89776af6mr3372365a91.11.1793420634944; 
- Fri, 30 Oct 2026 21:23:54 -0700 (PDT)
-Received: from localhost.localdomain ([223.167.219.91])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3ae84596e3bsm6344526a91.9.2026.10.30.21.23.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Oct 2026 21:23:54 -0700 (PDT)
-From: Eric LI <eric.lee0305@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Eric LI <eric.lee0305@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] staging: fbtft: fix space prohibited before that close
- parenthesis
-Date: Sat, 31 Oct 2026 12:23:15 +0800
-Message-Id: <20261031042315.1122699-1-eric.lee0305@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84B3A10E04D;
+ Sat, 31 Oct 2026 13:45:56 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jGzkp37xMzMlJj;
+ Sat, 31 Oct 2026 14:45:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+ t=1793454354;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=RzSVGEDnt2v1e9IyCd8MHB2A0CzuAV9Q0LfSGRDAFgI=;
+ b=QuftJV5RoQJ/tif+CucklESWieMZDr1Odfv4IGM4qi4XF2jE/29KtAzPM9Q8uMp9XjgY46
+ hkSyKeqkZcyOTCD/70ifIftg31slmxnlMoin4I6cRWtZCNhZlUXTYUl2bmWmbxmwz+vkJs
+ QPeAKSlmRMSqFr5kRLUp2l9+ore60YwqkJHILoSP6psKtyByrICC601gV/4Wykp8xIsgbm
+ x8MjIAGl6FOufLFO7i26bv4D+ukgzNpzWyr7HZS61H36WccwgDLUM0MHMSJyFAwDHIYspl
+ qo3dvdo+1C83uu/bcfUvK5opty1baNeR45jfykDDCcqjxCVCR3QAKPbywkFCzQ==
+Authentication-Results: outgoing_mbo_mout; dkim=none;
+ spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates
+ 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ dri-devel@lists.freedesktop.org
+Cc: airlied@gmail.com, simona@ffwll.ch, superm1@kernel.org,
+ alexander.deucher@amd.com, harry.wentland@amd.com,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm: panel-backlight-quirks: Add ASUS ROG Flow X13 3840x2400
+ panel
+Date: Sat, 31 Oct 2026 13:45:51 +0000
+Message-ID: <20261031134551.2735792-1-hugo@hsal.es>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jGzkp37xMzMlJj
 X-Mailman-Approved-At: Sun, 01 Nov 2026 11:58:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,60 +60,58 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Clean up the following checkpatch error and warning in fbtft-bus.c.
-drivers/staging/fbtft/fbtft-bus.c:14: WARNING: macros should not use a trailing semicolon
-drivers/staging/fbtft/fbtft-bus.c:65: ERROR: space prohibited before that close parenthesis ')'
-drivers/staging/fbtft/fbtft-bus.c:67: ERROR: space prohibited before that close parenthesis ')'
+On an ASUS ROG Flow X13 GV301QH (BIOS 418) ATIF
+QUERY_BACKLIGHT_TRANSFER_CHARACTERISTICS answers with a minimum input
+signal of 12 and 49 curve points for the Sharp LQ134R1JW51 panel, and
+amdgpu logs "Using custom brightness curve". With that minimum,
+brightness 0 gives 4.7% duty
 
-The reason of that error is the modifier argument is optional to the
-macro define_fbtft_write_reg. So, even if removing the space before close
-parenthesis, another error "space required after that ','" occurs.
+With the quirk, brightness 0 sends PWM 0 (read back from
+amdgpu_current_backlight_pwm in debugfs). The panel stays lit, but much
+dimmer than the old 4.7% floor. Its LED driver has a minimum of its own,
+so 0 does not turn the backlight off
 
-In this fix, I change that modifier argument as optional, so that
-it is both ok to use that macro with or without modifier argument.
+linux-hardware.org also lists this panel in a GV301QE. Match the ASUS
+vendor and the panel, as the Framework 13 entries do, and let the
+brightness reach the bottom of the PWM range
 
-Signed-off-by: Eric LI <eric.lee0305@gmail.com>
+Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
- drivers/staging/fbtft/fbtft-bus.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+I could only test this on a GV301QH. The entry matches any ASUS laptop
+with this panel, and linux-hardware.org only lists it in ROG Flow X13s,
+one of them a GV301QE. If you'd rather limit it to the GV301QH, I can
+add a DMI_BOARD_NAME match in v2
 
-diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
-index 30e436ff19e4..e483ecb10938 100644
---- a/drivers/staging/fbtft/fbtft-bus.c
-+++ b/drivers/staging/fbtft/fbtft-bus.c
-@@ -11,7 +11,7 @@
-  *
-  *****************************************************************************/
- 
--#define define_fbtft_write_reg(func, buffer_type, data_type, modifier)        \
-+#define define_fbtft_write_reg(func, buffer_type, data_type, modifier...)        \
- void func(struct fbtft_par *par, int len, ...)                                \
- {                                                                             \
- 	va_list args;                                                         \
-@@ -60,11 +60,11 @@ void func(struct fbtft_par *par, int len, ...)                                \
- out:									      \
- 	va_end(args);                                                         \
- }                                                                             \
--EXPORT_SYMBOL(func);
-+EXPORT_SYMBOL(func)
- 
--define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
--define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
--define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
-+define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8);
-+define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16);
-+define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16);
- 
- void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
- {
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index 2d0238382ebd5..b60333e748741 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -69,6 +69,14 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
+ 		.dmi_match_other.value = "Galileo",
+ 		.quirk = { .min_brightness = 1, },
+ 	},
++	/* ASUS ROG Flow X13 3840x2400 panel */
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "ASUSTeK COMPUTER INC.",
++		.ident.panel_id = drm_edid_encode_panel_id('S', 'H', 'P', 0x151b),
++		.ident.name = "LQ134R1JW51",
++		.quirk = { .min_brightness = 1, },
++	},
+ 	/* Have OLED Panels with brightness issue when last byte is 0/1 */
+ 	{
+ 		.dmi_match.field = DMI_SYS_VENDOR,
 -- 
-2.34.1
+2.56.0
 
