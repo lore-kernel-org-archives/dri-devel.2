@@ -2,47 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D3F606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 11:58:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B773606A325
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 11:58:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=pPiSD5Lc
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=sf7gg3g1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C995A10EA05;
-	Sun,  1 Nov 2026 11:58:24 +0000 (UTC)
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FE5910E0A9
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 10:00:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=softbase.tech;
- s=protonmail3; t=1793527082; x=1793786282;
- bh=8xnBzjwCE8sPHtEp9RM3ZWkfBVkxawpnG/dVeRbBTaw=;
- h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
- Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=pPiSD5Lc2qdIFUqqQ0hJX5aWFrXBB/VPR2bUzYhKQ3zX4/qdry12Pu8bAzmBtEYRr
- iPodWnQatHGVbNigMkL0mcx0JZ93rjajjkywKasIXm5+U/kpWYFOEp2dI2KsR82tbg
- vFPQ2rjpSBqo1GT8JHQ8G4AMCyRBPqonceDsf/Lz9nEOn9rfE1NVNS103Ofx3odV1r
- T0QrnAJ9gAlcnBTGUX9N4uf0IZwYZfWN/KPuGuAJQPox07kBBcbADeIdAqCw8V7GvV
- dsqJmz9GV1r49h/Qhv3abFIz49Volr3TMvesIbTkiPKRPjd+egr0vyon8hD+31gvnF
- SPFuSl0MsZTKw==
-X-Pm-Submission-Id: 4jHVdM62gvz2Scn7
-From: "Beat M. Liechti" <beat@softbase.tech>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Federico Amedeo Izzo <federico@izzo.pro>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Beat M. Liechti" <beat@softbase.tech>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/msm/dpu: don't reassign resources on color management
- changes
-Date: Sun,  1 Nov 2026 10:57:45 +0100
-Message-ID: <20261101095754.33840-1-beat@softbase.tech>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 604DD10EA08;
+	Sun,  1 Nov 2026 11:58:25 +0000 (UTC)
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 979AD10E1C1
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 15:03:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-ID:In-Reply-To:References:MIME-Version:
+ Content-Transfer-Encoding; bh=tzc7ugbFEzSFOuams8SMQo+EvzOblbu1h7
+ 8RTzijqGc=; b=sf7gg3g1uEtE9ijQ624wh9GdzekKcDfrujt3me6CKa6FZmX58M
+ 1PVkyak+TD5d1b5qI0zb7DTsfQiSlYc3WW/a9aBIvQ+iVe8QXJ/4fTs3hYWvRbBf
+ SLDlhaVqogph7VkiUT/nrLJheEo5LsUjzF9GUxUmiuh1Jsokvjz9OUat8=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
+ by mailimap2024 (Coremail) with SMTP id 3pYKCgDHS0ApA+ZqqSNvAA--.5005S7;
+ Sat, 31 Oct 2026 23:03:10 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 5/5] drm/msm/dsi: name the FIFO error bits of the bonded
+ command path
+Date: Sat, 31 Oct 2026 23:03:05 +0800
+Message-ID: <20261031150305.1107572-6-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: 3pYKCgDHS0ApA+ZqqSNvAA--.5005S7
+X-Coremail-Antispam: 1UD129KBjvJXoWxGFy5Wr4DKw1rCr1kCrWfXwb_yoW5Kry7pw
+ 45Jwn8JFykAF12vryxta90gr4Yqas5KFWxGFy7K398u3Z3Jw1jg3yI9an0g34DJa4fA34S
+ gFsrKrykAr40yrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+ 8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
+ jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI
+ 8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E
+ 87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
+ kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm
+ 72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2
+ xSY4AK67AK6ryrMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+ 5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAV
+ WUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+ 1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+ v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuY
+ vjxUyJDGDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FY0gwAKsT
 X-Mailman-Approved-At: Sun, 01 Nov 2026 11:58:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,113 +76,73 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Since commit 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide
-GAMMA_LUT DRM property"), dpu_crtc_atomic_check() releases and reserves
-the hardware blocks of a CRTC whenever color_mgmt_changed is set, not
-only on a modeset. A commit that merely replaces the GAMMA_LUT or CTM
-blob of an active CRTC can therefore move that CRTC to a different
-CTL/LM pair without disabling and re-enabling the pipeline, and the
-hardware keeps scanning out through blocks the driver no longer
-considers in use.
+The per-SoC bonded config carries the controller FIFO error group as two
+magic numbers: 0x001f0200 in ERR_INT_MASK0 and 0x44440400 in FIFO_STATUS.
+They are documented - FIFO_STATUS bitfields carry public names in dsi.xml
+(the command DMA FIFO underflow at bit 10 and the DLN0..DLN3 HS FIFO
+overflows at bits 18/22/26/30, whose OR is exactly 0x44440400), while
+ERR_INT_MASK0 has no field definitions in dsi.xml, so its side is spelled
+out from the bit layout: GENMASK(20, 16) | BIT(9) = 0x001f0200. The
+grouping is not guessed: the vendor driver's mask_error_intr() masks
+exactly these bits as one FIFO error group.
 
-This is easy to hit with GNOME/mutter on a laptop driving an external
-display: closing the lid disables the eDP CRTC, and in the same atomic
-commit mutter sets new color blobs on the still active HDMI CRTC. With
-drm.debug enabled, dpu_rm_reserve() moves the HDMI CRTC from CTL_1 to
-the just released CTL_0 while its encoder is neither disabled nor
-re-enabled. A few seconds later the display SMMU reports context faults
-at the refresh rate and the external screen fills with garbage. Opening
-the lid again leads to a stream of "vblank timeout" and "frame done
-timeout" errors and the machine has to be power cycled.
+Name both groups (DSI_ERR_INT_MASK0_FIFO_ERRORS,
+DSI_FIFO_STATUS_FIFO_ERRORS), switch the sm8750 table to them and drop
+the TODO(doc) note now that the provenance lives in the macro comments.
 
-Color management affects the topology in only one way: DSPP blocks are
-requested when either CTM or GAMMA_LUT is set. Handle that case in
-dpu_crtc_check_mode_changed() by forcing a full modeset when the
-presence of CTM/GAMMA_LUT changes, as msm_atomic_check() already does
-for the CTM, and stop reallocating resources on a bare
-color_mgmt_changed.
+No functional change: both macro groups expand to the previous literals.
 
-Fixes: 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide GAMMA_LUT DRM property")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Beat M. Liechti <beat@softbase.tech>
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c | 30 ++++++++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 4 deletions(-)
 
-Notes:
-    Testing: ThinkPad T14s Gen 6 (X1E78100), GNOME 50 / mutter on Wayland,
-    LG 4K60 monitor on the HDMI port (DP to HDMI bridge), logind set to not
-    suspend on lid close while on external power. Without this patch every
-    lid close reproduces the corruption and hang described above. With it,
-    closing and opening the lid produces no SMMU faults, vblank timeouts or
-    frame done timeouts, and both displays keep working.
-    
-    That testing was done on a v7.0.14 based distribution kernel (Ubuntu
-    7.0.0-42.42). On msm-next the patch has only been compile tested (W=1,
-    no new warnings), not run.
-    
-    Open questions:
-    - Like the existing CTM check in msm_atomic_check() (see the FIXME
-      there), this sets allow_modeset on behalf of userspace when the DSPP
-      requirement changes. Rejecting such commits without
-      DRM_MODE_ATOMIC_ALLOW_MODESET would be stricter, but could break
-      compositors that toggle GAMMA_LUT at runtime (night light). I am happy
-      to change it either way.
-    - The RFC "drm/msm/dpu: Force modeset if new CTLs have been reserved"
-      (https://lists.freedesktop.org/archives/freedreno/2025-March/036824.html)
-      addresses reassignment without a modeset in general. This patch only
-      removes the color management trigger.
-    
-    The root cause analysis of the drm.debug trace, the fix and the
-    changelog were developed with an AI coding assistant (Claude by
-    Anthropic). I reviewed the change and tested it on the hardware above.
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 26 +++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 42d0a529b..3b304a896 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1516,6 +1516,20 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_state *old_crtc_state,
- 	    (!clone_mode_requested && clone_mode_enabled))
- 		new_crtc_state->mode_changed = true;
- 
-+	/*
-+	 * DSPP blocks are reserved only when CTM or GAMMA_LUT is set (see
-+	 * dpu_crtc_get_topology()), so enabling or disabling color management
-+	 * changes the hardware topology. Changing resources on an active CRTC
-+	 * requires a full modeset; otherwise the CTL/LM blocks get swapped
-+	 * underneath a running pipeline.
-+	 */
-+	if (new_crtc_state->enable &&
-+	    (!!(old_crtc_state->ctm || old_crtc_state->gamma_lut) !=
-+	     !!(new_crtc_state->ctm || new_crtc_state->gamma_lut))) {
-+		new_crtc_state->mode_changed = true;
-+		new_crtc_state->state->allow_modeset = true;
-+	}
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+index aa44d9fcba..05d9e1a191 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+@@ -199,15 +199,37 @@ static const struct regulator_bulk_data sm8650_dsi_regulators[] = {
+  * Bonded command-path data. Values are copied verbatim from the vendor-derived
+  * in-tree code; the SM8750 compatible check in dsi_host.c/dsi_manager.c still
+  * gates every use until the master link moves into this table as well.
+- * TODO(doc): err_clear_bits/err_cleanup_bits touch bits that dsi.xml does not
+- * describe (see reports/b5-per-soc-cfg-design-20261027.md, RFC-SCOPE R1).
+  */
 +
- 	return 0;
- }
- 
-@@ -1534,9 +1548,15 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 
- 	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
- 
--	/* don't reallocate resources if only ACTIVE has beeen changed */
--	if (crtc_state->mode_changed || crtc_state->connectors_changed ||
--	    crtc_state->color_mgmt_changed) {
-+	/*
-+	 * Don't reallocate resources if only ACTIVE or color management
-+	 * values have changed. A change in DSPP requirements is turned into a
-+	 * modeset by dpu_crtc_check_mode_changed(). Reallocating on a plain
-+	 * color_mgmt_changed would move an active CRTC to different CTL/LM
-+	 * blocks without a modeset, leaving the hardware scanning out through
-+	 * stale CTL/LM state (SMMU faults, corrupted output, vblank timeouts).
-+	 */
-+	if (crtc_state->mode_changed || crtc_state->connectors_changed) {
- 		rc = dpu_crtc_assign_resources(crtc, crtc_state);
- 		if (rc < 0)
- 			return rc;
++/*
++ * FIFO error bits of ERR_INT_MASK0. dsi.xml does not describe the layout of
++ * this register, so the mask bits are spelled out: bits 20:16 mask the high
++ * speed FIFO overflow group (bits 16:19 are the DLN0..DLN3 overflows, bit 20
++ * is part of the group but carries no public name) and bit 9 is the command
++ * DMA FIFO underflow. The grouping is not guessed: the vendor driver's
++ * mask_error_intr() masks exactly these bits as one FIFO error group.
++ */
++#define DSI_ERR_INT_MASK0_FIFO_OVERFLOW		GENMASK(20, 16)
++#define DSI_ERR_INT_MASK0_CMD_DMA_FIFO_UNDERFLOW	BIT(9)
++#define DSI_ERR_INT_MASK0_FIFO_ERRORS \
++	(DSI_ERR_INT_MASK0_FIFO_OVERFLOW | DSI_ERR_INT_MASK0_CMD_DMA_FIFO_UNDERFLOW)
++
++/*
++ * Matching sticky FIFO_STATUS bits, write-1-to-clear. These carry public names
++ * in dsi.xml: CMD_DMA_FIFO_UNDERFLOW at bit 10 and the DLN0..DLN3 HS FIFO
++ * overflows at bits 18/22/26/30.
++ */
++#define DSI_FIFO_STATUS_FIFO_ERRORS \
++	(DSI_FIFO_STATUS_CMD_DMA_FIFO_UNDERFLOW | \
++	 DSI_FIFO_STATUS_DLN0_HS_FIFO_OVERFLOW | DSI_FIFO_STATUS_DLN1_HS_FIFO_OVERFLOW | \
++	 DSI_FIFO_STATUS_DLN2_HS_FIFO_OVERFLOW | DSI_FIFO_STATUS_DLN3_HS_FIFO_OVERFLOW)
++
+ static const struct msm_dsi_bonded_cfg sm8750_dsi_bonded_cfg = {
+ 	.master_link_id = DSI_0,
+ 	.cmd_dma_ctrl = DSI_CMD_DMA_CTRL_BROADCAST_EN |
+ 			DSI_CMD_DMA_CTRL_FROM_FRAME_BUFFER,
+-	.err_clear_bits = 0x001f0200,
+-	.err_cleanup_bits = 0x44440400,
++	.err_clear_bits = DSI_ERR_INT_MASK0_FIFO_ERRORS,
++	.err_cleanup_bits = DSI_FIFO_STATUS_FIFO_ERRORS,
+ 	.poll_timeout_us = 5000,	/* 500 polls, 10 us apart */
+ 	.needs_link_clk_bump = true,
+ 	.needs_sw_reset = true,
 -- 
 2.53.0
 
