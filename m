@@ -2,77 +2,126 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527CB606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 02:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854EC606A31E
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 02:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLrg8JRr
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PZ1qCJ46
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0A7310E914;
-	Sat, 31 Oct 2026 02:05:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6060710E914
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 02:05:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793412316; x=1824948316;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=rFP0baAiFvMl7x0GJSmUU/DikfJl7LDgkFNhT+TL2Hc=;
- b=KLrg8JRrl1SoMwcNx0OCYgG/I9AsztINAe6gsGfONLQZ52qcnfpKiTUr
- vRNrHkjCGdVSEzceaNHV206KcnJYSyM/pnQIJoGa2nGyQh+wOw+mjBQQI
- rtszkb6lWU+g6jIWAP3wK4hYSWyPyfW9kPIDt8uLqUciXawZR6t658342
- p04M35eGFcvbNXuWYHyllsBiVP3M7Nk8TW4Cr69hsyL8NMDMYiPVHE0L0
- c2Z8fNlP20qK5VVu42n1pXD0oNq2UXjkwiSnL7v1v1IDpEQjOFr4tqQD7
- s3xAIIenj6fub6yYr8ltJkzdL2WnwCwUJFRKpxOkbn9V/jUY05NqiJ64O Q==;
-X-CSE-ConnectionGUID: ZynQUU6hRBmO8/5fHktGOg==
-X-CSE-MsgGUID: BykTYBwJT5SAaziOJwFGxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2210057"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2210057"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2026 19:05:16 -0700
-X-CSE-ConnectionGUID: rpu8b9TrR9KayjHTgqdWLw==
-X-CSE-MsgGUID: gFTzgCr4SSm7mo8/J3eY3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5540397"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by orviesa004.jf.intel.com with ESMTP; 30 Oct 2026 19:05:10 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xMySw-00000000cRg-0s3X;
- Sat, 31 Oct 2026 02:05:06 +0000
-Date: Sat, 31 Oct 2026 10:04:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andyshrk@163.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- linux-riscv@lists.infradead.org, Icneowy Zheng <uwu@icenowy.me>,
- Han Gao <gaohan@iscas.ac.cn>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host
- controller
-Message-ID: <202610311004.6oZFiXBi-lkp@intel.com>
-References: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDB32112A6B;
+	Sat, 31 Oct 2026 02:17:14 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011025.outbound.protection.outlook.com [40.107.208.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E961112A2B;
+ Sat, 31 Oct 2026 02:17:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ulqfubuabl3YUA6TpOC/fmQN9XoAdzWwpeP06xTU2gVIdO8LtDY+aTN65TqIO5eOU241XIMRRbBrtoKQeaFvBGT9xxKgE8FaHLdxqXEbdzGHe7jSiIniQeUY6DOgl7cF6TbOo9HbrAFXn4CUliM78fWCs2Yh8ZLJ7HJT4xi8mry1TW34LuHQGZKUvO6pfGluqOgcw2Ffyc7CYkIr1/vWyD9VfIwwVuMrKMSnFt0pbgXvNjkwLqAzZwLXtm8GpUr/J2KzriiTa77Z7oG9mJyatdaSJJv4F2+YaF+d9s2vf72nsVQ2PaSpthi2XhjDmIMSQj7yAwDG051ubWeVKafTFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/ImO1VjA+otPTSpViii2nHBRztvxR270ZPGdI6v9FU4=;
+ b=nBcu91Vp8uQ71irNYtLqqMpOwokeii8NOut5Ec8+1Nlk2KeNdu/65WuyGcc3fjpSjY5V8/HJTqPC4RZ+ieRpgYyWx0KvcxpEfpWjZL5NQ/6LqMCd2bpjxvK9k6aHPSKsFm6NAgxAMZgfbyWBjQCM28HLms0zRiP+W1n3C3fqi+VVQN7od2ovGZi47ZUV3VSTruU3J7MU+YHJ+z7K0dWZUhRNlf0av+D8bsw9+uv4jSa0UStzMo8NChTdY7tE76+0pplsqYkAxzl3Uado2r98u4Nw9UmpFW/ZEBc+vzmvHindSiWz9VqsUsL6cCJitHfeFTBAapq9ufJobZPB2Id3DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/ImO1VjA+otPTSpViii2nHBRztvxR270ZPGdI6v9FU4=;
+ b=PZ1qCJ46sLCf6KMxB1hkpZ08NlMDRNvufA7prJkEohVkxsc5Yfygl+I6AuwNLdmpCD1wi2eO9uvtTLX7XffIUiYlYPgfIZYchiYBJrztOWtYIFLugnRy6twWd+rRtQlesybT7xY6IimkzO6zaExfeOFG0Snd22R45sob930Mgpg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY0PR12MB226969.namprd12.prod.outlook.com
+ (2603:10b6:930:130::18) by CH3PR12MB647349.namprd12.prod.outlook.com
+ (2603:10b6:610:365::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 31 Oct
+ 2026 02:17:05 +0000
+Received: from CY0PR12MB226969.namprd12.prod.outlook.com
+ ([fe80::f47a:5d4e:f3d5:5b26]) by CY0PR12MB226969.namprd12.prod.outlook.com
+ ([fe80::f47a:5d4e:f3d5:5b26%4]) with mapi id 15.21.0569.009; Sat, 31 Oct 2026
+ 02:17:05 +0000
+Message-ID: <369b53b5-2380-4ca3-9f10-db7f77eeb107@amd.com>
+Date: Fri, 30 Oct 2026 20:17:04 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/amd/display: Fall back to the native mode, not
+ the first, on eDP/LVDS
+To: Hugo Sales <hugo@hsal.es>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, "Chung, ChiaHsuan (Tom)" <chiahsuan.chung@amd.com>
+References: <74c73b6f-a6b3-4652-8da1-b5c46ae58809@amd.com>
+ <20261024163347.2413649-1-hugo@hsal.es>
+ <20261024163347.2413649-2-hugo@hsal.es>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20261024163347.2413649-2-hugo@hsal.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4P223CA0006.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:303:80::11) To CY0PR12MB226969.namprd12.prod.outlook.com
+ (2603:10b6:930:130::18)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY0PR12MB226969:EE_|CH3PR12MB647349:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69c5f37d-d7c5-42d5-c989-08df36f50f05
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|4143699003|10067099003|11063799006|56012099006|261021121427099003|261022075727099003|261022105027099003|261026140227099003|261026121527099003|261028144727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: okJOgNW9ujz/z7ykF6bMvBAsdWAhz2anLpcWF+L1zngS7NoJ8swPkP8OR8dGr+3aQKDT0IsE2AaHKrtWiO+0fJb8FJXRdzBCmKz5inc1MNtwenJSX9VkxAZN2WCPcrW8pin7Oc++Zev4itavkZqDquyDKNXw6jZMTEtBB5ItVuMZvBMAGRLN/L1A0IT4N2qtMEznc9Smor5Ye2Qgj+IBtYGl3z/IkZRh6E9LvXxf77D7Wp0xyKymA625wqqOweOkCgCvKMyRIMKgmVGXu/pgjs50/ZibSb3FCuokYEFy93Cbv7JOXeZyU5mRSDuvdc6s643/pvYzjp3ufMCVoAB3TMY7wtyPF32n9A06PNAsSGd7gx2tiitSKm4w+iiEuIK6xia+Kgjuk1HkMzxxn51FfzRYXW4/qS7Cw6BbnFYlaYjw/wbaWfTn/W5Unlno86KHXqP17q/wo8PrxX8acfxGLszxcWuuw4i/dCRbwLuNHrVCnkhOP7adok0Ov3Em2SwinF23kXz1zakLbkeM0RINevWmvf/cLvzcXr4mDLBFU21SDrxIFYTv6Xa+CQBJNb9dkQ8rr14Z7IY7Zw2bPdWdhVtjsVzoCC9rfVK+9P5o360=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY0PR12MB226969.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(4143699003)(10067099003)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261009223027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekxEeWtUKzBkS3hwVnozRU9JTnpJZXJGTGEwLzBLRkREc1B2bHdIUDlmbTUy?=
+ =?utf-8?B?OXhEU2xxVWZnbnd2Ty9YYlhNTTlndkVGOE4yRSt5N25DYTlsMUtWcGE2bWps?=
+ =?utf-8?B?RzE2UXBYTEcwWlhrNytuQk1WTytxTUh0YnhtaXljcldKMXpBQ2VtdTRvaWFl?=
+ =?utf-8?B?Qm1ZYXYxV3dObzJkQzg1MVlnS3pyQU5uNURNTE82aW9IckFqaDZvK2NhTTVD?=
+ =?utf-8?B?bVB4RVdkOW5iSmIyVXlUVWpKdGJYczZwYkZRZEwzWlBIZjZDZkk1R0h1VkFL?=
+ =?utf-8?B?MExoaWdqSElxR2hrdExxSjVtOXN5ejExV0o0MHFEYUQ1TGVac0lPUUFVL1BM?=
+ =?utf-8?B?M0RncS85L1o1NG9OTHBSQW1MYWkrNFBReElwU0tCVVloRTF3NGdZSk02MERt?=
+ =?utf-8?B?TWMwR0Nvazl5MjQ0Z2lzZzBSa0RqRHFXV0pwYlp6SElwQkJUdk41d3grcytv?=
+ =?utf-8?B?UmVMSGxiUHl0M2YxbVoyMXpnVlZidXA5SFM3ZTVqUkp6ZlZtMHM2a05idnQx?=
+ =?utf-8?B?ZTNLcGFwNkY1YndMWjM2ajVVSkFBRWpyMnVXSG9ML0tZUlBkQm4ydTJlOXAx?=
+ =?utf-8?B?KzgwMGFYYjdXOW9YSHBjWVFUSkJMRGVFQytnYTZCMlp3ckVRcVk2Zndna0JL?=
+ =?utf-8?B?Q0E3YWl0VFp1TmJiSWNqd0hjUWVDRzJZZGJGNEh0bzgyL1pHNVZEOEVpRHlD?=
+ =?utf-8?B?YlpSdi9XcWV4cjNzRzFLY2hUWGV6MEJtQU1uMEZ6WXAxZ3NwL2hiWEN4eTZ6?=
+ =?utf-8?B?TWYzakFabFo2N2tPQkhqbUVMc2dqRXJjSHFwK2w4aGx3UE9wcXcyWXNhRnhC?=
+ =?utf-8?B?UWVDQmJNVlhlSElqSVBQMnB5OTNGMUN3aFA3Z2VwOFF6bURuTFk4SHJoaXIx?=
+ =?utf-8?B?b3JWbkRDc0srd21tOG5GZFEzNDBlUmU1cjAwRzdvRmJVSE1ZZVkwTFRBVVM2?=
+ =?utf-8?B?RWVDK1FBeUtPYlpueEd3WW9WQzNPb2EwV0oxVC9MRkd3d25rWGFXSjNRTkhx?=
+ =?utf-8?B?N1p0WnJGRisvTDVXeHE5WjlxY3V3V3FJU3NxN3pCVng4Rld6RjZIVUhNQ0dG?=
+ =?utf-8?B?Y0VmSmN4ejEraFBlUEtQUmpHTHZuY1lnenZsMW5rRE55cGdneUVCeDRKUktr?=
+ =?utf-8?B?TWc0OEJJb3doa05OR24xeUJQalhJdVlVdHJXb0JVeEdIRWtFOEVWZGkycUlT?=
+ =?utf-8?B?dlNYUmx0WGVkVWNhNTB3NnpDeS9udTdMVk9nZ2kxVDFBQVZnMDhhRXZZNnZr?=
+ =?utf-8?B?enRpNDltaHFobEYzSXNwdVZRTE1NWU80T1dzMWlXT1JOOWVub2p6UFB4TFQ5?=
+ =?utf-8?B?Um1kaDlnVERYbVdyazhsSzVDcHN4Y1l1NmxnbG1Fejd3T29wQmRLeVFqZVk4?=
+ =?utf-8?B?dUc3T1o0M2M1aU9TTkVhc1kzK09wdThsbjYrMVBZUkpidlRjVXVENzdOYm5B?=
+ =?utf-8?B?UXRjNzZjTkNIMk1kN0tnUlYvT01BSXZ5REFybkh6TmdtQUZKWkFQVHdMZGw0?=
+ =?utf-8?B?OUhiTFBEYlZ0YWhtM3R4Ni9tSUhqNi9IYjZrTm9EaDM4ckM4MXlFdWh1YlhE?=
+ =?utf-8?B?S2Z2cVZsckRWT1lWTFQxOUxSSjFZL3pqU1p5RGpvQ2ZYR0NKbXJVSG1abHM4?=
+ =?utf-8?B?UldxRmFLS0F6ZklPclRGRmtLS2QyY1JtZGZFQVZsb0doRHY2T0VTSDIzLy9k?=
+ =?utf-8?B?aTA5Yy9Kbkt1VzlpV3RvS2lSZ1p5WlFxWVlLRU44QlBRNkx5eCtyZGRSbWlK?=
+ =?utf-8?B?bjd2THBBM0dYZENLWHlkZ29rOXdBNVBBbndjV0NsUC83K052L3ArbEx3YkZJ?=
+ =?utf-8?B?dll2cFU4VU1BalRvV0tzaHZoS3FNT3VpUzN1d0RCT1dtTmxwUVZrbGFKbWRH?=
+ =?utf-8?B?cXdnWHZQYUtka0hzdEcrd0VDUVhQL3N1cG1WejJVeS9WK3JOVzQrQ05rSUJ2?=
+ =?utf-8?B?MG9VSkdMNHBTeGxmU3VhYnNEYXVnMzFKdzh5amlwU1Z5SGtTYTB0NkFIaEpF?=
+ =?utf-8?B?enJvMnRlVG12Q0plVmhlYWxqZ3lDWlJZSklaajFsZGUrckU3NXkvUjdMY1FW?=
+ =?utf-8?B?RGpQVC9KRDJCQzRTT0lpYmVVWWNkSUhYWVdGL2tSeGlWcEdtUU5KZXcrTE9E?=
+ =?utf-8?B?VnByT0J6dzdtWDNTSHVsMjZnbFFubWtzcEVWb1BDcnNDYVh2WEZuSHBpbXZW?=
+ =?utf-8?B?bWF4T3htbER0dHBmSGRoUGYvWGlWQVQwK3k4cEZBYy8wWnE3Y3pucmhzZjAx?=
+ =?utf-8?B?Ynppd0d5T2hBazd0ZXU0MDQwQ05KUWRyNXd4VGh1eFc0NzNyQlpzVU9YUmZJ?=
+ =?utf-8?Q?GdF409w3CLs8FQvhSV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69c5f37d-d7c5-42d5-c989-08df36f50f05
+X-MS-Exchange-CrossTenant-AuthSource: CY0PR12MB226969.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 02:17:05.8025 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LDFm3C/nGU4vzbeEuxptW8BO/OIEj+MWdi9oC9kQBqmkl5v12WcWOqU9IwdfokBCY+XEFTDnTe56BoYDhGfNzQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB647349
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,131 +133,108 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Icenowy,
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-kernel test robot noticed the following build warnings:
+On 10/24/26 10:33, Hugo Sales wrote:
+> [Some people who received this message don't often get email from hugo@hsal.es. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Currently, create_stream_for_sink() takes the native timing for a scaled
+> mode from the preferred mode in connector->modes. After fbdev emulation
+> probes with size limits below the native resolution, as it does when
+> video= sets a smaller mode, that mode is no longer in the list
+> 
+> If that probe is the last one before a suspend, for example after an
+> HDMI hotplug, the resume finds no preferred mode, and the panel is
+> driven with the scaled mode's timing instead of its own
+> 
+> amdgpu_dm_get_native_mode() copies the preferred mode to the encoder on
+> every probe, before the size limits apply. When connector->modes has no
+> preferred mode, take a mode of the native size from the list, or that
+> copy if the limits pruned them all. The list comes first because
+> mode_valid may have rejected the copy's timing and kept another mode of
+> the same size. Limit this to eDP and LVDS, where amdgpu turns scaling on
+> by itself. On other connectors mode_valid can also leave the preferred
+> mode out, and then the first valid mode is the right fallback
+> 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5983
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
+> ---
+>   .../display/amdgpu_dm/amdgpu_dm_connector.c   | 47 +++++++++++++++++++
+>   1 file changed, 47 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index ded8e21897f1c..a13e3b641fd27 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -257,6 +257,8 @@ STATIC_IFN_KUNIT void update_subconnector_property(struct amdgpu_dm_connector *a
+>   EXPORT_IF_KUNIT(update_subconnector_property);
+> 
+>   STATIC_IFN_KUNIT int amdgpu_dm_connector_get_modes(struct drm_connector *connector);
+> +STATIC_IFN_KUNIT struct drm_encoder *amdgpu_dm_connector_to_encoder(
+> +       struct drm_connector *connector);
+> 
+>   STATIC_IFN_KUNIT void amdgpu_dm_fbc_init(struct drm_connector *connector)
+>   {
+> @@ -1545,6 +1547,51 @@ create_stream_for_sink(struct drm_connector *connector,
+>                          break;
+>                  }
+>          }
+> +
+> +       /*
+> +        * After a probe with size limits smaller than the preferred mode,
+> +        * connector->modes no longer has that mode, and the first mode left
+> +        * would become the stream timing. fbdev emulation probes with limits
+> +        * that video= can set below the native size. Only eDP and LVDS panels
+> +        * get a fallback here, since they take only their native size. On other
+> +        * connectors mode_valid can also reject the preferred mode, and then
+> +        * the first valid mode is the right one
+> +        *
+> +        * Take a mode of the native size from connector->modes if one is left,
+> +        * since mode_valid may have rejected the preferred timing itself. The
+> +        * probe sorts the list, so the first one has the highest refresh rate
+> +        * left. If the limits pruned them all, use the copy of the preferred
+> +        * mode that amdgpu_dm_get_native_mode() keeps in the encoder. It is
+> +        * made on every probe, before the limits apply
+> +        */
+> +       if (!preferred_mode && aconnector && aconnector->drm_edid &&
+> +           (connector->connector_type == DRM_MODE_CONNECTOR_eDP ||
+> +            connector->connector_type == DRM_MODE_CONNECTOR_LVDS)) {
+> +               struct drm_encoder *encoder = amdgpu_dm_connector_to_encoder(connector);
+> +               const struct drm_display_mode *enc_native =
+> +                       encoder ? &to_amdgpu_encoder(encoder)->native_mode : NULL;
+> +
+> +               if (enc_native && enc_native->clock) {
+> +                       list_for_each_entry(connector_mode, &connector->modes, head) {
+> +                               if (connector_mode->hdisplay == enc_native->hdisplay &&
+> +                                   connector_mode->vdisplay == enc_native->vdisplay) {
+> +                                       preferred_mode = connector_mode;
+> +                                       break;
+> +                               }
+> +                       }
+> +
+> +                       /*
+> +                        * saved_mode is only used for FreeSync video modes, and
+> +                        * that path doesn't read preferred_mode
+> +                        */
+> +                       if (!preferred_mode) {
+> +                               drm_mode_init(&saved_mode, enc_native);
+> +                               drm_mode_set_crtcinfo(&saved_mode, CRTC_INTERLACE_HALVE_V);
+> +                               preferred_mode = &saved_mode;
+> +                       }
+> +               }
+> +       }
+> +
+>          if (!preferred_mode)
+>                  preferred_mode = list_first_entry_or_null(
+>                                  &connector->modes,
+> --
+> 2.55.0
 
-[auto build test WARNING on c03c1a14507dfaf8b856c2608f9ac216021fc222]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Icenowy-Zheng/dt-bindings-display-bridge-document-TH1520-MIPI-DSI-controller/20261030-154749
-base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
-patch link:    https://lore.kernel.org/r/20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f%40iscas.ac.cn
-patch subject: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host controller
-config: arm64-randconfig-1001-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c2ea4440d4b64c148de4fdfca1fc2c437a0701e4)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610311004.6oZFiXBi-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:445:22: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
-     445 |                 dev_err_probe(dev, ret, "Unable to get DSI registers\n");
-         |                                    ^~~
-   drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:428:12: note: initialize the variable 'ret' to silence this warning
-     428 |         int i, ret;
-         |                   ^
-         |                    = 0
-   1 warning generated.
-
-
-vim +/ret +445 drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
-
-   420	
-   421	static int th1520_dw_mipi_dsi_probe(struct platform_device *pdev)
-   422	{
-   423		const struct dsi_chip_data *cdata;
-   424		struct device *dev = &pdev->dev;
-   425		struct th1520_dw_mipi_dsi *dsi;
-   426		struct resource *res;
-   427		void __iomem *base;
-   428		int i, ret;
-   429	
-   430		dsi = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
-   431		if (!dsi)
-   432			return -ENOMEM;
-   433	
-   434		dsi->dev = dev;
-   435	
-   436		dsi->syscon = syscon_regmap_lookup_by_phandle(dev->of_node, "syscon");
-   437		if (IS_ERR(dsi->syscon)) {
-   438			ret = PTR_ERR(dsi->syscon);
-   439			dev_err_probe(dev, ret, "Unable to get system controller regmap\n");
-   440			return ret;
-   441		}
-   442	
-   443		base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-   444		if (IS_ERR(base)) {
- > 445			dev_err_probe(dev, ret, "Unable to get DSI registers\n");
-   446			return PTR_ERR(base);
-   447		}
-   448	
-   449		cdata = of_device_get_match_data(dev);
-   450		i = 0;
-   451		while (cdata[i].reg) {
-   452			if (cdata[i].reg == res->start) {
-   453				dsi->cdata = &cdata[i];
-   454				break;
-   455			}
-   456	
-   457			i++;
-   458		}
-   459	
-   460		if (!dsi->cdata) {
-   461			dev_err(dev, "Failed to find chip data for this controller\n");
-   462			return -EINVAL;
-   463		}
-   464	
-   465		dsi->clk_ref = devm_clk_get_enabled(dev, "ref");
-   466		if (IS_ERR(dsi->clk_ref)) {
-   467			ret = PTR_ERR(dsi->clk_ref);
-   468			dev_err_probe(dev, ret, "Unable to get PHY reference clock\n");
-   469			return ret;
-   470		}
-   471	
-   472		dsi->clk_cfg = devm_clk_get_enabled(dev, "phy_cfg");
-   473		if (IS_ERR(dsi->clk_cfg)) {
-   474			ret = PTR_ERR(dsi->clk_cfg);
-   475			dev_err_probe(dev, ret, "Unable to get PHY configuration clock\n");
-   476			return ret;
-   477		}
-   478	
-   479		dsi->clk_pix = devm_clk_get(dev, "pixel");
-   480		if (IS_ERR(dsi->clk_pix)) {
-   481			ret = PTR_ERR(dsi->clk_pix);
-   482			dev_err_probe(dev, ret, "Unable to get PHY pixel clock\n");
-   483			return ret;
-   484		}
-   485	
-   486		dsi->pdata.base = base;
-   487		dsi->pdata.priv_data = dsi;
-   488		dsi->pdata.max_data_lanes = 4;
-   489		dsi->pdata.phy_ops = &th1520_dw_mipi_dsi_phy_ops;
-   490		dsi->pdata.mode_valid = dsi_mode_valid;
-   491	
-   492		platform_set_drvdata(pdev, dsi);
-   493	
-   494		dsi->dmd = dw_mipi_dsi_probe(pdev, &dsi->pdata);
-   495		if (IS_ERR(dsi->dmd)) {
-   496			ret = PTR_ERR(dsi->dmd);
-   497			dev_err_probe(dev, ret, "Failed to initialize mipi dsi host\n");
-   498			return ret;
-   499		}
-   500	
-   501		return 0;
-   502	}
-   503	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
