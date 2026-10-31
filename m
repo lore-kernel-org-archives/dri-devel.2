@@ -2,130 +2,132 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F46D606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 20:22:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACFE606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 20:24:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kv4OSASr;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mn90F7Xo
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CLUZaKpj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Zf0xsWnK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61E1110E359;
-	Sat, 31 Oct 2026 20:21:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE6010E009;
+	Sat, 31 Oct 2026 20:24:46 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7C6310E009
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 20:21:43 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBC5A10E009
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 20:24:35 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69VJFrd32617922
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 20:21:42 GMT
+ 69VJEweT2968905
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 20:24:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=B3Xi0jd2KnKgrPJ6ep80cd3l
- +8cBf4DAA514CH+g2eY=; b=kv4OSASrS3Cpiq2h1eVHDFVrHfu35u0+0ecLTj2Q
- aExk9rf+knDIy8Ltfu8OZ425fp+lHKY57/8876eOh6fVgg4FDVN5dLmAb+E2MTqh
- bHRfoU6CBKwYM655l/oQlUrX0w1NEHMvTC1G25M1ztdj9yuycmAS01IoJcE3UPRD
- JoGlElNz+wBWLHqDxmGv3qd5OMrmpESTQYlux0gFE6vzh8nOp36ob/W1nacZ0r1r
- gnMTyZRMIn1enExLZnAVVxQvSZw4g2KVLIlYY4NW3qhF2NpXWUQ/VNbegbsykIb8
- 8zni7U1/cqvBTlQiSvo2Om+38WL1ioy6cv++FaON/3k7NQ==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7nft3j1-1
+ :references:subject:to; s=qcppdkim1; bh=LC+7yPvVyik4+Gpd7nEEb6EX
+ AVPzoW8RCDIH4uELTVY=; b=CLUZaKpj1g6ex8FCQS9pJcuDpv4TWX1jzc6/jDUi
+ FcLRQVpCsXqEfFD4fRBfDD4ODU/Ls5M2UzJGJ5KmxZ7JYmAFXz6jhMj0ENhwbR6A
+ B1wTUC9uKrcyTHYnr2p8RYfIrKzgHEWmqfz12f/SP50gazjlgL+oSHB/0HmWYvyS
+ BNa1+kPp5hHvOxoA1BQoBbGpfFW/iBmiPgNh5rUTJqRU42gLE9D3zM8+FtK2xoBA
+ m97fzzVV3pr1pnS43kNzkBLSgLEjdqKNVb3NaIzm8CFWKKbjf8lviSrUn8AIqUVa
+ h5Dx2ZQNsSDS6BskLCATvsxGPLwMED3x5BtFDHgueQXGaA==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn5pkjd3r-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 20:21:42 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-91c70349f65so38028086d6.3
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 13:21:42 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 20:24:34 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-9179a2035a4so61059206d6.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 13:24:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793478102; x=1794082902;
+ d=oss.qualcomm.com; s=google; t=1793478274; x=1794083074;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=B3Xi0jd2KnKgrPJ6ep80cd3l+8cBf4DAA514CH+g2eY=;
- b=Mn90F7XomUC8mJ+7jAbv5bFaOzULoLHAos8GJLIZMHdPirOvRlyx1yyMp1dHsIHzSH
- uzEMMDUtz4hR87sj1IFj57COG7EUe3Vz3ZhLjolX2iqMHK3RrS+w4YFVhCuYHS/TFm/d
- kQEg9F4hCfAR6vFXFtvc93qPJgzgQWb4ql+XKMHJ4xvUS9tvAp32GiIWo9LDFbE1td4P
- UmJaOdPd+MSS4zGjEdVHRo1TEvaD2rTqrTne9DTfW0PeIHdjTzkyXnnNlbWwL0M/QnlN
- RyFXOleNuH1YP4sA9L61L7Z4lwCasfqpZhonV1gLOHcg2KYAxDBHvoJheJqppjq14B7+
- OiXA==
+ bh=LC+7yPvVyik4+Gpd7nEEb6EXAVPzoW8RCDIH4uELTVY=;
+ b=Zf0xsWnKQnM1mk5+TX6TkBmnNghyG75JsNZWSs6iFkpIyblveEcnuS2uWlnjQX6QGO
+ 4MoBDXtwdJLbpPGMVUmgHF2u6jpZ6AX1+obnbDr5493hkD80rlO2gz3WqNrjc3k8oTQe
+ tcsHg7tHBQiMqiKzAnqJPKsMoRDb+oEH3E/GPP483siHRJROImCd2W13sghIrTBy9r6R
+ pMkoM544Rd0PrLZ9DaMwPtdfz0UwaNMTUVGOBap9jvSa2FEem8f06US1ilkaztIKLaBa
+ 4PrKSbVVEEhB4ebdNfWrQDSU5RGxdGP7gYuWQXAqbyAbDbItWGTgJoKNBFGYvaH9JUva
+ eBCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793478102; x=1794082902;
+ d=1e100.net; s=20260707; t=1793478274; x=1794083074;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=B3Xi0jd2KnKgrPJ6ep80cd3l+8cBf4DAA514CH+g2eY=;
- b=nuYiG6WkFwn0djnsgRzbF4XRWkRxy3OOLudaXayNaN1Xs+4pH5dn70GXf4Jdh+prPc
- bp1IHwtxfdShIw1bUOvGRObRKeIDGjKYKGOoZZi6fVHqWY7EAZ4TwNJIlOI4tPbRXWtU
- Oap5EL0cwZU5E6ZiOSsk6zyssr9iG4vCndxxIlK7P1CMZoke1pYO1C/gHt/wjqNr1xW/
- pa/82US/Pw81l07L5Rc/CMbHUw1i93RRxxISjgismnxV0nqDEv9qMqW8y9fkQ1uD+L1V
- hNzvaTzqNYfA5Ls9hcFGKaClX+xCaqmncKGFuHgCat1nL+WqAH5O2L3oPmJFytzaeAtF
- Ezqg==
+ bh=LC+7yPvVyik4+Gpd7nEEb6EXAVPzoW8RCDIH4uELTVY=;
+ b=kmrufKjcS0GqPtSaBH2+aJO1QeHA/GDzacWl6d6vyTRoXmlxzpcC25V5JQGpEvPUar
+ nd/H9OV9r+7Do5dcmx5XHPbCUA5kXcxkQ3JDYOcj1VZNaGv/CZMmw7IyDI97DPkIrJdJ
+ 8fRDYGELPp/nT0vUcDa0MPLOFbYVp+uGinV6Yn11a+VAOAgUsrU3IFmOTectTmtq8F+o
+ 3TUmooQVKzo5Ghuzmpi7rRR6sCga1aQNS50CzvqyR9R6cKDA+qmSCXS4Z4rOWKy8Ls6T
+ 9THi42wr7RzQApC5qSdbOgjmpe+wn9vUPLZroJ2mMcZK5XFa37JOQaldLQLQtBapnEte
+ fU7A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBybvupXVFInr91YBqbycNg/nQbYOJe4Xvo/NYohxWyIKdo4GpOJ+niNylKWbbGGzSxhYDGWs42Ec+w=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLVav2dursasCxvCWHhQdkwQGF5L5rQKZlzF/ZdP7OksT1ecNf/
- cGcUjitJ97fW+ojAk6GxY/Xcpbdi/a9y2igHwlY/ytSphqREqgWe6l0Uo9VpNRP/PElt6xzklNK
- EdWcZ1YFZw6Hp9ERqtWdnk3XtmUs1XYpxdWnkeXr33cKUVU7DGhQFz7M+SoStxpENJVv4tjA=
-X-Gm-Gg: AYBFou3X7liXYc4n3HRWgfzI+6ILklv6KM7d+XckUT9HHFan12OPDJq2BsqluxDmg6r
- xFfF5/f4Jj+A/+g/uDXXFlL6iRtbN8iP1+MtnDmqsJqoa0GEBAT0yAoHfFuCCR+mThOURuoNBZy
- LhrN4Y977rqHF+mnXH5JcpfcLs1DnnLwn8bPcyCY2VVfPpV/n1cmlW4gJPNjJMMUDgmjaDEnOVD
- vDkYXKwGfUHOhksL92C1qNRdBxbfo6wEBYlxPuPEwDS5wN8obqLWSkD4NFHsddXogNBP3pRPY9c
- SJjPl1MOihznGUt4ZumZvsfeN02PQ/7MLG3voax5+kfBmn1lMCWzlSNAbXgPV4acilVKoSKhp/2
- iEOemBIENqH9TkBWOwUo2BZi0CgM9JgOYbxTk9WXQyXv0IpVKz0TAFQOMU0nM2t4NfdMaW9O9V0
- pfccB/OpL1fJJ5nC8Mt2/pl3lhI99M/8EEcTcfSBjug94bHKcMheLEW0JEQ4t1pw==
-X-Received: by 2002:a05:6214:4902:b0:91c:60e8:a8aa with SMTP id
- 6a1803df08f44-91ca4baf013mr85236196d6.49.1793478101598; 
- Sat, 31 Oct 2026 13:21:41 -0700 (PDT)
-X-Received: by 2002:a05:6214:4902:b0:91c:60e8:a8aa with SMTP id
- 6a1803df08f44-91ca4baf013mr85235896d6.49.1793478101049; 
- Sat, 31 Oct 2026 13:21:41 -0700 (PDT)
+ AKwUvBzsxjVBODdqCygskNRCKFQSvheVfSq2GNla3jC9I4OMWajy3lVr0x+mac9yHLnjbKpzcGlxE4Xv8iM=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLP+wRyhStHGTS1Tq+Je9/+llqrDG4xnqs6LnGrco5FCwqN94cJ
+ LU31Jyrlf3JReyZf1aGaDEnPJdCtiItwtQ56J2Spms6aVjnj20ikibCVdZMpJzVT2E7GU/YEM3h
+ ghLp1Am1lwVuvjo/s439TA4y8oqINh6/LcJrQgFvEtHt/erAqCfMFJBkx21nvKlxM21tJVNk=
+X-Gm-Gg: AYBFou3DAEZrVkHQ4dhNlCLz8wPCJPBxpXm+vVfKUxbYTXV7tJ22V6hTDbPEF92Slnc
+ v4OOv/3ut4FXtqkxqZsNA/EUq5lKXsTwSq7J7M0uZ7Kso9CS+6dk64bTqHXYKdjV+fqYj4LTB78
+ Gu5HXyKYxnHor8kpu20TwPfFwz/ZdWsVBq8Gwal9xkwUEgZ7dJhcE6Ad4ylHy8xV9lZPbBsxZQB
+ lfLJbm9Nk0eVTlzv9WgYD+b/Q/7nvSVajRWxaxvOV1kcGc7rEkA7JhpOo8sOsTsu7+/It8ebOIM
+ 2Vr16zJy5KnW+VAXd/UmcTEGb9j8c8R3NE755S94/poPPKrilHsZGqI09ie9xcHWCUj9TZTDuXh
+ 7cs6Q0LZavWdUMLWTG++gHVjNWa3qLnlvrrJZvgybeS4IpX5ehAmFLh4EjhfIVbTqfXl9lbdoRb
+ QmUMocx9Uhh0XgBLjezFF2Bqat2DapUgDS7zZH7Fs/VumTvhGYvHxoNFMIqpUc8A==
+X-Received: by 2002:a05:620a:444d:b0:93f:4498:603a with SMTP id
+ af79cd13be357-944133d4a68mr1436455485a.35.1793478273694; 
+ Sat, 31 Oct 2026 13:24:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:444d:b0:93f:4498:603a with SMTP id
+ af79cd13be357-944133d4a68mr1436453685a.35.1793478273159; 
+ Sat, 31 Oct 2026 13:24:33 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3acbbebddacsm12698671fa.6.2026.10.31.13.21.38
+ 38308e7fff4ca-3acbbefd30asm13000291fa.23.2026.10.31.13.24.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 31 Oct 2026 13:21:38 -0700 (PDT)
-Date: Sat, 31 Oct 2026 22:21:36 +0200
+ Sat, 31 Oct 2026 13:24:32 -0700 (PDT)
+Date: Sat, 31 Oct 2026 22:24:29 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/5] drm/msm/dsi: collect bonded command-path data into
- per-SoC config
-Message-ID: <j5ixobskknatvusosmhgvvmnze4q67iyfwk6gsa3y5goovx4z4@mhumd2vsnfkm>
+Subject: Re: [PATCH 1/5] drm/msm/dsi: move bonded command failure flag into
+ dsi manager state
+Message-ID: <l2pcxlml5vdv4ws75wvqjhxbjr43hfosrvd2nyewhup5umxu34@feozzmxb7poz>
 References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261031150305.1107572-2-xiaqinghuan@mail.ustc.edu.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA4MSBTYWx0ZWRfX7PqTImyfpIpO
- XyE65CuXJ1V6AuunH/5S2WjtQgr5Hm9gKT9S9Pm7Gcy55GJi9a6Fdm8/PZq2hd7EaXlA+Y6cpLj
- 8NOq57max9A6rJyX/z+f6NVBcC9yDMo=
-X-Proofpoint-GUID: V2TFQMj4asOxhCGiHuNnn8NNyTQmsb7n
-X-Authority-Analysis: v=2.4 cv=FJ2OVOos c=1 sm=1 tr=0 ts=6ae64dd6 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20261031150305.1107572-2-xiaqinghuan@mail.ustc.edu.cn>
+X-Proofpoint-GUID: Z4nUABPpOPdRepgMzXWb1k70IsRsZjwm
+X-Authority-Analysis: v=2.4 cv=Z4F5j3RA c=1 sm=1 tr=0 ts=6ae64e82 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=CeVSD1skKhO3MnvAeOMA:9
- a=CjuIK1q_8ugA:10 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-ORIG-GUID: V2TFQMj4asOxhCGiHuNnn8NNyTQmsb7n
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA4MSBTYWx0ZWRfX3onGt8Saf5xK
- p+4cF9ozgJhxqs8Ltn3SJIUjJ7tbSMXWI2upcrmm+bDtYu9OWjSEB+ZieJ4cKUxzS1hp7Qy46V3
- vRdDeyN4ICfKpgb4Tf5qoDUaEcHHMnSPuGZpXOBvsnVvAFQOjCzS/QEkqbM58Xu19TcxIHj+6fB
- jS0M+5S4UTHRVqF45v/DgINTEgZA3//UC1FCQqUrMtuMWe04IshHcM3iqRPThmVzhvV5pH5G5g3
- fjPkkz7RwnRlDGDU0D5mie21Uol/u6b4S6IrJkIbjRvpnWYE/tjSgHzd6OsYLXYyhRvjapiJWD1
- gtbZUKtLopnwYcNkfa+iGhfh5ZHDPwAZSls3Ke34aGCS5qvI26pHCx2x+9CaWjAvv8cx63LBoVS
- Y6Ks61LfiSpXEKim0Byg5Era+UhmrAFUzub0xw4yAxuTjgBhSz36lFEQziJ/s22H4MYtvHEuHrC
- b7iUEdgtFlL9xAfGEIw==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=zRbll8i6zLBPDSgtwMIA:9
+ a=CjuIK1q_8ugA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA4MSBTYWx0ZWRfXx9a11L4b7Lby
+ Ju+5wgdfV+fYdy9CjfgIbT3Bs0H0odDMcXBiEtd9eMT8iuAQGC8Zdl6ooT3yrQnik5Xu30Pwiph
+ uvKy3DENjuBXEpoXBjCrqlB/9mJrAS8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA4MSBTYWx0ZWRfX3GJM547twwME
+ jUgADQq6PRjnUfWR+j1xon2TDTzk551dI0wqGjTUOZ67ij0X9RKGQ51cDT2+4IwMISCIKkanm+B
+ Rp8Y5LelRpyrRZWa1KnfaopJtST1VoB+W7i7omyrHERzKyA3uDgnpyRyjrhavwuxHLLZkMj7tvh
+ U2GWYF4byF6YWfsAGFDELjXD6RKMKbBqztTA5wxOeXSCdXIEip5UcWWvhlspEslgyMemDCKPNRd
+ mC2KktWeSTcxiTQifYPXuOdu9AainwTd0Rs5ea/aJytZyTgQp0+ssnM1VR5BdItq/PDa2HvprTj
+ 25C91rCOAAt+O4YpYlSyh/S3uziej6HLkMjZt9k6Xog04pzYP+lGEOvTDHnyzrNZ9x0F3G2X3Tf
+ dXG9YgnQDCJgl1bBt/u82F5hbLj+RO38jFzcyp4eN1h1l6cwmHy/KfA2rfWYhGX+7UnL6a7KryV
+ KIqvSz2hTIDHK4mIlig==
+X-Proofpoint-ORIG-GUID: Z4nUABPpOPdRepgMzXWb1k70IsRsZjwm
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-31_05,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 adultscore=0 suspectscore=0
- spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310081
+ suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ phishscore=0 impostorscore=0 adultscore=0 spamscore=0 bulkscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2610310081
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,66 +139,86 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Oct 31, 2026 at 11:03:00PM +0800, Qianhui Xu wrote:
-> *** AI-assistance disclosure ***: this series was drafted by a coding
-> agent (Pi) working from the author's design and measurements; the author
-> reviewed, tested and approved the final text. The design, measurements
-> and decisions are the author's own.
+On Sat, Oct 31, 2026 at 11:03:01PM +0800, Qianhui Xu wrote:
+> The bonded-DSI command path kept a file-scoped `static bool
+> dsi_bonded_cmd_failed` next to the global manager instance, so bonded
+> state was split across two storage classes. Move the flag into
+> struct msm_dsi_manager (msm_dsim_glb) so the manager owns all of it and
+> nothing mutable stays file-scoped. READ_ONCE/WRITE_ONCE use is unchanged,
+> so behaviour is identical.
 > 
-> The sm8750 (Lenovo Y700 4th gen, TB322FC) uses bonded DSI: two DSI hosts
-> share one bonded link, and the master is decided by the SoC generation.
-> This series is preparatory refactoring of that bonded command path,
-> carried over from the vendor tree:
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi_manager.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
 > 
->   - 0001/0003 move the bonded command failure flag into the DSI manager
->     state and route the command path through host ops, so no mutable
->     bonded state stays file-scoped;
->   - 0002 collects the per-SoC bonded command-path data (FIFO error mask,
->     CMD_DMA_CTRL bits, peer poll budget) into a new struct
->     msm_dsi_bonded_cfg hung off the existing per-SoC table;
->   - 0004 takes the bonded master link id from that per-SoC config
->     instead of deriving it from probe order;
->   - 0005 names the FIFO error bits instead of using raw magic numbers.
-> 
-> *** NOTE ***: this series contains NO functional fix for the Q28 panel
-> issue. It only re-homes data and names constants; behaviour is unchanged
-> (patch 5 is explicitly "No functional change").
-> 
-> The bonded command path that this series re-homes is the one the vendor
-> firmware lineage on this device (SM8750) drives; the series introduces no
-> new runtime behaviour (patch 5 is explicitly "No functional change").
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> index 559c07a8b9..93d636220b 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+> @@ -30,6 +30,7 @@ struct msm_dsi_manager {
+>  	bool is_bonded_dsi;
+>  	bool is_sync_needed;
+>  	bool is_sm8750;
+> +	bool bonded_cmd_failed;
+>  	int master_dsi_link_id;
+>  };
+>  
+> @@ -37,8 +38,10 @@ static struct msm_dsi_manager msm_dsim_glb = {
+>  	.master_dsi_link_id = -1,
+>  };
+>  
+> +/* Serialises bonded command transactions; the failure flag it guards lives in
+> + * msm_dsim_glb so no bonded state is file-scoped.
+> + */
 
-I'd say, I'd prefer to see the reason for the changes. The bonded DSI is
-seemingly working today.
+If all fields guarded by this lock are held in another place, then the
+lock should also go. Nit: please check the recommended form for the
+block comment.
 
-> Gates re-run on the final series:
->   - checkpatch --strict: 5/5 patches clean;
->   - make -j26 W=1 drivers/gpu/drm/msm/: 0 errors, 0 warnings;
->   - the series replays cleanly, in order, on top of 0f1fb1c9c1.
-> 
-> Qianhui Xu (5):
->   drm/msm/dsi: move bonded command failure flag into dsi manager state
->   drm/msm/dsi: add per-SoC bonded command-path config
->   drm/msm/dsi: route the bonded command path through host ops
->   drm/msm/dsi: take bonded DSI master cfg from per-SoC config
->   drm/msm/dsi: name the FIFO error bits of the bonded command path
-> 
->  drivers/gpu/drm/msm/dsi/dsi.h         |  21 ++---
->  drivers/gpu/drm/msm/dsi/dsi_cfg.c     |  51 +++++++++++
->  drivers/gpu/drm/msm/dsi/dsi_cfg.h     |  30 +++++++
->  drivers/gpu/drm/msm/dsi/dsi_host.c    | 123 ++++++++++++++++++++++----
->  drivers/gpu/drm/msm/dsi/dsi_manager.c | 123 ++++++++++++--------------
->  5 files changed, 249 insertions(+), 99 deletions(-)
-> 
-> 
-> base-commit: 0f1fb1c9c1c8f09c711e8e9a82acbde2baeed691
+>  static DEFINE_MUTEX(dsi_bonded_cmd_lock);
+
+Hmm what is your base kernel? I don't see these definitions.
+
+> -static bool dsi_bonded_cmd_failed;
+>  
+>  #define IS_BONDED_DSI()		(msm_dsim_glb.is_bonded_dsi)
+>  #define IS_SYNC_NEEDED()	(msm_dsim_glb.is_sync_needed)
+> @@ -51,7 +54,8 @@ static bool dsi_mgr_uses_bonded_cmd(void)
+>  
+>  bool msm_dsi_manager_cmd_failed(void)
+>  {
+> -	return dsi_mgr_uses_bonded_cmd() && READ_ONCE(dsi_bonded_cmd_failed);
+> +	return dsi_mgr_uses_bonded_cmd() &&
+> +	       READ_ONCE(msm_dsim_glb.bonded_cmd_failed);
+>  }
+>  
+>  static inline struct msm_dsi *dsi_mgr_get_dsi(int id)
+> @@ -374,7 +378,7 @@ static void dsi_mgr_bridge_enable(struct drm_bridge *bridge,
+>  	if (!panel->prepared) {
+>  		dev_err(&msm_dsi->pdev->dev,
+>  			"panel is not prepared; refusing video enable\n");
+> -		WRITE_ONCE(dsi_bonded_cmd_failed, true);
+> +		WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
+>  		return;
+>  	}
+>  
+> @@ -646,7 +650,7 @@ static int dsi_mgr_bonded_cmd_xfer(const struct mipi_dsi_msg *msg)
+>  	ret = master_ret < 0 ? master_ret : slave_ret < 0 ? slave_ret : len;
+>  	if (ret < 0) {
+>  		/* Never reuse a packet buffer while either DMA engine is unresolved. */
+> -		WRITE_ONCE(dsi_bonded_cmd_failed, true);
+> +		WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
+>  		dev_err(&master_dsi->pdev->dev,
+>  			"bonded command DMA failed: master=%d peer=%d\n",
+>  			master_ret, slave_ret);
 > -- 
 > 2.53.0
 > 
