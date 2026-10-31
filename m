@@ -2,202 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95111606A323
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 16:44:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E642B606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 16:45:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DdWMOV2z;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hhCiIB7L
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ImTBEUX9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00DC210E021;
-	Sat, 31 Oct 2026 16:44:29 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCA5010E021
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 16:44:17 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69VGUTF01662703
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 16:44:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=AxPaqqR7JQ477yDdRMMPNaR6
- fhRM87wS+96sE2dqDu8=; b=DdWMOV2zuAcTmxoxESfa0mRiVck5d3ot4T6wTvkn
- yr7gIlkhDjxYophT68C9VCeg5uY00oW5ZoeSXPnEjEaqePR2Q8nbQW8Xa+qS0dig
- wyFR8xvA/YcJsCQ/A2m8uQD+qG0Hq0Ph4zLv0/UvPovKUHRsiJQ3x8JrIjg+qvBy
- 8W7X80/OYoIl9M5BCR5yGjNYS27fpc7/yearZw2P4HVKmW6XIanjK9VlT6DPIKvW
- bB3nWBjPKKrSOdO468EAHhmlrMPpgBDB6+LVkJ8UgH53hlHtXymHV6jhjq6sWWEq
- tbexGPO0M/CWaqqzHd4e5fZObFGADZ/+RRPuvLLrJhF3Iw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn9m99chw-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 16:44:17 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-93cb98809caso290847385a.1
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 09:44:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4528310E316;
+	Sat, 31 Oct 2026 16:44:55 +0000 (UTC)
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
+ [74.125.224.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1FB510E330
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 16:44:49 +0000 (UTC)
+Received: by mail-yx1-f53.google.com with SMTP id
+ 956f58d0204a3-67a6cc9acbeso805954d50.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 09:44:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793465088; cv=none;
+ d=google.com; s=arc-20260327;
+ b=kIdOziKyHByFxF3MbK4p5ROCF2shkPwyySQHfUpm53/NYB0Gp5HW9/qWq19NYgtZtc
+ E7ifi3RfhTxIDFOgMksM05rCBWj+KxGLVpZT5cpzSCVxOxGoqlnAJf0osJYMY7sFPSva
+ FdhC7PikBB5jtyQlXXrlxI33Wwi2p/JhPCWfrWQntr/UcUx3mcjiNuVXZRm5L9wYB0aj
+ E0hB5Q6vdgPLQof17Nf3+8Uoj1O98j7JSbWDS6xapyMFILwQ6KNYKAzu8o6HGg9A9ROw
+ x60W3G1N1Gm+x1q1tk9gYa/l7c3sQxvRmq1MWAur0Z+cJhyrUu/So+WXVMqM71/Z8/Ca
+ Akpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=FmRm6q9MEV9UKITnMhmLtqnLP8UqkbAMA4l+VFtEM/w=;
+ fh=8U2jhOgg4zNkXP0qlpnkVI5QNi3dcsL+R00XRzpNLIY=;
+ b=r1Turof0BvC48IasxUcZkVn2b0a92eh/USOoKQQ8MwEQzEyU23zWLpDzV/BaiOHvf5
+ kJdUB+vnKyazorXp7a4pUiM9uJAlnkDLw5U04J9OQGYmmvL1+sw33ADMJQksfz1aOXaG
+ FytkzA4rKXaCAyklZ7LnUNwV6WKnYmQYiHNmmr+2OSmxNRPJ/cCKdeDqtFae6XE3leJl
+ 1PKQEi4cXd3j4IPi60WQkIZxdcWF2tbjlPuCUA6odC2JnCewd6u1wVANZHlbm8rl/cC3
+ xLqIalr4WPt8617pS0J/IZWzRACTgr+GMb/GQmZPpHr27JuR7NWzyQDBHADmuOF3LGBU
+ K4gg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793465056; x=1794069856;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ d=gmail.com; s=20260707; t=1793465088; x=1794069888; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=AxPaqqR7JQ477yDdRMMPNaR6fhRM87wS+96sE2dqDu8=;
- b=hhCiIB7LpyTAWRB/GkiaV1utyb7a0epZl1vUrVq+j9qKmy7neGBeceEIGZ0G6Hdz1I
- RSHiB/pAizzyU18b8KSF82CPuADKZprqd0PTgcHS4Wcm5v2LBZJxEwbrnsStZXvAMkvR
- G3ovITtMxzhk5j+advHeH6SZ5Qepg75wFIDqe1VTGiXQ+s1wovX6URaPVku9tTx3B+5l
- chQlWsd5Stj6jzM89VQSD32vBkjhzNfuJlg3qyApS0t2Mi+6pdcXICmA1OEdD6CqzsCB
- XrUfhHlbCFitL2C8oeiCYVevI2FhtXyMxtgHrJmuW5M05fNAHu//1eYT4feFAxTkFNtL
- hbPw==
+ bh=FmRm6q9MEV9UKITnMhmLtqnLP8UqkbAMA4l+VFtEM/w=;
+ b=ImTBEUX9TovkyOKjkFQ+np1rlW1KsHiOLcD03MNvbe89IrrrD7VOXtLOVKVehuTp/h
+ yHZEbADsnl10VRYrBcbcl7rEdp3c6Xgt2CM7VziYFTRuWL4C/3BH/ybE8B9d496ogaut
+ n/WNSNxYjqKmLIV3rr3zAuSXGEQ22BH2DHV/qHk9+ObAwQT/xBj/XrZaCfMCdj1JGXTZ
+ uXDBOheWRDBuu7yOz5JKo+xXXJt3mJ1k9ERn3Re9Gi6GJLJ0O0nUiCsi0KItor0VVd4J
+ D3JaVSDcFrXLwM/k2oLNGs9ICTV4n3/lyoaCXGiwi1OlX9acoeTHaxCGZJGRckMm6H5w
+ gp9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793465056; x=1794069856;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20260707; t=1793465088; x=1794069888;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=AxPaqqR7JQ477yDdRMMPNaR6fhRM87wS+96sE2dqDu8=;
- b=UPjeiXXBsMu6Nt7rgIu1kNkcFGzDb0NPtlY+AY5pyht1K2SDbLWxerk+/hOfkLqynH
- FBZsjVkKd8GYkxboA0yg4WOqF+mAeA8Wd4/XNScED407FdbuaRZJoUDuWB6MBguMBm0j
- yNP6+Lq/V324oETVV13aBNafUDftPPaPm+FaY1aUOVgyMryHh99q8cSsgmoPZ5zIOq+h
- 5ZFt9MIv047zxjuoVLn8F2ZUg4jQqukNDhwPrpTzat54ZL5QO7IteKd/t67pOgdXyB1p
- SqnOe5qLF5Re+XfGYAnpBNbx1m+2hAUHsm4zKkM5FKF8I794uz3kowjFCMytyFeNw7is
- bcLw==
+ bh=FmRm6q9MEV9UKITnMhmLtqnLP8UqkbAMA4l+VFtEM/w=;
+ b=khkLCHPqaZvnzMCVa0uRfPnKzAHm1md5h2Eo5LPfeK5b4ZcolhKNPGv/yBzc1fu2AU
+ MrmsfQUiariVsjzfB0nrV6V6AvEnnSK1l1k3OdCm/XhPu683QdX7vizXrUS0kZ8yH/Us
+ x8+YjDLUB9nCdh8pccf4dU9N2dYM0hY4YYjB9WmWDZj/yOj8yg3mtZ5tR3PZQrgygZ+7
+ OfE05mCPS5oZJ1evO061dm7EFToaQR9stBAgHm4Kv8IkGZCmP9GwXgaXEhczKDHMvVj0
+ I5WgjtA9TX3KfQOfJb+pJNraWm+gaMIyVWedp5pcSKP0duQsg1QeQ6aHIQNvscqWBG30
+ 4taA==
 X-Forwarded-Encrypted: i=1;
- AKwUvByMxNH3/+q07/tymO423SV0Ra3PKVL75k8cTh9TQk8ohAV6//J6aBjK0Hrq5FqqBYcteEguwZJluZY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIyjRBVFXEPonRK8uEpTtm9Gdxl2Ar81sv/+Xtvvdcvu71nTA8s
- BQhxpKV4eYds2c/lgBfnsUzh2kcmyYzsxmX0uqQeoOw3+h0XKLe1B9YvDQBJt2AGwcNqt2bNNT9
- y9YqNQ8Tp/cu1jERbuI/xcUVqmd6TBKEAIo47RISdzTy7s+2P+2tJzkmQ/HD+WhHtf34FSWs=
-X-Gm-Gg: AYBFou1xLoPn1FVfv3wHrpJb96XwMGDkumGlxph/UkvblZbrZM+jC78Reu66p2JhpiN
- 3eUwaY4II0ui1XR3VtXzJiOYkMEfkgyC0FGzjudsRMz7F+aKwnn28S68Zo4lQXlHYdNkbRy3pj+
- HANU7gGEowlmIhpXAb1cKWUTwPF/q2h+AcYMWy4G7NuXZwWB03NueRNcmme3e3MITj4042eTKp0
- n5EaqpEVFutUEjqze4hKEsjc/b2ri1sHqb0fwl/v+TSlpYmXUYB2D0bAhWnNG9ChF467uwJfqPq
- umwMidvxPk6ZIJJf21ra0hX3BBgx5zR3fQNcuw7hs557ejyCrEprRrVLjIelh7ZJ57uGnFzSPkP
- focVFNqDUazkeUG/fBjxDczOrOBjFZYC2qb0EXpROlhRLKdGipfqys/FrZ3zTDhjNhRaYGY+zRl
- MeUxLZWrlOOooP+kwdOyh+KxV726V2QVvVAr4HXwQD64iU10381gXQHed6xAw3ow==
-X-Received: by 2002:a05:620a:1a17:b0:93f:3120:6c82 with SMTP id
- af79cd13be357-9442186437cmr915819285a.78.1793465055850; 
- Sat, 31 Oct 2026 09:44:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a17:b0:93f:3120:6c82 with SMTP id
- af79cd13be357-9442186437cmr915810385a.78.1793465055075; 
- Sat, 31 Oct 2026 09:44:15 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfe072d1a8sm660313e87.32.2026.10.31.09.44.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 31 Oct 2026 09:44:13 -0700 (PDT)
-Date: Sat, 31 Oct 2026 18:44:10 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>,
- Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>,
- Paul Kocialkowski <paulk@sys-base.io>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>,
- Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,
- Purism Kernel Team <kernel@puri.sm>,
- Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
- Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>,
- Michael Trimarchi <michael@amarulasolutions.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Casey Connolly <casey.connolly@linaro.org>,
- Michael Tretter <m.tretter@pengutronix.de>,
- Cristian Cozzolino <cristian_ci@protonmail.com>,
- Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>,
- Nickolay Goppen <setotau@mainlining.org>,
- Stefan Mavrodiev <stefan@olimex.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Robert Chiras <robert.chiras@nxp.com>,
- Alexander Koskovich <akoskovich@pm.me>,
- Markuss Broks <markuss.broks@gmail.com>,
- Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>,
- Dzmitry Sankouski <dsankouski@gmail.com>,
- Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-Subject: Re: [PATCH 00/35] drm/panel: let the panels use the atomic state
-Message-ID: <py3tch5wmx4g2zjpebzbgtpwji4ci3vk5obeuy44fbi4vw2em2@gpjmxyvwpimn>
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <cxsgo7u2hfb4jskscqcbeaaneiyfh7bdmlvku2wxwtduekwhxz@3vsizgxvekw7>
- <DMICO60J4G03.1QBH2T9SQ7XEZ@bootlin.com>
+ AKwUvBwOT801ljEG5LY7icCbNwixHjRtCdk1zzZovEHo7PT7vIQf5JiGrDmQlK+KW7KB5q2sdO6de35GBlE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+ksF7One/xSJ1Ix23prDYXzaWzND4vz27ENWyYI4hrHUmYllgb
+ 5hYY5habRLvZKCV8W+olEPA6NZTLFJbFoTCcRQFJ6zBMvi2kyX2fD7OuO3qx96jsgxl7P3BsGVd
+ R76KJDt75Y9nsulJwLF+2yVciVUYYPYE=
+X-Gm-Gg: AYBFou11fFdbEDxY0SmeDcl/b4itPRoHAI7YBSe4sAjQ0vXCPMwPhuGYNSgrO3VkIhX
+ cDZGZsVqVOv+50qCyvGVHcChUN8ak5b9pailNBs+RQND6GVLCpmB3ryJ+y/iKiRwHNr19VD0VOB
+ eIYkrLBleyrD8cLy+Q8a0lyBhLYX7y1wEsasjJf64TrL/WJfXnqyeIkdakMtWkXGzlJoPDgKBii
+ URCCZuYPpilcpV2NF/KIbx+5fuN/sbEmLfyIu98vHki96qKXkJ864gKQFoJWO9pUKna4CWDJp7X
+ xPMiEoW3f1x5iUcgZ1nNLvJPIj0M+hZlwe1bu+Ng1nFGHTi0Wfkj/wgFP0BzNxIc3tkOlW+g5cw
+ 6xAmldN+C9/poJiRNxCj3/tGKwiNoYCoBk7EnWZQ=
+X-Received: by 2002:a05:690e:440f:b0:676:8974:9788 with SMTP id
+ 956f58d0204a3-67ba50fc586mr2202215d50.96.1793465088303; Sat, 31 Oct 2026
+ 09:44:48 -0700 (PDT)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DMICO60J4G03.1QBH2T9SQ7XEZ@bootlin.com>
-X-Proofpoint-ORIG-GUID: 9D-4UxJbGRo2RY_rjb2fiyKzPxFiZxkX
-X-Proofpoint-GUID: 9D-4UxJbGRo2RY_rjb2fiyKzPxFiZxkX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA2NiBTYWx0ZWRfXznc+CY2pzVjn
- LkzydbwArkceief6w+1MGdCg2BO8SJfebiRY+74uFV2OINRafKOXh1FbXrtkDP6i+yG43rP7RxU
- q7mvJiuPMF/lEgHi+qoSP2LT6Qp17AsXHfqZ87dy4ZtCHh+9CjOknTvxxIukLcmHknjl5PnYoBo
- EOlSbnVJk7GTYwjVh+oHNnsLsQfl4Pf2v77JCEYoxR6CuSS9Oia/kBucEo0/eaIYovnJc5Grk58
- MEHg08XYR3UskDEoEEvaO6eJC30h+sTc8cjzIAVIwBHH8xoBg3kEH+hnvkMd/rzbBIgNfKmY0ih
- G66M859LRrPdOk6ezcpTyRR6RpPuo+JPfdlcOCjwekYrSHBiCElt3tSodjzaDfEQFR3TSHAs/UE
- E1pJRvnKkLCfEHf/M1t98HN3VZMWPH8vaWlHU8FWnnUjbPyTVNqu/j6Tily/YjULnJKjM9gcxiv
- ymwJsEh0TZNW+zQIW7w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA2NiBTYWx0ZWRfX+NxCaAcxov14
- 4Y6ihHa+gfu6Ph5TZXa+nzkE1bSb01s17G74OBr8I28TjCcdeD1wHuBJjRW6x8r2YnMchw/+3A+
- DkrAw3PVfRUXhcUtZrWl5TKYu3rzQAg=
-X-Authority-Analysis: v=2.4 cv=cfVHPXDM c=1 sm=1 tr=0 ts=6ae61ae1 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=0sqqXKTFXRObX0Cx7wsA:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-31_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 spamscore=0 bulkscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310066
+References: <20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com>
+ <20261011-pvr-gpuvm-immediate-v2-1-744ddc6644c3@gmail.com>
+In-Reply-To: <20261011-pvr-gpuvm-immediate-v2-1-744ddc6644c3@gmail.com>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Sun, 1 Nov 2026 01:44:37 +0900
+X-Gm-Features: AclHuK9TWlU8P9Ml10d2T0OXF04K7g-lp1-r1t3qWFHqZqMDpRJwUYAW2fycKsA
+Message-ID: <CAKbEznvSrJSN7_x22aWVzwM4otXMfgadurNp9arLcSzaQ9dsJQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/imagination: Switch the GPUVM to immediate mode
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Alexandru Dadu <alexandru.dadu@imgtec.com>,
+ Brajesh Gupta <brajesh.gupta@imgtec.com>, 
+ Frank Binns <frank.binns@imgtec.com>, imagination@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -209,111 +109,243 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 30, 2026 at 06:31:02PM +0100, Luca Ceresoli wrote:
-> Hi Dmitry,
-> 
-> On Tue Oct 27, 2026 at 1:02 PM CET, Dmitry Baryshkov wrote:
-> > On Mon, Oct 26, 2026 at 01:09:49PM +0200, Dmitry Baryshkov wrote:
-> >> The panel is the only element of the display pipeline which never sees
-> >> the atomic commit. Its prepare() and enable() callbacks get nothing but
-> >> the panel, so a panel which has to be programmed differently depending
-> >> on the mode can only guess it. The NT35950 driver, for example, saves
-> >> the connector in get_modes() and reads connector->state->crtc->state
-> >> while being prepared: without the locks, from the current state rather
-> >> than from the one being committed, and with no way to reject a mode it
-> >> doesn't know.
-> >>
-> >> Every panel has a struct drm_bridge embedded into it, and the bridge
-> >> already has all the missing parts: atomic_check(), a state object which
-> >> can be subclassed and the commit passed to the callbacks. Rather than
-> >> growing struct drm_panel_funcs into a copy of that, let the panel driver
-> >> provide struct drm_bridge_funcs for the embedded bridge. This is opt-in:
-> >> the panels which have no use for the atomic state keep using struct
-> >> drm_panel_funcs and are not touched by it.
-> >>
-> >> To get there the bridge callbacks become the entry point to the panel,
-> >> with drm_panel_prepare() and friends calling them rather than the other
-> >> way around. The panel core still has to track the panel state, notify
-> >> the panel followers and handle the backlight, so the driver doesn't fill
-> >> in the power callbacks directly, it wraps its functions with the macros
-> >> doing that part. NT35950 is converted as the first user.
-> >>
-> >> The bulk of the series is the cleanup of what the panel core and the
-> >> bridge need from the panel driver, so that a panel providing the bridge
-> >> callbacks doesn't need struct drm_panel_funcs for anything:
-> >>
-> >> - get_timings() had no callers.
-> >>
-> >> - The connector type was stored both in the panel and in its bridge, and
-> >>   the display drivers could override it while creating the panel bridge.
-> >>
-> >> - The orientation was read from the DT, stored and returned by nearly
-> >>   identical code in more than twenty panel drivers, and some of them
-> >>   also had to set it on the connector from get_modes(), with a TODO
-> >>   asking for a better place. The core reads it now. It is applied to the
-> >>   connector from the new connector_init() bridge callback, which is not
-> >>   specific to the panels: other bridges have properties to set up on the
-> >>   connector being created too (HDCP, DP link properties), and currently
-> >>   have nowhere to do it.
-> >>
-> >> - disable() and unprepare() returned an error which nobody could act on.
-> >>   Worse, a failed unprepare() left the panel marked as prepared, so it
-> >>   was never initialised again.
-> >>
-> >> Behaviour changes worth knowing about:
-> >>
-> >> - Panels with the rotation property whose driver ignored it now get the
-> >>   orientation property. In the tree this is the Motorola Mapphone panel
-> >>   (panel-dsi-cm).
-> >>
-> >> - sun6i_mipi_dsi, sti_dvo and the Tegra DSI get their panel after the
-> >>   DRM device has been registered, which is too late to create the
-> >>   property, so they lose the orientation which the panel drivers used to
-> >>   set from get_modes(). None of the rotated panels in the tree are used
-> >>   with them.
-> >>
-> >> - A panel implementing atomic_check() can only be driven through the
-> >>   bridge chain. The display drivers calling drm_panel_prepare() directly
-> >>   have no commit to pass.
-> >>
-> >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> >> ---
-> >> Dmitry Baryshkov (35):
-> >>       drm/panel: remove the get_timings() callback
-> >>       drm/panel: remove the unused struct panel_bridge
-> >>       drm/tidss: get the panel type from the embedded bridge
-> >>       drm/bridge: lvds-codec: use devm_drm_panel_bridge_add()
-> >>       drm/ingenic: use devm_drm_panel_bridge_add()
-> >>       drm: mxsfb: use devm_drm_panel_bridge_add()
-> >>       drm: rcar-du: use devm_drm_panel_bridge_add()
-> >>       drm: rz-du: use devm_drm_panel_bridge_add()
-> >>       drm/mcde: use drm_panel_bridge_add()
-> >>       drm/pl111: use drm_panel_bridge_add()
-> >>       drm/rockchip: lvds: use drm_panel_bridge_add()
-> >>       drm/rockchip: rgb: use drm_panel_bridge_add()
-> >>       drm/panel: remove the _typed() panel bridge functions
-> >
-> > Gmail barked at me for sending too many emails for too many recipients
-> > in the middle of the series. I guess, I'll have to split the series into
-> > smaller parts. Please consider reviewing the posted patches, letting me
-> > split / land the series in parts.
-> 
-> The first 13~14 patches are nice and fairly independent cleanups. I guess
-> they can be sent separately, or just be applied. However I'd still want to
-> review patch 14 and do some testing next week before I consider them ready
-> for applying.
+The infinite loop issue in pvr_vm_unmap_all() reported by Sashiko is not
+introduced by this patch; it has existed since commit a5c4c3ba95a5
+("drm/imagination: Hold drm_gem_gpuva lock for unmap").
 
-Sounds like a plan. Would you ack the patch 14? I'll review and repost
-patches 15+.
+Fixed in a separate patch:
+https://lore.kernel.org/r/20261015-pvr-unmap-all-loop-v1-1-54c676d41269@gma=
+il.com/
+
+On Sun, Oct 11, 2026 at 6:45=E2=80=AFPM Gyeyoung Baek <gye976@gmail.com> wr=
+ote:
+>
+> Use DRM_GPUVM_IMMEDIATE_MODE so that each GEM's GPUVA list is protected
+> by its gpuva.lock instead of its dma_resv. This prepares for
+> asynchronous VM_BIND, whose run_job() will update the GPUVA lists
+> before signalling its fence. That section imposes three rules:
+>
+> 1. No dma_resv: another thread may hold it while waiting for the job's
+>    fence, directly or through a dependency.
+>    -> Protect the lists with gpuva.lock, and take it around
+>       drm_gpuva_link().
+>
+> 2. No allocation under a lock run_job() takes: reclaim may wait for a
+>    fence that depends on the job.
+>    -> Allocate the vm_bo before taking gpuva.lock:
+>       drm_gpuvm_bo_obtain_locked() becomes drm_gpuvm_bo_create() +
+>       drm_gpuvm_bo_obtain_prealloc().
+>
+> 3. No freeing of GEM objects: that takes their dma_resv, and under
+>    gpuva.lock would free the held lock too.
+>    -> Defer it: drm_gpuva_unlink() and drm_gpuvm_bo_put() become
+>       drm_gpuva_unlink_defer() and drm_gpuvm_bo_put_deferred(), and
+>       drm_gpuvm_bo_deferred_cleanup() frees once the locks are dropped.
+>
+> This also fixes an unlocked GPUVA list update: when a map fails,
+> pvr_vm_bind_op_fini() drops the last vm_bo reference without holding
+> the object's dma_resv.
+>
+> Failing VM_MAP allocations with fail-nth shows
+> it on a lockdep kernel (real allocation failures under memory pressure
+> take the same path):
+>
+>   WARNING: drivers/gpu/drm/drm_gpuvm.c:1661 at drm_gpuvm_bo_put+0x2ec/0x6=
+60 [drm_gpuvm]
+>   Call trace:
+>    drm_gpuvm_bo_put
+>    pvr_vm_bind_op_fini
+>    pvr_vm_map
+>    pvr_ioctl_vm_map
+>
+> Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
+> Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
+> ---
+>  drivers/gpu/drm/imagination/pvr_vm.c | 39 +++++++++++++++++++++++++++---=
+------
+>  1 file changed, 30 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagi=
+nation/pvr_vm.c
+> index cbdd15ed74f..807a01aab1d 100644
+> --- a/drivers/gpu/drm/imagination/pvr_vm.c
+> +++ b/drivers/gpu/drm/imagination/pvr_vm.c
+> @@ -214,7 +214,7 @@ static int pvr_vm_bind_op_exec(struct pvr_vm_bind_op =
+*bind_op)
+>
+>  static void pvr_vm_bind_op_fini(struct pvr_vm_bind_op *bind_op)
+>  {
+> -       drm_gpuvm_bo_put(bind_op->gpuvm_bo);
+> +       drm_gpuvm_bo_put_deferred(bind_op->gpuvm_bo);
+>
+>         kfree(bind_op->new_va);
+>         kfree(bind_op->prev_va);
+> @@ -255,11 +255,11 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind=
+_op,
+>
+>         bind_op->type =3D PVR_VM_BIND_TYPE_MAP;
+>
+> -       dma_resv_lock(obj->resv, NULL);
+> -       bind_op->gpuvm_bo =3D drm_gpuvm_bo_obtain_locked(&vm_ctx->gpuvm_m=
+gr, obj);
+> -       dma_resv_unlock(obj->resv);
+> -       if (IS_ERR(bind_op->gpuvm_bo))
+> -               return PTR_ERR(bind_op->gpuvm_bo);
+> +       bind_op->gpuvm_bo =3D drm_gpuvm_bo_create(&vm_ctx->gpuvm_mgr, obj=
+);
+> +       if (!bind_op->gpuvm_bo)
+> +               return -ENOMEM;
+> +
+> +       bind_op->gpuvm_bo =3D drm_gpuvm_bo_obtain_prealloc(bind_op->gpuvm=
+_bo);
+>
+>         bind_op->new_va =3D kzalloc_obj(*bind_op->new_va);
+>         bind_op->prev_va =3D kzalloc_obj(*bind_op->prev_va);
+> @@ -293,6 +293,8 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_o=
+p,
+>
+>  err_bind_op_fini:
+>         pvr_vm_bind_op_fini(bind_op);
+> +       /* Drain what fini() deferred. */
+> +       drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+>
+>         return err;
+>  }
+> @@ -366,7 +368,11 @@ pvr_vm_gpuva_map(struct drm_gpuva_op *op, void *op_c=
+tx)
+>                 return err;
+>
+>         drm_gpuva_map(&ctx->vm_ctx->gpuvm_mgr, &ctx->new_va->base, &op->m=
+ap);
+> +
+> +       mutex_lock(&op->map.gem.obj->gpuva.lock);
+>         drm_gpuva_link(&ctx->new_va->base, ctx->gpuvm_bo);
+> +       mutex_unlock(&op->map.gem.obj->gpuva.lock);
+> +
+>         ctx->new_va =3D NULL;
+>
+>         return 0;
+> @@ -396,7 +402,7 @@ pvr_vm_gpuva_unmap(struct drm_gpuva_op *op, void *op_=
+ctx)
+>                 return err;
+>
+>         drm_gpuva_unmap(&op->unmap);
+> -       drm_gpuva_unlink(op->unmap.va);
+> +       drm_gpuva_unlink_defer(op->unmap.va);
+>         kfree(to_pvr_vm_gpuva(op->unmap.va));
+>
+>         return 0;
+> @@ -418,6 +424,7 @@ pvr_vm_gpuva_unmap(struct drm_gpuva_op *op, void *op_=
+ctx)
+>  static int
+>  pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
+>  {
+> +       struct drm_gem_object *obj =3D op->remap.unmap->va->gem.obj;
+>         /* The split parts belong to the object of the mapping being spli=
+t. */
+>         struct drm_gpuvm_bo *vm_bo =3D op->remap.unmap->va->vm_bo;
+>         struct pvr_vm_bind_op *ctx =3D op_ctx;
+> @@ -435,16 +442,20 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *o=
+p_ctx)
+>         drm_gpuva_remap(&ctx->prev_va->base, &ctx->next_va->base, &op->re=
+map);
+>
+>         if (op->remap.prev) {
+> +               mutex_lock(&obj->gpuva.lock);
+>                 drm_gpuva_link(&ctx->prev_va->base, vm_bo);
+> +               mutex_unlock(&obj->gpuva.lock);
+>                 ctx->prev_va =3D NULL;
+>         }
+>
+>         if (op->remap.next) {
+> +               mutex_lock(&obj->gpuva.lock);
+>                 drm_gpuva_link(&ctx->next_va->base, vm_bo);
+> +               mutex_unlock(&obj->gpuva.lock);
+>                 ctx->next_va =3D NULL;
+>         }
+>
+> -       drm_gpuva_unlink(op->remap.unmap->va);
+> +       drm_gpuva_unlink_defer(op->remap.unmap->va);
+>         kfree(to_pvr_vm_gpuva(op->remap.unmap->va));
+>
+>         return 0;
+> @@ -588,7 +599,8 @@ pvr_vm_create_context(struct pvr_device *pvr_dev, boo=
+l is_userspace_context)
+>         drm_gem_private_object_init(&pvr_dev->base, &vm_ctx->dummy_gem, 0=
+);
+>         drm_gpuvm_init(&vm_ctx->gpuvm_mgr,
+>                        is_userspace_context ? "PowerVR-user-VM" : "PowerV=
+R-FW-VM",
+> -                      0, &pvr_dev->base, &vm_ctx->dummy_gem,
+> +                      DRM_GPUVM_IMMEDIATE_MODE, &pvr_dev->base,
+> +                      &vm_ctx->dummy_gem,
+>                        0, 1ULL << device_addr_bits, 0, 0, &pvr_vm_gpuva_o=
+ps);
+>
+>         mutex_init(&vm_ctx->lock);
+> @@ -622,6 +634,7 @@ pvr_vm_context_release(struct kref *ref_count)
+>                 pvr_fw_object_destroy(vm_ctx->fw_mem_ctx_obj);
+>
+>         pvr_vm_unmap_all(vm_ctx);
+> +       drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+>
+>         pvr_mmu_context_destroy(vm_ctx->mmu_ctx);
+>         drm_gem_private_object_fini(&vm_ctx->dummy_gem);
+> @@ -758,7 +771,9 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_=
+gem_object *pvr_obj,
+>
+>  err_cleanup:
+>         mutex_unlock(&vm_ctx->lock);
+> +
+>         pvr_vm_bind_op_fini(&bind_op);
+> +       drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+>
+>         return err;
+>  }
+> @@ -840,6 +855,8 @@ pvr_vm_unmap_obj(struct pvr_vm_context *vm_ctx, struc=
+t pvr_gem_object *pvr_obj,
+>         err =3D pvr_vm_unmap_obj_locked(vm_ctx, pvr_obj, device_addr, siz=
+e);
+>         mutex_unlock(&vm_ctx->lock);
+>
+> +       drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+> +
+>         return err;
+>  }
+>
+> @@ -874,6 +891,8 @@ pvr_vm_unmap(struct pvr_vm_context *vm_ctx, u64 devic=
+e_addr, u64 size)
+>
+>         mutex_unlock(&vm_ctx->lock);
+>
+> +       drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+> +
+>         return err;
+>  }
+>
+> @@ -906,6 +925,8 @@ pvr_vm_unmap_all(struct pvr_vm_context *vm_ctx)
+>         }
+>
+>         mutex_unlock(&vm_ctx->lock);
+> +
+> +       drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+>  }
+>
+>  /* Static data areas are determined by firmware. */
+>
+> --
+> 2.43.0
+>
 
 
--- 
-With best wishes
-Dmitry
+--=20
+Thanks,
+Gyeyoung
