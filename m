@@ -2,44 +2,204 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E2D606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 16:17:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A8D606A321
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 16:18:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NxVS1Hl7
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QvB72mTU;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q86x2PSA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF00810E941;
-	Sat, 31 Oct 2026 16:17:44 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF83E10E10E;
- Sat, 31 Oct 2026 16:17:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D3ADC6061D;
- Sat, 31 Oct 2026 16:17:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57C3F1F000C1;
- Sat, 31 Oct 2026 16:17:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793463456;
- bh=0P+ntoJlJbOBs0AlVfdq61KumYLqV2w3w6jx+UYS/gw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NxVS1Hl7tVib3xhKCmHCLhUJoTRjQU/Atshl8EGdA4bnlBrZp5BCAQza0GFID0tl/
- evzW1Q16LaFayLXPv4HCpMbNnvnpmQ8GyLordiAJn0nF6mVPfQnv5tMMaV7QD2xiat
- /XPXyN68NtlHPsiu5lswuIAWk87wBmxByZ3FJRc/JN38osAvweOGNEXG9UUtrp35p1
- 0kdxbZUcoMEQs/LJa4RUYKD7pZ+XGYAkOcfyDsIvLf1eXOEN96oN7AxpuljRlm4YAz
- umtxg8Xe8TAflWqjwsYKaSh/OhueTbBvQZy6O2Gvrhil6MLnxXUws9g3KQXjDyiETj
- 9MMUWClVpfMkA==
-Message-ID: <sashiko-outbox-192037@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 2/2] drm/i915/dp_mst: Skip link retrain and ACT
- for disconnected MST streams
-To: "Xiao Lu" <xiaolu.xie@intel.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261031154456.465469-3-xiaolu.xie@intel.com>
-References: <20261031154456.465469-1-xiaolu.xie@intel.com>
- <20261031154456.465469-3-xiaolu.xie@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 31 Oct 2026 16:17:35 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11A8A10E10E;
+	Sat, 31 Oct 2026 16:17:53 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD6C10E1C8
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 16:17:38 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 69VD04rD3208637
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 16:17:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=MKAF1yU3dsH3xPiGgQsiz0cR
+ qHhH3deT2s3XLmIxZNU=; b=QvB72mTUHo6A4AVKQ/l4aWjqbBPj3k6hKKiOrc3L
+ hko/uvjFzffkl1HUVLsn5ygrIgBumEyYSAVqFoS5aJIevbhKEHAu796ZnnnZ8dte
+ SvtYqrSdcjlBgoZ8S9M5uuspxv7l/6ZJmNA4sFZxFlXWJ+FiRqRzwDFR7/GhOH+f
+ 8ZOsbpZABNQI3W9MRx7TIR6NnX8pGG7emNpI2f8NPIVfY3gVJOXVQc+DSlIl4IMf
+ wBvsxmZeSV6Z8DoU6RwYuiI0ETAPT+13/Q7K3AfOhuTPOx7ShiQh51tFKZG81jv8
+ oSaQjjIY7haoqZJB6sKeTaasKeplqJxhafHFUC2I7BAZFg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn79rsnj8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 16:17:37 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-943e8ff02d0so155522385a.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 09:17:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1793463456; x=1794068256;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=MKAF1yU3dsH3xPiGgQsiz0cRqHhH3deT2s3XLmIxZNU=;
+ b=Q86x2PSAo0dDmebESsqKUrHnPHStU35Xv2be+MLsyYtiwy+ZTDhtunxkMyh20zqfz6
+ uQkN1Yze231VsoG95+wBWZlgjxWmWq0wYlF9PUjPDfAegDfS5xV0Ca++wkE3c0yrYt08
+ Ongfef2x+k0BVlCnFpDcBhkTJS20CJnQhbghql5/1gl9jHj/tDF0HOS7UEZVY0mblr3E
+ TFK0WKwNGI13qgW98paxwv6pAXV/MJK/vSXBui9ki062UM+a9FOvLf9cBz7M0TA/JMPw
+ ViKEBHh0veuXOZyReq4nRaeeUrGH6YmlbkXvpU2543CCjVhPUziFA+CjSom2hJitFZmW
+ 5faQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793463456; x=1794068256;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=MKAF1yU3dsH3xPiGgQsiz0cRqHhH3deT2s3XLmIxZNU=;
+ b=1E+dFl+i3pELYCAYBKSfVjdPLs3+wjdeGnodteDgFKQlqdtSSVnA2FCCucSPYFBuPH
+ +MPLXg8X1FxLGomXeJPdhCiAiB7EnBQLSwl51f0hshYo9z2YH8tPq7f2hFhe8hRfuQ/D
+ r1fOqaFv2MHx+CZllN8OCyHgXgKSHy/1Iap3kj2fQHnKHONovMqoX4R6ZoBl4xWVyu6u
+ DNokC8U/BnMQ4u9sg9van9UdwLQ6St2q4YM+AjzJ/aTpgTefW6kKEGy50fT+UAwCe/Gz
+ ZZlC+ARKu5lLb5dxb/+SnopNmonG+neSso3Fy7gsZ2Itj1Q/UrjadSVf2OF/jpKj7rxJ
+ VXDw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzOVFbR93njVzgeabS1cyk1os258I1p+LqQC4Lp5bCsgxGisGi2JYWqSg3y4rN8UDIQX+V5YcNDsZQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKc87jOaTmJnnlSZW2AgvSL1eBLl54Jb4vIZiOFpCfbjNmclzu6
+ 7c9watpuosJkou0EOafABYB6X69w8sv+TJsTOpm8l3sPL0b9X7998FUou6bxDpzHwQYzqWMYgm6
+ ke+0lPBWU2CS8nHTneYsQe7N1nlygRNfZM6HUtgZeMbSlPPK/JG+/5uQCMuV7qpHCLpjdy2k=
+X-Gm-Gg: AYBFou3mcaXK6xXAJ9fFf1s8bHPNA6lzueOJR0mIFPH6dOByxniHv5Ot9WnX/tOUCdG
+ +QpogLgKg2eAUA1/QPGg215ZcY/JOlt6Y/TneuzlLsyg+PJilLbC20Zjzw0uCrxiKVIfkRR7px+
+ Hlk7rcILKx6hneM1O6MY+/sM+75HPsVFZCFw7LPipHlY272FS0m46C4wU9zvSVWtOcHJa8yNCn8
+ shvB5El7i07TffrJ6FeyST6VwQGcd07B5lU52l1bxydx3jrO0ku/ZLXaIErtnXPITfhGE+xoEem
+ OSsCbE6XTrTiRPTK4YnHcCEoAHMRVR9ryrqqnw7pynjjP7QAjLUw44Dv+gsMf1nQVwGN3SWglUt
+ mW+/C3a1qOfsAWBFZS3HArLv0WO1/rOk3uThjPqF58M0AwgPWw1XiJA/XGL3w9nqZq66bXWWnbj
+ zDSpa5zt3yI0HN5YX6NsmbVSBUkpKiT1zZQBSv0DFig0dZuonK7XWen0aItJ9xxQ==
+X-Received: by 2002:a05:620a:8385:b0:93e:48fc:aa88 with SMTP id
+ af79cd13be357-944217118e3mr880670985a.44.1793463456255; 
+ Sat, 31 Oct 2026 09:17:36 -0700 (PDT)
+X-Received: by 2002:a05:620a:8385:b0:93e:48fc:aa88 with SMTP id
+ af79cd13be357-944217118e3mr880663185a.44.1793463455660; 
+ Sat, 31 Oct 2026 09:17:35 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5bfe07403cesm624624e87.58.2026.10.31.09.17.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 31 Oct 2026 09:17:33 -0700 (PDT)
+Date: Sat, 31 Oct 2026 18:17:31 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Douglas Anderson <dianders@chromium.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>,
+ Paul Kocialkowski <paulk@sys-base.io>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>,
+ Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,
+ Purism Kernel Team <kernel@puri.sm>,
+ Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
+ Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>,
+ Michael Trimarchi <michael@amarulasolutions.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Casey Connolly <casey.connolly@linaro.org>,
+ Michael Tretter <m.tretter@pengutronix.de>,
+ Cristian Cozzolino <cristian_ci@protonmail.com>,
+ Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>,
+ Nickolay Goppen <setotau@mainlining.org>,
+ Stefan Mavrodiev <stefan@olimex.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Robert Chiras <robert.chiras@nxp.com>,
+ Alexander Koskovich <akoskovich@pm.me>,
+ Markuss Broks <markuss.broks@gmail.com>,
+ Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>,
+ Dzmitry Sankouski <dsankouski@gmail.com>,
+ Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
+Subject: Re: [PATCH 04/35] drm/bridge: lvds-codec: use
+ devm_drm_panel_bridge_add()
+Message-ID: <dj5k6rjb2dcta3gq4jpimkhqimtx3cs2j3ghtgr3c7kofjnwqq@hsnx5km7bszj>
+References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-4-5e3070a3478f@oss.qualcomm.com>
+ <179338130512.3009485.15498623134248772053.b4-review@b4>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179338130512.3009485.15498623134248772053.b4-review@b4>
+X-Proofpoint-ORIG-GUID: hrtZbRyVic56ccsvQMygidKCvlRTYlWk
+X-Authority-Analysis: v=2.4 cv=Wtq+otfv c=1 sm=1 tr=0 ts=6ae614a1 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=P-IC7800AAAA:8
+ a=EUspDBNiAAAA:8 a=rdXaneg_s35KUMNfVVkA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA2NCBTYWx0ZWRfX/LQ6jv4zF40l
+ 4C157qfMiGxxBTPBlSiZYLdPYSwMmMT4lEZHxaBbLQ4VVTYHLrLVed23HEzDlRpdgXDeHwiJIB0
+ 9XGN9m6heOC7+MGuunMXF9ybcCNdwaA=
+X-Proofpoint-GUID: hrtZbRyVic56ccsvQMygidKCvlRTYlWk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA2NCBTYWx0ZWRfX2RuEL6377dGs
+ 9Lzs6JpPap143B5ktKQiRep+yIxvCLZkwAjcIoHb89XInpbuYmZ0uDbk3nx/CjyksVeJYHjnox3
+ H8oDO0E6sNe7FKgBmie2h+DHIvMWconoWq/IIcb4u1IAsuSTEy9dyZHmgGUtwWmCG+k445embQT
+ RQrgkegvw0SQwY8T6oQfZXDCwclBsErIdqbHuZlOotpetXJo/mg1Rsph3y2ZKmlWzgh9sRv2b7j
+ awgL/oUD3ZbV4HRox30gHOoOg6oW+z1xXzFTGg/Qcinastmk7eYP0RqwNt/sc9tMbqGYxqP83pr
+ n/Aeqgmoz//wknjx+VqpvUggN8yOlFrWIYe9ROHS7kDsTwkeCGNDXOcK3KjVMgPS+dZhstiaIMI
+ 3GlgUYW8ezMdQMBlfAIcAdp8nIeOjJlfzu47xhwTc1gifgAx/uHKfkBp7UBaRDgnyySk7ddtiJr
+ 8rJcPxeQzgW7g/64Tcw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310064
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,374 +210,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] drm/i915/dp_mst: mst_stream_post_disable() skips VC payload deallo=
-cation
-- [High] drm/i915/dp_mst: skipped link training in intel_dp_retrain_link() =
-on partial pipe_mask
-- [Medium] drm/i915/dp_mst: unguarded ACT wait in mst_stream_enable() on fa=
-iled payload
-- [Medium] drm/i915/dp_mst: race with delayed connector unregister in mst_c=
-onnector_stream_disconnected()
-- [Medium] drm/i915/dp_mst: ACT wait not skipped when payload was only allo=
-cated locally
---
+On Fri, Oct 30, 2026 at 06:28:25PM +0100, Luca Ceresoli wrote:
+> > The connector type passed to devm_drm_panel_bridge_add_typed() has been
+> > ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
+> > every drm_panel"), the bridge always has the type of the panel.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> >
+> > diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
+> > index f97c8586273d..d25d8d777191 100644
+> > --- a/drivers/gpu/drm/bridge/lvds-codec.c
+> > +++ b/drivers/gpu/drm/bridge/lvds-codec.c
+> > @@ -154,8 +154,7 @@ static int lvds_codec_probe(struct platform_device *pdev)
+> >  	}
+> >
+> >  	lvds_codec->panel_bridge =
+> > -		devm_drm_panel_bridge_add_typed(dev, panel,
+> > -						lvds_codec->connector_type);
+> > +		devm_drm_panel_bridge_add(dev, panel);
+> >  	drm_panel_put(panel);
+> >  	if (IS_ERR(lvds_codec->panel_bridge))
+> >  		return PTR_ERR(lvds_codec->panel_bridge);
+> 
+> By now drm_of_find_panel_or_bridge() + devm_drm_panel_bridge_add_typed() is
+> jsut a complicated wrapper to drm_bridge_get(), so this driver and those in
+> the following commits could be simplified dramatically, without adding the
+> deprecated devm_drm_panel_bridge_add().
+> 
+> However devm_drm_panel_bridge_add_typed() is _more_ deprecated than
+> devm_drm_panel_bridge_add(), so this is already a good step forward.
 
-commit 5ef32ca1205b405f34627fa195a565342452c430
-Author: Xiao Lu <xiaolu.xie@intel.com>
+Yes, I wanted to do a minimal steps, to simplify the reviews.
 
-drm/i915/dp_mst: Skip link retrain and ACT for disconnected MST streams
+> 
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+> Luca
+> 
+> -- 
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+> 
 
-This commit filters out pipes driving disconnected MST streams in
-intel_dp_retrain_link() and skips generating and waiting for an ACT in
-mst_stream_post_disable() when drm_dp_remove_payload_part1() reports that t=
-he
-payload was not removed from the branch device.
-
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17741
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/driv=
-ers/gpu/drm/i915/display/intel_dp_link_training.c
-> index ac1aff6edf052..41bfb8b1ae0c3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -2576,6 +2576,9 @@ static int intel_dp_retrain_link(struct intel_encod=
-er *encoder,
->  	if (ret)
->  		return ret;
-> =20
-> +	/* Nothing to retrain for streams whose MST sink has left the topology =
-*/
-> +	pipe_mask &=3D ~intel_dp_mst_disconnected_pipes(intel_dp);
-
-[Severity: High]
-What happens in intel_dp_retrain_link() when an MST topology has both a
-connected active stream and a disconnected (unregistered) active stream on =
-the
-same intel_dp?
-
-Masking out the disconnected pipe leaves only the connected pipe in pipe_ma=
-sk,
-so intel_modeset_commit_pipes_for_atomic_state() sets
-crtc_state->uapi.connectors_changed =3D true only on the connected pipe.
-
-During intel_atomic_check(), mst_connector_atomic_topology_check() pulls the
-disconnected pipe into the atomic state with crtc_state->uapi.mode_changed =
-=3D
-true and crtc_state->uapi.connectors_changed =3D false:
-
-drivers/gpu/drm/i915/display/intel_dp_mst.c:mst_connector_atomic_topology_c=
-heck() {
-	...
-		ret =3D drm_atomic_add_affected_planes(&state->base, &crtc->base);
-		if (ret)
-			break;
-		crtc_state->uapi.mode_changed =3D true;
-	...
-}
-
-In intel_link_bw_init_limits(), because intel_dp_mst_stream_disconnected() =
-is
-true for the disconnected pipe, its max_bpp_x16 limit is preserved from
-crtc_state->max_link_bpp_x16. When link rate and lane count are unchanged,
-intel_pipe_config_compare() succeeds and intel_crtc_check_fastset() downgra=
-des
-the disconnected pipe to a fastset by clearing uapi.mode_changed =3D false.
-
-In the post-fastset dependency loop in intel_atomic_check(), only slave
-transcoders check whether their mst_master_transcoder needs a modeset:
-
-drivers/gpu/drm/i915/display/intel_display.c:intel_atomic_check() {
-	...
-		if (intel_dp_mst_is_slave_trans(new_crtc_state)) {
-			enum transcoder master =3D new_crtc_state->mst_master_transcoder;
-
-			if (intel_cpu_transcoders_need_modeset(state, BIT(master)))
-				intel_crtc_flag_modeset(new_crtc_state);
-		}
-	...
-}
-
-If the disconnected stream is on the MST master transcoder (or on any pipe =
-on
-DISPLAY_VER < 12), the disconnected pipe remains a fastset and is not disab=
-led
-during the commit. In mst_stream_post_disable() and mst_stream_pre_enable()
-for the connected pipe, intel_dp->mst.active_streams transitions 2 -> 1 -> =
-2,
-so last_mst_stream and first_mst_stream are both false.
-
-Since primary_encoder->pre_enable() (which runs intel_dp_start_link_train())
-is only called when first_mst_stream is true in mst_stream_pre_enable(), wo=
-n't
-this skip link training completely while still clearing force_retrain in
-intel_dp_retrain_link()?
-
-[Severity: Medium]
-In addition, can mst_stream_enable() still hit the 3000 ms ACT timeout when=
- a
-disconnected MST stream is forced into a full modeset through other paths?
-
-While mst_stream_post_disable() is updated to skip the ACT wait,
-mst_stream_enable() still unconditionally triggers ACT and calls
-drm_dp_check_act_status() even when drm_dp_add_payload_part1() in
-mst_stream_pre_enable() failed to allocate the payload at the branch device:
-
-drivers/gpu/drm/i915/display/intel_dp_mst.c:mst_stream_pre_enable() {
-	...
-	ret =3D drm_dp_add_payload_part1(&intel_dp->mst.mgr, mst_state,
-				       drm_atomic_get_mst_payload_state(mst_state, connector->mst.port)=
-);
-	if (ret < 0)
-		intel_dp_queue_modeset_retry_for_link(state, primary_encoder, pipe_config=
-);
-	...
-}
-
-drivers/gpu/drm/i915/display/intel_dp_mst.c:mst_stream_enable() {
-	...
-	intel_de_rmw(display, TRANS_DDI_FUNC_CTL(display, trans), 0,
-		     TRANS_DDI_DP_VC_PAYLOAD_ALLOC);
-
-	intel_ddi_wait_for_act_sent(encoder, pipe_config);
-	drm_dp_check_act_status(&intel_dp->mst.mgr);
-	...
-}
-
-A disconnected MST stream can still undergo a full modeset in several cases:
-
-1. When two or more MST streams are active when HPD drops and userspace
-   disables the CRTC on mst_master_transcoder first:
-   mst_connector_atomic_topology_check() pulls the remaining disconnected
-   CRTCs on the same intel_dp into the commit with uapi.mode_changed =3D tr=
-ue,
-   mst_stream_compute_config_late() assigns a new mst_master_transcoder, and
-   intel_pipe_config_compare() rejects fastset because mst_master_transcoder
-   changed.
-
-2. When intel_dp_retrain_link() runs with a connected stream on the MST mas=
-ter
-   transcoder and a disconnected stream on a slave transcoder (or when link=
- or
-   DSC parameters change), forcing a full modeset on the disconnected slave
-   pipe.
-
-3. When reset_link_commit() in drivers/gpu/drm/i915/display/intel_tc.c comm=
-its
-   a modeset on all active pipes returned by intel_dp_get_active_pipes()
-   without filtering disconnected MST pipes.
-
-In all of these cases, drm_dp_add_payload_part1() fails with -EIO without
-writing to DPCD 0x1c0-0x1c2, and mst_stream_enable() will still poll
-drm_dp_check_act_status() for 3000 ms. Should mst_stream_enable() also avoid
-waiting for ACT when the payload was not allocated on the branch device?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
-m/i915/display/intel_dp_mst.c
-> index 7023619aaaba9..a1d4c37d001ac 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -1109,6 +1109,7 @@ static void mst_stream_post_disable(struct intel_at=
-omic_state *state,
->  		drm_atomic_get_mst_payload_state(new_mst_state, connector->mst.port);
->  	struct intel_crtc *pipe_crtc;
->  	bool last_mst_stream;
-> +	bool payload_removed;
-> =20
->  	last_mst_stream =3D intel_dp_mst_dec_active_streams(intel_dp);
-> =20
-> @@ -1124,16 +1125,20 @@ static void mst_stream_post_disable(struct intel_=
-atomic_state *state,
-> =20
->  	intel_disable_transcoder(old_crtc_state);
-> =20
-> -	drm_dp_remove_payload_part1(&intel_dp->mst.mgr, new_mst_state, new_payl=
-oad);
-> +	payload_removed =3D drm_dp_remove_payload_part1(&intel_dp->mst.mgr, new=
-_mst_state,
-> +						      new_payload);
-> =20
-> -	intel_ddi_clear_act_sent(encoder, old_crtc_state);
-> +	/* No ACT is needed if the payload table of the branch wasn't changed */
-> +	if (payload_removed) {
-> +		intel_ddi_clear_act_sent(encoder, old_crtc_state);
-> =20
-> -	intel_de_rmw(display,
-> -		     TRANS_DDI_FUNC_CTL(display, old_crtc_state->cpu_transcoder),
-> -		     TRANS_DDI_DP_VC_PAYLOAD_ALLOC, 0);
-> +		intel_de_rmw(display,
-> +			     TRANS_DDI_FUNC_CTL(display, old_crtc_state->cpu_transcoder),
-> +			     TRANS_DDI_DP_VC_PAYLOAD_ALLOC, 0);
-> =20
-> -	intel_ddi_wait_for_act_sent(encoder, old_crtc_state);
-> -	drm_dp_check_act_status(&intel_dp->mst.mgr);
-> +		intel_ddi_wait_for_act_sent(encoder, old_crtc_state);
-> +		drm_dp_check_act_status(&intel_dp->mst.mgr);
-> +	}
-
-[Severity: High]
-Is it safe to skip clearing TRANS_DDI_DP_VC_PAYLOAD_ALLOC in
-TRANS_DDI_FUNC_CTL when payload_removed is false in mst_stream_post_disable=
-()?
-
-When an MST stream is enabled in mst_stream_enable(), the driver sets
-TRANS_DDI_DP_VC_PAYLOAD_ALLOC in TRANS_DDI_FUNC_CTL. Neither
-intel_ddi_disable_transcoder_func() nor intel_ddi_post_disable_dp() clears
-TRANS_DDI_DP_VC_PAYLOAD_ALLOC:
-
-drivers/gpu/drm/i915/display/intel_ddi.c:intel_ddi_disable_transcoder_func(=
-) {
-	...
-	ctl =3D intel_de_read(display,
-			    TRANS_DDI_FUNC_CTL(display, cpu_transcoder));
-
-	drm_WARN_ON(crtc->base.dev, ctl & TRANS_DDI_HDCP_SIGNALLING);
-
-	ctl &=3D ~TRANS_DDI_FUNC_ENABLE;
-	...
-}
-
-When payload_removed is false, skipping the intel_de_rmw() call leaves
-TRANS_DDI_DP_VC_PAYLOAD_ALLOC set when intel_ddi_disable_transcoder_func()
-disables TRANS_DDI_FUNC_ENABLE, and if another stream remains active on the
-same MST link (!last_mst_stream), the source hardware's MST packetizer never
-deallocates this transcoder's VC payload slots even though
-drm_dp_remove_payload_part2() shifts the remaining payload slots in softwar=
-e.
-
-Since clearing TRANS_DDI_DP_VC_PAYLOAD_ALLOC and waiting for
-DP_TP_STATUS_ACT_SENT via intel_ddi_wait_for_act_sent() is a local source M=
-MIO
-operation (with a 1 ms timeout), shouldn't TRANS_DDI_DP_VC_PAYLOAD_ALLOC st=
-ill
-be cleared unconditionally, or only the DPCD poll in drm_dp_check_act_statu=
-s()
-be skipped when the branch payload table wasn't updated?
-
-[Severity: Medium]
-Also in mst_stream_post_disable(), does the return value of
-drm_dp_remove_payload_part1() accurately reflect whether the branch device's
-payload table was modified?
-
-Looking at drm_dp_remove_payload_part1() and
-drm_dp_destroy_payload_at_remote_and_dfp() in
-drivers/gpu/drm/display/drm_dp_mst_topology.c:
-
-drivers/gpu/drm/display/drm_dp_mst_topology.c:drm_dp_remove_payload_part1()=
- {
-	bool send_remove =3D false;
-
-	mutex_lock(&mgr->lock);
-	send_remove =3D drm_dp_mst_port_downstream_of_branch(payload->port, mgr->m=
-st_primary);
-	mutex_unlock(&mgr->lock);
-
-	if (send_remove)
-		drm_dp_destroy_payload_at_remote_and_dfp(mgr, mst_state, payload);
-	...
-	payload->payload_allocation_status =3D DRM_DP_MST_PAYLOAD_ALLOCATION_LOCAL;
-
-	return send_remove;
-}
-
-drivers/gpu/drm/display/drm_dp_mst_topology.c:drm_dp_destroy_payload_at_rem=
-ote_and_dfp() {
-	if (payload->payload_allocation_status =3D=3D DRM_DP_MST_PAYLOAD_ALLOCATIO=
-N_REMOTE) {
-		drm_dp_payload_send_msg(mgr, payload->port, payload->vcpi, 0);
-		payload->payload_allocation_status =3D DRM_DP_MST_PAYLOAD_ALLOCATION_DFP;
-	}
-
-	if (payload->payload_allocation_status =3D=3D DRM_DP_MST_PAYLOAD_ALLOCATIO=
-N_DFP)
-		drm_dp_dpcd_write_payload(mgr->aux, payload->vcpi, payload->vc_start_slot=
-, 0);
-}
-
-If an earlier modeset on this stream failed in drm_dp_add_payload_part1() (=
-for
-example due to a DPCD AUX failure in drm_dp_create_payload_at_dfp(), or
-because a downstream port or secondary branch device was unlinked while
-mgr->mst_primary remained the same root branch),
-payload->payload_allocation_status is left as
-DRM_DP_MST_PAYLOAD_ALLOCATION_LOCAL and nothing was written to DPCD
-0x1c0-0x1c2.
-
-Because port->parent and mstb->port_parent are not cleared when a port or
-secondary branch is unlinked, drm_dp_mst_port_downstream_of_branch() still
-returns true as long as mgr->mst_primary has not been replaced. When the
-stream is later disabled, drm_dp_destroy_payload_at_remote_and_dfp() does n=
-ot
-write to DPCD 0x1c0-0x1c2 because payload_allocation_status is LOCAL, yet
-drm_dp_remove_payload_part1() still returns true, causing
-mst_stream_post_disable() to wait 3000 ms for an ACT in
-drm_dp_check_act_status().
-
-> =20
->  	drm_dp_remove_payload_part2(&intel_dp->mst.mgr, new_mst_state,
->  				    old_payload, new_payload);
-> @@ -2172,6 +2177,20 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_=
-atomic_state *state,
->  	return false;
->  }
-> =20
-> +static bool mst_connector_stream_disconnected(struct intel_connector *co=
-nnector)
-> +{
-> +	if (!connector->mst.dp)
-> +		return false;
-> +
-> +	if (!connector->mst.dp->mst.mgr.mst_state)
-> +		return true;
-> +
-> +	if (drm_connector_is_unregistered(&connector->base))
-> +		return true;
-> +
-> +	return false;
-> +}
-
-[Severity: Medium]
-Can mst_connector_stream_disconnected() miss a disconnected stream if
-intel_dp_retrain_link() runs before mgr->delayed_destroy_work finishes
-unregistering the connector?
-
-When an MST topology is torn down in drm_dp_mst_topology_mgr_set_mst(mgr,
-false) or when a downstream branch is disconnected in
-drm_dp_mst_handle_conn_stat(), mgr->mst_primary (or the parent port->mstb) =
-is
-cleared under mgr->lock, and drm_dp_destroy_mst_branch_device() queues
-mgr->delayed_destroy_work to call drm_connector_unregister() asynchronously=
- in
-drm_dp_delayed_destroy_port().
-
-When the HPD comes back and intel_dp_detect() calls
-drm_dp_mst_topology_mgr_set_mst(mgr, true) (or on a downstream branch unplug
-where mgr->mst_state remains true throughout), mgr->mst_state is true while
-mgr->delayed_destroy_work may not yet have run drm_connector_unregister() on
-the old connector.
-
-If intel_dp_retrain_link() -> intel_dp_mst_disconnected_pipes() runs during
-that window, mst_connector_stream_disconnected() sees mgr.mst_state =3D=3D =
-true
-and drm_connector_is_unregistered(&connector->base) =3D=3D false, so it ret=
-urns
-false even though connector->mst.port is no longer in the topology, allowing
-intel_dp_retrain_link() to select the stale pipe and trigger the 3000 ms ACT
-timeout in mst_stream_enable().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031154456.4654=
-69-1-xiaolu.xie@intel.com?part=3D2
+-- 
+With best wishes
+Dmitry
