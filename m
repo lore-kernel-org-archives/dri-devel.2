@@ -2,70 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A1F606A325
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:01:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81D8606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:01:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=pHAApBGe
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EPrQEuYp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A98D310EA0F;
-	Sun,  1 Nov 2026 12:01:39 +0000 (UTC)
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
- by gabe.freedesktop.org (Postfix) with ESMTP id B5B5210E1D5
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 05:27:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00D7810EA18;
+	Sun,  1 Nov 2026 12:01:40 +0000 (UTC)
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com
+ [209.85.221.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A0A610E1BC
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 04:01:39 +0000 (UTC)
+Received: by mail-vk1-f177.google.com with SMTP id
+ 71dfb90a1353d-5ea969fafeeso527952e0c.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 21:01:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-ID:In-Reply-To:References:Content-Type:
- Content-Transfer-Encoding:MIME-Version; bh=RFyWw8vuZkBEx/wkkxZdi
- qnMcUj85ATVC8BmKduUB8A=; b=pHAApBGergbRPvGIMagonHssWgXT06sEZ8c+R
- i8I52oj8pw2iSLUUkbD69SeLCHnhnASc2u871g799/jojVmTi2tYpfqu5Qf/1LrM
- HNGExz4zLGV0+FQo0BAoy5fa3SaFBa7OeWuJGvTNzRInWFfTwFB94r60K85B++cC
- eIxXmI=
-Received: from [127.0.1.1] (unknown [114.214.177.113])
- by mailimap2024 (Coremail) with SMTP id 3pYKCgCHCT46fOVqfzVtAA--.5284S2;
- Sat, 31 Oct 2026 13:27:22 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Rob Clark <robdclark@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+ d=gmail.com; s=20260707; t=1793419298; x=1794024098; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qUjUqHrSOpVZo1vvK2oqewHli0ce+brsa+hIMhHohPQ=;
+ b=EPrQEuYpOkhzg17CAMoYjZ0RtDwijjrBzQvxnpvE5QslcSMVTQtd8p5M52Gk0yw1d6
+ VtSlNiM0DFth+n/SjKAj/vA9d6rL3PGNFHdvE2PnRva7fezaKB3Pi6U8i34lW7Gzz2xE
+ af5V6EEGapbHPvG2UNJ6j2TCMp7Fj22eGNwxroZfcnQlCr1e6wlZNB6SWZvUQMQKTRkX
+ 13FpHeyUyGUl3SD7h5e8K2PWZ9IV4hikkMxCKV+C0nH8OUbdXTiT8UGBjO0jWX3VTLF9
+ Vvv7gqP+DBVZfYYUZtOrMaVZ7jvK/tSgIW/19Ls/cY9Zh+RW/DKtEIA6infMwe2y/TNf
+ tD0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793419298; x=1794024098;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qUjUqHrSOpVZo1vvK2oqewHli0ce+brsa+hIMhHohPQ=;
+ b=reg413+bfcMaIpDW3AAWkTCnfRj2GRoU/0iwJbw20RHk//4Hlgm3L6+e+z653Ws5FB
+ /hoPZrbwxZ5JH6h1JEUmzOkGTWMoer9x5QK4iG4CquAd6ceGwS57CHRCnpgNx5eimTax
+ YVddqne4bIUYC7JdFMA404Uozbyf6h5DUCzaGi1OpLnIx31b05cprBjTJF9jfWaS470e
+ fagdAAH5yobK7782ugPl22n+tiSCaEpkuUvFnrMecIBzPE1IgWmbzsUR+3nusL/7b0IS
+ LuCTurjgHKdTx/wqnoH+RunKkZ43C1X8xsIwDR50W7H1eN6BXkOWXDzvg2DZcOeBjSjd
+ ZasA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzSZ6iLW9kINRwqj7UmUiEMtGZ7JwiCQGaTunCpSweXxtBum0KXsQDKCIEmUsim+8doAKFaRd/Lr4A=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYI1tyEl+SQwsTCBr1ey5Vt46tlgUsOZgFqT33uCh7VpqgBDYPLE
+ 8wgr75ElzkcS6gX25PK3plhEs2DmOXXA5bRq2FVWfdCi8enRYA4Y7awt
+X-Gm-Gg: AYBFou3lZmRG6hKjnC4mB261TikgX2EQ54D5lH1GouPuCp9u+FZvi1lYkoz3JRsni9i
+ B8Fw1AWfkJDQBikfFW7e94/QGyGDs0sGQKADfAIBwNLAMVETiZD9qXvofr5jUCgsjz5uTA7Dk+x
+ 6NWE+vLihkdfvmeBhkYL36NjVAXQozBTlWQYnU5exgg+cb/WBOhCDeOrbB+1o2NrIMVutI/fNqG
+ Pxm6qghBb6SIA8NVNj2yN8iXkS2rbuGvY8bWWGgUOTOT6WW3CbXHFVOqSU2VoAM42eKFtT/A42f
+ UR02UG6maQzmoCKSHGL4a/yZU27kdB+zNW12UqgGY/5v1zDAk7IUhFgDlniYlNGztlVylwbLzCq
+ nyMq1tXtdIVcGEHee2jSRBWBQfx/YHruhPPL1WLGyOvyMFeDnKD5GvA1ZJgMVl/0XqFWHDmMb0Z
+ 83HbmlL9tGkm4FXLf5xDdrUFGHdUyPOfPPvv82CzkS23bokko8jJkfQqDKyKSlVkF9jzNPqaC4f
+ JGYGzmKJVeVjRzZSTl5hDr8EFmdtiitcdRPQAhNKys4v01Q1ldIE3t2cRF1QvVFUF9oM+vz+P47
+ ukPh+n0nCjnhotxeP296anlKYA==
+X-Received: by 2002:a05:6122:1da0:b0:5ea:c51a:37a1 with SMTP id
+ 71dfb90a1353d-5ec686ff12emr2004301e0c.8.1793419297861; 
+ Fri, 30 Oct 2026 21:01:37 -0700 (PDT)
+Received: from jeta ([2a03:d000:4386:7a7b:937:de08:2c2e:37e9])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5ec69bf34c0sm4620576e0c.8.2026.10.30.21.01.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2026 21:01:36 -0700 (PDT)
+From: Egor Perevoshchikov <rickbatra0z@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Egor Perevoshchikov <rickbatra0z@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: mdss-common: describe
- additional block resets
-Date: Sat, 31 Oct 2026 13:27:22 +0800
-Message-ID: <179342444215.451721.1758131515489182461@mail.ustc.edu.cn>
-In-Reply-To: <d265dd66-d8fb-4fd2-b6cb-d50462e4b6e2@oss.qualcomm.com>
-References: <20261029123238.29877-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261029123238.29877-2-xiaqinghuan@mail.ustc.edu.cn>
- <d265dd66-d8fb-4fd2-b6cb-d50462e4b6e2@oss.qualcomm.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH] drm/amd/display: Restore PSR-SU guard in power module
+Date: Sat, 31 Oct 2026 07:00:50 +0300
+Message-ID: <20261031040051.46100-1-rickbatra0z@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID: 3pYKCgCHCT46fOVqfzVtAA--.5284S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1UAFWUtw48KF4kWry3urg_yoW8tw15pF
- sxta4Ykrs2k39a93W8Aw1jyFWxZ3s5GrW5AF15KryIvay5GF4Iyr47Ka1YvasIgrs7u398
- tw4ag39xCFZ8taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026x
- CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
- JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
- 1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
- Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
- UvcSsGvfC2KfnxnUUI43ZEXa7IUYTUDtUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAxsz
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 01 Nov 2026 11:58:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,57 +89,103 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Konrad,
+Commit a5ce8695d6d1 ("drm/amd/display: Avoid configuring PSR granularity
+if PSR-SU not supported") restricted DSC slice-height configuration to
+PSR-SU. The power-module integration removed that guarded caller. Its
+replacement in mod_power_psr_notify_mode_change() calls
+psr_su_set_dsc_slice_height() unconditionally and ignores its return value.
 
-One note on how this mail was written, since it matters for how you read
-it: I work on this board alone and my English is not good enough to
-write upstream mail unaided, so I draft with an AI assistant and edit it
-myself. The content, the measurements and every decision in it are mine.
+On PSR1 links with a DSC slice configuration, this applies a PSR-SU-only
+alignment check even though selective update is not enabled. If the
+calculated DSC slice height is not a multiple of the nonzero advertised
+SU Y granularity, the helper triggers an assertion. It also sets
+dsc_slice_height before failing the check, so the caller passes this
+SU-specific value into PSR1 setup despite the failure.
 
-you are right, and I will drop it.
+Restore the PSR version guard and failure handling in the new caller.
+PSR1 proceeds with the zero-initialized DSC slice height, while PSR-SU
+retains its alignment validation and stops setup if that validation fails.
 
-MDSS RSC is not part of the MDSS block: the RSC sits in its own node
-(apps_rsc at 0x16500000 on SM8750), and the only reason I pulled
-DISP_CC_MDSS_RSCC_BCR into the mdss resets list is that the reset bit
-happens to be generated inside dispcc. That is a register-map argument, not
-a block-ownership argument, and the block-ownership one is the one that
-decides which node owns a reset.
+Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3027
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Egor Perevoshchikov <rickbatra0z@gmail.com>
+---
+Tested on a Xiaomi Redmi Book Pro 15 2023 (TM2209), Ryzen 7 7840HS /
+Radeon 780M, BIOS RMAPH5B0P0909, with Linux 7.3.0 on NixOS.
 
-What v3 will look like, so nobody has to guess:
+The tested panel uses PSR1. Its 2000-line mode has 16 vertical DSC slices,
+giving a slice height of 125, which is not a multiple of its advertised
+SU Y granularity of 4.
 
- - mdss-common.yaml: resets keeps "minItems: 1" with two array entries,
-   MDSS core and MDSS core INT2. The RSC entry goes away, and the
-   commit message says why.
- - qcom,sm8750-mdss.yaml and sm8750.dtsi: resets drops to CORE and
-   CORE_INT2.
- - drm/msm/mdss: unchanged, it still drives the whole array from DT.
+Before the patch, boot produced:
 
-One thing I would like to flag rather than paper over: the reason RSCC was
-in the list at all is empirical. This board is handed over with the display
-block running, and on the vendor stack both a warm reset and a cold boot can
-end in the same panel-init failure (command DMA timeout, L1/L2 error
-counters non-zero). Resetting MDSS core + core INT2 + RSC is what makes the
-failure go away on that stack, and I have not yet isolated which of the
-three is load-bearing; I have only ever measured them together. So after
-dropping RSCC from the binding I will re-measure with CORE + INT2 alone. If
-that turns out not to be enough, the RSC reset will be driven from the RSC
-device, where you are saying it belongs, and not from mdss - I am not
-proposing to add it back here.
+  WARNING: .../display/modules/power/power_psr.c:666
+    psr_su_set_dsc_slice_height+0x7e/0xa0 [amdgpu]
+    mod_power_psr_notify_mode_change+0x1b7/0x270 [amdgpu]
+    mod_power_notify_mode_change+0x160/0x1d0 [amdgpu]
 
-Note also that the reset ordering caveat from the cover letter stands
-independently of this: mdss consumes dispcc clocks, so dispcc has to have
-programmed the PLLs before msm_mdss_reset() runs. I have no measurement for
-"block reset after the PLLs are up does not disturb them" beyond the vendor
-stack behaviour; that is still the open point, and if you think it should be
-answered before this series goes anywhere, say so and I will hold it.
+After rebuilding and booting with the patch, that warning is absent.
+With VRR disabled, repeated debugfs reads report psr_state=6 (PSR_STATE3)
+both with and without the patch. PSR remains functional in both cases.
 
-Thanks,
-Qianhui Xu
+The older dsc2_disable warning in #3027 is no longer reproduced on this
+kernel. This patch addresses the remaining psr_su_set_dsc_slice_height
+warning; it does not modify the dsc2_disable path.
+
+The patch is based on the mainline v7.3 release:
+  c03c1a14507dfaf8b856c2608f9ac216021fc222
+This matches the kernel release used for hardware testing. The original
+power_psr.c is identical to the Linux 7.3 source used for the
+hardware-tested patch.
+The patch also applies to drm-next-2026-10-31:
+  f94ed3d7cba3c83eef50b1a96d630d63cf54f69c
+
+Additional validation covered eight cases in an isolated C harness using
+the actual setup and slice-height functions with hardware calls stubbed.
+The original PSR1 warning was reproduced; the patch avoids it, retains
+valid PSR-SU setup, and prevents setup after failed SU alignment
+validation.
+The patched translation unit was also compiled against Linux 7.3 headers.
+PSR-SU behavior has not been tested on PSR-SU-capable hardware.
+
+LLM assistance: source history tracing; stubbed software tests; submission
+checks.
+
+ drivers/gpu/drm/amd/display/modules/power/power_psr.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_psr.c b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+index 96bb77fff05..7139395b5c0 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_psr.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+@@ -94,9 +94,12 @@ bool mod_power_psr_notify_mode_change(struct mod_power *mod_power,
+ 	 * The value of DSC slice height is determined in DSC Driver but it does not
+ 	 * propagated out here, so we need to calculate it as below 'slice_height'.
+ 	 */
+-	psr_su_set_dsc_slice_height(dc, link,
+-				(struct dc_stream_state *) stream,
+-				&psr_config);
++	if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1) {
++		if (!psr_su_set_dsc_slice_height(dc, link,
++						 (struct dc_stream_state *)stream,
++						 &psr_config))
++			return false;
++	}
+
+ 	dc_link_setup_psr(link, stream, &psr_config, &psr_context);
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+--
+2.56.0
 
