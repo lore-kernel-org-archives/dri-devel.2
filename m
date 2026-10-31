@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB4B606A31C
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 16:00:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B79606A31D
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 16:06:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=It+/Af8o
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbRzizqi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9502A10E02C;
-	Sat, 31 Oct 2026 16:00:13 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7391310E02C;
- Sat, 31 Oct 2026 16:00:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA47110E043;
+	Sat, 31 Oct 2026 16:06:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A4FE10E043;
+ Sat, 31 Oct 2026 16:05:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6C64A6020F;
- Sat, 31 Oct 2026 16:00:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E832F1F000C1;
- Sat, 31 Oct 2026 16:00:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 31BEF43659;
+ Sat, 31 Oct 2026 16:05:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA11B1F000C1;
+ Sat, 31 Oct 2026 16:05:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793462405;
- bh=Am5dz7IkSBTLv3uNFYp+aKuq1pWq0I4xFwyosv1rbBo=;
+ s=k20260515; t=1793462755;
+ bh=EVssjK4HVyl17IFALm6vb8uyc2qDf4vCdvgSftIVCRY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=It+/Af8oVv/XhbLwpeM99HvbxW7Y3P6+2nS+jImv3UqYhbgme8JXNyJ3HSNRnM6p1
- S9avMV00d4TyNbeDFiUOgvUcUrkMMudtSOq2Jv4mav0+Os6TLROl/CJWxYv4/1lnzp
- s/vyC/DW+6ytkgVxV6NT/8Zq3CXYxLbP/s5NRpwSpJ4bE7aEPNIFfZTgor8yu/9moW
- 7+grfTGUqmhv8J+ENDKpKknwhKughgjkFrbn6T8BeR4yRGs5oxw0q4Juo69l+8+M0f
- JmfTlKCqv/Yzin/hsT/lWPqw0BXOEwkDKWnNnB2uqGjSahKnIhNcDVNKC1M9FLvGD2
- U0GISq/y9Of8A==
-Message-ID: <sashiko-outbox-192029@kernel.org>
+ b=IbRzizqiTQRrEYLMo/Kwi+sYGWqblkHhjPpKuL2tJOWuN34zkGDjEP7QMf0t8T2/f
+ dhKS5yEF9VJWkTFK3UJIY2LXzJ7Nz/KeEkdLLYFr7COemPxS5FL5I+xawuMRa5/lml
+ oeXJkxs2f8iayN72hno/u8iRBTgrzzQ1nAoZJGrKongsPZjrT1CoZvKd5lT2S/X/2l
+ v3O/fN1A3ckg3TkSrNrYzthEJ7Vic+MfNIKlVg1vG0Fk52k0mWj8EVCA/RyRX8KoGn
+ tlmeIyXky5cgX/55PaDd1tY8kfAtRCb9G4reX49G0cS541z1ouPE5qgCbOfROPs0DI
+ Y7fXO9VKNQI5A==
+Message-ID: <sashiko-outbox-192030@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/dp_mst: Return whether
+Subject: Re: [PATCH RESEND 1/2] drm/dp_mst: Return whether
  drm_dp_remove_payload_part1() removed the payload
 To: "Xiao Lu" <xiaolu.xie@intel.com>, intel-xe@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261031153550.444676-2-xiaolu.xie@intel.com>
-References: <20261031153550.444676-2-xiaolu.xie@intel.com>
+In-Reply-To: <20261031154456.465469-2-xiaolu.xie@intel.com>
+References: <20261031154456.465469-1-xiaolu.xie@intel.com>
+ <20261031154456.465469-2-xiaolu.xie@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 31 Oct 2026 16:00:04 +0000
+Date: Sat, 31 Oct 2026 16:05:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,19 +62,19 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/dp_mst: drm_dp_remove_payload_part1() returns true when no r=
-emoval is sent
+- [Medium] drm/dp_mst: drm_dp_remove_payload_part1() returns true when no p=
+ayload removed
 --
 
-commit c8db41e1060632039b0824f7c27d83352d6e3bba
+commit bd40c8f829b5d0efffbe970022942f5fcad0e46a
 Author: Xiao Lu <xiaolu.xie@intel.com>
 
 drm/dp_mst: Return whether drm_dp_remove_payload_part1() removed the payload
 
 This commit changes drm_dp_remove_payload_part1() to return a boolean
-indicating whether the payload removal was sent to the branch devices so
-drivers can skip generating and waiting for an ACT when the port is no
-longer in the topology.
+indicating whether the payload removal was sent to the branch devices,
+allowing callers to skip generating and waiting for an ACT when nothing was
+sent.
 
 > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
 drm/display/drm_dp_mst_topology.c
@@ -110,54 +111,25 @@ topology_mgr *mgr,
 CAL;
 > +
 > +	return send_remove;
+>  }
+>  EXPORT_SYMBOL(drm_dp_remove_payload_part1);
 
 [Severity: Medium]
-Can drm_dp_remove_payload_part1() return true here even when no removal was
-sent to the branch devices or written to the DFP DPCD payload table?
+Can drm_dp_remove_payload_part1() return true here even when no payload
+removal was sent to the branch devices or written to the DFP DPCD payload
+table?
 
-In drivers/gpu/drm/display/drm_dp_mst_topology.c, drm_dp_add_payload_part1()
-initializes payload->payload_allocation_status to
-DRM_DP_MST_PAYLOAD_ALLOCATION_LOCAL before validating the port and writing
-the DFP payload table:
+In drm_dp_remove_payload_part1(), send_remove is determined solely by
+drm_dp_mst_port_downstream_of_branch(payload->port, mgr->mst_primary).
+However, drm_dp_destroy_payload_at_remote_and_dfp() only sends sideband
+removal and updates the DFP DPCD payload table when
+payload->payload_allocation_status is DRM_DP_MST_PAYLOAD_ALLOCATION_REMOTE =
+or
+DRM_DP_MST_PAYLOAD_ALLOCATION_DFP:
 
-	payload->payload_allocation_status =3D DRM_DP_MST_PAYLOAD_ALLOCATION_LOCAL;
-
-	/* Allocate payload to immediate downstream facing port */
-	port =3D drm_dp_mst_topology_get_port_validated(mgr, payload->port);
-	if (!port) {
-		drm_dbg_kms(mgr->dev,
-			    "VCPI %d for port %p not in topology, not creating a payload to remo=
-te\n",
-			    payload->vcpi, payload->port);
-		return -EIO;
-	}
-
-	ret =3D drm_dp_create_payload_at_dfp(mgr, payload);
-	if (ret < 0) {
-		drm_dbg_kms(mgr->dev, "Failed to create MST payload for port %p: %d\n",
-			    payload->port, ret);
-		goto put_port;
-	}
-
-If drm_dp_mst_topology_get_port_validated() returns NULL because a
-downstream port or sub-branch was unlinked while mgr->mst_primary remained
-connected, or if drm_dp_create_payload_at_dfp() fails,
-payload->payload_allocation_status stays DRM_DP_MST_PAYLOAD_ALLOCATION_LOCAL
-and DPCD 0x1c0-0x1c2 is not updated.
-
-When the stream is subsequently disabled, drm_dp_remove_payload_part1()
-computes send_remove via:
-
-	send_remove =3D drm_dp_mst_port_downstream_of_branch(payload->port, mgr->m=
-st_primary);
-
-Because drm_dp_mst_port_downstream_of_branch() only walks port->parent and
-port->parent->port_parent (which remain set until malloc_kref release),
-send_remove evaluates to true as long as mgr->mst_primary has not been
-replaced.
-
-It then calls drm_dp_destroy_payload_at_remote_and_dfp():
-
+drivers/gpu/drm/display/drm_dp_mst_topology.c:drm_dp_destroy_payload_at_rem=
+ote_and_dfp() {
+	/* it's okay for these to fail */
 	if (payload->payload_allocation_status =3D=3D DRM_DP_MST_PAYLOAD_ALLOCATIO=
 N_REMOTE) {
 		drm_dp_payload_send_msg(mgr, payload->port, payload->vcpi, 0);
@@ -168,17 +140,49 @@ N_REMOTE) {
 N_DFP)
 		drm_dp_dpcd_write_payload(mgr->aux, payload->vcpi, payload->vc_start_slot=
 , 0);
+}
 
-When payload->payload_allocation_status is
-DRM_DP_MST_PAYLOAD_ALLOCATION_LOCAL (or DRM_DP_MST_PAYLOAD_ALLOCATION_NONE),
-drm_dp_destroy_payload_at_remote_and_dfp() does nothing at all.
+During stream enable in drm_dp_add_payload_part1(),
+payload->payload_allocation_status is initialized to
+DRM_DP_MST_PAYLOAD_ALLOCATION_LOCAL. If
+drm_dp_mst_topology_get_port_validated(mgr, payload->port) returns NULL (for
+instance, when a downstream port or sub-branch was unlinked while
+mgr->mst_primary remained connected) or if drm_dp_create_payload_at_dfp()
+fails, drm_dp_add_payload_part1() returns early without programming the DFP
+DPCD payload table, leaving payload->payload_allocation_status as
+DRM_DP_MST_PAYLOAD_ALLOCATION_LOCAL.
 
-Returning send_remove unconditionally in that state will tell callers to
-generate an ACT and poll DPCD 0x2c0 for up to 3 seconds even though the DFP
-payload table was never modified. Should the return value also check whether
-payload->payload_allocation_status was DFP or REMOTE (or whether the DFP
-payload table was actually updated)?
+When the stream is later disabled, drm_dp_mst_port_downstream_of_branch()
+walks the malloc-referenced port->parent and mstb->port_parent pointers and
+returns true as long as mgr->mst_primary is still the same root branch
+object:
+
+drivers/gpu/drm/display/drm_dp_mst_topology.c:drm_dp_mst_port_downstream_of=
+_branch() {
+	while (port->parent) {
+		if (port->parent =3D=3D branch)
+			return true;
+
+		if (port->parent->port_parent)
+			port =3D port->parent->port_parent;
+		else
+			break;
+	}
+	return false;
+}
+
+Because payload->payload_allocation_status is still
+DRM_DP_MST_PAYLOAD_ALLOCATION_LOCAL,
+drm_dp_destroy_payload_at_remote_and_dfp() does nothing, yet
+drm_dp_remove_payload_part1() returns true and causes callers to generate an
+ACT and poll DPCD 0x2c0 in drm_dp_check_act_status() until the 3 second
+timeout expires.
+
+Should drm_dp_remove_payload_part1() check payload->payload_allocation_stat=
+us
+(or whether the DFP payload table was actually updated) and update its
+kernel-doc accordingly?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031153550.4446=
-76-1-xiaolu.xie@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031154456.4654=
+69-1-xiaolu.xie@intel.com?part=3D1
