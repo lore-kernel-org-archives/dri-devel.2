@@ -2,121 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591C2606A31C
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 02:05:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527CB606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 02:05:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1be07Oks
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLrg8JRr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D8DF10E913;
-	Sat, 31 Oct 2026 02:05:16 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010018.outbound.protection.outlook.com [52.101.56.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B98C210E912;
- Sat, 31 Oct 2026 02:05:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=deWcCfQ4Eo5wW/9KjGituej6OArk4AV57LXPHVk/YaWjiUZ3Ll7TEUoBIblcsELP8Z8P3x09tK7P7qLsBrOE5fyYNyv3VFmDo5l9w4YuLFi4tf3vs+mu+tQ8ZXV5ku5d/xIWInhoFguzLtFld6kbgiCGHKdXoRq1lJRDBo+jrvumNExCVJR97R7G4fRLEfpsnevXObMbd6gVpp1jCv/g5cpD0MJWLWE1UTw7KqTh+f1hRKSOVU+Ts8CHjQ3g41p/3TBPJD72PRnTGQtnl24LfR6BmSKKCLmqgpwpPzvjLWUMhU+49Hja9I7flbZ7ghjqOui+t9dnhC6suWLVOWxkAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IAbETY7WwUydOq3W8oCkCrG8WtR7cxZ9ghCAtcoTR+Y=;
- b=gLHbV2zv6/8NRqkZqUKkUSGVBtkQUI7WvPDNf/+EuIuwb4DOuW6KNTOvNd+5aT772Kia8HKgnaTcuprz9nvpMpSwhOc4X1rb6FaPvwbiNJJD9U0Mt7BhZwy9kZX2tIo0E0dRJMjsvA+SNeGZikdwSC+DBxV/F3kw4QDqyspTt3MlqqtGippt6ITgWnAs1ZyYzYkO4/BkpEeuFMwB5T2cMGAsBlRM97E9eyYgECR99MAIAiVh094f9wGvDXwJNp49Rnf3TP934mxBzrW4OlgRye5MBR6CWyLZprTE7TJPp7E35swUXjSx1gSaQhv4Rn82uSLyoQoVvSsLTRa3I+FahA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IAbETY7WwUydOq3W8oCkCrG8WtR7cxZ9ghCAtcoTR+Y=;
- b=1be07Oks9xkSqYV79PnsuLAyYaiXwhyi6d63aRlQNxMJ3TPfT2N3rcKdP+HwdmCc7qLKesVc1ktQAU6jq3lLlBTixX6FnkS7sNOm/yCt0jhl/2jW1cFromVHOYoBWvIYCytCZH1s3Jxyfn09t8hc9+HAiXRZoF95ev+tmi3w3u0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY0PR12MB226969.namprd12.prod.outlook.com
- (2603:10b6:930:130::18) by DS7PR12MB8323.namprd12.prod.outlook.com
- (2603:10b6:8:da::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 31 Oct
- 2026 02:03:03 +0000
-Received: from CY0PR12MB226969.namprd12.prod.outlook.com
- ([fe80::f47a:5d4e:f3d5:5b26]) by CY0PR12MB226969.namprd12.prod.outlook.com
- ([fe80::f47a:5d4e:f3d5:5b26%4]) with mapi id 15.21.0569.009; Sat, 31 Oct 2026
- 02:03:02 +0000
-Message-ID: <779d9314-7aaa-46c8-b4a3-8c7771a5e6d0@amd.com>
-Date: Fri, 30 Oct 2026 20:03:01 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] drm/amd/display: Fix assorted test failures
-To: John Harrison <John.Harrison@Igalia.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20261023001139.2374085-1-John.Harrison@Igalia.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20261023001139.2374085-1-John.Harrison@Igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0175.namprd04.prod.outlook.com
- (2603:10b6:303:85::30) To CY0PR12MB226969.namprd12.prod.outlook.com
- (2603:10b6:930:130::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0A7310E914;
+	Sat, 31 Oct 2026 02:05:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6060710E914
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 02:05:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793412316; x=1824948316;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=rFP0baAiFvMl7x0GJSmUU/DikfJl7LDgkFNhT+TL2Hc=;
+ b=KLrg8JRrl1SoMwcNx0OCYgG/I9AsztINAe6gsGfONLQZ52qcnfpKiTUr
+ vRNrHkjCGdVSEzceaNHV206KcnJYSyM/pnQIJoGa2nGyQh+wOw+mjBQQI
+ rtszkb6lWU+g6jIWAP3wK4hYSWyPyfW9kPIDt8uLqUciXawZR6t658342
+ p04M35eGFcvbNXuWYHyllsBiVP3M7Nk8TW4Cr69hsyL8NMDMYiPVHE0L0
+ c2Z8fNlP20qK5VVu42n1pXD0oNq2UXjkwiSnL7v1v1IDpEQjOFr4tqQD7
+ s3xAIIenj6fub6yYr8ltJkzdL2WnwCwUJFRKpxOkbn9V/jUY05NqiJ64O Q==;
+X-CSE-ConnectionGUID: ZynQUU6hRBmO8/5fHktGOg==
+X-CSE-MsgGUID: BykTYBwJT5SAaziOJwFGxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2210057"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2210057"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2026 19:05:16 -0700
+X-CSE-ConnectionGUID: rpu8b9TrR9KayjHTgqdWLw==
+X-CSE-MsgGUID: gFTzgCr4SSm7mo8/J3eY3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5540397"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by orviesa004.jf.intel.com with ESMTP; 30 Oct 2026 19:05:10 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xMySw-00000000cRg-0s3X;
+ Sat, 31 Oct 2026 02:05:06 +0000
+Date: Sat, 31 Oct 2026 10:04:26 +0800
+From: kernel test robot <lkp@intel.com>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Andy Yan <andyshrk@163.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-riscv@lists.infradead.org, Icneowy Zheng <uwu@icenowy.me>,
+ Han Gao <gaohan@iscas.ac.cn>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host
+ controller
+Message-ID: <202610311004.6oZFiXBi-lkp@intel.com>
+References: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY0PR12MB226969:EE_|DS7PR12MB8323:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61691d2e-5b5e-4e2f-d4d2-08df36f3187e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|10067099003|22082099003|18002099003|56012099006|11063799006|261021123027099003|261021121427099003|261026121527099003|261028144727099003|261022105027099003|261009223027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: eIBhFuoT40haRXMrhT+wyv3L9Va76eARQEb9cef1+EpSQe/wHQTraFDB1hclVEQTvp/k6M6JTQw+Ki+Xyz+QgPjpFjqNIJM0agsnAd06nj+caAxMXO9SMrWdJqg5JOFoAzo0Yx/biotFQ89ssNUZyb/SXivavptc7UY0Yy7P3Afbvq80KUYPr2OktG3AhYVkUu7agBmxbdRMGfk04+/Pci8/eWtAP/xjLREUPAuFcfAa9A6lyNVfCv/KXNLLI40iZ9hHQoPA6NdX2UyiPUe3csaVxVElm/tpOdSn3ZCq3e1V1iGbXLTwZtfkotjfEoGo5LhEBjN/lXlm9d+tPZdMtSBPcgESvr4wXXxJcrS2MiYGicAXdVlBypsU0e83s8E0ltz+/3MaPCvkjV54kimwAbdv76bbe5bH5TePgaF+eMrMkVjpzMeGhhsgpPSoWkD+eXlDt311rhlDywmlmhkVHFjBZfTxCVqHYa2elhOecif7+QNZ8VDk0ldcSgSZjgM4WmVgf36YF3n7BnUd9L1ClwU4bK1lz9NlXNHDXoAC7l1z0lJBPrargzL7dFbWLLoIwKk5yN5Um/aoC7/3UHG1v5ymbSXqXHzn9BDQIANMX0hkQ8M6hzGTqG1yuGNd5Wv/qxBDUB7fXQxUVdB1WmlOSbP/vCYuyNfSB7CHlmOMpTA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY0PR12MB226969.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261026121527099003)(261028144727099003)(261022105027099003)(261009223027099003)(261026140227099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?andBRXZhdjQvVEFJUjJLN1BKcm5wNXRWK3VHbEhxN0RwUXhSUjluSGEva055?=
- =?utf-8?B?TVdMTVlzelZ5S3FRL2Q3TXhweUFudjZYL2N3VkRaOGtuQjlUTWZPZzZEYk5x?=
- =?utf-8?B?a3o4RWNHcVhKTHZFRWpSR05sOXBwNE9CZ3Y4R2lIb3NOeHRabXZTUUNEU3Mw?=
- =?utf-8?B?UkcwT2czS043aHYvNS9wTDZlMnh2cmdFd01ySFlkbktyYStNKzhtREFXNTIz?=
- =?utf-8?B?bW1QTVY0M2lDaTBkczB4NS9ORUs0RDFqa2p2aU1wMWhZendpQ3BmRVdHYWNn?=
- =?utf-8?B?cnpkbVFNRHpydm9BQXQ3aDlMNEhvTUdTSjZVaTlBUlpMeHFScVluaWZUb0JV?=
- =?utf-8?B?TWhuVElSaEVON3RMSlBEb3RCS3hWenBaV0pFRlYxUWJrVGsyUFR3MlBxRFp2?=
- =?utf-8?B?SDJ0Rmo4b0pabUtIczgvOTVRTndwK3R4eWV1blovNythRGJuZVZ3WENQT0h2?=
- =?utf-8?B?L21iSVh6TnRLcEdpSGJQZURoQ2g4Q2RiQlFCMXE0VFZESXFJVVdVTitlcHJa?=
- =?utf-8?B?N2E3VzY3cUpHaitHTGxRa2JvTUNUVUtnV1ZSY1EwK2ZXMkR5TUFqUk42bFZy?=
- =?utf-8?B?ajYvZE13VHNBUXR5QTVoRU83S1Z4VVNqQUcvOGtwRUprUElRVWZkZmw1aWp2?=
- =?utf-8?B?TUI5MHkzQUdsaXVNeUpLWGk1SzQvMkZyZXlxVmJKSEh0NXJjOVMwcDUwMFJC?=
- =?utf-8?B?alRaR3AxWTRJMVlkTWJycG03dklVNjNpemIxcC9BR3pjdHdtNjRhODN1NG54?=
- =?utf-8?B?bktST3NHMytxek5ERjhaSjVtZTR3aVptNmJvclBPSmw0ZWlUWGsrUzZOTGpU?=
- =?utf-8?B?MEpybGZ4dG0xZnFBT0JET29YU3BBeGFIYTltc1Z5MEF1T3NmbEJnNjRiTktD?=
- =?utf-8?B?d094eXJEVUs3UUJTeEUzRld3ODVmU3JOSDdtZGlROFduT1JGYkJsNXRIVjlr?=
- =?utf-8?B?TEV6T2FqUXZYakF1TnJWRmVOS01kdjc3d2JrcmFGaXB3NGMyV29tc0dGR2RD?=
- =?utf-8?B?OGVxNldHdnAvQk5sd1BEY1lDeS90T0ZaM2NXNm00ejlHOGprMW5LWVJjYmEw?=
- =?utf-8?B?V3M0VHEwcUxLYTdCWDZkbmI2R2RxZm9KbWZRYjJxYlg1cEhqM3lZSXdaU2pC?=
- =?utf-8?B?dG1EalBOQTRPeEJ5QURvTnRmcGpRZHVxRXkxK1pGYkhWS0dRa2tJMmExNktt?=
- =?utf-8?B?Z2VYNzhZdVI0dnFHdkhWS3dBbjhpbmlsOXZaRXdWL3poQStyNlV4Z0lYckRO?=
- =?utf-8?B?YVNVaS9FVlN5cHlMZFU5NHBsb1YzWmc0WG55MFJzcEJLZEUrbENVYTRhaEkw?=
- =?utf-8?B?SzRaTGkxUXdaU09ta2U4TGZvbjRybkhTVVQ4ZEx4cURKU2tKdElYQ0gxTmhG?=
- =?utf-8?B?alhuSmJRckRnUXQyVkR0c2krdExkL1ovcXZaVCszY3lOUVdYcmR3WldNTFVB?=
- =?utf-8?B?OUtGY1NhQXhpOTY0RWU5K2tlL21jTjZnOFRMSzkxR0xwbGFYQ0VyelUza0Ev?=
- =?utf-8?B?cjc0U1l2UURiaFpBUjB4N0ZJamJBcUVLemJiNGJOdUw3Vlpnako2cTM1YmZF?=
- =?utf-8?B?d29DeFRhZ2NRZVhpV1NPZlBGUC9WNEVoQlA2d3FIeFdkenNsVU85YnZUbnd5?=
- =?utf-8?B?UVVPM0JrNjhwOXRwVkFkU3BSbFVwZE9DUjRFSDBmS1F3WXRBaDFxSUtQZTcx?=
- =?utf-8?B?bWdXeWN2U1RDazc5bklnK2pRYnE0UHNKV1hGSCtwaEV0RTV5dkMveDlKeVB4?=
- =?utf-8?B?SXJrNW9EMzRCWUlPbHJReU5QYVlRVW9mOXdtMk1YUjRiejRLa29QcVhwdjRn?=
- =?utf-8?B?UzJhdzF3UUpNNWNNbHdVamZNaHlXMnV6UG9HT0pqYVFSTTdZaDdMS3dhaFk3?=
- =?utf-8?B?VmFRNUx2QnFRd0R3WkQ1UFozMWNTSFdPMTZLVHNNZTBrYTJ2ODhrK2RXTklY?=
- =?utf-8?B?VjVDT29lZkQyUHQyL2dQYUN1ejVvQWp6bDBjbjBtMWlIVWVEbzhmYTA0aUVG?=
- =?utf-8?B?by8yblE0cFdkd3J3czk4bDIvYUVRNUdRSFQrY0JERGdwemJ2QSs3UWs0SFpV?=
- =?utf-8?B?KzhXSGVKK2E4V2cwTk9jTWRxYmVxRDA0Uk9IeVJiK2NON0NtWkxrczVYYzRH?=
- =?utf-8?B?akQyemQzSmxRSXBxbVRkemo1WG5TTVllUVZJN3VtODc0NTBFR1BSU2VRTTk3?=
- =?utf-8?B?VmJrbSt0aHE4OGkzZy9UWVlOSGhUdDFldUdCd0NPS1FJb21nYktkWU1Pa0Fk?=
- =?utf-8?B?SWZMZlY2SmNCSXJGQXFYS3lUNUV4QzZjbUNYZXcyZW9vQW1XMlBIQUtvTXRy?=
- =?utf-8?Q?Dq2IUApNOG/iipEB0C?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61691d2e-5b5e-4e2f-d4d2-08df36f3187e
-X-MS-Exchange-CrossTenant-AuthSource: CY0PR12MB226969.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 02:03:02.6433 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jQuiSsR40H9fOwjQXCAeHjRYp6+cQfMWNP0cg6IdcHj0kuxJcJpM8ww4/B1PWIVQPzanFGchDAl7CUYonynhrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8323
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,48 +84,131 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The series is
+Hi Icenowy,
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+kernel test robot noticed the following build warnings:
 
-On 10/22/26 18:11, John Harrison wrote:
-> Running the KUNIT tests with KASAN enabled hits a bunch of
-> use-after-free errors.
-> 
-> Note that the following tests are still failing for me. They are
-> EXPECTATION failures though, rather than memory splats. So, the test
-> run does at least complete now.
->    dm_test_crtc_reset_state_replaces_existing
->    dm_test_detect_hides_secondary_tile
->    dm_test_fs_caps_dp_msa_not_allowed
->    dm_test_update_plane_color_mgmt_colorop_shaper
->    dm_test_update_plane_color_mgmt_colorop_3dlut
->    dm_test_update_plane_color_mgmt_colorop_blend
-> 
-> v2: Drop FIXED_MATRIX fixes for now because Sashiko is checking
-> against a tree that does not contain the base patches. Rework some
-> use-after-free fixes to not leak memory (despite kmemleak claiming no
-> leaks).
-> 
-> Signed-off-by: John Harrison <John.Harrison@Igalia.com>
-> 
-> John Harrison (2):
->    drm/amd/display: Fix some memory lifetime issues in KUnit tests
->    drm/amd/display: Fix use-after-free in
->      dm_test_hpd_rx_offload_work_msg_rdy
-> 
->   .../display/amdgpu_dm/tests/amdgpu_dm_connector_test.c    | 2 +-
->   .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c  | 8 +++++++-
->   .../display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c    | 7 +++++--
->   .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c   | 7 ++++---
->   4 files changed, 17 insertions(+), 7 deletions(-)
-> 
+[auto build test WARNING on c03c1a14507dfaf8b856c2608f9ac216021fc222]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Icenowy-Zheng/dt-bindings-display-bridge-document-TH1520-MIPI-DSI-controller/20261030-154749
+base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
+patch link:    https://lore.kernel.org/r/20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f%40iscas.ac.cn
+patch subject: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host controller
+config: arm64-randconfig-1001-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c2ea4440d4b64c148de4fdfca1fc2c437a0701e4)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610311004.6oZFiXBi-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:445:22: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
+     445 |                 dev_err_probe(dev, ret, "Unable to get DSI registers\n");
+         |                                    ^~~
+   drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:428:12: note: initialize the variable 'ret' to silence this warning
+     428 |         int i, ret;
+         |                   ^
+         |                    = 0
+   1 warning generated.
+
+
+vim +/ret +445 drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
+
+   420	
+   421	static int th1520_dw_mipi_dsi_probe(struct platform_device *pdev)
+   422	{
+   423		const struct dsi_chip_data *cdata;
+   424		struct device *dev = &pdev->dev;
+   425		struct th1520_dw_mipi_dsi *dsi;
+   426		struct resource *res;
+   427		void __iomem *base;
+   428		int i, ret;
+   429	
+   430		dsi = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
+   431		if (!dsi)
+   432			return -ENOMEM;
+   433	
+   434		dsi->dev = dev;
+   435	
+   436		dsi->syscon = syscon_regmap_lookup_by_phandle(dev->of_node, "syscon");
+   437		if (IS_ERR(dsi->syscon)) {
+   438			ret = PTR_ERR(dsi->syscon);
+   439			dev_err_probe(dev, ret, "Unable to get system controller regmap\n");
+   440			return ret;
+   441		}
+   442	
+   443		base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+   444		if (IS_ERR(base)) {
+ > 445			dev_err_probe(dev, ret, "Unable to get DSI registers\n");
+   446			return PTR_ERR(base);
+   447		}
+   448	
+   449		cdata = of_device_get_match_data(dev);
+   450		i = 0;
+   451		while (cdata[i].reg) {
+   452			if (cdata[i].reg == res->start) {
+   453				dsi->cdata = &cdata[i];
+   454				break;
+   455			}
+   456	
+   457			i++;
+   458		}
+   459	
+   460		if (!dsi->cdata) {
+   461			dev_err(dev, "Failed to find chip data for this controller\n");
+   462			return -EINVAL;
+   463		}
+   464	
+   465		dsi->clk_ref = devm_clk_get_enabled(dev, "ref");
+   466		if (IS_ERR(dsi->clk_ref)) {
+   467			ret = PTR_ERR(dsi->clk_ref);
+   468			dev_err_probe(dev, ret, "Unable to get PHY reference clock\n");
+   469			return ret;
+   470		}
+   471	
+   472		dsi->clk_cfg = devm_clk_get_enabled(dev, "phy_cfg");
+   473		if (IS_ERR(dsi->clk_cfg)) {
+   474			ret = PTR_ERR(dsi->clk_cfg);
+   475			dev_err_probe(dev, ret, "Unable to get PHY configuration clock\n");
+   476			return ret;
+   477		}
+   478	
+   479		dsi->clk_pix = devm_clk_get(dev, "pixel");
+   480		if (IS_ERR(dsi->clk_pix)) {
+   481			ret = PTR_ERR(dsi->clk_pix);
+   482			dev_err_probe(dev, ret, "Unable to get PHY pixel clock\n");
+   483			return ret;
+   484		}
+   485	
+   486		dsi->pdata.base = base;
+   487		dsi->pdata.priv_data = dsi;
+   488		dsi->pdata.max_data_lanes = 4;
+   489		dsi->pdata.phy_ops = &th1520_dw_mipi_dsi_phy_ops;
+   490		dsi->pdata.mode_valid = dsi_mode_valid;
+   491	
+   492		platform_set_drvdata(pdev, dsi);
+   493	
+   494		dsi->dmd = dw_mipi_dsi_probe(pdev, &dsi->pdata);
+   495		if (IS_ERR(dsi->dmd)) {
+   496			ret = PTR_ERR(dsi->dmd);
+   497			dev_err_probe(dev, ret, "Failed to initialize mipi dsi host\n");
+   498			return ret;
+   499		}
+   500	
+   501		return 0;
+   502	}
+   503	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
