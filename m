@@ -2,122 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739F5606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 11:58:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87789606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 11:58:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror header.d=kroah.com header.i=@kroah.com header.a=rsa-sha1 header.s=fm2 header.b=EJ6Wxhwl;
-	dkim=permerror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha1 header.s=fm2 header.b=M8Ki4xyu
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=mr0XE0sE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAF8410E3E7;
-	Sun,  1 Nov 2026 11:58:23 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=kroah.com header.i=@kroah.com header.b="EJ6Wxhwl";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="M8Ki4xyu";
-	dkim-atps=neutral
-X-Greylist: delayed 512 seconds by postgrey-1.36 at gabe;
- Fri, 30 Oct 2026 13:01:12 UTC
-Received: from fout-a7-smtp.messagingengine.com
- (fout-a7-smtp.messagingengine.com [103.168.172.150])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9C810E886
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 13:01:12 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.phl.internal (Postfix) with ESMTP id DAA3FEC0129
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 08:52:39 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Fri, 30 Oct 2026 08:52:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1793364759;
- x=1793451159; bh=7WPJfSbhJPG+aWfRswgb4X8meRNEv65VCekzNJZEgdQ=; b=
- EJ6Wxhwlq0a8oCUw+hMwS9ZmVvwf8q3kR57wxxzqeZsKV9Jc1cK0BGhmMKf79HCD
- pjCyai6PmW8Gj+fLWL28xLY+7M+dL/J8xPkqPMCTMRh+8IWCWhLhUmbyoWQFq42x
- ml5vxUONHsLf1Rz2SZoa8masBPtldog7wvrHQOUzgw+bBb1gmx7v4iSr/NqD5brR
- Ty/NRxKSrgrejvhOhooEsDyfAHA5P4OxXvyxvTGeU2O4ArVNLIG2nJBZcJih1fc3
- JCnjYGZUS2sjJN5i992JrBO5p8I/yIXg3n5uBv8KK4c82cZ0zVtv5Ih94O6wuhGF
- CMKvxa/E9N7laMBpfFTyUw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793364759; x=
- 1793451159; bh=7WPJfSbhJPG+aWfRswgb4X8meRNEv65VCekzNJZEgdQ=; b=M
- 8Ki4xyusLVxX3N9luedM9XVDqoDg32QluE4im29uRRddzsM5Veb8Lkt075HmF9J6
- FBAFQuo2uUlJEol2zXb6HP9CnBy6MbUEUGi5IyFlKNZ6//BoFlzPjUdbg2M441IU
- 3FnkAoH4xceZ0skxGlJ5t1qELQP2TdxbYUdPefpjGhFZH+xlgcc4y0AZJ4UPXd/3
- USgfie2L06OJcOKO+AU9tI3wnwW70OTrEeGWBPK6XTx37cvinUkxrNzWbnpRkLC5
- jpN4GpX5TxxqDojRDJTmsxBhmpS+vGqizU6onHxrgTiyO6WuGY8x8awMfc8of/x0
- a8pdTTHp8caaAQ4Fnbxwg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
- repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
- action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793364759; d=kroah.com;
- mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
- rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm2:rsa-sha256:kBh8jonDbooiI0FgFs53gARxu/FkPzn+OzqrXTwYCI47Qx5
- +gJt4dSqTwdXvgIipsiHU3+zmxj9zqHqw8/p0CUJoaR6b/nZKk9ZdcME5MdDtljV
- 74CcYLOxRN0KaTXxvFcrOynAbjLKNgkJYZMMDY62rTOnmENpnlkH4PqX7E+CxJbG
- OHPRXgWYxuHWmgY85MbockkJhJeaxwBAGTYmidombO3yslw5tiZ6qLRjoQc4Q7XY
- CFFPopqA5SqK09G+SQG7e3ensfPcOR6A9boCAjUyY6DwL5sPcBhtXL8M5KH38xTZ
- HdCzfQdm1XB2+nR5BnhnF92EuASUu2VqNAU8K2A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
- repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
- action=mi-m=1; hc=12;
- hn=cc,content-transfer-encoding,content-type,date,feedback-id,
- from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1;
- h=sha256:uqA22ld/nBFOKHecKlpdBcAHPxvZwg+YiJtUH6rBJfw=:mlG9k5Up7umvFv8xt7upEY+izvTaplLwCETyPuMRe6g=;
-X-ME-Sender: <xms:F5Pkan5BefxeB8eiGJ8XU4_zQKjyZNCmDaUMbM3R27I3FFFfJ00Idw>
- <xme:F5PkakfmMWtvAuVIZQy_nVaMSjSQ1t6sRVH9le6P68IIYaUISjNWF_8lOpNmVNB0l
- wKe4QE09W26fyoqhsDRS_vjwNgyzwotnMOId3nIyKg-xngiYW0>
-X-ME-Received: <xmr:F5PkauHgQW_C-Qrpw8RoexuEYD_9zqmonFMGC80HloLcoMNimr-wxGYpr9b5Z7dVtfo>
-X-ME-Proxy-Cause: dmFkZTFRq5EEQOwx0SGuhY7n37tMaYfEIgICyQXaX3OdgQrHiNFLH9A8Vqzo1dweSr3W+q
- V19ZxeqkSPlM1ADokplcKpJuK3NXk0GSP5eHKHPlA0AB1im8434YIXwX0ukC70Jrecq5YO
- CLCqe9vFAnkQkFX7rYtiXREYaysYMNgjShxClDIVcQND1GkHSBVkmMVKM4aHfxsW1uMlLQ
- zUTz2mI8cDuYY9vlJeLA/eRaUcFojzLFkZYUxoFXWW14gYFXEbC0IdzbFVXnOtvZHopfXG
- JJJC1mOZ4X7lrjhrBcO7Um12Fgz1M5Q1wDL0s2dMFmpfKFTI1pV49/ekHLRmZGaEdrbgn3
- D7yJExbRjgSmBf93MnpAoG+tEc5K4zxONTUa7su/nBf5uvCA5QlEZqfvP/SiTldBQ0obZw
- o0jCDILD7nSl2OzomjJiCgxGpDTm7m4fZF2eDaSviHuV4xgc9eME5IX0DMcwf5Przdk8uY
- fbh/gU4Urk/EClRUammua2BCitNl1YW+K+1bGWavvtP+Acr+DXNbqCHLkz5dt4bPavyoqK
- VfAnvS06L1eXK/biYXwkUw7Gd+pofILfJMQxnUjrBkxCI9Nqj2TVZE4i2lKSSxWWcdz/fO
- A0OPJOZa1uJzWeJRGAgsJqrpIyht5EMtfgYPHqZuZ3MYhxnV5u3aQCYLpWIQ
-X-ME-Proxy: <xmx:F5Pkak5FNrDS4BCqxG3fefWtA9-raE-1CNuWfZmplT_Rt8gw5FhSYQ>
- <xmx:F5PkahsemWXyTJnCTNqChU0otOyDU-scxXuEsMetGILNDS_oDr-kPA>
- <xmx:F5Pkao9RqN2vnJZz2gjKOZoeFOBO7qXNLiN16qg3SOH1sH7GUhk84A>
- <xmx:F5PkarlPwUFhL4uPgjUTBG81MWVr5RNfEMKPtR2vgcNto79g2sLZfg>
- <xmx:F5Pkav6iCGFU5qKKOAMoPWpTkOX6nStqH2GuIueg-Ni6lnb4PMQeA1yo>
-Feedback-ID: i1d2843be:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 30 Oct 2026 08:52:38 -0400 (EDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0689510E3DC;
+	Sun,  1 Nov 2026 11:58:19 +0000 (UTC)
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 74AB010E012
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 15:03:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-ID:In-Reply-To:References:MIME-Version:
+ Content-Transfer-Encoding; bh=NwxbiKZt5M6bguLSwezvKHdUYiGPqH05Pt
+ mFGqFk5EE=; b=mr0XE0sEItzOPl7x19LcUZFi5gYUt7VgIhMkPpMfZUG3nYvody
+ hbJHwMJywo7aWBrLgsdKWJfL3i1UcWb6SMw3b/0cOQVu/CxxNu2RBiwjjjN3WewD
+ NiyAq03PZmLR19pMiA9emMYsMmdbc1Z4Orbzk9512af8lSA/GUxQoFxuI=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
+ by mailimap2024 (Coremail) with SMTP id 3pYKCgDHS0ApA+ZqqSNvAA--.5005S3;
+ Sat, 31 Oct 2026 23:03:06 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robdclark@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/5] drm/msm/dsi: move bonded command failure flag into dsi
+ manager state
+Date: Sat, 31 Oct 2026 23:03:01 +0800
+Message-ID: <20261031150305.1107572-2-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/4] backlight: aat2870: Derive brightness steps
- from max current
-From: Griffin Kroah-Hartman <griffin@kroah.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261027113230.47538-3-clamor95@gmail.com>
-References: <20261027113230.47538-1-clamor95@gmail.com>
- <20261027113230.47538-3-clamor95@gmail.com>
-Date: Fri, 30 Oct 2026 13:52:30 +0100
-Message-Id: <179336475066.10571.11619253467388579632.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793364758; l=370;
- i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
- bh=mlG9k5Up7umvFv8xt7upEY+izvTaplLwCETyPuMRe6g=;
- b=AClAE1+sCEWzUXiKS3U3GTpx4k3p2L1m98wLOKukAJTgXXwILpWTkqwRuzTCgrdZ43c4fwi96
- bq1U74IDPH5DB8FGcQpNgqEEj9hVriBX8dANegY96N4huHaVDQho/bq
-X-Developer-Key: i=griffin@kroah.com; a=ed25519;
- pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: 3pYKCgDHS0ApA+ZqqSNvAA--.5005S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw4xKr48Wr4fCry8Xw4xWFg_yoW5Gr48p3
+ 9rWw4jvFWqv3ZI9anIyFW5CF1fAFn3Gas7J3ZrWw4xAFs8t3W5ZrykXrW3KrySvFy8AF1j
+ qa1DGFyFqF1xG3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+ 8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Jrv_JF4l8cAvFVAK0II2c7xJM28CjxkF
+ 64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+ CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+ 6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+ 02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE
+ 4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4
+ AK67AK6ryrMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+ rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtw
+ CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
+ 67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+ 0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07bw
+ LvNUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FY0gwAGsf
 X-Mailman-Approved-At: Sun, 01 Nov 2026 11:58:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,20 +68,78 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, 27 Oct 2026 13:32:28 +0200, Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-> The AAT2870 allows only 32 steps of brightness, with this amount defined
-> by the maximum supported current. Remove the need for max_brightness by
-> calculating the allowed number of steps from the maximum current.
+The bonded-DSI command path kept a file-scoped `static bool
+dsi_bonded_cmd_failed` next to the global manager instance, so bonded
+state was split across two storage classes. Move the flag into
+struct msm_dsi_manager (msm_dsim_glb) so the manager owns all of it and
+nothing mutable stays file-scoped. READ_ONCE/WRITE_ONCE use is unchanged,
+so behaviour is identical.
 
-Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
--- 
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 559c07a8b9..93d636220b 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -30,6 +30,7 @@ struct msm_dsi_manager {
+ 	bool is_bonded_dsi;
+ 	bool is_sync_needed;
+ 	bool is_sm8750;
++	bool bonded_cmd_failed;
+ 	int master_dsi_link_id;
+ };
  
+@@ -37,8 +38,10 @@ static struct msm_dsi_manager msm_dsim_glb = {
+ 	.master_dsi_link_id = -1,
+ };
+ 
++/* Serialises bonded command transactions; the failure flag it guards lives in
++ * msm_dsim_glb so no bonded state is file-scoped.
++ */
+ static DEFINE_MUTEX(dsi_bonded_cmd_lock);
+-static bool dsi_bonded_cmd_failed;
+ 
+ #define IS_BONDED_DSI()		(msm_dsim_glb.is_bonded_dsi)
+ #define IS_SYNC_NEEDED()	(msm_dsim_glb.is_sync_needed)
+@@ -51,7 +54,8 @@ static bool dsi_mgr_uses_bonded_cmd(void)
+ 
+ bool msm_dsi_manager_cmd_failed(void)
+ {
+-	return dsi_mgr_uses_bonded_cmd() && READ_ONCE(dsi_bonded_cmd_failed);
++	return dsi_mgr_uses_bonded_cmd() &&
++	       READ_ONCE(msm_dsim_glb.bonded_cmd_failed);
+ }
+ 
+ static inline struct msm_dsi *dsi_mgr_get_dsi(int id)
+@@ -374,7 +378,7 @@ static void dsi_mgr_bridge_enable(struct drm_bridge *bridge,
+ 	if (!panel->prepared) {
+ 		dev_err(&msm_dsi->pdev->dev,
+ 			"panel is not prepared; refusing video enable\n");
+-		WRITE_ONCE(dsi_bonded_cmd_failed, true);
++		WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
+ 		return;
+ 	}
+ 
+@@ -646,7 +650,7 @@ static int dsi_mgr_bonded_cmd_xfer(const struct mipi_dsi_msg *msg)
+ 	ret = master_ret < 0 ? master_ret : slave_ret < 0 ? slave_ret : len;
+ 	if (ret < 0) {
+ 		/* Never reuse a packet buffer while either DMA engine is unresolved. */
+-		WRITE_ONCE(dsi_bonded_cmd_failed, true);
++		WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
+ 		dev_err(&master_dsi->pdev->dev,
+ 			"bonded command DMA failed: master=%d peer=%d\n",
+ 			master_ret, slave_ret);
+-- 
+2.53.0
 
