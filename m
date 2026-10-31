@@ -2,94 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC4F606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 00:18:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797A8606A321
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 00:34:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvMiP58y
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TSO/mj0Y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D2E410E8EC;
-	Sat, 31 Oct 2026 00:18:28 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C313110E8EC;
- Sat, 31 Oct 2026 00:18:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 803EC432C2;
- Sat, 31 Oct 2026 00:18:21 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793405901;
- b=Pzj3IxdxlU060vQPRPSUtCTWUlMt+wCgNU6aILtPLie63S4Uf5IqNKBF8i5TWWf2oDZ0
- 23gvLn0JDua5veYm59xgVlQzbilDkbRiOvgvA36WLeK0i5Gy4799sCMj8zhdVuPfqx451
- oABDwLqy2gE6KjcIspKrGVE4Q9mHF7XpJaFWw4eGr25iuvofOFa+gfaKOE0wy7i3LQ6NB
- L1jdbX27Zr3HETgbrxSo5Tfg2AnP5dzTIf1hBhh78EZgvyBPa/GB1RqKIlryLQhXOeNPA
- xSZZOqrKpgUFBIr5f55/zvzKmkRznEP3l2IBmhTYi9SevmBaf9SXqMQQNXlx9OsqpQA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793405901;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=XrDZJYzfmXy6QbPaW5bhYgz6aTaX1wRabLVKvmZ7fFg=;
- b=dNnTU8zG0QydPj3zzF8e1K4Vf+Wj1pHoXy/1o9FDYQjTnw5O6rJGq/3mBN0V1q51j5O2
- CXdKKl+jlw+S8jO16AhR2m5W9Bz99kmXG+AWRz0rGOW2jIbCjY0bjWIHIlXiLJ4BMsZcd
- kYeGUxNh9ABNo1bQ0126jKjOfgp0zJ5Hd7qzLjHriSblqRdQlubJlhm4jI/I6POcc5uMb
- H3by2f7tWMyThel3PaPodYLprK9f4idv7jVXOd9L/gLy7saTatOx+h2Zp2GvolhQ4NPtB
- ggQIin5taVLjojYrtVCOGyByAo+XSa1DHTFjw0DZlhjUyuH+oMTI3W0Yqv2pN3QHofg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id AC3341F000C1;
- Sat, 31 Oct 2026 00:18:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793405901;
- bh=XrDZJYzfmXy6QbPaW5bhYgz6aTaX1wRabLVKvmZ7fFg=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=CvMiP58y8SbQAhU86hKVa8KgdResZ39VBXxYoUTcXbjd0HK1KnOgcrieSTLIBVIsQ
- bfqKA24hlB+ih3OgazVsnJj3FNkYq2L9DQjMl/Etv3voUd79/F3aA+q6i1a8fuisz8
- 0/MxaQLVy0iVtFhnH1DokgFdVOrNQ50ShgNQk34NXQkUu6iq3WaUJyalwS0Pk2/4fL
- W8vb076JIgssdbWAEdN+RSL9by+xSyMj47InSbtSNafxQAHl4DY+1gd/4868WzAYuC
- G+tLo/AkYPcJ4YMGaBooVP8xhc2zGaFOSHYW5Uz+gq9rlF8h32I5LSFwUnL23z23YJ
- skxcx1wt2nnIg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 28058442DD;
- Sat, 31 Oct 2026 00:18:20 +0000 (UTC)
-From: =?utf-8?q?Diego_Nogu=C3=AAs_via_B4_Relay?=
- <devnull+diego.sure.gmail.com@kernel.org>
-Date: Sat, 31 Oct 2026 01:18:18 +0100
-Subject: [PATCH RFC] drm/dp_tunnel: Allow BWA when the DP IN adapter does
- not advertise it
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8B2810E5E7;
+	Sat, 31 Oct 2026 00:34:33 +0000 (UTC)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C50410E5E7
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 00:34:28 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-3282db206d3so482268eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 17:34:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793406868; x=1794011668; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=lAQsub6pmHls3bP0tt9PGyqlBwOUYsP9EC/vfE7Hwr8=;
+ b=TSO/mj0Yd0DhqDM4j0lC+I+g7/2xAEx2C78SIptQwZIplcO+bVQSJ1ULrqkwcuoNYM
+ 4YCm1LQ91Eps+T6xE6KKxt958uuXh4x6GERPOSJOU1OGCYtRIy1Qvhs3ZxKPszUZXOvf
+ YR30A/n3VypJhNB0BnOymWUnKYvy0bnbVbas4fe8kqwR7zRtIDIh9ij97MMCNFPufdEH
+ 0+f8WryCAFKRp5yzTPfESp2JmD+Mav9kUHbLcEIRp/8nfcEzxraPCIBUft9AtNYop5rc
+ 1qJfgDnsi5yI3N1MFvBki6rw4Cjs5mCND27bNGotlklyQ3ZvwcTfnubCIGnML1AwkhP+
+ 784Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793406868; x=1794011668;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lAQsub6pmHls3bP0tt9PGyqlBwOUYsP9EC/vfE7Hwr8=;
+ b=Fn1CBaH3o0lT48dXRZ8Lg5bjFFvr+tVcWPy69jyAkJMYaisWLdtNiK/RtWSQx1UMst
+ C0habADGNduWwdUUHbwGVoLdvzZXce8f8YtDiEw33+WcZK28iXg5+eFkQADCJ1vkIIg5
+ tqaZy7pgl5aR4HI6BO0YwdtyoJo7l7GTA75AKpqnBH43QadZpHE1sYjazg8rfxdz26nF
+ meKAoVCimt7DklwZKs2+nIkSaKvL/mkP8v/jm990D39QfLBKwpuz1shQHYRUDXBkdV0h
+ 76YNiAHn+E0k/n1+DRpETge+I3IXzNXrydXSofMBzZ1tKBwSCB8DiXIPPUviGtkowFkk
+ eI8w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvByWvMuJeotcqgDGmpnS5n+ixxgdkHUCrKLgTKmUKzylWex+WPWHDg/dmPdBXOOAI0xpDua1C5cKhaI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIblIuYXpkl8i7OhX+LOnoeFOuFlb8CI7ozAuYnxSrwwdDC+aQE
+ FCyR7zqzoUQd1z2u2ajKXa1c8kSlP+S8piDXHWyWSv+ZVB8A8SfgDQsPBCE3v5PcO14=
+X-Gm-Gg: AYBFou1Vbp+cnh856f+aRWDDaHkvvS5aVT5Er/p6xMarh4kRu+BBGBvOur5QHqI9yDf
+ rTdxh+yzCt6kWp1dMcb+pmERYwK1bw0qYUN3J8kgfsGr70cjmEusOkOoH3w9XuIJrIVI4YUz1ON
+ OJC9k0FwSArbjbbhiKn3/l1CPHqDgUbDuH7fyuCL+JJ28pZUkHLXvB5H7Yy0v9F5NH3v9XxuPi3
+ jVuX1Lx0glB+lkFQsuPBaatniN4YFWGdv4ua7FMX2EEhPrsZEP1ImSKhBBKoISW4nmXs8H0pFCb
+ kOar+fM2aoZNrT4neaBoOPIbBNZAnbIlst5aNluE/l0c9PUNTAsWvIx4eeDPW+fB9cq/8irjS7y
+ l4a8k4dr7/H0Fd9T2kqkVCfOfxmSl/zJguZJXpAkKahKhfyEuw0j+usb65zDYbjt1kJBy+tl1mg
+ lbgXN6BNVaniFFd9MyDttjpQeRIa4/BUAW8cdligDB9SKvcMXgU7o0hd3UQkb3rXEQzBnqWofYo
+ 3wSA/XQWrciNXdOzmQwfAjs/zjlwooxrrrX60QSEjB1JFHLRjRcGzjYIPZ2Cs3Cn58nM+bjUvj1
+ 8nq01FT6MXM1O1hhJF2B4rLqpjtzUh6Qe03m6qcZeg8jlYwsnoBPjYPArTtE5eDfDELERX3jJIY
+ DyQ4UToYxogG/oN62wcz3xJ018K1cqjThSePbuE8cVdq5rjsnVaaV9qRN85IVbDQwSiZBNR7Y+0
+ ngYSx9mHeurk0bWQ==
+X-Received: by 2002:a05:693c:639b:20b0:369:f2f4:b227 with SMTP id
+ 5a478bee46e88-36a4238e9e4mr5713485eec.18.1793406867364; 
+ Fri, 30 Oct 2026 17:34:27 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36a42669128sm11707816eec.3.2026.10.30.17.34.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2026 17:34:26 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: pxafb: initialize IRQ completions before requesting IRQ
+Date: Sat, 31 Oct 2026 08:34:24 +0800
+Message-ID: <20261031003424.1796478-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261031-dp-tunnel-bwa-flag-v1-1-f94ed3179349@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA2ND3ZQC3ZLSvLzUHN2k8kTdtJzEdF0jM3ODJJMUE2NjC0MloMaCotS
- 0zAqwodFKQW7OSrEQweLSpKzU5BKQcUq1tQCFoZ1/ewAAAA==
-X-Change-ID: 20261031-dp-tunnel-bwa-flag-2670b4d43381
-To: Imre Deak <imre.deak@intel.com>, dri-devel@lists.freedesktop.org, 
- Uma Shankar <uma.shankar@intel.com>, 
- =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Mika Westerberg <westeri@kernel.org>, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Diego_Nogu=C3=AAs?= <diego.sure@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793405899; l=6834;
- i=diego.sure@gmail.com; s=b4-20261031; h=from:subject:message-id;
- bh=mivr+SD0evGwt3zL4mnf5pZMx3+T3P91Jk3Y8+rPi2I=;
- b=TFlG30J/phmGFERmnvySjH3MkQNzNZWjt2ZwkbnYQX22jKOlNextfnyQ3fgsyqyGd6PScReG7
- vV1ayZvGw4xAHQGe/8mXouN1F4dDhKQ/zx6ASxcNE7yp+sGGSz1ssFO
-X-Developer-Key: i=diego.sure@gmail.com; a=ed25519;
- pk=WA/ONeOf+US6DvvErKh2UIwm8jr+CuW7fzfTaCoLGvM=
-X-Endpoint-Received: by B4 Relay for diego.sure@gmail.com/b4-20261031 with
- auth_id=1368
-X-Original-From: =?utf-8?q?Diego_Nogu=C3=AAs?= <diego.sure@gmail.com>
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,158 +83,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: diego.sure@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Diego Noguês <diego.sure@gmail.com>
+pxafb_handle_irq() may run before smart-panel and overlay setup.
+Completion objects are uninitialized, and completing them can panic.
 
-On an Alder Lake host (i7-1265U) with a Thunderbolt 4 dock (Dell WD22TB4,
-Goshen Ridge) driving two 4K@60 monitors through two DP tunnels, the
-monitor whose tunnel is created second is limited to 4K@30. Which monitor
-is affected depends only on the order in which they are powered on.
+Move completion setup into a helper called from pxafb_init_fbinfo()
+before devm_request_irq(). Drop the later initialization now that every
+completion is initialized before the handler can run.
 
-The thunderbolt driver enables the BW allocation mode (BWA) on both DP IN
-adapters: it sets the CM BWA support (DP_USB4_DRIVER_BW_CAPABILITY), a
-group ID and the estimated BW. The DP IN adapter, however, never sets
-DP_IN_BW_ALLOCATION_MODE_SUPPORT in DP_TUNNELING_CAPABILITIES (0xe000d
-reads 0x01), so tunnel_regs_are_valid() rejects the tunnel with:
+An early interrupt can also leave a completion count without a waiter.
+Reset command_done and branch_done immediately before starting their
+hardware transactions, so stale counts cannot make later waits succeed
+early.
 
-  DPTUN: A non-zero group ID is only allowed with BWA support
-
-i915 then falls back to the static allocation. The first tunnel reserves
-the full DPRX bandwidth (HBR3 x4, 25920 Mb/s), although its stream needs
-about 8.4 Gb/s, and the thunderbolt driver reduces the second tunnel to
-HBR x4 (8640 Mb/s), which is not enough for 4K@60.
-
-The DP IN adapter does handle the BWA registers. Setting
-DP_DISPLAY_DRIVER_BW_ALLOCATION_MODE_ENABLE in
-DP_DPTX_BW_ALLOCATION_MODE_CONTROL by hand sets DPME in the adapter's
-ADP_DP_CS_8, and a following write to DP_REQUEST_BW reaches the
-thunderbolt driver as a DP_BW notification, gets allocated and is
-acknowledged with DP_BW_REQUEST_SUCCEEDED. Reading back
-DP_DPTX_BW_ALLOCATION_MODE_CONTROL returns 0, which the helpers already
-tolerate. The adapter identifies itself as OUI 98-4f-ee, DevID "TR",
-HW rev 13.0, SW rev 2.1.
-
-The connection manager programs a non-zero group ID only right after
-enabling BWA on a DP IN adapter that supports it (see
-tb_dp_bandwidth_alloc_mode_enable()). So when the USB4 driver advertises
-BWA support and a group ID is assigned, treat the tunnel as BWA capable
-even if the DP IN adapter does not set DP_IN_BW_ALLOCATION_MODE_SUPPORT.
-Nothing changes for adapters that set the flag or for tunnels without a
-group ID; the only affected case is the one rejected today.
-
-With this change, and an unmodified thunderbolt driver, i915 enables BWA
-on both tunnels and allocates 8500 Mb/s for the stream behind the dock's
-MST hub (using DSC) and 13000 Mb/s for the other one, so both monitors
-run at 4K@60 in either power-on order.
-
-Fixes: 295654f7e554 ("drm/dp: Add support for DP tunneling")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17742
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Mika Westerberg <westeri@kernel.org>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Diego Noguês <diego.sure@gmail.com>
+Tested an early interrupt through the real handler on ARM QEMU: the
+unpatched path panics in complete(), while the patched path completes
+normally with early=0. A stale-credit replay incorrectly returned
+flush_ret=0 before this change and now returns -ETIMEDOUT twice.
+Normal smart-panel init/flush/timeout/work controls also pass. Main,
+no-smart and genuine-overlay ARM builds pass; strict checkpatch passes.
 ---
-RFC, for two reasons:
+ drivers/video/fbdev/pxafb.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-- I don't know whether DP_IN_BW_ALLOCATION_MODE_SUPPORT is left clear on
-  purpose on this adapter (for instance because of a known BWA issue on
-  Alder Lake). If so, please say so and this patch should be dropped.
-- If the approach is fine, a DPCD quirk keyed on the adapter's ID
-  (OUI 98-4f-ee, DevID "TR") may be preferred over relaxing the check for
-  every adapter. I can rework it that way.
-
-If it is accepted, I think it is a candidate for stable (v6.9+).
-
-Tested on a Dell Latitude 5430 (i7-1265U, BIOS 1.41.0) with a Dell
-WD22TB4 (package 01.01.03.01, USB4 NVM 41.81), a P2415Q on the dock's
-Thunderbolt port (SST) and a U2718Q on a dock DP port (behind the dock's
-VMM5331 MST hub). Kernel: Ubuntu 7.0.0-38, whose drm_dp_tunnel.c is
-identical to v7.0 and to current drm-tip, with only the patched
-drm_display_helper module, over two weeks of daily use:
-
-- Both power-on orders, with thunderbolt dyndbg and drm.debug=0x4: both
-  monitors at 4K@60. With the stock module, whichever monitor comes up
-  second is limited to 4K@30.
-- Five dock unplug/replug cycles (the dock is shared with another
-  machine): both monitors at 4K@60 every time.
-- s2idle suspend/resume: BWA is enabled again on both tunnels after
-  resume (13000 and 8750 Mb/s allocated, group 21750/34500 Mb/s), and both
-  monitors run at 4K@60. With the stock module, the second tunnel is
-  limited to 4K@30 again after resume.
-
-Unrelated to this patch, and reproduced the same way with the stock
-module: after s2idle resume the thunderbolt driver re-pairs the DP IN and
-DP OUT adapters the other way round, so the MST hub moves from DDI TC1 to
-DDI TC2. i915 then logs "Sending link address failed with -5" and "Step 2
-of creating MST payload ... failed: -22", and the external displays stay
-dark until the outputs are configured again from userspace. I can report
-that separately.
-
-Not tested: other hosts (Tiger Lake, Meteor Lake and later), other docks,
-the xe driver.
-
-Tool use: I used an AI coding assistant (Claude Code, model
-claude-opus-5-5). I asked it why the second monitor was stuck at 30 Hz and
-how to fix it in the kernel. It read the thunderbolt and drm_dp_tunnel
-sources, analyzed the logs I captured, wrote the shell scripts I used for
-the manual DPCD reads and writes, proposed this change and drafted this
-description. I ran all the tests on my hardware and reviewed the change.
----
- drivers/gpu/drm/display/drm_dp_tunnel.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-index d29ad4116e64..71dfa4714795 100644
---- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-+++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-@@ -317,13 +317,27 @@ static int tunnel_reg_max_dprx_lane_count(const struct drm_dp_tunnel_regs *regs)
+diff --git a/drivers/video/fbdev/pxafb.c b/drivers/video/fbdev/pxafb.c
+index 1b2a16590999..84ef5baaf087 100644
+--- a/drivers/video/fbdev/pxafb.c
++++ b/drivers/video/fbdev/pxafb.c
+@@ -642,6 +642,7 @@ static void overlay1fb_disable(struct pxafb_layer *ofb)
  
- static bool tunnel_reg_bw_alloc_supported(const struct drm_dp_tunnel_regs *regs)
- {
--	u8 cap_mask = DP_TUNNELING_SUPPORT | DP_IN_BW_ALLOCATION_MODE_SUPPORT;
-+	u8 caps = tunnel_reg(regs, DP_TUNNELING_CAPABILITIES);
+ 	lcd_writel(ofb->fbi, LCSR1, LCSR1_BS(1));
+ 	lcd_writel(ofb->fbi, LCCR5, lccr5 & ~LCSR1_BS(1));
++	reinit_completion(&ofb->branch_done);
+ 	lcd_writel(ofb->fbi, FBR1, ofb->fbi->fdadr[DMA_OV1] | 0x3);
  
--	if ((tunnel_reg(regs, DP_TUNNELING_CAPABILITIES) & cap_mask) != cap_mask)
-+	if (!(caps & DP_TUNNELING_SUPPORT))
- 		return false;
+ 	if (wait_for_completion_timeout(&ofb->branch_done, 1 * HZ) == 0)
+@@ -705,6 +706,7 @@ static void overlay2fb_disable(struct pxafb_layer *ofb)
  
--	return tunnel_reg(regs, DP_USB4_DRIVER_BW_CAPABILITY) &
--	       DP_USB4_DRIVER_BW_ALLOCATION_MODE_SUPPORT;
-+	if (!(tunnel_reg(regs, DP_USB4_DRIVER_BW_CAPABILITY) &
-+	      DP_USB4_DRIVER_BW_ALLOCATION_MODE_SUPPORT))
-+		return false;
-+
-+	/*
-+	 * Some DP IN adapters (at least on Alder Lake) don't set
-+	 * DP_IN_BW_ALLOCATION_MODE_SUPPORT, although they do support the BW
-+	 * allocation mode. The USB4 Connection Manager assigns a group ID
-+	 * only after enabling the BW allocation mode on the DP IN adapter,
-+	 * so accept a non-zero group ID as an indication of support.
-+	 */
-+	if (!(caps & DP_IN_BW_ALLOCATION_MODE_SUPPORT) &&
-+	    !tunnel_reg_drv_group_id(regs))
-+		return false;
-+
-+	return true;
+ 	lcd_writel(ofb->fbi, LCSR1, LCSR1_BS(2));
+ 	lcd_writel(ofb->fbi, LCCR5, lccr5 & ~LCSR1_BS(2));
++	reinit_completion(&ofb->branch_done);
+ 	lcd_writel(ofb->fbi, FBR2, ofb->fbi->fdadr[DMA_OV2_Y]  | 0x3);
+ 	lcd_writel(ofb->fbi, FBR3, ofb->fbi->fdadr[DMA_OV2_Cb] | 0x3);
+ 	lcd_writel(ofb->fbi, FBR4, ofb->fbi->fdadr[DMA_OV2_Cr] | 0x3);
+@@ -894,7 +896,6 @@ static void init_pxafb_overlay(struct pxafb_info *fbi, struct pxafb_layer *ofb,
+ 	ofb->ops = &ofb_ops[id];
+ 	ofb->usage = 0;
+ 	ofb->fbi = fbi;
+-	init_completion(&ofb->branch_done);
  }
  
- static bool tunnel_reg_bw_alloc_enabled(const struct drm_dp_tunnel_regs *regs)
-
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261031-dp-tunnel-bwa-flag-2670b4d43381
-
-Best regards,
---  
-Diego Noguês <diego.sure@gmail.com>
-
+ static inline int pxafb_overlay_supported(void)
+@@ -1170,6 +1171,7 @@ int pxafb_smart_flush(struct fb_info *info)
+ 	lcd_writel(fbi, FDADR6, fbi->fdadr[6]);
+ 
+ 	/* begin sending */
++	reinit_completion(&fbi->command_done);
+ 	lcd_writel(fbi, LCCR0, fbi->reg_lccr0 | LCCR0_ENB);
+ 
+ 	if (wait_for_completion_timeout(&fbi->command_done, HZ/2) == 0) {
+@@ -1277,9 +1279,6 @@ static int pxafb_smart_init(struct pxafb_info *fbi)
+ 	fbi->smart_cmds = (uint16_t *) fbi->dma_buff->cmd_buff;
+ 	fbi->n_smart_cmds = 0;
+ 
+-	init_completion(&fbi->command_done);
+-	init_completion(&fbi->refresh_done);
+-
+ 	if (!fbi->inf->smart_update)
+ 		return -EINVAL;
+ 
+@@ -1775,6 +1774,23 @@ static void pxafb_decode_mach_info(struct pxafb_info *fbi,
+ 		fbi->video_mem_size = video_mem_size;
+ }
+ 
++static void pxafb_init_completions(struct pxafb_info *fbi)
++{
++#ifdef CONFIG_FB_PXA_OVERLAY
++	int i;
++#endif
++
++	init_completion(&fbi->disable_done);
++#ifdef CONFIG_FB_PXA_SMARTPANEL
++	init_completion(&fbi->command_done);
++	init_completion(&fbi->refresh_done);
++#endif
++#ifdef CONFIG_FB_PXA_OVERLAY
++	for (i = 0; i < 2; i++)
++		init_completion(&fbi->overlay[i].branch_done);
++#endif
++}
++
+ static struct pxafb_info *pxafb_init_fbinfo(struct device *dev,
+ 					    struct pxafb_mach_info *inf)
+ {
+@@ -1831,7 +1847,7 @@ static struct pxafb_info *pxafb_init_fbinfo(struct device *dev,
+ 	init_waitqueue_head(&fbi->ctrlr_wait);
+ 	INIT_WORK(&fbi->task, pxafb_task);
+ 	mutex_init(&fbi->ctrlr_lock);
+-	init_completion(&fbi->disable_done);
++	pxafb_init_completions(fbi);
+ 
+ 	return fbi;
+ }
+-- 
+2.56.0
 
