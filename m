@@ -2,91 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B421A606A321
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 21:48:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5DE606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 21:48:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=M2SSwTqG;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LBr+sYhF
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YN5aJTzg;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GZLoDL4D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B34910E388;
-	Sat, 31 Oct 2026 21:48:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B02D610E078;
+	Sat, 31 Oct 2026 21:48:23 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88CED10E078
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 21:47:53 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C37310E389
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 21:48:12 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 69VJFeRB1359555
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 21:47:53 GMT
+ 69VJFBla2398527
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 21:48:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=UqYmn+dWGZ+bizn6nanBskc0
- M3ILH51untQXz8qg9Lw=; b=M2SSwTqGeuA0H/yPvVtef+Mp8xkHwwFekiHn0kBD
- IXkY8io9I7OOYrQNJc9veFLHQb/MO5gVqbJ5k0W/pdOnBUfT/j1tjPj2FdmaR+X6
- VvCxH97ZunhjVXdQFnvieF2sLRVVX/hTfOBcMkH3nuOVxn4QgzIJt1xrERdxXyOs
- 03MMKpdvcPhhoWPCgvmJS4h8+xe0kGrSxOJ+Dix7JzCr/EMKLx78H0/zKj8ugeEb
- yCzE9/SlZ2sSogLTZlqalPlDO1WmzEuIcurm/8MOhU4MpCXTNVh6WJtR81AWSksU
- PBQuRM6eem+E2fV3GqzAYiYK4JgrlP9tWYQs3mYgU2zMVw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn9gk1xex-1
+ :references:subject:to; s=qcppdkim1; bh=4EItL5xvGpqO6UWOBBCZmsuF
+ utwBGP9FjsFh6RXA9XA=; b=YN5aJTzguTybW9G+mlI0XJtw+n6bdR+mgrsGe4kH
+ a8Dyzz44XUjSs7EpHb6Uj13LvRztzPUNAERCSCVsjO4uQzUyrOoht1lktdmwIwJN
+ IB23nBH8TUFg9jCQboo1dkPIHs1ouP3XJ5POq+XgPz1aMiVzUjJZ+Ix5Epq27NKv
+ sKdmwHSFLUHcMEu+UbIgQsUykWcPsemrV1fICWURhTyLU9ULzLIQS0+hnvQ3Jocx
+ VuhbN/GN4A9+yQpGPF1gvjP43XD/mhfDm0Wfp0x+PVMVgtS4JS90CW47Qhkil74N
+ u96yuT7J7TiTdXdJNKdFseH5+s4+L7EdbKpP302HsMVCEQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn93ej0a5-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 21:47:52 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93cbf2fd504so324719985a.2
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 14:47:52 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 21:48:11 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93ecdc701a2so209982485a.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 14:48:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793483272; x=1794088072;
+ d=oss.qualcomm.com; s=google; t=1793483291; x=1794088091;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=UqYmn+dWGZ+bizn6nanBskc0M3ILH51untQXz8qg9Lw=;
- b=LBr+sYhFO1BmSnD6hOqDY75teIPwLPfw0RLMdVJHzK9kmoR7dPeGkg1xofoyjJb6LK
- ET1eguWJttQtm8qj9utKBMmJ58jWQLLrr0ArVEDnfEzWD48doeR+DnWEULZqq7beZRWi
- J0vlTTLfpefBuqyP53/uhio3ToR88hxkuZujNlAhGB+4k2OPR/otYywmpJFX03yj+tj+
- 58tlv29rW1vwi+lOfIW1y6DcCyX3l6kpe2t6ze0NpvHXcOWcN9WJAWOnyxx+sJNv6BLL
- oefUKJ4bXttL9ZfTb5FZqT7Zi16a4JwSro0eIVyzu6S9tV6tVgdcgIsgKMWftc9USO67
- 8lHw==
+ bh=4EItL5xvGpqO6UWOBBCZmsuFutwBGP9FjsFh6RXA9XA=;
+ b=GZLoDL4DcpkFL50Ld5rPuVJbCVgHyyqDXSDxyU+Fkqr684fC2DxyNOI0deREdvBr8y
+ uzDBDNUlmUP2tVKukRGdX1Wte3xfbipPq7EQTH1QcHEgvvt/b8MfuDpcQKjwODb4Icev
+ gHshXxdYJ0DtK5CNXQrW/o63Yfex9F8jWfSqNTX5z+oosQU9vU71h6kjtHro9kyhIlLp
+ a3DSrLhF6RhOwzPtjNQWbZ/himX0LNZ8MEqa66ChUfxMYwQkJI90J/D9WVqaNluuRDkS
+ HAiejaWIdJnXa0P60nSTAEQgHBumdSoAFWbUhj7UAHRzq6LKWp7o6PVgUqVoNRMWujRi
+ 804w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793483272; x=1794088072;
+ d=1e100.net; s=20260707; t=1793483291; x=1794088091;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=UqYmn+dWGZ+bizn6nanBskc0M3ILH51untQXz8qg9Lw=;
- b=iVAkhlGN+4iyAAbRYH2HU63ESU+ED0uHYOohr1eA38lcTrzlb+DIqBKYT64AMcVtyJ
- IjhmfbiCB9X/scN0rRjcSoadVZbtDTCH3CV0iZ3BMvBiZEUBgZKUAMXy8f7n8uFXOGnh
- OAYqfDp4iC1Mb2zJcasdphGcOeW8Ma64q7xCY/soWpnO3Sy4mIWjVKVpXs57xSFmwCE3
- XT1iYhu6qW80bJmIe9CbMpphAa28waFrSIbmhRq7a9CbbC84W4bAj+S0C6s6VbapMXEC
- tbKKgpKxdwakvYP8HdJ9ocR4pdWs8g4FP07FXjjtm9j7eEj1D8+tJ3iN9K1wXuSCR9xj
- aj2Q==
+ bh=4EItL5xvGpqO6UWOBBCZmsuFutwBGP9FjsFh6RXA9XA=;
+ b=y92oD02Q/A0BE7rR2myMaUkvkVmkZ5M+nZD9iKhTjPWsxPXJebBw2tR1HwrAP2PVaH
+ /INoimgNI0iPsymfPS0aKNIO4p/J2SJVQ++erAO/YPFnpj0DwhiMJB/wCz8se7grY8se
+ CdCx2p537dSEx6T22bF8NUi2fdvn8fSKDnB1sBSmgCSr3+JmAe5RyNWjVzKKIKwdmsv7
+ xeaJtt/DF4sQ4kqEprcGl3mi/d0BqRDOddUZqy1TwoeLnL6USLVhGc7CmN3yMcFBzLOf
+ aHsGZvlaqrxVuNmlfBJyy5WQ/UE9rV8OdjDxpdUb1pP13UoIcpNp+vofgM/bS/AdEAzU
+ YQKw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwWe96M8FOwcc2KTwpGRgFJ/Ddr1fRFZ0HbZd2IYuShbMUv5sE9ENGPnL8thnomoYBxYxLfUKjMJX8=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIhxbUAz4PRdB2E3gv2tZu5AF8iUGQvGoMq3DFHAy4qwSOlWC5y
- dCY/RNUnmNEi/Ew4QX2UDgkCRQQwnSktFmF7GBSoh0eQzFaQdDIQFN6zjA2G821iaWvR/KJrRUo
- DO2+XLKf2JYxj2rRC63lTmgz7TpM0gurPF7JQljsIuOOFLQ5MtvKejnxCmjwrL0QmRiaajZI=
-X-Gm-Gg: AYBFou2ObveKW/8PP13kkSzE1bykZlF3+7Rf3GwMoagTTys6BWSQWIqZUPRw3ve4cY+
- bD8pWADTjdrBtviUn2Kba7n0xlc8awUrcgO8DxmTj+UX8wkc5rpUEFYyW3fCUuZUOIm7SfwBWyW
- 6HcWGvpkaaJGz++1xGFSLK009srX/oqfB3dZ5v37IOFOtWHEZDeKSKzCI19VXp2yk7GB8tlAVFl
- YFh/AvL2HwD7+tGS03XUyahKUm8tYXbifb1FDuELVBGCHxs+ZwJsNI/SXChxGUpWdCRWCuCRBi0
- vbIFIcESONzXKQtCas9f5+o7Sd+Vy2dBfFIK7KgBCaS3lYmMl1aFzAAKAXVXWFo0SROglqW7ukh
- eKlOdTZFkqxKJLIcDFn5PxUwpw7JG0r5HOTT9xxTTpLI7v7dEGxcDcgkrJ0Rhv2CHHM0Vmc2a7L
- MQ7kCSN4Hko7E03A9L9n+ysStDU+negCKhi2EnOQgBfAwvqk8jRSfbUDl/vTevCA==
-X-Received: by 2002:a05:620a:28c7:b0:93b:d7a3:45cc with SMTP id
- af79cd13be357-9442178def2mr985862485a.53.1793483271662; 
- Sat, 31 Oct 2026 14:47:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:28c7:b0:93b:d7a3:45cc with SMTP id
- af79cd13be357-9442178def2mr985860485a.53.1793483271221; 
- Sat, 31 Oct 2026 14:47:51 -0700 (PDT)
+ AKwUvBz6P4C30e0bGQTIJR53lbUyhfRomOwOyK+RfPb8Cw4EYFM2D/jZQlxJ45Zc3QfNcw4Wr3qnsqT1/44=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYItwQS70bNZk5nr3YZhblLUyihTZ4LEQA1jRnt72jgjY51bfKFD
+ vAlrArYujGf6ytaQDnkmeCJbMpc9PWoAcI8QlsmqGlM35S8w7lSYkKsjVNvAPEk8hCsr+KMy/cH
+ 7d+Gd8u2DPw/5rqvrPKKS+9HD94/n2X2sBudNhaEKFNWJhqjYaon1wVrZ2z6s+8k4EEGDzO0=
+X-Gm-Gg: AYBFou2QuC9+x8/It0tnptbFpDQF5sZExTfOVgCZPrTxgND69HCP85LElHpHrV2RZKR
+ PzQFcItKJDCr1CPeMecy/U7FMrdItOjZRLa6+goinIC7sFInomI/6cvG7zshHJLUZQ45pZk8+Ao
+ 6F6V8f14s850tO1PVf8icY4biZSbwqn8x46FD/1W4qBBZN7fRyY9lT5x57NhOyT3v4PGuKvj7eH
+ dYaM1Qx1rZhIq5tNnik+0kko8bHXvD0P/ejHhD5DmLynPWDZhdhdj8bsDcbhh4dxI4RJgjOZl93
+ i1lKkHDzI4JttfG+erDymbuY4mypwGQJE+h3C43F9l0sjGcaWiClmHYSOxdOrLH9QSZjqqgOgWS
+ nlOm7QmNkqOvnn57TI8RBjZonASpgHt67fH/NKuPMTqx34rWFDEOnRJL1Bf6ooL7qPMlr31ZdZM
+ Cg+JZlGLopKjUnQ/2237krsYkq7vulKoOEnxByODIIdaZkfNckYTK090+EJ7t5Rg==
+X-Received: by 2002:a05:620a:29c1:b0:93f:228c:52fc with SMTP id
+ af79cd13be357-9442175b13emr960249785a.58.1793483290809; 
+ Sat, 31 Oct 2026 14:48:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:29c1:b0:93f:228c:52fc with SMTP id
+ af79cd13be357-9442175b13emr960246385a.58.1793483290275; 
+ Sat, 31 Oct 2026 14:48:10 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfe04edd72sm758554e87.1.2026.10.31.14.47.48
+ 2adb3069b0e04-5bfe073e5e6sm790440e87.57.2026.10.31.14.48.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 31 Oct 2026 14:47:48 -0700 (PDT)
-Date: Sat, 31 Oct 2026 23:47:47 +0200
+ Sat, 31 Oct 2026 14:48:09 -0700 (PDT)
+Date: Sat, 31 Oct 2026 23:48:07 +0200
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -100,40 +100,40 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Konrad Dybcio <konradybcio@kernel.org>,
  Taniya Das <taniya.das@oss.qualcomm.com>, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] drm/msm/mdss: reset all block resets described in
- DT
-Message-ID: <odog4t5j3y7j4tatqsiywfj27iufeazkzp3vtfvzce2knct25n@ephs3ngmt2i6>
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm8750: describe all MDSS block
+ resets
+Message-ID: <dkwloahmxcka2ykjdrf6nh6d6cde6zgd7fe5s763h7s6nv3eqe@pm32d33ghgbb>
 References: <20261029123238.29877-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261029123238.29877-3-xiaqinghuan@mail.ustc.edu.cn>
+ <20261029123238.29877-4-xiaqinghuan@mail.ustc.edu.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029123238.29877-3-xiaqinghuan@mail.ustc.edu.cn>
-X-Proofpoint-GUID: 7zBct1RW3n1Y2hnqQJRkMXihcza2JUuX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA4NiBTYWx0ZWRfX6UJZrehZFcLB
- ULnq3o1AcJEkLq5wkkkrYAYw+nhSjSkQRckK0e7zcrLNC8Isz2MM2m8PPGk1ZG/AbgHg0Db2lvY
- 2y4fot3run19+ExlfFW4OQlANelIU9WBNmG/Dtk+c5Lfb2grW7Bie6DKY3qgXn3r73lupOPEVHq
- ZL7wXzkqQvwd0cmf9IGFRs0bq9W5n9D4T8045Fq5rwyf5+xrxMw7tZVwW0kpLNukj8ziK1Orxe4
- uPkKcQ+OPsFe4TLgPKmlS9aVT7mOffWb04RKx6ESdxitMvrVzMCIciN1pQJeVSlgY1Pj7LPAE0D
- HNu+cw8yqgyezXsRzzBCa9b45+Yq1LsxkLTGlStBQMKbZNxEj1k1RxZ0DLdB8wNORfouiReo4Nw
- D+DC70UUwb2JgmPTAwk24Juqux/1bjyA0xF+sO7KjJvwCZlk1z642hjf16D7kMxXCY6LqP6CsJW
- 03lliazFwU6hOD4dW2w==
-X-Authority-Analysis: v=2.4 cv=HNBWhYtv c=1 sm=1 tr=0 ts=6ae66208 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20261029123238.29877-4-xiaqinghuan@mail.ustc.edu.cn>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA4NiBTYWx0ZWRfX6/iLIZs0auH0
+ Bv4S7xLb9X4jcbh+9obQKDD4sZTxm01Xdh7+2oySrwauYYCRmx+Z6BZWxBhbJajpkfg9NwPzqLV
+ t88UtZjSyFcm6Z+okYFaBt69YCjJ+33liMFtyD4MkQLAv0l8dQGJJsZIl7s6/fYklWkmKDbcvA5
+ knA0zqn6BhNODKdHIKS9o6tIXlEy2nfvovFEXHV6lRN6rGMbfhwFwiVHgvwjSQMKbs9KHtEXYXe
+ 0WfiJqdfklx1rI7DJiVpDnXjwSuIEgsiatcVZD8afN3ehZY+vzf1zcnEGEkDxWEHEbGrwjeo17J
+ 2Vm37fLHnCHiySU8n/Yy9qT4sjEjWxx6sqTU3NdGUeQvWhDHOEjw42xM8VcpEqGxpB2yioIWGeZ
+ XhdBxEDbI3gIOTZd43GsH2VXL7i1K1/Xz2pKzpVkza4uACsKLgm2KPzAvt1EejPTCjzLuUAf2Ti
+ HLcTQlOuxEcpVgVAm8g==
+X-Authority-Analysis: v=2.4 cv=FciiV5+6 c=1 sm=1 tr=0 ts=6ae6621b cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=XGdKMLjMlLx_IEht72YA:9
- a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA4NiBTYWx0ZWRfXz5XdV+yxy8aq
- nyhvdDTuJCM/K5erJw6veAvwkVcoBHDWJB+AzDf4Da9RO/bagOyqwRPSW/A7jKL96vuqWvhfstd
- GeSs++uxlo83/A9AUx7IYy+8JgKMi3w=
-X-Proofpoint-ORIG-GUID: 7zBct1RW3n1Y2hnqQJRkMXihcza2JUuX
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=b0wOoaS58wixzsa18XgA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: JfYCSKUWC5XwoPjqTfZTm15gvB43Nk2f
+X-Proofpoint-GUID: JfYCSKUWC5XwoPjqTfZTm15gvB43Nk2f
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA4NiBTYWx0ZWRfXyvNsHx0NBUsF
+ PUM+FnH+NGDVE9XAZxyNhY8rZfuD+ZcLB9uVBd9E67x5xwl1n4PDF24LccgRUaeOOq7fZrNVpi6
+ Eevngfc4qHB1e1UVselhDjkmkXQijWs=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-31_05,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- adultscore=0 suspectscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 priorityscore=1501 phishscore=0 adultscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310086
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -154,72 +154,49 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Oct 29, 2026 at 08:32:37PM +0800, Qianhui Xu wrote:
-> msm_mdss_reset() acquires only the first reset listed in the MDSS
-> device node.  Platforms can describe additional MDSS block resets: the
-> SM8750 display clock controller provides resets for the MDSS core INT2
-> interrupt controller and for the MDSS RSC, which can be left out of
-> reset together with the MDSS core when the bootloader hands over with
-> the display block still running.
+On Thu, Oct 29, 2026 at 08:32:38PM +0800, Qianhui Xu wrote:
+> The SM8750 display clock controller provides, beside the MDSS core
+> reset, block resets for the MDSS core INT2 interrupt controller and for
+> the MDSS RSC.  On devices whose bootloader hands over with the display
+> block still active (PLLs locked, MDSS core / INT2 / RSC out of reset),
+> the kernel so far reset only the MDSS core and left the INT2 and RSC
+> blocks in the state left behind by the bootloader; command-mode panel
+> initialisation then fails with command DMA timeouts and the display
+> comes up as backlight only, without a DRM device.
 > 
-> Switch to the reset control array API so that every reset listed in the
-> device node is asserted and released as one group.  Devices without a
-> reset in DT are unaffected, and for devices describing a single reset
-> the assert/deassert sequence is unchanged.
+> Describe all three block resets so that the MDSS reset returns the
+> whole display subsystem to a known state before any display hardware is
+> programmed.
 > 
-> The resets are driven from the display driver rather than from the
-> display clock controller: the clock controller supplies the MDSS clocks
-> and power domain, so it probes first and has already programmed its
-> PLLs when MDSS probes.  The block resets do not touch the PLL registers
-> and no display pipeline is running yet, so the PLL configuration
-> survives the reset.
+> The reset runs after the display clock controller has programmed its
+> PLLs (the clock controller supplies the MDSS clocks and power domain,
+> so it always probes first).  The block resets do not touch the PLL
+> registers and no display pipeline is active at this point, so the PLL
+> configuration survives the reset and nothing visible can glitch.
 > 
 > Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 > ---
->  drivers/gpu/drm/msm/msm_mdss.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
+>  arch/arm64/boot/dts/qcom/sm8750.dtsi | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index 9087c4b290..59343987bc 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -306,11 +306,22 @@ static void msm_mdss_destroy(struct msm_mdss *msm_mdss)
->  	irq_set_chained_handler_and_data(irq, NULL, NULL);
->  }
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> index dd738d13df..950c528bc4 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> @@ -3071,7 +3071,9 @@ mdss: display-subsystem@ae00000 {
+>  				 <&gcc GCC_DISP_HF_AXI_CLK>,
+>  				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
 >  
-> +/*
-> + * The MDSS block resets are driven from the display driver, not from the
-> + * display clock controller: the clock controller supplies the MDSS clocks
-> + * and power domain, so it probes first and has already programmed its PLLs
-> + * when MDSS probes.  The block resets do not touch the PLL registers and no
-> + * display pipeline is running yet, so the PLL configuration survives the
-> + * reset and nothing visible can glitch.  Bootloaders that hand over with
-> + * the display block still running (PLLs locked, blocks out of reset) are
-> + * returned to a known-zero state before any display hardware is programmed.
-> + */
+> -			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
+> +			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>,
+> +				 <&dispcc DISP_CC_MDSS_CORE_INT2_BCR>,
+> +				 <&dispcc DISP_CC_MDSS_RSCC_BCR>;
 
-The comment should go away. AI agents like to insert lengthy comments.
-they are useless.
+Please drop the RSCC reset
 
->  static int msm_mdss_reset(struct device *dev)
->  {
->  	struct reset_control *reset;
 >  
-> -	reset = reset_control_get_optional_exclusive(dev, NULL);
-> +	reset = devm_reset_control_array_get(dev,
-> +					     RESET_CONTROL_OPTIONAL_EXCLUSIVE);
->  	if (!reset) {
->  		/* Optional reset not specified */
->  		return 0;
-> @@ -327,8 +338,6 @@ static int msm_mdss_reset(struct device *dev)
->  	msleep(20);
->  	reset_control_deassert(reset);
->  
-> -	reset_control_put(reset);
-> -
->  	return 0;
->  }
->  
+>  			interconnects = <&mmss_noc MASTER_MDP QCOM_ICC_TAG_ALWAYS
+>  					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
 > -- 
 > 2.53.0
 > 
