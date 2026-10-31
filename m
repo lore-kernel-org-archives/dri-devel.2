@@ -2,95 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D097D606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 22:59:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287C7606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 23:18:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=S8nWJ7XG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8b3M8Az
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3396C10E02E;
-	Sat, 31 Oct 2026 22:59:25 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D300A10E02E
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 22:59:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1793487558;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=v8ieTUMljOJ7qpikwY+C9+nNipul/W3dfq2M+DvQXoA=;
- b=S8nWJ7XG0pCeHHQEki7U7NGPJ4iAo57v6IfSn8MdWnvuFRHF1xw8vlwljpkrbh4m3Mc4+G
- Xeafm71w8wGlrkSjfwkhEv1PzS57k5N0v1+EOuUI0Ftf7mzk/G1BxcG7lU8hE8iu2sTS42
- vZgijILnym2huN6GrbZT+9AML8opqvo=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-587-lbYATbXoOkqJPxGKZsGfHg-1; Sat, 31 Oct 2026 18:59:16 -0400
-X-MC-Unique: lbYATbXoOkqJPxGKZsGfHg-1
-X-Mimecast-MFC-AGG-ID: lbYATbXoOkqJPxGKZsGfHg_1793487555
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4a4654add56so15103485e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 15:59:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793487555; x=1794092355;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=v8ieTUMljOJ7qpikwY+C9+nNipul/W3dfq2M+DvQXoA=;
- b=u756xNPKwCNDjq0Bky0z2xZdn91oed+00GK4doTIeusM76WFbeFVhXl2iZH/qs+lDK
- 5Sx6DPpqYq3rfcaSF8O6hpvLWEpgIjxQj1aNpjgUQdSl0C+r5kf+9nl7GBPdbjH5xWOH
- DF4syTEtDUec/jjc2/6fAoxwWqfkvDFDZHbX2g0RYUr0/8Bo9RY3+nHDv+Qf2Pnmwj6k
- P0ObLCoHR1IZV7+X/aDb5a4OeekfAs5Yo7pIgoR7a4jMub05YBc9nttjs3+/t3nLivw8
- 0zTkvGhed+Tt4HiTu/8HEFV/712yuUyHwGAqKL26aEyRu9ENkNRR8jOCelsY5t+fKSvz
- OMEw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxFGEts/+WlzbjASW5RXQJpvVns0MrPWafvvZkxmzLn7AHNkeU5YuqRZsmU6l2mZ0sIzxvgytKG1iU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJdH2pemD39aPoljMa+Jr7s93gV6bZQ578z6+SBKjv002wYyJn3
- ge1AX0ubq0oH/Mf9oblvd68DuGlIYiifxLsHBdnpOI0Utit4IFDcAnTIsYUfCk4T/i/CECO2rL6
- bztisViQJmpk7VEe+H+G/+MRvZTDDAezlRz1/xbZlXl5vwMgb7XSjS/zGDDaeI63DXDwAKw==
-X-Gm-Gg: AYBFou2d31LDMI2tN8hnbngrbUqTB9AVA5xOqRnuK8fv2fvupypuFIs74ziFnVpQn2E
- Jdgt+Tjz8dT4gruoyNZYlUGDQg+JH6c/PpPbSsi5RgfLsWDSsRZCJ3IyrKvz8aNWXQ4nWmNGqZr
- uMFYcBdbg+JEzaC69zP/RoxASV74bsLwqx9WvD4r9wsZ05RMI9XFh4XViEJ3vH9Rl/ZaoWjYHHf
- KlaIm/Cfi5h7L+arU50F3wM/VTOCafNPOEyoTpzhu49qT0ELDBmlVgiSj1dA2Fc5MbTO5zlaXdG
- oohM2/mDXbmjOSrHBgesgdBSHMY2u45475E/6IgKLcdo3LeUpe+NURqvxquVKJgVzFflaM/BpCh
- MyQaVVvmPPuWorruYuTuX+mhLc2tRlvE7qD5NiIDj3iKXVcGMztciHD7YlanNBW0Eaf2gHiNHye
- ERMG6ZdVxGpH8Jg/ZBlybi1VfNTGjb8gmjoTZtAcCDy/MQI63IvA==
-X-Received: by 2002:a05:600c:3b8f:b0:4a6:42cc:bf66 with SMTP id
- 5b1f17b1804b1-4ac16acfdd5mr143439715e9.11.1793487555507; 
- Sat, 31 Oct 2026 15:59:15 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b8f:b0:4a6:42cc:bf66 with SMTP id
- 5b1f17b1804b1-4ac16acfdd5mr143439425e9.11.1793487555156; 
- Sat, 31 Oct 2026 15:59:15 -0700 (PDT)
-Received: from toolbx.fritz.box
- (p200300c1df20b900aff65c27eee3dd92.dip0.t-ipconnect.de.
- [2003:c1:df20:b900:aff6:5c27:eee3:dd92])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4abf6e63e0esm204535345e9.12.2026.10.31.15.59.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 31 Oct 2026 15:59:14 -0700 (PDT)
-From: Sebastian Wick <sebastian.wick@redhat.com>
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Melissa Wen <melissa.srw@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Sebastian Wick <sebastian.wick@redhat.com>
-Subject: [PATCH 2/2] drm/vkms: Use drm_dev_unplug() for ConfigFS device removal
-Date: Sat, 31 Oct 2026 23:58:59 +0100
-Message-ID: <20261031225901.3200167-2-sebastian.wick@redhat.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261031225901.3200167-1-sebastian.wick@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC6910E09A;
+	Sat, 31 Oct 2026 23:18:49 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20CE910E09A
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 23:18:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CAADC42AED;
+ Sat, 31 Oct 2026 23:18:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1D91F000C1;
+ Sat, 31 Oct 2026 23:18:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793488722;
+ bh=VZ6McD+kEVWLGGaG8Se7D2c8sljMtFQpOMHcBFYO0nY=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=I8b3M8Azmz6wzkUshoi47VsGyxdU8stTHlOeWMyvYi+OPFMkNsZF5NlSvDOx68qmC
+ pSqEUKsFcnVsTv0cqEP60eOAh4rq09rU39Onk/LVshNkuFhbOZQMFwOsYNbSmffVuN
+ X5WLVDSeKQU1YsNfHF4zsPwD0WuN8sJ9Y43T4tGWn+W8ox6j44xtr9/v18Dm3yc01J
+ K58oRuGckk68oufYvaTt8IuGYnCDViK69KnkKenLTaPNNN3vYGNt+b+VYQS/uPH+hw
+ l22Kyu5zTZBFOhRpjynAWtF9PjHNl6EKzQqCbT3ShCig37bT3jjrdf+AMVuv2zkgRh
+ Z9+PeYpJyxbSw==
+Message-ID: <sashiko-outbox-192219@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/vkms: Use drm_dev_unplug() for ConfigFS device
+ removal
+To: "Sebastian Wick" <sebastian.wick@redhat.com>,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261031225901.3200167-2-sebastian.wick@redhat.com>
 References: <20261031225901.3200167-1-sebastian.wick@redhat.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 5GJlOeeQ6NBJNfeazsNAX9YEWIQO3FWLjipFELeCgjk_1793487555
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+ <20261031225901.3200167-2-sebastian.wick@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 31 Oct 2026 23:18:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,46 +49,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-VKMS ConfigFS devices can be disabled while userspace still holds open
-file descriptors. Using drm_dev_unregister() leaves the device in a
-state where ioctls are still accepted but internal locks can contend
-with the teardown path. Specifically, drmModeGetConnector() triggers
-fill_modes which acquires mode_config locks that contend with
-drm_atomic_helper_shutdown().
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/vkms: broken CRC debugfs unplug handling in vkms_destroy()
+--
 
-Use drm_dev_unplug() instead, which marks the device as unplugged so
-the ioctl layer rejects subsequent calls with -ENODEV. The previous
-commit added drm_dev_enter()/drm_dev_exit() guards to vkms callbacks,
-so synchronize_srcu() in drm_dev_unplug() properly waits for any
-in-flight operations before the teardown proceeds.
+commit 58c6203197ea5aa86a82e01783503c18d44dd2a1
+Author: Sebastian Wick <sebastian.wick@redhat.com>
 
-Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
----
- drivers/gpu/drm/vkms/vkms_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+drm/vkms: Use drm_dev_unplug() for ConfigFS device removal
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index 5a640b531d88..716f9c966c21 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.c
-+++ b/drivers/gpu/drm/vkms/vkms_drv.c
-@@ -259,7 +259,7 @@ void vkms_destroy(struct vkms_config *config)
- 
- 	fdev = config->dev->faux_dev;
- 
--	drm_dev_unregister(&config->dev->drm);
-+	drm_dev_unplug(&config->dev->drm);
- 	drm_atomic_helper_shutdown(&config->dev->drm);
- 	devres_release_group(&fdev->dev, NULL);
- 	faux_device_destroy(fdev);
--- 
-2.56.0
+This commit switches vkms_destroy() from drm_dev_unregister() to
+drm_dev_unplug() so that ioctls on open file descriptors are rejected with
+-ENODEV and in-flight operations guarded by drm_dev_enter()/drm_dev_exit()
+complete before ConfigFS device removal proceeds.
 
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_=
+drv.c
+> index 5a640b531d88f..716f9c966c211 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+> @@ -259,7 +259,7 @@ void vkms_destroy(struct vkms_config *config)
+> =20
+>  	fdev =3D config->dev->faux_dev;
+> =20
+> -	drm_dev_unregister(&config->dev->drm);
+> +	drm_dev_unplug(&config->dev->drm);
+>  	drm_atomic_helper_shutdown(&config->dev->drm);
+>  	devres_release_group(&fdev->dev, NULL);
+
+[Severity: High]
+How does this interact with an open CRTC CRC debugfs file descriptor
+(/sys/kernel/debug/dri/<N>/crtc-<M>/crc/data) when the VKMS device is
+disabled via ConfigFS?
+
+In drivers/gpu/drm/vkms/vkms_composer.c, vkms_set_crc_source() guards the
+callback with drm_dev_enter():
+
+drivers/gpu/drm/vkms/vkms_composer.c:vkms_set_crc_source() {
+	...
+	if (!drm_dev_enter(crtc->dev, &idx))
+		return -ENODEV;
+
+	ret =3D vkms_crc_parse_source(src_name, &enabled);
+
+	vkms_set_composer(out, enabled);
+
+	drm_dev_exit(idx);
+	return ret;
+}
+
+When the crc/data file descriptor is closed, full_proxy_release() invokes
+crtc_crc_release() in drivers/gpu/drm/drm_debugfs_crc.c, which calls
+crtc->funcs->set_crc_source(crtc, NULL).
+
+Two issues seem possible here:
+
+1. Unlike /dev/dri/card<N> file descriptors, opening crc/data via
+crtc_crc_open() does not acquire a drm_dev_get() reference on crtc->dev,
+and debugfs_remove_recursive() during drm_dev_unregister() does not wait
+for open file descriptors to close.
+
+In vkms_destroy(), drm_dev_unplug() runs synchronize_srcu() before
+devres_release_group(&fdev->dev, NULL) drops the devm reference via
+devm_drm_dev_init_release() -> drm_dev_put(). If no /dev/dri/card<N> fd is
+open (or after it is closed first, such as during process exit when card<N>
+has a lower fd number than crc/data), drm_dev_release() frees struct
+vkms_output (embedding struct drm_crtc) and struct vkms_device (embedding
+struct drm_device). When the crc/data fd is subsequently closed, wouldn't
+crtc_crc_release() and drm_dev_enter(crtc->dev, &idx) in
+vkms_set_crc_source() dereference the freed struct drm_crtc and
+crtc->dev?
+
+2. Conversely, if struct drm_device is still kept alive by an open
+/dev/dri/card<N> fd when crc/data is closed after drm_dev_unplug() sets
+dev->unplugged =3D true, drm_dev_enter(crtc->dev, &idx) in
+vkms_set_crc_source(crtc, NULL) will return false and exit early with
+-ENODEV. Doesn't that skip vkms_set_composer(out, false), leaving
+out->composer_enabled set to true and leaking the vblank reference from
+drm_crtc_vblank_put(&out->crtc)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031225901.3200=
+167-1-sebastian.wick@redhat.com?part=3D2
