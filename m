@@ -2,111 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA737606A31A
-	for <dri-devel@archiver.kernel.org>; Fri, 30 Oct 2026 23:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AB8606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 00:05:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=E6+/+P4b
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hr/cVHWZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2876E10E284;
-	Fri, 30 Oct 2026 23:37:27 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F393810E284
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 23:37:20 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-c423b145922so162916366b.3
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 16:37:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1793403439; x=1794008239;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=F6RKSKoXJzKlNaMzDigqrXvD7n1HyX5zOJi75UDgxuY=;
- b=E6+/+P4bv8MIlw5+yvAiNZ4xCQBcuMZnEtDZ5aTytIJ0jzzj2FCs6vK1xttsNReKUj
- WFIxshnEe1Kh3Sc1hmjibc3+kNMU3RPzRJh6M+iWe41eDeGXkQFVs40zYzyfF9Z64vYD
- pbAz/ZY5aL3WtBk1vHDsG1Xmnf9kPDeD6vUcE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793403439; x=1794008239;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=F6RKSKoXJzKlNaMzDigqrXvD7n1HyX5zOJi75UDgxuY=;
- b=RURkhKUpt7FrE8YAG3CTE+Jh2Ko1lhW0X1L34fwWt1lb/TrYJ29XsqdxxXkd5czx4R
- p1ht6H0khBCLHhjgye3jK5C0fqYE2uVpe62a8AOchB015KH6xf72AiCBEAL1i4UXjWYo
- DPOVkWjsbJOBDxEskTmCgCBCuaJKF4REj09flyI6SGqFV5j3i9V4mzW/vaPa6BmkNtVb
- 5NV11Umj+IdNEJhN6wxSEqBnl//qTIGybI7awmR+COwhKbm/VIfap7LZzVRDKllA+ymg
- egoc5dApWYHFOT6jh1n5SksNr7T7I9xRbMi7uhZWRC7xgjYmCSP82J+w/N3hk5icOg08
- uH2w==
-X-Forwarded-Encrypted: i=1;
- AKwUvBydyR8HufEIWoS1LZmEv25uFm7fKjZq2b8KjeF2RNk5zHiqivWZ4+m0LmlbS3JTFumDrpuaUQmTaLc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLPH2s1pJ3iZea1Tqf/v+0InufiWILrGIg/au3HfQ/ZmiW6uTxx
- AuGaPX5IMgeAKKpnA4gtlpDeuHUH0AANto9xaXwTnUV4OgWzZg1331Q9pt+gd3ukSXK6RAzvzJS
- K2F6a6A==
-X-Gm-Gg: AYBFou0kxHEg512narP5Cz8wRQl7GzV7xQTRnO7GDmpo0gp7RVFzRN/rWe3RbQB7X10
- G+yc/bJ8j/3x3GoFFJMqYUAKm6j2U6XvLm/06TvYwJKJOY/wu+cNCFAnM0HXUPC53ZUAahWzeGR
- FIi2VNXmEuLB8AT/7zKGCIYdN67/OE6tGM/z/+erEr50UQX5vlxdy2ncIivWNAB3eKyfWULPjQ7
- OHeH9LdOlUS2BuG8XuwYADgpUhs7UyzOQVnrjyrXyoW7UZSJh3YF9fQ7mDg9bJJC85qDPUgJ17b
- HeiiPJBm2PmgOVrvds85oev3LboGrJiysN6n1iWeLpRX+ozIj4I3DWlLsXiIafG7AiTQ6aat10O
- 8yQ2yQJbghzTuMZWZZupt7g0rlHTS42qDkwcYC5AZooDz6dMhGzqed3sjtCZ8QV9Q9ajgQhopF7
- N8dF4xZ67pA3U5/EXDGY0tGAeXNCgOoit1kXq9uqxmD0eVJFRhy2b8W5okKxSbUzIxk0X5GC2Za
- 5SPeyOTs8X9RzFAsW91YTP7EAvAoY8g0HXaO4P8ah08lEF5i6J0XEdp//Tyh0Nc7xrq2CvsQxF/
- kkcNx6R090vs68NNgDQdCwvwQaZtdtzsX70h1Z/+XVrh3MNQaXHkmcnHJ4X25GDCAUpS
-X-Received: by 2002:a17:906:99ca:b0:c31:c767:adfb with SMTP id
- a640c23a62f3a-c4ca7432ef7mr332433666b.0.1793403439282; 
- Fri, 30 Oct 2026 16:37:19 -0700 (PDT)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com.
- [209.85.221.51]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4cabc18e78sm122479866b.9.2026.10.30.16.37.17
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 30 Oct 2026 16:37:18 -0700 (PDT)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-48c4649b35bso1212857f8f.3
- for <dri-devel@lists.freedesktop.org>; Fri, 30 Oct 2026 16:37:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwOU+Gy1GybYPmRdvc/yt/Splue1dBPBNIuRQtPOYAMCMwt0HLvUE4Wc4mxh/umNQSst3H4dSrzNxw=@lists.freedesktop.org
-X-Received: by 2002:a05:6000:47d4:b0:48e:60bf:4177 with SMTP id
- ffacd0b85a97d-48e6e3024f2mr6586994f8f.9.1793403436187; Fri, 30 Oct 2026
- 16:37:16 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1CE10E3E2;
+	Sat, 31 Oct 2026 00:05:12 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B907110E3E2
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 00:05:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793405100; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=bZnuB2JRIAo5BQbq0eqVFPpyTHolRV6/OKsdm6eLSklINLhpeygWJ2q8RytLnTllVesDo4eYdbNcLLZ8Shu6ArppdRZhqfVYkOe89TNDG8OkvjEstUGdSG3A/MnQC4gblemQSwO9pEveQWCPVElYqIShEgdSLG2l9yr+hLSi7/Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1793405100;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=f9yLN0RkK2Stc/zltKXQAqZKvxbRR8oE2ZWmMs+DjYY=; 
+ b=UV6+97th1ByaATcIIiz8w3uuQ649atGFFaH19Othp5jTvHQeoUxSGZKORBUWJTHKAm5VeOCa3z3z5wRgISMDBMVprkvhQK605ZiJnCCdTb/IEEyggR1Hu0riXlZSXInz4zZ5XA6zyIgSfvwIS2e9lJZJAk29d59ct6N6OJXEL/0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=hr/cVHWZ3xZpO9zKcwmtmOY1N5jRHw8tunxASI99mON3or5AjFWCRzzQoktxiMN2d9GhzB4BggAqsFTCfnJCtTYPDK5ft/ZflZMtmj1bKJVcoMrCVhuv8HVJ7IIGj532XDY6iXMuXRszWn1E93s0jkjRejGkCsAry+hq1O2x1wE=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=f9yLN0RkK2Stc/zltKXQAqZKvxbRR8oE2ZWmMs+DjYY=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793405097674331.3192838468908;
+ Fri, 30 Oct 2026 17:04:57 -0700 (PDT)
+Date: Fri, 30 Oct 2026 17:04:56 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Ke Sun <sunke@kylinos.cn>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ driver-core@lists.linux.dev, Alvin Sun <alvin.sun@linux.dev>
+Subject: Re: [PATCH v5 09/11] rust: device: expose the device DMA attribute
+Message-ID: <auUwqGMOw_OtrWn3@um790>
+References: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
+ <20261027-tyr-ioctls-v5-9-59dfe98cb003@kylinos.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
- <20261027-drm-misc-next-manta-auxbus-v1-3-3a45c3cf531d@a-marquet.fr>
- <CAD=FV=XmfYM8diBOh3UidN7xEuB3n+n9oAm_zhopfFLERC2QpQ@mail.gmail.com>
- <auOyxKTuSNysAA3X@laptop-218>
- <CAD=FV=VV82NG1CAL9DtLeDYQdjC9Su6nYfLYbjzmhzEY9a0JSg@mail.gmail.com>
- <auUTV87eElVyIeTw@laptop-218>
-In-Reply-To: <auUTV87eElVyIeTw@laptop-218>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 30 Oct 2026 16:37:04 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=X24gZgixqSb4SoD2wYt93Z9tDO5dyaeg=jdH4wUwk81Q@mail.gmail.com>
-X-Gm-Features: AclHuK-J1ggLxz07KiiLvF7KuKegFXEk98IgNkkyMHaorZ-92pfQb4x0ipGnZnQ
-Message-ID: <CAD=FV=X24gZgixqSb4SoD2wYt93Z9tDO5dyaeg=jdH4wUwk81Q@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/panel_edp: Add SEC LTL101DL02-002 panel
-To: Alexandre Marquet <tb@a-marquet.fr>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Lukas Timmermann <linux@timmermann.space>, Henrik Grimler <henrik@grimler.se>, 
- Hendrik Noack <hendrik-noack@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-tyr-ioctls-v5-9-59dfe98cb003@kylinos.cn>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.393.56
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,43 +74,86 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On Tue, Oct 27, 2026 at 12:41:02AM +0800, Ke Sun wrote:
+> From: Sami Tolvanen <samitolvanen@google.com>
+> 
+> A driver may need to know whether its device is DMA-coherent, but
+> rust/kernel exposes no accessor for the attribute today.
+> 
+> Add a transparent DmaAttr wrapper around device_get_dma_attr(), so all
+> three attribute values (unset, non-coherent, coherent) are covered, and
+> an is_coherent() accessor for the boolean case.
+> 
+> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+> [ Replace dma_coherent() with a DmaAttr wrapper covering all three
+>   attribute values. - Alvin ]
+> Co-developed-by: Alvin Sun <alvin.sun@linux.dev>
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
+>  rust/kernel/device.rs | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
+> index 2291d85b6849e..d5bbebdf620df 100644
+> --- a/rust/kernel/device.rs
+> +++ b/rust/kernel/device.rs
+> @@ -260,6 +260,30 @@ pub unsafe fn drvdata_borrow<T>(&self) -> Pin<&T> {
+>      }
+>  }
+>  
+> +/// The DMA attribute of a device, as reported by firmware. A transparent
+> +/// wrapper around the kernel's `enum dev_dma_attr`, covering all its states.
+> +#[repr(transparent)]
+> +pub struct DmaAttr(bindings::dev_dma_attr);
+> +
+> +impl DmaAttr {
+> +    /// This wraps `device_get_dma_attr()` and only returns `true` for the
+> +    /// `DEV_DMA_COHERENT` attribute; no attribute or `DEV_DMA_NON_COHERENT` is non-coherent.
+> +    #[inline]
+> +    pub fn is_coherent(&self) -> bool {
+> +        self.0 == bindings::dev_dma_attr_DEV_DMA_COHERENT
+> +    }
 
-On Fri, Oct 30, 2026 at 3:00=E2=80=AFPM Alexandre Marquet <tb@a-marquet.fr>=
- wrote:
->
-> > /**
-> >  * @enable: Time for the panel to display a valid frame.
-> >  *
-> >  * The time (in milliseconds) that it takes for the panel to
-> >  * display the first valid frame after starting to receive
-> >  * video data.
-> >  *
-> >  * This is (T6-min + max(T7-max, T8-min)) on eDP timing diagrams or
-> >  * the delay after link training finishes until we can turn the
-> >  * backlight on and see valid data.
-> >  */
-> >
-> > That sounds like exactly what you're looking for, no?
->
-> Indeed. Also having the 97ms value from the downstream code in .enable
-> removes the guessing associated with the 50ms in my initial proposal. So
-> I will implement this in v2.
->
-> Any preference as to where I should put the new delay_200_500_e97
-> panel_delay struct? I was thinking after delay_200_500_e80_d50, but
-> I noticed that the delays are not strictly in alphabetical order.
+I think Danilo was suggesting in the last version that all three enum
+variants be exposed to the caller. You could remove this is_coherent() helper
+and just provide something like this:
 
-Yeah, it's a bit of a mess. Probably they need to be fully sorted as
-you said, and I probably should have been enforcing that all this
-time. If you wanted to send a patch sorting them, I wouldn't object.
-;-) Otherwise then after "delay_200_500_e80_d50" sounds fine.
+     /// The device has no reported DMA attributes.
+     pub const NOT_SUPPORTED: Self = Self(bindings::dev_dma_attr_DEV_DMA_NOT_SUPPORTED);
+     /// The device is not DMA-coherent.
+     pub const NON_COHERENT: Self = Self(bindings::dev_dma_attr_DEV_DMA_NON_COHERENT);
+     /// The device is DMA-coherent.
+     pub const COHERENT: Self = Self(bindings::dev_dma_attr_DEV_DMA_COHERENT);
 
--Doug
+Then as long as you annotate struct DmaAttr with:
+#[derive(Clone, Copy, PartialEq, Eq)]
+
+Tyr can later do its own check like this:
+  let coherent = pdev.as_ref().dma_attr() == DmaAttr::COHERENT;
+
+> +}
+> +
+> +impl Device<Bound> {
+> +    /// Returns the DMA attribute of the device as reported by firmware.
+> +    #[inline]
+> +    pub fn dma_attr(&self) -> DmaAttr {
+> +        // SAFETY: By the type invariants, `self.as_raw()` is a valid pointer
+> +        // to a `struct device`.
+> +        unsafe { DmaAttr(bindings::device_get_dma_attr(self.as_raw())) }
+> +    }
+> +}
+> +
+>  impl<Ctx: DeviceContext> Device<Ctx> {
+>      /// Obtain the raw `struct device *`.
+>      pub(crate) fn as_raw(&self) -> *mut bindings::device {
+> 
+> -- 
+> 2.43.0
+> 
