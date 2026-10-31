@@ -2,68 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8D4606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 00:16:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC4F606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 00:18:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=LO5mJsp+
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvMiP58y
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADF8C10E8B8;
-	Sat, 31 Oct 2026 00:15:58 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D215010E8B8
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 00:15:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793405749; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=OG94AhpESkMCaKYKApMITPv0mc+z29Q7soZINHdzWPtxNFzB0gIUB26NlJ/4s7cO7kPddXbU6rHd4LJIsZsnflsJT9bsC9ge0tHUuXJAT8NwA3RabHm0xWW/XCZ1Wt9GJiTTTOCJtW50T8gQgI3EfO+yRzOVjqwv5Y2a43UlQtY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793405749;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=rNjZ9tf7N10fOAmsA9m52bIXH4xKGoh9+SSsg6SLTOg=; 
- b=lUvkV7JpCBUIhebUe65j0sGsCfScf0C74YaGyvhEevN5CTBQUF8XSpPTfX0goS+efh5akR8UnynkvaNn923tU3JLmbXM/dpdAuOgSaMLMMbKL1Ru+kHWGmvG3gqYhKnQqvbGElfu6pJwqOChUWYwr88502IOVDMYMDhuHvc265Q=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=LO5mJsp+IDRAGJ5NXaBEKDsqc23xJcGDx11Ubg3FkdiwcQ2EURJSA6Fw6ccS+K4nZNkNHCubwxczk5XIOtxfZJEtma5E78CoBFHFmIPVvTKT0jxa/pRhfw9QmuXPzexSTR1/zXHFXieDFgB2jka6026w+FI+c7120y8/KnlaVXc=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=rNjZ9tf7N10fOAmsA9m52bIXH4xKGoh9+SSsg6SLTOg=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793405747009311.31566614666747; 
- Fri, 30 Oct 2026 17:15:47 -0700 (PDT)
-Date: Fri, 30 Oct 2026 17:15:46 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Ke Sun <sunke@kylinos.cn>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Lyude Paul <lyude@redhat.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>,
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- driver-core@lists.linux.dev, Alvin Sun <alvin.sun@linux.dev>
-Subject: Re: [PATCH v5 10/11] drm/tyr: gem: flush write-combine BOs from
- probe-time coherence
-Message-ID: <auUzMntd2C1rMef4@um790>
-References: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
- <20261027-tyr-ioctls-v5-10-59dfe98cb003@kylinos.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D2E410E8EC;
+	Sat, 31 Oct 2026 00:18:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C313110E8EC;
+ Sat, 31 Oct 2026 00:18:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 803EC432C2;
+ Sat, 31 Oct 2026 00:18:21 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1793405901;
+ b=Pzj3IxdxlU060vQPRPSUtCTWUlMt+wCgNU6aILtPLie63S4Uf5IqNKBF8i5TWWf2oDZ0
+ 23gvLn0JDua5veYm59xgVlQzbilDkbRiOvgvA36WLeK0i5Gy4799sCMj8zhdVuPfqx451
+ oABDwLqy2gE6KjcIspKrGVE4Q9mHF7XpJaFWw4eGr25iuvofOFa+gfaKOE0wy7i3LQ6NB
+ L1jdbX27Zr3HETgbrxSo5Tfg2AnP5dzTIf1hBhh78EZgvyBPa/GB1RqKIlryLQhXOeNPA
+ xSZZOqrKpgUFBIr5f55/zvzKmkRznEP3l2IBmhTYi9SevmBaf9SXqMQQNXlx9OsqpQA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1793405901;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=XrDZJYzfmXy6QbPaW5bhYgz6aTaX1wRabLVKvmZ7fFg=;
+ b=dNnTU8zG0QydPj3zzF8e1K4Vf+Wj1pHoXy/1o9FDYQjTnw5O6rJGq/3mBN0V1q51j5O2
+ CXdKKl+jlw+S8jO16AhR2m5W9Bz99kmXG+AWRz0rGOW2jIbCjY0bjWIHIlXiLJ4BMsZcd
+ kYeGUxNh9ABNo1bQ0126jKjOfgp0zJ5Hd7qzLjHriSblqRdQlubJlhm4jI/I6POcc5uMb
+ H3by2f7tWMyThel3PaPodYLprK9f4idv7jVXOd9L/gLy7saTatOx+h2Zp2GvolhQ4NPtB
+ ggQIin5taVLjojYrtVCOGyByAo+XSa1DHTFjw0DZlhjUyuH+oMTI3W0Yqv2pN3QHofg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id AC3341F000C1;
+ Sat, 31 Oct 2026 00:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793405901;
+ bh=XrDZJYzfmXy6QbPaW5bhYgz6aTaX1wRabLVKvmZ7fFg=;
+ h=From:Date:Subject:To:Cc:Reply-To;
+ b=CvMiP58y8SbQAhU86hKVa8KgdResZ39VBXxYoUTcXbjd0HK1KnOgcrieSTLIBVIsQ
+ bfqKA24hlB+ih3OgazVsnJj3FNkYq2L9DQjMl/Etv3voUd79/F3aA+q6i1a8fuisz8
+ 0/MxaQLVy0iVtFhnH1DokgFdVOrNQ50ShgNQk34NXQkUu6iq3WaUJyalwS0Pk2/4fL
+ W8vb076JIgssdbWAEdN+RSL9by+xSyMj47InSbtSNafxQAHl4DY+1gd/4868WzAYuC
+ G+tLo/AkYPcJ4YMGaBooVP8xhc2zGaFOSHYW5Uz+gq9rlF8h32I5LSFwUnL23z23YJ
+ skxcx1wt2nnIg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 28058442DD;
+ Sat, 31 Oct 2026 00:18:20 +0000 (UTC)
+From: =?utf-8?q?Diego_Nogu=C3=AAs_via_B4_Relay?=
+ <devnull+diego.sure.gmail.com@kernel.org>
+Date: Sat, 31 Oct 2026 01:18:18 +0100
+Subject: [PATCH RFC] drm/dp_tunnel: Allow BWA when the DP IN adapter does
+ not advertise it
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-tyr-ioctls-v5-10-59dfe98cb003@kylinos.cn>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.393.56
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261031-dp-tunnel-bwa-flag-v1-1-f94ed3179349@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA2ND3ZQC3ZLSvLzUHN2k8kTdtJzEdF0jM3ODJJMUE2NjC0MloMaCotS
+ 0zAqwodFKQW7OSrEQweLSpKzU5BKQcUq1tQCFoZ1/ewAAAA==
+X-Change-ID: 20261031-dp-tunnel-bwa-flag-2670b4d43381
+To: Imre Deak <imre.deak@intel.com>, dri-devel@lists.freedesktop.org, 
+ Uma Shankar <uma.shankar@intel.com>, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Mika Westerberg <westeri@kernel.org>, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Diego_Nogu=C3=AAs?= <diego.sure@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793405899; l=6834;
+ i=diego.sure@gmail.com; s=b4-20261031; h=from:subject:message-id;
+ bh=mivr+SD0evGwt3zL4mnf5pZMx3+T3P91Jk3Y8+rPi2I=;
+ b=TFlG30J/phmGFERmnvySjH3MkQNzNZWjt2ZwkbnYQX22jKOlNextfnyQ3fgsyqyGd6PScReG7
+ vV1ayZvGw4xAHQGe/8mXouN1F4dDhKQ/zx6ASxcNE7yp+sGGSz1ssFO
+X-Developer-Key: i=diego.sure@gmail.com; a=ed25519;
+ pk=WA/ONeOf+US6DvvErKh2UIwm8jr+CuW7fzfTaCoLGvM=
+X-Endpoint-Received: by B4 Relay for diego.sure@gmail.com/b4-20261031 with
+ auth_id=1368
+X-Original-From: =?utf-8?q?Diego_Nogu=C3=AAs?= <diego.sure@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,285 +101,158 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: diego.sure@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Oct 27, 2026 at 12:41:03AM +0800, Ke Sun wrote:
-> From: Sami Tolvanen <samitolvanen@google.com>
-> 
-> Tyr maps shmem-backed buffers write-combine, but the shmem layer
-> zero-inits new pages through a cached mapping. On a non-coherent device
-> those stale cache lines can land over later uncached writes, so the GPU
-> or userspace reads a freshly written value back as zero.
-> 
-> Read the device's coherence once at probe and map buffers write-back
-> when it's coherent, write-combine otherwise. BO_CREATE fetches the
-> sgtable at creation time so dma_map_sgtable() flushes the zeroed pages
-> before anyone accesses them uncached.
-> 
-> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
-> [ Drop the map_wc-conditional sg_table call, now fetched
->   unconditionally in BO_CREATE. - Alvin ]
-> Co-developed-by: Alvin Sun <alvin.sun@linux.dev>
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> ---
+From: Diego Noguês <diego.sure@gmail.com>
 
-This patch no longer does what its subject and commit message says
-it does. Since you are basically just threading coherent
-through to all the places where a shmem::ObjectConfig::map_wc needs
-to be set, reword this patch or consider if it should be part
-of the bo ioctls patch.
+On an Alder Lake host (i7-1265U) with a Thunderbolt 4 dock (Dell WD22TB4,
+Goshen Ridge) driving two 4K@60 monitors through two DP tunnels, the
+monitor whose tunnel is created second is limited to 4K@30. Which monitor
+is affected depends only on the order in which they are powered on.
 
-Also, don't split up the tests inside should_map_wc() helper
-over different patches. Just introduce the full helper in
-a one place testing for both coherent and the DRM_PANTHOR_BO_WB_MMAP
-flag.
+The thunderbolt driver enables the BW allocation mode (BWA) on both DP IN
+adapters: it sets the CM BWA support (DP_USB4_DRIVER_BW_CAPABILITY), a
+group ID and the estimated BW. The DP IN adapter, however, never sets
+DP_IN_BW_ALLOCATION_MODE_SUPPORT in DP_TUNNELING_CAPABILITIES (0xe000d
+reads 0x01), so tunnel_regs_are_valid() rejects the tunnel with:
 
->  drivers/gpu/drm/tyr/driver.rs | 10 ++++++++++
->  drivers/gpu/drm/tyr/file.rs   |  5 +++--
->  drivers/gpu/drm/tyr/fw.rs     |  4 +++-
->  drivers/gpu/drm/tyr/gem.rs    | 34 +++++++++++++++++++++++++---------
->  drivers/gpu/drm/tyr/vm.rs     |  9 ++++++---
->  5 files changed, 47 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-> index f4f31b24180b4..633d1cab3cea9 100644
-> --- a/drivers/gpu/drm/tyr/driver.rs
-> +++ b/drivers/gpu/drm/tyr/driver.rs
-> @@ -88,6 +88,12 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
->  
->      /// GPU information read from hardware during probe.
->      pub(crate) gpu_info: GpuInfo,
-> +
-> +    /// Whether the device is reported as DMA-coherent by firmware.
-> +    ///
-> +    /// Cached at probe via `device_get_dma_attr()`. Drives the BO
-> +    /// cacheability policy in `crate::gem::should_map_wc`.
-> +    pub(crate) coherent: bool,
->  }
->  
->  fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
-> @@ -152,6 +158,8 @@ fn probe<'bound>(
->              // other threads of execution.
->              unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
->  
-> +            let coherent = pdev.as_ref().dma_attr().is_coherent();
-> +
->              let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
->  
->              let mmu = Mmu::new(pdev.as_ref(), iomem.as_arc_borrow(), &gpu_info)?;
-> @@ -162,6 +170,7 @@ fn probe<'bound>(
->                  &unreg_dev,
->                  mmu.as_arc_borrow(),
->                  &gpu_info,
-> +                coherent,
->              )?;
->  
->              firmware.boot()?;
-> @@ -187,6 +196,7 @@ fn probe<'bound>(
->                          }),
->                          iomem,
->                          gpu_info,
-> +                        coherent,
->                      }),
->                  )},
->                  _: { dev_dbg!(pdev, "Tyr initialized correctly.") },
-> diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-> index 9ffb42f0d8851..d4d6a6742b2e1 100644
-> --- a/drivers/gpu/drm/tyr/file.rs
-> +++ b/drivers/gpu/drm/tyr/file.rs
-> @@ -113,6 +113,7 @@ pub(crate) fn vm_create(
->                  pfile.reg.mmu.as_arc_borrow(),
->                  &pfile.reg.gpu_info,
->                  UserVaRequest::from_uapi(vmcreate.user_va_range),
-> +                pfile.reg.coherent,
->              )?;
->              let user_va_range = vm.layout.user.end;
->              let id = pfile.vm_pool.add(vm).map_err(|e| {
-> @@ -253,7 +254,7 @@ pub(crate) fn vm_get_state(
->  
->      pub(crate) fn bo_create(
->          ddev: &TyrDrmDevice<Registered>,
-> -        _reg_data: &TyrDrmRegistrationData<'_>,
-> +        reg_data: &TyrDrmRegistrationData<'_>,
->          bocreate: &mut uapi::drm_panthor_bo_create,
->          file: &TyrDrmFile,
->      ) -> Result<u32> {
-> @@ -284,7 +285,7 @@ pub(crate) fn bo_create(
->              );
->              EINVAL
->          })?;
-> -        let bo = crate::gem::new_object(ddev, size, bocreate.flags)?;
-> +        let bo = crate::gem::new_object(ddev, size, bocreate.flags, reg_data.coherent)?;
->          bocreate.handle = bo.create_handle(file)?;
->          bocreate.size = bo.size() as u64;
->  
-> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-> index 81e8103368bc2..b24560ae10a4e 100644
-> --- a/drivers/gpu/drm/tyr/fw.rs
-> +++ b/drivers/gpu/drm/tyr/fw.rs
-> @@ -217,8 +217,9 @@ pub(crate) fn new(
->          ddev: &TyrDrmDevice,
->          mmu: ArcBorrow<'_, Mmu<'drm>>,
->          gpu_info: &GpuInfo,
-> +        coherent: bool,
->      ) -> Result<Firmware<'drm>> {
-> -        let vm = Vm::new_for_fw(dev, ddev, mmu, gpu_info)?;
-> +        let vm = Vm::new_for_fw(dev, ddev, mmu, gpu_info, coherent)?;
->          vm.activate()?;
->  
->          let sections = (|| -> Result<KVec<Section<'drm>>> {
-> @@ -235,6 +236,7 @@ pub(crate) fn new(
->                      size,
->                      KernelBoVaAlloc::Explicit(va),
->                      parsed.vm_map_flags,
-> +                    coherent,
->                  )?;
->  
->                  let section_start = parsed.data_range.start as usize;
-> diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-> index 14f3e182b98e2..fad0720ce7123 100644
-> --- a/drivers/gpu/drm/tyr/gem.rs
-> +++ b/drivers/gpu/drm/tyr/gem.rs
-> @@ -63,19 +63,35 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
->  /// Type alias for Tyr GEM buffer objects.
->  pub(crate) type Bo = gem::shmem::Object<BoData>;
->  
-> +/// Returns whether a BO should be mapped write-combine given the device's
-> +/// DMA coherence.
-> +pub(crate) fn should_map_wc(coherent: bool) -> bool {
-> +    if coherent {
-> +        return false;
-> +    }
-> +
-> +    true
-> +}
-> +
->  /// Create a new GEM buffer object.
-> -pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result<ARef<Bo>> {
-> +pub(crate) fn new_object(
-> +    ddev: &TyrDrmDevice,
-> +    size: usize,
-> +    flags: u32,
-> +    coherent: bool,
-> +) -> Result<ARef<Bo>> {
->      if size == 0 {
->          return Err(EINVAL);
->      }
->  
->      let aligned_size = size.checked_next_multiple_of(PAGE_SIZE).ok_or(EINVAL)?;
->  
-> +    let map_wc = should_map_wc(coherent);
->      let bo = Bo::new(
->          ddev,
->          aligned_size,
->          shmem::ObjectConfig {
-> -            map_wc: true,
-> +            map_wc,
->              parent_resv_obj: None,
->          },
->          BoCreateArgs { flags },
-> @@ -94,18 +110,17 @@ pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> Result<ARef<Bo>>
->  }
->  
->  /// Creates a dummy GEM object to serve as the root of a GPUVM.
-> -pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> Result<ARef<Bo>> {
-> -    let bo = Bo::new(
-> +pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice, coherent: bool) -> Result<ARef<Bo>> {
-> +    // FIXME: use a Rust resv-object abstraction once available, rather than a real BO.
-> +    Bo::new(
->          ddev,
->          4096,
->          shmem::ObjectConfig {
-> -            map_wc: true,
-> +            map_wc: should_map_wc(coherent),
->              parent_resv_obj: None,
->          },
->          BoCreateArgs { flags: 0 },
-> -    )?;
-> -
-> -    Ok(bo)
-> +    )
->  }
->  
->  /// Specifies how to choose a GPU virtual address for a [`KernelBo`].
-> @@ -143,6 +158,7 @@ pub(crate) fn new(
->          size: u64,
->          va_alloc: KernelBoVaAlloc,
->          flags: VmMapFlags,
-> +        coherent: bool,
->      ) -> Result<Self> {
->          if size == 0 {
->              dev_err!(vm.dev(), "Cannot create KernelBo with size 0");
-> @@ -158,7 +174,7 @@ pub(crate) fn new(
->              ddev,
->              bo_size,
->              shmem::ObjectConfig {
-> -                map_wc: true,
-> +                map_wc: should_map_wc(coherent),
->                  parent_resv_obj: None,
->              },
->              BoCreateArgs { flags: 0 },
-> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-> index 5c3be79b2c595..fc034514c2ce9 100644
-> --- a/drivers/gpu/drm/tyr/vm.rs
-> +++ b/drivers/gpu/drm/tyr/vm.rs
-> @@ -473,13 +473,14 @@ pub(crate) fn new_for_fw(
->          ddev: &TyrDrmDevice,
->          mmu: ArcBorrow<'_, Mmu<'drm>>,
->          gpu_info: &GpuInfo,
-> +        coherent: bool,
->      ) -> Result<Arc<Vm<'drm>>> {
->          // As in panthor: the CSF MCU is a Cortex-M7 and can only address 4G.
->          let layout = VmLayout {
->              full: 0..u64::SZ_4G,
->              user: 0..0u64,
->          };
-> -        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
-> +        Self::new_internal(dev, ddev, mmu, gpu_info, layout, coherent)
->      }
->  
->      /// Creates a user VM, splitting the GPU VA range per `user_va`.
-> @@ -489,6 +490,7 @@ pub(crate) fn new_for_user(
->          mmu: ArcBorrow<'_, Mmu<'drm>>,
->          gpu_info: &GpuInfo,
->          user_va: UserVaRequest,
-> +        coherent: bool,
->      ) -> Result<Arc<Vm<'drm>>> {
->          let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
->          let va_bits = mmu_features.va_bits().get();
-> @@ -502,7 +504,7 @@ pub(crate) fn new_for_user(
->                  range.end
->              );
->          })?;
-> -        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
-> +        Self::new_internal(dev, ddev, mmu, gpu_info, layout, coherent)
->      }
->  
->      /// Initializes a VM with the given layout.
-> @@ -512,6 +514,7 @@ fn new_internal(
->          mmu: ArcBorrow<'_, Mmu<'drm>>,
->          gpu_info: &GpuInfo,
->          layout: VmLayout,
-> +        coherent: bool,
->      ) -> Result<Arc<Vm<'drm>>> {
->          let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
->          let va_bits = mmu_features.va_bits().get();
-> @@ -520,7 +523,7 @@ fn new_internal(
->          let reserve_range = 0..0u64;
->  
->          // dummy_obj is used to initialize the GPUVM tree.
-> -        let dummy_obj = gem::new_dummy_object(ddev).inspect_err(|e| {
-> +        let dummy_obj = gem::new_dummy_object(ddev, coherent).inspect_err(|e| {
->              dev_err!(dev, "Failed to create dummy GEM object: {:?}", e);
->          })?;
->  
-> 
-> -- 
-> 2.43.0
-> 
+  DPTUN: A non-zero group ID is only allowed with BWA support
+
+i915 then falls back to the static allocation. The first tunnel reserves
+the full DPRX bandwidth (HBR3 x4, 25920 Mb/s), although its stream needs
+about 8.4 Gb/s, and the thunderbolt driver reduces the second tunnel to
+HBR x4 (8640 Mb/s), which is not enough for 4K@60.
+
+The DP IN adapter does handle the BWA registers. Setting
+DP_DISPLAY_DRIVER_BW_ALLOCATION_MODE_ENABLE in
+DP_DPTX_BW_ALLOCATION_MODE_CONTROL by hand sets DPME in the adapter's
+ADP_DP_CS_8, and a following write to DP_REQUEST_BW reaches the
+thunderbolt driver as a DP_BW notification, gets allocated and is
+acknowledged with DP_BW_REQUEST_SUCCEEDED. Reading back
+DP_DPTX_BW_ALLOCATION_MODE_CONTROL returns 0, which the helpers already
+tolerate. The adapter identifies itself as OUI 98-4f-ee, DevID "TR",
+HW rev 13.0, SW rev 2.1.
+
+The connection manager programs a non-zero group ID only right after
+enabling BWA on a DP IN adapter that supports it (see
+tb_dp_bandwidth_alloc_mode_enable()). So when the USB4 driver advertises
+BWA support and a group ID is assigned, treat the tunnel as BWA capable
+even if the DP IN adapter does not set DP_IN_BW_ALLOCATION_MODE_SUPPORT.
+Nothing changes for adapters that set the flag or for tunnels without a
+group ID; the only affected case is the one rejected today.
+
+With this change, and an unmodified thunderbolt driver, i915 enables BWA
+on both tunnels and allocates 8500 Mb/s for the stream behind the dock's
+MST hub (using DSC) and 13000 Mb/s for the other one, so both monitors
+run at 4K@60 in either power-on order.
+
+Fixes: 295654f7e554 ("drm/dp: Add support for DP tunneling")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17742
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Mika Westerberg <westeri@kernel.org>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Diego Noguês <diego.sure@gmail.com>
+---
+RFC, for two reasons:
+
+- I don't know whether DP_IN_BW_ALLOCATION_MODE_SUPPORT is left clear on
+  purpose on this adapter (for instance because of a known BWA issue on
+  Alder Lake). If so, please say so and this patch should be dropped.
+- If the approach is fine, a DPCD quirk keyed on the adapter's ID
+  (OUI 98-4f-ee, DevID "TR") may be preferred over relaxing the check for
+  every adapter. I can rework it that way.
+
+If it is accepted, I think it is a candidate for stable (v6.9+).
+
+Tested on a Dell Latitude 5430 (i7-1265U, BIOS 1.41.0) with a Dell
+WD22TB4 (package 01.01.03.01, USB4 NVM 41.81), a P2415Q on the dock's
+Thunderbolt port (SST) and a U2718Q on a dock DP port (behind the dock's
+VMM5331 MST hub). Kernel: Ubuntu 7.0.0-38, whose drm_dp_tunnel.c is
+identical to v7.0 and to current drm-tip, with only the patched
+drm_display_helper module, over two weeks of daily use:
+
+- Both power-on orders, with thunderbolt dyndbg and drm.debug=0x4: both
+  monitors at 4K@60. With the stock module, whichever monitor comes up
+  second is limited to 4K@30.
+- Five dock unplug/replug cycles (the dock is shared with another
+  machine): both monitors at 4K@60 every time.
+- s2idle suspend/resume: BWA is enabled again on both tunnels after
+  resume (13000 and 8750 Mb/s allocated, group 21750/34500 Mb/s), and both
+  monitors run at 4K@60. With the stock module, the second tunnel is
+  limited to 4K@30 again after resume.
+
+Unrelated to this patch, and reproduced the same way with the stock
+module: after s2idle resume the thunderbolt driver re-pairs the DP IN and
+DP OUT adapters the other way round, so the MST hub moves from DDI TC1 to
+DDI TC2. i915 then logs "Sending link address failed with -5" and "Step 2
+of creating MST payload ... failed: -22", and the external displays stay
+dark until the outputs are configured again from userspace. I can report
+that separately.
+
+Not tested: other hosts (Tiger Lake, Meteor Lake and later), other docks,
+the xe driver.
+
+Tool use: I used an AI coding assistant (Claude Code, model
+claude-opus-5-5). I asked it why the second monitor was stuck at 30 Hz and
+how to fix it in the kernel. It read the thunderbolt and drm_dp_tunnel
+sources, analyzed the logs I captured, wrote the shell scripts I used for
+the manual DPCD reads and writes, proposed this change and drafted this
+description. I ran all the tests on my hardware and reviewed the change.
+---
+ drivers/gpu/drm/display/drm_dp_tunnel.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
+index d29ad4116e64..71dfa4714795 100644
+--- a/drivers/gpu/drm/display/drm_dp_tunnel.c
++++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
+@@ -317,13 +317,27 @@ static int tunnel_reg_max_dprx_lane_count(const struct drm_dp_tunnel_regs *regs)
+ 
+ static bool tunnel_reg_bw_alloc_supported(const struct drm_dp_tunnel_regs *regs)
+ {
+-	u8 cap_mask = DP_TUNNELING_SUPPORT | DP_IN_BW_ALLOCATION_MODE_SUPPORT;
++	u8 caps = tunnel_reg(regs, DP_TUNNELING_CAPABILITIES);
+ 
+-	if ((tunnel_reg(regs, DP_TUNNELING_CAPABILITIES) & cap_mask) != cap_mask)
++	if (!(caps & DP_TUNNELING_SUPPORT))
+ 		return false;
+ 
+-	return tunnel_reg(regs, DP_USB4_DRIVER_BW_CAPABILITY) &
+-	       DP_USB4_DRIVER_BW_ALLOCATION_MODE_SUPPORT;
++	if (!(tunnel_reg(regs, DP_USB4_DRIVER_BW_CAPABILITY) &
++	      DP_USB4_DRIVER_BW_ALLOCATION_MODE_SUPPORT))
++		return false;
++
++	/*
++	 * Some DP IN adapters (at least on Alder Lake) don't set
++	 * DP_IN_BW_ALLOCATION_MODE_SUPPORT, although they do support the BW
++	 * allocation mode. The USB4 Connection Manager assigns a group ID
++	 * only after enabling the BW allocation mode on the DP IN adapter,
++	 * so accept a non-zero group ID as an indication of support.
++	 */
++	if (!(caps & DP_IN_BW_ALLOCATION_MODE_SUPPORT) &&
++	    !tunnel_reg_drv_group_id(regs))
++		return false;
++
++	return true;
+ }
+ 
+ static bool tunnel_reg_bw_alloc_enabled(const struct drm_dp_tunnel_regs *regs)
+
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261031-dp-tunnel-bwa-flag-2670b4d43381
+
+Best regards,
+--  
+Diego Noguês <diego.sure@gmail.com>
+
+
