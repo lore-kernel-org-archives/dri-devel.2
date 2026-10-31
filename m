@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C589606A31A
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 00:11:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8D4606A31A
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 00:16:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=eoW2oFIJ
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=LO5mJsp+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 039BC10E84F;
-	Sat, 31 Oct 2026 00:10:57 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADC9910E84F
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 00:10:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1793405447; cv=none; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADF8C10E8B8;
+	Sat, 31 Oct 2026 00:15:58 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D215010E8B8
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 00:15:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1793405749; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=GItZlNh31elvMwa9/kYRn9UsvQsgl6UavN8zJj2OclchqMbKn3LcmPUKT7y+QCVA1hxHV67f1tpRUIbFa5CQ1Ruj74blHjOe7k2HbNGAg31e8PeCBE1FcLaPMbSss7Kcr0W02dHGm0W8frLwJJdOKFH6MkvwaL9fqdCYqCk5Ov4=
+ b=OG94AhpESkMCaKYKApMITPv0mc+z29Q7soZINHdzWPtxNFzB0gIUB26NlJ/4s7cO7kPddXbU6rHd4LJIsZsnflsJT9bsC9ge0tHUuXJAT8NwA3RabHm0xWW/XCZ1Wt9GJiTTTOCJtW50T8gQgI3EfO+yRzOVjqwv5Y2a43UlQtY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1793405447;
+ s=zohoarc; t=1793405749;
  h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=GdDnz4pI3ov+UfCffBhq7x6t7Hr4WugUuptiC909KRE=; 
- b=LBwTDSA3wNAli8LX22ABDJQypXCnXO7Jnw2cQYxTzbAX2xhGKDJJa/dX2aQStjsufDa9bEdM2vwKawk7UVpaXVSsuUhuWY+GFGD8maKoqKSWeZvqgWb9hMWWD+IITMLFgvHLHdXZwsyS5O8KaFgSOdKd4H14GmfMz6MJfbyMWrA=
+ bh=rNjZ9tf7N10fOAmsA9m52bIXH4xKGoh9+SSsg6SLTOg=; 
+ b=lUvkV7JpCBUIhebUe65j0sGsCfScf0C74YaGyvhEevN5CTBQUF8XSpPTfX0goS+efh5akR8UnynkvaNn923tU3JLmbXM/dpdAuOgSaMLMMbKL1Ru+kHWGmvG3gqYhKnQqvbGElfu6pJwqOChUWYwr88502IOVDMYMDhuHvc265Q=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=eoW2oFIJW921+VN6N5JHxVuACjeBK3GmZ1Dl5aRcpZNL2ZchGwBSkKD5QGy9fiAS2akWILv1hYvZl4visvl+V5/4DriJwBMEYp/YO20DHjgtm+NXfJFmkZj0z4oy7n5sua2rEm7ETdCP/YnD/xTRdKNlfEqANftTQ3525LtBbF8=;
+ b=LO5mJsp+IDRAGJ5NXaBEKDsqc23xJcGDx11Ubg3FkdiwcQ2EURJSA6Fw6ccS+K4nZNkNHCubwxczk5XIOtxfZJEtma5E78CoBFHFmIPVvTKT0jxa/pRhfw9QmuXPzexSTR1/zXHFXieDFgB2jka6026w+FI+c7120y8/KnlaVXc=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=GdDnz4pI3ov+UfCffBhq7x6t7Hr4WugUuptiC909KRE=;
+ bh=rNjZ9tf7N10fOAmsA9m52bIXH4xKGoh9+SSsg6SLTOg=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793405444336106.11728771505375; 
- Fri, 30 Oct 2026 17:10:44 -0700 (PDT)
-Date: Fri, 30 Oct 2026 17:10:43 -0700
+Received: by smtp.zohomail.com with SMTPS id 1793405747009311.31566614666747; 
+ Fri, 30 Oct 2026 17:15:47 -0700 (PDT)
+Date: Fri, 30 Oct 2026 17:15:46 -0700
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
 To: Ke Sun <sunke@kylinos.cn>
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -52,16 +52,16 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Sami Tolvanen <samitolvanen@google.com>,
  rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
  driver-core@lists.linux.dev, Alvin Sun <alvin.sun@linux.dev>
-Subject: Re: [PATCH v5 08/11] drm/tyr: add BO-related ioctls
-Message-ID: <auUyA5-7HVhCBCC6@um790>
+Subject: Re: [PATCH v5 10/11] drm/tyr: gem: flush write-combine BOs from
+ probe-time coherence
+Message-ID: <auUzMntd2C1rMef4@um790>
 References: <20261027-tyr-ioctls-v5-0-59dfe98cb003@kylinos.cn>
- <20261027-tyr-ioctls-v5-8-59dfe98cb003@kylinos.cn>
- <auKTafNV9hQGh6We@um790>
+ <20261027-tyr-ioctls-v5-10-59dfe98cb003@kylinos.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <auKTafNV9hQGh6We@um790>
+In-Reply-To: <20261027-tyr-ioctls-v5-10-59dfe98cb003@kylinos.cn>
 X-Zoho-Virus-Status: 1
 X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.393.56
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,213 +82,277 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Oct 28, 2026 at 05:29:29PM -0700, Deborah Brouwer wrote:
-> On Tue, Oct 27, 2026 at 12:41:01AM +0800, Ke Sun wrote:
-> > From: Alvin Sun <alvin.sun@linux.dev>
-> > 
-> > Implement BO_CREATE and BO_MMAP_OFFSET so userspace can allocate GPU
-> > buffers and obtain a DRM mmap offset for the generic mmap path.
-> > BO_CREATE page-aligns the requested size; BO_MMAP_OFFSET rejects
-> > NO_MMAP objects, which must never be CPU-mapped.
-> > 
-> > Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> > ---
-> >  drivers/gpu/drm/tyr/driver.rs |  2 ++
-> >  drivers/gpu/drm/tyr/file.rs   | 73 +++++++++++++++++++++++++++++++++++++++++++
-> >  drivers/gpu/drm/tyr/gem.rs    | 18 +++++++++--
-> >  3 files changed, 90 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-> > index c0f17bc4ce2c9..f4f31b24180b4 100644
-> > --- a/drivers/gpu/drm/tyr/driver.rs
-> > +++ b/drivers/gpu/drm/tyr/driver.rs
-> > @@ -227,6 +227,8 @@ impl drm::Driver for TyrDrmDriver {
-> >          (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
-> >          (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_bind),
-> >          (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
-> > +        (PANTHOR_BO_CREATE, drm_panthor_bo_create, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_create),
-> > +        (PANTHOR_BO_MMAP_OFFSET, drm_panthor_bo_mmap_offset, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_mmap_offset),
-> >      }
-> >  }
-> >  
-> > diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-> > index 22a74b4abf3de..9ffb42f0d8851 100644
-> > --- a/drivers/gpu/drm/tyr/file.rs
-> > +++ b/drivers/gpu/drm/tyr/file.rs
-> > @@ -250,6 +250,79 @@ pub(crate) fn vm_get_state(
-> >              Ok(0)
-> >          })
-> >      }
-> > +
-> > +    pub(crate) fn bo_create(
-> > +        ddev: &TyrDrmDevice<Registered>,
-> > +        _reg_data: &TyrDrmRegistrationData<'_>,
-> > +        bocreate: &mut uapi::drm_panthor_bo_create,
-> > +        file: &TyrDrmFile,
-> > +    ) -> Result<u32> {
-> > +        if bocreate.size == 0
-> > +            || bocreate.pad != 0
-> > +            || bocreate.flags & !uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP != 0
-> > +        {
-> > +            dev_dbg!(
-> > +                ddev.as_ref(),
-> > +                "Invalid BO_CREATE params: size={}, pad={}, flags={:#x}\n",
-> > +                bocreate.size,
-> > +                bocreate.pad,
-> > +                bocreate.flags
-> > +            );
-> > +            return Err(EINVAL);
-> > +        }
+On Tue, Oct 27, 2026 at 12:41:03AM +0800, Ke Sun wrote:
+> From: Sami Tolvanen <samitolvanen@google.com>
 > 
-> Panthor checks that both BO_WB_MMAP and BO_NO_MMAP are not
-> set at the same time, should we do the same here?
+> Tyr maps shmem-backed buffers write-combine, but the shmem layer
+> zero-inits new pages through a cached mapping. On a non-coherent device
+> those stale cache lines can land over later uncached writes, so the GPU
+> or userspace reads a freshly written value back as zero.
+> 
+> Read the device's coherence once at probe and map buffers write-back
+> when it's coherent, write-combine otherwise. BO_CREATE fetches the
+> sgtable at creation time so dma_map_sgtable() flushes the zeroed pages
+> before anyone accesses them uncached.
+> 
+> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+> [ Drop the map_wc-conditional sg_table call, now fetched
+>   unconditionally in BO_CREATE. - Alvin ]
+> Co-developed-by: Alvin Sun <alvin.sun@linux.dev>
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
 
-Ah, I see you check that they are mutually exclusive later in the
-series, you should probably just do that in this first patch
-where you add bo_create. There is no reason for them to be
-in separate patches.
+This patch no longer does what its subject and commit message says
+it does. Since you are basically just threading coherent
+through to all the places where a shmem::ObjectConfig::map_wc needs
+to be set, reword this patch or consider if it should be part
+of the bo ioctls patch.
 
-> 
-> Also if only BO_WB_MMAP is set, shouldn't we return EOPNOTSUPP?
+Also, don't split up the tests inside should_map_wc() helper
+over different patches. Just introduce the full helper in
+a one place testing for both coherent and the DRM_PANTHOR_BO_WB_MMAP
+flag.
 
-I see you accept this flag later in this same series, it would be
-clearer if you just accepted the BO_WB_MMAP flag directly in this
-patch, there is no reason not to support it.
-
+>  drivers/gpu/drm/tyr/driver.rs | 10 ++++++++++
+>  drivers/gpu/drm/tyr/file.rs   |  5 +++--
+>  drivers/gpu/drm/tyr/fw.rs     |  4 +++-
+>  drivers/gpu/drm/tyr/gem.rs    | 34 +++++++++++++++++++++++++---------
+>  drivers/gpu/drm/tyr/vm.rs     |  9 ++++++---
+>  5 files changed, 47 insertions(+), 15 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+> index f4f31b24180b4..633d1cab3cea9 100644
+> --- a/drivers/gpu/drm/tyr/driver.rs
+> +++ b/drivers/gpu/drm/tyr/driver.rs
+> @@ -88,6 +88,12 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
+>  
+>      /// GPU information read from hardware during probe.
+>      pub(crate) gpu_info: GpuInfo,
+> +
+> +    /// Whether the device is reported as DMA-coherent by firmware.
+> +    ///
+> +    /// Cached at probe via `device_get_dma_attr()`. Drives the BO
+> +    /// cacheability policy in `crate::gem::should_map_wc`.
+> +    pub(crate) coherent: bool,
+>  }
+>  
+>  fn issue_soft_reset(dev: &Device, iomem: &IoMem<'_>) -> Result {
+> @@ -152,6 +158,8 @@ fn probe<'bound>(
+>              // other threads of execution.
+>              unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
+>  
+> +            let coherent = pdev.as_ref().dma_attr().is_coherent();
+> +
+>              let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
+>  
+>              let mmu = Mmu::new(pdev.as_ref(), iomem.as_arc_borrow(), &gpu_info)?;
+> @@ -162,6 +170,7 @@ fn probe<'bound>(
+>                  &unreg_dev,
+>                  mmu.as_arc_borrow(),
+>                  &gpu_info,
+> +                coherent,
+>              )?;
+>  
+>              firmware.boot()?;
+> @@ -187,6 +196,7 @@ fn probe<'bound>(
+>                          }),
+>                          iomem,
+>                          gpu_info,
+> +                        coherent,
+>                      }),
+>                  )},
+>                  _: { dev_dbg!(pdev, "Tyr initialized correctly.") },
+> diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+> index 9ffb42f0d8851..d4d6a6742b2e1 100644
+> --- a/drivers/gpu/drm/tyr/file.rs
+> +++ b/drivers/gpu/drm/tyr/file.rs
+> @@ -113,6 +113,7 @@ pub(crate) fn vm_create(
+>                  pfile.reg.mmu.as_arc_borrow(),
+>                  &pfile.reg.gpu_info,
+>                  UserVaRequest::from_uapi(vmcreate.user_va_range),
+> +                pfile.reg.coherent,
+>              )?;
+>              let user_va_range = vm.layout.user.end;
+>              let id = pfile.vm_pool.add(vm).map_err(|e| {
+> @@ -253,7 +254,7 @@ pub(crate) fn vm_get_state(
+>  
+>      pub(crate) fn bo_create(
+>          ddev: &TyrDrmDevice<Registered>,
+> -        _reg_data: &TyrDrmRegistrationData<'_>,
+> +        reg_data: &TyrDrmRegistrationData<'_>,
+>          bocreate: &mut uapi::drm_panthor_bo_create,
+>          file: &TyrDrmFile,
+>      ) -> Result<u32> {
+> @@ -284,7 +285,7 @@ pub(crate) fn bo_create(
+>              );
+>              EINVAL
+>          })?;
+> -        let bo = crate::gem::new_object(ddev, size, bocreate.flags)?;
+> +        let bo = crate::gem::new_object(ddev, size, bocreate.flags, reg_data.coherent)?;
+>          bocreate.handle = bo.create_handle(file)?;
+>          bocreate.size = bo.size() as u64;
+>  
+> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+> index 81e8103368bc2..b24560ae10a4e 100644
+> --- a/drivers/gpu/drm/tyr/fw.rs
+> +++ b/drivers/gpu/drm/tyr/fw.rs
+> @@ -217,8 +217,9 @@ pub(crate) fn new(
+>          ddev: &TyrDrmDevice,
+>          mmu: ArcBorrow<'_, Mmu<'drm>>,
+>          gpu_info: &GpuInfo,
+> +        coherent: bool,
+>      ) -> Result<Firmware<'drm>> {
+> -        let vm = Vm::new_for_fw(dev, ddev, mmu, gpu_info)?;
+> +        let vm = Vm::new_for_fw(dev, ddev, mmu, gpu_info, coherent)?;
+>          vm.activate()?;
+>  
+>          let sections = (|| -> Result<KVec<Section<'drm>>> {
+> @@ -235,6 +236,7 @@ pub(crate) fn new(
+>                      size,
+>                      KernelBoVaAlloc::Explicit(va),
+>                      parsed.vm_map_flags,
+> +                    coherent,
+>                  )?;
+>  
+>                  let section_start = parsed.data_range.start as usize;
+> diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
+> index 14f3e182b98e2..fad0720ce7123 100644
+> --- a/drivers/gpu/drm/tyr/gem.rs
+> +++ b/drivers/gpu/drm/tyr/gem.rs
+> @@ -63,19 +63,35 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
+>  /// Type alias for Tyr GEM buffer objects.
+>  pub(crate) type Bo = gem::shmem::Object<BoData>;
+>  
+> +/// Returns whether a BO should be mapped write-combine given the device's
+> +/// DMA coherence.
+> +pub(crate) fn should_map_wc(coherent: bool) -> bool {
+> +    if coherent {
+> +        return false;
+> +    }
+> +
+> +    true
+> +}
+> +
+>  /// Create a new GEM buffer object.
+> -pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result<ARef<Bo>> {
+> +pub(crate) fn new_object(
+> +    ddev: &TyrDrmDevice,
+> +    size: usize,
+> +    flags: u32,
+> +    coherent: bool,
+> +) -> Result<ARef<Bo>> {
+>      if size == 0 {
+>          return Err(EINVAL);
+>      }
+>  
+>      let aligned_size = size.checked_next_multiple_of(PAGE_SIZE).ok_or(EINVAL)?;
+>  
+> +    let map_wc = should_map_wc(coherent);
+>      let bo = Bo::new(
+>          ddev,
+>          aligned_size,
+>          shmem::ObjectConfig {
+> -            map_wc: true,
+> +            map_wc,
+>              parent_resv_obj: None,
+>          },
+>          BoCreateArgs { flags },
+> @@ -94,18 +110,17 @@ pub(crate) fn lookup_handle(file: &TyrDrmFile, handle: u32) -> Result<ARef<Bo>>
+>  }
+>  
+>  /// Creates a dummy GEM object to serve as the root of a GPUVM.
+> -pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> Result<ARef<Bo>> {
+> -    let bo = Bo::new(
+> +pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice, coherent: bool) -> Result<ARef<Bo>> {
+> +    // FIXME: use a Rust resv-object abstraction once available, rather than a real BO.
+> +    Bo::new(
+>          ddev,
+>          4096,
+>          shmem::ObjectConfig {
+> -            map_wc: true,
+> +            map_wc: should_map_wc(coherent),
+>              parent_resv_obj: None,
+>          },
+>          BoCreateArgs { flags: 0 },
+> -    )?;
+> -
+> -    Ok(bo)
+> +    )
+>  }
+>  
+>  /// Specifies how to choose a GPU virtual address for a [`KernelBo`].
+> @@ -143,6 +158,7 @@ pub(crate) fn new(
+>          size: u64,
+>          va_alloc: KernelBoVaAlloc,
+>          flags: VmMapFlags,
+> +        coherent: bool,
+>      ) -> Result<Self> {
+>          if size == 0 {
+>              dev_err!(vm.dev(), "Cannot create KernelBo with size 0");
+> @@ -158,7 +174,7 @@ pub(crate) fn new(
+>              ddev,
+>              bo_size,
+>              shmem::ObjectConfig {
+> -                map_wc: true,
+> +                map_wc: should_map_wc(coherent),
+>                  parent_resv_obj: None,
+>              },
+>              BoCreateArgs { flags: 0 },
+> diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+> index 5c3be79b2c595..fc034514c2ce9 100644
+> --- a/drivers/gpu/drm/tyr/vm.rs
+> +++ b/drivers/gpu/drm/tyr/vm.rs
+> @@ -473,13 +473,14 @@ pub(crate) fn new_for_fw(
+>          ddev: &TyrDrmDevice,
+>          mmu: ArcBorrow<'_, Mmu<'drm>>,
+>          gpu_info: &GpuInfo,
+> +        coherent: bool,
+>      ) -> Result<Arc<Vm<'drm>>> {
+>          // As in panthor: the CSF MCU is a Cortex-M7 and can only address 4G.
+>          let layout = VmLayout {
+>              full: 0..u64::SZ_4G,
+>              user: 0..0u64,
+>          };
+> -        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
+> +        Self::new_internal(dev, ddev, mmu, gpu_info, layout, coherent)
+>      }
+>  
+>      /// Creates a user VM, splitting the GPU VA range per `user_va`.
+> @@ -489,6 +490,7 @@ pub(crate) fn new_for_user(
+>          mmu: ArcBorrow<'_, Mmu<'drm>>,
+>          gpu_info: &GpuInfo,
+>          user_va: UserVaRequest,
+> +        coherent: bool,
+>      ) -> Result<Arc<Vm<'drm>>> {
+>          let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
+>          let va_bits = mmu_features.va_bits().get();
+> @@ -502,7 +504,7 @@ pub(crate) fn new_for_user(
+>                  range.end
+>              );
+>          })?;
+> -        Self::new_internal(dev, ddev, mmu, gpu_info, layout)
+> +        Self::new_internal(dev, ddev, mmu, gpu_info, layout, coherent)
+>      }
+>  
+>      /// Initializes a VM with the given layout.
+> @@ -512,6 +514,7 @@ fn new_internal(
+>          mmu: ArcBorrow<'_, Mmu<'drm>>,
+>          gpu_info: &GpuInfo,
+>          layout: VmLayout,
+> +        coherent: bool,
+>      ) -> Result<Arc<Vm<'drm>>> {
+>          let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
+>          let va_bits = mmu_features.va_bits().get();
+> @@ -520,7 +523,7 @@ fn new_internal(
+>          let reserve_range = 0..0u64;
+>  
+>          // dummy_obj is used to initialize the GPUVM tree.
+> -        let dummy_obj = gem::new_dummy_object(ddev).inspect_err(|e| {
+> +        let dummy_obj = gem::new_dummy_object(ddev, coherent).inspect_err(|e| {
+>              dev_err!(dev, "Failed to create dummy GEM object: {:?}", e);
+>          })?;
+>  
 > 
-> > +
-> > +        if bocreate.exclusive_vm_id != 0 {
-> > +            dev_dbg!(ddev.as_ref(), "BO_CREATE: exclusive_vm_id not supported\n");
-> > +            return Err(EINVAL);
+> -- 
+> 2.43.0
 > 
-> Return EOPNOTSUPP because it's a valid request we just don't support it.
-> 
-> > +        }
-> > +
-> > +        let size = usize::try_from(bocreate.size).map_err(|_| {
-> > +            dev_dbg!(
-> > +                ddev.as_ref(),
-> > +                "BO_CREATE size {:#x} too large\n",
-> > +                bocreate.size
-> > +            );
-> > +            EINVAL
-> > +        })?;
-> > +        let bo = crate::gem::new_object(ddev, size, bocreate.flags)?;
-> 
-> Use file.inner_with() to access the platform device with the bound
-> lifetime and then pass it to the new_object so that you can
-> avoid accessing it later with an unsafe block. Something like:
-> 
->  let bo = file.inner_with(|pfile| {
->     crate::gem::new_object(
->         ddev,
->         pfile.reg.pdev.as_ref(),
->         size,
->         bocreate.flags,
->     )
->  })?;
-> 
-> > +        bocreate.handle = bo.create_handle(file)?;
-> > +        bocreate.size = bo.size() as u64;
-> 
-> use u64::from_safe_cast(bo.size())
-> 
-> 
-> > +
-> > +        Ok(0)
-> > +    }
-> > +
-> > +    pub(crate) fn bo_mmap_offset(
-> > +        ddev: &TyrDrmDevice<Registered>,
-> > +        _reg_data: &TyrDrmRegistrationData<'_>,
-> > +        bommap: &mut uapi::drm_panthor_bo_mmap_offset,
-> > +        file: &TyrDrmFile,
-> > +    ) -> Result<u32> {
-> > +        if bommap.pad != 0 {
-> > +            dev_dbg!(
-> > +                ddev.as_ref(),
-> > +                "BO mmap offset pad not zero: {}\n",
-> > +                bommap.pad
-> > +            );
-> > +            return Err(EINVAL);
-> > +        }
-> > +
-> > +        let bo = crate::gem::lookup_handle(file, bommap.handle).inspect_err(|_| {
-> > +            dev_dbg!(ddev.as_ref(), "Invalid BO mmap handle: {}\n", bommap.handle);
-> > +        })?;
-> > +        if bo.flags() & uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP != 0 {
-> > +            dev_dbg!(ddev.as_ref(), "BO mmap offset on NO_MMAP object\n");
-> > +            return Err(EPERM);
-> > +        }
-> > +        bommap.offset = bo.create_mmap_offset().inspect_err(|_| {
-> > +            dev_err!(
-> > +                ddev.as_ref(),
-> > +                "Failed to create mmap offset for handle {}\n",
-> > +                bommap.handle
-> > +            );
-> > +        })?;
-> > +
-> > +        Ok(0)
-> > +    }
-> >  }
-> >  
-> >  fn vm_bind_exec_op(vm: &Vm<'_>, file: &TyrDrmFile, op: &VmBindOp) -> Result {
-> > diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-> > index 60f6363995a5a..14f3e182b98e2 100644
-> > --- a/drivers/gpu/drm/tyr/gem.rs
-> > +++ b/drivers/gpu/drm/tyr/gem.rs
-> > @@ -38,6 +38,13 @@ pub(crate) struct BoData {
-> >      flags: u32,
-> >  }
-> >  
-> > +impl BoData {
-> > +    /// Returns the flags the BO was created with.
-> > +    pub(crate) fn flags(&self) -> u32 {
-> > +        self.flags
-> > +    }
-> > +}
-> > +
-> >  /// Provides a way to pass arguments when creating BoData
-> >  /// as required by the gem::DriverObject trait.
-> >  pub(crate) struct BoCreateArgs {
-> > @@ -57,7 +64,6 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
-> >  pub(crate) type Bo = gem::shmem::Object<BoData>;
-> >  
-> >  /// Create a new GEM buffer object.
-> > -#[expect(dead_code)]
-> >  pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result<ARef<Bo>> {
-> >      if size == 0 {
-> >          return Err(EINVAL);
-> > @@ -65,7 +71,7 @@ pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result
-> >  
-> >      let aligned_size = size.checked_next_multiple_of(PAGE_SIZE).ok_or(EINVAL)?;
-> >  
-> > -    Bo::new(
-> > +    let bo = Bo::new(
-> >          ddev,
-> >          aligned_size,
-> >          shmem::ObjectConfig {
-> > @@ -73,7 +79,13 @@ pub(crate) fn new_object(ddev: &TyrDrmDevice, size: usize, flags: u32) -> Result
-> >              parent_resv_obj: None,
-> >          },
-> >          BoCreateArgs { flags },
-> > -    )
-> > +    )?;
-> > +
-> > +    // SAFETY: `ddev` is bound for the duration of this call.
-> > +    let dev = unsafe { ddev.as_ref().as_ref().as_bound() };
-> 
-> You can remove this unsafe block by accessing the bound device through
-> file.inner_with()
-> 
-> > +    bo.sg_table(dev)?;
-> > +
-> > +    Ok(bo)
-> >  }
-> >  
-> >  /// Look up a GEM object by handle for a DRM file.
-> > 
-> > -- 
-> > 2.43.0
-> > 
