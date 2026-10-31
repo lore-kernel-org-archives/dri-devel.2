@@ -2,86 +2,121 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0608C606A31C
-	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 10:45:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A77606A31C
+	for <dri-devel@archiver.kernel.org>; Sat, 31 Oct 2026 10:49:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=alwcupk2
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wkQOT8xc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 642C410E0D9;
-	Sat, 31 Oct 2026 10:45:01 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A48F10E0D9
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 10:44:55 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-48dfdd0678dso1044577f8f.0
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 03:44:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793443493; x=1794048293; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
- b=alwcupk2NJJwSzOBYFyY5yiAT2rdePiwZBCS3QbLBTUHn966xhPTPwCUqv4hzPPO0/
- pWUWU7nV+Af0DmfqM+Z7iPM+rN18pocon2+4zYIdiNBwJQN1OFS0JGc1lQRhQM7iM0iX
- 9q9nEjGIGyIg0cTyFRp9xeODgeh4QIX+CZZqWZtmsMixprZ5mm0ytHDwp+07kUZBZtmS
- CrkZNJvEFx6oC81cA7sRvYYZxsg8dIYoEy1Tqi2qZJnKl/bD9osocNGdbTzo0E8rcPcR
- WDZByd1phlbqpXY8QHTf1AfIreV0U46e/nCofP8+xPulJSWAqGbOaJ17IsCF6bsGC5Q6
- ujMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793443493; x=1794048293;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
- b=o9bf9aYfGHsrPIxESC/XteteOStSPfGb4boxPJqK46FgVQ3J6/nlmX6HRBClHk0tIf
- +oNQf1dCBZY3Tz+6mH33ub8zsjvr4AuenqdG+z2EBBXcW/OdX/eYT1QzIjGLm/b3RB2m
- OEVbF1b6BNUUJtOtl6ZiLKrH2diktoDqG3liUiFZPXsBfj1OqC6dg6mDCRskV83CaNnN
- /aHCKJAuYiuIXarzigQEzlZEBI4LM170xeixb8xTHQvmQT8cit2FS9Ps+uwSbtdbxCIV
- B2ivGxvQPHtVUa2q7j4O87XW6O8whKNUqPlPGij5r7Y6VtOiaZxJ7ex2/0AI3p4hN/uz
- xlOA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBwtpN8X6lkBHcbGbwNkNmvk64kg654bTA3WFs3RRkmGSp+koX/IIWR5ZS/ZM8FzDMSbvlpQv+cOPIo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKtvFfz/7aZjl4yJjHP/wpFYkHWGaHrIaymFwpjqCMpUhxPZ6Ij
- mmsHNM0v9We5Tjp8/w06/vFkVr8wMysSrjO9QiZkUuYgS0tMhY3FgIr/
-X-Gm-Gg: AYBFou1Wnb0oSFDcDVqNFwaORcFF/o1Rpe+vOs2/zkw4bH1JgHlVfrNbEGYuvsj/VlD
- euONdkKflOMaHVGSxaDibwmkip7HiqUHEt0QMYLTQFq2OPxa1BHiZGVf79Wk0GZzVQgoiWp8xhm
- bYvzQc8rNuW+axNlAnoDkaEwcck15fK10PLdAGZEVtSd3PnrO5nyRX+omkiX3uUqjlF1pSV57iG
- 0S/XgPipfUPWWbbpbj0D1Z8dyKp6xMmyu8t+07SqcerdiTT4d5JZ8KJxp5nq4/dMJ+Afl1IkAct
- i60ka6+o+0r//iJd+lVnATF4o+QKjXasxfEgnhgtPL81GyHh07XJtWIQ3gdK8V6EY/m9Pihi5di
- IiVubPEKgrgIESZdAs8QrWkiPAhHSeEICNJ5EanCrOjDge6rQzaoQl8+D3aqDQCY4JCM2zbXNdl
- 8qSn0yVf5mz8CJIIfn+76RsdwiReVQEDJchlSYiA7+ZKvtloN/YgGGecjLvjJpHlS/a8L7486Es
- 7McZFGCFAQS5cqrw2N9M+ZR8gVVrWc/IzBH3JycTtC29NSKKHCLGwMtXMwAQ83VIDWYkJQp6mcC
- KKJ+uVVBnitJVBQsxEUzvZGeGBmrlEfwZzt8ykSPDnlWw9m3Xgkp8sHqr46OJgLFP4GrdMh39Wx
- ofpZk/To9RLteKaYUUR/QV3Etv9GpD2fG0vJpVufYGytibAoqEFWgXP6xwxCTK4SC/4mgANBPIW
- Rm8QheSe8IQ8UxAWtjzwvU7qV/Z3ronYk=
-X-Received: by 2002:a5d:64a7:0:b0:48e:5e1f:9a36 with SMTP id
- ffacd0b85a97d-48e6e50191cmr8399741f8f.42.1793443493010; 
- Sat, 31 Oct 2026 03:44:53 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-2a02-3100-a81d-e001-9c9b-db33-f166-0fda.310.pool.telefonica.de.
- [2a02:3100:a81d:e001:9c9b:db33:f166:fda])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71b728f9sm8093899f8f.10.2026.10.31.03.44.50
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 31 Oct 2026 03:44:52 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/tegra: Fix dma-buf reference on import errors
-Date: Sat, 31 Oct 2026 11:44:39 +0100
-Message-Id: <20261031104439.91346-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55D6C10E0ED;
+	Sat, 31 Oct 2026 10:49:48 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBA5E10E0ED
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 10:49:41 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 14BBFC49F6B;
+ Sat, 31 Oct 2026 10:50:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B225460771;
+ Sat, 31 Oct 2026 10:49:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id AD62810329038; Sat, 31 Oct 2026 11:48:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1793443772; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=Pem4c/xVlXIJMXRu8hbS7XQANQwY9xNX3xjHyyNsujU=;
+ b=wkQOT8xcyHQMWB9OEmtZKxKhcla8pzW8jvSZA/x2hal0q4bLz0JU8/AbA0mawe0Dw0DjnF
+ smQsxRHd8gGm24wPOPzLXmCZOappY+s574tn+Ot15X2CQkrhTntBbO7WXDMyU49KLQRkPK
+ h7j1KZhmVf/R/GTl4Nzp+pwdSzjR8YnlT4C4yRqR8NJdg7sSMxL2polFsLUci29G6I7az2
+ G7ZI9YBVzBbECQbXbEM5LUBOA60ZJjLIvJem/gBhbilhA1IJfKFkoP2+xvNFFD3XbHemx8
+ LfFG9kdrLGcZHm6vFXW8AM+Avi0U48paCXRSVpt60+sl7VTB7Aq1IEg3H56QDA==
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 15/35] drm/bridge: anx6345: set the panel orientation
+ on the connector
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Douglas Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, 
+ Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+ Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
+ Paul Kocialkowski <paulk@sys-base.io>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>, 
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+ Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Purism Kernel Team <kernel@puri.sm>, 
+ Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
+ Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
+ Michael Trimarchi <michael@amarulasolutions.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Michael Tretter <m.tretter@pengutronix.de>, 
+ Cristian Cozzolino <cristian_ci@protonmail.com>, 
+ Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Nickolay Goppen <setotau@mainlining.org>, 
+ Stefan Mavrodiev <stefan@olimex.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Robert Chiras <robert.chiras@nxp.com>, 
+ Alexander Koskovich <akoskovich@pm.me>, 
+ Markuss Broks <markuss.broks@gmail.com>, 
+ Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
+ Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
+In-Reply-To: <20261026-drm-panel-funcs-v1-15-5e3070a3478f@oss.qualcomm.com>
+References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-15-5e3070a3478f@oss.qualcomm.com>
+Date: Sat, 31 Oct 2026 11:48:44 +0100
+Message-Id: <179344372467.9825.11469688608855257522.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,54 +128,45 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-tegra_bo_import() takes its own dma-buf reference only on success, but if
-mapping fails, its detach error path still calls dma_buf_put(). That drops
-the reference held by the PRIME caller, which then puts it again, and can
-release the dma-buf file while its descriptor is still installed:
+> The panel is used directly, without the panel bridge, so nothing sets
+> its orientation on the connector apart from the workaround in the
+> get_modes() of some panel drivers, which runs too late.
+>
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> index 407834a03b63..91ce1a877bf8 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> @@ -525,6 +525,11 @@ static int anx6345_bridge_attach(struct drm_bridge *bridge,
+>
+>  	anx6345->connector.polled = DRM_CONNECTOR_POLL_HPD;
+>
+> +	err = drm_connector_set_orientation_from_panel(&anx6345->connector,
+> +						       anx6345->panel);
+> +	if (err)
+> +		goto connector_cleanup;
 
-  VFS: Close: file count is 0 (f_op=dma_buf_fops)
+Muy understanding is that this driver, and those in patches 15-21, should
+be eventually converted to use the bridge API instead of the panel API, but
+that's a significant work and so for now this small change is enough to get
+to patch 22 (workaround removal).
 
-Remove the unmatched put.
+Correct?
 
-Fixes: f5b8794e17e4 ("drm/tegra: gem: Don't attach dma-bufs when not needed")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-v2: Clean up the commit message (Mikko). No code change.
-v1: https://lore.kernel.org/r/20261026055842.96484-1-kmehltretter@gmail.com/
+Luca
 
-Tested on a Jetson Nano (p3450-0000) with CONFIG_DMABUF_DEBUG=y and a local
-change that rejects zero-byte IOMMU mappings to force the error path. Without
-this patch the forced failure produced the warning above. With it, 100
-consecutive failures returned -EINVAL, kept the original dma-buf fd and left
-no dma-buf objects.
-
- drivers/gpu/drm/tegra/gem.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-index f76af73..ed35a34 100644
---- a/drivers/gpu/drm/tegra/gem.c
-+++ b/drivers/gpu/drm/tegra/gem.c
-@@ -502,7 +502,6 @@ detach:
- 		dma_buf_unmap_attachment_unlocked(attach, bo->sgt, DMA_TO_DEVICE);
- 
- 	dma_buf_detach(buf, attach);
--	dma_buf_put(buf);
- free:
- 	drm_gem_object_release(&bo->gem);
- 	kfree(bo);
-
-base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
 -- 
-2.39.5 (Apple Git-154)
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
