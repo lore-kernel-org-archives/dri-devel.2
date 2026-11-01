@@ -2,59 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEAE606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD078606A324
 	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:01:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=rU1B7S3f
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h9qf2GU1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B71E210EA0D;
-	Sun,  1 Nov 2026 12:00:45 +0000 (UTC)
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4CDB610E07E
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 15:03:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B25D310EA0E;
+	Sun,  1 Nov 2026 12:00:49 +0000 (UTC)
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A4B510E0A5
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 01:25:31 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-93efc0452b5so124636785a.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 18:25:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-ID:In-Reply-To:References:MIME-Version:
- Content-Transfer-Encoding; bh=YHf42dT4GUuGEkFrxXMEdkY9Ofr+uP3rQX
- VMmCvRrVM=; b=rU1B7S3fm56HwmhW44Z6C+QUmSP8v53TML5bV533kfyfn62aPn
- ouvy9sFkKrm/LpDv189XhbqiQYF3NvAG2TP7FtA/7qt/mW4A6rPNqgM31pqgr8eJ
- 7N6zGlZWirqEzJ4syKT2nFJ/0byxVktz2M8uaDTo8DHQeebTv87ixzlxk=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
- by mailimap2024 (Coremail) with SMTP id 3pYKCgDHS0ApA+ZqqSNvAA--.5005S4;
- Sat, 31 Oct 2026 23:03:06 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robdclark@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 2/5] drm/msm/dsi: add per-SoC bonded command-path config
-Date: Sat, 31 Oct 2026 23:03:02 +0800
-Message-ID: <20261031150305.1107572-3-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
+ d=gmail.com; s=20260707; t=1793496330; x=1794101130; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=U5YuqJ1RNYNIpnrJqD32N6NRCNjg2qumNEcRV0y+9+A=;
+ b=h9qf2GU1MUqBXQ0oEv95oTNjKEj2wcpL/LC8aGucUBeznIEPh34gU/eWX+PcG1fJVJ
+ Jryv3NA6NECFQ0E5Vk+0OVNxiPKwPiP7QgSJQ8DUHW1dchNYUq6OFtkbBouB4+qCxiOn
+ KZouIxv7uzP5DpjLtDaVzP2I6uGq/7VF18niDIQxvib0wWKm6bYWXCHLcNv+to327fCY
+ p17pDI9GYd0ifs9A1TK/ckBi+2+1cBKRWHBvid2uWSI/cfSC8CYbsxLKw+Vmp1JbJIKI
+ i3r/sLKHbJGyy2+oihvs9YSTzASu4O2F0JqvanbJQJOBC4PHxCxNjPD7jaUFbWJKL9rs
+ Mh0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793496330; x=1794101130;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=U5YuqJ1RNYNIpnrJqD32N6NRCNjg2qumNEcRV0y+9+A=;
+ b=eH3r9Hid1eOq/CrvhXsxHm+/1DWTEHv3qMf9vlP+ShOISVkWtnZlKr48YuVzCrk4v0
+ 8fxDO+CkrzGMLFWOiaS76cI10OlCPvU7zn5OkcxASuGdCJwbN9U5zm9xoWBCAVQ2Bgho
+ zcxgHVrFnZBQnqQlXL3hSvwosr5bQqy1X0Q8a+hic4rDrDiy0zvfxEoODdGvbNWPtEj0
+ Bte0yFze8dMRJfIoPchRRTofZmVfx+KA7NWLtkGcCDmZpkD8VfqCUEoo3+APMyD7qJwb
+ fe5xwKXPC2prbhOk4o6Ea3f8cTtJa5Qtc2Csa80vSxqHJ0HnDOumfFSuULppNNC1iW9G
+ 4Vgg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzJ147R4YJ7+pbX+CGvKb6bpITnYIJ5U8OMKm5zUYZ3H6SXtv2UGIJx+LDbBRfKX//ZIlkurURtP5s=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJzNgJyP+/xIWmZaIZbnaFL8li4jnaH7ZvVLauUHgQp5gfVyY7D
+ n6Jma9q9NulXkxjxMy/Su6J/hfG5a/lumdps7BVWl/U5ZN8cqD6hdHv2
+X-Gm-Gg: AYBFou2tHtIYfjLUZQcaXn+CoKrIHkEmfvYBhQhZbIKe9YtRyV26fAlOBJZXPVgx6Ym
+ u3mYGpOXifYSp1T+isKRPhGKuLit5T3aJvK34pJR/D+0VamLIT0sc1irhWZvxQ2sNTHF6xgtZOb
+ WzbB4O/UfGQG2v5GkkIBuWK8m+ghB2jas8jTwNm1KWdbhOk0A0WrhuHsdH3VXDDPrkkAWxzp5Rc
+ /DdP8JUpg/FX8qIHIaSN8aFDBXXgObUsDIOS0z+BXr+vT0lxVi2MLglZKg6MVamt0YtnIwyqM8h
+ w6XBRxnfhyd2x6i+lErLVEpuY4peUT6SGAnLSLkimYLx1lQVYbXXyyaGFHi6yulKNhzg1HF1Os4
+ sJbC48AUw/EbYKzWyOGHD4v/c5IDpX23T5iv4WQjFln5HAoi25gfqdutpgwogOAsefG9agZUayv
+ IctgeL+SGrCBKRum8dsPU5igR3KwMuu2/1UBtwCQxyG/aaoWCcudvu8QtbS24a5j5zJkN9xAwGt
+ aecOWafRxv8nqoqWqvkkX7V2nJUpElZL95GZdIBfUByOgA6fR733rsQCCBynbqx9h1nGuTKQI8x
+ 9juQUFTsphqter9f0OlMJ7AKjSzzm8RUg0xJgssjnN1JCY+d3gxDFgHinMV7teUnDeeVaXqnv5U
+ 0M9M7B/cEZX4B1sso68YhIJCsNCegH1O3FrJF
+X-Received: by 2002:a05:620a:3188:b0:943:ff70:dc00 with SMTP id
+ af79cd13be357-9442174fc9emr1039734385a.56.1793496329626; 
+ Sat, 31 Oct 2026 18:25:29 -0700 (PDT)
+Received: from olive.mynetworksettings.com
+ ([2600:4040:b076:8700:60ba:f09c:358e:e7a7])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-94425ac5322sm493379285a.39.2026.10.31.18.25.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 31 Oct 2026 18:25:29 -0700 (PDT)
+From: Matthew Krebs <matthewkrebs8@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Matthew Krebs <matthewkrebs8@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/amdkfd: Only take the VRAM path for KFD device pages in
+ svm_range_dma_map_dev
+Date: Sat, 31 Oct 2026 21:25:00 -0400
+Message-ID: <20261101012500.7048-1-matthewkrebs8@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: 3pYKCgDHS0ApA+ZqqSNvAA--.5005S4
-X-Coremail-Antispam: 1UD129KBjvJXoW3AryUAry8WF48WrWfJFW5ZFb_yoWxKw1DpF
- WYqw15tr4kA3ZI9wsxtF1UC3WrAFnavayxJ3srGwnxAwnxtw1UXF4v9a43KFy7ta48Jr1a
- va1kAryUGF1kJrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
- 8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
- 64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
- CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
- 6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
- 02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE
- 4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4
- AK67AK6ryrMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
- rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtw
- CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x02
- 67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
- 0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07b2
- T5LUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FY0gwAHse
 X-Mailman-Approved-At: Sun, 01 Nov 2026 11:58:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,190 +88,105 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The bonded command path carried its constants inline: the error-mask bits
-in dsi_cmd_error_prepare()/dsi_cmd_error_cleanup(), the CMD_DMA_CTRL bits
-staged before a broadcast and the peer poll budget. Those are controller
-facts, so they belong in the existing per-SoC table next to the regulator
-and bus-clock data rather than in the driver body.
+svm_range_dma_map_dev() treats every ZONE_DEVICE page returned by
+hmm_range_fault() as VRAM of the range's SVM BO. KFD's own VRAM pages
+are MEMORY_DEVICE_PRIVATE or MEMORY_DEVICE_COHERENT, but fsdax
+(MEMORY_DEVICE_FS_DAX) and device-dax (MEMORY_DEVICE_GENERIC) pages are
+ZONE_DEVICE too. They are system memory.
 
-Add struct msm_dsi_bonded_cfg and hang it off struct msm_dsi_config.
-SM8750 reports DSI 6G v2.9, which selects the sm8650 cfg entry, so the
-bonded data is attached there with values copied verbatim from the
-current code. Use remains gated on the sm8750 compatible, so behaviour is
-unchanged.
+When a process maps a file on a filesystem mounted with -o dax and lets
+the GPU access it (for example hipMemcpy() from the mapping, which
+registers the range through the SVM ioctl), the range is in system
+memory and prange->svm_bo is NULL, so the VRAM branch dereferences it:
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+  BUG: kernel NULL pointer dereference, address: 0000000000000078
+  RIP: 0010:svm_range_dma_map_dev+0x13b/0x300 [amdgpu]
+  Call Trace:
+   svm_range_validate_and_map+0x600/0xa70 [amdgpu]
+   svm_range_set_attr+0x450/0x8c0 [amdgpu]
+   svm_ioctl+0x62/0x80 [amdgpu]
+   kfd_ioctl_svm+0x5e/0xe0 [amdgpu]
+   kfd_ioctl+0x532/0x680 [amdgpu]
+
+The process is then left unkillable and later KFD calls in other
+processes can block, until a reboot.
+
+Even with an SVM BO the computed address would be wrong for such a
+page. Take the VRAM path only for device private and device coherent
+pages and DMA map every other page, as for normal system memory.
+
+Fixes: 1d5dbfe6c06a ("drm/amdkfd: classify and map mixed svm range pages in GPU")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Matthew Krebs <matthewkrebs8@gmail.com>
 ---
- drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 26 ++++++++++++++++++++++++++
- drivers/gpu/drm/msm/dsi/dsi_cfg.h  | 22 ++++++++++++++++++++++
- drivers/gpu/drm/msm/dsi/dsi_host.c | 22 +++++++++++++++-------
- 3 files changed, 63 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index da3fe68244..640ebe8244 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -4,6 +4,7 @@
-  */
+Notes:
+    Reproducer (needs a filesystem mounted with -o dax; an emulated pmem
+    from memmap=4G!12G and "ndctl create-namespace -m fsdax" works too):
+    
+      fd = open("/mnt/pmem/file", O_RDONLY);          /* >= 64 MiB, on DAX */
+      src = mmap(NULL, 64 << 20, PROT_READ, MAP_SHARED, fd, 0);
+      hipMalloc(&dst, 64 << 20);
+      hipMemcpy(dst, src, 64 << 20, hipMemcpyHostToDevice);
+    
+    An application doing this (hipMemcpy from an mmap of a file on the DAX
+    mount) oopsed as in the commit message. The minimal program above was
+    written afterwards and has only been run on the patched kernel.
+    
+    Tested on Ubuntu 7.0.0-38-generic (based on v7.0.14) with this patch
+    applied to that tree (it applies cleanly), 2x Radeon Pro V620 (Navi 21,
+    gfx1030), ROCm 7.14, Intel Optane in fsdax mode, XFS mounted dax=always:
+    
+    - Before: the application oopsed in svm_range_dma_map_dev on every
+      start (3 of 3, on GPU 0 and on GPU 1); the task was left unkillable
+      and a later hipHostRegister in another process blocked in
+      __synchronize_srcu until a reboot.
+    - After: hipMemcpy and hipHostRegister + copy from the DAX mapping,
+      64 MiB and 1 GiB, on both GPUs, data read back equal; the same on a
+      non-DAX file; the application (an LLM server mapping a 111 GB model
+      file from the DAX mount) starts and answers requests. No oops.
+    - With dynamic debug on svm_range_dma_map_dev, the pages DMA mapped
+      during the copy have pfns inside the pmem region, and KFD's own VRAM
+      pages in the same call still take the VRAM branch.
+    
+    Not tested: MEMORY_DEVICE_COHERENT systems (the GPU memory registered
+    as coherent), device-dax (/dev/daxX.Y) mappings, other ASICs.
+    
+    A stricter test would be "the page belongs to a KFD pgmap", e.g.
+    page_pgmap(page)->ops == &svm_migrate_pgmap_ops, which also rules out
+    another driver's device-coherent pages. I used the type test because it
+    needs no new helper; happy to switch if you prefer that.
+
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index ed5e33188..354184829 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -180,7 +180,12 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
+ 			dma_unmap_page(dev, addr[i], PAGE_SIZE, dir);
  
- #include "dsi_cfg.h"
-+#include "dsi.xml.h"
+ 		page = hmm_pfn_to_page(hmm_pfns[i]);
+-		if (is_zone_device_page(page)) {
++		/*
++		 * Only KFD's own VRAM pages (device private or device coherent)
++		 * take the VRAM path. Other ZONE_DEVICE pages, such as fsdax or
++		 * device-dax memory, are system memory and are DMA mapped below.
++		 */
++		if (is_device_private_page(page) || is_device_coherent_page(page)) {
+ 			struct amdgpu_device *bo_adev = prange->svm_bo->node->adev;
  
- static const char * const dsi_v2_bus_clk_names[] = {
- 	"core_mmss", "iface", "bus",
-@@ -194,6 +195,24 @@ static const struct regulator_bulk_data sm8650_dsi_regulators[] = {
- 	{ .supply = "vdda", .init_load_uA = 16600 },	/* 1.2 V */
- };
- 
-+/*
-+ * Bonded command-path data. Values are copied verbatim from the vendor-derived
-+ * in-tree code; the SM8750 compatible check in dsi_host.c/dsi_manager.c still
-+ * gates every use until the master link moves into this table as well.
-+ * TODO(doc): err_clear_bits/err_cleanup_bits touch bits that dsi.xml does not
-+ * describe (see reports/b5-per-soc-cfg-design-20261027.md, RFC-SCOPE R1).
-+ */
-+static const struct msm_dsi_bonded_cfg sm8750_dsi_bonded_cfg = {
-+	.master_link_id = DSI_0,
-+	.cmd_dma_ctrl = DSI_CMD_DMA_CTRL_BROADCAST_EN |
-+			DSI_CMD_DMA_CTRL_FROM_FRAME_BUFFER,
-+	.err_clear_bits = 0x001f0200,
-+	.err_cleanup_bits = 0x44440400,
-+	.poll_timeout_us = 5000,	/* 500 polls, 10 us apart */
-+	.needs_link_clk_bump = true,
-+	.needs_sw_reset = true,
-+};
-+
- static const struct msm_dsi_config sm8650_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
- 	.regulator_data = sm8650_dsi_regulators,
-@@ -203,6 +222,13 @@ static const struct msm_dsi_config sm8650_dsi_cfg = {
- 	.io_start = {
- 		{ 0xae94000, 0xae96000 },
- 	},
-+	/*
-+	 * SM8750 reports DSI 6G v2.9, i.e. it selects this very table entry, so
-+	 * the bonded data has to hang off it. Its use is still gated on the
-+	 * "qcom,sm8750-dsi-ctrl" compatible, so an actual SM8650 keeps taking
-+	 * the regular command path.
-+	 */
-+	.bonded = &sm8750_dsi_bonded_cfg,
- };
- 
- static const struct msm_dsi_config kaanapali_dsi_cfg = {
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index ccf0667960..c8813a738b 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -41,6 +41,26 @@
- /* Maximum number of configurations matched against the same hw revision */
- #define VARIANTS_MAX			2
- 
-+/**
-+ * struct msm_dsi_bonded_cfg - per-SoC data for the bonded command path
-+ * @master_link_id: link that drives the broadcast; not the probe order
-+ * @cmd_dma_ctrl: CMD_DMA_CTRL bits both engines need while staged
-+ * @err_clear_bits: error-mask bits set before a command
-+ * @err_cleanup_bits: side-effectful FIFO status bits written after a command
-+ * @poll_timeout_us: the peer is polled, never completed through its IRQ
-+ * @needs_link_clk_bump: command-time link clock vote for this generation
-+ * @needs_sw_reset: this generation needs the stock controller reset sequence
-+ */
-+struct msm_dsi_bonded_cfg {
-+	u8 master_link_id;
-+	u32 cmd_dma_ctrl;
-+	u32 err_clear_bits;
-+	u32 err_cleanup_bits;
-+	u32 poll_timeout_us;
-+	bool needs_link_clk_bump;
-+	bool needs_sw_reset;
-+};
-+
- struct msm_dsi_config {
- 	u32 io_offset;
- 	const struct regulator_bulk_data *regulator_data;
-@@ -48,6 +68,8 @@ struct msm_dsi_config {
- 	const char * const *bus_clk_names;
- 	const int num_bus_clks;
- 	const resource_size_t io_start[VARIANTS_MAX][DSI_MAX];
-+	/* NULL when the SoC has no bonded command path */
-+	const struct msm_dsi_bonded_cfg *bonded;
- };
- 
- struct msm_dsi_host_cfg_ops {
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 5405173a43..a3e9882c22 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -2345,12 +2345,19 @@ void msm_dsi_host_bonded_wait_video(struct mipi_dsi_host *host)
- 	dsi_wait4video_eng_busy(to_msm_dsi_host(host));
- }
- 
-+static const struct msm_dsi_bonded_cfg *
-+dsi_bonded_cfg(struct msm_dsi_host *msm_host)
-+{
-+	return msm_host->cfg_hnd->cfg->bonded;
-+}
-+
- static void dsi_cmd_error_prepare(struct msm_dsi_host *msm_host)
- {
-+	const struct msm_dsi_bonded_cfg *bonded = dsi_bonded_cfg(msm_host);
- 	u32 val;
- 
- 	val = dsi_read(msm_host, REG_DSI_ERR_INT_MASK0);
--	val |= 0x001f0200;
-+	val |= bonded->err_clear_bits;
- 	dsi_write(msm_host, REG_DSI_ERR_INT_MASK0, val);
- 	wmb(); /* Stock completes the error-mask write before stale clear. */
- 
-@@ -2360,13 +2367,14 @@ static void dsi_cmd_error_prepare(struct msm_dsi_host *msm_host)
- 
- static void dsi_cmd_error_cleanup(struct msm_dsi_host *msm_host)
- {
-+	const struct msm_dsi_bonded_cfg *bonded = dsi_bonded_cfg(msm_host);
- 	u32 val;
- 
- 	/* Stock mask_error_intr(0x2, false) W1C-clears FIFO errors. */
- 	val = dsi_read(msm_host, REG_DSI_FIFO_STATUS);
--	dsi_write(msm_host, REG_DSI_FIFO_STATUS, val | 0x44440400);
-+	dsi_write(msm_host, REG_DSI_FIFO_STATUS, val | bonded->err_cleanup_bits);
- 	val = dsi_read(msm_host, REG_DSI_ERR_INT_MASK0);
--	val &= ~0x001f0200;
-+	val &= ~bonded->err_clear_bits;
- 	dsi_write(msm_host, REG_DSI_ERR_INT_MASK0, val);
- 	wmb(); /* Complete overflow unmask before stale-error clear. */
- 
-@@ -2553,8 +2561,7 @@ void msm_dsi_host_bonded_cmd_stage(struct mipi_dsi_host *host,
- 	val &= ~(DSI_CMD_DMA_CTRL_BROADCAST_MASTER |
- 		 DSI_CMD_DMA_CTRL_WC_SEL | DSI_CMD_DMA_CTRL_PACKET_TYPE |
- 		 DSI_CMD_DMA_CTRL_LOW_POWER);
--	val |= DSI_CMD_DMA_CTRL_BROADCAST_EN |
--	       DSI_CMD_DMA_CTRL_FROM_FRAME_BUFFER;
-+	val |= dsi_bonded_cfg(msm_host)->cmd_dma_ctrl;
- 	if (master)
- 		val |= DSI_CMD_DMA_CTRL_BROADCAST_MASTER;
- 	if (msg->flags & MIPI_DSI_MSG_USE_LPM)
-@@ -2636,10 +2643,11 @@ int msm_dsi_host_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len)
- int msm_dsi_host_bonded_cmd_poll_slave(struct mipi_dsi_host *host)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-+	u32 timeout_us = dsi_bonded_cfg(msm_host)->poll_timeout_us;
- 	u32 status = 0;
--	int i;
-+	u32 elapsed;
- 
--	for (i = 0; i < 500; i++) {
-+	for (elapsed = 0; elapsed < timeout_us; elapsed += 10) {
- 		status = dsi_read(msm_host, REG_DSI_INTR_CTRL);
- 		if (status & DSI_IRQ_CMD_DMA_DONE) {
- 			dsi_cmd_dma_intr_update(msm_host, false, true);
+ 			addr[i] = (hmm_pfns[i] << PAGE_SHIFT) +
 -- 
-2.53.0
+2.43.0
 
