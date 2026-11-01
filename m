@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DDB606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 21:25:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3D1606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 21:25:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V26YpI7r
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jt+7an0D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB90110E47D;
-	Sun,  1 Nov 2026 21:25:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9816010E480
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 21:25:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2609010E480;
+	Sun,  1 Nov 2026 21:25:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA8A910E47D
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 21:25:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B527601F9;
- Sun,  1 Nov 2026 21:25:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C63ED1F000C1;
+ by sea.source.kernel.org (Postfix) with ESMTP id 7239C41068;
  Sun,  1 Nov 2026 21:25:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 537CA1F000C1;
+ Sun,  1 Nov 2026 21:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793568312;
- bh=aGELfrV/OMw95dVVl/o5OT5VGsTICMpPrGvwOEB8SYY=;
+ s=k20260515; t=1793568310;
+ bh=RzyFOrpIsCiM4ZgTKvzzRSVs5Ku4gtmX/tafw+J41nE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=V26YpI7rVmeF7TGRFNxl2chmgZIkOSOV86auQg9ab5HH4FZtDpPlzj0zSTApsir6P
- lVg8DfgWM3BeIAb5zqBORxnVowAdNCu8zDvxq791Tf9BqQZjitrSgAYfj3LLNjjV9j
- FSbfxUyAzQklN9qsiyxlb1LESNMQdIJPRlHXVEDk36jd2NgPNcjRxWD1twmc6NPTV3
- iDAHd745FiyJJWLn+/x3RFL7loPXIc9698XFOtvWZRCMJOB0mfYCMt/ySheEh5q8E0
- vpyiYm7ay0FV97ox6AqqRkcGYxQnAFbUUi3pdO82PVXTkpyX1p6d2NDANEa1fX21OD
- O+eXgGXL/dQDg==
+ b=Jt+7an0Drh8dL410RJ39tivJI1L2RAbfIp7yU6zn5o2FdznHXreoH285wvXzN4ISM
+ mMS0RptModKAY5uBDWLKR29C0hqlDVqFinqzixsE+pxIGM4dgry++VZxxGdWH7BG9z
+ X+LYAHLwQ9hImzFSYemWLg5nDCbRJfjgY7uhnXBUko7M88xPYX6jKM9keHOy9UlzLJ
+ BXrWh7t0VvfKd4XVwzDuUXZMPTGr39+gzbRZBKGfnW0STeOLCIihIz25KHJFMlE2kq
+ B3hHhFOSRtt/zhzsnE89xzpecpTK0Em8i5fT5upcO3FUvQPyDrH2lbGhOP4z3pR7Dy
+ uL5Ou0GMREcvg==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>
@@ -34,10 +34,10 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/panel: visionox-r66451: Wait longer after the panel
- reset
-Date: Sun,  1 Nov 2026 23:24:58 +0200
-Message-ID: <20261101212458.2431191-3-vz@kernel.org>
+Subject: [PATCH 1/2] drm/panel: visionox-r66451: Send the brightness value MSB
+ first
+Date: Sun,  1 Nov 2026 23:24:57 +0200
+Message-ID: <20261101212458.2431191-2-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261101212458.2431191-1-vz@kernel.org>
 References: <20261101212458.2431191-1-vz@kernel.org>
@@ -62,12 +62,19 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The initialization sequence is sent 10ms after the panel reset is
-deasserted, however on the SM8350-HDK display card the panel does not
-answer a DCS read at that time, as a result the panel initialization
-commands are lost, and the panel does not exit sleep mode and the display
-stays black. With the first command sent about 15ms after the reset
-the panel comes up reliably, so wait 20ms after deasserting the reset.
+The panel expects to get two bytes of the DCS Set Display Brightness
+command with the most significant byte first, and it uses the lower
+12 bits of the value, use mipi_dsi_dcs_set_display_brightness_large()
+to correct the programmed brightness values.
+
+Tested on the SM8350-HDK display card, the display brightness increases
+gradually with:
+
+  for v in $(seq 16 16 4095); do sleep 0.1; \
+    echo $v > /sys/class/backlight/ae94000.dsi.0/brightness; \
+  done
+
+while without the change the display is dark during all writes.
 
 Fixes: a6dfab2738fc ("drm/panel: Add driver for Visionox r66451 panel")
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
@@ -76,18 +83,18 @@ Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/panel/panel-visionox-r66451.c b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-index 4f28bd3b6080..b0559e8b1cb5 100644
+index 1efb139bb711..4f28bd3b6080 100644
 --- a/drivers/gpu/drm/panel/panel-visionox-r66451.c
 +++ b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-@@ -36,7 +36,7 @@ static void visionox_r66451_reset(struct visionox_r66451 *ctx)
- 	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
- 	usleep_range(10000, 10100);
- 	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
--	usleep_range(10000, 10100);
-+	usleep_range(20000, 21000);
+@@ -227,7 +227,7 @@ static int visionox_r66451_bl_update_status(struct backlight_device *bl)
+ 	struct mipi_dsi_device *dsi = bl_get_data(bl);
+ 	u16 brightness = backlight_get_brightness(bl);
+ 
+-	return mipi_dsi_dcs_set_display_brightness(dsi, brightness);
++	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
  }
  
- static int visionox_r66451_on(struct visionox_r66451 *ctx)
+ static const struct backlight_ops visionox_r66451_bl_ops = {
 -- 
 2.51.0
 
