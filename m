@@ -2,43 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65B2606A326
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:01:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38190606A32C
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:01:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxUpu1vz
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXWTxYAc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C5D510EAE6;
-	Sun,  1 Nov 2026 23:01:00 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D388810EAD8
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:00:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8B910EAD8;
+	Sun,  1 Nov 2026 23:01:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86EC610EAD8
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:01:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A30EB423E3;
- Sun,  1 Nov 2026 23:00:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E05C1F000C1;
- Sun,  1 Nov 2026 23:00:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B7F9B605CB;
+ Sun,  1 Nov 2026 23:01:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E825E1F000C1;
+ Sun,  1 Nov 2026 23:01:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793574053;
- bh=u128ibxXssPCcaU9QjuSC4lZcHuE4j9UdtyH2g3r7OY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IxUpu1vzwz+pWe56xRB/gHrv9ezAlNmQz4+IElzZM3mel680uRkMDl5xAaNQsQx1f
- xPXFBoXJAvgkgIiT0rwS0w7vSJEY3UYGTO/u6RK1wkWFuLpj6VFqEIy71Zb/pt3ocf
- hhy1n7L2abzgaNm3NvhwVXAFEyK77C7xF5wBuIjXNvst8ZruPYb0ST0vo7QD1SZXNW
- Yf0zn8vMygbOCWaUfJTaQZKiqKpR3YDkWyvARXdd6/uG/RqN4kx7pbDdre8n9Xst2l
- iuuXJsIlXrugqhboUeXR78Ys4BZwHapMNmzHbP6UuKJuuI5Omqn9alx+j9zJ6ND7mz
- 6rmbegZIBaiwg==
-Message-ID: <sashiko-outbox-192748@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 21/25] accel/qda: Add Audio protection domain attach
- and its remote heap
-To: "Ekansh Gupta" <ekansh.gupta@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261102-v4-v4-21-88f2f24a5f0b@qti.qualcomm.com>
-References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <20261102-v4-v4-21-88f2f24a5f0b@qti.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 23:00:52 +0000
+ s=k20260515; t=1793574083;
+ bh=BPSVnso4oEFqCvt1xPqxZev+hvDlmid64+VAE04eWZU=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References;
+ b=cXWTxYAc09HjtO/v2x8wJl1A3vpPnQu4XURrpMEGf25Ho9paKJlJ/sV+LjPRA6XWv
+ NFIvBouVCFEusyVeqMvDhIJK8tcSAFbR9fLZycsiy4yB4NEn8x19YP7H8+rSOumaPX
+ jd1tGm+0sRa4dxl8fbo4I3cDBO3/h96x+1dGsIB0B+bWA0+xFmslqeveOlQS7jTelt
+ 1L6po2NUqwOgtQ9BX0ys7Bwgxu9v/9XLzXrFKO1LWFXw5XUCekx3Y0ZYjL5RaiLD3S
+ 0CODRHJQuVurRVyY4zUVAdf9ZLI/efrl+f0jqqMiNmOSz4B+IrGFpWsHP6CfQj2A3G
+ 1RSbalBd8E1zA==
+Subject: Re: [PATCH net v5 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, pabeni@redhat.com, sdf@fomichev.me,
+ kaiyuanz@google.com, kuba@kernel.org, bobbyeshleman@meta.com,
+ asml.silence@gmail.com, dw@davidwei.uk, ap420073@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, shuah@kernel.org, 
+ sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
+ andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org,
+ ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org,
+ tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
+Date: Sun, 01 Nov 2026 23:01:21 +0000
+Message-ID: <179357408146.3131.2882435952119280563@kernel.org>
+In-Reply-To: <20261030083539.777877-2-almasrymina@google.com>
+References: <20261030083539.777877-2-almasrymina@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,335 +60,221 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] accel/qda: race between qda_attach_audio_pd() and qda_rpmsg_remove=
-()
-- [High] accel/qda: unallocated CMA memory hyp-assigned in qda_init_remote_=
-heap()
-- [Medium] accel/qda: signal in qda_attach_audio_pd() desyncs audio_init_me=
-m state
-- [Medium] accel/qda: 32-bit BIT() overflow and unvalidated VMIDs in remote=
- heap setup
-- [Low] accel/qda: qda_attach_audio_pd() mixes goto cleanup with scoped_gua=
-rd()
-- [Low] accel/qda: missing mutex_destroy() for remote_heap_lock on device t=
-eardown
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
+
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The dma_dev use-after-free this patch says it fixes can still
+  happen for RX bindings made on a virtual device that leases queues,…
+
+Pre-existing issues:
+- [Medium] At this commit, net_devmem_dev_unregister() skips TX
+  (DMA_TO_DEVICE) bindings.
+
 --
 
-commit cd6c4ef6e7fc95f52a56e49a2e18e2d259cf294c
-Author: Ekansh Gupta <ekangupt@qti.qualcomm.com>
+net: devmem: unmap dma_buf synchronously on queue uninstall
 
-accel/qda: Add Audio protection domain attach and its remote heap
+This commit unmaps RX devmem dma_buf bindings earlier: when the last
+bound RX queue is uninstalled, when the binding is unbound, or on
+NETDEV_UNREGISTER. Previously the unmap waited until the final binding
+free. Bindings now stay in the global xarray until they are freed, with
+an xarray mark hiding unbound ones from TX lookups, and
+netif_mp_close_rxq() now reports queue restart failures. The aim is to
+avoid a use-after-free of dma_dev in dma_unmap_sg_attrs() after the
+device is removed.
 
-This commit adds support for attaching to the static Audio protection domain
-by name via QDA_ATTACH_AUDIO_PD and hands the DSP its reserved remote heap
-memory region on the first attach. At probe time, it parses the qcom,vmids
-property and reserved-memory region and uses qcom_scm_assign_mem() to share
-the heap with the DSP VMs until the rpmsg device is removed.
-
-> diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
-> index 9b8cccfea1e3a..41234fc576a9a 100644
-> --- a/drivers/accel/qda/qda_ioctl.c
-> +++ b/drivers/accel/qda/qda_ioctl.c
-
-[ ... ]
-
-> @@ -176,6 +177,54 @@ int qda_release_dsp_process(struct qda_dev *qdev, st=
-ruct qda_session *session)
->  	return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_RELEASE, NULL, session);
->  }
-> =20
-> +/*
-> + * The Audio PD keeps the remote heap across daemon restarts, so only th=
-e first
-> + * attach on a device hands it to the DSP. The lock is held across the a=
-ttach
-> + * so that a concurrent one cannot skip the heap while the first is stil=
-l in
-> + * flight, and the flag is set only once the DSP has accepted it.
-> + */
-> +static int qda_attach_audio_pd(struct qda_session *session, struct drm_q=
-da_remote_attach *args)
-> +{
-> +	struct qda_dev *qdev =3D session->qda_dev;
-> +	struct qda_static_pd_args sargs =3D {};
-> +	char *name;
-> +	int err;
-> +
-> +	if (strcmp(qdev->dsp_name, "adsp") || !qdev->remote_heap_size)
-> +		return -ENODEV;
-> +
-> +	if (!args->namelen || args->namelen > QDA_FASTRPC_INIT_NAMELEN_MAX)
-> +		return -EINVAL;
-> +
-> +	name =3D memdup_user(u64_to_user_ptr(args->name), args->namelen);
-> +	if (IS_ERR(name))
-> +		return PTR_ERR(name);
-> +
-> +	if (name[args->namelen - 1]) {
-> +		err =3D -EINVAL;
-> +		goto out_free;
-> +	}
-> +
-> +	sargs.name =3D name;
-> +	sargs.namelen =3D args->namelen;
-> +
-> +	scoped_guard(mutex, &qdev->remote_heap_lock) {
-> +		if (!qdev->audio_init_mem) {
-> +			sargs.heap.addr =3D qdev->remote_heap_addr;
-> +			sargs.heap.size =3D qdev->remote_heap_size;
-> +		}
-> +
-> +		err =3D qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_CREATE_STATIC, &sargs=
-, session);
-> +		if (!err && sargs.heap.size)
-> +			qdev->audio_init_mem =3D true;
-> +	}
-
-[Severity: Medium]
-What happens if the calling task receives a signal while waiting for the DSP
-response in qda_attach_audio_pd()?
-
-The call chain:
-
-  qda_attach_audio_pd()
-    qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_CREATE_STATIC, &sargs, session)
-      qda_fastrpc_invoke_common()
-        qda_rpmsg_send_msg()
-        qda_rpmsg_wait_for_rsp()
-          wait_for_completion_interruptible(&ctx->work)
-
-waits interruptibly after the QDA_FASTRPC_RMID_INIT_CREATE_STATIC message
-carrying sargs.heap has already been transmitted to the DSP.
-
-If a signal arrives before the DSP replies, qda_fastrpc_invoke() returns
--ERESTARTSYS while the DSP continues processing the remote heap
-initialization. Because err is non-zero, qdev->audio_init_mem remains false
-and qdev->remote_heap_lock is released, allowing a restarted syscall or a
-concurrent caller to observe !qdev->audio_init_mem and hand the remote heap
-to the DSP a second time while the first attach is still in flight or after
-the DSP has already accepted it.
-
-> +
-> +out_free:
-> +	kfree(name);
-> +
-> +	return err;
-> +}
-
-[Severity: Low]
-This isn't a bug, but qda_attach_audio_pd() mixes goto out_free error
-handling for name with scoped_guard(mutex, &qdev->remote_heap_lock) in the
-same function.
-
-Could name be declared with __free(kfree) so that the NUL-termination check
-can return -EINVAL directly without mixing goto cleanup and scope-based
-cleanup helpers?
-
-> diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
-> index 7e58df3eb2e17..b93e906b57930 100644
-> --- a/drivers/accel/qda/qda_rpmsg.c
-> +++ b/drivers/accel/qda/qda_rpmsg.c
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index 32fafbfa1359e..4610de805ef08 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
 
 [ ... ]
 
-> @@ -145,6 +147,81 @@ static int qda_rpmsg_cb(struct rpmsg_device *rpdev, =
-void *data, int len,
->  	return ret;
+> @@ -143,12 +228,45 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  
+>  		rxq_idx = get_netdev_rx_queue_index(rxq);
+>  
+> -		netif_mp_close_rxq(binding->dev, rxq_idx, &mp_params);
+> +		if (netif_mp_close_rxq(binding->dev, rxq_idx, &mp_params))
+> +			busy = true;
+> +	}
+> +
+> +	if (binding->direction == DMA_FROM_DEVICE && binding->dev && !busy) {
+> +		net_devmem_dmabuf_binding_unmap(binding);
+> +		WRITE_ONCE(binding->dev, NULL);
+>  	}
+>  
+>  	percpu_ref_kill(&binding->ref);
 >  }
-> =20
-> +static int qda_init_vmperms(struct qda_dev *qdev)
+>  
+> +void net_devmem_dev_unregister(struct net_device *dev)
 > +{
-> +	u32 vmids[QDA_MAX_VMIDS];
-> +	int vmcount, i;
+> +	struct net_devmem_dmabuf_binding *binding;
+> +	unsigned long xa_idx;
 > +
-> +	vmcount =3D of_property_read_variable_u32_array(qdev->dev->of_node, "qc=
-om,vmids",
-> +						      vmids, 0, QDA_MAX_VMIDS);
-> +	if (vmcount =3D=3D -EINVAL || vmcount =3D=3D -ENODATA)
-> +		return 0;
-> +	if (vmcount < 0)
-> +		return vmcount;
+> +	netdev_assert_locked(dev);
 > +
-> +	if (!qcom_scm_is_available())
-> +		return -EPROBE_DEFER;
-> +
-> +	for (i =3D 0; i < vmcount; i++) {
-> +		qdev->vmperms[i].vmid =3D vmids[i];
-> +		qdev->vmperms[i].perm =3D QCOM_SCM_PERM_RWX;
-> +	}
-> +	qdev->vmcount =3D vmcount;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * The region is optional: without it an Audio PD attach is refused. It =
-is
-> + * recorded only once it has been assigned, so teardown hands back exact=
-ly
-> + * what was handed over.
-> + */
-> +static int qda_init_remote_heap(struct qda_dev *qdev)
-> +{
-> +	u64 src_perms =3D BIT(QCOM_SCM_VMID_HLOS);
-> +	struct resource res;
-> +	int ret;
-> +
-> +	if (strcmp(qdev->dsp_name, "adsp") && strcmp(qdev->dsp_name, "sdsp"))
-> +		return 0;
-> +
-> +	if (of_reserved_mem_region_to_resource(qdev->dev->of_node, 0, &res))
-> +		return 0;
-> +
-> +	if (qdev->vmcount) {
-> +		ret =3D qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
-> +					  qdev->vmperms, qdev->vmcount);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	qdev->remote_heap_addr =3D res.start;
-> +	qdev->remote_heap_size =3D resource_size(&res);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Can qda_init_remote_heap() hyp-assign memory away from HLOS without first
-allocating it from CMA?
-
-In the Qualcomm FastRPC device tree bindings and upstream SoC device trees,
-the ADSP remote heap memory-region (adsp_rpc_remote_heap_mem) is defined as=
- a
-reusable shared-dma-pool without no-map. For a reusable CMA region, those
-pages remain in the Linux page allocator for movable HLOS allocations until
-allocated via CMA or DMA APIs.
-
-Taking the raw physical range from of_reserved_mem_region_to_resource() in
-qda_init_remote_heap() and revoking QCOM_SCM_VMID_HLOS access via
-qcom_scm_assign_mem() without allocating the pages first leaves active or
-future movable HLOS pages inside that range, which will trigger stage-2
-permission faults when accessed by the CPU and corrupt memory when used by
-the ADSP.
-
-> +
-> +static void qda_deinit_remote_heap(struct qda_dev *qdev)
-> +{
-> +	struct qcom_scm_vmperm dst_perms =3D {
-> +		.vmid =3D QCOM_SCM_VMID_HLOS,
-> +		.perm =3D QCOM_SCM_PERM_RWX,
-> +	};
-> +	u64 src_perms =3D 0;
-> +	int ret, i;
-> +
-> +	if (!qdev->remote_heap_size || !qdev->vmcount)
+> +	if (dev->reg_state != NETREG_UNREGISTERING)
 > +		return;
 > +
-> +	for (i =3D 0; i < qdev->vmcount; i++)
-> +		src_perms |=3D BIT(qdev->vmperms[i].vmid);
+> +	xa_lock(&net_devmem_dmabuf_bindings);
+> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> +		if (binding->direction != DMA_FROM_DEVICE ||
+> +		    READ_ONCE(binding->dev) != dev ||
+> +		    xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +				NET_DEVMEM_BINDING_LIVE))
+> +			continue;
 
 [Severity: Medium]
-Could BIT(qdev->vmperms[i].vmid) overflow a 32-bit unsigned long or shift p=
-ast
-63?
+This issue was not introduced by this patch, but at this commit TX
+(DMA_TO_DEVICE) bindings are skipped here. Their binding->dev is never
+cleared, and they stay mapped until __net_devmem_dmabuf_binding_free().
 
-In qda_deinit_remote_heap() (and in qda_init_remote_heap() when initializing
-src_perms), BIT() uses 1UL << nr, whereas src_perms is a u64 and ADSP remote
-heap VMIDs such as QCOM_SCM_VMID_ADSP_HEAP (0x25) or
-QCOM_SCM_VMID_CP_ADSP_SHARED (0x33) exceed 31. On 32-bit builds (allowed via
-ARCH_QCOM || COMPILE_TEST), shifting 1UL by 37 or 51 is undefined behavior =
-and
-fails to populate the upper 32 bits of src_perms.
+That has three consequences. The deferred dma_unmap_sg_attrs() can run
+on a freed dma_dev. netdev_nl_sock_priv_destroy()->net_devmem_lock_dev()
+can call netdev_hold() and netdev_lock() on a freed net_device. And the
+invariant in the new net_devmem_lock_dev() kernel-doc does not hold for
+TX bindings.
 
-In addition, qda_init_vmperms() copies u32 values from the qcom,vmids prope=
-rty
-without checking that each vmid is less than BITS_PER_TYPE(u64). Should
-qda_init_remote_heap() and qda_deinit_remote_heap() use BIT_ULL(), and shou=
-ld
-qda_init_vmperms() reject VMIDs >=3D BITS_PER_TYPE(u64)?
+The old netdev_nl_sock_priv_destroy() already called netdev_hold() on a
+stale TX binding->dev, so this predates the patch. The next patch in the
+series, "net: devmem: detach TX bindings on NETDEV_UNREGISTER", appears
+to fix it. That patch clears the LIVE mark, unmaps the binding and
+clears dev and vdev for TX bindings with binding->dev == dev. It also
+calls net_devmem_lock_dev() in __net_devmem_dmabuf_binding_free() for
+both directions.
 
 > +
-> +	ret =3D qcom_scm_assign_mem(qdev->remote_heap_addr, qdev->remote_heap_s=
-ize,
-> +				  &src_perms, &dst_perms, 1);
-> +	if (ret)
-> +		dev_err(qdev->dev, "Failed to assign remote heap back to HLOS: %d\n", =
-ret);
+> +		xa_unlock(&net_devmem_dmabuf_bindings);
+> +		if (!netif_is_queue_leasee(dev))
+> +			net_devmem_dmabuf_binding_unmap(binding);
+> +		xa_lock(&net_devmem_dmabuf_bindings);
+> +		WRITE_ONCE(binding->dev, NULL);
+> +	}
+> +	xa_unlock(&net_devmem_dmabuf_bindings);
 > +}
+
+[ ... ]
+
+> @@ -551,16 +669,17 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+>  	unsigned long xa_idx;
+>  
+>  	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
+> -		if (bound_rxq == rxq) {
+> -			xa_erase(&binding->bound_rxqs, xa_idx);
+> -			if (xa_empty(&binding->bound_rxqs)) {
+> -				mutex_lock(&binding->lock);
+> -				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> -				WRITE_ONCE(binding->dev, NULL);
+> -				mutex_unlock(&binding->lock);
+> -			}
+> -			break;
+> +		if (bound_rxq != rxq)
+> +			continue;
 > +
->  static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
->  {
->  	struct qda_dev *qdev =3D dev_get_drvdata(&rpdev->dev);
-> @@ -163,6 +240,7 @@ static void qda_rpmsg_remove(struct rpmsg_device *rpd=
-ev)
->  	qda_fastrpc_flush_pending(qdev);
->  	qda_cb_unpopulate(qdev);
->  	qda_deinit_device(qdev);
-> +	qda_deinit_remote_heap(qdev);
+> +		xa_erase(&binding->bound_rxqs, xa_idx);
+> +		if (xa_empty(&binding->bound_rxqs)) {
+> +			if (!rxq->lease)
+> +				net_devmem_dmabuf_binding_unmap(binding);
+> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> +			WRITE_ONCE(binding->dev, NULL);
+>  		}
+> +		break;
+>  	}
 >  }
 
 [Severity: High]
-Can qda_attach_audio_pd() race with qda_rpmsg_remove() and access destroyed
-device state after teardown?
+Can the dma_dev use-after-free still happen for an RX binding made on a
+virtual device that leases queues, such as netkit leasing from a
+physical NIC?
 
-If thread A is inside qda_attach_audio_pd() holding qdev->remote_heap_lock
-while waiting for the DSP response, a concurrent thread B calling
-qda_ioctl_attach() -> qda_attach_audio_pd() can already be blocked waiting =
-to
-acquire qdev->remote_heap_lock before allocating an invoke context in
-qdev->ctx_xa.
+In that case binding->dev is the netkit device and bound_rxqs holds the
+netkit rxq. dma_dev is the physical NIC's DMA device, which
+netdev_queue_get_dma_dev() finds by following the lease.
 
-When qda_rpmsg_remove() runs:
+On unlease, the call chain is:
 
-  qda_rpmsg_remove()
-    drm_dev_unplug(&qdev->drm_dev)
-    qdev->rpdev =3D NULL
-    qda_fastrpc_flush_pending(qdev)
-    qda_cb_unpopulate(qdev)
-    qda_deinit_device(qdev)
-    qda_deinit_remote_heap(qdev)
+netkit_uninit()
+  netkit_queue_unlease()
+    netdev_rx_queue_unlease()
+      netif_rxq_cleanup_unlease()
+        __netif_mp_close_rxq(phys_rxq->dev, rxq_idx, &p);
+        __netif_mp_uninstall_rxq(virt_rxq, &p);
+          mp_dmabuf_devmem_uninstall()
 
-drm_dev_unplug() does not wait for threads already inside drm_ioctl(), and
-qda_fastrpc_flush_pending() only wakes thread A. While thread A releases
-qdev->remote_heap_lock and thread B acquires it, qda_rpmsg_remove() proceeds
-to destroy the context bank platform devices in qda_cb_unpopulate() and free
-qdev->iommu_mgr and destroy qdev->ctx_xa in qda_deinit_device().
+The lease pointers are cleared only after the cleanup returns:
 
-Thread B then calls qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_CREATE_STATIC,
-...) without checking whether the device was unplugged, executing
-qda_fastrpc_context_alloc() on the destroyed qdev->ctx_xa and
-qda_fastrpc_prepare_args_create_static() -> alloc_kernel_gem() ->
-qda_gem_create_object() -> qda_memory_manager_alloc() on the destroyed
-iommu_mgr and freed context bank device before reaching the drm_dev_enter()
-check in qda_rpmsg_send_msg().
+net/core/netdev_rx_queue.c:netdev_rx_queue_unlease() {
+    ...
+	netif_rxq_cleanup_unlease(rxq_src, rxq_dst);
 
-> @@ -195,10 +273,20 @@ static int qda_rpmsg_probe(struct rpmsg_device *rpd=
-ev)
->  		return ret;
->  	}
-> =20
-> -	ret =3D qda_init_device(qdev, qda_count_cb_nodes(rpdev->dev.of_node));
-> +	mutex_init(&qdev->remote_heap_lock);
+	WRITE_ONCE(rxq_src->lease, NULL);
+	WRITE_ONCE(rxq_dst->lease, NULL);
+    ...
+}
 
-[Severity: Low]
-Unlike qdev->import_lock, which is initialized in qda_alloc_device() and
-destroyed in qda_deinit_device(), qdev->remote_heap_lock is initialized here
-in qda_rpmsg_probe() and never passed to mutex_destroy() on probe failure or
-in qda_deinit_device(). Should remote_heap_lock be initialized and destroyed
-alongside import_lock?
+So rxq->lease is always non-NULL here. The unmap is skipped, but
+binding->dev is still set to NULL. netif_rxq_cleanup_unlease() also
+ignores the new return value of __netif_mp_close_rxq(), so even a
+successful close of the physical queue leaves the mapping in place.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-v4-v4-0-88=
-f2f24a5f0b@qti.qualcomm.com?part=3D21
+After this, which path unmaps the binding?
+
+net_devmem_unbind_dmabuf() unmaps only when binding->dev is non-NULL.
+
+net_devmem_dev_unregister() on the physical device matches only
+binding->dev == dev, so it never finds this binding.
+
+dev_memory_provider_uninstall() on the physical device calls uninstall
+with the physical rxq. That never matches the netkit rxq stored in
+bound_rxqs.
+
+The binding then stays mapped until __net_devmem_dmabuf_binding_free().
+If the NIC was removed before that, the call to
+dma_buf_unmap_attachment()->dma_unmap_sg_attrs() uses the freed physical
+dma_dev. This is the same KASAN trace quoted in the commit message.
+
+There are two ways to reach this:
+
+Remove the physical NIC while the netlink socket is still open.
+netkit_check_lease_unregister() runs from the physical device's
+NETDEV_UNREGISTER and unregisters netkit. The unlease therefore runs
+while the physical device is NETREG_UNREGISTERING, which seems to
+contradict this part of the commit message:
+
+  "except when a leased queue is unleased: the physical device is
+  still registered and, if restarting its queue failed, may still be
+  using the binding."
+
+Delete netkit first. The physical queue close succeeds, but the unmap
+is skipped anyway. If the physical NIC is removed later, while the
+socket or RX tokens still hold the binding, the deferred unmap runs on
+the freed device.
+
+The leasee branch in net_devmem_dev_unregister() has the same problem.
+It skips the unmap when netif_is_queue_leasee(dev) is true but still
+clears binding->dev, so nothing can unmap the binding before the
+physical device goes away.
+
+Could the lease case decide whether to unmap based on whether the
+physical queue close succeeded, instead of skipping the unmap whenever
+rxq->lease is set?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030083539.777877-1-almasrymina%40google.com
