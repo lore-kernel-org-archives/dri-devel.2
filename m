@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80823606A329
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 22:39:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C83D606A33E
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 22:39:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOrLe2A1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQfT8lS3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA4C510E4C2;
-	Sun,  1 Nov 2026 22:39:26 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C98310E4C2
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 22:39:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDFE410E4D2;
+	Sun,  1 Nov 2026 22:39:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14F0E10E4D2
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 22:39:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 309FF605CB;
- Sun,  1 Nov 2026 22:39:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30051F000C1;
- Sun,  1 Nov 2026 22:39:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C2332439DC;
+ Sun,  1 Nov 2026 22:39:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E941F00919;
+ Sun,  1 Nov 2026 22:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793572758;
- bh=hf3qEG9NmJxzw7DT6BIkRMug1Ad628c5lLT2IyGQPg4=;
+ s=k20260515; t=1793572774;
+ bh=jpeXJjx2vkem/6RcCfIyJEEp/queVwYv/M7mYaopZ/o=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SOrLe2A1GKPvAT9csvu+/MiHijFnKR9unJKelnL7qynJX3Hh+w2hllDFyTalbshGB
- jFh8MiHSWJ34U8iX7/XjIu1I0CBVbPydpXLv7EKLiZkXn+NT9JuGopSNrXfw1ouKE4
- N5P1FfAwv2QlxjnYNpecw5GJeSRAzPuVqgXwuf8KOBY4ud8Yoico8k4P8Cvwo2xUSu
- YiwzDVl7lUsFXixEJHBgtse4tvTrw5wabpqBhJTUvZIuvPfVX1pWJ0nzXhcpO0vKOV
- QQMzLxhIDvkoRJI9eQyuRdlEyVok27vnKc5ZU0anA8qxFJQpwgnLz7lZsoRApeyhZy
- qMIVlsmQ6qYsw==
-Message-ID: <sashiko-outbox-192720@kernel.org>
+ b=mQfT8lS3AbbnONr0Ay8xCT3RWNvSB+/vZbyeBZu82it6Yi1Z0oYyZ+1SMX5gmbbAB
+ BzjhZF9XvXQ59q2SePNbaYN/zHq5K4n5dhqiqT3wCwpVZ9gOdgHAzawUqnNS/iBHHp
+ JlFw9mc5gdkMloUot63rNgkt9j2HGZwc7TL+MIslX8knbNofWj1DSuAXCtp/8xeZ6o
+ U1a9GqP622WxwuH9jDc5Xsrwjw7PGsPeAJHFuFnnftG6gXXuvNYwNazAFapx5aUsKt
+ 9tTZ7zIrPy+I9lPm+PzLH3ayvzKir42zKuTHVsCnX7uvyIDzMfR4leZNZ9+qrjTqHu
+ mQ1cmXVLJNPCg==
+Message-ID: <sashiko-outbox-192721@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 02/25] accel/qda: Add initial QDA DRM accelerator driver
+Subject: Re: [PATCH v4 11/25] accel/qda: Add RPMsg send and response dispatch
 To: "Ekansh Gupta" <ekansh.gupta@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261102-v4-v4-2-88f2f24a5f0b@qti.qualcomm.com>
+In-Reply-To: <20261102-v4-v4-11-88f2f24a5f0b@qti.qualcomm.com>
 References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <20261102-v4-v4-2-88f2f24a5f0b@qti.qualcomm.com>
+ <20261102-v4-v4-11-88f2f24a5f0b@qti.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 22:39:18 +0000
+Date: Sun, 01 Nov 2026 22:39:34 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,55 +58,234 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] accel/qda: !DRM_ACCEL_QDA in Kconfig allows building both driver=
-s as modules
+- [High] accel/qda: use-after-free in qda_rpmsg_cb() due to unlocked xa_loa=
+d()
+- [High] accel/qda: duplicate response refcount underflow in qda_rpmsg_cb()
+- [High] accel/qda: unflushed put_work and in-flight contexts in qda_rpmsg_=
+remove()
+- [High] accel/qda: missing PD exit sentinel filtering in qda_rpmsg_cb()
 --
 
-commit 546c9c847d7dbca90dfe6d1ba0861765d71753de
+commit 66df96a5b81c60ce1864c2d544af7d04014ec8e1
 Author: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-accel/qda: Add initial QDA DRM accelerator driver
+accel/qda: Add RPMsg send and response dispatch
 
-This commit adds the initial DRM compute accelerator skeleton driver for
-Qualcomm Hexagon DSPs (qda), binding to the same RPMsg device tree
-compatibles as the legacy fastrpc driver. It also adds a Kconfig dependency
-on QCOM_FASTRPC intended to make the two drivers mutually exclusive.
+This commit adds RPMsg message transmission and response callback handling
+for FastRPC invocations, along with the wire message definitions and workqu=
+eue
+reference cleanup.
 
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index c40e89cc57243..14b7bbaadcaa0 100644
-> --- a/drivers/misc/Kconfig
-> +++ b/drivers/misc/Kconfig
-> @@ -269,6 +269,7 @@ config QCOM_FASTRPC
->  	tristate "Qualcomm FastRPC"
->  	depends on ARCH_QCOM || COMPILE_TEST
->  	depends on RPMSG
-> +	depends on !DRM_ACCEL_QDA
+> diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
+> index 14034e250555d..43b56ab3f0128 100644
+> --- a/drivers/accel/qda/qda_rpmsg.c
+> +++ b/drivers/accel/qda/qda_rpmsg.c
+[ ... ]
+> +static int qda_rpmsg_cb(struct rpmsg_device *rpdev, void *data, int len,
+> +			void *priv, u32 src)
+> +{
+> +	struct qda_dev *qdev =3D dev_get_drvdata(&rpdev->dev);
+> +	struct qda_invoke_rsp *resp_msg =3D data;
+> +	struct qda_fastrpc_invoke_ctx *ctx;
+> +	int ret =3D 0, idx;
+> +
+> +	if (!qdev)
+> +		return -ENODEV;
+> +
+> +	if (!drm_dev_enter(&qdev->drm_dev, &idx))
+> +		return -ENODEV;
+> +
+> +	if (len < sizeof(*resp_msg)) {
+> +		ret =3D -EINVAL;
+> +		goto out_exit;
+> +	}
+> +
+> +	ctx =3D xa_load(&qdev->ctx_xa, FIELD_GET(QDA_FASTRPC_CTXID_MASK, resp_m=
+sg->ctx));
+> +	if (!ctx) {
+> +		drm_dbg_driver(&qdev->drm_dev, "No context matches response 0x%llx\n",
+> +			       resp_msg->ctx);
+> +		ret =3D -ENOENT;
+> +		goto out_exit;
+> +	}
 
-[Severity: Medium]
-As reported by Sashiko on v1 [1], since DRM_ACCEL_QDA in
-drivers/accel/qda/Kconfig and QCOM_FASTRPC in drivers/misc/Kconfig are both
-tristate symbols, does "depends on !DRM_ACCEL_QDA" still allow both drivers
-to be built together as modules?
+[Severity: High]
+When a protection domain exits on the DSP, the firmware sends a PD exit
+notification carrying the sentinel value 0xABCDABCD in resp_msg->ctx (which
+drivers/misc/fastrpc.c filters out via FASTRPC_DSP_PD_NOTIFY_CTX in
+fastrpc_rpmsg_callback()).
 
-In Kconfig tristate logic (EXPR_NOT in scripts/kconfig/expr.h), when
-DRM_ACCEL_QDA=3Dm, !DRM_ACCEL_QDA evaluates to m rather than n. That only
-prevents QCOM_FASTRPC=3Dy when DRM_ACCEL_QDA=3Dm, while still allowing
-QCOM_FASTRPC=3Dm and DRM_ACCEL_QDA=3Dm at the same time. Both modules then
-export the same OF device table entries in qda_rpmsg_of_match and race to
-bind to the same RPMsg devices.
+Under the QDA context ID layout, FIELD_GET(QDA_FASTRPC_CTXID_MASK, 0xABCDAB=
+CD)
+evaluates to 0xCD (205) and FIELD_GET(QDA_FASTRPC_CTXID_SEQ_MASK, 0xABCDABC=
+D)
+evaluates to 0xABCD. If a PD exit notification arrives while context slot 0=
+xCD
+is occupied by an invocation at sequence number 0xABCD, won't qda_rpmsg_cb()
+mistakenly match it, overwrite ctx->retval, wake the caller early via
+complete(&ctx->work) while the DSP is still accessing its DMA buffers, and
+schedule ctx->put_work?
 
-Should this dependency instead be written as:
+Additionally, when slot 0xCD is empty, returning -ENOENT here instead of 0
+causes SMD-backed RPMsg channels (qcom_smd_channel_recv_single() in
+drivers/rpmsg/qcom_smd.c) to stop advancing the RX FIFO tail. Should
+qda_rpmsg_cb() filter out 0xABCDABCD early and return 0 when dropping
+unmatched responses?
 
-	depends on DRM_ACCEL_QDA=3Dn
+> +
+> +	/*
+> +	 * Context IDs are only 8 bits wide and are recycled once a context is
+> +	 * freed, so a late or duplicate response may name an ID that now belon=
+gs
+> +	 * to a newer context. The sequence number tells the two apart.
+> +	 */
+> +	if (FIELD_GET(QDA_FASTRPC_CTXID_SEQ_MASK, resp_msg->ctx) !=3D
+> +	    FIELD_GET(QDA_FASTRPC_CTXID_SEQ_MASK, ctx->ctxid)) {
+> +		drm_dbg_driver(&qdev->drm_dev, "Dropping stale response 0x%llx\n",
+> +			       resp_msg->ctx);
+> +		goto out_exit;
+> +	}
 
-so that QCOM_FASTRPC is disabled whenever DRM_ACCEL_QDA is enabled as either
-built-in or a module?
+[Severity: High]
+Can this unlocked xa_load() race with context teardown and cause a
+use-after-free in qda_rpmsg_cb()?
 
-[1] https://lore.kernel.org/r/20260519-qda-series-v1-3-b2d984c297f8@oss.qua=
-lcomm.com
+When the final reference on ctx drops to zero on another CPU (for example,
+when qda_rpmsg_send_msg() fails and drops the callback reference followed by
+the caller dropping its reference, or when an invocation finishes),
+qda_fastrpc_context_free() removes ctx from qdev->ctx_xa and immediately fr=
+ees
+it without an RCU grace period:
+
+drivers/accel/qda/qda_fastrpc.c:qda_fastrpc_context_free() {
+	struct qda_fastrpc_invoke_ctx *ctx =3D
+		container_of(ref, struct qda_fastrpc_invoke_ctx, refcount);
+
+	xa_erase(&ctx->qdev->ctx_xa, FIELD_GET(QDA_FASTRPC_CTXID_MASK, ctx->ctxid)=
+);
+	kfree(ctx);
+}
+
+Because xa_load(&qdev->ctx_xa, ...) only holds rcu_read_lock() internally
+during the lookup and returns the raw ctx pointer without holding
+qdev->ctx_xa.xa_lock or pinning ctx->refcount via kref_get_unless_zero(), if
+a late or duplicate response arrives in qda_rpmsg_cb() just before xa_erase=
+()
+and kfree(ctx), qda_rpmsg_cb() will dereference freed memory at ctx->ctxid,
+write ctx->retval, and call complete(&ctx->work) and
+schedule_work(&ctx->put_work) on the freed object.
+
+Similarly, in qda_fastrpc_context_alloc(), xa_alloc() publishes ctx into
+qdev->ctx_xa before ctx->ctxid is initialized:
+
+drivers/accel/qda/qda_fastrpc.c:qda_fastrpc_context_alloc() {
+	...
+	ret =3D xa_alloc(&qdev->ctx_xa, &id, ctx, XA_LIMIT(1, QDA_FASTRPC_CTXID_MA=
+X),
+		       GFP_KERNEL);
+	if (ret) {
+		kfree(ctx);
+		return ERR_PTR(ret);
+	}
+
+	ctx->ctxid =3D FIELD_PREP(QDA_FASTRPC_CTXID_MASK, id) |
+		     FIELD_PREP(QDA_FASTRPC_CTXID_SEQ_MASK,
+				(u64)atomic64_inc_return(&qdev->ctx_seq));
+}
+
+which briefly exposes ctx with ctx->ctxid =3D=3D 0 to concurrent lookups in
+qda_rpmsg_cb().
+
+> +
+> +	ctx->retval =3D resp_msg->retval;
+> +	complete(&ctx->work);
+> +
+> +	/*
+> +	 * Release the reference taken by qda_rpmsg_send_msg(). This callback
+> +	 * runs in atomic context, and if it drops the last reference the
+> +	 * context's DMA buffers are freed, which must not happen here.
+> +	 */
+> +	schedule_work(&ctx->put_work);
+
+[Severity: High]
+What prevents a duplicate or unsolicited DSP response from scheduling
+ctx->put_work without a corresponding callback reference and underflowing
+ctx->refcount?
+
+In qda_fastrpc_context_alloc(), ctx is inserted into qdev->ctx_xa with
+refcount =3D 1 (owned by the caller), and qda_rpmsg_send_msg() takes a sing=
+le
+additional reference via kref_get(&ctx->refcount) for the response handler.
+When a valid response arrives in qda_rpmsg_cb(), ctx is neither removed from
+qdev->ctx_xa nor atomically marked as already answered; it stays in
+qdev->ctx_xa until qda_fastrpc_context_free() runs at refcount =3D=3D 0.
+
+Once the first put_work begins executing in qda_fastrpc_context_put_wq() and
+drops refcount from 2 to 1 while the caller still holds its reference, a
+duplicate response from the DSP carrying the same ctx value (matching both =
+the
+8-bit ID and the sequence number) will match ctx in qda_rpmsg_cb() a second
+time and call schedule_work(&ctx->put_work) again. That second execution of
+qda_fastrpc_context_put_wq() drops the caller's reference, freeing ctx while
+the caller is still using it and triggering a refcount underflow when the
+caller drops its own reference.
+
+Likewise, because ctx is in qdev->ctx_xa before qda_rpmsg_send_msg() is cal=
+led
+(and remains in qdev->ctx_xa after rpmsg_send() fails and drops the callback
+reference), an unsolicited response matching ctx->ctxid before send or afte=
+r a
+failed send will also schedule ctx->put_work without a matching callback
+reference.
+
+> +
+> +out_exit:
+> +	drm_dev_exit(idx);
+> +
+> +	return ret;
+> +}
+> +
+>  static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
+
+[Severity: High]
+If the RPMsg device is removed while ctx->put_work is queued or while
+invocations are in flight, can qda_fastrpc_context_put_wq() access
+qdev->ctx_xa after qda_deinit_device() has destroyed it?
+
+In qda_rpmsg_cb(), schedule_work(&ctx->put_work) queues
+qda_fastrpc_context_put_wq() on system_percpu_wq and immediately exits the
+drm_dev_enter() critical section via drm_dev_exit(idx). When
+qda_rpmsg_remove() runs:
+
+drivers/accel/qda/qda_rpmsg.c:qda_rpmsg_remove() {
+	...
+	drm_dev_unplug(&qdev->drm_dev);
+	qdev->rpdev =3D NULL;
+	qda_cb_unpopulate(qdev);
+	qda_deinit_device(qdev);
+}
+
+drm_dev_unplug() only waits for active drm_dev_enter() sections; it does not
+flush or wait for pending ctx->put_work items before qda_deinit_device(qdev)
+destroys qdev->ctx_xa via xa_destroy(&qdev->ctx_xa) (and if all DRM files a=
+re
+closed, devm frees qdev when qda_rpmsg_remove() returns). When the queued
+qda_fastrpc_context_put_wq() worker subsequently runs,
+qda_fastrpc_context_free() calls xa_erase(&ctx->qdev->ctx_xa, ...) on the
+destroyed XArray and freed qdev.
+
+In addition, if the RPMsg device is removed in this commit while invocations
+sent via qda_rpmsg_send_msg() are waiting for a response, qda_rpmsg_remove()
+does not complete ctx->work to wake waiters in qda_rpmsg_wait_for_rsp() or
+drop the callback references on entries remaining in qdev->ctx_xa before
+xa_destroy(). Although a later commit in the series, commit 9e89a77ec2ad
+("accel/qda: Add the invocation ioctl and teardown on unplug"), adds
+qda_fastrpc_flush_pending(qdev) to qda_rpmsg_remove() to wake and put
+remaining entries in ctx_xa, it still does not flush pending ctx->put_work
+items that were already scheduled by qda_rpmsg_cb().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-v4-v4-0-88=
-f2f24a5f0b@qti.qualcomm.com?part=3D2
+f2f24a5f0b@qti.qualcomm.com?part=3D11
