@@ -2,32 +2,33 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B26C606A32F
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2079606A32E
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:01:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=avxvdOrw
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPB3zY9S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6C2910EADA;
-	Sun,  1 Nov 2026 23:01:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ED2E10EADD;
+	Sun,  1 Nov 2026 23:01:36 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8F210EADD
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:01:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 862DC10EADA
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:01:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1F2426061C;
- Sun,  1 Nov 2026 23:01:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3071F000C1;
+ by tor.source.kernel.org (Postfix) with ESMTP id 095546060D;
  Sun,  1 Nov 2026 23:01:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 107B71F00919;
+ Sun,  1 Nov 2026 23:01:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793574087;
- bh=t2MxZtB2T9Bz2tg5DIt4j1dXYuKYbfcmPZ03Fr/VSko=;
+ s=k20260515; t=1793574085;
+ bh=y4OUhnmCvJLQBXMOrS9kGGB0AvSLbU3rE7gGaZ0KZtU=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References;
- b=avxvdOrwTRHGrZq0iN80QYgJ56/4BguQdjjbV8AQlXIj9kslbw7j1K/EgI2SnSy1Z
- OrLwaVBYKoOBqB6oYBUuiNTW1ysAC2jWgZVIteuXetmmSGnp+DwaN4zOYE4CwhcMSn
- Ipu9cicjz3lSLSmITRtZ1ojXclq2ZEI3gyrGbc26x8yBkjQqz370PStx0m2Ys1Gf+F
- Nw/MrUWeasTOBcDeQFr0dXUqOLiaXicOSR6LF475ZOy395qWm2wtP6FvRj/qXbz7iR
- RaT9FHpjc8bVHIvt2oP3XnoLozkgZOL2f5DWUv3vPlihT1ackXnhwXsVP2pe6JmxJf
- /46WCm8kf8HPg==
-Subject: Re: [PATCH net v5 3/4] netdevsim: support devmem RX and TX bindings
+ b=EPB3zY9SusvU7/YIyulwoLXPLZxbJe7asyWwek6N6h+36zLzGFITGSYflezxOsIJK
+ V+77hZpAYWtC1j7f9lvP4MX9OmTm/YH2IRtAGk45yIwaliqfkbh9Iqg7NGcndk2Yo3
+ KpGhXqM0idVtX7jQDRlh722CnMHjUVm9VcVqsZ6Zj0K0+Z9mT3/ogGFIF/Hb078xjE
+ esqVYwwE/BXJLt/AWXBXhwK0eI26h2hVaUiX8SorxcmDZzAqI/t08ifWbXy7pG4765
+ Hl9goNdd8ZSOsj7j2PijvvLwBB2YiwUE10lDBNkYIVoe/nSvQPj5XK5lG10RxTDEtE
+ CwGixdaXVTMfQ==
+Subject: Re: [PATCH net v5 2/4] net: devmem: detach TX bindings on
+ NETDEV_UNREGISTER
 From: netdev-bot+sashiko@kernel.org
 To: almasrymina@google.com
 Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -40,11 +41,11 @@ Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
  andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org,
  ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org,
  tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
-Date: Sun, 01 Nov 2026 23:01:25 +0000
-Message-ID: <179357408589.3131.13149073708335764140@kernel.org>
-In-Reply-To: <20261030083539.777877-4-almasrymina@google.com>
-References: <20261030083539.777877-4-almasrymina@google.com>
-X-sashiko-severity: Low
+Date: Sun, 01 Nov 2026 23:01:23 +0000
+Message-ID: <179357408360.3131.16098294926514442303@kernel.org>
+In-Reply-To: <20261030083539.777877-3-almasrymina@google.com>
+References: <20261030083539.777877-3-almasrymina@google.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Archived-By: <archiver.kernel.org>
@@ -67,84 +68,158 @@ X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-- [Low] Not a bug (baseline: false positive).
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] This patch's TX detach is incomplete.
 
 --
 
-netdevsim: support devmem RX and TX bindings
+net: devmem: detach TX bindings on NETDEV_UNREGISTER
 
-This patch sets a 64-bit DMA mask on the netdevsim bus device and turns on
-NETMEM_TX_DMA on the netdevsim net_device. It also sets up the page pools
-so they can be backed by unreadable netmem, which lets the devmem bind-rx
-and bind-tx netlink operations be tested against netdevsim. pp_hold is
-refused on memory-provider backed pools, and unreadable or net_iov skbs
-are dropped in nsim_start_xmit().
+This commit extends net_devmem_dev_unregister() to TX devmem bindings.
+When binding->dev unregisters, the walk clears the LIVE mark, unmaps the
+dma_buf, and clears both binding->dev and binding->vdev. When only
+binding->vdev unregisters, it clears just binding->vdev. The commit also
+makes __net_devmem_dmabuf_binding_free() call net_devmem_lock_dev() for
+TX bindings.
 
-> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
-> index eebc02ccc4a92..0372a9bd63bbb 100644
-> --- a/drivers/net/netdevsim/netdev.c
-> +++ b/drivers/net/netdevsim/netdev.c
-> @@ -133,6 +133,10 @@ static netdev_tx_t nsim_start_xmit(struct sk_buff *skb, struct net_device *dev)
->  	int dr;
->  
->  	rcu_read_lock();
-> +	if (!skb_frags_readable(skb) ||
-> +	    (skb_shinfo(skb)->nr_frags &&
-> +	     skb_frag_is_net_iov(&skb_shinfo(skb)->frags[0])))
-> +		goto out_drop_any;
->  	if (!nsim_ipsec_tx(ns, skb))
->  		goto out_drop_any;
->  
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index 4610de805ef08..5c7d9640e9d14 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
 
 [ ... ]
 
-> @@ -1059,6 +1078,8 @@ static int nsim_init_netdevsim(struct netdevsim *ns)
->  	ns->netdev->netdev_ops = &nsim_netdev_ops;
->  	ns->netdev->stat_ops = &nsim_stat_ops;
->  	ns->netdev->queue_mgmt_ops = &nsim_queue_mgmt_ops;
-> +	if (ns->nsim_bus_dev->dev.dma_mask)
-> +		ns->netdev->netmem_tx = NETMEM_TX_DMA;
+> @@ -157,8 +157,7 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+>  		     binding->area.num_niovs, binding->free_count);
+>  
+>  	kvfree(binding->area.niovs);
+> -	if (binding->direction == DMA_FROM_DEVICE)
+> -		dev = net_devmem_lock_dev(binding, &dev_tracker);
+> +	dev = net_devmem_lock_dev(binding, &dev_tracker);
+>  	net_devmem_dmabuf_binding_unmap(binding);
+>  	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
+>  	net_devmem_unlock_dev(dev, &dev_tracker);
+> @@ -252,11 +251,20 @@ void net_devmem_dev_unregister(struct net_device *dev)
+>  
+>  	xa_lock(&net_devmem_dmabuf_bindings);
+>  	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> -		if (binding->direction != DMA_FROM_DEVICE ||
+> -		    READ_ONCE(binding->dev) != dev ||
+> -		    xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> -				NET_DEVMEM_BINDING_LIVE))
+> -			continue;
+> +		if (binding->direction == DMA_FROM_DEVICE) {
+> +			if (READ_ONCE(binding->dev) != dev ||
+> +			    xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +					NET_DEVMEM_BINDING_LIVE))
+> +				continue;
+> +		} else {
+> +			if (READ_ONCE(binding->vdev) == dev)
+> +				WRITE_ONCE(binding->vdev, NULL);
+> +			if (READ_ONCE(binding->dev) != dev)
+> +				continue;
+> +			WRITE_ONCE(binding->vdev, NULL);
+> +			__xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +					NET_DEVMEM_BINDING_LIVE);
+> +		}
 
-[Severity: Low]
-This isn't a bug, but the docs and the driver don't quite match here.
-Documentation/networking/netmem.rst describes the mode as:
+[Severity: High]
 
-    NETMEM_TX_DMA: for physical devices that perform DMA.
+Can a leased bind-tx still create a TX binding on the physical device
+after this walk has already run for that device?
 
-nsim_init_netdevsim() sets NETMEM_TX_DMA, but nsim_start_xmit() above
-drops every unreadable or net_iov skb.
+net_devmem_dev_unregister() runs once per device. It is called from
+netdev_genl_netdevice_event() under netdev_lock(dev), and does nothing
+unless reg_state is NETREG_UNREGISTERING.
 
-As I understand it, NETMEM_TX_NO_DMA would not work for this test. That
-is because netdev_find_netmem_tx_dev() only resolves a NO_DMA device by
-following leased RX queues to a physical NETMEM_TX_DMA device:
+Take a virtual device V (for example netkit) with a queue leased from a
+physical device X. When bind-tx is issued on V, netdev_nl_bind_tx_doit()
+locks X and binds to it without checking X->reg_state again:
 
-net/core/netdev-genl.c:netdev_find_netmem_tx_dev() {
+net/core/netdev-genl.c:netdev_nl_bind_tx_doit() {
     ...
-	if (dev->netmem_tx == NETMEM_TX_DMA)
-		return dev;
+	bind_dev = netdev_find_netmem_tx_dev(netdev);
+    ...
+	if (bind_dev != netdev)
+		netdev_lock(bind_dev);
 
-	if (dev->netmem_tx != NETMEM_TX_NO_DMA)
-		return NULL;
+	dma_dev = netdev_queue_get_dma_dev(bind_dev, 0, NETDEV_QUEUE_TYPE_TX);
+
+	binding = net_devmem_bind_dmabuf(bind_dev,
+					 bind_dev != netdev ? netdev : NULL,
     ...
 }
 
-Traffic also behaves the same as before. Under NETMEM_TX_NONE,
-validate_xmit_unreadable_skb() already freed these skbs. Now the driver
-drops them and counts them through dev_dstats_tx_dropped().
+netdev_find_netmem_tx_dev() only checks netif_device_present(X), and
+unregister_netdevice_many_notify() does not clear that bit.
 
-Would it help to add a short comment next to this assignment? It could
-say that netdevsim advertises NETMEM_TX_DMA only so the bind-tx control
-path works, and that devmem TX data is dropped in nsim_start_xmit().
+netdev_genl_nb is registered at subsys_initcall and the netkit notifier
+at module_init, with the same priority. On NETDEV_UNREGISTER of X, the
+netdev-genl walk for X therefore finishes and unlocks X before
+netkit_check_lease_unregister() queues V for unregistration. Until then
+V stays NETREG_REGISTERED and its lease to X stays in place.
 
->  	netdev_lockdep_set_classes(ns->netdev);
+That seems to allow this ordering:
+
+CPU1 (unregister of X)              CPU2 (unprivileged bind-tx on V)
+netdev_genl_netdevice_event(X)
+  netdev_lock(X)
+  net_devmem_dev_unregister(X)
+  netdev_unlock(X)
+                                    netdev_nl_bind_tx_doit()
+                                      netdev_get_by_index_lock(V)
+                                      bind_dev = X (via the lease)
+                                      netdev_lock(X)
+                                      net_devmem_bind_dmabuf(X, V, ...)
+                                        LIVE binding, binding->dev = X
+                                      netdev_unlock(X)
+netkit_check_lease_unregister(X)
+  unregister of V
+    net_devmem_dev_unregister(V)
+      binding->dev != V, so only
+      binding->vdev is cleared
+    netkit_queue_unlease()
+      netdev_put() on X
+netdev_run_todo()
+  X is freed
+
+The walk for X never runs again, and the binding holds no reference on X,
+so binding->dev is left pointing at the freed X.
+
+When the netlink socket is closed later, wouldn't
+netdev_nl_sock_priv_destroy()->net_devmem_lock_dev() call netdev_hold()
+and netdev_lock() on freed memory? That is the oops quoted in the commit
+message.
+
+With the __net_devmem_dmabuf_binding_free() change above, the deferred
+free work also calls net_devmem_lock_dev() for TX bindings, so it is a
+second path that dereferences the stale binding->dev. The dma_buf also
+stays attached and mapped to X's DMA device.
+
+The non-leased path looks safe, because netdev_put_lock() checks
+reg_state again under the instance lock. The later patches in this series
+don't seem to touch this path.
+
+Would it close the window to reject the bind with -ENODEV when
+bind_dev->reg_state != NETREG_REGISTERED after netdev_lock(bind_dev)?
+unregister_netdevice_many_notify() writes reg_state under that lock, and
+the devmem walk runs later under the same lock.
+
 >  
->  	err = nsim_udp_tunnels_info_create(ns->nsim_dev, ns->netdev);
+>  		xa_unlock(&net_devmem_dmabuf_bindings);
+>  		if (!netif_is_queue_leasee(dev))
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030083539.777877-1-almasrymina%40google.com
