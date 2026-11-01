@@ -2,65 +2,91 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0FF606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D8F606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=F/1X/NFu;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=TO6qucVG
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SjJsJ2PF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E10D310EBC5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D20D410EBC4;
 	Mon,  2 Nov 2026 08:04:02 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="F/1X/NFu";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="TO6qucVG";
-	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E83B10E032
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:32:22 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=To:Message-Id:Subject:Date:From; t=1793575931; bh=A3HrRK4FvbWtY7EL2njqxBf
- Md8XMbZtTC9D8yv8diuw=; b=F/1X/NFuycUrE89JwGnDEUfCn71c2S3BJ6wzD8h9w8ExF0oukp
- s/EgLg63VZ5Qi2kXnOGDONZYyDXymmcuV8AA==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=To:Message-Id:Subject:Date:From; t=1793575931; bh=A3HrRK4FvbWtY7EL2njqxBf
- Md8XMbZtTC9D8yv8diuw=; b=TO6qucVG/CTpHAO2Nvo6m3GDO6cNdG5I+pILqvGfeoqOHon4sl
- MCESROwyS0Zd2+SA6kn9DggXbR9wKqb51EmyWwS4j+hOoLeoAG5CuKXMEAssLqkfFrMujbCnRds
- PvU3ZJbOkLQ4GULpf59kh1K71YgqaJkDhw38DME4WSkbUUc7aXKTOhoqw5T9yvjSEK21hhuzrgl
- gJJk+VdHfrm4RTyM6LH2iBNOBUVr/L99lUPOr4leMPs7kV+X4d09cOgV9riKSbAhFY6b74ARBRs
- OCWimeiegV0V3M3MerCJjqtpnzd7KprdT7hfTNyJXGtAbXuHzmhW7xQlOQlEuPZaPRg==;
-From: erebion <erebion@erebion.eu>
-Date: Mon, 02 Nov 2026 00:32:06 +0100
-Subject: [PATCH v3 02/12] arm64: dts: qcom: sm6350-lena: rename
- touch-en-regulator
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78AA810E032
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:37:25 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4a35a60499eso23605355e9.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 15:37:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793576244; cv=none;
+ d=google.com; s=arc-20260327;
+ b=fUZJpHThbM1UX0ctmo6yebkzcjFGTvW6mHLWTlcE4PRQGJak2MmU+yErm5TNUoPtsj
+ EzIp1tvRzgTDifK6FfYTDbPAb9I/dcT1gis/B/6+2TbWB3PEOrDxxtyk4VIX2SoG0/4K
+ EZv88VbmMx3ugFLtU+3h7dKNNBREbKbveSs0yq5u7UmQKQT8zK9QrQsBvXEBKWJyPhSI
+ gWxQLfBiRihtM3wnDLSc+CgR01ehWpc9CTZzG03oxMM7eQbtQEFGoJJUEd3OchG3ok67
+ 4+0lIW5A2qtF/ilV0f/sDxaLKyF51WagIBrqZGULW9MV0di2Ou0Ye8lFV1bWdvZTtp9q
+ 2vYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+ fh=v7y54melwGR5zJ/m8CmQBpCEi2F8Ooyw8NXM7WTHqQc=;
+ b=QpEYnuueDPVW7nSqOzo9yMityJ+VupaH8v4aylk3W+xxVamykvOICPJxG4zW/J8GZk
+ 3zvhBAd0nVO98UhLrHIjUZx6e8QicM1jjp159i1bHKtlGUGZCc/OpLr3fFln5LPudEhX
+ 9QsX/u+HrnaeUH/gvua9l8oonLtdUubqQZJwmE2CuitTm9B6910LfLk0Z/Zt478zLx65
+ YQad4/YQ0EQZPMW7T+M3xvQ3Vix9/lZvUDEck2YBnE1kjnzRuyysa1ENw/oromMh/Jgj
+ haUhRp6SX+Cfz1+CHelRCvGUipdPVKIP1ilyo/nViQTk/za2shF4fv3s3ksE8+h0jAAy
+ CnFw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793576244; x=1794181044; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+ b=SjJsJ2PFQa5Bcv7PUbUgpRE0t60QeXfn1ClzbdhA9Qi9Tl0KDw2kpv9ua9eo0ZdxNz
+ sKxOuYKr1iXhy6SrOY/W2yI3nHaxl3S1ivM8gXRo2SgrwkRMBfTaJ0hlAo8HmlCVWLYE
+ gSZljv0oZMaxQXlCqVPsUlYorrm++nL5di9aYZfIXPuPTwIVItUaP+KnXTb1UhR8vPx0
+ SKK7wECon7WtmwzfOToZvckIV0BLTBkpqP1lcbghV0/LxseKw46R5Sb+K5/fbdvrnrXr
+ HH8yeSCkJXd4Cnmwqd/m3f5itOl+gkCUgzkjuR6Gn+u02GDot31FssMjfE/NwtDaDxPa
+ bDSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793576244; x=1794181044;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+ b=I9+FzWlkj6w7Gs5mp/5/VPAignKV/TIABiUB87UMW+zxFjiAUaOVcJ+RP0Rcv7SHDh
+ p0vDW0q/8KXJP0M9M3pdYMQYQIn25dLjquYR2Sr0rtPOvUhqnSyPNxGhpHglMkgRsP0P
+ wUSx4rXtUGt+BBl2yH1hWf4OzWiBWSxj9RP2OHDhnNEuu/H7EzYU/GLMuEzG4k0Dh3Wm
+ jVkpNz0yHqiqCc7i5H/fcvXrC3wCInyQU0QQfX0L/6GXDilttsZt9QprEMECifyzWIM4
+ guxN1gK4RZ7CeSD/SIisQDSy52OUz3p0XgeUF4BgpfnHtIA8VQtvmATgpI09GhA0H8oT
+ UMkA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzHIAGbO1i9nqS5u70Nme7VIWZyxzMt123i0u0OaoqrumQHwPxDHI5x7564kYaLLwqHuMnhUS8Iidc=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL/qRZgucZ6U79I1R1X3UtdtvlwvMof06kRpJXT4EWFM4EtB7wQ
+ GIh5ZTWJtEzXixnqqG/UwzxmFi3rYfSVWss+EV6QwQTc3INfrK1pe63p5Uh+jFFuquchQKQgF2v
+ oimTd17lh4MOodhjWKZyx/iF0wXOzZPA=
+X-Gm-Gg: AYBFou37gTNuBT3Iu6RIcA0DkqfD0jplibm1uvqhrGRIlbJuG7hgDLA8v0Fdb7kJt37
+ 4xrJbks6DwU6EGir1SOUbORrqH6SmZqmcSnVJqo48V20R0TZ7C3xXVYTKTbd+BmOTUEcPqwkW+J
+ +kkvWq+qE85ucGSEp8uPX/sDyjAifdX6s2uWj1m4OP/tceSzhEYtFruOnOs9cslBDeQ5BanOfVI
+ f++MCLdSH4ujV3CsG9+ASAJdk3pVuYk496v24YGdAxoub6+v8btnNvNYcTLfxWLYG+2aB81g9Cw
+ MwG5LYwnljsjTkpOv0x06qaexqrdNnfgghiAvaCSili+hCYMnEvrP+ZXCxE0ga9tzE9Y7srU1tw
+ H0WZ9rcqGF1RsFAvAFusFQWKQYHBh6VjUvvFczr4=
+X-Received: by 2002:a05:600c:6089:b0:4a2:a8c:22b0 with SMTP id
+ 5b1f17b1804b1-4ac14ec75fbmr185544245e9.1.1793576243659; Sun, 01 Nov 2026
+ 15:37:23 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-pdx213-upstream-3-v3-2-cdc3be96d257@erebion.eu>
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
-In-Reply-To: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=1159;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=mWMUpJaqurQNInIdHEEH2VFWKS03NCWRKZqnMFtZxOI=;
- b=eOTlD5j8uKA+goKG7TzsmPU2Hj2451Yciedozlbdb4QiKxaxCxrFq1EZY1ca19dk6LWicJYYU
- KYngx+CWr0MByLKGZ6iKKZpDkxnZOMs+NKzV717uRIvah2bEMDfajly
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
+From: Arnaud BERTRAND <arnaud078@gmail.com>
+Date: Mon, 2 Nov 2026 00:37:11 +0100
+X-Gm-Features: AclHuK9ns4XBGZ7zNo5bqw4a_9l2SxlgD9VWWmJ9YT0QG78bE9OgwzMy8CJwXYU
+Message-ID: <CAGxFSwnBDM93ouN6Aq2ppm5zF1h19XE6NJ92NT2UEhMP1P4xEg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: add firmware file fallback for APU VBIOS
+ discovery
+To: Oz Tiram <oz@shift-computing.de>
+Cc: airlied@gmail.com, alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ simona@ffwll.ch
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:03:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,46 +99,27 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-rename touch-en-regulator -> regulator-touch-en, to
-keep any future fixed-regulator sorted together
+Hello,
 
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
-Signed-off-by: erebion <erebion@erebion.eu>
----
- arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 6942a117d41cf..9295b2e6f179f 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -46,7 +46,16 @@ key-volume-down {
- 		};
- 	};
- 
--	touch_en_vreg: touch-en-regulator {
-+	lcdb_dummy: regulator-lcdb-dummy {
-+		compatible = "regulator-fixed";
-+		regulator-name = "lcdb_dummy";
-+		regulator-min-microvolt = <5500000>;
-+		regulator-max-microvolt = <5500000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	touch_en_vreg: regulator-touch-en {
- 		compatible = "regulator-fixed";
- 		regulator-name = "touch_en_vreg";
- 		gpio = <&tlmm 10 GPIO_ACTIVE_HIGH>;
-
--- 
-2.53.0
-
+I have two dGPUs : a Radeon RX 6800
+XT and a Radeon RX 6800. They both report the same PCI identity
+1002:73bf and each has a different VBIOS.
+I hit the same VFCT bus-number mismatch on 7.2.10, but with a different
+outcome: on my machine the device-identity fallback actively breaks the second
+dGPU.
+I patched my kernel to remove the fallback, but I would like to have a
+better solution for my use case.
+Would it be possible to apply the patch only to APUs ? That would keep
+Oz's APU case working but a dGPU with a stale bus number would fall
+through to its own ROM, which is the source that is
+guaranteed to match the card in the slot.
+I can provide more details if needed, I am out of my depth here.
+Thanks
+Arnaud
