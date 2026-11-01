@@ -2,88 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E807606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 08:31:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4312D606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 08:31:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=Y+7sd27m;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=EfxNYLgj
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=NKPQaJ1s;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Nfw1UzeL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6016310E370;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 537BA10E346;
 	Sun,  1 Nov 2026 08:31:31 +0000 (UTC)
 Received: from fout-a2-smtp.messagingengine.com
  (fout-a2-smtp.messagingengine.com [103.168.172.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C49CF10E1FC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE0BC10E324
  for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 08:31:19 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.phl.internal (Postfix) with ESMTP id DC53AEC069A
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 03:23:50 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Sun, 01 Nov 2026 03:23:50 -0500
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailfout.phl.internal (Postfix) with ESMTP id 28E59EC06A3
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 03:24:43 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-03.internal (MEProxy); Sun, 01 Nov 2026 03:24:43 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
  :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1793521430; x=
- 1793607830; bh=/2n5a1KAjUFX5QIFjKgZa0JwE4I7sEpFIybFYt2nWjI=; b=Y
- +7sd27mnKmM5K5xYZiX7jcTgIFIugsEJB0hA8B8OOPE/iD9BfMH+SLD47gU4vuDu
- 1VfoAWcacluw6uNNY5iTSk+/5G5Ua8FndgExt9nb8RieUm+kqHjNpJWVfjibCUy6
- zSC5E6PqYE/Gjs5EVfzn/Cy/nng68xLGhwwFQmu+gJpv+PA1oguF0lYuIY/GluPx
- J92iPFext9KW+RKa57ghdyqGnR9dGEyc07eCH6hGpwNjlR1YUUnCCzl9+5SFaodW
- MNyoJtAI+45Vmz5mi4CCOMUYA6m6/WQyb4Vd2+RuhuSC64wHRouDzUNjshfUrPHb
- FV965A6JuLP4DMFFY2ivg==
+ :reply-to:subject:subject:to:to; s=fm1; t=1793521483; x=
+ 1793607883; bh=jBTBLTr8DQRr19T6BWMODxPqpxEX8vRTPecx1mfwqbY=; b=N
+ KPQaJ1sWSLfnujqL+bSM0ED7QciWLj8SJqIMLHWdHQ6Gg2duaLiHKts7qDwa2cCT
+ ieOm7mkvkrAW9mwLOHZkgBeMPoGVZFVk31nNm8zSH/PfD+T5SaI8ZAbPi6ckfT6t
+ GBMrlXSHlFwiDafUNozpaI7FSuEl4QvfuroFtNssUICTI3HOVcn2RJCp76hTz2Fw
+ IgaQTmq30DJ068dXQ5OrRv0AgTP7CaHi3pr8UWNhZ6YQ7CL/rPg78I7yfAZZpuBP
+ O8gUeG7mlczuCjPQ8QbwimV3Xq46TU0XemAU8YlhoFsk9gECEPxKKWHN/vj/26z8
+ xpt8seopDZJ28vqRFTBHg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1793521430; x=1793607830; bh=/
- 2n5a1KAjUFX5QIFjKgZa0JwE4I7sEpFIybFYt2nWjI=; b=EfxNYLgjv1SVCMSX1
- UH3BKBBgR1UzfQ0/pWY7+2aEbk4UV9bOB4o2raa7DQjOnRLToPnSdw82qdAh8RFk
- U4rEmBrKLKI5m+FA2G9L4zZXkADVp9MpV64was8e9fZwn5Yynbg/NhX+X0pfLPK+
- DavnBYrKdlW7Nrd8t7S09TRi7lYlwKJ6MgN6NLjnDfdN3pNrqx1Uaw4UuOBL6idO
- dKQKoHsFbMuj6CXKnQcAT2RGrmAghV+eXCEDhDFQbLqnBrLCilXxFsUzWXnCrBhO
- NnJ4SDBpt/6choruu2Q/xkubOWg4pPMBR2Igc+d36D4RZDotDlknipKNL1g/uzMy
- VmemA==
+ :x-me-sender:x-sasl-enc; s=fm2; t=1793521483; x=1793607883; bh=j
+ BTBLTr8DQRr19T6BWMODxPqpxEX8vRTPecx1mfwqbY=; b=Nfw1UzeLA8BvCa8+m
+ cK/dFcb3V2W3zpkhDONul7s1wDa6i4QZ90ms/Mg9LHALAw9SP4d+ABWU9KPfgxfX
+ rqeNFdBo6CxrASVO+4v1wUuTKpATLBi5V2UIZDQW3DMDnxG8soDYCQjkb5H8GcP6
+ XWIDj81ewF31bJt7tWmOZsmZwe8Fa96gJ1ygeItK9V0v5JlE8YEsTUEsBChqShBq
+ Ou/avpIiLS8cI7Kq7HFcJcca7vHWiWFM9cwXJPwbP6pWZ++6pS7S+1VGxyzfcwlx
+ Jn1w7LVQNUj4LvLkBOZIstij32WFAJJjb6ZUXiOlQ9ev4C6D1p9jEJlPcsyEC+vz
+ tAhUg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
  repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
  action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793521430; d=gahingwoo.com;
+DKIM2-Signature: i=1; m=1; t=1793521483; d=gahingwoo.com;
  mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
  rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:CThllkQPZPJMBsDKU1IOuOmi7uWrBidbHQmCsh5rH73+s0n
- OM/m5o3DmGlCh3zhbSU3+x6t+xMQvpor6yWAfnreaoBH27DVvirkuEjP5FN7c4Xz
- dQfdaSUBtYRHnriFSL7/Se3HkHNqAvkdmn2ETuZP0opJIpOQbwAQ2hIvbReuHhJ4
- S/jqAja0Che/hpLCmgIFKk0xd+SrLPdynUxiwDBuibLSNp5FwmLkXMGV4n6IVvLm
- znbqsuY+kYtSRa7CgrekZosKc6hzCBtAIreLapNVNVnlC6aVT/lnRJeaZoaE+cfK
- G1UdexnR6FTw5su3K21mp7xFvOXB5VnPcbAzyBA==;
+ s=fm1:rsa-sha256:Cfi/+P8O65jW1RLmnDfoK1Iyw9XHzRaAbSpVc3w7zVy39cI
+ Vm1oYjFZe54SMiC1x7/dv9jr+kUh54jkFyuXqslQG7gzm2FtgTY4MGmhW41+UyeZ
+ 85znua4gkL+50xBkrTdsnSqEQQYLgxY6KX630XkHHqQkdiEpxpHWi7gt/Ru6hPXJ
+ krtfmfCie0INBBtmekN0JPR4Q8ftrg6dokTuOoqK1VusEmxzKpm9xwvtl5ncIGsq
+ Ykuq8Te7Ym2mRP4Fp17STYx+Yl9QbAVI74YPhft75+UZQtETmtZzXklwK9LrYwAX
+ AszTTCF0hrMOqYg6MY6oQzvjofQICHtFz9JBIbw==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
  repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
  action=mi-m=1; hc=11;
  hn=cc,content-transfer-encoding,date,feedback-id,from,
  in-reply-to,message-id,mime-version,references,subject,to;
 Message-Instance: m=1;
- h=sha256:gPamqwHn5wnioNhM7KfudWI/2qdHlRl/vF8NOysddIo=:Vf7LRxwe03pqYXW0XI3FI1OLYVjQkdtY+PzZXcUTs/E=;
-X-ME-Sender: <xms:FvfmapT9DuObV9pmwbIzM6xrh6ufp2yslAL1OQ7AcUbhD3VH0s4-bw>
- <xme:Fvfmal9NeF6lJSjCo9EVjRZfCZNyCm1tmHiquUXnMQIz8bF1Ds0pT2P13OexaN6ef
- GBu6cUQqIW11stEmgc27o-iNqshREyg4o3cXi4hc7B7weydRgJ2C1TU>
-X-ME-Received: <xmr:FvfmalphfX1hPuuN-WjgFA35bAtRv-PmUIJSf6QuSl2Kb-PZ45lQkxgoDrddBlGrZiLyE2jG>
-X-ME-Proxy-Cause: dmFkZTG1f5xhzVY1+tDVA2GDAZsCkJLH07r+Yy8eDDwJ6JOhttyoXjIFNLHdIMBXenkhJx
- GYNu1BmhoCEfkR9grTKkLuIJN+OzTEGtgz44pzE7hxNJDyINE2djZDhuIxWCGbyrBAg8N4
- go07QXa3FbJDHoqbVIkh+YewIyKzezBgmEguYHIs5iblTpD6uKFVhdzvoEpK9WyO9LZQh2
- oZjSmXf8essUkIouu3K9xMlLp9+lzsrzT9OlAkrndhtRVZ+s7Dbtf/1n46loyb7XK1/pPJ
- EZkemaWOJwxsmDm91Iwy20kA5um10TciIZ30X1rMTa5jzi7bDygiLl3spCruOgxPW+4DhA
- g3U6HOIKA68F5qwEg0ZcOJZm2a8xkLq53Gw6cZ4F07Nt6B/05TpsQkMcbSUSEgDegH01qo
- MUQpVIxofEuUDfXsQEYfa5d8ZTT2CJ2MFS79UPFV4u5ii/59prjdqrSmyjemWU9DgdInei
- ee/5r6Ea3Zu5OmECHG2SR3+BAfcoH6EEDuvwk5GOyWlV7Ocb7ugE3y6yPdecDZvYRqhBZn
- meV8lnWgW5YaW8MypCmxb8Tq7T9Tx36/O4yQaEPWNBhusKSQx+VdXlWOAIco9HYmRFl6l+
- ngHGwEM5mM6bGG9MNk/ytNU84KRhvCCNO1DiomJztLW99O07DELJ03pEZf0g
-X-ME-Proxy: <xmx:FvfmamFsYnzrc86682qZwV0S-xdu7a45yAd15_0EkpCSUivABIXKxA>
- <xmx:Fvfmak37gpoSbw-B5QUgzw79OpTg9-QLQDCXU3tDVFZYP2CU8t3T5A>
- <xmx:FvfmasND_fIhuUEUokfdYFFxNsraWOzMtqCJyXgYJEkk-zoOa6ZSOw>
- <xmx:FvfmatXz6zBIAXqX79y3W7xCP0Y_XaPjLfiBOPXem6xoQ95QyLMD-A>
- <xmx:FvfmamhrBUg-ucJQryAsRoy0d_XGnqZck-GJ-n51uxvQOMP-0OITnxGx>
+ h=sha256:OUw/4rLhRRL8bxz8QcUk3bVMI14kD7He8iiEzelAaRQ=:XrRvUajRNZ9xsu1Nf4/Mvh8UPOhIc0rMC6IdufNO4pQ=;
+X-ME-Sender: <xms:Svfmantz12z8ZXWAFsAhroTUTjlSGbfjcEd3fr8San-WRKJllCw6MQ>
+ <xme:Svfmai2VUaeBYwvA9k-MbMKuAgqaaEu-WfcKKjyJP5oCji3C2O044vVtHNelESWhz
+ vAhD_oKPWO21ODxJaGznnYshN1Zo3Dx-5S9tF2qGcyzHDuUIzHVAOw>
+X-ME-Received: <xmr:SvfmamVzGLHibkvIFPO12v_NMzUV209DV5HA-l5CabXDoRbYEXlYK9LN5maT3AJN0IxHOGKz>
+X-ME-Proxy-Cause: dmFkZTETktANCVCRJ0BesY5rKwHQ9695W2PCEB7/QKg9ZEIlRl5JfFVjnamT+RfELS2Y4a
+ GNXAkB3X94sC2BkHrOuE4XY2MmCDUnz88XHeADa0Op40KhB3HEfe39rvQ/yyMNum6VDgSi
+ 3WgkXBaCRrhxk+9xvW4sihgl5lqUcBCY+C3doTqzoabLq8E1mgaEW/YyXULtlpk2OrLkDo
+ RquQ3zs7rfhTczwkf93D1lzpwCfLxKZmrt/Qzv5pGYe9wNXgRzR1h+2Y+FGJLNo+kl1j0Q
+ 1X/laTOBkpr2JUyV0EnsTWd+Bm7qrqqQ3IP6U8qEigGAlYwFjggHiUnqteDjCIpGlfTTcf
+ ERcfb0O6+oeJfX6YcDV+0n7FQvB/oLx7Gl9e5CeI/w5QqtbD2tkyuOkHVH2MWbVonlTuMv
+ EPzThXKx+4AW8DeC+PjbM8/ujZtywM3u6J9Ff8dN2ip/vACM4H0pugv9H9JhY5gZdL1qQX
+ /fHnsCnL2cCL+0pbbImqG37XM2Qe+TFjdhQu1eIH6pfgT0+FdoNfK76lpevMoQbvRL0UA0
+ vM05d7F8MHU6JBGHp8V8BEqSuFrrSGDA+AlguthNu3ntmwCGEqcELNNQyDfzT0JiSY+s0m
+ sao7VLrGbvew0j4Ka7gYFTd1IG25xFt/8od7XWq2fNvnDTNiSVsGXsYDafHQ
+X-ME-Proxy: <xmx:SvfmagOb0aNcUJJ1Zdhka02e9OGjMqccPIXAvYhfET86yL4bXt7iQg>
+ <xmx:SvfmahxEgGElY7BAJL4fRNueGkG05uNyevFmJWjkV9oiR7SraJ4Oqw>
+ <xmx:Svfmalj0xaTqMSpR3VN3CYv6PXgchfmyu_fZJlcXwxE2SdXam0Cbug>
+ <xmx:SvfmaoTR15zu790_gUCw-DLhrRztXcC4FnhrIvu_s5lUrjaKt86nKQ>
+ <xmx:S_fmart7MgMkD_yPM0r5TpnybYtEo23v8PEXjO3hvapoDgd8ZpM-veyn>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 03:23:42 -0500 (EST)
+ 1 Nov 2026 03:24:34 -0500 (EST)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
@@ -97,11 +97,12 @@ Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  iommu@lists.linux.dev, linux-pm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v15 03/15] accel/rocket: wait for a running IRQ handler before
- resetting a core
-Date: Sun,  1 Nov 2026 21:22:55 +1300
-Message-ID: <20261101082307.151957-4-gahing@gahingwoo.com>
+ linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>,
+ Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v15 08/15] dt-bindings: iommu: rockchip: describe the RK3576
+ NPU MMU
+Date: Sun,  1 Nov 2026 21:23:00 +1300
+Message-ID: <20261101082307.151957-9-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
 References: <20261101082307.151957-1-gahing@gahingwoo.com>
@@ -127,115 +128,77 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_sched_stop() does not wait for a threaded handler that is already
-running. Call synchronize_irq() after it, outside job_lock, which the
-handler takes.
+The RK3576 NPU MMUs are rk3568-iommu compatible but take five clocks
+instead of two. Give them their own compatible and pin both clock counts in
+allOf.
 
-Before the sync, mask the block's interrupt and clear its raw status, so
-that an active core cannot signal a completion after it. Do that under
-job_lock, since rocket_job_hw_submit() arms the same mask under that lock,
-and only when pm_runtime_get_if_active() returns a positive count: the
-reset holds no runtime PM reference, and with the domain down a register
-access takes an async SError.
-
-Igor Paunovic's induced-reset runs on RK3588, including a two-task job that
-puts hw_submit() on the IRQ thread, found no fault; as he put it, "this
-does not show the race is closed".
-
-Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.com/
-Link: https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaXQ8HoMtHD5U1g@mail.gmail.com/
-Link: https://lore.kernel.org/all/20260912113717.6819-1-royalnet026@gmail.com/
-Link: https://lore.kernel.org/all/20260916132824.13527-1-royalnet026@gmail.com/
-Link: https://lore.kernel.org/all/20260919103422.148834-1-royalnet026@gmail.com/
-Suggested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- drivers/accel/rocket/rocket_job.c | 71 +++++++++++++++++++++++++++++--
- 1 file changed, 68 insertions(+), 3 deletions(-)
+ .../bindings/iommu/rockchip,iommu.yaml        | 28 +++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index 03e5f094f60b..5b2abf40b618 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -401,9 +401,74 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
- 	drm_sched_stop(&core->sched, bad);
+diff --git a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
+index 6ce41d11ff5e..83d7e7c8e0c2 100644
+--- a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
++++ b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
+@@ -26,6 +26,7 @@ properties:
+       - items:
+           - enum:
+               - rockchip,rk3576-iommu
++              - rockchip,rk3576-npu-iommu
+               - rockchip,rk3588-iommu
+           - const: rockchip,rk3568-iommu
  
- 	/*
--	 * Remaining interrupts have been handled, but we might still have
--	 * stuck jobs. Let's make sure the PM counters stay balanced by
--	 * manually calling pm_runtime_put_noidle().
-+	 * Mask the block before waiting. hw_submit() arms INTERRUPT_MASK on
-+	 * every submit and only the hardirq clears it, so on an ordinary
-+	 * timeout it is still live and a completion can arrive after the sync
-+	 * returns. The next submit re-arms it, so nothing is lost here.
-+	 *
-+	 * Only when the device is already awake, though. This function holds no
-+	 * runtime PM reference of its own: the only one in the window belongs to
-+	 * in_flight_job, and the completion path may have put it and cleared the
-+	 * pointer before the timeout worker got here. drm_sched_stop() above can
-+	 * block for a long time, and it drops every pending job's credits, so
-+	 * rocket_job_is_idle() is true and nothing keeps the core resumed. On
-+	 * this hardware a register access with the domain down takes an async
-+	 * SError, so a reset must not be the thing that causes one.
-+	 *
-+	 * Only a positive answer will do. pm_runtime_get_if_active() tests
-+	 * power.disable_depth before power.runtime_status, so -EINVAL MASKS a
-+	 * suspended device rather than excluding one: pm_runtime_force_suspend(),
-+	 * which is this driver's own system suspend callback, disables runtime PM
-+	 * first and turns the clocks off second, and rocket_core_fini() suspends
-+	 * the core and disables before it cancels the timeout worker. Both leave
-+	 * the domain down with -EINVAL on offer.
-+	 *
-+	 * The cost is the other half of that ambiguity. A core that is still up
-+	 * with runtime PM disabled (pm_runtime_force_suspend() before its
-+	 * callback has run, or CONFIG_PM=n under COMPILE_TEST) is left unmasked,
-+	 * because writing to it would mean writing to the half that is down as
-+	 * well.
-+	 *
-+	 * Clear the raw status along with the mask, the way the completion path
-+	 * does. Masking alone leaves the DPU bit latched until
-+	 * rocket_core_reset(), and the hardirq decides on raw status alone, so a
-+	 * fault from the IOMMU that shares this line would wake the thread again
-+	 * and what the comment below asserts would stop being true.
-+	 *
-+	 * UNDER job_lock, because rocket_job_hw_submit() arms this same
-+	 * register and always runs under that lock. reset.pending is set here
-+	 * without the lock and read there with it, so a submit that has already
-+	 * passed its check can re-arm the mask after this clears it, and then
-+	 * the synchronize_irq() below fences a handler that is no longer the
-+	 * one that matters: the block is left running a task with its
-+	 * interrupt live. rocket_job_handle_irq() avoids the same race on
-+	 * OPERATION_ENABLE by making its completion writes under this lock.
-+	 *
-+	 * pm_runtime_get_if_active() does not invoke a callback -- it only
-+	 * takes a reference on an already-active device -- and
-+	 * pm_runtime_put_autosuspend() is asynchronous, so neither can re-enter
-+	 * this driver's runtime PM callbacks while the lock is held.
-+	 */
-+	scoped_guard(mutex, &core->job_lock) {
-+		if (pm_runtime_get_if_active(core->dev) > 0) {
-+			rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
-+			rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-+			pm_runtime_put_autosuspend(core->dev);
-+		}
-+	}
+@@ -42,14 +43,22 @@ properties:
+     minItems: 1
+ 
+   clocks:
++    minItems: 2
+     items:
+       - description: Core clock
+       - description: Interface clock
++      - description: Compute clock
++      - description: Convolution buffer core clock
++      - description: Convolution buffer interface clock
+ 
+   clock-names:
++    minItems: 2
+     items:
+       - const: aclk
+       - const: iface
++      - const: npu
++      - const: aclk_cbuf
++      - const: hclk_cbuf
+ 
+   "#iommu-cells":
+     const: 0
+@@ -72,6 +81,25 @@ required:
+   - clock-names
+   - "#iommu-cells"
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3576-npu-iommu
++    then:
++      properties:
++        clocks:
++          minItems: 5
++        clock-names:
++          minItems: 5
++    else:
++      properties:
++        clocks:
++          maxItems: 2
++        clock-names:
++          maxItems: 2
 +
-+	/*
-+	 * drm_sched_stop() returns without waiting for a threaded handler that
-+	 * is already running, so wait for one here. This has to stay outside
-+	 * job_lock: the handler takes that lock, so waiting for it while
-+	 * holding it would deadlock instead of fencing anything.
-+	 */
-+	synchronize_irq(core->irq);
-+
-+	/*
-+	 * No handler is running now, but we might still have stuck jobs. Let's
-+	 * make sure the PM counters stay balanced by manually calling
-+	 * pm_runtime_put_noidle().
- 	 */
- 	scoped_guard(mutex, &core->job_lock) {
- 		if (core->in_flight_job)
+ additionalProperties: false
+ 
+ examples:
 -- 
 2.43.0
 
