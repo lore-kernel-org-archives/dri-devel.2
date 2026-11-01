@@ -2,87 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC98606A325
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:01:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0652B606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:01:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=xixaKZjD;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=UUJenjJP
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=L9tzhG1Q
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3E9B10EA17;
-	Sun,  1 Nov 2026 12:01:39 +0000 (UTC)
-X-Greylist: delayed 903 seconds by postgrey-1.36 at gabe;
- Sat, 31 Oct 2026 18:00:51 UTC
-Received: from send123.i.mail.ru (send123.i.mail.ru [89.221.237.218])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 634D710E10C;
- Sat, 31 Oct 2026 18:00:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
- s=mail4; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive:X-Cloud-Ids;
- bh=t4fbglAcPrxA2vRFmF/rTmX9yQxyaIe8aXQiugqJF7U=; t=1793469651; x=1793559651; 
- b=xixaKZjDeC4ECnZCzvfYFvUEiolguv+HFOCuH1NPB3aN+yl3W/0VXAFDTFGRSmKy3NIA2zVUZru
- +gftHMyK7LzPZdh8sIkLfRub26cVWHD1tA+rDWlUvnSHg5DPk4ma9AgtBIY/kvRRDgM5UxTQ1U7zx
- eAky77iAVzBWs5nqMwefOMCGbg4kLkTbHYRO5jRz+388y0j4nWr/HJq1a4UtDVJJYBp0cBLWdb9sc
- /lDvPFmZusifHOYnXrLAmQ3yg/bufCI8zEHch9eWH1cAv/voWUCbwyN/B1yZKbGmM0PcyXtKiL9xn
- EDE/6I250vsxOKXylNkAYlCTEmnzRJYiX/zA==;
-Received: from [10.113.48.59] (port=50038 helo=send241.i.mail.ru)
- by exim-fallback-759bcdc6f7-mp78m with esmtp (envelope-from
- <s.mavlenkov@mail.ru>)
- id 1xND9G-00000000TIJ-2FS4; Sat, 31 Oct 2026 20:45:46 +0300
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
- s=mail4; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:To:Cc:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
- X-Cloud-Ids:Disposition-Notification-To;
- bh=t4fbglAcPrxA2vRFmF/rTmX9yQxyaIe8aXQiugqJF7U=; t=1793468746; x=1793558746; 
- b=UUJenjJP/VVJrgkVBVE9rBZD2l8HuAfSWqLlLgxquoYrXF8yb4byDRXA13rSJ10tkyVaiblIVSa
- CrIBn2rkfRLKM5pKsQ1cnJXaWsDQuFylvkBQIxuXy5peUcFVD6BjI9NYDfcKSxHTPq3GpQWQlhR2F
- jfx5TXlSlL8XHAAIzTXvE7WgvqMp4EUz0dIcs7q4PleGlFwQ4daFA9Q/cJBg+TJZVWobnkzyZb8Gi
- mbq5PRR55GcGiED+1V/36PbF1NlVNLLE2LAHs5DBlk9xDAs1eAUeObMrn3vrrDoPG2jk2iIK2gKDl
- nYNIS1ZRwyoHd6ZHYwkrLWBjQDAEPDijAwUQ==;
-Received: by exim-smtp-675c6798c6-72zrn with esmtpa (envelope-from
- <s.mavlenkov@mail.ru>)
- id 1xND93-00000000Tgp-3J5C; Sat, 31 Oct 2026 20:45:34 +0300
-From: bitey <s.mavlenkov@mail.ru>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Patrik Jakobsson <pjakobsson@suse.de>,
- bitey <s.mavlenkov@mail.ru>
-Subject: [PATCH v4] drm/i915/display: Add quirk for interlane align bit on
- CH7511
-Date: Sat, 31 Oct 2026 20:45:18 +0300
-Message-ID: <20261031174518.10004-1-s.mavlenkov@mail.ru>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260608082500.45902-1-pjakobsson@suse.de>
-References: <20260608082500.45902-1-pjakobsson@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE4C610EA1A;
+	Sun,  1 Nov 2026 12:01:47 +0000 (UTC)
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazolkn19010003.outbound.protection.outlook.com [52.103.66.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14D9710E325
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 10:41:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wYWX/DpF6H93TUC7bJ+K0PBzd4bNTodf5N66d1BH8IlcntbxC++wZ857IM1oSC4WOV4J9A2UKky3J/lee8Zs74O8E4SmTpr6oggiWK1yPhz+NHAoGsyd6HKfz4PkxY3pJ7ouCRD7+ZVssyXXtKp5sB7i/KPmEOO8d8hYkJ4xtCdFAGkMyD7RxVHWaslUfuh6MxNcdGr22qn4aPIJ0iyGLNUuMG/03/6elmbiihIJOIZP749GEbKocwf8VX2iMEEHr3yDKQWLgvo3yXYkjVWH6UnOg3A3B4DvTGDFov5P1IOD8bSAyZEnXmgI1xPkFzL+7TjmdCop/UpkUwml7Ikfrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8+IhlP58nSglicUeSCO44NdiLaSIJUd3Ipf739ZZ9gw=;
+ b=GyaFbwnTgt8QD2cH3+N3nwg5KBiGNx263xzcUlAwrPoFiaXm/gKPfNdTnz5aLS21sYPZFacxxSNnt9BicnhMVQU+0PLacFr7fJXXNTsqkL78FAM+3jT4G1by21sUx6kDGcsk8nd44VMzVKoenMhK180AbK887wNxUluhWZ3MRGOcKfPG/LzMYunJHtKTunvRpbPLsERZfgGSIaS1CGNRSnMlkARKSLLx+T9ta2uMoyjO9F2A2gB+qQgLQk3XUzE9WhsO5/ybU074AuUGUUqqhsd/ogg1jkaVoNqY2VObZHv72mlAF+kmNHNSy+oGxqS7Y2z0VcfL2V9TaZt5wYrW8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8+IhlP58nSglicUeSCO44NdiLaSIJUd3Ipf739ZZ9gw=;
+ b=L9tzhG1Q3DoUjJmZNoIplAOEwi76zn2xh0yy1hZxV+QUdiOZbtnrAaYwaGagR+JnEZo4sPIoUcV+vAcZhuWYXb9ZzNdZqUF36qyDZ6L3xT81oocpg1JISruhfcM3MnbDl6jSlD9TYznkL1xUmM7ndYsq34xuRqydcqU+mLC0ZaDAb3rphwfPI9sRvFcAS3niGtDgztsDjqkvrwFI3FAgzJ35C4LwysLKOtO4DqN6K4PM2E5X1eo8XIXMXNyb4XjYibrIDIS6NN1edxN7W+iOF2TLsALqHzrXGuAfca9nwlQMSldNrnuO4oxXnbijPCrhwBV4efW51fYBvwCbaxNZIg==
+Received: from TY7PR01MB804852.jpnprd01.prod.outlook.com
+ (2603:1096:403:403::19) by OS3PR01MB8778.jpnprd01.prod.outlook.com
+ (2603:1096:604:17f::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Sun, 1 Nov
+ 2026 10:41:42 +0000
+Received: from TY7PR01MB804852.jpnprd01.prod.outlook.com
+ ([fe80::4c0d:ea93:5322:ee61]) by TY7PR01MB804852.jpnprd01.prod.outlook.com
+ ([fe80::4c0d:ea93:5322:ee61%3]) with mapi id 15.21.0569.010; Sun, 1 Nov 2026
+ 10:41:42 +0000
+From: Zou Jianqiang <jq.zou@outlook.com>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, Helge Deller
+ <deller@gmx.de>
+CC: "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "byu@xidian.edu.cn" <byu@xidian.edu.cn>, "25181214217@stu.xidian.edu.cn"
+ <25181214217@stu.xidian.edu.cn>, ONE Zeroiser <zeroisere@outlook.com>
+Subject: [PATCH] fbdev: radeonfb: reject a zero pixclock in
+ radeonfb_check_var()
+Thread-Topic: [PATCH] fbdev: radeonfb: reject a zero pixclock in
+ radeonfb_check_var()
+Thread-Index: AQHdae2VyPYCB5Gy402pFQiZY1Ht2A==
+Date: Sun, 1 Nov 2026 10:41:42 +0000
+Message-ID: <20261101104107.33909-1-jq.zou@outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY7PR01MB804852:EE_|OS3PR01MB8778:EE_
+x-ms-office365-filtering-correlation-id: dca00217-f73e-4ea5-0250-08df3804b7b8
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|31061999003|15080799012|41001999006|39105399006|24021099003|38102599003|22121099003|12121999013|8062599012|8060799015|19110799012|4140399003|25010399006|26104999009|3412199025|440099028|102099032|40105399003;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?xNVhB/VW/X0olUHVyMsnv1xgTurLYWBnTdy0AgrM5CGZxX1bUopfmjSN9M?=
+ =?iso-8859-1?Q?R7Y1QZhwueL5RZfp3s2Wffu2yp0E3kBdpRy9Xwa0NTtyQYSomve4NpbIh/?=
+ =?iso-8859-1?Q?YgqbvJU89wx8DsHg18MgJyqYOZOX0wCDJcujtrUn/09WCiFoZr1GWFN4I9?=
+ =?iso-8859-1?Q?8f3tnh+85bPfLGvsdYDX9dkZTb/AEaYKX403e5MiwSixkakNNARHrCv+Bi?=
+ =?iso-8859-1?Q?2qgNA3jx+2uNENdaPUoPSFJAcJxxQwpKY7LrKMXnike1WByzxozvpN2/0h?=
+ =?iso-8859-1?Q?eKrd82vpcFekL1+A4fYMNnBchGsAMDbkwtXpsXMvzctQ7BQD8O7HUP5QOK?=
+ =?iso-8859-1?Q?nWCCTmqkPGUv7uMiEo7jFt7mdHd7iUiWY5aH/dBDXW+g4UBoaO49rbwGz6?=
+ =?iso-8859-1?Q?k1nFC45X+0pjaC4ZBgqbqWd67zBfcWbyHjx3QeobJ3gn/Rb0z2sB7fmKbu?=
+ =?iso-8859-1?Q?dwO0IRtGCVfGFke1+1HYu1aKgs5MOQuQbx7BPDUP9JPBuJCH4FLJh+Daea?=
+ =?iso-8859-1?Q?LxfbYzppwhFlK5Wu0lX0lQOVySel8TUS8aWhzXfy59r1FN5ik9XzcMQziM?=
+ =?iso-8859-1?Q?cEfw9P/1xdm8txg5wJLVyLl8zqhr1lxl6nU2jpTFQPZKHTKtHhjOSAqwry?=
+ =?iso-8859-1?Q?NCtFurobkwn9yuL5XJGHtqh29mRxZjbzgM7b7jaWJ17o40h871+Ju4jqK6?=
+ =?iso-8859-1?Q?qgTwC3SliwcTJL6SAWDZOy92aq5Ijvo/lFy/o0xk12ylxCoBhgmMsAgsVK?=
+ =?iso-8859-1?Q?YsKod7bhxeZCYh7JGP9Tu4rYTiLM/r636mafl6wT+MkaqovuUgYYqnD2o5?=
+ =?iso-8859-1?Q?RxyCMuM/UNhQ/gP1UWAkboqDSufTjcwXgDmqBV+acM4lXtuoWX59X+zFPg?=
+ =?iso-8859-1?Q?YZucbsX3IhIpI3vPV+3og7mJMAtCNByVfPevOqd7XLufzaC0axcMU2OmhT?=
+ =?iso-8859-1?Q?cz7wSTZhGmHwTU05Xx6sSQpyw7Qc3f4aOLwKpEMGS/o6qi6bhyZvBkOgxe?=
+ =?iso-8859-1?Q?BTBRFth/ouVWz5OVLoq8ORX8NhTVOmfLTAQ2FxTWPXi9gs+muJAe8gtf32?=
+ =?iso-8859-1?Q?9lkfDNSjDqfyVYDScm0ieZ9uaD0kn1ddmG4lkwNKQ6Ab?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?I9VOleJ5TJJepU6yzlSyw/PZvSDBVWpdb276fERe7DONs0t9BBe35jl1nX?=
+ =?iso-8859-1?Q?+SB/aRSKHQl3v5wjTlQ+EYMr/vXYJoowUfTp5Z6yNDsSJ+uMnbffsL+efM?=
+ =?iso-8859-1?Q?6O4BtpP2neo+TAAPEDYO234UdaLrAom+fzCuXnkj6yltmVaKWfJXE/WQXe?=
+ =?iso-8859-1?Q?sYwjI0xPXTL/PXYOzVtoevRPklxZO8JZUTNTr/jQT+twJAlUGzvKGtC1lp?=
+ =?iso-8859-1?Q?nMKbGGipSGUSoCz3GZCj9TB/I9So9/f7vICZ0CXnMe9qF12e3YUzxnU11g?=
+ =?iso-8859-1?Q?V2WBRPWs9NLHX/tqvCwd+JCG8ChrRr049MlHQRW+RXpLr1cSi49i+XbGjp?=
+ =?iso-8859-1?Q?OBwmUwQc3U3s2yvgjtzcqYAjXv7fcyeAqvRHR+zO8bm7Fhwb2hYCE6khvR?=
+ =?iso-8859-1?Q?aQlS+jKkQ6rVcB2AnPKSwYW2ZY65iOqFx4RGtp+anc/R9pXQHv4xmDI5QR?=
+ =?iso-8859-1?Q?UsfCtaJKSbz57hh2sPO4rkW9wVawE8za6jqNmteTbXwIWSneg32yB/VHNT?=
+ =?iso-8859-1?Q?5SXShQynmEN+PeRN59HNrUSICDbfJaaDrjGTOjHg3PFGy4Dr6mWWkQzm+Z?=
+ =?iso-8859-1?Q?cdB/mUMT9kn3HpCSsTTgl2+z4o6DQACTAO8XtgvUzq3LJ85XeOU97krz5j?=
+ =?iso-8859-1?Q?AUfycrhDE1uSKNO4oFGWQ4JslDqD/2Erltl3OZLNPRSeKbRCmUdrte1+e6?=
+ =?iso-8859-1?Q?4g8iUA93fs5gWp8rA9+jdweQbXG3+DqvBqhioNWGhV11gF9TZCKYDDuBmI?=
+ =?iso-8859-1?Q?qpUtiZng4WVndu9IkO0xddJzikNFdRJhN3CjHFP6vKJGSW6a8a8uidL/Mn?=
+ =?iso-8859-1?Q?WzYh3LyIqYdeWRsEFounprtK8GoLldiHIId29+GkKHXSO2dehvVrIQH/MQ?=
+ =?iso-8859-1?Q?R//o5apX/ert7gnnIb0upQAxnmXZKOlBKCtSlj/QJ3ZlluHWPzmn7+5SXN?=
+ =?iso-8859-1?Q?2hUg0lyxGTHH23fEn/SSD/HhRZgBSj1txxwkkH06MWHY2zF3tpDvOCsqaM?=
+ =?iso-8859-1?Q?u/EERiwgMwmIYkpi46T2h8J8SPXJ6xA9TJslhoCJ5+Ztex3b7OHMG1DraW?=
+ =?iso-8859-1?Q?6l6SFA+1cN+0n8astAI+XfvEF49zisX1GQ0zxcCPUmj5aQZrfNMLNbkoVV?=
+ =?iso-8859-1?Q?OPs0IOV0AhOXBOUSkfs3JDUI/tAPIsDU1jr3Nd3tsN5g5Kop1Th5SiLwZD?=
+ =?iso-8859-1?Q?9mNQZz9c0BAaGUQE9jPwUBMts8KOp7ZJSAXgBxm6fRUXxd0w8hEMpLLOB8?=
+ =?iso-8859-1?Q?Tz0nNj7LYcVRgfGiYY0DWLlCmR+vL986bQG+GU7c70trqi/ANfb0WzJ9VD?=
+ =?iso-8859-1?Q?GPbNYr10AZaO87rrHFDgAL2PHZWVUuqDIO0mtZc1KGbMFsw22VW39nML8B?=
+ =?iso-8859-1?Q?uSiVzWcz+nGZZCe0gqRLybTOWU++WU3aNbgzhL2yhX6EX+PSiVgJO0tyNn?=
+ =?iso-8859-1?Q?+QUT6wxl99O3DBLF?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailru-Src: smtp
-X-7564579A: 646B95376F6C166E
-X-77F55803: 4F1203BC0FB41BD943C6AEBB953A11868B9A05538DDD48EA808D1CAF36FB1EF61313CFAB8367EF908E2BE116634AD74DC962550A7C05FB5FA421357250EF31ADBFFEA52BB3F27CA9C5E31B7A8E739F68224C9A2F61B97637
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE776377A057133B646EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637AC83A81C8FD4AD23D82A6BABE6F325AC2E85FA5F3EDFCBAA7353EFBB553375667B1596EEF16A891D10C3F914A2355645963ACA32F3B8FBED51E18396E974CB7C8EEF46B7454FC60B9742502CCDD46D0D062BEEFFB5F8EA3EF6B57BC7E64490611E7FA7ABCAF51C92176DF2183F8FC7C0CB629EEF1311BF91D2E47CDBA5A96583BA9C0B312567BB231DD303D21008E29813377AFFFEAFD269176DF2183F8FC7C0D75EB778CE7D8A0C68655334FD4449CB9ECD01F8117BC8BEAAAE862A0553A39223F8577A6DFFEA7C747589E6AAA3516243847C11F186F3C59DAA53EE0834AAEE
-X-87b9d050: 1
-X-C1DE0DAB: 0D63561A33F958A54C44E028246F950C5002B1117B3ED696436D8E3A28293F4530C8F815570A35303610D81D389A125CDE35189EBF2DEA281E618B5D5F965AFD1BF51D96AE4B494FB2D1C9E48B6DC60AE2A7E19323554B12787CBDA4B9FA07ACF6AAE36F1AF2432B4EAF44D9B582CE87C8A4C02DF684249CC203C45FEA855C8F
-X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE191716CD42B3DD1D34C77DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D6599222D52304DBDCD2AE65DB698DCA296A16A405D620AC03824236FA4ECE01622BE78B892AF3917F36B8341EE9D5BE9A0A102C3DC83FFE6E1A4B51B2A63FEF6BF09B8D2FF1C041D53752EE4E5D9E54FDA4F44A2BDFCEC9DBD838705C4085B645248947CB5EE6AA4F0FCFECA0A3B40025F483DB18EBE73F7D69
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4ZrlAo0bq3TDyw5v+G6YiroYwgTYgFAQi6fY=
-X-Mailru-Sender: 689FA8AB762F73937C9FA53A4753B3133054573B6CB812E8357DCD99F990607D4A8B2E7A85DF2F57F3CDC8BC78C4DE7BDA68109F586B92E9CCFD498835386E8A2DDEA15287B001569AA14EBBF425EE34BC7555A253F5B2000D4ABDE8C577C2ED
-X-Mras: Ok
-X-Mailru-Src: fallback
-X-7564579A: 646B95376F6C166E
-X-77F55803: 6242723A09DB00B400DCA754A51D576D9D528C0E862C7C0E8F9337153228F00968F3CF0E9FE49B69DA15AA78528425A07DA55AAFF3F93FDEB7FF8686ABC3CB98929C2B383A2C3A90A9D507D8A26ACC4B
-X-7FA49CB5: 0D63561A33F958A5EEEF1DF5FEDE81B05002B1117B3ED6961DF5D2F92DCC961D7D6ED8DD83F142CB02ED4CEA229C1FA827C277FBC8AE2E8B54F520D093A0DF28
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+OYcBso8Zm+oliTz8oZwnDrFsY77LZRcHyw5ht0smWrfSeTW5FiI8avd9v29gUBslpLaIlvAR6h4id02YH9mgeCTAyYoNlVO8a0p6hQmZbCHHdgXXYIci2U4=
-X-Mailru-MI: 20000000020000000000000800
-X-Mras: Ok
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY7PR01MB804852.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: dca00217-f73e-4ea5-0250-08df3804b7b8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2026 10:41:42.2701 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB8778
 X-Mailman-Approved-At: Sun, 01 Nov 2026 11:58:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,135 +131,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When disabling pattern training after successful link training the
-CH7511 bridge incorrectly clears the DPCD link status bits: not only
-INTERLANE_ALIGN_DONE, but also the per-lane CR_DONE, CHANNEL_EQ_DONE
-and SYMBOL_LOCKED bits. This is interpreted as a link failure when
-rechecking the link status and triggers an endless loop of retraining
-sequences.
-
-This patch adds a quirk to pretend the bits are still set and no
-retraining is needed. The quirk is matched on the Chrontel IEEE OUI
-(F0:02:2B) and the device ID "CH7511" on any platform.
-
-Tested on Ivy Bridge (HD Graphics 2500, device 0152) with a CH7511
-DP-to-HDMI adapter on kernels 7.1-rc1, drm-tip and 7.3.
-
-Fixes: 3b3be899fc81 ("drm/i915/dp: Recheck link state after modeset")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15744
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15994
-Co-developed-by: Patrik Jakobsson <pjakobsson@suse.de>
-Signed-off-by: Patrik Jakobsson <pjakobsson@suse.de>
-Signed-off-by: bitey <s.mavlenkov@mail.ru>
----
-Changes in v4:
-- Also force the per-lane status bits (CR_DONE / CHANNEL_EQ_DONE /
-  SYMBOL_LOCKED). On Ivy Bridge the CH7511 zeroes the entire lane
-  status registers after training (ln0_1 = ln2_3 = 0x00), so forcing
-  only the INTERLANE_ALIGN_DONE bit is not enough to stop the retrain
-  loop.
-- Rebased on top of v7.3
-
-v3 changes:
-- Match on all devices with a CH7511, instead of only VLV
-- Rebased on top of drm-tip
-- Additional "Closes" tag
----
- .../drm/i915/display/intel_dp_link_training.c   | 17 +++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.c     | 17 +++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h     |  1 +
- 3 files changed, 35 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 9a692f4..a2d5b04 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -43,6 +43,7 @@
- #include "intel_hotplug.h"
- #include "intel_modeset_lock.h"
- #include "intel_panel.h"
-+#include "intel_quirks.h"
- #include "intel_psr.h"
- 
- /**
-@@ -2515,6 +2516,22 @@ intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
- 	if (link_recovery_autoretrain_pending(link_training))
- 		return true;
- 
-+	/*
-+	 * The CH7511 bridge incorrectly clears all link status bits
-+	 * (INTERLANE_ALIGN_DONE, per-lane CR/CEQ/SYMLOCK) when disabling
-+	 * the training pattern. Force them to indicate successful training.
-+	 */
-+	if (intel_has_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT)) {
-+		u8 lane_eq = DP_LANE_CR_DONE | DP_LANE_CHANNEL_EQ_DONE |
-+			     DP_LANE_SYMBOL_LOCKED;
-+		int i;
-+
-+		for (i = 0; i < (intel_dp->lane_count + 1) / 2; i++)
-+			link_status[i] |= lane_eq | (lane_eq << 4);
-+		link_status[DP_LANE_ALIGN_STATUS_UPDATED - DP_LANE0_1_STATUS] |=
-+			DP_INTERLANE_ALIGN_DONE;
-+	}
-+
- 	/* Retrain if link not ok */
- 	return !intel_dp_link_ok(intel_dp, link_status) &&
- 		!intel_psr_link_ok(intel_dp);
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 7d7db77..359bca4 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -94,6 +94,14 @@ static void quirk_disable_edp_panel_replay(struct intel_dp *intel_dp)
- 	drm_info(display->drm, "Applying disable Panel Replay quirk\n");
- }
- 
-+static void quirk_ignore_interlane_align_bit(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT);
-+	drm_info(display->drm, "Applying ignore interlane align bit quirk\n");
-+}
-+
- static void quirk_disable_psr2(struct intel_display *display)
- {
- 	intel_set_quirk(display, QUIRK_DISABLE_PSR2);
-@@ -289,6 +297,15 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
-+	/* Chrontel CH7511 DP-to-LVDS bridge */
-+	{
-+		.device = DEVICE_ID_ANY,
-+		.subsystem_vendor = PCI_ANY_ID,
-+		.subsystem_device = PCI_ANY_ID,
-+		.sink_oui = SINK_OUI(0x2b, 0x02, 0xf0),
-+		.sink_device_id = SINK_DEVICE_ID('C', 'H', '7', '5', '1', '1'),
-+		.hook = quirk_ignore_interlane_align_bit,
-+	},
- };
- 
- void intel_init_quirks(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe..7fcc396 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_IGNORE_INTERLANE_ALIGN_BIT,
- };
- 
- void intel_init_quirks(struct intel_display *display);
--- 
-2.56.0
-
+From: Jianqiang Zou <jq.zou@outlook.com>=0A=
+=0A=
+radeonfb_set_par() derives the dot clock from the user supplied=0A=
+struct fb_var_screeninfo:=0A=
+=0A=
+	dotClock =3D 1000000000 / pixClock;=0A=
+=0A=
+where pixClock is copied from mode->pixclock.  A zero pixclock=0A=
+bypasses the existing validation and makes the kernel divide by zero=0A=
+in radeonfb_set_par().=0A=
+=0A=
+The driver does have a check for this: fb_validate_mode() returns=0A=
+-EINVAL when pixclock is 0, but radeon_match_mode() only calls it when=0A=
+the output has no scaler and an EDID-derived mode database is=0A=
+available:=0A=
+=0A=
+	if (has_rmx =3D=3D 0 && rinfo->mon1_modedb)=0A=
+		if (fb_validate_mode(...))=0A=
+			return -EINVAL;=0A=
+=0A=
+mon1_modedb is only filled in when an EDID is read, so when no=0A=
+EDID-derived mode database is available the validation is skipped and=0A=
+the invalid mode reaches radeonfb_set_par().=0A=
+=0A=
+Reject a zero pixclock in radeonfb_check_var() before matching the=0A=
+mode.  fb_set_var() calls it on the FBIOPUT_VSCREENINFO path before=0A=
+->fb_set_par(), so the invalid value is rejected before the mode is=0A=
+applied.  This is the same check other fbdev drivers use (i740fb,=0A=
+arkfb, s3fb).=0A=
+=0A=
+Reproduced on Linux 7.3.0 using a custom QEMU PCI stub device with=0A=
+vendor/device ID 1002:5955; no physical Radeon hardware was used.  A=0A=
+single FBIOPUT_VSCREENINFO with pixclock =3D 0 is enough to trigger the=0A=
+divide error.=0A=
+=0A=
+Signed-off-by: Jianqiang Zou <jq.zou@outlook.com>=0A=
+---=0A=
+ drivers/video/fbdev/aty/radeon_base.c | 3 +++=0A=
+ 1 file changed, 3 insertions(+)=0A=
+=0A=
+diff --git a/drivers/video/fbdev/aty/radeon_base.c b/drivers/video/fbdev/at=
+y/radeon_base.c=0A=
+index b6b058cee..a69e58914 100644=0A=
+--- a/drivers/video/fbdev/aty/radeon_base.c=0A=
++++ b/drivers/video/fbdev/aty/radeon_base.c=0A=
+@@ -836,6 +836,9 @@ static int radeonfb_check_var (struct fb_var_screeninfo=
+ *var, struct fb_info *in=0A=
+         int nom, den;=0A=
+ 	unsigned int pitch;=0A=
+ =0A=
++	if (!var->pixclock)=0A=
++		return -EINVAL;=0A=
++=0A=
+ 	if (radeon_match_mode(rinfo, &v, var))=0A=
+ 		return -EINVAL;=0A=
+ =0A=
+-- =0A=
+2.43.0=0A=
+=0A=
