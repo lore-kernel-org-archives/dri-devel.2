@@ -2,52 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B64606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC20606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:56:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=EXzKOxkl
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=H1WTYqxt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1457C10EA3D;
-	Sun,  1 Nov 2026 12:38:54 +0000 (UTC)
-X-Greylist: delayed 523 seconds by postgrey-1.36 at gabe;
- Sun, 01 Nov 2026 12:38:47 UTC
-Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
- [109.224.244.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 795DE10EA3D
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 12:38:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=softbase.tech;
- s=protonmail3; t=1793536198; x=1793795398;
- bh=MXG9XxsNUYUBQFUk2jiqmUkACxCXCveVoiDIppG6/JI=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=EXzKOxkl70OCmui4jy79De7H6k0YKei3U0Ft+swv/5PlZ2gHA6piffFlnWhap8wAl
- fP6x7bS1Wsmot3KsrCjic1noBx2lnJvLmIqPqECq3ccCnLizh12NZYrbX4rWZxaffm
- 9R/LTfqnoIAwPQ/XqcfEpNW07uh/0ZNKzWB0bMOcwuKZKtWXlmrTX4WjrQKiozLM1c
- 5yhSg1buHg2m5kYJ7lYFPtWI0NCX3xbGv/2T3hXsAX3uvg6q+ix8EhTQaZ3fZF5x95
- 50LPN3wRq5+OZzlKytWMJImMjLGCftSSMJ3uiyz6/9JqORD+7c9gSgkZ3TCBhfVVcX
- v+ARvmqWti2Kg==
-X-Pm-Submission-Id: 4jHZ0g3FNKz2Sd2v
-From: "Beat M. Liechti" <beat@softbase.tech>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Federico Amedeo Izzo <federico@izzo.pro>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Beat M. Liechti" <beat@softbase.tech>,
- stable@vger.kernel.org
-Subject: [PATCH v2 1/2] drm/msm/dpu: don't reassign resources on color
- management changes
-Date: Sun,  1 Nov 2026 13:26:57 +0100
-Message-ID: <20261101122943.8155-2-beat@softbase.tech>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101122943.8155-1-beat@softbase.tech>
-References: <20261101095754.33840-1-beat@softbase.tech>
- <20261101122943.8155-1-beat@softbase.tech>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E18810E3E1;
+	Sun,  1 Nov 2026 12:56:43 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79A2010EA3E
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 12:56:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=rzCbi5EGPZLpXZbESgscRNIvuvALdr5g6z67Q5W8v3E=; b=H1WTYqxtt6M4UVYLFEvQVrmgcU
+ 90J83Ayh8GQhQuBEd7s+aNq1o3Idv67JHugGZCjNMIwcsYpzh5V1RgXQR1oxyHJc+PZ7b+pH9TweI
+ 2cLNLCoEjI6fKmnW72ovKlDXuIf3n3DIQWBTbmAjrg/XNKkWmzcQ/FHDMlLoJYypgaO/0ndcCubFp
+ Ap2FhhzFVK88CPuzpgYlqHHSppsfHJcAvplYjLa296ebZOSWh/82Vcr29QR65xE+IJbWweZue7Cxw
+ fF8O2RcCZajeRJ5YBedRihEoPgNByqGQPgLznBtCmw+H6man3x3n8j8fko8ucUguuxC6JpLpXswdD
+ Kf62/F1g==;
+Received: from [179.105.94.163] (helo=prince)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1xNV6v-00Go36-Uz; Sun, 01 Nov 2026 13:56:34 +0100
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Iago Toral <itoral@igalia.com>,
+ Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
+ Melissa Wen <mwen@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ stable@vger.kernel.org, =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Subject: [PATCH 1/2] drm/v3d: Initialize timedout_batches when running a CSD
+ job
+Date: Sun,  1 Nov 2026 09:53:57 -0300
+Message-ID: <20261101125619.2465064-1-mcanal@igalia.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,119 +60,47 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Since commit 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide
-GAMMA_LUT DRM property"), dpu_crtc_atomic_check() releases and reserves
-the hardware blocks of a CRTC whenever color_mgmt_changed is set, not
-only on a modeset. A commit that merely replaces the GAMMA_LUT or CTM
-blob of an active CRTC can therefore move that CRTC to a different
-CTL/LM pair without disabling and re-enabling the pipeline, and the
-hardware keeps scanning out through blocks the driver no longer
-considers in use.
+From: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
 
-This is easy to hit with GNOME/mutter on a laptop driving an external
-display: closing the lid disables the eDP CRTC, and in the same atomic
-commit mutter sets new color blobs on the still active HDMI CRTC. With
-drm.debug enabled, dpu_rm_reserve() moves the HDMI CRTC from CTL_1 to
-the just released CTL_0 while its encoder is neither disabled nor
-re-enabled. A few seconds later the display SMMU reports context faults
-at the refresh rate and the external screen fills with garbage. Opening
-the lid again leads to a stream of "vblank timeout" and "frame done
-timeout" errors and the machine has to be power cycled.
+v3d_csd_job_timedout() decides whether a compute job made progress by
+comparing CSD_CURRENT_CFG4, the number of batches the dispatcher still
+has to start, against the value saved at the previous timeout. That
+saved value is never initialized, so it is zero on the first timeout.
 
-Color management affects the topology in only one way: DSPP blocks are
-requested when either CTM or GAMMA_LUT is set. Handle that case in
-dpu_crtc_check_mode_changed() by requiring a full modeset when the
-presence of CTM/GAMMA_LUT changes, and stop reallocating resources on a
-bare color_mgmt_changed. Don't set allow_modeset here: if userspace
-did not allow a modeset, the atomic core rejects the commit instead of
-the CRTC being silently moved to other blocks.
+On V3D 7.1.6 and later, CFG4 counts down to zero once the dispatcher has
+started the last batch, but the dispatch keeps running until the batches
+in flight complete. If the first timeout fires in that window, the
+handler sees no change and resets the GPU while the job is about to
+complete. For example, this happens with long dispatches that only keep a
+single supergroup in flight.
 
-Fixes: 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide GAMMA_LUT DRM property")
+Initialize timedout_batches to the value programmed in CFG4 when the job
+is started. The register does not return to it once a batch has started:
+it counts down to zero on V3D 7.1.6 and later (CFG4 holds the number of
+batches), and to 0xffffffff on V3D 4.2 (CFG4 holds the number of batches
+minus one).
+
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Beat M. Liechti <beat@softbase.tech>
+Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader dispatch.")
+Signed-off-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
+ drivers/gpu/drm/v3d/v3d_sched.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Notes:
-    Changes in v2:
-    - Don't set allow_modeset on behalf of userspace; only set mode_changed
-      and let drm_atomic_check_only() reject commits that did not allow a
-      modeset (Dmitry)
-    - New patch 2/2 removes the CTM-only allow_modeset hack from
-      msm_atomic_check(), which is redundant with this check (Sashiko review)
-    - Link to v1: https://lore.kernel.org/r/20261101095754.33840-1-beat@softbase.tech
-    
-    Testing: ThinkPad T14s Gen 6 (X1E78100), GNOME 50 / mutter on Wayland,
-    LG 4K60 monitor on the HDMI port (DP to HDMI bridge), logind set to not
-    suspend on lid close while on external power. Without this patch every
-    lid close reproduces the corruption and hang described above. With it,
-    closing and opening the lid produces no SMMU faults, vblank timeouts or
-    frame done timeouts, and both displays keep working.
-    
-    v2 was retested on the same kernel with both patches applied: lid
-    close/open, Night Light toggled repeatedly with the lid open and closed,
-    and a color profile change. No SMMU faults or timeouts, no visual
-    problems, and with drm.debug=0x16 no commit was rejected for requiring
-    a modeset, so mutter is not affected by the stricter check.
-    
-    On msm-next the patch has only been compile tested (W=1, no new
-    warnings), not run.
-    
-    The RFC "drm/msm/dpu: Force modeset if new CTLs have been reserved"
-    (https://lists.freedesktop.org/archives/freedreno/2025-March/036824.html)
-    addresses reassignment without a modeset in general. This patch only
-    removes the color management trigger.
-    
-    The root cause analysis of the drm.debug trace, the fix and the
-    changelog were developed with an AI coding assistant (Claude by
-    Anthropic). I reviewed the change and tested it on the hardware above.
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 25 +++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 42d0a529b..cfcc3556a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1516,6 +1516,19 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_state *old_crtc_state,
- 	    (!clone_mode_requested && clone_mode_enabled))
- 		new_crtc_state->mode_changed = true;
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index e6283a75bcdf..002116efc874 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -360,6 +360,8 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+ 		dma_fence_put(job->base.irq_fence);
+ 	job->base.irq_fence = dma_fence_get(fence);
  
-+	/*
-+	 * DSPP blocks are reserved only when CTM or GAMMA_LUT is set (see
-+	 * dpu_crtc_get_topology()), so enabling or disabling color management
-+	 * changes the hardware topology. Changing resources on an active CRTC
-+	 * requires a full modeset; otherwise the CTL/LM blocks get swapped
-+	 * underneath a running pipeline. If userspace did not allow a modeset,
-+	 * drm_atomic_check_only() rejects the commit.
-+	 */
-+	if (new_crtc_state->enable &&
-+	    (!!(old_crtc_state->ctm || old_crtc_state->gamma_lut) !=
-+	     !!(new_crtc_state->ctm || new_crtc_state->gamma_lut)))
-+		new_crtc_state->mode_changed = true;
++	job->timedout_batches = job->args.cfg[4];
 +
- 	return 0;
- }
+ 	trace_v3d_submit_csd(dev, to_v3d_fence(fence)->seqno);
  
-@@ -1534,9 +1547,15 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 
- 	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
- 
--	/* don't reallocate resources if only ACTIVE has beeen changed */
--	if (crtc_state->mode_changed || crtc_state->connectors_changed ||
--	    crtc_state->color_mgmt_changed) {
-+	/*
-+	 * Don't reallocate resources if only ACTIVE or color management
-+	 * values have changed. A change in DSPP requirements is turned into a
-+	 * modeset by dpu_crtc_check_mode_changed(). Reallocating on a plain
-+	 * color_mgmt_changed would move an active CRTC to different CTL/LM
-+	 * blocks without a modeset, leaving the hardware scanning out through
-+	 * stale CTL/LM state (SMMU faults, corrupted output, vblank timeouts).
-+	 */
-+	if (crtc_state->mode_changed || crtc_state->connectors_changed) {
- 		rc = dpu_crtc_assign_resources(crtc, crtc_state);
- 		if (rc < 0)
- 			return rc;
+ 	v3d_job_start_stats(&job->base);
 -- 
-2.53.0
+2.56.0
 
