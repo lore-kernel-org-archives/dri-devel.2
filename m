@@ -2,69 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA959606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A6F606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=DfD/WTzN;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=Le0r227+
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=yThTbr8e;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=LCdxdaQe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0C0A10EBBB;
-	Mon,  2 Nov 2026 08:04:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74F4510EBBD;
+	Mon,  2 Nov 2026 08:04:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="DfD/WTzN";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="Le0r227+";
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="yThTbr8e";
+	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="LCdxdaQe";
 	dkim-atps=neutral
 Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1771710E3B6
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:20:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 077B710E50E
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:32:26 +0000 (UTC)
 DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
  c=relaxed/relaxed; r=y; 
- h=To:Subject:From:Date:Message-ID; t=1793575205; bh=6dm8J8E0M1ZNWs3l5j1o3es
- 8syrK4YCFjARRn59ISEY=; b=DfD/WTzN9iChMjght3h2uUM7Xn+ZNCcpbAl4DtvkaqUFQKKULL
- s2eg2US6+yhhqRSOvR7puOJMTUJRlvvIx3CQ==;
+ h=To:Message-Id:Subject:Date:From; t=1793575936; bh=Axu0XPUPLpkMyrWvciZ5dOU
+ NVe+9zFHajjln1vt02DA=; b=yThTbr8eNsne5pZ/ozfLPgM9L+Vj0hPNrb9INCXikZtTlP+rXp
+ kp2uQre4hp09X8u63tjfSh2eDaR18BO8+tAA==;
 DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
  r=y; 
- h=To:Subject:From:Date:Message-ID; t=1793575205; bh=6dm8J8E0M1ZNWs3l5j1o3es
- 8syrK4YCFjARRn59ISEY=; b=Le0r227+TFsr16xUNP63aQZ0MUX0uzYbLzyeAi7Qwqi6ZIbe9f
- qwVLzlM+BGpHPgdV7ETxHmNmhyeD7bCDh64jO2IDrZ3CE+WdhwjdPXwskg9CQoIy1fWcC3tCj73
- 1bYbMtrPHqXsO++z+LMEJdGIumm/1eLGwhI9E+BqA4kfXFTfbTNgnQ6z5t/g9M/pVNTT7rsCHPQ
- fP6fkR3CCwbKCHewdb8erOZqdpmNcYOvlvMJZNIbxquVlCjmKC01JYIwr2n8tcWqXHe+jbeouIn
- xav7PwVExAWGdNv/2bj8Hm2RORYVI6rGj77LXRcah/pk/W9ESlfjzk8LvpiF0wAIg8A==;
-Message-ID: <2f96ca42-4ab2-4e3e-b15f-f1210362db7b@erebion.eu>
-Date: Mon, 2 Nov 2026 00:20:04 +0100
+ h=To:Message-Id:Subject:Date:From; t=1793575936; bh=Axu0XPUPLpkMyrWvciZ5dOU
+ NVe+9zFHajjln1vt02DA=; b=LCdxdaQewly0NXoPgUpWJI3QxPvTWqxwOGwOskXRcxZWsPfBZa
+ m73rpXqy/Ycv+rhG0gizMnyt9irL4Hw0ow1ODsbfgCa4V8B/zbNXoiIC3Fp0s3qk8sP9RZKRgpN
+ MgqaNVXzh8UtJzlp+W4sBTlyZjyzxnEb4pegaF3XQvbxtBkKs5obfZuUIEj18TqBiigeQfoybyY
+ o47MP2aPCZM4xQxKAfwKBT3mLP1KDKlNnlGA43kHNAV3+SbZNXCpJ2z5hhUNqH9kTPKoX1Ixlr0
+ +m/vkHhuMNNqxOIpcD+Cy3xcDOvTzIgZ77FfeoKxY5wknSmUIscP7Nknoc3tw5UVnUg==;
+From: erebion <erebion@erebion.eu>
+Date: Mon, 02 Nov 2026 00:32:15 +0100
+Subject: [PATCH v3 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L thermals
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: erebion <erebion@erebion.eu>
-Subject: Re: [PATCH v2 5/8] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
- <20260926-pdx213-upstream-3-v2-5-b4612e3eb536@erebion.eu>
- <ddd2d324-4202-48bf-8984-45edae0c3278@oss.qualcomm.com>
-Content-Language: en-GB
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <ddd2d324-4202-48bf-8984-45edae0c3278@oss.qualcomm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------m0Dl7hDtU9gzfRDxN9YR05gR"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-pdx213-upstream-3-v3-11-cdc3be96d257@erebion.eu>
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+In-Reply-To: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ erebion <erebion@erebion.eu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=5794;
+ i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
+ bh=bsltvlZDaPOi7O6TUA0gkJyBYUN0UKXuRmke8QCeqEE=;
+ b=h4ZQe1srQ2QhQK+Jjg+q6ba7KbyeswN9Gw6tp9Tr4KORKLxPsMdRCWXXaTjiCRcIb07ndHsfZ
+ nY6+FoUK+btDw9gzMMmL+cDIZfaAMfkBmEW+7RZc64qwwGUY7HTnAF7
+X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
+ pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:03:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,104 +72,265 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------m0Dl7hDtU9gzfRDxN9YR05gR
-Content-Type: multipart/mixed; boundary="------------8MmVZGt7YViH7ZG6jZ7S09Wz";
- protected-headers="v1"; hp="clear"
-Message-ID: <2f96ca42-4ab2-4e3e-b15f-f1210362db7b@erebion.eu>
-Date: Mon, 2 Nov 2026 00:20:04 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: erebion <erebion@erebion.eu>
-Subject: Re: [PATCH v2 5/8] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
- <20260926-pdx213-upstream-3-v2-5-b4612e3eb536@erebion.eu>
- <ddd2d324-4202-48bf-8984-45edae0c3278@oss.qualcomm.com>
-Content-Language: en-GB
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <ddd2d324-4202-48bf-8984-45edae0c3278@oss.qualcomm.com>
+Configure the thermals for the PA_THERM1, MSM_THERM, PA_THERM0,
+RFC_CAM_THERM, CAM_FLASH_THERM and QUIET_THERM thermistors connected to
+PM6150L.
 
---------------8MmVZGt7YViH7ZG6jZ7S09Wz
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Due to hardware constraints we can only register 4 zones with
+pm6150l_adc_tm, the other 2 we can register via generic-adc-thermal.
 
-SGksDQoNCk9uIDEwLzE1LzI2IDEzOjA2LCBLb25yYWQgRHliY2lvIHdyb3RlOg0KID4gSSBk
-b24ndCBsaWtlIGhvdyB0aGVzZSBjb21tZW50cyBhcmUgc3ByZWFkaW5nIGFjcm9zcyB0aGUg
-dHJlZSBhcw0KID4gZXZlcnlvbmUgY29weS1wYXN0ZXMgdGhlbS4NCg0KSXQgc2VlbXMgb3Ro
-ZXIgRFRzIGFyZSBqdXN0IHVzZWZ1bCBhcyB3b3JraW5nIGV4YW1wbGVzLiA6RA0KDQo+IE9u
-IG5ld2VyIHBsYXRmb3Jtcywgd2Ugc2V0dGxlZCBvbg0KPiBzZXR0aW5nIGJpYXMtZGlzYWJs
-ZSBldmVyeXdoZXJlIGFuZCB0aGVyZSBkb24ndCBzZWVtIHRvIGJlIGFueQ0KPiBpc3N1ZXMu
-IEFyZSB0aGVzZSBlZGl0cyBiZW5lZmljaWFsIGluIGFueSB3YXk/DQoNCnRoZSBmb2xsb3dp
-bmcgZXJyb3JzIGluIHRoZSBsb2cgZGlzYXBwZWFyIHdpdGggaXQgaW5jbHVkZWQ6DQoNCiAg
-Qmx1ZXRvb3RoOiBIQ0kgVUFSVCBkcml2ZXIgdmVyIDIuMw0KICBCbHVldG9vdGg6IEhDSSBV
-QVJUIHByb3RvY29sIEg0IHJlZ2lzdGVyZWQNCiAgQmx1ZXRvb3RoOiBIQ0kgVUFSVCBwcm90
-b2NvbCBRQ0EgcmVnaXN0ZXJlZA0KICBCbHVldG9vdGg6IGhjaTA6IHNldHRpbmcgdXAgd2Nu
-Mzk5eA0KLUJsdWV0b290aDogaGNpMDogRnJhbWUgcmVhc3NlbWJseSBmYWlsZWQgKC04NCkN
-CiAgQmx1ZXRvb3RoOiBoY2kwOiBRQ0EgUHJvZHVjdCBJRCAgIDoweDAwMDAwMDBhDQogIEJs
-dWV0b290aDogaGNpMDogUUNBIFNPQyBWZXJzaW9uICA6MHg0MDAxMDMyMA0KICBCbHVldG9v
-dGg6IGhjaTA6IFFDQSBST00gVmVyc2lvbiAgOjB4MDAwMDAzMDINCiAgQmx1ZXRvb3RoOiBo
-Y2kwOiBRQ0EgRG93bmxvYWRpbmcgcWNhL2NybnYzMnUuYmluDQogIEJsdWV0b290aDogaGNp
-MDogUUNBIHNldHVwIG9uIFVBUlQgaXMgY29tcGxldGVkDQogIEJsdWV0b290aDogTUdNVCB2
-ZXIgMS4yMw0KICBCbHVldG9vdGg6IGhjaTA6IHNldHRpbmcgdXAgd2NuMzk5eA0KLUJsdWV0
-b290aDogaGNpMDogRnJhbWUgcmVhc3NlbWJseSBmYWlsZWQgKC04NCkNCiAgQmx1ZXRvb3Ro
-OiBoY2kwOiBRQ0EgUHJvZHVjdCBJRCAgIDoweDAwMDAwMDBhDQogIEJsdWV0b290aDogaGNp
-MDogUUNBIFNPQyBWZXJzaW9uICA6MHg0MDAxMDMyMA0KICBCbHVldG9vdGg6IGhjaTA6IFFD
-QSBST00gVmVyc2lvbiAgOjB4MDAwMDAzMDINCiAgQmx1ZXRvb3RoOiBoY2kwOiBRQ0EgUGF0
-Y2ggVmVyc2lvbjoweDAwMDAwZGU5DQogIEJsdWV0b290aDogaGNpMDogUUNBIGNvbnRyb2xs
-ZXIgdmVyc2lvbiAweDAzMjAwMzAyDQogIEJsdWV0b290aDogaGNpMDogUUNBIERvd25sb2Fk
-aW5nIHFjYS9jcmJ0ZnczMi50bHYNCiAgQmx1ZXRvb3RoOiBoY2kwOiBRQ0EgRG93bmxvYWRp
-bmcgcWNhL2NybnYzMnUuYmluDQogIEJsdWV0b290aDogaGNpMDogUUNBIHNldHVwIG9uIFVB
-UlQgaXMgY29tcGxldGVkDQoNClRob3NlIGFwcGVhciBpZiBJIHJlbW92ZSAmcXVwX3VhcnQx
-X2N0cyAvICZxdXBfdWFydDFfcnRzIC8gJnF1cF91YXJ0MV9yeCANCi8gJnF1cF91YXJ0MV90
-eCBmcm9tIHRoaXMgcGF0Y2guDQoNCkJ1dCBhcyB0aG9zZSBlcnJvcnMgZG8gbm90IG9jY3Vy
-IHdpdGggdGhpcyBwYXRjaCBhcy1pcywgSSdtIGxlYXZpbmcgdGhlIA0KcGF0Y2ggYXMtaXMg
-Zm9yIG5vdyBpbiBteSBuZXh0IHZlcnNpb24gb2YgdGhlIHBhdGNoIHNlcmllcy4NCg0KPiBG
-V0lXIEkgdGhpbmsgdGhpcyBjbGFpbSBvZiBsb3dlciBwb3dlciBoZXJlIGlzIGp1c3QgcHJl
-dmVudGluZw0KPiBsZWFrYWdlIGN1cnJlbnQgZnJvbSBhIGZsb2F0aW5nIHBpbi4uDQo+IA0K
-PiBLb25yYWQNCg0KLS0gDQplcmViaW9uDQoNClhNUFA6IGVyZWJpb25AZXJlYmlvbi5ldQ0K
-DQpNeSBsYW5ndWFnZXM6IEdlcm1hbiwgRW5nbGlzaCwgU3dlZGlzaCwgTm9yd2VnaWFuLCBE
-YW5pc2gNClllcywgSSdtIGEgbGFuZ3VhZ2UgbmVyZC4gRmVlbCBmcmVlIHRvIHdyaXRlIHRv
-IG1lIGluIGFueSBvZiB0aGUgDQphZm9yZW1lbnRpb25lZCBsYW5ndWFnZXMuDQoNCg0K
+The trip points can really only be considered as placeholders, more
+configuration with cooling etc. can be added later.
 
---------------8MmVZGt7YViH7ZG6jZ7S09Wz--
+Signed-off-by: erebion <erebion@erebion.eu>
+---
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 202 +++++++++++++++++++++
+ 1 file changed, 202 insertions(+)
 
---------------m0Dl7hDtU9gzfRDxN9YR05gR
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index 4e9707712a651..487ef75f2f1de 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -12,7 +12,9 @@
+ #define PMK8350_SID 6
+ 
+ #include <dt-bindings/firmware/qcom,scm.h>
++#include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
++#include <dt-bindings/input/input.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+@@ -70,6 +72,20 @@ lcdb_dummy: regulator-lcdb-dummy {
+ 		regulator-boot-on;
+ 	};
+ 
++	msm_therm_sensor: thermal-sensor-msm {
++		compatible = "generic-adc-thermal";
++		#thermal-sensor-cells = <0>;
++		io-channels = <&pm6150l_adc ADC5_AMUX_THM2_100K_PU>;
++		io-channel-names = "sensor-channel";
++	};
++
++	rear_cam_sensor: thermal-sensor-rear-cam {
++		compatible = "generic-adc-thermal";
++		#thermal-sensor-cells = <0>;
++		io-channels = <&pm6150l_adc ADC5_GPIO6_100K_PU>;
++		io-channel-names = "sensor-channel";
++	};
++
+ 	touch_en_vreg: regulator-touch-en {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "touch_en_vreg";
+@@ -115,6 +131,99 @@ active-config0 {
+ 			};
+ 		};
+ 
++		pa0-thermal {
++			thermal-sensors = <&pm6150l_adc_tm 1>;
++
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
++
++		pa1-thermal {
++			thermal-sensors = <&pm6150l_adc_tm 0>;
++
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
++
++		quiet-thermal {
++			thermal-sensors = <&pm6150l_adc_tm 3>;
++
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
++
++		rear-cam-thermal {
++			polling-delay-passive = <1000>;
++			polling-delay = <5000>;
++			thermal-sensors = <&rear_cam_sensor>;
++
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
++
++		rfc-flash-thermal {
++			thermal-sensors = <&pm6150l_adc_tm 2>;
++
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
++
++		sdm-skin-thermal {
++			polling-delay-passive = <1000>;
++			polling-delay = <5000>;
++			thermal-sensors = <&msm_therm_sensor>;
++
++			trips {
++				trip0 {
++					temperature = <45000>;
++					hysteresis = <0>;
++					type = "passive";
++				};
++
++				trip1 {
++					temperature = <55000>;
++					hysteresis = <0>;
++					type = "critical";
++				};
++			};
++		};
++
++		xo-thermal {
++			thermal-sensors = <&pmk8350_adc_tm 0>;
++
++			trips {
++				active-config0 {
++					temperature = <125000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++			};
++		};
+ 	};
+ };
+ 
+@@ -392,6 +501,99 @@ &mpss {
+ 	status = "okay";
+ };
+ 
++&pm6150l_gpios {
++	pm6150l_adc_default: adc-default-state {
++		pins = "gpio6", "gpio7", "gpio10";
++		function = PMIC_GPIO_FUNC_NORMAL;
++		bias-high-impedance;
++	};
++};
++
++&pm6150l_adc {
++	pinctrl-0 = <&pm6150l_adc_default>;
++	pinctrl-names = "default";
++
++	channel@4d {
++		reg = <ADC5_AMUX_THM1_100K_PU>;
++		label = "pa_therm1";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@4e {
++		reg = <ADC5_AMUX_THM2_100K_PU>;
++		label = "msm_therm";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@4f {
++		reg = <ADC5_AMUX_THM3_100K_PU>;
++		label = "pa_therm0";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@53 {
++		reg = <ADC5_GPIO2_100K_PU>;
++		label = "rear_cam_therm";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@54 {
++		reg = <ADC5_GPIO3_100K_PU>;
++		label = "rear_cam_flash_therm";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++
++	channel@55 {
++		reg = <ADC5_GPIO4_100K_PU>;
++		label = "quiet_therm";
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++		qcom,ratiometric;
++	};
++};
++
++&pm6150l_adc_tm {
++	status = "okay";
++
++	pa-therm1@0 {
++		reg = <0>;
++		io-channels = <&pm6150l_adc ADC5_AMUX_THM1_100K_PU>;
++		qcom,hw-settle-time-us = <200>;
++		qcom,ratiometric;
++	};
++
++	pa-therm0@1 {
++		reg = <1>;
++		io-channels = <&pm6150l_adc ADC5_AMUX_THM3_100K_PU>;
++		qcom,hw-settle-time-us = <200>;
++		qcom,ratiometric;
++	};
++
++	rear-cam-flash-therm@2 {
++		reg = <2>;
++		io-channels = <&pm6150l_adc ADC5_GPIO3_100K_PU>;
++		qcom,hw-settle-time-us = <200>;
++		qcom,ratiometric;
++		};
++
++	quiet-therm@3 {
++		reg = <3>;
++		io-channels = <&pm6150l_adc ADC5_GPIO4_100K_PU>;
++		qcom,hw-settle-time-us = <200>;
++		qcom,ratiometric;
++	};
++};
++
+ &pm6150l_flash {
+ 	status = "okay";
+ 
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.53.0
 
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCaufJJAUDAAAAAAAKCRCOr0AybgKufTfZ
-AQCnD0TurP80LdTaqD/H+gj6C7X5ObJGq7r8ttskAQQktwEA9B3Mj1zYeuSP1MDVEsxPddx3xfGV
-UTOSbv4posv10QU=
-=9fIv
------END PGP SIGNATURE-----
-
---------------m0Dl7hDtU9gzfRDxN9YR05gR--
