@@ -2,92 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF04606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:15:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419F7606A326
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:16:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Wbdt/b7F
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RcPFopmw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 787BC10E4D1;
-	Sun,  1 Nov 2026 23:15:53 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4CFF10E4D1
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:15:46 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-6b1aa36fc0eso11277a12.0
- for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 15:15:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793574945; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D15710E4F3;
+	Sun,  1 Nov 2026 23:16:21 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8520810E4F3
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:16:15 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-6ae14cdc63aso7512a12.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 15:16:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793574974; cv=none;
  d=google.com; s=arc-20260327;
- b=HGYU3gqttBypGpyG6Zc4S9Efb1Pb4f6FLcEzZX3expWtiGEE58zVSmCrGrCdYfQFBp
- 1IZCHay+jy4gAprtkzWr78faE5IE8Vj8A0hglq1IZWEnlAl75SaJTUtMpXhquftZZsws
- X8aMiVSqJV16Wyt37UGPks4NBmYYQJCatsGtSdYUWqB33j9euh+6BIs/m3qFhILJK0+E
- /2W995d8N+lg7rlhxPOJQ47njhAvmbF6s2X1Mmv1x7StM/F6dW4/M6d8U9mVCaZnpbUo
- 6urdjkgbUekl4uuGb8jFvBSVYQBgWHzoFfnOhbgz7MArWlbEbWVNUtPvTR61el4PzHhv
- I7DA==
+ b=eE8T4TORG9la4DiZadN3/jhBNw9z0p4cbwUXDXzB0MJs6osSQSf9lWIxu5NKKln79Y
+ slMEDgGPUNrCJsU9A3QsV8EW6Njdo8KNpELrfJutP140CC7h8LGlTvDsDh5Wx9BP/Tic
+ UcPi9zWabgSkhVOvHIjBJdZdVlu2Kaclx40hHJKKkqja2eLb9P/Vzig6FDQIQSdAnQkk
+ C545sU0bSF82dXLyFDVNTOuIkYdcb9GedopLyy5AQcZRCu0SJVSHgffTHYvSS0qVJn0s
+ SIi7K8htuik8FRjrr86aRkp2iG8ZWe0dnrKucODYzXmeaLvoWcO6KEO3Bzmzdj0LlB8H
+ 3RQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=b85SCZUlEMSxM24RW75vmTYnk/54bnSaR4ktiJzCCEI=;
- fh=41lnHuyGq0T9KLPB71cFOTQ6NUW9p+wjdrWs1L/tmzw=;
- b=SN9z6amq3gt3V4qnBFr0lmyVVvM28mQX5p0EAx+bg20S2jcAOcV3zuHl5ZXEPuLsu7
- G6IV6cSJ9ucxz7Nwu4bUne+MBWrHGIZVma/XrRq4d6imk8ggDK5UmZA386X03EY1PB+s
- q93d/hHKvdMqCW79S4O7nLHjr6kMQC0oZwP2nGr8QqQouJ+iYAdqbLE/Au0lmaSZ6GNK
- z0igNi+B4O62EoY8zMD6Vz8ij8CYfaPETB8pSlJS/gBZHpW7UIq7el1bXS0s55SggP3t
- ovf6//xXiZVgVU8nt09PLf7DSC/B3ZAOdoA9ucyjztkHGz22YlG9BMYhNybEXD9HKYMm
- 3MBw==; darn=lists.freedesktop.org
+ bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
+ fh=+9TrFTfrJYazmT9Pipi0F81pjAcROGKFusZbTAVcR5Q=;
+ b=oe9B4sd8//RUuUdBHLBBt1ui5WdJXS9dqnQG4F5hUbVaARbkHpe+9qCcxU/HrNuadR
+ mQTJa3TxplVuwfydpk7Z3/mCOZvf7z3PQuYlJoc0OZhrEDij8XdGg/d7E/42cDSYGsT1
+ jr/ZpC11QdsSUaktaVI1tesuRYlA1MzBnqkbb3a91U/3e07JUt1Oyv2xiLj0HUYpvZcW
+ xbr3PyVgCGrN9N/2wdQy1RzcpkK9vIGKN/oWOAksI1URtkP/OSjJW9hsiMGyV009rI9m
+ deP8Rr6TUAXmG9Lj1uAztmx7NW20PRHPEN6G9vApsS5BxlEwRUsVRR38L05C/RJoPPV2
+ lCMA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1793574945; x=1794179745;
+ d=google.com; s=20260707; t=1793574974; x=1794179774;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=b85SCZUlEMSxM24RW75vmTYnk/54bnSaR4ktiJzCCEI=;
- b=Wbdt/b7FOSIb8iFGJHvWr6a21ma69TtCHfmfdrMnG2sebSA5kT5iS3Zgewcb6MWP0O
- /OCd83WFOwZUia9XQG+EyObP+IeqcYOkNQajROQbhBbow7bV6zgOSrZD904j4S1m25jg
- 6XWzJAuP7l64uYO1WxGHy5s28+MI66Ec+cOipC3jO27oOGi7dZITe17zllKuM0HbAQzC
- U9Zv3cNfJQeNy0h/7C4QbM2hXGZnEqospx1NNoicU6+emlLamrn/CDQWy8XDNTxgmHaW
- 2T0B0/exb3HB16ymBOqerKiSryH+zuZc4WAB1Ol3jiyA2mCCqgZS8JVc4EimqLDpWBUP
- oB8g==
+ bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
+ b=RcPFopmwgXYmQFsYru+sA7kn6IXhVk7XbANoUiS3xLHkW9AYJyjhOqcYXIaJQqHCnS
+ qe2ZLDlR6Rl43fownNhoyh3wmmgxvyRQxbGikpkobYjXOwgFQSpuXXTmM/UbsH2KfiBx
+ CueFO96C9TY/M+Q7vak+UrCoGThXLBtHg9R4iHqt+ODfl0xdY8ulRfpET52XhNo9QnC9
+ IyYctR8H+rp0YgpYpC9zmuL/2xOcUMiW1k6/KQ2IqN/lC3WS7jGVrz7lT8y+8NAi94XC
+ T3bwbOiPcciEz6RzSzzYi3FDaZY63LEmdBJ4zBM99zJpz6JnERjEnLxrujLyKONmD2Kq
+ 53Pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793574945; x=1794179745;
+ d=1e100.net; s=20260707; t=1793574974; x=1794179774;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=b85SCZUlEMSxM24RW75vmTYnk/54bnSaR4ktiJzCCEI=;
- b=HE3X2Z4r2QpMCXok2usO0hrMeAvYQeDZdWrNdeQ6NFguwMbzpeIpBiShBnxXfw9VAb
- bhIxj3hGzvdY6AugNVfRfxbTfsYkhL44MceGlmhqWHpuzXjPYobV4c2vprLLcN3512CL
- Uft/7eDRkNPD8qYfpKPsgt+B5rb9McckDEDcVrS/OsqgGikXkelu3z/swUY7dtJ7t6+o
- ppvujyVFQiyfmUUrw9Sn8jbZN9sbiFBxIjLVbecJD0Dlg8/0JIUTrxYYvGNCVxVM7h1e
- 2YLaQBa2aW0qYLxx21UWpUSS7TxVYTLft2JN9nnv1MmvSEkp1U7NSIPytbxKH0Ar+PQF
- vG4g==
+ bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
+ b=GSM3bKrRdh9DFmJ3Hn2gfHPTzW7fwZDqHH3wDvMso4gtheX2HGXIjiJxcGlV6Qkdfa
+ +TfkNLvgKSmt/UCnmCsFq4BMX7LrI0sfH7shxEvF+t+06cAgw2AKRgVuMdwHn27TWUT+
+ 8uVXfFsVRia8h28kTwJ6NOxgqTWnIvSiiw03xcYENwdjq+KPn1faDVdIyw7q7vqgph53
+ +B2D4STiGCOzqAVWtg7byjaeg7rK83AAZBZ59AbaW/hsqOeSdUyCPbeNxhpS+5CyiMX4
+ flPnI5PCKPeyfuBMOXMeLc/XRPIa2q1lQk5zcITQfNBmhV3ClGhIlUEYH9zcCMf7kfAK
+ IgwQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzM1dJTlXUV1INBUkyFww3Fe50wOtLXjquKEiSe763QS7H7DntY1xijvOznmMiTNXKzq6UjXxiz1Qk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+qnJnBGqeG8fN7UkDUFRQ5tBYujhh9RMHRZn4EaQe6Yp9gSOzO
- eRUZ95hP022y21wisATercET88kujxh+wcSID2HXhbxkQ6ZkVkOXEQ3lYEYfKLXxBXHbgjHHCzh
- elCyuIT2GSmIbIw+LuGBFKZLUlHuNZh/JOllsr6/i
-X-Gm-Gg: AYBFou0X1WpW4ad2ylRijAmK9CJGEr0UIW9llv17t/ifiXXu+7iMiur6kksBBQqSnDE
- BHn+0EZNBBDopG6/x1KZWWm19X7t7nEy8ksODCA67lMAwEZRFufd7BZHZR7zqFYswXKtNstKA0y
- HUtIl+J23hpChNqoMPYUVATOjTRsyyVY30EIzK7zZChl5jux2tK2To5YI8GYpcDoTRD5Z60YCca
- IIVXH/h9467leymV2cebkYqvq7DIVLCrSg/pucrhgNVoKV+k4fLi62M8SXqZTv6g0ORqBPzZv4S
- Ix+6+s1y9giWWAm6O4p1J9HaWre/C5J0phrXGyoAD2Qg4IzWk3bxryqzDQemh9GBBQr9G/0owtn
- XNjq9kKVKSVwggCOZAwI6Bgw1yv0fRi+FzLPNLrg=
-X-Received: by 2002:a05:6402:1a58:b0:6b4:880b:1b61 with SMTP id
- 4fb4d7f45d1cf-6b4b3cd2861mr242904a12.12.1793574944562; Sun, 01 Nov 2026
- 15:15:44 -0800 (PST)
+ AKwUvByLjrbZnaMY877EZD8+NHEVGnpZ67ZMGsJEsKiADu1uWSp7/UH/wLnfAGNXoC/bAVj2GIx341wKC1g=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8CTm6u4ZQoV8kMFgcnu5vG+oDzbI1YRnier/enK+D98ndEV24p
+ 8fuDMMlOu7UhPntrYYgdqi0iQFiCBQYaR5jdCtuY1QhwmjIVyKn5F3NwlqtAgVptObbkQQqPzWl
+ g6Cpju7ITTf3U3hyl7RoJpOczU6ELl1v/DP8PVwSk
+X-Gm-Gg: AYBFou1Ej5RXNhlyuV60I1BsZLe107WNhOXuHted3xNrbgFzrWz4/TXIKh4fNOVpCFM
+ U1meryAJmaKTuJ7Rx/aHUPoUk4Tv5JC0pHHVIECPfe5KuAUVgKOdPjkwDBvcfUrJxlPH+5/aGUd
+ RknELth5EoFXI4dqMXCLzrBDTAAjUffPLFb/X4Eb2+5p0EoNVWIj9wzD79iPYdyfWz1OkU7PElZ
+ f3lrzPNcBTuoUecwQtAohPPR7sBRzWJ751WD/iWDXiC3+yLAiuxGDm04v3/ZHBUcR6i3gKyobnp
+ uXXiTqdXIcU5xVnUdrCc+uwHSny3v7WbsAFsJDtqByzC4J/5nxMP6U1zWcjh5ts0rKaBV5r5pi7
+ lJvjH/4S5qVwu6vZB9tUD7LGEUno0rdXxydCXtwA=
+X-Received: by 2002:a05:6402:2154:b0:6b3:f12d:7405 with SMTP id
+ 4fb4d7f45d1cf-6b4b42a63d3mr252843a12.14.1793574973443; Sun, 01 Nov 2026
+ 15:16:13 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261030083539.777877-3-almasrymina@google.com>
- <179357408360.3131.16098294926514442303@kernel.org>
-In-Reply-To: <179357408360.3131.16098294926514442303@kernel.org>
+References: <20261030083539.777877-2-almasrymina@google.com>
+ <179357408146.3131.2882435952119280563@kernel.org>
+In-Reply-To: <179357408146.3131.2882435952119280563@kernel.org>
 From: Mina Almasry <almasrymina@google.com>
-Date: Sun, 1 Nov 2026 15:15:31 -0800
-X-Gm-Features: AclHuK-UFMQ382VldDl9mQXawkR9RuLEX9lDNBBCTFPZuNPb5GUS05WDrMHtxpk
-Message-ID: <CAHS8izO=-DZzaeFbczj=c5yGszo6parXeQNqqGV8oieZbmMW=w@mail.gmail.com>
-Subject: Re: [PATCH net v5 2/4] net: devmem: detach TX bindings on
- NETDEV_UNREGISTER
+Date: Sun, 1 Nov 2026 15:16:01 -0800
+X-Gm-Features: AclHuK_Z0S06xrAeAq_HAO4Ko_jHw-2goCa0w2rOFRiQDckpwHJNSPwxMM9jz2A
+Message-ID: <CAHS8izMt+5HBjkOOsb-FrwKoXxEBuDn=gf5p+64akYS=SAoQrQ@mail.gmail.com>
+Subject: Re: [PATCH net v5 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
 To: netdev-bot+sashiko@kernel.org
 Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
@@ -125,7 +125,7 @@ e:
 > Thank you for your contribution! Sashiko AI review found 1 potential
 > issue(s) to consider.
 >
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 (1) =C2=B7 Low: 0
 >
 > If you believe none of the issues are legitimate, please reply to each
 > issue of Medium severity or higher and explain why the AI is wrong.
@@ -135,12 +135,15 @@ k
 y
 > (one such reply per series is enough).
 >
-> - [High] This patch's TX detach is incomplete.
+> - [High] The dma_dev use-after-free this patch says it fixes can still
+>   happen for RX bindings made on a virtual device that leases queues,=E2=
+=80=A6
+>
 
 I know about the issues with leased devices. That needs a bit of a
 rework, which I have done locally, and would like to send out as a
-follow up fix so I don't hold back this series.
+follow up fix.
 
---=20
+ --
 Thanks,
 Mina
