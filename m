@@ -2,50 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AA4606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:03:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083AD606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:05:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=Y7psk1a9
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5/wT6qZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A75610EA26;
-	Sun,  1 Nov 2026 12:02:57 +0000 (UTC)
-X-Greylist: delayed 363 seconds by postgrey-1.36 at gabe;
- Sat, 31 Oct 2026 04:24:59 UTC
-Received: from mta1.migadu.com (out-31.mta1.migadu.com [95.215.58.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDC8D10E193
- for <dri-devel@lists.freedesktop.org>; Sat, 31 Oct 2026 04:24:59 +0000 (UTC)
-X-Envelope-To: dri-devel@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=JQRBTsLyo1USJxXJkqovGqVi5MENsxtF02GpdlXi6O0=; 
- c=simple/simple; d=cwooper.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793420698; v=1; x=1794025498;
- b=Y7psk1a9TCFQy0cPIUmvB/Vbs3j0kGE0h+Ik7Ez6VbA5yiIMgHaAVvqLmxjZyrflndA0zfNG
- HecGddqB5sQXgk/Ssex1Zw8dpoRa+H4fk7LjPbgqA0Bbixrbg+tPaG4jZHl3kTKlCQjZetbK/AU
- HLVVFxUWWyJGJGqBczFJhYwPpBmVbCWldzNfjl8Wa9WhaPs91AVPeRF61GWsju9g4jsR4Qe855b
- pB9n3R2BqGhB+Cf6nfLhBtzrwXvQmWLOXDQvUefBLTRoMXOD5h7sKwsask9SoSwMaZaTtwEW3aG
- zYJlC5TRjo27MNFc0cqvYTXoDiJUCzgfmHr06EGD61rhg==
-X-Envelope-To: dri-devel@lists.freedesktop.org
-Received: by smtp.migadu.com with ESMTPS id 6d492372f5c77a27;
- Sat, 31 Oct 2026 04:18:53 +0000
-X-Mizu-Trace-ID: 6d492372f5c77a27
-X-Migadu-Flow: FLOW_OUT
-From: Cooper Morgan <ext-github@cwooper.dev>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] drm/amd/display: Fix FreeSync infopacket refresh rates
- above 255 Hz
-Date: Fri, 30 Oct 2026 21:18:24 -0700
-Message-ID: <20261031041827.162730-1-ext-github@cwooper.dev>
-X-Mailer: git-send-email 2.56.0
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 01 Nov 2026 11:58:11 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id F31E610EA16;
+	Sun,  1 Nov 2026 12:05:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1BBE10EA16
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 12:05:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E0876602C4;
+ Sun,  1 Nov 2026 12:05:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647E81F000C1;
+ Sun,  1 Nov 2026 12:05:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793534715;
+ bh=JKnZZUlsmlsIFKn2vySauFjoENiv+nzB1hY+nJOKU4g=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Z5/wT6qZBeYCxCpYR1Nk0eTIAkQfMRdYe478Ji64DRglmQ5U6y1RAmkufqPBYPiKH
+ LmCGMrOb7NnAz0XcPuXfhM1ZHJgmO4n15byvSDb8NHzBd+9pcjY4r/h1Se/Icszf6P
+ D/Wbzm6L5yPQi+ZMy5rIaEuMiqQRGwEWNZgzipA3t8cHpEbEbswa0lD9Q9QnaVJeaZ
+ 58XJz0kr73Caq++UgqkX6DDify6aRBCBSRIBPbgt5pfU3LY+M1NRxsaJbvunW/ka+x
+ DdC9bCXt6OIq3Xv5ptZQCABE7BV+TNM6xd/6wCIbMaX3YwUh51i8PkYSTNHIt/gB+k
+ 5NilIeC079pyg==
+Message-ID: <sashiko-outbox-192397@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amd/display: drop RGBA8888 from plane format lists
+To: "MuXian Chen" <a18165943161@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261030164327.8461-1-a18165943161@gmail.com>
+References: <20261030164327.8461-1-a18165943161@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 01 Nov 2026 12:05:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,55 +47,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On my MSI MAG 271QPX32 (320Hz QD-OLED over DP 1.4, RX 9070 XT), 320Hz
-looks like a 720p image stretched to fill the screen whenever
-Adaptive-Sync is on in the monitor's OSD. Custom modes at 305-315Hz put
-it into its self-test pattern instead. Windows is fine on the same
-machine and cable. It's the same bug as
-https://gitlab.freedesktop.org/drm/amd/-/issues/5988, where an LG at
-280Hz shows up as 24Hz.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/amd/display: broken KUnit test dm_test_get_plane_formats()
+--
 
-The cause is the v1 FreeSync infopacket, which native DP sinks get
-unless they're a whitelisted PCON or support Replay. It stores the min
-and max refresh in one byte each, so 320 wraps to 64.
+commit f2e839f51941e28c7b37c695841346e690a5a04b
+Author: MuXian Chen <a18165943161@gmail.com>
 
-Patch 1 caps those bytes at 255 instead of letting them wrap. With the
-EDID range capped at 255, the monitor gets the same bytes patch 1 sends,
-and the picture was correct, so I tagged it for stable.
+drm/amd/display: drop RGBA8888 from plane format lists
 
-Patch 2 sends the v3 packet to sinks that advertise AMD VSDB v3 and go
-above 255Hz, so VRR gets the full range. Sinks at 255Hz and below are
-unchanged.
+This commit removes DRM_FORMAT_RGBA8888 from rgb_formats[] and
+overlay_formats[] because DC lacks a corresponding surface pixel format,
+causing fill_dc_plane_info_and_addr() to fail with -EINVAL when a
+compositor selects it.
 
-This builds on what sunryze and oystersuki worked out in that issue.
-sunryze found that the VSDB version was only saved for Replay sinks on
-DP and tested sending v3 on their LG. oystersuki suggested pairing that
-with a 255 cap for sinks that don't advertise v3. Neither has a public
-email, so they're credited here instead of with tags.
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5339
 
-Tested with the series backported to 7.2.13: 320Hz looks right, and
-with VRR on, the monitor's refresh readout follows frame caps at 300,
-270, 240, and 100fps. Both patches add KUnit tests.
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 06d9ff2c32c52..931c4ad677c7e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -48,11 +48,13 @@
+>   * For future use cases we should either initialize them dynamically bas=
+ed on
+>   * plane capabilities, or initialize this array to all formats, so inter=
+nal drm
+>   * check will succeed, and let DC implement proper check
+> + *
+> + * DC has no surface format for DRM_FORMAT_RGBA8888, so it must not be
+> + * advertised here or in overlay_formats.
+>   */
+>  static const uint32_t rgb_formats[] =3D {
+>  	DRM_FORMAT_XRGB8888,
+>  	DRM_FORMAT_ARGB8888,
+> -	DRM_FORMAT_RGBA8888,
+>  	DRM_FORMAT_XRGB2101010,
+>  	DRM_FORMAT_XBGR2101010,
+>  	DRM_FORMAT_ARGB2101010,
+> @@ -69,7 +71,6 @@ static const uint32_t rgb_formats[] =3D {
+>  static const uint32_t overlay_formats[] =3D {
+>  	DRM_FORMAT_XRGB8888,
+>  	DRM_FORMAT_ARGB8888,
+> -	DRM_FORMAT_RGBA8888,
 
-Cooper Morgan (2):
-  drm/amd/display: Saturate refresh rates in v1/v2 FreeSync infopackets
-  drm/amd/display: Use FreeSync v3 infopacket for sinks above 255 Hz
+[Severity: Medium]
+As reported by Sashiko on v1 [1], removing DRM_FORMAT_RGBA8888 reduces
+ARRAY_SIZE(rgb_formats) from 14 to 13 and ARRAY_SIZE(overlay_formats) from
+9 to 8.
 
- .../display/amdgpu_dm/amdgpu_dm_connector.c   |   2 +-
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    |   7 ++
- .../tests/amdgpu_dm_connector_test.c          |  25 ++++
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 116 ++++++++++++++++++
- .../amd/display/modules/freesync/freesync.c   |  12 +-
- 5 files changed, 158 insertions(+), 4 deletions(-)
+In drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c,
+dm_test_get_plane_formats() calls amdgpu_dm_plane_get_plane_formats() and
+checks the returned format counts:
 
--- 
-2.56.0
+	plane->type =3D DRM_PLANE_TYPE_PRIMARY;
+	KUNIT_EXPECT_EQ(test, amdgpu_dm_plane_get_plane_formats(plane, NULL, forma=
+ts, 32), 14);
 
+	cap->pixel_format_support.nv12 =3D true;
+	cap->pixel_format_support.p010 =3D true;
+	cap->pixel_format_support.fp16 =3D true;
+	KUNIT_EXPECT_EQ(test, amdgpu_dm_plane_get_plane_formats(plane, cap, format=
+s, 32), 20);
+
+	plane->type =3D DRM_PLANE_TYPE_OVERLAY;
+	KUNIT_EXPECT_EQ(test, amdgpu_dm_plane_get_plane_formats(plane, NULL, forma=
+ts, 32), 9);
+
+	universal_cap->type =3D DC_PLANE_TYPE_DCN_UNIVERSAL;
+	KUNIT_EXPECT_EQ(test,
+			amdgpu_dm_plane_get_plane_formats(plane, universal_cap, formats, 32),
+			14);
+
+Should these four KUNIT_EXPECT_EQ assertions in dm_test_get_plane_formats()
+be updated to expect 13, 19, 8, and 13 so the amdgpu_dm_plane KUnit test
+suite does not fail?
+
+[1] https://lore.kernel.org/r/20261030171816.11610-1-a18165943161@gmail.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030164327.8461=
+-1-a18165943161@gmail.com?part=3D1
