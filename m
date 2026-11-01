@@ -2,90 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950EE606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 08:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB56606A325
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 08:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=huhlWvmh;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=lcKskV9l
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=RBYBhfnT;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=nnOiBoPt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58C0A10E36B;
-	Sun,  1 Nov 2026 08:31:31 +0000 (UTC)
-X-Greylist: delayed 479 seconds by postgrey-1.36 at gabe;
- Sun, 01 Nov 2026 08:31:19 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7579210E1FC;
+	Sun,  1 Nov 2026 08:31:42 +0000 (UTC)
 Received: from fout-a2-smtp.messagingengine.com
  (fout-a2-smtp.messagingengine.com [103.168.172.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C417610E1F8
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 08:31:19 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfout.phl.internal (Postfix) with ESMTP id D50CAEC069C
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 03:24:00 -0500 (EST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8378D10E1FC
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 08:31:30 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.phl.internal (Postfix) with ESMTP id E7142EC068E
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 03:23:29 -0500 (EST)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Sun, 01 Nov 2026 03:24:00 -0500
+ by phl-compute-02.internal (MEProxy); Sun, 01 Nov 2026 03:23:29 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
  :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1793521440; x=
- 1793607840; bh=BkTcONOVgxmiHpWbrh6se8CO85l9DSVApCi2YbLZEQs=; b=h
- uhlWvmhRJhX5eLt8XYFpPqMTdBVLHZxhWZldXJIVEncgaJwdsC/D/xVxNWrXeu+a
- 8PQuduVHG1h/YJjlaLowIg/zjf9SfBRWZJXTiEf+P32x10kY9aQ5HChPAXsINsxA
- oIZMxCnmR2U5fo66FaxOu6UnvKLCu/mm1NHIilMv2Z7XRiaIb2Lc2bsWSjZrRPy7
- 7rY2bu7VYC3bY7OeVcI3kn6690utCGmD6E42SFhypZ0Xf1ovJ92UFQuv0Mv0kvS0
- OTv3OPDPiXb9PxpkgSkRGhU+HKD1Xeg0Eh/2WEw6eU6eSJ8HbenzMKerLi9GlfxK
- jdruRuAk2H/LfP1cThEtg==
+ :reply-to:subject:subject:to:to; s=fm1; t=1793521409; x=
+ 1793607809; bh=0F4ziOUj7efFtwDDPlQcoGKrClzlEgL2KvdhJLu+LYo=; b=R
+ BYBhfnTJAjhL5vpv6QEg7Truy1sIOQdLPaVevuXG8yayd+wCxhMo5vp3kCaNmnSP
+ jBiNG3TPgn3Ab9yexr0eQQuXnTtMbmGXZSkMITwtP8QWdBwRtvmvTU8Rm7F5LyBK
+ 1pVkWaCRawBukouAscccbOxAhPeuYBr9uPZRA6A2QbghZ/d9LS7i5XCIzDS/dD/5
+ zjzdj7imuB7K+WLbLq5mhz2HxZoHy1HH0RkYPVjwuBXH+JgtkPRI8V6uzREwFVPn
+ jePpunE9BtFt177SXZWrBSASUheR+9vPr0e801/Q8NXhf7Fofi5Y/SXiPviu7+17
+ 0ZviYJpsCUQt8shEFwM3g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1793521440; x=1793607840; bh=B
- kTcONOVgxmiHpWbrh6se8CO85l9DSVApCi2YbLZEQs=; b=lcKskV9lM8QelbYdC
- 35YS6c92EMZcgJmfQWOxvWjnVgnfNI+a7DWpxLJk2rtEAt+cFFCdsy+UlLjit+L4
- Lfp4zvUhse4oQdSVwzAPzre3L6Eannl+zUCHI8WB6moIgAVtJKjgjlGZ51vfL6yy
- gyB14QnQ0baMqI6TTXHjbId8jugzbrxCQBcGQsf3ylld34U2h2xu6MLZGJpRSSWS
- DoP0bBYs1kX6iroN7H2mwNZUwqeF9+1pBgIfvOV5mK3OO0CLMg/wj0aWFJaA2Flc
- tkEG6GzlnI5j4UR4a35rwBFQENwkCkXurzXrHw0osMiRRyrg6R+el4MN57a3zXzc
- 49xOQ==
+ :x-me-sender:x-sasl-enc; s=fm2; t=1793521409; x=1793607809; bh=0
+ F4ziOUj7efFtwDDPlQcoGKrClzlEgL2KvdhJLu+LYo=; b=nnOiBoPtvaCP2aH31
+ whszeALOYHRvcsVfeGBOLJtACp5ZVA7dHx9VAlYdQBnE9Wovp+BlV0BPekmsFZp4
+ rRBf0VFqvfow4jbHhyDzSQgFljmMIt0LaDI/IVqRGApE5W/GOscFGiBvuuxq+4j5
+ JFFIJMBEpPKOfsX+p+RSwwpW+Pq6YQvWNbKPAHv8n18dO+0uCwnxwiExwVoB6SIo
+ h8hPnz4I8SInrBM72GLv4pnc23k+NIXr+S69+0jNeQ8zMb2gPH54dUhp2ki/HEiE
+ YT0Klh6RCdoPVmaFxHZO+7x7yWfiSebC7/coVi3tuCQtd87q1KzXRJCTbZT1ZtGc
+ ZGrQw==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
  repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
  action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793521440; d=gahingwoo.com;
+DKIM2-Signature: i=1; m=1; t=1793521409; d=gahingwoo.com;
  mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
  rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:VjJbvbQJwNZLWeiYdX4BekBkPGpPHVDJzdbSM0FpUxx1gbt
- f1TE/QUQXQSFZoM/AQTYYCfiEGwux2MnxEiZqO/ue561sZbGZ7mb39gQooPBAOmK
- JjoVyxkKcjYkgTbTLarEcjrAnt1QES58j8L8LDsNch7lwfj82iS5JDROYy5ZGu8V
- JrpklzKB32iHRxmyZZla8IyTbxAeaH1grGbbwbwLOri2rwwevw9ImpqJ9N5y/6Ok
- erfIZa1HS9LHtL/OntrCnXEt8XlwZYOgXn3OeYM4xxSoIAPj8f7WQvaH9Y7T0bjp
- N1MR0QvDeLZO6+UM2PXWrw08z29ZbrmjXubtjzA==;
+ s=fm1:rsa-sha256:jBynlF04ETt5FbCTufx94OmbjCDAIaSAAhNgPrbCz+HtCNk
+ YrEDljj/AN6cZRqJvPxwrPwlDkVVBudjNdEpFu/bMSJWkErEzwZrlU4TDd6rBcFm
+ SCXvIGo+3umObAufajUoXeSGma0arbkW1w0QdtJluWa8+PlvPjmWfcMcmi500MGU
+ GR/1XHFHeJyLyQEfFkpAabfs5GDOfmWyJgJ0RIzxpI7/RROhgb8+E7CrZ165GvTQ
+ EuUaSBRgsbX3olrvllFdrDckfgKzBqu4UrkIZoDC30GjU0Qlk6q1KvlnIA40fLhq
+ z9PAI/znCG/UbNErLztZmgxonosGzaixySte2iQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
  repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
  action=mi-m=1; hc=11;
  hn=cc,content-transfer-encoding,date,feedback-id,from,
  in-reply-to,message-id,mime-version,references,subject,to;
 Message-Instance: m=1;
- h=sha256:iWYj6ENj7Pnjcr0pBXQxpbajj8XjUbkAvxHLmyetk2s=:PvsT+Qa1KcEvQd1vRhQoegnNpYbcA51YPv70V/wY8/w=;
-X-ME-Sender: <xms:IPfmaiKoiUAtaeoL1gyBqsZfZvYOn70vOIZP7MooOezwbuwm9M8whw>
- <xme:IPfmasfG_D-wSqw119qIHq8OWV6NPFxLVLtDLv0LLxyAXlxQl3pjXYv3wZ2-l1tXF
- oklr9m74xgizt_q1k9J7WGzKwltNSLGhdO1sB6qOLeIs9wG4eiDMQ>
-X-ME-Received: <xmr:IPfmahbKfkf-CSfVAZXLrrCDZcVtF297xkbbTFQPP7_mvWiZ5AGyDVRblmoQD5syk0KauiD0>
-X-ME-Proxy-Cause: dmFkZTG1f5xhzVY1+tDVA2GDAZsCkJLH07r+Yy8eDDwJ6JOhttyoXjIFNLHdIMBXenkhJx
- GYNu1BmhoCEfkR9grTKkLuIJN+OzTEGtgz44pzE7hxNJDyINE2djZDhuIxWCGbyrBAg8N4
- go07QXa3FbJDHoqbVIkh+YewIyKzezBgmEguYHIs5iblTpD6uKFVhdzvoEpK9WyO9LZQh2
- oZjSmXf8essUkIouu3K9xMlLp9+lzsrzT9OlAkrndhtRVZ+s7Dbtf/1n46loyb7XK1/pPJ
- EZkemaWOJwxsmDm91Iwy20kA5um10TciIZ30X1rMTa5jzi7bDygiLl3spCruOgxPW+4DdG
- v5K2N+sz+B3MGZwvQ34inZ/3irz3OTjJ6lCXKH5N0Ml92muuLTNBr9/rAHMJtBAC4X3OpM
- jj4z4XwPKfyKvMTBUCCVuNtPDijsZPFFavu2iWyFEJaO9aBkzWHvKa+MIwNl9gMVQNfJ4j
- dgywX0zidVpz4aRWyH0iJHC0r/oHDj/0CmOr/Q8RYvPwmus9hNm/qZ8vUBpuCKmMaydeQ/
- +qoJ5s3IGwg2k8Sf0dgFjgBHWiZOEbtV6qolABl865M2drbL6pDckvvRFGFeT/5dkUtr/0
- fgahdpJv78H3VudMDwBzdZk0wfO1181/ateMJKD9i7Ah8CgsfFOaBmJXu2fg
-X-ME-Proxy: <xmx:IPfmakXlADSana7q_O4dJ4uUgvXtQAD76Rb5cJ1HNsmf94TmZwgeqw>
- <xmx:IPfmanC5isFGb33eQnILVzN01Ptddqnv0Qqda0YcEAY-dWycrQ19WA>
- <xmx:IPfmarBEu01zRM76mo5HufQMQNjNeUS8agBTkxt98B_ohfOjDZ4rCg>
- <xmx:IPfmaup0J1Xv_HPxs4_0kXTyywxb2DpJod3dS3wyE_MFrih3XW08yg>
- <xmx:IPfmaqWsUjij__DlLA_N5qB9v1HTxqq6WxOOHe27UeCE3bKAljjMvAxl>
+ h=sha256:G1/pb7bWMT/0l4LKBnibCs1YsTx58iSaXfSCsOSviSY=:RJHqqy+W4Is5TB1jmXvzdduGEtV4nfkar9l5VxBVQp8=;
+X-ME-Sender: <xms:Affmap3zOfLrTH6mkEpyplCVeQoRuvzLBi6fPhYa0dpb4Itbe-I5rg>
+ <xme:AffmaiZsQYuVQiGK4x1DQS9PsRbuMWpI7Swh3qqg6eqY8qrVvqXe1_0Fm4CP4aEXC
+ ID0T1RhGyl_5j4MH6-tMPomfS026dFuDWp7XlBQeefmorRaagh89NGU>
+X-ME-Received: <xmr:AffmaomN4NU5wqKBv0k9OdEKuDefoHg_bhcTNd4uL3fngiTq6rH0sMitfYobQ9R_gdgZfzdf>
+X-ME-Proxy-Cause: dmFkZTGyh+h4Oz/02elyRzjcRRcFpvHFjmUJCnxNp2cKE2We77OzoK7VQLrSm4eM2eB7ES
+ ZXYJNEUB69Lfmlo4BbDpozx55aBH3xHf569WnDWwtFhUpPk0WaG27oVgoEA92BrPX8ybbG
+ lVvCv9B4GY0sGCL8lWuvRRdhYtj6CDshZ+rxDIsdVMf8F9QgOg8gXc9cdCOHkH1m+c2Big
+ hig4aNfN4nuBefG3HYaHLHaq5rR0CK8cq0/bqlaJmEt4LbTynrCCTIklU+JAaE7AuO9r4C
+ kC4gllUxYkdmDmdmnXTGCC9WevcAeVCB5BLLAP0zSIFYTrZTsiHavZssNvQ5oV0hNi/EPh
+ 5feOm0XUl+SWCfMTp4hdGGBkl18RkQ/GdgUTQO2+OvQVGbAugHMVKCzg6/ACXgxOyvHV7k
+ 6aCaeEps/8tDDS2rnQmaWcy8qHDbBW9DCwqbIt8E/0w5phGT/QbtjqDCOCAkCevHnl97jo
+ puf3BDYDwQ0wFHMpNo3QErTk1Seiid/EJTvYfbPQtekWBzUYhZo6IhdKfbI45EvPPGi0D/
+ 6BQIJiaAst3IBvngMinjIUR7dkkfcFMVekguEsiCfILz2i1HJHZ0mgCKf3h6bJZWHEKywp
+ 9MOtiQWwRCYSikqW0ZS0CdhGzaWs7z0EO4dUqw4lT9hmAxvlaJldIrI91G0w
+X-ME-Proxy: <xmx:AffmajxvPpFjPx9OhgdK1cXSZXxTDd463AaYHGbV_a1M5y8JwnwPHA>
+ <xmx:AffmapthZiDK1JPZhANXPK9q0U-XFvQYdvCAFWtd9kOTNnxeUjClsQ>
+ <xmx:Affmav-A_FskCpt9z1F0QDDIWD7s6ltzKcd4LZXIc6jzYimr8iIyhw>
+ <xmx:Affmao0c8R2B6ceOZn0-Xtfv5tgvW-l1tU0Wi17xq41ZmF4xxe5rBw>
+ <xmx:AffmapfKsPU94dKmmp2QoHp-o6fIx8c1nSsTPyfX4ekNLocoe1RjdL68>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 03:23:52 -0500 (EST)
+ 1 Nov 2026 03:23:21 -0500 (EST)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
@@ -100,9 +98,9 @@ Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
  iommu@lists.linux.dev, linux-pm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v15 04/15] accel/rocket: let the core suspend after a reset
-Date: Sun,  1 Nov 2026 21:22:56 +1300
-Message-ID: <20261101082307.151957-5-gahing@gahingwoo.com>
+Subject: [PATCH v15 01/15] accel/rocket: request the core clocks by name
+Date: Sun,  1 Nov 2026 21:22:53 +1300
+Message-ID: <20261101082307.151957-2-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
 References: <20261101082307.151957-1-gahing@gahingwoo.com>
@@ -128,43 +126,81 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-rocket_reset() drops the in-flight job's runtime PM reference with
-pm_runtime_put_noidle(), which requests nothing, so the core does not
-suspend until something else asks and its power domain does not cycle. On
-RK3576 the domain's power-on resets the NPU bus interface; without it the
-IOMMU stops answering and the job after a timeout fails.
+From: Igor Paunovic <royalnet026@gmail.com>
 
-Use pm_runtime_put_autosuspend(), as the completion path does. On a ROCK 4D
-the job after a timeout goes from 0 to 128 of 128 channels correct.
+rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
+setting the .id members. The rocket_core array is allocated with
+devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
+.rdev, .dev and .index, so all four clk_bulk_data entries are requested
+with a NULL con_id (unlike core->resets, whose ids are set a few lines
+above).
 
-Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.com/
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
+of_parse_clkspec() only consults "clock-names" when a name was passed, so
+the index stays 0 for all four entries. Every entry therefore ends up
+holding a handle to the *first* clock of the DT "clocks" property, i.e.
+ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
+four different clocks.
+
+The consequence is that rocket_device_runtime_resume() prepares and enables
+the AXI clock four times, while hclk, pclk and - most importantly - the NPU
+compute clock ("npu", SCMI_CLK_NPU on RK3588) are never prepared or enabled
+by this driver at all. The NPU still works only because the Rockchip
+power-domain driver sets GENPD_FLAG_PM_CLK and its attach_dev() callback
+walks the device node with of_clk_get() and adds every clock to the pm_clk
+list, so genpd happens to keep the remaining clocks running. The bug is
+therefore latent today, but it means the driver holds no reference to the
+clock that actually feeds the NPU, which stands in the way of any future
+frequency scaling (OPP/devfreq) work.
+
+Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
+/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
+handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other two
+cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
+"fdab0000.npu" consumer at all - their only consumers are the
+"npu@fdab0000" handles created by the power-domain driver via of_clk_get().
+
+Set the ids explicitly, in the order mandated by the binding
+(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
+aclk, hclk, npu, pclk. After the change the driver holds one handle per
+distinct clock and clk_bulk_prepare_enable() covers all four.
+
+Note that this is a user-visible tightening for out-of-tree DTs: the old
+NULL-id requests resolved by index and succeeded no matter what
+"clock-names" contained, while the named requests fail probe with -ENOENT
+when one of the four names is missing. That is the right outcome for
+in-tree users - the binding requires exactly these four clock-names and
+rk3588-base.dtsi carries them on all three cores - but a DT that relied on
+the permissive lookup goes from silently running on the wrong clock handles
+to not probing at all, so record the change here where git log will find
+it.
+
+Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
 Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
 ---
- drivers/accel/rocket/rocket_job.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/accel/rocket/rocket_core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index 5b2abf40b618..152a9098634b 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -467,12 +467,12 @@ rocket_reset(struct rocket_core *core, struct drm_sched_job *bad)
+diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
+index b3b2fa9ba645..5dd260bacbff 100644
+--- a/drivers/accel/rocket/rocket_core.c
++++ b/drivers/accel/rocket/rocket_core.c
+@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
+ 	if (err)
+ 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
  
- 	/*
- 	 * No handler is running now, but we might still have stuck jobs. Let's
--	 * make sure the PM counters stay balanced by manually calling
--	 * pm_runtime_put_noidle().
-+	 * make sure the PM counters stay balanced by putting the reference the
-+	 * job took, and request idle while doing it so the core can suspend.
- 	 */
- 	scoped_guard(mutex, &core->job_lock) {
- 		if (core->in_flight_job)
--			pm_runtime_put_noidle(core->dev);
-+			pm_runtime_put_autosuspend(core->dev);
- 
- 		iommu_detach_group(NULL, core->iommu_group);
- 
++	core->clks[0].id = "aclk";
++	core->clks[1].id = "hclk";
++	core->clks[2].id = "npu";
++	core->clks[3].id = "pclk";
+ 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
+ 	if (err)
+ 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
 -- 
 2.43.0
 
