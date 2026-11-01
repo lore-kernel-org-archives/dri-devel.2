@@ -2,41 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083AD606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:05:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18517606A32D
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:30:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5/wT6qZ
+	dkim=pass (2048-bit key, unprotected) header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=BAn452or
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F31E610EA16;
-	Sun,  1 Nov 2026 12:05:22 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1BBE10EA16
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 12:05:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E0876602C4;
- Sun,  1 Nov 2026 12:05:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647E81F000C1;
- Sun,  1 Nov 2026 12:05:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793534715;
- bh=JKnZZUlsmlsIFKn2vySauFjoENiv+nzB1hY+nJOKU4g=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z5/wT6qZBeYCxCpYR1Nk0eTIAkQfMRdYe478Ji64DRglmQ5U6y1RAmkufqPBYPiKH
- LmCGMrOb7NnAz0XcPuXfhM1ZHJgmO4n15byvSDb8NHzBd+9pcjY4r/h1Se/Icszf6P
- D/Wbzm6L5yPQi+ZMy5rIaEuMiqQRGwEWNZgzipA3t8cHpEbEbswa0lD9Q9QnaVJeaZ
- 58XJz0kr73Caq++UgqkX6DDify6aRBCBSRIBPbgt5pfU3LY+M1NRxsaJbvunW/ka+x
- DdC9bCXt6OIq3Xv5ptZQCABE7BV+TNM6xd/6wCIbMaX3YwUh51i8PkYSTNHIt/gB+k
- 5NilIeC079pyg==
-Message-ID: <sashiko-outbox-192397@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amd/display: drop RGBA8888 from plane format lists
-To: "MuXian Chen" <a18165943161@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261030164327.8461-1-a18165943161@gmail.com>
-References: <20261030164327.8461-1-a18165943161@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 12:05:14 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4571C10EA34;
+	Sun,  1 Nov 2026 12:30:09 +0000 (UTC)
+X-Greylist: delayed 9118 seconds by postgrey-1.36 at gabe;
+ Sun, 01 Nov 2026 12:30:02 UTC
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch
+ [185.70.43.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA1DB10EA34
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 12:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=softbase.tech;
+ s=protonmail3; t=1793536201; x=1793795401;
+ bh=srVkZLRUEsh8lNsFW8ZIvMUhr7jAKJQIa5Ah85ra2m0=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=BAn452orHYLqFv4T18JvTB8a/SaBxAvjg6X8JnaY+tm9r0tWAzcHf3dsQrwlex8++
+ PBsZ5Q2BimfCnl+6iRbbGMxrMNoAQoEURsFf/jMteqS0ISUiUZcp66wTSCg9+A9/KY
+ C0t4eXevYDJ1YLw2p9Hc21KS/ZqJWUS89VvZtfLRLI4Q4XeNrwJQ6AZeVpuGfDOk4v
+ bFnZz8GHw03oyjQBpQF6vAbsZkZI3ZGv8ZYT6X7jkXVq/ryYxnskwCZ0cNQHSIys2X
+ xWHu2qIhShh7wlULTx7H3rKXUf4xx/G414P7sYmb1d/6VspbEjyb9oooqfkRxLB8MP
+ 6XwyebhP9o3ug==
+X-Pm-Submission-Id: 4jHZ0l0mRLz2Sd2x
+From: "Beat M. Liechti" <beat@softbase.tech>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Federico Amedeo Izzo <federico@izzo.pro>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, "Beat M. Liechti" <beat@softbase.tech>
+Subject: [PATCH v2 2/2] drm/msm: drop the CTM modeset hack from
+ msm_atomic_check()
+Date: Sun,  1 Nov 2026 13:26:58 +0100
+Message-ID: <20261101122943.8155-3-beat@softbase.tech>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261101122943.8155-1-beat@softbase.tech>
+References: <20261101095754.33840-1-beat@softbase.tech>
+ <20261101122943.8155-1-beat@softbase.tech>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,95 +58,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/amd/display: broken KUnit test dm_test_get_plane_formats()
---
+msm_atomic_check() forces a modeset, and sets allow_modeset on behalf
+of userspace, whenever the CTM property of a CRTC is set or cleared.
+This was added so that DPU could reserve DSPP blocks for the CTM.
 
-commit f2e839f51941e28c7b37c695841346e690a5a04b
-Author: MuXian Chen <a18165943161@gmail.com>
+DPU is the only msm display driver that exposes color management, and
+dpu_crtc_check_mode_changed() now requires a modeset whenever the DSPP
+requirement changes, for both CTM and GAMMA_LUT. The generic check is
+therefore redundant. It also forces needless modesets when the CTM is
+toggled while a GAMMA_LUT keeps the DSPPs reserved, and it overrides
+the userspace decision about modesets.
 
-drm/amd/display: drop RGBA8888 from plane format lists
+Remove it, as the FIXME suggested. Commits that toggle the CTM without
+DRM_MODE_ATOMIC_ALLOW_MODESET now fail with -EINVAL instead of
+silently becoming a modeset.
 
-This commit removes DRM_FORMAT_RGBA8888 from rgb_formats[] and
-overlay_formats[] because DC lacks a corresponding surface pixel format,
-causing fill_dc_plane_info_and_addr() to fail with -EINVAL when a
-compositor selects it.
+Assisted-by: LLM
+Signed-off-by: Beat M. Liechti <beat@softbase.tech>
+---
+ drivers/gpu/drm/msm/msm_atomic.c | 17 +----------------
+ 1 file changed, 1 insertion(+), 16 deletions(-)
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5339
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index a8babf1db..7b480981b 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -185,22 +185,7 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_kms *kms = priv->kms;
+-	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
+-	struct drm_crtc *crtc;
+-	int i, ret = 0;
+-
+-	/*
+-	 * FIXME: stop setting allow_modeset and move this check to the DPU
+-	 * driver.
+-	 */
+-	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
+-				      new_crtc_state, i) {
+-		if ((old_crtc_state->ctm && !new_crtc_state->ctm) ||
+-		    (!old_crtc_state->ctm && new_crtc_state->ctm)) {
+-			new_crtc_state->mode_changed = true;
+-			state->allow_modeset = true;
+-		}
+-	}
++	int ret = 0;
+ 
+ 	if (kms && kms->funcs && kms->funcs->check_mode_changed)
+ 		ret = kms->funcs->check_mode_changed(kms, state);
+-- 
+2.53.0
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 06d9ff2c32c52..931c4ad677c7e 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -48,11 +48,13 @@
->   * For future use cases we should either initialize them dynamically bas=
-ed on
->   * plane capabilities, or initialize this array to all formats, so inter=
-nal drm
->   * check will succeed, and let DC implement proper check
-> + *
-> + * DC has no surface format for DRM_FORMAT_RGBA8888, so it must not be
-> + * advertised here or in overlay_formats.
->   */
->  static const uint32_t rgb_formats[] =3D {
->  	DRM_FORMAT_XRGB8888,
->  	DRM_FORMAT_ARGB8888,
-> -	DRM_FORMAT_RGBA8888,
->  	DRM_FORMAT_XRGB2101010,
->  	DRM_FORMAT_XBGR2101010,
->  	DRM_FORMAT_ARGB2101010,
-> @@ -69,7 +71,6 @@ static const uint32_t rgb_formats[] =3D {
->  static const uint32_t overlay_formats[] =3D {
->  	DRM_FORMAT_XRGB8888,
->  	DRM_FORMAT_ARGB8888,
-> -	DRM_FORMAT_RGBA8888,
-
-[Severity: Medium]
-As reported by Sashiko on v1 [1], removing DRM_FORMAT_RGBA8888 reduces
-ARRAY_SIZE(rgb_formats) from 14 to 13 and ARRAY_SIZE(overlay_formats) from
-9 to 8.
-
-In drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c,
-dm_test_get_plane_formats() calls amdgpu_dm_plane_get_plane_formats() and
-checks the returned format counts:
-
-	plane->type =3D DRM_PLANE_TYPE_PRIMARY;
-	KUNIT_EXPECT_EQ(test, amdgpu_dm_plane_get_plane_formats(plane, NULL, forma=
-ts, 32), 14);
-
-	cap->pixel_format_support.nv12 =3D true;
-	cap->pixel_format_support.p010 =3D true;
-	cap->pixel_format_support.fp16 =3D true;
-	KUNIT_EXPECT_EQ(test, amdgpu_dm_plane_get_plane_formats(plane, cap, format=
-s, 32), 20);
-
-	plane->type =3D DRM_PLANE_TYPE_OVERLAY;
-	KUNIT_EXPECT_EQ(test, amdgpu_dm_plane_get_plane_formats(plane, NULL, forma=
-ts, 32), 9);
-
-	universal_cap->type =3D DC_PLANE_TYPE_DCN_UNIVERSAL;
-	KUNIT_EXPECT_EQ(test,
-			amdgpu_dm_plane_get_plane_formats(plane, universal_cap, formats, 32),
-			14);
-
-Should these four KUNIT_EXPECT_EQ assertions in dm_test_get_plane_formats()
-be updated to expect 13, 19, 8, and 13 so the amdgpu_dm_plane KUnit test
-suite does not fail?
-
-[1] https://lore.kernel.org/r/20261030171816.11610-1-a18165943161@gmail.com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030164327.8461=
--1-a18165943161@gmail.com?part=3D1
