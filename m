@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0B9606A32D
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 18:06:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D168606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 18:09:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mpeX77TA
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CS7nn0tw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 106D710E3D0;
-	Sun,  1 Nov 2026 18:06:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBF2810E3D5;
+	Sun,  1 Nov 2026 18:09:24 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AD5C10E3D0
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 18:06:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B89610E3D5
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 18:09:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0D68043C0A;
- Sun,  1 Nov 2026 18:06:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9771F000C1;
- Sun,  1 Nov 2026 18:06:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E293F4321D;
+ Sun,  1 Nov 2026 18:09:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA0941F000C1;
+ Sun,  1 Nov 2026 18:09:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793556396;
- bh=KrhEyd+l9SYEjfXBfxyKnBoVEgeWG20fBC7PpqGtBbY=;
+ s=k20260515; t=1793556558;
+ bh=FIjQhGFd7D8dZlgO2ylp6DfM1gUs2KPi3lY/6H4QrMw=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=mpeX77TAcmJpjWBvZKPnaMwPTGPOJLFUwCvTsKJNiVyUO6P9RzsSBSOCevIdPNm5l
- gMykesVW8sVd0SBK59/gKdazsxxsj8kLhH+7pYiRS70wzNUaILrPw6iaxk7QFsc+kM
- o0JXTP+KaA4K5lO7V3yRc8x3Qo6KzIEXZF/YFY33jxaKZMf4z3yBrSf8mEEPYcEAF/
- OF8z5ow+IIASuSrJ6Z1lJzFYIVC7dILyYW/2Upiidi8JYUXBXK4Y/VSrAXHH9DtqAm
- tqTNMEUpQ9PyQshRBb2KyVBQhilSBoNDNAq9m7ykhJoy5G64wIyuOA6DDd0SECuiAj
- fpnxDiPyPqZSA==
-Message-ID: <sashiko-outbox-192558@kernel.org>
+ b=CS7nn0twu0VzQufRrfk4VL/usWKGXJrw3B+YMwGVkGgTmZI3IbZcSz9EzU810/+mf
+ WS5X9WsUXfNf6vfDcS1BvGduvyEka6WGOFWefeUmNucNRCbJid30ZOdl5LgusBzRjb
+ QGygvtwLrKMuvwTfuNILWIaZVY3gHW6CEH82z0ABg1XcygNFurQjBrUyJ69zLnD/3J
+ sW5e87502vOFlKKdf4iAq7o5g4nF1fxNaa92xRHLATqsmG63C8HHI872iWG22v8pHu
+ KS6KYcEmOQ52ggwWPun4Lv/pDg5InveXouoT2EE2T3ft6kXXk1ZzmVd5TsgJnYBaoS
+ y2gG4wRr8Fang==
+Message-ID: <sashiko-outbox-192560@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] drm/msm: Add cleanup help for disabling IFPC
+Subject: Re: [PATCH 4/4] drm/msm: Inhibit IFPC for state snapshot
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261101174631.23637-3-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20261101174631.23637-5-robin.clark@oss.qualcomm.com>
 References: <20261101174631.23637-1-robin.clark@oss.qualcomm.com>
- <20261101174631.23637-3-robin.clark@oss.qualcomm.com>
+ <20261101174631.23637-5-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 18:06:36 +0000
+Date: Sun, 01 Nov 2026 18:09:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,142 +57,105 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 - [High] drm/msm: self-deadlock on gmu.lock in a6xx_hw_init() via a6xx_gmu_=
 ifpc_update()
 - [High] drm/msm: TOCTOU race on gpu->ifpc_disable in a6xx_gmu_ifpc_update()
-- [Medium] drm/msm/a8xx: hw_init() checks msm_gpu_sysprof_no_perfcntr_zap()=
- for IFPC OOB
+- [High] drm/msm: premature GMU_OOB_PERFCOUNTER_SET before hw_init() in msm=
+_gpu_open()
+- [Medium] drm/msm/a8xx: hw_init() still checks msm_gpu_sysprof_no_perfcntr=
+_zap()
 --
 
-commit 755429cf0af1108369a0a2ba9d370fe222b14717
+commit 468ea56ed27402560d02d77cd1b25b3b9b6a8ecd
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm: Add cleanup help for disabling IFPC
+drm/msm: Inhibit IFPC for state snapshot
 
-This commit adds a DEFINE_GUARD(ifpc_disable, ...) helper for
-msm_gpu_disable_ifpc_get() and msm_gpu_disable_ifpc_put(), and converts
-sample_worker() in msm_perfcntr.c to use guard(ifpc_disable)(gpu).
+This commit adds an ifpc_disable guard in msm_gpu_open() while capturing a
+GPU state snapshot via debugfs so that IFPC remains inhibited while GPU
+registers are read.
 
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-> index 0334a0f604ac1..e7912d2180a51 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.h
-> +++ b/drivers/gpu/drm/msm/msm_gpu.h
-> @@ -399,6 +399,10 @@ msm_gpu_disable_ifpc_put(struct msm_gpu *gpu)
->  		gpu->funcs->ifpc_update(gpu);
->  }
+> diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_=
+debugfs.c
+> index e1b872576c7b1..14b588aeeb562 100644
+> --- a/drivers/gpu/drm/msm/msm_debugfs.c
+> +++ b/drivers/gpu/drm/msm/msm_debugfs.c
+> @@ -81,6 +81,8 @@ static int msm_gpu_open(struct inode *inode, struct fil=
+e *file)
+>  		return -ENOMEM;
 > =20
-> +DEFINE_GUARD(ifpc_disable, struct msm_gpu *,
-> +	     msm_gpu_disable_ifpc_get(_T),
-> +	     msm_gpu_disable_ifpc_put(_T))
+>  	scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
+> +		guard(ifpc_disable)(gpu);
 
 [Severity: High]
-With the IFPC disable rework in this series, does calling
-a6xx_gmu_ifpc_update() from hw_init() in
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c cause a self-deadlock on
-a6xx_gpu->gmu.lock during GPU initialization and runtime resume?
+Could acquiring guard(ifpc_disable)(gpu) here send GMU_OOB_PERFCOUNTER_SET
+to the GMU before msm_gpu_hw_init() completes the GMU_OOB_GPU_SET boot
+handshake?
 
-In drivers/gpu/drm/msm/adreno/a6xx_gpu.c, a6xx_hw_init() acquires
-a6xx_gpu->gmu.lock before calling hw_init():
+When msm_gpu_open() is called while the GPU is runtime-suspended,
+scoped_guard(pm_runtime_active, &gpu->pdev->dev) resumes the device via:
 
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:a6xx_hw_init() {
-	mutex_lock(&a6xx_gpu->gmu.lock);
-	ret =3D hw_init(gpu);
-	mutex_unlock(&a6xx_gpu->gmu.lock);
-}
+  pm_runtime_get_sync()
+    -> adreno_runtime_resume()
+      -> a6xx_gmu_pm_resume()
 
-At the end of hw_init() (under the out: label), for all non-gmu_wrapper A6xx
-and A7xx GPUs, it now calls a6xx_gmu_ifpc_update(gpu):
+which sets gpu->needs_hw_init =3D true and boots the GMU without performing
+the GMU_OOB_GPU_SET handshake (deferred until msm_gpu_hw_init()). Once
+adreno_runtime_resume() returns, &gpu->pdev->dev is marked RPM_ACTIVE.
 
-drivers/gpu/drm/msm/adreno/a6xx_gpu.c:hw_init() {
-    ...
-out:
-	if (adreno_has_gmu_wrapper(adreno_gpu))
-		return ret;
-    ...
-	a6xx_gmu_ifpc_update(gpu);
+Next, guard(ifpc_disable)(gpu) runs before gpu->lock is acquired and before
+msm_gpu_hw_init(gpu) is called:
 
-	return ret;
-}
+  msm_gpu_disable_ifpc_get(gpu)
+    -> a6xx_gmu_ifpc_update(gpu)
 
-When msm_gpu_hw_init() is invoked by callers such as adreno_load_gpu(),
-msm_gpu_submit(), a6xx_recover(), sel_worker(), or msm_gpu_open(), runtime =
-PM
-is active on &gpu->pdev->dev, so pm_runtime_get_if_active() succeeds in
-a6xx_gmu_ifpc_update() and the thread attempts to acquire gmu->lock a second
-time:
+In drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_ifpc_update():
 
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_ifpc_update() {
+	/* Nothing to do if GPU is suspended. We will handle this during GMU resum=
+e */
 	if (!pm_runtime_get_if_active(&gpu->pdev->dev))
 		return;
 
 	mutex_lock(&gmu->lock);
-    ...
-}
 
-Also, because out: is reached when adreno_hw_init() or
-a7xx_cp_init()/a6xx_cp_init() fails with ret !=3D 0, should
-a6xx_gmu_ifpc_update() be skipped on error paths and propagate any failure
-from a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET)?
+	if (force_on && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
+		a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
 
-[Severity: Medium]
-Similarly, in drivers/gpu/drm/msm/adreno/a8xx_gpu.c, hw_init() still checks
-msm_gpu_sysprof_no_perfcntr_zap(gpu) rather than gpu->ifpc_disable when
-programming GMU_OOB_PERFCOUNTER_SET:
+Because &gpu->pdev->dev is already RPM_ACTIVE and gpu->needs_hw_init is not
+checked, a6xx_gmu_ifpc_update() sets GMU_STATUS_OOB_PERF_SET in gmu->status
+and sends GMU_OOB_PERFCOUNTER_SET to the GMU before hw_init() performs the
+GMU_OOB_GPU_SET (and GMU_OOB_BOOT_SLUMBER) handshake.
 
-drivers/gpu/drm/msm/adreno/a8xx_gpu.c:hw_init() {
-    ...
-	if (!ret && msm_gpu_sysprof_no_perfcntr_zap(gpu)) {
-		ret =3D a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
-		if (!ret)
-			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
-	}
-}
-
-Since a8xx_gpu_funcs in drivers/gpu/drm/msm/adreno/a6xx_gpu.c sets
-.ifpc_update =3D a6xx_gmu_ifpc_update, which manages GMU_OOB_PERFCOUNTER_SET
-and GMU_STATUS_OOB_PERF_SET based on refcount_read(&gpu->ifpc_disable) > 1,
-won't A8xx hw_init() leave GMU_OOB_PERFCOUNTER_SET out of sync with
-gpu->ifpc_disable whenever a perfcntr stream is open (with ifpc_disable =3D=
-=3D 1)
-or when another voter holds an ifpc_disable reference without sysprof or a
-perfcntr stream active?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/msm/msm_perfcntr.c b/drivers/gpu/drm/msm/msm=
-_perfcntr.c
-> index bf73752dac3de..0d33f0eae35d7 100644
-> --- a/drivers/gpu/drm/msm/msm_perfcntr.c
-> +++ b/drivers/gpu/drm/msm/msm_perfcntr.c
-> @@ -259,7 +259,7 @@ sample_worker(struct kthread_work *work)
->  	}
-> =20
->  	/* Inhibit IFPC while accessing registers: */
-> -	msm_gpu_disable_ifpc_get(gpu);
-> +	guard(ifpc_disable)(gpu);
+As noted in commit d34b6919798c ("drm/msm/a6xx: Correct OOB usage"), sending
+another OOB request such as GMU_OOB_PERFCOUNTER_SET during the GMU resume
+sequence before GMU_OOB_GPU_SET is set and cleared confuses the internal
+power state of the GMU firmware. In addition, because
+GMU_STATUS_OOB_PERF_SET is already set in gmu->status prior to hw_init(),
+the subsequent a6xx_gmu_ifpc_update() call in hw_init() sees
+test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status) as already set and
+does not re-assert GMU_OOB_PERFCOUNTER_SET after GMU_OOB_GPU_SET is cleared.
+And if scoped_cond_guard(mutex_intr, ..., &gpu->lock) fails with -EINTR,
+msm_gpu_hw_init(gpu) does not run at all after GMU_OOB_PERFCOUNTER_SET was
+already set and cleared on the uninitialized GMU.
 
 [Severity: High]
-Can concurrent callers of msm_gpu_disable_ifpc_get() and
-msm_gpu_disable_ifpc_put() race in a6xx_gmu_ifpc_update() and clear
-GMU_OOB_PERFCOUNTER_SET while sample_worker() is inside this
-guard(ifpc_disable)(gpu) critical section?
+Is there also a TOCTOU race in a6xx_gmu_ifpc_update() when sampling
+gpu->ifpc_disable outside gmu->lock?
 
-In drivers/gpu/drm/msm/msm_gpu.h, msm_gpu_disable_ifpc_get() and
-msm_gpu_disable_ifpc_put() update gpu->ifpc_disable without holding
-gmu->lock:
+Because msm_gpu_open() acquires and releases guard(ifpc_disable)(gpu)
+outside gpu->lock, msm_gpu_disable_ifpc_get() and msm_gpu_disable_ifpc_put()
+can run concurrently across msm_gpu_open(), sample_worker() in
+drivers/gpu/drm/msm/msm_perfcntr.c, and msm_context_set_sysprof() in
+drivers/gpu/drm/msm/msm_submitqueue.c without a shared lock.
 
-drivers/gpu/drm/msm/msm_gpu.h:msm_gpu_disable_ifpc_get() {
-	refcount_inc(&gpu->ifpc_disable);
-	if (gpu->funcs->ifpc_update)
-		gpu->funcs->ifpc_update(gpu);
-}
+In drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_ifpc_update(), force_on is
+evaluated before pm_runtime_get_if_active() and before mutex_lock(&gmu->loc=
+k):
 
-And in drivers/gpu/drm/msm/adreno/a6xx_gmu.c, a6xx_gmu_ifpc_update() samples
-gpu->ifpc_disable into force_on before acquiring gmu->lock:
-
-drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_ifpc_update() {
+void a6xx_gmu_ifpc_update(struct msm_gpu *gpu)
+{
 	struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
 	struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
 	struct a6xx_gmu *gmu =3D &a6xx_gpu->gmu;
@@ -211,27 +174,98 @@ e */
 atus))
 		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
 
-	mutex_unlock(&gmu->lock);
-    ...
-}
-
-If Thread A (for example in msm_context_set_sysprof()) calls
-msm_gpu_disable_ifpc_put(gpu), decrements gpu->ifpc_disable from 2 to 1, and
-reads force_on =3D false before taking gmu->lock, Thread B in sample_worker=
-()
-can enter guard(ifpc_disable)(gpu), increment gpu->ifpc_disable from 1 to 2,
-read force_on =3D true, and acquire gmu->lock first.
-
-Thread B sees GMU_STATUS_OOB_PERF_SET already set, unlocks gmu->lock, and
-proceeds to flush and read GX performance counter registers in
-sample_worker(). Thread A then acquires gmu->lock with its stale
-force_on =3D false value and calls a6xx_gmu_clear_oob(gmu,
-GMU_OOB_PERFCOUNTER_SET) while gpu->ifpc_disable is 2 and sample_worker() is
-actively reading GPU registers. The reverse ordering can likewise leave
-GMU_OOB_PERFCOUNTER_SET stuck set after all voters drop their references.
+If Thread A calls msm_gpu_disable_ifpc_put(gpu), decrements
+gpu->ifpc_disable from 2 to 1, and reads force_on =3D false before acquiring
+gmu->lock, Thread B (such as msm_gpu_open()) can concurrently call
+msm_gpu_disable_ifpc_get(gpu), increment gpu->ifpc_disable from 1 to 2, read
+force_on =3D true, acquire gmu->lock first, see GMU_STATUS_OOB_PERF_SET
+already set, unlock gmu->lock, and begin reading GX registers in
+gpu_state_get(). Thread A then acquires gmu->lock with its stale
+force_on =3D=3D false and clears GMU_STATUS_OOB_PERF_SET and
+GMU_OOB_PERFCOUNTER_SET while Thread B holds an active ifpc_disable vote
+(or conversely, a stale force_on =3D=3D true can leave IFPC permanently
+disabled after the last voter drops its reference).
 
 Should force_on be evaluated after acquiring gmu->lock?
 
+> +
+>  		scoped_cond_guard (mutex_intr, return PTR_ERR(scope.lock), &gpu->lock)=
+ {
+>  			msm_gpu_hw_init(gpu);
+
+[Severity: High]
+Won't calling msm_gpu_hw_init(gpu) when gpu->needs_hw_init is true
+self-deadlock on a6xx_gpu->gmu.lock on GMU-based A6xx and A7xx platforms?
+
+During msm_gpu_hw_init(gpu) (whether called from msm_gpu_open(),
+adreno_load_gpu(), msm_gpu_submit(), sel_worker(), or a6xx_recover()),
+&gpu->pdev->dev is runtime-active (RPM_ACTIVE). On A6xx and A7xx,
+msm_gpu_hw_init() calls a6xx_hw_init() in
+drivers/gpu/drm/msm/adreno/a6xx_gpu.c:
+
+static int a6xx_hw_init(struct msm_gpu *gpu)
+{
+	struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+	struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
+	int ret;
+
+	mutex_lock(&a6xx_gpu->gmu.lock);
+	ret =3D hw_init(gpu);
+	mutex_unlock(&a6xx_gpu->gmu.lock);
+
+At the end of hw_init(gpu) in drivers/gpu/drm/msm/adreno/a6xx_gpu.c,
+a6xx_gmu_ifpc_update(gpu) is called unconditionally while
+a6xx_gpu->gmu.lock is held (including when an earlier step jumps to the
+out: label with a non-zero ret):
+
+out:
+	...
+	a6xx_gmu_ifpc_update(gpu);
+
+	return ret;
+}
+
+Inside drivers/gpu/drm/msm/adreno/a6xx_gmu.c:a6xx_gmu_ifpc_update(),
+pm_runtime_get_if_active(&gpu->pdev->dev) returns 1 because the device is
+RPM_ACTIVE, and mutex_lock(&gmu->lock) attempts to acquire the same
+a6xx_gpu->gmu.lock already held by a6xx_hw_init() while gpu->lock is held
+and gpu->irq is disabled.
+
+[Severity: Medium]
+On A8xx GPUs, was drivers/gpu/drm/msm/adreno/a8xx_gpu.c:hw_init() missed
+when converting IFPC inhibition from msm_gpu_sysprof_no_ifpc() to
+gpu->ifpc_disable?
+
+In drivers/gpu/drm/msm/adreno/a6xx_gpu.c, a8xx_gpu_funcs sets:
+
+		.progress =3D a8xx_progress,
+		.ifpc_update =3D a6xx_gmu_ifpc_update,
+		.perfcntr_configure =3D a6xx_perfcntr_configure,
+
+which manages GMU_OOB_PERFCOUNTER_SET and GMU_STATUS_OOB_PERF_SET based on
+refcount_read(&gpu->ifpc_disable) > 1. However, in
+drivers/gpu/drm/msm/adreno/a8xx_gpu.c:hw_init(), the code still checks
+msm_gpu_sysprof_no_perfcntr_zap(gpu) instead of gpu->ifpc_disable:
+
+	if (!ret && msm_gpu_sysprof_no_perfcntr_zap(gpu)) {
+		ret =3D a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
+		if (!ret)
+			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
+	}
+
+Doesn't this cause three mismatches on A8xx when msm_gpu_hw_init() runs:
+first, if a global perfcntr stream is active (gpu->perfcntrs->stream !=3D N=
+ULL)
+while gpu->ifpc_disable =3D=3D 1, hw_init() sets GMU_OOB_PERFCOUNTER_SET and
+GMU_STATUS_OOB_PERF_SET even though no continuous IFPC disable vote is held;
+second, if gpu->ifpc_disable > 1 (such as from guard(ifpc_disable)(gpu) in
+msm_gpu_open()) while neither sysprof_active > 1 nor perfcntrs->stream is
+set, hw_init() will not assert GMU_OOB_PERFCOUNTER_SET after clearing
+GMU_OOB_GPU_SET; and third, if GMU_STATUS_OOB_PERF_SET was already set by
+a6xx_gmu_ifpc_update() before a8xx_hw_init(), hw_init() calls
+a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET) a second time without
+checking GMU_STATUS_OOB_PERF_SET?
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261101174631.2363=
-7-1-robin.clark@oss.qualcomm.com?part=3D2
+7-1-robin.clark@oss.qualcomm.com?part=3D4
