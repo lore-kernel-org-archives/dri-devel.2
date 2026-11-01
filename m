@@ -2,64 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873CF606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F501606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=o0CQTuA/;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=iWm2eOKZ
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YAE1DLjl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6134210EBBA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CAC010EBB5;
 	Mon,  2 Nov 2026 08:03:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="o0CQTuA/";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="iWm2eOKZ";
-	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB3410EAE9
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=To:Message-Id:Subject:Date:From; t=1793575932; bh=ND/3oI5ocRwDwHOmoJ1ijdV
- HImjKSjAJASVb/3HJ26Q=; b=o0CQTuA/xGPS5C3uBKotF6Wr/+zg5tIj9Muql4mmhiqP08cNH0
- TZgTBJIliUIx6ahVsVB9cQnrfr5D1oqoPKBw==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=To:Message-Id:Subject:Date:From; t=1793575932; bh=ND/3oI5ocRwDwHOmoJ1ijdV
- HImjKSjAJASVb/3HJ26Q=; b=iWm2eOKZmpqnyw45CXtSlpp5f43N0jdrAJ03U+GWHVqaj3Gr8K
- WIYw5oH97K/BfUuj3Hmr7Fd5Z6tb78u5s4ErtXPWguqPPFgKFRQhyL5S6pIr4N7mPIcEr6ugUW9
- 1IJcYb9EsO2kk2q6tMdgw3gQ1qVvBzG+up+3bJqfItQFWZ7YY/rEXUJDVZXNLv5mwypeqa4efTZ
- M90kB2Xso+RM+tKNOK/OQtI4CpRZJ5HovF5UL9R3LdLA776W2WnA/lwQhBy/y66BxfLKS/AoSrt
- PDWWMzVYlazb3hJkh6M7DW3xvIReh5FyPHjQApVXWsqlSr2DesliIbyiIFNuY9JArrA==;
-From: erebion <erebion@erebion.eu>
-Date: Mon, 02 Nov 2026 00:32:09 +0100
-Subject: [PATCH v3 05/12] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+Received: from mail-wm2-f2.google.com (mail-wm2-f2.google.com [74.125.225.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 114F210EAE3
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:23:53 +0000 (UTC)
+Received: by mail-wm2-f2.google.com with SMTP id
+ 5b1f17b1804b1-4a210b0d5c3so9994915e9.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 15:23:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793575431; x=1794180231; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=ff70TfoYW5vv+iBaKSoq6x1++Arz0G5jzkSXdb473iw=;
+ b=YAE1DLjlpjoLD4eh0XbJZyk+O2f585B3kpcA/XiL8QRnWp8VRuCdZhROWnoCYdhja9
+ EdH/pwP0PIt/NrkTIZEp0HLgdn4tiRLFecz7QftLw9txuTCUw5VcTHG9MSb65N/ipv7k
+ 4lGcxrtCLRK6NI/k02k+om3UCulS0a0am342w76QPFycVRklgkwt+9WodBCUGl0jLlA2
+ kWL6c0M+oyiVfrBrsR9vl1WLZ73H89WdnNcZrX3frtFfRhXX/Kh8lxopnhxo6GOY/vmb
+ OAGk2UXFL6Fj+gJpBFwEgFASYhbahlnFpWb7xU0aaJa3mek3j4RuFUwKu2AfB3F817LC
+ NDkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793575431; x=1794180231;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ff70TfoYW5vv+iBaKSoq6x1++Arz0G5jzkSXdb473iw=;
+ b=AGZINK64ayHqEwsDF1eUWf1wUZ0oFMgUqBII1PtvJbbwgiOOWf+/PpzQxntVgH50be
+ NPCW5890rRv7BLXrFjrNrp3U5n3VhI6FolDW2e1MKfxqkk7tdOAwcSqHHkcKvhnuMyxc
+ OgCHfJX95fKWK+5Q3zaD8QkTim2RHSXZDNFBP22P1D5ahQLgB5s+9S98idbsmsyUOIpn
+ c9a2ez4Nsdapzx4xA5ccJ81Rm+h0UB2n0dSS0NQpVJwAssHZVUBVmkjNlmHxGr/vQcG3
+ Dnpujb81SsCQbv1fjpTIjs6c+3xuLQH0aYtdeseoF3ybWp1AuZbWrVLv+9DX6RBG3s4s
+ /s5A==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzOreqJgni3ABZ5MWI5cpHQ8t/LmDIbWHz80UrZt43ZwneFeoCpEymdaCUP1/w8Sq1mJALWXhSTp2M=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL2UoKfVqhIYYsYW8PTwHHd5DLi/6/dc0Ggz6bJJVZ/L73UprR2
+ /yMQLJMv5q4rPj2U43SaXtOoD2FDtQPeOm4DTWX64EXFGR9S926MrJTN5Ihu4p8Iqx4HDQ==
+X-Gm-Gg: AYBFou0aa8/BV30xJtmno8PVFeYXNimDrU1uZe7ipK7snJZF/TERtPoffQsqnkU0fhC
+ oGF3ilqGgqNAvdhW+TpKiKUoCDOtILsG1ynzv4gmjCuXmhqmzXRbo4PcSedSATqguEREaxBpUEP
+ H+wrZDpMsXydyUqnGtBXx1lBCDhbr90VEO7KLpHkxLFQd7oR1YLQ5mU3A1ppsmLjym3Epk3F9WM
+ xZoJryUelSeXoVh7PcWXoPSPjKOb0YsoaVU3DvPLj4VlTFZ3mMrPRmFl3YFwVMM35MtzoZ//Ewn
+ Hh9xid5oZEzZYgJZq2M+vuDE2v/hQnnLXphUlsaDokWos9aE/ekCAEo7BNew7w2NmQkumIXP75F
+ L/ILyyJkb2PSzG3uSIMTw2OgrZei79aztEbpWCfeNbQsynwtDXA5irOKnEKB8Fj8GVMCJnF8teD
+ 6gn2xwJWTjo68m68CMjmQZjsopNDKeSM+87HpQci8XMMwgFq01Z23KCunRFrgv/r2Tvmls8LCQd
+ 1sixgxWsVaG1oO37WqedH3dDEeZiNXk9BlO0V5uDYVtH+jsAbVAmKVSghJlAVymXrHZ7DWkmVOE
+ FTS5B9/9XymLxm/MKn8d/u5gCjCUwue8bQ==
+X-Received: by 2002:a05:600c:3ba0:b0:4a1:e0db:8cf8 with SMTP id
+ 5b1f17b1804b1-4ac151a84f0mr192130815e9.3.1793575431515; 
+ Sun, 01 Nov 2026 15:23:51 -0800 (PST)
+Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4aa80f04723sm342967035e9.5.2026.11.01.15.23.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 01 Nov 2026 15:23:51 -0800 (PST)
+Message-ID: <54c182e5-1474-47af-ae72-d28560a12bcf@gmail.com>
+Date: Sun, 1 Nov 2026 23:23:49 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Richard Lane <richardlanedev@gmail.com>
+From: Richard Lane <richardlanedev@gmail.com>
+Subject: [PATCH v2 1/3] drm/amdgpu: use pitch and surface offset for GMC v7/v8
+ fb size
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-pdx213-upstream-3-v3-5-cdc3be96d257@erebion.eu>
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
-In-Reply-To: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=3560;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=WvQ3IoLuVyqCt6UZKrwiXhMWvCiWZYnRMZClt2J/kBo=;
- b=5q6yrMeuHIiAUzc6jP05FIWq53YbG6ghTR8VfxVtkdEd66XVY5qGzZzqac5AV7CpU146P397j
- /9W9dV6zhHdB4BG4gikd/v5pFPg+vXUqsCUym/u1Pq/RduM2WvXG1qo
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:03:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,144 +92,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Configure the required regulators for Bluetooth and enable it on the
-Xperia 10 III.
+gmc_v7_0_get_vbios_fb_size() and gmc_v8_0_get_vbios_fb_size() currently
+calculate the pre-OS framebuffer reservation as VIEWPORT_WIDTH *
+VIEWPORT_HEIGHT * 4, assuming the scanout stride matches the viewport
+width and that the surface starts at offset 0 of VRAM.
 
-Signed-off-by: erebion <erebion@erebion.eu>
+On Apple 27" 5K iMacs, EFI initializes a single 2560x2880 viewport at
+boot but allocates a 5120-pixel stride surface (mmGRPH_PITCH = 5120)
+and places mmGRPH_PRIMARY_SURFACE_ADDRESS at a 3 MiB offset (0x300000)
+from vram_start, spanning [3 MiB, 59.25 MiB) in VRAM. Reserving only
+2560 * 2880 * 4 bytes allows permanent TTM driver BOs to overlap the
+active scanout and corrupt the boot splash screen.
+
+Calculate the reservation size using mmGRPH_PITCH instead of
+VIEWPORT_WIDTH and add the mmGRPH_PRIMARY_SURFACE_ADDRESS offset from
+vram_start so the full active pre-OS scanout region is preserved.
+
+Signed-off-by: Richard Lane <richardlanedev@gmail.com>
 ---
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 96 ++++++++++++++++++++++
- 1 file changed, 96 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 8 +++++---
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 8 +++++---
+ 2 files changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index ce351a3fa8727..f1958f4bad05a 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -19,6 +19,10 @@ / {
- 	qcom,msm-id = <434 0x10000>, <459 0x10000>;
- 	qcom,board-id = <0x1000b 0>;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index c09f5153679e..00704dbfc1bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -929,9 +929,11 @@ static unsigned int gmc_v7_0_get_vbios_fb_size(struct amdgpu_device *adev)
+ 	} else {
+ 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
  
-+	aliases {
-+		serial1 = &uart1;
-+	};
-+
- 	chosen {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -387,6 +391,32 @@ &qupv3_id_1 {
- 	status = "okay";
- };
+-		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
+-			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) *
+-			4);
++		size = REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
++		       RREG32(mmGRPH_PITCH) * 4;
++		if (size)
++			size += RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) -
++				lower_32_bits(adev->gmc.vram_start);
+ 	}
  
-+/* UART1: HS UART for Bluetooth */
-+&qup_uart1_rts {
-+	/* We'll drive RTS, so no pull */
-+	drive-strength = <2>;
-+	/delete-property/ bias-pull-down;
-+	bias-disable;
-+};
-+
-+&qup_uart1_rx {
-+	/*
-+	 * Configure a pull-up on RX. This is needed to avoid
-+	 * garbage data when the TX pin of the Bluetooth module is
-+	 * in tri-state (module powered off or not driving the
-+	 * signal yet).
-+	 */
-+	/delete-property/ bias-disable;
-+	bias-pull-up;
-+};
-+
-+&qup_uart1_tx {
-+	/* We'll drive TX, so no pull */
-+	drive-strength = <2>;
-+	/delete-property/ bias-pull-up;
-+	bias-disable;
-+};
-+
- &sdc2_off_state {
- 	sd-cd-pins {
- 		pins = "gpio94";
-@@ -430,6 +460,72 @@ ts_int_default: ts-int-default-state {
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
-+
-+	qup_uart1_sleep_cts: qup-uart1-sleep-cts-state {
-+		pins = "gpio61";
-+		function = "gpio";
-+		/*
-+		 * Configure a bias-bus-hold on CTS to lower power
-+		 * usage when Bluetooth is turned off. Bus hold will
-+		 * maintain a low power state regardless of whether
-+		 * the Bluetooth module drives the pin in either
-+		 * direction or leaves the pin fully unpowered.
-+		 */
-+		bias-bus-hold;
-+	};
-+
-+	qup_uart1_sleep_rts: qup-uart1-sleep-rts-state {
-+		pins = "gpio62";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-down on RTS. As RTS is active low
-+		 * signal, pull it low to indicate the BT SoC that it
-+		 * can wakeup the system anytime from suspend state by
-+		 * pulling RX low (by sending wakeup bytes).
-+		 */
-+		bias-pull-down;
-+	};
-+
-+	qup_uart1_sleep_rx: qup-uart1-sleep-rx-state {
-+		pins = "gpio64";
-+		function = "gpio";
-+		/*
-+		 * Configure a pull-up on RX. This is needed to avoid
-+		 * garbage data when the TX pin of the Bluetooth module
-+		 * is floating which may cause spurious wakeups.
-+		 */
-+		bias-pull-up;
-+	};
-+
-+	qup_uart1_sleep_tx: qup-uart1-sleep-tx-state {
-+		pins = "gpio63";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-up on TX when it isn't actively driven
-+		 * to prevent BT SoC from receiving garbage during sleep.
-+		 */
-+		bias-pull-up;
-+	};
-+};
-+
-+&uart1 {
-+	/delete-property/ interrupts;
-+	interrupts-extended = <&intc GIC_SPI 602 IRQ_TYPE_LEVEL_HIGH>,
-+			     <&tlmm 64 IRQ_TYPE_EDGE_FALLING>;
-+
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-1 = <&qup_uart1_sleep_cts>, <&qup_uart1_sleep_rts>, <&qup_uart1_sleep_tx>, <&qup_uart1_sleep_rx>;
-+
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "qcom,wcn3991-bt";
-+		vddio-supply = <&pm6350_l11>;
-+		vddxo-supply = <&pm6350_l7>;
-+		vddrf-supply = <&pm6150l_l2>;
-+		vddch0-supply = <&pm6150l_l10>;
-+		firmware-name = "crnv32u.bin";
-+	};
- };
+ 	return size;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index 15592027e7c0..a64a3cc07858 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1037,9 +1037,11 @@ static unsigned int gmc_v8_0_get_vbios_fb_size(struct amdgpu_device *adev)
+ 	} else {
+ 		u32 viewport = RREG32(mmVIEWPORT_SIZE);
  
- &usb_1 {
-
+-		size = (REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
+-			REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_WIDTH) *
+-			4);
++		size = REG_GET_FIELD(viewport, VIEWPORT_SIZE, VIEWPORT_HEIGHT) *
++		       RREG32(mmGRPH_PITCH) * 4;
++		if (size)
++			size += RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS) -
++				lower_32_bits(adev->gmc.vram_start);
+ 	}
+ 
+ 	return size;
 -- 
-2.53.0
-
+2.55.0
