@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF857606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:02:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC60606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:04:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NqfU/CS1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhRd3s+x
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3787610EAE0;
-	Sun,  1 Nov 2026 23:02:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09C8E10EAE1;
+	Sun,  1 Nov 2026 23:03:57 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47A8F10EAE0
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:02:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 306E210EAE1
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:03:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 99FF1605CE;
- Sun,  1 Nov 2026 23:02:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C1F1F0093A;
- Sun,  1 Nov 2026 23:02:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7011D605CE;
+ Sun,  1 Nov 2026 23:03:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9EFC1F000C1;
+ Sun,  1 Nov 2026 23:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793574144;
- bh=6PwMFUmhaILC+NBm41ccvHNc0QHtPTy24ex2VrIKZ6g=;
+ s=k20260515; t=1793574230;
+ bh=1k9VPmgUKLR9y4zfOkmrvWNcPce/g4gg8PNddO8ZZVM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NqfU/CS115RAxld7vBhCxlUft9WtFW4ROmQ3iT8RxDMhdO5D5dERzDaHRy2e99ax8
- AwMykD9eeQFSLbO7cvVCrPg46YmklbkQnDq7aXk5DGmG94Hvg7GL7gW5CtrTa8Yk7m
- GQW7mopLl4+rl4Vz955jnSitV41yklWv+J4CM9+74q7oh07hYgyjTubcQNLkv26xXr
- yUvdFXI0oEcenHosjONMKVjrZMVFBy/BaSfbg56rpN98IaUfNX4gdcu59G23UwDBCc
- T9MSalBmioI7i7UcWTIEXihG+dr9/Dz5HDDneCpopJ0NL4f0MCEnzHFH/3XmtdmmQb
- YgJ8379gFAwtw==
-Message-ID: <sashiko-outbox-192749@kernel.org>
+ b=AhRd3s+xcxxE9UIc4q7V97SAAiwidddd9D4o8dOWaJBX76befSipE2ZEhKUZx0Jrz
+ wO6TwpJ7ZG83CSWdzsatIRNxzP6YhZ57l2vXHvqGCdTmg/KgHH2zzOABloR5CShsVq
+ 1SHXGVuQm7nKUuaYE6WuBO3BpgPUQT5RTJRKyvMfZgJ0xzuGuTVP+WQMnUSw5InKN1
+ fmkkpG+DnlIc32twvWi7JdDY9vxZkhPjIBJ0ItbL6idArhF3fp84tvgqu++R/8u+W5
+ iGOKnfEZ1S3vswubaMKlOI//XZWaXwGk1UvPeplf2yPl3PHOwToGq429KgbgRT+gEM
+ BxwKbvwHk0ZTg==
+Message-ID: <sashiko-outbox-192750@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 25/25] accel/qda: Add poll mode for invocation
- completion
+Subject: Re: [PATCH v4 23/25] accel/qda: Add DSP capability query
 To: "Ekansh Gupta" <ekansh.gupta@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261102-v4-v4-25-88f2f24a5f0b@qti.qualcomm.com>
+In-Reply-To: <20261102-v4-v4-23-88f2f24a5f0b@qti.qualcomm.com>
 References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <20261102-v4-v4-25-88f2f24a5f0b@qti.qualcomm.com>
+ <20261102-v4-v4-23-88f2f24a5f0b@qti.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 23:02:23 +0000
+Date: Sun, 01 Nov 2026 23:03:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,176 +60,136 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] accel/qda: missing memory ordering on ctx->retval and ctx->is_work=
-_done
-- [High] accel/qda: UAF and teardown race in qda_fastrpc_flush_pending()
+- [High] accel/qda: non-zero remote_session_id in qda_fastrpc_invoke_pack()=
+ for dsp info
+- [Medium] accel/qda: destroyed mutex qdev->attr_lock while held in qda_dei=
+nit_device()
 --
 
-commit ff1bb82ba9e7f31a0c10a5ce3a19f4029819ffbf
+commit 8c89a0764b44acd4840198a5f29101cbf6dc706a
 Author: Ekansh Gupta <ekangupt@qti.qualcomm.com>
 
-accel/qda: Add poll mode for invocation completion
+accel/qda: Add DSP capability query
 
-This commit adds per-session completion polling support for dynamically
-loaded module invocations in a user PD via DRM_IOCTL_QDA_SET_OPTION and
-FASTRPC_IOCTL_SET_OPTION. It reserves a poll word at the end of the
-invocation metadata buffer and busy-waits on it before falling back to
-the interrupt-based RPMsg response.
+This commit adds a QDA_QUERY_DSP_CAPABILITIES query type to
+DRM_IOCTL_QDA_QUERY to fetch DSP capability attributes through the DSP
+utilities handle and cache them on the device for subsequent queries.
+
+> diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
+> index 1e72dce769b9a..51d8ef10c6c1a 100644
+> --- a/drivers/accel/qda/qda_drv.c
+> +++ b/drivers/accel/qda/qda_drv.c
+> @@ -154,6 +154,7 @@ struct qda_dev *qda_alloc_device(struct device *dev)
+> =20
+>  	INIT_LIST_HEAD(&qdev->cb_devs);
+>  	mutex_init(&qdev->import_lock);
+> +	mutex_init(&qdev->attr_lock);
+>  	xa_init_flags(&qdev->ctx_xa, XA_FLAGS_ALLOC1);
+>  	atomic64_set(&qdev->ctx_seq, 0);
+>  	atomic_set(&qdev->session_id_seq, 0);
+> @@ -181,6 +182,7 @@ void qda_deinit_device(struct qda_dev *qdev)
+>  	qda_memory_manager_exit(qdev->iommu_mgr);
+>  	xa_destroy(&qdev->ctx_xa);
+>  	mutex_destroy(&qdev->import_lock);
+> +	mutex_destroy(&qdev->attr_lock);
+>  }
+
+[Severity: Medium]
+Can mutex_destroy(&qdev->attr_lock) in qda_deinit_device() run while
+qdev->attr_lock is still held or waited on by qda_get_dsp_capability()?
+
+In qda_get_dsp_capability(), qdev->attr_lock is held across
+qda_fastrpc_invoke():
+
+drivers/accel/qda/qda_ioctl.c:qda_get_dsp_capability() {
+	guard(mutex)(&qdev->attr_lock);
+
+	if (!qdev->valid_attributes) {
+		err =3D qda_fastrpc_invoke(QDA_FASTRPC_TYPE_GET_DSP_INFO, qdev->dsp_attri=
+butes,
+					 session);
+}
+
+Inside qda_fastrpc_invoke() -> qda_fastrpc_invoke_common(),
+qda_rpmsg_send_msg() calls drm_dev_exit() after rpmsg_send(), and then
+qda_rpmsg_wait_for_rsp() sleeps in wait_for_completion_interruptible(&ctx->=
+work)
+while qdev->attr_lock remains held.
+
+If the remote processor crashes or the rpmsg device is removed before the
+DSP replies, qda_rpmsg_remove() runs:
+
+drivers/accel/qda/qda_rpmsg.c:qda_rpmsg_remove() {
+	drm_dev_unplug(&qdev->drm_dev);
+	qdev->rpdev =3D NULL;
+	qda_fastrpc_flush_pending(qdev);
+	qda_cb_unpopulate(qdev);
+	qda_deinit_device(qdev);
+}
+
+Because the waiting thread already exited the drm_dev_enter() section,
+drm_dev_unplug() does not wait for it. qda_fastrpc_flush_pending() wakes
+the invocation with complete(&ctx->work) and qda_rpmsg_remove() proceeds
+directly to qda_deinit_device() -> mutex_destroy(&qdev->attr_lock) before
+the woken thread in qda_get_dsp_capability() has unlocked qdev->attr_lock.
 
 > diff --git a/drivers/accel/qda/qda_fastrpc.c b/drivers/accel/qda/qda_fast=
 rpc.c
-> index 6044cfad53e96..0617bb4842b52 100644
+> index e9688e3ba4048..6044cfad53e96 100644
 > --- a/drivers/accel/qda/qda_fastrpc.c
 > +++ b/drivers/accel/qda/qda_fastrpc.c
 
 [ ... ]
 
-> @@ -598,6 +604,54 @@ int qda_fastrpc_invoke_pack(struct qda_fastrpc_invok=
-e_ctx *ctx, struct qda_msg *
+> @@ -980,6 +987,43 @@ static int qda_fastrpc_prepare_args_create_static(st=
+ruct qda_fastrpc_invoke_ctx
 >  	return 0;
 >  }
 > =20
-> +static u32 qda_fastrpc_read_poll_addr(struct qda_fastrpc_invoke_ctx *ctx)
-> +{
-> +	dma_rmb();
-> +
-> +	return READ_ONCE(*ctx->poll_addr);
-> +}
-> +
 > +/*
-> + * Busy-wait for the DSP to write QDA_FASTRPC_POLL_RESPONSE into the pol=
-l word,
-> + * which saves the interrupt and scheduling latency of waiting for the r=
-pmsg
-> + * response. The response still arrives afterwards and drops the referen=
-ce
-> + * qda_rpmsg_send_msg() took for it as usual.
+> + * DSP capability query packed layout:
+> + *   [0] count	sizeof(u32), the capacity of the array below	IN
+> + *   [1] attrs	(QDA_MAX_DSP_ATTRIBUTES - 1) * sizeof(u32)	OUT
 > + *
-> + * Return: 0 if the invocation completed, negative error code if it has =
-not
-> + * answered within QDA_FASTRPC_POLL_MAX_TIMEOUT_US
+> + * Index 0 of the cached array is reserved, so only the rest is exchange=
+d.
 > + */
-> +static int qda_fastrpc_poll_for_rsp(struct qda_fastrpc_invoke_ctx *ctx)
+> +static int qda_fastrpc_prepare_args_get_dsp_info(struct qda_fastrpc_invo=
+ke_ctx *ctx)
 > +{
-> +	u32 val;
+> +	const u32 attr_count =3D QDA_MAX_DSP_ATTRIBUTES - 1;
+> +	struct qda_gem_obj *kernel_gem;
 > +	int err;
 > +
-> +	err =3D read_poll_timeout_atomic(qda_fastrpc_read_poll_addr, val,
-> +				       val =3D=3D QDA_FASTRPC_POLL_RESPONSE ||
-> +				       READ_ONCE(ctx->is_work_done),
-> +				       1, QDA_FASTRPC_POLL_MAX_TIMEOUT_US, false, ctx);
-> +	if (err)
-> +		return err;
+> +	const size_t off_attrs =3D sizeof(u32);
+> +	const size_t total_size =3D off_attrs + attr_count * sizeof(u32);
 > +
-> +	/* The rpmsg path records its own status, so only the poll path's is se=
-t here */
-> +	if (val =3D=3D QDA_FASTRPC_POLL_RESPONSE) {
-> +		WRITE_ONCE(ctx->is_work_done, true);
-> +		ctx->retval =3D 0;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int qda_fastrpc_wait_for_completion(struct qda_fastrpc_invoke_ctx=
- *ctx)
-> +{
-> +	if (ctx->is_polled && !qda_fastrpc_poll_for_rsp(ctx))
-> +		return 0;
-> +
-> +	/* Polling timed out, so fall back to waiting for the rpmsg response */
-> +	ctx->is_polled =3D false;
-> +
-> +	return qda_rpmsg_wait_for_rsp(ctx);
-> +}
+> +	ctx->sc =3D QDA_FASTRPC_SCALARS(0, 1, 1);
+> +	ctx->handle =3D QDA_FASTRPC_DSP_UTILITIES_HANDLE;
 
 [Severity: High]
-Can a polled invocation observe ctx->is_work_done =3D=3D true before the st=
-ore
-to ctx->retval is visible, or race on ctx->retval between the poll and RPMsg
-paths?
+When ctx->handle is set to QDA_FASTRPC_DSP_UTILITIES_HANDLE here, should
+qda_fastrpc_invoke_pack() also set msg->fastrpc.remote_session_id to 0?
 
-In qda_fastrpc_context_alloc(), ctx->retval is initialized to -1. When
-qda_rpmsg_cb() or qda_fastrpc_flush_pending() completes an invocation, it
-writes ctx->retval with a plain store and then sets ctx->is_work_done with
-WRITE_ONCE():
+Currently, qda_fastrpc_invoke_pack() only checks for QDA_FASTRPC_INIT_HANDL=
+E:
 
-    ctx->retval =3D resp_msg->retval;
-    WRITE_ONCE(ctx->is_work_done, true);
-    complete(&ctx->work);
+drivers/accel/qda/qda_fastrpc.c:qda_fastrpc_invoke_pack() {
+	/* The session has no process yet to identify while one is being created */
+	if (ctx->handle =3D=3D QDA_FASTRPC_INIT_HANDLE)
+		msg->fastrpc.remote_session_id =3D 0;
+	else
+		msg->fastrpc.remote_session_id =3D ctx->session->remote_session_id;
+}
 
-If read_poll_timeout_atomic() in qda_fastrpc_poll_for_rsp() exits because
-READ_ONCE(ctx->is_work_done) became true while val !=3D QDA_FASTRPC_POLL_RE=
-SPONSE,
-qda_fastrpc_poll_for_rsp() returns 0 and qda_fastrpc_wait_for_completion()
-returns 0 immediately without calling qda_rpmsg_wait_for_rsp(ctx), skipping
-wait_for_completion_interruptible(&ctx->work).
-
-Because wait_for_completion_interruptible(&ctx->work) is bypassed and there
-is no release-acquire ordering between writing ctx->retval and setting
-ctx->is_work_done (the dma_rmb() in qda_fastrpc_invoke_common() only orders
-reads on the polling CPU, not the two stores on the CPU running
-qda_rpmsg_cb() or qda_fastrpc_flush_pending()), couldn't the polling CPU re=
-ad
-the stale initial ctx->retval =3D=3D -1 (-EPERM) in qda_fastrpc_invoke_comm=
-on()?
-
-Also, neither qda_rpmsg_cb() nor qda_fastrpc_flush_pending() checks
-ctx->is_work_done before writing ctx->retval, so when
-qda_fastrpc_poll_for_rsp() sees val =3D=3D QDA_FASTRPC_POLL_RESPONSE and se=
-ts
-ctx->retval =3D 0, a concurrent qda_rpmsg_cb() or qda_fastrpc_flush_pending=
-()
-will still write ctx->retval without synchronization against the polling
-thread's write or its subsequent read in qda_fastrpc_invoke_common(). Should
-the writers and reader use smp_store_release() and smp_load_acquire() (or
-atomic state transition) to order and arbitrate updates to ctx->retval?
-
-> @@ -617,6 +671,7 @@ void qda_fastrpc_flush_pending(struct qda_dev *qdev)
-> =20
->  	xa_for_each(&qdev->ctx_xa, idx, ctx) {
->  		ctx->retval =3D -EPIPE;
-> +		WRITE_ONCE(ctx->is_work_done, true);
->  		complete(&ctx->work);
->  		kref_put(&ctx->refcount, qda_fastrpc_context_free);
->  	}
-
-[Severity: High]
-Does qda_fastrpc_flush_pending() risk a use-after-free or premature device
-teardown when polled invocations are in flight or have recently completed?
-
-There appear to be two teardown races when qda_rpmsg_remove() runs:
-
-    drm_dev_unplug(&qdev->drm_dev);
-    qdev->rpdev =3D NULL;
-    qda_fastrpc_flush_pending(qdev);
-    qda_cb_unpopulate(qdev);
-    qda_deinit_device(qdev);
-
-First, when a polled invocation finishes via qda_fastrpc_poll_for_rsp(), the
-calling thread returns from qda_fastrpc_invoke() and drops its reference via
-kref_put(&ctx->refcount, qda_fastrpc_context_free), leaving ctx in
-qdev->ctx_xa with refcount =3D=3D 1 until the RPMsg reply arrives. When
-qda_rpmsg_cb() later receives that reply, it schedules ctx->put_work to drop
-the final reference from process context, because ctx is only erased from
-qdev->ctx_xa inside qda_fastrpc_context_free(). If qda_rpmsg_remove() runs
-after qda_rpmsg_cb() schedules ctx->put_work but before
-qda_fastrpc_context_put_wq() executes, qda_fastrpc_flush_pending() will find
-ctx still in qdev->ctx_xa and drop its refcount to 0, freeing ctx while
-ctx->put_work is still pending on system_wq.
-
-Second, qda_fastrpc_poll_for_rsp() runs outside drm_dev_enter(). If a thread
-is actively polling in qda_fastrpc_poll_for_rsp() when qda_rpmsg_remove()
-runs, qda_fastrpc_flush_pending() sets ctx->is_work_done =3D true and drops=
- the
-RPMsg reference (decrementing refcount from 2 to 1), and qda_rpmsg_remove()
-immediately proceeds to qda_cb_unpopulate(qdev) and qda_deinit_device(qdev)
-without waiting for the polling thread to exit and drop its final reference.
-When the polling thread subsequently runs qda_fastrpc_context_free(), won't
-it call xa_erase() on the destroyed qdev->ctx_xa and free DMA buffers again=
-st
-the destroyed context-bank platform devices?
+When userspace issues DRM_IOCTL_QDA_QUERY with QDA_QUERY_DSP_CAPABILITIES
+before creating a DSP process on the session, qda_fastrpc_invoke_pack()
+will pack the session's non-zero remote_session_id into the RPMsg wire
+header for a stateless utilities call that has no remote process context
+(whereas drivers/misc/fastrpc.c passes kernel =3D true in
+fastrpc_get_info_from_dsp() so fastrpc_invoke_send() sets msg->client_id =
+=3D 0).
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-v4-v4-0-88=
-f2f24a5f0b@qti.qualcomm.com?part=3D25
+f2f24a5f0b@qti.qualcomm.com?part=3D23
