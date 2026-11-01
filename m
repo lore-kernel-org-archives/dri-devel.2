@@ -2,105 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419F7606A326
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:16:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDC6606A326
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:38:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=RcPFopmw
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W1FcLBzq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D15710E4F3;
-	Sun,  1 Nov 2026 23:16:21 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8520810E4F3
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:16:15 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-6ae14cdc63aso7512a12.1
- for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 15:16:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793574974; cv=none;
- d=google.com; s=arc-20260327;
- b=eE8T4TORG9la4DiZadN3/jhBNw9z0p4cbwUXDXzB0MJs6osSQSf9lWIxu5NKKln79Y
- slMEDgGPUNrCJsU9A3QsV8EW6Njdo8KNpELrfJutP140CC7h8LGlTvDsDh5Wx9BP/Tic
- UcPi9zWabgSkhVOvHIjBJdZdVlu2Kaclx40hHJKKkqja2eLb9P/Vzig6FDQIQSdAnQkk
- C545sU0bSF82dXLyFDVNTOuIkYdcb9GedopLyy5AQcZRCu0SJVSHgffTHYvSS0qVJn0s
- SIi7K8htuik8FRjrr86aRkp2iG8ZWe0dnrKucODYzXmeaLvoWcO6KEO3Bzmzdj0LlB8H
- 3RQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
- fh=+9TrFTfrJYazmT9Pipi0F81pjAcROGKFusZbTAVcR5Q=;
- b=oe9B4sd8//RUuUdBHLBBt1ui5WdJXS9dqnQG4F5hUbVaARbkHpe+9qCcxU/HrNuadR
- mQTJa3TxplVuwfydpk7Z3/mCOZvf7z3PQuYlJoc0OZhrEDij8XdGg/d7E/42cDSYGsT1
- jr/ZpC11QdsSUaktaVI1tesuRYlA1MzBnqkbb3a91U/3e07JUt1Oyv2xiLj0HUYpvZcW
- xbr3PyVgCGrN9N/2wdQy1RzcpkK9vIGKN/oWOAksI1URtkP/OSjJW9hsiMGyV009rI9m
- deP8Rr6TUAXmG9Lj1uAztmx7NW20PRHPEN6G9vApsS5BxlEwRUsVRR38L05C/RJoPPV2
- lCMA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1793574974; x=1794179774;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
- b=RcPFopmwgXYmQFsYru+sA7kn6IXhVk7XbANoUiS3xLHkW9AYJyjhOqcYXIaJQqHCnS
- qe2ZLDlR6Rl43fownNhoyh3wmmgxvyRQxbGikpkobYjXOwgFQSpuXXTmM/UbsH2KfiBx
- CueFO96C9TY/M+Q7vak+UrCoGThXLBtHg9R4iHqt+ODfl0xdY8ulRfpET52XhNo9QnC9
- IyYctR8H+rp0YgpYpC9zmuL/2xOcUMiW1k6/KQ2IqN/lC3WS7jGVrz7lT8y+8NAi94XC
- T3bwbOiPcciEz6RzSzzYi3FDaZY63LEmdBJ4zBM99zJpz6JnERjEnLxrujLyKONmD2Kq
- 53Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793574974; x=1794179774;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
- b=GSM3bKrRdh9DFmJ3Hn2gfHPTzW7fwZDqHH3wDvMso4gtheX2HGXIjiJxcGlV6Qkdfa
- +TfkNLvgKSmt/UCnmCsFq4BMX7LrI0sfH7shxEvF+t+06cAgw2AKRgVuMdwHn27TWUT+
- 8uVXfFsVRia8h28kTwJ6NOxgqTWnIvSiiw03xcYENwdjq+KPn1faDVdIyw7q7vqgph53
- +B2D4STiGCOzqAVWtg7byjaeg7rK83AAZBZ59AbaW/hsqOeSdUyCPbeNxhpS+5CyiMX4
- flPnI5PCKPeyfuBMOXMeLc/XRPIa2q1lQk5zcITQfNBmhV3ClGhIlUEYH9zcCMf7kfAK
- IgwQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvByLjrbZnaMY877EZD8+NHEVGnpZ67ZMGsJEsKiADu1uWSp7/UH/wLnfAGNXoC/bAVj2GIx341wKC1g=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8CTm6u4ZQoV8kMFgcnu5vG+oDzbI1YRnier/enK+D98ndEV24p
- 8fuDMMlOu7UhPntrYYgdqi0iQFiCBQYaR5jdCtuY1QhwmjIVyKn5F3NwlqtAgVptObbkQQqPzWl
- g6Cpju7ITTf3U3hyl7RoJpOczU6ELl1v/DP8PVwSk
-X-Gm-Gg: AYBFou1Ej5RXNhlyuV60I1BsZLe107WNhOXuHted3xNrbgFzrWz4/TXIKh4fNOVpCFM
- U1meryAJmaKTuJ7Rx/aHUPoUk4Tv5JC0pHHVIECPfe5KuAUVgKOdPjkwDBvcfUrJxlPH+5/aGUd
- RknELth5EoFXI4dqMXCLzrBDTAAjUffPLFb/X4Eb2+5p0EoNVWIj9wzD79iPYdyfWz1OkU7PElZ
- f3lrzPNcBTuoUecwQtAohPPR7sBRzWJ751WD/iWDXiC3+yLAiuxGDm04v3/ZHBUcR6i3gKyobnp
- uXXiTqdXIcU5xVnUdrCc+uwHSny3v7WbsAFsJDtqByzC4J/5nxMP6U1zWcjh5ts0rKaBV5r5pi7
- lJvjH/4S5qVwu6vZB9tUD7LGEUno0rdXxydCXtwA=
-X-Received: by 2002:a05:6402:2154:b0:6b3:f12d:7405 with SMTP id
- 4fb4d7f45d1cf-6b4b42a63d3mr252843a12.14.1793574973443; Sun, 01 Nov 2026
- 15:16:13 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261030083539.777877-2-almasrymina@google.com>
- <179357408146.3131.2882435952119280563@kernel.org>
-In-Reply-To: <179357408146.3131.2882435952119280563@kernel.org>
-From: Mina Almasry <almasrymina@google.com>
-Date: Sun, 1 Nov 2026 15:16:01 -0800
-X-Gm-Features: AclHuK_Z0S06xrAeAq_HAO4Ko_jHw-2goCa0w2rOFRiQDckpwHJNSPwxMM9jz2A
-Message-ID: <CAHS8izMt+5HBjkOOsb-FrwKoXxEBuDn=gf5p+64akYS=SAoQrQ@mail.gmail.com>
-Subject: Re: [PATCH net v5 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, pabeni@redhat.com, sdf@fomichev.me, 
- kaiyuanz@google.com, kuba@kernel.org, bobbyeshleman@meta.com, 
- asml.silence@gmail.com, dw@davidwei.uk, ap420073@gmail.com, 
- davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, shuah@kernel.org, 
- sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
- andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org, 
- ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org, 
- tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BCD010E032;
+	Sun,  1 Nov 2026 23:38:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 139CF10E032
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:38:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C6E1443695;
+ Sun,  1 Nov 2026 23:38:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 611A91F000C1;
+ Sun,  1 Nov 2026 23:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793576292;
+ bh=qDEkJ+y7fTxS070doIg4meeeWl+CCzsZV4heyjcpoSU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=W1FcLBzqM8BVBVSfwWy4Lp7mzUQquycCHMhsTyTBhGWnVGGBZswcnGdUFRF7+vdyJ
+ yd0TpUOgQSJq++xnMSgMDsJuUAsK2LMVSer6aHzN0cbNjszAFFkWsjGOUMI5S6KeQU
+ zHSq+s9cr/3lHhmTyZqu5xahZ/x6vTI1rVD/VZuDLnQkrDZwf+DfqIaRs2U0NrRuv6
+ 2A5wPfZ4u3wFAWIuAPrA2E8CEW6XuXPMK1wGFb0EVekHQDZm/tsN0AKtzcALe9yBnM
+ nnerBFyPGDxDmpU19Wrkf1LI3kb/chod8FVrEpTuFMYe+6cFsHbZCXrejSwfAGxdJu
+ /SNV3O0puP4HA==
+Message-ID: <sashiko-outbox-192758@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 02/12] arm64: dts: qcom: sm6350-lena: rename
+ touch-en-regulator
+To: erebion <erebion@erebion.eu>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261102-pdx213-upstream-3-v3-2-cdc3be96d257@erebion.eu>
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+ <20261102-pdx213-upstream-3-v3-2-cdc3be96d257@erebion.eu>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Sun, 01 Nov 2026 23:38:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,39 +50,111 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Sun, Nov 1, 2026 at 3:01=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
-e:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 (1) =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] The dma_dev use-after-free this patch says it fixes can still
->   happen for RX bindings made on a virtual device that leases queues,=E2=
-=80=A6
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: qcom: sm6350-lena: stray unused regulator-lcdb-dummy=
+ node
+- [Medium] arm64: dts: qcom: sm6350-lena: invalid led-max-microamp in pm615=
+0l_flash
+--
 
-I know about the issues with leased devices. That needs a bit of a
-rework, which I have done locally, and would like to send out as a
-follow up fix.
+commit e7731bb19fd5c211a5eb8caeb5f7301cbd391239
+Author: erebion <erebion@erebion.eu>
 
- --
-Thanks,
-Mina
+arm64: dts: qcom: sm6350-lena: rename touch-en-regulator
+
+This commit renames touch-en-regulator to regulator-touch-en in
+sm6350-sony-xperia-lena-pdx213.dts to keep fixed-regulator nodes sorted
+together, and also adds a regulator-lcdb-dummy fixed-regulator node.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
+b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index 6942a117d41cf..9295b2e6f179f 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> @@ -46,7 +46,16 @@ key-volume-down {
+>  		};
+>  	};
+> =20
+> -	touch_en_vreg: touch-en-regulator {
+> +	lcdb_dummy: regulator-lcdb-dummy {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "lcdb_dummy";
+> +		regulator-min-microvolt =3D <5500000>;
+> +		regulator-max-microvolt =3D <5500000>;
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +	};
+
+[Severity: Medium]
+Was regulator-lcdb-dummy included in this patch by mistake?
+
+The commit message states that this change only renames touch-en-regulator =
+to
+regulator-touch-en, and nothing in sm6350-sony-xperia-lena-pdx213.dts or its
+included dtsi files references the lcdb_dummy phandle, which results in an
+unused always-on fixed regulator being registered at boot.
+
+> +
+> +	touch_en_vreg: regulator-touch-en {
+>  		compatible =3D "regulator-fixed";
+>  		regulator-name =3D "touch_en_vreg";
+>  		gpio =3D <&tlmm 10 GPIO_ACTIVE_HIGH>;
+
+[Severity: Medium]
+Further down in arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts,
+is led-max-microamp in the pm6150l_flash node configured with an out-of-ran=
+ge
+value?
+
+arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts:
+&pm6150l_flash {
+	status =3D "okay";
+
+	led-0 {
+		function =3D LED_FUNCTION_FLASH;
+		color =3D <LED_COLOR_ID_WHITE>;
+		led-sources =3D <1>;
+		led-max-microamp =3D <1500000>;
+		flash-max-microamp =3D <1000000>;
+		flash-max-timeout-us =3D <1280000>;
+	};
+};
+
+In Documentation/devicetree/bindings/leds/qcom,spmi-flash-led.yaml,
+led-max-microamp specifies the maximum continuous torch current, which is
+limited to 500000 uA for a single channel (or 1000000 uA across two ganged
+channels):
+
+      led-max-microamp:
+        anyOf:
+          - minimum: 5000
+            maximum: 500000
+            multipleOf: 5000
+          - minimum: 10000
+            maximum: 1000000
+            multipleOf: 10000
+
+Setting led-max-microamp to 1500000 uA on a single channel causes dtbs_check
+validation to fail, configures the continuous torch current higher than
+flash-max-microamp (1000000 uA), and causes qcom_flash_register_led_device()
+in drivers/leds/flash/leds-qcom-flash.c to clamp the torch current to the
+500000 uA PMIC channel limit:
+
+	current_ua =3D min_t(u32, current_ua, TORCH_CURRENT_MAX_UA * led->chan_cou=
+nt);
+	led->max_torch_current_ma =3D current_ua / UA_PER_MA;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-pdx213-ups=
+tream-3-v3-0-cdc3be96d257@erebion.eu?part=3D2
