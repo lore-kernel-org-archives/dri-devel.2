@@ -2,91 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D8F606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EF3606A324
 	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SjJsJ2PF
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V5qpUFHP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D20D410EBC4;
-	Mon,  2 Nov 2026 08:04:02 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78AA810E032
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:37:25 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4a35a60499eso23605355e9.0
- for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 15:37:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793576244; cv=none;
- d=google.com; s=arc-20260327;
- b=fUZJpHThbM1UX0ctmo6yebkzcjFGTvW6mHLWTlcE4PRQGJak2MmU+yErm5TNUoPtsj
- EzIp1tvRzgTDifK6FfYTDbPAb9I/dcT1gis/B/6+2TbWB3PEOrDxxtyk4VIX2SoG0/4K
- EZv88VbmMx3ugFLtU+3h7dKNNBREbKbveSs0yq5u7UmQKQT8zK9QrQsBvXEBKWJyPhSI
- gWxQLfBiRihtM3wnDLSc+CgR01ehWpc9CTZzG03oxMM7eQbtQEFGoJJUEd3OchG3ok67
- 4+0lIW5A2qtF/ilV0f/sDxaLKyF51WagIBrqZGULW9MV0di2Ou0Ye8lFV1bWdvZTtp9q
- 2vYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
- fh=v7y54melwGR5zJ/m8CmQBpCEi2F8Ooyw8NXM7WTHqQc=;
- b=QpEYnuueDPVW7nSqOzo9yMityJ+VupaH8v4aylk3W+xxVamykvOICPJxG4zW/J8GZk
- 3zvhBAd0nVO98UhLrHIjUZx6e8QicM1jjp159i1bHKtlGUGZCc/OpLr3fFln5LPudEhX
- 9QsX/u+HrnaeUH/gvua9l8oonLtdUubqQZJwmE2CuitTm9B6910LfLk0Z/Zt478zLx65
- YQad4/YQ0EQZPMW7T+M3xvQ3Vix9/lZvUDEck2YBnE1kjnzRuyysa1ENw/oromMh/Jgj
- haUhRp6SX+Cfz1+CHelRCvGUipdPVKIP1ilyo/nViQTk/za2shF4fv3s3ksE8+h0jAAy
- CnFw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9395F10EBC6;
+	Mon,  2 Nov 2026 08:04:03 +0000 (UTC)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95C8F10E3B9
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 18:00:53 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-3ae691283ecso1058515a91.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 10:00:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793576244; x=1794181044; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
- b=SjJsJ2PFQa5Bcv7PUbUgpRE0t60QeXfn1ClzbdhA9Qi9Tl0KDw2kpv9ua9eo0ZdxNz
- sKxOuYKr1iXhy6SrOY/W2yI3nHaxl3S1ivM8gXRo2SgrwkRMBfTaJ0hlAo8HmlCVWLYE
- gSZljv0oZMaxQXlCqVPsUlYorrm++nL5di9aYZfIXPuPTwIVItUaP+KnXTb1UhR8vPx0
- SKK7wECon7WtmwzfOToZvckIV0BLTBkpqP1lcbghV0/LxseKw46R5Sb+K5/fbdvrnrXr
- HH8yeSCkJXd4Cnmwqd/m3f5itOl+gkCUgzkjuR6Gn+u02GDot31FssMjfE/NwtDaDxPa
- bDSQ==
+ d=gmail.com; s=20260707; t=1793556053; x=1794160853; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=I/g7B1/2uK+SOUUXwB/iWNiLNLGu8eYWyxjyco9QARM=;
+ b=V5qpUFHPNlJEIRuY8Vm1fN+RmhPwEy7CpbTXGNZhwMoaycE1cITAF1iG5gpe57CItS
+ k/pvwSvxJHNfH8xD1ekKthXw2rcBG8Kt4XJrqs9aCcvY9vumugvLmY+UIIoYapOJdWYI
+ kR0oXMJ1gslecuf6TL8CGsyrlqcs3O/ZWgqGve0x8xkOz8t+vrX1frpBNYQGHao/LlII
+ n9dlmeh4eYdrzIHmdxrQhtdA/bteTLYyBXTBW5Zxt3DekYA8shMCWFBzKi9UWtE1yfxC
+ 0MwZTg7/ItFUseGak74LcsXa+yMYCqfquJsCdczQsylVAPxWCvAsZJO9Q1BOCVjWW5/1
+ x1nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793576244; x=1794181044;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
- b=I9+FzWlkj6w7Gs5mp/5/VPAignKV/TIABiUB87UMW+zxFjiAUaOVcJ+RP0Rcv7SHDh
- p0vDW0q/8KXJP0M9M3pdYMQYQIn25dLjquYR2Sr0rtPOvUhqnSyPNxGhpHglMkgRsP0P
- wUSx4rXtUGt+BBl2yH1hWf4OzWiBWSxj9RP2OHDhnNEuu/H7EzYU/GLMuEzG4k0Dh3Wm
- jVkpNz0yHqiqCc7i5H/fcvXrC3wCInyQU0QQfX0L/6GXDilttsZt9QprEMECifyzWIM4
- guxN1gK4RZ7CeSD/SIisQDSy52OUz3p0XgeUF4BgpfnHtIA8VQtvmATgpI09GhA0H8oT
- UMkA==
+ d=1e100.net; s=20260707; t=1793556053; x=1794160853;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=I/g7B1/2uK+SOUUXwB/iWNiLNLGu8eYWyxjyco9QARM=;
+ b=UmNZyo/JdBZpmVVu46XsRBGkvOYwf5/yfTyIoc9elVpbpRdJvD/kGbKCTqIQ/Kq1Ju
+ kIYUFKxSdbLnxd6qehrkOMKSQsXJcG1qRmBmdGH8goJEDm9qOdP9Kq0naa/lHNcOgiVj
+ Q9Z2WcUnzZGdIvquqqfQ/luGm3ucmBHGB7OSHGZ/PBDeFmsDoLhZiEX/XHlzwE+HDyA4
+ TyX3r1586sSn0wrjUy54CcNKV1zPhZgDpzx8z9QKgm1oKIeCw3ODLST1JwVRFi/Sy7Xs
+ w7B4HlAOzIdJZG8wU1LyEwAuTsbfTzwQG8X+WcWF0rHwPvv2P+JYY2bYI1YncvrXUCDl
+ gfYA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzHIAGbO1i9nqS5u70Nme7VIWZyxzMt123i0u0OaoqrumQHwPxDHI5x7564kYaLLwqHuMnhUS8Iidc=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYL/qRZgucZ6U79I1R1X3UtdtvlwvMof06kRpJXT4EWFM4EtB7wQ
- GIh5ZTWJtEzXixnqqG/UwzxmFi3rYfSVWss+EV6QwQTc3INfrK1pe63p5Uh+jFFuquchQKQgF2v
- oimTd17lh4MOodhjWKZyx/iF0wXOzZPA=
-X-Gm-Gg: AYBFou37gTNuBT3Iu6RIcA0DkqfD0jplibm1uvqhrGRIlbJuG7hgDLA8v0Fdb7kJt37
- 4xrJbks6DwU6EGir1SOUbORrqH6SmZqmcSnVJqo48V20R0TZ7C3xXVYTKTbd+BmOTUEcPqwkW+J
- +kkvWq+qE85ucGSEp8uPX/sDyjAifdX6s2uWj1m4OP/tceSzhEYtFruOnOs9cslBDeQ5BanOfVI
- f++MCLdSH4ujV3CsG9+ASAJdk3pVuYk496v24YGdAxoub6+v8btnNvNYcTLfxWLYG+2aB81g9Cw
- MwG5LYwnljsjTkpOv0x06qaexqrdNnfgghiAvaCSili+hCYMnEvrP+ZXCxE0ga9tzE9Y7srU1tw
- H0WZ9rcqGF1RsFAvAFusFQWKQYHBh6VjUvvFczr4=
-X-Received: by 2002:a05:600c:6089:b0:4a2:a8c:22b0 with SMTP id
- 5b1f17b1804b1-4ac14ec75fbmr185544245e9.1.1793576243659; Sun, 01 Nov 2026
- 15:37:23 -0800 (PST)
+ AKwUvBxuJipOhxRDT/WZ5dYhRjkTGoZNVv14N06Llg2XqTFaGFFMll68yDtT6oqy/wJ45/TCpiFB/zg/vdE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+PvXeNZrGoY1RynW/8t5yOjt2gsZGLSXq6YtO/D8J7k4GQM1Bq
+ 18Kioka+IX7k3KyZfKl4KJOSMTkoQo1lTaoGIBBrTdIqAf/78XRkz3Xq
+X-Gm-Gg: AYBFou2GtAI+Ehd/KvFkfQ3CFCqJVVBePN69uSB/OcX785b6+fA4zQhBP8KHg6L5eCt
+ xHXPzNxNr18JLj7PAj4XH+yRhoP4rqs/WNPA3LM6TC1lkS+rpooY9cku4ertRKGPAnsVw4TFM3A
+ UQaxPdGy6lbj78uI7nZ+xpo9TI1ImVAaUIpCbFLRMNCXJa7gOPbsvttVODN8d8zYhNRAVIDrG45
+ Q2+A/tZZdnRgOJ7xKkYtNprSbfbzKFq2xM9I1JQ6wRbaf6ckb76a5kaxtyp+hmVKhaBbdEXOxMl
+ oqs5iX6JI1B/B30lIucllp4Ynrd2l/STWp1v4eiUGn9/DPG+UBowK8ehShY3uLqtSAXX1EdqIr+
+ OC4Wvx+qIi9jPMgZOKWCDzdtxTJZjJZ7/NZ/piQ8IEYa/REmAwVk7y3hfRbPPzasXG1JXb12sJu
+ qvRs3Oj0lMVF/6edteAg63NzrMM0wCu06QkQk/QqY5y4ZvRhSEmbRjrxWNrWZt/i+d0Zc7f/u/d
+ PkUgTQ2Xuf2hZ0Pr2qeQ4l24MfpUzXxtoxhBbl7vmoEqXPCpgKo3PgPF7nxfZnX5E6VUethkU4a
+ k8uQJv0dP8RHVO82ADip1Q==
+X-Received: by 2002:a17:90b:1b0d:b0:3ac:36c7:c144 with SMTP id
+ 98e67ed59e1d1-3ae89776936mr4446077a91.28.1793556052975; 
+ Sun, 01 Nov 2026 10:00:52 -0800 (PST)
+Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3ae6e949077sm15194159a91.9.2026.11.01.10.00.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 01 Nov 2026 10:00:52 -0800 (PST)
+From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH 2/4] drm/msm: free the crash state asynchronously
+Date: Mon,  2 Nov 2026 01:55:51 +0800
+Message-ID: <20261101175553.53746-3-nicoangelodelacruz@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+References: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: Arnaud BERTRAND <arnaud078@gmail.com>
-Date: Mon, 2 Nov 2026 00:37:11 +0100
-X-Gm-Features: AclHuK9ns4XBGZ7zNo5bqw4a_9l2SxlgD9VWWmJ9YT0QG78bE9OgwzMy8CJwXYU
-Message-ID: <CAGxFSwnBDM93ouN6Aq2ppm5zF1h19XE6NJ92NT2UEhMP1P4xEg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: add firmware file fallback for APU VBIOS
- discovery
-To: Oz Tiram <oz@shift-computing.de>
-Cc: airlied@gmail.com, alexander.deucher@amd.com, 
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- simona@ffwll.ch
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:03:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,27 +96,114 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello,
+msm_gpu_crashstate_capture() sets gpu->crashstate and calls
+dev_coredumpm() while the caller (recover_worker() or
+msm_gpu_fault_crashstate_capture()) holds gpu->lock. When devcoredump
+is disabled (/sys/class/devcoredump/disabled, a write-once knob) or
+its allocation fails, dev_coredumpm_timeout() calls the free callback
+synchronously.
 
-I have two dGPUs : a Radeon RX 6800
-XT and a Radeon RX 6800. They both report the same PCI identity
-1002:73bf and each has a different VBIOS.
-I hit the same VFCT bus-number mismatch on 7.2.10, but with a different
-outcome: on my machine the device-identity fallback actively breaks the second
-dGPU.
-I patched my kernel to remove the fallback, but I would like to have a
-better solution for my use case.
-Would it be possible to apply the patch only to APUs ? That would keep
-Oz's APU case working but a dGPU with a stale bus number would fall
-through to its own ROM, which is the source that is
-guaranteed to match the card in the slot.
-I can provide more details if needed, I am out of my depth here.
-Thanks
-Arnaud
+msm_gpu_devcoredump_free() then calls msm_gpu_crashstate_put(), which
+does mutex_lock(&gpu->lock) and so recursively takes a mutex the
+caller already holds. On systems with devcoredump disabled, every GPU
+recovery that captures a crash state deadlocks.
+
+Defer the put to a work item on system_dfl_wq instead. This is safe
+because msm_gpu_devcoredump_read() takes and drops its own crash
+state reference, and the work takes gpu->lock normally once the
+holder has released it. gpu->crashstate stays set until the work
+runs, which only means a capture in that window is skipped.
+msm_gpu_cleanup() flushes an already queued free before teardown.
+
+Tested on an Adreno 830 with /sys/class/devcoredump/disabled set to 1:
+IGT msm_recovery gpu-fault recovers and the GPU resumes.
+
+Fixes: c0fec7f562ec ("drm/msm/gpu: Capture the GPU state on a GPU hang")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 21 ++++++++++++++++++++-
+ drivers/gpu/drm/msm/msm_gpu.h |  6 ++++++
+ 2 files changed, 26 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index caa86279f..fded78fdb 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -175,6 +175,14 @@ int msm_gpu_hw_init(struct msm_gpu *gpu)
+ 	return ret;
+ }
+ 
++static void msm_gpu_crashstate_free_worker(struct work_struct *work)
++{
++	struct msm_gpu *gpu = container_of(work, struct msm_gpu,
++					   crashstate_free_work);
++
++	msm_gpu_crashstate_put(gpu);
++}
++
+ #ifdef CONFIG_DEV_COREDUMP
+ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
+ 		size_t count, void *data, size_t datalen)
+@@ -215,7 +223,13 @@ static void msm_gpu_devcoredump_free(void *data)
+ {
+ 	struct msm_gpu *gpu = data;
+ 
+-	msm_gpu_crashstate_put(gpu);
++	/*
++	 * dev_coredumpm() calls this synchronously when it can't keep the
++	 * dump (devcoredump disabled, or out of memory), while
++	 * msm_gpu_crashstate_capture() holds gpu->lock, which
++	 * msm_gpu_crashstate_put() also takes.  Defer the put to a worker.
++	 */
++	queue_work(system_dfl_wq, &gpu->crashstate_free_work);
+ }
+ 
+ static void msm_gpu_crashstate_get_bo(struct msm_gpu_state *state,
+@@ -899,6 +913,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	gpu->dev = drm;
+ 	gpu->funcs = funcs;
+ 	gpu->name = name;
++	INIT_WORK(&gpu->crashstate_free_work, msm_gpu_crashstate_free_worker);
+ 
+ 	gpu->worker = kthread_run_worker(0, "gpu-worker");
+ 	if (IS_ERR(gpu->worker)) {
+@@ -1047,6 +1062,10 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
+ 
+ 	DBG("%s", gpu->name);
+ 
++	/* May be unset if probe failed before msm_gpu_init() */
++	if (gpu->crashstate_free_work.func)
++		flush_work(&gpu->crashstate_free_work);
++
+ 	for (i = 0; i < ARRAY_SIZE(gpu->rb); i++) {
+ 		msm_ringbuffer_destroy(gpu->rb[i]);
+ 		gpu->rb[i] = NULL;
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 5cf220f75..db9e11e7f 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -258,6 +258,12 @@ struct msm_gpu {
+ 
+ 	struct msm_gpu_state *crashstate;
+ 
++	/**
++	 * @crashstate_free_work: drops the devcoredump's crashstate reference
++	 * outside of @lock, see msm_gpu_devcoredump_free().
++	 */
++	struct work_struct crashstate_free_work;
++
+ 	/**
+ 	 * @recovery_in_progress: true while recover_worker() holds @lock, so
+ 	 * that fault capture and GMU waits don't wait on a fault devcoredump
+-- 
+2.53.0
+
