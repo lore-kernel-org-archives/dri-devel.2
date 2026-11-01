@@ -2,88 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580C9606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 08:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E35D606A325
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 08:32:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=F1OyosDr;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qTFJaxHy
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=Rih48zGU;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kElps4Rs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8591010E3B8;
-	Sun,  1 Nov 2026 08:31:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6C5410E2AF;
+	Sun,  1 Nov 2026 08:31:54 +0000 (UTC)
 Received: from fhigh-a5-smtp.messagingengine.com
  (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA5EF10E3A2
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 08:31:32 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfhigh.phl.internal (Postfix) with ESMTP id D3A331400311
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 03:25:37 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Sun, 01 Nov 2026 03:25:37 -0500
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B1FA10E3A6
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 08:31:43 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 77C091400302
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 03:23:19 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Sun, 01 Nov 2026 03:23:19 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1793521537; x=
- 1793607937; bh=hehxHz+XcJJW1FfdyU2uS9OwIFl/78x/QxuIZj8So2w=; b=F
- 1OyosDrqNCkSP2mO/T96AAcCe/M94LZvmx0/bUH+gJ2UfjxYG8kB2TFHdde3LpEx
- EIyKA/0dEhHHpon2dU7nr1Dp9+KcHS2LwTkrd7Yauy28PXQkjI1v+kgW+0rLoacP
- XRFks2/GElmgI6n7Z59y2tQX8yygjXUZTdJ7rV8WqEhvdGsGVSi4X5GjDXMUjVTz
- 0bwUExMRrBSdxwrpuiCBuxA7ODrM2Og77LTU+MXf3ZInBm8mWOaNTS0SZgcYMTWY
- VQ3QuL/HIaX1H3u15OsvB/X9LFXildzSwAMTPd8s1N4WEwn2Isz5ipjLpHbigZhD
- WpEblTPbQftNI8oiS42OQ==
+ :from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to; s=fm1; t=1793521399; x=1793607799; bh=MnTtWEka6k
+ utfYJwgJvEjF90nDWSHBdCA9nwS6OCfpo=; b=Rih48zGUsykjIjP86RVuKFob6A
+ +1VFaTn0Jc2eFltzFUIN/udh7GWPfwJKtw2N7V5RoXyIRD6FlNmR/iqzpdl284Iz
+ 5+mNC3F6VGhoL27Tj+Z0JJa3G93tt+UuDYUMUtZFK1//hhuv+TztQQtLzDP/eNz3
+ uef5GWwJSbKOs38b545coHcZzuv5NRDOniiRPDX2LZ4cA/bp6785w86pQVvjiW0t
+ F2epHhfLGWQkKLVMzbWXqE2Zp/UHqhDFmnQHSCb3R2mQOhlnIeSCgj2ZIu+kD/YJ
+ SQ75h1O8Ceaj1vSFW+fJGlYZimr4RoOZVXg+12sBrqUEPoPAKjuFCmF4aWUw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1793521537; x=1793607937; bh=h
- ehxHz+XcJJW1FfdyU2uS9OwIFl/78x/QxuIZj8So2w=; b=qTFJaxHy++nTNAxsG
- A0nIBUSdk2ymDVbuQltMsu76UTLhEhPioIW+9ZbtQFv1zfkZpDrMMfjSjuZ418TV
- 8rhUTLfkLL57SXA9krgEJQu34nEd4dL6SRBWqY5DTMXYhrb7xaHUPS86WY/E3Vgh
- iFY5kkB2sm+xL4p70lG78DQlO1evGRuFM8iKff+tVvQ7OMPtGnwdqXX2qqyUPXiB
- B0v3TAcGZCkkzOOWsnC4p1S6I76iE3U4xgCxcBiX0P1vrqIEIzuY8JSusHejjANz
- WRSqQsMizGZUbSc9VJs1Z4lTT8XxxM2F8gOXBfOIqNiLHL3x0tSdL1liQp7Zwc9y
- wM4SQ==
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1793521399; x=1793607799; bh=MnTtWEka6kutfYJwgJvEjF90nDWSHBdCA9n
+ wS6OCfpo=; b=kElps4Rso5gKnV2hvq4/8UaW+2sWUdsaffunly0bWyyHMH7UvtY
+ qYkhePIxtbvMv9mNDB/Ar0QOp1X00IH49R176azXGS1cyOXCei53JYK6g9n+yB2a
+ TvEYk58PJASCIvUuaalNPuwb7T8dr8JoOIlLDVjdPOKVdMrlG+VhbKaMCkwdIJi2
+ P5L0+pEHV8PAxZ107R15dKWCd9BHyLPqCRqNenXGxJPMBQ9CrCovHmd3CO9U92Ba
+ lbHM951HZJVGby4ZkRWME/WlsocE+M5JqG4FA9Nrn7fEkQiuD+tWNZ27m7HA5MSj
+ reEbGrD1w0nWbAn7sed+iK4hlIPHee3BCfg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
  repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
  action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793521537; d=gahingwoo.com;
+DKIM2-Signature: i=1; m=1; t=1793521399; d=gahingwoo.com;
  mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
  rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
- s=fm1:rsa-sha256:N5xbY1fg9GK0v5258AkOGAUdqpsSaDCZB22mVRkM1BQkG3B
- XFJzGv7CVUDjtQTfSuXwKuVaFD5jSY4tZjSRVBB0a8je1xRZLOenf7Lphuc/xc8x
- ercQ77izNc6/eHfaLm0KVkBkifYM5X9oLQ6OMpYPDFw8PHv+duXM8l9iBJ64vOt0
- RJmtH+UHHRdMdpoPwx4Ae80o4ri5vFVqtYGTUvZ2syPe995w2eiASBHak3MFVjxz
- O0fiT/4MYE3JIS4ufqo52qIsgDdnd3dpRrAr3IxFZva4Mm1Nkp2EC6Ug933ma8Ir
- WLSLiwfQIjtGfzInNJk0VxCGixRh//1iKolc70g==;
+ s=fm1:rsa-sha256:WkjUpSZawlhVjweboNymD3ISnW9nOpVDiXab18bNISDprHc
+ 4tQCGJjJmRETgsxmeKM0jgTM//onYraeK2Vg/Nc9wHgh9Nil/yJwJDdkpLZqMzau
+ M3aEbHSzl5Hjf6vgZ7CtVsT9cIITqDA5CvI0t1Tk1chcC2UGdCYki6H1sQlv9gBY
+ WWtv1x/sVnSwtk17YiCA9uP/NNM1ScO0ckP98Ygz4VODhvXHwpxCtI8NKmvzneYq
+ HLn7MU9CdRbaBze61IyPoJ0UgdSrC6koehCD0A54zw4BGrFa6QmB4WkLmYwJ86y2
+ grVfvsB+ZBSVCxgl4dqJOATXj4+qb5TE0a+jLLQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
  repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
- action=mi-m=1; hc=11;
+ action=mi-m=1; hc=9;
  hn=cc,content-transfer-encoding,date,feedback-id,from,
- in-reply-to,message-id,mime-version,references,subject,to;
+ message-id,mime-version,subject,to;
 Message-Instance: m=1;
- h=sha256:1T9sEsn4stlUbzvAo1DFzO6Y7bqkN0G4xf3cjg8UAQo=:IqkVwNLAKeppQo2g2DvGaDvnWrMWjd1zZ8rdYrfeZr0=;
-X-ME-Sender: <xms:gffmahYGOE_EauUhvicO8XtzULw7C5fQNLqTYVpU4rVBgrh5NEEXOQ>
- <xme:gffmaqv_k13JP6UAXJCKr562AbN11_ZJ0tnXaZgKADVd2yoMwpXngp9j-opPebzAw
- _0vXrDBLnSbvwG1GorKpV-22-NXR7CCCzFnfkuQtpfRt3xqR2C6O1ER>
-X-ME-Received: <xmr:gffmairbLuiQYok1wTYMyFe8pgPXFHCWlY6EGXjzUd2BcSCyUKnB9-6QJEPrPbJMlb4i98aB>
-X-ME-Proxy-Cause: dmFkZTETy3iq6shVyHvrvogT1vA3sVBaKllPQ1wQ4LJMhjF44qU0s0XZ8eLq/k6yctnKst
- MQPxEHxz9rrNjy7Xu2B++/5ClKVy+wWlOe4prEQQ1cEZShiRkH2Az4aoIaQ7tW8kjSzcT/
- rzySxuLXzlyEr2rtEtR/nzCISg5bgzc2qBGIAEm8GSq2Oqw6ayxglCo+wJhexK748o/Vuq
- VCZ791nPG3/fm2XPz4N1DAOQHM301syJ+x8WNVw0p1WeHLUL/pESRogs2PT0nTCL+D/AVe
- uMFe6ZJmkMon01iwUgCmMMmKB+Akp8cbOLKrT/8zAMxMIr+tlt223iRbsj3VTWGUq6v9oT
- RmZ0SkkoTZMt0nznFQX0byctVKpH5l51DBkkRVzZLRpCfFPmAtfa8i2Yq/HdFiWlL+LRKs
- lbKUUZSzEoxM9QrNM32K0hKnS3US/TfSRW+RzArq/klP8U1SffEqabTRTa8ubvVd4o1qhW
- fdzi/G5kp6MEPddUinb+gyxFBefJoWkE85730X/MOeTYAOeWe8ZhxiT57dg7mLfuI3gG+t
- B4SZ6ed7sRz0xdMmpTkqJmr6JAI1VZ9cnT7OxFsB4NERbxVeCCI1vS/UH6i/RtYqq3g3Ct
- 9aHNwOTRPqrNPyc759Bg6rGse3d4fWrdtm6+tA1uIqNUm7mgaeKYSuebFYPg
-X-ME-Proxy: <xmx:gffmaskiwOSG4D7B8uVJkphbMrxf7kA-q2fIYWsl4Cxm8MjiOFEBAA>
- <xmx:gffmaqSC7AE6jxU7pdPlQS36gAIBIbAO_X_LUQUDEGHiyiVOTyg83g>
- <xmx:gffmatSnEibMpZl74QfEaGftsL8SHuSCWox3Bzs3oSXzl_AOYiPufw>
- <xmx:gffmaj4Dn5IIGnD9bk7Du0LTyYRMT4FmpnEaCbx-0xM6DChkH0h2Pw>
- <xmx:gffmaimeuUabua-_M1ls-3RDh_J9Ex5xFsLsFMi8RR78yxXgCL4Uh6YY>
+ h=sha256:JfG/4s9kr5LOw83hfTmWn8bZYCXatqWH/VXHwGE6wmI=:q6Wy4u1BZdM9upooJT5sWtgsT9bGNgvcJ03wEVu4wKY=;
+X-ME-Sender: <xms:9fbmajIbP1mWQ_S5mE2GVdpNbSAinStOUTKUrp6ygqK0WLyW0xvNPg>
+ <xme:9fbmapckX70YdmVsIbFaQDO8HLu-G0_y8Q1f3puDOpmnsMDxfvbmixAMHrxhz83aE
+ 71wC0TyIJ_RttXsMalIC-LwbePAqPmBeXjesrnS6dLbTvPbN_h1QA>
+X-ME-Received: <xmr:9fbmaqabaeYvmZdffbKZa-f-qW4N4lpI8_RcuC2fKq-PIzMhkSV0c3WQA_TMgUqhQBb3YOIU>
+X-ME-Proxy-Cause: dmFkZTFtjYId+Bxsf3A2Q2pEfxajwPO86MXAjNaqaO6YP6cpGoebef1Y1F7Vv3E8yXlaBz
+ LitDEEGbKAIbp/lRSbaWfBVFbUmWZYDRQD57U/2OVswLfo6yJVDvSW4CuGxWdiChPoEu0w
+ eljEKlX7TL3JzJHaOTFFrADwBjpEwv3tlFcH1w8qvb7YJT8Z5Cdiqyj/6D2JHUA2cjBPxD
+ m6fvSyozFqx1DV1TOdCngAvShhgXC1PAWWhWRt2ihBgt7NKjhMOnPIARA/0+mf59lmSKB3
+ 4vgTL0Bsj9t3KmVW7zqiKaWeEEdNNyRn3f+KtBeoX6SYteOvuwTfw+jjPOSQvuOc5LUjoA
+ j1apwFfmQO4VMCtljUQ/kw+DyO/Ir7B2o1hm2qoV1XKLWZSVCG627jEhaNlS8myYPfckZ1
+ ZeuvLVgfAlHibctijUt8Zz00NuPhsO+ETUA/9B2075fyFxwgX3c8VXbnCEy1njZdHSnK82
+ YO7Be/BCJuToq3CcdBycy1Yv0q5FtAI0umpYY4dl8kaHeAWelocGPzC1xqYum+wtxbfh1K
+ X57jKoAQVpNbtoxlKuFBMMJVpg0qg0MKlX06qUR6XvEfZnumz93Ie4jEB9msEPjgzyGwAN
+ dQY+AjRrrcZB4UePlUKsY2yEk+VW0o5SSTe868A6S0bFHMZQ819qsFfl2CDw
+X-ME-Proxy: <xmx:9fbmapV_A-frZ4p5qmIU23GRvqBH7mFcepbgl_bk1R_8jzRx-oZvLA>
+ <xmx:9fbmaoBNCvKXVXsi4sV87s7GyapToW63FDJNM70bq78k8LcYrTNkeQ>
+ <xmx:9fbmaoCv0_GuaqDLZbk_1a9LA9_IXniN3jQ9EmHXqfypIynaumIBVQ>
+ <xmx:9fbmanrPQ_v4FX_n8uHE51GfMX-y0xaZgitkfFTSqI1aBW9Z7bH64w>
+ <xmx:9_bmavVWyzs52DAMJBR3Hraur7NbEtHbgKEQrSY7m0ND9F6J47IezUX5>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 03:25:29 -0500 (EST)
+ 1 Nov 2026 03:23:09 -0500 (EST)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
@@ -98,13 +96,10 @@ Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
  iommu@lists.linux.dev, linux-pm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v15 13/15] arm64: dts: rockchip: add NPU core domain clocks
- and resets to rk3576
-Date: Sun,  1 Nov 2026 21:23:05 +1300
-Message-ID: <20261101082307.151957-14-gahing@gahingwoo.com>
+Subject: [PATCH v15 00/15] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sun,  1 Nov 2026 21:22:52 +1300
+Message-ID: <20261101082307.151957-1-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
-References: <20261101082307.151957-1-gahing@gahingwoo.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -119,52 +114,77 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Both NPU cores share the convolution buffer and the DSU, so give PD_NPU0
-and PD_NPU1 the three clocks PD_NPUTOP already lists, and give each the BIU
-reset the pmdomain driver cycles on power-on.
+This adds the RK3576 NPU to accel/rocket.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+v15 is v14 rebased onto next-20261030. v14's 12/15 no longer applied
+there, because Sidong Yang's regcmd validation added two defines in the
+spot where 12/15 adds its own. Nothing else changed, and the tags carry
+over.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index 9d9e9d7868a0..ea9229b6e6f5 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -1085,14 +1085,22 @@ power-domain@RK3576_PD_NPUTOP {
- 						power-domain@RK3576_PD_NPU0 {
- 							reg = <RK3576_PD_NPU0>;
- 							clocks = <&cru HCLK_RKNN_ROOT>,
--								 <&cru ACLK_RKNN0>;
-+								 <&cru ACLK_RKNN0>,
-+								 <&cru CLK_RKNN_DSU0>,
-+								 <&cru ACLK_RKNN_CBUF>,
-+								 <&cru HCLK_RKNN_CBUF>;
-+							resets = <&cru SRST_A_RKNN0_BIU>;
- 							pm_qos = <&qos_npu_m0>;
- 							#power-domain-cells = <0>;
- 						};
- 						power-domain@RK3576_PD_NPU1 {
- 							reg = <RK3576_PD_NPU1>;
- 							clocks = <&cru HCLK_RKNN_ROOT>,
--								 <&cru ACLK_RKNN1>;
-+								 <&cru ACLK_RKNN1>,
-+								 <&cru CLK_RKNN_DSU0>,
-+								 <&cru ACLK_RKNN_CBUF>,
-+								 <&cru HCLK_RKNN_CBUF>;
-+							resets = <&cru SRST_A_RKNN1_BIU>;
- 							pm_qos = <&qos_npu_m1>;
- 							#power-domain-cells = <0>;
- 						};
+Leonard Lausen has the series running on a NanoPi M5 and posted a board
+patch on top of it:
+https://lore.kernel.org/all/20261019090348.378183-2-leonard@lausen.nl/
+
+On Sashiko's two points about v14 9/15, I measured a CM5-IO. U-Boot
+hands over with the NPU domains on, and the power domain driver still
+probes. The NPU QoS is saved before its first power-on, so it is not
+zeroed. The domain whose QoS does get zeroed is the GPU, on mainline
+without this series, and that fix went out on its own:
+https://lore.kernel.org/all/20261101055633.101309-1-gahing@gahingwoo.com/
+
+1/15 is the patch that carries Igor Paunovic's name. It is also part
+of his DVFS series, so whichever lands first, the other drops it.
+
+Ulf offered to take 7, 9 and 10. 1 to 5, 11 and 12 go through accel,
+and 13 to 15 through rockchip. 15/15 needs 9, 10 and 12 to 14 first.
+Without 9, 10 and 13, the ROCK 4D takes an SError at boot when the NPU
+domain powers on.
+
+Link to v14: https://lore.kernel.org/all/20260924102135.92217-1-gahing@gahingwoo.com/
+
+Igor Paunovic (1):
+  accel/rocket: request the core clocks by name
+
+Jiaxing Hu (14):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  pmdomain: rockchip: add optional per-domain power-on settle delay
+  pmdomain: rockchip: cycle an optional power-domain reset on power-on
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: add NPU core domain clocks and resets to rk3576
+  arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+  arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
+
+ .../bindings/iommu/rockchip,iommu.yaml        |  28 ++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        |  47 +++++-
+ .../power/rockchip,power-controller.yaml      |   8 +
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      |  22 +++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  86 +++++++++-
+ drivers/accel/rocket/rocket_core.c            |  32 +++-
+ drivers/accel/rocket/rocket_core.h            |  11 +-
+ drivers/accel/rocket/rocket_device.c          |   7 +-
+ drivers/accel/rocket/rocket_drv.c             |  42 ++++-
+ drivers/accel/rocket/rocket_drv.h             |   2 +
+ drivers/accel/rocket/rocket_job.c             | 157 +++++++++++++++---
+ drivers/pmdomain/rockchip/pm-domains.c        |  89 +++++++---
+ 12 files changed, 467 insertions(+), 64 deletions(-)
+
+
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
 -- 
 2.43.0
 
