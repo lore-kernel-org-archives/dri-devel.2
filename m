@@ -2,85 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F4A606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2FC606A329
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L8nFT6yY
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=R/Er9F7g;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=OeqsczqF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DADB10EBDD;
-	Mon,  2 Nov 2026 08:04:12 +0000 (UTC)
-Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com
- [74.125.225.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31A1710E3B6
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:25:57 +0000 (UTC)
-Received: by mail-wr2-f10.google.com with SMTP id
- ffacd0b85a97d-48dea979eb9so1238209f8f.0
- for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 15:25:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793575555; x=1794180355; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=2fmwcgE6DPFC2W7yOeJbjLdJRykazNfLohJWxFt/Qfw=;
- b=L8nFT6yY4WzPwoZNg3r6Oowi+L/1AaUQY8wqDyBwJFCbgxccbJjwu/ymQvkyMEIY4B
- dNDqr7U72Vk1q5iKZySyFh57bO+8yEV7/6XcsfS2b+MYOxYGUFFgQ2Q0WTGeQ6w5ItTB
- esuDr99EIYmupPkfsGfHJ+dfUrMLEd/bQ/UIpoi4kxYdmHRp80fQKSWJ2j6ZGXl0sYHg
- D17emftocY3nSetIWgu8VvQX0oaTBgxbsOikr16F2XXGVoy/PtFkGQY3ROYtKFbbDIwE
- +zLSyfv8dZgWaOdQjombqCl8MONYYBXlJYBzcSWHI152n8VSIpolHbfKzokF/f9J4Z4I
- LYbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793575555; x=1794180355;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=2fmwcgE6DPFC2W7yOeJbjLdJRykazNfLohJWxFt/Qfw=;
- b=hhHtnN7EDf+0z01CKn848u1KTZoXRNDfaKkeDxQSm2VBcQJjFwlLrFSk9KtGQbF2tw
- wH0hO+vuzyOJhe+rt7P9wTlfbxuzq+mFm0QfR48l6hdvFtWGdVdeMUemkpjVcwZssTMW
- EL4vHxD8jErbdgRRVAuzPLiKR2TT6sz9pU1K4vOaQgXO85xiN8oNKKS3d3y45iURFhI+
- y16QkpwqtTzhKdILrYPZQvFl0pkq7jKHDp+52fcf61S8SBeu5EIV+NRZZ4Unk5FbvZkx
- F2j3avwCPyeGy4/SgXK+jLm/OOTFZGQpDEXlI+gGn59+UgiuftMoTomLfyDFL36ZQqXC
- F5WA==
-X-Forwarded-Encrypted: i=1;
- AKwUvByTfak9yMziksR43UmeQ3oV2+Dp59zd6kgp1oqYOHO8Va+phy+FWYtTPYCRed9qFN2+WVNCGMxVVP4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJG1GwOP+10cGeQ0AX3Ie4/Hd7Uy4dcmAtHrs3i1cbr8WvgIkr2
- ZEZN3nk+8ZmEUtoBd6PDK0G0cPVPwD1wmns+7RpPpfSJKgN/XOv3nhkA
-X-Gm-Gg: AYBFou15X2Kw4jDN6KY/+2pVjJwr4UQpDgPeIxx7nOQ0n1tfX2ODOP6sMQO8hzBIlAh
- HAvrPjGONOmsbsPtidJvhlYDMFTl6bkDjblQ8UEUJts8iIW1rz0V0YYi4iYx5WAXKCLf0+yr+r9
- agJ5Ifyg5LLs4rEuwMqpxwOBurTIGrmncqFd7cQvtZOWS7Bs9YU+6bTJl2QoRU6f1Hu55A0IhET
- CuM8QL1TVbC7SXxASzRyVWWDgeCw241zYxnWOMnttjPjCHZ8TaSAJG4EIp3zEa1zXbmbKwncBpZ
- iNPPCPPVfeEfxOG19+GC31AA+A6ieKYSiCp5EpmFAXfiFwJaQ7WakbDBapyXNdukwjVKEQ2l8JP
- RXyX40rck49Yv4cofCQMSNsRBFgxs8XlwhgEBHxhlsRAnJSJkg3j9XmmK1FEx2f9KWOZw7EspOO
- HT+3iS6N/MeF2GwrMdox2j+QJaagTJ2f+LsNgo4Qu70vg+h577Rhv4YpLh2PDs46h64WsJW9wKy
- UAeCEf7WPTLZ8+ee8h978ykceaFp+MAabqEvOhdN8bokETZgzn4wzz0fv39W7gd5SQ6++lSiQv4
- Tq3I8lQ/V27+hvqe1cQjfYfJLGbg3yh8OwUjPwmqvCxqjyocR+aylM7u
-X-Received: by 2002:a05:600c:190f:b0:4a2:1a:a11d with SMTP id
- 5b1f17b1804b1-4ac1275c26emr179844595e9.0.1793575555586; 
- Sun, 01 Nov 2026 15:25:55 -0800 (PST)
-Received: from [192.168.1.7] ([31.94.68.191]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71b9b54dsm16274246f8f.47.2026.11.01.15.25.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 01 Nov 2026 15:25:54 -0800 (PST)
-Message-ID: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
-Date: Sun, 1 Nov 2026 23:25:52 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7384A10EBE0;
+	Mon,  2 Nov 2026 08:04:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="R/Er9F7g";
+	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="OeqsczqF";
+	dkim-atps=neutral
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A17A10E3B6
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:32:16 +0000 (UTC)
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
+ c=relaxed/relaxed; r=y; 
+ h=To:Message-Id:Subject:Date:From; t=1793575934; bh=2GtmFZ7xWwQq6dRQZhCqbwo
+ +SpVMLcGB28JetKkGRSc=; b=R/Er9F7ga2WmJE38cc39HlXBT9SoFF43jahOiS0hXtXdTo9qVP
+ clx0SvqS08Oc5LwbjPJgW65Y6IpZmhAu5cAw==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
+ r=y; 
+ h=To:Message-Id:Subject:Date:From; t=1793575934; bh=2GtmFZ7xWwQq6dRQZhCqbwo
+ +SpVMLcGB28JetKkGRSc=; b=OeqsczqFZAisTCrTBexaNGNcc+leXrlRSmw7YnowX0yiQHdVju
+ zAT+Kb/3huQwGhuWrYuSJWNZNgdKx9ZvsTblQfN1N0sbVqu1D032DiO/e09xoI5n+i2OjbLaYwS
+ UR35FPkdOfvUIltRZJe/5Cifg/yqrk+AFBQTNfaFoTJfKm3GC4+4yftaoo2hh9zOpwV++RnB7mb
+ FlX6STMegqqrRUMSXvs6ZYYZQXk+5mz/CooTTElGT/q4vCm+iwgtJdTdv20Wd9Cb2Gebx/rCTv8
+ eWsVRt/AYoUaSgaQF7Ijniq7Z/QJ4jUTtaP4djZK7n923WGz++1CpxFrrQnQZaGrpaA==;
+From: erebion <erebion@erebion.eu>
+Date: Mon, 02 Nov 2026 00:32:12 +0100
+Subject: [PATCH v3 08/12] arm64: dts: qcom: sm6350-lena: Enable PMK8350
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Richard Lane <richardlanedev@gmail.com>
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH v2 3/3] drm/amd/display: report synced displays to PowerPlay
- for MCLK switch
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-pdx213-upstream-3-v3-8-cdc3be96d257@erebion.eu>
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+In-Reply-To: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ erebion <erebion@erebion.eu>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=1771;
+ i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
+ bh=q8CHITpuG6dimI2YJFcYYf/S+Li18m5ZX944pKg4gus=;
+ b=DRIodFQq77fmzNnyzVgRanHwwDSThUoy0N8XBwzXK2NF21K3kqR+yAFP60RoYf11J1t5kb9JX
+ gl5mA7+UO+xBebHE1cDweQZySOyK/LhVcFp39bOEDhvGbe6hVP57+rz
+X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
+ pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:03:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,54 +73,79 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-14.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When driving multiple displays or tiled panels with identical timings
-(such as the two 2560x2880 tiles of an Apple 5K iMac panel), Display
-Core's program_timing_sync() aligns the CRTCs into a timing sync group
-in hardware during dc_commit_streams().
+Configure and enable nodes for PMK8350 on the Xperia 10 III.
 
-However, on DCE < 12, Display Core leaves
-pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is not
-informed that the streams have synchronized vertical blanking intervals,
-SMU7 prevents MCLK switching at idle or causes modeset underflows.
-
-If all active streams belong to the same timing sync group
-(timing_sync_info.group_size == params.stream_count), report
-all_displays_in_sync = true to PowerPlay after committing the streams so
-SMU7 can safely downclock MCLK at idle.
-
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: erebion <erebion@erebion.eu>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 30 ++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 74cd88d8d580..b4531383437e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
- 	dc_exit_ips_for_hw_access(dm->dc);
- 	WARN_ON(!dc_commit_streams(dm->dc, &params));
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index 61e191133cb4f..246a290e44f77 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -8,7 +8,11 @@
+ #define PM7250B_SID 2
+ #define PM7250B_SID1 3
  
-+	if (params.stream_count > 1 &&
-+	    dm->dc->current_state->stream_status[0].timing_sync_info.group_size ==
-+	    params.stream_count) {
-+		struct dm_pp_display_configuration *pp_cfg =
-+			&dm->dc->current_state->pp_display_cfg;
++/* PMK8350 (in reality a PMK8003) is configured to use SID6 instead of 0 */
++#define PMK8350_SID 6
 +
-+		pp_cfg->all_displays_in_sync = true;
-+		dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
-+	}
-+
- 	bool frl_stream_found = false;
+ #include <dt-bindings/firmware/qcom,scm.h>
++#include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+@@ -16,6 +20,7 @@
+ #include "pm6150l.dtsi"
+ #include "pm6350.dtsi"
+ #include "pm7250b.dtsi"
++#include "pmk8350.dtsi"
  
- 	for (i = 0; i < params.stream_count; i++) {
+ / {
+ 	model = "Sony Xperia 10 III";
+@@ -431,6 +436,31 @@ &pm7250b_vbus {
+ 	status = "okay";
+ };
+ 
++&pmk8350_adc_tm {
++	status = "okay";
++
++	xo-therm@0 {
++		reg = <0>;
++		io-channels = <&pmk8350_vadc PMK8350_ADC7_AMUX_THM1_100K_PU>;
++		qcom,hw-settle-time-us = <200>;
++		qcom,ratiometric;
++	};
++};
++
++&pmk8350_rtc {
++	status = "okay";
++};
++
++&pmk8350_vadc {
++	channel@644 {
++		reg = <PMK8350_ADC7_AMUX_THM1_100K_PU>;
++		label = "xo_therm";
++		qcom,ratiometric;
++		qcom,hw-settle-time = <200>;
++		qcom,pre-scaling = <1 1>;
++	};
++};
++
+ &qupv3_id_0 {
+ 	status = "okay";
+ };
+
 -- 
-2.55.0
+2.53.0
+
