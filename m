@@ -2,85 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A10B606A326
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4E6606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xpuqLe1f
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hAt4cnNr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8426E10EBD1;
-	Mon,  2 Nov 2026 08:04:07 +0000 (UTC)
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AEAC10E4E8
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 00:10:20 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-35b2c599f43so3670329eec.0
- for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 16:10:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793578220; cv=none;
- d=google.com; s=arc-20260327;
- b=nc6aE1eN92nNrAUO6etUIMMA9O5cM84q6hm/qzMfAQzTca77pjnrdfdojPE/wcmqFo
- HDeSthJRSAFJ7vDU3ziiHmSgD+9zXk5f+tOyv0q97fk037bVI16Zj0R66trkiJ13g0qP
- nHPw/FMbvpPI/5hKkR+moK7GNfCGJ/aCwe7KImUCfvdzohzZ7gUAayqh+Yrwyl6kUKIT
- Wx2IyQB0XRSX9ADKvsDAZUr8tetJr9DHWci92uPcORKGzvr0ggsg2yoCog3HaAJNzPwi
- WSe8xMlME1gyjiP5Lu329TrsHOS7bn6fr6XWXPRzYKKsHq+H7HpTW12Cw56G4jEd5FFd
- IdEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=IxaHOBhBHJELnjR7p3C67+RByc+CNdq09G2SjlGIq8w=;
- fh=rdVGboUKQTe2PQPC07+N7izNoR5Mh+KRwIz2BQB2NMY=;
- b=NIRGjpv2zAU+PxLbZklqpKdyQxG/h3neBBjO9qPvTb7iiHGiREwenKpymWJzr1sukt
- 7wW/A8bPOqqlbMbJxUbrUrcM4vNrS6nAHQgInSfZUp169wg94kKBgwgJwC51ONdfSNBl
- FUkFwH2F07xOdqaJd2rd54XQj3A8fuh7kvxWTdiYy1ClUi+x1VqHxvAUUWaLqD6xGDZS
- hYXfmZj3Nl4shDTvHwTEVABgPO+WqAfXqlw8rQKyPjbE6kCEoQGt2ibLc2R0oPDQvGSY
- xdDsatQ1U0Mh05oYhJNJ560aOyNqg4K0+OQi/UVN48rSDEVWnJkEWhJhPu9m9x7bhsV3
- IYjw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4421F10EBD3;
+	Mon,  2 Nov 2026 08:04:08 +0000 (UTC)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E07110E3DD
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 18:05:43 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-8a064fac8cbso1508178b3a.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 10:05:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793578220; x=1794183020; darn=lists.freedesktop.org;
- h=content-type:to:subject:message-id:date:from:mime-version:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=IxaHOBhBHJELnjR7p3C67+RByc+CNdq09G2SjlGIq8w=;
- b=xpuqLe1fenagISTlF7UsGYsjLfB4uy/98Tus1Pcs0ScTFCidRYDPC+w4O7qqa08ETv
- PdXB3aZCbHCNQIKkNMfLFLCmEr4b+1qzCxI2YQ45A2f1ykLyIdM/dAwsDX22B+aw928s
- aCkKldD9iA3+3Z/uyoXASF7xK0kdUQUr8xJ6ezku7eStLmJoxTchLDqt4eFw1PcYjfRQ
- 3VBAQT0rL3RNsKDfJkR605IufGt16QU0OQF7VdpA0614mpaEKMIJPVQbBz4mRmIlCNTJ
- MxmGhO8ql05R7vm897VI7/cquYTppMdFnqP875zBceSMnrZWr598lyXLSb6dJEjdh7v8
- d+1Q==
+ d=gmail.com; s=20260707; t=1793556343; x=1794161143; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=xkS6xbmE+ewGMYaLKZHzgOXG3y/RT/Y6ukuGmQk4oP0=;
+ b=hAt4cnNrvdV5KoJmwnvyIjefHjEHq9ofrZbEQb6uef4AluHJRJ1GrnIfoNjTFGJe3j
+ 4SURmDEqr9XnR0EbnLsjJvGHUwXT5lBGfxYAy3Jq2pCVelpYhzDHWQtrTTmktU7GKQ3h
+ ftGfLBl9YgWytb1qGWfjqJ7W6pmLsTfRzUIM8RSDPSE5V6p3252JeXuTnHfVkdQyBk0X
+ tn0AI+ijp0I8ex++bF1SdVdtv9BHAv8OXBD9/ZT7nXjiUFUr7wVMV8Ht17IpTTS5DalN
+ ochNDis8TTuDHHu3JrnAbl+eeuGuVpIUbrTSUbcPBxvVJL8FBGN70UYW+19neYCMR8Hx
+ LVhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793578220; x=1794183020;
- h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=IxaHOBhBHJELnjR7p3C67+RByc+CNdq09G2SjlGIq8w=;
- b=2djSRiOQFWNFED4bfZp8Fe20WZBQP9Gw7V7J7Ewk8B3pMRuCpIhGak64AOJTMSScMd
- 6SSBHAnmXLaQ5EbPR3Bzg0vMm9Bh5BsTaC1il+4UBggHzb5/+1C6HXACYCXgxHMGX+E0
- HmBRqw7yNwzMv6u2RsvXEO88WqMhjDQKoZZCHhCQQFgox5+LcB9mo0E9RTAhVGAgQ8T2
- /OGGV0WZ2stNw260FT4SNHs29YGSWGRR8uPGnTi2kkWF8qaydRgq/BwTURsUsIzQBXWo
- LwR5Hm32Z6JcbEGL9kyNPFkGljTnI4EvgVtOs6S/4mlK6ppBQ3Gup+D4UpWvWAXZ5xM1
- G8+A==
-X-Gm-Message-State: APuU4Z9XW97ldaZhhbRF/nydPD+cZrCoP7kR+SxFumxoNw2/AsTyVCk2
- Ha/8g11lutj5jNkjDSgRYYiRp48Sv3G16mnO9sCAhnuJgB9INB0DHzJEnE/8Ubi+7Bu1JA+W1kH
- 03FLJyhybxaNRTpozFh8ZxwVAS4t4hFcVBKk6mO0hqw==
-X-Gm-Gg: AYBFou3jbFb/Ff1JhxgPpT6It2uhIikwB3ZYuDnoWExh/MhfX2wfKriDTe/8B/yQxD7
- IZBYa+igh96bimihFKAWa6Y0olE1MisW7TR6D2yOVq4fOe7BTnUmcoaBeLoPHyJO9hEP46NLnaQ
- It85FuDDAn5ly+eT+6bBFbWJn/7xsZemOYbUs/8eui58B3gKR2EZoZu3iYhwSjGD+wS2dwfvmVx
- iJjrl7fDvA1PraVMOU/2YfrV1DV4l7p6lBi/EXTDlWgXWiIWni6tIj5N7y0RGi5tWdqZtWFnfCW
- fVxgNAofJCm6c7bZrs2vo5LsYv18atgVLzZn3Pxhvkk5CewmBxXhusIpcmf2x0F0SFV4YkOKZ0Y
- +72V2S8R6KNXO9OeR+Qr4DCjbq3Z2xHfHCZUzF/8TIW+ZBNl5BUdxhQMes+G2oie88Gs5gA==
-X-Received: by 2002:a05:7300:ce86:b0:369:efeb:3c6 with SMTP id
- 5a478bee46e88-36a4221bd06mr13604805eec.3.1793578219558; Sun, 01 Nov 2026
- 16:10:19 -0800 (PST)
+ d=1e100.net; s=20260707; t=1793556343; x=1794161143;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=xkS6xbmE+ewGMYaLKZHzgOXG3y/RT/Y6ukuGmQk4oP0=;
+ b=TzHcUSeC72giboreS6Gudu+qmZjQwoOhfIwgbK3PVvqUgkjPp6zvu5rH+e7uLuACBL
+ 87qruUfbnpHhmLV5FCp+4LKbr/saBMB9FgENlvXjNfYXXQT5TvVc09LiyAWdZ1nKxpy3
+ 3g/NQzyD4Xd9KciigOiDqkQjEcUbyQCiDHQwafB/+rj7kT9xbWG19OVklQ/OKXV9SMlU
+ FYZlfwiLXvYVFp6fXj/a/gYdSr7dFIl/ZTaGkBNtFlO3rqGHCG/JfUljqhK2UZtMK3Xp
+ yjagvo4eX1ooGBq31jNbzMdf4S5f6AmUPndsUiNBTcYm1B5DVn4RsD5fthtfju+dTP9B
+ JD8w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxCWqh/W98KwPIgwG4vdVJjtaJt2yjukWV9TmaK7rRw/ZYtoKFi87j6n7sLZ9XiXWTBToaTqtgZhS0=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYId4BpMaVpi02yKwOBqtYNmlWmZKTZpKG5Qjz0kXM78tDX+k+uR
+ kG9nwWGr5d8yy+Akur3GdfgjUL2JKjvUN/Rn5ofVR+2AkarE8L1PCI5b
+X-Gm-Gg: AYBFou3cUi4nEhpU1LmaluhCAG/vOlMzs5/d9QeDMA4R+5tuAyfDvNAgtZfn+ykL1W4
+ yNhx3ipqHuPch0Y30a+MLCsamIDIVrpNOu9pM3uNWJcHtJ4gEPAUUw7R8vyTVrP8vJUMo/RHNgC
+ 5x1tpBKTNVNcdbKKUhlwJXe7xi0MWUsSzdGcnMsutRcK80N8tGLSF+KraIqtyM8IipbCgCdynIu
+ CJa6bdIj4w1fiInP12A1rV94gbfhYywsDJQ9LAeJ/kQSCfeRZx5QGhNYa3W3xj5Ciu+YqFwfw7u
+ +N0GsW0amn2TGml4KkSul57cuK9bCDYzf0ICocwDoSPYTmzC1s3qNqixiQaHpONhaO1NpTyWMh9
+ h5wSdL4jgbrpywdqCb5/vH7NoF0gnp6EtGgBNJsLxYsWGy+JSnD2JbpJe6ry3WaJojlJIEjZG4l
+ bfMB6nseofeRXrCW5g/EFITJ99NxbKS5HZAdcL1mMA3BTOrfUjfRsYp2y++ye+NzuFeKpFolMcC
+ Ez5/11YIybAXvJFeHzmnROutizXMA70jxn0CC+52GSH8mYdbUk9gyBJNbTiqXlcfYqZ7Ei+1lmv
+ 9KC3S3q4/m4Esldj8ZHM3y4=
+X-Received: by 2002:a05:6a00:181b:b0:89d:eb23:4e83 with SMTP id
+ d2e1a72fcca58-8a9beb67de4mr6450461b3a.30.1793556342787; 
+ Sun, 01 Nov 2026 10:05:42 -0800 (PST)
+Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8ac269b8805sm446544b3a.44.2026.11.01.10.05.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 01 Nov 2026 10:05:42 -0800 (PST)
+From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH 4/4] drm/msm: serialize devcoredump reads of the crash state
+Date: Mon,  2 Nov 2026 02:05:08 +0800
+Message-ID: <20261101180508.66598-2-nicoangelodelacruz@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+References: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: Guilherme Bember Duarte <guilhermebemberduarte@gmail.com>
-Date: Mon, 2 Nov 2026 00:10:07 +0000
-X-Gm-Features: AclHuK8ZrCSoM_mIqvArdVQgWt2ODJZ11MQjsoVE8LYZswcP5RmpwKtcj81ZgfM
-Message-ID: <CALykNV7EXbnwxA1ofM0J+yXj9wNPf0H81PXXy-ZdqXrEJyaPaw@mail.gmail.com>
-Subject: Is drm_log the intended replacement for fbcon? It needs
- console=drm_log0 and loglevel=7 to show anything (7.3.0, amdgpu)
-To: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:03:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,58 +96,115 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+adreno_show_object() converts each captured buffer to ascii85 the
+first time the crash state is shown, in place: it checks *encoded,
+replaces *ptr with the encoded copy and kvfree()s the raw buffer.
+msm_gpu_devcoredump_read() only takes gpu->lock around the reference
+get, and every read() of the devcoredump renders the whole state
+again, so two processes reading the same devcoredump at once can both
+see *encoded == false and both free the same buffer, or print a
+buffer the other one just freed:
 
-I've been trying to run a kernel without fbcon, with drm_log for boot
-output and kmscon as the userspace console. Before I go further, I'd
-like to ask where this is heading:
+  WARNING: mm/slub.c:6733 at free_large_kmalloc+0xb0/0xf8
+   kvfree+0x44/0x60
+   adreno_show_object+0x190/0x240
+   adreno_show+0x1d0/0x438
+   a6xx_show+0x68/0xbd0
+   msm_gpu_devcoredump_read+0x144/0x1f8
+   devcd_data_read+0x34/0x48
+  page dumped because: Not a kmalloc allocation
 
-1. Is fbcon (and fbdev emulation) planned to be deprecated?
-2. If so, is drm_log the intended in-kernel replacement for its boot
-output, with the terminal left to userspace?
-3. If that's the plan, why does drm_log need so much setup to work?
-Right now it doesn't behave like something meant to replace fbcon.
+The dump also changes length between reads, so a reader can get a
+short copy that ends at a page boundary.
 
-What I found (7.3.0, amdgpu RX 6600, one DP monitor,
-CONFIG_FRAMEBUFFER_CONSOLE and DRM_FBDEV_EMULATION off,
-CONFIG_DRM_CLIENT_LOG=y and DEFAULT="log"):
+Seen on an Adreno 830 with IGT's msm_recovery reading the devcoredump
+while a udev helper copied it out: 16 such warnings in one boot, none
+with this patch.
 
-- console=tty0 loglevel=7                         -> no video
-- console=tty0 console=drm_log0 loglevel=3        -> no video
-- console=tty0 console=drm_log0 loglevel=7        -> video, and kmscon
-takes over cleanly
+Add a mutex to struct msm_gpu and hold it while the state is
+rendered. Only one crash state exists at a time, so a per-GPU lock is
+enough. gpu->lock isn't used because a devcoredump reader would then
+hold up recovery and fault capture for as long as it takes to render
+the dump. The new lock is taken after msm_gpu_crashstate_get() and
+dropped before msm_gpu_crashstate_put(), so it never nests with
+gpu->lock, and it is taken interruptibly so a reader waiting behind
+a slow render can be killed.
 
-Why, as far as I can tell:
+Fixes: 1df4289d5b23 ("drm/msm: Optimize adreno_show_object()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+---
+ drivers/gpu/drm/msm/msm_gpu.c | 10 ++++++++++
+ drivers/gpu/drm/msm/msm_gpu.h |  8 ++++++++
+ 2 files changed, 18 insertions(+)
 
-- Without console=drm_log0 the console is registered but never enabled
-(flags 0x101, no CON_ENABLED; with the argument it is 0x107). tty0 is
-already first in the console list and has a tty binding, so
-register_console() doesn't enable drm_log by default. I saw this was
-discussed in the v9 drm_log thread in Dec 2024. The Kconfig help for
-DRM_CLIENT_LOG says nothing about console=, so a user gets a dark
-screen and no message.
-- Even once enabled, drm_log_init_client() only runs when the first
-record passes the console loglevel (it's called from
-drm_log_write_thread()). With a normal loglevel the screen stays dark.
-Needing loglevel=7 to get a display at all seems like a poor
-requirement for a boot display, and it is not documented anywhere I
-could find.
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index fded78fdb..428dc9666 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -191,11 +191,18 @@ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
+ 	struct drm_print_iterator iter;
+ 	struct drm_printer p;
+ 	struct msm_gpu_state *state;
++	int ret;
+ 
+ 	state = msm_gpu_crashstate_get(gpu);
+ 	if (!state)
+ 		return 0;
+ 
++	ret = mutex_lock_interruptible(&gpu->crashstate_show_lock);
++	if (ret) {
++		msm_gpu_crashstate_put(gpu);
++		return ret;
++	}
++
+ 	iter.data = buffer;
+ 	iter.offset = 0;
+ 	iter.start = offset;
+@@ -214,6 +221,8 @@ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
+ 
+ 	gpu->funcs->show(gpu, state, &p);
+ 
++	mutex_unlock(&gpu->crashstate_show_lock);
++
+ 	msm_gpu_crashstate_put(gpu);
+ 
+ 	return count - iter.remain;
+@@ -914,6 +923,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	gpu->funcs = funcs;
+ 	gpu->name = name;
+ 	INIT_WORK(&gpu->crashstate_free_work, msm_gpu_crashstate_free_worker);
++	mutex_init(&gpu->crashstate_show_lock);
+ 
+ 	gpu->worker = kthread_run_worker(0, "gpu-worker");
+ 	if (IS_ERR(gpu->worker)) {
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index db9e11e7f..9b683973b 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -264,6 +264,14 @@ struct msm_gpu {
+ 	 */
+ 	struct work_struct crashstate_free_work;
+ 
++	/**
++	 * @crashstate_show_lock: serializes rendering of @crashstate for the
++	 * devcoredump.  The show functions convert captured buffers to ascii85
++	 * in place on first use (see adreno_show_object()), so concurrent
++	 * readers of the same dump must not render it at the same time.
++	 */
++	struct mutex crashstate_show_lock;
++
+ 	/**
+ 	 * @recovery_in_progress: true while recover_worker() holds @lock, so
+ 	 * that fault capture and GMU waits don't wait on a fault devcoredump
+-- 
+2.53.0
 
-If drm_log is meant to replace fbcon, at least for boot information
-before userspace handoff, I think it should light the display at boot
-without extra command line arguments and without depending on the
-loglevel, for example by doing the first probe and commit when the
-client registers, or on the first hotplug. If it is only meant as a
-debugging aid, as its DOC comment says, then a kernel without fbcon
-has no supported way to get a boot display, and I'd like to know that
-too.
-
-Thanks,
-Guilherme B.
