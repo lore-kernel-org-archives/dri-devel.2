@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100CC606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 22:44:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2157606A324
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 22:44:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmaA3QpG
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X9ZLvmV+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A8AC10EAC9;
-	Sun,  1 Nov 2026 22:44:32 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B371E10EAC9
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 22:44:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11D0410EACC;
+	Sun,  1 Nov 2026 22:44:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFAA210EACC
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 22:44:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2015D601FF;
- Sun,  1 Nov 2026 22:44:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14911F00A02;
- Sun,  1 Nov 2026 22:44:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 92940407CA;
+ Sun,  1 Nov 2026 22:44:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DA981F000C1;
+ Sun,  1 Nov 2026 22:44:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793573065;
- bh=Xeufzxot0TCCOkLXeTcQKGLKdI6d4dBgS9BbRpotJOw=;
+ s=k20260515; t=1793573071;
+ bh=ebsX1ApCPrdY8qGeVlmogoAQGSvNKhcmzdCYF/KpWDU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SmaA3QpGVqfZ4tjYmzs105LU4o3Xx8ODJrvQAAjwhrwKX0TuNuZKL3s2Hx2dRW4Z4
- s2VcKDgyJfaJrvumFOwFBSWbYFZ/UkI49VoAi8k17YD9k9B4q93l+iF7rnEP5JdwdQ
- LwrVAtJltGcXdQr5MR603WpfJv8lrs57bQ7rwOsybB+fpNOEoOx7WkY4Uw53bv2Nn9
- IZOUwpPAMzhxKfT0KFBwJPvW2kV9AQfPL1WxoknxZQKtDM8OAY0IUMyJZAU/I+p6AL
- KW2QGoLTD5VT9C8Uy5wDIPpyd1nOfigmRTVOXZtK4MUKLpngWPhnMdHSWrho2nVMXX
- XoLBiKK8zc9vA==
-Message-ID: <sashiko-outbox-192730@kernel.org>
+ b=X9ZLvmV+vdrDwHylwCw4JOPRurLG8W7vh/EJOzzMPvpBGzPuhys9zXl67FmTQU33g
+ t2i6/DYmdhU/+x8h/B27msPF2LQDYvLDzvePayRp24hZeedtQA5v9veFcZsxsML2nn
+ aNjzv2GtlaoPB6o7zoh6PUI8ORAFZemJ5rePcx18pkcIAANrEeUOm63Bm8h03YkQEE
+ m4knqNGQE2Koyn8Z5qD1hW8m4owhnS5eC0WDNSM7S6lIXuPJmlQwcjz+cEC6yfpbS8
+ mTqKlMaSQZ6qdfHGlWyEfu2IQYgKLCka15w/lmdUQFuIAUW3Ccjq4pgZMkZhS/OcXe
+ 6OGODCL6pyhwg==
+Message-ID: <sashiko-outbox-192731@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 12/25] accel/qda: Add invocation argument validation
- and packing
+Subject: Re: [PATCH v4 10/25] accel/qda: Add FastRPC invocation contexts
 To: "Ekansh Gupta" <ekansh.gupta@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261102-v4-v4-12-88f2f24a5f0b@qti.qualcomm.com>
+In-Reply-To: <20261102-v4-v4-10-88f2f24a5f0b@qti.qualcomm.com>
 References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <20261102-v4-v4-12-88f2f24a5f0b@qti.qualcomm.com>
+ <20261102-v4-v4-10-88f2f24a5f0b@qti.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 22:44:25 +0000
+Date: Sun, 01 Nov 2026 22:44:30 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,259 +58,187 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] accel/qda: union corruption on zero handle in process_dma_handle()
-- [High] accel/qda: missing bounds and overflow checks in process_dma_handl=
-e()
-- [High] accel/qda: dangling session->file pointer after qda_postclose()
-- [High] accel/qda: premature drm_dev_put() while qda_session remains alive
-- [Medium] accel/qda: unvalidated attr field in qda_fastrpc_prepare_args_in=
-voke()
+- [High] accel/qda: premature publication of ctx in qda_fastrpc_context_all=
+oc()
+- [High] accel/qda: premature ctx_xa destruction in qda_deinit_device()
 --
 
-commit 0212e9880ce32dca1d81b275fcea22de7515a72a
+commit 0b392f877740b474d80d7f4392edfd3f880836d4
 Author: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-accel/qda: Add invocation argument validation and packing
+accel/qda: Add FastRPC invocation contexts
 
-This commit adds FastRPC invocation argument validation, message payload
-packing, and per-session message buffer pooling for the QDA driver. It also
-converts struct qda_session to be reference-counted so in-flight invocations
-can outlive the open file and clean up DSP-released GEM handles.
+This commit adds FastRPC invocation context allocation and reference-counted
+cleanup, tracking in-flight invocations per device in an XArray with an 8-b=
+it
+context ID and a 48-bit sequence number.
 
 > diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-> index bdfb23c3c0b1d..99bd37fca4384 100644
+> index 21113deceaadb..bdfb23c3c0b1d 100644
 > --- a/drivers/accel/qda/qda_drv.c
 > +++ b/drivers/accel/qda/qda_drv.c
-[ ... ]
-> @@ -50,22 +61,47 @@ static int qda_open(struct drm_device *dev, struct dr=
-m_file *file)
-[ ... ]
->  static void qda_postclose(struct drm_device *dev, struct drm_file *file)
+> @@ -100,6 +100,8 @@ struct qda_dev *qda_alloc_device(struct device *dev)
+> =20
+>  	INIT_LIST_HEAD(&qdev->cb_devs);
+>  	mutex_init(&qdev->import_lock);
+> +	xa_init_flags(&qdev->ctx_xa, XA_FLAGS_ALLOC1);
+> +	atomic64_set(&qdev->ctx_seq, 0);
+> =20
+>  	return qdev;
+>  }
+> @@ -122,6 +124,7 @@ int qda_init_device(struct qda_dev *qdev, int num_cbs)
+>  void qda_deinit_device(struct qda_dev *qdev)
 >  {
-> -	qda_session_free(file->driver_priv);
-> +	qda_session_put(file->driver_priv);
+>  	qda_memory_manager_exit(qdev->iommu_mgr);
+> +	xa_destroy(&qdev->ctx_xa);
+>  	mutex_destroy(&qdev->import_lock);
 >  }
 
 [Severity: High]
-When an invocation outlives the file it was issued on, does session->file
-become a dangling pointer to a freed struct drm_file after qda_postclose()
-runs?
+Can calling xa_destroy(&qdev->ctx_xa) in qda_deinit_device() in
+drivers/accel/qda/qda_drv.c race with outstanding invocation contexts that
+have not yet dropped their final reference?
 
-In qda_open(), session->file is set to the raw struct drm_file pointer, and
-qda_fastrpc_prepare_args() takes a reference on ctx->session so that the
-session can outlive file closure if the caller stops waiting for the DSP.
+In qda_fastrpc_context_alloc() in drivers/accel/qda/qda_fastrpc.c, each
+struct qda_fastrpc_invoke_ctx is inserted into qdev->ctx_xa with an initial
+caller reference (refcount =3D 1) and stores a raw pointer ctx->qdev =3D qd=
+ev
+without holding a reference on qdev->drm_dev. By design, the entry is only
+erased from qdev->ctx_xa in qda_fastrpc_context_free() when the last
+reference is released.
 
-However, when the DRM file is closed, drm_file_free() destroys
-file->object_idr via drm_gem_release(), calls qda_postclose(), and then
-frees struct drm_file with kfree(file):
+When invocations are wired up in the subsequent commits ("accel/qda: Add
+RPMsg send and response dispatch" and "accel/qda: Add the invocation ioctl
+and teardown on unplug"), qda_rpmsg_send_msg() takes a second reference for
+the response path and the caller sleeps in qda_rpmsg_wait_for_rsp() outside
+any drm_dev_enter() critical section.
 
-drm_file_free()
-  drm_gem_release(dev, file)
-  dev->driver->postclose(dev, file) -> qda_postclose()
-    qda_session_put(file->driver_priv)
-  kfree(file)
+If the rpmsg device is removed while callers are waiting (for example, on a
+DSP crash or remoteproc restart), qda_rpmsg_remove() runs drm_dev_unplug(),
+qda_fastrpc_flush_pending(qdev), and then immediately qda_deinit_device(qde=
+v).
+Because qda_fastrpc_flush_pending() only wakes the waiters and drops the
+response reference, the callers still hold their reference (and if
+qda_rpmsg_cb() already ran and queued ctx->put_work, ctx is still in
+qdev->ctx_xa while put_work is pending, causing qda_fastrpc_flush_pending()
+to drop a reference that put_work will also drop).
 
-Because qda_postclose() only drops the file owner's session reference witho=
-ut
-clearing session->file or synchronizing with in-flight invocations, any
-session kept alive by an invocation retains a non-NULL session->file pointer
-to freed memory. When the DSP response later triggers
-qda_fastrpc_cleanup_handlelist():
-
-void qda_fastrpc_cleanup_handlelist(struct qda_fastrpc_invoke_ctx *ctx)
-{
-	...
-	for (i =3D 0; i < QDA_FASTRPC_MAX_HANDLELIST; i++) {
-		if (!handlelist[i])
-			break;
-		if (ctx->session->file)
-			drm_gem_handle_delete(ctx->session->file, (u32)handlelist[i]);
-	}
-}
-
-checking ctx->session->file and passing it to drm_gem_handle_delete() will
-dereference the freed struct drm_file and its destroyed handle table.
+When qda_deinit_device() immediately calls xa_destroy(&qdev->ctx_xa), the
+internal XArray nodes are freed while live contexts remain in the table. Wh=
+en
+those woken callers or pending put_work items later run
+kref_put(&ctx->refcount, qda_fastrpc_context_free), won't
+qda_fastrpc_context_free() call xa_erase(&ctx->qdev->ctx_xa, ...) on an
+already-destroyed XArray and dereference ctx->qdev after device teardown?
 
 > diff --git a/drivers/accel/qda/qda_fastrpc.c b/drivers/accel/qda/qda_fast=
 rpc.c
-> index ec37a38e92158..2971f2f9461fc 100644
-> --- a/drivers/accel/qda/qda_fastrpc.c
+> new file mode 100644
+> index 0000000000000..14d9da8c20b3f
+> --- /dev/null
 > +++ b/drivers/accel/qda/qda_fastrpc.c
-[ ... ]
-> @@ -70,3 +283,272 @@ struct qda_fastrpc_invoke_ctx *qda_fastrpc_context_a=
-lloc(struct qda_dev *qdev)
-[ ... ]
-> +static int process_dma_handle(struct qda_fastrpc_invoke_ctx *ctx, int i,
-> +			      union qda_remote_arg *rpra,
-> +			      struct qda_phy_page *pages)
+> @@ -0,0 +1,63 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> +#include <linux/bitfield.h>
+> +#include <linux/slab.h>
+> +#include "qda_drv.h"
+> +#include "qda_fastrpc.h"
+> +
+> +/**
+> + * qda_fastrpc_context_free() - Release an invocation
+> + * @ref: Reference counter embedded in the invocation
+> + *
+> + * Runs when the last reference goes. The invocation leaves the lookup t=
+able
+> + * here and not earlier, so that its ID cannot be handed to a new invoca=
+tion
+> + * while this one can still be found and completed.
+> + */
+> +void qda_fastrpc_context_free(struct kref *ref)
 > +{
-> +	struct drm_gem_object *gem_obj;
-> +	int err;
+> +	struct qda_fastrpc_invoke_ctx *ctx =3D
+> +		container_of(ref, struct qda_fastrpc_invoke_ctx, refcount);
 > +
-> +	if (!ctx->args[i].handle) {
-> +		rpra[i].buf.addr =3D ctx->args[i].offset;
-> +		rpra[i].buf.len =3D ctx->args[i].length;
-> +		return 0;
-> +	}
-
-[Severity: High]
-What prevents user space from bypassing handle validation in
-process_dma_handle() by passing handle =3D=3D 0 with a non-zero offset for a
-DMA-handle argument?
-
-In qda_fastrpc_get_args(), arguments at indices ctx->nbufs <=3D i <
-ctx->nscalars are DMA-handle arguments, which the DSP interprets as struct
-qda_remote_dmahandle (rpra[i].dma). Because union qda_remote_arg overlays
-struct qda_remote_buf with struct qda_remote_dmahandle:
-
-union qda_remote_arg {
-	struct qda_remote_buf buf;
-	struct qda_remote_dmahandle dma;
-};
-
-writing the 64-bit ctx->args[i].offset into rpra[i].buf.addr when
-ctx->args[i].handle is 0 populates rpra[i].dma.handle with the low 32 bits =
-of
-ctx->args[i].offset and rpra[i].dma.offset with the high 32 bits, while
-rpra[i].buf.len overwrites rpra[i].dma.len.
-
-In addition, qda_fastrpc_get_args() sets list[i].num =3D ctx->args[i].lengt=
-h ?
-1 : 0 before calling process_dma_handle(), so a zero handle with a non-zero
-length leaves list[i].num set to 1 while pages[i] remains unpopulated.
-Checking !ctx->args[i].handle before ctx->gem_objs[i] also skips any
-pre-populated ctx->gem_objs[i] entry when handle is 0.
-
-> +
-> +	if (ctx->gem_objs[i]) {
-> +		gem_obj =3D ctx->gem_objs[i];
-> +	} else {
-> +		err =3D get_gem_obj_from_handle(ctx, ctx->args[i].handle, &gem_obj);
-> +		if (err)
-> +			return err;
-> +
-> +		ctx->gem_objs[i] =3D gem_obj;
-> +	}
-> +
-> +	setup_pages_from_gem_obj(to_qda_gem_obj(gem_obj), &pages[i]);
-> +
-> +	/* The DSP-facing offset and length fields are 32-bit by wire format */
-> +	rpra[i].dma.handle =3D ctx->args[i].handle;
-> +	rpra[i].dma.len =3D (u32)ctx->args[i].length;
-> +	rpra[i].dma.offset =3D (u32)ctx->args[i].offset;
-> +
-> +	return 0;
+> +	xa_erase(&ctx->qdev->ctx_xa, FIELD_GET(QDA_FASTRPC_CTXID_MASK, ctx->ctx=
+id));
+> +	kfree(ctx);
 > +}
-
-[Severity: High]
-Should process_dma_handle() validate ctx->args[i].offset and
-ctx->args[i].length against the GEM object's size and U32_MAX before casting
-them to u32?
-
-In process_msg_buffer(), the user-supplied offset and length are checked
-against qda_gem_obj->size so that a descriptor cannot reference memory past
-the end of its buffer in the session's context bank:
-
-	if (ctx->args[i].offset > qda_gem_obj->size ||
-	    len > qda_gem_obj->size - ctx->args[i].offset) {
-		...
-		return -EINVAL;
-	}
-
-In process_dma_handle(), however, ctx->args[i].length and
-ctx->args[i].offset are cast directly to u32 and written into rpra[i].dma.l=
-en
-and rpra[i].dma.offset without checking that the region lies within
-to_qda_gem_obj(gem_obj)->size or fits within 32 bits. Can user space use a
-DMA-handle argument to pass a truncated or out-of-bounds region to the DSP?
-
-[ ... ]
-> +static int qda_fastrpc_prepare_args_invoke(struct qda_fastrpc_invoke_ctx=
- *ctx, void *argp)
+> +
+> +/**
+> + * qda_fastrpc_context_alloc() - Allocate an invocation and give it an ID
+> + * @qdev: Device the invocation is issued on
+> + *
+> + * The caller holds the initial reference and drops it with
+> + * qda_fastrpc_context_free().
+> + *
+> + * Return: The new invocation, or ERR_PTR on failure
+> + */
+> +struct qda_fastrpc_invoke_ctx *qda_fastrpc_context_alloc(struct qda_dev =
+*qdev)
 > +{
-> +	struct drm_qda_invoke_args *invoke_args =3D argp;
-> +	struct drm_qda_fastrpc_invoke_args *args;
-> +	u32 nscalars;
+> +	struct qda_fastrpc_invoke_ctx *ctx;
+> +	u32 id;
+> +	int ret;
 > +
-> +	ctx->handle =3D invoke_args->handle;
-> +	ctx->sc =3D invoke_args->sc;
+> +	ctx =3D kzalloc_obj(*ctx);
+> +	if (!ctx)
+> +		return ERR_PTR(-ENOMEM);
 > +
-> +	nscalars =3D QDA_REMOTE_SCALARS_LENGTH(ctx->sc);
-> +	if (!nscalars)
-> +		return 0;
+> +	init_completion(&ctx->work);
+> +	kref_init(&ctx->refcount);
+> +	ctx->qdev =3D qdev;
+> +	/* Anything but a status the DSP could send, until it answers */
+> +	ctx->retval =3D -1;
 > +
-> +	args =3D kzalloc_objs(*args, nscalars);
-> +	if (!args)
-> +		return -ENOMEM;
-> +
-> +	if (copy_from_user(args, u64_to_user_ptr(invoke_args->args),
-> +			   nscalars * sizeof(*args))) {
-> +		kfree(args);
-> +		return -EFAULT;
+> +	/* ID 0 is never used, so a zeroed context in a response matches nothin=
+g */
+> +	ret =3D xa_alloc(&qdev->ctx_xa, &id, ctx, XA_LIMIT(1, QDA_FASTRPC_CTXID=
+_MAX),
+> +		       GFP_KERNEL);
+> +	if (ret) {
+> +		kfree(ctx);
+> +		return ERR_PTR(ret);
 > +	}
 > +
-> +	ctx->args =3D args;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should qda_fastrpc_prepare_args_invoke() reject non-zero values in
-args[i].attr with -EINVAL?
-
-struct drm_qda_fastrpc_invoke_args defines __u32 attr in the UAPI header,
-with no valid attribute flags currently defined, and nothing in
-qda_fastrpc_prepare_args_invoke() or qda_fastrpc_get_args() checks that
-args[i].attr is zero. If user space passes uninitialized non-zero values in
-attr today, won't that prevent future kernel versions from introducing flag
-bits in attr without breaking existing user space?
-
-> diff --git a/drivers/accel/qda/qda_legacy_ops.c b/drivers/accel/qda/qda_l=
-egacy_ops.c
-> index 3566a10c64880..9639ea84b2007 100644
-> --- a/drivers/accel/qda/qda_legacy_ops.c
-> +++ b/drivers/accel/qda/qda_legacy_ops.c
-> @@ -33,7 +33,7 @@ static void legacy_session_destroy(struct qda_session *=
-session)
->  {
->  	struct drm_device *drm_dev =3D &session->qda_dev->drm_dev;
-> =20
-> -	qda_session_free(session);
-> +	qda_session_put(session);
->  	drm_dev_put(drm_dev);
->  }
+> +	ctx->ctxid =3D FIELD_PREP(QDA_FASTRPC_CTXID_MASK, id) |
+> +		     FIELD_PREP(QDA_FASTRPC_CTXID_SEQ_MASK,
+> +				(u64)atomic64_inc_return(&qdev->ctx_seq));
 
 [Severity: High]
-Can dropping the drm_device reference before the last reference to struct
-qda_session is released cause a use-after-free of struct qda_dev?
+In qda_fastrpc_context_alloc() in drivers/accel/qda/qda_fastrpc.c, does
+calling xa_alloc(&qdev->ctx_xa, &id, ctx, ...) publish ctx into qdev->ctx_xa
+and drop xa_lock before ctx->ctxid is initialized?
 
-With this change, struct qda_session is reference-counted and can outlive
-file closure (both via legacy_session_destroy() and via drm_release() ->
-qda_postclose()) when an in-flight invocation or its deferred ctx->put_work
-still holds a reference on ctx->session.
+Because the 8-bit context IDs (1..255) are reused as soon as a prior
+invocation is freed, a concurrent lookup on qdev->ctx_xa for that recycled =
+id
+(such as qda_rpmsg_cb() handling a late, duplicate, or malformed DSP respon=
+se,
+or qda_fastrpc_flush_pending() during device unplug) can observe ctx while
+ctx->ctxid is still 0 or is being written without locking:
 
-However, legacy_session_destroy() still calls drm_dev_put(drm_dev)
-immediately after qda_session_put(session), and struct qda_session does not
-hold its own drm_dev_get() reference until qda_session_release(). If the
-file is closed while an invocation is still in flight and the underlying
-rpmsg device is unbound before ctx->put_work completes, the final
-drm_device reference can be dropped and struct qda_dev freed before
-qda_fastrpc_context_free() and qda_session_release() run:
+1. If a late or malformed response carries sequence number 0 in bits [63:16]
+   for slot id, FIELD_GET(QDA_FASTRPC_CTXID_SEQ_MASK, ctx->ctxid) evaluates=
+ to
+   0 and matches the uninitialized ctx->ctxid, completing ctx->work early a=
+nd
+   scheduling ctx->put_work to drop a reference that qda_rpmsg_send_msg() h=
+as
+   not yet taken.
 
-qda_fastrpc_context_free()
-  xa_erase(&ctx->qdev->ctx_xa, ...)
-  qda_session_msg_buf_put(ctx->session, &ctx->msg_gem_obj->base)
-  qda_session_put(ctx->session) -> qda_session_release()
-    qda_session_msg_buf_pool_destroy(session)
-      drm_gem_object_put(entry->gem_obj)
+2. If qda_fastrpc_context_free() runs while ctx->ctxid is still 0,
+   xa_erase(&ctx->qdev->ctx_xa, FIELD_GET(QDA_FASTRPC_CTXID_MASK, ctx->ctxi=
+d))
+   erases index 0 instead of index id and frees ctx, leaving a dangling
+   pointer in qdev->ctx_xa[id].
 
-At that point, accessing ctx->qdev->ctx_xa and freeing the session's GEM
-objects will dereference the already-freed struct qda_dev. Should the
-drm_device reference be held across the lifetime of struct qda_session and
-released in qda_session_release() instead?
+Should qda_fastrpc_context_alloc() either hold xa_lock(&qdev->ctx_xa) across
+__xa_alloc() and the ctx->ctxid assignment, or reserve the slot with NULL
+first and store ctx only after ctx->ctxid is initialized?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-v4-v4-0-88=
-f2f24a5f0b@qti.qualcomm.com?part=3D12
+f2f24a5f0b@qti.qualcomm.com?part=3D10
