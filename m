@@ -2,82 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA727606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D3C606A326
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YdE4RXLQ
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=22sYFVNX;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=JKt3Bknb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00C2210EBC8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 937F110EBCB;
 	Mon,  2 Nov 2026 08:04:04 +0000 (UTC)
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CCA210E4E7
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 22:53:27 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-8ad98c3fb15so19625917b3.2
- for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 14:53:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793573606; x=1794178406; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=s7+GOe5TlTu09tPuJuAXaS5FmzeWJcxHvWMkwG9Tvkg=;
- b=YdE4RXLQB7p3MOkDNcvS0xwLFcxn7qDh8oDiE0owbEY8xTJUaa47yl7MpOPqClCU6T
- YRK59p5tckkXIXFMIbcVg6vHOlWyDmyJx+fPZA9aaC8hv/sR5FFgtlQQteb1SwIkYTaj
- Z8AKAA1T80TwTLu+OCv9NRdM2mth2kUajkw4loyCRqXO3WPshxlRbk+MkS0ty22wgN3Y
- MIbbzniIzdJq9wUvD6BJ4bpmxkfAduejeL97ta81f1KYo7X9gpM2DtNF663q96rhLrqX
- stmIiWSt4Z1qyDUyu9RjWr9m6qSRgIlNjAmVRaPq+daP6WnZW2vA3LGm/UTYyfFXWHUT
- qWAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793573606; x=1794178406;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=s7+GOe5TlTu09tPuJuAXaS5FmzeWJcxHvWMkwG9Tvkg=;
- b=k24BadDZ4B/p1Oe3tJtIUSI8TznKNBbg4zoNieUcj/D6vCAx0qgOXZgWfxrM7hEQlS
- c5AQLNKHx2OtXKY/k7qhKh25LP+v6Tblnj1v1/+bjMpqEpcTRe41lcnAGbTY+NezGYSE
- YiUwtGoLOcqAHqyhgg3T+ulbwaZz8lIX8uawlOyY3b1SFGsi1aBgU/QZvd4jVh70n5pS
- NH4pClL8I0d7XP+1QjlRcyymCuFJ0BjDtdvWqSrdPx0e/iyNxGLQxf6BVybRBddvbexC
- 8Db0/hFRhEULVhLi5IlFXDWQUe3z1MXp4w6+MyWFNGpH/m9N0msN0a3SfL1QfrmqQWtR
- qlSg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw2/6ikPljjjOkMEiYCqQmJ626gi40OI51pUaLZgkIyvxcwKlxwJKjq5VEz1n+dm9VzDK/zNmNEr04=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJdAdF6t8R1glL+R0MOGNJ/sohMiM5Ki40quAUA34bX7CcLzA6y
- wty4ZePJyE6BJTcnjxjtSBoY6a9mk4goZbn1AnUPSLkOpByk42N+2BRU
-X-Gm-Gg: AYBFou0qv+eKznLvIANMxSuLvi49KEKCcHVFI9KFAVi2ASXUl2SYpHdMlCfimE+JK28
- VImpzmO9AoQ2FJc21OPJ6LMQycRax10NNbd2B07qb3Vspqni7Tcv74+9iOXOpZYIMMBFAY4taSK
- C6FDpI128NnYxswE5C9XVR/1DtCS6PkK/iP3GTIs3HP7AeMxtfbJUNw6a2mYj17A78xYOLhRy2n
- BsrIo64n8Rz2fIjWQNTRxdHKlbwZZOfs+o57Cz42uH5REGSQfwWOL5XbaXaNQRmlGscyNSvPT4o
- TdFx9UsMpczFA677F/q5akRQFFgK8NfI3tDdJadKkKyDGLDSkVodhAJOZizSdIE0JAyFHOmfwxh
- 47MaO+JHwN/F5TsE5mhQUMewxxvMC067FgTXJc0rs+x8PIQ1s3FQaZf8aKVYtD99PRg21wk4phr
- VdDgcCD7CXylo4xfc4V0+OnpjDre2pVo7nI1diIHPQfxWXTu33nWPpabPmd5iI7YeCPFpAzZxAo
- smnMwNLu2X0milIYUXMmX5QNFothXi4b5y9EhrQiO1sWzAHrEu3rHTbVN4qQLXJhfC1eJCiYPU/
- Qhsa4VNRWBSa7hwK0+tE6K4PBAb/fQpZE5phwmqUa/0+C18n538p/rmSf1iGUCzVufVHRjSjpE6
- iGsHei0OypeEiPlLdXlOCjbF4Mw==
-X-Received: by 2002:a05:690e:13c9:b0:677:b7a7:ba38 with SMTP id
- 956f58d0204a3-67ba4c806b6mr7372011d50.14.1793573605653; 
- Sun, 01 Nov 2026 14:53:25 -0800 (PST)
-Received: from tux ([2601:7c0:c37c:135::5a87])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8b2b71b70fdsm41846847b3.43.2026.11.01.14.53.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Nov 2026 14:53:25 -0800 (PST)
-From: Ethan Tidmore <ethantidmore06@gmail.com>
-To: Riana Tauro <riana.tauro@intel.com>,
-	intel-xe@lists.freedesktop.org
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ethan Tidmore <ethantidmore06@gmail.com>
-Subject: [PATCH] drm/xe/xe_ras: Use xe_log_info to avoid passing zero as error
- code
-Date: Sun,  1 Nov 2026 16:52:52 -0600
-Message-ID: <20261101225252.556741-1-ethantidmore06@gmail.com>
-X-Mailer: git-send-email 2.56.0
+Authentication-Results: gabe.freedesktop.org;
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="22sYFVNX";
+	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="JKt3Bknb";
+	dkim-atps=neutral
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 895DB10E50E
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:32:20 +0000 (UTC)
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
+ c=relaxed/relaxed; r=y; 
+ h=To:Message-Id:Subject:Date:From; t=1793575930; bh=tPY1VUUUvKvKxXJBd53NPjA
+ OYb7Ez0czGbxjGbaB96Q=; b=22sYFVNXKmWUBk0XJGiWoaV3Un3/1BBr/qlGwdCVUpgqkkBlFb
+ saBfRXmuUAIIsK8bNkzzhgCHhJtfrk7sBaBQ==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
+ r=y; 
+ h=To:Message-Id:Subject:Date:From; t=1793575930; bh=tPY1VUUUvKvKxXJBd53NPjA
+ OYb7Ez0czGbxjGbaB96Q=; b=JKt3BknbJjFw0fqAXpwp6VviE219y0LoYU1R9PGuO+4/P8AnoU
+ goFKxRw8V9OBhUioJ3jnBdP8ElN/hmA42bIj/Pn0DDAkeLL7OSJoOt5haECc2NLtlODfnkMiLGc
+ 4DyI4jKNJtgWiJMUn5Pwq8Gkq93EMMW5nirnmZfk/Z5Z9jeRlrD0XcUzgVRPjx9U8eSwmF78Jjh
+ /WtunNwyEzFO1y80XDhe+7EJZcousGJp+FdHBRs/rTvmzeyQ0TmEW2YVPBMBh9clH8nE2+vdPs3
+ 8Cb/fomLGOy8CZ6X0PUN5dtRquvluDDEVHHNAC787SoHfXUc93l8H08dCVT/V9Wpy/w==;
+From: erebion <erebion@erebion.eu>
+Date: Mon, 02 Nov 2026 00:32:05 +0100
+Subject: [PATCH v3 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-pdx213-upstream-3-v3-1-cdc3be96d257@erebion.eu>
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+In-Reply-To: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ erebion <erebion@erebion.eu>, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=1276;
+ i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
+ bh=znEuS5td4+QiMYX6lk/5TgTERO7/mo88HSojyifn6JE=;
+ b=FZHP8wHe0KF+8zMlUvJqTtptUCLUd6LI2pTElXu7VDcyCaXlcMX2JIZHQPjMXoc10mW6hZIoE
+ EIFyM+BH2z/CamY9eqSBYxHNTWWJdiVqhed3DHnB4kPkvVKJ+hgi+f+
+X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
+ pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:03:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,46 +72,59 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-20.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-xe_log_err() expects an error code, but in the case 0 branch of
-handle_page_offline(), 'ret' is zero. Passing zero to a function
-expecting an error code is incorrect.
+Add a node for the camera flash LED found on the Xperia 10 III
 
-Switch to xe_log_info() instead so that an error code is not
-expected and zero is not passed.
-
-Fixes: 12b427cf8bb0 ("drm/xe/xe_ras: Handle page offline requests for device memory ecc errors")
-Signed-off-by: Ethan Tidmore <ethantidmore06@gmail.com>
+Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+Signed-off-by: erebion <erebion@erebion.eu>
 ---
- drivers/gpu/drm/xe/xe_ras.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts      | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-index db3cbc186a51..7942a2a48887 100644
---- a/drivers/gpu/drm/xe/xe_ras.c
-+++ b/drivers/gpu/drm/xe/xe_ras.c
-@@ -304,9 +304,9 @@ static int handle_page_offline(struct xe_device *xe, u64 page_address, bool noti
- 	switch (ret) {
- 	case 0:
- 		action = XE_RAS_PAGE_ACTION_REMOVE;
--		xe_log_err(xe, DEVICE_MEMORY, ret,
--			   "Poison detected at physical address 0x%llx, page soft-offlined\n",
--			   page_address);
-+		xe_log_info(xe, DEVICE_MEMORY,
-+			    "Poison detected at physical address 0x%llx, page soft-offlined\n",
-+			    page_address);
- 		break;
- 	case -EIO:
- 		xe_log_err(xe, DEVICE_MEMORY, ret,
+diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+index 6e2bbf4f060ac..6942a117d41cf 100644
+--- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
++++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+@@ -4,9 +4,11 @@
+  */
+ /dts-v1/;
+ 
++#include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include "sm6350.dtsi"
++#include "pm6150l.dtsi"
+ #include "pm6350.dtsi"
+ 
+ / {
+@@ -302,6 +304,19 @@ touchscreen@48 {
+ 	};
+ };
+ 
++&pm6150l_flash {
++	status = "okay";
++
++	led-0 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>;
++		led-sources = <1>;
++		led-max-microamp = <1500000>;
++		flash-max-microamp = <1000000>;
++		flash-max-timeout-us = <1280000>;
++	};
++};
++
+ &pm6350_gpios {
+ 	vol_down_n: vol-down-n-state {
+ 		pins = "gpio2";
+
 -- 
-Thanks,
-ET
-https://github.com/sponsors/ethantidmore
+2.53.0
 
