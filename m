@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF66606A324
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:38:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F62606A329
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 23:42:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojzU3fya
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AimqHB4z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B8D910E3B6;
-	Sun,  1 Nov 2026 23:38:50 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57B2410E3B6
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:38:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5264910E3F4;
+	Sun,  1 Nov 2026 23:42:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 632F210E3F4
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:41:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A7E2A60A50;
- Sun,  1 Nov 2026 23:38:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344DF1F00919;
- Sun,  1 Nov 2026 23:38:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 137E043D9B;
+ Sun,  1 Nov 2026 23:41:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDA01F00919;
+ Sun,  1 Nov 2026 23:41:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793576323;
- bh=Juti9EcHeNFsMBB/29LIEyiqTgwCQ4NeUM7qAEas7Fk=;
+ s=k20260515; t=1793576517;
+ bh=6iRegssdGIhNKCNpk5hrItS2OkQ/SnEBgZjO9EF9dwM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ojzU3fyawC8EDIJXmoX6BReXYnKNFTQgMk7zQ83apVqS6NPtLj9RX2d62VFD0Zy5j
- 0LBnCuO7tL8Qdil4eT8xiGbD56IJnJlUm9Go6XzNZK82SKgpRR5nhmrqPp2UKAdV8p
- SXeQUJGzIeMUYy9U7y+mZHFBGXfYQiGfDfBK7Iw+ZTZDGIfVZl7Y2/NmbM0PbuLpUg
- NIVbJYt3MiM4PvGzxd5cL6oFEDsoQIsJQj3QqhKtEwAxRCUUC+Yhk1y7TaFYp3egKg
- a1SSq040J8dW420d+j3U1ANmW/cOuF1G0/vwG+wTHYO1N+P6Rpa0NWKYxnHZvwcwQC
- gWudeSGBfWUhg==
-Message-ID: <sashiko-outbox-192760@kernel.org>
+ b=AimqHB4zhXkoRGbnxP1kvovuUAGJRhGbb/U1ByT22uThax7kRFCuXzXzFCeLRm+Hq
+ LXNwrVN3a38EZPYqvoaY0gxKSqGXhhBg2kPDRqFOfxIIGEPTC+AgNO+X4oghaW9H4u
+ dWxUaKR8KRVAHNpvIqHPgJ/V357D8qiu/JnrYA7GblF5G4yjYl3ZXXzkoEmHVENGR0
+ 4UHMx+lIhgjmiUJIzclChNBY+ZtHTH9kyszlSsUPREtWSnriJ5e/eI7TPuSNZrJQGT
+ bNqjUUoceQIjhY6F2vlq5OJ+6yH09f3n0IYZG26KYclz+rGIqJhALOWUpZvbKVP1Xw
+ QJASn5AIqh8Zw==
+Message-ID: <sashiko-outbox-192764@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
+Subject: Re: [PATCH v3 04/12] arm64: dts: qcom: sm6350-lena: Enable ADSP,
+ CDSP, IPA & MPSS
 To: erebion <erebion@erebion.eu>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102-pdx213-upstream-3-v3-1-cdc3be96d257@erebion.eu>
+In-Reply-To: <20261102-pdx213-upstream-3-v3-4-cdc3be96d257@erebion.eu>
 References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-1-cdc3be96d257@erebion.eu>
+ <20261102-pdx213-upstream-3-v3-4-cdc3be96d257@erebion.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 01 Nov 2026 23:38:42 +0000
+Date: Sun, 01 Nov 2026 23:41:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,85 +62,57 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] arm64: dts: qcom: sm6350-lena: invalid led-max-microamp in pm615=
-0l_flash
+- [Low] arm64: dts: qcom: redundant IPA properties in sm6350-lena board DTS
 --
 
-commit c063589d95e3f37ff34d230113ce64e10e062736
+commit ea5a49fe7f1eb96f27686737dd2b4c7bc009edc7
 Author: erebion <erebion@erebion.eu>
 
-arm64: dts: qcom: sm6350-lena: Add flash LED
+arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP, IPA & MPSS
 
-This commit adds a devicetree node for the camera flash LED on the Sony
-Xperia 10 III (pdx213).
+This commit enables the ADSP, CDSP, IPA, and MPSS nodes in the Device
+Tree for the Sony Xperia 10 III (pdx213).
 
 > diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
 b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-> index 6e2bbf4f060ac..6942a117d41cf 100644
+> index 1e89c9798edf8..ce351a3fa8727 100644
 > --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 > +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 
 [ ... ]
 
-> @@ -302,6 +304,19 @@ touchscreen@48 {
+> @@ -325,6 +337,20 @@ touchscreen@48 {
 >  	};
 >  };
 > =20
-> +&pm6150l_flash {
-> +	status =3D "okay";
+> +&ipa {
+> +	firmware-name =3D "qcom/sm6350/sony/pdx213/ipa_fws.mbn";
+> +	memory-region =3D <&pil_ipa_fw_mem>;
+> +	qcom,gsi-loader =3D "self";
 > +
-> +	led-0 {
-> +		function =3D LED_FUNCTION_FLASH;
-> +		color =3D <LED_COLOR_ID_WHITE>;
-> +		led-sources =3D <1>;
-> +		led-max-microamp =3D <1500000>;
-> +		flash-max-microamp =3D <1000000>;
+> +	status =3D "okay";
+> +};
 
-[Severity: Medium]
-Is led-max-microamp =3D <1500000> in pm6150l_flash intended here, or was a =
-lower
-continuous torch current limit such as 150000 uA meant instead?
+[Severity: Low]
+Are memory-region and qcom,gsi-loader needed in &ipa here?
 
-In Documentation/devicetree/bindings/leds/common.yaml and
-Documentation/devicetree/bindings/leds/qcom,spmi-flash-led.yaml,
-led-max-microamp specifies the maximum continuous torch current, whereas
-flash-max-microamp specifies the pulsed strobe flash current. The binding
-schema constrains led-max-microamp to a maximum of 500000 uA for a single
-channel (or 1000000 uA for two ganged channels):
+Commit dc88d56f27e0 ("arm64: dts: qcom: sm6350: consolidate IPA
+properties") moved both properties into the base ipa: ipa@1e40000 node in
+arch/arm64/boot/dts/qcom/sm6350.dtsi:
 
-Documentation/devicetree/bindings/leds/qcom,spmi-flash-led.yaml:
-      led-max-microamp:
-        anyOf:
-          - minimum: 5000
-            maximum: 500000
-            multipleOf: 5000
-          - minimum: 10000
-            maximum: 1000000
-            multipleOf: 10000
+	ipa: ipa@1e40000 {
+		compatible =3D "qcom,sm6350-ipa";
+		...
+		qcom,gsi-loader =3D "self";
+		memory-region =3D <&pil_ipa_fw_mem>;
+		status =3D "disabled";
+	};
 
-Setting led-max-microamp to 1500000 uA causes dtbs_check validation to fail
-and sets the continuous torch limit higher than flash-max-microamp
-(1000000 uA).
-
-At runtime, when qcom_flash_led_probe() calls qcom_flash_register_led_devic=
-e()
-in drivers/leds/flash/leds-qcom-flash.c for a single-channel LED
-(led-sources =3D <1>), the driver clamps led-max-microamp to the hardware p=
-er-
-channel maximum of 500000 uA (TORCH_CURRENT_MAX_UA):
-
-drivers/leds/flash/leds-qcom-flash.c:qcom_flash_register_led_device() {
-	...
-	current_ua =3D min_t(u32, current_ua, TORCH_CURRENT_MAX_UA * led->chan_cou=
-nt);
-	led->max_torch_current_ma =3D current_ua / UA_PER_MA;
-	...
-}
-
-This allows up to 500 mA in continuous torch mode rather than a board-speci=
-fic
-torch limit.
+and dropped them from board files such as
+arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts. Could &ipa in
+arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts only specify
+firmware-name and status =3D "okay", matching &adsp, &cdsp, and &mpss?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-pdx213-ups=
-tream-3-v3-0-cdc3be96d257@erebion.eu?part=3D1
+tream-3-v3-0-cdc3be96d257@erebion.eu?part=3D4
