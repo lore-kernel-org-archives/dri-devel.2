@@ -2,46 +2,80 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B61606A325
-	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 12:56:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E99606A32F
+	for <dri-devel@archiver.kernel.org>; Sun,  1 Nov 2026 13:24:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=V7kdtGQo
+	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=jjnIYMQP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CC6910E374;
-	Sun,  1 Nov 2026 12:56:49 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFFF510E374
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 12:56:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=hbPLb4n4AfHgdvdWq7wNKLfZnjDMiftzs/eMZt0rWuE=; b=V7kdtGQo29RfNMtGzNaZ372eok
- x2iccNirQ5pXE1sPezYOwLRmbnHZIPeVoCYYzf32LHYcfRmS0+sN+6EnEQeletGerUThRueJW+Gsv
- fuHHDgZLcyZXiFLKnTnaBuqBDHsAZCQefNcc+tk/ozJLS7pLvUmmEDaLwBB/CmDKHLdVT6ME4RwaN
- Pw3xb5YsxuqGwDS5EdRDz1hrmozWZQWnJq2k3RRn8z270D4J8wte8ALtVP+BlvQS1Ti8CZOggxduA
- zQu/mWitF4lEkGYmjxjntMiYCE95SUvLJ5yI83SjF+4CF7QKuIgIFmS3J/8ab5FJAHr5BjafND2q3
- 2zJXyIAQ==;
-Received: from [179.105.94.163] (helo=prince)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xNV6y-00Go36-L7; Sun, 01 Nov 2026 13:56:37 +0100
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Iago Toral <itoral@igalia.com>,
- Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
- Melissa Wen <mwen@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Subject: [PATCH 2/2] drm/v3d: Count released supergroup IDs as CSD progress on
- V3D 7.x
-Date: Sun,  1 Nov 2026 09:53:58 -0300
-Message-ID: <20261101125619.2465064-2-mcanal@igalia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261101125619.2465064-1-mcanal@igalia.com>
-References: <20261101125619.2465064-1-mcanal@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DFCC10E414;
+	Sun,  1 Nov 2026 13:24:20 +0000 (UTC)
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A24E10EA40
+ for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 13:24:12 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-8b0f59a5fdeso16513927b3.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 05:24:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=korea.ac.kr; s=google; t=1793539452; x=1794144252; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=LxDX9PzbtJZKyZGuacihFDO/9p8vV6pNspzhtvTNV8o=;
+ b=jjnIYMQPtiw7p1y2qtCQ3CStFjuUYqUNqJF5ePFJBoFLkbhksV7BPv4fAJSVbzuMen
+ SljbGAoAToRt/EaxrzhQ6l2vJZ4E2BVcJSsUidwrtwdEJQocKPY/Ou9pm/zRNSPbkRNf
+ EN7La2wrCO2bj1M396Xzis2dnF4NChMcqGG8ZModYiBGotTi2jWto4EFxGVVCNxq3R96
+ dt8fQzNiiEUgaXf1SMPugyzL2zkO/lynd3XE//N7ucOTrfGEBnYM8zAfg7L+asMqd/aY
+ 2ZAYoZ9R63z8OfEvQ+tBvSI+UfG4RLCOPH8rf3lujzXusdi3jn9TO6BbVqNcdKfjyKxC
+ TtnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793539452; x=1794144252;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=LxDX9PzbtJZKyZGuacihFDO/9p8vV6pNspzhtvTNV8o=;
+ b=WSeDY3vSDr7TQxCxhvfd6I8VfS7LnfL1UTuM9MKohZe1+Y9p2QdvSO1fKFYnj+a66y
+ 4uiveHdYqE3zVDWIXIv0c69+WBNMa2J44KYb+CfFBeLciV1n01b/5ofZ7A1ronGWoCa3
+ KDw+pmek5MT+7uuwR7MkeVy5O4GeeBjeNSsjZUYUFB4TTY5drJZG81LRVgn3IAp/3bqi
+ CedFf6aUp6Ly42AeQPfwKwb5cdcXIbHedkF05DTGPywKrjihukE6evqS2I37uF+2qg0+
+ 1bfg9PIz8fVnEDdrGzyNW7gAbfZrc+AWgS3lvKxEX/6IWWHfMmzr1zMVUONeo4qcisV2
+ pVXA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxqv7MxvLC82+938/KHAvYneDQTvEvtXYR40QvakGrzQpp0JihNihmloujgjdw6LdghGBPCd7MR4Sc=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYIKkuXnSj4gjra02G7fNROZMwXGfYDH7x4p8xDgEl9RrIZ2Ekp+
+ yzHDKiV7vULX40Q97qbTjr18LDAv3CVeVnVH+tIKFqG/WeOTeoejuspxfOkOzkoDFw==
+X-Gm-Gg: AYBFou36Ds3I/qMP4l5dnX7mj3qnRZUrTuJTEUG4wzIK3a7mvExkUVe9QcfYgFlWZuw
+ y4uai/czAFs2Ye/TIhr78Zgup4BMld70ZjxNezFXH7RBcyARJ2H5MK2a3v8W3sFIg+x8AD+9bOs
+ a49KMpINDvR4SJEM/ngOI+94TZB4v23IsbswKtkwWZZMlfuDSkinU/Z/ZY7iEaR+IGB8H+bl786
+ AlZtFyiL8O1B7U3klr3fJMQEq7pt4rkUjK5fRmGXQX1CejQ/vOKbO9EOnSkKK2rALSZ/4w4fobw
+ r9y6tbBiup4hLf+S8UUJY04R0Jgl8/xWJloMryVcxuabcREF6xyEBfsnv8iLUdqIQoZstaWLfEP
+ pNS3N9oBS5Upns9ry7TMKQpZ7NaE4TCSo+55V9Ht8tGy+NfYOSEV1Pln9/10p6F3RuoR51wIZQT
+ qkuU7CB7Jbz38A1dZfRRRaKx1dOv0w/vap8BIdf9AF3v0+mFRCfgwyAwyI/H/gIUfoIdoiWw3W9
+ +eOkbW8fMUnIN6xEwtmZT1U/RQVp6ut0btTtP2z3ymuDeNlM+k5X1Q3U/b5eFZ3IFnwAXgBAlFo
+ 3PmpHIzv8TzCaXOJ
+X-Received: by 2002:a05:690c:c4e5:b0:8b0:8b34:ede3 with SMTP id
+ 00721157ae682-8b2b6594f0cmr48287597b3.3.1793539451749; 
+ Sun, 01 Nov 2026 05:24:11 -0800 (PST)
+Received: from s2lab05.. ([163.152.163.130]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-8b2b704e62esm36685267b3.3.2026.11.01.05.24.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 01 Nov 2026 05:24:10 -0800 (PST)
+From: Ingyu Jang <ingyujang25@korea.ac.kr>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ingyu Jang <ingyujang25@korea.ac.kr>
+Subject: [PATCH v2] drm/amd/pm: remove dead code in
+ smu7_patch_dependency_tables_with_leakage()
+Date: Sun,  1 Nov 2026 22:24:05 +0900
+Message-Id: <20261101132405.1387745-1-ingyujang25@korea.ac.kr>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260114163807.2525868-1-ingyujang25@korea.ac.kr>
+References: <20260114163807.2525868-1-ingyujang25@korea.ac.kr>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,105 +91,242 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+The smu7_patch_*() helpers called in this function only call the void
+smu7_patch_ppt_v0_with_vdd_leakage() and always return 0, so the error
+checks on their return values can never be true.
 
-v3d_csd_job_timedout() only treats a change in CSD_CURRENT_CFG4, the
-number of batches still to be started, as progress. Once the last batch
-has started, CFG4 no longer changes until the dispatch completes, so the
-batches still in flight must complete within one timeout period.
+Make the helpers and smu7_patch_dependency_tables_with_leakage() return
+void, and remove the dead checks.
 
-Since V3D 7.1 the dispatcher can keep up to MAX_SG_ID + 1 supergroups in
-flight. With supergroups of different lengths, the ones still running
-after the last batch starts can take longer than that while they keep
-completing, and the job is reset although it is making progress.
-
-On V3D 7.x, CSD_EXT_STATUS reports how many supergroup IDs are allocated.
-An ID is released when its supergroup completes, and none is allocated
-after the last batch has started, so the count only decreases until the
-dispatch completes.
-
-Treat a change of that count as progress too, starting from zero IDs when
-the job is started. V3D 4.2 has no register that reports supergroup
-completion, so it keeps the current behaviour.
-
-Signed-off-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
 ---
- drivers/gpu/drm/v3d/v3d_drv.h   |  2 +-
- drivers/gpu/drm/v3d/v3d_regs.h  |  5 +++++
- drivers/gpu/drm/v3d/v3d_sched.c | 14 +++++++++++++-
- 3 files changed, 19 insertions(+), 2 deletions(-)
+Changes in v2:
+- Make the smu7_patch_*() helpers and
+  smu7_patch_dependency_tables_with_leakage() return void, as suggested
+  by Alex Deucher.
+- Rebase onto current mainline.
 
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index 29fa14be130b..deac9e6a2e42 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.h
-+++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -426,7 +426,7 @@ struct v3d_tfu_job {
- struct v3d_csd_job {
- 	struct v3d_job base;
+Link to v1: https://lore.kernel.org/all/20260114163807.2525868-1-ingyujang25@korea.ac.kr/
+
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 117 +++++-------------
+ 1 file changed, 30 insertions(+), 87 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index bdf1e489369e6..dafe25b1efb65 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -2672,8 +2672,8 @@ static void smu7_patch_ppt_v0_with_vdd_leakage(struct pp_hwmgr *hwmgr,
+ }
  
--	u32 timedout_batches;
-+	u32 timedout_batches, timedout_sg_ids;
  
- 	struct drm_v3d_submit_csd args;
- };
-diff --git a/drivers/gpu/drm/v3d/v3d_regs.h b/drivers/gpu/drm/v3d/v3d_regs.h
-index c1870265eaee..8b8199ecb086 100644
---- a/drivers/gpu/drm/v3d/v3d_regs.h
-+++ b/drivers/gpu/drm/v3d/v3d_regs.h
-@@ -412,6 +412,11 @@
- # define V3D_CSD_STATUS_HAVE_CURRENT_DISPATCH          BIT(1)
- # define V3D_CSD_STATUS_HAVE_QUEUED_DISPATCH           BIT(0)
+-static int smu7_patch_vddc(struct pp_hwmgr *hwmgr,
+-			      struct phm_clock_voltage_dependency_table *tab)
++static void smu7_patch_vddc(struct pp_hwmgr *hwmgr,
++			    struct phm_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2682,12 +2682,10 @@ static int smu7_patch_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 						&data->vddc_leakage);
+-
+-	return 0;
+ }
  
-+/* V3D 7.x+ only */
-+#define V3D_V7_CSD_EXT_STATUS                           0x00904
-+# define V3D_V7_CSD_EXT_STATUS_NUM_ALLOCED_SG_IDS_MASK  V3D_MASK(9, 3)
-+# define V3D_V7_CSD_EXT_STATUS_NUM_ALLOCED_SG_IDS_SHIFT 3
-+
- #define V3D_CSD_QUEUED_CFG0(ver) ((ver >= 71) ? 0x00930 : 0x00904)
- # define V3D_CSD_QUEUED_CFG0_NUM_WGS_X_MASK            V3D_MASK(31, 16)
- # define V3D_CSD_QUEUED_CFG0_NUM_WGS_X_SHIFT           16
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 002116efc874..b9e0b7babaf9 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -361,6 +361,7 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
- 	job->base.irq_fence = dma_fence_get(fence);
+-static int smu7_patch_vddci(struct pp_hwmgr *hwmgr,
+-			       struct phm_clock_voltage_dependency_table *tab)
++static void smu7_patch_vddci(struct pp_hwmgr *hwmgr,
++			     struct phm_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2696,12 +2694,10 @@ static int smu7_patch_vddci(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 							&data->vddci_leakage);
+-
+-	return 0;
+ }
  
- 	job->timedout_batches = job->args.cfg[4];
-+	job->timedout_sg_ids = 0;
+-static int smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
+-				  struct phm_vce_clock_voltage_dependency_table *tab)
++static void smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
++				struct phm_vce_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2710,13 +2706,11 @@ static int smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 							&data->vddc_leakage);
+-
+-	return 0;
+ }
  
- 	trace_v3d_submit_csd(dev, to_v3d_fence(fence)->seqno);
  
-@@ -776,12 +777,23 @@ v3d_csd_job_timedout(struct drm_sched_job *sched_job)
- 	struct v3d_csd_job *job = to_csd_job(sched_job);
- 	struct v3d_dev *v3d = job->base.v3d;
- 	u32 batches = V3D_CORE_READ(0, V3D_CSD_CURRENT_CFG4(v3d->ver));
-+	u32 sg_ids = 0;
-+
-+	/* Once the last batch has started, CFG4 no longer changes until the
-+	 * dispatch completes. On V3D 7.x, supergroups that complete in that
-+	 * window release their ID, so count that as progress too.
-+	 */
-+	if (v3d->ver >= V3D_GEN_71) {
-+		sg_ids = V3D_GET_FIELD(V3D_CORE_READ(0, V3D_V7_CSD_EXT_STATUS),
-+				       V3D_V7_CSD_EXT_STATUS_NUM_ALLOCED_SG_IDS);
-+	}
+-static int smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
+-				  struct phm_uvd_clock_voltage_dependency_table *tab)
++static void smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
++				struct phm_uvd_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2725,12 +2719,10 @@ static int smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 							&data->vddc_leakage);
+-
+-	return 0;
+ }
  
- 	/* If we've made progress, skip reset, add the job to the pending
- 	 * list, and let the timer get rearmed.
- 	 */
--	if (job->timedout_batches != batches) {
-+	if (job->timedout_batches != batches || job->timedout_sg_ids != sg_ids) {
- 		job->timedout_batches = batches;
-+		job->timedout_sg_ids = sg_ids;
+-static int smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
+-					 struct phm_phase_shedding_limits_table *tab)
++static void smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
++				       struct phm_phase_shedding_limits_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2739,12 +2731,10 @@ static int smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].Voltage,
+ 							&data->vddc_leakage);
+-
+-	return 0;
+ }
  
- 		return DRM_GPU_SCHED_STAT_NO_HANG;
+-static int smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
+-				   struct phm_samu_clock_voltage_dependency_table *tab)
++static void smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
++				 struct phm_samu_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2753,12 +2743,10 @@ static int smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 							&data->vddc_leakage);
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
+-				  struct phm_acp_clock_voltage_dependency_table *tab)
++static void smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
++				struct phm_acp_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2767,12 +2755,10 @@ static int smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 					&data->vddc_leakage);
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
+-				  struct phm_clock_and_voltage_limits *tab)
++static void smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
++				   struct phm_clock_and_voltage_limits *tab)
+ {
+ 	uint32_t vddc, vddci;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2787,11 +2773,9 @@ static int smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
+ 						   &data->vddci_leakage);
+ 		tab->vddci = vddci;
  	}
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_leakage_table *tab)
++static void smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_leakage_table *tab)
+ {
+ 	uint32_t i;
+ 	uint32_t vddc;
+@@ -2804,63 +2788,22 @@ static int smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_leakage_ta
+ 			tab->entries[i].Vddc = (uint16_t)vddc;
+ 		}
+ 	}
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *hwmgr)
++static void smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *hwmgr)
+ {
+-	int tmp;
+-
+-	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_sclk);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_mclk);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency_on_mclk);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_display_clock);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_phase_shed_limits_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_ac);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_dc);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	return 0;
++	smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_sclk);
++	smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_mclk);
++	smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency_on_mclk);
++	smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_display_clock);
++	smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_voltage_dependency_table);
++	smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
++	smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_voltage_dependency_table);
++	smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_voltage_dependency_table);
++	smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_phase_shed_limits_table);
++	smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_ac);
++	smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_dc);
++	smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_table);
+ }
+ 
+ 
 -- 
-2.56.0
+2.34.1
 
