@@ -2,76 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C2C606A32E
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45AC1606A336
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NXgjLjZf;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7k/A6mMB;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=cjPW10Q1;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3I6pl88n
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qzTtdcZD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=p2ukz3Vv;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qzTtdcZD;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=p2ukz3Vv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B4FD10EC1C;
-	Mon,  2 Nov 2026 08:36:48 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9A310E5B8;
- Mon,  2 Nov 2026 08:36:36 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90D4A10EC1D;
+	Mon,  2 Nov 2026 08:37:01 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE19010EC1D;
+ Mon,  2 Nov 2026 08:36:50 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D93391FCF1;
- Mon,  2 Nov 2026 08:36:34 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2703D2218B;
+ Mon,  2 Nov 2026 08:36:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793608595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793608609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=PaMnGP+qVZ9H/IkTsdXNRejL6EdgnoVvkvBOAg/mURA=;
- b=NXgjLjZfpaWDy+RFEUbWUWTT11BcSyzUO1G0PysPisEvVg2Ztt+2+TQ9CbYKTZw7+1dUc/
- FTbZtmjIkjEuMYtS2Q/nO3PiidQqjBmU67opS2NedYz39Z1FOTp9Gwuto0Pyufgyva6rSS
- DoqptCsFqCjYfL/PkkBQFzUo5pmJe5E=
+ bh=AzK7DXJkWUKL717cTE7MEjjRUWbGYrKJFCZp2ZdtzFw=;
+ b=qzTtdcZDFE7XSEX5shVjZWg2ZV3EnsQKbsUzau3uXCKNE38mFjjDH2bxuXyGHlWlLEHHpx
+ I2ipy81Ii6FN93OaAWGYOhOsg0zSydj8HYyxM52bOPy4kMubdZwdET92YqvEeliUOICyor
+ 1rGvlBzb8cbo8yjyMxRvoAsoUI3JklY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793608595;
+ s=susede2_ed25519; t=1793608609;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=PaMnGP+qVZ9H/IkTsdXNRejL6EdgnoVvkvBOAg/mURA=;
- b=7k/A6mMBET8hMS3SOph4XNwdfRBwo3MaLOuyKFpjCJuB/oaRCw86+IZqF7Uc/hGKf1YBfe
- vFG/CzMApk8p0MCQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=cjPW10Q1;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3I6pl88n
+ bh=AzK7DXJkWUKL717cTE7MEjjRUWbGYrKJFCZp2ZdtzFw=;
+ b=p2ukz3Vv71c2aUSyF1zP/Z+4zSiuCz8gEqG6LuqugQVJzx4HxeSbaUuXTP4FusAVOk3kwi
+ ahWOObcEgbC0faDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793608594; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1793608609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=PaMnGP+qVZ9H/IkTsdXNRejL6EdgnoVvkvBOAg/mURA=;
- b=cjPW10Q1xaEEifTk34SRdf9hvwW2uRkFEuosg/NQkF/VEaYe9y1VHWRVZUWlhuszcYwfTW
- scmmIfi5NLm9+zJXSWjK8IeAkt8FPpakppSiaieL+KZEuXK6Gmn0QloGielhNIEdT2aoBM
- 2IGEzmGeJTmSHs17l5HbSKtNenopgmo=
+ bh=AzK7DXJkWUKL717cTE7MEjjRUWbGYrKJFCZp2ZdtzFw=;
+ b=qzTtdcZDFE7XSEX5shVjZWg2ZV3EnsQKbsUzau3uXCKNE38mFjjDH2bxuXyGHlWlLEHHpx
+ I2ipy81Ii6FN93OaAWGYOhOsg0zSydj8HYyxM52bOPy4kMubdZwdET92YqvEeliUOICyor
+ 1rGvlBzb8cbo8yjyMxRvoAsoUI3JklY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793608594;
+ s=susede2_ed25519; t=1793608609;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=PaMnGP+qVZ9H/IkTsdXNRejL6EdgnoVvkvBOAg/mURA=;
- b=3I6pl88ne4Hfd0ksCNd5L561gMJNFmuoPlJfjCvOkmd8jBZ6RW2pmEGeSb1uiVq54aAtMu
- JRrrv0n3jhCdNdDw==
+ bh=AzK7DXJkWUKL717cTE7MEjjRUWbGYrKJFCZp2ZdtzFw=;
+ b=p2ukz3Vv71c2aUSyF1zP/Z+4zSiuCz8gEqG6LuqugQVJzx4HxeSbaUuXTP4FusAVOk3kwi
+ ahWOObcEgbC0faDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 71D8A134B8;
- Mon,  2 Nov 2026 08:36:34 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C41381351F;
+ Mon,  2 Nov 2026 08:36:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id nSShEZJL6GoyOgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 02 Nov 2026 08:36:34 +0000
-Message-ID: <52cafaf3-0d7c-4133-b690-6504a3b9d0c1@suse.de>
-Date: Mon, 2 Nov 2026 09:36:33 +0100
+ by imap1.dmz-prg2.suse.org with ESMTPSA id CSA3GaBL6Gr+OgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 02 Nov 2026 08:36:48 +0000
+Message-ID: <751db9a1-10af-4a62-a413-8fbf81d01e01@suse.de>
+Date: Mon, 2 Nov 2026 09:36:48 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
@@ -112,31 +110,21 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
 In-Reply-To: <20261030-drm-no-more-connector-reset-v3-34-30e71d92c327@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
- MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; DKIM_TRACE(0.00)[suse.de:+];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[8]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.de:dkim, suse.com:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -13.50
 X-Spam-Level: 
-X-Rspamd-Queue-Id: D93391FCF1
+X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; RCPT_COUNT_SEVEN(0.00)[8];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.29
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,7 +156,7 @@ Am 30.10.26 um 16:14 schrieb Maxime Ripard:
 > +	if (WARN_ON(!asyc))
 
 Since you're here anyway, please use drm_WARN_ON_ONCE(). Plain WARN_ON() 
-doesn't seem a good fir here.
+doesn't seem a good fit here.
 
 Best regards
 Thomas
