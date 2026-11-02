@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46749606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:02:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D2B606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DlF61XV0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C3fmvZ8d
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD4910ECDB;
-	Mon,  2 Nov 2026 11:02:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 726B010ECE9;
+	Mon,  2 Nov 2026 11:03:36 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 444BA10ECE9
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:02:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 516BA10ECE9
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:03:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6E4F260DC0;
- Mon,  2 Nov 2026 11:02:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93941F00A24;
- Mon,  2 Nov 2026 11:02:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B00C560618;
+ Mon,  2 Nov 2026 11:03:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378571F00A17;
+ Mon,  2 Nov 2026 11:03:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793617337;
- bh=KgRwtb/FI+2YCJ4kwli+o3lrioJBvm55STchLrtfxt4=;
+ s=k20260515; t=1793617409;
+ bh=mh3z9noCE6ZdoU5gFlYQzP62zXwNFZoh5XtwaNvSP3E=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=DlF61XV0d9XiwalFnRPKBean5iUH7HdqhvgI9MfSIdvTGXdfjvtHXOGhuo9/rxedI
- bXE3v6hxXXFEAs+X2qXTGJj/hNOjO/Sw8kcM97/1hmLaL97x3r3RNfzkItOT93q/Hf
- muCM6ODh6jinWoteRRvURRkWQ3H/kYLVM7zIyod1su3rJ64vb+Ppjd5J/pVbWmEuZt
- O5IRQJHHP8Wa8Rh/fYGhP8NVdOnLCq1USQ7qTTklBCvhn0aLBfRuUWo0bNG/SRZvGr
- Gjl5ajxo/QNqdFoX5IsNB88rp/ikPoytixwYZgnvjbsqUF/Gm27WqZ7hgVKKdDsaEk
- ehlZBUuHpO0tQ==
-Message-ID: <sashiko-outbox-193307@kernel.org>
+ b=C3fmvZ8d3sD4RUV+K6BtpLL3QKZ2KIpPx+UvupT3djtUKxSS840CB7w7R/IJpZr0n
+ y/HSP9VoM5oO6ICNcEIzqWWv2ftdUYOtLCAysKul+7idqm91UBqL9iG1VJiNbepl6e
+ 2jCORx88ELEkXrY1DXmKMnTEWQp1S6lqBLn9pwJE9JvTeViub5wLkfaKBXPJeed2GY
+ xSZQwPtaBDxslM7EXzlDaneZ62RS7thXfDrWj8Xt37URN6PQcJTAxUAVqFE83wFyxF
+ UyTPCe1PSoAW7xlygZGDJmCwK8WofOnPpxIC0Ex4vPbTS12Z4zUDASq07or7TXbV2A
+ 2ZKZ5HrDmigUQ==
+Message-ID: <sashiko-outbox-193311@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/13] gpu: drm: sti: call
+Subject: Re: [PATCH 02/13] gpu: drm: exynos: call
  cec_notifier_phys_addr_invalidate if no EDID
 To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <86d6a90ff5131a4f6a1edef1d4f1694e65c5b6e6.1793615824.git.hverkuil+cisco@kernel.org>
+In-Reply-To: <727792a5e9eb05c3c0abd5930bb53ed8cd7d3724.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
- <86d6a90ff5131a4f6a1edef1d4f1694e65c5b6e6.1793615824.git.hverkuil+cisco@kernel.org>
+ <727792a5e9eb05c3c0abd5930bb53ed8cd7d3724.1793615824.git.hverkuil+cisco@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 11:02:16 +0000
+Date: Mon, 02 Nov 2026 11:03:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,75 +61,67 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/sti: incomplete cec_notifier_phys_addr_invalidate() conversi=
-on
+- [Medium] drm/exynos: hdmi_get_modes() calls cec_notifier_set_phys_addr() =
+when no EDID
 --
 
-commit 349b68331fa85963a4002deda235cb948b105b27
+commit 66acd3ff42feaf8689b6b9eff4b13a5139f4e6bb
 Author: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-gpu: drm: sti: call cec_notifier_phys_addr_invalidate if no EDID
+gpu: drm: exynos: call cec_notifier_phys_addr_invalidate if no EDID
 
-This commit replaces a cec_notifier_set_phys_addr() call with
-cec_notifier_phys_addr_invalidate() in sti_hdmi_disable().
+This commit updates hdmi_detect() in the Exynos HDMI driver to call
+cec_notifier_phys_addr_invalidate() instead of cec_notifier_set_phys_addr()
+with CEC_PHYS_ADDR_INVALID when the connector is disconnected.
 
-> diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdm=
-i.c
-> index 7ba9e0b7ba6c0..d392140df2357 100644
-> --- a/drivers/gpu/drm/sti/sti_hdmi.c
-> +++ b/drivers/gpu/drm/sti/sti_hdmi.c
-> @@ -790,7 +790,7 @@ static void sti_hdmi_disable(struct drm_bridge *bridg=
-e,
+> diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exyno=
+s/exynos_hdmi.c
+> index 055dc04f9b3e5..d03f4e531e05e 100644
+> --- a/drivers/gpu/drm/exynos/exynos_hdmi.c
+> +++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+> @@ -857,7 +857,7 @@ static enum drm_connector_status hdmi_detect(struct d=
+rm_connector *connector,
+>  	if (gpiod_get_value(hdata->hpd_gpio))
+>  		return connector_status_connected;
 > =20
->  	hdmi->enabled =3D false;
-> =20
-> -	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
-> +	cec_notifier_phys_addr_invalidate(hdmi->notifier);
->  }
+> -	cec_notifier_set_phys_addr(hdata->notifier, CEC_PHYS_ADDR_INVALID);
+> +	cec_notifier_phys_addr_invalidate(hdata->notifier);
 
 [Severity: Medium]
-The commit message states:
+The commit message notes that if an EDID is present, the driver should call
+cec_notifier_set_phys_addr(), and if not, it should call
+cec_notifier_phys_addr_invalidate().
 
-  If an EDID is present, then call cec_notifier_set_phys_addr. If not, then
-  call cec_notifier_phys_addr_invalidate. This helps the CEC framework
-  differentiate between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an
-  EDID without a Physical Address.
+However, this patch only updates the HPD disconnect path in hdmi_detect().
+When HPD is asserted (or probing is forced) and
+drm_helper_probe_single_connector_modes() calls hdmi_get_modes(), if reading
+the EDID via drm_edid_read_ddc() returns NULL, drm_edid_connector_update()
+sets info->source_physical_address to CEC_PHYS_ADDR_INVALID and
+hdmi_get_modes() still calls cec_notifier_set_phys_addr() before checking
+drm_edid:
 
-  This driver is one of the few that was using cec_notifier_set_phys_addr
-  on disconnect instead of cec_notifier_phys_addr_invalidate.
+drivers/gpu/drm/exynos/exynos_hdmi.c:hdmi_get_modes() {
+	...
+	drm_edid =3D drm_edid_read_ddc(connector, hdata->ddc_adpt);
 
-However, this patch only updates sti_hdmi_disable().
+	ret =3D drm_edid_connector_update(connector, drm_edid);
+	if (ret)
+		return 0;
 
-In drivers/gpu/drm/sti/sti_hdmi.c, sti_hdmi_connector_detect() still calls
-cec_notifier_set_phys_addr() on cable disconnect when hdmi->hpd is false:
-
-	DRM_DEBUG_DRIVER("hdmi cable disconnected\n");
-	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
-	return connector_status_disconnected;
-
-Additionally, sti_hdmi_connector_get_modes() unconditionally calls
-cec_notifier_set_phys_addr() before checking whether drm_edid is NULL:
-
-	drm_edid =3D drm_edid_read(connector);
-
-	drm_edid_connector_update(connector, drm_edid);
-
-	cec_notifier_set_phys_addr(hdmi->notifier,
-				   connector->display_info.source_physical_address);
+	cec_notifier_set_phys_addr(hdata->notifier, info->source_physical_address);
 
 	if (!drm_edid)
-		goto fail;
+		goto no_edid;
+	...
+no_edid:
+	return drm_add_modes_noedid(connector, 640, 480);
+}
 
-When drm_edid is NULL, drm_edid_connector_update() sets
-source_physical_address to CEC_PHYS_ADDR_INVALID, so
-cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID) is still
-called when no EDID is present.
-
-Should sti_hdmi_connector_detect() and sti_hdmi_connector_get_modes() also =
-be
-updated to call cec_notifier_phys_addr_invalidate() when the cable is
-disconnected or when drm_edid is NULL?
+Should hdmi_get_modes() also be updated so that cec_notifier_set_phys_addr()
+is only called when drm_edid is non-NULL, and
+cec_notifier_phys_addr_invalidate() is called in the no_edid path when no
+EDID could be read?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793615824.gi=
-t.hverkuil+cisco@kernel.org?part=3D1
+t.hverkuil+cisco@kernel.org?part=3D2
