@@ -2,56 +2,53 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028C4606A326
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:46:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CEE606A326
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:47:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=It7MZITQ
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tYsq9oqL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 566D610ECCA;
-	Mon,  2 Nov 2026 10:46:18 +0000 (UTC)
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE66E10ECCA;
- Mon,  2 Nov 2026 10:46:11 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJ7fT3m9rzMlD7;
- Mon, 02 Nov 2026 11:46:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1793616369; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/4xkEfYxqjbXp4Ci01sdrxpkE7UK56jG7PU71QpI0/s=;
- b=It7MZITQW6cp44q/4p/4z29YR3KERS8hRpIOZkqiw+Cy0DRLmqIrukC/XU8X/N2MWCBP6v
- RMPxvCVydvnK85osICRqfZ3mkBA+rPuYAtYg+ryRFzs0Z2+eHwepVo+C8T6yKwM/iNxXqo
- vYEuG9Dj7FouVHIXr70teKd/yO8Y8uKnn/U/evOmsZNX5WFkc9WDI8o356Vbg4a3nI9TT8
- nfTyctcfqPMs50Y1NQSnRqPPjDoQD5NTPGjpD9pYSJK73OxMTb7Fjpai6ydXLhxjyAa81N
- 0L3XPokGXHPYsh9yv18AX9Sy0Py5k+Wfoq0/igioNjW2NtnDrUM2N3pijFMT9w==
-Message-ID: <45a8324481c367a69f25e8c395ff6784b441a834.camel@mailbox.org>
-Subject: Re: [PATCH v2 1/2] drm/sched: Fix out of bounds entity priority check
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost	 <matthew.brost@intel.com>, Philipp
- Stanner <phasta@kernel.org>, 	stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 11:46:08 +0100
-In-Reply-To: <20261021094227.48034-2-tvrtko.ursulin@igalia.com>
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
- <20261021094227.48034-2-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F54310ECBA;
+	Mon,  2 Nov 2026 10:46:57 +0000 (UTC)
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com
+ [111.22.67.137])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3FCE210ECD5
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:46:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cmss.chinamobile.com; s=default; l=0;
+ h=from:subject:message-id:to:cc:mime-version;
+ bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+ b=tYsq9oqLM+7lQixDkQIKNZ9ALsqlBAjVve+XIkTCo+JGrX3FUzK6n+179pwhUDdGT0oMGSFz4bLc4
+ bovP/6OxE8/bxIetjBHmPVji0o5ySYe9wzVHd2lON7qoLwd+CJlgzJ5vkpOtP2snhJyj7sLFjOnDBD
+ zz2MW7hnTuYO2W5I=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from spf.mail.chinamobile.com (unknown[10.188.0.87])
+ by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86ae86a15aba-29663;
+ Mon, 02 Nov 2026 18:46:45 +0800 (CST)
+X-RM-TRANSID: 2ee86ae86a15aba-29663
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG: 00000000
+Received: from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+ by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6ae86a14bfd-7b547;
+ Mon, 02 Nov 2026 18:46:45 +0800 (CST)
+X-RM-TRANSID: 2eea6ae86a14bfd-7b547
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] drm/exynos: scaler: Fix runtime PM reference leak in
+ scaler_commit
+Date: Mon,  2 Nov 2026 18:46:42 +0800
+Message-ID: <20261102104642.925-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: be023fd9551cd454391
-X-MBO-RS-META: mryqex7mdyz7hmerchnuaoynbob4gght
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,105 +59,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 2026-10-21 at 10:42 +0100, Tvrtko Ursulin wrote:
-> When the out of range priority at entity init time is clamped to the
-> number of run queues in the supplied scheduler the internal run-queue
-> priority needs to be adjusted as well.
->=20
-> There is no impact since none of the drivers hit the clamping path, but
-> we still need to address it by moving the entity->rq_priority assignment
-> to after the clamping is done.
->=20
-> Note that a lot of this will hopefully get removed once again when the
-> single run-queue simplification lands.
+scaler_commit() calls pm_runtime_resume_and_get(), but when the
+scaler_reset() soft reset does not complete it returns -EIO directly
+without dropping the reference.  On the success path the reference is
+only dropped from the frame-end interrupt handler, and scaler->task
+is not yet assigned on the error path, so the interrupt handler will
+not drop it either.
 
-So this is no existing bug out there, but merely for formal
-correctness?
+Each failed scaler commit therefore leaks one runtime PM reference and
+the scaler can never runtime suspend afterwards.
 
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: <stable@vger.kernel.org> # v7.2+
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c | 27 +++++++++++----------=
+This restores the pm_runtime_put() call that was already present in
+the error path before the conversion to
+pm_runtime_resume_and_get().
+
+Fixes: 445d3bed75de ("drm/exynos: use pm_runtime_resume_and_get()")
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
 ---
-> =C2=A01 file changed, 12 insertions(+), 15 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
-cheduler/sched_entity.c
-> index 7be0387bac3c..e12709b7bd0c 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -130,10 +130,7 @@ int drm_sched_entity_init(struct drm_sched_entity *e=
-ntity,
-> =C2=A0
-> =C2=A0	INIT_LIST_HEAD(&entity->list);
-> =C2=A0	entity->guilty =3D guilty;
-> -	entity->priority =3D priority;
-> =C2=A0	entity->last_user =3D current->group_leader;
-> -	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
-> =C2=A0	entity->num_sched_list =3D num_sched_list;
-> =C2=A0	entity->sched_list =3D num_sched_list > 1 ? sched_list : NULL;
-> =C2=A0	RB_CLEAR_NODE(&entity->rb_tree_node);
-> @@ -144,25 +141,25 @@ int drm_sched_entity_init(struct drm_sched_entity *=
-entity,
-> =C2=A0		 * not to do this and to fix their DRM calling order.
-> =C2=A0		 */
-> =C2=A0		pr_warn("%s: called with uninitialized scheduler\n", __func__);
-> -	} else {
-> -		enum drm_sched_priority p =3D entity->priority;
-> -
-> +	} else if (priority >=3D sched_list[0]->num_user_rqs) {
-> =C2=A0		/*
-> =C2=A0		 * The "priority" of an entity cannot exceed the number of
-> =C2=A0		 * run-queues of a scheduler. Protect against num_rqs being 0,
-> =C2=A0		 * by converting to signed. Choose the lowest priority
-> =C2=A0		 * available.
-> =C2=A0		 */
-> -		if (p >=3D sched_list[0]->num_user_rqs) {
-> -			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u nu=
-m_user_rqs:%u\n",
-> -				p, sched_list[0]->num_user_rqs);
-> -			p =3D max_t(s32,
-> -				=C2=A0 (s32)sched_list[0]->num_user_rqs - 1,
-> -				=C2=A0 (s32)DRM_SCHED_PRIORITY_KERNEL);
-> -			entity->priority =3D p;
-> -		}
-> +		dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num=
-_user_rqs:%u\n",
-> +			priority, sched_list[0]->num_user_rqs);
-> +		priority =3D max_t(s32,
-> +				 (s32)sched_list[0]->num_user_rqs - 1,
-> +				 (s32)DRM_SCHED_PRIORITY_KERNEL);
-> +	}
-> +
-> +	entity->priority =3D priority;
-> +	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
+ drivers/gpu/drm/exynos/exynos_drm_scaler.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-I guess my main question regarding the code is why you moved those
-lines?
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_scaler.c b/drivers/gpu/drm/exynos/exynos_drm_scaler.c
+index c8a1b6b0a..dc8189685 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_scaler.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_scaler.c
+@@ -372,8 +372,10 @@ static int scaler_commit(struct exynos_drm_ipp *ipp,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	if (scaler_reset(scaler))
++	if (scaler_reset(scaler)) {
++		pm_runtime_put(scaler->dev);
+ 		return -EIO;
++	}
+ 
+ 	scaler->task = task;
+ 
 
-> +	if (sched_list[0]->sched_rq)
 
-Couldn't that remain in a terminating `else`, reducing the git churn?
-
-> =C2=A0		entity->rq =3D sched_list[0]->sched_rq[entity->rq_priority];
-> -	}
-> =C2=A0
-> =C2=A0	init_completion(&entity->entity_idle);
-> =C2=A0
