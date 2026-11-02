@@ -2,44 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEA960A5BE2
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:28:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D438D60A2636
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:28:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=hKTQke3g
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Se/JwnRU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58EAD10E04C;
-	Mon,  2 Nov 2026 11:28:27 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AA6910E04C
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:28:21 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 387CEBE;
- Mon,  2 Nov 2026 12:26:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1793618763;
- bh=jVlSgTI/aCwhIEJiTK3f6g78ldwsCruOjjKeNYHsaAA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hKTQke3gMm1I9i1olKx7yx6xPZ9A3GePN70oCW8zyycKT3Zb6bWEvWpIZmouVYNrm
- gWJb2bqIpxk5e0PYa0S4MpcNtN2vr2Xe8c1TbrOj0dsgqVKn4Gn2wIsHWGKMCkZOa1
- 4lxrUAN0kVkI+IlIMiPiqyObMS2xBmR9vCcH9P8w=
-Message-ID: <f96d2a22-5916-4aa9-b2e1-9a5ebd78c5c3@ideasonboard.com>
-Date: Mon, 2 Nov 2026 13:28:16 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B89710E5DF;
+	Mon,  2 Nov 2026 11:28:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 429D210E5DF
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:28:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EDA5043B2B;
+ Mon,  2 Nov 2026 11:28:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B841F00A18;
+ Mon,  2 Nov 2026 11:28:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793618905;
+ bh=YAj/j/4efbhabnnhYe0OawMFMjQPvNoehqB7lBM/oH4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Se/JwnRUSvAI174uNSFWm8zut3t4wPxKX5b6eyWLnlfmxFJ3gkN6dGEFZP668euNQ
+ OvJYYgJz4nE29c3PBg8TbI/Umvjs0TK8ynMEiLVIgqDsz7l2kU9HQp+ClIUHBtpR91
+ x5lS7QhfHyQ953vDyfEQjpGryIcog9WtJ87zbvsoRHiaM6LyQyH7p+fxlzw9wPKzKt
+ QBp5oHWfuF1z3Wb2VPyhiBXYb9SAtKTpUFfFj+fCg3opeWkwuw4jdb7P6bJ+1SCAd+
+ MU76NXBDYCFd3JJKikrSpY2LrsUKOOZXt/LnFpddxT7kXRQXUhVwWtpeMA2h9IXDRw
+ BZesqZeokXJ4Q==
+Date: Mon, 2 Nov 2026 12:28:22 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Icneowy Zheng <uwu@icenowy.me>, Han Gao <gaohan@iscas.ac.cn>
+Subject: Re: [PATCH 1/3] dt-bindings: display: bridge: document TH1520 MIPI
+ DSI controller
+Message-ID: <20261102-spry-snobbish-hound-384cae@quoll>
+References: <20261030-th1520-dw-mipi-dsi-v1-0-753f34fd304f@iscas.ac.cn>
+ <20261030-th1520-dw-mipi-dsi-v1-1-753f34fd304f@iscas.ac.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/13] gpu: drm: omapdrm: call cec_s_phys_addr only if
- EDID is present
-To: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
-References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
- <d58e8dbe49a0af87e2e98463d620e33a8115c109.1793615824.git.hverkuil+cisco@kernel.org>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <d58e8dbe49a0af87e2e98463d620e33a8115c109.1793615824.git.hverkuil+cisco@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030-th1520-dw-mipi-dsi-v1-1-753f34fd304f@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,35 +69,55 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+On Fri, Oct 30, 2026 at 03:47:49PM +0800, Icenowy Zheng wrote:
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: DSI controller APB clock
+> +      - description: PHY configuration clock
+> +      - description: PHY reference clock
+> +      - description: DSI controller input pixel clock gate
+> +
+> +  clock-names:
+> +    items:
+> +      - const: pclk
+> +      - const: phy_cfg
+> +      - const: ref
+> +      - const: pixel
+> +
+> +  syscon:
 
-On 02/11/2026 12:36, Hans Verkuil wrote:
-> If an EDID is present, then call cec_s_phys_addr. If not, then
-> call cec_phys_addr_invalidate. This helps the CEC framework differentiate
-> between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an EDID without
-> a Physical Address.
-> 
-> This driver is one of the few that was doing this inconsistently.
-> 
-> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> ---
->   drivers/gpu/drm/omapdrm/dss/hdmi4.c     | 7 +++----
->   drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c | 5 +++++
->   drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h | 5 +++++
->   3 files changed, 13 insertions(+), 4 deletions(-)
-> 
+Such property names are not allowed. Missing vendor prefix, missing
+descriptive name.
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the VO subsystem system controller.
 
-  Tomi
+For what purpose? How does this device use VO? What is VO subsystem
+system?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - interrupts
+> +  - syscon
+> +  - ports
+
+Best regards,
+Krzysztof
 
