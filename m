@@ -2,52 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52A9606A326
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 18:01:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5C2606A32D
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 18:05:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=MLyh5SzI
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O56W9w0m
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D48B10E6D5;
-	Mon,  2 Nov 2026 18:01:26 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F169210E6D5
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 18:01:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=rsoXzBeHz6VZLGtk/wZzqQf/KgxPznedob+STUPBrcA=; t=1793642479; x=2109002479; 
- b=MLyh5SzISmuvGbTobX0FR1jDmnNgwVpY5pPpr4+jpkwMsyWSz8U8QO/mO6KsWhRwsmQuV7xjmMN
- 4uwbxbzJbdLNjNM5dO2Hi1h0MorwLgbS1qEXBum3WpKZtpbrUxLZL5pK0/JjA9qaDchtEcPiM2UtR
- U7NywhPHsvAsg6IVWe1ynV4BabjjsWk4gZqbwzia5dGnn6AaA8jYXiaZmCIHtYPmBrSDxe2HVIQmg
- QG1k8WbL70VtvW6zGFfWUeTYgls9YOalesswLzLKvCf6eCDqMfLO1GFESBb16iJnXlEQQLnPqhtLU
- O+S7d4x6BNt+CSckM1RfSkYYK75SYDru3R2Q==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xNwLH-000NsV-GX; Mon, 02 Nov 2026 19:01:11 +0100
-Message-ID: <ab160c52-1645-4ec9-9ea2-5b8bc36d9284@igalia.com>
-Date: Mon, 2 Nov 2026 18:01:10 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA9C010F0D9;
+	Mon,  2 Nov 2026 18:05:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 362C910F0D9;
+ Mon,  2 Nov 2026 18:05:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793642718; x=1825178718;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=UqtGetrbrkil/gK1g9r8+25rWujc9kVbr/dtxdfrl6g=;
+ b=O56W9w0mjqqCB5NLSEgx1BFi5icSoCUywvRkcG68FtXGxPsjd0ceO8fI
+ OpaKhiUt1JjPvaIG6f6/ODjY4tv6/jKmTFCWeCSR25mJMIr9nwKVQ3CPS
+ ieiLvFtSqIbH6FWef/ONFW354evfqmaaRR0KNebw6wI/YU2kDjyattjXq
+ hJ53pZK7Mx5Gzdze1xcYEloQcaOrfuyKqvjMhW7cxbIXKTuotobUmQa1A
+ BsoOAL6Rq80yc9wIYyetMsoiDRlW31ecVeylEwIGUZQUpaNhGlvkcnDI1
+ BCSFoC3Y9iSfu4tZ+k2+ga9glk8QLpYy+G9wx7XD1ZpQbyAFFp1WoLCOU Q==;
+X-CSE-ConnectionGUID: mEYwpunSQpOY1dGZGcBRTg==
+X-CSE-MsgGUID: UKuE+bPiTJapan6+JWUhgA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2246121"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2246121"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 10:05:18 -0800
+X-CSE-ConnectionGUID: iWJle9Q6Q+O4884NrP2xSA==
+X-CSE-MsgGUID: iK+H67SFSamTAfTcA9iWSw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6346540"
+Received: from aalteres-desk1.fm.intel.com ([10.121.64.173])
+ by fmviesa002.fm.intel.com with ESMTP; 02 Nov 2026 10:05:17 -0800
+From: Alan Previn <alan.previn.teres.alexis@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ dri-devel@lists.freedesktop.org,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Subject: [PATCH 1/1] drm/xe: Add support for Wa_14028250015
+Date: Mon,  2 Nov 2026 10:05:16 -0800
+Message-ID: <20261102180516.1551869-2-alan.previn.teres.alexis@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/4] workqueue: Separate sysfs mutable vs immutable wq
- attribute sanitizing
-To: Tejun Heo <tj@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
- Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Breno Leitao <leitao@debian.org>
-References: <20261022093848.5727-1-tvrtko.ursulin@igalia.com>
- <20261022093848.5727-3-tvrtko.ursulin@igalia.com>
- <91711e517792f2e607258d75b633898e@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <91711e517792f2e607258d75b633898e@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,80 +62,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+The WA is implemented by the GuC, so we just need to enable it via the
+dedicated KLV. It makes the GuC complete page reclaim requests that
+end in an error, instead of leaving them pending. It is only needed
+when the page reclaim HW assist is in use. This WA only applies to
+graphics version 3510.
 
-On 23/10/2026 22:28, Tejun Heo wrote:
-> Hello, Tvrtko.
-> 
-> On Thu, Oct 22, 2026 at 10:38:46AM +0100, Tvrtko Ursulin wrote:
->> +/* Sanitize attributes not modifiable via sysfs. */
->> +static void
->> +sanitize_immutable_workqueue_attrs(struct workqueue_struct *wq,
->> +				   struct workqueue_attrs *attrs)
->> ...
->> +/* Sanitize attributes modifiable via sysfs. */
->> +static void
->> +sanitize_mutable_workqueue_attrs(struct workqueue_struct *wq,
->> +				 struct workqueue_attrs *attrs)
->> ...
->> +static void
->> +sanitize_workqueue_attrs(struct workqueue_struct *wq,
->> +				 struct workqueue_attrs *attrs)
->> +{
->> +	sanitize_immutable_workqueue_attrs(wq, attrs);
->> +	sanitize_mutable_workqueue_attrs(wq, attrs);
->> +}
-> 
-> The three helpers seem a bit excessive for what they do, and the
-> immutable call in sanitize_workqueue_attrs() is redundant, as
-> apply_wqattrs_prepare() runs sanitize_immutable_workqueue_attrs() on
-> both of its copies anyway.
+v2: Update "Wa" tag to align with others. Don't gate against value of
+    has_page_reclaim_hw_assist. Change the #define name to match GuC
+    specs. (Gustavo).
 
-Okay I dropped sanitize_workqueue_attrs() locally. I was trying to 
-express the logic behind mutable and immutable, which also leads me to...
+Assisted-by: LLM
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+---
+ drivers/gpu/drm/xe/abi/guc_klvs_abi.h | 1 +
+ drivers/gpu/drm/xe/xe_guc_ads.c       | 5 +++++
+ drivers/gpu/drm/xe/xe_wa_oob.rules    | 1 +
+ 3 files changed, 7 insertions(+)
 
-> Could the comment on sanitize_immutable_workqueue_attrs() state the
-> contract? These attrs follow from the workqueue flags and are enforced
-> on every apply, apply_workqueue_attrs() callers included, not only
-> sysfs.
+diff --git a/drivers/gpu/drm/xe/abi/guc_klvs_abi.h b/drivers/gpu/drm/xe/abi/guc_klvs_abi.h
+index 4bcdc1a96785..4103de0b1c97 100644
+--- a/drivers/gpu/drm/xe/abi/guc_klvs_abi.h
++++ b/drivers/gpu/drm/xe/abi/guc_klvs_abi.h
+@@ -526,6 +526,7 @@ enum xe_guc_klv_ids {
+ 	GUC_WA_KLV_REMAP_RANGED_TLB_INV							= 0x900f,
+ 	GUC_WA_KLV_IGNORE_MMIO_READ_SEM_TOKEN_64					= 0x9010,
+ 	GUC_WA_KLV_IGNORE_MULTIQ_CTX_COMPLETE_WITH_PREEMPT_IN_CSB			= 0x9011,
++	GUC_WA_KLV_PAGE_RECLAMATION_COMPLETION_TIMEOUT					= 0x9012,
+ };
+ 
+ /**
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+index c3ce3c8c905a..1927b595ad67 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads.c
++++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+@@ -389,6 +389,11 @@ static void guc_waklv_init(struct xe_guc_ads *ads)
+ 		guc_waklv_enable(ads, NULL, 0, &offset, &remain,
+ 				 GUC_WA_KLV_IGNORE_MULTIQ_CTX_COMPLETE_WITH_PREEMPT_IN_CSB);
+ 
++	/* On GuC 70.78 onwards, we enable GuC PRL-completion-IRQ workaround on applicable GMIDs */
++	if (XE_GT_WA(gt, 14028250015) && GUC_FIRMWARE_VER_AT_LEAST(&gt->uc.guc, 70, 78))
++		guc_waklv_enable(ads, NULL, 0, &offset, &remain,
++				 GUC_WA_KLV_PAGE_RECLAMATION_COMPLETION_TIMEOUT);
++
+ 	/*
+ 	 * On GuC firmware 70.66 and above, use the Feature KLV (shared with the
+ 	 * WA KLV buffer); older firmware uses GUC_CTL_DISABLE_MULTI_QUEUE in
+diff --git a/drivers/gpu/drm/xe/xe_wa_oob.rules b/drivers/gpu/drm/xe/xe_wa_oob.rules
+index 61aa50a63764..fde91192bd46 100644
+--- a/drivers/gpu/drm/xe/xe_wa_oob.rules
++++ b/drivers/gpu/drm/xe/xe_wa_oob.rules
+@@ -78,3 +78,4 @@
+ 		MEDIA_VERSION_RANGE(1301, 3503), FUNC(xe_rtp_match_not_sriov_vf)
+ 16030224309	GRAPHICS_VERSION_RANGE(3510, 3511)
+ 14028709524	GRAPHICS_VERSION(3510)
++14028250015	GRAPHICS_VERSION(3510)
 
-...the topic of what would be the best commentary for both.
-
-Would these comments work:
-
-/*
-  * Sanitize attributes derived from the workqueue flags and which need 
-to be
-  * enforced on every attribute application.
-  */
-static void
-sanitize_immutable_workqueue_attrs(struct workqueue_struct *wq,
-				   struct workqueue_attrs *attrs)
-{
-	if (wq->flags & __WQ_ORDERED)
-		attrs->ordered = true;
-}
-
-/*
-  * Sanitize attributes derived from the workqueue flags and which need 
-to be
-  * enforced only on workqueue creation.
-  */
-static void
-sanitize_mutable_workqueue_attrs(struct workqueue_struct *wq,
-				 struct workqueue_attrs *attrs)
-{
-	if (wq->flags & WQ_HIGHPRI)
-		attrs->nice = HIGHPRI_NICE_LEVEL;
-}
-
-Regards,
-
-Tvrtko
+base-commit: 2cd78713d917a02987f21b437561a5e1e13ddda2
+-- 
+2.43.0
 
