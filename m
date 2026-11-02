@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBD2606A333
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:05:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E06606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:05:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dexNlr68
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUDil/lM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8790310ECDA;
-	Mon,  2 Nov 2026 11:04:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DA5110ED01;
+	Mon,  2 Nov 2026 11:05:48 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1BEF10ECDA
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:04:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB0610ED02
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:05:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 574CB4364C;
- Mon,  2 Nov 2026 11:04:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BCA31F00A16;
- Mon,  2 Nov 2026 11:04:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 65CDA408CA;
+ Mon,  2 Nov 2026 11:05:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2422A1F00A16;
+ Mon,  2 Nov 2026 11:05:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793617490;
- bh=NqSdY6l9V328pv9kkJ5iGIOn6ZfyzQKrLpbxTsoljXA=;
+ s=k20260515; t=1793617541;
+ bh=R+c4jxL0vkOr8/JSau+On3TQ/G7LXd00Tm3sOvQCn78=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dexNlr68S+keHTzf6/ugkSDF7bKBVhuKpHcZHUOocRl1uuFcN4yU7CIz9ZEx1uQIq
- Y+WpuVr5TGDTVfwvTZsMHwlUjgnTMDhO/T54B41AsyMB28uTuOVNR9ssL+a/VPaBHL
- RkqdbWMMSDaqF82wPcLn2TujmvOTVeT35iFpOLdtWe0L/M5hOH7WxwuMXEIkN+jph1
- qStQXHT7uYTAzJDsWTlWP+dnd+9IUS/hpB9BEujTSEjHiJalE2qelEIE8PuBXQy4w5
- A+vZJnrBmvU6CYxCo38xGJBoAE+IjNxFIOKTj9Bl6jFbaYUy7wVW8bgWaV+Zh0Q/+P
- T29sDEMDN5umw==
-Message-ID: <sashiko-outbox-193314@kernel.org>
+ b=UUDil/lMwxYeKDbJ/pkU9uPaqd61jkZJeK1e9DY/omBEz/vmXSXwSXZ6mOqqcRdzy
+ Aaub/ffq/BUKWZ9hdxrkshQixax4Gg107D6WhKNxd9ZyjWF1P6em1EGE1J2dS53EXW
+ 9gOM/I3DFxISqqFa+sb7k5I97ZSVtQmHrPWoZOsY7yyDVvCJ6KNT9BM897yLM7UBYc
+ S2YOlkFJFPe9INf5DrhGwnGYoCVg7q5P3mroQnuIsXIPiKd6TouwYY45iVHr0xV/cc
+ 2blERCOC2wVhwWJUbDh9D1rQJmCjnSZQlzGNKvru3rUww1y9VaYxAjy2DU4SV8h01a
+ TVbiYH0fHtZYw==
+Message-ID: <sashiko-outbox-193317@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/13] media: cec: core: improve
- cec_notifier_phys_addr_invalidate
+Subject: Re: [PATCH 05/13] media: cec: extron-da-hd-4k-plus: call
+ cec_s_phys_addr only if EDID is present
 To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <145607674d4310ee75edd1d7533caa73a233d14d.1793615824.git.hverkuil+cisco@kernel.org>
+In-Reply-To: <82d1f51d30ddccac1cda598e2873e49063801b9e.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
- <145607674d4310ee75edd1d7533caa73a233d14d.1793615824.git.hverkuil+cisco@kernel.org>
+ <82d1f51d30ddccac1cda598e2873e49063801b9e.1793615824.git.hverkuil+cisco@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 11:04:49 +0000
+Date: Mon, 02 Nov 2026 11:05:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,74 +61,103 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] media: cec: cec_notifier loses no-EDID state and calls cec_s_phy=
-s_addr() on adap register
+- [High] media: cec: extron-da-hd-4k-plus: lost PA update when gated only o=
+n update_pa
 --
 
-commit bae9e1de47a9aeb702b139c748d1a200e761edc7
+commit 83f5e1abc765867f0cdd4fc7af830331a61a4349
 Author: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-media: cec: core: improve cec_notifier_phys_addr_invalidate
+media: cec: extron-da-hd-4k-plus: call cec_s_phys_addr only if EDID is pres=
+ent
 
-This commit moves cec_notifier_phys_addr_invalidate() into cec-notifier.c
-and changes it to call cec_phys_addr_invalidate() instead of
-cec_notifier_set_phys_addr() so the CEC framework knows when no EDID is
-present.
+This commit updates extron_irq_work_handler() to call cec_s_phys_addr() when
+an EDID is present and cec_phys_addr_invalidate() when no EDID is present, =
+so
+the CEC framework can distinguish between a missing EDID and an EDID withou=
+t a
+physical address.
 
-> diff --git a/drivers/media/cec/core/cec-notifier.c b/drivers/media/cec/co=
-re/cec-notifier.c
-> index 8cf1474d0361c..2814ef7d48045 100644
-> --- a/drivers/media/cec/core/cec-notifier.c
-> +++ b/drivers/media/cec/core/cec-notifier.c
-> @@ -216,6 +216,19 @@ void cec_notifier_set_phys_addr_from_edid(struct cec=
-_notifier *n,
->  }
->  EXPORT_SYMBOL_GPL(cec_notifier_set_phys_addr_from_edid);
-> =20
-> +void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
-> +{
-> +	if (!n)
-> +		return;
-> +
-> +	mutex_lock(&n->lock);
-> +	n->phys_addr =3D CEC_PHYS_ADDR_INVALID;
-> +	if (n->cec_adap && !n->cec_adap->adap_controls_phys_addr)
-> +		cec_phys_addr_invalidate(n->cec_adap);
-> +	mutex_unlock(&n->lock);
-> +}
-> +EXPORT_SYMBOL_GPL(cec_notifier_phys_addr_invalidate);
+> diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-p=
+lus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+> index 1f8ed7ff31e52..0a0724fd89c0c 100644
+> --- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+> +++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+> @@ -643,8 +643,12 @@ static void extron_irq_work_handler(struct work_stru=
+ct *work)
+>  			extron_read_edid(port);
+>  		}
+>  	}
+> -	if (update_pa)
+> -		cec_s_phys_addr(port->adap, pa, false);
+> +	if (update_pa) {
+> +		if (has_edid)
+> +			cec_s_phys_addr(port->adap, pa, false);
+> +		else
+> +			cec_phys_addr_invalidate(port->adap);
+> +	}
 
-[Severity: Medium]
-What happens if cec_notifier_conn_register() or
-cec_notifier_phys_addr_invalidate() is called before the CEC adapter
-registers via cec_notifier_cec_adap_register()?
+[Severity: High]
+Can gating this block solely on update_pa cause physical address updates or
+EDID-presence transitions to be lost when Pceco and Hdcp notifications are
+processed in separate extron_irq_work_handler() runs?
 
-When n->cec_adap is NULL, cec_notifier_phys_addr_invalidate() only sets
-n->phys_addr =3D CEC_PHYS_ADDR_INVALID, because struct cec_notifier does not
-track whether an EDID is present. This leaves the notifier state
-indistinguishable from cec_notifier_set_phys_addr(n, CEC_PHYS_ADDR_INVALID).
+port->phys_addr and port->has_edid are updated by independent asynchronous
+messages via extron_phys_addr_change() and extron_process_edid_change() ->
+extron_port_edid_change(). In extron_phys_addr_change(), update_phys_addr is
+only set when port->phys_addr changes:
 
-When the CEC adapter subsequently registers in
-cec_notifier_cec_adap_register(), it unconditionally calls
-cec_s_phys_addr() with n->phys_addr:
+	if (!port->update_phys_addr && port->phys_addr !=3D pa) {
+		update =3D true;
+		port->update_phys_addr =3D true;
+	}
+	port->phys_addr =3D pa;
 
-drivers/media/cec/core/cec-notifier.c:cec_notifier_cec_adap_register() {
+During extron_setup(), CEC on output ports is enabled before extron->is_rea=
+dy
+is set and before WHDCP queries initial EDID presence:
+
+	err =3D extron_send_and_wait(extron, NULL, "WO20*CCEC", "CcecO20");
+	if (err)
+		return err;
 	...
-	mutex_lock(&n->lock);
-	n->cec_adap =3D adap;
-	adap->conn_info =3D n->conn_info;
-	adap->notifier =3D n;
-	if (!adap->adap_controls_phys_addr)
-		cec_s_phys_addr(adap, n->phys_addr, false);
-	mutex_unlock(&n->lock);
-	...
-}
+	extron->is_ready =3D true;
 
-Doesn't calling cec_s_phys_addr(adap, CEC_PHYS_ADDR_INVALID, false) instead
-of cec_phys_addr_invalidate(adap) tell the CEC framework that an EDID is
-present (with physical address f.f.f.f) even when no sink is connected at
-registration time?
+	/* Query HDCP and Signal states, used to update the initial state */
+	err =3D extron_send_and_wait(extron, NULL, "WHDCP", "Hdcp");
+
+If Pceco arrives for a connected output sink while port->has_edid is still
+false (either during extron_setup() before WHDCP or on hotplug before Hdcp),
+the first run of extron_irq_work_handler() sees update_pa =3D=3D true and
+has_edid =3D=3D false, clears port->update_phys_addr, and calls
+cec_phys_addr_invalidate(port->adap). When WHDCP or Hdcp later sets
+port->has_edid =3D true and port->update_has_edid =3D true, the next run of
+extron_irq_work_handler() sees update_pa =3D=3D false (and port->phys_addr =
+already
+equals pa), leaving port->adap stuck at CEC_PHYS_ADDR_INVALID.
+
+Similarly, on hot-unplug, if Pceco with 0xffff is processed before Hdcp cle=
+ars
+port->has_edid, the first work run sees update_pa =3D=3D true and has_edid =
+=3D=3D true
+and calls cec_s_phys_addr(port->adap, CEC_PHYS_ADDR_INVALID, false), while =
+the
+subsequent work run for update_has_edid =3D=3D true sees update_pa =3D=3D f=
+alse and
+never calls cec_phys_addr_invalidate(port->adap). Likewise, connecting or
+disconnecting a DVI sink whose EDID has no physical address keeps pa at
+CEC_PHYS_ADDR_INVALID, so port->phys_addr !=3D pa is false and update_pa is
+never set when update_has_edid triggers.
+
+Should this check also run when update_has_edid is true, for example:
+
+	if (update_pa || update_has_edid) {
+		if (has_edid)
+			cec_s_phys_addr(port->adap, pa, false);
+		else
+			cec_phys_addr_invalidate(port->adap);
+	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793615824.gi=
-t.hverkuil+cisco@kernel.org?part=3D6
+t.hverkuil+cisco@kernel.org?part=3D5
