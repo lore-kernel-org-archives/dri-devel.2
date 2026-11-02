@@ -2,38 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70955606A329
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56731606A326
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rjf5coCS
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VebnN6sP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23DD710ECF6;
-	Mon,  2 Nov 2026 10:55:14 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F14410ECEB
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AAA110ECFA;
+	Mon,  2 Nov 2026 10:55:15 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8380D10ECE9
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DF2FE43C4C;
- Mon,  2 Nov 2026 10:55:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A2D1F00A1A;
- Mon,  2 Nov 2026 10:55:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F155260F6B;
+ Mon,  2 Nov 2026 10:55:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA59E1F00A1A;
+ Mon,  2 Nov 2026 10:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793616902;
- bh=uSesaCAY+uIr3oSTEUZtMDZF+TzayUSuf5NedXKeA8o=;
+ s=k20260515; t=1793616905;
+ bh=ZYGq74QN/HtfXC0Xdi0YdDACmBos9aRbbnKwQ9E50og=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Rjf5coCSfkwrRqfAnpU69wkPv6Uh1wghXxL6qi/qqJkRqnFy+h62k83jc1wNuKPQW
- FsFt9g/ufceyJNJDCK+1grHJS+eG2PQxGaHjVNqfg2j8hJTFog7HoPUM8TKZr5pQrZ
- ujjafjev7fogIiAwRY9KFGyc9d2Jq+6MsIMiYbCgXiSsddi/MFeXkgBppLJYq2yS3L
- nso1s/C9KYwG766b0oWbNVoIqCkh1bP3+4baFkLtYuOEPbdgJrIHKPyaU4pZKX0VkC
- vhnEjTPbglrQ1kL36oTWpLoCbjFYgCLCxHznW1PEmfqA+LeFSRLBE05hjiGkS5wD/Y
- Lnnphxk+THv6g==
+ b=VebnN6sPUB92fyBfGG1AQUT/cDgz4NYxz0XblfwpnZy5gESJKjONoffXF4wlugt66
+ uBpbOAjbUqsqSwAN/FDU6qLmx9Qd4kDSNKhQv8cjZ3FbEtX7nH9QlVWxVlT2Wptrli
+ bQqx4SOcMBKH8JIT5H1jQ5yYmQdyQyFk1HFt9b6yRhecgV3R6Qe/nQPy8m2MHCV2jH
+ 2WhSrXkzj2zLPQWiESdhIhZS/u7ad5orPoHfOt064ewXtd9SQbEhROBWWyVlGL9TpQ
+ L79zoAStweUVFKsl8wr828hzgcsreby00GqJnKLyti0jhxOf/sLgOR47MYWkXwN8os
+ g8HN2U2biSROA==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 04/13] media: i2c: adv7511-v4l2: call cec_s_phys_addr only if
- EDID is present
-Date: Mon,  2 Nov 2026 11:36:55 +0100
-Message-ID: <2e25c7038aecc2720a5fe9afc43ca840e4609e98.1793615824.git.hverkuil+cisco@kernel.org>
+Subject: [PATCH 06/13] media: cec: core: improve
+ cec_notifier_phys_addr_invalidate
+Date: Mon,  2 Nov 2026 11:36:57 +0100
+Message-ID: <145607674d4310ee75edd1d7533caa73a233d14d.1793615824.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
@@ -59,29 +59,103 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If an EDID is present, then call cec_s_phys_addr. If not, then
-call cec_phys_addr_invalidate. This helps the CEC framework differentiate
-between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an EDID without
-a Physical Address.
+cec_notifier_phys_addr_invalidate must call cec_phys_addr_invalidate
+instead of cec_s_phys_addr. This ensures that the CEC framework knowns
+that there is no EDID.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/i2c/adv7511-v4l2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/cec/core/cec-notifier.c | 13 +++++++++++
+ include/media/cec-notifier.h          | 33 +++++++++++++++------------
+ 2 files changed, 32 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/media/i2c/adv7511-v4l2.c b/drivers/media/i2c/adv7511-v4l2.c
-index 27e0e2c31dbd..1cc87049c6be 100644
---- a/drivers/media/i2c/adv7511-v4l2.c
-+++ b/drivers/media/i2c/adv7511-v4l2.c
-@@ -1466,7 +1466,7 @@ static void adv7511_notify_no_edid(struct v4l2_subdev *sd)
- 	ed.present = false;
- 	ed.segment = adv7511_rd(sd, 0xc4);
- 	ed.phys_addr = CEC_PHYS_ADDR_INVALID;
--	cec_s_phys_addr(state->cec_adap, ed.phys_addr, false);
-+	cec_phys_addr_invalidate(state->cec_adap);
- 	v4l2_subdev_notify(sd, ADV7511_EDID_DETECT, (void *)&ed);
- 	v4l2_ctrl_s_ctrl(state->have_edid0_ctrl, 0x0);
+diff --git a/drivers/media/cec/core/cec-notifier.c b/drivers/media/cec/core/cec-notifier.c
+index 8cf1474d0361..2814ef7d4804 100644
+--- a/drivers/media/cec/core/cec-notifier.c
++++ b/drivers/media/cec/core/cec-notifier.c
+@@ -216,6 +216,19 @@ void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
  }
+ EXPORT_SYMBOL_GPL(cec_notifier_set_phys_addr_from_edid);
+ 
++void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
++{
++	if (!n)
++		return;
++
++	mutex_lock(&n->lock);
++	n->phys_addr = CEC_PHYS_ADDR_INVALID;
++	if (n->cec_adap && !n->cec_adap->adap_controls_phys_addr)
++		cec_phys_addr_invalidate(n->cec_adap);
++	mutex_unlock(&n->lock);
++}
++EXPORT_SYMBOL_GPL(cec_notifier_phys_addr_invalidate);
++
+ struct device *cec_notifier_parse_hdmi_phandle(struct device *dev)
+ {
+ 	struct platform_device *hdmi_pdev;
+diff --git a/include/media/cec-notifier.h b/include/media/cec-notifier.h
+index b1c839734124..15e9bcb5b887 100644
+--- a/include/media/cec-notifier.h
++++ b/include/media/cec-notifier.h
+@@ -80,7 +80,10 @@ void cec_notifier_cec_adap_unregister(struct cec_notifier *n,
+  * @n: the CEC notifier
+  * @pa: the CEC physical address
+  *
+- * Set a new CEC physical address.
++ * Set a new CEC physical address. @pa may be f.f.f.f, indicating that
++ * the EDID does not contain a valid Physical Address.
++ * Use @cec_notifier_phys_addr_invalidate() when there is no EDID at all,
++ * i.e. there is no video sink connected.
+  * Does nothing if @n == NULL.
+  */
+ void cec_notifier_set_phys_addr(struct cec_notifier *n, u16 pa);
+@@ -96,6 +99,17 @@ void cec_notifier_set_phys_addr(struct cec_notifier *n, u16 pa);
+ void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
+ 					  const struct edid *edid);
+ 
++/**
++ * cec_notifier_phys_addr_invalidate() - set the physical address to INVALID
++ *
++ * @n: the CEC notifier
++ *
++ * This is a simple helper function to invalidate the physical
++ * address when the video sink disappears.
++ * Does nothing if @n == NULL.
++ */
++void cec_notifier_phys_addr_invalidate(struct cec_notifier *n);
++
+ /**
+  * cec_notifier_parse_hdmi_phandle - find the hdmi device from "hdmi-phandle"
+  * @dev: the device with the "hdmi-phandle" device tree property
+@@ -143,6 +157,10 @@ static inline void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
+ {
+ }
+ 
++static inline void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
++{
++}
++
+ static inline struct device *cec_notifier_parse_hdmi_phandle(struct device *dev)
+ {
+ 	return ERR_PTR(-ENODEV);
+@@ -150,17 +168,4 @@ static inline struct device *cec_notifier_parse_hdmi_phandle(struct device *dev)
+ 
+ #endif
+ 
+-/**
+- * cec_notifier_phys_addr_invalidate() - set the physical address to INVALID
+- *
+- * @n: the CEC notifier
+- *
+- * This is a simple helper function to invalidate the physical
+- * address. Does nothing if @n == NULL.
+- */
+-static inline void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
+-{
+-	cec_notifier_set_phys_addr(n, CEC_PHYS_ADDR_INVALID);
+-}
+-
+ #endif
 -- 
 2.53.0
 
