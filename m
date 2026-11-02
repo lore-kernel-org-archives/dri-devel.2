@@ -2,140 +2,131 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398C9606A327
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:07:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB342606A32D
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:09:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YSJI50GD;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ge8hPhwO
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D5omtltr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C98510ED02;
-	Mon,  2 Nov 2026 11:07:21 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE99610E616
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:07:09 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A29AMdZ1821203
- for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 11:07:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- us+y4KpJBze+sBMisIIItx/0Q9rWzDs7/LBvnzrOOkg=; b=YSJI50GD0pv74wxx
- f3/5v2zO5MQ7f+HswW7GkMNtUAIAS52RHsRHKgHOK7SddPmYtKZRYA7+iBjkCL2U
- QIds5uoQwO0TOUn881hDy/+sp0EnCGWHqkTo/NAi5v0AMGpfUQcUdFtDB2B7G1D8
- 2oyeFFT5OFExLZIoN3YVgeanM6vmkHkgXe5dnw1spnaCmpG2rRMO8A4d1acazYt0
- Nm1/UxRaOsM/fK6JA/QJUDtTFjUEpT84WpaOqAScgwqRwfAkYE5Qvl/D/xfGYE6F
- cOPzWSBch+fpF7NRs9Ewqtryj1q/jEDMD/QyzmS1bWUAJVuI4PfK9OY7jboP0eNr
- uUzKcQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpky4hc2f-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 11:07:09 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-93e629c7b16so49710085a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 03:07:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793617628; x=1794222428;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=us+y4KpJBze+sBMisIIItx/0Q9rWzDs7/LBvnzrOOkg=;
- b=Ge8hPhwO3xZD1DxKmC6ySkj47OyvF46Pib8abFc7gQJ2eql95t4aRFhy0razk44uK4
- sNVVsOfVl0Il10Frs04jLfVU3iMXbBqtYV2bRIaBnghUz4Pul2HojYw9Y3Xt7sVngYxa
- fzojz82qLFjc2XKdgDv6QDgXLs0Q33Y/I8+Xfw5LmJ2VEJSNqNGecOgJ2elLPFZv2GN2
- vKJwSAhOoggQBZXQ5DSDBomnEX+j76TPBk8MrAOaWc4nieaOerdOkt/rvsZkL5//4JsP
- 8aQqxAmzGEdFgM1Rv2QYd2P8bNSsJsy6ijMx1tTmD4bOeEsVVGln3ZhLj2fxFSAI/gen
- FYRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793617628; x=1794222428;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=us+y4KpJBze+sBMisIIItx/0Q9rWzDs7/LBvnzrOOkg=;
- b=stvNk6yd9znC18jt3m4EPwLQZ5OPCJcJfXL9YHJVXHcJXI7EHqOpSSUSW6iogDe3ea
- SOiVhk6Z3nB4NQMyMidsN0HUNwh3FChfwOUOSh33c3UK1MqaapJsTHSG4XRkNlM94QGF
- 3JrgIxT4JAFKT4ffPSKmdDSvGnHt2z9k8L3Mo+iaIvHUOOJ6uoEOQl8IGlp1xNzsnEPQ
- v/1kEvCTYG5tjG4ZrOpRV6SAidSaDOBe4nyUegrxYMPrRx1PNwNORUcRC/47YqYGdXjX
- JKGNuSoDPuXjM5QC4t0ssNOWVG7AHqoghDQGGGJlbC3gwAT13b1p8oVqN75a3RXmbKYf
- UrxQ==
-X-Forwarded-Encrypted: i=1;
- AKwUvBzx8ecJe5/dDRPAhQ6qu4mQPkLgmQniAgVBHGpDaB1fn17ZrkyvxGJjcjLGlwSQ0ifOGxvgQGH9ZCI=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLzZ2VVWKK0BUeBjGhgArBIVdWBGt88nbDSW2iRgoOvYMknCACt
- rKnDq9fTPaTOZbQZjsODOe+fUzo1cFe72MT4NjrjysZ+iB2x84mRlYairfjS548qUN+vAC+Qd5o
- GXQarnEdm7TW/BjFN8v2s+5Kje7vrRqwt+6/kpYiKmLuO9CM+w/X4xxPR1M/PgpGaZPBataY=
-X-Gm-Gg: AYBFou3bZjkbg5u1e+nEHUdL3GFjlQii2+5ukgnTzQbt2+d9yXaFqWdsqF6OwqpcyUg
- KSyPa+nRkaAlOciYHYlMvBb2lRc85ip19RXdQUZ1L3ZVoDI3oH9I2DHTu/BmjYHHazxC+8tAImt
- UwF53ovWNmjJqL2dRZtYYNvB6C3pbvdk6oEcM6KA7s9FuUix6zYtWjgiW/HEp6dV1bzHsMqxiDd
- 8Ss/+A0/2dVBvxSv9FtvUrUuoiRC8MS5W9MY4t3ZjhZ4mm+6lwzMv6HXhoWEJAc8+EFD/PkrH4C
- JQL36hD+YQhQ/LlQLeO9PWSgOMLxsIateVdEQzp1zNKdJOam1iUjrA8uBTaWYCbNsX7Kb+uv1ZQ
- twgCKEvcfdbn55BE9fGfGAZlu1v3dRGstnpDRn1Gyhe3/3IXTjNM5tXf8CqojSvN6vuj7Pwc=
-X-Received: by 2002:a05:620a:870a:20b0:944:127d:f192 with SMTP id
- af79cd13be357-9442179be1fmr1537820885a.5.1793617628073; 
- Mon, 02 Nov 2026 03:07:08 -0800 (PST)
-X-Received: by 2002:a05:620a:870a:20b0:944:127d:f192 with SMTP id
- af79cd13be357-9442179be1fmr1537815585a.5.1793617627632; 
- Mon, 02 Nov 2026 03:07:07 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4cabecd226sm373928566b.74.2026.11.02.03.07.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 03:07:06 -0800 (PST)
-Message-ID: <fc32b535-e06d-42b1-8806-3f3a2a9843e0@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 12:07:02 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E3D710E616;
+	Mon,  2 Nov 2026 11:09:38 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011044.outbound.protection.outlook.com
+ [40.93.194.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43A8810E616
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:09:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BYYhPtJUv+uso7b5qgoQij7BDxcU7xCCb8vC+Lq4Rk5+aZUy8x/H4iBoqOcgdd9/kAfZ3WPjdnuhbA0AmHUUu/8A+4HRNZLXZOFLIYwDP89ue/aODsRQnJwPO3XDw4gqrbGMnvTWvmiEi93GnE8Om6nY7KnwtvOpkCb9dGp4D19wHmC6cyhyxt9WiGrNUC14qrjqm2ejiO34xpjXDqVszgLHxe1TCRJmPZre5iIPtzk0VV/GLVcF5M7YSAcufXv9J56GwVMhTKRZm67EfonU2eA8pkdh2WSW2h/uOSHeAwgu3WqEjyJK8eHd9SXzv0Xw15fOmLyb9OyrZvzdZ7SE8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eEksHASZhmi2ifPCrIXC7jHISd0yGjpCfJlRidielrI=;
+ b=ctv7suudopkDIdZyFA3mF+CwY9jGY+4NIIQyNB9vz0YZ62355iHkzNJcSL3/KdKuDaxf0s7k5FtKCfCpVK2x+j2pERfa19xPDBj13IYJyBxBHPw7171LvxzpiaLRofF61da2cMYf1CyOS/WKaRxVGFk3cfF+BdEloMWpw5zT+L33AxtJKbFHEnxBVfiMixUHkek9uWYO3crqfvYdzGsz7sCH8j+xpUag0XcMC6BkxhPw4l0vy7PYKoyuGS+IBOSvqaj4vuqykymOxIQPZ00qC34t6gw0WBgMv70MZlfqNAM2vpMph7oWgp85wQ//RgZFWVZz9qriaeRBWdz98No69Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eEksHASZhmi2ifPCrIXC7jHISd0yGjpCfJlRidielrI=;
+ b=D5omtltrsTJJTMKAfI1g9+f68zecFcHHAQUKu/1iwVvvNsmfiI5CausIxOqgws78jkCNJ9u9muMAIkZMT3RCPR8aK5w9euknb7TvztnxCmpLkWJ5+ea7qCwEkbQhnDjXuDjblu5EiyVBcKqNVlMQQXXo+tY2x8MZimEbtrZD1BM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ0PR12MB8114.namprd12.prod.outlook.com (2603:10b6:a03:4e8::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 2 Nov
+ 2026 11:09:28 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 11:09:28 +0000
+Message-ID: <a10ab532-1e9e-4a85-a79e-b712868889c8@amd.com>
+Date: Mon, 2 Nov 2026 12:09:23 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: system_heap: Reject private mappings in
+ system_heap_mmap()
+To: "T.J. Mercier" <tjmercier@google.com>,
+ Chris Wiseman <chriswiseman@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: John Stultz <jstultz@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, Philipp Stanner <phasta@kernel.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
+ <CABdmKX0YRmr0ovk7teNQdXdLmC2LKruT59EQarpDMFcxoOFcQg@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CABdmKX0YRmr0ovk7teNQdXdLmC2LKruT59EQarpDMFcxoOFcQg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0174.namprd13.prod.outlook.com
+ (2603:10b6:208:2bd::29) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/19] drm/msm: Add cleanup help for disabling IFPC
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Alexander Koskovich <akoskovich@pm.me>,
- Jie Zhang <jie.zhang@oss.qualcomm.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261030211928.45761-1-robin.clark@oss.qualcomm.com>
- <20261030211928.45761-11-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261030211928.45761-11-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 1zRM-Aln5JOQmzI-Bwi_gjsd-t50V7WJ
-X-Proofpoint-GUID: 1zRM-Aln5JOQmzI-Bwi_gjsd-t50V7WJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0NCBTYWx0ZWRfX+ydgaXdOes1h
- HVKWptgXKoaAy1XnLjfW0Ohfk1N6bhounRXH4TynQmztDrQf+Mn6epovIm8QPV/ylrdrsBUT0uW
- FpIy28zrOTlrEJdd095TF8o671/E8is=
-X-Authority-Analysis: v=2.4 cv=QoHLTlyd c=1 sm=1 tr=0 ts=6ae86edd cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=cWb5AwZ_sP_0w0E8whcA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0NCBTYWx0ZWRfX6Xxc24FtXwGw
- lkyi43ZHoLbrOWDhw83Hbheys1rxXzY3TlFygU8cWHXG9IVHPtAb+TpIci8MRVyWS1tPGyVWnxy
- 3Tqtstv5dy8dqU89PmYiK9yZFMj/FpjX+JK4CahWroxE5bbZm6YDIyW4epRVBBG+duxQWAUAy5V
- FbsAyGG0lk+fRED3dDnXAAAiUzY3MfLARSvpG7o7IJPmPiAxRn3QyDuYp9o9X3avZ20GwzGHuxY
- oZ8HZ/K4OrU5lcqpIYi0fNAXgBTDlpTiFCOZQwpybGlc5kjtUKxDBf1NLE/WdYzSO68pK/KD97H
- DeP2EJS/aj6hUjlYZMBMHMSSspCVcMQ4nDwJfLC78nAeRPdfUs3x1qKIHo0J3K+k2qqQRg84I2v
- Z2YTmrXxpQX5rttkD6BKTAbHejERCQixkEGuvVzKEjxUgAKU/4q9bG6aoQhTNJRdNovgSS4rfho
- lg0S4Fq4KeT0AMQwBJg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
- suspectscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020044
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB8114:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9d1ccca-abca-40b9-ecc3-08df38d1c33e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|1800799024|23010399003|261026140227099003|18002099003|22082099003|10067099003|261028144727099003|4143699003|11063799006|261022105027099003|261021121427099003|56012099006|261026121527099003;
+X-Microsoft-Antispam-Message-Info: nQ5gj8CMbyqcuFZsPeA7BJpFlDQQWKwCMyXyjfossXXldHWUwNYYPoBww90TnwiVvoJ4ZNB0jE3vuVZwOjCHpdB7QiMhWD2/LPSWwd4Na5sK7PkPHFXBVaLQqB56KEbkwUesz1GjfIdlSHoKQgwaOf9saRym0qCkxQQYMltlMzdX2Hnu03mlpf7pww2h3lmX1zZnFKtl3mUfzvOz5NaxbfW6whfpyae5xRx08paBTtrJwKKoVihuqB9acqzsz+r9JZoVXpY35OumDS8rdaUOT5rw5ymWElH8NroXHqOYXOn0j53IryfS8NRuDfyMSlI3Jj7fflYf1C+ZhPopJY6dYtL7QPa2yOmsAobN4DEqeLHBXNyHaYSf/zR1W/U7lcsgUWOv5tDkCECRWnrwEcrTKKYHt9wXGRegNEJVAsiS+0q2yjVRQI0cP6olmMaPxeuIVVdTnO5wlEimdgGLDz1mvtv7GECc7xod4LH3/n8CISulH7J3bTwC8daDSq1oMOJFQD+SqMBZEF5lQr54v9SglrpYrYJUqbZNC6nTOI2hAcb9QL2mUNXrolGFu1Cl8SoUSPzxc1efdBL6jCeNxgzVoSF8eKqgXFRVReZ4EZwlpFwCFmXsWbismvfQXHSMY2OQ+c9QiR4Goi2RRiAe2xylYkgD5xUJ+IKIsA8pFWnLnvo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(261026140227099003)(18002099003)(22082099003)(10067099003)(261028144727099003)(4143699003)(11063799006)(261022105027099003)(261021121427099003)(56012099006)(261026121527099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjZ3V0xvOWw0YTZwYnZzOVNZRzRieXlWM1VaMWh0eDZtVEpzOWRvcks2akVU?=
+ =?utf-8?B?UnlZVVd4MThXVHBPRnhvNzA4RldEV21tbHBqTFB6NkJPRXYyVDJENzhtTkhG?=
+ =?utf-8?B?Qjd5NEZybmVWNkNMbXZZNmJIT3ZZVjRTYktaRk9ub3RkN0t0S0dCYmY0RVA5?=
+ =?utf-8?B?KzJ3Z05rTU5HNEVBZFdkS2NsdXU1ak9NZ2ZSeEkxOWY3WHQ2MFVEcUlWYlYr?=
+ =?utf-8?B?alkzdFpyUGZoVTFDbVNOS3NXb000U1hFVHJ2V1AxeDdoa0U4bFAyOUZRbHVC?=
+ =?utf-8?B?R2ZXZGhTQ0RDVlBtY2NYNEduVW9xYjZwWXZycGtxTis2ZzFheVJSNVd5K1F0?=
+ =?utf-8?B?dXM1UWppelpYME9FQnF1WTA4MTlhd0dtSDlZUTY3S0pvZXNPNXh0UEY3N1dP?=
+ =?utf-8?B?dlZJQXBBUWc2Y2lya2ZMYWVtbFhQelk2blZwYTJ2VkJUc0tITFN6elRjSlg0?=
+ =?utf-8?B?NHN0UnllRTJYNmZCelljMTgxNThwRnQrUlpvUlUyTVVUK2VELzRLOStpRFFL?=
+ =?utf-8?B?Z0NvQVJYZ2pQNG8rYnhOcUJ3c0VJR2RRRmFGMTBJcksrYTYvVGQvT3FkUGUy?=
+ =?utf-8?B?a0JsMmE4MWt6MW0xUjlNVWg5OENBTjREY2N0Ykd1N3doSENLUWZTdU1KeHV1?=
+ =?utf-8?B?K21BWVF0QnJIMVUxWjltWnJ3UVdYbDZNbzQ5aklmbHI4dVUwbDN5WU43eEdn?=
+ =?utf-8?B?VmVLOXk3ME5mQ2RXbTJUNlVPazEwRVM5bW4vTGEvSjhYeVpEWFNBcXlLT3BV?=
+ =?utf-8?B?WnBKWm9pbkw2ZStKcHJWZlF3Wk5lNDg5MWpoazhqdHVxQ3lLcXZFN2tVaC9R?=
+ =?utf-8?B?NnptRUZXTGNkdFVWOEwrV0RtbXRqbnBYVDhXLzJtRlpWNWVYc1pKRVYxUXVj?=
+ =?utf-8?B?UTBzdkJOckFvS1pQNENwWWtGc1RTYXh3QU8vblFsWFY3eGRRYXluSmV6WWdh?=
+ =?utf-8?B?aUZhZUpodnE0MnJ3d2F2UDlzYXNYaWd1eEtlQ3QvL1FqV3VxS3k5QVd6MWd2?=
+ =?utf-8?B?ZS9jeUNkMHZIa3BRdEFieHE4elhESW9ZNm9ZWVFCSGxGelJwelY4WExMdjlq?=
+ =?utf-8?B?OC9zejk0R1hLRXFNRmNsT3JRWSttZFJtOWVtT0VzREw1OS9RaU5BM25Bd2do?=
+ =?utf-8?B?ck1JVEhUL3d1aitQUjU1T05RTXkvaVFaSjhzR2pNanhxZDhRamhLOE9NbmxC?=
+ =?utf-8?B?b3NCVks4Z2haTjhMbDQ5TG4rbWJUQmpWTUhOdmttckI1MDRUbTNQTUhVV1Y3?=
+ =?utf-8?B?WTV4WGJ0bjVqanhpbEZXdTZHS1ByT1Fnc0c2Qk1ZOWYzM2p2Njhwem5qbFRP?=
+ =?utf-8?B?blNUQjh6TjAzOUNWOG5BaTU1TDNYU2dGOGxYTmVIbDRlMEt5M0x4S3RFTEc2?=
+ =?utf-8?B?eU1TeEI0ODliN0g0eW4ydmdub0lIYkZrMkROZ2ZNYXZFcWw0azBNc2FHWWlS?=
+ =?utf-8?B?ckxxSlo0MnZaa05qdWVaZHk1MEM3YjJDcm1sMldUUHZlZjA1K2tlNlBWN0Q2?=
+ =?utf-8?B?QkJiSHA4VkVrWms5VzlOR0Q0QklZNk4zYnArK09oalBNNGxXVGRrNjIyZ1dx?=
+ =?utf-8?B?L0hUbHpWaTJyK3IwTmw0dlExQzliVytVbXdEalJ6UDJFbkdWMXBsS1M2aTlP?=
+ =?utf-8?B?NFJIYXhQR0EvMUxGKzB3WkFMRlkyakdndTdTdTdZdXNJQ2hjSk5KMC90QWtK?=
+ =?utf-8?B?TlJRWTdWUSt0ZnZmZjlhYmorS3hFbHBCKzdhMmsvTVRxQ3B4TEYvd2dHb3pE?=
+ =?utf-8?B?b2Q4c0hQRkJ0NHdXVVJtck5SK1NGY1QySHdVYnRYYVI2enFlU3hnWTRIazVh?=
+ =?utf-8?B?SFV2b1p5WGZCSC9DQTEydDJncDRjWkFDcGhmWlNXVVBTS0hSdk1ta28vdita?=
+ =?utf-8?B?dEtpY3hGdTNWYnI3c0VEQVZQMTdJYTN4MVBBODlLWmVFcE80QUJlblpZc01D?=
+ =?utf-8?B?UW1kM05XR1BTRVArVzVjSXVvanMvanhPRWk3MTB1ZjEzejVxcHlqMWQ1a2Ft?=
+ =?utf-8?B?Ny80SDYxQm5vam9PWEZIeXlQV3NvUlFBaFFmNWRnb2tQTFIxTTQrWVZPejZV?=
+ =?utf-8?B?SWt4YjhXa2tkbUYzUTFTY0lDZWlSMkZ0RFd0NmRIZjhOQXlLZHNwVjJySUtT?=
+ =?utf-8?B?UGovQmRGbkFBamFMQkFHWHd0TC9jVkJwUXFIU3hyS1RPLzdjMmx5UStjb042?=
+ =?utf-8?B?K3Q2SXdOZ0d5NWt3K05rUkJkSG5wUnBzcWFEc1c3S2pQSWZ2c1lnNzRCd0Jp?=
+ =?utf-8?B?aVgzT1pzR21ZbFFsWDhOQnN3Rm0zUWZzUzl3TStXS0dnT3pqVWtiK2d4L3h5?=
+ =?utf-8?Q?uXQadAi9pK4ahCKmko?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9d1ccca-abca-40b9-ecc3-08df38d1c33e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 11:09:28.6895 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Oi0Bze0c6AmLcopswZfABFM0+jGj/Hjpg1dKglO/kfihHyYVaDKWh+vhsODL5aOr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8114
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,23 +138,53 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/30/26 10:18 PM, Rob Clark wrote:
-> Simplify error path cleanup for IFPC-disable critical sections.
+On 10/31/26 02:44, T.J. Mercier wrote:
+> On Fri, Oct 30, 2026 at 1:44 PM Chris Wiseman <chriswiseman@google.com> wrote:
+>>
+>> When commit 381295758792 ("dma-buf: system_heap: Rework system heap to
+>> use sgtables instead of pagelists") stopped using heap_helpers.c and
+>> added a custom system_heap_mmap(), the check rejecting private mappings
+>> was dropped.
+>>
+>> Other exporters and buffer allocators reject private or copy-on-write
+>> mappings in their mmap handlers: cma_heap_mmap() and mmap_udmabuf()
+>> check that VM_SHARED or VM_MAYSHARE is set, and drm_gem_shmem_mmap()
+>> and ttm_bo_mmap_obj() reject vma_is_cow_mapping(vma).
+>>
+>> However, system_heap_mmap() omits this check and calls remap_pfn_range()
+>> even when userspace requests MAP_PRIVATE with PROT_WRITE. As a result,
+>> subsequent CPU writes to a MAP_PRIVATE mapping of a system heap buffer
+>> fault into do_wp_page() -> wp_page_copy(), silently allocating private
+>> anonymous copy-on-write pages whose writes never reach the underlying
+>> system heap buffer pages.
+>>
+>> Reject non-shared mappings in system_heap_mmap() with -EINVAL to match
+>> cma_heap_mmap() and mmap_udmabuf().
+>>
+>> Fixes: 381295758792 ("dma-buf: system_heap: Rework system heap to use sgtables instead of pagelists")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
 > 
-> Note that this moves where we re-enable IFPC until after the
-> wake_up_all(), but that is harmless.
+> Reviewed-by: T.J. Mercier <tjmercier@google.com>
 > 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+> I wonder if we should have this in dma_buf_mmap_internal() though. Any
+> thoughts Sumit or Christian?
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+I do remember that this was once already discussed with Simona and a couple of others, but I don't remember what the outcome was.
 
-Konrad
+On the other hand I can't think of a reason why anybody would want a private mapping with DMA-buf copy on write clearly won't work. Maybe for backward compatibility with broken userspace, not for a real use case.
+
+I would say let's push this patch to drm-misc-fixes and apply another patch to drm-misc-next to enforce this for all DMA-bufs and see if anybody complains that this breaks userspace.
+
+Should I push it to drm-misc-fixes or want somebody else take that?
+
+Regards,
+Christian.
