@@ -2,61 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9F6606A335
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:14:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124F860A5BCA
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:19:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XxhpExeQ
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gNOs8tDS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFDF610ECA0;
-	Mon,  2 Nov 2026 10:14:17 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ABBE10ECA0;
- Mon,  2 Nov 2026 10:14:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793614452; x=1825150452;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=R/YRu2WT/5GrdgaTxjT3OTA+GbI/1UFSeAXnURmu+tQ=;
- b=XxhpExeQMWhscaWrJDYYkrGkBvda0fzGQZra/mTXyeBfMOrBAFhpQ3Sn
- 1PTAaxuRjgxijITHoMJpJ1MuVubS+CBdzwwdkaH0EALYR34qgXblnnh2p
- r5uhO6RiefzTVu0Mb875tvdHQ7a3LeMIgSu/fhhMpN6C77oo3hGQTHKED
- Lj926BWVjPBOQg/Q2RN9wXVNPViQjY22bbLtzLMd59M9NFUcbLoqpYubv
- eDoT54hrc84Cw2msOjPKGWdheMZhzSzCR1Y0fMEZNgNixENvBvjqVmYZc
- 9Y0nZ2h7CDxFnny2L36fDvvk9MqBlD25eQqyKPuPRINoYcOirtdO5yPm8 g==;
-X-CSE-ConnectionGUID: qPBADaRpSlyQdbb4TACD2Q==
-X-CSE-MsgGUID: tDqVVyQOQkePquE0yRuewQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2200827"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2200827"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 02:14:11 -0800
-X-CSE-ConnectionGUID: 79BzObfPTLOQ38hE++EitQ==
-X-CSE-MsgGUID: XPIJUim5S1Wbr6eu04Heuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6002816"
-Received: from hghimira.iind.intel.com ([10.190.239.34])
- by orviesa004.jf.intel.com with ESMTP; 02 Nov 2026 02:14:08 -0800
-From: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Subject: [RFC 7/7] drm/xe/uapi: Wire up GEM_CREATE NUMA node placement handler
-Date: Mon,  2 Nov 2026 15:48:11 +0530
-Message-ID: <20261102101803.455921-16-himal.prasad.ghimiray@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102101803.455921-9-himal.prasad.ghimiray@intel.com>
-References: <20261102101803.455921-9-himal.prasad.ghimiray@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CACB10E5E2;
+	Mon,  2 Nov 2026 10:19:03 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B137210ECCA
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:18:57 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4a5087a5348so21933885e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 02:18:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793614736; x=1794219536; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=8OBOniiOD3/1mcF69iMSsD8cgqxrlh2JCSuj6D5fJsM=;
+ b=gNOs8tDSkVYQgol+slDCXVv6kxadW777Y3rfLDjyryFCndYOx9MuelBmzj8NhUD7Ul
+ bpOgqUPMoIGE1GUcJMC1pw0KSyKo6olowysDe/vWt2UfzPvsSgjn+JHZh6kmlEZPCjv8
+ GR9HJHsnmGikZlU4CPvyhuIHYOwmTaKmCqmiu/NWRuLTxi/dPFrM3wTNgkVSDk2dvFnL
+ k2kaiZwJwagXtik7GCRt4IzHJezl0E3oJOZ0Dfc53reqNP/llJpz2TpbuimXlBXkXASm
+ Ny24+ca5u2LmLp83BpGRAstaHveR1cVNFoamCWRK8hJrhcHHd6DKpJFuNQUgfBipM4fj
+ z5Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793614736; x=1794219536;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=8OBOniiOD3/1mcF69iMSsD8cgqxrlh2JCSuj6D5fJsM=;
+ b=2U6/CzifMhSrck0MSsYB5THnJQMvSxGi2LGQsjY9wFN/Os0Vvchjwo/c3xn7s9Algo
+ +aDV2vUVY4ixfx6Pjf+m0gSsNpXTW2dz0LBmpQX8TLLF+6o9VjZ7skFgcHN2nARGGtmb
+ yfdYDWDfz+h7X1hO6UjhBWMFB31Bw2afRyXwBmAmv6qUQp8O++SrEYSMdU4UMe6sPjtl
+ oFGCH0zGwYQ22BGJxuwQwWRYbHa2V+8JiKGIQwEKxw8jE3fG8KuxT8jRRP2gFF4ImYCq
+ FFlKnWc41g8qmm0ATBGnMOr7h1nAqpEUpEi9ro279Auw3cDf+atCh1Inxdr2UGxQHlz6
+ tPPg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBySBNYSLn9QAJlWN3yIVi8E/nzpUsi7TCPCHZYU9aevGXb1hnGUvv/AmM2kO5E7SvQeZY8pIxr3c2g=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYK32XW+g3VX6bAhxcdRfaeX6bCD/7ACRXT+S3lGz1Tk1FJWQljU
+ B0SLN0eJcQWgi+PTP62+Tk3f/sznqoscV9L1emBU1RkstLjAbFF5vZwaevsmlaQO
+X-Gm-Gg: AYBFou10NB9GSVuYPh0+vDXBJuncJr7LvocnPjL7oFdEd//i2BTDsDnhnoohomVEhx7
+ RKMK/8sF26N8y6jnHrLF4YDVqNs8EJ3REUfTfQVZjugxTRlgWswaGGKA+4T/VE9BgtI+KwN8Ps8
+ LBhvBkWxhalA9puKhQ3uvzFVIHHC1EBTonNFMDwfq2q+vr/RrZCs9Hb9UNLTgwH78C8ySJDCmgD
+ l0GXycS0WG04aGCQUHdFR0aEN+RlarNhzTY61wn7TJXmZ2PcBfPwxc5OM4ssRY4ExOdfDG84dsi
+ PNB5TsbbnbZY1Ee0LUQSUbspFJwtUQdaVEJ043H9uG0zUjR0m9ZK3uhgSK11kxaV+F6sJGQ+s+X
+ vYi4uv7Bwvxd0D33SDbmlZPVPPNyZhXEViOTqdeAuHpbB5e8uB1ryd5PuQQK7kpqOfOVhZbkLqi
+ xivtkLbxLOk7lZCDzNjCj1xdEu1TVNq2jtfRJfqbsOy4M1nDAcNLJ1e51BmY+38WR3BhydhU0wo
+ /GK+lR5YrGLuYgWct+YB1cJ4KNnCokZuFBzxCLsXcWsrta2OUpPrHB4rW5eyAX4K0kotUvdM8E7
+ NUCpou7uGGc7NNMgPdQhXK8K83kWpcBksjXc7Jmn2iJ4nQZF9CoCpZ6IWnbqa3F+42mZnxAcarI
+ OpPS3ldR+g2boDQtD0D8XkFrTSCeQOAj/MJ8lvIO7r8cdX3lT+OS/6+bx8OLHjIg8cKzg/4N4
+X-Received: by 2002:a05:600c:350b:b0:4a3:2f35:38aa with SMTP id
+ 5b1f17b1804b1-4ac1932bac0mr190329705e9.29.1793614735583; 
+ Mon, 02 Nov 2026 02:18:55 -0800 (PST)
+Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at.
+ [80.108.121.211]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4aa7f322c46sm321930265e9.2.2026.11.02.02.18.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 02:18:54 -0800 (PST)
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Mon, 02 Nov 2026 11:18:53 +0100
+Subject: [PATCH] drm/etnaviv: Flush the tile status cache through both the
+ PE and BLT
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-etna-pe-ts-flush-v1-1-e4454ed86f85@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0auUrA30A6JeRVxUTTUgVZoqgnh3i
+ 8u3mHlAKDEJdOqBRBcL77HAVAqm1ceFkOdisNrWxmiLlKPHgzALhu2UFUPw2rjajW0zQcmORIH
+ vf9kP7/sBFDvhz2IAAAA=
+X-Change-ID: 20261102-etna-pe-ts-flush-ffa01363b98c
+To: Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,428 +94,135 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Parse the NUMA node property before BO creation and store it on the BO.
-Offline or out of range nodes, and BOs without a system memory
-placement, are rejected with -EINVAL.
+From: Christian Gmeiner <cgmeiner@igalia.com>
 
-Drop the explicit DRM_XE_GEM_CREATE_EXTENSION_SET_PROPERTY check, already
-covered by the property bounds check.
+Since commit f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs
+with BLT engine"), jobs on GPUs with a BLT engine use a BLT command to
+flush the tile status cache instead of TS_FLUSH_CACHE, which is broken
+on most of these GPUs.
 
-Signed-off-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+GC7000 r6008/r6009 and GC8200 r6401 are the other way around:
+TS_FLUSH_CACHE works, but the BLT command does not flush the cache.
+The vendor driver handles these GPUs using TS_FLUSH_CACHE, but the
+etnaviv kernel driver has no way to identify them.
+
+As a result, dirty tile status cache lines survive the end of a job.
+They are written back by the next cache flush, using the page table of
+the job issuing it. If that job belongs to another process, the write
+goes to the wrong address space.
+
+On GC7000 r6009 this causes MMU faults and GPU recoveries blamed on an
+innocent process. I see around 1100 per run of a multisample
+depth/stencil test running alongside two other GPU clients.
+
+Emit both flushes at the end of every job on GPUs with a BLT engine.
+Whichever does not work on a given GPU is a no-op. Since dirty lines
+are only written back once, this costs one additional state load per
+job.
+
+Fixes: f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs with BLT engine")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
 ---
- drivers/gpu/drm/xe/tests/xe_bo.c      |  12 +--
- drivers/gpu/drm/xe/tests/xe_dma_buf.c |   4 +-
- drivers/gpu/drm/xe/tests/xe_migrate.c |   8 +-
- drivers/gpu/drm/xe/xe_bo.c            | 102 +++++++++++++++++++++-----
- drivers/gpu/drm/xe/xe_bo.h            |   5 +-
- drivers/gpu/drm/xe/xe_dma_buf.c       |   3 +-
- 6 files changed, 100 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/etnaviv/etnaviv_buffer.c | 40 ++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/tests/xe_bo.c b/drivers/gpu/drm/xe/tests/xe_bo.c
-index 6a17e13d58cf..6f61f5c618f1 100644
---- a/drivers/gpu/drm/xe/tests/xe_bo.c
-+++ b/drivers/gpu/drm/xe/tests/xe_bo.c
-@@ -89,7 +89,7 @@ static void run_only_leaf(struct kunit *test,
- 
- 	bo = xe_bo_create_user(xe, NULL, li->alloc_size,
- 			       DRM_XE_GEM_CPU_CACHING_WC,
--			       XE_BO_FLAG_VRAM0, NULL);
-+			       XE_BO_FLAG_VRAM0, NUMA_NO_NODE, NULL);
- 	if (IS_ERR(bo)) {
- 		page_size_alloc_restore(xe, &saved);
- 		if (PTR_ERR(bo) == -ENOSPC) {
-@@ -183,7 +183,7 @@ static void xe_bo_page_size_alloc_mixed_bos(struct kunit *test)
- 		 */
- 		bo = xe_bo_create_user(xe, NULL, SZ_1G,
- 				       DRM_XE_GEM_CPU_CACHING_WC,
--				       XE_BO_FLAG_VRAM0, NULL);
-+				       XE_BO_FLAG_VRAM0, NUMA_NO_NODE, NULL);
- 		if (IS_ERR(bo)) {
- 			int err = PTR_ERR(bo);
- 
-@@ -366,7 +366,7 @@ static void ccs_test_run_tile(struct xe_device *xe, struct xe_tile *tile,
- 		kunit_info(test, "Testing system memory\n");
- 
- 	bo = xe_bo_create_user(xe, NULL, SZ_1M, DRM_XE_GEM_CPU_CACHING_WC,
--			       bo_flags, exec);
-+			       bo_flags, NUMA_NO_NODE, exec);
- 	if (IS_ERR(bo)) {
- 		KUNIT_FAIL(test, "Failed to create bo.\n");
- 		return;
-@@ -445,7 +445,7 @@ static int evict_test_run_tile(struct xe_device *xe, struct xe_tile *tile, struc
- 		xe_vm_lock(vm, false);
- 		bo = xe_bo_create_user(xe, vm, 0x10000,
- 				       DRM_XE_GEM_CPU_CACHING_WC,
--				       bo_flags, exec);
-+				       bo_flags, NUMA_NO_NODE, exec);
- 		xe_vm_unlock(vm);
- 		if (IS_ERR(bo)) {
- 			KUNIT_FAIL(test, "bo create err=%pe\n", bo);
-@@ -454,7 +454,7 @@ static int evict_test_run_tile(struct xe_device *xe, struct xe_tile *tile, struc
- 
- 		external = xe_bo_create_user(xe, NULL, 0x10000,
- 					     DRM_XE_GEM_CPU_CACHING_WC,
--					     bo_flags, NULL);
-+					     bo_flags, NUMA_NO_NODE, NULL);
- 		if (IS_ERR(external)) {
- 			KUNIT_FAIL(test, "external bo create err=%pe\n", external);
- 			goto cleanup_bo;
-@@ -719,7 +719,7 @@ static int shrink_test_run_device(struct xe_device *xe)
- 		/* We can create bos using WC caching here. But it is slower. */
- 		bo = xe_bo_create_user(xe, NULL, XE_BO_SHRINK_SIZE,
- 				       DRM_XE_GEM_CPU_CACHING_WB,
--				       XE_BO_FLAG_SYSTEM, NULL);
-+				       XE_BO_FLAG_SYSTEM, NUMA_NO_NODE, NULL);
- 		if (IS_ERR(bo)) {
- 			if (bo != ERR_PTR(-ENOMEM) && bo != ERR_PTR(-ENOSPC) &&
- 			    bo != ERR_PTR(-EINTR) && bo != ERR_PTR(-ERESTARTSYS))
-diff --git a/drivers/gpu/drm/xe/tests/xe_dma_buf.c b/drivers/gpu/drm/xe/tests/xe_dma_buf.c
-index 792376e965f1..876ea545d1a7 100644
---- a/drivers/gpu/drm/xe/tests/xe_dma_buf.c
-+++ b/drivers/gpu/drm/xe/tests/xe_dma_buf.c
-@@ -127,7 +127,7 @@ static void xe_test_dmabuf_import_same_driver(struct xe_device *xe)
- 
- 	kunit_info(test, "running %s\n", __func__);
- 	bo = xe_bo_create_user(xe, NULL, size, DRM_XE_GEM_CPU_CACHING_WC,
--			       params->mem_mask, NULL);
-+			       params->mem_mask, NUMA_NO_NODE, NULL);
- 	if (IS_ERR(bo)) {
- 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
- 			   PTR_ERR(bo));
-@@ -215,7 +215,7 @@ static void xe_test_dmabuf_move_notify_no_resource(struct xe_device *xe)
- 
- 	kunit_info(test, "running %s\n", __func__);
- 	bo = xe_bo_create_user(xe, NULL, PAGE_SIZE, DRM_XE_GEM_CPU_CACHING_WC,
--			       params->mem_mask, NULL);
-+			       params->mem_mask, NUMA_NO_NODE, NULL);
- 	if (IS_ERR(bo)) {
- 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
- 			   PTR_ERR(bo));
-diff --git a/drivers/gpu/drm/xe/tests/xe_migrate.c b/drivers/gpu/drm/xe/tests/xe_migrate.c
-index 56c49d8507d7..69b64e3a23b8 100644
---- a/drivers/gpu/drm/xe/tests/xe_migrate.c
-+++ b/drivers/gpu/drm/xe/tests/xe_migrate.c
-@@ -649,7 +649,7 @@ static void validate_ccs_test_run_tile(struct xe_device *xe, struct xe_tile *til
- 				   DRM_XE_GEM_CPU_CACHING_WC,
- 				   XE_BO_FLAG_SYSTEM |
- 				   XE_BO_FLAG_NEEDS_CPU_ACCESS |
--				   XE_BO_FLAG_PINNED, NULL);
-+				   XE_BO_FLAG_PINNED, NUMA_NO_NODE, NULL);
- 
- 	if (IS_ERR(sys_bo)) {
- 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
-@@ -675,7 +675,7 @@ static void validate_ccs_test_run_tile(struct xe_device *xe, struct xe_tile *til
- 	ccs_bo = xe_bo_create_user(xe, NULL, SZ_4M,
- 				   DRM_XE_GEM_CPU_CACHING_WC,
- 				   bo_flags | XE_BO_FLAG_NEEDS_CPU_ACCESS |
--				   XE_BO_FLAG_PINNED, NULL);
-+				   XE_BO_FLAG_PINNED, NUMA_NO_NODE, NULL);
- 
- 	if (IS_ERR(ccs_bo)) {
- 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
-@@ -700,7 +700,7 @@ static void validate_ccs_test_run_tile(struct xe_device *xe, struct xe_tile *til
- 	vram_bo = xe_bo_create_user(xe, NULL, SZ_4M,
- 				    DRM_XE_GEM_CPU_CACHING_WC,
- 				    bo_flags | XE_BO_FLAG_NEEDS_CPU_ACCESS |
--				    XE_BO_FLAG_PINNED, NULL);
-+				    XE_BO_FLAG_PINNED, NUMA_NO_NODE, NULL);
- 	if (IS_ERR(vram_bo)) {
- 		KUNIT_FAIL(test, "xe_bo_create() failed with err=%ld\n",
- 			   PTR_ERR(vram_bo));
-@@ -979,7 +979,7 @@ static void access_memory_test_run_tile(struct xe_device *xe,
- 
- 	bo = xe_bo_create_user(xe, NULL, ACCESS_MEM_BO_SIZE,
- 			       DRM_XE_GEM_CPU_CACHING_WC,
--			       bo_flags | XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL);
-+			       bo_flags | XE_BO_FLAG_NEEDS_CPU_ACCESS, NUMA_NO_NODE, NULL);
- 	if (IS_ERR(bo)) {
- 		KUNIT_FAIL(test, "Failed to create bo: %pe\n", bo);
- 		goto free_buf;
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index fc9bfb436b8e..bbbc33737264 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -1538,7 +1538,7 @@ int xe_bo_notifier_prepare_pinned(struct xe_bo *bo)
- 		backup = xe_bo_init_locked(xe, NULL, NULL, bo->ttm.base.resv, NULL, xe_bo_size(bo),
- 					   DRM_XE_GEM_CPU_CACHING_WB, ttm_bo_type_kernel,
- 					   XE_BO_FLAG_SYSTEM | XE_BO_FLAG_NEEDS_CPU_ACCESS |
--					   XE_BO_FLAG_PINNED, NULL, &exec);
-+					   XE_BO_FLAG_PINNED, NULL, NUMA_NO_NODE, &exec);
- 		if (IS_ERR(backup)) {
- 			drm_exec_retry_on_contention(&exec);
- 			ret = PTR_ERR(backup);
-@@ -1680,7 +1680,7 @@ int xe_bo_evict_pinned(struct xe_bo *bo)
- 						   xe_bo_size(bo),
- 						   DRM_XE_GEM_CPU_CACHING_WB, ttm_bo_type_kernel,
- 						   XE_BO_FLAG_SYSTEM | XE_BO_FLAG_NEEDS_CPU_ACCESS |
--						   XE_BO_FLAG_PINNED, NULL, &exec);
-+						   XE_BO_FLAG_PINNED, NULL, NUMA_NO_NODE, &exec);
- 			if (IS_ERR(backup)) {
- 				drm_exec_retry_on_contention(&exec);
- 				ret = PTR_ERR(backup);
-@@ -2480,7 +2480,7 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 				struct ttm_lru_bulk_move *bulk, size_t size,
- 				u16 cpu_caching, enum ttm_bo_type type,
- 				u32 flags, struct dma_buf *dma_buf,
--				struct drm_exec *exec)
-+				int numa_node, struct drm_exec *exec)
- {
- 	struct ttm_operation_ctx ctx = {
- 		.interruptible = true,
-@@ -2546,7 +2546,7 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 	bo->tile = tile;
- 	bo->flags = flags;
- 	bo->cpu_caching = cpu_caching;
--	bo->numa_node = NUMA_NO_NODE;
-+	bo->numa_node = numa_node;
- 	bo->ttm.base.funcs = &xe_gem_object_funcs;
- 	bo->ttm.priority = XE_BO_PRIORITY_NORMAL;
- 	INIT_LIST_HEAD(&bo->pinned_link);
-@@ -2681,7 +2681,7 @@ __xe_bo_create_locked(struct xe_device *xe,
- 		      struct xe_tile *tile, struct xe_vm *vm,
- 		      size_t size, u64 start, u64 end,
- 		      u16 cpu_caching, enum ttm_bo_type type, u32 flags,
--		      u64 alignment, struct drm_exec *exec)
-+		      u64 alignment, int numa_node, struct drm_exec *exec)
- {
- 	struct xe_bo *bo = NULL;
- 	int err;
-@@ -2706,7 +2706,7 @@ __xe_bo_create_locked(struct xe_device *xe,
- 			       vm && !xe_vm_in_fault_mode(vm) &&
- 			       flags & XE_BO_FLAG_USER ?
- 			       &vm->lru_bulk_move : NULL, size,
--			       cpu_caching, type, flags, NULL, exec);
-+			       cpu_caching, type, flags, NULL, numa_node, exec);
- 	if (IS_ERR(bo))
- 		return bo;
- 
-@@ -2781,13 +2781,13 @@ struct xe_bo *xe_bo_create_locked(struct xe_device *xe, struct xe_tile *tile,
- 				  struct drm_exec *exec)
- {
- 	return __xe_bo_create_locked(xe, tile, vm, size, 0, ~0ULL, 0, type,
--				     flags, 0, exec);
-+				     flags, 0, NUMA_NO_NODE, exec);
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c b/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
+index 03b2576af67f..99c91a9eecf1 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
+@@ -168,6 +168,17 @@ u16 etnaviv_buffer_config_pta(struct etnaviv_gpu *gpu, unsigned short id)
+ 	return buffer->user_size / 8;
  }
  
- static struct xe_bo *xe_bo_create_novm(struct xe_device *xe, struct xe_tile *tile,
- 				       size_t size, u16 cpu_caching,
- 				       enum ttm_bo_type type, u32 flags,
--				       u64 alignment, bool intr)
-+				       u64 alignment, int numa_node, bool intr)
- {
- 	struct xe_validation_ctx ctx;
- 	struct drm_exec exec;
-@@ -2797,7 +2797,8 @@ static struct xe_bo *xe_bo_create_novm(struct xe_device *xe, struct xe_tile *til
- 	xe_validation_guard(&ctx, &xe->val, &exec, (struct xe_val_flags) {.interruptible = intr},
- 			    ret) {
- 		bo = __xe_bo_create_locked(xe, tile, NULL, size, 0, ~0ULL,
--					   cpu_caching, type, flags, alignment, &exec);
-+					   cpu_caching, type, flags, alignment,
-+					   numa_node, &exec);
- 		drm_exec_retry_on_contention(&exec);
- 		if (IS_ERR(bo)) {
- 			ret = PTR_ERR(bo);
-@@ -2966,7 +2967,8 @@ static void xe_bo_debug_mixed_mode_cur_index_advance(struct xe_device *xe,
- struct xe_bo *xe_bo_create_user(struct xe_device *xe,
- 				struct xe_vm *vm, size_t size,
- 				u16 cpu_caching,
--				u32 flags, struct drm_exec *exec)
-+				u32 flags, int numa_node,
-+				struct drm_exec *exec)
- {
- 	struct xe_bo *bo;
- 	int err = 0;
-@@ -2983,12 +2985,13 @@ struct xe_bo *xe_bo_create_user(struct xe_device *xe,
- 		xe_assert(xe, exec);
- 		bo = __xe_bo_create_locked(xe, NULL, vm, size, 0, ~0ULL,
- 					   cpu_caching, ttm_bo_type_device,
--					   flags, 0, exec);
-+					   flags, 0, numa_node, exec);
- 		if (!IS_ERR(bo))
- 			xe_bo_unlock_vm_held(bo);
- 	} else {
- 		bo = xe_bo_create_novm(xe, NULL, size, cpu_caching,
--				       ttm_bo_type_device, flags, 0, true);
-+				       ttm_bo_type_device, flags, 0,
-+				       numa_node, true);
- 	}
- 
- 	return bo;
-@@ -3022,7 +3025,7 @@ struct xe_bo *xe_bo_create_pin_range_novm(struct xe_device *xe, struct xe_tile *
- 
- 	xe_validation_guard(&ctx, &xe->val, &exec, (struct xe_val_flags) {}, err) {
- 		bo = __xe_bo_create_locked(xe, tile, NULL, size, start, end,
--					   0, type, flags, 0, &exec);
-+					   0, type, flags, 0, NUMA_NO_NODE, &exec);
- 		if (IS_ERR(bo)) {
- 			drm_exec_retry_on_contention(&exec);
- 			err = PTR_ERR(bo);
-@@ -3061,7 +3064,7 @@ static struct xe_bo *xe_bo_create_pin_map_at_aligned(struct xe_device *xe,
- 
- 	bo = __xe_bo_create_locked(xe, tile, vm, size, start, end, 0, type,
- 				   flags | XE_BO_FLAG_NEEDS_CPU_ACCESS | XE_BO_FLAG_PINNED,
--				   alignment, exec);
-+				   alignment, NUMA_NO_NODE, exec);
- 	if (IS_ERR(bo))
- 		return bo;
- 
-@@ -3604,10 +3607,15 @@ static int gem_create_user_ext_set_property(struct xe_device *xe,
- 	if (XE_IOCTL_DBG(xe, err))
- 		return -EFAULT;
- 
-+	if (XE_IOCTL_DBG(xe, ext.pad))
-+		return -EINVAL;
-+
-+	/* The NUMA node property is parsed and applied before BO creation. */
-+	if (ext.property == DRM_XE_GEM_CREATE_SET_PROPERTY_NUMA_NODE)
-+		return 0;
-+
- 	if (XE_IOCTL_DBG(xe, ext.property >=
--			 ARRAY_SIZE(gem_create_set_property_funcs)) ||
--	    XE_IOCTL_DBG(xe, ext.pad) ||
--	    XE_IOCTL_DBG(xe, ext.property != DRM_XE_GEM_CREATE_EXTENSION_SET_PROPERTY))
-+			 ARRAY_SIZE(gem_create_set_property_funcs)))
- 		return -EINVAL;
- 
- 	idx = array_index_nospec(ext.property, ARRAY_SIZE(gem_create_set_property_funcs));
-@@ -3658,6 +3666,56 @@ static int gem_create_user_extensions(struct xe_device *xe, struct xe_bo *bo,
- 	return 0;
- }
- 
-+/*
-+ * Parse a host NUMA node request from the extension chain. The node must be
-+ * known before the BO is created, because the backing pages are allocated
-+ * during creation. Returns the requested node in @numa_node (NUMA_NO_NODE if
-+ * none or a negative value is given) or a negative errno on an invalid request.
-+ */
-+static int gem_create_parse_numa_node(struct xe_device *xe, u64 extensions,
-+				      u32 bo_flags, int *numa_node)
++static void etnaviv_cmd_flush_ts(struct etnaviv_cmdbuf *buffer, bool has_blt)
 +{
-+	struct drm_xe_user_extension base;
-+	struct drm_xe_ext_set_property ext;
-+	unsigned int i = 0;
++	CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE, VIVS_TS_FLUSH_CACHE_FLUSH);
 +
-+	*numa_node = NUMA_NO_NODE;
-+
-+	while (extensions && i++ < MAX_USER_EXTENSIONS) {
-+		u64 __user *address = u64_to_user_ptr(extensions);
-+		s64 nid;
-+
-+		if (XE_IOCTL_DBG(xe, copy_from_user(&base, address, sizeof(base))))
-+			return -EFAULT;
-+
-+		if (base.name != DRM_XE_GEM_CREATE_EXTENSION_SET_PROPERTY)
-+			goto next;
-+
-+		if (XE_IOCTL_DBG(xe, copy_from_user(&ext, address, sizeof(ext))))
-+			return -EFAULT;
-+
-+		if (ext.property != DRM_XE_GEM_CREATE_SET_PROPERTY_NUMA_NODE)
-+			goto next;
-+
-+		nid = (s64)ext.value;
-+		*numa_node = NUMA_NO_NODE;
-+		if (nid < 0)
-+			goto next;
-+
-+		if (XE_IOCTL_DBG(xe, nid >= MAX_NUMNODES || !node_online(nid)))
-+			return -EINVAL;
-+
-+		if (XE_IOCTL_DBG(xe, !(bo_flags & XE_BO_FLAG_SYSTEM)))
-+			return -EINVAL;
-+
-+		*numa_node = nid;
-+next:
-+		extensions = base.next_extension;
++	if (has_blt) {
++		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
++		CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
++		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
 +	}
-+
-+	return 0;
 +}
 +
- int xe_gem_create_ioctl(struct drm_device *dev, void *data,
- 			struct drm_file *file)
+ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
  {
-@@ -3669,6 +3727,7 @@ int xe_gem_create_ioctl(struct drm_device *dev, void *data,
- 	struct xe_vm *vm = NULL;
- 	struct xe_bo *bo;
- 	unsigned int bo_flags;
-+	int numa_node;
- 	u32 handle;
- 	int err;
+ 	struct etnaviv_cmdbuf *buffer = &gpu->buffer;
+@@ -191,7 +202,7 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
+ 		unsigned int dwords = 7;
  
-@@ -3744,6 +3803,11 @@ int xe_gem_create_ioctl(struct drm_device *dev, void *data,
- 			 args->cpu_caching == DRM_XE_GEM_CPU_CACHING_WB))
- 		return -EINVAL;
+ 		if (has_blt)
+-			dwords += 10;
++			dwords += 11;
  
-+	err = gem_create_parse_numa_node(xe, args->extensions, bo_flags,
-+					 &numa_node);
-+	if (err)
-+		return err;
-+
- 	if (args->vm_id) {
- 		vm = xe_vm_lookup(xef, args->vm_id);
- 		if (XE_IOCTL_DBG(xe, !vm))
-@@ -3760,7 +3824,7 @@ int xe_gem_create_ioctl(struct drm_device *dev, void *data,
- 				break;
+ 		link_target = etnaviv_buffer_reserve(gpu, buffer, dwords);
+ 
+@@ -204,16 +215,8 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
+ 			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
  		}
- 		bo = xe_bo_create_user(xe, vm, args->size, args->cpu_caching,
--				       bo_flags, &exec);
-+				       bo_flags, numa_node, &exec);
- 		drm_exec_retry_on_contention(&exec);
- 		if (IS_ERR(bo)) {
- 			err = PTR_ERR(bo);
-@@ -4231,7 +4295,7 @@ int xe_bo_dumb_create(struct drm_file *file_priv,
- 			       DRM_XE_GEM_CPU_CACHING_WC,
- 			       XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
- 			       XE_BO_FLAG_FORCE_WC |
--			       XE_BO_FLAG_NEEDS_CPU_ACCESS, NULL);
-+			       XE_BO_FLAG_NEEDS_CPU_ACCESS, NUMA_NO_NODE, NULL);
- 	if (IS_ERR(bo))
- 		return PTR_ERR(bo);
+ 		CMD_LOAD_STATE(buffer, VIVS_GL_FLUSH_CACHE, flush);
+-		if (gpu->exec_state == ETNA_PIPE_3D) {
+-			if (has_blt) {
+-				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
+-				CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
+-				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
+-			} else {
+-				CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
+-					       VIVS_TS_FLUSH_CACHE_FLUSH);
+-			}
+-		}
++		if (gpu->exec_state == ETNA_PIPE_3D)
++			etnaviv_cmd_flush_ts(buffer, has_blt);
+ 		CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+ 		CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+ 		if (has_blt) {
+@@ -400,12 +403,12 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, u32 exec_state,
+ 	return_dwords = 7;
  
-diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-index 77b3a02e9b8e..225c6a8676a6 100644
---- a/drivers/gpu/drm/xe/xe_bo.h
-+++ b/drivers/gpu/drm/xe/xe_bo.h
-@@ -122,13 +122,14 @@ struct xe_bo *xe_bo_init_locked(struct xe_device *xe, struct xe_bo *bo,
- 				struct ttm_lru_bulk_move *bulk, size_t size,
- 				u16 cpu_caching, enum ttm_bo_type type,
- 				u32 flags, struct dma_buf *dma_buf,
--				struct drm_exec *exec);
-+				int numa_node, struct drm_exec *exec);
- struct xe_bo *xe_bo_create_locked(struct xe_device *xe, struct xe_tile *tile,
- 				  struct xe_vm *vm, size_t size,
- 				  enum ttm_bo_type type, u32 flags,
- 				  struct drm_exec *exec);
- struct xe_bo *xe_bo_create_user(struct xe_device *xe, struct xe_vm *vm, size_t size,
--				u16 cpu_caching, u32 flags, struct drm_exec *exec);
-+				u16 cpu_caching, u32 flags, int numa_node,
-+				struct drm_exec *exec);
- struct xe_bo *xe_bo_create_pin_map(struct xe_device *xe, struct xe_tile *tile,
- 				   struct xe_vm *vm, size_t size,
- 				   enum ttm_bo_type type, u32 flags,
-diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-index 5bf13dc4b61d..b5351310a07b 100644
---- a/drivers/gpu/drm/xe/xe_dma_buf.c
-+++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-@@ -343,7 +343,8 @@ xe_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+ 	/*
+-	 * When the BLT engine is present we need 6 more dwords in the return
++	 * When the BLT engine is present we need 7 more dwords in the return
+ 	 * target: 3 enable/flush/disable + 4 enable/semaphore stall/disable,
+-	 * but we don't need the normal TS flush state.
++	 * on top of the normal TS flush state.
+ 	 */
+ 	if (has_blt)
+-		return_dwords += 6;
++		return_dwords += 7;
  
- 		bo = xe_bo_init_locked(xe, NULL, NULL, resv, NULL, dma_buf->size,
- 				       0, /* Will require 1way or 2way for vm_bind */
--				       ttm_bo_type_sg, XE_BO_FLAG_SYSTEM, dma_buf, &exec);
-+				       ttm_bo_type_sg, XE_BO_FLAG_SYSTEM, dma_buf,
-+				       NUMA_NO_NODE, &exec);
- 		drm_exec_retry_on_contention(&exec);
- 		if (IS_ERR(bo)) {
- 			ret = PTR_ERR(bo);
+ 	return_target = etnaviv_buffer_reserve(gpu, buffer, return_dwords);
+ 	CMD_LINK(cmdbuf, return_dwords, return_target);
+@@ -422,14 +425,7 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, u32 exec_state,
+ 				       VIVS_GL_FLUSH_CACHE_DEPTH |
+ 				       VIVS_GL_FLUSH_CACHE_COLOR |
+ 				       VIVS_GL_FLUSH_CACHE_SHADER_L1);
+-		if (has_blt) {
+-			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
+-			CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
+-			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
+-		} else {
+-			CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
+-					       VIVS_TS_FLUSH_CACHE_FLUSH);
+-		}
++		etnaviv_cmd_flush_ts(buffer, has_blt);
+ 	}
+ 	CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+ 	CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-etna-pe-ts-flush-ffa01363b98c
+
+Best regards,
 -- 
-2.43.0
+Christian Gmeiner <cgmeiner@igalia.com>
 
