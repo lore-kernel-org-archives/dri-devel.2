@@ -2,75 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A79F6070D9D
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:47:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDAB6082626
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:47:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k68ttWG6
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XU5aQqys
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D22AA10E342;
-	Mon,  2 Nov 2026 14:46:59 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6583A10E03D
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 14:46:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B3FC46020C;
- Mon,  2 Nov 2026 14:46:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FD21F00A1B;
- Mon,  2 Nov 2026 14:46:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793630812;
- bh=gGh9qQAToZE5wrWgcgjg72Buy8fnK2LgswQGjbfg87A=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=k68ttWG6wR2uYUNWQI+ECVf+fO/XJ0eqvyJRIGqlTdn3SeSK5FwYTdTBaVjsoBsYJ
- kJXwecLDVVqkc0QtPna5nnmOaGhEH6lV2p3+n4SMeLLTjqLfMHRMfS6+IdU5FeP6Ex
- EEbVMiiZNLXMTNclGmw6p8mC8yLNPYuUSTnCtn6ZR27qjgY9RaX2RJuHLWLPx9jmMt
- 9JJmAL/6SUvZypF7nop8NC5qp7LgJYP8eJFNNtNBvtdk7y2N5+2qF+LGhO9FlXYxla
- LSU+v/oAHtst3btNP9gxZgyUrKBFNLcCwNm+jD4+mesxl+NmeCWqzBEWi80sNRNQ/1
- Y+2ZOSQK06ITw==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 15:43:28 +0100
-Subject: [PATCH RFC 37/38] proc: don't pin a symlink's entry while
- readlink() copies it out
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD57410EF4D;
+	Mon,  2 Nov 2026 14:47:13 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 381E310EF42;
+ Mon,  2 Nov 2026 14:47:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=jQw5ix+gEQdGpmFbBmDqsmFBc8+v6QKH8bqPjj6E844=; t=1793630828; x=2108990828; 
+ b=XU5aQqysDhgmhLJb9QDp7WmUddMchEZ18ec24Ge2Q/dO6NBk1Sg+8zBeZdzh8V3aonup1vDR5Zj
+ hP6a2WAQpR1XcSWF0R76GhTXC5OnQim5wkHQE8rwGOfZ+yV480VW2NvFn+eG0iS6m1UCUvarSfzl3
+ tAOHVGy3Ur9P05b/Gi7U3sDIfWSG8LmWSOspcZgRb9Iyp74LcXxiqmfah5RFBjFp0cNEXnsEqo5wP
+ GpbwhsoCXUe6RO2q/9OE+zTX3MAsbOzT0yCTKOt2nYLqTiEMmiTAIzlrvwrIfimS/COjuHzgEEu19
+ Z3feTW/PSIDLD82vj8gtoF5laWN24ekNUhmQ==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xNtJR-000DtQ-LI; Mon, 02 Nov 2026 15:47:05 +0100
+Message-ID: <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
+Date: Mon, 2 Nov 2026 14:47:04 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-bugfixes-v1-37-59422ed3e465@kernel.org>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing priority
+ at runtime
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ stable@vger.kernel.org
+References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
+ <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
+ <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,67 +57,90 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-proc_get_link() pins the entry with use_pde() and the delayed call
-unpins it. vfs_readlink() copies the link to userspace in between. So a
-page fault in that copy holds up remove_proc_entry() just like the
-copies of reads and writes do, and the callers hold locks while they
-wait. /proc/asound/<id> is removed with snd_card_mutex and info_mutex
-held when a card changes its id.
 
-The pin doesn't keep anything alive. proc_symlink() copies the target
-and pde_free() frees it with the entry, and the inode holds a reference
-to the entry. What the pin does is keep a removed symlink from being
-followed. So check ->in_use instead and drop the delayed call. That
-also takes an atomic pair off every traversal of /proc/net and
-/proc/mounts.
+On 02/11/2026 10:42, Philipp Stanner wrote:
+> On Wed, 2026-10-21 at 10:42 +0100, Tvrtko Ursulin wrote:
+>> Another consequence of the recent revert of
+>> 77a6809f1dc3 ("drm/sched: Remove FIFO and RR and simplify to a single run queue")
+>> is that after the revert we need to adjust entity->rq_priority when
+>> runtime priority changes are requested.
+>>
+>> Only amdgpu does that so the impact is minimal.
+>>   Also considering dynamic
+>> priority changes are largely broken there, due currently broken entity
+>> scheduler list handling where the special case of a single scheduler can
+>> never change it's run-queue. And coupled with the fact for the rest a two-
+>> tier approach of drm_sched_entity_set_priority() and
+>> drm_sched_entity_modify_sched() is used, where later directly maps to
+>> different hardware queue priority by replacing the set of schedulers
+>> completely.
+>>
+>> Hence the regression is limited to rings which have multiple instances
+>> other than compute and graphics, which would be SDMA only, for which I am
+>> not sure any userspace actually does dynamic priority changes in the first
+>> place.
+> 
+> I can't fully grasp what the bug actually is. So is it that we forgot
+> to adjust the priority in the CFS series, or is it that the partial
+> revert made this necessary?
 
-Fixes: 7e0e953bb0cf ("procfs: fix race between symlink removals and traversals")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/proc/inode.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Partial revert makes this necessary, albeit mostly on paper. In reality 
+it is complicated. Only amdgpu calls it, plus, for single scheduler IP 
+blocks there is not bug because of the "single scheduler special case" 
+run-queue cannot change at all (bug I am trying to address in that 
+different patch, and which also got re-uncovered due the partial revert 
+of the fair series), while in the multiple scheduler case there is no 
+bug because amdgpu pairs drm_sched_entity_set_priority() with 
+drm_sched_entity_modify_sched(), which actually changes the priority in 
+the driver. This leaves SDMA as the only potential place where there can 
+be a regression, and there I am not sure those do dynamic priority 
+changes from the userspace side in the first place. But theorethicaly, 
+from the UAPI point of view, it could be a regression so needs to be fixed.
 
-diff --git a/fs/proc/inode.c b/fs/proc/inode.c
-index 9933f03ab9fb..2d65f3c8ec03 100644
---- a/fs/proc/inode.c
-+++ b/fs/proc/inode.c
-@@ -629,19 +629,19 @@ static const struct file_operations proc_iter_file_ops_compat = {
- };
- #endif
- 
--static void proc_put_link(void *p)
--{
--	unuse_pde(p);
--}
--
- static const char *proc_get_link(struct dentry *dentry,
- 				 struct inode *inode,
- 				 struct delayed_call *done)
- {
- 	struct proc_dir_entry *pde = PDE(inode);
--	if (!use_pde(pde))
-+
-+	/*
-+	 * No pin. The link lives with the entry, which the inode holds, and a
-+	 * reader could fault while vfs_readlink() copies it out. Just don't
-+	 * follow a removed one.
-+	 */
-+	if (unlikely(atomic_read(&pde->in_use) < 0))
- 		return ERR_PTR(-EINVAL);
--	set_delayed_call(done, proc_put_link, pde);
- 	return pde->data;
- }
- 
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: <stable@vger.kernel.org> # v7.2+
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_entity.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index e12709b7bd0c..03e68b4102d5 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -456,6 +456,8 @@ void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
+>>   {
+>>   	spin_lock(&entity->lock);
+>>   	entity->priority = priority;
+>> +	if (drm_sched_policy != DRM_SCHED_POLICY_FAIR)
+>> +		entity->rq_priority = priority;
+>>   	spin_unlock(&entity->lock);
+> 
+> So is there always a bug, or only for FAIR?
 
--- 
-2.53.0
+With FIFO and RR, on amdgpu, SDMA rings, only if more than one, *if* 
+there exists userspace which does dynamic priority changes (calls 
+DRM_IOCTL_AMDGPU_SCHED / AMDGPU_SCHED_OP_*_PRIORITY_OVERRIDE) on 
+entities using those SDMA engines directly. All clear now? :))
+
+Regards,
+
+Tvrtko
+
+> 
+> 
+>>   }
+>>   EXPORT_SYMBOL(drm_sched_entity_set_priority);
 
