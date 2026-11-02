@@ -2,84 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FAF606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68DF606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U74tWlw5
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BR9gWkW8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D52410EBBF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DED510EBC1;
 	Mon,  2 Nov 2026 08:04:02 +0000 (UTC)
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21F0210E3D5
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 18:05:37 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-8a0673d9bd2so1297768b3a.3
- for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 10:05:37 -0800 (PST)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7717310E527
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 06:46:03 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-3ab98332238so1369348a91.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 22:46:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793556336; x=1794161136; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=KZfx8zG3lr0SxJdej5NZrOvMKfAGpQe9QBAGg9mMie8=;
- b=U74tWlw5ufg414vZbum4UUligPmcEU09QA/ldwuhfm3EHqVEMu81EKl07PUISv8iLf
- aHtzhMhdCdwddVYNC53cC7MNyHIeCIhOn11KiojAMLNjc4VUl1MbWkLgdOoKwAR8XfFN
- cGKqQOtXrYvR5iBeKC0oRVX7C4UhW4VV/3VUolldnOutihb3JVEdc2cwRmQiIAUJ0WdC
- BKvDhIj2jcj/aOwWdWMDUrXDaPKzEIuzlDmHkaOOYqZix4VqHAUj/ZBxjZRyj5CT1UlX
- B+XM3Bw3YVRYPV6ae/f0YkOzl76ni/GQ2h6XktrORJYFVaouaJh2/h7n6tCRubpFFV5T
- Cs0Q==
+ d=gmail.com; s=20260707; t=1793601963; x=1794206763; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=fij261aOp4ff0AwpnNS7x2Qa4LrIQ9juiwmci3p7/C8=;
+ b=BR9gWkW8hbwfoqXv1sN6BOe5jeTP6KG4/SHhxiMQoaku8GYmAKc0k7cpWDbgI64Qu8
+ oxRGsFUn4ZKeTlEvqlbxVN9A7tFqzLKEpkn5fRbpI6jMwfJWvnRcriEOJmyON3WlH+X2
+ DJ94PyX/7D7YMlUXjxCGWtUvZ/7qRe0u3pxdgf9acRvOC7TjJEJyQp1Yj34g27ik5VRP
+ NbCJs0nbaDuzFOl6WbT9c6u1Y9eqx2Fu0afCIJe9umcUSrSs30yUU4G42xbE1ShrO8Tk
+ Xq3R1RCSrGu26PQCQGAWOmVJBtPHUkBIXVKwqrFDuc7pkv6Xt+gcO+iL871X9CmMMPAs
+ 1cpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793556336; x=1794161136;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=KZfx8zG3lr0SxJdej5NZrOvMKfAGpQe9QBAGg9mMie8=;
- b=XhkCw/xCKZni1J0u9f57hCwz9QKK+iluONpZ7pEDNdYU3d1cWB6VmkN8CnEnWozjUS
- XhGXpQAc1d27kKXtR7YNFbavrWeyN7wQWX8hj7JkiwgoNoM8veu8eRK8CkDVyzecGRhP
- MrIWQkXcHsWXlcLENQncZBOcJHT0xz6J712oHNnODL4uGZ0+Cph90M0AqFBJoPdDJR0i
- 0l3EQqmv9TuO32um3o3MWfNzh5lB5YYOGCnIVc6Dy2g2tQqWy29hB2OeWmnsl7P7Cwm4
- Kd6Eb969HzxwrZNGJiaGIRn3XUMUKmSctOAg49KQ8ZcY1RDNo7K50588WVVuYchS9D+F
- 6pUw==
+ d=1e100.net; s=20260707; t=1793601963; x=1794206763;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=fij261aOp4ff0AwpnNS7x2Qa4LrIQ9juiwmci3p7/C8=;
+ b=AsUrpaaiPZZ3VAmrGlqS86HPWxD06+IUPc9ZNPkmVZyB9m2Zn8GPl5b1v16t6Fu/iT
+ 9gxpHHB0xryWN+u1P20zq1sIC9bajsJ1XUN7IUyU4d+qNPajD2dc2t83pw/C5rKLqdnG
+ co7GCySGljVdLiMc29R4HvkzFUHrzF4+16yV6uqsLc+n7QHa4yunK6AVZwaEb2U7ElO5
+ gzw/jsJ4nkuuGxHxTzTFzrulqhgUp6aABJP2BaOoJveXiclWxFUELXOi6l4nnvWa2b7D
+ UtJrGRr7z6c1OISLzpwyZbajDHansC1Bjee8jBdAZz3TcQLPZMAl8xyT8GD+XrzpHS0c
+ 1uNg==
 X-Forwarded-Encrypted: i=1;
- AKwUvBx6AvnGCSeeph8naZp2SfXQKTHiTOfjKVF0AXoJCqjb0pO8t04dO+xZvYhijRIilMIw9hCK+fLwmuU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKGK8XNY2RhK5GgjNO4V2Ch2VviR6EVgv5R/a74CPNVoBCl3Zth
- 65Oo8vaPWUuPrhEyu5SegphbQZ7Se1ocWCqQXc+MQ/UCCoE095eUVHwF
-X-Gm-Gg: AYBFou1kSb8rbbyqDbUE/x+e8bR23c1vVtUDa71d41Q2F2m1+RCADoCplWJpkU2QSVl
- 1RxCWNQdHTXC28NBiYOou36QQU98g6xyaHUom0xgGUupUAj8pYAudRe8Fi4elh6zAw8MIaG6RYj
- ulPvbApW0R5POdMRcd9J5ZmuXmvNoo6G92NNUAHkT+rM+0zruQjz7tQkfdQnAH10TGu8S4Qm405
- C2YmbfvAoskYeBuI4MPPqcQZ3QjpuabVpQDMbe6gEETMBgYiE4AedpVoaermlPxulUXYkwbIjVP
- nMs0gmyrNZI6MK+nyhoEF+7AMMny7ccOJwH5teJ96D5FCgV/0rRjFziljVmiYd6buOUnwdkBQgD
- 5LIht1lMvmxXfiw8zT+GuqkmR4yfsbm3KdbP8JgXGdsYpZk59qKDGACeQLDAFHaR+QmptBTivz4
- /5MAVI84QCy9DWra8JWVL9/tJr4e7zxjl16bxtypq0GfQBzhe7/i6UQt3D7ZmFA74FAMwpy+V2W
- VR/RPXNsvv041VM+YZJfFx+DWb3/ESO1mRSdiafHQUlg44QpQp9GdX9hVEABbLTJSeWYmGM6RkJ
- KnygHq6frfVgKgBYoq9tJT4=
-X-Received: by 2002:a05:6a00:6c83:b0:899:915:792b with SMTP id
- d2e1a72fcca58-8a9bfddf73emr6622142b3a.54.1793556336463; 
- Sun, 01 Nov 2026 10:05:36 -0800 (PST)
-Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
+ AKwUvBx37MNyKzw3FMqJOaPt8p09EDXDSHbGPAMMQKuNi88FpTl1aGf57Zc/+yMw5iu1Ic3VljVg/+pZCtc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z84o0gDTnMNt7WWUmt2aQU/x5vx7t/x85Eb6rM2SVzos4JSaKxQ
+ Yink58r8OjQ9D5r2uwNnJG0CUU6zl7+NQqfG6t+4Xxf476AlLCOwrcJG
+X-Gm-Gg: AYBFou1Q/qNMldVtZhH/NMW9vfXSgp79ZMzgBa7B/QYqeEzqTHR/wMjOOEUiCCvKv3+
+ /XJhQq+Q2RgVqpZHxPua2B0T/Ww365Wrm0YGX/aDvJT5V41Dphtdh0NqLDX5eyZ8PhjKp1OLJQl
+ 3Awj1qqeN8JKrRHS2Xwgd1fMfXy2UdIAoOK/WjvsFGYJTipcF8VVvwZ/HD3Jdz3pmnORUKU+ggQ
+ 2gLJfrUnaAmlX3ZP9ZdOtbdc6ELqwDzKj796QoR7tJvYUljyOi5TgplPfl5+UEpKpia2ZKGEKsg
+ GgFBcBvb4rg6kq4RKCO138bTFwz1pJAZPAAK5Rz4tV1EznSiMUAteB0HPscH8NMEqyAV9FKBBx2
+ jAsQ2QWMowWHLWiEydWoG8l3vD0RpYbqj7lfkS7wo8O9OucMlDvClhoXtFgqCNz6cZkZxIsEWW6
+ /vLBGdg+3D3ucqHqLmM4x+TkX5TD3QvcUVL+nVeS9GTDuDuWld8Ci5qCY9WfOO+iuxKhX8VgPNS
+ AeIkt/wYo4qkz3Pb3f7J8JcAripDOmzUDKxiev+5jvvGXfcC4Jigrmvu8kvkB0natAmjlIkxqf+
+ 34XsxmNqnWn61vMGOkgVni0DoLjY6gAJb6Fxbqr/Tlf2+C4yQ1Zm0CPbIWrwHIPup7cobihMcdd
+ f
+X-Received: by 2002:a17:90b:224f:b0:3ac:8af9:4a6a with SMTP id
+ 98e67ed59e1d1-3ae8976f156mr7826857a91.42.1793601962666; 
+ Sun, 01 Nov 2026 22:46:02 -0800 (PST)
+Received: from localhost.localdomain ([155.69.168.11])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8ac269b8805sm446544b3a.44.2026.11.01.10.05.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Nov 2026 10:05:35 -0800 (PST)
-From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Sean Paul <sean@poorly.run>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Connor Abbott <cwabbott0@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
-Subject: [PATCH 3/4] drm/msm/a8xx: add a memory-only GPU crash state
-Date: Mon,  2 Nov 2026 02:05:07 +0800
-Message-ID: <20261101180508.66598-1-nicoangelodelacruz@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
-References: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+ 98e67ed59e1d1-3ae845fb9f6sm12614376a91.17.2026.11.01.22.45.59
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 01 Nov 2026 22:46:02 -0800 (PST)
+From: Yuqiang Sun <izaiahsun@gmail.com>
+To: matthew.auld@intel.com,
+	arunpravin.paneerselvam@amd.com
+Cc: joelagnelf@nvidia.com, christian.koenig@amd.com, mairacanal@riseup.net,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] gpu/tests/buddy: Stop a test when gpu_buddy_init() fails
+Date: Mon,  2 Nov 2026 14:45:53 +0800
+Message-ID: <20261102064553.82038-1-izaiahsun@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -103,153 +94,117 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-a8xx had no gpu_state_get callback, so no devcoredump was ever
-produced when the GPU hung or faulted.
+Three tests check gpu_buddy_init() with KUNIT_EXPECT_FALSE(), which only
+records the failure, and go on to allocate from the allocator and to
+call gpu_buddy_fini(). When gpu_buddy_init() fails, it has freed what it
+allocated (or never allocated it), and the gpu_buddy is on the test's
+stack, uninitialized, so the test then works on freed or garbage
+pointers. The other tests in the file use KUNIT_ASSERT_FALSE(), which
+stops the test case.
 
-Add a8xx_gpu_state_get(), a memory-only snapshot: the generic Adreno
-state from adreno_gpu_state_get() (ring buffer contents and fences,
-with rptr read from the hw_apriv shadow rather than a register), the
-GMU log/HFI/debug buffers and the HFI queue history. No register is
-read, because the GMU may be wedged and GX powered off when this runs
-from the recover worker or the SMMU fault path. As a result a8xx
-dumps always report "gpu-initialized: 0", as a6xx/a7xx dumps do when
-GX is off.
+Use KUNIT_ASSERT_FALSE() in gpu_test_buddy_alloc_clear(),
+gpu_test_buddy_alloc_contiguous() and gpu_test_buddy_alloc_limit() too.
+In gpu_test_buddy_alloc_clear() each later call follows a
+gpu_buddy_fini(), so stopping there leaves nothing allocated.
 
-The shared part moves out of a6xx_gpu_state_get() into
-a6xx_gpu_state_get_gmu(), which also runs adreno_gpu_state_get().
-It is a pure move except for a new gmu_regs parameter that gates
-a6xx_get_gmu_registers(); a6xx/a7xx pass true, so their output is
-unchanged. Reviewed with git diff --color-moved=dimmed-zebra: apart
-from the moved lines, the new code is the helper's signature, the
-"if (gmu_regs)" check, the locals the helper needs, and the call.
+Found by kbound, a static analysis prototype for ownership mismatches at
+kernel interfaces. Run-tested on QEMU (x86_64, KVM) with KASAN and the
+suite as a module, with failslab limited to allocations under
+gpu_buddy_init() and set to fail the first call's 1st to 5th allocation.
+Before this patch, all 15 runs (three tests, five allocations) end in a
+general protection fault, five of them after KASAN slab-use-after-free
+reports in gpu_buddy_alloc_blocks() or __gpu_buddy_alloc_range(). With
+it, each stops at the assertion, and the whole suite still passes
+without injection.
 
-Tested on an Adreno 830: IGT msm_recovery gpu-fault (6 of 6 runs) and
-natural GPU hangs produce dumps with the ringbuffer, gmu-log, gmu-hfi
-and queue-history sections; capture takes 1.1 to 4.0 ms.
-
-a6xx/a7xx: build and pure-move review only, Tested-by welcome.
-
-Signed-off-by: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+Fixes: 932da861956a ("drm: selftest: convert drm_buddy selftest to KUnit")
+Fixes: a64056bb5a32 ("drm/tests/drm_buddy: add alloc_contiguous test")
+Fixes: c1696bf8d5f5 ("drm/tests: Add a test case for drm buddy clear allocation")
+Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |  7 +++
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |  1 +
- drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 47 ++++++++++++++++-----
- 3 files changed, 45 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 92e8c8abb..0f4b0af0a 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2918,9 +2918,16 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
- 		.active_ring = a6xx_active_ring,
- 		.irq = a8xx_irq,
- 		.destroy = a6xx_destroy,
-+#if defined(CONFIG_DRM_MSM_GPU_STATE)
-+		.show = a6xx_show,
-+#endif
- 		.gpu_busy = a8xx_gpu_busy,
- 		.gpu_get_freq = a6xx_gmu_get_freq,
- 		.gpu_set_freq = a6xx_gpu_set_freq,
-+#if defined(CONFIG_DRM_MSM_GPU_STATE)
-+		.gpu_state_get = a8xx_gpu_state_get,
-+		.gpu_state_put = a6xx_gpu_state_put,
-+#endif
- 		.create_vm = a6xx_create_vm,
- 		.create_private_vm = a6xx_create_private_vm,
- 		.get_rptr = a6xx_get_rptr,
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-index 79912a33e..03432abf9 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-@@ -338,6 +338,7 @@ void a6xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
- 		struct drm_printer *p);
+Notes:
+    The bug was found with kbound, a research static analysis prototype.
+    The patch, the changelog and the test setup were written with the help
+    of an AI coding assistant (Claude); I have reviewed and tested them as
+    described above.
+    
+    The runs were on mainline d135ab453a74; the test file is the same there
+    and in drm-misc-next, which this patch is based on, except for an
+    unrelated hunk in gpu_test_buddy_alloc_contiguous().
+
+ drivers/gpu/tests/gpu_buddy_test.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index 2c6f1da1a6d1..e85d83e42bb7 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -975,7 +975,7 @@ static void gpu_test_buddy_alloc_clear(struct kunit *test)
+ 	LIST_HEAD(clean);
  
- struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu);
-+struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu);
- int a6xx_gpu_state_put(struct msm_gpu_state *state);
+ 	mm_size = SZ_4K << max_order;
+-	KUNIT_EXPECT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
++	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
  
- void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_off);
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-index 26c17861c..a3751358a 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
-@@ -1629,25 +1629,19 @@ static void a7xx_get_indexed_registers(struct msm_gpu *gpu,
- 	return;
- }
+ 	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
  
--struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
-+static void a6xx_gpu_state_get_gmu(struct msm_gpu *gpu,
-+				   struct a6xx_gpu_state *a6xx_state, bool gmu_regs)
- {
--	struct a6xx_crashdumper _dumper = { 0 }, *dumper = NULL;
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
--	struct a6xx_gpu_state *a6xx_state = kzalloc_obj(*a6xx_state);
--	bool stalled;
--
--	if (!a6xx_state)
--		return ERR_PTR(-ENOMEM);
--
--	INIT_LIST_HEAD(&a6xx_state->objs);
+@@ -1035,7 +1035,7 @@ static void gpu_test_buddy_alloc_clear(struct kunit *test)
+ 	gpu_buddy_free_list(&mm, &dirty, 0);
+ 	gpu_buddy_fini(&mm);
  
- 	/* Get the generic state from the adreno core */
- 	adreno_gpu_state_get(gpu, &a6xx_state->base);
+-	KUNIT_EXPECT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
++	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
  
- 	if (!adreno_has_gmu_wrapper(adreno_gpu) &&
- 	    !adreno_has_rgmu(adreno_gpu)) {
--		a6xx_get_gmu_registers(gpu, a6xx_state);
-+		if (gmu_regs)
-+			a6xx_get_gmu_registers(gpu, a6xx_state);
+ 	/*
+ 	 * Create a new mm. Intentionally fragment the address space by creating
+@@ -1095,7 +1095,7 @@ static void gpu_test_buddy_alloc_clear(struct kunit *test)
+ 	 */
+ 	mm_size = (SZ_4K << max_order) + (SZ_4K << (max_order - 2));
  
- 		a6xx_state->gmu_log = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.log);
- 		a6xx_state->gmu_hfi = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.hfi);
-@@ -1655,6 +1649,21 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
+-	KUNIT_EXPECT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
++	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
+ 	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
+ 	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, SZ_4K << max_order,
+ 							    4 * ps, ps, &allocated,
+@@ -1123,7 +1123,7 @@ static void gpu_test_buddy_alloc_clear(struct kunit *test)
+ 	 * and the split blocks should be merged back to their original size, so
+ 	 * clear_avail must drop to 0.
+ 	 */
+-	KUNIT_EXPECT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
++	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
+ 	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
  
- 		a6xx_snapshot_gmu_hfi_history(gpu, a6xx_state);
- 	}
-+}
-+
-+struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
-+{
-+	struct a6xx_crashdumper _dumper = { 0 }, *dumper = NULL;
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a6xx_gpu_state *a6xx_state = kzalloc_obj(*a6xx_state);
-+	bool stalled;
-+
-+	if (!a6xx_state)
-+		return ERR_PTR(-ENOMEM);
-+
-+	INIT_LIST_HEAD(&a6xx_state->objs);
-+
-+	a6xx_gpu_state_get_gmu(gpu, a6xx_state, true);
+ 	n_pages = mm_size / ps;
+@@ -1147,7 +1147,7 @@ static void gpu_test_buddy_alloc_clear(struct kunit *test)
+ 	 * the split blocks should be merged back to their original size, so the
+ 	 * whole address space (clear_avail) must equal mm_size.
+ 	 */
+-	KUNIT_EXPECT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
++	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
+ 	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
  
- 	/* If GX isn't on the rest of the data isn't going to be accessible */
- 	if (!adreno_gpu->funcs->gx_is_on(adreno_gpu))
-@@ -1714,6 +1723,24 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
- 	return  &a6xx_state->base;
- }
+ 	for (i = 0; i < n_pages; i++) {
+@@ -1176,7 +1176,7 @@ static void gpu_test_buddy_alloc_contiguous(struct kunit *test)
+ 	LIST_HEAD(right);
+ 	LIST_HEAD(allocated);
  
-+/*
-+ * Memory-only snapshot for a8xx: no register is read, as the GMU may be
-+ * wedged and GX powered off by the time this runs.
-+ */
-+struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu)
-+{
-+	struct a6xx_gpu_state *a6xx_state = kzalloc_obj(*a6xx_state);
-+
-+	if (!a6xx_state)
-+		return ERR_PTR(-ENOMEM);
-+
-+	INIT_LIST_HEAD(&a6xx_state->objs);
-+
-+	a6xx_gpu_state_get_gmu(gpu, a6xx_state, false);
-+
-+	return &a6xx_state->base;
-+}
-+
- static void a6xx_gpu_state_destroy(struct kref *kref)
- {
- 	struct a6xx_state_memobj *obj, *tmp;
+-	KUNIT_EXPECT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
++	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
+ 
+ 	/*
+ 	 * Idea is to fragment the address space by alternating block
+@@ -1490,7 +1490,7 @@ static void gpu_test_buddy_alloc_limit(struct kunit *test)
+ 	LIST_HEAD(allocated);
+ 	struct gpu_buddy mm;
+ 
+-	KUNIT_EXPECT_FALSE(test, gpu_buddy_init(&mm, size, SZ_4K));
++	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, size, SZ_4K));
+ 
+ 	KUNIT_EXPECT_EQ_MSG(test, mm.max_order, GPU_BUDDY_MAX_ORDER,
+ 			    "mm.max_order(%d) != %d\n", mm.max_order,
+
+base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
 -- 
 2.53.0
 
