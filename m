@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDD860716CD
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:04:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFCF360703B6
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:04:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hg5z4oUZ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IiiIdQDE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0455D10EF84;
-	Mon,  2 Nov 2026 15:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8F510EF85;
+	Mon,  2 Nov 2026 15:04:46 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D55F710EF84
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:04:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 742E610EF85
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:04:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BC5AE43C16;
- Mon,  2 Nov 2026 15:04:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50CD51F00A18;
- Mon,  2 Nov 2026 15:04:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5B94C440B2;
+ Mon,  2 Nov 2026 15:04:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271441F00A1A;
+ Mon,  2 Nov 2026 15:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793631863;
- bh=K/nPdp0KTrkO/JWfX0DeaffmMq6r1stKUZ+oHzzOxP0=;
+ s=k20260515; t=1793631880;
+ bh=moTp49XZfW2IxIkO6/t4/a2jJtvDF10yNUa6q6hnE3E=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=hg5z4oUZuRz8N20Z5C+Q8yL18Y5yCw7qLkDhvSa3q8JNmsjPQwjzQ+mMuPQCiWUbZ
- Y7Lf4C3jcwYkPZM9FYjlQwVMt+IVrZBJileSjZkYaIPS9b5zUXk14WIw+JVn7EsOU4
- X4PnMaia2Uw5JRPK0Y/IeoZ5Ktq3pARrGiaVdYugzvHIRDhsmeS/p/quiqvdz+vWfE
- AUGhD3c15oSYVACYkUFkJnNm0xAkDzUFjRuKB9ZEAXO17dJeJqcdRtoI5OGF1GhbZ7
- YQIqxbvutG2Qq9CRYrtQhXVKgITYMloJ1QVm1bR6wQ8dUbiyrra8iSth/icVuFpZ8E
- UfEtn5MBXe+5g==
+ b=IiiIdQDEZtu3zrQxqnMzxL+byWk/RAlCN8/hC422DxTxacxYbFQWlllhBgr+wCmCQ
+ o9JOkaQkWd0AQIOfZ2O+qkAIOysyokSE2fcTak2VdOZoJKRHLA0f+7hXRqhPBAMdky
+ vgWDoWlfqaLnAWRNoKk8RC6jFoyccCUDgzz/C6H/mIYktv6mCSN/TWi3bYAQ7NRiTd
+ 5S25YeBcc3fgExVmao12q8Y5BebuiNbZn+zxcQiNl93jyDgvg9mLGIhUCHtUIS5ANV
+ /YEQs36+1Zxizq9lsuD1fhZ94uGyuaO2p6IZK+qsp1AhT+1p7srUwebEMTN+HJIWDu
+ Gdu23GXfY3v+w==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:01:35 +0100
-Subject: [PATCH RFC 08/22] powerpc/procfs: let procfs copy out reads of
- /proc/powerpc/systemcfg
+Date: Mon, 02 Nov 2026 16:01:36 +0100
+Subject: [PATCH RFC 09/22] sh: alignment: let procfs copy in writes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-arch-v1-8-c9492ab08480@kernel.org>
+Message-Id: <20261102-work-procfs-arch-v1-9-c9492ab08480@kernel.org>
 References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
 In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -90,40 +89,45 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement ->proc_read_buf() so procfs copies what is read to userspace
-after it unpinned the entry.
+Implement ->proc_write_buf() so procfs copies in what is written to the
+alignment files before it pins the entry, and take the mode from that
+copy. Writes larger than PAGE_SIZE - 1 bytes fail with -EINVAL now.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- arch/powerpc/kernel/proc_powerpc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/sh/mm/alignment.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/arch/powerpc/kernel/proc_powerpc.c b/arch/powerpc/kernel/proc_powerpc.c
-index d083b4517065..46bc914d74b9 100644
---- a/arch/powerpc/kernel/proc_powerpc.c
-+++ b/arch/powerpc/kernel/proc_powerpc.c
-@@ -24,10 +24,10 @@ static loff_t page_map_seek(struct file *file, loff_t off, int whence)
- 	return fixed_size_llseek(file, off, whence, PAGE_SIZE);
+diff --git a/arch/sh/mm/alignment.c b/arch/sh/mm/alignment.c
+index 2198c6f2ea63..d832249a8e18 100644
+--- a/arch/sh/mm/alignment.c
++++ b/arch/sh/mm/alignment.c
+@@ -133,14 +133,13 @@ static int alignment_proc_show(struct seq_file *m, void *v)
  }
  
--static ssize_t page_map_read( struct file *file, char __user *buf, size_t nbytes,
-+static ssize_t page_map_read( struct file *file, char *buf, size_t nbytes,
- 			      loff_t *ppos)
+ static ssize_t alignment_proc_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
  {
--	return simple_read_from_buffer(buf, nbytes, ppos,
-+	return memory_read_from_buffer(buf, nbytes, ppos,
- 			pde_data(file_inode(file)), PAGE_SIZE);
- }
+ 	int *data = pde_data(file_inode(file));
+ 	char mode;
  
-@@ -43,7 +43,7 @@ static int page_map_mmap( struct file *file, struct vm_area_struct *vma )
+ 	if (count > 0) {
+-		if (get_user(mode, buffer))
+-			return -EFAULT;
++		mode = buffer[0];
+ 		if (mode >= '0' && mode <= '5')
+ 			*data = mode - '0';
+ 	}
+@@ -149,7 +148,7 @@ static ssize_t alignment_proc_write(struct file *file,
  
- static const struct proc_ops page_map_proc_ops = {
- 	.proc_lseek	= page_map_seek,
--	.proc_read	= page_map_read,
-+	.proc_read_buf	= page_map_read,
- 	.proc_mmap	= page_map_mmap,
+ static const struct proc_ops alignment_proc_ops = {
+ 	.proc_show	= alignment_proc_show,
+-	.proc_write	= alignment_proc_write,
++	.proc_write_buf	= alignment_proc_write,
  };
  
+ /*
 
 -- 
 2.53.0
