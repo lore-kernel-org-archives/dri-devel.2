@@ -2,43 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9037606A33A
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 19:22:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0129606A330
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 19:31:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEijznAB
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d4K33PMX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39CDF10E5EB;
-	Mon,  2 Nov 2026 19:22:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D40210F1B7;
+	Mon,  2 Nov 2026 19:31:18 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9BC210E158;
- Mon,  2 Nov 2026 19:22:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29AC310F1B3;
+ Mon,  2 Nov 2026 19:31:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7C8D740BDC;
- Mon,  2 Nov 2026 19:22:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 319E91F00A16;
- Mon,  2 Nov 2026 19:22:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E19B442E3D;
+ Mon,  2 Nov 2026 19:31:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894E21F00A16;
+ Mon,  2 Nov 2026 19:31:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793647365;
- bh=wXFdz4rCKaUy03+yF3E+PKzgPxmyFUgtjd8xEb9PvlM=;
+ s=k20260515; t=1793647871;
+ bh=YiO9MyvBYbe/Nku3IG5LwDkKVWLo+MtyhCLyE6mgVKo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lEijznAB/vvttmFCr8agtP+lPkrc2v9lf3QNemF5UJ0xYsnaDvJHpnSAKkrpOs1fQ
- SEoUhzPtjAZc6doRSb40x3G5d7URUXQSFIG+bFQ824O32e2XijbNrQJuMWDvKRaV3a
- 7Ko4gY3UzjLgv9z59OnPWOFAscJB03I5tcf00HW7opgQTqqJkhGs5hjSmwAOkYtdCb
- QcmlwbxATBvu5T47E1pZwUo71Q940iKZoJIC0AIzMX2a2mn3EjARGdMydfinGwhP3a
- 7i+S1xpntugZA8HWHYTtzMyhXQF4VvgnY6vmtHbcx+0vDE2VFkpMNzRAcw4666eGhB
- CngIlyenhJObw==
-Message-ID: <sashiko-outbox-193998@kernel.org>
+ b=d4K33PMX/6dHle2VnfC4WRAOpPccZvO5s9RAIC+ABpeSM+6nh7MADQTFCImW9/MSp
+ J3Vbvju4n2+2KwVPSRBE5Xlhna0D8wwvxO6Q5eOT0r7RAyNy151nbSCE4V9naXA9A7
+ bUnBUPqRQRPr6sd+tG8R7SzzdDyseIU11OxnwQ91l6wuWQegV3pkki2Yq5gTSJAeSn
+ 6GAIbHzO93GmXhj0G+ubwKnIpTEtCbkTHDt/C3jq7SkELZ6uUV87NJud3Fqq4GDG/5
+ t15aTkuYTflQIeX6iawjmtOOMaJ8RWgXgiHoFe9212Hd+TXQR568yXjlBDMcQAy4VY
+ G17iAaEj5YeGQ==
+Message-ID: <sashiko-outbox-194008@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 13/15] drm/gma500: add connector luminance support
+Subject: Re: [PATCH v10 14/15] drm/bridge: add PS8622 connector luminance
+ support
 To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
-In-Reply-To: <20261102-superm1-backlight-property-v10-13-b2a6f24131f5@kernel.org>
+In-Reply-To: <20261102-superm1-backlight-property-v10-14-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
- <20261102-superm1-backlight-property-v10-13-b2a6f24131f5@kernel.org>
+ <20261102-superm1-backlight-property-v10-14-b2a6f24131f5@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 19:22:44 +0000
+Date: Mon, 02 Nov 2026 19:31:11 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,227 +54,182 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm/gma500: unreachable atomic luminance support in gma_backlight_=
-init()
-- [High] drm/gma500: gma_connector_disable_luminance() permanently disables=
- backlight
-- [Medium] drm/gma500: Kconfig unmet dependency and backlight link errors i=
-n backlight.c
+- [High] drm/bridge: ps8622: ps8622_send_config() checks bl instead of lumi=
+nance ops
+- [Medium] drm/bridge: ps8622: Kconfig and remove() break link without back=
+light class
+- [Medium] drm/bridge: ps8622: ps8622_set_luminance() writes I2C when bridg=
+e disabled
 --
 
-commit 44c343eaada226f65e1091fb750905e2745ab610
+commit 1f704624e2ea918bbeb4f431e2e749044116d3f0
 Author: Mario Limonciello <mario.limonciello@amd.com>
 
-drm/gma500: add connector luminance support
+drm/bridge: add PS8622 connector luminance support
 
-This commit exposes panel brightness on gma500 through the connector
-luminance property when drm luminance support is enabled, routing updates
-through existing platform backlight operations.
+This commit adds bridge luminance support to the Parade PS8622 driver when
+CONFIG_DRM_LUMINANCE is enabled, while retaining the backlight class device
+registration otherwise.
 
-> diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kcon=
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
 fig
-> index dc4c566388192..08871a8f6fa22 100644
-> --- a/drivers/gpu/drm/gma500/Kconfig
-> +++ b/drivers/gpu/drm/gma500/Kconfig
-> @@ -9,7 +9,7 @@ config DRM_GMA500
->  	select I2C_ALGOBIT
->  	# GMA500 depends on ACPI_VIDEO when ACPI is enabled, just like i915
->  	select ACPI_VIDEO if ACPI
-> -	select BACKLIGHT_CLASS_DEVICE if ACPI
-> +	select BACKLIGHT_CLASS_DEVICE if ACPI && !DRM_LUMINANCE
->  	select INPUT if ACPI
->  	select ACPI_WMI if ACPI
+> index c7da6b02d7b6b..d27e9b2485fd6 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -278,7 +278,7 @@ config DRM_PARADE_PS8622
+>  	depends on OF
+>  	select DRM_PANEL_BRIDGE
+>  	select DRM_KMS_HELPER
+> -	select BACKLIGHT_CLASS_DEVICE
+> +	depends on DRM_LUMINANCE || BACKLIGHT_CLASS_DEVICE =3D y || !BACKLIGHT_=
+CLASS_DEVICE
 >  	help
-> diff --git a/drivers/gpu/drm/gma500/backlight.c b/drivers/gpu/drm/gma500/=
-backlight.c
-> index c8f1716a12d52..4bb39fba04539 100644
-> --- a/drivers/gpu/drm/gma500/backlight.c
-> +++ b/drivers/gpu/drm/gma500/backlight.c
+>  	  Parade eDP-LVDS bridge chip driver.
+
+[Severity: Medium]
+Can this Kconfig dependency cause linker failures when
+CONFIG_BACKLIGHT_CLASS_DEVICE is disabled or built as a module?
+
+When CONFIG_DRM_LUMINANCE=3Dn and CONFIG_BACKLIGHT_CLASS_DEVICE=3Dn, the
+!BACKLIGHT_CLASS_DEVICE term evaluates to true, allowing
+CONFIG_DRM_PARADE_PS8622 to be enabled. In that configuration,
+ps8622_probe() and ps8622_remove() call backlight_device_register() and
+backlight_device_unregister(), which do not have inline stubs in
+include/linux/backlight.h when CONFIG_BACKLIGHT_CLASS_DEVICE=3Dn.
+
+Furthermore, when CONFIG_DRM_LUMINANCE=3Dy and CONFIG_BACKLIGHT_CLASS_DEVIC=
+E=3Dn
+(or CONFIG_DRM_PARADE_PS8622=3Dy and CONFIG_BACKLIGHT_CLASS_DEVICE=3Dm),
+ps8622_remove() only guards backlight_device_unregister(ps8622->bl) with a
+runtime check on ps8622->bl rather than a compile-time
+!IS_ENABLED(CONFIG_DRM_LUMINANCE) check:
+
+drivers/gpu/drm/bridge/parade-ps8622.c:ps8622_remove() {
+	...
+	if (ps8622->bl)
+		backlight_device_unregister(ps8622->bl);
+	drm_bridge_remove(&ps8622->bridge);
+}
+
+Because ps8622->bl is not a compile-time constant, the call to
+backlight_device_unregister() is not eliminated and fails to link. Also,
+when CONFIG_DRM_LUMINANCE=3Dn and CONFIG_BACKLIGHT_CLASS_DEVICE=3Dm, this
+expression evaluates to n and prevents building DRM_PARADE_PS8622=3Dm.
+
+> diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bri=
+dge/parade-ps8622.c
+> index 3a2ec482037df..229d9d7218c4e 100644
+> --- a/drivers/gpu/drm/bridge/parade-ps8622.c
+> +++ b/drivers/gpu/drm/bridge/parade-ps8622.c
 
 [ ... ]
 
-> @@ -73,10 +72,9 @@ static const struct backlight_ops gma_backlight_ops __=
-maybe_unused =3D {
->  	.update_status  =3D gma_backlight_update_status,
->  };
+> @@ -276,7 +277,7 @@ static int ps8622_send_config(struct ps8622_bridge *p=
+s8622)
 > =20
-> -int gma_backlight_init(struct drm_device *dev)
-> +int gma_backlight_init(struct drm_device *dev, struct drm_connector *con=
-nector)
->  {
->  	struct drm_psb_private *dev_priv =3D to_drm_psb_private(dev);
-> -	struct backlight_properties props __maybe_unused =3D {};
->  	int ret;
-> =20
->  	dev_priv->backlight_enabled =3D true;
-> @@ -92,28 +90,43 @@ int gma_backlight_init(struct drm_device *dev)
->  		return 0;
->  	}
-> =20
-> -#ifdef CONFIG_BACKLIGHT_CLASS_DEVICE
-> -	props.brightness =3D dev_priv->backlight_level;
-> -	props.max_brightness =3D PSB_MAX_BRIGHTNESS;
-> -	props.type =3D BACKLIGHT_RAW;
-> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE))
-> +		return drm_connector_attach_luminance_property(connector, 0,
-> +							 PSB_MAX_BRIGHTNESS,
-> +							 dev_priv->backlight_level);
+>  		/* FFh for 100% brightness, 0h for 0% brightness */
+>  		err =3D ps8622_set(cl, 0x01, 0xa7,
+> -				ps8622->bl->props.brightness);
+> +				ps8622->brightness);
+>  		if (err)
+>  			goto error;
+>  	} else {
 
 [Severity: High]
-Does attaching the luminance property and returning early in
-psb_driver_load() -> gma_backlight_init() leave panel brightness completely
-uncontrollable when drm luminance is enabled?
+When CONFIG_DRM_LUMINANCE is enabled, will ps8622_send_config() ever reach
+this branch?
 
-In drivers/gpu/drm/gma500/psb_drv.c, the driver does not support atomic
-modesetting:
+In ps8622_probe(), when use-external-pwm is not set and
+CONFIG_DRM_LUMINANCE is enabled, the driver sets DRM_BRIDGE_OP_LUMINANCE on
+ps8622->bridge.ops instead of calling backlight_device_register(), leaving
+ps8622->bl as NULL.
 
-    static const struct drm_driver driver =3D {
-        .driver_features =3D DRIVER_MODESET | DRIVER_GEM,
+However, ps8622_pre_enable() -> ps8622_send_config() still checks
+ps8622->bl to choose between internal and external PWM:
 
-However, drm_connector_attach_luminance_property() creates the property with
-the atomic flag:
+drivers/gpu/drm/bridge/parade-ps8622.c:ps8622_send_config() {
+	...
+	if (ps8622->bl) {
+		/* DPCD720, internal PWM */
+		err =3D ps8622_set(cl, 0x01, 0xa5, 0xa0);
+		if (err)
+			goto error;
 
-    property =3D drm_property_create_range(connector->dev, DRM_MODE_PROP_AT=
-OMIC,
-                                         "LUMINANCE", min, max);
+		/* FFh for 100% brightness, 0h for 0% brightness */
+		err =3D ps8622_set(cl, 0x01, 0xa7,
+				ps8622->brightness);
+		if (err)
+			goto error;
+	} else {
+		/* DPCD720, external PWM */
+		err =3D ps8622_set(cl, 0x01, 0xa5, 0x80);
+		if (err)
+			goto error;
+	}
+	...
+}
 
-Because gma500 does not advertise atomic support, drm_setclientcap() rejects
-atomic client capability requests and file_priv->atomic is always false, so
-drm_mode_object_get_properties() hides the property from userspace.
+Because ps8622->bl is NULL, won't ps8622_send_config() always take the else
+branch, configure register 0x01:0xa5 for external PWM (0x80) instead of
+internal PWM (0xa0), and skip programming the initial brightness into
+register 0x01:0xa7?
 
-In addition, legacy property updates via drm_mode_obj_set_property_ioctl() =
-->
-set_property_legacy() dispatch to psb_intel_lvds_set_property() or
-cdv_intel_lvds_set_property(), neither of which handles the luminance
-property, and the atomic commit helpers that invoke
-gma_connector_set_luminance() and gma_connector_disable_luminance() are nev=
-er
-called by this driver.
-
-Since gma_backlight_init() also skips backlight_device_register() on this
-path, is there any way for userspace to adjust panel brightness when drm
-luminance is enabled?
-
-> +
-> +	{
-> +		struct backlight_properties props =3D {};
+> @@ -324,6 +325,8 @@ static int ps8622_backlight_update(struct backlight_d=
+evice *bl)
+>  	struct ps8622_bridge *ps8622 =3D dev_get_drvdata(&bl->dev);
+>  	int ret, brightness =3D backlight_get_brightness(bl);
 > =20
-> -	dev_priv->backlight_device =3D
-> -		backlight_device_register(dev_priv->ops->backlight_name,
-> -					  dev->dev, dev,
-> -					  &gma_backlight_ops, &props);
-> -	if (IS_ERR(dev_priv->backlight_device))
-> -		return PTR_ERR(dev_priv->backlight_device);
-> -#endif
-> +		props.brightness =3D dev_priv->backlight_level;
-> +		props.max_brightness =3D PSB_MAX_BRIGHTNESS;
-> +		props.type =3D BACKLIGHT_RAW;
+> +	ps8622->brightness =3D brightness;
 > +
-> +		dev_priv->backlight_device =3D
-> +			backlight_device_register(dev_priv->ops->backlight_name,
-> +						  dev->dev, dev,
-> +						  &gma_backlight_ops, &props);
-> +		if (IS_ERR(dev_priv->backlight_device))
-> +			return PTR_ERR(dev_priv->backlight_device);
-> +	}
+>  	if (!ps8622->enabled)
+>  		return -EINVAL;
 > =20
->  	return 0;
+> @@ -332,6 +335,15 @@ static int ps8622_backlight_update(struct backlight_=
+device *bl)
+>  	return ret;
 >  }
 > =20
-> +void gma_connector_set_luminance(const struct drm_connector_state *conn_=
-state)
+> +static void ps8622_set_luminance(struct drm_bridge *bridge,
+> +				 unsigned int luminance)
 > +{
-> +	gma_backlight_set(conn_state->connector->dev, conn_state->luminance);
-> +}
+> +	struct ps8622_bridge *ps8622 =3D bridge_to_ps8622(bridge);
 > +
-> +void gma_connector_disable_luminance(const struct drm_connector_state *c=
-onn_state)
-> +{
-> +	gma_backlight_disable(conn_state->connector->dev);
+> +	ps8622->brightness =3D luminance;
+> +	ps8622_set(ps8622->client, 0x01, 0xa7, luminance);
 > +}
-
-[Severity: High]
-Once gma_connector_disable_luminance() has been called, will subsequent cal=
-ls
-to gma_connector_set_luminance() fail to turn the backlight back on?
-
-In drivers/gpu/drm/gma500/backlight.c, gma_connector_disable_luminance()
-calls gma_backlight_disable(), which clears dev_priv->backlight_enabled:
-
-    void gma_backlight_disable(struct drm_device *dev)
-    {
-        struct drm_psb_private *dev_priv =3D to_drm_psb_private(dev);
-
-        dev_priv->backlight_enabled =3D false;
-        dev_priv->ops->backlight_set(dev, 0);
-    }
-
-When gma_connector_set_luminance() is later called to restore or change the
-brightness, it calls gma_backlight_set(), which only updates the hardware if
-dev_priv->backlight_enabled is true:
-
-    void gma_backlight_set(struct drm_device *dev, int v)
-    {
-        struct drm_psb_private *dev_priv =3D to_drm_psb_private(dev);
-
-        dev_priv->backlight_level =3D v;
-        if (dev_priv->backlight_enabled)
-            dev_priv->ops->backlight_set(dev, v);
-    }
-
-Since nothing in gma_connector_set_luminance() or the encoder enable paths
-sets dev_priv->backlight_enabled back to true (or calls
-gma_backlight_enable()), won't the panel backlight remain permanently off
-after the first disable?
-
-> +
->  void gma_backlight_exit(struct drm_device *dev)
->  {
-> -#ifdef CONFIG_BACKLIGHT_CLASS_DEVICE
->  	struct drm_psb_private *dev_priv =3D to_drm_psb_private(dev);
-> =20
->  	if (dev_priv->backlight_device)
->  		backlight_device_unregister(dev_priv->backlight_device);
-> -#endif
->  }
 
 [Severity: Medium]
-Can removing the preprocessor guards in gma_backlight_init() and
-gma_backlight_exit() while dropping the backlight class selection in
-drivers/gpu/drm/gma500/Kconfig cause unmet dependency warnings and link
-failures?
+Should ps8622_set_luminance() check ps8622->enabled before calling
+ps8622_set(), just like ps8622_backlight_update() does right above it?
 
-First, in drivers/gpu/drm/gma500/Kconfig:
+If ps8622_send_config() fails during ps8622_pre_enable(), ps8622->enabled
+remains false while drm_atomic_helper_commit_modeset_enables() still calls:
 
-    select ACPI_VIDEO if ACPI
-    select BACKLIGHT_CLASS_DEVICE if ACPI && !DRM_LUMINANCE
+  drm_atomic_helper_commit_luminance_enables()
+    -> drm_bridge_connector_set_luminance()
+      -> ps8622_set_luminance()
 
-Because acpi video in drivers/acpi/Kconfig depends on the backlight class
-device, enabling acpi and drm luminance while the backlight class device is
-disabled selects acpi video without its direct dependency.
+Similarly, if a CRTC transitions from self-refresh (where
+ps8622_post_disable() has already set ps8622->enabled =3D false, disabled
+v12, and asserted gpio_slp and gpio_rst) to disabled, disable_outputs()
+calls:
 
-Second, include/linux/backlight.h does not provide inline stubs for
-backlight_device_register() or backlight_device_unregister() when the
-backlight class device is disabled.
+  drm_atomic_helper_commit_luminance_disables()
+    -> drm_bridge_connector_disable_luminance()
+      -> ps8622_set_luminance()
 
-In gma_backlight_exit(), the call to backlight_device_unregister() is only
-guarded by a runtime check on dev_priv->backlight_device, so the compiler
-still emits an undefined reference to backlight_device_unregister() when the
-backlight class device is disabled.
-
-Similarly, if acpi and drm luminance are both disabled (or if gma500 is
-built-in while the backlight class device is built as a module),
-gma_backlight_init() and gma_backlight_exit() will fail to link against both
-backlight_device_register() and backlight_device_unregister().
+Wouldn't calling ps8622_set(ps8622->client, 0x01, 0xa7, luminance) when
+!ps8622->enabled attempt an I2C write while the bridge is powered down and
+in reset?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-superm1-ba=
-cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D13
+cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D14
