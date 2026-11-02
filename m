@@ -2,95 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3962B606A329
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E75606A32D
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jayd.ml header.i=@jayd.ml header.a=rsa-sha256 header.s=sig1 header.b=MrjiSkRd
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=euDtoINk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C9310E7C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E3DF10F42A;
 	Tue,  3 Nov 2026 08:21:47 +0000 (UTC)
-X-Greylist: delayed 1138 seconds by postgrey-1.36 at gabe;
- Tue, 03 Nov 2026 03:21:34 UTC
-Received: from outbound.st.icloud.com (st-2005h-snip4-6.eps.apple.com
- [57.103.79.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC72A10F335
- for <dri-devel@lists.freedesktop.org>; Tue,  3 Nov 2026 03:21:34 +0000 (UTC)
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
- by p00-icloudmta-asmtp-us-east-1a-60-percent-1 (Postfix) with ESMTPS id
- 8408B180028A; Tue, 03 Nov 2026 03:02:30 +0000 (UTC)
-X-ICL-RepId: 01a19f5b-b973-7459-92ee-1f2fc5187f59
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQpAHVoHRQBEDFYCXAVLVxQEFVYtXQpLFBcVX01RDw8aWAFXQ1oHEgJaRQFdFwNXHFZFXBhDCV0FVxwdHkNFWxNVF0YJGQhdHRkIRx8KMANCDlYDQwdFAC0ZHFdQXQpLFBcVX01aAlZNBR1WWVVcAUldVQUOUggfRApJVUAOX1dAFBoGWAYIAUUAG1dUAStYEUAcHQBbVRIEQAhWUFQeQQRWFWwJWAZTGVc=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jayd.ml; s=sig1;
- t=1793674955; x=1825210955; bh=+MqhGtpViVg1xzaxLuI/LRkFUg+bXq2WVpjSwh8nGUU=;
- h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme;
- b=MrjiSkRdTR2a9gR/ZDFpMwHHbxe3u4yn0RCxO1H66YyDhHKVGMHS4hZMlxR6ij5+XIHfEvqh03KSpKK1assYO+4fKHduLHo8m6LkNHh1VYIyacah3OzfVpFS5GoLHYpZ1ziucp4MOjeI3I35uDUGK0eSafDCdHJgdCHIX/tFkW2KoWTpCzsLluobthwuVZ0hzzxzxWG620eTbI6NUi4PI8/6wS+uTOuonwaosqEXaLkUI8nDSeyGyY3UjAesGvNDToXIIhQTjN/fpUPq3oEGe8f6zaNyxZ8Th+nIFxaiEi2g2pvq7BBKYxpPLMHF9x89YM6hnTNcsT39FRr63Tfx1A==
-mail-alias-created-date: 1679885584335
-Received: from [10.0.0.239] (unknown [17.156.216.30])
- by p00-icloudmta-asmtp-us-east-1a-60-percent-1 (Postfix) with ESMTPSA id
- 8D4F9180010E; Tue, 03 Nov 2026 03:02:28 +0000 (UTC)
-Message-ID: <ee4b739d-6cec-431f-94e0-b551c359cd96@jayd.ml>
-Date: Mon, 2 Nov 2026 20:02:26 -0700
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5748110E5E0
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 09:44:17 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-48dfdd0678dso1900711f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 01:44:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1793612655; x=1794217455;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=NoeO4H254v62ZOJJIm68Fw+JHpyHTDMSfunZ/oF8L/k=;
+ b=euDtoINkWc9csCsn61zPHkQHI1bMw+TI5AK/E2GSz/7UZzRkuQ/pNYsnNLjCPibk19
+ 6qKdXNdfawPSxFw7YZGoebfx4ZiEm1cAgc0xvuNdIUbCjB/24J1Jee8H7vHWqPVA0BLo
+ KaymsIJRSKln+2NEDw3586E4opV2VDOxtibjPcbX/PFuI6F0ETe+MDyMR4eL5MSmLtnW
+ i1No7kUAMpjJam0fjwkoXDgTgQGWSD1PFCYrLZhbzinAYQ4FRnijjG760TuW9PO0MebQ
+ xece8ZBpqBh9XSrGMGT2AwUL1EMU1qIfmeQARibDKd7tLAnr84Y2IdPdjBLtK1zvx0XL
+ Cc1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793612655; x=1794217455;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=NoeO4H254v62ZOJJIm68Fw+JHpyHTDMSfunZ/oF8L/k=;
+ b=G5MnPIJtJEwgrMVkm/yAVCMRtE//3SYGt4ElHBxOlnRyTLp1JKSLt3vy+gCTeOKS+U
+ eEuxa2hdxCFDIA1DDrNAMxgSKhoAAUxeQkwZslXYmfHgDGCWEgkMHHRydD0jLH2cKb3H
+ 8XJkw7xWbMCUlfu66Gt8ny0Aex7dYMKUnNywPwoTw6TciFiGU9l1Yi0CW9M1ThJMVYp4
+ ALVfGgRHLgwLTUc+3+tItEHrhCgsoY6+cj6wjPG7k7QKFN7HzYx+ReRyrw1eavQlvFb/
+ jbopA1X8nbI8882a+mMN/O4uoyEYHgHrWWgNRNQOhM501jXUHVRIfdLt00AeIJg1U/KW
+ v6hQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxssGP1qBr75c41XS+boRe5C7uxzDvJSlERD1o9lGaaufFEvdGiu0YUK8ECibSl7D1MHnbHWO1Ncys=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/85Ef/CWFfSgpsnMQV+8BuCMe80uO8et3acE7OFVXan+czmxRP
+ jAYoWOAIsWfNViQccr0Y9fuzRV1V+sCXrtXR42W+uXdm1faciNRibHCI4EAuA0sM4E0=
+X-Gm-Gg: AYBFou0czP6gNSEkPuhIAAM8RM6CAPZuc1mEqG6CETnR9IUgKVwTC5fHEFC4pYY3yvr
+ YN902fruXHguOrENL649nwgpSxnNcTyJjxXS1yp+AgzlHlsB6kYIMBvMw8D2H4e80YX4fVNO/lN
+ y7BIiaBvyi/gZ61tnos8MozG8e34yaJs+WOUg5ed8ZZvhhYttKYEw1lREgleFoUg4Gmbi3mZ2ZQ
+ Op9INrhPNKaj3lnDbdLHXRzL272VI5ge3unMKT6uu5p4g8MwIPa77Iq82hkV6csKwzt4LqcHH40
+ xgPeuVA5g2horYHsRjnVVgO3Xq2FFgdzwDq07hIlrrmY1EWnM378zxYMycBE1i6I+fhsAByqcsp
+ D2B6V/zJPx/ZoSX7X0x8HPJsyKWTruL338kyt8dFxJfeLTmKEEJRN3WIrjWkpZAzVWp8D8s8Kfu
+ zQm9wpUCLtLy1RKg+8SAdrfA9wkM3Bv0pQ1kCkJH8qdYH4/kVQTsJDGda9rsD8pm15m233HpwAs
+ nCE4of9dlPMMjenmIwRRUJtp3aAY3F8KLMM3dyH+xlMtGCufZwFuwVJD1FC5MHKoryeG11h/Xsg
+ UmvJSEmxiGx134aSCkAoAaSIO4ErXmPhY43sJkBGGiexBQzM6KbLg2U1j+t/4A2CUFA=
+X-Received: by 2002:a05:6000:26c8:b0:48d:f14a:9183 with SMTP id
+ ffacd0b85a97d-48e6e303b1dmr21700466f8f.15.1793612655038; 
+ Mon, 02 Nov 2026 01:44:15 -0800 (PST)
+Received: from localhost (137.36.26.109.rev.sfr.net. [109.26.36.137])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e71b725b8sm19130989f8f.20.2026.11.02.01.44.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 01:44:14 -0800 (PST)
+From: Phong LE <ple@baylibre.com>
+To: Lucas Stach <l.stach@pengutronix.de>
+Cc: Phong LE <ple@baylibre.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH v2] drm/etnaviv: add the Allwinner T527 VIP9000 hardware
+ database entry
+Date: Mon,  2 Nov 2026 10:42:52 +0100
+Message-ID: <20261102094343.2086424-1-ple@baylibre.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/msm: fix dma-buf sharing on targets without
- per-process pgtables
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
-Content-Language: en-US
-From: Jayden Milne <me@jayd.ml>
-In-Reply-To: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: niJ2699BYEKqgQlCKqK9f6z576FoJaAe
-X-Proofpoint-ORIG-GUID: niJ2699BYEKqgQlCKqK9f6z576FoJaAe
-X-Authority-Info-Out: v=2.4 cv=GtFPO01C c=1 sm=1 tr=0 ts=6ae94ec9
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
- a=1oJP67jkp3AA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Vbwzbr4kkUF1MwGzt2IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxMSBTYWx0ZWRfXw8lKd21h0iM8
- P+SL2ke+6JVzuscwgbjvHpG9kMhpz+bA2LaK2zgVLJ5QZNglJyIGpnSewl2lzyIiWavm4YFGZ1s
- YD5l0UdmsI7p/ljU1vWeW71rS/ZRcQaxpK98yvNvamcPRIXNDUSR/KXOA8YqT8myS7S6ed6XOaD
- vtDsd595K3jw/PL2yS6p1UIcnv9FYIwG6LMkBrqrDZ+gVINId063Jxkg21kdnuNBdUb8wGq1a/4
- V9YsLJU1rQXhyvb41WeKJIfJUQkqP152IpbzNVsrOCuFS5wsfv4SfCkknkRc2kYAGCoG5Mg7MhB
- aHaXzIwCyNb+r6/JU2wa4RE5HE9qWNp8pviP/M0T+lmDLYwJv64mKcbA6Z8HXc=
-X-JNJ: AAAAAAABdGY6uQq64stNARv7bdWI5eEOuuhXlsdMJGdckKk7f5MFVbUA8Wx1+ShZy7/0mY
- ZsZEVdX5xoEBYoJR4CYnfOqtWPWPKMf0WsumXTABzn+Dd4qm9NIr8WlaCOlhDPp93siPhY
- wvAWoQRLrYB+x9LzU8PF+gx5cAmTZWlJPB4JM2hpVty28WuvCxw7kOa4+lXyXjmIxkVjQT
- Odn/uZWztUNNkSZfHFz+C3S+e6aledGV94ilOEj++Ch/JV8UNSsMpHHe+ysnKnrv5BBE0C
- 4klNVW0VVqn67f05xuMGypSbZXi0yzCjj4tykP3hW2cRr0FA/sMDZBTpsdLDH+k/IuSvzk
- V2fqDt6t9QXFR5VOUAP4k1G0ER+U8kklvp7dnQNzz3pjoV9p4N70JSiqtFby8vq3kJbxms
- gMWvrNBNdKHsIrZ9lybAqD9j2AQUQjIho/haQTal6UHPbrPUzubvsF3pzU2GuOrza22irc
- D9WwDbQ+qdhbE7C4fxnkGaunpxgIQD1cHm6jibRo7R4yWCNsIvlSZO/xKOiGoXopVqagg9
- WKNEPmFJReIMA1MQa6lFGrb5cYsaYyMZhvN/61HYDYJYyrm3+t/whn/secPMEgAsPULA1S
- tfXtIcH6304lj8y5BcYdA/8RX2LWeO2BWArkCh6ECq7hkiyiIpvogQVaEeWfu9uyXQrz4R
- wYD4QZ1qkfp9GBcQ8ANaufoVlhbZdbkTUEnkGJYLWHSlbe5ANcJnEsxiKgf1Nb0G5YUQ52
- a1ubEp2/z61WYOKSbmv5+MF2UQK9+qkTiL+xqtqA2EY2sm3tzqzb9aRoc4XTY1Xg0rYcHa
- /JEephlCSF0Z9cfeb+WEhBILV5EOVMipNaKgIHbmkBZFqH2VKLpbAtXqLTgDZDUYf5pNCq
- FKlhuOGQ9LdvPAZ9vVASD9YnQDCeDekvZZVDzc+ROTpfdrZJJmB1nhuS+qxv25udDbhpRB
- EKMVZ8Ko9PL8jPxVDcSenpZwLwDRN64mEnxzA7rYFjPhXf5yMTEfn/mzjn+I0Dvv/Dv6sQ
- YrqneArkzbRlsJEComYTmi+MrXB9QqO8U6Y73r4TMs2q10yyzTncVk+hgxJF4tRLx+o5gd
- icRy3oMHh36LCSYIMHvMCqR38NpjgvJzIsTLSxWnE6NNhD7n1n9vOfbyjFjDt+XDx2THA7
- dAi/tzeiyOs0bz7T/v6vaZORvvLzuI7zaeDo4qEfDt7vJf+Nob3JmlIjmZjGTgKt4dB1c0
- qUcQH6QRwh8EjfqUs9kvc8Zd1InkyWN5G2P2YZSU2Si3wageDxfsqZQ3tE9Ce00r5KrqDx
- 5uf1cYC62mZgUIur+GdzR6RC0O+SD+Y0Q3KxrwRXjZbyMNdTm13gIe+9fthG/CdcbwnUuF
- 0/luFqkMQGpp97uGf4AKeKvIZ36IeEAJDfrRew5xglsuxn+wcyUtMhgEUriK6wriyc3BqW
- iH4Km4lkyhzohgXGJmz2+N7rFvIGk/rBbP2JSW7zBWZRQz1F6G86UWgvYz43qLNNZSYAJ/
- 3cYk9Ej8MYXXa30SasWR/E49nkUw3+FAweX3zhrCskvoXmVw7g==
 X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,31 +86,72 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, Aug 22, 2026 at 11:48:57AM +0300, Dmitry Baryshkov wrote:
-> Targets without per-process pgtables -- everything pre-a6xx, plus
-> a6xx parts where split pagetables are unavailable -- hand every DRM
-> file the GPU's global VM.  The rest of the driver still treats a
-> context VM as private to that context, so closing a handle tears down
-> mappings other files are still using, and frees the iova for
-> immediate reuse.
+Add a hardware database entry for the VIP9000 NPU found in the
+Allwinner T527, as used on the Orange Pi 4A.
 
-I tested this series on a530 (Samsung Galaxy Tab S3, APQ8096) on v7.3.1
-and v6.19.5 (with some backporting).
+It's coming from allwinner BSP driver in gc_feature_database.h with
+vip9000nano-si+ IDs.
 
-When I was bringing up v6.19.5 KWin would reliably trigger TRANSLATION
-read faults when rotating the screen with the lock screen up - 1800
-observed over 8 rotations. After the series the same test gave no faults
-on v6.19.5 or v7.3.1.
+Signed-off-by: Phong LE <ple@baylibre.com>
+---
+v2:
+  - Fix minor_features6..11 masks: translate flags by name matching
+    against Linux UAPI definitions (common.xml.h) rather than raw
+    positional struct packing from the vendor gc_feature_database.h.
 
-I didn't re-test v7.3.1 without the series - if that would help, I can
-set it up.
+ drivers/gpu/drm/etnaviv/etnaviv_hwdb.c | 32 ++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-Tested-by: Jayden Milne <linux@jayd.ml> # a530
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c b/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c
+index 32d710baf17f..54e353d61be2 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_hwdb.c
+@@ -292,6 +292,38 @@ static const struct etnaviv_chip_identity etnaviv_chip_identities[] = {
+ 		.minor_features10 = 0x108048c0,
+ 		.minor_features11 = 0x00000010,
+ 	},
++	{
++		.model = 0x9000,
++		.revision = 0x9003,
++		.product_id = 0x5090009,
++		.customer_id = 0x10000016,
++		.eco_id = 0x6000000,
++		.stream_count = 8,
++		.register_max = 64,
++		.thread_count = 256,
++		.shader_core_count = 1,
++		.nn_core_count = 6,
++		.vertex_cache_size = 16,
++		.vertex_output_buffer_size = 1024,
++		.pixel_pipes = 1,
++		.instruction_count = 512,
++		.num_constants = 320,
++		.buffer_size = 0,
++		.varyings_count = 16,
++		.features = 0xe0287cac,
++		.minor_features0 = 0xc1799eff,
++		.minor_features1 = 0xfefbfadb,
++		.minor_features2 = 0xeb9d6fbf,
++		.minor_features3 = 0xedfffced,
++		.minor_features4 = 0xd30dafc7,
++		.minor_features5 = 0x7b5ac333,
++		.minor_features6 = 0xfc8ee200,
++		.minor_features7 = 0x03fffa6f,
++		.minor_features8 = 0x00fe0ef0,
++		.minor_features9 = 0x0088003c,
++		.minor_features10 = 0x10c0c8c0,
++		.minor_features11 = 0x00000010,
++	},
+ };
+ 
+ bool etnaviv_fill_identity_from_hwdb(struct etnaviv_gpu *gpu)
+-- 
+2.43.0
+
