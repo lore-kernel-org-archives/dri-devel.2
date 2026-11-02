@@ -2,46 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626B5606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 07:31:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E19606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 07:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=WHk7qfp1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EkJ7uyVs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A42E010E554;
-	Mon,  2 Nov 2026 07:31:15 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0D9610E554
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 07:31:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:From:Reply-To;
- bh=IzxFenk2G7VefJKCYkyvqMIK7vNzaeYCCl7lHKySqeY=; b=WHk7qfp1pQYFR16LwBuP1BdPrV
- bO+zIkDYXOY/48NsWDmt2lT/HkODjJJIWKcXQH1gnhmJKc/CC1IanQjJbIfsU9d6FciA1mAyuHRjA
- JzK++EvqC0lbyMIEI+UGfa2dDbzGuzoyaqX/OOKN8J7StZjW6lHRMN9ttmLl3tcnt9G3XjAEZ3J1j
- TTBPAJOVYq6VfvLjL3x2aG1ieeMVacA5BCV5HSPr1R7LfDEP/FeJSqldTJrP8qvDGNXVNckK+YDsI
- zILrpUTIT9JZ+gAaINjOoP2cWZgGairKelJoIbghrUMzR3WlyT3+zXPir4BhD2Vf4b3DUGa8wtq7O
- oLdYvI0g==;
-Received: from 84.124.56.23.static.user.ono.com ([84.124.56.23]
- helo=[192.168.0.17]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xNmVX-00HUXo-Gv; Mon, 02 Nov 2026 08:31:07 +0100
-Message-ID: <eb5603b15e2154d07b5dc3574026a466b0988877.camel@igalia.com>
-Subject: Re: [PATCH 1/2] drm/v3d: Initialize timedout_batches when running a
- CSD job
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Jose Maria
- Casanova Crespo <jmcasanova@igalia.com>, Melissa Wen <mwen@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, 
- stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 08:30:56 +0100
-In-Reply-To: <20261101125619.2465064-1-mcanal@igalia.com>
-References: <20261101125619.2465064-1-mcanal@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 791F010E529;
+	Mon,  2 Nov 2026 07:41:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1A6310E529
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 07:41:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B7CF843C85;
+ Mon,  2 Nov 2026 07:41:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2F51F00A1A;
+ Mon,  2 Nov 2026 07:41:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793605266;
+ bh=ukrPmVOAQ8DZOcVfZKaWrajjMps3VSh1wOgrDN0bF68=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EkJ7uyVsIdiwzEEXR62sH2p440oF3fyK79zvTxoeS69yydN7n5vJxzubhVjB6ZL3j
+ FxIrMRZAOZRXDzIjVDqP6Np4r+gT2LvugOi/A6heJpvIwcm+5nojeuyrM9NZaiSGjP
+ 4vKhWGdhLwPfDe5T+cp8QLtFcSTlS7j7uMXnqllBuMt6N8fZ8Z5n3/MeUUWhadNmWd
+ ZKOpXT+PVdnVll3C7Ln7wNgpr92pXxtq2i3emxPn0t53T6mzLNCv9K/hX2Vx8J9+IX
+ kMseN0p6Z9/k/vnEfBZR25ciQ6mpAIx6fE7bBfDqroK0lJTKs0qP5dNpEmBZrxXnl8
+ BpJq8+HBp5LQg==
+Message-ID: <sashiko-outbox-193036@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fbdev: smscufx: bail out of ufx_set_vid_mode() when the
+ device is gone
+To: "YuanZhe Liu" <25031212351@stu.xidian.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
+References: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+Date: Mon, 02 Nov 2026 07:41:06 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,68 +48,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Good catch, both patches are:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] fbdev: smscufx: unsynchronized usb_active check in ufx_set_vid=
+_mode()
+--
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+commit 3a768d75a894178fec634e82fca9f1ca2c1f5f21
+Author: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-El dom, 01-11-2026 a las 09:53 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> From: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
->=20
-> v3d_csd_job_timedout() decides whether a compute job made progress by
-> comparing CSD_CURRENT_CFG4, the number of batches the dispatcher
-> still
-> has to start, against the value saved at the previous timeout. That
-> saved value is never initialized, so it is zero on the first timeout.
->=20
-> On V3D 7.1.6 and later, CFG4 counts down to zero once the dispatcher
-> has
-> started the last batch, but the dispatch keeps running until the
-> batches
-> in flight complete. If the first timeout fires in that window, the
-> handler sees no change and resets the GPU while the job is about to
-> complete. For example, this happens with long dispatches that only
-> keep a
-> single supergroup in flight.
->=20
-> Initialize timedout_batches to the value programmed in CFG4 when the
-> job
-> is started. The register does not return to it once a batch has
-> started:
-> it counts down to zero on V3D 7.1.6 and later (CFG4 holds the number
-> of
-> batches), and to 0xffffffff on V3D 4.2 (CFG4 holds the number of
-> batches
-> minus one).
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader
-> dispatch.")
-> Signed-off-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
-> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
-> b/drivers/gpu/drm/v3d/v3d_sched.c
-> index e6283a75bcdf..002116efc874 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -360,6 +360,8 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
-> =C2=A0		dma_fence_put(job->base.irq_fence);
-> =C2=A0	job->base.irq_fence =3D dma_fence_get(fence);
-> =C2=A0
-> +	job->timedout_batches =3D job->args.cfg[4];
+fbdev: smscufx: bail out of ufx_set_vid_mode() when the device is gone
+
+This commit adds an atomic_read(&dev->usb_active) check at the start of
+ufx_set_vid_mode() so that mode sets and blank requests return -ENODEV
+after ufx_usb_disconnect() has cleared usb_active, avoiding control
+transfers through a stale dev->udev pointer.
+
+> diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+> index 34d8abd5b3544..a199e6d03f06b 100644
+> --- a/drivers/video/fbdev/smscufx.c
+> +++ b/drivers/video/fbdev/smscufx.c
+> @@ -661,8 +661,12 @@ static int ufx_set_vid_mode(struct ufx_data *dev, st=
+ruct fb_var_screeninfo *var)
+>  	u32 temp;
+>  	u16 h_total, h_active, h_blank_start, h_blank_end, h_sync_start, h_sync=
+_end;
+>  	u16 v_total, v_active, v_blank_start, v_blank_end, v_sync_start, v_sync=
+_end;
+> +	int status;
 > +
-> =C2=A0	trace_v3d_submit_csd(dev, to_v3d_fence(fence)->seqno);
-> =C2=A0
-> =C2=A0	v3d_job_start_stats(&job->base);
+> +	if (!atomic_read(&dev->usb_active))
+> +		return -ENODEV;
+> =20
+> -	int status =3D ufx_reg_write(dev, 0x8028, 0);
+> +	status =3D ufx_reg_write(dev, 0x8028, 0);
 
+[Severity: Critical]
+Can ufx_set_vid_mode() still race with ufx_usb_disconnect() and dereference
+a freed dev->udev after passing this initial atomic_read(&dev->usb_active)
+check?
+
+Neither ufx_set_vid_mode() nor its callers (ufx_ops_set_par() and
+ufx_ops_blank()) acquire disconnect_mutex, and ufx_usb_disconnect() does
+not acquire info->lock. After passing the check at entry, ufx_set_vid_mode()
+performs around 30 synchronous USB control transfers via ufx_reg_write()
+and ufx_reg_read() across ufx_blank(), ufx_disable(), ufx_config_pix_clk(),
+ufx_enable(), and ufx_unblank(), including two msleep(1) delays inside
+ufx_config_pix_clk():
+
+drivers/video/fbdev/smscufx.c:ufx_config_pix_clk() {
+	...
+	status =3D ufx_reg_clear_bits(dev, 0x7000, 0x00000005);
+	check_warn_return(status,
+		"error clearing PLL0 bypass bits in 0x7000");
+	msleep(1);
+
+	status =3D ufx_reg_clear_bits(dev, 0x7000, 0x0000000A);
+	check_warn_return(status,
+		"error clearing PLL1 bypass bits in 0x7000");
+	msleep(1);
+	...
+}
+
+When a userspace task invokes ufx_ops_set_par() or ufx_ops_blank() via
+do_fb_ioctl() (FBIOPUT_VSCREENINFO or FBIOBLANK) on an open /dev/fbX file
+descriptor, ufx_usb_disconnect() can run concurrently after
+ufx_set_vid_mode() has already passed the usb_active check:
+
+drivers/video/fbdev/smscufx.c:ufx_usb_disconnect() {
+	...
+	atomic_set(&dev->usb_active, 0);
+
+	usb_set_intfdata(interface, NULL);
+
+	/* if clients still have us open, will be freed on last close */
+	if (dev->fb_count =3D=3D 0)
+		ufx_free_framebuffer(dev);
+
+	/* this function will wait for all in-flight urbs to complete */
+	if (dev->urbs.count > 0)
+		ufx_free_urb_list(dev);
+
+	pr_debug("freeing ufx_data %p", dev);
+
+	unregister_framebuffer(info);
+	...
+}
+
+Here ufx_free_urb_list() only waits on dev->urbs.limit_sem for the
+pre-allocated bulk URBs in dev->urbs, not for synchronous control URBs
+allocated inside usb_control_msg() or for an in-flight ufx_set_vid_mode()
+call. Moreover, when dev->fb_count > 0 and CONFIG_FRAMEBUFFER_CONSOLE is
+disabled, unregister_framebuffer() does not take info->lock or
+console_lock() and returns without waiting for the in-progress ioctl.
+
+Because ufx_usb_probe() stores dev->udev =3D usbdev without taking a
+reference via usb_get_dev(), ufx_usb_disconnect() can finish and allow the
+USB core to release struct usb_device while ufx_set_vid_mode() is sleeping
+in msleep(1) or between control transfers, causing subsequent
+ufx_reg_write() and ufx_reg_read() calls to dereference a freed dev->udev.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102072120.3022=
+-1-25031212351@stu.xidian.edu.cn?part=3D1
