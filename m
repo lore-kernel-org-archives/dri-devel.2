@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33758606BB4A
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:25:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2966075C57
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:25:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuiXMui8
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DsO3tGmk
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B98310EF1A;
-	Mon,  2 Nov 2026 14:25:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB0A810EF1D;
+	Mon,  2 Nov 2026 14:25:52 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0F7010EF1D
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 14:25:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C645510EF1D
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 14:25:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A8B54435BA;
+ by sea.source.kernel.org (Postfix) with ESMTP id AE2B241609;
+ Mon,  2 Nov 2026 14:25:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19D251F00A16;
  Mon,  2 Nov 2026 14:25:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C7B1F00A1A;
- Mon,  2 Nov 2026 14:25:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793629532;
- bh=mKU98amy9hy90zr0rIuEDpX5DG9FkJnMRpzgeAMYKDA=;
+ s=k20260515; t=1793629546;
+ bh=QKQgab6F/A3kQED3xQkQ3++bbO+NbqHo8+XrgOES7ts=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=RuiXMui8BjXqcKpOkZSSb2fzdRJqOkdTcBMExOILHIUKi584gE62EX9Rp9REsxAIh
- tjfzstrESrt5D/m0KQUF1dxAhGVFfymG0E8Js/U44Ve00018P7C9iKFESKyfNdRPH7
- jxqcAf+UyNqrfhgRtXxl4xxVCit/7IAdifFgBcmNi28pEmExfPZqlZQ4Q0GbNWzpIU
- msgRoEl0hgaDf8LmrTDw9dYe6Yf6s53ZTxmKCSoEgxdjVUtQjEYNmUbpSyhFg70PwG
- 1lAYyQW6WwhB8zxcVpIbbkLDhHR6Rqo3KCYBrHb/1mUtI2SL/iwP/I6AQGkAgYxSJ7
- LV6XKXIW55awQ==
+ b=DsO3tGmkPm0NrZBAy36Ik2sKieKOlgJ0mgJL9J8HUXGWM9u2I/c3pHtKiQ0Do2PYm
+ 7gQh5TWLbJfjqkyLpRYxtlHQknQ5ICn+rBMWeVJe+1wUDcrFokW3QV5BRKEjIIM1g7
+ 4uK1dsR4VmTwi1xfPzeMKa6KM54nvBM/9lBOIH2sBK5vfPjnFtHLtg/MR6utvOuTbr
+ BhV4LYIsAevL+sCKBVvYYsxh9K52tALkm+ZraCF9ZgTpQRr9LK+Kf5i1yQ7qyCHV1I
+ CDizin0EMhnII/l7E8fS5Bk+dgnSr97jORnukihffTpxsXFFOekF7M+lAIoxR9VIie
+ WHOn5K7hwiJoA==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 15:21:31 +0100
-Subject: [PATCH RFC 16/38] proc: don't walk through a non-directory when
- resolving a name
+Date: Mon, 02 Nov 2026 15:21:32 +0100
+Subject: [PATCH RFC 17/38] net: pktgen: reject device names with a '/'
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-bugfixes-v1-16-59422ed3e465@kernel.org>
+Message-Id: <20261102-work-procfs-bugfixes-v1-17-59422ed3e465@kernel.org>
 References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
 In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -71,12 +70,12 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  "Christian Brauner (Amutable)" <brauner@kernel.org>, 
  Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2403; i=brauner@kernel.org;
- h=from:subject:message-id; bh=/ELhSiescDaKRjbpWYPGx1ceLHTHmhSA6KoiiBWZ7Vg=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJOt9OXTNdZ5WT/1Ui5nzeZtP2wlv61nddee+08Ux
- Eyii1I+d5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEykaAvD/7pF4SLFW7W7Qx48
- CBf6zy7QHPZPaforsYxZ6W92nFswPYbhf+p3tsbuWgVbTQW7NyaGa9/nmy3g0Lj3LuPQBLv7vNr
- OzAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1684; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=F9CLtO30/n/hY0YqeSuPpMfy319PBmjhBXOfLkB61UI=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJOdP/nSfLcrXttv7FH7+buGK2LZ4TruhxXmP3hSF
+ uVMm/phfUcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEjPkYGR7c7BeINg2bJuR9
+ a7LIdeFTC7/c3ff8saxRtWV+/N3pzG2MDF/XB9+RXGXonZWutHZr+BHB7Po/GQd5V955MO/WnZP
+ Br5kA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,64 +97,50 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-__xlate_proc_name() walks the components of a name like "a/b/c" and
-takes whatever it finds for "a" and "b" as the directory to go on in.
-It never checks that they actually are directories. So
-proc_create("file/x") hangs x into the subdir tree of the regular file
-"file". Nobody can look x up there, but remove_proc_subtree() on the
-file removes and frees x along with it, behind the back of whoever
-registered x.
+"add_device" takes a name like eth0@1. Only the part in front of the
+'@' has to name a network device. The rest is free text and all of it
+becomes the name of a file in /proc/net/pktgen, where procfs takes a
+'/' as a directory separator. So "add_device lo@a/b" makes procfs look
+for a directory "lo@a" that doesn't exist and warn about it. Any user
+can do that in a network namespace of its own:
 
-pktgen passes the name the writer of "add_device" picks to
-proc_create_data(), and only the part in front of the '@' has to name
-a network device:
-
-  echo "add_device lo@"   > /proc/net/pktgen/kpktgend_0
-  echo "add_device lo@/x" > /proc/net/pktgen/kpktgend_1
-  echo "rem_device_all"   > /proc/net/pktgen/kpktgend_0
-  echo "rem_device_all"   > /proc/net/pktgen/kpktgend_1
-
-The third write frees both entries and the fourth one makes kpktgend_1
-call proc_remove() on the freed second one:
-
-  BUG: KASAN: slab-use-after-free in proc_remove+0x8f/0xa0
-  Read of size 8 at addr ff110001134c8e70 by task kpktgend_1/243
+  name 'lo@a/b'
+  WARNING: fs/proc/generic.c:174 at __xlate_proc_name+0xb1/0xf0, CPU#3: bash/241
   Call Trace:
-   proc_remove+0x8f/0xa0
-   pktgen_remove_device.isra.0+0x118/0x500
-   pktgen_rem_all_ifs+0xeb/0x1a0
-   pktgen_thread_worker+0x1b42/0x7280
+   __proc_create+0xd0/0x9b0
+   proc_create_reg+0x45/0xf0
+   proc_create_data+0x77/0xf0
+   pktgen_thread_write+0xd8d/0x1750
 
-The files of a network namespace belong to the root of its user
-namespace and these writes don't require a capability. So once pktgen
-is loaded an unprivileged user can do this in namespaces of its own.
+With panic_on_warn that takes the machine down. And if "lo@a" exists
+because somebody added a device of that name, procfs used to register
+the new entry below that regular file, and removing "lo@a" freed both.
 
-Treat a component that isn't a directory like one that doesn't exist.
-All names with a '/' that the tree passes in as literals only walk
-through directories. pktgen is fixed separately to not pass such names
-in the first place.
+Reject names with a '/'.
 
 Reported-by: Chris Mason <mason@kernel.org>
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: e6fce5b916cd ("pktgen: multiqueue etc.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/proc/generic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/core/pktgen.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 2b1971da4a85..c560c96a64eb 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -170,7 +170,7 @@ static int __xlate_proc_name(const char *name, struct proc_dir_entry **ret,
- 	de = *ret ?: &proc_root;
- 	while ((next = strchr(cp, '/')) != NULL) {
- 		de = pde_subdir_find(de, cp, next - cp);
--		if (!de) {
-+		if (!de || !S_ISDIR(de->mode)) {
- 			WARN(1, "name '%s'\n", name);
- 			return -ENOENT;
- 		}
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index d63eeadddfcc..02af70d360bc 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -3831,6 +3831,10 @@ static int pktgen_add_device(struct pktgen_thread *t, const char *ifname)
+ 	int err;
+ 	int node = cpu_to_node(t->cpu);
+ 
++	/* The name becomes the name of a file in /proc/net/pktgen. */
++	if (strchr(ifname, '/'))
++		return -EINVAL;
++
+ 	/* We don't allow a device to be on several threads */
+ 
+ 	if (__pktgen_NN_threads(t->net, ifname, FIND)) {
 
 -- 
 2.53.0
