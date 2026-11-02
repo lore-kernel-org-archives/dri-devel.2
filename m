@@ -2,84 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943FB60A2606
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:03:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F28606A329
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:05:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=U8g/eqrl
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=J8AYbnud
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D608510EDE1;
-	Mon,  2 Nov 2026 13:03:39 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D269D10EDE8
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:03:33 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4a140e7405dso30168175e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:03:33 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 187C110EDE4;
+	Mon,  2 Nov 2026 13:05:39 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9C2410EDE4
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:05:32 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a214c5c4c0so25880195e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:05:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1793624612; x=1794229412; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1793624731; x=1794229531; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=LbYF2a5hv4tFMF4cLT6t7A3uyMFWmYJ7uZLjmJDUADc=;
- b=U8g/eqrl57uM5DxgpYq9eDuYf1Ukg+2LAhuZfHF4TS09EQ8AqR93iaVRcB8mFQqCvV
- IhupylHopFj1mqJBpREaYCj6Gvnip04DuwiBHOLjsjMZdqjWbJYqqiXxczvA8coawXeS
- YakO51OrSxnJX9bWBR7rQvHNWl23PFBffOY66PJlCwMVVaYWh+95+6w5ctD8Zc7GC9Fr
- HnuXsqNGYxT+WJo7PcBO/gmFHGg3iUP/aRIVhAGxPjqyZjfMmFMaJjLtsBxAoSLDc/Yv
- kSkjQGRQGr4XF2H0AZ2wCVJyDgDjTGf9oH5VcVadqTWObP4D8xZIBxWKdnwtoL965z6q
- xfSg==
+ bh=5rD9BNrHJtprRbYX+SX8+i7FI9j+GQ5LEWGqtZnMthU=;
+ b=J8AYbnud+jyFHC+I1kGHzITfSg39gy2ZxmCWFCxOFUiOQkS8YKjtl3KRHEvrxqd9iT
+ 51aHNK6n3MaAecUCeptM8KFl4ShsK7qyd/lRB0kdCBIywtJ7liJadtFpNta/BME9s5vF
+ O9SIdCpt37IcydMOxHz9OgLchwkwEvQkjoOz1nLZYT9TfjHU/3P0cPgGgWAu7GGRx2O2
+ 3u/9T3WpF7zqRqheBtK6iQVJeAppp8ZF+DTfy1YG8psHIMDVupCFbK/LOeEZe7Vp9dt0
+ fa+D4QVPkeqiOdoVyf7AoHeBoU94xPOH26Ga90zBMNJGPslRkGHhewhMB2Yso8QIDMhl
+ 6ijg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793624612; x=1794229412;
+ d=1e100.net; s=20260707; t=1793624731; x=1794229531;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=LbYF2a5hv4tFMF4cLT6t7A3uyMFWmYJ7uZLjmJDUADc=;
- b=hNiJdVeV/xEaVoApVJ8btvwf3Q7V77UTTrALPN6te1zpaSQiNIcgoTLTLEYqpwrVAM
- NYpybMhXHB0D88piP4LdzewQz/Gi2wJDrJAz422VNfvjhAzWRu2LO0dAlIgYNfmuInzT
- lhguPh63vRAPqOe8dQdQxr2CT+75yAaWKpVrknKFIMoLPdG+gCoCgy4QLw/sW9JJEmGW
- S/Tinc0C3odxcJjPE6UQL2RL29hgk/JN1QO4Vqb45XPInl0kSCZMH9wPisEkHgewJyNg
- wwXtGb4qmnjxe9R0doiJLGr7LlO9lQFHstpVGMubw3HyvEpF18olGWIcVcbNAuim7vvp
- XaRQ==
+ bh=5rD9BNrHJtprRbYX+SX8+i7FI9j+GQ5LEWGqtZnMthU=;
+ b=hsqndjkvrSlXKbVtmWY8+QfoQ+lbte+JOujZ+vfhxq/ucP5f2e5nZav8BnrKBDFRdL
+ JA1OXMG3dXLXXThS1G4Xi1awEGdo72SFAWnJ05m+ZCtmPT36Ow8ZBoorApNVkP7qnxNo
+ OvKeKBbzuUXu+Zlk54NBc5sSGx7fjD6YNjs6GHRaSgGvlbeBJmmJgPEG7h1e++jvkCDA
+ 9vqW7x+aUDRT4A/My9OTbmajx5L5ssPIOFS/efMOhrgpHYrhCwBIzR1VQo/E9aBJFp9/
+ i053pJ/agda70SdA3FRKX6H5tCgNXxbXyt4p0TMIZ5FGrzcqa2ibya1RfhFqNWXsQXod
+ gYzA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwJfbri0X2mrxpn3bXSl+ds0QkOqWvbhQnCr9ZbGPo3gU84gWESUscPe0VPF7uEeOqR6Cs4uwr1zRU=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKBy9Y2JbMrzpNciqnJAmRz85wL6YkHPFlollYTEPlCJzfjdcnG
- 5cB9s7v4cdynYUrbscXj5NAbQeaav3f1zIAKQIbHcX4YctvTI22FW1mV9fX6WF2/w5o=
-X-Gm-Gg: AYBFou1oyQCuBPdBObuS53Rb2xf30x85kqtRFMgHS1X9P5V4Qv7owk1PMc7g7pIBaD5
- GwII/sMPe2KoVgt+mdI/94KjhYN9zjvC5Ltp4Y3I8+ucvNR/b9eSqMlkl6WRN1mGehpRdhaePjx
- /XgLVQQaGT5qS36anQ57ro9u2Wpj/69UV+OZdyFRo3zR7W55hPh4NbbmRTYN2WaFzIdt73esC/l
- x5svNyWhstbKOZDVkgQmX9ask1Xc+QMMlaG0jsA7zzKwlQKt6GYYo0xddwidlN6YdwWcyeGfYch
- IE5yEXuBsC0Z7Obksh5y/BWXsb6eYZOW+p2aQ+Nutq0pVJZaJCBZCmhThERAoQmkuWjh+XNJEIc
- ehWqQW40pyUhFNB37dlvSWCOCxS37ckA4oq5jfwqwFS8L4wZoNtEQoWGxcu/bXC7+y2i66z+nr9
- oW4KKtXS2vXFD5j78XB2JPxeArWaR/jiSZ9bf0cJnJc4njLwtJJ7U3KxPDM3hrbKLdBSAdbA6vy
- geMEfNnlzlWpDlVga9zzfKBPz7t5qYU7OSZdcDh/wV/XvkSCoBEa5ZgRpaDY5SalRZ79DnoGYOZ
- gOmOdPqXSDy5txq83dA7osUc0FgyhQGutGlq7Uhf0ycYg7OOpYP+5cevx1VYD2qFh/ju68zh6EO
- ivMDm27M=
-X-Received: by 2002:a05:600c:a48:b0:4b2:2ec5:8a2b with SMTP id
- 5b1f17b1804b1-4b22ec58f9emr13582095e9.10.1793624612003; 
- Mon, 02 Nov 2026 05:03:32 -0800 (PST)
+ AKwUvBwN9dZX0EPMyNvAzs8k6KRVwSBkjxraB1vViqysKnsm5/NRMkihW5o3PfAC2UocBzt4uOJMjkRrTKk=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJoj2rfwjf3U6LBDPseYmN9N1d9kVO7tlq68pRVRcSx1jJofl7U
+ t4Cw8m5uQV2E8kNq2BUG1aQgsBfXSPz0urzVsEtC8v+nh3RjwGzwaDC2c0ygntGXjos=
+X-Gm-Gg: AYBFou1rabHCty2nOqA6h5OdMnUhgHgH96a+tmb16SRj8MkNoz2fIbgVkd/YRN+vp5G
+ dacd/8fH8744VSC/nL68RvvDrJhROJL6Dx8cXNKA+UdnDMyWQnqdk++9cpOj/WYtRDK2RUZ4nlc
+ hXF4cPFBOJBaZeVLDTNNdpcDEnD51xu+Uxdh1QYhLTbfMKMCetJ5YfJifalDGt2GeYtzhEvlwc7
+ j6cgwmkPz7Kbfx3S+wWnTdvfPfYf7PtGKCvxmoBuOeYOzVVL7+JlMnqMXGYW2omDjujqxhrPQaJ
+ Z1cnNyivu5P9uCJoKiAd48Ry/R5zKlMXba9Y7E9LpPTC3NqPT8G3Krybf8v/OfveqbvfezrTN7i
+ FzItQIBreIbaaIJG+R/6Vh0nRPrx+BZABexpXKoesNg6B+WiUBwQLRyB/dMkYHJoTJ8vvKaZPCO
+ lJ3Eae1EFcnRHaT7iJvKKmilalW8jjE3To75sMbQ2sxhLJGgchdNSAXCtKDaA/O7dipaV5YYaOr
+ /chVDfbZN/KBRQPKtAatzynbRHJig9xd05JwMOr1FrLYpgV1RLvKtrTH45i7qAm6zaF8U+95FiY
+ W9ta2uIygqFhG351qZjbVww6UqbdjWUq4zcMkIF3KFNvr69Qt9EWwZqtL2RAWHFCV32QxM7PhPI
+ 9fYTNb4/M6PZ/0G8qb0xf6XpbuiM=
+X-Received: by 2002:a05:600c:3556:b0:4a7:6bc7:f778 with SMTP id
+ 5b1f17b1804b1-4ac1932a355mr213026365e9.30.1793624730926; 
+ Mon, 02 Nov 2026 05:05:30 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262?
  ([2a01:e0a:106d:1080:9476:5165:3a16:262])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71b9a3b1sm21818206f8f.44.2026.11.02.05.03.31
+ 5b1f17b1804b1-4abf67aa704sm257347215e9.8.2026.11.02.05.05.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 05:03:31 -0800 (PST)
-Message-ID: <04d5e301-30d5-4e42-8b47-10d8acfcd1e0@linaro.org>
-Date: Mon, 2 Nov 2026 14:03:31 +0100
+ Mon, 02 Nov 2026 05:05:30 -0800 (PST)
+Message-ID: <297c5be1-4d62-404c-a035-313e7c8c72f1@linaro.org>
+Date: Mon, 2 Nov 2026 14:05:30 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] drm/panel: visionox-r66451: Wait longer after the
- panel reset
-To: Vladimir Zapolskiy <vz@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org
-References: <20261101212458.2431191-1-vz@kernel.org>
- <20261101212458.2431191-3-vz@kernel.org>
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH] drm/panel: ltk050h3146w: convert mipi_dsi_attach error
+ message to dev_err_probe
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
+ quentin.schulz@cherry.de, Heiko Stuebner <heiko.stuebner@cherry.de>
+References: <20261030115844.3661099-1-heiko@sntech.de>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -106,7 +104,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261101212458.2431191-3-vz@kernel.org>
+In-Reply-To: <20261030115844.3661099-1-heiko@sntech.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -129,33 +127,32 @@ X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/1/26 22:24, Vladimir Zapolskiy wrote:
-> The initialization sequence is sent 10ms after the panel reset is
-> deasserted, however on the SM8350-HDK display card the panel does not
-> answer a DCS read at that time, as a result the panel initialization
-> commands are lost, and the panel does not exit sleep mode and the display
-> stays black. With the first command sent about 15ms after the reset
-> the panel comes up reliably, so wait 20ms after deasserting the reset.
+On 10/30/26 12:58, Heiko Stuebner wrote:
+> From: Heiko Stuebner <heiko.stuebner@cherry.de>
 > 
-> Fixes: a6dfab2738fc ("drm/panel: Add driver for Visionox r66451 panel")
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+> The panel will happily report every defer during probe with an error
+> message.
+> 
+> Silence that to actual errors.
+> 
+> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
 > ---
->   drivers/gpu/drm/panel/panel-visionox-r66451.c | 2 +-
+>   drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-r66451.c b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-> index 4f28bd3b6080..b0559e8b1cb5 100644
-> --- a/drivers/gpu/drm/panel/panel-visionox-r66451.c
-> +++ b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-> @@ -36,7 +36,7 @@ static void visionox_r66451_reset(struct visionox_r66451 *ctx)
->   	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
->   	usleep_range(10000, 10100);
->   	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> -	usleep_range(10000, 10100);
-> +	usleep_range(20000, 21000);
->   }
+> diff --git a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
+> index 0856df5a6ee2..459d8a1ceab4 100644
+> --- a/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
+> +++ b/drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
+> @@ -587,7 +587,7 @@ static int ltk050h3146w_probe(struct mipi_dsi_device *dsi)
 >   
->   static int visionox_r66451_on(struct visionox_r66451 *ctx)
+>   	ret = mipi_dsi_attach(dsi);
+>   	if (ret < 0) {
+> -		dev_err(dev, "mipi_dsi_attach failed: %d\n", ret);
+> +		dev_err_probe(dev, ret, "mipi_dsi_attach failed\n");
+>   		drm_panel_remove(&ctx->panel);
+>   		return ret;
+>   	}
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
