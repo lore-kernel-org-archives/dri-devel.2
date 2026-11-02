@@ -2,113 +2,148 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DC7606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D88606A337
 	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:03:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=f4E1Szdx
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YwYVjH4Z;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Zun9vVlH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6286810EDD7;
-	Mon,  2 Nov 2026 13:03:28 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C5CE10EDD7
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:03:22 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4a60f9474c4so31540365e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:03:22 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7647410EDDA;
+	Mon,  2 Nov 2026 13:03:23 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C05910EDD7
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:03:12 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A2D0VRu3604463
+ for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 13:03:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ rwDvCUcycop1taBMmQpXpaVGTG1WRnAIuw6p85hHgWM=; b=YwYVjH4ZysaBu8l4
+ 1s0nZo+iGjK+TUj4pKtuAYIgm2/oTd9cAZnCEL4/aJ3SCEY/bVs/r34GqFyhhDtp
+ kE+HM4nuJAUnHGyB1n0J6SXPgq3yzYIdLSmt/DkJ+T1gC3BQsG47UfIs3rTpJOM/
+ 5jAQL7jqFSR/0nSwD+nc1UirHLDAlQtXcr9FWk1GfPinRIlawK7MsGKhEwfmUKSA
+ dAQdl2CwFaleNszRvUFQjup3/S7IZXIVMB32ZADWZkIdtm1tNMWBpVv7KNKXSm+C
+ C/KpfRer8MJDWFk9C1SwR1VPXBBjMbiiFOBvmgiq/yB2NbTHWtqUEGocwvSR6aWE
+ Q2ddTg==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
+ [209.85.221.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka61w9t-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 13:03:11 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id
+ 71dfb90a1353d-5eab0ea26afso86472e0c.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:03:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1793624601; x=1794229401; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=89Y/HCm6tRbXlpb938dXfX1sf1dCEpdg6pFysdRtIzY=;
- b=f4E1SzdxcPPkX6U4VwixwuYSCMrAEKN2F9D/LB8C6VzvL4zvaFFsZQuz2Voiy2zywi
- n4UB9CtKXMoswuWuJfVsfEf8RkgLrEiObAntZPor+f+ny95JRoEENtD6WUYyYxkjw8Tt
- 9IQ1/8tcIphoa9IYeg3u3qre9fquTkbEgAHKchkUB0ZRlRb2vwo32QA304DFm2pO/ePP
- GvEFCaMGhm4I9tUdG61ZWtDjPd8y6rFOnVHrqwnJBgG/EnkohdVbkrpm2/AUh06MVzIh
- FZKz9eEV1gJijpF+EOQJ3BMYTXYPxfPJ6QLzmsUjL6vtWS4NIk4yGoo46iQ13yhFLuht
- xLtw==
+ d=oss.qualcomm.com; s=google; t=1793624590; x=1794229390;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rwDvCUcycop1taBMmQpXpaVGTG1WRnAIuw6p85hHgWM=;
+ b=Zun9vVlHTTfgbT6NWTkZm0voMkVvmQFoRdvYQUfHPr3+oUY8fduzYBT3ZfzOOdOvnR
+ sBZ5Wu3kIS/KuUZckXrxcjBts1cBNpiVDUy/AM5Y7I9zuqPu72pCfUDwqcBm5w1HkPnX
+ qqhILrwHu0DuqssuE7hCr6QlVZyI/26rFdFNVZ5vJMefl5nbtnFKDx/DVyoX2vGhpRmh
+ wLiBsbnKOh8X5mReSYye3OUJzTSENL3DoRz0HoI+o7p+GqOtxVVDerG02/UUoyQgrp2H
+ d+nimAfzWt0XF6xMa7REbeGGvniOlvIZ4aHeYUGJDkHmAE2wZ5yBiHWkuSVaUZmSrm16
+ 98kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793624601; x=1794229401;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=89Y/HCm6tRbXlpb938dXfX1sf1dCEpdg6pFysdRtIzY=;
- b=qvtCZd9C54eqJiO7V58AkFfhzTXTSbFSM8SaxpAFN5oMFfMqfzGB9MbrOz6jKIvhHH
- 80rz0IFzbvbDCxY2PeoSJWia1lXhNNTdP8zzm/bQt5gjgdH4Rc9u1aJhYvN+UmKoF1sV
- UfFJoVNYbQIYiPW06eEmcJZDCEM8/eKOp91Lba3LsnMLhBjGNtkiRcE75Vr9q5hcEBvy
- cXDudmXUgU4U+i2piae3IvBV9RmJw7irYlh0uU/Fo6mxJNvDknCffjovdliyoEZWWNzg
- 7QmkAntZTNAKjk0N2gzsL2GHd06zyF6/xplwsZVVfJi6iKl6QL61sOVjZnSTGYpZ2ZCn
- +72Q==
+ d=1e100.net; s=20260707; t=1793624590; x=1794229390;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rwDvCUcycop1taBMmQpXpaVGTG1WRnAIuw6p85hHgWM=;
+ b=VLjbR1jiv+p5KyMh1lG2JqlKWaDcX404CtFEMoVMmtAGpDsrXqRmRrVR0m9FEz11C1
+ omXegd6bPEtgbfwtCWjqiSjXXd1qXHHMd90P/8oP4fgUAzsx+QQsUCl7oadk95ed/0g1
+ 3zKl3rIbrXqkqkLZ1sB6t6ZmIQ1R9csbLXWlrnhbUrC1r5lIoW8153EKF05hytRtiAww
+ 7I9dVsSxCVLbEu5Jb2gwZYWOpexChNYiWWKgRlu+7Lo1vs9z9CvaDDipe8K2ZSb9H/Xw
+ mlLefz2hQMjcDdrlbP86/9HA9uA3HTkYxBmYNonQSvCX7wOYeFkaWBMxWafKk6BAWP1l
+ ouSA==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxuTjGB5W7r45dCap9G3ZHEbwoNS6a5MtShf7/TeUQ0ZDiCa2/3x+XtGa0i7Fxg65/Zh/pJKHs8ndY=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKUGWxouiNFytZvh87aAYZiBNCccWHiihTcnE8U9uX/D/vnVDEV
- y1PNd6FVaFOQgpKqjkowpkX1ozPJE2/OamWoehT+KGTbyTkhLBY+6NLA1ro+2BS/F7A=
-X-Gm-Gg: AYBFou1CdxTrF7RzOfyVpr2DiyE42NLF5oLV3hZIxyoW3i0aZOJF+8wVtPU/RBjlJbl
- DBLuF2io5hmwrwA89aasB5hpR9X3JRqTS5KcxnZDwaScHWMA14sBg0hxRo3mD7PC5gZw948hjqV
- 3RuhkgJl6r8dYkQk5J2+CDyYJY2GXtPzbQNbqE8U6m6uU9xk6mv855wjXA2ng+HX/g5z6fpcAlf
- F/lddAmvmC1c5lUfutuH+lxxRdNXAeLfoHCbrqmdMa8ioGrC3LitCsO1hjKt9N6rrA43RLNwhC2
- LTwqgMcqDVfhsU3E3sP1LezBTYwpFz7GvPCNhkS7ILH8WYtSvPOPvOGo+9plkEjLXgwb1x7QooH
- GhKZjWJS7G12aOCiu5QQQII+6CBdU4TPlBYABXv13T8dHET9i4bmAVpZUTkQbEtMFR4+PPuJ5u5
- /sQYNy4lkhzMEkM4q/xghqojQngJim3Xk6PmnXd9tLy+VUbagmfR33G/70i0Mmi/79wYogs9yYI
- 3gFKp1iDrsxDcwh4JpIkqUuqJqwPU106tJ0Dv6rLAUtT7kVjVjq0RcsEYPiDeDHFZlJTz2cfJzQ
- MDA7YHoJrrehJ3Iwk6zT8+ZCk+bI8TuQzDQemSJwPsbYY+NshJC1pkU8PATjq9wX9MIN8vzpMIU
- yv49Nap4=
-X-Received: by 2002:a05:600c:c48e:b0:4a1:f7f4:7cf1 with SMTP id
- 5b1f17b1804b1-4ac16bc47f8mr231647195e9.11.1793624600748; 
- Mon, 02 Nov 2026 05:03:20 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262?
- ([2a01:e0a:106d:1080:9476:5165:3a16:262])
+ AKwUvBzr4eSmKxaUPefaAE1+wwyzBBYDlmHfr4I+fgKRhdKAPoild5lOCkH5PoNUCjoMp0P0/b9nsiBXWAY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/iEGr/7jEx3nXhN3uLs28weWoktE5oAILLOCbXOgYfejo64QCZ
+ fOifJJX8HVmIR8T+yp6mERXfqZGFQMPXlkMUBVHq8EOMTSgD8RNwD9HQEdLbJ9Eb/W9xLsPuiM8
+ PqaR37qH7DoMQ+Tw3R/CtKkQQKi5jvS4bsHpt3KGyqpm8e5ND4PhtJlZ2h0DWjV+NDz+A51w=
+X-Gm-Gg: AYBFou20Hedavsu68XYvwLdSM217JiZwMn8ACcjE631c4Bwam9VAt7zI/iyzToIjfBk
+ K3x4SGu/4ru71lR9Y4euKa7A9Hxk9qrJETdpbBF8jGqXsDNFe9tik1jLQTb5Hyy2QyHpos4yKUE
+ jPy17DHjUakXDReDPEgTlXEzfR5u9IalqZ9wZAp7pJBOCFicLZ64kambIN2rfy95h8YCL2t8GAd
+ gUVX0F5wGTnF0a+9cC2+baD9QSTz3D1ZuPqM1GxqP+eRwpLO45O4AVP1S4zkk6FddG8fcmhC/n2
+ 8LH2slfS07YeDFWoBqfSkr3dAtmqporCB+JXLdJsehkHXeyRFAegaDStV+tTTa9E2uC/x6ofI88
+ qVcrt5R0kxvAYDBNLkJjKk/ZwLUrtVnW0aPA288pfhtlwubc4lWq8E2yXMyAmsro+QVj5b04=
+X-Received: by 2002:ac5:c7c6:0:b0:5ea:d67f:fd39 with SMTP id
+ 71dfb90a1353d-5ec68998269mr4388748e0c.5.1793624590375; 
+ Mon, 02 Nov 2026 05:03:10 -0800 (PST)
+X-Received: by 2002:ac5:c7c6:0:b0:5ea:d67f:fd39 with SMTP id
+ 71dfb90a1353d-5ec68998269mr4388694e0c.5.1793624589652; 
+ Mon, 02 Nov 2026 05:03:09 -0800 (PST)
+Received: from [192.168.226.248] ([178.235.128.140])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4aa7f322c46sm330988375e9.2.2026.11.02.05.03.20
+ 2adb3069b0e04-5bfe072d19csm1698389e87.40.2026.11.02.05.03.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 05:03:20 -0800 (PST)
-Message-ID: <a7c2688e-3f7d-4ea3-91ec-9f7fbbb05d60@linaro.org>
-Date: Mon, 2 Nov 2026 14:03:19 +0100
+ Mon, 02 Nov 2026 05:03:08 -0800 (PST)
+Message-ID: <14d63775-3024-47fa-a495-60351c31e6eb@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 14:03:03 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/2] drm/panel: visionox-r66451: Send the brightness value
- MSB first
-To: Vladimir Zapolskiy <vz@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Subject: Re: [PATCH RFC v2 09/14] drm/msm: initialize LPAC ring
+To: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org
-References: <20261101212458.2431191-1-vz@kernel.org>
- <20261101212458.2431191-2-vz@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261101212458.2431191-2-vz@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+ <20261029-descriptive-name-lpac-upstream-v2-9-a21a5c850961@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-9-a21a5c850961@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: PKx99mIEyVNmU5QO7R8niH19dI-GGErY
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MSBTYWx0ZWRfX+Y9pm7HXz1oV
+ +4Mv2W1zfuj7c1BEPpXSKMnYb0s1VIFOpqivTyr1bql0zivo8YYUnoIIIjcp+zgwVnMMsphDIa+
+ vpa5YxeSl2P00xWcXuFLVtvIzzMWAsY=
+X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae88a0f cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=pGLkceISAAAA:8 a=km2EZEuaMOR48S9SEsUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MSBTYWx0ZWRfX9cXgFc7ciK7a
+ wmGqGyov5Ju+gfDVNmC73vUfW8QQJiIG3R/o/b/zeTGZKYvTHtBC16Mqj6//vNiGI0dIvCSk19V
+ Gy0ngD/gBvuDHz8lhWTxAXOVLpnNkfwak0E6rf5cBEA14BEepg1xNDCDToh/A3TAx3U9M5dIW6t
+ wbZq6m6f2cYuNBvUCuS+SrN8FnfQ5vY9fSriuT3tShqDp8ZFUI9XOBEwb6czDxrI01Id1AYC4UF
+ wSWbhezD7K9OOfh3wmwDJm8QfB+54/GpG0bNSHUWwHH9aDQGCufB+byIMygjQ9iOXF47Bk0/Pxj
+ KH9Jl++cADVSOUJKkOliQ3QAmwXyRFTrQPr3trHzRwlz/7Z3wENVJE6EPA5RW7VadI2oCxFwJhN
+ Wr36ocGU7yOajqqUa+ynUu4hoXJSPGg3A8aEd+V2LXMK0YgqM3cch65EW8bkLCmjngUrroU+HgF
+ 33vMFyszDkfyjeJS6hQ==
+X-Proofpoint-GUID: PKx99mIEyVNmU5QO7R8niH19dI-GGErY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-11-02_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020051
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,52 +154,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/1/26 22:24, Vladimir Zapolskiy wrote:
-> The panel expects to get two bytes of the DCS Set Display Brightness
-> command with the most significant byte first, and it uses the lower
-> 12 bits of the value, use mipi_dsi_dcs_set_display_brightness_large()
-> to correct the programmed brightness values.
+On 10/29/26 2:52 PM, Anna Maniscalco wrote:
+> Program all the register needed to start up LPAC and send initialization
+> sequence.
 > 
-> Tested on the SM8350-HDK display card, the display brightness increases
-> gradually with:
+> Additionally, now that the LPAC ring is live, make the code aware of it.
 > 
->    for v in $(seq 16 16 4095); do sleep 0.1; \
->      echo $v > /sys/class/backlight/ae94000.dsi.0/brightness; \
->    done
-> 
-> while without the change the display is dark during all writes.
-> 
-> Fixes: a6dfab2738fc ("drm/panel: Add driver for Visionox r66451 panel")
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 > ---
->   drivers/gpu/drm/panel/panel-visionox-r66451.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-r66451.c b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-> index 1efb139bb711..4f28bd3b6080 100644
-> --- a/drivers/gpu/drm/panel/panel-visionox-r66451.c
-> +++ b/drivers/gpu/drm/panel/panel-visionox-r66451.c
-> @@ -227,7 +227,7 @@ static int visionox_r66451_bl_update_status(struct backlight_device *bl)
->   	struct mipi_dsi_device *dsi = bl_get_data(bl);
->   	u16 brightness = backlight_get_brightness(bl);
->   
-> -	return mipi_dsi_dcs_set_display_brightness(dsi, brightness);
-> +	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
->   }
->   
->   static const struct backlight_ops visionox_r66451_bl_ops = {
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+[...]
 
-Thanks,
-Neil
+> +	/* *Don't* send a power up reg list for concurrent binning (TODO) */
+
+Here's what my robot came up with
+
+human tldr: missing the listed registers from a750_ifpc_reglist_regs[]
+and a7xx_pwrup_reglist_regs[]
+
+LLM:
+
+The strongest IFPC-specific suspect is that LPAC setup is not
+fully restored after IFPC. The series enables LPAC on gen70900
+(Adreno 750), which already has ADRENO_QUIRK_IFPC. When LPAC is active,
+patch 09 programs several GX registers in hw_init(), but adds only
+CP_LPAC_PROTECT_CNTL to the A750 IFPC restore list.
+
+The missing registers are:
+- UCHE_DEBUG_CNTL_1 (bit 30)
+- CP_LPAC_CHICKEN_DBG
+- SP_CHICKEN_BITS_2
+- SP_LPAC_CHICKEN_BITS_2
+
+A likely fix is to include those LPAC registers in the A750 IFPC
+restore list and the applicable general power-up list, so their
+initialized values survive collapse. The KGSL code in this checkout
+has a similar pattern: it conditionally adds LPAC chicken-bit registers
+to the Gen7 IFPC list when LPAC is enabled (adreno_gen7.c:652–660).
+
+Konrad
