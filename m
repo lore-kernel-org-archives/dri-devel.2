@@ -2,142 +2,148 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BE1606A337
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:59:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12416606A32D
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 12:03:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RK2HHeBj;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OwgUDWJX
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FgmgBtA/;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bIvpuomS;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FgmgBtA/;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bIvpuomS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F14110ED54;
-	Mon,  2 Nov 2026 11:59:40 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 048B010ED54
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:59:28 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A29AOFt3086531
- for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 11:59:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KxBPqpgXhfqvGlKpWpzmxhKDsK56vJpqqow3NQ9e2TQ=; b=RK2HHeBjVeFnidnU
- oFUwn1G0rZsfbDoIOe1mDEJvDU6WhYabIXrOIvTTN3R43DuyYCZlTATTzJu0SiS6
- ynVHCuAa+dM+NZEwSt2Hf948QH2vcvU2OZma8qirKGKo+vrdU89NuzdpF9o6fkyf
- uHsre8dliUieMfKhh9aIBZX6QfAb1ioWU5Uey32f+40HX3kw18Y+xc3awFjLnBf8
- kR8rxv+9y8z8bFmREfbNZq0TG26DM0s2udi9mh/0yYMXukXRBXqeYE+M8iRoWNWV
- eA/GNeyP5qGN2Ry+kg4OFlkQqU8BVhvseC7L507JppsaenXY9J4v0H0Y2QKJZUhm
- LzqRIw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka61nkm-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 11:59:28 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-536708d1a3eso4739811cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 03:59:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793620767; x=1794225567;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=KxBPqpgXhfqvGlKpWpzmxhKDsK56vJpqqow3NQ9e2TQ=;
- b=OwgUDWJXyF5FNopy/TNGl73q7WhdlLwnztab9HL8OFyxgC0Yaod48iQ41jL12POlX+
- +RTpzHLOq550Gtr2VXUhysM0ftk6RJ7NWeiALnGUilwjni/eztXyY1yH8wdZ69PKNXS2
- r0ZvkHL10uBaTZb9ulf6o/fWIlwENk201zQpuQ+4CHGuawC8CmphipxdeH77UrW+HM1J
- 2Vd6FwoeKCi/ICwxRbuIhsIJD7ArPLZcTPaHpTGXRik2PDawt8aXlU1+Mp+A+mnzX2YR
- NcUmWVn5x3b/MCJs+LJXI9gnisBNX5ItX5S0Ma/79f/VAwkXQtpwNK5yyNiDXPaV+qS7
- 9q0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793620767; x=1794225567;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=KxBPqpgXhfqvGlKpWpzmxhKDsK56vJpqqow3NQ9e2TQ=;
- b=n9agTh/GDOzdlSfparCnZk2zbj8jGrU2VSTA3AHB8/xUU0Rpwt8X1yw0HIIBDU5zEN
- uix3qb64WCez7DGRnDsymjZTNjJAFIYEJIxdhDhgD0X8iIxw8za+6YT9B5TbmTFGR9yL
- VpAf+YA/i/52kRd5KrvbRl1OPmurnY+cVp3HE59eS9Rwta4QTahq6xBYnFNoYAlUZiKP
- TGBTyDNMHj+SoOai11qjd3hLRUEnCvRKmRErEgsmwWinNLlkyeuNn6ZVf5vbwF9ueTTh
- wtB/hzwCyOVP9XUbFB60HdPAcAl19uHLe5hbQy7CngmITnsg14EYlRUxzShicMN9bEZ5
- acrw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBw47s7Y0q+RkHksLIH3deDQIQIpqcFZs9Ykst+oI0CmchK4+kk4kjeOCcyL+iTJ7mR3VhiKOrKszt4=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYIazEQDj/qaelye1EClQAUu4mzwp9Xl7l39OLJWBfZNvHI5Wo+d
- xDf/attrq7ZJjZewleEjJTzC//AaPL5zNpljR7IA/6OyiNotAGCocYUbWXbEgOYEGRJSPhZ3AlD
- gES52KXZWthDWRLR4/QsmasawQlqOXkxqiHvvim67wkxjVQkJ/6OjORfz2DVwmrZdUWZexOoDXS
- 644t8=
-X-Gm-Gg: AYBFou0/XDMZ1B7uDnq/Sm41eFVqioFc1jlpVYDDo2H5dqGttDLu8+TGswfvPO9gXCg
- rwZYgRlraOxKKEH16lJsLj0BFGKLqqEgm7abzVbYHGTGObawSpbXdG4RfQ81+xO/9sak6j+b+64
- o6dKSVU+4+j8uk9PEipklpPPiTC6U/i1vURnL9BfR6BOYFNdhg9NOdWIBChbtG6VKbHCobRynl9
- lWEnyPQ3VN7ylnUMzsnnwHh5bkneMc2cybabqIz7efeaipGzf7masSIM+qhqt0zio8v4zFaRojI
- WouPIeWLv93YrsBafs02m+gqLk59uv/yhwHpCqF10x9Mm7pK364r4rjVj37kVq2j7cq5h5ZNqOs
- QPEf1XI0O9kZBcPcYZ6MMFbbQ4U/cz1YbSA03pyz8//q6dyOwFZZ96FM2Ane50SPmHS1ALFc=
-X-Received: by 2002:a05:620a:6f9a:20b0:939:9205:4d78 with SMTP id
- af79cd13be357-94421654ce0mr1517091685a.3.1793620767302; 
- Mon, 02 Nov 2026 03:59:27 -0800 (PST)
-X-Received: by 2002:a05:620a:6f9a:20b0:939:9205:4d78 with SMTP id
- af79cd13be357-94421654ce0mr1517088585a.3.1793620766638; 
- Mon, 02 Nov 2026 03:59:26 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c4cabc1915csm377913466b.7.2026.11.02.03.59.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 03:59:25 -0800 (PST)
-Message-ID: <44ac4c60-d89a-42f3-82aa-ef3fb0f54636@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 12:59:23 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A43A10ED58;
+	Mon,  2 Nov 2026 12:03:27 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14B6F10ED67
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 12:03:15 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 66E5D1F798;
+ Mon,  2 Nov 2026 12:03:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793620993; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=frqkDGBD+6EVVRqi/tZxj+Mhl2t78i65eP2cIT8s4Wg=;
+ b=FgmgBtA/1V/R/fq5ql6+x+5DkKvXeHQGgyfYlDEEV1YZSuRwqinjrfcmnCF87sCe8yJwxb
+ RmkWaJyra46Qndkrv3/lYq9+V6knXJuHzNkMeAcRc9EbCIcnvB4skGfSX5yfw25N5xXlRm
+ msDDm6hOU8jSm3/O2ikrKMY4oooWeVg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793620993;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=frqkDGBD+6EVVRqi/tZxj+Mhl2t78i65eP2cIT8s4Wg=;
+ b=bIvpuomSKBWgxbz6YyufjD00rn19p7qjttKduwu7BfXRlzUV2lu0wwbE/KPtIc+2uBSfvW
+ H8ir5uV24KXPiTDw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="FgmgBtA/";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bIvpuomS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1793620993; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=frqkDGBD+6EVVRqi/tZxj+Mhl2t78i65eP2cIT8s4Wg=;
+ b=FgmgBtA/1V/R/fq5ql6+x+5DkKvXeHQGgyfYlDEEV1YZSuRwqinjrfcmnCF87sCe8yJwxb
+ RmkWaJyra46Qndkrv3/lYq9+V6knXJuHzNkMeAcRc9EbCIcnvB4skGfSX5yfw25N5xXlRm
+ msDDm6hOU8jSm3/O2ikrKMY4oooWeVg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1793620993;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=frqkDGBD+6EVVRqi/tZxj+Mhl2t78i65eP2cIT8s4Wg=;
+ b=bIvpuomSKBWgxbz6YyufjD00rn19p7qjttKduwu7BfXRlzUV2lu0wwbE/KPtIc+2uBSfvW
+ H8ir5uV24KXPiTDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E3E26134B3;
+ Mon,  2 Nov 2026 12:03:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 1MC5IgB86GpZHQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 02 Nov 2026 12:03:12 +0000
+Message-ID: <69278b02-30f2-465d-8990-023165e1bc5d@suse.de>
+Date: Mon, 2 Nov 2026 13:03:12 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/12] arm64: dts: qcom: sm6350-lena: Enable PM7250B
-To: erebion <erebion@erebion.eu>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-7-cdc3be96d257@erebion.eu>
+Subject: Re: [PATCH v4] drm/vblank: Don't arm vblank timer with invalid frame
+ duration
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: me@romanilin.is, louis.chauvet@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, javierm@redhat.com, dmitry.osipenko@collabora.com,
+ regressions@leemhuis.info, peter.m.arnesen@gmail.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20260914110004.211027-1-tzimmermann@suse.de>
+ <auIMt8XmmaVykZTC@intel.com> <2c2f33cf-da6f-4e31-84bb-768778d7b063@suse.de>
+ <auSIZNhP4DTj8Nb2@intel.com> <be8e41da-5ef1-4c37-a044-171ab1f32c6d@suse.de>
+ <auSgII_W-FJJz44W@intel.com> <f406b2f6-cad9-411f-941a-7e4f26af3947@suse.de>
+ <c874d311-f7b1-4a24-ab75-b502ba1c5e58@suse.de> <auTAf4ul_xzhk44v@intel.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261102-pdx213-upstream-3-v3-7-cdc3be96d257@erebion.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: _NxLxJx3_TKll3pJu5l42ErQ31NvNGYP
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0NyBTYWx0ZWRfXyXhoU9G7lmgo
- 89j76fqRajfebT26/8Ire+ANqOVBmpJOvJL4iQJh6DrFC+0av3RDO3GRPoDPw/2CSn0em3eeaIO
- v9HTuOlPGPQkt2DuqaDbDXk2p8DkcrQ=
-X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae87b20 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=JgZe5hknAAAA:8 a=EUspDBNiAAAA:8 a=dNZ_EX_IlpB_z2sQReYA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=ODtDA1adfiiB3BH7YLNA:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0NyBTYWx0ZWRfX8Kb5mvDY7PIC
- IFqKRz1WXwidU1F7oIrhYoSZkyow1cqGSuWyYxFxAk0rCbP78mqpgFw9fXFBGU/Jk2z/niL5ep8
- eEWolnnE2owiB1J0F+KrOuEwvOzssC6DRsxTcSbeXBCxQzWYVCe+rCyleQuQylCk3+PdEIRvyHR
- CQuMZ84U5lvzuzHitxxm2na+ZbQzX4OAdaehq7xWiJRNiFIRUFF80lD/jB29IAJOwCHvrRgUnm2
- pW9vH0DuD3bPdhccSvnUkI+RWLLYMynx0i9+QHloefwl4tUpVI7OA2hQF0Xhv0zsEg9KGx0Ngyy
- IW35ORoKndYpdrxq3TKwKHUDeXUVY3al6vMJbII5cgOYb92a4dYCHpWZP86HRZYaCPQaFg58ToM
- RtszDmMOCyyCBfSo+FYLZ5WmT9/9pFV4Edt6Ru0DYEdn8vKKcVlPpvWIglNZlaLGyspXryLjW6M
- daLWgAX1p3CmwIpfIJA==
-X-Proofpoint-GUID: _NxLxJx3_TKll3pJu5l42ErQ31NvNGYP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
- phishscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020047
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <auTAf4ul_xzhk44v@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 66E5D1F798
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-12.00 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; SUSPICIOUS_RECIPS(1.50)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; XM_UA_NO_VERSION(0.01)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCPT_COUNT_TWELVE(0.00)[14]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[romanilin.is,bootlin.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,collabora.com,leemhuis.info,lists.freedesktop.org,lists.linux.dev];
+ MID_RHS_MATCH_FROM(0.00)[]; TAGGED_RCPT(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.freedesktop.org:url, suse.com:url,
+ suse.de:dkim, imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.00
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,18 +156,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/2/26 12:32 AM, erebion wrote:
-> Enable PM7250B and some components on it for the Xperia 10 III.
-> 
-> Signed-off-by: erebion <erebion@erebion.eu>
-> ---
+Hi
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Am 30.10.26 um 17:06 schrieb Ville Syrjälä:
+[...]
+>>   
+>>   		drm_mode_copy(&new_crtc_state->adjusted_mode, &new_crtc_state->mode);
+>> +
+>> +		if (!new_crtc_state->enable)
+>> +			continue;
+>> +
+>> +		ret = drm_crtc_vblank_mode_fixup(crtc, &new_crtc_state->mode,
+>> +						 &new_crtc_state->adjusted_mode);
+> We don't want this hack applied to all drivers. It's a problem
+> for a single driver, so that one driver should handle it.
 
-Konrad
+By single driver, you mean virtgpu?
+
+The bug is in Spice' vdagent, which specifies the pixel clock in kHz 
+instead of Hz. (Apparently in the block at [1].)  AFAIU Spice, it runs 
+on any graphics driver, with a strong preference for virtgpu or qxl. The 
+docs and bug reports are somewhat contradictory. But I'd say that at 
+least the drivers for virtual-guest graphics are affected; maybe others.
+
+[1] 
+https://gitlab.freedesktop.org/spice/linux/vd_agent/-/blob/master/src/vdagent/x11-randr.c?ref_type=heads#L321
+
+Best regards
+Thomas
+
+
+>
+>> +		if (!ret) {
+>> +			drm_dbg_atomic(crtc->dev, "[CRTC:%d:%s] vblank fixup failed\n",
+>> +				       crtc->base.id, crtc->name);
+>> +			return -EINVAL;
+>> +		}
+>>   	}
+>>   
+>>   	for_each_new_connector_in_state(state, connector, new_conn_state, i) {
+>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+>> index f90fb2d13e42..6e826c3b6c42 100644
+>> --- a/drivers/gpu/drm/drm_vblank.c
+>> +++ b/drivers/gpu/drm/drm_vblank.c
+>> @@ -620,6 +620,74 @@ wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc)
+>>   }
+>>   EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
+>>   
+>> +static int drm_vblank_validate_dotclock(u16 crtc_htotal, u16 crtc_vtotal, u32 flags, int dotclock)
+>> +{
+>> +	unsigned int frame_size;
+>> +	u64 linedur_ns, framedur_ns;
+>> +
+>> +	if (dotclock <= 0)
+>> +		return -EINVAL;
+>> +
+>> +	frame_size = (unsigned int)crtc_htotal * (unsigned int)crtc_vtotal;
+>> +
+>> +	/*
+>> +	 * Convert scanline length in pixels and video dot clock to line duration
+>> +	 * and frame duration in nanoseconds.
+>> +	 */
+>> +	linedur_ns  = div_u64((u64)crtc_htotal * 1000000, dotclock);
+>> +	framedur_ns = div_u64((u64)frame_size * 1000000, dotclock);
+>> +
+>> +	/*
+>> +	 * Fields of interlaced scanout modes are only half a frame duration.
+>> +	 */
+>> +	if (flags & DRM_MODE_FLAG_INTERLACE)
+>> +		framedur_ns /= 2;
+>> +
+>> +	if (linedur_ns > INT_MAX || framedur_ns > INT_MAX)
+>> +		return -ERANGE; /* dot clock too low */
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +bool drm_crtc_vblank_mode_fixup(struct drm_crtc *crtc, const struct drm_display_mode *mode,
+>> +				struct drm_display_mode *adjusted_mode)
+>> +{
+>> +	struct drm_device *dev = crtc->dev;
+>> +	unsigned int pipe = drm_crtc_index(crtc);
+>> +	int dotclock = adjusted_mode->crtc_clock;
+>> +	int ret;
+>> +
+>> +	if (!drm_dev_has_vblank(dev))
+>> +		return true;
+>> +
+>> +	if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
+>> +		return false;
+>> +
+>> +	ret = drm_vblank_validate_dotclock(adjusted_mode->crtc_htotal,
+>> +					   adjusted_mode->crtc_vtotal,
+>> +					   adjusted_mode->flags, dotclock);
+>> +	if (ret == -ERANGE) {
+>> +		int dotclock_1000;
+>> +
+>> +		/*
+>> +		 * SPICE' vd_agent has a bug where it specifies the dot clock in kHz
+>> +		 * instead of Hz. Setting up a vblank interrupt or timer for such a
+>> +		 * mode overflows the calculation in drm_calc_timestamping_constants().
+>> +		 * An errno code of ERANGE specifically points to this problem. Try
+>> +		 * converting the dot clock to Hz and validate again.
+>> +		 */
+>> +		if (check_mul_overflow(dotclock, 1000, &dotclock_1000)) {
+>> +			ret = drm_vblank_validate_dotclock(adjusted_mode->crtc_htotal,
+>> +							   adjusted_mode->crtc_vtotal,
+>> +							   adjusted_mode->flags, dotclock_1000);
+>> +			if (!ret)
+>> +				adjusted_mode->crtc_clock = dotclock_1000;
+>> +		}
+>> +	}
+>> +
+>> +	return !ret;
+>> +}
+>> +EXPORT_SYMBOL(drm_crtc_vblank_mode_fixup);
+>>   
+>>   /**
+>>    * drm_calc_timestamping_constants - calculate vblank timestamp constants
+>> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+>> index 2fcef9c0f5b1..a3628c477f59 100644
+>> --- a/include/drm/drm_vblank.h
+>> +++ b/include/drm/drm_vblank.h
+>> @@ -311,6 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
+>>   u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
+>>   void drm_crtc_vblank_restore(struct drm_crtc *crtc);
+>>   
+>> +bool drm_crtc_vblank_mode_fixup(struct drm_crtc *crtc, const struct drm_display_mode *mode,
+>> +				struct drm_display_mode *adjusted_mode);
+>>   void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>   				     const struct drm_display_mode *mode);
+>>   wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
+>> -- 
+>> 2.56.0
+>>
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
