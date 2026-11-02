@@ -2,74 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E511C606A333
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:03:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CF3606A326
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:03:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SlY8qnq/
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LUFiPGZS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17BED10EBA1;
-	Mon,  2 Nov 2026 08:03:47 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9CF910EBA1
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:03:40 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2e9e53d011eso21427445ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 00:03:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EEBB10EBA2;
+	Mon,  2 Nov 2026 08:03:49 +0000 (UTC)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 288A210EBA2
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:03:43 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2e946155442so23903545ad.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 00:03:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793606620; x=1794211420; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793606623; x=1794211423; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=thtxyrefz+ZDuy3D7yqgHBR2WhnB+jFTqsrrR4OaS5k=;
- b=SlY8qnq/2xu754f5m4xCWgoH6xvW5zxORh+oto3vitjWsi19ZXuXbUNSUHRpLBm89Y
- blox2wypvfUBvEUzmSJsRZ+DhUzIlgibWpHH/P5TStC//myRAwauCnP5NoNGLRGrHr2x
- F742vRbgkHfibFgPrK5xjNN8qT6hUiBeoMSrlY5etmAJ9e8kkt4KixYZdQpiRF56OISM
- n5TXNJjMTMI3Hsyha46VbPQ7EyOpyCkCTPQ9bXU/ET6tWdC2C8mm0iKPGWJVuoLeNF00
- NEdgAtzTNp+7K4WO4K5Tn64SGwjlGFf+IVWE2c4Fst/GRQ8fFreZnXmoa7FJyngYKVUP
- apag==
+ bh=DJARq++ZNqDTm8Q9TFtOCOzhzKAsHsjDftUFwH6EBSw=;
+ b=LUFiPGZSiaTKhs+CCF/ASdJpDD1v7OThltreaFQlWreM8nmf/p4B6T1XxjDfc+3Bzr
+ vEWDifGyGKdUPuvLZgHPmIL0hKsHUdLggo0p+rPAbgiOD+CjE1rmSvCby1zEhBEVT2gP
+ X1AWzQQZ6bKp0Knet1Sz/N5pfj546n6HexdMlahNjOQ0uTyfIT2mTbyoqP2tJrWVdsaA
+ iiIqBFI+hrYngXEhgsaFEHWxapunD+C0igA3y3XSQjZilCMZRJGtAca2XQ9um7fpPliR
+ kBvxh875cx1/zBMdxm4SrWeJOJAcrrpoA4grCkQqWshySzCQA6MtolWmJWDF6ofOapaz
+ 3XFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793606620; x=1794211420;
+ d=1e100.net; s=20260707; t=1793606623; x=1794211423;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=thtxyrefz+ZDuy3D7yqgHBR2WhnB+jFTqsrrR4OaS5k=;
- b=PFN6ivrJ1jRCrnqKUHRSiLgagZcN0XR7zg9RKzsTkP5V5wt8MIWLRVCTEjvgBeOQCs
- GaT2CJ/gwdowHIT+OI+MGGCM22xhEEm5rE8SDceKPPn5euT2W1TgkvCxogGn01ALBPG8
- Fn3qyCEg1mSTQ5Y2kr4AAA2p4mVp8mnDu32PhLXzoX1b2vscxZOLpsU3C/ABrwpStkIs
- FeLgDNu+jomHFnREqvg3Es73wN3sUNPlrpU+jKIFbd7SmP33BK17pwOxy4LYMWM2KTco
- X2lCgNNcMMtyAi+sOTYTJUDbch/zz9tVILjIO+zRCGVQvdA3MjbiorLtiDU3LObQMx/t
- Ge/g==
+ bh=DJARq++ZNqDTm8Q9TFtOCOzhzKAsHsjDftUFwH6EBSw=;
+ b=QVlFMyLwZD3sqAsmaiqWmhe1N/Qo4BrYhIq4J0/j619AydYoAPKkfrOS8mRtgdCHBf
+ O1E2esFOyuuSxqY6a+FY4NTpGmMCSw/fgVDIbQOcovEJFV5/UrOgug5irLbn/2T+KMGF
+ p2Y3WzmCjXemeDQ+xQ+RxXs3dOjua6JU0S1ZLSd8sewwWTiFLh7kCXaMz+BwxoCoJDjQ
+ bczCK90h63b1zD/hEZI8XJQPXpzOBlTs1Vi/28vVOByPdUEfhIf1VTHWeJns+ukQa35K
+ iyd6nOvHWhQYKyg6pMW8rZEHbst40QP7ciJ5EmGIwlUrDUOlI4DXaIzOx/MZgN9tL7HX
+ GRzw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBxrvBC0ByJxDbRxYO7y5HN+ffobMyz0v8dKUMg+KboQXyOD4x02gW60JTdZMqg86WlT9c/RYUXuklk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z90JB5q3g+66f0lB+oV+ePU5rion7zk44EM8mHZv3oXqTysdZlA
- nYGA9eH7bnwf3/HL79dbCXduMi8yIIh/FfIiwqEQTif7eu4878Liu6lV
-X-Gm-Gg: AYBFou1U86tTx9+SuhDOwmAihQtT+CNRe8py7DoPuf+6+hG+uGy5upr/Kxkja5bEz/z
- XPBaswbVFsmO5oaNlYZpvhzWruBewuQbOztEv0vgQu6uvFSzYl4WzS3Ib66pHGFbbTmyA7ilEWP
- lP8jhPuY8g3YsVxSgij4LxqXeibonDYPTChJp2iJfGSeSrRg5FDUoS7wWq9/wmdsPdHXYNhGCWL
- f+zOlumCsPSn/5HelXwvlcjspnM5blDW4rlt9YZs6HcaEx5jh7XMwHT9Cj34NfNVnBVXY+HAn5w
- wPPfa7pOOkN/2MTn4HwPOzfBpk/sPEY+Wk4wygEx7VQrZkiRmJiJHSfm0EfMn3G7DD0mo01PG6E
- J0aPY3daq0Y19deCcS8SE8N3essyD/UoLBbj8Nee/JcT8kH7Fc9V2K0P325i62KljLUpMAxJ9eg
- WxAWZ7IXkLsDe69A1qTHaT7mOg6c/ZmAjMyipt7pgEqhjfGNcYE02EWU+9GeF4PIDEolCn6Wxek
- Z5F9d9NtJbi/pmKn/x6Y5QWAfBx8+WWANgkUfENDKyLIcj/0B7RBjnZD+bpPK/9O4P0bETVXrW9
- YLnCBlsbftfmAAUvalAyQCymb2MlZMbFNohaYoEajLrjK7MRKvgXqJd50zBouuSTRnlMzT/i2u9
- WrvY2VQSBHSSb4/IJKf5w2RnP3kfNjzMiSpzXa+wXoBwAg2sFEVZ8z5uZMQAxSAQdlU7JkbRXSZ
- czq6iTcL3n8LOE9XSnv09HTvWd6PRF+oTrbx0=
-X-Received: by 2002:a17:902:ea02:b0:2dd:7646:35cd with SMTP id
- d9443c01a7336-2eb3633227dmr87841375ad.0.1793606620285; 
- Mon, 02 Nov 2026 00:03:40 -0800 (PST)
+ AKwUvBzTyVSvi0srV3xEORl9dz40Q8ZLOidmYGJmdD3QNTAphUnNwe9setXQGYdYPZxCRBU7q20oHnEVgyg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8cWqXo8MLfq71rGMcIAvqcnC3K9cb9xHu8JY6B0cCkmKukif9N
+ 9rYbrkdbY14vdjy934q2Z8Ek8WGiAQ9Fsh3Qu9IjVng0BbMSka9csMJS
+X-Gm-Gg: AYBFou26+0ghqHrA1FMmtp1ku9qetNu0iHZpp06l+wRmlpVuZ/yLwpW/Wph3ICeyqC1
+ athauJbJisIO/GiwabUYxywgXSAmHcKPytJXwVBssubmOJszt/agGhVJP+mjD9IoE4HiILVFq7b
+ S2djFl2AduEgTO7bfpjNzNXIDdo6CqCWSE7fnBpGU24MSXRYY/yWngZ+GwWOpae3mdQgHdHr0nQ
+ hgjZnrptszri5h7w1IdfcJQOLlrta7h+q59XXRgUNsKad/tLA+1kE1BXvxWEIOg5fXReVQk7uFA
+ ErLW/dWLdsY8401s7BSa0jo2f8swXwwYtL5bbzLiKO0GanL4ZRaTMmBiNoY3MK1KBLr6uQdjV40
+ eMCmgC8IZ+V8A2WYE2QjLXn1+cJ/iX79pL0ykR37XDUU4Lp4kxIqffbRuFPOKC3O4P2aNh2U8dd
+ 6a7Zom6hwAFMdpo95uWvHxCxJtPwXsP/q8s3TJv5EO6bztGgdBgHAsp6xO07pQ4zir0I83D9avR
+ Wh8CMnu2xwJjVWn7AckpxM+iZnPJqxvT4sg5PY2HiPQ617pRvYFOap9fkrdPWk0kafkjU0CbzGC
+ AblRrwMYw0ZL4qBFFjbFAtjYvK7jOydNzlSBtDmfyTYGcQAkg1aJRqtcLD/GA1Aotw08bhPHLjg
+ ZO2fmw7EDD5xJPhv3NY0m2as1uptk3uWhfV0E8bRQdabiV1tFf7X6IkVSUX7g2RaKfgzFmaYHcC
+ 0dvp6cYLBJ7l/dXXD6FHz89j9T/D4p9eNvyTE=
+X-Received: by 2002:a17:903:1b2c:b0:2ea:a2ea:5f62 with SMTP id
+ d9443c01a7336-2eb364b8c96mr87259915ad.24.1793606622268; 
+ Mon, 02 Nov 2026 00:03:42 -0800 (PST)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2eb392afa5asm23573655ad.72.2026.11.02.00.03.38
+ d9443c01a7336-2eb392afa5asm23573655ad.72.2026.11.02.00.03.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 00:03:39 -0800 (PST)
+ Mon, 02 Nov 2026 00:03:41 -0800 (PST)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: Helge Deller <deller@gmx.de>
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] fbdev: pxafb: stop the smart-panel thread
-Date: Mon,  2 Nov 2026 16:03:31 +0800
-Message-ID: <20261102080332.1466689-3-matthias.goergens@gmail.com>
+Subject: [PATCH v2 3/3] fbdev: pxafb: initialize IRQ completions before
+ requesting IRQ
+Date: Mon,  2 Nov 2026 16:03:32 +0800
+Message-ID: <20261102080332.1466689-4-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102080332.1466689-1-matthias.goergens@gmail.com>
 References: <20261102080332.1466689-1-matthias.goergens@gmail.com>
@@ -95,95 +96,122 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-pxafb_smart_init() starts the smart-panel refresh thread, but nothing
-ever stops it: neither pxafb_remove() nor the probe error paths that
-run after it.  The thread then keeps running on the devm-allocated
-struct pxafb_info after it has been freed.
+pxafb_handle_irq() completes command_done when LCSR has LCSR_CMD_INT
+set, and an overlay's branch_done when LCSR1 has its branch status bit
+set.  Probe requests the IRQ before it initialises either: command_done
+in pxafb_smart_init(), where commit 07df1c4fea14 ("[ARM] pxafb: small
+cleanup of the smart panel code") moved it, and branch_done in the
+overlay setup, since the overlays were added.  If one of those status
+bits is already set when the handler is installed, for example because
+the bootloader left a smart panel or an overlay running, complete()
+runs on an uninitialised completion.
 
-Stop the thread on removal, after pxafb_disable_controller(), which
-waits for a refresh that only the thread signals, and on those probe
-error paths.
+Initialise all completions in a helper called from pxafb_init_fbinfo(),
+before the IRQ is requested, and drop the later initialisation.
 
-A thread that has already exited must not be passed to kthread_stop()
-unless the caller holds a reference to its task_struct (see the comment
-above kthread_stop()).  This thread returns at once when the board
-provides no smart_update callback, so check for the callback in
-pxafb_smart_init() before starting the thread.  Probe now fails with
--EINVAL in that case, instead of succeeding with a smart panel that is
-never refreshed.
+With the completions initialised early, such an interrupt instead
+leaves a completion count with no waiter, which would let a later wait
+return before its transaction has finished.  So reinitialise
+command_done and branch_done just before starting the transactions they
+wait for.
 
-This needs CONFIG_FB_PXA_SMARTPANEL and a board with a smart panel; I
-found no in-tree board that provides smart_update.  Sashiko, the AI
-review bot, pointed this out while reviewing a pxafb cleanup.  I have
-no PXA hardware; this is build-tested only.
+I have no PXA hardware.  In a test build on ARM QEMU that raises the
+LCD interrupt early through the real handler, the unpatched driver
+crashes in complete() and the patched one does not.  After an early
+command interrupt, a later smart-panel flush returned success at once
+without the reinitialisation, and timed out with it, as it should when
+no further interrupt arrives.
+
+Sashiko, the AI review bot, pointed out the early interrupt while
+reviewing a pxafb cleanup.
 
 Link: https://lore.kernel.org/all/20260722081427.413EF1F000E9@smtp.kernel.org/
-Fixes: 3c42a449107b ("pxafb: preliminary smart panel interface support")
-Fixes: 9f17f2874834 ("[ARM] 5118/1: pxafb: add exit and remove handlers")
+Fixes: 07df1c4fea14 ("[ARM] pxafb: small cleanup of the smart panel code")
+Fixes: 198fc108ee4c ("[ARM] pxafb: add support for overlay1 and overlay2 as framebuffer devices")
 Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 ---
- drivers/video/fbdev/pxafb.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/video/fbdev/pxafb.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/video/fbdev/pxafb.c b/drivers/video/fbdev/pxafb.c
-index 4f5c408eae56..b889a17e7304 100644
+index b889a17e7304..afdcb14f4b42 100644
 --- a/drivers/video/fbdev/pxafb.c
 +++ b/drivers/video/fbdev/pxafb.c
-@@ -1248,12 +1248,6 @@ static int pxafb_smart_thread(void *arg)
- 	struct pxafb_info *fbi = arg;
- 	struct pxafb_mach_info *inf = fbi->inf;
+@@ -642,6 +642,7 @@ static void overlay1fb_disable(struct pxafb_layer *ofb)
  
--	if (!inf->smart_update) {
--		pr_err("%s: not properly initialized, thread terminated\n",
--				__func__);
--		return -EINVAL;
--	}
--
- 	pr_debug("%s(): task starting\n", __func__);
+ 	lcd_writel(ofb->fbi, LCSR1, LCSR1_BS(1));
+ 	lcd_writel(ofb->fbi, LCCR5, lccr5 & ~LCSR1_BS(1));
++	reinit_completion(&ofb->branch_done);
+ 	lcd_writel(ofb->fbi, FBR1, ofb->fbi->fdadr[DMA_OV1] | 0x3);
  
- 	set_freezable();
-@@ -1290,6 +1284,9 @@ static int pxafb_smart_init(struct pxafb_info *fbi)
- 	init_completion(&fbi->command_done);
- 	init_completion(&fbi->refresh_done);
+ 	if (wait_for_completion_timeout(&ofb->branch_done, 1 * HZ) == 0)
+@@ -705,6 +706,7 @@ static void overlay2fb_disable(struct pxafb_layer *ofb)
  
-+	if (!fbi->inf->smart_update)
-+		return -EINVAL;
-+
- 	fbi->smart_thread = kthread_run(pxafb_smart_thread, fbi,
- 					"lcd_refresh");
- 	if (IS_ERR(fbi->smart_thread)) {
-@@ -1299,8 +1296,15 @@ static int pxafb_smart_init(struct pxafb_info *fbi)
- 
- 	return 0;
+ 	lcd_writel(ofb->fbi, LCSR1, LCSR1_BS(2));
+ 	lcd_writel(ofb->fbi, LCCR5, lccr5 & ~LCSR1_BS(2));
++	reinit_completion(&ofb->branch_done);
+ 	lcd_writel(ofb->fbi, FBR2, ofb->fbi->fdadr[DMA_OV2_Y]  | 0x3);
+ 	lcd_writel(ofb->fbi, FBR3, ofb->fbi->fdadr[DMA_OV2_Cb] | 0x3);
+ 	lcd_writel(ofb->fbi, FBR4, ofb->fbi->fdadr[DMA_OV2_Cr] | 0x3);
+@@ -894,7 +896,6 @@ static void init_pxafb_overlay(struct pxafb_info *fbi, struct pxafb_layer *ofb,
+ 	ofb->ops = &ofb_ops[id];
+ 	ofb->usage = 0;
+ 	ofb->fbi = fbi;
+-	init_completion(&ofb->branch_done);
  }
-+
-+static void pxafb_smart_exit(struct pxafb_info *fbi)
+ 
+ static inline int pxafb_overlay_supported(void)
+@@ -1170,6 +1171,7 @@ int pxafb_smart_flush(struct fb_info *info)
+ 	lcd_writel(fbi, FDADR6, fbi->fdadr[6]);
+ 
+ 	/* begin sending */
++	reinit_completion(&fbi->command_done);
+ 	lcd_writel(fbi, LCCR0, fbi->reg_lccr0 | LCCR0_ENB);
+ 
+ 	if (wait_for_completion_timeout(&fbi->command_done, HZ/2) == 0) {
+@@ -1281,9 +1283,6 @@ static int pxafb_smart_init(struct pxafb_info *fbi)
+ 	fbi->smart_cmds = (uint16_t *) fbi->dma_buff->cmd_buff;
+ 	fbi->n_smart_cmds = 0;
+ 
+-	init_completion(&fbi->command_done);
+-	init_completion(&fbi->refresh_done);
+-
+ 	if (!fbi->inf->smart_update)
+ 		return -EINVAL;
+ 
+@@ -1779,6 +1778,23 @@ static void pxafb_decode_mach_info(struct pxafb_info *fbi,
+ 		fbi->video_mem_size = video_mem_size;
+ }
+ 
++static void pxafb_init_completions(struct pxafb_info *fbi)
 +{
-+	if (!IS_ERR_OR_NULL(fbi->smart_thread))
-+		kthread_stop(fbi->smart_thread);
++#ifdef CONFIG_FB_PXA_OVERLAY
++	int i;
++#endif
++
++	init_completion(&fbi->disable_done);
++#ifdef CONFIG_FB_PXA_SMARTPANEL
++	init_completion(&fbi->command_done);
++	init_completion(&fbi->refresh_done);
++#endif
++#ifdef CONFIG_FB_PXA_OVERLAY
++	for (i = 0; i < 2; i++)
++		init_completion(&fbi->overlay[i].branch_done);
++#endif
 +}
- #else
- static inline int pxafb_smart_init(struct pxafb_info *fbi) { return 0; }
-+static inline void pxafb_smart_exit(struct pxafb_info *fbi) { }
- #endif /* CONFIG_FB_PXA_SMARTPANEL */
++
+ static struct pxafb_info *pxafb_init_fbinfo(struct device *dev,
+ 					    struct pxafb_mach_info *inf)
+ {
+@@ -1835,7 +1851,7 @@ static struct pxafb_info *pxafb_init_fbinfo(struct device *dev,
+ 	init_waitqueue_head(&fbi->ctrlr_wait);
+ 	INIT_WORK(&fbi->task, pxafb_task);
+ 	mutex_init(&fbi->ctrlr_lock);
+-	init_completion(&fbi->disable_done);
++	pxafb_init_completions(fbi);
  
- static void setup_parallel_timing(struct pxafb_info *fbi,
-@@ -2366,6 +2370,7 @@ static int pxafb_probe(struct platform_device *dev)
- 	if (fbi->fb.cmap.len)
- 		fb_dealloc_cmap(&fbi->fb.cmap);
- failed_free_mem:
-+	pxafb_smart_exit(fbi);
- 	free_pages_exact(fbi->video_mem, fbi->video_mem_size);
- failed_free_dma:
- 	dma_free_coherent(&dev->dev, fbi->dma_buff_size,
-@@ -2393,6 +2398,7 @@ static void pxafb_remove(struct platform_device *dev)
- 	unregister_framebuffer(info);
- 
- 	pxafb_disable_controller(fbi);
-+	pxafb_smart_exit(fbi);
- 
- 	if (fbi->fb.cmap.len)
- 		fb_dealloc_cmap(&fbi->fb.cmap);
+ 	return fbi;
+ }
 -- 
 2.56.0
 
