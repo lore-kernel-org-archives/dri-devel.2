@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB886606A327
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:14:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D962A606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:14:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I7b0niny
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MTFvGE94
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28B6510E5FC;
-	Mon,  2 Nov 2026 10:14:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3480610EC9B;
+	Mon,  2 Nov 2026 10:14:05 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5BAE10E5FC;
- Mon,  2 Nov 2026 10:13:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70C1010EC7B;
+ Mon,  2 Nov 2026 10:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793614436; x=1825150436;
+ t=1793614439; x=1825150439;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gYkY16qJWs/WeWk2MTD7NidEig7oBfSaX3I3f3B2UoA=;
- b=I7b0ninyrA6SFaXLr+AeAFGZDG9pFrnCCZwJIhPbUt/78pv3rk3jZiIp
- urazBUgklza7h7KtrAhFVoOd7Po1Qac6k7aQF2/68eatn2vNpyd1rEZNv
- I1m3GN3fn4G97ma87wpsQS3sRjsq0VwsY6bpif5qGycqqg334OaNwXdu+
- aeno2JZGvRhECeayHC3tRpgbWgf/AJ9NS8hZ6B1BWJ79+rk7DBjOaKJC3
- SE7/4Mp861/yYVe63MGNvYRcnkDW/Y2jF5bWqCWebwyUcUs1tE03igX4E
- nvCz3+GVlWcLsVlgdVyMG8L45afIfZ56+HC+ihNZcC3mL31HdD0TsP4Rh g==;
-X-CSE-ConnectionGUID: 4yiSkeNZT8m+COLy8B40og==
-X-CSE-MsgGUID: Ue/e8vmiRpyQT07SOb7tTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2200792"
+ bh=0NTrsm7I7ghAOJMVFr4UFDmy5rrY006Ruj9auTIWaOw=;
+ b=MTFvGE94+s6TwaWYCAvuzeOOCXydSpvGhvqW4/RCIYJ6CUCcaa9AAG84
+ wdrNT6CL9pf9iXhDcaqFEDh+2MarWx0TqbyyxdGJBCbSO9aBwhZOHCZ/k
+ yuDtw2N7Rvx3jM+DwFg5tNs8tls+h+i6h7jbm9wjc+6n+yFeWK+6sY+De
+ elyeKqMofSSfPFaY6SC8MONgBHIH4+SG38ooGTFZ582yjALn6xWQPKXSc
+ xRE4kjEjd86molUP+B+USGqtAJSNHoEifCax9WWgu3gqbYcdzimcDxbHm
+ lCRB9BiSFv+MdFFuqblxwCaYQ+U+tSVwN1yU7uv1ry5mN+h/7yJmia5LF g==;
+X-CSE-ConnectionGUID: GVVigiLsT6aJQz83dkKo2g==
+X-CSE-MsgGUID: WpmrP5ijQna+QH/9YqqYJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2200798"
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2200792"
+   d="scan'208";a="2200798"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 02:13:56 -0800
-X-CSE-ConnectionGUID: TLXTsnfqTiaPxJme0OzgwA==
-X-CSE-MsgGUID: gM//CNhvRq+7k9zEQCDylQ==
+ 02 Nov 2026 02:13:59 -0800
+X-CSE-ConnectionGUID: Wo9OyLXlQKeCIRxAz1huKQ==
+X-CSE-MsgGUID: H4VWz/5TT0K0TEm4iMxLRA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6002756"
+   d="scan'208";a="6002762"
 Received: from hghimira.iind.intel.com ([10.190.239.34])
- by orviesa004.jf.intel.com with ESMTP; 02 Nov 2026 02:13:53 -0800
+ by orviesa004.jf.intel.com with ESMTP; 02 Nov 2026 02:13:56 -0800
 From: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Huang Rui <ray.huang@amd.com>,
@@ -48,10 +48,9 @@ Cc: Matthew Auld <matthew.auld@intel.com>,
  Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org,
  Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Subject: [RFC 1/7] drm/ttm/pool: Add ttm_pool_alloc_node() for caller-selected
- NUMA node
-Date: Mon,  2 Nov 2026 15:48:05 +0530
-Message-ID: <20261102101803.455921-10-himal.prasad.ghimiray@intel.com>
+Subject: [RFC 2/7] drm/ttm: Add NUMA node aware restore helpers
+Date: Mon,  2 Nov 2026 15:48:06 +0530
+Message-ID: <20261102101803.455921-11-himal.prasad.ghimiray@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102101803.455921-9-himal.prasad.ghimiray@intel.com>
 References: <20261102101803.455921-9-himal.prasad.ghimiray@intel.com>
@@ -77,85 +76,37 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-ttm_pool_alloc() always allocates on the pool's default node, although
-the internal TTM helpers (__ttm_pool_alloc(), ttm_pool_alloc_page(),
-ttm_pool_type_take()) already take a nid. Add ttm_pool_alloc_node() to
-let a driver pass that nid for a specific tt.
+Restore after shrinker backup always allocates on the pool's default
+node, so a placement chosen with ttm_pool_alloc_node() is lost. The
+internal restore path already uses __ttm_pool_alloc(), which takes a
+nid; add ttm_tt_restore_node() to pass it through.
 
-ttm_pool_alloc() passes NUMA_NO_NODE, keeping current behaviour. An
-explicit node on a dma_alloc pool returns -EOPNOTSUPP, as
-dma_alloc_attrs() can't honor it.
+ttm_tt_restore() passes NUMA_NO_NODE, keeping current behaviour.
 
 Signed-off-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 59 +++++++++++++++++++++++++++++-----
- include/drm/ttm/ttm_pool.h     |  2 ++
- 2 files changed, 53 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/ttm/ttm_pool.c          | 32 ++++++++++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_pool_internal.h |  4 ++++
+ drivers/gpu/drm/ttm/ttm_tt.c            | 20 ++++++++++++++--
+ include/drm/ttm/ttm_tt.h                |  2 ++
+ 4 files changed, 55 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 1bf37023fed6..54d2f6b5c229 100644
+index 54d2f6b5c229..2107dc6c69b3 100644
 --- a/drivers/gpu/drm/ttm/ttm_pool.c
 +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -158,9 +158,9 @@ static int ttm_pool_nid(struct ttm_pool *pool)
- 	return nid;
- }
- 
--/* Allocate pages of size 1 << order with the given gfp_flags */
-+/* Allocate pages of size 1 << order with the given gfp_flags on node @nid */
- static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
--					unsigned int order)
-+					unsigned int order, int nid)
- {
- 	const unsigned int beneficial_order = ttm_pool_beneficial_order(pool);
- 	unsigned long attr = DMA_ATTR_FORCE_CONTIGUOUS;
-@@ -189,7 +189,7 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 	}
- 
- 	if (!ttm_pool_uses_dma_alloc(pool)) {
--		p = alloc_pages_node(pool->nid, gfp_flags, order);
-+		p = alloc_pages_node(nid, gfp_flags, order);
- 		if (p) {
- 			p->private = order;
- 			mod_lruvec_page_state(p, NR_GPU_ACTIVE, 1 << order);
-@@ -783,7 +783,8 @@ static unsigned int ttm_pool_alloc_find_order(unsigned int highest,
- static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 			    const struct ttm_operation_ctx *ctx,
- 			    struct ttm_pool_alloc_state *alloc,
--			    struct ttm_pool_tt_restore *restore)
-+			    struct ttm_pool_tt_restore *restore,
-+			    int nid)
- {
- 	enum ttm_caching page_caching;
- 	gfp_t gfp_flags = GFP_USER;
-@@ -818,7 +819,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 		p = NULL;
- 		pt = ttm_pool_select_type(pool, page_caching, order);
- 		if (pt && allow_pools)
--			p = ttm_pool_type_take(pt, ttm_pool_nid(pool));
-+			p = ttm_pool_type_take(pt, nid);
- 
- 		/*
- 		 * If that fails or previously failed, allocate from system.
-@@ -829,7 +830,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 		if (!p) {
- 			page_caching = ttm_cached;
- 			allow_pools = false;
--			p = ttm_pool_alloc_page(pool, gfp_flags, order);
-+			p = ttm_pool_alloc_page(pool, gfp_flags, order, nid);
- 		}
- 		/* If that fails, lower the order if possible and retry. */
- 		if (!p) {
-@@ -900,10 +901,52 @@ int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 
- 	ttm_pool_alloc_state_init(tt, &alloc);
- 
--	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
-+	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL, ttm_pool_nid(pool));
- }
- EXPORT_SYMBOL(ttm_pool_alloc);
- 
+@@ -962,6 +962,30 @@ EXPORT_SYMBOL(ttm_pool_alloc_node);
+  */
+ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 			       const struct ttm_operation_ctx *ctx)
++{
++	return ttm_pool_restore_and_alloc_node(pool, tt, ctx, NUMA_NO_NODE);
++}
++EXPORT_SYMBOL(ttm_pool_restore_and_alloc);
++
 +/**
-+ * ttm_pool_alloc_node - Fill a ttm_tt object, placing pages on a given node
++ * ttm_pool_restore_and_alloc_node - Fill a ttm_tt, restoring previously
++ * backed-up content, placing pages on a given node.
 + *
 + * @pool: ttm_pool to use
 + * @tt: ttm_tt object to fill
@@ -163,64 +114,106 @@ index 1bf37023fed6..54d2f6b5c229 100644
 + * @nid: NUMA node id to allocate the backing system pages from, or
 + * NUMA_NO_NODE to use the pool's default node (@ttm_pool.nid)
 + *
-+ * Like ttm_pool_alloc(), but allows the caller to override the NUMA node the
-+ * backing system pages are allocated from. This only affects the
-+ * non-coherent (non dma-alloc) allocation path; coherent/dma pools continue
-+ * to use the device-local node. Intended for drivers that expose a
-+ * user-selectable host memory NUMA placement.
++ * Like ttm_pool_restore_and_alloc(), but allows the caller to keep the NUMA
++ * placement requested at ttm_pool_alloc_node() time across backup / restore.
 + *
 + * Returns: 0 on success, -EOPNOTSUPP if @nid is specified on a coherent/dma
 + * pool, negative error code otherwise.
 + */
-+int ttm_pool_alloc_node(struct ttm_pool *pool, struct ttm_tt *tt,
-+			struct ttm_operation_ctx *ctx, int nid)
-+{
-+	struct ttm_pool_alloc_state alloc;
-+
-+	if (WARN_ON(ttm_tt_is_backed_up(tt)))
-+		return -EINVAL;
-+
-+	/*
-+	 * Coherent/dma pools allocate via dma_alloc_attrs(), which places pages
-+	 * per device DMA constraints and cannot honor a caller-requested node.
-+	 */
++int ttm_pool_restore_and_alloc_node(struct ttm_pool *pool, struct ttm_tt *tt,
++				    const struct ttm_operation_ctx *ctx,
++				    int nid)
+ {
+ 	struct ttm_pool_tt_restore *restore = tt->restore;
+ 	struct ttm_pool_alloc_state alloc;
+@@ -970,6 +994,12 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
+ 		return -EINVAL;
+ 
 +	if (nid != NUMA_NO_NODE && ttm_pool_uses_dma_alloc(pool))
 +		return -EOPNOTSUPP;
 +
 +	if (nid == NUMA_NO_NODE)
 +		nid = ttm_pool_nid(pool);
 +
-+	ttm_pool_alloc_state_init(tt, &alloc);
-+
-+	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL, nid);
-+}
-+EXPORT_SYMBOL(ttm_pool_alloc_node);
-+
- /**
-  * ttm_pool_restore_and_alloc - Fill a ttm_tt, restoring previously backed-up
-  * content.
-@@ -964,7 +1007,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ 	if (!restore) {
+ 		gfp_t gfp = GFP_KERNEL | __GFP_NOWARN;
+ 
+@@ -1007,7 +1037,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
  		}
  	}
  
--	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
-+	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore, ttm_pool_nid(pool));
+-	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore, ttm_pool_nid(pool));
++	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore, nid);
  }
  
  /**
-diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
-index 26ee592e1994..6a0b14aca092 100644
---- a/include/drm/ttm/ttm_pool.h
-+++ b/include/drm/ttm/ttm_pool.h
-@@ -79,6 +79,8 @@ struct ttm_pool {
+diff --git a/drivers/gpu/drm/ttm/ttm_pool_internal.h b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+index cbb17a2129fe..66ee0e57cdeb 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
++++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+@@ -22,6 +22,10 @@ static inline unsigned int ttm_pool_beneficial_order(struct ttm_pool *pool)
+ 	return pool->alloc_flags & 0xff;
+ }
  
- int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 		   struct ttm_operation_ctx *ctx);
-+int ttm_pool_alloc_node(struct ttm_pool *pool, struct ttm_tt *tt,
-+			struct ttm_operation_ctx *ctx, int nid);
- void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
++int ttm_pool_restore_and_alloc_node(struct ttm_pool *pool, struct ttm_tt *tt,
++				    const struct ttm_operation_ctx *ctx,
++				    int nid);
++
+ /*
+  * Implemented in ttm_pool.c, used by ttm_backup.c. Returns true if a fault
+  * should be injected mid-compound to test the reactive split-and-retry
+diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
+index b645a1818184..775219ae5367 100644
+--- a/drivers/gpu/drm/ttm/ttm_tt.c
++++ b/drivers/gpu/drm/ttm/ttm_tt.c
+@@ -298,7 +298,23 @@ long ttm_tt_backup(struct ttm_device *bdev, struct ttm_tt *tt,
+ int ttm_tt_restore(struct ttm_device *bdev, struct ttm_tt *tt,
+ 		   const struct ttm_operation_ctx *ctx)
+ {
+-	int ret = ttm_pool_restore_and_alloc(&bdev->pool, tt, ctx);
++	return ttm_tt_restore_node(bdev, tt, ctx, NUMA_NO_NODE);
++}
++EXPORT_SYMBOL(ttm_tt_restore);
++
++/**
++ * ttm_tt_restore_node - Restore a backed-up tt, placing pages on a given node
++ * @bdev: The TTM device.
++ * @tt: The struct ttm_tt to restore.
++ * @ctx: The operation context.
++ * @nid: NUMA node for the restored pages, or NUMA_NO_NODE for the pool default.
++ *
++ * Return: 0 on success, negative error code on failure.
++ */
++int ttm_tt_restore_node(struct ttm_device *bdev, struct ttm_tt *tt,
++			const struct ttm_operation_ctx *ctx, int nid)
++{
++	int ret = ttm_pool_restore_and_alloc_node(&bdev->pool, tt, ctx, nid);
  
- void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+ 	if (ret)
+ 		return ret;
+@@ -307,7 +323,7 @@ int ttm_tt_restore(struct ttm_device *bdev, struct ttm_tt *tt,
+ 
+ 	return 0;
+ }
+-EXPORT_SYMBOL(ttm_tt_restore);
++EXPORT_SYMBOL(ttm_tt_restore_node);
+ 
+ /**
+  * ttm_tt_swapout - swap out tt object
+diff --git a/include/drm/ttm/ttm_tt.h b/include/drm/ttm/ttm_tt.h
+index 406437ad674b..7a75e22a7f70 100644
+--- a/include/drm/ttm/ttm_tt.h
++++ b/include/drm/ttm/ttm_tt.h
+@@ -297,6 +297,8 @@ long ttm_tt_backup(struct ttm_device *bdev, struct ttm_tt *tt,
+ 
+ int ttm_tt_restore(struct ttm_device *bdev, struct ttm_tt *tt,
+ 		   const struct ttm_operation_ctx *ctx);
++int ttm_tt_restore_node(struct ttm_device *bdev, struct ttm_tt *tt,
++			const struct ttm_operation_ctx *ctx, int nid);
+ 
+ int ttm_tt_setup_backup(struct ttm_tt *tt);
+ 
 -- 
 2.43.0
 
