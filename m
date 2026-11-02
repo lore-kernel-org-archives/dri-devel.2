@@ -2,37 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55E6606A32E
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FCF606A336
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:43:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=il+EJqI1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRCje4FB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0632610EC26;
-	Mon,  2 Nov 2026 08:42:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6A4E10EC2F;
+	Mon,  2 Nov 2026 08:43:48 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE9B310EC2F
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:42:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21CDB10EC2D
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:43:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8715941A01;
- Mon,  2 Nov 2026 08:42:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382971F000C1;
- Mon,  2 Nov 2026 08:42:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 089E84321F;
+ Mon,  2 Nov 2026 08:43:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C6B1F00919;
+ Mon,  2 Nov 2026 08:43:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793608967;
- bh=Z9N1oUYOfEJ8wrfzt4kRP6+m5ByvucuS9GWjxSVa6Kw=;
+ s=k20260515; t=1793609021;
+ bh=T0sqVS3Vto4Tz5gI7WeYJS1xhznPn0i50/C0F68+Ty8=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=il+EJqI1ya6PSV5bV8nfWpX/VAXmB+PShw94CcxxkVQnd7+SVdCBxSZdF2jtyQYl7
- siBwm8xeaYitWaQR8GAy+SgAeqnD29kusfR50WLYcufU+gMRRWLTvy9clpGFa8pLMT
- fazRm2zTh7heeVLLjQAt9K2tYkDjk5xpFimmilknBYqFCcfcU5cmw1rHmM2e9PMgT4
- wmnVMkSkuFJ2TQk7rBcGRnmGQYC1QuxwVo/32rwrfeLU4OY3sEiAnahCZkSTmYOM1e
- wZ1ln5Vssonh3OQ93fK2GQ1DN5ksdRBK2Uwna2Kdl4sLnizyjsWMqBEsmRD6F22f+Q
- hx4/++Kr1NpnQ==
-Message-ID: <c4f7b153-feb3-472f-b13c-c7fb0a46f9b6@kernel.org>
-Date: Mon, 2 Nov 2026 09:42:34 +0100
+ b=hRCje4FBuAgvwOtA367cyOpq7q1x5xbCqyjk3tOR/HRt9Vt3AGZFoshuZjr0PIOnd
+ W8sWomB3VHb2qzipSHHeqtdQqcVFVozBYcX2M1BfOaPnZJcmGKs0tLYAsjLFV7qiXZ
+ WsdEIzhqVUsDVhihT2fWzoGQBn5ENkUz+JF8CEnbm9Slwa6DSRNgpLAG86etxOmEWp
+ EA+oEauOXcIh2zQl8HSkyRxDLd4u2xsx99/sx9Gy9yhRyqfTHZbPS9DIOBXGNQKwv8
+ pFVILfVnmc0h8ZH374QrkFGPesM0YESYvUhAyC1O2PR9g8hGHwvux4efVikPgYAVxU
+ xib4bu9I+dBxw==
+Message-ID: <492ed183-9495-401e-b678-e91a324f5a64@kernel.org>
+Date: Mon, 2 Nov 2026 09:43:30 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/25] accel/qda: Add initial QDA DRM accelerator driver
+Subject: Re: [PATCH v4 03/25] accel/qda: Add compute context bank devices
 To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
  Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
  Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
@@ -56,7 +56,7 @@ Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
  Chenna Kesava Raju <quic_chennak@quicinc.com>,
  Ekansh Gupta <ekangupt@qti.qualcomm.com>
 References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <20261102-v4-v4-2-88f2f24a5f0b@qti.qualcomm.com>
+ <20261102-v4-v4-3-88f2f24a5f0b@qti.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -102,7 +102,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261102-v4-v4-2-88f2f24a5f0b@qti.qualcomm.com>
+In-Reply-To: <20261102-v4-v4-3-88f2f24a5f0b@qti.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -116,37 +116,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 01/11/2026 23:21, Ekansh Gupta wrote:
-> +
-> +#include "qda_drv.h"
-> +
-> +/*
-> + * Both compatibles the binding defines are matched here. The glymur, hawi,
-> + * maili and nord nodes name "qcom,kaanapali-fastrpc" as their fallback
-> + * compatible and so are matched by that entry. Per-SoC DSP parameters are
-> + * attached as match data by a later patch, once there is something that
+> diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
+> index 6bd977e8d68a..78b5f31974c1 100644
+> --- a/drivers/accel/qda/qda_rpmsg.c
+> +++ b/drivers/accel/qda/qda_rpmsg.c
+> @@ -5,18 +5,18 @@
+>  #include <linux/rpmsg.h>
+>  #include <drm/drm_print.h>
+>  
+> +#include "qda_cb.h"
+>  #include "qda_drv.h"
+> +#include "qda_soc.h"
+>  
+>  /*
+>   * Both compatibles the binding defines are matched here. The glymur, hawi,
+>   * maili and nord nodes name "qcom,kaanapali-fastrpc" as their fallback
+> - * compatible and so are matched by that entry. Per-SoC DSP parameters are
+> - * attached as match data by a later patch, once there is something that
+> - * consumes them.
 
-So you add empty or non-working code. No, add these once you actually
-have complete and working table.
+You just added this in previous commit. Why adding invalid
+documentation, which is immediately removed?
 
-> + * consumes them.
-> + */
-
-Drop comment, redundant. Referencing future patches makes no sense in
-source code, because there is no "patch" when looking at the code.
-
-> +static const struct of_device_id qda_rpmsg_of_match[] = {
-> +	{ .compatible = "qcom,kaanapali-fastrpc" },
-> +	{ .compatible = "qcom,fastrpc" },
-> +	{ }
-
+> + * compatible and so are matched by that entry.
 
 
 
