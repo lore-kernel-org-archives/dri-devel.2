@@ -2,86 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D11606A32D
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:21:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5ED0606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:23:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Fm8pWGqN
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lpAftXIm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06D8E10EE1B;
-	Mon,  2 Nov 2026 13:21:39 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8130E10EE35
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:21:32 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4a5087a5348so24083535e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:21:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E096810EE5E;
+	Mon,  2 Nov 2026 13:23:00 +0000 (UTC)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2DE310EE57
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:22:54 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-48afbd2c386so1741932f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:22:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1793625691; x=1794230491; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1793625773; x=1794230573; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=yzb4FLFHNkxHewORAzgIXxT9puE5wh1HG/JpGad3oS4=;
- b=Fm8pWGqN2YAfGmmIiKtGtTR3v6IIqTAR1G2MAg0z8rBCNHV9GqNt/CAw+YKMFS5mMX
- DRAz0KjqSn1XBctFTsmfQGtJDyY9eyCvlURyfV06N6w7/c4Xqg0cAql2O00awlXQtQiW
- DDHNkQRRuzqcQX59sWdTVQ7KcQRkYLe5ve3zPfkdfXcsdlH9BtIb1adDttp0ht27ahCX
- cy2Hhvk/Hn5zYUDwm8P1FtijL1WUkYGT9ARiUNanfvw8KUwPkeLAbrSmcIjca4PVOivm
- fvcgO8Hg8COZuO/shYP/PK51qpjwd6Gx0D8sv12fhw43E4RUmWKRyrcYjl8GY1we+3cB
- wvjQ==
+ bh=tOUwoJJ2xHQgVFDnHDlORcv3rq2tKQISQ2U/UtTWQ6E=;
+ b=lpAftXIm3mEsH2FWkJkn9o/A5A9VT0sH+5nbVbs27HdAHifzdgvA/+gaocWurOF6Kc
+ +aP+XTOyCECLzhToY3srsu6f8x92Whg4N+6t3xPNkRYAH/Kqocfdlm2PFofG87kdM5Po
+ lRnpDF1hX+10sDRm15/08gBGaeCSH4Lmfe8t4FbQVpG53Lm8Vr71mYhlugAo+Bc5s1ss
+ WN0ACiBEbL518TRbTV93sQ9lcm3l96+2IgD8KlnmCH/4kGgtvzezWwKB/RSA/I6iSpUP
+ xyGXcZawoS/DntrAx9IhF3EUkx/7mTsiWdgkEo2GJqapZTEqi/2EK54SLWfmLn81U1dr
+ daGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793625691; x=1794230491;
+ d=1e100.net; s=20260707; t=1793625773; x=1794230573;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=yzb4FLFHNkxHewORAzgIXxT9puE5wh1HG/JpGad3oS4=;
- b=HRCcbzZ5z8qgxQOgg1CfyfPkd2CsFZYwAbtr0WtulMyXvAn1I+egTsZ4XML3xnLLFp
- grxZwgDv0QsiNXcdHp/5lFY4HxWmudL27E0P9yGaBIcWr5ETb4PDz3uKkscOeXLr84kN
- 1thNSbk5LbbkYXyQSI7TRYOzcg2UmRJ6XhHKQbzLgA3ODYnX5cESi2Zv0fOvo8cnXBIF
- aGZaB7GUIAO+ZxrON8EXS2OQuhnnfC5JFDVKh0hk7y/1KrGBQJHkdA4EmBb0mKSCtkZ8
- tQnXuiZfjCmEQzGL7owN1543rSpEB1+nObsQTkN8UvYeVEQ2Sb6MEdBmfT5670Xqye8D
- JdVA==
+ bh=tOUwoJJ2xHQgVFDnHDlORcv3rq2tKQISQ2U/UtTWQ6E=;
+ b=CaSli4GRiLBikWkqn05cGikGB55SbKZXIkih2lp6CnG9Veap88P8LaFO03Jl1gwV//
+ TMI6tiCuoQQ3eqUZ6ZUdMM8BGFooBHaRXGcLQDGWYPaZj3ZI5ki//GCMpmK2XF9W0n22
+ wYNliNbMLrchNa3Vnp6cl+0KzAhCdpVGs4ExEi1mhNsVa82YLTnLXx3jniG57eniDdyg
+ MMJzrudRuNGnheTzeInLTlgwW4FGm6vXbTxibdXYDVyExJMbTG/+wob2HKW32qlT6zLo
+ sbv7YHp+VtkJN2/1rXks4ERFaR7g8ifFLicdRyLONZpSziVIry9f5ReUVtnEUqN/YuQF
+ UABQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzgz9ygG2CMpSCkS7Zet+TWNw+op+cpHswnjIm5zhtC+2Kj3UZTdsEiOBew5A6gpFIPmSV0YlAV+90=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYKORK6VSE3h1AJrVixPSMli9LO3hh7dG1tOfF/GKUZSJYtrzaBg
- oqMVB1eAqdogbWvn8kTlxdbSbxjXeCSAhBvG59uXRwRnwqiPCbeour3+8Id75u6F7bk6vZlo5bH
- MqzMe
-X-Gm-Gg: AYBFou2GvchCVipKoKW3MqN7PbNmXTaWPj1XfjffhkZt/dKfNQ9gbgM0Vqh15kIPb4G
- FYLr5HNgAB2Bt+6y8A5GbfA9DsK3puTY3ifEBT9qjEHe2toStc2RPKFDVgk/k5uVJ4OtD21jyRs
- NCJ7DVGqm0RAv4yboFLFBSmoEzQ4GV5zBS0oYj8+aoqw/Z1LCtBXg+IJlz+Kk28f8Dsz655Np2x
- 3nhxNZi4wE9uySGVj2wSQ20LywWeKysCUpSXzHTmezf9zgoTqyjXlK5WvjR/GdchAxqPFJt0Xed
- bV7jON7mj9Qweudiosf9opZR7qePDgSTlouWuiyhDKY1hpffojtrmxqDwUMFag53DLJu+ceqdHL
- AZ6H2PMMjV6d2/16Zk3xLAQkJwlMqK057lqaPk28keuZI8qUi1nq/Woexck8413p+IfNWtTcb6u
- BrLMk6TYq+Q69Z/ZqaPJwiqiGCrfRBpOePuw3MtwyRgzuM9JJvx5fSTCselcg1CrJVHxRUZFZEb
- B8Vl5id9l81EnEXJ20BpSHKVUskgzLF4bMrMr2bGM4FMvB8QnIb0BRijsi1z5pOEKU2V2SaqED4
- TVnZzCqjAtbjOQWazuz7UA30VBcgsfJF5WhswfRSDEBqFxeiadphkC5uziQIKQ6xLzLZ5mbeKmp
- IeXJ3
-X-Received: by 2002:a05:600c:a00b:b0:4a2:180b:3153 with SMTP id
- 5b1f17b1804b1-4ac185bcc7dmr242358135e9.14.1793625690760; 
- Mon, 02 Nov 2026 05:21:30 -0800 (PST)
+ AKwUvBwHY1Ol+ydneO235y5VNUYwz/MvDsnrV41dpitxj8SvoiXnz0P7zUF+meCM+PWvkQ/LzSTtWe4GqjI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8tFfV86Q84cnkxvheAtvmXf0SbBb/qVmO1KccIdw/4+ykaRF6q
+ Uq6h/hl8Tsw8oYf6PmbmhGthKilt0VDbVYXyaYgteTTJkyeh7e+P7SG9wojcRKjEIr8=
+X-Gm-Gg: AYBFou1YhBmHC0J82UhbUiqrrG+K+62b1BjWCNBpUkINWykOv83BYe3uLXgBgd0Uxyn
+ wuTvRwyYEC9Cr9jSDxvNUuAoDGVokFxhHdOT1O8vUsndIWTzfKbxY3lTmfVd6OlqGSGVp6w/Ood
+ IkAS99+OTR4T2Ht0JG6EgRgMuybc1mab05+69gN51IeQ5OQ32EJUq1k52GBNxqprv4SAQ1bjDJu
+ JZs/rAkRlrFTvw1k6yo2/CF7bXq/eltkrfC0zJQsZ/313cFB8YNXdde7YZc/0P1BB2cEf/bFxNb
+ xvRNInFgnc3OEMpnV6ohQjiKsq6rLDsqchwXw9vWvxDwgWdaLFAMwJuEuSN1X1OtTWG1ATKCEFd
+ wMOhLgt+71Ig40IqtLSat+Zj/MZAa/wMufdRfbiuTP4bP3RtXuW5x4H3xN9NdWNHrpBIl1YuylP
+ +lpOLl6i5lurI428Qt5Wdz0HBbYV+opFIFoGc9NAVCXjp7eVt5fBDhcKb+dLueU3jEg3fALHO2z
+ NY7Q04sJ5+Gkj2720A0e1b5UmPoWFaU63s+OUhVkOz62JiZRXgHn/e6RxBlguH2QBW+49NiLFeh
+ mWrK+2FMU+8LUqeinMs2DKmPnF6BbhIUq2pxaTiXee4yqlB3SYXX+wfAn/lVFmwp/Gh6M15Xm+A
+ gud11uy53ZeMjnA+XmTJOGtP4Tww=
+X-Received: by 2002:a5d:6f0b:0:b0:48e:f14:61bd with SMTP id
+ ffacd0b85a97d-48e6e2f6772mr23661360f8f.14.1793625772934; 
+ Mon, 02 Nov 2026 05:22:52 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262?
  ([2a01:e0a:106d:1080:9476:5165:3a16:262])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4abf5b286a0sm228432265e9.4.2026.11.02.05.21.29
+ ffacd0b85a97d-48e71b728ddsm19859094f8f.9.2026.11.02.05.22.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 05:21:30 -0800 (PST)
-Message-ID: <484889a9-97a4-48d8-b630-27141077d0b0@linaro.org>
-Date: Mon, 2 Nov 2026 14:21:29 +0100
+ Mon, 02 Nov 2026 05:22:52 -0800 (PST)
+Message-ID: <07adb06a-5760-40fd-9c67-b562bbd72ad6@linaro.org>
+Date: Mon, 2 Nov 2026 14:22:51 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add AUO B101UAN01 panel
-To: Asif Ikbal <asif.ikbal@amd.com>
-Cc: jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- thierry.reding@gmail.com, sam@ravnborg.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, git@amd.com,
- michal.simek@amd.com, naveen.gaddipati@amd.com
-References: <20261016094638.2958431-1-asif.ikbal@amd.com>
- <20261016094638.2958431-3-asif.ikbal@amd.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 4/9] drm/panel: novatek-nt36672a: Set driver name to
+ novatek for consistency
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
+ Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ phone-devel@vger.kernel.org
+References: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
+ <20261011-nt36672a-panels-v3-4-9ea238627f8a@minlexx.ru>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -108,7 +112,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261016094638.2958431-3-asif.ikbal@amd.com>
+In-Reply-To: <20261011-nt36672a-panels-v3-4-9ea238627f8a@minlexx.ru>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -126,73 +130,53 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 10/16/26 11:46, Asif Ikbal wrote:
-> Add support for the AU Optronics B101UAN01 1920x1200 10.1" WUXGA
-> MIPI-DSI TFT LCD panel.
+On 10/11/26 13:54, Alexey Minnekhanov wrote:
+> Since this driver should represent not only devices manufactured by
+> Tianma Micro-electronics, but also from other companies, it makes more
+> sense to name it according to what driver file name already is: novatek.
 > 
-> The mode is taken from the MIPI interface timing section of the
-> B101UAN01.7 (H/W 1A) datasheet and gives a 60 Hz refresh rate.
+> This does not change neither module file name nor Kconfig symbol, only
+> driver identification in dmesg. This makes it possible to e.g. grep
+> dmesg for "novatek" and get messages from both nt36672a-based panel and
+> Novatek touchscreen.
 > 
-> Signed-off-by: Asif Ikbal <asif.ikbal@amd.com>
+> Reviewed-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 > ---
->   drivers/gpu/drm/panel/panel-simple.c | 32 ++++++++++++++++++++++++++++
->   1 file changed, 32 insertions(+)
+>   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index a944c34642dc..46ec17b6c365 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -6389,6 +6389,35 @@ static const struct panel_desc_dsi auo_b080uan01 = {
->   	.lanes = 4,
->   };
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> index 464d9ce47d87d..73bec4f47ec60 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> @@ -479,16 +479,16 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
+>   	drm_panel_remove(&pinfo->base);
+>   }
 >   
-> +static const struct drm_display_mode auo_b101uan01_mode = {
-> +	.clock = 148350,
-> +	.hdisplay = 1920,
-> +	.hsync_start = 1920 + 40,
-> +	.hsync_end = 1920 + 40 + 40,
-> +	.htotal = 1920 + 40 + 40 + 40,
-> +	.vdisplay = 1200,
-> +	.vsync_start = 1200 + 4,
-> +	.vsync_end = 1200 + 4 + 4,
-> +	.vtotal = 1200 + 4 + 4 + 4,
-> +	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
-> +};
-> +
-> +static const struct panel_desc_dsi auo_b101uan01 = {
-> +	.desc = {
-> +		.modes = &auo_b101uan01_mode,
-> +		.num_modes = 1,
-> +		.bpc = 8,
-> +		.size = {
-> +			.width = 217,
-> +			.height = 136,
-> +		},
-> +		.connector_type = DRM_MODE_CONNECTOR_DSI,
-> +	},
-> +	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.lanes = 4,
-> +};
-> +
->   static const struct drm_display_mode boe_tv080wum_nl0_mode = {
->   	.clock = 160000,
->   	.hdisplay = 1200,
-> @@ -6572,6 +6601,9 @@ static const struct of_device_id dsi_of_match[] = {
->   	{
->   		.compatible = "auo,b080uan01",
->   		.data = &auo_b080uan01
-> +	}, {
-> +		.compatible = "auo,b101uan01",
-> +		.data = &auo_b101uan01
->   	}, {
->   		.compatible = "boe,tv080wum-nl0",
->   		.data = &boe_tv080wum_nl0
+> -static const struct of_device_id tianma_fhd_video_of_match[] = {
+> +static const struct of_device_id panel_nt36672a_match[] = {
+>   	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
+>   	{ },
+>   };
+> -MODULE_DEVICE_TABLE(of, tianma_fhd_video_of_match);
+> +MODULE_DEVICE_TABLE(of, panel_nt36672a_match);
+>   
+>   static struct mipi_dsi_driver nt36672a_panel_driver = {
+>   	.driver = {
+> -		.name = "panel-tianma-nt36672a",
+> -		.of_match_table = tianma_fhd_video_of_match,
+> +		.name = "panel-novatek-nt36672a",
+> +		.of_match_table = panel_nt36672a_match,
+>   	},
+>   	.probe = nt36672a_panel_probe,
+>   	.remove = nt36672a_panel_remove,
+> 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
