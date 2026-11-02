@@ -2,46 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5979F606A334
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9856606A32E
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:22:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VGSKSCza
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q55pvIZY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 625B710E500;
-	Tue,  3 Nov 2026 08:21:57 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 031E410F30B;
- Tue,  3 Nov 2026 01:54:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=qMUImkOCYgXPrbFnFMSqUf9FeheO8k/SFfBb4PJ0Jc8=; b=V
- GSKSCza0sHIwDgV6vRzpKG66Iomb2PKZCf44eQ8yVc7NYOZQOOg4lVS5twDQiz9I
- msqLsOt9NdW1pFJrg35BZ4GlFw6qwZnWH1t8oujZAfSsZ2pqW8p13ssu3U+Sk229
- DrERfhCmAyGQHwLvSvaQpZJWcJFp99Zq7LNbkaWJbU=
-Date: Tue, 3 Nov 2026 09:54:21 +0800 (CST)
-From: Pan  <rppxj178543@163.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch
-Cc: linux-kernel@vger.kernel.org, tzimmermann@suse.de,
- timur.kristof@gmail.com, lijo.lazar@amd.com,
- renpanpan <renpanpan@kylinos.cn>, stable@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re:[PATCH] drm/amdgpu: Only enable HDMI audio if display supports it
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261102094929.251563-1-rppxj178543@163.com>
-References: <20261102094929.251563-1-rppxj178543@163.com>
-X-NTES-SC: AL_Qu2SAfqcv0At5yiYY+kdnEkWg+48XcW2v/wk3Y5Wc+wEvybM+CIYZHZkJHz079+XKR6hjhqHfTZ/++51eaVHHwBxjlNg9ew13BWEip/aSQ==
-Content-Type: multipart/alternative; 
- boundary="----=_Part_23358_503004186.1793670861817"
+	by gabe.freedesktop.org (Postfix) with ESMTP id E99A710F438;
+	Tue,  3 Nov 2026 08:21:58 +0000 (UTC)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 609DC10F26D
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 22:05:05 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-35c76e9614aso4926238eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 14:05:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793657104; x=1794261904; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=YgJaaouQ4HjkbJr/WZG70p3Wwx479oigUB8WJp3RE9g=;
+ b=q55pvIZYzEkAlElCuVH3hZoB15gCiX8M+Pirhq232G6x8ZGlC8FDHWJoFxyBJI3aER
+ Oeqm20qqFeywJj9su+2YhU19M1kF2Osff8idOstomDGRMLIeQ7PJNyYv7bWTiY4Sp4Nw
+ Xzwt1s6r6in2H5XqehqFMCh0bs35Z7Ovqm8UJ96gaaWQu5YnD3D5aOGR2qBmkBDOxpo5
+ b7bLPjJ5SBIdi9PQJONPXAweaGQZe4WzG1c8X3vF28PS2aIEBro9t5/HXcm475IBWv6T
+ S6MIbb1pcvHml1pBcmkzNUZPgq1Yqj8k1MWWtVyXdpHt30y01Ezd7oSRDeYZ/dJqq5va
+ zJ4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793657104; x=1794261904;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=YgJaaouQ4HjkbJr/WZG70p3Wwx479oigUB8WJp3RE9g=;
+ b=zX2J/0EgiubvZYRU62HEQq18AR212Hk5oOOMDDt696XEYqnuJix5HmAi+YDJlhwQaP
+ h+ZY6wIFfyy7K+kkLlxfcgxGXnPBjVd1dWtGLm5Mk6kIb27uGrGuoJYWAfgjFlhClT8l
+ UoM5eTjFBwsj9p5BZC4fhzP026peTg9Xq7y+KUIrruOWNK9fBWzP5Gi4CW0MavyAA01s
+ xAsvdLtTYReXoOzAuy0QyEkM4iMD4MA+8F4Iwm3PW6ZffW9tPRTQzu7AKZt6cC8447SP
+ Vm7mpvgyspFe5zWIuTsg7YTXkFUAnR695L0N0cpS/IS3UUl4NfayvM7bGxxC1y43/3fX
+ 1WtA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBx50hFAqyBMVprQA2P9POdMsAKJA0IsoOEhkBtRl1KD5gmgIYuuw6ktSCfirNCpNEts/q6aQGPKirI=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKrhAe9HKumaVXEAggtsMtjYTlXm3XDoHfKiyor5uKDi5Qnj/Jf
+ WxxisKt70/htcY07q0eOR2bNa4bHRJmbZAofFfSAbRILApaFwHM+8YUF
+X-Gm-Gg: AYBFou33C3gagIRnqS3URBkOp7jxG6BjNxQfZi59/jA36CxKX3hOYr3iM96ySvuNzP8
+ y6E8OVqJskewPxogZBvOQ2EDxLGyCmrqeiUT13EeSOVkyVyOm7X3b9TuHeysAjKsY9iVywZS0gw
+ z6ST6NG9rlcWlYfxK8muVsIvuIZHVw2YlZYjZ6uePkt2XYvh1baQSnu3K3B2fScWPuBk8GFeqal
+ SzkrFngR6TVGprdKE2BrR39p0WyB7QJEwmIfNwzK1F2/Ozv+9g5/v3OaS24uM9z2uChAuqmDO8M
+ hy9BmWY1ONOMhcXS0n8Qu/GgvoBW0ncdWE0Hc7GH1j0wOjcgHvJcjmvYYrwPDhp6EucOgtDhjLL
+ +EzGr8SmsqgX1VPcTP6xKjPcNfN1tVQGko7WvsfCq3paKuI0hK7FqWnEOArRKghm9ceAAaxoXG4
+ cMytFH4Z1hbqU3FXVSA/s4v6C0UTqn1Z0A4wKWzkWm/G5CkZVq7F05qIq3TcVpmjQA+p0vuYSab
+ s+MrFO4BXuIZ+Bf5+gVI94JBlehorTRBBGWvXfjUkVfQgvFW/7MJFwafdDC/W8XlOgnqNcexvzZ
+ OHx0W7rBHC3tPUx77YtJm9NUe69UsjcSCtmctjDkVMxa
+X-Received: by 2002:a05:7301:b01:b0:36a:20b8:ee9f with SMTP id
+ 5a478bee46e88-36a42203f98mr15418420eec.1.1793657104432; 
+ Mon, 02 Nov 2026 14:05:04 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-36a42952e1csm43006249eec.20.2026.11.02.14.04.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 14:05:03 -0800 (PST)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Kalyan Thota <quic_kalyant@quicinc.com>,
+ Federico Amedeo Izzo <federico@izzo.pro>,
+ Helen Koike <helen.fornazier@gmail.com>,
+ Vignesh Raman <vignesh.raman@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 09/10] drm/msm/dpu: only reassign resources when the
+ encoder is reprogrammed
+Date: Tue,  3 Nov 2026 07:05:01 +0900
+Message-ID: <20261102220501.1704-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <86bf919b-5528-42bb-aa89-b518452ed7a0@oss.qualcomm.com>
+References: <20261024-fd-kms-fix-smmu-v5-0-a5b0b284aead@oss.qualcomm.com>
+ <20261024-fd-kms-fix-smmu-v5-9-a5b0b284aead@oss.qualcomm.com>
+ <86bf919b-5528-42bb-aa89-b518452ed7a0@oss.qualcomm.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Message-ID: <2076a0.17fb.1a19f1d53f9.Coremail.rppxj178543@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: ZygvCgD3l2LNPulqbDVmAA--.1111W
-X-CM-SenderInfo: huss5yirxykkqt6rljoofrz/xtbC6g3X1mrpPs0zGQAA38
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
-X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:45 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,162 +106,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,HTML_MESSAGE,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-------=_Part_23358_503004186.1793670861817
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
+On 10/26/26 10:19 AM, Konrad Dybcio wrote:
+> LLM is curious whether turning off CTM/GAMMA should trigger a modeset too.
+> My hunch is "yes"
 
-CgpUaGlzIGZpeCBpcyBhbHNvIG5lZWRlZCBmb3Igc3RhYmxlIGtlcm5lbHMgKDUuNCspLiBUaGUg
-YnVnIGV4aXN0cwpzaW5jZSB0aGUgbGVnYWN5IERDRSBhdWRpbyBwYXRoIHdhcyBpbnRyb2R1Y2Vk
-IGFuZCBhZmZlY3RzIHVzZXJzIG9uCkxUUyA1LjQga2VybmVscyB3aXRoIEFNRCBTb3V0aGVybiBJ
-c2xhbmRzIC8gQ0lLIC8gVkkgR1BVcyBjb25uZWN0ZWQKdG8gZGlzcGxheXMgd2l0aG91dCBhdWRp
-byBzdXBwb3J0LgoKQ291bGQgeW91IHBsZWFzZSBhZGQgdGhlIGZvbGxvd2luZyBsaW5lIHdoZW4g
-YXBwbHlpbmc/CgogIENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnICMgNS40KwoKVGhhbmtzLgoK
-CgoKCgoKCgpBdCAyMDI2LTExLTAyIDE3OjQ5OjI5LCBycHB4ajE3ODU0M0AxNjMuY29tIHdyb3Rl
-Ogo+RnJvbTogcmVucGFucGFuIDxyZW5wYW5wYW5Aa3lsaW5vcy5jbj4KPgo+VGhlIGFtZGdwdSBs
-ZWdhY3kgRENFIGF1ZGlvIHBhdGggKGRjZV92Ni92OC92MTApIHVuY29uZGl0aW9uYWxseSBjYWxs
-cwo+YXVkaW9fZW5hYmxlKHBpbiwgdHJ1ZSkgYXQgdGhlIGVuZCBvZiBhZm10X3NldG1vZGUoKSwg
-cmVnYXJkbGVzcyBvZgo+d2hldGhlciB0aGUgY29ubmVjdGVkIGRpc3BsYXkgYWR2ZXJ0aXNlcyBh
-dWRpbyBzdXBwb3J0IGluIGl0cyBFRElELgo+Cj5UaGlzIGNhdXNlcyBhIHBoYW50b20gSERNSSBh
-dWRpbyBvdXRwdXQgdG8gYXBwZWFyIGZvciBkaXNwbGF5cyB0aGF0Cj5oYXZlIG5vIGF1ZGlvIGNh
-cGFiaWxpdHkgKG5vIGJhc2ljIGF1ZGlvIGJpdCwgbm8gQXVkaW8gRGF0YSBCbG9jayBpbgo+RURJ
-RCksIGJlY2F1c2UgdGhlIEdQVSBzZXRzIHRoZSBBVURJT19FTkFCTEVEIHJlZ2lzdGVyIGJpdCwg
-d2hpY2gKPmRyaXZlcyB0aGUgSERBIGNvZGVjJ3MgRUxEViBwaW4gc2Vuc2UsIG1ha2luZyB0aGUg
-Y29kZWMgcmVwb3J0IHRoZQo+amFjayBhcyBhdWRpby1hdmFpbGFibGUuCj4KPlRoZSByYWRlb24s
-IG5vdXZlYXUsIGFuZCBkdy1oZG1pIGRyaXZlcnMgYWxsIGdhdGUgYXVkaW8gZW5hYmxlbWVudCBv
-bgo+ZGlzcGxheV9pbmZvLmhhc19hdWRpby4gQXBwbHkgdGhlIHNhbWUgY2hlY2sgdG8gYW1kZ3B1
-J3MgRENFCj5hZm10X3NldG1vZGUgZnVuY3Rpb25zLgo+Cj5TaWduZWQtb2ZmLWJ5OiByZW5wYW5w
-YW4gPHJlbnBhbnBhbkBreWxpbm9zLmNuPgo+LS0tCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZGNlX3YxMF8wLmMgfCA1ICsrKy0tCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
-X3Y2XzAuYyAgfCA1ICsrKy0tCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAu
-YyAgfCA1ICsrKy0tCj4gMyBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDYgZGVsZXRp
-b25zKC0pCj4KPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjEw
-XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jCj5pbmRleCBmMjk3
-N2ZlNmQ4MjQuLjA0YjE4MDU2YTkwNiAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2RjZV92MTBfMC5jCj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2Vf
-djEwXzAuYwo+QEAgLTE3MDUsOCArMTcwNSw5IEBAIHN0YXRpYyB2b2lkIGRjZV92MTBfMF9hZm10
-X3NldG1vZGUoc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyLAo+IAlXUkVHMzIobW1BRk1UX1JB
-TVBfQ09OVFJPTDIgKyBkaWctPmFmbXQtPm9mZnNldCwgMHgwMDAwMDAwMSk7Cj4gCVdSRUczMiht
-bUFGTVRfUkFNUF9DT05UUk9MMyArIGRpZy0+YWZtdC0+b2Zmc2V0LCAweDAwMDAwMDAxKTsKPiAK
-Pi0JLyogZW5hYmxlIGF1ZGlvIGFmdGVyIHRvIHNldHRpbmcgdXAgaHcgKi8KPi0JZGNlX3YxMF8w
-X2F1ZGlvX2VuYWJsZShhZGV2LCBkaWctPmFmbXQtPnBpbiwgdHJ1ZSk7Cj4rCS8qIE9ubHkgZW5h
-YmxlIGF1ZGlvIGlmIHRoZSBkaXNwbGF5IHN1cHBvcnRzIGl0ICovCj4rCWlmIChjb25uZWN0b3It
-PmRpc3BsYXlfaW5mby5oYXNfYXVkaW8pCj4rCQlkY2VfdjEwXzBfYXVkaW9fZW5hYmxlKGFkZXYs
-IGRpZy0+YWZtdC0+cGluLCB0cnVlKTsKPiB9Cj4gCj4gc3RhdGljIHZvaWQgZGNlX3YxMF8wX2Fm
-bXRfZW5hYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwgYm9vbCBlbmFibGUpCj5kaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y2XzAuYyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92Nl8wLmMKPmluZGV4IGM2OGRlMGZlMWQ3ZC4uNTg1YjBh
-NTAyNzlmIDEwMDY0NAo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y2XzAu
-Ywo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y2XzAuYwo+QEAgLTE3NDgs
-OCArMTc0OCw5IEBAIHN0YXRpYyB2b2lkIGRjZV92Nl8wX2FmbXRfc2V0bW9kZShzdHJ1Y3QgZHJt
-X2VuY29kZXIgKmVuY29kZXIsCj4gCQlkY2VfdjZfMF9hdWRpb19kcF9lbmFibGUoZW5jb2Rlciwg
-MSk7Cj4gCX0KPiAKPi0JLyogZW5hYmxlIGF1ZGlvIGFmdGVyIHNldHRpbmcgdXAgaHcgKi8KPi0J
-ZGNlX3Y2XzBfYXVkaW9fZW5hYmxlKGFkZXYsIGRpZy0+YWZtdC0+cGluLCB0cnVlKTsKPisJLyog
-T25seSBlbmFibGUgYXVkaW8gaWYgdGhlIGRpc3BsYXkgc3VwcG9ydHMgaXQgKi8KPisJaWYgKGNv
-bm5lY3Rvci0+ZGlzcGxheV9pbmZvLmhhc19hdWRpbykKPisJCWRjZV92Nl8wX2F1ZGlvX2VuYWJs
-ZShhZGV2LCBkaWctPmFmbXQtPnBpbiwgdHJ1ZSk7Cj4gfQo+IAo+IHN0YXRpYyB2b2lkIGRjZV92
-Nl8wX2FmbXRfZW5hYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwgYm9vbCBlbmFibGUp
-Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92OF8wLmMKPmluZGV4IGMzOTA2MjcwZjI1ZS4u
-MTM5MGVmYTRlYTUxIDEwMDY0NAo+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
-X3Y4XzAuYwo+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYwo+QEAg
-LTE2NTMsOCArMTY1Myw5IEBAIHN0YXRpYyB2b2lkIGRjZV92OF8wX2FmbXRfc2V0bW9kZShzdHJ1
-Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsCj4gCVdSRUczMihtbUFGTVRfUkFNUF9DT05UUk9MMiAr
-IG9mZnNldCwgMHgwMDAwMDAwMSk7Cj4gCVdSRUczMihtbUFGTVRfUkFNUF9DT05UUk9MMyArIG9m
-ZnNldCwgMHgwMDAwMDAwMSk7Cj4gCj4tCS8qIGVuYWJsZSBhdWRpbyBhZnRlciBzZXR0aW5nIHVw
-IGh3ICovCj4tCWRjZV92OF8wX2F1ZGlvX2VuYWJsZShhZGV2LCBkaWctPmFmbXQtPnBpbiwgdHJ1
-ZSk7Cj4rCS8qIE9ubHkgZW5hYmxlIGF1ZGlvIGlmIHRoZSBkaXNwbGF5IHN1cHBvcnRzIGl0ICov
-Cj4rCWlmIChjb25uZWN0b3ItPmRpc3BsYXlfaW5mby5oYXNfYXVkaW8pCj4rCQlkY2VfdjhfMF9h
-dWRpb19lbmFibGUoYWRldiwgZGlnLT5hZm10LT5waW4sIHRydWUpOwo+IH0KPiAKPiBzdGF0aWMg
-dm9pZCBkY2VfdjhfMF9hZm10X2VuYWJsZShzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsIGJv
-b2wgZW5hYmxlKQo+LS0gCj4yLjQzLjAK
-------=_Part_23358_503004186.1793670861817
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
+Some data for that. I tested 7/10 and this patch on v7.3, on a Lenovo
+Y700 Gen 5 (TB323FU, Kaanapali, bonded DSI) with out-of-tree board
+support. I counted msm_dsi_host_power_off/on with kprobes.
 
-PGRpdiBkYXRhLW50ZXM9Im50ZXNfbWFpbF9ib2R5X3Jvb3QiIHN0eWxlPSJsaW5lLWhlaWdodDox
-Ljc7Y29sb3I6IzAwMDAwMDtmb250LXNpemU6MTRweDtmb250LWZhbWlseTpBcmlhbCI+PGRpdiBp
-ZD0ic3BuRWRpdG9yQ29udGVudCI+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvZGl2Pjxk
-aXYgc3R5bGU9Im1hcmdpbjogMDsiPlRoaXMgZml4IGlzIGFsc28gbmVlZGVkIGZvciBzdGFibGUg
-a2VybmVscyAoNS40KykuIFRoZSBidWcgZXhpc3RzPGJyPnNpbmNlIHRoZSBsZWdhY3kgRENFIGF1
-ZGlvIHBhdGggd2FzIGludHJvZHVjZWQgYW5kIGFmZmVjdHMgdXNlcnMgb248YnI+TFRTIDUuNCBr
-ZXJuZWxzIHdpdGggQU1EIFNvdXRoZXJuIElzbGFuZHMgLyBDSUsgLyBWSSBHUFVzIGNvbm5lY3Rl
-ZDxicj50byBkaXNwbGF5cyB3aXRob3V0IGF1ZGlvIHN1cHBvcnQuPGJyPjxicj5Db3VsZCB5b3Ug
-cGxlYXNlIGFkZCB0aGUgZm9sbG93aW5nIGxpbmUgd2hlbiBhcHBseWluZz88YnI+PGJyPiZuYnNw
-OyBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZyAjIDUuNCs8YnI+PGJyPlRoYW5rcy48L2Rpdj48
-ZGl2IHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+
-PGJyPjwvZGl2PjxkaXYgc3R5bGU9Im1hcmdpbjogMDsiPjxicj48L2Rpdj48L2Rpdj48ZGl2IHN0
-eWxlPSJwb3NpdGlvbjpyZWxhdGl2ZTt6b29tOjEiPjwvZGl2PjxkaXYgaWQ9ImRpdk5ldGVhc2VN
-YWlsQ2FyZCI+PC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvZGl2PjxwcmU+PGJy
-PkF0IDIwMjYtMTEtMDIgMTc6NDk6MjksIHJwcHhqMTc4NTQzQDE2My5jb20gd3JvdGU6CiZndDtG
-cm9tOiByZW5wYW5wYW4gJmx0O3JlbnBhbnBhbkBreWxpbm9zLmNuJmd0OwomZ3Q7CiZndDtUaGUg
-YW1kZ3B1IGxlZ2FjeSBEQ0UgYXVkaW8gcGF0aCAoZGNlX3Y2L3Y4L3YxMCkgdW5jb25kaXRpb25h
-bGx5IGNhbGxzCiZndDthdWRpb19lbmFibGUocGluLCB0cnVlKSBhdCB0aGUgZW5kIG9mIGFmbXRf
-c2V0bW9kZSgpLCByZWdhcmRsZXNzIG9mCiZndDt3aGV0aGVyIHRoZSBjb25uZWN0ZWQgZGlzcGxh
-eSBhZHZlcnRpc2VzIGF1ZGlvIHN1cHBvcnQgaW4gaXRzIEVESUQuCiZndDsKJmd0O1RoaXMgY2F1
-c2VzIGEgcGhhbnRvbSBIRE1JIGF1ZGlvIG91dHB1dCB0byBhcHBlYXIgZm9yIGRpc3BsYXlzIHRo
-YXQKJmd0O2hhdmUgbm8gYXVkaW8gY2FwYWJpbGl0eSAobm8gYmFzaWMgYXVkaW8gYml0LCBubyBB
-dWRpbyBEYXRhIEJsb2NrIGluCiZndDtFRElEKSwgYmVjYXVzZSB0aGUgR1BVIHNldHMgdGhlIEFV
-RElPX0VOQUJMRUQgcmVnaXN0ZXIgYml0LCB3aGljaAomZ3Q7ZHJpdmVzIHRoZSBIREEgY29kZWMn
-cyBFTERWIHBpbiBzZW5zZSwgbWFraW5nIHRoZSBjb2RlYyByZXBvcnQgdGhlCiZndDtqYWNrIGFz
-IGF1ZGlvLWF2YWlsYWJsZS4KJmd0OwomZ3Q7VGhlIHJhZGVvbiwgbm91dmVhdSwgYW5kIGR3LWhk
-bWkgZHJpdmVycyBhbGwgZ2F0ZSBhdWRpbyBlbmFibGVtZW50IG9uCiZndDtkaXNwbGF5X2luZm8u
-aGFzX2F1ZGlvLiBBcHBseSB0aGUgc2FtZSBjaGVjayB0byBhbWRncHUncyBEQ0UKJmd0O2FmbXRf
-c2V0bW9kZSBmdW5jdGlvbnMuCiZndDsKJmd0O1NpZ25lZC1vZmYtYnk6IHJlbnBhbnBhbiAmbHQ7
-cmVucGFucGFuQGt5bGlub3MuY24mZ3Q7CiZndDstLS0KJmd0OyBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9kY2VfdjEwXzAuYyB8IDUgKysrLS0KJmd0OyBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9kY2VfdjZfMC5jICB8IDUgKysrLS0KJmd0OyBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9kY2VfdjhfMC5jICB8IDUgKysrLS0KJmd0OyAzIGZpbGVzIGNoYW5nZWQsIDkgaW5zZXJ0aW9u
-cygrKSwgNiBkZWxldGlvbnMoLSkKJmd0OwomZ3Q7ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
-X3YxMF8wLmMKJmd0O2luZGV4IGYyOTc3ZmU2ZDgyNC4uMDRiMTgwNTZhOTA2IDEwMDY0NAomZ3Q7
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMKJmd0OysrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jCiZndDtAQCAtMTcwNSw4ICsxNzA1
-LDkgQEAgc3RhdGljIHZvaWQgZGNlX3YxMF8wX2FmbXRfc2V0bW9kZShzdHJ1Y3QgZHJtX2VuY29k
-ZXIgKmVuY29kZXIsCiZndDsgCVdSRUczMihtbUFGTVRfUkFNUF9DT05UUk9MMiArIGRpZy0mZ3Q7
-YWZtdC0mZ3Q7b2Zmc2V0LCAweDAwMDAwMDAxKTsKJmd0OyAJV1JFRzMyKG1tQUZNVF9SQU1QX0NP
-TlRST0wzICsgZGlnLSZndDthZm10LSZndDtvZmZzZXQsIDB4MDAwMDAwMDEpOwomZ3Q7IAomZ3Q7
-LQkvKiBlbmFibGUgYXVkaW8gYWZ0ZXIgdG8gc2V0dGluZyB1cCBodyAqLwomZ3Q7LQlkY2VfdjEw
-XzBfYXVkaW9fZW5hYmxlKGFkZXYsIGRpZy0mZ3Q7YWZtdC0mZ3Q7cGluLCB0cnVlKTsKJmd0OysJ
-LyogT25seSBlbmFibGUgYXVkaW8gaWYgdGhlIGRpc3BsYXkgc3VwcG9ydHMgaXQgKi8KJmd0OysJ
-aWYgKGNvbm5lY3Rvci0mZ3Q7ZGlzcGxheV9pbmZvLmhhc19hdWRpbykKJmd0OysJCWRjZV92MTBf
-MF9hdWRpb19lbmFibGUoYWRldiwgZGlnLSZndDthZm10LSZndDtwaW4sIHRydWUpOwomZ3Q7IH0K
-Jmd0OyAKJmd0OyBzdGF0aWMgdm9pZCBkY2VfdjEwXzBfYWZtdF9lbmFibGUoc3RydWN0IGRybV9l
-bmNvZGVyICplbmNvZGVyLCBib29sIGVuYWJsZSkKJmd0O2RpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-ZGNlX3Y2XzAuYwomZ3Q7aW5kZXggYzY4ZGUwZmUxZDdkLi41ODViMGE1MDI3OWYgMTAwNjQ0CiZn
-dDstLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jCiZndDsrKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jCiZndDtAQCAtMTc0OCw4ICsxNzQ4
-LDkgQEAgc3RhdGljIHZvaWQgZGNlX3Y2XzBfYWZtdF9zZXRtb2RlKHN0cnVjdCBkcm1fZW5jb2Rl
-ciAqZW5jb2RlciwKJmd0OyAJCWRjZV92Nl8wX2F1ZGlvX2RwX2VuYWJsZShlbmNvZGVyLCAxKTsK
-Jmd0OyAJfQomZ3Q7IAomZ3Q7LQkvKiBlbmFibGUgYXVkaW8gYWZ0ZXIgc2V0dGluZyB1cCBodyAq
-LwomZ3Q7LQlkY2VfdjZfMF9hdWRpb19lbmFibGUoYWRldiwgZGlnLSZndDthZm10LSZndDtwaW4s
-IHRydWUpOwomZ3Q7KwkvKiBPbmx5IGVuYWJsZSBhdWRpbyBpZiB0aGUgZGlzcGxheSBzdXBwb3J0
-cyBpdCAqLwomZ3Q7KwlpZiAoY29ubmVjdG9yLSZndDtkaXNwbGF5X2luZm8uaGFzX2F1ZGlvKQom
-Z3Q7KwkJZGNlX3Y2XzBfYXVkaW9fZW5hYmxlKGFkZXYsIGRpZy0mZ3Q7YWZtdC0mZ3Q7cGluLCB0
-cnVlKTsKJmd0OyB9CiZndDsgCiZndDsgc3RhdGljIHZvaWQgZGNlX3Y2XzBfYWZtdF9lbmFibGUo
-c3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyLCBib29sIGVuYWJsZSkKJmd0O2RpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZGNlX3Y4XzAuYwomZ3Q7aW5kZXggYzM5MDYyNzBmMjVlLi4xMzkwZWZhNGVh
-NTEgMTAwNjQ0CiZndDstLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5j
-CiZndDsrKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jCiZndDtAQCAt
-MTY1Myw4ICsxNjUzLDkgQEAgc3RhdGljIHZvaWQgZGNlX3Y4XzBfYWZtdF9zZXRtb2RlKHN0cnVj
-dCBkcm1fZW5jb2RlciAqZW5jb2RlciwKJmd0OyAJV1JFRzMyKG1tQUZNVF9SQU1QX0NPTlRST0wy
-ICsgb2Zmc2V0LCAweDAwMDAwMDAxKTsKJmd0OyAJV1JFRzMyKG1tQUZNVF9SQU1QX0NPTlRST0wz
-ICsgb2Zmc2V0LCAweDAwMDAwMDAxKTsKJmd0OyAKJmd0Oy0JLyogZW5hYmxlIGF1ZGlvIGFmdGVy
-IHNldHRpbmcgdXAgaHcgKi8KJmd0Oy0JZGNlX3Y4XzBfYXVkaW9fZW5hYmxlKGFkZXYsIGRpZy0m
-Z3Q7YWZtdC0mZ3Q7cGluLCB0cnVlKTsKJmd0OysJLyogT25seSBlbmFibGUgYXVkaW8gaWYgdGhl
-IGRpc3BsYXkgc3VwcG9ydHMgaXQgKi8KJmd0OysJaWYgKGNvbm5lY3Rvci0mZ3Q7ZGlzcGxheV9p
-bmZvLmhhc19hdWRpbykKJmd0OysJCWRjZV92OF8wX2F1ZGlvX2VuYWJsZShhZGV2LCBkaWctJmd0
-O2FmbXQtJmd0O3BpbiwgdHJ1ZSk7CiZndDsgfQomZ3Q7IAomZ3Q7IHN0YXRpYyB2b2lkIGRjZV92
-OF8wX2FmbXRfZW5hYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwgYm9vbCBlbmFibGUp
-CiZndDstLSAKJmd0OzIuNDMuMAo8L3ByZT48L2Rpdj4=
-------=_Part_23358_503004186.1793670861817--
+- A compositor faded a night light filter in and out twice through
+  the legacy CTM property. These are blob -> blob updates only. No
+  modesets, no visible blink.
 
+- With no compositor running, a small client set the CTM through the
+  legacy property ioctl: two rounds of NULL -> A -> B -> A -> NULL.
+  No modesets. The CRTC kept its DSPPs after each A -> NULL.
+
+So turning the CTM off does not release the DSPPs. On chips with a
+single DSPP, another CRTC asking for a CTM would then fail
+dpu_rm_reserve(), as I noted on v4. This run does not cover the first
+NULL -> blob on a CRTC without DSPPs.
+
+As with v4, the tree carries out-of-tree SPR (sub-pixel rendering)
+support. For the test, dpu_crtc_needs_dspp() also returned true when
+SPR is enabled.
+
+Tested-by: Joonhoe Kim <26rote@gmail.com> # Kaanapali
+
+Thanks,
+Joonhoe Kim
