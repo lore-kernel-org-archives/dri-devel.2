@@ -2,38 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA253606A33B
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BA4606A335
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Thnqe7Pd
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0dzZCbz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5B610ECF4;
-	Mon,  2 Nov 2026 10:55:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE1710ECF0
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 646BF10ECF2;
+	Mon,  2 Nov 2026 10:55:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6975910ECF2
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9771A6110F;
- Mon,  2 Nov 2026 10:55:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3831F00A1B;
- Mon,  2 Nov 2026 10:55:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 644E840800;
+ Mon,  2 Nov 2026 10:55:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A2F1F00A1B;
+ Mon,  2 Nov 2026 10:55:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793616904;
- bh=lUIbwahwAMRQLzx+KlFvcws6g6RsvoBUBmMGB7qssW0=;
+ s=k20260515; t=1793616907;
+ bh=q5D6NcSVIATB1SU1kSC859+uaa0n8diQ4fmz2USuJuI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Thnqe7PdkXVqPwEsthV5xhNYKyrNS/uhFhWWxFEg5jLMpkPhtfkv4kAtrRg45oHjZ
- I0WSgwf7FK+GJJzt63gVoF7yobmku4CIEoWP0ugyvvJyYwGUY7jlMvYWfrJ9o5sk/L
- GBofLi37su9pR5gqmOh7bxeh6blK4648hxnl//jO3yvoVGclCmJKs0MNUbDLNzaPMw
- S9nGG+YnL6+fGUiPFtL1O1zGctd1gIteGb9wMQiXZYTk+IKfH3pU/SaJXKsope0pXh
- Td5O+lCTvIbvngFPofbU8kzGNDhpkIVG9V5/sHsV5N/2ZQoTKOa95UObo6kr1Nq0rO
- KAq8/3+R0EMtQ==
+ b=W0dzZCbzkn8EjKd3WjjdjOlgmbxw/iT8ok/RP7mASQ3gFv6LzXHHjqLzV6jmTEFIH
+ GI1pdRCPFuTub/C62Wq50GHRHxkyQfbabp2D/DWw9OrPCdarA+4HoTemap/jj47L08
+ QRC+wITTMb1Ja7mSZgbzrmNqfl8M591o6GIogomGwfbzKw7ShcBwiibZzZevN0gNfS
+ vFZz+M6XV/e2Xzc0/oUPW8T0gR+rwnVYb1zO8PoD8YpTCw3wzSJ56gN5HAzNIkP6EE
+ dQfWasTdowKLPkOZWYScu03hPgTApQHYIaareRff+827/CV+rjvnl4QEtmE4ueAuDZ
+ 6PmJDILxBz0ew==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 05/13] media: cec: extron-da-hd-4k-plus: call cec_s_phys_addr
- only if EDID is present
-Date: Mon,  2 Nov 2026 11:36:56 +0100
-Message-ID: <82d1f51d30ddccac1cda598e2873e49063801b9e.1793615824.git.hverkuil+cisco@kernel.org>
+Subject: [PATCH 07/13] media: uapi: cec.h: add
+ CEC_CAP_HAS_EDID_PRESENT/CEC_LOG_ADDRS_FL_EDID_PRESENT
+Date: Mon,  2 Nov 2026 11:36:58 +0100
+Message-ID: <399072ca2a74db139b50502ff644834ea79eb829.1793615824.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
@@ -59,35 +59,68 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-If an EDID is present, then call cec_s_phys_addr. If not, then
-call cec_phys_addr_invalidate. This helps the CEC framework differentiate
-between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an EDID without
-a Physical Address.
+Add a capability and a new flag that is used to indicate if an
+EDID is present.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ include/uapi/linux/cec.h | 28 +++++++++++++++-------------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-index 1f8ed7ff31e5..0a0724fd89c0 100644
---- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-+++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-@@ -643,8 +643,12 @@ static void extron_irq_work_handler(struct work_struct *work)
- 			extron_read_edid(port);
- 		}
- 	}
--	if (update_pa)
--		cec_s_phys_addr(port->adap, pa, false);
-+	if (update_pa) {
-+		if (has_edid)
-+			cec_s_phys_addr(port->adap, pa, false);
-+		else
-+			cec_phys_addr_invalidate(port->adap);
-+	}
- }
+diff --git a/include/uapi/linux/cec.h b/include/uapi/linux/cec.h
+index fdfc97a6e4ec..8f7c7a4cb505 100644
+--- a/include/uapi/linux/cec.h
++++ b/include/uapi/linux/cec.h
+@@ -325,27 +325,27 @@ static inline int cec_is_unconfigured(__u16 log_addr_mask)
+ #define CEC_MODE_FOLLOWER_MSK		0xf0
  
- static void extron_process_received(struct extron_port *port, const char *data)
+ /* Userspace has to configure the physical address */
+-#define CEC_CAP_PHYS_ADDR	(1 << 0)
++#define CEC_CAP_PHYS_ADDR		(1 << 0)
+ /* Userspace has to configure the logical addresses */
+-#define CEC_CAP_LOG_ADDRS	(1 << 1)
++#define CEC_CAP_LOG_ADDRS		(1 << 1)
+ /* Userspace can transmit messages (and thus become follower as well) */
+-#define CEC_CAP_TRANSMIT	(1 << 2)
+-/*
+- * Passthrough all messages instead of processing them.
+- */
+-#define CEC_CAP_PASSTHROUGH	(1 << 3)
++#define CEC_CAP_TRANSMIT		(1 << 2)
++/* Passthrough all messages instead of processing them. */
++#define CEC_CAP_PASSTHROUGH		(1 << 3)
+ /* Supports remote control */
+-#define CEC_CAP_RC		(1 << 4)
++#define CEC_CAP_RC			(1 << 4)
+ /* Hardware can monitor all messages, not just directed and broadcast. */
+-#define CEC_CAP_MONITOR_ALL	(1 << 5)
++#define CEC_CAP_MONITOR_ALL		(1 << 5)
+ /* Hardware can use CEC only if the HDMI HPD pin is high. */
+-#define CEC_CAP_NEEDS_HPD	(1 << 6)
++#define CEC_CAP_NEEDS_HPD		(1 << 6)
+ /* Hardware can monitor CEC pin transitions */
+-#define CEC_CAP_MONITOR_PIN	(1 << 7)
++#define CEC_CAP_MONITOR_PIN		(1 << 7)
+ /* CEC_ADAP_G_CONNECTOR_INFO is available */
+-#define CEC_CAP_CONNECTOR_INFO	(1 << 8)
++#define CEC_CAP_CONNECTOR_INFO		(1 << 8)
+ /* CEC_MSG_FL_REPLY_VENDOR_ID is available */
+-#define CEC_CAP_REPLY_VENDOR_ID	(1 << 9)
++#define CEC_CAP_REPLY_VENDOR_ID		(1 << 9)
++/* CEC_LOG_ADDRS_FL_EDID_PRESENT is available */
++#define CEC_CAP_HAS_EDID_PRESENT	(1 << 10)
+ 
+ /**
+  * struct cec_caps - CEC capabilities structure.
+@@ -405,6 +405,8 @@ struct cec_log_addrs {
+ #define CEC_LOG_ADDRS_FL_CDC_ONLY		(1 << 2)
+ /* Configuration failed */
+ #define CEC_LOG_ADDRS_FL_CONFIG_FAILED		(1 << 3)
++/* EDID is present */
++#define CEC_LOG_ADDRS_FL_EDID_PRESENT		(1 << 4)
+ 
+ /**
+  * struct cec_drm_connector_info - tells which drm connector is
 -- 
 2.53.0
 
