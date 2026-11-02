@@ -2,103 +2,118 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F74606BA5C
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 17:55:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD1F606A58B
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 17:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=b7ZdO7Vw
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=L/QwZfF+
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E8E310E4AF;
-	Mon,  2 Nov 2026 17:55:10 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010004.outbound.protection.outlook.com [52.101.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE50F10E0E4;
- Mon,  2 Nov 2026 17:55:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U6xYPhWXc1z2R3R3NWuG8Qq4H3ix9m88vnUwYN70oTPyhSF2gEa4+gxDYkz83GrbU3ajJQF7jCmQizsLxoboY6dp5pQFOxPBD5eAk4JI8v7q5Ysa4hPQ+2c/x1B+YItD9PTk/7W3PQua9c3RPgXZ83OylnKQhf1ktOfSbRq+W2C8pSCaQtm7tE19XVAkekUX4zNlZURkFKRdoEqvvKehtRmoxXk0mazlNT5ZgRzGjvsfX+yHaKIzRmFLHI11COmZYXBW39o9QjYzwFTw4tTymFhncI823BaMLfQnW+Dv+sW/VlAPwAHoyH0EZaWf/5GSZEF1UnEltYul4a20LQfk+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PSP/L+1wwjyy9SUn/66ePOLwVbTRndmKdKOYPxLc9X8=;
- b=ffS3IovrB4cLkiBmvJUQMPFDWwn1DJyvp4C26/nNeeXiJZ3RtdvO7ftSDPizzsmBL5Y5hafQeW7Ankf8wIXVwvfUF1S9TKlm6oVE6zFcF0O97hiElDgF3i5CYj1MWoRGZ9BRX3nXZ7W6smeUv2/FclUbiyv21zvGMGNEhL6vcFQB/vKvPsyzQV/YIaeI7sgi6RnWHdEmqKAfuNK+awyMlOq/vPl8sD7yso+lGqW6hpXusygbQ6GFhQuNKOxjAsN3CJKY3vOS6E/AkFoFAuvQAhXcgsByBymLDSOKFOoFyWFbOhHlH9ayzIdz8AvlKx4EO10O7eeFMTnDKEj6Kci7aQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=hughsie.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PSP/L+1wwjyy9SUn/66ePOLwVbTRndmKdKOYPxLc9X8=;
- b=b7ZdO7VwsCcWgJsCc1f6cbg1+i8CrrUjIWi7TFrt/tANZh3g2p6ReZKEeIGgiWoQqArKSdWNtu+jGTlhqm7LxgGR9SAuEZ5KfTLFDWP5X1xtga333E0KymZKkC1EaUvxUSmRdky7x+m7vIE9C9i406QE2/KrxSguOm23zUwOtjY=
-Received: from SJ0P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::7)
- by SJ0PR12MB6878.namprd12.prod.outlook.com (2603:10b6:a03:483::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 17:54:57 +0000
-Received: from SJ1PEPF000037AE.namprd03.prod.outlook.com
- (2603:10b6:a03:41b:cafe::42) by SJ0P220CA0001.outlook.office365.com
- (2603:10b6:a03:41b::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 17:54:57 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037AE.mail.protection.outlook.com (10.167.244.183) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 17:54:57 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 11:54:55 -0600
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Mon, 2 Nov 2026 11:54:52 -0600
-Subject: [PATCH] drm/amd/display: Point the DP/eDP connector ddc link at
- the AUX i2c adapter
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE69210E61D;
+	Mon,  2 Nov 2026 17:59:19 +0000 (UTC)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1523D10E61D
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 17:59:13 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-c434376dbebso693434366b.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 09:59:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google; t=1793642351; x=1794247151;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
+ b=L/QwZfF+AwqVSBhoJvzKWd7xLTHUZwxH6K7Ng+MyiMjF23E3uHoW0gK8ilsfVg57rb
+ TeMNNyy7K9mPuVII5E6ARoh5kt5N2YErdIQCBEoqIGZqJisMODyN/COWgr8ZQwDCMYQj
+ nsWM5SnrqqjdXv64Fdoe9jPVG8Z2NY9FiLfhU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793642351; x=1794247151;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
+ b=RfuuXloSYnfWlsLCd7S/endfJuozbrONoRFvckiCev1U8rsEJJ9xPiDY4F03rPzbmJ
+ ImaqCqtxXQHU+Gn9zzafpzRVsQFG94c0zm3aliqI5y2LuzKT6AoAWoqr9sbVytXoJWRQ
+ HaQX6zWdI33H3LiBlEK4bTOiAamsOtAEbB/dMW+aP47dRhkRndvkCSx1kAzbn7pocHuI
+ OA6aJjScqSz9kxssWshnpFhSaLrv33xyqJxbx466iKrl0UiC4Z3JKFN9WC2bfNWYaA0y
+ IHGStvLol2luLqNn+v5mHC912U4pyEbpdkClwuWnt6wrK4TU20x0w/baEX4lHuwXLRz+
+ d1PQ==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy9/FpM7tLNtcJmOWDS+Zh29ToQndnUzCO3GzCvbeXhwnORnzio8z9n3ryIGS7vVXnVA49+BS1sVQQ=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJm3+2cCioVNIdoxO7EHOrRMl8cuvDH9kvMN6RcmMOh/0R9zVoM
+ 32ZLxlRyupQ+uvikanmJRibhiTMCb7nIovs6qkNW9OKHtn4sOLl8PsrM9p31wqoF1u2KFZ3n71P
+ ZCbfe9Yc=
+X-Gm-Gg: AYBFou2PhRvyhqou5QtNSYflTnVgRSM6WsUvDx3pynqKGFAd4zOJXkd3z8EcPeVww3W
+ OZgi2IdcLo3MjnhAN/gpV4NzbEXLG4IKTQTvauP0XXUWBjKM2GD7/MQ7WKIa+WCKv5np5cu3C9g
+ q+srJX4fsLBvI8tHQBFrlx8SO0lJ5ebmf/LDGJQPqtLhNTdkIIxqnGyUkmA3GY+9NJ7qEFH6JUY
+ SegpeQvwkHgAL0JGO9bSMYNCEsCaevFORwPXW1A4c40HC5rq/nheAN75Q+0h08EV3Nyix6fEhPB
+ ZUm0y0xogOby4lsHh9Fm28YhSoJySIdaH6FGFwJHcxsxPO8Yk1OYm3+TNXuQ49XWRX5sbK5X2xO
+ vcJgJTWq5xVBbU/UOwtMazHofTOLGqwWa2NN/3rlEZWzOWwO7Gb8c+8cDfmC93nDAQ0CKKV6+RR
+ iIRRauZQ/Qyu3YgRNIj3OYfRwCgDuko/RlGRfhtOgtzIhOQCYXPehbqtIypfjBJYl0JUgvWC+Ai
+ 4PBcXOhLYaqc7VxtQKCsg8g+BBw1D8Y1jmjCtPCzThhzhoM7h4AY3Skn2gywvHhKK/KrOG8TXHK
+ pw/Y11cg62OsER4r9ri8OHvDwptZRC5DVpyWEBo2WFamAcyG5XmM0UEKBdldGE8CXtgtER69b18
+ 73RjDjk6C0O4yOZiHwn8LfvA=
+X-Received: by 2002:a17:907:d308:b0:c2e:2275:1168 with SMTP id
+ a640c23a62f3a-c49d13b7f8amr1166861166b.19.1793642351326; 
+ Mon, 02 Nov 2026 09:59:11 -0800 (PST)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com.
+ [209.85.208.53]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c4cebefdee4sm12370866b.38.2026.11.02.09.59.08
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Nov 2026 09:59:09 -0800 (PST)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-6b1aa27963eso7716050a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 09:59:08 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy7JF9UZXDkGmth6SneC/5iPGQc2f6lRvXOIna5onY5FBSA7Zou8jOmb5ZI5oyTZnU2E4vEbq32SFs=@lists.freedesktop.org
+X-Received: by 2002:a17:907:d94:b0:c2d:c80e:8366 with SMTP id
+ a640c23a62f3a-c4ca7426f6emr874452266b.0.1793642348398; Mon, 02 Nov 2026
+ 09:59:08 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261102-superm1-amdgpu-ddc-v1-1-9c5cb4a4f62d@amd.com>
-X-B4-Tracking: v=1; b=H4sIAGvO6GoC/yXMQQqDQAxA0atI1g0kKbjoVaQLnYmagjpMOkUQ7
- 95pXb7F/we4ZlOHR3NA1o+5bWsF3xoIc79OiharQUhaZhL0kjQvjP0Sp1QwxoDtfSQdmAKJQA1
- T1tH2/7R7XvYyvDS8fyc4zy+YyvSMdgAAAA==
-X-Change-ID: 20261102-superm1-amdgpu-ddc-63f0eb10c022
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-CC: Richard Hughes <richard@hughsie.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <simonit.orig@gmail.com>, "Mario
- Limonciello" <mario.limonciello@amd.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AE:EE_|SJ0PR12MB6878:EE_
-X-MS-Office365-Filtering-Correlation-Id: a26466ff-39ec-487d-712e-08df390a685a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|6133799003|10067099003|18002099003|261102123227099003|13003099007|56012099006|11063799006|261022105027099003|261026121527099003|261009223027099003|261026140227099003|261028144727099003|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info: i6npFq4/hMpE67/V2AOSq1ZPfdUDNl9ODhG0vul6t+XuATYD6C7eyHdP9VAbWT7vnkU3B5AAxx22+QIFStgWi24ncIu7QmaEtxUKELYYZ0Rum1TdZsrEwRdnz1jM9gwpX5gSvBMg+p4nGO7+zsV7eD5kCAra+9JIEz62+uEjoLscabmCYGl8+gQYKMvdDFc7qQrYXnR2uuB7TaIDh5lwPct+yfvWFUGBWWekPH3t6a/BjwGM7QAtsgsxgmECzMEAf5KdO+WhaZg1cUGLlb1LTokEePug9xu16/xujCVv0Ss9Ebw/oPuztpvlBEoj3xJnUrt8D8RoxRmW5fkiAsFPln4x2PORBLxIuINiKCStf36zrjlQqs5dEdwWg9WsRHMqlRw0TELuL6GztffjBtQ5BbQ7ebSMVYe4l9dBsGNs3znKkEnFLpyS1Li/H/p/PHpTCMt4yJquZkkjB8Gj8iBpapRAX1bvH+ZO1KWfVB/D3/E4XouS1vERjf8WlR96S99lMpXy6oaNLFKsE8ho5CeWKpj4vC6dwwsD4utweUzTuF9EqPXHusk66bS2FkXCaZbrBQ4gLOWIjYfkNEP6o7pNbWntuHIZJOdNj4KA5F6d7/FfGCfDbiYl+Vbs853xelFGLb68W2r16AeXstfS3nBSZaAK2KiicS5LDzXo+dHZ+sD5vWfLYIw+r+W7tY/IyOsMGSMNX3RHQN60zSMjZ4kEoQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(261102123227099003)(13003099007)(56012099006)(11063799006)(261022105027099003)(261026121527099003)(261009223027099003)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +HCwOacD2Ejk/nNHm873XA/gkrdaeWjPpKistaLpKre3ZMZheXC3ySMwj9n8wGRLPSzZQ/3WBMBQFmkSPfhqswWi8eTeH3zdBeKcuXOSPcOXkHX93ucDJZx+6fKQqMdlotqHIWR0SYxZbrd09t5wH15xKcsvC88Td+9jjk646sNd6WtfzvbMUfv48vG/gcyQI+BmvJDUtvGSE7waw1+pAzhuaAoQ0k81ecsaP5uwgkpYHVFxc1rgDKM4J85pHqL4bpyCRuqEUkHsycQpn6JkFu+ssh12YSJPDU8mHhV/NM5EwQwCTTJVlK6uLvh19YJf+LmG68vop040JI6rrHNQypsoEoAKnMT2m1/teov0JNsGfSGopFO3ATlGLoTaAMftr+DlWQYzjENG9AuLl/uuV2sKmTEdF8UNhhnw+B/Q+m7TnTt1UDhKqP3nien71mY/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 17:54:57.1828 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a26466ff-39ec-487d-712e-08df390a685a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000037AE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6878
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 2 Nov 2026 09:58:51 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
+X-Gm-Features: AclHuK_qZTBVsLQIdymgRHScSFenC6XsGggUDmcuOugjrSTbuVkeASUmC_hYPZo
+Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 01/38] PCI/proc: don't truncate the position of config
+ space accesses
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
+ Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, 
+ Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
+ platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
+ kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+ linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
+ jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+ linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
+ samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+ Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org,
+ linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>,
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,78 +125,30 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On DisplayPort and eDP connectors DDC is tunneled over the AUX channel,
-but amdgpu_dm registers the physical i2c bus ("AMDGPU DM i2c hw bus N")
-as the connector's ddc adapter.  The "ddc" sysfs symlink therefore points
-at a bus that does not reach the sink, while the AUX backed adapter
-("AMDGPU DM aux hw bus N"), which is registered as a child of the
-connector, does.  Userspace such as fwupd, which uses the "ddc" link for
-DDC/CI, has to work around this.
+On Mon, 2 Nov 2026 at 06:22, Christian Brauner <brauner@kernel.org> wrote:
+>
+> proc_bus_pci_write() truncates the file position to an int. A pwrite()
+> at an offset like 0xfffff000 turns it negative [..]
 
-Pass the AUX ddc adapter to drm_connector_init_with_ddc() for DP and eDP
-connectors.  The adapter is registered in late_register, before the core
-creates the "ddc" link, so the link resolves correctly.  Other connector
-types keep using the physical i2c bus.
+I think this would actually be better with rw_verify_area() just
+checking a per-file maxbytes.
 
-Reported-by: simonit.orig@gmail.com
-Closes: https://github.com/fwupd/fwupd/pull/11308
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c   | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+We already have that logic for lseek and friends - using that fairly
+hacky combination of s_maxbytes and !unsigned_offsets().
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index b498fc5fbb140..656249dc3f69b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3483,6 +3483,7 @@ int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
- 	struct dc *dc = dm->dc;
- 	struct dc_link *link = dc_get_link_at_index(dc, link_index);
- 	struct amdgpu_i2c_adapter *i2c;
-+	struct i2c_adapter *ddc;
- 
- 	/* Not needed for writeback connector */
- 	link->priv = aconnector;
-@@ -3504,12 +3505,24 @@ int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
- 
- 	connector_type = to_drm_connector_type(link->connector_signal, link->link_id.id);
- 
-+	/*
-+	 * On DisplayPort DDC is tunneled over the AUX channel, so expose the
-+	 * AUX backed i2c adapter (registered in late_register) as the
-+	 * connector's "ddc" sysfs link.  The physical i2c bus doesn't reach
-+	 * the sink.
-+	 */
-+	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
-+	    connector_type == DRM_MODE_CONNECTOR_eDP)
-+		ddc = &aconnector->dm_dp_aux.aux.ddc;
-+	else
-+		ddc = &i2c->base;
-+
- 	res = drm_connector_init_with_ddc(
- 			dm->ddev,
- 			&aconnector->base,
- 			&amdgpu_dm_connector_funcs,
- 			connector_type,
--			&i2c->base);
-+			ddc);
- 
- 	if (res) {
- 		drm_err(adev_to_drm(dm->adev), "connector_init failed\n");
+We should combine s_maxbytes and unsigned_offsets() at file open time
+into f_maxbytes and check that not just at lseek but in
+rw_verify_area.
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-superm1-amdgpu-ddc-63f0eb10c022
+And then things like proc_bus_pci could set it's size limit in one single place.
 
-Best regards,
---  
-Mario Limonciello <mario.limonciello@amd.com>
+Hmm?
 
+                   Linus
