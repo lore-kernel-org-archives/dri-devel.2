@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BFA608B7F1
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 16:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B1F608C25A
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 16:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bak8PR33
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S24The52
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57D6A10F0DB;
-	Mon,  2 Nov 2026 16:49:49 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82DFB10F0C6;
- Mon,  2 Nov 2026 16:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99C6610F0ED;
+	Mon,  2 Nov 2026 16:49:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8E5110F0D0;
+ Mon,  2 Nov 2026 16:49:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6DEE944510;
- Mon,  2 Nov 2026 16:49:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D691F00A1A;
- Mon,  2 Nov 2026 16:49:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6468060F42;
+ Mon,  2 Nov 2026 16:49:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756331F0157E;
+ Mon,  2 Nov 2026 16:49:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793638182;
- bh=hI1MJq4K8L5jI0+LOV3XfRn/TD9k2MaKrMvKNdRDEoU=;
+ s=k20260515; t=1793638186;
+ bh=mN5kDy/x7cmwk8/ZEylaxE2t0zPl5PDlWnEUt4VPDBw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Bak8PR33p6oWgFybUkZoLevJ2evrRwZLe86BX79lDY+3foHj7EE2Zs6nlKZ+K67oc
- wAKdmTFo/LotMoKeXC8KRqSpoEIpQSpngubonYVfJFzWda/yf9YOoUX8ZPDE7mVlx/
- OxAV6pAhOPgcn+TNQ1MN+S9ZULeDUAFTET1VqaDy4e+mqQNMOWhrNbPuFvdwh9LKHb
- 1jwmW4azVC+VLAC3G1H9PN8k8MiftCEX0zrFmGJaj6XZlBKsTiF3qiK2JXyuQ35Y6Q
- ijGETtfoKU8JQGt3bV694yhBfUToAYTd3wh0NdIOFX8SJ/FE8TSXq5qgO/Dy7S9EjE
- EXmHIhbwKy6Zg==
+ b=S24The52tsRZ9x8Vm5e2ZXRrtJnM2qMgtDguBzGcs2Htu/RxAYy2NnQGRhHL4OU1V
+ hQbNO2774U2HpkvwNGDLxkFJkk5zBCz7gxf+WFdMn81YG14GoNVvNHJe3EDEAepFj6
+ YXk/yO483S6pzQxhzn5YCst3fOiuW5aHc1Oru3GzSsLO/mgCy+pHnm0dy/W7qDC4zD
+ Ln1L/k8wTn88CplCPWQG3P72VEW52YEK4+puPKjFMTFmj8KD7VgzYSl41RJcZwLyOq
+ GTuJUMNy5Y67tcCtzStb3FJ4GNgg4goUGMcc8C4cFy9Tkbg9conYWXwVJfItplQ3e6
+ mF57Q5Ed5cV3Q==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:23 -0600
-Subject: [PATCH v10 07/15] drm/bridge: add connector luminance operations
+Date: Mon, 02 Nov 2026 10:49:25 -0600
+Subject: [PATCH v10 09/15] drm/bridge_connector: add luminance support
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-7-b2a6f24131f5@kernel.org>
+Message-Id: <20261102-superm1-backlight-property-v10-9-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -73,123 +73,117 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Allow bridges that own brightness control to advertise a luminance
-operation and its supported relative range.
+Discover the last bridge in a chain that owns brightness control, attach
+its relative luminance range to the connector, and forward atomic
+luminance updates to it.
+
+Do not infer panel luminance support from a terminal panel bridge. Panels
+still have direct consumers, so their connector integration must remain
+explicit.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
 v10:
- * Split bridge operations out of the combined panel and bridge patch
+ * Split bridge connector integration into a separate patch
+ * Do not special-case panels in the generic bridge connector
 ---
- include/drm/drm_bridge.h | 74 ++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
+ drivers/gpu/drm/display/drm_bridge_connector.c | 48 ++++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 1981d24a700d2..95f5c2b8656cd 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -62,6 +62,15 @@ enum drm_bridge_attach_flags {
-  * struct drm_bridge_funcs - drm_bridge control functions
-  */
- struct drm_bridge_funcs {
-+	/**
-+	 * @set_luminance:
-+	 *
-+	 * Apply a relative luminance level to a bridge that controls panel
-+	 * emission. Bridges implementing this callback shall set
-+	 * @DRM_BRIDGE_OP_LUMINANCE.
-+	 */
-+	void (*set_luminance)(struct drm_bridge *bridge, unsigned int luminance);
-+
- 	/**
- 	 * @attach:
- 	 *
-@@ -1021,6 +1030,11 @@ enum drm_bridge_ops {
- 	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 81f3e26f6fdf5..bf0a6d162a7d3 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -125,6 +125,12 @@ struct drm_bridge_connector {
  	 */
- 	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME = BIT(10),
-+
+ 	struct drm_bridge *bridge_hdmi_cec;
+ 
 +	/**
-+	 * @DRM_BRIDGE_OP_LUMINANCE: The bridge controls panel luminance.
++	 * @bridge_luminance:
++	 *
++	 * The last bridge in the chain that controls panel luminance.
 +	 */
-+	DRM_BRIDGE_OP_LUMINANCE = BIT(11),
++	struct drm_bridge *bridge_luminance;
+ 	/**
+ 	 * @hdmi_funcs:
+ 	 *
+@@ -421,6 +427,28 @@ static int drm_bridge_connector_atomic_check(struct drm_connector *connector,
+ 	return 0;
+ }
+ 
++static void
++drm_bridge_connector_set_luminance(const struct drm_connector_state *conn_state)
++{
++	struct drm_bridge_connector *bridge_connector =
++		to_drm_bridge_connector(conn_state->connector);
++	struct drm_bridge *bridge = bridge_connector->bridge_luminance;
++
++	if (bridge)
++		bridge->funcs->set_luminance(bridge, conn_state->luminance);
++}
++
++static void
++drm_bridge_connector_disable_luminance(const struct drm_connector_state *conn_state)
++{
++	struct drm_bridge_connector *bridge_connector =
++		to_drm_bridge_connector(conn_state->connector);
++	struct drm_bridge *bridge = bridge_connector->bridge_luminance;
++
++	if (bridge)
++		bridge->funcs->set_luminance(bridge, 0);
++}
++
+ static const struct drm_connector_helper_funcs drm_bridge_connector_helper_funcs = {
+ 	.get_modes = drm_bridge_connector_get_modes,
+ 	.detect_ctx = drm_bridge_connector_detect_ctx,
+@@ -429,6 +457,8 @@ static const struct drm_connector_helper_funcs drm_bridge_connector_helper_funcs
+ 	.enable_hpd = drm_bridge_connector_enable_hpd,
+ 	.disable_hpd = drm_bridge_connector_disable_hpd,
+ 	.atomic_check = drm_bridge_connector_atomic_check,
++	.set_luminance = drm_bridge_connector_set_luminance,
++	.disable_luminance = drm_bridge_connector_disable_luminance,
  };
  
+ static enum drm_mode_status
+@@ -835,6 +865,7 @@ static void drm_bridge_connector_put_bridges(struct drm_device *dev, void *data)
+ 	drm_bridge_put(bridge_connector->bridge_hdmi_audio);
+ 	drm_bridge_put(bridge_connector->bridge_dp_audio);
+ 	drm_bridge_put(bridge_connector->bridge_hdmi_cec);
++	drm_bridge_put(bridge_connector->bridge_luminance);
+ }
+ 
  /**
-@@ -1071,6 +1085,12 @@ struct drm_bridge {
- 	void *driver_private;
- 	/** @ops: bitmask of operations supported by the bridge */
- 	enum drm_bridge_ops ops;
+@@ -918,6 +949,13 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 			drm_bridge_put(bridge_connector->bridge_detect);
+ 			bridge_connector->bridge_detect = drm_bridge_get(bridge);
+ 		}
++		if (bridge->ops & DRM_BRIDGE_OP_LUMINANCE) {
++			if (!bridge->funcs->set_luminance)
++				return ERR_PTR(-EINVAL);
 +
-+	/** @luminance_max: Maximum relative luminance level. */
-+	unsigned int luminance_max;
-+
-+	/** @luminance: Current relative luminance level. */
-+	unsigned int luminance;
- 	/**
- 	 * @type: Type of the connection at the bridge output
- 	 * (DRM_MODE_CONNECTOR_*). For bridges at the end of this chain this
-@@ -1522,6 +1542,60 @@ void drm_bridge_hpd_disable(struct drm_bridge *bridge);
- void drm_bridge_hpd_notify(struct drm_bridge *bridge,
- 			   enum drm_connector_status status);
++			drm_bridge_put(bridge_connector->bridge_luminance);
++			bridge_connector->bridge_luminance = drm_bridge_get(bridge);
++		}
+ 		if (bridge->ops & DRM_BRIDGE_OP_HDMI) {
+ 			if (bridge_connector->bridge_hdmi)
+ 				return ERR_PTR(-EBUSY);
+@@ -1144,6 +1182,16 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 	if (panel_bridge)
+ 		drm_panel_bridge_set_orientation(connector, panel_bridge);
  
-+#ifdef CONFIG_DRM_PANEL_BRIDGE
-+bool drm_bridge_is_panel(const struct drm_bridge *bridge);
-+struct drm_bridge *drm_panel_bridge_add(struct drm_panel *panel);
-+struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
-+					      u32 connector_type);
-+void drm_panel_bridge_remove(struct drm_bridge *bridge);
-+int drm_panel_bridge_set_orientation(struct drm_connector *connector,
-+				     struct drm_bridge *bridge);
-+struct drm_bridge *devm_drm_panel_bridge_add(struct device *dev,
-+					     struct drm_panel *panel);
-+struct drm_bridge *devm_drm_panel_bridge_add_typed(struct device *dev,
-+						   struct drm_panel *panel,
-+						   u32 connector_type);
-+struct drm_bridge *drmm_panel_bridge_add(struct drm_device *drm,
-+					     struct drm_panel *panel);
-+struct drm_connector *drm_panel_bridge_connector(struct drm_bridge *bridge);
-+#else
-+static inline bool drm_bridge_is_panel(const struct drm_bridge *bridge)
-+{
-+	return false;
-+}
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE) && bridge_connector->bridge_luminance && !connector->luminance_property) {
++		struct drm_bridge *bridge = bridge_connector->bridge_luminance;
 +
-+static inline int drm_panel_bridge_set_orientation(struct drm_connector *connector,
-+						   struct drm_bridge *bridge)
-+{
-+	return -EINVAL;
-+}
++		ret = drm_connector_attach_luminance_property(connector, 0,
++							      bridge->luminance_max,
++							     bridge->luminance);
++		if (ret)
++			return ERR_PTR(ret);
++	}
 +
-+#endif
-+
-+#if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL_BRIDGE)
-+struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct device_node *node,
-+					  u32 port, u32 endpoint);
-+struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm, struct device_node *node,
-+					  u32 port, u32 endpoint);
-+#else
-+static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
-+							struct device_node *node,
-+							u32 port,
-+							u32 endpoint)
-+{
-+	return ERR_PTR(-ENODEV);
-+}
-+
-+static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
-+						     struct device_node *node,
-+						     u32 port,
-+						     u32 endpoint)
-+{
-+	return ERR_PTR(-ENODEV);
-+}
-+#endif
-+
-+void devm_drm_put_bridge(struct device *dev, struct drm_bridge *bridge);
- void drm_bridge_debugfs_params(struct dentry *root);
- void drm_bridge_debugfs_encoder_params(struct dentry *root, struct drm_encoder *encoder);
- 
+ 	if (support_hdcp && IS_REACHABLE(CONFIG_DRM_DISPLAY_HELPER) &&
+ 	    IS_ENABLED(CONFIG_DRM_DISPLAY_HDCP_HELPER))
+ 		drm_connector_attach_content_protection_property(connector, true);
 
 -- 
 2.53.0
