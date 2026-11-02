@@ -2,47 +2,67 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C87606A918
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 17:12:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EADDD606A924
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 17:16:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TerN/uEq
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nWP8U6ir
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8103D10E0C3;
-	Mon,  2 Nov 2026 17:11:58 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 353CC10E691
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 17:11:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 05B7741509;
- Mon,  2 Nov 2026 17:11:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC451F00A16;
- Mon,  2 Nov 2026 17:11:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793639511;
- bh=cuQWtJGwnvegdYikr8U6KKYKj8DR4nlIdjuO1a/b6fk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TerN/uEqB6ABewtwZ5RYEEmU6xQW54N2wIeB4MPLQPo2pilZkP0wJlGIV/UkBT1sM
- ptH+43vrfTsWw6dpGlBuKAQmXJ+44Xx079Owk7FdcPf/MAOH+A3L88GtLcKm9c2gx8
- dVsi0VISUH6fxxwzavTB48T8Z8nR6LU61o3oGMlbxjYbfYBOA9ecCazM/pTWtPjMc5
- Coyc1uEvbWipeXistwcEVXOBKcfZjC723r0voETvaq/M1AnMmxzSCjAdLjG8eXQpbZ
- 85paAcGOTSU2hQDJvc86zUGBljuk9xZdg4YjVS5dR5M/twAfBjLtUXaxZ4YHeFaYE+
- HIa2fI30AqJ9g==
-Message-ID: <sashiko-outbox-193809@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] gpu: nova-core: add support for GPU timer block. (v2)
-To: "Dave Airlie" <airlied@redhat.com>,
- "Andreas Hindborg" <a.hindborg@kernel.org>, "FUJITA
- Tomonori" <fujita.tomonori@gmail.com>, "Gary Guo" <gary@garyguo.net>, "Alice
- Ryhl" <aliceryhl@google.com>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
- Almeida" <daniel.almeida@collabora.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261102-nova-timer-v1-2-b347ead64469@redhat.com>
-References: <20261102-nova-timer-v1-0-b347ead64469@redhat.com>
- <20261102-nova-timer-v1-2-b347ead64469@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 17:11:50 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5541610E691;
+	Mon,  2 Nov 2026 17:16:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 342BE10E691
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 17:16:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793639763; x=1825175763;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=PindnjL+kM3irIKVMGKsxYjY2neN6CeuZV4NVO8juo4=;
+ b=nWP8U6irobtJO3PXQMjxZuzh9lDHG8aB+Y18WoCS96qmwQm6UtLIbW8S
+ 8nHccg+1IgtwJvrfeCF/7uK04PcVBUIBcNHNKz6syx76tTBphf4buHw0B
+ SOE44zc65TNfZOPK7eqC7+uL/VX6S4ZfVGBARVxhRKKGWptsBOI6oVKMF
+ NU0l59bUUyzeZ3uobF/SPySnAEz+7FT3KUxdpLzcMVdoA13XhEa7p3WmH
+ VimDI76tq9sTKxIJ02nVGVdLp7Be5qX2msBmMYicENl8TKx6LzrazhnpI
+ tMI8sbprq3J4aUXruF0+Mf7i7vx8QbUQEhz4OaacWJNzzyUZCP+IftBsw A==;
+X-CSE-ConnectionGUID: x1lupD28TSyL1DR8r4cJ/A==
+X-CSE-MsgGUID: 2pQUeTIMSuSfUqijc3rVHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2241217"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2241217"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 09:16:02 -0800
+X-CSE-ConnectionGUID: eQhzoVBTRD6rD70CohQ4zg==
+X-CSE-MsgGUID: WnKe0SRiT7yZHenZKyWDTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6038636"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.10])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 09:15:59 -0800
+Date: Mon, 2 Nov 2026 19:15:55 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, javierm@redhat.com,
+ louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
+ sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
+ deadlock
+Message-ID: <aujFSzHEv5pAfHPf@intel.com>
+References: <20261102143919.1672293-1-tzimmermann@suse.de>
+ <auioL8zR9O5u4TCF@intel.com>
+ <4212140f-fa07-4f0c-bd3a-0ae3d88b250c@suse.de>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4212140f-fa07-4f0c-bd3a-0ae3d88b250c@suse.de>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,121 +73,133 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] gpu: nova-core: GH100 FSP bug 3957833 WAR applied to Blackwell in =
-timer_time()
---
+On Mon, Nov 02, 2026 at 05:48:23PM +0100, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 02.11.26 um 16:11 schrieb Ville Syrjälä:
+> > On Mon, Nov 02, 2026 at 03:38:52PM +0100, Thomas Zimmermann wrote:
+> >> Return -EDEADLK when trying to cancel a running hrtimer as part of
+> >> enable_vblank(). Reacquire vblank_time_lock and try again.
+> >>
+> >> The vblank helper drm_vblank_disable_and_save() and the vblank IRQ
+> >> handler hold the spin lock vblank_time_lock at some point. This
+> >> can result in a deadlock if vblank timer's disable code in
+> >> drm_crtc_vblank_cancel_timer() calls hrtimer_cancel() directly: the
+> >> helper wais for the timer function to complete and the timer function
+> >> waits for the helper to release vblank.time_lock.
+> >>
+> >> drm_crtc_vblank_cancel_timer() works around this problem by calling
+> >> hrtimer_try_to_cancel() instead. For re-enabling the vblank timer,
+> >> drm_crtc_vblank_start_timer() must wait for the vblank timer to stop.
+> >> It runs into the same deadlock problem while waiting for the timer
+> >> function to complete.
+> >>
+> >> The solution to this problem is to release and reacquire the spin
+> >> lock vblank_time_lock if hrtimer_try_to_cancel() signals a running
+> >> timer function. Releasing the lock allows for the timer function to
+> >> make progress.
+> >>
+> >> Signal the possible deadlock with -EDEADLK and perform the necessary
+> >> steps. No other driver uses -EDEADLK in their enable_vblank, so the
+> >> change should not interfere.
+> >>
+> >> Tested with bochs on qemu.
+> >>
+> >> Closes: https://lore.kernel.org/dri-devel/20260914111129.300691F00898@smtp.kernel.org/
+> >> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> >> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+> >> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> >> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+> >> Cc: Javier Martinez Canillas <javierm@redhat.com>
+> >> Cc: David Airlie <airlied@gmail.com>
+> >> Cc: Simona Vetter <simona@ffwll.ch>
+> >> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> >> Cc: Maxime Ripard <mripard@kernel.org>
+> >> Cc: dri-devel@lists.freedesktop.org
+> >> Cc: <stable@vger.kernel.org> # v6.19+
+> >> ---
+> >> I also tried to move hrtimer_cancel() out of the critical section. The
+> >> result was fairly fragile. So returning an error and re-acquiring the
+> >> lock was the easier solution.
+> >> ---
+> >>   drivers/gpu/drm/drm_vblank.c | 21 +++++++++++++++------
+> >>   1 file changed, 15 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> >> index 5162250e8813..135efde86298 100644
+> >> --- a/drivers/gpu/drm/drm_vblank.c
+> >> +++ b/drivers/gpu/drm/drm_vblank.c
+> >> @@ -1182,10 +1182,12 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
+> >>   static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
+> >>   {
+> >>   	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
+> >> -	int ret = 0;
+> >> +	int ret;
+> >>   
+> >>   	assert_spin_locked(&dev->vbl_lock);
+> >>   
+> >> +retry:
+> >> +	ret = 0;
+> >>   	spin_lock(&dev->vblank_time_lock);
+> >>   
+> >>   	if (!vblank->enabled) {
+> >> @@ -1199,7 +1201,11 @@ static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
+> >>   		ret = __enable_vblank(dev, pipe);
+> >>   		drm_dbg_core(dev, "enabling vblank on crtc %u, ret: %d\n",
+> >>   			     pipe, ret);
+> >> -		if (ret) {
+> >> +		if (ret == -EDEADLK) {
+> >> +			spin_unlock(&dev->vblank_time_lock);
+> >> +			cpu_relax();
+> >> +			goto retry;
+> >> +		} else if (ret) {
+> >>   			atomic_dec(&vblank->refcount);
+> >>   		} else {
+> >>   			drm_update_vblank_count(dev, pipe, 0);
+> >> @@ -2232,11 +2238,14 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
+> >>   			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+> >>   	} else {
+> >>   		/*
+> >> -		 * Timer should not be active. If it is, wait for the
+> >> -		 * previous cancel operations to finish.
+> >> +		 * Timer should not be running. If it is, signal cancellation
+> >> +		 * again and restart to release locks.
+> >>   		 */
+> >> -		while (hrtimer_active(&vtimer->timer))
+> >> -			hrtimer_try_to_cancel(&vtimer->timer);
+> > Why do you even have to cancel the timer here? Just let it run?
+> 
+> We ran hrtimer_try_to_cancel() in drm_crtc_vblank_cancel_timer() to 
+> remove the vblank timer. When we later come here, we need to know if the 
+> timer has meanwhile been fully canceled. Hence we need at least one call 
+> to hrtimer_try_to_cancel() even if the timer is in some bogus state 
+> where it should not be active. The loop here was nonsense and could 
+> deadlock. In the new code, we still need that call to 
+> hrtimer_try_to_cancel() to detect the possible deadlock.
+> 
+> I'm not confident that we can set up the hrtimer with new values while 
+> it is in this half-canceled state, can we?
 
-commit fd289ae7ae729480f9ef4d6e43c04d6aa8f3dbe4
-Author: Dave Airlie <airlied@redhat.com>
+Shrug.
 
-gpu: nova-core: add support for GPU timer block. (v2)
+But what I'm thinking is:
+- stop with the explicit cancel entirely and just rely on the
+  timer cancelling itself
+- try to start the timer in vblank_enable(), and if that can somehow
+  fail because the timer is still running it should be fine because
+  the self cancellation should anyway have been aborted
+- explicitly wait for the timer to have stoppped in drm_vblank_off()
+  to make sure the wrong interval can't leak from one mode to
+  another
 
-This commit adds GPU timer block initialization for nova-core to compute and
-program the system timer offset passed to GSP initialization, with HAL
-implementations for TU102 (Turing/Ampere/Ada) and GH100 (Hopper/Blackwell).
-
-> diff --git a/drivers/gpu/nova-core/timer/hal.rs b/drivers/gpu/nova-core/t=
-imer/hal.rs
-> new file mode 100644
-> index 0000000000000..7aeff6cdc6787
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/timer/hal.rs
-> @@ -0,0 +1,28 @@
-
-[ ... ]
-
-> +pub(super) fn timer_hal(chipset: Chipset) -> &'static dyn TimerHal {
-> +    match chipset.arch() {
-> +        Architecture::Turing | Architecture::Ampere | Architecture::Ada =
-=3D> tu102::TU102_HAL,
-> +        Architecture::Hopper | Architecture::BlackwellGB10x | Architectu=
-re::BlackwellGB20x =3D> {
-> +            gh100::GH100_HAL
-> +        }
-> +    }
-> +}
-> diff --git a/drivers/gpu/nova-core/timer/hal/gh100.rs b/drivers/gpu/nova-=
-core/timer/hal/gh100.rs
-> new file mode 100644
-> index 0000000000000..7f55bf04a3f35
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/timer/hal/gh100.rs
-> @@ -0,0 +1,76 @@
-
-[ ... ]
-
-> +/// FSP ucode version from which on the fix for bug 3957833 is included.
-> +const FSP_BUG_3957833_FIX_VERSION: u32 =3D 0x44c;
-> +
-> +/// kfspRequiresBug3957833WAR_HAL: returns `true` if the FSP ucode preda=
-tes the fix for bug
-> +/// 3957833 and hence the sys timer offset must not be programmed.
-> +fn fsp_requires_bug3957833_war(bar: Bar0<'_>) -> bool {
-> +    bar.read(regs::gh100::NV_GFW_FSP_UCODE_VERSION).full().get() < FSP_B=
-UG_3957833_FIX_VERSION
-> +}
-> +
-> +fn timer_time(bar: Bar0<'_>, time_ns: i64) -> Result<i64> {
-
-[ ... ]
-
-> +    if !fsp_requires_bug3957833_war(bar) {
-> +        let offset_ns =3D sys_timer_offset_ns as u64;
-> +        bar.write_reg(
-> +            regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_1::zeroed()
-> +                .try_with_nsec(((offset_ns >> 32) & 0x1fff_ffff) as u32)=
-?,
-> +        );
-> +        bar.write_reg(
-> +            regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_0::zeroed()
-> +                .try_with_nsec(((offset_ns >> 5) & 0x7ff_ffff) as u32)?
-> +                .with_update(true),
-> +        );
-> +    }
-> +    Ok(sys_timer_offset_ns)
-> +}
-
-[Severity: High]
-Should fsp_requires_bug3957833_war() in drivers/gpu/nova-core/timer/hal/gh1=
-00.rs
-be restricted to Hopper (GH100) rather than also running on Blackwell?
-
-In drivers/gpu/nova-core/timer/hal.rs, timer_hal() routes Architecture::Hop=
-per,
-Architecture::BlackwellGB10x, and Architecture::BlackwellGB20x to
-gh100::GH100_HAL:
-
-    Gpu::new()
-      -> Timer::new()
-        -> hal::timer_hal(chipset).init(bar)
-          -> Gh100::init()
-            -> timer_time()
-              -> fsp_requires_bug3957833_war()
-
-In OpenRM, kfspRequiresBug3957833WAR_HAL is an FSP HAL method implemented o=
-nly
-for GH100 (comparing GH100's FSP ucode version against 0x44c) and stubbed to
-return false on Blackwell, which has separate FSP firmware version numberin=
-g.
-
-When running on Blackwell (BlackwellGB10x or BlackwellGB20x), if the value =
-in
-NV_GFW_FSP_UCODE_VERSION is below 0x44c, won't timer_time() falsely trigger
-the GH100 workaround and skip programming NV_PGC6_SCI_SYS_TIMER_OFFSET_1 and
-NV_PGC6_SCI_SYS_TIMER_OFFSET_0?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-nova-timer=
--v1-0-b347ead64469@redhat.com?part=3D2
+-- 
+Ville Syrjälä
+Intel
