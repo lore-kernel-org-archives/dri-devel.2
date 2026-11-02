@@ -2,100 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09FB1606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 07:18:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3DE606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 07:19:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JSdHgSFS
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PVbsfM2X
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 962F310E588;
-	Mon,  2 Nov 2026 07:17:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3322B10E545;
+	Mon,  2 Nov 2026 07:19:17 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4FAE10E588
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 07:17:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF7E210E545
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 07:19:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AF47360EDF;
- Mon,  2 Nov 2026 07:17:52 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1793603872;
- b=JOrqtAY3vTkHjBYjW4WzbLgYPgiAgPaoq6dj+XxC/xMglaFOFdRSmkM5mCfVpfd9IeGG
- bGgBbWqGfumXpmiKubUtTiqxACL4XR7WUfTVnxw+B+VwHtpe6OikxS0sUDBFpR8kY7nd8
- vTvK82iVfRmRGmSwS4H+IsXzBlWEQ9NnjpvXFI5tUwHoROxsFNP7Q6/hS6cZU6k++YKIH
- M0iFlWvqJaTTkWbVw1jwCLuf/uI+AMAQmu/AhrdrboobHsM3k5XDgVJ+KgUO7oalVZsfe
- NtXETNpCGym9DhSpc177IsuZl3jPuzrQja46ukV8LhFkdJnuhoYQOc4RwfACF09qnow==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1793603872;
- h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
- Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
- Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To;
- bh=/CqY/JwmLRqna2Ah8QP4/3eF0mxPg49P6CbOEFBKUQM=;
- b=H3D2DSj6+DTIKJpt4R/+j3BlFm42c8CqwWJlqMZdqHuJCuYUnE3PwXGRRg67qfrwK6HV
- 1lWKUd2ARQIpdAoR0OIDxNgc9n6LmmCR6wos2j0jvndhm5zfV0+919XAty5JRLTsZYCGh
- S+8vRWCuo3YpVKFIJy6rHcTbNLgUzHjlx+co+4vFTyr91DGadHDLaZ9FQyuzmwRX6sRGK
- O4sPD9Ca+XC6Feoyr+rget1I7W+0Wom78FnTmmpC1WtavOW9RAUMvAQ6XOjfRSDQMF6eZ
- wwO+uV3Gn2nd4FjgeLRO7X85kidLYuaUFFZ2goPD1EL4UxocxU7ljVwu5le33DUAcKQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id A67D21F0093A;
- Mon,  2 Nov 2026 07:17:51 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 557A560DC0;
+ Mon,  2 Nov 2026 07:19:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A241F000C1;
+ Mon,  2 Nov 2026 07:19:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793603872;
- bh=/CqY/JwmLRqna2Ah8QP4/3eF0mxPg49P6CbOEFBKUQM=;
- h=From:Subject:Date:To:Cc:Reply-To;
- b=JSdHgSFSWsi67XQtbsjrvWR3M2uKT7Nw49ztGMCtXGGmq4cy0oW87hFf8s15zqmRS
- vmDkfE2KWMVdjKavoPY2Ap5JMTE5IIbWGm6AMYurZImI2ZrO8DiAY1DnFfHIAC1on8
- JCuhwZjbQ0gRwXZZ8B3OLKqkyB3NMg0jeuVcVVmFYOe/UXSDzGLnkWTYAi3BsRpo/H
- S8CVRAicdMWEV1j3j4FZBy8dcKzbwY1sEvioY5zKaV+bv6j6xsHwCBZaZzeN853D6c
- TEaN4zqRGqXkN0Re0jlxb0reBKrcULYEoigksSjufQQMMsMVr2f2/eH0vR8dhJdnX5
- Mp1acV6TkN/1A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 054FD463D3;
- Mon,  2 Nov 2026 07:17:51 +0000 (UTC)
-From: Dave Airlie via B4 Relay <devnull+airlied.redhat.com@kernel.org>
-Subject: [PATCH 0/2] nova-core: add initial support for gpu timer (v2)
-Date: Mon, 02 Nov 2026 17:17:39 +1000
-Message-Id: <20261102-nova-timer-v1-0-b347ead64469@redhat.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwMj3bz8skTdkszc1CLdNJMky5RUYyNzk0RDJaCGgqLUtMwKsGHRsbW
- 1AP5WcfNcAAAA
-X-Change-ID: 20261102-nova-timer-f4b9de3274a1
-To: Andreas Hindborg <a.hindborg@kernel.org>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Gary Guo <gary@garyguo.net>, 
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Dave Airlie <airlied@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1359; i=airlied@redhat.com;
- h=from:subject:message-id;
- bh=RYbXHTs81IbH7HvDGHxYUlQGzPjtXhkoehwsBfu0Hto=;
- b=owEBbQKS/ZANAwAKAQx081l5xIa+AcsmYgBq6DkYDL0yKfyHai+FiOWnD9w9gdYcDqpe6Q8vi
- jeiHuKBDdGJAjMEAAEKAB0WIQQQptkdobBb0p9t66wMdPNZecSGvgUCaug5GAAKCRAMdPNZecSG
- vnHxEACos1WTmVvpCG78TQF4ByhizPj2/NukKawmojSNAa7FcBoTT47lssoanIRwFuqEE30Zs7d
- 5xXGQL9D5L3wM6QX2qsTKYeStri4oMJyz5WyMbs1BggJm4NP9dYHtSfEiv1VmRj6vxR+O5LL4D3
- XK0GsMrr10Epl93z/OGjjaMb4uUPjiiJzdIW3Wi7suGVEcEa6Q2kZkVDACrUrcptTIh0h1JmMkh
- vlHt/FQuIVx3m6ANmxjZrzgubOrrs9mUXoQyBHhmapmrChVX/VZmXilQSvt/Y2p+HAqzjHvZmb8
- PWxPmBi5J8dijwgg2YBJhwcmb5hYXUX5aTajlKiJmaJSzhhiFqX3HcYqG8ASL4Wctgx58opS/Sw
- iG3GqMMjb3AUCHg7vRSUBf98d1N2bEutLJGDeAIHtvCM0RM7pFk7rhc+qJqlB3egs+/4RyPjEw4
- 3XweKOvrveAQ/IReinl/dJ9sKQ3iBBwa+5Dh9UAy5gOWGSQfGKOZta8oXtIUnWTB/jI+nHvreAM
- gdLcjjxur2M8G/TQaKLSAmjWjH/Uj6a12sbQZJDkQrFZnFqYgcWpO17oOHCcbzFtadDnIC3kms7
- jy9FOxopeYWvx+N0dRvfP1MirO/k9ave+r6bKmOZCjFU0vjBtdtzzMfGCSSuuiIXG+rKjt1rIyy
- vTsgsZCeV1IVY+A==
-X-Developer-Key: i=airlied@redhat.com; a=openpgp;
- fpr=10A6D91DA1B05BD29F6DEBAC0C74F35979C486BE
-X-Endpoint-Received: by B4 Relay for airlied@redhat.com/default with
- auth_id=1321
-X-Original-From: Dave Airlie <airlied@redhat.com>
+ s=k20260515; t=1793603950;
+ bh=TT11cNNQOUEwXofn5zKwqd+b9GGv+S9fX+rvnyFJA5Q=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PVbsfM2XbwmG/VqqRkbRE4QiP3MiE8SQF14m89bd/U+0Zx8gyyTrEKlzPfDpGhPTD
+ REDTDWAdM0uYt+ymVKUBZH2ISIAYv1veNFl/HKeHSH2naG420tz12uKUQUPqMfENZq
+ kqzylUwTSAhrPL5E1l/8UNH+8sxZW7Qxuwt77Su80PiDqyrNTQkCiYUKB97Z6OzNwB
+ YneqUkLocfylF5BQ/e7ec0kgeZ2N6z5DEFwE2LZEWut4MjNIMKvRfVQm/bKyjhhpOQ
+ 04coN4cduPlJL/WRgvbUxzKiXAnDvIlIEzMhQXuBiFNUSm+PP28RasqJCReDp1YOQI
+ gQog+QGpWjVig==
+Message-ID: <sashiko-outbox-193014@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/4] drm/imagination: Improve some logging in error
+ paths
+To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261102-b4-simplify-mips-pte-defs-v5-3-d5bcf7d95a1a@imgtec.com>
+References: <20261102-b4-simplify-mips-pte-defs-v5-0-d5bcf7d95a1a@imgtec.com>
+ <20261102-b4-simplify-mips-pte-defs-v5-3-d5bcf7d95a1a@imgtec.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 07:19:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,51 +49,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: airlied@redhat.com
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-The GPU has a timer, one of the pieces of information
-we need to pass into GSP init later is the timer offset.
-    
-This series just adds support for setting up the timer
-on Turing+, with hals for Turing and Hopper.
-    
-Right now it calculates the value to send to GSP but
-the code to send it will be added later.
-    
-For some hardware variants sending a proper value
-is required for GSP init to succeed.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/imagination: wrong page count check in pvr_vm_get_pt_phys_ad=
+drs()
+--
 
-v2 changes on second patch.
+commit b112075b03dc02481bd49eeee6ccd64222b769b3
+Author: Matt Coster <opensource@mtcoster.net>
 
-Signed-off-by: Dave Airlie <airlied@redhat.com>
----
-Dave Airlie (2):
-      rust: time: expose as_nanos for clock sources.
-      gpu: nova-core: add support for GPU timer block. (v2)
+drm/imagination: Improve some logging in error paths
 
- drivers/gpu/nova-core/gpu.rs             |  5 +++
- drivers/gpu/nova-core/nova_core.rs       |  1 +
- drivers/gpu/nova-core/timer.rs           | 33 ++++++++++++++
- drivers/gpu/nova-core/timer/hal.rs       | 28 ++++++++++++
- drivers/gpu/nova-core/timer/hal/gh100.rs | 76 ++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/timer/hal/tu102.rs | 56 +++++++++++++++++++++++
- drivers/gpu/nova-core/timer/regs.rs      | 64 +++++++++++++++++++++++++++
- rust/kernel/time.rs                      |  3 +-
- 8 files changed, 265 insertions(+), 1 deletion(-)
----
-base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
-change-id: 20261102-nova-timer-f4b9de3274a1
+This commit adds error logging when attempting to map an already mapped
+firmware object, unmap an already unmapped firmware object, or provide too
+few DMA address slots for the MIPS firmware page table.
 
-Best regards,
--- 
-Dave Airlie <airlied@redhat.com>
+> diff --git a/drivers/gpu/drm/imagination/pvr_vm_mips.c b/drivers/gpu/drm/=
+imagination/pvr_vm_mips.c
+> index 726f900d35827..b74386032e6ab 100644
+> --- a/drivers/gpu/drm/imagination/pvr_vm_mips.c
+> +++ b/drivers/gpu/drm/imagination/pvr_vm_mips.c
+[ ... ]
+> @@ -278,8 +279,12 @@ pvr_vm_get_pt_phys_addrs(struct pvr_device *pvr_dev,=
+ u64 *phys_addrs, int max_nu
+>  	struct pvr_fw_device *fw_dev =3D &pvr_dev->fw_dev;
+>  	struct pvr_vm_mips_data *vm_data =3D fw_dev->processor_data.mips_data.v=
+m_data;
+> =20
+> -	if (ARRAY_SIZE(vm_data->pt_pages) > max_num_addrs)
+> +	if (ARRAY_SIZE(vm_data->pt_pages) > max_num_addrs) {
+> +		drm_err(from_pvr_device(pvr_dev),
+> +			"Minimum %zu pages required for FW PT, but only %d DMA address slots =
+were provided\n",
+> +			ARRAY_SIZE(vm_data->pt_pages), max_num_addrs);
+>  		return -EINVAL;
+> +	}
+> =20
+>  	for (u32 page_nr =3D 0; page_nr < max_num_addrs; page_nr++) {
+>  		/* Firmware expects 4k pages, but host page size might be different. */
 
+[Severity: Medium]
+As reported by Sashiko on v4 [1], in pvr_vm_get_pt_phys_addrs() in
+drivers/gpu/drm/imagination/pvr_vm_mips.c, vm_data->pt_pages and
+vm_data->pt_dma_addr are sized by PVR_MIPS_PT_PAGE_COUNT, which is the
+number of host PAGE_SIZE pages rather than 4K firmware pages:
 
+#define PVR_MIPS_PT_PAGE_COUNT \
+	DIV_ROUND_UP(PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES * PVR_MIPSFW_PAGE_SIZE_4K,=
+ PAGE_SIZE)
+
+However, phys_addrs and max_num_addrs are in units of 4K firmware pages
+(requiring PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES slots), as shown by the loop
+body translating each 4K page_nr into a host page index:
+
+	for (u32 page_nr =3D 0; page_nr < max_num_addrs; page_nr++) {
+		/* Firmware expects 4k pages, but host page size might be different. */
+		u32 src_page_nr =3D (page_nr * PVR_MIPSFW_PAGE_SIZE_4K) >> PAGE_SHIFT;
+		u32 page_offset =3D (page_nr * PVR_MIPSFW_PAGE_SIZE_4K) & ~PAGE_MASK;
+
+		phys_addrs[page_nr] =3D vm_data->pt_dma_addr[src_page_nr] + page_offset;
+	}
+
+On hosts with PAGE_SIZE > 4K (such as 16K or 64K page kernels),
+ARRAY_SIZE(vm_data->pt_pages) is 1 while 4 DMA address slots are still
+required for the firmware page table. Checking and logging
+ARRAY_SIZE(vm_data->pt_pages) allows an undersized buffer of 1 to 3 slots
+to pass validation on those kernels and logs the host page count instead of
+the required 4K page table slot count.
+
+Additionally, because max_num_addrs is a signed int compared against
+unsigned ARRAY_SIZE() and u32 page_nr, and the loop iterates up to
+max_num_addrs rather than PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES, passing
+max_num_addrs > PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES or a negative
+max_num_addrs will cause src_page_nr to read out of bounds from
+vm_data->pt_dma_addr[].
+
+Should the check, error message, and loop bound use
+PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES instead of ARRAY_SIZE(vm_data->pt_pages)
+and max_num_addrs?
+
+[1] https://lore.kernel.org/r/20261029-b4-simplify-mips-pte-defs-v4-3-96560=
+41e040b@imgtec.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-b4-simplif=
+y-mips-pte-defs-v5-0-d5bcf7d95a1a@imgtec.com?part=3D3
