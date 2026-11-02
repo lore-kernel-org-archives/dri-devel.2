@@ -2,134 +2,58 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7070C606B1F6
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 16:48:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E436B6072C54
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 16:49:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=02nQqflh;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GwcSGu1H;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MNBhQREX;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aUbDg4gK
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BB62gHzL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E2710E0A6;
-	Mon,  2 Nov 2026 16:48:38 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76CAC10E0A6
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 16:48:27 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8F4292202B;
- Mon,  2 Nov 2026 16:48:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793638105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
- b=02nQqflhIL2tyzXPE/ieje49qERwo8sAiJEG7oWVVufg+aPKvRN7n3OEnWvbv/B4IUIWiC
- geLX8hSyJ+4kek5OGMYddofr6Tao5xtPwQHkb34Mx5EAjtFosqg15y8J+VSCG7utl7zfxw
- z28GC8aMNd0nXINQbWC8rw1Ezn2XgpY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793638105;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
- b=GwcSGu1HEwIpPPFDsRXsrj8mvXbodhyh+sq92ZFFGcgBdBS0FB3R0JNk1GPffir7OziXta
- HOq+1FXczPwgJzBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1793638104; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
- b=MNBhQREXmZ9dH0LOn4imoP2vAQDtZhcnQsL0hbHwZYyeyU9wr6PFT82Jemb/Mn6C/RVQLK
- Cazah5smMSv29m8TOFXxzJBNKoxrW/wfnARz8RmIj4qPlvWxJcvqN4I2ddnqiRZdeJl3mA
- 2tYA6GY4DRMeWrePyOBkfXTro52T9No=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1793638104;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
- b=aUbDg4gKIKZz/M1a3wNTXwMuN9r418R+iAPP1r8WycjozWF12slYyTh4F287xbO19aqLnz
- /4HT3KlurFDdnnCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2EF75134B8;
- Mon,  2 Nov 2026 16:48:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id R+UfN9e+6GquTgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 02 Nov 2026 16:48:24 +0000
-Message-ID: <4212140f-fa07-4f0c-bd3a-0ae3d88b250c@suse.de>
-Date: Mon, 2 Nov 2026 17:48:23 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54E9C10F09A;
+	Mon,  2 Nov 2026 16:49:35 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A2D310F0B3;
+ Mon,  2 Nov 2026 16:49:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 598E9429DE;
+ Mon,  2 Nov 2026 16:49:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9151E1F00A17;
+ Mon,  2 Nov 2026 16:49:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793638169;
+ bh=MeedEfZsFXsP5qo2iaurGBLApo5iEvSj6gKmWJRvO/A=;
+ h=From:Subject:Date:To:Cc;
+ b=BB62gHzL5S97E9XvJYB4smDYnpHNqlxvxahS6WU2szl1/FNeEz43DsW74XPCqPr98
+ sdhrvyqz06mInyozpQwXvvwAcxepFngu4ypP5wqOAOdpDoyKfICilM0ClliISj1wqL
+ WYq0/71ap7b5bwdiUb2A3tWwLwOppwQhSkMeFzW6boc/1khLdXx8+G1z/uNTViCTf3
+ BWe187Hx/m7h4ucTM0DMx5sOBI53FU04Vq3H+5X6vvX3GUcRSRW2Qt++ilUCDFkJJy
+ Vy/Buh+pa1OaO+TLi3bmLVBSh5bRa5ehBIn3Kz7nZaCaQYAI7feDBUX/DwevEpwmCB
+ bO1cq4159riWQ==
+From: "Mario Limonciello (AMD)" <superm1@kernel.org>
+Subject: [PATCH v10 00/15] Add support for a DRM backlight capability
+Date: Mon, 02 Nov 2026 10:49:16 -0600
+Message-Id: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
- deadlock
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com, 
- simona@ffwll.ch, javierm@redhat.com, louis.chauvet@bootlin.com,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- stable@vger.kernel.org
-References: <20261102143919.1672293-1-tzimmermann@suse.de>
- <auioL8zR9O5u4TCF@intel.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <auioL8zR9O5u4TCF@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- XM_UA_NO_VERSION(0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_TRACE(0.00)[0:+];
- URIBL_BLOCKED(0.00)[suse.com:url,intel.com:email,suse.de:email,ffwll.ch:email,bootlin.com:email,bootlin.com:url,imap1.dmz-prg2.suse.org:helo];
- FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,bootlin.com,lists.freedesktop.org,lists.linux.dev,vger.kernel.org];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCPT_COUNT_SEVEN(0.00)[10]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, lists.freedesktop.org:email,
- intel.com:email, ffwll.ch:email, imap1.dmz-prg2.suse.org:helo, suse.de:email,
- bootlin.com:email, bootlin.com:url]
-X-Spam-Score: -13.29
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CMBBA4auQWTtJpyEmehXjoi0jjD/QzBQjI
+ dydqsv3Ft8KxipscG5WUH6LyTTWIHdoIA1h7BmlqwO880ciR2hzZn0RxpAeT+mHglmnusqCxHy
+ KFNro2w4qkJVv8vnpl+u/bY53TuUrwrbtqRIDaH8AAAA=
+X-Change-ID: 20261101-superm1-backlight-property-1ee9b1a4b24d
+To: Maxime Ripard <mripard@kernel.org>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Mario Limonciello <superm1@kernel.org>, 
+ Xaver Hugl <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, 
+ Mario Limonciello <mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,157 +65,165 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-23.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi
+At Display Next Hackfest 2026 we reviewed progress moving brightness
+control into the DRM connector properties.
 
-Am 02.11.26 um 16:11 schrieb Ville Syrjälä:
-> On Mon, Nov 02, 2026 at 03:38:52PM +0100, Thomas Zimmermann wrote:
->> Return -EDEADLK when trying to cancel a running hrtimer as part of
->> enable_vblank(). Reacquire vblank_time_lock and try again.
->>
->> The vblank helper drm_vblank_disable_and_save() and the vblank IRQ
->> handler hold the spin lock vblank_time_lock at some point. This
->> can result in a deadlock if vblank timer's disable code in
->> drm_crtc_vblank_cancel_timer() calls hrtimer_cancel() directly: the
->> helper wais for the timer function to complete and the timer function
->> waits for the helper to release vblank.time_lock.
->>
->> drm_crtc_vblank_cancel_timer() works around this problem by calling
->> hrtimer_try_to_cancel() instead. For re-enabling the vblank timer,
->> drm_crtc_vblank_start_timer() must wait for the vblank timer to stop.
->> It runs into the same deadlock problem while waiting for the timer
->> function to complete.
->>
->> The solution to this problem is to release and reacquire the spin
->> lock vblank_time_lock if hrtimer_try_to_cancel() signals a running
->> timer function. Releasing the lock allows for the timer function to
->> make progress.
->>
->> Signal the possible deadlock with -EDEADLK and perform the necessary
->> steps. No other driver uses -EDEADLK in their enable_vblank, so the
->> change should not interfere.
->>
->> Tested with bochs on qemu.
->>
->> Closes: https://lore.kernel.org/dri-devel/20260914111129.300691F00898@smtp.kernel.org/
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
->> Cc: Javier Martinez Canillas <javierm@redhat.com>
->> Cc: David Airlie <airlied@gmail.com>
->> Cc: Simona Vetter <simona@ffwll.ch>
->> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> Cc: Maxime Ripard <mripard@kernel.org>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: <stable@vger.kernel.org> # v6.19+
->> ---
->> I also tried to move hrtimer_cancel() out of the critical section. The
->> result was fairly fragile. So returning an error and re-acquiring the
->> lock was the easier solution.
->> ---
->>   drivers/gpu/drm/drm_vblank.c | 21 +++++++++++++++------
->>   1 file changed, 15 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
->> index 5162250e8813..135efde86298 100644
->> --- a/drivers/gpu/drm/drm_vblank.c
->> +++ b/drivers/gpu/drm/drm_vblank.c
->> @@ -1182,10 +1182,12 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
->>   static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
->>   {
->>   	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
->> -	int ret = 0;
->> +	int ret;
->>   
->>   	assert_spin_locked(&dev->vbl_lock);
->>   
->> +retry:
->> +	ret = 0;
->>   	spin_lock(&dev->vblank_time_lock);
->>   
->>   	if (!vblank->enabled) {
->> @@ -1199,7 +1201,11 @@ static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
->>   		ret = __enable_vblank(dev, pipe);
->>   		drm_dbg_core(dev, "enabling vblank on crtc %u, ret: %d\n",
->>   			     pipe, ret);
->> -		if (ret) {
->> +		if (ret == -EDEADLK) {
->> +			spin_unlock(&dev->vblank_time_lock);
->> +			cpu_relax();
->> +			goto retry;
->> +		} else if (ret) {
->>   			atomic_dec(&vblank->refcount);
->>   		} else {
->>   			drm_update_vblank_count(dev, pipe, 0);
->> @@ -2232,11 +2238,14 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
->>   			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
->>   	} else {
->>   		/*
->> -		 * Timer should not be active. If it is, wait for the
->> -		 * previous cancel operations to finish.
->> +		 * Timer should not be running. If it is, signal cancellation
->> +		 * again and restart to release locks.
->>   		 */
->> -		while (hrtimer_active(&vtimer->timer))
->> -			hrtimer_try_to_cancel(&vtimer->timer);
-> Why do you even have to cancel the timer here? Just let it run?
+There is a range LUMINANCE property that will default to 0->0.
+Once a driver attaches a backlight it will be updated to 1->max.
+If the panel supports the minimum backlight turning off the display
+the range can later be updated to 0->max instead of 1->max.
 
-We ran hrtimer_try_to_cancel() in drm_crtc_vblank_cancel_timer() to 
-remove the vblank timer. When we later come here, we need to know if the 
-timer has meanwhile been fully canceled. Hence we need at least one call 
-to hrtimer_try_to_cancel() even if the timer is in some bogus state 
-where it should not be active. The loop here was nonsense and could 
-deadlock. In the new code, we still need that call to 
-hrtimer_try_to_cancel() to detect the possible deadlock.
+Version 8 had a lot of review feedback, and the biggest change is that
+this no longer has the legacy sysfs interface for brightness control.
 
-I'm not confident that we can set up the hrtimer with new values while 
-it is in this half-canceled state, can we?
+There is a Kconfig knob introduced that turns on the new API, and when
+the new API is available all drivers will conflict with the old backlight
+control API.
 
+This will allow us to land the new brightness control API and the transition
+to the new API separately.  *This series only tracks the new API itself.*
 
->
->> +		if (hrtimer_try_to_cancel(&vtimer->timer) == -1) {
->> +			scoped_guard(spinlock_irqsave, &vtimer->interval_lock)
->> +				vtimer->interval = 0;
-> Does this interval_lock serve some actual purpose? Looks like it's just
-> protecting a single variable, and there are no read-modify-writes
-> happening to it that I can see.
+The following compositors have implemented matching support, although they
+need to be changed again for items modified in v10 (the dropped cap):
+ * Kwin: https://invent.kde.org/plasma/kwin/-/merge_requests/9298
+ * Mutter: https://gitlab.gnome.org/swick/mutter/-/commits/wip/kms-luminance-prop
+ * Wlroots: https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5384
 
-Setting vtimer->interval to zero will signal any non-canceled timer to 
-cancel itself immediately. [1]  Either hrtimer_try_to_cancel() is 
-successful or the next run of the timer function will cacnel itself.  We 
-do this because we cannot cancel the timer directl with hrtimer_cancel() 
-due to the possible deadlock.
+I've tested this series using modetest on amdgpu.
 
-[1] 
-https://elixir.bootlin.com/linux/v7.3/source/drivers/gpu/drm/drm_vblank.c#L2191
+The series is also available on this branch for easy testing.
 
-Best regards
-Thomas
+https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/backlight-property-v10
 
+Signed-off-by: Mario Limonciello <superm1@kernel.org>
+---
+Changes in v10:
 
->
->> +			return -EDEADLK;
->> +		}
->>   	}
->>   
->>   	drm_calc_timestamping_constants(crtc, &crtc->mode);
->> -- 
->> 2.56.0
+* Split patch 7 (panel/bridge connector luminance forwarding) into three
+   separate patches:
+  - drm/bridge: add connector luminance operations
+  - drm/panel: add connector luminance forwarding
+  - drm/bridge_connector: add luminance support
+ * Dropped MIPI-DBI tiny driver migrations and the new mipi_dbi connector
+   luminance helpers (Javier): backlight is always NULL when
+   CONFIG_BACKLIGHT_CLASS_DEVICE is disabled, so these drivers can't
+   support LUMINANCE without DT binding changes or a new
+   CONFIG_BACKLIGHT_SYSFS option. Will revisit later.
+ * Added IS_ENABLED(CONFIG_DRM_LUMINANCE) conditional guards to all
+   individual DRM driver patches that call drm_connector_attach_luminance_property()
+ * Moved the LUMINANCE property patch after the new "Add support for a
+   DRM backlight capability" patch to better separate backlight vs
+   luminance functionality
+ * Link to v9: https://lore.kernel.org/dri-devel/20261002190030.211356-1-mario.limonciello@amd.com/
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+To: Maxime Ripard <mripard@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Javier Martinez Canillas <javierm@redhat.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Harry Wentland <harry.wentland@amd.com>
+To: Leo Li <sunpeng.li@amd.com>
+To: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Xaver Hugl <xaver.hugl@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
 
+---
+Mario Limonciello (13):
+      drm: add connector LUMINANCE property
+      drm/amd/display: Pass up errors reading actual brightness
+      drm/amd: add luminance property support
+      drm/i915/display: add luminance property support
+      drm/bridge: add connector luminance operations
+      drm/panel: add connector luminance forwarding
+      drm/bridge_connector: add luminance support
+      drm/nouveau: add connector luminance support
+      drm/gud: add connector luminance support
+      drm/radeon: add connector luminance support
+      drm/gma500: add connector luminance support
+      drm/bridge: add PS8622 connector luminance support
+      drm/solomon: add SSD130x connector luminance support
+
+Mario Limonciello (AMD) (2):
+      drm/amdgpu: Check bios_scratch_reg_offset in backlight level helper
+      drm/amd/display: update KUnit luminance fixtures
+
+ drivers/gpu/drm/Kconfig                            |  14 +++
+ drivers/gpu/drm/amd/amdgpu/Kconfig                 |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c       |   7 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c     |  20 ++++
+ drivers/gpu/drm/amd/amdgpu/atombios_encoders.c     |  17 +++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  22 +++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  55 +++++++++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |   4 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |   7 +-
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |  47 +++++++--
+ .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   7 +-
+ drivers/gpu/drm/bridge/Kconfig                     |   2 +-
+ drivers/gpu/drm/bridge/parade-ps8622.c             |  45 ++++++---
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  48 +++++++++
+ drivers/gpu/drm/drm_atomic_helper.c                |  73 +++++++++++++-
+ drivers/gpu/drm/drm_atomic_state_helper.c          |   7 ++
+ drivers/gpu/drm/drm_atomic_uapi.c                  |   5 +
+ drivers/gpu/drm/drm_connector.c                    |  57 +++++++++++
+ drivers/gpu/drm/drm_panel.c                        |  99 +++++++++++++++++--
+ drivers/gpu/drm/gma500/Kconfig                     |   2 +-
+ drivers/gpu/drm/gma500/backlight.c                 |  45 ++++++---
+ drivers/gpu/drm/gma500/cdv_intel_lvds.c            |   2 +
+ drivers/gpu/drm/gma500/psb_drv.c                   |   2 +-
+ drivers/gpu/drm/gma500/psb_drv.h                   |   4 +-
+ drivers/gpu/drm/gma500/psb_intel_lvds.c            |   3 +-
+ drivers/gpu/drm/gud/Kconfig                        |   2 +-
+ drivers/gpu/drm/gud/gud_connector.c                |  48 ++++++++-
+ drivers/gpu/drm/i915/Kconfig                       |   2 +-
+ drivers/gpu/drm/i915/display/icl_dsi.c             |   1 +
+ drivers/gpu/drm/i915/display/intel_backlight.c     |  20 ++++
+ drivers/gpu/drm/i915/display/intel_backlight.h     |   1 +
+ drivers/gpu/drm/i915/display/intel_display.c       |   2 +
+ drivers/gpu/drm/i915/display/intel_dp.c            |   1 +
+ drivers/gpu/drm/i915/display/intel_lvds.c          |   1 +
+ drivers/gpu/drm/i915/display/intel_panel.c         |   8 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c             |   1 +
+ drivers/gpu/drm/nouveau/Kconfig                    |   4 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c            |   2 +-
+ drivers/gpu/drm/nouveau/nouveau_backlight.c        | 110 +++++++++++++++++----
+ drivers/gpu/drm/nouveau/nouveau_connector.c        |   2 +
+ drivers/gpu/drm/nouveau/nouveau_connector.h        |  14 +++
+ drivers/gpu/drm/radeon/Kconfig                     |   2 +-
+ drivers/gpu/drm/radeon/atombios_encoders.c         |  32 +++++-
+ drivers/gpu/drm/radeon/radeon_connectors.c         |  34 +++++++
+ drivers/gpu/drm/radeon/radeon_legacy_encoders.c    |  49 +++++++--
+ drivers/gpu/drm/radeon/radeon_mode.h               |   2 +
+ drivers/gpu/drm/solomon/Kconfig                    |   2 +-
+ drivers/gpu/drm/solomon/ssd130x.c                  |  79 +++++++++++----
+ drivers/gpu/drm/tests/drm_connector_test.c         |  28 ++++++
+ drivers/gpu/drm/xe/Kconfig                         |   2 +-
+ include/drm/drm_atomic_helper.h                    |   3 +
+ include/drm/drm_bridge.h                           |  74 ++++++++++++++
+ include/drm/drm_connector.h                        |  16 +++
+ include/drm/drm_modeset_helper_vtables.h           |  25 +++++
+ include/drm/drm_panel.h                            |  39 +-------
+ 55 files changed, 1030 insertions(+), 172 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261101-superm1-backlight-property-1ee9b1a4b24d
+
+Best regards,
+--  
+Mario Limonciello <superm1@kernel.org>
 
