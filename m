@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD54606A5BD
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:28:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D31C606C3CA
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:28:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XqeV2NQm
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTKJcNWG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B78BA10EF2C;
-	Mon,  2 Nov 2026 14:28:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF49F10EF2E;
+	Mon,  2 Nov 2026 14:28:48 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A407B10EF2C
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 14:28:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8B8210EF2E
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 14:28:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8BDA5437D6;
+ by sea.source.kernel.org (Postfix) with ESMTP id 90DC74386B;
+ Mon,  2 Nov 2026 14:28:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA321F00A18;
  Mon,  2 Nov 2026 14:28:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A371F00A17;
- Mon,  2 Nov 2026 14:28:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793629708;
- bh=VsGmMsU5ViaEXrFm2/HEk+OSOttZ2XCHXLgyJx8eD0g=;
+ s=k20260515; t=1793629722;
+ bh=8QCucuYZDNmVJaqyrDFn0TUDlr5eGhlHKy/r+vN8wLA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=XqeV2NQmybmcQpQCfl29ZjQwKCUGyTxg3Lk86HZD3i6fKefYdRhi6Czqkj/uY0gbw
- WIMDP6xlkx2+VEkRPOdds7rQS/Uyu9UXSkxhmRXEhC5evtJOy9tI/yOL5szCJhbeLc
- 0E5d3uMaycB0bt6F9SqARsY6HZ9K2Zfxz47uxakdila20hiMIqVwKfumClrZvot30Z
- 0TzxA0nOHiKy1ykKqAGRyBaWolaL8pxg29oFyVMB6WnCop+8tSXpiWoJYlA9GSs8di
- n96TiYbYdDvUjg9bfLf9swi1GEQWlrFWmIElw3Xf/XFNUaLj2StS2zAyQW67MjajXk
- tc+uqwcEoZ88g==
+ b=eTKJcNWGC9V6irm/9DKKTQuZ13M+/P1en2BQ55yGY+lnmUDRqciw/Rf2PsHx9OoY0
+ buVb9lCjc5j1j+zVE00+8lE+7EIBrkA/7gY7pAiXO36HsFOR8TPuUiDrZTExwthr5Q
+ g2ntrsvA0FRDkX0DqkVI2R0zq637sI1kyS8+kikVTIf/hcY+oSRxJ/YR+1Xg+xR/Sp
+ aqNRXFGzdUJn5XBZWThM4MbuyB2ZEPnFIDc98ztB3FY2A2pzEfLhWTVFohA37ZdeKD
+ CBtYkQwAlSwOguLYUrqoxdDzbhzJby7zBKRKI64hRz0r7REL/5ePc9HqUQM4L5ULRF
+ akeGwQAgSlDqQ==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 15:21:44 +0100
-Subject: [PATCH RFC 29/38] powerpc/pseries: bound the lengths in the ofdt
- property parser
+Date: Mon, 02 Nov 2026 15:21:45 +0100
+Subject: [PATCH RFC 30/38] powerpc/pseries/lparcfg: return h_get_ppp()'s
+ status as a long
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-bugfixes-v1-29-59422ed3e465@kernel.org>
+Message-Id: <20261102-work-procfs-bugfixes-v1-30-59422ed3e465@kernel.org>
 References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
 In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -71,12 +71,12 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
  "Christian Brauner (Amutable)" <brauner@kernel.org>, 
  Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4036; i=brauner@kernel.org;
- h=from:subject:message-id; bh=8Hd2AVI62ImOZ5MsmuM9jPXUwAC7qJ+A0OqSTVpNjVY=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJOjt7/StVJ92/OGaG62tVk7lptsnry1XOeEU0MEt
- 6WRwtT+jlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgImICTH89xVRKXt8brGes8gD
- hbehWc6VDwOeTlTd5HNl61HeI6E7HzD8D7LS778lssD/iJNbEMt1XRWVzwwGj4q5Nv1edEZE+NV
- ibgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1639; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=KaAFx5Z9JEYFTwMkBWfFQWs2ORbRuBTJUi5MCRtyyf4=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJOTxjOPK/q1b2ZgvpS2omCxgaLdOpGttm2Lmc8Xv
+ BU/7jG7o5SFQYyLQVZMkcWh3SRcbjlPxWajTA2YOaxMIEMYuDgFYCJJ7xgZGrU/qMj0nPKcWMLS
+ d31xjeSx7XF/+lkE6y6zn7F2uXs3h5Hh2IQtWpWPJy1y5bu073hy0q9fd7PiLBl/7MisOXdm0pI
+ kLgA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,107 +98,40 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The commands for /proc/powerpc/ofdt that carry properties, "add_node",
-"add_property" and "update_property", can make the parser read past the
-buffer they were copied into:
+h_get_ppp() returns the status of the H_GET_PPP hcall as an unsigned
+int. update_ppp() hands it on as its ssize_t result, and
+lparcfg_write() turns the hcall statuses it knows into an errno and
+returns anything else as it is. So when H_GET_PPP fails, say with
+H_PARAMETER (-4), the status comes back as 4294967292 and a write to
+/proc/powerpc/lparcfg reports that many bytes written.
 
-(1) do_update_property() computes the end of the buffer after
-    parse_node() moved buf past the phandle. So the end is off by the
-    length of the phandle string, which can be padded with zeroes, and
-    parse_next_property() accepts a value that reaches that far past
-    the command. new_property() then copies those bytes into the
-    property, which everyone can read in /proc/device-tree.
-
-(2) parse_next_property() parses the length with simple_strtoul() into
-    an int and only rejects -1. A length above INT_MAX turns negative,
-    tmp += *length moves backwards and passes the check against the
-    end, so *tmp is read up to 2G in front of the buffer.
-
-(3) Updating "slb-size" or "ibm,slb-size" reads an int from the value
-    whatever its length.
-
-Compute the end before parsing the phandle, reject lengths that don't
-fit into an int or into what is left of the buffer, and only take the
-slb size from a value that holds one. The file is root-only and
-refused under lockdown but the parser still shouldn't read past its
-input.
+Return the status as the long it is. lparcfg_write() then treats it
+like the status of H_SET_PPP and an unknown one is at least negative.
+Before commit 11529396ea31 ("powerpc/pseries: Split processor
+entitlement retrieval and gathering to helper routines") a failed
+H_GET_PPP turned into -EIO.
 
 Reported-by: Chris Mason <mason@kernel.org>
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 610d91511f99 ("[PATCH] powerpc: Add support for changing properties from userspace")
-Fixes: 46db2f86a3b2 ("powerpc/pseries: Fix to handle slb resize across migration")
+Fixes: 11529396ea31 ("powerpc/pseries: Split processor entitlement retrieval and gathering to helper routines")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- arch/powerpc/platforms/pseries/reconfig.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ arch/powerpc/platforms/pseries/lparcfg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/powerpc/platforms/pseries/reconfig.c b/arch/powerpc/platforms/pseries/reconfig.c
-index 18e3f1a036e3..b41c5db726c9 100644
---- a/arch/powerpc/platforms/pseries/reconfig.c
-+++ b/arch/powerpc/platforms/pseries/reconfig.c
-@@ -114,6 +114,7 @@ static void release_prop_list(const struct property *prop)
- static char * parse_next_property(char *buf, char *end, char **name, int *length,
- 				  unsigned char **value)
+diff --git a/arch/powerpc/platforms/pseries/lparcfg.c b/arch/powerpc/platforms/pseries/lparcfg.c
+index 3280b7968cab..aa9b5b141434 100644
+--- a/arch/powerpc/platforms/pseries/lparcfg.c
++++ b/arch/powerpc/platforms/pseries/lparcfg.c
+@@ -113,7 +113,7 @@ struct hvcall_ppp_data {
+  *	          XXXXXX - Entitled procs capacity % available to the
+  *			   partitions pool.
+  */
+-static unsigned int h_get_ppp(struct hvcall_ppp_data *ppp_data)
++static long h_get_ppp(struct hvcall_ppp_data *ppp_data)
  {
-+	unsigned long len;
- 	char *tmp;
- 
- 	*name = buf;
-@@ -133,13 +134,13 @@ static char * parse_next_property(char *buf, char *end, char **name, int *length
- 	}
- 
- 	/* now we're on the length */
--	*length = -1;
--	*length = simple_strtoul(tmp, &tmp, 10);
--	if (*length == -1) {
-+	len = simple_strtoul(tmp, &tmp, 10);
-+	if (len > INT_MAX) {
- 		printk(KERN_ERR "property parse failed in %s at line %d\n",
- 		       __func__, __LINE__);
- 		return NULL;
- 	}
-+	*length = len;
- 	if (*tmp != ' ' || ++tmp >= end) {
- 		printk(KERN_ERR "property parse failed in %s at line %d\n",
- 		       __func__, __LINE__);
-@@ -148,13 +149,13 @@ static char * parse_next_property(char *buf, char *end, char **name, int *length
- 
- 	/* now we're on the value */
- 	*value = tmp;
--	tmp += *length;
--	if (tmp > end) {
-+	if (len > end - tmp) {
- 		printk(KERN_ERR "property parse failed in %s at line %d\n",
- 		       __func__, __LINE__);
- 		return NULL;
- 	}
--	else if (tmp < end && *tmp != ' ' && *tmp != '\0') {
-+	tmp += len;
-+	if (tmp < end && *tmp != ' ' && *tmp != '\0') {
- 		printk(KERN_ERR "property parse failed in %s at line %d\n",
- 		       __func__, __LINE__);
- 		return NULL;
-@@ -320,8 +321,8 @@ static int do_update_property(char *buf, size_t bufsize)
- 	char *name, *end, *next_prop;
- 	int length;
- 	struct property *newprop;
--	buf = parse_node(buf, bufsize, &np);
- 	end = buf + bufsize;
-+	buf = parse_node(buf, bufsize, &np);
- 
- 	if (!np)
- 		return -ENODEV;
-@@ -337,7 +338,8 @@ static int do_update_property(char *buf, size_t bufsize)
- 	if (!newprop)
- 		return -ENOMEM;
- 
--	if (!strcmp(name, "slb-size") || !strcmp(name, "ibm,slb-size"))
-+	if ((!strcmp(name, "slb-size") || !strcmp(name, "ibm,slb-size")) &&
-+	    length >= (int)sizeof(int))
- 		slb_set_size(*(int *)value);
- 
- 	return of_update_property(np, newprop);
+ 	unsigned long retbuf[PLPAR_HCALL9_BUFSIZE] = {0};
+ 	long rc;
 
 -- 
 2.53.0
