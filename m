@@ -2,88 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BF2606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C16606A329
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:04:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XTwPP7Lg
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=sidspAq7;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=ahT0ov6n
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3AC910EBAD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC83410EBB4;
 	Mon,  2 Nov 2026 08:03:58 +0000 (UTC)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A42010EAE3
- for <dri-devel@lists.freedesktop.org>; Sun,  1 Nov 2026 23:45:08 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-33bf40b0c8bso1805075eec.0
- for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 15:45:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793576707; cv=none;
- d=google.com; s=arc-20260327;
- b=dBMEYqVKpqNDzkjttQVzB8hMp8EMDhACCyMDZI27gg0gEdMgIUP830xaWuJooTSHU5
- N1ERqgAFx5Ulhfo1LLsyMK4xjtQTykL59i0IRAFVaVHqFGmCJ9X7LAwKsuq7b03u4xvZ
- stNofAPzUxobTI8+q8lH+cabvXfF3Lb+KhDLp5dkfJufmI7sdgN29KILbt4733yelCvb
- 95yvpwmfvrpGQlE1a1irtVHfCLTemgZsEmQrnZmyIv7UM67HVV+dWnCbZPtQ0qSozpsO
- nc0uBNDNPFixuyBGXXUBGcFZgnNJ0qFmlm5/KnG8Ku27SZKb3P6dNctj2MkLLCy1yUhy
- Wv4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=uvWXzZnN9JjIx8rv+D4zcNjMU0NQ3JuADtUsGSRWlcU=;
- fh=p9BrjKFrcEUfUiBeeVMKJKvVwE+8GkFaTNJ+d+LrqPg=;
- b=P/TG2mE8dP0pXrpgQwSknoysvfHlBEGDJ0DhvOf9LA8W5vYnpmggF2QWlKiCtPHnQi
- jnDct2TKUZUQ+bjYVccn8dOlL56+iLoAFq8PQ4MXmKxleK2YtrXdtv969e+IvQQj8pR8
- 37d0bB2CYx2Rl+kshV0XS3DdkG/lRkoWmOLAvqtFnfHcOfQS34wSuhO6xgHSx7vQ5HSa
- iCkIXVF7NLBBbcrcUjLLPUdP+c8lwXOC77xxAVzAXAoOIFJ+oVKHOqv0XXd1W8mFshfA
- lTR0GyXBHP+uSwZRO4u/z6doFqlp1OC57lZQ3U4/okpDoLHn08eunK7V+CPtu6m9FMoM
- 2ygA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793576707; x=1794181507; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=uvWXzZnN9JjIx8rv+D4zcNjMU0NQ3JuADtUsGSRWlcU=;
- b=XTwPP7LgaCyrm8f7NIg1Y8ixmLviU/1tHfgwrzHijBAnZU2VOPtPqiRWAa1T9xewJZ
- XulTg/ssoDpEpNcEersaIZ429yZKLVO9XJOoCbYIObljt4pg8WpRwi1Yyc3vr+FKbtx1
- 2R4vnOFfRw9X9GSlN7d6x6SiGJCnRJk3BpX/jA7cKtH14MFR61VOL91n9RZbuLh0c6/O
- D4K/HTHx5ES+iCwoGvlPEOvgY1bP9snhFYBk2DCgmxLLc2OO9503SsVLxIZLeS9h+qAB
- 11hFjZVVKnfcywjKezTPPbxDla0eNQl5gf06xZ0pEmWDEfGJrj3R7qEgsixfqL6UHwN1
- pzXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793576707; x=1794181507;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=uvWXzZnN9JjIx8rv+D4zcNjMU0NQ3JuADtUsGSRWlcU=;
- b=NePH9OZ42AiGEObFI3iWrRnsA4buLhajrjFZJMPMwpZ/LDdzB+g7SBGOHn6w4va83o
- yN4EqTEH01JZhMgChObUkLWXUR0I6L/Qte2Dtehd2/rLOfxeAqoi5l/rNhOfB4GjanUb
- Rq6OEGoug26XkCBNnFHjETtK0OFYg+YR7eKiwy9C2zaSpcW85BSEhfy26x09YrMLAYBk
- 8eOzBpCy1/eVswr/J8PTLh2QWlELAtNjI6Y4Jrfe4l6+WriMGJnRrLO3FY7iOjJtfF2Z
- t6gHfQZr9F2+xPxnM2nn/AtDPky17ZcxqtCAtmppfQL+ryTdYdPvn5Vhvi80K1wIb/TA
- y8Ag==
-X-Gm-Message-State: APuU4Z/H0DA4mXc6k7n2y/z3U83A/sA0dywoUmrGh2AeltoWwEI5/rhr
- 1Jjwetl47zEI1TIpO+b1O6MtJVuArkJhfPFN+nGybKHB4eseAsN4DWBh6moxpFrNOkw1AtByK8s
- etwUYNZb5MYyoAhvSx9XFrcadEFpMfxLh0rYNqkueKg==
-X-Gm-Gg: AYBFou1ekcjecRsb0385T54ZIejVl6zCbvCGvJIGbXw/Nw9zI4FudXlGaeJDvCj95ZS
- imNcm9lbJkYOd+XnEzN53HoPn2MfeB/4xH0ijTGaN1qodftKsbbAbKru6Am00X/gnml9TY+zKId
- VPviOiezmkeiaq5WJpLsThzLGDBahSCjHO3MebP2tKX4oJGbwoHzgHbN4DQ5MME/gF83xVcCIOv
- cksy6xqq10AiMwUMdzXmFwj011lfkzmoT8uIVJezCQ1GOGXuY/ka/UCzy/u+xr14NrY7RX+WTMd
- bDtJeX6j9jzYmePdusuO5Jmc2zxFbkg1G6UpJUX+97Obt+eNo0IW2q+pEwm5JXSORYx22EPnOkA
- ZeOkcW6t3Cgu3qpH3ATkkLY3p3PXG2slC5GIlW8BTe0j2jM1AJXi8XbW87CQKQT0pR/ST
-X-Received: by 2002:a05:7300:3b1a:b0:351:52ec:60ee with SMTP id
- 5a478bee46e88-36a423f04b7mr20658596eec.28.1793576707027; Sun, 01 Nov 2026
- 15:45:07 -0800 (PST)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="sidspAq7";
+	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="ahT0ov6n";
+	dkim-atps=neutral
+Received: from erebion.eu (erebion.eu [142.132.183.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88EAC10E4DB
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 01:33:22 +0000 (UTC)
+DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
+ c=relaxed/relaxed; r=y; 
+ h=To:From:Subject:Date:Message-ID; t=1793583195; bh=CpinM/IpytUfD9vGKaPrjPR
+ QBHB3wnZR9UZpr2lYAok=; b=sidspAq7Ua9LmBj8CwRrD1M4QFrIWGJ53YFr+29KmQzfeYKdkV
+ hbC0Vf/icpSpgk4xax26C3CjToVIB080dCCQ==;
+DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
+ r=y; 
+ h=To:From:Subject:Date:Message-ID; t=1793583195; bh=CpinM/IpytUfD9vGKaPrjPR
+ QBHB3wnZR9UZpr2lYAok=; b=ahT0ov6nqjyLUKHAef1k8x0sRIU/i+lGhXll4QNocx8+NrNfiV
+ GTMEaQHFHpHpau6iFy4ulg3/xe87k1T4074qLY2hIg32ftWwcOyd04rKQHbI/LaWVHKeDD0IDAG
+ 2fQVu+53HEwhtNoHBKcq5fBVLjPlpPmcic1xTrxuhwq9KrNkZ2aAzXIXs9dmMHsn7V8/propmbC
+ vMdbhCbVVbU9gWTdo2RuGwiXpRkfCXSZ2d4mQtxoZAlF8d/alam8T0uUhuEvFRPiM3Q55g9XwUz
+ J30n2xgNQjaa1PR6T2eb4Gh9z1VGVwawn31elkndpC2fcmR8EoodCo2uwfvlC7t+kxA==;
+Message-ID: <c539ae6d-8018-49ba-b4fe-8e52306c93bd@erebion.eu>
+Date: Mon, 2 Nov 2026 02:33:14 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: Guilherme Bember Duarte <guilhermebemberduarte@gmail.com>
-Date: Sun, 1 Nov 2026 23:44:55 +0000
-X-Gm-Features: AclHuK_5wqerX8B07SRJFWVzHbU8VUuDVn3f5B_534xHmuQbLjDbNCYv17ROOSI
-Message-ID: <CALykNV4sPj4PPUfx3j9qbc2pPsriNgiUHk2cL1N3+1H_FMc4oQ@mail.gmail.com>
-Subject: Is drm_log the intended replacement for fbcon? It needs
- console=drm_log0 and loglevel=7 to show anything (7.3.0, amdgpu)
-To: dri-devel@lists.freedesktop.org
-Cc: jfalempe@redhat.com, javierm@redhat.com, 
- Thomas Zimmermann <tzimmermann@suse.de>, deller@gmx.de, simona@ffwll.ch, 
- linux-fbdev@vger.kernel.org
-Content-Type: multipart/alternative; boundary="0000000000007ffa4d065f3f9e16"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L
+ thermals
+Content-Language: en-GB
+From: erebion <erebion@erebion.eu>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+ <20261102-pdx213-upstream-3-v3-11-cdc3be96d257@erebion.eu>
+ <sashiko-outbox-192768@kernel.org>
+ <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------WErBOJk7ZUz3nYwJ3r0a4wP7"
 X-Mailman-Approved-At: Mon, 02 Nov 2026 08:03:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,99 +71,84 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=0.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---0000000000007ffa4d065f3f9e16
-Content-Type: text/plain; charset="UTF-8"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------WErBOJk7ZUz3nYwJ3r0a4wP7
+Content-Type: multipart/mixed; boundary="------------Ys9oJY5YtjJo4H0mWezlvqzT";
+ protected-headers="v1"; hp="clear"
+Message-ID: <c539ae6d-8018-49ba-b4fe-8e52306c93bd@erebion.eu>
+Date: Mon, 2 Nov 2026 02:33:14 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/12] arm64: dts: qcom: sm6350-lena: Add PM6150L
+ thermals
+Content-Language: en-GB
+From: erebion <erebion@erebion.eu>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
+ <20261102-pdx213-upstream-3-v3-11-cdc3be96d257@erebion.eu>
+ <sashiko-outbox-192768@kernel.org>
+ <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
+Autocrypt: addr=erebion@erebion.eu; keydata=
+ xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
+ HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
+ QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
+ j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
+ qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
+ OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
+ CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
+ rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
+In-Reply-To: <dc96c6bb-0ac2-4f67-84b5-2284d37afa44@erebion.eu>
 
-Hi,
+--------------Ys9oJY5YtjJo4H0mWezlvqzT
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-I've been trying to run a kernel without fbcon, with drm_log for boot
-output and kmscon as the userspace console. Before I go further, I'd like
-to ask where this is heading:
+T24gMTEvMi8yNiAwMTozNSwgZXJlYmlvbiB3cm90ZToNCj4gT24gMTEvMi8yNiAwMDo0NCwg
+c2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToNCj4+IFtTZXZlcml0eTogTWVkaXVtXQ0K
+Pj4gU2hvdWxkIHJlYXJfY2FtX3NlbnNvciByZWZlcmVuY2UgQURDNV9HUElPMl8xMDBLX1BV
+IGluc3RlYWQgb2YNCj4+IEFEQzVfR1BJTzZfMTAwS19QVSBoZXJlPw0KPj4NCj4+IE9uIFBN
+NjE1MEwsIHBoeXNpY2FsIHBpbiBncGlvNiBpcyByb3V0ZWQgdG8gQURDNV9HUElPMl8xMDBL
+X1BVICgweDUzKSwgDQo+PiBhbmQNCj4+IHVuZGVyICZwbTYxNTBsX2FkYyBiZWxvdyB0aGUg
+cmVhciBjYW1lcmEgdGhlcm1pc3RvciBjaGFubmVsIGlzIGRlZmluZWQgDQo+PiBhczoNCj4g
+DQo+IEFoIHllcywgbG9va3MgbGlrZSBJIGNvbmZ1c2VkIGdwaW82IGZyb20gZG93bnN0cmVh
+bSBEVCBhbmQgZ3BpbzIgZnJvbSANCj4gaW5jbHVkZS9kdC1iaW5kaW5ncy9paW8vcWNvbSxz
+cG1pLXZhZGMuaA0KPiANCj4gV2lsbCBmaXggd2l0aCB2NC4uLg0Kcm9vdEBtb2JpYW46fiMg
+Y2F0IC9zeXMvY2xhc3MvdGhlcm1hbC90aGVybWFsX3pvbmUzOC90ZW1wDQotNDAwMDANCnJv
+b3RAbW9iaWFuOn4jIGNhdCAvc3lzL2NsYXNzL3RoZXJtYWwvdGhlcm1hbF96b25lMzgvdHlw
+ZQ0KcmVhci1jYW0tdGhlcm1hbA0KDQpXZWxsLCB0aGlzIGRvZXMgbm90IGxvb2sgcmlnaHQg
+ZWl0aGVyLiBJIHN3ZWFyIEkgZG9uJ3QgbGl2ZSBpbiBBbnRhcmN0aWNhLg0KDQoNCiA+PiBT
+aG91bGQgcmVhcl9jYW1fc2Vuc29yIHJlZmVyZW5jZSBBREM1X0dQSU8yXzEwMEtfUFUgaW5z
+dGVhZCBvZg0KID4+IEFEQzVfR1BJTzZfMTAwS19QVSBoZXJlPw0KDQpHUElPNjogVmFsdWUg
+bG9va3Mgc2Vuc2libGUgYXQganVzdCBvdmVyIDMwIMKwQw0KR1BJTzI6IC00MCDCsEMNCg0K
+UGVyaGFwcyBHUElPNiB3YXMgcmlnaHQgYWZ0ZXIgYWxsIG9yIGl0IGlzIHdyb25nIHdoaWxl
+IEdQSU8yIGlzIHdyb25nIGFzIA0Kd2VsbC4NCg0KLS0gDQplcmViaW9uDQoNClhNUFA6IGVy
+ZWJpb25AZXJlYmlvbi5ldQ0KDQpNeSBsYW5ndWFnZXM6IEdlcm1hbiwgRW5nbGlzaCwgU3dl
+ZGlzaCwgTm9yd2VnaWFuLCBEYW5pc2gNClllcywgSSdtIGEgbGFuZ3VhZ2UgbmVyZC4gRmVl
+bCBmcmVlIHRvIHdyaXRlIHRvIG1lIGluIGFueSBvZiB0aGUgDQphZm9yZW1lbnRpb25lZCBs
+YW5ndWFnZXMuDQoNCg==
 
-1. Is fbcon (and fbdev emulation) planned to be deprecated?
-2. If so, is drm_log the intended in-kernel replacement for its boot
-output, with the terminal left to userspace?
-3. If that's the plan, why does drm_log need so much setup to work? Right
-now it doesn't behave like something meant to replace fbcon.
+--------------Ys9oJY5YtjJo4H0mWezlvqzT--
 
-What I found (7.3.0, amdgpu RX 6600, one DP monitor,
-CONFIG_FRAMEBUFFER_CONSOLE and DRM_FBDEV_EMULATION off,
-CONFIG_DRM_CLIENT_LOG=y and DEFAULT="log"):
+--------------WErBOJk7ZUz3nYwJ3r0a4wP7
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-- console=tty0 loglevel=7                         -> no video
-- console=tty0 console=drm_log0 loglevel=3        -> no video
-- console=tty0 console=drm_log0 loglevel=7        -> video, and kmscon
-takes over cleanly
+-----BEGIN PGP SIGNATURE-----
 
-Why, as far as I can tell:
+wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCaufoWgUDAAAAAAAKCRCOr0AybgKufVGu
+AQCz0f0jMK0GnWAFp/H6WK+5cNCyhV2Lyb4MlysN7OAt9gD/erL2RUUqAkh027+zxA/9XyZhsYk6
+U2Yy8LfTYaOONwk=
+=QVpB
+-----END PGP SIGNATURE-----
 
-- Without console=drm_log0 the console is registered but never enabled
-(flags 0x101, no CON_ENABLED; with the argument it is 0x107). tty0 is
-already first in the console list and has a tty binding, so
-register_console() doesn't enable drm_log by default. I saw this was
-discussed in the v9 drm_log thread in Dec 2024. The Kconfig help for
-DRM_CLIENT_LOG says nothing about console=, so a user gets a dark screen
-and no message.
-- Even once enabled, drm_log_init_client() only runs when the first record
-passes the console loglevel (it's called from drm_log_write_thread()). With
-a normal loglevel the screen stays dark. Needing loglevel=7 to get a
-display at all seems like a poor requirement for a boot display, and it is
-not documented anywhere I could find.
-
-If drm_log is meant to replace fbcon, at least for boot information before
-userspace handoff, I think it should light the display at boot without
-extra command line arguments and without depending on the loglevel, for
-example by doing the first probe and commit when the client registers, or
-on the first hotplug. If it is only meant as a debugging aid, as its DOC
-comment says, then a kernel without fbcon has no supported way to get a
-boot display, and I'd like to know that too.
-
-Thanks,
-Guilherme B.
-
---0000000000007ffa4d065f3f9e16
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,<br><br>I&#39;ve been trying to run a kernel without fb=
-con, with drm_log for boot output and kmscon as the userspace console. Befo=
-re I go further, I&#39;d like to ask where this is heading:<br><br>1. Is fb=
-con (and fbdev emulation) planned to be deprecated?<br>2. If so, is drm_log=
- the intended in-kernel replacement for its boot output, with the terminal =
-left to userspace?<br>3. If that&#39;s the plan, why does drm_log need so m=
-uch setup to work? Right now it doesn&#39;t behave like something meant to =
-replace fbcon.<br><br>What I found (7.3.0, amdgpu RX 6600, one DP monitor, =
-CONFIG_FRAMEBUFFER_CONSOLE and DRM_FBDEV_EMULATION off, CONFIG_DRM_CLIENT_L=
-OG=3Dy and DEFAULT=3D&quot;log&quot;):<br><br>- console=3Dtty0 loglevel=3D7=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 -&gt; no video<br>- console=3Dtty0 console=3Ddrm_log0 loglevel=
-=3D3 =C2=A0 =C2=A0 =C2=A0 =C2=A0-&gt; no video<br>- console=3Dtty0 console=
-=3Ddrm_log0 loglevel=3D7 =C2=A0 =C2=A0 =C2=A0 =C2=A0-&gt; video, and kmscon=
- takes over cleanly<br><br>Why, as far as I can tell:<br><br>- Without cons=
-ole=3Ddrm_log0 the console is registered but never enabled (flags 0x101, no=
- CON_ENABLED; with the argument it is 0x107). tty0 is already first in the =
-console list and has a tty binding, so register_console() doesn&#39;t enabl=
-e drm_log by default. I saw this was discussed in the v9 drm_log thread in =
-Dec 2024. The Kconfig help for DRM_CLIENT_LOG says nothing about console=3D=
-, so a user gets a dark screen and no message.<br>- Even once enabled, drm_=
-log_init_client() only runs when the first record passes the console loglev=
-el (it&#39;s called from drm_log_write_thread()). With a normal loglevel th=
-e screen stays dark. Needing loglevel=3D7 to get a display at all seems lik=
-e a poor requirement for a boot display, and it is not documented anywhere =
-I could find.<br><br>If drm_log is meant to replace fbcon, at least for boo=
-t information before userspace handoff, I think it should light the display=
- at boot without extra command line arguments and without depending on the =
-loglevel, for example by doing the first probe and commit when the client r=
-egisters, or on the first hotplug. If it is only meant as a debugging aid, =
-as its DOC comment says, then a kernel without fbcon has no supported way t=
-o get a boot display, and I&#39;d like to know that too.<br><br>Thanks,<br>=
-Guilherme B.</div>
-
---0000000000007ffa4d065f3f9e16--
+--------------WErBOJk7ZUz3nYwJ3r0a4wP7--
