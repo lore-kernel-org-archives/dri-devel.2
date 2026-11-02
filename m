@@ -2,77 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD85606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:23:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDD9606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sFUIFumo
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JOCmghPe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C9A10EDB1;
-	Mon,  2 Nov 2026 13:23:34 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49A2B10EDB1
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:23:29 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-48e0d1c095dso1545879f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:23:29 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D230910EDBE;
+	Mon,  2 Nov 2026 13:23:52 +0000 (UTC)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E56C610EDBE
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:23:45 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-48df54150dfso1377352f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:23:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1793625808; x=1794230608; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1793625824; x=1794230624; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=iIx9bq7eJtm+GqnApG7n9pCm9nsbzo/SWmqkbsdi7fI=;
- b=sFUIFumohD6Ux6uI2jR0wGMddw6d3KhsoGVkPrI8nrIxoZWg2ishMCfS6ryPcp15R7
- LGl42Wp1YgneDG9nfXJNAkwslqNUjMOvFnjhvkekfVkrNUGx4jiMWPyGlyE2qPToPIx6
- CoNa5RICKi1aMEVmxpB6yFBoPzpBDbHS5gg/nzu4hFBcwBay2f+njc4Csx87eY7sc/PM
- ngqGBGVENbWcAz9dOgioj+gEyCB42Qp8+EST8tyLgj34hW2KKo0sJvocSJLm/0FMw0tq
- +QvadMpyb2mbbpbVP6tHUzpTQa5LzmgYTwHlufj8p/OaDvXISM2annEtSK+/ECZ1O9E0
- uGNA==
+ bh=cjTkavopvWP8IoUO3Tm2DHF2lem7yW434Hge7kuVhBk=;
+ b=JOCmghPeNKHRrcKx80ZXzE9JHkIk2YiAdc2DbMZ2EjcUe5rLx+MbJ/20WXK8RjJfgq
+ U5f+dDQLWgXG1Zvk1dz9wxLF6DsmaLN0CLfan+/tpwqOvdWHvGd8aUXROK1nK5ClRgyz
+ anAkRKctBrb2Sk8wWscq7ukIkdulAf9R4Gti3fLWLO5HxehUW7BRSop6SGxXSNqFzR/d
+ g6Sfg9X2bIBc+Zl1kh8jjaGUIs7SGDAKDz9IweUIMRED5H803PZoGu+PHX3vaUWQi8Xz
+ PlWUzqiEXoH/Rd2SsZLt7MCfQX6Q0zqSTiAGbqyqMshxPguUaRMwTl0Ju5uhcSynzwzi
+ 4vpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793625808; x=1794230608;
+ d=1e100.net; s=20260707; t=1793625824; x=1794230624;
  h=content-transfer-encoding:content-type:in-reply-to:organization
  :autocrypt:content-language:references:cc:to:subject:reply-to:from
  :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=iIx9bq7eJtm+GqnApG7n9pCm9nsbzo/SWmqkbsdi7fI=;
- b=cf6ci5k/r/InQOiDI7hDAGQxzNKvXDdCxVLfaFRIJa4q1TJEef+cK2AQ69b18S4hHT
- mfU9vp154YurnIbg8HJ5RkAuIXV8mudlFp6PkobQRqK6Yi+J1EE5e7B43v8s1gVMIdMA
- EnTQJ/fiZb3+6CVROUx7OiuwyYDhfok9oDOSUPS0q+6v2jGmcietvjj3lp2Qjy2ByzmX
- X3i14CBKFFKO+ypdCEsbkaCM3Sq3nPEdZXKwaHb/6OZONMekZHVUE3AxBXklGKkyLusd
- mv5fn19aaooCxcLCwOTGjXIJkua+RHCXqivguSnnjLqgzyHSv19LnN1oc2bE2VCNyn17
- eXww==
+ bh=cjTkavopvWP8IoUO3Tm2DHF2lem7yW434Hge7kuVhBk=;
+ b=j1J+TgMpa5jUSt4GYZjN8EmXYgjEeUhEDfqJJoTy00eemQf9eUj51b9Okt3cnKyY+w
+ cOdSJy0Af2r3xndTT2BXx7KyHwc2BC9Psz7nNxtPI0kKOtB6MeOWu1oRPseDswkKYhQ6
+ 51i7ghSYrHCbf5+67GxsaiQZFxFWjBkiDd7e0fFaFY5FrJIgaVib4Ed1AZ2mPUeSRpAc
+ 0sNAKVAbF/FZvTK0aAxA9dI692CM+MxdVC3V7WbT8lkZyRksXfcMjDCmFUgXdYrwtEIQ
+ tJdqzDjS5fuqiv8OlQ8kgS77DmAuiIwun79+p8m7gvfx3I7oTVSXVBt6GA7rIg/cYaOa
+ YzHw==
 X-Forwarded-Encrypted: i=1;
- AKwUvByo8L5nalRIY1BVrfDZwrB+1rj0jdBCEizcLQJl6CFv8+rmARAmFjp8cjVnJxEdnEUNFZm2q9JNUUw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+Lc62Cjr1ZXUPQtuyjAkPVrmJO+3UXkliTRjQ/xhTTZ8r7BN8Z
- x6gF86DXUgHr1cDoKBBNdgQW3T6oK7cfi2qM/t/ax7utrwYhQsEXC4SDlP+NJUb6xFA=
-X-Gm-Gg: AYBFou3kBctZcH3aMNixTz6KzopcK4pumNM74AaJiJssqU56y/a7swBcmtN5tCU3kxm
- NCT6GY9Fvm3aIROQ7L8Ibn5AShP6OBPRRLmkaX2IaZfquL3kjJN3PWjSxr0F7S4V9Mzy1RcKYUN
- ULsB18db2yaaJQ3uldIffhJB9GiMPb4jRLlRLOy9kR63ljjW7/E3QzWJGVCqVmAr92etnOysZWC
- ee6hLw+E5RD1U+csgQYjq+9RsnV67u6vxXag6f7eQT42HaMJ40aK/tBEbJN8cdqnj+b9K6AfefS
- qf1T4xpqyMFb/z6IYiO8uXrcTc5X7fbw+BJ7w6gIFr4fymPNk1P3MHqLGstjHKwbPlwKbeV2PnQ
- 4oekrsX5gOeDVeG947Lp/xhk49AHIih8rDekxHFQWEFOx8ND9HZA1CEwTliHfGQwc890BZwIClm
- cCEaIbDUSHqsV8HJVRyWnuSB93Vb1lMC/goKGvZiWSFgF5ad2ZSA5u+mvBRSXVKcu9GTsj+1/uH
- MQynwMFRBfwA2iu7XbwBS6K3yEkQUWG7bFzPfjnmiS9++sa+Ovuk+LRHtcKJ+4hqxNYbgfImBHX
- yQMv5blPsF1ogIM4HiDsxM5RTKFzU9Fhr4AZhClyVYDJSx6Cjp93rIIqqDaFouEY7zgplEwqdcF
- QsMEHYw==
-X-Received: by 2002:a05:6000:2501:b0:488:654b:ccd8 with SMTP id
- ffacd0b85a97d-48e6e2bdb0dmr23565416f8f.6.1793625802634; 
- Mon, 02 Nov 2026 05:23:22 -0800 (PST)
+ AKwUvBxNjg1wPHcn4m8V7e8QMbUgx47wwmW3WRgh0KBdfAuHDpARbWY+QXtq4UZChOyGZp9hyHpGkJRG78c=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8A3rEYolnvAG2oKzPDDxP7xFbGMMB9DSj2kh2tKAAypRuJb8l6
+ Lnqwn38jRNBQdq1I0xyK2fjDRRXqXDOVusG1FSepD7dVaT3uafVcQaKfNosBtddeNo4=
+X-Gm-Gg: AYBFou0bKguEMosgkLpWbVtPaDYZWv6+K6l7u2/EeBE5r1+M3vcK4xP3sYOq7II8xZV
+ MsELk6fk8UkMFMA46O7Oz0r2k9dmBIX4NAcvAzs6ts72JuH2P7d7bQlfNN1tvjdiGYzGLKKsxwB
+ J84YMs5Qx1zApQbJCNZP0aeKxU72tjvNlKjJU+zbpZJ2CqKcqO1mVKg7Hjv5Irlenvlf0ImUTFC
+ Hgho9JYWm561cHuGsX/DdjPapIUjRHYLdkX6p9JtLH8ZMeDxYhGTeNb9hbpcUXOkAZG09b+GLcr
+ ButkozbNYzJ59eFDQP21roeayJCjn2bPbOf6clKoWLAdroAD/DSARq6ft7SmQmQewjw8TQFVAMS
+ Mu+Gt3hKr+sweUgxNfWmjCc0pNe/S70sTRr7sw+rpDL/QbvQWIKNABz9Za4vF9A3jxfrN6jGCrl
+ 6kt/cGFjuDRq7mRL3RuQpDi35JW7acwxDuKJ6C3qbY6Uf6GhtgPcmtvrPemekQaP9lzXlwAUpts
+ Iqft3+gnMshTUo3KJHd6V0476v7ka3AUDJyLJNSa4VoFkXBADhMxPnKkvp1MzO+W7kbMmii86MI
+ TT3kD/nvs9aGxCfsgfa2nQdAbky580U4VjWgc8Co7wkeKhMR6DSY2gbpSRPxz6CsBMaJxxJywU1
+ w46zq
+X-Received: by 2002:a05:6000:3109:b0:48d:fa9c:7838 with SMTP id
+ ffacd0b85a97d-48e6e2bc07amr25550097f8f.2.1793625824172; 
+ Mon, 02 Nov 2026 05:23:44 -0800 (PST)
 Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262?
  ([2a01:e0a:106d:1080:9476:5165:3a16:262])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71b8c6e9sm19912671f8f.43.2026.11.02.05.23.21
+ ffacd0b85a97d-48e71b727c6sm21994451f8f.16.2026.11.02.05.23.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Nov 2026 05:23:22 -0800 (PST)
-Message-ID: <75fc5b39-d038-4643-b4ea-a6eb6f903650@linaro.org>
-Date: Mon, 2 Nov 2026 14:23:21 +0100
+ Mon, 02 Nov 2026 05:23:43 -0800 (PST)
+Message-ID: <aa8863b1-6fc4-4c2f-88b9-c8f41247bf94@linaro.org>
+Date: Mon, 2 Nov 2026 14:23:43 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 5/9] drm/panel: novatek-nt36672a: Combine two init
- callbacks into one
+Subject: Re: [PATCH v3 9/9] MAINTAINERS: Add Alexey Minnekhanov as maintainer
+ for NT36672A panel
 To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -85,7 +85,7 @@ Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  phone-devel@vger.kernel.org
 References: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
- <20261011-nt36672a-panels-v3-5-9ea238627f8a@minlexx.ru>
+ <20261011-nt36672a-panels-v3-9-9ea238627f8a@minlexx.ru>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -112,7 +112,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261011-nt36672a-panels-v3-5-9ea238627f8a@minlexx.ru>
+In-Reply-To: <20261011-nt36672a-panels-v3-9-9ea238627f8a@minlexx.ru>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -136,155 +136,26 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 10/11/26 13:54, Alexey Minnekhanov wrote:
-> The split between .send_init_cmds_1 and _cmds_2 is completely artificial
-> and unnecessary. Two command sets are split in between by the sequence:
->   - exit_sleep_mode
->   - delay
->   - set_display_on
+> List myself as maintainer of Novatek NT36672A panels driver
+> to keep a close eye on it.
 > 
-> But not every panel driver follows this "split" in their init sequence.
-> Some may have different delay timer, or put exit_sleep_mode/display_on
-> commands into other places in the sequence.
-> 
-> In order to make this driver more extensible, combine two init functions
-> into one by puting exit_sleep_mode/delay/display_on in the middle,
-> followed by commands from cmds_2. As part of this step, also move the
-> tianma-beryllium specific deinit sequence with its delays from
-> nt36672a_panel_unprepare() to tianma_fhd_video_send_deinit_cmds(), so
-> that each panel model can have its deinit sequence with its own delays.
-> 
-> No functional change - full init sequence with all the delays for the
-> tianma_fhd_video panel is kept the same in the end.
-> 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 > Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 > ---
-> v2: move tianma_fhd deinit commands into its own deinit function
->      (set_display_off, msleep, enter_sleep_mode, msleep)
-> ---
->   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 61 ++++++++++----------------
->   1 file changed, 23 insertions(+), 38 deletions(-)
+>   MAINTAINERS | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> index 73bec4f47ec60..a445c8067aa5f 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> @@ -51,8 +51,7 @@ struct nt36672a_panel_desc {
->   	enum mipi_dsi_pixel_format format;
->   	unsigned int lanes;
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 252b6d7ee1638..e85fbea55ae62 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8464,6 +8464,7 @@ F:	drivers/gpu/drm/panel/panel-novatek-nt36532.c
 >   
-> -	void (*send_init_cmds_1)(struct mipi_dsi_multi_context *dsi_ctx);
-> -	void (*send_init_cmds_2)(struct mipi_dsi_multi_context *dsi_ctx);
-> +	void (*send_init_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
->   	void (*send_deinit_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
->   };
->   
-> @@ -92,20 +91,6 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
->   	if (pinfo->desc->send_deinit_cmds)
->   		pinfo->desc->send_deinit_cmds(&dsi_ctx);
->   
-> -	/* Reset error to continue with display off even if send_cmds failed */
-> -	dsi_ctx.accum_err = 0;
-> -	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> -	/* Reset error to continue power-down even if display off failed */
-> -	dsi_ctx.accum_err = 0;
-> -
-> -	/* 120ms delay required here as per DCS spec */
-> -	msleep(120);
-> -
-> -	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> -
-> -	/* 0x3C = 60ms delay */
-> -	msleep(60);
-> -
->   	nt36672a_panel_power_off(panel);
->   
->   	return 0;
-> @@ -140,22 +125,9 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
->   
->   	dsi_ctx.accum_err = nt36672a_panel_power_on(pinfo);
->   
-> -	/* send first part of init cmds */
-> -	if (pinfo->desc->send_init_cmds_1)
-> -		pinfo->desc->send_init_cmds_1(&dsi_ctx);
-> -
-> -	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> -
-> -	/* 0x46 = 70 ms delay */
-> -	mipi_dsi_msleep(&dsi_ctx, 70);
-> -
-> -	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> -
-> -	/* Send rest of the init cmds */
-> -	if (pinfo->desc->send_init_cmds_2)
-> -		pinfo->desc->send_init_cmds_2(&dsi_ctx);
-> -
-> -	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	/* send init cmds */
-> +	if (pinfo->desc->send_init_cmds)
-> +		pinfo->desc->send_init_cmds(&dsi_ctx);
->   
->   	if (dsi_ctx.accum_err < 0)
->   		gpiod_set_value(pinfo->reset_gpio, 0);
-> @@ -192,7 +164,7 @@ static const struct drm_panel_funcs panel_funcs = {
->   	.get_modes = nt36672a_panel_get_modes,
->   };
->   
-> -static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi_ctx)
-> +static void tianma_fhd_video_send_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
->   {
->   	u8 reg;
->   
-> @@ -352,15 +324,19 @@ static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0xff);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
-> -}
->   
-> -static void tianma_fhd_video_send_init_cmds_2(struct mipi_dsi_multi_context *dsi_ctx)
-> -{
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-> +	/* 0x46 = 70 ms delay */
-> +	mipi_dsi_msleep(dsi_ctx, 70);
-> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-> +
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc4, 0x54);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-> +
-> +	mipi_dsi_msleep(dsi_ctx, 120);
->   }
->   
->   static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-> @@ -369,6 +345,16 @@ static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
->   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-> +
-> +	/* Reset error to continue with display off even if send_cmds failed */
-> +	dsi_ctx->accum_err = 0;
-> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-> +	/* Reset error to continue power-down even if display off failed */
-> +	dsi_ctx->accum_err = 0;
-> +	/* 120ms delay required here as per DCS spec */
-> +	msleep(120);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-> +	msleep(60); /* 0x3C = 60ms delay */
->   }
->   
->   static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
-> @@ -399,8 +385,7 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
->   			| MIPI_DSI_MODE_VIDEO_BURST,
->   	.format = MIPI_DSI_FMT_RGB888,
->   	.lanes = 4,
-> -	.send_init_cmds_1 = tianma_fhd_video_send_init_cmds_1,
-> -	.send_init_cmds_2 = tianma_fhd_video_send_init_cmds_2,
-> +	.send_init_cmds = tianma_fhd_video_send_init_cmds,
->   	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
->   };
->   
+>   DRM DRIVER FOR NOVATEK NT36672A PANELS
+>   M:	Sumit Semwal <sumit.semwal@linaro.org>
+> +M:	Alexey Minnekhanov <alexeymin@minlexx.ru>
+>   S:	Maintained
+>   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>   F:	Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
