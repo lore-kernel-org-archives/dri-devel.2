@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB158608B7C5
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:08:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3B1606B1CB
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:08:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eyNIQCxY
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kEGAtuEw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBF410EF9C;
-	Mon,  2 Nov 2026 15:08:32 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 526D710EF9C
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:08:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F11110EF9E;
+	Mon,  2 Nov 2026 15:08:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6C0F10EF9E
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:08:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 39FC443A0A;
- Mon,  2 Nov 2026 15:08:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79E931F00A20;
- Mon,  2 Nov 2026 15:08:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 28A32600DB;
+ Mon,  2 Nov 2026 15:08:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B133F1F00A1A;
+ Mon,  2 Nov 2026 15:08:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793632106;
- bh=Dp7sSooWMguSrSQWYm7n5WBM775aoRxhTJFL+eJzfGM=;
+ s=k20260515; t=1793632124;
+ bh=zr7obOUiLNzJ4M2rJicyi/Ze6HCzMDPfBdGpZnrgFfM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=eyNIQCxYEcRLLrGyZcPtIprIvg2rkuSpaKrMvW58hJQxt/VyWt7hS3Qal6zoUQ/gl
- 0f9cCCPMX1bOMUh9BIWeFK5f4ATpN0EM/aPUrffzJ9XwWlsu4eKD6ZgzUlwDjfLjwL
- Uvn00wNomN8/SMqh9jXER44dMwsdR9yWd6JSqBhqRXPHK14atBxuYmQ+rYaoEBUKUD
- vDmMOPV29JIfjjL6fBW6U6eWYBA/B7Lc6f6IJGDxAZNs993WFUAYbhkuu/ueCEe0L/
- Yqu69q4QgN/VaqD5PYjScQjBFfvU4mejG6swjL58FVzjyKA2XiENQnp0sJJnQeShIQ
- zmvRe7kDYECMg==
+ b=kEGAtuEwvTMgDuPbyzJeFLVaUSWvZkCX/wUBabr5CM+BjM76qvrrMDRwKN+aUpp0M
+ LwULw5zP7H3bcIRxCu2+BVsEU4zGp6OX1M94GYtTzJYZ1Sv0pAvkktXo+Zb0As3XcC
+ 7Tm5eTy1em1aicRexVm3TwZLua7XOaqJGZGjekvzyZG3iJISitPVfI4Rb1C6HoqO15
+ zds1p1eADnGHiS7upjctx8NMqWH7A7NsO/n5J+MjqWiNif9k5AGi+lAXG6mfYJREeh
+ /tq8fM2qbOInntFHxnk7n1aXVsuVbuc+aacS++TfSOw8xPUMY5Re+hh0DhYh68pv/r
+ SxGHP8KpJ8aAQ==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:01:47 +0100
-Subject: [PATCH RFC 20/22] platform/x86: toshiba_acpi: let procfs copy in
- writes
+Date: Mon, 02 Nov 2026 16:01:48 +0100
+Subject: [PATCH RFC 21/22] PNP: pnpbios: let procfs copy in writes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-arch-v1-20-c9492ab08480@kernel.org>
+Message-Id: <20261102-work-procfs-arch-v1-21-c9492ab08480@kernel.org>
 References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
 In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -90,149 +89,50 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Implement ->proc_write_buf() for the files in /proc/acpi/toshiba so
-procfs copies in what is written before it pins the entry, and parse
-what was written from that copy. Commands longer than PAGE_SIZE - 1
-bytes are rejected now.
+Implement ->proc_write_buf() so procfs copies in what is written to
+/proc/bus/pnp/<node> before it pins the entry, and take the node data
+from that copy. A node with more than PAGE_SIZE - 1 bytes of data can't
+be written anymore. I don't think there are any.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/platform/x86/toshiba_acpi.c | 36 ++++++++++++------------------------
- 1 file changed, 12 insertions(+), 24 deletions(-)
+ drivers/pnp/pnpbios/proc.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
-index 560e62da05a9..895e321ada03 100644
---- a/drivers/platform/x86/toshiba_acpi.c
-+++ b/drivers/platform/x86/toshiba_acpi.c
-@@ -1478,7 +1478,7 @@ static int set_lcd_status(struct backlight_device *bd)
- 	return set_lcd_brightness(dev, bd->props.brightness);
- }
- 
--static ssize_t lcd_proc_write(struct file *file, const char __user *buf,
-+static ssize_t lcd_proc_write(struct file *file, char *buf,
- 			      size_t count, loff_t *pos)
- {
- 	struct toshiba_acpi_dev *dev = pde_data(file_inode(file));
-@@ -1488,8 +1488,7 @@ static ssize_t lcd_proc_write(struct file *file, const char __user *buf,
- 	int value;
- 
- 	len = min(count, sizeof(cmd) - 1);
--	if (copy_from_user(cmd, buf, len))
--		return -EFAULT;
-+	memcpy(cmd, buf, len);
- 	cmd[len] = '\0';
- 
- 	levels = dev->backlight_dev->props.max_brightness + 1;
-@@ -1505,7 +1504,7 @@ static ssize_t lcd_proc_write(struct file *file, const char __user *buf,
- 
- static const struct proc_ops lcd_proc_ops = {
- 	.proc_show	= lcd_proc_show,
--	.proc_write	= lcd_proc_write,
-+	.proc_write_buf	= lcd_proc_write,
- };
- 
- /* Video-Out */
-@@ -1541,24 +1540,17 @@ static int video_proc_show(struct seq_file *m, void *v)
+diff --git a/drivers/pnp/pnpbios/proc.c b/drivers/pnp/pnpbios/proc.c
+index 14632a8d0da0..00163aedd738 100644
+--- a/drivers/pnp/pnpbios/proc.c
++++ b/drivers/pnp/pnpbios/proc.c
+@@ -171,7 +171,7 @@ static int pnpbios_proc_show(struct seq_file *m, void *v)
  	return 0;
  }
  
--static ssize_t video_proc_write(struct file *file, const char __user *buf,
-+static ssize_t video_proc_write(struct file *file, char *buf,
- 				size_t count, loff_t *pos)
+-static ssize_t pnpbios_proc_write(struct file *file, const char __user *buf,
++static ssize_t pnpbios_proc_write(struct file *file, char *buf,
+ 				  size_t count, loff_t *pos)
  {
- 	struct toshiba_acpi_dev *dev = pde_data(file_inode(file));
--	char *buffer;
--	char *cmd;
-+	char *buffer = buf;
- 	int lcd_out = -1, crt_out = -1, tv_out = -1;
- 	int remain = count;
- 	int value;
- 	int ret;
- 	u32 video_out;
- 
--	cmd = memdup_user_nul(buf, count);
--	if (IS_ERR(cmd))
--		return PTR_ERR(cmd);
--
--	buffer = cmd;
--
- 	/*
- 	 * Scan expression.  Multiple expressions may be delimited with ;
- 	 * NOTE: To keep scanning simple, invalid fields are ignored.
-@@ -1577,8 +1569,6 @@ static ssize_t video_proc_write(struct file *file, const char __user *buf,
- 		} while (remain && *(buffer - 1) != ';');
+ 	void *data = pde_data(file_inode(file));
+@@ -191,10 +191,7 @@ static ssize_t pnpbios_proc_write(struct file *file, const char __user *buf,
+ 		ret = -EINVAL;
+ 		goto out;
  	}
+-	if (copy_from_user(node->data, buf, count)) {
+-		ret = -EFAULT;
+-		goto out;
+-	}
++	memcpy(node->data, buf, count);
+ 	if (pnp_bios_set_dev_node(node->handle, boot, node) != 0) {
+ 		ret = -EINVAL;
+ 		goto out;
+@@ -207,7 +204,7 @@ out:
  
--	kfree(cmd);
--
- 	ret = get_video_status(dev, &video_out);
- 	if (!ret) {
- 		unsigned int new_video_out = video_out;
-@@ -1602,7 +1592,7 @@ static ssize_t video_proc_write(struct file *file, const char __user *buf,
- 
- static const struct proc_ops video_proc_ops = {
- 	.proc_show	= video_proc_show,
--	.proc_write	= video_proc_write,
-+	.proc_write_buf	= video_proc_write,
+ static const struct proc_ops pnpbios_proc_ops = {
+ 	.proc_show	= pnpbios_proc_show,
+-	.proc_write	= pnpbios_proc_write,
++	.proc_write_buf	= pnpbios_proc_write,
  };
  
- /* Fan status */
-@@ -1644,7 +1634,7 @@ static int fan_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t fan_proc_write(struct file *file, const char __user *buf,
-+static ssize_t fan_proc_write(struct file *file, char *buf,
- 			      size_t count, loff_t *pos)
- {
- 	struct toshiba_acpi_dev *dev = pde_data(file_inode(file));
-@@ -1653,8 +1643,7 @@ static ssize_t fan_proc_write(struct file *file, const char __user *buf,
- 	int value;
- 
- 	len = min(count, sizeof(cmd) - 1);
--	if (copy_from_user(cmd, buf, len))
--		return -EFAULT;
-+	memcpy(cmd, buf, len);
- 	cmd[len] = '\0';
- 
- 	if (sscanf(cmd, " force_on : %i", &value) != 1 ||
-@@ -1671,7 +1660,7 @@ static ssize_t fan_proc_write(struct file *file, const char __user *buf,
- 
- static const struct proc_ops fan_proc_ops = {
- 	.proc_show	= fan_proc_show,
--	.proc_write	= fan_proc_write,
-+	.proc_write_buf	= fan_proc_write,
- };
- 
- /* Fan RPM */
-@@ -1707,7 +1696,7 @@ static int keys_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t keys_proc_write(struct file *file, const char __user *buf,
-+static ssize_t keys_proc_write(struct file *file, char *buf,
- 			       size_t count, loff_t *pos)
- {
- 	struct toshiba_acpi_dev *dev = pde_data(file_inode(file));
-@@ -1716,8 +1705,7 @@ static ssize_t keys_proc_write(struct file *file, const char __user *buf,
- 	int value;
- 
- 	len = min(count, sizeof(cmd) - 1);
--	if (copy_from_user(cmd, buf, len))
--		return -EFAULT;
-+	memcpy(cmd, buf, len);
- 	cmd[len] = '\0';
- 
- 	if (sscanf(cmd, " hotkey_ready : %i", &value) == 1 && value == 0)
-@@ -1730,7 +1718,7 @@ static ssize_t keys_proc_write(struct file *file, const char __user *buf,
- 
- static const struct proc_ops keys_proc_ops = {
- 	.proc_show	= keys_proc_show,
--	.proc_write	= keys_proc_write,
-+	.proc_write_buf	= keys_proc_write,
- };
- 
- static int __maybe_unused version_proc_show(struct seq_file *m, void *v)
+ int pnpbios_interface_attach_device(struct pnp_bios_node *node)
 
 -- 
 2.53.0
