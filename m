@@ -2,110 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9483606A33C
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:12:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A0D606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:13:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mH0FaKO0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeAYts55
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1902910E5B0;
-	Mon,  2 Nov 2026 10:12:35 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8FC210E5B0
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:12:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D20D110E5DA;
+	Mon,  2 Nov 2026 10:13:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1217410E5DA
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:13:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A2B7040418;
- Mon,  2 Nov 2026 10:12:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22BEB1F000C1;
- Mon,  2 Nov 2026 10:12:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 20A496021C;
+ Mon,  2 Nov 2026 10:13:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD41E1F000C1;
+ Mon,  2 Nov 2026 10:13:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793614347;
- bh=+GjlHkhujkaa5Lh0R9tDPQz0zrXu0JFIVH0v2fBdKak=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=mH0FaKO0F912kPbkIqOkAFsPHWHJFtYyhM9ze+Q7n1xqvBuhpVBIT7brBqfQ+13sy
- LaFV5LMK8jiI4HKRdAsaQc2TbfysK0jq4ENVnpz+Fsm8CPejhye+ysbKKi2e/uigYZ
- 6DYbd3kAOJUnPID4afIvcuIX8TdVdeBAj7/Ck4P1LL8riDF9z1RXMj/S2XpyBVtrPu
- fuN3h77hDPdd11q5+LLUQcjLoABbJ6I7icaseRSgn5ftNVrkSYVD6KsBFufnCj3/Cw
- 8XEXcyd3C+DIrAE03C+JzI5o3mRTb0zTo0QcLHlPgOWUDyv3lsHT28Ns4rq3l4ySsJ
- E50J383gI9CBQ==
-Message-ID: <da2b5192-a081-4469-92f4-2ecfcf502e4a@kernel.org>
-Date: Mon, 2 Nov 2026 11:12:14 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/25] accel/qda: Qualcomm DSP Accelerator driver
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Srinivas Kandagatla <srini@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
- andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
-Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
- sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
- Chenna Kesava Raju <chennak@qti.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- Ekansh Gupta <ekangupt@qti.qualcomm.com>
-References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <a97fb0b0-e4e1-4b25-a5ac-60777941c574@kernel.org>
- <26ca5c66-a2ff-4aaf-9c9d-724ac66480eb@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <26ca5c66-a2ff-4aaf-9c9d-724ac66480eb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1793614410;
+ bh=r5FVjd2UCRZ+bMx1EcIopu42uN4coVp+E4jVAWmDKCQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JeAYts559I0Qjaadi9mANJKUOBzbI85EiTPnuu8gK1KEHpj1+nz/F+QRM3EpTEUsN
+ VGjc1DIZ3YsWN4Y/hwxdlltkr6tF+U3tw+ojvX2Tqd6uMiP8nzSgXsAIEC25mP8fgi
+ /45nGYRoxi2oWt7/Uft71ELDtLVB9nw9544J843Kfy82A1k10Z2DzVk9ORPBq3bbaL
+ ey//ICUTUnWq0JJq65e4NLfluDngM1oa8nEZ+XmfrWeJ+OHgu0QjAO1w8BBHEUPZ+U
+ O4ni2KOnAfWNAD3uEKCWyIIYMBhZbc29hnqWCo4G21z0/hIbGPnEI1CRKO2r4BegMn
+ 4QNrsItvRWqHw==
+Message-ID: <sashiko-outbox-193243@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amdgpu: Only enable HDMI audio if display supports it
+To: rppxj178543@163.com
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261102094929.251563-1-rppxj178543@163.com>
+References: <20261102094929.251563-1-rppxj178543@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 10:13:29 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,50 +47,176 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 02/11/2026 11:08, Ekansh Gupta wrote:
-> On 02-11-2026 14:23, Krzysztof Kozlowski wrote:
->> On 01/11/2026 23:21, Ekansh Gupta wrote:
->>>  drivers/accel/qda/qda_soc.c            |   66 ++
->>>  drivers/accel/qda/qda_soc.h            |   61 ++
->>>  drivers/misc/Kconfig                   |    1 +
->>>  include/uapi/drm/qda_accel.h           |  282 +++++++
->>>  33 files changed, 5877 insertions(+), 1 deletion(-)
->>> ---
->>> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
->>> change-id: 20261102-v4-e8feb321263f
->>
->> What is happening here? How are we supposed to work with this?
->>
->> v1: 20260223-qda-firstpost-4ab05249e2cc
->> v2: 20260519-qda-series-78c2bf0ed78b
->> v2 again: 20260817-qda-v2-78e2d1f10529
->>
->> And now completely different one?
->>
->> This makes the change id completely unusable. b4 diff obviously does not
->> work. Any tracking of this does not work.
->>
->> NAK, really, I already complained internally months ago about such
->> practice, so apparently not enough.
->>
->> Best regards,
->> Krzysztof
-> 
-> Sorry about this. I lost the original b4 branch and re-enrolled the
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] drm/amdgpu: shared audio pin disabled in dce_v*_0_afmt_setmode()
+- [Medium] drm/amdgpu: audio packets still enabled when !has_audio in afmt_=
+setmode()
+- [Medium] drm/amdgpu: dce_v*_0_afmt_setmode() ignores AMDGPU_AUDIO_ENABLE =
+override
+--
 
-You lost original branch four times. It's not a coincidence, it's not
-random data loss because then after first loss you would solve the
-problem. It's a broken workflow.
+commit f7468a5a289e3e4a150c1f54f3a6dce9ca20fa57
+Author: renpanpan <renpanpan@kylinos.cn>
 
+drm/amdgpu: Only enable HDMI audio if display supports it
 
-Best regards,
-Krzysztof
+This commit gates the call to dce_v6_0_audio_enable(),
+dce_v8_0_audio_enable(), and dce_v10_0_audio_enable() at the end of each
+afmt_setmode() callback on connector->display_info.has_audio so that
+displays without EDID audio support do not appear as active HDMI audio
+outputs.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/dce_v10_0.c
+> index 7de7adc8f225c..05d7da888f492 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -1705,8 +1705,9 @@ static void dce_v10_0_afmt_setmode(struct drm_encod=
+er *encoder,
+>  	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
+>  	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
+> =20
+> -	/* enable audio after to setting up hw */
+> -	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
+> +	/* Only enable audio if the display supports it */
+> +	if (connector->display_info.has_audio)
+> +		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
+>  }
+> =20
+>  static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enab=
+le)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v6_0.c
+> index 3c1d6901127d1..f0722bdaeab61 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -1748,8 +1748,9 @@ static void dce_v6_0_afmt_setmode(struct drm_encode=
+r *encoder,
+>  		dce_v6_0_audio_dp_enable(encoder, 1);
+>  	}
+> =20
+> -	/* enable audio after setting up hw */
+> -	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+> +	/* Only enable audio if the display supports it */
+> +	if (connector->display_info.has_audio)
+> +		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+>  }
+> =20
+>  static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enabl=
+e)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v8_0.c
+> index a17944d5e8434..3f5247314edee 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -1653,8 +1653,9 @@ static void dce_v8_0_afmt_setmode(struct drm_encode=
+r *encoder,
+>  	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+>  	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+> =20
+> -	/* enable audio after setting up hw */
+> -	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+> +	/* Only enable audio if the display supports it */
+> +	if (connector->display_info.has_audio)
+> +		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+>  }
+
+[Severity: Medium]
+Can this disable audio on another active monitor in a multi-display setup?
+
+Unlike radeon's dce6_audio_get_pin(), which tracks which pins are already
+in use by other encoders and only allocates a pin when the display supports
+audio, dce_v6_0_audio_get_pin(), dce_v8_0_audio_get_pin(), and
+dce_v10_0_audio_get_pin() always return the first connected pin in
+adev->mode_info.audio.pin[].
+
+At the start of dce_v6_0_afmt_setmode(), dce_v8_0_afmt_setmode(), and
+dce_v10_0_afmt_setmode(), the code unconditionally grabs that pin and
+disables it:
+
+	dig->afmt->pin =3D dce_v10_0_audio_get_pin(adev);
+	dce_v10_0_audio_enable(adev, dig->afmt->pin, false);
+
+If one encoder is driving a display with audio enabled and a second encoder
+then runs afmt_setmode() for a display where
+connector->display_info.has_audio is false (including non-audio DP/eDP
+displays on DCE6, where dce_v6_0_encoder_mode_set() calls
+dce_v6_0_afmt_setmode() for both HDMI and DP), the second encoder will grab
+the same shared pin, disable it at entry, overwrite its endpoint registers,
+and skip re-enabling it at the end of the function.
+
+In addition, because dig->afmt->pin remains non-NULL on the non-audio
+encoder, later disabling that encoder via dce_v6_0_afmt_enable(),
+dce_v8_0_afmt_enable(), or dce_v10_0_afmt_enable() with enable =3D=3D false=
+ will
+also call audio_enable(adev, dig->afmt->pin, false) on the shared pin.
+
+[Severity: Medium]
+When connector->display_info.has_audio is false, should
+dce_v6_0_afmt_setmode(), dce_v8_0_afmt_setmode(), and
+dce_v10_0_afmt_setmode() also avoid enabling audio packet and secondary
+stream transmission in the encoder hardware?
+
+With this change, only the final Azalia codec pin enable
+(AZALIA_F0_CODEC_PIN_CONTROL_HOT_PLUG_CONTROL__AUDIO_ENABLED_MASK) is
+skipped when has_audio is false. Earlier in dce_v8_0_afmt_setmode() and
+dce_v10_0_afmt_setmode(), the hardware is still programmed to send HDMI
+Audio InfoFrames, ACR packets, and audio sample packets:
+
+	tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AUDIO_INFO_SEND, =
+1);
+	tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AUDIO_INFO_CONT, =
+1);
+	WREG32(mmHDMI_INFOFRAME_CONTROL0 + dig->afmt->offset, tmp);
+	...
+	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_PACKET_CONTROL, HDMI_ACR_AUTO_SEND, 1);
+	WREG32(mmHDMI_ACR_PACKET_CONTROL + dig->afmt->offset, tmp);
+	...
+	tmp =3D REG_SET_FIELD(tmp, AFMT_AUDIO_PACKET_CONTROL, AFMT_AUDIO_SAMPLE_SE=
+ND, 1);
+	WREG32(mmAFMT_AUDIO_PACKET_CONTROL + dig->afmt->offset, tmp);
+
+Similarly, in dce_v6_0_afmt_setmode(), dce_v6_0_audio_hdmi_enable(encoder, =
+1)
+and dce_v6_0_audio_dp_enable(encoder, 1) are still called unconditionally
+right before the has_audio check, enabling HDMI_AUDIO_INFO_SEND,
+AFMT_AUDIO_SAMPLE_SEND, and the DP secondary audio stream bits
+(DP_SEC_ASP_ENABLE, DP_SEC_ATP_ENABLE, DP_SEC_AIP_ENABLE, and
+DP_SEC_STREAM_ENABLE in mmDP_SEC_CNTL) on sinks that do not support audio.
+
+[Severity: Medium]
+Does checking only connector->display_info.has_audio break the connector
+audio property override when userspace forces audio on?
+
+In drivers/gpu/drm/amd/amdgpu/atombios_encoders.c,
+amdgpu_atombios_encoder_get_encoder_mode() checks amdgpu_connector->audio:
+
+		if (amdgpu_audio !=3D 0) {
+			if (amdgpu_connector->audio =3D=3D AMDGPU_AUDIO_ENABLE)
+				return ATOM_ENCODER_MODE_HDMI;
+			else if (connector->display_info.is_hdmi &&
+				 (amdgpu_connector->audio =3D=3D AMDGPU_AUDIO_AUTO))
+				return ATOM_ENCODER_MODE_HDMI;
+
+When a user sets the connector audio property to "on"
+(AMDGPU_AUDIO_ENABLE) for a monitor whose EDID does not advertise audio
+(so connector->display_info.has_audio is false), the encoder mode is forced
+to ATOM_ENCODER_MODE_HDMI and dce_v6_0_afmt_setmode(),
+dce_v8_0_afmt_setmode(), or dce_v10_0_afmt_setmode() is called, but the
+final audio_enable(..., true) call will now be skipped because only
+connector->display_info.has_audio is checked.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102094929.2515=
+63-1-rppxj178543@163.com?part=3D1
