@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DEB606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 22:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C521606A326
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 22:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Av7nNFiA
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F4NUn6OI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3FC410F26F;
-	Mon,  2 Nov 2026 22:19:19 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE19410F26C;
- Mon,  2 Nov 2026 22:19:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CAB110E700;
+	Mon,  2 Nov 2026 22:26:50 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5D6910E700;
+ Mon,  2 Nov 2026 22:26:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793657953; x=1825193953;
+ t=1793658404; x=1825194404;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=YP9vKRSLmo0n8RcOiO/q8fdho9BOLARDBC+bGb9M1L0=;
- b=Av7nNFiAYakJ16AIf949pGhM7JUdZUOdb8nqDdIxT+rynsOPFZ4s6ry5
- pMxtqNhn8emXEBUxNhmbcFDkf88h0YEveowxN9EogLVBqBjSn+I7ZkHnC
- aPNRpc2lRO9ImiUjGPlDVerUkTjubQEs/kpCMFkuhCMzNWfjYN3lqSmog
- 2ei2eil9eiEApqCo0Qud5osx6/SBZM7rL0rLaan8TlZGH5ozbpFY1a/jn
- 0Jm9AgM3gDlLfLagPKNCfyJHn2ai4A337ocKCxi8IspuNZqde0PYiLhwm
- OYPWCqlCcsI8u1YLLskxf/HANecUG2rkU/NYeUaa8ZDc89czu6P7QYtTX g==;
-X-CSE-ConnectionGUID: kKLP2THWSK2HvUU54gwuEw==
-X-CSE-MsgGUID: ZUblySeyRhekrQys1UPA5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2398592"
+ bh=hMb54b75rKIlh8RbCKPpVBfKUcdbVI5pT+y3/mQ5Qm8=;
+ b=F4NUn6OI7JrYMC1ciir7lve6TNa/TThu2tAXUqGzb9m9WG17leeh+E+a
+ PebYLSIlIDjhsb1ndCjvjaVin44fnuSljLKmeFIHIxKSvOes0EvlTPCJR
+ gZdm/dbRvo91lOG+Ly/ZaXviO8PcNoAVCRtrOIH+W88RO/5RQm+9ASAVj
+ 18VSpAE8mpgpTTFCxsfc+vLwMLSmS8Bo0CGMW0T3ZbP4A70KUn5SO5iu8
+ +dw/1FWKZnQLelsNglySQWxYoFQNdPeIYXnk+Y5AKwD5+xYCYJvCwFxYW
+ eMYEWxXvQbKC+Ms7iYkNlOrTnuN7mA2Jl0RRnEOczWwz1nUTCumSjvR6n w==;
+X-CSE-ConnectionGUID: H6Ke/5JiSwiPb2eC30tvEQ==
+X-CSE-MsgGUID: zQlvazecSd2tSXlGM76IjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2267777"
 X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2398592"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 14:19:13 -0800
-X-CSE-ConnectionGUID: /VzhNTckQN2ij9TeFMEOmQ==
-X-CSE-MsgGUID: g4ZkomGZTG+nJy2Rr0vKVw==
+   d="scan'208";a="2267777"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 14:26:44 -0800
+X-CSE-ConnectionGUID: jX/usv1vT7OOfzF/HevcYQ==
+X-CSE-MsgGUID: 18hgdJWpQ1uFuF7cgwttAQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6400356"
+   d="scan'208";a="6626743"
 Received: from aalteres-desk1.fm.intel.com ([10.121.64.173])
- by fmviesa002.fm.intel.com with ESMTP; 02 Nov 2026 14:19:14 -0800
+ by fmviesa007.fm.intel.com with ESMTP; 02 Nov 2026 14:26:43 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
@@ -46,8 +46,8 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
  Riana Tauro <riana.tauro@intel.com>
 Subject: [PATCH 1/1] drm/xe/survivability: broadcast dmesg when engaging
  survivability
-Date: Mon,  2 Nov 2026 14:19:13 -0800
-Message-ID: <20261102221913.1746196-2-alan.previn.teres.alexis@intel.com>
+Date: Mon,  2 Nov 2026 14:26:43 -0800
+Message-ID: <20261102222643.1758080-2-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
@@ -66,8 +66,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
@@ -104,7 +103,7 @@ index 07a7ab6ac083..608309745328 100644
  
  		/*
 diff --git a/drivers/gpu/drm/xe/xe_survivability_mode.c b/drivers/gpu/drm/xe/xe_survivability_mode.c
-index d73cdad0b3a9..b50128cf4b18 100644
+index d73cdad0b3a9..0650bbca5f5d 100644
 --- a/drivers/gpu/drm/xe/xe_survivability_mode.c
 +++ b/drivers/gpu/drm/xe/xe_survivability_mode.c
 @@ -364,11 +364,6 @@ static int enable_boot_survivability_mode(struct pci_dev *pdev)
@@ -134,7 +133,7 @@ index d73cdad0b3a9..b50128cf4b18 100644
 - * failure or if survivability mode is requested, false otherwise.
 - */
 -bool xe_survivability_mode_is_requested(struct xe_device *xe)
-+bool survivability_mode_required(struct xe_device *xe, bool log_on_action)
++static bool survivability_mode_required(struct xe_device *xe, bool log_on_action)
  {
  	struct xe_survivability *survivability = &xe->survivability;
  	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
