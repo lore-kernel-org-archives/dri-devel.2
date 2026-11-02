@@ -2,39 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB56606A32D
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D355D606A335
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlN54pZh
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Abl25Kjt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11E5D10ECEF;
-	Mon,  2 Nov 2026 10:55:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9A9810ECE7
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:54:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17F5A10E609;
+	Mon,  2 Nov 2026 10:55:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54ECC10ECE9
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C2E9F43C4C;
+ by tor.source.kernel.org (Postfix) with ESMTP id 7011D60F4C;
+ Mon,  2 Nov 2026 10:54:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221961F00A16;
  Mon,  2 Nov 2026 10:54:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42FFA1F00A17;
- Mon,  2 Nov 2026 10:54:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793616896;
- bh=MT5gGcOgqmHPEsENGl4BnV4A39kHKd2FN1i2XY47bjs=;
+ s=k20260515; t=1793616899;
+ bh=c8V9WqB9aQgta0XAH5FjnMzK6loax9fei5rQGTIoZqw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=IlN54pZhbpUd7ne8nVZlAX2gx4Ftn0/XDNcAR1mA0yPcgYT5J2DsHM4LRWLNMuZkh
- 5jwDLja1z+YDjhryc24Z/HG0p8rNMy3+eu9yDc1mL9W/PwBFYG9Ihnco+uJF4TxDDx
- vHYH6GfD8tTVBxTq7K4Hjbnb2l19kynleqRufZCJXaQQLxoehWXLafBRgXwbI6uv8F
- ofSQOaYqKttGjOyfUKDNlU5O7uqhrZEF5ShySb+dyzGrMOEgMITuzd0oKH5aiwOZY+
- lJ6ZXG/7rDyNrEAbNluKX+OuokpguL6r33FMJofAq91AMwB7dji/6sM3bDSrWEl+On
- nF/XQWJJE6k3A==
+ b=Abl25KjtgjcLbxgCMDYwxSKbDp1Acm6tPfXYKPEMlRJsIsGzlfjMlNRXlzIw9KzS9
+ SVEiIrtXM5xbw/gZHRah5Hg9e4XIcitJxeYwv63nQAQnGWwdhNPt4HHYweaw7vEW3g
+ zPhzoEqAjnpll7goi4EV+DOibE7PPx8yaHNo0QfQe3bu8hDIo6ajjUzxeG1czVvsOZ
+ jwxQFOU2EctyF0jKeUAW+aiS1vsOM98A/xkjt03ZmYQFAsRnnw6s9H0MK/+4zp/UUq
+ 0ynYQRogVEXFKWPxSVITCCO+SRbfecRhqImKUSA4LTuICek5h2hOTzd4eOdxEnZgtP
+ VKsqoCH9+27yQ==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil+cisco@kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>, Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH 01/13] gpu: drm: sti: call cec_notifier_phys_addr_invalidate
- if no EDID
-Date: Mon,  2 Nov 2026 11:36:52 +0100
-Message-ID: <86d6a90ff5131a4f6a1edef1d4f1694e65c5b6e6.1793615824.git.hverkuil+cisco@kernel.org>
+ Inki Dae <inki.dae@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH 02/13] gpu: drm: exynos: call
+ cec_notifier_phys_addr_invalidate if no EDID
+Date: Mon,  2 Nov 2026 11:36:53 +0100
+Message-ID: <727792a5e9eb05c3c0abd5930bb53ed8cd7d3724.1793615824.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
@@ -69,25 +72,29 @@ This driver is one of the few that was using cec_notifier_set_phys_addr
 on disconnect instead of cec_notifier_phys_addr_invalidate.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Alain Volmat <alain.volmat@foss.st.com>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
 Cc: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/sti/sti_hdmi.c | 2 +-
+ drivers/gpu/drm/exynos/exynos_hdmi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-index 7ba9e0b7ba6c..d392140df235 100644
---- a/drivers/gpu/drm/sti/sti_hdmi.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi.c
-@@ -790,7 +790,7 @@ static void sti_hdmi_disable(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index 055dc04f9b3e..d03f4e531e05 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -857,7 +857,7 @@ static enum drm_connector_status hdmi_detect(struct drm_connector *connector,
+ 	if (gpiod_get_value(hdata->hpd_gpio))
+ 		return connector_status_connected;
  
- 	hdmi->enabled = false;
- 
--	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
-+	cec_notifier_phys_addr_invalidate(hdmi->notifier);
+-	cec_notifier_set_phys_addr(hdata->notifier, CEC_PHYS_ADDR_INVALID);
++	cec_notifier_phys_addr_invalidate(hdata->notifier);
+ 	return connector_status_disconnected;
  }
  
- /*
 -- 
 2.53.0
 
