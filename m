@@ -2,61 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61848606A336
-	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38DD0606A337
+	for <dri-devel@archiver.kernel.org>; Tue,  3 Nov 2026 08:21:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=dVhnM4tl;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=n0FbTmzK
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Pm27GTy7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38CD510F42D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA1D10F42E;
 	Tue,  3 Nov 2026 08:21:47 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="dVhnM4tl";
-	dkim=temperror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="n0FbTmzK";
-	dkim-atps=neutral
-Received: from erebion.eu (erebion.eu [142.132.183.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCE5410EC31
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:47:48 +0000 (UTC)
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu;
- c=relaxed/relaxed; r=y; 
- h=From:To:Subject:Date:Message-ID; t=1793609264; bh=hZHtVE4qd9DYb5N/5XOjcgG
- Sd6FAQlcmL56vir1tLWY=; b=dVhnM4tl0n13m5KRxhifmUIJth2R1QHle+gJGVpjlztRHML4vA
- XX0UpbVrXJLoLuM+FpX6f3nqJhAtDUGtJFDg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed;
- r=y; 
- h=From:To:Subject:Date:Message-ID; t=1793609264; bh=hZHtVE4qd9DYb5N/5XOjcgG
- Sd6FAQlcmL56vir1tLWY=; b=n0FbTmzKMJxuOhj7K/KtxAR31klclch4CevL7wvJfdTJDg+W1W
- PTSeW8CFu2Bm8x13WKB37bbO0kWUx0CCdnoPOXfJjQoMDqeWYEZIl5YmyuLeFFNJqFWbLtKw/M9
- uWL8wa5SxUzfYiLRkriGW8EtLgDvQeb5ImZ/61QQx8PD0m8deOdGFm4tobsA7g2B4ADgksJA5fB
- mZw2zkZfaIrsTecReK9tBN4hCkJXf5tsvbuNXFw20S6rErH+MQX1p2WV3jRRWovqh+2BeJ5h3HR
- Yiv1UziwZ84kNTy3l9R/5DtxeOkZ0Q8eGcDabFODak+P223xw3sFWsQpdbIY83QBiyQ==;
-Message-ID: <e43cf8cb-2bd5-48ba-9ba5-cc81c46bbc8a@erebion.eu>
-Date: Mon, 2 Nov 2026 09:47:45 +0100
+X-Greylist: delayed 388 seconds by postgrey-1.36 at gabe;
+ Mon, 02 Nov 2026 09:56:14 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71CCE10E06A;
+ Mon,  2 Nov 2026 09:56:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=9F
+ KIHAQ/E8h7h4R1mCpmlzoDTcPyVcRB9nxtDEjvxD0=; b=Pm27GTy7Hu7oJXMqZa
+ yEWUBG05uYjMgKBxOAljN2ZJVQEDW/RhFYSBAOooN7FQ3VjYxwisvJlX3YnUKDQ7
+ zvzZGD8TI5TWd57Bx7Rh9FV5kMFn1jjMrNMPqvrE+x3BeAT5exhcPHg92IrHtOhQ
+ Dc6XezuBlHKX0FLRPTLlqfHIU=
+Received: from pan-u.. (unknown [])
+ by gzsmtp2 (Coremail) with SMTP id PSgvCgDXnzGrXOhqyJRBDQ--.20170S2;
+ Mon, 02 Nov 2026 17:49:32 +0800 (CST)
+From: rppxj178543@163.com
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tzimmermann@suse.de, timur.kristof@gmail.com,
+ lijo.lazar@amd.com, renpanpan <renpanpan@kylinos.cn>
+Subject: [PATCH] drm/amdgpu: Only enable HDMI audio if display supports it
+Date: Mon,  2 Nov 2026 17:49:29 +0800
+Message-ID: <20261102094929.251563-1-rppxj178543@163.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-1-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192760@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192760@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------wnHmBNF31cfelGivPGPUGxTl"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: PSgvCgDXnzGrXOhqyJRBDQ--.20170S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF43tF4rWF1rAr4xurWruFg_yoW5uFW8pr
+ 48Xr9YkrWkJay7K347CFykXrW5Aa4qgFyxG3yDW34fuw1qyryvg34rJFZYga4DGa95uF42
+ vr1DXrW7WrnIkaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jF7KxUUUUU=
+X-CM-SenderInfo: huss5yirxykkqt6rljoofrz/xtbC6QwXFmroXKwIkQAA3P
 X-Mailman-Approved-At: Tue, 03 Nov 2026 08:21:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,70 +55,86 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-14.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wnHmBNF31cfelGivPGPUGxTl
-Content-Type: multipart/mixed; boundary="------------cbp6GNSF4M5YcfinY67Dm0aM";
- protected-headers="v1"; hp="clear"
-Message-ID: <e43cf8cb-2bd5-48ba-9ba5-cc81c46bbc8a@erebion.eu>
-Date: Mon, 2 Nov 2026 09:47:45 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/12] arm64: dts: qcom: sm6350-lena: Add flash LED
-Content-Language: en-GB
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
- <20261102-pdx213-upstream-3-v3-1-cdc3be96d257@erebion.eu>
- <sashiko-outbox-192760@kernel.org>
-From: erebion <erebion@erebion.eu>
-Autocrypt: addr=erebion@erebion.eu; keydata=
- xjMEY7S2FRYJKwYBBAHaRw8BAQdAUf0YlT6sBQSunZeO44bgAPe+ndqTifGaNjw7vzJ2KPHN
- HGVyZWJpb24gPGVyZWJpb25AZXJlYmlvbi5ldT7CjwQTFggANxYhBJyMprURw7/YpjH7646v
- QDJuAq59BQJpWnovBQkHhhzbAhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQjq9AMm4Crn057AEA
- j3didUIhbtAoppk2eNu6CbtMvkDisHWHVLaWF8YC1VsA/1P0ngBoVghELMachirfTinwBplJ
- qP7GGlSGRqSfnlAKzjgEY7S2FRIKKwYBBAGXVQEFAQEHQN6NPWcyqKdecGU1vN8FVXBwYEUd
- OAhF5jpmd7M0Ybx8AwEIB8J+BBgWCAAmFiEEnIymtRHDv9imMfvrjq9AMm4Crn0FAmlaei8F
- CQeGHNsCGwwACgkQjq9AMm4Crn075QEAoDqfm4OeAEQWMgfQ496u2S3rWJw1EMgTOP51FQbX
- rY4BAKn6AhEBh605uas3OTVtcwNIAJn1sHTA7HqqWniUe9sP
-In-Reply-To: <sashiko-outbox-192760@kernel.org>
+From: renpanpan <renpanpan@kylinos.cn>
 
---------------cbp6GNSF4M5YcfinY67Dm0aM
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
+audio_enable(pin, true) at the end of afmt_setmode(), regardless of
+whether the connected display advertises audio support in its EDID.
 
-T24gMTEvMi8yNiAwMDozOCwgc2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToNCj4gW1Nl
-dmVyaXR5OiBNZWRpdW1dDQo+IElzIGxlZC1tYXgtbWljcm9hbXAgPSA8MTUwMDAwMD4gaW4g
-cG02MTUwbF9mbGFzaCBpbnRlbmRlZCBoZXJlLCBvciB3YXMgYSBsb3dlcg0KPiBjb250aW51
-b3VzIHRvcmNoIGN1cnJlbnQgbGltaXQgc3VjaCBhcyAxNTAwMDAgdUEgbWVhbnQgaW5zdGVh
-ZD8NCk9oLCB0aGF0J3MgYSB6ZXJvIHRoYXQgc2hvdWxkIG5vdCBiZSB0aGVyZSBhbmQgc2V0
-IHRoZSB2YWx1ZSAxMHggaGlnaGVyIA0KdGhhbiBpdCBzaG91bGQgYmUuIFdpbGwgZml4IGlu
-IHY0IG9mIHRoaXMgcGF0Y2ggc2VyaWVzLg0KDQotLSANCmVyZWJpb24NCg0KWE1QUDogZXJl
-YmlvbkBlcmViaW9uLmV1DQoNCk15IGxhbmd1YWdlczogR2VybWFuLCBFbmdsaXNoLCBTd2Vk
-aXNoLCBOb3J3ZWdpYW4sIERhbmlzaA0KWWVzLCBJJ20gYSBsYW5ndWFnZSBuZXJkLiBGZWVs
-IGZyZWUgdG8gd3JpdGUgdG8gbWUgaW4gYW55IG9mIHRoZSANCmFmb3JlbWVudGlvbmVkIGxh
-bmd1YWdlcy4NCg0K
+This causes a phantom HDMI audio output to appear for displays that
+have no audio capability (no basic audio bit, no Audio Data Block in
+EDID), because the GPU sets the AUDIO_ENABLED register bit, which
+drives the HDA codec's ELDV pin sense, making the codec report the
+jack as audio-available.
 
---------------cbp6GNSF4M5YcfinY67Dm0aM--
+The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
+display_info.has_audio. Apply the same check to amdgpu's DCE
+afmt_setmode functions.
 
---------------wnHmBNF31cfelGivPGPUGxTl
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Signed-off-by: renpanpan <renpanpan@kylinos.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 5 +++--
+ 3 files changed, 9 insertions(+), 6 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index f2977fe6d824..04b18056a906 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1705,8 +1705,9 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
+ 
+-	/* enable audio after to setting up hw */
+-	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
+ }
+ 
+ static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index c68de0fe1d7d..585b0a50279f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -1748,8 +1748,9 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
+ 		dce_v6_0_audio_dp_enable(encoder, 1);
+ 	}
+ 
+-	/* enable audio after setting up hw */
+-	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+ }
+ 
+ static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index c3906270f25e..1390efa4ea51 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1653,8 +1653,9 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+ 
+-	/* enable audio after setting up hw */
+-	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+ }
+ 
+ static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+-- 
+2.43.0
 
-wnsEABYIACMWIQScjKa1EcO/2KYx++uOr0AybgKufQUCauhOMQUDAAAAAAAKCRCOr0AybgKufXbr
-AQDf35KRbSht2jD16GFLEj3tNhDwyd9vVuQlg6ENEIf+ygD+Ps+SyrK27L48NK/lEEKkr/TokFbd
-wWFCjwBGVf1OGg0=
-=mluI
------END PGP SIGNATURE-----
-
---------------wnHmBNF31cfelGivPGPUGxTl--
