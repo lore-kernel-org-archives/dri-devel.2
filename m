@@ -2,76 +2,76 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCE6606A32C
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 04:32:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001D6606A329
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 04:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R8TKQVGg
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rs4J3X+1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ECBD10E52C;
-	Mon,  2 Nov 2026 04:32:34 +0000 (UTC)
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
- [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ABF810E50D
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 04:32:28 +0000 (UTC)
-Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-36a1947498bso302654eec.1
- for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 20:32:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AA8910E531;
+	Mon,  2 Nov 2026 04:32:38 +0000 (UTC)
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14F7710E00C
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 04:32:31 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-36a2551d7b5so4588611eec.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 01 Nov 2026 20:32:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793593947; x=1794198747; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1793593950; x=1794198750; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=N4/DN4JjGSFdmF5hzcGibgD4U5xzUUUKSaINBRUdmcc=;
- b=R8TKQVGgo9XKTspeKd9Tc20tILZPu41m71zH6ovCZJJ5lHupbgvMkkUoT517wEktSp
- XXCj1lMgRTc/Pd/rMl6mSj06bjgPfzteEdtmKjz+TY5p7uBRIQG7W5LCzpJVT+XTtjbT
- lltDjvWsAsIgiLRCxMQy60VVAvtR5AGs25QZOWebc+2tD0IaAcUC8YNQ/FT85Btb3xer
- Mx9jYPMjZG/Z9kitzTL8/K9xtOwhu7fQJVvcIgMm4CvLjJi8DEqzIgHbDmFZVNYYJSD9
- kj/Qlo99NpH+tJ8OoMTDXrN0P1ZHqCZr9wOWygb2Z1cwOLyRAhMk9AAf//5Hn08r7inY
- 55yQ==
+ bh=DlXdMLkjEmJpYFky7r1GU2us5l+hwiPBAYsVgOOCBHI=;
+ b=rs4J3X+1IBYRzl71QripSyFL4GuPOMdJ9kerCGse00sZdieYFufetHS+YoJ7aYGOL6
+ mZQQWX3HP8/IrRzyPQlzkxvVkqdQS9bbU3XZvvrZ+VvuetnemWns/603mgVwc4uFgA5c
+ qcc3pSAeGFgCjsgD/A62cdVnPDQtCgpxfh+r2I53wf3W+pyiI4imfRNv8diksrtYd00n
+ ZsdoOra2azKpxVNGyA4DBQvtXAoNKjFLIwHpbyb4mq/TllHn5hB1BIOxluuOK/5FFHhX
+ J+eGtzdGEJWTsACxcgpq5JvEe6s0AY3HaihmQXuLWPSWbNBuHd+Er0NfA3112huElZCA
+ Utkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793593947; x=1794198747;
+ d=1e100.net; s=20260707; t=1793593950; x=1794198750;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=N4/DN4JjGSFdmF5hzcGibgD4U5xzUUUKSaINBRUdmcc=;
- b=SsctzXfeCNXvomceJeKZP2/YS4L2pWz21sL5q36wdLnDKfIldZwq12EAp+vmhcThxA
- Zj5bTx+7PKwAfh2tRVlimyoJZMcmGba7oLsKM4wNhb8Ow6XmrJkduvtOUDaL6TloS3k/
- jZrC3bPrK+bZhTDn9nns+JlipDml70PcHebDmRVAzBWuXuOuZCa47/PVD4doFQgJZv6Z
- 0dY0VvNIPvQYM3GVuq6OOXrf5Ukdr/4dc+73hsR62vUWPlVoBqo4Wv/SdiPMDPiwZtSr
- /PZi/fVcUcwSEg0xzUMuwDNNSQCixu0PpV2h+I2NXq9q+qo3xDNCVoEIjzoocCuZmhCe
- /SrA==
+ bh=DlXdMLkjEmJpYFky7r1GU2us5l+hwiPBAYsVgOOCBHI=;
+ b=Ums+6dJcCnFIriDY5x9Qf3Xx6stF3IsAzNapIaMjG1A0OPZMqITs1pr7QdKaQjwaJT
+ +Ar2iEEMcrZK17JCTljK4oOHlR00vMsRVfN24y9FfSjxju8/dYyJhpKlpSUoEXF8pq3P
+ 7OMdSSNf+xh8JDmlU13ghZ+0gmZfi8mgBjbYKq8yeim6XdvryMf4kVst7SKl2eACiCIZ
+ 3wywzajuF6WwTe9kHFv1fPuZ4IYgsONhmlWW5IRC5d8w4RNZ+UEFHQTiG6JYW2ZAY0cv
+ 0BTuK9yK/GwQe6nDud3wClSE3pfi2FgsFmuKo9eTv6qwbM0Rue2uC79u/J6FImi3Z1mo
+ UT8A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwuLgpnbnfsz3gBo4UXjqKUQS/lbO7oioNyYVZks1GRFXcyns1W1ssFt5T6IAynFS6U8GkRyqnhD+A=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/3oCazAd25nStDj9sxQnp+9+D07Xme4T3P3nfBHAs5K37xNIiW
- PKmOrJgBKCLg8PoKJVJjmMS6ov93xuknyW+SL8613sGZUl9Y42MSYRUs
-X-Gm-Gg: AYBFou0VxL2oKqKj3+FR/sb8PUGlfIbo8iqGaxzbHW0rBzjRSEBXR4RNPDhKBq/z8BU
- 0xgu72IFzU33UFrrrkbz5qcbkqJQgMrFaTmg2YndprAqjlk0dqTomurXxVSBiZ6KfMaUPIaCT7I
- ygEMzIRM0suXSMx6OPYOjjVqXYjZCtVJE2WHfIdjInFHQnpIk15kju+UEwGUiEy9XqHy6lNYpa+
- mb6yKfjQiHELCdOk0q9DY4IHlzRa8QnnZHGF2eQXFJlWtchsCt7rZVVIxn4qg48Y+PLH0eUujsK
- CcfUp4ckZkLQa74aOXh1CfGxj5bBhr1EeRY8oFFxQkxcYm3SSqfT3cariuvaoKxhpLR61FwDx0f
- L29b4WnsuueK0Ol7mRjV99LfjUylQA3KHPMI2jdx7snFf40sPIh4WNQa+lHE9dNLU9hMz6Nk0RV
- 3liPeRoYqNT/4uMa0NvKjbt4W5mzzgqOgjC6v7KFlQ+OpqfyzWMDISknaQEi3jIAvtIEHVutL/B
- b8FnvUkVoE4GdsY7LXaTMa2gOLH52ulSKcabPMMET3BxWnPE3IBr0l3YjK+QPLs2Uhv3HkODOcA
- CAmup7DfTlKS2qv9jY/myXxtXTsKOezfc1N8yqM0A41yAx5tVdS8yD9Iwq4hm07Tkh1iRzApzRD
- P7k7OvpmMv1xDxjlQhoaO1hy+NjItiC7KzWgLVkLv/9YvxtXYEkTvukQFVP0Y
-X-Received: by 2002:a05:693c:8806:10b0:369:f97f:72c1 with SMTP id
- 5a478bee46e88-36a4241bbd5mr14639941eec.36.1793593947131; 
- Sun, 01 Nov 2026 20:32:27 -0800 (PST)
+ AKwUvBz1Eh+LqtFnR/bfCbSEFjliMf6yV+w4tnZot/zUlvGQBXS7T1gm1jsbZteo9F00D9FBWVT4mSED87I=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8QgX7d2kR1ATPhXYXjp/5hNb7+SHySOS21y/kNmCz0Zm2jZ3Lo
+ eJsOeNQesCDVMs38OhV3kP+ohMBf5aiD9q94Z27KS3FHTlKAGHI8JX0B
+X-Gm-Gg: AYBFou3LSzCqrwKd5rqnLJssGkYk4gsIPjo3ZYQzEZJks0ew6BrTqjrtYSK4hlrOyR5
+ 5I3IHD6Hb7sS/MLGYcPD7/wt3PQhxw8kZFm5Navp50wk5wAdI8p0exsCLfBunBcV1xyRueKgUUE
+ 253e21YUt7vMj+QCyEIbAiLcRBWGQhO0CmQNfrXzoCrltmGHJYdTWuvvbECZAtzMVAqrnL0Yv+G
+ 3qIO1P1jPPLDL2BcOVJOU2pTS3l8Gjf8SOBnFK2iEV5O4FnqEzFV5NyiDpVH5K9VlQMN0QY/SDt
+ ORDOTJql6/XTskgKZDOg+BzBMuVdPt6Mo/FOkxhiQyJj2xW/z8DiBG8+bPtEewGzDS3bhTTtoD9
+ CpXWxdWLMhWV4Elh+MKYj8uxVlk0M3xWC3ZgocenV8v0vEtPePjZVfqN2CjOUTlqdTCL4tm9gfx
+ LEhIkNAiJxD4+7582+zFt41+Xm+lBciqsjYy4jifmde5fzBLnsBIYCLkIC6jzFn5GlVPVEnawFL
+ s807O1lwElq9XzNas24GAbZljssZZeF62n1srh3wGGcATIrG9A9LzxAf3hoViElt7H9GzhwOvYS
+ n575NnOdiokB56Y6d9xJpy00GltpKLpBbnDMPYCG5dCwUSaC9xCogii6op+7A+1VQbRdIjtxhV7
+ XFoYe9CzjHh+14qhm6f0rB899AnkzKZUBnwaAU5lIRFIPV+7PKElbOZqkKrXlGA==
+X-Received: by 2002:a05:693c:415a:10b0:36a:647b:2d7a with SMTP id
+ 5a478bee46e88-36a647b3661mr4922339eec.0.1793593950041; 
+ Sun, 01 Nov 2026 20:32:30 -0800 (PST)
 Received: from NB150512.ADVANTECH.CORP (118-163-147-185.hinet-ip.hinet.net.
  [118.163.147.185]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-36a42a77c0dsm38581063eec.26.2026.11.01.20.32.24
+ 5a478bee46e88-36a42a77c0dsm38581063eec.26.2026.11.01.20.32.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Nov 2026 20:32:26 -0800 (PST)
+ Sun, 01 Nov 2026 20:32:29 -0800 (PST)
 From: Hsieh Hung-En <hungen3108@gmail.com>
 To: dianders@chromium.org, neil.armstrong@linaro.org, jesszhan0024@gmail.com
 Cc: jagan@amarulasolutions.com, osama.abdelkader@gmail.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, Hsieh Hung-En <hungen3108@gmail.com>
-Subject: [PATCH v2 1/5] drm/panel: feiyang-fy07024di26a30d: Fix prepare error
- cleanup
-Date: Mon,  2 Nov 2026 12:32:11 +0800
-Message-ID: <20261102043215.990351-2-hungen3108@gmail.com>
+ airlied@gmail.com, simona@ffwll.ch, Hsieh Hung-En <hungen3108@gmail.com>,
+ Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v2 2/5] drm/panel: raydium-rm68200: Fix prepare error cleanup
+Date: Mon,  2 Nov 2026 12:32:12 +0800
+Message-ID: <20261102043215.990351-3-hungen3108@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102043215.990351-1-hungen3108@gmail.com>
 References: <20261102043215.990351-1-hungen3108@gmail.com>
@@ -97,84 +97,70 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-feiyang_prepare() returns without disabling previously enabled
-regulators if enabling AVDD or writing DCS commands fails. Since
-drm_panel_prepare() does not mark the panel as prepared on failure,
-drm_panel_unprepare() does not call the driver's unprepare() callback,
-leaving regulator enable counts elevated even after subsequent
-successful prepare/unprepare cycles.
+rm68200_prepare() returns without disabling the supply regulator if
+EXIT_SLEEP_MODE or SET_DISPLAY_ON fails. Since drm_panel_prepare() does
+not mark the panel as prepared on failure, drm_panel_unprepare() does
+not call the driver's unprepare() callback, leaving the regulator
+enable count elevated even after subsequent successful
+prepare/unprepare cycles.
 
-Disable DVDD if enabling AVDD fails. On a DCS write failure, restore
-the reset GPIO to its unprepared state and disable both regulators,
-preserving the existing 10 ms power-off interval between AVDD and DVDD.
+On failure, restore the reset GPIO to its unprepared state, following
+the existing reset sequence in unprepare(), and disable the supply
+regulator before returning the original error.
 
-Fixes: 69dc678abc2b ("drm/panel: Add Feiyang FY07024DI26A30-D MIPI-DSI LCD panel")
-Reported-by: Douglas Anderson <dianders@chromium.org>
-Closes: https://lore.kernel.org/r/CAD=FV=Xm48DUT==8HuuGCSFZtLTEk-W2Q6UTfqt-MnM4nULzTw@mail.gmail.com
+Fixes: 2b7ed18bed1a ("drm/panel: Add support for Raydium RM68200 panel driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/sashiko-outbox-171393@kernel.org
 Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
 ---
 
 Notes:
-    Power sequencing note:
+    In this patch, rm68200_init_sequence() still returns void and only
+    logs DCS write failures. These failures do not cause prepare() to
+    return early. A later patch in this series will propagate
+    initialization errors through prepare(), where this cleanup path
+    will also handle them.
     
-    The error path retains the 10 ms AVDD-to-DVDD shutdown interval
-    used by unprepare().
-    
-    The FY07024DI26A30-D datasheet, Section 7.3 (Power, Signal sequence),
-    specifies T10 > 0 between AVDD/VGL reaching GND and DVDD starting
-    to fall. The delay allows time for AVDD to discharge before disabling
-    DVDD, but compliance with T10 has not been verified on hardware.
-    
-    The existing unprepare() comment associates the delay with T11,
-    which actually specifies the DVDD fall time (0 < T11 <= 10 ms).
-    That comment can be corrected separately.
-    
-    The msleep(10) checkpatch warning is expected. T10 has no specified
-    upper bound, so a longer sleep does not violate that timing constraint.
-    msleep() is retained to match the existing unprepare() sequence.
-    
-    Datasheet:
-    https://files.pine64.org/doc/datasheet/pine64/FY07024DI26A30-D_feiyang_LCD_panel.pdf
+    The error path does not send SET_DISPLAY_OFF or ENTER_SLEEP_MODE,
+    as DCS communication may already have failed. Instead, it follows
+    the existing reset and regulator shutdown sequence in unprepare().
 
- .../gpu/drm/panel/panel-feiyang-fy07024di26a30d.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/panel/panel-raydium-rm68200.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-index c1d8ca5ca6e1..bb4cc1ea2ece 100644
---- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-+++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-@@ -59,7 +59,7 @@ static int feiyang_prepare(struct drm_panel *panel)
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+index c535dc931903..3a59eb00274d 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+@@ -277,17 +277,26 @@ static int rm68200_prepare(struct drm_panel *panel)
  
- 	ret = regulator_enable(ctx->avdd);
+ 	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
  	if (ret)
 -		return ret;
-+		goto disable_dvdd;
++		goto assert_reset;
  
- 	/* T3 (dvdd rise + avdd start + avdd rise) T3 >= 20ms */
+ 	msleep(125);
+ 
+ 	ret = mipi_dsi_dcs_set_display_on(dsi);
+ 	if (ret)
+-		return ret;
++		goto assert_reset;
+ 
  	msleep(20);
-@@ -84,10 +84,21 @@ static int feiyang_prepare(struct drm_panel *panel)
- 		ret = mipi_dsi_dcs_write_buffer(dsi, cmd->data,
- 						FEIYANG_INIT_CMD_LEN);
- 		if (ret < 0)
--			return ret;
-+			goto assert_reset;
- 	}
  
  	return 0;
 +
 +assert_reset:
-+	gpiod_set_value(ctx->reset, 0);
-+	regulator_disable(ctx->avdd);
-+
-+	/* Preserve the AVDD-to-DVDD shutdown delay from unprepare(). */
-+	msleep(10);
-+
-+disable_dvdd:
-+	regulator_disable(ctx->dvdd);
++	if (ctx->reset_gpio) {
++		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++		msleep(20);
++	}
++	/* Balance the regulator enable count on prepare failure. */
++	regulator_disable(ctx->supply);
 +	return ret;
  }
  
- static int feiyang_enable(struct drm_panel *panel)
+ static int rm68200_get_modes(struct drm_panel *panel,
 -- 
 2.43.0
 
