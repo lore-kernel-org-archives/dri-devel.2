@@ -2,134 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5E0606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 19:05:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29720606A32D
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 19:13:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UCPspQq9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZTzMbLwY
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9zNs0PI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8DDC10F180;
-	Mon,  2 Nov 2026 19:05:46 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D37BD10F1A2
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 19:05:35 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A2HP0ct1382329
- for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 19:05:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=M0wsEcVQYSm
- G7vhv4bdYrWC/tv1Ytps5T8yIjzxkQEE=; b=UCPspQq9WRGf+6LSuAw2WP7GfYf
- CQy1YdX+2lSlPmHrsI1KeqfbInirubaJch5PH7IF4KCHhCC777rC8wyN9w/ABtK1
- UWDmej5qB/flXb8GyI61F85H6wKx3lQWI5j/kVqWkvc2Ca93kYSp0m4iEsSQIO0i
- EgI8J3yWHHnQPDWH3ybbNqFIHE3N6yJA2L4rigU2EHRk2hk6CL6ZAyMN2IGeIZ9w
- xqWGv6qDEtqNb+HX4whp/JQC+1yKNr9J+lv7T6sjDVfcXSdQAhL+xGqDQAEN3we6
- RigvNMKBIEM98ASaojojGaeyEZ7jj7j1TaxvdWYZKWGONLq8lBPA/qOsh3w==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqmvtf7g-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 19:05:14 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-3acc98e3b3cso2631608a91.3
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 11:00:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793646017; x=1794250817;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=M0wsEcVQYSmG7vhv4bdYrWC/tv1Ytps5T8yIjzxkQEE=;
- b=ZTzMbLwY2PoWs0v0yR964dx+qX3mjV9VpjyosXsakpTm6oIXzBsqyEuVlorRG1rdNt
- e02d5qUx5CsWRgfLyqBHD1X/+bb2d1Py2hO+HPacls4u8UG0dZcgqCJARTFBlRhniYjO
- 3mcrJvOaAa86HVzrROJemtcZJaWNzIVnWp0J+9SRzxRQT+V0FNnQimY33R+qn0CLyn8L
- jyhssX9sC9YNWFBgaO+1YzdzEwbE9nbZviDSNABo2tTBcKT7dsqPabb8nQrZyHKN1rfO
- 7Yl2TTEv4wXOCc9Oij6ayOe/1jVhcByds1jWYAfEqN113spdlAPOSV7T9AeWVfh/OSw+
- h0Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793646017; x=1794250817;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=M0wsEcVQYSmG7vhv4bdYrWC/tv1Ytps5T8yIjzxkQEE=;
- b=TNpD7CSLPXQZ/2OgnO08y4tTm+xoRXONkLw23gQBhR6ek/rCAfYKdc1JMmZJx+4yUZ
- escAdnCdxIRT1kZ89lLmKnyShh9fQhdcAuADsdy94af7xFqBJkJ6UHdQNtdyFDkD21Xc
- JOQfir0oZ1fGSMUQufAcwxs7l8zpUX1TPB0dn4CRR7was0Ebw2FdMd1kP+Bzj1vAptpp
- igV68nruUepM+gCU6Gumz2ZQjiGckjwFL2QwSaXwoZp3GmQNufYl344d+d0rX136Z9hb
- s6uPXOncLQWgeew7Y2BcYu8/9O/lygH2/34NJqh27yPMFTs4kuQZ12g40k6uE9fsHqEh
- NSlw==
-X-Gm-Message-State: APuU4Z+84MdhXsSkJkFA+bNHWUSahFcwdDxspDaIW45QT+GjuweK1IPq
- QjiDMnodDXJguxLSv+ZXxyS/y1qb/rwKPuJbV2fjMiW4fH3Jgjjyxxcl/MQydtxbn6NEE4a3113
- 1H8feURnR6QsILE2ynIpMYsbZKvg2gyIX/R+W2FTQRQOhvlLYdDPjtg2QmrTowoPQTSzrQJNh3Y
- lGZQksiw==
-X-Gm-Gg: AYBFou33gYdP3AZ5x7EvmXEwbhSdvtzUi3IvZBVWedqb38CNt6vvOHWZ0flk8AZbSJL
- VS6un2vgtgKgQ4aNl6BjJJ59aXqEY0shF4o6IhSKuIXvZ57zxNeONE/s5BXhLj9KbenEUcQEAzp
- PBzwk622MX/tq6Dt6hjSX53+JmSsq+s+6hA/q1otYWt/sTZGZanZ1wqwcoDyA7Swf+MMqtwQRS2
- MpJyhWmgmXbkHkg2TmySEmcJPbdxbsAIOViTmvn8tCf6VsLmJunjSzEm6ZeEbps8NdaqkH8wVv/
- FR0c9i4o3Ay/Zz4z8l3j4xx5zpsm6OW1m/gzYJcBdY9/52ATqN9oxraDNCTjxD9yCelmAeQfDvg
- 2fn22X7YqsgkGU2Y/eKdHY+DxvXMs2OkGckfdmFMMATLz1+iqS0UBJM2wa/s4C0XqrcrDuWe6LC
- FpZlCAZCwpVtOc7QNZjf9qtQ==
-X-Received: by 2002:a17:90b:5686:b0:3a4:9a7a:360 with SMTP id
- 98e67ed59e1d1-3ae897f6e7cmr9056101a91.29.1793646016027; 
- Mon, 02 Nov 2026 11:00:16 -0800 (PST)
-X-Received: by 2002:a17:90b:5686:b0:3a4:9a7a:360 with SMTP id
- 98e67ed59e1d1-3ae897f6e7cmr9056056a91.29.1793646015304; 
- Mon, 02 Nov 2026 11:00:15 -0800 (PST)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
- [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b07c6c4259sm446437a91.14.2026.11.02.11.00.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 11:00:14 -0800 (PST)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Anna Maniscalco <anna.maniscalco2000@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 1/4] drm/msm: Rework IFPC disable
-Date: Mon,  2 Nov 2026 11:00:04 -0800
-Message-ID: <20261102190010.720443-2-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
-References: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=TMDQ2Fla c=1 sm=1 tr=0 ts=6ae8defb cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=kBZMXW1S6ahmPhhohEcA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: VRU-ZWc43eRx38RPydE2omBImIf5adTz
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA3NiBTYWx0ZWRfXw0R07O3dJK5v
- 1XKexpj9v2d+C3Kuc66KQBYZ4YaeU+RzNdWIF0YEwgustaEk7nMGbU6QeKi4sSO3F25zOnFTKI4
- FloeTRgckCxz5uBZlYfgpeRn7F8+8XE=
-X-Proofpoint-ORIG-GUID: VRU-ZWc43eRx38RPydE2omBImIf5adTz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA3NiBTYWx0ZWRfXwU1Wy3cISM1b
- 6gmvbHFVbL23edrn4RzKp6TLI+IHY6qnLYPLFOObj1v6J2ayetFksMQcAmutl6u5xg3NOHKQY0p
- H7KB6o1JbppD65y5DBfs/xTp3g8lFmJe/4HsyFD5ta3wEMJeeVNHG2m8+NF0/oCd9i3VklyzNrD
- GvgOUfUDLSsHcMF5XuI/5Ggrz0kXflUb1/L0nv+U++9OW8rj2z4Ym1dImlmXfaGqHdtfqUIAGAN
- VILUnlPw1hUMn/En/sOTqrMvOUoX2u5MSjDM3rpjton80vCn5nWtdAcYCKcpsxuhtZ5a9653HkE
- A2WSbanhLGG9Zc3aJ27041TNux8JiVOPX4uCD/iVPVolbjZzWzPFo5Bk4wcKNGnwepMR+i8MgEe
- sA1uE6r990FOUaBfNx8JtMMyaIS6NaSv1HJJHqBEStMgKXcDNY7Oh3thj1/eO2iXSWPzErrgb2N
- 43CAQac541x5LxjvjsA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_05,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 adultscore=0
- phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020076
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76C5E10F181;
+	Mon,  2 Nov 2026 19:13:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F295410F181;
+ Mon,  2 Nov 2026 19:13:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9394640483;
+ Mon,  2 Nov 2026 19:13:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F701F00A1A;
+ Mon,  2 Nov 2026 19:13:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793646816;
+ bh=mVwW46Ix1pPjk3S+qYIOpucX+dYUOfIBWRE/ULS6t2Y=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=C9zNs0PIdwv99boHjA5RQ+A10sQ/qOeHFqZJLOXy2/Z10CvsKtQSAst8v85h6Su5M
+ OVK/jkq76vk3TyYkC+Saymx1l40s/HwzYZhvelnsT/F+Cq0XLhe+EAorsmwubc4Hf6
+ hb1BqxnBRZBV1J05v9T2DNQYMlqgFlGlzPBHenKUJF1+QUWSfyKLNdn3fPCgt1Dp6i
+ jJx/TJY+ic9Eam5r1cQ6S4gWmeJWWw2oKhuzIacgViWm0NIlusuHQdTjAbw9PLsJ+p
+ BgPdSqviBW/+1ZscSbUkF06gpx7Q5Jpy/Km5y84F4rB9YnctXfYdXezFXSgMUEDq2y
+ zZXA99cTgqeQw==
+Message-ID: <sashiko-outbox-193983@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 12/15] drm/radeon: add connector luminance support
+To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20261102-superm1-backlight-property-v10-12-b2a6f24131f5@kernel.org>
+References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
+ <20261102-superm1-backlight-property-v10-12-b2a6f24131f5@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 19:13:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,284 +49,375 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Previously this was coupled to SYSPROF level, which made sense at the
-time.  But there are other places that we need to inhibit IFPC.  So
-decouple it from the sysprof refcount.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] drm/radeon: unreachable atomic LUMINANCE property on non-atomic KM=
+S driver
+- [High] drm/radeon: legacy LVDS backlight ignored and panel turned off in =
+radeon_legacy_lvds_update()
+- [High] drm/radeon: missing luminance callbacks in radeon_dp_connector_hel=
+per_funcs
+- [Medium] drm/radeon: Kconfig unmet dependency and link error with DRM_LUM=
+INANCE
+- [Medium] drm/radeon: ACPI ATIF brightness events ignored when dig->bl_dev=
+ is NULL
+- [Medium] drm/radeon: memory leak of backlight_priv when LCD encoder links=
+ to multiple connectors
+--
 
-Now it has it's own refcount, so multiple threads can vote to inhibit
-IFPC safely.  The renamed gpu->ifpc_update() simply applies the new
-state by setting or clearing an OOB request.
+commit d872f715df68798d7e323e8f154d8558d421e434
+Author: Mario Limonciello <mario.limonciello@amd.com>
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 32 +++++++++++++++------------
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 ++++------
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  3 ++-
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c |  6 +----
- drivers/gpu/drm/msm/msm_gpu.c         |  1 +
- drivers/gpu/drm/msm/msm_gpu.h         | 26 ++++++++++++++++++----
- drivers/gpu/drm/msm/msm_perfcntr.c    |  6 ++---
- drivers/gpu/drm/msm/msm_submitqueue.c | 10 +++++----
- 8 files changed, 56 insertions(+), 40 deletions(-)
+drm/radeon: add connector luminance support
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 662f09bec9d5..bba5468db42e 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -2128,29 +2128,33 @@ static int a6xx_gmu_get_irq(struct a6xx_gmu *gmu, struct platform_device *pdev,
- 	return irq;
- }
- 
--void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on)
-+void a6xx_gmu_ifpc_update_locked(struct msm_gpu *gpu)
- {
--	bool sysprof = msm_gpu_sysprof_no_ifpc(gpu) || force_on;
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
- 	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-+	bool force_on = refcount_read(&gpu->ifpc_disable) > 1;
- 
--	/* Nothing to do if GPU is suspended. We will handle this during GMU resume */
--	if (!pm_runtime_get_if_active(&gpu->pdev->dev))
--		return;
--
--	mutex_lock(&gmu->lock);
-+	WARN_ON_ONCE(!mutex_is_locked(&gmu->lock));
- 
--	/*
--	 * 'Perfcounter select' register values are lost during IFPC collapse. To avoid that,
--	 * use the currently unused perfcounter oob vote to block IFPC when sysprof is active
--	 */
--	if (sysprof && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
-+	if (force_on && !test_and_set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
- 		a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
--	else if (!sysprof && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
-+	else if (!force_on && test_and_clear_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status))
- 		a6xx_gmu_clear_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
-+}
- 
--	mutex_unlock(&gmu->lock);
-+void a6xx_gmu_ifpc_update(struct msm_gpu *gpu)
-+{
-+	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
-+	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
-+	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-+
-+	/* Nothing to do if GPU is suspended. We will handle this during GMU resume */
-+	if (pm_runtime_get_if_active(&gpu->pdev->dev) <= 0)
-+		return;
-+
-+	scoped_guard (mutex, &gmu->lock)
-+		a6xx_gmu_ifpc_update_locked(gpu);
- 
- 	pm_runtime_put(&gpu->pdev->dev);
- }
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index 09d76cdf059f..bf71129e33a9 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1565,11 +1565,7 @@ static int hw_init(struct msm_gpu *gpu)
- 		a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_BOOT_SLUMBER);
- 	}
- 
--	if (!ret && msm_gpu_sysprof_no_ifpc(gpu)) {
--		ret = a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
--		if (!ret)
--			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
--	}
-+	a6xx_gmu_ifpc_update_locked(gpu);
- 
- 	return ret;
- }
-@@ -2851,7 +2847,7 @@ const struct adreno_gpu_funcs a6xx_gpu_funcs = {
- 		.create_private_vm = a6xx_create_private_vm,
- 		.get_rptr = a6xx_get_rptr,
- 		.progress = a6xx_progress,
--		.sysprof_setup = a6xx_gmu_sysprof_setup,
-+		.ifpc_update = a6xx_gmu_ifpc_update,
- 		.perfcntr_configure = a6xx_perfcntr_configure,
- 	},
- 	.init = a6xx_gpu_init,
-@@ -2922,7 +2918,7 @@ const struct adreno_gpu_funcs a7xx_gpu_funcs = {
- 		.create_private_vm = a6xx_create_private_vm,
- 		.get_rptr = a6xx_get_rptr,
- 		.progress = a6xx_progress,
--		.sysprof_setup = a6xx_gmu_sysprof_setup,
-+		.ifpc_update = a6xx_gmu_ifpc_update,
- 		.perfcntr_configure = a6xx_perfcntr_configure,
- 	},
- 	.init = a6xx_gpu_init,
-@@ -2953,7 +2949,7 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
- 		.create_private_vm = a6xx_create_private_vm,
- 		.get_rptr = a6xx_get_rptr,
- 		.progress = a8xx_progress,
--		.sysprof_setup = a6xx_gmu_sysprof_setup,
-+		.ifpc_update = a6xx_gmu_ifpc_update,
- 		.perfcntr_configure = a6xx_perfcntr_configure,
- 		.perfcntr_flush = a8xx_perfcntr_flush,
- 	},
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-index 81d21acccea1..cb0ac27dacba 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-@@ -298,7 +298,8 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
- int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
- int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
- void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
--void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on);
-+void a6xx_gmu_ifpc_update_locked(struct msm_gpu *gpu);
-+void a6xx_gmu_ifpc_update(struct msm_gpu *gpu);
- 
- void a6xx_preempt_init(struct msm_gpu *gpu);
- void a6xx_preempt_hw_init(struct msm_gpu *gpu);
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index e7d04c865968..ecf15a8f68de 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -846,11 +846,7 @@ static int hw_init(struct msm_gpu *gpu)
- 	 */
- 	a6xx_gmu_clear_oob(&a6xx_gpu->gmu, GMU_OOB_GPU_SET);
- 
--	if (!ret && msm_gpu_sysprof_no_perfcntr_zap(gpu)) {
--		ret = a6xx_gmu_set_oob(gmu, GMU_OOB_PERFCOUNTER_SET);
--		if (!ret)
--			set_bit(GMU_STATUS_OOB_PERF_SET, &gmu->status);
--	}
-+	a6xx_gmu_ifpc_update_locked(gpu);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index fb07803f5aba..37f9e93daa43 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -1012,6 +1012,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	gpu->nr_rings = nr_rings;
- 
- 	refcount_set(&gpu->sysprof_active, 1);
-+	refcount_set(&gpu->ifpc_disable, 1);
- 
- 	mutex_init(&gpu->perfcntr_lock);
- 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index d27d54bdb7a7..0334a0f604ac 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -93,7 +93,7 @@ struct msm_gpu_funcs {
- 	 * for cmdstream that is buffered in this FIFO upstream of the CP fw.
- 	 */
- 	bool (*progress)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
--	void (*sysprof_setup)(struct msm_gpu *gpu, bool force_on);
-+	void (*ifpc_update)(struct msm_gpu *gpu);
- 
- 	/* Configure perfcntr SELect regs: */
- 	void (*perfcntr_configure)(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
-@@ -186,6 +186,14 @@ struct msm_gpu {
- 	 */
- 	refcount_t sysprof_active;
- 
-+	/**
-+	 * ifpc_disable:
-+	 *
-+	 * Count of votes to disable IFPC (1-based, values above 1 mean IFPC
-+	 * is disabled).
-+	 */
-+	refcount_t ifpc_disable;
-+
- 	/**
- 	 * lock:
- 	 *
-@@ -375,10 +383,20 @@ msm_gpu_sysprof_no_perfcntr_zap(struct msm_gpu *gpu)
- 		(gpu->perfcntrs && READ_ONCE(gpu->perfcntrs->stream));
- }
- 
--static inline bool
--msm_gpu_sysprof_no_ifpc(struct msm_gpu *gpu)
-+static inline void
-+msm_gpu_disable_ifpc_get(struct msm_gpu *gpu)
-+{
-+	refcount_inc(&gpu->ifpc_disable);
-+	if (gpu->funcs->ifpc_update)
-+		gpu->funcs->ifpc_update(gpu);
-+}
-+
-+static inline void
-+msm_gpu_disable_ifpc_put(struct msm_gpu *gpu)
- {
--	return refcount_read(&gpu->sysprof_active) > 1;
-+	refcount_dec(&gpu->ifpc_disable);
-+	if (gpu->funcs->ifpc_update)
-+		gpu->funcs->ifpc_update(gpu);
- }
- 
- /*
-diff --git a/drivers/gpu/drm/msm/msm_perfcntr.c b/drivers/gpu/drm/msm/msm_perfcntr.c
-index ce65b1160955..867dd476ed88 100644
---- a/drivers/gpu/drm/msm/msm_perfcntr.c
-+++ b/drivers/gpu/drm/msm/msm_perfcntr.c
-@@ -259,8 +259,7 @@ sample_worker(struct kthread_work *work)
- 	}
- 
- 	/* Inhibit IFPC while accessing registers: */
--	if (gpu->funcs->sysprof_setup)
--		gpu->funcs->sysprof_setup(gpu, true);
-+	msm_gpu_disable_ifpc_get(gpu);
- 
- 	if (gpu->funcs->perfcntr_flush)
- 		gpu->funcs->perfcntr_flush(gpu);
-@@ -297,8 +296,7 @@ sample_worker(struct kthread_work *work)
- 	}
- 
- 	/* Re-enable IFPC: */
--	if (gpu->funcs->sysprof_setup)
--		gpu->funcs->sysprof_setup(gpu, false);
-+	msm_gpu_disable_ifpc_put(gpu);
- 
- 	smp_store_release(&stream->fifo.head, head);
- 	wake_up_all(&stream->poll_wq);
-diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-index d307cdd17d90..8434a09319bc 100644
---- a/drivers/gpu/drm/msm/msm_submitqueue.c
-+++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-@@ -24,7 +24,10 @@ int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu, int sy
- 		pm_runtime_get_sync(&gpu->pdev->dev);
- 		fallthrough;
- 	case 1:
-+		/* Disable zapping perfcntrs on context switch: */
- 		refcount_inc(&gpu->sysprof_active);
-+		/* Disable IFPC: */
-+		msm_gpu_disable_ifpc_get(gpu);
- 		fallthrough;
- 	case 0:
- 		break;
-@@ -36,16 +39,15 @@ int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu, int sy
- 		pm_runtime_put_autosuspend(&gpu->pdev->dev);
- 		fallthrough;
- 	case 1:
-+		/* Drop our vote for inhibiting IFPC: */
-+		msm_gpu_disable_ifpc_put(gpu);
-+		/* Drop our vote for disabling perfcntr zapping: */
- 		refcount_dec(&gpu->sysprof_active);
- 		fallthrough;
- 	case 0:
- 		break;
- 	}
- 
--	/* Some gpu families require additional setup for sysprof */
--	if (gpu->funcs->sysprof_setup)
--		gpu->funcs->sysprof_setup(gpu, false);
--
- 	ctx->sysprof = sysprof;
- 
- 	return 0;
--- 
-2.56.0
+This commit adds support for exposing Radeon panel brightness through the
+connector LUMINANCE property when CONFIG_DRM_LUMINANCE is enabled, reusing
+the AtomBIOS and legacy hardware programming paths while keeping the
+backlight class interface otherwise.
 
+> diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kcon=
+fig
+> index 3cd70aef770e1..2ccad1f2f8cee 100644
+> --- a/drivers/gpu/drm/radeon/Kconfig
+> +++ b/drivers/gpu/drm/radeon/Kconfig
+> @@ -17,7 +17,7 @@ config DRM_RADEON
+>  	select SND_HDA_COMPONENT if SND_HDA_CORE
+>  	select POWER_SUPPLY
+>  	select HWMON
+> -	select BACKLIGHT_CLASS_DEVICE
+> +	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
+>  	select INTERVAL_TREE
+>  	select I2C
+>  	select I2C_ALGOBIT
+
+[Severity: Medium]
+Can making BACKLIGHT_CLASS_DEVICE conditional on !DRM_LUMINANCE cause an
+unmet Kconfig dependency and linker failures when CONFIG_DRM_LUMINANCE=3Dy,
+CONFIG_ACPI=3Dy, and CONFIG_BACKLIGHT_CLASS_DEVICE is disabled (or modular
+with built-in DRM_RADEON)?
+
+Just below in drivers/gpu/drm/radeon/Kconfig, DRM_RADEON still
+unconditionally selects ACPI_VIDEO:
+
+	# radeon depends on ACPI_VIDEO when ACPI is enabled, for select to work
+	# ACPI_VIDEO's dependencies must also be selected.
+	select INPUT if ACPI
+	select ACPI_VIDEO if ACPI
+
+In drivers/acpi/Kconfig, ACPI_VIDEO depends on BACKLIGHT_CLASS_DEVICE:
+
+config ACPI_VIDEO
+	tristate "Video"
+	depends on BACKLIGHT_CLASS_DEVICE
+
+In addition, radeon_atif_handler() in drivers/gpu/drm/radeon/radeon_acpi.c
+unconditionally calls backlight_force_update(), which has no inline stub in
+include/linux/backlight.h when CONFIG_BACKLIGHT_CLASS_DEVICE is disabled:
+
+	if (rdev->is_atom_bios) {
+		struct radeon_encoder_atom_dig *dig =3D enc->enc_priv;
+		backlight_force_update(dig->bl_dev,
+				       BACKLIGHT_UPDATE_HOTKEY);
+	} else {
+		struct radeon_encoder_lvds *dig =3D enc->enc_priv;
+		backlight_force_update(dig->bl_dev,
+				       BACKLIGHT_UPDATE_HOTKEY);
+	}
+
+> diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm=
+/radeon/atombios_encoders.c
+> index 5b9c72bf40994..e6f762625bf1a 100644
+> --- a/drivers/gpu/drm/radeon/atombios_encoders.c
+> +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+> @@ -227,6 +227,27 @@ void radeon_atom_backlight_init(struct radeon_encode=
+r *radeon_encoder,
+>  	memset(&props, 0, sizeof(props));
+>  	props.max_brightness =3D RADEON_MAX_BL_LEVEL;
+>  	props.type =3D BACKLIGHT_RAW;
+> +	pdata->encoder =3D radeon_encoder;
+> +	pdata->atom =3D true;
+> +	radeon_encoder->backlight_priv =3D pdata;
+
+[Severity: Medium]
+Can this leak the struct radeon_backlight_privdata allocation in pdata
+when an encoder with ATOM_DEVICE_LCD_SUPPORT is shared across multiple
+connectors?
+
+In radeon_add_atom_encoder() and radeon_add_legacy_encoder(), encoders
+sharing the same encoder_enum combine their device bitmasks via
+radeon_encoder->devices |=3D supported_device. When
+radeon_link_encoder_connector() in drivers/gpu/drm/radeon/radeon_encoders.c
+links encoders and connectors, it checks radeon_encoder->devices rather
+than radeon_connector->devices:
+
+	if (radeon_encoder->devices & radeon_connector->devices) {
+		drm_connector_attach_encoder(connector, encoder);
+		if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT))
+			radeon_encoder_add_backlight(radeon_encoder, connector);
+	}
+
+When radeon_encoder_add_backlight() is invoked a second time for the same
+radeon_encoder (both here in radeon_atom_backlight_init() and in
+radeon_legacy_backlight_init()), radeon_encoder->backlight_priv is
+overwritten with the newly allocated pdata. With CONFIG_DRM_LUMINANCE
+enabled, drm_connector_attach_luminance_property() succeeds on the second
+connector and leaks the first pdata allocation (or if registration fails
+and jumps to error:, radeon_encoder->backlight_priv is cleared to NULL
+without freeing or preserving the first allocation).
+
+> +
+> +	dig =3D radeon_encoder->enc_priv;
+> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
+> +		props.brightness =3D atombios_get_backlight_level(radeon_encoder);
+> +		if (!props.brightness)
+> +			props.brightness =3D RADEON_MAX_BL_LEVEL;
+> +
+> +		if (drm_connector_attach_luminance_property(drm_connector, 0,
+> +							    props.max_brightness,
+> +							     props.brightness))
+> +			goto error;
+> +
+> +		atombios_set_backlight_level(radeon_encoder, props.brightness);
+> +		dig->bl_dev =3D NULL;
+> +		rdev->mode_info.bl_encoder =3D radeon_encoder;
+> +		return;
+> +	}
+
+[Severity: High]
+How can userspace access or update the LUMINANCE property on radeon when
+radeon is a non-atomic KMS driver?
+
+In drivers/gpu/drm/radeon/radeon_drv.c, kms_driver does not advertise
+DRIVER_ATOMIC:
+
+	.driver_features =3D
+	    DRIVER_GEM | DRIVER_RENDER | DRIVER_MODESET,
+
+However, drm_connector_attach_luminance_property() creates the LUMINANCE
+property with DRM_MODE_PROP_ATOMIC:
+
+	property =3D drm_property_create_range(connector->dev, DRM_MODE_PROP_ATOMI=
+C,
+					     "LUMINANCE", min, max);
+
+Because DRIVER_ATOMIC is not set:
+1. drm_setclientcap() rejects DRM_CLIENT_CAP_ATOMIC, so
+   drm_mode_object_get_properties() hides DRM_MODE_PROP_ATOMIC properties
+   from userspace.
+2. Legacy property updates go through drm_mode_obj_set_property_ioctl() ->
+   set_property_legacy() -> radeon_lvds_set_property(), which ignores
+   everything except scaling_mode_property.
+3. radeon_set_luminance() and radeon_disable_luminance() are only invoked
+   by drm_atomic_helper_commit_luminance_enables() and
+   drm_atomic_helper_commit_luminance_disables(), which radeon never calls.
+
+Since radeon_atom_backlight_init() and radeon_legacy_backlight_init()
+return early before backlight_device_register() when CONFIG_DRM_LUMINANCE
+is enabled (and set rdev->mode_info.bl_encoder, which also prevents the
+acpi_video_register_backlight() fallback in radeon_encoder_add_backlight()),
+won't this leave panels with no working brightness control interface?
+
+[Severity: Medium]
+Also, when dig->bl_dev is set to NULL here (and in
+radeon_legacy_backlight_init()), won't ACPI ATIF panel brightness events
+stop working?
+
+In drivers/gpu/drm/radeon/radeon_acpi.c, radeon_acpi_init() locates
+atif->encoder_for_bl by checking dig->bl_dev:
+
+	if (rdev->is_atom_bios) {
+		struct radeon_encoder_atom_dig *dig =3D enc->enc_priv;
+		if (dig->bl_dev) {
+			target =3D enc;
+			break;
+		}
+	} else {
+		struct radeon_encoder_lvds *dig =3D enc->enc_priv;
+		if (dig->bl_dev) {
+			target =3D enc;
+			break;
+		}
+	}
+
+When dig->bl_dev is NULL, atif->encoder_for_bl remains NULL and
+radeon_atif_handler() ignores ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST events.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm=
+/radeon/radeon_connectors.c
+> index 16b048f58c9be..655361407b819 100644
+> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
+> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+
+[ ... ]
+
+> @@ -931,11 +932,44 @@ static int radeon_lvds_set_property(struct drm_conn=
+ector *connector,
+>  	return 0;
+>  }
+> =20
+> +static void radeon_set_luminance(const struct drm_connector_state *conn_=
+state)
+> +{
+> +	struct drm_encoder *encoder =3D radeon_best_single_encoder(conn_state->=
+connector);
+> +	struct radeon_encoder *radeon_encoder;
+> +	struct radeon_backlight_privdata *pdata;
+> +	u8 level =3D conn_state->luminance;
+> +
+> +	if (!encoder)
+> +		return;
+> +
+> +	radeon_encoder =3D to_radeon_encoder(encoder);
+> +	pdata =3D radeon_encoder->backlight_priv;
+> +	if (!pdata)
+> +		return;
+> +
+> +	if (pdata->atom) {
+> +		atombios_set_backlight_level(radeon_encoder, level);
+> +	} else {
+> +		if (pdata->negative)
+> +			level =3D RADEON_MAX_BL_LEVEL - level;
+> +		radeon_legacy_set_backlight_level(radeon_encoder, level);
+> +	}
+> +}
+> +
+> +static void radeon_disable_luminance(const struct drm_connector_state *c=
+onn_state)
+> +{
+> +	struct drm_connector_state state =3D *conn_state;
+> +
+> +	state.luminance =3D 0;
+> +	radeon_set_luminance(&state);
+> +}
+> =20
+>  static const struct drm_connector_helper_funcs radeon_lvds_connector_hel=
+per_funcs =3D {
+>  	.get_modes =3D radeon_lvds_get_modes,
+>  	.mode_valid =3D radeon_lvds_mode_valid,
+>  	.best_encoder =3D radeon_best_single_encoder,
+> +	.set_luminance =3D radeon_set_luminance,
+> +	.disable_luminance =3D radeon_disable_luminance,
+>  };
+
+[Severity: High]
+Are .set_luminance and .disable_luminance also needed in
+radeon_dp_connector_helper_funcs?
+
+In radeon_add_atom_connector(), native DRM_MODE_CONNECTOR_eDP connectors
+and DP-bridge (TRAVIS/NUTMEG) DRM_MODE_CONNECTOR_LVDS/eDP connectors use
+radeon_dp_connector_helper_funcs:
+
+	drm_connector_init_with_ddc(dev, &radeon_connector->base,
+				    &radeon_edp_connector_funcs,
+				    connector_type,
+				    ddc);
+	drm_connector_helper_add(&radeon_connector->base, &radeon_dp_connector_hel=
+per_funcs);
+
+Their encoders have ATOM_DEVICE_LCD_SUPPORT set, so
+radeon_link_encoder_connector() -> radeon_encoder_add_backlight() ->
+radeon_atom_backlight_init() attaches the LUMINANCE property to those
+connectors, but radeon_dp_connector_helper_funcs does not wire up
+.set_luminance or .disable_luminance (and on DP-bridge connectors,
+radeon_dvi_encoder() rather than radeon_best_single_encoder() selects the
+encoder with enc_priv).
+
+> diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gp=
+u/drm/radeon/radeon_legacy_encoders.c
+> index 1f82e2b57f5d5..96b0dfd8e3521 100644
+> --- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+> +++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+
+[ ... ]
+
+> @@ -441,6 +434,36 @@ void radeon_legacy_backlight_init(struct radeon_enco=
+der *radeon_encoder,
+>  #endif
+>  	}
+> =20
+> +	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
+> +		props.brightness =3D pdata->negative ?
+> +			RADEON_MAX_BL_LEVEL - backlight_level : backlight_level;
+> +		if (drm_connector_attach_luminance_property(drm_connector, 0,
+> +							    props.max_brightness,
+> +							     props.brightness))
+> +			goto error;
+> +
+> +		if (rdev->is_atom_bios) {
+> +			struct radeon_encoder_atom_dig *lvds =3D radeon_encoder->enc_priv;
+> +
+> +			lvds->bl_dev =3D NULL;
+> +		} else {
+> +			struct radeon_encoder_lvds *lvds =3D radeon_encoder->enc_priv;
+> +
+> +			lvds->bl_dev =3D NULL;
+> +		}
+> +		rdev->mode_info.bl_encoder =3D radeon_encoder;
+> +		return;
+> +	}
+
+[Severity: High]
+When lvds->bl_dev is set to NULL here without initializing
+lvds->backlight_level, won't radeon_legacy_lvds_update() ignore brightness
+updates and radeon_legacy_set_backlight_level() power off the panel?
+
+In radeon_legacy_lvds_update(), lvds->backlight_level is only used if
+lvds->bl_dev is non-NULL:
+
+	if (radeon_encoder->enc_priv) {
+		if (rdev->is_atom_bios) {
+			struct radeon_encoder_atom_dig *lvds =3D radeon_encoder->enc_priv;
+			panel_pwr_delay =3D lvds->panel_pwr_delay;
+			if (lvds->bl_dev)
+				backlight_level =3D lvds->backlight_level;
+		} else {
+			struct radeon_encoder_lvds *lvds =3D radeon_encoder->enc_priv;
+			panel_pwr_delay =3D lvds->panel_pwr_delay;
+			if (lvds->bl_dev)
+				backlight_level =3D lvds->backlight_level;
+		}
+	}
+
+Furthermore, radeon_legacy_set_backlight_level() checks the previous value
+of lvds->backlight_level before updating it:
+
+	if (radeon_encoder->enc_priv) {
+		if (rdev->is_atom_bios) {
+			struct radeon_encoder_atom_dig *lvds =3D radeon_encoder->enc_priv;
+			if (lvds->backlight_level > 0)
+				dpms_mode =3D lvds->dpms_mode;
+			else
+				dpms_mode =3D DRM_MODE_DPMS_OFF;
+			lvds->backlight_level =3D level;
+		} else {
+			struct radeon_encoder_lvds *lvds =3D radeon_encoder->enc_priv;
+			if (lvds->backlight_level > 0)
+				dpms_mode =3D lvds->dpms_mode;
+			else
+				dpms_mode =3D DRM_MODE_DPMS_OFF;
+			lvds->backlight_level =3D level;
+		}
+	}
+
+	radeon_legacy_lvds_update(&radeon_encoder->base, dpms_mode);
+
+Because lvds->backlight_level starts at 0 (or becomes 0 when maximum
+brightness is set on a pdata->negative panel where
+level =3D RADEON_MAX_BL_LEVEL - level), radeon_legacy_set_backlight_level()
+will pass DRM_MODE_DPMS_OFF to radeon_legacy_lvds_update().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-superm1-ba=
+cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D12
