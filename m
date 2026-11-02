@@ -2,42 +2,107 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444B1606A329
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 22:55:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AB1606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 23:07:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4Z9TIVh
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pyPsBRhA
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9111D10E6E9;
-	Mon,  2 Nov 2026 22:54:54 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E04B310E6E3;
- Mon,  2 Nov 2026 22:54:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4000360534;
- Mon,  2 Nov 2026 22:54:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B601F1F00A1C;
- Mon,  2 Nov 2026 22:54:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793660086;
- bh=lS5AryEtNuT/XGriuuk2VdulvKIDL/4ruMEU57pYPWo=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=n4Z9TIVhkbY/8Y7udWcsnH5U0HLmeWYwDSFIbCylQlwHDk6ueGDpcVbu4uaBLyEKr
- APEn4aP6IKJVSG85dXyCpH+CtQhbVwepapZyurVSMoExlUlznsf9xcYqcI9IjzMmyG
- TOyPVoaMmxOoIeyFjhTVN+O1Jy9PFnghFRmJyEf90HnDt4EnnNiDZkdWHq3ivp5aym
- rg3Poz0M9N8YP0xFAjrBbyQqO7W50Zx05IPArDwh1yjGiypHRw0Mrjz7BdMuX7sscz
- n/YvEu9rp5Y0cxeKHuidhSwsDFFBmlF5MPZ6tjhbFJlooYlxC2+j4bgyVELKxLGQxz
- O4bzJjbxAwTBQ==
-Message-ID: <sashiko-outbox-194307@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/3] drm/xe: Add a minimum age gate to the shrinker
-To: "Matthew Brost" <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261102223220.1411858-4-matthew.brost@intel.com>
-References: <20261102223220.1411858-1-matthew.brost@intel.com>
- <20261102223220.1411858-4-matthew.brost@intel.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id A497610E717;
+	Mon,  2 Nov 2026 23:07:34 +0000 (UTC)
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1165510E71E
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 23:07:28 +0000 (UTC)
+Received: by mail-dl1-f47.google.com with SMTP id
+ a92af1059eb24-1af971cd9f9so159262c88.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 15:07:28 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793660847; cv=none;
+ d=google.com; s=arc-20260327;
+ b=UOLkvX0d6iR1XCn0Dd5s+YU/P0mNN2Tj8Bky9zfaNuaOw0Q89Mru7P/+lfjkwiohRs
+ RW0HrPIc5VoRNxiuAIxY4q3Y+PZydgsxUcklfGE2NLabh8P7lRtPam3oyv1aM/ZFB9jm
+ vs6jalpiaBoeP+MVwvMFC54Rt6JJwiSfVJSLXdIPhAgcSNWsSksP04t1dfhk7p7IH6Rv
+ dwJM+mkraLF6NmbTGZ9RP2qCoWVThAUqgQ9V3I6EaFI/GLjmKorAcD3NdeTg8jjGVbc2
+ Z3ontLhZlBr5yyyruuqqaN8hhEZibesjGi8jMvhs+Uyjbs0x75Kgd/sAt0/XvL19kJC2
+ OU+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=LtJ5JL6qAopgs2lhUvZDWm4BbQkkZyUq93j8S5yMDyg=;
+ fh=5Ctck7kaRZ8RMuSKmpKWuZEGACJDtrpObQsq33+mdAA=;
+ b=ez/OMvYw5OHHeb8DURDwJiVuMGI0Vq81lIm4K4gb4PQRLM8jfVSjrV+etLLotS01f4
+ RYgcWBC0Q+IEL4Mr67oKDU5Gy+0/87/j+ZE5vfMPRSk/U+0e2xH08nGktuzu6ATO1FCT
+ 7c/dbdSqMD0NtdfYWO33gtiI9JBgkJSB78oqikXK+vbX0JzlKsVwyt87S97b0PBaehLz
+ R4ULV0mFui0O3BFjv14dI5SScs02zB5VM9WYIoB9z5iAEl9Ux88vsAoWFgoWdWJYeYgj
+ 7xKMrSolU8/rYfxgtLB0t1Jlt32OWDu6ZTtba11FDby98DUkhhUCLnM/20pPdroCeoT+
+ SWpQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793660847; x=1794265647; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LtJ5JL6qAopgs2lhUvZDWm4BbQkkZyUq93j8S5yMDyg=;
+ b=pyPsBRhAR5xgv4T0fcfIoCjn3uX2HrQ7RijB/pifan+0uU3j2SIcrt435He3PPecac
+ qRyuTKjjIB3xUglogTwHEpdulFp0aB4m7VhZKYWJCOpS8I7luALNzctKmQWbpjVPcARv
+ +K1ABkkIwISEn0hYVVOB4/xNNowBHfUE+vDFgF/pemHt+RJJM7hpYW9JC1BMuCjlI0u2
+ 4UTU1a+RddqROpheRIKZjcOe8laFaUaYKAvbGxcFiLtaLncCzYkNLpISSaAuZlp1e5VM
+ S9iI5e0fTnWbAB/UJYIb0qSc0wgQBMqGlFH0bHmh/8ilEqUkJs0vohZdjQpJJe8SwVG8
+ nrcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793660847; x=1794265647;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LtJ5JL6qAopgs2lhUvZDWm4BbQkkZyUq93j8S5yMDyg=;
+ b=pbnV1M/p2lLB5dF+stLB3hKI2jtSkqXo7YTCD7RhsxX5AMs2jfA2H7W9ComKdiJl/X
+ VkH0OqNoi7ci4nNdOuoEijmvPbiw90XtJ8R0NZ6TtQ3qM361/PSZB2lteE1G/pj1wE36
+ JGiDYvg1lZigy3yU3uy7jVmmHWtPnrXTlXq+7HQs+OPqvi+G+DkY85b6/K38UD1SrOL4
+ uMNCdOf75y8PQlvgG63jAapmgiK6klpwbJoSN6Tryq6+Kp6ddczce5+r/Z2szizx2sOa
+ 3gdEjLa8mlVRgL5zRWb1o98w9P10qef+xhgvwgTN0EX7QoOvfZKks022K4cVohuTmc3P
+ VB5Q==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwuNf9+5PibsWjTOUH3+Vf3khpeMRhtPShpj0FJq5BYwTW5hecky9UAJLHywz38ZHs2BLOxxBJMFbU=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYLal5cb3gWH9K/ufFjCKjMNUfdCM7Nl4e0a0X0gkYBIInECTfoP
+ qPwTHk065ndcyIEUwdKtRLbzbJDg9inM4M56eQS+bvTjYK/ZnOAhUPz9s8mtbqNvBdEQdXSxn1A
+ e8ZFM2IRQbZmPTq7pW73HVROhOjsmKBM=
+X-Gm-Gg: AYBFou1a2P8nRGQBC2H12J5PaGGE57AeFhXWOWeNP1PdxDlli3jc5m8kQsap17LSMW+
+ 1ZMPVhLE3PdKsm8Fyhd0lKHnwL5HzifLnAwXLbzAlp36+A+7vkiGcYCVg11S/JELtI6mtcflCUy
+ EnXsBjA3bG62YF2HV6MQ4JktYqEv8u44QIxtKbaQKmZe1tqhDoIV4jRlDTHjeV1PDJuapohGEwp
+ WNgAkwjPwRynJu+8PH9uGYVzo8LDnLNEFoQXgpvSmsy7pHx/H2L3RRvJz0wmvuQq7rjDWcwPcCU
+ USMMPIXeNK8+d881But/5THeaXN2fHuUeBzK1JleeIdYvROQqQ293hJQTnfVtRdAE1a17bU9V/Y
+ vKeTAb8ksxSqoZ4wUVV5KhlsDYR0gG8kR+b0PYhwMFcP9aqa6qIxTinrR0Yj3Dx4A655GL3iLAo
+ 7nTfxDK9Pfj/8ylZ+Cobvl6bs=
+X-Received: by 2002:a05:7022:c90:b0:127:def:dd72 with SMTP id
+ a92af1059eb24-1ac5914348dmr23169730c88.2.1793660847033; Mon, 02 Nov 2026
+ 15:07:27 -0800 (PST)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+References: <aujZcJBUyQ7iX_PM@intel.com>
+In-Reply-To: <aujZcJBUyQ7iX_PM@intel.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Nov 2026 18:07:15 -0500
+X-Gm-Features: AclHuK-yoykhBZZPuI4MkDU3EtbBAN1xWrPAe0gQ6PXSlR0CMnJh9ZxVOdSAIg4
+Message-ID: <CADnq5_M5SjooHDGt3T=69mTqYW0rjwM25Y8r9dgi8gDJEWYt7A@mail.gmail.com>
+Subject: Re: [RFC] linux-next: replace the DRM trees with a single
+ drm-for-linux-next
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ dri-devel@lists.freedesktop.org, Mark Brown <broonie@kernel.org>, 
+ linux-next@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 22:54:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,156 +113,181 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/xe: xe_bo_shrink_too_young() misses age updates for bulk-mov=
-ed VM BOs
---
+On Mon, Nov 2, 2026 at 1:51=E2=80=AFPM Rodrigo Vivi <rodrigo.vivi@intel.com=
+> wrote:
+>
+> Hi folks,
+>
+> We'd like to replace most of the DRM trees in linux-next with a single
+> branch:
+>
+>   https://gitlab.freedesktop.org/drm/tip.git#drm-for-linux-next
+>
+> It replaces these entries:
+>
+>   drm/drm-next, drm/drm-fixes
+>   drm-misc/for-linux-next, drm-misc/for-linux-next-fixes
+>   drm-intel/for-linux-next, drm-intel/for-linux-next-fixes
+>   drm-xe/drm-xe-next
+>   drm-rust/for-linux-next, drm-rust/for-linux-next-fixes
+>   amdgpu (agd5f/linux.git#drm-next)
+>
+> drm-exynos, drm-msm, drm-msm-fixes, drm-msm-lumag, drm-nova and etnaviv
+> are not part of it and stay as they are.
+>
+> The main reason is to reduce the conflict pain that Mark constantly faces=
+.
+> All of them should be handled already when we are rebuilding drm-tip.
+>
+> During this work, I realized that drm-xe is a big culprit for leaking
+> future work without a blackout date from -rc6 to <next>-rc1.
+> So, another quick solution would be to get a drm-xe for-linux-next like
+> the other domains are doing. However, I still believe that this unified
+> one will make Mark's life much easier anyway.
+>
+> The unified branch is rebuilt by dim together with drm-tip. It has all th=
+e DRM
+> -fixes, drm-next, -next-fixes and driver -next branches merged, with
+> the conflicts between them already resolved on our side. From -rc6
+> until -rc1 (per Linus' tree) the driver -next branches are left out, so
+> nothing for the following merge window lands early.
+>
+> It contains the DRM fixes too, so it would go where "drm" is today.
+>
+> During the past weeks I have confirmed that the drm blackout period
+> works well on this new branch.
+>
+> The dim changes:
+>
+>   d875049d2b29 dim: build a unified drm-for-linux-next branch
+>   3009867cd318 dim: keep -next branches out of drm-for-linux-next during =
+the freeze
+>   https://gitlab.freedesktop.org/drm/maintainer-tools/-/commits/master
+>
+> AMD:
+> Alex, Christian: linux-next takes amdgpu from
+> agd5f/linux.git#drm-next today, which differs from drm-amdgpu-next in
+> drm-tip. Is drm-amdgpu-next fine for linux-next?
 
-commit 281f376af4d072a5a3001932f9bcc749e37e12a5
-Author: Matthew Brost <matthew.brost@intel.com>
+They should be the same.  I just mirror drm-amdgpu-next to
+agd5f/linux.git#drm-next in case anyone is still looking there.
 
-drm/xe: Add a minimum age gate to the shrinker
+Alex
 
-This patch introduces a per-device shrinker_min_age_ms sysfs attribute and
-Kconfig option to prevent the shrinker from backing up buffer objects that
-were recently moved into TT or bumped on the LRU. Buffer objects are
-timestamped on moves into XE_PL_TT and LRU updates, with the shrinker count
-and scan walks skipping LRU priorities whose oldest candidate is younger
-than the configured minimum age.
-
-> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-> index 42a6aa1a2e4a0..3163c01012f73 100644
-> --- a/drivers/gpu/drm/xe/xe_bo.c
-> +++ b/drivers/gpu/drm/xe/xe_bo.c
-> @@ -1357,9 +1357,96 @@ static int xe_bo_move(struct ttm_buffer_object *tt=
-m_bo, bool evict,
->  		xe_tt_unmap_sg(xe, ttm_bo->ttm);
->  	}
-> =20
-> +	/*
-> +	 * ttm_resource_alloc() already placed the new resource at the tail of
-> +	 * its LRU, or of @bo's bulk move, so only record when that happened.
-> +	 */
-> +	if (!ret && ttm_bo->resource && ttm_bo->resource->mem_type =3D=3D XE_PL=
-_TT)
-> +		bo->lru_stamp =3D jiffies;
-> +
->  	return ret;
+>
+> All other maintainers, please ack if you are okay with this approach.
+>
+> Mark, you're in Cc for visibility only. Once we have all the acks, I'll
+> send you the formal request. After linux-next switches, we stop
+> updating the old for-linux-next* branches (patch below).
+>
+> Thanks,
+> Rodrigo.
+>
+> ---
+> dim: stop updating the per-repo for-linux-next branches
+>
+> linux-next now pulls the unified drm-for-linux-next branch instead.
+>
+> Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> ---
+>  dim | 53 -----------------------------------------------------
+>  1 file changed, 53 deletions(-)
+>
+> diff --git a/dim b/dim
+> index e3f616b..b3ed8f7 100755
+> --- a/dim
+> +++ b/dim
+> @@ -658,52 +658,6 @@ function dim_range_diff
+>         fi
 >  }
-
-[ ... ]
-
-> +bool xe_bo_shrink_too_young(struct ttm_buffer_object *bo, unsigned long =
-min_age)
-> +{
-> +	struct xe_bo *xe_bo;
-> +	unsigned long stamp;
-> +
-> +	if (!min_age || bo->resource->mem_type =3D=3D XE_PL_SYSTEM ||
-> +	    !xe_bo_shrink_backup_candidate(bo))
-> +		return false;
-> +
-> +	xe_bo =3D ttm_to_xe_bo(bo);
-> +	xe_bo_assert_held(xe_bo);
-> +
-> +	if (bo->bulk_move && xe_bo->vm)
-> +		stamp =3D xe_bo->vm->lru_stamp;
-> +	else
-> +		stamp =3D xe_bo->lru_stamp;
-> +
-> +	return stamp && time_before(jiffies, stamp + min_age);
-> +}
-
-[Severity: Medium]
-As reported by Sashiko on v6 [1], can xe_bo_shrink_too_young() miss age
-updates for private BOs that use a VM's bulk move?
-
-In drivers/gpu/drm/xe/xe_bo.c, __xe_bo_create_locked() attaches every priva=
-te
-user BO created on a non-fault-mode VM to vm->lru_bulk_move:
-
-drivers/gpu/drm/xe/xe_bo.c:__xe_bo_create_locked() {
-	bo =3D xe_bo_init_locked(xe, bo, tile, vm ? xe_vm_resv(vm) : NULL,
-			       vm && !xe_vm_in_fault_mode(vm) &&
-			       flags & XE_BO_FLAG_USER ?
-			       &vm->lru_bulk_move : NULL, size,
-			       cpu_caching, type, flags, NULL, exec);
-}
-
-Because xe_bo_shrink_too_young() checks bo->bulk_move && xe_bo->vm and reads
-only xe_bo->vm->lru_stamp (ignoring xe_bo->lru_stamp), three cases appear to
-leave the stamp out of sync with the BO's actual activity or LRU position:
-
-1. For preempt-fence LR VMs (XE_VM_FLAG_LR_MODE without
-XE_VM_FLAG_FAULT_MODE), !xe_vm_in_fault_mode(vm) is true so private user BOs
-have bo->bulk_move set. However, xe_exec_ioctl() in
-drivers/gpu/drm/xe/xe_exec.c skips xe_vm_bump_lru() for all LR VMs:
-
-drivers/gpu/drm/xe/xe_exec.c:xe_exec_ioctl() {
-	if (!err && !xe_vm_in_lr_mode(vm))
-		xe_vm_bump_lru(vm, exec);
-}
-
-And preempt_rebind_work_func() in drivers/gpu/drm/xe/xe_vm.c exits early in
-xe_preempt_work_begin() when !preempt_fences_waiting(vm), so vm->lru_stamp
-remains 0 (or stale from the last eviction/invalidation rebind) while the VM
-creates BOs and submits work. When kswapd runs with ctx.no_wait_gpu =3D=3D =
-false,
-won't xe_bo_shrink_too_young() treat these active BOs as old and allow them
-to be preempted and backed up regardless of shrinker_min_age_ms?
-
-2. In xe_bo_move(), moving a BO into XE_PL_TT updates bo->lru_stamp =3D jif=
-fies
-without updating vm->lru_stamp. When a private BO on any non-fault-mode VM =
-is
-created in or moved into XE_PL_TT while its priority bucket in
-vm->lru_bulk_move is empty (for instance, before the VM's first exec or when
-no other TT BOs exist in that bucket), ttm_resource_alloc() ->
-ttm_lru_bulk_move_add() places the resource at the tail of man->lru. Since
-xe_bo_shrink_too_young() ignores bo->lru_stamp when bo->bulk_move is set, a
-BO newly moved into TT will still read the stale or zero vm->lru_stamp and
-won't be protected by shrinker_min_age_ms until an exec bumps the VM.
-
-3. In drivers/gpu/drm/xe/xe_bo.c, xe_gem_object_close() detaches a private =
-BO
-from vm->lru_bulk_move in place when its GEM handle is closed while mappings
-remain in the VM:
-
-drivers/gpu/drm/xe/xe_bo.c:xe_gem_object_close() {
-	if (bo->vm && !xe_vm_in_fault_mode(bo->vm)) {
-		xe_bo_lock(bo, false);
-		ttm_bo_set_bulk_move(&bo->ttm, NULL);
-		xe_bo_unlock(bo);
-	}
-}
-
-Once bo->bulk_move is cleared, xe_bo_shrink_too_young() switches back to
-reading xe_bo->lru_stamp without updating either the stamp or the BO's LRU
-position. If the BO was recently bumped via xe_vm_bump_lru(), closing the
-handle reverts its age to the stale bo->lru_stamp; conversely, if the BO was
-recently moved into TT inside an older bulk-move range near the head of the
-LRU and then closed, its young bo->lru_stamp becomes visible near the LRU
-head and causes ttm_bo_lru_cursor_skip_priority() to skip older BOs behind
-it.
-
-Would it make sense to propagate or take max(xe_bo->vm->lru_stamp,
-xe_bo->lru_stamp) when appropriate, and ensure preempt-fence LR VMs and
-bulk-move detach paths keep the stamp consistent with the LRU position?
-
-[1] https://lore.kernel.org/r/20261027224902.1085762-4-matthew.brost@intel.=
-com
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102223220.1411=
-858-1-matthew.brost@intel.com?part=3D3
+>
+> -# update for-linux-next* branches
+> -function update_linux_next # branch next next-fixes fixes [for-linux-nex=
+t] [for-linux-next-fixes]
+> -{
+> -       local branch linux_next linux_next_fixes linux_fixes for_linux_ne=
+xt for_linux_next_fixes repo remote
+> -
+> -       cd $DIM_PREFIX/drm-tip
+> -       branch=3D$1
+> -       linux_next=3D$2
+> -       linux_next_fixes=3D$3
+> -       linux_fixes=3D$4
+> -       for_linux_next=3D${5:-for-linux-next}
+> -       for_linux_next_fixes=3D${6:-for-linux-next-fixes}
+> -
+> -       repo=3D$(branch_to_repo $branch)
+> -
+> -       if [[ $repo !=3D $(branch_to_repo $linux_next) ]] ; then
+> -               return
+> -       fi
+> -
+> -       remote=3D$(repo_to_remote $repo)
+> -
+> -       git_fetch_helper $remote
+> -
+> -       if [ -n "$for_linux_next_fixes" ] ; then
+> -               echo -n "Pushing $linux_fixes to $for_linux_next_fixes...=
+ "
+> -               git_push $remote +$remote/$linux_fixes:$for_linux_next_fi=
+xes
+> -               echo "$DONE_OR_SKIP"
+> -       fi
+> -
+> -       if git merge-base --is-ancestor $remote/$linux_next_fixes $remote=
+/$linux_fixes ; then
+> -               # -fixes has caught up to dinf, i.e. we're out of the mer=
+ge
+> -               # window. Push the next queue.
+> -               echo -n "Out of merge window. Pushing $linux_next to $for=
+_linux_next... "
+> -               git_push $remote +$remote/$linux_next:$for_linux_next
+> -               echo "$DONE_OR_SKIP"
+> -       else
+> -               # dinf is ahead of -fixes, i.e. drm-next has already clos=
+ed for
+> -               # the next merge window and we've started to gather new f=
+ixes
+> -               # for the current -next cycle. Push dinf
+> -
+> -               echo -n "Pushing $linux_next_fixes to $for_linux_next... =
+"
+> -               git_push $remote +$remote/$linux_next_fixes:$for_linux_ne=
+xt
+> -               echo "$DONE_OR_SKIP"
+> -       fi
+> -}
+> -
+>  function check_conflicts # tree
+>  {
+>         if git diff | grep -q '\(<<<<<<<\|=3D=3D=3D=3D=3D=3D=3D\|>>>>>>>\=
+||||||||\)' ; then
+> @@ -1192,13 +1146,6 @@ function dim_push_branch
+>
+>         git_push $remote $branch "$@"
+>
+> -       update_linux_next $branch drm-intel-next drm-intel-next-fixes drm=
+-intel-fixes
+> -       update_linux_next $branch drm-intel-gt-next drm-intel-next-fixes =
+drm-intel-fixes \
+> -               for-linux-next-gt "" # no for-linux-next-gt-fixes for now
+> -       update_linux_next $branch drm-misc-next drm-misc-next-fixes drm-m=
+isc-fixes
+> -       update_linux_next $branch drm-rust-next drm-rust-next-fixes drm-r=
+ust-fixes
+> -       update_linux_next $branch drm-amd-next drm-amd-next-fixes drm-amd=
+-fixes
+> -
+>         dim_rebuild_tip
+>  }
+>
