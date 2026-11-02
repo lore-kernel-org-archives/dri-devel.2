@@ -2,103 +2,128 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7314D607BDF2
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 16:05:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7486081CCF
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 16:10:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=itka6e4w
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iQAra2AI;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZPPwBkNW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D846A10F06E;
-	Mon,  2 Nov 2026 16:05:29 +0000 (UTC)
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E89910F076
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 16:05:23 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-14388db1a6bso73447c88.3
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 08:05:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793635522; cv=none;
- d=google.com; s=arc-20260327;
- b=JLqLcY+5PI25yqnD4iEEpciiXM22L7jGyeg8dm/hlubal+mMYz495canIiR74O2/gJ
- 1P3dLI/XWeHCXjIQ5/Zvetaz+adfDzXytaYqaZOLkJ7EYWjeBLsyMaXgeVdo8m7OqNvI
- l3mKb2EVUrei689WCp4cNjZ+xV8hUyHZXCu/E6H72K/q6rhRO1D2dqGU+dup42FRa3Fm
- CGo8Oamv1WuSDlSq+nmKKoK8A1fw5syDV0IrRVehTGzEa9NwSccpgdzkXttrPwTpK0Ol
- 6dzDjfPCEUjEDY1wiWNx9WqYWzHMCK0+KFFPIUYCQnaf86zeic+iutwWaWTIOuQCznCH
- 33EQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=qM2dyLxIJxVzLOT8NAS4jU2rvWxXsjk/TSdQCq7DDTQ=;
- fh=hTLr+uK6i4XuKV0Pu6KkYwvDoPGfGu220oyLVhyzH2E=;
- b=XnP8OXOac/rbH1qN1OuUmDOq6nd1DTsribC3gtLcjNPgBfQ6kd3x1zIzXPBXV9RyVg
- sn5oNZ7zYCvGjjBdL2zp/3f8hdWEeHiT36LSk30CiJHo3U3+iNuZQrcWEJtETKQLtknL
- +ekgxndk9fh955m4l7eBXW26ISno/ownvkatiGHhF8bhbZRALyKo0aAYsnY9YSMlfQgQ
- VV99J4fYOvEkrWo//rX9A/KSt1Jq5SG4zKS3OD79oEgyOdScR1LYlVhSMv4xbUyC2iZL
- HvqR3oCHHmaLTScDk0m27J3ZP3XFvgk6NrL3quI/nd1yG3u2URkprxqqQ9piapg1ok3N
- eByA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id C688610F07B;
+	Mon,  2 Nov 2026 16:10:19 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D39DF10F04E
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 16:10:07 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A2Dp9xA894137
+ for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 16:10:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=j6Jl9fkeKPAkBraVEg5312er2XpFL9q4OtT
+ 0Sa3z2xY=; b=iQAra2AIbNq7/30+mFcpeYfq9txDZiWaxZX56k+zgD4aaH3QmtG
+ sSyfI9l/UKfP5b35RjEIjVJ31+mbbmtOt0O0Sl83IjDK3H0w/QeIbzqouR+OoC/z
+ K9SZ6MhYI2PStZ48RHqM5QXaAtb/a1BLlmnCsYbaQZJJkXOaZfbDPEKrX00mM9OM
+ 9MaTABy81tXnFraL7zYFxpZhPzJEYBURF/Ywzl7Y6GN2G10yNDzHPe6zeErdw4rk
+ xucPoSWltAoPDtIGoF0J3v0fLJkHCoRBN6z/1By1R2nLpqqWmAmWz9b2U9SpGxSj
+ t18APwdWBp6wxUQoKRglKZfxxdBys4HJ+Sw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqmvsrw2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 16:10:07 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2e987ec84afso27286745ad.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 08:10:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793635522; x=1794240322; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qM2dyLxIJxVzLOT8NAS4jU2rvWxXsjk/TSdQCq7DDTQ=;
- b=itka6e4w/AXkiyU+zIUWxi+JkxVSE554Fat/hPiC+8urWBL+gYbwEAaMZKX9bTX1y7
- sB7XAnn3WjDzMBu6klam9lupx/NfIg/lu8p69LFO85HFJU7iTsPzSg9splm1weuqQqr8
- sYHdHkpGiZaOnJ/NuogjC8Xjixk+6O9kTxHqIHBXjNbkZG+dA0KJ1o1U6hbgd1r7HjAU
- aALUetuQIeDOFAjoXVMgtvfjquXxzr3Tz9ssIH2QbcNeBNz4Vu0JPwzNIxfU51Ognbgq
- JD3PY99ESKoM4uqmSHgcFkYU2omM8wUshps6q8c/d2LdGE9u/iyHRJ/fQGASZY7fYjPs
- +D5g==
+ d=oss.qualcomm.com; s=google; t=1793635807; x=1794240607;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=j6Jl9fkeKPAkBraVEg5312er2XpFL9q4OtT0Sa3z2xY=;
+ b=ZPPwBkNWXNV1vLQhGXVlSwLOIJ6q4SO3LF3iiPgUSTfGN3c3OxNkuvo2insJklCeNl
+ Eh7UlKzMyZSgkCMixWhvPk1et34PBW1N2ku3c8di0nECzQEzPnd+haF6XMo3433+QSaV
+ EzIZNQInscqcXgT4RFdb+S6UcoIuQr3RKMbwq33hL9y8ty9ZuRg0Pfs1MpWWET+f31v3
+ gb2qFB5rT9qR5uqcOLWzgFzD02+scqUrVTGOf5aZoFBXAudbDTPBVUYWT6Hscn07SlHL
+ hXzZhkDrVkNI0O3nf2POkT8mCJQU6RoQSDmm8DGuny37DoEAYCdNBz3D/iWdjjH8BdZu
+ OaKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793635522; x=1794240322;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qM2dyLxIJxVzLOT8NAS4jU2rvWxXsjk/TSdQCq7DDTQ=;
- b=H1cRnVMdNuv6TDXYTInWPHb2s1X95/0moGosU9WHHp8jr2FopkMMRuP65eJPlYaYWE
- 7hE41yX15NLBuGWq/E/i9cN2ABf7uUysW/tUH5doa+VDTnAZh8vLMJ+QzsvbJ4MXLFtN
- rAy8fqPjQM1eqWx4nbWN+SesNoacIBqC9ENHnzNhcdHEav4LltQNBUM3hfsdXginp6qe
- 6x4tbsmvi0naeEY4CoabivvBYnfWVkd+k72ELb2Onem+d5byEY4QhHdL4SIZbE4Vgkgd
- pKRtJZUbHqv2vlGtYgUM+5ts/qSl2CJK5o/iNninw7hviZjljhfQ8nadggWveUrlbsvK
- Dn2A==
-X-Forwarded-Encrypted: i=1;
- AKwUvBx+ommbUYWlY2boBjXbMV4AMKaA1NvlPAnwL5T/cwjavXVL+8pDWL6B2EAxtcS8NfJAnVaNV9OESHo=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYJMDisgIErsyuAj9E/CWg7DCEDFvnbMiWKALn9npjYnseNLdA+C
- ZyBEbsRETdw6IJClp3g0E/nQfYL1f7nPo1tTvFf5caBIupz22+QSxAZfzZplIfg2/meys727Oc6
- EIrwvBbB/LFVbGAcYc7gWXytrqwY/pIE=
-X-Gm-Gg: AYBFou3Xdiae4aqdRoP/AW94UJklcHrjH6cxYo0KzJVO8Xwvz63KxeAbxT2D0Z/BEPJ
- xwTMpcHJkA+uXxtKFQqAiO7X+FvDvVWNMaG+H0Ysv0wj6wgWRbX55N5jYbILikVxiS3KaB+SYRe
- f9XfNiKkt94a12F6ijnJ4wCmceOF80g8V9f8H5ICSY0/5uF1am+rrfuD7j7jvzwtCdme7UmMEOd
- VUzLpZIYgOIFPTVYwO4aOckDlgujcWB6j6fRXsbUmSWn7Gu58dYzwNQAh0uX4gUS7gYaYtN7lSM
- +M+nS0ugZ+p3ZzVZNHeo01FbFj9+fimOnJGzEfDRBoxphVUuY5BGZJQ+wPgp0C75ICexLFoewgX
- 6GqYlbW4B2XiYxf0nIQD64o/UDDccvLKvWlfbkOW8jSmV5edj4Fck/Xbr1g0mL4Fb0ouqWXM1aP
- OCT6IaDRMHtvBQEJKmWWzqRPY=
-X-Received: by 2002:a05:7022:7e0c:b0:165:be2f:c56e with SMTP id
- a92af1059eb24-1ac5b7dcb2bmr26252824c88.2.1793635520495; Mon, 02 Nov 2026
- 08:05:20 -0800 (PST)
+ d=1e100.net; s=20260707; t=1793635807; x=1794240607;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=j6Jl9fkeKPAkBraVEg5312er2XpFL9q4OtT0Sa3z2xY=;
+ b=q/hIfwBPBEfxhwXWysG4YCIzBYydZIGMpVHkZ8vlFj+1qJy8GsTyYAl7bR//WUFDxJ
+ Hi5+hLBUebA86hOCULp65LQANDjTjlZBoewhkz3dk9w5FiHL34MByoe/ZajRjiBDKOqM
+ ERfGhIFrnByG1joBwN7Cr1d0SEUHnv4FxLGbdss16Hz6SQ9/qwQ2Y5lviCL+/ItLCCHo
+ MDw3uvWFcwGfkXG/URzZ2CRNCmpb99G+nezFm1bRKoLXo5PnOGFw7Zyt6YJ8vcgPTQ/y
+ 7lCyT+9cNyMYcX6DZEAlQZ8fKL7cVhcxuDahCzon3oicgquyH0XBl5A3QP/ADIuwowhJ
+ 0QqA==
+X-Gm-Message-State: APuU4Z8m8BbECC6ExBHQFkL+UAxB7lfJs8dNzSMDqbX3GBLdhhkCdbO3
+ AcoAJbHxgbCRq9DoyeXbGpBucvBn/u0WgBbxI5W4H9jtpz9sV67h9TLNxqc3T1kPSwKxOksDgt4
+ fJS12DJfFvkyJ1J7dtGxknyzaqnhoN2+HCPlxjxDPTsXiOqq+i7ismZQHNGnCs4ucqij3oruvUz
+ 56LJPsMQ==
+X-Gm-Gg: AYBFou0PLyM4Qtp2vf1bKZtT3ECRT9duFFRD1RtWTLneHSu6wO64hspS1vDzD0G+F7i
+ O0e8QNZUwPsDmuA4myXR6U7pUg7Z7dIdaojtJTRjqgYpBja78Sv8ijcBcC+XEVcHAStni19TB4g
+ R4qhMxaXRCxbRQu97VNEwi76/6XEVwKfrKTc1X5PqIvK9DmekMUpWT3BrUzP/IHpkk4q3CIcxSh
+ AlvIkHJDm8uD7fv3b3moz8/vaONssdn2kP76j6gAkBbBsPoTxnJpz9tM7OwyteKDUV3EL+5ohR3
+ OYucSvEcHxLHcM7XgTZ1dGlg4W36IM96dr7Xru2BZqUobMJQ4+7T8mXkXZWOkHnuKOgoaDi28fk
+ kYqJtAa3H0bTFHEdVPeZnbqNzi0WglpuenB4eRRJZ7vzDSOyiAfRpMhtDSk+zjCJETryXVn736D
+ 2t1mQOJo9n40grGh9rM+1TGQ==
+X-Received: by 2002:a17:903:3bc8:b0:2dd:c100:4248 with SMTP id
+ d9443c01a7336-2eb3647079emr103787465ad.44.1793635806585; 
+ Mon, 02 Nov 2026 08:10:06 -0800 (PST)
+X-Received: by 2002:a17:903:3bc8:b0:2dd:c100:4248 with SMTP id
+ d9443c01a7336-2eb3647079emr103787015ad.44.1793635805968; 
+ Mon, 02 Nov 2026 08:10:05 -0800 (PST)
+Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net.
+ [67.168.198.145]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2eb3928d821sm29672765ad.56.2026.11.02.08.10.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 08:10:05 -0800 (PST)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ linux-kernel@vger.kernel.org (open list),
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v2 0/3] drm/msm/gem: A couple VM_BIND fixes
+Date: Mon,  2 Nov 2026 08:09:58 -0800
+Message-ID: <20261102161002.497152-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
-In-Reply-To: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Nov 2026 11:05:08 -0500
-X-Gm-Features: AclHuK_T_9wl2_ge7HTrGL9Ufakev4qpuajb3TNVntCGEszFix2ZV1_vjQMYFjg
-Message-ID: <CADnq5_NuQEvx8OpyPOuXgtzQB67jgaNtwW85X70UraOLaF=M=A@mail.gmail.com>
-Subject: Re: [PATCH] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to
- GTT"
-To: Calvin Owens <calvin@wbinvd.org>
-Cc: linux-kernel@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alex Hung <alex.hung@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>, 
- George Zhang <george.zhang@amd.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=TMDQ2Fla c=1 sm=1 tr=0 ts=6ae8b5df cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=ygTbR3Ydg0thdFsOExEA:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: QAokoAirOxiGCJLXvASFCS8C11C1u4q8
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2NCBTYWx0ZWRfX+st6dNcTiSSR
+ ouZkViMzR9WLiX6skRn3XI0WimZ4VXCM97kz4CffJBd0D613TN3p610S8A+2gADseLj7zNxI4UD
+ FbEOp2S0yKp4VT62DOEC9MU0hSsPS64=
+X-Proofpoint-ORIG-GUID: QAokoAirOxiGCJLXvASFCS8C11C1u4q8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2NCBTYWx0ZWRfX0jpvUGqXCfdo
+ 6RV7wyf77gaZa3RDZJO8ODAiCXUteKT6pVtgl8QIjYXTChx0hGN01QxV/wluQpT161TFDetPhZm
+ JMNDAfzf6MKEyop2FB7lpHOFMI1Ba53oeoYGpa2wYh+AiiNqGDMsj6t/wYweEIUYrDprAHz/R/k
+ 9oufQ0hrbPy2IBYcFEF8Qu4zYCE+TRtOl0gMWRmZZPfJMkGDJ+3QEU8domDkk6wmhwqX5r6DcGL
+ s7G34zzptKDvoGJbTm2fCNzPlu2tVRaH/xXSOZGLat3afcx+bgreVbFVK+u3rcITQYS7nPonVyc
+ ZZ9tQfwAyHmsWFTUH1C/9sAXkoAtAaszQdhqxFmyaeFMsyMPRIhHmRXt4ijuG+SDXs9Pkp+DAzR
+ fnDP0OPD1C8ssDinO3LbISPsRq5HirEcw3ai9ELuBEhToHd/vaq88k0WHu/gu2WcdvtYTb0UD2J
+ Al9JFQcMyejy7YJfQNg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 adultscore=0
+ phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020064
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,132 +135,32 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Reviewed and applied.  Thanks!
+Fix possible overflow in range check, and disallow passing BOs table to
+GEM_SUBMIT for VM_BIND contexts.
 
-Alex
+v2:
+- Also check that range/obj_offset are not greater than SIZE_MAX.  It
+  doesn't matter currently, but would if an armv7 system ever added
+  support for per-process pgtables and VM_BIND.
+- Add patch to fix handle-dereference in idr_find() error path
+- Link to v1: https://lore.kernel.org/all/20261101174911.25184-1-robin.clark@oss.qualcomm.com/
 
-On Tue, Oct 27, 2026 at 4:36=E2=80=AFPM Calvin Owens <calvin@wbinvd.org> wr=
-ote:
->
-> After commit a637a140ab860310 ("drm/amd/display: Allocate DCN32/1 dmub
-> memory to GTT"), a machine with a Radeon RX 7900 shows random garbage on
-> the screen. It reproduces sporadically, but at times it is so bad the
-> machine is more or less unusable.
->
-> The garbage is always horizontal bars extending across the entire
-> screen, always approximately 200 pixels tall on a 3840x2160 screen,
-> for what looks like a single frame. The bars are mostly black, but will
-> sometimes exhibit striping and periodic artifacts which smell like
-> non-framebuffer data is being rendered to the screen.
->
-> It took some patience on the "good" side, but I was able to nail it down
-> to commit a637a140ab860310818a14fb4d37e39e51a06be4 with this bisect:
->
->   bad: [cee9395acd8043be0644b25c34bfa86623f2b935] Linux 7.3-rc1
->   good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
->   good: [55ab7e14222e5f0b0fd9f7711ca391d2924b35e3] Merge tag 'for-7.3/blo=
-ck-20260819' of git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux
->   bad: [df51bdc5e80dae43cab81f6cc641e98638303c88] Merge tag 'mtd/for-7.3'=
- of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux
->   bad: [29daacacf4cd84e6917f09de6a99fb170071c14c] Merge tag 'drm-rust-nex=
-t-2026-08-08' of https://gitlab.freedesktop.org/drm/rust/kernel into drm-ne=
-xt
->   good: [fff648aec5e2790d117a0ec5c849a284d9d33d70] drm/amdgpu: include am=
-dgpu_video_codecs.h only where needed
->   bad: [336e0cd576817ac64a4b394ca2b3680029f3e37f] Revert "drm/amdgpu: fix=
- aperture mapping leak"
->   bad: [789f7486a384ca58b9d7a76abba5efa0e80e8dab] drm/amd/display: Test p=
-lane colorop helper walkers
->   good: [e0e426f10ad653c5e9dd33fb4a76d55f06101992] drm/amd/display: Test =
-helper_check_state rejects
->   bad: [982b2a43682b55e7d9800000f2592832ff2865ba] drm/amdgpu: Fix IP bloc=
-k NULL check during soft reset
->   bad: [9102b39fa924dcc3dc75a3137bfa9633c40b88c0] drm/amdgpu/userq: fix i=
-ndefinite fence wait during GPU reset
->   bad: [b23470a026afe64de5c1df4ad181587b49c22923] drm/amd/display: Exit L=
-S for ISHARP before coefficient write
->   bad: [f02b2e47355e9d381a7f34acc997e1c47879ca21] drm/amd/display: Add KU=
-nit test for wb jobs
->   bad: [c6a13d145cc811b19c8a0620f25868cf7d5700c0] drm/amd/display: remove=
- unused dcn42 socbb values
->   good: [1d8327353de6f1f34063840f362c208c84064f54] drm/amd/display: Fix V=
-ABC Init and OLED Support
->   bad: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Alloca=
-te DCN32/1 dmub memory to GTT
->   first 'bad' commit: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/=
-display: Allocate DCN32/1 dmub memory to GTT
->
-> Sure enough, reverting a637a140ab860310818a14fb4d37e39e51a06be4 on top
-> of v7.3 completely and totally eliminates the problem for me.
->
-> Mikhail has separately reported this regression:
->
->   https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@g=
-mail.com/
->
-> ...but it seems to be much more consistent for me than for Mikhail, it's
-> never taken more than 30 minutes even when the machine is completely
-> idle. I've also never been able to reproduce any artifact one single
-> time without commit a637a140, despite a lot of effort.
->
-> I'm not sure reverting this is the right way forward, since presumably
-> this would re-regress the timing issue Fangzhi alluded to in the
-> original commit. But nobody has proposed anything concrete yet... so
-> let's start the discussion here.
->
-> I'm happy to help test other better ideas as well :)
->
-> Signed-off-by: Calvin Owens <calvin@wbinvd.org>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 11 ++---------
->  1 file changed, 2 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/dri=
-vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-> index 9ff25bc8ee5ae..870534b7cf46d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-> @@ -511,7 +511,6 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
->                 DMUB_WINDOW_MEMORY_TYPE_FB,             /* DMUB_WINDOW_CU=
-RSOR_OFFLOAD */
->         };
->         int r;
-> -       int mem_domain =3D AMDGPU_GEM_DOMAIN_GTT;
->
->         switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
->         case IP_VERSION(2, 1, 0):
-> @@ -648,19 +647,13 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
->                 return -EINVAL;
->         }
->
-> -       /* Limit to allocate dmub to GTT on DCN32/1
-> -        * TODO: Other asics with GDDR7 may have worse latency
-> -        */
-> -       if (dmub_asic !=3D DMUB_ASIC_DCN32 &&
-> -           dmub_asic !=3D DMUB_ASIC_DCN321)
-> -               mem_domain |=3D AMDGPU_GEM_DOMAIN_VRAM;
-> -
->         /*
->          * Allocate a framebuffer based on the total size of all the regi=
-ons.
->          * TODO: Move this into GART.
->          */
->         r =3D amdgpu_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZ=
-E,
-> -                                   mem_domain,
-> +                                   AMDGPU_GEM_DOMAIN_VRAM |
-> +                                   AMDGPU_GEM_DOMAIN_GTT,
->                                     &adev->dm.dmub_bo,
->                                     &adev->dm.dmub_bo_gpu_addr,
->                                     &adev->dm.dmub_bo_cpu_addr);
-> --
-> 2.47.3
->
+Rob Clark (3):
+  drm/msm/gem: Fix VM_BIND range check
+  drm/msm/gem: Disallow nr_bos for VM_BIND contexts
+  drm/msm/gem: Decrement loop idx if handle lookup fails
+
+ drivers/gpu/drm/msm/msm_gem_submit.c | 5 ++++-
+ drivers/gpu/drm/msm/msm_gem_vma.c    | 7 ++++---
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+-- 
+2.56.0
+
