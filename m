@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1B3606A327
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46749606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:02:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D6tQtiEC
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DlF61XV0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD2E710ED04;
-	Mon,  2 Nov 2026 10:55:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD4910ECDB;
+	Mon,  2 Nov 2026 11:02:24 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A49C10ECE9
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 444BA10ECE9
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:02:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AB4016110A;
- Mon,  2 Nov 2026 10:55:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5745F1F00A16;
- Mon,  2 Nov 2026 10:55:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6E4F260DC0;
+ Mon,  2 Nov 2026 11:02:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93941F00A24;
+ Mon,  2 Nov 2026 11:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793616916;
- bh=0uC1lw4qr5rkQj5pdgH8BUM79En1tPMCwDHsh7HKEYI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=D6tQtiECwkCpSN4Q3tG38NPQNWg52qzMDiQ+k4OoBUGPOdDwYCOJbmUI8KzcVeAU7
- ORcMpwNHWuqd5Q/a8YVRX/lAOM2FeU8QfZsaD8vstUMzjE9K736EUbi3iXDjeSwHYP
- lDksV9+f9POLC88Hz16ZEMML4S4ObCz/gT23+JqpmDGh18g4W6zQM+hSR11ZB5eW91
- c5qJmmqs+cGbAmxO3VTbAYrwpi0Pnk14VIEf2zF3MyTl2Bp6HiijqfWY7zMjnNXdLr
- WaiAhA3q1UMTV4+lLTolWzDTNemmQiMPntCGYdY1jY/7O+GB0iQJt+L0eCio2hWKtT
- BhrOluUo+sOfg==
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-To: linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 13/13] Documentation: media: document cec_phys_addr_invalidate
-Date: Mon,  2 Nov 2026 11:37:04 +0100
-Message-ID: <37bdf75bef53988d3cfdd2caebe9cbb8b6eeb59c.1793615824.git.hverkuil+cisco@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1793615824.git.hverkuil+cisco@kernel.org>
+ s=k20260515; t=1793617337;
+ bh=KgRwtb/FI+2YCJ4kwli+o3lrioJBvm55STchLrtfxt4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DlF61XV0d9XiwalFnRPKBean5iUH7HdqhvgI9MfSIdvTGXdfjvtHXOGhuo9/rxedI
+ bXE3v6hxXXFEAs+X2qXTGJj/hNOjO/Sw8kcM97/1hmLaL97x3r3RNfzkItOT93q/Hf
+ muCM6ODh6jinWoteRRvURRkWQ3H/kYLVM7zIyod1su3rJ64vb+Ppjd5J/pVbWmEuZt
+ O5IRQJHHP8Wa8Rh/fYGhP8NVdOnLCq1USQ7qTTklBCvhn0aLBfRuUWo0bNG/SRZvGr
+ Gjl5ajxo/QNqdFoX5IsNB88rp/ikPoytixwYZgnvjbsqUF/Gm27WqZ7hgVKKdDsaEk
+ ehlZBUuHpO0tQ==
+Message-ID: <sashiko-outbox-193307@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 01/13] gpu: drm: sti: call
+ cec_notifier_phys_addr_invalidate if no EDID
+To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <86d6a90ff5131a4f6a1edef1d4f1694e65c5b6e6.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <86d6a90ff5131a4f6a1edef1d4f1694e65c5b6e6.1793615824.git.hverkuil+cisco@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 11:02:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,51 +49,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-This function was not document, add it. Also clarify
-cec_adap_s_phys_addr, explaining that the PA comes from the EDID.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/sti: incomplete cec_notifier_phys_addr_invalidate() conversi=
+on
+--
 
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
----
- Documentation/driver-api/media/cec-core.rst | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+commit 349b68331fa85963a4002deda235cb948b105b27
+Author: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-diff --git a/Documentation/driver-api/media/cec-core.rst b/Documentation/driver-api/media/cec-core.rst
-index f1ffdec388f3..10927833992c 100644
---- a/Documentation/driver-api/media/cec-core.rst
-+++ b/Documentation/driver-api/media/cec-core.rst
-@@ -437,7 +437,8 @@ transmitted, otherwise just queue it and return.
- .. c:function::
-    void cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block);
- 
--Change the physical address. This function will set adap->phys_addr and
-+Change the physical address. Use cec_s_phys_addr() to set the Physical Address
-+as read from an EDID. This function will set adap->phys_addr and
- send an event if it has changed. If cec_s_log_addrs() has been called and
- the physical address has become valid, then the CEC framework will start
- claiming the logical addresses. If block is true, then this function won't
-@@ -449,6 +450,13 @@ then the CEC adapter will be disabled. If you change a valid physical address
- to another valid physical address, then this function will first set the
- address to CEC_PHYS_ADDR_INVALID before enabling the new physical address.
- 
-+.. c:function::
-+   void cec_phys_addr_invalidate(struct cec_adapter *adap);
-+
-+Invalidates the Physical Address when the EDID was lost, e.g. if the HDMI
-+cable was unplugged. Do not use this to report an invalid Physical Address
-+that you read from an EDID, use cec_s_phys_addr() for that.
-+
- .. c:function::
-    void cec_s_phys_addr_from_edid(struct cec_adapter *adap, \
- 				  const struct edid *edid);
--- 
-2.53.0
+gpu: drm: sti: call cec_notifier_phys_addr_invalidate if no EDID
 
+This commit replaces a cec_notifier_set_phys_addr() call with
+cec_notifier_phys_addr_invalidate() in sti_hdmi_disable().
+
+> diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdm=
+i.c
+> index 7ba9e0b7ba6c0..d392140df2357 100644
+> --- a/drivers/gpu/drm/sti/sti_hdmi.c
+> +++ b/drivers/gpu/drm/sti/sti_hdmi.c
+> @@ -790,7 +790,7 @@ static void sti_hdmi_disable(struct drm_bridge *bridg=
+e,
+> =20
+>  	hdmi->enabled =3D false;
+> =20
+> -	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
+> +	cec_notifier_phys_addr_invalidate(hdmi->notifier);
+>  }
+
+[Severity: Medium]
+The commit message states:
+
+  If an EDID is present, then call cec_notifier_set_phys_addr. If not, then
+  call cec_notifier_phys_addr_invalidate. This helps the CEC framework
+  differentiate between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an
+  EDID without a Physical Address.
+
+  This driver is one of the few that was using cec_notifier_set_phys_addr
+  on disconnect instead of cec_notifier_phys_addr_invalidate.
+
+However, this patch only updates sti_hdmi_disable().
+
+In drivers/gpu/drm/sti/sti_hdmi.c, sti_hdmi_connector_detect() still calls
+cec_notifier_set_phys_addr() on cable disconnect when hdmi->hpd is false:
+
+	DRM_DEBUG_DRIVER("hdmi cable disconnected\n");
+	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
+	return connector_status_disconnected;
+
+Additionally, sti_hdmi_connector_get_modes() unconditionally calls
+cec_notifier_set_phys_addr() before checking whether drm_edid is NULL:
+
+	drm_edid =3D drm_edid_read(connector);
+
+	drm_edid_connector_update(connector, drm_edid);
+
+	cec_notifier_set_phys_addr(hdmi->notifier,
+				   connector->display_info.source_physical_address);
+
+	if (!drm_edid)
+		goto fail;
+
+When drm_edid is NULL, drm_edid_connector_update() sets
+source_physical_address to CEC_PHYS_ADDR_INVALID, so
+cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID) is still
+called when no EDID is present.
+
+Should sti_hdmi_connector_detect() and sti_hdmi_connector_get_modes() also =
+be
+updated to call cec_notifier_phys_addr_invalidate() when the cable is
+disconnected or when drm_edid is NULL?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793615824.gi=
+t.hverkuil+cisco@kernel.org?part=3D1
