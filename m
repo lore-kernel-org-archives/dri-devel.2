@@ -2,43 +2,154 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F02B606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 18:35:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71060606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 18:42:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BcieJFso
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YoJ28uQf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BDD710F14F;
-	Mon,  2 Nov 2026 18:35:05 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27E7310E13B;
- Mon,  2 Nov 2026 18:34:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B0A160609;
- Mon,  2 Nov 2026 18:34:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F8F01F00A17;
- Mon,  2 Nov 2026 18:34:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793644497;
- bh=6qIDn35Yo4W/SbtUA+gH/kviba5Fsv5JPHIsFCS+2EA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BcieJFso4J6eOAsGIVYP8chCDXUN/ExDAph7mO5kPGJ2UrfQ8+CMxBUfS8AZmlIvE
- qH1otO3eGfhQJY6NK4nnFzuLUWHCo2HPaoLi3WUaW2WXr5Wc3qus1MbuwkzUuqfick
- f129Fq9svuaGw6ZZldpU9i5qz7xjPacZg2liAwW36ulq4lkXAYKV7JnhUX7pkxv/Ot
- fiesvhnYQQFlsjR2MIJ50/8pV1O6RtkmRbqMaQPynUZW9O52GxHFHYZv7u+X3G/Cc9
- iiXhAVKk7N7WIVmijOyGGawpOTIxoBKjrj70J8Xk712eYoLUtybYcp+Zfe606hhs5y
- 1ptzVVUFG7nFQ==
-Message-ID: <sashiko-outbox-193948@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 08/15] drm/panel: add connector luminance forwarding
-To: =?utf-8?b?TWFyaW8gTGltb25jaWVsbG8gKEFNRCk=?= <superm1@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-In-Reply-To: <20261102-superm1-backlight-property-v10-8-b2a6f24131f5@kernel.org>
-References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
- <20261102-superm1-backlight-property-v10-8-b2a6f24131f5@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 18:34:57 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB78610E083;
+	Mon,  2 Nov 2026 18:42:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4DF310E083
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 18:42:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1793644942; x=1825180942;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=iYSBK1FDiQs5rhMdYU2yuriul0pejlJRYpG+FTm8pSc=;
+ b=YoJ28uQfVGwFQn/xLQ/bZJ+dzgNcverLyZ/orm+1bfwocYGlmKMZyzMV
+ hIU+Jpx49YPNlTTDsJHx9rf8pmq6hz0JUWAx2zvxz7Qbu3iDteY5H6mqN
+ Tj9TpnGF4myrkwC7T355kS/1TDbL4TOUdLFc3LTKVDYEbNkwZ641oi7Ya
+ c2JC+BG5pOPkBcWnUWjPDT4zjryQFm4livXQtVHRiSgn7TuNurfIfRo8n
+ KcFU2qBj3aWGd7VEPGaJTux1T/bxIdPYYeo/LF8YkgRem4AXPMUdY7CB2
+ mz++ydGY2nknkEfWayTYqyqkThkAHQ5zgEdigce94znb6EPU+9YLLLnW3 A==;
+X-CSE-ConnectionGUID: I2+XmTD0RUu6yDfdZDrm/A==
+X-CSE-MsgGUID: 6WL+CAnWSPWN58gi7TgCKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2254323"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2254323"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 10:42:07 -0800
+X-CSE-ConnectionGUID: NXfdh5pGTJWD4zirrDp2NA==
+X-CSE-MsgGUID: ksh1zP5vRVSJc3lnIrah4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6353002"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2026 10:42:06 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 10:42:06 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 10:42:06 -0800
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.50) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 10:42:06 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Po2m3gbmxXYPtnWhfOBqy86Uu8c/zSvlx8bqqiK+wZEcxKkJQj/tJcNigsAX4TK6HO9nTOPxFd0Ch4jyzVoZtrOdoJZB2mBJeP5MO0QkMynruX+rMKqywCVENU5fTGoHilNYyLqmpegbo+byb+r4GO2hpZ4+Jpx6yewwK2V0vjGDXyprSUU23g2P4ykgfOhhn9v5NL3ftBgWJFgh8asZCSTVOBjOHFvgHA7t29ethhQ7i+weEgTqFIWYMbG45lNs1EeqlG2BCmznooYa4nT5CQCoJMGPUbCpCnm98MzlFGJuCUy5cVLNZ8dzg0CGHZYpc/H86AhCqbTVA8GTkAT7zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yPCWLyMRstbvm1bbtln24zFnRgC8UXhSCMWqMfm117o=;
+ b=k5/+Wyl9Q9KYHjalrkLEhcov7VmeOOmLso5cOedWUekt08PWLQ0BIoZM0LdbQ04eY5nkMckCKbOIR0lyeNN9IppDaUQsObd2slOgOD+GBgdlg6r68hmZRppFbDOqQtbPR9gSkEGlPCd34DgQ28Qiy3ew/sdYRFcZollRMgF2KFsWVeaHxFjBSP2WrvVN7GBwT8Q/yGER1tFbWErTUbaLKooM0jFocUof45B3Xt5dhYFsNTSIqCMr67LMHB/AvlsfN++3wDTsPoz23k5UaLDKxcXb04noE5o7fNWwG0dvA3gIQ9p0/P1sIWyUu8uPO+NG3A53eVLntV3c/G+wX852+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by DS6PR11MB830241.namprd11.prod.outlook.com (2603:10b6:8:46b::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 18:41:59 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 18:41:58 +0000
+Date: Mon, 2 Nov 2026 13:41:52 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Matthew Brost <matthew.brost@intel.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Danilo Krummrich <dakr@kernel.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>
+CC: <dri-devel@lists.freedesktop.org>, Mark Brown <broonie@kernel.org>,
+ <linux-next@vger.kernel.org>
+Subject: [RFC] linux-next: replace the DRM trees with a single
+ drm-for-linux-next
+Message-ID: <aujZcJBUyQ7iX_PM@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+X-ClientProxiedBy: SJ0PR05CA0085.namprd05.prod.outlook.com
+ (2603:10b6:a03:332::30) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|DS6PR11MB830241:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff5dee44-f1b1-49c7-f485-08df3910f9ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|23010399003|366016|261021123027099003|261021121427099003|5023799004|11063799006|56012099006|261028144727099003|261026121527099003|261022105027099003|261022115727099003|261026140227099003|261022075727099003|261009223027099003|921020|10067099003|18002099003|261102123227099003|6133799003;
+X-Microsoft-Antispam-Message-Info: aQcAVVbm4yBEnUJ0Rsg4u22Q0vs1X3Dm4mBNR0Xqr+DSkzZlqgWa9oyVbWI66DDRuuPwgoqizJTlDgt5Bk6hu4Xwsu934+Tdbbom7qQczMLF5tKs7aKzHI9ZMsmhJP2bbYQd4F6/2TkeEw3042QFqzrASyLaf2hjYgSq3HCN9b0kfKUITc/oQU6q7U69CQgbUwkvlJ7pIK/x7oAX4EvXrX6Y/l21EH3vTrp1cYClTggabXAX8xPPNwZ5MmrCJ/7fI1OrAQRf/RqpBADAVXKAhb5w0t2OyAWGLKetpti4aDwDStvDNHcp0xqO+PJPEsOs+oYKr0r95weQlEyrSau8TozuxB0P/el6PbKYiOXzoNEyyzn7u1s2EVJYzaOUcIW9MwcWVKbL1pqrBehut2SfY5eiVG7smpy0Ttf11/9JA3sjqjAH7tfshRcqgLTdDy9RN+9kHaH1Or33E8gMrwjT6zV/5cvsRIUvpg/h+rZyUXwQbRzddHHYDKtMXbcTYjqdZvCKnZkQA36fV1rFjBp5cQILCbaKjX4eWde3ykeMgVJKY+KbaSGZjqxsjIv9c+CslONRKY+QL5zXYPyZeaaGBhVEV6TVtPzKQWGpA23Ih82EndYTu5JU9id0RVCk1ngOfYzYgVejzVayJ0cjVBI3xGOph2o4dVMRc1XtPJaZgN0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR11MB7187.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(261021123027099003)(261021121427099003)(5023799004)(11063799006)(56012099006)(261028144727099003)(261026121527099003)(261022105027099003)(261022115727099003)(261026140227099003)(261022075727099003)(261009223027099003)(921020)(10067099003)(18002099003)(261102123227099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?aAx6DgERlPwiJbsZZ9AOv6iZpeymY3/Bo/7qCM7y/sjpjW1y4s5sLqB+AseE?=
+ =?us-ascii?Q?xvy6CGF8Ma1x8YqcRLo8nOnbj/GvJGVQWaJOEvNMDTQbWYUBI81JuLpM9siG?=
+ =?us-ascii?Q?79cs2KYVDFD/q7054tYJKG0KuHpn1rlJIq2233fQygnQtFL9bJHfI/Q9U/23?=
+ =?us-ascii?Q?+NBKm/Oe2J+/MPnp+pmnqx1GvNnfWnNbi9tHpNYPoayohP1jMBX6d/Pf0Faz?=
+ =?us-ascii?Q?HKwgjP8pRz8pT5UynheyINFaoDQEzm4f8gjRYBK1DKEmWDrO6wleB4fLMqDv?=
+ =?us-ascii?Q?tE7kw4qvaykmbp5f6fAAtWzvXgWGTvsy+x3eDw0eRt0s2/3j2UDseJFFv9fQ?=
+ =?us-ascii?Q?ohIWRlpEKVz63gVubAevF4w9fLuoiNahErWkBu79sp1Xl9LudBgL03TzMDJ6?=
+ =?us-ascii?Q?/2K3lFwxWkW2daZXnPIEuFk9ic1RHRLRNsM5hB7wRmNjWke2b597hhXf/1U3?=
+ =?us-ascii?Q?sfIaZ4QsI804AUgNzF9WL8w3lcG04Z80O8Dw/CHPxxf1up3S07yDdg9T2KDM?=
+ =?us-ascii?Q?3DO6gNEsAbZX7ZkGWOpSLKAQ/x/QCW7bBcF4/mrLxKtNvEh0ATIWPfGhxAcv?=
+ =?us-ascii?Q?TzTHvvHsi98zQAZEjoAaJgy7tefSth1F/Ka7nAHKB2zid1beL1oB0RTKRu1t?=
+ =?us-ascii?Q?ROCg59knJN9YOREw66iLlJtFddVm1SBe2w/ha5Dg6RR5UCp9m3WJnNrD9Uhk?=
+ =?us-ascii?Q?s2n/RQp1L/ahf4w26m+I9grtEuYFVLQMQm4FbaRME0RY4rNw8Fejeq2cZPgO?=
+ =?us-ascii?Q?g+3Bm0qpELU+jzEohlBIcmf4kJGJPIR056qulfeWiZsZsVqSJ1VdOtm18OxK?=
+ =?us-ascii?Q?bh+fLxyxEo6lmrwv7fsTZ/xkdr+jEYZJ00Y+bVi+zyyhT09qsT9pBJtgEC2f?=
+ =?us-ascii?Q?TpEfLiNRey89d5oyH8OsgTd4PSPD33j6TXm4FVtAAZnd4XFQW9Lq0RlUaYjc?=
+ =?us-ascii?Q?xrUSGq8USUil0g4UWiY/JuyCd63n0CNhCAE1HiWx/IFTvDQ3tZ5Pj2NgEhsj?=
+ =?us-ascii?Q?Ma16jO6OBSLfIJsrN+ZAnwGshH7bf18J7DrA8n3QzMl38gypznttoHtfo2NA?=
+ =?us-ascii?Q?ls0qx6Iup9YK9rUI7UBYJLSHSt05f2intg1PmuUHCePtl7goaMPM/VPVtXbB?=
+ =?us-ascii?Q?hrWgGOZccLJ+BUv9YG9DHju+gAnm1yvifPtAmWTFH6bBx5dciGCkqliBXYyX?=
+ =?us-ascii?Q?W/Ny7SxWgFiLsY0TOmbgPcvx0Yy/klMenTU27pVD8BfnvaXPATCLynnrFgdG?=
+ =?us-ascii?Q?3T2UoMdA9kxbxXAxf8u0XsPbaKg+JN9CYSinZaDpKsE1IxR7n/hcJ02fUOd+?=
+ =?us-ascii?Q?56AZaxmPLa5ApRrDOfjXvgSLO4mkninVru617TGMB6D51ds1Qaho0dlpHOJw?=
+ =?us-ascii?Q?3h/MsBzrK6K+HXh+g5T4oYxUqieDDIdd9U3DhLvEsJ/DbuImC5znKgBcJbGq?=
+ =?us-ascii?Q?stlb3GADoRmmSYxgmLqvSbv3FpXh15UQ4i3Yc4KW7aRdTQAt5JW0KNkbuVr7?=
+ =?us-ascii?Q?z/uWVRPZY3d2zrdh7LZrHPsjiETh4+m73O1DjXdDbc/cTMOmSHFSqPYkmGCv?=
+ =?us-ascii?Q?o7IpKlS1995VY6njMQPjclxrwXjxVxrD1yVIxs9R6PlRLpF1x8oihCRBTaZ1?=
+ =?us-ascii?Q?Wm/OYwRILhAvMRAuA8slhcHVKZHPc5xoYp3BqrHEj6NFGkeiArXEbOTQ21NH?=
+ =?us-ascii?Q?ebHAg9RtkxKOWFuMYpVuCRzZ5KHtuLK6D0y9X/025FKa3HyFfC6mklbN8jn4?=
+ =?us-ascii?Q?F2htrd5oQQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: hq5j2KjU9MgGNCBhhX2ep1ZqcgcPaw4KDVyIGUSPLfPEZA2ktXM9PW+/mRK35aOrHYKUNhutDv6m8qt79gHZJFj5p6Gtld2QX61VoFtbDz7TrxhLF+rQBWobnLHCF36IRucsfY5doJINEzZzxuQWZciG9bZQl+aRP1sL5HMd32BR9qdaAn1izP5oI/tlxmdJJ24KR5iOvSxwm8kjoJNq4VR6qEvRq6E4WOsP3JW32hIJNTlShl9JyEYVa76UYkO2BiRQwz/nDAkh6/Almw5Jvr8C4onk8rOcMbqV2y1KgRgqE3MgiB7023Xpi1fcA+01bWk5I3jDEf0k+3uRaT2kLw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff5dee44-f1b1-49c7-f485-08df3910f9ee
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 18:41:58.8480 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IVJZ78oXYomQYiIeiNCYWQvy8FIkGyYDgZ8YQFo/piG5WJFG1gTmxCuqgwH83xDtfWBFhcEujQt3JS1fg//RAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB830241
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,334 +160,152 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] drm/panel: invalid container_of cast to panel_bridge in lumina=
-nce callbacks
-- [High] drm/panel: drm_panel_disable_luminance() and drm_panel_set_luminan=
-ce() break PSR and blank state
-- [Medium] drm/panel: missing drm_connector_cleanup() on error in panel_bri=
-dge_attach()
-- [Low] drm/panel: unintended removal of panel bridge stubs from drm_panel.h
---
+Hi folks,
 
-commit 3eac0878c8a6609d8eb6adf67569604a16f5b3e4
-Author: Mario Limonciello <mario.limonciello@amd.com>
+We'd like to replace most of the DRM trees in linux-next with a single
+branch:
 
-drm/panel: add connector luminance forwarding
+  https://gitlab.freedesktop.org/drm/tip.git#drm-for-linux-next
 
-This commit adds helpers to expose a panel backlight via the DRM connector
-luminance property and hooks them into panel bridges that create their own
-connector.
+It replaces these entries:
 
-> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> index c00529bfb706b..a5706edad9735 100644
-> --- a/drivers/gpu/drm/drm_panel.c
-> +++ b/drivers/gpu/drm/drm_panel.c
-> @@ -38,6 +38,19 @@ static LIST_HEAD(panel_list);
->   * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
->   */
-> =20
-> +struct panel_bridge {
-> +	struct drm_bridge bridge;
-> +	struct drm_connector connector;
-> +	struct drm_panel *panel;
-> +	u32 connector_type;
-> +};
-> +
-> +static inline struct panel_bridge *
-> +drm_connector_to_panel_bridge(const struct drm_connector *connector)
-> +{
-> +	return container_of(connector, struct panel_bridge, connector);
-> +}
-> +
->  static inline struct drm_panel *
->  drm_bridge_to_panel(const struct drm_bridge *bridge)
->  {
-> @@ -50,13 +63,6 @@ drm_connector_to_panel(const struct drm_connector *con=
-nector)
->  	return container_of(connector, struct drm_panel, connector);
->  }
-> =20
-> -struct panel_bridge {
-> -	struct drm_bridge bridge;
-> -	struct drm_connector connector;
-> -	struct drm_panel *panel;
-> -	u32 connector_type;
-> -};
-> -
->  static int panel_bridge_connector_get_modes(struct drm_connector *connec=
-tor)
->  {
->  	struct drm_panel *panel =3D drm_connector_to_panel(connector);
-> @@ -64,9 +70,29 @@ static int panel_bridge_connector_get_modes(struct drm=
-_connector *connector)
->  	return drm_panel_get_modes(panel, connector);
->  }
-> =20
-> +static void
-> +panel_bridge_connector_set_luminance(const struct drm_connector_state *c=
-onn_state)
-> +{
-> +	struct panel_bridge *panel_bridge =3D
-> +		drm_connector_to_panel_bridge(conn_state->connector);
-> +
-> +	drm_panel_set_luminance(panel_bridge->panel, conn_state->luminance);
-> +}
-> +
-> +static void
-> +panel_bridge_connector_disable_luminance(const struct drm_connector_stat=
-e *conn_state)
-> +{
-> +	struct panel_bridge *panel_bridge =3D
-> +		drm_connector_to_panel_bridge(conn_state->connector);
-> +
-> +	drm_panel_disable_luminance(panel_bridge->panel);
-> +}
+  drm/drm-next, drm/drm-fixes
+  drm-misc/for-linux-next, drm-misc/for-linux-next-fixes
+  drm-intel/for-linux-next, drm-intel/for-linux-next-fixes
+  drm-xe/drm-xe-next
+  drm-rust/for-linux-next, drm-rust/for-linux-next-fixes
+  amdgpu (agd5f/linux.git#drm-next)
 
-[Severity: Critical]
-Since commit b7797081ccfe ("drm/panel: embed a drm_bridge into every
-drm_panel"), the bridge and connector are embedded directly inside struct
-drm_panel, and struct panel_bridge is an unused leftover definition that is
-never allocated.
+drm-exynos, drm-msm, drm-msm-fixes, drm-msm-lumag, drm-nova and etnaviv
+are not part of it and stay as they are.
 
-In panel_bridge_attach(), the connector initialized with
-panel_bridge_connector_helper_funcs is &panel->connector:
+The main reason is to reduce the conflict pain that Mark constantly faces.
+All of them should be handled already when we are rebuilding drm-tip.
 
-	struct drm_panel *panel =3D drm_bridge_to_panel(bridge);
-	struct drm_connector *connector =3D &panel->connector;
+During this work, I realized that drm-xe is a big culprit for leaking
+future work without a blackout date from -rc6 to <next>-rc1.
+So, another quick solution would be to get a drm-xe for-linux-next like
+the other domains are doing. However, I still believe that this unified
+one will make Mark's life much easier anyway.
 
-Calling drm_connector_to_panel_bridge(conn_state->connector) in
-panel_bridge_connector_set_luminance() and
-panel_bridge_connector_disable_luminance() computes container_of() for stru=
-ct
-panel_bridge on a struct drm_panel instance, so reading panel_bridge->panel
-reads the fields following connector in struct drm_panel (connector_type and
-list) as a struct drm_panel pointer.
+The unified branch is rebuilt by dim together with drm-tip. It has all the DRM
+-fixes, drm-next, -next-fixes and driver -next branches merged, with
+the conflicts between them already resolved on our side. From -rc6
+until -rc1 (per Linus' tree) the driver -next branches are left out, so
+nothing for the following merge window lands early.
 
-Won't passing that pointer to drm_panel_set_luminance() or
-drm_panel_disable_luminance() dereference an invalid panel->backlight addre=
-ss,
-and should these callbacks use drm_connector_to_panel(conn_state->connector)
-instead?
+It contains the DRM fixes too, so it would go where "drm" is today.
 
->  static const struct drm_connector_helper_funcs
->  panel_bridge_connector_helper_funcs =3D {
->  	.get_modes =3D panel_bridge_connector_get_modes,
-> +	.set_luminance =3D panel_bridge_connector_set_luminance,
-> +	.disable_luminance =3D panel_bridge_connector_disable_luminance,
->  };
-> =20
->  static const struct drm_connector_funcs panel_bridge_connector_funcs =3D=
+During the past weeks I have confirmed that the drm blackout period
+works well on this new branch.
+
+The dim changes:
+
+  d875049d2b29 dim: build a unified drm-for-linux-next branch
+  3009867cd318 dim: keep -next branches out of drm-for-linux-next during the freeze
+  https://gitlab.freedesktop.org/drm/maintainer-tools/-/commits/master
+
+AMD:
+Alex, Christian: linux-next takes amdgpu from
+agd5f/linux.git#drm-next today, which differs from drm-amdgpu-next in
+drm-tip. Is drm-amdgpu-next fine for linux-next?
+
+All other maintainers, please ack if you are okay with this approach.
+
+Mark, you're in Cc for visibility only. Once we have all the acks, I'll
+send you the formal request. After linux-next switches, we stop
+updating the old for-linux-next* branches (patch below).
+
+Thanks,
+Rodrigo.
+
+---
+dim: stop updating the per-repo for-linux-next branches
+
+linux-next now pulls the unified drm-for-linux-next branch instead.
+
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ dim | 53 -----------------------------------------------------
+ 1 file changed, 53 deletions(-)
+
+diff --git a/dim b/dim
+index e3f616b..b3ed8f7 100755
+--- a/dim
++++ b/dim
+@@ -658,52 +658,6 @@ function dim_range_diff
+ 	fi
+ }
+ 
+-# update for-linux-next* branches
+-function update_linux_next # branch next next-fixes fixes [for-linux-next] [for-linux-next-fixes]
+-{
+-	local branch linux_next linux_next_fixes linux_fixes for_linux_next for_linux_next_fixes repo remote
+-
+-	cd $DIM_PREFIX/drm-tip
+-	branch=$1
+-	linux_next=$2
+-	linux_next_fixes=$3
+-	linux_fixes=$4
+-	for_linux_next=${5:-for-linux-next}
+-	for_linux_next_fixes=${6:-for-linux-next-fixes}
+-
+-	repo=$(branch_to_repo $branch)
+-
+-	if [[ $repo != $(branch_to_repo $linux_next) ]] ; then
+-		return
+-	fi
+-
+-	remote=$(repo_to_remote $repo)
+-
+-	git_fetch_helper $remote
+-
+-	if [ -n "$for_linux_next_fixes" ] ; then
+-		echo -n "Pushing $linux_fixes to $for_linux_next_fixes... "
+-		git_push $remote +$remote/$linux_fixes:$for_linux_next_fixes
+-		echo "$DONE_OR_SKIP"
+-	fi
+-
+-	if git merge-base --is-ancestor $remote/$linux_next_fixes $remote/$linux_fixes ; then
+-		# -fixes has caught up to dinf, i.e. we're out of the merge
+-		# window. Push the next queue.
+-		echo -n "Out of merge window. Pushing $linux_next to $for_linux_next... "
+-		git_push $remote +$remote/$linux_next:$for_linux_next
+-		echo "$DONE_OR_SKIP"
+-	else
+-		# dinf is ahead of -fixes, i.e. drm-next has already closed for
+-		# the next merge window and we've started to gather new fixes
+-		# for the current -next cycle. Push dinf
+-
+-		echo -n "Pushing $linux_next_fixes to $for_linux_next... "
+-		git_push $remote +$remote/$linux_next_fixes:$for_linux_next
+-		echo "$DONE_OR_SKIP"
+-	fi
+-}
+-
+ function check_conflicts # tree
  {
-> @@ -101,6 +127,10 @@ static int panel_bridge_attach(struct drm_bridge *br=
-idge,
-> =20
->  	drm_panel_bridge_set_orientation(connector, bridge);
-> =20
-> +	ret =3D drm_panel_attach_luminance_property(panel, connector);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-In panel_bridge_attach(), drm_connector_init() has already succeeded and
-linked &panel->connector into bridge->dev->mode_config.connector_list before
-drm_panel_attach_luminance_property() is called.
-
-When bridge->funcs->attach() fails in drm_bridge_attach(), the error path
-resets the bridge without calling bridge->funcs->detach().
-
-Should this error path call drm_connector_cleanup(connector) before returni=
-ng
-ret so that &panel->connector is not left linked on mode_config.connector_l=
-ist
-if drm_panel_attach_luminance_property() fails?
-
-[ ... ]
-
-> @@ -861,6 +891,61 @@ void drm_panel_disable(struct drm_panel *panel)
->  }
->  EXPORT_SYMBOL(drm_panel_disable);
-> =20
-> +/**
-> + * drm_panel_attach_luminance_property - expose a panel backlight throug=
-h DRM
-> + * @panel: panel whose backlight is controlled
-> + * @connector: connector on which to expose the property
-> + *
-> + * The backlight class device remains the internal hardware backend. Whe=
-n the
-> + * luminance UAPI is enabled, userspace controls that backend through th=
-e DRM
-> + * connector property instead.
-> + *
-> + * Return: 0 on success or a negative error code
-> + */
-> +int drm_panel_attach_luminance_property(struct drm_panel *panel,
-> +					struct drm_connector *connector)
-> +{
-> +	struct backlight_device *backlight;
-> +
-> +	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE) || !panel)
-> +		return 0;
-> +
-> +	backlight =3D panel->backlight;
-> +	if (!backlight)
-> +		return 0;
-> +
-> +	return drm_connector_attach_luminance_property(connector, 0,
-> +					backlight->props.max_brightness,
-> +					backlight->props.brightness);
-> +}
-> +EXPORT_SYMBOL(drm_panel_attach_luminance_property);
-> +
-> +/**
-> + * drm_panel_set_luminance - set a panel backlight's relative luminance
-> + * @panel: panel whose backlight is controlled
-> + * @luminance: relative luminance level
-> + */
-> +void drm_panel_set_luminance(struct drm_panel *panel, unsigned int lumin=
-ance)
-> +{
-> +	if (!panel || !panel->backlight)
-> +		return;
-> +
-> +	panel->backlight->props.brightness =3D luminance;
-> +	backlight_update_status(panel->backlight);
-> +}
-> +EXPORT_SYMBOL(drm_panel_set_luminance);
-> +
-> +/**
-> + * drm_panel_disable_luminance - turn off a panel backlight
-> + * @panel: panel whose backlight is controlled
-> + */
-> +void drm_panel_disable_luminance(struct drm_panel *panel)
-> +{
-> +	if (panel)
-> +		backlight_disable(panel->backlight);
-> +}
-> +EXPORT_SYMBOL(drm_panel_disable_luminance);
-
-[Severity: High]
-How do drm_panel_disable_luminance() and drm_panel_set_luminance() interact
-with panel self-refresh and the backlight blank state?
-
-In drm_panel_disable_luminance(), backlight_disable() sets:
-
-	bd->props.power =3D BACKLIGHT_POWER_OFF;
-	bd->props.state |=3D BL_CORE_FBBLANK;
-
-whereas drm_panel_set_luminance() only updates props.brightness and calls
-backlight_update_status() without clearing BL_CORE_FBBLANK or restoring
-BACKLIGHT_POWER_ON.
-
-In panel_bridge_atomic_disable() and panel_bridge_atomic_enable(), the brid=
-ge
-checks self_refresh_active and returns early so that drm_panel_disable() and
-drm_panel_enable() are skipped during self-refresh:
-
-	new_crtc_state =3D drm_atomic_get_new_crtc_state(atomic_state, crtc);
-	if (new_crtc_state && new_crtc_state->self_refresh_active)
-		return;
-
-However, disable_outputs() still runs drm_atomic_helper_commit_luminance_di=
-sables()
-when entering self-refresh, which calls panel_bridge_connector_disable_lumi=
-nance()
-and turns the backlight off via backlight_disable(). When exiting
-self-refresh, panel_bridge_atomic_enable() skips drm_panel_enable() (so
-backlight_enable() is never called), and drm_panel_set_luminance() leaves
-BACKLIGHT_POWER_OFF and BL_CORE_FBBLANK set, keeping the backlight blanked.
-
-Also, on a normal modeset disable, drm_atomic_helper_commit_luminance_disab=
-les()
-runs before drm_atomic_helper_commit_encoder_bridge_disable(), which disabl=
-es
-the backlight before panel_disabling followers run in drm_panel_disable(), =
-and
-on modeset enable drm_panel_enable() calls backlight_enable() with the old
-props.brightness before drm_panel_set_luminance() updates it.
-
-Could drm_panel_set_luminance() unblank the backlight (or use
-backlight_enable()), and should panel luminance disable/enable respect
-self-refresh and panel sequencing?
-
-> diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-> index 58113ea7d63a0..76d49d4485ff0 100644
-> --- a/include/drm/drm_panel.h
-> +++ b/include/drm/drm_panel.h
-
-[ ... ]
-
-> @@ -418,40 +423,6 @@ struct drm_bridge *devm_drm_panel_bridge_add_typed(s=
-truct device *dev,
->  struct drm_bridge *drmm_panel_bridge_add(struct drm_device *drm,
->  					 struct drm_panel *panel);
->  struct drm_connector *drm_panel_bridge_connector(struct drm_bridge *brid=
-ge);
-> -#else
-> -static inline bool drm_bridge_is_panel(const struct drm_bridge *bridge)
-> -{
-> -	return false;
-> -}
-> -
-> -static inline int drm_panel_bridge_set_orientation(struct drm_connector =
-*connector,
-> -						   struct drm_bridge *bridge)
-> -{
-> -	return -EINVAL;
-> -}
-> -#endif
-> -
-> -#if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL_BRIDGE)
-> -struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct dev=
-ice_node *node,
-> -					  u32 port, u32 endpoint);
-> -struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm, struct dev=
-ice_node *node,
-> -				      u32 port, u32 endpoint);
-> -#else
-> -static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *d=
-ev,
-> -							struct device_node *node,
-> -							u32 port,
-> -							u32 endpoint)
-> -{
-> -	return ERR_PTR(-ENODEV);
-> -}
-> -
-> -static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *d=
-rm,
-> -						    struct device_node *node,
-> -						    u32 port,
-> -						    u32 endpoint)
-> -{
-> -	return ERR_PTR(-ENODEV);
-> -}
->  #endif
-
-[Severity: Low]
-Was this removal of the fallback stubs and the devm_drm_of_get_bridge() /
-drmm_of_get_bridge() declarations in include/drm/drm_panel.h an unintended
-rebase artifact against commit aa8a8c7e4641 ("drm/bridge: panel: move all c=
-ode
-to drm_panel.c")?
-
-It looks like the preceding patch in the series re-added these blocks to
-include/drm/drm_bridge.h, and this hunk removes only the #else half and the
-of_get_bridge block from include/drm/drm_panel.h while leaving the #ifdef
-CONFIG_DRM_PANEL_BRIDGE declarations duplicated in both headers.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-superm1-ba=
-cklight-property-v10-0-b2a6f24131f5@kernel.org?part=3D8
+ 	if git diff | grep -q '\(<<<<<<<\|=======\|>>>>>>>\||||||||\)' ; then
+@@ -1192,13 +1146,6 @@ function dim_push_branch
+ 
+ 	git_push $remote $branch "$@"
+ 
+-	update_linux_next $branch drm-intel-next drm-intel-next-fixes drm-intel-fixes
+-	update_linux_next $branch drm-intel-gt-next drm-intel-next-fixes drm-intel-fixes \
+-		for-linux-next-gt "" # no for-linux-next-gt-fixes for now
+-	update_linux_next $branch drm-misc-next drm-misc-next-fixes drm-misc-fixes
+-	update_linux_next $branch drm-rust-next drm-rust-next-fixes drm-rust-fixes
+-	update_linux_next $branch drm-amd-next drm-amd-next-fixes drm-amd-fixes
+-
+ 	dim_rebuild_tip
+ }
+ 
