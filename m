@@ -2,56 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F77606A326
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:47:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1F1606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JesHCTMa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DACCD10E634;
-	Mon,  2 Nov 2026 13:47:36 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCC710E634
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:47:34 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
- by APP-03 (Coremail) with SMTP id rQCowAAnNJVvlOhqcL8wAA--.27568S2;
- Mon, 02 Nov 2026 21:47:27 +0800 (CST)
-Message-ID: <e42ca3c8b36b28a855e4d9be25f7ab22ac6a14c6.camel@iscas.ac.cn>
-Subject: Re: [PATCH 0/4] drm/panel: ili9881c: add support for Mingjun
- MJ070BI30IA2
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jessica Zhang	 <jesszhan0024@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Han Gao <gaohan@iscas.ac.cn>
-Date: Mon, 02 Nov 2026 21:47:27 +0800
-In-Reply-To: <179362684913.3310106.12917918779608270334.b4-ty@b4>
-References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
- <179362684913.3310106.12917918779608270334.b4-ty@b4>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF46510EE8E;
+	Mon,  2 Nov 2026 13:48:05 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4440710E63F
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:47:59 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-48c5358fc28so2448739f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:47:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1793627278; x=1794232078; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Eg5KcHtt+GEBPeZnp3k0m/Hd/Q0QnL+NV035hcUkwMc=;
+ b=JesHCTMa85mNZqYLU/fi/5lQFhM9R/8KNzv9cyN5Uj4l0zaEVFvKpzAp8zcaJNkmyc
+ 1cSoIicDdrEMXrQh/0/xswatw3/mZfkauGrZcU/Lm0IZ29tIwt/7KDeJgzgX4lppP6vt
+ ZSmklu05NoiAITYmKvJs2AvRzc0Jih+2ejEuVYy6y2hISpqyPagNQS5VprnUGuy14EUv
+ OwijqXvN3lj2gcnW+H1bzwgTScgQzfMUYNCL0KAL7hQa2qvzd43HKbMb4AE83mEolAY4
+ rkK7yKq94MLJUYsGmCk9+d1gAXwieZcfum8gEctpf/kFVVUxBA5dizMyN/HotPF1T3qr
+ 2w+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793627278; x=1794232078;
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Eg5KcHtt+GEBPeZnp3k0m/Hd/Q0QnL+NV035hcUkwMc=;
+ b=XSzhoxWu0DGAy3xqUzyyuMfmO+wbBcC89gVWjnkF0m3o0wHZkR2mvMKUFbHDfm8kKb
+ BVOJiGncd5Wg9FbJDnE2G4p2Qb0v/xPMB1XGw5MIbEz3GgZWy0Yt0+i6DLpNDTNCEjeU
+ ZKhZ+tpbC2RI8cRfeE6ZnMhz5XQxh18BC2LSSFtKevUj9KkmXMQH0H3zzJMZwmAkGav8
+ A2ImiLsk3px/fXJz5k2l6FazpUpxcW7w/XATTNUJAWgrAgXvIEEd6kfrpaXW3qhn8QRu
+ 5X7EGT0TcTPnx81DPu2YKvXmd76bK65KD2vtW8wKHeYSvMp7QVu0qFQGKD+me17HHV+Y
+ 8vQA==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwBgdrKTk40I82yn1qmozgjV+/PiCNwwoSn1tvfIYBEEAqSCKIj3ViO3ivFqswEfDwj1nwcL1bKq2E=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9cMnJqIse9vkJYQmJLNK9Zb36j+RqSDmYek72rgbxvYG/vguFx
+ ht8p8aOeHKsWMhJgGxUjOSEtX3Z6u0cmE0lbsAfP8lXFuqLTdDDy4zcy56HwA2n6LOU=
+X-Gm-Gg: AYBFou0DpgqNntd8dXKxF9W8uDnPT4EndPq0IoZCtlr1gJG8UgWdMe4YQNTBRZaUKXQ
+ P0Xyu33/PzAzGve7vK2esCzU7pJt3yw35FEZ3bYnmVdvdrIQ4DA2hVss4a8NunPz0XPwDhj3rxW
+ CgQLkMR0BPSfFrVKarYVkPP43NokI8Ebi9QEwlFe+o2dhSKkmfPqG8Z/MZoIE/jlvS/BmU2ed1l
+ t2SAgDXV19VOOJIdTodiDe6FXdZEJ/b9hzN1jgj/86Kng1dvugif+1YzRDQhzM2bHM9XTBS7POi
+ oZKCnhMEsqPHWNvwDrhL+RND0kAjt28TvIiiz2WgGbM2M8t/bwpAAiYRYrdVY0B54OrT6F/6mWF
+ R3cspOmF1R7eUI2EWn9cVIBI21WUFBc4WoleiSAT1UCJVMOnrk0MnKoFQhSt+ZhN4D8rRdJVMMp
+ 0cwpE6x7QK8NW9l2WqJFOiUyezjB8d8JTst8fWKIdWYDyLLilUMOZOYtzSjvLAMwIs6f8Oo11c8
+ UelMESawQDSvQim0moUnJkDdFFDFqxFb90VEJW5n+QmYVbTqqCVC4o8WvpaZMQdogq4d5QN6MOD
+ F4sOyEf6nChRSAprbWKX4DpHiKNZA3bF/WvozjVVEgI5ld3Wef4=
+X-Received: by 2002:a05:6000:4710:b0:48e:eb5:4976 with SMTP id
+ ffacd0b85a97d-48e6e306dedmr21941079f8f.53.1793627277505; 
+ Mon, 02 Nov 2026 05:47:57 -0800 (PST)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e71b8011csm22557569f8f.31.2026.11.02.05.47.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 05:47:56 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Jessica Zhang <jesszhan0024@gmail.com>, Vladimir Zapolskiy <vz@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261101212458.2431191-1-vz@kernel.org>
+References: <20261101212458.2431191-1-vz@kernel.org>
+Subject: Re: [PATCH 0/2] drm/panel: visionox-r66451: Fix brightness and
+ power on
+Message-Id: <179362727655.3341282.11401838010991830979.b4-ty@b4>
+Date: Mon, 02 Nov 2026 14:47:56 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowAAnNJVvlOhqcL8wAA--.27568S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uryUtrWrWFy5Kw4rJw1UWrg_yoW8AryfpF
- Z7Ka43JFWDJrs5Ca4DXr1xJFyrW3yrZw1fArn8J3WkA3yDWFnYq3ySvw4Y9w17urs7Cr12
- qFn5Xr1v93WDu3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
- 1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
- C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
- wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
- v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
- jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
- ZFpf9x07jeoGQUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,61 +90,32 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=E5=9C=A8 2026-11-02=E4=B8=80=E7=9A=84 14:40 +0100=EF=BC=8CNeil Armstrong=
-=E5=86=99=E9=81=93=EF=BC=9A
-> Hi,
->=20
-> On Fri, 30 Oct 2026 13:44:11 +0800, Icenowy Zheng wrote:
-> > Mingjun MJ070BI30IA2 is a LCD panel used by the Lichee Console 4A
-> > device, with a initialization sequence matching other ILI9881C
-> > sequences.
-> >=20
-> > In addition to the normal binding + sequence panel adding part,
-> > this
-> > patchset contains one extra patch trying to address a hardware
-> > quirk of
-> > Lichee Console 4A -- the panel could never be really powered off /
-> > reseted in hardware (the reset pin isn't wired to the mainboard,
-> > and the
-> > panel is powered with a always-on regulator).
-> >=20
-> > [...]
->=20
-> Thanks, Applied to
-> https://gitlab.freedesktop.org/drm/misc/kernel.git=C2=A0(drm-misc-next)
->=20
-> [1/4] dt-bindings: vendor-prefixes: add Shenzhen Mingjun
-> Optoelectronics
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/f423a211f99ca820c=
-2c99a84a3418aa505d6dd02
-> [2/4] dt-bindings: ili9881c: add compatible string for Mingjun
-> MJ070BI30IA2
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/ea74b623855291e60=
-835c0f7fa7a29673332ad41
-> [3/4] drm/panel: ilitek-ili9881c: add Mingjun MJ070BI30IA2
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (no commit info)
-> [4/4] drm/panel: ilitek-ili9881c: do a soft reset in unprepare
+Hi,
 
-Ah, the 4th patch is now found to be only needed because of the
-initialization sequence error found by Sashiko in the 3rd one.
+On Sun, 01 Nov 2026 23:24:56 +0200, Vladimir Zapolskiy wrote:
+> Two fixes for the Visionox R66451 panel driver, found while enabling the
+> panel on the Qualcomm SM8350-HDK display card.
+> 
+> The first change sends the DCS brightness value MSB first, as the panel
+> expects. Without it, the brightness does not follow the requested value,
+> and the default brightness is received as a different value.
+> 
+> [...]
 
-With the initialization sequence fixed by comparing to other panels,
-this patch would be unnecessary and panel sleep mode is now safe w/o
-software reset.
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-fixes)
 
-Should I send a revert when sending the sequence fix?
+[1/2] drm/panel: visionox-r66451: Send the brightness value MSB first
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/00fe6be187ffde738fdb71ea7deb671fc939e583
+[2/2] drm/panel: visionox-r66451: Wait longer after the panel reset
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/b4b2778d5e175b166e4a27e5df5d61da468ad004
 
-Thanks,
-Icenowy
-
-> callback
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (no commit info)
+-- 
+Neil
 
