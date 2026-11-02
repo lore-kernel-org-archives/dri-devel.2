@@ -2,38 +2,37 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5338D606A327
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1B3606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZhF5vGD
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D6tQtiEC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03C6B10ECFF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD2E710ED04;
 	Mon,  2 Nov 2026 10:55:24 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 263DC10ECF7
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A49C10ECE9
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9FC6E60F4D;
- Mon,  2 Nov 2026 10:55:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C6491F00A16;
- Mon,  2 Nov 2026 10:55:12 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AB4016110A;
+ Mon,  2 Nov 2026 10:55:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5745F1F00A16;
+ Mon,  2 Nov 2026 10:55:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793616913;
- bh=qdx2BkWqosqnUNeKXOVUifF3kLiaRnwfjemg//knEvA=;
+ s=k20260515; t=1793616916;
+ bh=0uC1lw4qr5rkQj5pdgH8BUM79En1tPMCwDHsh7HKEYI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=bZhF5vGDapMSBHsz5k6SKiMsGhe0lcXQ1hELK/IwrcVUlWcSjNVsgF3GBYeL7L1iq
- fGmx9wzLq8I3Pj4kYjaGEHz+7esVAPTjT/gURuU5ofU7padQE/oL44OdPE9RU+x9iY
- eQ/RPCN4gsJvgaBB96YEWYKC+ojvn4XlszifKbLT69mNtJ1lEDEHdW7zA5L51yahRV
- ZlOOnFsvUrmy+yfsFZelOnrvAXgj65cX4F/0pjk3ycylJNS70QRTy1wbRnCr4EjayJ
- 3vPi3ma/Jb+ykWLpXHD1BuaIMXcsjPABNlzwzCcaTBIUxrI3ayAMIDY5uShUdbCusH
- LG69+hr1Y4+rA==
+ b=D6tQtiECwkCpSN4Q3tG38NPQNWg52qzMDiQ+k4OoBUGPOdDwYCOJbmUI8KzcVeAU7
+ ORcMpwNHWuqd5Q/a8YVRX/lAOM2FeU8QfZsaD8vstUMzjE9K736EUbi3iXDjeSwHYP
+ lDksV9+f9POLC88Hz16ZEMML4S4ObCz/gT23+JqpmDGh18g4W6zQM+hSR11ZB5eW91
+ c5qJmmqs+cGbAmxO3VTbAYrwpi0Pnk14VIEf2zF3MyTl2Bp6HiijqfWY7zMjnNXdLr
+ WaiAhA3q1UMTV4+lLTolWzDTNemmQiMPntCGYdY1jY/7O+GB0iQJt+L0eCio2hWKtT
+ BhrOluUo+sOfg==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 11/13] Documentation: media: cec-ioc-dqevent.rst: document
- STATE_EDID_PRESENT flag
-Date: Mon,  2 Nov 2026 11:37:02 +0100
-Message-ID: <f4e77dea0774b109d775bf3d12d25cff74d6843e.1793615824.git.hverkuil+cisco@kernel.org>
+Subject: [PATCH 13/13] Documentation: media: document cec_phys_addr_invalidate
+Date: Mon,  2 Nov 2026 11:37:04 +0100
+Message-ID: <37bdf75bef53988d3cfdd2caebe9cbb8b6eeb59c.1793615824.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
@@ -59,49 +58,42 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the CEC_EVENT_FL_STATE_EDID_PRESENT event flag.
+This function was not document, add it. Also clarify
+cec_adap_s_phys_addr, explaining that the PA comes from the EDID.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../userspace-api/media/cec/cec-ioc-adap-g-caps.rst    |  3 ++-
- .../userspace-api/media/cec/cec-ioc-dqevent.rst        | 10 ++++++++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ Documentation/driver-api/media/cec-core.rst | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-index abd62ac64541..49bd90d9392f 100644
---- a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-+++ b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-@@ -148,7 +148,8 @@ returns the information to the application. The ioctl never fails.
-       - ``CEC_CAP_HAS_EDID_PRESENT``
-       - 0x00000400
-       - If this capability is set, then
--        :ref:`CEC_LOG_ADDRS_FL_EDID_PRESENT <cec-log-addrs-flags>` is valid.
-+        :ref:`CEC_LOG_ADDRS_FL_EDID_PRESENT <cec-log-addrs-flags>` and
-+        :ref:`CEC_EVENT_FL_STATE_EDID_PRESENT <cec-event-flags>` are valid.
- 	This makes it possible to tell apart the case where the Physical Address
- 	is f.f.f.f because no EDID is present, and the case where it is f.f.f.f
- 	because the EDID does not provide a valid Physical Address.
-diff --git a/Documentation/userspace-api/media/cec/cec-ioc-dqevent.rst b/Documentation/userspace-api/media/cec/cec-ioc-dqevent.rst
-index 71d6a9e81f75..188600dff3c7 100644
---- a/Documentation/userspace-api/media/cec/cec-ioc-dqevent.rst
-+++ b/Documentation/userspace-api/media/cec/cec-ioc-dqevent.rst
-@@ -224,6 +224,16 @@ it is guaranteed that the state did change in between the two events.
-       - 2
-       - Set if one or more events of the given event type have been dropped.
-         This is an indication that the application cannot keep up.
-+    * .. _`CEC-EVENT-FL-STATE-EDID-PRESENT`:
+diff --git a/Documentation/driver-api/media/cec-core.rst b/Documentation/driver-api/media/cec-core.rst
+index f1ffdec388f3..10927833992c 100644
+--- a/Documentation/driver-api/media/cec-core.rst
++++ b/Documentation/driver-api/media/cec-core.rst
+@@ -437,7 +437,8 @@ transmitted, otherwise just queue it and return.
+ .. c:function::
+    void cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block);
+ 
+-Change the physical address. This function will set adap->phys_addr and
++Change the physical address. Use cec_s_phys_addr() to set the Physical Address
++as read from an EDID. This function will set adap->phys_addr and
+ send an event if it has changed. If cec_s_log_addrs() has been called and
+ the physical address has become valid, then the CEC framework will start
+ claiming the logical addresses. If block is true, then this function won't
+@@ -449,6 +450,13 @@ then the CEC adapter will be disabled. If you change a valid physical address
+ to another valid physical address, then this function will first set the
+ address to CEC_PHYS_ADDR_INVALID before enabling the new physical address.
+ 
++.. c:function::
++   void cec_phys_addr_invalidate(struct cec_adapter *adap);
 +
-+      - ``CEC_EVENT_FL_STATE_EDID_PRESENT``
-+      - 4
-+      - Only set for the ``CEC_EVENT_STATE_CHANGE`` event type.
-+        If this flag is set, then an EDID is present. This helps tell apart the
-+        case where the Physical Address is f.f.f.f because no EDID is present,
-+        and the case where it is f.f.f.f because the EDID does not provide a
-+        valid Physical Address. This flag can only be used if
-+        ``CEC_CAP_HAS_EDID_PRESENT`` is set in the adapter capabilities.
- 
- 
- Return Value
++Invalidates the Physical Address when the EDID was lost, e.g. if the HDMI
++cable was unplugged. Do not use this to report an invalid Physical Address
++that you read from an EDID, use cec_s_phys_addr() for that.
++
+ .. c:function::
+    void cec_s_phys_addr_from_edid(struct cec_adapter *adap, \
+ 				  const struct edid *edid);
 -- 
 2.53.0
 
