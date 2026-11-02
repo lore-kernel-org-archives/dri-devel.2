@@ -2,82 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A9F60A3830
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:22:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC0360805BB
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:22:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaGFkmgd
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h3MnD7ha
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 911AD10EFDD;
-	Mon,  2 Nov 2026 15:21:59 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1173010EFDD
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:21:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89D5510EFDC;
+	Mon,  2 Nov 2026 15:22:04 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5883C10EFDC
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:21:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BE21343AA4;
- Mon,  2 Nov 2026 15:21:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A5D1F00A16;
- Mon,  2 Nov 2026 15:21:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CF5A560054;
+ Mon,  2 Nov 2026 15:21:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C6861F00A28;
+ Mon,  2 Nov 2026 15:21:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793632912;
- bh=+Br5BKTNsV9SKJ+VKUXfa+LuXFyw/MNJN1rBJWSG1Dk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=BaGFkmgddplAg+7kWtOO3Xs2bTNw6C/l7s/H+s/ARAFWAG8PiIzq4DHKs1pIJtkZF
- MLQLlN2WfsWYgrHwMGc+LaYjthSVIYcPsAQ4ZVs0x8SWftIxeVXIb74Yi6DeQgLPv3
- MnvwnjVA4w76GNzJNNroqO1Ub2Of7dy2AD2kO3QhN5NULX8sENf6yS60Ffvc4YDPhz
- AVUwEuacSjAOwoVTTIoFEsTOOa+8af3coYqbYIzhqzqGrILTs/bIDcsXX7gywt7ryQ
- fcrmpnyg6ue+WCi9ocPVHrRqPbxVSWScBXs/eHykFP/KwB1QkPorU1BSb4GtLYc/Ew
- +SFzyKl+Rjtbg==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:17 +0100
-Subject: [PATCH RFC 07/27] ntfs3: let procfs copy in writes to the label file
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-fs-v1-7-d09a996317b3@kernel.org>
-References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2130; i=brauner@kernel.org;
- h=from:subject:message-id; bh=1xpKZw46Wve9Gi/wwfJco67jsfuLoZVG6n9ZzMkX5cA=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG70gMfQcsmsxZVZlz3llvU6P9Q+FGFvnWXM+sG1i
- OvlzHMNHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPZtYzhr8TWhVUbp6lu+ajh
- slFF/whfzqNX3hf5107YP/PoQl9+338M/32S/bhdbNlEs9ZN/nX/VOfslLOLVi/+18m6pJt1w+5
- V8TwA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+ s=k20260515; t=1793632917;
+ bh=lamd1hngyjQe9Qec+ZAE623xEm5qURZqSCNCuwpq8/s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=h3MnD7haXKrv7lw/q8yLht91bfxvSezCTLYD3mCDFWw6tq+wy+xqjB5w8333wqhvq
+ XBTCtdZLdi9j6inJpIy2OxSkMAdZVgYi96la4l1FXKGHAONqeEbkI/eQs0Gkc6hXdx
+ 65grBwFVsPjgaxpPt/iivWLx9JsVM6OUgsE1xXVWVLDuF7eAQ4hn7sb/GCGdbqMh37
+ xDyVA734rXD7VmaVAT8VoorEn220qEGCxne3935Y1YzzaRciERsNbah2PrRam2i3w4
+ gdyNt2QcIGCHV9d1JrIA2ihHf0It1BXCDDE2uF2DVvso2rLzyO/SDnm9fsuRb1X19v
+ dwmIuzKdbaExw==
+Message-ID: <sashiko-outbox-193652@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] rust: DmaFence: Don't drop on signal
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, ojeda@kernel.org,
+ gary@garyguo.net
+In-Reply-To: <20261102150617.527772-3-phasta@kernel.org>
+References: <20261102150617.527772-2-phasta@kernel.org>
+ <20261102150617.527772-3-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 15:21:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,87 +49,114 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Implement ->proc_write_buf() so procfs copies in what is written before
-it pins the entry, and set the label from that copy. Writes larger than
-PAGE_SIZE - 1 bytes fail with -EINVAL from procfs now. A write that
-large only ever worked when most of it was trailing newlines or came
-after a NUL, ntfs_set_label() refused a label that long with
--ENAMETOOLONG or -EFBIG.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] rust: dma_fence: premature unsignaled count decrement in signal()
+--
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/ntfs3/super.c | 27 +++++++++------------------
- 1 file changed, 9 insertions(+), 18 deletions(-)
+commit cc3ae2917828ada16cb77f317557169874bb144b
+Author: Philipp Stanner <phasta@kernel.org>
 
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index 3d669e957ea4..fca73d2766c0 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -536,37 +536,28 @@ static int ntfs3_label_show(struct seq_file *m, void *o)
- }
- 
- /* write /proc/fs/ntfs3/<dev>/label */
--static ssize_t ntfs3_label_write(struct file *file, const char __user *buffer,
--				 size_t count, loff_t *ppos)
-+static ssize_t ntfs3_label_write(struct file *file, char *buf, size_t count,
-+				 loff_t *ppos)
- {
- 	int err;
- 	struct super_block *sb = pde_data(file_inode(file));
--	ssize_t ret = count;
--	u8 *label;
-+	size_t len = count;
- 
- 	if (sb_rdonly(sb))
- 		return -EROFS;
- 
--	label = memdup_user(buffer, count);
--	if (IS_ERR(label))
--		return PTR_ERR(label);
-+	while (len > 0 && buf[len - 1] == '\n')
-+		len -= 1;
- 
--	while (ret > 0 && label[ret - 1] == '\n')
--		ret -= 1;
--
--	err = ntfs_set_label(sb->s_fs_info, label, ret);
-+	err = ntfs_set_label(sb->s_fs_info, (u8 *)buf, len);
- 
- 	if (err < 0) {
- 		ntfs_err(sb, "failed (%d) to write label", err);
--		ret = err;
--		goto out;
-+		return err;
- 	}
- 
- 	*ppos += count;
--	ret = count;
--out:
--	kfree(label);
--	return ret;
-+	return count;
- }
- 
- static const struct proc_ops ntfs3_volinfo_fops = {
-@@ -575,7 +566,7 @@ static const struct proc_ops ntfs3_volinfo_fops = {
- 
- static const struct proc_ops ntfs3_label_fops = {
- 	.proc_show = ntfs3_label_show,
--	.proc_write = ntfs3_label_write,
-+	.proc_write_buf = ntfs3_label_write,
- };
- 
- static void ntfs_create_procdir(struct super_block *sb)
+rust: DmaFence: Don't drop on signal
 
--- 
-2.53.0
+This commit changes DriverFence::signal() in rust/kernel/dma_buf/dma_fence.=
+rs
+to take a shared reference instead of consuming self, allowing fences to be
+signaled without immediately dropping the DriverFence.
 
+> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
+ence.rs
+> index a1d851656562d..3022bdb5f7c3e 100644
+> --- a/rust/kernel/dma_buf/dma_fence.rs
+> +++ b/rust/kernel/dma_buf/dma_fence.rs
+> @@ -805,7 +805,7 @@ pub fn as_fence(&self) -> &Fence {
+>      }
+> =20
+>      /// Signal the fence. This will invoke all registered callbacks.
+> -    pub fn signal(self, res: Result) {
+> +    pub fn signal(&self, res: Result) {
+>          let fence =3D self.as_fence().lock();
+> =20
+>          // SAFETY: `fence` is valid because `self` is valid. The lock mu=
+st be
+> @@ -816,14 +816,15 @@ pub fn signal(self, res: Result) {
+>                  // must not have been signaled yet, which we check direc=
+tly above.
+>                  unsafe { bindings::dma_fence_set_error(fence.as_raw(), e=
+rr.to_errno()) };
+>              }
+> +
+> +            // SAFETY: `self.data` is valid because `self` is valid.
+> +            let fctx =3D unsafe { self.data.as_ref().fctx };
+> +            let _ =3D fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
+> +
+>              // SAFETY: `fence` is valid because `self` is valid. The loc=
+k must
+>              // be held, which we acquired above.
+>              unsafe { bindings::dma_fence_signal_locked(fence.as_raw()) };
+>          }
+> -
+> -        // SAFETY: `self.data` is valid because `self` is valid.
+> -        let fctx =3D unsafe { self.data.as_ref().fctx };
+> -        let _ =3D fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
+>      }
+>  }
+
+[Severity: High]
+Since DriverFence::signal() no longer consumes self and no longer runs
+DriverFence::drop(), can decrementing fctx.nr_of_unsignaled_fences here all=
+ow
+FenceContext::drop() to free FenceContext too early?
+
+In FenceContext::drop(), nr_of_unsignaled_fences is checked before calling
+rcu_barrier() to wait for the RCU callbacks queued by DriverFence::drop():
+
+rust/kernel/dma_buf/dma_fence.rs:FenceContext::drop() {
+    if self.nr_of_unsignaled_fences.load(Relaxed) !=3D 0 {
+        panic!("Forgotten fences in FenceContext.");
+    }
+    ...
+    // Wait for the RCU callbacks in `DriverFence::drop`.
+    rcu_barrier();
+}
+
+Because DriverFence::signal() now takes &self and does not drop the fence,
+DriverFence::drop() has not queued call_rcu(rcu_head_ptr,
+Some(drop_driver_fence_data::<T>)) when signal() returns.
+
+If a DriverFence is signaled via DriverFence::signal() and then forgotten in
+safe Rust via core::mem::forget() (or held in foreign storage via
+ForeignOwnable::into_foreign()) when FenceContext is dropped,
+FenceContext::drop() will observe nr_of_unsignaled_fences =3D=3D 0 without
+panicking. It then runs rcu_barrier(), which returns without waiting for an
+RCU grace period after signaling because no RCU callback was ever queued by
+DriverFence::drop(). Concurrent RCU readers in dma_fence_driver_name() or
+dma_fence_timeline_name() that raced with signaling could then read freed
+fctx.driver_name and fctx.timeline_name memory, or a later
+DriverFence::drop() on a foreign-owned fence could access a dangling fctx
+reference and queue call_rcu() after FenceContext::drop() has already
+completed.
+
+Additionally, fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed) now runs
+before bindings::dma_fence_signal_locked(fence.as_raw()). During
+dma_fence_signal_locked(), trace_dma_fence_signaled() invokes
+FenceContext::get_driver_name() and FenceContext::get_timeline_name(), which
+dereference fctx. If a foreign-owned DriverFence is signaled via
+DriverFence::borrow().signal() concurrently with FenceContext::drop(), could
+FenceContext::drop() see nr_of_unsignaled_fences =3D=3D 0 and free FenceCon=
+text
+before dma_fence_signal_locked() even finishes?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102150617.5277=
+72-2-phasta@kernel.org?part=3D1
