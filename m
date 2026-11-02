@@ -2,85 +2,142 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1F3606A326
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:41:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEE9606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:46:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q5bQCVn5
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SBEApJVi;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MjngrRUx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 756FB10ED23;
-	Mon,  2 Nov 2026 11:41:49 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92F9B10E03D
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:41:42 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4a2167bd087so23787735e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 03:41:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D1510ED3B;
+	Mon,  2 Nov 2026 11:46:11 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0323010ED3B
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:45:59 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6A29AM6i1821213
+ for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 11:45:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ZWlFwcxl2xS4n689x8a7L4fhFq9uoke36N6N4X0UXRU=; b=SBEApJViBHSkDqW4
+ JVisjVeacG339NzlxoFxJd6O0+T8qDa6jW9eYnuWJL84ZiI6z2/b1SeAM9oXP1uW
+ SF8/qI5ioqTv7UfMIz4Ay99lT8EISO3zL8+b79xRNSTrZYn02K3WP8DW4CJn3KK1
+ 7376RSXCa5A7D9pJIzNvoRupn7HuJvlpLZ7N0uKCtIi5k0UOJBCdeyaZwUPjMlhy
+ hd0yi5EX87hv5JElC775RIjE3fKoqL8PGVAOsMyOth1XebP3n4xSRdzQuP2slCGX
+ K8xPXO4ENMS3Vx10Iq/0G+7UlyuMce3xkxfFXULNivLoDxrKBluEExV8sIBVd3HB
+ jys7fw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpky4hg61-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 11:45:59 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-91ca23ede8fso7104266d6.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 03:45:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793619701; x=1794224501; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=5rqHvwjECQWToFtKKOyTtpPoZY/7s6Eyj9/c7r3hJ48=;
- b=q5bQCVn5Z83tz7u33pUc8dAoueIoVXCk4NCjPi1ZeiGR/abKQryo4DdBlRi8iZmQXd
- PL4gR8FkeYM7MaE7FszuxIkqbbRiDdSfiHOcA2SWYO79MB/zY5Q4Lm7x8L6W0wgQqRJS
- /JunGYNU7aZzBYLbjCqzAGocS15Rhe6riMa7QZfqE+p5vDOwqOaR/CtBDKDKjkcjY2ks
- 3wj/gACvKSnbJ3PA6QLYYMwsG3DqAOWzpXPfqpIho6VkseKVaZ4DXIgIsWN6GwHgyB13
- ahW/8n3W/76s3HH0GPU8+iqDiae/EH39m0t+sqE8U0FL+W8yxfkIaKyNlOvFstXL4FY6
- fZhg==
+ d=oss.qualcomm.com; s=google; t=1793619958; x=1794224758;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ZWlFwcxl2xS4n689x8a7L4fhFq9uoke36N6N4X0UXRU=;
+ b=MjngrRUxmSexL/u/irJa1M7TyeIBWT6FFf1/Z61UXGYGtdgIAbHf0ptU8xa9tjdyO4
+ 63WnYQVl8BRrXtN/zKJPyAoNe2L6Z3zORVJLEmvkCWGnSKGTngSRqgq3hjaLmoOdNFoS
+ x5rQrG+OiXvdcRfft3qoxyKm9uE3jTF5YNDj+TOZRlpN/5SomTOMo9bT59uwa14ovrIi
+ bP8cd1AKAL54NX2VppMLpDEsa9d1jrfEuCJjoqD30pK7R6fx4yQ9+HVkYixdpmv37YUi
+ T6NPqSXEJojGCMl2rxRK33l4gOzMAUQpQB5TA20xPBkEZ+g3rRnilv9NR0wSqURBJKU3
+ YrbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793619701; x=1794224501;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=5rqHvwjECQWToFtKKOyTtpPoZY/7s6Eyj9/c7r3hJ48=;
- b=Ez90MllDRNStOfpofZ0/2qO7aYnFAlj+NkmggAo+nRA7J6Ueh9btYPwILea+CQS0UK
- gm4up64v7RXQiGzPeHfOxOBbqwpLEEJ0ZPJBlMYkGSwKOxBcvTDxYpTYEcVMXnRCDA8c
- J3zj6VBofU/PfV/58MtPvvEITrWWMbN8FP+ICwdRDK/BbAKnDEnTqrtsn5TKrgPtFOeX
- 0Bj5gWlCFqa5mrganS/ufGduYy0udIjg5t157zWcjzij2/xilhhv7EjB2tEBkUCDCXST
- KphXeFOKUAtbmKPg90dsWpvsd1n2JlmicrymY26SB6E/7mwgVLyIa65vQPMV5xVgv/0T
- Vhng==
+ d=1e100.net; s=20260707; t=1793619958; x=1794224758;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZWlFwcxl2xS4n689x8a7L4fhFq9uoke36N6N4X0UXRU=;
+ b=gPvdUD+xKsKntvc+PcbGeAcB43xeXXLPYQNycl7EaBd6SsbKDR96BOTGiUtNuSjvh/
+ CMDHr5/MOXlG0TvtScpmtU8+YA2JSW6+8W7l7vZSGRPJKnHiDQ75lS+jPmnNnug2fzAF
+ z+3lhM6vOcai+JSqPbQtSvr/knS5OWQYNsIYusf5YSdFC3zRUYuDPBseNQ5PgqF7DumW
+ hu868bgPFOZM9DFkENI9hHAMJjxPjLckDWEWEUKLNtlMdxxxakLfhJPasUHFWJe6Plr8
+ /ouDQIWf2TT/TLI9ANn/FwenMbf1NmcavRYC6oL8gmXgczXtefbZx3CoP0xdwJ5bvWYQ
+ +Bog==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwpyTu+Ym33Yq3EGYitINOL8Zq+Wd8iahOb9+qzlSenSPZENdmG1kgvuGfh5yMC92sVfNAOwd3Xh2I=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYK8lLBkdBHhXG4by40grNrRRlCL7063/UKHco4AUAz+V+Q00o59
- b7xKDQCdvxDJcL9O0ySjpmmelvwitCOGaLKMFAB3l71/YoAwRp1DJd28
-X-Gm-Gg: AYBFou0ZDLFse3gzGPoqowLJjUjZ/+EqiiBelBnw1ti8gLb6qaV/s81xPiqTKJBCT67
- QT50RWvul6A1+NIMcxS7qCzrBGamPd8VEjIAGH9SKd1mSTdl7xi9I5XL29MKHzeYdjCsSaT8lRR
- MEZQbLjMhsl/5sxh7tZMi9qdyBPP755iHIUnwjpyVEfTnYgNkjmMbRpg7GEmRoJ7IH51xeUqh/l
- RiCLFyhk2wMcT/dbI8zIbQ5u8hAVqerSwOKruvw8N4rInSPVGSFdjuQrYMpJZmHYgDTRUlSHyd8
- kGob16pUuuWVESH9GyHovmbTRakwzicbl+zikwxGzeCZ/EYdB2WlwJypX8Y0Og5G9jHhcFWiUYE
- jnPVOAydiumj42seB/rn6a44403IrODm0UwZ2a+c8tEpih+tOpHnyS7f0f54AagBUwMnwE8pBhR
- gm5J3AY2hM4TU7/0hqvW1H3FBJ/uUt9Whs3XBA3KdlmmHcfcrsEl0QR69SJX7rRzHSuzSvr/m0n
- iVNKEcAQD6jzuM0yE9qIxxyHicfpcS+lzp8CeizfoNwEy6XpflFDNn52LJIFgw5YsYZ0M+NWY6+
- 7I8sVAKOomWXh9J4iZ9bNqahE8VXKR2cZn+a/4qkzJ9WHiMaSjGb7PCycnmUUIgKG9pokiIo3D0
- eHP8GHsKWuhWzH7/4LPVFH5Ty0j7ohfbvMAv9NgiY8ea4H6Y9Wpc=
-X-Received: by 2002:a05:600c:6215:b0:4aa:1527:659 with SMTP id
- 5b1f17b1804b1-4ac17a366c0mr231375965e9.17.1793619700722; 
- Mon, 02 Nov 2026 03:41:40 -0800 (PST)
-Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at.
- [80.108.121.211]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-48e71a4d3f9sm21715781f8f.4.2026.11.02.03.41.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 03:41:40 -0800 (PST)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Mon, 02 Nov 2026 12:41:33 +0100
-Subject: [PATCH] drm/etnaviv: Keep busy jobs alive in the hangcheck
+ AKwUvBzHmFpGNP/PlRCiMpCnQx1H5aeR80KPe6KobL5738kGq+G0ZuhcCeFEJFQsUL7e1/v50AaB54vs390=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYKAuxhyp90xWjuZ+akD0sfcLdVAlbPpe4UbmHXj0iFPGWzr7ene
+ vx9kvTuH2YCh3zAznRV2qNZQrZezAjrSLY1QpBbNAS/IRcoJZjK0akPGCgmThF6+BtdeJOqOaMv
+ pOtmTwxBe9G9W9Iv4ZbA5oAUhnlPwsAx4XBhJU4PXqDm5Y2nr7XHst84blAMhsIEtSvWw0vo=
+X-Gm-Gg: AYBFou0N/uSqrzQXKwndh/qRlyacr9hPec4iTlOsdEbbLQY0N0HeoaY4TZD6oZnbRf7
+ BeWPfJEU3sIIK7H52f7Qw6qyOUMJPpQ0iv3q7hBTPcts3jWiFcu7Flh9m9qBLDtUfFgyryp80sd
+ qgHZNpfjuNBEc1BpzC2gPnFu1itBCtNCHo1MQVHoumPQxKs1IuooYVy7wbVFXZUdtAC8JFD4j+8
+ sRjbGLAbZ9OszYfvu6F5BqfA8Q3HtNl92nhSuM3edzF/F6lUH8GSKI5+lGbMxgnEoznCtFfa8bQ
+ YSelLCeOJOJdn1YOgQBbpfUxyrzK3D/ejULhOrCCnnAaUk/EOJMd9phqsf+wWqaXMp89Sgm3nDO
+ GGn2iMD9wvsN6nooBHd6TIc2RIf+Trvy/TXU811tzGhMH35pyhgwYQma9z4WIiiuDaf5PRMI=
+X-Received: by 2002:a05:620a:a7d3:10b0:939:8bc:8826 with SMTP id
+ af79cd13be357-94421529babmr1591534985a.2.1793619958324; 
+ Mon, 02 Nov 2026 03:45:58 -0800 (PST)
+X-Received: by 2002:a05:620a:a7d3:10b0:939:8bc:8826 with SMTP id
+ af79cd13be357-94421529babmr1591532385a.2.1793619957897; 
+ Mon, 02 Nov 2026 03:45:57 -0800 (PST)
+Received: from [192.168.226.248] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6b4eca0fbd6sm3168706a12.24.2026.11.02.03.45.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Nov 2026 03:45:56 -0800 (PST)
+Message-ID: <34b84049-f3cb-41e1-93a8-786ccfc3697a@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 12:45:53 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/8] drm/msm: Attach a driver to the GMU
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Ulf Hansson <ulfh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Akisaira <akisaira@outlook.com>, Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+ Val Packett <val@packett.cool>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20261030-gmu-sync-state-fix-v2-0-89d3082d97af@oss.qualcomm.com>
+ <20261030-gmu-sync-state-fix-v2-6-89d3082d97af@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261030-gmu-sync-state-fix-v2-6-89d3082d97af@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-etnaviv-compute-hangcheck-v1-1-1f81dd1806a2@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MwQqDMBAFf0X23AWTQxR/pfSQri+6SKMkNgjiv
- 5v2ODAzJ2UkRaahOSmhaNY1VjCPhmT2cQLrWJlsa50xrWXs0RctLOtn++7gnyQzZGF596NB54P
- rA9V+Swh6/N/P13Xd8WktyGsAAAA=
-X-Change-ID: 20261102-etnaviv-compute-hangcheck-cb8d1e7af68f
-To: Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>
-X-Mailer: b4 0.14.3
+X-Proofpoint-ORIG-GUID: 8ULbo3OOSfHNVBB6gc6UYvnEO5_xF7Dm
+X-Proofpoint-GUID: 8ULbo3OOSfHNVBB6gc6UYvnEO5_xF7Dm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0NiBTYWx0ZWRfX0WLPk1Uf1jf9
+ 31hx2rnxvl7WV4qnfIuce956cUxOrw3fos081rbWKsxFqmeg9jhcTHb4HPvRPudcHf3Bb7g8XAq
+ C5XLcXEpo0EPnFFiSJdSbTAu0LOfbv4=
+X-Authority-Analysis: v=2.4 cv=QoHLTlyd c=1 sm=1 tr=0 ts=6ae877f7 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=_eAPKBbB64WD-mPM3f4A:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0NiBTYWx0ZWRfX6j2y8IATq79s
+ L9hMFo009il3nNnRbjyXJ2a9fvO7D4a9DSSgWfAm7rc4GoZ86wJhhXEhU9OuU1W4WgywIoTbHoF
+ zgqFTjo/1AdDNBpbxJydEMr0GiOQYhnaWfWu1Avyjm0K8Bg8iEKTlP3i6wr5H1hNyyvDn5zWkXv
+ vUJkpW9WX8hm9r4nsMgo/07kDBBl+Dl9NK3pPgK1uqC+MWxQHg8T7ObC5szjTHAynhhsijxk4+A
+ jlrWr2tl0kBkbv1TzYgnF5bC4ZGSJiK3rqDzFCIBhXedM35Jwlyq3ac6X2+Jn8wZhMWww7fBugz
+ XyZEOcD76+yWYymokVslIdlbMP1lvqkgNe3BwS4vGTvdkGPtqXrvvMiYSyxXKf4MhuZQg1A6VOu
+ E9kr/GZga0KL6cmOC3ia1HUv6aUu7ZuAkVCm6Fvt6YK98y+jxEVUYIpJy7HgAfeHObXWRDl0rR6
+ 2bt7eP/cY52BAh2QKog==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020046
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,131 +149,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+X-Spam-Status: No, score=-12.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
+On 10/30/26 6:09 PM, Akhil P Oommen wrote:
+> With the introduction of sync_state in the genpd framework, any consumer
+> device of GCC and GPUCC which is not bound to a driver will result in
+> bootup warnings like below:
+> 
+> [   24.362666] gcc-kaanapali 100000.clock-controller: sync_state() pending due to 3d37000.gmu
+> [   24.371210] gxclkctl-kaanapali 3d64000.clock-controller: sync_state() pending due to 3d37000.gmu
+> [   24.380268] gpucc-kaanapali 3d90000.clock-controller: sync_state() pending due to 3d37000.gmu
+> 
+> To silence these warnings and also to have a proper state in driver core,
+> attach a driver to the GMU and set it up as a component device for the drm
+> master device.
+> 
+> Since both GPU and GMU should be bound to a driver before a
+> devfreq/thermal mitigation request can be handled, move the devfreq
+> registration to the bind call of the master device.
 
-A compute dispatch consists of a single FE command. The FE DMA address
-does not change while the kernel is running, so the hangcheck kills any
-dispatch that takes longer than about one second. Long-running OpenCL
-kernels never finish.
+Can we do that in a preceding patch to make this one smaller?
 
-Read VIVS_HI_IDLE_STATE at each timeout tick. If any unit other than FE
-and MC is busy, the job is still executing, so give it more time.
-If all units are idle for two consecutive ticks, the FE is waiting for
-something that will never come, and the job is killed as before.
+[...]
 
-A job that stays busy without FE progress for longer than the new
-hang_max_ms module parameter (default 30 seconds) is killed anyway.
-This also catches kernels that loop forever. Setting it to 0 restores
-the old behaviour.
+> @@ -2308,6 +2298,8 @@ int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+>  		goto err_mmio;
+>  	}
+>  
+> +	mutex_init(&gmu->lock);
 
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
----
- drivers/gpu/drm/etnaviv/etnaviv_gpu.h   |  3 +++
- drivers/gpu/drm/etnaviv/etnaviv_sched.c | 39 ++++++++++++++++++++++++++++++++-
- 2 files changed, 41 insertions(+), 1 deletion(-)
+Can we do the common init (just like this mutex init) in the common
+function?
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-index e89d591d7404..f871ab7899fd 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
-@@ -147,6 +147,9 @@ struct etnaviv_gpu {
- 	u32 hangcheck_dma_addr;
- 	u32 hangcheck_primid;
- 	u32 hangcheck_fence;
-+	bool hangcheck_idle;
-+	bool hangcheck_busy;
-+	unsigned long hangcheck_busy_since;
- 
- 	void __iomem *mmio;
- 	int irq;
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-index 3cc50d697c89..cef1ed33ff91 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
-@@ -17,6 +17,9 @@ static int etnaviv_job_hang_limit = 0;
- module_param_named(job_hang_limit, etnaviv_job_hang_limit, int , 0444);
- static int etnaviv_hw_jobs_limit = 4;
- module_param_named(hw_job_limit, etnaviv_hw_jobs_limit, int , 0444);
-+static unsigned int etnaviv_hang_max_ms = 30000;
-+module_param_named(hang_max_ms, etnaviv_hang_max_ms, uint, 0644);
-+MODULE_PARM_DESC(hang_max_ms, "Time a busy job may run without front-end progress (ms, 0 = no extension)");
- 
- static struct dma_fence *etnaviv_sched_run_job(struct drm_sched_job *sched_job)
- {
-@@ -36,7 +39,8 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
- {
- 	struct etnaviv_gem_submit *submit = to_etnaviv_submit(sched_job);
- 	struct etnaviv_gpu *gpu = submit->gpu;
--	u32 dma_addr, primid = 0;
-+	u32 dma_addr, primid = 0, mask;
-+	bool idle, was_idle;
- 	int change;
- 
- 	/*
-@@ -62,6 +66,12 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
- 		primid = gpu_read(gpu, VIVS_MC_PROFILE_FE_READ);
- 		mutex_unlock(&gpu->lock);
- 	}
-+
-+	mask = gpu->idle_mask & ~(VIVS_HI_IDLE_STATE_FE | VIVS_HI_IDLE_STATE_MC);
-+	idle = (gpu_read(gpu, VIVS_HI_IDLE_STATE) & mask) == mask;
-+	was_idle = gpu->hangcheck_idle;
-+	gpu->hangcheck_idle = idle;
-+
- 	if (gpu->state == ETNA_GPU_STATE_RUNNING &&
- 	    (gpu->completed_fence != gpu->hangcheck_fence ||
- 	     change < 0 || change > 16 ||
-@@ -70,9 +80,36 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
- 		gpu->hangcheck_dma_addr = dma_addr;
- 		gpu->hangcheck_primid = primid;
- 		gpu->hangcheck_fence = gpu->completed_fence;
-+		gpu->hangcheck_busy = false;
- 		return DRM_GPU_SCHED_STAT_NO_HANG;
- 	}
- 
-+	/*
-+	 * A compute dispatch is a single FE command, so the FE does not move
-+	 * while a long kernel runs. Keep the job alive as long as some unit
-+	 * other than FE and MC is busy, up to hang_max_ms. All of them idle at
-+	 * two ticks in a row means the FE waits for something that never
-+	 * comes.
-+	 */
-+	if (gpu->state == ETNA_GPU_STATE_RUNNING && !(idle && was_idle)) {
-+		unsigned long max = msecs_to_jiffies(READ_ONCE(etnaviv_hang_max_ms));
-+
-+		if (!gpu->hangcheck_busy) {
-+			gpu->hangcheck_busy = true;
-+			gpu->hangcheck_busy_since = jiffies;
-+		}
-+
-+		if (time_before(jiffies, gpu->hangcheck_busy_since + max))
-+			return DRM_GPU_SCHED_STAT_NO_HANG;
-+
-+		if (max)
-+			dev_err(gpu->dev, "job busy for more than %u ms without FE progress\n",
-+				jiffies_to_msecs(max));
-+	}
-+
-+	gpu->hangcheck_idle = false;
-+	gpu->hangcheck_busy = false;
-+
- 	/* block scheduler */
- 	drm_sched_stop(&gpu->sched, sched_job);
- 
+Sashiko has a number of comments on this patch
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-etnaviv-compute-hangcheck-cb8d1e7af68f
-
-Best regards,
--- 
-Christian Gmeiner <cgmeiner@igalia.com>
-
+Konrad
