@@ -2,109 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CE6606A330
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:45:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A59A606A32F
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:46:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YaxW1l07
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTb9Uiib
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0896B10EC2D;
-	Mon,  2 Nov 2026 08:45:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7A1510EC35;
+	Mon,  2 Nov 2026 08:46:16 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF5A10EC2D
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:45:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48CC710EC31;
+ Mon,  2 Nov 2026 08:46:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DCEF943937;
- Mon,  2 Nov 2026 08:45:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29DD61F000C1;
- Mon,  2 Nov 2026 08:45:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 31D334404C;
+ Mon,  2 Nov 2026 08:46:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE1B1F00A17;
+ Mon,  2 Nov 2026 08:46:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793609144;
- bh=bLq8tGQUu2myLGSYavn3htnaEwSD1PeKAOiJivnLALg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=YaxW1l07z86qsmfRrDkoWPU3XOHGAAYxZ/gNGN4innJf0Z/BD+GKWDFfBEH6pOR4r
- DCBbefV4oStdg5HksdHZJ/2yw+uC5Z0lZjbV/QkVQPRG80TmUJPlDt7zrZh/N829Hh
- /rVto/fymggb8HaRjj3YVOP7liLtPTXHoHd37Ea8aNQ7MJxMaYEAPgRowAgwtyXW5m
- laSvMGV3oN6YAz8bqR7LtK3Fc5jVGfNJxcizOWRWSqg5jX8QP5zKt9AfLWW9pALu/P
- rYVfSFGfz+O1GYNCwXomLs5xF22s07sjQhlpu0M3yk/VNYAwB5/LYkQPn4kc70UaKY
- 4fddbJ/QpQZiA==
-Message-ID: <e155f52a-cb04-4334-bc7c-54385973c87d@kernel.org>
-Date: Mon, 2 Nov 2026 09:45:32 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/25] accel/qda: Assign a context bank to each session
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Srinivas Kandagatla <srini@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
- andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
-Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
- sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
- Chenna Kesava Raju <chennak@qti.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- Ekansh Gupta <ekangupt@qti.qualcomm.com>
-References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <20261102-v4-v4-4-88f2f24a5f0b@qti.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261102-v4-v4-4-88f2f24a5f0b@qti.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1793609171;
+ bh=zwp6ENeO1j+wKt4cmYLpzm2TmQvFNq8LzGJkzIegSm8=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=fTb9UiibUWoo4/8aZ0xM8+9F0lfUFwfTXQPXGzqZPE8SpxCo5eAVSfzd8bIniJvl8
+ NvzcTchJxozW0MHm5kwCpwonZi4Y+1R0Or+ViIOoNv+rPWiTlgd9X6WJDemg0+73rV
+ ObUFGkdrOQzNxR2cEqtmVPfh97eKvSiq4yu5VuqiXVfgTfQIUUoWF/gP3rvfP5ofAF
+ k4ukoZSssRfjjRb3kyxMxWZkX4snRk2dHRzkhDbgrrAie96dP3kVjqmL+IB1fdIUVD
+ tRY6Ein5yEhPQkcF7Qwh5dBYDjrG1Bl9elt0Lqdnn5Gp9R/iZhOMLbAPAz6HljAYjL
+ 4Gb0fwY3pdgGA==
+Message-ID: <sashiko-outbox-193137@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/xe: Tear down kernel mappings in release_notify
+To: "Arvind Yadav" <arvind.yadav@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261102082626.747462-1-arvind.yadav@intel.com>
+References: <20261102082626.747462-1-arvind.yadav@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 08:46:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,31 +47,108 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 01/11/2026 23:21, Ekansh Gupta wrote:
-> +
-> +static int qda_count_cb_nodes(struct device_node *parent_node)
-> +{
-> +	int count = 0;
-> +
-> +	for_each_available_child_of_node_scoped(parent_node, child)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/xe: use-after-free in __xe_bo_vunmap() after xe_bo_shrink_purg=
+e()
+--
 
-I don't see a need for scoped loop.
+commit e49e34413e8a801c5062d0f07639d200170d532c
+Author: Arvind Yadav <arvind.yadav@intel.com>
 
-> +		if (of_device_is_compatible(child, "qcom,fastrpc-compute-cb"))
-> +			count++;
+drm/xe: Tear down kernel mappings in release_notify
+
+This commit moves the __xe_bo_vunmap() call from xe_gem_object_free() to
+xe_ttm_bo_release_notify() so that kernel mappings are torn down when the
+TTM BO reference count reaches zero rather than when the GEM object
+reference count drops to zero.
+
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index 42a6aa1a2e4a0..b7a982a9d81ac 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -1866,6 +1866,12 @@ static void xe_ttm_bo_release_notify(struct ttm_bu=
+ffer_object *ttm_bo)
+>  	bo =3D ttm_to_xe_bo(ttm_bo);
+>  	xe_assert(xe_bo_device(bo), !(bo->created && kref_read(&ttm_bo->base.re=
+fcount)));
+> =20
+> +	/*
+> +	 * The TTM BO refcount is zero, so eviction and swapout cannot
+> +	 * take a reference. Unmap before TTM frees the backing store.
+> +	 */
+> +	__xe_bo_vunmap(bo);
 > +
-> +	return count;
+>  	if (!xe_ttm_bo_lock_in_destructor(ttm_bo))
+>  		return;
+> =20
+> @@ -2056,7 +2062,6 @@ static void xe_gem_object_free(struct drm_gem_objec=
+t *obj)
+>  	 * driver ttm callbacks is allowed to use the ttm_buffer_object
+>  	 * refcount directly if needed.
+>  	 */
+> -	__xe_bo_vunmap(gem_to_xe_bo(obj));
+>  	ttm_bo_fini(container_of(obj, struct ttm_buffer_object, base));
 >  }
 
+[Severity: High]
+Does deferring __xe_bo_vunmap() until xe_ttm_bo_release_notify() cause a
+use-after-free and premature backing store free if the shrinker purges a BO
+after its GEM refcount reaches zero?
 
+When a kernel-mapped BO in XE_PL_TT (such as one created via
+xe_bo_create_pin_map() or xe_bo_create_pin_map_at_aligned()) is unpinned and
+its last GEM reference is dropped, bo->vmap and bo->kmap now remain active
+while xe_gem_object_free() calls ttm_bo_fini().
 
-Best regards,
-Krzysztof
+If the shrinker grabs a TTM BO reference before ttm_bo_fini() drops the last
+kref, xe_bo_shrink() sees that the GEM refcount is already zero and calls
+xe_bo_shrink_purge() directly:
+
+drivers/gpu/drm/xe/xe_bo.c:xe_bo_shrink() {
+	...
+	if (!xe_bo_is_xe_bo(bo) || !xe_bo_get_unless_zero(xe_bo))
+		return xe_bo_shrink_purge(ctx, bo, scanned);
+}
+
+Unlike xe_bo_move(), xe_bo_shrink_purge() does not call xe_bo_move_notify()
+or __xe_bo_vunmap():
+
+drivers/gpu/drm/xe/xe_bo.c:xe_bo_shrink_purge() {
+	...
+	if (bo->resource->mem_type !=3D XE_PL_SYSTEM) {
+		...
+		xe_tt_unmap_sg(xe, bo->ttm);
+		ttm_bo_move_null(bo, new_resource);
+	}
+
+	*scanned +=3D bo->ttm->num_pages;
+	lret =3D ttm_bo_shrink(ctx, bo, (struct ttm_bo_shrink_flags)
+			     {.purge =3D true,
+			      .writeback =3D false,
+			      .allow_move =3D false});
+}
+
+This purges the BO via ttm_bo_shrink() -> ttm_tt_backup() ->
+ttm_pool_backup(), which resets the page caching attributes via
+set_pages_array_wb() and frees the pages in tt->pages while bo->kmap is
+still mapped.
+
+When the shrinker later drops its TTM BO reference,
+xe_ttm_bo_release_notify() -> __xe_bo_vunmap() -> ttm_bo_kunmap() will run
+and call kunmap(map->page) on an already-freed struct page, or
+vunmap(map->virtual) after the underlying physical pages were already freed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102082626.7474=
+62-1-arvind.yadav@intel.com?part=3D1
