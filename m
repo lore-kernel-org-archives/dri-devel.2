@@ -2,39 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD106081CD2
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:02:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF656070DA1
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:02:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7GASIyP
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d/TU5Bzo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C9CC10EF73;
-	Mon,  2 Nov 2026 15:02:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F091610EF7A;
+	Mon,  2 Nov 2026 15:02:33 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5B1210EF73
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:02:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 435D410EF75
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:02:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ACB6443EE2;
- Mon,  2 Nov 2026 15:02:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAB381F00A1C;
- Mon,  2 Nov 2026 15:01:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 29E534085D;
+ Mon,  2 Nov 2026 15:02:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174411F00A17;
+ Mon,  2 Nov 2026 15:02:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793631729;
- bh=RCWYzTdROaZ//Ublq96X/PsjFPNs26aKqDomYMjplOg=;
+ s=k20260515; t=1793631747;
+ bh=qVgyj+FYQ9g7uHqmkN/6kOivRqdCDmjAyQM7m79vY9A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=g7GASIyP66iaHneT0IXLyxGE3Gv8uk+u36p3s2m270MYuKSf/lxqLAMSRJOW/mN5b
- cqw43daYhwXjGaH+bT+uzWlv1RtJgVmK1pKNWgKadSoQ4YP7xysJZZNazw538Ya2w8
- aQyWb7PBw6LuxEkCbQCuHEsb1KvYSgmQDTGlChVmndzt2sLknpmWaqisu0NyUvlM/y
- hG208gvk6GSsXAzvoi3yhFcxnrvr/4f9iVDAGppDZvhr/8T+2kNPcVMo4GJLXJAgLG
- J6pV+INZeS4SdtLtP2ZjONMRNNmVsgjQI6Fx9jjazJ3kAgIbreGUlE2x6BQYTDKlDz
- uF54rLOl1jq1A==
+ b=d/TU5BzoI0BtvHfYzajrrcPl1GXVCryRY1Ut48y/GJIvjjd3K9tAkOPoaubnTH8Cj
+ sK1647iQobp60ZY24tDMaAx9NsKxFNjymF5IY5h/cKkK9nGKkyHoV7CZDZf8JNbRww
+ IRIPJfTF97vUVSY7NrIvF3mdu1MbBY5I5i7z+xiQlEEZ26yJHEdd7bH89Gqlbow2Ks
+ Vg0J9epC20U9E4NUHIBDGai+NMTOFT3rd71sgkTUJULyeOxAVxvB4aiLpCaS0sj7+K
+ C1HjOmzglPQcf1LCUAmDC0bN3L5TxoShuNDSEnm0bhASQBWbCYoW6wiUfo3S3aSY11
+ bUEfQJ+ZWGIIw==
 From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:01:28 +0100
-Subject: [PATCH RFC 01/22] alpha: srm_env: let procfs copy in writes
+Date: Mon, 02 Nov 2026 16:01:29 +0100
+Subject: [PATCH RFC 02/22] ARM: alignment: let procfs copy in writes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-arch-v1-1-c9492ab08480@kernel.org>
+Message-Id: <20261102-work-procfs-arch-v1-2-c9492ab08480@kernel.org>
 References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
 In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -90,58 +90,44 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Implement ->proc_write_buf() so procfs copies in what is written to
-/proc/srm_environment/* before it pins the entry, and hand that copy to
-the console callback through the page it used before.
+/proc/cpu/alignment before it pins the entry, and take the mode from
+that copy. Writes larger than PAGE_SIZE - 1 bytes fail with -EINVAL now.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- arch/alpha/kernel/srm_env.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ arch/arm/mm/alignment.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/arch/alpha/kernel/srm_env.c b/arch/alpha/kernel/srm_env.c
-index faafc2df7886..6a1742b09a82 100644
---- a/arch/alpha/kernel/srm_env.c
-+++ b/arch/alpha/kernel/srm_env.c
-@@ -81,7 +81,7 @@ static int srm_env_proc_show(struct seq_file *m, void *v)
- 	return ret;
+diff --git a/arch/arm/mm/alignment.c b/arch/arm/mm/alignment.c
+index 3e5e30968634..11ceefdfa388 100644
+--- a/arch/arm/mm/alignment.c
++++ b/arch/arm/mm/alignment.c
+@@ -144,14 +144,13 @@ static int alignment_proc_show(struct seq_file *m, void *v)
+ 	return 0;
  }
  
--static ssize_t srm_env_proc_write(struct file *file, const char __user *buffer,
-+static ssize_t srm_env_proc_write(struct file *file, char *buffer,
- 				  size_t count, loff_t *pos)
+-static ssize_t alignment_proc_write(struct file *file, const char __user *buffer,
++static ssize_t alignment_proc_write(struct file *file, char *buffer,
+ 				    size_t count, loff_t *pos)
  {
- 	int res;
-@@ -92,13 +92,8 @@ static ssize_t srm_env_proc_write(struct file *file, const char __user *buffer,
- 	if (!buf)
- 		return -ENOMEM;
+ 	char mode;
  
--	res = -EINVAL;
--	if (count >= PAGE_SIZE)
--		goto out;
--
- 	res = -EFAULT;
--	if (copy_from_user(buf, buffer, count))
--		goto out;
-+	memcpy(buf, buffer, count);
- 	buf[count] = '\0';
- 
- 	ret1 = callback_setenv(id, buf, count);
-@@ -109,14 +104,13 @@ static ssize_t srm_env_proc_write(struct file *file, const char __user *buffer,
- 		res = (int) ret1;
+ 	if (count > 0) {
+-		if (get_user(mode, buffer))
+-			return -EFAULT;
++		mode = buffer[0];
+ 		if (mode >= '0' && mode <= '5')
+ 			ai_usermode = safe_usermode(mode - '0', true);
  	}
+@@ -160,7 +159,7 @@ static ssize_t alignment_proc_write(struct file *file, const char __user *buffer
  
-- out:
- 	free_page((unsigned long)buf);
- 	return res;
- }
- 
- static const struct proc_ops srm_env_proc_ops = {
- 	.proc_show	= srm_env_proc_show,
--	.proc_write	= srm_env_proc_write,
-+	.proc_write_buf	= srm_env_proc_write,
+ static const struct proc_ops alignment_proc_ops = {
+ 	.proc_show	= alignment_proc_show,
+-	.proc_write	= alignment_proc_write,
++	.proc_write_buf	= alignment_proc_write,
  };
+ #endif /* CONFIG_PROC_FS */
  
- static int __init
 
 -- 
 2.53.0
