@@ -2,71 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AA36075A6A
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 16:01:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7314D607BDF2
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 16:05:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=a/9qpVb7
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=itka6e4w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A7E710E514;
-	Mon,  2 Nov 2026 16:00:54 +0000 (UTC)
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 637DE10E514
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 16:00:49 +0000 (UTC)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-33713e5e6daso3849212eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 08:00:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D846A10F06E;
+	Mon,  2 Nov 2026 16:05:29 +0000 (UTC)
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E89910F076
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 16:05:23 +0000 (UTC)
+Received: by mail-dl1-f45.google.com with SMTP id
+ a92af1059eb24-14388db1a6bso73447c88.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 08:05:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793635522; cv=none;
+ d=google.com; s=arc-20260327;
+ b=JLqLcY+5PI25yqnD4iEEpciiXM22L7jGyeg8dm/hlubal+mMYz495canIiR74O2/gJ
+ 1P3dLI/XWeHCXjIQ5/Zvetaz+adfDzXytaYqaZOLkJ7EYWjeBLsyMaXgeVdo8m7OqNvI
+ l3mKb2EVUrei689WCp4cNjZ+xV8hUyHZXCu/E6H72K/q6rhRO1D2dqGU+dup42FRa3Fm
+ CGo8Oamv1WuSDlSq+nmKKoK8A1fw5syDV0IrRVehTGzEa9NwSccpgdzkXttrPwTpK0Ol
+ 6dzDjfPCEUjEDY1wiWNx9WqYWzHMCK0+KFFPIUYCQnaf86zeic+iutwWaWTIOuQCznCH
+ 33EQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=qM2dyLxIJxVzLOT8NAS4jU2rvWxXsjk/TSdQCq7DDTQ=;
+ fh=hTLr+uK6i4XuKV0Pu6KkYwvDoPGfGu220oyLVhyzH2E=;
+ b=XnP8OXOac/rbH1qN1OuUmDOq6nd1DTsribC3gtLcjNPgBfQ6kd3x1zIzXPBXV9RyVg
+ sn5oNZ7zYCvGjjBdL2zp/3f8hdWEeHiT36LSk30CiJHo3U3+iNuZQrcWEJtETKQLtknL
+ +ekgxndk9fh955m4l7eBXW26ISno/ownvkatiGHhF8bhbZRALyKo0aAYsnY9YSMlfQgQ
+ VV99J4fYOvEkrWo//rX9A/KSt1Jq5SG4zKS3OD79oEgyOdScR1LYlVhSMv4xbUyC2iZL
+ HvqR3oCHHmaLTScDk0m27J3ZP3XFvgk6NrL3quI/nd1yG3u2URkprxqqQ9piapg1ok3N
+ eByA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1793635249; x=1794240049;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:date:mime-version:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=qdDzCJX2QhExG4+G0pbTNThq0KYMMur6UF4zTamumCc=;
- b=a/9qpVb777687rYMb2lEIb9UhFCD0ZMqmffB2gBMW3/JzTvKnWep00d9SlgiL5VNQk
- KevCZGwnRC19fhK6v9FK557HIzX/JpX0bT5IHxzOs+Nx2e92JplKQZouKwHp7vsBNx5q
- gbT2M8QfL0/Mpxg/4mGowLCH+ynT2HqtXfTB2i1QOt9ufvZ5C6+SW91YziJduZ9/W2VN
- iJdhjUrmj4eoo3hSTdMi4xaSG9n5+KbSmxjXPf1vM6bqa8XsybLK2EwP30x3xkBc/yuX
- zi8Vkyrsisa6p7zByVHYqzRiekFJZU/p1eGCpCEILKkHewdqmGnN0m8brvctW36zPoWf
- iOlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793635249; x=1794240049;
- h=content-transfer-encoding:content-type:cc:to:from:subject
- :message-id:date:mime-version:x-gm-message-state:from:to:cc:subject
+ d=gmail.com; s=20260707; t=1793635522; x=1794240322; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=qdDzCJX2QhExG4+G0pbTNThq0KYMMur6UF4zTamumCc=;
- b=yu1fJZPCjS9IWwbqxNms0oBS7s/8H5k/Sul6DXjy+bS73WyScI2zc8em0G9mPZ2kFD
- v2PbZ3g5W7ujZ9w2Elo1fZlrnK4XInwhn/qVxhzxFKyltlR2lvsgUWWVt/83MOo1LbBQ
- KckppczL9vQqGys6NguFZ59iOLVMCsZQtaXlBTCVy8twxKUc9b3FUPeUh4ZDkxaX0b4v
- SB55eC0CL371cTk5NR+drt4zz8QzWYxAhqbGNB9SWqOprl32T8YW36HH6+AMx+aSaRTN
- Sz6J/onLkafAan4HjJfaH/PfM1qijM8Y9G0Yt2wqpvogs1Oe3slw/2hpmJ3mWdbAPkzu
- RB6w==
+ bh=qM2dyLxIJxVzLOT8NAS4jU2rvWxXsjk/TSdQCq7DDTQ=;
+ b=itka6e4w/AXkiyU+zIUWxi+JkxVSE554Fat/hPiC+8urWBL+gYbwEAaMZKX9bTX1y7
+ sB7XAnn3WjDzMBu6klam9lupx/NfIg/lu8p69LFO85HFJU7iTsPzSg9splm1weuqQqr8
+ sYHdHkpGiZaOnJ/NuogjC8Xjixk+6O9kTxHqIHBXjNbkZG+dA0KJ1o1U6hbgd1r7HjAU
+ aALUetuQIeDOFAjoXVMgtvfjquXxzr3Tz9ssIH2QbcNeBNz4Vu0JPwzNIxfU51Ognbgq
+ JD3PY99ESKoM4uqmSHgcFkYU2omM8wUshps6q8c/d2LdGE9u/iyHRJ/fQGASZY7fYjPs
+ +D5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793635522; x=1794240322;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=qM2dyLxIJxVzLOT8NAS4jU2rvWxXsjk/TSdQCq7DDTQ=;
+ b=H1cRnVMdNuv6TDXYTInWPHb2s1X95/0moGosU9WHHp8jr2FopkMMRuP65eJPlYaYWE
+ 7hE41yX15NLBuGWq/E/i9cN2ABf7uUysW/tUH5doa+VDTnAZh8vLMJ+QzsvbJ4MXLFtN
+ rAy8fqPjQM1eqWx4nbWN+SesNoacIBqC9ENHnzNhcdHEav4LltQNBUM3hfsdXginp6qe
+ 6x4tbsmvi0naeEY4CoabivvBYnfWVkd+k72ELb2Onem+d5byEY4QhHdL4SIZbE4Vgkgd
+ pKRtJZUbHqv2vlGtYgUM+5ts/qSl2CJK5o/iNninw7hviZjljhfQ8nadggWveUrlbsvK
+ Dn2A==
 X-Forwarded-Encrypted: i=1;
- AKwUvBzQ4M3UMsPed5VN83RsRoQUVS9TkLqTzFBwY1DzCRa1i8iCC9bUzul/jKYpvtusa4FWwN+hPN9fvFE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9jsUjVQfrZflmYPaq2Yd3rxiPqgxmbWPSxUzFIM924pl16h5yV
- /o9arJiUcMUxtEnUZDv/UdufVHwc8bymCfLsS/P9UVbWj4DurvHkGamqieid2CTWkVUrCItZ1vZ
- T/NLZ3bDSNTFw8JaX+nBLLySpQoGwUA==
+ AKwUvBx+ommbUYWlY2boBjXbMV4AMKaA1NvlPAnwL5T/cwjavXVL+8pDWL6B2EAxtcS8NfJAnVaNV9OESHo=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJMDisgIErsyuAj9E/CWg7DCEDFvnbMiWKALn9npjYnseNLdA+C
+ ZyBEbsRETdw6IJClp3g0E/nQfYL1f7nPo1tTvFf5caBIupz22+QSxAZfzZplIfg2/meys727Oc6
+ EIrwvBbB/LFVbGAcYc7gWXytrqwY/pIE=
+X-Gm-Gg: AYBFou3Xdiae4aqdRoP/AW94UJklcHrjH6cxYo0KzJVO8Xwvz63KxeAbxT2D0Z/BEPJ
+ xwTMpcHJkA+uXxtKFQqAiO7X+FvDvVWNMaG+H0Ysv0wj6wgWRbX55N5jYbILikVxiS3KaB+SYRe
+ f9XfNiKkt94a12F6ijnJ4wCmceOF80g8V9f8H5ICSY0/5uF1am+rrfuD7j7jvzwtCdme7UmMEOd
+ VUzLpZIYgOIFPTVYwO4aOckDlgujcWB6j6fRXsbUmSWn7Gu58dYzwNQAh0uX4gUS7gYaYtN7lSM
+ +M+nS0ugZ+p3ZzVZNHeo01FbFj9+fimOnJGzEfDRBoxphVUuY5BGZJQ+wPgp0C75ICexLFoewgX
+ 6GqYlbW4B2XiYxf0nIQD64o/UDDccvLKvWlfbkOW8jSmV5edj4Fck/Xbr1g0mL4Fb0ouqWXM1aP
+ OCT6IaDRMHtvBQEJKmWWzqRPY=
+X-Received: by 2002:a05:7022:7e0c:b0:165:be2f:c56e with SMTP id
+ a92af1059eb24-1ac5b7dcb2bmr26252824c88.2.1793635520495; Mon, 02 Nov 2026
+ 08:05:20 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Received: from dyhb15.prod.google.com ([2002:a05:7300:148f:b0:368:927a:cdaf])
- (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:3a95:b0:36a:12c4:8bdd with SMTP id
- 5a478bee46e88-36a42389979mr18350254eec.21.1793635248187; 
- Mon, 02 Nov 2026 08:00:48 -0800 (PST)
-Date: Mon, 02 Nov 2026 16:00:47 GMT
-Message-ID: <18e445c150434665.3137322e32332e3235332e313736.109a67.0000sendgmr@google.com>
-Subject: [PATCH] dma-buf: Reject private mappings in dma_buf_mmap_internal()
- and dma_buf_mmap()
-From: Chris Wiseman <chriswiseman@google.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
+References: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
+In-Reply-To: <25995707c39c0c191e3ac46c4813f55a7f928403.1793131583.git.calvin@wbinvd.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Nov 2026 11:05:08 -0500
+X-Gm-Features: AclHuK_T_9wl2_ge7HTrGL9Ufakev4qpuajb3TNVntCGEszFix2ZV1_vjQMYFjg
+Message-ID: <CADnq5_NuQEvx8OpyPOuXgtzQB67jgaNtwW85X70UraOLaF=M=A@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to
+ GTT"
+To: Calvin Owens <calvin@wbinvd.org>
+Cc: linux-kernel@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "T.J. Mercier" <tjmercier@google.com>, John Stultz <jstultz@google.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Hung <alex.hung@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>, 
+ George Zhang <george.zhang@amd.com>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,89 +110,132 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-23.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-17.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-DMA-BUF mappings do not support copy-on-write.  Mapping a dma-buf with
-MAP_PRIVATE and PROT_WRITE faults into do_wp_page() -> wp_page_copy()
-and allocates private anonymous pages whose writes never reach the
-underlying buffer.
+Reviewed and applied.  Thanks!
 
-Individual exporters like cma_heap_mmap(), system_heap_mmap(), and
-mmap_udmabuf() already require (VM_SHARED | VM_MAYSHARE), and DRM
-helpers like ttm_bo_mmap_obj() and drm_gem_shmem_object_mmap() reject
-vma_is_cow_mapping(vma).  However, dma_buf_mmap_internal() and
-dma_buf_mmap() do not check for this and pass MAP_PRIVATE mappings
-straight through to dmabuf->ops->mmap().
+Alex
 
-Reject mappings with -EINVAL in both dma_buf_mmap_internal() and
-dma_buf_mmap() when neither VM_SHARED nor VM_MAYSHARE is set.  Checking
-both flags still allows read-only MAP_SHARED mappings, where do_mmap()
-clears VM_SHARED and leaves VM_MAYSHARE set.
-
-Suggested-by: T.J. Mercier <tjmercier@google.com>
-Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-Signed-off-by: Chris Wiseman <chriswiseman@google.com>
----
-Note: For the prior discussion Christian mentioned, commit f91142c62161
-("drm/ttm: nuke VM_MIXEDMAP on BO mappings v3") added the
-vma_is_cow_mapping() check in TTM, and commit fa5239f2af98
-("drm/amdgpu: workaround failed COW checks for Thunk VMAs") worked
-around a legacy ROCm KFD Thunk PROT_NONE, MAP_PRIVATE mapping on native
-amdgpu GEM nodes.
-
-Tested in ARM64 QEMU (Linux 7.3.0+) across /dev/dma_heap/system:
-
-  BASE:
-    [CASE 1: MAP_SHARED O_RDWR]     ret=3D0   buf[0]=3D0x00000000cafebabe
-    [CASE 2: MAP_SHARED O_RDONLY]   ret=3D0
-    [CASE 3: MAP_PRIVATE PROT_RDWR] ret=3D0   underlying_buf[0]=3D0x0000000=
-0cafebabe
-    [CASE 4: MAP_PRIVATE PROT_READ] ret=3D0
-    [CASE 5: MAP_PRIVATE PROT_NONE] ret=3D0
-
-  PATCHED:
-    [CASE 1: MAP_SHARED O_RDWR]     ret=3D0   buf[0]=3D0x00000000cafebabe
-    [CASE 2: MAP_SHARED O_RDONLY]   ret=3D0
-    [CASE 3: MAP_PRIVATE PROT_RDWR] ret=3D-22 (-EINVAL)
-    [CASE 4: MAP_PRIVATE PROT_READ] ret=3D-22 (-EINVAL)
-    [CASE 5: MAP_PRIVATE PROT_NONE] ret=3D-22 (-EINVAL)
-
- drivers/dma-buf/dma-buf.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 1ccaffabbdbe..51e9a4dc56be 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -235,6 +235,10 @@ static int dma_buf_mmap_internal(struct file *file, st=
-ruct vm_area_struct *vma)
- 	if (!dmabuf->ops->mmap)
- 		return -EINVAL;
-=20
-+	/* check for private mappings */
-+	if (!(vma->vm_flags & (VM_SHARED | VM_MAYSHARE)))
-+		return -EINVAL;
-+
- 	/* check for overflowing the buffer's size */
- 	if (vma->vm_pgoff + vma_pages(vma) >
- 	    dmabuf->size >> PAGE_SHIFT)
-@@ -1610,6 +1614,10 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_a=
-rea_struct *vma,
- 	if (!dmabuf->ops->mmap)
- 		return -EINVAL;
-=20
-+	/* check for private mappings */
-+	if (!(vma->vm_flags & (VM_SHARED | VM_MAYSHARE)))
-+		return -EINVAL;
-+
- 	/* check for offset overflow */
- 	if (pgoff + vma_pages(vma) < pgoff)
- 		return -EOVERFLOW;
---=20
-2.51.0
+On Tue, Oct 27, 2026 at 4:36=E2=80=AFPM Calvin Owens <calvin@wbinvd.org> wr=
+ote:
+>
+> After commit a637a140ab860310 ("drm/amd/display: Allocate DCN32/1 dmub
+> memory to GTT"), a machine with a Radeon RX 7900 shows random garbage on
+> the screen. It reproduces sporadically, but at times it is so bad the
+> machine is more or less unusable.
+>
+> The garbage is always horizontal bars extending across the entire
+> screen, always approximately 200 pixels tall on a 3840x2160 screen,
+> for what looks like a single frame. The bars are mostly black, but will
+> sometimes exhibit striping and periodic artifacts which smell like
+> non-framebuffer data is being rendered to the screen.
+>
+> It took some patience on the "good" side, but I was able to nail it down
+> to commit a637a140ab860310818a14fb4d37e39e51a06be4 with this bisect:
+>
+>   bad: [cee9395acd8043be0644b25c34bfa86623f2b935] Linux 7.3-rc1
+>   good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
+>   good: [55ab7e14222e5f0b0fd9f7711ca391d2924b35e3] Merge tag 'for-7.3/blo=
+ck-20260819' of git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux
+>   bad: [df51bdc5e80dae43cab81f6cc641e98638303c88] Merge tag 'mtd/for-7.3'=
+ of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux
+>   bad: [29daacacf4cd84e6917f09de6a99fb170071c14c] Merge tag 'drm-rust-nex=
+t-2026-08-08' of https://gitlab.freedesktop.org/drm/rust/kernel into drm-ne=
+xt
+>   good: [fff648aec5e2790d117a0ec5c849a284d9d33d70] drm/amdgpu: include am=
+dgpu_video_codecs.h only where needed
+>   bad: [336e0cd576817ac64a4b394ca2b3680029f3e37f] Revert "drm/amdgpu: fix=
+ aperture mapping leak"
+>   bad: [789f7486a384ca58b9d7a76abba5efa0e80e8dab] drm/amd/display: Test p=
+lane colorop helper walkers
+>   good: [e0e426f10ad653c5e9dd33fb4a76d55f06101992] drm/amd/display: Test =
+helper_check_state rejects
+>   bad: [982b2a43682b55e7d9800000f2592832ff2865ba] drm/amdgpu: Fix IP bloc=
+k NULL check during soft reset
+>   bad: [9102b39fa924dcc3dc75a3137bfa9633c40b88c0] drm/amdgpu/userq: fix i=
+ndefinite fence wait during GPU reset
+>   bad: [b23470a026afe64de5c1df4ad181587b49c22923] drm/amd/display: Exit L=
+S for ISHARP before coefficient write
+>   bad: [f02b2e47355e9d381a7f34acc997e1c47879ca21] drm/amd/display: Add KU=
+nit test for wb jobs
+>   bad: [c6a13d145cc811b19c8a0620f25868cf7d5700c0] drm/amd/display: remove=
+ unused dcn42 socbb values
+>   good: [1d8327353de6f1f34063840f362c208c84064f54] drm/amd/display: Fix V=
+ABC Init and OLED Support
+>   bad: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Alloca=
+te DCN32/1 dmub memory to GTT
+>   first 'bad' commit: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/=
+display: Allocate DCN32/1 dmub memory to GTT
+>
+> Sure enough, reverting a637a140ab860310818a14fb4d37e39e51a06be4 on top
+> of v7.3 completely and totally eliminates the problem for me.
+>
+> Mikhail has separately reported this regression:
+>
+>   https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@g=
+mail.com/
+>
+> ...but it seems to be much more consistent for me than for Mikhail, it's
+> never taken more than 30 minutes even when the machine is completely
+> idle. I've also never been able to reproduce any artifact one single
+> time without commit a637a140, despite a lot of effort.
+>
+> I'm not sure reverting this is the right way forward, since presumably
+> this would re-regress the timing issue Fangzhi alluded to in the
+> original commit. But nobody has proposed anything concrete yet... so
+> let's start the discussion here.
+>
+> I'm happy to help test other better ideas as well :)
+>
+> Signed-off-by: Calvin Owens <calvin@wbinvd.org>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 11 ++---------
+>  1 file changed, 2 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/dri=
+vers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+> index 9ff25bc8ee5ae..870534b7cf46d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
+> @@ -511,7 +511,6 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
+>                 DMUB_WINDOW_MEMORY_TYPE_FB,             /* DMUB_WINDOW_CU=
+RSOR_OFFLOAD */
+>         };
+>         int r;
+> -       int mem_domain =3D AMDGPU_GEM_DOMAIN_GTT;
+>
+>         switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+>         case IP_VERSION(2, 1, 0):
+> @@ -648,19 +647,13 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
+>                 return -EINVAL;
+>         }
+>
+> -       /* Limit to allocate dmub to GTT on DCN32/1
+> -        * TODO: Other asics with GDDR7 may have worse latency
+> -        */
+> -       if (dmub_asic !=3D DMUB_ASIC_DCN32 &&
+> -           dmub_asic !=3D DMUB_ASIC_DCN321)
+> -               mem_domain |=3D AMDGPU_GEM_DOMAIN_VRAM;
+> -
+>         /*
+>          * Allocate a framebuffer based on the total size of all the regi=
+ons.
+>          * TODO: Move this into GART.
+>          */
+>         r =3D amdgpu_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZ=
+E,
+> -                                   mem_domain,
+> +                                   AMDGPU_GEM_DOMAIN_VRAM |
+> +                                   AMDGPU_GEM_DOMAIN_GTT,
+>                                     &adev->dm.dmub_bo,
+>                                     &adev->dm.dmub_bo_gpu_addr,
+>                                     &adev->dm.dmub_bo_cpu_addr);
+> --
+> 2.47.3
+>
