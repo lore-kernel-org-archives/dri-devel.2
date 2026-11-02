@@ -2,83 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90CAC60A2635
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:41:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E6E60A3808
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:41:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=B42/PdOJ
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=wZRsj34w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6166A10EE53;
-	Mon,  2 Nov 2026 13:40:56 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8094710E623
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:40:48 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4a2d6d01ecbso19166235e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:40:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBADD10EE75;
+	Mon,  2 Nov 2026 13:40:59 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE00710EE53
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:40:50 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4a218c463d1so20161205e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:40:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1793626847; x=1794231647; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1793626849; x=1794231649; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:date:message-id
  :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=cQaT9BYgRFn+zEYUt83O8GM2Oamgt2XfYK8NkH+VikI=;
- b=B42/PdOJwKy7QAtELCdUqFpHHgW/R2TAv4Bhu5nmbfFZCeuyfQ5J0yT351UZscErwY
- YYvQ8Q/Kkv09X/GN96Z9K2rhYAkGhytYFHr/9Z212jDb+6IHfPjuFqSudVYU3K09mVha
- UjXkB8sCn3pwoOmB5W/xFukBHUBJl3SulkHXhQMAQwGIHUFS63wn/XFYQlHg8Gb1VEaU
- lScG8Hi9UmoeuTxutl3kd1b3LeSfBx2o0DQjaAQPRLMhHkBKHD6eA8ruQwzMCARUDjIx
- Fo+olLqWMRQXTrJmKPstbjwATXYbyvJKYl6WCLHT17RVBvVD0GjKcEZCGiUotQ8QUnza
- hlGA==
+ bh=EEkPJ5sYCs2riG84XpmGHlS11U398nauVojefjsmFUk=;
+ b=wZRsj34wC8KIhYsWPOJ5D012ObPZSfZ7qwe3s8bGWCujvMj+0aFfEVx95PRJMTy9+t
+ IMeAfJBEfsG/gLIfjzX6oTEU51GPj7ArzD9wKOFLSZFUaG/FNxTAgmCwEoTWminMjJa7
+ nwv66Nt5+ywooGb29hFcIqQLVFEgk3C/eicj8lZpNFuwUVVwaFwUP+zSBnwRHpqVRgfw
+ J6Wt8pP8WR88AfC8zKJsRRHbyy2cunvWO3AeiTdltlJAjzHoVdrkkwEEgG0X7ofvgga6
+ 4pRpxhamAy/UszRVdUy9aACZoP+ljOaHaS+/PlcNNu2YzeGrgppzo0ADsW8q/sxmszfI
+ sDpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793626847; x=1794231647;
+ d=1e100.net; s=20260707; t=1793626849; x=1794231649;
  h=content-transfer-encoding:content-type:mime-version:date:message-id
  :subject:references:in-reply-to:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=cQaT9BYgRFn+zEYUt83O8GM2Oamgt2XfYK8NkH+VikI=;
- b=HFZIX1kBsSosYxq+ME+CIEmeEYf9dQx4s7GZXQdUFGc08fXROfvNnxHK6cb17shQbZ
- sMOwSXKmitPU/120MnJ5PetFHH7z0zZw4csTmYfndRt2ERB7PMOY02RCbhfp0cYPKY9b
- jbcaor2FvuCMEe3tRiJHGJfOSyKWbTLuLvGSMe/jjiLhuXmYNHxafXtruNme/5aDtiOO
- Qls8P3+EatimfHLUcShRO4si+q7myT6EBA9g7+AuR3CehC/LvRBZu+R8VQ/4feGoexia
- lwH/pO+AybxECOK6aoH+7FurXXbeY4InKHPh5wQRPr/OAewC81KOWfxiU4Nf4k4wxGqB
- H9UQ==
-X-Gm-Message-State: AFq9FYJm9YXbfB3RV4xMX7uMK59zgi4z4XHmgl/ov7rhRegZGK3QHZuT
- FB8kTuTEmnQ6KiCSsAifrdBFJyns724QzC97ffjxym3KeNJQVucQ1wq/DC6D4nF/pz4=
-X-Gm-Gg: AYBFou1YUJvLSupXfJLWRq+m+jFdH/3d0X1o/YtCH2En6gdehL1wGM7zLuUgYyEhNHA
- rWpfhM2igPQhyizcgWzS6vI2oxbN4qiHQzlSjM7PbQ5U3KEB+i7NyDfX02e8dZTsbnDfd2lAI8K
- LuwWRM6wgRvfE5YI9Z84XpFKDuUl+x5nPzOPCHbWVZs0ylZO9HlTUt+E8IkY46Oyy+USJqiwqKN
- MVcuvYeF9/xisaSfqJ1dndz0aSPLagxD69NI0tT/8ryjCCzHGgZ/RRa48a9H8edOAop8rBCybRW
- RkEiZ9Sx2282Njt86Bkq6EzDCpj5CCodGpmzDLnbBZeP2WsIkHYi5iKaO7p1MfUxldSYTtFpC6q
- PHnjrlDIrPoXanq/Ra/rGH4RoYqxSL7AqpAEh4e8BTjdij9DyEQ5B7xaFxzT4105AsZSaqCOAt4
- 8Sas+Oge5TD/maTJPpjPYCE+Uj3Yum2X74oKJbp144gSHwwc/4YYe/GWSYNlU7XcP55wsHGtgcu
- o2lMmXwoLJfHN8ks45n2Mxp4qoPuIZzIiCecK0eR5dsDCl6H6ceyoX4Skkhw8tMlCo40pkqEnDq
- 3wFi3m+zVKC5m+cdwjTTx6kfqT+mWFNIztI/RHcN3b49NQV+4R04+7tTOuNHGEtBe3JqSjg=
-X-Received: by 2002:a05:600c:470d:b0:4a7:9006:b176 with SMTP id
- 5b1f17b1804b1-4ac17471285mr229234705e9.7.1793626846731; 
- Mon, 02 Nov 2026 05:40:46 -0800 (PST)
+ bh=EEkPJ5sYCs2riG84XpmGHlS11U398nauVojefjsmFUk=;
+ b=rkb7J2OwGHGuJL22ITw4/Ti3GGlE6q31ZGxcEeZfOvas1Omxz8hkNtP2Teo4hhxccw
+ LHBbqjtd8nurQ2Xri2YuGDECJWx1JPsaR1Pf8OqbM7Z8Ww/kCi03zGnttVzD54drxUcY
+ KITYX5qFD4EPh5y3fd0Hm77Fwr827Lars4GLtVr5q613umIfs3TixC9rLXqQTiMNho7Q
+ 2THePld4UQn3ImfwfK3S3W08MRE2e2P4wZyRNXA47/jCGnlikn5+GV9Midzfiq/uM9RI
+ Vlej8Mos6xODsREWY5C+s7OS3D48mA3nxIDJ2kAqz+JlsRbbW3HtbaU1t5tpiqnFpGNz
+ 5q6w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz8twxDajsCuUeqy92zM+54JEl/YZaTgS3JjcfVk71cKS9OrAJ4aIqMJNNOWPPCTRmizT6YhXosL9M=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYJVWKjAdEuZhqJ0aTcJ/Xi5aoeE5GKH4KN3J1IuD2o0zK6PHAqk
+ SRaYSkYcnNWRz6gmfac7E8yoqfJAZXR1e2H5BZUjl2mPJn5hrNCU1RQ7JB/04mP4zeo=
+X-Gm-Gg: AYBFou1AEsNsB5Cv5LrRViB7S0UIVedqk1p+HxoOcgkZg3dSlmT0rLOlSzMyNJ6Kd7h
+ 2Mt49XY2LPuLVEwNM8557cokXGTi9cCV9FTqLrjqSA4ALipPxBqyy0yBMIVtDgqWjpGebRAgqXN
+ 6y/QDlcmI5jY2WeXWcuVLs0XddMpg68KFsh/5+ddMPC3ynvbCeh2TylsvfBgivzMPL8HeZrgUdH
+ M+eSgWuC4WWE7fhjDOw+/mOxiaIGxQQc2zG2wcsNVJV++ra8TPTB40XhhpnS+mOp41vw15yleLq
+ Ia556zUJJr+67FRs74f+jUyibPRHjnhTn2kP9s0ApkHmHeqHtHm+FIJIF2vfh7c4d8z+nV6KAky
+ as4H37NyWrlX0VumvrTrKd5Q7aLEonn8Ar2MCgBnTDn+aB0SfichCuCdEKDrkdxgqPZXgyvSNiz
+ P9m5Ihq6EwnALQE/lzRgfxviAsmJqwUvpGyrJgpEKD0OYnl/M8GLa6zdhlzonUP7/4vhWSq8msz
+ +zZf201ACVse0aKEuh5KsbZ2CHcZtjJ7rhgoOeZCWCdKliXsC1Dh7kOtbmHpzU6OjmCS7GJQj7K
+ hBio2lELfalZ0jIyOOw/KUsAyuiCsKodfDG5MThD5y9+0J8eJQ==
+X-Received: by 2002:a05:600c:8b55:b0:4a1:ddca:8b66 with SMTP id
+ 5b1f17b1804b1-4ac19234a06mr223771975e9.31.1793626849036; 
+ Mon, 02 Nov 2026 05:40:49 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.45
+ 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 05:40:45 -0800 (PST)
+ Mon, 02 Nov 2026 05:40:47 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-In-Reply-To: <20261022132259.240717-1-clamor95@gmail.com>
-References: <20261022132259.240717-1-clamor95@gmail.com>
-Subject: Re: (subset) [PATCH v4 0/7] drm/tegra: Add support for
- Tegra20/Tegra30 8-bit CPU interface
-Message-Id: <179362684510.3310106.12424997423646231725.b4-ty@b4>
-Date: Mon, 02 Nov 2026 14:40:45 +0100
+To: dianders@chromium.org, jesszhan0024@gmail.com, 
+ Hsieh Hung-En <hungen3108@gmail.com>
+Cc: jagan@amarulasolutions.com, osama.abdelkader@gmail.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch
+In-Reply-To: <20261102043215.990351-1-hungen3108@gmail.com>
+References: <20261102043215.990351-1-hungen3108@gmail.com>
+Subject: Re: [PATCH v2 0/5] drm/panel: Use mipi_dsi_*_multi() in feiyang
+ and rm68200
+Message-Id: <179362684683.3310106.2850734684775211382.b4-ty@b4>
+Date: Mon, 02 Nov 2026 14:40:46 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -104,26 +100,31 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 Hi,
 
-On Thu, 22 Oct 2026 16:22:52 +0300, Svyatoslav Ryhel wrote:
-> The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
-> that closely resembles the MIPI DBI Type B protocol and is referred to as
-> '8-bit CPU'.
+On Mon, 02 Nov 2026 12:32:10 +0800, Hsieh Hung-En wrote:
+> This series converts the Feiyang FY07024DI26A30-D and Raydium RM68200
+> panel drivers to the MIPI DSI multi-context helpers, as suggested in
+> Documentation/gpu/todo.rst.
 > 
-> Add DC parametrization options needed for fine tuning by bridges.
-> Add 8-bit CPU interface in form of a bridge linking to RGB port.
-> Add 2 DBI Type B panels used in LG Optimus 2X which work with
-> the 8-bit CPU interface.
+> The first two patches fix pre-existing prepare() error paths that leave
+> regulators enabled on failure. The following two patches convert the
+> DCS helpers and initialization sequences, with command failures
+> propagated through the cleanup paths. The final patch normalizes the
+> RM68200 hexadecimal literals.
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/7] dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and LG LH400WV3 panels
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/46011a636fd729c99781533e265297748b5a0b0f
-[2/7] drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type B panel driver
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/9fe804e2a3001fd024c0809678d09c5e0ed359ee
-[3/7] drm/panel: Add LG LH400WV3-SD04 MIPI DBI Type B panel driver
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/d87ca1becbb095b6204cf657508c91e5e995d9b5
+[1/5] drm/panel: feiyang-fy07024di26a30d: Fix prepare error cleanup
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/439e9dcfb3ba4980522cbb2c33eff5f9f321db64
+[2/5] drm/panel: raydium-rm68200: Fix prepare error cleanup
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/a1b23a5bc8567c16552e5e16cb6e9d59c54d262b
+[3/5] drm/panel: feiyang-fy07024di26a30d: Use mipi_dsi_*_multi() functions
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/6b84154cdc1a4ebc237b308640d2ecd67aa90cb6
+[4/5] drm/panel: raydium-rm68200: Use mipi_dsi_*_multi() functions
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/c8e7ae312688b05836376d11420bcaa4893053e6
+[5/5] drm/panel: raydium-rm68200: Use lowercase hex literals
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/57a2f4d7c90ba17a5bb84ce6741927e85896f413
 
 -- 
 Neil
