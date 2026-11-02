@@ -2,141 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E403F606A333
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 09:57:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1D0606A338
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SHUGRsnz;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PVMBrCuH
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TDYHF9no
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3948710E5A3;
-	Mon,  2 Nov 2026 09:57:10 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C401910E5A7
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 09:56:49 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A29AOkG3086546
- for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 09:56:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=fSEJYomxVT5C4R68mRDSvCPQ
- QWerQtUgHd1oP8Jric0=; b=SHUGRsnzaCIZ3CjE1mv7LUTZlJPgud6ICwQ3ILFy
- d5/PVrH1MQdwuNXM+pK4dQMcEC+A47qdMlSrhu29GMjTBW4qwXAkTKpngIlJK1ug
- MtmJUQMs0mDpB6oV5gDOUcbAOBku9RZw2m6vumC0yPbK8SamG3vsN9W1H+v18LNs
- VqaFv2Gy6hZt3pjk0K+/5bwv6JzDwGe5xOp0StqkwNnAvi9b91PXrfSlCb596Fp5
- RLhbrp6DiGfPoz1NrqyPdPksmzxPRCedff6gXqQIlnOEP5C7161tNtsYhiXgmyis
- QeUw+FGJj6Oq7DKFVmdZmXoQawcXQ1ckNwzEE+WWxQ796A==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka617k6-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 09:56:48 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-943e8ff02d0so242203985a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 01:56:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793613408; x=1794218208;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=fSEJYomxVT5C4R68mRDSvCPQQWerQtUgHd1oP8Jric0=;
- b=PVMBrCuHwWdsQ+AyRwtoRl1EqdBQhRUHVyefefFMpbCKG2CuIP3q7rFOBSdxSvLpoE
- XlawBKsksqhS7thIOoHooaI6lZxLifIK44ESc1w3nN1NXGVzUremHHGt+s25CArMJt1w
- rz3ekwN1JHW0VJASNrs7vr+WUIFG6HwfsJG2MoRoQuCjIG9eSHS22Uo0yYIc2G4FLq3Y
- xcKGw7JUUlQSIZ1xdJx136W9BqztKOrAwgMi6//hjgtTWEtDDGhwdpzYWdO8l4ob1/34
- REn595WWIW3D4jv8c/KNdG5pL0NPfkhEc3dQFAgqt9R1Y0B4CKL26+mpCRpIPP7qbn+s
- foAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793613408; x=1794218208;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=fSEJYomxVT5C4R68mRDSvCPQQWerQtUgHd1oP8Jric0=;
- b=21zk0tkgGVyzaszL59Lhak4JRWAmkSle49rU/a2QJF+wxFJ2i+dW/1YeSVWQum/sPX
- 2DrYWqUF85+rj/FxRbFYU6hTI6f77LUuPDLF98X7HcrMpW9lxY6O3zq9ozM2o+rJfxBL
- 52Qftd2dquY1iiWOdeEadPM9oa/g0i80WM+Elx1gazJsyeR3a+pw18yjDcDdKqLV9NXI
- KsDIIqd1JgRvhssNQd3E4AYVXjp2mCkIxlgOSut+f8JRLAadVjtzrLVZNB502SX7t86F
- F9KrbwAnsbKaqgNSzrsXm8TlKf7445Dj38VGvu2YMDtirfbAOr8pdm7NhG1A94gFe/EN
- 2lQA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxUm/M855so44hF/CDhd5CaZuiPFof5wpyNi6FkZHfgfNVO26kH3uGh1vPccBiTDHMGyo62PKEa0JA=@lists.freedesktop.org
-X-Gm-Message-State: AFq9FYLxS0HmH8V2/9WiK7wJM/1Y0kAApVDaY9NqUHQ65gHHHO1Q69iG
- kJ/OA6uw8ZvrFDqr7qSNsZIpePC9K/s7XdGKUMWDZAnh3iCuQe3frEpoK9JpmllLiV/b8q0qeKk
- GGFcw7I6lt0TEBkrem+BEyHM+BPlNYhaJ2KGPibPqefwxSCp+Ibi0XmX8i3KuHpjmHua6wxk=
-X-Gm-Gg: AYBFou21WSHG6dXeileFhCY9rfwVkw7HBXKz/XhbgO007KzLSkdqeelzMDI/oTj0Xgr
- IHiKK7ib4yKWbiKubHMRJr2setj1iBGMCGtY6C1dRpk+ky38EY4ecyfGdxyS2SF+Z1roXJe3lQa
- mp2F6PxPrloVN46rQvUjhxlbcDVdr/aihTItBdugD6+quCJHEXQ6QQL9RCMoTyCjYEPqb79ZIwc
- hI7WbR8uNOgFVsG3oHY+MjxmhCTz3wejT8dYnJPzjHGlR5VoTpc6iVNNB+plkBqGjY+0q0VEIis
- Q6XVqGFoGuTaeEyvZ4Mm46EG7QBHsRqo0Nktf7NJ1XGDwkYE0rEp+ZvNTLmmfvLoYODyJnnDA9c
- 5hK4bNxNxxx+5fKw6xKOI7A7nyvrXxVJOFs/TbK+sorL4Yq+o0wrG+e08BtsECF6oWpmIkbnpEb
- rayPXehCCj7N+gjdULJ34dX+E5ur9FG37QNFCLBu9v2qRVJiAC88tFra+MdO7n
-X-Received: by 2002:a05:620a:2989:b0:93f:5e6d:880f with SMTP id
- af79cd13be357-944217a1992mr1658097985a.74.1793613407843; 
- Mon, 02 Nov 2026 01:56:47 -0800 (PST)
-X-Received: by 2002:a05:620a:2989:b0:93f:5e6d:880f with SMTP id
- af79cd13be357-944217a1992mr1658095585a.74.1793613407338; 
- Mon, 02 Nov 2026 01:56:47 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5bfe073e5e6sm1554344e87.57.2026.11.02.01.56.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 01:56:46 -0800 (PST)
-Date: Mon, 2 Nov 2026 11:56:44 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Fabricio Akio <fabricioakio@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/a5xx: Write CP_RB_WPTR under the ring's
- preempt_lock
-Message-ID: <bdtzw5qvdtsgeiqcr4dkvmrcnn7l7cznz2iqs72vjvabtvdbzg@ajqpgwwmmosc>
-References: <20261031-a5xx-wptr-lock-v1-1-fa7d7b9a7fbe@gmail.com>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031-a5xx-wptr-lock-v1-1-fa7d7b9a7fbe@gmail.com>
-X-Proofpoint-ORIG-GUID: 6BTXeNGXiUPOhg7rAy9OB6Ewrr__-uJJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX5H7jSKAG6t39
- jHlBkWWnNnJOcggs4IFUcFC8v3L8pIohK06y+H9C6E9cB2aGke6rTzUenPGIjJIBhix+luFcVpm
- GP2ywl7d7YyKyKYCIM2ClKW+a7eqixY=
-X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae85e60 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=-lvlwEyg7s3_QBC--IIA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX/gC6A3Ki+AbR
- ulmmefQYQAzgywHQtj00skWv3tiFFX9GR9ijXX0wPPVYhD5VVlayi6i8HvRnck3IvREMCmh7D7p
- fOquCxEDwSovLwu8xExzIaQ/czHZBatZPN/GFIfsL9xl2cf5AlFikQbhT61JvmVw+C4KPETu7Fg
- 9Sy53YWNSfqVIOlSlbLrpSrclePg4jAplKCR/0wuGfV1ZVU/5YzJTIncayf0O2MB7HGcbdH8Zj3
- UpTL79E3BqN2rjVeLK1y16GumY6agC+WPi1NCahtxQm3oQitk0Qy4Pd6K/OKgb7ILG4421M9euE
- eRJFMdK50cyQg9n7g2WKAqryqITmYko4Snd1ONNaLitU7BfVM6+CB3T6xDsJGgxDH0RjUh4W+Bl
- d8tyqRiyB2NeRal5u5G6rY7IPfsdRlOdPgb0ZOB2oI8pNnEQF+RD98Jx8MVY1nSNZeuPi7omp5d
- OTjXJ7iTZyZlWRa5H0A==
-X-Proofpoint-GUID: 6BTXeNGXiUPOhg7rAy9OB6Ewrr__-uJJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
- phishscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020039
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61D8110E06A;
+	Mon,  2 Nov 2026 10:06:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4238810E5D3;
+ Mon,  2 Nov 2026 10:06:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CD86D412B0;
+ Mon,  2 Nov 2026 10:06:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818581F00919;
+ Mon,  2 Nov 2026 10:06:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793614000;
+ bh=iWIYPIvIFLRtwn+uC5U/H7f0a4miSU2EbQLKMw69uWU=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=TDYHF9noC0GOvw2zO/WnRHKtxWHqKSfqnvpuKwhEGxyWrOYwKXMoe+pnHwyxmIVvo
+ 3Xxczhrr/U1/Wwl8oZzB2OD3cYINokvV4KnUEFh3sycHAovW6zpRI1DkEUfjRwmE+J
+ DyAKdhNTROEit1tLKmfdwH9wzSgnpXJNn5BMz9Tc6q+vNxT07k5tNuNg3bSwY/iXif
+ gJAraSiXPdTyJegZdadeJdV9pBpTSvzNHwxiTtyffHW8oae+SoubOAYZNFEmpvjtjx
+ f35Rj6FvsUtqQtPSu4C5TdD90FaxFKyzacT9U4Xy4u9p9iUbB8gpydzj//IFiypgC2
+ 5JyOY7s7RFEhg==
+Message-ID: <sashiko-outbox-193233@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/xe: Tear down kernel mappings in release_notify
+To: "Arvind Yadav" <arvind.yadav@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261102094529.785224-1-arvind.yadav@intel.com>
+References: <20261102094529.785224-1-arvind.yadav@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 10:06:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,49 +47,171 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Sat, Oct 31, 2026 at 11:30:55PM -0300, Fabricio Akio wrote:
-> CP_RB_WPTR tells the CP how far the ring has been filled. Two functions
-> write it: a5xx_flush(), after a submit is added to the ring, and
-> update_wptr(), which a5xx_preempt_trigger() calls from the IRQ handler
-> each time a submit completes, whenever there is more than one ring,
-> even when no ring switch follows. Both read the ring's wptr holding
-> ring->preempt_lock, but write the register after releasing it, so the
-> two writes can land in the wrong order:
-> 
->   CPU A, IRQ:   update_wptr() reads wptr N
->   CPU B, flush: a5xx_flush() reads wptr N+1, writes N+1
->   CPU A, IRQ:   update_wptr() writes N
-> 
-> CP_RB_WPTR then points behind the last submit. If the CP has already
-> read past N, it treats the ring as nearly full and executes the
-> commands left over from its previous pass through the ring. This shows
-> up as CP opcode errors, and the old submits write old fences, so the
-> fence in memptrs goes backwards. Recovery then finds no submit to
-> blame and does not reset the GPU, which stays hung until reboot.
-> 
-> Write the register before releasing the lock in both places, so the
-> last value written is always the newest, as a6xx_flush() does.
-> 
-> Fixes: b1fc2839d2f9 ("drm/msm: Implement preemption for A5XX targets")
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
-> ---
-> Tested on A508 (SDM630), with piglit's texelfetch tests run in
-> parallel: CP opcode errors in each of seven one-minute runs, the
-> seventh ending in a hang that never recovers; with this, none in 25.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/xe: missing kernel unmap when unplug eviction purges BO via tt=
+m_bo_pipeline_gutting()
+- [High] drm/xe: xe_bo_shrink() unmaps BO before waiting on reservation fen=
+ces or early-exit checks
+--
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # a530, a540
+commit 5f1d487383f2c8c07f8f671e579bb556db6a0d58
+Author: Arvind Yadav <arvind.yadav@intel.com>
 
+drm/xe: Tear down kernel mappings in release_notify
 
--- 
-With best wishes
-Dmitry
+This commit moves the final kernel BO unmap from xe_gem_object_free() to
+xe_ttm_bo_release_notify() so that TTM eviction cannot race with
+__xe_bo_vunmap(). It also calls xe_bo_vunmap() in xe_bo_shrink() under the =
+BO
+reservation lock before shrinking.
+
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index 42a6aa1a2e4a0..0793ed59a90a5 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -1454,6 +1454,10 @@ long xe_bo_shrink(struct ttm_operation_ctx *ctx, s=
+truct ttm_buffer_object *bo,
+>  	if (!xe_bo_eviction_valuable(bo, &place))
+>  		return -EBUSY;
+> =20
+> +	/* Shrinking can free pages without calling xe_bo_move_notify(). */
+> +	if (xe_bo_is_xe_bo(bo))
+> +		xe_bo_vunmap(xe_bo);
+
+[Severity: High]
+Does calling xe_bo_vunmap() here tear down bo->vmap before waiting on the
+BO's reservation fences and before the early-exit checks in xe_bo_shrink()?
+
+During xe_pt_update_ops_run(), if a VM_BIND batch has an operation that
+stages a page-table update on a page-table BO (for example clearing PTEs in
+op 0) and a subsequent operation in the same batch frees that page table (op
+1), xe_pt_commit() -> xe_pt_destroy() unpins pt->bo and drops its GEM
+refcount to zero via xe_bo_put_deferred() while deferring the final put on
+pt_job_ops->deferred until the asynchronous CPU bind job finishes:
+
+drivers/gpu/drm/xe/xe_pt.c:xe_pt_destroy() {
+	...
+	xe_bo_unpin(pt->bo);
+	xe_bo_put_deferred(pt->bo, deferred, &added);
+	...
+}
+
+While that asynchronous job is still waiting to run, kswapd can run the
+second pass of xe_shrinker_walk() with ctx->no_wait_gpu set to false. In th=
+at
+pass, ttm_bo_shrink_suitable() allows BOs with unsignaled fences into
+xe_bo_shrink(), relying on ttm_bo_wait_ctx() inside xe_bo_shrink_purge() or
+ttm_bo_shrink() to wait for the reservation fences before reclaiming the BO.
+
+Because xe_bo_vunmap() now runs before xe_bo_shrink_purge() calls
+ttm_bo_wait_ctx(), xe_bo_shrink() clears pt_bo->vmap while the CPU bind job
+is still in flight and then blocks in ttm_bo_wait_ctx() waiting for that jo=
+b.
+When run_pt_job() executes xe_cpu_bind_update_pgtables_execute(),
+update->pt_bo->vmap is already cleared, hitting the assertion and
+dereferencing a NULL mapping pointer in ops->clear():
+
+drivers/gpu/drm/xe/xe_cpu_bind.c:xe_cpu_bind_update_pgtables_execute() {
+	...
+			xe_assert(vm->xe, !iosys_map_is_null(&update->pt_bo->vmap));
+
+			if (pt_op->bind && !force_clear)
+				ops->populate(tile, &update->pt_bo->vmap,
+					      update);
+			else
+				ops->clear(vm, tile, &update->pt_bo->vmap,
+					   update);
+	...
+}
+
+In addition, for live unpinned BOs where xe_bo_get_unless_zero() succeeds,
+calling xe_bo_vunmap() at the top of xe_bo_shrink() unmaps bo->vmap even wh=
+en
+xe_bo_shrink() does not shrink the BO (such as when
+xe_pm_runtime_get_if_active() fails and jumps to out_unref, or when
+ttm_bo_shrink() returns -EBUSY during the non-writeback pass).
+
+> +
+>  	if (!xe_bo_is_xe_bo(bo) || !xe_bo_get_unless_zero(xe_bo))
+>  		return xe_bo_shrink_purge(ctx, bo, scanned);
+> =20
+> @@ -1866,6 +1870,12 @@ static void xe_ttm_bo_release_notify(struct ttm_bu=
+ffer_object *ttm_bo)
+>  	bo =3D ttm_to_xe_bo(ttm_bo);
+>  	xe_assert(xe_bo_device(bo), !(bo->created && kref_read(&ttm_bo->base.re=
+fcount)));
+> =20
+> +	/*
+> +	 * The TTM BO refcount is zero, so eviction and swapout cannot
+> +	 * take a reference. Unmap before TTM frees the backing store.
+> +	 */
+> +	__xe_bo_vunmap(bo);
+
+[Severity: High]
+Can an unplug eviction purge the BO's backing pages and resource before
+xe_ttm_bo_release_notify() runs __xe_bo_vunmap()?
+
+When a kernel-mapped BO is unpinned during teardown (for example via
+xe_bo_unpin_map_no_vm() or xe_pt_destroy()) and the device is unplugged
+(such as in xe_device_remove() -> drm_dev_unplug() ->
+xe_bo_pci_dev_remove_all() -> ttm_resource_manager_evict_all()), TTM can
+evict the BO while holding a ttm_buffer_object kref before the final TTM BO
+reference is dropped.
+
+During ttm_bo_evict(), xe_evict_flags() selects purge_placement when the
+device is unplugged:
+
+drivers/gpu/drm/xe/xe_bo.c:xe_evict_flags() {
+	...
+	if (device_unplugged && !tbo->base.dma_buf) {
+		*placement =3D purge_placement;
+		return;
+	}
+	...
+}
+
+Because purge_placement has num_placement =3D=3D 0, ttm_bo_evict() bypasses
+ttm_bo_handle_move_mem(), xe_bo_move(), and xe_bo_move_notify(), and instead
+calls ttm_bo_pipeline_gutting() directly:
+
+drivers/gpu/drm/ttm/ttm_bo.c:ttm_bo_evict() {
+	...
+	if (!placement.num_placement) {
+		ret =3D ttm_bo_wait_ctx(bo, ctx);
+		if (ret)
+			return ret;
+
+		/*
+		 * Since we've already synced, this frees backing store
+		 * immediately.
+		 */
+		return ttm_bo_pipeline_gutting(bo);
+	}
+	...
+}
+
+Since ttm_bo_wait_ctx() has just completed, ttm_bo_pipeline_gutting()
+immediately calls ttm_tt_unpopulate() and ttm_resource_free() while bo->vmap
+and bo->kmap are still active. When the last TTM BO reference is then dropp=
+ed
+and xe_ttm_bo_release_notify() calls __xe_bo_vunmap() -> ttm_bo_kunmap(), a
+single-page cached BO (ttm_bo_map_kmap) will call kunmap(map->page) on a
+struct page already freed by ttm_tt_unpopulate(), and multi-page vmap/iomap
+BOs retain a dangling mapping to freed pages or IO memory until
+release_notify runs. Should xe_evict_flags() also call xe_bo_vunmap() when
+selecting purge_placement for an Xe BO?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102094529.7852=
+24-1-arvind.yadav@intel.com?part=3D1
