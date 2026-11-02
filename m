@@ -2,148 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39385606C54B
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:19:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463386070381
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 15:19:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QuHoTSHU;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NMhiyRmh
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HiivqBNd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8318F10EFCE;
-	Mon,  2 Nov 2026 15:19:19 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2B9C10EFCF
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:19:08 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6A2DpVRx477173
- for <dri-devel@lists.freedesktop.org>; Mon, 2 Nov 2026 15:19:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=PdDU8m93RcW1fZwZqI8+6F0AE7NDrUTsi9z6BVOaBVA=; b=Qu
- HoTSHU79wtw3WxydbbwxFGBHTAmhokn4hj/ikHi7Hv3HQFNcTvWoFCfojIh38ymS
- zQ8U5z8sf64CySh/M3RJSfvI4clEO4bfDX7O7wL+RElTGYfrMtvZvR82HHx6f478
- gldXZu4hwzuEubkTr/mIWCQahbJNvu6cUbP8h86mQEHUS+nOL0OojO7QLfD6ZslL
- sdSfD8KLWrEwGxjRs/vg+J1dDCrgG6SRHxheP8Zk14JKTPRKpXKpr+Cf5fLPnh9L
- GZPZuOgytRJQg1D8+hWf7fHKkocPkZ6efMIKNAhW+VXdQdsPwThWspX0VSpNJpFl
- qEhr4xrbzxWfAOYmblow==
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
- [209.85.160.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpph19s6r-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 15:19:07 +0000 (GMT)
-Received: by mail-oa1-f71.google.com with SMTP id
- 586e51a60fabf-466d41a1d9aso3372368fac.0
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 07:19:07 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793632747; cv=none;
- d=google.com; s=arc-20260327;
- b=TluOgXa0+kxWTSQNarTLQl8liOuNQ6Ir1wkU4UBQlxaFTEAG6gthPlUkZEP2pWPZJX
- nVdyu3HgS6G81oUPr7YfPmkgdIYVGwI2JBdKrTlz7E92fP6kSeuMVklQ45++DuqHsQF3
- yJY25gRkJWUSoI9SDDgv8vS+Wc2fbaVGMFnwDho3TW26sXvVS5zhUV2jkoAiXpKqcCW0
- 6qnAdgq568NFbH2eMtrvpMbkVKpAn5XfGeh6SjeXPK+ueG290Vcz1Fl5dFKV2ctp5qdv
- sVeTKOu98ipw9fPfrurQl3eTVUT42iGyalEeIkpzJQAT3vzCwpoia/xlzo1PU0IXJSft
- 7a2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=PdDU8m93RcW1fZwZqI8+6F0AE7NDrUTsi9z6BVOaBVA=;
- fh=6d8X2VPF0vB7aaSJYwoMHNMlWqc3OwCXRB9cqR1OqIk=;
- b=exANI2FRurxyLEdw/DxXeKHLAVqYyghRK7S8XB2mzQrUenXO1DhvJeRhzseyiFSVYr
- c+UwIEics6OP4+IiXlceojb4mD8w1yd8eHmgREM1NuRBUlvfczCa+dpiGZLAtpwrlMHY
- /n7rDmrkaQqNhyZyc6UWSWEtirGZHVT2cGt5/o2tDVm+QaKFlyYaFyhpD2T/4zw/Dc9N
- mlXIiNuiiyvJb0RhZ9zeVNcoi6MZM6LfaXr1ZOTnoZrt+kxE8+PP5m62uOWAPjyMzNPg
- 5yuECKM1xIy3NfVigRgVSfhKhCnDMFV86thlkm303WPoP064fp5giuKpidnU5UQ7hLYS
- h1lw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1793632747; x=1794237547;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=PdDU8m93RcW1fZwZqI8+6F0AE7NDrUTsi9z6BVOaBVA=;
- b=NMhiyRmhma5SJxdss8oQCRtWY6hMoCAwXJhcBujaP9YUkDfUpsJuJEMmSAlSvdQqMY
- skBhMyUS9WPf6L8m39PD74VlpsbWjV36Hxb7pUIrdr1NSTPX9K4iDSk3ean2PSr6pK9P
- UwiCt/kM0L3DtZmvwuWHVFgEvU2x7WRRvhwxltMqHlqdZl9n/4szVC7Amc173B1680pK
- is1SSAe260UTQ5evAozx73tn3WrGy/HYsFtnomGV9eKZ3ju3eoh7WjvSEppCX9XXHZ0c
- X4V5YNYQJkpXVkHRzR+Oov1qxnWJKWhMlFWjyPRafvpSOmrAEz85otiEw2xRWlfj80Rf
- 2SoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793632747; x=1794237547;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=PdDU8m93RcW1fZwZqI8+6F0AE7NDrUTsi9z6BVOaBVA=;
- b=ifel2RQk551TtA76HpFaYLjnEvSFfktm7GixqHlzhX7guML2AicjHVc0qNoQlO98CW
- Swv7UrphzqeOIe8S/QuQapFe4DxpwTqJb02/G98glPGWCvfDFT72jnhJAzlHeF9s3vnR
- LA9wtvU97wCICTJoHSt08FRu1eyWW9iG5UcqNY73rnaJF0K1/8TfNKtoz1oSOwpaRiso
- Gsce1uldNYpIsVue6uDJ5eUd5YBS+X80ijbj+YfjMU7YNSWiN6CzCw5swtxQL0DbZwkb
- fCRX5unjnJelRbHoC1Eq8dhuMYA1mlI4578yseJtoI0Kf9cJkHK4T5BDn2JrJH6GJCz7
- fySQ==
-X-Gm-Message-State: AFq9FYI0KJXfhv0WPW0faS57NrmJFB5SJIx6ICLmApLiSJSogtDfhQ1q
- h/Jd/OEi/paX95T+j3J7kvDHvcyjaxvYLSj3gKWqrUey9IgiQtI8/d5aE6o+q9NTIbl056F3A9B
- 0wbFRpiugGqWEN/ZiOXxR6eW4euJISPbFwzhlso0ooHMZPWxyjnM+l36aBUcWZiQtbhe8Z4LRFw
- zVtJ5Fbq722cZFrSK1RhOZx1wmKcqexmdG5crwTBKRdhkX3A==
-X-Gm-Gg: AYBFou0W77pc3FKAuJepHc7n7eqR7iBDFMJCqwSdrcrWkMIikJJ3uoJZ9PS5ZUN8vxi
- oiUxyIgT5g7+6E2dnaVy5hUeu/Md+j8lBe2fhIVLngrl/OKTCXCWTMTVkHhyUA6gGCjR75DPnE9
- srGFFFIKx3ozT6TaQXe3jrvNnUDxM3hFSM3kYVPOGKdktZnFDOhS59N86eBQ==
-X-Received: by 2002:a05:6870:31a2:b0:4a7:4730:affa with SMTP id
- 586e51a60fabf-4a907691617mr6816485fac.24.1793632746903; 
- Mon, 02 Nov 2026 07:19:06 -0800 (PST)
-X-Received: by 2002:a05:6870:31a2:b0:4a7:4730:affa with SMTP id
- 586e51a60fabf-4a907691617mr6816446fac.24.1793632746294; Mon, 02 Nov 2026
- 07:19:06 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F6810EFD0;
+	Mon,  2 Nov 2026 15:19:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5278410EFD0
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 15:19:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1B6DA40700;
+ Mon,  2 Nov 2026 15:19:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C54621F00A16;
+ Mon,  2 Nov 2026 15:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793632767;
+ bh=Oc8DmgxGioqkR/9qk3a4pltP7ArAEGeuKF7qww97tvM=;
+ h=From:Subject:Date:In-Reply-To:References:To:Cc;
+ b=HiivqBNdbktMB3jIR2AZpFD8s6Tn7iHfe8kJ0WslNzaoAQW5kc7o0gRDBArnpxDsS
+ CtfL51KKLRBSwt+j3D7V1//ejI98V61eo5T0NlexRsUi5c8pC1GbUMNrvk4YIwh8E5
+ 2lhDypmE88DBG1tieFL1FjjkiAc9DS68lntunq5HpGVUJiZJWOvuGdSub19BrAbLty
+ mrA/DenKQtkX+TIPLm37CWzKJ4S67BQQ5VCO1dvBtJzcV1DDF470qP/7oLpQMpdRK1
+ T/4sZq0Faz7QcfBjhDQAlwLqisGwJC3D3nAo8pdpGdJQsFprczR6CHYKoPi6OQI8eX
+ km5AalwrjwlXw==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH RFC 00/27] proc: convert the fs, kernel and mm entries
+Date: Mon, 02 Nov 2026 16:07:10 +0100
+Message-Id: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261101174911.25184-1-robin.clark@oss.qualcomm.com>
- <20261101174911.25184-2-robin.clark@oss.qualcomm.com>
- <90ae1b4e-d83e-4209-9df1-7ebf778a881a@oss.qualcomm.com>
- <CACSVV012ncykN3PnXnuP+-tK51r4kJ4BUfiThcjV2JYvn_jXwQ@mail.gmail.com>
-In-Reply-To: <CACSVV012ncykN3PnXnuP+-tK51r4kJ4BUfiThcjV2JYvn_jXwQ@mail.gmail.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 07:18:55 -0800
-X-Gm-Features: AclHuK8f43_19qDcy0p2s8OAyXrGV6vF3SunCYGHH5JIns_9PiJHYiC99rZWaqw
-Message-ID: <CACSVV01=19OWZ4i1Bc-j8m8u0+5jtfOgqPU-VfkLUQUQ_oVdmg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/msm/gem: Fix VM_BIND range check
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: 8gH_xozur_rnK24wbW-U9FLK-gtmx48D
-X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6ae8a9eb cx=c_pps
- a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=q-aMyWzK8yv6Tw-4Un0A:9
- a=QEXdDO2ut3YA:10 a=vh23qwtRXIYOdz9xvnmn:22
-X-Proofpoint-ORIG-GUID: 8gH_xozur_rnK24wbW-U9FLK-gtmx48D
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX9QLZ4kY7EHmx
- q1Ybh2p/rtZJOv1SXrmeopt6kgjqpA0efUZzrivsogTK73P4TPUGeWL8h0Zq+NqN+fNJnMEVTZo
- 0bIUX0zudl9pvA3gSjJBdyI8V2MnWx6ysvN2oqiS5/MwjRyotLyoU11Zx8oAbcCxCkU8nAM0MbC
- gxi6zO8HKCvJDvpF1FFCfFx9m1sRrdKjDuRLI7Tp8zxa1/OezldKHGvyenWuBkhHjJr9pEXqjjv
- JGOtk0EuvcxMRu839pH8hOOg2BeNodGq1h+5MwF+oWGBx4kn1Bi5BnUmO4Oi/f4BlaxPT8tEbLU
- UWA66rlG8RX8iOwzi3Xf0k81D22Kr5ETS6r7Hdsv4yGr/1l1QWjXBMBNci9X5cGw1k0+2opgtSB
- CiCGQ9fPrE1keBf+A4rpak9SjZlD39Z5M1IHgQ3XJzDkkpAAD/Y+909uCANz47V21XxIlnGx+Vj
- Z7KoenAjsbh7tZRQo/A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX5Yt0BL2wCJmB
- yYo3D8Hn4i6SdctvZpdvn0gocc+25QNYkaR5gjTWTc3GubB/vxMQNQ0Rc5jlqmPOD0D0N4m9Rh5
- mD0FZSsoqIZP1N96Ib6Qj3cj/pe/8WA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- spamscore=0 impostorscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020060
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OwU7DMAyGX6XymUxNmnVpr0g8AFe0Q+LYLKA1w
+ +kK0rR3J2XTTki+/L/sz98FCkmiAmNzAaEllZSnGvRTA3jw0zupFGsG05pe61ar7yyf6iQZuag
+ 6VvPAEa0bMEA9Oglx+vkDvsHryzPsb2U5hw/CeUWta8EXUkH8hIe1WqGbG3QTJS0k5Q4T+jpXq
+ flOfDiNzb9GmIWUY2+9ZasN8rjoxz/Mx2Oax6bfBu+4s4TO9YQ7Ewy2uxjRIXfR6S12xvVDhP3
+ 1+gsC/z1/IQEAAA==
+X-Change-ID: 20261101-work-procfs-fs-41f9fdc489cb
+In-Reply-To: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
+References: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8569; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=6lMrJQN91rnuCiXg2l4F0Y5JeubSe/EgzAgxv51kRnM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG7I7/625f3h7Cqd5DNl2xf/OvlHY0/nxX2OC1eoq
+ c38/udvX0cpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBECo0Z/goyKdd8SMi1Y43f
+ /3aj6Iub5itcN6opMgkcrnwpe3DK1hMM//Q+yfyds/PFlb03GAyP//g85/4Pr0O5e65Xx839JOd
+ xK5QZAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,52 +94,154 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 2, 2026 at 5:59=E2=80=AFAM Rob Clark <rob.clark@oss.qualcomm.co=
-m> wrote:
->
-> On Mon, Nov 2, 2026 at 1:40=E2=80=AFAM Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
-> >
-> > On 11/1/26 6:49 PM, Rob Clark wrote:
-> > > Use size_add() to guard against overflow.
-> > >
-> > > Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > > Fixes: 3a3bef68a6c1 ("drm/msm: Fix missing VM_BIND offset/range valid=
-ation")
-> > > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> > > ---
-> > >  drivers/gpu/drm/msm/msm_gem_vma.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/=
-msm_gem_vma.c
-> > > index f687a629629d..16b3870d5e90 100644
-> > > --- a/drivers/gpu/drm/msm/msm_gem_vma.c
-> > > +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-> > > @@ -1118,7 +1118,7 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *=
-job, struct drm_msm_vm_bind *args
-> > >               op->obj =3D obj;
-> > >               cnt++;
-> > >
-> > > -             if ((op->range + op->obj_offset) > obj->size) {
-> > > +             if (size_add(op->range, op->obj_offset) > obj->size) {
-> >
-> > GPT and Sashiko are unhappy about what this does on 32b
->
-> Considering that we can't have >4gb BOs on 32b, I think the concerns
-> are probably unwarranted.  But yes, I do look at Sashiko's reports
+This converts the proc entries of jbd2, jfs, lockd, nfsd, ntfs3 and
+cifs, the irq affinity files, latencytop, lockdep, /proc/profile,
+/proc/pressure, kallsyms, /proc/modules, dynamic_debug, sysvipc,
+allocinfo, /proc/swaps and /proc/config.gz to what "proc: let procfs
+own the data path" set up: procfs owns the seq_file, copies in writes,
+copies out reads and copies ioctl arguments in and out, so the entries'
+code only ever runs with the entry pinned and never touches userspace
+memory.
 
-Probably we should add checks that obj_offset/range are not more than SIZE_=
-MAX?
+One patch per subsystem and method, in the order seq_file, write, read,
+ioctl. Where a write that is larger than anything the entry parses now
+fails with -EINVAL from procfs I've called that out in the commit.
+/proc/profile and /proc/pressure/* are never removed and are marked
+permanent, procfs calls into them without pinning. readprofile reads
+all of /proc/profile in one go, so it keeps reading straight into
+userspace. /proc/config.gz asks for PROC_ENTRY_FULL_READS so that
+reading all of it at once keeps working.
 
-BR,
--R
+The selftest unloads configs.ko while a reader of /proc/config.gz
+faults in procfs' copy to userspace. On a KASAN and lockdep kernel it
+fails without the series and passes with it. Build tested per commit on
+x86_64 and with W=1 on the touched objects. The proc and allocinfo
+selftests behave the same with and without the series and so do the
+entries I could get at in a VM.
+
+This is on top of "proc: let procfs own the data path". The other three
+conversion series don't depend on it and it doesn't depend on them.
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (27):
+      jbd2: let procfs own the seq_file of the info file
+      jfs: let procfs copy in writes to the loglevel file
+      lockd: let procfs copy in writes to nlm_end_grace
+      lockd: let procfs copy out reads of nlm_end_grace
+      nfsd: factor out setting up the exports seq_file
+      nfsd: let procfs own the seq_file of /proc/fs/nfs/exports
+      ntfs3: let procfs copy in writes to the label file
+      smb: client: let procfs own the seq_file of the smbdirect files
+      smb: client: let procfs copy in writes
+      genirq/proc: let procfs copy in the affinity masks
+      latencytop: let procfs copy in writes to /proc/latency_stats
+      locking/lockdep: let procfs own the seq_file of /proc/lock_stat
+      locking/lockdep: let procfs copy in writes to /proc/lock_stat
+      profiling: let procfs copy in writes to /proc/profile
+      profiling: mark /proc/profile permanent
+      sched/psi: let procfs own the seq_file of the pressure files
+      sched/psi: let procfs copy in trigger writes
+      sched/psi: mark the pressure files permanent
+      kallsyms: let procfs own the seq_file of /proc/kallsyms
+      module: procfs: let procfs own the seq_file of /proc/modules
+      dyndbg: let procfs copy in writes to /proc/dynamic_debug/control
+      ipc: let procfs own the seq_file of the sysvipc files
+      alloc_tag: let procfs own the seq_file of /proc/allocinfo
+      alloc_tag: let procfs copy the ioctl arguments of /proc/allocinfo
+      mm/swapfile: let procfs own the seq_file of /proc/swaps
+      kernel/configs: let procfs copy out reads of /proc/config.gz
+      selftests/proc: check that unloading configs doesn't wait for a reader
+
+ fs/jbd2/journal.c                                  |  33 ++---
+ fs/jfs/jfs_debug.c                                 |  11 +-
+ fs/lockd/procfs.c                                  |  19 +--
+ fs/nfsd/nfsctl.c                                   |  41 ++++--
+ fs/ntfs3/super.c                                   |  27 ++--
+ fs/smb/client/cifs_debug.c                         |  71 ++++------
+ fs/smb/client/dfs_cache.c                          |  13 +-
+ ipc/util.c                                         |  14 +-
+ kernel/configs.c                                   |   7 +-
+ kernel/irq/proc.c                                  |  27 ++--
+ kernel/kallsyms.c                                  |  12 +-
+ kernel/latencytop.c                                |   5 +-
+ kernel/locking/lockdep_proc.c                      |  60 ++++----
+ kernel/module/procfs.c                             |  19 +--
+ kernel/profile.c                                   |  11 +-
+ kernel/sched/psi.c                                 |  82 ++++-------
+ lib/dynamic_debug.c                                |  34 +++--
+ mm/alloc_tag.c                                     |  75 ++++------
+ mm/swapfile.c                                      |  13 +-
+ tools/testing/selftests/proc/.gitignore            |   1 +
+ tools/testing/selftests/proc/Makefile              |   1 +
+ tools/testing/selftests/proc/config                |   4 +
+ .../proc/proc-remove-slow-config-reader.c          | 157 +++++++++++++++++++++
+ 23 files changed, 400 insertions(+), 337 deletions(-)
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+change-id: 20261101-work-procfs-fs-41f9fdc489cb
+prerequisite-change-id: 20261101-work-procfs-core-8fa4a4f412cf:v1
+prerequisite-patch-id: 0474af12959624910718795bf86684383664c685
+prerequisite-patch-id: 540aa9ea28adcbc54d8264f66314e29e3b8c9d49
+prerequisite-patch-id: 2f7139d1c972c4439dccca610caa5f1288987a3d
+prerequisite-patch-id: b0031a7c4855b7ec38259c59f30f65101a8fc4b5
+prerequisite-patch-id: 0b7f226abf2b9ff41873a1aa55cf97747647d56b
+prerequisite-patch-id: f63e345f897619af54813958046617c655fb7daf
+prerequisite-patch-id: c0e21e762a2960e3324c5ab04634a7035e515fa6
+prerequisite-patch-id: fd59c71eadd8f39c58b3baea93567bc093bc9b0e
+prerequisite-patch-id: 5d52cc8a5c73e4c5ba16b8e24f51408c17583bf9
+prerequisite-patch-id: 1f9179284e2f3314d4b46ac5e989089a21c7576c
+prerequisite-patch-id: 10397bbf696bee16dc71eb79fff6c5e73842bcbc
+prerequisite-patch-id: 9b44279dcf08912238d2f6438a3328a778a79a0c
+prerequisite-patch-id: 16854b621a3a71dfc365aaf7abaa7f65adfe9f7e
+prerequisite-patch-id: ca42eea21fae1fd1cd3518ab057c74b61ffd68fe
+prerequisite-patch-id: 23255dc2be76b0479c083dbd4c897bfbb533aed5
+prerequisite-patch-id: 82129c687ebf0a41b369893b92f2c038420ab801
+prerequisite-patch-id: 56ad57a99a5bda075a9f4e844368974296744934
+prerequisite-patch-id: 288b3cbaa11e01a778cc3d7beb6c0549aacf59f2
+prerequisite-patch-id: a163b1549608652bfa5bd9ff93efa55b541010c4
+prerequisite-patch-id: 78f067c343177e52d49ddfe9ee2992e602549869
+prerequisite-patch-id: 19c12bc6e3fbed35acc1f657196b1a997f48cdfe
+prerequisite-patch-id: 5800c3076694bad719954b2ad4d7448c6e013bfd
+prerequisite-patch-id: 2a2f63d8843b159594b9eee6ddea028ce76a6270
+prerequisite-patch-id: 40a1951d57906c4a1b98a4bd96a814b80339b9c5
+prerequisite-patch-id: e2141077e69f20a2b27fab69c8d61d0686682f53
+prerequisite-patch-id: c4d6018c26c40dc549d88330d23ce48f872c2b7f
+prerequisite-patch-id: 6de8ec17746031bc6d1d9ac262c5be0f905fcd79
+prerequisite-patch-id: b87bcb167884605bff1fd0f2ed8a88942d07efd5
+prerequisite-patch-id: cfa9a8b4c67e20cfd22d77035bfd21ee96ab3298
+prerequisite-patch-id: abf3482ed2399b7b2e1ee72e937af05bb9200667
+prerequisite-patch-id: 02c175b2dee565a85b3308ecf2ec8e3c9a029e0f
+prerequisite-patch-id: 4ed6b3d3d45de49d4967e88ba4e7f03372775f55
+prerequisite-patch-id: dbe02fe3f784776fda5e7ae99f077bef0cd4b48d
+prerequisite-patch-id: 53edc9a95afff57c4acba40095a8054924261ea2
+prerequisite-patch-id: cf9ce0099005fd3bc31a1e15131d48e315ac3bee
+prerequisite-patch-id: 16a657a5d0046068dbace29e7ea046ac1441f46f
+prerequisite-patch-id: efeb2d6f7df71d5dede2c1d12fe999a28e38aab9
+prerequisite-patch-id: e6ffe2a5c3ee5645f56c8366b568fbc9f140848c
+prerequisite-patch-id: 117db27dcdef433de7c6be5e95973cac1e373927
+prerequisite-patch-id: a0844aa26ffb65ccb362b88ef6c2f4758e15edbf
+prerequisite-patch-id: 143fb91bddf33068b6ee11e205818c4c2815e23d
+prerequisite-patch-id: 6490e4da1cb2f543683bd164bc9a5a1c943057e7
+prerequisite-patch-id: cdefca57d3c552fb6f6b928699edd85f33be25fd
+prerequisite-patch-id: 2f0fdb970ddd760d85ff5d2caad0b96348270182
+prerequisite-patch-id: f2aa468ff5cbb1cabab3f70e1b8eeee0286cfb4a
+prerequisite-patch-id: 037030d95eeb7c49b1e43f638ec954f2cebbcfb1
+prerequisite-patch-id: 487141c49e2548310bfb6c2a0964a78f08b285a9
+prerequisite-patch-id: c3d3008819fa5629a18142ec9ba6d7024ade7fdb
+prerequisite-patch-id: ba15e7c86b60ccc2f0f7ee4c9bc99073068757bc
+prerequisite-patch-id: 9423f410b99853693db06c29f12f1c08278b050d
+prerequisite-patch-id: 4e7966978e4b11c4d843831f312cdcd5b848f00c
+prerequisite-patch-id: 3d24be1897a624d519ef144801f76d152c7528a9
+prerequisite-patch-id: 3b4d9fe7b26f6b7b9b3f7725ea333df357107c44
+prerequisite-patch-id: 7d9dd345428baeb88c862ef902612f7160dc1d8c
+
