@@ -2,40 +2,38 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A125606A32D
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA253606A33B
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 10:55:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Heh2dHHA
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Thnqe7Pd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33D8D10ECF3;
-	Mon,  2 Nov 2026 10:55:08 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BB3810E609
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5B610ECF4;
+	Mon,  2 Nov 2026 10:55:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE1710ECF0
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 10:55:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 643ED43D7E;
- Mon,  2 Nov 2026 10:55:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36731F00A1C;
- Mon,  2 Nov 2026 10:54:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9771A6110F;
+ Mon,  2 Nov 2026 10:55:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3831F00A1B;
+ Mon,  2 Nov 2026 10:55:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793616901;
- bh=UvuKznDDisWzpXJVj1vFfyQGluqPP7ZnNuIADfdvL1w=;
+ s=k20260515; t=1793616904;
+ bh=lUIbwahwAMRQLzx+KlFvcws6g6RsvoBUBmMGB7qssW0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Heh2dHHAEvcV3QenFMWZTt6kM0t6urxfM1SScVB7aD2B3BdLsP989ZiHK2pNimAAA
- 70ZuAp/FscS2VGdcdWoU4Y9gZY6VXSP6d+wwLJMpyIN82x6Nu7wrrPWN3ic5nnHlP2
- 8oMkyYeVKKR28zZuCGKmkh40fcfCl99BqM7HZBwOmaYqe0XyElsUGz24pQmdvV7G2L
- jIjTk+uTcF2L4dGsTewGWFDQ8mksSRT5DTdN+xaH21c+045L6reWlmXcGmmxEAfVue
- 1HbBc2dqYmAxmfguku60QHDLHW7E5QrDnOMmDDEusy2pEdvKBV5zhTZZdCA8itMVKh
- kbzaV4xNpcyKQ==
+ b=Thnqe7PdkXVqPwEsthV5xhNYKyrNS/uhFhWWxFEg5jLMpkPhtfkv4kAtrRg45oHjZ
+ I0WSgwf7FK+GJJzt63gVoF7yobmku4CIEoWP0ugyvvJyYwGUY7jlMvYWfrJ9o5sk/L
+ GBofLi37su9pR5gqmOh7bxeh6blK4648hxnl//jO3yvoVGclCmJKs0MNUbDLNzaPMw
+ S9nGG+YnL6+fGUiPFtL1O1zGctd1gIteGb9wMQiXZYTk+IKfH3pU/SaJXKsope0pXh
+ Td5O+lCTvIbvngFPofbU8kzGNDhpkIVG9V5/sHsV5N/2ZQoTKOa95UObo6kr1Nq0rO
+ KAq8/3+R0EMtQ==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil+cisco@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH 03/13] gpu: drm: omapdrm: call cec_s_phys_addr only if EDID is
- present
-Date: Mon,  2 Nov 2026 11:36:54 +0100
-Message-ID: <d58e8dbe49a0af87e2e98463d620e33a8115c109.1793615824.git.hverkuil+cisco@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: [PATCH 05/13] media: cec: extron-da-hd-4k-plus: call cec_s_phys_addr
+ only if EDID is present
+Date: Mon,  2 Nov 2026 11:36:56 +0100
+Message-ID: <82d1f51d30ddccac1cda598e2873e49063801b9e.1793615824.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
@@ -66,84 +64,30 @@ call cec_phys_addr_invalidate. This helps the CEC framework differentiate
 between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an EDID without
 a Physical Address.
 
-This driver is one of the few that was doing this inconsistently.
-
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/omapdrm/dss/hdmi4.c     | 7 +++----
- drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c | 5 +++++
- drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h | 5 +++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ .../cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-index bd6c4d2dcdc8..056bede2ec8a 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-@@ -439,7 +439,7 @@ static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
- 		if (hdmi_runtime_get(hdmi))
- 			return;
- 
--		hdmi4_cec_set_phys_addr(&hdmi->core, CEC_PHYS_ADDR_INVALID);
-+		hdmi4_cec_phys_addr_invalidate(&hdmi->core);
- 		hdmi_runtime_put(hdmi);
+diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+index 1f8ed7ff31e5..0a0724fd89c0 100644
+--- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
++++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+@@ -643,8 +643,12 @@ static void extron_irq_work_handler(struct work_struct *work)
+ 			extron_read_edid(port);
+ 		}
  	}
- }
-@@ -487,12 +487,11 @@ static const struct drm_edid *hdmi4_bridge_edid_read(struct drm_bridge *bridge,
- 		unsigned int len = (edid->extensions + 1) * EDID_LENGTH;
- 
- 		cec_addr = cec_get_edid_phys_addr((u8 *)edid, len, NULL);
-+		hdmi4_cec_set_phys_addr(&hdmi->core, cec_addr);
- 	} else {
--		cec_addr = CEC_PHYS_ADDR_INVALID;
-+		hdmi4_cec_phys_addr_invalidate(&hdmi->core);
- 	}
- 
--	hdmi4_cec_set_phys_addr(&hdmi->core, cec_addr);
--
- 	if (need_enable)
- 		hdmi4_core_disable(&hdmi->core);
- 
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c
-index 852987e67e40..60d0d85dccad 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c
-@@ -322,6 +322,11 @@ void hdmi4_cec_set_phys_addr(struct hdmi_core_data *core, u16 pa)
- 	cec_s_phys_addr(core->adap, pa, false);
+-	if (update_pa)
+-		cec_s_phys_addr(port->adap, pa, false);
++	if (update_pa) {
++		if (has_edid)
++			cec_s_phys_addr(port->adap, pa, false);
++		else
++			cec_phys_addr_invalidate(port->adap);
++	}
  }
  
-+void hdmi4_cec_phys_addr_invalidate(struct hdmi_core_data *core)
-+{
-+	cec_phys_addr_invalidate(core->adap);
-+}
-+
- int hdmi4_cec_init(struct platform_device *pdev, struct hdmi_core_data *core,
- 		  struct hdmi_wp_data *wp)
- {
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h
-index 1ca5b5ca8a99..234690dd3a1e 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h
-@@ -15,6 +15,7 @@ struct platform_device;
- /* HDMI CEC funcs */
- #ifdef CONFIG_OMAP4_DSS_HDMI_CEC
- void hdmi4_cec_set_phys_addr(struct hdmi_core_data *core, u16 pa);
-+void hdmi4_cec_phys_addr_invalidate(struct hdmi_core_data *core);
- void hdmi4_cec_irq(struct hdmi_core_data *core);
- int hdmi4_cec_init(struct platform_device *pdev, struct hdmi_core_data *core,
- 		  struct hdmi_wp_data *wp);
-@@ -24,6 +25,10 @@ static inline void hdmi4_cec_set_phys_addr(struct hdmi_core_data *core, u16 pa)
- {
- }
- 
-+static inline void hdmi4_cec_phys_addr_invalidate(struct hdmi_core_data *core)
-+{
-+}
-+
- static inline void hdmi4_cec_irq(struct hdmi_core_data *core)
- {
- }
+ static void extron_process_received(struct extron_port *port, const char *data)
 -- 
 2.53.0
 
