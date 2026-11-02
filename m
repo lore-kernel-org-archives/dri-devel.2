@@ -2,68 +2,114 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC87606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 12:46:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C97606A324
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 13:01:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SbNKTvTd
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=C2RSun9v
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8297310EDCD;
-	Mon,  2 Nov 2026 12:46:50 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3027210ED9A;
- Mon,  2 Nov 2026 12:46:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793623604; x=1825159604;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=ME0095WuKQv8ZFeSMelPcUgrO+NfNTGYWmdhK5ZwVfU=;
- b=SbNKTvTdyL30oCiWZyjXVSRp4Y0++OBBFdOzZNhtfmnpCowhTqZbQ+ER
- e5copQJmIlMoGgWhgdT1HKa7Df+UNfgcISYyOLq6kHPpkXOdT6xG5AWqo
- RUetGtqj3YdMV8S7As7zjyAqQINTN/8GJ0McxFHa6g6t7D2yrVLqd6GoN
- ToSHwL1JMq2Q3qrPfstF54AkLH0O/9Atf1Rr5Vlg0H7+1ki0NtxGSuvFR
- Osjmln6T/89qPQW+koPZpWmSWdrRuY5zwdvmhPSHnwvBVSeK5pqjeb7Jv
- nFttznNSWzATQH3dLTers1fYBbyGQjybznCuIWMonm3h4BD1j4vZR6JX+ g==;
-X-CSE-ConnectionGUID: YAuECQGBQem2IpxOtUZPrA==
-X-CSE-MsgGUID: dIgAi28VRPa1AVZHujIEyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2193611"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2193611"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 04:46:44 -0800
-X-CSE-ConnectionGUID: mZ7dLPF2RRC/4w3cc87J1Q==
-X-CSE-MsgGUID: rFcyC7IFS9SYidhBKp5+Fg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6446529"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.237])
- ([10.245.244.237])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 04:46:41 -0800
-Message-ID: <9aaff638454782d9719c1d62391391f35f44affc.camel@linux.intel.com>
-Subject: Re: [RFC 1/7] drm/ttm/pool: Add ttm_pool_alloc_node() for
- caller-selected NUMA node
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Himal
- Prasad Ghimiray <himal.prasad.ghimiray@intel.com>, Huang Rui
- <ray.huang@amd.com>, Rodrigo Vivi	 <rodrigo.vivi@intel.com>, Natalie Vock
- <natalie.vock@gmx.de>, "Paneer Selvam, Arunpravin"
- <Arunpravin.PaneerSelvam@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>, Matthew Brost
- <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org
-Date: Mon, 02 Nov 2026 13:46:38 +0100
-In-Reply-To: <8c2b893a-b666-4678-88f0-4e6b33142e1a@amd.com>
-References: <20261102101803.455921-9-himal.prasad.ghimiray@intel.com>
- <20261102101803.455921-10-himal.prasad.ghimiray@intel.com>
- <8c2b893a-b666-4678-88f0-4e6b33142e1a@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB36510EDFC;
+	Mon,  2 Nov 2026 13:01:07 +0000 (UTC)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDE3210EDFC
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 13:01:00 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-48c4be28b82so3135622f8f.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 05:01:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1793624459; x=1794229259; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=j29pNpi9lCEApLMieivEV71xbUHKc75TmajW4Oe43v4=;
+ b=C2RSun9vzgV8Klio1ooDzfMrPcI9XrBGH4ll5yQA54erE5LJRFYQKhUKtIACsEcFeV
+ r3fYQboVAIg9+TCq4BW9F8jAD1HZHPBwLisN43GPmPOs79uqaZVkYElF3bxRt74KL3Xl
+ QAZzvoucKHemNaORGTg9z6rI0vc3/t0MCElJzB5zsmCXtKdv7heqc75WHIf9KUzQG2+u
+ sHfnk9pWHsj97M2v4jRP4TQZwpQ1B2N2/e6Ndxpq0zxdDmk5lqXMT/E2IEECJslBbZca
+ 7euI30PKJic9upeF/aKwHybu1WW6YGdcvj/KWHRQeBm2VMkYB33GcYDwCtOeO7CSUS4O
+ iMAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793624459; x=1794229259;
+ h=content-transfer-encoding:content-type:in-reply-to:organization
+ :autocrypt:content-language:references:cc:to:subject:reply-to:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=j29pNpi9lCEApLMieivEV71xbUHKc75TmajW4Oe43v4=;
+ b=duWIdJLNps8in7wpfBWFZw2g+EnOThwb6ERbot9oBMR1h0dKfqkaVHiaIzL2H0bFSy
+ 8mqio2KCqNLg/qgvC4cfk5LL4AN86RV2N2SkyywHX0fIsehBiuwiQBY3gw6LUFD4FSeU
+ lgMKwU/kGIT52JXTcUeKlahiBgTPL/nDhn3BMKHwJU3g5z4nA1lL3GVVSNJ5m/0iZN2s
+ tEKRwWi7mqEpts0XXGmwn+vDuUu+KZPH/PRvyJjmp8WvMWKftmq+cTFYNVLgC70Z4AUR
+ 1V172PYalqhvluROCpgENH7XFnm2HVxcGD0WqBd/7zMqJTxKwe2LHItIuZ8en0YWr9qA
+ 358w==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBzJqiZ+JmwCHPs8A/v0bNkCIM0mEOeFTvgEcefftlbEtKP4g3LNcv5lZAfObPApCPDxseMR2IS/bE4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8EXPw6FdqzWaOEuxqn3dBghNLixvSQDhnM6BPqBK79gxckGSVd
+ Q2mcXC0cjzcQ6OvXv7mouTsroxlodMDtAjwoz71ck25G5Rs2/ffW4skgczHDaTBFxEg=
+X-Gm-Gg: AYBFou3XA6l4CwdB/2udqLRuodF3GXULNV80o4v1dNYgwH8agsEcShFvUGMzAvKdIfS
+ YB0awncngfri+ESAdF23NS31H83ljL+RZwaknprQpjtSMiOC+R40LAKJqc3HHC0g/yynhc7faNm
+ P+hDSlLZ3gctlnDhfeR9vHHy+IzyujPj/pKyDcMAyIdz0w1fQ+P82SKr9mTyMMFyY2lWg+oimJW
+ xiYQwmern6V0RQ8DXpFvU49LSPosBYFt9tD9ofby6pXFq1bvr8ZgJCYBkZ/zk5PO+1cZbMQOMa3
+ I1Rds0QGw2NO4brWSzSRx5yN7YvZjnmhSgI1X+GykbYcnpmAx6O2++3pPMGxYhCIQaN20kmvgVN
+ 3JkSeRImUcVuXX2x5MktPATz1VJAwEQ3Lc/hy9Ymu10FnvQ9FUUpAyrKZEwMsuSLiA1pk18gaAH
+ +2q2645oMSOG9idSPjQRJ/zzklnSZUsBlbQKCUfDOekiPqZvCogIC0szaTnLaS5+4kdpIb+/YTT
+ Vq9qZ5G8ZbxvYk5Lm5TDda7a0yH5Ega+ojsvlHrGDJKgkTuPQhlAgYYV2yPXwjbe1D2tAuJqrPF
+ cvtgU+ThnIV1tER9CEmIcKDVTyjIhWdWAICkvndDL+DwcOHpYFSI3kmovHQ3Ia7OLvxjUGBoXmM
+ n6bSDYyXQ2Qo/i1E1AyXDJzgmkMM=
+X-Received: by 2002:a05:6000:2610:b0:48e:4561:8a17 with SMTP id
+ ffacd0b85a97d-48e6e303ea6mr20567690f8f.16.1793624458807; 
+ Mon, 02 Nov 2026 05:00:58 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262?
+ ([2a01:e0a:106d:1080:9476:5165:3a16:262])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e71b789ecsm19170893f8f.29.2026.11.02.05.00.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Nov 2026 05:00:58 -0800 (PST)
+Message-ID: <e0599f9d-c282-4b63-9e17-3a00564766dd@linaro.org>
+Date: Mon, 2 Nov 2026 14:00:57 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH v2 1/5] drm/panel: feiyang-fy07024di26a30d: Fix prepare
+ error cleanup
+To: Hsieh Hung-En <hungen3108@gmail.com>, dianders@chromium.org,
+ jesszhan0024@gmail.com
+Cc: jagan@amarulasolutions.com, osama.abdelkader@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+References: <20261102043215.990351-1-hungen3108@gmail.com>
+ <20261102043215.990351-2-hungen3108@gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261102043215.990351-2-hungen3108@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,222 +120,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-17.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi, Christian,
+On 11/2/26 05:32, Hsieh Hung-En wrote:
+> feiyang_prepare() returns without disabling previously enabled
+> regulators if enabling AVDD or writing DCS commands fails. Since
+> drm_panel_prepare() does not mark the panel as prepared on failure,
+> drm_panel_unprepare() does not call the driver's unprepare() callback,
+> leaving regulator enable counts elevated even after subsequent
+> successful prepare/unprepare cycles.
+> 
+> Disable DVDD if enabling AVDD fails. On a DCS write failure, restore
+> the reset GPIO to its unprepared state and disable both regulators,
+> preserving the existing 10 ms power-off interval between AVDD and DVDD.
+> 
+> Fixes: 69dc678abc2b ("drm/panel: Add Feiyang FY07024DI26A30-D MIPI-DSI LCD panel")
+> Reported-by: Douglas Anderson <dianders@chromium.org>
+> Closes: https://lore.kernel.org/r/CAD=FV=Xm48DUT==8HuuGCSFZtLTEk-W2Q6UTfqt-MnM4nULzTw@mail.gmail.com
+> Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
+> ---
+> 
+> Notes:
+>      Power sequencing note:
+>      
+>      The error path retains the 10 ms AVDD-to-DVDD shutdown interval
+>      used by unprepare().
+>      
+>      The FY07024DI26A30-D datasheet, Section 7.3 (Power, Signal sequence),
+>      specifies T10 > 0 between AVDD/VGL reaching GND and DVDD starting
+>      to fall. The delay allows time for AVDD to discharge before disabling
+>      DVDD, but compliance with T10 has not been verified on hardware.
+>      
+>      The existing unprepare() comment associates the delay with T11,
+>      which actually specifies the DVDD fall time (0 < T11 <= 10 ms).
+>      That comment can be corrected separately.
+>      
+>      The msleep(10) checkpatch warning is expected. T10 has no specified
+>      upper bound, so a longer sleep does not violate that timing constraint.
+>      msleep() is retained to match the existing unprepare() sequence.
+>      
+>      Datasheet:
+>      https://files.pine64.org/doc/datasheet/pine64/FY07024DI26A30-D_feiyang_LCD_panel.pdf
+> 
+>   .../gpu/drm/panel/panel-feiyang-fy07024di26a30d.c | 15 +++++++++++++--
+>   1 file changed, 13 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+> index c1d8ca5ca6e1..bb4cc1ea2ece 100644
+> --- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+> +++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+> @@ -59,7 +59,7 @@ static int feiyang_prepare(struct drm_panel *panel)
+>   
+>   	ret = regulator_enable(ctx->avdd);
+>   	if (ret)
+> -		return ret;
+> +		goto disable_dvdd;
+>   
+>   	/* T3 (dvdd rise + avdd start + avdd rise) T3 >= 20ms */
+>   	msleep(20);
+> @@ -84,10 +84,21 @@ static int feiyang_prepare(struct drm_panel *panel)
+>   		ret = mipi_dsi_dcs_write_buffer(dsi, cmd->data,
+>   						FEIYANG_INIT_CMD_LEN);
+>   		if (ret < 0)
+> -			return ret;
+> +			goto assert_reset;
+>   	}
+>   
+>   	return 0;
+> +
+> +assert_reset:
+> +	gpiod_set_value(ctx->reset, 0);
+> +	regulator_disable(ctx->avdd);
+> +
+> +	/* Preserve the AVDD-to-DVDD shutdown delay from unprepare(). */
+> +	msleep(10);
+> +
+> +disable_dvdd:
+> +	regulator_disable(ctx->dvdd);
+> +	return ret;
+>   }
+>   
+>   static int feiyang_enable(struct drm_panel *panel)
 
-On Mon, 2026-11-02 at 11:50 +0100, Christian K=C3=B6nig wrote:
-> First of all please add Natalie and Arun on TTM patches, they are the
-> maintainers of that component now.
->=20
-> On 11/2/26 11:18, Himal Prasad Ghimiray wrote:
-> > ttm_pool_alloc() always allocates on the pool's default node,
-> > although
-> > the internal TTM helpers (__ttm_pool_alloc(),
-> > ttm_pool_alloc_page(),
-> > ttm_pool_type_take()) already take a nid. Add ttm_pool_alloc_node()
-> > to
-> > let a driver pass that nid for a specific tt.
-> >=20
-> > ttm_pool_alloc() passes NUMA_NO_NODE, keeping current behaviour. An
-> > explicit node on a dma_alloc pool returns -EOPNOTSUPP, as
-> > dma_alloc_attrs() can't honor it.
->=20
-> We already have an interface for NUMA node aware allocations in the
-> TTM pool.
->=20
-> I don't mind changing/improving that when necessary, but that here is
-> only adding a second path and therfore a clear NO-GO from my side.
-
-What we were looking at moving forward is to possibly support
-interleaving modes (and that would mean interleaving per folio).
-
->=20
-> If you want to change the nid from ttm_pool_init() to
-> ttm_pool_alloc() then change all existing users.
-
-Point taken. Any specific reason ttm_pool_init() was initially chosen?
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
 Thanks,
-Thomas
-
-
->=20
-> Regards,
-> Christian.
->=20
-> > Signed-off-by: Himal Prasad Ghimiray
-> > <himal.prasad.ghimiray@intel.com>
-> > ---
-> > =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 59 +++++++++++++++++++++++++++++=
--
-> > ----
-> > =C2=A0include/drm/ttm/ttm_pool.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 ++
-> > =C2=A02 files changed, 53 insertions(+), 8 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> > b/drivers/gpu/drm/ttm/ttm_pool.c
-> > index 1bf37023fed6..54d2f6b5c229 100644
-> > --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> > @@ -158,9 +158,9 @@ static int ttm_pool_nid(struct ttm_pool *pool)
-> > =C2=A0	return nid;
-> > =C2=A0}
-> > =C2=A0
-> > -/* Allocate pages of size 1 << order with the given gfp_flags */
-> > +/* Allocate pages of size 1 << order with the given gfp_flags on
-> > node @nid */
-> > =C2=A0static struct page *ttm_pool_alloc_page(struct ttm_pool *pool,
-> > gfp_t gfp_flags,
-> > -					unsigned int order)
-> > +					unsigned int order, int
-> > nid)
-> > =C2=A0{
-> > =C2=A0	const unsigned int beneficial_order =3D
-> > ttm_pool_beneficial_order(pool);
-> > =C2=A0	unsigned long attr =3D DMA_ATTR_FORCE_CONTIGUOUS;
-> > @@ -189,7 +189,7 @@ static struct page *ttm_pool_alloc_page(struct
-> > ttm_pool *pool, gfp_t gfp_flags,
-> > =C2=A0	}
-> > =C2=A0
-> > =C2=A0	if (!ttm_pool_uses_dma_alloc(pool)) {
-> > -		p =3D alloc_pages_node(pool->nid, gfp_flags, order);
-> > +		p =3D alloc_pages_node(nid, gfp_flags, order);
-> > =C2=A0		if (p) {
-> > =C2=A0			p->private =3D order;
-> > =C2=A0			mod_lruvec_page_state(p, NR_GPU_ACTIVE, 1
-> > << order);
-> > @@ -783,7 +783,8 @@ static unsigned int
-> > ttm_pool_alloc_find_order(unsigned int highest,
-> > =C2=A0static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt
-> > *tt,
-> > =C2=A0			=C2=A0=C2=A0=C2=A0 const struct ttm_operation_ctx *ctx,
-> > =C2=A0			=C2=A0=C2=A0=C2=A0 struct ttm_pool_alloc_state *alloc,
-> > -			=C2=A0=C2=A0=C2=A0 struct ttm_pool_tt_restore *restore)
-> > +			=C2=A0=C2=A0=C2=A0 struct ttm_pool_tt_restore *restore,
-> > +			=C2=A0=C2=A0=C2=A0 int nid)
-> > =C2=A0{
-> > =C2=A0	enum ttm_caching page_caching;
-> > =C2=A0	gfp_t gfp_flags =3D GFP_USER;
-> > @@ -818,7 +819,7 @@ static int __ttm_pool_alloc(struct ttm_pool
-> > *pool, struct ttm_tt *tt,
-> > =C2=A0		p =3D NULL;
-> > =C2=A0		pt =3D ttm_pool_select_type(pool, page_caching,
-> > order);
-> > =C2=A0		if (pt && allow_pools)
-> > -			p =3D ttm_pool_type_take(pt,
-> > ttm_pool_nid(pool));
-> > +			p =3D ttm_pool_type_take(pt, nid);
-> > =C2=A0
-> > =C2=A0		/*
-> > =C2=A0		 * If that fails or previously failed, allocate
-> > from system.
-> > @@ -829,7 +830,7 @@ static int __ttm_pool_alloc(struct ttm_pool
-> > *pool, struct ttm_tt *tt,
-> > =C2=A0		if (!p) {
-> > =C2=A0			page_caching =3D ttm_cached;
-> > =C2=A0			allow_pools =3D false;
-> > -			p =3D ttm_pool_alloc_page(pool, gfp_flags,
-> > order);
-> > +			p =3D ttm_pool_alloc_page(pool, gfp_flags,
-> > order, nid);
-> > =C2=A0		}
-> > =C2=A0		/* If that fails, lower the order if possible and
-> > retry. */
-> > =C2=A0		if (!p) {
-> > @@ -900,10 +901,52 @@ int ttm_pool_alloc(struct ttm_pool *pool,
-> > struct ttm_tt *tt,
-> > =C2=A0
-> > =C2=A0	ttm_pool_alloc_state_init(tt, &alloc);
-> > =C2=A0
-> > -	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL);
-> > +	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL,
-> > ttm_pool_nid(pool));
-> > =C2=A0}
-> > =C2=A0EXPORT_SYMBOL(ttm_pool_alloc);
-> > =C2=A0
-> > +/**
-> > + * ttm_pool_alloc_node - Fill a ttm_tt object, placing pages on a
-> > given node
-> > + *
-> > + * @pool: ttm_pool to use
-> > + * @tt: ttm_tt object to fill
-> > + * @ctx: operation context
-> > + * @nid: NUMA node id to allocate the backing system pages from,
-> > or
-> > + * NUMA_NO_NODE to use the pool's default node (@ttm_pool.nid)
-> > + *
-> > + * Like ttm_pool_alloc(), but allows the caller to override the
-> > NUMA node the
-> > + * backing system pages are allocated from. This only affects the
-> > + * non-coherent (non dma-alloc) allocation path; coherent/dma
-> > pools continue
-> > + * to use the device-local node. Intended for drivers that expose
-> > a
-> > + * user-selectable host memory NUMA placement.
-> > + *
-> > + * Returns: 0 on success, -EOPNOTSUPP if @nid is specified on a
-> > coherent/dma
-> > + * pool, negative error code otherwise.
-> > + */
-> > +int ttm_pool_alloc_node(struct ttm_pool *pool, struct ttm_tt *tt,
-> > +			struct ttm_operation_ctx *ctx, int nid)
-> > +{
-> > +	struct ttm_pool_alloc_state alloc;
-> > +
-> > +	if (WARN_ON(ttm_tt_is_backed_up(tt)))
-> > +		return -EINVAL;
-> > +
-> > +	/*
-> > +	 * Coherent/dma pools allocate via dma_alloc_attrs(),
-> > which places pages
-> > +	 * per device DMA constraints and cannot honor a caller-
-> > requested node.
-> > +	 */
-> > +	if (nid !=3D NUMA_NO_NODE && ttm_pool_uses_dma_alloc(pool))
-> > +		return -EOPNOTSUPP;
-> > +
-> > +	if (nid =3D=3D NUMA_NO_NODE)
-> > +		nid =3D ttm_pool_nid(pool);
-> > +
-> > +	ttm_pool_alloc_state_init(tt, &alloc);
-> > +
-> > +	return __ttm_pool_alloc(pool, tt, ctx, &alloc, NULL, nid);
-> > +}
-> > +EXPORT_SYMBOL(ttm_pool_alloc_node);
-> > +
-> > =C2=A0/**
-> > =C2=A0 * ttm_pool_restore_and_alloc - Fill a ttm_tt, restoring
-> > previously backed-up
-> > =C2=A0 * content.
-> > @@ -964,7 +1007,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool
-> > *pool, struct ttm_tt *tt,
-> > =C2=A0		}
-> > =C2=A0	}
-> > =C2=A0
-> > -	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
-> > +	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore,
-> > ttm_pool_nid(pool));
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0/**
-> > diff --git a/include/drm/ttm/ttm_pool.h
-> > b/include/drm/ttm/ttm_pool.h
-> > index 26ee592e1994..6a0b14aca092 100644
-> > --- a/include/drm/ttm/ttm_pool.h
-> > +++ b/include/drm/ttm/ttm_pool.h
-> > @@ -79,6 +79,8 @@ struct ttm_pool {
-> > =C2=A0
-> > =C2=A0int ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
-> > =C2=A0		=C2=A0=C2=A0 struct ttm_operation_ctx *ctx);
-> > +int ttm_pool_alloc_node(struct ttm_pool *pool, struct ttm_tt *tt,
-> > +			struct ttm_operation_ctx *ctx, int nid);
-> > =C2=A0void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt);
-> > =C2=A0
-> > =C2=A0void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
+Neil
