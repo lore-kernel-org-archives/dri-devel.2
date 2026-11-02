@@ -2,75 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AF3606A333
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:03:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F583606A32F
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:03:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JmB6Smbf
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sDAHg3c5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08CE310E593;
-	Mon,  2 Nov 2026 08:03:43 +0000 (UTC)
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00F4A10E593
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:03:36 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2e9ae391a05so17828425ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 00:03:36 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6AD10EB9D;
+	Mon,  2 Nov 2026 08:03:45 +0000 (UTC)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF0DF10EB9D
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:03:38 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2e5378b281aso14992995ad.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 00:03:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1793606616; x=1794211416; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=ULB0fdcScE3pyVzoGp78pW1Fsjx9L22KYr7UY+zqZWE=;
- b=JmB6Smbfkmv20y97j6dZ8SOcx8a1PwUn4xaUhSdlwZWKP3PP9I8//Zu0SYYfex8EAc
- rmc/+DSkpiycIWqLzfUYLGy2HP8uZO6oE8ylth86/bKxpipvOOnA5YLFAuH9bxR7mtwC
- iFaQRuT/JwjXCr+WUIgbNuSHyfWAGXaIkoZt8urcYwpnqilj/3lez12hAOTsvgf0c0W6
- u8H/W1ZVbgLEKggyPcNAq3nCHb/UxqsnvFifA2QKHTONi8eMiO5gtArl8ON/d9IqsktS
- yLwBmBb6s20LSa5uoYJVmuAoR4ChZlJh4cRy+1fDB/v88QNWoxH2jaP7tAqLIdY84qOp
- 1WtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1793606616; x=1794211416;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1793606618; x=1794211418; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=ULB0fdcScE3pyVzoGp78pW1Fsjx9L22KYr7UY+zqZWE=;
- b=cbrgGiEnjwfTkCkyVEA5CfKhvDqf+nD8kkYukgzvnJhudtbamlLqOuFIWWwkyIU/h0
- cA+9eMaOZYB2SiLLCUTN79uLy2JDWYs5K1EkuJYMBymzJcLj4+Hpxw8ZeBtAclw3upPx
- pfUWda4PZyhgjROJAluCWKnDrFJpYm8hLlGzlHq6O3AEzb9KW7jLXKIb5HjHGMpNF9cu
- UXGPTxIHKKs69AWUiP12Ggwqy8VFZ04XA8B85Z+W7wf2wM2KydFquK91IGBESNR7AoDs
- j/rEqRsSWLadv3l0hcPe7msNh/F2BODh9LtnZ9HACDQ3wMMtfusDWw1m7N5cJOyp5oPI
- YbKQ==
+ bh=Z8EJgkp2KeWeadwF4AcKa6qCzv/o/cHNGkKe7Zmmr4k=;
+ b=sDAHg3c5a4xR6OZKKbUDxsXWiGlAEP4evw2rLSdKICM4xvjug1Na/Kgoo6N4RP74gx
+ PlonqBed9NAv7POUwox36/0zm1zuQSQBGL+4UT9Rl3J8U3YFV7iPb3j345qY8/vEF1mG
+ nmW7tdocElwQSVFp8NpjBQlmAretWNS/rMA/CXAlyQXV5YlneyxnSKSTjj8XxF4fgmj/
+ Vy8bKnelQ4uWuSghifr8VA2b89QKM/D2/r4hAL/3xC5nke8lSV/9P66Z7qD5/BXoArVL
+ jm8wqE21m/h8CI/w1NVD0GEGyBVa2JLbDvS8FfNTr8ZPL8C4ST3HiLL8OvyAW27UWAQ0
+ FXPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793606618; x=1794211418;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Z8EJgkp2KeWeadwF4AcKa6qCzv/o/cHNGkKe7Zmmr4k=;
+ b=qMCGeXndGMw6jtnHJBR7IRUjvUsAMlC0hEBab7t6uq+UMR4BXGwg/ZRmI1wIWkpmYS
+ r1aopKrZT+U/AUc9lixrGqk4IvBt6iqVk0of7/oUaPFMBYW22U7MUGgxtUiKft8DJLXp
+ 5GHrFChaNKzvR8oMs0ZQ1xO7iytUmVLwtFGI/kYLOB5wa7mF3AAd93gdGqTaZ3sWoRsZ
+ MbKdiFaRTIYZH/XxDaliyYnLrllc1C9IQsSyF8eS5y2E2rf52Z51oEt57G2yWNItqXhZ
+ a6QH1hrTT8MCr1A9K+0HFTL3cNDVIzP2OqHef3GZLDBXDf7TopW35vpFaCUat+YQXZvS
+ Akyw==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwd6FbMkoYB+ps/R4mGyo3GlfSMqVLtEfF1+vYf24qMRTfUCQoT3ZDbOc/F1tPiFYObjLFaU/FdBkM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+BOkifWsn7dbemzxhyLYjTxKV49gXyGAWfYj2YcfGU6mi5i96p
- ra+neh1FSry4XODe8J4T1RWbrRKly/3PZ6uwqjx2EQ7zXepgjXzdjf+v
-X-Gm-Gg: AYBFou3o6WidfQJq638t0YZKg4Zge6esWFQ03CZY8zvXlrjnwOHQQfFqezxreStUj4g
- r1Hfb8jBlOUZZTkLh/g+9KMM2vfnkBZMtuMwtGOZkF9X1UXoGGx6QjWdctdyWv7Fofzp1+GMcpW
- //XoF+h2tT9Uo2W2GBhO5fD7dq4Ld5XXIPMH1nnzrLHIKwFAYRn0JOjfoU24+QcRjJhfreGvw+g
- F7aWn3T6RYNc6M6cqSc7ahjlKnY127iECa+sdO5xUR/e5USeuo4ZcgMf/1rqOdr2SYSEuGdcb9x
- 2hU5cvNfTp/Xuv14WSnTp00c+JYNYMUUmV9LJJKWb7fwCyvK/NFOSuUEAhL/ll6pAMS5f0mlgmy
- gFat6XNqVFpek7u/kBvWQobqKt/DZMjqMi07oJv2dpNVGZORBtddQfpU5RGMvhKtqwg0wVn0UGk
- 6pkh3UFrGEIKZ5gXPHMPgHVQwYPXN1NkrpXO0trvsoMJj2jeb0o6jZwsHCDOAYixmJHmhI+c6u5
- vdoJQiQow+VYuzZMXVbV4o3n+NSG4wxhCWcyrRiQTTHxca6NyJcemb0/sDauMH0zhn6dN23WWhq
- nrJRdpn+1evt9HN8gileOYLN/hpT8Wg92BlZSY2cTRRXC4DVEUWMVf9Zbb7LgWmX8Y/ZylCO9vf
- t1LCc1OCxiuhV+zQoIXEvJUxvQ0xZhphY1XM5ZeOYXcCYCKDfa6D38AfZfsDup9wNKzmclDOl1J
- 7sb1k3W9nwNHfB1g==
-X-Received: by 2002:a17:903:984:b0:2e5:cd0f:518f with SMTP id
- d9443c01a7336-2eb1a57e22bmr78324565ad.0.1793606616223; 
- Mon, 02 Nov 2026 00:03:36 -0800 (PST)
+ AKwUvBwlvBfr3cSvnyGNjO02YrKUhkwuxbESJHkbAkULOM9UVjhTV2VkA13eSXKbZ1EX/dYf46lUkFAQGKY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+sA6h7G7LzMLVEQJx+GnGhy/sZwjWo4e4/FfuQuQ3fZpYCYJi/
+ UiqImUyFUoEZ34cNbGwawh9bOKv6kUe1ufOpoXW7DcyV0CoQkdWQ6n+H
+X-Gm-Gg: AYBFou12e5Wv0qy/IMBqw3M8NcqgT36HSv5iYKjzoxyegE5OSvQS0QJNE9Zk4aZ9bkj
+ fxmaYiFo64toE8Ms8Qy30f9YqQJlCn4+6gXD/tOzL1zopY1ZnGpCyHk+gOb9CnVYQLz+dnKDAJV
+ g2Bk4BcW6HoXqjdsAzD6Hn5qx53HyR/064Uog0nhDtFXoUFGS/BwqQNlpQkRDMgyqg3j5f8bt2J
+ qwMvJwUSe5csvF0GaUGa2lnlLn0tv2RmELt1JIWFUsC//FmzGayzFgtQQoxLomuUkuTAp19hGvQ
+ qfbDCOwDzUiS92opgLdByumIllZ0ysrB5cWqtDIUkwAiqGrwNMjyoGY1ofHnyR9tuNehsW+SEUM
+ Ru5gAndBwGZqPyYVZyrI3NnIWqB6hyYY6nsOhSo2KeDU3N2yV4T+SlrwVU9Tcax0KuYjM3RqfsV
+ dADddXYyrFJ6nFgBGVlr1EIxLUyzhTYDgBj5d9DNHhoUlYYdhv4hSSuezy/8EdOjThvFb2ttPJB
+ LhFk7+U4/2O4p+VgXJim68ezIdkrSnNZeI8B1f9hh1cw4t0WFqAJGsNVImS2lBdMqlR3ObqXgcd
+ e84YxUFcUuFZee2iDIYTCN09W10ODv+wAnVHnVd07V7amaipnk29RQeTNo5gZQxACQ7tf7+LeEM
+ WfgHk3hQMxhwdHZ3UXJRNAV4DQWIHJ9hB4PPWUYcS8Zzg3VBKiJV10Me5BQn4i5iPTORoyWLYDV
+ qq+VNC55IQCO9snsw=
+X-Received: by 2002:a17:903:18b:b0:2e2:b624:54b7 with SMTP id
+ d9443c01a7336-2eb3649b19emr87836225ad.17.1793606618284; 
+ Mon, 02 Nov 2026 00:03:38 -0800 (PST)
 Received: from spider.bream-herring.ts.net ([103.6.151.236])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2eb392afa5asm23573655ad.72.2026.11.02.00.03.34
+ d9443c01a7336-2eb392afa5asm23573655ad.72.2026.11.02.00.03.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Nov 2026 00:03:35 -0800 (PST)
+ Mon, 02 Nov 2026 00:03:37 -0800 (PST)
 From: Matthias Goergens <matthias.goergens@gmail.com>
 To: Helge Deller <deller@gmx.de>
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/3] fbdev: pxafb: fix teardown and early-interrupt
- lifetimes
-Date: Mon,  2 Nov 2026 16:03:29 +0800
-Message-ID: <20261102080332.1466689-1-matthias.goergens@gmail.com>
+Subject: [PATCH v2 1/3] fbdev: pxafb: unregister cpufreq notifier on removal
+Date: Mon,  2 Nov 2026 16:03:30 +0800
+Message-ID: <20261102080332.1466689-2-matthias.goergens@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102080332.1466689-1-matthias.goergens@gmail.com>
+References: <20261102080332.1466689-1-matthias.goergens@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -85,57 +87,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Three lifetime fixes for problems Sashiko, the AI review bot, pointed
-out while reviewing a pxafb cleanup [1].  Removal leaves the cpufreq
-notifier registered on freed memory and the smart-panel thread running,
-and the interrupt handler can signal completions before probe has
-initialised them.
+pxafb_probe() registers a cpufreq transition notifier, but
+pxafb_remove() never unregisters it.  The notifier block is part of
+struct pxafb_info, which is devm-allocated and freed after removal, so
+once the driver is unbound or the module unloaded, the next CPU
+frequency change calls pxafb_freq_transition() through freed memory.
 
-v2: v1 went out before it was ready, as separate patches without my
-Signed-off-by or Fixes tags, and the completion patch depended on the
-others without saying so; sorry about that.  This version adds the tags,
-sends the patches as a series, and says in each commit message what goes
-wrong and how it is reached.  The notifier fix is now a patch of its
-own, and the smart-panel patch stops the thread after the controller is
-disabled and no longer changes the thread's freezer loop.  Patch 3 is
-unchanged.
+Unregister the notifier in pxafb_remove().
 
-I have dropped "fbdev: pxafb: preserve IRQ probe errors".  On the
-in-tree PXA platforms the interrupt controller is registered from
-init_IRQ(), before any driver probes, so I could not find a way for
-platform_get_irq() to return -EPROBE_DEFER here, and the patch changed
-nothing users would see.
+Sashiko, the AI review bot, pointed this out while reviewing a pxafb
+cleanup.  I have no PXA hardware; this is build-tested only.
 
-[1] https://lore.kernel.org/all/20260722081427.413EF1F000E9@smtp.kernel.org/
+Link: https://lore.kernel.org/all/20260722081427.413EF1F000E9@smtp.kernel.org/
+Fixes: 9f17f2874834 ("[ARM] 5118/1: pxafb: add exit and remove handlers")
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+---
+ drivers/video/fbdev/pxafb.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-v1 of patches 1 and 2 ("stop smart-panel thread and notifier"):
-https://lore.kernel.org/all/20261031033248.2491098-1-matthias.goergens@gmail.com/
-v1 of patch 3:
-https://lore.kernel.org/all/20261031003424.1796478-1-matthias.goergens@gmail.com/
-v1 of the dropped patch:
-https://lore.kernel.org/all/20261031033236.2490968-1-matthias.goergens@gmail.com/
-
-Thanks,
-Matthias
-
-Matthias Goergens (3):
-  fbdev: pxafb: unregister cpufreq notifier on removal
-  fbdev: pxafb: stop the smart-panel thread
-  fbdev: pxafb: initialize IRQ completions before requesting IRQ
-
- drivers/video/fbdev/pxafb.c | 46 +++++++++++++++++++++++++++++--------
- 1 file changed, 36 insertions(+), 10 deletions(-)
-
-
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+diff --git a/drivers/video/fbdev/pxafb.c b/drivers/video/fbdev/pxafb.c
+index 1682345fb9b0..4f5c408eae56 100644
+--- a/drivers/video/fbdev/pxafb.c
++++ b/drivers/video/fbdev/pxafb.c
+@@ -2384,6 +2384,10 @@ static void pxafb_remove(struct platform_device *dev)
+ 
+ 	info = &fbi->fb;
+ 
++#ifdef CONFIG_CPU_FREQ
++	cpufreq_unregister_notifier(&fbi->freq_transition,
++				    CPUFREQ_TRANSITION_NOTIFIER);
++#endif
+ 	pxafb_overlay_exit(fbi);
+ 	cancel_work_sync(&fbi->task);
+ 	unregister_framebuffer(info);
 -- 
 2.56.0
 
