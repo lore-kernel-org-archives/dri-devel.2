@@ -2,50 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDAB6082626
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:47:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854EF6082639
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 14:47:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XU5aQqys
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZfP/Kahw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD57410EF4D;
-	Mon,  2 Nov 2026 14:47:13 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 381E310EF42;
- Mon,  2 Nov 2026 14:47:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=jQw5ix+gEQdGpmFbBmDqsmFBc8+v6QKH8bqPjj6E844=; t=1793630828; x=2108990828; 
- b=XU5aQqysDhgmhLJb9QDp7WmUddMchEZ18ec24Ge2Q/dO6NBk1Sg+8zBeZdzh8V3aonup1vDR5Zj
- hP6a2WAQpR1XcSWF0R76GhTXC5OnQim5wkHQE8rwGOfZ+yV480VW2NvFn+eG0iS6m1UCUvarSfzl3
- tAOHVGy3Ur9P05b/Gi7U3sDIfWSG8LmWSOspcZgRb9Iyp74LcXxiqmfah5RFBjFp0cNEXnsEqo5wP
- GpbwhsoCXUe6RO2q/9OE+zTX3MAsbOzT0yCTKOt2nYLqTiEMmiTAIzlrvwrIfimS/COjuHzgEEu19
- Z3feTW/PSIDLD82vj8gtoF5laWN24ekNUhmQ==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1xNtJR-000DtQ-LI; Mon, 02 Nov 2026 15:47:05 +0100
-Message-ID: <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
-Date: Mon, 2 Nov 2026 14:47:04 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id D454910EF42;
+	Mon,  2 Nov 2026 14:47:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75B5E10EF42
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 14:47:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5B079404CE;
+ Mon,  2 Nov 2026 14:47:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26EE81F00A1A;
+ Mon,  2 Nov 2026 14:46:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1793630833;
+ bh=HVagn+HE6BgGgxgbr+5XC5Y5Qcbb33m4Jb7EnpZPFUg=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=ZfP/KahwDm10wm2TSGrtLVkg7xDUNnpz+rBBaInyM45cZNagos2iYqnrDed5HxIBA
+ K+//mFWxDsWpOWe9Buj12+quSzkpcQzj2ngYZ9ZsEW0oSIiCRi7l1s6PLMfANxGQPz
+ ES6j9Tp68ZCoex9QLLCdMUr2RP+/gA7nMafoF8zKWkoSoj6HU61hIGfIek8HtzVsMz
+ WP7zxeoWb2ywthOOE6hEK8rHNlm6c5T599z/Oyvz7z8nNJFpq2Xxjua62S/Ez/3caV
+ aKvdxGOQzTpkPCeB1AmIzk8MgvSvtRVAT8gs8GThhJQslYhMWBFvphDQuEoGKj/fJB
+ b5NG8uh8YTrhw==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 15:43:29 +0100
+Subject: [PATCH RFC 38/38] selftests/proc: check that a faulting readlink()
+ doesn't hold up removal
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing priority
- at runtime
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- stable@vger.kernel.org
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
- <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
- <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-bugfixes-v1-38-59422ed3e465@kernel.org>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,90 +82,268 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Add the symlink case:
 
-On 02/11/2026 10:42, Philipp Stanner wrote:
-> On Wed, 2026-10-21 at 10:42 +0100, Tvrtko Ursulin wrote:
->> Another consequence of the recent revert of
->> 77a6809f1dc3 ("drm/sched: Remove FIFO and RR and simplify to a single run queue")
->> is that after the revert we need to adjust entity->rq_priority when
->> runtime priority changes are requested.
->>
->> Only amdgpu does that so the impact is minimal.
->>   Also considering dynamic
->> priority changes are largely broken there, due currently broken entity
->> scheduler list handling where the special case of a single scheduler can
->> never change it's run-queue. And coupled with the fact for the rest a two-
->> tier approach of drm_sched_entity_set_priority() and
->> drm_sched_entity_modify_sched() is used, where later directly maps to
->> different hardware queue priority by replacing the set of schedulers
->> completely.
->>
->> Hence the regression is limited to rings which have multiple instances
->> other than compute and graphics, which would be SDMA only, for which I am
->> not sure any userspace actually does dynamic priority changes in the first
->> place.
-> 
-> I can't fully grasp what the bug actually is. So is it that we forgot
-> to adjust the priority in the CFS series, or is it that the partial
-> revert made this necessary?
+- readlink() /proc/asound/<id> of a dummy card into a buffer backed by
+  userfaultfd
 
-Partial revert makes this necessary, albeit mostly on paper. In reality 
-it is complicated. Only amdgpu calls it, plus, for single scheduler IP 
-blocks there is not bug because of the "single scheduler special case" 
-run-queue cannot change at all (bug I am trying to address in that 
-different patch, and which also got re-uncovered due the partial revert 
-of the fair series), while in the multiple scheduler case there is no 
-bug because amdgpu pairs drm_sched_entity_set_priority() with 
-drm_sched_entity_modify_sched(), which actually changes the priority in 
-the driver. This leaves SDMA as the only potential place where there can 
-be a regression, and there I am not sure those do dynamic priority 
-changes from the userspace side in the first place. But theorethicaly, 
-from the UAPI point of view, it could be a regression so needs to be fixed.
+- change the card's id through sysfs while the reader faults, which
+  removes the symlink with snd_card_mutex and info_mutex held
 
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: <stable@vger.kernel.org> # v7.2+
->> ---
->>   drivers/gpu/drm/scheduler/sched_entity.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->> index e12709b7bd0c..03e68b4102d5 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -456,6 +456,8 @@ void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
->>   {
->>   	spin_lock(&entity->lock);
->>   	entity->priority = priority;
->> +	if (drm_sched_policy != DRM_SCHED_POLICY_FAIR)
->> +		entity->rq_priority = priority;
->>   	spin_unlock(&entity->lock);
-> 
-> So is there always a bug, or only for FAIR?
+- expect that to finish without waiting for the reader
 
-With FIFO and RR, on amdgpu, SDMA rings, only if more than one, *if* 
-there exists userspace which does dynamic priority changes (calls 
-DRM_IOCTL_AMDGPU_SCHED / AMDGPU_SCHED_OP_*_PRIORITY_OVERRIDE) on 
-entities using those SDMA engines directly. All clear now? :))
+Skipped without snd-dummy.
 
-Regards,
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ tools/testing/selftests/proc/.gitignore            |   2 +
+ tools/testing/selftests/proc/Makefile              |   2 +
+ tools/testing/selftests/proc/config                |   3 +
+ .../selftests/proc/proc-remove-slow-readlink.c     | 191 +++++++++++++++++++++
+ 4 files changed, 198 insertions(+)
 
-Tvrtko
+diff --git a/tools/testing/selftests/proc/.gitignore b/tools/testing/selftests/proc/.gitignore
+index 7b8133492782..e2566cc0ae07 100644
+--- a/tools/testing/selftests/proc/.gitignore
++++ b/tools/testing/selftests/proc/.gitignore
+@@ -22,6 +22,8 @@
+ /proc-uptime-002
+ /proc-pidns
+ /proc-remove-slow-sysctl
++/proc-remove-slow-reader
++/proc-remove-slow-readlink
+ /read
+ /self
+ /setns-dcache
+diff --git a/tools/testing/selftests/proc/Makefile b/tools/testing/selftests/proc/Makefile
+index bce6beca7274..6a9bdc999f54 100644
+--- a/tools/testing/selftests/proc/Makefile
++++ b/tools/testing/selftests/proc/Makefile
+@@ -33,5 +33,7 @@ TEST_GEN_PROGS += proc-fsconfig-hidepid
+ TEST_GEN_PROGS += proc-sysctl-readdir-churn
+ TEST_GEN_PROGS += proc-pidns
+ TEST_GEN_PROGS += proc-remove-slow-sysctl
++TEST_GEN_PROGS += proc-remove-slow-reader
++TEST_GEN_PROGS += proc-remove-slow-readlink
+ 
+ include ../lib.mk
+diff --git a/tools/testing/selftests/proc/config b/tools/testing/selftests/proc/config
+index 3edd3c437fe4..7b0e1d9be1a2 100644
+--- a/tools/testing/selftests/proc/config
++++ b/tools/testing/selftests/proc/config
+@@ -2,3 +2,6 @@ CONFIG_PROC_FS=y
+ CONFIG_IPV6=y
+ CONFIG_TUN=y
+ CONFIG_USERFAULTFD=y
++CONFIG_SOUND=y
++CONFIG_SND=y
++CONFIG_SND_DUMMY=m
+diff --git a/tools/testing/selftests/proc/proc-remove-slow-readlink.c b/tools/testing/selftests/proc/proc-remove-slow-readlink.c
+new file mode 100644
+index 000000000000..3290225daecd
+--- /dev/null
++++ b/tools/testing/selftests/proc/proc-remove-slow-readlink.c
+@@ -0,0 +1,191 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * A readlink() that faults while copying out the link must not hold up
++ * removal of the /proc symlink. Changing a sound card's id removes
++ * /proc/asound/<id> with snd_card_mutex and info_mutex held.
++ */
++#define _GNU_SOURCE
++#include <dirent.h>
++#include <errno.h>
++#include <fcntl.h>
++#include <limits.h>
++#include <linux/userfaultfd.h>
++#include <poll.h>
++#include <pthread.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/ioctl.h>
++#include <sys/mman.h>
++#include <sys/syscall.h>
++#include <unistd.h>
++
++#include "../kselftest_harness.h"
++
++#define CARD_ID		"Dummy"
++#define NEW_ID		"procslow"
++#define LINK_PATH	"/proc/asound/" CARD_ID
++#define TIMEOUT_MS	5000
++
++struct reader {
++	char *buf;
++	size_t len;
++	ssize_t ret;
++};
++
++struct renamer {
++	const char *id_path;
++	const char *id;
++	int done;
++	int ret;
++};
++
++static void *readlink_thread(void *arg)
++{
++	struct reader *r = arg;
++
++	r->ret = readlink(LINK_PATH, r->buf, r->len);
++	return NULL;
++}
++
++/* a new id removes the card's old /proc/asound/<id> link */
++static int set_id(const char *id_path, const char *id)
++{
++	int fd, ret;
++
++	fd = open(id_path, O_WRONLY | O_CLOEXEC);
++	if (fd < 0)
++		return -errno;
++	ret = write(fd, id, strlen(id)) < 0 ? -errno : 0;
++	close(fd);
++	return ret;
++}
++
++static void *rename_thread(void *arg)
++{
++	struct renamer *r = arg;
++	ssize_t ret;
++
++	r->ret = set_id(r->id_path, r->id);
++	ret = write(r->done, "x", 1);
++	return (void *)ret;
++}
++
++/* the sysfs id file of the card with @id */
++static int find_card(const char *id, char *id_path, size_t size)
++{
++	struct dirent *d;
++	int ret = -1;
++	DIR *dir;
++
++	dir = opendir("/sys/class/sound");
++	if (!dir)
++		return -1;
++	while (ret && (d = readdir(dir))) {
++		char cur[32];
++		FILE *f;
++
++		if (strncmp(d->d_name, "card", 4))
++			continue;
++		snprintf(id_path, size, "/sys/class/sound/%s/id", d->d_name);
++		f = fopen(id_path, "r");
++		if (!f)
++			continue;
++		if (fgets(cur, sizeof(cur), f)) {
++			cur[strcspn(cur, "\n")] = '\0';
++			if (!strcmp(cur, id))
++				ret = 0;
++		}
++		fclose(f);
++	}
++	closedir(dir);
++	return ret;
++}
++
++FIXTURE(dummy) {
++	char id_path[PATH_MAX];
++	bool renamed;
++};
++
++FIXTURE_SETUP(dummy)
++{
++	self->renamed = false;
++	if (access(LINK_PATH, F_OK) && system("modprobe -q snd-dummy"))
++		SKIP(return, "no snd-dummy");
++	if (access(LINK_PATH, F_OK))
++		SKIP(return, LINK_PATH ": %s", strerror(errno));
++	if (find_card(CARD_ID, self->id_path, sizeof(self->id_path)))
++		SKIP(return, "no sysfs id file for " CARD_ID);
++	if (access(self->id_path, W_OK))
++		SKIP(return, "%s: %s", self->id_path, strerror(errno));
++}
++
++FIXTURE_TEARDOWN(dummy)
++{
++	if (self->renamed && set_id(self->id_path, CARD_ID))
++		TH_LOG("couldn't name the card " CARD_ID " again");
++}
++
++TEST_F(dummy, remove_while_readlink_faults)
++{
++	struct uffdio_api api = { .api = UFFD_API };
++	struct uffdio_register reg = {};
++	struct uffdio_zeropage zero = {};
++	long psz = sysconf(_SC_PAGESIZE);
++	struct renamer rn = {};
++	struct reader r = {};
++	struct uffd_msg msg;
++	struct pollfd pfd;
++	pthread_t rt, nt;
++	int uffd, done[2];
++	char *buf;
++
++	uffd = syscall(__NR_userfaultfd, O_CLOEXEC | O_NONBLOCK);
++	if (uffd < 0)
++		SKIP(return, "userfaultfd: %s", strerror(errno));
++	ASSERT_EQ(ioctl(uffd, UFFDIO_API, &api), 0);
++
++	buf = mmap(NULL, psz, PROT_READ | PROT_WRITE,
++		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	ASSERT_NE(buf, MAP_FAILED);
++	reg.range.start = (unsigned long)buf;
++	reg.range.len = psz;
++	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
++	ASSERT_EQ(ioctl(uffd, UFFDIO_REGISTER, &reg), 0);
++
++	r.buf = buf;
++	r.len = psz;
++	ASSERT_EQ(pthread_create(&rt, NULL, readlink_thread, &r), 0);
++
++	/* The reader now sleeps in the copy of the link to userspace. */
++	pfd = (struct pollfd){ .fd = uffd, .events = POLLIN };
++	ASSERT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1);
++	ASSERT_EQ(read(uffd, &msg, sizeof(msg)), sizeof(msg));
++	ASSERT_EQ(msg.event, UFFD_EVENT_PAGEFAULT);
++
++	/* Renaming the card removes the link that is being read. */
++	ASSERT_EQ(pipe2(done, O_CLOEXEC), 0);
++	rn.id_path = self->id_path;
++	rn.id = NEW_ID;
++	rn.done = done[1];
++	self->renamed = true;
++	ASSERT_EQ(pthread_create(&nt, NULL, rename_thread, &rn), 0);
++	pfd = (struct pollfd){ .fd = done[0], .events = POLLIN };
++	EXPECT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1) {
++		TH_LOG("removing " LINK_PATH " waited for the reader");
++	}
++
++	zero.range.start = (unsigned long)buf;
++	zero.range.len = psz;
++	ASSERT_EQ(ioctl(uffd, UFFDIO_ZEROPAGE, &zero), 0);
++	ASSERT_EQ(pthread_join(rt, NULL), 0);
++	ASSERT_EQ(pthread_join(nt, NULL), 0);
++	EXPECT_EQ(rn.ret, 0);
++
++	/* The link was read before it went away. */
++	EXPECT_GT(r.ret, 0);
++	EXPECT_EQ(readlink(LINK_PATH, buf, psz), -1);
++	EXPECT_EQ(errno, ENOENT);
++}
++
++TEST_HARNESS_MAIN
 
-> 
-> 
->>   }
->>   EXPORT_SYMBOL(drm_sched_entity_set_priority);
+-- 
+2.53.0
 
