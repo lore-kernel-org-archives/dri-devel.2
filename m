@@ -2,110 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633E6606ABA4
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 17:11:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C87606A918
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 17:12:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ABTVoPA1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TerN/uEq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C36D610E6AE;
-	Mon,  2 Nov 2026 17:10:57 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E6C810E6AE
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 17:10:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8103D10E0C3;
+	Mon,  2 Nov 2026 17:11:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 353CC10E691
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 17:11:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 662C660EF3;
- Mon,  2 Nov 2026 17:10:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9881F00A16;
- Mon,  2 Nov 2026 17:10:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 05B7741509;
+ Mon,  2 Nov 2026 17:11:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC451F00A16;
+ Mon,  2 Nov 2026 17:11:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793639450;
- bh=1C1+XioTRX3xL6+y9qksFrookXeEiiwK+P4D7t5AbDk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ABTVoPA11AcLWkMt2HA3NuaCz3TJC7cnr/HC+r5G6PR6a8aG7aRLuLyUHjoos4mk/
- FGGhmGmyUFITYN4wcjdlul8/bi6GRsAoWVTD0LWhZh2nLhD8s0v+KJ34XdB/EcFA9p
- bj7h1JmDXycwqk3fffJ3Bj+ZaOtvQy3ZN+fXGwU5Mo332EP6xDRRc1j/b8QBRPO3B9
- oFKE/+K/1/DPAFHhIVomg/lZf/GTxFNzd0MGpxxzid2gzVdaV7sydbx6OYJHlUX2Ye
- XkGrWyIsnCJf7w8Ms/IJbXTD8futWINJEtUKzY+znoX4p8/Hs89T1PQcag5KOTitM8
- N4M1zDlFRxy0Q==
-Date: Mon, 2 Nov 2026 17:10:31 +0000
-From: Mark Brown <broonie@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Jiri Pirko <jiri@resnulli.us>, Ivan Vecera <ivecera@redhat.com>,
- Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
- Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Shawn Guo <shawnguo@kernel.org>,
- Chanh Nguyen <chanh@os.amperecomputing.com>,
- Alistair Francis <alistair@alistair23.me>,
- Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>,
- Dmitry Osipenko <digetx@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, Ray Jui <ray.jui@broadcom.com>,
- Scott Branden <scott.branden@broadcom.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- chrome-platform@lists.linux.dev, linux-gpio@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-sound@vger.kernel.org, linux-input@vger.kernel.org,
- linux-tegra@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
-Message-ID: <46a87ad3-5bfa-4906-8869-8eb7d0f7a82b@sirena.org.uk>
-References: <20261102135330.2493332-1-robh@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="II/GuXYaiAd5/THw"
-Content-Disposition: inline
-In-Reply-To: <20261102135330.2493332-1-robh@kernel.org>
-X-Cookie: Used with permission.
+ s=k20260515; t=1793639511;
+ bh=cuQWtJGwnvegdYikr8U6KKYKj8DR4nlIdjuO1a/b6fk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TerN/uEqB6ABewtwZ5RYEEmU6xQW54N2wIeB4MPLQPo2pilZkP0wJlGIV/UkBT1sM
+ ptH+43vrfTsWw6dpGlBuKAQmXJ+44Xx079Owk7FdcPf/MAOH+A3L88GtLcKm9c2gx8
+ dVsi0VISUH6fxxwzavTB48T8Z8nR6LU61o3oGMlbxjYbfYBOA9ecCazM/pTWtPjMc5
+ Coyc1uEvbWipeXistwcEVXOBKcfZjC723r0voETvaq/M1AnMmxzSCjAdLjG8eXQpbZ
+ 85paAcGOTSU2hQDJvc86zUGBljuk9xZdg4YjVS5dR5M/twAfBjLtUXaxZ4YHeFaYE+
+ HIa2fI30AqJ9g==
+Message-ID: <sashiko-outbox-193809@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] gpu: nova-core: add support for GPU timer block. (v2)
+To: "Dave Airlie" <airlied@redhat.com>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>, "FUJITA
+ Tomonori" <fujita.tomonori@gmail.com>, "Gary Guo" <gary@garyguo.net>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Danilo Krummrich" <dakr@kernel.org>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261102-nova-timer-v1-2-b347ead64469@redhat.com>
+References: <20261102-nova-timer-v1-0-b347ead64469@redhat.com>
+ <20261102-nova-timer-v1-2-b347ead64469@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 17:11:50 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,39 +53,121 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] gpu: nova-core: GH100 FSP bug 3957833 WAR applied to Blackwell in =
+timer_time()
+--
 
---II/GuXYaiAd5/THw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit fd289ae7ae729480f9ef4d6e43c04d6aa8f3dbe4
+Author: Dave Airlie <airlied@redhat.com>
 
-On Mon, Nov 02, 2026 at 07:53:22AM -0600, Rob Herring (Arm) wrote:
-> Unit-addresses by default (and most commonly) are hexadecimal. There's a
-> number of cases using decimal patterns. Fix all of them, limiting the
-> pattern to match the 'reg' limits if there are any.
+gpu: nova-core: add support for GPU timer block. (v2)
 
-Acked-by: Mark Brown <broonie@kernel.org>
+This commit adds GPU timer block initialization for nova-core to compute and
+program the system timer offset passed to GSP initialization, with HAL
+implementations for TU102 (Turing/Ampere/Ada) and GH100 (Hopper/Blackwell).
 
---II/GuXYaiAd5/THw
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/drivers/gpu/nova-core/timer/hal.rs b/drivers/gpu/nova-core/t=
+imer/hal.rs
+> new file mode 100644
+> index 0000000000000..7aeff6cdc6787
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/timer/hal.rs
+> @@ -0,0 +1,28 @@
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmroxAcACgkQJNaLcl1U
-h9C0NAf/apisaJjoPaRQ3p+Tid6myUtq0cuOzuE2aVnPR8iumwTpFmtJ3R7zGJl/
-bKV1H2FxfvCFDPI5gEFjBhoA8fFlBhCN/Xfqa/sNMOen6rihVDXtsCJ3Aisf4ZwM
-mGBcOHHcpfbe9eVJQDGln8TNm+bohiDCmtUmzk5cavtLKRIfuYlv2ZDfsPWETWQb
-FJUx3rlX/fOteFbygcgKXryK+yfNoq6072k6WBwn8O72yJdLDky6aGU5Y517ocKd
-pBL+4J2d49+xPyb0zRTbVvVFip8kFWAIu/opdahAn7IDSZsmCzKDeEmDJgiopRm6
-W/Z5ZSJpbXDiCuqW/gEK1TSrLjxzzQ==
-=FFre
------END PGP SIGNATURE-----
+> +pub(super) fn timer_hal(chipset: Chipset) -> &'static dyn TimerHal {
+> +    match chipset.arch() {
+> +        Architecture::Turing | Architecture::Ampere | Architecture::Ada =
+=3D> tu102::TU102_HAL,
+> +        Architecture::Hopper | Architecture::BlackwellGB10x | Architectu=
+re::BlackwellGB20x =3D> {
+> +            gh100::GH100_HAL
+> +        }
+> +    }
+> +}
+> diff --git a/drivers/gpu/nova-core/timer/hal/gh100.rs b/drivers/gpu/nova-=
+core/timer/hal/gh100.rs
+> new file mode 100644
+> index 0000000000000..7f55bf04a3f35
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/timer/hal/gh100.rs
+> @@ -0,0 +1,76 @@
 
---II/GuXYaiAd5/THw--
+[ ... ]
+
+> +/// FSP ucode version from which on the fix for bug 3957833 is included.
+> +const FSP_BUG_3957833_FIX_VERSION: u32 =3D 0x44c;
+> +
+> +/// kfspRequiresBug3957833WAR_HAL: returns `true` if the FSP ucode preda=
+tes the fix for bug
+> +/// 3957833 and hence the sys timer offset must not be programmed.
+> +fn fsp_requires_bug3957833_war(bar: Bar0<'_>) -> bool {
+> +    bar.read(regs::gh100::NV_GFW_FSP_UCODE_VERSION).full().get() < FSP_B=
+UG_3957833_FIX_VERSION
+> +}
+> +
+> +fn timer_time(bar: Bar0<'_>, time_ns: i64) -> Result<i64> {
+
+[ ... ]
+
+> +    if !fsp_requires_bug3957833_war(bar) {
+> +        let offset_ns =3D sys_timer_offset_ns as u64;
+> +        bar.write_reg(
+> +            regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_1::zeroed()
+> +                .try_with_nsec(((offset_ns >> 32) & 0x1fff_ffff) as u32)=
+?,
+> +        );
+> +        bar.write_reg(
+> +            regs::gh100::NV_PGC6_SCI_SYS_TIMER_OFFSET_0::zeroed()
+> +                .try_with_nsec(((offset_ns >> 5) & 0x7ff_ffff) as u32)?
+> +                .with_update(true),
+> +        );
+> +    }
+> +    Ok(sys_timer_offset_ns)
+> +}
+
+[Severity: High]
+Should fsp_requires_bug3957833_war() in drivers/gpu/nova-core/timer/hal/gh1=
+00.rs
+be restricted to Hopper (GH100) rather than also running on Blackwell?
+
+In drivers/gpu/nova-core/timer/hal.rs, timer_hal() routes Architecture::Hop=
+per,
+Architecture::BlackwellGB10x, and Architecture::BlackwellGB20x to
+gh100::GH100_HAL:
+
+    Gpu::new()
+      -> Timer::new()
+        -> hal::timer_hal(chipset).init(bar)
+          -> Gh100::init()
+            -> timer_time()
+              -> fsp_requires_bug3957833_war()
+
+In OpenRM, kfspRequiresBug3957833WAR_HAL is an FSP HAL method implemented o=
+nly
+for GH100 (comparing GH100's FSP ucode version against 0x44c) and stubbed to
+return false on Blackwell, which has separate FSP firmware version numberin=
+g.
+
+When running on Blackwell (BlackwellGB10x or BlackwellGB20x), if the value =
+in
+NV_GFW_FSP_UCODE_VERSION is below 0x44c, won't timer_time() falsely trigger
+the GH100 workaround and skip programming NV_PGC6_SCI_SYS_TIMER_OFFSET_1 and
+NV_PGC6_SCI_SYS_TIMER_OFFSET_0?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-nova-timer=
+-v1-0-b347ead64469@redhat.com?part=3D2
