@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D2B606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:03:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBD2606A333
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 11:05:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C3fmvZ8d
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dexNlr68
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 726B010ECE9;
-	Mon,  2 Nov 2026 11:03:36 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 516BA10ECE9
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:03:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8790310ECDA;
+	Mon,  2 Nov 2026 11:04:56 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1BEF10ECDA
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 11:04:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B00C560618;
- Mon,  2 Nov 2026 11:03:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378571F00A17;
- Mon,  2 Nov 2026 11:03:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 574CB4364C;
+ Mon,  2 Nov 2026 11:04:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BCA31F00A16;
+ Mon,  2 Nov 2026 11:04:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793617409;
- bh=mh3z9noCE6ZdoU5gFlYQzP62zXwNFZoh5XtwaNvSP3E=;
+ s=k20260515; t=1793617490;
+ bh=NqSdY6l9V328pv9kkJ5iGIOn6ZfyzQKrLpbxTsoljXA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=C3fmvZ8d3sD4RUV+K6BtpLL3QKZ2KIpPx+UvupT3djtUKxSS840CB7w7R/IJpZr0n
- y/HSP9VoM5oO6ICNcEIzqWWv2ftdUYOtLCAysKul+7idqm91UBqL9iG1VJiNbepl6e
- 2jCORx88ELEkXrY1DXmKMnTEWQp1S6lqBLn9pwJE9JvTeViub5wLkfaKBXPJeed2GY
- xSZQwPtaBDxslM7EXzlDaneZ62RS7thXfDrWj8Xt37URN6PQcJTAxUAVqFE83wFyxF
- UyTPCe1PSoAW7xlygZGDJmCwK8WofOnPpxIC0Ex4vPbTS12Z4zUDASq07or7TXbV2A
- 2ZKZ5HrDmigUQ==
-Message-ID: <sashiko-outbox-193311@kernel.org>
+ b=dexNlr68S+keHTzf6/ugkSDF7bKBVhuKpHcZHUOocRl1uuFcN4yU7CIz9ZEx1uQIq
+ Y+WpuVr5TGDTVfwvTZsMHwlUjgnTMDhO/T54B41AsyMB28uTuOVNR9ssL+a/VPaBHL
+ RkqdbWMMSDaqF82wPcLn2TujmvOTVeT35iFpOLdtWe0L/M5hOH7WxwuMXEIkN+jph1
+ qStQXHT7uYTAzJDsWTlWP+dnd+9IUS/hpB9BEujTSEjHiJalE2qelEIE8PuBXQy4w5
+ A+vZJnrBmvU6CYxCo38xGJBoAE+IjNxFIOKTj9Bl6jFbaYUy7wVW8bgWaV+Zh0Q/+P
+ T29sDEMDN5umw==
+Message-ID: <sashiko-outbox-193314@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 02/13] gpu: drm: exynos: call
- cec_notifier_phys_addr_invalidate if no EDID
+Subject: Re: [PATCH 06/13] media: cec: core: improve
+ cec_notifier_phys_addr_invalidate
 To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <727792a5e9eb05c3c0abd5930bb53ed8cd7d3724.1793615824.git.hverkuil+cisco@kernel.org>
+In-Reply-To: <145607674d4310ee75edd1d7533caa73a233d14d.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
- <727792a5e9eb05c3c0abd5930bb53ed8cd7d3724.1793615824.git.hverkuil+cisco@kernel.org>
+ <145607674d4310ee75edd1d7533caa73a233d14d.1793615824.git.hverkuil+cisco@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 11:03:28 +0000
+Date: Mon, 02 Nov 2026 11:04:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,67 +61,74 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/exynos: hdmi_get_modes() calls cec_notifier_set_phys_addr() =
-when no EDID
+- [Medium] media: cec: cec_notifier loses no-EDID state and calls cec_s_phy=
+s_addr() on adap register
 --
 
-commit 66acd3ff42feaf8689b6b9eff4b13a5139f4e6bb
+commit bae9e1de47a9aeb702b139c748d1a200e761edc7
 Author: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-gpu: drm: exynos: call cec_notifier_phys_addr_invalidate if no EDID
+media: cec: core: improve cec_notifier_phys_addr_invalidate
 
-This commit updates hdmi_detect() in the Exynos HDMI driver to call
-cec_notifier_phys_addr_invalidate() instead of cec_notifier_set_phys_addr()
-with CEC_PHYS_ADDR_INVALID when the connector is disconnected.
+This commit moves cec_notifier_phys_addr_invalidate() into cec-notifier.c
+and changes it to call cec_phys_addr_invalidate() instead of
+cec_notifier_set_phys_addr() so the CEC framework knows when no EDID is
+present.
 
-> diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exyno=
-s/exynos_hdmi.c
-> index 055dc04f9b3e5..d03f4e531e05e 100644
-> --- a/drivers/gpu/drm/exynos/exynos_hdmi.c
-> +++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
-> @@ -857,7 +857,7 @@ static enum drm_connector_status hdmi_detect(struct d=
-rm_connector *connector,
->  	if (gpiod_get_value(hdata->hpd_gpio))
->  		return connector_status_connected;
+> diff --git a/drivers/media/cec/core/cec-notifier.c b/drivers/media/cec/co=
+re/cec-notifier.c
+> index 8cf1474d0361c..2814ef7d48045 100644
+> --- a/drivers/media/cec/core/cec-notifier.c
+> +++ b/drivers/media/cec/core/cec-notifier.c
+> @@ -216,6 +216,19 @@ void cec_notifier_set_phys_addr_from_edid(struct cec=
+_notifier *n,
+>  }
+>  EXPORT_SYMBOL_GPL(cec_notifier_set_phys_addr_from_edid);
 > =20
-> -	cec_notifier_set_phys_addr(hdata->notifier, CEC_PHYS_ADDR_INVALID);
-> +	cec_notifier_phys_addr_invalidate(hdata->notifier);
+> +void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
+> +{
+> +	if (!n)
+> +		return;
+> +
+> +	mutex_lock(&n->lock);
+> +	n->phys_addr =3D CEC_PHYS_ADDR_INVALID;
+> +	if (n->cec_adap && !n->cec_adap->adap_controls_phys_addr)
+> +		cec_phys_addr_invalidate(n->cec_adap);
+> +	mutex_unlock(&n->lock);
+> +}
+> +EXPORT_SYMBOL_GPL(cec_notifier_phys_addr_invalidate);
 
 [Severity: Medium]
-The commit message notes that if an EDID is present, the driver should call
-cec_notifier_set_phys_addr(), and if not, it should call
-cec_notifier_phys_addr_invalidate().
+What happens if cec_notifier_conn_register() or
+cec_notifier_phys_addr_invalidate() is called before the CEC adapter
+registers via cec_notifier_cec_adap_register()?
 
-However, this patch only updates the HPD disconnect path in hdmi_detect().
-When HPD is asserted (or probing is forced) and
-drm_helper_probe_single_connector_modes() calls hdmi_get_modes(), if reading
-the EDID via drm_edid_read_ddc() returns NULL, drm_edid_connector_update()
-sets info->source_physical_address to CEC_PHYS_ADDR_INVALID and
-hdmi_get_modes() still calls cec_notifier_set_phys_addr() before checking
-drm_edid:
+When n->cec_adap is NULL, cec_notifier_phys_addr_invalidate() only sets
+n->phys_addr =3D CEC_PHYS_ADDR_INVALID, because struct cec_notifier does not
+track whether an EDID is present. This leaves the notifier state
+indistinguishable from cec_notifier_set_phys_addr(n, CEC_PHYS_ADDR_INVALID).
 
-drivers/gpu/drm/exynos/exynos_hdmi.c:hdmi_get_modes() {
+When the CEC adapter subsequently registers in
+cec_notifier_cec_adap_register(), it unconditionally calls
+cec_s_phys_addr() with n->phys_addr:
+
+drivers/media/cec/core/cec-notifier.c:cec_notifier_cec_adap_register() {
 	...
-	drm_edid =3D drm_edid_read_ddc(connector, hdata->ddc_adpt);
-
-	ret =3D drm_edid_connector_update(connector, drm_edid);
-	if (ret)
-		return 0;
-
-	cec_notifier_set_phys_addr(hdata->notifier, info->source_physical_address);
-
-	if (!drm_edid)
-		goto no_edid;
+	mutex_lock(&n->lock);
+	n->cec_adap =3D adap;
+	adap->conn_info =3D n->conn_info;
+	adap->notifier =3D n;
+	if (!adap->adap_controls_phys_addr)
+		cec_s_phys_addr(adap, n->phys_addr, false);
+	mutex_unlock(&n->lock);
 	...
-no_edid:
-	return drm_add_modes_noedid(connector, 640, 480);
 }
 
-Should hdmi_get_modes() also be updated so that cec_notifier_set_phys_addr()
-is only called when drm_edid is non-NULL, and
-cec_notifier_phys_addr_invalidate() is called in the no_edid path when no
-EDID could be read?
+Doesn't calling cec_s_phys_addr(adap, CEC_PHYS_ADDR_INVALID, false) instead
+of cec_phys_addr_invalidate(adap) tell the CEC framework that an EDID is
+present (with physical address f.f.f.f) even when no sink is connected at
+registration time?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1793615824.gi=
-t.hverkuil+cisco@kernel.org?part=3D2
+t.hverkuil+cisco@kernel.org?part=3D6
