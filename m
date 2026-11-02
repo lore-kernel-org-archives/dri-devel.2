@@ -2,44 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D27606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nvvrfu8G
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABAE606A327
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 08:57:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0760510E5EC;
-	Mon,  2 Nov 2026 08:54:18 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA9A10EC38
- for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:54:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 85055435B9;
- Mon,  2 Nov 2026 08:54:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EA8D1F000C1;
- Mon,  2 Nov 2026 08:54:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1793609651;
- bh=5ouW8bPwxm9oPY5ROks9PUBMahMrV83ww3DdhtzYSvw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nvvrfu8Gj9eo5L/WT7fdJl6hRlKV+Gij/pKVoid5Wf0tpcTpfi9DPS3t52mwLdm6Q
- CzP+J/P48oYuXY3h23Njb7abGEt9s2mzyl4Py3ALnDVq0i4OsV59pUg+L/x+wrRB0v
- cemyWUTJ2/z9L3kZ93c+Pqqa/uHS5/WPLu2Nzq+WN7WGxli0SaIKgfUc8wDoc+fNG2
- nryzwHAQZSfHy3eaciC+uvSI+F7gQ6ul7VM7Bx1JVSAuQBc61OYJdojm+qRNrf5J0R
- QaRuE2Y9D9QUIPnwjPEdiXeX+QVABdp+BK1LkGOyAdvl7ijhzbXz+qRi856d5p8hwV
- 1DimEZenXEc1w==
-Message-ID: <sashiko-outbox-193141@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/3] misc: fastrpc: iterate CB nodes manually instead
- of of_platform_populate
-To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261102-dup-sessions-v7-1-03f06c014e78@oss.qualcomm.com>
-References: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
- <20261102-dup-sessions-v7-1-03f06c014e78@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 08:54:10 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA14A10E597;
+	Mon,  2 Nov 2026 08:57:42 +0000 (UTC)
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
+ (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4DED510E597
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 08:57:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-Id:In-Reply-To:References:MIME-Version:
+ Content-Transfer-Encoding; bh=MT+iqss53aywUbO/a8V4XaOjzYPtyOfA+f
+ 1pPTgJrxY=; b=2iK4pYuaYJy+wMyeo3b39vJoZY4ccIjt68b84fl+BlGRa7+GB8
+ +/NtxI8CoW0hA6fi0Idesc//54YIztTpoeGgG3E6SuPMwQRa4CItm+GVOT0wRd9/
+ JP8b3SVsPCgioTF+TysiCt75pY1zmoEQRtkkbP9Vx6MlA5LKLeLLCDOoM=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.55])
+ by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id
+ BLQMCkD2Of90UOhqVtIYAQ--.48924S2; 
+ Mon, 02 Nov 2026 16:57:25 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Helge Deller <deller@gmx.de>,
+ Steve Glendinning <steve.glendinning@shawell.net>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v2] fbdev: smscufx: keep the usb_device alive while ufx_data
+ is in use
+Date: Mon,  2 Nov 2026 16:57:24 +0800
+Message-Id: <20261102085724.13456-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
+References: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: BLQMCkD2Of90UOhqVtIYAQ--.48924S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGrW5uFWDuFyfWr1kWFyDWrg_yoW5ur18pF
+ W5Cay5GrWkJr4Y9a9rGr48uFyFqw13Aa4UCr9Fkr15uFn8C3y3JryqyryIg3Z3JFWkAw47
+ Aa45X3yj9a9ru3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+ 0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17Mc
+ Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+ c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s026x
+ CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+ JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+ 1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+ Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+ UvcSsGvfC2KfnxnUUI43ZEXa7IU5_Ks5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdSL8QABs5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,213 +66,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] misc: fastrpc: missing SCM memory and pointer cleanup in fastrpc_r=
-pmsg_probe()
-- [High] misc: fastrpc: premature fastrpc_device_register() in fastrpc_rpms=
-g_probe()
---
+ufx_usb_probe() stores the usb_device pointer in dev->udev without
+taking a reference, and ufx_usb_disconnect() does not wait for in-flight
+control transfers.  A mode set or blank request that runs while the
+device is being unplugged - through ufx_ops_set_par() or ufx_ops_blank()
+on an open /dev/fbN file - keeps issuing synchronous control messages for
+the whole ufx_set_vid_mode() sequence, including two msleep(1) delays in
+ufx_config_pix_clk().  Once the disconnect callback returns, the USB core
+may release the usb_device, and the next ufx_reg_write()/ufx_reg_read()
+dereferences dev->udev through __create_pipe():
 
-commit 3d1d4146f1c73d49d10eb5163573a4b2ed34670c
-Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+  general protection fault, probably for non-canonical address
+  0xdffffc0000000006: 0000 [#1] SMP
+  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
+  RIP: __create_pipe include/linux/usb.h:2031
+  Call Trace:
+   ufx_set_vid_mode
+   ufx_ops_set_par
+   fb_set_var
+   fb_set_var_from_user
+   store_rotate
 
-misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
+Take a reference to the usb_device in ufx_usb_probe() and drop it in
+ufx_free(), so dev->udev and dev->gdev stay valid until the last
+ufx_data user is gone.  The control transfers then fail with -ENODEV
+instead of dereferencing freed memory.
 
-This commit replaces of_platform_populate() and the separate
-fastrpc_cb_driver platform driver with manual iteration over child DT nodes
-in fastrpc_cb_devices_create() so that context banks are synchronously
-configured and initialized before fastrpc_rpmsg_probe() returns. It also
-adds fastrpc_cb_devices_destroy() to invalidate sessions and destroy the
-child platform devices on teardown.
+Also return early from ufx_set_vid_mode() while the device is inactive,
+matching the other transmit paths.  That check alone is not enough,
+because it is not serialized against ufx_usb_disconnect() and the
+transfer sequence continues after it; it only avoids a long series of
+failing transfers.
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index af18ff1992eed..7441e9b8940d8 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
+Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
+Cc: stable@vger.kernel.org
+---
+Changes in v2:
+ - Hold a reference to the usb_device and drop it in ufx_free() so
+   dev->udev stays valid for the whole transfer sequence; the
+   usb_active check alone only covers the entry (review feedback).
+ drivers/video/fbdev/smscufx.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-[ ... ]
+diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+index 5704f60e1741..eac303adb69a 100644
+--- a/drivers/video/fbdev/smscufx.c
++++ b/drivers/video/fbdev/smscufx.c
+@@ -661,8 +661,12 @@ static int ufx_set_vid_mode(struct ufx_data *dev, struct fb_var_screeninfo *var)
+ 	u32 temp;
+ 	u16 h_total, h_active, h_blank_start, h_blank_end, h_sync_start, h_sync_end;
+ 	u16 v_total, v_active, v_blank_start, v_blank_end, v_sync_start, v_sync_end;
++	int status;
++
++	if (!atomic_read(&dev->usb_active))
++		return -ENODEV;
+ 
+-	int status = ufx_reg_write(dev, 0x8028, 0);
++	status = ufx_reg_write(dev, 0x8028, 0);
+ 	check_warn_return(status, "ufx_set_vid_mode error disabling RGB pad");
+ 
+ 	status = ufx_reg_write(dev, 0x8024, 0);
+@@ -1064,6 +1068,7 @@ static void ufx_free(struct kref *kref)
+ {
+ 	struct ufx_data *dev = container_of(kref, struct ufx_data, kref);
+ 
++	usb_put_dev(dev->udev);
+ 	kfree(dev);
+ }
+ 
+@@ -1606,6 +1611,8 @@ static int ufx_usb_probe(struct usb_interface *interface,
+ 
+ 	dev->udev = usbdev;
+ 	dev->gdev = &usbdev->dev; /* our generic struct device * */
++	/* keep the device alive until the last ufx_data user is gone */
++	usb_get_dev(usbdev);
+ 	usb_set_intfdata(interface, dev);
+ 
+ 	dev_dbg(dev->gdev, "%s %s - serial #%s\n",
+-- 
+2.34.1
 
-> +static int fastrpc_cb_devices_create(struct rpmsg_device *rpdev)
-> +{
-> +	struct device *rdev =3D &rpdev->dev;
-> +	struct platform_device *pdev;
-> +	struct device_node *np;
-> +	int err;
-> =20
-> +	for_each_available_child_of_node(rdev->of_node, np) {
-> +		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb"))
-> +			continue;
-> +
-> +		pdev =3D of_platform_device_create(np, NULL, rdev);
-> +		if (!pdev) {
-> +			of_node_put(np);
-> +			fastrpc_cb_devices_destroy(rpdev);
-> +			return -ENODEV;
-> +		}
-> +
-> +		/*
-> +		 * No driver binds to the CB devices, so the driver core never
-> +		 * runs dma_configure for them. Do it here so that dma-coherent,
-> +		 * dma-ranges and the IOMMU link are set up before the session
-> +		 * is used. A CB whose IOMMU setup failed is destroyed now,
-> +		 * instead of being left for the next IOMMU registration to
-> +		 * retry (and fail on), but does not fail the whole channel:
-> +		 * failing the probe makes the DSP reopen the channel in a loop.
-> +		 */
-> +		err =3D of_dma_configure(&pdev->dev, np, true);
-> +		if (!err && of_property_present(np, "iommus") &&
-> +		    !device_iommu_mapped(&pdev->dev))
-> +			err =3D -ENODEV;
-> +		if (err) {
-> +			if (err =3D=3D -EPROBE_DEFER) {
-> +				of_node_put(np);
-> +				fastrpc_cb_devices_destroy(rpdev);
-> +				return err;
-> +			}
-> +
-> +			dev_err(rdev, "skipping %pOF: failed to configure DMA/IOMMU: %d\n",
-> +				np, err);
-> +			of_platform_device_destroy(&pdev->dev, NULL);
-> +			continue;
-> +		}
-> +
-> +		err =3D fastrpc_cb_init(pdev);
-> +		if (err) {
-> +			of_node_put(np);
-> +			fastrpc_cb_devices_destroy(rpdev);
-> +			return err;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> =20
->  static int fastrpc_device_register(struct device *dev, struct fastrpc_ch=
-annel_ctx *cctx,
->  				   bool is_secured, const char *domain)
-
-[Severity: High]
-As reported by Sashiko on v2 [1], fastrpc_rpmsg_probe() calls
-fastrpc_device_register() -> misc_register() before initializing the
-channel context fields and before calling fastrpc_cb_devices_create():
-
-fastrpc_rpmsg_probe()
-    fastrpc_device_register()
-        misc_register(&fdev->miscdev);
-    ...
-    kref_init(&data->refcount);
-    ...
-    INIT_LIST_HEAD(&data->users);
-    spin_lock_init(&data->lock);
-    idr_init(&data->ctx_idr);
-    data->domain_id =3D domain_id;
-    data->rpdev =3D rpdev;
-    dev_set_drvdata(&rpdev->dev, data);
-
-    err =3D fastrpc_cb_devices_create(rpdev);
-    if (err)
-        goto err_deregister_fdev;
-
-If userspace opens /dev/fastrpc-* immediately after misc_register(),
-fastrpc_device_open() runs on an uninitialized spinlock and kref, can
-dereference a null cctx->rpdev in dev_err_ratelimited(&cctx->rpdev->dev, ..=
-.),
-and still sees zero or only partially populated sessions while
-fastrpc_cb_devices_create() iterates over the child nodes (additionally,
-fastrpc_cb_init() sets sess->valid =3D true under cctx->lock before checking
-dma_set_mask()).
-
-Furthermore, with this patch, if fastrpc_cb_devices_create() initializes
-the first context bank and a concurrent fastrpc_device_open() acquires that
-session, and then a subsequent child node returns -EPROBE_DEFER from
-of_dma_configure() or fails in of_platform_device_create() or
-fastrpc_cb_init(), fastrpc_cb_devices_create() calls
-fastrpc_cb_devices_destroy(rpdev) and fastrpc_rpmsg_probe() jumps to
-err_deregister_fdev:
-
-err_deregister_fdev:
-    if (data->fdevice)
-        misc_deregister(&data->fdevice->miscdev);
-    if (data->secure_fdevice)
-        misc_deregister(&data->secure_fdevice->miscdev);
-
-err_free_data:
-    kfree(data);
-
-Can this destroy the child platform device backing fl->sctx->dev and
-unconditionally kfree(data) while the open file descriptor still holds
-active references to fl->cctx and fl->sctx?
-
-> @@ -2639,7 +2677,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device =
-*rpdev)
->  	data->rpdev =3D rpdev;
->  	dev_set_drvdata(&rpdev->dev, data);
-> =20
-> -	err =3D of_platform_populate(rdev->of_node, NULL, NULL, rdev);
-> +	err =3D fastrpc_cb_devices_create(rpdev);
->  	if (err)
->  		goto err_deregister_fdev;
-
-[Severity: High]
-Previously, of_platform_populate() only registered child devices and return=
-ed
-0 even when child context bank probes deferred waiting for the SMMU. Now
-fastrpc_cb_devices_create() synchronously calls of_dma_configure() and
-fastrpc_cb_init() and returns -EPROBE_DEFER (or another error) to
-fastrpc_rpmsg_probe(), jumping to err_deregister_fdev.
-
-Earlier in fastrpc_rpmsg_probe(), fastrpc_init_reserved_mem() transfers
-ownership of the reserved memory region for ADSP_DOMAIN_ID and SDSP_DOMAIN_=
-ID
-away from HLOS to the remote DSP VMIDs:
-
-fastrpc_init_reserved_mem()
-    if (domain_id =3D=3D ADSP_DOMAIN_ID) {
-        cctx->remote_heap_addr =3D res.start;
-        cctx->remote_heap_size =3D resource_size(&res);
-    }
-    if (!cctx->vmcount)
-        return 0;
-    src_perms =3D BIT(QCOM_SCM_VMID_HLOS);
-    return qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
-                               cctx->vmperms, cctx->vmcount);
-
-And before calling fastrpc_cb_devices_create(), fastrpc_rpmsg_probe() also
-sets up:
-
-    rdev->dma_mask =3D &data->dma_mask;
-    ...
-    idr_init(&data->ctx_idr);
-    ...
-    dev_set_drvdata(&rpdev->dev, data);
-
-When fastrpc_cb_devices_create() fails or returns -EPROBE_DEFER,
-err_deregister_fdev frees data without reassigning the reserved memory back
-to QCOM_SCM_VMID_HLOS, without destroying data->ctx_idr, and without cleari=
-ng
-rpdev->dev.driver_data or rdev->dma_mask.
-
-When the deferred probe is retried later, won't fastrpc_init_reserved_mem()
-fail permanently in qcom_scm_assign_mem() because QCOM_SCM_VMID_HLOS no
-longer owns the memory region, while also leaving dangling rdev->dma_mask a=
-nd
-drvdata pointers into freed memory (where an incoming rpmsg callback before
-rpmsg_destroy_ept() in rpmsg_dev_probe() could dereference cctx in
-fastrpc_rpmsg_callback())?
-
-[1] https://lore.kernel.org/r/20260708041312.ACF681F000E9@smtp.kernel.org
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-dup-sessio=
-ns-v7-0-03f06c014e78@oss.qualcomm.com?part=3D1
