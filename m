@@ -2,63 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B922606A324
-	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 12:14:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F467606A336
+	for <dri-devel@archiver.kernel.org>; Mon,  2 Nov 2026 12:23:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bMNgNqrd
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VXht3yQo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA32110ED68;
-	Mon,  2 Nov 2026 12:14:44 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35A4110E61F;
- Mon,  2 Nov 2026 12:14:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1793621679; x=1825157679;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=uPRIF83KVdNs9SclzuHRgjeihTQw1Qgbmzk9cUO1prk=;
- b=bMNgNqrdyN6mmPNVDbAOJhgZ4fEVZ11bKepx3YXLniWdIJRlrHQ5Q1Bx
- O7U1fKk/Hh73hRfkj736/W+1SszZBFO8iWNX3E0/wom0+/RWgoC7LKy5K
- ts7SEjsaSrDbSbGdc/ps/EdnRQO91KUWJBzWBltt1gxRI4tXtKlQKzUen
- GOHduxrWRlE6c7lQydtuks8mXucwbkibGSmChMnS1g7m8sGabuBLtkV22
- qN5/a1W4dCAx031PPkHxjztoaKoH69+MOr+qlGWVSgZo+W42R4KtgpYl8
- uMgWXjB6ym5hz/TBPFucLVARvFNOcqRDgOMmYX5YqUlGWx74tOlXfjI5T Q==;
-X-CSE-ConnectionGUID: KUJJkloKTsyEoozokw048A==
-X-CSE-MsgGUID: THtgTSQbR72eh53YfnW6Rg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2197590"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2197590"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 04:14:38 -0800
-X-CSE-ConnectionGUID: 3W09fTi/TlCt8+3lDJHXrA==
-X-CSE-MsgGUID: uytE/XsJQ+C3U/JeJWiblA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6201714"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.10])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2026 04:14:36 -0800
-Date: Mon, 2 Nov 2026 14:14:33 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 00/13] drm/dp, drm/i915: conversions from seq_file to
- drm_printer
-Message-ID: <auh-qcn8xkDBX5sY@intel.com>
-References: <cover.1793361738.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7F5610E61F;
+	Mon,  2 Nov 2026 12:23:02 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E431710E61F
+ for <dri-devel@lists.freedesktop.org>; Mon,  2 Nov 2026 12:22:56 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4a2d6cf958bso12903115e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 02 Nov 2026 04:22:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1793622175; x=1794226975; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=abibISRiUwSvMFecqGaDadoCAJ+Fmjo80Pp9RI6LfO8=;
+ b=VXht3yQoq8vNUFmKMCfBK9ehv01lIr8dgbrFBeh/FTaDislQLpp+Ll2avJiEncDQT9
+ fUrcU8FyNe09Z6aDMd4PG0pwQ3qcAXpynXHqkZuDBXDrME04kkFqlvHT24ClWoCC3mhN
+ TWjlMm34V3qseQ8OWXvGS0vEq0pszptHdkfeO8EFuNUo1bnRfJOaoYZES7DCKBMj+ryj
+ wsaljG2tplZSoC0+pwyG1PmAPLuX3AB9uDu9LWUYp1tery8UOlD6/ZMVNG+gK+ATuGSb
+ 7CXbyF55MPasi5krQCj4yEWGT9sTtj2SB6XwOAon2xfj/hfAA/eJEsk9eIRojVN6vuuk
+ 6fWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1793622175; x=1794226975;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=abibISRiUwSvMFecqGaDadoCAJ+Fmjo80Pp9RI6LfO8=;
+ b=mMWci+qn9AceTGwSuw44p5YZV/IwApH/jAV/mQDFiAaKrpcfmbPYJMOvKejvuNYe/v
+ yIy8IcPcjTz5vBUvIlM9tGxpbrp3g3QAbCxZt+Zp3lrMkI8KG4lgT/D3XpIIiJqa+Bmq
+ iHe6FoT92kVkpdD9Fc8e0YluO5HaobjkDpvgHS03fLZhEl/5D+EcofKCjqzz21HI5MPv
+ 1BuK60KlFF4ZW8Ae1MJwZ7uMqXgim5SJYQSjpzCiFJblhif0pJyfd3L9yjZbSbYLzvE4
+ A6uw5OWGQ5JXjvhJuHdZWFMbr5lQVoImr2WURX8ufWUhibIAk3QvqVsmTRlVyb2nfG8h
+ BVow==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxx8TH8DIoDjdHv1NOuErvrb6ozOW10H+AMwTNI+FBJ9hLVDD3PW2O9Le0F6fFb8eiFdWStKl5X0X4=@lists.freedesktop.org
+X-Gm-Message-State: AFq9FYL9VYuAk+oAlPyfdcWAL7Kjci+Tq5pFBkAtNH9fGtUnepcCqJ2p
+ xA+vCNfsvLgTeIyrdoxgW9y0iEPOrFIegYmPiqVERgjtR39aMajMBPXc
+X-Gm-Gg: AYBFou27v9j9SQOzcHACzKIFmf2uf/i9HOCksFkqU33y3Lw8Vt2w/zKmf4y0pUZCXhU
+ 930JMfh2nCZMh6mOJOagRuEGc4vv3YvGjzwH9RWIxlY8S0Y/s2/T/9v79RiymdLxSDW5v3jLAWF
+ J7K82NNK/Cp03rrwfs46j5qFrR1ggWyy/nAOAmuIpgsLYIDVxIG0YZIIinJ0Ujj9MnXVKTLWd7i
+ EV1wn+crV1inL8nrwO619/RGdj+iZ+5R/7KIkgJxdGV4GLC7sMLw0QTXlKfCe9cZSLyu80Xye5q
+ Qdpjck9Kr95i8sLRy2o+qb51R8Avazf2QvpaSdi5ZkJcYIJXdopZMVFehM409yw+XH+MoXTbAnS
+ 5H/bv+/SPrWNB/nIaDUFyMV5w4wKo3vSFCpMJAsU6WhQaSi4KfoouuyRWfIU7L3b9q7Iz114s1D
+ RGY8YfRF/69nyOQWCNXTmvez6w+DwhoDPIEBUGLAN+Pyq4ILRFSmn5Pf4c77HZmf6oWyc5SJTxf
+ V+lD0wzsJVAReoCKEzUZ1YTpPEddVFXGiN3JgONnNTjfRHcrEmI9kaqd9vgFbWyXFTUkl1JZQZP
+ mPdpqPrDA5KvsdPbFTmgukaV/NShbMzfoLmTij3Z1mzl7Fxh5M6JpB2AUcEXE91ZH4i5VCknQXA
+ banLLWXeTyjTD7YokHPQKq+d5+5eHuIwju1Uj6kw2rJibdQFjakKr
+X-Received: by 2002:a05:600c:46c8:b0:4a2:1a:a120 with SMTP id
+ 5b1f17b1804b1-4ac16acfde1mr240738005e9.6.1793622175008; 
+ Mon, 02 Nov 2026 04:22:55 -0800 (PST)
+Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at.
+ [80.108.121.211]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48e71b79059sm20361252f8f.30.2026.11.02.04.22.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Nov 2026 04:22:54 -0800 (PST)
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Mon, 02 Nov 2026 13:22:51 +0100
+Subject: [PATCH] drm/etnaviv: Cycle through the MMUv1 address space again
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1793361738.git.jani.nikula@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-etna-mmuv1-iova-cycle-v1-1-1148f02da254@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQqAMAxA0atIZgNphg5eRRxKTTWgVVotinh3i
+ +Mb/n8gS1LJ0DUPJCmadYsVpm3Azy5OgjpWAxNbY4hRjuhwXc9iULfi0N9+EeTgSSwTBWehtnu
+ SoNf/7Yf3/QBCPcBNZwAAAA==
+X-Change-ID: 20261102-etna-mmuv1-iova-cycle-2fc0e6200fa6
+To: Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,52 +93,117 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Oct 30, 2026 at 02:03:03PM +0200, Jani Nikula wrote:
-> I've had this in a branch since at least April, seems useful.
-> 
-> Jani Nikula (13):
->   drm/dp: pass struct drm_printer to drm_dp_downstream_debug()
->   drm/dp: prefer drm_printf_indent() over inline \t
->   drm/i915/debugfs: pass struct drm_printer to intel_plane_info()
->   drm/i915/debugfs: pass struct drm_printer to crtc_updates_info()
->   drm/i915/debugfs: convert crtc_updates_info() to use
->     drm_printf_indent()
->   drm/i915/debugfs: pass struct drm_printer to intel_scaler_info()
->   drm/i915/debugfs: pass struct drm_printer to intel_encoder_info()
->   drm/i915/debugfs: pass struct drm_printer to intel_crtc_info()
->   drm/i915/debugfs: pass struct drm_printer to
->     intel_{dp,dp_mst,hdmi}_crtc_info()
->   drm/i915/debugfs: pass struct drm_printer to intel_hdcp_info()
->   drm/i915/debugfs: refactor intel_seq_print_mode() into
->     intel_print_mode()
->   drm/i915/debugfs: pass struct drm_printer to intel_connector_info()
->   drm/i915/debugfs: prefer drm_printf_indent() over inline \t
+From: Christian Gmeiner <cgmeiner@igalia.com>
 
-Looked fine with --color-words
+On MMUv1, all clients share one address space and the allocator
+always picks the lowest free IOVA. When a process frees a range,
+it can immediately be reused by another process.
 
-Series is
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+The GL.FLUSH_MMU write before the next submit does not reliably
+invalidate stale TLB entries for that range. The GPU may therefore
+continue translating accesses to the old pages. Writes through
+these stale entries are lost for the new owner and may corrupt
+memory that has already been freed.
 
-> 
->  drivers/gpu/drm/display/drm_dp_helper.c       |  39 ++-
->  .../drm/i915/display/intel_display_debugfs.c  | 250 +++++++++---------
->  drivers/gpu/drm/i915/display/intel_hdcp.c     |  27 +-
->  drivers/gpu/drm/i915/display/intel_hdcp.h     |   4 +-
->  include/drm/display/drm_dp_helper.h           |   3 +-
->  5 files changed, 160 insertions(+), 163 deletions(-)
-> 
-> 
-> base-commit: 29f9258a2788a1066c0910c480e65c80887f4d20
-> -- 
-> 2.47.3
+The vendor driver works around this in a similar way. It does not
+return freed MMUv1 ranges to its free list until the address space
+is exhausted.
 
+Restore the address space cycling for MMUv1 that was previously
+removed as no longer needed. Start searching after the last
+allocation and only wrap around to the beginning before trying
+to evict existing mappings. This keeps freed ranges in the
+allocator but delays their reuse until the search wraps around.
+
+MMUv2 has a proper TLB flush and keeps the current behavior.
+
+Fixes: ccae45928fc4 ("drm/etnaviv: remove cycling through MMU address space")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+---
+ drivers/gpu/drm/etnaviv/etnaviv_mmu.c | 21 ++++++++++++++++++++-
+ drivers/gpu/drm/etnaviv/etnaviv_mmu.h |  1 +
+ 2 files changed, 21 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
+index e3572461b599..c4e4dd3d4235 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
+@@ -141,10 +141,20 @@ static int etnaviv_iommu_find_iova(struct etnaviv_iommu_context *context,
+ {
+ 	struct etnaviv_vram_mapping *free = NULL;
+ 	enum drm_mm_insert_mode mode = DRM_MM_INSERT_LOW;
++	u64 start = 0;
+ 	int ret;
+ 
+ 	lockdep_assert_held(&context->lock);
+ 
++	/*
++	 * MMUv1 does not reliably drop stale TLB entries on a flush, so a
++	 * freed IOVA that is handed out again right away can still be
++	 * translated to the old pages. Cycle through the address space so
++	 * recently freed IOVAs are only reused once the search wraps around.
++	 */
++	if (context->global->version == ETNAVIV_IOMMU_V1)
++		start = context->last_iova;
++
+ 	while (1) {
+ 		struct etnaviv_vram_mapping *m, *n;
+ 		struct drm_mm_scan scan;
+@@ -152,10 +162,16 @@ static int etnaviv_iommu_find_iova(struct etnaviv_iommu_context *context,
+ 		bool found;
+ 
+ 		ret = drm_mm_insert_node_in_range(&context->mm, node,
+-						  size, 0, 0, 0, U64_MAX, mode);
++						  size, 0, 0, start, U64_MAX, mode);
+ 		if (ret != -ENOSPC)
+ 			break;
+ 
++		/* Retry from the start of the address space before evicting. */
++		if (start) {
++			start = 0;
++			continue;
++		}
++
+ 		/* Try to retire some entries */
+ 		drm_mm_scan_init(&scan, &context->mm, size, 0, 0, mode);
+ 
+@@ -215,6 +231,9 @@ static int etnaviv_iommu_find_iova(struct etnaviv_iommu_context *context,
+ 		 */
+ 	}
+ 
++	if (!ret && context->global->version == ETNAVIV_IOMMU_V1)
++		context->last_iova = node->start + node->size;
++
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_mmu.h b/drivers/gpu/drm/etnaviv/etnaviv_mmu.h
+index 7f8ac0178547..7fa6e3ab427a 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_mmu.h
++++ b/drivers/gpu/drm/etnaviv/etnaviv_mmu.h
+@@ -75,6 +75,7 @@ struct etnaviv_iommu_context {
+ 	struct list_head mappings;
+ 	struct drm_mm mm;
+ 	unsigned int flush_seq;
++	u64 last_iova;
+ 
+ 	/* Not part of the context, but needs to have the same lifetime */
+ 	struct etnaviv_vram_mapping cmdbuf_mapping;
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-etna-mmuv1-iova-cycle-2fc0e6200fa6
+
+Best regards,
 -- 
-Ville Syrjälä
-Intel
+Christian Gmeiner <cgmeiner@igalia.com>
+
